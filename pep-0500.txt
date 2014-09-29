@@ -1,0 +1,623 @@
+PEP: 500
+Title: Type Hints
+Version: $Revision$
+Last-Modified: $Date$
+Author: Guido van Rossum <guido@python.org>, Jukka Lehtosalo <jukka.lehtosalo@iki.fi>, Łukasz Langa <lukasz@langa.pl>
+Discussions-To: Python-Dev <python-dev@python.org>
+Status: Draft
+Type: Standards Track
+Content-Type: text/x-rst
+Created: 12-Apr-2014
+Post-History: 12-Apr-2014
+Replaces: 3107
+Resolution:
+
+
+Abstract
+========
+
+This PEP introduces a standard syntax for type hints using annotations
+on function definitions.
+
+
+Rationale and Goals
+===================
+
+PEP 3107 [#pep-3107]_ added support for arbitrary annotations on parts
+of a function definition.  Although no meaning has been assigned to
+those metadata then, there has always been an implicit goal to use them
+for type hinting, which is listed as the first possible use case in the
+said PEP.
+
+This PEP aims to provide a standard syntax for type annotations, opening
+up Python code to easier static analysis and refactoring, opt-in runtime
+type checking, and performance optimizations utilizing type information.
+
+
+Type Definition Syntax
+======================
+
+The syntax leverages PEP 3107-style annotations with a number of
+extensions described in sections below.  In its basic form, type hinting
+is used by filling function annotations with classes::
+
+  def greeting(name: str) -> str:
+      return 'Hello, {}'.format(name)
+
+This denotes that the expected type of the ``name`` argument is ``str``.
+Analogically, the expected return type is ``str``.  To honor the Liskov
+Substitution Principle, subclasses of the annotated types are considered
+valid types.
+
+Abstract base classes, types available in the ``types`` module, as well
+as any user-built class, can be provided as type hints as well.  In any
+case, the type name used has to be available in the local scope by means
+of import or direct declaration.
+
+Type aliases are also valid type hints::
+
+  integer = int
+
+  def retry(func: types.FunctionType, retry_count: integer): ...
+
+
+.. FIXME: what about runtime-dependent annotations, should we prohibit those? Example::
+
+  def pick_type():
+      if random.random() > 0.5:
+          return int
+      return str
+
+  def gotcha(arg: pick_type()): pass
+
+
+Generics
+--------
+
+Since type information about objects kept in containers cannot be
+statically inferred in a generic way, the ``type`` class has been
+extended to support subscription to denote expected types for container
+elements.  Example::
+
+  def notify_by_email(employees: list[Employee], overrides: dict[str, str]): ...
+
+Internally, a ``__getitem__`` operation on a type simply returns the
+said type::
+
+  >>> print(Stack)
+  <class '__main__.Stack'>
+  >>> print(Stack[int])
+  <class '__main__.Stack'>
+
+
+.. FIXME: the above hinders runtime type-checking, Java hated the same decision in hindsight, discuss.
+
+
+Parametrized generics are available by subscripting the ``type`` class
+directly.  Example::
+
+  T = type['T']      # Declare type variable
+
+  def first(l: list[T]) -> T:   # Generic function
+      return l[0]
+
+In this case the contract is that the returning value is consistent with
+the elements held by the container.
+
+
+.. FIXME: covariant/contravariant/invariant? My vote is for covariant.
+
+
+Forward references
+------------------
+
+When a type hint contains names that have not been defined yet, that definition
+may be expressed as a string, to be resolved later. For example, instead of
+writing::
+
+  def notify_by_email(employees: list[Employee]): ...
+
+one might write::
+
+  def notify_by_email(employees: 'list[Employee]'): ...
+
+
+Union types
+-----------
+
+Since accepting a small, limited set of expected types for a single
+argument is common, the ``type`` class has been extended to support
+``binary-or`` to denote a union of two types. Example::
+
+  def handle_employee(e: Employee | list[Employee]):
+      if isinstance(e, Employee):
+          e = [e]
+      ...
+
+One common case of union types are *optional* types, also called
+*nullable* types.  By default, ``None`` is an invalid value for any
+type, unless a default value of ``None`` has been provided in the
+function definition.  Examples::
+
+  def handle_employee(e: Employee | None): ...
+
+  def handle_employee(e: Employee = None): ...
+
+
+.. FIXME: how to make the union type land in __annotations__ for the latter case
+
+
+Union types might be inferred implicitly from the function body::
+
+  if x:
+      y = None     # First definition of y
+  else:
+      y = 'a'      # Second definition of y
+
+Since this case may or may not be correct, the linter and runtime
+checker are expected to generate warnings.
+
+
+Compatibility with other uses of function annotations
+-----------------------------------------------------
+
+A number of existing or potential use cases for function annotations
+exist, which are incompatible with type hinting.  If a single scalar
+annotation is provided, it is assumed to describe the type of the
+argument::
+
+  def notify_by_email(employees: list[Employee]): ...
+
+However, if a dictionary is provided, typing information is available
+under the ``'type'`` key, with other keys open for other use cases::
+
+  def notify_by_email(employees: {'type': list[Employee], 'min_size': 1, 'max_size': 100}):
+  ...
+
+
+Type Hints on Local and Global Variables
+========================================
+
+No first-class syntax support for explicitly marking variables as being
+of a specific type is added by this PEP.  To help with type inference in
+complex cases, a comment of the following format might be used::
+
+  x = []   # type: list[Employee]
+
+
+Explicit raised exceptions
+==========================
+
+No support for listing explicitly raised exceptions is being defined by
+this PEP.  Currently the only known use case for this feature is
+documentational, in which case the recommendation is to put this
+information in a docstring.
+
+
+Usage Patterns
+==============
+
+The main use case of type hinting is static analysis using an external
+tool without executing the analyzed program.  Existing tools used for
+that purpose like ``pyflakes`` [#pyflakes]_ or ``pylint`` [#pylint]_
+might be extended to support type checking.  New tools, like MyPy's
+``mypy -S`` mode, can be adopted specifically for this purpose.
+
+Type checking based on type hints is understood as a best-effort
+mechanism.  In other words, whenever types are not annotated and cannot
+be inferred, the type checker considers such code valid.  Type errors
+are only reported in case of explicit or inferred conflict.  Moreover,
+as a mechanism that is not tied to execution of the code, it does not
+affect runtime behaviour.  In other words, even in the case of a typing
+error, the program will continue running.
+
+Because of the inherent incompleteness of static type analysis, a new
+type of runtime warning will be provided in Python 3.5 where the checks
+based on function annotations will be performed at runtime.  This
+warning will be off by default and can be turned into an error like any
+other warning.  This mode of operation is designed to complement static
+analysis during unit test runs and execution of the program in a staging
+deployment environment.
+
+Concrete types vs. abstract base classes
+----------------------------------------
+
+.. FIXME: should we recommend the use of ABC when possible?
+
+.. FIXME: should we provide type shortcuts so that MutableMapping is not 3.5x longer to type than dict?
+
+.. FIXME: should we help with the fact that ABCs need to be imported?
+
+
+Backwards-compatibility
+=======================
+
+To open the usage of static type checking to Python 3 versions older
+than 3.5, the ``type`` class extensions for all built-in types, as well
+as modified types found in the ``types`` and ``collection.abc`` modules
+are available as the ``typing`` module on PyPI.
+
+The module also provides a special source encoding that enables usage of
+function annotations in Python 2.7.
+
+
+Existing Approaches in Python
+=============================
+
+.. FIXME: decorator-based approaches? PyContracts?
+
+.. FIXME: docstring-based approaches?
+
+Cython and Numba
+----------------
+
+Numba [#numba]_ is a *just-in-time* specializing compiler producing
+optimized native code from annotated Python and NumPy code.
+
+mypy
+----
+
+mypy [#mypy]_ is a Python variant which checks type annotations
+statically and at runtime.  It supports function annotations, as well as
+local variable annotations, class attribute type inference, function
+overloading, type casting, generics, and union types.
+
+None is a valid value for every type.
+
+Examples::
+
+  import typing
+
+  class BankAccount:
+      def __init__(self, initial_balance: int = 0) -> None:
+          self.balance = initial_balance
+      def deposit(self, amount: int) -> None:
+          self.balance += amount
+      def withdraw(self, amount: int) -> None:
+          self.balance -= amount
+      def overdrawn(self) -> bool:
+          return self.balance < 0
+
+  my_account = BankAccount(15)
+  my_account.withdraw(5)
+  print(my_account.balance)
+
+
+obiwan
+------
+
+obiwan [#obiwan]_ is a library enabling runtime type checking inspired
+by TypeScript [#typescript]_ (see `Existing Approaches in Other
+Languages <#typescript>`_).  The syntax leverages function annotations,
+extending it to validate callback functions, elements of dictionaries
+and lists.  Type checkers might be functions, in which case a type is
+considered valid if the type checker returns True.
+
+Examples::
+
+  def divide(a: int, b: float) -> number:
+      return a/b
+
+  def robodial(person: {"name":str, "phone": {"type":str, "number":str}}):
+      ...
+
+  def on_success(callback: function(int, any, ...)):
+      ...
+
+pytypedecl
+----------
+
+pytypedecl [#pytypedecl]_ consists of a type declaration language for
+Python and an optional runtime type checker.  Type declarations for
+``module.py`` are kept in a separate file called ``module.pytd``.  This
+solves issues with declaration ordering.
+
+While initially inspired by the PEP 3107 syntax, pytypedecl diverged to
+support the following: overloading (specifying the same function
+multiple times with different argument types), union types (listing
+multiple possible types for a single argument), generics for
+collections, and exceptions raised (for documentation purposes).
+
+Example::
+
+  class Logger:
+    def log(messages: list<str>, buffer: Readable or Writeable) raises IOError
+    def log(messages: list<str>) -> None
+    def setStatus(status: int or str)
+
+Argument Clinic
+---------------
+
+Argument Clinic [#argumentclinic]_ is a preprocessor for CPython
+C files, automating maintenance of argument parsing code for “builtins”.
+
+Example argument declaration::
+
+  /*[clinic input]
+  os.chmod
+
+      path: path_t(allow_fd='PATH_HAVE_FCHMOD')
+          Path to be modified.  May always be specified as a str or bytes.
+
+      mode: int
+          Operating-system mode bitfield.
+
+      *
+
+      dir_fd : dir_fd(requires='fchmodat') = None
+          If not None, it should be a file descriptor open to a dir, and
+          path should be relative; path will then be relative to that
+          dir.
+
+      follow_symlinks: bool = True
+          If False, and the last element of the path is a symlink, chmod
+          will modify the symlink itself instead of the file the link
+          points to.
+
+  Change the access permissions of a file.
+  [clinic start generated code]*/
+
+
+NumPy
+-----
+
+NumPy [#numpy]_ is an extension to Python adding support for
+multi-dimensional arrays, matrices and operations to operate on those.
+
+The project requires typing information in the API documentation.  There
+is an unambiguous syntax for that type of documentation.  Example
+documentation with types::
+
+  ndarray.item(*args)
+
+  Copy an element of an array to a standard Python scalar and return it.
+
+  Parameters
+  ----------
+  \\*args : Arguments (variable number and type)
+
+    * none: in this case, the method only works for arrays
+      with one element (`a.size == 1`), which element is
+      copied into a standard Python scalar object and returned.
+
+    * int_type: this argument is interpreted as a flat index into
+      the array, specifying which element to copy and return.
+
+    * tuple of int_types: functions as does a single int_type argument,
+      except that the argument is interpreted as an nd-index into the
+      array.
+
+  Returns
+  -------
+  z : Standard Python scalar object
+      A copy of the specified element of the array as a suitable
+      Python scalar
+
+
+Existing Approaches in Other Languages
+======================================
+
+ActionScript
+------------
+
+ActionScript [#actionscript]_ is a class-based, single inheritance,
+object-oriented superset of ECMAScript.  It supports inferfaces and
+strong runtime-checked static typing.  Compilation supports a “strict
+dialect” where type mismatches are reported at compile-time.
+
+Example code with types::
+
+  package {
+    import flash.events.Event;
+
+    public class BounceEvent extends Event {
+      public static const BOUNCE:String = "bounce";
+      private var _side:String = "none";
+
+      public function get side():String {
+        return _side;
+      }
+
+      public function BounceEvent(type:String, side:String){
+        super(type, true);
+        _side = side;
+      }
+
+      public override function clone():Event {
+        return new BounceEvent(type, _side);
+      }
+    }
+  }
+
+Dart
+----
+
+Dart [#dart]_ is a class-based, single inheritance, object-oriented
+language with C-style syntax.  It supports interfaces, abstract classes,
+reified generics, and optional typing.
+
+Types are inferred when possible.  The runtime differentiates between two
+modes of execution: *checked mode* aimed for development (catching type
+errors at runtime) and *production mode* recommended for speed execution
+(ignoring types and asserts).
+
+Example code with types::
+
+  class Point {
+      final num x, y;
+
+      Point(this.x, this.y);
+
+      num distanceTo(Point other) {
+          var dx = x - other.x;
+          var dy = y - other.y;
+          return math.sqrt(dx * dx + dy * dy);
+      }
+  }
+
+Hack
+----
+
+Hack [#hack]_ is a programming language that interoperates seamlessly
+with PHP.  It provides opt-in static type checking, type aliasing,
+generics, nullable types, and lambdas.
+
+Example code with types::
+
+  <?hh
+  class MyClass {
+    private ?string $x = null;
+
+    public function alpha(): int {
+      return 1;
+    }
+
+    public function beta(): string {
+      return 'hi test';
+    }
+  }
+
+  function f(MyClass $my_inst): string {
+    // Will generate a hh_client error
+    return $my_inst->alpha();
+  }
+
+TypeScript
+----------
+
+TypeScript [#typescript]_ is a typed superset of JavaScript that adds
+interfaces, classes, mixins and modules to the language.
+
+Type checks are duck typed.  Multiple valid function signatures are
+specified by supplying overloaded function declarations.  Functions and
+classes can use generics as type parametrization.  Interfaces can have
+optional fields.  Interfaces can specify array and dictionary types.
+Classes can have constructors that implicitly add arguments as fields.
+Classes can have static fields.  Classes can have private fields.
+Classes can have getters/setters for fields (like property).  Types are
+inferred.
+
+Example code with types::
+
+  interface Drivable {
+      start(): void;
+      drive(distance: number): boolean;
+      getPosition(): number;
+  }
+
+  class Car implements Drivable {
+      private _isRunning: boolean;
+      private _distanceFromStart: number;
+
+      constructor() {
+          this._isRunning = false;
+          this._distanceFromStart = 0;
+      }
+
+      public start() {
+          this._isRunning = true;
+      }
+
+      public drive(distance: number): boolean {
+          if (this._isRunning) {
+              this._distanceFromStart += distance;
+              return true;
+          }
+          return false;
+      }
+
+      public getPosition(): number {
+          return this._distanceFromStart;
+      }
+  }
+
+
+Is type hinting Pythonic?
+=========================
+
+Type annotations provide important documentation for how a unit of code
+should be used.  Programmers should therefore provide type hints on
+public APIs, namely argument and return types on functions and methods
+considered public.  However, because types of local and global variables
+can be often inferred, they are rarely necessary.
+
+The kind of information that type hints hold has always been possible to
+achieve by means of docstrings.  In fact, a number of formalized
+mini-languages for describing accepted arguments have evolved.  Moving
+this information to the function declaration makes it more visible and
+easier to access both at runtime and by static analysis.  Adding to that
+the notion that “explicit is better than implicit”, type hints are
+indeed *Pythonic*.
+
+
+Multiple dispatch using type hints
+==================================
+
+.. FIXME: I'm not sure if this part of MyPy is in scope for the PEP
+
+
+Acknowledgements
+================
+
+Influences include all mentioned existing languages, libraries and
+frameworks.  Many thanks to their creators, in alphabetical order:
+Stefan Behnel, William Edwards, Greg Ewing, Larry Hastings, Anders
+Hejlsberg, Alok Menghrajani, Travis E. Oliphant, Joe Pamer,
+Raoul-Gabriel Urma, and Julien Verlaguet.
+
+I'd also like to thank Radomir Dopieralski for suggesting warnings as
+the toggle for runtime checks.
+
+
+References
+==========
+
+.. [#pep-3107]
+   http://www.python.org/dev/peps/pep-3107/
+
+.. [#mypy]
+   https://github.com/JukkaL/mypy
+
+.. [#obiwan]
+   http://pypi.python.org/pypi/obiwan
+
+.. [#numba]
+   http://numba.pydata.org
+
+.. [#pytypedecl]
+   https://github.com/google/pytypedecl
+
+.. [#argumentclinic]
+   https://docs.python.org/3/howto/clinic.html
+
+.. [#numpy]
+   http://www.numpy.org
+
+.. [#typescript]
+   http://www.typescriptlang.org/
+
+.. [#hack]
+   http://hacklang.org/
+
+.. [#dart]
+   https://www.dartlang.org/
+
+.. [#actionscript]
+   http://livedocs.adobe.com/specs/actionscript/3/
+
+
+Copyright
+=========
+
+This document has been placed in the public domain.
+
+
+
+..
+   Local Variables:
+   mode: indented-text
+   indent-tabs-mode: nil
+   sentence-end-double-space: t
+   fill-column: 70
+   coding: utf-8
+   End:
