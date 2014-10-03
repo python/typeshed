@@ -18,19 +18,18 @@ Authors
 Work in progress notes
 ----------------------
 
-* Putting new things in ``collections.abc`` seems fine as long those new
-  elements are actual abstract base classes that are collections.
+* Putting new things in ``collections.abc`` seems fine as long as those
+  new elements are actual abstract base classes that are collections.
   I lessened this latter requirement since there's non-collection
-  precedent in ``abc``, namely ``ByteString``, ``Callable``, and
-  ``Hashable``.
+  precedent in ``abc``, namely ``Callable``, and ``Hashable``.
 
 * ``Var('T')`` is put in ``collections.abc`` as a helper with generics
   and covariance/contravariance in ABCs
 
 * ``AnyStr`` (and consequently ``IO``) smells like basestring in
-  disguise
+  disguise, what is the use case for Python 3?
 
-* ``Undefined`` smells like JavaScript
+* ``Undefined`` smells like JavaScript, I left it out for now
 
 * The addition of ``Match`` and ``Pattern`` seems arbitrary and should
   rather be fixed in ``re`` directly, with the types just imported in
