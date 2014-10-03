@@ -116,10 +116,12 @@ a specified ``base``.  Example::
   def filter(rule: Callable, collection: Y) -> Y:
       ...
 
-In the example above we specify that ``Y`` can be any Iterable with
-``X`` elements, as long as the return type of ``filter()`` will be the
-same as the type of the ``collection`` argument.  Union types can be
-used in ``base``.
+In the example above we specify that ``Y`` can be any subclass of
+Iterable with elements of type ``X``, as long as the return type of
+``filter()`` will be the same as the type of the ``collection``
+argument.  That means during type checking both ``X`` and ``Y`` must
+point to the same concrete types in the ``collection`` argument as well
+as the function's return value.  Union types can be used in ``base``.
 
 As with function arguments, generics are covariant, which is in spirit
 of duck typing.
