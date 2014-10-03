@@ -236,7 +236,7 @@ a new module called ``typing``. Those classes are as follows:
 
 * FrozenSet, used as ``FrozenSet[element_type]``
 
-* Tuple, used as ``Tuple[index1_type, index2_type, ...]``.
+* Tuple, used as ``Tuple[index0_type, index1_type, ...]``.
   Arbitrary-length tuples might be expressed using ellipsis, in which
   case the following arguments are considered the same type as the last
   defined type on the tuple.
