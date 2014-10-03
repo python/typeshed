@@ -46,10 +46,12 @@ Work in progress notes
   dynamic when possible (which is often) would make ABCs much better
   behaved in static analysis contexts
 
-* Having the last thing in mind, IO, BinaryIO and TextIO would simply be
-  new abstract base classes, usable with or without type hinting; the
-  current implementation is also quite un-ducktyped (specifies both
-  reading and writing as one protocol)
+* Having the last thing in mind, ``IO``, ``BinaryIO`` and ``TextIO``
+  would simply be new abstract base classes, usable with or without type
+  hinting
+
+* the current implementation of ``*IO`` is quite un-ducktyped (specifies
+  both reading and writing as one protocol)
 
 * I left out ``cast`` because it can be more consistently expressed as::
 
@@ -68,13 +70,14 @@ Changes to MyPy coming from this proposal
 -----------------------------------------
 
 * ``typevar`` becomes ``Var('T')`` and its semantics support specifying
-  variance and sub- / super-type constraints
+  base type constraints. If we decide to add optional invariance or
+  contravariance, this will be the place, too.
 
 * ``collections.abc.Union`` behaves differently, it holds the defined
-  types and actually responds to issubclass. Consequently,
+  types to be able to actually respond to issubclass. Consequently,
   ``typing.AnyStr`` becomes an ``Union`` instead of ``typevar('AnyStr',
   values=(str, bytes))`` (which is consciously impossible to express in
-  the ``Var`` notation
+  the ``Var`` notation, unless you're using a Union as ``base=``)
 
 * ``typing.Function`` becomes ``typing.Callable``, which is equivalent
   to ``collections.abc.Callable``
@@ -91,8 +94,8 @@ Open issues
 
 * should we recommend the use of ABCs over builtin types when possible?
 
-* should we provide type shortcuts so that MutableMapping is not
-3.5x longer to type than dict?
+* should we provide type shortcuts so that MutableMapping is not 3.5x
+  longer to type than dict?
 
 * is multiple dispatch using type hints in scope for this PEP?
 
