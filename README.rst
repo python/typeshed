@@ -14,29 +14,92 @@ Authors
 
 * Łukasz Langa
 
-Random notes from the Skype meeting
------------------------------------
 
-* just static type checker
+Work in progress notes
+----------------------
 
-* signature will preserve the full expression
+* Putting new things in ``collections.abc`` seems fine as long those new
+  elements are actual abstract base classes that are collections.
+  I lessened this latter requirement since there's non-collection
+  precedent in ``abc``, namely ``ByteString``, ``Callable``, and
+  ``Hashable``.
 
-* ``typing`` as alias for types from other modules
+* ``Var('T')`` is put in ``collections.abc`` as a helper with generics
+  and covariance/contravariance in ABCs
 
-* aliases with parameters: the type checker has a limited understanding of the
-  semantics; has to be able to follow the definitions to understand it. Overly
-  dynamic type definitions can confuse the type checker. Expected: left-hand
-  side variable, right-hand side typing expression.
+* ``AnyStr`` (and consequently ``IO``) smells like basestring in
+  disguise
 
-* variable typing is the future; for the first iteration we introduce just
-  comments
+* ``Undefined`` smells like JavaScript
 
-* we should discourage using runtime-dependent annotations; just use type
-  expressions directly
+* The addition of ``Match`` and ``Pattern`` seems arbitrary and should
+  rather be fixed in ``re`` directly, with the types just imported in
+  ``typing``. If so, are there any other potentially useful types we'd
+  like?
 
-* conditions of types: platforms, Python versions, etc.
+* I left out ``overload`` because I don't understand its purpose. If we
+  need generic dispatch, we should add it to ``functools``
 
-* constant expressions, compile-time expressions
+* I left out specifying protocols as they are an ABC implementation
+  detail from the perspective of this PEP. However, they should be
+  defined in a separate PEP because making ``__subclasshook__`` less
+  dynamic when possible (which is often) would make ABCs much better
+  behaved in static analysis contexts
 
-* syntax section should be enough to implement a compatible parser; the PEP
-  should have the complete list of all names importable from the typing module
+* Having the last thing in mind, IO, BinaryIO and TextIO would simply be
+  new abstract base classes, usable with or without type hinting; the
+  current implementation is also quite un-ducktyped (specifies both
+  reading and writing as one protocol)
+
+* I left out ``cast`` because it can be more consistently expressed as::
+
+  bad_typed_list = [1, 2, 3]        # type: list
+  ...
+  well_typed_list = bad_typed_list  # type: List[int]
+
+* I removed ``mypy`` from the listed "existing approaches" since we
+  basically describe what MyPy is
+
+* I thought if introducing optional contravariance/invariance to ``Var``
+  has merit but I'm undecided; definitely complicates the type checker
+
+
+Changes to MyPy coming from this proposal
+-----------------------------------------
+
+* ``typevar`` becomes ``Var('T')`` and its semantics support specifying
+  variance and sub- / super-type constraints
+
+* ``collections.abc.Union`` behaves differently, it holds the defined
+  types and actually responds to issubclass. Consequently,
+  ``typing.AnyStr`` becomes an ``Union`` instead of ``typevar('AnyStr',
+  values=(str, bytes))`` (which is consciously impossible to express in
+  the ``Var`` notation
+
+* ``typing.Function`` becomes ``typing.Callable``, which is equivalent
+  to ``collections.abc.Callable``
+
+
+Open issues
+-----------
+
+* How to make the union type land in __annotations__ for the ``x:str
+  = None`` case?
+
+* State of the art: should we list decorator-based approaches
+  (PyContracts?) and docstring-based approaches?
+
+* should we recommend the use of ABCs over builtin types when possible?
+
+* should we provide type shortcuts so that MutableMapping is not
+3.5x longer to type than dict?
+
+* is multiple dispatch using type hints in scope for this PEP?
+
+* should we mention platform- or Python-specific typing? Guido mentioned
+  Windows vs. POSIX during the Skype meeting.
+
+* it would be useful to have a ``Subclass[]`` factory that would be
+  equivalent to "any class that has the all the following classes in its
+  MRO".  Maybe we'd want to rename union to ``Any[]`` and this new
+  proposed type to ``All[]``?
