@@ -130,9 +130,9 @@ of duck typing.
 Forward references
 ------------------
 
-When a type hint contains names that have not been defined yet, that definition
-may be expressed as a string, to be resolved later. For example, instead of
-writing::
+When a type hint contains names that have not been defined yet, that
+definition may be expressed as a string, to be resolved later.  For
+example, instead of writing::
 
   def notify_by_email(employees: Set[Employee]): ...
 
@@ -144,9 +144,9 @@ one might write::
 Union types
 -----------
 
-Since accepting a small, limited set of expected types for a single argument is
-common, the ``collections.abc`` module has been extended with a new
-special factory called ``Union``.  Example::
+Since accepting a small, limited set of expected types for a single
+argument is common, the ``collections.abc`` module has been extended
+with a new special factory called ``Union``.  Example::
 
   def handle_employee(e: Union[Employee, Sequence[Employee]]):
       if isinstance(e, Employee):
