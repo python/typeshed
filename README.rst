@@ -54,9 +54,9 @@ Work in progress notes
 
 * I left out ``cast`` because it can be more consistently expressed as::
 
-  bad_typed_list = [1, 2, 3]        # type: list
-  ...
-  well_typed_list = bad_typed_list  # type: List[int]
+    bad_typed_list = [1, 2, 3]        # type: list
+    ...
+    well_typed_list = bad_typed_list  # type: List[int]
 
 * I removed ``mypy`` from the listed "existing approaches" since we
   basically describe what MyPy is
