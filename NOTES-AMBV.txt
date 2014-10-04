@@ -39,6 +39,22 @@ Re: notes from Jython meeting
     Set[Any])``. The covariance/contravariance discussion needs to
     happen at some point.
 
+* While I don't see the point of ``AnyStr`` specifically (reeks too much
+  of ``basestring``), I see that it's a useful example for ``Var``.
+  You're right it's not equivalent to ``Union[bytes, str]``, it must be
+  obviously parametric to keep the other occurences in scope consistent.
+  With ``Var`` the syntax I was thinking about a following expression::
+
+    AnyStr = Var('AnyStr', base=Union[str, bytes])
+
+  Now that I saw this, I asked myself if that should be equivalent to
+  ``typevar('AnyStr', values=(str, bytes))`` and the answer is "No".
+  Union is not parametrized, hence not kept in sync between occurences.
+  My mistake makes me wonder if we should make the parametrized types
+  syntax more explicit for the type definition reader (in Java world
+  seeing <? extends A> is pretty clear). I will ponder about this some
+  more.
+
 * Interoperability of ``typing.List`` with ``java.util.ArrayList``
   sounds good in principle.
 
@@ -57,9 +73,6 @@ as I get to it again.
   extend Callable to say Callable[X]
 
 * typevar values vs. Var base=
-
-* I don't understand how AnyStr is different from Union[str, bytes],
-  need to ponder at it some
 
 * should we encourage using abstract types: in principle yes, in
   practice there's issues (long type names, strings and bytes being

@@ -113,14 +113,17 @@ equivalent to the one above::
   def first(l: Sequence[X]) -> Y:   # Generic function
       return l[0]
 
-``Var`` supports constraining parametric types to classes with
-a specified ``base``.  Example::
+``Var`` supports constraining parametric types to classes with any of
+the specified bases.  Example::
 
   X = Var('X')
-  Y = Var('Y', base=Iterable[X])
+  Y = Var('Y', Iterable[X])
 
   def filter(rule: Callable, collection: Y) -> Y:
       ...
+
+.. FIXME: fill in the implementation and the Callable signature
+          definition; add an example with multiple bases defined
 
 In the example above we specify that ``Y`` can be any subclass of
 Iterable with elements of type ``X``, as long as the return type of
@@ -308,7 +311,7 @@ All available abstract base classes are importable:
 
 The following helper types are also provided by the ``typing`` module:
 
-* AnyStr, equivalent to ``Union[str, bytes]``
+* AnyStr, equivalent to ``Var('AnyStr', str, bytes)``
 
 * Match and Pattern, types of ``re.match()`` and ``re.compile()`` results
 
