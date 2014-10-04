@@ -105,3 +105,9 @@ Open issues
   equivalent to "any class that has the all the following classes in its
   MRO".  Maybe we'd want to rename union to ``Any[]`` and this new
   proposed type to ``All[]``?
+
+* Callable signature definition should be explained and support all
+  valid function signatures
+
+* What about all other collections available in the ``collections``
+  module?
