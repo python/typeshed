@@ -1,4 +1,4 @@
-PEP: 500
+PEP: NNN
 Title: Type Hints
 Version: $Revision$
 Last-Modified: $Date$

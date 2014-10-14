@@ -1,6 +1,6 @@
-=====================
-PEP 500: Type hinting
-=====================
+======================
+PEP NNNN: Type hinting
+======================
 
 This is a work-in-progress repository for the draft of the Type Hinting
 PEP for Python 3.5.
