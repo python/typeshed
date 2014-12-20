@@ -18,6 +18,8 @@ Authors
 Work in progress notes
 ----------------------
 
+* An explanation of the theory is here: https://quip.com/r69HA9GhGa7J
+
 * Putting new things in ``collections.abc`` seems fine as long as those
   new elements are actual abstract base classes that are collections.
   I lessened this latter requirement since there's non-collection
