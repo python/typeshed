@@ -26,21 +26,21 @@ Work in progress notes
   precedent in ``abc``, namely ``Callable``, and ``Hashable``.
   However, attempts at implementing reasonable runtime behavior
   suggests that it may be better to leave ``collections.abc`` alone.
-  **Proposed resolution: leave ``collections.abc`` alone.**
+  **Proposed resolution:** Leave ``collections.abc`` alone.
 
 * ``Var('T')`` is put in ``collections.abc`` as a helper with generics
   and covariance/contravariance in ABCs.  May be renamed to ``TypeVar``.
   The co-/contravariance behavior requires more thinking.
-  **Proposed resolution: Use ``TypeVar``, with mypy's semantics mapped:
-  ``typevar('T', values=(str, bytes)`` becomes ``TypeVar('T', str, bytes)``.**
+  **Proposed resolution:** Use ``TypeVar``, with mypy's semantics mapped:
+  ``typevar('T', values=(str, bytes)`` becomes ``TypeVar('T', str, bytes)``.
 
 * ``AnyStr`` (and consequently ``IO``) smells like basestring in
   disguise, what is the use case for Python 3?  Answer: There are
   lots of things in the stdlib that are essentially overloaded as
   str-in-str-out and bytes-in-bytes-out; ``AnyStr`` has exactly the
   right behavior for this (unlike ``Union[str, bytes]``).
-  **Proposed resolution: keep ``AnyStr``, ``IO`` and its subclasses,
-  in typing.py.**
+  **Proposed resolution:** Keep ``AnyStr``, ``IO`` and its subclasses,
+  in typing.py.
 
 * ``Undefined`` smells like JavaScript, I (Łukasz) left it out for now.
   However, mypy needs it.  See https://github.com/ambv/typehinting/issues/20
@@ -50,13 +50,13 @@ Work in progress notes
   rather be fixed in ``re`` directly, with the types just imported in
   ``typing``. If so, are there any other potentially useful types we'd
   like?  See https://github.com/ambv/typehinting/issues/23
-  **Proposed resolution: keep these two in typing.py for convenience.**
+  **Proposed resolution:** Keep these two in typing.py for convenience.
 
 * I (Łukasz) left out ``overload`` because I don't understand its purpose. If we
   need generic dispatch, we should add it to ``functools``.
   Perhaps ``overload`` should only be allowed in stub modules?
   See https://github.com/ambv/typehinting/issues/14
-  **Proposed resolution: support the syntax but only in stub files.**
+  **Proposed resolution:** support the syntax but only in stub files.
 
 * I (Łukasz) left out specifying protocols as they are an ABC implementation
   detail from the perspective of this PEP. However, they should be
@@ -69,8 +69,8 @@ Work in progress notes
 * Having the last thing in mind, ``IO``, ``BinaryIO`` and ``TextIO``
   would simply be new abstract base classes, usable with or without type
   hinting.
-  **Proposed resolution: ``IO`` is generic over ``AnyStr``, the other two
-  are concrete (subclassing ``IO[bytes]`` and ``IO[str]`` respectively).**
+  **Proposed resolution:** ``IO`` is generic over ``AnyStr``, the other two
+  are concrete (subclassing ``IO[bytes]`` and ``IO[str]`` respectively).
 
 * The current implementation of ``*IO`` is quite un-ducktyped (specifies
   both reading and writing as one protocol)
@@ -83,10 +83,10 @@ Work in progress notes
     well_typed_list = bad_typed_list  # type: List[int]
 
   See https://github.com/ambv/typehinting/issues/15
-  **Proposed resolution: add ``cast(type, value)`` back in.**
+  **Proposed resolution:** Add ``cast(type, value)`` back in.
 
 * I (Łukasz) removed ``mypy`` from the listed "existing approaches" since we
-  basically describe what mypy is.  **Proposed resolution: fine.**
+  basically describe what mypy is.  **Proposed resolution:** Fine.
 
 * I (Łukasz) thought if introducing optional contravariance/invariance to ``Var``
   has merit but I'm undecided; definitely complicates the type checker.
@@ -104,12 +104,12 @@ Changes to MyPy coming from this proposal
   https://github.com/JukkaL/mypy/issues/539 and
   https://github.com/ambv/typehinting/issues/1 and
   https://github.com/ambv/typehinting/issues/2 and maybe others.
-  **Proposed resolution: ``TypeVar`` (see above).**  
+  **Proposed resolution:** ``TypeVar`` (see above).
 
 * ``Union`` behaves differently, it holds the defined types in order
   to be able to actually respond to issubclass.
-  **Proposed resolution: This doesn't affect mypy; I do want this for
-  typing.py (also for generic types).**
+  **Proposed resolution:** This doesn't affect mypy; I do want this for
+  typing.py (also for generic types).
 
 * ``typing.Function`` becomes ``typing.Callable``, which is equivalent
   to ``collections.abc.Callable``.  (Has now been implemented in mypy.)
@@ -130,23 +130,23 @@ Open issues
   longer to type than dict?
 
 * Is multiple dispatch using type hints in scope for this PEP?
-  **Proposed resolution: let's wait, allow @overload only in stubs.**
+  **Proposed resolution:** let's wait, allow @overload only in stubs.
 
 * Should we mention platform- or version-specific typing? Guido mentioned
   Windows vs. POSIX during the Skype meeting.
-  **Proposed resolution: let typing.py export a few specific constants;
-  PY3, PY2, PY3_x (for x in 2, 3, 4, 5).**
+  **Proposed resolution:** Let typing.py export a few specific constants;
+  PY3, PY2, PY3_x (for x in 2, 3, 4, 5).
 
 * It would be useful to have a ``Subclass[]`` factory that would be
   equivalent to "any class that has the all the following classes in its
   MRO".  Maybe we'd want to rename union to ``Any[]`` and this new
   proposed type to ``All[]``?  See https://github.com/ambv/typehinting/issues/18
-  **Proposed resolution: let's just have ``Union[T1, T2, ...]`` and ``Any``.**
+  **Proposed resolution:** Let's just have ``Union[T1, T2, ...]`` and ``Any``.
 
 * Callable signature definition should be explained and support all
   valid function signatures.
-  **Proposed resolution: ``Callable[[T1, T2, ...], Tr]``.**
+  **Proposed resolution:** ``Callable[[T1, T2, ...], Tr]``.
 
 * What about all other collections available in the ``collections``
   module?
-  **Proposed resolution: make Generic types retain their argument type(s).**
+  **Proposed resolution:** Make Generic types retain their argument type(s).
