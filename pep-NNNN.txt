@@ -7,9 +7,8 @@ Discussions-To: Python-Dev <python-dev@python.org>
 Status: Draft
 Type: Standards Track
 Content-Type: text/x-rst
-Created: 12-Apr-2014
-Post-History: 12-Apr-2014
-Replaces: 3107
+Created: 29-Sep-2014
+Post-History: 
 Resolution:
 
 
@@ -24,9 +23,9 @@ Rationale and Goals
 ===================
 
 PEP 3107 [#pep-3107]_ added support for arbitrary annotations on parts
-of a function definition.  Although no meaning has been assigned to
-those metadata then, there has always been an implicit goal to use them
-for type hinting, which is listed as the first possible use case in the
+of a function definition.  Although no meaning was assigned to
+annotations then, there has always been an implicit goal to use them
+for type hinting, which is listed as the first possible use case in
 said PEP.
 
 This PEP aims to provide a standard syntax for type annotations, opening
@@ -43,38 +42,38 @@ extensions described in sections below.  In its basic form, type hinting
 is used by filling function annotations with classes::
 
   def greeting(name: str) -> str:
-      return 'Hello, {}'.format(name)
-
-.. FIXME: Bad example because of `.format()`, also, doesn't sell type
-          hinting enough right away.
+      return 'Hello ' + name
 
 This denotes that the expected type of the ``name`` argument is ``str``.
 Analogically, the expected return type is ``str``.  Subclasses of
 a specified argument type are also accepted as valid types for that
 argument.
 
-Abstract base classes, types available in the ``types`` module, as well
-as any user-built class, can be provided as type hints as well.  In any
-case, the type name used has to be available in the local scope by means
-of import or direct declaration.
+Abstract base classes, types available in the ``types`` module, and
+user-defined classes may be used as type hints as well.  Annotations
+must be valid expressions that evaluate without raising exceptions at
+the time the function is defined.  In addition, the needs of static
+analysis require that annotations must be simple enough to be
+interpreted by static analysis tools.  (This is an intentionally
+somewhat vague requirement.)
 
-As a singleton, the ``None`` object is considered equivalent to
-``NoneType`` for type hinting purposes.
+.. FIXME: Define rigorously what is/isn't supported.
+
+When used as an annotation, the expression ``None`` is considered
+equivalent to ``NoneType`` (i.e., ``type(None)`` for type hinting
+purposes.
 
 Type aliases are also valid type hints::
 
   integer = int
 
-  def retry(func: types.FunctionType, retry_count: integer): ...
-
-While the function annotation syntax permits any arbitrary expression to
-be passed as an annotation, the use of runtime-evaluated annotations is
-discouraged as it limits what static analysis can infer from such
-expressions.  Constant, direct type expressions are recommended.
+  def retry(url: str, retry_count: integer): ...
 
 
 Generics
 --------
+
+.. FIXME: Actually you probably need to import these from typing.py.
 
 Since type information about objects kept in containers cannot be
 statically inferred in a generic way, abstract base classes have been
@@ -82,17 +81,6 @@ extended to support subscription to denote expected types for container
 elements.  Example::
 
   def notify_by_email(employees: Set[Employee], overrides: Mapping[str, str]): ...
-
-Internally, a ``__getitem__`` operation on a type simply returns the
-said type::
-
-  >>> print(MutableMapping)
-  <class 'collections.abc.MutableMapping'>
-  >>> print(MutableMapping[int])
-  <class 'collections.abc.MutableMapping'>
-
-.. FIXME: Not true, we'd actually like for MutableMapping[int] to return
-          a new class object that represents a MutableMappingOfInts
 
 Generics can be parametrized by using a new factory available in
 ``collections.abc`` called ``Var``.  Example::
@@ -102,16 +90,12 @@ Generics can be parametrized by using a new factory available in
   def first(l: Sequence[T]) -> T:   # Generic function
       return l[0]
 
+.. FIXME: Maybe rename Var to TypeVar to avoid confusion with simple
+          variables and a possible future syntax of the form 
+          var name: type = value
+
 In this case the contract is that the returning value is consistent with
-the elements held by the collection.  Using the same var-type under
-multiple names is considered aliasing.  The following example is
-equivalent to the one above::
-
-  X = Var('X')
-  Y = Var('X')
-
-  def first(l: Sequence[X]) -> Y:   # Generic function
-      return l[0]
+the elements held by the collection.
 
 ``Var`` supports constraining parametric types to classes with any of
 the specified bases.  Example::
@@ -119,21 +103,17 @@ the specified bases.  Example::
   X = Var('X')
   Y = Var('Y', Iterable[X])
 
-  def filter(rule: Callable, collection: Y) -> Y:
+  def filter(rule: Callable[[X], bool], input: Y) -> Y:
       ...
 
-.. FIXME: fill in the implementation and the Callable signature
-          definition; add an example with multiple bases defined
+.. FIXME: Add an example with multiple bases defined.
 
 In the example above we specify that ``Y`` can be any subclass of
 Iterable with elements of type ``X``, as long as the return type of
-``filter()`` will be the same as the type of the ``collection``
-argument.  That means during type checking both ``X`` and ``Y`` must
-point to the same concrete types in the ``collection`` argument as well
-as the function's return value.  Union types can be used in ``base``.
+``filter()`` will be the same as the type of the ``input``
+argument.
 
-As with function arguments, generics are covariant, which is in spirit
-of duck typing.
+.. FIXME: Explain more about how this works.
 
 
 Forward references
@@ -149,15 +129,17 @@ one might write::
 
   def notify_by_email(employees: 'Set[Employee]'): ...
 
+.. FIXME: Rigorously define this.  Defend it, or find an alternative.
+
 
 Union types
 -----------
 
 Since accepting a small, limited set of expected types for a single
-argument is common, the ``collections.abc`` module has been extended
-with a new special factory called ``Union``.  Example::
+argument is common, there is a new special factory called ``Union``.
+Example::
 
-  def handle_employee(e: Union[Employee, Sequence[Employee]]):
+  def handle_employees(e: Union[Employee, Sequence[Employee]]):
       if isinstance(e, Employee):
           e = [e]
       ...
@@ -166,46 +148,46 @@ A type factored by ``Union[T1, T2, ...]`` responds ``True`` to
 ``issubclass`` checks for ``T1`` and any of its subclasses, ``T2`` and
 any of its subclasses, and so on.
 
-One common case of union types are *optional* types, also called
-*nullable* types.  By default, ``None`` is an invalid value for any
-type, unless a default value of ``None`` has been provided in the
-function definition.  Examples::
+One common case of union types are *optional* types.  By default,
+``None`` is an invalid value for any type, unless a default value of
+``None`` has been provided in the function definition.  Examples::
 
   def handle_employee(e: Union[Employee, None]): ...
 
+As a shorthand for ``Union[T1, None]`` you can write ``Optional[T1]``;
+for example, the above is equivalent to::
+
+  def handle_employee(e: Optional[Employee]): ...
+
+An optional type is also automatically assumed when the default value
+is ``None``, for example:
+
   def handle_employee(e: Employee = None): ...
 
-Union types might be inferred implicitly from the function body::
+This is equivalent to::
 
-  if x:
-      y = None     # First definition of y
-  else:
-      y = 'a'      # Second definition of y
+  def handle_employee(e: Optional[Employee] = None): ...
 
-Since this case may or may not be correct, the linter is expected to
-generate warnings.
+.. FIXME: Is this really a good idea?
 
-A specific kind of a union type is ``Any``, a class in
-``collections.abc`` that responds ``True`` to ``issubclass`` of any
-class.  This lets the user explicitly state that there are no
-constraints on the type of a specific argument or return value.
+A special kind of union type is ``Any``, a class that responds
+``True`` to ``issubclass`` of any class.  This lets the user
+explicitly state that there are no constraints on the type of a
+specific argument or return value.
 
 
 Compatibility with other uses of function annotations
 -----------------------------------------------------
 
 A number of existing or potential use cases for function annotations
-exist, which are incompatible with type hinting.  If a single scalar
-annotation is provided, it is assumed to describe the type of the
-argument::
+exist, which are incompatible with type hinting.  These may confuse a
+static type checker.  However, since type hinting annotations have no
+run time behavior (other than evaluation of the annotation expression
+and storing annotations in the ``__annotations__`` attribute of the
+function object), this does not make the program incorrect -- it just
+makes it issue warnings when a static analyzer is used.
 
-  def notify_by_email(employees: List[Employee]): ...
-
-However, if a dictionary is provided, typing information is available
-under the ``'type'`` key, with other keys open for other use cases::
-
-  def notify_by_email(employees: {'type': List[Employee], 'min_size': 1, 'max_size': 100}):
-  ...
+.. FIXME: Define a way to shut up the static analyzer for a module, class or function.
 
 
 Type Hints on Local and Global Variables
@@ -213,11 +195,11 @@ Type Hints on Local and Global Variables
 
 No first-class syntax support for explicitly marking variables as being
 of a specific type is added by this PEP.  To help with type inference in
-complex cases, a comment of the following format might be used::
+complex cases, a comment of the following format may be used::
 
   x = []   # type: List[Employee]
 
-If type hinting proves useful in general, variable typing in syntax will
+If type hinting proves useful in general, a variable typing in syntax may
 be provided in a future Python version.
 
 
@@ -233,6 +215,9 @@ information in a docstring.
 The ``typing`` module
 =====================
 
+.. FIXME: Reconsider changing collections.abc, in favor of requiring
+          the new types to be import from typing.py.
+
 To enable generics on builtin types, a set of classes is introduced in
 a new module called ``typing``. Those classes are as follows:
 
@@ -240,7 +225,7 @@ a new module called ``typing``. Those classes are as follows:
 
 * List, used as ``List[element_type]``
 
-* Set, used as ``Set[element_type]``. See remark in ``AbstractSet``
+* Set, used as ``Set[element_type]``. See remark for ``AbstractSet``
   below.
 
 * FrozenSet, used as ``FrozenSet[element_type]``
@@ -250,13 +235,10 @@ a new module called ``typing``. Those classes are as follows:
   case the following arguments are considered the same type as the last
   defined type on the tuple.
 
-Subscripting the above types returns the vanilla type at runtime, just
-as in the case of abstract base classes.
-
 To open the usage of static type checking to Python 3 versions older
 than 3.5, the new and modified types found in the ``collections.abc``
 module are also importable from the ``typing`` module.  The following
-new members:
+new members are defined:
 
 * Any
 
@@ -315,8 +297,8 @@ The following helper types are also provided by the ``typing`` module:
 
 * Match and Pattern, types of ``re.match()`` and ``re.compile()`` results
 
-The module also provides a special source encoding that enables usage of
-function annotations in Python 2.7.
+.. FIXME: Match, Pattern and the IO types don't really belong here.
+
 
 The place of the ``typing`` module in the standard library
 ----------------------------------------------------------
@@ -343,6 +325,10 @@ error, the program will continue running.
 
 The implementation of a type checker, whether linting source files or
 enforcing type information during runtime, is out of scope for this PEP.
+
+.. FIXME: Describe stub modules.
+
+.. FIXME: Describe run-time behavior of generic types.
 
 
 Existing Approaches in Python
