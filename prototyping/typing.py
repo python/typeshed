@@ -17,8 +17,7 @@
 # Other things from mypy's typing.py:
 # - [done] Undefined
 # - IO, BinaryIO, TextIO (?)
-# - Match (?)
-# - Pattern (?)
+# - Match, Pattern (?)
 # - [done] cast
 # - forwardref
 # - overload
@@ -782,7 +781,8 @@ class Undefined:
     __hash__ = None
 
     def __repr__(self):
-        return '%s(%s)' % (_type_repr(self.__class__), _type_repr(self.__type__))
+        return '%s(%s)' % (_type_repr(self.__class__),
+                           _type_repr(self.__type__))
 
 
 def cast(typ, val):

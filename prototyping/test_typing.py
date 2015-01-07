@@ -97,9 +97,11 @@ class TypeVarTests(TestCase):
         self.assertNotEqual(TypeVar('T', int, str), TypeVar('T', int, str))
 
     def test_subclass_as_unions(self):
-        self.assertTrue(issubclass(TypeVar('T', int, str), TypeVar('T', int, str)))
+        self.assertTrue(issubclass(TypeVar('T', int, str),
+                                   TypeVar('T', int, str)))
         self.assertTrue(issubclass(TypeVar('T', int), TypeVar('T', int, str)))
-        self.assertTrue(issubclass(TypeVar('T', int, str), TypeVar('T', str, int)))
+        self.assertTrue(issubclass(TypeVar('T', int, str),
+                                   TypeVar('T', str, int)))
         A = TypeVar('A', int, str)
         B = TypeVar('B', int, str, float)
         self.assertTrue(issubclass(A, B))
