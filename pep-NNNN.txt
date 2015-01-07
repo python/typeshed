@@ -8,7 +8,7 @@ Status: Draft
 Type: Standards Track
 Content-Type: text/x-rst
 Created: 29-Sep-2014
-Post-History: 
+Post-History:
 Resolution:
 
 
@@ -85,25 +85,21 @@ elements.  Example::
   def notify_by_email(employees: Set[Employee], overrides: Mapping[str, str]): ...
 
 Generics can be parametrized by using a new factory available in
-``collections.abc`` called ``Var``.  Example::
+``collections.abc`` called ``TypeVar``.  Example::
 
-  T = Var('T')      # Declare type variable
+  T = TypeVar('T')      # Declare type variable
 
   def first(l: Sequence[T]) -> T:   # Generic function
       return l[0]
 
-.. FIXME: Maybe rename Var to TypeVar to avoid confusion with simple
-          variables and a possible future syntax of the form 
-          var name: type = value
-
 In this case the contract is that the returning value is consistent with
 the elements held by the collection.
 
-``Var`` supports constraining parametric types to classes with any of
+``TypeVar`` supports constraining parametric types to classes with any of
 the specified bases.  Example::
 
-  X = Var('X')
-  Y = Var('Y', Iterable[X])
+  X = TypeVar('X')
+  Y = TypeVar('Y', Iterable[X])
 
   def filter(rule: Callable[[X], bool], input: Y) -> Y:
       ...
@@ -201,8 +197,8 @@ complex cases, a comment of the following format may be used::
 
   x = []   # type: List[Employee]
 
-If type hinting proves useful in general, a variable typing in syntax may
-be provided in a future Python version.
+If type hinting proves useful in general, a syntax for typing variables
+may be provided in a future Python version.
 
 
 Explicit raised exceptions
@@ -246,7 +242,7 @@ new members are defined:
 
 * Union
 
-* Var
+* TypeVar
 
 All available abstract base classes are importable:
 
@@ -295,7 +291,7 @@ All available abstract base classes are importable:
 
 The following helper types are also provided by the ``typing`` module:
 
-* AnyStr, equivalent to ``Var('AnyStr', str, bytes)``
+* AnyStr, equivalent to ``TypeVar('AnyStr', str, bytes)``
 
 * Match and Pattern, types of ``re.match()`` and ``re.compile()`` results
 
