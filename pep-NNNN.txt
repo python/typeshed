@@ -18,11 +18,13 @@ Abstract
 This PEP introduces a standard syntax for type hints using annotations
 on function definitions.
 
+The proposal is strongly inspired by mypy [mypy]_.
+
 
 Rationale and Goals
 ===================
 
-PEP 3107 [#pep-3107]_ added support for arbitrary annotations on parts
+PEP 3107 [pep-3107]_ added support for arbitrary annotations on parts
 of a function definition.  Although no meaning was assigned to
 annotations then, there has always been an implicit goal to use them
 for type hinting, which is listed as the first possible use case in
@@ -311,8 +313,8 @@ Usage Patterns
 
 The main use case of type hinting is static analysis using an external
 tool without executing the analyzed program.  Existing tools used for
-that purpose like ``pyflakes`` [#pyflakes]_ or ``pylint`` [#pylint]_
-might be extended to support type checking.  New tools, like MyPy's
+that purpose like ``pyflakes`` [pyflakes]_ or ``pylint`` [pylint]_
+might be extended to support type checking.  New tools, like mypy's
 ``mypy -S`` mode, can be adopted specifically for this purpose.
 
 Type checking based on type hints is understood as a best-effort
@@ -337,14 +339,14 @@ Existing Approaches in Python
 Cython and Numba
 ----------------
 
-Numba [#numba]_ is a *just-in-time* specializing compiler producing
+Numba [numba]_ is a *just-in-time* specializing compiler producing
 optimized native code from annotated Python and NumPy code.
 
 obiwan
 ------
 
-obiwan [#obiwan]_ is a library enabling runtime type checking inspired
-by TypeScript [#typescript]_ (see `Existing Approaches in Other
+obiwan [obiwan]_ is a library enabling runtime type checking inspired
+by TypeScript [typescript]_ (see `Existing Approaches in Other
 Languages <#typescript>`_).  The syntax leverages function annotations,
 extending it to validate callback functions, elements of dictionaries
 and lists.  Type checkers might be functions, in which case a type is
@@ -364,7 +366,7 @@ Examples::
 pytypedecl
 ----------
 
-pytypedecl [#pytypedecl]_ consists of a type declaration language for
+pytypedecl [pytypedecl]_ consists of a type declaration language for
 Python and an optional runtime type checker.  Type declarations for
 ``module.py`` are kept in a separate file called ``module.pytd``.  This
 solves issues with declaration ordering.
@@ -385,7 +387,7 @@ Example::
 Argument Clinic
 ---------------
 
-Argument Clinic [#argumentclinic]_ is a preprocessor for CPython
+Argument Clinic [argumentclinic]_ is a preprocessor for CPython
 C files, automating maintenance of argument parsing code for “builtins”.
 
 Example argument declaration::
@@ -418,7 +420,7 @@ Example argument declaration::
 NumPy
 -----
 
-NumPy [#numpy]_ is an extension to Python adding support for
+NumPy [numpy]_ is an extension to Python adding support for
 multi-dimensional arrays, matrices and operations to operate on those.
 
 The project requires typing information in the API documentation.  There
@@ -457,7 +459,7 @@ Existing Approaches in Other Languages
 ActionScript
 ------------
 
-ActionScript [#actionscript]_ is a class-based, single inheritance,
+ActionScript [actionscript]_ is a class-based, single inheritance,
 object-oriented superset of ECMAScript.  It supports inferfaces and
 strong runtime-checked static typing.  Compilation supports a “strict
 dialect” where type mismatches are reported at compile-time.
@@ -489,7 +491,7 @@ Example code with types::
 Dart
 ----
 
-Dart [#dart]_ is a class-based, single inheritance, object-oriented
+Dart [dart]_ is a class-based, single inheritance, object-oriented
 language with C-style syntax.  It supports interfaces, abstract classes,
 reified generics, and optional typing.
 
@@ -515,7 +517,7 @@ Example code with types::
 Hack
 ----
 
-Hack [#hack]_ is a programming language that interoperates seamlessly
+Hack [hack]_ is a programming language that interoperates seamlessly
 with PHP.  It provides opt-in static type checking, type aliasing,
 generics, nullable types, and lambdas.
 
@@ -542,7 +544,7 @@ Example code with types::
 TypeScript
 ----------
 
-TypeScript [#typescript]_ is a typed superset of JavaScript that adds
+TypeScript [typescript]_ is a typed superset of JavaScript that adds
 interfaces, classes, mixins and modules to the language.
 
 Type checks are duck typed.  Multiple valid function signatures are
@@ -623,38 +625,44 @@ the toggle for runtime checks.
 References
 ==========
 
-.. [#pep-3107]
+.. [pep-3107]
    http://www.python.org/dev/peps/pep-3107/
 
-.. [#mypy]
-   https://github.com/JukkaL/mypy
+.. [mypy]
+   http://mypy-lang.org
 
-.. [#obiwan]
+.. [obiwan]
    http://pypi.python.org/pypi/obiwan
 
-.. [#numba]
+.. [numba]
    http://numba.pydata.org
 
-.. [#pytypedecl]
+.. [pytypedecl]
    https://github.com/google/pytypedecl
 
-.. [#argumentclinic]
+.. [argumentclinic]
    https://docs.python.org/3/howto/clinic.html
 
-.. [#numpy]
+.. [numpy]
    http://www.numpy.org
 
-.. [#typescript]
-   http://www.typescriptlang.org/
+.. [typescript]
+   http://www.typescriptlang.org
 
-.. [#hack]
-   http://hacklang.org/
+.. [hack]
+   http://hacklang.org
 
-.. [#dart]
-   https://www.dartlang.org/
+.. [dart]
+   https://www.dartlang.org
 
-.. [#actionscript]
+.. [actionscript]
    http://livedocs.adobe.com/specs/actionscript/3/
+
+.. [pyflakes]
+   https://github.com/pyflakes/pyflakes/
+
+.. [pylint]
+   http://www.pylint.org
 
 
 Copyright
