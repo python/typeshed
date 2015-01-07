@@ -19,7 +19,7 @@
 # - IO, BinaryIO, TextIO (?)
 # - Match (?)
 # - Pattern (?)
-# - cast
+# - [done] cast
 # - forwardref
 # - overload
 # - [done] typevar (alias for TypeVar)
@@ -756,3 +756,16 @@ class Generic(metaclass=GenericMeta):
       def lookup_name(mapping: Mapping[X, Y], key: X, default: Y) -> Y:
           # Same body as above.
     """
+
+
+def cast(typ, val):
+    """Cast a value to a type.
+
+    This returns the value unchanged.  To the type checker this
+    signals that the return value has the designated type, but at
+    runtime we intentionally don't check this.  However, we do
+    insist that the first argument is a type.
+    """
+    if not isinstance(typ, type):
+        raise TypeError("Cannot cast to %r -- must be a type" % (typ,))
+    return val

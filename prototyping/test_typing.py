@@ -6,6 +6,7 @@ from typing import Union, Optional
 from typing import Tuple
 from typing import Callable
 from typing import Generic
+from typing import cast
 
 
 class Employee:
@@ -605,3 +606,15 @@ class GenericTests(TestCase):
         assert Y.__module__ == __name__
         assert Y.__qualname__ == 'GenericTests.test_repr_2.<locals>.Y'
         assert repr(Y).split('.')[-1] == 'Y[int]'
+
+
+class CastTest(TestCase):
+
+    def test_basics(self):
+        assert cast(int, 42) == 42
+        assert cast(float, 42) == 42
+        assert type(cast(float, 42)) is int
+        assert cast(Any, 42) == 42
+        assert cast(list, 42) == 42
+        assert cast(Union[str, float], 42) == 42
+        assert cast(AnyStr, 42) == 42
