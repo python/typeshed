@@ -22,30 +22,40 @@ Work in progress notes
 
 * Putting new things in ``collections.abc`` seems fine as long as those
   new elements are actual abstract base classes that are collections.
-  I lessened this latter requirement since there's non-collection
+  I (Łukasz) lessened this latter requirement since there's non-collection
   precedent in ``abc``, namely ``Callable``, and ``Hashable``.
+  However, attempts at implementing reasonable runtime behavior
+  suggests that it may be better to leave ``collections.abc`` alone.
 
 * ``Var('T')`` is put in ``collections.abc`` as a helper with generics
-  and covariance/contravariance in ABCs
+  and covariance/contravariance in ABCs.  May be renamed to ``TypeVar``.
+  The co-/contravariance behavior requires more thinking.
 
 * ``AnyStr`` (and consequently ``IO``) smells like basestring in
-  disguise, what is the use case for Python 3?
+  disguise, what is the use case for Python 3?  Answer: There are
+  lots of things in the stdlib that are essentially overloaded as
+  str-in-str-out and bytes-in-bytes-out; ``AnyStr`` has exactly the
+  right behavior for this (unlike ``Union[str, bytes]``).
 
-* ``Undefined`` smells like JavaScript, I left it out for now
+* ``Undefined`` smells like JavaScript, I left it out for now.
+  However, mypy needs it.  See https://github.com/ambv/typehinting/issues/20
 
 * The addition of ``Match`` and ``Pattern`` seems arbitrary and should
   rather be fixed in ``re`` directly, with the types just imported in
   ``typing``. If so, are there any other potentially useful types we'd
-  like?
+  like?  See https://github.com/ambv/typehinting/issues/23
 
 * I left out ``overload`` because I don't understand its purpose. If we
-  need generic dispatch, we should add it to ``functools``
+  need generic dispatch, we should add it to ``functools``.
+  Perhaps ``overload`` should only be allowed in stub modules?
+  See https://github.com/ambv/typehinting/issues/14
 
 * I left out specifying protocols as they are an ABC implementation
   detail from the perspective of this PEP. However, they should be
   defined in a separate PEP because making ``__subclasshook__`` less
   dynamic when possible (which is often) would make ABCs much better
-  behaved in static analysis contexts
+  behaved in static analysis contexts.
+  See https://github.com/ambv/typehinting/issues/11
 
 * Having the last thing in mind, ``IO``, ``BinaryIO`` and ``TextIO``
   would simply be new abstract base classes, usable with or without type
@@ -60,11 +70,14 @@ Work in progress notes
     ...
     well_typed_list = bad_typed_list  # type: List[int]
 
+  See https://github.com/ambv/typehinting/issues/15
+
 * I removed ``mypy`` from the listed "existing approaches" since we
-  basically describe what MyPy is
+  basically describe what mypy is
 
 * I thought if introducing optional contravariance/invariance to ``Var``
-  has merit but I'm undecided; definitely complicates the type checker
+  has merit but I'm undecided; definitely complicates the type checker.
+  See https://github.com/ambv/typehinting/issues/2
 
 
 Changes to MyPy coming from this proposal
@@ -73,21 +86,23 @@ Changes to MyPy coming from this proposal
 * ``typevar`` becomes ``Var('T')`` and its semantics support specifying
   base type constraints. If we decide to add optional invariance or
   contravariance, this will be the place, too.
+  Or perhaps ``TypeVar('T')``.  See
+  https://github.com/JukkaL/mypy/issues/539 and
+  https://github.com/ambv/typehinting/issues/1 and
+  https://github.com/ambv/typehinting/issues/2 and maybe others.
+  
 
-* ``collections.abc.Union`` behaves differently, it holds the defined
-  types to be able to actually respond to issubclass. Consequently,
-  ``typing.AnyStr`` becomes an ``Union`` instead of ``typevar('AnyStr',
-  values=(str, bytes))`` (which is consciously impossible to express in
-  the ``Var`` notation, unless you're using a Union as ``base=``)
+* ``Union`` behaves differently, it holds the defined types in order
+  to be able to actually respond to issubclass.
 
 * ``typing.Function`` becomes ``typing.Callable``, which is equivalent
-  to ``collections.abc.Callable``
+  to ``collections.abc.Callable``.  (Has now been implemented in mypy.)
 
 
 Open issues
 -----------
 
-* How to make the union type land in __annotations__ for the ``x:str
+* How to make the union type land in __annotations__ for the ``x: str
   = None`` case?
 
 * State of the art: should we list decorator-based approaches
@@ -100,13 +115,13 @@ Open issues
 
 * is multiple dispatch using type hints in scope for this PEP?
 
-* should we mention platform- or Python-specific typing? Guido mentioned
+* should we mention platform- or version-specific typing? Guido mentioned
   Windows vs. POSIX during the Skype meeting.
 
 * it would be useful to have a ``Subclass[]`` factory that would be
   equivalent to "any class that has the all the following classes in its
   MRO".  Maybe we'd want to rename union to ``Any[]`` and this new
-  proposed type to ``All[]``?
+  proposed type to ``All[]``?  See https://github.com/ambv/typehinting/issues/18
 
 * Callable signature definition should be explained and support all
   valid function signatures
