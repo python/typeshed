@@ -622,6 +622,9 @@ class UndefinedTest(TestCase):
     def test_errors(self):
         with self.assertRaises(TypeError):
             x = Undefined(42)
+        u = Undefined(int)
+        with self.assertRaises(TypeError):
+            {u: 42}
 
     def test_repr(self):
         self.assertEqual(repr(Undefined(Any)), 'typing.Undefined(typing.Any)')
