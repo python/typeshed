@@ -1,6 +1,6 @@
 # TODO:
 # [done] Any
-# [done] Var (type variables)
+# [done] TypeVar (type variables)
 # [done] T, KT, VT, AnyStr
 # [done] Union, Optional
 # [done] Tuple
@@ -22,7 +22,7 @@
 # - cast
 # - forwardref
 # - overload
-# - [done] typevar (alias for Var)
+# - [done] typevar (alias for TypeVar)
 # Even more things from mypy's typing.py (that aren't in its __all__)
 
 # TODO nits:
@@ -129,18 +129,18 @@ class Any(Final, metaclass=AnyMeta, _root=True):
     """
 
 
-class Var(TypingMeta, metaclass=TypingMeta, _root=True):
+class TypeVar(TypingMeta, metaclass=TypingMeta, _root=True):
     """Type variable.
 
     Usage::
 
-      T1 = Var('T1')  # Unconstrained
-      T2 = Var('T2', t1, t2, ...)  # Constrained to any of (t1, t2, ...)
+      T1 = TypeVar('T1')  # Unconstrained
+      T2 = TypeVar('T2', t1, t2, ...)  # Constrained to any of (t1, t2, ...)
 
     For an unconstrained type variable T, isinstance(x, T) is false
     for all x, and similar for issubclass(cls, T).  Example::
 
-      T = Var('T')
+      T = TypeVar('T')
       assert not isinstance(42, T)
       assert not issubclass(int, T)
 
@@ -148,7 +148,7 @@ class Var(TypingMeta, metaclass=TypingMeta, _root=True):
     any x that is an instance of at least one of T's constraints,
     and similar for issubclass(cls, T).  Example::
 
-      AnyStr = Var('AnyStr', str, bytes)
+      AnyStr = TypeVar('AnyStr', str, bytes)
       # AnyStr behaves similar to Union[str, bytes] (but not exactly!)
       assert not isinstance(42, AnyStr)
       assert isinstance('', AnyStr)
@@ -189,7 +189,7 @@ class Var(TypingMeta, metaclass=TypingMeta, _root=True):
 
     def __new__(cls, name, *constraints):
         self = super().__new__(cls, name, (Final,), {}, _root=True)
-        msg = "Var(name, constraint, ...): constraints must be types."
+        msg = "TypeVar(name, constraint, ...): constraints must be types."
         self.__constraints__ = tuple(_type_check(t, msg) for t in constraints)
         self.__binding__ = None
         return self
@@ -216,7 +216,7 @@ class Var(TypingMeta, metaclass=TypingMeta, _root=True):
             return issubclass(cls, Union[self.__constraints__])
 
     def bind(self, binding):
-        binding = _type_check(binding, "Var.bind(t): t must be a type.")
+        binding = _type_check(binding, "TypeVar.bind(t): t must be a type.")
         if self.__constraints__:
             best = None
             for t in self.__constraints__:
@@ -225,7 +225,7 @@ class Var(TypingMeta, metaclass=TypingMeta, _root=True):
                     best = t
             if best is None:
                 raise TypeError(
-                    "Var.bind(t): t must match one of the constraints.")
+                    "TypeVar.bind(t): t must match one of the constraints.")
             binding = best
         return VarBinding(self, binding)
 
@@ -242,11 +242,11 @@ class Var(TypingMeta, metaclass=TypingMeta, _root=True):
 
 # Compatibility for for mypy's typevar().
 def typevar(name, values=()):
-    return Var(name, *values)
+    return TypeVar(name, *values)
 
 
 class VarBinding:
-    """Variable binding returned by Var.bind()."""
+    """TypeVariable binding returned by TypeVar.bind()."""
 
     # TODO: This is not thread-safe.  We could solve this in one of
     # two ways: by using a lock or by using thread-local state.  But
@@ -254,7 +254,7 @@ class VarBinding:
     # e.g. in an asyncio Task.
 
     def __init__(self, var, binding):
-        assert isinstance(var, Var), (var, binding)
+        assert isinstance(var, TypeVar), (var, binding)
         assert isinstance(binding, type), (var, binding)
         self._var = var
         self._binding = binding
@@ -291,13 +291,13 @@ class VarBinding:
 
 
 # Some unconstrained type variables.  These are used by the container types.
-T = Var('T')  # Any type.
-KT = Var('KT')  # Key type.
-VT = Var('VT')  # Value type.
+T = TypeVar('T')  # Any type.
+KT = TypeVar('KT')  # Key type.
+VT = TypeVar('VT')  # Value type.
 
 # A useful type variable with constraints.  This represents string types.
 # TODO: What about bytearray, memoryview?
-AnyStr = Var('AnyStr', bytes, str)
+AnyStr = TypeVar('AnyStr', bytes, str)
 
 
 class UnionMeta(TypingMeta):
@@ -381,7 +381,7 @@ class UnionMeta(TypingMeta):
             if cls.__union_params__ is None:
                 return False
             return all(issubclass(c, self) for c in (cls.__union_params__))
-        elif isinstance(cls, Var):
+        elif isinstance(cls, TypeVar):
             if cls in self.__union_params__:
                 return True
             if cls.__constraints__:
@@ -680,7 +680,7 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
                         params = []
                     for bp in base.__parameters__:
                         if isinstance(bp, TypingMeta):
-                            if not isinstance(bp, Var):
+                            if not isinstance(bp, TypeVar):
                                 raise TypeError(
                                     "Cannot inherit from a generic class "
                                     "parameterized with a "
@@ -709,7 +709,7 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         params = tuple(_type_check(p, msg) for p in params)
         if self.__parameters__ is None:
             for p in params:
-                if not isinstance(p, Var):
+                if not isinstance(p, TypeVar):
                     raise TypeError("Initial parameters must be "
                                     "type variables; got %s" % p)
         else:
@@ -717,8 +717,8 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
                 raise TypeError("Cannot change parameter count from %d to %d" %
                                 (len(self.__parameters__), len(params)))
             for new, old in zip(params, self.__parameters__):
-                if isinstance(old, Var) and not old.__constraints__:
-                    # Substituting for an unconstrained Var is always OK.
+                if isinstance(old, TypeVar) and not old.__constraints__:
+                    # Substituting for an unconstrained TypeVar is always OK.
                     continue
                 if not issubclass(new, old):
                     raise TypeError(
@@ -751,8 +751,8 @@ class Generic(metaclass=GenericMeta):
 
     For clarity the type variables may be redefined, e.g.::
 
-      X = Var('X')
-      Y = Var('Y')
+      X = TypeVar('X')
+      Y = TypeVar('Y')
       def lookup_name(mapping: Mapping[X, Y], key: X, default: Y) -> Y:
           # Same body as above.
     """

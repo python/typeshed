@@ -1,7 +1,7 @@
 from unittest import TestCase, mock
 
 from typing import Any
-from typing import Var, T, KT, VT, AnyStr
+from typing import TypeVar, T, KT, VT, AnyStr
 from typing import Union, Optional
 from typing import Tuple
 from typing import Callable
@@ -68,7 +68,7 @@ class AnyTests(TestCase):
             Any[int]
 
 
-class VarTests(TestCase):
+class TypeVarTests(TestCase):
 
     def test_isinstance(self):
         self.assertNotIsInstance(42, T)
@@ -91,31 +91,31 @@ class VarTests(TestCase):
         self.assertEqual(repr(AnyStr), '~AnyStr')
 
     def test_no_redefinition(self):
-        self.assertNotEqual(Var('T'), Var('T'))
-        self.assertNotEqual(Var('T', int, str), Var('T', int, str))
+        self.assertNotEqual(TypeVar('T'), TypeVar('T'))
+        self.assertNotEqual(TypeVar('T', int, str), TypeVar('T', int, str))
 
     def test_subclass_as_unions(self):
-        self.assertTrue(issubclass(Var('T', int, str), Var('T', int, str)))
-        self.assertTrue(issubclass(Var('T', int), Var('T', int, str)))
-        self.assertTrue(issubclass(Var('T', int, str), Var('T', str, int)))
-        A = Var('A', int, str)
-        B = Var('B', int, str, float)
+        self.assertTrue(issubclass(TypeVar('T', int, str), TypeVar('T', int, str)))
+        self.assertTrue(issubclass(TypeVar('T', int), TypeVar('T', int, str)))
+        self.assertTrue(issubclass(TypeVar('T', int, str), TypeVar('T', str, int)))
+        A = TypeVar('A', int, str)
+        B = TypeVar('B', int, str, float)
         self.assertTrue(issubclass(A, B))
         self.assertFalse(issubclass(B, A))
 
     def test_cannot_subclass_vars(self):
         with self.assertRaises(TypeError):
-            class V(Var('T')):
+            class V(TypeVar('T')):
                 pass
 
     def test_cannot_subclass_var_itself(self):
         with self.assertRaises(TypeError):
-            class V(Var):
+            class V(TypeVar):
                 pass
 
     def test_cannot_instantiate_vars(self):
         with self.assertRaises(TypeError):
-            Var('A')()
+            TypeVar('A')()
 
     def test_bind(self):
         self.assertNotIsInstance(42, T)  # Baseline.
@@ -154,9 +154,9 @@ class VarTests(TestCase):
     def test_bind_fail(self):
         # This essentially tests what happens when __enter__() raises
         # an exception.  __exit__() won't be called, but the
-        # VarBinding and the Var are still in consistent states.
+        # VarBinding and the TypeVar are still in consistent states.
         bv = T.bind(int)
-        with mock.patch('typing.Var._bind', side_effect=RuntimeError):
+        with mock.patch('typing.TypeVar._bind', side_effect=RuntimeError):
             with self.assertRaises(RuntimeError):
                 with bv:
                     self.assertFalse("Should not get here")
@@ -276,11 +276,11 @@ class UnionTests(TestCase):
             Union[()]
 
 
-class VarUnionTests(TestCase):
+class TypeVarUnionTests(TestCase):
 
     def test_simpler(self):
-        A = Var('A', int, str, float)
-        B = Var('B', int, str)
+        A = TypeVar('A', int, str, float)
+        B = TypeVar('B', int, str)
         assert issubclass(A, A)
         assert issubclass(B, B)
         assert issubclass(B, A)
@@ -297,7 +297,7 @@ class VarUnionTests(TestCase):
         self.assertTrue(issubclass(KT, Union[KT, VT]))
 
     def test_var_union(self):
-        TU = Var('TU', Union[int, float])
+        TU = TypeVar('TU', Union[int, float])
         self.assertIsInstance(42, TU)
         self.assertIsInstance(3.14, TU)
         self.assertNotIsInstance('', TU)
@@ -311,7 +311,7 @@ class VarUnionTests(TestCase):
                 self.assertFalse("Should not get here")
 
     def test_var_union_and_more_precise(self):
-        TU = Var('TU', Union[int, float], int)
+        TU = TypeVar('TU', Union[int, float], int)
         with TU.bind(int):
             # The binding is ambiguous, but the second alternative
             # is strictly more precise.  Choose the more precise match.
@@ -326,7 +326,7 @@ class VarUnionTests(TestCase):
             self.assertNotIsInstance('', TU)
 
     def test_var_union_overlapping(self):
-        TU = Var('TU', Union[int, float], Union[float, str])
+        TU = TypeVar('TU', Union[int, float], Union[float, str])
         with TU.bind(int):
             # The effective binding is the first union.
             self.assertIsInstance(42, TU)
@@ -522,8 +522,8 @@ class CallableTests(TestCase):
             c()
 
 
-XK = Var('XK', str, bytes)
-XV = Var('XV')
+XK = TypeVar('XK', str, bytes)
+XV = TypeVar('XV')
 
 
 class SimpleMapping(Generic[XK, XV]):
@@ -573,8 +573,8 @@ class GenericTests(TestCase):
                          __name__ + '.' + 'SimpleMapping[~XK, ~XV]')
         self.assertEqual(repr(MySimpleMapping),
                          __name__ + '.' + 'MySimpleMapping[~XK, ~XV]')
-        A = Var('A', str)  # Must be a subclass of XK.
-        B = Var('B')
+        A = TypeVar('A', str)  # Must be a subclass of XK.
+        B = TypeVar('B')
 
         class X(SimpleMapping[A, B]):
             pass
