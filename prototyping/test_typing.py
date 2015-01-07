@@ -6,6 +6,7 @@ from typing import Union, Optional
 from typing import Tuple
 from typing import Callable
 from typing import Generic
+from typing import Undefined
 from typing import cast
 
 
@@ -608,6 +609,22 @@ class GenericTests(TestCase):
         assert repr(Y).split('.')[-1] == 'Y[int]'
 
 
+class UndefinedTest(TestCase):
+
+    def test_basics(self):
+        x = Undefined(int)
+        x = Undefined(Any)
+        x = Undefined(Union[int, str])
+        x = Undefined(None)
+
+    def test_errors(self):
+        with self.assertRaises(TypeError):
+            x = Undefined(42)
+
+    def test_repr(self):
+        self.assertEqual(repr(Undefined(Any)), 'typing.Undefined(typing.Any)')
+
+
 class CastTest(TestCase):
 
     def test_basics(self):
@@ -618,3 +635,10 @@ class CastTest(TestCase):
         assert cast(list, 42) == 42
         assert cast(Union[str, float], 42) == 42
         assert cast(AnyStr, 42) == 42
+        assert cast(None, 42) == 42
+
+    def test_errors(self):
+        with self.assertRaises(TypeError):
+            cast(42, 42)
+        with self.assertRaises(TypeError):
+            cast('hello', 42)

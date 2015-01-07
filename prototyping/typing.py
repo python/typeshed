@@ -15,7 +15,7 @@
 #   ByteString
 # List, Dict, Set; FrozenSet?
 # Other things from mypy's typing.py:
-# - Undefined
+# - [done] Undefined
 # - IO, BinaryIO, TextIO (?)
 # - Match (?)
 # - Pattern (?)
@@ -95,7 +95,6 @@ def _type_repr(obj):
     else, we fall back on repr(obj).
     """
     if isinstance(obj, type) and not isinstance(obj, TypingMeta):
-        # The ~ is to have some indication the string was produced here.
         if obj.__module__ == 'builtins':
             return obj.__qualname__
         else:
@@ -758,6 +757,34 @@ class Generic(metaclass=GenericMeta):
     """
 
 
+class Undefined:
+    """An undefined value.
+
+    Example::
+
+      x = Undefined(typ)
+
+    This tells the type checker that x has the given type but its
+    value should be considered undefined.  At runtime x is an instance
+    of Undefined.  The actual type can be introspected by looking at
+    x.__type__ and its str() and repr() are defined, but any other
+    operations or attributes will raise an exception.
+    """
+
+    __slots__ = ['__type__']
+
+    def __new__(cls, typ):
+        typ = _type_check(typ, "Undefined(t): t must be a type.")
+        self = super().__new__(cls)
+        self.__type__ = typ
+        return self
+
+    __hash__ = None
+
+    def __repr__(self):
+        return '%s(%s)' % (_type_repr(self.__class__), _type_repr(self.__type__))
+
+
 def cast(typ, val):
     """Cast a value to a type.
 
@@ -766,6 +793,5 @@ def cast(typ, val):
     runtime we intentionally don't check this.  However, we do
     insist that the first argument is a type.
     """
-    if not isinstance(typ, type):
-        raise TypeError("Cannot cast to %r -- must be a type" % (typ,))
+    _type_check(typ, "cast(t, v): t must be a type.")
     return val
