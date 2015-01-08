@@ -715,10 +715,11 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
     def __eq__(self, other):
         if not isinstance(other, GenericMeta):
             return NotImplemented
-        return other.__parameters__ == self.__parameters__
+        return (self.__name__ == other.__name__ and
+                self.__parameters__ == other.__parameters__)
 
     def __hash__(self):
-        return hash(self.__parameters__)
+        return hash((self.__name__, self.__parameters__))
 
     def __getitem__(self, params):
         if not isinstance(params, tuple):

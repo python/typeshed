@@ -610,6 +610,24 @@ class GenericTests(TestCase):
         assert Y.__qualname__ == 'GenericTests.test_repr_2.<locals>.Y'
         assert repr(Y).split('.')[-1] == 'Y[int]'
 
+    def test_eq_1(self):
+        assert Generic == Generic
+        assert Generic[T] == Generic[T]
+        assert Generic[KT] != Generic[VT]
+
+    def test_eq_2(self):
+
+        class A(Generic[T]):
+            pass
+
+        class B(Generic[T]):
+            pass
+
+        assert A == A
+        assert A != B
+        assert A[T] == A[T]
+        assert A[T] != B[T]
+
 
 class UndefinedTest(TestCase):
 
