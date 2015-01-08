@@ -32,6 +32,7 @@
 import abc
 import collections.abc
 import inspect
+import sys
 import types
 
 
@@ -51,7 +52,7 @@ class TypingMeta(type):
     def __new__(cls, name, bases, namespace, *, _root=False):
         if not _root:
             raise TypeError("Cannot subclass %s" %
-                            (', '.join(map(_type_repr, bases))))
+                            (', '.join(map(_type_repr, bases)) or '()'))
         return super().__new__(cls, name, bases, namespace)
 
     def __init__(self, *args, **kwds):
@@ -687,6 +688,19 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
                             params.append(bp)
             if params is not None:
                 parameters = tuple(params)
+
+        # Check the caller's locals to see if we're overriding a
+        # forward reference.  If so, update the class in place.
+        f = sys._getframe(1)
+        if f.f_locals and name in f.f_locals:
+            overriding = f.f_locals[name]
+            if (isinstance(overriding, cls) and
+                overriding.__bases__ == bases and
+                overriding.__parameters__ == parameters):
+                self = overriding
+                for k, v in namespace.items():
+                    setattr(self, k, v)
+                return self
         self = super().__new__(cls, name, bases, namespace, _root=True)
         self.__parameters__ = parameters
         return self
@@ -697,6 +711,14 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
             r += '[%s]' % (
                 ', '.join(_type_repr(p) for p in self.__parameters__))
         return r
+
+    def __eq__(self, other):
+        if not isinstance(other, GenericMeta):
+            return NotImplemented
+        return other.__parameters__ == self.__parameters__
+
+    def __hash__(self):
+        return hash(self.__parameters__)
 
     def __getitem__(self, params):
         if not isinstance(params, tuple):

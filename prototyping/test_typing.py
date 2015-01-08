@@ -647,3 +647,28 @@ class CastTest(TestCase):
             cast(42, 42)
         with self.assertRaises(TypeError):
             cast('hello', 42)
+
+
+class ForwardRefTest(TestCase):
+
+    def test_basics(self):
+
+        class Node(Generic[T]):
+            pass  # Foward reference
+
+        save_Node = Node
+
+        class Node(Generic[T]):
+
+            def __init__(self, label: T):
+                self.label = label
+                self.left = self.right = None
+
+            def add_left(self, node: Optional[Node[T]]):
+                self.left = node
+
+        assert Node is save_Node
+
+        t = Node[int]
+        ann = t.add_left.__annotations__
+        assert ann['node'] == Optional[Node[T]]
