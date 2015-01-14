@@ -72,6 +72,23 @@ Type aliases are also valid type hints::
   def retry(url: str, retry_count: integer): ...
 
 
+Callbacks
+---------
+
+Frameworks expecting callback functions of specific signatures might be
+type hinted using ``Callable[[Arg1Type, Arg2Type], ReturnType]``. Examples::
+
+  def feeder(get_next_item: Callable[[], Item]): ...
+
+  def async_query(on_success: Callable[[int], None], on_error: Callable[[int, Exception], None]): ...
+
+  def partial(func: Callable[AnyArgs, Any], *args): ...
+
+Since using callbacks with keyword arguments is not perceived as
+a common use case, there is currently no support for specifying keyword
+arguments with ``Callable``.
+
+
 Generics
 --------
 
@@ -85,7 +102,7 @@ elements.  Example::
   def notify_by_email(employees: Set[Employee], overrides: Mapping[str, str]): ...
 
 Generics can be parametrized by using a new factory available in
-``collections.abc`` called ``TypeVar``.  Example::
+``typing`` called ``TypeVar``.  Example::
 
   T = TypeVar('T')      # Declare type variable
 
@@ -157,8 +174,8 @@ for example, the above is equivalent to::
 
   def handle_employee(e: Optional[Employee]): ...
 
-An optional type is also automatically assumed when the default value
-is ``None``, for example:
+An optional type is also automatically assumed when the default value is
+``None``, for example::
 
   def handle_employee(e: Employee = None): ...
 
@@ -173,6 +190,41 @@ A special kind of union type is ``Any``, a class that responds
 explicitly state that there are no constraints on the type of a
 specific argument or return value.
 
+Platform-specific type checking
+-------------------------------
+
+In some cases the typing information will depend on the platform that
+the program is being executed on.  To enable specifying those
+differences, simple conditionals can be used::
+
+  if PY2:
+      text = unicode
+  else:
+      text = str
+
+  def f() -> text: ...
+
+  if WINDOWS:
+      loop = ProactorEventLoop
+  else:
+      loop = UnixSelectorEventLoop
+
+Arbitrary literals defined in the form of ``NAME = True`` will also be
+accepted by the type checker to differentiate type resolution::
+
+  DEBUG = False
+  ...
+  if DEBUG:
+      class Tracer:
+          <verbose implementation>
+  else:
+      class Tracer:
+          <dummy implementation>
+
+For the purposes of type hinting, the type checker assumes ``__debug__``
+is set to ``True``, in other words the ``-O`` command-line option is not
+used while type checking.
+
 
 Compatibility with other uses of function annotations
 -----------------------------------------------------
@@ -185,7 +237,14 @@ and storing annotations in the ``__annotations__`` attribute of the
 function object), this does not make the program incorrect -- it just
 makes it issue warnings when a static analyzer is used.
 
-.. FIXME: Define a way to shut up the static analyzer for a module, class or function.
+To mark portions of the program that should not be covered by type
+hinting, use the following:
+
+* a ``@no_type_checks`` decorator on classes and functions
+
+* a ``# type: ignore`` comment on arbitrary lines
+
+.. FIXME: should we have a module-wide comment as well?
 
 
 Type Hints on Local and Global Variables
@@ -196,6 +255,12 @@ of a specific type is added by this PEP.  To help with type inference in
 complex cases, a comment of the following format may be used::
 
   x = []   # type: List[Employee]
+
+In the case where type information for a local variable is needed before
+if was declared, an ``Undefined`` placeholder might be used::
+
+  x = Undefined   # type: List[Employee]
+  y = Undefined(int)
 
 If type hinting proves useful in general, a syntax for typing variables
 may be provided in a future Python version.
@@ -210,14 +275,13 @@ documentational, in which case the recommendation is to put this
 information in a docstring.
 
 
-The ``typing`` module
-=====================
+The ``typing`` package
+======================
 
-.. FIXME: Reconsider changing collections.abc, in favor of requiring
-          the new types to be import from typing.py.
-
-To enable generics on builtin types, a set of classes is introduced in
-a new module called ``typing``. Those classes are as follows:
+To open the usage of static type checking to Python 3.5 as well as older
+versions, a uniform namespace is required.  For this purpose, a new
+package in the standard library is introduced called ``typing``.  It
+holds a set of classes representing builtin types with generics, namely:
 
 * Dict, used as ``Dict[key_type, value_type]``
 
@@ -233,18 +297,28 @@ a new module called ``typing``. Those classes are as follows:
   case the following arguments are considered the same type as the last
   defined type on the tuple.
 
-To open the usage of static type checking to Python 3 versions older
-than 3.5, the new and modified types found in the ``collections.abc``
-module are also importable from the ``typing`` module.  The following
-new members are defined:
+It also introduces factories and helper members needed to express
+generics and union types:
 
-* Any
+* Any, used as ``def get(key: str) -> Any: ...``
 
-* Union
+* Union, used as ``Union[Type1, Type2, Type3]``
 
-* TypeVar
+* TypeVar, used as ``X = TypeVar('X', Type1, Type2, Type3)`` or simply
+  ``Y = TypeVar('Y')``
 
-All available abstract base classes are importable:
+* Undefined, used as ``local_variable = Undefined # type: List[int]`` or
+  ``local_variable = Undefined(List[int])`` (the latter being slower
+  during runtime)
+
+* Callable, used as ``Callable[[Arg1Type, Arg2Type], ReturnType]``
+
+* AnyArgs, used as ``Callable[AnyArgs, ReturnType]``
+
+* AnyStr, equivalent to ``TypeVar('AnyStr', str, bytes)``
+
+All abstract base classes available in ``collections.abc`` are
+importable from the ``typing`` package, with added generics support:
 
 * ByteString
 
@@ -283,19 +357,32 @@ All available abstract base classes are importable:
 
 * Mapping
 
+The library includes literals for platform-specific type hinting:
+
+* PY2
+
+* PY3, equivalent to ``not PY2``
+
+* WINDOWS
+
+* UNIXOID, equivalent to ``not WINDOWS``
+
+The following types are available in the ``typing.io`` module:
+
 * IO
 
 * BinaryIO
 
 * TextIO
 
-The following helper types are also provided by the ``typing`` module:
+The following types are provided by the ``typing.re`` module:
 
-* AnyStr, equivalent to ``TypeVar('AnyStr', str, bytes)``
+* Match and Pattern, types of ``re.match()`` and ``re.compile()``
+  results
 
-* Match and Pattern, types of ``re.match()`` and ``re.compile()`` results
-
-.. FIXME: Match, Pattern and the IO types don't really belong here.
+As a convenience measure, types from ``typing.io`` and ``typing.re`` are
+also available in ``typing`` (quoting Guido, "There's a reason those
+modules have two-letter names.").
 
 
 The place of the ``typing`` module in the standard library
