@@ -1,6 +1,6 @@
-======================
-PEP NNNN: Type hinting
-======================
+===================
+PEP 484: Type Hints
+===================
 
 This is a work-in-progress repository for the draft of the Type Hinting
 PEP for Python 3.5.  An explanation of the theory behind type hinting
