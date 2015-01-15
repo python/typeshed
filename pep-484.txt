@@ -71,12 +71,18 @@ Type aliases are also valid type hints::
 
   def retry(url: str, retry_count: integer): ...
 
+New names that are added to support features described in following
+sections are available in the ``typing`` package.
+
 
 Callbacks
 ---------
 
 Frameworks expecting callback functions of specific signatures might be
-type hinted using ``Callable[[Arg1Type, Arg2Type], ReturnType]``. Examples::
+type hinted using ``Callable[[Arg1Type, Arg2Type], ReturnType]``.
+Examples::
+
+  from typing import Any, AnyArgs, Callable
 
   def feeder(get_next_item: Callable[[], Item]): ...
 
@@ -92,17 +98,19 @@ arguments with ``Callable``.
 Generics
 --------
 
-.. FIXME: Actually you probably need to import these from typing.py.
-
 Since type information about objects kept in containers cannot be
 statically inferred in a generic way, abstract base classes have been
 extended to support subscription to denote expected types for container
 elements.  Example::
 
+  from typing import Mapping, Set
+
   def notify_by_email(employees: Set[Employee], overrides: Mapping[str, str]): ...
 
 Generics can be parametrized by using a new factory available in
 ``typing`` called ``TypeVar``.  Example::
+
+  from typing import Sequence, TypeVar
 
   T = TypeVar('T')      # Declare type variable
 
@@ -114,6 +122,8 @@ the elements held by the collection.
 
 ``TypeVar`` supports constraining parametric types to classes with any of
 the specified bases.  Example::
+
+  from typing import Iterable
 
   X = TypeVar('X')
   Y = TypeVar('Y', Iterable[X])
@@ -154,6 +164,8 @@ Since accepting a small, limited set of expected types for a single
 argument is common, there is a new special factory called ``Union``.
 Example::
 
+  from typing import Union
+
   def handle_employees(e: Union[Employee, Sequence[Employee]]):
       if isinstance(e, Employee):
           e = [e]
@@ -171,6 +183,8 @@ One common case of union types are *optional* types.  By default,
 
 As a shorthand for ``Union[T1, None]`` you can write ``Optional[T1]``;
 for example, the above is equivalent to::
+
+  from typing import Optional
 
   def handle_employee(e: Optional[Employee]): ...
 
@@ -196,6 +210,8 @@ Platform-specific type checking
 In some cases the typing information will depend on the platform that
 the program is being executed on.  To enable specifying those
 differences, simple conditionals can be used::
+
+  from typing import PY2, WINDOWS
 
   if PY2:
       text = unicode
@@ -258,6 +274,8 @@ complex cases, a comment of the following format may be used::
 
 In the case where type information for a local variable is needed before
 if was declared, an ``Undefined`` placeholder might be used::
+
+  from typing import Undefined
 
   x = Undefined   # type: List[Employee]
   y = Undefined(int)
