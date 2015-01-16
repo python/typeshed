@@ -8,7 +8,7 @@ Status: Draft
 Type: Standards Track
 Content-Type: text/x-rst
 Created: 29-Sep-2014
-Post-History:
+Post-History: 16-Jan-2015
 Resolution:
 
 
@@ -19,6 +19,8 @@ This PEP introduces a standard syntax for type hints using annotations
 on function definitions.
 
 The proposal is strongly inspired by mypy [mypy]_.
+
+The theory behind type hints and gradual typing is explained in PEP 483.
 
 
 Rationale and Goals
