@@ -24,11 +24,10 @@ The proposal is strongly inspired by mypy [mypy]_.
 Rationale and Goals
 ===================
 
-PEP 3107 [pep-3107]_ added support for arbitrary annotations on parts
-of a function definition.  Although no meaning was assigned to
-annotations then, there has always been an implicit goal to use them
-for type hinting, which is listed as the first possible use case in
-said PEP.
+PEP 3107 added support for arbitrary annotations on parts of a function
+definition.  Although no meaning was assigned to annotations then, there
+has always been an implicit goal to use them for type hinting, which is
+listed as the first possible use case in said PEP.
 
 This PEP aims to provide a standard syntax for type annotations, opening
 up Python code to easier static analysis and refactoring, potential
@@ -203,6 +202,7 @@ A special kind of union type is ``Any``, a class that responds
 ``True`` to ``issubclass`` of any class.  This lets the user
 explicitly state that there are no constraints on the type of a
 specific argument or return value.
+
 
 Platform-specific type checking
 -------------------------------
@@ -437,7 +437,7 @@ enforcing type information during runtime, is out of scope for this PEP.
 Existing Approaches
 ===================
 
-PEP 482 [pep-482]_ lists existing approaches in Python and other languages.
+PEP 482 lists existing approaches in Python and other languages.
 
 
 Is type hinting Pythonic?
@@ -461,27 +461,22 @@ indeed *Pythonic*.
 Acknowledgements
 ================
 
-Influences include all mentioned existing languages, libraries and
-frameworks.  Many thanks to their creators, in alphabetical order:
-Stefan Behnel, William Edwards, Greg Ewing, Larry Hastings, Anders
-Hejlsberg, Alok Menghrajani, Travis E. Oliphant, Joe Pamer,
-Raoul-Gabriel Urma, and Julien Verlaguet.
+This document could not be completed without valuable input,
+encouragement and advice from Jim Baker, Jeremy Siek, Michael Matson
+Vitousek, Andrey Vlasovskikh, and Radomir Dopieralski.
 
-I'd also like to thank Radomir Dopieralski for suggesting warnings as
-the toggle for runtime checks.
+Influences include existing languages, libraries and frameworks
+mentioned in PEP 482.  Many thanks to their creators, in alphabetical
+order: Stefan Behnel, William Edwards, Greg Ewing, Larry Hastings,
+Anders Hejlsberg, Alok Menghrajani, Travis E. Oliphant, Joe Pamer,
+Raoul-Gabriel Urma, and Julien Verlaguet.
 
 
 References
 ==========
 
-.. [pep-3107]
-   https://www.python.org/dev/peps/pep-3107/
-
 .. [mypy]
    http://mypy-lang.org
-
-.. [pep-482]
-   https://www.python.org/dev/peps/pep-0482/
 
 .. [pyflakes]
    https://github.com/pyflakes/pyflakes/
