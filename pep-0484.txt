@@ -385,7 +385,7 @@ The library includes literals for platform-specific type hinting:
 
 * WINDOWS
 
-* UNIXOID, equivalent to ``not WINDOWS``
+* POSIX, equivalent to ``not WINDOWS``
 
 The following types are available in the ``typing.io`` module:
 
