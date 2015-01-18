@@ -264,6 +264,8 @@ hinting, use the following:
 
 .. FIXME: should we have a module-wide comment as well?
 
+.. FIXME: suggest that other uses of annotations be replaced with decorators
+
 
 Type Hints on Local and Global Variables
 ========================================
