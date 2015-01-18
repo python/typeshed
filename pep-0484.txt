@@ -314,10 +314,11 @@ holds a set of classes representing builtin types with generics, namely:
 
 * FrozenSet, used as ``FrozenSet[element_type]``
 
-* Tuple, used as ``Tuple[index0_type, index1_type, ...]``.
-  Arbitrary-length tuples might be expressed using ellipsis, in which
-  case the following arguments are considered the same type as the last
-  defined type on the tuple.
+* Tuple, used by listing the element types, for example
+  ``Tuple[int, int, str]``.
+  Arbitrary-length homogeneous tuples can be expressed
+  using one type and ellipsis, for example ``Tuple[int, ...]``.
+  (The ``...`` here are part of the syntax.)
 
 It also introduces factories and helper members needed to express
 generics and union types:
