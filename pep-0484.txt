@@ -36,6 +36,8 @@ up Python code to easier static analysis and refactoring, potential
 runtime type checking, and performance optimizations utilizing type
 information.
 
+.. FIXME: Explain the concept of a type checker (see also Usage Patterns)
+
 
 Type Definition Syntax
 ======================
@@ -415,8 +417,8 @@ Usage Patterns
 The main use case of type hinting is static analysis using an external
 tool without executing the analyzed program.  Existing tools used for
 that purpose like ``pyflakes`` [pyflakes]_ or ``pylint`` [pylint]_
-might be extended to support type checking.  New tools, like mypy's
-``mypy -S`` mode, can be adopted specifically for this purpose.
+might be extended to support type checking.  New tools, like mypy [mypy]_,
+can be adopted specifically for this purpose.
 
 Type checking based on type hints is understood as a best-effort
 mechanism.  In other words, whenever types are not annotated and cannot
