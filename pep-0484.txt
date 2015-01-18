@@ -198,8 +198,6 @@ This is equivalent to::
 
   def handle_employee(e: Optional[Employee] = None): ...
 
-.. FIXME: Is this really a good idea?
-
 A special kind of union type is ``Any``, a class that responds
 ``True`` to ``issubclass`` of any class.  This lets the user
 explicitly state that there are no constraints on the type of a
