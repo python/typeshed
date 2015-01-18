@@ -320,6 +320,12 @@ holds a set of classes representing builtin types with generics, namely:
   using one type and ellipsis, for example ``Tuple[int, ...]``.
   (The ``...`` here are part of the syntax.)
 
+The generic versions of concrete collection types (``Dict``, ``List``,
+``Set``, ``FrozenSet``, and homogeneous arbitrary-length ``Tuple``)
+are mainly useful for annotating return values.  For arguments, prefer
+the abstract collection types defined below, e.g.  ``Mapping``,
+``Sequence`` or ``AbstractSet``.
+
 It also introduces factories and helper members needed to express
 generics and union types:
 
