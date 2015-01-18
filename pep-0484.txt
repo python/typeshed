@@ -273,7 +273,7 @@ complex cases, a comment of the following format may be used::
   x = []   # type: List[Employee]
 
 In the case where type information for a local variable is needed before
-if was declared, an ``Undefined`` placeholder might be used::
+it is declared, an ``Undefined`` placeholder might be used::
 
   from typing import Undefined
 
