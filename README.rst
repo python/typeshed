@@ -19,10 +19,9 @@ Authors
 Things consciously left out for now
 -----------------------------------
 
-* Multiple dispatch
+* Multiple dispatch (but ``@overload`` will be allowed in stubs).
 
-* Protocols or a different structural typing solution (Zope
-  interfaces?).
+* Protocols or a different structural typing solution.
 
 * Keyword argument support in ``Callable``.
 
@@ -39,28 +38,29 @@ Changes to MyPy coming from this proposal
 
 * ``Union`` behaves differently, it holds the defined types in order
   to be able to actually respond to issubclass.
-  **Proposed resolution:** This doesn't affect mypy; I do want this for
+  **Assumption:** This doesn't affect mypy; I do want this for
   typing.py (also for generic types).
 
-* ``typing.Function`` becomes ``typing.Callable``, which is equivalent
-  to ``collections.abc.Callable``.  (Has now been implemented in mypy.)
+* ``None`` should only be acceptable if an annotation explicitly uses
+  ``Optional[...]`` or if there is an explicit default ``= None``.
+
+* I (Guido) would like type aliases in mypy to be more powerful.  A
+  type alias should be allowed to be e.g. a ``Union[...]``.
 
 
 Open issues
 -----------
 
-* Introducing ``cast`` and stubs
+* Introducing ``cast`` and stub files.  **TODO:** Update the PEP.
 
 * How to make the union type land in __annotations__ for the ``x: str
-  = None`` case?
+  = None`` case?  **Resolution:** Add a function to typing.py that
+  retrieves a function's type annotations.  This should also expand
+  forward references and honor ``@no_type_check`` decorators.
 
 * State of the art: should we list decorator-based approaches
-  (PyContracts?) and docstring-based approaches?
-
-* Should we recommend the use of ABCs over builtin types when possible?
-
-* Is multiple dispatch using type hints in scope for this PEP?
-  **Proposed resolution:** let's wait, allow @overload only in stubs.
+  (PyContracts?) and docstring-based approaches?  **TODO:** Lukasz to
+  update PEP 482.
 
 
 Work in progress notes
@@ -69,8 +69,8 @@ Work in progress notes
 * I (Łukasz) left out ``overload`` because I don't understand its
   purpose. If we need generic dispatch, we should add it to
   ``functools``.  Perhaps ``overload`` should only be allowed in stub
-  modules?  See https://github.com/ambv/typehinting/issues/14 **Proposed
-  resolution:** support the syntax but only in stub files.
+  modules?  See https://github.com/ambv/typehinting/issues/14
+  **Resolution:** For now, support the syntax only in stub files.
 
 * Having the last thing in mind, ``IO``, ``BinaryIO`` and ``TextIO``
   would simply be new abstract base classes, usable with or without type
@@ -80,9 +80,30 @@ Work in progress notes
 
 * The current implementation of ``*IO`` is quite un-ducktyped (specifies
   both reading and writing as one protocol)
-  **Help???**
+  **What does this mean???**
 
-* I (Łukasz) thought if introducing optional contravariance/invariance
-  to ``TypeVar`` has merit but I'm undecided; definitely complicates the
-  type checker.  See https://github.com/ambv/typehinting/issues/2
-  **Help???**
+* Co/contravariance and type variables.
+
+
+Editing tasks
+-------------
+
+* Explain ``cast()``.
+
+* Explain stub files.
+
+* Make a list of things we're explicitly punting (see above).
+
+* Explain namedtuple.  (Does this go in PEP 483 perhaps?)
+
+* Explain ``@overload`` in stub files.
+
+* Describe the ``typing.re`` and ``typing.io`` subpackages, and how to
+  add others.
+
+* Clarify type aliasing (what is allowed on the RHS, if only by example).
+
+* Clarify the limits of expressions the type checker should be able to
+  evaluate (as opposed to typecheck).  (Maybe only through examples.)
+
+* See also the list of github issues.  (https://github.com/ambv/typehinting/issues)

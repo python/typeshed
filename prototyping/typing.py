@@ -6,7 +6,7 @@
 # [done] Tuple
 # [done] Callable
 # [done] Generic
-# Protocol (similar to Generic, but for structural matching)
+# [don't] Protocol (similar to Generic, but for structural matching)
 # All the collections ABCs (with Set renamed to AbstractSet):
 #   Hashable, Iterable, Iterator,
 #   Sized, Container, *Abstract*Set, MutableSet, Mapping, MutableMapping,
@@ -21,6 +21,7 @@
 # - [done] cast
 # - forwardref
 # - overload
+# - namedtuple
 # - [done] typevar (alias for TypeVar)
 # Even more things from mypy's typing.py (that aren't in its __all__)
 
