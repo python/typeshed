@@ -8,6 +8,7 @@ from typing import Callable
 from typing import Generic
 from typing import Undefined
 from typing import cast
+from typing import get_type_hints
 
 
 class Employee:
@@ -392,10 +393,10 @@ class CallableTests(TestCase):
         c = Callable[[int, float], str]
 
         def flub(a: int, b: float) -> str:
-            return str(a*b)
+            return str(a * b)
 
         def flob(a: int, b: int) -> str:
-            return str(a*b)
+            return str(a * b)
 
         self.assertIsInstance(flub, c)
         self.assertNotIsInstance(flob, c)
@@ -672,21 +673,36 @@ class ForwardRefTest(TestCase):
     def test_basics(self):
 
         class Node(Generic[T]):
-            pass  # Foward reference
-
-        save_Node = Node
-
-        class Node(Generic[T]):
 
             def __init__(self, label: T):
                 self.label = label
                 self.left = self.right = None
 
-            def add_left(self, node: Optional[Node[T]]):
-                self.left = node
+            def add_both(self,
+                         left: 'Optional[Node[T]]',
+                         right: 'Node[T]' = None,
+                         stuff: int = None,
+                         blah=None):
+                self.left = left
+                self.right = right
 
-        assert Node is save_Node
+            def add_left(self, node: Optional['Node[T]']):
+                self.add_both(node, None)
+
+            def add_right(self, node: 'Node[T]' = None):
+                self.add_both(None, node)
 
         t = Node[int]
-        ann = t.add_left.__annotations__
-        assert ann['node'] == Optional[Node[T]]
+        lns = locals()
+        gns = globals()
+
+        both_hints = get_type_hints(t.add_both, gns, lns)
+        assert both_hints['left'] == both_hints['right'] == Optional[Node[T]]
+        assert both_hints['stuff'] == Optional[int]
+        assert 'blah' not in both_hints
+
+        left_hints = get_type_hints(t.add_left, gns, lns)
+        assert left_hints['node'] == Optional[Node[T]]
+
+        right_hints = get_type_hints(t.add_right, gns, lns)
+        assert right_hints['node'] == Optional[Node[T]]

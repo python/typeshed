@@ -38,7 +38,7 @@ import types
 
 
 class TypingMeta(type):
-    """Base class for every type defined below.
+    """Metaclass for every type defined below.
 
     This overrides __new__() to require an extra keyword parameter
     '_root', which serves as a guard against naive subclassing of the
@@ -59,6 +59,16 @@ class TypingMeta(type):
     def __init__(self, *args, **kwds):
         pass
 
+    def _eval(self, globalns, localns):
+        """Override this in subclasses to interpret forward references.
+
+        For example, Union['C'] is internally stored as
+        Union[_ForwardRef('C')], which should evaluate to _Union[C],
+        where C is an object found in globalns or localns (searching
+        localns first, of course).
+        """
+        return self
+
     def __repr__(self):
         return '%s.%s' % (self.__module__, self.__qualname__)
 
@@ -68,6 +78,48 @@ class Final:
 
     def __new__(self, *args, **kwds):
         raise TypeError("Cannot instantiate %r" % self.__class__)
+
+
+class _ForwardRef(TypingMeta):
+    """Wrapper to hold a forward reference."""
+
+    def __new__(cls, arg):
+        if not isinstance(arg, str):
+            raise TypeError('ForwardRef must be a string -- got %r' % (arg,))
+        try:
+            code = compile(arg, '<string>', 'eval')
+        except Exception:
+            raise ValueError('ForwardRef must be an expression -- got %r' %
+                             (arg,))
+        self = super().__new__(cls, arg, (), {}, _root=True)
+        self.__forward_arg__ = arg
+        self.__forward_code__ = code
+        self.__forward_evaluated__ = False
+        self.__forward_value__ = None
+        return self
+
+    def _eval(self, globalns, localns):
+        if not isinstance(localns, dict):
+            raise TypeError('ForwardRef localns must be a dict -- got %r' %
+                            (localns,))
+        if not isinstance(globalns, dict):
+            raise TypeError('ForwardRef globalns must be a dict -- got %r' %
+                            (globalns,))
+        if not self.__forward_evaluated__:
+            self.__forward_value__ = eval(self.__forward_code__,
+                                          globalns, localns)
+            self.__forward_evaluated__ = True
+        return self.__forward_value__
+
+    def __repr__(self):
+        return '_ForwardRef(%r)' % (self.__forward_arg__,)
+
+
+def _eval_type(t, globalns, localns):
+    if isinstance(t, TypingMeta):
+        return t._eval(globalns, localns)
+    else:
+        return t
 
 
 def _type_check(arg, msg):
@@ -82,6 +134,8 @@ def _type_check(arg, msg):
     """
     if arg is None:
         return type(None)
+    if isinstance(arg, str):
+        arg = _ForwardRef(arg)
     if not isinstance(arg, type):
         raise TypeError(msg + " Got %.100r." % (arg,))
     return arg
@@ -340,10 +394,19 @@ class UnionMeta(TypingMeta):
         if len(all_params) == 1:
             return all_params.pop()
         # Create a new class with these params.
-        self = super().__new__(cls, name, bases, namespace, _root=True)
+        self = super().__new__(cls, name, bases, {}, _root=True)
         self.__union_params__ = tuple(t for t in params if t in all_params)
         self.__union_set_params__ = frozenset(self.__union_params__)
         return self
+
+    def _eval(self, globalns, localns):
+        p = tuple(_eval_type(t, globalns, localns)
+                  for t in self.__union_params__)
+        if p == self.__union_params__:
+            return self
+        else:
+            return self.__class__(self.__name__, self.__bases__, self.__dict__,
+                                  p, _root=True)
 
     def __repr__(self):
         r = super().__repr__()
@@ -455,8 +518,7 @@ class OptionalMeta(TypingMeta):
         return super().__new__(cls, name, bases, namespace, _root=_root)
 
     def __getitem__(self, arg):
-        if not isinstance(arg, type):
-            raise TypeError("Optional[t] requires a single type.")
+        arg = _type_check(arg, "Optional[t] requires a single type.")
         return Union[arg, type(None)]
 
 
@@ -689,19 +751,6 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
                             params.append(bp)
             if params is not None:
                 parameters = tuple(params)
-
-        # Check the caller's locals to see if we're overriding a
-        # forward reference.  If so, update the class in place.
-        f = sys._getframe(1)
-        if f.f_locals and name in f.f_locals:
-            overriding = f.f_locals[name]
-            if (isinstance(overriding, cls) and
-                overriding.__bases__ == bases and
-                overriding.__parameters__ == parameters):
-                self = overriding
-                for k, v in namespace.items():
-                    setattr(self, k, v)
-                return self
         self = super().__new__(cls, name, bases, namespace, _root=True)
         self.__parameters__ = parameters
         return self
@@ -818,4 +867,27 @@ def cast(typ, val):
     insist that the first argument is a type.
     """
     _type_check(typ, "cast(t, v): t must be a type.")
+    if isinstance(typ, str):
+        raise TypeError("cast(t, v): t cannot be a forward reference.")
     return val
+
+
+def get_type_hints(obj, gns, lns=None):
+    """Return type hints for a function or method object.
+
+    This is often the same as obj.__annotations__, but it handles
+    forward references encoded as string literals, and if necessary
+    adds Optional[t] if a default value equal to None is set.
+    """
+    if lns is None:
+        lns = gns
+    sig = inspect.Signature.from_function(obj)
+    hints = dict(obj.__annotations__)
+    for name, value in hints.items():
+        if isinstance(value, str):
+            value = _ForwardRef(value)
+        value = _eval_type(value, gns, lns)
+        if name in sig.parameters and sig.parameters[name].default is None:
+            value = Optional[value]
+        hints[name] = value
+    return hints
