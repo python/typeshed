@@ -72,7 +72,7 @@ Type aliases are also valid type hints::
 
   integer = int
 
-  def retry(url: str, retry_count: integer): ...
+  def retry(url: str, retry_count: integer) -> None: ...
 
 New names that are added to support features described in following
 sections are available in the ``typing`` package.
@@ -87,11 +87,12 @@ Examples::
 
   from typing import Any, AnyArgs, Callable
 
-  def feeder(get_next_item: Callable[[], Item]): ...
+  def feeder(get_next_item: Callable[[], Item]) -> None: ...
 
-  def async_query(on_success: Callable[[int], None], on_error: Callable[[int, Exception], None]): ...
+  def async_query(on_success: Callable[[int], None],
+                  on_error: Callable[[int, Exception], None]) -> None: ...
 
-  def partial(func: Callable[AnyArgs, Any], *args): ...
+  def partial(func: Callable[AnyArgs, Any], *args) -> None: ...
 
 Since using callbacks with keyword arguments is not perceived as
 a common use case, there is currently no support for specifying keyword
@@ -108,7 +109,7 @@ elements.  Example::
 
   from typing import Mapping, Set
 
-  def notify_by_email(employees: Set[Employee], overrides: Mapping[str, str]): ...
+  def notify_by_email(employees: Set[Employee], overrides: Mapping[str, str]) -> None: ...
 
 Generics can be parametrized by using a new factory available in
 ``typing`` called ``TypeVar``.  Example::
@@ -151,11 +152,11 @@ When a type hint contains names that have not been defined yet, that
 definition may be expressed as a string, to be resolved later.  For
 example, instead of writing::
 
-  def notify_by_email(employees: Set[Employee]): ...
+  def notify_by_email(employees: Set[Employee]) -> None: ...
 
 one might write::
 
-  def notify_by_email(employees: 'Set[Employee]'): ...
+  def notify_by_email(employees: 'Set[Employee]') -> None: ...
 
 .. FIXME: Rigorously define this.  Defend it, or find an alternative.
 
@@ -169,7 +170,7 @@ Example::
 
   from typing import Union
 
-  def handle_employees(e: Union[Employee, Sequence[Employee]]):
+  def handle_employees(e: Union[Employee, Sequence[Employee]]) -> None:
       if isinstance(e, Employee):
           e = [e]
       ...
@@ -182,14 +183,14 @@ One common case of union types are *optional* types.  By default,
 ``None`` is an invalid value for any type, unless a default value of
 ``None`` has been provided in the function definition.  Examples::
 
-  def handle_employee(e: Union[Employee, None]): ...
+  def handle_employee(e: Union[Employee, None]) -> None: ...
 
 As a shorthand for ``Union[T1, None]`` you can write ``Optional[T1]``;
 for example, the above is equivalent to::
 
   from typing import Optional
 
-  def handle_employee(e: Optional[Employee]): ...
+  def handle_employee(e: Optional[Employee]) -> None: ...
 
 An optional type is also automatically assumed when the default value is
 ``None``, for example::
@@ -198,7 +199,7 @@ An optional type is also automatically assumed when the default value is
 
 This is equivalent to::
 
-  def handle_employee(e: Optional[Employee] = None): ...
+  def handle_employee(e: Optional[Employee] = None) -> None: ...
 
 A special kind of union type is ``Any``, a class that responds
 ``True`` to ``issubclass`` of any class.  This lets the user
