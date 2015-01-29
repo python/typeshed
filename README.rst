@@ -47,6 +47,9 @@ Changes to MyPy coming from this proposal
 * I (Guido) would like type aliases in mypy to be more powerful.  A
   type alias should be allowed to be e.g. a ``Union[...]``.
 
+* Implement `Tuple[t1, ...]` for variable-length homogeneous tuples.
+  See https://github.com/JukkaL/mypy/issues/184
+
 
 Open issues
 -----------
@@ -84,13 +87,41 @@ Work in progress notes
 
 * Co/contravariance and type variables.
 
+* Pick a definitive syntax to put in `# type: ...` comments to disable
+  type checking.  **Proposal:** `# type: OFF` and `# type: ON`.
+
+* Decide on the fate of `AbstractGeneric`.
+  See https://github.com/ambv/typehinting/issues/41
 
 Editing tasks
 -------------
 
-* Explain ``cast()``.
+* The PEP Abstract should probably say a little more about the shape
+  of the proposal.
+
+* Some words to avoid needless worrying.
+  See https://github.com/ambv/typehinting/issues/54
+
+* List some rejected alternatives and explain why.
+  See https://github.com/ambv/typehinting/issues/55
+
+* Note that type checkers ought to provide config options to
+  selectively skip specific modules/packages.
+  See https://github.com/ambv/typehinting/issues/53
+
+* The PEP's description of `Any` doesn't match PEP 483; it's not a
+  Union.  See https://github.com/ambv/typehinting/issues/38 and
+  https://github.com/ambv/typehinting/issues/25
+
+* Explain ``cast()``.  See https://github.com/ambv/typehinting/issues/15
 
 * Explain stub files.
+
+* Explain `@no_type_check` and also how to define a new decorator that
+  implies the same.  See https://github.com/ambv/typehinting/issues/51
+
+* Describe how to declare a generic class.
+  See https://github.com/ambv/typehinting/issues/41
 
 * Make a list of things we're explicitly punting (see above).
 
