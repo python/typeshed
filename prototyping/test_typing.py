@@ -693,16 +693,55 @@ class ForwardRefTest(TestCase):
                 self.add_both(None, node)
 
         t = Node[int]
-        lns = locals()
-        gns = globals()
-
-        both_hints = get_type_hints(t.add_both, gns, lns)
+        both_hints = get_type_hints(t.add_both)
         assert both_hints['left'] == both_hints['right'] == Optional[Node[T]]
         assert both_hints['stuff'] == Optional[int]
         assert 'blah' not in both_hints
 
-        left_hints = get_type_hints(t.add_left, gns, lns)
+        left_hints = get_type_hints(t.add_left)
         assert left_hints['node'] == Optional[Node[T]]
 
-        right_hints = get_type_hints(t.add_right, gns, lns)
+        right_hints = get_type_hints(t.add_right)
         assert right_hints['node'] == Optional[Node[T]]
+
+    def test_union_forward(self):
+
+        def foo(a: Union['T']):
+            pass
+
+        self.assertEqual(get_type_hints(foo), {'a': Union[T]})
+
+    def test_tuple_forward(self):
+
+        def foo(a: Tuple['T']):
+            pass
+
+        self.assertEqual(get_type_hints(foo), {'a': Tuple[T]})
+
+    def test_callable_forward(self):
+
+        def foo(a: Callable[['T'], 'T']):
+            pass
+
+        self.assertEqual(get_type_hints(foo), {'a': Callable[[T], T]})
+
+    def test_syntax_error(self):
+
+        with self.assertRaises(SyntaxError):
+            Generic['/T']
+
+    def test_delayed_syntax_error(self):
+
+        def foo(a: 'Node[T'):
+            pass
+
+        with self.assertRaises(SyntaxError):
+            get_type_hints(foo)
+
+    def test_name_error(self):
+
+        def foo(a: 'Noode[T]'):
+            pass
+
+        with self.assertRaises(NameError):
+            get_type_hints(foo)

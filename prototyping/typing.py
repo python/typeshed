@@ -59,7 +59,7 @@ class TypingMeta(type):
     def __init__(self, *args, **kwds):
         pass
 
-    def _eval(self, globalns, localns):
+    def _eval_type(self, globalns, localns):
         """Override this in subclasses to interpret forward references.
 
         For example, Union['C'] is internally stored as
@@ -88,9 +88,9 @@ class _ForwardRef(TypingMeta):
             raise TypeError('ForwardRef must be a string -- got %r' % (arg,))
         try:
             code = compile(arg, '<string>', 'eval')
-        except Exception:
-            raise ValueError('ForwardRef must be an expression -- got %r' %
-                             (arg,))
+        except SyntaxError:
+            raise SyntaxError('ForwardRef must be an expression -- got %r' %
+                              (arg,))
         self = super().__new__(cls, arg, (), {}, _root=True)
         self.__forward_arg__ = arg
         self.__forward_code__ = code
@@ -98,7 +98,7 @@ class _ForwardRef(TypingMeta):
         self.__forward_value__ = None
         return self
 
-    def _eval(self, globalns, localns):
+    def _eval_type(self, globalns, localns):
         if not isinstance(localns, dict):
             raise TypeError('ForwardRef localns must be a dict -- got %r' %
                             (localns,))
@@ -117,7 +117,7 @@ class _ForwardRef(TypingMeta):
 
 def _eval_type(t, globalns, localns):
     if isinstance(t, TypingMeta):
-        return t._eval(globalns, localns)
+        return t._eval_type(globalns, localns)
     else:
         return t
 
@@ -399,13 +399,13 @@ class UnionMeta(TypingMeta):
         self.__union_set_params__ = frozenset(self.__union_params__)
         return self
 
-    def _eval(self, globalns, localns):
+    def _eval_type(self, globalns, localns):
         p = tuple(_eval_type(t, globalns, localns)
                   for t in self.__union_params__)
         if p == self.__union_params__:
             return self
         else:
-            return self.__class__(self.__name__, self.__bases__, self.__dict__,
+            return self.__class__(self.__name__, self.__bases__, {},
                                   p, _root=True)
 
     def __repr__(self):
@@ -537,6 +537,17 @@ class TupleMeta(TypingMeta):
         self.__tuple_params__ = parameters
         return self
 
+    def _eval_type(self, globalns, localns):
+        tp = self.__tuple_params__
+        if tp is None:
+            return self
+        p = tuple(_eval_type(t, globalns, localns) for t in tp)
+        if p == self.__tuple_params__:
+            return self
+        else:
+            return self.__class__(self.__name__, self.__bases__, {},
+                                  p, _root=True)
+
     def __repr__(self):
         r = super().__repr__()
         if self.__tuple_params__ is not None:
@@ -553,6 +564,14 @@ class TupleMeta(TypingMeta):
         parameters = tuple(_type_check(p, msg) for p in parameters)
         return self.__class__(self.__name__, self.__bases__,
                               dict(self.__dict__), parameters, _root=True)
+
+    def __eq__(self, other):
+        if not isinstance(other, TupleMeta):
+            return NotImplemented
+        return self.__tuple_params__ == other.__tuple_params__
+
+    def __hash__(self):
+        return hash(self.__tuple_params__)
 
     def __instancecheck__(self, t):
         if not isinstance(t, tuple):
@@ -611,6 +630,17 @@ class CallableMeta(TypingMeta):
         self.__args__ = args
         self.__result__ = result
         return self
+
+    def _eval_type(self, globalns, localns):
+        if self.__args__ is None and self.__result__ is None:
+            return self
+        args = [_eval_type(t, globalns, localns) for t in self.__args__]
+        result = _eval_type(self.__result__, globalns, localns)
+        if args == self.__args__ and result == self.__result__:
+            return self
+        else:
+            return self.__class__(self.__name__, self.__bases__, {},
+                                  args=args, result=result, _root=True)
 
     def __repr__(self):
         r = super().__repr__()
@@ -872,21 +902,38 @@ def cast(typ, val):
     return val
 
 
-def get_type_hints(obj, gns, lns=None):
+def get_type_hints(obj, globalns=None, localns=None):
     """Return type hints for a function or method object.
 
     This is often the same as obj.__annotations__, but it handles
     forward references encoded as string literals, and if necessary
     adds Optional[t] if a default value equal to None is set.
+
+    BEWARE -- the behavior of globalns and localns is counterintuitive
+    (unless you are familiar with how eval() and exec() work).  The
+    search order is locals first, then globals.
+
+    - If no dict arguments are passed, the defaults are taken from the
+      globals and locals of the caller, respectively.
+
+    - If one dict argument is passed, it is used for both globals and
+      locals.
+
+    - If two dict arguments are passed, they specify globals and
+      locals, respectively.
     """
-    if lns is None:
-        lns = gns
+    if globalns is None:
+        globalns = sys._getframe(1).f_globals
+        if localns is None:
+            localns = sys._getframe(1).f_locals
+    elif localns is None:
+        localns = globalns
     sig = inspect.Signature.from_function(obj)
     hints = dict(obj.__annotations__)
     for name, value in hints.items():
         if isinstance(value, str):
             value = _ForwardRef(value)
-        value = _eval_type(value, gns, lns)
+        value = _eval_type(value, globalns, localns)
         if name in sig.parameters and sig.parameters[name].default is None:
             value = Optional[value]
         hints[name] = value
