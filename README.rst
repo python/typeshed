@@ -113,6 +113,10 @@ Editing tasks
   Union.  See https://github.com/ambv/typehinting/issues/38 and
   https://github.com/ambv/typehinting/issues/25
 
+* Explain ``Callable[..., t]`` (with the `...` being a literal ellipsis)
+  for a varargs callback with return type `t`.
+  See https://github.com/JukkaL/mypy/issues/540
+
 * Explain ``cast()``.  See https://github.com/ambv/typehinting/issues/15
 
 * Explain stub files.
