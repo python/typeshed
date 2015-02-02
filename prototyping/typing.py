@@ -619,11 +619,12 @@ class CallableMeta(TypingMeta):
         if args is None and result is None:
             pass  # Must be 'class Callable'.
         else:
-            if not isinstance(args, list):
-                TypeError("Callable[args, result]: args must be a list." +
-                          " Got %.100r." % (args,))
-            msg = "Callable[[arg, ...], result]: each arg must be a type."
-            args = tuple(_type_check(arg, msg) for arg in args)
+            if args is not Ellipsis:
+                if not isinstance(args, list):
+                    raise TypeError("Callable[args, result]: args must be a list."
+                                    " Got %.100r." % (args,))
+                msg = "Callable[[arg, ...], result]: each arg must be a type."
+                args = tuple(_type_check(arg, msg) for arg in args)
             msg = "Callable[args, result]: result must be a type."
             result = _type_check(result, msg)
         self = super().__new__(cls, name, bases, namespace, _root=_root)
@@ -685,34 +686,35 @@ class CallableMeta(TypingMeta):
              annotations) = inspect.getfullargspec(instance)
         except TypeError:
             return False  # We can't find the signature.  Give up.
-        if kwonlyargs and (not kwonlydefaults or
-                           len(kwonlydefaults) < len(kwonlyargs)):
-            return False
-        if isinstance(instance, types.MethodType):
-            # For methods, getfullargspec() includes self/cls,
-            # but it's not part of the call signature, so drop it.
-            del args[0]
-        min_call_args = len(args)
-        if defaults:
-            min_call_args -= len(defaults)
-        if varargs:
-            max_call_args = 999999999
-            if len(args) < len(my_args):
-                args += [varargs] * (len(my_args) - len(args))
-        else:
-            max_call_args = len(args)
-        if not min_call_args <= len(my_args) <= max_call_args:
-            return False
-        msg = ("When testing isinstance(<callable>, Callable[...], " +
+        msg = ("When testing isinstance(<callable>, Callable[...], "
                "<calleble>'s annotations must be types.")
-        for my_arg_type, name in zip(my_args, args):
-            if name in annotations:
-                annot_type = _type_check(annotations[name], msg)
-            else:
-                annot_type = Any
-            if not issubclass(my_arg_type, annot_type):
+        if my_args is not Ellipsis:
+            if kwonlyargs and (not kwonlydefaults or
+                               len(kwonlydefaults) < len(kwonlyargs)):
                 return False
-            # TODO: If mutable type, check invariance?
+            if isinstance(instance, types.MethodType):
+                # For methods, getfullargspec() includes self/cls,
+                # but it's not part of the call signature, so drop it.
+                del args[0]
+            min_call_args = len(args)
+            if defaults:
+                min_call_args -= len(defaults)
+            if varargs:
+                max_call_args = 999999999
+                if len(args) < len(my_args):
+                    args += [varargs] * (len(my_args) - len(args))
+            else:
+                max_call_args = len(args)
+            if not min_call_args <= len(my_args) <= max_call_args:
+                return False
+            for my_arg_type, name in zip(my_args, args):
+                if name in annotations:
+                    annot_type = _type_check(annotations[name], msg)
+                else:
+                    annot_type = Any
+                if not issubclass(my_arg_type, annot_type):
+                    return False
+                # TODO: If mutable type, check invariance?
         if 'return' in annotations:
             annot_return_type = _type_check(annotations['return'], msg)
             # Note contravariance here!

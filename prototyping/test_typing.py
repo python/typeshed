@@ -526,6 +526,22 @@ class CallableTests(TestCase):
         with self.assertRaises(TypeError):
             c()
 
+    def test_callable_varargs(self):
+        ct = Callable[..., int]
+
+        def foo(a, b) -> int:
+            return 42
+
+        def bar(a=42) -> int:
+            return a
+
+        def baz(*, x, y, z) -> int:
+            return 100
+
+        self.assertIsInstance(foo, ct)
+        self.assertIsInstance(bar, ct)
+        self.assertIsInstance(baz, ct)
+
 
 XK = TypeVar('XK', str, bytes)
 XV = TypeVar('XV')
