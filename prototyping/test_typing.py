@@ -8,7 +8,7 @@ from typing import Callable
 from typing import Generic
 from typing import Undefined
 from typing import cast
-from typing import get_type_hints
+from typing import get_type_hints, no_type_check
 
 
 class Employee:
@@ -761,3 +761,12 @@ class ForwardRefTest(TestCase):
 
         with self.assertRaises(NameError):
             get_type_hints(foo)
+
+    def test_no_type_check(self):
+
+        @no_type_check
+        def foo(a: 'whatevers') -> {}:
+            pass
+
+        th = get_type_hints(foo)
+        self.assertEqual(th, {})

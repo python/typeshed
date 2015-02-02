@@ -924,6 +924,8 @@ def get_type_hints(obj, globalns=None, localns=None):
     - If two dict arguments are passed, they specify globals and
       locals, respectively.
     """
+    if getattr(obj, '__no_type_check__', None):
+        return {}
     if globalns is None:
         globalns = sys._getframe(1).f_globals
         if localns is None:
@@ -940,3 +942,12 @@ def get_type_hints(obj, globalns=None, localns=None):
             value = Optional[value]
         hints[name] = value
     return hints
+
+
+def no_type_check(func):
+    """Decorator to indicate that annotations are not type hints.
+
+    This mutates the function in place.
+    """
+    func.__no_type_check__ = True
+    return func
