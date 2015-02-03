@@ -8,7 +8,8 @@ from typing import Callable
 from typing import Generic
 from typing import Undefined
 from typing import cast
-from typing import get_type_hints, no_type_check
+from typing import get_type_hints
+from typing import no_type_check, no_type_check_decorator
 
 
 class Employee:
@@ -768,5 +769,21 @@ class ForwardRefTest(TestCase):
         def foo(a: 'whatevers') -> {}:
             pass
 
+        th = get_type_hints(foo)
+        self.assertEqual(th, {})
+
+    def test_meta_no_type_check(self):
+
+        @no_type_check_decorator
+        def magic_decorator(deco):
+            return deco
+
+        self.assertEqual(magic_decorator.__name__, 'magic_decorator')
+
+        @magic_decorator
+        def foo(a: 'whatevers') -> {}:
+            pass
+
+        self.assertEqual(foo.__name__, 'foo')
         th = get_type_hints(foo)
         self.assertEqual(th, {})

@@ -32,6 +32,7 @@
 
 import abc
 import collections.abc
+import functools
 import inspect
 import sys
 import types
@@ -621,7 +622,8 @@ class CallableMeta(TypingMeta):
         else:
             if args is not Ellipsis:
                 if not isinstance(args, list):
-                    raise TypeError("Callable[args, result]: args must be a list."
+                    raise TypeError("Callable[args, result]: "
+                                    "args must be a list."
                                     " Got %.100r." % (args,))
                 msg = "Callable[[arg, ...], result]: each arg must be a type."
                 args = tuple(_type_check(arg, msg) for arg in args)
@@ -951,3 +953,19 @@ def no_type_check(func):
     """
     func.__no_type_check__ = True
     return func
+
+
+def no_type_check_decorator(decorator):
+    """Decorator to give another decorator the @no_type_check effect.
+
+    This wraps the decorator with something that wraps the decorated
+    function in @no_type_check.
+    """
+
+    @functools.wraps(decorator)
+    def wrapped_decorator(*args, **kwds):
+        func = decorator(*args, **kwds)
+        func = no_type_check(func)
+        return func
+
+    return wrapped_decorator
