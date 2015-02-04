@@ -1,34 +1,19 @@
 # TODO:
-# [done] Any
-# [done] TypeVar (type variables)
-# [done] T, KT, VT, AnyStr
-# [done] Union, Optional
-# [done] Tuple
-# [done] Callable
-# [done] Generic
-# [don't] Protocol (similar to Generic, but for structural matching)
-# All the collections ABCs (with Set renamed to AbstractSet):
-#   Hashable, Iterable, Iterator,
-#   Sized, Container, *Abstract*Set, MutableSet, Mapping, MutableMapping,
-#   MappingView, KeysView, ItemsView, ValuesView,
-#   Sequence, MutableSequence
-#   ByteString
-# List, Dict, Set; FrozenSet?
+# Collections:
+# - MappingView, KeysView, ItemsView, ValuesView
+# - ByteString
+# - FrozenSet?
 # Other things from mypy's typing.py:
-# - [done] Undefined
-# - IO, BinaryIO, TextIO (?)
-# - Match, Pattern (?)
-# - [done] cast
-# - forwardref
+# - io.{IO,BinaryIO,TextIO}
+# - re.{Match,Pattern}
+# - forwardref?
 # - overload
 # - namedtuple
-# - [done] typevar (alias for TypeVar)
-# Even more things from mypy's typing.py (that aren't in its __all__)
+# what else?
 
 # TODO nits:
 # Get rid of asserts that are the caller's fault.
-# Docstrings.
-# Make it pep8-clean.
+# Docstrings (e.g. ABCs).
 
 import abc
 import collections.abc
