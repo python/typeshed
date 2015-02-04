@@ -875,6 +875,19 @@ class Undefined:
     of Undefined.  The actual type can be introspected by looking at
     x.__type__ and its str() and repr() are defined, but any other
     operations or attributes will raise an exception.
+
+    An alternative syntax is also supported:
+
+      x = Undefined  # type: typ
+
+    This has the same meaning to the static type checker but uses less
+    overhead at run-time, at the cost of not being introspectible.
+
+    NOTE: Do not under any circumstances check for Undefined.  We
+    don't want this to become something developers rely upon, like
+    JavaScript's undefined.  Code that returns or uses an Undefined
+    value in any way should be considered broken.  Static type
+    checkers should warn about using potentially Undefined values.
     """
 
     __slots__ = ['__type__']
