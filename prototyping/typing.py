@@ -753,10 +753,9 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
     # TODO: Constrain more how Generic is used; only a few
     # standard patterns should be allowed.
 
-    # TODO: Somehow repr() of a subclass parameterized comes out with
-    # module=typing.
+    __extra__ = None
 
-    def __new__(cls, name, bases, namespace, parameters=None):
+    def __new__(cls, name, bases, namespace, parameters=None, extra=None):
         if parameters is None:
             # Extract parameters from direct base classes.  Only
             # direct bases are considered and only those that are
@@ -787,6 +786,10 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
                 parameters = tuple(params)
         self = super().__new__(cls, name, bases, namespace, _root=True)
         self.__parameters__ = parameters
+        if extra is not None:
+            self.__extra__ = extra
+        # Else __extra__ is inherited, eventually from the
+        # (meta-)class default above.
         return self
 
     def __repr__(self):
@@ -829,9 +832,24 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
                     raise TypeError(
                         "Cannot substitute %s for %s in %s" %
                         (_type_repr(new), _type_repr(old), self))
+
         return self.__class__(self.__name__, self.__bases__,
                               dict(self.__dict__),
-                              parameters=params)
+                              parameters=params, extra=self.__extra__)
+
+    def __subclasscheck__(self, cls):
+        if super().__subclasscheck__(cls):
+            return True
+        if self.__extra__ is None:
+            return False
+        return issubclass(cls, self.__extra__)
+
+    def __instancecheck__(self, obj):
+        if super().__instancecheck__(obj):
+            return True
+        if self.__extra__ is None:
+            return False
+        return isinstance(obj, self.__extra__)
 
 
 class Generic(metaclass=GenericMeta):
@@ -982,3 +1000,107 @@ def no_type_check_decorator(decorator):
         return func
 
     return wrapped_decorator
+
+
+# Various ABCs mimicking those in collections.abc.
+# A few are simply re-exported for completeness.
+
+Hashable = collections.abc.Hashable  # Not generic.
+
+
+class Iterable(Generic[T], extra=collections.abc.Iterable):
+    pass
+
+
+class Iterator(Iterable, extra=collections.abc.Iterator):
+    pass
+
+
+Sized = collections.abc.Sized  # Not generic.
+
+
+class Container(Generic[T], extra=collections.abc.Container):
+    pass
+
+
+# Callable was defined earlier.
+
+
+class AbstractSet(Sized, Iterable, Container, extra=collections.abc.Set):
+    pass
+
+
+class MutableSet(AbstractSet, extra=collections.abc.MutableSet):
+    pass
+
+
+class Mapping(Sized, Iterable[KT], Container[KT], Generic[KT, VT],
+              extra=collections.abc.Mapping):
+    pass
+
+
+# TODO: View types.
+
+
+class MutableMapping(Mapping, extra=collections.abc.MutableMapping):
+    pass
+
+
+class Sequence(Sized, Iterable, Container, extra=collections.abc.Sequence):
+    pass
+
+
+# TODO: ByteString.
+
+
+class MutableSequence(Sequence, extra=collections.abc.MutableSequence):
+    pass
+
+
+class _ListMeta(GenericMeta):
+
+    def __instancecheck__(self, obj):
+        if not super().__instancecheck__(obj):
+            return False
+        itemtype = self.__parameters__[0]
+        for x in obj:
+            if not isinstance(x, itemtype):
+                return False
+        return True
+
+
+class List(list, MutableSequence, metaclass=_ListMeta):
+    pass
+
+
+class _SetMeta(GenericMeta):
+
+    def __instancecheck__(self, obj):
+        if not super().__instancecheck__(obj):
+            return False
+        itemtype = self.__parameters__[0]
+        for x in obj:
+            if not isinstance(x, itemtype):
+                return False
+        return True
+
+
+class Set(set, MutableSet, metaclass=_SetMeta):
+    pass
+
+
+class _DictMeta(GenericMeta):
+
+    def __instancecheck__(self, obj):
+        if not super().__instancecheck__(obj):
+            return False
+        keytype, valuetype = self.__parameters__
+        for key, value in obj.items():
+            if not (isinstance(key, keytype) and
+                    isinstance(value, valuetype)):
+                return False
+        return True
+
+
+class Dict(dict, MutableMapping, metaclass=_DictMeta):
+    pass

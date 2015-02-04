@@ -1,3 +1,4 @@
+import collections.abc
 from unittest import TestCase, mock
 
 from typing import Any
@@ -10,6 +11,7 @@ from typing import Undefined
 from typing import cast
 from typing import get_type_hints
 from typing import no_type_check, no_type_check_decorator
+import typing
 
 
 class Employee:
@@ -787,3 +789,82 @@ class ForwardRefTest(TestCase):
         self.assertEqual(foo.__name__, 'foo')
         th = get_type_hints(foo)
         self.assertEqual(th, {})
+
+
+class CollectionsAbcTests(TestCase):
+
+    def test_hashable(self):
+        assert isinstance(42, typing.Hashable)
+        assert not isinstance([], typing.Hashable)
+
+    def test_iterable(self):
+        assert isinstance([], typing.Iterable)
+        assert isinstance([], typing.Iterable[int])
+        assert not isinstance(42, typing.Iterable)
+
+    def test_iterator(self):
+        it = iter([])
+        assert isinstance(it, typing.Iterator)
+        assert isinstance(it, typing.Iterator[int])
+        assert not isinstance(42, typing.Iterator)
+
+    def test_sized(self):
+        assert isinstance([], typing.Sized)
+        assert not isinstance(42, typing.Sized)
+
+    def test_container(self):
+        assert isinstance([], typing.Container)
+        assert not isinstance(42, typing.Container)
+
+    def test_abstractset(self):
+        assert isinstance(set(), typing.AbstractSet)
+        assert not isinstance(42, typing.AbstractSet)
+
+    def test_mutableset(self):
+        assert isinstance(set(), typing.MutableSet)
+        assert not isinstance(frozenset(), typing.MutableSet)
+
+    def test_mapping(self):
+        assert isinstance({}, typing.Mapping)
+        assert not isinstance(42, typing.Mapping)
+
+    def test_mutablemapping(self):
+        assert isinstance({}, typing.MutableMapping)
+        assert not isinstance(42, typing.MutableMapping)
+
+    def test_sequence(self):
+        assert isinstance([], typing.Sequence)
+        assert not isinstance(42, typing.Sequence)
+
+    def test_mutablesequence(self):
+        assert isinstance([], typing.MutableSequence)
+        assert not isinstance((), typing.MutableSequence)
+
+    def test_list(self):
+        assert issubclass(list, typing.List)
+        assert isinstance([], typing.List)
+        assert not isinstance((), typing.List)
+        t = typing.List[int]
+        assert isinstance([], t)
+        assert isinstance([42], t)
+        assert not isinstance([''], t)
+
+    def test_set(self):
+        assert issubclass(set, typing.Set)
+        assert isinstance(set(), typing.Set)
+        assert not isinstance({}, typing.Set)
+        t = typing.Set[int]
+        assert isinstance(set(), t)
+        assert isinstance({42}, t)
+        assert not isinstance({''}, t)
+
+    def test_dict(self):
+        assert issubclass(dict, typing.Dict)
+        assert isinstance({}, typing.Dict)
+        assert not isinstance([], typing.Dict)
+        t = typing.Dict[int, str]
+        assert isinstance({}, t)
+        assert isinstance({42: ''}, t)
+        assert not isinstance({42: 42}, t)
+        assert not isinstance({'': 42}, t)
+        assert not isinstance({'': ''}, t)
