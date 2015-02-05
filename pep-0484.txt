@@ -349,6 +349,33 @@ it is declared, an ``Undefined`` placeholder might be used::
 If type hinting proves useful in general, a syntax for typing variables
 may be provided in a future Python version.
 
+Casts
+=====
+
+Occasionally the type checker may need a different kind of hint: the
+programmer may know that an expression is of a more constrained type
+than the type checker infers.  For example::
+
+  from typing import List
+
+  def find_first_str(a: List[object]) -> str:
+      index = next(i for i, x in enumerate(a) if isinstance(x, str))
+      # We only get here if there's at least one string in a
+      return cast(str, a[index])
+
+The type checker infers the type ``object`` for ``a[index]``, but we
+know that (if the code gets to that point) it must be a string.  The
+``cast(t, x)`` call tells the type checker that we are confident that
+the type of ``x`` is ``t``.  At runtime a cast always returns the
+expression unchanged -- it does not check the type, and it does not
+convert or coerce the value.
+
+Casts differ from type comments (see the previous section).  When
+using a type comment, the type checker should still verify that the
+inferred type is consistent with the stated type.  When using a cast,
+the type checker trusts the programmer.  Also, casts can be used in
+expressions, while type comments only apply to assignments.
+
 
 Explicit raised exceptions
 ==========================

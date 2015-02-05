@@ -100,8 +100,6 @@ Editing tasks
   selectively skip specific modules/packages.
   See https://github.com/ambv/typehinting/issues/53
 
-* Explain ``cast()``.  See https://github.com/ambv/typehinting/issues/15
-
 * Explain stub files.
 
 * Explain `@no_type_check` and also how to define a new decorator that
