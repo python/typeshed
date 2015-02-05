@@ -41,6 +41,9 @@ named *Any* which is consistent with (i.e. assignable to and from) all
 types.  This latter feature is taken from the idea of gradual typing.
 Gradual typing and the full type system are explained in PEP 483.
 
+Other approaches from which we have borrowed or to which ours can be
+compared and contrasted are described in PEP 482.
+
 
 Rationale and Goals
 ===================
@@ -194,7 +197,7 @@ one might write::
 
   def notify_by_email(employees: 'Set[Employee]') -> None: ...
 
-.. FIXME: Rigorously define this.  Defend it, or find an alternative.
+.. FIXME: Rigorously define this, and give a motivational example.
 
 
 Union types
@@ -287,7 +290,7 @@ Compatibility with other uses of function annotations
 A number of existing or potential use cases for function annotations
 exist, which are incompatible with type hinting.  These may confuse a
 static type checker.  However, since type hinting annotations have no
-run time behavior (other than evaluation of the annotation expression
+runtime behavior (other than evaluation of the annotation expression
 and storing annotations in the ``__annotations__`` attribute of the
 function object), this does not make the program incorrect -- it just
 makes it issue warnings when a static analyzer is used.
@@ -295,7 +298,7 @@ makes it issue warnings when a static analyzer is used.
 To mark portions of the program that should not be covered by type
 hinting, use the following:
 
-* a ``@no_type_checks`` decorator on classes and functions
+* a ``@no_type_check`` decorator on classes and functions
 
 * a ``# type: ignore`` comment on arbitrary lines
 
@@ -380,6 +383,8 @@ generics and union types:
 * Callable, used as ``Callable[[Arg1Type, Arg2Type], ReturnType]``
 
 * AnyArgs, used as ``Callable[AnyArgs, ReturnType]``
+
+.. FIXME: Instead of AnyArgs we will use Ellipsis.
 
 * AnyStr, equivalent to ``TypeVar('AnyStr', str, bytes)``
 
@@ -484,10 +489,185 @@ enforcing type information during runtime, is out of scope for this PEP.
 .. FIXME: Describe run-time behavior of generic types.
 
 
-Existing Approaches
-===================
+Rejected Alternatives
+=====================
 
-PEP 482 lists existing approaches in Python and other languages.
+During discussion of earlier drafts of this PEP, various objections
+were raised and alternatives were proposed.  We discuss some of these
+here and explain why we reject them.
+
+Several main objections were raised.
+
+What about existing uses of annotations?
+----------------------------------------
+
+One line of argument points out that PEP 3107 explicitly supports
+the use of arbitrary expressions in function annotations.  The new
+proposal is then considered incompatible with the specification of PEP
+3107.
+
+Our response to this is that, first of all, the current proposal does
+not introduce any direct incompatibilities, so programs using
+annotations in Python 3.4 will still work correctly and without
+prejudice in Python 3.5.
+
+We do hope that type hints will eventually become the sole use for
+annotations, but this will require additional discussion and a
+deprecation period after the initial roll-out of the typing module
+with Python 3.5.  The current PEP will have provisional status (see
+PEP 411) until Python 3.6 is released.  The fastest conceivable scheme
+would introduce silent deprecation of non-type-hint annotations in
+3.6, full deprecation in 3.7, and declare type hints as the only
+allowed use of annotations in Python 3.8.  This should give authors of
+packages that use annotations plenty of time to devise another
+approach, even if type hints become an overnight success.
+
+Another possible outcome would be that type hints will eventually
+become the default meaning for annotations, but that there will always
+remain an option to disable them.  For this purpose the current
+proposal defines a decorator ``@no_type_check`` which disables the
+default interpretation of annotations as type hints in a given class
+or function.  It also defines a meta-decorator
+``@no_type_check_decorator`` which can be used to decorate a decorator
+(!), causing annotations in any function or class decorated with the
+latter to be ignored by the type checker.
+
+There are also ``# type: ignore`` comments, and static checkers should
+support configuration options to disable type checking in selected
+packages.
+
+Despite all these options, proposals have been circulated to allow
+type hints and other forms of annotations to coexist for individual
+arguments.  One proposal suggests that if an annotation for a given
+argument is a dictionary literal, each key represents a different form
+of annotation, and the key ``'type'`` would be use for type hints.
+The problem with this idea and its variants is that the notation
+becomes very "noisy" and hard to read.  Also, in most cases where
+existing libraries use annotations, there would be little need to
+combine them with type hints.  So the simpler approach of selectively
+disabling type hints appears sufficient.
+  
+The problem of forward declarations
+-----------------------------------
+
+The current proposal is admittedly sub-optimal when type hints must
+contain forward references.  Python requires all names to be defined
+by the time they are used.  Apart from circular imports this is rarely
+a problem: "use" here means "look up at runtime", and with most
+"forward" references there is no problem in ensuring that a name is
+defined before the function using it is called.
+
+The problem with type hints is that annotations (per PEP 3107, and
+similar to default values) are evaluated at the time a function is
+defined, and thus any names used in an annotation must be already
+defined when the function is being defined.  A common scenario is a
+class definition whose methods need to reference the class itself in
+their annotations.  (More general, it can also occur with mutually
+recursive classes.)  This is natural for container types, for
+example::
+
+  class Node:
+      """Binary tree node."""
+
+      def __init__(self, left: Node, right: None):
+          self.left = left
+          self.right = right
+
+As written this will not work, because of the peculiarity in Python
+that class names become defined once the entire body of the class has
+been executed.  Our solution, which isn't particularly elegant, but
+gets the job done, is to allow using string literals in annotations.
+Most of the time you won't have to use this though -- most _uses_ of
+type hints are expected to reference builtin types or types defined in
+other modules.
+
+A counterproposal would change the semantics of type hints so they
+aren't evaluated at runtime at all (after all, type checking happens
+off-line, so why would type hints need to be evaluated at runtime at
+all).  This of course would run afoul of backwards compatibility,
+since the Python interpreter doesn't actually know whether a
+particular annotation is meant to be a type hint or something else.
+
+The double colon
+----------------
+
+A few creative souls have tried to invent solutions for this problem.
+For example, it was proposed to use a double colon (``::``) for type
+hints, solving two problems at once: disambiguating between type hints
+and other annotations, and changing the semantics to preclude runtime
+evaluation.  There are several things wrong with this idea, however.
+
+* It's ugly.  The single colon in Python has many uses, and all of
+  them look familiar because they resemble the use of the colon in
+  English text.  This is a general rule of thumb by which Python
+  abides for most forms of punctuation; the exceptions are typically
+  well known from other programming languages.  But this use of ``::``
+  is unheard of in English, and in other languages (e.g. C++) it is
+  used as a scoping operator, which is a very different beast.  In
+  contrast, the single colon for type hints reads natural -- and no
+  wonder, since it was carefully designed for this purpose (the idea
+  long predates PEP 3107 [gvr-artima]_).  It is also used in the same
+  fashion in other languages from Pascal to Swift.
+
+* What would you do for return type annotations?
+
+* It's actually a feature that type hints are evaluated at runtime.
+
+  * Making type hints available at runtime allows runtime type
+    checkers to be built on top of type hints.
+
+  * It catches mistakes even when the type checker is not run.  Since
+    it is a separate program, users may choose not to run it (or even
+    install it), but might still want to use type hints as a concise
+    form of documentation.  Broken type hints are no use even for
+    documentation.
+
+* Because it's new syntax, using the double colon for type hints would
+  limit them to code that works with Python 3.5 only.  By using
+  existing syntax, the current proposal can easily work for older
+  versions of Python 3.  (And in fact mypy supports Python 3.2 and
+  newer.)
+
+* If type hints become successful we may well decide to add new syntax
+  in the future to declare the type for variables, for example
+  ``var age: int = 42``.  If we were to use a double colon for
+  argument type hints, for consistency we'd have to use the same
+  convention for future syntax, perpetuating the ugliness.
+
+Other forms of new syntax
+-------------------------
+
+A few other forms of alternative syntax have been proposed, e.g. the
+introduction of a ``where`` keyword [roberge]_, and Cobra-inspired
+``requires`` clauses.  But these all share a problem with the double
+colon: they won't work for earlier versions of Python 3.  The same
+would apply to a new ``__future__`` import.
+
+Other backward compatible conventions
+-------------------------------------
+
+The ideas put forward include:
+
+* A decorator, e.g. ``@typehints(name=str, returns=str)``.  This could
+  work, but it's pretty verbose (an extra line, and the argument names
+  must be repeated), and a far cry in elegance from the PEP 3107
+  notation.
+
+* Stub files.  We do want stub files, but they are primarily useful
+  for adding type hints to existing code that doesn't lend itself to
+  adding type hints, e.g. 3rd party packages, code that needs to
+  support both Python 2 and Python 3, and especially extension
+  modules.  For most situations, having the annotations in line with
+  the function definitions makes them much more useful.
+
+* Docstrings.  There is an existing convention for docstrings, based
+  on the Sphinx notation (``:type arg1: description``).  This is
+  pretty verbose (an extra line per parameter), and not very elegant.
+  We could also make up something new, but the annotation syntax is
+  hard to beat (because it was designed for this very purpose).
+
+It's also been proposed to simply wait another release.  But what
+problem would that solve?  It would just be procrastination.
 
 
 Is type hinting Pythonic?
@@ -535,6 +715,12 @@ References
 
 .. [pylint]
    http://www.pylint.org
+
+.. [gvr-artima]
+   http://www.artima.com/weblogs/viewpost.jsp?thread=85551
+
+.. [roberge]
+   http://aroberge.blogspot.com/2015/01/type-hinting-in-python-focus-on.html
 
 
 Copyright

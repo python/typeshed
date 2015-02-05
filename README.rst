@@ -96,9 +96,6 @@ Work in progress notes
 Editing tasks
 -------------
 
-* List some rejected alternatives and explain why.
-  See https://github.com/ambv/typehinting/issues/55
-
 * Note that type checkers ought to provide config options to
   selectively skip specific modules/packages.
   See https://github.com/ambv/typehinting/issues/53
