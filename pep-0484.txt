@@ -124,18 +124,31 @@ Frameworks expecting callback functions of specific signatures might be
 type hinted using ``Callable[[Arg1Type, Arg2Type], ReturnType]``.
 Examples::
 
-  from typing import Any, AnyArgs, Callable
+  from typing import Callable
 
-  def feeder(get_next_item: Callable[[], Item]) -> None: ...
+  def feeder(get_next_item: Callable[[], str]) -> None:
+      # Body
 
   def async_query(on_success: Callable[[int], None],
-                  on_error: Callable[[int, Exception], None]) -> None: ...
+                  on_error: Callable[[int, Exception], None]) -> None:
+      # Body
 
-  def partial(func: Callable[AnyArgs, Any], *args) -> None: ...
+It is possible to declare the return type of a callable without
+specifying the call signature by substituting a literal ellipsis
+(three dots) for the list of arguments::
 
-Since using callbacks with keyword arguments is not perceived as
-a common use case, there is currently no support for specifying keyword
-arguments with ``Callable``.
+  def partial(func: Callable[..., str], *args) -> Callable[..., str]:
+      # Body
+
+Note that there are no square brackets around the ellipsis.  The
+arguments of the callback are completely unconstrained in this case
+(and keyword arguments are acceptable).
+
+Since using callbacks with keyword arguments is not perceived as a
+common use case, there is currently no support for specifying keyword
+arguments with ``Callable``.  Similarly, there is no support for
+specifying callback signatures with a variable number of argument of a
+specific type.
 
 
 Generics
@@ -381,10 +394,6 @@ generics and union types:
   during runtime)
 
 * Callable, used as ``Callable[[Arg1Type, Arg2Type], ReturnType]``
-
-* AnyArgs, used as ``Callable[AnyArgs, ReturnType]``
-
-.. FIXME: Instead of AnyArgs we will use Ellipsis.
 
 * AnyStr, equivalent to ``TypeVar('AnyStr', str, bytes)``
 
