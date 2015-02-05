@@ -100,10 +100,6 @@ Editing tasks
   selectively skip specific modules/packages.
   See https://github.com/ambv/typehinting/issues/53
 
-* The PEP's description of `Any` doesn't match PEP 483; it's not a
-  Union.  See https://github.com/ambv/typehinting/issues/38 and
-  https://github.com/ambv/typehinting/issues/25
-
 * Explain ``cast()``.  See https://github.com/ambv/typehinting/issues/15
 
 * Explain stub files.

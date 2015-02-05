@@ -37,7 +37,7 @@ from a pure-Python module ``typing.py``.  The ``Sequence[int]``
 notation works by implementing ``__getitem__()`` in the metaclass.
 
 The type system supports unions, generic types, and a special type
-named *Any* which is consistent with (i.e. assignable to and from) all
+named ``Any`` which is consistent with (i.e. assignable to and from) all
 types.  This latter feature is taken from the idea of gradual typing.
 Gradual typing and the full type system are explained in PEP 483.
 
@@ -253,10 +253,19 @@ This is equivalent to::
 
   def handle_employee(e: Optional[Employee] = None) -> None: ...
 
-A special kind of union type is ``Any``, a class that responds
-``True`` to ``issubclass`` of any class.  This lets the user
-explicitly state that there are no constraints on the type of a
-specific argument or return value.
+The ``Any`` type
+----------------
+
+A special kind of type is ``Any``.  Every class is a subclass of
+``Any``.  This is also true for the builtin class ``object``.
+However, to the static type checker these are completely different.
+
+When the type of a value is ``object``, the type checker will reject
+almost all operations on it, and assigning it to a variable (or using
+it as a return value) of a more specialized type is a type error.  On
+the other hand, when a value has type ``Any``, the type checker will
+allow all operations on it, and a value of type `Any`` can be assigned
+to a variable (or used as a return value) of a more constrained type.
 
 
 Platform-specific type checking
