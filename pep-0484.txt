@@ -498,6 +498,55 @@ here and explain why we reject them.
 
 Several main objections were raised.
 
+Which brackets for generic type parameters?
+-------------------------------------------
+
+Most people are familiar with the use of angular brackets
+(e.g. ``List<int>``) in languages like C++, Java, C# and Swift to
+express the parametrization of generic types.  The problem with these
+is that they are really hard to parse, especially for a simple-minded
+parser like Python.  In most languages the ambiguities are usually
+dealy with by only allowing angular brackets in specific syntactic
+positions, where general expressions aren't allowed.  (And also by
+using very powerful parsing techniques that can backtrack over an
+arbitrary section of code.)
+
+But in Python, we'd like type expressions to be (syntactically) the
+same as other expressions, so that we can use e.g. variable assignment
+to create type aliases.  Consider this simple type expression::
+
+    List<int>
+
+From the Python parser's perspective, the expression begins with the
+same four tokens (NAME, LESS, NAME, GREATER) as a chained comparison::
+
+    a < b > c  # I.e., (a < b) and (b > c)
+
+We can even make up an example that could be parsed both ways::
+
+    a < b > [ c ]
+
+Assuming we had angular brackets in the language, this could be
+interpreted as either of the following two::
+
+    (a<b>)[c]      # I.e., (a<b>).__getitem__(c)
+    a < b > ([c])  # I.e., (a < b) and (b > [c])
+
+It would surely be possible to come up with a rule to disambiguate
+such cases, but to most users the rules would feel arbitrary and
+complex.  It would also require us to dramatically change the CPython
+parser (and every other parser for Python).  It should be noted that
+Python's current parser is intentionally "dumb" -- a simple grammar is
+easier for users to reason about.
+
+For all these reasons, square brackets (e.g. ``List[int]``) are (and
+have long been) the preferred syntax for generic type parameters.
+They can be implemented by overloading the ``__getitem__`` method on
+the metaclass, and no new syntax is required at all.  This option
+works in all recent versions of Python (starting with Python 2.2).
+Python is not alone in this syntactic choice -- generic classes in
+Scala also use square brackets.
+
 What about existing uses of annotations?
 ----------------------------------------
 
