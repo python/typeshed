@@ -962,6 +962,7 @@ def get_type_hints(obj, globalns=None, localns=None):
     return hints
 
 
+# TODO: Also support this as a class decorator.
 def no_type_check(func):
     """Decorator to indicate that annotations are not type hints.
 
