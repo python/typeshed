@@ -96,12 +96,6 @@ Work in progress notes
 Editing tasks
 -------------
 
-* The PEP Abstract should probably say a little more about the shape
-  of the proposal.
-
-* Some words to avoid needless worrying.
-  See https://github.com/ambv/typehinting/issues/54
-
 * List some rejected alternatives and explain why.
   See https://github.com/ambv/typehinting/issues/55
 

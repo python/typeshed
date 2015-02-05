@@ -16,11 +16,30 @@ Abstract
 ========
 
 This PEP introduces a standard syntax for type hints using annotations
-on function definitions.
+(PEP 3107) on function definitions.  For example, here is a simple
+function whose argument and return type are declared in the
+annotations::
 
-The proposal is strongly inspired by mypy [mypy]_.
+  def greeting(name: str) -> str:
+      return 'Hello ' + name
 
-The theory behind type hints and gradual typing is explained in PEP 483.
+While these annotations are available at runtime through the usual
+``__annotations__`` attribute, *no type checking happens at runtime*.
+Instead, the proposal assumes the existence of a separate off-line
+type checker which users can run over their source code voluntarily.
+Essentially, such a type checker acts as a very powerful linter.
+
+The proposal is strongly inspired by mypy [mypy]_.  For example, the
+type "sequence of integers" can be written as ``Sequence[int]``.  The
+square brackets mean that no new syntax needs to be added to the
+language.  The example here uses a custom class ``Sequence``, imported
+from a pure-Python module ``typing.py``.  The ``Sequence[int]``
+notation works by implementing ``__getitem__()`` in the metaclass.
+
+The type system supports unions, generic types, and a special type
+named *Any* which is consistent with (i.e. assignable to and from) all
+types.  This latter feature is taken from the idea of gradual typing.
+Gradual typing and the full type system are explained in PEP 483.
 
 
 Rationale and Goals
@@ -36,7 +55,24 @@ up Python code to easier static analysis and refactoring, potential
 runtime type checking, and performance optimizations utilizing type
 information.
 
-.. FIXME: Explain the concept of a type checker (see also Usage Patterns)
+Of these goals, static analysis is the most important.  This includes
+support for off-line type checkers such as mypy, as well as providing
+a standard notation that can be used by IDEs for code completion and
+refactoring.
+
+Non-goals
+---------
+
+While the proposed typing module will contain some building blocks for
+runtime type checking -- in particular a useful ``isinstance()``
+implementation -- third party packages would have to be developed to
+implement specific runtime type checking functionality, for example
+using decorators or metaclasses.  Using type hints for performance
+optimizations is left as an exercise for the reader.
+
+It should also be emphasized that Python will remain a dynamically
+typed language, and the authors have no desire to ever make type hints
+mandatory, even by convention.
 
 
 Type Definition Syntax
@@ -441,6 +477,8 @@ error, the program will continue running.
 The implementation of a type checker, whether linting source files or
 enforcing type information during runtime, is out of scope for this PEP.
 
+.. FIXME: This is somewhat redundant with the updated initial sections.
+
 .. FIXME: Describe stub modules.
 
 .. FIXME: Describe run-time behavior of generic types.
@@ -454,6 +492,8 @@ PEP 482 lists existing approaches in Python and other languages.
 
 Is type hinting Pythonic?
 =========================
+
+.. FIXME: Do we really need this section?
 
 Type annotations provide important documentation for how a unit of code
 should be used.  Programmers should therefore provide type hints on
