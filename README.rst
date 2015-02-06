@@ -54,8 +54,6 @@ Changes to MyPy coming from this proposal
 Open issues
 -----------
 
-* Introducing ``cast`` and stub files.  **TODO:** Update the PEP.
-
 * How to make the union type land in __annotations__ for the ``x: str
   = None`` case?  **Resolution:** Add a function to typing.py that
   retrieves a function's type annotations.  This should also expand
