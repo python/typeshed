@@ -289,6 +289,8 @@ differences, simple conditionals can be used::
   else:
       loop = UnixSelectorEventLoop
 
+.. FIXME: Also define PY3 and POSIX?
+
 Arbitrary literals defined in the form of ``NAME = True`` will also be
 accepted by the type checker to differentiate type resolution::
 
@@ -327,6 +329,8 @@ hinting, use the following:
 .. FIXME: should we have a module-wide comment as well?
 
 .. FIXME: suggest that other uses of annotations be replaced with decorators
+
+.. FIXME: add reference to "rejected alternatives"
 
 
 Type Hints on Local and Global Variables
@@ -377,16 +381,114 @@ the type checker trusts the programmer.  Also, casts can be used in
 expressions, while type comments only apply to assignments.
 
 
-Explicit raised exceptions
-==========================
+Stub Files
+==========
 
-No support for listing explicitly raised exceptions is being defined by
-this PEP.  Currently the only known use case for this feature is
-documentational, in which case the recommendation is to put this
-information in a docstring.
+Stub files are files containing type hints that are only for use by
+the type checker, not at runtime.  There are several use cases for
+stub files:
+
+* Extension modules
+
+* 3rd party modules whose authors have not yet added type hints
+
+* Standard library modules for which type hints have not yet been written
+
+* Modules that must be compatible with Python 2 and 3
+
+* Modules that use annotations for other purposes
+
+Stub files have the same syntax as regular Python modules.  There is
+one feature of the ``typing`` module that may only be used in stub
+files: the ``@overload`` decorator described below.
+
+The type checker should only check function signatures in stub files;
+function bodies in stub files should just be a single ``pass`` statement.
+
+The type checker should have a configurable search path for stub
+files.  If a stub file is found the type checker should not read the
+corresponding "real" module.
+
+Stub files may use the ``.py`` extension or alternatively may use the
+``.pyi`` extension.  The latter makes it possible to maintain stub
+files in the same directory as the corresponding real module.
+
+Function overloading
+--------------------
+
+The ``@overload`` decorator allows describing functions that support
+multiple different combinations of argument types.  This pattern is
+used frequently in builtin modules and types.  For example, the
+``__getitem__()`` method of the ``bytes`` type can be described as
+follows::
+
+  from typing import overload
+
+  class bytes:
+    ...
+    @overload
+    def __getitem__(self, i: int) -> int: pass
+    @overload
+    def __getitem__(self, s: slice) -> bytes: pass
+
+This description is more precise than would be possible using unions
+(which cannot express the relationship between the argument and return
+types)::
+
+  from typing import Union
+  class bytes:
+    ...
+    def __getitem__(self, a: Union[int, slice]) -> Union[int, bytes]: pass
+
+Another example where ``@overload`` comes in handy is the type of the
+builtin ``map()`` function, which takes a different number of
+arguments depending on the type of the callable::
+
+  from typing import Callable, Iterable, Iterator, Tuple, TypeVar, overload
+
+  T1 = TypeVar('T1')
+  T2 = TypeVar('T2)
+  S = TypeVar('S')
+
+  @overload
+  def map(func: Callable[[T1], S], iter1: Iterable[T1]) -> Iterator[S]: pass
+  @overload
+  def map(func: Callable[[T1, T2], S],
+          iter1: Iterable[T1], iter2: Iterable[T2]) -> Iterator[S]: pass
+  # ... and we could add more items to support more than two iterables
+
+Note that we could also easily add items to support ``map(None, ...)``::
+
+  @overload
+  def map(func: None, iter1: Iterable[T1]) -> Iterable[T1]: pass
+  @overload
+  def map(func: None,
+          iter1: Iterable[T1],
+          iter2: Iterable[T2]) -> Iterable[Tuple[T1, T2]]: pass
+
+The ``@overload`` decorator may only be used in stub files.  While it
+would be possible to provide a multiple dispatch implementation using
+this syntax, its implementation would require using
+``sys._getframe()``, which is frowned upon.  Also, designing and
+implementing an efficient multiple dispatch mechanism is hard, which
+is why previous attempts were abandoned in favor of
+``functools.singledispatch()``.  (See PEP 443, especially its section
+"Alternative approaches".)  In the future we may come up with a
+satisfactory multiple dispatch design, but we don't want such a design
+to be constrained by the overloading syntax defined for type hints in
+stub files.
 
 
-The ``typing`` package
+Exceptions
+==========
+
+No syntax for listing explicitly raised exceptions is proposed.
+Currently the only known use case for this feature is documentational,
+in which case the recommendation is to put this information in a
+docstring.
+
+
+The ``typing`` Package
 ======================
 
 To open the usage of static type checking to Python 3.5 as well as older
@@ -504,7 +606,7 @@ modules have two-letter names.").
 The place of the ``typing`` module in the standard library
 ----------------------------------------------------------
 
-.. FIXME: complete this section
+.. FIXME: complete this section (or discard?)
 
 
 Usage Patterns
@@ -528,8 +630,6 @@ The implementation of a type checker, whether linting source files or
 enforcing type information during runtime, is out of scope for this PEP.
 
 .. FIXME: This is somewhat redundant with the updated initial sections.
-
-.. FIXME: Describe stub modules.
 
 .. FIXME: Describe run-time behavior of generic types.
 
@@ -586,7 +686,7 @@ easier for users to reason about.
 
 For all these reasons, square brackets (e.g. ``List[int]``) are (and
 have long been) the preferred syntax for generic type parameters.
-They can be implemented by overloading the ``__getitem__`` method on
+They can be implemented by defining the ``__getitem__()`` method on
 the metaclass, and no new syntax is required at all.  This option
 works in all recent versions of Python (starting with Python 2.2).
 Python is not alone in this syntactic choice -- generic classes in
@@ -737,8 +837,8 @@ introduction of a ``where`` keyword [roberge]_, and Cobra-inspired
 colon: they won't work for earlier versions of Python 3.  The same
 would apply to a new ``__future__`` import.
 
-Other backward compatible conventions
--------------------------------------
+Other backwards compatible conventions
+--------------------------------------
 
 The ideas put forward include:
 
@@ -764,7 +864,7 @@ It's also been proposed to simply wait another release.  But what
 problem would that solve?  It would just be procrastination.
 
 
-Is type hinting Pythonic?
+Is Type Hinting Pythonic?
 =========================
 
 .. FIXME: Do we really need this section?

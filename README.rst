@@ -69,14 +69,8 @@ Open issues
 Work in progress notes
 ----------------------
 
-* I (Łukasz) left out ``overload`` because I don't understand its
-  purpose. If we need generic dispatch, we should add it to
-  ``functools``.  Perhaps ``overload`` should only be allowed in stub
-  modules?  See https://github.com/ambv/typehinting/issues/14
-  **Resolution:** For now, support the syntax only in stub files.
-
-* Having the last thing in mind, ``IO``, ``BinaryIO`` and ``TextIO``
-  would simply be new abstract base classes, usable with or without type
+* Perhaps ``IO``, ``BinaryIO`` and ``TextIO``
+  should simply be new abstract base classes, usable with or without type
   hinting.  **Proposed resolution:** ``IO`` is generic over ``AnyStr``,
   the other two are concrete (subclassing ``IO[bytes]`` and ``IO[str]``
   respectively).
@@ -100,8 +94,6 @@ Editing tasks
   selectively skip specific modules/packages.
   See https://github.com/ambv/typehinting/issues/53
 
-* Explain stub files.
-
 * Explain `@no_type_check` and also how to define a new decorator that
   implies the same.  See https://github.com/ambv/typehinting/issues/51
 
@@ -111,8 +103,6 @@ Editing tasks
 * Make a list of things we're explicitly punting (see above).
 
 * Explain namedtuple.  (Does this go in PEP 483 perhaps?)
-
-* Explain ``@overload`` in stub files.
 
 * Describe the ``typing.re`` and ``typing.io`` subpackages, and how to
   add others.
