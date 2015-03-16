@@ -7,7 +7,6 @@
 # - io.{IO,BinaryIO,TextIO}
 # - re.{Match,Pattern}
 # - forwardref?
-# - overload
 # - namedtuple
 # what else?
 
@@ -983,6 +982,10 @@ def no_type_check_decorator(decorator):
         return func
 
     return wrapped_decorator
+
+
+def overload(func):
+    raise RuntimeError("Overloading is only supported in library stubs")
 
 
 # Various ABCs mimicking those in collections.abc.

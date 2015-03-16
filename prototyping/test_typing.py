@@ -789,6 +789,20 @@ class ForwardRefTest(TestCase):
         self.assertEqual(th, {})
 
 
+class OverloadTests(TestCase):
+
+    def test_overload_exists(self):
+        from typing import overload
+
+    def test_overload_fails(self):
+        from typing import overload
+
+        with self.assertRaises(RuntimeError):
+            @overload
+            def blah():
+                pass
+
+
 class CollectionsAbcTests(TestCase):
 
     def test_hashable(self):
