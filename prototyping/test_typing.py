@@ -680,10 +680,9 @@ class CastTest(TestCase):
         assert cast(None, 42) == 42
 
     def test_errors(self):
-        with self.assertRaises(TypeError):
-            cast(42, 42)
-        with self.assertRaises(TypeError):
-            cast('hello', 42)
+        # Bogus calls are not expected to fail.
+        cast(42, 42)
+        cast('hello', 42)
 
 
 class ForwardRefTest(TestCase):

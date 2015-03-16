@@ -913,12 +913,9 @@ def cast(typ, val):
 
     This returns the value unchanged.  To the type checker this
     signals that the return value has the designated type, but at
-    runtime we intentionally don't check this.  However, we do
-    insist that the first argument is a type.
+    runtime we intentionally don't check anything (we want this
+    to be as fast as possible).
     """
-    _type_check(typ, "cast(t, v): t must be a type.")
-    if isinstance(typ, str):
-        raise TypeError("cast(t, v): t cannot be a forward reference.")
     return val
 
 
