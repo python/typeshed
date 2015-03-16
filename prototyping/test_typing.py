@@ -1,5 +1,4 @@
-import collections.abc
-from unittest import TestCase, mock
+from unittest import TestCase, main, mock
 
 from typing import Any
 from typing import TypeVar, T, KT, VT, AnyStr
@@ -252,9 +251,9 @@ class UnionTests(TestCase):
     def test_repr(self):
         self.assertEqual(repr(Union), 'typing.Union')
         u = Union[Employee, int]
-        self.assertEqual(repr(u), 'typing.Union[test_typing.Employee, int]')
+        self.assertEqual(repr(u), 'typing.Union[%s.Employee, int]' % __name__)
         u = Union[int, Employee]
-        self.assertEqual(repr(u), 'typing.Union[int, test_typing.Employee]')
+        self.assertEqual(repr(u), 'typing.Union[int, %s.Employee]' % __name__)
 
     def test_cannot_subclass(self):
         with self.assertRaises(TypeError):
@@ -868,3 +867,7 @@ class CollectionsAbcTests(TestCase):
         assert not isinstance({42: 42}, t)
         assert not isinstance({'': 42}, t)
         assert not isinstance({'': ''}, t)
+
+
+if __name__ == '__main__':
+    main()
