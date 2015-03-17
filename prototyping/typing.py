@@ -1,4 +1,5 @@
 # TODO:
+# __all__
 # Collections:
 # - MappingView, KeysView, ItemsView, ValuesView
 # - ByteString
@@ -7,7 +8,6 @@
 # - io.{IO,BinaryIO,TextIO}
 # - re.{Match,Pattern}
 # - forwardref?
-# - namedtuple
 # what else?
 
 # TODO nits:
@@ -1090,3 +1090,25 @@ class _DictMeta(GenericMeta):
 
 class Dict(dict, MutableMapping, metaclass=_DictMeta):
     pass
+
+
+def NamedTuple(typename, fields):
+    """Typed version of namedtuple.
+
+    Usage::
+
+        Employee = typing.NamedTuple('Employee', [('name', str), 'id', int)])
+
+    This is equivalent to::
+
+        Employee = collections.namedtuple('Employee', ['name', 'id'])
+
+    The resulting class has one extra attribute: _field_types,
+    giving a dict mapping field names to types.  (The field names
+    are in the _fields attribute, which is part of the namedtuple
+    API.)
+    """
+    fields = [(n, t) for n, t in fields]
+    cls = collections.namedtuple(typename, [n for n, t in fields])
+    cls._field_types = dict(fields)
+    return cls

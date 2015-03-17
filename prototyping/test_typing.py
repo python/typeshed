@@ -1,3 +1,4 @@
+from collections import namedtuple
 from unittest import TestCase, main, mock
 
 from typing import Any
@@ -10,6 +11,7 @@ from typing import Undefined
 from typing import cast
 from typing import get_type_hints
 from typing import no_type_check, no_type_check_decorator
+from typing import NamedTuple
 import typing
 
 
@@ -880,6 +882,24 @@ class CollectionsAbcTests(TestCase):
         assert not isinstance({42: 42}, t)
         assert not isinstance({'': 42}, t)
         assert not isinstance({'': ''}, t)
+
+
+class NamedTupleTests(TestCase):
+
+    def test_basics(self):
+        Emp = NamedTuple('Emp', [('name', str), ('id', int)])
+        assert issubclass(Emp, tuple)
+        joe = Emp('Joe', 42)
+        jim = Emp(name='Jim', id=1)
+        assert isinstance(joe, Emp)
+        assert isinstance(joe, tuple)
+        assert joe.name == 'Joe'
+        assert joe.id == 42
+        assert jim.name == 'Jim'
+        assert jim.id == 1
+        assert Emp.__name__ == 'Emp'
+        assert Emp._fields == ('name', 'id')
+        assert Emp._field_types == dict(name=str, id=int)
 
 
 if __name__ == '__main__':
