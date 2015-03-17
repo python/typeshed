@@ -5,7 +5,6 @@
 # - ByteString
 # - FrozenSet?
 # Other things from mypy's typing.py:
-# - io.{IO,BinaryIO,TextIO}
 # - re.{Match,Pattern}
 # - forwardref?
 # what else?
@@ -15,6 +14,7 @@
 # Docstrings (e.g. ABCs).
 
 import abc
+from abc import abstractmethod, abstractproperty
 import collections.abc
 import functools
 import inspect
@@ -1112,3 +1112,137 @@ def NamedTuple(typename, fields):
     cls = collections.namedtuple(typename, [n for n, t in fields])
     cls._field_types = dict(fields)
     return cls
+
+
+class IO(Generic[AnyStr]):
+    """Generic base class for TextIO and BinaryIO.
+
+    This is an abstract, generic version of the return of open().
+
+    NOTE: This does not distinguish between the different possible
+    classes (text vs. binary, read vs. write vs. read/write,
+    append-only, unbuffered).  The TextIO and BinaryIO subclasses
+    below capture the distinctions between text vs. binary, which is
+    pervasive in the interface; however we currently do not offer a
+    way to track the other distinctions in the type system.
+    """
+
+    @abstractproperty
+    def mode(self) -> str:
+        pass
+
+    @abstractproperty
+    def name(self) -> str:
+        pass
+
+    @abstractmethod
+    def close(self) -> None:
+        pass
+
+    @abstractmethod
+    def closed(self) -> bool:
+        pass
+
+    @abstractmethod
+    def fileno(self) -> int:
+        pass
+
+    @abstractmethod
+    def flush(self) -> None:
+        pass
+
+    @abstractmethod
+    def isatty(self) -> bool:
+        pass
+
+    @abstractmethod
+    def read(self, n: int = -1) -> AnyStr:
+        pass
+
+    @abstractmethod
+    def readable(self) -> bool:
+        pass
+
+    @abstractmethod
+    def readline(self, limit: int = -1) -> AnyStr:
+        pass
+
+    @abstractmethod
+    def readlines(self, hint: int = -1) -> List[AnyStr]:
+        pass
+
+    @abstractmethod
+    def seek(self, offset: int, whence: int = 0) -> int:
+        pass
+
+    @abstractmethod
+    def seekable(self) -> bool:
+        pass
+
+    @abstractmethod
+    def tell(self) -> int:
+        pass
+
+    @abstractmethod
+    def truncate(self, size: int = None) -> int:
+        pass
+
+    @abstractmethod
+    def writable(self) -> bool:
+        pass
+
+    @abstractmethod
+    def write(self, s: AnyStr) -> int:
+        pass
+
+    @abstractmethod
+    def writelines(self, lines: List[AnyStr]) -> None:
+        pass
+
+    @abstractmethod
+    def __enter__(self) -> 'IO[AnyStr]':
+        pass
+
+    @abstractmethod
+    def __exit__(self, type, value, traceback) -> None:
+        pass
+
+
+class BinaryIO(IO[bytes]):
+    """Typed version of the return of open() in binary mode."""
+
+    @abstractmethod
+    def write(self, s: Union[bytes, bytearray]) -> int:
+        pass
+
+    @abstractmethod
+    def __enter__(self) -> 'BinaryIO':
+        pass
+
+
+class TextIO(IO[str]):
+    """Typed version of the return of open() in text mode."""
+
+    @abstractproperty
+    def buffer(self) -> BinaryIO:
+        pass
+
+    @abstractproperty
+    def encoding(self) -> str:
+        pass
+
+    @abstractproperty
+    def errors(self) -> str:
+        pass
+
+    @abstractproperty
+    def line_buffering(self) -> bool:
+        pass
+
+    @abstractproperty
+    def newlines(self) -> Any:
+        pass
+
+    @abstractmethod
+    def __enter__(self) -> 'TextIO':
+        pass

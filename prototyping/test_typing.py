@@ -12,6 +12,7 @@ from typing import cast
 from typing import get_type_hints
 from typing import no_type_check, no_type_check_decorator
 from typing import NamedTuple
+from typing import IO, TextIO, BinaryIO
 import typing
 
 
@@ -900,6 +901,33 @@ class NamedTupleTests(TestCase):
         assert Emp.__name__ == 'Emp'
         assert Emp._fields == ('name', 'id')
         assert Emp._field_types == dict(name=str, id=int)
+
+
+class IOTests(TestCase):
+
+    def test_io(self):
+
+        def stuff(a: IO) -> AnyStr:
+            return a.readline()
+
+        a = stuff.__annotations__['a']
+        assert a.__parameters__ == (AnyStr,)
+
+    def test_textio(self):
+
+        def stuff(a: TextIO) -> str:
+            return a.readline()
+
+        a = stuff.__annotations__['a']
+        assert a.__parameters__ == (str,)
+
+    def test_binaryio(self):
+
+        def stuff(a: BinaryIO) -> bytes:
+            return a.readline()
+
+        a = stuff.__annotations__['a']
+        assert a.__parameters__ == (bytes,)
 
 
 if __name__ == '__main__':
