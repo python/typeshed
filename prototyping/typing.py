@@ -5,7 +5,6 @@
 # - ByteString
 # - FrozenSet?
 # Other things from mypy's typing.py:
-# - re.{Match,Pattern}
 # - forwardref?
 # what else?
 
@@ -985,7 +984,15 @@ def no_type_check_decorator(decorator):
 
 
 def overload(func):
-    raise RuntimeError("Overloading is only supported in library stubs")
+    """The @overload decorator should only be used in stubs.
+
+    Calling a function decorated with @overload raises RuntimeError.
+    """
+
+    def wrapper(*args, **kwds):
+        raise RuntimeError("Overloading is only supported in library stubs")
+
+    return wrapper
 
 
 # Various ABCs mimicking those in collections.abc.
@@ -1245,4 +1252,102 @@ class TextIO(IO[str]):
 
     @abstractmethod
     def __enter__(self) -> 'TextIO':
+        pass
+
+
+class Match(Generic[AnyStr]):
+    """Typed version of the return of re.search() and re.match()."""
+
+    pos = 0
+    endpos = 0
+    lastindex = 0
+    lastgroup = Undefined(AnyStr)
+    string = Undefined(AnyStr)
+
+    # The regular expression object whose match() or search() method produced
+    # this match instance.
+    re = Undefined('Pattern[AnyStr]')
+
+    def expand(self, template: AnyStr) -> AnyStr:
+        pass
+
+    @overload
+    def group(self, group1: int = 0) -> AnyStr:
+        pass
+
+    @overload
+    def group(self, group1: str) -> AnyStr:
+        pass
+
+    @overload
+    def group(self, group1: int, group2: int,
+              *groups: int) -> Sequence[AnyStr]:
+        pass
+
+    @overload
+    def group(self, group1: str, group2: str,
+              *groups: str) -> Sequence[AnyStr]:
+        pass
+
+    def groups(self, default: AnyStr = None) -> Sequence[AnyStr]:
+        pass
+
+    def groupdict(self, default: AnyStr = None) -> Dict[str, AnyStr]:
+        pass
+
+    def start(self, group: int = 0) -> int:
+        pass
+
+    def end(self, group: int = 0) -> int:
+        pass
+
+    def span(self, group: int = 0) -> Tuple[int, int]:
+        pass
+
+
+class Pattern(Generic[AnyStr]):
+    """Typed version of the return of re.compile()."""
+
+    flags = 0
+    groupindex = 0
+    groups = 0
+    pattern = Undefined(AnyStr)
+
+    def search(self, string: AnyStr, pos: int = 0,
+               endpos: int = -1) -> Match[AnyStr]:
+        pass
+
+    def match(self, string: AnyStr, pos: int = 0,
+              endpos: int = -1) -> Match[AnyStr]:
+        pass
+
+    def split(self, string: AnyStr, maxsplit: int = 0) -> List[AnyStr]:
+        pass
+
+    def findall(self, string: AnyStr, pos: int = 0,
+                endpos: int = -1) -> List[AnyStr]:
+        pass
+
+    def finditer(self, string: AnyStr, pos: int = 0,
+                 endpos: int = -1) -> Iterator[Match[AnyStr]]:
+        pass
+
+    @overload
+    def sub(self, repl: AnyStr, string: AnyStr,
+            count: int = 0) -> AnyStr:
+        pass
+
+    @overload
+    def sub(self, repl: Callable[[Match[AnyStr]], AnyStr], string: AnyStr,
+            count: int = 0) -> AnyStr:
+        pass
+
+    @overload
+    def subn(self, repl: AnyStr, string: AnyStr,
+             count: int = 0) -> Tuple[AnyStr, int]:
+        pass
+
+    @overload
+    def subn(self, repl: Callable[[Match[AnyStr]], AnyStr], string: AnyStr,
+             count: int = 0) -> Tuple[AnyStr, int]:
         pass

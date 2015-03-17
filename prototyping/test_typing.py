@@ -13,6 +13,7 @@ from typing import get_type_hints
 from typing import no_type_check, no_type_check_decorator
 from typing import NamedTuple
 from typing import IO, TextIO, BinaryIO
+from typing import Match, Pattern
 import typing
 
 
@@ -800,10 +801,12 @@ class OverloadTests(TestCase):
     def test_overload_fails(self):
         from typing import overload
 
+        @overload
+        def blah():
+            pass
+
         with self.assertRaises(RuntimeError):
-            @overload
-            def blah():
-                pass
+            blah()
 
 
 class CollectionsAbcTests(TestCase):
@@ -928,6 +931,57 @@ class IOTests(TestCase):
 
         a = stuff.__annotations__['a']
         assert a.__parameters__ == (bytes,)
+
+
+class ReTests(TestCase):
+
+    def test_match_generic(self):
+
+        def stuff(a: AnyStr) -> Match:
+            return re.match(a, a[:])
+
+        r = stuff.__annotations__['return']
+        assert r.__parameters__ == (AnyStr,)
+
+    def test_match_str(self):
+
+        def stuff(a: str) -> Match[str]:
+            return re.match(a, 'hello')
+
+        r = stuff.__annotations__['return']
+        assert r.__parameters__ == (str,)
+
+    def test_match_bytes(self):
+
+        def stuff(a: bytes) -> Match[bytes]:
+            return re.match(a, b'hello')
+
+        r = stuff.__annotations__['return']
+        assert r.__parameters__ == (bytes,)
+
+    def test_compile_generic(self):
+
+        def stuff(a: AnyStr) -> Pattern:
+            return re.compile(a)
+
+        r = stuff.__annotations__['return']
+        assert r.__parameters__ == (AnyStr,)
+
+    def test_compile_str(self):
+
+        def stuff(a: str) -> Pattern[str]:
+            return re.compile(a)
+
+        r = stuff.__annotations__['return']
+        assert r.__parameters__ == (str,)
+
+    def test_compile_bytes(self):
+
+        def stuff(a: bytes) -> Pattern[bytes]:
+            return re.compile(a)
+
+        r = stuff.__annotations__['return']
+        assert r.__parameters__ == (bytes,)
 
 
 if __name__ == '__main__':
