@@ -3,11 +3,9 @@
 # Collections:
 # - MappingView, KeysView, ItemsView, ValuesView
 # - ByteString
-# - FrozenSet?
+# - FrozenSet
 # Other things from mypy's typing.py:
-# - re.{Match,Pattern}
-# - forwardref?
-# what else?
+# - Reversible, SupportsInt, SupportsFloat, SupportsAbs, SupportsRound
 
 # TODO nits:
 # Get rid of asserts that are the caller's fault.
@@ -18,6 +16,7 @@ from abc import abstractmethod, abstractproperty
 import collections.abc
 import functools
 import inspect
+import re
 import sys
 import types
 
@@ -1246,3 +1245,63 @@ class TextIO(IO[str]):
     @abstractmethod
     def __enter__(self) -> 'TextIO':
         pass
+
+
+class _TypeAlias:
+    """Internal helper class for defining generic variants of concrete types.
+
+    Note that this is not a type; let's call it a pseudo-type.  It can
+    be used in instance and subclass checks, e.g. isinstance(m, Match)
+    or issubclass(type(m), Match).  However, it cannot be itself the
+    target of an issubclass() call; e.g. issubclass(Match, C) (for
+    some arbitrary class C) raises TypeError rather than returning
+    False.
+    """
+
+    def __init__(self, name, type_var, impl_type, type_checker):
+        """Constructor.
+
+        Args:
+            name: The name, e.g. 'Pattern'
+            type_var: The type parameter, e.g. 'AnyStr', or the
+                specific type, e.g. 'str'
+            impl_type: The implementation type
+            type_checker: Function that takes an impl_type instance
+                and returns a value that should be a type_var instance
+        """
+        assert isinstance(name, str), repr(name)
+        assert isinstance(type_var, type), repr(type_var)
+        assert isinstance(impl_type, type), repr(impl_type)
+        assert not isinstance(impl_type, TypingMeta), repr(impl_type)
+        self.name = name  # The name, e.g. 'Pattern'
+        self.type_var = type_var  # The type parameter, e.g. 'AnyStr', or the specific type, e.g. 'str'
+        self.impl_type = impl_type  # The implementation type
+        self.type_checker = type_checker  # Function that takes an impl_type instance and returns a value that should be a type_var instance
+
+    def __repr__(self):
+        return "%s[%s]" % (self.name, _type_repr(self.type_var))
+
+    def __getitem__(self, parameter):
+        assert isinstance(parameter, type), repr(parameter)
+        if not isinstance(self.type_var, TypeVar):
+            raise TypeError("%s cannot be further parameterized." % self)
+        if not issubclass(parameter, self.type_var):
+            raise TypeError("%s is not a valid substitution for %s." % (parameter, self.type_var))
+        return self.__class__(self.name, parameter, self.impl_type, self.type_checker)
+
+    def __instancecheck__(self, obj):
+        return isinstance(obj, self.impl_type) and isinstance(self.type_checker(obj), self.type_var)
+
+    def __subclasscheck__(self, cls):
+        if isinstance(cls, _TypeAlias):
+            # Covariance.  For now, we compare by name.
+            return (cls.name == self.name and issubclass(cls.type_var, self.type_var))
+        else:
+            # Note that this is too lenient, because the
+            # implementation type doesn't carry information about
+            # whether it is about bytes or str (for example).
+            return issubclass(cls, self.impl_type)
+
+
+Pattern = _TypeAlias('Pattern', AnyStr, type(re.compile('')), lambda p: p.pattern)
+Match =  _TypeAlias('Match', AnyStr, type(re.match('', '')), lambda m: m.re.pattern)

@@ -1,4 +1,5 @@
 from collections import namedtuple
+import re
 from unittest import TestCase, main, mock
 
 from typing import Any
@@ -13,6 +14,7 @@ from typing import get_type_hints
 from typing import no_type_check, no_type_check_decorator
 from typing import NamedTuple
 from typing import IO, TextIO, BinaryIO
+from typing import Pattern, Match
 import typing
 
 
@@ -928,6 +930,55 @@ class IOTests(TestCase):
 
         a = stuff.__annotations__['a']
         assert a.__parameters__ == (bytes,)
+
+
+class RETests(TestCase):
+    # Much of this is really testing _TypeAlias.
+
+    def test_basics(self):
+        pat = re.compile('[a-z]+', re.I)
+        assert isinstance(pat, Pattern)
+        assert isinstance(pat, Pattern[str])
+        assert not isinstance(pat, Pattern[bytes])
+        assert issubclass(type(pat), Pattern)
+        assert issubclass(type(pat), Pattern[str])
+
+        mat = pat.search('12345abcde.....')
+        assert isinstance(mat, Match)
+        assert isinstance(mat, Match[str])
+        assert not isinstance(mat, Match[bytes])
+        assert issubclass(type(mat), Match)
+        assert issubclass(type(mat), Match[str])
+
+        p = Pattern[Union[str, bytes]]
+        assert isinstance(pat, p)
+        assert issubclass(Pattern[str], Pattern)
+        assert issubclass(Pattern[str], p)
+
+        m = Match[Union[bytes, str]]
+        assert isinstance(mat, m)
+        assert issubclass(Match[bytes], Match)
+        assert issubclass(Match[bytes], m)
+
+    def test_errors(self):
+        with self.assertRaises(TypeError):
+            # Doesn't fit AnyStr.
+            Pattern[int]
+        with self.assertRaises(TypeError):
+            # Can't change type vars?
+            Match[T]
+        m = Match[Union[str, bytes]]
+        with self.assertRaises(TypeError):
+            # Too complicated?
+            m[str]
+
+    def test_repr(self):
+        assert repr(Pattern) == 'Pattern[~AnyStr]'
+        assert repr(Pattern[str]) == 'Pattern[str]'
+        assert repr(Pattern[bytes]) == 'Pattern[bytes]'
+        assert repr(Match) == 'Match[~AnyStr]'
+        assert repr(Match[str]) == 'Match[str]'
+        assert repr(Match[bytes]) == 'Match[bytes]'
 
 
 if __name__ == '__main__':
