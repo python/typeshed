@@ -1262,12 +1262,12 @@ class _TypeAlias:
         """Constructor.
 
         Args:
-            name: The name, e.g. 'Pattern'
-            type_var: The type parameter, e.g. 'AnyStr', or the
-                specific type, e.g. 'str'
-            impl_type: The implementation type
-            type_checker: Function that takes an impl_type instance
-                and returns a value that should be a type_var instance
+            name: The name, e.g. 'Pattern'.
+            type_var: The type parameter, e.g. AnyStr, or the
+                specific type, e.g. str.
+            impl_type: The implementation type.
+            type_checker: Function that takes an impl_type instance.
+                and returns a value that should be a type_var instance.
         """
         assert isinstance(name, str), repr(name)
         assert isinstance(type_var, type), repr(type_var)
