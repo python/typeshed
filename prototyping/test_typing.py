@@ -611,7 +611,8 @@ class GenericTests(TestCase):
 
     def test_errors(self):
         with self.assertRaises(TypeError):
-            class C(SimpleMapping[XK, Any]):
+            B = SimpleMapping[XK, Any]
+            class C(Generic[B]):
                 pass
 
     def test_repr_2(self):
@@ -651,6 +652,50 @@ class GenericTests(TestCase):
         assert A != B
         assert A[T] == A[T]
         assert A[T] != B[T]
+
+    def test_multiple_inheritance(self):
+
+        class A(Generic[T, VT]):
+            pass
+
+        class B(Generic[KT, T]):
+            pass
+
+        class C(A, Generic[KT, VT], B):
+            pass
+
+        assert C.__parameters__ == (T, VT, KT)
+
+    def test_nested(self):
+
+        class G(Generic):
+            pass
+
+        class Visitor(G[T]):
+
+            a = None
+
+            def set(self, a: T):
+                self.a = a
+
+            def get(self):
+                return self.a
+
+            def visit(self) -> T:
+                return self.a
+
+        V = Visitor[typing.List[int]]
+
+        class IntListVisitor(V):
+
+            def append(self, x: int):
+                self.a.append(x)
+
+        a = IntListVisitor()
+        a.set([])
+        a.append(1)
+        a.append(42)
+        assert a.get() == [1, 42]
 
 
 class UndefinedTest(TestCase):

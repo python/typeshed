@@ -1,9 +1,8 @@
 # TODO:
-# __all__
+# __all__ (should not include T, KT, VT)
 # Collections:
 # - MappingView, KeysView, ItemsView, ValuesView
 # - ByteString
-# - FrozenSet
 # Other things from mypy's typing.py:
 # - Reversible, SupportsInt, SupportsFloat, SupportsAbs, SupportsRound
 
@@ -53,6 +52,9 @@ class TypingMeta(type):
         """
         return self
 
+    def _has_type_var(self):
+        return False
+
     def __repr__(self):
         return '%s.%s' % (self.__module__, self.__qualname__)
 
@@ -97,6 +99,10 @@ class _ForwardRef(TypingMeta):
 
     def __repr__(self):
         return '_ForwardRef(%r)' % (self.__forward_arg__,)
+
+
+def _has_type_var(t):
+    return t is not None and isinstance(t, TypingMeta) and t._has_type_var()
 
 
 def _eval_type(t, globalns, localns):
@@ -232,6 +238,9 @@ class TypeVar(TypingMeta, metaclass=TypingMeta, _root=True):
         self.__binding__ = None
         return self
 
+    def _has_type_var(self):
+        return True
+
     def __repr__(self):
         return '~' + self.__name__
 
@@ -329,6 +338,7 @@ class VarBinding:
 
 
 # Some unconstrained type variables.  These are used by the container types.
+# TODO: Don't export these.
 T = TypeVar('T')  # Any type.
 KT = TypeVar('KT')  # Key type.
 VT = TypeVar('VT')  # Value type.
@@ -391,6 +401,13 @@ class UnionMeta(TypingMeta):
         else:
             return self.__class__(self.__name__, self.__bases__, {},
                                   p, _root=True)
+
+    def _has_type_var(self):
+        if self.__union_params__:
+            for t in self.__union_params__:
+                if _has_type_var(t):
+                    return True
+        return False
 
     def __repr__(self):
         r = super().__repr__()
@@ -521,6 +538,13 @@ class TupleMeta(TypingMeta):
         self.__tuple_params__ = parameters
         return self
 
+    def _has_type_var(self):
+        if self.__tuple_params__:
+            for t in self.__tuple_params__:
+                if _has_type_var(t):
+                    return True
+        return False
+
     def _eval_type(self, globalns, localns):
         tp = self.__tuple_params__
         if tp is None:
@@ -616,6 +640,13 @@ class CallableMeta(TypingMeta):
         self.__args__ = args
         self.__result__ = result
         return self
+
+    def _has_type_var(self):
+        if self.__args__:
+            for t in self.__args__:
+                if _has_type_var(t):
+                    return True
+        return _has_type_var(self.__result__)
 
     def _eval_type(self, globalns, localns):
         if self.__args__ is None and self.__result__ is None:
@@ -753,16 +784,15 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
                             "You cannot inherit from magic class %s" %
                             repr(base))
                     if base.__parameters__ is None:
-                        continue
-                    if params is None:
-                        params = []
+                        continue  # The base is unparameterized.
                     for bp in base.__parameters__:
-                        if isinstance(bp, TypingMeta):
-                            if not isinstance(bp, TypeVar):
-                                raise TypeError(
-                                    "Cannot inherit from a generic class "
-                                    "parameterized with a "
-                                    "non-type-variable %s" % bp)
+                        if _has_type_var(bp) and not isinstance(bp, TypeVar):
+                            raise TypeError(
+                                "Cannot inherit from a generic class "
+                                "parameterized with "
+                                "non-type-variable %s" % bp)
+                        if params is None:
+                            params = []
                         if bp not in params:
                             params.append(bp)
             if params is not None:
@@ -774,6 +804,13 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         # Else __extra__ is inherited, eventually from the
         # (meta-)class default above.
         return self
+
+    def _has_type_var(self):
+        if self.__parameters__:
+            for t in self.__parameters__:
+                if _has_type_var(t):
+                    return True
+        return False
 
     def __repr__(self):
         r = super().__repr__()
