@@ -740,7 +740,7 @@ becomes very "noisy" and hard to read.  Also, in most cases where
 existing libraries use annotations, there would be little need to
 combine them with type hints.  So the simpler approach of selectively
 disabling type hints appears sufficient.
-  
+
 The problem of forward declarations
 -----------------------------------
 
@@ -884,6 +884,18 @@ the notion that “explicit is better than implicit”, type hints are
 indeed *Pythonic*.
 
 
+PEP Development Process
+=======================
+
+A live draft for this PEP lives on GitHub [github]_.  There is also an
+issue tracker [issues]_, where much of the technical discussion takes
+place.
+
+The draft on GitHub is updated regularly in small increments.  The
+official PEPS repo [peps_] is (usually) only updated when a new draft
+is posted to python-dev.
+
+
 Acknowledgements
 ================
 
@@ -915,6 +927,15 @@ References
 
 .. [roberge]
    http://aroberge.blogspot.com/2015/01/type-hinting-in-python-focus-on.html
+
+.. [github]
+   https://github.com/ambv/typehinting
+
+.. [issues]
+   https://github.com/ambv/typehinting/issues
+
+.. [peps]
+   https://hg.python.org/peps/file/tip/pep-0484.txt
 
 
 Copyright
