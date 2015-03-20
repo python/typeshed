@@ -1,5 +1,7 @@
 # TODO:
 # __all__ (should not include T, KT, VT)
+# Support Python 3.2
+# Make re, io submodules?
 # Collections:
 # - MappingView, KeysView, ItemsView, ValuesView
 # - ByteString
@@ -18,6 +20,12 @@ import inspect
 import re
 import sys
 import types
+
+# Simple constants defined in the PEP.
+PY2 = sys.version_info[0] == 2
+PY3 = sys.version_info[0] >= 3
+WINDOWS = sys.platform == 'win32'
+POSIX = not WINDOWS
 
 
 class TypingMeta(type):

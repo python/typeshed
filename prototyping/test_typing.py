@@ -18,6 +18,19 @@ from typing import Pattern, Match
 import typing
 
 
+class ConstantsTests(TestCase):
+
+    def test_py23(self):
+        assert isinstance(typing.PY2, bool)
+        assert isinstance(typing.PY3, bool)
+        assert typing.PY3 == (not typing.PY2)
+
+    def test_poswin(self):
+        assert isinstance(typing.POSIX, bool)
+        assert isinstance(typing.WINDOWS, bool)
+        assert typing.POSIX == (not typing.WINDOWS)
+
+
 class Employee:
     pass
 
