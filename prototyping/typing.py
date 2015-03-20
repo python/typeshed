@@ -2,8 +2,6 @@
 # __all__ (should not include T, KT, VT)
 # Support Python 3.2
 # Make re, io submodules?
-# Collections:
-# - MappingView, KeysView, ItemsView, ValuesView
 # Other things from mypy's typing.py:
 # - Reversible, SupportsInt, SupportsFloat, SupportsAbs, SupportsRound
 
@@ -1068,9 +1066,6 @@ class Mapping(Sized, Iterable[KT], Container[KT], Generic[KT, VT],
     pass
 
 
-# TODO: View types.
-
-
 class MutableMapping(Mapping, extra=collections.abc.MutableMapping):
     pass
 
@@ -1119,6 +1114,23 @@ class _SetMeta(GenericMeta):
 
 
 class Set(set, MutableSet, metaclass=_SetMeta):
+    pass
+
+
+class MappingView(Sized, Iterable, extra=collections.abc.MappingView):
+    pass
+
+
+class KeysView(MappingView, Set[KT], extra=collections.abc.KeysView):
+    pass
+
+
+# TODO: Enable Set[Tuple[KT, VT]] instead of Generic[KT, VT].
+class ItemsView(MappingView, Generic[KT, VT], extra=collections.abc.ItemsView):
+    pass
+
+
+class ValuesView(MappingView, extra=collections.abc.ValuesView):
     pass
 
 

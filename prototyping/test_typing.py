@@ -937,6 +937,12 @@ class CollectionsAbcTests(TestCase):
         assert isinstance({42}, t)
         assert not isinstance({''}, t)
 
+    def test_mapping_views(self):
+        # TODO: These tests are kind of lame.
+        assert isinstance({}.keys(), typing.KeysView)
+        assert isinstance({}.items(), typing.ItemsView)
+        assert isinstance({}.values(), typing.ValuesView)
+
     def test_dict(self):
         assert issubclass(dict, typing.Dict)
         assert isinstance({}, typing.Dict)
