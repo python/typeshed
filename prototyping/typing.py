@@ -4,7 +4,6 @@
 # Make re, io submodules?
 # Collections:
 # - MappingView, KeysView, ItemsView, ValuesView
-# - ByteString
 # Other things from mypy's typing.py:
 # - Reversible, SupportsInt, SupportsFloat, SupportsAbs, SupportsRound
 
@@ -1080,11 +1079,15 @@ class Sequence(Sized, Iterable, Container, extra=collections.abc.Sequence):
     pass
 
 
-# TODO: ByteString.
-
-
 class MutableSequence(Sequence, extra=collections.abc.MutableSequence):
     pass
+
+
+class ByteString(Sequence[int], extra=collections.abc.ByteString):
+    pass
+
+
+ByteString.register(type(memoryview(b'')))
 
 
 class _ListMeta(GenericMeta):

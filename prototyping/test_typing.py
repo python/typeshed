@@ -915,6 +915,10 @@ class CollectionsAbcTests(TestCase):
         assert isinstance([], typing.MutableSequence)
         assert not isinstance((), typing.MutableSequence)
 
+    def test_bytestring(self):
+        assert isinstance(b'', typing.ByteString)
+        assert isinstance(bytearray(b''), typing.ByteString)
+
     def test_list(self):
         assert issubclass(list, typing.List)
         assert isinstance([], typing.List)
