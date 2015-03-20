@@ -1333,10 +1333,10 @@ class _TypeAlias:
         assert isinstance(type_var, type), repr(type_var)
         assert isinstance(impl_type, type), repr(impl_type)
         assert not isinstance(impl_type, TypingMeta), repr(impl_type)
-        self.name = name  # The name, e.g. 'Pattern'
-        self.type_var = type_var  # The type parameter, e.g. 'AnyStr', or the specific type, e.g. 'str'
-        self.impl_type = impl_type  # The implementation type
-        self.type_checker = type_checker  # Function that takes an impl_type instance and returns a value that should be a type_var instance
+        self.name = name
+        self.type_var = type_var
+        self.impl_type = impl_type
+        self.type_checker = type_checker
 
     def __repr__(self):
         return "%s[%s]" % (self.name, _type_repr(self.type_var))
@@ -1346,16 +1346,20 @@ class _TypeAlias:
         if not isinstance(self.type_var, TypeVar):
             raise TypeError("%s cannot be further parameterized." % self)
         if not issubclass(parameter, self.type_var):
-            raise TypeError("%s is not a valid substitution for %s." % (parameter, self.type_var))
-        return self.__class__(self.name, parameter, self.impl_type, self.type_checker)
+            raise TypeError("%s is not a valid substitution for %s." %
+                            (parameter, self.type_var))
+        return self.__class__(self.name, parameter,
+                              self.impl_type, self.type_checker)
 
     def __instancecheck__(self, obj):
-        return isinstance(obj, self.impl_type) and isinstance(self.type_checker(obj), self.type_var)
+        return (isinstance(obj, self.impl_type) and
+                isinstance(self.type_checker(obj), self.type_var))
 
     def __subclasscheck__(self, cls):
         if isinstance(cls, _TypeAlias):
             # Covariance.  For now, we compare by name.
-            return (cls.name == self.name and issubclass(cls.type_var, self.type_var))
+            return (cls.name == self.name and
+                    issubclass(cls.type_var, self.type_var))
         else:
             # Note that this is too lenient, because the
             # implementation type doesn't carry information about
@@ -1363,5 +1367,7 @@ class _TypeAlias:
             return issubclass(cls, self.impl_type)
 
 
-Pattern = _TypeAlias('Pattern', AnyStr, type(re.compile('')), lambda p: p.pattern)
-Match =  _TypeAlias('Match', AnyStr, type(re.match('', '')), lambda m: m.re.pattern)
+Pattern = _TypeAlias('Pattern', AnyStr, type(re.compile('')),
+                     lambda p: p.pattern)
+Match = _TypeAlias('Match', AnyStr, type(re.match('', '')),
+                   lambda m: m.re.pattern)

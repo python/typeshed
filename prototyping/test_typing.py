@@ -625,6 +625,7 @@ class GenericTests(TestCase):
     def test_errors(self):
         with self.assertRaises(TypeError):
             B = SimpleMapping[XK, Any]
+
             class C(Generic[B]):
                 pass
 
