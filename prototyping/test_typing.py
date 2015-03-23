@@ -1047,6 +1047,14 @@ class IOTests(TestCase):
         a = stuff.__annotations__['a']
         assert a.__parameters__ == (bytes,)
 
+    def test_io_submodule(self):
+        from typing.io import IO, TextIO, BinaryIO, __all__, __name__
+        assert IO is typing.IO
+        assert TextIO is typing.TextIO
+        assert BinaryIO is typing.BinaryIO
+        assert set(__all__) == set(['IO', 'TextIO', 'BinaryIO'])
+        assert __name__ == 'typing.io'
+
 
 class RETests(TestCase):
     # Much of this is really testing _TypeAlias.
@@ -1095,6 +1103,13 @@ class RETests(TestCase):
         assert repr(Match) == 'Match[~AnyStr]'
         assert repr(Match[str]) == 'Match[str]'
         assert repr(Match[bytes]) == 'Match[bytes]'
+
+    def test_re_submodule(self):
+        from typing.re import Match, Pattern, __all__, __name__
+        assert Match is typing.Match
+        assert Pattern is typing.Pattern
+        assert set(__all__) == set(['Match', 'Pattern'])
+        assert __name__ == 'typing.re'
 
 
 if __name__ == '__main__':

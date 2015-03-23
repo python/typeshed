@@ -1,9 +1,6 @@
 # TODO:
 # __all__ (should not include T, KT, VT)
 # Support Python 3.2
-# Make re, io submodules?
-# Other things from mypy's typing.py:
-# - Reversible, SupportsInt, SupportsFloat, SupportsAbs, SupportsRound
 
 # TODO nits:
 # Get rid of asserts that are the caller's fault.
@@ -1410,6 +1407,18 @@ class TextIO(IO[str]):
         pass
 
 
+class io:
+    """Wrapper namespace for IO generic classes."""
+
+    __all__ = ['IO', 'TextIO', 'BinaryIO']
+    IO = IO
+    TextIO = TextIO
+    BinaryIO = BinaryIO
+
+io.__name__ = __name__ + '.io'
+sys.modules[io.__name__] = io
+
+
 class _TypeAlias:
     """Internal helper class for defining generic variants of concrete types.
 
@@ -1476,3 +1485,14 @@ Pattern = _TypeAlias('Pattern', AnyStr, type(re.compile('')),
                      lambda p: p.pattern)
 Match = _TypeAlias('Match', AnyStr, type(re.match('', '')),
                    lambda m: m.re.pattern)
+
+
+class re:
+    """Wrapper namespace for re type aliases."""
+
+    __all__ = ['Pattern', 'Match']
+    Pattern = Pattern
+    Match = Match
+
+re.__name__ = __name__ + '.re'
+sys.modules[re.__name__] = re
