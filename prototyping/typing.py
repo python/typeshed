@@ -7,12 +7,17 @@
 
 import abc
 from abc import abstractmethod, abstractproperty
-import collections.abc
+import collections
 import functools
 import inspect
 import re as stdlib_re  # Avoid confusion with the re we export.
 import sys
 import types
+try:
+    import collections.abc as collections_abc
+except ImportError:
+    import collections as collections_abc  # Fallback for PY3.2.
+
 
 # Please keep __all__ alphabetized within each category.
 __all__ = [
@@ -75,6 +80,14 @@ WINDOWS = sys.platform == 'win32'
 POSIX = not WINDOWS
 
 
+def _qualname(x):
+    if sys.version_info[:2] >= (3, 3):
+        return x.__qualname__
+    else:
+        # Fall back to just name.
+        return x.__name__
+
+
 class TypingMeta(type):
     """Metaclass for every type defined below.
 
@@ -113,7 +126,7 @@ class TypingMeta(type):
         return False
 
     def __repr__(self):
-        return '%s.%s' % (self.__module__, self.__qualname__)
+        return '%s.%s' % (self.__module__, _qualname(self))
 
 
 class Final:
@@ -262,9 +275,9 @@ def _type_repr(obj):
     """
     if isinstance(obj, type) and not isinstance(obj, TypingMeta):
         if obj.__module__ == 'builtins':
-            return obj.__qualname__
+            return _qualname(obj)
         else:
-            return '%s.%s' % (obj.__module__, obj.__qualname__)
+            return '%s.%s' % (obj.__module__, _qualname(obj))
     else:
         return repr(obj)
 
@@ -789,7 +802,7 @@ class CallableMeta(TypingMeta):
     def __repr__(self):
         r = super().__repr__()
         if self.__args__ is not None or self.__result__ is not None:
-            r += '%s[[%s], %s]' % (self.__qualname__,
+            r += '%s[[%s], %s]' % (_qualname(self),
                                    ', '.join(_type_repr(t)
                                              for t in self.__args__),
                                    _type_repr(self.__result__))
@@ -1084,6 +1097,24 @@ def cast(typ, val):
     return val
 
 
+def _get_defaults(func):
+    """Internal helper to extract the default arguments, by name."""
+    code = func.__code__
+    pos_count = code.co_argcount
+    kw_count = code.co_kwonlyargcount
+    arg_names = code.co_varnames
+    kwarg_names = arg_names[pos_count:pos_count+kw_count]
+    arg_names = arg_names[:pos_count]
+    defaults = func.__defaults__ or ()
+    kwdefaults = func.__kwdefaults__
+    res = dict(kwdefaults) if kwdefaults else {}
+    pos_offset = pos_count - len(defaults)
+    for name, value in zip(arg_names[pos_offset:], defaults):
+        assert name not in res
+        res[name] = value
+    return res
+
+
 def get_type_hints(obj, globalns=None, localns=None):
     """Return type hints for a function or method object.
 
@@ -1112,13 +1143,13 @@ def get_type_hints(obj, globalns=None, localns=None):
             localns = sys._getframe(1).f_locals
     elif localns is None:
         localns = globalns
-    sig = inspect.Signature.from_function(obj)
+    defaults = _get_defaults(obj)
     hints = dict(obj.__annotations__)
     for name, value in hints.items():
         if isinstance(value, str):
             value = _ForwardRef(value)
         value = _eval_type(value, globalns, localns)
-        if name in sig.parameters and sig.parameters[name].default is None:
+        if name in defaults and defaults[name] is None:
             value = Optional[value]
         hints[name] = value
     return hints
@@ -1214,14 +1245,14 @@ class _Protocol(Generic):
 # Various ABCs mimicking those in collections.abc.
 # A few are simply re-exported for completeness.
 
-Hashable = collections.abc.Hashable  # Not generic.
+Hashable = collections_abc.Hashable  # Not generic.
 
 
-class Iterable(Generic[T], extra=collections.abc.Iterable):
+class Iterable(Generic[T], extra=collections_abc.Iterable):
     pass
 
 
-class Iterator(Iterable, extra=collections.abc.Iterator):
+class Iterator(Iterable, extra=collections_abc.Iterator):
     pass
 
 
@@ -1260,42 +1291,42 @@ class Reversible(_Protocol[T]):
         pass
 
 
-Sized = collections.abc.Sized  # Not generic.
+Sized = collections_abc.Sized  # Not generic.
 
 
-class Container(Generic[T], extra=collections.abc.Container):
+class Container(Generic[T], extra=collections_abc.Container):
     pass
 
 
 # Callable was defined earlier.
 
 
-class AbstractSet(Sized, Iterable, Container, extra=collections.abc.Set):
+class AbstractSet(Sized, Iterable, Container, extra=collections_abc.Set):
     pass
 
 
-class MutableSet(AbstractSet, extra=collections.abc.MutableSet):
+class MutableSet(AbstractSet, extra=collections_abc.MutableSet):
     pass
 
 
 class Mapping(Sized, Iterable[KT], Container[KT], Generic[KT, VT],
-              extra=collections.abc.Mapping):
+              extra=collections_abc.Mapping):
     pass
 
 
-class MutableMapping(Mapping, extra=collections.abc.MutableMapping):
+class MutableMapping(Mapping, extra=collections_abc.MutableMapping):
     pass
 
 
-class Sequence(Sized, Iterable, Container, extra=collections.abc.Sequence):
+class Sequence(Sized, Iterable, Container, extra=collections_abc.Sequence):
     pass
 
 
-class MutableSequence(Sequence, extra=collections.abc.MutableSequence):
+class MutableSequence(Sequence, extra=collections_abc.MutableSequence):
     pass
 
 
-class ByteString(Sequence[int], extra=collections.abc.ByteString):
+class ByteString(Sequence[int], extra=collections_abc.ByteString):
     pass
 
 
@@ -1334,20 +1365,20 @@ class Set(set, MutableSet, metaclass=_SetMeta):
     pass
 
 
-class MappingView(Sized, Iterable, extra=collections.abc.MappingView):
+class MappingView(Sized, Iterable, extra=collections_abc.MappingView):
     pass
 
 
-class KeysView(MappingView, Set[KT], extra=collections.abc.KeysView):
+class KeysView(MappingView, Set[KT], extra=collections_abc.KeysView):
     pass
 
 
 # TODO: Enable Set[Tuple[KT, VT]] instead of Generic[KT, VT].
-class ItemsView(MappingView, Generic[KT, VT], extra=collections.abc.ItemsView):
+class ItemsView(MappingView, Generic[KT, VT], extra=collections_abc.ItemsView):
     pass
 
 
-class ValuesView(MappingView, extra=collections.abc.ValuesView):
+class ValuesView(MappingView, extra=collections_abc.ValuesView):
     pass
 
 

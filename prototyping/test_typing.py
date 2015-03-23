@@ -1,6 +1,11 @@
 from collections import namedtuple
 import re
-from unittest import TestCase, main, mock
+import sys
+from unittest import TestCase, main
+try:
+    from unittest import mock
+except ImportError:
+    import mock  # 3rd party install, for PY3.2.
 
 from typing import Any
 from typing import TypeVar, T, KT, VT, AnyStr
@@ -677,23 +682,27 @@ class GenericTests(TestCase):
                 pass
 
     def test_repr_2(self):
+        PY32 = sys.version_info[:2] < (3, 3)
 
         class C(Generic[T]):
             pass
 
         assert C.__module__ == __name__
-        assert C.__qualname__ == 'GenericTests.test_repr_2.<locals>.C'
+        if not PY32:
+            assert C.__qualname__ == 'GenericTests.test_repr_2.<locals>.C'
         assert repr(C).split('.')[-1] == 'C[~T]'
         X = C[int]
         assert X.__module__ == __name__
-        assert X.__qualname__ == 'C'
+        if not PY32:
+            assert X.__qualname__ == 'C'
         assert repr(X).split('.')[-1] == 'C[int]'
 
         class Y(C[int]):
             pass
 
         assert Y.__module__ == __name__
-        assert Y.__qualname__ == 'GenericTests.test_repr_2.<locals>.Y'
+        if not PY32:
+            assert Y.__qualname__ == 'GenericTests.test_repr_2.<locals>.Y'
         assert repr(Y).split('.')[-1] == 'Y[int]'
 
     def test_eq_1(self):
