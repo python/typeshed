@@ -1,5 +1,4 @@
 # TODO:
-# __all__ (should not include T, KT, VT)
 # Support Python 3.2
 
 # TODO nits:
@@ -11,9 +10,63 @@ from abc import abstractmethod, abstractproperty
 import collections.abc
 import functools
 import inspect
-import re
+import re as stdlib_re  # Avoid confusion with the re we export.
 import sys
 import types
+
+# Please keep __all__ alphabetized within each category.
+__all__ = [
+    # Generic classes and special types.
+    'AbstractSet',
+    'Any',
+    'AnyStr',
+    'ByteString',
+    'Callable',
+    'Container',
+    'Dict',
+    'Generic',
+    'Hashable',
+    'ItemsView',
+    'Iterable',
+    'Iterator',
+    'KeysView',
+    'List',
+    'Mapping',
+    'MappingView',
+    'MutableMapping',
+    'MutableSequence',
+    'MutableSet',
+    'NamedTuple',
+    'Optional',
+    'Reversible',
+    'Sequence',
+    'Set',
+    'Sized',
+    'SupportsAbs',
+    'SupportsFloat',
+    'SupportsInt',
+    'SupportsRound',
+    'Tuple',
+    'TypeVar',
+    'Undefined',
+    'Union',
+    'ValuesView',
+    # Compile-time constants.
+    'POSIX',
+    'PY2',
+    'PY3',
+    'WINDOWS',
+    # Functions and decorators.
+    'cast',
+    'get_type_hints',
+    'no_type_check',
+    'no_type_check_decorator',
+    'overload',
+    # Submodules.
+    'io',
+    're',
+    ]
+
 
 # Simple constants defined in the PEP.
 PY2 = sys.version_info[0] == 2
@@ -1483,9 +1536,9 @@ io.__name__ = __name__ + '.io'
 sys.modules[io.__name__] = io
 
 
-Pattern = _TypeAlias('Pattern', AnyStr, type(re.compile('')),
+Pattern = _TypeAlias('Pattern', AnyStr, type(stdlib_re.compile('')),
                      lambda p: p.pattern)
-Match = _TypeAlias('Match', AnyStr, type(re.match('', '')),
+Match = _TypeAlias('Match', AnyStr, type(stdlib_re.match('', '')),
                    lambda m: m.re.pattern)
 
 

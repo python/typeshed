@@ -1119,5 +1119,24 @@ class RETests(TestCase):
         assert __name__ == 'typing.re'
 
 
+class AllTests(TestCase):
+    """Tests for __all__."""
+
+    def test_all(self):
+        from typing import __all__ as a
+        # Don't test everything, just spot-check the first and last of every category.
+        assert 'AbstractSet' in a
+        assert 'ValuesView' in a
+        assert 'POSIX' in a
+        assert 'WINDOWS' in a
+        assert 'cast' in a
+        assert 'overload' in a
+        assert 'io' in a
+        assert 're' in a
+        # Spot-check that stdlib modules aren't exported.
+        assert 'os' not in a
+        assert 'sys' not in a
+
+
 if __name__ == '__main__':
     main()
