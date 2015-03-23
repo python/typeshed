@@ -260,6 +260,8 @@ class TypeVar(TypingMeta, metaclass=TypingMeta, _root=True):
             return isinstance(instance, Union[self.__constraints__])
 
     def __subclasscheck__(self, cls):
+        if cls is Any:
+            return True
         if cls is self:
             return True
         elif self.__binding__ is not None:
@@ -446,6 +448,8 @@ class UnionMeta(TypingMeta):
         return any(isinstance(instance, t) for t in self.__union_params__)
 
     def __subclasscheck__(self, cls):
+        if cls is Any:
+            return True
         if self.__union_params__ is None:
             return isinstance(cls, UnionMeta)
         elif isinstance(cls, UnionMeta):
@@ -598,6 +602,8 @@ class TupleMeta(TypingMeta):
                     for x, p in zip(t, self.__tuple_params__)))
 
     def __subclasscheck__(self, cls):
+        if cls is Any:
+            return True
         if not isinstance(cls, type):
             return super().__subclasscheck__(cls)  # To TypeError.
         if issubclass(cls, tuple):
@@ -747,7 +753,8 @@ class CallableMeta(TypingMeta):
         return True
 
     def __subclasscheck__(self, cls):
-        # Compute issubclass(cls, self).
+        if cls is Any:
+            return True
         if not isinstance(cls, CallableMeta):
             return super().__subclasscheck__(cls)
         if self.__args__ is None and self.__result__ is None:
@@ -865,6 +872,8 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
                               parameters=params, extra=self.__extra__)
 
     def __subclasscheck__(self, cls):
+        if cls is Any:
+            return True
         if super().__subclasscheck__(cls):
             return True
         if self.__extra__ is None:
@@ -1450,6 +1459,8 @@ class _TypeAlias:
                 isinstance(self.type_checker(obj), self.type_var))
 
     def __subclasscheck__(self, cls):
+        if cls is Any:
+            return True
         if isinstance(cls, _TypeAlias):
             # Covariance.  For now, we compare by name.
             return (cls.name == self.name and

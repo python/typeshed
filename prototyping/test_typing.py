@@ -90,6 +90,28 @@ class AnyTests(TestCase):
         with self.assertRaises(TypeError):
             Any[int]
 
+    def test_any_is_subclass(self):
+        # Any should be considered a subclass of everything.
+        assert issubclass(Any, Any)
+        assert issubclass(Any, typing.List)
+        assert issubclass(Any, typing.List[int])
+        assert issubclass(Any, typing.List[T])
+        assert issubclass(Any, typing.Mapping)
+        assert issubclass(Any, typing.Mapping[str, int])
+        assert issubclass(Any, typing.Mapping[KT, VT])
+        assert issubclass(Any, Generic)
+        assert issubclass(Any, Generic[T])
+        assert issubclass(Any, Generic[KT, VT])
+        assert issubclass(Any, AnyStr)
+        assert issubclass(Any, Union)
+        assert issubclass(Any, Union[int, str])
+        assert issubclass(Any, typing.Match)
+        assert issubclass(Any, typing.Match[str])
+        # These expressions must simply not fail.
+        typing.Match[Any]
+        typing.Pattern[Any]
+        typing.IO[Any]
+
 
 class TypeVarTests(TestCase):
 
