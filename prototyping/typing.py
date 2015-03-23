@@ -38,6 +38,8 @@ class TypingMeta(type):
     __new__) and a nicer repr().
     """
 
+    _is_protocol = False
+
     def __new__(cls, name, bases, namespace, *, _root=False):
         if not _root:
             raise TypeError("Cannot subclass %s" %
@@ -1029,6 +1031,63 @@ def overload(func):
     raise RuntimeError("Overloading is only supported in library stubs")
 
 
+class _Protocol(Generic):
+    """Internal base class for protocol classes.
+
+    This implements a simple-minded structural isinstance check
+    (similar but more general than the one-offs in collections.abc
+    such as Hashable).
+    """
+
+    _is_protocol = True
+
+    @classmethod
+    def __subclasshook__(self, cls):
+        if not self._is_protocol:
+            # No structural checks since this isn't a protocol.
+            return NotImplemented
+
+        if self is _Protocol:
+            # Every class is a subclass of the empty protocol.
+            return True
+
+        # Find all attributes defined in the protocol.
+        attrs = self._get_protocol_attrs()
+
+        for attr in attrs:
+            if not any(attr in d.__dict__ for d in cls.__mro__):
+                return NotImplemented
+        return True
+
+    @classmethod
+    def _get_protocol_attrs(self):
+        # Get all Protocol base classes.
+        protocol_bases = []
+        for c in self.__mro__:
+            if getattr(c, '_is_protocol', False) and c.__name__ != '_Protocol':
+                protocol_bases.append(c)
+
+        # Get attributes included in protocol.
+        attrs = set()
+        for base in protocol_bases:
+            for attr in base.__dict__.keys():
+                # Include attributes not defined in any non-protocol bases.
+                for c in self.__mro__:
+                    if (c is not base and attr in c.__dict__ and
+                            not getattr(c, '_is_protocol', False)):
+                        break
+                else:
+                    if (not attr.startswith('_abc_') and
+                        attr != '__abstractmethods__' and
+                        attr != '_is_protocol' and
+                        attr != '__dict__' and
+                        attr != '_get_protocol_attrs' and
+                        attr != '__module__'):
+                        attrs.add(attr)
+
+        return attrs
+
+
 # Various ABCs mimicking those in collections.abc.
 # A few are simply re-exported for completeness.
 
@@ -1041,6 +1100,41 @@ class Iterable(Generic[T], extra=collections.abc.Iterable):
 
 class Iterator(Iterable, extra=collections.abc.Iterator):
     pass
+
+
+class SupportsInt(_Protocol):
+
+    @abstractmethod
+    def __int__(self) -> int:
+        pass
+
+
+class SupportsFloat(_Protocol):
+
+    @abstractmethod
+    def __float__(self) -> float:
+        pass
+
+
+class SupportsAbs(_Protocol[T]):
+
+    @abstractmethod
+    def __abs__(self) -> T:
+        pass
+
+
+class SupportsRound(_Protocol[T]):
+
+    @abstractmethod
+    def __round__(self, ndigits: int = 0) -> T:
+        pass
+
+
+class Reversible(_Protocol[T]):
+
+    @abstractmethod
+    def __reversed__(self) -> 'Iterator[T]':
+        pass
 
 
 Sized = collections.abc.Sized  # Not generic.

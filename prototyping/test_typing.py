@@ -597,6 +597,31 @@ class MySimpleMapping(SimpleMapping):
             return default
 
 
+class ProtocolTests(TestCase):
+
+    def test_supports_int(self):
+        assert issubclass(int, typing.SupportsInt)
+        assert not issubclass(str, typing.SupportsInt)
+
+    def test_supports_float(self):
+        assert issubclass(float, typing.SupportsFloat)
+        assert not issubclass(str, typing.SupportsFloat)
+
+    def test_supports_abs(self):
+        assert issubclass(float, typing.SupportsAbs)
+        assert issubclass(int, typing.SupportsAbs)
+        assert not issubclass(str, typing.SupportsAbs)
+
+    def test_supports_round(self):
+        assert issubclass(float, typing.SupportsRound)
+        assert issubclass(int, typing.SupportsRound)
+        assert not issubclass(str, typing.SupportsRound)
+
+    def test_reversible(self):
+        assert issubclass(list, typing.Reversible)
+        assert not issubclass(int, typing.Reversible)
+
+
 class GenericTests(TestCase):
 
     def test_basics(self):
