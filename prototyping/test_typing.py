@@ -777,6 +777,13 @@ class UndefinedTest(TestCase):
     def test_repr(self):
         self.assertEqual(repr(Undefined(Any)), 'typing.Undefined(typing.Any)')
 
+    def test_type_alias(self):
+        # These simply must not fail.
+        Undefined(typing.re.Pattern)
+        Undefined(typing.re.Pattern[str])
+        Undefined(typing.re.Pattern[bytes])
+        Undefined(typing.re.Pattern[Any])
+
 
 class CastTest(TestCase):
 
