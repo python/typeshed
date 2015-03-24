@@ -3,27 +3,27 @@
 # for a more percise manual annotation of this module.
 # Feel free to edit the source below, but remove this header when you do.
 
-def acos(*args, **kwargs) -> float: pass
+def acos(*args, **kwargs) -> object: pass
 
-def acosh(*args, **kwargs) -> float: pass
+def acosh(*args, **kwargs) -> object: pass
 
-def asin(*args, **kwargs) -> float: pass
+def asin(*args, **kwargs) -> object: pass
 
-def asinh(*args, **kwargs) -> float: pass
+def asinh(*args, **kwargs) -> object: pass
 
-def atan(*args, **kwargs) -> float: pass
+def atan(*args, **kwargs) -> object: pass
 
 def atan2(*args, **kwargs) -> float: pass
 
-def atanh(*args, **kwargs) -> float: pass
+def atanh(*args, **kwargs) -> object: pass
 
-def ceil(*args, **kwargs) -> float: pass
+def ceil(*args, **kwargs) -> object: pass
 
 def copysign(*args, **kwargs) -> float: pass
 
-def cos(*args, **kwargs) -> float: pass
+def cos(*args, **kwargs) -> object: pass
 
-def cosh(*args, **kwargs) -> float: pass
+def cosh(*args, **kwargs) -> object: pass
 
 def degrees(*args, **kwargs) -> float: pass
 
@@ -31,16 +31,16 @@ def erf(*args, **kwargs) -> float: pass
 
 def erfc(*args, **kwargs) -> float: pass
 
-def exp(*args, **kwargs) -> float: pass
+def exp(*args, **kwargs) -> object: pass
 
-def expm1(*args, **kwargs) -> float: pass
+def expm1(*args, **kwargs) -> object: pass
 
-def fabs(*args, **kwargs) -> float: pass
+def fabs(*args, **kwargs) -> object: pass
 
-def factorial(*args, **kwargs) -> int:
+def factorial(*args, **kwargs) -> long:
     raise ValueError()
 
-def floor(*args, **kwargs) -> float: pass
+def floor(*args, **kwargs) -> object: pass
 
 def fmod(*args, **kwargs) -> float: pass
 
@@ -53,6 +53,8 @@ def fsum(*args, **kwargs) -> float:
 def gamma(*args, **kwargs) -> float: pass
 
 def hypot(*args, **kwargs) -> float: pass
+
+def isfinite(*args, **kwargs) -> bool: pass
 
 def isinf(*args, **kwargs) -> bool: pass
 
@@ -67,7 +69,9 @@ def log(*args, **kwargs) -> float: pass
 
 def log10(*args, **kwargs) -> float: pass
 
-def log1p(*args, **kwargs) -> float: pass
+def log1p(*args, **kwargs) -> object: pass
+
+def log2(*args, **kwargs) -> float: pass
 
 def modf(*args, **kwargs) -> tuple: pass
 
@@ -75,14 +79,15 @@ def pow(*args, **kwargs) -> float: pass
 
 def radians(*args, **kwargs) -> float: pass
 
-def sin(*args, **kwargs) -> float: pass
+def sin(*args, **kwargs) -> object: pass
 
-def sinh(*args, **kwargs) -> float: pass
+def sinh(*args, **kwargs) -> object: pass
 
-def sqrt(*args, **kwargs) -> float: pass
+def sqrt(*args, **kwargs) -> object: pass
 
-def tan(*args, **kwargs) -> float: pass
+def tan(*args, **kwargs) -> object: pass
 
-def tanh(*args, **kwargs) -> float: pass
+def tanh(*args, **kwargs) -> object: pass
 
-def trunc(*args, **kwargs) -> object: pass
+def trunc(*args, **kwargs) -> object:
+    raise TypeError()

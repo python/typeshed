@@ -21,6 +21,8 @@ def cosh(*args, **kwargs) -> complex: pass
 
 def exp(*args, **kwargs) -> complex: pass
 
+def isfinite(a: complex) -> bool: pass
+
 def isinf(a: complex) -> bool: pass
 
 def isnan(a: complex) -> bool: pass

@@ -3,11 +3,11 @@
 # for a more percise manual annotation of this module.
 # Feel free to edit the source below, but remove this header when you do.
 
-def bisect(a, x, *args, **kwargs) -> int: pass
+def bisect(a, x, *args, **kwargs) -> long: pass
 
-def bisect_left(a, x, *args, **kwargs) -> int: pass
+def bisect_left(a, x, *args, **kwargs) -> long: pass
 
-def bisect_right(a, x, *args, **kwargs) -> int: pass
+def bisect_right(a, x, *args, **kwargs) -> long: pass
 
 def insort(a, x, *args, **kwargs) -> NoneType: pass
 
