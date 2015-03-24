@@ -21,52 +21,61 @@ except ImportError:
 
 # Please keep __all__ alphabetized within each category.
 __all__ = [
-    # Generic classes and special types.
-    'AbstractSet',
+    # Super-special typing primitives.
     'Any',
-    'AnyStr',
-    'ByteString',
     'Callable',
-    'Container',
-    'Dict',
     'Generic',
+    'Optional',
+    'TypeVar',
+    'Union',
+    'Tuple',
+
+    # ABCs (from collections.abc).
+    'AbstractSet',  # collections.abc.Set.
+    'ByteString',
+    'Container',
     'Hashable',
     'ItemsView',
     'Iterable',
     'Iterator',
     'KeysView',
-    'List',
     'Mapping',
     'MappingView',
     'MutableMapping',
     'MutableSequence',
     'MutableSet',
-    'NamedTuple',
-    'Optional',
-    'Reversible',
     'Sequence',
-    'Set',
     'Sized',
+    'ValuesView',
+
+    # Structural checks, a.k.a. protocols.
+    'Reversible',
     'SupportsAbs',
     'SupportsFloat',
     'SupportsInt',
     'SupportsRound',
-    'Tuple',
-    'TypeVar',
-    'Undefined',
-    'Union',
-    'ValuesView',
+
+    # Concrete collection types.
+    'Dict',
+    'List',
+    'Set',
+    'NamedTuple',  # Not really a type.
+
     # Compile-time constants.
     'POSIX',
     'PY2',
     'PY3',
     'WINDOWS',
-    # Functions and decorators.
+
+    # One-off things.
+    'AnyStr',
+    'Undefined',
     'cast',
     'get_type_hints',
     'no_type_check',
     'no_type_check_decorator',
     'overload',
+
     # Submodules.
     'io',
     're',
