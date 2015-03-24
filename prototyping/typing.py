@@ -182,8 +182,21 @@ class _TypeAlias:
     False.
     """
 
-    def __init__(self, name, type_var, impl_type, type_checker):
+    def __new__(cls, *args, **kwds):
         """Constructor.
+
+        This only exists to give a better error message in case
+        someone tries to subclass a type alias (not a good idea).
+        """
+        if (len(args) == 3 and
+            isinstance(args[0], str) and
+            isinstance(args[1], tuple)):
+            # Close enough.
+            raise TypeError("A type alias cannot be subclassed")
+        return object.__new__(cls)
+
+    def __init__(self, name, type_var, impl_type, type_checker):
+        """Initializer.
 
         Args:
             name: The name, e.g. 'Pattern'.
@@ -609,7 +622,7 @@ class Union(Final, metaclass=UnionMeta, _root=True):
 
     - Unions of a single argument vanish, e.g.::
 
-        Union[int] == int  # The constructore actually returns int
+        Union[int] == int  # The constructor actually returns int
 
     - Redundant arguments are skipped, e.g.::
 

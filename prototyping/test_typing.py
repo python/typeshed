@@ -1127,6 +1127,14 @@ class RETests(TestCase):
         assert set(__all__) == set(['Match', 'Pattern'])
         assert __name__ == 'typing.re'
 
+    def test_cannot_subclass(self):
+        with self.assertRaises(TypeError) as ex:
+
+            class A(typing.Match):
+                pass
+
+        assert str(ex.exception) == "A type alias cannot be subclassed"
+
 
 class AllTests(TestCase):
     """Tests for __all__."""
