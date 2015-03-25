@@ -3,6 +3,8 @@
 # for a more percise manual annotation of this module.
 # Feel free to edit the source below, but remove this header when you do.
 
+from typing import List, Tuple, Dict, Undefined, GenericType
+
 ITIMER_PROF = Undefined(long)
 ITIMER_REAL = Undefined(long)
 ITIMER_VIRTUAL = Undefined(long)
@@ -53,21 +55,21 @@ def default_int_handler(*args, **kwargs) -> object:
 
 def getitimer(a: int) -> tuple: pass
 
-def getsignal(a: int) -> NoneType:
+def getsignal(a: int) -> None:
     raise ValueError()
 
-def pause() -> NoneType: pass
+def pause() -> None: pass
 
 def set_wakeup_fd(a: int) -> long:
     raise ValueError()
 
 def setitimer(a: int, b: float, *args, **kwargs) -> tuple: pass
 
-def siginterrupt(a: int, b: int) -> NoneType:
+def siginterrupt(a: int, b: int) -> None:
+    raise RuntimeError()
     raise ValueError()
-    raise RuntimeError()
 
-def signal(a: int, b) -> NoneType:
-    raise TypeError()
+def signal(a: int, b) -> None:
     raise RuntimeError()
+    raise TypeError()
     raise ValueError()

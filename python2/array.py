@@ -3,51 +3,53 @@
 # for a more percise manual annotation of this module.
 # Feel free to edit the source below, but remove this header when you do.
 
+from typing import List, Tuple, Dict, Undefined, GenericType
+
 class array(object):
     def __copy__() -> object: pass
     def __deepcopy__(*args, **kwargs) -> object: pass
     def __reduce__() -> tuple:
         raise AttributeError()
     def __sizeof__() -> long: pass
-    def append(*args, **kwargs) -> NoneType: pass
+    def append(*args, **kwargs) -> None: pass
     def buffer_info() -> tuple: pass
-    def byteswap() -> NoneType:
+    def byteswap() -> None:
         raise RuntimeError()
     def count(*args, **kwargs) -> int: pass
-    def extend(*args, **kwargs) -> NoneType: pass
-    def fromfile(a, b: int) -> NoneType:
+    def extend(*args, **kwargs) -> None: pass
+    def fromfile(a, b: int) -> None:
         raise EOFError()
-        raise TypeError()
         raise IOError()
         raise MemoryError()
-    def fromlist(*args, **kwargs) -> NoneType:
         raise TypeError()
+    def fromlist(*args, **kwargs) -> None:
         raise MemoryError()
-    def fromstring(a) -> NoneType:
+        raise TypeError()
+    def fromstring(a) -> None:
+        raise MemoryError()
         raise ValueError()
+    def fromunicode(a: str) -> None:
         raise MemoryError()
-    def fromunicode(a: str) -> NoneType:
         raise ValueError()
-        raise MemoryError()
     def index(*args, **kwargs) -> int:
         raise ValueError()
-    def insert(a: int, b) -> NoneType: pass
+    def insert(a: int, b) -> None: pass
     def pop(*args, **kwargs) -> object:
         raise IndexError()
-    def read(*args, **kwargs) -> NoneType:
+    def read(*args, **kwargs) -> None:
         raise DeprecationWarning()
-    def remove(*args, **kwargs) -> NoneType:
+    def remove(*args, **kwargs) -> None:
         raise ValueError()
-    def reverse() -> NoneType: pass
-    def tofile(*args, **kwargs) -> NoneType:
-        raise TypeError()
+    def reverse() -> None: pass
+    def tofile(*args, **kwargs) -> None:
         raise IOError()
+        raise TypeError()
     def tolist() -> list: pass
     def tostring() -> str:
         raise MemoryError()
     def tounicode() -> unicode:
         raise ValueError()
-    def write(*args, **kwargs) -> NoneType:
+    def write(*args, **kwargs) -> None:
         raise DeprecationWarning()
 
 class arrayiterator(object):

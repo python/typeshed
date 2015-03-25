@@ -3,14 +3,16 @@
 # for a more percise manual annotation of this module.
 # Feel free to edit the source below, but remove this header when you do.
 
-def _clearcache() -> NoneType: pass
+from typing import List, Tuple, Dict, Undefined, GenericType
+
+def _clearcache() -> None: pass
 
 def calcsize(*args, **kwargs) -> int: pass
 
 def pack(*args, **kwargs) -> str:
     raise TypeError()
 
-def pack_into(*args, **kwargs) -> NoneType:
+def pack_into(*args, **kwargs) -> None:
     raise TypeError()
 
 def unpack(*args, **kwargs) -> tuple: pass
@@ -22,6 +24,6 @@ def unpack_from(*args, **kwargs) -> tuple:
 class Struct(object):
     def __sizeof__() -> long: pass
     def pack(*args, **kwargs) -> str: pass
-    def pack_into(*args, **kwargs) -> NoneType: pass
+    def pack_into(*args, **kwargs) -> None: pass
     def unpack(a) -> tuple: pass
     def unpack_from(*args, **kwargs) -> tuple: pass

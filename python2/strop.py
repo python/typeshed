@@ -3,6 +3,8 @@
 # for a more percise manual annotation of this module.
 # Feel free to edit the source below, but remove this header when you do.
 
+from typing import List, Tuple, Dict, Undefined, GenericType
+
 def atof(a: str) -> float:
     raise DeprecationWarning()
     raise ValueError()
@@ -22,21 +24,21 @@ def count(*args, **kwargs) -> int:
     raise DeprecationWarning()
 
 def expandtabs(a, *args, **kwargs) -> str:
-    raise OverflowError()
     raise DeprecationWarning()
+    raise OverflowError()
     raise ValueError()
 
 def find(*args, **kwargs) -> int:
     raise DeprecationWarning()
 
 def join(*args, **kwargs) -> object:
-    raise OverflowError()
     raise DeprecationWarning()
+    raise OverflowError()
     raise TypeError()
 
 def joinfields(*args, **kwargs) -> object:
-    raise OverflowError()
     raise DeprecationWarning()
+    raise OverflowError()
     raise TypeError()
 
 def lower(*args, **kwargs) -> str:
@@ -50,8 +52,8 @@ def maketrans(*args, **kwargs) -> str:
 
 def replace(*args, **kwargs) -> str:
     raise DeprecationWarning()
-    raise ValueError()
     raise MemoryError()
+    raise ValueError()
 
 def rfind(*args, **kwargs) -> int:
     raise DeprecationWarning()

@@ -3,6 +3,8 @@
 # for a more percise manual annotation of this module.
 # Feel free to edit the source below, but remove this header when you do.
 
+from typing import List, Tuple, Dict, Undefined, GenericType
+
 def asctime(*args, **kwargs) -> unicode: pass
 
 def clock() -> float: pass
@@ -13,7 +15,7 @@ def clock_getres(a: int) -> float:
 def clock_gettime(a: int) -> float:
     raise IOError()
 
-def clock_settime(a: int, b) -> NoneType:
+def clock_settime(a: int, b) -> None:
     raise IOError()
 
 def ctime(*args, **kwargs) -> unicode: pass
@@ -35,7 +37,7 @@ def perf_counter() -> float: pass
 
 def process_time() -> float: pass
 
-def sleep(a: float) -> NoneType:
+def sleep(a: float) -> None:
     raise ValueError()
 
 def strftime(a: str, *args, **kwargs) -> unicode:
@@ -45,4 +47,4 @@ def strptime(*args, **kwargs) -> object: pass
 
 def time() -> float: pass
 
-def tzset() -> NoneType: pass
+def tzset() -> None: pass

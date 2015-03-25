@@ -3,8 +3,10 @@
 # for a more percise manual annotation of this module.
 # Feel free to edit the source below, but remove this header when you do.
 
+from typing import List, Tuple, Dict, Undefined, GenericType
+
 class zipimporter(object):
-    def find_module(a: str, *args, **kwargs) -> NoneType: pass
+    def find_module(a: str, *args, **kwargs) -> None: pass
     def get_code(a: str) -> object: pass
     def get_data(a: str) -> str:
         raise IOError()

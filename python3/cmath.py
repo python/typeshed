@@ -3,6 +3,8 @@
 # for a more percise manual annotation of this module.
 # Feel free to edit the source below, but remove this header when you do.
 
+from typing import List, Tuple, Dict, Undefined, GenericType
+
 def acos(*args, **kwargs) -> complex: pass
 
 def acosh(*args, **kwargs) -> complex: pass

@@ -3,22 +3,24 @@
 # for a more percise manual annotation of this module.
 # Feel free to edit the source below, but remove this header when you do.
 
-def heapify(*args, **kwargs) -> NoneType:
+from typing import List, Tuple, Dict, Undefined, GenericType
+
+def heapify(*args, **kwargs) -> None:
     raise TypeError()
 
 def heappop(*args, **kwargs) -> object:
-    raise TypeError()
     raise IndexError()
+    raise TypeError()
 
-def heappush(*args, **kwargs) -> NoneType:
+def heappush(*args, **kwargs) -> None:
     raise TypeError()
 
 def heappushpop(*args, **kwargs) -> object:
     raise TypeError()
 
 def heapreplace(*args, **kwargs) -> object:
-    raise TypeError()
     raise IndexError()
+    raise TypeError()
 
 def nlargest(a: int, b) -> List[object]: pass
 

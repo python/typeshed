@@ -3,6 +3,8 @@
 # for a more percise manual annotation of this module.
 # Feel free to edit the source below, but remove this header when you do.
 
+from typing import List, Tuple, Dict, Undefined, GenericType
+
 def __abs__(*args, **kwargs) -> object: pass
 
 def __add__(*args, **kwargs) -> object: pass
@@ -13,9 +15,9 @@ def __concat__(*args, **kwargs) -> object: pass
 
 def __contains__(*args, **kwargs) -> bool: pass
 
-def __delitem__(*args, **kwargs) -> NoneType: pass
+def __delitem__(*args, **kwargs) -> None: pass
 
-def __delslice__(a, b: int, c: int) -> NoneType: pass
+def __delslice__(a, b: int, c: int) -> None: pass
 
 def __div__(*args, **kwargs) -> object: pass
 
@@ -93,9 +95,9 @@ def __repeat__(a, b: int) -> object: pass
 
 def __rshift__(*args, **kwargs) -> object: pass
 
-def __setitem__(*args, **kwargs) -> NoneType: pass
+def __setitem__(*args, **kwargs) -> None: pass
 
-def __setslice__(a, b: int, c: int, d) -> NoneType: pass
+def __setslice__(a, b: int, c: int, d) -> None: pass
 
 def __sub__(*args, **kwargs) -> object: pass
 
@@ -115,9 +117,9 @@ def contains(*args, **kwargs) -> bool: pass
 
 def countOf(*args, **kwargs) -> int: pass
 
-def delitem(*args, **kwargs) -> NoneType: pass
+def delitem(*args, **kwargs) -> None: pass
 
-def delslice(a, b: int, c: int) -> NoneType: pass
+def delslice(a, b: int, c: int) -> None: pass
 
 def div(*args, **kwargs) -> object: pass
 
@@ -211,9 +213,9 @@ def rshift(*args, **kwargs) -> object: pass
 
 def sequenceIncludes(*args, **kwargs) -> bool: pass
 
-def setitem(*args, **kwargs) -> NoneType: pass
+def setitem(*args, **kwargs) -> None: pass
 
-def setslice(a, b: int, c: int, d) -> NoneType: pass
+def setslice(a, b: int, c: int, d) -> None: pass
 
 def sub(*args, **kwargs) -> object: pass
 

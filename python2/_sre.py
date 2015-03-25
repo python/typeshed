@@ -3,6 +3,8 @@
 # for a more percise manual annotation of this module.
 # Feel free to edit the source below, but remove this header when you do.
 
+from typing import List, Tuple, Dict, Undefined, GenericType
+
 CODESIZE = Undefined(int)
 MAGIC = Undefined(int)
 MAXREPEAT = Undefined(long)
@@ -42,7 +44,7 @@ class SRE_Pattern(object):
     def match(pattern, *args, **kwargs) -> object: pass
     def scanner(a, *args, **kwargs) -> SRE_Scanner: pass
     def search(pattern, *args, **kwargs) -> object: pass
-    def split(source, *args, **kwargs) -> List[NoneType]: pass
+    def split(source, *args, **kwargs) -> List[None]: pass
     def sub(repl, string, *args, **kwargs) -> tuple: pass
     def subn(repl, string, *args, **kwargs) -> tuple: pass
 

@@ -3,7 +3,9 @@
 # for a more percise manual annotation of this module.
 # Feel free to edit the source below, but remove this header when you do.
 
-def _forget_codec(a: str) -> NoneType: pass
+from typing import List, Tuple, Dict, Undefined, GenericType
+
+def _forget_codec(a: str) -> None: pass
 
 def ascii_decode(a, *args, **kwargs) -> tuple: pass
 
@@ -38,9 +40,9 @@ def raw_unicode_escape_encode(a, *args, **kwargs) -> tuple: pass
 
 def readbuffer_encode(a, *args, **kwargs) -> tuple: pass
 
-def register(*args, **kwargs) -> NoneType: pass
+def register(*args, **kwargs) -> None: pass
 
-def register_error(a: str, b) -> NoneType: pass
+def register_error(a: str, b) -> None: pass
 
 def unicode_escape_decode(a, *args, **kwargs) -> tuple: pass
 

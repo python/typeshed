@@ -3,11 +3,13 @@
 # for a more percise manual annotation of this module.
 # Feel free to edit the source below, but remove this header when you do.
 
+from typing import List, Tuple, Dict, Undefined, GenericType
+
 def coverage(a: str) -> object: pass
 
 def logreader(a: str) -> LogReaderType:
-    raise RuntimeError()
     raise IOError()
+    raise RuntimeError()
 
 def profiler(a: str, *args, **kwargs) -> object:
     raise IOError()
@@ -16,17 +18,17 @@ def resolution() -> tuple: pass
 
 
 class LogReaderType(object):
-    def close() -> NoneType: pass
+    def close() -> None: pass
     def fileno() -> int:
         raise ValueError()
 
 class ProfilerType(object):
-    def addinfo(a: str, b: str) -> NoneType: pass
-    def close() -> NoneType: pass
+    def addinfo(a: str, b: str) -> None: pass
+    def close() -> None: pass
     def fileno() -> int:
         raise ValueError()
     def runcall(*args, **kwargs) -> object: pass
     def runcode(a, b, *args, **kwargs) -> object:
         raise TypeError()
-    def start() -> NoneType: pass
-    def stop() -> NoneType: pass
+    def start() -> None: pass
+    def stop() -> None: pass

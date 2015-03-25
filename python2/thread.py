@@ -3,6 +3,8 @@
 # for a more percise manual annotation of this module.
 # Feel free to edit the source below, but remove this header when you do.
 
+from typing import List, Tuple, Dict, Undefined, GenericType
+
 LockType = Undefined(lock)
 error = Undefined(object)
 
@@ -20,18 +22,18 @@ def exit_thread() -> object:
 
 def get_ident() -> int: pass
 
-def interrupt_main() -> NoneType: pass
+def interrupt_main() -> None: pass
 
 def stack_size(*args, **kwargs) -> int:
     raise ValueError()
 
 def start_new(*args, **kwargs) -> int:
-    raise TypeError()
     raise MemoryError()
+    raise TypeError()
 
 def start_new_thread(*args, **kwargs) -> int:
-    raise TypeError()
     raise MemoryError()
+    raise TypeError()
 
 
 class _local(object):
@@ -42,10 +44,10 @@ class _localdummy(object):
 
 class lock(object):
     def __enter__(*args, **kwargs) -> bool: pass
-    def __exit__(*args, **kwargs) -> NoneType: pass
+    def __exit__(*args, **kwargs) -> None: pass
     def acquire(*args, **kwargs) -> bool: pass
     def acquire_lock(*args, **kwargs) -> bool: pass
     def locked() -> bool: pass
     def locked_lock() -> bool: pass
-    def release() -> NoneType: pass
-    def release_lock() -> NoneType: pass
+    def release() -> None: pass
+    def release_lock() -> None: pass

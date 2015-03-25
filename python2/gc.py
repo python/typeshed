@@ -3,12 +3,14 @@
 # for a more percise manual annotation of this module.
 # Feel free to edit the source below, but remove this header when you do.
 
+from typing import List, Tuple, Dict, Undefined, GenericType
+
 def collect(*args, **kwargs) -> int:
     raise ValueError()
 
-def disable() -> NoneType: pass
+def disable() -> None: pass
 
-def enable() -> NoneType: pass
+def enable() -> None: pass
 
 def get_count() -> tuple: pass
 
@@ -26,6 +28,6 @@ def is_tracked(*args, **kwargs) -> bool: pass
 
 def isenabled() -> bool: pass
 
-def set_debug(a: int) -> NoneType: pass
+def set_debug(a: int) -> None: pass
 
-def set_threshold(a: int, *args, **kwargs) -> NoneType: pass
+def set_threshold(a: int, *args, **kwargs) -> None: pass

@@ -3,6 +3,8 @@
 # for a more percise manual annotation of this module.
 # Feel free to edit the source below, but remove this header when you do.
 
+from typing import List, Tuple, Dict, Undefined, GenericType
+
 class defaultdict(object):
     def __copy__() -> object: pass
     def __missing__(*args, **kwargs) -> object:
@@ -15,22 +17,22 @@ class deque(object):
     def __reduce__() -> tuple: pass
     def __reversed__() -> object: pass
     def __sizeof__() -> long: pass
-    def append(*args, **kwargs) -> NoneType: pass
-    def appendleft(*args, **kwargs) -> NoneType: pass
-    def clear() -> NoneType: pass
+    def append(*args, **kwargs) -> None: pass
+    def appendleft(*args, **kwargs) -> None: pass
+    def clear() -> None: pass
     def count(*args, **kwargs) -> int:
         raise RuntimeError()
-    def extend(*args, **kwargs) -> NoneType: pass
-    def extendleft(*args, **kwargs) -> NoneType: pass
+    def extend(*args, **kwargs) -> None: pass
+    def extendleft(*args, **kwargs) -> None: pass
     def pop() -> object:
         raise IndexError()
     def popleft() -> object:
         raise IndexError()
-    def remove(*args, **kwargs) -> NoneType:
-        raise ValueError()
+    def remove(*args, **kwargs) -> None:
         raise IndexError()
-    def reverse() -> NoneType: pass
-    def rotate(*args, **kwargs) -> NoneType: pass
+        raise ValueError()
+    def reverse() -> None: pass
+    def rotate(*args, **kwargs) -> None: pass
 
 class deque_iterator(object):
     def __length_hint__() -> int: pass

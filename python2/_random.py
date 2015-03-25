@@ -3,16 +3,18 @@
 # for a more percise manual annotation of this module.
 # Feel free to edit the source below, but remove this header when you do.
 
+from typing import List, Tuple, Dict, Undefined, GenericType
+
 class Random(object):
     def getrandbits(a: int) -> object:
-        raise ValueError()
         raise MemoryError()
+        raise ValueError()
     def getstate() -> tuple: pass
-    def jumpahead(*args, **kwargs) -> NoneType:
+    def jumpahead(*args, **kwargs) -> None:
         raise TypeError()
     def random() -> float: pass
-    def seed(*args, **kwargs) -> NoneType:
+    def seed(*args, **kwargs) -> None:
         raise MemoryError()
-    def setstate(*args, **kwargs) -> NoneType:
+    def setstate(*args, **kwargs) -> None:
         raise TypeError()
         raise ValueError()

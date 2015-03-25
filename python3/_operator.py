@@ -3,9 +3,11 @@
 # for a more percise manual annotation of this module.
 # Feel free to edit the source below, but remove this header when you do.
 
+from typing import List, Tuple, Dict, Undefined, GenericType
+
 def _compare_digest(a, b) -> bool:
-    raise TypeError()
     raise BufferError()
+    raise TypeError()
 
 def abs(*args, **kwargs) -> object: pass
 
@@ -19,7 +21,7 @@ def contains(*args, **kwargs) -> bool: pass
 
 def countOf(*args, **kwargs) -> long: pass
 
-def delitem(*args, **kwargs) -> NoneType: pass
+def delitem(*args, **kwargs) -> None: pass
 
 def eq(*args, **kwargs) -> object: pass
 
@@ -95,7 +97,7 @@ def pow(*args, **kwargs) -> object: pass
 
 def rshift(*args, **kwargs) -> object: pass
 
-def setitem(*args, **kwargs) -> NoneType: pass
+def setitem(*args, **kwargs) -> None: pass
 
 def sub(*args, **kwargs) -> object: pass
 
