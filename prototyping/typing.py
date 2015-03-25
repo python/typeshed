@@ -1,5 +1,7 @@
 # TODO:
-# Support Python 3.2
+# - Tuple[..., t]
+# - @no_type_check as class decorator
+# - Look for TODO below
 
 # TODO nits:
 # Get rid of asserts that are the caller's fault.
@@ -496,7 +498,6 @@ class VarBinding:
 
 
 # Some unconstrained type variables.  These are used by the container types.
-# TODO: Don't export these.
 T = TypeVar('T')  # Any type.
 KT = TypeVar('KT')  # Key type.
 VT = TypeVar('VT')  # Value type.

@@ -327,6 +327,7 @@ hinting, use the following:
 * a ``# type: ignore`` comment on arbitrary lines
 
 .. FIXME: should we have a module-wide comment as well?
+   I don't think so; but see https://github.com/ambv/typehinting/issues/35
 
 .. FIXME: suggest that other uses of annotations be replaced with decorators
 
@@ -353,6 +354,8 @@ it is declared, an ``Undefined`` placeholder might be used::
 If type hinting proves useful in general, a syntax for typing variables
 may be provided in a future Python version.
 
+.. FIXME: Motivate Undefined; see https://github.com/ambv/typehinting/issues/20
+
 Casts
 =====
 
@@ -377,8 +380,9 @@ convert or coerce the value.
 Casts differ from type comments (see the previous section).  When
 using a type comment, the type checker should still verify that the
 inferred type is consistent with the stated type.  When using a cast,
-the type checker trusts the programmer.  Also, casts can be used in
-expressions, while type comments only apply to assignments.
+the type checker should blindly believe the programmer.  Also, casts
+can be used in expressions, while type comments only apply to
+assignments.
 
 
 Stub Files
