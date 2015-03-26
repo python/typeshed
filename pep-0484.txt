@@ -322,12 +322,9 @@ makes it issue warnings when a static analyzer is used.
 To mark portions of the program that should not be covered by type
 hinting, use the following:
 
-* a ``@no_type_check`` decorator on classes and functions
+* a ``@no_type_check`` decorator on classes and functions (see below)
 
 * a ``# type: ignore`` comment on arbitrary lines
-
-.. FIXME: should we have a module-wide comment as well?
-   I don't think so; but see https://github.com/ambv/typehinting/issues/35
 
 .. FIXME: suggest that other uses of annotations be replaced with decorators
 
@@ -611,10 +608,10 @@ The following conveniece functions and decorators are exported:
 * cast, described earlier
 
 * no_type_check, a decorator to disable type checking per class or
-  function
+  function (see below)
 
 * no_type_check_decorator, a decorator to create your own decorators
-  with the same meaning as ``@no_type_check``
+  with the same meaning as ``@no_type_check`` (see below)
 
 * overload, described earlier
 
