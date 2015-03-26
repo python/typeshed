@@ -596,7 +596,8 @@ class UnionMeta(TypingMeta):
         return hash(self.__union_set_params__)
 
     def __instancecheck__(self, instance):
-        return any(isinstance(instance, t) for t in self.__union_params__)
+        return (self.__union_set_params__ is not None and
+                any(isinstance(instance, t) for t in self.__union_params__))
 
     def __subclasscheck__(self, cls):
         if cls is Any:

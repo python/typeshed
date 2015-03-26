@@ -327,6 +327,15 @@ class UnionTests(TestCase):
         with self.assertRaises(TypeError):
             Union[()]
 
+    def test_issubclass_union(self):
+        assert issubclass(Union[int, str], Union)
+        assert not issubclass(int, Union)
+
+    def test_isinstance_union(self):
+        # Nothing is an instance of bare Union.
+        assert not isinstance(42, Union)
+        assert not isinstance(int, Union)
+        assert not isinstance(Union[int, str], Union)
 
 class TypeVarUnionTests(TestCase):
 
