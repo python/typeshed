@@ -363,7 +363,7 @@ Occasionally the type checker may need a different kind of hint: the
 programmer may know that an expression is of a more constrained type
 than the type checker infers.  For example::
 
-  from typing import List
+  from typing import List, cast
 
   def find_first_str(a: List[object]) -> str:
       index = next(i for i, x in enumerate(a) if isinstance(x, str))
@@ -515,6 +515,11 @@ holds a set of classes representing builtin types with generics, namely:
   using one type and ellipsis, for example ``Tuple[int, ...]``.
   (The ``...`` here are part of the syntax.)
 
+* NamedTuple, used as
+  ``NamedTuple(type_name, [(field_name, field_type), ...])``
+  and equivalent to
+  ``collections.namedtuple(type_name, [field_name, ...])``.
+
 The generic versions of concrete collection types (``Dict``, ``List``,
 ``Set``, ``FrozenSet``, and homogeneous arbitrary-length ``Tuple``)
 are mainly useful for annotating return values.  For arguments, prefer
@@ -537,18 +542,18 @@ generics and union types:
 
 * Callable, used as ``Callable[[Arg1Type, Arg2Type], ReturnType]``
 
-* AnyStr, equivalent to ``TypeVar('AnyStr', str, bytes)``
+* AnyStr, defined as ``TypeVar('AnyStr', str, bytes)``
 
 All abstract base classes available in ``collections.abc`` are
 importable from the ``typing`` package, with added generics support:
 
 * ByteString
 
-* Callable
+* Callable (see above)
 
 * Container
 
-* Hashable
+* Hashable (not generic, but present for completeness)
 
 * ItemsView
 
@@ -570,14 +575,26 @@ importable from the ``typing`` package, with added generics support:
 
 * Sequence
 
-* Set as ``AbstractSet``. This name change was required because ``Set``
-  in the ``typing`` module means ``set()`` with generics.
+* Set, renamed to ``AbstractSet``. This name change was required
+  because ``Set`` in the ``typing`` module means ``set()`` with
+  generics.
 
-* Sized
+* Sized (not generic, but present for completeness)
 
 * ValuesView
 
-* Mapping
+A few one-off types are defined that test for single special methods
+(similar to ``Hashable`` or ``Sized``):
+
+* Reversible, to test for ``__reversed__``
+
+* SupportsAbs, to test for ``__abs__``
+
+* SupportsFloat, to test for ``__float__``
+
+* SupportsInt, to test for ``__int__``
+
+* SupportsRound, to test for ``__round__``
 
 The library includes literals for platform-specific type hinting:
 
@@ -588,6 +605,23 @@ The library includes literals for platform-specific type hinting:
 * WINDOWS
 
 * POSIX, equivalent to ``not WINDOWS``
+
+The following conveniece functions and decorators are exported:
+
+* cast, described earlier
+
+* no_type_check, a decorator to disable type checking per class or
+  function
+
+* no_type_check_decorator, a decorator to create your own decorators
+  with the same meaning as ``@no_type_check``
+
+* overload, described earlier
+
+* get_type_hints, a utility function to retrieve the type hints from a
+  function or method
+
+.. FIXME: Specify get_type_hints()
 
 The following types are available in the ``typing.io`` module:
 

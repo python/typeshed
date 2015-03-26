@@ -2,6 +2,7 @@
 # - Tuple[..., t]
 # - @no_type_check as class decorator
 # - Look for TODO below
+# - FrozenSet
 
 # TODO nits:
 # Get rid of asserts that are the caller's fault.
