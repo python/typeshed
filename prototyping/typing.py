@@ -1,6 +1,7 @@
 # TODO:
 # - Tuple[..., t]
 # - @no_type_check as class decorator
+# - https://github.com/ambv/typehinting/issues/62
 # - Look for TODO below
 
 # TODO nits:
@@ -81,7 +82,7 @@ __all__ = [
     # Submodules.
     'io',
     're',
-    ]
+]
 
 
 # Simple constants defined in the PEP.
@@ -1127,7 +1128,7 @@ def _get_defaults(func):
     pos_count = code.co_argcount
     kw_count = code.co_kwonlyargcount
     arg_names = code.co_varnames
-    kwarg_names = arg_names[pos_count:pos_count+kw_count]
+    kwarg_names = arg_names[pos_count:pos_count + kw_count]
     arg_names = arg_names[:pos_count]
     defaults = func.__defaults__ or ()
     kwdefaults = func.__kwdefaults__

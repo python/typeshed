@@ -337,6 +337,7 @@ class UnionTests(TestCase):
         assert not isinstance(int, Union)
         assert not isinstance(Union[int, str], Union)
 
+
 class TypeVarUnionTests(TestCase):
 
     def test_simpler(self):
@@ -1162,7 +1163,7 @@ class AllTests(TestCase):
 
     def test_all(self):
         from typing import __all__ as a
-        # Don't test everything, just spot-check the first and last of every category.
+        # Just spot-check the first and last of every category.
         assert 'AbstractSet' in a
         assert 'ValuesView' in a
         assert 'POSIX' in a
