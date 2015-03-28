@@ -1003,12 +1003,24 @@ class CollectionsAbcTests(TestCase):
 
     def test_set(self):
         assert issubclass(set, typing.Set)
+        assert not issubclass(frozenset, typing.Set)
         assert isinstance(set(), typing.Set)
         assert not isinstance({}, typing.Set)
         t = typing.Set[int]
         assert isinstance(set(), t)
         assert isinstance({42}, t)
         assert not isinstance({''}, t)
+
+    def test_frozenset(self):
+        assert issubclass(frozenset, typing.FrozenSet)
+        assert not issubclass(set, typing.FrozenSet)
+        assert isinstance(frozenset(), typing.FrozenSet)
+        assert not isinstance({}, typing.FrozenSet)
+        t = typing.FrozenSet[int]
+        assert isinstance(frozenset(), t)
+        assert isinstance(frozenset({42}), t)
+        assert not isinstance(frozenset({''}), t)
+        assert not isinstance({42}, t)
 
     def test_mapping_views(self):
         # TODO: These tests are kind of lame.

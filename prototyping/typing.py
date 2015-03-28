@@ -2,7 +2,6 @@
 # - Tuple[..., t]
 # - @no_type_check as class decorator
 # - Look for TODO below
-# - FrozenSet
 
 # TODO nits:
 # Get rid of asserts that are the caller's fault.
@@ -1387,6 +1386,29 @@ class _SetMeta(GenericMeta):
 
 
 class Set(set, MutableSet, metaclass=_SetMeta):
+    pass
+
+
+class _FrozenSetMeta(_SetMeta):
+    """This metaclass ensures set is not a subclass of FrozenSet.
+
+    Without this metaclass, set would be considered a subclass of
+    FrozenSet, because FrozenSet.__extra__ is collections.abc.Set, and
+    set is a subclass of that.
+    """
+
+    def __subclasscheck__(self, cls):
+        if issubclass(cls, Set):
+            return False
+        return super().__subclasscheck__(cls)
+
+    def __instancecheck__(self, obj):
+        if issubclass(obj.__class__, Set):
+            return False
+        return super().__instancecheck__(obj)
+
+
+class FrozenSet(frozenset, AbstractSet, metaclass=_FrozenSetMeta):
     pass
 
 
