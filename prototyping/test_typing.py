@@ -929,6 +929,18 @@ class ForwardRefTest(TestCase):
         th = get_type_hints(foo)
         self.assertEqual(th, {})
 
+    def test_no_type_check_class(self):
+
+        @no_type_check
+        class C:
+            def foo(a: 'whatevers') -> {}:
+                pass
+
+        cth = get_type_hints(C.foo)
+        self.assertEqual(cth, {})
+        ith = get_type_hints(C().foo)
+        self.assertEqual(ith, {})
+
     def test_meta_no_type_check(self):
 
         @no_type_check_decorator
@@ -941,9 +953,18 @@ class ForwardRefTest(TestCase):
         def foo(a: 'whatevers') -> {}:
             pass
 
+        @magic_decorator
+        class C:
+            def foo(a: 'whatevers') -> {}:
+                pass
+
         self.assertEqual(foo.__name__, 'foo')
         th = get_type_hints(foo)
         self.assertEqual(th, {})
+        cth = get_type_hints(C.foo)
+        self.assertEqual(cth, {})
+        ith = get_type_hints(C().foo)
+        self.assertEqual(ith, {})
 
 
 class OverloadTests(TestCase):

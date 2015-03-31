@@ -1,6 +1,5 @@
 # TODO:
 # - Tuple[..., t]
-# - @no_type_check as class decorator
 # - https://github.com/ambv/typehinting/issues/62
 # - Look for TODO below
 
@@ -1181,13 +1180,22 @@ def get_type_hints(obj, globalns=None, localns=None):
 
 
 # TODO: Also support this as a class decorator.
-def no_type_check(func):
+def no_type_check(arg):
     """Decorator to indicate that annotations are not type hints.
 
-    This mutates the function in place.
+    The argument must be a class or function; if it is a class, it
+    applies recursively to all methods defined in that class (but not
+    to methods defined in its superclasses or subclasses).
+
+    This mutates the function(s) in place.
     """
-    func.__no_type_check__ = True
-    return func
+    if isinstance(arg, type):
+        for obj in arg.__dict__.values():
+            if inspect.isfunction(obj):
+                obj.__no_type_check__ = True
+    else:
+        arg.__no_type_check__ = True
+    return arg
 
 
 def no_type_check_decorator(decorator):
