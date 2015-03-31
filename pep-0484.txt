@@ -33,7 +33,7 @@ The proposal is strongly inspired by mypy [mypy]_.  For example, the
 type "sequence of integers" can be written as ``Sequence[int]``.  The
 square brackets mean that no new syntax needs to be added to the
 language.  The example here uses a custom class ``Sequence``, imported
-from a pure-Python module ``typing.py``.  The ``Sequence[int]``
+from a pure-Python module ``typing``.  The ``Sequence[int]``
 notation works by implementing ``__getitem__()`` in the metaclass.
 
 The type system supports unions, generic types, and a special type
@@ -101,20 +101,42 @@ analysis require that annotations must be simple enough to be
 interpreted by static analysis tools.  (This is an intentionally
 somewhat vague requirement.)
 
-.. FIXME: Define rigorously what is/isn't supported.
+In addition to the above, the following special constructs defined
+below may be used: ``None``, ``Any``, ``Union``, ``Tuple``,
+``Callable``, all ABCs and stand-ins for concrete classes exported
+from ``typing`` (e.g. ``Sequence`` and ``Dict``), type variables, and
+type aliases.  See below for full definitions of all of these.
 
-When used as an annotation, the expression ``None`` is considered
-equivalent to ``NoneType`` (i.e., ``type(None)`` for type hinting
-purposes.
+New names that are added to support features described in following
+sections are available in the ``typing`` module.
 
-Type aliases are also valid type hints::
+
+Using None
+----------
+
+When used in a type hint, the expression ``None`` is considered
+equivalent to ``type(None)``.
+
+
+Type aliases
+------------
+
+Type aliases are defined by simple variable assignments::
 
   integer = int
 
   def retry(url: str, retry_count: integer) -> None: ...
 
-New names that are added to support features described in following
-sections are available in the ``typing`` package.
+Type aliases may be arbitrarily complex -- anything that is acceptable
+as a type hint is acceptable in a type alias::
+
+    from typing import TypeVar, Iterable, Tuple
+
+    T = TypeVar('T')
+    Vector = Iterable[Tuple[T, T]]
+
+    def inproduct(v: Vector) -> T:
+        return sum(x*y for x, y in v)
 
 
 Callbacks
@@ -489,12 +511,12 @@ in which case the recommendation is to put this information in a
 docstring.
 
 
-The ``typing`` Package
-======================
+The ``typing`` Module
+=====================
 
 To open the usage of static type checking to Python 3.5 as well as older
 versions, a uniform namespace is required.  For this purpose, a new
-package in the standard library is introduced called ``typing``.  It
+module in the standard library is introduced called ``typing``.  It
 holds a set of classes representing builtin types with generics, namely:
 
 * Dict, used as ``Dict[key_type, value_type]``
@@ -542,7 +564,7 @@ generics and union types:
 * AnyStr, defined as ``TypeVar('AnyStr', str, bytes)``
 
 All abstract base classes available in ``collections.abc`` are
-importable from the ``typing`` package, with added generics support:
+importable from the ``typing`` module, with added generics support:
 
 * ByteString
 
