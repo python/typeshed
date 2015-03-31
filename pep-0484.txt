@@ -78,37 +78,88 @@ typed language, and the authors have no desire to ever make type hints
 mandatory, even by convention.
 
 
+What is checked?
+================
+
+Any function (or method -- for brevity we won't be repeating this)
+with at least one argument or return annotation is checked, unless
+type checking is disabled by the ``@no_type_check`` decorator or a
+``# type: ignore`` comment (see below).
+
+A checked function should have annotations for all its arguments and
+its return type, with the exception that the ``self`` argument of a
+method should not be annotated; it is assumed to have the type of the
+containing class.  Notably, the return type of ``__init__`` should be
+annotated with ``-> None``.
+
+The body of a checked function is checked for consistency with the
+given annotations.  The annotations are also used to check correctness
+of calls appearing in other checked functions.
+
+Functions without any annotations (or whose checking is disabled) are
+assumed to have type ``Any`` when they are referenced in checked
+functions, and this should completely silence complaints from the
+checker regarding those references (although a checker may still
+request that a type be specified using a cast or a ``# type:`` comment
+if a more specific type than ``Any`` is needed for analysis of
+subsequent code).
+
+A type checker should understand decorators; this may require
+annotations on decorator definitions.  In particular, a type checker
+should understand the built-in decorators ``@property``,
+``@staticmethod`` and ``@classmethod``.  The first argument of a class
+method should not be annotated; it is assumed to be a subclass of the
+defining class.
+
+
 Type Definition Syntax
 ======================
 
 The syntax leverages PEP 3107-style annotations with a number of
-extensions described in sections below.  In its basic form, type hinting
-is used by filling function annotations with classes::
+extensions described in sections below.  In its basic form, type
+hinting is used by filling function annotation slots with classes::
 
   def greeting(name: str) -> str:
       return 'Hello ' + name
 
-This denotes that the expected type of the ``name`` argument is ``str``.
-Analogically, the expected return type is ``str``.  Subclasses of
-a specified argument type are also accepted as valid types for that
-argument.
+This states that the expected type of the ``name`` argument is
+``str``.  Analogically, the expected return type is ``str``.
 
-Abstract base classes, types available in the ``types`` module, and
-user-defined classes may be used as type hints as well.  Annotations
-must be valid expressions that evaluate without raising exceptions at
-the time the function is defined.  In addition, the needs of static
-analysis require that annotations must be simple enough to be
-interpreted by static analysis tools.  (This is an intentionally
-somewhat vague requirement.)
+Expressions whose type is a subtype of a specific argument type are
+also accepted for that argument.
+
+
+Acceptable type hints
+---------------------
+
+Type hints may be built-in classes (including those defined in
+standard library or third-party extension modules), abstract base
+classes, types available in the ``types`` module, and user-defined
+classes (including those defined in the standard library or
+third-party modules).  Annotations for built-in classes (and other
+classes at the discretion of the developer) may be placed in stub
+files (see below).
+
+Annotations must be valid expressions that evaluate without raising
+exceptions at the time the function is defined (but see below for
+forward references).
+
+The needs of static analysis require that annotations must be simple
+enough to be interpreted by static analysis tools.  In particular,
+dynamically computed types are not acceptable.  (This is an
+intentionally somewhat vague requirement, specific inclusions and
+exclusions may be added to future versions of this PEP as warranted by
+the discussion.)
 
 In addition to the above, the following special constructs defined
 below may be used: ``None``, ``Any``, ``Union``, ``Tuple``,
 ``Callable``, all ABCs and stand-ins for concrete classes exported
 from ``typing`` (e.g. ``Sequence`` and ``Dict``), type variables, and
-type aliases.  See below for full definitions of all of these.
+type aliases.
 
-New names that are added to support features described in following
-sections are available in the ``typing`` module.
+All newly introducedw names used to support features described in
+following sections (such as ``Any`` and ``Union``) are available in
+the ``typing`` module.
 
 
 Using None
@@ -127,8 +178,9 @@ Type aliases are defined by simple variable assignments::
 
   def retry(url: str, retry_count: integer) -> None: ...
 
-Type aliases may be arbitrarily complex -- anything that is acceptable
-as a type hint is acceptable in a type alias::
+Type aliases may be as complex as type hints in annotations --
+anything that is acceptable as a type hint is acceptable in a type
+alias::
 
     from typing import TypeVar, Iterable, Tuple
 
@@ -138,9 +190,18 @@ as a type hint is acceptable in a type alias::
     def inproduct(v: Vector) -> T:
         return sum(x*y for x, y in v)
 
+This is equivalent to::
 
-Callbacks
----------
+    from typing import TypeVar, Iterable, Tuple
+
+    T = TypeVar('T')
+
+    def inproduct(v: Iterable[Tuple[T, T]]) -> T:
+        return sum(x*y for x, y in v)
+
+
+Callable
+--------
 
 Frameworks expecting callback functions of specific signatures might be
 type hinted using ``Callable[[Arg1Type, Arg2Type], ReturnType]``.
@@ -223,16 +284,43 @@ Forward references
 ------------------
 
 When a type hint contains names that have not been defined yet, that
-definition may be expressed as a string, to be resolved later.  For
-example, instead of writing::
+definition may be expressed as a string literal, to be resolved later.
 
-  def notify_by_email(employees: Set[Employee]) -> None: ...
+A situation where this occurs commonly is the definition of a
+container class, where the class being defined occurs in the signature
+of some of the methods.  For example, the following code (the start of
+a simple binary tree implementation) does not work::
 
-one might write::
+  class Tree:
+      def __init__(self, left: Tree, right: Tree):
+          self.left = left
+          self.right = right
 
-  def notify_by_email(employees: 'Set[Employee]') -> None: ...
+To address this, we write::
 
-.. FIXME: Rigorously define this, and give a motivational example.
+  class Tree:
+      def __init__(self, left: 'Tree', right: 'Tree'):
+          self.left = left
+          self.right = right
+
+The string literal should contain a valid Python expression (i.e.,
+``compile(lit, '', 'expr')`` should be a valid code object) and it
+should evaluate without errors once the module has been fully loaded.
+The local and global namespace in which it is evaluated should be the
+same namespaces in which default arguments to the same function would
+be evaluated.
+
+Moreover, the expression should be parseable as a valid type hint,
+i.e., it is constrained by the rules from the section ``Acceptable
+type hints`` above.
+
+It is allowable to use string literals as *part* of a type hint, for
+example::
+
+    class Tree:
+        ...
+        def leaves(self) -> List['Tree']:
+            ...
 
 
 Union types
@@ -311,10 +399,12 @@ differences, simple conditionals can be used::
   else:
       loop = UnixSelectorEventLoop
 
-.. FIXME: Also define PY3 and POSIX?
+Similarly, ``PY3`` and ``POSIX`` are defined, as the negation of
+``PY2`` and ``WINDOWS``.
 
-Arbitrary literals defined in the form of ``NAME = True`` will also be
-accepted by the type checker to differentiate type resolution::
+Arbitrary literals defined of the form
+``NAME = <boolean_expression>`` will also be accepted by the type
+checker to differentiate type resolution::
 
   DEBUG = False
   ...
@@ -328,6 +418,8 @@ accepted by the type checker to differentiate type resolution::
 For the purposes of type hinting, the type checker assumes ``__debug__``
 is set to ``True``, in other words the ``-O`` command-line option is not
 used while type checking.
+
+.. FIXME: Define constant expressions
 
 
 Compatibility with other uses of function annotations
@@ -348,9 +440,11 @@ hinting, use the following:
 
 * a ``# type: ignore`` comment on arbitrary lines
 
-.. FIXME: suggest that other uses of annotations be replaced with decorators
-
-.. FIXME: add reference to "rejected alternatives"
+In order for maximal compatibility with offline type checking it may
+eventually be a good idea to change interfaces that rely on
+annotations to switch to a different mechanism, for example a
+decorator.  In Python 3.5 there is no pressure to do this, however.
+See also the longer discussion under "Rejected alternatives" below.
 
 
 Type Hints on Local and Global Variables
@@ -373,7 +467,7 @@ it is declared, an ``Undefined`` placeholder might be used::
 If type hinting proves useful in general, a syntax for typing variables
 may be provided in a future Python version.
 
-.. FIXME: Motivate Undefined; see https://github.com/ambv/typehinting/issues/20
+.. FIXME: Motivate (or kill?) Undefined; see https://github.com/ambv/typehinting/issues/20
 
 Casts
 =====
@@ -660,37 +754,6 @@ also available in ``typing`` (quoting Guido, "There's a reason those
 modules have two-letter names.").
 
 
-The place of the ``typing`` module in the standard library
-----------------------------------------------------------
-
-.. FIXME: complete this section (or discard?)
-
-
-Usage Patterns
-==============
-
-The main use case of type hinting is static analysis using an external
-tool without executing the analyzed program.  Existing tools used for
-that purpose like ``pyflakes`` [pyflakes]_ or ``pylint`` [pylint]_
-might be extended to support type checking.  New tools, like mypy [mypy]_,
-can be adopted specifically for this purpose.
-
-Type checking based on type hints is understood as a best-effort
-mechanism.  In other words, whenever types are not annotated and cannot
-be inferred, the type checker considers such code valid.  Type errors
-are only reported in case of explicit or inferred conflict.  Moreover,
-as a mechanism that is not tied to execution of the code, it does not
-affect runtime behaviour.  In other words, even in the case of a typing
-error, the program will continue running.
-
-The implementation of a type checker, whether linting source files or
-enforcing type information during runtime, is out of scope for this PEP.
-
-.. FIXME: This is somewhat redundant with the updated initial sections.
-
-.. FIXME: Describe run-time behavior of generic types.
-
-
 Rejected Alternatives
 =====================
 
@@ -919,26 +982,6 @@ The ideas put forward include:
 
 It's also been proposed to simply wait another release.  But what
 problem would that solve?  It would just be procrastination.
-
-
-Is Type Hinting Pythonic?
-=========================
-
-.. FIXME: Do we really need this section?
-
-Type annotations provide important documentation for how a unit of code
-should be used.  Programmers should therefore provide type hints on
-public APIs, namely argument and return types on functions and methods
-considered public.  However, because types of local and global variables
-can be often inferred, they are rarely necessary.
-
-The kind of information that type hints hold has always been possible to
-achieve by means of docstrings.  In fact, a number of formalized
-mini-languages for describing accepted arguments have evolved.  Moving
-this information to the function declaration makes it more visible and
-easier to access both at runtime and by static analysis.  Adding to that
-the notion that “explicit is better than implicit”, type hints are
-indeed *Pythonic*.
 
 
 PEP Development Process
