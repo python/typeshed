@@ -1295,6 +1295,20 @@ class SupportsFloat(_Protocol):
         pass
 
 
+class SupportsComplex(_Protocol):
+
+    @abstractmethod
+    def __complex__(self) -> complex:
+        pass
+
+
+class SupportsBytes(_Protocol):
+
+    @abstractmethod
+    def __bytes__(self) -> bytes:
+        pass
+
+
 class SupportsAbs(_Protocol[T]):
 
     @abstractmethod

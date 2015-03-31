@@ -644,6 +644,26 @@ class ProtocolTests(TestCase):
         assert issubclass(float, typing.SupportsFloat)
         assert not issubclass(str, typing.SupportsFloat)
 
+    def test_supports_complex(self):
+
+        # Note: complex itself doesn't have __complex__.
+        class C:
+            def __complex__(self):
+                return 0j
+
+        assert issubclass(C, typing.SupportsComplex)
+        assert not issubclass(str, typing.SupportsComplex)
+
+    def test_supports_bytes(self):
+
+        # Note: bytes itself doesn't have __bytes__.
+        class B:
+            def __bytes__(self):
+                return b''
+
+        assert issubclass(B, typing.SupportsBytes)
+        assert not issubclass(str, typing.SupportsBytes)
+
     def test_supports_abs(self):
         assert issubclass(float, typing.SupportsAbs)
         assert issubclass(int, typing.SupportsAbs)
