@@ -447,22 +447,44 @@ decorator.  In Python 3.5 there is no pressure to do this, however.
 See also the longer discussion under "Rejected alternatives" below.
 
 
-Type Hints on Local and Global Variables
-========================================
+Type comments and Undefined
+===========================
 
 No first-class syntax support for explicitly marking variables as being
 of a specific type is added by this PEP.  To help with type inference in
 complex cases, a comment of the following format may be used::
 
   x = []   # type: List[Employee]
+  x, y, z = [], [], []  # type: List[int], List[int], List[str]
+  x, y, z = [], [], []  # type: (List[int], List[int], List[str])
 
 In the case where type information for a local variable is needed before
 it is declared, an ``Undefined`` placeholder might be used::
 
   from typing import Undefined
 
-  x = Undefined   # type: List[Employee]
-  y = Undefined(int)
+  employees = Undefined   # type: List[Employee]
+  p, q = Undefined, Undefined  # type: int, str
+  x, y = Undefined(int), Undefined(str)
+
+Type comments (including ``# type: ignore``) can also be placed on
+certain elements of complex expressions and on with-statements and
+for-statements.  An example of the former::
+
+  import http.client
+  errors = {
+      'not_found': http.client.NOT_FOUND  # type: ignore
+  }
+
+The # type: ignore comment should be put on the line that the error
+refers to.
+
+Examples of type comments on with- and for-statements::
+
+  with frobnicate() as foo:  # type: int
+      # Here foo is an int
+  for x, y in points():  # type: float, float
+      # Here x and y are floats
 
 If type hinting proves useful in general, a syntax for typing variables
 may be provided in a future Python version.
