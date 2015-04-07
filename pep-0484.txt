@@ -765,16 +765,16 @@ The following conveniece functions and decorators are exported:
 
 The following types are available in the ``typing.io`` module:
 
-* IO
+* IO (generic over ``AnyStr``)
 
-* BinaryIO
+* BinaryIO (a simple subclass of ``IO[bytes]``)
 
-* TextIO
+* TextIO (a simple subclass of ``IO[str]``)
 
 The following types are provided by the ``typing.re`` module:
 
 * Match and Pattern, types of ``re.match()`` and ``re.compile()``
-  results
+  results (generic over ``AnyStr``)
 
 As a convenience measure, types from ``typing.io`` and ``typing.re`` are
 also available in ``typing`` (quoting Guido, "There's a reason those
