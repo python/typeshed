@@ -25,89 +25,63 @@ Things consciously left out for now
 
 * Keyword argument support in ``Callable``.
 
+* Probably other things.  Should we try to list them all here, or get
+  rid of this list?
+
 
 Changes to MyPy coming from this proposal
 -----------------------------------------
 
-* ``typevar`` becomes ``TypeVar('T')`` and its semantics support
-  specifying base type constraints. If we decide to add optional
-  invariance or contravariance, this will be the place, too. See
-  https://github.com/JukkaL/mypy/issues/539 and
-  https://github.com/ambv/typehinting/issues/1 and
-  https://github.com/ambv/typehinting/issues/2 and maybe others.
-
-* ``Union`` behaves differently, it holds the defined types in order
-  to be able to actually respond to issubclass.
-  **Assumption:** This doesn't affect mypy; I do want this for
-  typing.py (also for generic types).
+(Omitting things implemented in mypy 0.2; See
+http://mypy-lang.blogspot.com/2015/04/mypy-02-released.html.)
 
 * ``None`` should only be acceptable if an annotation explicitly uses
   ``Optional[...]`` or if there is an explicit default ``= None``.
-
-* I (Guido) would like type aliases in mypy to be more powerful.  A
-  type alias should be allowed to be e.g. a ``Union[...]``.
+  See https://github.com/JukkaL/mypy/issues/359
 
 * Implement `Tuple[t1, ...]` for variable-length homogeneous tuples.
   See https://github.com/JukkaL/mypy/issues/184
 
+* The full list of mypy issues marked as PEP 484 compatibility issues
+  is here: https://github.com/JukkaL/mypy/labels/pep484
 
-Open issues
------------
-
-* How to make the union type land in __annotations__ for the ``x: str
-  = None`` case?  **Resolution:** Add a function to typing.py that
-  retrieves a function's type annotations.  This should also expand
-  forward references and honor ``@no_type_check`` decorators.
+PEP 482 TO DO
+-------------
 
 * State of the art: should we list decorator-based approaches
   (PyContracts?) and docstring-based approaches?  **TODO:** Lukasz to
   update PEP 482.
 
+PEP 483 TO DO
+-------------
 
-Work in progress notes
-----------------------
+* Explain generics better.
 
-* Perhaps ``IO``, ``BinaryIO`` and ``TextIO``
-  should simply be new abstract base classes, usable with or without type
-  hinting.  **Proposed resolution:** ``IO`` is generic over ``AnyStr``,
-  the other two are concrete (subclassing ``IO[bytes]`` and ``IO[str]``
-  respectively).
+* Drop definition of ``Intersection``?
 
-* The current implementation of ``*IO`` is quite un-ducktyped (specifies
-  both reading and writing as one protocol)
-  **What does this mean???**
+
+PEP 484 TO DO
+-------------
+
+* Explain generics better.
 
 * Co/contravariance and type variables.
-
-* Pick a definitive syntax to put in `# type: ...` comments to disable
-  type checking.  **Proposal:** `# type: OFF` and `# type: ON`.
-
-* Decide on the fate of `AbstractGeneric`.
-  See https://github.com/ambv/typehinting/issues/41
-
-Editing tasks
--------------
 
 * Note that type checkers ought to provide config options to
   selectively skip specific modules/packages.
   See https://github.com/ambv/typehinting/issues/53
-
-* Explain `@no_type_check` and also how to define a new decorator that
-  implies the same.  See https://github.com/ambv/typehinting/issues/51
 
 * Describe how to declare a generic class.
   See https://github.com/ambv/typehinting/issues/41
 
 * Make a list of things we're explicitly punting (see above).
 
-* Explain namedtuple.  (Does this go in PEP 483 perhaps?)
+* Clarify the limits of constant expressions (expressions the type
+  checker should be able to evaluate, as opposed to typecheck).
+  (Maybe only through examples.)
 
-* Describe the ``typing.re`` and ``typing.io`` subpackages, and how to
-  add others.
+* Decide the fate of Undefined; see
+  https://github.com/ambv/typehinting/issues/20
 
-* Clarify type aliasing (what is allowed on the RHS, if only by example).
-
-* Clarify the limits of expressions the type checker should be able to
-  evaluate (as opposed to typecheck).  (Maybe only through examples.)
-
-* See also the list of github issues.  (https://github.com/ambv/typehinting/issues)
+* See also the list of github issues:
+  https://github.com/ambv/typehinting/issues
