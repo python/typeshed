@@ -432,10 +432,30 @@ class TupleTests(TestCase):
             pass
         self.assertTrue(issubclass(MyTuple, Tuple))
 
+    def test_tuple_ellipsis(self):
+        t = Tuple[int, ...]
+        assert isinstance((), t)
+        assert isinstance((1,), t)
+        assert isinstance((1, 2), t)
+        assert isinstance((1, 2, 3), t)
+        assert not isinstance((3.14,), t)
+        assert not isinstance((1, 2, 3.14,), t)
+
+    def test_tuple_ellipsis_subclass(self):
+        class B:
+            pass
+        class C(B):
+            pass
+        assert not issubclass(Tuple[B], Tuple[B, ...])
+        assert issubclass(Tuple[C, ...], Tuple[B, ...])
+        assert not issubclass(Tuple[C, ...], Tuple[B])
+        assert not issubclass(Tuple[C], Tuple[B, ...])
+
     def test_repr(self):
         self.assertEqual(repr(Tuple), 'typing.Tuple')
         self.assertEqual(repr(Tuple[()]), 'typing.Tuple[]')
         self.assertEqual(repr(Tuple[int, float]), 'typing.Tuple[int, float]')
+        self.assertEqual(repr(Tuple[int, ...]), 'typing.Tuple[int, ...]')
 
     def test_errors(self):
         with self.assertRaises(TypeError):

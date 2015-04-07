@@ -1,5 +1,4 @@
 # TODO:
-# - Tuple[..., t]
 # - https://github.com/ambv/typehinting/issues/62
 # - Look for TODO below
 
@@ -695,9 +694,10 @@ class Optional(Final, metaclass=OptionalMeta, _root=True):
 class TupleMeta(TypingMeta):
     """Metaclass for Tuple."""
 
-    def __new__(cls, name, bases, namespace, parameters=None, _root=False):
+    def __new__(cls, name, bases, namespace, parameters=None, use_ellipsis=False, _root=False):
         self = super().__new__(cls, name, bases, namespace, _root=_root)
         self.__tuple_params__ = parameters
+        self.__tuple_use_ellipsis__ = use_ellipsis
         return self
 
     def _has_type_var(self):
@@ -721,8 +721,11 @@ class TupleMeta(TypingMeta):
     def __repr__(self):
         r = super().__repr__()
         if self.__tuple_params__ is not None:
+            params = [_type_repr(p) for p in self.__tuple_params__]
+            if self.__tuple_use_ellipsis__:
+                params.append('...')
             r += '[%s]' % (
-                ', '.join(_type_repr(p) for p in self.__tuple_params__))
+                ', '.join(params))
         return r
 
     def __getitem__(self, parameters):
@@ -730,10 +733,16 @@ class TupleMeta(TypingMeta):
             raise TypeError("Cannot re-parameterize %r" % (self,))
         if not isinstance(parameters, tuple):
             parameters = (parameters,)
-        msg = "Class[arg, ...]: each arg must be a type."
+        if len(parameters) == 2 and parameters[1] == Ellipsis:
+            parameters = parameters[:1]
+            use_ellipsis = True
+            msg = "Tuple[t, ...]: t must be a type."
+        else:
+            use_ellipsis = False
+            msg = "Tuple[t0, t1, ...]: each t must be a type."
         parameters = tuple(_type_check(p, msg) for p in parameters)
-        return self.__class__(self.__name__, self.__bases__,
-                              dict(self.__dict__), parameters, _root=True)
+        return self.__class__(self.__name__, self.__bases__, dict(self.__dict__),
+                              parameters, use_ellipsis=use_ellipsis, _root=True)
 
     def __eq__(self, other):
         if not isinstance(other, TupleMeta):
@@ -748,9 +757,13 @@ class TupleMeta(TypingMeta):
             return False
         if self.__tuple_params__ is None:
             return True
-        return (len(t) == len(self.__tuple_params__) and
-                all(isinstance(x, p)
-                    for x, p in zip(t, self.__tuple_params__)))
+        if self.__tuple_use_ellipsis__:
+            p = self.__tuple_params__[0]
+            return all(isinstance(x, p) for x in t)
+        else:
+            return (len(t) == len(self.__tuple_params__) and
+                    all(isinstance(x, p)
+                        for x, p in zip(t, self.__tuple_params__)))
 
     def __subclasscheck__(self, cls):
         if cls is Any:
@@ -765,6 +778,8 @@ class TupleMeta(TypingMeta):
             return True
         if cls.__tuple_params__ is None:
             return False  # ???
+        if cls.__tuple_use_ellipsis__ != self.__tuple_use_ellipsis__:
+            return False
         # Covariance.
         return (len(self.__tuple_params__) == len(cls.__tuple_params__) and
                 all(issubclass(x, p)
