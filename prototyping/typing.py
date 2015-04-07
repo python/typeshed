@@ -338,6 +338,8 @@ class TypeVar(TypingMeta, metaclass=TypingMeta, _root=True):
       T1 = TypeVar('T1')  # Unconstrained
       T2 = TypeVar('T2', t1, t2, ...)  # Constrained to any of (t1, t2, ...)
 
+    (TODO: The rules below are inconsistent.  See issue 62.)
+
     For an unconstrained type variable T, isinstance(x, T) is false
     for all x, and similar for issubclass(cls, T).  Example::
 
@@ -388,9 +390,15 @@ class TypeVar(TypingMeta, metaclass=TypingMeta, _root=True):
 
     """
 
-    def __new__(cls, name, *constraints):
+    def __new__(cls, name, *constraints, kind=None):
         self = super().__new__(cls, name, (Final,), {}, _root=True)
+        if kind not in (None, 'in', 'out'):
+            raise ValueError("kind must be 'in', 'out' or None; got %r." %
+                             (kind,))
+        if kind is not None and constraints:
+            raise TypeError("kind does not combine with constraints")
         msg = "TypeVar(name, constraint, ...): constraints must be types."
+        self.__kind__ = kind
         self.__constraints__ = tuple(_type_check(t, msg) for t in constraints)
         self.__binding__ = None
         return self
@@ -399,7 +407,13 @@ class TypeVar(TypingMeta, metaclass=TypingMeta, _root=True):
         return True
 
     def __repr__(self):
-        return '~' + self.__name__
+        if self.__kind__ == 'in':
+            prefix = '+'
+        elif self.__kind__ == 'out':
+            prefix = '-'
+        else:
+            prefix = '~'
+        return prefix + self.__name__
 
     def __instancecheck__(self, instance):
         if self.__binding__ is not None:
@@ -500,6 +514,9 @@ class VarBinding:
 T = TypeVar('T')  # Any type.
 KT = TypeVar('KT')  # Key type.
 VT = TypeVar('VT')  # Value type.
+T_in = TypeVar('T_in', kind='in')  # Any type, for covariant containers.
+KT_in = TypeVar('KT_in', kind='in')  # Key type, for covariant containers.
+VT_in = TypeVar('VT_in', kind='in')  # Value type, for covariant containers.
 
 # A useful type variable with constraints.  This represents string types.
 # TODO: What about bytearray, memoryview?
@@ -947,9 +964,15 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
     # TODO: Constrain more how Generic is used; only a few
     # standard patterns should be allowed.
 
+    # TODO: Use a more precise rule than matching __name__ to decide
+    # whether two classes are the same.  Also, save the formal
+    # parameters.  (These things are related!  A solution lies in
+    # using origin.)
+
     __extra__ = None
 
-    def __new__(cls, name, bases, namespace, parameters=None, extra=None):
+    def __new__(cls, name, bases, namespace,
+                parameters=None, origin=None, extra=None):
         if parameters is None:
             # Extract parameters from direct base classes.  Only
             # direct bases are considered and only those that are
@@ -983,6 +1006,7 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
             self.__extra__ = extra
         # Else __extra__ is inherited, eventually from the
         # (meta-)class default above.
+        self.__origin__ = origin
         return self
 
     def _has_type_var(self):
@@ -1035,14 +1059,49 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
 
         return self.__class__(self.__name__, self.__bases__,
                               dict(self.__dict__),
-                              parameters=params, extra=self.__extra__)
+                              parameters=params,
+                              origin=self,
+                              extra=self.__extra__)
 
     def __subclasscheck__(self, cls):
         if cls is Any:
             return True
+        if isinstance(cls, GenericMeta):
+            # For a class C(Generic[T]) where T is co-variant,
+            # C[X] is a subclass of C[Y] iff X is a subclass of Y.
+            origin = self.__origin__
+            if origin is not None and origin is cls.__origin__:
+                assert len(self.__parameters__) == len(origin.__parameters__)
+                assert len(cls.__parameters__) == len(origin.__parameters__)
+                for p_self, p_cls, p_origin in zip(self.__parameters__,
+                                                   cls.__parameters__,
+                                                   origin.__parameters__):
+                    if isinstance(p_origin, TypeVar):
+                        if p_origin.__kind__ is None:
+                            # Invariant -- p_cls and p_self must equal.
+                            if p_self != p_cls:
+                                break
+                        elif p_origin.__kind__ == 'in':
+                            # Covariant -- p_cls must be a subclass of p_self.
+                            if not issubclass(p_cls, p_self):
+                                break
+                        elif p_origin.__kind__ == 'out':
+                            # Contravariant.  I think it's the opposite. :-)
+                            if not issubclass(p_self, p_cls):
+                                break
+                        else:
+                            assert False, p_origin.__kind__
+                    else:
+                        # If the origin's parameter is not a typevar,
+                        # insist on invariance.
+                        if p_self != p_cls:
+                            break
+                else:
+                    return True
+                # If we break out of the loop, the superclass gets a chance.
         if super().__subclasscheck__(cls):
             return True
-        if self.__extra__ is None:
+        if self.__extra__ is None or isinstance(cls, GenericMeta):
             return False
         return issubclass(cls, self.__extra__)
 
@@ -1233,18 +1292,14 @@ def overload(func):
     raise RuntimeError("Overloading is only supported in library stubs")
 
 
-class _Protocol(Generic):
-    """Internal base class for protocol classes.
+class _ProtocolMeta(GenericMeta):
+    """Internal metaclass for _Protocol.
 
-    This implements a simple-minded structural isinstance check
-    (similar but more general than the one-offs in collections.abc
-    such as Hashable).
+    This exists so _Protocol classes can be generic without deriving
+    from Generic.
     """
 
-    _is_protocol = True
-
-    @classmethod
-    def __subclasshook__(self, cls):
+    def __subclasscheck__(self, cls):
         if not self._is_protocol:
             # No structural checks since this isn't a protocol.
             return NotImplemented
@@ -1258,10 +1313,9 @@ class _Protocol(Generic):
 
         for attr in attrs:
             if not any(attr in d.__dict__ for d in cls.__mro__):
-                return NotImplemented
+                return False
         return True
 
-    @classmethod
     def _get_protocol_attrs(self):
         # Get all Protocol base classes.
         protocol_bases = []
@@ -1284,10 +1338,23 @@ class _Protocol(Generic):
                         attr != '_is_protocol' and
                         attr != '__dict__' and
                         attr != '_get_protocol_attrs' and
+                        attr != '__parameters__' and
+                        attr != '__origin__' and
                         attr != '__module__'):
                         attrs.add(attr)
 
         return attrs
+
+
+class _Protocol(metaclass=_ProtocolMeta):
+    """Internal base class for protocol classes.
+
+    This implements a simple-minded structural isinstance check
+    (similar but more general than the one-offs in collections.abc
+    such as Hashable).
+    """
+
+    _is_protocol = True
 
 
 # Various ABCs mimicking those in collections.abc.
@@ -1296,7 +1363,7 @@ class _Protocol(Generic):
 Hashable = collections_abc.Hashable  # Not generic.
 
 
-class Iterable(Generic[T], extra=collections_abc.Iterable):
+class Iterable(Generic[T_in], extra=collections_abc.Iterable):
     pass
 
 
@@ -1356,7 +1423,7 @@ class Reversible(_Protocol[T]):
 Sized = collections_abc.Sized  # Not generic.
 
 
-class Container(Generic[T], extra=collections_abc.Container):
+class Container(Generic[T_in], extra=collections_abc.Container):
     pass
 
 
@@ -1367,16 +1434,16 @@ class AbstractSet(Sized, Iterable, Container, extra=collections_abc.Set):
     pass
 
 
-class MutableSet(AbstractSet, extra=collections_abc.MutableSet):
+class MutableSet(AbstractSet[T], extra=collections_abc.MutableSet):
     pass
 
 
-class Mapping(Sized, Iterable[KT], Container[KT], Generic[KT, VT],
+class Mapping(Sized, Iterable[KT_in], Container[KT_in], Generic[KT_in, VT_in],
               extra=collections_abc.Mapping):
     pass
 
 
-class MutableMapping(Mapping, extra=collections_abc.MutableMapping):
+class MutableMapping(Mapping[KT, VT], extra=collections_abc.MutableMapping):
     pass
 
 
@@ -1384,7 +1451,7 @@ class Sequence(Sized, Iterable, Container, extra=collections_abc.Sequence):
     pass
 
 
-class MutableSequence(Sequence, extra=collections_abc.MutableSequence):
+class MutableSequence(Sequence[T], extra=collections_abc.MutableSequence):
     pass
 
 
@@ -1459,7 +1526,8 @@ class KeysView(MappingView, Set[KT], extra=collections_abc.KeysView):
 
 
 # TODO: Enable Set[Tuple[KT, VT]] instead of Generic[KT, VT].
-class ItemsView(MappingView, Generic[KT, VT], extra=collections_abc.ItemsView):
+class ItemsView(MappingView, Generic[KT_in, VT_in],
+                extra=collections_abc.ItemsView):
     pass
 
 

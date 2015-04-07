@@ -139,6 +139,9 @@ class TypeVarTests(TestCase):
         self.assertEqual(repr(KT), '~KT')
         self.assertEqual(repr(VT), '~VT')
         self.assertEqual(repr(AnyStr), '~AnyStr')
+        self.assertEqual(repr(typing.T_in), '+T_in')
+        T_out = TypeVar('T_out', kind='out')
+        self.assertEqual(repr(T_out), '-T_out')
 
     def test_no_redefinition(self):
         self.assertNotEqual(TypeVar('T'), TypeVar('T'))
@@ -842,6 +845,47 @@ class UndefinedTest(TestCase):
         Undefined(typing.re.Pattern[str])
         Undefined(typing.re.Pattern[bytes])
         Undefined(typing.re.Pattern[Any])
+
+    def test_invariance(self):
+        # Because of invariance, List[subclass of X] is not a subclass
+        # of List[X], and ditto for MutableSequence.
+        assert not issubclass(typing.List[Manager], typing.List[Employee])
+        assert not issubclass(typing.MutableSequence[Manager],
+                              typing.MutableSequence[Employee])
+        # It's still reflexive.
+        assert issubclass(typing.List[Employee], typing.List[Employee])
+        assert issubclass(typing.MutableSequence[Employee],
+                          typing.MutableSequence[Employee])
+
+    def test_covariance_tuple(self):
+        # Check covariace for Tuple (which are really special cases).
+        assert issubclass(Tuple[Manager], Tuple[Employee])
+        assert not issubclass(Tuple[Employee], Tuple[Manager])
+        # And pairwise.
+        assert issubclass(Tuple[Manager, Manager], Tuple[Employee, Employee])
+        assert not issubclass(Tuple[Employee, Employee],
+                              Tuple[Manager, Employee])
+        # And using ellipsis.
+        assert issubclass(Tuple[Manager, ...], Tuple[Employee, ...])
+        assert not issubclass(Tuple[Employee, ...], Tuple[Manager, ...])
+
+    def test_covariance_sequence(self):
+        # Check covariance for Sequence (which is just a generic class
+        # for this purpose, but using a covariant type variable).
+        assert issubclass(typing.Sequence[Manager], typing.Sequence[Employee])
+        assert not issubclass(typing.Sequence[Employee],
+                              typing.Sequence[Manager])
+
+    def test_covariance_mapping(self):
+        # Ditto for Mapping (a generic class with two parameters).
+        assert issubclass(typing.Mapping[Employee, Manager],
+                          typing.Mapping[Employee, Employee])
+        assert issubclass(typing.Mapping[Manager, Employee],
+                          typing.Mapping[Employee, Employee])
+        assert not issubclass(typing.Mapping[Employee, Manager],
+                              typing.Mapping[Manager, Manager])
+        assert not issubclass(typing.Mapping[Manager, Employee],
+                              typing.Mapping[Manager, Manager])
 
 
 class CastTest(TestCase):
