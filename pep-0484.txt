@@ -174,9 +174,13 @@ Type aliases
 
 Type aliases are defined by simple variable assignments::
 
-  integer = int
+  Integer = int
 
-  def retry(url: str, retry_count: integer) -> None: ...
+  def retry(url: str, retry_count: Integer) -> None: ...
+
+Note that we recommend capitalizing alias names, since they represent
+user-defined types, which (like user-defined classes) are typically
+spelled that way.
 
 Type aliases may be as complex as type hints in annotations --
 anything that is acceptable as a type hint is acceptable in a type
@@ -754,9 +758,10 @@ The following conveniece functions and decorators are exported:
 * overload, described earlier
 
 * get_type_hints, a utility function to retrieve the type hints from a
-  function or method
-
-.. FIXME: Specify get_type_hints()
+  function or method.  Given a function or method object, it returns
+  a dict with the same format as ``__annotations__``, but evaluating
+  forward references (which are given as string literals) as expressions
+  in the context of the original function or method definition.
 
 The following types are available in the ``typing.io`` module:
 
@@ -923,6 +928,18 @@ off-line, so why would type hints need to be evaluated at runtime at
 all).  This of course would run afoul of backwards compatibility,
 since the Python interpreter doesn't actually know whether a
 particular annotation is meant to be a type hint or something else.
+
+A compromise is proposed whereby a ``__future__`` import can enable
+turning *all* annotations in a given module into string literals, as
+follows::
+
+  from __future__ import annotations
+
+  class ImSet:
+      def add(self, a: ImSet) -> List[ImSet]: ...
+
+  assert ImSet.add.__annotations__ == {'a': 'ImSet', 'return': 'List[ImSet]'}
+
 
 The double colon
 ----------------
