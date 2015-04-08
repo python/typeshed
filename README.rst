@@ -65,7 +65,7 @@ PEP 484 TO DO
 
 * Explain generics better.
 
-* Co/contravariance and type variables.
+* Co/contravariance and type variables.  (See VARIANCE.rst)
 
 * Note that type checkers ought to provide config options to
   selectively skip specific modules/packages.
