@@ -988,7 +988,7 @@ As written this will not work, because of the peculiarity in Python
 that class names become defined once the entire body of the class has
 been executed.  Our solution, which isn't particularly elegant, but
 gets the job done, is to allow using string literals in annotations.
-Most of the time you won't have to use this though -- most _uses_ of
+Most of the time you won't have to use this though -- most *uses* of
 type hints are expected to reference builtin types or types defined in
 other modules.
 
