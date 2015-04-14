@@ -70,7 +70,6 @@ __all__ = [
 
     # One-off things.
     'AnyStr',
-    'Undefined',
     'cast',
     'get_type_hints',
     'no_type_check',
@@ -1140,48 +1139,6 @@ class Generic(metaclass=GenericMeta):
       def lookup_name(mapping: Mapping[X, Y], key: X, default: Y) -> Y:
           # Same body as above.
     """
-
-
-class Undefined:
-    """An undefined value.
-
-    Example::
-
-      x = Undefined(typ)
-
-    This tells the type checker that x has the given type but its
-    value should be considered undefined.  At runtime x is an instance
-    of Undefined.  The actual type can be introspected by looking at
-    x.__type__ and its str() and repr() are defined, but any other
-    operations or attributes will raise an exception.
-
-    An alternative syntax is also supported:
-
-      x = Undefined  # type: typ
-
-    This has the same meaning to the static type checker but uses less
-    overhead at run-time, at the cost of not being introspectible.
-
-    NOTE: Do not under any circumstances check for Undefined.  We
-    don't want this to become something developers rely upon, like
-    JavaScript's undefined.  Code that returns or uses an Undefined
-    value in any way should be considered broken.  Static type
-    checkers should warn about using potentially Undefined values.
-    """
-
-    __slots__ = ['__type__']
-
-    def __new__(cls, typ):
-        typ = _type_check(typ, "Undefined(t): t must be a type.")
-        self = super().__new__(cls)
-        self.__type__ = typ
-        return self
-
-    __hash__ = None
-
-    def __repr__(self):
-        return '%s(%s)' % (_type_repr(self.__class__),
-                           _type_repr(self.__type__))
 
 
 def cast(typ, val):

@@ -13,7 +13,6 @@ from typing import Union, Optional
 from typing import Tuple
 from typing import Callable
 from typing import Generic
-from typing import Undefined
 from typing import cast
 from typing import get_type_hints
 from typing import no_type_check, no_type_check_decorator
@@ -821,30 +820,7 @@ class GenericTests(TestCase):
         assert a.get() == [1, 42]
 
 
-class UndefinedTest(TestCase):
-
-    def test_basics(self):
-        x = Undefined(int)
-        x = Undefined(Any)
-        x = Undefined(Union[int, str])
-        x = Undefined(None)
-
-    def test_errors(self):
-        with self.assertRaises(TypeError):
-            x = Undefined(42)
-        u = Undefined(int)
-        with self.assertRaises(TypeError):
-            {u: 42}
-
-    def test_repr(self):
-        self.assertEqual(repr(Undefined(Any)), 'typing.Undefined(typing.Any)')
-
-    def test_type_alias(self):
-        # These simply must not fail.
-        Undefined(typing.re.Pattern)
-        Undefined(typing.re.Pattern[str])
-        Undefined(typing.re.Pattern[bytes])
-        Undefined(typing.re.Pattern[Any])
+class VarianceTest(TestCase):
 
     def test_invariance(self):
         # Because of invariance, List[subclass of X] is not a subclass
