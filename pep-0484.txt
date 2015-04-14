@@ -360,12 +360,59 @@ invalid::
 You can use multiple inheritance with ``Generic``::
 
   from typing import TypeVar, Generic, Sized
-  ...
 
   T = TypeVar('T')
 
   class LinkedList(Sized, Generic[T]):
       ...
+
+
+Arbitrary generic types as base classes
+---------------------------------------
+
+``Generic[T]`` is only valid as a base class -- it's not a proper
+type.  However, user-defined generic types such as ``LinkedList[T]``
+from the above example and built-in generic types and ABCs such as
+``List[T]`` and ``Iterable[T]`` are valid both as types and as base
+classes. For example, we can define a subclass of ``Dict`` that
+specializes type arguments::
+
+  from typing import Dict, List, Optional
+
+  class Node:
+      ...
+
+  class SymbolTable(Dict[str, List[Node]]):
+      def push(self, name: str, node: Node) -> None:
+          self.setdefault(name, []).append(node)
+
+      def pop(self, name: str) -> Node:
+          return self[name].pop()
+
+      def lookup(self, name: str) -> Optional[Node]:
+          nodes = self.get(name)
+          if nodes:
+              return nodes[-1]
+          else:
+              return None
+
+``SymbolTable`` is a subclass of ``dict`` and a subtype of ``Dict[str,
+List[Node]]``.
+
+If a generic base class has a type variable as a type argument, this
+makes the defined class generic. For example, we can define a generic
+``LinkedList`` class that is iterable and a container::
+
+  from typing import TypeVar, Iterable, Container
+
+  T = TypeVar('T')
+
+  class LinkedList(Iterable[T], Container[T]):
+      ...
+
+Now ``LinkedList[int]`` is a valid type. Note that we can use ``T``
+multiple times in the base class list, as long as we don't use the
+same type variable ``T`` multiple times within ``Generic[...]``.
 
 
 Forward references
