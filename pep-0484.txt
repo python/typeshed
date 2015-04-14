@@ -451,8 +451,8 @@ decorator.  In Python 3.5 there is no pressure to do this, however.
 See also the longer discussion under "Rejected alternatives" below.
 
 
-Type comments and Undefined
-===========================
+Type comments
+=============
 
 No first-class syntax support for explicitly marking variables as being
 of a specific type is added by this PEP.  To help with type inference in
@@ -461,15 +461,6 @@ complex cases, a comment of the following format may be used::
   x = []   # type: List[Employee]
   x, y, z = [], [], []  # type: List[int], List[int], List[str]
   x, y, z = [], [], []  # type: (List[int], List[int], List[str])
-
-In the case where type information for a local variable is needed before
-it is declared, an ``Undefined`` placeholder might be used::
-
-  from typing import Undefined
-
-  employees = Undefined   # type: List[Employee]
-  p, q = Undefined, Undefined  # type: int, str
-  x, y = Undefined(int), Undefined(str)
 
 Type comments (including ``# type: ignore``) can also be placed on
 certain elements of complex expressions and on with-statements and
@@ -492,8 +483,6 @@ Examples of type comments on with- and for-statements::
 
 If type hinting proves useful in general, a syntax for typing variables
 may be provided in a future Python version.
-
-.. FIXME: Motivate (or kill?) Undefined; see https://github.com/ambv/typehinting/issues/20
 
 Casts
 =====
@@ -674,10 +663,6 @@ generics and union types:
 
 * TypeVar, used as ``X = TypeVar('X', Type1, Type2, Type3)`` or simply
   ``Y = TypeVar('Y')``
-
-* Undefined, used as ``local_variable = Undefined # type: List[int]`` or
-  ``local_variable = Undefined(List[int])`` (the latter being slower
-  during runtime)
 
 * Callable, used as ``Callable[[Arg1Type, Arg2Type], ReturnType]``
 
