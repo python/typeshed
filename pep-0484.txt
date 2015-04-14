@@ -472,7 +472,7 @@ for-statements.  An example of the former::
       'not_found': http.client.NOT_FOUND  # type: ignore
   }
 
-The # type: ignore comment should be put on the line that the error
+The ``# type: ignore`` comment should be put on the line that the error
 refers to.
 
 Examples of type comments on with- and for-statements::
