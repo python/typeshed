@@ -509,6 +509,7 @@ VT = TypeVar('VT')  # Value type.
 T_co = TypeVar('T_co', covariant=True)  # Any type covariant containers.
 KT_co = TypeVar('KT_co', covariant=True)  # Key type covariant containers.
 VT_co = TypeVar('VT_co', covariant=True)  # Value type covariant containers.
+T_contra = TypeVar('T_contra', contravariant=True)  # Any type, for contravariant containers.
 
 # A useful type variable with constraints.  This represents string types.
 # TODO: What about bytearray, memoryview?
@@ -1511,6 +1512,11 @@ class Dict(dict, MutableMapping, metaclass=_DictMeta):
 
     def __new__(self, *args, **kwds):
         raise TypeError("Type Dict cannot be instantiated; use dict() instead")
+
+
+class Generator(Iterator[T_co], Generic[T_co, T_contra],
+                extra=types.GeneratorType):
+    pass
 
 
 def NamedTuple(typename, fields):

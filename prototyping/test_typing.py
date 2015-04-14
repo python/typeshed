@@ -1174,6 +1174,18 @@ class CollectionsAbcTests(TestCase):
         with self.assertRaises(TypeError):
             Tuple[int]()
 
+    def test_generator(self):
+        def foo():
+            yield 42
+        g = foo()
+        assert issubclass(type(g), typing.Generator)
+        assert isinstance(g, typing.Generator)
+        assert not isinstance(foo, typing.Generator)
+        assert issubclass(typing.Generator[Manager, Employee],
+                          typing.Generator[Employee, Manager])
+        assert not issubclass(typing.Generator[Manager, Manager],
+                              typing.Generator[Employee, Employee])
+
 
 class NamedTupleTests(TestCase):
 
