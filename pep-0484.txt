@@ -542,9 +542,10 @@ The type checker should have a configurable search path for stub
 files.  If a stub file is found the type checker should not read the
 corresponding "real" module.
 
-Stub files may use the ``.py`` extension or alternatively may use the
-``.pyi`` extension.  The latter makes it possible to maintain stub
-files in the same directory as the corresponding real module.
+While stub files are syntactically valid Python modules, they use the
+``.pyi`` extension to make it possible to maintain stub files in the
+same directory as the corresponding real module.  This also reinforces
+the notion that no runtime behavior should be expected of stub files.
 
 Function overloading
 --------------------
