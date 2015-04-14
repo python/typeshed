@@ -407,9 +407,9 @@ class TypeVar(TypingMeta, metaclass=TypingMeta, _root=True):
         return True
 
     def __repr__(self):
-        if self.__kind__ == 'in':
+        if self.__kind__ == 'out':
             prefix = '+'
-        elif self.__kind__ == 'out':
+        elif self.__kind__ == 'in':
             prefix = '-'
         else:
             prefix = '~'
@@ -514,9 +514,9 @@ class VarBinding:
 T = TypeVar('T')  # Any type.
 KT = TypeVar('KT')  # Key type.
 VT = TypeVar('VT')  # Value type.
-T_in = TypeVar('T_in', kind='in')  # Any type, for covariant containers.
-KT_in = TypeVar('KT_in', kind='in')  # Key type, for covariant containers.
-VT_in = TypeVar('VT_in', kind='in')  # Value type, for covariant containers.
+T_out = TypeVar('T_out', kind='out')  # Any type, for covariant containers.
+KT_out = TypeVar('KT_out', kind='out')  # Key type, for covariant containers.
+VT_out = TypeVar('VT_out', kind='out')  # Value type, for covariant containers.
 
 # A useful type variable with constraints.  This represents string types.
 # TODO: What about bytearray, memoryview?
@@ -1081,11 +1081,11 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
                             # Invariant -- p_cls and p_self must equal.
                             if p_self != p_cls:
                                 break
-                        elif p_origin.__kind__ == 'in':
+                        elif p_origin.__kind__ == 'out':
                             # Covariant -- p_cls must be a subclass of p_self.
                             if not issubclass(p_cls, p_self):
                                 break
-                        elif p_origin.__kind__ == 'out':
+                        elif p_origin.__kind__ == 'in':
                             # Contravariant.  I think it's the opposite. :-)
                             if not issubclass(p_self, p_cls):
                                 break
@@ -1363,7 +1363,7 @@ class _Protocol(metaclass=_ProtocolMeta):
 Hashable = collections_abc.Hashable  # Not generic.
 
 
-class Iterable(Generic[T_in], extra=collections_abc.Iterable):
+class Iterable(Generic[T_out], extra=collections_abc.Iterable):
     pass
 
 
@@ -1423,7 +1423,7 @@ class Reversible(_Protocol[T]):
 Sized = collections_abc.Sized  # Not generic.
 
 
-class Container(Generic[T_in], extra=collections_abc.Container):
+class Container(Generic[T_out], extra=collections_abc.Container):
     pass
 
 
@@ -1438,7 +1438,7 @@ class MutableSet(AbstractSet[T], extra=collections_abc.MutableSet):
     pass
 
 
-class Mapping(Sized, Iterable[KT_in], Container[KT_in], Generic[KT_in, VT_in],
+class Mapping(Sized, Iterable[KT_out], Container[KT_out], Generic[KT_out, VT_out],
               extra=collections_abc.Mapping):
     pass
 
@@ -1526,7 +1526,7 @@ class KeysView(MappingView, Set[KT], extra=collections_abc.KeysView):
 
 
 # TODO: Enable Set[Tuple[KT, VT]] instead of Generic[KT, VT].
-class ItemsView(MappingView, Generic[KT_in, VT_in],
+class ItemsView(MappingView, Generic[KT_out, VT_out],
                 extra=collections_abc.ItemsView):
     pass
 
