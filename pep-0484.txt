@@ -1122,7 +1122,8 @@ Acknowledgements
 
 This document could not be completed without valuable input,
 encouragement and advice from Jim Baker, Jeremy Siek, Michael Matson
-Vitousek, Andrey Vlasovskikh, and Radomir Dopieralski.
+Vitousek, Andrey Vlasovskikh, Radomir Dopieralski, Peter Ludemann,
+and the BDFL-Delegate, Mark Shannon.
 
 Influences include existing languages, libraries and frameworks
 mentioned in PEP 482.  Many thanks to their creators, in alphabetical
