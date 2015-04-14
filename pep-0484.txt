@@ -914,7 +914,7 @@ all).  This of course would run afoul of backwards compatibility,
 since the Python interpreter doesn't actually know whether a
 particular annotation is meant to be a type hint or something else.
 
-A compromise is proposed whereby a ``__future__`` import can enable
+A compromise is possible where a ``__future__`` import could enable
 turning *all* annotations in a given module into string literals, as
 follows::
 
@@ -924,6 +924,9 @@ follows::
       def add(self, a: ImSet) -> List[ImSet]: ...
 
   assert ImSet.add.__annotations__ == {'a': 'ImSet', 'return': 'List[ImSet]'}
+
+Such a ``__future__`` import statement will be proposed in a separate
+PEP.
 
 
 The double colon
