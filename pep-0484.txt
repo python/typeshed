@@ -293,6 +293,81 @@ call is valid), and thus the inferred type of ``x`` will also be ``str``.
 Additionally, ``Any`` is a valid value for every type variable.
 
 
+User-defined generic types
+--------------------------
+
+You can include a ``Generic`` base class to define a user-defined class as generic.
+Example::
+
+  from typing import TypeVar, Generic
+  ...
+
+  T = TypeVar('T')
+
+  class LoggedVar(Generic[T]):
+      def __init__(self, value: T, name: str, logger: Logger) -> None:
+          self.name = name
+          self.logger = logger
+          self.value = value
+
+      def set(self, new: T) -> None:
+          self.log('Set ' + repr(self.value))
+          self.value = new
+
+      def get(self) -> T:
+          self.log('Get ' + repr(self.value))
+          return self.value
+
+      def log(self, message: str) -> None:
+          self.logger.info('{}: {}'.format(self.name message))
+
+``Generic[T]`` as a base class defines that the class ``LoggedVar`` takes a
+single type parameter ``T``. This also makes ``T`` valid as a type within
+the class body.
+
+The ``Generic`` base class uses a metaclass that defines ``__getitem__`` so
+that ``LoggedVar[t]`` is valid as a type::
+
+  from typing import Iterable
+
+  def zero_all_vars(vars: Iterable[LoggedVar[int]]) -> None:
+      for var in vars:
+          var.set(0)
+
+A generic type can have any number of type variables, and type variables may
+be constrained. This is valid::
+
+  from typing import TypeVar, Generic
+  ...
+
+  T = TypeVar('T')
+  S = TypeVar('S')
+
+  class Pair(Generic[T, S]):
+      ...
+
+Each type variable argument to ``Generic`` must be distinct. This is thus
+invalid::
+
+  from typing import TypeVar, Generic
+  ...
+
+  T = TypeVar('T')
+
+  class Pair(Generic[T, T]):
+      ...
+
+You can use multiple inheritance with ``Generic``::
+
+  from typing import TypeVar, Generic, Sized
+  ...
+
+  T = TypeVar('T')
+
+  class LinkedList(Sized, Generic[T]):
+      ...
+
+
 Forward references
 ------------------
 
