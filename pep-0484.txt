@@ -391,14 +391,13 @@ allow all operations on it, and a value of type `Any`` can be assigned
 to a variable (or used as a return value) of a more constrained type.
 
 
-Platform-specific type checking
--------------------------------
+Predefined constants
+--------------------
 
-In some cases the typing information will depend on the platform that
-the program is being executed on.  To enable specifying those
-differences, simple conditionals can be used::
+Some predefined Boolean constants are defined in the ``typing``
+module to enable platform-specific type definitions and such::
 
-  from typing import PY2, WINDOWS
+  from typing import PY2, PY3, WINDOWS, POSIX
 
   if PY2:
       text = unicode
@@ -412,12 +411,17 @@ differences, simple conditionals can be used::
   else:
       loop = UnixSelectorEventLoop
 
-Similarly, ``PY3`` and ``POSIX`` are defined, as the negation of
-``PY2`` and ``WINDOWS``.
+It is up to the type checker implementation to define their values, as
+long as ``PY2 == not PY3`` and ``WINDOWS == not POSIX``.  When the
+program is being executed these always reflect the current platform,
+and this is also the suggested default when the program is being
+type-checked.
 
-Arbitrary literals defined of the form
-``NAME = <boolean_expression>`` will also be accepted by the type
-checker to differentiate type resolution::
+
+Constant expressions
+--------------------
+
+Additional constants may be defined by user code::
 
   DEBUG = False
   ...
@@ -428,11 +432,82 @@ checker to differentiate type resolution::
       class Tracer:
           <dummy implementation>
 
-For the purposes of type hinting, the type checker assumes ``__debug__``
-is set to ``True``, in other words the ``-O`` command-line option is not
-used while type checking.
+The platform constants defined above are special cases of constant
+expressions.  These are recursively defined as follows:
 
-.. FIXME: Define constant expressions
+A *named constant* is a reference to a local or global variable (sic)
+which is initialized using a constant expression and which is not
+assigned elsewhere in the program (for globals) or elsewhere in its
+scope (for locals).  (A named constant cannot be a class or instance
+variable.)
+
+A *constant expression* is a syntactically valid Python expression
+which is one of the following:
+
+* a numeric or string literal;
+
+* ``None``, ``False`` or ``True``;
+
+* ``__debug__``, which is considered ``True`` (when executing the
+  program in this tracks whether ``assert`` statements are executed
+  or skipped);
+
+* one of the predefined constants defined in the previous section,
+  imported from ``typing`` (referenced as e.g. ``typing.PY3`` or
+  ``PY3``, depending on the form of import statement used);
+
+* a user-defined named constant (when in scope, possibly prefixed by
+  a module name);
+
+* a parenthesized constant expression;
+
+* a unary or binary operator whose arguments are constant expressions;
+
+* a one-dimensional subscript or slice operator whose operands are
+  constant expressions;
+
+* a tuple whose items are constant expressions.
+
+Constant expressions cannot contain:
+
+* anything that raises an exception when evaluated in the type checker
+  (e.g. ``1/0`` or ``'abc'[3]``);
+
+* multi-dimensional subscripts or slices (e.g. ``'abc'[0, 0]`` or
+  ``'abc'[:,:]``);
+
+* the ellipsis token (three consecutive dots, i.e. ``...``);
+
+* list, set or dict literals (also known as displays);
+
+* list, set or dict comprehensions;
+
+* calls (not even builtin functions like ``max(1, 2)`` or methods like
+  ``'abc'.startswith('a')``);
+
+* names defined in the ``builtins`` module other than ``__debug__``;
+
+* variables other than named constants;
+
+* attribute references other than module/package prefixes for named
+  or predefined constants (e.g. ``3.14.real`` is not allowed).
+
+However, the following *are* allowed:
+
+* arbitrary casing (the upper case convention is just a suggestion);
+
+* dotted module names prefixing imported named constants (e.g. if
+  module ``foo.bar`` defines a constant named ``BAZ``, in another
+  module after ``import foo.bar``, the expression ``foo.bar.BAZ`` is
+  a valid named constant);
+
+* renaming of imported names using ``as`` (e.g. after ``from foo.bar
+  import BAZ as BLETCH``, ``BLETCH`` will be considered to be a
+  named constant);
+
+* complex numeric literals (e.g. ``0j``);
+
+* extended slices (e.g. ``'abcde'[1::2]`` or ``(1, 2, 3)[::-1]``).
 
 
 Compatibility with other uses of function annotations
