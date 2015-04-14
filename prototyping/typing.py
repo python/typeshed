@@ -511,9 +511,9 @@ class VarBinding:
 T = TypeVar('T')  # Any type.
 KT = TypeVar('KT')  # Key type.
 VT = TypeVar('VT')  # Value type.
-T_co = TypeVar('T_co', covariant=True)  # Any type, for covariant containers.
-KT_co = TypeVar('KT_co', covariant=True)  # Key type, for covariant containers.
-VT_co = TypeVar('VT_co', covariant=True)  # Value type, for covariant containers.
+T_co = TypeVar('T_co', covariant=True)  # Any type covariant containers.
+KT_co = TypeVar('KT_co', covariant=True)  # Key type covariant containers.
+VT_co = TypeVar('VT_co', covariant=True)  # Value type covariant containers.
 
 # A useful type variable with constraints.  This represents string types.
 # TODO: What about bytearray, memoryview?
@@ -708,7 +708,8 @@ class Optional(Final, metaclass=OptionalMeta, _root=True):
 class TupleMeta(TypingMeta):
     """Metaclass for Tuple."""
 
-    def __new__(cls, name, bases, namespace, parameters=None, use_ellipsis=False, _root=False):
+    def __new__(cls, name, bases, namespace, parameters=None,
+                use_ellipsis=False, _root=False):
         self = super().__new__(cls, name, bases, namespace, _root=_root)
         self.__tuple_params__ = parameters
         self.__tuple_use_ellipsis__ = use_ellipsis
@@ -755,8 +756,9 @@ class TupleMeta(TypingMeta):
             use_ellipsis = False
             msg = "Tuple[t0, t1, ...]: each t must be a type."
         parameters = tuple(_type_check(p, msg) for p in parameters)
-        return self.__class__(self.__name__, self.__bases__, dict(self.__dict__),
-                              parameters, use_ellipsis=use_ellipsis, _root=True)
+        return self.__class__(self.__name__, self.__bases__,
+                              dict(self.__dict__), parameters,
+                              use_ellipsis=use_ellipsis, _root=True)
 
     def __eq__(self, other):
         if not isinstance(other, TupleMeta):
@@ -1473,7 +1475,8 @@ class _FrozenSetMeta(_SetMeta):
 class FrozenSet(frozenset, AbstractSet, metaclass=_FrozenSetMeta):
 
     def __new__(self, *args, **kwds):
-        raise TypeError("Type FrozenSet cannot be instantiated; use frozenset() instead")
+        raise TypeError("Type FrozenSet cannot be instantiated; "
+                        "use frozenset() instead")
 
 
 class MappingView(Sized, Iterable, extra=collections_abc.MappingView):

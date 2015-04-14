@@ -8,7 +8,8 @@ except ImportError:
     import mock  # 3rd party install, for PY3.2.
 
 from typing import Any
-from typing import TypeVar, T, KT, VT, AnyStr
+from typing import TypeVar, AnyStr
+from typing import T, KT, VT  # Not in __all__.
 from typing import Union, Optional
 from typing import Tuple
 from typing import Callable
@@ -445,10 +446,13 @@ class TupleTests(TestCase):
         assert not isinstance((1, 2, 3.14,), t)
 
     def test_tuple_ellipsis_subclass(self):
+
         class B:
             pass
+
         class C(B):
             pass
+
         assert not issubclass(Tuple[B], Tuple[B, ...])
         assert issubclass(Tuple[C, ...], Tuple[B, ...])
         assert not issubclass(Tuple[C, ...], Tuple[B])
@@ -821,7 +825,7 @@ class GenericTests(TestCase):
         assert a.get() == [1, 42]
 
 
-class VarianceTest(TestCase):
+class VarianceTests(TestCase):
 
     def test_invariance(self):
         # Because of invariance, List[subclass of X] is not a subclass
@@ -865,7 +869,7 @@ class VarianceTest(TestCase):
                               typing.Mapping[Manager, Manager])
 
 
-class CastTest(TestCase):
+class CastTests(TestCase):
 
     def test_basics(self):
         assert cast(int, 42) == 42
@@ -883,7 +887,7 @@ class CastTest(TestCase):
         cast('hello', 42)
 
 
-class ForwardRefTest(TestCase):
+class ForwardRefTests(TestCase):
 
     def test_basics(self):
 
