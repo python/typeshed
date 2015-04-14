@@ -415,6 +415,15 @@ multiple times in the base class list, as long as we don't use the
 same type variable ``T`` multiple times within ``Generic[...]``.
 
 
+Abstract generic types
+----------------------
+
+The metaclass used by ``Generic`` is a subclass of ``abc.ABCMeta``.
+A generic class can be an ABC by including abstract methods
+or properties, and generic classes can also have ABCs as base
+classes without a metaclass conflict.
+
+
 Forward references
 ------------------
 
