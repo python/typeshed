@@ -879,13 +879,18 @@ holds a set of classes representing builtin types with generics, namely:
   and equivalent to
   ``collections.namedtuple(type_name, [field_name, ...])``.
 
-* Generator, used as ``Generator[yield_type, send_type]``.
-
 The generic versions of concrete collection types (``Dict``, ``List``,
 ``Set``, ``FrozenSet``, and homogeneous arbitrary-length ``Tuple``)
 are mainly useful for annotating return values.  For arguments, prefer
 the abstract collection types defined below, e.g.  ``Mapping``,
 ``Sequence`` or ``AbstractSet``.
+
+The ``typing`` module defines the ``Generator`` type for return values
+of generator functions. It is a subtype of ``Iterable`` and it has
+additional type variables for the type accepted by the ``send()``
+method and the return type of the generator:
+
+* Generator, used as ``Generator[yield_type, send_type, return_type]``
 
 It also introduces factories and helper members needed to express
 generics and union types:
