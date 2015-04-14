@@ -457,11 +457,6 @@ class TypeVar(TypingMeta, metaclass=TypingMeta, _root=True):
         self.__binding__ = old_binding
 
 
-# Compatibility for for mypy's typevar().
-def typevar(name, values=()):
-    return TypeVar(name, *values)
-
-
 class VarBinding:
     """TypeVariable binding returned by TypeVar.bind()."""
 
