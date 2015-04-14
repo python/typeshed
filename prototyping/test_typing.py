@@ -1122,6 +1122,46 @@ class CollectionsAbcTests(TestCase):
         assert not isinstance({'': 42}, t)
         assert not isinstance({'': ''}, t)
 
+    def test_no_list_instantiation(self):
+        with self.assertRaises(TypeError):
+            typing.List()
+        with self.assertRaises(TypeError):
+            typing.List[T]()
+        with self.assertRaises(TypeError):
+            typing.List[int]()
+
+    def test_no_dict_instantiation(self):
+        with self.assertRaises(TypeError):
+            typing.Dict()
+        with self.assertRaises(TypeError):
+            typing.Dict[KT, VT]()
+        with self.assertRaises(TypeError):
+            typing.Dict[str, int]()
+
+    def test_no_set_instantiation(self):
+        with self.assertRaises(TypeError):
+            typing.Set()
+        with self.assertRaises(TypeError):
+            typing.Set[T]()
+        with self.assertRaises(TypeError):
+            typing.Set[int]()
+
+    def test_no_frozenset_instantiation(self):
+        with self.assertRaises(TypeError):
+            typing.FrozenSet()
+        with self.assertRaises(TypeError):
+            typing.FrozenSet[T]()
+        with self.assertRaises(TypeError):
+            typing.FrozenSet[int]()
+
+    def test_no_tuple_instantiation(self):
+        with self.assertRaises(TypeError):
+            Tuple()
+        with self.assertRaises(TypeError):
+            Tuple[T]()
+        with self.assertRaises(TypeError):
+            Tuple[int]()
+
 
 class NamedTupleTests(TestCase):
 

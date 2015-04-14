@@ -1428,7 +1428,9 @@ class _ListMeta(GenericMeta):
 
 
 class List(list, MutableSequence, metaclass=_ListMeta):
-    pass
+
+    def __new__(self, *args, **kwds):
+        raise TypeError("Type List cannot be instantiated; use list() instead")
 
 
 class _SetMeta(GenericMeta):
@@ -1444,7 +1446,9 @@ class _SetMeta(GenericMeta):
 
 
 class Set(set, MutableSet, metaclass=_SetMeta):
-    pass
+
+    def __new__(self, *args, **kwds):
+        raise TypeError("Type Set cannot be instantiated; use set() instead")
 
 
 class _FrozenSetMeta(_SetMeta):
@@ -1467,7 +1471,9 @@ class _FrozenSetMeta(_SetMeta):
 
 
 class FrozenSet(frozenset, AbstractSet, metaclass=_FrozenSetMeta):
-    pass
+
+    def __new__(self, *args, **kwds):
+        raise TypeError("Type FrozenSet cannot be instantiated; use frozenset() instead")
 
 
 class MappingView(Sized, Iterable, extra=collections_abc.MappingView):
@@ -1502,7 +1508,9 @@ class _DictMeta(GenericMeta):
 
 
 class Dict(dict, MutableMapping, metaclass=_DictMeta):
-    pass
+
+    def __new__(self, *args, **kwds):
+        raise TypeError("Type Dict cannot be instantiated; use dict() instead")
 
 
 def NamedTuple(typename, fields):
