@@ -511,7 +511,7 @@ However, the following *are* allowed:
 
 
 Compatibility with other uses of function annotations
------------------------------------------------------
+=====================================================
 
 A number of existing or potential use cases for function annotations
 exist, which are incompatible with type hinting.  These may confuse a
@@ -519,14 +519,19 @@ static type checker.  However, since type hinting annotations have no
 runtime behavior (other than evaluation of the annotation expression
 and storing annotations in the ``__annotations__`` attribute of the
 function object), this does not make the program incorrect -- it just
-makes it issue warnings when a static analyzer is used.
+may cause a type checker to emit spurious warnings or errors.
 
 To mark portions of the program that should not be covered by type
-hinting, use the following:
+hinting, you can use one or more of the following:
 
-* a ``@no_type_check`` decorator on classes and functions (see below)
+* a ``# type: ignore`` comment;
 
-* a ``# type: ignore`` comment on arbitrary lines
+* a ``@no_type_check`` decorator on a class or function;
+
+* a custom class or function decorator marked with
+  ``@no_type_check_decorator``.
+
+For more details see later sections.
 
 In order for maximal compatibility with offline type checking it may
 eventually be a good idea to change interfaces that rely on
@@ -546,7 +551,7 @@ complex cases, a comment of the following format may be used::
   x, y, z = [], [], []  # type: List[int], List[int], List[str]
   x, y, z = [], [], []  # type: (List[int], List[int], List[str])
 
-Type comments (including ``# type: ignore``) can also be placed on
+Type comments, including ``# type: ignore``, can also be placed on
 certain elements of complex expressions and on with-statements and
 for-statements.  An example of the former::
 
@@ -555,15 +560,19 @@ for-statements.  An example of the former::
       'not_found': http.client.NOT_FOUND  # type: ignore
   }
 
-The ``# type: ignore`` comment should be put on the line that the error
-refers to.
+The ``# type: ignore`` comment should be put on the line that the
+error refers to.
 
 Examples of type comments on with- and for-statements::
 
   with frobnicate() as foo:  # type: int
       # Here foo is an int
+
   for x, y in points():  # type: float, float
       # Here x and y are floats
+
+A ``# type: ignore`` comment on a line by itself disables all type
+checking for the rest of the file.
 
 If type hinting proves useful in general, a syntax for typing variables
 may be provided in a future Python version.
