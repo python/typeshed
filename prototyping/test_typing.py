@@ -1186,6 +1186,15 @@ class CollectionsAbcTests(TestCase):
         assert not issubclass(typing.Generator[Manager, Manager, Manager],
                               typing.Generator[Employee, Employee, Employee])
 
+    def test_no_generator_instantiation(self):
+        with self.assertRaises(TypeError):
+            typing.Generator()
+        with self.assertRaises(TypeError):
+            typing.Generator[T, T, T]()
+        with self.assertRaises(TypeError):
+            typing.Generator[int, int, int]()
+
+
 class NamedTupleTests(TestCase):
 
     def test_basics(self):

@@ -1518,7 +1518,9 @@ class Dict(dict, MutableMapping, metaclass=_DictMeta):
 
 class Generator(Iterator[T_co], Generic[T_co, T_contra, V_co],
                 extra=types.GeneratorType):
-    pass
+
+    def __new__(self, *args, **kwds):
+        raise TypeError("Type Generator cannot be instantiated")
 
 
 def NamedTuple(typename, fields):
