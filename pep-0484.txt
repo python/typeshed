@@ -175,9 +175,9 @@ Type aliases
 
 Type aliases are defined by simple variable assignments::
 
-  Integer = int
+  Url = str
 
-  def retry(url: str, retry_count: Integer) -> None: ...
+  def retry(url: Url, retry_count: int) -> None: ...
 
 Note that we recommend capitalizing alias names, since they represent
 user-defined types, which (like user-defined classes) are typically
@@ -189,7 +189,7 @@ alias::
 
     from typing import TypeVar, Iterable, Tuple
 
-    T = TypeVar('T')
+    T = TypeVar('T', int, float, complex)
     Vector = Iterable[Tuple[T, T]]
 
     def inproduct(v: Vector) -> T:
@@ -199,7 +199,7 @@ This is equivalent to::
 
     from typing import TypeVar, Iterable, Tuple
 
-    T = TypeVar('T')
+    T = TypeVar('T', int, float, complex)
 
     def inproduct(v: Iterable[Tuple[T, T]]) -> T:
         return sum(x*y for x, y in v)
