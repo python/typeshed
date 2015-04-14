@@ -817,6 +817,8 @@ holds a set of classes representing builtin types with generics, namely:
   and equivalent to
   ``collections.namedtuple(type_name, [field_name, ...])``.
 
+* Generator, used as ``Generator[yield_type, send_type]``.
+
 The generic versions of concrete collection types (``Dict``, ``List``,
 ``Set``, ``FrozenSet``, and homogeneous arbitrary-length ``Tuple``)
 are mainly useful for annotating return values.  For arguments, prefer
