@@ -261,28 +261,36 @@ Generics can be parametrized by using a new factory available in
   def first(l: Sequence[T]) -> T:   # Generic function
       return l[0]
 
-In this case the contract is that the returning value is consistent with
+In this case the contract is that the returned value is consistent with
 the elements held by the collection.
 
-``TypeVar`` supports constraining parametric types to classes with any of
-the specified bases.  Example::
+``TypeVar`` supports constraining parametric types to a fixed set of possible
+types.  For example, we can define a type variable that ranges over just
+``str`` and ``bytes``.  By default, a type variable ranges over all
+possible types.  Example of constraining a type variable::
 
-  from typing import Iterable
+  from typing import TypeVar
 
-  X = TypeVar('X')
-  Y = TypeVar('Y', Iterable[X])
+  AnyStr = TypeVar('AnyStr', str, bytes)
 
-  def filter(rule: Callable[[X], bool], input: Y) -> Y:
-      ...
+  def concat(x: AnyStr, y: AnyStr) -> AnyStr:
+      return x + y
 
-.. FIXME: Add an example with multiple bases defined.
+The function ``concat`` can be called with either two ``str`` arguments
+or two ``bytes`` arguments, but not with a mix of ``str`` and ``bytes``
+arguments.
 
-In the example above we specify that ``Y`` can be any subclass of
-Iterable with elements of type ``X``, as long as the return type of
-``filter()`` will be the same as the type of the ``input``
-argument.
+Note that subtypes are not valid values for a constrained type variable.
+Consider this example::
 
-.. FIXME: Explain more about how this works.
+  class MyStr(str): ...
+
+  x = concat(MyStr('apple'), MyStr('pie'))
+
+The type variable ``AnyStr`` will get type ``str`` instead of ``MyStr`` (but the
+call is valid), and thus the inferred type of ``x`` will also be ``str``.
+
+Additionally, ``Any`` is a valid value for every type variable.
 
 
 Forward references
