@@ -389,15 +389,13 @@ class TypeVar(TypingMeta, metaclass=TypingMeta, _root=True):
 
     """
 
-    def __new__(cls, name, *constraints, kind=None):
+    def __new__(cls, name, *constraints, covariant=False, contravariant=False):
         self = super().__new__(cls, name, (Final,), {}, _root=True)
-        if kind not in (None, 'in', 'out'):
-            raise ValueError("kind must be 'in', 'out' or None; got %r." %
-                             (kind,))
-        if kind is not None and constraints:
-            raise TypeError("kind does not combine with constraints")
+        if covariant and contravariant:
+            raise ValueError("bivariant type variables are not supported")
         msg = "TypeVar(name, constraint, ...): constraints must be types."
-        self.__kind__ = kind
+        self.__covariant__ = bool(covariant)
+        self.__contravariant__ = bool(contravariant)
         self.__constraints__ = tuple(_type_check(t, msg) for t in constraints)
         self.__binding__ = None
         return self
@@ -406,9 +404,9 @@ class TypeVar(TypingMeta, metaclass=TypingMeta, _root=True):
         return True
 
     def __repr__(self):
-        if self.__kind__ == 'out':
+        if self.__covariant__:
             prefix = '+'
-        elif self.__kind__ == 'in':
+        elif self.__contravariant__:
             prefix = '-'
         else:
             prefix = '~'
@@ -513,9 +511,9 @@ class VarBinding:
 T = TypeVar('T')  # Any type.
 KT = TypeVar('KT')  # Key type.
 VT = TypeVar('VT')  # Value type.
-T_out = TypeVar('T_out', kind='out')  # Any type, for covariant containers.
-KT_out = TypeVar('KT_out', kind='out')  # Key type, for covariant containers.
-VT_out = TypeVar('VT_out', kind='out')  # Value type, for covariant containers.
+T_co = TypeVar('T_co', covariant=True)  # Any type, for covariant containers.
+KT_co = TypeVar('KT_co', covariant=True)  # Key type, for covariant containers.
+VT_co = TypeVar('VT_co', covariant=True)  # Value type, for covariant containers.
 
 # A useful type variable with constraints.  This represents string types.
 # TODO: What about bytearray, memoryview?
@@ -1076,20 +1074,18 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
                                                    cls.__parameters__,
                                                    origin.__parameters__):
                     if isinstance(p_origin, TypeVar):
-                        if p_origin.__kind__ is None:
-                            # Invariant -- p_cls and p_self must equal.
-                            if p_self != p_cls:
-                                break
-                        elif p_origin.__kind__ == 'out':
+                        if p_origin.__covariant__:
                             # Covariant -- p_cls must be a subclass of p_self.
                             if not issubclass(p_cls, p_self):
                                 break
-                        elif p_origin.__kind__ == 'in':
+                        elif p_origin.__contravariant__:
                             # Contravariant.  I think it's the opposite. :-)
                             if not issubclass(p_self, p_cls):
                                 break
                         else:
-                            assert False, p_origin.__kind__
+                            # Invariant -- p_cls and p_self must equal.
+                            if p_self != p_cls:
+                                break
                     else:
                         # If the origin's parameter is not a typevar,
                         # insist on invariance.
@@ -1320,7 +1316,7 @@ class _Protocol(metaclass=_ProtocolMeta):
 Hashable = collections_abc.Hashable  # Not generic.
 
 
-class Iterable(Generic[T_out], extra=collections_abc.Iterable):
+class Iterable(Generic[T_co], extra=collections_abc.Iterable):
     pass
 
 
@@ -1380,7 +1376,7 @@ class Reversible(_Protocol[T]):
 Sized = collections_abc.Sized  # Not generic.
 
 
-class Container(Generic[T_out], extra=collections_abc.Container):
+class Container(Generic[T_co], extra=collections_abc.Container):
     pass
 
 
@@ -1395,7 +1391,7 @@ class MutableSet(AbstractSet[T], extra=collections_abc.MutableSet):
     pass
 
 
-class Mapping(Sized, Iterable[KT_out], Container[KT_out], Generic[KT_out, VT_out],
+class Mapping(Sized, Iterable[KT_co], Container[KT_co], Generic[KT_co, VT_co],
               extra=collections_abc.Mapping):
     pass
 
@@ -1483,7 +1479,7 @@ class KeysView(MappingView, Set[KT], extra=collections_abc.KeysView):
 
 
 # TODO: Enable Set[Tuple[KT, VT]] instead of Generic[KT, VT].
-class ItemsView(MappingView, Generic[KT_out, VT_out],
+class ItemsView(MappingView, Generic[KT_co, VT_co],
                 extra=collections_abc.ItemsView):
     pass
 

@@ -138,9 +138,10 @@ class TypeVarTests(TestCase):
         self.assertEqual(repr(KT), '~KT')
         self.assertEqual(repr(VT), '~VT')
         self.assertEqual(repr(AnyStr), '~AnyStr')
-        self.assertEqual(repr(typing.T_out), '+T_out')
-        T_in = TypeVar('T_in', kind='in')
-        self.assertEqual(repr(T_in), '-T_in')
+        T_co = TypeVar('T_co', covariant=True)
+        self.assertEqual(repr(T_co), '+T_co')
+        T_contra = TypeVar('T_contra', contravariant=True)
+        self.assertEqual(repr(T_contra), '-T_contra')
 
     def test_no_redefinition(self):
         self.assertNotEqual(TypeVar('T'), TypeVar('T'))
