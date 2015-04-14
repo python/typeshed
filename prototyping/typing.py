@@ -857,10 +857,12 @@ class CallableMeta(TypingMeta):
     def __repr__(self):
         r = super().__repr__()
         if self.__args__ is not None or self.__result__ is not None:
-            r += '%s[[%s], %s]' % (_qualname(self),
-                                   ', '.join(_type_repr(t)
-                                             for t in self.__args__),
-                                   _type_repr(self.__result__))
+            if self.__args__ is Ellipsis:
+                args_r = '...'
+            else:
+                args_r = '[%s]' % ', '.join(_type_repr(t)
+                                            for t in self.__args__)
+            r += '[%s, %s]' % (args_r, _type_repr(self.__result__))
         return r
 
     def __getitem__(self, parameters):

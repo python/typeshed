@@ -610,7 +610,7 @@ class CallableTests(TestCase):
         with self.assertRaises(TypeError):
             c()
 
-    def test_callable_varargs(self):
+    def test_varargs(self):
         ct = Callable[..., int]
 
         def foo(a, b) -> int:
@@ -625,6 +625,14 @@ class CallableTests(TestCase):
         self.assertIsInstance(foo, ct)
         self.assertIsInstance(bar, ct)
         self.assertIsInstance(baz, ct)
+
+    def test_repr(self):
+        ct0 = Callable[[], bool]
+        self.assertEqual(repr(ct0), 'typing.Callable[[], bool]')
+        ct2 = Callable[[str, float], int]
+        self.assertEqual(repr(ct2), 'typing.Callable[[str, float], int]')
+        ctv = Callable[..., str]
+        self.assertEqual(repr(ctv), 'typing.Callable[..., str]')
 
 
 XK = TypeVar('XK', str, bytes)
