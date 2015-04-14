@@ -6,8 +6,8 @@ Author's note
 
 In an earlier draft I had swapped the meanings of 'in' and 'out'
 (having misremembered what I had read on Wikipedia).  I believe I am
-not unique in making this mistake, and I recommend that we try to come
-up with a different syntax to spell covariant and contravariant.
+not unique in making this mistake, so we've switched to
+covariant=True and contravariant=True.
 
 Discussion
 ----------
@@ -97,8 +97,8 @@ rules for covariance or contravariance, while by default type
 variables are invariant::
 
     X = TypeVar('X')  # Invariant
-    Y = TypeVar('Y', kind='out')  # Covariant
-    Z = TypeVar('Z', kind='in')  # Contravariant
+    Y = TypeVar('Y', covariant=True)  # Covariant
+    Z = TypeVar('Z', contravariant=True)  # Contravariant
 
     class A(Generic[X]):
         ...
@@ -121,7 +121,7 @@ The solution is perhaps unexpected: We have to write a mutable data
 type that's covariant and implements a run-time type check like Java
 Array.  Here's a sketch of such a data type::
 
-    T = TypeVar('T', kind='out')  # Covariant
+    T = TypeVar('T', covariant=True)  # Covariant
 
     class MyList(MutableSequence[T]):
         def __init__(self):
