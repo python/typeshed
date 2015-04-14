@@ -3,6 +3,7 @@ Title: Type Hints
 Version: $Revision$
 Last-Modified: $Date$
 Author: Guido van Rossum <guido@python.org>, Jukka Lehtosalo <jukka.lehtosalo@iki.fi>, Łukasz Langa <lukasz@langa.pl>
+BDFL-delegate: Mark Shannon
 Discussions-To: Python-Dev <python-dev@python.org>
 Status: Draft
 Type: Standards Track
