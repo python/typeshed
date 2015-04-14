@@ -681,26 +681,32 @@ complex cases, a comment of the following format may be used::
   x = []   # type: List[Employee]
   x, y, z = [], [], []  # type: List[int], List[int], List[str]
   x, y, z = [], [], []  # type: (List[int], List[int], List[str])
+  x = [
+     1,
+     2,
+  ]  # type: List[int]
 
-Type comments, including ``# type: ignore``, can also be placed on
-certain elements of complex expressions and on with-statements and
-for-statements.  An example of the former::
+Type comments should be put on the last line of the statement that
+contains the variable definition. They can also be placed on
+``with`` statements and ``for`` statements, right after the colon.
+
+Examples of type comments on ``with`` and ``for`` statements::
+
+  with frobnicate() as foo:  # type: int
+      # Here foo is an int
+      ...
+
+  for x, y in points:  # type: float, float
+      # Here x and y are floats
+      ...
+
+The ``# type: ignore`` comment should be put on the line that the
+error refers to::
 
   import http.client
   errors = {
       'not_found': http.client.NOT_FOUND  # type: ignore
   }
-
-The ``# type: ignore`` comment should be put on the line that the
-error refers to.
-
-Examples of type comments on with- and for-statements::
-
-  with frobnicate() as foo:  # type: int
-      # Here foo is an int
-
-  for x, y in points():  # type: float, float
-      # Here x and y are floats
 
 A ``# type: ignore`` comment on a line by itself disables all type
 checking for the rest of the file.
