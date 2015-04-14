@@ -61,6 +61,7 @@ __all__ = [
     'List',
     'Set',
     'NamedTuple',  # Not really a type.
+    'Generator',
 
     # Compile-time constants.
     'POSIX',
