@@ -1181,11 +1181,10 @@ class CollectionsAbcTests(TestCase):
         assert issubclass(type(g), typing.Generator)
         assert isinstance(g, typing.Generator)
         assert not isinstance(foo, typing.Generator)
-        assert issubclass(typing.Generator[Manager, Employee],
-                          typing.Generator[Employee, Manager])
-        assert not issubclass(typing.Generator[Manager, Manager],
-                              typing.Generator[Employee, Employee])
-
+        assert issubclass(typing.Generator[Manager, Employee, Manager],
+                          typing.Generator[Employee, Manager, Employee])
+        assert not issubclass(typing.Generator[Manager, Manager, Manager],
+                              typing.Generator[Employee, Employee, Employee])
 
 class NamedTupleTests(TestCase):
 

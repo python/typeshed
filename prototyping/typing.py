@@ -508,6 +508,7 @@ T = TypeVar('T')  # Any type.
 KT = TypeVar('KT')  # Key type.
 VT = TypeVar('VT')  # Value type.
 T_co = TypeVar('T_co', covariant=True)  # Any type covariant containers.
+V_co = TypeVar('V_co', covariant=True)  # Any type covariant containers.
 KT_co = TypeVar('KT_co', covariant=True)  # Key type covariant containers.
 VT_co = TypeVar('VT_co', covariant=True)  # Value type covariant containers.
 T_contra = TypeVar('T_contra', contravariant=True)  # Any type, for contravariant containers.
@@ -1515,7 +1516,7 @@ class Dict(dict, MutableMapping, metaclass=_DictMeta):
         raise TypeError("Type Dict cannot be instantiated; use dict() instead")
 
 
-class Generator(Iterator[T_co], Generic[T_co, T_contra],
+class Generator(Iterator[T_co], Generic[T_co, T_contra, V_co],
                 extra=types.GeneratorType):
     pass
 
