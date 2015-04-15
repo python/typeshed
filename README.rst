@@ -6,7 +6,7 @@ This GitHub repo us used for drafting PEP 484: Type Hints, slated for
 inclusion in Python 3.5.
 
 Authors
--------
+=======
 
 * Guido van Rossum
 
@@ -15,30 +15,30 @@ Authors
 * Łukasz Langa
 
 BDFL-Delegate
--------------
+=============
 
 The BDFL-Delegate is Mark Shannon.  This means he gets to be the final
 reviewer of the PEP and ultimately gets to accept or reject it -- see
 PEP 1 (https://www.python.org/dev/peps/pep-0001/).
 
 Important dates
----------------
+===============
 
 The target dates for inclusion of types.py in Python 3.5 are derived
 from the Python 3.5 release schedule as documented in PEP 478
 (https://www.python.org/dev/peps/pep-0478/), and subject to change if
 that schedule slips:
 
-* PEP 484 accepted, types.py feature complete and checked into CPython
-  repo: Python 3.5.0 beta 1, May 24, 2015
+* May 24, 2015: Python 3.5.0 beta 1 -- PEP 484 accepted, types.py
+  feature complete and checked into CPython repo
 
-* Last chance for fixes to types.py barring emergencies: Python 3.5.0
-  release candidate 1, August 9, 2015
+* August 9, 2015: Python 3.5.0 release candidate 1 -- Last chance for
+  fixes to types.py barring emergencies:
 
-* Python 3.5.0 final release: September 13, 2015
+* September 13, 2015: Python 3.5.0 final release
 
 Important URLs
---------------
+==============
 
 The python.org rendering of the PEP lives at
 https://www.python.org/dev/peps/pep-0484/, but the version in this
@@ -58,10 +58,10 @@ typically in the order of 5-60 minutes) whenever the Hg peps repo is
 updated.
 
 Workflows
-=========
+---------
 
 Workflow for editing PEP 484
-----------------------------
+============================
 
 * The PEP 484 draft is edited in the GitHub ambv/typehinting repo.
 
@@ -102,7 +102,7 @@ Workflow for editing PEP 482 and PEP 483
   (Łukasz for PEP 482, Guido for PEP 483).
 
 Workflow for mypy changes
--------------------------
+=========================
 
 * Use the GitHub issue tracker for the mypy repo (JukkaL/mypy).  Jukka
   accepts GitHub Pull Requests at his discretion.
@@ -114,13 +114,13 @@ Workflow for mypy changes
   (JukkaL/typing).
 
 Workflow for CPython changes
-----------------------------
+============================
 
 * TBD: Workflow for copying types.py and test_types.py into the
   CPython repo.
 
 Things consciously left out for now
------------------------------------
+===================================
 
 * Multiple dispatch (but ``@overload`` will be allowed in stubs).
 
@@ -132,7 +132,7 @@ Things consciously left out for now
 * Probably other things.
 
 Changes to MyPy
-===============
+---------------
 
 (Omitting things implemented in mypy 0.2; See
 http://mypy-lang.blogspot.com/2015/04/mypy-02-released.html.)
@@ -152,24 +152,24 @@ http://mypy-lang.blogspot.com/2015/04/mypy-02-released.html.)
   is here: https://github.com/JukkaL/mypy/labels/pep484
 
 TO DO Lists
-===========
+-----------
 
 PEP 482 TO DO
--------------
+=============
 
 * State of the art: should we list decorator-based approaches
   (PyContracts?) and docstring-based approaches?  **TODO:** Łukasz to
   update PEP 482.
 
 PEP 483 TO DO
--------------
+=============
 
 * Explain generics better.
 
 * Drop definition of ``Intersection``?
 
 PEP 484 TO DO
--------------
+=============
 
 * Explain generics better.
 
@@ -195,7 +195,7 @@ PEP 484 TO DO
   https://github.com/ambv/typehinting/issues
 
 README.rst TO DO
-----------------
+================
 
 * Drop list of changes to mypy.
 
