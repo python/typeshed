@@ -280,17 +280,26 @@ The function ``concat`` can be called with either two ``str`` arguments
 or two ``bytes`` arguments, but not with a mix of ``str`` and ``bytes``
 arguments.
 
-Note that subtypes are not valid values for a constrained type variable.
-Consider this example::
+Note that subtypes of types constrained by a type variable are treated
+as their respective explicitly listed base types in the context of the
+type variable.  Consider this example::
 
   class MyStr(str): ...
 
   x = concat(MyStr('apple'), MyStr('pie'))
 
-The type variable ``AnyStr`` will get type ``str`` instead of ``MyStr`` (but the
-call is valid), and thus the inferred type of ``x`` will also be ``str``.
+The call is valid but the type variable ``AnyStr`` will be set to
+``str`` and not ``MyStr``. In effect, the inferred type of the return
+value assigned to ``x`` will also be ``str``.
 
 Additionally, ``Any`` is a valid value for every type variable.
+Consider the following::
+
+  def count_truthy(elements: List[Any]) -> int:
+      return sum(1 for elem in elements if element)
+
+This is equivalent to omitting the generic notation and just saying
+``elements: List``.
 
 
 User-defined generic types
