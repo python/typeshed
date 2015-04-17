@@ -1,6 +1,3 @@
-(NOTE: Not sure what to do this.  I wrote it on the plane but Jukka
-already updated the PEP.  Maybe this is useful as another tutorial?)
-
 Generics
 --------
 
@@ -101,7 +98,7 @@ Type variables have a few more tricks up their sleeves:
   the actual type must be a subtype of one of the constraints.  When
   used in a return value type, the inferred return type will be
   exactly the corresponding constraint (*not* the inferred argument
-  type, which may be a subtype thereof).  For example:
+  type, which may be a subtype thereof).  For example::
 
     from typing import AnyStr
 
@@ -154,4 +151,5 @@ Type variables have a few more tricks up their sleeves:
     add_employee(mgrs, bob)  # Error
 
   For a good if theoretical explanation of covariance and
-  contravariance see the Wikipedia article.  [URL]
+  contravariance see the Wikipedia article:
+  http://en.wikipedia.org/wiki/Covariance_and_contravariance_%28computer_science%29
