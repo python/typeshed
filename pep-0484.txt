@@ -869,7 +869,7 @@ Third-party stubs have to be versioned using the lowest version of the
 source package that is compatible.  Example: FooPackage has versions
 1.0, 1.1, 1.2, 1.3, 2.0, 2.1, 2.2.  There are API changes in versions
 1.1, 2.0 and 2.2.  The stub file package maintainer is free to release
-stubs for all versions but at least 1.0, 1.1, 2.0 and 2.2 are required
+stubs for all versions but at least 1.0, 1.1, 2.0 and 2.2 are needed
 to enable the end user type check all versions.  This is because the
 user knows that the closest *lower or equal* version of stubs is
 compatible.  In the provided example, for FooPackage 1.3 the user would
