@@ -556,8 +556,14 @@ and this is also the suggested default when the program is being
 type-checked.
 
 
-Constant expressions
---------------------
+Named constants and constant expressions
+----------------------------------------
+
+*NOTE:* It's not clear what the use case is, and the rules described
+here are hard to implement.  We may excise named constants and
+constant expressions entirely, or require an annotation on named
+constants (e.g. ``# type: constant ...``).  See also
+https://github.com/ambv/typehinting/issues/86 .
 
 Additional constants may be defined by user code::
 
