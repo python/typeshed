@@ -920,15 +920,15 @@ class ForwardRefTests(TestCase):
                 self.add_both(None, node)
 
         t = Node[int]
-        both_hints = get_type_hints(t.add_both)
+        both_hints = get_type_hints(t.add_both, globals(), locals())
         assert both_hints['left'] == both_hints['right'] == Optional[Node[T]]
         assert both_hints['stuff'] == Optional[int]
         assert 'blah' not in both_hints
 
-        left_hints = get_type_hints(t.add_left)
+        left_hints = get_type_hints(t.add_left, globals(), locals())
         assert left_hints['node'] == Optional[Node[T]]
 
-        right_hints = get_type_hints(t.add_right)
+        right_hints = get_type_hints(t.add_right, globals(), locals())
         assert right_hints['node'] == Optional[Node[T]]
 
     def test_union_forward(self):
@@ -936,21 +936,24 @@ class ForwardRefTests(TestCase):
         def foo(a: Union['T']):
             pass
 
-        self.assertEqual(get_type_hints(foo), {'a': Union[T]})
+        self.assertEqual(get_type_hints(foo, globals(), locals()),
+                         {'a': Union[T]})
 
     def test_tuple_forward(self):
 
         def foo(a: Tuple['T']):
             pass
 
-        self.assertEqual(get_type_hints(foo), {'a': Tuple[T]})
+        self.assertEqual(get_type_hints(foo, globals(), locals()),
+                         {'a': Tuple[T]})
 
     def test_callable_forward(self):
 
         def foo(a: Callable[['T'], 'T']):
             pass
 
-        self.assertEqual(get_type_hints(foo), {'a': Callable[[T], T]})
+        self.assertEqual(get_type_hints(foo, globals(), locals()),
+                         {'a': Callable[[T], T]})
 
     def test_syntax_error(self):
 
@@ -971,7 +974,7 @@ class ForwardRefTests(TestCase):
             pass
 
         with self.assertRaises(NameError):
-            get_type_hints(foo)
+            get_type_hints(foo, locals())
 
     def test_no_type_check(self):
 
@@ -1018,6 +1021,17 @@ class ForwardRefTests(TestCase):
         self.assertEqual(cth, {})
         ith = get_type_hints(C().foo)
         self.assertEqual(ith, {})
+
+    def test_default_globals(self):
+        code = ("class C:\n"
+                "    def foo(self, a: 'C') -> 'D': pass\n"
+                "class D:\n"
+                "    def bar(self, b: 'D') -> C: pass\n"
+                )
+        ns = {}
+        exec(code, ns)
+        hints = get_type_hints(ns['C'].foo)
+        assert hints == {'a': ns['C'], 'return': ns['D']}
 
 
 class OverloadTests(TestCase):

@@ -1,5 +1,6 @@
 # TODO:
 # - https://github.com/ambv/typehinting/issues/62
+# - Generic[T, T] is invalid
 # - Look for TODO below
 
 # TODO nits:
@@ -1179,8 +1180,9 @@ def get_type_hints(obj, globalns=None, localns=None):
     (unless you are familiar with how eval() and exec() work).  The
     search order is locals first, then globals.
 
-    - If no dict arguments are passed, the defaults are taken from the
-      globals and locals of the caller, respectively.
+    - If no dict arguments are passed, an attempt is made to use the
+      globals from obj, and these are also used as the locals.  If the
+      object does not appear to have globals, an exception is raised.
 
     - If one dict argument is passed, it is used for both globals and
       locals.
@@ -1191,9 +1193,9 @@ def get_type_hints(obj, globalns=None, localns=None):
     if getattr(obj, '__no_type_check__', None):
         return {}
     if globalns is None:
-        globalns = sys._getframe(1).f_globals
+        globalns = getattr(obj, '__globals__', {})
         if localns is None:
-            localns = sys._getframe(1).f_locals
+            localns = globalns
     elif localns is None:
         localns = globalns
     defaults = _get_defaults(obj)
