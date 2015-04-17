@@ -264,10 +264,10 @@ Generics can be parametrized by using a new factory available in
 In this case the contract is that the returned value is consistent with
 the elements held by the collection.
 
-``TypeVar`` supports constraining parametric types to a fixed set of possible
-types.  For example, we can define a type variable that ranges over just
-``str`` and ``bytes``.  By default, a type variable ranges over all
-possible types.  Example of constraining a type variable::
+``TypeVar`` supports constraining parametric types to a fixed set of
+possible types.  For example, we can define a type variable that ranges
+over just ``str`` and ``bytes``.  By default, a type variable ranges
+over all possible types.  Example of constraining a type variable::
 
   from typing import TypeVar
 
@@ -305,11 +305,10 @@ This is equivalent to omitting the generic notation and just saying
 User-defined generic types
 --------------------------
 
-You can include a ``Generic`` base class to define a user-defined class as generic.
-Example::
+You can include a ``Generic`` base class to define a user-defined class
+as generic.  Example::
 
   from typing import TypeVar, Generic
-  ...
 
   T = TypeVar('T')
 
@@ -330,12 +329,12 @@ Example::
       def log(self, message: str) -> None:
           self.logger.info('{}: {}'.format(self.name message))
 
-``Generic[T]`` as a base class defines that the class ``LoggedVar`` takes a
-single type parameter ``T``. This also makes ``T`` valid as a type within
-the class body.
+``Generic[T]`` as a base class defines that the class ``LoggedVar``
+takes a single type parameter ``T``. This also makes ``T`` valid as
+a type within the class body.
 
-The ``Generic`` base class uses a metaclass that defines ``__getitem__`` so
-that ``LoggedVar[t]`` is valid as a type::
+The ``Generic`` base class uses a metaclass that defines ``__getitem__``
+so that ``LoggedVar[t]`` is valid as a type::
 
   from typing import Iterable
 
@@ -343,8 +342,8 @@ that ``LoggedVar[t]`` is valid as a type::
       for var in vars:
           var.set(0)
 
-A generic type can have any number of type variables, and type variables may
-be constrained. This is valid::
+A generic type can have any number of type variables, and type variables
+may be constrained. This is valid::
 
   from typing import TypeVar, Generic
   ...
@@ -355,15 +354,15 @@ be constrained. This is valid::
   class Pair(Generic[T, S]):
       ...
 
-Each type variable argument to ``Generic`` must be distinct. This is thus
-invalid::
+Each type variable argument to ``Generic`` must be distinct. This is
+thus invalid::
 
   from typing import TypeVar, Generic
   ...
 
   T = TypeVar('T')
 
-  class Pair(Generic[T, T]):
+  class Pair(Generic[T, T]):   # INVALID
       ...
 
 You can use multiple inheritance with ``Generic``::
@@ -379,12 +378,12 @@ You can use multiple inheritance with ``Generic``::
 Arbitrary generic types as base classes
 ---------------------------------------
 
-``Generic[T]`` is only valid as a base class -- it's not a proper
-type.  However, user-defined generic types such as ``LinkedList[T]``
-from the above example and built-in generic types and ABCs such as
-``List[T]`` and ``Iterable[T]`` are valid both as types and as base
-classes. For example, we can define a subclass of ``Dict`` that
-specializes type arguments::
+``Generic[T]`` is only valid as a base class -- it's not a proper type.
+However, user-defined generic types such as ``LinkedList[T]`` from the
+above example and built-in generic types and ABCs such as ``List[T]``
+and ``Iterable[T]`` are valid both as types and as base classes. For
+example, we can define a subclass of ``Dict`` that specializes type
+arguments::
 
   from typing import Dict, List, Optional
 
@@ -402,8 +401,7 @@ specializes type arguments::
           nodes = self.get(name)
           if nodes:
               return nodes[-1]
-          else:
-              return None
+          return None
 
 ``SymbolTable`` is a subclass of ``dict`` and a subtype of ``Dict[str,
 List[Node]]``.
@@ -463,9 +461,9 @@ The local and global namespace in which it is evaluated should be the
 same namespaces in which default arguments to the same function would
 be evaluated.
 
-Moreover, the expression should be parseable as a valid type hint,
-i.e., it is constrained by the rules from the section ``Acceptable
-type hints`` above.
+Moreover, the expression should be parseable as a valid type hint, i.e.,
+it is constrained by the rules from the section `Acceptable type hints`_
+above.
 
 It is allowable to use string literals as *part* of a type hint, for
 example::
@@ -527,7 +525,7 @@ When the type of a value is ``object``, the type checker will reject
 almost all operations on it, and assigning it to a variable (or using
 it as a return value) of a more specialized type is a type error.  On
 the other hand, when a value has type ``Any``, the type checker will
-allow all operations on it, and a value of type `Any`` can be assigned
+allow all operations on it, and a value of type ``Any`` can be assigned
 to a variable (or used as a return value) of a more constrained type.
 
 
@@ -654,12 +652,12 @@ Compatibility with other uses of function annotations
 =====================================================
 
 A number of existing or potential use cases for function annotations
-exist, which are incompatible with type hinting.  These may confuse a
-static type checker.  However, since type hinting annotations have no
-runtime behavior (other than evaluation of the annotation expression
-and storing annotations in the ``__annotations__`` attribute of the
-function object), this does not make the program incorrect -- it just
-may cause a type checker to emit spurious warnings or errors.
+exist, which are incompatible with type hinting.  These may confuse
+a static type checker.  However, since type hinting annotations have no
+runtime behavior (other than evaluation of the annotation expression and
+storing annotations in the ``__annotations__`` attribute of the function
+object), this does not make the program incorrect -- it just may cause
+a type checker to emit spurious warnings or errors.
 
 To mark portions of the program that should not be covered by type
 hinting, you can use one or more of the following:
@@ -674,10 +672,10 @@ hinting, you can use one or more of the following:
 For more details see later sections.
 
 In order for maximal compatibility with offline type checking it may
-eventually be a good idea to change interfaces that rely on
-annotations to switch to a different mechanism, for example a
-decorator.  In Python 3.5 there is no pressure to do this, however.
-See also the longer discussion under "Rejected alternatives" below.
+eventually be a good idea to change interfaces that rely on annotations
+to switch to a different mechanism, for example a decorator.  In Python
+3.5 there is no pressure to do this, however.  See also the longer
+discussion under `Rejected alternatives`_ below.
 
 
 Type comments
@@ -744,12 +742,11 @@ the type of ``x`` is ``t``.  At runtime a cast always returns the
 expression unchanged -- it does not check the type, and it does not
 convert or coerce the value.
 
-Casts differ from type comments (see the previous section).  When
-using a type comment, the type checker should still verify that the
-inferred type is consistent with the stated type.  When using a cast,
-the type checker should blindly believe the programmer.  Also, casts
-can be used in expressions, while type comments only apply to
-assignments.
+Casts differ from type comments (see the previous section).  When using
+a type comment, the type checker should still verify that the inferred
+type is consistent with the stated type.  When using a cast, the type
+checker should blindly believe the programmer.  Also, casts can be used
+in expressions, while type comments only apply to assignments.
 
 
 Stub Files
@@ -761,23 +758,25 @@ stub files:
 
 * Extension modules
 
-* 3rd party modules whose authors have not yet added type hints
+* Third-party modules whose authors have not yet added type hints
 
-* Standard library modules for which type hints have not yet been written
+* Standard library modules for which type hints have not yet been
+  written
 
 * Modules that must be compatible with Python 2 and 3
 
 * Modules that use annotations for other purposes
 
-Stub files have the same syntax as regular Python modules.  There is
-one feature of the ``typing`` module that may only be used in stub
-files: the ``@overload`` decorator described below.
+Stub files have the same syntax as regular Python modules.  There is one
+feature of the ``typing`` module that may only be used in stub files:
+the ``@overload`` decorator described below.
 
 The type checker should only check function signatures in stub files;
-function bodies in stub files should just be a single ``pass`` statement.
+function bodies in stub files should just be a single ``pass``
+statement.
 
-The type checker should have a configurable search path for stub
-files.  If a stub file is found the type checker should not read the
+The type checker should have a configurable search path for stub files.
+If a stub file is found the type checker should not read the
 corresponding "real" module.
 
 While stub files are syntactically valid Python modules, they use the
@@ -849,6 +848,54 @@ is why previous attempts were abandoned in favor of
 satisfactory multiple dispatch design, but we don't want such a design
 to be constrained by the overloading syntax defined for type hints in
 stub files.
+
+Storing and distributing stub files
+-----------------------------------
+
+The easiest form of stub file storage and distribution is to put them
+alongside Python modules in the same directory.  This makes them easy to
+find by both programmers and the tools.  However, since package
+maintainers are free not to add type hinting to their packages,
+third-party stubs installable by ``pip`` from PyPI are also supported.
+In this case we have to consider three issues: naming, versioning,
+installation path.
+
+This PEP does not provide a recommendation on a naming scheme that
+should be used for third-party stub file packages.  Discoverability will
+hopefully be based on package popularity, like with Django packages for
+example.
+
+Third-party stubs have to be versioned using the lowest version of the
+source package that is compatible.  Example: FooPackage has versions
+1.0, 1.1, 1.2, 1.3, 2.0, 2.1, 2.2.  There are API changes in versions
+1.1, 2.0 and 2.2.  The stub file package maintainer is free to release
+stubs for all versions but at least 1.0, 1.1, 2.0 and 2.2 are required
+to enable the end user type check all versions.  This is because the
+user knows that the closest *lower or equal* version of stubs is
+compatible.  In the provided example, for FooPackage 1.3 the user would
+choose stubs version 1.1.
+
+Note that if the user decides to use the "latest" available source
+package, using the "latest" stub files should generally also work if
+they're updated often.
+
+Third-party stub packages can use any location for stub storage.  The
+type checker will search for them using PYTHONPATH.  A default fallback
+directory that is always checked is ``shared/typehints/python3.5/`` (or
+3.6, etc.).  Since there can only be one package installed for a given
+Python version per environment, no additional versioning is performed
+under that directory (just like bare directory installs by ``pip`` in
+site-packages).  Stub file package authors might use the following
+snippet in ``setup.py``::
+
+  ...
+  data_files=[
+      (
+          'shared/typehints/python{}.{}'.format(*sys.version_info[:2]),
+          pathlib.Path(SRC_PATH).glob('**/*.pyi'),
+      ),
+  ],
+  ...
 
 
 Exceptions
