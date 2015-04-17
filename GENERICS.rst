@@ -145,7 +145,7 @@ Type variables have a few more tricks up their sleeves:
     def add_employee(emps: MyList[Employee], emp: Employee) -> None:
         emps.append(emp)
 
-    mgrs = MyList[Manager](...)
+    mgrs = MyList[Manager](...)  # Undecided if this is allowed
     print_employees(mgrs)  # OK
     bob = Manager(...)
     add_employee(mgrs, bob)  # Error
