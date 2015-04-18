@@ -24,16 +24,16 @@ PEP 1 (https://www.python.org/dev/peps/pep-0001/).
 Important dates
 ---------------
 
-The target dates for inclusion of types.py in Python 3.5 are derived
+The target dates for inclusion of typing.py in Python 3.5 are derived
 from the Python 3.5 release schedule as documented in PEP 478
 (https://www.python.org/dev/peps/pep-0478/), and subject to change if
 that schedule slips:
 
-* May 24, 2015: Python 3.5.0 beta 1 -- PEP 484 accepted, types.py
+* May 24, 2015: Python 3.5.0 beta 1 -- PEP 484 accepted, typing.py
   feature complete and checked into CPython repo
 
 * August 9, 2015: Python 3.5.0 release candidate 1 -- Last chance for
-  fixes to types.py barring emergencies:
+  fixes to typing.py barring emergencies:
 
 * September 13, 2015: Python 3.5.0 final release
 
@@ -119,7 +119,7 @@ Workflow for mypy changes
 Workflow for CPython changes
 ----------------------------
 
-* TBD: Workflow for copying types.py and test_types.py into the
+* TBD: Workflow for copying typing.py and test_typing.py into the
   CPython repo.
 
 Things consciously left out for now
@@ -176,8 +176,6 @@ PEP 483 TO DO
 PEP 484 TO DO
 -------------
 
-* Explain generics better.
-
 * Co/contravariance and type variables.  (See VARIANCE.rst)
 
 * Note that type checkers ought to provide config options to
@@ -188,13 +186,6 @@ PEP 484 TO DO
   See https://github.com/ambv/typehinting/issues/41
 
 * Add a comprehensive list of things we're explicitly punting (see above).
-
-* Clarify the limits of constant expressions (expressions the type
-  checker should be able to evaluate, as opposed to typecheck).
-  (Maybe only through examples.)
-
-* Decide the fate of Undefined; see
-  https://github.com/ambv/typehinting/issues/20
 
 * See also the list of github issues:
   https://github.com/ambv/typehinting/issues
