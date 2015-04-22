@@ -152,9 +152,12 @@ Type hints may be built-in classes (including those defined in
 standard library or third-party extension modules), abstract base
 classes, types available in the ``types`` module, and user-defined
 classes (including those defined in the standard library or
-third-party modules).  Annotations for built-in classes (and other
-classes at the discretion of the developer) may be placed in stub
-files (see below).
+third-party modules).  
+
+While annotations are normally the best format for type hints, 
+there are times when it is more appropriate to represent them
+by a special comment, or in a separately distributed interface 
+file.  (See below for examples.)
 
 Annotations must be valid expressions that evaluate without raising
 exceptions at the time the function is defined (but see below for
