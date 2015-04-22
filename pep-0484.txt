@@ -176,7 +176,7 @@ below may be used: ``None``, ``Any``, ``Union``, ``Tuple``,
 from ``typing`` (e.g. ``Sequence`` and ``Dict``), type variables, and
 type aliases.
 
-All newly introducedw names used to support features described in
+All newly introduced names used to support features described in
 following sections (such as ``Any`` and ``Union``) are available in
 the ``typing`` module.
 
@@ -1003,7 +1003,7 @@ Most people are familiar with the use of angular brackets
 express the parametrization of generic types.  The problem with these
 is that they are really hard to parse, especially for a simple-minded
 parser like Python.  In most languages the ambiguities are usually
-dealy with by only allowing angular brackets in specific syntactic
+dealt with by only allowing angular brackets in specific syntactic
 positions, where general expressions aren't allowed.  (And also by
 using very powerful parsing techniques that can backtrack over an
 arbitrary section of code.)
@@ -1165,7 +1165,7 @@ evaluation.  There are several things wrong with this idea, however.
   well known from other programming languages.  But this use of ``::``
   is unheard of in English, and in other languages (e.g. C++) it is
   used as a scoping operator, which is a very different beast.  In
-  contrast, the single colon for type hints reads natural -- and no
+  contrast, the single colon for type hints reads naturally -- and no
   wonder, since it was carefully designed for this purpose (the idea
   long predates PEP 3107 [gvr-artima]_).  It is also used in the same
   fashion in other languages from Pascal to Swift.
