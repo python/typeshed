@@ -13,7 +13,7 @@ Each Python module is represented by a `.py` "stub". This is a normal Python
 file (i.e., it can be interpreted by Python 3), except all the methods are empty.
 Python function annotations ([PEP 3107](https://www.python.org/dev/peps/pep-3107/))
 are used to describe the types the function has.
-See ([PEP 484](http://www.python.org/dev/peps/pep-484/)) for the exact syntax
+See ([PEP 484](http://www.python.org/dev/peps/pep-0484/)) for the exact syntax
 of the stub files.
 
 ## Example
