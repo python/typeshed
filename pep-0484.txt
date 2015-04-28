@@ -103,11 +103,13 @@ type checking is disabled by the ``@no_type_check`` decorator or a
 ``# type: ignore`` comment (see below).
 
 It is recommended but not required that checked function have
-annotations for all its arguments and its return type.  An exception
-is that the exception that the ``self`` argument of a method should
-not be annotated; it is assumed to have the type of the containing
-class.  Notably, the return type of ``__init__`` ought to be annotated
-with ``-> None``.
+annotations for all its arguments and its return type.  For a checked
+function, the default annotation for arguments and for the return type
+is ``Any``.  An exception is that the first argument of instance and
+class methods should not be annotated; it is assumed to have the type
+of the containing class for instance method, and ``type`` for class
+methods.  Note that the return type of ``__init__`` ought to be
+annotated with ``-> None`` (there is no exception for ``__init__``).
 
 The body of a checked function is checked for consistency with the
 given annotations.  The annotations are also used to check correctness
