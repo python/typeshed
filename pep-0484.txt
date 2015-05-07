@@ -3,7 +3,7 @@ Title: Type Hints
 Version: $Revision$
 Last-Modified: $Date$
 Author: Guido van Rossum <guido@python.org>, Jukka Lehtosalo <jukka.lehtosalo@iki.fi>, Łukasz Langa <lukasz@langa.pl>
-BDFL-delegate: Mark Shannon
+BDFL-Delegate: Mark Shannon
 Discussions-To: Python-Dev <python-dev@python.org>
 Status: Draft
 Type: Standards Track
@@ -493,6 +493,46 @@ example::
         ...
         def leaves(self) -> List['Tree']:
             ...
+
+A common use for forward references is when e.g. Django models are
+needed in the signatures.  Typically, each model is in a separate
+file, and has methods that arguments whose type involves other models.
+Because of the way circular imports work in Python, it is often not
+possible to import all the needed models directly::
+
+    # File models/a.py
+    from models.b import B
+    class A(Model):
+        def foo(self, b: B): ...
+
+    # File models/b.py
+    from models.a import A
+    class B(Model):
+        def bar(self, a: A): ...
+
+    # File main.py
+    from a import A
+    from b import B
+
+Assuming main is imported first, this will fail with an ImportError at
+the line ``from models.a import A`` in models/b.py, which is being
+imported from models/a.py before a has defined class A.  The solution
+is to switch to module-only imports and reference the models by their
+_module_._class_ name::
+
+    # File models/a.py
+    from models import b
+    class A(Model):
+        def foo(self, b: 'b.B'): ...
+
+    # File models/b.py
+    from models import a
+    class B(Model):
+        def bar(self, a: 'a.A'): ...
+
+    # File main.py
+    from a import A
+    from b import B
 
 
 Union types
@@ -1148,7 +1188,7 @@ follows::
 
   assert ImSet.add.__annotations__ == {'a': 'ImSet', 'return': 'List[ImSet]'}
 
-Such a ``__future__`` import statement will be proposed in a separate
+Such a ``__future__`` import statement may be proposed in a separate
 PEP.
 
 
