@@ -2,7 +2,7 @@
 PEP 484: Type Hints
 ===================
 
-This GitHub repo us used for drafting PEP 484: Type Hints, slated for
+This GitHub repo is used for drafting PEP 484: Type Hints, slated for
 inclusion in Python 3.5.
 
 Authors
