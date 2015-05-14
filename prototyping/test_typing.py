@@ -120,19 +120,48 @@ class AnyTests(TestCase):
 
 class TypeVarTests(TestCase):
 
-    def test_isinstance(self):
-        self.assertNotIsInstance(42, T)
-        self.assertIsInstance(b'b', AnyStr)
-        self.assertIsInstance('s', AnyStr)
-        self.assertNotIsInstance(42, AnyStr)
+    def test_basic_plain(self):
+        T = TypeVar('T')
+        # Nothing is an instance if T.
+        with self.assertRaises(TypeError):
+            isinstance('', T)
+        # Every class is a subclass of T.
+        assert issubclass(int, T)
+        assert issubclass(str, T)
+        # T equals itself.
+        assert T == T
+        # T is a subclass of itself.
+        assert issubclass(T, T)
 
-    def test_issubclass(self):
-        self.assertTrue(issubclass(T, Any))
-        self.assertFalse(issubclass(int, T))
-        self.assertTrue(issubclass(bytes, AnyStr))
-        self.assertTrue(issubclass(str, AnyStr))
-        self.assertTrue(issubclass(T, T))
-        self.assertTrue(issubclass(AnyStr, AnyStr))
+    def test_basic_constrained(self):
+        A = TypeVar('A', str, bytes)
+        # Nothing is an instance of A.
+        with self.assertRaises(TypeError):
+            isinstance('', A)
+        # Only str and bytes are subclasses of A.
+        assert issubclass(str, A)
+        assert issubclass(bytes, A)
+        assert not issubclass(int, A)
+        # A equals itself.
+        assert A == A
+        # A is a subclass of itself.
+        assert issubclass(A, A)
+
+    def test_union_unique(self):
+        X = TypeVar('X')
+        Y = TypeVar('Y')
+        assert X != Y
+        assert Union[X] == X
+        assert Union[X] != Union[X, Y]
+        assert Union[X, X] == X
+        assert Union[X, int] != Union[X]
+        assert Union[X, int] != Union[int]
+        assert Union[X, int].__union_params__ == (X, int)
+        assert Union[X, int].__union_set_params__ == {X, int}
+
+    def test_union_constrained(self):
+        A = TypeVar('A', str, bytes)
+        assert Union[A, str] != Union[A]
 
     def test_repr(self):
         self.assertEqual(repr(T), '~T')
@@ -149,14 +178,15 @@ class TypeVarTests(TestCase):
         self.assertNotEqual(TypeVar('T', int, str), TypeVar('T', int, str))
 
     def test_subclass_as_unions(self):
-        self.assertTrue(issubclass(TypeVar('T', int, str),
-                                   TypeVar('T', int, str)))
-        self.assertTrue(issubclass(TypeVar('T', int), TypeVar('T', int, str)))
-        self.assertTrue(issubclass(TypeVar('T', int, str),
-                                   TypeVar('T', str, int)))
+        # None of these are true -- each type var is its own world.
+        self.assertFalse(issubclass(TypeVar('T', int, str),
+                                    TypeVar('T', int, str)))
+        self.assertFalse(issubclass(TypeVar('T', int), TypeVar('T', int, str)))
+        self.assertFalse(issubclass(TypeVar('T', int, str),
+                                    TypeVar('T', str, int)))
         A = TypeVar('A', int, str)
         B = TypeVar('B', int, str, float)
-        self.assertTrue(issubclass(A, B))
+        self.assertFalse(issubclass(A, B))
         self.assertFalse(issubclass(B, A))
 
     def test_cannot_subclass_vars(self):
@@ -172,54 +202,6 @@ class TypeVarTests(TestCase):
     def test_cannot_instantiate_vars(self):
         with self.assertRaises(TypeError):
             TypeVar('A')()
-
-    def test_bind(self):
-        self.assertNotIsInstance(42, T)  # Baseline.
-        with T.bind(int):
-            self.assertIsInstance(42, T)
-            self.assertNotIsInstance(3.14, T)
-            self.assertTrue(issubclass(int, T))
-            self.assertFalse(issubclass(T, int))
-            self.assertFalse(issubclass(float, T))
-        self.assertNotIsInstance(42, T)  # Baseline restored.
-
-    def test_bind_reuse(self):
-        self.assertNotIsInstance(42, T)  # Baseline.
-        bv = T.bind(int)
-        with bv:
-            self.assertIsInstance(42, T)  # Bound.
-            self.assertNotIsInstance(3.14, T)
-        self.assertNotIsInstance(42, T)  # Baseline restored.
-        # Reusing bv will work.
-        with bv:
-            self.assertIsInstance(42, T)  # Bound.
-            self.assertNotIsInstance(3.14, T)
-            # Reusing bv recursively won't work.
-            with self.assertRaises(TypeError):
-                with bv:
-                    self.assertFalse("Should not get here")
-            # Rebinding T explicitly will work.
-            with T.bind(float):
-                self.assertIsInstance(3.14, T)
-                self.assertNotIsInstance(42, T)
-            # Now the previous binding should be restored.
-            self.assertIsInstance(42, T)
-            self.assertNotIsInstance(3.14, T)
-        self.assertNotIsInstance(42, T)  # Baseline restored.
-
-    def test_bind_fail(self):
-        # This essentially tests what happens when __enter__() raises
-        # an exception.  __exit__() won't be called, but the
-        # VarBinding and the TypeVar are still in consistent states.
-        bv = T.bind(int)
-        with mock.patch('typing.TypeVar._bind', side_effect=RuntimeError):
-            with self.assertRaises(RuntimeError):
-                with bv:
-                    self.assertFalse("Should not get here")
-        self.assertNotIsInstance(42, T)
-        with bv:
-            self.assertIsInstance(42, T)
-        self.assertNotIsInstance(42, T)
 
 
 class UnionTests(TestCase):
@@ -349,10 +331,10 @@ class TypeVarUnionTests(TestCase):
         B = TypeVar('B', int, str)
         assert issubclass(A, A)
         assert issubclass(B, B)
-        assert issubclass(B, A)
+        assert not issubclass(B, A)
         assert issubclass(A, Union[int, str, float])
-        assert issubclass(Union[int, str, float], A)
-        assert issubclass(Union[int, str], B)
+        assert not issubclass(Union[int, str, float], A)
+        assert not issubclass(Union[int, str], B)
         assert issubclass(B, Union[int, str])
         assert not issubclass(A, B)
         assert not issubclass(Union[int, str, float], B)
@@ -364,52 +346,12 @@ class TypeVarUnionTests(TestCase):
 
     def test_var_union(self):
         TU = TypeVar('TU', Union[int, float])
-        self.assertIsInstance(42, TU)
-        self.assertIsInstance(3.14, TU)
-        self.assertNotIsInstance('', TU)
-        with TU.bind(int):
-            # The effective binding is the union.
-            self.assertIsInstance(42, TU)
-            self.assertIsInstance(3.14, TU)
-            self.assertNotIsInstance('', TU)
+        assert issubclass(int, TU)
+        assert issubclass(float, TU)
         with self.assertRaises(TypeError):
-            with TU.bind(str):
-                self.assertFalse("Should not get here")
-
-    def test_var_union_and_more_precise(self):
-        TU = TypeVar('TU', Union[int, float], int)
-        with TU.bind(int):
-            # The binding is ambiguous, but the second alternative
-            # is strictly more precise.  Choose the more precise match.
-            # The effective binding is int.
-            self.assertIsInstance(42, TU)
-            self.assertNotIsInstance(3.14, TU)
-            self.assertNotIsInstance('', TU)
-        with TU.bind(float):
-            # The effective binding is the union.
-            self.assertIsInstance(42, TU)
-            self.assertIsInstance(3.14, TU)
-            self.assertNotIsInstance('', TU)
-
-    def test_var_union_overlapping(self):
-        TU = TypeVar('TU', Union[int, float], Union[float, str])
-        with TU.bind(int):
-            # The effective binding is the first union.
-            self.assertIsInstance(42, TU)
-            self.assertIsInstance(3.14, TU)
-            self.assertNotIsInstance('', TU)
-        with TU.bind(float):
-            # The binding is ambiguous, but neither constraint is a
-            # subclass of the other.  Choose the first match.
-            # The effective binding is the first union.
-            self.assertIsInstance(42, TU)
-            self.assertIsInstance(3.14, TU)
-            self.assertNotIsInstance('', TU)
-        with TU.bind(str):
-            # The effective binding is the second union.
-            self.assertNotIsInstance(42, TU)
-            self.assertIsInstance(3.14, TU)
-            self.assertIsInstance('', TU)
+            isinstance(42, TU)
+        with self.assertRaises(TypeError):
+            isinstance('', TU)
 
 
 class TupleTests(TestCase):
@@ -718,7 +660,7 @@ class GenericTests(TestCase):
 
     def test_basics(self):
         X = SimpleMapping[str, Any]
-        Y = SimpleMapping[AnyStr, str]
+        Y = SimpleMapping[XK, str]
         X[str, str]
         Y[str, str]
         with self.assertRaises(TypeError):
@@ -731,13 +673,6 @@ class GenericTests(TestCase):
                          __name__ + '.' + 'SimpleMapping[~XK, ~XV]')
         self.assertEqual(repr(MySimpleMapping),
                          __name__ + '.' + 'MySimpleMapping[~XK, ~XV]')
-        A = TypeVar('A', str)  # Must be a subclass of XK.
-        B = TypeVar('B')
-
-        class X(SimpleMapping[A, B]):
-            pass
-
-        self.assertEqual(repr(X).split('.')[-1], 'X[~A, ~B]')
 
     def test_errors(self):
         with self.assertRaises(TypeError):
@@ -1267,16 +1202,16 @@ class RETests(TestCase):
 
     def test_basics(self):
         pat = re.compile('[a-z]+', re.I)
-        assert isinstance(pat, Pattern)
+        assert issubclass(pat.__class__, Pattern)
         assert isinstance(pat, Pattern[str])
         assert not isinstance(pat, Pattern[bytes])
         assert issubclass(type(pat), Pattern)
         assert issubclass(type(pat), Pattern[str])
 
         mat = pat.search('12345abcde.....')
-        assert isinstance(mat, Match)
-        assert isinstance(mat, Match[str])
-        assert not isinstance(mat, Match[bytes])
+        assert issubclass(mat.__class__, Match)
+        assert issubclass(mat.__class__, Match[str])
+        assert issubclass(mat.__class__, Match[bytes])  # Sad but true.
         assert issubclass(type(mat), Match)
         assert issubclass(type(mat), Match[str])
 

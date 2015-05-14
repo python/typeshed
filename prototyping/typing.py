@@ -233,9 +233,10 @@ class _TypeAlias:
         assert isinstance(parameter, type), repr(parameter)
         if not isinstance(self.type_var, TypeVar):
             raise TypeError("%s cannot be further parameterized." % self)
-        if not issubclass(parameter, self.type_var):
-            raise TypeError("%s is not a valid substitution for %s." %
-                            (parameter, self.type_var))
+        if self.type_var.__constraints__:
+            if not issubclass(parameter, Union[self.type_var.__constraints__]):
+                raise TypeError("%s is not a valid substitution for %s." %
+                                (parameter, self.type_var))
         return self.__class__(self.name, parameter,
                               self.impl_type, self.type_checker)
 
@@ -336,59 +337,43 @@ class TypeVar(TypingMeta, metaclass=TypingMeta, _root=True):
 
     Usage::
 
-      T1 = TypeVar('T1')  # Unconstrained
-      T2 = TypeVar('T2', t1, t2, ...)  # Constrained to any of (t1, t2, ...)
+      T = TypeVar('T')  # Can be anything
+      A = TypeVar('A', str, bytes)  # Must be str or bytes
 
-    (TODO: The rules below are inconsistent.  See issue 62.)
+    Type variables exist primarily for the benefit of static type
+    checkers.  They serve as the parameters for generic types as well
+    as for generic function definitions.  See class Generic for more
+    information on generic types.  Generic functions work as follows:
 
-    For an unconstrained type variable T, isinstance(x, T) is false
-    for all x, and similar for issubclass(cls, T).  Example::
+      def repeat(x: T, n: int) -> Sequence[T]:
+          '''Return a list containing n references to x.'''
+          return [x]*n
 
-      T = TypeVar('T')
-      assert not isinstance(42, T)
-      assert not issubclass(int, T)
+      def longest(x: A, y: A) -> A:
+          '''Return the longest of two strings.'''
+          return x if len(x) >= len(y) else y
 
-    For a constrained type variable T, isinstance(x, T) is true for
-    any x that is an instance of at least one of T's constraints,
-    and similar for issubclass(cls, T).  Example::
+    The latter example's signature is essentially the overloading
+    of (str, str) -> str and (bytes, bytes) -> bytes.  Also note
+    that if the arguments are instances of some subclass of str,
+    the return type is still plain str.
 
-      AnyStr = TypeVar('AnyStr', str, bytes)
-      # AnyStr behaves similar to Union[str, bytes] (but not exactly!)
-      assert not isinstance(42, AnyStr)
-      assert isinstance('', AnyStr)
-      assert isinstance(b'', AnyStr)
-      assert not issubclass(int, AnyStr)
-      assert issubclass(str, AnyStr)
-      assert issubclass(bytes, AnyStr)
+    At runtime, isinstance(x, T) will raise TypeError.  However,
+    issubclass(C, T) is true for any class C, and issubclass(str, A)
+    and issubclass(bytes, A) are true, and issubclass(int, A) is
+    false.
 
-    Type variables that are distinct objects are never equal (even if
-    created with the same parameters).
+    Type variables may be marked covariant or contravariant by passing
+    covariant=True or contravariant=True.  See PEP 484 for more
+    details.  By default type variables are invariant.
 
-    You can temporarily *bind* a type variable to a specific type by
-    calling its bind() method and using the result as a context
-    manager (i.e., in a with-statement).  Example::
+    Type variables can be introspected. e.g.:
 
-      with T.bind(int):
-          # In this block, T is nearly an alias for int.
-          assert isinstance(42, T)
-          assert issubclass(int, T)
-
-    There is still a difference between T and int; issubclass(T, int)
-    is False.  However, issubclass(int, T) is true.
-
-    Binding a constrained type variable will replace the binding type
-    with the most derived of its constraints that matches.  Example::
-
-      class MyStr(str):
-          pass
-
-      with AnyStr.bind(MyStr):
-          # In this block, AnyStr is an alias for str, not for MyStr.
-          assert isinstance('', AnyStr)
-          assert issubclass(str, AnyStr)
-          assert not isinstance(b'', AnyStr)
-          assert not issubclass(bytes, AnyStr)
-
+      T.__name__ == 'T'
+      T.__constraints__ == ()
+      T.__covariant__ == False
+      T.__contravariant__ = False
+      A.__constraints__ == (str, bytes)
     """
 
     def __new__(cls, name, *constraints, covariant=False, contravariant=False):
@@ -399,7 +384,6 @@ class TypeVar(TypingMeta, metaclass=TypingMeta, _root=True):
         self.__covariant__ = bool(covariant)
         self.__contravariant__ = bool(contravariant)
         self.__constraints__ = tuple(_type_check(t, msg) for t in constraints)
-        self.__binding__ = None
         return self
 
     def _has_type_var(self):
@@ -415,93 +399,17 @@ class TypeVar(TypingMeta, metaclass=TypingMeta, _root=True):
         return prefix + self.__name__
 
     def __instancecheck__(self, instance):
-        if self.__binding__ is not None:
-            return isinstance(instance, self.__binding__)
-        elif not self.__constraints__:
-            return False
-        else:
-            return isinstance(instance, Union[self.__constraints__])
+        raise TypeError("Type variables cannot be used with isinstance().")
 
     def __subclasscheck__(self, cls):
-        if cls is Any:
+        # TODO: Make this raise TypeError too?
+        if not self.__constraints__:
             return True
         if cls is self:
             return True
-        elif self.__binding__ is not None:
-            return issubclass(cls, self.__binding__)
-        elif not self.__constraints__:
-            return False
-        else:
-            return issubclass(cls, Union[self.__constraints__])
-
-    def bind(self, binding):
-        binding = _type_check(binding, "TypeVar.bind(t): t must be a type.")
-        if self.__constraints__:
-            best = None
-            for t in self.__constraints__:
-                if (issubclass(binding, t) and
-                    (best is None or issubclass(t, best))):
-                    best = t
-            if best is None:
-                raise TypeError(
-                    "TypeVar.bind(t): t must match one of the constraints.")
-            binding = best
-        return VarBinding(self, binding)
-
-    def _bind(self, binding):
-        old_binding = self.__binding__
-        self.__binding__ = binding
-        return old_binding
-
-    def _unbind(self, binding, old_binding):
-        assert self.__binding__ is binding, (self.__binding__,
-                                             binding, old_binding)
-        self.__binding__ = old_binding
-
-
-class VarBinding:
-    """TypeVariable binding returned by TypeVar.bind()."""
-
-    # TODO: This is not thread-safe.  We could solve this in one of
-    # two ways: by using a lock or by using thread-local state.  But
-    # either of these feels overly heavy, and still doesn't work
-    # e.g. in an asyncio Task.
-
-    def __init__(self, var, binding):
-        assert isinstance(var, TypeVar), (var, binding)
-        assert isinstance(binding, type), (var, binding)
-        self._var = var
-        self._binding = binding
-        self._old_binding = None
-        self._entered = False
-
-    def __enter__(self):
-        if self._entered:
-            # This checks for the following scenario:
-            # bv = T.bind(<some_type>)
-            # with bv:
-            #     with bv:  # Will raise here.
-            #         ...
-            # However, the following scenario is OK (if somewhat odd):
-            # bv = T.bind(<some_type>)
-            # with bv:
-            #     ...
-            # with bv:
-            #     ...
-            # The following scenario is also fine:
-            # with T.bind(<some_type>):
-            #     with T.bind(<some_other_type>):
-            #         ...
-            raise TypeError("Cannot reuse variable binding recursively.")
-        self._old_binding = self._var._bind(self._binding)
-        self._entered = True
-
-    def __exit__(self, *args):
-        try:
-            self._var._unbind(self._binding, self._old_binding)
-        finally:
-            self._entered = False
-            self._old_binding = None
+        if cls is Any:
+            return True
+        return any(issubclass(cls, c) for c in self.__constraints__)
 
 
 # Some unconstrained type variables.  These are used by the container types.
@@ -549,11 +457,16 @@ class UnionMeta(TypingMeta):
         # E.g. Union[int, Employee, Manager] == Union[int, Employee].
         # If Any or object is present it will be the sole survivor.
         # If both Any and object are present, Any wins.
+        # Never discard type variables, except against Any.
+        # (In particular, Union[str, AnyStr] != AnyStr.)
         all_params = set(params)
         for t1 in params:
             if t1 is Any:
                 return Any
-            if any(issubclass(t1, t2) for t2 in all_params - {t1}):
+            if isinstance(t1, TypeVar):
+                continue
+            if any(issubclass(t1, t2)
+                   for t2 in all_params - {t1} if not isinstance(t2, TypeVar)):
                 all_params.remove(t1)
         # It's not a union if there's only one type left.
         if len(all_params) == 1:
@@ -1049,9 +962,13 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
                 raise TypeError("Cannot change parameter count from %d to %d" %
                                 (len(self.__parameters__), len(params)))
             for new, old in zip(params, self.__parameters__):
-                if isinstance(old, TypeVar) and not old.__constraints__:
-                    # Substituting for an unconstrained TypeVar is always OK.
-                    continue
+                if isinstance(old, TypeVar):
+                    if not old.__constraints__:
+                        # Substituting for an unconstrained TypeVar is always OK.
+                        continue
+                    if issubclass(new, Union[old.__constraints__]):
+                        # Specializing a constrained type variable is OK.
+                        continue
                 if not issubclass(new, old):
                     raise TypeError(
                         "Cannot substitute %s for %s in %s" %
@@ -1518,8 +1435,17 @@ class Dict(dict, MutableMapping, metaclass=_DictMeta):
         raise TypeError("Type Dict cannot be instantiated; use dict() instead")
 
 
+# Determine what base class to use for Generator.
+if hasattr(collections_abc, 'Generator'):
+    # Sufficiently recent versions of 3.5 have a Generator ABC.
+    _G_base = collections_abc.Generator
+else:
+    # Fall back on the exact type.
+    _G_base = types.GeneratorType
+
+
 class Generator(Iterator[T_co], Generic[T_co, T_contra, V_co],
-                extra=types.GeneratorType):
+                extra=_G_base):
 
     def __new__(self, *args, **kwds):
         raise TypeError("Type Generator cannot be instantiated")
