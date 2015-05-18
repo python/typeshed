@@ -756,6 +756,12 @@ While stub files are syntactically valid Python modules, they use the
 same directory as the corresponding real module.  This also reinforces
 the notion that no runtime behavior should be expected of stub files.
 
+Additional notes on stub files:
+
+* Modules and variables imported into the stub are not considered
+  exported from the stub unless the import uses the ``import ... as
+  ...`` form.
+
 Function overloading
 --------------------
 
