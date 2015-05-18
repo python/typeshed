@@ -741,8 +741,8 @@ feature of the ``typing`` module that may only be used in stub files:
 the ``@overload`` decorator described below.
 
 The type checker should only check function signatures in stub files;
-function bodies in stub files should just be a single ``pass``
-statement.
+It is recommended that function bodies in stub files just be a single
+ellipsis (``...``).
 
 The type checker should have a configurable search path for stub files.
 If a stub file is found the type checker should not read the
@@ -767,9 +767,9 @@ follows::
   class bytes:
     ...
     @overload
-    def __getitem__(self, i: int) -> int: pass
+    def __getitem__(self, i: int) -> int: ...
     @overload
-    def __getitem__(self, s: slice) -> bytes: pass
+    def __getitem__(self, s: slice) -> bytes: ...
 
 This description is more precise than would be possible using unions
 (which cannot express the relationship between the argument and return
@@ -778,7 +778,7 @@ types)::
   from typing import Union
   class bytes:
     ...
-    def __getitem__(self, a: Union[int, slice]) -> Union[int, bytes]: pass
+    def __getitem__(self, a: Union[int, slice]) -> Union[int, bytes]: ...
 
 Another example where ``@overload`` comes in handy is the type of the
 builtin ``map()`` function, which takes a different number of
@@ -791,20 +791,20 @@ arguments depending on the type of the callable::
   S = TypeVar('S')
 
   @overload
-  def map(func: Callable[[T1], S], iter1: Iterable[T1]) -> Iterator[S]: pass
+  def map(func: Callable[[T1], S], iter1: Iterable[T1]) -> Iterator[S]: ...
   @overload
   def map(func: Callable[[T1, T2], S],
-          iter1: Iterable[T1], iter2: Iterable[T2]) -> Iterator[S]: pass
+          iter1: Iterable[T1], iter2: Iterable[T2]) -> Iterator[S]: ...
   # ... and we could add more items to support more than two iterables
 
 Note that we could also easily add items to support ``map(None, ...)``::
 
   @overload
-  def map(func: None, iter1: Iterable[T1]) -> Iterable[T1]: pass
+  def map(func: None, iter1: Iterable[T1]) -> Iterable[T1]: ...
   @overload
   def map(func: None,
           iter1: Iterable[T1],
-          iter2: Iterable[T2]) -> Iterable[Tuple[T1, T2]]: pass
+          iter2: Iterable[T2]) -> Iterable[Tuple[T1, T2]]: ...
 
 The ``@overload`` decorator may only be used in stub files.  While it
 would be possible to provide a multiple dispatch implementation using
