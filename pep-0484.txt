@@ -944,6 +944,16 @@ snippet in ``setup.py``::
   ],
   ...
 
+The Typeshed Repo
+-----------------
+
+There is a shared repository where useful stubs are being collected
+[typeshed]_.  Note that stubs for a given package will not be included
+here without the explicit consent of the package owner.  Further
+policies regarding the stubs collected here will be decided at a later
+time, after discussion on python-dev, and reported in the typeshed
+repo's README.
+
 
 Exceptions
 ==========
@@ -1384,6 +1394,9 @@ References
 
 .. [mypy]
    http://mypy-lang.org
+
+.. [typeshed]
+   https://github.com/JukkaL/typeshed/
 
 .. [pyflakes]
    https://github.com/pyflakes/pyflakes/
