@@ -1065,11 +1065,15 @@ A few one-off types are defined that test for single special methods
 
 * SupportsAbs, to test for ``__abs__``
 
+* SupportsComplex, to test for ``__complex__``
+
 * SupportsFloat, to test for ``__float__``
 
 * SupportsInt, to test for ``__int__``
 
 * SupportsRound, to test for ``__round__``
+
+* SupportsBytes, to test for ``__bytes__``
 
 The library includes literals for platform-specific type hinting:
 
