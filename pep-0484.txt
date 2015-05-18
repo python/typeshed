@@ -454,6 +454,47 @@ or properties, and generic classes can also have ABCs as base
 classes without a metaclass conflict.
 
 
+The numeric tower
+-----------------
+
+PEP 3141 defines Python's numeric tower, and the stdlib module
+``numbers`` implements the corresponding ABCs (``Number``,
+``Complex``, ``Real``, ``Rational`` and ``Integral``).  There are some
+issues with these ABCs, but the built-in concrete numeric classes
+``complex``, ``float`` and ``int`` are ubiquitous (especially the
+latter two :-).
+
+Rather than requiring that users write ``import numbers`` and then use
+``numbers.Float`` etc., this PEP proposes a straightforward shortcut
+that is almost as effective: when an argument is annotated as having
+type ``float``, an argument of type ``int`` is acceptable; similar,
+for an argument annotated as having type ``complex``, arguments of
+type ``float`` or ``int`` are acceptable.  This does not handle
+classes implementing the corresponding ABCs or the
+``fractions.Fraction`` class, but we believe those use cases are
+exceedingly rare.
+
+
+The bytes types
+---------------
+
+There are three different builtin classes used for arrays of bytes
+(not counting the classes available in the ``array`` module):
+``bytes``, ``bytearray`` and ``memoryview``.  Of these, ``bytes`` and
+``bytearray`` have many behaviors in common (though not all --
+``bytearray`` is mutable).
+
+While there is an ABC ``ByteString`` defined in ``collections.abc``
+and a corresponding type in ``typing``, functions accepting bytes (of
+some form) are so common that it would be cumbersome to have to write
+``typing.ByteString`` everywhere.  So, as a shortcut similar to that
+for the builtin numeric classes, when an argument is annotated as
+having type ``bytes``, arguments of type ``bytearray`` or
+``memoryview`` are acceptable.  (Again, there are situations where
+this isn't sound, but we believe those are exceedingly rare in
+practice.)
+
+
 Forward references
 ------------------
 
