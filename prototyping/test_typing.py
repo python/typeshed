@@ -147,6 +147,10 @@ class TypeVarTests(TestCase):
         # A is a subclass of itself.
         assert issubclass(A, A)
 
+    def test_constrained_error(self):
+        with self.assertRaises(TypeError):
+            X = TypeVar('X', int)
+
     def test_union_unique(self):
         X = TypeVar('X')
         Y = TypeVar('Y')
@@ -181,7 +185,8 @@ class TypeVarTests(TestCase):
         # None of these are true -- each type var is its own world.
         self.assertFalse(issubclass(TypeVar('T', int, str),
                                     TypeVar('T', int, str)))
-        self.assertFalse(issubclass(TypeVar('T', int), TypeVar('T', int, str)))
+        self.assertFalse(issubclass(TypeVar('T', int, float),
+                                    TypeVar('T', int, float, str)))
         self.assertFalse(issubclass(TypeVar('T', int, str),
                                     TypeVar('T', str, int)))
         A = TypeVar('A', int, str)
@@ -202,6 +207,18 @@ class TypeVarTests(TestCase):
     def test_cannot_instantiate_vars(self):
         with self.assertRaises(TypeError):
             TypeVar('A')()
+
+    def test_bound(self):
+        X = TypeVar('X', bound=Employee)
+        assert issubclass(Employee, X)
+        assert issubclass(Manager, X)
+        assert not issubclass(int, X)
+
+    def test_bound_errors(self):
+        with self.assertRaises(TypeError):
+            TypeVar('X', bound=42)
+        with self.assertRaises(TypeError):
+            TypeVar('X', str, float, bound=Employee)
 
 
 class UnionTests(TestCase):
@@ -345,7 +362,7 @@ class TypeVarUnionTests(TestCase):
         self.assertTrue(issubclass(KT, Union[KT, VT]))
 
     def test_var_union(self):
-        TU = TypeVar('TU', Union[int, float])
+        TU = TypeVar('TU', Union[int, float], None)
         assert issubclass(int, TU)
         assert issubclass(float, TU)
         with self.assertRaises(TypeError):

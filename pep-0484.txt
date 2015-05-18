@@ -457,6 +457,44 @@ or properties, and generic classes can also have ABCs as base
 classes without a metaclass conflict.
 
 
+Type variables with an upper bound
+----------------------------------
+
+A type variable may specify an upper bound using ``bound=<type>``.
+This means that an actual type substituted (explicitly or implictly)
+for the type variable must be a subclass of the boundary type.  A
+common example is the definition of a Comparable type that works well
+enough to catch the most common errors::
+
+  class Comparable(metaclass=ABCMeta):
+      @abstractmethod
+      def __lt__(self, other: Any) -> bool: ...
+      ... # __gt__ etc. as well
+
+  CT = TypeVar('CT', bound=Comparable)
+
+  def min(x: CT, y: CT) -> CT:
+      if x < y:
+          return x
+      else:
+          return y
+
+  min(1, 2) # ok, return type int
+  min('x', 'y') # ok, return type str
+
+(Note that this is not ideal -- for example ``min('x', 1)`` is invalid
+at runtime but a type checker would simply infer the return type
+``Comparable``.  Unfortunately, addressing this would require
+introducing a much more powerful and also much more complicated
+concept, F-bounded polymorphism.  We may revisit this in the future.)
+
+An upper bound cannot be combined with type constraints (as in used
+``AnyStr``, see the example earlier); type constraints cause the
+inferred type to be _exactly_ one of the constraint types, while an
+upper bound just requires that the actual type is a subclass of the
+boundary type.
+
+
 The numeric tower
 -----------------
 

@@ -374,14 +374,23 @@ class TypeVar(TypingMeta, metaclass=TypingMeta, _root=True):
       A.__constraints__ == (str, bytes)
     """
 
-    def __new__(cls, name, *constraints, covariant=False, contravariant=False):
+    def __new__(cls, name, *constraints, bound=None,
+                covariant=False, contravariant=False):
         self = super().__new__(cls, name, (Final,), {}, _root=True)
         if covariant and contravariant:
-            raise ValueError("bivariant type variables are not supported")
-        msg = "TypeVar(name, constraint, ...): constraints must be types."
+            raise ValueError("Bivariant type variables are not supported.")
         self.__covariant__ = bool(covariant)
         self.__contravariant__ = bool(contravariant)
+        if constraints and bound is not None:
+            raise TypeError("Constraints cannot be combined with bound=<type>.")
+        if constraints and len(constraints) == 1:
+            raise TypeError("A single constraint is not allowed")
+        msg = "TypeVar(name, constraint, ...): constraints must be types."
         self.__constraints__ = tuple(_type_check(t, msg) for t in constraints)
+        if bound:
+            self.__bound__ = _type_check(bound, "Bound must be a type.")
+        else:
+            self.__bound__ = None
         return self
 
     def _has_type_var(self):
@@ -401,13 +410,15 @@ class TypeVar(TypingMeta, metaclass=TypingMeta, _root=True):
 
     def __subclasscheck__(self, cls):
         # TODO: Make this raise TypeError too?
-        if not self.__constraints__:
-            return True
         if cls is self:
             return True
         if cls is Any:
             return True
-        return any(issubclass(cls, c) for c in self.__constraints__)
+        if self.__bound__ is not None:
+            return issubclass(cls, self.__bound__)
+        if self.__constraints__:
+            return any(issubclass(cls, c) for c in self.__constraints__)
+        return True
 
 
 # Some unconstrained type variables.  These are used by the container types.
