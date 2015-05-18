@@ -18,19 +18,19 @@ Abstract
 
 PEP 3107 introduced syntax for function annotations, but the semantics
 were deliberately left undefined.  There has now been enough 3rd party
-usage for static type analysis that the community would benefit from 
+usage for static type analysis that the community would benefit from
 a standard vocabulary and baseline tools within the standard library.
 
 This PEP introduces a provisional module to provide these standard
 definitions and tools, along with some conventions for situations
-where annotations are not available.  
+where annotations are not available.
 
-Note that this PEP still explicitly does NOT prevent other uses of 
-annotations, nor does it require (or forbid) any particular processing 
+Note that this PEP still explicitly does NOT prevent other uses of
+annotations, nor does it require (or forbid) any particular processing
 of annotations, even when they conform to this specification.  It
 simply enables better coordination, as PEP 333 did for web frameworks.
 
-For example, here is a simple function whose argument and return type 
+For example, here is a simple function whose argument and return type
 are declared in the annotations::
 
   def greeting(name: str) -> str:
@@ -42,15 +42,16 @@ Instead, the proposal assumes the existence of a separate off-line
 type checker which users can run over their source code voluntarily.
 Essentially, such a type checker acts as a very powerful linter.
 (While it would of course be possible for individual users to employ
-a similar checker at run time for Design By Contract enforcement or 
+a similar checker at run time for Design By Contract enforcement or
 JIT optimization, those tools are not yet as mature.)
 
 The proposal is strongly inspired by mypy [mypy]_.  For example, the
 type "sequence of integers" can be written as ``Sequence[int]``.  The
 square brackets mean that no new syntax needs to be added to the
-language.  The example here uses a custom class ``Sequence``, imported
-from a pure-Python module ``typing``.  The ``Sequence[int]``
-notation works by implementing ``__getitem__()`` in the metaclass.
+language.  The example here uses a custom type ``Sequence``, imported
+from a pure-Python module ``typing``.  The ``Sequence[int]`` notation
+works at runtime by implementing ``__getitem__()`` in the metaclass
+(but its significance is primarily to an offline type checker).
 
 The type system supports unions, generic types, and a special type
 named ``Any`` which is consistent with (i.e. assignable to and from) all
@@ -155,11 +156,11 @@ Type hints may be built-in classes (including those defined in
 standard library or third-party extension modules), abstract base
 classes, types available in the ``types`` module, and user-defined
 classes (including those defined in the standard library or
-third-party modules).  
+third-party modules).
 
-While annotations are normally the best format for type hints, 
+While annotations are normally the best format for type hints,
 there are times when it is more appropriate to represent them
-by a special comment, or in a separately distributed interface 
+by a special comment, or in a separately distributed interface
 file.  (See below for examples.)
 
 Annotations must be valid expressions that evaluate without raising
@@ -550,8 +551,8 @@ Example::
       ...
 
 A type factored by ``Union[T1, T2, ...]`` responds ``True`` to
-``issubclass`` checks for ``T1`` and any of its subclasses, ``T2`` and
-any of its subclasses, and so on.
+``issubclass`` checks for ``T1`` and any of its subtypes, ``T2`` and
+any of its subtypes, and so on.
 
 One common case of union types are *optional* types.  By default,
 ``None`` is an invalid value for any type, unless a default value of
@@ -578,8 +579,8 @@ This is equivalent to::
 The ``Any`` type
 ----------------
 
-A special kind of type is ``Any``.  Every class is a subclass of
-``Any``.  This is also true for the builtin class ``object``.
+A special kind of type is ``Any``.  Every type is a subtype of
+``Any``.  This is also true for the builtin type ``object``.
 However, to the static type checker these are completely different.
 
 When the type of a value is ``object``, the type checker will reject
@@ -1015,9 +1016,9 @@ The following types are available in the ``typing.io`` module:
 
 * IO (generic over ``AnyStr``)
 
-* BinaryIO (a simple subclass of ``IO[bytes]``)
+* BinaryIO (a simple subtype of ``IO[bytes]``)
 
-* TextIO (a simple subclass of ``IO[str]``)
+* TextIO (a simple subtype of ``IO[str]``)
 
 The following types are provided by the ``typing.re`` module:
 
