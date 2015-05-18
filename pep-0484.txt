@@ -303,7 +303,10 @@ The function ``concat`` can be called with either two ``str`` arguments
 or two ``bytes`` arguments, but not with a mix of ``str`` and ``bytes``
 arguments.
 
-Note that subtypes of types constrained by a type variable are treated
+There should be at least two constraints, if any; specifying a single
+constraint is disallowed.
+
+Subtypes of types constrained by a type variable should be treated
 as their respective explicitly listed base types in the context of the
 type variable.  Consider this example::
 
