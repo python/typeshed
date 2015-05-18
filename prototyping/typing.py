@@ -1240,7 +1240,7 @@ class Iterable(Generic[T_co], extra=collections_abc.Iterable):
     pass
 
 
-class Iterator(Iterable, extra=collections_abc.Iterator):
+class Iterator(Iterable[T_co], extra=collections_abc.Iterator):
     pass
 
 
@@ -1303,7 +1303,7 @@ class Container(Generic[T_co], extra=collections_abc.Container):
 # Callable was defined earlier.
 
 
-class AbstractSet(Sized, Iterable, Container, extra=collections_abc.Set):
+class AbstractSet(Sized, Iterable[T_co], Container[T_co], extra=collections_abc.Set):
     pass
 
 
@@ -1320,7 +1320,7 @@ class MutableMapping(Mapping[KT, VT], extra=collections_abc.MutableMapping):
     pass
 
 
-class Sequence(Sized, Iterable, Container, extra=collections_abc.Sequence):
+class Sequence(Sized, Iterable[T_co], Container[T_co], extra=collections_abc.Sequence):
     pass
 
 
@@ -1347,7 +1347,7 @@ class _ListMeta(GenericMeta):
         return True
 
 
-class List(list, MutableSequence, metaclass=_ListMeta):
+class List(list, MutableSequence[T], metaclass=_ListMeta):
 
     def __new__(self, *args, **kwds):
         raise TypeError("Type List cannot be instantiated; use list() instead")
@@ -1365,7 +1365,7 @@ class _SetMeta(GenericMeta):
         return True
 
 
-class Set(set, MutableSet, metaclass=_SetMeta):
+class Set(set, MutableSet[T], metaclass=_SetMeta):
 
     def __new__(self, *args, **kwds):
         raise TypeError("Type Set cannot be instantiated; use set() instead")
@@ -1390,28 +1390,28 @@ class _FrozenSetMeta(_SetMeta):
         return super().__instancecheck__(obj)
 
 
-class FrozenSet(frozenset, AbstractSet, metaclass=_FrozenSetMeta):
+class FrozenSet(frozenset, AbstractSet[T_co], metaclass=_FrozenSetMeta):
 
     def __new__(self, *args, **kwds):
         raise TypeError("Type FrozenSet cannot be instantiated; "
                         "use frozenset() instead")
 
 
-class MappingView(Sized, Iterable, extra=collections_abc.MappingView):
+class MappingView(Sized, Iterable[T_co], extra=collections_abc.MappingView):
     pass
 
 
-class KeysView(MappingView, Set[KT], extra=collections_abc.KeysView):
+class KeysView(MappingView[KT_co], AbstractSet[KT_co], extra=collections_abc.KeysView):
     pass
 
 
-# TODO: Enable Set[Tuple[KT, VT]] instead of Generic[KT, VT].
+# TODO: Enable Set[Tuple[KT_co, VT_co]] instead of Generic[KT_co, VT_co].
 class ItemsView(MappingView, Generic[KT_co, VT_co],
                 extra=collections_abc.ItemsView):
     pass
 
 
-class ValuesView(MappingView, extra=collections_abc.ValuesView):
+class ValuesView(MappingView[VT_co], extra=collections_abc.ValuesView):
     pass
 
 
@@ -1428,7 +1428,7 @@ class _DictMeta(GenericMeta):
         return True
 
 
-class Dict(dict, MutableMapping, metaclass=_DictMeta):
+class Dict(dict, MutableMapping[KT, VT], metaclass=_DictMeta):
 
     def __new__(self, *args, **kwds):
         raise TypeError("Type Dict cannot be instantiated; use dict() instead")
