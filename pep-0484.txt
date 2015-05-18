@@ -168,9 +168,9 @@ Annotations must be valid expressions that evaluate without raising
 exceptions at the time the function is defined (but see below for
 forward references).
 
-The needs of static analysis require that annotations must be simple
-enough to be interpreted by static analysis tools.  In particular,
-dynamically computed types are not acceptable.  (This is an
+Annotations should be kept simple or static analysis tools may not be
+able to interpret the values. For example, dynamically computed types
+are unlikely to be understood.  (This is an
 intentionally somewhat vague requirement, specific inclusions and
 exclusions may be added to future versions of this PEP as warranted by
 the discussion.)
@@ -697,7 +697,7 @@ Casts
 
 Occasionally the type checker may need a different kind of hint: the
 programmer may know that an expression is of a more constrained type
-than the type checker infers.  For example::
+than a type checker may be able to infer.  For example::
 
   from typing import List, cast
 
@@ -706,7 +706,8 @@ than the type checker infers.  For example::
       # We only get here if there's at least one string in a
       return cast(str, a[index])
 
-The type checker infers the type ``object`` for ``a[index]``, but we
+Some type checkers may not be able to infers that the type of
+``a[index]`` is ``str`` and only infer ``object`` or ``Any``", but we
 know that (if the code gets to that point) it must be a string.  The
 ``cast(t, x)`` call tells the type checker that we are confident that
 the type of ``x`` is ``t``.  At runtime a cast always returns the
@@ -818,7 +819,8 @@ is why previous attempts were abandoned in favor of
 "Alternative approaches".)  In the future we may come up with a
 satisfactory multiple dispatch design, but we don't want such a design
 to be constrained by the overloading syntax defined for type hints in
-stub files.
+stub files.  In the meantime, using the ``@overload`` decorator or
+calling ``overload()`` directly raises ``RuntimeError``.
 
 Storing and distributing stub files
 -----------------------------------
@@ -850,8 +852,8 @@ Note that if the user decides to use the "latest" available source
 package, using the "latest" stub files should generally also work if
 they're updated often.
 
-Third-party stub packages can use any location for stub storage.  The
-type checker will search for them using PYTHONPATH.  A default fallback
+Third-party stub packages can use any location for stub storage.  Type
+checkers should search for them using PYTHONPATH.  A default fallback
 directory that is always checked is ``shared/typehints/python3.5/`` (or
 3.6, etc.).  Since there can only be one package installed for a given
 Python version per environment, no additional versioning is performed
