@@ -1,5 +1,4 @@
 # TODO:
-# - https://github.com/ambv/typehinting/issues/62
 # - Generic[T, T] is invalid
 # - Look for TODO below
 
@@ -11,7 +10,6 @@ import abc
 from abc import abstractmethod, abstractproperty
 import collections
 import functools
-import inspect
 import re as stdlib_re  # Avoid confusion with the re we export.
 import sys
 import types
@@ -805,6 +803,7 @@ class CallableMeta(TypingMeta):
         assert self.__args__ is not None
         assert self.__result__ is not None
         my_args, my_result = self.__args__, self.__result__
+        import inspect  # TODO: Avoid this import.
         # Would it be better to use Signature objects?
         try:
             (args, varargs, varkw, defaults, kwonlyargs, kwonlydefaults,
@@ -1139,7 +1138,7 @@ def no_type_check(arg):
     """
     if isinstance(arg, type):
         for obj in arg.__dict__.values():
-            if inspect.isfunction(obj):
+            if isinstance(obj, types.FunctionType):
                 obj.__no_type_check__ = True
     else:
         arg.__no_type_check__ = True
