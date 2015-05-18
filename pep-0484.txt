@@ -660,6 +660,22 @@ and this is also the suggested default when the program is being
 type-checked.
 
 
+Default argument values
+-----------------------
+
+In stubs it may be useful to declare an argument as having a default
+without specifying the actual default value.  For example::
+
+  def foo(x: AnyStr, y: AnyStr = ...) -> AnyStr: ...
+
+What should the default value look like?  Any of the options ``""``,
+``b""`` or ``None`` fails to satisfy the type constraint (actually,
+``None`` will *modify* the type to become ``Optional[AnyStr]``).
+
+In such cases the default value may be specified as a literal
+ellipsis, i.e. the above example is literally what you would write.
+
+
 Compatibility with other uses of function annotations
 =====================================================
 
