@@ -678,6 +678,14 @@ Examples of type comments on ``with`` and ``for`` statements::
       # Here x and y are floats
       ...
 
+In stubs it may be useful to declare the existence of a variable
+without giving it an initial value.  This can be done using a literal
+ellipsis::
+
+  from typing import IO
+
+  stream = ...  # type: IO[str]
+
 The ``# type: ignore`` comment should be put on the line that the
 error refers to::
 
