@@ -466,6 +466,8 @@ for the type variable must be a subclass of the boundary type.  A
 common example is the definition of a Comparable type that works well
 enough to catch the most common errors::
 
+  from typing import TypeVar
+
   class Comparable(metaclass=ABCMeta):
       @abstractmethod
       def __lt__(self, other: Any) -> bool: ...
@@ -493,6 +495,83 @@ An upper bound cannot be combined with type constraints (as in used
 inferred type to be _exactly_ one of the constraint types, while an
 upper bound just requires that the actual type is a subclass of the
 boundary type.
+
+
+Covariance and contravariance
+-----------------------------
+
+Consider a class ``Employee`` with a subclass ``Manager``.  Now
+suppose we have a function with an argument annotated with
+``List[Employee]``.  Should we be allowed to call this function with a
+variable of type ``List[Manager]`` as its argument?  Many people would
+answer "yes, of course" without even considering the consequences.
+But unless we know more about the function, a type checker should
+reject such a call: the function might append an ``Employee`` instance
+to the list, which would violate the variable's type in the caller.
+
+It turns out such an argument acts _contravariantly_, whereas the
+intuitive answer (which is correct in case the function doesn't mutate
+its argument!) requires the argument to act _covariantly_.  A longer
+introduction to these concepts can be found on Wikipedia
+[wiki-variance]_; here we just show how to control a type checker's
+behavior.
+
+By default type variables are considered _invariant_, which means that
+arguments for arguments annotated with types like ``List[Employee]``
+must exactly match the type annotation -- no subclasses or
+superclasses of the type parameter (in this example ``Employee``) are
+allowed.
+
+To facilitate the declaration of container types where covariant type
+checking is acceptable, a type variable can be declared using
+``covariant=True``.  For the (rare) case where contravariant behavior
+is desirable, pass ``contravariant=True``.  At most one of these may
+be passed.
+
+A typical example involves defining an immutable container class::
+
+  from typing import TypeVar
+
+  T = TypeVar('T', covariant=True)
+
+  class ImmutableList(Generic[T]):
+      def append(self, T): ...
+      ...
+
+  class Employee: ...
+
+  class Manager(Employee): ...
+
+  def dump_employees(emps: ImmutableList[Employee]) -> None: ...
+
+  mgrs = ...  # type: ImmutableList[Mananger]
+  mgrs.append(Manager())
+
+  dump_employees(mgrs)  # OK
+
+The immutable collection classes in ``typing`` are all defined using a
+covariant type variable (e.g. ``Mapping`` and ``Sequence``).  The
+mutable collection classes (e.g. ``MutableMapping`` and
+``MutableSequence``) are defined using regular invariant type
+variables.  The one example of a contravariant type variable is the
+``Generator`` type, which is contravariant in the ``send()`` argument
+type (see below).
+
+Note: variance affects type parameters for generic types -- it does
+not affect regular parameters.  For example, the following example is
+fine::
+
+  from typing import TypeVar
+
+  class Employee: ...
+
+  class Manager(Employee): ...
+
+  E = TypeVar('E', bound=Employee)  # Invariant
+
+  def dump_employee(e: E) -> None: ...
+
+  dump_employee(Manager())  # OK
 
 
 The numeric tower
@@ -1039,7 +1118,10 @@ the abstract collection types defined below, e.g.  ``Mapping``,
 The ``typing`` module defines the ``Generator`` type for return values
 of generator functions. It is a subtype of ``Iterable`` and it has
 additional type variables for the type accepted by the ``send()``
-method and the return type of the generator:
+method (which is contravariant -- a generator that accepts sending it
+``Employee`` instance is valid in a context where a generator is
+required that accepts sending it ``Manager`` instances) and the return
+type of the generator:
 
 * Generator, used as ``Generator[yield_type, send_type, return_type]``
 
@@ -1437,6 +1519,12 @@ References
 .. [mypy]
    http://mypy-lang.org
 
+.. [gvr-artima]
+   http://www.artima.com/weblogs/viewpost.jsp?thread=85551
+
+.. [wiki-variance]
+   http://en.wikipedia.org/wiki/Covariance_and_contravariance_%28computer_science%29
+
 .. [typeshed]
    https://github.com/JukkaL/typeshed/
 
@@ -1445,9 +1533,6 @@ References
 
 .. [pylint]
    http://www.pylint.org
-
-.. [gvr-artima]
-   http://www.artima.com/weblogs/viewpost.jsp?thread=85551
 
 .. [roberge]
    http://aroberge.blogspot.com/2015/01/type-hinting-in-python-focus-on.html
