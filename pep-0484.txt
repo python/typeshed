@@ -65,15 +65,16 @@ compared and contrasted are described in PEP 482.
 Rationale and Goals
 ===================
 
-PEP 3107 added support for arbitrary annotations on parts of a function
-definition.  Although no meaning was assigned to annotations then, there
-has always been an implicit goal to use them for type hinting, which is
-listed as the first possible use case in said PEP.
+PEP 3107 added support for arbitrary annotations on parts of a
+function definition.  Although no meaning was assigned to annotations
+then, there has always been an implicit goal to use them for type
+hinting [gvr-artima]_, which is listed as the first possible use case
+in said PEP.
 
-This PEP aims to provide a standard syntax for type annotations, opening
-up Python code to easier static analysis and refactoring, potential
-runtime type checking, and performance optimizations utilizing type
-information.
+This PEP aims to provide a standard syntax for type annotations,
+opening up Python code to easier static analysis and refactoring,
+potential runtime type checking, and (perhaps, in some contexts)
+code generation utilizing type information.
 
 Of these goals, static analysis is the most important.  This includes
 support for off-line type checkers such as mypy, as well as providing
@@ -90,9 +91,9 @@ implement specific runtime type checking functionality, for example
 using decorators or metaclasses.  Using type hints for performance
 optimizations is left as an exercise for the reader.
 
-It should also be emphasized that Python will remain a dynamically
+It should also be emphasized that **Python will remain a dynamically
 typed language, and the authors have no desire to ever make type hints
-mandatory, even by convention.
+mandatory, even by convention.**
 
 
 What is checked?
