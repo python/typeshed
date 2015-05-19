@@ -1116,6 +1116,14 @@ class CollectionsAbcTests(TestCase):
         with self.assertRaises(TypeError):
             typing.List[int]()
 
+    def test_list_subclass_instantiation(self):
+
+        class MyList(typing.List[int]):
+            pass
+
+        a = MyList()
+        assert isinstance(a, MyList)
+
     def test_no_dict_instantiation(self):
         with self.assertRaises(TypeError):
             typing.Dict()
@@ -1123,6 +1131,14 @@ class CollectionsAbcTests(TestCase):
             typing.Dict[KT, VT]()
         with self.assertRaises(TypeError):
             typing.Dict[str, int]()
+
+    def test_dict_subclass_instantiation(self):
+
+        class MyDict(typing.Dict[str, int]):
+            pass
+
+        d = MyDict()
+        assert isinstance(d, MyDict)
 
     def test_no_set_instantiation(self):
         with self.assertRaises(TypeError):
@@ -1132,6 +1148,14 @@ class CollectionsAbcTests(TestCase):
         with self.assertRaises(TypeError):
             typing.Set[int]()
 
+    def test_set_subclass_instantiation(self):
+
+        class MySet(typing.Set[int]):
+            pass
+
+        d = MySet()
+        assert isinstance(d, MySet)
+
     def test_no_frozenset_instantiation(self):
         with self.assertRaises(TypeError):
             typing.FrozenSet()
@@ -1139,6 +1163,14 @@ class CollectionsAbcTests(TestCase):
             typing.FrozenSet[T]()
         with self.assertRaises(TypeError):
             typing.FrozenSet[int]()
+
+    def test_frozenset_subclass_instantiation(self):
+
+        class MyFrozenSet(typing.FrozenSet[int]):
+            pass
+
+        d = MyFrozenSet()
+        assert isinstance(d, MyFrozenSet)
 
     def test_no_tuple_instantiation(self):
         with self.assertRaises(TypeError):

@@ -882,6 +882,21 @@ class Callable(Final, metaclass=CallableMeta, _root=True):
     """
 
 
+def _geqv(a, b):
+    """Return whether two generic classes are equivalent.
+
+    The intention is to consider generic class X and any of its
+    parameterized forms (X[T], X[int], etc.)  as equivalent.
+
+    However, X is not equivalent to a subclass of X.
+
+    The relation is reflexive, symmetric and transitive.
+    """
+    # TODO: Don't depend on name/module being equal.
+    assert isinstance(a, GenericMeta) and isinstance(b, GenericMeta)
+    return a.__name__ == b.__name__ and a.__module__ == b.__module__
+
+
 class GenericMeta(TypingMeta, abc.ABCMeta):
     """Metaclass for generic types."""
 
@@ -950,7 +965,7 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
     def __eq__(self, other):
         if not isinstance(other, GenericMeta):
             return NotImplemented
-        return (self.__name__ == other.__name__ and
+        return (_geqv(self, other) and
                 self.__parameters__ == other.__parameters__)
 
     def __hash__(self):
@@ -1363,8 +1378,11 @@ class _ListMeta(GenericMeta):
 
 class List(list, MutableSequence[T], metaclass=_ListMeta):
 
-    def __new__(self, *args, **kwds):
-        raise TypeError("Type List cannot be instantiated; use list() instead")
+    def __new__(cls, *args, **kwds):
+        if _geqv(cls, List):
+            raise TypeError("Type List cannot be instantiated; "
+                            "use list() instead")
+        return list.__new__(cls, *args, **kwds)
 
 
 class _SetMeta(GenericMeta):
@@ -1381,8 +1399,11 @@ class _SetMeta(GenericMeta):
 
 class Set(set, MutableSet[T], metaclass=_SetMeta):
 
-    def __new__(self, *args, **kwds):
-        raise TypeError("Type Set cannot be instantiated; use set() instead")
+    def __new__(cls, *args, **kwds):
+        if _geqv(cls, Set):
+            raise TypeError("Type Set cannot be instantiated; "
+                            "use set() instead")
+        return set.__new__(cls, *args, **kwds)
 
 
 class _FrozenSetMeta(_SetMeta):
@@ -1406,9 +1427,11 @@ class _FrozenSetMeta(_SetMeta):
 
 class FrozenSet(frozenset, AbstractSet[T_co], metaclass=_FrozenSetMeta):
 
-    def __new__(self, *args, **kwds):
-        raise TypeError("Type FrozenSet cannot be instantiated; "
-                        "use frozenset() instead")
+    def __new__(cls, *args, **kwds):
+        if _geqv(cls, FrozenSet):
+            raise TypeError("Type FrozenSet cannot be instantiated; "
+                            "use frozenset() instead")
+        return frozenset.__new__(cls, *args, **kwds)
 
 
 class MappingView(Sized, Iterable[T_co], extra=collections_abc.MappingView):
@@ -1445,8 +1468,11 @@ class _DictMeta(GenericMeta):
 
 class Dict(dict, MutableMapping[KT, VT], metaclass=_DictMeta):
 
-    def __new__(self, *args, **kwds):
-        raise TypeError("Type Dict cannot be instantiated; use dict() instead")
+    def __new__(cls, *args, **kwds):
+        if _geqv(cls, Dict):
+            raise TypeError("Type Dict cannot be instantiated; "
+                            "use dict() instead")
+        return dict.__new__(cls, *args, **kwds)
 
 
 # Determine what base class to use for Generator.
@@ -1461,8 +1487,11 @@ else:
 class Generator(Iterator[T_co], Generic[T_co, T_contra, V_co],
                 extra=_G_base):
 
-    def __new__(self, *args, **kwds):
-        raise TypeError("Type Generator cannot be instantiated")
+    def __new__(cls, *args, **kwds):
+        if _geqv(cls, Generator):
+            raise TypeError("Type Generator cannot be instantiated; "
+                            "create a subclass instead")
+        return super().__new__(cls, *args, **kwds)
 
 
 def NamedTuple(typename, fields):
