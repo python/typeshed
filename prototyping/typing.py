@@ -383,7 +383,7 @@ class TypeVar(TypingMeta, metaclass=TypingMeta, _root=True):
         self.__covariant__ = bool(covariant)
         self.__contravariant__ = bool(contravariant)
         if constraints and bound is not None:
-            raise TypeError("Constraints cannot be combined with bound=<type>.")
+            raise TypeError("Constraints cannot be combined with bound=...")
         if constraints and len(constraints) == 1:
             raise TypeError("A single constraint is not allowed")
         msg = "TypeVar(name, constraint, ...): constraints must be types."
@@ -975,7 +975,7 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
             for new, old in zip(params, self.__parameters__):
                 if isinstance(old, TypeVar):
                     if not old.__constraints__:
-                        # Substituting for an unconstrained TypeVar is always OK.
+                        # Substituting for an unconstrained TypeVar is OK.
                         continue
                     if issubclass(new, Union[old.__constraints__]):
                         # Specializing a constrained type variable is OK.
@@ -1315,7 +1315,8 @@ class Container(Generic[T_co], extra=collections_abc.Container):
 # Callable was defined earlier.
 
 
-class AbstractSet(Sized, Iterable[T_co], Container[T_co], extra=collections_abc.Set):
+class AbstractSet(Sized, Iterable[T_co], Container[T_co],
+                  extra=collections_abc.Set):
     pass
 
 
@@ -1332,7 +1333,8 @@ class MutableMapping(Mapping[KT, VT], extra=collections_abc.MutableMapping):
     pass
 
 
-class Sequence(Sized, Iterable[T_co], Container[T_co], extra=collections_abc.Sequence):
+class Sequence(Sized, Iterable[T_co], Container[T_co],
+               extra=collections_abc.Sequence):
     pass
 
 
@@ -1413,7 +1415,8 @@ class MappingView(Sized, Iterable[T_co], extra=collections_abc.MappingView):
     pass
 
 
-class KeysView(MappingView[KT_co], AbstractSet[KT_co], extra=collections_abc.KeysView):
+class KeysView(MappingView[KT_co], AbstractSet[KT_co],
+               extra=collections_abc.KeysView):
     pass
 
 
