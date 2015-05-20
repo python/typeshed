@@ -821,8 +821,17 @@ module to enable platform-specific type definitions and such::
 
 It is up to the type checker implementation to define their values, as
 long as ``PY2 == not PY3`` and ``WINDOWS == not POSIX``.  When the
-program is being executed these always reflect the current platform,
-and this is also the suggested default when the program is being
+program is being executed these reflect the current platform, as
+follows::
+
+  import sys
+
+  PY2 = sys.version_info[0] == 2
+  PY3 = sys.version_info[0] >= 3
+  WINDOWS = sys.platform == 'win32'
+  POSIX = not WINDOWS 
+
+This is also the suggested default when the program is being
 type-checked.
 
 
