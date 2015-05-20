@@ -397,6 +397,15 @@ You can use multiple inheritance with ``Generic``::
   class LinkedList(Sized, Generic[T]):
       ...
 
+Subclassing a generic class without specifying type parameters assumes
+``Any`` for each position.  In the following example, ``MyIterable``
+is not generic but implicitly inherits from ``Iterable[Any]``:
+
+  from typing import Iterable
+
+  class MyIterable(Iterable):  # Same as Iterable[Any]
+      ...
+
 
 Arbitrary generic types as base classes
 ---------------------------------------
