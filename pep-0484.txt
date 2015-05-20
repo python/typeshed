@@ -96,41 +96,38 @@ typed language, and the authors have no desire to ever make type hints
 mandatory, even by convention.**
 
 
-What is checked?
-================
+The meaning of annotations
+==========================
 
-Any function (or method -- for brevity we won't be repeating this)
-with at least one argument or return annotation is checked, unless
-type checking is disabled by the ``@no_type_check`` decorator or a
-``# type: ignore`` comment (see below).
+Any function without annotations should be treated as having the most
+general type possible, or ignored, by any type checker.  Functions
+with the ``@no_type_check`` decorator or with a ``# type: ignore``
+comment should be treated as having no annotations.
 
-It is recommended but not required that checked function have
-annotations for all its arguments and its return type.  For a checked
+It is recommended but not required that checked functions have
+annotations for all arguments and the return type.  For a checked
 function, the default annotation for arguments and for the return type
 is ``Any``.  An exception is that the first argument of instance and
-class methods should not be annotated; it is assumed to have the type
-of the containing class for instance method, and ``type`` for class
-methods.  Note that the return type of ``__init__`` ought to be
-annotated with ``-> None`` (there is no exception for ``__init__``).
+class methods does not need to be annotated; it is assumed to have the
+type of the containing class for instance methods, and ``type`` for
+class methods.
 
-The body of a checked function is checked for consistency with the
-given annotations.  The annotations are also used to check correctness
-of calls appearing in other checked functions.
+(Note that the return type of ``__init__`` ought to be annotated with
+``-> None``.  The reason for this is subtle.  If ``__init__`` assumed
+a return annotation of ``-> None``, would that mean that an
+argument-less, un-annotated ``__init__`` method should still be
+type-checked?  Rather than leaving this ambiguous or introducing an
+exception to the exception, we simply say that ``__init__`` ought to
+have a return annotation; the default behavior is thus the same as for
+other methods.)
 
-Functions without any annotations (or whose checking is disabled) are
-assumed to have type ``Any`` when they are referenced in checked
-functions, and this should completely silence complaints from the
-checker regarding those references (although a checker may still
-request that a type be specified using a cast or a ``# type:`` comment
-if a more specific type than ``Any`` is needed for analysis of
-subsequent code).
+A type checker is expected to check the body of a checked function for
+consistency with the given annotations.  The annotations may also used
+to check correctness of calls appearing in other checked functions.
 
-A type checker should understand decorators; this may require
-annotations on decorator definitions.  In particular, a type checker
-should understand the built-in decorators ``@property``,
-``@staticmethod`` and ``@classmethod``.  The first argument of a class
-method should not be annotated; it is assumed to be a subclass of the
-defining class.
+Type checkers are expected to attempt to infer as much information as
+necessary.  The minimum requirement is to handle the builtin
+decorators ``@property``, ``@staticmethod`` and ``@classmethod``.
 
 
 Type Definition Syntax
