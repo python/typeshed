@@ -473,6 +473,17 @@ Now ``LinkedList[int]`` is a valid type. Note that we can use ``T``
 multiple times in the base class list, as long as we don't use the
 same type variable ``T`` multiple times within ``Generic[...]``.
 
+Also consider the following example::
+
+  from typing import TypeVar, Mapping
+
+  T = TypeVar('T')
+
+  class MyDict(Mapping[str, T]):
+      ...
+
+In this case MyDict has a single parameter, T.
+
 
 Abstract generic types
 ----------------------
