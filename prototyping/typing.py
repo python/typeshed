@@ -882,6 +882,13 @@ class Callable(Final, metaclass=CallableMeta, _root=True):
     """
 
 
+def _gorg(a):
+    """Return the farthest origin of a generic class."""
+    while a.__origin__ is not None:
+        a = a.__origin__
+    return a
+
+
 def _geqv(a, b):
     """Return whether two generic classes are equivalent.
 
@@ -892,9 +899,9 @@ def _geqv(a, b):
 
     The relation is reflexive, symmetric and transitive.
     """
-    # TODO: Don't depend on name/module being equal.
     assert isinstance(a, GenericMeta) and isinstance(b, GenericMeta)
-    return a.__name__ == b.__name__ and a.__module__ == b.__module__
+    # Reduce each to its origin.
+    return _gorg(a) is _gorg(b)
 
 
 class GenericMeta(TypingMeta, abc.ABCMeta):
@@ -1081,6 +1088,16 @@ class Generic(metaclass=GenericMeta):
       def lookup_name(mapping: Mapping[X, Y], key: X, default: Y) -> Y:
           # Same body as above.
     """
+
+    def __new__(cls, *args, **kwds):
+        next_in_mro = None
+        for i, c in enumerate(cls.__mro__):
+            if _gorg(c) is Generic:
+                next_in_mro = cls.__mro__[i+1]
+                break
+        else:
+            next_in_mro = object
+        return next_in_mro.__new__(_gorg(cls))
 
 
 def cast(typ, val):

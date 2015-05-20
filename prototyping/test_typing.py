@@ -784,6 +784,25 @@ class GenericTests(TestCase):
         a.append(42)
         assert a.get() == [1, 42]
 
+    def test_type_erasure(self):
+        T = TypeVar('T')
+
+        class Node(Generic[T]):
+            def __init__(self, label: T, left: 'Node[T]' = None, right: 'Node[T]' = None):
+                self.label = label  # type: T
+                self.left = left  # type: Optional[Node[T]]
+                self.right = right  # type: Optional[Node[T]]
+
+        def foo(x: T):
+            a = Node(x)
+            b = Node[T](x)
+            c = Node[Any](x)
+            assert type(a) is Node
+            assert type(b) is Node
+            assert type(c) is Node
+
+        foo(42)
+
 
 class VarianceTests(TestCase):
 
