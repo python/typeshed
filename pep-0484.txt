@@ -1086,8 +1086,32 @@ The ``typing`` Module
 
 To open the usage of static type checking to Python 3.5 as well as older
 versions, a uniform namespace is required.  For this purpose, a new
-module in the standard library is introduced called ``typing``.  It
-holds a set of classes representing builtin types with generics, namely:
+module in the standard library is introduced called ``typing``.
+
+It defines the fundamental building blocks for constructing types
+(e.g. ``Any``), types representing generic variants of builtin
+collections (e.g. ``List``), types representing generic
+collection ABCs (e.g. ``Sequence``), and a small collection of
+convenience definitions.
+
+Fundamental building blocks:
+
+* Any, used as ``def get(key: str) -> Any: ...``
+
+* Union, used as ``Union[Type1, Type2, Type3]``
+
+* Callable, used as ``Callable[[Arg1Type, Arg2Type], ReturnType]``
+
+* Tuple, used by listing the element types, for example
+  ``Tuple[int, int, str]``.
+  Arbitrary-length homogeneous tuples can be expressed
+  using one type and ellipsis, for example ``Tuple[int, ...]``.
+  (The ``...`` here are part of the syntax, a literal ellipsis.)
+
+* TypeVar, used as ``X = TypeVar('X', Type1, Type2, Type3)`` or simply
+  ``Y = TypeVar('Y')`` (see above for more details)
+
+Generic variants of builtin collections:
 
 * Dict, used as ``Dict[key_type, value_type]``
 
@@ -1098,55 +1122,27 @@ holds a set of classes representing builtin types with generics, namely:
 
 * FrozenSet, used as ``FrozenSet[element_type]``
 
-* Tuple, used by listing the element types, for example
-  ``Tuple[int, int, str]``.
-  Arbitrary-length homogeneous tuples can be expressed
-  using one type and ellipsis, for example ``Tuple[int, ...]``.
-  (The ``...`` here are part of the syntax.)
+Note: ``Dict``, ``List``, ``Set`` and ``FrozenSet`` are mainly useful
+for annotating return values.  For arguments, prefer the abstract
+collection types defined below, e.g.  ``Mapping``, ``Sequence`` or
+``AbstractSet``.
 
-* NamedTuple, used as
-  ``NamedTuple(type_name, [(field_name, field_type), ...])``
-  and equivalent to
-  ``collections.namedtuple(type_name, [field_name, ...])``.
-
-The generic versions of concrete collection types (``Dict``, ``List``,
-``Set``, ``FrozenSet``, and homogeneous arbitrary-length ``Tuple``)
-are mainly useful for annotating return values.  For arguments, prefer
-the abstract collection types defined below, e.g.  ``Mapping``,
-``Sequence`` or ``AbstractSet``.
-
-The ``typing`` module defines the ``Generator`` type for return values
-of generator functions. It is a subtype of ``Iterable`` and it has
-additional type variables for the type accepted by the ``send()``
-method (which is contravariant -- a generator that accepts sending it
-``Employee`` instance is valid in a context where a generator is
-required that accepts sending it ``Manager`` instances) and the return
-type of the generator:
-
-* Generator, used as ``Generator[yield_type, send_type, return_type]``
-
-It also introduces factories and helper members needed to express
-generics and union types:
-
-* Any, used as ``def get(key: str) -> Any: ...``
-
-* Union, used as ``Union[Type1, Type2, Type3]``
-
-* TypeVar, used as ``X = TypeVar('X', Type1, Type2, Type3)`` or simply
-  ``Y = TypeVar('Y')``
-
-* Callable, used as ``Callable[[Arg1Type, Arg2Type], ReturnType]``
-
-* AnyStr, defined as ``TypeVar('AnyStr', str, bytes)``
-
-All abstract base classes available in ``collections.abc`` are
-importable from the ``typing`` module, with added generics support:
+Generic variants of container ABCs (and a few non-containers):
 
 * ByteString
 
-* Callable (see above)
+* Callable (see above, listed here for completeness)
 
 * Container
+
+* Generator, used as ``Generator[yield_type, send_type,
+  return_type]``.  This represents the return value of generator
+  functions.  It is a subtype of ``Iterable`` and it has additional
+  type variables for the type accepted by the ``send()`` method (which
+  is contravariant -- a generator that accepts sending it ``Employee``
+  instance is valid in a context where a generator is required that
+  accepts sending it ``Manager`` instances) and the return type of the
+  generator.
 
 * Hashable (not generic, but present for completeness)
 
@@ -1195,7 +1191,7 @@ A few one-off types are defined that test for single special methods
 
 * SupportsBytes, to test for ``__bytes__``
 
-The library includes literals for platform-specific type hinting:
+Constants for platform-specific type hinting:
 
 * PY2
 
@@ -1205,25 +1201,34 @@ The library includes literals for platform-specific type hinting:
 
 * POSIX, equivalent to ``not WINDOWS``
 
-The following conveniece functions and decorators are exported:
+Convenience definitions:
 
-* cast, described earlier
+* AnyStr, defined as ``TypeVar('AnyStr', str, bytes)``
 
-* no_type_check, a decorator to disable type checking per class or
+* NamedTuple, used as
+  ``NamedTuple(type_name, [(field_name, field_type), ...])``
+  and equivalent to
+  ``collections.namedtuple(type_name, [field_name, ...])``.
+  This is useful to declare the types of the fields of a a named tuple
+  type.
+
+* cast(), described earlier
+
+* @no_type_check, a decorator to disable type checking per class or
   function (see below)
 
-* no_type_check_decorator, a decorator to create your own decorators
+* @no_type_check_decorator, a decorator to create your own decorators
   with the same meaning as ``@no_type_check`` (see below)
 
-* overload, described earlier
+* @overload, described earlier
 
-* get_type_hints, a utility function to retrieve the type hints from a
+* get_type_hints(), a utility function to retrieve the type hints from a
   function or method.  Given a function or method object, it returns
   a dict with the same format as ``__annotations__``, but evaluating
   forward references (which are given as string literals) as expressions
   in the context of the original function or method definition.
 
-The following types are available in the ``typing.io`` module:
+Types available in the ``typing.io`` submodule:
 
 * IO (generic over ``AnyStr``)
 
@@ -1231,14 +1236,10 @@ The following types are available in the ``typing.io`` module:
 
 * TextIO (a simple subtype of ``IO[str]``)
 
-The following types are provided by the ``typing.re`` module:
+Types available in the ``typing.re`` submodule:
 
 * Match and Pattern, types of ``re.match()`` and ``re.compile()``
   results (generic over ``AnyStr``)
-
-As a convenience measure, types from ``typing.io`` and ``typing.re`` are
-also available in ``typing`` (quoting Guido, "There's a reason those
-modules have two-letter names.").
 
 
 Rejected Alternatives
