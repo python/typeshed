@@ -685,7 +685,7 @@ To address this, we write::
           self.right = right
 
 The string literal should contain a valid Python expression (i.e.,
-``compile(lit, '', 'expr')`` should be a valid code object) and it
+``compile(lit, '', eval)`` should be a valid code object) and it
 should evaluate without errors once the module has been fully loaded.
 The local and global namespace in which it is evaluated should be the
 same namespaces in which default arguments to the same function would
