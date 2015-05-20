@@ -5,9 +5,9 @@
 
 from typing import List, Tuple, Dict, Undefined, GenericType
 
-def asctime(*args, **kwargs) -> unicode: pass
+def asctime(*args, **kwargs) -> unicode: ...
 
-def clock() -> float: pass
+def clock() -> float: ...
 
 def clock_getres(a: int) -> float:
     raise IOError()
@@ -18,7 +18,7 @@ def clock_gettime(a: int) -> float:
 def clock_settime(a: int, b) -> None:
     raise IOError()
 
-def ctime(*args, **kwargs) -> unicode: pass
+def ctime(*args, **kwargs) -> unicode: ...
 
 def get_clock_info(a: str) -> object:
     raise ValueError()
@@ -26,16 +26,16 @@ def get_clock_info(a: str) -> object:
 def gmtime(*args, **kwargs) -> tuple:
     raise OSError()
 
-def localtime(*args, **kwargs) -> tuple: pass
+def localtime(*args, **kwargs) -> tuple: ...
 
 def mktime(*args, **kwargs) -> float:
     raise OverflowError()
 
-def monotonic() -> float: pass
+def monotonic() -> float: ...
 
-def perf_counter() -> float: pass
+def perf_counter() -> float: ...
 
-def process_time() -> float: pass
+def process_time() -> float: ...
 
 def sleep(a: float) -> None:
     raise ValueError()
@@ -43,8 +43,8 @@ def sleep(a: float) -> None:
 def strftime(a: str, *args, **kwargs) -> unicode:
     raise MemoryError()
 
-def strptime(*args, **kwargs) -> object: pass
+def strptime(*args, **kwargs) -> object: ...
 
-def time() -> float: pass
+def time() -> float: ...
 
-def tzset() -> None: pass
+def tzset() -> None: ...

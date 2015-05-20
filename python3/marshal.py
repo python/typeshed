@@ -5,11 +5,11 @@
 
 from typing import List, Tuple, Dict, Undefined, GenericType
 
-def dump(a, b, *args, **kwargs) -> object: pass
+def dump(a, b, *args, **kwargs) -> object: ...
 
-def dumps(a, *args, **kwargs) -> object: pass
+def dumps(a, *args, **kwargs) -> object: ...
 
 def load(*args, **kwargs) -> object:
     raise TypeError()
 
-def loads(a) -> object: pass
+def loads(a) -> object: ...

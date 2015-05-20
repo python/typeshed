@@ -6,17 +6,17 @@
 from typing import List, Tuple, Dict, Undefined, GenericType
 
 class array(object):
-    def __copy__() -> object: pass
-    def __deepcopy__(*args, **kwargs) -> object: pass
+    def __copy__() -> object: ...
+    def __deepcopy__(*args, **kwargs) -> object: ...
     def __reduce__() -> tuple:
         raise AttributeError()
-    def __sizeof__() -> long: pass
-    def append(*args, **kwargs) -> None: pass
-    def buffer_info() -> tuple: pass
+    def __sizeof__() -> long: ...
+    def append(*args, **kwargs) -> None: ...
+    def buffer_info() -> tuple: ...
     def byteswap() -> None:
         raise RuntimeError()
-    def count(*args, **kwargs) -> int: pass
-    def extend(*args, **kwargs) -> None: pass
+    def count(*args, **kwargs) -> int: ...
+    def extend(*args, **kwargs) -> None: ...
     def fromfile(a, b: int) -> None:
         raise EOFError()
         raise IOError()
@@ -33,18 +33,18 @@ class array(object):
         raise ValueError()
     def index(*args, **kwargs) -> int:
         raise ValueError()
-    def insert(a: int, b) -> None: pass
+    def insert(a: int, b) -> None: ...
     def pop(*args, **kwargs) -> object:
         raise IndexError()
     def read(*args, **kwargs) -> None:
         raise DeprecationWarning()
     def remove(*args, **kwargs) -> None:
         raise ValueError()
-    def reverse() -> None: pass
+    def reverse() -> None: ...
     def tofile(*args, **kwargs) -> None:
         raise IOError()
         raise TypeError()
-    def tolist() -> list: pass
+    def tolist() -> list: ...
     def tostring() -> str:
         raise MemoryError()
     def tounicode() -> unicode:

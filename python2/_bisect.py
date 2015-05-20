@@ -5,14 +5,14 @@
 
 from typing import List, Tuple, Dict, Undefined, GenericType
 
-def bisect(a, x, *args, **kwargs) -> int: pass
+def bisect(a, x, *args, **kwargs) -> int: ...
 
-def bisect_left(a, x, *args, **kwargs) -> int: pass
+def bisect_left(a, x, *args, **kwargs) -> int: ...
 
-def bisect_right(a, x, *args, **kwargs) -> int: pass
+def bisect_right(a, x, *args, **kwargs) -> int: ...
 
-def insort(a, x, *args, **kwargs) -> None: pass
+def insort(a, x, *args, **kwargs) -> None: ...
 
-def insort_left(a, x, *args, **kwargs) -> None: pass
+def insort_left(a, x, *args, **kwargs) -> None: ...
 
-def insort_right(a, x, *args, **kwargs) -> None: pass
+def insort_right(a, x, *args, **kwargs) -> None: ...

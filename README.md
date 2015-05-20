@@ -29,14 +29,14 @@ __name__ = Undefined(str)
 __package__ = Undefined(None)
 
 class date(object):
-    def __init__(self, year: int, month: int, day: int): pass
+    def __init__(self, year: int, month: int, day: int): ...
     @classmethod
-    def fromtimestamp(cls, timestamp: int or float) -> date: pass
+    def fromtimestamp(cls, timestamp: int or float) -> date: ...
     @classmethod
-    def fromordinal(cls, ordinal: int) -> date: pass
+    def fromordinal(cls, ordinal: int) -> date: ...
     @classmethod
-    def today(self) -> date: pass
-    def ctime(self) -> str: pass
-    def weekday(self) -> int: pass
+    def today(self) -> date: ...
+    def ctime(self) -> str: ...
+    def weekday(self) -> int: ...
 ```
 

@@ -5,86 +5,86 @@
 
 from typing import List, Tuple, Dict, Undefined, GenericType
 
-def acos(*args, **kwargs) -> float: pass
+def acos(*args, **kwargs) -> float: ...
 
-def acosh(*args, **kwargs) -> float: pass
+def acosh(*args, **kwargs) -> float: ...
 
-def asin(*args, **kwargs) -> float: pass
+def asin(*args, **kwargs) -> float: ...
 
-def asinh(*args, **kwargs) -> float: pass
+def asinh(*args, **kwargs) -> float: ...
 
-def atan(*args, **kwargs) -> float: pass
+def atan(*args, **kwargs) -> float: ...
 
-def atan2(*args, **kwargs) -> float: pass
+def atan2(*args, **kwargs) -> float: ...
 
-def atanh(*args, **kwargs) -> float: pass
+def atanh(*args, **kwargs) -> float: ...
 
-def ceil(*args, **kwargs) -> float: pass
+def ceil(*args, **kwargs) -> float: ...
 
-def copysign(*args, **kwargs) -> float: pass
+def copysign(*args, **kwargs) -> float: ...
 
-def cos(*args, **kwargs) -> float: pass
+def cos(*args, **kwargs) -> float: ...
 
-def cosh(*args, **kwargs) -> float: pass
+def cosh(*args, **kwargs) -> float: ...
 
-def degrees(*args, **kwargs) -> float: pass
+def degrees(*args, **kwargs) -> float: ...
 
-def erf(*args, **kwargs) -> float: pass
+def erf(*args, **kwargs) -> float: ...
 
-def erfc(*args, **kwargs) -> float: pass
+def erfc(*args, **kwargs) -> float: ...
 
-def exp(*args, **kwargs) -> float: pass
+def exp(*args, **kwargs) -> float: ...
 
-def expm1(*args, **kwargs) -> float: pass
+def expm1(*args, **kwargs) -> float: ...
 
-def fabs(*args, **kwargs) -> float: pass
+def fabs(*args, **kwargs) -> float: ...
 
 def factorial(*args, **kwargs) -> int:
     raise ValueError()
 
-def floor(*args, **kwargs) -> float: pass
+def floor(*args, **kwargs) -> float: ...
 
-def fmod(*args, **kwargs) -> float: pass
+def fmod(*args, **kwargs) -> float: ...
 
-def frexp(*args, **kwargs) -> tuple: pass
+def frexp(*args, **kwargs) -> tuple: ...
 
 def fsum(*args, **kwargs) -> float:
     raise OverflowError()
     raise ValueError()
 
-def gamma(*args, **kwargs) -> float: pass
+def gamma(*args, **kwargs) -> float: ...
 
-def hypot(*args, **kwargs) -> float: pass
+def hypot(*args, **kwargs) -> float: ...
 
-def isinf(*args, **kwargs) -> bool: pass
+def isinf(*args, **kwargs) -> bool: ...
 
-def isnan(*args, **kwargs) -> bool: pass
+def isnan(*args, **kwargs) -> bool: ...
 
 def ldexp(a: float, b) -> float:
     raise TypeError()
 
-def lgamma(*args, **kwargs) -> float: pass
+def lgamma(*args, **kwargs) -> float: ...
 
-def log(*args, **kwargs) -> float: pass
+def log(*args, **kwargs) -> float: ...
 
-def log10(*args, **kwargs) -> float: pass
+def log10(*args, **kwargs) -> float: ...
 
-def log1p(*args, **kwargs) -> float: pass
+def log1p(*args, **kwargs) -> float: ...
 
-def modf(*args, **kwargs) -> tuple: pass
+def modf(*args, **kwargs) -> tuple: ...
 
-def pow(*args, **kwargs) -> float: pass
+def pow(*args, **kwargs) -> float: ...
 
-def radians(*args, **kwargs) -> float: pass
+def radians(*args, **kwargs) -> float: ...
 
-def sin(*args, **kwargs) -> float: pass
+def sin(*args, **kwargs) -> float: ...
 
-def sinh(*args, **kwargs) -> float: pass
+def sinh(*args, **kwargs) -> float: ...
 
-def sqrt(*args, **kwargs) -> float: pass
+def sqrt(*args, **kwargs) -> float: ...
 
-def tan(*args, **kwargs) -> float: pass
+def tan(*args, **kwargs) -> float: ...
 
-def tanh(*args, **kwargs) -> float: pass
+def tanh(*args, **kwargs) -> float: ...
 
-def trunc(*args, **kwargs) -> object: pass
+def trunc(*args, **kwargs) -> object: ...

@@ -48,17 +48,17 @@ SIGXFSZ = Undefined(long)
 SIG_DFL = Undefined(long)
 SIG_IGN = Undefined(long)
 
-def alarm(a: int) -> long: pass
+def alarm(a: int) -> long: ...
 
 def default_int_handler(*args, **kwargs) -> object:
     raise KeyboardInterrupt()
 
-def getitimer(a: int) -> tuple: pass
+def getitimer(a: int) -> tuple: ...
 
 def getsignal(a: int) -> None:
     raise ValueError()
 
-def pause() -> None: pass
+def pause() -> None: ...
 
 def pthread_kill(a: int, b: int) -> None:
     raise OSError()
@@ -69,7 +69,7 @@ def pthread_sigmask(a: int, b) -> object:
 def set_wakeup_fd(a: int) -> long:
     raise ValueError()
 
-def setitimer(a: int, b: float, *args, **kwargs) -> tuple: pass
+def setitimer(a: int, b: float, *args, **kwargs) -> tuple: ...
 
 def siginterrupt(a: int, b: int) -> None:
     raise OSError()

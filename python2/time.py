@@ -8,27 +8,27 @@ from typing import List, Tuple, Dict, Undefined, GenericType
 def asctime(*args, **kwargs) -> str:
     raise ValueError()
 
-def clock() -> float: pass
+def clock() -> float: ...
 
 def ctime(*args, **kwargs) -> str:
     raise ValueError()
 
-def gmtime(*args, **kwargs) -> tuple: pass
+def gmtime(*args, **kwargs) -> tuple: ...
 
-def localtime(*args, **kwargs) -> tuple: pass
+def localtime(*args, **kwargs) -> tuple: ...
 
 def mktime(*args, **kwargs) -> float:
     raise OverflowError()
 
-def sleep(a: float) -> None: pass
+def sleep(a: float) -> None: ...
 
 def strftime(a: str, *args, **kwargs) -> str:
     raise MemoryError()
     raise ValueError()
 
-def strptime(*args, **kwargs) -> object: pass
+def strptime(*args, **kwargs) -> object: ...
 
 def time() -> float:
     raise IOError()
 
-def tzset() -> None: pass
+def tzset() -> None: ...

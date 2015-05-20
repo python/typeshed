@@ -5,7 +5,7 @@
 
 from typing import List, Tuple, Dict, Undefined, GenericType
 
-def coverage(a: str) -> object: pass
+def coverage(a: str) -> object: ...
 
 def logreader(a: str) -> LogReaderType:
     raise IOError()
@@ -14,21 +14,21 @@ def logreader(a: str) -> LogReaderType:
 def profiler(a: str, *args, **kwargs) -> object:
     raise IOError()
 
-def resolution() -> tuple: pass
+def resolution() -> tuple: ...
 
 
 class LogReaderType(object):
-    def close() -> None: pass
+    def close() -> None: ...
     def fileno() -> int:
         raise ValueError()
 
 class ProfilerType(object):
-    def addinfo(a: str, b: str) -> None: pass
-    def close() -> None: pass
+    def addinfo(a: str, b: str) -> None: ...
+    def close() -> None: ...
     def fileno() -> int:
         raise ValueError()
-    def runcall(*args, **kwargs) -> object: pass
+    def runcall(*args, **kwargs) -> object: ...
     def runcode(a, b, *args, **kwargs) -> object:
         raise TypeError()
-    def start() -> None: pass
-    def stop() -> None: pass
+    def start() -> None: ...
+    def stop() -> None: ...

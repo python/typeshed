@@ -5,9 +5,9 @@
 
 from typing import List, Tuple, Dict, Undefined, GenericType
 
-def _clearcache() -> None: pass
+def _clearcache() -> None: ...
 
-def calcsize(*args, **kwargs) -> int: pass
+def calcsize(*args, **kwargs) -> int: ...
 
 def pack(*args, **kwargs) -> str:
     raise TypeError()
@@ -15,15 +15,15 @@ def pack(*args, **kwargs) -> str:
 def pack_into(*args, **kwargs) -> None:
     raise TypeError()
 
-def unpack(*args, **kwargs) -> tuple: pass
+def unpack(*args, **kwargs) -> tuple: ...
 
 def unpack_from(*args, **kwargs) -> tuple:
     raise TypeError()
 
 
 class Struct(object):
-    def __sizeof__() -> long: pass
-    def pack(*args, **kwargs) -> str: pass
-    def pack_into(*args, **kwargs) -> None: pass
-    def unpack(a) -> tuple: pass
-    def unpack_from(*args, **kwargs) -> tuple: pass
+    def __sizeof__() -> long: ...
+    def pack(*args, **kwargs) -> str: ...
+    def pack_into(*args, **kwargs) -> None: ...
+    def unpack(a) -> tuple: ...
+    def unpack_from(*args, **kwargs) -> tuple: ...

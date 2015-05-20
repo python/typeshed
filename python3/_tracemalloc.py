@@ -5,22 +5,22 @@
 
 from typing import List, Tuple, Dict, Undefined, GenericType
 
-def _get_object_traceback(*args, **kwargs) -> object: pass
+def _get_object_traceback(*args, **kwargs) -> object: ...
 
 def _get_traces() -> object:
     raise MemoryError()
 
-def clear_traces() -> None: pass
+def clear_traces() -> None: ...
 
-def get_traceback_limit() -> long: pass
+def get_traceback_limit() -> long: ...
 
-def get_traced_memory() -> tuple: pass
+def get_traced_memory() -> tuple: ...
 
-def get_tracemalloc_memory() -> object: pass
+def get_tracemalloc_memory() -> object: ...
 
-def is_tracing() -> bool: pass
+def is_tracing() -> bool: ...
 
 def start(*args, **kwargs) -> None:
     raise ValueError()
 
-def stop() -> None: pass
+def stop() -> None: ...

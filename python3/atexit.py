@@ -5,14 +5,14 @@
 
 from typing import List, Tuple, Dict, Undefined, GenericType
 
-def _clear() -> None: pass
+def _clear() -> None: ...
 
-def _ncallbacks() -> long: pass
+def _ncallbacks() -> long: ...
 
-def _run_exitfuncs() -> None: pass
+def _run_exitfuncs() -> None: ...
 
 def register(*args, **kwargs) -> object:
     raise MemoryError()
     raise TypeError()
 
-def unregister(*args, **kwargs) -> None: pass
+def unregister(*args, **kwargs) -> None: ...

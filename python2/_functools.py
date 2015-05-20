@@ -10,5 +10,5 @@ def reduce(*args, **kwargs) -> object:
 
 
 class partial(object):
-    def __reduce__() -> tuple: pass
-    def __setstate__(a, b, c, d) -> None: pass
+    def __reduce__() -> tuple: ...
+    def __setstate__(a, b, c, d) -> None: ...

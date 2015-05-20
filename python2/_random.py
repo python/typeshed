@@ -9,10 +9,10 @@ class Random(object):
     def getrandbits(a: int) -> object:
         raise MemoryError()
         raise ValueError()
-    def getstate() -> tuple: pass
+    def getstate() -> tuple: ...
     def jumpahead(*args, **kwargs) -> None:
         raise TypeError()
-    def random() -> float: pass
+    def random() -> float: ...
     def seed(*args, **kwargs) -> None:
         raise MemoryError()
     def setstate(*args, **kwargs) -> None:

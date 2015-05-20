@@ -8,11 +8,11 @@ from typing import List, Tuple, Dict, Undefined, GenericType
 LockType = Undefined(lock)
 error = Undefined(object)
 
-def _count() -> int: pass
+def _count() -> int: ...
 
-def allocate() -> lock: pass
+def allocate() -> lock: ...
 
-def allocate_lock() -> lock: pass
+def allocate_lock() -> lock: ...
 
 def exit() -> object:
     raise SystemExit()
@@ -20,9 +20,9 @@ def exit() -> object:
 def exit_thread() -> object:
     raise SystemExit()
 
-def get_ident() -> int: pass
+def get_ident() -> int: ...
 
-def interrupt_main() -> None: pass
+def interrupt_main() -> None: ...
 
 def stack_size(*args, **kwargs) -> int:
     raise ValueError()
@@ -43,11 +43,11 @@ class _localdummy(object):
     pass
 
 class lock(object):
-    def __enter__(*args, **kwargs) -> bool: pass
-    def __exit__(*args, **kwargs) -> None: pass
-    def acquire(*args, **kwargs) -> bool: pass
-    def acquire_lock(*args, **kwargs) -> bool: pass
-    def locked() -> bool: pass
-    def locked_lock() -> bool: pass
-    def release() -> None: pass
-    def release_lock() -> None: pass
+    def __enter__(*args, **kwargs) -> bool: ...
+    def __exit__(*args, **kwargs) -> None: ...
+    def acquire(*args, **kwargs) -> bool: ...
+    def acquire_lock(*args, **kwargs) -> bool: ...
+    def locked() -> bool: ...
+    def locked_lock() -> bool: ...
+    def release() -> None: ...
+    def release_lock() -> None: ...

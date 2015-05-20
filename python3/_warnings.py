@@ -5,8 +5,8 @@
 
 from typing import List, Tuple, Dict, Undefined, GenericType
 
-def _filters_mutated() -> None: pass
+def _filters_mutated() -> None: ...
 
-def warn(message, *args, **kwargs) -> None: pass
+def warn(message, *args, **kwargs) -> None: ...
 
-def warn_explicit(message, category, filename: str, lineno: int, *args, **kwargs) -> None: pass
+def warn_explicit(message, category, filename: str, lineno: int, *args, **kwargs) -> None: ...

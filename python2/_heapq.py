@@ -22,6 +22,6 @@ def heapreplace(*args, **kwargs) -> object:
     raise IndexError()
     raise TypeError()
 
-def nlargest(a: int, b) -> List[object]: pass
+def nlargest(a: int, b) -> List[object]: ...
 
-def nsmallest(a: int, b) -> List[object]: pass
+def nsmallest(a: int, b) -> List[object]: ...

@@ -5,7 +5,7 @@
 
 from typing import List, Tuple, Dict, Undefined, GenericType
 
-def adler32(a, *args, **kwargs) -> int: pass
+def adler32(a, *args, **kwargs) -> int: ...
 
 def compress(a, *args, **kwargs) -> str:
     raise MemoryError()
@@ -14,7 +14,7 @@ def compressobj(*args, **kwargs) -> object:
     raise MemoryError()
     raise ValueError()
 
-def crc32(a, *args, **kwargs) -> int: pass
+def crc32(a, *args, **kwargs) -> int: ...
 
 def decompress(a, *args, **kwargs) -> str:
     raise MemoryError()
