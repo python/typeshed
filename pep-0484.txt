@@ -406,6 +406,8 @@ is not generic but implicitly inherits from ``Iterable[Any]``:
   class MyIterable(Iterable):  # Same as Iterable[Any]
       ...
 
+Generic metaclasses are not supported.
+
 
 Instantiating generic classes and type erasure
 ----------------------------------------------
