@@ -9,7 +9,7 @@ Status: Draft
 Type: Standards Track
 Content-Type: text/x-rst
 Created: 29-Sep-2014
-Post-History: 16-Jan-2015,20-Mar-2015,17-Apr-2015
+Post-History: 16-Jan-2015,20-Mar-2015,17-Apr-2015,20-May-2015
 Resolution:
 
 
@@ -412,19 +412,28 @@ Instantiating generic classes and type erasure
 
 Generic types like ``List`` or ``Sequence`` cannot be instantiated.
 However, user-defined classes derived from them can be instantiated.
-Given a generic class ``Node[T]`` there are three forms of
-instantiation:
+Suppose we write a ``Node`` class inheriting from ``Generic[T]``::
 
-* ``x = Node()`` -- the type of x is ``Node[Any]``.
+  from typing import TypeVar, Generic
 
-* ``x = Node[T]()`` -- the type of x is ``Node[T]``.
+  T = TypeVar('T')
 
-* ``x = Node[int]()`` -- the type of x is ``Node[int]``.
+  class Node(Generic[T]):
+      ...
 
-At runtime the type is not preserved, and the observable type of x is
-just ``Node``.  This is type erasure and common practice in languages
-with generics (e.g. Java, Typescript).
+Now there are three ways we can instantiate this class; the type
+inferred by a type checker will be different depending on the form we
+use:
 
+* ``x = Node()`` -- the type inferred for x is ``Node[Any]``.
+
+* ``x = Node[T]()`` -- the type inferred for x is ``Node[T]``.
+
+* ``x = Node[int]()`` -- the type inferred for x is ``Node[int]``.
+
+At runtime the type is not preserved, and the class of x is just
+``Node``.  This behavior is called "type erasure"; it is common
+practice in languages with generics (e.g. Java, Typescript).
 
 
 Arbitrary generic types as base classes
