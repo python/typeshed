@@ -158,7 +158,7 @@ third-party modules).
 
 While annotations are normally the best format for type hints,
 there are times when it is more appropriate to represent them
-by a special comment, or in a separately distributed interface
+by a special comment, or in a separately distributed stub
 file.  (See below for examples.)
 
 Annotations must be valid expressions that evaluate without raising
