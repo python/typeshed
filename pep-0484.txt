@@ -407,6 +407,26 @@ is not generic but implicitly inherits from ``Iterable[Any]``:
       ...
 
 
+Instantiating generic classes and type erasure
+----------------------------------------------
+
+Generic types like ``List`` or ``Sequence`` cannot be instantiated.
+However, user-defined classes derived from them can be instantiated.
+Given a generic class ``Node[T]`` there are three forms of
+instantiation:
+
+* ``x = Node()`` -- the type of x is ``Node[Any]``.
+
+* ``x = Node[T]()`` -- the type of x is ``Node[T]``.
+
+* ``x = Node[int]()`` -- the type of x is ``Node[int]``.
+
+At runtime the type is not preserved, and the observable type of x is
+just ``Node``.  This is type erasure and common practice in languages
+with generics (e.g. Java, Typescript).
+
+
+
 Arbitrary generic types as base classes
 ---------------------------------------
 
