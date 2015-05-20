@@ -860,6 +860,20 @@ ellipsis::
 
   stream = ...  # type: IO[str]
 
+In non-stub code, there is a similar special case:
+
+  from typing import IO
+
+  stream = None  # type: IO[str]
+
+Type checkers should not complain about this (despite the value
+``None`` not matching the given type), nor should they change the
+inferred type to ``Optional[...]`` (despite the rule that does this
+for annotated arguments with a default value of ``None``).  The
+assumption here is that other code will ensure that the variable is
+given a value of the proper type, and all uses can assume that the
+variable has the given type.
+
 The ``# type: ignore`` comment should be put on the line that the
 error refers to::
 
