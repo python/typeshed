@@ -1182,6 +1182,8 @@ Fundamental building blocks:
 * TypeVar, used as ``X = TypeVar('X', Type1, Type2, Type3)`` or simply
   ``Y = TypeVar('Y')`` (see above for more details)
 
+* Generic, used to create user-defined generic classes
+
 Generic variants of builtin collections:
 
 * Dict, used as ``Dict[key_type, value_type]``
