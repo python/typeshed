@@ -1228,6 +1228,12 @@ class CollectionsAbcTests(TestCase):
         assert len(MMB[str, str]()) == 0
         assert len(MMB[KT, VT]()) == 0
 
+    def test_recursive_dict(self):
+        D = typing.Dict[int, 'D']  # Uses a _ForwardRef
+        assert isinstance({}, D)  # Easy
+        assert isinstance({0: {}}, D)  # Touches _ForwardRef
+        assert isinstance({0: {0: {}}}, D)  # Etc...
+
 
 class NamedTupleTests(TestCase):
 

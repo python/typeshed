@@ -148,6 +148,12 @@ class _ForwardRef(TypingMeta):
         self.__forward_code__ = code
         self.__forward_evaluated__ = False
         self.__forward_value__ = None
+        typing_globals = globals()
+        frame = sys._getframe(1)
+        while frame is not None and frame.f_globals is typing_globals:
+            frame = frame.f_back
+        assert frame is not None
+        self.__forward_frame__ = frame
         return self
 
     def _eval_type(self, globalns, localns):
@@ -158,11 +164,37 @@ class _ForwardRef(TypingMeta):
             raise TypeError('ForwardRef globalns must be a dict -- got %r' %
                             (globalns,))
         if not self.__forward_evaluated__:
+            if globalns is None and localns is None:
+                globalns = localns = {}
+            elif globalns is None:
+                globalns = localns
+            elif localns is None:
+                localns = globalns
             self.__forward_value__ = _type_check(
                 eval(self.__forward_code__, globalns, localns),
                 "Forward references must evaluate to types.")
             self.__forward_evaluated__ = True
         return self.__forward_value__
+
+    def __subclasscheck__(self, cls):
+        if not self.__forward_evaluated__:
+            globalns = self.__forward_frame__.f_globals
+            localns = self.__forward_frame__.f_locals
+            try:
+                self._eval_type(globalns, localns)
+            except NameError:
+                return False  # Too early.
+        return issubclass(cls, self.__forward_value__)
+
+    def __instancecheck__(self, obj):
+        if not self.__forward_evaluated__:
+            globalns = self.__forward_frame__.f_globals
+            localns = self.__forward_frame__.f_locals
+            try:
+                self._eval_type(globalns, localns)
+            except NameError:
+                return False  # Too early.
+        return isinstance(obj, self.__forward_value__)
 
     def __repr__(self):
         return '_ForwardRef(%r)' % (self.__forward_arg__,)
