@@ -801,40 +801,26 @@ allow all operations on it, and a value of type ``Any`` can be assigned
 to a variable (or used as a return value) of a more constrained type.
 
 
-Predefined constants
---------------------
+Version and platform checking
+-----------------------------
 
-Some predefined Boolean constants are defined in the ``typing``
-module to enable platform-specific type definitions and such::
-
-  from typing import PY2, PY3, WINDOWS, POSIX
-
-  if PY2:
-      text = unicode
-  else:
-      text = str
-
-  def f() -> text: ...
-
-  if WINDOWS:
-      loop = ProactorEventLoop
-  else:
-      loop = UnixSelectorEventLoop
-
-It is up to the type checker implementation to define their values, as
-long as ``PY2 == not PY3`` and ``WINDOWS == not POSIX``.  When the
-program is being executed these reflect the current platform, as
-follows::
+Type checkers are expected to understand simple version and platform
+checks, e.g.::
 
   import sys
 
-  PY2 = sys.version_info[0] == 2
-  PY3 = sys.version_info[0] >= 3
-  WINDOWS = sys.platform == 'win32'
-  POSIX = not WINDOWS
+  if sys.version_info[0] >= 3:
+      # Python 3 specific definitions
+  else:
+      # Python 2 specific definitions
 
-This is also the suggested default when the program is being
-type-checked.
+  if sys.platform == 'win32':
+      # Windows specific definitions
+  else:
+      # Posix specific definitions
+
+Don't expect a checker to understand obfuscations like
+``"".join(reversed(sys.platform)) == "xunil"``.
 
 
 Default argument values
@@ -1263,16 +1249,6 @@ A few one-off types are defined that test for single special methods
 * SupportsRound, to test for ``__round__``
 
 * SupportsBytes, to test for ``__bytes__``
-
-Constants for platform-specific type hinting:
-
-* PY2
-
-* PY3, equivalent to ``not PY2``
-
-* WINDOWS
-
-* POSIX, equivalent to ``not WINDOWS``
 
 Convenience definitions:
 

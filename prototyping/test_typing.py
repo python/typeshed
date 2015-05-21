@@ -23,19 +23,6 @@ from typing import Pattern, Match
 import typing
 
 
-class ConstantsTests(TestCase):
-
-    def test_py23(self):
-        assert isinstance(typing.PY2, bool)
-        assert isinstance(typing.PY3, bool)
-        assert typing.PY3 == (not typing.PY2)
-
-    def test_poswin(self):
-        assert isinstance(typing.POSIX, bool)
-        assert isinstance(typing.WINDOWS, bool)
-        assert typing.POSIX == (not typing.WINDOWS)
-
-
 class Employee:
     pass
 
@@ -1367,8 +1354,6 @@ class AllTests(TestCase):
         # Just spot-check the first and last of every category.
         assert 'AbstractSet' in a
         assert 'ValuesView' in a
-        assert 'POSIX' in a
-        assert 'WINDOWS' in a
         assert 'cast' in a
         assert 'overload' in a
         assert 'io' in a

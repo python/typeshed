@@ -62,12 +62,6 @@ __all__ = [
     'NamedTuple',  # Not really a type.
     'Generator',
 
-    # Compile-time constants.
-    'POSIX',
-    'PY2',
-    'PY3',
-    'WINDOWS',
-
     # One-off things.
     'AnyStr',
     'cast',
@@ -80,13 +74,6 @@ __all__ = [
     'io',
     're',
 ]
-
-
-# Simple constants defined in the PEP.
-PY2 = sys.version_info[0] == 2
-PY3 = sys.version_info[0] >= 3
-WINDOWS = sys.platform == 'win32'
-POSIX = not WINDOWS
 
 
 def _qualname(x):
