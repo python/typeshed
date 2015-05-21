@@ -1219,6 +1219,28 @@ class CollectionsAbcTests(TestCase):
         with self.assertRaises(TypeError):
             typing.Generator[int, int, int]()
 
+    def test_subclassing(self):
+
+        class MMA(typing.MutableMapping):
+            pass
+
+        with self.assertRaises(TypeError):  # It's abstract
+            MMA()
+
+        class MMC(MMA):
+            def __len__(self):
+                return 0
+
+        assert len(MMC()) == 0
+
+        class MMB(typing.MutableMapping[KT, VT]):
+            def __len__(self):
+                return 0
+
+        assert len(MMB()) == 0
+        assert len(MMB[str, str]()) == 0
+        assert len(MMB[KT, VT]()) == 0
+
 
 class NamedTupleTests(TestCase):
 

@@ -884,6 +884,7 @@ class Callable(Final, metaclass=CallableMeta, _root=True):
 
 def _gorg(a):
     """Return the farthest origin of a generic class."""
+    assert isinstance(a, GenericMeta)
     while a.__origin__ is not None:
         a = a.__origin__
     return a
@@ -1090,13 +1091,11 @@ class Generic(metaclass=GenericMeta):
     """
 
     def __new__(cls, *args, **kwds):
-        next_in_mro = None
-        for i, c in enumerate(cls.__mro__):
-            if _gorg(c) is Generic:
+        next_in_mro = object
+        # Look for the last occurrence of Generic or Generic[...].
+        for i, c in enumerate(cls.__mro__[:-1]):
+            if isinstance(c, GenericMeta) and _gorg(c) is Generic:
                 next_in_mro = cls.__mro__[i+1]
-                break
-        else:
-            next_in_mro = object
         return next_in_mro.__new__(_gorg(cls))
 
 
