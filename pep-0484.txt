@@ -1274,6 +1274,8 @@ Constants for platform-specific type hinting:
 
 Convenience definitions:
 
+* Optional, defined by ``Optional[t] == Union[t, type(None)]``
+
 * AnyStr, defined as ``TypeVar('AnyStr', str, bytes)``
 
 * NamedTuple, used as
