@@ -831,7 +831,7 @@ follows::
   PY2 = sys.version_info[0] == 2
   PY3 = sys.version_info[0] >= 3
   WINDOWS = sys.platform == 'win32'
-  POSIX = not WINDOWS 
+  POSIX = not WINDOWS
 
 This is also the suggested default when the program is being
 type-checked.
@@ -962,7 +962,7 @@ than a type checker may be able to infer.  For example::
       # We only get here if there's at least one string in a
       return cast(str, a[index])
 
-Some type checkers may not be able to infers that the type of
+Some type checkers may not be able to infer that the type of
 ``a[index]`` is ``str`` and only infer ``object`` or ``Any``", but we
 know that (if the code gets to that point) it must be a string.  The
 ``cast(t, x)`` call tells the type checker that we are confident that
