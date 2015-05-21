@@ -722,8 +722,8 @@ possible to import all the needed models directly::
         def bar(self, a: A): ...
 
     # File main.py
-    from a import A
-    from b import B
+    from models.a import A
+    from models.b import B
 
 Assuming main is imported first, this will fail with an ImportError at
 the line ``from models.a import A`` in models/b.py, which is being
@@ -742,8 +742,8 @@ _module_._class_ name::
         def bar(self, a: 'a.A'): ...
 
     # File main.py
-    from a import A
-    from b import B
+    from models.a import A
+    from models.b import B
 
 
 Union types
