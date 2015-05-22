@@ -288,6 +288,11 @@ Generics can be parametrized by using a new factory available in
 In this case the contract is that the returned value is consistent with
 the elements held by the collection.
 
+A ``TypeVar()`` expression must always directly be assigned to a
+variable (it should not be used as part of a larger expression).  The
+argument to ``TypeVar()`` must be a string equal to the variable name
+to which it is assigned.  Type variables must not be redefined.
+
 ``TypeVar`` supports constraining parametric types to a fixed set of
 possible types.  For example, we can define a type variable that ranges
 over just ``str`` and ``bytes``.  By default, a type variable ranges
