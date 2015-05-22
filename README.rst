@@ -96,6 +96,20 @@ Workflow for editing PEP 484
   or (in later stages) to python-dev, making sure to update the
   Post-History header in both repos.  This is typically done by Guido.
 
+Tracker labels
+--------------
+
+* bug: Needs to be fixed in typing.py.
+
+* to do: Editing task for the PEP itself.
+
+* enhancement: Proposed new feature.
+
+* postponed: Idea up for discussion.
+
+* out of scope: Somebody else's problem.
+
+
 Workflow for editing PEP 482 and PEP 483
 ----------------------------------------
 
