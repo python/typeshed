@@ -109,8 +109,12 @@ annotations for all arguments and the return type.  For a checked
 function, the default annotation for arguments and for the return type
 is ``Any``.  An exception is that the first argument of instance and
 class methods does not need to be annotated; it is assumed to have the
-type of the containing class for instance methods, and ``type`` for
-class methods.
+type of the containing class for instance methods, and a type object
+type corresponding to the containing class object for class methods.
+For example, in class ``A`` the first argument of an instance method
+has the implicit type ``A``. In a class method, the precise type of
+the first argument cannot be represented using the available type
+notation.
 
 (Note that the return type of ``__init__`` ought to be annotated with
 ``-> None``.  The reason for this is subtle.  If ``__init__`` assumed
