@@ -423,19 +423,40 @@ Suppose we write a ``Node`` class inheriting from ``Generic[T]``::
   class Node(Generic[T]):
       ...
 
-Now there are three ways we can instantiate this class; the type
-inferred by a type checker will be different depending on the form we
-use:
+Now there are two ways we can instantiate this class; the type
+inferred by a type checker may be different depending on the form we
+use.  The first way is to give the value of the type parameter
+explicitly -- this overrides whatever type inference the type
+checker would otherwise perform:
 
-* ``x = Node()`` -- the type inferred for x is ``Node[Any]``.
+  x = Node[T]()  # The type inferred for x is Node[T].
 
-* ``x = Node[T]()`` -- the type inferred for x is ``Node[T]``.
+  y = Node[int]()  # The type inferred for y is Node[int].
 
-* ``x = Node[int]()`` -- the type inferred for x is ``Node[int]``.
+If no explicit types are given, the type checker is given some
+freedom. Consider this code:
 
-At runtime the type is not preserved, and the class of x is just
-``Node``.  This behavior is called "type erasure"; it is common
-practice in languages with generics (e.g. Java, Typescript).
+  x = Node()
+
+The inferred type could be ``Node[Any]``, as there isn't enough
+context to infer a more precise type.  Alternatively, a type checker
+may reject the line and require an explicit annotation, like this:
+
+  x = Node()  # type: Node[int]  # Inferred type is Node[int].
+
+A type checker with more powerful type inference could look at how
+``x`` is used elsewhere in the file and try to infer a more precise
+type such as ``Node[int]`` even without an explicit type annotation.
+However, it is probably impossible to make such type inference work
+well in all cases, since Python programs can be very dynamic.
+
+This PEP doesn't specify the details of how type inference should
+work.  We allow different tools to experiment with various approaches.
+We may give more explicit rules in future revisions.
+
+At runtime the type is not preserved, and the class of ``x`` is just
+``Node`` in all cases.  This behavior is called "type erasure"; it is
+common practice in languages with generics (e.g. Java, TypeScript).
 
 
 Arbitrary generic types as base classes
