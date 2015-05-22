@@ -576,28 +576,30 @@ checking is acceptable, a type variable can be declared using
 is desirable, pass ``contravariant=True``.  At most one of these may
 be passed.
 
-A typical example involves defining an immutable container class::
+A typical example involves defining an immutable (or read-only)
+container class::
 
-  from typing import TypeVar
+  from typing import TypeVar, Generic, Iterable, Iterator
 
   T = TypeVar('T', covariant=True)
 
   class ImmutableList(Generic[T]):
-      def append(self, T): ...
+      def __init__(self, items: Iterable[T]) -> None: ...
+      def __iter__(self) -> Iterator[T]: ...
       ...
 
   class Employee: ...
 
   class Manager(Employee): ...
 
-  def dump_employees(emps: ImmutableList[Employee]) -> None: ...
+  def dump_employees(emps: ImmutableList[Employee]) -> None:
+      for emp in emps:
+          ...
 
-  mgrs = ...  # type: ImmutableList[Mananger]
-  mgrs.append(Manager())
-
+  mgrs = ImmutableList([Manager()])  # type: ImmutableList[Manager]
   dump_employees(mgrs)  # OK
 
-The immutable collection classes in ``typing`` are all defined using a
+The read-only collection classes in ``typing`` are all defined using a
 covariant type variable (e.g. ``Mapping`` and ``Sequence``).  The
 mutable collection classes (e.g. ``MutableMapping`` and
 ``MutableSequence``) are defined using regular invariant type
