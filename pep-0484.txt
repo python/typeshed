@@ -1073,6 +1073,35 @@ to be constrained by the overloading syntax defined for type hints in
 stub files.  In the meantime, using the ``@overload`` decorator or
 calling ``overload()`` directly raises ``RuntimeError``.
 
+A constrained ``TypeVar`` type can often be used instead of using the
+``@overload`` decorator.  For example, the definitions of ``concat1``
+and ``concat2`` in this stub file are equivalent:
+
+  from typing import TypeVar
+
+  AnyStr = TypeVar('AnyStr', str, bytes)
+
+  def concat1(x: AnyStr, y: AnyStr) -> AnyStr: ...
+
+  @overload
+  def concat2(x: str, y: str) -> str: ...
+  @overload
+  def concat2(x: bytes, y: bytes) -> bytes: ...
+
+Some functions, such as ``map`` or ``bytes.__getitem__`` above, can't
+be represented precisely using type variables.  However, unlike
+``@overload``, type variables can also be used outside stub files.  We
+recommend that ``@overload`` is only used in cases where a type
+variable is not sufficient, due to its special stub-only status.
+
+Another important difference between type variables such as ``AnyStr``
+and using ``@overload`` is that the prior can also be used to define
+constraints for generic class type parameters.  For example, the type
+parameter of the generic class ``typing.IO`` is constrained (only
+``IO[str]``, ``IO[bytes]`` and ``IO[Any]`` are valid):
+
+  class IO(Generic[AnyStr]): ...
+
 Storing and distributing stub files
 -----------------------------------
 
