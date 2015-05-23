@@ -5,12 +5,12 @@ Last-Modified: $Date$
 Author: Guido van Rossum <guido@python.org>, Jukka Lehtosalo <jukka.lehtosalo@iki.fi>, Łukasz Langa <lukasz@langa.pl>
 BDFL-Delegate: Mark Shannon
 Discussions-To: Python-Dev <python-dev@python.org>
-Status: Draft
+Status: Accepted
 Type: Standards Track
 Content-Type: text/x-rst
 Created: 29-Sep-2014
 Post-History: 16-Jan-2015,20-Mar-2015,17-Apr-2015,20-May-2015,22-May-2015
-Resolution:
+Resolution: https://mail.python.org/pipermail/python-dev/2015-May/140104.html
 
 
 Abstract
