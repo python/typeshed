@@ -85,8 +85,8 @@ Non-goals
 ---------
 
 While the proposed typing module will contain some building blocks for
-runtime type checking -- in particular a useful ``isinstance()``
-implementation -- third party packages would have to be developed to
+runtime type checking -- in particular the `get_type_hints()`
+function -- third party packages would have to be developed to
 implement specific runtime type checking functionality, for example
 using decorators or metaclasses.  Using type hints for performance
 optimizations is left as an exercise for the reader.
@@ -261,6 +261,11 @@ common use case, there is currently no support for specifying keyword
 arguments with ``Callable``.  Similarly, there is no support for
 specifying callback signatures with a variable number of argument of a
 specific type.
+
+Because `typing.Callable` does double-duty as a replacement for
+`collections.abc.Callable`, `isinstance(x, typing.Callable)` is
+implemented by deferring to `isinstance(x, collections.abc.Callable)`.
+However, `isinstance(x, typing.Callable[...])` is not supported.
 
 
 Generics
