@@ -3,7 +3,7 @@
 ## About
 
 Typeshed models function types for the Python standard library
-and Python builtins.
+and Python builtins, as well as third party packages.
 
 This data can e.g. be used for static analysis, type checking or type inference.
 
@@ -39,4 +39,13 @@ class date(object):
     def ctime(self) -> str: ...
     def weekday(self) -> int: ...
 ```
+
+## Contributions
+
+We're welcoming contributions (pull requests) for types of third party
+packages. They'll go under python{2,3}/dist-packages/.
+
+## Roadmap
+
+This project will move to https://github.com/python/typeshed/ eventually.
 
