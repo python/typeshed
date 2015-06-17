@@ -1310,7 +1310,7 @@ class MutableSet(AbstractSet[T], extra=collections_abc.MutableSet):
 
 
 # NOTE: Only the value type is covariant.
-class Mapping(Sized, Iterable[KT], Container[KT], Generic[KT, VT_co],
+class Mapping(Sized, Iterable[KT], Container[KT], Generic[VT_co],
               extra=collections_abc.Mapping):
     pass
 
