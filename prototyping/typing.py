@@ -947,6 +947,8 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
                 if not isinstance(p, TypeVar):
                     raise TypeError("Initial parameters must be "
                                     "type variables; got %s" % p)
+            if len(set(params)) != len(params):
+                raise TypeError("All type variables in Generic[...] must be distinct.")
         else:
             if len(params) != len(self.__parameters__):
                 raise TypeError("Cannot change parameter count from %d to %d" %
