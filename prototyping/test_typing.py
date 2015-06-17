@@ -557,8 +557,11 @@ class GenericTests(TestCase):
 
     def test_init(self):
         T = TypeVar('T')
+        S = TypeVar('S')
         with self.assertRaises(TypeError):
             Generic[T, T]
+        with self.assertRaises(TypeError):
+            Generic[T, S, T]
 
     def test_repr(self):
         self.assertEqual(repr(SimpleMapping),
