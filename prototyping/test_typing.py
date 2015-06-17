@@ -555,6 +555,11 @@ class GenericTests(TestCase):
         with self.assertRaises(TypeError):
             Y[str, bytes]
 
+    def test_init(self):
+        T = TypeVar('T')
+        with self.assertRaises(TypeError):
+            Generic[T, T]
+
     def test_repr(self):
         self.assertEqual(repr(SimpleMapping),
                          __name__ + '.' + 'SimpleMapping[~XK, ~XV]')
