@@ -986,7 +986,7 @@ than a type checker may be able to infer.  For example::
       return cast(str, a[index])
 
 Some type checkers may not be able to infer that the type of
-``a[index]`` is ``str`` and only infer ``object`` or ``Any``", but we
+``a[index]`` is ``str`` and only infer ``object`` or ``Any``, but we
 know that (if the code gets to that point) it must be a string.  The
 ``cast(t, x)`` call tells the type checker that we are confident that
 the type of ``x`` is ``t``.  At runtime a cast always returns the
