@@ -1646,7 +1646,7 @@ References
    http://en.wikipedia.org/wiki/Covariance_and_contravariance_%28computer_science%29
 
 .. [typeshed]
-   https://github.com/JukkaL/typeshed/
+   https://github.com/python/typeshed/
 
 .. [pyflakes]
    https://github.com/pyflakes/pyflakes/
