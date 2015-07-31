@@ -767,7 +767,10 @@ class CallableMeta(TypingMeta):
     def _eval_type(self, globalns, localns):
         if self.__args__ is None and self.__result__ is None:
             return self
-        args = [_eval_type(t, globalns, localns) for t in self.__args__]
+        if self.__args__ is Ellipsis:
+            args = self.__args__
+        else:
+            args = [_eval_type(t, globalns, localns) for t in self.__args__]
         result = _eval_type(self.__result__, globalns, localns)
         if args == self.__args__ and result == self.__result__:
             return self
