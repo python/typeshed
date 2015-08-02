@@ -459,6 +459,14 @@ class CallableTests(TestCase):
         ctv = Callable[..., str]
         self.assertEqual(repr(ctv), 'typing.Callable[..., str]')
 
+    def test_callable_with_ellipsis(self):
+
+        def foo(a: Callable[..., T]):
+            pass
+
+        self.assertEqual(get_type_hints(foo, globals(), locals()),
+                         {'a': Callable[..., T]})
+
 
 XK = TypeVar('XK', str, bytes)
 XV = TypeVar('XV')
@@ -800,6 +808,14 @@ class ForwardRefTests(TestCase):
 
         self.assertEqual(get_type_hints(foo, globals(), locals()),
                          {'a': Callable[[T], T]})
+
+    def test_callable_with_ellipsis_forward(self):
+
+        def foo(a: 'Callable[..., T]'):
+            pass
+
+        self.assertEqual(get_type_hints(foo, globals(), locals()),
+                         {'a': Callable[..., T]})
 
     def test_syntax_error(self):
 
