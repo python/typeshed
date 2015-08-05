@@ -9,6 +9,7 @@ Status: Accepted
 Type: Standards Track
 Content-Type: text/x-rst
 Created: 29-Sep-2014
+Python-Version: 3.5
 Post-History: 16-Jan-2015,20-Mar-2015,17-Apr-2015,20-May-2015,22-May-2015
 Resolution: https://mail.python.org/pipermail/python-dev/2015-May/140104.html
 
@@ -85,7 +86,7 @@ Non-goals
 ---------
 
 While the proposed typing module will contain some building blocks for
-runtime type checking -- in particular the `get_type_hints()`
+runtime type checking -- in particular the ``get_type_hints()``
 function -- third party packages would have to be developed to
 implement specific runtime type checking functionality, for example
 using decorators or metaclasses.  Using type hints for performance
@@ -262,10 +263,10 @@ arguments with ``Callable``.  Similarly, there is no support for
 specifying callback signatures with a variable number of argument of a
 specific type.
 
-Because `typing.Callable` does double-duty as a replacement for
-`collections.abc.Callable`, `isinstance(x, typing.Callable)` is
-implemented by deferring to `isinstance(x, collections.abc.Callable)`.
-However, `isinstance(x, typing.Callable[...])` is not supported.
+Because ``typing.Callable`` does double-duty as a replacement for
+``collections.abc.Callable``, ``isinstance(x, typing.Callable)`` is
+implemented by deferring to ```isinstance(x, collections.abc.Callable)``.
+However, ``isinstance(x, typing.Callable[...])`` is not supported.
 
 
 Generics
@@ -413,7 +414,7 @@ You can use multiple inheritance with ``Generic``::
 
 Subclassing a generic class without specifying type parameters assumes
 ``Any`` for each position.  In the following example, ``MyIterable``
-is not generic but implicitly inherits from ``Iterable[Any]``:
+is not generic but implicitly inherits from ``Iterable[Any]``::
 
   from typing import Iterable
 
@@ -441,20 +442,20 @@ Now there are two ways we can instantiate this class; the type
 inferred by a type checker may be different depending on the form we
 use.  The first way is to give the value of the type parameter
 explicitly -- this overrides whatever type inference the type
-checker would otherwise perform:
+checker would otherwise perform::
 
   x = Node[T]()  # The type inferred for x is Node[T].
 
   y = Node[int]()  # The type inferred for y is Node[int].
 
 If no explicit types are given, the type checker is given some
-freedom. Consider this code:
+freedom. Consider this code::
 
   x = Node()
 
 The inferred type could be ``Node[Any]``, as there isn't enough
 context to infer a more precise type.  Alternatively, a type checker
-may reject the line and require an explicit annotation, like this:
+may reject the line and require an explicit annotation, like this::
 
   x = Node()  # type: Node[int]  # Inferred type is Node[int].
 
@@ -943,7 +944,7 @@ ellipsis::
 
   stream = ...  # type: IO[str]
 
-In non-stub code, there is a similar special case:
+In non-stub code, there is a similar special case::
 
   from typing import IO
 
@@ -986,7 +987,7 @@ than a type checker may be able to infer.  For example::
       return cast(str, a[index])
 
 Some type checkers may not be able to infer that the type of
-``a[index]`` is ``str`` and only infer ``object`` or ``Any``", but we
+``a[index]`` is ``str`` and only infer ``object`` or ``Any``, but we
 know that (if the code gets to that point) it must be a string.  The
 ``cast(t, x)`` call tells the type checker that we are confident that
 the type of ``x`` is ``t``.  At runtime a cast always returns the
@@ -1110,7 +1111,7 @@ calling ``overload()`` directly raises ``RuntimeError``.
 
 A constrained ``TypeVar`` type can often be used instead of using the
 ``@overload`` decorator.  For example, the definitions of ``concat1``
-and ``concat2`` in this stub file are equivalent:
+and ``concat2`` in this stub file are equivalent::
 
   from typing import TypeVar
 
@@ -1133,7 +1134,7 @@ Another important difference between type variables such as ``AnyStr``
 and using ``@overload`` is that the prior can also be used to define
 constraints for generic class type parameters.  For example, the type
 parameter of the generic class ``typing.IO`` is constrained (only
-``IO[str]``, ``IO[bytes]`` and ``IO[Any]`` are valid):
+``IO[str]``, ``IO[bytes]`` and ``IO[Any]`` are valid)::
 
   class IO(Generic[AnyStr]): ...
 
@@ -1645,7 +1646,7 @@ References
    http://en.wikipedia.org/wiki/Covariance_and_contravariance_%28computer_science%29
 
 .. [typeshed]
-   https://github.com/JukkaL/typeshed/
+   https://github.com/python/typeshed/
 
 .. [pyflakes]
    https://github.com/pyflakes/pyflakes/
