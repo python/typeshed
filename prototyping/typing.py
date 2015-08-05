@@ -1293,27 +1293,27 @@ class SupportsBytes(_Protocol):
         pass
 
 
-class SupportsAbs(_Protocol[T]):
+class SupportsAbs(_Protocol[T_co]):
     __slots__ = ()
 
     @abstractmethod
-    def __abs__(self) -> T:
+    def __abs__(self) -> T_co:
         pass
 
 
-class SupportsRound(_Protocol[T]):
+class SupportsRound(_Protocol[T_co]):
     __slots__ = ()
 
     @abstractmethod
-    def __round__(self, ndigits: int = 0) -> T:
+    def __round__(self, ndigits: int = 0) -> T_co:
         pass
 
 
-class Reversible(_Protocol[T]):
+class Reversible(_Protocol[T_co]):
     __slots__ = ()
 
     @abstractmethod
-    def __reversed__(self) -> 'Iterator[T]':
+    def __reversed__(self) -> 'Iterator[T_co]':
         pass
 
 
