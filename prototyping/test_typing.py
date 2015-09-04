@@ -934,8 +934,15 @@ class CollectionsAbcTests(TestCase):
 
     def test_iterable(self):
         assert isinstance([], typing.Iterable)
+        # Due to ABC caching, the second time takes a separate code
+        # path and could fail.  So call this a few times.
+        assert isinstance([], typing.Iterable)
+        assert isinstance([], typing.Iterable)
         assert isinstance([], typing.Iterable[int])
         assert not isinstance(42, typing.Iterable)
+        # Just in case, also test issubclass() a few times.
+        assert issubclass(list, typing.Iterable)
+        assert issubclass(list, typing.Iterable)
 
     def test_iterator(self):
         it = iter([])

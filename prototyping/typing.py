@@ -1,7 +1,3 @@
-# TODO:
-# - Generic[T, T] is invalid
-# - Look for TODO below
-
 # TODO nits:
 # Get rid of asserts that are the caller's fault.
 # Docstrings (e.g. ABCs).
@@ -986,6 +982,14 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
                               parameters=params,
                               origin=self,
                               extra=self.__extra__)
+
+    def __instancecheck__(self, instance):
+        # Since we extend ABC.__subclasscheck__ and
+        # ABC.__instancecheck__ inlines the cache checking done by the
+        # latter, we must extend __instancecheck__ too. For simplicity
+        # we just skip the cache check -- instance checks for generic
+        # classes are supposed to be rare anyways.
+        return self.__subclasscheck__(instance.__class__)
 
     def __subclasscheck__(self, cls):
         if cls is Any:
