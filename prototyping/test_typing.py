@@ -436,12 +436,14 @@ class CallableTests(TestCase):
             c()
 
     def test_callable_instance_works(self):
-        f = lambda: None
+        def f():
+            pass
         assert isinstance(f, Callable)
         assert not isinstance(None, Callable)
 
     def test_callable_instance_type_error(self):
-        f = lambda: None
+        def f():
+            pass
         with self.assertRaises(TypeError):
             assert isinstance(f, Callable[[], None])
         with self.assertRaises(TypeError):
@@ -674,7 +676,9 @@ class GenericTests(TestCase):
         T = TypeVar('T')
 
         class Node(Generic[T]):
-            def __init__(self, label: T, left: 'Node[T]' = None, right: 'Node[T]' = None):
+            def __init__(self, label: T,
+                         left: 'Node[T]' = None,
+                         right: 'Node[T]' = None):
                 self.label = label  # type: T
                 self.left = left  # type: Optional[Node[T]]
                 self.right = right  # type: Optional[Node[T]]
