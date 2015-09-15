@@ -3,12 +3,12 @@
 # for a more precise manual annotation of this module.
 # Feel free to edit the source below, but remove this header when you do.
 
-from typing import List, Tuple, Dict, Undefined, GenericType
+from typing import List, Tuple, Dict, GenericType
 
-CODESIZE = Undefined(int)
-MAGIC = Undefined(int)
-MAXREPEAT = Undefined(long)
-copyright = Undefined(str)
+CODESIZE = ...  # type: int
+MAGIC = ...  # type: int
+MAXREPEAT = ...  # type: long
+copyright = ...  # type: str
 
 def compile(a, b: int, c, *args, **kwargs) -> SRE_Pattern:
     raise OverflowError()

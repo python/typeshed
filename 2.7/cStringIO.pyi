@@ -3,11 +3,11 @@
 # for a more precise manual annotation of this module.
 # Feel free to edit the source below, but remove this header when you do.
 
-from typing import List, Tuple, Dict, Undefined, GenericType
+from typing import List, Tuple, Dict, GenericType
 
-InputType = Undefined(StringI)
-OutputType = Undefined(StringO)
-cStringIO_CAPI = Undefined(object)
+InputType = ...  # type: StringI
+OutputType = ...  # type: StringO
+cStringIO_CAPI = ...  # type: object
 
 def StringIO(*args, **kwargs) -> object: ...
 

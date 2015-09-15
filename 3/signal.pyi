@@ -3,50 +3,50 @@
 # for a more precise manual annotation of this module.
 # Feel free to edit the source below, but remove this header when you do.
 
-from typing import List, Tuple, Dict, Undefined, GenericType
+from typing import List, Tuple, Dict, GenericType
 
-ITIMER_PROF = Undefined(long)
-ITIMER_REAL = Undefined(long)
-ITIMER_VIRTUAL = Undefined(long)
-ItimerError = Undefined(object)
-NSIG = Undefined(long)
-SIGABRT = Undefined(long)
-SIGALRM = Undefined(long)
-SIGBUS = Undefined(long)
-SIGCHLD = Undefined(long)
-SIGCLD = Undefined(long)
-SIGCONT = Undefined(long)
-SIGFPE = Undefined(long)
-SIGHUP = Undefined(long)
-SIGILL = Undefined(long)
-SIGINT = Undefined(long)
-SIGIO = Undefined(long)
-SIGIOT = Undefined(long)
-SIGKILL = Undefined(long)
-SIGPIPE = Undefined(long)
-SIGPOLL = Undefined(long)
-SIGPROF = Undefined(long)
-SIGPWR = Undefined(long)
-SIGQUIT = Undefined(long)
-SIGRTMAX = Undefined(long)
-SIGRTMIN = Undefined(long)
-SIGSEGV = Undefined(long)
-SIGSTOP = Undefined(long)
-SIGSYS = Undefined(long)
-SIGTERM = Undefined(long)
-SIGTRAP = Undefined(long)
-SIGTSTP = Undefined(long)
-SIGTTIN = Undefined(long)
-SIGTTOU = Undefined(long)
-SIGURG = Undefined(long)
-SIGUSR1 = Undefined(long)
-SIGUSR2 = Undefined(long)
-SIGVTALRM = Undefined(long)
-SIGWINCH = Undefined(long)
-SIGXCPU = Undefined(long)
-SIGXFSZ = Undefined(long)
-SIG_DFL = Undefined(long)
-SIG_IGN = Undefined(long)
+ITIMER_PROF = ...  # type: long
+ITIMER_REAL = ...  # type: long
+ITIMER_VIRTUAL = ...  # type: long
+ItimerError = ...  # type: object
+NSIG = ...  # type: long
+SIGABRT = ...  # type: long
+SIGALRM = ...  # type: long
+SIGBUS = ...  # type: long
+SIGCHLD = ...  # type: long
+SIGCLD = ...  # type: long
+SIGCONT = ...  # type: long
+SIGFPE = ...  # type: long
+SIGHUP = ...  # type: long
+SIGILL = ...  # type: long
+SIGINT = ...  # type: long
+SIGIO = ...  # type: long
+SIGIOT = ...  # type: long
+SIGKILL = ...  # type: long
+SIGPIPE = ...  # type: long
+SIGPOLL = ...  # type: long
+SIGPROF = ...  # type: long
+SIGPWR = ...  # type: long
+SIGQUIT = ...  # type: long
+SIGRTMAX = ...  # type: long
+SIGRTMIN = ...  # type: long
+SIGSEGV = ...  # type: long
+SIGSTOP = ...  # type: long
+SIGSYS = ...  # type: long
+SIGTERM = ...  # type: long
+SIGTRAP = ...  # type: long
+SIGTSTP = ...  # type: long
+SIGTTIN = ...  # type: long
+SIGTTOU = ...  # type: long
+SIGURG = ...  # type: long
+SIGUSR1 = ...  # type: long
+SIGUSR2 = ...  # type: long
+SIGVTALRM = ...  # type: long
+SIGWINCH = ...  # type: long
+SIGXCPU = ...  # type: long
+SIGXFSZ = ...  # type: long
+SIG_DFL = ...  # type: long
+SIG_IGN = ...  # type: long
 
 def alarm(a: int) -> long: ...
 

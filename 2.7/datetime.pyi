@@ -3,11 +3,11 @@
 # for a more precise manual annotation of this module.
 # Feel free to edit the source below, but remove this header when you do.
 
-from typing import List, Tuple, Dict, Undefined, GenericType
+from typing import List, Tuple, Dict, GenericType
 
-max = Undefined(object)
-min = Undefined(object)
-resolution = Undefined(object)
+max = ...  # type: object
+min = ...  # type: object
+resolution = ...  # type: object
 
 class date(object):
     def __format__(a) -> unicode:
