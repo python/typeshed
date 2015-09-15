@@ -6,50 +6,50 @@
 from typing import Any, List, Tuple, Dict, GenericType
 
 class array(object):
-    def __copy__() -> Any: ...
-    def __deepcopy__(*args, **kwargs) -> Any: ...
-    def __reduce__() -> tuple:
+    def __copy__(self) -> Any: ...
+    def __deepcopy__(self, *args, **kwargs) -> Any: ...
+    def __reduce__(self) -> tuple:
         raise AttributeError()
-    def __sizeof__() -> long: ...
-    def append(*args, **kwargs) -> None: ...
-    def buffer_info() -> tuple: ...
-    def byteswap() -> None:
+    def __sizeof__(self) -> long: ...
+    def append(self, *args, **kwargs) -> None: ...
+    def buffer_info(self) -> tuple: ...
+    def byteswap(self) -> None:
         raise RuntimeError()
-    def count(*args, **kwargs) -> int: ...
-    def extend(*args, **kwargs) -> None: ...
-    def fromfile(a, b: int) -> None:
+    def count(self, *args, **kwargs) -> int: ...
+    def extend(self, *args, **kwargs) -> None: ...
+    def fromfile(self, a, b: int) -> None:
         raise EOFError()
         raise IOError()
         raise MemoryError()
         raise TypeError()
-    def fromlist(*args, **kwargs) -> None:
+    def fromlist(self, *args, **kwargs) -> None:
         raise MemoryError()
         raise TypeError()
-    def fromstring(a) -> None:
+    def fromstring(self, a) -> None:
         raise MemoryError()
         raise ValueError()
-    def fromunicode(a: str) -> None:
+    def fromunicode(self, a: str) -> None:
         raise MemoryError()
         raise ValueError()
-    def index(*args, **kwargs) -> int:
+    def index(self, *args, **kwargs) -> int:
         raise ValueError()
-    def insert(a: int, b) -> None: ...
-    def pop(*args, **kwargs) -> Any:
+    def insert(self, a: int, b) -> None: ...
+    def pop(self, *args, **kwargs) -> Any:
         raise IndexError()
-    def read(*args, **kwargs) -> None:
+    def read(self, *args, **kwargs) -> None:
         raise DeprecationWarning()
-    def remove(*args, **kwargs) -> None:
+    def remove(self, *args, **kwargs) -> None:
         raise ValueError()
-    def reverse() -> None: ...
-    def tofile(*args, **kwargs) -> None:
+    def reverse(self) -> None: ...
+    def tofile(self, *args, **kwargs) -> None:
         raise IOError()
         raise TypeError()
-    def tolist() -> list: ...
-    def tostring() -> str:
+    def tolist(self) -> list: ...
+    def tostring(self) -> str:
         raise MemoryError()
-    def tounicode() -> unicode:
+    def tounicode(self) -> unicode:
         raise ValueError()
-    def write(*args, **kwargs) -> None:
+    def write(self, *args, **kwargs) -> None:
         raise DeprecationWarning()
 
 class arrayiterator(object):
