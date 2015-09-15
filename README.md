@@ -25,7 +25,7 @@ directory 3/ that contains all the stubs for Python 3. More specialized stubs
 go into e.g. 3.3/ and supersede the more generic stubs in 3/. (And, if needed,
 a directory 3.3.1/ would be able to supersede stubs in 3.3/):
 
-Directory     |
+Directory     | Contents
 ------------- | -------------
 2.7/          | Stubs for Python 2.7
 3/            | Stubs for Python 3
