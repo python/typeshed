@@ -3,10 +3,10 @@
 # for a more precise manual annotation of this module.
 # Feel free to edit the source below, but remove this header when you do.
 
-from typing import List, Tuple, Dict, GenericType
+from typing import Any, List, Tuple, Dict, GenericType
 
 class Random(object):
-    def getrandbits(a: int) -> object:
+    def getrandbits(a: int) -> Any:
         raise MemoryError()
         raise ValueError()
     def getstate() -> tuple: ...

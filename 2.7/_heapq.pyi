@@ -3,22 +3,22 @@
 # for a more precise manual annotation of this module.
 # Feel free to edit the source below, but remove this header when you do.
 
-from typing import List, Tuple, Dict, GenericType
+from typing import Any, List, Tuple, Dict, GenericType
 
 def heapify(*args, **kwargs) -> None:
     raise TypeError()
 
-def heappop(*args, **kwargs) -> object:
+def heappop(*args, **kwargs) -> Any:
     raise IndexError()
     raise TypeError()
 
 def heappush(*args, **kwargs) -> None:
     raise TypeError()
 
-def heappushpop(*args, **kwargs) -> object:
+def heappushpop(*args, **kwargs) -> Any:
     raise TypeError()
 
-def heapreplace(*args, **kwargs) -> object:
+def heapreplace(*args, **kwargs) -> Any:
     raise IndexError()
     raise TypeError()
 

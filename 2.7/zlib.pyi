@@ -3,14 +3,14 @@
 # for a more precise manual annotation of this module.
 # Feel free to edit the source below, but remove this header when you do.
 
-from typing import List, Tuple, Dict, GenericType
+from typing import Any, List, Tuple, Dict, GenericType
 
 def adler32(a, *args, **kwargs) -> int: ...
 
 def compress(a, *args, **kwargs) -> str:
     raise MemoryError()
 
-def compressobj(*args, **kwargs) -> object:
+def compressobj(*args, **kwargs) -> Any:
     raise MemoryError()
     raise ValueError()
 
@@ -19,7 +19,7 @@ def crc32(a, *args, **kwargs) -> int: ...
 def decompress(a, *args, **kwargs) -> str:
     raise MemoryError()
 
-def decompressobj(*args, **kwargs) -> object:
+def decompressobj(*args, **kwargs) -> Any:
     raise MemoryError()
     raise ValueError()
 

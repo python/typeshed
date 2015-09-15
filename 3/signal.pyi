@@ -3,7 +3,7 @@
 # for a more precise manual annotation of this module.
 # Feel free to edit the source below, but remove this header when you do.
 
-from typing import List, Tuple, Dict, GenericType
+from typing import Any, List, Tuple, Dict, GenericType
 
 ITIMER_PROF = ...  # type: long
 ITIMER_REAL = ...  # type: long
@@ -50,7 +50,7 @@ SIG_IGN = ...  # type: long
 
 def alarm(a: int) -> long: ...
 
-def default_int_handler(*args, **kwargs) -> object:
+def default_int_handler(*args, **kwargs) -> Any:
     raise KeyboardInterrupt()
 
 def getitimer(a: int) -> tuple: ...
@@ -63,7 +63,7 @@ def pause() -> None: ...
 def pthread_kill(a: int, b: int) -> None:
     raise OSError()
 
-def pthread_sigmask(a: int, b) -> object:
+def pthread_sigmask(a: int, b) -> Any:
     raise OSError()
 
 def set_wakeup_fd(a: int) -> long:
@@ -80,10 +80,10 @@ def signal(a: int, b) -> None:
     raise TypeError()
     raise ValueError()
 
-def sigpending() -> object:
+def sigpending() -> Any:
     raise OSError()
 
-def sigtimedwait(a, b) -> object:
+def sigtimedwait(a, b) -> Any:
     raise OSError()
     raise ValueError()
 

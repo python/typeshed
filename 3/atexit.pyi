@@ -3,7 +3,7 @@
 # for a more precise manual annotation of this module.
 # Feel free to edit the source below, but remove this header when you do.
 
-from typing import List, Tuple, Dict, GenericType
+from typing import Any, List, Tuple, Dict, GenericType
 
 def _clear() -> None: ...
 
@@ -11,7 +11,7 @@ def _ncallbacks() -> long: ...
 
 def _run_exitfuncs() -> None: ...
 
-def register(*args, **kwargs) -> object:
+def register(*args, **kwargs) -> Any:
     raise MemoryError()
     raise TypeError()
 

@@ -3,7 +3,7 @@
 # for a more precise manual annotation of this module.
 # Feel free to edit the source below, but remove this header when you do.
 
-from typing import List, Tuple, Dict, GenericType
+from typing import Any, List, Tuple, Dict, GenericType
 
 def asctime(*args, **kwargs) -> str:
     raise ValueError()
@@ -26,7 +26,7 @@ def strftime(a: str, *args, **kwargs) -> str:
     raise MemoryError()
     raise ValueError()
 
-def strptime(*args, **kwargs) -> object: ...
+def strptime(*args, **kwargs) -> Any: ...
 
 def time() -> float:
     raise IOError()

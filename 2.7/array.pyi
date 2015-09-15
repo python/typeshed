@@ -3,11 +3,11 @@
 # for a more precise manual annotation of this module.
 # Feel free to edit the source below, but remove this header when you do.
 
-from typing import List, Tuple, Dict, GenericType
+from typing import Any, List, Tuple, Dict, GenericType
 
 class array(object):
-    def __copy__() -> object: ...
-    def __deepcopy__(*args, **kwargs) -> object: ...
+    def __copy__() -> Any: ...
+    def __deepcopy__(*args, **kwargs) -> Any: ...
     def __reduce__() -> tuple:
         raise AttributeError()
     def __sizeof__() -> long: ...
@@ -34,7 +34,7 @@ class array(object):
     def index(*args, **kwargs) -> int:
         raise ValueError()
     def insert(a: int, b) -> None: ...
-    def pop(*args, **kwargs) -> object:
+    def pop(*args, **kwargs) -> Any:
         raise IndexError()
     def read(*args, **kwargs) -> None:
         raise DeprecationWarning()

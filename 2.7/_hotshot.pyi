@@ -3,15 +3,15 @@
 # for a more precise manual annotation of this module.
 # Feel free to edit the source below, but remove this header when you do.
 
-from typing import List, Tuple, Dict, GenericType
+from typing import Any, List, Tuple, Dict, GenericType
 
-def coverage(a: str) -> object: ...
+def coverage(a: str) -> Any: ...
 
 def logreader(a: str) -> LogReaderType:
     raise IOError()
     raise RuntimeError()
 
-def profiler(a: str, *args, **kwargs) -> object:
+def profiler(a: str, *args, **kwargs) -> Any:
     raise IOError()
 
 def resolution() -> tuple: ...
@@ -27,8 +27,8 @@ class ProfilerType(object):
     def close() -> None: ...
     def fileno() -> int:
         raise ValueError()
-    def runcall(*args, **kwargs) -> object: ...
-    def runcode(a, b, *args, **kwargs) -> object:
+    def runcall(*args, **kwargs) -> Any: ...
+    def runcode(a, b, *args, **kwargs) -> Any:
         raise TypeError()
     def start() -> None: ...
     def stop() -> None: ...

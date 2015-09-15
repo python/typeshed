@@ -3,13 +3,13 @@
 # for a more precise manual annotation of this module.
 # Feel free to edit the source below, but remove this header when you do.
 
-from typing import List, Tuple, Dict, GenericType
+from typing import Any, List, Tuple, Dict, GenericType
 
 InputType = ...  # type: StringI
 OutputType = ...  # type: StringO
 cStringIO_CAPI = ...  # type: object
 
-def StringIO(*args, **kwargs) -> object: ...
+def StringIO(*args, **kwargs) -> Any: ...
 
 
 class StringI(object):

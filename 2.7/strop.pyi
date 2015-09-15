@@ -3,7 +3,7 @@
 # for a more precise manual annotation of this module.
 # Feel free to edit the source below, but remove this header when you do.
 
-from typing import List, Tuple, Dict, GenericType
+from typing import Any, List, Tuple, Dict, GenericType
 
 def atof(a: str) -> float:
     raise DeprecationWarning()
@@ -31,12 +31,12 @@ def expandtabs(a, *args, **kwargs) -> str:
 def find(*args, **kwargs) -> int:
     raise DeprecationWarning()
 
-def join(*args, **kwargs) -> object:
+def join(*args, **kwargs) -> Any:
     raise DeprecationWarning()
     raise OverflowError()
     raise TypeError()
 
-def joinfields(*args, **kwargs) -> object:
+def joinfields(*args, **kwargs) -> Any:
     raise DeprecationWarning()
     raise OverflowError()
     raise TypeError()

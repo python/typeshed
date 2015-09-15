@@ -3,7 +3,7 @@
 # for a more precise manual annotation of this module.
 # Feel free to edit the source below, but remove this header when you do.
 
-from typing import List, Tuple, Dict, GenericType
+from typing import Any, List, Tuple, Dict, GenericType
 
 def asctime(*args, **kwargs) -> unicode: ...
 
@@ -20,7 +20,7 @@ def clock_settime(a: int, b) -> None:
 
 def ctime(*args, **kwargs) -> unicode: ...
 
-def get_clock_info(a: str) -> object:
+def get_clock_info(a: str) -> Any:
     raise ValueError()
 
 def gmtime(*args, **kwargs) -> tuple:
@@ -43,7 +43,7 @@ def sleep(a: float) -> None:
 def strftime(a: str, *args, **kwargs) -> unicode:
     raise MemoryError()
 
-def strptime(*args, **kwargs) -> object: ...
+def strptime(*args, **kwargs) -> Any: ...
 
 def time() -> float: ...
 

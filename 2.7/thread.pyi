@@ -3,7 +3,7 @@
 # for a more precise manual annotation of this module.
 # Feel free to edit the source below, but remove this header when you do.
 
-from typing import List, Tuple, Dict, GenericType
+from typing import Any, List, Tuple, Dict, GenericType
 
 LockType = ...  # type: lock
 error = ...  # type: object
@@ -14,10 +14,10 @@ def allocate() -> lock: ...
 
 def allocate_lock() -> lock: ...
 
-def exit() -> object:
+def exit() -> Any:
     raise SystemExit()
 
-def exit_thread() -> object:
+def exit_thread() -> Any:
     raise SystemExit()
 
 def get_ident() -> int: ...

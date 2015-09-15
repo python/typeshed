@@ -3,7 +3,7 @@
 # for a more precise manual annotation of this module.
 # Feel free to edit the source below, but remove this header when you do.
 
-from typing import List, Tuple, Dict, GenericType
+from typing import Any, List, Tuple, Dict, GenericType
 
 ITIMER_PROF = ...  # type: long
 ITIMER_REAL = ...  # type: long
@@ -50,7 +50,7 @@ SIG_IGN = ...  # type: long
 
 def alarm(a: int) -> int: ...
 
-def default_int_handler(*args, **kwargs) -> object:
+def default_int_handler(*args, **kwargs) -> Any:
     raise KeyboardInterrupt()
 
 def getitimer(a: int) -> tuple: ...
