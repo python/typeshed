@@ -55,6 +55,19 @@ class date(object):
     def weekday(self) -> int: ...
 ```
 
+## About builtins vs stdlib
+
+C extensions that are built into Python (E.g. sys, array, math, signal, ...) have
+higher precedence in the import path than modules that ship with Python but
+are not built into the python binary (like os.py, glob.py, zipfile.py etc.;
+but also some C extensions like datetime). The
+former are implicitly prepended to the start of your PYTHONPATH, whereas the
+latter are implicitly appended to it.
+
+Typeshed doesn't explicitly distinguish between the two module types. For a specific
+Python build, you can use `sys.builtin_module_names` to query which modules 
+are built in and set import priority accordingly.
+
 ## Contributions
 
 We're welcoming contributions (pull requests) for types of third party
