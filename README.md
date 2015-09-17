@@ -16,6 +16,30 @@ are used to describe the types the function has.
 See [PEP 484](http://www.python.org/dev/peps/pep-0484/) for the exact syntax
 of the stub files.
 
+## Syntax example
+
+The below is an excerpt from the types for the `datetime` module.
+
+```
+MAXYEAR = ...  # type: int
+MINYEAR = ...  # type: int
+__doc__ = ...  # type: str
+__file__ = ...  # type: str
+__name__ = ...  # type: str
+__package__ = ...  # type: None
+
+class date(object):
+    def __init__(self, year: int, month: int, day: int): ...
+    @classmethod
+    def fromtimestamp(cls, timestamp: int or float) -> date: ...
+    @classmethod
+    def fromordinal(cls, ordinal: int) -> date: ...
+    @classmethod
+    def today(self) -> date: ...
+    def ctime(self) -> str: ...
+    def weekday(self) -> int: ...
+```
+
 ## Directory structure
 
 ### Builtins vs stdlib
@@ -62,30 +86,6 @@ stdlib/2and3/   | Standard library stubs for Python 2 and Python 3
 stdlib/2.7/     | Standard library stubs for Python 2.7
 ...             | ...
 stdlib/2.7.6/   | Standard library stubs specialized for Python 2.7.6
-
-## Example
-
-The below is an excerpt from the types for the `datetime` module.
-
-```
-MAXYEAR = ...  # type: int
-MINYEAR = ...  # type: int
-__doc__ = ...  # type: str
-__file__ = ...  # type: str
-__name__ = ...  # type: str
-__package__ = ...  # type: None
-
-class date(object):
-    def __init__(self, year: int, month: int, day: int): ...
-    @classmethod
-    def fromtimestamp(cls, timestamp: int or float) -> date: ...
-    @classmethod
-    def fromordinal(cls, ordinal: int) -> date: ...
-    @classmethod
-    def today(self) -> date: ...
-    def ctime(self) -> str: ...
-    def weekday(self) -> int: ...
-```
 
 ## Contributions
 
