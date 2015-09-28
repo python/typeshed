@@ -1,6 +1,6 @@
 """Stub file for the '_functools' module."""
 
-from typing import Any, Callable
+from typing import Any, Callable, Iterator, Optional, TypeVar
 
 _T = TypeVar("T")
 def reduce(function: Callable[[_T, _T], _T],
