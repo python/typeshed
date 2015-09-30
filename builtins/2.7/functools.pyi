@@ -1,0 +1,12 @@
+from typing import Any, Callable
+
+_T = TypeVar("T")
+def reduce(function: Callable[[_T], _T],
+           sequence: Iterator[_T], initial=Optional[_T]) -> _T: ...
+
+class partial(object):
+    func = ...  # Callable[..., Any]
+    args = ...  # type: Tuple[Any]
+    keywords = ...  # type: Dict[str, Any]
+    def __init__(self, func: Callable[..., Any], *args, **kwargs) -> None: ...
+    def __call__(self, *args, **kwargs) -> Any: ...
