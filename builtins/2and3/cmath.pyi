@@ -1,6 +1,7 @@
 """Stub file for the 'cmath' module."""
 
-from typing import Union
+import sys
+from typing import Union, Tuple
 
 e = ...  # type: float
 pi = ...  # type: float
