@@ -1,3 +1,5 @@
+from typing import Optional
+
 class sha224(object):
     name = ...  # type: str
     block_size = ...  # type: int

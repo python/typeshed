@@ -1,6 +1,6 @@
 """Stubs for the 'select' module."""
 
-from typing import Any, Optional
+from typing import Any, Optional, Tuple, Iterable
 
 EPOLLERR = ...  # type: int
 EPOLLET = ...  # type: int

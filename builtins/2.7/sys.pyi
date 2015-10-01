@@ -1,7 +1,7 @@
 """Stubs for the 'sys' module."""
 
 from typing import (
-    List, Sequence, Any, Dict, Tuple, BinaryIO, overload
+    IO, Union, List, Sequence, Any, Dict, Tuple, BinaryIO, overload
 )
 
 class _flags:
@@ -63,12 +63,11 @@ path = ...  # type: List[str]
 platform = ...  # type: str
 prefix = ...  # type: str
 py3kwarning = ...  # type: bool
-stderr = ...  # type: file
-stdin = ...  # type: file
-stdout = ...  # type: file
+stderr = ...  # type: IO[str]
+stdin = ...  # type: IO[str]
+stdout = ...  # type: IO[str]
 subversion = ...  # type: tuple
 version = ...  # type: str
-version_info = ...  # type: Tuple[int]
 warnoptions = ...  # type: object
 float_info = ...  # type: _float_info
 version_info = ...  # type: _version_info

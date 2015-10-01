@@ -1,4 +1,4 @@
-from typing import Tuple, Union, IO, Any, overload
+from typing import Tuple, Union, IO, Any, Optional, overload
 
 AF_APPLETALK = ...  # type: int
 AF_ASH = ...  # type: int
@@ -42,7 +42,6 @@ BTPROTO_HCI = ...  # type: int
 BTPROTO_L2CAP = ...  # type: int
 BTPROTO_RFCOMM = ...  # type: int
 BTPROTO_SCO = ...  # type: int
-CAPI = ...  # type: PyCapsule
 EAI_ADDRFAMILY = ...  # type: int
 EAI_AGAIN = ...  # type: int
 EAI_BADFLAGS = ...  # type: int
@@ -238,9 +237,14 @@ TIPC_WAIT_FOREVER = ...  # type: int
 TIPC_WITHDRAWN = ...  # type: int
 TIPC_ZONE_SCOPE = ...  # type: int
 
+# PyCapsule
+CAPI = ...  # type: Any
+
 has_ipv6 = ...  # type: bool
 
 class error(IOError): ...
+class gaierror(error): ...
+class timeout(error): ...
 
 class SocketType(object):
     family = ...  # type: int

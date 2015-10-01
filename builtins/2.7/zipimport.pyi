@@ -1,6 +1,6 @@
 """Stub file for the 'zipimport' module."""
 
-from typing import Dict
+from typing import Dict, Optional
 
 class ZipImportError(ImportError):
     pass

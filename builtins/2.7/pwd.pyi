@@ -1,8 +1,6 @@
-def getpwall() -> list<struct_passwd>
-def getpwnam(name:str) -> struct_passwd
-def getpwuid(uid:int) -> struct_passwd
+from typing import List
 
-class struct_passwd(tuple): ...
+class struct_passwd(tuple):
     n_fields = ...  # type: int
     n_sequence_fields = ...  # type: int
     n_unnamed_fields = ...  # type: int
@@ -13,3 +11,8 @@ class struct_passwd(tuple): ...
     pw_gecos = ...  # type: str
     pw_gid = ...  # type: int
     pw_uid = ...  # type: int
+
+def getpwall() -> List[struct_passwd]: ...
+def getpwnam(name:str) -> struct_passwd: ...
+def getpwuid(uid:int) -> struct_passwd: ...
+

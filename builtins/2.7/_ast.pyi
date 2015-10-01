@@ -1,10 +1,11 @@
-from typing import Any, Tuple
+from typing import Any
+from typing import Tuple as TypingTuple
 
 PyCF_ONLY_AST = ...  # type: int
 
 class AST(object):
-    _attributes = ...  # type: Tuple[str]
-    _fields = ...  # type: Tuple[str]
+    _attributes = ...  # type: TypingTuple[str]
+    _fields = ...  # type: TypingTuple[str]
     def __init__(self, *args, **kwargs) -> None: pass
 
 class alias(AST):

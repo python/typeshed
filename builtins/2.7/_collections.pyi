@@ -1,6 +1,6 @@
 """Stub file for the '_collections' module."""
 
-from typing import Any, Generic, Iterator, TypeVar
+from typing import Any, Generic, Iterator, TypeVar, Optional, Union
 
 class defaultdict(dict):
     default_factory = ...  # type: None
@@ -10,8 +10,8 @@ class defaultdict(dict):
     def __copy__(self) -> "defaultdict": ...
     def copy(self) -> "defaultdict": ...
 
-_T = TypeVar('T')
-_T2 = TypeVar('T2')
+_T = TypeVar('_T')
+_T2 = TypeVar('_T2')
 
 class deque(Generic[_T]):
     maxlen = ...  # type: Optional[int]

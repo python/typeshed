@@ -22,6 +22,9 @@ TYPE_FUNCTION = ...  # type: int
 TYPE_MODULE = ...  # type: int
 USE = ...  # type: int
 
+class _symtable_entry(object):
+    ...
+
 class symtable(object):
     children = ...  # type: List[_symtable_entry]
     id = ...  # type: int
