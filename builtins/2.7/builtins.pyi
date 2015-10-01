@@ -1,7 +1,7 @@
 # Stubs for builtins (Python 2.7)
 
 from typing import (
-    TypeVar, Iterator, Iterable, overload,
+    Optional, TypeVar, Iterator, Iterable, overload,
     Sequence, Mapping, Tuple, List, Any, Dict, Callable, Generic, Set,
     AbstractSet, Sized, Reversible, SupportsInt, SupportsFloat, SupportsAbs,
     SupportsRound, IO, BinaryIO, Union, AnyStr, MutableSequence, MutableMapping,
@@ -596,6 +596,23 @@ class module:
     __name__ = ''
     __file__ = ''
     __dict__ = ...  # type: Dict[unicode, Any]
+
+# A.k.a. types.CodeType
+class code:
+    co_argcount = ...  # type: int
+    co_cellvars = ...  # type: Tuple[str]
+    co_code = ...  # type: str
+    co_consts = ...  # type: Tuple[str]
+    co_filename = ...  # type: Optional[str]
+    co_firstlineno = ...  # type: int
+    co_flags = ...  # type: int
+    co_freevars = ...  # type: Tuple[str]
+    co_lnotab = ...  # type: str
+    co_name = ...  # type: str
+    co_names = ...  # type: Tuple[str]
+    co_nlocals= ...  # type: int
+    co_stacksize= ...  # type: int
+    co_varnames = ...  # type: Tuple[str]
 
 True = ...  # type: bool
 False = ...  # type: bool
