@@ -76,7 +76,7 @@ versions of Python, `third_party` has version subdirectories, just like
 We're welcoming contributions (pull requests) for type definitions of
 third party packages.
 
-### Version numbers
+### Version directories
 
 We store stubs for both Python 2 as well as Python 3. We also distinguish
 between minor versions (E.g. 3.2 <-> 3.3). To accomplish not having to duplicate
@@ -86,22 +86,38 @@ go into e.g. 3.3/ and supersede the more generic stubs in 3/. (And, if needed,
 a directory 3.3.1/ would be able to supersede stubs in 3.3/).
 Modules that are the same under both Python 2 and Python 3 go into 2and3/.
 
+### Combining multiple versions in a single file
+
+According to PEP 484, type checkers are expected to understand simple
+version and platform checks. So the following syntax is legal in a `pyi`:
+
+```
+if sys.version_info[0] >= 3:
+    # Python 3 specific definitions
+else:
+    # Python 2 specific definitions
+```
+
+This can be used for modules in 2and3/ that only have minor changes between
+Python 2 and Python 3. If the difference between versions is more drastic, it
+can make more sense to have seperate files in 2.x/ and 3.x/.
+
 ### Directory structure
 
-Directory            | Contents
--------------        | -------------
-builtins/2and3/      | Builtin stubs for Python 2 and Python 3
-builtins/2/          | Builtin stubs for Python 2
-...                  | ...
-builtins/2.7/        | Builtin stubs for Python 2.7
-builtins/3/          | Builtin stubs for Python 3
-...                  | ...
-builtins/3.3/        | Builtin stubs for Python 3.3 (replacing generic stubs in 3/)
-stdlib/2and3/        | Standard library stubs for Python 2 and Python 3
-stdlib/2.7/          | Standard library stubs for Python 2.7
-...                  | ...
-stdlib/2.7.6/        | Standard library stubs specialized for Python 2.7.6
-...                  | ...
-third_party/2and3/   | Third party modules for Python 2 and 3
-...                  | ...
+Directory                | Contents
+-------------            | -------------
+`builtins/2and3/`        | Builtin stubs for Python 2 and Python 3
+`builtins/2/`            | Builtin stubs for Python 2
+...                      | ...
+`builtins/2.7/`          | Builtin stubs for Python 2.7
+`builtins/3/`            | Builtin stubs for Python 3
+...                      | ...
+`builtins/3.3/`          | Builtin stubs for Python 3.3 (replacing generic stubs in 3/)
+`stdlib/2and3/`          | Standard library stubs for Python 2 and Python 3
+`stdlib/2.7/`            | Standard library stubs for Python 2.7
+...                      | ...
+`stdlib/2.7.6/`          | Standard library stubs specialized for Python 2.7.6
+...                      | ...
+`third_party/2and3/`     | Third party modules for Python 2 and 3
+...                      | ...
 
