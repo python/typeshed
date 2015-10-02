@@ -1,4 +1,5 @@
 MANIFEST
+build/
 dist/
 .idea/
 __pycache__/

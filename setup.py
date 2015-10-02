@@ -46,6 +46,6 @@ setup(name='typing',
       license='PSF',
       keywords='typing function annotations type hints hinting checking '
                'checker typehints typehinting typechecking backport',
-      package_dir={'': '.'},
+      package_dir={'': 'src'},
       py_modules=['typing'],
       classifiers=classifiers)
