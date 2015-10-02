@@ -1,0 +1,6 @@
+MANIFEST
+dist/
+.idea/
+__pycache__/
+*.swp
+*.pyc
