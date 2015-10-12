@@ -14,6 +14,21 @@ class BuiltinMethodType: ...
 
 class CodeType:
     """Create a code object.  Not for the faint of heart."""
+    co_argcount = ... # type: int
+    co_kwonlyargcount = ... # type: int
+    co_nlocals = ... # type: int
+    co_stacksize = ... # type: int
+    co_flags = ... # type: int
+    co_code = ... # type: bytes
+    co_consts = ... # type: Tuple[Any]
+    co_names = ... # type: Tuple[str]
+    co_varnames = ... # type: Tuple[str]
+    co_filename = # type: Optional[str]
+    co_name = ... # type: str
+    co_firstlineno = ... # type: int
+    co_lnotab = ... # type: bytes
+    co_freevars = ... # type: Tuple[str]
+    co_cellvars = ... # type: Tuple[str]
     def __init__(self,
             argcount: int,
             kwonlyargcount: int,
@@ -30,22 +45,7 @@ class CodeType:
             lnotab: bytes,
             freevars: Sequence[str] = (),
             cellvars: Sequence[str] = (),
-    ) -> None:
-        self.co_argcount = argcount
-        self.co_kwonlyargcount = kwonlyargcount
-        self.co_nlocals = nlocals
-        self.co_stacksize = stacksize
-        self.co_flags = flags
-        self.co_code = codestring
-        self.co_consts = constants
-        self.co_names = names
-        self.co_varnames = varnames
-        self.co_filename = filename
-        self.co_name = name
-        self.co_firstlineno = firstlineno
-        self.co_lnotab = lnotab
-        self.co_freevars = freevars
-        self.co_cellvars = cellvars
+    ) -> None: ...
 
 class FrameType:
     f_back = ... # type: FrameType
