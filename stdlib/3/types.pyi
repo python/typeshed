@@ -2,7 +2,7 @@
 
 # TODO this is work in progress
 
-from typing import Any, Callable, Dict, Sequence
+from typing import Any, Callable, Dict, Sequence, Optional, Tuple
 
 class ModuleType:
     __name__ = ... # type: str
@@ -23,7 +23,7 @@ class CodeType:
     co_consts = ... # type: Tuple[Any]
     co_names = ... # type: Tuple[str]
     co_varnames = ... # type: Tuple[str]
-    co_filename = # type: Optional[str]
+    co_filename = ... # type: Optional[str]
     co_name = ... # type: str
     co_firstlineno = ... # type: int
     co_lnotab = ... # type: bytes
