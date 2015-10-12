@@ -1,6 +1,7 @@
 """Stub file for the 'zipimport' module."""
 
 from typing import Dict, Optional
+from types import CodeType
 
 class ZipImportError(ImportError):
     pass
@@ -14,7 +15,7 @@ class zipimporter(object):
     def __init__(self, path: str) -> None:
         raise ZipImportError
     def find_module(self, fullname: str, path: str = ...) -> Optional[zipimporter]: ...
-    def get_code(self, fullname: str) -> code: ...
+    def get_code(self, fullname: str) -> types.CodeType: ...
     def get_data(self, fullname: str) -> str:
         raise IOError
     def get_filename(self, fullname: str) -> str: ...
