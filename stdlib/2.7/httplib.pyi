@@ -1,0 +1,3 @@
+# Stubs for httplib (incomplete)
+
+class HTTPException(Exception): ...

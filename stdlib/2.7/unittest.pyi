@@ -1,0 +1,3 @@
+# Stubs for unittest (2.7, incomplete)
+
+class TestCase: ...

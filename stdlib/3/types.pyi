@@ -20,15 +20,15 @@ class CodeType:
     co_stacksize = ... # type: int
     co_flags = ... # type: int
     co_code = ... # type: bytes
-    co_consts = ... # type: Tuple[Any]
-    co_names = ... # type: Tuple[str]
-    co_varnames = ... # type: Tuple[str]
+    co_consts = ... # type: Tuple[Any, ...]
+    co_names = ... # type: Tuple[str, ...]
+    co_varnames = ... # type: Tuple[str, ...]
     co_filename = ... # type: Optional[str]
     co_name = ... # type: str
     co_firstlineno = ... # type: int
     co_lnotab = ... # type: bytes
-    co_freevars = ... # type: Tuple[str]
-    co_cellvars = ... # type: Tuple[str]
+    co_freevars = ... # type: Tuple[str, ...]
+    co_cellvars = ... # type: Tuple[str, ...]
     def __init__(self,
             argcount: int,
             kwonlyargcount: int,
@@ -36,15 +36,15 @@ class CodeType:
             stacksize: int,
             flags: int,
             codestring: bytes,
-            constants: Sequence[Any],
-            names: Sequence[str],
-            varnames: Sequence[str],
+            constants: Tuple[Any, ...],
+            names: Tuple[str, ...],
+            varnames: Tuple[str, ...],
             filename: str,
             name: str,
             firstlineno: int,
             lnotab: bytes,
-            freevars: Sequence[str] = (),
-            cellvars: Sequence[str] = (),
+            freevars: Tuple[str, ...] = (),
+            cellvars: Tuple[str, ...] = (),
     ) -> None: ...
 
 class FrameType:
