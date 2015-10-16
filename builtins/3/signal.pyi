@@ -1,6 +1,6 @@
 """Stub file for the 'signal' module."""
 
-from typing import Any, Callable, List, Tuple, Dict, Generic, Union, Optional, Iterable
+from typing import Any, Callable, List, Tuple, Dict, Generic, Union, Optional, Iterable, Set
 from types import FrameType
 
 class ItimerError(IOError): ...

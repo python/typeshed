@@ -1,6 +1,6 @@
 # TODO(MichalPokorny): better types
 
-from typing import Any, IO, Optional, Union
+from typing import Any, IO, List, Optional, Union
 
 def bindtextdomain(domain: str, localedir: str = None) -> str: ...
 def bind_textdomain_codeset(domain: str, codeset: str = None) -> str: ...

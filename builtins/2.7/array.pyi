@@ -1,7 +1,7 @@
 """Stub file for the 'array' module."""
 
 from typing import (Any, Generic, IO, Iterable, Sequence, TypeVar,
-                    Union, overload, Iterator, Tuple, BinaryIO)
+                    Union, overload, Iterator, Tuple, BinaryIO, List)
 
 T = TypeVar('T')
 

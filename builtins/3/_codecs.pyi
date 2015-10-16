@@ -1,6 +1,6 @@
 """Stub file for the '_codecs' module."""
 
-from typing import Any, AnyStr, Callable, Tuple, Optional
+from typing import Any, AnyStr, Callable, Tuple, Optional, Dict
 
 import codecs
 

@@ -7,12 +7,19 @@
 # TODO UserString
 # TODO more abstract base classes (interfaces in mypy)
 
+# These are not exported.
 from typing import (
     TypeVar, Iterable, Generic, Iterator, Dict, overload,
-    Mapping, List, Tuple, Callable, Set, Sequence, Sized,
+    Mapping, List, Tuple, Callable, Sized,
     Optional, Union
 )
-import typing
+# These are exported.
+# TODO reexport more.
+from typing import (
+    MutableMapping as MutableMapping,
+    Sequence as Sequence,
+    AbstractSet as Set,
+)
 
 _T = TypeVar('_T')
 _KT = TypeVar('_KT')
@@ -21,9 +28,6 @@ _VT = TypeVar('_VT')
 
 # namedtuple is special-cased in the type checker; the initializer is ignored.
 namedtuple = object()
-
-
-MutableMapping = typing.MutableMapping
 
 
 class deque(Sized, Iterable[_T], Generic[_T]):

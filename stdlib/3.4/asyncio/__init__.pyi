@@ -1,11 +1,31 @@
 """The asyncio package, tracking PEP 3156."""
-from asyncio.futures import Future
-from asyncio.tasks import (coroutine, sleep, Task, FIRST_COMPLETED,
-    FIRST_EXCEPTION, ALL_COMPLETED, wait, wait_for)
-from asyncio.events import (AbstractEventLoopPolicy, AbstractEventLoop,
-    Handle, get_event_loop)
-from asyncio.queues import (Queue, PriorityQueue, LifoQueue, JoinableQueue,
-    QueueFull, QueueEmpty)
+from asyncio.futures import (
+    Future as Future,
+)
+from asyncio.tasks import (
+    coroutine as coroutine,
+    sleep as sleep,
+    Task as Task,
+    FIRST_COMPLETED as FIRST_COMPLETED,
+    FIRST_EXCEPTION as FIRST_EXCEPTION,
+    ALL_COMPLETED as ALL_COMPLETED,
+    wait as wait,
+    wait_for as wait_for,
+)
+from asyncio.events import (
+    AbstractEventLoopPolicy as AbstractEventLoopPolicy,
+    AbstractEventLoop as AbstractEventLoop,
+    Handle as Handle,
+    get_event_loop as get_event_loop,
+)
+from asyncio.queues import (
+    Queue as Queue,
+    PriorityQueue as PriorityQueue,
+    LifoQueue as LifoQueue,
+    JoinableQueue as JoinableQueue,
+    QueueFull as QueueFull,
+    QueueEmpty as QueueEmpty,
+)
 
 __all__ = (futures.__all__ +
             tasks.__all__ +

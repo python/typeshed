@@ -1,4 +1,4 @@
-from typing import Any, IO
+from typing import Any, IO, List
 
 HIGHEST_PROTOCOL = ...  # type: int
 compatible_formats = ...  # type: List[str]
