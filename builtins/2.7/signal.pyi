@@ -1,10 +1,11 @@
 from typing import Callable, Any, Tuple, Union
+from types import FrameType
 
-SIG_DFL = ...  # type: long
-SIG_IGN = ...  # type: long
-ITIMER_REAL = ...  # type: long
-ITIMER_VIRTUAL = ...  # type: long
-ITIMER_PROF = ...  # type: long
+SIG_DFL = ...  # type: int
+SIG_IGN = ...  # type: int
+ITIMER_REAL = ...  # type: int
+ITIMER_VIRTUAL = ...  # type: int
+ITIMER_PROF = ...  # type: int
 
 SIGABRT = ...  # type: int
 SIGALRM = ...  # type: int
@@ -43,24 +44,19 @@ SIGXCPU = ...  # type: int
 SIGXFSZ = ...  # type: int
 NSIG = ...  # type: int
 
-# Python 3 only:
-CTRL_C_EVENT = 0
-CTRL_BREAK_EVENT = 0
-GSIG = 0
-
 class ItimerError(IOError): ...
 
-_HANDLER = Union[Callable[[int, Any], Any], int, None]
+_HANDLER = Union[Callable[[int, FrameType], None], int, None]
 
 def alarm(time: int) -> int: ...
 def getsignal(signalnum: int) -> _HANDLER: ...
 def pause() -> None: ...
 def setitimer(which: int, seconds: float, interval: float = None) -> Tuple[float, float]: ...
 def getitimer(which: int) -> Tuple[float, float]: ...
-def set_wakeup_fd(fd: int) -> long: ...
+def set_wakeup_fd(fd: int) -> int: ...
 def siginterrupt(signalnum: int, flag: bool) -> None:
     raise RuntimeError()
-def signal(signalnum: int, handler: _HANDLER) -> None:
+def signal(signalnum: int, handler: _HANDLER) -> _HANDLER:
     raise RuntimeError()
-def default_int_handler(*args, **kwargs) -> Any:
+def default_int_handler(signum: int, frame: FrameType) -> None:
     raise KeyboardInterrupt()

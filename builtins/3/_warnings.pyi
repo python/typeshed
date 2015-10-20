@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, List
 
 _defaultaction = ...  # type: str
 _onceregistry = ...  # type: dict

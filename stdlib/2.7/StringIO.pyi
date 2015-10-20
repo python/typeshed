@@ -1,6 +1,6 @@
 # Stubs for StringIO (Python 2)
 
-from typing import Any, IO, AnyStr, Iterator, Iterable, Generic
+from typing import Any, IO, AnyStr, Iterator, Iterable, Generic, List
 
 class StringIO(IO[AnyStr], Generic[AnyStr]):
     closed = ... # type: bool

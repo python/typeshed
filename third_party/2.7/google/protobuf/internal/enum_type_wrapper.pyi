@@ -1,4 +1,4 @@
-from typing import Any, Tuple
+from typing import Any, List, Tuple
 
 class EnumTypeWrapper(object):
     def __init__(self, enum_type: Any) -> None: ...

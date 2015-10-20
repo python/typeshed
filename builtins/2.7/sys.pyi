@@ -1,8 +1,9 @@
 """Stubs for the 'sys' module."""
 
 from typing import (
-    IO, Union, List, Sequence, Any, Dict, Tuple, BinaryIO, overload
+    IO, Union, List, Sequence, Any, Dict, Tuple, BinaryIO, Optional, Callable, overload
 )
+from types import FrameType, ModuleType, TracebackType
 
 class _flags:
     bytes_warning = ...  # type: int
@@ -42,10 +43,10 @@ class _version_info(Tuple[int, int, int, str, int]):
     releaselevel = ''
     serial = 0
 
-_mercurial = ...  # type: tuple
+_mercurial = ...  # type: Tuple[str, str, str]
 api_version = ...  # type: int
 argv = ...  # type: List[str]
-builtin_module_names = ...  # type: List[str]
+builtin_module_names = ...  # type: Tuple[str, ...]
 byteorder = ...  # type: str
 copyright = ...  # type: str
 dont_write_bytecode = ...  # type: bool
@@ -58,19 +59,33 @@ long_info = ...  # type: object
 maxint = ...  # type: int
 maxsize = ...  # type: int
 maxunicode = ...  # type: int
-modules = ...  # type: Dict[str, module]
+modules = ...  # type: Dict[str, ModuleType]
 path = ...  # type: List[str]
 platform = ...  # type: str
 prefix = ...  # type: str
 py3kwarning = ...  # type: bool
+__stderr__ = ...  # type: IO[str]
+__stdin__ = ...  # type: IO[str]
+__stdout__ = ...  # type: IO[str]
 stderr = ...  # type: IO[str]
 stdin = ...  # type: IO[str]
 stdout = ...  # type: IO[str]
-subversion = ...  # type: tuple
+subversion = ...  # type: Tuple[str, str, str]
 version = ...  # type: str
 warnoptions = ...  # type: object
 float_info = ...  # type: _float_info
 version_info = ...  # type: _version_info
+ps1 = ''
+ps2 = ''
+last_type = ...  # type: type
+last_value = ...  # type: BaseException
+last_traceback = ...  # type: TracebackType
+# TODO precise types
+meta_path = ...  # type: List[Any]
+path_hooks = ...  # type: List[Any]
+path_importer_cache = ...  # type: Dict[str, Any]
+displayhook = ...  # type: Optional[Callable[[int], None]]
+excepthook = ...  # type: Optional[Callable[[type, BaseException, TracebackType], None]]
 
 class _WindowsVersionType:
     major = ...  # type: Any
@@ -83,17 +98,17 @@ class _WindowsVersionType:
     suite_mask = ...  # type: Any
     product_type = ...  # type: Any
 
-def getwindowsversion() -> _WindowsVersionType: ...  # TODO return type
+def getwindowsversion() -> _WindowsVersionType: ...
 
 def _clear_type_cache() -> None: ...
-def _current_frames() -> Dict[int, Any]: ...
-def _getframe(depth: int = ...) -> Any: ...  # TODO: Return FrameObject
+def _current_frames() -> Dict[int, FrameType]: ...
+def _getframe(depth: int = ...) -> FrameType: ...
 def call_tracing(fn: Any, args: Any) -> Any: ...
-def displayhook(value: int) -> None: ...  # value might be None
-def excepthook(type_: type, value: BaseException, traceback: Any) -> None: ...  # TODO traceback type
+def __displayhook__(value: int) -> None: ...
+def __excepthook__(type_: type, value: BaseException, traceback: TracebackType) -> None: ...
 def exc_clear() -> None:
     raise DeprecationWarning()
-def exc_info() -> Tuple[type, Any, Any]: ... # TODO traceback type
+def exc_info() -> Tuple[type, BaseException, TracebackType]: ...
 def exit(arg: int = ...) -> None:
     raise SystemExit()
 def getcheckinterval() -> int: ...  # deprecated

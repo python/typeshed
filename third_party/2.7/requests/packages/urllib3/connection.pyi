@@ -1,6 +1,7 @@
 # Stubs for requests.packages.urllib3.connection (Python 3.4)
 
 from typing import Any
+from httplib import HTTPException
 from . import packages
 from . import exceptions
 from . import util
@@ -46,3 +47,5 @@ class VerifiedHTTPSConnection(HTTPSConnection):
     def connect(self): ...
 
 UnverifiedHTTPSConnection = ...  # type: Any
+
+class ConnectionError(Exception): pass
