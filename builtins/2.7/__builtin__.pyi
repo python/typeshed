@@ -727,8 +727,8 @@ def locals() -> Dict[str, Any]: ...
 
 # Actually the type of Ellipsis is <type 'ellipsis'>, but since it's
 # not exposed anywhere under that name, we make it private here.
-class _ellipsis: ...
-Ellipsis = ...  # type: _ellipsis
+class ellipsis: ...
+Ellipsis = ...  # type: ellipsis
 
 # TODO: buffer support is incomplete; e.g. some_string.startswith(some_buffer) doesn't type check.
 AnyBuffer = TypeVar('AnyBuffer', str, unicode, bytearray, buffer)
