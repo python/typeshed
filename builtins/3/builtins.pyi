@@ -712,11 +712,10 @@ def __import__(name: str, globals: Dict[str, Any] = {}, locals: Dict[str, Any] =
 
 # Ellipsis
 
-class ellipsis:
-    # TODO not defined in builtins!
-    def __init__(self) -> None: ...
-
-Ellipsis = ellipsis()
+# Actually the type of Ellipsis is <type 'ellipsis'>, but since it's
+# not exposed anywhere under that name, we make it private here.
+class _ellipsis: ...
+Ellipsis = ...  # type: _ellipsis
 
 # Exceptions
 
