@@ -51,7 +51,6 @@ __all__ = [
     'SupportsAbs',
     'SupportsFloat',
     'SupportsInt',
-    'SupportsRound',
 
     # Concrete collection types.
     'Dict',
