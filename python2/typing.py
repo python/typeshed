@@ -134,7 +134,7 @@ class _ForwardRef(TypingMeta):
     """Wrapper to hold a forward reference."""
 
     def __new__(cls, arg):
-        if not isinstance(arg, types.StringTypes):
+        if not isinstance(arg, basestring):
             raise TypeError('ForwardRef must be a string -- got %r' % (arg,))
         try:
             code = compile(arg, '<string>', 'eval')
@@ -211,7 +211,7 @@ class _TypeAlias(object):
         someone tries to subclass a type alias (not a good idea).
         """
         if (len(args) == 3 and
-            isinstance(args[0], types.StringTypes) and
+            isinstance(args[0], basestring) and
             isinstance(args[1], tuple)):
             # Close enough.
             raise TypeError("A type alias cannot be subclassed")
@@ -228,7 +228,7 @@ class _TypeAlias(object):
             type_checker: Function that takes an impl_type instance.
                 and returns a value that should be a type_var instance.
         """
-        assert isinstance(name, types.StringTypes), repr(name)
+        assert isinstance(name, basestring), repr(name)
         assert isinstance(type_var, type), repr(type_var)
         assert isinstance(impl_type, type), repr(impl_type)
         assert not isinstance(impl_type, TypingMeta), repr(impl_type)
@@ -293,7 +293,7 @@ def _type_check(arg, msg):
     """
     if arg is None:
         return type(None)
-    if isinstance(arg, types.StringTypes):
+    if isinstance(arg, basestring):
         arg = _ForwardRef(arg)
     if not isinstance(arg, (type, _TypeAlias)):
         raise TypeError(msg + " Got %.100r." % (arg,))
@@ -1158,7 +1158,7 @@ def get_type_hints(obj, globalns=None, localns=None):
     defaults = _get_defaults(obj)
     hints = dict(obj.__annotations__)
     for name, value in hints.items():
-        if isinstance(value, types.StringTypes):
+        if isinstance(value, basestring):
             value = _ForwardRef(value)
         value = _eval_type(value, globalns, localns)
         if name in defaults and defaults[name] is None:
@@ -1318,14 +1318,6 @@ class SupportsComplex(_Protocol):
         pass
 
 
-class SupportsBytes(_Protocol):
-    __slots__ = ()
-
-    @abstractmethod
-    def __bytes__(self):
-        pass
-
-
 class SupportsAbs(_Protocol[T_co]):
     __slots__ = ()
 
@@ -1382,9 +1374,7 @@ class ByteString(Sequence[int]):
     pass
 
 
-ByteString.register(bytes)
 ByteString.register(bytearray)
-ByteString.register(type(memoryview(b'')))
 
 
 class List(list, MutableSequence[T]):
