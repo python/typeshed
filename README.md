@@ -121,3 +121,10 @@ Directory                | Contents
 `third_party/2and3/`     | Third party modules for Python 2 and 3
 ...                      | ...
 
+### Scripts for generating stubs
+
+Scripts for generating stubs should not go into typeshed itself.
+
+Ben Longbons is maintaining a repository with code for auto-generating stubs
+or creating prototypes of stubs. It's at [o11c/stubtool](https://github.com/o11c/stubtool).
+
