@@ -9,7 +9,7 @@ class Node:
     value = ... # type: Any
     start_mark = ... # type: Any
     end_mark = ... # type: Any
-    def __init__(self, tag, value, start_mark, end_mark): ...
+    def __init__(self, tag, value, start_mark, end_mark) -> None: ...
 
 class ScalarNode(Node):
     id = ... # type: Any
@@ -18,7 +18,7 @@ class ScalarNode(Node):
     start_mark = ... # type: Any
     end_mark = ... # type: Any
     style = ... # type: Any
-    def __init__(self, tag, value, start_mark=None, end_mark=None, style=None): ...
+    def __init__(self, tag, value, start_mark=None, end_mark=None, style=None) -> None: ...
 
 class CollectionNode(Node):
     tag = ... # type: Any
@@ -26,7 +26,7 @@ class CollectionNode(Node):
     start_mark = ... # type: Any
     end_mark = ... # type: Any
     flow_style = ... # type: Any
-    def __init__(self, tag, value, start_mark=None, end_mark=None, flow_style=None): ...
+    def __init__(self, tag, value, start_mark=None, end_mark=None, flow_style=None) -> None: ...
 
 class SequenceNode(CollectionNode):
     id = ... # type: Any

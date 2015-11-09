@@ -7,7 +7,7 @@ from typing import Any
 class Token:
     start_mark = ... # type: Any
     end_mark = ... # type: Any
-    def __init__(self, start_mark, end_mark): ...
+    def __init__(self, start_mark, end_mark) -> None: ...
 
 class DirectiveToken(Token):
     id = ... # type: Any
@@ -15,7 +15,7 @@ class DirectiveToken(Token):
     value = ... # type: Any
     start_mark = ... # type: Any
     end_mark = ... # type: Any
-    def __init__(self, name, value, start_mark, end_mark): ...
+    def __init__(self, name, value, start_mark, end_mark) -> None: ...
 
 class DocumentStartToken(Token):
     id = ... # type: Any
@@ -28,7 +28,7 @@ class StreamStartToken(Token):
     start_mark = ... # type: Any
     end_mark = ... # type: Any
     encoding = ... # type: Any
-    def __init__(self, start_mark=None, end_mark=None, encoding=None): ...
+    def __init__(self, start_mark=None, end_mark=None, encoding=None) -> None: ...
 
 class StreamEndToken(Token):
     id = ... # type: Any
@@ -71,21 +71,21 @@ class AliasToken(Token):
     value = ... # type: Any
     start_mark = ... # type: Any
     end_mark = ... # type: Any
-    def __init__(self, value, start_mark, end_mark): ...
+    def __init__(self, value, start_mark, end_mark) -> None: ...
 
 class AnchorToken(Token):
     id = ... # type: Any
     value = ... # type: Any
     start_mark = ... # type: Any
     end_mark = ... # type: Any
-    def __init__(self, value, start_mark, end_mark): ...
+    def __init__(self, value, start_mark, end_mark) -> None: ...
 
 class TagToken(Token):
     id = ... # type: Any
     value = ... # type: Any
     start_mark = ... # type: Any
     end_mark = ... # type: Any
-    def __init__(self, value, start_mark, end_mark): ...
+    def __init__(self, value, start_mark, end_mark) -> None: ...
 
 class ScalarToken(Token):
     id = ... # type: Any
@@ -94,4 +94,4 @@ class ScalarToken(Token):
     start_mark = ... # type: Any
     end_mark = ... # type: Any
     style = ... # type: Any
-    def __init__(self, value, plain, start_mark, end_mark, style=None): ...
+    def __init__(self, value, plain, start_mark, end_mark, style=None) -> None: ...

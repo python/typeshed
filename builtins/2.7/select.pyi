@@ -77,7 +77,7 @@ class kevent(object):
     flags = ... # type: int
     ident = ... # type: Any
     udata = ... # type: Any
-    def __init__(self, *args, **kwargs): ...
+    def __init__(self, *args, **kwargs) -> None: ...
 
 class kqueue(object):
     closed = ... # type: bool
