@@ -5,7 +5,7 @@ from typing import Any, List, overload, Callable
 class TarError(Exception): ...
 
 class TarInfo:
-    name = ''
+    name = ...  # type: str
     size = 0
     uid = 0
     gid = 0

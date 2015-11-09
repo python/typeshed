@@ -40,7 +40,7 @@ class _version_info(Tuple[int, int, int, str, int]):
     major = 0
     minor = 0
     micro = 0
-    releaselevel = ''
+    releaselevel = ...  # type: str
     serial = 0
 
 _mercurial = ...  # type: Tuple[str, str, str]
@@ -75,8 +75,8 @@ version = ...  # type: str
 warnoptions = ...  # type: object
 float_info = ...  # type: _float_info
 version_info = ...  # type: _version_info
-ps1 = ''
-ps2 = ''
+ps1 = ...  # type: str
+ps2 = ...  # type: str
 last_type = ...  # type: type
 last_value = ...  # type: BaseException
 last_traceback = ...  # type: TracebackType

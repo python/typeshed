@@ -9,18 +9,18 @@ from typing import (
 from types import TracebackType
 
 # ----- sys variables -----
-abiflags = ''
+abiflags = ...  # type: str
 argv = ... # type: List[str]
-byteorder = ''
+byteorder = ...  # type: str
 builtin_module_names = ... # type: Sequence[str] # actually a tuple of strings
-copyright = ''
+copyright = ...  # type: str
 #dllhandle = 0  # Windows only
 dont_write_bytecode = False
 __displayhook__ = ... # type: Any # contains the original value of displayhook
 __excepthook__ = ... # type: Any  # contains the original value of excepthook
-exec_prefix = ''
-executable = ''
-float_repr_style = ''
+exec_prefix = ...  # type: str
+executable = ...  # type: str
+float_repr_style = ...  # type: str
 hexversion = 0  # this is a 32-bit int
 last_type = ... # type: Any
 last_value = ... # type: Any
@@ -32,10 +32,10 @@ modules = ... # type: Dict[str, Any]
 path = ... # type: List[str]
 path_hooks = ... # type: List[Any] # TODO precise type; function, path to finder
 path_importer_cache = ... # type: Dict[str, Any] # TODO precise type
-platform = ''
-prefix = ''
-ps1 = ''
-ps2 = ''
+platform = ...  # type: str
+prefix = ...  # type: str
+ps1 = ...  # type: str
+ps2 = ...  # type: str
 stdin = ... # type: TextIO
 stdout = ... # type: TextIO
 stderr = ... # type: TextIO
@@ -45,7 +45,7 @@ __stderr__ = ... # type: TextIO
 # deprecated and removed in Python 3.3:
 subversion = ... # type: Tuple[str, str, str]
 tracebacklimit = 0
-version = ''
+version = ...  # type: str
 api_version = 0
 warnoptions = ... # type: Any
 #  Each entry is a tuple of the form (action, message, category, module,
@@ -102,7 +102,7 @@ class _version_info(Tuple[int, int, int, str, int]):
     major = 0
     minor = 0
     micro = 0
-    releaselevel = ''
+    releaselevel = ...  # type: str
     serial = 0
 version_info = ... # type: _version_info
 

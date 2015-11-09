@@ -11,20 +11,20 @@ def split(s: str, comments: bool = False,
 def quote(s: str) -> str: ...
 
 class shlex:
-    commenters = ''
-    wordchars = ''
-    whitespace = ''
-    escape = ''
-    quotes = ''
-    escapedquotes = ''
-    whitespace_split = ''
-    infile = ''
+    commenters = ...  # type: str
+    wordchars = ...  # type: str
+    whitespace = ...  # type: str
+    escape = ...  # type: str
+    quotes = ...  # type: str
+    escapedquotes = ...  # type: str
+    whitespace_split = ...  # type: str
+    infile = ...  # type: str
     instream = ...  # type: TextIO
-    source = ''
+    source = ...  # type: str
     debug = 0
     lineno = 0
-    token = ''
-    eof = ''
+    token = ...  # type: str
+    eof = ...  # type: str
 
     def __init__(self, instream=None, infile=None,
                  posix: bool = False) -> None: ...

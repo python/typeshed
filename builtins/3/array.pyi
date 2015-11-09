@@ -4,12 +4,12 @@
 
 from typing import Any, Iterable, Tuple, List, Iterator, BinaryIO, overload
 
-typecodes = ''
+typecodes = ...  # type: str
 
 class array:
     def __init__(self, typecode: str,
                  initializer: Iterable[Any] = None) -> None:
-        typecode = ''
+        typecode = ...  # type: str
         itemsize = 0
 
     def append(self, x: Any) -> None: ...

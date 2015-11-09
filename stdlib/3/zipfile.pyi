@@ -8,7 +8,7 @@ ZIP_DEFLATED = 0
 def is_zipfile(filename: Union[str, BinaryIO]) -> bool: ...
 
 class ZipInfo:
-    filename = ''
+    filename = ...  # type: str
     date_time = ... # type: Tuple[int, int, int, int, int, int]
     compressed_size = 0
     file_size = 0

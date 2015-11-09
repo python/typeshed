@@ -5,7 +5,7 @@
 from typing import Any, Dict, Optional, Callable, TypeVar, Union
 
 class Thread:
-    name = ''
+    name = ...  # type: str
     ident = 0
     daemon = False
 

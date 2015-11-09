@@ -45,7 +45,7 @@ class TestResult:
 class _AssertRaisesBaseContext:
     expected = ... # type: Any
     failureException = ... # type: type
-    obj_name = ''
+    obj_name = ...  # type: str
     expected_regex = ... # type: Pattern[str]
 
 class _AssertRaisesContext(_AssertRaisesBaseContext):
@@ -55,7 +55,7 @@ class _AssertRaisesContext(_AssertRaisesBaseContext):
 
 class _AssertWarnsContext(_AssertRaisesBaseContext):
     warning = ... # type: Any # TODO precise type
-    filename = ''
+    filename = ...  # type: str
     lineno = 0
     def __enter__(self) -> _AssertWarnsContext: ...
     def __exit__(self, exc_type, exc_value, tb) -> bool: ...

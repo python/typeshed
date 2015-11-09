@@ -28,8 +28,8 @@ class ProcessPoolExecutor(Executor):
 
 def wait(fs: Iterable[Future], timeout: float = None, return_when: str = None) -> Tuple[Iterable[Future], Iterable[Future]]: ...
 
-FIRST_COMPLETED = ''
-FIRST_EXCEPTION = ''
-ALL_COMPLETED = ''
+FIRST_COMPLETED = ...  # type: str
+FIRST_EXCEPTION = ...  # type: str
+ALL_COMPLETED = ...  # type: str
 
 def as_completed(fs: Iterable[Future], timeout: float = None) -> Iterator[Future]: ...

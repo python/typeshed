@@ -67,12 +67,12 @@ class FlagValues:
 FLAGS = None  # type: FlagValues
 
 class Flag:
-    name = ''
+    name = ...  # type: str
     default = None  # type: Any
-    default_as_str = ''
+    default_as_str = ...  # type: str
     value = None  # type: Any
-    help = ''
-    short_name = ''
+    help = ...  # type: str
+    short_name = ...  # type: str
     boolean = False
     present = False
     parser = None  # type: ArgumentParser
@@ -90,7 +90,7 @@ class Flag:
     def WriteInfoInXMLFormat(self, outfile: IO[str], module_name: str, is_key: bool = False, indent: str = '') -> None: ...
 
 class ArgumentParser(object):
-    syntactic_help = ""
+    syntactic_help = ...  # type: str
 # TODO what is this
     def Parse(self, argument: Any) -> Any: ...
     def Type(self) -> str: ...
@@ -149,9 +149,9 @@ class NumericParser(ArgumentParser):
     def Convert(self, argument: Any) -> Any: ...
 
 class FloatParser(NumericParser):
-    number_article = ''
-    number_name = ''
-    syntactic_help = ''
+    number_article = ...  # type: str
+    number_name = ...  # type: str
+    syntactic_help = ...  # type: str
     def __init__(self, lower_bound: float = None, upper_bound: float = None) -> None: ...
     def Convert(self, argument: Any) -> float: ...
     def Type(self) -> str: ...
@@ -160,9 +160,9 @@ def DEFINE_float(name: str, default: float, help: str, lower_bound: float = None
                  upper_bound: float = None, flag_values: FlagValues = ..., **args: Any) -> None: ...
 
 class IntegerParser(NumericParser):
-    number_article = ''
-    number_name = ''
-    syntactic_help = ''
+    number_article = ...  # type: str
+    number_name = ...  # type: str
+    syntactic_help = ...  # type: str
     def __init__(self, lower_bound: int = None, upper_bound: int = None) -> None: ...
     def Convert(self, argument: Any) -> int: ...
     def Type(self) -> str: ...

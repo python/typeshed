@@ -46,15 +46,15 @@ O_DIRECTORY = 0  # Gnu extension if in C library
 O_NOFOLLOW = 0   # Gnu extension if in C library
 O_NOATIME = 0    # Gnu extension if in C library
 
-curdir = ''
-pardir = ''
-sep = ''
-altsep = ''
-extsep = ''
-pathsep = ''
-defpath = ''
-linesep = ''
-devnull = ''
+curdir = ...  # type: str
+pardir = ...  # type: str
+sep = ...  # type: str
+altsep = ...  # type: str
+extsep = ...  # type: str
+pathsep = ...  # type: str
+defpath = ...  # type: str
+linesep = ...  # type: str
+devnull = ...  # type: str
 
 F_OK = 0
 R_OK = 0

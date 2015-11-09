@@ -10,7 +10,7 @@ def currentThread() -> Thread: ...
 def enumerate() -> List[Thread]: ...
 
 class Thread(object):
-    name = ''
+    name = ...  # type: str
     ident = 0
     daemon = False
 

@@ -13,7 +13,7 @@ def gnu_getopt(args: List[str], shortopts: str,
                                              List[str]]: ...
 
 class GetoptError(Exception):
-    msg = ''
-    opt = ''
+    msg = ...  # type: str
+    opt = ...  # type: str
 
 error = GetoptError

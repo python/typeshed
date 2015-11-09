@@ -24,7 +24,7 @@ classmethod = object()  # Special, only valid as a decorator.
 property = object()
 
 class object:
-    __doc__ = ''
+    __doc__ = ...  # type: str
     __class__ = ...  # type: type
 
     def __init__(self) -> None: ...
@@ -35,8 +35,8 @@ class object:
     def __hash__(self) -> int: ...
 
 class type:
-    __name__ = ''
-    __module__ = ''
+    __name__ = ...  # type: str
+    __module__ = ...  # type: str
     __dict__ = ...  # type: Dict[unicode, Any]
 
     @overload
@@ -461,8 +461,8 @@ class tuple(Sequence[_T_co], Generic[_T_co]):
 
 class function:
     # TODO name of the class (corresponds to Python 'function' class)
-    __name__ = ''
-    __module__ = ''
+    __name__ = ...  # type: str
+    __module__ = ...  # type: str
 
 class list(MutableSequence[_T], Reversible[_T], Generic[_T]):
     @overload
@@ -594,8 +594,8 @@ class xrange(Sized, Iterable[int], Reversible[int]):
     def __reversed__(self) -> Iterator[int]: ...
 
 class module:
-    __name__ = ''
-    __file__ = ''
+    __name__ = ...  # type: str
+    __file__ = ...  # type: str
     __dict__ = ...  # type: Dict[unicode, Any]
 
 True = ...  # type: bool
@@ -757,8 +757,9 @@ class ArithmeticError(StandardError): ...
 class BufferError(StandardError): ...
 class EnvironmentError(StandardError):
     errno = 0
-    strerror = ''
-    filename = '' # TODO can this be unicode?
+    strerror = ...  # type: str
+    # TODO can this be unicode?
+    filename = ...  # type: str
 class LookupError(StandardError): ...
 class RuntimeError(StandardError): ...
 class ValueError(StandardError): ...

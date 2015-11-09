@@ -3,8 +3,8 @@ from typing import List
 # TODO group database entry object type
 
 class struct_group:
-    gr_name = ''
-    gr_passwd = ''
+    gr_name = ...  # type: str
+    gr_passwd = ...  # type: str
     gr_gid = 0
     gr_mem = ...  # type: List[str]
 

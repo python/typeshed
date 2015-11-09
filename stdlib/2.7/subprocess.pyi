@@ -26,8 +26,8 @@ STDOUT = ... # type: int
 
 class CalledProcessError(Exception):
     returncode = 0
-    cmd = ''
-    output = '' # May be None
+    cmd = ...  # type: str
+    output = ...  # type: str # May be None
 
     def __init__(self, returncode: int, cmd: str, output: str) -> None: ...
 

@@ -7,8 +7,8 @@
 from typing import Tuple, IO
 
 # global variables
-tempdir = ''
-template = ''
+tempdir = ...  # type: str
+template = ...  # type: str
 
 # TODO text files
 
@@ -26,7 +26,7 @@ def SpooledTemporaryFile(
     ...
 
 class TemporaryDirectory:
-    name = ''
+    name = ...  # type: str
     def __init__(self, suffix: str = '', prefix: str = 'tmp',
                  dir: str = None) -> None: ...
     def cleanup(self) -> None: ...

@@ -26,7 +26,7 @@ classmethod = object() # Only valid as a decorator.
 property = object()
 
 class object:
-    __doc__ = ''
+    __doc__ = ...  # type: str
     __class__ = ...  # type: type
 
     def __init__(self) -> None: ...
@@ -37,9 +37,9 @@ class object:
     def __hash__(self) -> int: ...
 
 class type:
-    __name__ = ''
-    __qualname__ = ''
-    __module__ = ''
+    __name__ = ...  # type: str
+    __qualname__ = ...  # type: str
+    __module__ = ...  # type: str
     __dict__ = ...  # type: Dict[str, Any]
 
     def __init__(self, o: object) -> None: ...
@@ -431,9 +431,9 @@ class tuple(Sequence[_T_co], Generic[_T_co]):
 
 class function:
     # TODO not defined in builtins!
-    __name__ = ''
-    __qualname__ = ''
-    __module__ = ''
+    __name__ = ...  # type: str
+    __qualname__ = ...  # type: str
+    __module__ = ...  # type: str
     __code__ = ... # type: Any
 
 class list(MutableSequence[_T], Reversible[_T], Generic[_T]):
@@ -595,8 +595,8 @@ class range(Sequence[int], Reversible[int]):
 
 class module:
     # TODO not defined in builtins!
-    __name__ = ''
-    __file__ = ''
+    __name__ = ...  # type: str
+    __file__ = ...  # type: str
     __dict__ = ...  # type: Dict[str, Any]
 
 True = ...  # type: bool
@@ -732,8 +732,9 @@ class Exception(BaseException): ...
 class ArithmeticError(Exception): ...
 class EnvironmentError(Exception):
     errno = 0
-    strerror = ''
-    filename = ''  # TODO can this be bytes?
+    strerror = ...  # type: str
+    # TODO can this be bytes?
+    filename = ...  # type: str
 class LookupError(Exception): ...
 class RuntimeError(Exception): ...
 class ValueError(Exception): ...

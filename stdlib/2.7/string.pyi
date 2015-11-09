@@ -4,18 +4,18 @@
 
 from typing import Mapping, Sequence, Any, Optional, Union, List, Tuple, Iterable, AnyStr
 
-ascii_letters = ''
-ascii_lowercase = ''
-ascii_uppercase = ''
-digits = ''
-hexdigits = ''
-letters = ''
-lowercase = ''
-octdigits = ''
-punctuation = ''
-printable = ''
-uppercase = ''
-whitespace = ''
+ascii_letters = ...  # type: str
+ascii_lowercase = ...  # type: str
+ascii_uppercase = ...  # type: str
+digits = ...  # type: str
+hexdigits = ...  # type: str
+letters = ...  # type: str
+lowercase = ...  # type: str
+octdigits = ...  # type: str
+punctuation = ...  # type: str
+printable = ...  # type: str
+uppercase = ...  # type: str
+whitespace = ...  # type: str
 
 def capwords(s: AnyStr, sep: AnyStr = None) -> AnyStr: ...
 # TODO: originally named 'from'
@@ -49,7 +49,7 @@ def replace(s: AnyStr, old: AnyStr, new: AnyStr, maxreplace: int = None) -> AnyS
 
 class Template(object):
     # TODO: Unicode support?
-    template = ''
+    template = ...  # type: str
 
     def __init__(self, template: str) -> None: ...
     def substitute(self, mapping: Mapping[str, str], **kwds: str) -> str: ...

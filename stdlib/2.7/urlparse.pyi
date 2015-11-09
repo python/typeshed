@@ -8,7 +8,7 @@ uses_params = []  # type: List[str]
 non_hierarchical = []  # type: List[str]
 uses_query = []  # type: List[str]
 uses_fragment = []  # type: List[str]
-scheme_chars = ''
+scheme_chars = ...  # type: str
 MAX_CACHE_SIZE = 0
 
 def clear_cache() -> None: ...

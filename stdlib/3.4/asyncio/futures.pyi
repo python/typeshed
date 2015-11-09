@@ -18,7 +18,7 @@ class _TracebackLogger:
     def __del__(self) -> None: ...
 
 class Future(Iterator[_T], Generic[_T]):
-    _state = ''
+    _state = ...  # type: str
     _exception = Any #Exception
     _blocking = False
     _log_traceback = False

@@ -9,14 +9,14 @@ from typing import overload, List, Any, Tuple, BinaryIO, TextIO, TypeVar, Callab
 # ----- os.path variables -----
 supports_unicode_filenames = False
 # aliases (also in os)
-curdir = ''
-pardir = ''
-sep = ''
-altsep = ''
-extsep = ''
-pathsep = ''
-defpath = ''
-devnull = ''
+curdir = ...  # type: str
+pardir = ...  # type: str
+sep = ...  # type: str
+altsep = ...  # type: str
+extsep = ...  # type: str
+pathsep = ...  # type: str
+defpath = ...  # type: str
+devnull = ...  # type: str
 
 # ----- os.path function stubs -----
 def abspath(path: AnyStr) -> AnyStr: ...
