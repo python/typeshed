@@ -2,10 +2,10 @@ from typing import List, Mapping, Tuple, Union, Sequence, IO, Optional, TypeVar
 
 error = OSError
 
-confstr_names = ...  # Dict[str, int]
-environ = ...  # Dict[str, str]
-pathconf_names = ...  # Dict[str, int]
-sysconf_names = ...  # Dict[str, int]
+confstr_names = ...  # type: Dict[str, int]
+environ = ...  # type: Dict[str, str]
+pathconf_names = ...  # type: Dict[str, int]
+sysconf_names = ...  # type: Dict[str, int]
 
 EX_CANTCREAT= ...  # type: int
 EX_CONFIG= ...  # type: int
