@@ -7,11 +7,10 @@ from typing import Any, Iterable, Tuple, List, Iterator, BinaryIO, overload
 typecodes = ...  # type: str
 
 class array:
+    typecode = ...  # type: str
+    itemsize = ...  # type: int
     def __init__(self, typecode: str,
-                 initializer: Iterable[Any] = ...) -> None:
-        typecode = ...  # type: str
-        itemsize = 0
-
+                 initializer: Iterable[Any] = ...) -> None: ...
     def append(self, x: Any) -> None: ...
     def buffer_info(self) -> Tuple[int, int]: ...
     def byteswap(self) -> None: ...
