@@ -11,5 +11,5 @@ class TCPServer():
         self,
         server_address: Tuple[str, int],
         request_handler: BaseRequestHandler,
-        bind_and_activate: bool = True,
+        bind_and_activate: bool = ...,
     ) -> None: ...

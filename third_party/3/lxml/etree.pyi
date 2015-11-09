@@ -24,16 +24,16 @@ class _Element:
 class _ElementTree:
     def write(self,
               file: Union[AnyStr, typing.IO],
-              encoding: AnyStr = None,
-              method: AnyStr = "xml",
-              pretty_print: bool = False,
-              xml_declaration: Any = None,
-              with_tail: Any = True,
-              standalone: bool = None,
-              compression: int = 0,
-              exclusive: bool = False,
-              with_comments: bool = True,
-              inclusive_ns_prefixes: ListAnyStr = None) -> None:
+              encoding: AnyStr = ...,
+              method: AnyStr = ...,
+              pretty_print: bool = ...,
+              xml_declaration: Any = ...,
+              with_tail: Any = ...,
+              standalone: bool = ...,
+              compression: int = ...,
+              exclusive: bool = ...,
+              with_comments: bool = ...,
+              inclusive_ns_prefixes: ListAnyStr = ...) -> None:
         pass
 
 class _XSLTResultTree(SupportsBytes):
@@ -47,8 +47,8 @@ class XMLParser:
 
 class XMLSchema:
     def __init__(self,
-                 etree: Union[_Element, _ElementTree] = None,
-                 file: Union[AnyStr, typing.IO] = None) -> None:
+                 etree: Union[_Element, _ElementTree] = ...,
+                 file: Union[AnyStr, typing.IO] = ...) -> None:
         pass
 
     def assertValid(self,
@@ -61,14 +61,14 @@ class XSLTAccessControl:
 class XSLT:
     def __init__(self,
                  xslt_input: Union[_Element, _ElementTree],
-                 extensions: Dict_Tuple2AnyStr_Any = None,
-                 regexp: bool = True,
-                 access_control: XSLTAccessControl = None) -> None:
+                 extensions: Dict_Tuple2AnyStr_Any = ...,
+                 regexp: bool = ...,
+                 access_control: XSLTAccessControl = ...) -> None:
         pass
 
     def __call__(self,
                  _input: Union[_Element, _ElementTree],
-                 profile_run: bool = False,
+                 profile_run: bool = ...,
                  **kwargs: Union[AnyStr, _XSLTQuotedStringParam]) -> _XSLTResultTree:
         pass
 
@@ -77,26 +77,26 @@ class XSLT:
         pass
 
 def Element(_tag: AnyStr,
-            attrib: DictAnyStr = None,
-            nsmap: DictAnyStr = None,
+            attrib: DictAnyStr = ...,
+            nsmap: DictAnyStr = ...,
             **extra: AnyStr) -> _Element:
     pass
 
 def SubElement(_parent: _Element, _tag: AnyStr,
-               attrib: DictAnyStr = None,
-               nsmap: DictAnyStr = None,
+               attrib: DictAnyStr = ...,
+               nsmap: DictAnyStr = ...,
                **extra: AnyStr) -> _Element:
     pass
 
-def ElementTree(element: _Element = None,
-                file: Union[AnyStr, typing.IO] = None,
-                parser: XMLParser = None) -> _ElementTree:
+def ElementTree(element: _Element = ...,
+                file: Union[AnyStr, typing.IO] = ...,
+                parser: XMLParser = ...) -> _ElementTree:
     pass
 
-def ProcessingInstruction(target: AnyStr, text: AnyStr = None) -> _Element:
+def ProcessingInstruction(target: AnyStr, text: AnyStr = ...) -> _Element:
     pass
 
 def parse(source: Union[AnyStr, typing.IO],
-          parser: XMLParser = None,
-          base_url: AnyStr = None) -> _ElementTree:
+          parser: XMLParser = ...,
+          base_url: AnyStr = ...) -> _ElementTree:
     pass

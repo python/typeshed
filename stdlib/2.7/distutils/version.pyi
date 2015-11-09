@@ -5,7 +5,7 @@
 from typing import Any
 
 class Version:
-    def __init__(self, vstring=None) -> None: ...
+    def __init__(self, vstring=...) -> None: ...
 
 class StrictVersion(Version):
     version_re = ... # type: Any
@@ -16,7 +16,7 @@ class StrictVersion(Version):
 
 class LooseVersion(Version):
     component_re = ... # type: Any
-    def __init__(self, vstring=None) -> None: ...
+    def __init__(self, vstring=...) -> None: ...
     vstring = ... # type: Any
     version = ... # type: Any
     def parse(self, vstring): ...

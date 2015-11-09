@@ -14,7 +14,7 @@ punctuation = ...  # type: str
 printable = ...  # type: str
 whitespace = ...  # type: str
 
-def capwords(s: str, sep: str = None) -> str: ...
+def capwords(s: str, sep: str = ...) -> str: ...
 
 class Template:
     template = ...  # type: str

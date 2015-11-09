@@ -32,15 +32,15 @@ _incremental_encoder_type = Callable[[], 'IncrementalEncoder'] # signature of In
 _incremental_decode_type = Callable[[], 'IncrementalDecoder'] # signature of IncrementalDecoder __init__
 
 
-def encode(obj: _decoded, encoding: str = 'utf-8', errors: str = 'strict') -> _encoded:
+def encode(obj: _decoded, encoding: str = ..., errors: str = ...) -> _encoded:
     ...
-def decode(obj: _encoded, encoding: str = 'utf-8', errors: str = 'strict') -> _decoded:
+def decode(obj: _encoded, encoding: str = ..., errors: str = ...) -> _decoded:
     ...
 
 def lookup(encoding: str) -> 'CodecInfo':
     ...
 class CodecInfo(Tuple[_encode_type, _decode_type, _stream_reader_type, _stream_writer_type]):
-    def __init__(self, encode: _encode_type, decode: _decode_type, streamreader: _stream_reader_type = None, streamwriter: _stream_writer_type = None, incrementalencoder: _incremental_encoder_type = None, incrementaldecoder: _incremental_decode_type = None, name: str = None) -> None:
+    def __init__(self, encode: _encode_type, decode: _decode_type, streamreader: _stream_reader_type = ..., streamwriter: _stream_writer_type = ..., incrementalencoder: _incremental_encoder_type = ..., incrementaldecoder: _incremental_decode_type = ..., name: str = ...) -> None:
         self.encode = encode
         self.decode = decode
         self.streamreader = streamreader
@@ -65,15 +65,15 @@ def getwriter(encoding: str) -> _stream_writer_type:
 def register(search_function: Callable[[str], CodecInfo]) -> None:
     ...
 
-def open(filename: str, mode: str = 'r', encoding: str = None, errors: str = 'strict', buffering: int = 1) -> StreamReaderWriter:
+def open(filename: str, mode: str = ..., encoding: str = ..., errors: str = ..., buffering: int = ...) -> StreamReaderWriter:
     ...
 
-def EncodedFile(file: BinaryIO, data_encoding: str, file_encoding: str = None, errors = 'strict') -> 'StreamRecoder':
+def EncodedFile(file: BinaryIO, data_encoding: str, file_encoding: str = ..., errors = ...) -> 'StreamRecoder':
     ...
 
-def iterencode(iterator: Iterable[_decoded], encoding: str, errors: str = 'strict') -> Iterator[_encoded]:
+def iterencode(iterator: Iterable[_decoded], encoding: str, errors: str = ...) -> Iterator[_encoded]:
     ...
-def iterdecode(iterator: Iterable[_encoded], encoding: str, errors: str = 'strict') -> Iterator[_decoded]:
+def iterdecode(iterator: Iterable[_encoded], encoding: str, errors: str = ...) -> Iterator[_decoded]:
     ...
 
 BOM = b''
@@ -109,16 +109,16 @@ def backslashreplace_errors(exception: UnicodeError) -> Tuple[Union[str, bytes],
 class Codec:
     # These are sort of @abstractmethod but sort of not.
     # The StreamReader and StreamWriter subclasses only implement one.
-    def encode(self, input: _decoded, errors: str = 'strict') -> Tuple[_encoded, int]:
+    def encode(self, input: _decoded, errors: str = ...) -> Tuple[_encoded, int]:
         ...
-    def decode(self, input: _encoded, errors: str = 'strict') -> Tuple[_decoded, int]:
+    def decode(self, input: _encoded, errors: str = ...) -> Tuple[_decoded, int]:
         ...
 
 class IncrementalEncoder:
-    def __init__(self, errors: str = 'strict') -> None:
+    def __init__(self, errors: str = ...) -> None:
         self.errors = errors
     @abstractmethod
-    def encode(self, object: _decoded, final: bool = False) -> _encoded:
+    def encode(self, object: _decoded, final: bool = ...) -> _encoded:
         ...
     def reset(self) -> None:
         ...
@@ -129,10 +129,10 @@ class IncrementalEncoder:
         ...
 
 class IncrementalDecoder:
-    def __init__(self, errors: str = 'strict') -> None:
+    def __init__(self, errors: str = ...) -> None:
         self.errors = errors
     @abstractmethod
-    def decode(self, object: _encoded, final: bool = False) -> _decoded:
+    def decode(self, object: _encoded, final: bool = ...) -> _decoded:
         ...
     def reset(self) -> None:
         ...
@@ -143,28 +143,28 @@ class IncrementalDecoder:
 
 # These are not documented but used in encodings/*.py implementations.
 class BufferedIncrementalEncoder(IncrementalEncoder):
-    def __init__(self, errors: str = 'strict') -> None:
+    def __init__(self, errors: str = ...) -> None:
         IncrementalEncoder.__init__(self, errors)
         self.buffer = ''
     @abstractmethod
     def _buffer_encode(self, input: _decoded, errors: str, final: bool) -> _encoded:
         ...
-    def encode(self, input: _decoded, final: bool = False) -> _encoded:
+    def encode(self, input: _decoded, final: bool = ...) -> _encoded:
         ...
 class BufferedIncrementalDecoder(IncrementalDecoder):
-    def __init__(self, errors: str = 'strict') -> None:
+    def __init__(self, errors: str = ...) -> None:
         IncrementalDecoder.__init__(self, errors)
         self.buffer = b''
     @abstractmethod
     def _buffer_decode(self, input: _encoded, errors: str, final: bool) -> Tuple[_decoded, int]:
         ...
-    def decode(self, object: _encoded, final: bool = False) -> _decoded:
+    def decode(self, object: _encoded, final: bool = ...) -> _decoded:
         ...
 
 # TODO: it is not possible to specify the requirement that all other
 # attributes and methods are passed-through from the stream.
 class StreamWriter(Codec):
-    def __init__(self, stream: BinaryIO, errors: str = 'strict') -> None:
+    def __init__(self, stream: BinaryIO, errors: str = ...) -> None:
         self.errors = errors
     def write(self, obj: _decoded) -> None:
         ...
@@ -174,21 +174,21 @@ class StreamWriter(Codec):
         ...
 
 class StreamReader(Codec):
-    def __init__(self, stream: BinaryIO, errors: str = 'strict') -> None:
+    def __init__(self, stream: BinaryIO, errors: str = ...) -> None:
         self.errors = errors
-    def read(self, size: int = -1, chars: int = -1, firstline: bool = False) -> _decoded:
+    def read(self, size: int = ..., chars: int = ..., firstline: bool = ...) -> _decoded:
         ...
-    def readline(self, size: int = -1, keepends: bool = True) -> _decoded:
+    def readline(self, size: int = ..., keepends: bool = ...) -> _decoded:
         ...
-    def readlines(self, sizehint: int = -1, keepends: bool = True) -> List[_decoded]:
+    def readlines(self, sizehint: int = ..., keepends: bool = ...) -> List[_decoded]:
         ...
     def reset(self) -> None:
         ...
 
 class StreamReaderWriter:
-    def __init__(self, stream: BinaryIO, Reader: _stream_reader_type, Writer: _stream_writer_type, errors: str = 'strict') -> None:
+    def __init__(self, stream: BinaryIO, Reader: _stream_reader_type, Writer: _stream_writer_type, errors: str = ...) -> None:
         ...
 
 class StreamRecoder(BinaryIO):
-    def __init__(self, stream: BinaryIO, encode: _encode_type, decode: _decode_type, Reader: _stream_reader_type, Writer: _stream_writer_type, errors: str = 'strict') -> None:
+    def __init__(self, stream: BinaryIO, encode: _encode_type, decode: _decode_type, Reader: _stream_reader_type, Writer: _stream_writer_type, errors: str = ...) -> None:
         ...

@@ -53,7 +53,7 @@ Query = query.Query
 Bundle = query.Bundle
 public_factory = langhelpers.public_factory
 
-def create_session(bind=None, **kwargs): ...
+def create_session(bind=..., **kwargs): ...
 
 relationship = ... # type: Any
 

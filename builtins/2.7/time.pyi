@@ -17,17 +17,17 @@ struct_time = NamedTuple('struct_time',
 
 _TIME_TUPLE = Tuple[int, int, int, int, int, int, int, int, int]
 
-def asctime(t: struct_time = None) -> str:
+def asctime(t: struct_time = ...) -> str:
     raise ValueError()
 
 def clock() -> float: ...
 
-def ctime(secs: float = None) -> str:
+def ctime(secs: float = ...) -> str:
     raise ValueError()
 
-def gmtime(secs: float = None) -> struct_time: ...
+def gmtime(secs: float = ...) -> struct_time: ...
 
-def localtime(secs: float = None) -> struct_time: ...
+def localtime(secs: float = ...) -> struct_time: ...
 
 def mktime(t: struct_time) -> float:
     raise OverflowError()
@@ -35,11 +35,11 @@ def mktime(t: struct_time) -> float:
 
 def sleep(secs: float) -> None: ...
 
-def strftime(format: str, t: struct_time = None) -> str:
+def strftime(format: str, t: struct_time = ...) -> str:
     raise MemoryError()
     raise ValueError()
 
-def strptime(string: str, format: str = "%a %b %d %H:%M:%S %Y") -> struct_time:
+def strptime(string: str, format: str = ...) -> struct_time:
     raise ValueError()
 
 def time() -> float:

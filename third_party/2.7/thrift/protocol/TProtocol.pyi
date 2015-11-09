@@ -15,7 +15,7 @@ class TProtocolException(TException):
     NOT_IMPLEMENTED = ... # type: Any
     DEPTH_LIMIT = ... # type: Any
     type = ... # type: Any
-    def __init__(self, type=..., message=None) -> None: ...
+    def __init__(self, type=..., message=...) -> None: ...
 
 class TProtocolBase:
     trans = ... # type: Any

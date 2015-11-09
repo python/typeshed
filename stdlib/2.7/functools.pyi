@@ -10,7 +10,7 @@ _AnyCallable = Callable[..., Any]
 
 _T = TypeVar("_T")
 def reduce(function: Callable[[_T], _T],
-           sequence: Iterator[_T], initial: Optional[_T] = None) -> _T: ...
+           sequence: Iterator[_T], initial: Optional[_T] = ...) -> _T: ...
 
 WRAPPER_ASSIGNMENTS = ... # type: Sequence[str]
 WRAPPER_UPDATES = ... # type: Sequence[str]

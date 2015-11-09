@@ -43,7 +43,7 @@ class HTTPSConnection(HTTPConnection):
     default_port = ...  # type: Any
     key_file = ...  # type: Any
     cert_file = ...  # type: Any
-    def __init__(self, host, port=None, key_file=None, cert_file=None, strict=None, timeout=..., **kw) -> None: ...
+    def __init__(self, host, port=..., key_file=..., cert_file=..., strict=..., timeout=..., **kw) -> None: ...
     sock = ...  # type: Any
     def connect(self): ...
 
@@ -55,7 +55,7 @@ class VerifiedHTTPSConnection(HTTPSConnection):
     key_file = ...  # type: Any
     cert_file = ...  # type: Any
     assert_hostname = ...  # type: Any
-    def set_cert(self, key_file=None, cert_file=None, cert_reqs=None, ca_certs=None, assert_hostname=None, assert_fingerprint=None): ...
+    def set_cert(self, key_file=..., cert_file=..., cert_reqs=..., ca_certs=..., assert_hostname=..., assert_fingerprint=...): ...
     sock = ...  # type: Any
     auto_open = ...  # type: Any
     is_verified = ...  # type: Any

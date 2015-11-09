@@ -9,17 +9,17 @@ _FILE = Union[int, IO[Any]]
 # TODO force keyword arguments
 # TODO more keyword arguments (from Popen)
 def call(args: Sequence[str], *,
-         stdin: _FILE = None, stdout: _FILE = None, stderr: _FILE = None,
-         shell: bool = False, env: Mapping[str, str] = None,
-         cwd: str = None) -> int: ...
+         stdin: _FILE = ..., stdout: _FILE = ..., stderr: _FILE = ...,
+         shell: bool = ..., env: Mapping[str, str] = ...,
+         cwd: str = ...) -> int: ...
 def check_call(args: Sequence[str], *,
-               stdin: _FILE = None, stdout: _FILE = None, stderr: _FILE = None,
-               shell: bool = False, env: Mapping[str, str] = None, cwd: str = None,
-               close_fds: Sequence[_FILE] = None, preexec_fn: Callable[[], Any] = None) -> int: ...
+               stdin: _FILE = ..., stdout: _FILE = ..., stderr: _FILE = ...,
+               shell: bool = ..., env: Mapping[str, str] = ..., cwd: str = ...,
+               close_fds: Sequence[_FILE] = ..., preexec_fn: Callable[[], Any] = ...) -> int: ...
 def check_output(args: Sequence[str], *,
-                 stdin: _FILE = None, stderr: _FILE = None,
-                 shell: bool = False, universal_newlines: bool = False,
-                 env: Mapping[str, str] = None, cwd: str = None) -> str: ...
+                 stdin: _FILE = ..., stderr: _FILE = ...,
+                 shell: bool = ..., universal_newlines: bool = ...,
+                 env: Mapping[str, str] = ..., cwd: str = ...) -> str: ...
 
 PIPE = ... # type: int
 STDOUT = ... # type: int
@@ -40,24 +40,24 @@ class Popen:
 
     def __init__(self,
                  args: Sequence[str],
-                 bufsize: int = 0,
-                 executable: str = None,
-                 stdin: _FILE = None,
-                 stdout: _FILE = None,
-                 stderr: _FILE = None,
-                 preexec_fn: Callable[[], Any] = None,
-                 close_fds: bool = False,
-                 shell: bool = False,
-                 cwd: str = None,
-                 env: Mapping[str, str] = None,
-                 universal_newlines: bool = False,
-                 startupinfo: Any = None,
-                 creationflags: int = 0) -> None: ...
+                 bufsize: int = ...,
+                 executable: str = ...,
+                 stdin: _FILE = ...,
+                 stdout: _FILE = ...,
+                 stderr: _FILE = ...,
+                 preexec_fn: Callable[[], Any] = ...,
+                 close_fds: bool = ...,
+                 shell: bool = ...,
+                 cwd: str = ...,
+                 env: Mapping[str, str] = ...,
+                 universal_newlines: bool = ...,
+                 startupinfo: Any = ...,
+                 creationflags: int = ...) -> None: ...
 
     def poll(self) -> int: ...
     def wait(self) -> int: ...
     # Return str/bytes
-    def communicate(self, input: str = None) -> Tuple[str, str]: ...
+    def communicate(self, input: str = ...) -> Tuple[str, str]: ...
     def send_signal(self, signal: int) -> None: ...
     def terminatate(self) -> None: ...
     def kill(self) -> None: ...

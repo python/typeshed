@@ -6,19 +6,19 @@ from typing import Sequence, Any, Mapping, Callable, Tuple, IO
 
 # TODO force keyword arguments
 # TODO more keyword arguments
-def call(args: Sequence[str], *, stdin: Any = None, stdout: Any = None,
-         stderr: Any = None, shell: bool = False,
-         env: Mapping[str, str] = None,
-         cwd: str = None) -> int: ...
-def check_call(args: Sequence[str], *, stdin: Any = None, stdout: Any = None,
-               stderr: Any = None, shell: bool = False,
-               env: Mapping[str, str] = None,
-               cwd: str = None) -> int: ...
+def call(args: Sequence[str], *, stdin: Any = ..., stdout: Any = ...,
+         stderr: Any = ..., shell: bool = ...,
+         env: Mapping[str, str] = ...,
+         cwd: str = ...) -> int: ...
+def check_call(args: Sequence[str], *, stdin: Any = ..., stdout: Any = ...,
+               stderr: Any = ..., shell: bool = ...,
+               env: Mapping[str, str] = ...,
+               cwd: str = ...) -> int: ...
 # Return str/bytes
-def check_output(args: Sequence[str], *, stdin: Any = None, stderr: Any = None,
-                 shell: bool = False, universal_newlines: bool = False,
-                 env: Mapping[str, str] = None,
-                 cwd: str = None) -> Any: ...
+def check_output(args: Sequence[str], *, stdin: Any = ..., stderr: Any = ...,
+                 shell: bool = ..., universal_newlines: bool = ...,
+                 env: Mapping[str, str] = ...,
+                 cwd: str = ...) -> Any: ...
 
 # TODO types
 PIPE = ... # type: Any
@@ -40,27 +40,27 @@ class Popen:
 
     def __init__(self,
                   args: Sequence[str],
-                  bufsize: int = 0,
-                  executable: str = None,
-                  stdin: Any = None,
-                  stdout: Any = None,
-                  stderr: Any = None,
-                  preexec_fn: Callable[[], Any] = None,
-                  close_fds: bool = True,
-                  shell: bool = False,
-                  cwd: str = None,
-                  env: Mapping[str, str] = None,
-                  universal_newlines: bool = False,
-                  startupinfo: Any = None,
-                  creationflags: int = 0,
-                  restore_signals: bool = True,
-                  start_new_session: bool = False,
-                  pass_fds: Any = ()) -> None: ...
+                  bufsize: int = ...,
+                  executable: str = ...,
+                  stdin: Any = ...,
+                  stdout: Any = ...,
+                  stderr: Any = ...,
+                  preexec_fn: Callable[[], Any] = ...,
+                  close_fds: bool = ...,
+                  shell: bool = ...,
+                  cwd: str = ...,
+                  env: Mapping[str, str] = ...,
+                  universal_newlines: bool = ...,
+                  startupinfo: Any = ...,
+                  creationflags: int = ...,
+                  restore_signals: bool = ...,
+                  start_new_session: bool = ...,
+                  pass_fds: Any = ...) -> None: ...
 
     def poll(self) -> int: ...
     def wait(self) -> int: ...
     # Return str/bytes
-    def communicate(self, input=None) -> Tuple[Any, Any]: ...
+    def communicate(self, input=...) -> Tuple[Any, Any]: ...
     def send_signal(self, signal: int) -> None: ...
     def terminatate(self) -> None: ...
     def kill(self) -> None: ...

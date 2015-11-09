@@ -5,5 +5,5 @@
 from typing import Any, Tuple
 
 # TODO arguments missing
-def testmod(module: Any = None, *, name: str = None, globs: Any = None,
-            verbose: bool = None) -> Tuple[int, int]: ...
+def testmod(module: Any = ..., *, name: str = ..., globs: Any = ...,
+            verbose: bool = ...) -> Tuple[int, int]: ...

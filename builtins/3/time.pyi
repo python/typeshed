@@ -37,15 +37,15 @@ class struct_time:
 # ----- functions -----
 def asctime(t: Union[Tuple[int, int, int, int, int, int, int, int, int],
                      struct_time,
-                     None] = None) -> str: ...  # return current time
+                     None] = ...) -> str: ...  # return current time
 
 def clock() -> float: ...
 
-def ctime(secs: Union[float, None] = None) -> str: ...  # return current time
+def ctime(secs: Union[float, None] = ...) -> str: ...  # return current time
 
-def gmtime(secs: Union[float, None] = None) -> struct_time: ...  # return current time
+def gmtime(secs: Union[float, None] = ...) -> struct_time: ...  # return current time
 
-def localtime(secs: Union[float, None] = None) -> struct_time: ...  # return current time
+def localtime(secs: Union[float, None] = ...) -> struct_time: ...  # return current time
 
 def mktime(t: Union[Tuple[int, int, int, int, int,
                           int, int, int, int],
@@ -56,9 +56,9 @@ def sleep(secs: Union[int, float]) -> None: ...
 def strftime(format: str, t: Union[Tuple[int, int, int, int, int,
                                          int, int, int, int],
                                    struct_time,
-                                   None] = None) -> str: ...  # return current time
+                                   None] = ...) -> str: ...  # return current time
 
 def strptime(string: str,
-             format: str = "%a %b %d %H:%M:%S %Y") -> struct_time: ...
+             format: str = ...) -> struct_time: ...
 def time() -> float: ...
 def tzset() -> None: ...  # Unix only

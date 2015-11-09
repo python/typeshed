@@ -10,5 +10,5 @@ class StreamReader(codecs.StreamReader):
     pass
 
 def getregentry() -> codecs.CodecInfo: pass
-def encode(input: str, errors: str = 'strict') -> bytes: pass
-def decode(input: bytes, errors: str = 'strict') -> str: pass
+def encode(input: str, errors: str = ...) -> bytes: pass
+def decode(input: bytes, errors: str = ...) -> str: pass

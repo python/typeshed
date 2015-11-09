@@ -7,19 +7,19 @@ from typing import (
 
 class TextWrapper:
     def __init__(self,
-            width: int = 70,
+            width: int = ...,
             *,
-            initial_indent: str = '',
-            subsequent_indent: str = '',
-            expand_tabs: bool = True,
-            tabsize: int = 8,
-            replace_whitespace: bool = True,
-            fix_sentence_endings: bool = False,
-            break_long_words: bool = True,
-            break_on_hyphens: bool = True,
-            drop_whitespace: bool = True,
-            max_lines: int = None,
-            placeholder: str = ' [...]'
+            initial_indent: str = ...,
+            subsequent_indent: str = ...,
+            expand_tabs: bool = ...,
+            tabsize: int = ...,
+            replace_whitespace: bool = ...,
+            fix_sentence_endings: bool = ...,
+            break_long_words: bool = ...,
+            break_on_hyphens: bool = ...,
+            drop_whitespace: bool = ...,
+            max_lines: int = ...,
+            placeholder: str = ...
     ) -> None:
         self.width = width
         self.initial_indent = initial_indent
@@ -61,58 +61,58 @@ class TextWrapper:
 
 
 def wrap(
-        width: int = 70,
+        width: int = ...,
         *,
-        initial_indent: str = '',
-        subsequent_indent: str = '',
-        expand_tabs: bool = True,
-        tabsize: int = 8,
-        replace_whitespace: bool = True,
-        fix_sentence_endings: bool = False,
-        break_long_words: bool = True,
-        break_on_hyphens: bool = True,
-        drop_whitespace: bool = True,
-        max_lines: int = None,
-        placeholder: str = ' [...]'
+        initial_indent: str = ...,
+        subsequent_indent: str = ...,
+        expand_tabs: bool = ...,
+        tabsize: int = ...,
+        replace_whitespace: bool = ...,
+        fix_sentence_endings: bool = ...,
+        break_long_words: bool = ...,
+        break_on_hyphens: bool = ...,
+        drop_whitespace: bool = ...,
+        max_lines: int = ...,
+        placeholder: str = ...
 ) -> List[str]:
     ...
 
 def fill(
-        width: int = 70,
+        width: int = ...,
         *,
-        initial_indent: str = '',
-        subsequent_indent: str = '',
-        expand_tabs: bool = True,
-        tabsize: int = 8,
-        replace_whitespace: bool = True,
-        fix_sentence_endings: bool = False,
-        break_long_words: bool = True,
-        break_on_hyphens: bool = True,
-        drop_whitespace: bool = True,
-        max_lines: int = None,
-        placeholder: str = ' [...]'
+        initial_indent: str = ...,
+        subsequent_indent: str = ...,
+        expand_tabs: bool = ...,
+        tabsize: int = ...,
+        replace_whitespace: bool = ...,
+        fix_sentence_endings: bool = ...,
+        break_long_words: bool = ...,
+        break_on_hyphens: bool = ...,
+        drop_whitespace: bool = ...,
+        max_lines: int = ...,
+        placeholder: str = ...
 ):
     ...
 
 def shorten(
         width: int,
         *,
-        initial_indent: str = '',
-        subsequent_indent: str = '',
-        expand_tabs: bool = True,
-        tabsize: int = 8,
-        replace_whitespace: bool = True,
-        fix_sentence_endings: bool = False,
-        break_long_words: bool = True,
-        break_on_hyphens: bool = True,
-        drop_whitespace: bool = True,
+        initial_indent: str = ...,
+        subsequent_indent: str = ...,
+        expand_tabs: bool = ...,
+        tabsize: int = ...,
+        replace_whitespace: bool = ...,
+        fix_sentence_endings: bool = ...,
+        break_long_words: bool = ...,
+        break_on_hyphens: bool = ...,
+        drop_whitespace: bool = ...,
         # Omit `max_lines: int = None`, it is forced to 1 here.
-        placeholder: str = ' [...]'
+        placeholder: str = ...
 ):
     ...
 
 def dedent(text: str) -> str:
     ...
 
-def indent(text: str, prefix: str, predicate: Callable[[str], bool] = None) -> str:
+def indent(text: str, prefix: str, predicate: Callable[[str], bool] = ...) -> str:
     ...
