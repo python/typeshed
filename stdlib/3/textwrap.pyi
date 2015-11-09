@@ -19,7 +19,7 @@ class TextWrapper:
             break_on_hyphens: bool = True,
             drop_whitespace: bool = True,
             max_lines: int = None,
-            placeholder: str = ' [...]',
+            placeholder: str = ' [...]'
     ) -> None:
         self.width = width
         self.initial_indent = initial_indent
@@ -73,7 +73,7 @@ def wrap(
         break_on_hyphens: bool = True,
         drop_whitespace: bool = True,
         max_lines: int = None,
-        placeholder: str = ' [...]',
+        placeholder: str = ' [...]'
 ) -> List[str]:
     ...
 
@@ -90,7 +90,7 @@ def fill(
         break_on_hyphens: bool = True,
         drop_whitespace: bool = True,
         max_lines: int = None,
-        placeholder: str = ' [...]',
+        placeholder: str = ' [...]'
 ):
     ...
 
@@ -107,7 +107,7 @@ def shorten(
         break_on_hyphens: bool = True,
         drop_whitespace: bool = True,
         # Omit `max_lines: int = None`, it is forced to 1 here.
-        placeholder: str = ' [...]',
+        placeholder: str = ' [...]'
 ):
     ...
 
