@@ -182,3 +182,53 @@ linesep = ... # type: str
 devnull = ... # type: str
 
 def urandom(n: int) -> str: ...
+
+# More constants, copied from stdlib/3/os/__init__.pyi
+
+O_RDONLY = 0
+O_WRONLY = 0
+O_RDWR = 0
+O_APPEND = 0
+O_CREAT = 0
+O_EXCL = 0
+O_TRUNC = 0
+O_DSYNC = 0    # Unix only
+O_RSYNC = 0    # Unix only
+O_SYNC = 0     # Unix only
+O_NDELAY = 0   # Unix only
+O_NONBLOCK = 0 # Unix only
+O_NOCTTY = 0   # Unix only
+O_SHLOCK = 0   # Unix only
+O_EXLOCK = 0   # Unix only
+O_BINARY = 0     # Windows only
+O_NOINHERIT = 0  # Windows only
+O_SHORT_LIVED = 0# Windows only
+O_TEMPORARY = 0  # Windows only
+O_RANDOM = 0     # Windows only
+O_SEQUENTIAL = 0 # Windows only
+O_TEXT = 0       # Windows only
+O_ASYNC = 0      # Gnu extension if in C library
+O_DIRECT = 0     # Gnu extension if in C library
+O_DIRECTORY = 0  # Gnu extension if in C library
+O_NOFOLLOW = 0   # Gnu extension if in C library
+O_NOATIME = 0    # Gnu extension if in C library
+
+F_OK = 0
+R_OK = 0
+W_OK = 0
+X_OK = 0
+
+P_NOWAIT = 0
+P_NOWAITO = 0
+P_WAIT = 0
+#P_DETACH = 0  # Windows only
+#P_OVERLAY = 0  # Windows only
+
+# wait()/waitpid() options
+WNOHANG = 0  # Unix only
+#WCONTINUED = 0  # some Unix systems
+#WUNTRACED = 0  # Unix only
+
+P_ALL = 0
+WEXITED = 0
+WNOWAIT = 0
