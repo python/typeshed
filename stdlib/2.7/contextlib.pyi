@@ -2,12 +2,15 @@
 
 # NOTE: These are incomplete!
 
-from typing import Any, TypeVar, Generic
-
-# TODO more precise type?
-def contextmanager(func: Any) -> Any: ...
+from typing import Any, TypeVar, Callable, Generic, Iterator
 
 _T = TypeVar('_T')
+
+class _GeneratorContextManager(Generic[_T]):
+    def __enter__(self) -> _T: ...
+    def __exit__(self, *exc_info) -> None: ...
+
+def contextmanager(func: Callable[..., Iterator[_T]]) -> Callable[..., _GeneratorContextManager[_T]]: ...
 
 class closing(Generic[_T]):
     def __init__(self, thing: _T) -> None: ...
