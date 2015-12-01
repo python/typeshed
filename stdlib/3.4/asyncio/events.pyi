@@ -1,4 +1,4 @@
-from typing import Any, TypeVar, List, Callable, Tuple, Union, Dict
+from typing import Any, Awaitable, TypeVar, List, Callable, Tuple, Union, Dict
 from abc import ABCMeta, abstractmethod
 from asyncio.futures import Future
 
@@ -34,7 +34,7 @@ class AbstractEventLoop(metaclass=ABCMeta):
     @abstractmethod
     def run_forever(self) -> None: ...
     @abstractmethod
-    def run_until_complete(self, future: Future[_T]) -> _T: ...
+    def run_until_complete(self, future: Union[Awaitable[_T], Future[_T]]) -> _T: ...
     @abstractmethod
     def stop(self) -> None: ...
     @abstractmethod
