@@ -1256,6 +1256,12 @@ collection types defined below, e.g.  ``Mapping``, ``Sequence`` or
 
 Generic variants of container ABCs (and a few non-containers):
 
+* Awaitable
+
+* AsyncIterable
+
+* AsyncIterator
+
 * ByteString
 
 * Callable (see above, listed here for completeness)
