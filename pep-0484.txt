@@ -1040,7 +1040,12 @@ Additional notes on stub files:
 
 * Modules and variables imported into the stub are not considered
   exported from the stub unless the import uses the ``import ... as
-  ...`` form.
+  ...`` form or the equivalent ``from ... import ... as ...`` form.
+
+* However, as an exception to the previous bullet, all objects
+  imported into a stub using ``from ... import *`` are considered
+  exported.  (This makes it easier to re-export all objects from a
+  given module that may vary by Python version.)
 
 Function overloading
 --------------------
