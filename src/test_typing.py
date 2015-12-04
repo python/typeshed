@@ -964,6 +964,7 @@ T_a = TypeVar('T')
 
 
 class AwaitableWrapper(typing.Awaitable[T_a]):
+
     def __init__(self, value):
         self.value = value
 
@@ -973,6 +974,7 @@ class AwaitableWrapper(typing.Awaitable[T_a]):
 
 
 class AsyncIteratorWrapper(typing.AsyncIterator[T_a]):
+
     def __init__(self, value: typing.Iterable[T_a]):
         self.value = value
 
