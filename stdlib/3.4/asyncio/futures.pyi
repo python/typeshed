@@ -10,7 +10,7 @@ _T = TypeVar('_T')
 
 class _TracebackLogger:
     __slots__ = [] # type: List[str]
-    exc = Any # Exception
+    exc = ...  # type: Exception
     tb = [] # type: List[str]
     def __init__(self, exc: Any, loop: AbstractEventLoop) -> None: ...
     def activate(self) -> None: ...
@@ -19,7 +19,7 @@ class _TracebackLogger:
 
 class Future(Iterator[_T], Generic[_T]):
     _state = ...  # type: str
-    _exception = Any #Exception
+    _exception = ... # type: Exception
     _blocking = False
     _log_traceback = False
     _tb_logger = _TracebackLogger
