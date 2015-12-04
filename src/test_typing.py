@@ -1026,6 +1026,7 @@ class CollectionsAbcTests(TestCase):
                           typing.Awaitable[Employee])
         assert not issubclass(typing.Awaitable[Employee],
                               typing.Awaitable[Manager])
+        g.send(None)  # Run foo() till completion, to avoid warning.
 
     def test_async_iterable(self):
         base_it = range(10)  # type: Iterator[int]
