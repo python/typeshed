@@ -1,7 +1,6 @@
 # Stubs for typing
 
 from abc import abstractmethod, ABCMeta
-from asyncio.futures import Future
 
 # Definitions of special type checking related constructs.  Their definition
 # are not used, so their value does not matter.
@@ -110,9 +109,11 @@ class Generator(Iterator[_T_co], Generic[_T_co, _T_contra, _V_co]):
     @abstractmethod
     def close(self) -> None:...
 
+class AbstractFuture(Generic[_T]): ...
+
 class Awaitable(Generic[_T_co]):
     @abstractmethod
-    def __await__(self) -> Generator[Future, Any, _T_co]:...
+    def __await__(self) -> Generator[AbstractFuture[_T_co], Any, _T_co]:...
 
 class AsyncIterable(Generic[_T_co]):
     @abstractmethod
