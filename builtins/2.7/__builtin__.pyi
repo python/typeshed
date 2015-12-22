@@ -464,7 +464,7 @@ class function:
     __name__ = ...  # type: str
     __module__ = ...  # type: str
 
-class list(MutableSequence[_T], Reversible[_T], Generic[_T]):
+class list(MutableSequence[_T], Generic[_T]):
     @overload
     def __init__(self) -> None: ...
     @overload
