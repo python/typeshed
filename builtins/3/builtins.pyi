@@ -438,7 +438,7 @@ class function:
     __module__ = ...  # type: str
     __code__ = ... # type: Any
 
-class list(MutableSequence[_T], Reversible[_T], Generic[_T]):
+class list(MutableSequence[_T], Generic[_T]):
     @overload
     def __init__(self) -> None: ...
     @overload
@@ -578,7 +578,7 @@ class enumerate(Iterator[Tuple[int, _T]], Generic[_T]):
     def __next__(self) -> Tuple[int, _T]: ...
     # TODO __getattribute__
 
-class range(Sequence[int], Reversible[int]):
+class range(Sequence[int]):
     @overload
     def __init__(self, stop: int) -> None: ...
     @overload
