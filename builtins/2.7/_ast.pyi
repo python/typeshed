@@ -1,6 +1,8 @@
 from typing import Any
 from typing import Tuple as TypingTuple
 
+__version__ = ...  # type: int
+
 PyCF_ONLY_AST = ...  # type: int
 
 class AST(object):
