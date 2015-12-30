@@ -17,7 +17,7 @@ class shlex:
     escape = ...  # type: str
     quotes = ...  # type: str
     escapedquotes = ...  # type: str
-    whitespace_split = ...  # type: str
+    whitespace_split = ...  # type: bool
     infile = ...  # type: str
     instream = ...  # type: TextIO
     source = ...  # type: str
