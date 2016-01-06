@@ -30,6 +30,7 @@ class _C:
 
 # TODO: The real abc.abstractproperty inherits from "property".
 class abstractproperty(object):
+    def __new__(cls, func): ...
     __doc__ = ...  # type: str
     __isabstractmethod__ = ...  # type: bool
     doc = ...  # type: Any
