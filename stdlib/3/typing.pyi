@@ -46,8 +46,6 @@ _KT_co = TypeVar('_KT_co', covariant=True)  # Key type covariant containers.
 _VT_co = TypeVar('_VT_co', covariant=True)  # Value type covariant containers.
 _T_contra = TypeVar('_T_contra', contravariant=True)  # Ditto contravariant.
 
-# TODO Container etc.
-
 class SupportsInt(metaclass=ABCMeta):
     @abstractmethod
     def __int__(self) -> int: ...
