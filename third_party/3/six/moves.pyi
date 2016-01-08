@@ -20,5 +20,5 @@ def zip(iter1: Iterable[_T1], iter2: Iterable[_T2], iter3: Iterable[_T3],
                                                _T3, _T4]]: ... # TODO more than four iterables
 
 # For re-export.
-import cStringIO as cStringIO
-import cPickle as cPickle
+from io import StringIO as cStringIO
+import pickle as cPickle
