@@ -2,7 +2,19 @@
 
 from typing import Any, Tuple, Generator
 
-from _ast import *
+from _ast import (
+        AST, alias, arguments, boolop, cmpop, comprehension, excepthandler,
+        expr, expr_context, keyword, mod, operator, slice, stmt, unaryop, Add,
+        And, Assert, Assign, Attribute, AugAssign, AugLoad, AugStore, BinOp,
+        BitAnd, BitOr, BitXor, BoolOp, Break, Call, ClassDef, Compare, Continue,
+        Del, Delete, Dict, DictComp, Div, Ellipsis, Eq, ExceptHandler, Exec,
+        Expr, Expression, ExtSlice, FloorDiv, For, FunctionDef, GeneratorExp,
+        Global, Gt, GtE, If, IfExp, Import, ImportFrom, In, Index, Interactive,
+        Invert, Is, IsNot, LShift, Lambda, List, ListComp, Load, Lt, LtE, Mod,
+        Module, Mult, Name, Not, NotEq, NotIn, Num, Or, Param, Pass, Pow, Print,
+        RShift, Raise, Repr, Return, Set, SetComp, Slice, Store, Str, Sub,
+        Subscript, Suite, TryExcept, TryFinally, Tuple, UAdd, USub, UnaryOp,
+        While, With, Yield)
 
 __version__ = ...  # type: int
 PyCF_ONLY_AST = ...  # type: int
