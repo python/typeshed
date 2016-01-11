@@ -12,10 +12,6 @@ _T = TypeVar("_T")
 def reduce(function: Callable[[_T], _T],
            sequence: Iterator[_T], initial: Optional[_T] = ...) -> _T: ...
 
-# TODO implement as class; more precise typing
-# TODO cache_info and __wrapped__ attributes
-def lru_cache(maxsize: Optional[int] = ...) -> Callable[[Any], Any]: ...
-
 WRAPPER_ASSIGNMENTS = ... # type: Sequence[str]
 WRAPPER_UPDATES = ... # type: Sequence[str]
 
