@@ -3,7 +3,7 @@
 # NOTE: These are incomplete!
 
 from abc import ABCMeta, abstractmethod
-from typing import Any, Callable, Generic, Dict, Iterator, Optional, Sequence, Tuple, TypeVar
+from typing import Any, Callable, Generic, Dict, Iterator, Optional, Sequence, Tuple, TypeVar, NamedTuple
 from collections import namedtuple
 
 _AnyCallable = Callable[..., Any]
@@ -12,9 +12,21 @@ _T = TypeVar("_T")
 def reduce(function: Callable[[_T], _T],
            sequence: Iterator[_T], initial: Optional[_T] = ...) -> _T: ...
 
-# TODO implement as class; more precise typing
-# TODO cache_info and __wrapped__ attributes
-def lru_cache(maxsize: Optional[int] = ...) -> Callable[[Any], Any]: ...
+
+class CacheInfo(NamedTuple('CacheInfo', [
+    ('hits', int), ('misses', int), ('maxsize', int), ('currsize', int)])):
+     pass
+
+class _lru_cache_wrapper(Generic[_T]):
+    __wrapped__ = ... # type: Callable[..., _T]
+    def __call__(self, *args: Any, **kwargs: Any) -> _T: ...
+    def cache_info(self) -> CacheInfo: ...
+
+class lru_cache():
+    def __init__(self, maxsize: int = ..., typed: bool = ...) -> None:
+        pass
+    def __call__(self, f: Callable[..., _T]) -> _lru_cache_wrapper[_T]: ...
+
 
 WRAPPER_ASSIGNMENTS = ... # type: Sequence[str]
 WRAPPER_UPDATES = ... # type: Sequence[str]
