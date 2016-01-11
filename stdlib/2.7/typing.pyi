@@ -76,6 +76,19 @@ class Iterator(Iterable[_T_co], Generic[_T_co]):
     @abstractmethod
     def next(self) -> _T_co: ...
 
+class Generator(Iterator[_T_co], Generic[_T_co, _T_contra, _V_co]):
+    @abstractmethod
+    def next(self) -> _T_co:...
+
+    @abstractmethod
+    def send(self, value: _T_contra) -> _T_co:...
+
+    @abstractmethod
+    def throw(self, typ: BaseException, val: Any=None, tb=None) -> None:...
+
+    @abstractmethod
+    def close(self) -> None:...
+
 class Container(Generic[_T_co]):
     @abstractmethod
     def __contains__(self, x: object) -> bool: ...
