@@ -70,7 +70,7 @@ class SupportsRound(Generic[_T]):
     @abstractmethod
     def __round__(self, ndigits: int = ...) -> _T: ...
 
-class Reversible(Generic[_T]):
+class Reversible(Generic[_T_co]):
     @abstractmethod
     def __reversed__(self) -> Iterator[_T]: ...
 
