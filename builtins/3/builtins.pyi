@@ -7,6 +7,7 @@ from typing import (
     SupportsAbs, SupportsRound, IO, Union, ItemsView, KeysView, ValuesView, ByteString
 )
 from abc import abstractmethod, ABCMeta
+from _print_function import print as print
 
 # Note that names imported above are not automatically made visible via the
 # implicit builtins import.
@@ -670,7 +671,6 @@ def oct(i: int) -> str: ...  # TODO __index__
 def open(file: Union[str, bytes, int], mode: str = 'r', buffering: int = -1, encoding: str = None,
          errors: str = None, newline: str = None, closefd: bool = True) -> IO[Any]: ...
 def ord(c: Union[str, bytes, bytearray]) -> int: ...
-def print(*values: Any, sep: str = ' ', end: str = '\n', file: IO[str] = None) -> None: ...
 @overload
 def pow(x: int, y: int) -> Any: ...  # The return type can be int or float, depending on y
 @overload
