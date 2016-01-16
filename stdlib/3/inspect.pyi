@@ -1,6 +1,6 @@
 # Stubs for inspect
 
-from typing import Any, Tuple, List, Callable
+from typing import Any, Tuple, List, Dict, Callable
 from types import FrameType
 
 _object = object
@@ -30,5 +30,17 @@ class ArgSpec(tuple):
     defaults = ...  # type: tuple
 
 def getargspec(func: object) -> ArgSpec: ...
+
+# namedtuple('FullArgSpec', 'args varargs varkw defaults kwonlyargs kwonlydefaults annotations')
+class FullArgSpec(tuple):
+    args = ...  # type: List[str]
+    varargs = ...  # type: str
+    varkw = ...  # type: str
+    defaults = ...  # type: tuple
+    kwonlyargs = ...  # type: List[str]
+    kwonlydefaults = ...  # type: Dict[str, Any]
+    annotations = ...  # type: Dict[str, Any]
+
+def getfullargspec(func: object) -> FullArgSpec: ...
 
 def stack() -> List[Tuple[FrameType, str, int, str, List[str], int]]: ...

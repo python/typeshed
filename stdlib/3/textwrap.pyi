@@ -61,6 +61,7 @@ class TextWrapper:
 
 
 def wrap(
+        text: str = ...,
         width: int = ...,
         *,
         initial_indent: str = ...,
