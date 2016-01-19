@@ -1,5 +1,5 @@
 # TODO incomplete
-from typing import Any, List, Tuple
+from typing import Any, List, Tuple, NamedTuple
 
 def isgenerator(object: Any) -> bool: ...
 
@@ -10,11 +10,10 @@ _FrameRecord = Tuple[_Frame, str, int, str, List[str], int]
 def currentframe() -> _FrameRecord: ...
 def stack(context: int = ...) -> List[_FrameRecord]: ...
 
-# namedtuple('ArgSpec', 'args varargs keywords defaults')
-class ArgSpec(tuple):
-    args = ...  # type: List[str]
-    varargs = ...  # type: str
-    keywords = ...  # type: str
-    defaults = ...  # type: tuple
+ArgSpec = NamedTuple('ArgSpec', [('args', List[str]),
+                                 ('varargs', str),
+                                 ('keywords', str),
+                                 ('defaults', tuple),
+                                 ])
 
 def getargspec(func: object) -> ArgSpec: ...
