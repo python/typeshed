@@ -107,6 +107,9 @@ class Generator(Iterator[_T_co], Generic[_T_co, _T_contra, _V_co]):
     @abstractmethod
     def close(self) -> None:...
 
+    @abstractmethod
+    def __iter__(self) -> 'Generator[_T_co, _T_contra, _V_co]': ...
+
 class AbstractFuture(Generic[_T]): ...
 
 class Awaitable(Generic[_T_co]):
