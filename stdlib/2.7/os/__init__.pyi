@@ -1,11 +1,11 @@
 # created from https://docs.python.org/2/library/os.html
 
-from typing import List, Tuple, Union, Sequence, Mapping, IO, Any, Optional, AnyStr
+from typing import List, Tuple, Union, Sequence, Mapping, IO, Any, Optional, AnyStr, MutableMapping
 import os.path as path
 
 error = OSError
 name = ... # type: str
-environ = ... # type: Mapping[str, str]
+environ = ... # type: MutableMapping[str, str]
 
 def chdir(path: unicode) -> None: ...
 def fchdir(fd: int) -> None: ...
