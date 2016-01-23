@@ -1,6 +1,6 @@
 # Stubs for inspect
 
-from typing import Any, Tuple, List, Callable
+from typing import Any, Tuple, List, Dict, Callable, NamedTuple
 from types import FrameType
 
 _object = object
@@ -22,13 +22,23 @@ def cleandoc(doc: str) -> str: ...
 
 def getsourcelines(obj: object) -> Tuple[List[str], int]: ...
 
-# namedtuple('ArgSpec', 'args varargs keywords defaults')
-class ArgSpec(tuple):
-    args = ...  # type: List[str]
-    varargs = ...  # type: str
-    keywords = ...  # type: str
-    defaults = ...  # type: tuple
+ArgSpec = NamedTuple('ArgSpec', [('args', List[str]),
+                                 ('varargs', str),
+                                 ('keywords', str),
+                                 ('defaults', tuple),
+                                 ])
 
 def getargspec(func: object) -> ArgSpec: ...
+
+FullArgSpec = NamedTuple('FullArgSpec', [('args', List[str]),
+                                         ('varargs', str),
+                                         ('varkw', str),
+                                         ('defaults', tuple),
+                                         ('kwonlyargs', List[str]),
+                                         ('kwonlydefaults', Dict[str, Any]),
+                                         ('annotations', Dict[str, Any]),
+                                         ])
+
+def getfullargspec(func: object) -> FullArgSpec: ...
 
 def stack() -> List[Tuple[FrameType, str, int, str, List[str], int]]: ...

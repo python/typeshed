@@ -61,7 +61,7 @@ class excel_tab(excel):
 class unix_dialect(Dialect):
     pass
 
-class DictReader:
+class DictReader(Iterable):
     restkey = ...  # type: Any
     restval = ...  # type: Any
     reader = ...  # type: Any
