@@ -1372,6 +1372,52 @@ Types available in the ``typing.re`` submodule:
   results (generic over ``AnyStr``)
 
 
+Suggested syntax for Python 2.7 and straddling code
+===================================================
+
+Some tools may want to support type annotations in code that must be
+compatible with Python 2.7.  For this purpose this PEP has a suggested
+(but not mandatory) extension where function annotations are placed in
+a ``# type:`` comment.  Such a comment must be placed immediately
+following the function header (before the docstring).  An example: the
+following Python 3 code::
+
+  def embezzle(self, account: str, funds: int = 1000000, *fake_receipts: str) -> None:
+      """Embezzle funds from account using fake receipts."""
+      <code goes here>
+
+is equivalent to the following::
+
+  def embezzle(self, account, funds=1000000, *fake_receipts):
+      # type: (str, int, *str) -> None
+      """Embezzle funds from account using fake receipts."""
+      <code goes here>
+
+Notes:
+
+- Tools that support this syntax should support it regardless of the
+  Python version being checked.  This is necessary in order to support
+  code that straddles Python 2 and Python 3.
+
+- Every argument must be accounted for, except the first argument of
+  instance and class methods.
+
+- The return type is mandatory.  If in Python 3 you would omit some
+  argument or the return type, the Python 2 notation should use
+  ``Any``.
+
+- For ``*args`` and ``**kwds``, put 1 or 2 stars in front of the
+  corresponding type annotation.  (As with Python 3 annotations, the
+  annotation here denotes the type of the individual argument values,
+  not of the tuple/dict that you receive as the special argument value
+  ``args`` or ``kwds``.)
+
+- Like other type comments, any names used in the annotations must be
+  imported or defined by the module containing the annotation.
+
+- The entire annotation must be one line.
+
+
 Rejected Alternatives
 =====================
 
@@ -1669,10 +1715,10 @@ References
    http://aroberge.blogspot.com/2015/01/type-hinting-in-python-focus-on.html
 
 .. [github]
-   https://github.com/ambv/typehinting
+   https://github.com/python/typing
 
 .. [issues]
-   https://github.com/ambv/typehinting/issues
+   https://github.com/python/typing/issues
 
 .. [peps]
    https://hg.python.org/peps/file/tip/pep-0484.txt
