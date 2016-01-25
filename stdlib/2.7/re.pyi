@@ -10,8 +10,6 @@ from typing import (
 )
 
 # ----- re variables and constants -----
-A = 0
-ASCII = 0
 DEBUG = 0
 I = 0
 IGNORECASE = 0
@@ -23,6 +21,10 @@ S = 0
 DOTALL = 0
 X = 0
 VERBOSE = 0
+U = 0
+UNICODE = 0
+T = 0
+TEMPLATE = 0
 
 class error(Exception): ...
 
