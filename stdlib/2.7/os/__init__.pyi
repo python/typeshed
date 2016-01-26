@@ -1,6 +1,6 @@
 # created from https://docs.python.org/2/library/os.html
 
-from typing import List, Tuple, Union, Sequence, Mapping, IO, Any, Optional, AnyStr, MutableMapping
+from typing import List, Tuple, Union, Sequence, Mapping, IO, Any, Optional, AnyStr, MutableMapping, Iterator
 import os.path as path
 
 error = OSError
@@ -134,7 +134,10 @@ def rmdir(path: unicode) -> None: ...
 # TODO(MichalPokorny)
 def stat(path: unicode) -> Any: ...
 
-# TODO: stat_float_times, statvfs, tempnam, tmpnam, TMP_MAX, walk
+# TODO: stat_float_times, statvfs, tempnam, tmpnam, TMP_MAX
+def walk(top: AnyStr, topdown: bool = ..., onerror: Any = ...,
+         followlinks: bool = ...) -> Iterator[Tuple[AnyStr, List[AnyStr],
+                                                    List[AnyStr]]]: ...
 
 def symlink(source: unicode, link_name: unicode) -> None: ...
 def unlink(path: unicode) -> None: ...
