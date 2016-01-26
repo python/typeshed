@@ -20,3 +20,8 @@ from __builtin__ import xrange as xrange
 from itertools import izip as zip
 from itertools import izip_longest as zip_longest
 import six.moves.cPickle as cPickle
+
+import six.moves.urllib_parse as urllib_parse
+import six.moves.urllib_error as urllib_error
+import six.moves.urllib as urllib
+import six.moves.urllib_robotparser as urllib_robotparser
