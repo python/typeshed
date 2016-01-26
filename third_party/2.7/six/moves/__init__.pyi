@@ -1,24 +1,22 @@
 # Provisional stubs for six.moves (Python 2.7)
 
-from typing import overload, TypeVar, Tuple, Iterable, Iterator
-
-_T1 = TypeVar('_T1')
-_T2 = TypeVar('_T2')
-_T3 = TypeVar('_T3')
-_T4 = TypeVar('_T4')
-
-@overload
-def zip(iter1: Iterable[_T1]) -> Iterator[Tuple[_T1]]: ...
-@overload
-def zip(iter1: Iterable[_T1], iter2: Iterable[_T2]) -> Iterator[Tuple[_T1, _T2]]: ...
-@overload
-def zip(iter1: Iterable[_T1], iter2: Iterable[_T2],
-        iter3: Iterable[_T3]) -> Iterator[Tuple[_T1, _T2, _T3]]: ...
-@overload
-def zip(iter1: Iterable[_T1], iter2: Iterable[_T2], iter3: Iterable[_T3],
-        iter4: Iterable[_T4]) -> Iterator[Tuple[_T1, _T2,
-                                               _T3, _T4]]: ... # TODO more than four iterables
-
-# For re-export.
-import cStringIO as cStringIO
-import cPickle as cPickle
+from cStringIO import StringIO as cStringIO
+from itertools import ifilter as filter
+from itertools import ifilterfalse as filterfalse
+from __builtin__ import raw_input as input
+from __builtin__ import intern as intern
+from itertools import imap as map
+from os import getcwdu as getcwd
+from os import getcwd as getcwdb
+from __builtin__ import xrange as range
+from __builtin__ import reload as reload_module
+from __builtin__ import reduce as reduce
+from pipes import quote as shlex_quote
+from StringIO import StringIO as StringIO
+from UserDict import UserDict as UserDict
+from UserList import UserList as UserList
+from UserString import UserString as UserString
+from __builtin__ import xrange as xrange
+from itertools import izip as zip
+from itertools import izip_longest as zip_longest
+import six.moves.cPickle as cPickle
