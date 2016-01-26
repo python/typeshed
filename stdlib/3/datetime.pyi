@@ -107,9 +107,9 @@ class timedelta(SupportsAbs[timedelta]):
     max = ...  # type: timedelta
     resolution = ...  # type: timedelta
 
-    def __init__(self, days: int = ..., seconds: int = ..., microseconds: int = ...,
-                 milliseconds: int = ..., minutes: int = ..., hours: int = ...,
-                 weeks: int = ...) -> None: ...
+    def __init__(self, days: float = ..., seconds: float = ..., microseconds: float = ...,
+                 milliseconds: float = ..., minutes: float = ..., hours: float = ...,
+                 weeks: float = ...) -> None: ...
 
     @property
     def days(self) -> int: ...
