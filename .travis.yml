@@ -9,4 +9,5 @@ install:
 
 script:
   - mypy stdlib/3/
+  - rm -rf 2_7; cp -r stdlib/2.7 2_7; rm 2_7/__builtin__.pyi; mypy --py2 2_7/
   # That doesn't test everything, but it's a start.
