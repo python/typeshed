@@ -1,0 +1,12 @@
+sudo: false
+language: python
+python:
+  - "3.5"
+  # More versions later.
+
+install:
+  - pip install https://github.com/JukkaL/mypy
+
+script:
+  - mypy stdlib/3/
+  # That doesn't test everything, but it's a start.
