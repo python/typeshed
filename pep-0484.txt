@@ -1020,7 +1020,7 @@ stub files:
 * Modules that use annotations for other purposes
 
 Stub files have the same syntax as regular Python modules.  There is one
-feature of the ``typing`` module that may only be used in stub files:
+feature of the ``typing`` module that is different in stub files:
 the ``@overload`` decorator described below.
 
 The type checker should only check function signatures in stub files;
@@ -1101,18 +1101,30 @@ Note that we could also easily add items to support ``map(None, ...)``::
           iter1: Iterable[T1],
           iter2: Iterable[T2]) -> Iterable[Tuple[T1, T2]]: ...
 
-The ``@overload`` decorator may only be used in stub files.  While it
-would be possible to provide a multiple dispatch implementation using
-this syntax, its implementation would require using
-``sys._getframe()``, which is frowned upon.  Also, designing and
+Uses of the ``@overload`` decorator as shown above are suitable for
+stub files.  In regular modules, a series of ``@overload``-decorated
+definitions must be followed by exactly one
+non-``@overload``-decorated definition (for the same function/method).
+The ``@overload``-decorated definitions are for the benefit of the
+type checker only, since they will be overwritten by the
+non-``@overload``-decorated definition, while the latter is used at
+runtime but should be ignored by a type checker.  At runtime, calling
+a ``@overload``-decorated function directly will raise
+``NotImplementedError``.
+
+NOTE: While it would be possible to provide a multiple dispatch
+implementation using this syntax, its implementation would require
+using ``sys._getframe()``, which is frowned upon.  Also, designing and
 implementing an efficient multiple dispatch mechanism is hard, which
 is why previous attempts were abandoned in favor of
 ``functools.singledispatch()``.  (See PEP 443, especially its section
 "Alternative approaches".)  In the future we may come up with a
 satisfactory multiple dispatch design, but we don't want such a design
 to be constrained by the overloading syntax defined for type hints in
-stub files.  In the meantime, using the ``@overload`` decorator or
-calling ``overload()`` directly raises ``RuntimeError``.
+stub files.  It is also possible that both features will develop
+independent from each other (since overloading in the type checker
+has different use cases and requirements than multiple dispatch
+at runtime -- e.g. the latter is unlikely to support generic types).
 
 A constrained ``TypeVar`` type can often be used instead of using the
 ``@overload`` decorator.  For example, the definitions of ``concat1``

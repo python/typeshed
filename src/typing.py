@@ -1183,8 +1183,42 @@ def no_type_check_decorator(decorator):
     return wrapped_decorator
 
 
+def _overload_dummy(*args, **kwds):
+    """Helper for @overload to raise when called."""
+    raise NotImplementedError(
+        "You should not call an overloaded function. "
+        "A series of @overload-decorated functions "
+        "outside a stub module should always be followed "
+        "by an implementation that is not @overload-ed.")
+
+
 def overload(func):
-    raise RuntimeError("Overloading is only supported in library stubs")
+    """Decorator for overloaded functions/methods.
+
+    In a stub file, place two or more stub definitions for the same
+    function in a row, each decorated with @overload.  For example:
+
+      @overload
+      def utf8(value: None) -> None: ...
+      @overload
+      def utf8(value: bytes) -> bytes: ...
+      @overload
+      def utf8(value: str) -> bytes: ...
+
+    In a non-stub file (i.e. a regular .py file), do the same but
+    follow it with an implementation.  The implementation should *not*
+    be decorated with @overload.  For example:
+
+      @overload
+      def utf8(value: None) -> None: ...
+      @overload
+      def utf8(value: bytes) -> bytes: ...
+      @overload
+      def utf8(value: str) -> bytes: ...
+      def utf8(value):
+          # implementation goes here
+    """
+    return _overload_dummy
 
 
 class _ProtocolMeta(GenericMeta):

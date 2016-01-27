@@ -582,24 +582,31 @@ class GenericTests(TestCase):
 
     def test_dict(self):
         T = TypeVar('T')
+
         class B(Generic[T]):
             pass
+
         b = B()
         b.foo = 42
         self.assertEqual(b.__dict__, {'foo': 42})
+
         class C(B[int]):
             pass
+
         c = C()
         c.bar = 'abc'
         self.assertEqual(c.__dict__, {'bar': 'abc'})
 
     def test_pickle(self):
+        global C  # pickle wants to reference the class by name
         T = TypeVar('T')
+
         class B(Generic[T]):
             pass
-        global C  # pickle wants to reference the class by name
+
         class C(B[int]):
             pass
+
         c = C()
         c.foo = 42
         c.bar = 'abc'
@@ -956,9 +963,24 @@ class OverloadTests(TestCase):
         from typing import overload
 
         with self.assertRaises(RuntimeError):
+
             @overload
             def blah():
                 pass
+
+            blah()
+
+    def test_overload_succeeds(self):
+        from typing import overload
+
+        @overload
+        def blah():
+            pass
+
+        def blah():
+            pass
+
+        blah()
 
 
 T_a = TypeVar('T')
