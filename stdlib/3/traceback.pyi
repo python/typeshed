@@ -1,5 +1,6 @@
 # Stubs for traceback
 
+from types import TracebackType
 import typing
 
 # TODO signatures
