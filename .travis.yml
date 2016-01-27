@@ -14,4 +14,5 @@ script:
   - rm -rf 3_4; cp -R stdlib/3.4 3_4; mypy 3_4/
   - mypy --py2 stdlib/2and3/
   - rm -rf 2_7; cp -R -L stdlib/2.7 2_7; rm 2_7/__builtin__.pyi ; mypy --py2 2_7/
-  # That doesn't test everything, but it's a start.
+  - for X in third_party/{3*,2and3}; do echo $X; rm -rf tmp; cp -R -L $X/ tmp; mypy tmp/; done
+  - for X in third_party/{2*,2and3}; do echo $X; rm -rf tmp; cp -R -L $X/ tmp; mypy --py2 tmp/; done
