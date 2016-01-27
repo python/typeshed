@@ -19,6 +19,14 @@ __all__ = (
     'unquote_to_bytes'
 )
 
+uses_relative = []  # type: List[str]
+uses_netloc = []  # type: List[str]
+uses_params = []  # type: List[str]
+non_hierarchical = []  # type: List[str]
+uses_query = []  # type: List[str]
+uses_fragment = []  # type: List[str]
+scheme_chars = ...  # type: str
+MAX_CACHE_SIZE = 0
 
 class _ResultMixinBase(Generic[AnyStr]):
     def geturl(self) -> AnyStr: ...
@@ -89,6 +97,8 @@ def quote_plus(string: AnyStr, safe: AnyStr = ..., encoding: str = ..., errors: 
 def unquote(string: str, encoding: str = ..., errors: str = ...) -> str: ...
 
 def unquote_to_bytes(string: AnyStr) -> bytes: ...
+
+def unquote_plus(string: str, encoding: str = ..., errors: str = ...) -> str: ...
 
 @overload
 def urldefrag(url: str) -> DefragResult: ...
