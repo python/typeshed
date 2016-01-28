@@ -21,6 +21,7 @@ from itertools import izip as zip
 from itertools import izip_longest as zip_longest
 import six.moves.cPickle as cPickle
 import HTMLParser as html_parser
+import htmlentitydefs as html_entities
 
 import six.moves.urllib_parse as urllib_parse
 import six.moves.urllib_error as urllib_error
