@@ -4,7 +4,7 @@
 # Stubs for six.moves.urllib_error (Python 2.7)
 
 from six.moves.urllib.error import (
-    ## URLError as URLError,
-    ## HTTPError as HTTPError,
+    URLError as URLError,
+    HTTPError as HTTPError,
     ContentTooShortError as ContentTooShortError,
 )
