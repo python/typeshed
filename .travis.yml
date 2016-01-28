@@ -9,6 +9,6 @@ install:
 
 script:
   - mypy `find stdlib/{2and3,3*} -name \*.pyi`
-  - mypy `find third_party/{2and3,3*} -name \*.pyi`
+  # - mypy `find third_party/{2and3,3*} -name \*.pyi`
   - mypy --py2 `find stdlib/2* -name \*.pyi | grep -v __builtin__.pyi`  # builtins and __builtin__ are aliases
-  - mypy --py2  `find third_party/2* -name \*.pyi | grep -v sqlalchemy`  # sqlalchemy is currently busted
+  # - mypy --py2  `find third_party/2* -name \*.pyi | grep -v sqlalchemy`  # sqlalchemy is currently busted
