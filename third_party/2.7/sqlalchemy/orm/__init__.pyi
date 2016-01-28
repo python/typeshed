@@ -66,7 +66,6 @@ composite = ... # type: Any
 def backref(name, **kwargs): ...
 def deferred(*columns, **kw): ...
 
-mapper = ... # type: Any
 synonym = ... # type: Any
 comparable_property = ... # type: Any
 
