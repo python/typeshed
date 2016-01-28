@@ -23,6 +23,7 @@ from builtins import range as xrange
 from builtins import zip as zip
 from itertools import zip_longest as zip_longest
 import six.moves.cPickle as cPickle
+import html.parser as html_parser
 
 import six.moves.urllib_parse as urllib_parse
 import six.moves.urllib_error as urllib_error
