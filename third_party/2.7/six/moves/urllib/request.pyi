@@ -35,5 +35,4 @@ from urllib import urlretrieve as urlretrieve
 from urllib import urlcleanup as urlcleanup
 from urllib import URLopener as URLopener
 from urllib import FancyURLopener as FancyURLopener
-# Don't have type stubs for proxy_bypass in stdlib urllib
-# from urllib import proxy_bypass as proxy_bypass
+from urllib import proxy_bypass as proxy_bypass
