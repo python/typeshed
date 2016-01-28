@@ -2,9 +2,6 @@
 
 # Based on http://docs.python.org/3.2/library/collections.html
 
-# TODO UserDict
-# TODO UserList
-# TODO UserString
 # TODO more abstract base classes (interfaces in mypy)
 
 # These are not exported.
@@ -30,6 +27,10 @@ _VT = TypeVar('_VT')
 # namedtuple is special-cased in the type checker; the initializer is ignored.
 namedtuple = object()
 
+class UserDict(MutableMapping): ...
+class UserList(MutableSequence): ...
+class UserString(Sequence): ...
+class MutableString(UserString, MutableSequence): ...
 
 # Technically, deque only derives from MutableSequence in 3.5.
 # But in practice it's not worth losing sleep over.
