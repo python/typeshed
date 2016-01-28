@@ -16,9 +16,9 @@ from imp import reload as reload_module
 from functools import reduce as reduce
 from shlex import quote as shlex_quote
 from io import StringIO as StringIO
-# from collections import UserDict as UserDict
-# from collections import UserList as UserList
-# from collections import UserString as UserString
+from collections import UserDict as UserDict
+from collections import UserList as UserList
+from collections import UserString as UserString
 from builtins import range as xrange
 from builtins import zip as zip
 from itertools import zip_longest as zip_longest

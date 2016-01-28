@@ -14,8 +14,8 @@ from __builtin__ import reduce as reduce
 from pipes import quote as shlex_quote
 from StringIO import StringIO as StringIO
 from UserDict import UserDict as UserDict
-## from UserList import UserList as UserList
-## from UserString import UserString as UserString
+from UserList import UserList as UserList
+from UserString import UserString as UserString
 from __builtin__ import xrange as xrange
 from itertools import izip as zip
 from itertools import izip_longest as zip_longest

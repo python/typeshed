@@ -2,16 +2,13 @@
 
 # Based on http://docs.python.org/2.7/library/collections.html
 
-# TODO UserDict
-# TODO UserList
-# TODO UserString
 # TODO more abstract base classes (interfaces in mypy)
 
 # NOTE: These are incomplete!
 
 from typing import (
     Dict, Generic, TypeVar, Iterable, Tuple, Callable, Mapping, overload, Iterator, Sized,
-    Optional, List, Set, Sequence, Union, Reversible
+    Optional, List, Set, Sequence, Union, Reversible, MutableMapping, MutableSequence
 )
 import typing
 
@@ -21,8 +18,6 @@ _VT = TypeVar('_VT')
 
 # namedtuple is special-cased in the type checker; the initializer is ignored.
 namedtuple = object()
-
-MutableMapping = typing.MutableMapping
 
 class deque(Sized, Iterable[_T], Reversible[_T], Generic[_T]):
     def __init__(self, iterable: Iterable[_T] = ...,
