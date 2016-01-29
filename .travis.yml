@@ -2,14 +2,11 @@ sudo: false
 language: python
 python:
   - "3.5"
-  # Lower versions are currently broken. :-(
+  # Lower 3.x versions are currently broken. :-(
   # - "3.4"
   # - "3.3"
   # - "3.2"
-  # - "2.7"  # Need to test the python2 directory.
-
-install:
-  - pip install pytest
+  - "2.7"
 
 script:
-  - PYTHONPATH=src py.test src
+  - export PYTHONPATH=`python -c "import sys; print('python2' if sys.version.startswith('2') else 'src')"`; py.test $PYTHONPATH
