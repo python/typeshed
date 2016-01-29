@@ -1,9 +1,13 @@
 """The asyncio package, tracking PEP 3156."""
+from asyncio.coroutines import (
+    coroutine as coroutine,
+    iscoroutinefunction as iscoroutinefunction,
+    iscoroutine as iscoroutine,
+)
 from asyncio.futures import (
     Future as Future,
 )
 from asyncio.tasks import (
-    coroutine as coroutine,
     sleep as sleep,
     Task as Task,
     FIRST_COMPLETED as FIRST_COMPLETED,
@@ -27,7 +31,8 @@ from asyncio.queues import (
     QueueEmpty as QueueEmpty,
 )
 
-__all__ = (futures.__all__ +
+__all__ = (coroutines.__all__ +
+            futures.__all__ +
             tasks.__all__ +
             events.__all__ +
             queues.__all__)

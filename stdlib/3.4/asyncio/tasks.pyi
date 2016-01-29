@@ -6,7 +6,7 @@ from asyncio.futures import Future
 #            'gather', 'shield',
 #            ]
 
-__all__ = ['coroutine', 'Task', 'sleep',
+__all__ = ['Task', 'sleep',
             'FIRST_COMPLETED', 'FIRST_EXCEPTION', 'ALL_COMPLETED',
             'wait', 'wait_for']
 
@@ -14,7 +14,6 @@ FIRST_EXCEPTION = 'FIRST_EXCEPTION'
 FIRST_COMPLETED = 'FIRST_COMPLETED'
 ALL_COMPLETED = 'ALL_COMPLETED'
 _T = TypeVar('_T')
-def coroutine(f: _T) -> _T: ...  # Here comes and go a function
 def sleep(delay: float, result: _T = ..., loop: AbstractEventLoop = ...) -> Future[_T]: ...
 def wait(fs: List[Task[_T]], *, loop: AbstractEventLoop = ...,
     timeout: float = ..., return_when: str = ...) -> Future[Tuple[Set[Future[_T]], Set[Future[_T]]]]: ...
