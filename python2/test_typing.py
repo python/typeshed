@@ -722,9 +722,24 @@ class OverloadTests(TestCase):
         from typing import overload
 
         with self.assertRaises(RuntimeError):
+
             @overload
             def blah():
                 pass
+
+            blah()
+
+    def test_overload_succeeds(self):
+        from typing import overload
+
+        @overload
+        def blah():
+            pass
+
+        def blah():
+            pass
+
+        blah()
 
 
 class CollectionsAbcTests(TestCase):
