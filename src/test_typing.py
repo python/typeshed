@@ -984,36 +984,39 @@ class OverloadTests(TestCase):
 
 PY35 = sys.version_info[:2] >= (3, 5)
 
+PY35_TESTS = """
+import asyncio
+
+T_a = TypeVar('T')
+
+class AwaitableWrapper(typing.Awaitable[T_a]):
+
+    def __init__(self, value):
+        self.value = value
+
+    def __await__(self) -> typing.Iterator[T_a]:
+        yield
+        return self.value
+
+class AsyncIteratorWrapper(typing.AsyncIterator[T_a]):
+
+    def __init__(self, value: typing.Iterable[T_a]):
+        self.value = value
+
+    def __aiter__(self) -> typing.AsyncIterator[T_a]:
+        return self
+
+    @asyncio.coroutine
+    def __anext__(self) -> T_a:
+        data = yield from self.value
+        if data:
+            return data
+        else:
+            raise StopAsyncIteration
+"""
+
 if PY35:
-
-    import asyncio
-
-    T_a = TypeVar('T')
-
-    class AwaitableWrapper(typing.Awaitable[T_a]):
-
-        def __init__(self, value):
-            self.value = value
-
-        def __await__(self) -> typing.Iterator[T_a]:
-            yield
-            return self.value
-
-    class AsyncIteratorWrapper(typing.AsyncIterator[T_a]):
-
-        def __init__(self, value: typing.Iterable[T_a]):
-            self.value = value
-
-        def __aiter__(self) -> typing.AsyncIterator[T_a]:
-            return self
-
-        @asyncio.coroutine
-        def __anext__(self) -> T_a:
-            data = yield from self.value
-            if data:
-                return data
-            else:
-                raise StopAsyncIteration
+    exec(PY35_TESTS)
 
 
 class CollectionsAbcTests(TestCase):
