@@ -1368,8 +1368,9 @@ class AllTests(TestCase):
         assert 'ValuesView' in a
         assert 'cast' in a
         assert 'overload' in a
-        assert 'io' in a
-        assert 're' in a
+        # Check that io and re are not exported.
+        assert 'io' not in a
+        assert 're' not in a
         # Spot-check that stdlib modules aren't exported.
         assert 'os' not in a
         assert 'sys' not in a
