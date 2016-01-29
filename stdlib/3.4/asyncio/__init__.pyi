@@ -19,6 +19,10 @@ from asyncio.streams import (
     IncompleteReadError as IncompleteReadError,
     LimitOverrunError as LimitOverrunError,
 )
+from asyncio.subprocess import (
+    create_subprocess_exec as create_subprocess_exec,
+    create_subprocess_shell as create_subprocess_shell,
+)
 from asyncio.transports import (
     BaseTransport as BaseTransport,
     ReadTransport as ReadTransport,
@@ -58,6 +62,7 @@ from asyncio.queues import (
 __all__ = (coroutines.__all__ +
             protocols.__all__ +
             streams.__all__ +
+            subprocess.__all__ +
             transports.__all__ +
             futures.__all__ +
             tasks.__all__ +
