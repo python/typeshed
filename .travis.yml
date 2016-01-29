@@ -1,0 +1,15 @@
+sudo: false
+language: python
+python:
+  - "3.5"
+  # Lower versions are currently broken. :-(
+  # - "3.4"
+  # - "3.3"
+  # - "3.2"
+  # - "2.7"  # Need to test the python2 directory.
+
+install:
+  - pip install pytest
+
+script:
+  - PYTHONPATH=src py.test src
