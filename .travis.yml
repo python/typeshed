@@ -2,11 +2,11 @@ sudo: false
 language: python
 python:
   - "3.5"
-  # Lower 3.x versions are currently broken. :-(
-  # - "3.4"
-  # - "3.3"
-  # - "3.2"
+  - "3.4"
+  - "3.3"
+  # - "3.2"  # Still broken (no yield from).
   - "2.7"
 
 script:
+  - env
   - export PYTHONPATH=`python -c "import sys; print('python2' if sys.version.startswith('2') else 'src')"`; py.test $PYTHONPATH

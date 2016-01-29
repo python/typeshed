@@ -1298,16 +1298,24 @@ class _Protocol(metaclass=_ProtocolMeta):
 Hashable = collections_abc.Hashable  # Not generic.
 
 
-class Awaitable(Generic[T_co], extra=collections_abc.Awaitable):
-    __slots__ = ()
+if hasattr(collections_abc, 'Awaitable'):
+    class Awaitable(Generic[T_co], extra=collections_abc.Awaitable):
+        __slots__ = ()
+else:
+    Awaitable = None
 
 
-class AsyncIterable(Generic[T_co], extra=collections_abc.AsyncIterable):
-    __slots__ = ()
+if hasattr(collections_abc, 'AsyncIterable'):
 
+    class AsyncIterable(Generic[T_co], extra=collections_abc.AsyncIterable):
+        __slots__ = ()
 
-class AsyncIterator(AsyncIterable[T_co], extra=collections_abc.AsyncIterator):
-    __slots__ = ()
+    class AsyncIterator(AsyncIterable[T_co], extra=collections_abc.AsyncIterator):
+        __slots__ = ()
+
+else:
+    AsyncIterable = None
+    AsyncIterator = None
 
 
 class Iterable(Generic[T_co], extra=collections_abc.Iterable):

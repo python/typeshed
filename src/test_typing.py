@@ -1,4 +1,3 @@
-import asyncio
 import pickle
 import re
 import sys
@@ -983,34 +982,38 @@ class OverloadTests(TestCase):
         blah()
 
 
-T_a = TypeVar('T')
+PY35 = sys.version_info[:2] >= (3, 5)
 
+if PY35:
 
-class AwaitableWrapper(typing.Awaitable[T_a]):
+    import asyncio
 
-    def __init__(self, value):
-        self.value = value
+    T_a = TypeVar('T')
 
-    def __await__(self) -> typing.Iterator[T_a]:
-        yield
-        return self.value
+    class AwaitableWrapper(typing.Awaitable[T_a]):
 
+        def __init__(self, value):
+            self.value = value
 
-class AsyncIteratorWrapper(typing.AsyncIterator[T_a]):
+        def __await__(self) -> typing.Iterator[T_a]:
+            yield
+            return self.value
 
-    def __init__(self, value: typing.Iterable[T_a]):
-        self.value = value
+    class AsyncIteratorWrapper(typing.AsyncIterator[T_a]):
 
-    def __aiter__(self) -> typing.AsyncIterator[T_a]:
-        return self
+        def __init__(self, value: typing.Iterable[T_a]):
+            self.value = value
 
-    @asyncio.coroutine
-    def __anext__(self) -> T_a:
-        data = yield from self.value
-        if data:
-            return data
-        else:
-            raise StopAsyncIteration
+        def __aiter__(self) -> typing.AsyncIterator[T_a]:
+            return self
+
+        @asyncio.coroutine
+        def __anext__(self) -> T_a:
+            data = yield from self.value
+            if data:
+                return data
+            else:
+                raise StopAsyncIteration
 
 
 class CollectionsAbcTests(TestCase):
@@ -1037,35 +1040,40 @@ class CollectionsAbcTests(TestCase):
         assert isinstance(it, typing.Iterator[int])
         assert not isinstance(42, typing.Iterator)
 
-    def test_awaitable(self):
-        async def foo() -> typing.Awaitable[int]:
-            return await AwaitableWrapper(42)
-        g = foo()
-        assert issubclass(type(g), typing.Awaitable[int])
-        assert isinstance(g, typing.Awaitable)
-        assert not isinstance(foo, typing.Awaitable)
-        assert issubclass(typing.Awaitable[Manager],
-                          typing.Awaitable[Employee])
-        assert not issubclass(typing.Awaitable[Employee],
-                              typing.Awaitable[Manager])
-        g.send(None)  # Run foo() till completion, to avoid warning.
+    if PY35:
+        def test_awaitable(self):
+            ns = {}
+            exec(
+                "async def foo() -> typing.Awaitable[int]:\n"
+                "    return await AwaitableWrapper(42)\n",
+                globals(), ns)
+            foo = ns['foo']
+            g = foo()
+            assert issubclass(type(g), typing.Awaitable[int])
+            assert isinstance(g, typing.Awaitable)
+            assert not isinstance(foo, typing.Awaitable)
+            assert issubclass(typing.Awaitable[Manager],
+                              typing.Awaitable[Employee])
+            assert not issubclass(typing.Awaitable[Employee],
+                                  typing.Awaitable[Manager])
+            g.send(None)  # Run foo() till completion, to avoid warning.
 
-    def test_async_iterable(self):
-        base_it = range(10)  # type: Iterator[int]
-        it = AsyncIteratorWrapper(base_it)
-        assert isinstance(it, typing.AsyncIterable)
-        assert isinstance(it, typing.AsyncIterable)
-        assert issubclass(typing.AsyncIterable[Manager],
-                          typing.AsyncIterable[Employee])
-        assert not isinstance(42, typing.AsyncIterable)
+        def test_async_iterable(self):
+            base_it = range(10)  # type: Iterator[int]
+            it = AsyncIteratorWrapper(base_it)
+            assert isinstance(it, typing.AsyncIterable)
+            assert isinstance(it, typing.AsyncIterable)
+            assert issubclass(typing.AsyncIterable[Manager],
+                              typing.AsyncIterable[Employee])
+            assert not isinstance(42, typing.AsyncIterable)
 
-    def test_async_iterator(self):
-        base_it = range(10)  # type: Iterator[int]
-        it = AsyncIteratorWrapper(base_it)
-        assert isinstance(it, typing.AsyncIterator)
-        assert issubclass(typing.AsyncIterator[Manager],
-                          typing.AsyncIterator[Employee])
-        assert not isinstance(42, typing.AsyncIterator)
+        def test_async_iterator(self):
+            base_it = range(10)  # type: Iterator[int]
+            it = AsyncIteratorWrapper(base_it)
+            assert isinstance(it, typing.AsyncIterator)
+            assert issubclass(typing.AsyncIterator[Manager],
+                              typing.AsyncIterator[Employee])
+            assert not isinstance(42, typing.AsyncIterator)
 
     def test_sized(self):
         assert isinstance([], typing.Sized)
