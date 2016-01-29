@@ -66,11 +66,11 @@ __all__ = [
     'no_type_check',
     'no_type_check_decorator',
     'overload',
-
-    # Submodules.
-    'io',
-    're',
 ]
+
+# The pseudo-submodules 're' and 'io' are part of the public
+# namespace, but excluded from __all__ because they might stomp on
+# legitimate imports of those modules.
 
 
 def _qualname(x):
