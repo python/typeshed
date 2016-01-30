@@ -10,6 +10,15 @@ from asyncio.protocols import (
     DatagramProtocol as DatagramProtocol,
     SubprocessProtocol as SubprocessProtocol,
 )
+from asyncio.streams import (
+    StreamReader as StreamReader,
+    StreamWriter as StreamWriter,
+    StreamReaderProtocol as StreamReaderProtocol,
+    open_connection as open_connection,
+    start_server as start_server,
+    IncompleteReadError as IncompleteReadError,
+    LimitOverrunError as LimitOverrunError,
+)
 from asyncio.transports import (
     BaseTransport as BaseTransport,
     ReadTransport as ReadTransport,
@@ -48,6 +57,7 @@ from asyncio.queues import (
 
 __all__ = (coroutines.__all__ +
             protocols.__all__ +
+            streams.__all__ +
             transports.__all__ +
             futures.__all__ +
             tasks.__all__ +
