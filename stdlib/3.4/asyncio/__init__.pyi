@@ -4,6 +4,12 @@ from asyncio.coroutines import (
     iscoroutinefunction as iscoroutinefunction,
     iscoroutine as iscoroutine,
 )
+from asyncio.protocols import (
+    BaseProtocol as BaseProtocol,
+    Protocol as Protocol,
+    DatagramProtocol as DatagramProtocol,
+    SubprocessProtocol as SubprocessProtocol,
+)
 from asyncio.transports import (
     BaseTransport as BaseTransport,
     ReadTransport as ReadTransport,
@@ -41,6 +47,7 @@ from asyncio.queues import (
 )
 
 __all__ = (coroutines.__all__ +
+            protocols.__all__ +
             transports.__all__ +
             futures.__all__ +
             tasks.__all__ +
