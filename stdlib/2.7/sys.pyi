@@ -109,7 +109,8 @@ def __excepthook__(type_: type, value: BaseException, traceback: TracebackType) 
 def exc_clear() -> None:
     raise DeprecationWarning()
 def exc_info() -> Tuple[type, BaseException, TracebackType]: ...
-def exit(arg: int = ...) -> None:
+# sys.exit() accepts an optional argument of anything printable
+def exit(arg: Any = ...) -> None:
     raise SystemExit()
 def getcheckinterval() -> int: ...  # deprecated
 def getdefaultencoding() -> str: ...
