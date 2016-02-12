@@ -1047,6 +1047,14 @@ Additional notes on stub files:
   exported.  (This makes it easier to re-export all objects from a
   given module that may vary by Python version.)
 
+* Stub files may be incomplete. To make type checkers aware of this, the file
+  can contain the following code::
+
+    def __getattr__(name) -> Any: ...
+
+  Any identifier not defined in the stub is therefore assumed to be of type
+  ``Any``.
+
 Function overloading
 --------------------
 
