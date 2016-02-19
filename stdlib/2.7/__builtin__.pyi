@@ -629,10 +629,6 @@ class module:
     __file__ = ...  # type: str
     __dict__ = ...  # type: Dict[unicode, Any]
 
-True = ...  # type: bool
-False = ...  # type: bool
-__debug__ = False
-
 long = int
 bytes = str
 
