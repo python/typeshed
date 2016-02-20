@@ -4,7 +4,7 @@ __all__ = ['Queue', 'PriorityQueue', 'LifoQueue', 'JoinableQueue',
            'QueueFull', 'QueueEmpty']
 
 from asyncio.events import AbstractEventLoop
-from .tasks import coroutine
+from .coroutines import coroutine
 from .futures import Future
 
 

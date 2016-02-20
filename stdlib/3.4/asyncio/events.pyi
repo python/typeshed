@@ -1,6 +1,7 @@
 from typing import Any, Awaitable, TypeVar, List, Callable, Tuple, Union, Dict, Generator
 from abc import ABCMeta, abstractmethod
 from asyncio.futures import Future
+from asyncio.coroutines import coroutine
 
 # __all__ = ['AbstractServer',
 #            'TimerHandle',
@@ -29,6 +30,10 @@ class Handle:
     def cancel(self) -> None: ...
     def _run(self) -> None: ...
 
+class AbstractServer:
+    def close(self) -> None: ...
+    @coroutine
+    def wait_closed(self) -> None: ...
 
 class AbstractEventLoop(metaclass=ABCMeta):
     @abstractmethod

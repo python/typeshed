@@ -1,5 +1,5 @@
 from typing import Any, Union, Callable, TypeVar, List, Generic, Iterable, Generator
-from asyncio.events import AbstractEventLoop
+from .events import AbstractEventLoop
 # __all__ = ['CancelledError', 'TimeoutError',
 #            'InvalidStateError',
 #            'wrap_future',
