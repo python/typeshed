@@ -1,14 +1,11 @@
 from typing import Any, Iterable, TypeVar, Set, Dict, List, TextIO, Union, Tuple, Generic, Callable, Generator
-from asyncio.events import AbstractEventLoop
-from asyncio.futures import Future
-# __all__ = ['iscoroutinefunction', 'iscoroutine',
-#            'as_completed', 'async',
-#            'gather', 'shield',
-#            ]
 
 __all__ = ['Task', 'sleep',
             'FIRST_COMPLETED', 'FIRST_EXCEPTION', 'ALL_COMPLETED',
             'wait', 'wait_for']
+
+from .events import AbstractEventLoop
+from .futures import Future
 
 FIRST_EXCEPTION = 'FIRST_EXCEPTION'
 FIRST_COMPLETED = 'FIRST_COMPLETED'
