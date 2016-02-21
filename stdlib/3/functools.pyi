@@ -9,8 +9,9 @@ from collections import namedtuple
 _AnyCallable = Callable[..., Any]
 
 _T = TypeVar("_T")
-def reduce(function: Callable[[_T], _T],
-           sequence: Iterator[_T], initial: Optional[_T] = ...) -> _T: ...
+_S = TypeVar("_S")
+def reduce(function: Callable[[_T, _S], _T],
+           sequence: Iterator[_S], initial: Optional[_T] = ...) -> _T: ...
 
 
 class CacheInfo(NamedTuple('CacheInfo', [
