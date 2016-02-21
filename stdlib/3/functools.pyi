@@ -10,8 +10,12 @@ _AnyCallable = Callable[..., Any]
 
 _T = TypeVar("_T")
 _S = TypeVar("_S")
+@overload
 def reduce(function: Callable[[_T, _S], _T],
-           sequence: Iterator[_S], initial: Optional[_T] = ...) -> _T: ...
+           sequence: Iterator[_S], initial: _T) -> _T: ...
+@overload
+def reduce(function: Callable[[_T, _T], _T],
+           sequence: Iterator[_T]) -> _T: ...
 
 
 class CacheInfo(NamedTuple('CacheInfo', [
