@@ -1,5 +1,8 @@
 # Stubs for builtins (Python 2.7)
 
+# True and False are deliberately omitted because they are keywords in
+# Python 3, and stub files conform to Python 3 syntax.
+
 from typing import (
     TypeVar, Iterator, Iterable, overload,
     Sequence, Mapping, Tuple, List, Any, Dict, Callable, Generic, Set,
