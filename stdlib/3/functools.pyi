@@ -3,7 +3,7 @@
 # NOTE: These are incomplete!
 
 from abc import ABCMeta, abstractmethod
-from typing import Any, Callable, Generic, Dict, Iterator, Optional, Sequence, Tuple, TypeVar, NamedTuple
+from typing import Any, Callable, Generic, Dict, Iterator, Optional, Sequence, Tuple, TypeVar, NamedTuple, overload
 from collections import namedtuple
 
 _AnyCallable = Callable[..., Any]
