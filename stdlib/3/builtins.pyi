@@ -605,10 +605,6 @@ class module:
     __file__ = ...  # type: str
     __dict__ = ...  # type: Dict[str, Any]
 
-True = ...  # type: bool
-False = ...  # type: bool
-__debug__ = False
-
 NotImplemented = ...  # type: Any
 
 def abs(n: SupportsAbs[_T]) -> _T: ...
