@@ -1,4 +1,4 @@
-from typing import Any, AnyStr, Tuple
+from typing import Any, AnyStr, Tuple, Union
 
 __all__ = ['create_subprocess_exec', 'create_subprocess_shell']
 
@@ -35,12 +35,12 @@ class Process:
     def terminatate(self) -> None: ...
     def kill(self) -> None: ...
     @coroutine
-    def communicate(self, input: AnyStr = ...) -> Tuple[AnyStr, AnyStr]: ...
+    def communicate(self, input: bytes = ...) -> Tuple[bytes, bytes]: ...
 
 
 @coroutine
 def create_subprocess_shell(
-        *Args: AnyStr,
+        *Args: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue #1236
         stdin: int = ...,
         stdout: int = ...,
         stderr: int = ...,
@@ -50,7 +50,7 @@ def create_subprocess_shell(
 
 @coroutine
 def create_subprocess_exec(
-        program: AnyStr,
+        program: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue #1236
         *args: Any,
         stdin: int = ...,
         stdout: int = ...,
