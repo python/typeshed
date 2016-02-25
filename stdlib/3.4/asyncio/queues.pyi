@@ -1,7 +1,6 @@
 from typing import TypeVar, Generic
 
-__all__ = ['Queue', 'PriorityQueue', 'LifoQueue', 'JoinableQueue',
-           'QueueFull', 'QueueEmpty']
+__all__ = ... # type: str
 
 from asyncio.events import AbstractEventLoop
 from .coroutines import coroutine

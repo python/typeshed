@@ -1,7 +1,6 @@
 from typing import Callable, Any, TypeVar
 
-__all__ = ['coroutine',
-           'iscoroutinefunction', 'iscoroutine']
+__all__ = ... # type: str
 
 _T = TypeVar('_T')
 

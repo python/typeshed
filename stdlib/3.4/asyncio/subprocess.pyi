@@ -1,6 +1,6 @@
 from typing import Any, AnyStr, Tuple, Union
 
-__all__ = ['create_subprocess_exec', 'create_subprocess_shell']
+__all__ = ... # type: str
 
 from asyncio import events
 from asyncio import protocols
