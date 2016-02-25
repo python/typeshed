@@ -3,15 +3,7 @@ from abc import ABCMeta, abstractmethod
 from asyncio.futures import Future
 from asyncio.coroutines import coroutine
 
-# __all__ = ['AbstractServer',
-#            'TimerHandle',
-#            'get_event_loop_policy', 'set_event_loop_policy',
-#            'set_event_loop', 'new_event_loop',
-#            'get_child_watcher', 'set_child_watcher',
-#            ]
-
-
-__all__ = ['AbstractEventLoopPolicy', 'AbstractEventLoop', 'Handle', 'get_event_loop']
+__all__ = ... # type: str
 
 _T = TypeVar('_T')
 

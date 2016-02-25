@@ -1,8 +1,6 @@
 from typing import Any, Iterable, TypeVar, Set, Dict, List, TextIO, Union, Tuple, Generic, Callable, Generator
 
-__all__ = ['Task', 'sleep',
-            'FIRST_COMPLETED', 'FIRST_EXCEPTION', 'ALL_COMPLETED',
-            'wait', 'wait_for']
+__all__ = ... # type: str
 
 from .events import AbstractEventLoop
 from .futures import Future

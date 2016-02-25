@@ -1,8 +1,6 @@
 from typing import Dict, Any, TypeVar, Mapping, List
 
-__all__ = ['BaseTransport', 'ReadTransport', 'WriteTransport',
-           'Transport', 'DatagramTransport', 'SubprocessTransport',
-           ]
+__all__ = ... # type: str
 
 class BaseTransport:
     def __init__(self, extra: Mapping[Any, Any] = ...) -> None: ...

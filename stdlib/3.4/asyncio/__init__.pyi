@@ -59,12 +59,4 @@ from asyncio.queues import (
     QueueEmpty as QueueEmpty,
 )
 
-__all__ = (coroutines.__all__ +
-            protocols.__all__ +
-            streams.__all__ +
-            subprocess.__all__ +
-            transports.__all__ +
-            futures.__all__ +
-            tasks.__all__ +
-            events.__all__ +
-            queues.__all__)
+__all__ = ... # type: str

@@ -1,7 +1,6 @@
 from typing import AnyStr
 
-__all__ = ['BaseProtocol', 'Protocol', 'DatagramProtocol',
-           'SubprocessProtocol']
+__all__ = ... # type: str
 
 from asyncio import transports
 
