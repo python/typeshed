@@ -8,16 +8,6 @@ _Decimal = Union[Decimal, int]
 BasicContext = ...  # type: Context
 DefaultContext = ...  # type: Context
 ExtendedContext = ...  # type: Context
-
-# TODO: fix when mypy supports sys.version_info checks
-# BEGIN of Python >= 3 only
-HAVE_THREADS = ...  # type: bool
-MAX_EMAX = ...  # type: int
-MAX_PREC = ...  # type: int
-MIN_EMIN = ...  # type: int
-MIN_ETINY = ...  # type: int
-# END of Python >= 3 only
-
 ROUND_05UP = ...  # type: str
 ROUND_CEILING = ...  # type: str
 ROUND_DOWN = ...  # type: str
@@ -44,33 +34,15 @@ class Context:
     Emax = ...  # type: int
     Emin = ...  # type: int
     capitals = ...  # type: int
+    _clamp = ...  # type: int
     prec = ...  # type: int
     rounding = ...  # type: str
+    traps = ...  # type: Dict[type, int]
 
-    # TODO: fix when mypy supports sys.version_info checks
-    # TODO: BEGIN of Python >= 3 only
-    clamp = ...  # type: int
-    traps = ...  # type: Dict[type, bool]
-
-    def __init__(self, prec: int = ..., rounding: str = ..., Emin: int = ..., Emax: int = ...,
-                 capitals: int = ..., clamp: int = ..., flags=..., traps=...,
+    def __init__(self, prec: int = ..., rounding: str = ..., traps=...,
+                 flags=..., Emin: int = ..., Emax: int = ...,
+                 capitals: int = ..., _clamp: int = ...,
                  _ignored_flags=...) -> None: ...
-    # TODO: END of Python >= 3 only
-
-    # TODO: BEGIN of Python == 2.7 only
-    # _clamp = ...  # type: int
-    # traps = ... # type: Dict[type, int]
-    # def __init__(self, prec: int = ..., rounding: str = ..., traps=...,
-    #              flags=..., Emin: int = ..., Emax: int = ...,
-    #              capitals: int = ..., _clamp: int = ...,
-    #              _ignored_flags=...) -> None: ...
-    # TODO: END of Python == 2.7 only
-
-    # TODO: Python >= 3.1 only
-    def create_decimal_from_float(self, f): ...
-
-    # TODO: Python >= 3.3 only
-    def clear_traps(self): ...
 
     def Etiny(self): ...
     def Etop(self): ...
@@ -249,9 +221,6 @@ class Decimal(SupportsInt, SupportsFloat, SupportsAbs[Decimal], SupportsRound[in
     def __sub__(self, other: _Decimal) -> Decimal: ...
     def __truediv__(self, other: _Decimal) -> Decimal: ...
     def __trunc__(self) -> int: ...
-
-# TODO: Python >= 3 only
-class FloatOperation(DecimalException, TypeError): ...
 
 class DecimalException(ArithmeticError): ...
 
