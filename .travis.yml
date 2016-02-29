@@ -5,7 +5,7 @@ python:
   # More versions later.
 
 install:
-  - pip install -U git+git://github.com/JukkaL/mypy
+  - pip install -U git+git://github.com/python/mypy
 
 script:
   - ./runtests.py -x tornado sqlalchemy 3/enum requests
