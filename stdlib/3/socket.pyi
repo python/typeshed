@@ -5,7 +5,7 @@
 # see: http://hg.python.org/cpython/file/3d0686d90f55/Lib/socket.py
 # see: http://nullege.com/codes/search/socket
 
-from typing import Any, Tuple, Union, List
+from typing import Any, Tuple, Union, List, overload
 
 # ----- variables and constants -----
 
@@ -292,7 +292,12 @@ class socket:
     # return value is an address
     def getpeername(self) -> Any: ...
     def getsockname(self) -> Any: ...
+
+    @overload
+    def getsockopt(self, level: int, optname: str) -> int: ...
+    @overload
     def getsockopt(self, level: int, optname: str, buflen: int) -> bytes: ...
+
     def gettimeout(self) -> float: ...
     def ioctl(self, control: object,
               option: Tuple[int, int, int]) -> None: ...
