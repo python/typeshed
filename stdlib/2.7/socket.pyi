@@ -6,11 +6,7 @@
 # see: http://nullege.com/codes/search/socket
 # adapted for Python 2.7 by Michal Pokorny
 
-<<<<<<< HEAD
 from typing import Any, Tuple, List, Optional, Union, overload
-=======
-from typing import Any, Tuple, List, Optional, Union
->>>>>>> d5cf02390fa2a419a47d8ba7e5d34bf9252989ff
 
 # ----- variables and constants -----
 
