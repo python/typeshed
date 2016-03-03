@@ -64,6 +64,8 @@ def main():
         for file in files:
             if file == '__builtin__.pyi':
                 continue  # Special case (alias for builtins.py).
+            if file == 'typing.pyi':
+                continue  # Hack for https://github.com/python/mypy/issues/1254
             if file.endswith('.pyi') or file.endswith('.py'):
                 full = os.path.join(dir, file)
                 if match(args, full):
