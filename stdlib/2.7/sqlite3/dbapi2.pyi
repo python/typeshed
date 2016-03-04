@@ -12,7 +12,7 @@ from sqlite3 import Connection as _Connection, Cursor as _Cursor
 paramstyle = ... # type: str
 threadsafety = ... # type: int
 apilevel = ... # type: str
-Date = ... # type: type
+Date = ... # type: _datetime
 Time = ... # type: _time
 Timestamp = ... # type: _datetime
 
