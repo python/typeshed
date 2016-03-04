@@ -10,3 +10,6 @@ class Queue():
 
 class Value():
     def __init__(typecode_or_type: str, *args: Any, lock: bool = ...) -> None: ...
+
+# ----- multiprocessing function stubs -----
+def cpu_count() -> int: ...
