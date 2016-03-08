@@ -9,8 +9,8 @@ import io
 from collections import namedtuple
 import zipfile
 
-from pkg_resources._vendor.packaging import version
-from pkg_resources._vendor.packaging.specifiers import SpecifierSet
+from ._vendor.packaging import version
+from ._vendor.packaging.specifiers import SpecifierSet
 
 
 SetuptoolsVersionType = Union['SetuptoolsVersion', 'SetuptoolsLegacyVersion']
