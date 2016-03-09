@@ -8,4 +8,5 @@ install:
   - pip install -U git+git://github.com/python/mypy
 
 script:
-  - ./runtests.py -x tornado sqlalchemy 3/enum requests
+  - ./runtests.py -p3
+  - ./runtests.py -p2 -x tornado sqlalchemy 
