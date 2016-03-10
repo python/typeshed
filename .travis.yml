@@ -9,4 +9,4 @@ install:
 
 script:
   - ./runtests.py -p3
-  - ./runtests.py -p2 -x tornado sqlalchemy 
+  - ./runtests.py -p2 -x sqlalchemy 
