@@ -1,5 +1,13 @@
 # Stubs for getpass
 
-# NOTE: These are incomplete!
+from typing import TextIO
+
+
+def getpass(prompt: str = ..., stream: TextIO = None): ...
+
 
 def getuser() -> str: ...
+
+
+class GetPassWarning(UserWarning):
+    pass
