@@ -1,6 +1,6 @@
 # Stubs for pickle
 
-from typing import Any, BinaryIO, Union, Tuple, Callable, Optional, Iterator
+from typing import Any, IO, Union, Tuple, Callable, Optional, Iterator
 # Imports used in type comments only.
 from typing import Mapping  # noqa
 
@@ -8,7 +8,7 @@ HIGHEST_PROTOCOL = ...  # type: int
 DEFAULT_PROTOCOL = ...  # type: int
 
 
-def dump(obj: Any, file: BinaryIO, protocol: int = None, *,
+def dump(obj: Any, file: IO[bytes], protocol: int = None, *,
          fix_imports: bool = ...) -> None: ...
 
 
@@ -20,7 +20,7 @@ def loads(bytes_object: bytes, *, fix_imports: bool = ...,
           encoding: str = ..., errors: str = ...) -> Any: ...
 
 
-def load(file: BinaryIO, *, fix_imports: bool = ..., encoding: str = ...,
+def load(file: IO[bytes], *, fix_imports: bool = ..., encoding: str = ...,
          errors: str = ...) -> Any: ...
 
 
@@ -48,7 +48,7 @@ _reducedtype = Union[str,
 class Pickler:
     dispatch_table = ...  # type: Mapping[type, Callable[[Any], _reducedtype]]
 
-    def __init__(self, file: BinaryIO, protocol: int = None, *,
+    def __init__(self, file: IO[bytes], protocol: int = None, *,
                  fix_imports: bool = ...) -> None: ...
 
     def dump(self, obj: Any) -> None: ...
@@ -57,7 +57,7 @@ class Pickler:
 
 
 class Unpickler:
-    def __init__(self, file: BinaryIO, *, fix_imports: bool = ...,
+    def __init__(self, file: IO[bytes], *, fix_imports: bool = ...,
                  encoding: str = ..., errors: str = ...) -> None: ...
 
     def load(self) -> Any: ...
