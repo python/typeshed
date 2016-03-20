@@ -1,8 +1,5 @@
 from typing import Iterable, BinaryIO
 
-__all__ = ...   # type: List[str]
-_state  = ...   # type: None
-
 def input(
     files               = None, 
     inplace:    bool    = ...,
