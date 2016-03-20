@@ -1,8 +1,8 @@
-from typing import Iterable, BinaryIO
+from typing import Iterable, BinaryIO, List
 
 
 def input(
-    files=None,
+    files=List[str],
     inplace: bool=...,
     backup: str=...,
     bufsize: int=...,
