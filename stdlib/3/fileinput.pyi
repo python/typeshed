@@ -7,7 +7,7 @@ def input(
     backup: str=...,
     bufsize: int=...,
     mode: str=...,
-    openhook=None
+    openhook: Callable[[str, str], BinaryIO]=...
     ): ...
 
 
@@ -26,7 +26,7 @@ class FileInput(Iterable):
         backup: str=...,
         bufsize: int=...,
         mode: str=...,
-        openhook=None
+        openhook: Callable[[str, str], BinaryIO]=...
         ) -> None: ...
 
     def __del__(self) -> None: ...
