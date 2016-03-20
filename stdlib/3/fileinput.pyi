@@ -21,7 +21,7 @@ def isstdin() -> bool: ...
 class FileInput(Iterable):
     def __init__(
         self,
-        files=None,
+        files=List[str],
         inplace: bool=...,
         backup: str=...,
         bufsize: int=...,
