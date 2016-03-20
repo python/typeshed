@@ -1,4 +1,4 @@
-from typing import Iterable, BinaryIO, List
+from typing import Iterable, BinaryIO, List, Callable
 
 
 def input(
