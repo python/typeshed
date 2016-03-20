@@ -2,7 +2,7 @@ from typing import Iterable, BinaryIO, List
 
 
 def input(
-    files=List[str],
+    files: List[str]=...,
     inplace: bool=...,
     backup: str=...,
     bufsize: int=...,
@@ -21,7 +21,7 @@ def isstdin() -> bool: ...
 class FileInput(Iterable):
     def __init__(
         self,
-        files=List[str],
+        files: List[str]=...,
         inplace: bool=...,
         backup: str=...,
         bufsize: int=...,
