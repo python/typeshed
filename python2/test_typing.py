@@ -1,4 +1,6 @@
 from __future__ import absolute_import, unicode_literals
+
+import pickle
 import re
 import sys
 from unittest import TestCase, main
@@ -553,6 +555,43 @@ class GenericTests(TestCase):
                          __name__ + '.' + 'SimpleMapping[~XK, ~XV]')
         self.assertEqual(repr(MySimpleMapping),
                          __name__ + '.' + 'MySimpleMapping[~XK, ~XV]')
+
+    def test_dict(self):
+        T = TypeVar('T')
+
+        class B(Generic[T]):
+            pass
+
+        b = B()
+        b.foo = 42
+        self.assertEqual(b.__dict__, {'foo': 42})
+
+        class C(B[int]):
+            pass
+
+        c = C()
+        c.bar = 'abc'
+        self.assertEqual(c.__dict__, {'bar': 'abc'})
+
+    def test_pickle(self):
+        global C  # pickle wants to reference the class by name
+        T = TypeVar('T')
+
+        class B(Generic[T]):
+            pass
+
+        class C(B[int]):
+            pass
+
+        c = C()
+        c.foo = 42
+        c.bar = 'abc'
+        for proto in range(pickle.HIGHEST_PROTOCOL + 1):
+            z = pickle.dumps(c, proto)
+            x = pickle.loads(z)
+            self.assertEqual(x.foo, 42)
+            self.assertEqual(x.bar, 'abc')
+            self.assertEqual(x.__dict__, {'foo': 42, 'bar': 'abc'})
 
     def test_errors(self):
         with self.assertRaises(TypeError):
