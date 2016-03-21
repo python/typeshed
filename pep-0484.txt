@@ -403,13 +403,37 @@ thus invalid::
   class Pair(Generic[T, T]):   # INVALID
       ...
 
+The ``Generic[T]`` base class is redundant in simple cases where you
+subclass some other generic class and specify type variables for its
+parameters::
+
+  from typing import TypeVar, Iterator
+
+  T = TypeVar('T')
+
+  class MyIter(Iterator[T]):
+      ...
+
+That class definition is equivalent to::
+
+  class MyIter(Iterator[T], Generic[T]):
+      ...
+
 You can use multiple inheritance with ``Generic``::
 
-  from typing import TypeVar, Generic, Sized
+  from typing import TypeVar, Generic, Sized, Iterable, Container
 
   T = TypeVar('T')
 
   class LinkedList(Sized, Generic[T]):
+      ...
+
+  K = TypeVar('K')
+  V = TypeVar('V')
+
+  class MyMapping(Iterable[Tuple[K, V]],
+                  Container[Iterable[K, V]],
+                  Generic[K, V]):
       ...
 
 Subclassing a generic class without specifying type parameters assumes
