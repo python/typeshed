@@ -1055,13 +1055,13 @@ Additional notes on stub files:
   Any identifier not defined in the stub is therefore assumed to be of type
   ``Any``.
 
-Function overloading
---------------------
+Function/method overloading
+---------------------------
 
-The ``@overload`` decorator allows describing functions that support
-multiple different combinations of argument types.  This pattern is
-used frequently in builtin modules and types.  For example, the
-``__getitem__()`` method of the ``bytes`` type can be described as
+The ``@overload`` decorator allows describing functions and methods
+that support multiple different combinations of argument types.  This
+pattern is used frequently in builtin modules and types.  For example,
+the ``__getitem__()`` method of the ``bytes`` type can be described as
 follows::
 
   from typing import overload
@@ -1118,7 +1118,20 @@ type checker only, since they will be overwritten by the
 non-``@overload``-decorated definition, while the latter is used at
 runtime but should be ignored by a type checker.  At runtime, calling
 a ``@overload``-decorated function directly will raise
-``NotImplementedError``.
+``NotImplementedError``.  Here's an example of a non-stub overload
+that can't easily be expressed using a union or a type variable::
+
+  @overload
+  def utf8(value: None) -> None:
+      pass
+  @overload
+  def utf8(value: bytes) -> bytes:
+      pass
+  @overload
+  def utf8(value: unicode) -> bytes:
+      pass
+  def utf8(value):
+      <actual implementation>
 
 NOTE: While it would be possible to provide a multiple dispatch
 implementation using this syntax, its implementation would require
