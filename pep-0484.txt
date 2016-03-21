@@ -1413,29 +1413,66 @@ is equivalent to the following::
       """Embezzle funds from account using fake receipts."""
       <code goes here>
 
+Sometimes you want to specify the return type for a function or method
+without (yet) specifying the argument types.  To support this
+explicitly, the argument list may be replaced with an ellipsis.
+Example::
+
+  def send_email(address, sender, cc, bcc, subject, body):
+      # type: (...) -> bool
+      """Send an email message.  Return True iff successful."""
+      <code>
+
+Sometimes you have a long list of parameters and specifying their
+types in a single ``# type:`` comment would be awkward.  To this end
+you may list the arguments one per line and add a ``# type:`` comment
+per line.  To specify the return type use the ellipsis syntax.  Not
+every argument needs to be given a type.  A line with a ``# type:``
+comment should contain exactly one argument.  The type comment for the
+last argument (if any) should precede the close parenthesis.  Example::
+
+  def send_email(address,     # type: Union[str, List[str]]
+                 sender,      # type: str
+                 cc,          # type: Optional[List[str]]
+                 bcc,         # type: Optional[List[str]]
+                 subject='',
+                 body=None    # type: List[str]
+                 ):
+      # type: (...) -> bool
+      """Send an email message.  Return True iff successful."""
+      <code>
+
 Notes:
 
 - Tools that support this syntax should support it regardless of the
   Python version being checked.  This is necessary in order to support
   code that straddles Python 2 and Python 3.
 
-- Every argument must be accounted for, except the first argument of
-  instance and class methods.
+- When using the short form (e.g. ``# type: (str, int) -> None``)
+  every argument must be accounted for, except the first argument of
+  instance and class methods (those are usually omitted, but it's
+  allowed to include them).
 
 - The return type is mandatory.  If in Python 3 you would omit some
   argument or the return type, the Python 2 notation should use
   ``Any``.
 
-- For ``*args`` and ``**kwds``, put 1 or 2 stars in front of the
-  corresponding type annotation.  (As with Python 3 annotations, the
-  annotation here denotes the type of the individual argument values,
-  not of the tuple/dict that you receive as the special argument value
-  ``args`` or ``kwds``.)
+- When using the short form, for ``*args`` and ``**kwds``, put 1 or 2
+  stars in front of the corresponding type annotation.  (As with
+  Python 3 annotations, the annotation here denotes the type of the
+  individual argument values, not of the tuple/dict that you receive
+  as the special argument value ``args`` or ``kwds``.)
 
 - Like other type comments, any names used in the annotations must be
   imported or defined by the module containing the annotation.
 
-- The entire annotation must be one line.
+- When using the short form, the entire annotation must be one line.
+
+- The short form may also occur on the same line as the close
+  parenthesis, e.g.::
+
+    def add(a, b):  # type: (int, int) -> int
+        return a + b
 
 
 Rejected Alternatives
