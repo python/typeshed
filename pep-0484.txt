@@ -421,7 +421,7 @@ That class definition is equivalent to::
 
 You can use multiple inheritance with ``Generic``::
 
-  from typing import TypeVar, Generic, Sized, Iterable, Container
+  from typing import TypeVar, Generic, Sized, Iterable, Container, Tuple
 
   T = TypeVar('T')
 
@@ -432,7 +432,7 @@ You can use multiple inheritance with ``Generic``::
   V = TypeVar('V')
 
   class MyMapping(Iterable[Tuple[K, V]],
-                  Container[Iterable[K, V]],
+                  Container[Tuple[K, V]],
                   Generic[K, V]):
       ...
 
