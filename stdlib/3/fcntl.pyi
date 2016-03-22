@@ -77,18 +77,20 @@ LOCK_WRITE = ...  # type: int
 
 _AnyFile = Union[int, IO[Any]]
 
+# TODO All these return either int or bytes depending on the value of
+# cmd (not on the type of arg).
 def fcntl(fd: _AnyFile,
           cmd: int,
-          arg: Union[int, bytes] = ...) -> Union[int, bytes]: ...
+          arg: Union[int, bytes] = ...) -> Any: ...
 # TODO This function accepts any object supporting a buffer interface,
 # as arg, is there a better way to express this than bytes?
 def ioctl(fd: _AnyFile,
           request: int,
           arg: Union[int, bytes] = ...,
-          mutate_flag: bool = ...) -> Union[int, bytes]: ...
+          mutate_flag: bool = ...) -> Any: ...
 def flock(fd: _AnyFile, operation: int) -> None: ...
 def lockf(fd: _AnyFile,
           cmd: int,
           len: int = ...,
           start: int = ...,
-          whence: int = ...) -> Union[int, bytes]: ...
+          whence: int = ...) -> Any: ...

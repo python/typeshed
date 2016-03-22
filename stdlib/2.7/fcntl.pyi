@@ -1,4 +1,4 @@
-from typing import Union
+from typing import Any, Union
 import io
 
 FASYNC = ...  # type: int
@@ -74,12 +74,14 @@ LOCK_WRITE = ...  # type: int
 
 _ANYFILE = Union[int, io.IOBase]
 
-def fcntl(fd: _ANYFILE, op: int, arg: Union[int, str] = ...) -> Union[int, str]: ...
+# TODO All these return either int or bytes depending on the value of
+# cmd (not on the type of arg).
+def fcntl(fd: _ANYFILE, op: int, arg: Union[int, bytes] = ...) -> Any: ...
 
 # TODO: arg: int or read-only buffer interface or read-write buffer interface
-def ioctl(fd: _ANYFILE, op: int, arg: Union[int, str] = ...,
-          mutate_flag: bool = ...) -> Union[int, str]: ...
+def ioctl(fd: _ANYFILE, op: int, arg: Union[int, bytes] = ...,
+          mutate_flag: bool = ...) -> Any: ...
 
 def flock(fd: _ANYFILE, op: int) -> None: ...
 def lockf(fd: _ANYFILE, op: int, length: int = ..., start: int = ...,
-          whence: int = ...) -> Union[int, str]: ...
+          whence: int = ...) -> Any: ...
