@@ -1,8 +1,10 @@
-from typing import Iterable, BinaryIO, List, Callable, IO, AnyStr, Generic
+from typing import Iterable, Callable, IO, AnyStr, Generic, Any, TypeVar
+
+StrOrIterableStr = TypeVar('StrOrIterableStr', str, Iterable[str])
 
 
 def input(
-    files: List[str]=...,
+    files: StrOrIterableStr=None,
     inplace: bool=...,
     backup: str=...,
     bufsize: int=...,
@@ -21,7 +23,7 @@ def isstdin() -> bool: ...
 class FileInput(Iterable[AnyStr], Generic[AnyStr]):
     def __init__(
         self,
-        files: List[str]=...,
+        files: StrOrIterableStr=None,
         inplace: bool=...,
         backup: str=...,
         bufsize: int=...,
@@ -32,7 +34,7 @@ class FileInput(Iterable[AnyStr], Generic[AnyStr]):
     def __del__(self) -> None: ...
     def close(self) -> None: ...
     def __enter__(self): ...
-    def __exit__(self, type, value, traceback) -> None: ...
+    def __exit__(self, type: Any, value: Any, traceback: Any) -> None: ...
     def __iter__(self): ...
     def __next__(self) -> str: ...
     def __getitem__(self, i) -> str: ...
