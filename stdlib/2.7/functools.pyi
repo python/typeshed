@@ -3,14 +3,19 @@
 # NOTE: These are incomplete!
 
 from abc import ABCMeta, abstractmethod
-from typing import Any, Callable, Generic, Dict, Iterator, Optional, Sequence, Tuple, TypeVar
+from typing import Any, Callable, Generic, Dict, Iterable, Optional, Sequence, Tuple, TypeVar, overload
 from collections import namedtuple
 
 _AnyCallable = Callable[..., Any]
 
 _T = TypeVar("_T")
-def reduce(function: Callable[[_T], _T],
-           sequence: Iterator[_T], initial: Optional[_T] = ...) -> _T: ...
+_S = TypeVar("_S")
+@overload
+def reduce(function: Callable[[_T, _T], _T],
+           sequence: Iterable[_T]) -> _T: ...
+@overload
+def reduce(function: Callable[[_T, _S], _T],
+           sequence: Iterable[_S], initial: _T) -> _T: ...
 
 WRAPPER_ASSIGNMENTS = ... # type: Sequence[str]
 WRAPPER_UPDATES = ... # type: Sequence[str]
