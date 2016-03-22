@@ -1,4 +1,4 @@
-from typing import Iterable, BinaryIO, List, Callable, IO, AnyStr
+from typing import Iterable, BinaryIO, List, Callable, IO, AnyStr, Generic
 
 
 def input(
@@ -18,7 +18,7 @@ def lineno() -> int: ...
 def isfirstline() -> bool: ...
 def isstdin() -> bool: ...
 
-class FileInput(Iterable):
+class FileInput(Iterable[AnyStr], Generic[AnyStr]):
     def __init__(
         self,
         files: List[str]=...,
