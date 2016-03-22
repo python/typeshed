@@ -1,0 +1,12 @@
+sudo: false
+language: python
+python:
+  - "nightly"
+  - "3.5"
+  - "3.4"
+  - "3.3"
+  - "3.2"
+  - "2.7"
+
+script:
+  - export PYTHONPATH=`python -c "import sys; print('python2' if sys.version.startswith('2') else 'src')"`; py.test $PYTHONPATH

@@ -403,13 +403,37 @@ thus invalid::
   class Pair(Generic[T, T]):   # INVALID
       ...
 
+The ``Generic[T]`` base class is redundant in simple cases where you
+subclass some other generic class and specify type variables for its
+parameters::
+
+  from typing import TypeVar, Iterator
+
+  T = TypeVar('T')
+
+  class MyIter(Iterator[T]):
+      ...
+
+That class definition is equivalent to::
+
+  class MyIter(Iterator[T], Generic[T]):
+      ...
+
 You can use multiple inheritance with ``Generic``::
 
-  from typing import TypeVar, Generic, Sized
+  from typing import TypeVar, Generic, Sized, Iterable, Container, Tuple
 
   T = TypeVar('T')
 
   class LinkedList(Sized, Generic[T]):
+      ...
+
+  K = TypeVar('K')
+  V = TypeVar('V')
+
+  class MyMapping(Iterable[Tuple[K, V]],
+                  Container[Tuple[K, V]],
+                  Generic[K, V]):
       ...
 
 Subclassing a generic class without specifying type parameters assumes
@@ -1020,7 +1044,7 @@ stub files:
 * Modules that use annotations for other purposes
 
 Stub files have the same syntax as regular Python modules.  There is one
-feature of the ``typing`` module that may only be used in stub files:
+feature of the ``typing`` module that is different in stub files:
 the ``@overload`` decorator described below.
 
 The type checker should only check function signatures in stub files;
@@ -1040,15 +1064,28 @@ Additional notes on stub files:
 
 * Modules and variables imported into the stub are not considered
   exported from the stub unless the import uses the ``import ... as
-  ...`` form.
+  ...`` form or the equivalent ``from ... import ... as ...`` form.
 
-Function overloading
---------------------
+* However, as an exception to the previous bullet, all objects
+  imported into a stub using ``from ... import *`` are considered
+  exported.  (This makes it easier to re-export all objects from a
+  given module that may vary by Python version.)
 
-The ``@overload`` decorator allows describing functions that support
-multiple different combinations of argument types.  This pattern is
-used frequently in builtin modules and types.  For example, the
-``__getitem__()`` method of the ``bytes`` type can be described as
+* Stub files may be incomplete. To make type checkers aware of this, the file
+  can contain the following code::
+
+    def __getattr__(name) -> Any: ...
+
+  Any identifier not defined in the stub is therefore assumed to be of type
+  ``Any``.
+
+Function/method overloading
+---------------------------
+
+The ``@overload`` decorator allows describing functions and methods
+that support multiple different combinations of argument types.  This
+pattern is used frequently in builtin modules and types.  For example,
+the ``__getitem__()`` method of the ``bytes`` type can be described as
 follows::
 
   from typing import overload
@@ -1096,18 +1133,43 @@ Note that we could also easily add items to support ``map(None, ...)``::
           iter1: Iterable[T1],
           iter2: Iterable[T2]) -> Iterable[Tuple[T1, T2]]: ...
 
-The ``@overload`` decorator may only be used in stub files.  While it
-would be possible to provide a multiple dispatch implementation using
-this syntax, its implementation would require using
-``sys._getframe()``, which is frowned upon.  Also, designing and
+Uses of the ``@overload`` decorator as shown above are suitable for
+stub files.  In regular modules, a series of ``@overload``-decorated
+definitions must be followed by exactly one
+non-``@overload``-decorated definition (for the same function/method).
+The ``@overload``-decorated definitions are for the benefit of the
+type checker only, since they will be overwritten by the
+non-``@overload``-decorated definition, while the latter is used at
+runtime but should be ignored by a type checker.  At runtime, calling
+a ``@overload``-decorated function directly will raise
+``NotImplementedError``.  Here's an example of a non-stub overload
+that can't easily be expressed using a union or a type variable::
+
+  @overload
+  def utf8(value: None) -> None:
+      pass
+  @overload
+  def utf8(value: bytes) -> bytes:
+      pass
+  @overload
+  def utf8(value: unicode) -> bytes:
+      pass
+  def utf8(value):
+      <actual implementation>
+
+NOTE: While it would be possible to provide a multiple dispatch
+implementation using this syntax, its implementation would require
+using ``sys._getframe()``, which is frowned upon.  Also, designing and
 implementing an efficient multiple dispatch mechanism is hard, which
 is why previous attempts were abandoned in favor of
 ``functools.singledispatch()``.  (See PEP 443, especially its section
 "Alternative approaches".)  In the future we may come up with a
 satisfactory multiple dispatch design, but we don't want such a design
 to be constrained by the overloading syntax defined for type hints in
-stub files.  In the meantime, using the ``@overload`` decorator or
-calling ``overload()`` directly raises ``RuntimeError``.
+stub files.  It is also possible that both features will develop
+independent from each other (since overloading in the type checker
+has different use cases and requirements than multiple dispatch
+at runtime -- e.g. the latter is unlikely to support generic types).
 
 A constrained ``TypeVar`` type can often be used instead of using the
 ``@overload`` decorator.  For example, the definitions of ``concat1``
@@ -1256,6 +1318,12 @@ collection types defined below, e.g.  ``Mapping``, ``Sequence`` or
 
 Generic variants of container ABCs (and a few non-containers):
 
+* Awaitable
+
+* AsyncIterable
+
+* AsyncIterator
+
 * ByteString
 
 * Callable (see above, listed here for completeness)
@@ -1359,6 +1427,89 @@ Types available in the ``typing.re`` submodule:
 
 * Match and Pattern, types of ``re.match()`` and ``re.compile()``
   results (generic over ``AnyStr``)
+
+
+Suggested syntax for Python 2.7 and straddling code
+===================================================
+
+Some tools may want to support type annotations in code that must be
+compatible with Python 2.7.  For this purpose this PEP has a suggested
+(but not mandatory) extension where function annotations are placed in
+a ``# type:`` comment.  Such a comment must be placed immediately
+following the function header (before the docstring).  An example: the
+following Python 3 code::
+
+  def embezzle(self, account: str, funds: int = 1000000, *fake_receipts: str) -> None:
+      """Embezzle funds from account using fake receipts."""
+      <code goes here>
+
+is equivalent to the following::
+
+  def embezzle(self, account, funds=1000000, *fake_receipts):
+      # type: (str, int, *str) -> None
+      """Embezzle funds from account using fake receipts."""
+      <code goes here>
+
+Sometimes you want to specify the return type for a function or method
+without (yet) specifying the argument types.  To support this
+explicitly, the argument list may be replaced with an ellipsis.
+Example::
+
+  def send_email(address, sender, cc, bcc, subject, body):
+      # type: (...) -> bool
+      """Send an email message.  Return True iff successful."""
+      <code>
+
+Sometimes you have a long list of parameters and specifying their
+types in a single ``# type:`` comment would be awkward.  To this end
+you may list the arguments one per line and add a ``# type:`` comment
+per line.  To specify the return type use the ellipsis syntax.  Not
+every argument needs to be given a type.  A line with a ``# type:``
+comment should contain exactly one argument.  The type comment for the
+last argument (if any) should precede the close parenthesis.  Example::
+
+  def send_email(address,     # type: Union[str, List[str]]
+                 sender,      # type: str
+                 cc,          # type: Optional[List[str]]
+                 bcc,         # type: Optional[List[str]]
+                 subject='',
+                 body=None    # type: List[str]
+                 ):
+      # type: (...) -> bool
+      """Send an email message.  Return True iff successful."""
+      <code>
+
+Notes:
+
+- Tools that support this syntax should support it regardless of the
+  Python version being checked.  This is necessary in order to support
+  code that straddles Python 2 and Python 3.
+
+- When using the short form (e.g. ``# type: (str, int) -> None``)
+  every argument must be accounted for, except the first argument of
+  instance and class methods (those are usually omitted, but it's
+  allowed to include them).
+
+- The return type is mandatory.  If in Python 3 you would omit some
+  argument or the return type, the Python 2 notation should use
+  ``Any``.
+
+- When using the short form, for ``*args`` and ``**kwds``, put 1 or 2
+  stars in front of the corresponding type annotation.  (As with
+  Python 3 annotations, the annotation here denotes the type of the
+  individual argument values, not of the tuple/dict that you receive
+  as the special argument value ``args`` or ``kwds``.)
+
+- Like other type comments, any names used in the annotations must be
+  imported or defined by the module containing the annotation.
+
+- When using the short form, the entire annotation must be one line.
+
+- The short form may also occur on the same line as the close
+  parenthesis, e.g.::
+
+    def add(a, b):  # type: (int, int) -> int
+        return a + b
 
 
 Rejected Alternatives
@@ -1658,10 +1809,10 @@ References
    http://aroberge.blogspot.com/2015/01/type-hinting-in-python-focus-on.html
 
 .. [github]
-   https://github.com/ambv/typehinting
+   https://github.com/python/typing
 
 .. [issues]
-   https://github.com/ambv/typehinting/issues
+   https://github.com/python/typing/issues
 
 .. [peps]
    https://hg.python.org/peps/file/tip/pep-0484.txt

@@ -1,0 +1,3 @@
+include LICENSE README.rst
+include src/test*.py
+recursive-include python2 *.py

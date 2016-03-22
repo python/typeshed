@@ -1,0 +1,10 @@
+MANIFEST
+build/
+dist/
+.tox/
+.idea/
+.cache/
+__pycache__/
+tmp/
+*.swp
+*.pyc

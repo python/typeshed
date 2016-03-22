@@ -66,7 +66,7 @@ aspects of the PEP.
 Workflow for editing PEP 484
 ----------------------------
 
-* The PEP 484 draft is edited in the GitHub ambv/typehinting repo.
+* The PEP 484 draft is edited in the GitHub python/typing repo.
 
 * The typing.py module and its unittests are edited in the prototyping
   subdirectory of the same repo.
@@ -125,7 +125,7 @@ Workflow for mypy changes
   accepts GitHub Pull Requests at his discretion.
 
 * At Jukka's discretion, he will from time to time copy typing.py and
-  test_typing.py from the typehinting GitHub repo to the mypy repo.
+  test_typing.py from the python/typing GitHub repo to the mypy repo.
 
 * At Jukka's discretion, he also copies these to the typing repo
   (JukkaL/typing).
@@ -194,15 +194,15 @@ PEP 484 TO DO
 
 * Note that type checkers ought to provide config options to
   selectively skip specific modules/packages.
-  See https://github.com/ambv/typehinting/issues/53
+  See https://github.com/python/typing/issues/53
 
 * Describe how to declare a generic class.
-  See https://github.com/ambv/typehinting/issues/41
+  See https://github.com/python/typing/issues/41
 
 * Add a comprehensive list of things we're explicitly punting (see above).
 
 * See also the list of github issues:
-  https://github.com/ambv/typehinting/issues
+  https://github.com/python/typing/issues
 
 README.rst TO DO
 ----------------
