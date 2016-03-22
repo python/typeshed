@@ -885,8 +885,24 @@ Don't expect a checker to understand obfuscations like
 ``"".join(reversed(sys.platform)) == "xunil"``.
 
 
-Default argument values
------------------------
+Arbitrary argument lists and default argument values
+----------------------------------------------------
+
+Arbitrary agrument lists can as well be type annotated,
+so that the definition::
+
+  def foo(*args: str, **kwds: int): ...
+
+is acceptable and it means that, e.g., all of the following
+represent function calls with valid types of arguments::
+
+  foo('a', 'b', 'c')
+  foo(x=1, y=2)
+  foo('', z=0)
+
+In the body of function ``foo``, the type of variable ``args`` is
+deduced as ``Tuple[str, ...]`` and the type of variable ``kwds``
+is ``Dict[str, int]``.
 
 In stubs it may be useful to declare an argument as having a default
 without specifying the actual default value.  For example::
