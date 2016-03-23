@@ -1466,6 +1466,14 @@ is equivalent to the following::
       """Embezzle funds from account using fake receipts."""
       <code goes here>
 
+Note that for methods, no type is needed for ``self``.
+
+For an argument-less method it would look like this::
+
+  def load_cache(self):
+      # type: () -> bool
+      <code>
+
 Sometimes you want to specify the return type for a function or method
 without (yet) specifying the argument types.  To support this
 explicitly, the argument list may be replaced with an ellipsis.
