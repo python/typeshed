@@ -1,12 +1,3 @@
-# TODO nits:
-# Get rid of asserts that are the caller's fault.
-# Docstrings (e.g. ABCs).
-# Rewrite generics so that:
-# - class C(Iterable) means the same as class C(Iterable[Any])
-# - class C(Mapping[str, T]) has one parameter (just T), not two
-# - class C(Mapping[str, Tuple[int, T]]) has one parameter (T)
-# - more complex cases are disambiguated by inheriting from Generic[...]
-
 import abc
 from abc import abstractmethod, abstractproperty
 import collections
@@ -222,8 +213,8 @@ class _TypeAlias:
         someone tries to subclass a type alias (not a good idea).
         """
         if (len(args) == 3 and
-            isinstance(args[0], str) and
-            isinstance(args[1], tuple)):
+                isinstance(args[0], str) and
+                isinstance(args[1], tuple)):
             # Close enough.
             raise TypeError("A type alias cannot be subclassed")
         return object.__new__(cls)
@@ -915,9 +906,11 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
             for base in bases:
                 if base is Generic:
                     raise TypeError("Cannot inherit from plain Generic")
-                if isinstance(base, GenericMeta) and base.__origin__ is Generic:
+                if (isinstance(base, GenericMeta) and
+                        base.__origin__ is Generic):
                     if gvars is not None:
-                        raise TypeError("Cannot inherit from Generic[...] multiple types.")
+                        raise TypeError(
+                            "Cannot inherit from Generic[...] multiple types.")
                     gvars = base.__parameters__
             if gvars is None:
                 gvars = tvars
@@ -925,9 +918,11 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
                 tvarset = set(tvars)
                 gvarset = set(gvars)
                 if not tvarset <= gvarset:
-                    raise TypeError("Some type variables (%s) are not listed in Generic[%s]" %
-                                    (", ".join(str(t) for t in tvars if t not in gvarset),
-                                     ", ".join(str(g) for g in gvars)))
+                    raise TypeError(
+                        "Some type variables (%s) "
+                        "are not listed in Generic[%s]" %
+                        (", ".join(str(t) for t in tvars if t not in gvarset),
+                         ", ".join(str(g) for g in gvars)))
                 tvars = gvars
 
         self.__parameters__ = tvars
@@ -973,15 +968,18 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         if not isinstance(params, tuple):
             params = (params,)
         if not params:
-            raise TypeError("Parameter list to %s[...] cannot be empty" % _qualname(self))
+            raise TypeError(
+                "Parameter list to %s[...] cannot be empty" % _qualname(self))
         msg = "Parameters to generic types must be types."
         params = tuple(_type_check(p, msg) for p in params)
         if self is Generic:
             # Generic can only be subscripted with unique type variables.
             if not all(isinstance(p, TypeVar) for p in params):
-                raise TypeError("Parameters to Generic[...] must all be type variables")
+                raise TypeError(
+                    "Parameters to Generic[...] must all be type variables")
             if len(set(params)) != len(params):
-                raise TypeError("Parameters to Generic[...] must all be unique")
+                raise TypeError(
+                    "Parameters to Generic[...] must all be unique")
             tvars = params
             args = None
         elif self is _Protocol:
@@ -990,7 +988,8 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
             args = None
         elif self.__origin__ in (Generic, _Protocol):
             # Can't subscript Generic[...] or _Protocol[...].
-            raise TypeError("Cannot subscript already-subscripted %s" % repr(self))
+            raise TypeError("Cannot subscript already-subscripted %s" %
+                            repr(self))
         else:
             # Subscripting a regular Generic subclass.
             if not self.__parameters__:
@@ -998,9 +997,9 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
             alen = len(params)
             elen = len(self.__parameters__)
             if alen != elen:
-                raise TypeError("Too %s parameters for %s; actual %s, expected %s" %
-                                ("many" if alen > elen else "few",
-                                 repr(self), alen, elen))
+                raise TypeError(
+                    "Too %s parameters for %s; actual %s, expected %s" %
+                    ("many" if alen > elen else "few", repr(self), alen, elen))
             tvars = _type_vars(params)
             args = params
         return self.__class__(self.__name__,
@@ -1107,9 +1106,7 @@ def _get_defaults(func):
     """Internal helper to extract the default arguments, by name."""
     code = func.__code__
     pos_count = code.co_argcount
-    kw_count = code.co_kwonlyargcount
     arg_names = code.co_varnames
-    kwarg_names = arg_names[pos_count:pos_count + kw_count]
     arg_names = arg_names[:pos_count]
     defaults = func.__defaults__ or ()
     kwdefaults = func.__kwdefaults__
@@ -1279,15 +1276,15 @@ class _ProtocolMeta(GenericMeta):
                         break
                 else:
                     if (not attr.startswith('_abc_') and
-                        attr != '__abstractmethods__' and
-                        attr != '_is_protocol' and
-                        attr != '__dict__' and
-                        attr != '__args__' and
-                        attr != '__slots__' and
-                        attr != '_get_protocol_attrs' and
-                        attr != '__parameters__' and
-                        attr != '__origin__' and
-                        attr != '__module__'):
+                            attr != '__abstractmethods__' and
+                            attr != '_is_protocol' and
+                            attr != '__dict__' and
+                            attr != '__args__' and
+                            attr != '__slots__' and
+                            attr != '_get_protocol_attrs' and
+                            attr != '__parameters__' and
+                            attr != '__origin__' and
+                            attr != '__module__'):
                         attrs.add(attr)
 
         return attrs
@@ -1324,7 +1321,8 @@ if hasattr(collections_abc, 'AsyncIterable'):
     class AsyncIterable(Generic[T_co], extra=collections_abc.AsyncIterable):
         __slots__ = ()
 
-    class AsyncIterator(AsyncIterable[T_co], extra=collections_abc.AsyncIterator):
+    class AsyncIterator(AsyncIterable[T_co],
+                        extra=collections_abc.AsyncIterator):
         __slots__ = ()
 
 else:

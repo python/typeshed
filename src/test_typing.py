@@ -132,6 +132,7 @@ class TypeVarTests(TestCase):
     def test_constrained_error(self):
         with self.assertRaises(TypeError):
             X = TypeVar('X', int)
+            X
 
     def test_union_unique(self):
         X = TypeVar('X')
@@ -316,6 +317,7 @@ class UnionTests(TestCase):
     def test_union_str_pattern(self):
         # Shouldn't crash; see http://bugs.python.org/issue25390
         A = Union[str, Pattern]
+        A
 
 
 class TypeVarUnionTests(TestCase):
@@ -604,7 +606,8 @@ class GenericTests(TestCase):
         assert Z != Y[int]
         assert Z != Y[T]
 
-        assert str(Z).endswith('.C<~T>[typing.Tuple[~S, ~T]]<~S, ~T>[~T, int]<~T>[str]')
+        assert str(Z).endswith(
+            '.C<~T>[typing.Tuple[~S, ~T]]<~S, ~T>[~T, int]<~T>[str]')
 
     def test_dict(self):
         T = TypeVar('T')
