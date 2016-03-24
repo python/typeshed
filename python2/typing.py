@@ -113,8 +113,8 @@ class TypingMeta(type):
         """
         return self
 
-    def _has_type_var(self):
-        return False
+    def _get_type_vars(self, tvars):
+        pass
 
     def __repr__(self):
         return '%s.%s' % (self.__module__, _qualname(self))
@@ -267,8 +267,16 @@ class _TypeAlias(object):
             return issubclass(cls, self.impl_type)
 
 
-def _has_type_var(t):
-    return t is not None and isinstance(t, TypingMeta) and t._has_type_var()
+def _get_type_vars(types, tvars):
+    for t in types:
+        if isinstance(t, TypingMeta):
+            t._get_type_vars(tvars)
+
+
+def _type_vars(types):
+    tvars = []
+    _get_type_vars(types, tvars)
+    return tuple(tvars)
 
 
 def _eval_type(t, globalns, localns):
@@ -380,7 +388,7 @@ class TypeVar(TypingMeta):
     At runtime, isinstance(x, T) will raise TypeError.  However,
     issubclass(C, T) is true for any class C, and issubclass(str, A)
     and issubclass(bytes, A) are true, and issubclass(int, A) is
-    false.
+    false.  (TODO: Why is this needed?  This may change.  See #136.)
 
     Type variables may be marked covariant or contravariant by passing
     covariant=True or contravariant=True.  See PEP 484 for more
@@ -418,8 +426,9 @@ class TypeVar(TypingMeta):
             self.__bound__ = None
         return self
 
-    def _has_type_var(self):
-        return True
+    def _get_type_vars(self, tvars):
+        if self not in tvars:
+            tvars.append(self)
 
     def __repr__(self):
         if self.__covariant__:
@@ -456,7 +465,6 @@ VT_co = TypeVar('VT_co', covariant=True)  # Value type covariant containers.
 T_contra = TypeVar('T_contra', contravariant=True)  # Ditto contravariant.
 
 # A useful type variable with constraints.  This represents string types.
-# TODO: What about bytearray, memoryview?
 AnyStr = TypeVar('AnyStr', bytes, unicode)
 
 
@@ -523,12 +531,9 @@ class UnionMeta(TypingMeta):
             return self.__class__(self.__name__, self.__bases__, {},
                                   p)
 
-    def _has_type_var(self):
+    def _get_type_vars(self, tvars):
         if self.__union_params__:
-            for t in self.__union_params__:
-                if _has_type_var(t):
-                    return True
-        return False
+            _get_type_vars(self.__union_params__, tvars)
 
     def __repr__(self):
         r = super(UnionMeta, self).__repr__()
@@ -670,12 +675,9 @@ class TupleMeta(TypingMeta):
         self.__tuple_use_ellipsis__ = use_ellipsis
         return self
 
-    def _has_type_var(self):
+    def _get_type_vars(self, tvars):
         if self.__tuple_params__:
-            for t in self.__tuple_params__:
-                if _has_type_var(t):
-                    return True
-        return False
+            _get_type_vars(self.__tuple_params__, tvars)
 
     def _eval_type(self, globalns, localns):
         tp = self.__tuple_params__
@@ -785,12 +787,9 @@ class CallableMeta(TypingMeta):
         self.__result__ = result
         return self
 
-    def _has_type_var(self):
+    def _get_type_vars(self, tvars):
         if self.__args__:
-            for t in self.__args__:
-                if _has_type_var(t):
-                    return True
-        return _has_type_var(self.__result__)
+            _get_type_vars(self.__args__, tvars)
 
     def _eval_type(self, globalns, localns):
         if self.__args__ is None and self.__result__ is None:
@@ -898,73 +897,85 @@ def _geqv(a, b):
 class GenericMeta(TypingMeta, abc.ABCMeta):
     """Metaclass for generic types."""
 
-    # TODO: Constrain more how Generic is used; only a few
-    # standard patterns should be allowed.
-
-    # TODO: Use a more precise rule than matching __name__ to decide
-    # whether two classes are the same.  Also, save the formal
-    # parameters.  (These things are related!  A solution lies in
-    # using origin.)
-
     __extra__ = None
 
     def __new__(cls, name, bases, namespace,
-                parameters=None, origin=None, extra=None):
-        if parameters is None:
-            # Extract parameters from direct base classes.  Only
-            # direct bases are considered and only those that are
-            # themselves generic, and parameterized with type
-            # variables.  Don't use bases like Any, Union, Tuple,
-            # Callable or type variables.
-            params = None
-            for base in bases:
-                if isinstance(base, TypingMeta):
-                    if not isinstance(base, GenericMeta):
-                        raise TypeError(
-                            "You cannot inherit from magic class %s" %
-                            repr(base))
-                    if base.__parameters__ is None:
-                        continue  # The base is unparameterized.
-                    for bp in base.__parameters__:
-                        if _has_type_var(bp) and not isinstance(bp, TypeVar):
-                            raise TypeError(
-                                "Cannot inherit from a generic class "
-                                "parameterized with "
-                                "non-type-variable %s" % bp)
-                        if params is None:
-                            params = []
-                        if bp not in params:
-                            params.append(bp)
-            if params is not None:
-                parameters = tuple(params)
+                tvars=None, args=None, origin=None, extra=None):
         self = super(GenericMeta, cls).__new__(cls, name, bases, namespace)
-        self.__parameters__ = parameters
+
+        if tvars is not None:
+            # Called from __getitem__() below.
+            assert origin is not None
+            assert all(isinstance(t, TypeVar) for t in tvars), tvars
+        else:
+            # Called from class statement.
+            assert tvars is None, tvars
+            assert args is None, args
+            assert origin is None, origin
+
+            # Get the full set of tvars from the bases.
+            tvars = _type_vars(bases)
+            # Look for Generic[T1, ..., Tn].
+            # If found, tvars must be a subset of it.
+            # If not found, tvars is it.
+            # Also check for and reject plain Generic,
+            # and reject multiple Generic[...].
+            gvars = None
+            for base in bases:
+                if base is object:
+                    continue  # Avoid checking for Generic in its own definition.
+                if base is Generic:
+                    raise TypeError("Cannot inherit from plain Generic")
+                if isinstance(base, GenericMeta) and base.__origin__ is Generic:
+                    if gvars is not None:
+                        raise TypeError("Cannot inherit from Generic[...] multiple types.")
+                    gvars = base.__parameters__
+            if gvars is None:
+                gvars = tvars
+            else:
+                tvarset = set(tvars)
+                gvarset = set(gvars)
+                if not tvarset <= gvarset:
+                    raise TypeError("Some type variables (%s) are not listed in Generic[%s]" %
+                                    (", ".join(str(t) for t in tvars if t not in gvarset),
+                                     ", ".join(str(g) for g in gvars)))
+                tvars = gvars
+
+        self.__parameters__ = tvars
+        self.__args__ = args
+        self.__origin__ = origin
         if extra is not None:
             self.__extra__ = extra
         # Else __extra__ is inherited, eventually from the
         # (meta-)class default above.
-        self.__origin__ = origin
         return self
 
-    def _has_type_var(self):
-        if self.__parameters__:
-            for t in self.__parameters__:
-                if _has_type_var(t):
-                    return True
-        return False
+    def _get_type_vars(self, tvars):
+        if self.__origin__ and self.__parameters__:
+            _get_type_vars(self.__parameters__, tvars)
 
     def __repr__(self):
-        r = super(GenericMeta, self).__repr__()
-        if self.__parameters__ is not None:
+        if self.__origin__ is not None:
+            r = repr(self.__origin__)
+        else:
+            r = super(GenericMeta, self).__repr__()
+        if self.__args__:
             r += '[%s]' % (
+                ', '.join(_type_repr(p) for p in self.__args__))
+        if self.__parameters__:
+            r += '<%s>' % (
                 ', '.join(_type_repr(p) for p in self.__parameters__))
         return r
 
     def __eq__(self, other):
         if not isinstance(other, GenericMeta):
             return NotImplemented
-        return (_geqv(self, other) and
-                self.__parameters__ == other.__parameters__)
+        if self.__origin__ is not None:
+            return (self.__origin__ is other.__origin__ and
+                    self.__args__ == other.__args__ and
+                    self.__parameters__ == other.__parameters__)
+        else:
+            return self is other
 
     def __hash__(self):
         return hash((self.__name__, self.__parameters__))
@@ -973,37 +984,41 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         if not isinstance(params, tuple):
             params = (params,)
         if not params:
-            raise TypeError("Cannot have empty parameter list")
+            raise TypeError("Parameter list to %s[...] cannot be empty" % _qualname(self))
         msg = "Parameters to generic types must be types."
         params = tuple(_type_check(p, msg) for p in params)
-        if self.__parameters__ is None:
-            for p in params:
-                if not isinstance(p, TypeVar):
-                    raise TypeError("Initial parameters must be "
-                                    "type variables; got %s" % p)
+        if self is Generic:
+            # Generic can only be subscripted with unique type variables.
+            if not all(isinstance(p, TypeVar) for p in params):
+                raise TypeError("Parameters to Generic[...] must all be type variables")
             if len(set(params)) != len(params):
-                raise TypeError(
-                    "All type variables in Generic[...] must be distinct.")
+                raise TypeError("Parameters to Generic[...] must all be unique")
+            tvars = params
+            args = None
+        elif self is _Protocol:
+            # _Protocol is internal, don't check anything.
+            tvars = params
+            args = None
+        elif self.__origin__ in (Generic, _Protocol):
+            # Can't subscript Generic[...] or _Protocol[...].
+            raise TypeError("Cannot subscript already-subscripted %s" % repr(self))
         else:
-            if len(params) != len(self.__parameters__):
-                raise TypeError("Cannot change parameter count from %d to %d" %
-                                (len(self.__parameters__), len(params)))
-            for new, old in zip(params, self.__parameters__):
-                if isinstance(old, TypeVar):
-                    if not old.__constraints__:
-                        # Substituting for an unconstrained TypeVar is OK.
-                        continue
-                    if issubclass(new, Union[old.__constraints__]):
-                        # Specializing a constrained type variable is OK.
-                        continue
-                if not issubclass(new, old):
-                    raise TypeError(
-                        "Cannot substitute %s for %s in %s" %
-                        (_type_repr(new), _type_repr(old), self))
-
-        return self.__class__(self.__name__, (self,) + self.__bases__,
+            # Subscripting a regular Generic subclass.
+            if not self.__parameters__:
+                raise TypeError("%s is not a generic class" % repr(self))
+            alen = len(params)
+            elen = len(self.__parameters__)
+            if alen != elen:
+                raise TypeError("Too %s parameters for %s; actual %s, expected %s" %
+                                ("many" if alen > elen else "few",
+                                 repr(self), alen, elen))
+            tvars = _type_vars(params)
+            args = params
+        return self.__class__(self.__name__,
+                              (self,) + self.__bases__,
                               dict(self.__dict__),
-                              parameters=params,
+                              tvars=tvars,
+                              args=args,
                               origin=self,
                               extra=self.__extra__)
 
@@ -1023,10 +1038,10 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
             # C[X] is a subclass of C[Y] iff X is a subclass of Y.
             origin = self.__origin__
             if origin is not None and origin is cls.__origin__:
-                assert len(self.__parameters__) == len(origin.__parameters__)
-                assert len(cls.__parameters__) == len(origin.__parameters__)
-                for p_self, p_cls, p_origin in zip(self.__parameters__,
-                                                   cls.__parameters__,
+                assert len(self.__args__) == len(origin.__parameters__)
+                assert len(cls.__args__) == len(origin.__parameters__)
+                for p_self, p_cls, p_origin in zip(self.__args__,
+                                                   cls.__args__,
                                                    origin.__parameters__):
                     if isinstance(p_origin, TypeVar):
                         if p_origin.__covariant__:
@@ -1070,18 +1085,11 @@ class Generic(object):
 
     This class can then be used as follows::
 
-      def lookup_name(mapping: Mapping, key: KT, default: VT) -> VT:
+      def lookup_name(mapping: Mapping[KT, VT], key: KT, default: VT) -> VT:
           try:
               return mapping[key]
           except KeyError:
               return default
-
-    For clarity the type variables may be redefined, e.g.::
-
-      X = TypeVar('X')
-      Y = TypeVar('Y')
-      def lookup_name(mapping: Mapping[X, Y], key: X, default: Y) -> Y:
-          # Same body as above.
     """
 
     __metaclass__ = GenericMeta
@@ -1166,7 +1174,6 @@ def get_type_hints(obj, globalns=None, localns=None):
     return hints
 
 
-# TODO: Also support this as a class decorator.
 def no_type_check(arg):
     """Decorator to indicate that annotations are not type hints.
 
@@ -1287,6 +1294,7 @@ class _ProtocolMeta(GenericMeta):
                         attr != '__abstractmethods__' and
                         attr != '_is_protocol' and
                         attr != '__dict__' and
+                        attr != '__args__' and
                         attr != '__slots__' and
                         attr != '_get_protocol_attrs' and
                         attr != '__parameters__' and
@@ -1387,7 +1395,7 @@ class MutableSet(AbstractSet[T]):
 
 
 # NOTE: Only the value type is covariant.
-class Mapping(Sized, Iterable[KT], Container[KT], Generic[VT_co]):
+class Mapping(Sized, Iterable[KT], Container[KT], Generic[KT, VT_co]):
     __extra__ = collections_abc.Mapping
 
 
@@ -1461,8 +1469,9 @@ class KeysView(MappingView[KT], AbstractSet[KT]):
     __extra__ = collections_abc.KeysView
 
 
-# TODO: Enable Set[Tuple[KT, VT_co]] instead of Generic[KT, VT_co].
-class ItemsView(MappingView, Generic[KT, VT_co]):
+class ItemsView(MappingView[Tuple[KT, VT_co]],
+                Set[Tuple[KT, VT_co]],
+                Generic[KT, VT_co]):
     __extra__ = collections_abc.ItemsView
 
 
