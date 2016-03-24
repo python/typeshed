@@ -684,6 +684,36 @@ class GenericTests(TestCase):
 
         assert C.__parameters__ == (VT, T, KT)
 
+    def test_nested(self):
+
+        G = Generic
+
+        class Visitor(G[T]):
+
+            a = None
+
+            def set(self, a):
+                self.a = a
+
+            def get(self):
+                return self.a
+
+            def visit(self):
+                return self.a
+
+        V = Visitor[typing.List[int]]
+
+        class IntListVisitor(V):
+
+            def append(self, x):
+                self.a.append(x)
+
+        a = IntListVisitor()
+        a.set([])
+        a.append(1)
+        a.append(42)
+        assert a.get() == [1, 42]
+
     def test_type_erasure(self):
         T = TypeVar('T')
 
