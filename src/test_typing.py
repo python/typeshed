@@ -486,7 +486,7 @@ class SimpleMapping(Generic[XK, XV]):
         ...
 
 
-class MySimpleMapping(SimpleMapping):
+class MySimpleMapping(SimpleMapping[XK, XV]):
 
     def __init__(self):
         self.store = {}
@@ -540,6 +540,7 @@ class ProtocolTests(TestCase):
         assert not issubclass(str, typing.SupportsAbs)
 
     def test_supports_round(self):
+        issubclass(float, typing.SupportsRound)
         assert issubclass(float, typing.SupportsRound)
         assert issubclass(int, typing.SupportsRound)
         assert not issubclass(str, typing.SupportsRound)
@@ -557,13 +558,16 @@ class GenericTests(TestCase):
 
     def test_basics(self):
         X = SimpleMapping[str, Any]
+        assert X.__parameters__ == ()
+        with self.assertRaises(TypeError):
+            X[str]
+        with self.assertRaises(TypeError):
+            X[str, str]
         Y = SimpleMapping[XK, str]
-        X[str, str]
-        Y[str, str]
+        assert Y.__parameters__ == (XK,)
+        Y[str]
         with self.assertRaises(TypeError):
-            X[int, str]
-        with self.assertRaises(TypeError):
-            Y[str, bytes]
+            Y[str, str]
 
     def test_init(self):
         T = TypeVar('T')
@@ -575,9 +579,32 @@ class GenericTests(TestCase):
 
     def test_repr(self):
         self.assertEqual(repr(SimpleMapping),
-                         __name__ + '.' + 'SimpleMapping[~XK, ~XV]')
+                         __name__ + '.' + 'SimpleMapping<~XK, ~XV>')
         self.assertEqual(repr(MySimpleMapping),
-                         __name__ + '.' + 'MySimpleMapping[~XK, ~XV]')
+                         __name__ + '.' + 'MySimpleMapping<~XK, ~XV>')
+
+    def test_chain_repr(self):
+        T = TypeVar('T')
+        S = TypeVar('S')
+
+        class C(Generic[T]):
+            pass
+
+        X = C[Tuple[S, T]]
+        assert X == C[Tuple[S, T]]
+        assert X != C[Tuple[T, S]]
+
+        Y = X[T, int]
+        assert Y == X[T, int]
+        assert Y != X[S, int]
+        assert Y != X[T, str]
+
+        Z = Y[str]
+        assert Z == Y[str]
+        assert Z != Y[int]
+        assert Z != Y[T]
+
+        assert str(Z).endswith('.C<~T>[typing.Tuple[~S, ~T]]<~S, ~T>[~T, int]<~T>[str]')
 
     def test_dict(self):
         T = TypeVar('T')
@@ -632,12 +659,12 @@ class GenericTests(TestCase):
         assert C.__module__ == __name__
         if not PY32:
             assert C.__qualname__ == 'GenericTests.test_repr_2.<locals>.C'
-        assert repr(C).split('.')[-1] == 'C[~T]'
+        assert repr(C).split('.')[-1] == 'C<~T>'
         X = C[int]
         assert X.__module__ == __name__
         if not PY32:
             assert X.__qualname__ == 'C'
-        assert repr(X).split('.')[-1] == 'C[int]'
+        assert repr(X).split('.')[-1] == 'C<~T>[int]'
 
         class Y(C[int]):
             pass
@@ -645,7 +672,7 @@ class GenericTests(TestCase):
         assert Y.__module__ == __name__
         if not PY32:
             assert Y.__qualname__ == 'GenericTests.test_repr_2.<locals>.Y'
-        assert repr(Y).split('.')[-1] == 'Y[int]'
+        assert repr(Y).split('.')[-1] == 'Y'
 
     def test_eq_1(self):
         assert Generic == Generic
@@ -673,15 +700,14 @@ class GenericTests(TestCase):
         class B(Generic[KT, T]):
             pass
 
-        class C(A, Generic[KT, VT], B):
+        class C(A[T, VT], Generic[VT, T, KT], B[KT, T]):
             pass
 
-        assert C.__parameters__ == (T, VT, KT)
+        assert C.__parameters__ == (VT, T, KT)
 
     def test_nested(self):
 
-        class G(Generic):
-            pass
+        G = Generic
 
         class Visitor(G[T]):
 
@@ -729,6 +755,24 @@ class GenericTests(TestCase):
             assert type(c) is Node
 
         foo(42)
+
+    def test_implicit_any(self):
+        T = TypeVar('T')
+
+        class C(Generic[T]):
+            pass
+
+        class D(C):
+            pass
+
+        assert D.__parameters__ == ()
+
+        with self.assertRaises(Exception):
+            D[int]
+        with self.assertRaises(Exception):
+            D[Any]
+        with self.assertRaises(Exception):
+            D[T]
 
 
 class VarianceTests(TestCase):
@@ -1286,7 +1330,7 @@ class IOTests(TestCase):
             return a.readline()
 
         a = stuff.__annotations__['a']
-        assert a.__parameters__ == (str,)
+        assert a.__parameters__ == ()
 
     def test_binaryio(self):
 
@@ -1294,7 +1338,7 @@ class IOTests(TestCase):
             return a.readline()
 
         a = stuff.__annotations__['a']
-        assert a.__parameters__ == (bytes,)
+        assert a.__parameters__ == ()
 
     def test_io_submodule(self):
         from typing.io import IO, TextIO, BinaryIO, __all__, __name__
