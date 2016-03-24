@@ -113,9 +113,6 @@ class TypingMeta(type):
         """
         return self
 
-    def _has_type_var(self):
-        return False
-
     def _get_type_vars(self, tvars):
         pass
 
