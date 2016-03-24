@@ -1032,6 +1032,15 @@ class NamedTupleTests(TestCase):
         assert Emp._fields == ('name', 'id')
         assert Emp._field_types == dict(name=str, id=int)
 
+    def test_pickle(self):
+        global Emp  # pickle wants to reference the class by name
+        Emp = NamedTuple('Emp', [('name', str), ('id', int)])
+        jane = Emp('jane', 37)
+        for proto in range(pickle.HIGHEST_PROTOCOL + 1):
+            z = pickle.dumps(jane, proto)
+            jane2 = pickle.loads(z)
+            self.assertEqual(jane2, jane)
+
 
 class IOTests(TestCase):
 
