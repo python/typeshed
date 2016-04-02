@@ -873,6 +873,20 @@ def _geqv(a, b):
     return _gorg(a) is _gorg(b)
 
 
+def _next_in_mro(cls):
+    """Helper for Generic.__new__.
+
+    Returns the class after the last occurrence of Generic or
+    Generic[...] in cls.__mro__.
+    """
+    next_in_mro = object
+    # Look for the last occurrence of Generic or Generic[...].
+    for i, c in enumerate(cls.__mro__[:-1]):
+        if isinstance(c, GenericMeta) and _gorg(c) is Generic:
+            next_in_mro = cls.__mro__[i+1]
+    return next_in_mro
+
+
 class GenericMeta(TypingMeta, abc.ABCMeta):
     """Metaclass for generic types."""
 
@@ -929,6 +943,8 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
             self.__extra__ = extra
         # Else __extra__ is inherited, eventually from the
         # (meta-)class default above.
+        # Speed hack (https://github.com/python/typing/issues/196).
+        self.__next_in_mro__ = _next_in_mro(self)
         return self
 
     def _get_type_vars(self, tvars):
@@ -1056,6 +1072,10 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         return issubclass(cls, self.__extra__)
 
 
+# Prevent checks for Generic to crash when defining Generic.
+Generic = None
+
+
 class Generic(metaclass=GenericMeta):
     """Abstract base class for generic types.
 
@@ -1080,16 +1100,13 @@ class Generic(metaclass=GenericMeta):
     __slots__ = ()
 
     def __new__(cls, *args, **kwds):
-        next_in_mro = object
-        # Look for the last occurrence of Generic or Generic[...].
-        for i, c in enumerate(cls.__mro__[:-1]):
-            if isinstance(c, GenericMeta) and _gorg(c) is Generic:
-                next_in_mro = cls.__mro__[i+1]
-        origin = _gorg(cls)
-        obj = next_in_mro.__new__(origin)
-        if origin is not cls:
+        if cls.__origin__ is None:
+            return cls.__next_in_mro__.__new__(cls)
+        else:
+            origin = _gorg(cls)
+            obj = cls.__next_in_mro__.__new__(origin)
             obj.__init__(*args, **kwds)
-        return obj
+            return obj
 
 
 def cast(typ, val):
@@ -1283,6 +1300,7 @@ class _ProtocolMeta(GenericMeta):
                             attr != '__args__' and
                             attr != '__slots__' and
                             attr != '_get_protocol_attrs' and
+                            attr != '__next_in_mro__' and
                             attr != '__parameters__' and
                             attr != '__origin__' and
                             attr != '__module__'):
