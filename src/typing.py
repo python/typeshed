@@ -1079,8 +1079,6 @@ class Generic(metaclass=GenericMeta):
 
     __slots__ = ()
 
-    # TODO: GenericMeta should compute next_in_mro and stuff its
-    # __new__ in the class dict, if origin is cls.  Issue #196.
     def __new__(cls, *args, **kwds):
         next_in_mro = object
         # Look for the last occurrence of Generic or Generic[...].
