@@ -673,6 +673,9 @@ class GenericTests(TestCase):
             assert type(a) is Node
             assert type(b) is Node
             assert type(c) is Node
+            assert a.label == x
+            assert b.label == x
+            assert c.label == x
 
         foo(42)
 

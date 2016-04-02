@@ -1093,7 +1093,11 @@ class Generic(object):
         for i, c in enumerate(cls.__mro__[:-1]):
             if isinstance(c, GenericMeta) and _gorg(c) is Generic:
                 next_in_mro = cls.__mro__[i+1]
-        return next_in_mro.__new__(_gorg(cls))
+        origin = _gorg(cls)
+        obj = next_in_mro.__new__(origin)
+        if origin is not cls:
+            obj.__init__(*args, **kwds)
+        return obj
 
 
 def cast(typ, val):
