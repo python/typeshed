@@ -1405,12 +1405,16 @@ class SupportsRound(_Protocol[T_co]):
         pass
 
 
-class Reversible(_Protocol[T_co]):
-    __slots__ = ()
+if hasattr(collections_abc, 'Reversible'):
+    class Reversible(Iterable[T_co], extra=collections_abc.Reversible):
+        __slots__ = ()
+else:    
+    class Reversible(_Protocol[T_co]):
+        __slots__ = ()
 
-    @abstractmethod
-    def __reversed__(self) -> 'Iterator[T_co]':
-        pass
+        @abstractmethod
+        def __reversed__(self) -> 'Iterator[T_co]':
+            pass
 
 
 Sized = collections_abc.Sized  # Not generic.
@@ -1441,10 +1445,14 @@ class Mapping(Sized, Iterable[KT], Container[KT], Generic[KT, VT_co],
 class MutableMapping(Mapping[KT, VT], extra=collections_abc.MutableMapping):
     pass
 
-
-class Sequence(Sized, Iterable[T_co], Container[T_co],
+if hasattr(collections_abc, 'Reversible'):
+    class Sequence(Sized, Reversible[T_co], Container[T_co],
                extra=collections_abc.Sequence):
-    pass
+        pass
+else:
+    class Sequence(Sized, Iterable[T_co], Container[T_co],
+                   extra=collections_abc.Sequence):
+        pass
 
 
 class MutableSequence(Sequence[T], extra=collections_abc.MutableSequence):

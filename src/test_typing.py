@@ -553,7 +553,7 @@ class ProtocolTests(TestCase):
 
     def test_protocol_instance_type_error(self):
         with self.assertRaises(TypeError):
-            isinstance([], typing.Reversible)
+            isinstance(0, typing.SupportsAbs)
 
 
 class GenericTests(TestCase):

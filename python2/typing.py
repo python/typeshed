@@ -1390,12 +1390,17 @@ class SupportsAbs(_Protocol[T_co]):
         pass
 
 
-class Reversible(_Protocol[T_co]):
-    __slots__ = ()
+if hasattr(collections_abc, 'Reversible'):
+    class Reversible(Iterable[T_co]):
+        __slots__ = ()
+        __extra__ = collections_abc.Reversible
+else:    
+    class Reversible(_Protocol[T_co]):
+        __slots__ = ()
 
-    @abstractmethod
-    def __reversed__(self):
-        pass
+        @abstractmethod
+        def __reversed__(self):
+            pass
 
 
 Sized = collections_abc.Sized  # Not generic.
@@ -1426,8 +1431,12 @@ class MutableMapping(Mapping[KT, VT]):
     __extra__ = collections_abc.MutableMapping
 
 
-class Sequence(Sized, Iterable[T_co], Container[T_co]):
-    __extra__ = collections_abc.Sequence
+if hasattr(collections_abc, 'Reversible'):
+    class Sequence(Sized, Reversible[T_co], Container[T_co]):
+        __extra__ = collections_abc.Sequence
+else:
+    class Sequence(Sized, Iterable[T_co], Container[T_co]):
+        __extra__ = collections_abc.Sequence
 
 
 class MutableSequence(Sequence[T]):
