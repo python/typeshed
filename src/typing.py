@@ -52,6 +52,7 @@ __all__ = [
 
     # Concrete collection types.
     'Dict',
+    'DefaultDict',
     'List',
     'Set',
     'NamedTuple',  # Not really a type.
@@ -1536,6 +1537,13 @@ class Dict(dict, MutableMapping[KT, VT]):
                             "use dict() instead")
         return dict.__new__(cls, *args, **kwds)
 
+class DefaultDict(collections.defaultdict, MutableMapping[KT, VT]):
+
+    def __new__(cls, *args, **kwds):
+        if _geqv(cls, DefaultDict):
+            raise TypeError("Type DefaultDict cannot be instantiated; "
+                            "use collections.defaultdict() instead")
+        return collections.defaultdict.__new__(cls, *args, **kwds)
 
 # Determine what base class to use for Generator.
 if hasattr(collections_abc, 'Generator'):

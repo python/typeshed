@@ -967,6 +967,22 @@ class CollectionsAbcTests(TestCase):
         d = MyDict()
         assert isinstance(d, MyDict)
 
+    def test_no_defaultdict_instantiation(self):
+        with self.assertRaises(TypeError):
+            typing.DefaultDict()
+        with self.assertRaises(TypeError):
+            typing.DefaultDict[KT, VT]()
+        with self.assertRaises(TypeError):
+            typing.DefaultDict[str, int]()
+
+    def test_defaultdict_subclass_instantiation(self):
+
+        class MyDefDict(typing.DefaultDict[str, int]):
+            pass
+
+        dd = MyDefDict()
+        assert isinstance(dd, MyDefDict)
+
     def test_no_set_instantiation(self):
         with self.assertRaises(TypeError):
             typing.Set()
