@@ -1395,7 +1395,7 @@ if hasattr(collections_abc, 'Reversible'):
     class Reversible(Iterable[T_co]):
         __slots__ = ()
         __extra__ = collections_abc.Reversible
-else:    
+else:
     class Reversible(_Protocol[T_co]):
         __slots__ = ()
 

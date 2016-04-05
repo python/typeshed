@@ -1409,7 +1409,7 @@ class SupportsRound(_Protocol[T_co]):
 if hasattr(collections_abc, 'Reversible'):
     class Reversible(Iterable[T_co], extra=collections_abc.Reversible):
         __slots__ = ()
-else:    
+else:
     class Reversible(_Protocol[T_co]):
         __slots__ = ()
 
