@@ -1520,7 +1520,7 @@ class KeysView(MappingView[KT], AbstractSet[KT],
 
 
 class ItemsView(MappingView[Tuple[KT, VT_co]],
-                Set[Tuple[KT, VT_co]],
+                AbstractSet[Tuple[KT, VT_co]],
                 Generic[KT, VT_co],
                 extra=collections_abc.ItemsView):
     pass
