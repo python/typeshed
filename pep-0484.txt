@@ -1337,6 +1337,9 @@ Generic variants of builtin collections:
 
 * Dict, used as ``Dict[key_type, value_type]``
 
+* DefaultDict, used as ``DefaultDict[key_type, value_type]``,
+  a generic variant of ``collections.defaultdict``
+
 * List, used as ``List[element_type]``
 
 * Set, used as ``Set[element_type]``. See remark for ``AbstractSet``
@@ -1344,10 +1347,10 @@ Generic variants of builtin collections:
 
 * FrozenSet, used as ``FrozenSet[element_type]``
 
-Note: ``Dict``, ``List``, ``Set`` and ``FrozenSet`` are mainly useful
-for annotating return values.  For arguments, prefer the abstract
-collection types defined below, e.g.  ``Mapping``, ``Sequence`` or
-``AbstractSet``.
+Note: ``Dict``, ``DefaultDict``, ``List``, ``Set`` and ``FrozenSet``
+are mainly useful for annotating return values.
+For arguments, prefer the abstract collection types defined below,
+e.g.  ``Mapping``, ``Sequence`` or ``AbstractSet``.
 
 Generic variants of container ABCs (and a few non-containers):
 
