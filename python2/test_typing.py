@@ -1187,6 +1187,14 @@ class AllTests(TestCase):
         # Check that Text is defined.
         assert 'Text' in a
 
+    def test_get_type_hints_dummy(self):
+
+        def foo(x):
+            # type: (int) -> int
+            return x + 1
+
+        assert typing.get_type_hints(foo) is None
+
 
 if __name__ == '__main__':
     main()

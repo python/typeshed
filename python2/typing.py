@@ -1158,44 +1158,8 @@ def _get_defaults(func):
 
 
 def get_type_hints(obj, globalns=None, localns=None):
-    """Return type hints for a function or method object.
-
-    This is often the same as obj.__annotations__, but it handles
-    forward references encoded as string literals, and if necessary
-    adds Optional[t] if a default value equal to None is set.
-
-    BEWARE -- the behavior of globalns and localns is counterintuitive
-    (unless you are familiar with how eval() and exec() work).  The
-    search order is locals first, then globals.
-
-    - If no dict arguments are passed, an attempt is made to use the
-      globals from obj, and these are also used as the locals.  If the
-      object does not appear to have globals, an exception is raised.
-
-    - If one dict argument is passed, it is used for both globals and
-      locals.
-
-    - If two dict arguments are passed, they specify globals and
-      locals, respectively.
-    """
-    if getattr(obj, '__no_type_check__', None):
-        return {}
-    if globalns is None:
-        globalns = getattr(obj, '__globals__', {})
-        if localns is None:
-            localns = globalns
-    elif localns is None:
-        localns = globalns
-    defaults = _get_defaults(obj)
-    hints = dict(obj.__annotations__)
-    for name, value in hints.items():
-        if isinstance(value, basestring):
-            value = _ForwardRef(value)
-        value = _eval_type(value, globalns, localns)
-        if name in defaults and defaults[name] is None:
-            value = Optional[value]
-        hints[name] = value
-    return hints
+    """In Python 2 this is not supported and always returns None."""
+    return None
 
 
 def no_type_check(arg):
