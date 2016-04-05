@@ -462,40 +462,57 @@ Suppose we write a ``Node`` class inheriting from ``Generic[T]``::
   class Node(Generic[T]):
       ...
 
-Now there are two ways we can instantiate this class; the type
-inferred by a type checker may be different depending on the form we
-use.  The first way is to give the value of the type parameter
-explicitly -- this overrides whatever type inference the type
-checker would otherwise perform::
+To create ``Node`` instances you call ``Node()`` just as for a regular
+class.  At runtime the type (class) of the instance will be ``Node``.
+But what type does it have to the type checker?  The answer depends on
+how much information is available in the call.  If the constructor
+(``__init__`` or ``__new__``) uses ``T`` in its signature, and a
+corresponding argument value is passed, the type of the corresponding
+argument(s) is substituted.  Otherwise, ``Any`` is assumed.  Example::
 
-  x = Node[T]()  # The type inferred for x is Node[T].
+  from typing import TypeVar, Generic
 
-  y = Node[int]()  # The type inferred for y is Node[int].
+  T = TypeVar('T')
 
-If no explicit types are given, the type checker is given some
-freedom. Consider this code::
+  class Node(Generic[T]):
+      def __init__(self, label: T = None) -> None:
+          ...
 
-  x = Node()
+  x = Node('')  # Inferred type is Node[str]
+  y = Node(0)   # Inferred type is Node[int]
+  z = Node()    # Inferred type is Node[Any]
 
-The inferred type could be ``Node[Any]``, as there isn't enough
-context to infer a more precise type.  Alternatively, a type checker
-may reject the line and require an explicit annotation, like this::
+In case the inferred type uses ``[Any]`` but the intended type is more
+specific, you can use a type comment (see below) to force the type of
+the variable, e.g.::
 
-  x = Node()  # type: Node[int]  # Inferred type is Node[int].
+  # (continued from previous example)
+  a = Node()  # type: Node[int]
+  b = Node()  # type: Node[str]
 
-A type checker with more powerful type inference could look at how
-``x`` is used elsewhere in the file and try to infer a more precise
-type such as ``Node[int]`` even without an explicit type annotation.
-However, it is probably impossible to make such type inference work
-well in all cases, since Python programs can be very dynamic.
+You can also create a type alias (see above) for a specific concrete
+type and instantiate it, e.g.::
 
-This PEP doesn't specify the details of how type inference should
-work.  We allow different tools to experiment with various approaches.
-We may give more explicit rules in future revisions.
+  # (continued from previous example)
+  IntNode = Node[int]
+  StrNode = Node[str]
+  p = IntNode()    # Inferred type is Node[str]
+  q = StrNode()    # Inferred type is Node[int]
+  r = IntNode('')  # Error
+  s = StrNode(0)   # Error
 
-At runtime the type is not preserved, and the class of ``x`` is just
-``Node`` in all cases.  This behavior is called "type erasure"; it is
+Note that the runtime type (class) of p and q is still just ``Node``
+-- ``IntNode`` and ``StrNode`` are distinguishable class objects, but
+the type (class) of the objects created by instantiating them doesn't
+record the distinction.  This behavior is called "type erasure"; it is
 common practice in languages with generics (e.g. Java, TypeScript).
+
+You cannot use the subscripted class (e.g. ``Node[int]``) directly in
+an expression -- you must define a type alias.  (This restriction
+exists because creating the subscripted class, e.g. ``Node[int]``, is
+an expensive operation -- usually many times as expensive as
+constructing an instance of it.  Using a type alias is also more
+readable.)
 
 
 Arbitrary generic types as base classes
