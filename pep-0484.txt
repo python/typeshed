@@ -1428,6 +1428,8 @@ Convenience definitions:
 
 * AnyStr, defined as ``TypeVar('AnyStr', str, bytes)``
 
+* Text, a simple alias for ``str`` in Python 3, for ``unicode`` in Python 2
+
 * NamedTuple, used as
   ``NamedTuple(type_name, [(field_name, field_type), ...])``
   and equivalent to
