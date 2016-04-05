@@ -1184,6 +1184,8 @@ class AllTests(TestCase):
         # Spot-check that stdlib modules aren't exported.
         assert 'os' not in a
         assert 'sys' not in a
+        # Check that Text is defined.
+        assert 'Text' in a
 
 
 if __name__ == '__main__':

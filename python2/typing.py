@@ -63,6 +63,7 @@ __all__ = [
     'no_type_check',
     'no_type_check_decorator',
     'overload',
+    'Text',
 ]
 
 # The pseudo-submodules 're' and 'io' are part of the public
@@ -1575,6 +1576,10 @@ def NamedTuple(typename, fields):
     except (AttributeError, ValueError):
         pass
     return cls
+
+
+# Python-version-specific alias (Python 2: unicode; Python 3: str)
+Text = unicode
 
 
 class IO(Generic[AnyStr]):
