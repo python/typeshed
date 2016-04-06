@@ -58,6 +58,11 @@ versions of Python, `third_party` has version subdirectories, just like
 We're welcoming contributions (pull requests) for type definitions of
 third party packages.
 
+NOTE: When you're contributing a new stub for a package that you did
+not develop, please obtain consent of the package owner (this is
+specified in [PEP
+484](https://www.python.org/dev/peps/pep-0484/#the-typeshed-repo)).
+
 ### Version directories
 
 We store stubs for both Python 2 as well as Python 3. We also distinguish
