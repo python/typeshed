@@ -8,5 +8,8 @@ install:
   - pip install -U git+git://github.com/python/mypy
 
 script:
-  - ./runtests.py -p3
-  - ./runtests.py -p2 -x sqlalchemy 
+  - ./runtests.py -p3.5
+  - ./runtests.py -p3.4
+  - ./runtests.py -p3.3
+  - ./runtests.py -p3.2
+  - ./runtests.py -p2.7
