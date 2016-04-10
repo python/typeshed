@@ -5,7 +5,7 @@
 from typing import Any
 from .. import dialects
 
-registry = dialects.registry
+## registry = dialects.registry
 
 class URL:
     drivername = ... # type: Any
