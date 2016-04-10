@@ -1,4 +1,8 @@
-class _Feature: ...
+from sys import _version_info
+
+class _Feature:
+    def getOptionalRelease(self) -> _version_info: ...
+    def getMandatoryRelease(self) -> _version_info: ...
 
 absolute_import = ...  # type: _Feature
 division = ...  # type: _Feature
