@@ -1,7 +1,6 @@
 # Stubs for typing (Python 2.7)
 
 from abc import abstractmethod, ABCMeta
-import collections
 
 # Definitions of special type checking related constructs.  Their definition
 # are not used, so their value does not matter.
@@ -28,7 +27,7 @@ Union = TypeAlias(object)
 Optional = TypeAlias(object)
 List = TypeAlias(object)
 Dict = TypeAlias(object)
-DefaultDict = collections.defaultdict
+DefaultDict = TypeAlias(object)
 Set = TypeAlias(object)
 
 # Predefined type variables.
