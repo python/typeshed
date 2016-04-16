@@ -212,6 +212,8 @@ class ValuesView(MappingView, Iterable[_VT_co], Generic[_VT_co]):
     def __contains__(self, o: object) -> bool: ...
     def __iter__(self) -> Iterator[_VT_co]: ...
 
+# TODO: ContextManager (only if contextlib.AbstractContextManager exists)
+
 class Mapping(Iterable[_KT], Container[_KT], Sized, Generic[_KT, _VT]):
     # TODO: Value type should be covariant, but currently we can't give a good signature for
     #   get if this is the case.
@@ -236,6 +238,8 @@ class MutableMapping(Mapping[_KT, _VT], Generic[_KT, _VT]):
     def setdefault(self, k: _KT, default: _VT = ...) -> _VT: ...
     def update(self, m: Union[Mapping[_KT, _VT],
                               Iterable[Tuple[_KT, _VT]]]) -> None: ...
+
+Text = str
 
 class IO(Iterable[AnyStr], Generic[AnyStr]):
     # TODO detach

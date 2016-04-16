@@ -181,6 +181,8 @@ class MutableMapping(Mapping[_KT, _VT], Generic[_KT, _VT]):
     def update(self, m: Union[Mapping[_KT, _VT],
                               Iterable[Tuple[_KT, _VT]]]) -> None: ...
 
+Text = unicode
+
 class IO(Iterable[AnyStr], Generic[AnyStr]):
     # TODO detach
     # TODO use abstract properties
