@@ -1,6 +1,6 @@
 # Stubs for hmac (Python 2)
 
-from typing import Any
+from typing import Any, AnyStr
 
 class HMAC:
     def update(self, msg: str) -> None: ...
@@ -9,3 +9,5 @@ class HMAC:
     def copy(self) -> HMAC: ...
 
 def new(key: str, msg: str = ..., digestmod: Any = ...) -> HMAC: ...
+
+def compare_digest(a: AnyStr, b: AnyStr) -> bool: ...
