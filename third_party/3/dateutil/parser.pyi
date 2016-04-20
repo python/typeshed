@@ -1,4 +1,4 @@
-from typing import List, Tuple, Optional, Callable
+from typing import List, Tuple, Optional, Callable, Union
 from datetime import datetime
 
 __all__ = ...  # type: List[str]
@@ -32,7 +32,7 @@ class parser(object):
 
     def parse(
         self,
-        timestr: str,
+        timestr: Union[str, bytes, IO[Any]],
         default: Optional[datetime],
         ignoretz: bool=...,
         tzinfos =...,
