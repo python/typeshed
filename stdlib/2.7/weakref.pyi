@@ -4,7 +4,15 @@
 
 from typing import Any
 import UserDict
-from _weakref import getweakrefcount as getweakrefcount, getweakrefs as getweakrefs, ref as ref, proxy as proxy, CallableProxyType as CallableProxyType, ProxyType as ProxyType, ReferenceType as ReferenceType
+from _weakref import (
+    getweakrefcount as getweakrefcount,
+    getweakrefs as getweakrefs,
+    ref as ref,
+    proxy as proxy,
+    CallableProxyType as CallableProxyType,
+    ProxyType as ProxyType,
+    ReferenceType as ReferenceType
+)
 from _weakrefset import WeakSet as WeakSet
 from exceptions import ReferenceError as ReferenceError
 
