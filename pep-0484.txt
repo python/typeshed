@@ -722,26 +722,6 @@ classes implementing the corresponding ABCs or the
 exceedingly rare.
 
 
-The bytes types
----------------
-
-There are three different builtin classes used for arrays of bytes
-(not counting the classes available in the ``array`` module):
-``bytes``, ``bytearray`` and ``memoryview``.  Of these, ``bytes`` and
-``bytearray`` have many behaviors in common (though not all --
-``bytearray`` is mutable).
-
-While there is an ABC ``ByteString`` defined in ``collections.abc``
-and a corresponding type in ``typing``, functions accepting bytes (of
-some form) are so common that it would be cumbersome to have to write
-``typing.ByteString`` everywhere.  So, as a shortcut similar to that
-for the builtin numeric classes, when an argument is annotated as
-having type ``bytes``, arguments of type ``bytearray`` or
-``memoryview`` are acceptable.  (Again, there are situations where
-this isn't sound, but we believe those are exceedingly rare in
-practice.)
-
-
 Forward references
 ------------------
 
