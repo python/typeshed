@@ -11,6 +11,7 @@ from typing import (
     MutableSet
 )
 from abc import abstractmethod, ABCMeta
+from numbers import Number as _Number
 
 _T = TypeVar('_T')
 _T_co = TypeVar('_T_co', covariant=True)
@@ -21,7 +22,6 @@ _T1 = TypeVar('_T1')
 _T2 = TypeVar('_T2')
 _T3 = TypeVar('_T3')
 _T4 = TypeVar('_T4')
-_T5 = TypeVar('_T5', int, float, long, complex)
 
 staticmethod = object()  # Special, only valid as a decorator.
 classmethod = object()  # Special, only valid as a decorator.
@@ -883,7 +883,7 @@ class file(BinaryIO):
 
 def apply(object: object, *args: Iterable, **kwargs: Dict[str, Any]) -> Any: ...
 
-def coerce(x: _T5, y: _T5) -> Tuple[_T5,_T5]: ...
+def coerce(x: _Number, y: _Number) -> Tuple[_Number,_Number]: ...
 
 def help(str) -> None: ...
 
