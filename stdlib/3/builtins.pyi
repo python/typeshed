@@ -4,9 +4,11 @@ from typing import (
     TypeVar, Iterator, Iterable, overload,
     Sequence, MutableSequence, Mapping, MutableMapping, Tuple, List, Any, Dict, Callable, Generic,
     Set, AbstractSet, MutableSet, Sized, Reversible, SupportsInt, SupportsFloat, SupportsBytes,
-    SupportsAbs, SupportsRound, IO, Union, ItemsView, KeysView, ValuesView, ByteString
+    SupportsAbs, SupportsRound, IO, Union, ItemsView, KeysView, ValuesView, ByteString, Optional
 )
 from abc import abstractmethod, ABCMeta
+from importlib.machinery import ModuleSpec
+from importlib.abc import SourceLoader
 
 # Note that names imported above are not automatically made visible via the
 # implicit builtins import.
@@ -611,7 +613,12 @@ class range(Sequence[int]):
 class module:
     # TODO not defined in builtins!
     __name__ = ...  # type: str
+    __loader__ = ...  # type: SourceLoader
+    __package__ = ...  # type: str
+    __spec__ = ...  # type: Optional[ModuleSpec]
+    __path__ = ...  # type: Iterable[str]
     __file__ = ...  # type: str
+    __cached__ = ...  # type: str
     __dict__ = ...  # type: Dict[str, Any]
 
 NotImplemented = ...  # type: Any
