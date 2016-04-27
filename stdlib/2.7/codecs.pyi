@@ -188,6 +188,10 @@ class StreamReader(Codec):
 class StreamReaderWriter:
     def __init__(self, stream: BinaryIO, Reader: _stream_reader_type, Writer: _stream_writer_type, errors: str = ...) -> None:
         ...
+    def __enter__(self) -> BinaryIO:
+        ...
+    def __exit__(self, typ, exc, tb) -> bool:
+        ...
 
 class StreamRecoder(BinaryIO):
     def __init__(self, stream: BinaryIO, encode: _encode_type, decode: _decode_type, Reader: _stream_reader_type, Writer: _stream_writer_type, errors: str = ...) -> None:
