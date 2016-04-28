@@ -62,7 +62,7 @@ W_OK = 0
 X_OK = 0
 
 class _Environ(MutableMapping[AnyStr, AnyStr], Generic[AnyStr]):
-    def copy(self) -> _Environ[AnyStr]: ...
+    def copy(self) -> Dict[AnyStr, AnyStr]: ...
 
 environ = ...  # type: _Environ[str]
 environb = ...  # type: _Environ[bytes]
