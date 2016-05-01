@@ -63,9 +63,10 @@ class Counter(Dict[_T, int], Generic[_T]):
     # it's included so that the signature is compatible with
     # Dict.update. Not sure if we should use '# type: ignore' instead
     # and omit the type from the union.
-    def update(self, m: Union[Mapping[_T, int],
-                              Iterable[Tuple[_T, int]],
-                              Iterable[_T]]) -> None: ...
+    @overload
+    def update(self, m: Mapping[_T, int]) -> None: ...
+    @overload
+    def update(self, m: Union[Iterable[_T], Iterable[Tuple[_T, int]]]) -> None: ...
 
 class OrderedDict(Dict[_KT, _VT], Generic[_KT, _VT]):
     def popitem(self, last: bool = ...) -> Tuple[_KT, _VT]: ...

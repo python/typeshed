@@ -236,8 +236,20 @@ class MutableMapping(Mapping[_KT, _VT], Generic[_KT, _VT]):
     def pop(self, k: _KT, default: _VT = ...) -> _VT: ...
     def popitem(self) -> Tuple[_KT, _VT]: ...
     def setdefault(self, k: _KT, default: _VT = ...) -> _VT: ...
-    def update(self, m: Union[Mapping[_KT, _VT],
-                              Iterable[Tuple[_KT, _VT]]]) -> None: ...
+    # 'update' used to take a Union, but using overloading is better.
+    # The second overloaded type here is a bit too general, because
+    # Mapping[Tuple[_KT, _VT], W] is a subclass of Iterable[Tuple[_KT, _VT]],
+    # but will always have the behavior of the first overloaded type
+    # at runtime, leading to keys of a mix of types _KT and Tuple[_KT, _VT].
+    # We don't currently have any way of forcing all Mappings to use
+    # the first overload, but by using overloading rather than a Union,
+    # mypy will commit to using the first overload when the argument is
+    # known to be a Mapping with unknown type parameters, which is closer
+    # to the behavior we want. See mypy issue #1430.
+    @overload
+    def update(self, m: Mapping[_KT, _VT]) -> None: ...
+    @overload
+    def update(self, m: Iterable[Tuple[_KT, _VT]]) -> None: ...
 
 Text = str
 
