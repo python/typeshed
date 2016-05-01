@@ -1,4 +1,4 @@
-from typing import Any, IO, Optional, Tuple, Callable, Dict, List
+from typing import Any, IO, Optional, Tuple, Callable, Dict, List, Union
 
 class JSONDecodeError(object):
     def dumps(self, obj: Any) -> str: ...
