@@ -33,7 +33,7 @@ class NoOptionError(Error):
     section = ... # type: str
     option = ... # type: str
     args = ... # type: Tuple[str,str]
-    def __init__(self, option: str, section: str): -> None: ...
+    def __init__(self, option: str, section: str) -> None: ...
 
 class InterpolationError(Error):
     section = ... # type: str
@@ -56,9 +56,9 @@ class ParsingError(Error):
     filename = ... # type: str
     errors = ... # type: list[Tuple[Any,Any]]
     args = ... # type: Tuple[str]
-    def __init__(self, filename: str): -> None: ...
+    def __init__(self, filename: str) -> None: ...
 
-    def append(self, lineno: Any, line: Any): -> None: ...
+    def append(self, lineno: Any, line: Any) -> None: ...
 
 class MissingSectionHeaderError(ParsingError):
     lineno = ... # type: Any
