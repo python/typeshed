@@ -5,174 +5,136 @@ DEFAULTSECT = None # type: str
 MAX_INTERPOLATION_DEPTH = None # type: int
 
 class Error(Exception):
-    def _get_message(self): # type: () -> None
-        pass
+    def _get_message(self) -> None: ...
 
-    def _set_message(self, value): # type: (str) -> None
-        pass
+    def _set_message(self, value: str) -> None: ...
 
     message = None # type: Any
 
-    def __init__(self, msg=''): # type (str) -> None
-        pass
+    def __init__(self, msg='': str) -> None: ...
 
-    def __repr__(self): # type () -> str
-        return ""
+    def __repr__(self) -> str: ...
 
     __str__ = __repr__
 
 
 class NoSectionError(Error):
-    def __init__(self, section): # type: (str) -> None
-        self.section = None # type: str
-        self.args = None # type: Tuple[str]
+    section = ... # type: str
+    args = ... # type: Tuple[str]
+    def __init__(self, section: str) -> None: ...
+
 
 class DuplicateSectionError(Error):
-    def __init__(self, section): # type: (str) -> None
-        self.section = None # type: str
-        self.args = None # type: Tuple[str]
+    section = ... # type: str
+    args = ... # type: Tuple[str]
+    def __init__(self, section: str) -> None: ...
 
 class NoOptionError(Error):
-    def __init__(self, option, section): # type: (str,str) -> None
-        self.option = None # type: str
-        self.section = None # type: str
-        self.args = None # type: Tuple[str,str]
+    section = ... # type: str
+    option = ... # type: str
+    args = ... # type: Tuple[str,str]
+    def __init__(self, option: str, section: str): -> None: ...
 
 class InterpolationError(Error):
-    def __init__(self, option, section, msg): # type: (str,str,str) -> None
-        self.option = None # type: str
-        self.section = None # type: str
-        self.args = None # type: Tuple[str,str,str]
+    section = ... # type: str
+    option = ... # type: str
+    msg = ... # type: str
+    args = ... # type: Tuple[str,str,str]
+    def __init__(self, option: str, section: str, msg: str) -> None: ...
 
 class InterpolationMissingOptionError(InterpolationError):
-    def __init__(self, option, section, rawval, reference): # type: (str,str,str,str) -> None
-        msg = None # type: str
-        self.reference = None # type: str
-        self.args = None # type: Tuple[str,str,str,str]
+    reference = ... # type: str
+    args = ... # type: Tuple[str,str,str,str]
+    def __init__(self, option: str, section: str, rawval: str, reference: str) -> None: ...
 
-class InterpolationSyntaxError(InterpolationError):
-    pass
+class InterpolationSyntaxError(InterpolationError): ...
 
 class InterpolationDepthError(InterpolationError):
-    def __init__(self, option, section, rawval): # type: (str,str,str) -> None
-        msg = None # type: str
-        self.args = None # type: Tuple[str,str,str]
+    def __init__(self, option: str, section: str, rawval: str) -> None: ...
 
 class ParsingError(Error):
-    def __init__(self, filename):  # type: (str) -> None
-        self.filename = None # type: str
-        self.errors = None # type: list[Tuple[Any,Any]]
-        self.args = None # type: Tuple[str]
+    filename = ... # type: str
+    errors = ... # type: list[Tuple[Any,Any]]
+    args = ... # type: Tuple[str]
+    def __init__(self, filename: str): -> None: ...
 
-    def append(self, lineno, line): # type: (Any,Any) -> None
-        pass
+    def append(self, lineno: Any, line: Any): -> None: ...
 
 class MissingSectionHeaderError(ParsingError):
-    def __init__(self, filename, lineno, line): # type: (str,Any,Any) -> None
-        self.filename = None # type: str
-        self.lineno = None # type: Any
-        self.line = None # type: Any
-        self.args = None # type: Tuple[str,Any,Any]
+    lineno = ... # type: Any
+    line = ... # type: Any
+    args = ... # type: Tuple[str,Any,Any]
+    def __init__(self, filename: str, lineno: Any, line: Any) -> None: ...
 
 
 class RawConfigParser:
-    def __init__(self, defaults=None, dict_type=None, allow_no_value=False): # type: (dict[Any,Any],Any,bool) -> None
-        self._dict = dict_type
-        self._sections = self._dict() # type: dict
-        self._defaults = self._dict() # type: dict
-        self._optcre = None # type: Any
+    _dict = ... # type: Any
+    _sections = ... # type: dict
+    _defaults = ... # type: dict
+    _optcre = ... # type: Any
+    def __init__(self, defaults=None: dict[Any,Any], dict_type=None: Any, allow_no_value=False: bool) -> None: ...
 
-    def defaults(self): # type: () -> dict[Any,Any]
-        return None
+    def defaults(self) -> dict[Any,Any]: ...
 
-    def sections(self): # type: () -> list[str]
-        return None
+    def sections(self) -> list[str]: ...
 
-    def add_section(self, section): # type: (str) -> None
-        pass
+    def add_section(self, section: str) -> None: ...
 
-    def has_section(self, section): # type: (str) -> bool
-        return False
+    def has_section(self, section: str) -> bool: ...
 
-    def options(self, section): # type: (str) -> list[str]
-        return None
+    def options(self, section: str) -> list[str]: ...
 
-    def read(self, filenames): # type: (str) -> list[str]
-        return None
+    def read(self, filenames: str) -> list[str]: ...
 
-    def readfp(self, fp, filename=None): # type: (file, str) -> None
-        pass
+    def readfp(self, fp: file, filename=None: str) -> None: ...
 
-    def get(self, section, option):   # type: (str,str) -> str
-        pass
+    def get(self, section: str, option: str) -> str: ...
 
-    def items(self, section): # type: (str) -> list[Tuple[Any,Any]]
-        return None
+    def items(self, section: str) -> list[Tuple[Any,Any]]: ...
 
-    def _get(self, section, conv, option): # type: (str,type,str) -> Any
-        return None
+    def _get(self, section: str, conv: type, option: str) -> Any: ...
 
-    def getint(self, section, option): # type: (str,str) -> int
-        pass
+    def getint(self, section: str, option: str) -> int: ...
 
-    def getfloat(self, section, option): # type: (str,str) -> float
-        return None
+    def getfloat(self, section: str, option: str) -> float: ...
 
-    _boolean_states = None # type: dict[str,bool]
+    _boolean_states = ... # type: dict[str,bool]
 
-    def getboolean(self, section, option): # type: (str,str) -> bool
-        return None
+    def getboolean(self, section: str, option: str) -> bool: ...
 
-    def optionxform(self, optionstr): # type: (str) -> str
-        return None
+    def optionxform(self, optionstr: str) -> str: ...
 
-    def has_option(self, section, option): # type: (str,str) -> bool
-        return None
+    def has_option(self, section: str, option: str) -> bool: ...
 
-    def set(self, section, option, value=None): # type: (str,str,Any) -> None
-        pass
+    def set(self, section: str, option: str, value=None: Any) -> None: ...
 
-    def write(self, fp): # type: (file) -> None
-        pass
+    def write(self, fp: file) -> None: ...
 
-    def remove_option(self, section, option): # type: (str,Any) -> bool
-        return None
+    def remove_option(self, section: str, option: Any) -> bool: ...
 
-    def remove_section(self, section): # type: (str) -> bool
-        return None
+    def remove_section(self, section: str) -> bool: ...
 
-    SECTCRE = None # type: Any
-    OPTCRE = None # type: Any
-    OPTCRE_NV = None # type: Any
+    SECTCRE = ... # type: Any
+    OPTCRE = ... # type: Any
+    OPTCRE_NV = ... # type: Any
 
-    def _read(self, fp, fpname): # type: (file,str) -> None
-        pass
+    def _read(self, fp: file, fpname: str) -> None: ...
 
 class ConfigParser(RawConfigParser):
-    def get(self, section, option, raw=False, vars=None): # type: (str,str,bool,dict) -> Any
-        return None
+    def get(self, section: str, option: str, raw=False: bool, vars=None: dict) -> Any: ...
 
-    def items(self, section, raw=False, vars=None): # type: (str,bool,dict) -> list[Tuple[str,Any]]
-        return None
+    def items(self, section: str, raw=False: bool, vars=None: dict) -> list[Tuple[str,Any]]: ...
 
-    def _interpolate(self, section, option, rawval, vars): # type: (str,str,Any,Any) -> str
-        return None
+    def _interpolate(self, section: str, option: str, rawval: Any, vars: Any) -> str: ...
 
-    _KEYCRE = None # type: Any
+    _KEYCRE = ... # type: Any
 
-    def _interpolation_replace(self, match): # type: (Any) -> str
-        return None
+    def _interpolation_replace(self, match: Any) -> str: ...
 
 
 class SafeConfigParser(ConfigParser):
+    def _interpolate(self, section: str, option: str, rawval: Any, vars: Any) -> str: ...
 
-    def _interpolate(self, section, option, rawval, vars): # type: (str,str,Any,Any) -> str
-        return None
+    _interpvar_re = ... # type: Any
 
-    _interpvar_re = None # type: Any
-
-    def _interpolate_some(self, option, accum, rest, section, map, depth): # type: (str,list,str,str,dict,int) -> None
-        pass
-
-    def set(self, section, option, value=None): # type: (str,str,Any) -> None
-        pass
+    def _interpolate_some(self, option: str, accum: list, rest: str, section: str, map: dict, depth: int) -> None: ...
