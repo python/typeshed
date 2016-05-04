@@ -1,7 +1,7 @@
 """Stub file for the 'time' module."""
 # See https://docs.python.org/2/library/time.html
 
-from typing import NamedTuple, Tuple, Union
+from typing import NamedTuple, Tuple, Union, Any
 
 # ----- variables and constants -----
 accept2dyear = False
