@@ -1,9 +1,8 @@
+# Python 3.5 _ast
 import typing
-from typing import Optional, Union
+from typing import Any, Optional, Union
 
-__version__ = ...  # type: str
-
-PyCF_ONLY_AST = ...  # type: int
+PyCF_ONLY_AST = ... # type: int
 
 identifier = str
 
@@ -37,10 +36,19 @@ class FunctionDef(stmt):
     args = ...  # type: arguments
     body = ...  # type: typing.List[stmt]
     decorator_list = ...  # type: typing.List[expr]
+    returns = ...  # type: Optional[expr]
+
+class AsyncFunctionDef(stmt):
+    name = ...  # type: identifier
+    args = ...  # type: arguments
+    body = ...  # type: typing.List[stmt]
+    decorator_list = ...  # type: typing.List[expr]
+    returns = ...  # type: Optional[expr]
 
 class ClassDef(stmt):
     name = ...  # type: identifier
     bases = ...  # type: typing.List[expr]
+    keywords = ...  # type: typing.List[keyword]
     body = ...  # type: typing.List[stmt]
     decorator_list = ...  # type: typing.List[expr]
 
@@ -59,12 +67,13 @@ class AugAssign(stmt):
     op = ...  # type: operator
     value = ...  # type: expr
 
-class Print(stmt):
-    dest = ...  # type: Optional[expr]
-    values = ...  # type: typing.List[expr]
-    nl = ...  # type: bool
-
 class For(stmt):
+    target = ...  # type: expr
+    iter = ...  # type: expr
+    body = ...  # type: typing.List[stmt]
+    orelse = ...  # type: typing.List[stmt]
+
+class AsyncFor(stmt):
     target = ...  # type: expr
     iter = ...  # type: expr
     body = ...  # type: typing.List[stmt]
@@ -81,22 +90,21 @@ class If(stmt):
     orelse = ...  # type: typing.List[stmt]
 
 class With(stmt):
-    context_expr = ...  # type: expr
-    optional_vars = ...  # type: Optional[expr]
+    items = ...  # type: typing.List[withitem]
+    body = ...  # type: typing.List[stmt]
+
+class AsyncWith(stmt):
+    items = ...  # type: typing.List[withitem]
     body = ...  # type: typing.List[stmt]
 
 class Raise(stmt):
-    type = ...  # type: Optional[expr]
-    inst = ...  # type: Optional[expr]
-    tback = ...  # type: Optional[expr]
+    exc = ...  # type: Optional[expr]
+    cause = ...  # type: Optional[expr]
 
-class TryExcept(stmt):
+class Try(stmt):
     body = ...  # type: typing.List[stmt]
     handlers = ...  # type: typing.List[ExceptHandler]
     orelse = ...  # type: typing.List[stmt]
-
-class TryFinally(stmt):
-    body = ...  # type: typing.List[stmt]
     finalbody = ...  # type: typing.List[stmt]
 
 class Assert(stmt):
@@ -111,12 +119,10 @@ class ImportFrom(stmt):
     names = ...  # type: typing.List[alias]
     level = ...  # type: Optional[int]
 
-class Exec(stmt):
-    body = ...  # type: expr
-    globals = ...  # type: Optional[expr]
-    locals = ...  # type: Optional[expr]
-
 class Global(stmt):
+    names = ...  # type: typing.List[identifier]
+
+class Nonlocal(stmt):
     names = ...  # type: typing.List[identifier]
 
 class Expr(stmt):
@@ -142,8 +148,6 @@ class ExtSlice(slice):
 
 class Index(slice):
     value = ...  # type: expr
-
-class Ellipsis(slice): ...
 
 
 class expr(AST):
@@ -196,8 +200,14 @@ class GeneratorExp(expr):
     elt = ...  # type: expr
     generators = ...  # type: typing.List[comprehension]
 
+class Await(expr):
+    value = ...  # type: expr
+
 class Yield(expr):
     value = ...  # type: Optional[expr]
+
+class YieldFrom(expr):
+    value = ...  # type: expr
 
 class Compare(expr):
     left = ...  # type: expr
@@ -208,17 +218,20 @@ class Call(expr):
     func = ...  # type: expr
     args = ...  # type: typing.List[expr]
     keywords = ...  # type: typing.List[keyword]
-    starargs = ...  # type: Optional[expr]
-    kwargs = ...  # type: Optional[expr]
-
-class Repr(expr):
-    value = ...  # type: expr
 
 class Num(expr):
     n = ...  # type: Union[int, float]
 
 class Str(expr):
     s = ...  # type: str
+
+class Bytes(expr):
+    s = ...  # type: bytes
+
+class NameConstant(expr):
+    value = ...  # type: Any
+
+class Ellipsis(expr): ...
 
 class Attribute(expr):
     value = ...  # type: expr
@@ -228,6 +241,10 @@ class Attribute(expr):
 class Subscript(expr):
     value = ...  # type: expr
     slice = ...  # type: _slice
+    ctx = ...  # type: expr_context
+
+class Starred(expr):
+    value = ...  # type: expr
     ctx = ...  # type: expr_context
 
 class Name(expr):
@@ -272,6 +289,7 @@ class FloorDiv(operator): ...
 class LShift(operator): ...
 class Mod(operator): ...
 class Mult(operator): ...
+class MatMult(operator): ...
 class Pow(operator): ...
 class RShift(operator): ...
 class Sub(operator): ...
@@ -307,22 +325,34 @@ class comprehension(AST):
 
 class ExceptHandler(AST):
     type = ...  # type: Optional[expr]
-    name = ...  # type: Optional[expr]
+    name = ...  # type: Optional[identifier]
     body = ...  # type: typing.List[stmt]
     lineno = ...  # type: int
     col_offset = ...  # type: int
 
 
 class arguments(AST):
-    args = ...  # type: typing.List[expr]
-    vararg = ...  # type: Optional[identifier]
-    kwarg = ...  # type: Optional[identifier]
+    args = ...  # type: typing.List[arg]
+    vararg = ...  # type: Optional[arg]
+    kwonlyargs = ...  # type: typing.List[arg]
+    kw_defaults = ...  # type: typing.List[expr]
+    kwarg = ...  # type: Optional[arg]
     defaults = ...  # type: typing.List[expr]
 
-class keyword(AST):
+class arg(AST):
     arg = ...  # type: identifier
+    annotation = ...  # type: Optional[expr]
+    lineno = ...  # type: int
+    col_offset = ...  # type: int
+
+class keyword(AST):
+    arg = ...  # type: Optional[identifier]
     value = ...  # type: expr
 
 class alias(AST):
     name = ...  # type: identifier
     asname = ...  # type: Optional[identifier]
+
+class withitem(AST):
+    context_expr = ...  # type: expr
+    optional_vars = ...  # type: Optional[expr]
