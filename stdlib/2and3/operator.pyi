@@ -1,6 +1,6 @@
 # Stubs for operator
 
-from typing import Any, Callable, overload
+from typing import Any, Callable, overload, Tuple
 
 def __abs__(a: Any) -> Any: ...
 def __add__(a: Any, b: Any) -> Any: ...
