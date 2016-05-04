@@ -1,19 +1,22 @@
 """Stub file for the 'time' module."""
 # See https://docs.python.org/2/library/time.html
 
-from typing import NamedTuple, Tuple, Union
+from typing import NamedTuple, Tuple, Union, Any
 
 # ----- variables and constants -----
-accept2dyear = False 
+accept2dyear = False
 altzone = 0
 daylight = 0
 timezone = 0
 tzname = ... # type: Tuple[str, str]
 
-struct_time = NamedTuple('struct_time',
-                         [('tm_year', int), ('tm_mon', int), ('tm_mday', int),
-                          ('tm_hour', int), ('tm_min', int), ('tm_sec', int),
-                          ('tm_wday', int), ('tm_yday', int), ('tm_isdst', int)])
+class struct_time(NamedTuple('_struct_time',
+                             [('tm_year', int), ('tm_mon', int), ('tm_mday', int),
+                              ('tm_hour', int), ('tm_min', int), ('tm_sec', int),
+                              ('tm_wday', int), ('tm_yday', int), ('tm_isdst', int)])):
+    def __init__(self, o: Tuple[int, int, int,
+                                int, int, int,
+                                int, int, int], _arg: Any = ...) -> None: ...
 
 _TIME_TUPLE = Tuple[int, int, int, int, int, int, int, int, int]
 
