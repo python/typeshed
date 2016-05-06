@@ -1,0 +1,338 @@
+PEP: 483
+Title: The Theory of Type Hints
+Version: $Revision$
+Last-Modified: $Date$
+Author: Guido van Rossum <guido@python.org>
+Discussions-To: Python-Ideas <python-ideas@python.org>
+Status: Draft
+Type: Informational
+Content-Type: text/x-rst
+Created: 19-Dec-2014
+Post-History:
+Resolution:
+
+Abstract
+========
+
+This PEP lays out the theory referenced by PEP 484.
+
+
+Introduction
+============
+
+This document lays out the theory of the new type hinting proposal for
+Python 3.5. It's not quite a full proposal or specification because
+there are many details that need to be worked out, but it lays out the
+theory without which it is hard to discuss more detailed specifications.
+We start by explaining gradual typing; then we state some conventions
+and general rules; then we define the new special types (such as Union)
+that can be used in annotations; and finally we define the approach to
+generic types. (TODO: The latter section needs more fleshing out; sorry!)
+
+
+Specification
+=============
+
+
+Summary of gradual typing
+-------------------------
+
+We define a new relationship, is-consistent-with, which is similar to
+is-subclass-of, except it is not transitive when the new type **Any** is
+involved. (Neither relationship is symmetric.) Assigning x to y is OK if
+the type of x is consistent with the type of y. (Compare this to "... if
+the type of x is a subclass of the type of y," which states one of the
+fundamentals of OO programming.) The is-consistent-with relationship is
+defined by three rules:
+
+-  A type t1 is consistent with a type t2 if t1 is a subclass of t2.
+   (But not the other way around.)
+-  **Any** is consistent with every type. (But **Any** is not a subclass
+   of every type.)
+-  Every type is a subclass of **Any**. (Which also makes every type
+   consistent with **Any**, via rule 1.)
+
+That's all! See Jeremy Siek's blog post `What is Gradual
+Typing <http://wphomes.soic.indiana.edu/jsiek/what-is-gradual-typing/>`_
+for a longer explanation and motivation. Note that rule 3 places **Any**
+at the root of the class graph. This makes it very similar to
+**object**. The difference is that **object** is not consistent with
+most types (e.g. you can't use an object() instance where an int is
+expected). IOW both **Any** and **object** mean "any type is allowed"
+when used to annotate an argument, but only **Any** can be passed no
+matter what type is expected (in essence, **Any** shuts up complaints
+from the static checker).
+
+Here's an example showing how these rules work out in practice:
+
+Say we have an Employee class, and a subclass Manager:
+
+-  class Employee: ...
+-  class Manager(Employee): ...
+
+Let's say variable e is declared with type Employee:
+
+-  e = Employee()  # type: Employee
+
+Now it's okay to assign a Manager instance to e (rule 1):
+
+-  e = Manager()
+
+It's not okay to assign an Employee instance to a variable declared with
+type Manager:
+
+-  m = Manager()  # type: Manager
+-  m = Employee()  # Fails static check
+
+However, suppose we have a variable whose type is **Any**:
+
+-  a = some\_func()  # type: Any
+
+Now it's okay to assign a to e (rule 2):
+
+-  e = a  # OK
+
+Of course it's also okay to assign e to a (rule 3), but we didn't need
+the concept of consistency for that:
+
+-  a = e  # OK
+
+
+Notational conventions
+----------------------
+
+-  t1, t2 etc.  and u1, u2 etc. are types or classes. Sometimes we write
+   ti or tj to refer to "any of t1, t2, etc."
+-  X, Y etc. are type variables (defined with TypeVar(), see below).
+-  C, D etc. are classes defined with a class statement.
+-  x, y etc. are objects or instances.
+
+-  We use the terms type and class interchangeably.  Note that PEP 484
+   makes a distinction (a type is a concept for the type checker,
+   while a class is a runtime concept).  In this PEP we're only
+   interested in the types anyway, and if this bothers you, you can
+   reinterpret this PEP with every occurrence of "class" replaced by
+   "type".
+
+
+General rules
+-------------
+
+-  Instance-ness is derived from class-ness, e.g. x is an instance of
+   t1 if the type of x is a subclass of t1.
+-  No types defined below (i.e. Any, Union etc.) can be instantiated.
+   (But non-abstract subclasses of Generic can be.)
+-  No types defined below can be subclassed, except for Generic and
+   classes derived from it.
+-  Where a type is expected, None can be substituted for type(None);
+   e.g. Union[t1, None] == Union[t1, type(None)].
+
+
+Types
+-----
+
+-  **Any**. Every class is a subclass of Any; however, to the static
+   type checker it is also consistent with every class (see above).
+-  **Union[t1, t2, ...]**. Classes that are subclass of at least one of
+   t1 etc. are subclasses of this. So are unions whose components are
+   all subclasses of t1 etc. (Example: Union[int, str] is a subclass of
+   Union[int, float, str].) The order of the arguments doesn't matter.
+   (Example: Union[int, str] == Union[str, int].) If ti is itself a
+   Union the result is flattened. (Example: Union[int, Union[float,
+   str]] == Union[int, float, str].) If ti and tj have a subclass
+   relationship, the less specific type survives. (Example:
+   Union[Employee, Manager] == Union[Employee].) Union[t1] returns just
+   t1. Union[] is illegal, so is Union[()]. Corollary: Union[..., Any,
+   ...] returns Any; Union[..., object, ...] returns object; to cut a
+   tie, Union[Any, object] == Union[object, Any] == Any.
+-  **Optional[t1]**. Alias for Union[t1, None], i.e. Union[t1,
+   type(None)].
+-  **Tuple[t1, t2, ..., tn]**. A tuple whose items are instances of t1
+   etc.. Example: Tuple[int, float] means a tuple of two items, the
+   first is an int, the second a float; e.g., (42, 3.14). Tuple[u1, u2,
+   ..., um] is a subclass of Tuple[t1, t2, ..., tn] if they have the
+   same length (n==m) and each ui is a subclass of ti. To spell the type
+   of the empty tuple, use Tuple[()]. A variadic homogeneous tuple type
+   can be written Tuple[t1, ...]. (That's three dots, a literal ellipsis;
+   and yes, that's a valid token in Python's syntax.)
+-  **Callable[[t1, t2, ..., tn], tr]**. A function with positional
+   argument types t1 etc., and return type tr. The argument list may be
+   empty (n==0). There is no way to indicate optional or keyword
+   arguments, nor varargs, but you can say the argument list is entirely
+   unchecked by writing Callable[..., tr] (again, a literal ellipsis).
+   This is covariant in the return type, but contravariant in the
+   arguments. "Covariant" here means that for two callable types that
+   differ only in the return type, the subclass relationship for the
+   callable types follows that of the return types. (Example:
+   Callable[[], Manager] is a subclass of Callable[[], Employee].)
+   "Contravariant" here means that for two callable types that differ
+   only in the type of one argument, the subclass relationship for the
+   callable types goes in the opposite direction as for the argument
+   types. (Example: Callable[[Employee], None] is a subclass of
+   Callable[[Mananger], None]. Yes, you read that right.)
+
+We might add:
+
+-  **Intersection[t1, t2, ...]**. Classes that are subclass of *each* of
+   t1, etc are subclasses of this. (Compare to Union, which has *at
+   least one* instead of *each* in its definition.) The order of the
+   arguments doesn't matter. Nested intersections are flattened, e.g.
+   Intersection[int, Intersection[float, str]] == Intersection[int,
+   float, str]. An intersection of fewer types is a subclass of an
+   intersection of more types, e.g. Intersection[int, str] is a subclass
+   of Intersection[int, float, str]. An intersection of one argument is
+   just that argument, e.g. Intersection[int] is int. When argument have
+   a subclass relationship, the more specific class survives, e.g.
+   Intersection[str, Employee, Manager] is Intersection[str, Manager].
+   Intersection[] is illegal, so is Intersection[()]. Corollary: Any
+   disappears from the argument list, e.g. Intersection[int, str, Any]
+   == Intersection[int, str]. Intersection[Any, object] is object. The
+   interaction between Intersection and Union is complex but should be
+   no surprise if you understand the interaction between intersections
+   and unions in set theory (note that sets of types can be infinite in
+   size, since there is no limit on the number of new subclasses).
+
+
+Pragmatics
+----------
+
+Some things are irrelevant to the theory but make practical use more
+convenient. (This is not a full list; I probably missed a few and some
+are still controversial or not fully specified.)
+
+- Type aliases, e.g.
+
+  *  Point = Tuple[float, float]
+  *  def distance(p: Point) -> float: ...
+
+- Forward references via strings, e.g.
+
+  * class C:
+  
+    + def compare(self, other: 'C') -> int: ...
+
+- If a default of None is specified, the type is implicitly Optional, e.g.
+
+  *  def get(key: KT, default: VT = None) -> VT: ...
+
+- Don't use dynamic type expressions; use builtins and imported types
+  only. No 'if'.
+
+  *  def display(message: str if WINDOWS else bytes):  # NOT OK
+
+- Type declaration in comments, e.g.
+
+  *  x = []  # type: Sequence[int]
+
+- Casts using cast(T, x), e.g.
+
+  * x = cast(Any, frobozz())
+
+- Other things, e.g. overloading and stub modules; best left to an
+  actual PEP.
+
+
+Generic types
+-------------
+
+(TODO: Explain more. See also the `mypy docs on
+generics <http://mypy.readthedocs.org/en/latest/generics.html>`_.)
+
+- **X = TypeVar('X')**. Declares a unique type variable. The name must match
+  the variable name.
+
+- **Y = TypeVar('Y', t1, t2, ...).** Ditto, constrained to t1 etc. Behaves
+  like Union[t1, t2, ...] for most purposes, but when used as a type
+  variable, subclasses of t1 etc. are replaced by the most-derived base
+  class among t1 etc.
+
+- Example of constrained type variables:
+
+  * AnyStr = TypeVar('AnyStr', str, bytes)
+
+  * def longest(a: AnyStr, b: AnyStr) -> AnyStr:
+
+    -  return a if len(a) >= len(b) else b
+
+  * x = longest('a', 'abc')  # The inferred type for x is str
+
+  * y = longest('a', b'abc')  # Fails static type check
+
+  * In this example, both arguments to longest() must have the same type
+    (str or bytes), and moreover, even if the arguments are instances of a
+    common str subclass, the return type is still str, not that subclass
+    (see next example).
+
+- For comparison, if the type variable was unconstrained, the common
+  subclass would be chosen as the return type, e.g.:
+
+  * S = TypeVar('S')
+
+  * def longest(a: S, b: S) -> S:
+
+    -  return a if len(a) >= b else b
+
+  * class MyStr(str): ...
+
+  * x = longest(MyStr('a'), MyStr('abc'))
+
+  * The inferred type of x is MyStr (whereas in the AnyStr example it would
+    be str).
+
+- Also for comparison, if a Union is used, the return type also has to be
+  a Union:
+
+  * U = Union[str, bytes]
+
+  * def longest(a: U, b: U) -> U:
+
+    -  return a if len(a) >= b else b
+
+  * x = longest('a', 'abc')
+
+  * The inferred type of x is still Union[str, bytes], even though both
+    arguments are str.
+
+- **class C(Generic[X, Y, ...]):** ... Define a generic class C over type
+  variables X etc. C itself becomes parameterizable, e.g. C[int, str, ...]
+  is a specific class with substitutions X->int etc.
+
+- TODO: Explain use of generic types in function signatures. E.g.
+  Sequence[X], Sequence[int], Sequence[Tuple[X, Y, Z]], and mixtures.
+  Think about co\*variance. No gimmicks like deriving from
+  Sequence[Union[int, str]] or Sequence[Union[int, X]].
+
+
+Predefined generic types and Protocols in typing.py
+---------------------------------------------------
+
+(See also the `typing.py module
+<https://github.com/ambv/typehinting/blob/master/prototyping/typing.py>`_.)
+
+-  Everything from collections.abc (but Set renamed to AbstractSet).
+-  Dict, List, Set, FrozenSet, a few more.
+-  re.Pattern[AnyStr], re.Match[AnyStr].
+-  re.IO[AnyStr], re.TextIO ~ re.IO[str], re.BinaryIO ~ re.IO[bytes].
+
+
+Copyright
+=========
+
+This document is licensed under the `Open Publication License`_.
+
+
+References and Footnotes
+========================
+
+.. _Open Publication License: http://www.opencontent.org/openpub/
+
+
+
+..
+   Local Variables:
+   mode: indented-text
+   indent-tabs-mode: nil
+   sentence-end-double-space: t
+   fill-column: 70
+   coding: utf-8
+   End:
