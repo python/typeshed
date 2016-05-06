@@ -587,7 +587,7 @@ Type variables with an upper bound
 
 A type variable may specify an upper bound using ``bound=<type>``.
 This means that an actual type substituted (explicitly or implictly)
-for the type variable must be a subclass of the boundary type.  A
+for the type variable must be a subtype of the boundary type.  A
 common example is the definition of a Comparable type that works well
 enough to catch the most common errors::
 
@@ -618,7 +618,7 @@ concept, F-bounded polymorphism.  We may revisit this in the future.)
 An upper bound cannot be combined with type constraints (as in used
 ``AnyStr``, see the example earlier); type constraints cause the
 inferred type to be _exactly_ one of the constraint types, while an
-upper bound just requires that the actual type is a subclass of the
+upper bound just requires that the actual type is a subtype of the
 boundary type.
 
 
@@ -819,9 +819,10 @@ Example::
           e = [e]
       ...
 
-A type factored by ``Union[T1, T2, ...]`` responds ``True`` to
-``issubclass`` checks for ``T1`` and any of its subtypes, ``T2`` and
-any of its subtypes, and so on.
+A type factored by ``Union[T1, T2, ...]`` is a supertype
+of all types ``T1``, ``T2``, etc., so that a value that
+is a member of one of these types is acceptable for an argument
+annotated by ``Union[T1, T2, ...]``.
 
 One common case of union types are *optional* types.  By default,
 ``None`` is an invalid value for any type, unless a default value of
@@ -1293,6 +1294,12 @@ It defines the fundamental building blocks for constructing types
 collections (e.g. ``List``), types representing generic
 collection ABCs (e.g. ``Sequence``), and a small collection of
 convenience definitions.
+
+Note that special type constructs, such as ``Any``, ``Union``,
+and type variables defined using ``TypeVar`` are only supported
+in the type annotation context, and ``Generic`` may only be used
+as a base class. All of these will raise ``TypeError`` if appear
+in ``isinstance`` or ``issubclass``.
 
 Fundamental building blocks:
 
