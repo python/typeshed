@@ -4,22 +4,22 @@
 
 from typing import Any, Callable, Dict, List, IO, Iterable, Sequence, Union
 
-SUPPRESS = ...  # type: Any
-OPTIONAL = ...  # type: Any
-ZERO_OR_MORE = ...  # type: Any
-ONE_OR_MORE = ...  # type: Any
-PARSER = ...  # type: Any
-REMAINDER = ...  # type: Any
+SUPPRESS = ... # type: Any
+OPTIONAL = ... # type: Any
+ZERO_OR_MORE = ... # type: Any
+ONE_OR_MORE = ... # type: Any
+PARSER = ... # type: Any
+REMAINDER = ... # type: Any
 
 class _AttributeHolder: ...
 
 class HelpFormatter:
     def __init__(self, prog, indent_increment=..., max_help_position=..., width=...) -> None: ...
     class _Section:
-        formatter = ...  # type: Any
-        parent = ...  # type: Any
-        heading = ...  # type: Any
-        items = ...  # type: Any
+        formatter = ... # type: Any
+        parent = ... # type: Any
+        heading = ... # type: Any
+        items = ... # type: Any
         def __init__(self, formatter, parent, heading=...) -> None: ...
         def format_help(self): ...
     def start_section(self, heading): ...
@@ -35,28 +35,34 @@ class RawTextHelpFormatter(RawDescriptionHelpFormatter): ...
 class ArgumentDefaultsHelpFormatter(HelpFormatter): ...
 
 class ArgumentError(Exception):
-    argument_name = ...  # type: Any
-    message = ...  # type: Any
+    argument_name = ... # type: Any
+    message = ... # type: Any
     def __init__(self, argument, message) -> None: ...
 
 class ArgumentTypeError(Exception): ...
 
 class Action(_AttributeHolder):
-    option_strings = ...  # type: Any
-    dest = ...  # type: Any
-    nargs = ...  # type: Any
-    const = ...  # type: Any
-    default = ...  # type: Any
-    type = ...  # type: Any
-    choices = ...  # type: Any
-    required = ...  # type: Any
-    help = ...  # type: Any
-    metavar = ...  # type: Any
-    def __init__(self, option_strings: List[str], dest=str,
-                 nargs: Union[int, str]=..., const: Any =...,
-                 default: Any =..., type: Callable[[str], Any] =...,
-                 choices: Iterable[Any] =..., required: bool=...,
-                 help: str=..., metavar: str =...) -> None: ...
+    option_strings = ... # type: Any
+    dest = ... # type: Any
+    nargs = ... # type: Any
+    const = ... # type: Any
+    default = ... # type: Any
+    type = ... # type: Any
+    choices = ... # type: Any
+    required = ... # type: Any
+    help = ... # type: Any
+    metavar = ... # type: Any
+    def __init__(self,
+                 option_strings: List[str],
+                 dest = str,
+                 nargs: Union[int, str] = ...,
+                 const: Any = ...,
+                 default: Any = ...,
+                 type: Callable[[str], Any] = ...,
+                 choices: Iterable[Any] = ...,
+                 required: bool = ...,
+                 help: str = ...,
+                 metavar: str = ...) -> None: ...
     def __call__(self, parser, namespace, values, option_string=...): ...
 
 class _StoreAction(Action):
@@ -159,13 +165,19 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
     formatter_class = ... # type: Any
     fromfile_prefix_chars = ... # type: Any
     add_help = ... # type: Any
-    def __init__(self, prog: str=..., usage: str=..., description: str=...,
-                 epilog: str=..., version: None=...,
-                 parents: Iterable[ArgumentParser]=...,
-                 formatter_class: HelpFormatter=..., prefix_chars: str=...,
-                 fromfile_prefix_chars: str=...,
-                 argument_default: str=..., conflict_handler: str=...,
-                 add_help: bool=...) -> None: ...
+    def __init__(self,
+                 prog: str = ...,
+                 usage: str = ...,
+                 description: str = ...,
+                 epilog: str = ...,
+                 version: None = ...,
+                 parents: Iterable[ArgumentParser] = ...,
+                 formatter_class: HelpFormatter = ...,
+                 prefix_chars: str = ...,
+                 fromfile_prefix_chars: str = ...,
+                 argument_default: str = ...,
+                 conflict_handler: str = ...,
+                 add_help: bool = ...) -> None: ...
     def add_subparsers(self, **kwargs): ...
     def parse_args(self, args: Sequence[str] = ..., namespace=...): ...
     def parse_known_args(self, args=..., namespace=...): ...
