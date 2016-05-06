@@ -1421,7 +1421,7 @@ Convenience definitions:
   ``NamedTuple(type_name, [(field_name, field_type), ...])``
   and equivalent to
   ``collections.namedtuple(type_name, [field_name, ...])``.
-  This is useful to declare the types of the fields of a a named tuple
+  This is useful to declare the types of the fields of a named tuple
   type.
 
 * cast(), described earlier
