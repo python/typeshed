@@ -30,6 +30,38 @@ that can be used in annotations; and finally we define the approach to
 generic types. (TODO: The latter section needs more fleshing out; sorry!)
 
 
+Notational conventions
+----------------------
+
+-  ``t1``, ``t2``, etc. and ``u1``, ``u2``, etc. are types. Sometimes we write
+   ``ti`` or ``tj`` to refer to "any of ``t1``, ``t2``, etc."
+-  ``T``, ``U`` etc. are type variables (defined with ``TypeVar()``, see below).
+-  Objects, classes defined with a class statement, and instances are
+   denoted using standard PEP 8 conventions.
+-  the symbol ``==`` in the context of this PEP means that two expressions
+   represent the same type.
+
+-  Note that PEP 484 makes a distinction between types and classes
+   (a type is a concept for the type checker,
+   while a class is a runtime concept).  In this PEP we clarify
+   this distinction but avoid unnecessary strictness to allow more
+   flexibility in type checkers implementation.
+
+
+Background
+==========
+
+TODO: Explaint types as sets, subtyping, nominal and structural subtyping.
+Many examples.
+
+
+Types vs Classes
+----------------
+
+TODO: Explain the relation, examples, note that typing interface
+is implemented with classes.
+
+
 Specification
 =============
 
@@ -38,276 +70,285 @@ Summary of gradual typing
 -------------------------
 
 We define a new relationship, is-consistent-with, which is similar to
-is-subclass-of, except it is not transitive when the new type **Any** is
-involved. (Neither relationship is symmetric.) Assigning x to y is OK if
-the type of x is consistent with the type of y. (Compare this to "... if
-the type of x is a subclass of the type of y," which states one of the
+is-subtype-of, except it is not transitive when the new type ``Any`` is
+involved. (Neither relationship is symmetric.) Assigning ``a_value``
+to ``a_variable`` is OK if the type of ``a_value`` is consistent with
+the type of ``a_variable``. (Compare this to "... if the type of ``a_value``
+is a subtype of the type of ``a_variable``", which states one of the
 fundamentals of OO programming.) The is-consistent-with relationship is
 defined by three rules:
 
--  A type t1 is consistent with a type t2 if t1 is a subclass of t2.
-   (But not the other way around.)
--  **Any** is consistent with every type. (But **Any** is not a subclass
+-  A type ``t1`` is consistent with a type ``t2`` if ``t1`` is a
+   subtype of ``t2``. (But not the other way around.)
+-  ``Any`` is consistent with every type. (But ``Any`` is not a subtype
    of every type.)
--  Every type is a subclass of **Any**. (Which also makes every type
-   consistent with **Any**, via rule 1.)
+-  Every type is a subtype of ``Any``. (Which also makes every type
+   consistent with ``Any``, via rule 1.)
 
 That's all! See Jeremy Siek's blog post `What is Gradual
 Typing <http://wphomes.soic.indiana.edu/jsiek/what-is-gradual-typing/>`_
-for a longer explanation and motivation. Note that rule 3 places **Any**
-at the root of the class graph. This makes it very similar to
-**object**. The difference is that **object** is not consistent with
-most types (e.g. you can't use an object() instance where an int is
-expected). IOW both **Any** and **object** mean "any type is allowed"
-when used to annotate an argument, but only **Any** can be passed no
-matter what type is expected (in essence, **Any** shuts up complaints
-from the static checker).
+for a longer explanation and motivation. Note that rule 3 places ``Any``
+at the root of the type graph. This makes it very similar to
+``object``. The difference is that ``object`` is not consistent with
+most types (e.g. you can't use an ``object()`` instance where an
+``int`` is expected). IOW both ``Any`` and ``object`` mean
+"any type is allowed"when used to annotate an argument, but only ``Any``
+can be passed no matter what type is expected (in essence, ``Any`` shuts
+up complaints from the static checker).
 
 Here's an example showing how these rules work out in practice:
 
-Say we have an Employee class, and a subclass Manager:
+Say we have an ``Employee`` class, and a subclass ``Manager``::
 
--  class Employee: ...
--  class Manager(Employee): ...
+  class Employee: ...
+  class Manager(Employee): ...
 
-Let's say variable e is declared with type Employee:
+Let's say variable ``worker`` is declared with type ``Employee``::
 
--  e = Employee()  # type: Employee
+  worker = Employee()  # type: Employee
 
-Now it's okay to assign a Manager instance to e (rule 1):
+Now it's okay to assign a ``Manager`` instance to ``worker`` (rule 1)::
 
--  e = Manager()
+  worker = Manager()
 
-It's not okay to assign an Employee instance to a variable declared with
-type Manager:
+It's not okay to assign an ``Employee`` instance to a variable declared with
+type ``Manager``::
 
--  m = Manager()  # type: Manager
--  m = Employee()  # Fails static check
+  boss = Manager()  # type: Manager
+  boss = Employee()  # Fails static check
 
-However, suppose we have a variable whose type is **Any**:
+However, suppose we have a variable whose type is ``Any``::
 
--  a = some\_func()  # type: Any
+  something = some_func()  # type: Any
 
-Now it's okay to assign a to e (rule 2):
+Now it's okay to assign ``something`` to ``worker`` (rule 2)::
 
--  e = a  # OK
+  worker = something  # OK
 
-Of course it's also okay to assign e to a (rule 3), but we didn't need
-the concept of consistency for that:
+Of course it's also okay to assign ``worker`` to ``something`` (rule 3),
+but we didn't need the concept of consistency for that::
 
--  a = e  # OK
-
-
-Notational conventions
-----------------------
-
--  t1, t2 etc.  and u1, u2 etc. are types or classes. Sometimes we write
-   ti or tj to refer to "any of t1, t2, etc."
--  X, Y etc. are type variables (defined with TypeVar(), see below).
--  C, D etc. are classes defined with a class statement.
--  x, y etc. are objects or instances.
-
--  We use the terms type and class interchangeably.  Note that PEP 484
-   makes a distinction (a type is a concept for the type checker,
-   while a class is a runtime concept).  In this PEP we're only
-   interested in the types anyway, and if this bothers you, you can
-   reinterpret this PEP with every occurrence of "class" replaced by
-   "type".
+  something = worker  # OK
 
 
-General rules
--------------
+General rules for using types
+-----------------------------
 
--  Instance-ness is derived from class-ness, e.g. x is an instance of
-   t1 if the type of x is a subclass of t1.
--  No types defined below (i.e. Any, Union etc.) can be instantiated.
-   (But non-abstract subclasses of Generic can be.)
--  No types defined below can be subclassed, except for Generic and
+Although all types are implemented using classes, the following
+general rules apply to emphasize the distiction between types and classes:
+
+-  No types defined below (i.e. ``Any``, ``Union``, etc.) can be instantiated,
+   an attempt to do so will raise ``TypeError``.
+   (But non-abstract subclasses of ``Generic`` can be.)
+-  No types defined below can be subclassed, except for ``Generic`` and
    classes derived from it.
--  Where a type is expected, None can be substituted for type(None);
-   e.g. Union[t1, None] == Union[t1, type(None)].
+-  All of these will raise ``TypeError`` if appear
+   in ``isinstance`` or ``issubclass``.
 
 
-Types
------
+Fundamental building blocks
+---------------------------
 
--  **Any**. Every class is a subclass of Any; however, to the static
-   type checker it is also consistent with every class (see above).
--  **Union[t1, t2, ...]**. Classes that are subclass of at least one of
-   t1 etc. are subclasses of this. So are unions whose components are
-   all subclasses of t1 etc. (Example: Union[int, str] is a subclass of
-   Union[int, float, str].) The order of the arguments doesn't matter.
-   (Example: Union[int, str] == Union[str, int].) If ti is itself a
-   Union the result is flattened. (Example: Union[int, Union[float,
-   str]] == Union[int, float, str].) If ti and tj have a subclass
+-  **Any**. Every type is a subtype of ``Any``; however, to the static
+   type checker it is also consistent with every type (see above).
+-  **Union[t1, t2, ...]**. Types that are subtype of at least one of
+   ``t1`` etc. are subtypes of this. So are unions whose components are
+   all subtypes of ``t1`` etc. (Example: ``Union[int, str]`` is a subtype of
+   ``Union[int, float, str]``.) The order of the arguments doesn't matter.
+   (Example: ``Union[int, str] == Union[str, int]``.) If ``ti`` is itself a
+   ``Union`` the result is flattened. (Example: ``Union[int, Union[float,
+   str]] == Union[int, float, str]``.) If ``ti`` and ``tj`` have a subtype
    relationship, the less specific type survives. (Example:
-   Union[Employee, Manager] == Union[Employee].) Union[t1] returns just
-   t1. Union[] is illegal, so is Union[()]. Corollary: Union[..., Any,
-   ...] returns Any; Union[..., object, ...] returns object; to cut a
-   tie, Union[Any, object] == Union[object, Any] == Any.
--  **Optional[t1]**. Alias for Union[t1, None], i.e. Union[t1,
-   type(None)].
--  **Tuple[t1, t2, ..., tn]**. A tuple whose items are instances of t1
-   etc.. Example: Tuple[int, float] means a tuple of two items, the
-   first is an int, the second a float; e.g., (42, 3.14). Tuple[u1, u2,
-   ..., um] is a subclass of Tuple[t1, t2, ..., tn] if they have the
-   same length (n==m) and each ui is a subclass of ti. To spell the type
-   of the empty tuple, use Tuple[()]. A variadic homogeneous tuple type
-   can be written Tuple[t1, ...]. (That's three dots, a literal ellipsis;
+   ``Union[Employee, Manager] == Union[Employee]``.) ``Union[t1]`` returns just
+   ``t1``. ``Union[]`` is illegal, so is ``Union[()]``. Corollary:
+   ``Union[..., Any, ...]`` returns ``Any``; ``Union[..., object, ...]``
+   returns ``object``; to cut a
+   tie, ``Union[Any, object] == Union[object, Any] == Any``.
+-  **Optional[t1]**. Alias for ``Union[t1, None]``, i.e. ``Union[t1,
+   type(None)]``.
+-  **Tuple[t1, t2, ..., tn]**. A tuple whose items are instances of ``t1``,
+   etc.. Example: ``Tuple[int, float]`` means a tuple of two items, the
+   first is an ``int``, the second a ``float``; e.g., ``(42, 3.14)``.
+   ``Tuple[u1, u2, ..., um]`` is a subtype of ``Tuple[t1, t2, ..., tn]``
+   if they have the same length ``n==m`` and each ``ui`` is a subtype of
+   ``ti``.To spell the type
+   of the empty tuple, use ``Tuple[()]``. A variadic homogeneous tuple type
+   can be written ``Tuple[t1, ...]``. (That's three dots, a literal ellipsis;
    and yes, that's a valid token in Python's syntax.)
 -  **Callable[[t1, t2, ..., tn], tr]**. A function with positional
-   argument types t1 etc., and return type tr. The argument list may be
-   empty (n==0). There is no way to indicate optional or keyword
+   argument types ``t1`` etc., and return type ``tr``. The argument list may be
+   empty ``n==0``. There is no way to indicate optional or keyword
    arguments, nor varargs, but you can say the argument list is entirely
-   unchecked by writing Callable[..., tr] (again, a literal ellipsis).
-   This is covariant in the return type, but contravariant in the
-   arguments. "Covariant" here means that for two callable types that
-   differ only in the return type, the subclass relationship for the
-   callable types follows that of the return types. (Example:
-   Callable[[], Manager] is a subclass of Callable[[], Employee].)
-   "Contravariant" here means that for two callable types that differ
-   only in the type of one argument, the subclass relationship for the
-   callable types goes in the opposite direction as for the argument
-   types. (Example: Callable[[Employee], None] is a subclass of
-   Callable[[Mananger], None]. Yes, you read that right.)
+   unchecked by writing ``Callable[..., tr]`` (again, a literal ellipsis).
 
 We might add:
 
--  **Intersection[t1, t2, ...]**. Classes that are subclass of *each* of
-   t1, etc are subclasses of this. (Compare to Union, which has *at
+-  **Intersection[t1, t2, ...]**. Types that are subtype of *each* of
+   ``t1``, etc are subtypes of this. (Compare to Union, which has *at
    least one* instead of *each* in its definition.) The order of the
    arguments doesn't matter. Nested intersections are flattened, e.g.
-   Intersection[int, Intersection[float, str]] == Intersection[int,
-   float, str]. An intersection of fewer types is a subclass of an
-   intersection of more types, e.g. Intersection[int, str] is a subclass
-   of Intersection[int, float, str]. An intersection of one argument is
-   just that argument, e.g. Intersection[int] is int. When argument have
-   a subclass relationship, the more specific class survives, e.g.
-   Intersection[str, Employee, Manager] is Intersection[str, Manager].
-   Intersection[] is illegal, so is Intersection[()]. Corollary: Any
-   disappears from the argument list, e.g. Intersection[int, str, Any]
-   == Intersection[int, str]. Intersection[Any, object] is object. The
-   interaction between Intersection and Union is complex but should be
-   no surprise if you understand the interaction between intersections
-   and unions in set theory (note that sets of types can be infinite in
-   size, since there is no limit on the number of new subclasses).
+   ``Intersection[int, Intersection[float, str]] == Intersection[int,
+   float, str]``. An intersection of fewer types is a supertype of an
+   intersection of more types, e.g. ``Intersection[int, str]`` is a supertype
+   of ``Intersection[int, float, str]``. An intersection of one argument is
+   just that argument, e.g. ``Intersection[int]`` is ``int``.
+   When argument have a subtype relationship, the more specific type
+   survives, e.g. ``Intersection[str, Employee, Manager]`` is
+   ``Intersection[str, Manager]``. ``Intersection[]`` is illegal,
+   so is ``Intersection[()]``. Corollary: ``Any``
+   disappears from the argument list, e.g. ``Intersection[int, str, Any]
+   == Intersection[int, str]``. ``Intersection[Any, object]`` is ``object``.
+   The interaction between ``Intersection`` and ``Union`` is complex but
+   should be no surprise if you understand the interaction between
+   intersections and unions in set theory (note that sets of types can be
+   infinite in size, since there is no limit on the number of new subclasses).
+
+
+Generic types
+=============
+
+TODO: Explain motivation, generics as functors (but avoid this word),
+examples, necessity of type variables and declaration syntax that
+described below.
+
+
+Type variables
+--------------
+
+(TODO: Explain more. See also the `mypy docs on
+generics <http://mypy.readthedocs.io/en/latest/generics.html>`_.)
+
+- ``X = TypeVar('X')``. Declares a unique type variable. The name must match
+  the variable name.
+
+- ``Y = TypeVar('Y', t1, t2, ...)``. Ditto, constrained to ``t1``, etc. Behaves
+  like ``Union[t1, t2, ...]`` for most purposes, but when used as a type
+  variable, subclasses of ``t1``, etc. are replaced by the most-derived base
+  class among ``t1``, etc. (TODO: reformulate this)
+
+- Example of constrained type variables::
+
+    AnyStr = TypeVar('AnyStr', str, bytes)
+
+    def longest(first: AnyStr, second: AnyStr) -> AnyStr:
+        return first if len(first) >= len(second) else second
+
+    result = longest('a', 'abc')  # The inferred type for result is str
+
+    result = longest('a', b'abc')  # Fails static type check
+
+  In this example, both arguments to ``longest()`` must have the same type
+  (``str`` or ``bytes``), and moreover, even if the arguments are instances
+  of a common ``str`` subclass, the return type is still ``str``, not that
+  subclass (see next example).
+
+- For comparison, if the type variable was unconstrained, the common
+  subclass would be chosen as the return type, e.g.::
+
+    S = TypeVar('S')
+
+    def longest(first: S, second: S) -> S:
+        return first if len(first) >= len(second) else second
+
+    class MyStr(str): ...
+
+    result = longest(MyStr('a'), MyStr('abc'))
+
+  The inferred type of ``result`` is ``MyStr`` (whereas in the ``AnyStr`` example
+  it would be ``str``).
+
+- Also for comparison, if a ``Union`` is used, the return type also has to be
+  a ``Union``::
+
+    U = Union[str, bytes]
+
+    def longest(first: U, second: U) -> U:
+        return first if len(first) >= len(second) else second
+
+    result = longest('a', 'abc')
+
+  The inferred type of ``result`` is still ``Union[str, bytes]``, even though
+  both arguments are ``str``.
+
+
+Defining and using generic types
+--------------------------------
+
+- ``class MyGeneric(Generic[X, Y, ...]):`` ... Define a generic type
+  ``MyGeneric`` over type variables ``X``, etc. ``MyGeneric`` itself becomes
+  parameterizable, e.g. ``MyGeneric[int, str, ...]`` is a specific type with
+  substitutions ``X->int``, etc.
+
+- TODO: Explain use of generic types in function signatures. E.g.
+  ``Sequence[X]``, ``Sequence[int]``, ``Sequence[Tuple[X, Y, Z]]``,
+  and mixtures.
+  Think about co\*variance. No gimmicks like deriving from
+  ``Sequence[Union[int, str]]`` or ``Sequence[Union[int, X]]``.
+  Add notes on indexed generics
+
+
+Covariance and Contravariance
+-----------------------------
+
+TODO: Definition, declaring variance, example with functions,
+covatiant example with ``Tuple``, contravariant example with ``Callable``,
+mutable types, why ``List`` is invariant.
+
+One of the best examples to illustrate contravariance is callable type.
+It is covariant in the return type, but contravariant in the
+arguments. "Covariant" here means that for two callable types that
+differ only in the return type, the subtype relationship for the
+callable types follows that of the return types. (Example:
+``Callable[[], Manager]`` is a subtype of ``Callable[[], Employee]``.)
+"Contravariant" here means that for two callable types that differ
+only in the type of one argument, the subtype relationship for the
+callable types goes in the opposite direction as for the argument
+types. (Example: ``Callable[[Employee], None]`` is a subtype of
+``Callable[[Manager], None]``. Yes, you read that right.)
+
 
 
 Pragmatics
-----------
+==========
 
 Some things are irrelevant to the theory but make practical use more
 convenient. (This is not a full list; I probably missed a few and some
 are still controversial or not fully specified.)
 
-- Type aliases, e.g.
+-  Where a type is expected, ``None`` can be substituted for ``type(None)``;
+   e.g. ``Union[t1, None] == Union[t1, type(None)]``.
 
-  *  Point = Tuple[float, float]
-  *  def distance(p: Point) -> float: ...
+- Type aliases, e.g.::
 
-- Forward references via strings, e.g.
+    Point = Tuple[float, float]
+    def distance(point: Point) -> float: ...
 
-  * class C:
-  
-    + def compare(self, other: 'C') -> int: ...
+- Forward references via strings, e.g.::
 
-- If a default of None is specified, the type is implicitly Optional, e.g.
+    class MyComparable:
+        def compare(self, other: 'MyComparable') -> int: ...
 
-  *  def get(key: KT, default: VT = None) -> VT: ...
+- If a default of ``None`` is specified, the type is implicitly
+  ``Optional``, e.g.::
 
-- Don't use dynamic type expressions; use builtins and imported types
-  only. No 'if'.
+    def get(key: KT, default: VT = None) -> VT: ...
 
-  *  def display(message: str if WINDOWS else bytes):  # NOT OK
+- Type declaration in comments, e.g.::
 
-- Type declaration in comments, e.g.
+    lst = []  # type: Sequence[int]
 
-  *  x = []  # type: Sequence[int]
+- Casts using ``cast(T, obj)``, e.g.::
 
-- Casts using cast(T, x), e.g.
+    zork = cast(Any, frobozz())
 
-  * x = cast(Any, frobozz())
-
-- Other things, e.g. overloading and stub modules; best left to an
-  actual PEP.
-
-
-Generic types
--------------
-
-(TODO: Explain more. See also the `mypy docs on
-generics <http://mypy.readthedocs.org/en/latest/generics.html>`_.)
-
-- **X = TypeVar('X')**. Declares a unique type variable. The name must match
-  the variable name.
-
-- **Y = TypeVar('Y', t1, t2, ...).** Ditto, constrained to t1 etc. Behaves
-  like Union[t1, t2, ...] for most purposes, but when used as a type
-  variable, subclasses of t1 etc. are replaced by the most-derived base
-  class among t1 etc.
-
-- Example of constrained type variables:
-
-  * AnyStr = TypeVar('AnyStr', str, bytes)
-
-  * def longest(a: AnyStr, b: AnyStr) -> AnyStr:
-
-    -  return a if len(a) >= len(b) else b
-
-  * x = longest('a', 'abc')  # The inferred type for x is str
-
-  * y = longest('a', b'abc')  # Fails static type check
-
-  * In this example, both arguments to longest() must have the same type
-    (str or bytes), and moreover, even if the arguments are instances of a
-    common str subclass, the return type is still str, not that subclass
-    (see next example).
-
-- For comparison, if the type variable was unconstrained, the common
-  subclass would be chosen as the return type, e.g.:
-
-  * S = TypeVar('S')
-
-  * def longest(a: S, b: S) -> S:
-
-    -  return a if len(a) >= b else b
-
-  * class MyStr(str): ...
-
-  * x = longest(MyStr('a'), MyStr('abc'))
-
-  * The inferred type of x is MyStr (whereas in the AnyStr example it would
-    be str).
-
-- Also for comparison, if a Union is used, the return type also has to be
-  a Union:
-
-  * U = Union[str, bytes]
-
-  * def longest(a: U, b: U) -> U:
-
-    -  return a if len(a) >= b else b
-
-  * x = longest('a', 'abc')
-
-  * The inferred type of x is still Union[str, bytes], even though both
-    arguments are str.
-
-- **class C(Generic[X, Y, ...]):** ... Define a generic class C over type
-  variables X etc. C itself becomes parameterizable, e.g. C[int, str, ...]
-  is a specific class with substitutions X->int etc.
-
-- TODO: Explain use of generic types in function signatures. E.g.
-  Sequence[X], Sequence[int], Sequence[Tuple[X, Y, Z]], and mixtures.
-  Think about co\*variance. No gimmicks like deriving from
-  Sequence[Union[int, str]] or Sequence[Union[int, X]].
+- Other things, e.g. overloading and stub modules, see PEP 484.
 
 
 Predefined generic types and Protocols in typing.py
 ---------------------------------------------------
 
 (See also the `typing.py module
-<https://github.com/ambv/typehinting/blob/master/prototyping/typing.py>`_.)
+<https://github.com/python/typing/blob/master/src/typing.py>`_.)
 
 -  Everything from collections.abc (but Set renamed to AbstractSet).
 -  Dict, List, Set, FrozenSet, a few more.

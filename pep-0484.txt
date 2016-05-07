@@ -634,14 +634,14 @@ But unless we know more about the function, a type checker should
 reject such a call: the function might append an ``Employee`` instance
 to the list, which would violate the variable's type in the caller.
 
-It turns out such an argument acts _contravariantly_, whereas the
+It turns out such an argument acts *contravariantly*, whereas the
 intuitive answer (which is correct in case the function doesn't mutate
-its argument!) requires the argument to act _covariantly_.  A longer
+its argument!) requires the argument to act *covariantly*.  A longer
 introduction to these concepts can be found on Wikipedia
 [wiki-variance]_; here we just show how to control a type checker's
 behavior.
 
-By default type variables are considered _invariant_, which means that
+By default type variables are considered *invariant*, which means that
 arguments for arguments annotated with types like ``List[Employee]``
 must exactly match the type annotation -- no subclasses or
 superclasses of the type parameter (in this example ``Employee``) are
