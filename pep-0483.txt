@@ -45,7 +45,7 @@ Notational conventions
    (a type is a concept for the type checker,
    while a class is a runtime concept).  In this PEP we clarify
    this distinction but avoid unnecessary strictness to allow more
-   flexibility in type checkers implementation.
+   flexibility in the implementation of type checkers.
 
 
 Background
@@ -92,7 +92,7 @@ at the root of the type graph. This makes it very similar to
 ``object``. The difference is that ``object`` is not consistent with
 most types (e.g. you can't use an ``object()`` instance where an
 ``int`` is expected). IOW both ``Any`` and ``object`` mean
-"any type is allowed"when used to annotate an argument, but only ``Any``
+"any type is allowed" when used to annotate an argument, but only ``Any``
 can be passed no matter what type is expected (in essence, ``Any`` shuts
 up complaints from the static checker).
 
@@ -142,7 +142,7 @@ general rules apply to emphasize the distiction between types and classes:
    (But non-abstract subclasses of ``Generic`` can be.)
 -  No types defined below can be subclassed, except for ``Generic`` and
    classes derived from it.
--  All of these will raise ``TypeError`` if appear
+-  All of these will raise ``TypeError`` if they appear
    in ``isinstance`` or ``issubclass``.
 
 
@@ -228,9 +228,9 @@ generics <http://mypy.readthedocs.io/en/latest/generics.html>`_.)
 
 - Example of constrained type variables::
 
-    AnyStr = TypeVar('AnyStr', str, bytes)
+    S = TypeVar('S', str, bytes)
 
-    def longest(first: AnyStr, second: AnyStr) -> AnyStr:
+    def longest(first: S, second: S) -> S:
         return first if len(first) >= len(second) else second
 
     result = longest('a', 'abc')  # The inferred type for result is str
@@ -291,7 +291,7 @@ Covariance and Contravariance
 -----------------------------
 
 TODO: Definition, declaring variance, example with functions,
-covatiant example with ``Tuple``, contravariant example with ``Callable``,
+covariant example with ``Tuple``, contravariant example with ``Callable``,
 mutable types, why ``List`` is invariant.
 
 One of the best examples to illustrate contravariance is callable type.
@@ -332,6 +332,20 @@ are still controversial or not fully specified.)
   ``Optional``, e.g.::
 
     def get(key: KT, default: VT = None) -> VT: ...
+
+- Type variables can be declared in unconstrained, constrained,
+  or bounded form. The variance of a generic type can also
+  be indicaded using a type variable declared with special keyword
+  arguments, thus avoiding any special syntax, e.g.::
+
+    T = TypeVar('T', bound=complex)
+
+    def add(x: T, y: T) -> T:
+        return x + y
+
+    T_co = TypeVar('T_co', covariant=True)
+
+    class ImmutableList(Generic[T_co]): ...
 
 - Type declaration in comments, e.g.::
 
