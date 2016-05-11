@@ -17,13 +17,19 @@ if sys.version_info >= (3, 1):
 
 open = builtins.open
 
-if sys.version_info >= (3, 3):
-    BlockingIOError = BlockingIOError
-    class UnsupportedOperation(OSError, ValueError): ...
-else:
-    class BlockingIOError(IOError):
-        characters_written = ...  # type: int
-    class UnsupportedOperation(IOError, ValueError): ...
+# FIXME when mypy handle condtional, we can uncomment the next block and remove
+# the temporary fix
+#if sys.version_info >= (3, 3):
+#    BlockingIOError = BlockingIOError
+#    class UnsupportedOperation(OSError, ValueError): ...
+#else:
+#    class BlockingIOError(IOError):
+#        characters_written = ...  # type: int
+#    class UnsupportedOperation(IOError, ValueError): ...
+class BlockingIOError(OSError):
+    characters_written = ...  # type: int
+class UnsupportedOperation(OSError, ValueError): ...
+
 
 class IOBase:
     def __iter__(self) -> Iterator[bytes]: ...
