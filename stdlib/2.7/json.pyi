@@ -33,7 +33,7 @@ def dump(obj: Any,
     sort_keys: bool = ...,
     **kwds: Any) -> None: ...
 
-def loads(s: str,
+def loads(s: unicode,
     encoding: Any = ...,
     cls: Any = ...,
     object_hook: Callable[[Dict], Any] = ...,
