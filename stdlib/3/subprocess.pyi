@@ -2,7 +2,7 @@
 
 # Based on http://docs.python.org/3.2/library/subprocess.html
 
-from typing import Sequence, Any, Mapping, Callable, Tuple, IO
+from typing import Sequence, Any, Mapping, Callable, Tuple, IO, Optional
 
 # TODO force keyword arguments
 # TODO more keyword arguments
@@ -29,7 +29,7 @@ class CalledProcessError(Exception):
     cmd = ...  # type: str
     output = b'' # May be None
 
-    def __init__(self, returncode: int, cmd: str, output: str = ...) -> None: ...
+    def __init__(self, returncode: int, cmd: str, output: Optional[str] = ...) -> None: ...
 
 class Popen:
     stdin = ... # type: IO[Any]
