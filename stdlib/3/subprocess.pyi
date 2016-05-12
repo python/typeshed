@@ -2,20 +2,20 @@
 
 # Based on http://docs.python.org/3.2/library/subprocess.html
 
-from typing import Sequence, Any, Mapping, Callable, Tuple, IO, Optional
+from typing import Sequence, Any, Mapping, Callable, Tuple, IO, Optional, Union
 
 # TODO force keyword arguments
 # TODO more keyword arguments
-def call(args: Sequence[str], *, stdin: Any = ..., stdout: Any = ...,
+def call(args: Union[str, Sequence[str]], *, stdin: Any = ..., stdout: Any = ...,
          stderr: Any = ..., shell: bool = ...,
          env: Mapping[str, str] = ...,
          cwd: str = ...) -> int: ...
-def check_call(args: Sequence[str], *, stdin: Any = ..., stdout: Any = ...,
+def check_call(args: Union[str, Sequence[str]], *, stdin: Any = ..., stdout: Any = ...,
                stderr: Any = ..., shell: bool = ...,
                env: Mapping[str, str] = ...,
                cwd: str = ...) -> int: ...
 # Return str/bytes
-def check_output(args: Sequence[str], *, stdin: Any = ..., stderr: Any = ...,
+def check_output(args: Union[str, Sequence[str]], *, stdin: Any = ..., stderr: Any = ...,
                  shell: bool = ..., universal_newlines: bool = ...,
                  env: Mapping[str, str] = ...,
                  cwd: str = ...) -> Any: ...
@@ -40,7 +40,7 @@ class Popen:
     returncode = 0
 
     def __init__(self,
-                  args: Sequence[str],
+                  args: Union[str, Sequence[str]],
                   bufsize: int = ...,
                   executable: str = ...,
                   stdin: Any = ...,

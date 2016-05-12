@@ -8,15 +8,15 @@ _FILE = Union[int, IO[Any]]
 
 # TODO force keyword arguments
 # TODO more keyword arguments (from Popen)
-def call(args: Sequence[str], *,
+def call(args: Union[str, Sequence[str]], *,
          stdin: _FILE = ..., stdout: _FILE = ..., stderr: _FILE = ...,
          shell: bool = ..., env: Mapping[str, str] = ...,
          cwd: str = ...) -> int: ...
-def check_call(args: Sequence[str], *,
+def check_call(args: Union[str, Sequence[str]], *,
                stdin: _FILE = ..., stdout: _FILE = ..., stderr: _FILE = ...,
                shell: bool = ..., env: Mapping[str, str] = ..., cwd: str = ...,
                close_fds: Sequence[_FILE] = ..., preexec_fn: Callable[[], Any] = ...) -> int: ...
-def check_output(args: Sequence[str], *,
+def check_output(args: Union[str, Sequence[str]], *,
                  stdin: _FILE = ..., stderr: _FILE = ...,
                  shell: bool = ..., universal_newlines: bool = ...,
                  env: Mapping[str, str] = ..., cwd: str = ...) -> str: ...
@@ -39,7 +39,7 @@ class Popen:
     returncode = 0
 
     def __init__(self,
-                 args: Sequence[str],
+                 args: Union[str, Sequence[str]],
                  bufsize: int = ...,
                  executable: str = ...,
                  stdin: _FILE = ...,
