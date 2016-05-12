@@ -29,7 +29,8 @@ class CalledProcessError(Exception):
     cmd = ...  # type: str
     output = b'' # May be None
 
-    def __init__(self, returncode: int, cmd: str, output: Optional[str] = ...) -> None: ...
+    def __init__(self, returncode: int, cmd: str, output: Optional[str],
+                 stderr: Optional[str] = ...) -> None: ...
 
 class Popen:
     stdin = ... # type: IO[Any]
