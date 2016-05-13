@@ -24,10 +24,12 @@ This document lays out the theory of the new type hinting proposal for
 Python 3.5. It's not quite a full proposal or specification because
 there are many details that need to be worked out, but it lays out the
 theory without which it is hard to discuss more detailed specifications.
-We start by explaining gradual typing; then we state some conventions
-and general rules; then we define the new special types (such as Union)
-that can be used in annotations; and finally we define the approach to
-generic types. (TODO: The latter section needs more fleshing out; sorry!)
+We start by recalling basic concepts of type theory; then we explain
+gradual typing; then we state some general rules and
+define the new special types (such as ``Union``) that can be used
+in annotations; and finally we define the approach to generic types
+and pragmatic aspects of type hinting.
+(TODO: The section on generics needs more fleshing out; sorry!)
 
 
 Notational conventions
@@ -38,9 +40,8 @@ Notational conventions
 -  ``T``, ``U`` etc. are type variables (defined with ``TypeVar()``, see below).
 -  Objects, classes defined with a class statement, and instances are
    denoted using standard PEP 8 conventions.
--  the symbol ``==`` in the context of this PEP means that two expressions
-   represent the same type.
-
+-  the symbol ``==`` applied to types in the context of this PEP means that
+   two expressions represent the same type.
 -  Note that PEP 484 makes a distinction between types and classes
    (a type is a concept for the type checker,
    while a class is a runtime concept).  In this PEP we clarify
@@ -51,23 +52,119 @@ Notational conventions
 Background
 ==========
 
-TODO: Explaint types as sets, subtyping, nominal and structural subtyping.
-Many examples.
+There are many definitions of the concept of type in the literature.
+Here we assume that type is a set of values and a set of functions that
+one can apply to these values.
+There are several ways to define a particular type:
+
+- By explicitly listing all values, e.g., ``True`` and ``False``
+  form the type ``bool``.
+- By specifying functions which can be used with variables of
+  a type, e.g., all objects that have a ``__len__`` method form
+  the type ``Sized``, both ``[1,2,3]`` and ``'abc'`` are of
+  this type, one can call ``len`` with them::
+
+    len([1,2,3])  # OK
+    len('abc')  # also OK
+
+- By a simple class definition, for example if one defines a class::
+
+    class UserID(int):
+        pass
+
+  then all instances of this class also form a type.
+- There are also more complex types, e.g., one can in principle define type
+  ``FancyList`` as lists containing only instances of ``int``, ``str``
+  or their subclasses, then ``[1, 'abc', UserID(42)]`` has such type.
+
+It is important for user to be able to define types in a form
+that could be understood by type checkers.
+The goal of this PEP is to propose such a systematic way of defining types
+for type annotations of variables and functions using PEP 3107 syntax.
+These annotations can be used to avoid many kind of bugs, for documentation
+purposes, or maybe even to increase speed of program execution.
+Here we only focus on avoiding bugs by using a static type checker.
 
 
-Types vs Classes
-----------------
+Subtype relationship
+--------------------
 
-TODO: Explain the relation, examples, note that typing interface
-is implemented with classes.
+A crucial notion for static type checker is the subtype relationship.
+It arises from the question if ``first_var`` has ``first_type``, and
+``second_var`` has ``second_type``, then is it safe to assign
+``first_var = second_var``?
+A strong criteria when it *should* be safe is:
 
+- every value from ``second_type`` is also in the set of values
+  of ``first_type`` and
+- every function from ``first_type`` is also in the set of functions
+  of ``second_type``.
 
-Specification
-=============
+So defined relation is called a subtype relation.
+By such definition
+
+-  Every type is a subtype of itself.
+-  Set of values becomes smaller in the process of subtyping,
+   while the set of functions becomes larger.
+
+An intuitive example: Every ``Dog`` is an ``Animal``, also ``Dog``
+has more functions, for example it can bark, therefore ``Dog``
+is subtype of ``Animal``. Conversely, ``Animal`` is not subtype of ``Dog``.
+
+More formal example: Integers are subtype of real numbers.
+Indeed, every integer is of course also a real number, and integers
+support more operations, such as, e.g., bitwise shifts ``<<`` and ``>>``::
+
+  lucky_number = 3.14  # type: float
+  lucky_number = 42  # Safe
+  lucky_number * 2  # This works
+
+  unlucky_number = 13  # type: int
+  unlucky_number = 2.72 # Unsafe
+  unlucky_number << 5  # This fails
+
+Let us also consider a tricky example: If ``List[int]`` denotes a type
+formed by all lists that contain only integer numbers,
+then it is *not* a subtype of ``List[float]`` formed by lists that contain
+only real numbers. The first condition of subtyping holds,
+but appending a real number only works with ``List[float]`` so that
+the second condition fails::
+
+  def append_pi(lst: List[float]) -> None:
+      lst += [3.14]
+
+  my_list = [1, 3, 5]  # type: List[int]
+
+  append_pi(my_list)  # Naively, this should be safe...
+
+  my_list[-1] << 5  # ... but this fails
+
+There are two widespread approaches to *declare* subtype information
+to type checker.
+In nominal subtyping, type tree is based on the class tree,
+i.e., ``UserID`` is considered a subtype of ``int``.
+This approach should be used under control of the type checker,
+because in Python one can override attributes in an incompatible way::
+
+  class Base:
+      answer = '42' # type: str
+
+  class Derived(Base):
+      answer = 5 # should be marked as error by type checker
+
+In structural subtyping the subtype relation is deduced from
+declared methods, i.e., ``UserID`` and ``int`` considered the same type.
+Although, such accidental type confusions might happen,
+structural subtyping is also more flexible.
+We strive to provide a support for both approaches, so that
+structural information can be used in addition to nominal subtyping.
 
 
 Summary of gradual typing
--------------------------
+=========================
+
+Gradual typing allows to type annotate only part of a program
+thus allowing to leverage positive aspects of both dynamic and static typing.
 
 We define a new relationship, is-consistent-with, which is similar to
 is-subtype-of, except it is not transitive when the new type ``Any`` is
@@ -93,8 +190,9 @@ at the root of the type graph. This makes it very similar to
 most types (e.g. you can't use an ``object()`` instance where an
 ``int`` is expected). IOW both ``Any`` and ``object`` mean
 "any type is allowed" when used to annotate an argument, but only ``Any``
-can be passed no matter what type is expected (in essence, ``Any`` shuts
-up complaints from the static checker).
+can be passed no matter what type is expected (in essence, ``Any``
+declares a fallback to dynamic typing and shuts up complaints
+from the static checker).
 
 Here's an example showing how these rules work out in practice:
 
@@ -131,11 +229,34 @@ but we didn't need the concept of consistency for that::
   something = worker  # OK
 
 
-General rules for using types
------------------------------
+Types vs Classes
+----------------
 
-Although all types are implemented using classes, the following
-general rules apply to emphasize the distiction between types and classes:
+In Python, classes are object factories defined by ``class`` statement,
+and and returned by ``type(obj)`` built-in function. Class is a dynamic,
+runtime concept.
+
+Type concept is described above, types appear in variable
+and function type annotations, can be constructed
+from building blocks described below, and are used by static type checkers.
+
+Every class is a type as discussed above.
+But it is tricky and error prone to implement a class that exactly represents
+semantics of a given type, and it is not a goal of PEP 484.
+*The static types described in PEP 484, should not be confused with
+the runtime classes.* Examples:
+
+- ``int`` is a class and a type.
+- ``UserID`` is a class and a type.
+- ``Union[str, int]`` is a type but not a proper class::
+
+      class MyUnion(Union[str, int]): ...  # raises TypeError
+
+      Union[str, int]()  # raises TypeError
+
+Typing interface is implemented with classes, i.e., at runtime it is possible
+to evaluate, e.g., ``Generic[T].__bases__``. But to emphasize the distinction
+between classes and types the following general rules:
 
 -  No types defined below (i.e. ``Any``, ``Union``, etc.) can be instantiated,
    an attempt to do so will raise ``TypeError``.
@@ -152,29 +273,38 @@ Fundamental building blocks
 -  **Any**. Every type is a subtype of ``Any``; however, to the static
    type checker it is also consistent with every type (see above).
 -  **Union[t1, t2, ...]**. Types that are subtype of at least one of
-   ``t1`` etc. are subtypes of this. So are unions whose components are
-   all subtypes of ``t1`` etc. (Example: ``Union[int, str]`` is a subtype of
-   ``Union[int, float, str]``.) The order of the arguments doesn't matter.
-   (Example: ``Union[int, str] == Union[str, int]``.) If ``ti`` is itself a
-   ``Union`` the result is flattened. (Example: ``Union[int, Union[float,
-   str]] == Union[int, float, str]``.) If ``ti`` and ``tj`` have a subtype
-   relationship, the less specific type survives. (Example:
-   ``Union[Employee, Manager] == Union[Employee]``.) ``Union[t1]`` returns just
-   ``t1``. ``Union[]`` is illegal, so is ``Union[()]``. Corollary:
-   ``Union[..., Any, ...]`` returns ``Any``; ``Union[..., object, ...]``
-   returns ``object``; to cut a
-   tie, ``Union[Any, object] == Union[object, Any] == Any``.
+   ``t1`` etc. are subtypes of this.
+
+   *  Unions whose components are all subtypes of ``t1`` etc. are subtypes
+      of this.
+      Example: ``Union[int, str]`` is a subtype of ``Union[int, float, str]``.
+   *  The order of the arguments doesn't matter.
+      Example: ``Union[int, str] == Union[str, int]``.
+   *  If ``ti`` is itself a ``Union`` the result is flattened.
+      Example: ``Union[int, Union[float, str]] == Union[int, float, str]``.
+   *  If ``ti`` and ``tj`` have a subtype relationship,
+      the less specific type survives.
+      Example: ``Union[Employee, Manager] == Union[Employee]``.
+   *  ``Union[t1]`` returns just ``t1``. ``Union[]`` is illegal,
+      so is ``Union[()]``
+   *  Corollary: ``Union[..., Any, ...]`` returns ``Any``;
+      ``Union[..., object, ...]`` returns ``object``; to cut a
+      tie, ``Union[Any, object] == Union[object, Any] == Any``.
+
 -  **Optional[t1]**. Alias for ``Union[t1, None]``, i.e. ``Union[t1,
    type(None)]``.
 -  **Tuple[t1, t2, ..., tn]**. A tuple whose items are instances of ``t1``,
-   etc.. Example: ``Tuple[int, float]`` means a tuple of two items, the
-   first is an ``int``, the second a ``float``; e.g., ``(42, 3.14)``.
-   ``Tuple[u1, u2, ..., um]`` is a subtype of ``Tuple[t1, t2, ..., tn]``
-   if they have the same length ``n==m`` and each ``ui`` is a subtype of
-   ``ti``.To spell the type
-   of the empty tuple, use ``Tuple[()]``. A variadic homogeneous tuple type
-   can be written ``Tuple[t1, ...]``. (That's three dots, a literal ellipsis;
-   and yes, that's a valid token in Python's syntax.)
+   etc. Example: ``Tuple[int, float]`` means a tuple of two items, the
+   first is an ``int``, the second is a ``float``; e.g., ``(42, 3.14)``.
+
+   *  ``Tuple[u1, u2, ..., um]`` is a subtype of ``Tuple[t1, t2, ..., tn]``
+      if they have the same length ``n==m`` and each ``ui``
+      is a subtype of ``ti``.
+   *  To spell the type of the empty tuple, use ``Tuple[()]``.
+   *  A variadic homogeneous tuple type can be written ``Tuple[t1, ...]``.
+      (That's three dots, a literal ellipsis;
+      and yes, that's a valid token in Python's syntax.)
+
 -  **Callable[[t1, t2, ..., tn], tr]**. A function with positional
    argument types ``t1`` etc., and return type ``tr``. The argument list may be
    empty ``n==0``. There is no way to indicate optional or keyword
@@ -184,32 +314,37 @@ Fundamental building blocks
 We might add:
 
 -  **Intersection[t1, t2, ...]**. Types that are subtype of *each* of
-   ``t1``, etc are subtypes of this. (Compare to Union, which has *at
-   least one* instead of *each* in its definition.) The order of the
-   arguments doesn't matter. Nested intersections are flattened, e.g.
-   ``Intersection[int, Intersection[float, str]] == Intersection[int,
-   float, str]``. An intersection of fewer types is a supertype of an
-   intersection of more types, e.g. ``Intersection[int, str]`` is a supertype
-   of ``Intersection[int, float, str]``. An intersection of one argument is
-   just that argument, e.g. ``Intersection[int]`` is ``int``.
-   When argument have a subtype relationship, the more specific type
-   survives, e.g. ``Intersection[str, Employee, Manager]`` is
-   ``Intersection[str, Manager]``. ``Intersection[]`` is illegal,
-   so is ``Intersection[()]``. Corollary: ``Any``
-   disappears from the argument list, e.g. ``Intersection[int, str, Any]
-   == Intersection[int, str]``. ``Intersection[Any, object]`` is ``object``.
-   The interaction between ``Intersection`` and ``Union`` is complex but
-   should be no surprise if you understand the interaction between
-   intersections and unions in set theory (note that sets of types can be
-   infinite in size, since there is no limit on the number of new subclasses).
+   ``t1``, etc are subtypes of this. (Compare to ``Union``, which has *at
+   least one* instead of *each* in its definition.)
+
+   *  The order of the arguments doesn't matter. Nested intersections
+      are flattened, e.g. ``Intersection[int, Intersection[float, str]]
+      == Intersection[int, float, str]``.
+   *  An intersection of fewer types is a supertype of an intersection of
+      more types, e.g. ``Intersection[int, str]`` is a supertype
+      of ``Intersection[int, float, str]``.
+   *  An intersection of one argument is just that argument,
+      e.g. ``Intersection[int]`` is ``int``.
+   *  When argument have a subtype relationship, the more specific type
+      survives, e.g. ``Intersection[str, Employee, Manager]`` is
+      ``Intersection[str, Manager]``.
+   *  ``Intersection[]`` is illegal, so is ``Intersection[()]``.
+   *  Corollary: ``Any`` disappears from the argument list, e.g.
+      ``Intersection[int, str, Any] == Intersection[int, str]``.
+      ``Intersection[Any, object]`` is ``object``.
+   *  The interaction between ``Intersection`` and ``Union`` is complex but
+      should be no surprise if you understand the interaction between
+      intersections and unions of regular sets (note that sets of types can be
+      infinite in size, since there is no limit on the number
+      of new subclasses).
 
 
 Generic types
 =============
 
 TODO: Explain motivation, generics as functors (but avoid this word),
-examples, necessity of type variables and declaration syntax that
-described below.
+examples, necessity of type variables, generic functions and declaration
+syntax that described below.
 
 
 Type variables
@@ -292,7 +427,7 @@ Covariance and Contravariance
 
 TODO: Definition, declaring variance, example with functions,
 covariant example with ``Tuple``, contravariant example with ``Callable``,
-mutable types, why ``List`` is invariant.
+mutable types, why ``List`` is invariant, type erasure and ``MyGeneric[Any]``.
 
 One of the best examples to illustrate contravariance is callable type.
 It is covariant in the return type, but contravariant in the
@@ -335,7 +470,7 @@ are still controversial or not fully specified.)
 
 - Type variables can be declared in unconstrained, constrained,
   or bounded form. The variance of a generic type can also
-  be indicaded using a type variable declared with special keyword
+  be indicated using a type variable declared with special keyword
   arguments, thus avoiding any special syntax, e.g.::
 
     T = TypeVar('T', bound=complex)
@@ -364,10 +499,10 @@ Predefined generic types and Protocols in typing.py
 (See also the `typing.py module
 <https://github.com/python/typing/blob/master/src/typing.py>`_.)
 
--  Everything from collections.abc (but Set renamed to AbstractSet).
--  Dict, List, Set, FrozenSet, a few more.
--  re.Pattern[AnyStr], re.Match[AnyStr].
--  re.IO[AnyStr], re.TextIO ~ re.IO[str], re.BinaryIO ~ re.IO[bytes].
+-  Everything from ``collections.abc`` (but ``Set`` renamed to ``AbstractSet``).
+-  ``Dict``, ``List``, ``Set``, ``FrozenSet``, a few more.
+-  ``re.Pattern[AnyStr]``, ``re.Match[AnyStr]``.
+-  ``io.IO[AnyStr]``, ``io.TextIO ~ io.IO[str]``, ``io.BinaryIO ~ io.IO[bytes]``.
 
 
 Copyright
