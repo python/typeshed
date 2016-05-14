@@ -40,6 +40,7 @@ class object:
     def __hash__(self) -> int: ...
 
 class type:
+    __bases__ = ...  # type: Tuple[type, ...]
     __name__ = ...  # type: str
     __module__ = ...  # type: str
     __dict__ = ...  # type: Dict[unicode, Any]
@@ -54,6 +55,13 @@ class type:
     @overload
     def __new__(cls, name: str, bases: Tuple[type, ...], namespace: Dict[str, Any]) -> type: ...
     def __call__(self, *args: Any, **kwds: Any) -> Any: ...
+
+    # Only new-style classes
+    __mro__ = ...  # type: Tuple[type, ...]
+    # Note: the documentation doesnt specify what the return type is, the standard
+    # implementation seems to be returning a list.
+    def mro(self) -> List[type]: ...
+    def __subclasses__(self) -> List[type]: ...
 
 class int(SupportsInt, SupportsFloat, SupportsAbs[int]):
     @overload
