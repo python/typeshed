@@ -23,7 +23,6 @@ _T4 = TypeVar('_T4')
 
 staticmethod = object() # Only valid as a decorator.
 classmethod = object() # Only valid as a decorator.
-property = object()
 
 class object:
     __doc__ = ...  # type: str
@@ -615,6 +614,15 @@ class module:
     __name__ = ...  # type: str
     __file__ = ...  # type: str
     __dict__ = ...  # type: Dict[str, Any]
+
+class property:
+    def __init__(self, fget: Callable[[_S], _T1] = None, fset: Callable[[_S, _T2], None] = None, fdel: Callable[[_S], None] = None, doc: str = None) -> None: ...
+    def getter(self, fget: Callable[[_S], _T1]) -> property: ...
+    def setter(self, fset: Callable[[_S, _T2], None]) -> property: ...
+    def deleter(self, fdel: Callable[[_S], None]) -> property: ...
+    def __get__(self, obj: _S, type: type=None) -> _T1: ...
+    def __set__(self, obj: _S, value: _T2) -> None: ...
+    def __del__(self, obj: _S) -> None: ...
 
 NotImplemented = ...  # type: Any
 
