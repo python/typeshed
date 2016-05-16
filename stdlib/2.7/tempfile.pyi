@@ -4,6 +4,10 @@
 # based on http://docs.python.org/3.3/library/tempfile.html
 # Adapted for Python 2.7 by Michal Pokorny
 
+# TODO: Don't use basestring. Use Union[str, bytes] or AnyStr for arguments.
+#       Avoid using Union[str, bytes] for return values, as it implies that
+#       an isinstance() check will often be required, which is inconvenient.
+
 from typing import Tuple, IO
 
 # global variables
