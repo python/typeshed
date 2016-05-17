@@ -1,11 +1,17 @@
 # created from https://docs.python.org/2/library/os.html
 
-from typing import List, Tuple, Union, Sequence, Mapping, IO, Any, Optional, AnyStr, MutableMapping, Iterator
+from typing import (
+    List, Tuple, Union, Sequence, Mapping, IO, Any, Optional, AnyStr, Iterator, MutableMapping
+)
 import os.path as path
 
 error = OSError
 name = ... # type: str
-environ = ... # type: MutableMapping[str, str]
+
+class _Environ(MutableMapping[str, str]):
+    def copy(self) -> Dict[str, str]: ...
+
+environ = ... # type: _Environ
 
 def chdir(path: unicode) -> None: ...
 def fchdir(fd: int) -> None: ...
@@ -185,7 +191,7 @@ def nice(increment: int) -> int: ...
 
 # TODO: plock, popen*, spawn*, P_*
 
-def startfile(path: unicode, operation: str) -> None: ...
+def startfile(path: unicode, operation: str = ...) -> None: ... # Windows only
 def system(command: unicode) -> int: ...
 def times() -> Tuple[float, float, float, float, float]: ...
 def wait() -> Tuple[int, int]: ... # Unix only

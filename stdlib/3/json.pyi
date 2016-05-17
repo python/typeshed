@@ -1,4 +1,4 @@
-from typing import Any, IO, Optional, Tuple, Callable, Dict, List
+from typing import Any, IO, Optional, Tuple, Callable, Dict, List, Union
 
 class JSONDecodeError(object):
     def dumps(self, obj: Any) -> str: ...
@@ -12,7 +12,7 @@ def dumps(obj: Any,
     check_circular: bool = ...,
     allow_nan: bool = ...,
     cls: Any = ...,
-    indent: Optional[int] = ...,
+    indent: Union[None, int, str] = ...,
     separators: Optional[Tuple[str, str]] = ...,
     default: Optional[Callable[[Any], Any]] = ...,
     sort_keys: bool = ...,
@@ -25,7 +25,7 @@ def dump(obj: Any,
     check_circular: bool = ...,
     allow_nan: bool = ...,
     cls: Any = ...,
-    indent: Optional[int] = ...,
+    indent: Union[None, int, str] = ...,
     separators: Optional[Tuple[str, str]] = ...,
     default: Optional[Callable[[Any], Any]] = ...,
     sort_keys: bool = ...,

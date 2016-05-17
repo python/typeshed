@@ -4,6 +4,10 @@
 # based on http://docs.python.org/3.3/library/tempfile.html
 # Adapted for Python 2.7 by Michal Pokorny
 
+# TODO: Don't use basestring. Use Union[str, bytes] or AnyStr for arguments.
+#       Avoid using Union[str, bytes] for return values, as it implies that
+#       an isinstance() check will often be required, which is inconvenient.
+
 from typing import Tuple, IO
 
 # global variables
@@ -14,15 +18,15 @@ template = ...  # type: str
 
 # function stubs
 def TemporaryFile(
-            mode: str = ..., bufsize: int = ..., suffix: str = ...,
-            prefix: str = ..., dir: str = ...) -> IO[str]: ...
+            mode: basestring = ..., bufsize: int = ..., suffix: basestring = ...,
+            prefix: basestring = ..., dir: basestring = ...) -> IO[str]: ...
 def NamedTemporaryFile(
-            mode: str = ..., bufsize: int = ..., suffix: str = ...,
-            prefix: str = ..., dir: str = ..., delete: bool = ...
+            mode: basestring = ..., bufsize: int = ..., suffix: basestring = ...,
+            prefix: basestring = ..., dir: basestring = ..., delete: bool = ...
             ) -> IO[str]: ...
 def SpooledTemporaryFile(
-           max_size: int = ..., mode: str = ..., buffering: int = ...,
-           suffix: str = ..., prefix: str = ..., dir: str = ...) -> IO[str]:
+           max_size: int = ..., mode: basestring = ..., buffering: int = ...,
+           suffix: basestring = ..., prefix: basestring = ..., dir: basestring = ...) -> IO[str]:
     ...
 
 class TemporaryDirectory:
@@ -37,6 +41,7 @@ def mkstemp(suffix: basestring = ..., prefix: basestring = ..., dir: basestring 
             text: bool = ...) -> Tuple[int, basestring]: ...
 def mkdtemp(suffix: basestring = ..., prefix: basestring = ...,
             dir: basestring = ...) -> basestring: ...
-def mktemp(suffix: basestring = ..., prefix: basestring = ..., dir: basestring = ...) -> basestring: ...
+def mktemp(suffix: basestring = ..., prefix: basestring = ...,
+           dir: basestring = ...) -> basestring: ...
 def gettempdir() -> basestring: ...
 def gettempprefix() -> basestring: ...
