@@ -29,7 +29,6 @@ gradual typing; then we state some general rules and
 define the new special types (such as ``Union``) that can be used
 in annotations; and finally we define the approach to generic types
 and pragmatic aspects of type hinting.
-(TODO: The section on generics needs more fleshing out; sorry!)
 
 
 Notational conventions
@@ -348,26 +347,99 @@ We might add:
 Generic types
 =============
 
-TODO: Explain motivation, generics as functors (but avoid this word),
-examples, necessity of type variables, generic functions and declaration
-syntax that described below.
+The fundamental building blocks defined above allow to construct new types
+in a generic manner. For example, ``Tuple`` can take a concrete type ``float``
+and make a concrete type ``Vector = Tuple[float, ...]``, or it can take
+another type ``UserID`` and make another concrete type
+``Registry = Tuple[UserID, ...]``. Such semantics is known as generic type
+constructor, it is similar to semantics of functions, but a function takes
+a value and returns a value, while generic type constructor takes a type and
+"returns" a type.
+
+It is common when a particular class or a function behaves in such a type
+generic manner. Consider two examples:
+
+- Container classes, such as ``list`` or ``dict``, typically contain only
+  values of a particular type. Therefore, a user might want to type annotate
+  them as such::
+
+    users = [] # type: List[UserID]
+    users.append(UserID(42)) # OK
+    users.append('Some guy') # Should be rejected by the type checker
+
+    examples = {} # type: Dict[str, Any]
+    examples['first example'] = object() # OK
+    examples[2] = None                   # rejected by the type checker
+
+- The following function can take two arguments of type ``int`` and return
+  an ``int``, of take two arguments of type ``float`` and return
+  a ``float``, etc.::
+
+    def add(x, y):
+        return x + y
+
+    add(1, 2) == 3
+    add('1', '2') == '12'
+    add(2.7, 3.5) == 6.2
+
+To allow type annotations in situations from the first example, built-in
+containers and container abstract base classes are extended with type
+parameters, so that they behave as generic type constructors.
+Classes, that behave as generic type constructors are called *generic types*.
+Example::
+
+  from typing import Iterable
+
+  class Task:
+      ...
+
+  def work(todo_list: Iterable[Task]) -> None:
+      ...
+
+Here ``Iterable`` is a generic type that takes a concrete type ``Task``
+and returns a concrete type ``Iterable[Task]``.
+
+Functions that behave in the type generic manner (as in second example)
+are called *generic functions*.
+Type annotations of generic functions are allowed by *type variables*.
+Their semantics with respect to generic types is somewhat similar
+to semantics of parameters in functions. But one does not assign
+concrete types to type variables, it is the task of a static type checker
+to find their possible values and warn the user if it cannot find.
+Example::
+
+  def take_first(seq: Sequence[T]) -> T: # a generic function
+      return seq[0]
+
+  accumulator = 0 # type: int
+
+  accumulator += take_first([1, 2, 3])   # Safe, T deduced to be int
+  accumulator += take_first((2.7, 3.5))  # Unsafe
+
+Type variables are used extensively in type annotations, also internal
+machinery of the type inference in type checkers is typically build on
+type variables. Therefore, let us consider them in detail.
 
 
 Type variables
 --------------
 
-(TODO: Explain more. See also the `mypy docs on
-generics <http://mypy.readthedocs.io/en/latest/generics.html>`_.)
+``X = TypeVar('X')`` declares a unique type variable. The name must match
+the variable name. By default, a type variable ranges
+over all possible types. Example::
 
-- ``X = TypeVar('X')``. Declares a unique type variable. The name must match
-  the variable name.
+  def do_nothing(one_arg: T, other_arg: T) -> None:
+      pass
 
-- ``Y = TypeVar('Y', t1, t2, ...)``. Ditto, constrained to ``t1``, etc. Behaves
-  like ``Union[t1, t2, ...]`` for most purposes, but when used as a type
-  variable, subclasses of ``t1``, etc. are replaced by the most-derived base
-  class among ``t1``, etc. (TODO: reformulate this)
+  do_nothing(1, 2)               # OK, T is int
+  do_nothing('abc', UserID(42))  # also OK, T is object
 
-- Example of constrained type variables::
+``Y = TypeVar('Y', t1, t2, ...)``. Ditto, constrained to ``t1``, etc. Behaves
+similar to ``Union[t1, t2, ...]``. A constrained type variable ranges only
+over constrains ``t1``, etc. *exactly*; subclasses of the constrains are
+replaced by the most-derived base class among ``t1``, etc. Examples:
+
+- Function type annotation with a constrained type variable::
 
     S = TypeVar('S', str, bytes)
 
@@ -411,42 +483,234 @@ generics <http://mypy.readthedocs.io/en/latest/generics.html>`_.)
   The inferred type of ``result`` is still ``Union[str, bytes]``, even though
   both arguments are ``str``.
 
+  Note that the type checker will reject this function::
+
+    def concat(first: U, second: U) -> U:
+        return x + y  # Error: can't concatenate str and bytes
+
+  For such cases where parameters could change their types only simultaneously
+  one should use constrained type variables.
+
 
 Defining and using generic types
 --------------------------------
 
-- ``class MyGeneric(Generic[X, Y, ...]):`` ... Define a generic type
-  ``MyGeneric`` over type variables ``X``, etc. ``MyGeneric`` itself becomes
-  parameterizable, e.g. ``MyGeneric[int, str, ...]`` is a specific type with
-  substitutions ``X->int``, etc.
+Users can declare their classes as generic types using
+the special building block ``Generic``.
+``class MyGeneric(Generic[X, Y, ...]): ... `` defines a generic type
+``MyGeneric`` over type variables ``X``, etc. ``MyGeneric`` itself becomes
+parameterizable, e.g. ``MyGeneric[int, str, ...]`` is a specific type with
+substitutions ``X -> int``, etc. Example::
 
-- TODO: Explain use of generic types in function signatures. E.g.
-  ``Sequence[X]``, ``Sequence[int]``, ``Sequence[Tuple[X, Y, Z]]``,
-  and mixtures.
-  Think about co\*variance. No gimmicks like deriving from
-  ``Sequence[Union[int, str]]`` or ``Sequence[Union[int, X]]``.
-  Add notes on indexed generics
+  class CustomQueue(Generic[T]):
+
+      def put(self, task: T) -> None:
+          ...
+      def get(self) -> T:
+          ...
+
+  def communicate(queue: CustomQueue[str]) -> Optional[str]:
+      ...
+
+Classes that derive from generic types become generic.
+A class can subclass multiple generic types. However,
+classes derived from specific types returned by generics are
+not generic. Examples::
+
+  class TodoList(Iterable[T], Container[T]):
+      def check(self, item: T) -> None:
+          ...
+
+  def check_all(todo: TodoList[T]) -> None:  # TodoList is generic
+      ...
+
+  class URLList(Iterable[bytes]):
+      def scrape_all(self) -> None:
+          ...
+
+  def search(urls: URLList) -> Optional[bytes]  # URLList is not generic
+      ...
+
+Generic types can be specialized (indexed) in several steps.
+Every type variable could be substituted by a specific type
+or by another generic type. If ``Generic`` appears in the base class list,
+then it should contain all type variables, and the order of type parameters is
+determined by the order in which they appear in ``Generic``. Examples::
+
+  Table = Dict[int, T]     # Table is generic
+  Messages = Table[bytes]  # Same as Dict[int, bytes]
+
+  class BaseGeneric(Generic[T, S]):
+      ...
+
+  class DerivedGeneric(BaseGeneric[int, T]): # DerivedGeneric has one parameter
+      ...
+
+  SpecificType = DerivedGeneric[int]         # OK
+
+  class MyDictView(Generic[S, T, U], Iterable[Tuple[U, T]]):
+      ...
+
+  Example = MyDictView[list, int, str]       # S -> list, T -> int, U -> str
+
+If a generic type appears in a type annotation with a type variable omitted,
+it is assumed to be ``Any``. Such form could be used as a fallback
+to dynamic typing and is allowed for use with ``issubclass``
+and ``isinstance``. All type information in instances is erased at runtime.
+Examples::
+
+  def count(seq: Sequence) -> int:      # Same as Sequence[Any]
+      ...
+
+  class FrameworkBase(Generic[S, T]):
+      ...
+
+  class UserClass:
+      ...
+
+  issubclass(UserClass, FrameworkBase)  # This is OK
+
+  class Node(Generic[T]):
+     ...
+
+  IntNode = Node[int]
+  my_node = IntNode()  # at runtime my_node.__class__ is Node
+                       # inferred static type of my_node is Node[int]
 
 
 Covariance and Contravariance
 -----------------------------
 
-TODO: Definition, declaring variance, example with functions,
-covariant example with ``Tuple``, contravariant example with ``Callable``,
-mutable types, why ``List`` is invariant, type erasure and ``MyGeneric[Any]``.
+If ``t2`` is a subtype of ``t1``, then a generic
+type constructor ``GenType`` is called:
 
-One of the best examples to illustrate contravariance is callable type.
+- Covariant, if ``GenType[t2]`` is a subtype of ``GenType[t1]``
+  for all such ``t1`` and ``t2``.
+- Contravariant,  if ``GenType[t1]`` is a subtype of ``GenType[t2]``
+  for all such ``t1`` and ``t2``.
+- Invariant, if neither of the above is true.
+
+To better understand this definition, let us make an analogy with
+ordinary functions. Assume that we have::
+
+  def cov(x: float) -> float:
+      return 2*x
+
+  def contra(x: float) -> float:
+      return -x
+
+  def inv(x: float) -> float:
+      return x*x
+
+If ``x1 < x2``, then *always* ``cov(x1) < cov(x2)``, and
+``contra(x2) < contra(x1)``, while nothing could be said about ``inv``.
+Replacing ``<`` with is-subtype-of, and functions with generic type
+constructor we get examples of covariant, contravariant,
+and invariant behavior. Let us now consider practical examples:
+
+- ``Union`` behaves covariantly in all its arguments.
+  Indeed, as discussed above, ``Union[t1, t2, ...]`` is a subtype of
+  ``Union[u1, u2, ...]``, if ``t1`` is a subtype of ``u1``, etc.
+- ``FrozenSet[T]`` is also covariant. Let us consider ``int`` and
+  ``float`` in place of ``T``. First, ``int`` is a subtype of ``float``.
+  Second, set of values of ``FrozenSet[int]`` is
+  clearly a subset of values of ``FrozenSet[float]``, while set of functions
+  from ``FrozenSet[float]`` is a subset of set of functions
+  from ``FrozenSet[int]``. Therefore, by definition ``FrozenSet[int]``
+  is a subtype of ``FrozenSet[float]``.
+- ``List[T]`` is invariant. Indeed, although set of values of ``List[int]``
+  is a subset of values of ``List[float]``, only ``int`` could be appended
+  to a ``List[int]``, as discussed in section "Background". Therefore,
+  ``List[int]`` is not a subtype of ``List[float]``. This is a typical
+  situation with mutable types, they are typically invariant.
+
+One of the best examples to illustrate (somewhat counterintuitive)
+contravariant behavior is the callable type.
 It is covariant in the return type, but contravariant in the
-arguments. "Covariant" here means that for two callable types that
+arguments. For two callable types that
 differ only in the return type, the subtype relationship for the
-callable types follows that of the return types. (Example:
-``Callable[[], Manager]`` is a subtype of ``Callable[[], Employee]``.)
-"Contravariant" here means that for two callable types that differ
-only in the type of one argument, the subtype relationship for the
-callable types goes in the opposite direction as for the argument
-types. (Example: ``Callable[[Employee], None]`` is a subtype of
-``Callable[[Manager], None]``. Yes, you read that right.)
+callable types follows that of the return types. Examples:
 
+- ``Callable[[], int]`` is a subtype of ``Callable[[], float]``.
+- ``Callable[[], Manager]`` is a subtype of ``Callable[[], Employee]``.
+
+While for two callable types that differ
+only in the type of one argument, the subtype relationship for the
+callable types goes *in the opposite direction* as for the argument
+types. Examples:
+
+- ``Callable[[float], None]`` is a subtype of ``Callable[[int], None]``.
+- ``Callable[[Employee], None]`` is a subtype of ``Callable[[Manager], None]``.
+
+Yes, you read that right. Indeed, if
+a function that can calculate the salary for a manager is expected::
+
+  def calculate_all(lst: List[Manager], salary: Callable[[Manager], Decimal]):
+      ...
+
+then ``Callable[[Employee], Decimal]`` that can calculate a salary for any
+employee is also acceptable.
+
+The example with ``Callable`` shows how to make more precise type annotations
+for functions: choose the most general type for every argument,
+and the most specific type for the return value.
+
+It is possible to *declare* the variance for user defined generic types by
+using special keywords ``covariant`` and ``contravariant`` in the
+definition of type variables used as parameters.
+Types are invariant by default. Examples::
+
+  T = TypeVar('T')
+  T_co = TypeVar('T_co', covariant=True)
+  T_contra = TypeVar('T_contra', contravariant=True)
+
+  class LinkedList(Generic[T]):  # invariant by default
+      ...
+      def append(self, element: T) -> None:
+          ...
+
+  class Box(Generic[T_co]):      #  this type is declared covariant
+      def __init__(self, content: T_co) -> None:
+          self._content = content
+      def get_content(self) -> T_co:
+          return self._content
+
+  class Sink(Generic[T_contra]): # this type is declared contravariant
+      def send_to_nowhere(self, data: T_contra) -> None:
+          print(data, file=os.devnull)
+
+Note, that although the variance is defined via type variables, it is not
+a property of type variables, but a property of generic types.
+In complex definitions of derived generics, variance *only*
+determined from type variables used. A complex example::
+
+  T_co = TypeVar('T_co', Employee, Manager, covariant=True)
+  T_contra = TypeVar('T_contra', Employee, Manager, contravariant=True)
+
+  class Base(Generic[T_contra]):
+      ...
+
+  class Derived(Base[T_co]):
+      ...
+
+A type checker finds from the second declaration that ``Derived[Manager]``
+is a subtype of ``Derived[Employee]``, and ``Derived[t1]``
+is a subtype of ``Base[t1]``.
+If we denote the is-subtype-of relationship with ``<``, then the
+full diagram of subtyping for this case will be::
+
+  Base[Manager]    >  Base[Employee]
+      v                   v
+  Derived[Manager] <  Derived[Employee]
+
+so that a type checker will also find that, e.g., ``Derived[Manager]`` is
+a subtype of ``Base[Employee]``.
+
+For more information on type variables, generic types, and variance,
+see PEP 484, the `mypy docs on
+generics <http://mypy.readthedocs.io/en/latest/generics.html>`_,
+and `Wikipedia <http://en.wikipedia.org/wiki/
+Covariance_and_contravariance_%28computer_science%29>`_.
 
 
 Pragmatics
