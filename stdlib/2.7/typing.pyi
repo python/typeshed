@@ -184,6 +184,10 @@ class MutableMapping(Mapping[_KT, _VT], Generic[_KT, _VT]):
     @overload
     def update(self, m: Iterable[Tuple[_KT, _VT]]) -> None: ...
 
+CT = TypeVar('CT', bound=type)
+class Type(type, Generic[CT]):
+    pass
+
 Text = unicode
 
 class IO(Iterable[AnyStr], Generic[AnyStr]):
