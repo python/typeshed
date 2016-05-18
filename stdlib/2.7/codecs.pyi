@@ -68,7 +68,7 @@ def register(search_function: Callable[[str], CodecInfo]) -> None:
 def open(filename: str, mode: str = ..., encoding: str = ..., errors: str = ..., buffering: int = ...) -> StreamReaderWriter:
     ...
 
-def EncodedFile(file: BinaryIO, data_encoding: str, file_encoding: str = ..., errors = ...) -> 'StreamRecoder':
+def EncodedFile(file: BinaryIO, data_encoding: str, file_encoding: str = ..., errors: Any = ...) -> 'StreamRecoder':
     ...
 
 def iterencode(iterator: Iterable[_decoded], encoding: str, errors: str = ...) -> Iterator[_encoded]:
@@ -190,7 +190,7 @@ class StreamReaderWriter:
         ...
     def __enter__(self) -> BinaryIO:
         ...
-    def __exit__(self, typ, exc, tb) -> bool:
+    def __exit__(self, typ: Any, exc: Any, tb: Any) -> bool:
         ...
 
 class StreamRecoder(BinaryIO):
