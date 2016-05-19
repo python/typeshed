@@ -1,4 +1,4 @@
-from typing import Any, IO, Optional, Tuple, Callable, Dict, List
+from typing import Any, IO, Optional, Tuple, Callable, Dict, List, Union, Text
 
 class JSONDecodeError(object):
     def dumps(self, obj: Any) -> str: ...
@@ -33,7 +33,7 @@ def dump(obj: Any,
     sort_keys: bool = ...,
     **kwds: Any) -> None: ...
 
-def loads(s: str,
+def loads(s: Union[Text, bytes],
     encoding: Any = ...,
     cls: Any = ...,
     object_hook: Callable[[Dict], Any] = ...,
