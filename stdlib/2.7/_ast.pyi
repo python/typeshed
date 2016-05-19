@@ -1,5 +1,5 @@
 import typing
-from typing import Optional, Union
+from typing import Optional, Union, Any
 
 __version__ = ...  # type: str
 
@@ -10,7 +10,7 @@ identifier = str
 class AST:
     _attributes = ... # type: typing.Tuple[str, ...]
     _fields = ... # type: typing.Tuple[str, ...]
-    def __init__(self, *args, **kwargs) -> None: ...
+    def __init__(self, *args: Any, **kwargs: Any) -> None: ...
 
 class mod(AST):
     ...
