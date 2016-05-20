@@ -12,6 +12,7 @@ TypeVar = object()
 Generic = object()
 Tuple = object()
 Callable = object()
+Type = object()
 builtinclass = object()
 _promote = object()
 NamedTuple = object()
@@ -183,10 +184,6 @@ class MutableMapping(Mapping[_KT, _VT], Generic[_KT, _VT]):
     def update(self, m: Mapping[_KT, _VT]) -> None: ...
     @overload
     def update(self, m: Iterable[Tuple[_KT, _VT]]) -> None: ...
-
-CT = TypeVar('CT', covariant=True, bound=type)
-class Type(type, Generic[CT]):
-    pass
 
 Text = unicode
 
