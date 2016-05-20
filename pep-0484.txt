@@ -914,6 +914,7 @@ Note that it is legal to use a union of classes as the parameter for
 ``Type[]``, as in::
 
   def new_non_team_user(user_class: Type[Union[BasicUser, ProUser]]):
+      user = new_user(user_class)
       ...
 
 However the actual argument passed in at runtime must still be a
@@ -952,8 +953,12 @@ attributes and methods defined by ``type`` (for example,
 ``__repr__()`` and ``__mro__``).  Such a variable can be called with
 arbitrary arguments, and the return type is ``Any``.
 
-``Type[T]`` should be considered covariant, since for a concrete class
-``C``, ``Type[C]`` matches ``C`` and any of its subclasses.
+``Type`` is covariant in its parameter, because ``Type[Derived]`` is a
+subtype of ``Type[Base]``::
+
+  def new_pro_user(pro_user_class: Type[ProUser]):
+      user = new_user(pro_user_class)  # OK
+      ...
 
 
 Version and platform checking
