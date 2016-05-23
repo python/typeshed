@@ -4,14 +4,14 @@
 
 from typing import Any, Dict, Optional, Sequence, Tuple, overload, Union
 
-CRITICAL = 0 # type: int
-FATAL = 0 # type: int
-ERROR = 0 # type: int
-WARNING = 0 # type: int
-WARN = 0 # type: int
-INFO = 0 # type: int
-DEBUG = 0 # type: int
-NOTSET = 0 # type: int
+CRITICAL = ... # type: int
+FATAL = ... # type: int
+ERROR = ... # type: int
+WARNING = ... # type: int
+WARN = ... # type: int
+INFO = ... # type: int
+DEBUG = ... # type: int
+NOTSET = ... # type: int
 
 def getLevelName(level: int) -> str: ...
 def addLevelName(level: int, levelName: str) -> None: ...
