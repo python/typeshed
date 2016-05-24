@@ -1015,6 +1015,40 @@ In such cases the default value may be specified as a literal
 ellipsis, i.e. the above example is literally what you would write.
 
 
+Annotating generator functions and coroutines
+---------------------------------------------
+
+The return type of generator functions can be annotated by
+the generic type ``Generator[yield_type, send_type,
+return_type]`` provided by ``typing.py`` module::
+
+  def echo_round() -> Generator[int, float, str]:
+      res = yield
+      while res:
+          res = yield round(res)
+      return 'OK'
+
+Coroutines introduced in PEP 492 are annotated with the same syntax as
+ordinary functions. However, the return type annotation corresponds to the
+type of ``await`` expression, not to the coroutine type::
+
+  async def spam(ignored: int) -> str:
+      return 'spam'
+
+  async def foo():
+      bar = await spam(42) # type: str
+
+The ``typing.py`` module also provides generic ABCs ``Awaitable``,
+``AsyncIterable``, and ``AsyncIterator`` for situations where more precise
+types cannot be specified::
+
+  def op() -> typing.Awaitable[str]:
+      if cond:
+          return spam(42)
+      else:
+          return asyncio.Future(...)
+
+
 Compatibility with other uses of function annotations
 =====================================================
 
