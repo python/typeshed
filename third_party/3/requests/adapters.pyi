@@ -2,13 +2,13 @@
 
 from typing import Any
 from . import models
-from .packages.urllib3 import poolmanager
-from .packages.urllib3 import response
-from .packages.urllib3.util import retry
+from urllib3 import poolmanager
+from urllib3 import response
+from urllib3.util import retry
 from . import compat
 from . import utils
 from . import structures
-from .packages.urllib3 import exceptions as urllib3_exceptions
+from urllib3 import exceptions as urllib3_exceptions
 from . import cookies
 from . import exceptions
 from . import auth

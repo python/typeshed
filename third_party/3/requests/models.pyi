@@ -8,10 +8,10 @@ from . import structures
 from . import auth
 from . import cookies
 from .cookies import RequestsCookieJar
-from .packages.urllib3 import fields
-from .packages.urllib3 import filepost
-from .packages.urllib3 import util
-from .packages.urllib3 import exceptions as urllib3_exceptions
+from urllib3 import fields
+from urllib3 import filepost
+from urllib3 import util
+from urllib3 import exceptions as urllib3_exceptions
 from . import exceptions
 from . import utils
 from . import compat
