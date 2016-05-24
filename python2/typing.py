@@ -454,6 +454,7 @@ class TypeVar(TypingMeta):
 
 
 # Some unconstrained type variables.  These are used by the container types.
+# (These are not for export.)
 T = TypeVar('T')  # Any type.
 KT = TypeVar('KT')  # Key type.
 VT = TypeVar('VT')  # Value type.
@@ -463,6 +464,7 @@ VT_co = TypeVar('VT_co', covariant=True)  # Value type covariant containers.
 T_contra = TypeVar('T_contra', contravariant=True)  # Ditto contravariant.
 
 # A useful type variable with constraints.  This represents string types.
+# (This one *is* for export!)
 AnyStr = TypeVar('AnyStr', bytes, unicode)
 
 
@@ -1516,6 +1518,36 @@ class Generator(Iterator[T_co], Generic[T_co, T_contra, V_co]):
             raise TypeError("Type Generator cannot be instantiated; "
                             "create a subclass instead")
         return super(Generator, cls).__new__(cls, *args, **kwds)
+
+
+# Internal type variable used for Type[].
+CT = TypeVar('CT', covariant=True, bound=type)
+
+
+class Type(type, Generic[CT]):
+    """A generic type usable to annotate class objects.
+
+    For example, suppose we have the following classes::
+
+      class User: ...  # Abstract base for User classes
+      class BasicUser(User): ...
+      class ProUser(User): ...
+      class TeamUser(User): ...
+
+    And a function that takes a class argument that's a subclass of
+    User and returns an instance of the corresponding class::
+
+      U = TypeVar('U', bound=User)
+      def new_user(user_class: Type[U]) -> U:
+          user = user_class()
+          # (Here we could write the user object to a database)
+          return user
+
+      joe = new_user(BasicUser)
+
+    At this point the type checker knows that joe has type BasicUser.
+    """
+    __extra__ = type
 
 
 def NamedTuple(typename, fields):
