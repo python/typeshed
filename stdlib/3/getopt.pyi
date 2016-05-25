@@ -15,7 +15,5 @@ def gnu_getopt(args: List[str], shortopts: str,
 class GetoptError(Exception):
     msg = ...  # type: str
     opt = ...  # type: str
-    def __init__(self, msg: str, opt: str=...) -> None: ...
-    def __str__(self) -> str: ...
 
 error = GetoptError
