@@ -1035,8 +1035,8 @@ type of ``await`` expression, not to the coroutine type::
   async def spam(ignored: int) -> str:
       return 'spam'
 
-  async def foo():
-      bar = await spam(42) # type: str
+  async def foo() -> None:
+      bar = await spam(42)  # type: str
 
 The ``typing.py`` module also provides generic ABCs ``Awaitable``,
 ``AsyncIterable``, and ``AsyncIterator`` for situations where more precise
