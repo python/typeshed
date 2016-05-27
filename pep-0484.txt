@@ -1454,6 +1454,8 @@ Fundamental building blocks:
 
 * Generic, used to create user-defined generic classes
 
+* Type, used to annotate class objects
+
 Generic variants of builtin collections:
 
 * Dict, used as ``Dict[key_type, value_type]``
@@ -1486,6 +1488,8 @@ Generic variants of container ABCs (and a few non-containers):
 * Callable (see above, listed here for completeness)
 
 * Container
+
+* ContextManager
 
 * Generator, used as ``Generator[yield_type, send_type,
   return_type]``.  This represents the return value of generator
