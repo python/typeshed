@@ -261,7 +261,7 @@ the runtime classes.* Examples:
 
 Typing interface is implemented with classes, i.e., at runtime it is possible
 to evaluate, e.g., ``Generic[T].__bases__``. But to emphasize the distinction
-between classes and types the following general rules:
+between classes and types the following general rules apply:
 
 -  No types defined below (i.e. ``Any``, ``Union``, etc.) can be instantiated,
    an attempt to do so will raise ``TypeError``.
@@ -496,8 +496,8 @@ Defining and using generic types
 --------------------------------
 
 Users can declare their classes as generic types using
-the special building block ``Generic``.
-``class MyGeneric(Generic[X, Y, ...]): ... `` defines a generic type
+the special building block ``Generic``. The definition
+``class MyGeneric(Generic[X, Y, ...]): ...`` defines a generic type
 ``MyGeneric`` over type variables ``X``, etc. ``MyGeneric`` itself becomes
 parameterizable, e.g. ``MyGeneric[int, str, ...]`` is a specific type with
 substitutions ``X -> int``, etc. Example::
@@ -530,6 +530,10 @@ not generic. Examples::
 
   def search(urls: URLList) -> Optional[bytes]  # URLList is not generic
       ...
+
+Subclassing a generic type imposes the subtype relation on the corresponding
+specific types, so that ``TodoList[t1]`` is a subtype of ``Iterable[t1]``
+in the above example.
 
 Generic types can be specialized (indexed) in several steps.
 Every type variable could be substituted by a specific type
@@ -677,7 +681,8 @@ Types are invariant by default. Examples::
 
   class Sink(Generic[T_contra]): # this type is declared contravariant
       def send_to_nowhere(self, data: T_contra) -> None:
-          print(data, file=os.devnull)
+          with open(os.devnull, 'w') as devnull:
+              print(data, file=devnull)
 
 Note, that although the variance is defined via type variables, it is not
 a property of type variables, but a property of generic types.
