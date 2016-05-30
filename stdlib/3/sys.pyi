@@ -4,9 +4,12 @@
 # based on http://docs.python.org/3.2/library/sys.html
 
 from typing import (
-    List, Sequence, Any, Dict, Tuple, TextIO, overload, Optional, Union
+    List, Sequence, Any, Dict, Tuple, TextIO, overload, Optional, Union,
+    TypeVar, Callable
 )
 from types import TracebackType
+
+_T = TypeVar('_T')
 
 # ----- sys variables -----
 abiflags = ...  # type: str
@@ -108,7 +111,7 @@ version_info = ... # type: _version_info
 
 
 # ----- sys function stubs -----
-def call_tracing(fn: Any, args: Any) -> object: ...
+def call_tracing(fn: Callable[..., _T], args: Any) -> _T: ...
 def _clear_type_cache() -> None: ...
 def _current_frames() -> Dict[int, Any]: ...
 def displayhook(value: Optional[int]) -> None: ...
