@@ -16,6 +16,7 @@ from typing import cast
 from typing import get_type_hints
 from typing import no_type_check, no_type_check_decorator
 from typing import Type
+from typing import NewType
 from typing import NamedTuple
 from typing import IO, TextIO, BinaryIO
 from typing import Pattern, Match
@@ -1399,6 +1400,25 @@ class TypeTests(BaseTestCase):
             return user_class()
 
         joe = new_user(BasicUser)
+
+
+class NewTypeTests(BaseTestCase):
+
+    def test_basic(self):
+        UserId = NewType('UserId', int)
+        UserName = NewType('UserName', str)
+        self.assertIsInstance(UserId(5), int)
+        self.assertIsInstance(UserName('Joe'), str)
+        self.assertEqual(UserId(5) + 1, 6)
+
+    def test_errors(self):
+        UserId = NewType('UserId', int)
+        UserName = NewType('UserName', str)
+        with self.assertRaises(TypeError):
+            issubclass(UserId, int)
+        with self.assertRaises(TypeError):
+            class D(UserName):
+                pass
 
 
 class NamedTupleTests(BaseTestCase):
