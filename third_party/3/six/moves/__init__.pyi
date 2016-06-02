@@ -3,6 +3,7 @@
 #
 # Stubs for six.moves (Python 3.2)
 
+from http import cookies as http_cookies
 from io import StringIO as cStringIO
 from builtins import filter as filter
 from itertools import filterfalse as filterfalse

@@ -1,5 +1,6 @@
 # Provisional stubs for six.moves (Python 2.7)
 
+import Cookie as http_cookies
 from cStringIO import StringIO as cStringIO
 from itertools import ifilter as filter
 from itertools import ifilterfalse as filterfalse
