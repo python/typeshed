@@ -58,3 +58,4 @@ analyze.py
 
 # Editor backup files
 *~
+.*.sw?
