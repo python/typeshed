@@ -6,7 +6,7 @@
 
 from typing import (
     List, Iterator, overload, Callable, Tuple, Sequence, Dict,
-    Generic, AnyStr, Match, Pattern
+    Generic, AnyStr, Match, Pattern, Union
 )
 
 # ----- re variables and constants -----
@@ -34,63 +34,63 @@ def compile(pattern: AnyStr, flags: int = ...) -> Pattern[AnyStr]: ...
 def compile(pattern: Pattern[AnyStr], flags: int = ...) -> Pattern[AnyStr]: ...
 
 @overload
-def search(pattern: AnyStr, string: AnyStr, flags: int = ...) -> Match[AnyStr]: ...
+def search(pattern: Union[str, unicode], string: AnyStr, flags: int = ...) -> Match[AnyStr]: ...
 @overload
 def search(pattern: Pattern[AnyStr], string: AnyStr, flags: int = ...) -> Match[AnyStr]: ...
 
 @overload
-def match(pattern: AnyStr, string: AnyStr, flags: int = ...) -> Match[AnyStr]: ...
+def match(pattern: Union[str, unicode], string: AnyStr, flags: int = ...) -> Match[AnyStr]: ...
 @overload
-def match(pattern: Pattern[AnyStr], string: AnyStr, flags: int = ...) -> Match[AnyStr]: ...
+def match(pattern: Pattern[Union[str, unicode]], string: AnyStr, flags: int = ...) -> Match[AnyStr]: ...
 
 @overload
-def split(pattern: AnyStr, string: AnyStr,
+def split(pattern: Union[str, unicode], string: AnyStr,
           maxsplit: int = ..., flags: int = ...) -> List[AnyStr]: ...
 @overload
-def split(pattern: Pattern[AnyStr], string: AnyStr,
+def split(pattern: Pattern[Union[str, unicode]], string: AnyStr,
           maxsplit: int = ..., flags: int = ...) -> List[AnyStr]: ...
 
 @overload
-def findall(pattern: AnyStr, string: AnyStr, flags: int = ...) -> List[AnyStr]: ...
+def findall(pattern: Union[str, unicode], string: AnyStr, flags: int = ...) -> List[AnyStr]: ...
 @overload
-def findall(pattern: Pattern[AnyStr], string: AnyStr, flags: int = ...) -> List[AnyStr]: ...
+def findall(pattern: Pattern[Union[str, unicode]], string: AnyStr, flags: int = ...) -> List[AnyStr]: ...
 
 # Return an iterator yielding match objects over all non-overlapping matches
 # for the RE pattern in string. The string is scanned left-to-right, and
 # matches are returned in the order found. Empty matches are included in the
 # result unless they touch the beginning of another match.
 @overload
-def finditer(pattern: AnyStr, string: AnyStr,
+def finditer(pattern: Union[str, unicode], string: AnyStr,
              flags: int = ...) -> Iterator[Match[AnyStr]]: ...
 @overload
-def finditer(pattern: Pattern[AnyStr], string: AnyStr,
+def finditer(pattern: Pattern[Union[str, unicode]], string: AnyStr,
              flags: int = ...) -> Iterator[Match[AnyStr]]: ...
 
 @overload
-def sub(pattern: AnyStr, repl: AnyStr, string: AnyStr, count: int = ...,
+def sub(pattern: Union[str, unicode], repl: AnyStr, string: AnyStr, count: int = ...,
         flags: int = ...) -> AnyStr: ...
 @overload
-def sub(pattern: AnyStr, repl: Callable[[Match[AnyStr]], AnyStr],
+def sub(pattern: Union[str, unicode], repl: Callable[[Match[AnyStr]], AnyStr],
         string: AnyStr, count: int = ..., flags: int = ...) -> AnyStr: ...
 @overload
-def sub(pattern: Pattern[AnyStr], repl: AnyStr, string: AnyStr, count: int = ...,
+def sub(pattern: Pattern[Union[str, unicode]], repl: AnyStr, string: AnyStr, count: int = ...,
         flags: int = ...) -> AnyStr: ...
 @overload
-def sub(pattern: Pattern[AnyStr], repl: Callable[[Match[AnyStr]], AnyStr],
+def sub(pattern: Pattern[Union[str, unicode]], repl: Callable[[Match[AnyStr]], AnyStr],
         string: AnyStr, count: int = ..., flags: int = ...) -> AnyStr: ...
 
 @overload
-def subn(pattern: AnyStr, repl: AnyStr, string: AnyStr, count: int = ...,
+def subn(pattern: Union[str, unicode], repl: AnyStr, string: AnyStr, count: int = ...,
          flags: int = ...) -> Tuple[AnyStr, int]: ...
 @overload
-def subn(pattern: AnyStr, repl: Callable[[Match[AnyStr]], AnyStr],
+def subn(pattern: Union[str, unicode], repl: Callable[[Match[AnyStr]], AnyStr],
          string: AnyStr, count: int = ...,
          flags: int = ...) -> Tuple[AnyStr, int]: ...
 @overload
-def subn(pattern: Pattern[AnyStr], repl: AnyStr, string: AnyStr, count: int = ...,
+def subn(pattern: Pattern[Union[str, unicode]], repl: AnyStr, string: AnyStr, count: int = ...,
          flags: int = ...) -> Tuple[AnyStr, int]: ...
 @overload
-def subn(pattern: Pattern[AnyStr], repl: Callable[[Match[AnyStr]], AnyStr],
+def subn(pattern: Pattern[Union[str, unicode]], repl: Callable[[Match[AnyStr]], AnyStr],
          string: AnyStr, count: int = ...,
          flags: int = ...) -> Tuple[AnyStr, int]: ...
 
