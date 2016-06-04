@@ -5,7 +5,7 @@
 
 from typing import (
     Any, Callable, Dict, Generic, Iterator, Mapping, Optional, Tuple, TypeVar,
-    overload
+    Union, overload
 )
 
 _T = TypeVar('_T')
