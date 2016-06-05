@@ -21,7 +21,7 @@ class ParseError(SyntaxError): ...
 
 def iselement(element: 'Element') -> bool: ...
 
-class Element:
+class Element(Sequence['Element']):
     tag = ... # type: _str_or_bytes
     attrib = ... # type: Dict[_str_or_bytes, _str_or_bytes]
     text = ... # type: Optional[_str_or_bytes]

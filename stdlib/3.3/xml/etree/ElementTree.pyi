@@ -15,7 +15,7 @@ _Ss = TypeVar('_Ss', str, bytes)
 _T = TypeVar('_T')
 _str_or_bytes = Union[str, bytes]
 
-class Element:
+class Element(Sequence['Element']):
     tag = ... # type: _str_or_bytes
     attrib = ... # type: Dict[_str_or_bytes, _str_or_bytes]
     text = ... # type: Optional[_str_or_bytes]
