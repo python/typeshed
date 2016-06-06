@@ -302,7 +302,7 @@ def _type_check(arg, msg):
         return type(None)
     if isinstance(arg, basestring):
         arg = _ForwardRef(arg)
-    if not isinstance(arg, (type, _TypeAlias)):
+    if not isinstance(arg, (type, _TypeAlias)) and not callable(arg):
         raise TypeError(msg + " Got %.100r." % (arg,))
     return arg
 
@@ -512,7 +512,10 @@ class UnionMeta(TypingMeta):
             if isinstance(t1, _TypeAlias):
                 # _TypeAlias is not a real class.
                 continue
-            if any(issubclass(t1, t2)
+            if not isinstance(t1, type):
+                assert callable(t1)  # A callable might sneak through.
+                continue
+            if any(isinstance(t2, type) and issubclass(t1, t2)
                    for t2 in all_params - {t1} if not isinstance(t2, TypeVar)):
                 all_params.remove(t1)
         # It's not a union if there's only one type left.

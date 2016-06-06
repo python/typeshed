@@ -3,7 +3,7 @@ import collections
 import pickle
 import re
 import sys
-from unittest import TestCase, main, skipUnless
+from unittest import TestCase, main, skipUnless, SkipTest
 
 from typing import Any
 from typing import TypeVar, AnyStr
@@ -339,6 +339,20 @@ class UnionTests(BaseTestCase):
         # Shouldn't crash; see http://bugs.python.org/issue25390
         A = Union[str, Pattern]
         A
+
+    def test_etree(self):
+        # See https://github.com/python/typing/issues/229
+        # (Only relevant for Python 2.)
+        try:
+            from xml.etree.cElementTree import Element
+        except ImportError:
+            raise SkipTest("cElementTree not found")
+        Union[Element, str]  # Shouldn't crash
+
+        def Elem(*args):
+            return Element(*args)
+
+        Union[Elem, str]  # Nor should this
 
 
 class TypeVarUnionTests(BaseTestCase):
