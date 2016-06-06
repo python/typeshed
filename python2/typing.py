@@ -698,6 +698,8 @@ class TupleMeta(TypingMeta):
             params = [_type_repr(p) for p in self.__tuple_params__]
             if self.__tuple_use_ellipsis__:
                 params.append('...')
+            if not params:
+                params.append('()')
             r += '[%s]' % (
                 ', '.join(params))
         return r

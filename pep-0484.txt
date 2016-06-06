@@ -1507,6 +1507,7 @@ Fundamental building blocks:
 
 * Tuple, used by listing the element types, for example
   ``Tuple[int, int, str]``.
+  The empty tuple can be typed as ``Tuple[()]``.
   Arbitrary-length homogeneous tuples can be expressed
   using one type and ellipsis, for example ``Tuple[int, ...]``.
   (The ``...`` here are part of the syntax, a literal ellipsis.)

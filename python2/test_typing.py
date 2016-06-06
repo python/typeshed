@@ -410,7 +410,7 @@ class TupleTests(BaseTestCase):
 
     def test_repr(self):
         self.assertEqual(repr(Tuple), 'typing.Tuple')
-        self.assertEqual(repr(Tuple[()]), 'typing.Tuple[]')
+        self.assertEqual(repr(Tuple[()]), 'typing.Tuple[()]')
         self.assertEqual(repr(Tuple[int, float]), 'typing.Tuple[int, float]')
         self.assertEqual(repr(Tuple[int, ...]), 'typing.Tuple[int, ...]')
 
