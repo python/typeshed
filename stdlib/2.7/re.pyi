@@ -6,7 +6,7 @@
 
 from typing import (
     List, Iterator, overload, Callable, Tuple, Sequence, Dict,
-    Generic, AnyStr, Match, Pattern
+    Generic, AnyStr, Match, Pattern, Any
 )
 
 # ----- re variables and constants -----
@@ -51,9 +51,9 @@ def split(pattern: Pattern[AnyStr], string: AnyStr,
           maxsplit: int = ..., flags: int = ...) -> List[AnyStr]: ...
 
 @overload
-def findall(pattern: AnyStr, string: AnyStr, flags: int = ...) -> List[AnyStr]: ...
+def findall(pattern: AnyStr, string: AnyStr, flags: int = ...) -> List[Any]: ...
 @overload
-def findall(pattern: Pattern[AnyStr], string: AnyStr, flags: int = ...) -> List[AnyStr]: ...
+def findall(pattern: Pattern[AnyStr], string: AnyStr, flags: int = ...) -> List[Any]: ...
 
 # Return an iterator yielding match objects over all non-overlapping matches
 # for the RE pattern in string. The string is scanned left-to-right, and
