@@ -1191,9 +1191,9 @@ simple unique types with almost zero runtime overhead. For a static type
 checker ``Derived = NewType('Derived', Base)`` is roughly equivalent
 to a definition::
 
-class Derived(Base):
-    def __init__(self, _x: Base) -> None:
-        ...
+  class Derived(Base):
+      def __init__(self, _x: Base) -> None:
+          ...
 
 While at runtime, ``NewType('Derived', Base)`` returns a dummy function
 that simply returns its argument. Type checkers require explicit casts
