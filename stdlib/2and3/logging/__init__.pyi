@@ -1,7 +1,7 @@
 ## Stubs for logging (Python 3.4)
 
 from typing import (
-    Any, Callable, Iterable, Mapping, MutableMapping, Optional, TextIO, Tuple,
+    Any, Callable, Iterable, Mapping, MutableMapping, Optional, IO, Tuple,
     Union,
     overload,
 )
@@ -106,7 +106,8 @@ class Logger:
 
 CRITICAL = ...  # type: int
 ERROR = ...  # type: int
-WARNING = ...  # type: Any
+WARNING = ...  # type: int
+WARN = ...  # type: int
 INFO = ...  # type: int
 DEBUG = ...  # type: int
 NOTSET = ...  # type: int
@@ -318,7 +319,7 @@ def makeLogRecord(attrdict: Mapping[str, Any]) -> LogRecord: ...
 #if sys.version_info >= (3,):
 #    def basicConfig(*, filename: str = ..., filemode: str = ...,
 #                    format: str = ..., datefmt: str = ..., style: str = ...,
-#                    level: int = ..., stream: TextIO = ...,
+#                    level: int = ..., stream: IO[str] = ...,
 #                    handlers: Iterable[Handler]) -> None: ...
 #else:
 #    @overload
@@ -326,10 +327,10 @@ def makeLogRecord(attrdict: Mapping[str, Any]) -> LogRecord: ...
 #    @overload
 #    def basicConfig(*, filename: str = ..., filemode: str = ...,
 #                    format: str = ..., datefmt: str = ...,
-#                    level: int = ..., stream: TextIO = ...) -> None: ...
+#                    level: int = ..., stream: IO[str] = ...) -> None: ...
 def basicConfig(*, filename: str = ..., filemode: str = ...,
                 format: str = ..., datefmt: str = ..., style: str = ...,
-                level: int = ..., stream: TextIO = ...,
+                level: int = ..., stream: IO[str] = ...,
                 handlers: Iterable[Handler]) -> None: ...
 def shutdown() -> None: ...
 
@@ -343,7 +344,7 @@ if sys.version_info >= (3,):
 
 
 class StreamHandler(Handler):
-    def __init__(self, stream: Optional[TextIO] = ...) -> None: ...
+    def __init__(self, stream: Optional[IO[str]] = ...) -> None: ...
 
 
 class FileHandler(Handler):
