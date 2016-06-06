@@ -1,6 +1,6 @@
-# Stubs for socketserver (Python 3.4)
+# Stubs for socketserver
 
-from typing import Optional, Tuple
+from typing import BinaryIO, Optional, Tuple
 from socket import SocketType
 import sys
 import types
@@ -73,5 +73,10 @@ class BaseRequestHandler:
     def handle(self) -> None: ...
     def finish(self) -> None: ...
 
-class StreamRequestHandler(BaseRequestHandler): ...
-class DatagramRequestHandler(BaseRequestHandler): ...
+class StreamRequestHandler(BaseRequestHandler):
+    rfile = ...  # type: BinaryIO
+    wfile = ...  # type: BinaryIO
+
+class DatagramRequestHandler(BaseRequestHandler):
+    rfile = ...  # type: BinaryIO
+    wfile = ...  # type: BinaryIO
