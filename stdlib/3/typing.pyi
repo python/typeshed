@@ -254,6 +254,8 @@ class MutableMapping(Mapping[_KT, _VT], Generic[_KT, _VT]):
 
 Text = str
 
+TYPE_CHECKING = True
+
 class IO(Iterable[AnyStr], Generic[AnyStr]):
     # TODO detach
     # TODO use abstract properties
