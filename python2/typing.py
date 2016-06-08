@@ -66,6 +66,7 @@ __all__ = [
     'no_type_check_decorator',
     'overload',
     'Text',
+    'TYPE_CHECKING',
 ]
 
 # The pseudo-submodules 're' and 'io' are part of the public
@@ -1616,6 +1617,10 @@ def NewType(name, tp):
 
 # Python-version-specific alias (Python 2: unicode; Python 3: str)
 Text = unicode
+
+
+# Constant that's True when type checking, but False here.
+TYPE_CHECKING = False
 
 
 class IO(Generic[AnyStr]):

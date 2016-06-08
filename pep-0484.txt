@@ -983,6 +983,31 @@ Don't expect a checker to understand obfuscations like
 ``"".join(reversed(sys.platform)) == "xunil"``.
 
 
+Runtime or type checking?
+-------------------------
+
+Sometimes there's code that must be seen by a type checker (or other
+static analysis tools) but should not be executed.  For such
+situations the ``typing`` module defines a constant,
+``TYPE_CHECKING``, that is considered ``True`` during type checking
+(or other static analysis) but ``False`` at runtime.  Example::
+
+  import typing
+
+  if typing.TYPE_CHECKING:
+      import expensive_mod
+
+  def a_func(arg: 'expensive_mod.SomeClass') -> None:
+      a_var = arg  # type: expensive_mod.SomeClass
+      ...
+
+(Note that the type annotation must be enclosed in quotes, making it a
+"forward reference", to hide the ``expensive_mod`` reference from the
+interpreter runtime.  In the ``# type`` comment no quotes are needed.)
+
+This approach may also be useful to handle import cycles.
+
+
 Arbitrary argument lists and default argument values
 ----------------------------------------------------
 
@@ -1174,7 +1199,7 @@ in expressions, while type comments only apply to assignments.
 
 
 NewType helper function
------------------------
+=======================
 
 There are also situations where a programmer might want to avoid logical
 errors by creating simple classes. For example::
@@ -1643,6 +1668,8 @@ Convenience definitions:
   a dict with the same format as ``__annotations__``, but evaluating
   forward references (which are given as string literals) as expressions
   in the context of the original function or method definition.
+
+* TYPE_CHECKING, ``False`` at runtime but ``True`` to  type checkers
 
 Types available in the ``typing.io`` submodule:
 
