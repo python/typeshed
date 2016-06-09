@@ -6,7 +6,7 @@
 
 from typing import (
     List, Iterator, overload, Callable, Tuple, Sequence, Dict,
-    Generic, AnyStr, Match, Pattern, Any
+    Generic, AnyStr, Match, Pattern, Any, Union
 )
 
 # ----- re variables and constants -----
