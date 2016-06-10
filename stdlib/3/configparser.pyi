@@ -4,7 +4,7 @@
 # reading configparser.py.
 
 from typing import (MutableMapping, Mapping, Dict, Sequence, List,
-                    Iterable, Iterator, Callable, Any, TextIO)
+                    Iterable, Iterator, Callable, Any, IO)
 # Types only used in type comments only
 from typing import Optional, Tuple  # noqa
 
@@ -103,7 +103,7 @@ class ConfigParser(_parser):
     def set(self, section: str, option: str, value: str) -> None: ...
 
     def write(self,
-              fileobject: TextIO,
+              fileobject: IO[str],
               space_around_delimiters: bool = True) -> None: ...
 
     def remove_option(self, section: str, option: str) -> bool: ...
