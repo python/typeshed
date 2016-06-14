@@ -56,6 +56,7 @@ pathsep = ...  # type: str
 defpath = ...  # type: str
 linesep = ...  # type: str
 devnull = ...  # type: str
+name = ... # type: str
 
 F_OK = 0
 R_OK = 0
@@ -155,7 +156,6 @@ class statvfs_result:  # Unix only
     f_namemax = 0
 
 # ----- os function stubs -----
-def name() -> str: ...
 def fsencode(filename: str) -> bytes: ...
 def fsdecode(filename: bytes) -> str: ...
 def get_exec_path(env=...) -> List[str] : ...
