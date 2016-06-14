@@ -341,3 +341,16 @@ def waitid(idtype: int, id: int, options: int) -> waitresult: ...
 P_ALL = 0
 WEXITED = 0
 WNOWAIT = 0
+
+if sys.version_info >= (3, 3):
+    def sync() -> None: ...  # Unix only
+
+    if sys.version_info >= (3, 5):
+        def truncate(path: Union[AnyStr, int], length: int) -> None: ...
+    else:
+        def truncate(path: Union[AnyStr, int], length: int) -> None: ...  # Unix only
+
+    def fwalk(top: AnyStr = '.', topdown: bool = True,
+              onerror: Callable = None, *, follow_symlinks: bool = False,
+              dir_fd: int = None) -> Iterator[Tuple[AnyStr, List[AnyStr],
+                                              List[AnyStr], int]]: ...  # Unix only
