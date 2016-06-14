@@ -5,7 +5,7 @@
 
 from typing import (
     Mapping, MutableMapping, Dict, List, Any, Tuple, Iterator, overload, Union, AnyStr,
-    Optional, Generic, Set
+    Optional, Generic, Set, Callable
 )
 import sys
 from builtins import OSError as error
@@ -350,7 +350,7 @@ if sys.version_info >= (3, 3):
     else:
         def truncate(path: Union[AnyStr, int], length: int) -> None: ...  # Unix only
 
-    def fwalk(top: AnyStr = '.', topdown: bool = True,
-              onerror: Callable = None, *, follow_symlinks: bool = False,
-              dir_fd: int = None) -> Iterator[Tuple[AnyStr, List[AnyStr],
-                                              List[AnyStr], int]]: ...  # Unix only
+    def fwalk(top: AnyStr = ..., topdown: bool = ...,
+              onerror: Callable = ..., *, follow_symlinks: bool = ...,
+              dir_fd: int = ...) -> Iterator[Tuple[AnyStr, List[AnyStr],
+                                             List[AnyStr], int]]: ...  # Unix only
