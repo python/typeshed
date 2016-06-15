@@ -5,7 +5,7 @@
 
 from typing import (
     Mapping, MutableMapping, Dict, List, Any, Tuple, Iterator, overload, Union, AnyStr,
-    Optional, Generic, Set
+    Optional, Generic, Set, Callable
 )
 import sys
 from builtins import OSError as error
@@ -341,3 +341,13 @@ def waitid(idtype: int, id: int, options: int) -> waitresult: ...
 P_ALL = 0
 WEXITED = 0
 WNOWAIT = 0
+
+if sys.version_info >= (3, 3):
+    def sync() -> None: ...  # Unix only
+
+    def truncate(path: Union[AnyStr, int], length: int) -> None: ...  # Unix only up to version 3.4
+
+    def fwalk(top: AnyStr = ..., topdown: bool = ...,
+              onerror: Callable = ..., *, follow_symlinks: bool = ...,
+              dir_fd: int = ...) -> Iterator[Tuple[AnyStr, List[AnyStr],
+                                             List[AnyStr], int]]: ...  # Unix only
