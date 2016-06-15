@@ -2,12 +2,12 @@
 
 from typing import Dict, List, NamedTuple, Tuple, Sequence, Union, overload
 
-uses_relative = []  # type: List[str]
-uses_netloc = []  # type: List[str]
-uses_params = []  # type: List[str]
-non_hierarchical = []  # type: List[str]
-uses_query = []  # type: List[str]
-uses_fragment = []  # type: List[str]
+uses_relative = ...  # type: List[str]
+uses_netloc = ...  # type: List[str]
+uses_params = ...  # type: List[str]
+non_hierarchical = ...  # type: List[str]
+uses_query = ...  # type: List[str]
+uses_fragment = ...  # type: List[str]
 scheme_chars = ...  # type: str
 MAX_CACHE_SIZE = 0
 

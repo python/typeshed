@@ -16,8 +16,8 @@ def wait_for(fut: Union[Future[_T], Generator[Any, None, _T]], timeout: float, *
 
 
 class Task(Future[_T], Generic[_T]):
-    _all_tasks = None  # type: Set[Task]
-    _current_tasks = {}  # type: Dict[AbstractEventLoop, Task]
+    _all_tasks = ...  # type: Set[Task]
+    _current_tasks = ...  # type: Dict[AbstractEventLoop, Task]
     @classmethod
     def current_task(cls, loop: AbstractEventLoop = ...) -> Task: ...
     @classmethod

@@ -1,16 +1,16 @@
 from typing import Any, Tuple
 
-__all__ = None # type: list[str]
-DEFAULTSECT = None # type: str
-MAX_INTERPOLATION_DEPTH = None # type: int
+__all__ = ... # type: list[str]
+DEFAULTSECT = ... # type: str
+MAX_INTERPOLATION_DEPTH = ... # type: int
 
 class Error(Exception):
-    message = None # type: Any
+    message = ... # type: Any
     def __init__(self, msg: str = ...) -> None: ...
     def _get_message(self) -> None: ...
     def _set_message(self, value: str) -> None: ...
     def __repr__(self) -> str: ...
-    __str__ = __repr__
+    def __str__(self) -> str: ...
 
 class NoSectionError(Error):
     section = ... # type: str
