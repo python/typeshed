@@ -7,8 +7,8 @@
 # NOTE: These are incomplete!
 
 from typing import (
-    Dict, Generic, TypeVar, Iterable, Tuple, Callable, Mapping, overload, Iterator, Sized,
-    Optional, List, Set, Sequence, Union, Reversible, MutableMapping, MutableSequence
+    Any, Dict, Generic, TypeVar, Iterable, Tuple, Callable, Mapping, overload, Iterator,
+    Sized, Optional, List, Set, Sequence, Union, Reversible, MutableMapping, MutableSequence
 )
 import typing
 
@@ -17,7 +17,7 @@ _KT = TypeVar('_KT')
 _VT = TypeVar('_VT')
 
 # namedtuple is special-cased in the type checker; the initializer is ignored.
-namedtuple = object()
+namedtuple = ...  # type: Any
 
 class deque(Sized, Iterable[_T], Reversible[_T], Generic[_T]):
     def __init__(self, iterable: Iterable[_T] = ...,

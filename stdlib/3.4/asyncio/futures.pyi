@@ -6,9 +6,9 @@ __all__ = ... # type: str
 _T = TypeVar('_T')
 
 class _TracebackLogger:
-    __slots__ = [] # type: List[str]
+    __slots__ = ... # type: List[str]
     exc = ...  # type: BaseException
-    tb = [] # type: List[str]
+    tb = ... # type: List[str]
     def __init__(self, exc: Any, loop: AbstractEventLoop) -> None: ...
     def activate(self) -> None: ...
     def clear(self) -> None: ...

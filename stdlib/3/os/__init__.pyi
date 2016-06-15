@@ -15,9 +15,9 @@ import os.path as path
 
 supports_bytes_environ = False  # TODO: True when bytes implemented?
 
-SEEK_SET = 0 # type: int
-SEEK_CUR = 1 # type: int
-SEEK_END = 2 # type: int
+SEEK_SET = 0
+SEEK_CUR = 0
+SEEK_END = 0
 
 O_RDONLY = 0
 O_WRONLY = 0

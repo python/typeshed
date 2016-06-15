@@ -264,12 +264,12 @@ class Match(Generic[AnyStr]):
     pos = 0
     endpos = 0
     lastindex = 0
-    lastgroup = None  # type: AnyStr
-    string = None  # type: AnyStr
+    lastgroup = ...  # type: AnyStr
+    string = ...  # type: AnyStr
 
     # The regular expression object whose match() or search() method produced
     # this match instance.
-    re = None  # type: 'Pattern[AnyStr]'
+    re = ...  # type: 'Pattern[AnyStr]'
 
     def expand(self, template: AnyStr) -> AnyStr: ...
 
@@ -294,7 +294,7 @@ class Pattern(Generic[AnyStr]):
     flags = 0
     groupindex = 0
     groups = 0
-    pattern = None  # type: AnyStr
+    pattern = ...  # type: AnyStr
 
     def search(self, string: AnyStr, pos: int = ...,
                endpos: int = ...) -> Match[AnyStr]: ...

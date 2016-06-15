@@ -64,19 +64,19 @@ class FlagValues:
   # TODO validator: gflags_validators.Validator
     def AddValidator(self, validator: Any) -> None: ...
 
-FLAGS = None  # type: FlagValues
+FLAGS = ...  # type: FlagValues
 
 class Flag:
     name = ...  # type: str
-    default = None  # type: Any
+    default = ...  # type: Any
     default_as_str = ...  # type: str
-    value = None  # type: Any
+    value = ...  # type: Any
     help = ...  # type: str
     short_name = ...  # type: str
     boolean = False
     present = False
-    parser = None  # type: ArgumentParser
-    serializer = None  # type: ArgumentSerializer
+    parser = ...  # type: ArgumentParser
+    serializer = ...  # type: ArgumentSerializer
     allow_override = False
 
     def __init__(self, parser: ArgumentParser, serializer: ArgumentSerializer, name: str,
