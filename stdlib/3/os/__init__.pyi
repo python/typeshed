@@ -345,10 +345,7 @@ WNOWAIT = 0
 if sys.version_info >= (3, 3):
     def sync() -> None: ...  # Unix only
 
-    if sys.version_info >= (3, 5):
-        def truncate(path: Union[AnyStr, int], length: int) -> None: ...
-    else:
-        def truncate(path: Union[AnyStr, int], length: int) -> None: ...  # Unix only
+    def truncate(path: Union[AnyStr, int], length: int) -> None: ...  # Unix only up to version 3.4
 
     def fwalk(top: AnyStr = ..., topdown: bool = ...,
               onerror: Callable = ..., *, follow_symlinks: bool = ...,
