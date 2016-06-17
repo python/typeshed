@@ -1,0 +1,3 @@
+from typing import Dict, Any
+
+def validate(obj: Dict[str, Any], schema: Dict[str, Any], cls=..., *args, **kwargs) -> None: ...
