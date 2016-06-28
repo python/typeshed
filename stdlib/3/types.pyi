@@ -107,8 +107,15 @@ BuiltinMethodType = BuiltinFunctionType
 
 class ModuleType:
     __name__ = ... # type: str
-    __file__ = ... # type: str
-    def __init__(self, name: str, doc: Any) -> None: ...
+    __doc__ = ... # type: Optional[str]
+    if sys.version_info >= (3, 4):
+        # Should be Optional[Loader], but importlib.abc has no stub yet.
+        __loader__ = ... # type: Optional
+        __package__ = ... # type: Optional[str]
+        # Should be Optional[ModuleSpec], but importlib.machinery has not stub
+        # yet.
+        __spec__ = ... # type: Optional
+    def __init__(self, name: str, doc: str) -> None: ...
 
 class TracebackType:
     tb_frame = ... # type: FrameType
