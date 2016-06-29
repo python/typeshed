@@ -102,13 +102,13 @@ class AbstractEventLoop(metaclass=ABCMeta):
     @abstractmethod
     def subprocess_shell(self, protocol_factory: Any, cmd: Union[bytes, str], *, stdin: Any = ...,
                          stdout: Any = ..., stderr: Any = ...,
-                         **kwargs: Dict[str, Any]) -> tuple: ...
+                         **kwargs: Any) -> tuple: ...
                     #?? check Any
                     # return (Transport, Protocol)
     @abstractmethod
     def subprocess_exec(self, protocol_factory: Any, *args: List[Any], stdin: Any = ...,
                         stdout: Any = ..., stderr: Any = ...,
-                        **kwargs: Dict[str, Any]) -> tuple: ...
+                        **kwargs: Any) -> tuple: ...
                     #?? check Any
                     # return (Transport, Protocol)
     @abstractmethod
