@@ -3,6 +3,8 @@
 
 # TODO parts of this should be conditional on version
 
+import importlib.abc
+import sys
 from typing import (
     Any, Callable, Dict, Generic, Iterator, Mapping, Optional, Tuple, TypeVar,
     Union, overload
@@ -109,12 +111,11 @@ class ModuleType:
     __name__ = ... # type: str
     __doc__ = ... # type: Optional[str]
     if sys.version_info >= (3, 4):
-        # Should be Optional[Loader], but importlib.abc has no stub yet.
-        __loader__ = ... # type: Optional
+        __loader__ = ... # type: Optional[importlib.abc.Loader]
         __package__ = ... # type: Optional[str]
-        # Should be Optional[ModuleSpec], but importlib.machinery has not stub
+        # Should be Optional[ModuleSpec], but importlib.machinery has no stub
         # yet.
-        __spec__ = ... # type: Optional
+        __spec__ = ... # type: Optional[Any]
     def __init__(self, name: str, doc: str) -> None: ...
 
 class TracebackType:
