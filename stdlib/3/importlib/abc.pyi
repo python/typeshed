@@ -64,7 +64,7 @@ if sys.version_info >= (3, 3):
         def invalidate_caches(self) -> None: ...
         if sys.version_info >= (3, 4):
             # Not defined on the actual class, but expected to exist.
-            def findAny(fullname: str, path: Optional[Sequence[_Path]],
+            def find_spec(self, fullname: str, path: Optional[Sequence[_Path]],
                           target: types.ModuleType = None) -> Optional[Any]:
                 ...
 
@@ -75,7 +75,7 @@ if sys.version_info >= (3, 3):
         def invalidate_caches(self) -> None: ...
         if sys.version_info >= (3, 4):
             # Not defined on the actual class, but expected to exist.
-            def findAny(fullname: str,
+            def find_spec(self, fullname: str,
                           target: types.ModuleType = None) -> Optional[Any]:
                 ...
 
