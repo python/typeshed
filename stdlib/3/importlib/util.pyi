@@ -35,6 +35,7 @@ if sys.version_info >= (3, 4):
 if sys.version_info >= (3, 5):
     def module_from_spec(spec: importlib.machinery.ModuleSpec
                         ) -> types.ModuleType: ...
+
     class LazyLoader(importlib.abc.Loader):
         def __init__(self, loader: importlib.abc.Loader) -> None: ...
         @classmethod
