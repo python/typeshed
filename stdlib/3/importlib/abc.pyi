@@ -1,4 +1,5 @@
 import abc
+from importlib._modulespec import ModuleSpec
 import sys
 import types
 from typing import Mapping, Optional, Sequence, Union
@@ -10,7 +11,8 @@ class Loader(metaclass=abc.ABCMeta):
     if sys.version_info >= (3, 3):
         def module_repr(self, module: types.ModuleType) -> str: ...
     if sys.version_info >= (3, 4):
-        def create_module(self, spec: Any) -> Optional[types.ModuleType]: ...
+        def create_module(self, spec: ModuleSpec) -> Optional[types.ModuleType]:
+            ...
         # Not defined on the actual class for backwards-compatibility reasons,
         # but expected in new code.
         def exec_module(self, module: types.ModuleType) -> None: ...
@@ -64,8 +66,9 @@ if sys.version_info >= (3, 3):
         def invalidate_caches(self) -> None: ...
         if sys.version_info >= (3, 4):
             # Not defined on the actual class, but expected to exist.
-            def findAny(fullname: str, path: Optional[Sequence[_Path]],
-                          target: types.ModuleType = None) -> Optional[Any]:
+            def find_spec(self, fullname: str, path: Optional[Sequence[_Path]],
+                          target: types.ModuleType = None
+                         ) -> Optional[ModuleSpec]:
                 ...
 
     class PathEntryFinder(Finder):
@@ -75,8 +78,9 @@ if sys.version_info >= (3, 3):
         def invalidate_caches(self) -> None: ...
         if sys.version_info >= (3, 4):
             # Not defined on the actual class, but expected to exist.
-            def findAny(fullname: str,
-                          target: types.ModuleType = None) -> Optional[Any]:
+            def find_spec(self, fullname: str,
+                          target: types.ModuleType = None
+                         ) -> Optional[ModuleSpec]:
                 ...
 
     class FileLoader(ResourceLoader, ExecutionLoader):
