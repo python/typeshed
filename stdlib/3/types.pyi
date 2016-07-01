@@ -4,6 +4,7 @@
 # TODO parts of this should be conditional on version
 
 import importlib.abc
+from importlib._modulespec import ModuleSpec
 import sys
 from typing import (
     Any, Callable, Dict, Generic, Iterator, Mapping, Optional, Tuple, TypeVar,
@@ -115,7 +116,7 @@ class ModuleType:
         __package__ = ... # type: Optional[str]
         # Should be Optional[ModuleSpec], but importlib.machinery has no stub
         # yet.
-        __spec__ = ... # type: Optional[Any]
+        __spec__ = ... # type: Optional[ModuleSpec]
     def __init__(self, name: str, doc: str) -> None: ...
 
 class TracebackType:

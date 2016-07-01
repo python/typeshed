@@ -3,6 +3,10 @@ import sys
 import types
 from typing import Any, Callable, List, Optional, Sequence, Tuple, Union
 
+# ModuleSpec is defined in this module, but for circular import reasons exists
+# in its own stub file.
+from importlib._modulespec import ModuleSpec
+
 class BuiltinImporter(importlib.abc.MetaPathFinder,
                       importlib.abc.InspectLoader):
     # MetaPathFinder
@@ -118,17 +122,3 @@ if sys.version_info >= (3, 3):
     class ExtensionFileLoader(importlib.abc.ExecutionLoader):
         def get_filename(self, fullname: str) -> importlib.abc._Path: ...
         def get_source(self, fullname: str) -> None: ... # type: ignore
-
-if sys.version_info >= (3, 4):
-    class ModuleSpec:
-        def __init__(self, name: str, loader: Optional[importlib.abc.Loader], *,
-                     origin: str = None, loader_state: Any = None,
-                     is_package: bool = None) -> None: ...
-        name = ... # type: str
-        loader = ... # type: Optional[importlib.abc.Loader]
-        origin = ... # type: Optional[str]
-        submodule_search_locations = ... # type: Optional[List[str]]
-        loader_state = ... # type: Any
-        cached = ... # type: Optional[str]
-        parent = ... # type: Optional[str]
-        has_location = ... # type: bool
