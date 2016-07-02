@@ -110,6 +110,7 @@ BuiltinMethodType = BuiltinFunctionType
 
 class ModuleType:
     __name__ = ... # type: str
+    __file__ = ...  # type: str
     __doc__ = ... # type: Optional[str]
     if sys.version_info >= (3, 4):
         __loader__ = ... # type: Optional[importlib.abc.Loader]
