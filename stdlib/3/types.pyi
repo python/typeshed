@@ -3,8 +3,6 @@
 
 # TODO parts of this should be conditional on version
 
-import importlib.abc
-from importlib._modulespec import ModuleSpec
 import sys
 from typing import (
     Any, Callable, Dict, Generic, Iterator, Mapping, Optional, Tuple, TypeVar,
@@ -108,17 +106,9 @@ class BuiltinFunctionType:
     def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
 BuiltinMethodType = BuiltinFunctionType
 
-class ModuleType:
-    __name__ = ... # type: str
-    __file__ = ...  # type: str
-    __doc__ = ... # type: Optional[str]
-    if sys.version_info >= (3, 4):
-        __loader__ = ... # type: Optional[importlib.abc.Loader]
-        __package__ = ... # type: Optional[str]
-        # Should be Optional[ModuleSpec], but importlib.machinery has no stub
-        # yet.
-        __spec__ = ... # type: Optional[ModuleSpec]
-    def __init__(self, name: str, doc: str) -> None: ...
+# ModuleType is exported from this module, but for circular import
+# reasons exists in its own stub file (with ModuleSpec and Loader).
+from _importlib_modulespec import ModuleType as ModuleType  # Exported
 
 class TracebackType:
     tb_frame = ... # type: FrameType
