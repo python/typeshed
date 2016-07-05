@@ -3,9 +3,9 @@ import sys
 import types
 from typing import Any, Callable, List, Optional, Sequence, Tuple, Union
 
-# ModuleSpec is defined in this module, but for circular import reasons exists
-# in its own stub file.
-from importlib._modulespec import ModuleSpec
+# ModuleSpec is exported from this module, but for circular import
+# reasons exists in its own stub file (with Loader and ModuleType).
+from _importlib_modulespec import ModuleSpec  # Exported
 
 class BuiltinImporter(importlib.abc.MetaPathFinder,
                       importlib.abc.InspectLoader):
