@@ -1,0 +1,136 @@
+Notes from Meeting at Dropbox, Oct. 3, 2014
+with Guido, Jukka, Jim, Michael, and Jeremy
+
+Concrete Types vs. Abstract types
+---------------------------------
+
+Jim cares about interoperability with Java, and specifically wants
+code annotated with type List to work with instances of
+java.util.ArrayList. Guido stated that it would be reasonable for List
+to be more flexible than to just admit the concrete Python list.
+
+
+We discussed whether to minimize the use of concrete types in type
+annotations in preference to abstract types. Perhaps the best approach
+here is to encourage the use of some types over others in the
+documentation and other writing about optional types.
+
+
+Type Annotations in Comments
+----------------------------
+
+Jim, Jeremy and Michael would like to avoid putting type annotations
+in comments because that requires a non-trivial addition to our
+implementation. We discussed several alternatives:
+* use x = List[int]()
+  This is a good solution for global, module-level variables
+  but Guido points out it is not so great for local variables
+  because there is a performance cost.
+* Improve the type inference algorithm to avoid the need for
+  explicit type annotations for locals, perhaps making more
+  use of function return type annotations.
+* Have type annotations in comments, but give then a lesser
+  status as a hint, so that implementatiosn that ignore them
+  are still conformant. (This may already be the case because
+  the PEP doesn't mandate any static or dynamic checking.)
+* Use decorators. Guido points out that this isn't what
+  decorators where meant for and puts the annotations too
+  far away from the variable uses.
+Here's an example we were discussing:
+def f() -> List[int]:
+  x = List[int]()         use this for stub syntax, i.e., global variables
+  versus
+  x = []
+  versus
+  x = [] # type: List[int]
+
+  ...
+  return x
+
+For Python 3.6, Guido suggests
+  x : List[int] = []
+
+
+Type Variables
+--------------
+
+Regarding type variables and bounds,
+Jeremy prefers
+T = Var('T', implements = C)
+to
+T = Var('T', base = C)
+
+It's important that we make clear the distinction between
+X = Var('X')
+Y = Var('Y', base = Iterable[X])
+versus
+X = Var('X')
+Y = Iterable[X]
+
+
+The filter example seemed to be missing some pieces.
+Instead of
+X = Var('X')
+Y = Var('Y', base = Iterable[X])
+filter(rule: Callable, collection: Y) -> Y
+we should have
+filter(rule: Callable[X], collection: Y) -> Y
+and there's also an issue with the return type and
+how a collection of that type would be created.
+Perhaps the return type should have been Iterable[X].
+In any event, writing down the function body and
+running it through MyPy would keep us honest.
+
+We also discussed the nuances of AnyStr and the
+values parameter of Var.
+
+Erasure: should MutableMapping[int] evaluate to
+collections.abc.MutableMapping? No, the type parameter needs to be
+remembered.
+
+
+Covariance
+----------
+
+"As with function arguments, generics are covariant, which is in
+spirit of duck typing."
+Jeremy want's to be able to express strictly static checking as an
+option, don't want to limit strength of type system.
+Put another way, Jeremy's hope for gradual typing is to let programmers
+choose anywhere in between fully dynamic and fully static checking,
+but if the type system is weakened by allowing covariance, then
+the fully static option goes away.
+
+Jim wants to generate MyPy-style stub files from Java class files.
+
+
+Syntax for Generic Types
+------------------------
+Jeremy voiced a preference to reserve []'s for generic types
+and not other types. Jukka shared that he had tried that
+and got feedback from users that going with a uniform
+syntax, such as the current []'s for all types with sub-parts,
+is easier for them.
+
+
+Retroactive Conformance
+-----------------------
+Jeremy wants to allow concrete types to be usable with
+abstract types for which they did not inherit from.
+Structural types allow this, and there is research on how to
+do this with nominal types.
+Jukka voiced the concern that some of those approaches give
+up modular type checking. Jeremy agreed that modular type checking
+is important, but that perhaps there's a way to have our cake
+and eat it too.
+
+This issue is related to the use of the register method on ABC's to
+get the right behavior with isinstance.
+
+
+Structural vs. Nominal Types
+----------------------------
+We briefly discussed the possibility of having structual
+object types in addition to the nominal types currently in MyPy.
+Reticulated currently suppose structural object types and
+not nominal types.

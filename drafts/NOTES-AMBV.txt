@@ -1,0 +1,83 @@
+=============================
+Re: notes from Jython meeting
+=============================
+
+* In PEPs Abstract rarely went straight to the meat of the discussion.
+  I'll try to make the first few examples in the **Type Definition
+  Syntax** stronger.  There's no reason I'm using ``.format()`` at this
+  point.
+
+* Yes, the lack of Callable signature definition is an ommision, it's
+  going to be hard to use it with the subscription syntax Callable[].
+  We can't use the call syntax Callable() if we wish to operate directly
+  on ABCs, which I believe is what the users will expect.  We can't
+  since the syntax wouldn't work on concrete subclasses of ABCs.
+  I added this as an open issue in README.
+
+* The remark about removing ``types`` from being mentioned actually
+  makes me think we could solve many issues before they arise by
+  introducing a short section **The place of the ``typing`` module in
+  the standard library** which would explain how the authors intend for
+  it to be used and what is its role compared to builtin types,
+  ``types``,  ``collections``, and ``collections.abc``.  The worries
+  that Guido has about the ``types`` module being ill-suited for type
+  hinted are spot on, we should mention that in the document.
+
+* I am thrilled by ``Set[Employee]`` returning a new class object that
+  is a Set-of-Employees.  This leaves the door open for runtime
+  inspection.  However, that immediately raises the questions:
+
+  * ``Set is not Set[Employee] == True``, right?
+
+  * ``Set is Set[Any] == True``, right?
+
+  * ``Set[Employee] is Set[Union[Employee]] == True``, right?
+
+  * ``issubclass(Set[Employee], Set)``, right?  We must accept a set of
+    employees in every place that accepts "any set".  Taking the latter
+    check into account, we'd have ``issubclass(Set[Employee],
+    Set[Any])``. The covariance/contravariance discussion needs to
+    happen at some point.
+
+* While I don't see the point of ``AnyStr`` specifically (reeks too much
+  of ``basestring``), I see that it's a useful example for ``Var``.
+  You're right it's not equivalent to ``Union[bytes, str]``, it must be
+  obviously parametric to keep the other occurences in scope consistent.
+  With ``Var`` the syntax I was thinking about a following expression::
+
+    AnyStr = Var('AnyStr', base=Union[str, bytes])
+
+  Now that I saw this, I asked myself if that should be equivalent to
+  ``typevar('AnyStr', values=(str, bytes))`` and the answer is "No".
+  Union is not parametrized, hence not kept in sync between occurences.
+  My mistake makes me wonder if we should make the parametrized types
+  syntax more explicit for the type definition reader (in Java world
+  seeing <? extends A> is pretty clear). I will ponder about this some
+  more.
+
+* Interoperability of ``typing.List`` with ``java.util.ArrayList``
+  sounds good in principle.
+
+* Realistically I think retroactive conformance in Python is going to be
+  achieved by means of ABC.register() and/or Protocol.register().
+  I have my hopes in using protocols as a more static analysis-friendly
+  version of __subclasshook__
+
+Unadressed matters
+------------------
+
+Lack of time currently to write about the following, will adress as soon
+as I get to it again.
+
+* how does filter() construct an instance of Y, write an implementation,
+  extend Callable to say Callable[X]
+
+* typevar values vs. Var base=
+
+* should we encourage using abstract types: in principle yes, in
+  practice there's issues (long type names, strings and bytes being
+  iterables and sequences)
+
+* consequences of covariance in generics as compared to invariance
+
+* support for structural types

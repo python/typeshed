@@ -1,0 +1,5 @@
+include LICENSE README.rst
+include src/typing.py
+include src/test_typing.py
+include python2/typing.py
+include python2/test_typing.py
