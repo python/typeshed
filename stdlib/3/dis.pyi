@@ -1,5 +1,5 @@
 from typing import (List, Union, Iterator, Iterable, Tuple, Optional, Dict,
-                   Any, IO, NamedTuple) 
+                   Any, IO, NamedTuple)
 
 from opcode import (hasconst, hasname, hasjrel, hasjabs, haslocal, hascompare,
                     hasfree, hasnargs, cmp_op, opname , opmap , HAVE_ARGUMENT,
@@ -20,7 +20,7 @@ class Instruction(NamedTuple("Instruction", [
         ('offset', int),
         ('starts_line', Optional[int]),
         ('is_jump_target', bool)
-    ])): 
+    ])):
     # ad-hoc - seems to be an error in the NamedTuple type hint
     # TODO: mypy issue #1076 
     _fields = ...  # type: List[str]
@@ -35,7 +35,7 @@ class Instruction(NamedTuple("Instruction", [
 
 
 # if sys.version_info >= (3, 4): 
-class Bytecode: 
+class Bytecode:
     codeobj = ...  # type: types.CodeType
     first_line = ...  # type: int
     def __init__(self, x: _have_code_or_string, *, first_line: int=...,
@@ -58,12 +58,12 @@ def findlinestarts(code: _have_code) -> Iterator[Tuple[int, int]]: ...
 
 # Signature changes are not allowed by mypy
 # 'All conditional function variants must have identical signatures'
-# TODO: mypy issue #1801
+# TODO: mypy issue #698
 
-# if sys.version_info >= (3, 2): 
+# if sys.version_info >= (3, 2):
 def code_info(x: _have_code_or_string) -> str: ...
     
-# `file` parameter requires sys.version_info >= (3, 4): 
+# `file` parameter requires sys.version_info >= (3, 4):
 def dis(x: _have_code_or_string = ..., *, file = ...) -> None: ...
 def distb(tb: types.TracebackType = ..., *, file: IO[str] = ...) -> None: ...
 def disassemble(co: _have_code, lasti: int = ..., *, file = ...) -> None: ...
