@@ -6,20 +6,51 @@ from typing import Sequence, Any, Mapping, Callable, Tuple, IO, Union, Optional
 
 _FILE = Union[int, IO[Any]]
 
-# TODO force keyword arguments
-# TODO more keyword arguments (from Popen)
-def call(args: Union[str, Sequence[str]], *,
-         stdin: _FILE = ..., stdout: _FILE = ..., stderr: _FILE = ...,
-         shell: bool = ..., env: Mapping[str, str] = ...,
-         cwd: str = ...) -> int: ...
-def check_call(args: Union[str, Sequence[str]], *,
-               stdin: _FILE = ..., stdout: _FILE = ..., stderr: _FILE = ...,
-               shell: bool = ..., env: Mapping[str, str] = ..., cwd: str = ...,
-               close_fds: Sequence[_FILE] = ..., preexec_fn: Callable[[], Any] = ...) -> int: ...
-def check_output(args: Union[str, Sequence[str]], *,
-                 stdin: _FILE = ..., stderr: _FILE = ...,
-                 shell: bool = ..., universal_newlines: bool = ...,
-                 env: Mapping[str, str] = ..., cwd: str = ...) -> str: ...
+# Same args as Popen.__init__
+def call(args: Union[str, Sequence[str]],
+         bufsize: int = ...,
+         executable: str = ...,
+         stdin: _FILE = ...,
+         stdout: _FILE = ...,
+         stderr: _FILE = ...,
+         preexec_fn: Callable[[], Any] = ...,
+         close_fds: bool = ...,
+         shell: bool = ...,
+         cwd: str = ...,
+         env: Mapping[str, str] = ...,
+         universal_newlines: bool = ...,
+         startupinfo: Any = ...,
+         creationflags: int = ...) -> int: ...
+
+def check_call(args: Union[str, Sequence[str]],
+               bufsize: int = ...,
+               executable: str = ...,
+               stdin: _FILE = ...,
+               stdout: _FILE = ...,
+               stderr: _FILE = ...,
+               preexec_fn: Callable[[], Any] = ...,
+               close_fds: bool = ...,
+               shell: bool = ...,
+               cwd: str = ...,
+               env: Mapping[str, str] = ...,
+               universal_newlines: bool = ...,
+               startupinfo: Any = ...,
+               creationflags: int = ...) -> int: ...
+
+# Same args as Popen.__init__ except for stdout
+def check_output(args: Union[str, Sequence[str]],
+                 bufsize: int = ...,
+                 executable: str = ...,
+                 stdin: _FILE = ...,
+                 stderr: _FILE = ...,
+                 preexec_fn: Callable[[], Any] = ...,
+                 close_fds: bool = ...,
+                 shell: bool = ...,
+                 cwd: str = ...,
+                 env: Mapping[str, str] = ...,
+                 universal_newlines: bool = ...,
+                 startupinfo: Any = ...,
+                 creationflags: int = ...) -> str: ...
 
 PIPE = ... # type: int
 STDOUT = ... # type: int

@@ -4,21 +4,61 @@
 
 from typing import Sequence, Any, Mapping, Callable, Tuple, IO, Optional, Union
 
-# TODO force keyword arguments
-# TODO more keyword arguments
-def call(args: Union[str, Sequence[str]], *, stdin: Any = ..., stdout: Any = ...,
-         stderr: Any = ..., shell: bool = ...,
+# Same args as Popen.__init__
+def call(args: Union[str, Sequence[str]],
+         bufsize: int = ...,
+         executable: str = ...,
+         stdin: Any = ...,
+         stdout: Any = ...,
+         stderr: Any = ...,
+         preexec_fn: Callable[[], Any] = ...,
+         close_fds: bool = ...,
+         shell: bool = ...,
+         cwd: str = ...,
          env: Mapping[str, str] = ...,
-         cwd: str = ...) -> int: ...
-def check_call(args: Union[str, Sequence[str]], *, stdin: Any = ..., stdout: Any = ...,
-               stderr: Any = ..., shell: bool = ...,
+         universal_newlines: bool = ...,
+         startupinfo: Any = ...,
+         creationflags: int = ...,
+         restore_signals: bool = ...,
+         start_new_session: bool = ...,
+         pass_fds: Any = ...) -> int: ...
+
+# Same args as Popen.__init__
+def check_call(args: Union[str, Sequence[str]],
+               bufsize: int = ...,
+               executable: str = ...,
+               stdin: Any = ...,
+               stdout: Any = ...,
+               stderr: Any = ...,
+               preexec_fn: Callable[[], Any] = ...,
+               close_fds: bool = ...,
+               shell: bool = ...,
+               cwd: str = ...,
                env: Mapping[str, str] = ...,
-               cwd: str = ...) -> int: ...
-# Return str/bytes
-def check_output(args: Union[str, Sequence[str]], *, stdin: Any = ..., stderr: Any = ...,
-                 shell: bool = ..., universal_newlines: bool = ...,
+               universal_newlines: bool = ...,
+               startupinfo: Any = ...,
+               creationflags: int = ...,
+               restore_signals: bool = ...,
+               start_new_session: bool = ...,
+               pass_fds: Any = ...) -> int: ...
+
+# Same args as Popen.__init__, except for stdout
+def check_output(args: Union[str, Sequence[str]],
+                 bufsize: int = ...,
+                 executable: str = ...,
+                 stdin: Any = ...,
+                 stderr: Any = ...,
+                 preexec_fn: Callable[[], Any] = ...,
+                 close_fds: bool = ...,
+                 shell: bool = ...,
+                 cwd: str = ...,
                  env: Mapping[str, str] = ...,
-                 cwd: str = ...) -> Any: ...
+                 universal_newlines: bool = ...,
+                 startupinfo: Any = ...,
+                 creationflags: int = ...,
+                 restore_signals: bool = ...,
+                 start_new_session: bool = ...,
+                 pass_fds: Any = ...) -> bytes: ...
 
 # TODO types
 PIPE = ... # type: Any
