@@ -58,7 +58,7 @@ def check_output(args: Union[str, Sequence[str]],
                  creationflags: int = ...,
                  restore_signals: bool = ...,
                  start_new_session: bool = ...,
-                 pass_fds: Any = ...) -> bytes: ...
+                 pass_fds: Any = ...) -> Any: ...
 
 # TODO types
 PIPE = ... # type: Any
