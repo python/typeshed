@@ -146,6 +146,7 @@ PYTYPE_SKIPPED_FILES += """
   2.7/multiprocessing/process.pyi
   2.7/pickle.pyi
   2.7/tempfile.pyi
+  2and3/argparse.pyi
   2and3/bz2.pyi
 """
 
