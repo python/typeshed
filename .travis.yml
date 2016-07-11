@@ -2,14 +2,18 @@ sudo: false
 language: python
 python:
   - "3.5"
+  - "2.7"
   # More versions later.
 
 install:
-  - pip install -U git+git://github.com/python/mypy
+  # pytype needs py-2.7, mypy needs py-3.2+. Additional logic in runtests.py
+  - if [[ $TRAVIS_PYTHON_VERSION == '3.5' ]]; then pip install -U git+git://github.com/python/mypy; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == '2.7' ]]; then pip install -U git+git://github.com/google/pytype; fi
 
 script:
-  - ./runtests.py -p3.5
-  - ./runtests.py -p3.4
-  - ./runtests.py -p3.3
-  - ./runtests.py -p3.2
-  - ./runtests.py -p2.7
+  - if [[ $TRAVIS_PYTHON_VERSION == '3.5' ]]; then ./runtests.py -p3.5; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == '3.5' ]]; then ./runtests.py -p3.4; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == '3.5' ]]; then ./runtests.py -p3.3; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == '3.5' ]]; then ./runtests.py -p3.2; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == '3.5' ]]; then ./runtests.py -p2.7; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == '2.7' ]]; then ./runtests.py      ; fi
