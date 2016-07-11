@@ -1,0 +1,152 @@
+# Stubs for argparse (Python 3.4)
+
+from typing import (
+    Any, Callable, Container, List, IO, Optional, Sequence, Tuple, Type, Union,
+    TypeVar, overload
+)
+import sys
+
+_T = TypeVar('_T')
+
+
+ONE_OR_MORE = ...  # type: str
+OPTIONAL = ...  # type: str
+PARSER = ...  # type: str
+REMAINDER = ...  # type: str
+SUPPRESS = ...  # type: str
+ZERO_OR_MORE = ...  # type: str
+
+class ArgumentError(Exception): ...
+
+class ArgumentParser:
+    if sys.version_info >= (3, 5):
+        def __init__(self,
+                     prog: Optional[str] = ...,
+                     usage: Optional[str] = ...,
+                     description: Optional[str] = ...,
+                     epilog: Optional[str] = ...,
+                     parents: List[ArgumentParser] = ...,
+                     formatter_class: Type[HelpFormatter] = ...,
+                     prefix_chars: str = ...,
+                     fromfile_prefix_chars: Optional[str] = ...,
+                     argument_default: Optional[str] = ...,
+                     conflict_handler: str = ...,
+                     add_help: bool = ...,
+                     allow_abbrev: bool = ...) -> None: ...
+    else:
+        def __init__(self,  # type: ignore
+                     prog: Optional[str] = ...,
+                     usage: Optional[str] = ...,
+                     description: Optional[str] = ...,
+                     epilog: Optional[str] = ...,
+                     parents: List[ArgumentParser] = ...,
+                     formatter_class: Type[HelpFormatter] = ...,
+                     prefix_chars: str = ...,
+                     fromfile_prefix_chars: Optional[str] = ...,
+                     argument_default: Optional[str] = ...,
+                     conflict_handler: str = ...,
+                     add_help: bool = ...) -> None: ...
+    def add_argument(self,
+                     *name_or_flags: Union[str, List[str]],
+                     action: Union[str, Action] = ...,
+                     nargs: Union[int, str] = ...,
+                     const: Any = ...,
+                     default: Any = ...,
+                     type: Callable[[str], _T] = ...,
+                     choices: Container[_T] = ...,
+                     required: bool = ...,
+                     help: str = ...,
+                     metavar: Union[str, Tuple[str, ...]] = ...,
+                     dest: str = ...,
+                     version: str = ...) -> None: ...  # weirdly documented
+    def parse_args(self, args: Optional[Sequence[str]] = ...,
+                   namespace: Optional[Namespace] = ...) -> Namespace: ...
+    def add_subparsers(self, title: str = ...,
+                       description: Optional[str] = ...,
+                       prog: str = ...,
+                       parser_class: Type[ArgumentParser] = ...,
+                       action: Type[Action] = ...,
+                       option_string: str = ...,
+                       dest: Optional[str] = ...,
+                       help: Optional[str] = ...,
+                       metavar: Optional[str] = ...) -> None: ...
+    def add_argument_group(self, title: Optional[str] = ...,
+                           description: Optional[str] = ...) -> _ArgumentGroup: ...
+    @overload
+    def add_mutually_exclusive_group(self) -> None: ...
+    @overload
+    def add_mutually_exclusive_group(self, required: bool) -> _MutuallyExclusiveGroup: ...
+    def set_defaults(self, **kwargs: Any) -> None: ...
+    def get_default(self, dest: str) -> Any: ...
+    def print_usage(self, file: Optional[IO[str]] = ...) -> None: ...
+    def print_help(self, file: Optional[IO[str]] = ...) -> None: ...
+    def format_usage(self) -> str: ...
+    def format_help(self) -> str: ...
+    def parse_known_args(self, args: Optional[str] = ...,
+                         namespace: Optional[Namespace] = ...) \
+                         -> Tuple[Namespace, List[str]]: ...
+    def convert_arg_line_to_args(self, arg_line: str) -> List[str]: ...
+    def exit(self, status: int = ..., message: Optional[str] = ...) -> None: ...
+    def error(self, message: str) -> None: ...
+
+class HelpFormatter:
+    # not documented
+    def __init__(self, prog: str, indent_increment: int = ...,
+                 max_help_position: int = ...,
+                 width: Optional[int] = ...) -> None: ...
+class RawDescriptionHelpFormatter(HelpFormatter): ...
+class RawTextHelpFormatter(HelpFormatter): ...
+class ArgumentDefaultsHelpFormatter(HelpFormatter): ...
+if sys.version_info >= (3,):
+    class MetavarTypeHelpFormatter(HelpFormatter): ...
+
+class Action:
+    def __init__(self,
+                 option_strings: List[str],
+                 dest: str = ...,
+                 nargs: Optional[Union[int, str]] = ...,
+                 const: Any = ...,
+                 default: Any = ...,
+                 type: Optional[Callable[[str], _T]] = ...,
+                 choices: Optional[Container[_T]] = ...,
+                 required: bool = ...,
+                 help: Optional[str] = ...,
+                 metavar: Union[str, Tuple[str, ...]] = ...) -> None: ...
+    def __call__(self, parser: ArgumentParser, namespace: Namespace,
+                 values: List[Any], option_string: str = ...) -> None: ...
+
+class Namespace:
+    def __getattr__(self, name: str) -> Any: ...
+
+class FileType:
+    if sys.version_info >= (3, 4):
+        def __init__(self, mode: str = ..., bufsize: int = ...,
+                     encoding: Optional[str] = ...,
+                     errors: Optional[str] = ...) -> None: ...
+    elif sys.version_info >= (3,):
+        def __init__(self,  # type: ignore
+                     mode: str = ..., bufsize: int = ...) -> None: ...
+    else:
+        def __init__(self,  # type: ignore
+                     mode: str = ..., bufsize: Optional[int] = ...) -> None: ...
+    def __call__(self, string: str) -> IO[Any]: ...
+
+class _ArgumentGroup:
+    def add_argument(self,
+                     *name_or_flags: Union[str, List[str]],
+                     action: Union[str, Action] = ...,
+                     nargs: Union[int, str] = ...,
+                     const: Any = ...,
+                     default: Any = ...,
+                     type: Callable[[str], _T] = ...,
+                     choices: Container[_T] = ...,
+                     required: bool = ...,
+                     help: str = ...,
+                     metavar: Union[str, Tuple[str, ...]] = ...,
+                     dest: str = ...,
+                     version: str = ...) -> None: ...
+
+class _MutuallyExclusiveGroup(_ArgumentGroup): ...
+
+# not documented
+class ArgumentTypeError(Exception): ...
