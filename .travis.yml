@@ -1,9 +1,12 @@
 sudo: false
 language: python
-python:
-  - "3.5"
-  - "2.7"
-  # More versions later.
+
+matrix:
+  include:
+    - python: "3.5"
+      env: TEST_ARG="--mypy -p3.5 -p3.4 -p3.3 -p3.2 -p2.7"
+    - python: "2.7"
+      env: TEST_ARG="--pytype --num-parallel=4"
 
 install:
   # pytype needs py-2.7, mypy needs py-3.2+. Additional logic in runtests.py
@@ -11,9 +14,4 @@ install:
   - if [[ $TRAVIS_PYTHON_VERSION == '2.7' ]]; then pip install -U git+git://github.com/google/pytype; fi
 
 script:
-  - if [[ $TRAVIS_PYTHON_VERSION == '3.5' ]]; then ./runtests.py -p3.5; fi
-  - if [[ $TRAVIS_PYTHON_VERSION == '3.5' ]]; then ./runtests.py -p3.4; fi
-  - if [[ $TRAVIS_PYTHON_VERSION == '3.5' ]]; then ./runtests.py -p3.3; fi
-  - if [[ $TRAVIS_PYTHON_VERSION == '3.5' ]]; then ./runtests.py -p3.2; fi
-  - if [[ $TRAVIS_PYTHON_VERSION == '3.5' ]]; then ./runtests.py -p2.7; fi
-  - if [[ $TRAVIS_PYTHON_VERSION == '2.7' ]]; then ./runtests.py      ; fi
+  -  ./runtests.py $TEST_ARG

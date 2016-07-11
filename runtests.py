@@ -19,15 +19,20 @@ import re
 import sys
 import argparse
 import subprocess
+import collections
 
 parser = argparse.ArgumentParser(description="Test runner for typeshed. "
                                              "Patterns are unanchored regexps on the full path.")
 parser.add_argument('-v', '--verbose', action='count', default=0, help="More output")
 parser.add_argument('-n', '--dry-run', action='store_true', help="Don't actually run tests")
 parser.add_argument('-x', '--exclude', type=str, nargs='*', help="Exclude pattern")
-parser.add_argument('-p', '--python-version', type=str, nargs='*',
+parser.add_argument('-p', '--python-version', type=str, action='append',
                     help="These versions only (major[.minor])")
 parser.add_argument('filter', type=str, nargs='*', help="Include pattern (default all)")
+parser.add_argument('--mypy', action='store_true', help="Run mypy tests")
+parser.add_argument('--pytype', action='store_true', help="Run pytype tests")
+parser.add_argument('--num-parallel', type=int, default=1,
+                    help="Number of test processes to spawn")
 
 
 def log(args, *varargs):
@@ -73,8 +78,18 @@ def libpath(major, minor):
 def main():
     args = parser.parse_args()
 
+    test_funcs = []
+    if args.mypy:
+        test_funcs.append(mypy_test)
+    if args.pytype:
+        test_funcs.append(pytype_test)
+
+    if not test_funcs:
+        # TODO: use argparse for this logic
+        print("Use --mypy or --pytype to run some tests")
+
     code, runs = 0, 0
-    for test_func in (mypy_test, pytype_test):
+    for test_func in test_funcs:
         c, r = test_func(args)
         runs += r
         code = max(code, c)
@@ -150,58 +165,74 @@ PYTYPE_SKIPPED_FILES += """
   2and3/bz2.pyi
 """
 
+class PytdRun(object):
+    def __init__(self, args, dry_run=False):
+        self.args = args
+        self.dry_run = dry_run
+        self.results = None
 
-def run_pytd(args, dry_run=False):
-    if dry_run:
-        return 0, "", ""
+        if dry_run:
+            self.results = (0, "", "")
+        else:
+            self.proc = subprocess.Popen(
+                ["pytd"] + args,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE)
 
-    proc = subprocess.Popen(["pytd"] + args,
-                            stdout=subprocess.PIPE,
-                            stderr=subprocess.PIPE)
-    stdout, stderr = proc.communicate()
-    return proc.returncode, stdout, stderr
+    def communicate(self):
+        if self.results:
+            return self.results
+
+        stdout, stderr = self.proc.communicate()
+        self.results = self.proc.returncode, stdout, stderr
+        return self.results
 
 
 def pytype_test(args):
     # TODO(acaceres): look at args like filter, exclude, verbose
 
     try:
-        run_pytd(["-h"])
+        PytdRun(["-h"]).communicate()
     except OSError:
         print("Cannot run pytd. Did you install pytype?")
         return 0, 0
 
     wanted = re.compile(r"stdlib/(2\.7|2and3)/.*\.pyi$")
     skipped = re.compile("(%s)$" % "|".join(PYTYPE_SKIPPED_FILES.split()))
-    max_code, runs, errors = 0, 0, 0
+    files = []
 
-    print("Running pytype tests...")
     for root, _, filenames in os.walk("stdlib"):
-        for f in filenames:
+        for f in sorted(filenames):
             f = os.path.join(root, f)
-            if skipped.search(f) or not wanted.search(f):
-                continue
+            if wanted.search(f) and not skipped.search(f):
+                files.append(f)
 
-            # We actually test using "pytd", a utility bundled with the pytype
-            # package that shares the relevant code.
-            code, stdout, stderr = run_pytd([f, "/dev/null"], dry_run=args.dry_run)
-            max_code = max(max_code, code)
-            runs += 1
+    running_tests = collections.deque()
+    max_code, runs, errors = 0, 0, 0
+    print("Running pytype tests...")
+    while 1:
+        while files and len(running_tests) < args.num_parallel:
+            test_run = PytdRun([files.pop(), "/dev/null"], dry_run=args.dry_run)
+            running_tests.append(test_run)
 
-            if code:
-                print("pytd error processing \"%s\":" % f)
-                print(stderr)
-                errors += 1
+        if not running_tests:
+            break
+
+        test_run = running_tests.popleft()
+        code, stdout, stderr = test_run.communicate()
+        max_code = max(max_code, code)
+        runs += 1
+
+        if code:
+            print("pytd error processing \"%s\":" % test_run.args[0])
+            print(stderr)
+            errors += 1
 
     print("Ran pytype with %d pyis, got %d errors." % (runs, errors))
     return max_code, runs
 
 
 def mypy_test(args):
-    if sys.version_info[:2] < (3, 5):
-        print("Skipping mypy tests.")
-        return 0, 0
-
     try:
         from mypy.main import main as mypy_main
     except ImportError:
