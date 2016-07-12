@@ -4,7 +4,7 @@ language: python
 matrix:
   include:
     - python: "3.5"
-      env: TEST_CMD="./tests/mypy_test.py -p3.5 -p3.4 -p3.3 -p3.2 -p2.7"
+      env: TEST_CMD="./tests/mypy_test.py"
     - python: "2.7"
       env: TEST_CMD="./tests/pytype_test.py --num-parallel=4"
 
