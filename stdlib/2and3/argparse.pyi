@@ -1,7 +1,7 @@
 # Stubs for argparse (Python 3.4)
 
 from typing import (
-    Any, Callable, Container, List, IO, Optional, Sequence, Tuple, Type, Union,
+    Any, Callable, Iterable, List, IO, Optional, Sequence, Tuple, Type, Union,
     TypeVar, overload
 )
 import sys
@@ -53,7 +53,7 @@ class ArgumentParser:
                      const: Any = ...,
                      default: Any = ...,
                      type: Callable[[str], _T] = ...,
-                     choices: Container[_T] = ...,
+                     choices: Iterable[_T] = ...,
                      required: bool = ...,
                      help: str = ...,
                      metavar: Union[str, Tuple[str, ...]] = ...,
@@ -69,7 +69,7 @@ class ArgumentParser:
                        option_string: str = ...,
                        dest: Optional[str] = ...,
                        help: Optional[str] = ...,
-                       metavar: Optional[str] = ...) -> None: ...
+                       metavar: Optional[str] = ...) -> _SubParsersAction: ...
     def add_argument_group(self, title: Optional[str] = ...,
                            description: Optional[str] = ...) -> _ArgumentGroup: ...
     @overload
@@ -108,7 +108,7 @@ class Action:
                  const: Any = ...,
                  default: Any = ...,
                  type: Optional[Callable[[str], _T]] = ...,
-                 choices: Optional[Container[_T]] = ...,
+                 choices: Optional[Iterable[_T]] = ...,
                  required: bool = ...,
                  help: Optional[str] = ...,
                  metavar: Union[str, Tuple[str, ...]] = ...) -> None: ...
@@ -139,7 +139,7 @@ class _ArgumentGroup:
                      const: Any = ...,
                      default: Any = ...,
                      type: Callable[[str], _T] = ...,
-                     choices: Container[_T] = ...,
+                     choices: Iterable[_T] = ...,
                      required: bool = ...,
                      help: str = ...,
                      metavar: Union[str, Tuple[str, ...]] = ...,
@@ -147,6 +147,10 @@ class _ArgumentGroup:
                      version: str = ...) -> None: ...
 
 class _MutuallyExclusiveGroup(_ArgumentGroup): ...
+
+class _SubParsersAction:
+    # TODO: Type keyword args properly.
+    def add_parser(self, name: str, **kwargs: Any) -> ArgumentParser: ...
 
 # not documented
 class ArgumentTypeError(Exception): ...
