@@ -4,9 +4,9 @@ language: python
 matrix:
   include:
     - python: "3.5"
-      env: TEST_CMD="./tests/mypy.py -p3.5 -p3.4 -p3.3 -p3.2 -p2.7"
+      env: TEST_CMD="./tests/mypy_test.py -p3.5 -p3.4 -p3.3 -p3.2 -p2.7"
     - python: "2.7"
-      env: TEST_CMD="./tests/pytype.py --num-parallel=4"
+      env: TEST_CMD="./tests/pytype_test.py --num-parallel=4"
 
 install:
   # pytype needs py-2.7, mypy needs py-3.2+. Additional logic in runtests.py

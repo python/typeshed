@@ -1,6 +1,4 @@
 #!/bin/sh
 
-./tests/mypy.py
-./tests/pytype.py
-
-
+./tests/mypy_test.py
+./tests/pytype_test.py
