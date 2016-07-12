@@ -212,7 +212,7 @@ def pytype_test(args):
     print("Running pytype tests...")
     while 1:
         while files and len(running_tests) < args.num_parallel:
-            test_run = PytdRun([files.pop(), "/dev/null"], dry_run=args.dry_run)
+            test_run = PytdRun([files.pop()], dry_run=args.dry_run)
             running_tests.append(test_run)
 
         if not running_tests:
