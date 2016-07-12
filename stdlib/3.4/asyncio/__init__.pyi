@@ -1,4 +1,7 @@
 """The asyncio package, tracking PEP 3156."""
+
+from typing import Type
+
 from asyncio.coroutines import (
     coroutine as coroutine,
     iscoroutinefunction as iscoroutinefunction,
@@ -48,7 +51,13 @@ from asyncio.events import (
     AbstractEventLoop as AbstractEventLoop,
     AbstractServer as AbstractServer,
     Handle as Handle,
+    get_event_loop_policy as get_event_loop_policy,
+    set_event_loop_policy as set_event_loop_policy,
     get_event_loop as get_event_loop,
+    set_event_loop as set_event_loop,
+    new_event_loop as new_event_loop,
+    get_child_watcher as get_child_watcher,
+    set_child_watcher as set_child_watcher,
 )
 from asyncio.queues import (
     Queue as Queue,
@@ -58,5 +67,16 @@ from asyncio.queues import (
     QueueFull as QueueFull,
     QueueEmpty as QueueEmpty,
 )
+from asyncio.locks import (
+    Lock as Lock,
+    Event as Event,
+    Condition as Condition,
+    Semaphore as Semaphore,
+    BoundedSemaphore as BoundedSemaphore,
+)
+
+SelectorEventLoop = ...  # type: Type[AbstractEventLoop]
+ProactorEventLoop = ...  # type: Type[AbstractEventLoop]  # TODO: Windows only
+DefaultEventLoopPolicy = ...  # type: Type[AbstractEventLoopPolicy]
 
 __all__ = ... # type: str
