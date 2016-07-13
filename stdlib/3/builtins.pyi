@@ -751,7 +751,6 @@ Ellipsis = ...  # type: ellipsis
 
 class BaseException:
     args = ...  # type: Any
-    message = ...  # type: str
     def __init__(self, *args: Any) -> None: ...
     def with_traceback(self, tb: Any) -> BaseException: ...
 
