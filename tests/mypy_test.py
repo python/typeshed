@@ -115,7 +115,8 @@ def main():
                                     files.append(fn)
         if files:
             runs += 1
-            flags = ['--python-version', '%d.%d' % (major, minor)]
+            flags = ['--python-version', '%d.%d' % (major, minor),
+                     '--strict-optional']
             sys.argv = ['mypy'] + flags + files
             if args.verbose:
                 print("running", ' '.join(sys.argv))
