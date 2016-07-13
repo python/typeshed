@@ -7,6 +7,7 @@ from typing import (
     SupportsAbs, SupportsRound, IO, Union, ItemsView, KeysView, ValuesView, ByteString
 )
 from abc import abstractmethod, ABCMeta
+from types import TracebackType
 
 # Note that names imported above are not automatically made visible via the
 # implicit builtins import.
@@ -751,6 +752,9 @@ Ellipsis = ...  # type: ellipsis
 
 class BaseException:
     args = ...  # type: Any
+    __cause__ = ... # type: BaseException
+    __context__ = ... # type: BaseException
+    __traceback__ = ... # type: TracebackType
     def __init__(self, *args: Any) -> None: ...
     def with_traceback(self, tb: Any) -> BaseException: ...
 
