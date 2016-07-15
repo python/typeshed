@@ -57,3 +57,6 @@
 2.7/tempfile.pyi
 2and3/argparse.pyi
 2and3/bz2.pyi
+
+# fail because of conditionals pytype#28
+2and3/zipfile.pyi
