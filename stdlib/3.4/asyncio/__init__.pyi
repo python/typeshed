@@ -1,5 +1,6 @@
 """The asyncio package, tracking PEP 3156."""
 
+import sys
 from typing import Type
 
 from asyncio.coroutines import (
@@ -75,8 +76,14 @@ from asyncio.locks import (
     BoundedSemaphore as BoundedSemaphore,
 )
 
+# TODO: It should be possible to instantiate these classes, but mypy
+# currently disallows this.
+# See https://github.com/python/mypy/issues/1843
 SelectorEventLoop = ...  # type: Type[AbstractEventLoop]
-ProactorEventLoop = ...  # type: Type[AbstractEventLoop]  # TODO: Windows only
+if sys.platform == 'win32':
+    ProactorEventLoop = ...  # type: Type[AbstractEventLoop]  # TODO: Windows only
 DefaultEventLoopPolicy = ...  # type: Type[AbstractEventLoopPolicy]
+
+# TODO: AbstractChildWatcher (UNIX only)
 
 __all__ = ... # type: str
