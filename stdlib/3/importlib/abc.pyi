@@ -35,7 +35,7 @@ class InspectLoader(Loader):
                            path: str = '<string>') -> types.CodeType: ...
     elif sys.version_info >= (3, 5):
         @staticmethod
-        def source_to_code(self, data: Union[bytes, str],
+        def source_to_code(data: Union[bytes, str],
                            path: str = '<string>') -> types.CodeType: ...
 
 class ExecutionLoader(InspectLoader):
