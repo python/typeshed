@@ -8,6 +8,7 @@ from typing import (
 )
 from abc import abstractmethod, ABCMeta
 from types import TracebackType
+import sys
 
 # Note that names imported above are not automatically made visible via the
 # implicit builtins import.
@@ -804,7 +805,11 @@ class TimeoutError(OSError): ...
 class WindowsError(OSError): ...
 class OverflowError(ArithmeticError): ...
 class ReferenceError(Exception): ...
-class StopIteration(Exception): ...
+class StopIteration(Exception):
+    value = ...  # type: Any
+if sys.version_info >= (3, 5):
+    class StopAsyncIteration(Exception):
+        value = ...  # type: Any
 class SyntaxError(Exception):
     msg = ...  # type: str
     lineno = ...  # type: int
