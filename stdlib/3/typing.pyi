@@ -119,6 +119,9 @@ class Awaitable(Generic[_T_co]):
     @abstractmethod
     def __await__(self) -> Generator[AbstractFuture[_T_co], Any, _T_co]:...
 
+class AwaitableGenerator(Awaitable[_T_co], Generator[Any, Any, _T_co], Generic[_T_co]):
+    pass
+
 class AsyncIterable(Generic[_T_co]):
     @abstractmethod
     def __anext__(self) -> Awaitable[_T_co]:...
