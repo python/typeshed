@@ -1,20 +1,15 @@
 # Pytype blacklist. Files will not be tested with pytype.
 
-2.7/Cookie.pyi
 2.7/StringIO.pyi
 2.7/__builtin__.pyi
 2.7/argparse.pyi
 2.7/builtins.pyi
-2.7/calendar.pyi
 2.7/codecs.pyi
-2.7/email/utils.pyi
 2.7/functools.pyi
 2.7/inspect.pyi
 2.7/logging/__init__.pyi
 2.7/os/__init__.pyi
-2.7/platform.pyi
 2.7/resource.pyi
-2.7/rfc822.pyi
 2.7/simplejson/__init__.pyi
 2.7/socket.pyi
 2.7/sqlite3/dbapi2.pyi
