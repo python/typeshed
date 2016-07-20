@@ -33,7 +33,7 @@ def start_server(
         *,
         loop: events.AbstractEventLoop = ...,
         limit: int = ...,
-        **kwds: Any) -> events.AbstractServer: ...
+        **kwds: Any) -> Generator[Any, None, events.AbstractServer]: ...
 
 if hasattr(socket, 'AF_UNIX'):
     @coroutines.coroutine
@@ -42,7 +42,7 @@ if hasattr(socket, 'AF_UNIX'):
             *,
             loop: events.AbstractEventLoop = ...,
             limit: int = ...,
-            **kwds: Any): ...
+            **kwds: Any)-> Generator[Any, None, Tuple[StreamReader, StreamWriter]]: ...
 
     @coroutines.coroutine
     def start_unix_server(
@@ -51,7 +51,7 @@ if hasattr(socket, 'AF_UNIX'):
         *,
         loop: int = ...,
         limit: int = ...,
-        **kwds: Any) -> events.AbstractServer: ...
+        **kwds: Any) -> Generator[Any, None, events.AbstractServer]: ...
 
 class FlowControlMixin(protocols.Protocol): ...
 
