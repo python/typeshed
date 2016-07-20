@@ -11,8 +11,8 @@ def enumerate() -> List[Thread]: ...
 
 class Thread(object):
     name = ...  # type: str
-    ident = 0
-    daemon = False
+    ident = ... # type: Optional[int]
+    daemon = ...  # type: bool
 
     def __init__(self, group: Any = ..., target: Callable[..., Any] = ...,
                  name: str = ..., args: Sequence[Any] = ...,
