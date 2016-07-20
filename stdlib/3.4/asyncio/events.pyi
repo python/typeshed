@@ -1,4 +1,4 @@
-from typing import Any, Awaitable, TypeVar, List, Callable, Tuple, Union, Dict, Generator
+from typing import Any, Awaitable, TypeVar, List, Callable, Tuple, Union, Dict, Generator, overload
 from abc import ABCMeta, abstractmethod
 from asyncio.futures import Future
 from asyncio.coroutines import coroutine
@@ -30,8 +30,17 @@ class AbstractServer:
 class AbstractEventLoop(metaclass=ABCMeta):
     @abstractmethod
     def run_forever(self) -> None: ...
+
+    @overload
     @abstractmethod
-    def run_until_complete(self, future: Union[Awaitable[_T], Future[_T], Generator[Any, Any, _T]]) -> _T: ...
+    def run_until_complete(self, future: Future[_T]) -> _T: ...
+    @overload
+    @abstractmethod
+    def run_until_complete(self, future: Generator[Any, Any, _T]) -> _T: ...
+    @overload
+    @abstractmethod
+    def run_until_complete(self, future: Awaitable[_T]) -> _T: ...
+
     @abstractmethod
     def stop(self) -> None: ...
     @abstractmethod
