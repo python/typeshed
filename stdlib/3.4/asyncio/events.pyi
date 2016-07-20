@@ -31,9 +31,7 @@ class AbstractEventLoop(metaclass=ABCMeta):
     @abstractmethod
     def run_forever(self) -> None: ...
 
-    @overload
-    @abstractmethod
-    def run_until_complete(self, future: Future[_T]) -> _T: ...
+    # Can't use a union, see mypy issue #1873.
     @overload
     @abstractmethod
     def run_until_complete(self, future: Generator[Any, Any, _T]) -> _T: ...
