@@ -22,7 +22,7 @@ SOCK_CLOEXEC = 0
 SOCK_NONBLOCK = 0
 SOMAXCONN = 0
 has_ipv6 = False
-_GLOBAL_DEFAULT_TIMEOUT = 0.0
+_GLOBAL_DEFAULT_TIMEOUT = ...  # type: Any
 SocketType = ...  # type: Any
 SocketIO = ...  # type: Any
 
