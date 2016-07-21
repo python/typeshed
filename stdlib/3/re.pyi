@@ -7,7 +7,7 @@
 
 from typing import (
     List, Iterator, overload, Callable, Tuple, Sequence, Dict,
-    Generic, AnyStr, Match, Pattern, Any
+    Generic, AnyStr, Match, Pattern, Any, Optional
 )
 
 # ----- re variables and constants -----
@@ -43,6 +43,12 @@ def search(pattern: Pattern[AnyStr], string: AnyStr, flags: int = ...) -> Match[
 def match(pattern: AnyStr, string: AnyStr, flags: int = ...) -> Match[AnyStr]: ...
 @overload
 def match(pattern: Pattern[AnyStr], string: AnyStr, flags: int = ...) -> Match[AnyStr]: ...
+
+# New in Python 3.4
+@overload
+def fullmatch(pattern: AnyStr, string: AnyStr, flags: int = ...) -> Optional[Match[AnyStr]]: ...
+@overload
+def fullmatch(pattern: Pattern[AnyStr], string: AnyStr, flags: int = ...) -> Optional[Match[AnyStr]]: ...
 
 @overload
 def split(pattern: AnyStr, string: AnyStr,
