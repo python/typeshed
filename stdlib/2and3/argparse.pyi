@@ -25,7 +25,7 @@ class ArgumentParser:
                      usage: Optional[str] = ...,
                      description: Optional[str] = ...,
                      epilog: Optional[str] = ...,
-                     parents: List[ArgumentParser] = ...,
+                     parents: Sequence[ArgumentParser] = ...,
                      formatter_class: Type[HelpFormatter] = ...,
                      prefix_chars: str = ...,
                      fromfile_prefix_chars: Optional[str] = ...,
@@ -39,7 +39,7 @@ class ArgumentParser:
                      usage: Optional[str] = ...,
                      description: Optional[str] = ...,
                      epilog: Optional[str] = ...,
-                     parents: List[ArgumentParser] = ...,
+                     parents: Sequence[ArgumentParser] = ...,
                      formatter_class: Type[HelpFormatter] = ...,
                      prefix_chars: str = ...,
                      fromfile_prefix_chars: Optional[str] = ...,
@@ -47,7 +47,7 @@ class ArgumentParser:
                      conflict_handler: str = ...,
                      add_help: bool = ...) -> None: ...
     def add_argument(self,
-                     *name_or_flags: Union[str, List[str]],
+                     *name_or_flags: Union[str, Sequence[str]],
                      action: Union[str, Action] = ...,
                      nargs: Union[int, str] = ...,
                      const: Any = ...,
@@ -98,7 +98,7 @@ if sys.version_info >= (3,):
 
 class Action:
     def __init__(self,
-                 option_strings: List[str],
+                 option_strings: Sequence[str],
                  dest: str = ...,
                  nargs: Optional[Union[int, str]] = ...,
                  const: Any = ...,
@@ -131,7 +131,7 @@ class FileType:
 
 class _ArgumentGroup:
     def add_argument(self,
-                     *name_or_flags: Union[str, List[str]],
+                     *name_or_flags: Union[str, Sequence[str]],
                      action: Union[str, Action] = ...,
                      nargs: Union[int, str] = ...,
                      const: Any = ...,
