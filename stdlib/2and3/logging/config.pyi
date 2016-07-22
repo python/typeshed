@@ -17,8 +17,7 @@ if sys.version_info >= (3, 4):
                    defaults: Optional[Dict[str, str]] = ...,
                    disable_existing_loggers: bool = ...) -> None: ...
     def listen(port: int = ...,
-               verify: Optional[Callable[[bytes], Optional[bytes]]] = ...) \
-               -> None: ...
+               verify: Optional[Callable[[bytes], Optional[bytes]]] = ...) -> None: ...
 else:
     def fileConfig(  # type: ignore
                    fname: Union[str, IO[str]],
