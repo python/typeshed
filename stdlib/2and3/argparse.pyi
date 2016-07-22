@@ -8,6 +8,7 @@ import sys
 
 _T = TypeVar('_T')
 
+
 ONE_OR_MORE = ...  # type: str
 OPTIONAL = ...  # type: str
 PARSER = ...  # type: str
