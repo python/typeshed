@@ -7,7 +7,7 @@ from typing import (
 import sys
 
 _T = TypeVar('_T')
-
+_AT = TypeVar('_AT', bound=Action)
 
 ONE_OR_MORE = ...  # type: str
 OPTIONAL = ...  # type: str
@@ -48,7 +48,7 @@ class ArgumentParser:
                      add_help: bool = ...) -> None: ...
     def add_argument(self,
                      *name_or_flags: Union[str, Sequence[str]],
-                     action: Union[str, Action] = ...,
+                     action: Union[str, Type[_AT]] = ...,
                      nargs: Union[int, str] = ...,
                      const: Any = ...,
                      default: Any = ...,
@@ -132,7 +132,7 @@ class FileType:
 class _ArgumentGroup:
     def add_argument(self,
                      *name_or_flags: Union[str, Sequence[str]],
-                     action: Union[str, Action] = ...,
+                     action: Union[str, Type[_AT]] = ...,
                      nargs: Union[int, str] = ...,
                      const: Any = ...,
                      default: Any = ...,
