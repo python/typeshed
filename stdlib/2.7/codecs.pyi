@@ -118,6 +118,7 @@ class IncrementalEncoder:
     errors = ...  # type: str
     def __init__(self, errors: str = ...) -> None:
         ...
+    @abstractmethod
     def encode(self, object: _decoded, final: bool = ...) -> _encoded:
         ...
     def reset(self) -> None:
@@ -132,6 +133,7 @@ class IncrementalDecoder:
     errors = ...  # type: str
     def __init__(self, errors: str = ...) -> None:
         ...
+    @abstractmethod
     def decode(self, object: _encoded, final: bool = ...) -> _decoded:
         ...
     def reset(self) -> None:
@@ -146,6 +148,7 @@ class BufferedIncrementalEncoder(IncrementalEncoder):
     buffer = ...  # type: str
     def __init__(self, errors: str = ...) -> None:
         ...
+    @abstractmethod
     def _buffer_encode(self, input: _decoded, errors: str, final: bool) -> _encoded:
         ...
     def encode(self, input: _decoded, final: bool = ...) -> _encoded:
@@ -154,6 +157,7 @@ class BufferedIncrementalDecoder(IncrementalDecoder):
     buffer = ...  # type: str
     def __init__(self, errors: str = ...) -> None:
         ...
+    @abstractmethod
     def _buffer_decode(self, input: _encoded, errors: str, final: bool) -> Tuple[_decoded, int]:
         ...
     def decode(self, object: _encoded, final: bool = ...) -> _decoded:
