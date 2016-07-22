@@ -27,7 +27,7 @@ class TestResult:
     errors = ... # type: List[Tuple[Testable, str]]
     failures = ... # type: List[Tuple[Testable, str]]
     testsRun = 0
-    shouldStop = False
+    shouldStop = ... # type: bool
 
     def wasSuccessful(self) -> bool: ...
     def stop(self) -> None: ...
