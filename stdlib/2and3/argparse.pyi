@@ -110,7 +110,7 @@ class Action:
                  help: Optional[str] = ...,
                  metavar: Union[str, Tuple[str, ...]] = ...) -> None: ...
     def __call__(self, parser: ArgumentParser, namespace: Namespace,
-                 values: Union[str, List[Any], None],
+                 values: Union[str, Sequence[Any], None],
                  option_string: str = ...) -> None: ...
 
 class Namespace:
