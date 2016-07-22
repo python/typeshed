@@ -48,7 +48,7 @@ class ArgumentParser:
                      add_help: bool = ...) -> None: ...
     def add_argument(self,
                      *name_or_flags: Union[str, Sequence[str]],
-                     action: Union[str, Action] = ...,
+                     action: Union[str, Type[Action]] = ...,
                      nargs: Union[int, str] = ...,
                      const: Any = ...,
                      default: Any = ...,
@@ -132,7 +132,7 @@ class FileType:
 class _ArgumentGroup:
     def add_argument(self,
                      *name_or_flags: Union[str, Sequence[str]],
-                     action: Union[str, Action] = ...,
+                     action: Union[str, Type[Action]] = ...,
                      nargs: Union[int, str] = ...,
                      const: Any = ...,
                      default: Any = ...,
