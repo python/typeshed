@@ -252,6 +252,8 @@ class MutableMapping(Mapping[_KT, _VT], Generic[_KT, _VT]):
     @overload
     def update(self, m: Iterable[Tuple[_KT, _VT]]) -> None: ...
 
+def NewType(name: str, tp: Type[_T]) -> Callable[[_T], _T]: ...
+
 Text = str
 
 TYPE_CHECKING = True
