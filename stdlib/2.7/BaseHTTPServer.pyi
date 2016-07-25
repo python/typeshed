@@ -1,6 +1,6 @@
 # Stubs for BaseHTTPServer (Python 2.7)
 
-from typing import Any, BinaryIO, Dict, List, Mapping, Optional, Tuple, Union
+from typing import Any, BinaryIO, Mapping, Optional, Tuple, Union
 import SocketServer
 import mimetools
 
