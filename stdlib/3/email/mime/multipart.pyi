@@ -1,6 +1,6 @@
 # Stubs for email.mime.multipart (Python 3.4)
 
-from typing import Optional, Tuple, Union
+from typing import Optional, Sequence, Tuple, Union
 from email.message import Message
 from email.mime.base import MIMEBase
 
