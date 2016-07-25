@@ -1,7 +1,7 @@
 # Stubs for traceback
 
-from typing import List
-from types import TracebackType
+from typing import IO, List
+from types import TracebackType, FrameType
 import typing
 
 # TODO signatures
@@ -14,5 +14,6 @@ def extract_stack(f=..., limit=...): ...
 def extract_tb(traceback, limit=...): ...
 def format_list(list): ...
 def format_stack(f=..., limit=...) -> List[str]: ...
+def print_stack(f: FrameType = ..., limit: int = ..., file: IO[str] = ...) -> None: ...
 
 # TODO add more
