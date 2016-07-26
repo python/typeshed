@@ -13,8 +13,9 @@ if sys.version_info >= (3, 4):
     def new(key: _B, msg: Optional[_B] = ...,
             digestmod: Optional[Union[str, Callable[[], _Hash], ModuleType]] = ...) -> HMAC: ...
 else:
-    def new(key: _B, msg: Optional[_B] = ...,
-            digestmod: Optional[Union[str, Callable[[], _Hash], ModuleType]] = ...) -> HMAC: ...
+    def new(  # type: ignore
+            key: _B, msg: Optional[_B] = ...,
+            digestmod: Optional[Union[Callable[[], _Hash], ModuleType]] = ...) -> HMAC: ...
 
 class HMAC:
     if sys.version_info >= (3,):
