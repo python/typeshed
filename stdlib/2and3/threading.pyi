@@ -163,7 +163,8 @@ class Timer(Thread):
                      args: Optional[List[Any]] = ...,
                      kwargs: Optional[Mapping[str, Any]] = ...) -> None: ...
     else:
-        def __init__(self, interval: float, function: Callable[..., None],
+        def __init__(self,  # type: ignore
+                     interval: float, function: Callable[..., None],
                      args: List[Any] = ...,
                      kwargs: Mapping[str, Any] = ...) -> None: ...
     def cancel(self) -> None: ...
