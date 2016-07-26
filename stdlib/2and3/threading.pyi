@@ -21,6 +21,10 @@ def setprofile(func: _PF) -> None: ...
 def stack_size(size: int = ...) -> int: ...
 TIMEOUT_MAX = ...  # type: int
 
+
+class local: ...
+
+
 #ThreadError = ...  # type: Any
 
 
