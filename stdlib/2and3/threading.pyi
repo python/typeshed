@@ -2,6 +2,7 @@
 
 from typing import (
     Any, Callable, Iterable, List, Mapping, Optional, Tuple, Type, Union,
+    TypeVar,
 )
 from types import FrameType, TracebackType
 import sys
@@ -10,6 +11,7 @@ import sys
 _TF = Callable[[FrameType, str, Any], Optional[Callable[..., Any]]]
 
 _PF = Callable[[FrameType, str, Any], None]
+_T = TypeVar('_T')
 
 
 def active_count() -> int: ...
@@ -114,8 +116,8 @@ class Condition:
     def release(self) -> None: ...
     def wait(self, timeout: Optional[float] = ...) -> bool: ...
     if sys.version_info >= (3,):
-        def wait_for(self, predicate: Callable[[], bool],
-                     timeout: Optional[float] = ...) -> bool: ...
+        def wait_for(self, predicate: Callable[[], _T],
+                     timeout: Optional[float]) -> _T: ...
     def notify(self, n: int = ...) -> None: ...
     def notify_all(self) -> None: ...
 
