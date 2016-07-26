@@ -1,6 +1,8 @@
 ## Stubs for threading
 
-from typing import Any, Callable, List, Mapping, Optional, Tuple, Type, Union
+from typing import (
+    Any, Callable, Iterable, List, Mapping, Optional, Tuple, Type, Union,
+)
 from types import FrameType, TracebackType
 import sys
 
@@ -98,6 +100,13 @@ class Event:
     def wait(self, timeout: Optional[float] = ...) -> bool: ...
 
 
+class Timer(Thread):
+    def __init__(self, interval: float, function: Callable[..., None],
+                 args: Optional[Iterable[Any]] = ...,
+                 kwargs: Optional[Mapping[str, Any]] = ...) -> None: ...
+    def cancel(self) -> None: ...
+
+
 #class Barrier:
 #    def __init__(self, parties, action: Optional[Any] = ..., timeout: Optional[Any] = ...) -> None: ...
 #    def wait(self, timeout: Optional[Any] = ...): ...
@@ -111,16 +120,6 @@ class Event:
 #    def broken(self): ...
 
 #class BrokenBarrierError(RuntimeError): ...
-
-#class Timer(Thread):
-#    interval = ...  # type: Any
-#    function = ...  # type: Any
-#    args = ...  # type: Any
-#    kwargs = ...  # type: Any
-#    finished = ...  # type: Any
-#    def __init__(self, interval, function, args: Optional[Any] = ..., kwargs: Optional[Any] = ...) -> None: ...
-#    def cancel(self): ...
-#    def run(self): ...
 
 #class _MainThread(Thread):
 #    def __init__(self) -> None: ...
