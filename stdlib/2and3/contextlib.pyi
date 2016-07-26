@@ -2,7 +2,7 @@
 
 from typing import (
     Any, Callable, Generator, IO, Optional, Type,
-    Generic, TypeVar, overload,
+    Generic, TypeVar,
 )
 from types import TracebackType
 import sys
@@ -11,6 +11,7 @@ _T = TypeVar('_T')
 _ExitFunc = Callable[[Optional[Type[BaseException]],
                       Optional[Exception],
                       Optional[TracebackType]], bool]
+_CM_EF = TypeVar('_CM_EF', ContextManager, _ExitFunc)
 
 # TODO already in PEP, have to get added to mypy
 class ContextManager(Generic[_T]):
@@ -41,10 +42,7 @@ class ContextDecorator:
 class ExitStack(ContextManager[ExitStack]):
     def __init__(self) -> None: ...
     def enter_context(self, cm: ContextManager[_T]) -> _T: ...
-    @overload
-    def push(self, exit: ContextManager[_T]) -> ContextManager[_T]: ...
-    @overload
-    def push(self, exit: _ExitFunc) -> _ExitFunc: ...
+    def push(self, exit: _CM_EF) -> _CM_EF: ...
     def callback(self, callback: Callable[..., None],
                  *args: Any, **kwds: Any) -> Callable[..., None]: ...
     def pop_all(self) -> ExitStack: ...
