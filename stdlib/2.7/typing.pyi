@@ -16,6 +16,7 @@ Type = object()
 builtinclass = object()
 _promote = object()
 NamedTuple = object()
+NewType = object()
 
 # Type aliases
 
