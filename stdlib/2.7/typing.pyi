@@ -16,6 +16,7 @@ Type = object()
 builtinclass = object()
 _promote = object()
 NamedTuple = object()
+NewType = object()
 
 # Type aliases
 
@@ -200,8 +201,6 @@ class MutableMapping(Mapping[_KT, _VT], Generic[_KT, _VT]):
     def update(self, m: Mapping[_KT, _VT], **kwargs: _VT) -> None: ...
     @overload
     def update(self, m: Iterable[Tuple[_KT, _VT]], **kwargs: _VT) -> None: ...
-
-def NewType(name: str, tp: Type[_T]) -> Callable[[_T], _T]: ...
 
 Text = unicode
 
