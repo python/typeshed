@@ -58,7 +58,7 @@ class PyZipFile(ZipFile):
         def writepy(self, pathname: str, basename: str = ...,
                     filterfunc: Optional[Callable[[str], bool]] = ...) -> None: ...
     else:
-        def writepy(self,  # type: ignore
+        def writepy(self,
                     pathname: str, basename: str = ...) -> None: ...
 
 class ZipInfo:

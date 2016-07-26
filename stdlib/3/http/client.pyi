@@ -146,13 +146,13 @@ class HTTPResponse(io.BufferedIOBase):
 
 class HTTPConnection:
     if sys.version_info >= (3, 4):
-        def __init__(self,  # type: ignore
+        def __init__(self,
                      host: str, port: Optional[int] = ...,
                      timeout: int = ...,
                      source_address: Optional[Tuple[str, int]] = ...) \
                      -> None: ...
     else:
-        def __init__(self,  # type: ignore
+        def __init__(self,
                      host: str, port: Optional[int] = ...,
                      strict: bool = ..., timeout: int = ...,
                      source_address: Optional[Tuple[str, int]] = ...) \
@@ -174,7 +174,7 @@ class HTTPConnection:
 
 class HTTPSConnection(HTTPConnection):
     if sys.version_info >= (3, 4):
-        def __init__(self,  # type: ignore
+        def __init__(self,
                      host: str, port: Optional[int] = ...,
                      key_file: Optional[str] = ...,
                      cert_file: Optional[str] = ...,
@@ -183,7 +183,7 @@ class HTTPSConnection(HTTPConnection):
                      *, context: Optional[ssl.SSLContext] = ...,
                      check_hostname: Optional[bool] = ...) -> None: ...
     else:
-        def __init__(self,  # type: ignore
+        def __init__(self,
                      host: str, port: Optional[int] = ...,
                      key_file: Optional[str] = ...,
                      cert_file: Optional[str] = ...,

@@ -14,14 +14,14 @@ class Generator:
                      maxheaderlen: int = ..., *,
                      policy: Policy = ...) -> None: ...
     else:
-        def __init__(self, outfp: TextIO,  # type: ignore
+        def __init__(self, outfp: TextIO,
                      mangle_from_: bool = ...,
                      maxheaderlen: int = ...) -> None: ...
     if sys.version_info >= (3, 2):
         def flatten(self, msg: Message, unixfrom: bool = ...,
                     linesep: Optional[str] =...) -> None: ...
     else:
-        def flatten(self, msg: Message,  # type: ignore
+        def flatten(self, msg: Message,
                     unixfrom: bool = ...) -> None: ...
 
 if sys.version_info >= (3, 2):
@@ -33,7 +33,7 @@ if sys.version_info >= (3, 2):
                          maxheaderlen: int = ..., *,
                          policy: Policy = ...) -> None: ...
         else:
-            def __init__(self, outfp: TextIO,  # type: ignore
+            def __init__(self, outfp: TextIO,
                          mangle_from_: bool = ...,
                          maxheaderlen: int = ...) -> None: ...
         def flatten(self, msg: Message, unixfrom: bool = ...,

@@ -79,15 +79,15 @@ class Message:
                       requote: bool = ..., charset: str = ...,
                       language: str = ..., replace: bool = ...) -> None: ...
     else:
-        def as_string(self, unixfrom: bool = ...,  # type: ignore
+        def as_string(self, unixfrom: bool = ...,
                       maxheaderlen: int = ...) -> str: ...
-        def set_param(self, param: str, value: str,  # type: ignore
+        def set_param(self, param: str, value: str,
                       header: str = ..., requote: bool = ...,
                       charset: str = ..., language: str = ...) -> None: ...
     if sys.version_info >= (3, 3):
         def __init__(self, policy: Policy = ...) -> None: ...
     else:
-        def __init__(self) -> None: ...  # type: ignore
+        def __init__(self) -> None: ...
 
 class MIMEPart:
     if sys.version_info >= (3, 3):

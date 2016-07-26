@@ -175,4 +175,4 @@ if sys.version_info >= (3, 3):
 
     class ExtensionFileLoader(importlib.abc.ExecutionLoader):
         def get_filename(self, fullname: str) -> importlib.abc._Path: ...
-        def get_source(self, fullname: str) -> None: ... # type: ignore
+        def get_source(self, fullname: str) -> None: ...  # type: ignore
