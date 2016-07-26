@@ -3,7 +3,8 @@
 from typing import Callable, Optional, TextIO, BinaryIO
 import email.feedparser
 from email.message import Message
-from email.policy import Policy
+if sys.version_info >= (3, 3):
+    from email.policy import Policy
 import sys
 
 FeedParser = email.feedparser.FeedParser

@@ -34,7 +34,7 @@ class ArgumentParser:
                      add_help: bool = ...,
                      allow_abbrev: bool = ...) -> None: ...
     else:
-        def __init__(self,  # type: ignore
+        def __init__(self,
                      prog: Optional[str] = ...,
                      usage: Optional[str] = ...,
                      description: Optional[str] = ...,
@@ -122,10 +122,10 @@ class FileType:
                      encoding: Optional[str] = ...,
                      errors: Optional[str] = ...) -> None: ...
     elif sys.version_info >= (3,):
-        def __init__(self,  # type: ignore
+        def __init__(self,
                      mode: str = ..., bufsize: int = ...) -> None: ...
     else:
-        def __init__(self,  # type: ignore
+        def __init__(self,
                      mode: str = ..., bufsize: Optional[int] = ...) -> None: ...
     def __call__(self, string: str) -> IO[Any]: ...
 

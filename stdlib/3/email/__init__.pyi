@@ -2,7 +2,9 @@
 
 from typing import Callable, Optional, IO
 import sys
-from email.message import Message, Policy
+from email.message import Message
+if sys.version_info >= (3, 3):
+    from email.policy import Policy
 
 if sys.version_info >= (3, 3):
     def message_from_string(s: str, _class: Callable[[], Message] = ..., *,

@@ -46,7 +46,7 @@ class ZipFile:
         def writestr(self, zinfo_or_arcname: _SZI, data: Union[bytes, str],
                      compress_type: Optional[int] = ...) -> None: ...
     else:
-        def writestr(self,  # type: ignore
+        def writestr(self,
                      zinfo_or_arcname: _SZI, bytes: bytes,
                      compress_type: Optional[int] = ...) -> None: ...
 

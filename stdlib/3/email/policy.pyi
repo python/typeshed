@@ -5,7 +5,8 @@ import sys
 from email.message import Message
 from email.errors import MessageDefect
 from email.header import Header
-from email.contentmanager import ContentManager
+if sys.version_info >= (3, 4):
+    from email.contentmanager import ContentManager
 from abc import abstractmethod
 
 if sys.version_info >= (3, 3):

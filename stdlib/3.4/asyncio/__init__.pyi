@@ -81,7 +81,7 @@ from asyncio.locks import (
 # See https://github.com/python/mypy/issues/1843
 SelectorEventLoop = ...  # type: Type[AbstractEventLoop]
 if sys.platform == 'win32':
-    ProactorEventLoop = ...  # type: Type[AbstractEventLoop]  # TODO: Windows only
+    ProactorEventLoop = ...  # type: Type[AbstractEventLoop]
 DefaultEventLoopPolicy = ...  # type: Type[AbstractEventLoopPolicy]
 
 # TODO: AbstractChildWatcher (UNIX only)

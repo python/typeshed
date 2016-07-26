@@ -308,7 +308,7 @@ class TextTestRunner(TestRunner):
 if sys.version_info >= (3, 4):
     _DefaultTestType = Union[str, Iterable[str], None]
 else:
-    _DefaultTestType = Optional[str]
+    _DefaultTestType = Union[str, None]
 
 # not really documented
 class TestProgram:

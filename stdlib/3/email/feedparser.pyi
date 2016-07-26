@@ -3,7 +3,8 @@
 from typing import Callable
 import sys
 from email.message import Message
-from email.policy import Policy
+if sys.version_info >= (3, 3):
+    from email.policy import Policy
 
 class FeedParser:
     if sys.version_info >= (3, 3):

@@ -2,8 +2,9 @@
 
 from typing import TextIO, Optional
 import sys
-from email.policy import Policy
 from email.message import Message
+if sys.version_info >= (3, 3):
+    from email.policy import Policy
 
 class Generator:
     def clone(self, fp: TextIO) -> 'Generator': ...

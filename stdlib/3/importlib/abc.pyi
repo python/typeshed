@@ -1,5 +1,6 @@
 import abc
-from _importlib_modulespec import ModuleSpec
+if sys.version_info >= (3, 4):
+    from _importlib_modulespec import ModuleSpec
 import sys
 import types
 from typing import Any, Mapping, Optional, Sequence, Tuple, Union
