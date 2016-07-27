@@ -38,7 +38,7 @@ class Request:
         @full_url.deleter
         def full_url(self) -> None: ...
     else:
-        full_url = ...
+        full_url = ...  # type: str
     type = ...  # type: str
     host = ...  # type: str
     origin_req_host = ...  # type: str
