@@ -15,9 +15,9 @@ _PasswordType = Union[Callable[[], Union[str, bytes]], str, bytes]
 
 
 if sys.version_info >= (3, 5):
-    _SC1ArgT = Union['SSLSocket', 'SSLObject']
+    _SC1ArgT = Union[SSLSocket, SSLObject]
 else:
-    _SC1ArgT = 'SSLSocket'
+    _SC1ArgT = SSLSocket
 _SrvnmeCbType = Callable[[_SC1ArgT, Optional[str], 'SSLSocket'], Optional[int]]
 
 class SSLError(OSError):
@@ -202,7 +202,7 @@ class SSLContext:
                          binary_form: bool = ...) \
                          -> Union[List[_PeerCertRetDictType], List[bytes]]: ...
     else:
-        def load_verify_locations(self,  # type: ignore
+        def load_verify_locations(self,
                                   cafile: Optional[str] = ...,
                                   capath: Optional[str] = ...) -> None: ...
     def set_default_verify_paths(self) -> None: ...

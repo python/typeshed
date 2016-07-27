@@ -232,7 +232,7 @@ class TestLoader:
         def loadTestsFromModule(self, module: ModuleType,
                                 *, pattern: Any = ...) -> TestSuite: ...
     else:
-        def loadTestsFromModule(self,  # type: ignore
+        def loadTestsFromModule(self,
                                 module: ModuleType) -> TestSuite: ...
     def loadTestsFromName(self, name: str,
                           module: Optional[ModuleType] = ...) -> TestSuite: ...
@@ -297,7 +297,7 @@ class TextTestRunner(TestRunner):
                      warnings: Optional[Type[Warning]] = ...,
                      *, tb_locals: bool = ...) -> None: ...
     else:
-        def __init__(self,  # type: ignore
+        def __init__(self,
                      stream: Optional[TextIO] = ...,
                      descriptions: bool = ..., verbosity: int = ...,
                      failfast: bool = ..., buffer: bool = ...,
@@ -308,7 +308,7 @@ class TextTestRunner(TestRunner):
 if sys.version_info >= (3, 4):
     _DefaultTestType = Union[str, Iterable[str], None]
 else:
-    _DefaultTestType = Optional[str]
+    _DefaultTestType = Union[str, None]
 
 # not really documented
 class TestProgram:

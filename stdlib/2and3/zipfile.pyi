@@ -46,7 +46,7 @@ class ZipFile:
         def writestr(self, zinfo_or_arcname: _SZI, data: Union[bytes, str],
                      compress_type: Optional[int] = ...) -> None: ...
     else:
-        def writestr(self,  # type: ignore
+        def writestr(self,
                      zinfo_or_arcname: _SZI, bytes: bytes,
                      compress_type: Optional[int] = ...) -> None: ...
 
@@ -58,7 +58,7 @@ class PyZipFile(ZipFile):
         def writepy(self, pathname: str, basename: str = ...,
                     filterfunc: Optional[Callable[[str], bool]] = ...) -> None: ...
     else:
-        def writepy(self,  # type: ignore
+        def writepy(self,
                     pathname: str, basename: str = ...) -> None: ...
 
 class ZipInfo:

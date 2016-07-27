@@ -117,6 +117,7 @@ def main():
             runs += 1
             flags = ['--python-version', '%d.%d' % (major, minor)]
             flags.append('--strict-optional')
+            ##flags.append('--warn-unused-ignores')
             sys.argv = ['mypy'] + flags + files
             if args.verbose:
                 print("running", ' '.join(sys.argv))

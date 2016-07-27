@@ -6,6 +6,7 @@ from typing import (
     TypeVar, overload,
 )
 import importlib.abc
+import sys
 import types
 import zipimport
 
@@ -244,7 +245,10 @@ class ExtractionError(Exception):
     original_error = ...  # type: Exception
 
 
-class _Importer(importlib.abc.MetaPathFinder, importlib.abc.InspectLoader): ...
+if sys.version_info >= (3, 3):
+    class _Importer(importlib.abc.MetaPathFinder, importlib.abc.InspectLoader): ...
+else:
+    class _Importer(importlib.abc.InspectLoader): ...
 
 def register_finder(importer_type: type,
                     distribution_finder: _DistFinderType) -> None : ...
