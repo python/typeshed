@@ -1,4 +1,4 @@
-# Stubs for mmap
+# Stubs for mmap (python 3)
 
 from typing import (
     IO, Optional, Sequence, Union,
