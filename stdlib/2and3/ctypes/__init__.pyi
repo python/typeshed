@@ -1,7 +1,7 @@
 # Stubs for ctypes
 
 from typing import (
-    Any, Callable, Mapping, Optional, Tuple, Type,
+    Any, Callable, Iterable, Mapping, Optional, Sequence, Sized, Tuple, Type,
     Generic, TypeVar, overload,
 )
 from typing import Union as UnionT
@@ -99,6 +99,7 @@ def byref(obj: _SimpleCData, offset: int = ...) -> _cparam: ...
 def cast(obj: _SimpleCData[Any], type: Type[_Pointer[Any]]) -> _SimpleCData[Any]: ...
 def create_string_buffer(init_or_size: UnionT[int, bytes],
                          size: Optional[int] = ...) -> Array[c_char]: ...
+c_buffer = create_string_buffer
 def create_unicode_buffer(init_or_size: UnionT[int, str],
                           size: Optional[int] = ...) -> Array[c_wchar]: ...
 if sys.platform == 'win32':
@@ -114,13 +115,13 @@ def memmove(dst: UnionT[int, _SimpleCData[Any]],
             count: int) -> None: ...
 def memset(dst: UnionT[int, _SimpleCData[Any]],
            c: int, count: int) -> None: ...
-def POINTER(type: Type[_SimpleCData[Any]]) -> Type[_SimpleCData[Any]]: ...  # TODO need recursive typing
+def POINTER(type: Type[_CData[Any]]) -> Type[_CData[Any]]: ...  # TODO need recursive typing
 def pointer(obj: _SimpleCData[Any]) -> _SimpleCData[Any]: ...  # TODO need recursive typing
 def resize(obj: _SimpleCData[Any], size: int) -> None: ...
 def set_errno(value: int) -> int: ...
 if sys.platform == 'win32':
     def set_last_error(value: int) -> int: ...
-def sizeof(obj_or_type: UnionT[_SimpleCData[Any], Type[_SimpleCData[Any]]]) -> int: ...
+def sizeof(obj_or_type: UnionT[_CData[Any], Type[_CData[Any]]]) -> int: ...
 def string_at(address: int, size: int = ...) -> bytes: ...
 if sys.platform == 'win32':
     def WinError(code: Optional[int] = ...,
@@ -205,48 +206,34 @@ class LittleEndianStructure:
     def __init__(self, *args: Any, **kw: Any) -> None: ...
 
 class Structure:
-    _fields_ = ...  # type: Sequence[Tuple[str, Type[_SimpleCData]], Tuple[str, Type[_SimpleCData], int]]
-    _pack_ = ...  # type: inst
+    _fields_ = ...  # type: Sequence[UnionT[Tuple[str, Type[_SimpleCData]], Tuple[str, Type[_SimpleCData], int]]]
+    _pack_ = ...  # type: int
     _anonymous_ = ...  # type: Sequence[str]
-    def __init__(self, *args, **kw) -> None: ...
+    def __init__(self, *args: Any, **kw: Any) -> None: ...
 
 
+class Array(Generic[_T], Sized, _CData):
+    _length_ = ...  # type: int
+    _type_ = ...  # type: Type[_T]
+    def __init__(self, *args: _T) -> None: ...
+    @overload
+    def __getitem__(self, i: int) -> _T: ...
+    @overload
+    def __getitem__(self, s: slice) -> List[_T]: ...
+    @overload
+    def __setitem__(self, i: int, o: _T) -> None: ...
+    @overload
+    def __setitem__(self, s: slice, o: Iterable[_T]) -> None: ...
 
 
-
-#class c_voidp(_SimpleCData[Optional[int]]): ...
-
-
-#def c_buffer(init, size=None): ...
-
-
-#c_int = ...  # type: Any
-#c_uint = ...  # type: Any
-
-
-#c_longdouble = ...  # type: Any
-#c_longlong = ...  # type: Any
-#c_ulonglong = ...  # type: Any
-
-#class c_char(_SimpleCData): ...
-
-
-#class c_wchar(_SimpleCData): ...
-
-#def SetPointerType(pointer, cls): ...
-#def ARRAY(typ, len): ...
-
-
-
-#def WinError(code=None, descr=None): ...
-
-
-
-#c_int8 = ...  # type: Any
-#c_uint8 = ...  # type: Any
-#c_int16 = ...  # type: Any
-#c_int32 = ...  # type: Any
-#c_int64 = ...  # type: Any
-#c_uint16 = ...  # type: Any
-#c_uint32 = ...  # type: Any
-#c_uint64 = ...  # type: Any
+class _Pointer(Generic[_T], _CData):
+    _type_ = ...  # type: Type[_T]
+    contents = ...  # type: _T
+    @overload
+    def __getitem__(self, i: int) -> _T: ...
+    @overload
+    def __getitem__(self, s: slice) -> List[_T]: ...
+    @overload
+    def __setitem__(self, i: int, o: _T) -> None: ...
+    @overload
+    def __setitem__(self, s: slice, o: Iterable[_T]) -> None: ...
