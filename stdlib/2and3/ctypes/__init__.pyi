@@ -127,6 +127,16 @@ if sys.platform == 'win32':
 def wstring_at(address: int, size: int = ...) -> str: ...
 
 
+class _CData:
+    _b_base = ...  # type: int
+    _b_needsfree_ = ...  # type: bool
+    _objects = ...  # type: Optional[Mapping[Any, int]]
+    def from_buffer(self, source: bytearray, offset: int) -> _CData: ...  # TODO source, find better type
+    def from_buffer_copy(self, source: bytearray, offset: int) -> _CData: ...  # TODO source, find better type
+    def from_address(self, address: int) -> _CData: ...
+    def from_param(self, obj: Any) -> Union[_SimpleCData, _cparam]: ...
+    def in_dll(self, library: str, name: _DLL) -> _CData: ...
+
 class _SimpleCData(Generic[_T]):
     value = ...  # type: _T
     def __init__(self, value: _T) -> None: ...
