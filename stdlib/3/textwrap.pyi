@@ -79,6 +79,7 @@ def wrap(
     ...
 
 def fill(
+        text: str,
         width: int = ...,
         *,
         initial_indent: str = ...,
@@ -96,6 +97,7 @@ def fill(
     ...
 
 def shorten(
+        text: str,
         width: int,
         *,
         initial_indent: str = ...,
