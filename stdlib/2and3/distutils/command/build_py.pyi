@@ -1,0 +1,6 @@
+# Stubs for distutils.command.bdist_msi
+
+from ..cmd import Command
+
+class build_py(Command): ...
+class build_py_2to3(Command): ...
