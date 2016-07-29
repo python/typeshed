@@ -42,12 +42,15 @@ pydll = ...  # type: LibraryLoader[PyDLL]
 pythonapi = ...  # type: PyDLL
 
 
+_ECT = Callable[[Optional[Type[_SimpleCData]],
+                 _FuncPtr,
+                 Tuple[_SimpleCData[Any], ...]],
+                _SimpleCData]
 class _FuncPtr:
     restype = ...  # type: Union[Optional[Type[_SimpleCData]], Callable[[int], None]]
     argtypes = ...  # type: Tuple[Type[_SimpleCData], ...]
-    errcheck = ...  # type: Callable[[Optional[Type[_SimpleCData]], _FuncPtr, Tuple[_SimpleCData[Any], ...]], _SimpleCData]
-    def __call__(self, *args: Union[_SimpleCData, _cparam],
-                 **kwargs: Union[_SimpleCData, _cparam]) -> Any: ...
+    errcheck = ...  # type: _ECT
+    def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
 
 class ArgumentError(Exception): ...
 
@@ -66,7 +69,7 @@ def PYFUNCTYPE(restype: Type[_SimpleCData],
                use_errno: bool = ...,
                use_last_error: bool = ...) -> Type[_FuncProto]: ...
 
-_PF = Tuple[
+_PF = Union[
     Tuple[int],
     Tuple[int, str],
     Tuple[int, str, Any],
