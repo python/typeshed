@@ -1,9 +1,6 @@
 # Stubs for mmap
 
-from typing import (
-    Optional, Sequence, Union,
-    Generic, TypeVar, overload
-)
+from typing import Optional, Sequence, Union, Generic, TypeVar, overload
 import sys
 
 
@@ -13,7 +10,7 @@ _T = TypeVar('_T', str, bytes)
 from typing import Type
 from types import TracebackType
 _C = TypeVar('_C')
-class ContextManager(Generic[_C]):
+class _ContextManager(Generic[_C]):
     def __enter__(self) -> _C: ...
     def __exit__(self, exc_type: Optional[Type[BaseException]],
                  exc_val: Optional[Exception],
@@ -61,7 +58,7 @@ class _mmap(Generic[_T]):
     def __len__(self) -> int: ...
 
 if sys.version_info >= (3,):
-    class mmap(_mmap, ContextManager[mmap], Sequence[bytes]):
+    class mmap(_mmap, _ContextManager[mmap], Sequence[bytes]):
         closed = ... # type: bool
         def rfind(self, sub: bytes, start: int = ..., stop: int = ...) -> int: ...
         @overload  # type: ignore
