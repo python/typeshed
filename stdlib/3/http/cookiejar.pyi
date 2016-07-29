@@ -7,12 +7,10 @@ from urllib.request import Request
 
 _T = TypeVar('_T')
 
-# TODO uncomment when mypy handles conditionals
-#if sys.version_info >= (3, 3):
-#    class LoadError(OSError): ...
-#else:
-#    class LoadError(IOError): ...
-class LoadError(OSError): ...
+if sys.version_info >= (3, 3):
+    class LoadError(OSError): ...
+else:
+    class LoadError(IOError): ...
 
 
 class CookieJar(Iterable['Cookie']):

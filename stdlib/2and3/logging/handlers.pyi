@@ -3,12 +3,10 @@
 from typing import Any, Callable, Optional, Tuple, Union, overload
 from logging import Handler, FileHandler, LogRecord
 import datetime
-# TODO uncomment when mypy handle conditionals
-#if sys.version_info >= (3,):
-#    from queue import Queue
-#else:
-#    from Queue import Queue
-Queue = Any
+if sys.version_info >= (3,):
+    from queue import Queue
+else:
+    from Queue import Queue
 from socket import SocketType
 # TODO update socket stubs to add SocketKind
 SocketKind = int

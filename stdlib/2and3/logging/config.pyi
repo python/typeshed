@@ -2,13 +2,12 @@
 
 from typing import Any, Callable, Dict, Optional, IO, Union
 import sys
-# TODO uncomment when mypy handle conditionals
-#if sys.version_info >= (3,):
-#    from configparser import RawConfigParser
-#else:
-#    from ConfigParser import RawConfigParser
-# TODO add RawConfigParser to configparser stubs
-RawConfigParser = Any
+if sys.version_info >= (3,):
+    #from configparser import RawConfigParser
+    # TODO add RawConfigParser to configparser stubs
+    RawConfigParser = Any
+else:
+    from ConfigParser import RawConfigParser
 
 
 def dictConfig(config: Dict[str, Any]) -> None: ...
