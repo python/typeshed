@@ -6,7 +6,7 @@ from typing import (
 )
 import sys
 
-_T = TypeVar('_T')
+_DT = TypeVar('_DT', int, bytes, str, float, None)
 if sys.platform == 'win32':
     _DLLT = TypeVar('_DLLT', CDLL, OleDLL, WinDLL, PyDLL)
 else:
@@ -43,25 +43,29 @@ pydll = ...  # type: LibraryLoader[PyDLL]
 pythonapi = ...  # type: PyDLL
 
 
-_FRT = TypeVar('_FRT', Optional[_SimpleCData])
-class _FuncPtr(Generic[_FRT]):
-    restype = ...  # type: Union[_FRT, Callable[[int], None]]
-    argtypes = ...  # type: Tuple[_SimpleCData, ...]
-    errcheck = ...  # type: Callable[[_FRT, _FuncPtr, Tuple[_SimpleCData, ...]], _SimpleCData]
+class _FuncPtr(Generic[_DT]):
+    restype = ...  # type: Union[Optional[Type[_SimpleCData[_DT]]], Callable[[int], None]]
+    argtypes = ...  # type: Tuple[Type[_SimpleCData[_DT]], ...]
+    errcheck = ...  # type: Callable[[Optional[Type[_SimpleCData[_DT]]], _FuncPtr[_DT], Tuple[_SimpleCData[Any], ...]], _SimpleCData[_DT]]
+    def __call__(self, *args: Union[_SimpleCData, _cparam],
+                 **kwargs: Union[_SimpleCData, _cparam]) -> _DT: ...
 
 class ArgumentError(Exception): ...
 
 
-def CFUNCTYPE(restype: _SimpleCData, *argtypes: _SimpleCData,
+def CFUNCTYPE(restype: Type[_SimpleCData[_DT]],
+              *argtypes: Type[_SimpleCData[Any]],
               use_errno: bool = ...,
-              use_last_error: bool = ...) -> Type[_FuncProto]: ...
+              use_last_error: bool = ...) -> Type[_FuncProto[_DT]]: ...
 if sys.platform == 'win32':
-    def WINFUNCTYPE(restype: _SimpleCData, *argtypes: _SimpleCData,
+    def WINFUNCTYPE(restype: Type[_SimpleCData[_DT]],
+                    *argtypes: Type[_SimpleCData[Any]],
                     use_errno: bool = ...,
-                    use_last_error: bool = ...) -> Type[_FuncProto]: ...
-def PYFUNCTYPE(restype: _SimpleCData, *argtypes: _SimpleCData,
+                    use_last_error: bool = ...) -> Type[_FuncProto[_DT]]: ...
+def PYFUNCTYPE(restype: Type[_SimpleCData[_DT]],
+               *argtypes: Type[_SimpleCData[Any]],
                use_errno: bool = ...,
-               use_last_error: bool = ...) -> Type[_FuncProto]: ...
+               use_last_error: bool = ...) -> Type[_FuncProto[_DT]]: ...
 
 _PF = Tuple[
     Tuple[int],
@@ -69,24 +73,30 @@ _PF = Tuple[
     Tuple[int, str, Any],
 ]
 
-class _FuncProto(_FuncPtr):
+class _FuncProto(Generic[_DT], _FuncPtr[_DT]):
     @overload
     def __init__(self, address: int) -> None: ...
     @overload
-    def __init__(self, callable: Callable[..., Any]) -> None: ...
+    def __init__(self, callable: Callable[..., _DT]) -> None: ...
     @overload
     def __init__(self, func_spec: Tuple[Union[str, int], _DLL],
                  paramflags: Tuple[_PF, ...] = ...) -> None: ...
-    # TODO iid is a pointer to the interface identifier
+    # TODO better type: iid is a pointer to the interface identifier
     @overload
     def __init__(self, vtlb_index: int, name: str,
                  paramflags: Tuple[_PF, ...] = ...,
-                 iid: _SimpleCData = ...) -> None: ...
+                 iid: _SimpleCData[Any] = ...) -> None: ...
+
+class _cparam(Generic[_DT]): ...
+
+def addressof(obj: _SimpleCData[Any]) -> int: ...
+def alignment(obj_or_type: Union[_SimpleCData[Any], Type[_SimpleCData[Any]]]) -> int: ...
+def byref(obj: _SimpleCData[_DT], offset: int = ...) -> _cparam[_DT]: ...
 
 
-class _SimpleCData(Generic[_T]):
-    value = ...  # type: _T
-    def __init__(self, value: _T) -> None: ...
+class _SimpleCData(Generic[_DT]):
+    value = ...  # type: _DT
+    def __init__(self, value: _DT) -> None: ...
 
 #class c_bool(_SimpleCData[int]):
 #    def __init__(self, value: bool) -> None: ...
