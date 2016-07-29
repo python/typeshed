@@ -6,7 +6,6 @@ from typing import (
 )
 import sys
 
-_DT = TypeVar('_DT', int, bytes, str, float, None)
 if sys.platform == 'win32':
     _DLLT = TypeVar('_DLLT', CDLL, OleDLL, WinDLL, PyDLL)
 else:
@@ -43,29 +42,29 @@ pydll = ...  # type: LibraryLoader[PyDLL]
 pythonapi = ...  # type: PyDLL
 
 
-class _FuncPtr(Generic[_DT]):
-    restype = ...  # type: Union[Optional[Type[_SimpleCData[_DT]]], Callable[[int], None]]
-    argtypes = ...  # type: Tuple[Type[_SimpleCData[_DT]], ...]
-    errcheck = ...  # type: Callable[[Optional[Type[_SimpleCData[_DT]]], _FuncPtr[_DT], Tuple[_SimpleCData[Any], ...]], _SimpleCData[_DT]]
+class _FuncPtr:
+    restype = ...  # type: Union[Optional[Type[_SimpleCData]], Callable[[int], None]]
+    argtypes = ...  # type: Tuple[Type[_SimpleCData], ...]
+    errcheck = ...  # type: Callable[[Optional[Type[_SimpleCData]], _FuncPtr, Tuple[_SimpleCData[Any], ...]], _SimpleCData]
     def __call__(self, *args: Union[_SimpleCData, _cparam],
-                 **kwargs: Union[_SimpleCData, _cparam]) -> _DT: ...
+                 **kwargs: Union[_SimpleCData, _cparam]) -> Any: ...
 
 class ArgumentError(Exception): ...
 
 
-def CFUNCTYPE(restype: Type[_SimpleCData[_DT]],
+def CFUNCTYPE(restype: Type[_SimpleCData],
               *argtypes: Type[_SimpleCData[Any]],
               use_errno: bool = ...,
-              use_last_error: bool = ...) -> Type[_FuncProto[_DT]]: ...
+              use_last_error: bool = ...) -> Type[_FuncProto]: ...
 if sys.platform == 'win32':
-    def WINFUNCTYPE(restype: Type[_SimpleCData[_DT]],
+    def WINFUNCTYPE(restype: Type[_SimpleCData],
                     *argtypes: Type[_SimpleCData[Any]],
                     use_errno: bool = ...,
-                    use_last_error: bool = ...) -> Type[_FuncProto[_DT]]: ...
-def PYFUNCTYPE(restype: Type[_SimpleCData[_DT]],
+                    use_last_error: bool = ...) -> Type[_FuncProto]: ...
+def PYFUNCTYPE(restype: Type[_SimpleCData],
                *argtypes: Type[_SimpleCData[Any]],
                use_errno: bool = ...,
-               use_last_error: bool = ...) -> Type[_FuncProto[_DT]]: ...
+               use_last_error: bool = ...) -> Type[_FuncProto]: ...
 
 _PF = Tuple[
     Tuple[int],
@@ -73,11 +72,11 @@ _PF = Tuple[
     Tuple[int, str, Any],
 ]
 
-class _FuncProto(Generic[_DT], _FuncPtr[_DT]):
+class _FuncProto(_FuncPtr):
     @overload
     def __init__(self, address: int) -> None: ...
     @overload
-    def __init__(self, callable: Callable[..., _DT]) -> None: ...
+    def __init__(self, callable: Callable[..., Any]) -> None: ...
     @overload
     def __init__(self, func_spec: Tuple[Union[str, int], _DLL],
                  paramflags: Tuple[_PF, ...] = ...) -> None: ...
@@ -87,16 +86,17 @@ class _FuncProto(Generic[_DT], _FuncPtr[_DT]):
                  paramflags: Tuple[_PF, ...] = ...,
                  iid: _SimpleCData[Any] = ...) -> None: ...
 
-class _cparam(Generic[_DT]): ...
+class _cparam: ...
 
 def addressof(obj: _SimpleCData[Any]) -> int: ...
 def alignment(obj_or_type: Union[_SimpleCData[Any], Type[_SimpleCData[Any]]]) -> int: ...
-def byref(obj: _SimpleCData[_DT], offset: int = ...) -> _cparam[_DT]: ...
+def byref(obj: _SimpleCData, offset: int = ...) -> _cparam: ...
 
 
-class _SimpleCData(Generic[_DT]):
-    value = ...  # type: _DT
-    def __init__(self, value: _DT) -> None: ...
+_T = TypeVar('_T')
+class _SimpleCData(Generic[_T]):
+    value = ...  # type: _T
+    def __init__(self, value: _T) -> None: ...
 
 #class c_bool(_SimpleCData[int]):
 #    def __init__(self, value: bool) -> None: ...
