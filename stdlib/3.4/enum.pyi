@@ -1,4 +1,4 @@
-from typing import List, Any, TypeVar
+from typing import Iterator, List, Mapping, Any, TypeVar
 
 class Enum:
     def __new__(cls, value: Any) -> None: ...
@@ -9,8 +9,13 @@ class Enum:
     def __hash__(self) -> Any: ...
     def __reduce_ex__(self, proto: Any) -> Any: ...
 
+    @classmethod
+    def __iter__(cls) -> Iterator['Enum']: ...
+
     name = ...  # type: str
     value = ...  # type: Any
+
+    __members__ = ...  # type: Mapping[str, 'Enum']
 
 class IntEnum(int, Enum): ...
 
