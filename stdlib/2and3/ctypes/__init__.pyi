@@ -1,7 +1,7 @@
 # Stubs for ctypes
 
 from typing import (
-    Any, Optional, Type,
+    Any, Callable, Optional, Tuple, Type, Union,
     Generic, TypeVar,
 )
 import sys
@@ -43,9 +43,17 @@ pydll = ...  # type: LibraryLoader[PyDLL]
 pythonapi = ...  # type: PyDLL
 
 
-#class _SimpleCData(Generic[_T]):
-#    value = ...  # type: _T
-#    def __init__(self, value: _T) -> None: ...
+_FRT = TypeVar('_FRT', Optional[_SimpleCData])
+class _FuncPtr(Generic[_FRT]):
+    restype = ...  # type: Union[_FRT, Callable[[int], None]]
+    argtypes = ...  # type: Tuple[_SimpleCData, ...]
+    errcheck = ...  # type: Callable[[_FRT, _FuncPtr, Tuple[_SimpleCData, ...]], _SimpleCData]
+
+class _SimpleCData(Generic[_T]):
+    value = ...  # type: _T
+    def __init__(self, value: _T) -> None: ...
+
+class ArgumentError(Exception): ...
 
 #class c_bool(_SimpleCData[int]):
 #    def __init__(self, value: bool) -> None: ...
