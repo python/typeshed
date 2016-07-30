@@ -9,10 +9,11 @@ _SZI = Union[str, ZipInfo]
 _DT = Tuple[int, int, int, int, int, int]
 
 
-class BadZipFile(Exception): ...
-
 if sys.version_info >= (3,):
+    class BadZipFile(Exception): ...
     BadZipfile = BadZipFile
+else:
+    class BadZipfile(Exception): ...
 
 class LargeZipFile(Exception): ...
 
