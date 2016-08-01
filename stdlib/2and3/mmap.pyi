@@ -1,6 +1,7 @@
 # Stubs for mmap
 
-from typing import Optional, Sequence, Union, Generic, TypeVar, overload
+from typing import (Optional, Sequence, Union, Generic, TypeVar, overload,
+                    Iterable, Container, Sized, Reversible)
 import sys
 
 
@@ -37,7 +38,7 @@ class _mmap(Generic[_T]):
                      tagname: Optional[str] = ..., access: int = ...,
                      offset: int = ...) -> None: ...
     else:
-        def __init__(self,  # type: ignore
+        def __init__(self,
                      fileno: int, length: int, flags: int = ...,
                      prot: int = ..., access: int = ...,
                      offset: int = ...) -> None: ...
@@ -58,10 +59,11 @@ class _mmap(Generic[_T]):
     def __len__(self) -> int: ...
 
 if sys.version_info >= (3,):
-    class mmap(_mmap, _ContextManager[mmap], Sequence[bytes]):
+    class mmap(_mmap, _ContextManager[mmap], Iterable[bytes], Container[bytes],
+               Sized, Reversible[bytes]):
         closed = ... # type: bool
         def rfind(self, sub: bytes, start: int = ..., stop: int = ...) -> int: ...
-        @overload  # type: ignore
+        @overload
         def __getitem__(self, index: int) -> int: ...
         @overload
         def __getitem__(self, index: slice) -> bytes: ...
