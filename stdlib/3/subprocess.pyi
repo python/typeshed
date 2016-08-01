@@ -7,6 +7,7 @@ from typing import Sequence, Any, Mapping, Callable, Tuple, IO, Optional, Union
 
 # Same args as Popen.__init__
 if sys.version_info >= (3, 3):
+    # 3.3 added timeout
     def call(args: Union[str, Sequence[str]],
              bufsize: int = ...,
              executable: str = ...,
@@ -46,6 +47,7 @@ else:
 
 # Same args as Popen.__init__
 if sys.version_info >= (3, 3):
+    # 3.3 added timeout
     def check_call(args: Union[str, Sequence[str]],
                    bufsize: int = ...,
                    executable: str = ...,
@@ -84,7 +86,7 @@ else:
                    pass_fds: Any = ...) -> int: ...
 
 if sys.version_info >= (3, 4):
-    # the input= keyword was added in 3.4
+    # 3.4 added input
     def check_output(args: Union[str, Sequence[str]],
                      bufsize: int = ...,
                      executable: str = ...,
@@ -104,6 +106,7 @@ if sys.version_info >= (3, 4):
                      timeout: int = ...,
                      input: Union[str, bytes] = ...) -> Any: ...
 elif sys.version_info >= (3, 3):
+    # 3.3 added timeout
     def check_output(args: Union[str, Sequence[str]],
                      bufsize: int = ...,
                      executable: str = ...,
