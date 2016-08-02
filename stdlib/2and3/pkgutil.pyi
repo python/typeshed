@@ -1,7 +1,12 @@
 # Stubs for pkgutil
 
 from typing import Any, Callable, Generator, IO, Iterable, Optional, Tuple
-from importlib.abc import Loader
+import sys
+
+if sys.version_info >= (3,):
+    from importlib.abc import Loader
+else:
+    Loader = Any
 
 _YMFNI = Generator[Tuple[Any, str, bool], None, None]
 
