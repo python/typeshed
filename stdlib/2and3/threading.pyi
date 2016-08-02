@@ -41,7 +41,10 @@ if sys.version_info < (3,):
     class ThreadError(Exception): ...
 
 
-class local(Any): ...
+# TODO: Change to a class with __getattr__ and __setattr__
+# once mypy supports universal __setattr__.
+# See https://github.com/python/mypy/issues/521
+local = None  # type: Any
 
 
 class Thread:
