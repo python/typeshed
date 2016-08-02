@@ -8,7 +8,8 @@ from typing import Dict as DictT
 from enum import Enum
 import sys
 
-_D = TypeVar('_D', MutableMapping[str, Any])
+mm = MutableMapping[str, Any]
+_D = TypeVar('_D', mm)
 
 
 if sys.version_info >= (3,):
