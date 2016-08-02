@@ -1,6 +1,6 @@
 # Stubs for distutils.command.bdist_msi
 
-from ..cmd import Command
+from distutils.cmd import Command
 import sys
 
 if sys.version_info >= (3,):

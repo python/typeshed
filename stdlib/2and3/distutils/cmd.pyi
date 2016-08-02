@@ -2,7 +2,7 @@
 
 from typing import Callable, List, Tuple, Union
 from abc import abstractmethod
-from .dist import Distribution
+from distutils.dist import Distribution
 
 class Command:
     sub_commands = ...  # type: List[Tuple[str, Union[Callable[[], bool], str, None]]]
