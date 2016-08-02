@@ -10,6 +10,10 @@ import sys
 
 mm = MutableMapping[str, Any]
 _D = TypeVar('_D', mm)
+if sys.version_info >= (3,):
+    _Path = str
+else:
+    _Path = Union[str, unicode]
 
 
 if sys.version_info >= (3,):
@@ -28,14 +32,14 @@ if sys.version_info >= (3, 4):
     def dumps(value: Mapping[str, Any], *, fmt: PlistFormat = ...,
               skipkeys: bool = ..., sort_keys: bool = ...) -> bytes: ...
 
-def readPlist(pathOrFile: Union[str, IO[bytes]]) -> DictT[str, Any]: ...
-def writePlist(value: Mapping[str, Any], pathOrFile: Union[str, IO[bytes]]) -> None: ...
+def readPlist(pathOrFile: Union[_Path, IO[bytes]]) -> DictT[str, Any]: ...
+def writePlist(value: Mapping[str, Any], pathOrFile: Union[_Path, IO[bytes]]) -> None: ...
 def readPlistFromBytes(data: bytes) -> DictT[str, Any]: ...
 def writePlistToBytes(value: Mapping[str, Any]) -> bytes: ...
 if sys.version_info < (3,) and sys.platform == 'darwin':
-    def readPlistFromResource(path: str, restype: str = ...,
+    def readPlistFromResource(path: _Path, restype: str = ...,
                               resid: int = ...) -> DictT[str, Any]: ...
-    def writePlistToResource(rootObject: Mapping[str, Any], path: str,
+    def writePlistToResource(rootObject: Mapping[str, Any], path: _Path,
                              restype: str = ...,
                              resid: int = ...) -> None: ...
 
