@@ -6,7 +6,7 @@ import sys
 from typing import Sequence, Any, Mapping, Callable, Tuple, IO, Optional, Union, List
 
 
-if sys.version_info >= 3.5:
+if sys.version_info >= (3, 5):
     class CompletedProcess:
         args = ...  # type: Union[List, str]
         returncode = ... # type: int
@@ -99,7 +99,7 @@ def check_output(args: Union[str, Sequence[str]],
 # TODO types
 PIPE = ... # type: Any
 STDOUT = ... # type: Any
-if sys.version_info >= 3.3:
+if sys.version_info >= (3, 3):
     DEVNULL = ... # type: Any
 
 
