@@ -113,11 +113,15 @@ class Generator(Iterator[_T_co], Generic[_T_co, _T_contra, _V_co]):
     @abstractmethod
     def __iter__(self) -> 'Generator[_T_co, _T_contra, _V_co]': ...
 
-class AbstractFuture(Generic[_T]): ...
-
 class Awaitable(Generic[_T_co]):
     @abstractmethod
-    def __await__(self) -> Generator[AbstractFuture[_T_co], Any, _T_co]:...
+    def __await__(self) -> Generator[Any, None, _T_co]:...
+
+# NOTE: This type does not exist in typing.py or PEP 484.
+# The parameters corrrespond to Generator, but the 4th is the original type.
+class AwaitableGenerator(Generator[_T_co, _T_contra, _V_co], Awaitable[_T_co],
+                         Generic[_T_co, _T_contra, _V_co, _S]):
+    pass
 
 class AsyncIterable(Generic[_T_co]):
     @abstractmethod
