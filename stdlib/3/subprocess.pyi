@@ -21,7 +21,7 @@ if sys.version_info >= (3, 5):
     
     # Nearly same args as Popen.__init__ except for timeout, input, and check
     def run(args: Union[str, Sequence[str]],
-	    timeout: int = ...,
+	    timeout: float = ...,
 	    input: Union[str, bytes] = ...,
 	    check: bool = ...,
 	    bufsize: int = ...,
@@ -61,7 +61,7 @@ if sys.version_info >= (3, 3):
              restore_signals: bool = ...,
              start_new_session: bool = ...,
              pass_fds: Any = ...,
-             timeout: int = ...) -> int: ...
+             timeout: float = ...) -> int: ...
 else:
     def call(args: Union[str, Sequence[str]],
              bufsize: int = ...,
@@ -101,7 +101,7 @@ if sys.version_info >= (3, 3):
                    restore_signals: bool = ...,
                    start_new_session: bool = ...,
                    pass_fds: Any = ...,
-                   timeout: int = ...) -> int: ...
+                   timeout: float = ...) -> int: ...
 else:
     def check_call(args: Union[str, Sequence[str]],
                    bufsize: int = ...,
@@ -139,7 +139,7 @@ if sys.version_info >= (3, 4):
                      restore_signals: bool = ...,
                      start_new_session: bool = ...,
                      pass_fds: Any = ...,
-                     timeout: int = ...,
+                     timeout: float = ...,
                      input: Union[str, bytes] = ...) -> Any: ...
 elif sys.version_info >= (3, 3):
     # 3.3 added timeout
@@ -159,7 +159,7 @@ elif sys.version_info >= (3, 3):
                      restore_signals: bool = ...,
                      start_new_session: bool = ...,
                      pass_fds: Any = ...,
-                     timeout: int = ...) -> Any: ...
+                     timeout: float = ...) -> Any: ...
 else:
     # Same args as Popen.__init__, except for stdout
     def check_output(args: Union[str, Sequence[str]],
@@ -199,7 +199,7 @@ if sys.version_info >= (3, 5):
             start_new_session: bool = ...,
             pass_fds: Any = ...,
             input: Union[str, bytes] = ...,
-            timeout: int = None,
+            timeout: float = None,
             check: bool = False) -> Any: ...
 
 
@@ -260,9 +260,9 @@ class Popen:
     def wait(self) -> int: ...
     # Return str/bytes
     if sys.version_info >= (3, 3):
-        def communicate(self, input: Union[str, bytes]=..., timeout: float=...) -> Tuple[Any, Any]: ...
+        def communicate(self, input: Union[str, bytes] = ..., timeout: float =...) -> Tuple[Any, Any]: ...
     else:
-        def communicate(self, input: Union[str, bytes]=...) -> Tuple[Any, Any]: ...
+        def communicate(self, input: Union[str, bytes] = ...) -> Tuple[Any, Any]: ...
     def send_signal(self, signal: int) -> None: ...
     def terminate(self) -> None: ...
     def kill(self) -> None: ...
