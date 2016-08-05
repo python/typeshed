@@ -3,7 +3,7 @@
 from typing import (
     IO, Union, List, Sequence, Any, Dict, Tuple, BinaryIO, Optional, Callable, overload
 )
-from types import FrameType, ModuleType, TracebackType
+from types import FrameType, ModuleType, TracebackType, ClassType
 
 class _flags:
     bytes_warning = ...  # type: int
@@ -86,6 +86,9 @@ path_hooks = ...  # type: List[Any]
 path_importer_cache = ...  # type: Dict[str, Any]
 displayhook = ...  # type: Optional[Callable[[int], None]]
 excepthook = ...  # type: Optional[Callable[[type, BaseException, TracebackType], None]]
+exc_type = ...  # type: Optional[type]
+exc_value = ...  # type: Union[BaseException, ClassType]
+exc_traceback = ...  # type: TracebackType
 
 class _WindowsVersionType:
     major = ...  # type: Any
