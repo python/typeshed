@@ -180,29 +180,6 @@ else:
                      pass_fds: Any = ...) -> Any: ...
 
 
-if sys.version_info >= (3, 5):
-    # Same args as Popen.__init__, except for timeout, input and check
-    def run(args: Union[str, Sequence[str]],
-            bufsize: int = ...,
-            executable: str = ...,
-            stdin: Any = ...,
-            stderr: Any = ...,
-            preexec_fn: Callable[[], Any] = ...,
-            close_fds: bool = ...,
-            shell: bool = ...,
-            cwd: str = ...,
-            env: Mapping[str, str] = ...,
-            universal_newlines: bool = ...,
-            startupinfo: Any = ...,
-            creationflags: int = ...,
-            restore_signals: bool = ...,
-            start_new_session: bool = ...,
-            pass_fds: Any = ...,
-            input: Union[str, bytes] = ...,
-            timeout: float = None,
-            check: bool = False) -> Any: ...
-
-
 # TODO types
 PIPE = ... # type: Any
 STDOUT = ... # type: Any
