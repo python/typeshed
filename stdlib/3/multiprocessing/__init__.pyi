@@ -2,6 +2,8 @@
 
 from typing import Any, Callable, Iterable, Mapping
 
+from multiprocessing.process import current_process as current_process
+
 class Lock():
     def acquire(self, block: bool = ..., timeout: int = ...) -> None: ...
     def release(self) -> None: ...
