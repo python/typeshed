@@ -207,10 +207,6 @@ if sys.version_info >= (3, 5):
 PIPE = ... # type: Any
 STDOUT = ... # type: Any
 if sys.version_info >= (3, 3):
-    DEVNULL = ... # type: Any
-
-
-if sys.version_info >= (3, 3):
     DEVNULL = ...  # type: Any
     class SubprocessError(Exception): ...
 
