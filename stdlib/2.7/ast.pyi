@@ -1,7 +1,7 @@
 # Python 2.7 ast
 
 import typing
-from typing import Any, Tuple, Iterator, Union
+from typing import Any, Iterator, Union
 
 from _ast import (
     Add, alias, And, arguments, Assert, Assign, AST, Attribute, AugAssign,
