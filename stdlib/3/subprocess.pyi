@@ -207,9 +207,6 @@ class Popen:
     pid = 0
     returncode = 0
 
-    if sys.version_info >= (3, 3):
-        args = Union[str, Sequence[str]]
-
     def __init__(self,
                   args: Union[str, Sequence[str]],
                   bufsize: int = ...,
