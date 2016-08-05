@@ -1,6 +1,6 @@
 # Stubs for keyword
 
-from typing import Sequence
+from typing import AnyStr, Sequence
 
-def iskeyword(s: str) -> bool: ...
+def iskeyword(s: AnyStr) -> bool: ...
 kwlist = ...  # type: Sequence[str]
