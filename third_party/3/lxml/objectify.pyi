@@ -1,13 +1,13 @@
 # Hand-written stub, incomplete
 
-from typing import AnyStr
+from typing import Union
 
 from lxml.etree import ElementBase, XMLParser
 
 class ObjectifiedElement(ElementBase):
     pass
 
-def fromstring(text: AnyStr,
+def fromstring(text: Union[bytes, str],
                parser: XMLParser = ...,
                *,
-               base_url: AnyStr = ...) -> ObjectifiedElement: ...
+               base_url: Union[bytes, str] = ...) -> ObjectifiedElement: ...
