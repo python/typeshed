@@ -1,7 +1,7 @@
 # Stubs for contextlib
 
 from typing import (
-    Any, Callable, Generator, IO, Optional, Type,
+    Any, Callable, Generator, IO, Iterable, Iterator, Optional, Type,
     Generic, TypeVar,
 )
 from types import TracebackType
@@ -20,10 +20,10 @@ class ContextManager(Generic[_T]):
                  exc_val: Optional[Exception],
                  exc_tb: Optional[TracebackType]) -> bool: ...
 
-def contextmanager(func: Callable[..., Generator[None, None, None]]) -> Callable[..., ContextManager[None]]: ...
+def contextmanager(func: Callable[..., Iterator[_T]]) -> Callable[..., ContextManager[_T]]: ...
 
 if sys.version_info < (3,):
-    def nested(*mgr: ContextManager[Any]) -> ContextManager[None]: ...
+    def nested(*mgr: ContextManager[Any]) -> ContextManager[Iterable[Any]]: ...
 
 class closing(Generic[_T], ContextManager[_T]):
     def __init__(self, thing: _T) -> None: ...

@@ -1,4 +1,4 @@
-from typing import Any, Union, Callable, TypeVar, List, Generic, Iterable, Generator
+from typing import Any, Union, Callable, TypeVar, List, Generic, Iterable, Generator, Awaitable
 from .events import AbstractEventLoop
 
 __all__ = ... # type: str
@@ -14,7 +14,7 @@ class _TracebackLogger:
     def clear(self) -> None: ...
     def __del__(self) -> None: ...
 
-class Future(Iterable[_T], Generic[_T]):
+class Future(Iterable[_T], Awaitable[_T], Generic[_T]):
     _state = ...  # type: str
     _exception = ... # type: BaseException
     _blocking = False
@@ -35,3 +35,4 @@ class Future(Iterable[_T], Generic[_T]):
     def set_exception(self, exception: Union[type, BaseException]) -> None: ...
     def _copy_state(self, other: Any) -> None: ...
     def __iter__(self) -> Generator[Any, None, _T]: ...
+    def __await__(self) -> Generator[Any, None, _T]: ...
