@@ -25,6 +25,7 @@ if sys.version_info >= (3, 4):
 
 class ModuleType:
     __name__ = ... # type: str
+    __path__ = ...  # type: str
     __file__ = ...  # type: str
     __doc__ = ... # type: Optional[str]
     if sys.version_info >= (3, 4):
