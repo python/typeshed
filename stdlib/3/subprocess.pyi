@@ -2,8 +2,6 @@
 
 # Based on http://docs.python.org/3.5/library/subprocess.html
 import sys
-
-import sys
 from typing import Sequence, Any, Mapping, Callable, Tuple, IO, Optional, Union, List
 
 
@@ -230,7 +228,7 @@ class Popen:
     def wait(self) -> int: ...
     # Return str/bytes
     if sys.version_info >= (3, 3):
-        def communicate(self, input: Union[str, bytes] = ..., timeout: float =...) -> Tuple[Any, Any]: ...
+        def communicate(self, input: Union[str, bytes] = ..., timeout: float = ...) -> Tuple[Any, Any]: ...
     else:
         def communicate(self, input: Union[str, bytes] = ...) -> Tuple[Any, Any]: ...
     def send_signal(self, signal: int) -> None: ...
