@@ -74,7 +74,7 @@ def PYFUNCTYPE(restype: Type[_CData],
 _PF = UnionT[
     Tuple[int],
     Tuple[int, str],
-    Tuple[int, str, Any],
+    Tuple[int, str, Any]
 ]
 
 class _FuncProto(_FuncPtr):
