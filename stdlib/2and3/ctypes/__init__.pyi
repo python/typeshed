@@ -12,6 +12,7 @@ if sys.platform == 'win32':
     _DLLT = TypeVar('_DLLT', CDLL, OleDLL, WinDLL, PyDLL)
 else:
     _DLLT = TypeVar('_DLLT', CDLL, PyDLL)
+_CT = TypeVar('_CT', _CData)
 
 
 RTLD_GLOBAL = ...  # type: int
@@ -22,6 +23,7 @@ DEFAULT_MODE = ...  # type: int
 class _DLL:
     def __init__(self, name: str, mode: int = ..., handle: Optional[int] = ...,
                  use_errno: bool = ..., use_last_error: bool = ...) -> None: ...
+    def __getattr__(self, name: str) -> Any: ...
 class CDLL(_DLL): ...
 if sys.platform == 'win32':
     class OleDLL(_DLL): ...
@@ -44,26 +46,26 @@ pydll = ...  # type: LibraryLoader[PyDLL]
 pythonapi = ...  # type: PyDLL
 
 
-_ECT = Callable[[Optional[Type[_SimpleCData]],
+_ECT = Callable[[Optional[Type[_CData]],
                  _FuncPtr,
-                 Tuple[_SimpleCData[Any], ...]],
-                _SimpleCData]
+                 Tuple[_CData, ...]],
+                _CData]
 class _FuncPtr:
-    restype = ...  # type: UnionT[Optional[Type[_SimpleCData]], Callable[[int], None]]
-    argtypes = ...  # type: Tuple[Type[_SimpleCData], ...]
+    restype = ...  # type: UnionT[Optional[Type[_CData]], Callable[[int], None]]
+    argtypes = ...  # type: Tuple[Type[_CData], ...]
     errcheck = ...  # type: _ECT
     def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
 
 class ArgumentError(Exception): ...
 
 
-def CFUNCTYPE(restype: Type[_SimpleCData],
-              *argtypes: Type[_SimpleCData[Any]],
+def CFUNCTYPE(restype: Type[_CData],
+              *argtypes: Type[_CData],
               use_errno: bool = ...,
               use_last_error: bool = ...) -> Type[_FuncProto]: ...
 if sys.platform == 'win32':
-    def WINFUNCTYPE(restype: Type[_SimpleCData],
-                    *argtypes: Type[_SimpleCData[Any]],
+    def WINFUNCTYPE(restype: Type[_CData],
+                    *argtypes: Type[_CData],
                     use_errno: bool = ...,
                     use_last_error: bool = ...) -> Type[_FuncProto]: ...
 def PYFUNCTYPE(restype: Type[_CData],
@@ -95,7 +97,7 @@ class _cparam: ...
 
 def addressof(obj: _CData) -> int: ...
 def alignment(obj_or_type: UnionT[_CData, Type[_CData]]) -> int: ...
-def byref(obj: _SimpleCData, offset: int = ...) -> _cparam: ...
+def byref(obj: _CData, offset: int = ...) -> _cparam: ...
 def cast(obj: _CData, type: Type[_Pointer[Any]]) -> _CData: ...
 def create_string_buffer(init_or_size: UnionT[int, bytes],
                          size: Optional[int] = ...) -> Array[c_char]: ...
@@ -115,8 +117,8 @@ def memmove(dst: UnionT[int, _CData],
             count: int) -> None: ...
 def memset(dst: UnionT[int, _CData],
            c: int, count: int) -> None: ...
-def POINTER(type: Type[_CData[Any]]) -> Type[_CData[Any]]: ...  # TODO need recursive typing
-def pointer(obj: _CData) -> _CData: ...  # TODO need recursive typing
+def POINTER(type: Type[_CT]) -> Type[_Pointer[_CT]]: ...
+def pointer(obj: _CT) -> _Pointer[_CT]: ...
 def resize(obj: _CData, size: int) -> None: ...
 def set_errno(value: int) -> int: ...
 if sys.platform == 'win32':
@@ -205,16 +207,20 @@ class BigEndianStructure:
 class LittleEndianStructure:
     def __init__(self, *args: Any, **kw: Any) -> None: ...
 
-class Structure:
+class Structure(_CData):
     _fields_ = ...  # type: Sequence[UnionT[Tuple[str, Type[_CData]], Tuple[str, Type[_CData], int]]]
     _pack_ = ...  # type: int
     _anonymous_ = ...  # type: Sequence[str]
     def __init__(self, *args: Any, **kw: Any) -> None: ...
+    def __getattr__(self, name: str) -> Any: ...  # TODO should be a classmethod
+    #def __setattr__(self, name: str, value: Any) -> None: ...
 
 
 class Array(Generic[_T], Sized, _CData):
     _length_ = ...  # type: int
     _type_ = ...  # type: Type[_T]
+    raw = ...  # type: bytes  # TODO only available with _T == c_char
+    value = ...  # type: bytes  # TODO only available with _T == c_char
     def __init__(self, *args: _T) -> None: ...
     @overload
     def __getitem__(self, i: int) -> _T: ...
@@ -224,11 +230,13 @@ class Array(Generic[_T], Sized, _CData):
     def __setitem__(self, i: int, o: _T) -> None: ...
     @overload
     def __setitem__(self, s: slice, o: Iterable[_T]) -> None: ...
+    def __iter__(self) -> Iterable[_T]: ...
 
 
 class _Pointer(Generic[_T], _CData):
     _type_ = ...  # type: Type[_T]
     contents = ...  # type: _T
+    def __init__(self, arg: _T = ...) -> None: ...
     @overload
     def __getitem__(self, i: int) -> _T: ...
     @overload
