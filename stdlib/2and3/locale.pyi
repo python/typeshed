@@ -3,6 +3,9 @@
 from typing import Any, Iterable, List, Mapping, Optional, Sequence, Tuple, Union
 import sys
 
+_str = str
+
+
 CODESET = ...  # type: int
 D_T_FMT = ...  # type: int
 D_FMT = ...  # type: int
@@ -91,7 +94,7 @@ def format_string(format: str, val: Sequence[Any],
                   grouping: bool = ...) -> str: ...
 def currency(val: int, symbol: bool = ..., grouping: bool = ...,
              international: bool = ...) -> str: ...
-#def str(float: float) -> str: ...  # TODO mypy complains
+def str(float: float) -> _str: ...
 if sys.version_info >= (3, 5):
     def delocalize(string: str) -> None: ...
 def atof(string: str) -> float: ...
