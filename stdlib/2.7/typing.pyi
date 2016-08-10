@@ -48,6 +48,10 @@ _KT_co = TypeVar('_KT_co', covariant=True)  # Key type covariant containers.
 _VT_co = TypeVar('_VT_co', covariant=True)  # Value type covariant containers.
 _T_contra = TypeVar('_T_contra', contravariant=True)  # Ditto contravariant.
 
+class SupportsComplex(metaclass=ABCMeta):
+    @abstractmethod
+    def __complex__(self) -> complex: pass
+
 class SupportsInt(metaclass=ABCMeta):
     @abstractmethod
     def __int__(self) -> int: ...
