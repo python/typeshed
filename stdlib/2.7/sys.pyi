@@ -1,7 +1,8 @@
 """Stubs for the 'sys' module."""
 
 from typing import (
-    IO, Union, List, Sequence, Any, Dict, Tuple, BinaryIO, Optional, Callable, overload
+    IO, Union, List, Sequence, Any, Dict, Tuple, BinaryIO, Optional, Callable,
+    overload, Type,
 )
 from types import FrameType, ModuleType, TracebackType, ClassType
 
@@ -112,7 +113,7 @@ def __excepthook__(type_: type, value: BaseException, traceback: TracebackType) 
 def exc_clear() -> None:
     raise DeprecationWarning()
 # TODO should be a union of tuple, see mypy#1178
-def exc_info() -> Tuple[Optional[type],
+def exc_info() -> Tuple[Optional[Type[BaseException]],
                         Optional[BaseException],
                         Optional[TracebackType]]: ...
 
