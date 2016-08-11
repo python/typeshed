@@ -1,7 +1,8 @@
 ## Stubs for tarfile
 
 from typing import (
-    Callable, ContextManager, IO, List, Mapping, Optional, Type, Union,
+    Callable, ContextManager, IO, Iterable, List, Mapping, Optional, Type,
+    Union,
 )
 import sys
 from types import TracebackType
@@ -37,8 +38,19 @@ def open(name: Optional[str] = ..., mode: str = ...,
         errorlevel: Optional[int] = ...) -> TarFile: ...
 
 
-class TarFile(ContextManager):
-    pax_headers = ...  # type: Mapping[str, str]
+class TarFile(ContextManager[TarFile], Iterable):
+    name = ...  # type: Optional[str]
+    mode = ...  # type: str
+    fileobj = ...  # type: Optional[IO[bytes]]
+    format = ...  # type: Optional[int]
+    tarinfo = ...  # type: Optional[TarInfo]
+    dereference = ...  # type: Optional[bool]
+    ignore_zeros = ...  # type: Optional[bool]
+    encoding = ...  # type: Optional[str]
+    errors = ...  # type: str
+    pax_headers = ...  # type: Optional[Mapping[str, str]]
+    debug = ...  # type: Optional[int]
+    errorlevel = ...  # type: Optional[int]
     def __init__(self, name: Optional[str] = ..., mode: str = ...,
                  fileobj: Optional[IO[bytes]] = ...,
                  format: Optional[int] = ..., tarinfo: Optional[TarInfo] = ...,
@@ -58,11 +70,6 @@ class TarFile(ContextManager):
              pax_headers: Optional[Mapping[str, str]] = ...,
              debug: Optional[int] = ...,
              errorlevel: Optional[int] = ...) -> TarFile: ...
-    def __enter__(self) -> TarFile: ...
-    def __exit__(self,
-                 exc_type: Optional[Type[BaseException]],
-                 exc_val: Optional[Exception],
-                 exc_tb: Optional[TracebackType]) -> bool: ...
     def getmember(self, name: str) -> TarInfo: ...
     def getmembers(self) -> List[TarInfo]: ...
     def getnames(self) -> List[str]: ...
