@@ -26,6 +26,9 @@ CHRTYPE = ...  # type: bytes
 BLKTYPE = ...  # type: bytes
 GNUTYPE_SPARSE = ...  # type: bytes
 
+if sys.version_info < (3,):
+    TAR_PLAIN = ...  # type: int
+    TAR_GZIPPED = ...  # type: int
 
 def open(name: Optional[str] = ..., mode: str = ...,
         fileobj: Optional[IO[bytes]] = ..., bufsize: int = ...,
@@ -51,6 +54,8 @@ class TarFile(ContextManager[TarFile], Iterable):
     pax_headers = ...  # type: Optional[Mapping[str, str]]
     debug = ...  # type: Optional[int]
     errorlevel = ...  # type: Optional[int]
+    if sys.version_info < (3,):
+        posix = ...  # type: bool
     def __init__(self, name: Optional[str] = ..., mode: str = ...,
                  fileobj: Optional[IO[bytes]] = ...,
                  format: Optional[int] = ..., tarinfo: Optional[TarInfo] = ...,
@@ -83,20 +88,31 @@ class TarFile(ContextManager[TarFile], Iterable):
         def extractall(self, path: str = ...,
                        members: Optional[List[TarInfo]] = ...,
                        *, numeric_owner: bool = ...) -> None: ...
-        def extract(self, member: Union[str, TarInfo], path: str = ...,
-                    set_attrs: bool = ...,
-                    *, numeric_owner: bool = ...) -> None: ...
     else:
         def extractall(self, path: str = ...,
                        members: Optional[List[TarInfo]] = ...) -> None: ...
+    if sys.version_info >= (3, 5):
+        def extract(self, member: Union[str, TarInfo], path: str = ...,
+                    set_attrs: bool = ...,
+                    *, numeric_owner: bool = ...) -> None: ...
+    elif sys.version_info >= (3,):
         def extract(self, member: Union[str, TarInfo], path: str = ...,
                     set_attrs: bool = ...) -> None: ...
+    else:
+        def extract(self, member: Union[str, TarInfo],
+                    path: str = ...) -> None: ...
     def extractfile(self,
                     member: Union[str, TarInfo]) -> Optional[IO[bytes]]: ...
-    def add(self, name: str, arcname: Optional[str] = ...,
-            recursive: bool = ...,
-            exclude: Optional[Callable[[str], bool]] = ..., *,
-            filter: Optional[Callable[[TarInfo], Optional[TarInfo]]] = ...) -> None: ...
+    if sys.version_info >= (3,):
+        def add(self, name: str, arcname: Optional[str] = ...,
+                recursive: bool = ...,
+                exclude: Optional[Callable[[str], bool]] = ..., *,
+                filter: Optional[Callable[[TarInfo], Optional[TarInfo]]] = ...) -> None: ...
+    else:
+        def add(self, name: str, arcname: Optional[str] = ...,
+                recursive: bool = ...,
+                exclude: Optional[Callable[[str], bool]] = ...,
+                filter: Optional[Callable[[TarInfo], Optional[TarInfo]]] = ...) -> None: ...
     def addfile(self, tarinfo: TarInfo,
                 fileobj: Optional[IO[bytes]] = ...) -> None: ...
     def gettarinfo(self, name: Optional[str] = ...,
@@ -106,6 +122,13 @@ class TarFile(ContextManager[TarFile], Iterable):
 
 
 def is_tarfile(name: str) -> bool: ...
+
+
+if sys.version_info < (3,):
+    class TarFileCompat:
+        def __init__(self, filename: str, mode: str = ...,
+                     compression: int = ...) -> None: ...
+
 
 class TarError(Exception): ...
 class ReadError(TarError): ...
@@ -128,8 +151,12 @@ class TarInfo:
     gname = ...  # type: str
     pax_headers = ...  # type: Mapping[str, str]
     def __init__(self, name: str = ...) -> None: ...
-    @classmethod
-    def frombuf(cls, buf: bytes, encoding: str, errors: str) -> TarInfo: ...
+    if sys.version_info >= (3,):
+        @classmethod
+        def frombuf(cls, buf: bytes, encoding: str, errors: str) -> TarInfo: ...
+    else:
+        @classmethod
+        def frombuf(cls, buf: bytes) -> TarInfo: ...
     @classmethod
     def fromtarfile(cls, tarfile: TarFile) -> TarInfo: ...
     def tobuf(self, format: Optional[int] = ...,
