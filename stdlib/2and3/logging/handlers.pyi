@@ -3,12 +3,10 @@
 from typing import Any, Callable, Optional, Tuple, Union, overload
 from logging import Handler, FileHandler, LogRecord
 import datetime
-# TODO uncomment when mypy handle conditionals
-#if sys.version_info >= (3,):
-#    from queue import Queue
-#else:
-#    from Queue import Queue
-Queue = Any
+if sys.version_info >= (3,):
+    from queue import Queue
+else:
+    from Queue import Queue
 from socket import SocketType
 # TODO update socket stubs to add SocketKind
 SocketKind = int
@@ -40,61 +38,41 @@ if sys.version_info >= (3,):
         def rotate(self, source: str, dest: str) -> None: ...
 
 
-# TODO uncomment when mypy handle conditionals
-#if sys.version_info >= (3,):
-#    class RotatingFileHandler(BaseRotatingHandler):
-#        def __init__(self, filename: str, mode: str = ..., maxBytes: int = ...,
-#                     backupCount: int = ..., encoding: Optional[str] = ...,
-#                     delay: bool = ...) -> None: ...
-#        def doRollover(self) -> None: ...
-#else:
-#    class RotatingFileHandler(Handler):
-#        def __init__(self, filename: str, mode: str = ..., maxBytes: int = ...,
-#                     backupCount: int = ..., encoding: Optional[str] = ...,
-#                     delay: bool = ...) -> None: ...
-#        def doRollover(self) -> None: ...
-class RotatingFileHandler(BaseRotatingHandler):
-    def __init__(self, filename: str, mode: str = ..., maxBytes: int = ...,
-                 backupCount: int = ..., encoding: Optional[str] = ...,
-                 delay: bool = ...) -> None: ...
-    def doRollover(self) -> None: ...
-
-
-# TODO uncomment when mypy handle conditionals
-#if sys.version_info >= (3,):
-#    class TimedRotatingFileHandler(BaseRotatingHandler):
-#        if sys.version_info >= (3, 4):
-#            def __init__(self, filename: str, when: str = ...,
-#                         interval: int = ...,
-#                         backupCount: int = ..., encoding: Optional[str] = ...,
-#                         delay: bool = ..., utc: bool = ...,
-#                         atTime: Optional[datetime.datetime] = ...) -> None: ...
-#        else:
-#            def __init__(self,  # type: ignore
-#                         filename: str, when: str = ..., interval: int = ...,
-#                         backupCount: int = ..., encoding: Optional[str] = ...,
-#                         delay: bool = ..., utc: bool = ...) -> None: ...
-#        def doRollover(self) -> None: ...
-#else:
-#    class TimedRotatingFileHandler:
-#        def __init__(self,  # type: ignore
-#                     filename: str, when: str = ..., interval: int = ...,
-#                     backupCount: int = ..., encoding: Optional[str] = ...,
-#                     delay: bool = ..., utc: bool = ...) -> None: ...
-#        def doRollover(self) -> None: ...
-class TimedRotatingFileHandler(BaseRotatingHandler):
-    if sys.version_info >= (3, 4):
-        def __init__(self, filename: str, when: str = ...,
-                     interval: int = ...,
+if sys.version_info >= (3,):
+    class RotatingFileHandler(BaseRotatingHandler):
+        def __init__(self, filename: str, mode: str = ..., maxBytes: int = ...,
                      backupCount: int = ..., encoding: Optional[str] = ...,
-                     delay: bool = ..., utc: bool = ...,
-                     atTime: Optional[datetime.datetime] = ...) -> None: ...
-    else:
-        def __init__(self,  # type: ignore
+                     delay: bool = ...) -> None: ...
+        def doRollover(self) -> None: ...
+else:
+    class RotatingFileHandler(Handler):
+        def __init__(self, filename: str, mode: str = ..., maxBytes: int = ...,
+                     backupCount: int = ..., encoding: Optional[str] = ...,
+                     delay: bool = ...) -> None: ...
+        def doRollover(self) -> None: ...
+
+
+if sys.version_info >= (3,):
+    class TimedRotatingFileHandler(BaseRotatingHandler):
+        if sys.version_info >= (3, 4):
+            def __init__(self, filename: str, when: str = ...,
+                         interval: int = ...,
+                         backupCount: int = ..., encoding: Optional[str] = ...,
+                         delay: bool = ..., utc: bool = ...,
+                         atTime: Optional[datetime.datetime] = ...) -> None: ...
+        else:
+            def __init__(self,
+                         filename: str, when: str = ..., interval: int = ...,
+                         backupCount: int = ..., encoding: Optional[str] = ...,
+                         delay: bool = ..., utc: bool = ...) -> None: ...
+        def doRollover(self) -> None: ...
+else:
+    class TimedRotatingFileHandler:
+        def __init__(self,
                      filename: str, when: str = ..., interval: int = ...,
                      backupCount: int = ..., encoding: Optional[str] = ...,
                      delay: bool = ..., utc: bool = ...) -> None: ...
-    def doRollover(self) -> None: ...
+        def doRollover(self) -> None: ...
 
 
 class SocketHandler(Handler):
@@ -168,12 +146,11 @@ class SMTPHandler(Handler):
                      secure: Union[Tuple[str], Tuple[str, str], None] =...,
                      timeout: float = ...) -> None: ...
     else:
-        def __init__(self,  # type: ignore
+        def __init__(self,
                      mailhost: Union[str, Tuple[str, int]], fromaddr: str,
                      toaddrs: List[str], subject: str,
                      credentials: Optional[Tuple[str, str]] = ...,
-                     secure: Union[Tuple[str], Tuple[str, str], None] =...) \
-                     -> None: ...
+                     secure: Union[Tuple[str], Tuple[str, str], None] =...) -> None: ...
     def getSubject(self, record: LogRecord) -> str: ...
 
 
@@ -194,11 +171,11 @@ class HTTPHandler(Handler):
                      credentials: Optional[Tuple[str, str]] = ...,
                      context: Optional[ssl.SSLContext] = ...) -> None: ...
     elif sys.version_info >= (3,):
-        def __init__(self,  # type: ignore
+        def __init__(self,
                      host: str, url: str, method: str = ..., secure: bool = ...,
                      credentials: Optional[Tuple[str, str]] = ...) -> None: ...
     else:
-        def __init__(self,  # type: ignore
+        def __init__(self,
                      host: str, url: str, method: str = ...) -> None: ...
     def mapLogRecord(self, record: LogRecord) -> Dict[str, Any]: ...
 
@@ -214,7 +191,7 @@ if sys.version_info > (3,):
             def __init__(self, queue: Queue, *handlers: Handler,
                          respect_handler_level: bool = ...) -> None: ...
         else:
-            def __init__(self,  # type: ignore
+            def __init__(self,
                          queue: Queue, *handlers: Handler) -> None: ...
         def dequeue(self, block: bool) -> LogRecord: ...
         def prepare(self, record: LogRecord) -> Any: ...

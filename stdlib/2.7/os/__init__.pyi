@@ -4,7 +4,7 @@ from typing import (
     List, Tuple, Union, Sequence, Mapping, IO, Any, Optional, AnyStr, Iterator,
     MutableMapping, NamedTuple
 )
-import os.path as path
+from os import path
 
 error = OSError
 name = ... # type: str
@@ -83,8 +83,8 @@ def isatty(fd: int) -> bool: ...
 
 def lseek(fd: int, pos: int, how: int) -> None: ...
 SEEK_SET = 0
-SEEK_CUR = 1
-SEEK_END = 2
+SEEK_CUR = 0
+SEEK_END = 0
 
 # TODO(prvak): maybe file should be unicode? (same with all other paths...)
 def open(file: unicode, flags: int, mode: int = ...) -> int: ...
@@ -256,11 +256,6 @@ O_DIRECT = 0     # Gnu extension if in C library
 O_DIRECTORY = 0  # Gnu extension if in C library
 O_NOFOLLOW = 0   # Gnu extension if in C library
 O_NOATIME = 0    # Gnu extension if in C library
-
-F_OK = 0
-R_OK = 0
-W_OK = 0
-X_OK = 0
 
 P_NOWAIT = 0
 P_NOWAITO = 0

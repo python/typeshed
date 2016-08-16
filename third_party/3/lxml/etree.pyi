@@ -3,7 +3,7 @@
 # Any use of `Any` below means I couldn't figure out the type.
 
 import typing
-from typing import Any, Dict, List, Tuple, Union
+from typing import Any, Dict, List, MutableMapping, Tuple, Union
 from typing import SupportsBytes
 
 
@@ -20,6 +20,11 @@ Dict_Tuple2AnyStr_Any = Union[Dict[Tuple[str, str], Any], Tuple[bytes, bytes], A
 class _Element:
     def addprevious(self, element: '_Element') -> None:
         pass
+
+    attrib = ...  # type: MutableMapping[str, str]
+
+class ElementBase(_Element):
+    pass
 
 class _ElementTree:
     def write(self,
@@ -100,3 +105,57 @@ def parse(source: Union[AnyStr, typing.IO],
           parser: XMLParser = ...,
           base_url: AnyStr = ...) -> _ElementTree:
     pass
+
+
+def fromstring(text: AnyStr,
+               parser: XMLParser = ...,
+               *,
+               base_url: AnyStr = ...) -> _Element: ...
+
+def tostring(element_or_tree: Union[_Element, _ElementTree],
+             encoding: Union[str, type] = ...,
+             method: str = ...,
+             xml_declaration: bool = ...,
+             pretty_print: bool = ...,
+             with_tail: bool = ...,
+             standalone: bool = ...,
+             doctype: str = ...,
+             exclusive: bool = ...,
+             with_comments: bool = ...,
+             inclusive_ns_prefixes: Any = ...) -> AnyStr: ...
+
+
+class _ErrorLog:
+    pass
+
+
+class Error(Exception):
+    pass
+
+class LxmlError(Error):
+    def __init__(self, message: Any, error_log: _ErrorLog = ...) -> None: ...
+    error_log = ...  # type: _ErrorLog
+
+class DocumentInvalid(LxmlError):
+    pass
+
+class LxmlSyntaxError(LxmlError, SyntaxError):
+    pass
+
+class ParseError(LxmlSyntaxError):
+    pass
+
+class XMLSyntaxError(ParseError):
+    pass
+
+
+class _Validator:
+    pass
+
+class DTD(_Validator):
+    def __init__(self,
+                 file: Union[AnyStr, typing.IO] = ...,
+                 *,
+                 external_id: Any = ...) -> None: ...
+
+    def assertValid(self, etree: _Element) -> None: ...

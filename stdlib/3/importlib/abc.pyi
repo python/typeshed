@@ -1,21 +1,15 @@
 import abc
-from importlib._modulespec import ModuleSpec
+if sys.version_info >= (3, 4):
+    from _importlib_modulespec import ModuleSpec
 import sys
 import types
-from typing import Mapping, Optional, Sequence, Union
+from typing import Any, Mapping, Optional, Sequence, Tuple, Union
 
 _Path = Union[bytes, str]
 
-class Loader(metaclass=abc.ABCMeta):
-    def load_module(self, fullname: str) -> types.ModuleType: ...
-    if sys.version_info >= (3, 3):
-        def module_repr(self, module: types.ModuleType) -> str: ...
-    if sys.version_info >= (3, 4):
-        def create_module(self, spec: ModuleSpec) -> Optional[types.ModuleType]:
-            ...
-        # Not defined on the actual class for backwards-compatibility reasons,
-        # but expected in new code.
-        def exec_module(self, module: types.ModuleType) -> None: ...
+# Loader is exported from this module, but for circular import reasons
+# exists in its own stub file (with ModuleSpec and ModuleType).
+from _importlib_modulespec import Loader as Loader  # Exported
 
 class Finder(metaclass=abc.ABCMeta): ...
     # Technically this class defines the following method, but its subclasses
@@ -42,7 +36,7 @@ class InspectLoader(Loader):
                            path: str = '<string>') -> types.CodeType: ...
     elif sys.version_info >= (3, 5):
         @staticmethod
-        def source_to_code(self, data: Union[bytes, str],
+        def source_to_code(data: Union[bytes, str],
                            path: str = '<string>') -> types.CodeType: ...
 
 class ExecutionLoader(InspectLoader):

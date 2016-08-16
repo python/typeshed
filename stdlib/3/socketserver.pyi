@@ -1,6 +1,6 @@
 # Stubs for socketserver
 
-from typing import BinaryIO, Optional, Tuple
+from typing import Any, BinaryIO, Optional, Tuple
 from socket import SocketType
 import sys
 import types
@@ -68,7 +68,18 @@ class ForkingUDPServer(ForkingMixIn, UDPServer): ...
 class ThreadingTCPServer(ThreadingMixIn, TCPServer): ...
 class ThreadingUDPServer(ThreadingMixIn, UDPServer): ...
 
+
 class BaseRequestHandler:
+    # Those are technically of types, respectively:
+    # * Union[SocketType, Tuple[bytes, SocketType]]
+    # * Union[Tuple[str, int], str]
+    # But there are some concerns that having unions here would cause
+    # too much inconvenience to people using it (see
+    # https://github.com/python/typeshed/pull/384#issuecomment-234649696)
+    request = ...  # type: Any
+    client_address = ...  # type: Any
+
+    server = ...  # type: BaseServer
     def setup(self) -> None: ...
     def handle(self) -> None: ...
     def finish(self) -> None: ...

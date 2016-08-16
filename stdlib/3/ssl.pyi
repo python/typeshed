@@ -15,9 +15,9 @@ _PasswordType = Union[Callable[[], Union[str, bytes]], str, bytes]
 
 
 if sys.version_info >= (3, 5):
-    _SC1ArgT = Union['SSLSocket', 'SSLObject']
+    _SC1ArgT = Union[SSLSocket, SSLObject]
 else:
-    _SC1ArgT = 'SSLSocket'
+    _SC1ArgT = SSLSocket
 _SrvnmeCbType = Callable[[_SC1ArgT, Optional[str], 'SSLSocket'], Optional[int]]
 
 class SSLError(OSError):
@@ -202,7 +202,7 @@ class SSLContext:
                          binary_form: bool = ...) \
                          -> Union[List[_PeerCertRetDictType], List[bytes]]: ...
     else:
-        def load_verify_locations(self,  # type: ignore
+        def load_verify_locations(self,
                                   cafile: Optional[str] = ...,
                                   capath: Optional[str] = ...) -> None: ...
     def set_default_verify_paths(self) -> None: ...
@@ -250,3 +250,25 @@ if sys.version_info >= (3, 5):
         def read(self, n: int = ...) -> bytes: ...
         def write(self, buf: bytes) -> int: ...
         def write_eof(self) -> None: ...
+
+
+# TODO below documented in cpython but not in docs.python.org
+# taken from python 3.4
+SSL_ERROR_EOF = ...  # type: int
+SSL_ERROR_INVALID_ERROR_CODE = ...  # type: int
+SSL_ERROR_SSL = ...  # type: int
+SSL_ERROR_SYSCALL = ...  # type: int
+SSL_ERROR_WANT_CONNECT = ...  # type: int
+SSL_ERROR_WANT_READ = ...  # type: int
+SSL_ERROR_WANT_WRITE = ...  # type: int
+SSL_ERROR_WANT_X509_LOOKUP = ...  # type: int
+SSL_ERROR_ZERO_RETURN = ...  # type: int
+
+def get_protocol_name(protocol_code: int) -> str: ...
+
+AF_INET = ...  # type: int
+PEM_FOOTER = ...  # type: str
+PEM_HEADER = ...  # type: str
+SOCK_STREAM = ...  # type: int
+SOL_SOCKET = ...  # type: int
+SO_TYPE = ...  # type: int

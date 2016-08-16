@@ -16,6 +16,7 @@ Type = object()
 builtinclass = object()
 _promote = object()
 NamedTuple = object()
+NewType = object()
 
 # Type aliases
 
@@ -43,6 +44,7 @@ _KT = TypeVar('_KT')  # Key type.
 _VT = TypeVar('_VT')  # Value type.
 _T_co = TypeVar('_T_co', covariant=True)  # Any type covariant containers.
 _V_co = TypeVar('_V_co', covariant=True)  # Any type covariant containers.
+_KT_co = TypeVar('_KT_co', covariant=True)  # Key type covariant containers.
 _VT_co = TypeVar('_VT_co', covariant=True)  # Value type covariant containers.
 _T_contra = TypeVar('_T_contra', contravariant=True)  # Ditto contravariant.
 
@@ -143,6 +145,8 @@ class AbstractSet(Sized, Iterable[_T_co], Container[_T_co], Generic[_T_co]):
     # TODO: argument can be any container?
     def isdisjoint(self, s: AbstractSet[Any]) -> bool: ...
 
+class FrozenSet(AbstractSet[_T], Generic[_T]): ...
+
 class MutableSet(AbstractSet[_T], Generic[_T]):
     @abstractmethod
     def add(self, x: _T) -> None: ...
@@ -156,6 +160,21 @@ class MutableSet(AbstractSet[_T], Generic[_T]):
     def __iand__(self, s: AbstractSet[Any]) -> MutableSet[_T]: ...
     def __ixor__(self, s: AbstractSet[_S]) -> MutableSet[Union[_T, _S]]: ...
     def __isub__(self, s: AbstractSet[Any]) -> MutableSet[_T]: ...
+
+class MappingView(Sized):
+    def __len__(self) -> int: ...
+
+class ItemsView(AbstractSet[Tuple[_KT_co, _VT_co]], MappingView, Generic[_KT_co, _VT_co]):
+    def __contains__(self, o: object) -> bool: ...
+    def __iter__(self) -> Iterator[Tuple[_KT_co, _VT_co]]: ...
+
+class KeysView(AbstractSet[_KT_co], MappingView, Generic[_KT_co]):
+    def __contains__(self, o: object) -> bool: ...
+    def __iter__(self) -> Iterator[_KT_co]: ...
+
+class ValuesView(MappingView, Iterable[_VT_co], Generic[_VT_co]):
+    def __contains__(self, o: object) -> bool: ...
+    def __iter__(self) -> Iterator[_VT_co]: ...
 
 class Mapping(Sized, Iterable[_KT], Container[_KT], Generic[_KT, _VT]):
     @abstractmethod

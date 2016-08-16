@@ -5,7 +5,7 @@
 
 from typing import (
     List, Sequence, Any, Dict, Tuple, TextIO, overload, Optional, Union,
-    TypeVar, Callable
+    TypeVar, Callable, Type,
 )
 from types import TracebackType
 
@@ -118,7 +118,7 @@ def displayhook(value: Optional[int]) -> None: ...
 def excepthook(type_: type, value: BaseException,
                traceback: TracebackType) -> None: ...
 # TODO should be a union of tuple, see mypy#1178
-def exc_info() -> Tuple[Optional[type],
+def exc_info() -> Tuple[Optional[Type[BaseException]],
                         Optional[BaseException],
                         Optional[TracebackType]]: ...
 # sys.exit() accepts an optional argument of anything printable
