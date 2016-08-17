@@ -1,5 +1,4 @@
-from typing import (List, Union, Iterator, Iterable, Tuple, Optional, Dict,
-                   Any, IO, NamedTuple)
+from typing import List, Union, Iterator, Tuple, Optional, Any, IO, NamedTuple
 
 from opcode import (hasconst, hasname, hasjrel, hasjabs, haslocal, hascompare,
                     hasfree, hasnargs, cmp_op, opname , opmap , HAVE_ARGUMENT,
@@ -11,7 +10,7 @@ _have_code = Union[types.MethodType, types.FunctionType, types.CodeType, type]
 _have_code_or_string = Union[_have_code, str, bytes]
 
 
-class Instruction(NamedTuple("Instruction", [
+Instruction = NamedTuple("Instruction", [
         ('opname', str),
         ('opcode', int),
         ('arg', Optional[int]),
@@ -20,18 +19,7 @@ class Instruction(NamedTuple("Instruction", [
         ('offset', int),
         ('starts_line', Optional[int]),
         ('is_jump_target', bool)
-    ])):
-    # ad-hoc - seems to be an error in the NamedTuple type hint
-    # TODO: mypy issue #1076 
-    _fields = ...  # type: List[str]
-    _source = ...  # type: str
-    def _replace(self, *, opname: str = ..., opcode: int = ...,
-                arg: Optional[int] = ..., argval: Any = ..., argrepr: str = ...,
-                offset: int = ..., starts_line: Optional[int] = ...,
-                is_jump_target: bool = ...) -> Instruction: ...
-    def _asdict(self) -> Dict[str, Any]: ...
-    @staticmethod
-    def _make(iterable: Iterable[Any]) -> Instruction: ...
+    ])
 
 
 # if sys.version_info >= (3, 4): 
