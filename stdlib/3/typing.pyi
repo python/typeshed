@@ -406,3 +406,7 @@ class Pattern(Generic[AnyStr]):
     @overload
     def subn(self, repl: Callable[[Match[AnyStr]], AnyStr], string: AnyStr,
              count: int = ...) -> Tuple[AnyStr, int]: ...
+
+# Functions
+
+def get_type_hints(obj: Callable) -> dict[str, Any]: ...
