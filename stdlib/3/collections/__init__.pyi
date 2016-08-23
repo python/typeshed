@@ -65,7 +65,7 @@ class deque(MutableSequence[_T], Generic[_T]):
     @overload
     def __setitem__(self, i: int, x: _T) -> None: ...
     @overload
-    def __setitem__(self, s: slice, o: Sequence[_T]) -> None: raise TypeError
+    def __setitem__(self, s: slice, o: Iterable[_T]) -> None: raise TypeError
     @overload
     def __delitem__(self, i: int) -> None: ...
     @overload
