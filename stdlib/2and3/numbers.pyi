@@ -10,7 +10,7 @@ import sys
 
 class Number: ...
 
-class Complex(Number, SupportsComplex, SupportsAbs):
+class Complex(Number, SupportsComplex, SupportsAbs[float]):
     @property
     @abstractmethod
     def real(self) -> Complex: ...
@@ -68,7 +68,7 @@ class Rational(Real):
     def denominator(self) -> int: ...
     def __float__(self) -> float: ...
 
-class Integral(Rational, SupportsInt):
+class Integral(Rational, SupportsInt, SupportsAbs[int]):
     @property
     def numerator(self) -> int: ...
     @property

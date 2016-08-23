@@ -11,6 +11,7 @@ from typing import (
     MutableSet, ItemsView, KeysView, ValuesView
 )
 from abc import abstractmethod, ABCMeta
+import numbers
 
 _T = TypeVar('_T')
 _T_co = TypeVar('_T_co', covariant=True)
@@ -62,7 +63,7 @@ class type:
     def mro(self) -> List[type]: ...
     def __subclasses__(self) -> List[type]: ...
 
-class int(SupportsInt, SupportsFloat, SupportsAbs[int]):
+class int(numbers.Integral):
     @overload
     def __init__(self) -> None: ...
     @overload
@@ -114,7 +115,7 @@ class int(SupportsInt, SupportsFloat, SupportsAbs[int]):
     def __abs__(self) -> int: ...
     def __hash__(self) -> int: ...
 
-class float(SupportsFloat, SupportsInt, SupportsAbs[float]):
+class float(numbers.Real):
     @overload
     def __init__(self) -> None: ...
     @overload
@@ -161,7 +162,7 @@ class float(SupportsFloat, SupportsInt, SupportsAbs[float]):
     def __abs__(self) -> float: ...
     def __hash__(self) -> int: ...
 
-class complex(SupportsAbs[float]):
+class complex(numbers.complex):
     @overload
     def __init__(self, re: float = 0.0, im: float = 0.0) -> None: ...
     @overload

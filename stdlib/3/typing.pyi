@@ -1,6 +1,7 @@
 # Stubs for typing
 
 from abc import abstractmethod, ABCMeta
+import numbers
 
 # Definitions of special type checking related constructs.  Their definition
 # are not used, so their value does not matter.
@@ -59,7 +60,7 @@ class SupportsFloat(metaclass=ABCMeta):
 
 class SupportsComplex(metaclass=ABCMeta):
     @abstractmethod
-    def __complex__(self) -> complex: pass
+    def __complex__(self) -> numbers.Complex: pass
 
 class SupportsBytes(metaclass=ABCMeta):
     @abstractmethod
