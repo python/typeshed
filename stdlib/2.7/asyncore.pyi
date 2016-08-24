@@ -21,7 +21,7 @@ def poll2(timeout: float = ..., map: _maptype = ...) -> None: ...
 
 poll3 = poll2
 
-def loop(timeout: float = ..., use_poll: bool = ..., map: _maptype = ..., count=None) -> None: ...
+def loop(timeout: float = ..., use_poll: bool = ..., map: _maptype = ..., count: int = None) -> None: ...
 
 
 # Not really subclass of socket.socket; it's only delegation.
@@ -33,7 +33,6 @@ class dispatcher(socket.socket):
     accepting = ...  # type: bool
     connecting = ...  # type: bool
     closing = ...  # type: bool
-    addr = None
     ignore_log_types = ...  # type: frozenset[str]
 
     def __init__(self, sock: socket.socket = None, map: _maptype = ...) -> None: ...
