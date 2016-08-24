@@ -1,10 +1,13 @@
 
-from typing import AnyStr
+from typing import AnyStr, Dict, Union
 from urllib import addinfourl
 
-class URLError(IOError): ...
+class URLError(IOError):
+    reason = ...  # type: Union[str, BaseException]
 
-class HTTPError(URLError, addinfourl): ...
+class HTTPError(URLError, addinfourl):
+    code = ...  # type: int
+    headers = ...  # type: Dict[str, str]
 
 class Request(object):
     host = ... # type: str
