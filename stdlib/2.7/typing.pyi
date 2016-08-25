@@ -1,6 +1,7 @@
 # Stubs for typing (Python 2.7)
 
 from abc import abstractmethod, ABCMeta
+import numbers
 
 # Definitions of special type checking related constructs.  Their definition
 # are not used, so their value does not matter.
@@ -47,6 +48,10 @@ _V_co = TypeVar('_V_co', covariant=True)  # Any type covariant containers.
 _KT_co = TypeVar('_KT_co', covariant=True)  # Key type covariant containers.
 _VT_co = TypeVar('_VT_co', covariant=True)  # Value type covariant containers.
 _T_contra = TypeVar('_T_contra', contravariant=True)  # Ditto contravariant.
+
+class SupportsComplex(metaclass=ABCMeta):
+    @abstractmethod
+    def __complex__(self) -> numbers.Complex: pass
 
 class SupportsInt(metaclass=ABCMeta):
     @abstractmethod
