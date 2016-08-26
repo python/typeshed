@@ -267,7 +267,7 @@ Text = str
 
 TYPE_CHECKING = True
 
-class IO(Iterable[AnyStr], Generic[AnyStr]):
+class IO(Iterator[AnyStr], Generic[AnyStr]):
     # TODO detach
     # TODO use abstract properties
     @property
@@ -310,6 +310,8 @@ class IO(Iterable[AnyStr], Generic[AnyStr]):
     @abstractmethod
     def writelines(self, lines: Iterable[AnyStr]) -> None: ...
 
+    @abstractmethod
+    def __next__(self) -> AnyStr: ...
     @abstractmethod
     def __iter__(self) -> Iterator[AnyStr]: ...
     @abstractmethod
