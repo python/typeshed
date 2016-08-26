@@ -4,7 +4,7 @@
 # reading configparser.py.
 
 from typing import (MutableMapping, Mapping, Dict, Sequence, List,
-                    Iterable, Iterator, Callable, Any, IO)
+                    Iterable, Iterator, Callable, Any, IO, overload)
 # Types only used in type comments only
 from typing import Optional, Tuple  # noqa
 
@@ -94,11 +94,17 @@ class ConfigParser(_parser):
     def read_dict(self, dictionary: Mapping[str, Mapping[str, Any]],
                   source: str = ...) -> None: ...
 
-    def getint(self, section: str, option: str) -> int: ...
+    def getint(self, section: str, option: str, *, raw: bool = ..., vars: = _section, fallback: _section = ...) -> int: ...
 
-    def getfloat(self, section: str, option: str) -> float: ...
+    def getfloat(self, section: str, option: str, *, raw: bool = ..., vars: = _section, fallback: _section = ...) -> float: ...
 
-    def getboolean(self, section: str, option: str) -> bool: ...
+    def getboolean(self, section: str, option: str, *, raw: bool = ..., vars: = _section, fallback: _section = ...) -> bool: ...
+
+    # this signature is here only to placate the type checker, as a MutableMapping[str, _section]
+    @overload
+    def get(self, section: str) -> Option[_section]: ...
+    @overload
+    def get(self, section: str, option: str, *, raw: bool = ..., vars: = _section, fallback: _section = ...) -> str:
 
     def set(self, section: str, option: str, value: str) -> None: ...
 
