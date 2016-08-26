@@ -31,9 +31,7 @@ class async_chat (asyncore.dispatcher):
     def discard_buffers(self) -> None: ...
 
 import sys
-if sys.version_info >= (3, 0, 0):
-    pass
-else:
+if sys.version_info < (3, 0, 0):
     class fifo:
         def __init__(self, list: Sequence[Union[str, simple_producer]] = ...) -> None: ...
         def __len__(self) -> int: ...
