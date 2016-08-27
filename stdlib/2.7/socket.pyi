@@ -278,7 +278,7 @@ class socket:
     proto = 0
 
     def __init__(self, family: int = ..., type: int = ...,
-                 proto: int = ..., fileno: int = ...) -> None: ...
+                 proto: int = ...) -> None: ...
 
     # --- methods ---
     # second tuple item is an address

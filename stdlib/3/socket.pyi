@@ -5,7 +5,7 @@
 # see: http://hg.python.org/cpython/file/3d0686d90f55/Lib/socket.py
 # see: http://nullege.com/codes/search/socket
 
-from typing import Any, Tuple, Union, List, overload
+from typing import Any, Tuple, List, Optional, Union, overload
 
 # ----- variables and constants -----
 
@@ -277,7 +277,7 @@ class socket:
     proto = 0
 
     def __init__(self, family: int = ..., type: int = ...,
-                 proto: int = ..., fileno: int = ...) -> None: ...
+                 proto: int = ..., fileno: Optional[int] = ...) -> None: ...
 
     # --- methods ---
     # second tuple item is an address
