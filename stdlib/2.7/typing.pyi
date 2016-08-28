@@ -208,7 +208,7 @@ Text = unicode
 
 TYPE_CHECKING = True
 
-class IO(Iterable[AnyStr], Generic[AnyStr]):
+class IO(Iterator[AnyStr], Generic[AnyStr]):
     # TODO detach
     # TODO use abstract properties
     @property
@@ -250,6 +250,8 @@ class IO(Iterable[AnyStr], Generic[AnyStr]):
     @abstractmethod
     def writelines(self, lines: Iterable[AnyStr]) -> None: ...
 
+    @abstractmethod
+    def next(self) -> AnyStr: ...
     @abstractmethod
     def __iter__(self) -> Iterator[AnyStr]: ...
     @abstractmethod
