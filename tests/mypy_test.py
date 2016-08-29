@@ -32,7 +32,10 @@ def log(args, *varargs):
         print(*varargs)
 
 
-def match(args, fn):
+def match(fn, args, blacklist):
+    if blacklist.match(fn):
+        log(args, fn, 'exluded by blacklist')
+        return False
     if not args.filter and not args.exclude:
         log(args, fn, 'accept by default')
         return True
@@ -70,6 +73,10 @@ def libpath(major, minor):
 def main():
     args = parser.parse_args()
 
+    with open(os.path.join(os.path.dirname(__file__), "mypy_blacklist.txt")) as f:
+        blacklist = re.compile("(%s)$" % "|".join(
+            re.findall(r"^\s*([^\s#]+)\s*(?:#.*)?$", f.read(), flags=re.M)))
+
     try:
         from mypy.main import main as mypy_main
     except ImportError:
@@ -98,7 +105,7 @@ def main():
                 if mod in seen:
                     continue
                 if ext in ['.pyi', '.py']:
-                    if match(args, full):
+                    if match(full, args, blacklist):
                         seen.add(mod)
                         files.append(full)
                 elif (os.path.isfile(os.path.join(full, '__init__.pyi')) or
@@ -110,7 +117,7 @@ def main():
                             m, x = os.path.splitext(f)
                             if x in ['.pyi', '.py']:
                                 fn = os.path.join(r, f)
-                                if match(args, fn):
+                                if match(fn, args, blacklist):
                                     seen.add(mod)
                                     files.append(fn)
         if files:
