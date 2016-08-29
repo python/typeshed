@@ -3,7 +3,7 @@
 # Based on http://docs.python.org/3.5/library/configparser.html and on
 # reading configparser.py.
 
-from typing import (MutableMapping, Mapping, Dict, Sequence, List,
+from typing import (MutableMapping, Mapping, Dict, Sequence, List, Union,
                     Iterable, Iterator, Callable, Any, IO, overload, Optional)
 # Types only used in type comments only
 from typing import Optional, Tuple  # noqa
