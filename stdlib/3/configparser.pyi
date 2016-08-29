@@ -102,9 +102,8 @@ class ConfigParser(_parser):
 
     # this signature is here only to placate the type checker, as a MutableMapping[str, _section]
 
-    def get(self, section: str, option: str, *, raw: bool = ..., vars: _section = ..., fallback: str = ...) -> str: 
-        # type: ignore
-        ...
+    # type: ignore
+    def get(self, section: str, option: str, *, raw: bool = ..., vars: _section = ..., fallback: str = ...) -> str: ...
 
     def set(self, section: str, option: str, value: str) -> None: ...
 
