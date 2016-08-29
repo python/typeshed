@@ -48,19 +48,19 @@ class ExtendedInterpolation(Interpolation):
     pass
 
 
-class ConfigParser(_parser):
+class RawConfigParser(_parser):
     def __init__(self,
                  defaults: _section = None,
                  dict_type: Mapping[str, str] = ...,
                  allow_no_value: bool = ...,
+                 *,
                  delimiters: Sequence[str] = ...,
                  comment_prefixes: Sequence[str] = ...,
                  inline_comment_prefixes: Sequence[str] = None,
                  strict: bool = ...,
                  empty_lines_in_values: bool = ...,
                  default_section: str = ...,
-                 interpolation: Interpolation = None,
-                 converters: _converters = {}) -> None: ...
+                 interpolation: Interpolation = None) -> None: ...
 
     def __len__(self) -> int: ...
 
@@ -115,6 +115,21 @@ class ConfigParser(_parser):
     def remove_section(self, section: str) -> bool: ...
 
     def optionxform(self, option: str) -> str: ...
+
+
+class ConfigParser(RawConfigParser):
+    def __init__(self,
+                 defaults: _section = None,
+                 dict_type: Mapping[str, str] = ...,
+                 allow_no_value: bool = ...,
+                 delimiters: Sequence[str] = ...,
+                 comment_prefixes: Sequence[str] = ...,
+                 inline_comment_prefixes: Sequence[str] = None,
+                 strict: bool = ...,
+                 empty_lines_in_values: bool = ...,
+                 default_section: str = ...,
+                 interpolation: Interpolation = None,
+                 converters: _converters = {}) -> None: ...
 
 
 class Error(Exception):
