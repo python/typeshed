@@ -100,9 +100,7 @@ class ConfigParser(_parser):
 
     def getboolean(self, section: str, option: str, *, raw: bool = ..., vars: _section = ..., fallback: bool = ...) -> bool: ...
 
-    # this signature is here only to placate the type checker, as a MutableMapping[str, _section]
-
-    # type: ignore since this is incompatible with MutableMapping
+    # This is incompatible with MutableMapping so we ignore the type
     def get(self, section: str, option: str, *, raw: bool = ..., vars: _section = ..., fallback: str = ...) -> str:  # type: ignore
         ...
 
