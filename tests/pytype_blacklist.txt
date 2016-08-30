@@ -15,4 +15,5 @@
 2and3/logging/__init__.pyi
 2and3/mmap.pyi
 2and3/plistlib.pyi
+2and3/tarfile.pyi
 2and3/webbrowser.pyi
