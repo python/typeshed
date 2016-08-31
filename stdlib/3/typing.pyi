@@ -227,8 +227,6 @@ class ValuesView(MappingView, Iterable[_VT_co], Generic[_VT_co]):
 # TODO: ContextManager (only if contextlib.AbstractContextManager exists)
 
 class Mapping(Iterable[_KT_co], Container[_KT_co], Sized, Generic[_KT_co, _VT_co]):
-    # TODO: Value type should be covariant, but currently we can't give a good signature for
-    #   get if this is the case.
     @abstractmethod  # type: ignore
     def __getitem__(self, k: _KT_co) -> _VT_co:  # type: ignore
         ...
