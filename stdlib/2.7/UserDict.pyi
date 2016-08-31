@@ -1,5 +1,5 @@
 from typing import (Any, Container, Dict, Generic, Iterable, Iterator, List,
-                    Mapping, Sized, Tuple, TypeVar, abstractmethod, overload)
+                    Mapping, Sized, Tuple, TypeVar, overload)
 
 _KT = TypeVar('_KT')
 _VT = TypeVar('_VT')
@@ -15,15 +15,6 @@ class IterableUserDict(UserDict[_KT, _VT], Generic[_KT, _VT]):
     ...
 
 class DictMixin(Sized, Iterable[_KT], Container[_KT], Generic[_KT, _VT]):
-    @abstractmethod
-    def __getitem__(self, key: _KT) -> _VT: ...
-    @abstractmethod
-    def __setitem__(self, key: _KT, value: _VT) -> None: ...
-    @abstractmethod
-    def __delitem__(self, key: _KT) -> None: ...
-    @abstractmethod
-    def keys(self) -> Iterable[_KT]: ...
-
     def has_key(self, key: _KT) -> bool: ...
 
     # From  typing.Mapping[_KT, _VT]
