@@ -4,6 +4,7 @@
 # based on http://docs.python.org/3.3/library/tempfile.html
 
 from typing import Tuple, BinaryIO
+from contextlib import ContextManager
 
 # global variables
 tempdir = ...  # type: str
@@ -20,7 +21,7 @@ def TemporaryFile(
 def NamedTemporaryFile(
             mode: str = ..., buffering: int = ..., encoding: str = ...,
             newline: str = ..., suffix: str = ..., prefix: str = ...,
-            dir: str = ..., delete=...) -> BinaryIO:
+            dir: str = ..., delete: bool =...) -> BinaryIO:
     ...
 def SpooledTemporaryFile(
             max_size: int = ..., mode: str = ..., buffering: int = ...,
@@ -28,13 +29,11 @@ def SpooledTemporaryFile(
             prefix: str = ..., dir: str = ...) -> BinaryIO:
     ...
 
-class TemporaryDirectory:
+class TemporaryDirectory(ContextManager):
     name = ...  # type: str
     def __init__(self, suffix: str = ..., prefix: str = ...,
                  dir: str = ...) -> None: ...
     def cleanup(self) -> None: ...
-    def __enter__(self) -> str: ...
-    def __exit__(self, type, value, traceback) -> bool: ...
 
 def mkstemp(suffix: str = ..., prefix: str = ..., dir: str = ...,
             text: bool = ...) -> Tuple[int, str]: ...
