@@ -19,12 +19,12 @@ __all__ = (
     'unquote_to_bytes'
 )
 
-uses_relative = []  # type: List[str]
-uses_netloc = []  # type: List[str]
-uses_params = []  # type: List[str]
-non_hierarchical = []  # type: List[str]
-uses_query = []  # type: List[str]
-uses_fragment = []  # type: List[str]
+uses_relative = ...  # type: List[str]
+uses_netloc = ...  # type: List[str]
+uses_params = ...  # type: List[str]
+non_hierarchical = ...  # type: List[str]
+uses_query = ...  # type: List[str]
+uses_fragment = ...  # type: List[str]
 scheme_chars = ...  # type: str
 MAX_CACHE_SIZE = 0
 
@@ -88,11 +88,17 @@ def parse_qs(qs: str, keep_blank_values : bool = ..., strict_parsing : bool = ..
 
 def parse_qsl(qs: str, keep_blank_values: bool = ..., strict_parsing: bool = ..., encoding: str = ..., errors: str = ...) -> List[Tuple[str,str]]: ...
 
-def quote(string: AnyStr, safe: AnyStr = ..., encoding: str = ..., errors: str = ...) -> str: ...
+@overload
+def quote(string: str, safe: AnyStr = ..., encoding: str = ..., errors: str = ...) -> str: ...
+@overload
+def quote(string: bytes, safe: AnyStr = ...) -> str: ...
 
-def quote_from_bytes(bs: bytes, safe: AnyStr = ...) -> bytes: ...
+def quote_from_bytes(bs: bytes, safe: AnyStr = ...) -> str: ...
 
-def quote_plus(string: AnyStr, safe: AnyStr = ..., encoding: str = ..., errors: str = ...) -> str: ...
+@overload
+def quote_plus(string: str, safe: AnyStr = ..., encoding: str = ..., errors: str = ...) -> str: ...
+@overload
+def quote_plus(string: bytes, safe: AnyStr = ...) -> str: ...
 
 def unquote(string: str, encoding: str = ..., errors: str = ...) -> str: ...
 

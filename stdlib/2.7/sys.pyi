@@ -1,9 +1,10 @@
 """Stubs for the 'sys' module."""
 
 from typing import (
-    IO, Union, List, Sequence, Any, Dict, Tuple, BinaryIO, Optional, Callable, overload
+    IO, Union, List, Sequence, Any, Dict, Tuple, BinaryIO, Optional, Callable,
+    overload, Type,
 )
-from types import FrameType, ModuleType, TracebackType
+from types import FrameType, ModuleType, TracebackType, ClassType
 
 class _flags:
     bytes_warning = ...  # type: int
@@ -86,6 +87,9 @@ path_hooks = ...  # type: List[Any]
 path_importer_cache = ...  # type: Dict[str, Any]
 displayhook = ...  # type: Optional[Callable[[int], None]]
 excepthook = ...  # type: Optional[Callable[[type, BaseException, TracebackType], None]]
+exc_type = ...  # type: Optional[type]
+exc_value = ...  # type: Union[BaseException, ClassType]
+exc_traceback = ...  # type: TracebackType
 
 class _WindowsVersionType:
     major = ...  # type: Any
@@ -108,7 +112,11 @@ def __displayhook__(value: int) -> None: ...
 def __excepthook__(type_: type, value: BaseException, traceback: TracebackType) -> None: ...
 def exc_clear() -> None:
     raise DeprecationWarning()
-def exc_info() -> Tuple[type, BaseException, TracebackType]: ...
+# TODO should be a union of tuple, see mypy#1178
+def exc_info() -> Tuple[Optional[Type[BaseException]],
+                        Optional[BaseException],
+                        Optional[TracebackType]]: ...
+
 # sys.exit() accepts an optional argument of anything printable
 def exit(arg: Any = ...) -> None:
     raise SystemExit()
@@ -116,7 +124,7 @@ def getcheckinterval() -> int: ...  # deprecated
 def getdefaultencoding() -> str: ...
 def getdlopenflags() -> int: ...
 def getfilesystemencoding() -> Union[str, None]: ...
-def getrefcount(object) -> int: ...
+def getrefcount(arg: Any) -> int: ...
 def getrecursionlimit() -> int: ...
 def getsizeof(obj: object, default: int = ...) -> int: ...
 def getprofile() -> None: ...

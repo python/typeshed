@@ -4,39 +4,62 @@
 # based on http://docs.python.org/3.3/library/tempfile.html
 # Adapted for Python 2.7 by Michal Pokorny
 
-from typing import Tuple, IO
+# TODO: Don't use basestring. Use Union[str, bytes] or AnyStr for arguments.
+#       Avoid using Union[str, bytes] for return values, as it implies that
+#       an isinstance() check will often be required, which is inconvenient.
 
-# global variables
+from typing import Tuple, IO, Union, AnyStr, Any, overload
+
 tempdir = ...  # type: str
 template = ...  # type: str
 
 # TODO text files
 
-# function stubs
 def TemporaryFile(
-            mode: str = ..., bufsize: int = ..., suffix: str = ...,
-            prefix: str = ..., dir: str = ...) -> IO[str]: ...
+        mode: Union[bytes, unicode] = ...,
+        bufsize: int = ...,
+        suffix: Union[bytes, unicode] = ...,
+        prefix: Union[bytes, unicode] = ...,
+        dir: Union[bytes, unicode] = ...) -> IO[str]: ...
 def NamedTemporaryFile(
-            mode: str = ..., bufsize: int = ..., suffix: str = ...,
-            prefix: str = ..., dir: str = ..., delete: bool = ...
-            ) -> IO[str]: ...
+        mode: Union[bytes, unicode] = ...,
+        bufsize: int = ...,
+        suffix: Union[bytes, unicode] = ...,
+        prefix: Union[bytes, unicode] = ...,
+        dir: Union[bytes, unicode] = ...,
+        delete: bool = ...
+        ) -> IO[str]: ...
 def SpooledTemporaryFile(
-           max_size: int = ..., mode: str = ..., buffering: int = ...,
-           suffix: str = ..., prefix: str = ..., dir: str = ...) -> IO[str]:
+        max_size: int = ...,
+        mode: Union[bytes, unicode] = ...,
+        buffering: int = ...,
+        suffix: Union[bytes, unicode] = ...,
+        prefix: Union[bytes, unicode] = ...,
+        dir: Union[bytes, unicode] = ...) -> IO[str]:
     ...
 
 class TemporaryDirectory:
-    name = ...  # type: basestring
-    def __init__(self, suffix: basestring = ..., prefix: basestring = ...,
-                 dir: basestring = ...) -> None: ...
+    name = ...  # type: Any  # Can be str or unicode
+    def __init__(self,
+                 suffix: Union[bytes, unicode] = ...,
+                 prefix: Union[bytes, unicode] = ...,
+                 dir: Union[bytes, unicode] = ...) -> None: ...
     def cleanup(self) -> None: ...
-    def __enter__(self) -> basestring: ...
+    def __enter__(self) -> Any: ...  # Can be str or unicode
     def __exit__(self, type, value, traceback) -> bool: ...
 
-def mkstemp(suffix: basestring = ..., prefix: basestring = ..., dir: basestring = ...,
-            text: bool = ...) -> Tuple[int, basestring]: ...
-def mkdtemp(suffix: basestring = ..., prefix: basestring = ...,
-            dir: basestring = ...) -> basestring: ...
-def mktemp(suffix: basestring = ..., prefix: basestring = ..., dir: basestring = ...) -> basestring: ...
-def gettempdir() -> basestring: ...
-def gettempprefix() -> basestring: ...
+@overload
+def mkstemp() -> Tuple[int, str]: ...
+@overload
+def mkstemp(suffix: AnyStr = ..., prefix: AnyStr = ..., dir: AnyStr = ...,
+            text: bool = ...) -> Tuple[int, AnyStr]: ...
+@overload
+def mkdtemp() -> str: ...
+@overload
+def mkdtemp(suffix: AnyStr = ..., prefix: AnyStr = ..., dir: AnyStr = ...) -> AnyStr: ...
+@overload
+def mktemp() -> str: ...
+@overload
+def mktemp(suffix: AnyStr = ..., prefix: AnyStr = ..., dir: AnyStr = ...) -> AnyStr: ...
+def gettempdir() -> str: ...
+def gettempprefix() -> str: ...

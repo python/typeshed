@@ -4,9 +4,12 @@
 # based on http://docs.python.org/3.2/library/sys.html
 
 from typing import (
-    List, Sequence, Any, Dict, Tuple, TextIO, overload, Optional, Union
+    List, Sequence, Any, Dict, Tuple, TextIO, overload, Optional, Union,
+    TypeVar, Callable, Type,
 )
 from types import TracebackType
+
+_T = TypeVar('_T')
 
 # ----- sys variables -----
 abiflags = ...  # type: str
@@ -108,13 +111,16 @@ version_info = ... # type: _version_info
 
 
 # ----- sys function stubs -----
-def call_tracing(fn: Any, args: Any) -> object: ...
+def call_tracing(fn: Callable[..., _T], args: Any) -> _T: ...
 def _clear_type_cache() -> None: ...
 def _current_frames() -> Dict[int, Any]: ...
 def displayhook(value: Optional[int]) -> None: ...
 def excepthook(type_: type, value: BaseException,
                traceback: TracebackType) -> None: ...
-def exc_info() -> Tuple[type, BaseException, TracebackType]: ...
+# TODO should be a union of tuple, see mypy#1178
+def exc_info() -> Tuple[Optional[Type[BaseException]],
+                        Optional[BaseException],
+                        Optional[TracebackType]]: ...
 # sys.exit() accepts an optional argument of anything printable
 def exit(arg: Any = ...) -> None:
     raise SystemExit()
@@ -122,7 +128,7 @@ def getcheckinterval() -> int: ...  # deprecated
 def getdefaultencoding() -> str: ...
 def getdlopenflags() -> int: ...  # Unix only
 def getfilesystemencoding() -> str: ...  # cannot return None
-def getrefcount(object) -> int: ...
+def getrefcount(arg: Any) -> int: ...
 def getrecursionlimit() -> int: ...
 
 @overload

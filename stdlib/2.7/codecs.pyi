@@ -40,14 +40,14 @@ def decode(obj: _encoded, encoding: str = ..., errors: str = ...) -> _decoded:
 def lookup(encoding: str) -> 'CodecInfo':
     ...
 class CodecInfo(Tuple[_encode_type, _decode_type, _stream_reader_type, _stream_writer_type]):
-    def __init__(self, encode: _encode_type, decode: _decode_type, streamreader: _stream_reader_type = ..., streamwriter: _stream_writer_type = ..., incrementalencoder: _incremental_encoder_type = ..., incrementaldecoder: _incremental_decode_type = ..., name: str = ...) -> None:
-        self.encode = encode
-        self.decode = decode
-        self.streamreader = streamreader
-        self.streamwriter = streamwriter
-        self.incrementalencoder = incrementalencoder
-        self.incrementaldecoder = incrementaldecoder
-        self.name = name
+    def __init__(self, encode: _encode_type, decode: _decode_type, streamreader: _stream_reader_type = ..., streamwriter: _stream_writer_type = ..., incrementalencoder: _incremental_encoder_type = ..., incrementaldecoder: _incremental_decode_type = ..., name: str = ...) -> None: ...
+    encode = ...  # type: _encode_type
+    decode = ...  # type: _decode_type
+    streamreader = ...  # type: _stream_reader_type
+    streamwriter = ...  # type: _stream_writer_type
+    incrementalencoder = ...  # type: _incremental_encoder_type
+    incrementaldecoder = ...  # type: _incremental_decode_type
+    name = ...  # type: str
 
 def getencoder(encoding: str) -> _encode_type:
     ...
@@ -115,8 +115,9 @@ class Codec:
         ...
 
 class IncrementalEncoder:
+    errors = ...  # type: str
     def __init__(self, errors: str = ...) -> None:
-        self.errors = errors
+        ...
     @abstractmethod
     def encode(self, object: _decoded, final: bool = ...) -> _encoded:
         ...
@@ -129,8 +130,9 @@ class IncrementalEncoder:
         ...
 
 class IncrementalDecoder:
+    errors = ...  # type: str
     def __init__(self, errors: str = ...) -> None:
-        self.errors = errors
+        ...
     @abstractmethod
     def decode(self, object: _encoded, final: bool = ...) -> _decoded:
         ...
@@ -143,18 +145,18 @@ class IncrementalDecoder:
 
 # These are not documented but used in encodings/*.py implementations.
 class BufferedIncrementalEncoder(IncrementalEncoder):
+    buffer = ...  # type: str
     def __init__(self, errors: str = ...) -> None:
-        IncrementalEncoder.__init__(self, errors)
-        self.buffer = ''
+        ...
     @abstractmethod
     def _buffer_encode(self, input: _decoded, errors: str, final: bool) -> _encoded:
         ...
     def encode(self, input: _decoded, final: bool = ...) -> _encoded:
         ...
 class BufferedIncrementalDecoder(IncrementalDecoder):
+    buffer = ...  # type: str
     def __init__(self, errors: str = ...) -> None:
-        IncrementalDecoder.__init__(self, errors)
-        self.buffer = b''
+        ...
     @abstractmethod
     def _buffer_decode(self, input: _encoded, errors: str, final: bool) -> Tuple[_decoded, int]:
         ...
@@ -164,8 +166,9 @@ class BufferedIncrementalDecoder(IncrementalDecoder):
 # TODO: it is not possible to specify the requirement that all other
 # attributes and methods are passed-through from the stream.
 class StreamWriter(Codec):
+    errors = ...  # type: str
     def __init__(self, stream: BinaryIO, errors: str = ...) -> None:
-        self.errors = errors
+        ...
     def write(self, obj: _decoded) -> None:
         ...
     def writelines(self, list: List[str]) -> None:
@@ -174,8 +177,9 @@ class StreamWriter(Codec):
         ...
 
 class StreamReader(Codec):
+    errors = ...  # type: str
     def __init__(self, stream: BinaryIO, errors: str = ...) -> None:
-        self.errors = errors
+        ...
     def read(self, size: int = ..., chars: int = ..., firstline: bool = ...) -> _decoded:
         ...
     def readline(self, size: int = ..., keepends: bool = ...) -> _decoded:
@@ -187,6 +191,10 @@ class StreamReader(Codec):
 
 class StreamReaderWriter:
     def __init__(self, stream: BinaryIO, Reader: _stream_reader_type, Writer: _stream_writer_type, errors: str = ...) -> None:
+        ...
+    def __enter__(self) -> BinaryIO:
+        ...
+    def __exit__(self, typ, exc, tb) -> bool:
         ...
 
 class StreamRecoder(BinaryIO):

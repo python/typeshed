@@ -3,8 +3,8 @@
 # Based on http://docs.python.org/3.5/library/configparser.html and on
 # reading configparser.py.
 
-from typing import (MutableMapping, Mapping, Dict, Sequence, List,
-                    Iterable, Iterator, Callable, Any, TextIO)
+from typing import (MutableMapping, Mapping, Dict, Sequence, List, Union,
+                    Iterable, Iterator, Callable, Any, IO, overload, Optional)
 # Types only used in type comments only
 from typing import Optional, Tuple  # noqa
 
@@ -48,19 +48,19 @@ class ExtendedInterpolation(Interpolation):
     pass
 
 
-class ConfigParser(_parser):
+class RawConfigParser(_parser):
     def __init__(self,
                  defaults: _section = None,
                  dict_type: Mapping[str, str] = ...,
                  allow_no_value: bool = ...,
+                 *,
                  delimiters: Sequence[str] = ...,
                  comment_prefixes: Sequence[str] = ...,
                  inline_comment_prefixes: Sequence[str] = None,
                  strict: bool = ...,
                  empty_lines_in_values: bool = ...,
                  default_section: str = ...,
-                 interpolation: Interpolation = None,
-                 converters: _converters = {}) -> None: ...
+                 interpolation: Interpolation = None) -> None: ...
 
     def __len__(self) -> int: ...
 
@@ -84,7 +84,7 @@ class ConfigParser(_parser):
 
     def has_option(self, section: str, option: str) -> bool: ...
 
-    def read(self, filenames: Sequence[str],
+    def read(self, filenames: Union[str, Sequence[str]],
              encoding: str = None) -> List[str]: ...
 
     def read_file(self, f: Iterable[str], source: str = None) -> None: ...
@@ -94,16 +94,20 @@ class ConfigParser(_parser):
     def read_dict(self, dictionary: Mapping[str, Mapping[str, Any]],
                   source: str = ...) -> None: ...
 
-    def getint(self, section: str, option: str) -> int: ...
+    def getint(self, section: str, option: str, *, raw: bool = ..., vars: _section = ..., fallback: int = ...) -> int: ...
 
-    def getfloat(self, section: str, option: str) -> float: ...
+    def getfloat(self, section: str, option: str, *, raw: bool = ..., vars: _section = ..., fallback: float = ...) -> float: ...
 
-    def getboolean(self, section: str, option: str) -> bool: ...
+    def getboolean(self, section: str, option: str, *, raw: bool = ..., vars: _section = ..., fallback: bool = ...) -> bool: ...
+
+    # This is incompatible with MutableMapping so we ignore the type
+    def get(self, section: str, option: str, *, raw: bool = ..., vars: _section = ..., fallback: str = ...) -> str:  # type: ignore
+        ...
 
     def set(self, section: str, option: str, value: str) -> None: ...
 
     def write(self,
-              fileobject: TextIO,
+              fileobject: IO[str],
               space_around_delimiters: bool = True) -> None: ...
 
     def remove_option(self, section: str, option: str) -> bool: ...
@@ -111,6 +115,21 @@ class ConfigParser(_parser):
     def remove_section(self, section: str) -> bool: ...
 
     def optionxform(self, option: str) -> str: ...
+
+
+class ConfigParser(RawConfigParser):
+    def __init__(self,
+                 defaults: _section = None,
+                 dict_type: Mapping[str, str] = ...,
+                 allow_no_value: bool = ...,
+                 delimiters: Sequence[str] = ...,
+                 comment_prefixes: Sequence[str] = ...,
+                 inline_comment_prefixes: Sequence[str] = None,
+                 strict: bool = ...,
+                 empty_lines_in_values: bool = ...,
+                 default_section: str = ...,
+                 interpolation: Interpolation = None,
+                 converters: _converters = {}) -> None: ...
 
 
 class Error(Exception):

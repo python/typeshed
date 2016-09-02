@@ -1,4 +1,4 @@
-from typing import Any, Awaitable, TypeVar, List, Callable, Tuple, Union, Dict, Generator
+from typing import Any, Awaitable, TypeVar, List, Callable, Tuple, Union, Dict, Generator, overload
 from abc import ABCMeta, abstractmethod
 from asyncio.futures import Future
 from asyncio.coroutines import coroutine
@@ -13,9 +13,9 @@ AF_UNSPEC = 0     # from socket
 AI_PASSIVE = 0
 
 class Handle:
-    __slots__ = [] # type: List[str]
+    __slots__ = ... # type: List[str]
     _cancelled = False
-    _args = [] # type: List[Any]
+    _args = ... # type: List[Any]
     def __init__(self, callback: Callable[[],Any], args: List[Any],
         loop: AbstractEventLoop) -> None: ...
     def __repr__(self) -> str: ...
@@ -25,13 +25,20 @@ class Handle:
 class AbstractServer:
     def close(self) -> None: ...
     @coroutine
-    def wait_closed(self) -> None: ...
+    def wait_closed(self) -> Generator[Any, Any, None]: ...
 
 class AbstractEventLoop(metaclass=ABCMeta):
     @abstractmethod
     def run_forever(self) -> None: ...
+
+    # Can't use a union, see mypy issue #1873.
+    @overload
     @abstractmethod
-    def run_until_complete(self, future: Union[Awaitable[_T], Future[_T], Generator[Any, Any, _T]]) -> _T: ...
+    def run_until_complete(self, future: Generator[Any, Any, _T]) -> _T: ...
+    @overload
+    @abstractmethod
+    def run_until_complete(self, future: Awaitable[_T]) -> _T: ...
+
     @abstractmethod
     def stop(self) -> None: ...
     @abstractmethod
@@ -58,9 +65,9 @@ class AbstractEventLoop(metaclass=ABCMeta):
     # Network I/O methods returning Futures.
     @abstractmethod
     def getaddrinfo(self, host: str, port: int, *,
-        family: int = ..., type: int = ..., proto: int = ..., flags: int = ...) -> List[Tuple[int, int, int, str, tuple]]: ...
+        family: int = ..., type: int = ..., proto: int = ..., flags: int = ...) -> Future[List[Tuple[int, int, int, str, tuple]]]: ...
     @abstractmethod
-    def getnameinfo(self, sockaddr: tuple, flags: int = ...) -> Tuple[str, int]: ...
+    def getnameinfo(self, sockaddr: tuple, flags: int = ...) -> Future[Tuple[str, int]]: ...
     @abstractmethod
     def create_connection(self, protocol_factory: Any, host: str = ..., port: int = ..., *,
                           ssl: Any = ..., family: int = ..., proto: int = ..., flags: int = ..., sock: Any = ...,
@@ -102,13 +109,13 @@ class AbstractEventLoop(metaclass=ABCMeta):
     @abstractmethod
     def subprocess_shell(self, protocol_factory: Any, cmd: Union[bytes, str], *, stdin: Any = ...,
                          stdout: Any = ..., stderr: Any = ...,
-                         **kwargs: Dict[str, Any]) -> tuple: ...
+                         **kwargs: Any) -> tuple: ...
                     #?? check Any
                     # return (Transport, Protocol)
     @abstractmethod
     def subprocess_exec(self, protocol_factory: Any, *args: List[Any], stdin: Any = ...,
                         stdout: Any = ..., stderr: Any = ...,
-                        **kwargs: Dict[str, Any]) -> tuple: ...
+                        **kwargs: Any) -> tuple: ...
                     #?? check Any
                     # return (Transport, Protocol)
     @abstractmethod
@@ -152,18 +159,25 @@ class AbstractEventLoopPolicy(metaclass=ABCMeta):
     @abstractmethod
     def set_event_loop(self, loop: AbstractEventLoop): ...
     @abstractmethod
-    def new_event_loop(self) -> Any: ... # return selector_events.BaseSelectorEventLoop
+    def new_event_loop(self) -> AbstractEventLoop: ...
     # Child processes handling (Unix only).
     @abstractmethod
-    def get_child_watcher(self) -> Any: ...  # return unix_events.AbstractChildWatcher
+    def get_child_watcher(self) -> Any: ...  # TODO: unix_events.AbstractChildWatcher
     @abstractmethod
-    def set_child_watcher(self, watcher: Any) -> None: ... # gen unix_events.AbstractChildWatcher
+    def set_child_watcher(self, watcher: Any) -> None: ... # TODO: unix_events.AbstractChildWatcher
 
 class BaseDefaultEventLoopPolicy(AbstractEventLoopPolicy):
     def __init__(self) -> None: ...
     def get_event_loop(self) -> AbstractEventLoop: ...
     def set_event_loop(self, loop: AbstractEventLoop): ...
-    def new_event_loop(self) -> Any: ... # Same return than AbstractEventLoop
+    def new_event_loop(self) -> AbstractEventLoop: ...
 
+def get_event_loop_policy() -> AbstractEventLoopPolicy: ...
+def set_event_loop_policy(policy: AbstractEventLoopPolicy) -> None: ...
 
 def get_event_loop() -> AbstractEventLoop: ...
+def set_event_loop(loop: AbstractEventLoop) -> None: ...
+def new_event_loop() -> AbstractEventLoop: ...
+
+def get_child_watcher() -> Any: ...  # TODO: unix_events.AbstractChildWatcher
+def set_child_watcher(watcher: Any) -> None: ... # TODO: unix_events.AbstractChildWatcher

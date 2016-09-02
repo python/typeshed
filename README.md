@@ -79,7 +79,7 @@ According to PEP 484, type checkers are expected to understand simple
 version and platform checks. So the following syntax is legal in a `pyi`:
 
 ```
-if sys.version_info[0] >= 3:
+if sys.version_info >= (3,):
     # Python 3 specific definitions
 else:
     # Python 2 specific definitions

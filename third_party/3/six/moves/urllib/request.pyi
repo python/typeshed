@@ -37,4 +37,4 @@ from urllib.request import build_opener as build_opener
 # from urllib.request import urlcleanup as urlcleanup
 # from urllib.request import URLopener as URLopener
 # from urllib.request import FancyURLopener as FancyURLopener
-from urllib.request import proxy_bypass as proxy_bypass
+# from urllib.request import proxy_bypass as proxy_bypass

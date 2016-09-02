@@ -1,9 +1,13 @@
-class _Feature: ...
+from sys import _version_info
 
-absolute_import = None  # type: _Feature
-division = None  # type: _Feature
-generators = None  # type: _Feature
-nested_scopes = None  # type: _Feature
-print_function = None  # type: _Feature
-unicode_literals = None  # type: _Feature
-with_statement = None  # type: _Feature
+class _Feature:
+    def getOptionalRelease(self) -> _version_info: ...
+    def getMandatoryRelease(self) -> _version_info: ...
+
+absolute_import = ...  # type: _Feature
+division = ...  # type: _Feature
+generators = ...  # type: _Feature
+nested_scopes = ...  # type: _Feature
+print_function = ...  # type: _Feature
+unicode_literals = ...  # type: _Feature
+with_statement = ...  # type: _Feature

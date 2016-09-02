@@ -3,6 +3,7 @@
 #
 # Stubs for six.moves (Python 3.2)
 
+from http import cookies as http_cookies
 from io import StringIO as cStringIO
 from builtins import filter as filter
 from itertools import filterfalse as filterfalse
@@ -25,6 +26,7 @@ from itertools import zip_longest as zip_longest
 import six.moves.cPickle as cPickle
 import html.parser as html_parser
 import html.entities as html_entities
+import http.client as http_client
 
 import six.moves.urllib_parse as urllib_parse
 import six.moves.urllib_error as urllib_error

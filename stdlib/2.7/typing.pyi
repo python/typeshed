@@ -1,7 +1,6 @@
 # Stubs for typing (Python 2.7)
 
 from abc import abstractmethod, ABCMeta
-import collections
 
 # Definitions of special type checking related constructs.  Their definition
 # are not used, so their value does not matter.
@@ -13,9 +12,11 @@ TypeVar = object()
 Generic = object()
 Tuple = object()
 Callable = object()
+Type = object()
 builtinclass = object()
 _promote = object()
 NamedTuple = object()
+NewType = object()
 
 # Type aliases
 
@@ -28,7 +29,7 @@ Union = TypeAlias(object)
 Optional = TypeAlias(object)
 List = TypeAlias(object)
 Dict = TypeAlias(object)
-DefaultDict = collections.defaultdict
+DefaultDict = TypeAlias(object)
 Set = TypeAlias(object)
 
 # Predefined type variables.
@@ -43,6 +44,7 @@ _KT = TypeVar('_KT')  # Key type.
 _VT = TypeVar('_VT')  # Value type.
 _T_co = TypeVar('_T_co', covariant=True)  # Any type covariant containers.
 _V_co = TypeVar('_V_co', covariant=True)  # Any type covariant containers.
+_KT_co = TypeVar('_KT_co', covariant=True)  # Key type covariant containers.
 _VT_co = TypeVar('_VT_co', covariant=True)  # Value type covariant containers.
 _T_contra = TypeVar('_T_contra', contravariant=True)  # Ditto contravariant.
 
@@ -117,7 +119,7 @@ class MutableSequence(Sequence[_T], Generic[_T]):
     def __setitem__(self, i: int, o: _T) -> None: ...
     @overload
     @abstractmethod
-    def __setitem__(self, s: slice, o: Sequence[_T]) -> None: ...
+    def __setitem__(self, s: slice, o: Iterable[_T]) -> None: ...
     @abstractmethod
     def __delitem__(self, i: Union[int, slice]) -> None: ...
     # Mixin methods
@@ -143,6 +145,8 @@ class AbstractSet(Sized, Iterable[_T_co], Container[_T_co], Generic[_T_co]):
     # TODO: argument can be any container?
     def isdisjoint(self, s: AbstractSet[Any]) -> bool: ...
 
+class FrozenSet(AbstractSet[_T], Generic[_T]): ...
+
 class MutableSet(AbstractSet[_T], Generic[_T]):
     @abstractmethod
     def add(self, x: _T) -> None: ...
@@ -157,6 +161,21 @@ class MutableSet(AbstractSet[_T], Generic[_T]):
     def __ixor__(self, s: AbstractSet[_S]) -> MutableSet[Union[_T, _S]]: ...
     def __isub__(self, s: AbstractSet[Any]) -> MutableSet[_T]: ...
 
+class MappingView(Sized):
+    def __len__(self) -> int: ...
+
+class ItemsView(AbstractSet[Tuple[_KT_co, _VT_co]], MappingView, Generic[_KT_co, _VT_co]):
+    def __contains__(self, o: object) -> bool: ...
+    def __iter__(self) -> Iterator[Tuple[_KT_co, _VT_co]]: ...
+
+class KeysView(AbstractSet[_KT_co], MappingView, Generic[_KT_co]):
+    def __contains__(self, o: object) -> bool: ...
+    def __iter__(self) -> Iterator[_KT_co]: ...
+
+class ValuesView(MappingView, Iterable[_VT_co], Generic[_VT_co]):
+    def __contains__(self, o: object) -> bool: ...
+    def __iter__(self) -> Iterator[_VT_co]: ...
+
 class Mapping(Sized, Iterable[_KT], Container[_KT], Generic[_KT, _VT]):
     @abstractmethod
     def __getitem__(self, k: _KT) -> _VT: ...
@@ -168,6 +187,7 @@ class Mapping(Sized, Iterable[_KT], Container[_KT], Generic[_KT, _VT]):
     def iterkeys(self) -> Iterator[_KT]: ...
     def itervalues(self) -> Iterator[_VT]: ...
     def iteritems(self) -> Iterator[Tuple[_KT, _VT]]: ...
+    def __contains__(self, o: object) -> bool: ...
 
 class MutableMapping(Mapping[_KT, _VT], Generic[_KT, _VT]):
     @abstractmethod
@@ -179,10 +199,16 @@ class MutableMapping(Mapping[_KT, _VT], Generic[_KT, _VT]):
     def pop(self, k: _KT, default: _VT = ...) -> _VT: ...
     def popitem(self) -> Tuple[_KT, _VT]: ...
     def setdefault(self, k: _KT, default: _VT = ...) -> _VT: ...
-    def update(self, m: Union[Mapping[_KT, _VT],
-                              Iterable[Tuple[_KT, _VT]]]) -> None: ...
+    @overload
+    def update(self, m: Mapping[_KT, _VT], **kwargs: _VT) -> None: ...
+    @overload
+    def update(self, m: Iterable[Tuple[_KT, _VT]], **kwargs: _VT) -> None: ...
 
-class IO(Iterable[AnyStr], Generic[AnyStr]):
+Text = unicode
+
+TYPE_CHECKING = True
+
+class IO(Iterator[AnyStr], Generic[AnyStr]):
     # TODO detach
     # TODO use abstract properties
     @property
@@ -225,6 +251,8 @@ class IO(Iterable[AnyStr], Generic[AnyStr]):
     def writelines(self, lines: Iterable[AnyStr]) -> None: ...
 
     @abstractmethod
+    def next(self) -> AnyStr: ...
+    @abstractmethod
     def __iter__(self) -> Iterator[AnyStr]: ...
     @abstractmethod
     def __enter__(self) -> 'IO[AnyStr]': ...
@@ -257,12 +285,12 @@ class Match(Generic[AnyStr]):
     pos = 0
     endpos = 0
     lastindex = 0
-    lastgroup = None  # type: AnyStr
-    string = None  # type: AnyStr
+    lastgroup = ...  # type: AnyStr
+    string = ...  # type: AnyStr
 
     # The regular expression object whose match() or search() method produced
     # this match instance.
-    re = None  # type: 'Pattern[AnyStr]'
+    re = ...  # type: 'Pattern[AnyStr]'
 
     def expand(self, template: AnyStr) -> AnyStr: ...
 
@@ -279,15 +307,15 @@ class Match(Generic[AnyStr]):
 
     def groups(self, default: AnyStr = ...) -> Sequence[AnyStr]: ...
     def groupdict(self, default: AnyStr = ...) -> dict[str, AnyStr]: ...
-    def start(self, group: int = ...) -> int: ...
-    def end(self, group: int = ...) -> int: ...
-    def span(self, group: int = ...) -> Tuple[int, int]: ...
+    def start(self, group: Union[int, str] = ...) -> int: ...
+    def end(self, group: Union[int, str] = ...) -> int: ...
+    def span(self, group: Union[int, str] = ...) -> Tuple[int, int]: ...
 
 class Pattern(Generic[AnyStr]):
     flags = 0
     groupindex = 0
     groups = 0
-    pattern = None  # type: AnyStr
+    pattern = ...  # type: AnyStr
 
     def search(self, string: AnyStr, pos: int = ...,
                endpos: int = ...) -> Match[AnyStr]: ...
@@ -295,7 +323,7 @@ class Pattern(Generic[AnyStr]):
               endpos: int = ...) -> Match[AnyStr]: ...
     def split(self, string: AnyStr, maxsplit: int = ...) -> list[AnyStr]: ...
     def findall(self, string: AnyStr, pos: int = ...,
-                endpos: int = ...) -> list[AnyStr]: ...
+                endpos: int = ...) -> list[Any]: ...
     def finditer(self, string: AnyStr, pos: int = ...,
                  endpos: int = ...) -> Iterator[Match[AnyStr]]: ...
 
@@ -312,3 +340,7 @@ class Pattern(Generic[AnyStr]):
     @overload
     def subn(self, repl: Callable[[Match[AnyStr]], AnyStr], string: AnyStr,
              count: int = ...) -> Tuple[AnyStr, int]: ...
+
+# Functions
+
+def get_type_hints(obj: Callable) -> dict[str, Any]: ...

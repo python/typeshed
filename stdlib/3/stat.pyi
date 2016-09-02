@@ -2,6 +2,7 @@
 
 # Based on http://docs.python.org/3.2/library/stat.html
 
+import sys
 import typing
 
 def S_ISDIR(mode: int) -> bool: ...
@@ -62,8 +63,9 @@ UF_IMMUTABLE = 0
 UF_APPEND = 0
 UF_OPAQUE = 0
 UF_NOUNLINK = 0
-#int UF_COMPRESSED # OS X 10.6+ only
-#int UF_HIDDEN     # OX X 10.5+ only
+if sys.platform == 'darwin':
+   UF_COMPRESSED = 0 # OS X 10.6+ only
+   UF_HIDDEN = 0     # OX X 10.5+ only
 SF_ARCHIVED = 0
 SF_IMMUTABLE = 0
 SF_APPEND = 0

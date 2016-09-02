@@ -7,8 +7,8 @@
 # NOTE: These are incomplete!
 
 from typing import (
-    Dict, Generic, TypeVar, Iterable, Tuple, Callable, Mapping, overload, Iterator, Sized,
-    Optional, List, Set, Sequence, Union, Reversible, MutableMapping, MutableSequence
+    Any, Dict, Generic, TypeVar, Iterable, Tuple, Callable, Mapping, overload, Iterator,
+    Sized, Optional, List, Set, Sequence, Union, Reversible, MutableMapping, MutableSequence
 )
 import typing
 
@@ -17,7 +17,7 @@ _KT = TypeVar('_KT')
 _VT = TypeVar('_VT')
 
 # namedtuple is special-cased in the type checker; the initializer is ignored.
-namedtuple = object()
+namedtuple = ...  # type: Any
 
 class deque(Sized, Iterable[_T], Reversible[_T], Generic[_T]):
     def __init__(self, iterable: Iterable[_T] = ...,
@@ -63,9 +63,10 @@ class Counter(Dict[_T, int], Generic[_T]):
     # it's included so that the signature is compatible with
     # Dict.update. Not sure if we should use '# type: ignore' instead
     # and omit the type from the union.
-    def update(self, m: Union[Mapping[_T, int],
-                              Iterable[Tuple[_T, int]],
-                              Iterable[_T]]) -> None: ...
+    @overload
+    def update(self, m: Mapping[_T, int], **kwargs: _VT) -> None: ...
+    @overload
+    def update(self, m: Union[Iterable[_T], Iterable[Tuple[_T, int]]], **kwargs: _VT) -> None: ...
 
 class OrderedDict(Dict[_KT, _VT], Generic[_KT, _VT]):
     def popitem(self, last: bool = ...) -> Tuple[_KT, _VT]: ...
@@ -89,3 +90,17 @@ class defaultdict(Dict[_KT, _VT], Generic[_KT, _VT]):
     def __init__(self, default_factory: Callable[[], _VT],
                  iterable: Iterable[Tuple[_KT, _VT]]) -> None: ...
     def __missing__(self, key: _KT) -> _VT: ...
+
+class ChainMap(Dict[_KT, _VT], Generic[_KT, _VT]):
+    @overload
+    def __init__(self) -> None: ...
+    @overload
+    def __init__(self, *maps: Mapping[_KT, _VT]) -> None: ...
+
+    @property
+    def maps(self) -> List[Mapping[_KT, _VT]]: ...
+
+    def new_child(self, m: Mapping[_KT, _VT] = ...) -> ChainMap[_KT, _VT]: ...
+
+    @property
+    def parents(self) -> ChainMap[_KT, _VT]: ...

@@ -10,7 +10,7 @@ class Enum:
     def __reduce_ex__(self, proto: Any) -> Any: ...
 
     name = ...  # type: str
-    value = None  # type: Any
+    value = ...  # type: Any
 
 class IntEnum(int, Enum): ...
 
