@@ -13,7 +13,7 @@ TypeType = type
 ObjectType = object
 
 IntType = int
-LongType = int
+LongType = long
 FloatType = float
 BooleanType = bool
 ComplexType = complex
