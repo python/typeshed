@@ -3,8 +3,8 @@
 
 # based on http://docs.python.org/3.3/library/tempfile.html
 
-from typing import Tuple, BinaryIO
-from contextlib import ContextManager
+from types import TracebackType
+from typing import BinaryIO, Optional, Tuple, Type
 
 # global variables
 tempdir = ...  # type: str
@@ -29,11 +29,15 @@ def SpooledTemporaryFile(
             prefix: str = ..., dir: str = ...) -> BinaryIO:
     ...
 
-class TemporaryDirectory(ContextManager):
+class TemporaryDirectory:
     name = ...  # type: str
     def __init__(self, suffix: str = ..., prefix: str = ...,
                  dir: str = ...) -> None: ...
     def cleanup(self) -> None: ...
+    def __enter__(self) -> str: ...
+    def __exit__(self, exc_type: Optional[Type[BaseException]],
+                 exc_val: Optional[Exception],
+                 exc_tb: Optional[TracebackType]) -> bool: ...
 
 def mkstemp(suffix: str = ..., prefix: str = ..., dir: str = ...,
             text: bool = ...) -> Tuple[int, str]: ...
