@@ -1,8 +1,6 @@
 # Stubs for typing
 
 from abc import abstractmethod, ABCMeta
-import sys
-from types import TracebackType
 
 # Definitions of special type checking related constructs.  Their definition
 # are not used, so their value does not matter.
@@ -221,19 +219,6 @@ class ValuesView(MappingView, Iterable[_VT_co], Generic[_VT_co]):
     def __iter__(self) -> Iterator[_VT_co]: ...
 
 # TODO: ContextManager (only if contextlib.AbstractContextManager exists)
-
-if sys.version_info >= (3, 6):
-    import contextlib.AbstractContextManager
-    ContextManager = contextlib.AbstractContextManager
-else:
-    class ContextManager(Generic[_T]):
-        @abstractmethod
-        def __enter__(self) -> _T: ...
-        @abstractmethod
-        def __exit__(self,
-                     exc_type: Optional[Type[BaseException]],
-                     exc_val: Optional[Exception],
-                     exc_tb: Optional[TracebackType]) -> bool: ...
 
 class Mapping(Iterable[_KT], Container[_KT], Sized, Generic[_KT, _VT]):
     # TODO: Value type should be covariant, but currently we can't give a good signature for

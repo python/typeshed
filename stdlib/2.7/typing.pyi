@@ -1,7 +1,6 @@
 # Stubs for typing (Python 2.7)
 
 from abc import abstractmethod, ABCMeta
-from types import TracebackType
 
 # Definitions of special type checking related constructs.  Their definition
 # are not used, so their value does not matter.
@@ -174,15 +173,6 @@ class KeysView(AbstractSet[_KT_co], MappingView, Generic[_KT_co]):
 class ValuesView(MappingView, Iterable[_VT_co], Generic[_VT_co]):
     def __contains__(self, o: object) -> bool: ...
     def __iter__(self) -> Iterator[_VT_co]: ...
-
-class ContextManager(Generic[_T]):
-    @abstractmethod
-    def __enter__(self) -> _T: ...
-    @abstractmethod
-    def __exit__(self,
-                 exc_type: Optional[Type[BaseException]],
-                 exc_val: Optional[Exception],
-                 exc_tb: Optional[TracebackType]) -> bool: ...
 
 class Mapping(Sized, Iterable[_KT], Container[_KT], Generic[_KT, _VT]):
     @abstractmethod
