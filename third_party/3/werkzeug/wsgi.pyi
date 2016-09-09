@@ -22,7 +22,6 @@ class SharedDataMiddleware:
     exports = ...  # type: Any
     cache = ...  # type: Any
     cache_timeout = ...  # type: Any
-    is_allowed = ...  # type: Any
     fallback_mimetype = ...  # type: Any
     def __init__(self, app, exports, disallow=None, cache=True, cache_timeout=..., fallback_mimetype=''): ...
     def is_allowed(self, filename): ...

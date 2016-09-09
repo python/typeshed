@@ -9,5 +9,3 @@ from .filesystem import get_filesystem_encoding as get_filesystem_encoding
 can_rename_open_file = ...  # type: Any
 
 def rename(src, dst): ...
-
-rename = ...  # type: Any

@@ -4,7 +4,6 @@
 
 from typing import Any
 from urllib2 import parse_http_list as _parse_list_header
-from urllib.request import parse_http_list as _parse_list_header
 
 HTTP_STATUS_CODES = ...  # type: Any
 

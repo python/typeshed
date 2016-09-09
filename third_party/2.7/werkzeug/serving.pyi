@@ -6,8 +6,6 @@ from typing import Any
 from ._compat import PY2 as PY2
 from SocketServer import ThreadingMixIn, ForkingMixIn
 from BaseHTTPServer import HTTPServer, BaseHTTPRequestHandler
-from socketserver import ThreadingMixIn, ForkingMixIn
-from http.server import HTTPServer, BaseHTTPRequestHandler
 
 class _SslDummy:
     def __getattr__(self, name): ...

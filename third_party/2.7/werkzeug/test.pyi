@@ -4,8 +4,6 @@
 
 from typing import Any
 from urllib2 import Request as U2Request
-from urllib.request import Request as U2Request
-from http.cookiejar import CookieJar
 from cookielib import CookieJar
 
 def stream_encode_multipart(values, use_tempfile=True, threshold=..., boundary=None, charset=''): ...
