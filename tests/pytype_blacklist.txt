@@ -1,18 +1,10 @@
 # Pytype blacklist. Files will not be tested with pytype.
 
 2.7/__builtin__.pyi
-2.7/StringIO.pyi
 2.7/builtins.pyi
-2.7/codecs.pyi
-2.7/inspect.pyi
-2.7/pydoc.pyi
 2.7/types.pyi
 2.7/typing.pyi
-2.7/xml/dom/minidom.pyi
 2and3/argparse.pyi
 2and3/logging/handlers.pyi
-2and3/logging/__init__.pyi
-2and3/mmap.pyi
-2and3/plistlib.pyi
 2and3/tarfile.pyi
 2and3/webbrowser.pyi
