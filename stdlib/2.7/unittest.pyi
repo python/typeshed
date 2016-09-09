@@ -180,3 +180,6 @@ def skip(reason: str) -> Any: ...
 def main(module: str = ..., defaultTest: str = ...,
          argv: List[str] = ..., testRunner: Any = ...,
          testLoader: Any = ...) -> None: ... # TODO types
+
+# private but occasionally used
+util = ...  # type: module
