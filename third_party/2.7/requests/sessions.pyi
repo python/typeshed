@@ -1,6 +1,6 @@
-# Stubs for requests.sessions (Python 3)
+# Stubs for requests.sessions (Python 2.7)
 
-from typing import Any, Union, MutableMapping
+from typing import Any, Union, MutableMapping, Text, Optional, IO, Tuple, Callable
 from . import auth
 from . import compat
 from . import cookies
@@ -55,27 +55,39 @@ class SessionRedirectMixin:
 
 class Session(SessionRedirectMixin):
     __attrs__ = ... # type: Any
-    headers = ... # type: MutableMapping[str, str]
-    auth = ... # type: Any
-    proxies = ... # type: Any
-    hooks = ... # type: Any
-    params = ... # type: Any
-    stream = ... # type: Any
-    verify = ... # type: Any
-    cert = ... # type: Any
-    max_redirects = ... # type: Any
-    trust_env = ... # type: Any
-    cookies = ... # type: Any
-    adapters = ... # type: Any
-    redirect_cache = ... # type: Any
+    headers = ... # type: Optional[MutableMapping[Text, Text]]
+    auth = ... # type: Union[None, Tuple[Text, Text], Callable[[Request], Request]]
+    proxies = ... # type: Optional[MutableMapping[Text, Text]]
+    hooks = ... # type: Optional[MutableMapping[Text, Callable[[Request], Any]]]
+    params = ... # type: Union[None, bytes, MutableMapping[Text, Text]]
+    stream = ... # type: bool
+    verify = ... # type: bool
+    cert = ... # type: Union[None, Text, Tuple[Text, Text]]
+    max_redirects = ... # type: int
+    trust_env = ... # type: bool
+    cookies = ... # type: Union[None, RequestsCookieJar, MutableMapping[Text, Text]]
+    adapters = ... # type: MutableMapping
+    redirect_cache = ... # type: RecentlyUsedContainer
     def __init__(self) -> None: ...
     def __enter__(self) -> 'Session': ...
     def __exit__(self, *args) -> None: ...
     def prepare_request(self, request): ...
-    def request(self, method: str, url: str, params=..., data=..., headers=...,
-                cookies=..., files=..., auth=..., timeout=..., allow_redirects=...,
-                proxies=..., hooks=..., stream=..., verify=..., cert=...,
-                json=...) -> Response: ...
+    def request(self, method: str, url: str,
+                params,  # type: Union[None, bytes, MutableMapping[Text, Text]]
+                data,  # type: Union[None, bytes, MutableMapping[Text, Text], IO]
+                headers,  # type: Optional[MutableMapping[Text, Text]]
+                cookies,  # type: Union[None, RequestsCookieJar, MutableMapping[Text, Text]]
+                files,  # type: Optional[MutableMapping[Text, IO]]
+                auth,  # type: Union[None, Tuple[Text, Text], Callable[[Request], Request]]
+                timeout,  # type: Union[None, float, Tuple[float, float]]
+                allow_redirects,  # type: Optional[bool]
+                proxies,  # type: Optional[MutableMapping[Text, Text]]
+                hooks,  # type: Optional[MutableMapping[Text, Callable[[Request], Any]]]
+                stream,  # type: Optional[bool]
+                verify,  # type: Optional[bool]
+                cert,  # type: Union[Text, Tuple[Text, Text], None]
+                json  # type: Optional[MutableMapping]
+                ) -> Response: ...
     def get(self, url: str, **kwargs) -> Response: ...
     def options(self, url: str, **kwargs) -> Response: ...
     def head(self, url: str, **kwargs) -> Response: ...
