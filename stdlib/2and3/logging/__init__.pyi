@@ -344,3 +344,11 @@ class NullHandler(Handler): ...
 class PlaceHolder:
     def __init__(self, alogger: Logger) -> None: ...
     def append(self, alogger: Logger) -> None: ...
+
+
+# Below aren't in module docs but still visible
+
+class RootLogger(Logger):
+    pass
+
+root = ...  # type: RootLogger
