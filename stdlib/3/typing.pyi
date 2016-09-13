@@ -16,7 +16,6 @@ Callable = object()
 Type = object()
 builtinclass = object()
 _promote = object()
-NamedTuple = object()
 no_type_check = object()
 NewType = object()
 
@@ -418,3 +417,11 @@ class Pattern(Generic[AnyStr]):
 # Functions
 
 def get_type_hints(obj: Callable) -> dict[str, Any]: ...
+
+
+# Type constructors
+
+# The  special-cased in the type checker; the initializer is ignored.
+def NamedTuple(typename: str, fields: Iterable[Tuple[str, Any]], *,
+               verbose: bool = ..., rename: bool = ..., module: str = None) -> Type[tuple]: ...
+
