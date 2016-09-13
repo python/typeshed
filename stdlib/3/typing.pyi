@@ -319,7 +319,9 @@ class IO(Iterator[AnyStr], Generic[AnyStr]):
     @abstractmethod
     def __enter__(self) -> 'IO[AnyStr]': ...
     @abstractmethod
-    def __exit__(self, t: type = None, value: BaseException = None, traceback: Any = None) -> bool: ...
+    def __exit__(self, t: Optional[Type[BaseException]], value: Optional[BaseException],
+                 # TODO: traceback should be TracebackType but that's defined in types
+                 traceback: Optional[Any]) -> bool: ...
 
 class BinaryIO(IO[bytes]):
     # TODO readinto
