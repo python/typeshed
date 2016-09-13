@@ -418,10 +418,9 @@ class Pattern(Generic[AnyStr]):
 
 def get_type_hints(obj: Callable) -> dict[str, Any]: ...
 
-
 # Type constructors
 
-# The  special-cased in the type checker; the initializer is ignored.
+# Namedtuple is special-cased in the type checker; the initializer is ignored.
 def NamedTuple(typename: str, fields: Iterable[Tuple[str, Any]], *,
                verbose: bool = ..., rename: bool = ..., module: str = None) -> Type[tuple]: ...
 
