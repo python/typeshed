@@ -7,7 +7,7 @@
 # These are not exported.
 from typing import (
     TypeVar, Iterable, Generic, Iterator, Dict, overload,
-    Mapping, List, Tuple, Callable, Sized,
+    Mapping, List, Tuple, Callable, Sized, Any, Type,
     Optional, Union
 )
 # These are exported.
