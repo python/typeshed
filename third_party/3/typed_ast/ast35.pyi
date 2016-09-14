@@ -89,7 +89,7 @@ class Delete(stmt):
 class Assign(stmt):
     targets = ...  # type: typing.List[expr]
     value = ...  # type: expr
-    type_comment = ...  # type: Optional[str]
+    type_comment = ...  # type: Union[AST, Optional[str]]
 
 class AugAssign(stmt):
     target = ...  # type: expr
