@@ -5,7 +5,6 @@ from abc import abstractmethod, ABCMeta
 # Definitions of special type checking related constructs.  Their definition
 # are not used, so their value does not matter.
 
-cast = object()
 overload = object()
 Any = object()
 TypeVar = object()
@@ -15,7 +14,6 @@ Callable = object()
 Type = object()
 builtinclass = object()
 _promote = object()
-NewType = object()
 
 # Type aliases
 
@@ -350,8 +348,13 @@ class Pattern(Generic[AnyStr]):
 
 def get_type_hints(obj: Callable) -> dict[str, Any]: ...
 
+def cast(tp: Type[_T], obj: Any) -> _T: ...
+
 # Type constructors
 
 # NamedTuple is special-cased in the type checker; the initializer is ignored.
 def NamedTuple(typename: str, fields: Iterable[Tuple[str, Any]], *,
                verbose: bool = ..., rename: bool = ...) -> Type[tuple]: ...
+
+def NewType(name: str, tp: Type[_T]) -> Type[_T]: ...
+
