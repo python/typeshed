@@ -124,7 +124,8 @@ def main():
             runs += 1
             flags = ['--python-version', '%d.%d' % (major, minor)]
             flags.append('--strict-optional')
-            ##flags.append('--warn-unused-ignores')
+            ##flags.append('--fast-parser')  # Travis CI doesn't have typed_ast yet.
+            ##flags.append('--warn-unused-ignores')  # Fast parser and regular parser disagree.
             sys.argv = ['mypy'] + flags + files
             if args.verbose:
                 print("running", ' '.join(sys.argv))
