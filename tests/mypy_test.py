@@ -102,7 +102,7 @@ def main():
             for name in names:
                 full = os.path.join(root, name)
                 mod, ext = os.path.splitext(name)
-                if mod in seen:
+                if mod in seen or mod.startswith('.'):
                     continue
                 if ext in ['.pyi', '.py']:
                     if match(full, args, blacklist):
