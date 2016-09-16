@@ -32,7 +32,9 @@ class struct_time:
     tm_wday = 0
     tm_yday = 0
     tm_isdst = 0
-
+    # Following fields are added in 3.3.
+    tm_gmtoff = 0
+    tm_zone = 'GMT'
 
 # ----- functions -----
 def asctime(t: Union[Tuple[int, int, int, int, int, int, int, int, int],
