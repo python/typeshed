@@ -5,7 +5,8 @@
 # see: http://nullege.com/codes/search?cq=time
 
 import sys
-from typing import Tuple, Union, Dict, Any
+from typing import Tuple, Union
+from types import SimpleNamespace
 
 # ----- variables and constants -----
 accept2dyear = False
@@ -68,7 +69,7 @@ if sys.platform != 'win32':
     def tzset() -> None: ...  # Unix only
 
 if sys.version_info >= (3, 3):
-    def get_clock_info(str) -> Dict[str, Any]: ...
+    def get_clock_info(str) -> SimpleNamespace: ...
     def monotonic() -> float: ...
     def perf_counter() -> float: ...
     def process_time() -> float: ...
