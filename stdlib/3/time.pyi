@@ -49,26 +49,18 @@ class struct_time:
 def asctime(t: Union[Tuple[int, int, int, int, int, int, int, int, int],
                      struct_time,
                      None] = ...) -> str: ...  # return current time
-
 def clock() -> float: ...
-
 def ctime(secs: Union[float, None] = ...) -> str: ...  # return current time
-
 def gmtime(secs: Union[float, None] = ...) -> struct_time: ...  # return current time
-
 def localtime(secs: Union[float, None] = ...) -> struct_time: ...  # return current time
-
 def mktime(t: Union[Tuple[int, int, int, int, int,
                           int, int, int, int],
                     struct_time]) -> float: ...
-
 def sleep(secs: Union[int, float]) -> None: ...
-
 def strftime(format: str, t: Union[Tuple[int, int, int, int, int,
                                          int, int, int, int],
                                    struct_time,
                                    None] = ...) -> str: ...  # return current time
-
 def strptime(string: str,
              format: str = ...) -> struct_time: ...
 def time() -> float: ...
@@ -76,15 +68,9 @@ def tzset() -> None: ...  # Unix only
 
 if sys.version_info >= (3, 3):
     def clock_getres(int) -> float: ...
-
     def clock_gettime(int) -> float: ...
-
     def clock_settime(int, struct_time) -> float: ...
-
     def get_clock_info(str) -> Dict[str, Any]: ...
-
     def monotonic() -> float: ...
-
     def perf_counter() -> float: ...
-
     def process_time() -> float: ...
