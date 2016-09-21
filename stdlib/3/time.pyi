@@ -1,11 +1,11 @@
 # Stubs for time
 # Ron Murawski <ron@horizonchess.com>
 
-# based on: http://docs.python.org/3.2/library/time.html#module-time
+# based on: http://docs.python.org/3.3/library/time.html#module-time
 # see: http://nullege.com/codes/search?cq=time
 
 import sys
-from typing import Tuple, Union
+from typing import Tuple, Union, Dict, Any
 
 # ----- variables and constants -----
 accept2dyear = False
@@ -13,6 +13,14 @@ altzone = 0
 daylight = 0
 timezone = 0
 tzname = ... # type: Tuple[str, str]
+
+if sys.version_info >= (3, 3):
+    CLOCK_HIGHRES = 0
+    CLOCK_MONOTONIC = 0
+    CLOCK_MONOTONIC_RAW = 0
+    CLOCK_PROCESS_CPUTIME_ID = 0
+    CLOCK_REALTIME = 0
+    CLOCK_THREAD_CPUTIME_ID = 0
 
 
 # ----- classes/methods -----
@@ -65,3 +73,18 @@ def strptime(string: str,
              format: str = ...) -> struct_time: ...
 def time() -> float: ...
 def tzset() -> None: ...  # Unix only
+
+if sys.version_info >= (3, 3):
+    def clock_getres(int) -> float: ...
+
+    def clock_gettime(int) -> float: ...
+
+    def clock_settime(int, struct_time) -> float: ...
+
+    def get_clock_info(str) -> Dict[str, Any]: ...
+
+    def monotonic() -> float: ...
+
+    def perf_counter() -> float: ...
+
+    def process_time() -> float: ...
