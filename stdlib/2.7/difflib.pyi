@@ -6,13 +6,13 @@
 
 from typing import (
     TypeVar, Callable, Iterable, Iterator, List, NamedTuple, Sequence, Tuple,
-    Generic
+    Generic, Optional
 )
 
 _T = TypeVar('_T')
 
 class SequenceMatcher(Generic[_T]):
-    def __init__(self, isjunk: Callable[[_T], bool] = ...,
+    def __init__(self, isjunk: Optional[Callable[[_T], bool]] = ...,
                  a: Sequence[_T] = ..., b: Sequence[_T] = ...,
                  autojunk: bool = ...) -> None: ...
     def set_seqs(self, a: Sequence[_T], b: Sequence[_T]) -> None: ...
