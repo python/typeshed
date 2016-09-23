@@ -2,10 +2,14 @@
 
 from typing import Any, Iterable, List, Mapping, Optional, Sequence, Tuple, Union
 import sys
-import builtins
 
-_str = builtins.str  # TODO workaround for mypy#2010
-
+# workaround for mypy#2010
+if sys.version_info < (3,):
+    import __builtin__
+    _str = __builtin__.str
+else:
+    import builtins
+    _str = builtins.str
 
 CODESET = ...  # type: int
 D_T_FMT = ...  # type: int
@@ -95,8 +99,8 @@ def format_string(format: _str, val: Sequence[Any],
                   grouping: bool = ...) -> _str: ...
 def currency(val: int, symbol: bool = ..., grouping: bool = ...,
              international: bool = ...) -> _str: ...
-def str(float: float) -> _str: ...
 if sys.version_info >= (3, 5):
     def delocalize(string: _str) -> None: ...
 def atof(string: _str) -> float: ...
 def atoi(string: _str) -> int: ...
+def str(float: float) -> _str: ...
