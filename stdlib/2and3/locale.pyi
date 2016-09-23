@@ -5,11 +5,10 @@ import sys
 
 # workaround for mypy#2010
 if sys.version_info < (3,):
-    import __builtin__
-    _str = __builtin__.str
+    import __builtin__ as builtins
 else:
     import builtins
-    _str = builtins.str
+_str = builtins.str
 
 CODESET = ...  # type: int
 D_T_FMT = ...  # type: int
