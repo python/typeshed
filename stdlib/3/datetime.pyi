@@ -14,9 +14,9 @@ class tzinfo:
     def fromutc(self, dt: datetime) -> datetime: ...
 
 class timezone(tzinfo):
-    utc = ...  # type: tzinfo
-    min = ...  # type: tzinfo
-    max = ...  # type: tzinfo
+    utc = ...  # type: timezone
+    min = ...  # type: timezone
+    max = ...  # type: timezone
 
     def __init__(self, offset: timedelta, name: str = ...) -> None: ...
     def __hash__(self) -> int: ...
