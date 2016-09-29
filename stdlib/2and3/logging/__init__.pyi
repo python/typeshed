@@ -55,7 +55,8 @@ class Logger:
                       stack_info: bool = ..., extra: Dict[str, Any] = ...,
                       **kwargs: Any) -> None: ...
     else:
-        def debug(msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+        def debug(self,
+                  msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
                   extra: Dict[str, Any] = ..., **kwargs: Any) -> None: ...
         def info(self,
                  msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
