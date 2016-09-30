@@ -30,7 +30,7 @@ DefaultDict = TypeAlias(object)
 Set = TypeAlias(object)
 
 # Predefined type variables.
-AnyStr = TypeVar('AnyStr', str, unicode)
+AnyStr = TypeVar('AnyStr', bytes, str, unicode)
 
 # Abstract base classes.
 
@@ -262,7 +262,7 @@ class IO(Iterator[AnyStr], Generic[AnyStr]):
                  # TODO: traceback should be TracebackType but that's defined in types
                  traceback: Optional[Any]) -> bool: ...
 
-class BinaryIO(IO[str]):
+class BinaryIO(IO[bytes]):
     # TODO readinto
     # TODO read1?
     # TODO peek?
