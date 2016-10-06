@@ -1,6 +1,6 @@
 # TODO incomplete
 from types import TracebackType, FrameType, ModuleType
-from typing import Any, Callable, List, Optional, Tuple, NamedTuple
+from typing import Any, Callable, List, Optional, Tuple, Union, NamedTuple
 
 # Types and members
 ModuleInfo = NamedTuple('ModuleInfo', [('name', str),
@@ -64,12 +64,19 @@ def getmro(cls: type) -> Tuple[type, ...]: ...
 # TODO getcallargs
 
 # The interpreter stack
-# TODO getframeinfo
-# TODO getouterframes
-def getinnerframes(traceback: TracebackType, context: int = ...) -> List[FrameType]:
-    ...
+
+Traceback = NamedTuple('Traceback', [('filename', str),
+                                     ('lineno', int),
+                                     ('function', str),
+                                     ('code_context', List[str]),
+                                     ('index', int),
+                                    ])
 
 _FrameRecord = Tuple[FrameType, str, int, str, List[str], int]
+
+def getouterframes(frame: FrameType, context: int = ...) -> List[FrameType]: ...
+def getframeinfo(frame: Union[FrameType, TracebackType] , context: int = ...) -> Traceback: ...
+def getinnerframes(traceback: TracebackType, context: int = ...) -> List[FrameType]: ...
 
 def currentframe() -> FrameType: ...
 def stack(context: int = ...) -> List[_FrameRecord]: ...
