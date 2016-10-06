@@ -73,3 +73,14 @@ def setfirstweekday(firstweekday: int) -> None: ...
 def format(cols: int, colwidth: int = ..., spacing: int = ...) -> str: ...
 def formatstring(cols: int, colwidth: int = ..., spacing: int = ...) -> str: ...
 def timegm(tuple: Tuple[int, ...]) -> int: ...
+
+# Below constants are not in docs or __all__, but enough people have used them
+# they are now effectively public.
+
+MONDAY = ...  # type: int
+TUESDAY = ...  # type: int
+WEDNESDAY = ...  # type: int
+THURSDAY = ...  # type: int
+FRIDAY = ...  # type: int
+SATURDAY = ...  # type: int
+SUNDAY = ...  # type: int
