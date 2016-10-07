@@ -76,6 +76,10 @@ class Thread:
     def setDaemon(self, daemonic: bool) -> None: ...
 
 
+class _DummyThread(Thread):
+    pass
+
+
 class Lock:
     def __init__(self) -> None: ...
     def __enter__(self) -> bool: ...
