@@ -106,7 +106,7 @@ class _RLock:
     def release(self) -> None: ...
 
 
-def RLock() -> _RLock: ...
+RLock = _RLock
 
 
 class Condition:
