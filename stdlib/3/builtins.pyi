@@ -9,6 +9,7 @@ from typing import (
 from abc import abstractmethod, ABCMeta
 from types import TracebackType
 import sys
+from pathlib import Path
 
 # Note that names imported above are not automatically made visible via the
 # implicit builtins import.
@@ -703,8 +704,14 @@ def next(i: Iterator[_T]) -> _T: ...
 @overload
 def next(i: Iterator[_T], default: _T) -> _T: ...
 def oct(i: int) -> str: ...  # TODO __index__
-def open(file: Union[str, bytes, int], mode: str = 'r', buffering: int = -1, encoding: str = None,
-         errors: str = None, newline: str = None, closefd: bool = ...) -> IO[Any]: ...
+
+if sys.version_info >= (3, 6):
+    def open(file: Union[str, bytes, int, Path], mode: str = 'r', buffering: int = -1, encoding: str = None,
+             errors: str = None, newline: str = None, closefd: bool = ...) -> IO[Any]: ...
+else:
+    def open(file: Union[str, bytes, int], mode: str = 'r', buffering: int = -1, encoding: str = None,
+             errors: str = None, newline: str = None, closefd: bool = ...) -> IO[Any]: ...
+
 def ord(c: Union[str, bytes, bytearray]) -> int: ...
 # TODO: in Python 3.2, print() does not support flush
 def print(*values: Any, sep: str = ' ', end: str = '\n', file: IO[str] = None, flush: bool = False) -> None: ...
