@@ -46,6 +46,17 @@ if sys.version_info >= (3, 4):
                                capath: Optional[str] = ...,
                                cadata: Optional[str] = ...) -> 'SSLContext': ...
 
+if sys.version_info >= (3, 4, 3):
+    def _create_unverified_context(protocol: int = ..., *,
+                                   cert_reqs: int = ...,
+                                   check_hostname: bool = ...,
+                                   purpose: Any = ...,
+                                   certfile: Optional[str] = ...,
+                                   keyfile: Optional[str] = ...,
+                                   cafile: Optional[str] = ...,
+                                   capath: Optional[str] = ...,
+                                   cadata: Optional[str] = ...) -> 'SSLContext': ...
+    _create_default_https_context = ... # type: Callable[..., 'SSLContext']
 
 def RAND_bytes(num: int) -> bytes: ...
 def RAND_pseudo_bytes(num: int) -> Tuple[bytes, bool]: ...

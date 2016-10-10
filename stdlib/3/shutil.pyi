@@ -1,4 +1,5 @@
 # Stubs for shutil
+import sys
 
 # Based on http://docs.python.org/3.2/library/shutil.html
 
@@ -27,6 +28,8 @@ def rmtree(path: str, ignore_errors: bool = ...,
 def move(src: str, dst: str) -> None: ...
 
 class Error(Exception): ...
+if sys.version_info >= (3, 4):
+  class SameFileError(Error): ...
 
 def make_archive(base_name: str, format: str, root_dir: str = ...,
                  base_dir: str = ..., verbose: bool = ...,
