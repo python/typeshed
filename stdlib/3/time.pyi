@@ -8,6 +8,8 @@ import sys
 from typing import Tuple, Union
 from types import SimpleNamespace
 
+TimeTuple = Tuple[int, int, int, int, int, int, int, int, int]
+
 # ----- variables and constants -----
 accept2dyear = False
 altzone = 0
@@ -47,21 +49,15 @@ class struct_time:
         tm_zone = 'GMT'
 
 # ----- functions -----
-def asctime(t: Union[Tuple[int, int, int, int, int, int, int, int, int],
-                     struct_time,
-                     None] = ...) -> str: ...  # return current time
+def asctime(t: Union[TimeTuple, struct_time, None] = ...) -> str: ...  # return current time
 def clock() -> float: ...
 def ctime(secs: Union[float, None] = ...) -> str: ...  # return current time
 def gmtime(secs: Union[float, None] = ...) -> struct_time: ...  # return current time
 def localtime(secs: Union[float, None] = ...) -> struct_time: ...  # return current time
-def mktime(t: Union[Tuple[int, int, int, int, int,
-                          int, int, int, int],
-                    struct_time]) -> float: ...
+def mktime(t: Union[TimeTuple, struct_time]) -> float: ...
 def sleep(secs: Union[int, float]) -> None: ...
-def strftime(format: str, t: Union[Tuple[int, int, int, int, int,
-                                         int, int, int, int],
-                                   struct_time,
-                                   None] = ...) -> str: ...  # return current time
+def strftime(format: str,
+             t: Union[TimeTuple, struct_time, None] = ...) -> str: ...  # return current time
 def strptime(string: str,
              format: str = ...) -> struct_time: ...
 def time() -> float: ...
