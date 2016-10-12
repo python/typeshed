@@ -9,7 +9,6 @@ from typing import (
 from abc import abstractmethod, ABCMeta
 from types import TracebackType
 import sys
-from pathlib import Path
 
 # Note that names imported above are not automatically made visible via the
 # implicit builtins import.
@@ -706,6 +705,7 @@ def next(i: Iterator[_T], default: _T) -> _T: ...
 def oct(i: int) -> str: ...  # TODO __index__
 
 if sys.version_info >= (3, 6):
+    from pathlib import Path
     def open(file: Union[str, bytes, int, Path], mode: str = 'r', buffering: int = -1, encoding: str = None,
              errors: str = None, newline: str = None, closefd: bool = ...) -> IO[Any]: ...
 else:
