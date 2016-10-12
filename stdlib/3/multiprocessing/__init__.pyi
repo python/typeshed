@@ -19,7 +19,7 @@ class Pool():
                  initializer: Optional[Callable[..., None]] = None,
                  initargs: Iterable[Any] = (),
                  maxtasksperchild: Optional[int] = None,
-                 context: Optional[Callable[[Any], Any]] = None) -> None: ...
+                 context: Any = None) -> None: ...
     def apply(self,
               func: Callable[..., Any],
               args: Iterable[Any]=(),
