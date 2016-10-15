@@ -22,8 +22,8 @@ _T2 = TypeVar('_T2')
 _T3 = TypeVar('_T3')
 _T4 = TypeVar('_T4')
 
-staticmethod = object()  # Special, only valid as a decorator.
-classmethod = object()  # Special, only valid as a decorator.
+class staticmethod: pass   # Special, only valid as a decorator.
+class classmethod: pass  # Special, only valid as a decorator.
 
 class object:
     __doc__ = ...  # type: str
