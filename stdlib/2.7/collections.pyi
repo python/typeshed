@@ -8,7 +8,8 @@
 
 from typing import (
     Any, Dict, Generic, TypeVar, Iterable, Tuple, Callable, Mapping, overload, Iterator, Type,
-    Sized, Optional, List, Set, Sequence, Union, Reversible, MutableMapping, MutableSequence
+    Sized, Optional, List, Set, Sequence, Union, Reversible, MutableMapping, MutableSequence,
+    Container
 )
 import typing
 
