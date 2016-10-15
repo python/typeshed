@@ -60,3 +60,6 @@ analyze.py
 *~
 .*.sw?
 .vscode/
+
+# OS X
+.DS_Store
