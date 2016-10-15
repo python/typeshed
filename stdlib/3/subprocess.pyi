@@ -12,12 +12,12 @@ if sys.version_info >= (3, 5):
         returncode = ... # type: int
         stdout = ... # type: Union[str, bytes]
         stderr = ... # type: Union[str, bytes]
-        def __init__(self, args: Union[List, str], 
-                     returncode: int, 
-                     stdout: Union[str, bytes], 
+        def __init__(self, args: Union[List, str],
+                     returncode: int,
+                     stdout: Union[str, bytes],
                      stderr: Union[str, bytes]) -> None: ...
         def check_returncode(self) -> None: ...
-    
+
     # Nearly same args as Popen.__init__ except for timeout, input, and check
     def run(args: Union[str, Sequence[str]],
 	    timeout: float = ...,
@@ -185,6 +185,7 @@ STDOUT = ... # type: Any
 if sys.version_info >= (3, 3):
     DEVNULL = ...  # type: Any
     class SubprocessError(Exception): ...
+    class TimeoutExpired(SubprocessError): ...
 
 
 class CalledProcessError(Exception):
@@ -226,7 +227,11 @@ class Popen:
                   pass_fds: Any = ...) -> None: ...
 
     def poll(self) -> int: ...
-    def wait(self) -> int: ...
+    if sys.version_info >= (3, 3):
+        # 3.3 added timeout
+        def wait(self, timeout: float) -> int: ...
+    else:
+        def wait(self) ->int: ...
     # Return str/bytes
     if sys.version_info >= (3, 3):
         def communicate(self, input: Union[str, bytes] = ..., timeout: float = ...) -> Tuple[Any, Any]: ...
