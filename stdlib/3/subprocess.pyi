@@ -185,6 +185,7 @@ STDOUT = ... # type: Any
 if sys.version_info >= (3, 3):
     DEVNULL = ...  # type: Any
     class SubprocessError(Exception): ...
+    class TimeoutExpired(SubprocessError): ...
 
 
 class CalledProcessError(Exception):
@@ -198,8 +199,6 @@ class CalledProcessError(Exception):
 
     def __init__(self, returncode: int, cmd: str, output: Optional[str] = ...,
                  stderr: Optional[str] = ...) -> None: ...
-
-class TimeoutExpired(SubprocessError): ...
 
 class Popen:
     stdin = ... # type: IO[Any]
