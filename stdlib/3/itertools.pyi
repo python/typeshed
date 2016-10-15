@@ -3,7 +3,7 @@
 # Based on http://docs.python.org/3.2/library/itertools.html
 
 from typing import (Iterator, TypeVar, Iterable, overload, Any, Callable, Tuple,
-                    Union, Sequence, Generic)
+                    Union, Sequence, Generic, Optional)
 
 _T = TypeVar('_T')
 _S = TypeVar('_S')
@@ -41,7 +41,7 @@ def groupby(iterable: Iterable[_T],
 @overload
 def islice(iterable: Iterable[_T], stop: int) -> Iterator[_T]: ...
 @overload
-def islice(iterable: Iterable[_T], start: int, stop: int,
+def islice(iterable: Iterable[_T], start: int, stop: Optional[int],
            step: int = ...) -> Iterator[_T]: ...
 
 def starmap(func: Any, iterable: Iterable[Any]) -> Iterator[Any]: ...
