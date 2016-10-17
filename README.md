@@ -62,6 +62,9 @@ NOTE: When you're contributing a new stub for a package that you did
 not develop, please obtain consent of the package owner (this is
 specified in [PEP
 484](https://www.python.org/dev/peps/pep-0484/#the-typeshed-repo)).
+The best way to obtain consent is to file an issue in the third party
+package's tracker and include the link to a positive response in your PR
+for typeshed.
 
 ### Version directories
 
