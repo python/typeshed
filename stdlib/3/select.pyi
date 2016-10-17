@@ -22,6 +22,6 @@ class poll:
     def poll(self, timeout: int = ...) -> List[Tuple[int, int]]: ...
 
 def select(rlist: Sequence, wlist: Sequence, xlist: Sequence,
-           timeout: float = ...) -> Tuple[List[int],
-                                           List[int],
-                                           List[int]]: ...
+           timeout: float = ...) -> Tuple[List[Any],
+                                           List[Any],
+                                           List[Any]]: ...
