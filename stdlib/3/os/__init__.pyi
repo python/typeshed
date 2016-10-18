@@ -9,7 +9,7 @@ from typing import (
 )
 import sys
 from builtins import OSError as error
-import os.path as path
+from . import path
 
 # ----- os variables -----
 

@@ -4,7 +4,7 @@ from typing import (
     List, Tuple, Union, Sequence, Mapping, IO, Any, Optional, AnyStr, Iterator,
     MutableMapping, NamedTuple, overload
 )
-from os import path
+from . import path
 
 error = OSError
 name = ... # type: str

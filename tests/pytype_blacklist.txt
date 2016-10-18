@@ -5,3 +5,7 @@ stdlib/2.7/builtins.pyi
 stdlib/2.7/types.pyi
 stdlib/2.7/typing.pyi
 stdlib/2and3/webbrowser.pyi
+
+# Because of 'from . import path':
+stdlib/2.7/os/__init__.pyi
+stdlib/3/os/__init__.pyi
