@@ -825,6 +825,7 @@ class StopIteration(Exception):
 if sys.version_info >= (3, 5):
     class StopAsyncIteration(Exception):
         value = ...  # type: Any
+    class RecursionError(RuntimeError): ...
 class SyntaxError(Exception):
     msg = ...  # type: str
     lineno = ...  # type: int
