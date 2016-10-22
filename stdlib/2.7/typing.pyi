@@ -12,7 +12,6 @@ Generic = object()
 Tuple = object()
 Callable = object()
 Type = object()
-builtinclass = object()
 _promote = object()
 
 # Type aliases
