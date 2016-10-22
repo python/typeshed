@@ -13,7 +13,6 @@ Generic = object()
 Tuple = object()
 Callable = object()
 Type = object()
-builtinclass = object()
 _promote = object()
 no_type_check = object()
 
