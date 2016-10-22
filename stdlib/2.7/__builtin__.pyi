@@ -22,8 +22,8 @@ _T2 = TypeVar('_T2')
 _T3 = TypeVar('_T3')
 _T4 = TypeVar('_T4')
 
-staticmethod = object()  # Special, only valid as a decorator.
-classmethod = object()  # Special, only valid as a decorator.
+class staticmethod: pass   # Special, only valid as a decorator.
+class classmethod: pass  # Special, only valid as a decorator.
 
 class object:
     __doc__ = ...  # type: str
@@ -160,6 +160,7 @@ class float(SupportsFloat, SupportsInt, SupportsAbs[float]):
     def __float__(self) -> float: ...
     def __abs__(self) -> float: ...
     def __hash__(self) -> int: ...
+    def __format__(self, format_spec: AnyStr) -> str: ...
 
 class complex(SupportsAbs[float]):
     @overload
@@ -551,7 +552,7 @@ class dict(MutableMapping[_KT, _VT], Generic[_KT, _VT]):
     def viewitems(self) -> ItemsView[_KT, _VT]: ...
     @staticmethod
     @overload
-    def fromkeys(seq: Sequence[_T]) -> Dict[_T, Any]: ...  # TODO: Actually a class method
+    def fromkeys(seq: Sequence[_T]) -> Dict[_T, Any]: ...  # TODO: Actually a class method (mypy/issues#328)
     @staticmethod
     @overload
     def fromkeys(seq: Sequence[_T], value: _S) -> Dict[_T, _S]: ...

@@ -23,8 +23,8 @@ _T2 = TypeVar('_T2')
 _T3 = TypeVar('_T3')
 _T4 = TypeVar('_T4')
 
-staticmethod = object() # Only valid as a decorator.
-classmethod = object() # Only valid as a decorator.
+class staticmethod: pass   # Special, only valid as a decorator.
+class classmethod: pass  # Special, only valid as a decorator.
 
 class object:
     __doc__ = ...  # type: str
@@ -148,6 +148,7 @@ class float(SupportsFloat, SupportsInt, SupportsAbs[float]):
     def __float__(self) -> float: ...
     def __abs__(self) -> float: ...
     def __hash__(self) -> int: ...
+    def __format__(self, format_spec: str) -> str: ...
 
 class complex(SupportsAbs[float]):
     @overload
@@ -530,7 +531,7 @@ class dict(MutableMapping[_KT, _VT], Generic[_KT, _VT]):
     def items(self) -> ItemsView[_KT, _VT]: ...
     @staticmethod
     @overload
-    def fromkeys(seq: Sequence[_T]) -> Dict[_T, Any]: ...  # TODO: Actually a class method
+    def fromkeys(seq: Sequence[_T]) -> Dict[_T, Any]: ...  # TODO: Actually a class method (mypy/issues#328)
     @staticmethod
     @overload
     def fromkeys(seq: Sequence[_T], value: _S) -> Dict[_T, _S]: ...
@@ -702,8 +703,15 @@ def next(i: Iterator[_T]) -> _T: ...
 @overload
 def next(i: Iterator[_T], default: _T) -> _T: ...
 def oct(i: int) -> str: ...  # TODO __index__
-def open(file: Union[str, bytes, int], mode: str = 'r', buffering: int = -1, encoding: str = None,
-         errors: str = None, newline: str = None, closefd: bool = ...) -> IO[Any]: ...
+
+if sys.version_info >= (3, 6):
+    from pathlib import Path
+    def open(file: Union[str, bytes, int, Path], mode: str = 'r', buffering: int = -1, encoding: str = None,
+             errors: str = None, newline: str = None, closefd: bool = ...) -> IO[Any]: ...
+else:
+    def open(file: Union[str, bytes, int], mode: str = 'r', buffering: int = -1, encoding: str = None,
+             errors: str = None, newline: str = None, closefd: bool = ...) -> IO[Any]: ...
+
 def ord(c: Union[str, bytes, bytearray]) -> int: ...
 # TODO: in Python 3.2, print() does not support flush
 def print(*values: Any, sep: str = ' ', end: str = '\n', file: IO[str] = None, flush: bool = False) -> None: ...
@@ -817,6 +825,7 @@ class StopIteration(Exception):
 if sys.version_info >= (3, 5):
     class StopAsyncIteration(Exception):
         value = ...  # type: Any
+    class RecursionError(RuntimeError): ...
 class SyntaxError(Exception):
     msg = ...  # type: str
     lineno = ...  # type: int

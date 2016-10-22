@@ -6,8 +6,6 @@
 from typing import Any, Dict
 import mimetools
 
-responses = ... # type: Dict[int, str]
-
 class HTTPMessage(mimetools.Message):
     def addheader(self, key: str, value: str) -> None: ...
     def addcontinue(self, key: str, more: str) -> None: ...
@@ -122,3 +120,70 @@ class LineAndFileWrapper:
     def read(self, amt=None): ...
     def readline(self): ...
     def readlines(self, size=None): ...
+
+# Constants
+
+responses = ... # type: Dict[int, str]
+
+HTTP_PORT = ... # type: int
+HTTPS_PORT = ... # type: int
+
+# status codes
+# informational
+CONTINUE = ... # type: int
+SWITCHING_PROTOCOLS = ... # type: int
+PROCESSING = ... # type: int
+
+# successful
+OK = ... # type: int
+CREATED = ... # type: int
+ACCEPTED = ... # type: int
+NON_AUTHORITATIVE_INFORMATION = ... # type: int
+NO_CONTENT = ... # type: int
+RESET_CONTENT = ... # type: int
+PARTIAL_CONTENT = ... # type: int
+MULTI_STATUS = ... # type: int
+IM_USED = ... # type: int
+
+# redirection
+MULTIPLE_CHOICES = ... # type: int
+MOVED_PERMANENTLY = ... # type: int
+FOUND = ... # type: int
+SEE_OTHER = ... # type: int
+NOT_MODIFIED = ... # type: int
+USE_PROXY = ... # type: int
+TEMPORARY_REDIRECT = ... # type: int
+
+# client error
+BAD_REQUEST = ... # type: int
+UNAUTHORIZED = ... # type: int
+PAYMENT_REQUIRED = ... # type: int
+FORBIDDEN = ... # type: int
+NOT_FOUND = ... # type: int
+METHOD_NOT_ALLOWED = ... # type: int
+NOT_ACCEPTABLE = ... # type: int
+PROXY_AUTHENTICATION_REQUIRED = ... # type: int
+REQUEST_TIMEOUT = ... # type: int
+CONFLICT = ... # type: int
+GONE = ... # type: int
+LENGTH_REQUIRED = ... # type: int
+PRECONDITION_FAILED = ... # type: int
+REQUEST_ENTITY_TOO_LARGE = ... # type: int
+REQUEST_URI_TOO_LONG = ... # type: int
+UNSUPPORTED_MEDIA_TYPE = ... # type: int
+REQUESTED_RANGE_NOT_SATISFIABLE = ... # type: int
+EXPECTATION_FAILED = ... # type: int
+UNPROCESSABLE_ENTITY = ... # type: int
+LOCKED = ... # type: int
+FAILED_DEPENDENCY = ... # type: int
+UPGRADE_REQUIRED = ... # type: int
+
+# server error
+INTERNAL_SERVER_ERROR = ... # type: int
+NOT_IMPLEMENTED = ... # type: int
+BAD_GATEWAY = ... # type: int
+SERVICE_UNAVAILABLE = ... # type: int
+GATEWAY_TIMEOUT = ... # type: int
+HTTP_VERSION_NOT_SUPPORTED = ... # type: int
+INSUFFICIENT_STORAGE = ... # type: int
+NOT_EXTENDED = ... # type: int

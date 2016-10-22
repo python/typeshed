@@ -3,7 +3,7 @@ import sys
 # Stubs for abc.
 
 # Thesee definitions have special processing in type checker.
-class ABCMeta:
+class ABCMeta(type):
     def register(cls: "ABCMeta", subclass: Any) -> None: ...
 abstractmethod = object()
 abstractproperty = object()
