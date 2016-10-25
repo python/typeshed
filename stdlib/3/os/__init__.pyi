@@ -371,3 +371,6 @@ if sys.version_info >= (3, 3):
               onerror: Callable = ..., *, follow_symlinks: bool = ...,
               dir_fd: int = ...) -> Iterator[Tuple[AnyStr, List[AnyStr],
                                              List[AnyStr], int]]: ...  # Unix only
+
+if sys.version_info >= (3, 4):
+    def cpu_count() -> Optional[int]: ...
