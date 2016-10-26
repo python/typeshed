@@ -1,4 +1,4 @@
-from typing import TypeVar, Generic, Any, Iterable, Iterator, Callable, Tuple, Optional
+from typing import TypeVar, Generic, Any, Iterable, Iterator, Callable, Tuple, Optional, Set
 from collections import namedtuple
 
 FIRST_COMPLETED = ... # type: Any
@@ -41,4 +41,4 @@ class Executor:
 
 def as_completed(fs: Iterable[Future], timeout: Optional[float] = ...) -> Iterator[Future]: ...
 
-def wait(fs: Iterable[Future], timeout: Optional[float] = ..., return_when: str = ...) -> Tuple[Iterable[Future], Iterable[Future]]: ...
+def wait(fs: Iterable[Future], timeout: Optional[float] = ..., return_when: str = ...) -> Tuple[Set[Future], Set[Future]]: ...
