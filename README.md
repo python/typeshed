@@ -91,3 +91,42 @@ else:
 This can be used for modules in 2and3/ that only have minor changes between
 Python 2 and Python 3. If the difference between versions is more drastic, it
 can make more sense to have seperate files in 2.x/ and 3.x/.
+
+## Running the tests
+
+The tests are automatically run by Travis-CI on every PR and push to
+the repo.  There are two separate sets of tests: `tests/mypy_test.py`
+runs tests against [mypy](https://github.com/python/mypy/), while
+`tests/pytype_tests.py` runs tests against
+[pytype](https://github.com/google/pytype/).  The script runtests.sh
+just runs both sets of tests.
+
+Both sets of tests are shallow -- they verify that all stubs can be
+imported but they don't check whether stubs match their implementation
+(in the Python standard library or a third-party package).  Also note
+that each set of tests has a blacklist of modules that are not tested
+at all.  The blacklists also live in the tests directory.
+
+To manually run the mypy tests, you need to have Python 3.3 or higher
+and `pip3 install mypy-lang`.  To run the pytype tests, you need
+Python 2.7 and install pytype from its repo.
+
+For mypy, if you are in the typeshed repo that is submodule of the
+mypy repo (so `..` refers to the mypy repo), there's a shortcut to run
+the mypy tests that avoids installing mypy:
+```
+$ PYTHONPATH=.. python3 tests/mypy_tests.py
+```
+This runs five sets of tests:
+```
+running mypy --python-version 3.5 --strict-optional # with 342 files
+running mypy --python-version 3.4 --strict-optional # with 342 files
+running mypy --python-version 3.3 --strict-optional # with 327 files
+running mypy --python-version 3.2 --strict-optional # with 326 files
+running mypy --python-version 2.7 --strict-optional # with 380 files
+```
+You can limit it to a single test by passing `-p2` or `-p3.5` e.g.
+```
+$ PYTHONPATH=.. python3 tests/mypy_tests.py -p3.5
+running mypy --python-version 3.5 --strict-optional # with 342 files
+```
