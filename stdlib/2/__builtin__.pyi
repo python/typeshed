@@ -4,7 +4,7 @@
 # Python 3, and stub files conform to Python 3 syntax.
 
 from typing import (
-    TypeVar, Iterator, Iterable, overload,
+    TypeVar, Iterator, Iterable, overload, Type,
     Sequence, Mapping, Tuple, List, Any, Dict, Callable, Generic, Set,
     AbstractSet, Sized, Reversible, SupportsInt, SupportsFloat, SupportsAbs,
     SupportsRound, IO, BinaryIO, Union, AnyStr, MutableSequence, MutableMapping,
@@ -60,7 +60,7 @@ class type:
     # Note: the documentation doesnt specify what the return type is, the standard
     # implementation seems to be returning a list.
     def mro(self) -> List[type]: ...
-    def __subclasses__(self) -> List[type]: ...
+    def __subclasses__(self: Type[_T]) -> List[Type[_T]]: ...
 
 class int(SupportsInt, SupportsFloat, SupportsAbs[int]):
     @overload
