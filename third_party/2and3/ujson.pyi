@@ -1,6 +1,6 @@
 # Stubs for ujson
 # See: https://pypi.python.org/pypi/ujson
-from typing import Any, IO, Optional
+from typing import Any, AnyStr, IO, Optional
 
 __version__ = ...  # type: str
 
@@ -32,14 +32,14 @@ def dump(obj: Any,
     indent: int = ...,
     ) -> None: ...
 
-def decode(s: str,
+def decode(s: AnyStr,
     precise_float: bool = ...,
     ) -> Any: ...
 
-def loads(s: str,
+def loads(s: AnyStr,
     precise_float: bool = ...,
     ) -> Any: ...
 
-def load(fp: IO[str],
+def load(fp: IO[AnyStr],
     precise_float: bool = ...,
     ) -> Any: ...

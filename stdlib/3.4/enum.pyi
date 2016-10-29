@@ -12,7 +12,8 @@ class Enum:
     name = ...  # type: str
     value = ...  # type: Any
 
-class IntEnum(int, Enum): ...
+class IntEnum(int, Enum):
+    value = ...  # type: int
 
 _T = TypeVar('_T')
 

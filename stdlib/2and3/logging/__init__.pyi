@@ -55,7 +55,8 @@ class Logger:
                       stack_info: bool = ..., extra: Dict[str, Any] = ...,
                       **kwargs: Any) -> None: ...
     else:
-        def debug(msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+        def debug(self,
+                  msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
                   extra: Dict[str, Any] = ..., **kwargs: Any) -> None: ...
         def info(self,
                  msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
@@ -344,3 +345,11 @@ class NullHandler(Handler): ...
 class PlaceHolder:
     def __init__(self, alogger: Logger) -> None: ...
     def append(self, alogger: Logger) -> None: ...
+
+
+# Below aren't in module docs but still visible
+
+class RootLogger(Logger):
+    pass
+
+root = ...  # type: RootLogger

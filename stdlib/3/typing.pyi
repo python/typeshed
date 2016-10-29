@@ -6,7 +6,6 @@ from abc import abstractmethod, ABCMeta
 # Definitions of special type checking related constructs.  Their definition
 # are not used, so their value does not matter.
 
-cast = object()
 overload = object()
 Any = object()
 TypeVar = object()
@@ -14,11 +13,8 @@ Generic = object()
 Tuple = object()
 Callable = object()
 Type = object()
-builtinclass = object()
 _promote = object()
-NamedTuple = object()
 no_type_check = object()
-NewType = object()
 
 # Type aliases and type constructors
 
@@ -227,16 +223,18 @@ class ValuesView(MappingView, Iterable[_VT_co], Generic[_VT_co]):
 
 # TODO: ContextManager (only if contextlib.AbstractContextManager exists)
 
-class Mapping(Iterable[_KT], Container[_KT], Sized, Generic[_KT, _VT]):
-    # TODO: Value type should be covariant, but currently we can't give a good signature for
-    #   get if this is the case.
+class Mapping(Iterable[_KT], Container[_KT], Sized, Generic[_KT, _VT_co]):
+    # TODO: We wish the key type could also be covariant, but that doesn't work,
+    # see discussion in https://github.com/python/typing/pull/273.
     @abstractmethod
-    def __getitem__(self, k: _KT) -> _VT: ...
+    def __getitem__(self, k: _KT) -> _VT_co:
+        ...
     # Mixin methods
-    def get(self, k: _KT, default: _VT = ...) -> _VT: ...
-    def items(self) -> AbstractSet[Tuple[_KT, _VT]]: ...
+    def get(self, k: _KT, default: _VT_co = ...) -> _VT_co:  # type: ignore
+        ...
+    def items(self) -> AbstractSet[Tuple[_KT, _VT_co]]: ...
     def keys(self) -> AbstractSet[_KT]: ...
-    def values(self) -> ValuesView[_VT]: ...
+    def values(self) -> ValuesView[_VT_co]: ...
     def __contains__(self, o: object) -> bool: ...
 
 class MutableMapping(Mapping[_KT, _VT], Generic[_KT, _VT]):
@@ -318,7 +316,9 @@ class IO(Iterator[AnyStr], Generic[AnyStr]):
     @abstractmethod
     def __enter__(self) -> 'IO[AnyStr]': ...
     @abstractmethod
-    def __exit__(self, t: type = None, value: BaseException = None, traceback: Any = None) -> bool: ...
+    def __exit__(self, t: Optional[Type[BaseException]], value: Optional[BaseException],
+                 # TODO: traceback should be TracebackType but that's defined in types
+                 traceback: Optional[Any]) -> bool: ...
 
 class BinaryIO(IO[bytes]):
     # TODO readinto
@@ -417,3 +417,14 @@ class Pattern(Generic[AnyStr]):
 # Functions
 
 def get_type_hints(obj: Callable) -> dict[str, Any]: ...
+
+def cast(tp: Type[_T], obj: Any) -> _T: ...
+
+# Type constructors
+
+# NamedTuple is special-cased in the type checker; the initializer is ignored.
+def NamedTuple(typename: str, fields: Iterable[Tuple[str, Any]], *,
+               verbose: bool = ..., rename: bool = ..., module: str = None) -> Type[tuple]: ...
+
+def NewType(name: str, tp: Type[_T]) -> Type[_T]: ...
+

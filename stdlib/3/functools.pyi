@@ -28,7 +28,7 @@ class _lru_cache_wrapper(Generic[_T]):
     def cache_info(self) -> CacheInfo: ...
 
 class lru_cache():
-    def __init__(self, maxsize: int = ..., typed: bool = ...) -> None:
+    def __init__(self, maxsize: Optional[int] = ..., typed: bool = ...) -> None:
         pass
     def __call__(self, f: Callable[..., _T]) -> _lru_cache_wrapper[_T]: ...
 

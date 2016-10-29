@@ -22,6 +22,8 @@ class _Element:
         pass
 
     attrib = ...  # type: MutableMapping[str, str]
+    text = ... # type: AnyStr
+    def append(self, element: '_Element') -> '_Element': ...
 
 class ElementBase(_Element):
     pass
