@@ -1,7 +1,7 @@
 # Stubs for builtins (Python 3)
 
 from typing import (
-    TypeVar, Iterator, Iterable, overload, Type,
+    TypeVar, Iterator, Iterable, overload,
     Sequence, MutableSequence, Mapping, MutableMapping, Tuple, List, Any, Dict, Callable, Generic,
     Set, AbstractSet, MutableSet, Sized, Reversible, SupportsInt, SupportsFloat, SupportsBytes,
     SupportsAbs, SupportsRound, IO, Union, ItemsView, KeysView, ValuesView, ByteString, Optional
@@ -22,6 +22,7 @@ _T1 = TypeVar('_T1')
 _T2 = TypeVar('_T2')
 _T3 = TypeVar('_T3')
 _T4 = TypeVar('_T4')
+_TT = TypeVar('_TT', bound='type')
 
 class staticmethod: pass   # Special, only valid as a decorator.
 class classmethod: pass  # Special, only valid as a decorator.
@@ -57,7 +58,7 @@ class type:
     @overload
     def __new__(cls, name: str, bases: Tuple[type, ...], namespace: Dict[str, Any]) -> type: ...
     def __call__(self, *args: Any, **kwds: Any) -> Any: ...
-    def __subclasses__(self: Type[_T]) -> List[Type[_T]]: ...
+    def __subclasses__(self: _TT) -> List[_TT]: ...
     # Note: the documentation doesnt specify what the return type is, the standard
     # implementation seems to be returning a list.
     def mro(self) -> List[type]: ...
