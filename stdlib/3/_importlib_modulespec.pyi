@@ -5,7 +5,7 @@
 # - Loader in importlib.abc
 # - ModuleSpec in importlib.machinery (3.4 and later only)
 
-import abc
+from abc import ABCMeta
 import sys
 from typing import Any, Optional
 
@@ -33,7 +33,7 @@ class ModuleType:
         __spec__ = ... # type: Optional[ModuleSpec]
     def __init__(self, name: str, doc: str) -> None: ...
 
-class Loader(metaclass=abc.ABCMeta):
+class Loader(metaclass=ABCMeta):
     def load_module(self, fullname: str) -> ModuleType: ...
     if sys.version_info >= (3, 3):
         def module_repr(self, module: ModuleType) -> str: ...

@@ -1,4 +1,5 @@
 import abc
+from abc import ABCMeta
 if sys.version_info >= (3, 4):
     from _importlib_modulespec import ModuleSpec
 import sys
@@ -11,7 +12,7 @@ _Path = Union[bytes, str]
 # exists in its own stub file (with ModuleSpec and ModuleType).
 from _importlib_modulespec import Loader as Loader  # Exported
 
-class Finder(metaclass=abc.ABCMeta): ...
+class Finder(metaclass=ABCMeta): ...
     # Technically this class defines the following method, but its subclasses
     # in this module violate its signature. Since this class is deprecated, it's
     # easier to simply ignore that this method exists.
