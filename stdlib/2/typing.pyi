@@ -26,7 +26,6 @@ Optional = TypeAlias(object)
 List = TypeAlias(object)
 Dict = TypeAlias(object)
 DefaultDict = TypeAlias(object)
-OrderedDict = TypeAlias(object)
 
 Set = TypeAlias(object)
 
