@@ -1,7 +1,7 @@
 # Python 2.7 ast
 
 import typing
-from typing import Any, Iterator, Union, Optional
+from typing import Any, Iterator, Union
 
 from _ast import (
     Add, alias, And, arguments, Assert, Assign, AST, Attribute, AugAssign,
@@ -33,12 +33,10 @@ def literal_eval(node_or_string: Union[str, AST]) -> Any: ...
 def walk(node: AST) -> Iterator[AST]: ...
 
 class NodeVisitor():
-    __doc__ = ...  # type: Optional[str]
     def visit(self, node: AST) -> Any: ...
     def generic_visit(self, node: AST) -> None: ...
 
 class NodeTransformer(NodeVisitor):
-    __doc__ = ...  # type: Optional[str]
     def generic_visit(self, node: AST) -> None: ...
 
 

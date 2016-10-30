@@ -18,7 +18,6 @@ class OptParseError(Exception):
     def __init__(self, msg) -> None: ...
 
 class BadOptionError(OptParseError):
-    __doc__ = ...  # type: Optional[str]
     opt_str = ...  # type: Any
     def __init__(self, opt_str) -> None: ...
 
@@ -65,7 +64,6 @@ class HelpFormatter:
     def store_option_strings(self, parser) -> None: ...
 
 class IndentedHelpFormatter(HelpFormatter):
-    __doc__ = ...  # type: Optional[str]
     _long_opt_fmt = ...  # type: str
     _short_opt_fmt = ...  # type: str
     current_indent = ...  # type: int
@@ -93,7 +91,6 @@ class Option:
     TYPED_ACTIONS = ...  # type: Tuple[str, ...]
     TYPES = ...  # type: Tuple[str, ...]
     TYPE_CHECKER = ...  # type: Dict[str, Callable]
-    __doc__ = ...  # type: Optional[str]
     _long_opts = ...  # type: List[Text]
     _short_opts = ...  # type: List[Text]
     action = ...  # type: str
@@ -162,7 +159,6 @@ class OptionGroup(OptionContainer):
     def set_title(self, title) -> None: ...
 
 class OptionParser(OptionContainer):
-    __doc__ = ...  # type: Optional[str]
     _long_opt = ...  # type: Dict[Text, Any]
     _short_opt = ...  # type: Dict[Any, Any]
     allow_interspersed_args = ...  # type: bool
@@ -220,11 +216,9 @@ class OptionParser(OptionContainer):
     def set_usage(self, usage: Text) -> None: ...
 
 class OptionValueError(OptParseError):
-    __doc__ = ...  # type: Optional[str]
     msg = ...  # type: Any
 
 class TitledHelpFormatter(HelpFormatter):
-    __doc__ = ...  # type: Optional[str]
     _long_opt_fmt = ...  # type: str
     _short_opt_fmt = ...  # type: str
     current_indent = ...  # type: int
