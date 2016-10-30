@@ -4,7 +4,7 @@
 
 from typing import Any
 
-class BaseManager():
-    def register(typeid: str, callable: Any = ...) -> None: ...
+class BaseManager:
+    def register(self, typeid: str, callable: Any = ...) -> None: ...
 
 class RemoteError(Exception): ...
