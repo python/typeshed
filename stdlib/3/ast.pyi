@@ -1,7 +1,7 @@
 # Python 3.5 ast
 
 import typing
-from typing import Any, Union, Iterator
+from typing import Any, Union, Iterator, Optional
 
 from _ast import (
     Add, alias, And, arg, arguments, Assert, Assign, AST, AsyncFor,
@@ -19,12 +19,12 @@ from _ast import (
 )
 
 class NodeVisitor():
-    __doc__ = ...  # type: str
+    __doc__ = ...  # type: Optional[str]
     def visit(self, node: AST) -> Any: ...
     def generic_visit(self, node: AST) -> None: ...
 
 class NodeTransformer(NodeVisitor):
-    __doc__ = ...  # type: str
+    __doc__ = ...  # type: Optional[str]
     def generic_visit(self, node: AST) -> None: ...
 
 def parse(source: Union[str, bytes], filename: Union[str, bytes] = ..., mode: str = ...) -> AST: ...

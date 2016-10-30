@@ -12,7 +12,7 @@ def abstractmethod(funcobj: Any) -> Any: ...
 class ABCMeta(type):
     # TODO: FrozenSet
     __abstractmethods__ = ...  # type: Set[Any]
-    __doc__ = ...  # type: str
+    __doc__ = ...  # type: Optional[str]
     _abc_cache = ...  # type: _weakrefset.WeakSet
     _abc_invalidation_counter = ...  # type: int
     _abc_negative_cache = ...  # type: _weakrefset.WeakSet
@@ -31,7 +31,7 @@ class _C:
 # TODO: The real abc.abstractproperty inherits from "property".
 class abstractproperty(object):
     def __new__(cls, func: Any) -> Any: ...
-    __doc__ = ...  # type: str
+    __doc__ = ...  # type: Optional[str]
     __isabstractmethod__ = ...  # type: bool
     doc = ...  # type: Any
     fdel = ...  # type: Any

@@ -19,7 +19,7 @@ template = ...  # type: str
 _name_sequence = ...  # type: Optional[_RandomNameSequence]
 
 class _RandomNameSequence:
-    __doc__ = ...  # type: str
+    __doc__ = ...  # type: Optional[str]
     _rng = ...  # type: random.Random
     _rng_pid = ...  # type: int
     characters = ...  # type: str
@@ -31,7 +31,7 @@ class _RandomNameSequence:
     def normcase(path: AnyStr) -> AnyStr: ...
 
 class _TemporaryFileWrapper(IO[str]):
-    __doc__ = ...  # type: str
+    __doc__ = ...  # type: Optional[str]
     close_called = ...  # type: bool
     delete = ...  # type: bool
     file = ...  # type: IO
