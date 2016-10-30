@@ -36,6 +36,6 @@ class symtable(object):
     type = ...  # type: int
     varnames = ...  # type: List[str]
 
-    def __init__(src: str, filename: str, startstr: str) -> None: ...
+    def __init__(self, src: str, filename: str, startstr: str) -> None: ...
 
 
