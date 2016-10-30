@@ -27,7 +27,7 @@ class staticmethod: pass   # Special, only valid as a decorator.
 class classmethod: pass  # Special, only valid as a decorator.
 
 class object:
-    __doc__ = ...  # type: str
+    __doc__ = ...  # type: Optional[str]
     __class__ = ...  # type: type
 
     def __init__(self) -> None: ...

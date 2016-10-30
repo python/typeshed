@@ -21,7 +21,6 @@ class FunctionType:
     __code__ = ...  # type: CodeType
     __defaults__ = ...  # type: Optional[Tuple[Any, ...]]
     __dict__ = ...  # type: Dict[str, Any]
-    __doc__ = ...  # type: Optional[str]
     __globals__ = ...  # type: Dict[str, Any]
     __name__ = ...  # type: str
     def __call__(self, *args: Any, **kwargs: Any) -> Any: ...

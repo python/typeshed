@@ -23,10 +23,6 @@ The below is an excerpt from the types for the `datetime` module.
 ```
 MAXYEAR = ...  # type: int
 MINYEAR = ...  # type: int
-__doc__ = ...  # type: str
-__file__ = ...  # type: str
-__name__ = ...  # type: str
-__package__ = ...  # type: None
 
 class date(object):
     def __init__(self, year: int, month: int, day: int) -> None: ...

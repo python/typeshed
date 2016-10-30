@@ -40,7 +40,6 @@ class FunctionType:
     __code__ = func_code
     __defaults__ = func_defaults
     __dict__ = func_dict
-    __doc__ = func_doc
     __globals__ = func_globals
     __name__ = func_name
     def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
