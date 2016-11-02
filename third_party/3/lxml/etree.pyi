@@ -4,7 +4,7 @@
 
 import typing
 from typing import Any, Dict, List, MutableMapping, Tuple, Union
-from typing import SupportsBytes
+from typing import Iterable, Iterator, SupportsBytes
 
 
 # We do *not* want `typing.AnyStr` because it is a `TypeVar`, which is an
@@ -17,13 +17,19 @@ DictAnyStr = Union[Dict[str, str], Dict[bytes, bytes]]
 Dict_Tuple2AnyStr_Any = Union[Dict[Tuple[str, str], Any], Tuple[bytes, bytes], Any]
 
 
-class _Element:
+class ElementChildIterator(Iterator['_Element;']):
+    def __iter__(self) -> 'ElementChildIterator': ...
+    def __next__(self) -> '_Element': ...
+
+class _Element(Iterable['_Element']):
     def addprevious(self, element: '_Element') -> None:
         pass
 
     attrib = ...  # type: MutableMapping[str, str]
     text = ... # type: AnyStr
+    tag = ...  # type: str
     def append(self, element: '_Element') -> '_Element': ...
+    def __iter__(self) -> ElementChildIterator: ...
 
 class ElementBase(_Element):
     pass
