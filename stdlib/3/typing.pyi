@@ -102,7 +102,9 @@ class Generator(Iterator[_T_co], Generic[_T_co, _T_contra, _V_co]):
     def send(self, value: _T_contra) -> _T_co:...
 
     @abstractmethod
-    def throw(self, typ: BaseException, val: Any = None, tb: Any = None) -> None:...
+    def throw(self, typ: Type[BaseException], val: Optional[BaseException] = None,
+              # TODO: tb should be TracebackType but that's defined in types
+              tb: Any = None) -> None:...
 
     @abstractmethod
     def close(self) -> None:...
@@ -110,9 +112,26 @@ class Generator(Iterator[_T_co], Generic[_T_co, _T_contra, _V_co]):
     @abstractmethod
     def __iter__(self) -> 'Generator[_T_co, _T_contra, _V_co]': ...
 
+# TODO: Several types should only be defined if sys.python_version >= (3, 5):
+# Awaitable, AsyncIterator, AsyncIterable, Coroutine, Collection, ContextManager.
+# See https://github.com/python/typeshed/issues/655 for why this is not easy.
+
 class Awaitable(Generic[_T_co]):
     @abstractmethod
     def __await__(self) -> Generator[Any, None, _T_co]:...
+
+class Coroutine(Awaitable[_V_co], Generic[_T_co, _T_contra, _V_co]):
+    @abstractmethod
+    def send(self, value: _T_contra) -> _T_co:...
+
+    @abstractmethod
+    def throw(self, typ: Type[BaseException], val: Optional[BaseException] = None,
+              # TODO: tb should be TracebackType but that's defined in types
+              tb: Any = None) -> None:...
+
+    @abstractmethod
+    def close(self) -> None:...
+
 
 # NOTE: This type does not exist in typing.py or PEP 484.
 # The parameters corrrespond to Generator, but the 4th is the original type.
