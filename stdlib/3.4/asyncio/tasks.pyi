@@ -1,5 +1,7 @@
 from typing import (Any, TypeVar, Set, Dict, List, TextIO, Union, Tuple, Generic, Callable,
-                    Generator, Iterable, Awaitable, overload, Sequence, Iterator, Optional)
+                    Coroutine, Generator, Iterable, Awaitable, overload, Sequence, Iterator,
+                    Optional)
+import concurrent.futures
 
 __all__ = ... # type: str
 
@@ -18,8 +20,8 @@ def ensure_future(coro_or_future: Union[Future[_T], Generator[Any, None, _T]],
                   *, loop: AbstractEventLoop = ...) -> Future[_T]: ...
 def gather(*coros_or_futures: Union[Future[_T], Generator[Any, None, _T], Awaitable[_T]],
            loop: AbstractEventLoop = ..., return_exceptions: bool = False) -> Future[List[_T]]: ...
-def run_coroutine_threadsafe(coro: Generator[Any, None, _T],
-                             loop: AbstractEventLoop) -> Future[_T]: ...
+def run_coroutine_threadsafe(coro: Union[Generator[Any, None, _T], Coroutine[Any, None, _T], Awaitable[_T]],
+                             loop: AbstractEventLoop) -> concurrent.futures.Future[_T]: ...
 def shield(arg: Union[Future[_T], Generator[Any, None, _T]],
            *, loop: AbstractEventLoop = ...) -> Future[_T]: ...
 def sleep(delay: float, result: _T = ..., loop: AbstractEventLoop = ...) -> Future[_T]: ...
