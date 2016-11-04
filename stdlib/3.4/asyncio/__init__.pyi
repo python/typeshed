@@ -39,13 +39,18 @@ from asyncio.futures import (
     Future as Future,
 )
 from asyncio.tasks import (
-    sleep as sleep,
-    Task as Task,
     FIRST_COMPLETED as FIRST_COMPLETED,
     FIRST_EXCEPTION as FIRST_EXCEPTION,
     ALL_COMPLETED as ALL_COMPLETED,
+    as_completed as as_completed,
+    ensure_future as ensure_future,
+    gather as gather,
+    run_coroutine_threadsafe as run_coroutine_threadsafe,
+    shield as shield,
+    sleep as sleep,
     wait as wait,
     wait_for as wait_for,
+    Task as Task,
 )
 from asyncio.events import (
     AbstractEventLoopPolicy as AbstractEventLoopPolicy,
