@@ -23,8 +23,8 @@ class BaseBrowser:
     def open_new_tab(self, url: str) -> bool: ...
 
 class GenericBrowser(BaseBrowser):
-    name = ... # type: List[str]
-    args = ... # type: str
+    args = ... # type: List[str]
+    name = ... # type: str
     basename = ... # type: str
     def __init__(self, name: str) -> None: ...
     def open(self, url: str, new: int=..., autoraise: bool=...) -> bool: ...
