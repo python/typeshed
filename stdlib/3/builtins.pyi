@@ -795,7 +795,7 @@ Ellipsis = ...  # type: ellipsis
 # Exceptions
 
 class BaseException:
-    args = ...  # type: Any
+    args = ...  # type: Tuple[Any, ...]
     __cause__ = ... # type: BaseException
     __context__ = ... # type: BaseException
     __traceback__ = ... # type: TracebackType
