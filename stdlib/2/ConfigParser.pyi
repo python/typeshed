@@ -14,30 +14,25 @@ class Error(Exception):
 
 class NoSectionError(Error):
     section = ... # type: str
-    args = ... # type: Tuple[str]
     def __init__(self, section: str) -> None: ...
 
 class DuplicateSectionError(Error):
     section = ... # type: str
-    args = ... # type: Tuple[str]
     def __init__(self, section: str) -> None: ...
 
 class NoOptionError(Error):
     section = ... # type: str
     option = ... # type: str
-    args = ... # type: Tuple[str,str]
     def __init__(self, option: str, section: str) -> None: ...
 
 class InterpolationError(Error):
     section = ... # type: str
     option = ... # type: str
     msg = ... # type: str
-    args = ... # type: Tuple[str,str,str]
     def __init__(self, option: str, section: str, msg: str) -> None: ...
 
 class InterpolationMissingOptionError(InterpolationError):
     reference = ... # type: str
-    args = ... # type: Tuple[str,str,str,str]
     def __init__(self, option: str, section: str, rawval: str, reference: str) -> None: ...
 
 class InterpolationSyntaxError(InterpolationError): ...
@@ -48,14 +43,12 @@ class InterpolationDepthError(InterpolationError):
 class ParsingError(Error):
     filename = ... # type: str
     errors = ... # type: list[Tuple[Any,Any]]
-    args = ... # type: Tuple[str]
     def __init__(self, filename: str) -> None: ...
     def append(self, lineno: Any, line: Any) -> None: ...
 
 class MissingSectionHeaderError(ParsingError):
     lineno = ... # type: Any
     line = ... # type: Any
-    args = ... # type: Tuple[str,Any,Any]
     def __init__(self, filename: str, lineno: Any, line: Any) -> None: ...
 
 
