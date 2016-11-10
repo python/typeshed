@@ -1,6 +1,7 @@
 # Stubs for requests.sessions (Python 2.7)
 
 from typing import Any, Union, MutableMapping, Text, Optional, IO, Tuple, Callable
+from . import adapters
 from . import auth
 from . import compat
 from . import cookies
@@ -14,6 +15,7 @@ from . import structures
 from . import adapters
 from . import status_codes
 
+BaseAdapter = adapters.BaseAdapter
 OrderedDict = compat.OrderedDict
 cookiejar_from_dict = cookies.cookiejar_from_dict
 extract_cookies_to_jar = cookies.extract_cookies_to_jar
@@ -99,6 +101,6 @@ class Session(SessionRedirectMixin):
     def merge_environment_settings(self, url, proxies, stream, verify, cert): ...
     def get_adapter(self, url): ...
     def close(self) -> None: ...
-    def mount(self, prefix, adapter): ...
+    def mount(self, prefix: str, adapter: BaseAdapter) -> None: ...
 
 def session() -> Session: ...
