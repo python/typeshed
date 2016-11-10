@@ -30,7 +30,7 @@ def sleep(delay: float, result: _T = ..., loop: AbstractEventLoop = ...) -> Futu
 def wait(fs: List[Task[_T]], *, loop: AbstractEventLoop = ...,
     timeout: float = ...,
          return_when: str = ...) -> Future[Tuple[Set[Future[_T]], Set[Future[_T]]]]: ...
-def wait_for(fut: Union[Future[_T], Generator[Any, None, _T]], timeout: Optional[float],
+def wait_for(fut: Union[Future[_T], Generator[Any, None, _T], Awaitable[_T]], timeout: Optional[float],
              *, loop: AbstractEventLoop = ...) -> Future[_T]: ...
 
 class Task(Future[_T], Generic[_T]):

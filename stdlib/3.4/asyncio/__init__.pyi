@@ -37,6 +37,9 @@ from asyncio.transports import (
 )
 from asyncio.futures import (
     Future as Future,
+    CancelledError as CancelledError,
+    TimeoutError as TimeoutError,
+    InvalidStateError as InvalidStateError,
 )
 from asyncio.tasks import (
     FIRST_COMPLETED as FIRST_COMPLETED,
