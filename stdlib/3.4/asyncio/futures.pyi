@@ -5,6 +5,15 @@ __all__ = ... # type: str
 
 _T = TypeVar('_T')
 
+from concurrent.futures._base import (
+    Error as Error,
+)
+from concurrent.futures import (
+    CancelledError as CancelledError,
+    TimeoutError as TimeoutError,
+)
+class InvalidStateError(Error): ...
+
 class _TracebackLogger:
     __slots__ = ... # type: List[str]
     exc = ...  # type: BaseException
