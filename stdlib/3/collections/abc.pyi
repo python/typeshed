@@ -10,4 +10,5 @@ if sys.version_info >= (3, 3):
         Sequence as Sequence,
         MutableSequence as MutableSequence,
         Set as Set,
+        MutableSet as MutableSet,
     )
