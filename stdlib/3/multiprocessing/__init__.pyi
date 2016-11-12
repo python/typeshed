@@ -49,11 +49,11 @@ class Pool():
                        chunksize: Optional[int] = None) -> Iterable[Any]: ...
     def starmap(self,
                 func: Callable[..., Any],
-                iterable: Iterable[Any]=(),
+                iterable: Iterable[Iterable[Any]]=(),
                 chunksize: Optional[int] = None) -> List[Any]: ...
     def starmap_async(self,
                       func: Callable[..., Any],
-                      iterable: Iterable[Any] = (),
+                      iterable: Iterable[Iterable[Any]] = (),
                       chunksize: Optional[int] = None,
                       callback: Callable[..., None] = None,
                       error_callback: Callable[[BaseException], None] = None) -> AsyncResult: ...
