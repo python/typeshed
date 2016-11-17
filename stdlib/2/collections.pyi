@@ -7,9 +7,9 @@
 # NOTE: These are incomplete!
 
 from typing import (
-    Any, Dict, Generic, TypeVar, Iterable, Tuple, Callable, Mapping, overload, Iterator, Type,
-    Sized, Optional, List, Set, Sequence, Union, Reversible, MutableMapping, MutableSequence,
-    Container
+    Any, Container, Dict, Generic, TypeVar, Iterable, Tuple, Callable, Mapping, overload,
+    Iterator, Type, Sized, Optional, List, Set, Sequence, Union, Reversible,
+    MutableMapping, MutableSet, MutableSequence,
 )
 import typing
 
