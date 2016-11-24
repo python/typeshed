@@ -1,5 +1,5 @@
 # Stubs for urllib.parse
-from typing import List, Dict, Tuple, AnyStr, Generic, overload, Sequence, Mapping
+from typing import List, Dict, Tuple, AnyStr, Generic, overload, Sequence, Mapping, Union
 
 __all__ = (
     'urlparse',
@@ -111,10 +111,11 @@ def urldefrag(url: str) -> DefragResult: ...
 @overload
 def urldefrag(url: bytes) -> DefragResultBytes: ...
 
-@overload
-def urlencode(query: Mapping[AnyStr, AnyStr], doseq: bool = ..., safe: AnyStr = ..., encoding: str = ..., errors: str = ...) -> str: ...
-@overload
-def urlencode(query: Sequence[Tuple[AnyStr, AnyStr]], doseq: bool = ..., safe: AnyStr = ..., encoding: str = ..., errors: str = ...) -> str: ...
+def urlencode(query: Union[Mapping[AnyStr, AnyStr],
+                           Mapping[AnyStr, Sequence[AnyStr]],
+                           Sequence[Tuple[AnyStr, AnyStr]],
+                           Sequence[Tuple[AnyStr, Sequence[AnyStr]]]],
+              doseq: bool = ..., safe: AnyStr = ..., encoding: str = ..., errors: str = ...) -> str: ...
 
 def urljoin(base: AnyStr, url: AnyStr, allow_fragments: bool = ...) -> AnyStr: ...
 
