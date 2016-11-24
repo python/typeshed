@@ -3,7 +3,7 @@
 from typing import Any, Generator, IO, Optional, Sequence, Tuple, Type, TypeVar, Union
 import os
 
-_P = TypeVar('_P', 'PurePath')
+_P = TypeVar('_P', bound='PurePath')
 
 class PurePath:
     parts = ...  # type: Tuple[str, ...]
@@ -31,16 +31,10 @@ class PurePath:
     def with_name(self: _P, name: str) -> _P: ...
     def with_suffix(self: _P, suffix: str) -> _P: ...
     def joinpath(self: _P, *other: Union[str, PurePath]) -> _P: ...
-    # This doesn't work yet; mypy doesn't support property with self-type yet.
-    # See https://github.com/python/typeshed/pull/706#issuecomment-262718568
-    # @property
-    # def parents(self: _P) -> Sequence[_P]: ...
-    # @property
-    # def parent(self: _P) -> _P: ...
-    # For now, make these regular attributes.
-    # TODO: Fix this; see also Path.parent[s] below.
-    parents = ...  # type: Sequence[PurePath]
-    parent = ...  # type: PurePath
+    @property
+    def parents(self: _P) -> Sequence[_P]: ...
+    @property
+    def parent(self: _P) -> _P: ...
 
 class PurePosixPath(PurePath): ...
 class PureWindowsPath(PurePath): ...
@@ -90,9 +84,6 @@ class Path(PurePath):
     def write_bytes(self, data: bytes) -> int: ...
     def write_text(self, data: str, encoding: Optional[str] = ...,
                    errors: Optional[str] = ...) -> int: ...
-    # TODO: Remove these once parent[s] become properties using self-type
-    parents = ...  # type: Sequence[Path]
-    parent = ...  # type: Path
 
 
 class PosixPath(Path, PurePosixPath): ...
