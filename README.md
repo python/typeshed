@@ -105,8 +105,10 @@ that each set of tests has a blacklist of modules that are not tested
 at all.  The blacklists also live in the tests directory.
 
 To manually run the mypy tests, you need to have Python 3.3 or higher
-and `pip3 install mypy-lang`.  To run the pytype tests, you need
-Python 2.7 and install pytype from its repo.
+and `pip3 install mypy-lang`.  To run 3.6 tests, you'll need to also
+`pip3 install typed-ast` needed for `--fast-parser` support.
+
+To run the pytype tests, you need Python 2.7 and install pytype from its repo.
 
 For mypy, if you are in the typeshed repo that is submodule of the
 mypy repo (so `..` refers to the mypy repo), there's a shortcut to run
@@ -114,13 +116,14 @@ the mypy tests that avoids installing mypy:
 ```bash
 $ PYTHONPATH=.. python3 tests/mypy_tests.py
 ```
-This runs five sets of tests:
+This runs six sets of tests:
 ```bash
-running mypy --python-version 3.5 --strict-optional # with 342 files
-running mypy --python-version 3.4 --strict-optional # with 342 files
-running mypy --python-version 3.3 --strict-optional # with 327 files
-running mypy --python-version 3.2 --strict-optional # with 326 files
-running mypy --python-version 2.7 --strict-optional # with 380 files
+running mypy --python-version 3.6 --strict-optional --fast-parser # with 353 files
+running mypy --python-version 3.5 --strict-optional # with 343 files
+running mypy --python-version 3.4 --strict-optional # with 343 files
+running mypy --python-version 3.3 --strict-optional # with 328 files
+running mypy --python-version 3.2 --strict-optional # with 327 files
+running mypy --python-version 2.7 --strict-optional # with 382 files
 ```
 You can limit it to a single test by passing `-p2` or `-p3.5` e.g.
 ```bash
