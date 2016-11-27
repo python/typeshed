@@ -10,7 +10,7 @@ matrix:
 
 install:
   # pytype needs py-2.7, mypy needs py-3.2+. Additional logic in runtests.py
-  - if [[ $TRAVIS_PYTHON_VERSION == '3.5' ]]; then pip install -U git+git://github.com/python/mypy; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == '3.5' ]]; then pip install -U git+git://github.com/python/mypy && pip install -U git+git://github.com/dropbox/typed_ast; fi
   - if [[ $TRAVIS_PYTHON_VERSION == '2.7' ]]; then pip install -U git+git://github.com/google/pytype; fi
 
 script:
