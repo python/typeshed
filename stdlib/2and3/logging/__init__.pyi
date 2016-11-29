@@ -1,10 +1,11 @@
 ## Stubs for logging (Python 3.4)
 
 from typing import (
-    Any, Callable, Iterable, Mapping, MutableMapping, Optional, IO, Tuple,
-    Text, Union,
-    overload,
+    Any, Callable, Dict, Iterable, Mapping, MutableMapping, Optional, IO,
+    Tuple, Text, Union, overload,
 )
+from string import Template
+from time import struct_time
 from types import TracebackType
 import sys
 
@@ -26,7 +27,7 @@ class Logger:
     handlers = ... # type: List[Handler]
     disabled = ... # type: int
     def setLevel(self, lvl: Union[int, str]) -> None: ...
-    def isEnabledFor(self, lvl: int) -> Union[int, bool]: ...
+    def isEnabledFor(self, lvl: int) -> bool: ...
     def getEffectiveLevel(self) -> int: ...
     def getChild(self, suffix: str) -> 'Logger': ...
     if sys.version_info > (3,):
@@ -135,6 +136,14 @@ class Handler:
 
 
 class Formatter:
+    converter = ...  # type: Callable[[Optional[float]], struct_time]
+    _fmt = ...  # type: Optional[str]
+    datefmt = ...  # type: Optional[str]
+    if sys.version_info >= (3,):
+        _style = ...  # type: PercentStyle
+        default_time_format = ...  # type: str
+        default_msec_format = ...  # type: str
+
     if sys.version_info >= (3,):
         def __init__(self, fmt: Optional[str] = ...,
                      datefmt: Optional[str] =...,
@@ -143,6 +152,7 @@ class Formatter:
         def __init__(self,
                      fmt: Optional[str] = ...,
                      datefmt: Optional[str] =...) -> None: ...
+
     def format(self, record: LogRecord) -> str: ...
     def formatTime(self, record: LogRecord, datefmt: str = ...) -> str: ...
     def formatException(self, exc_info: _SysExcInfoType) -> str: ...
@@ -240,7 +250,7 @@ class LoggerAdapter:
         def log(self,
                 lvl: int, msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
                 extra: Dict[str, Any] = ..., **kwargs: Any) -> None: ...
-    def isEnabledFor(self, lvl: int) -> Union[int, bool]: ...
+    def isEnabledFor(self, lvl: int) -> bool: ...
     if sys.version_info >= (3,):
         def getEffectiveLevel(self) -> int: ...
         def setLevel(self, lvl: Union[int, str]) -> None: ...
@@ -353,3 +363,24 @@ class RootLogger(Logger):
     pass
 
 root = ...  # type: RootLogger
+
+
+if sys.version_info >= (3,):
+    class PercentStyle(object):
+        default_format = ...  # type: str
+        asctime_format = ...  # type: str
+        asctime_search = ...  # type: str
+        _fmt = ...  # type: str
+
+        def __init__(self, fmt) -> None: ...
+        def usesTime(self) -> bool: ...
+        def format(self, record: Any) -> str: ...
+
+    class StrFormatStyle(PercentStyle):
+        ...
+
+    class StringTemplateStyle(PercentStyle):
+        _tpl = ...  # type: Template
+
+    BASIC_FORMAT = ...  # type: str
+    _STYLES = ...  # type: Dict[str, Tuple[PercentStyle, str]]
