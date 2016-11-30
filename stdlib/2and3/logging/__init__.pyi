@@ -16,7 +16,7 @@ if sys.version_info >= (3, 5):
 else:
     _ExcInfoType = Union[bool, _SysExcInfoType]
 _ArgsType = Union[Tuple[Any, ...], Dict[str, Any]]
-_FilterType = Union['Filter', Callable[[LogRecord], int]]
+_FilterType = Union['Filter', Callable[['LogRecord'], int]]
 
 
 class Logger:
@@ -153,8 +153,8 @@ class Formatter:
                      fmt: Optional[str] = ...,
                      datefmt: Optional[str] =...) -> None: ...
 
-    def format(self, record: LogRecord) -> str: ...
-    def formatTime(self, record: LogRecord, datefmt: str = ...) -> str: ...
+    def format(self, record: 'LogRecord') -> str: ...
+    def formatTime(self, record: 'LogRecord', datefmt: str = ...) -> str: ...
     def formatException(self, exc_info: _SysExcInfoType) -> str: ...
     if sys.version_info >= (3,):
         def formatStack(self, stack_info: str) -> str: ...
@@ -162,7 +162,7 @@ class Formatter:
 
 class Filter:
     def __init__(self, name: str = ...) -> None: ...
-    def filter(self, record: LogRecord) -> int: ...
+    def filter(self, record: 'LogRecord') -> int: ...
 
 
 class LogRecord:
@@ -359,8 +359,7 @@ class PlaceHolder:
 
 # Below aren't in module docs but still visible
 
-class RootLogger(Logger):
-    pass
+class RootLogger(Logger): ...
 
 root = ...  # type: RootLogger
 
