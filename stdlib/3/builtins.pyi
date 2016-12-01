@@ -3,8 +3,9 @@
 from typing import (
     TypeVar, Iterator, Iterable, overload, Container,
     Sequence, MutableSequence, Mapping, MutableMapping, Tuple, List, Any, Dict, Callable, Generic,
-    Set, AbstractSet, MutableSet, Sized, Reversible, SupportsInt, SupportsFloat, SupportsBytes,
-    SupportsAbs, SupportsRound, IO, Union, ItemsView, KeysView, ValuesView, ByteString, Optional
+    Set, AbstractSet, FrozenSet, MutableSet, Sized, Reversible, SupportsInt, SupportsFloat,
+    SupportsBytes, SupportsAbs, SupportsRound, IO, Union, ItemsView, KeysView, ValuesView,
+    ByteString, Optional
 )
 from abc import abstractmethod, ABCMeta
 from types import TracebackType
@@ -610,7 +611,7 @@ class set(MutableSet[_T], Generic[_T]):
     def __gt__(self, s: AbstractSet[Any]) -> bool: ...
     # TODO more set operations
 
-class frozenset(AbstractSet[_T], Generic[_T]):
+class frozenset(FrozenSet[_T], Generic[_T]):
     def __init__(self, iterable: Iterable[_T] = ...) -> None: ...
     def copy(self) -> frozenset[_T]: ...
     def difference(self, *s: Iterable[Any]) -> frozenset[_T]: ...

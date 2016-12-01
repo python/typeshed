@@ -6,7 +6,7 @@
 from typing import (
     TypeVar, Iterator, Iterable, overload,
     Sequence, Mapping, Tuple, List, Any, Dict, Callable, Generic, Set,
-    AbstractSet, Sized, Reversible, SupportsInt, SupportsFloat, SupportsAbs,
+    AbstractSet, FrozenSet, Sized, Reversible, SupportsInt, SupportsFloat, SupportsAbs,
     SupportsRound, IO, BinaryIO, Union, AnyStr, MutableSequence, MutableMapping,
     MutableSet, ItemsView, KeysView, ValuesView, Optional, Container,
 )
@@ -602,7 +602,7 @@ class set(MutableSet[_T], Generic[_T]):
     def __gt__(self, s: AbstractSet[Any]) -> bool: ...
     # TODO more set operations
 
-class frozenset(AbstractSet[_T], Generic[_T]):
+class frozenset(FrozenSet[_T], Generic[_T]):
     @overload
     def __init__(self) -> None: ...
     @overload
