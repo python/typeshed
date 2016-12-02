@@ -10,12 +10,13 @@ overload = object()
 Any = object()
 TypeVar = object()
 Generic = object()
-GenericMeta = object()
 Tuple = object()
 Callable = object()
 Type = object()
 _promote = object()
 no_type_check = object()
+
+class GenericMeta(type) ...
 
 # Type aliases and type constructors
 

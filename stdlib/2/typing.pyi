@@ -9,11 +9,12 @@ overload = object()
 Any = object()
 TypeVar = object()
 Generic = object()
-GenericMeta = object()
 Tuple = object()
 Callable = object()
 Type = object()
 _promote = object()
+
+class GenericMeta(type): ...
 
 # Type aliases
 
