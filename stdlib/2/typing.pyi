@@ -14,6 +14,8 @@ Callable = object()
 Type = object()
 _promote = object()
 
+class GenericMeta(type): ...
+
 # Type aliases
 
 class TypeAlias:

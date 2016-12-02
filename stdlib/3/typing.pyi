@@ -16,6 +16,8 @@ Type = object()
 _promote = object()
 no_type_check = object()
 
+class GenericMeta(type): ...
+
 # Type aliases and type constructors
 
 class TypeAlias:
