@@ -114,7 +114,7 @@ For mypy, if you are in the typeshed repo that is submodule of the
 mypy repo (so `..` refers to the mypy repo), there's a shortcut to run
 the mypy tests that avoids installing mypy:
 ```bash
-$ PYTHONPATH=.. python3 tests/mypy_tests.py
+$ PYTHONPATH=.. python3 tests/mypy_test.py
 ```
 This runs six sets of tests:
 ```bash
@@ -127,6 +127,6 @@ running mypy --python-version 2.7 --strict-optional # with 382 files
 ```
 You can limit it to a single test by passing `-p2` or `-p3.5` e.g.
 ```bash
-$ PYTHONPATH=.. python3 tests/mypy_tests.py -p3.5
+$ PYTHONPATH=.. python3 tests/mypy_test.py -p3.5
 running mypy --python-version 3.5 --strict-optional # with 342 files
 ```
