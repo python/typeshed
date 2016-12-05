@@ -68,6 +68,7 @@ class MappingProxyType(Mapping[_KT, _VT], Generic[_KT, _VT]):
     def __iter__(self) -> Iterator[_KT]: ...
     def __len__(self) -> int: ...
 
+# TODO: use __getattr__ and __setattr__ instead of inheriting from Any, pending mypy#521.
 class SimpleNamespace(Any): ...  # type: ignore
 
 class GeneratorType:
