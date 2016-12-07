@@ -3,7 +3,8 @@
 
 # based on http://docs.python.org/3.2/library/os.path.html
 
-from typing import overload, List, Any, AnyStr, Tuple, BinaryIO, TextIO
+import sys
+from typing import overload, List, Any, AnyStr, Sequence, Tuple, BinaryIO, TextIO
 
 # ----- os.path variables -----
 supports_unicode_filenames = False
@@ -20,6 +21,9 @@ devnull = ...  # type: str
 # ----- os.path function stubs -----
 def abspath(path: AnyStr) -> AnyStr: ...
 def basename(path: AnyStr) -> AnyStr: ...
+
+if sys.version_info >= (3, 5):
+    def commonpath(paths: Sequence[AnyStr]) -> AnyStr: ...
 
 # NOTE: Empty List[bytes] results in '' (str) => fall back to Any return type.
 def commonprefix(list: List[AnyStr]) -> Any: ...
