@@ -36,7 +36,7 @@ def dump(obj: Any,
 def loads(s: Union[Text, bytes],
     encoding: Any = ...,
     cls: Any = ...,
-    object_hook: Callable[[Dict], Any] = ...,
+    object_hook: Optional[Callable[[Dict], Any]] = ...,
     parse_float: Optional[Callable[[str], Any]] = ...,
     parse_int: Optional[Callable[[str], Any]] = ...,
     parse_constant: Optional[Callable[[str], Any]] = ...,
@@ -46,7 +46,7 @@ def loads(s: Union[Text, bytes],
 def load(fp: IO[str],
     encoding: Optional[str] = ...,
     cls: Any = ...,
-    object_hook: Callable[[Dict], Any] = ...,
+    object_hook: Optional[Callable[[Dict], Any]] = ...,
     parse_float: Optional[Callable[[str], Any]] = ...,
     parse_int: Optional[Callable[[str], Any]] = ...,
     parse_constant: Optional[Callable[[str], Any]] = ...,
@@ -95,4 +95,3 @@ class JSONEncoder(object):
     def encode(self, o: Any) -> str: ...
 
     def iterencode(self, o: Any, _one_shot: bool = ...) -> str: ...
-
