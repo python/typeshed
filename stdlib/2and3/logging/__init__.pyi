@@ -120,10 +120,10 @@ NOTSET = ...  # type: int
 
 class Filterer(object):
     filters = ...  # type: List[Filter]
-    def __init__(self) -> None:
-    def addFilter(self, filter: Filter) -> None:
-    def removeFilter(self, filter: Filter) -> None:
-    def filter(self, record) -> bool:
+    def __init__(self) -> None: ...
+    def addFilter(self, filter: Filter) -> None: ...
+    def removeFilter(self, filter: Filter) -> None: ...
+    def filter(self, record) -> bool: ...
 
 
 class Handler(Filterer):
