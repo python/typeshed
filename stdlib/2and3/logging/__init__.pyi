@@ -8,6 +8,7 @@ from string import Template
 from time import struct_time
 from types import TracebackType
 import sys
+import threading
 
 _SysExcInfoType = Union[Tuple[type, BaseException, TracebackType],
                         Tuple[None, None, None]]
@@ -117,7 +118,18 @@ DEBUG = ...  # type: int
 NOTSET = ...  # type: int
 
 
-class Handler:
+class Filterer(object):
+    filters = ...  # type: List[Filter]
+    def __init__(self) -> None:
+    def addFilter(self, filter: Filter) -> None:
+    def removeFilter(self, filter: Filter) -> None:
+    def filter(self, record) -> bool:
+
+
+class Handler(Filterer):
+    level = ...  # type: int
+    formatter = ...  # type: Optional[Formatter]
+    lock = ...  # type: Optional[threading.LockType]
     def __init__(self, level: int = ...) -> None: ...
     def createLock(self) -> None: ...
     def acquire(self) -> None: ...
