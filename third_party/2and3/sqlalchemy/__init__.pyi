@@ -1,4 +1,4 @@
-# Stubs for sqlalchemy (Python 2)
+# Stubs for sqlalchemy (Python 2 and 3)
 
 from .sql import (
     alias,
