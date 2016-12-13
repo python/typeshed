@@ -105,6 +105,11 @@ WNOHANG = 0  # Unix only
 TMP_MAX = 0  # Undocumented, but used by tempfile
 
 # ----- os classes (structures) -----
+if sys.version_info >= (3,6):
+    class PathLike:
+        def __fspath__(self) -> AnyStr: ...
+
+
 if sys.version_info >= (3, 5):
     class DirEntry:
         # This is what the scandir interator yields
