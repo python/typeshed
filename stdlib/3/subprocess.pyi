@@ -9,9 +9,9 @@ from types import TracebackType
 if sys.version_info >= (3, 5):
     class CompletedProcess:
         args = ...  # type: Union[List, str]
-        returncode = ... # type: int
-        stdout = ... # type: Union[str, bytes]
-        stderr = ... # type: Union[str, bytes]
+        returncode = ...  # type: int
+        stdout = ...  # type: Any
+        stderr = ...  # type: Union[str, bytes]
         def __init__(self, args: Union[List, str],
                      returncode: int,
                      stdout: Union[str, bytes],
