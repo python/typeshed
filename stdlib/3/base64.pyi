@@ -7,7 +7,7 @@ import sys
 if sys.version_info <= (3, 2):
     _encodable = bytes
     _decodable = bytes
-elif sys.version_info == (3, 3):
+elif sys.version_info[:2] == (3, 3):
     _encodable = bytes
     _decodable = Union[bytes, str]
 elif sys.version_info >= (3, 4):
