@@ -1,4 +1,4 @@
-from typing import Sequence, Callable, Union, Any, Optional, AnyStr
+from typing import Sequence, Callable, Union, Any, Optional, AnyStr, TypeVar, Type
 
 def with_repr(attrs: Sequence[Union[AnyStr,Attribute]]) -> Callable[..., Any]: ...
 def with_cmp(attrs: Sequence[Union[AnyStr,Attribute]]) -> Callable[..., Any]: ...
@@ -9,6 +9,8 @@ def strip_leading_underscores(attribute_name: AnyStr) -> AnyStr: ...
 
 NOTHING = Any
 
+T = TypeVar('T')
+
 def attributes(
   attrs: Sequence[Union[AnyStr,Attribute]],
   apply_with_cmp: bool = True,
@@ -16,7 +18,7 @@ def attributes(
   apply_with_repr: bool = True,
   apply_immutable: bool = False,
   store_attributes: Optional[Callable[[type, Attribute], Any]] = None,
-  **kw: Optional[dict]) -> Callable: ...
+  **kw: Optional[dict]) -> Callable[[Type[T]], Type[T]]: ...
 
 class Attribute:
   def __init__(
