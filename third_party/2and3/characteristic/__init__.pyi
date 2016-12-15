@@ -1,0 +1,3 @@
+from typing import Sequence, Callable
+
+def with_repr(attrs: Sequence) -> Callable: ...
