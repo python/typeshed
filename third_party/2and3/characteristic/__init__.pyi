@@ -15,7 +15,7 @@ def attributes(
   apply_with_init: bool = True,
   apply_with_repr: bool = True,
   apply_immutable: bool = False,
-  store_attributes: Optional[Callable[[type, Attribute], None]] = None,
+  store_attributes: Optional[Callable[[type, Attribute], Any]] = None,
   **kw: Optional[dict]) -> Callable: ...
 
 class Attribute:
