@@ -16,8 +16,7 @@ def attributes(
   apply_with_repr: bool = True,
   apply_immutable: bool = False,
   store_attributes: Optional[Callable[[type, Attribute], None]] = None,
-  **kw: Optional[dict])
-  -> Callable: ...
+  **kw: Optional[dict]) -> Callable: ...
 
 class Attribute:
   def __init__(
@@ -30,5 +29,4 @@ class Attribute:
     default_value: Any = NOTHING,
     default_factory: Optional[Callable[[None],Any]] = None,
     instance_of: Optional[Any] = None,
-    init_aliaser: Optional[Callable[[AnyStr], AnyStr]] = strip_leading_underscores)
-    -> None: ...
+    init_aliaser: Optional[Callable[[AnyStr], AnyStr]] = strip_leading_underscores) -> None: ...
