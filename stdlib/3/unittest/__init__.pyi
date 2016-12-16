@@ -285,9 +285,8 @@ defaultTestLoader = ...  # type: TestLoader
 
 _ResultClassType = Callable[[TextIO, bool, int], TestResult]
 
-# not really documented
 class TestRunner:
-    def run(self, test: Union[TestSuite, TestCase]) -> None: ...
+    def run(self, test: Union[TestSuite, TestCase]) -> TestResult: ...
 
 class TextTestRunner(TestRunner):
     if sys.version_info >= (3, 5):
