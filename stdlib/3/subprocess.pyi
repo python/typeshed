@@ -11,7 +11,7 @@ if sys.version_info >= (3, 5):
         args = ...  # type: Union[List, str]
         returncode = ...  # type: int
         stdout = ...  # type: Any
-        stderr = ...  # type: Union[str, bytes]
+        stderr = ...  # type: Any
         def __init__(self, args: Union[List, str],
                      returncode: int,
                      stdout: Union[str, bytes],
