@@ -29,6 +29,7 @@ class classmethod: pass  # Special, only valid as a decorator.
 class object:
     __doc__ = ...  # type: Optional[str]
     __class__ = ...  # type: type
+    __slots__ = ...  # type: Optional[Iterable[Union[str, unicode]]]
 
     def __init__(self) -> None: ...
     def __new__(cls) -> Any: ...

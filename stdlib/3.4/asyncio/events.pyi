@@ -13,7 +13,6 @@ AF_UNSPEC = 0     # from socket
 AI_PASSIVE = 0
 
 class Handle:
-    __slots__ = ... # type: List[str]
     _cancelled = False
     _args = ... # type: List[Any]
     def __init__(self, callback: Callable[..., Any], args: List[Any],
