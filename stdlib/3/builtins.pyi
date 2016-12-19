@@ -32,6 +32,7 @@ class object:
     __doc__ = ...  # type: Optional[str]
     __class__ = ...  # type: type
     __dict__ = ...  # type: Dict[str, Any]
+    __slots__ = ...  # type: Optional[Union[str, Iterable[str]]]
 
     def __init__(self) -> None: ...
     def __new__(cls) -> Any: ...

@@ -15,7 +15,6 @@ from concurrent.futures import (
 class InvalidStateError(Error): ...
 
 class _TracebackLogger:
-    __slots__ = ... # type: List[str]
     exc = ...  # type: BaseException
     tb = ... # type: List[str]
     def __init__(self, exc: Any, loop: AbstractEventLoop) -> None: ...
