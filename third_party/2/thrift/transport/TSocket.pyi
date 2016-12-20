@@ -4,7 +4,8 @@
 
 from typing import Any
 
-from .TTransport import *
+from .TTransport import TTransportBase, TServerTransportBase
+from .TTransport import *  # noqa: F403
 
 class TSocketBase(TTransportBase):
     handle = ...  # type: Any

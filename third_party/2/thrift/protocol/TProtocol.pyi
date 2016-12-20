@@ -4,7 +4,8 @@
 
 from typing import Any
 
-from thrift.Thrift import *
+from thrift.Thrift import TException
+from thrift.Thrift import *  # noqa: F403
 
 class TProtocolException(TException):
     UNKNOWN = ...  # type: Any

@@ -5,7 +5,7 @@
 from typing import Any
 
 import fb303.FacebookService
-from .ttypes import *
+from .ttypes import *  # noqa: F403
 from thrift.Thrift import TProcessor
 
 class Iface(fb303.FacebookService.Iface):

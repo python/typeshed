@@ -4,7 +4,7 @@
 
 from typing import Any, Union, TextIO
 from builtins import open as _builtin_open
-from token import *
+from token import *  # noqa: F403
 
 COMMENT = ...  # type: Any
 NL = ...  # type: Any

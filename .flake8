@@ -10,14 +10,12 @@
 #   356 E305 expected 2 blank lines
 
 # Nice-to-haves ignored for now
-#   221 E128 continuation line under-indented for visual indent
-#    44 E127 continuation line over-indented for visual indent
+#   152 E128 continuation line under-indented for visual indent
+#    43 E127 continuation line over-indented for visual indent
 
 [flake8]
-ignore = F401, F811, E127, E128, E301, E302, E305, E501, E701, E704, B303
+ignore = F401, F811, F821, E127, E128, E301, E302, E305, E501, E701, E704, E999, B303
 
 # Errors that we need to fix before enabling flake8 by default:
-#   921 F821 undefined name
-#    26 F403 from * import used
-#     7 E999 invalid syntax
-#     5 F405 name undefined or from * imports
+#   936 F821 undefined name - FIXME: re-enable and add missing imports
+#     6 E999 invalid syntax - FIXME: re-enable after flake8 is running from Python 3.6

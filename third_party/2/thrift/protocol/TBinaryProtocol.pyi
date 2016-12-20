@@ -4,7 +4,8 @@
 
 from typing import Any
 
-from .TProtocol import *
+from .TProtocol import TProtocolBase
+from .TProtocol import *  # noqa: F403
 
 class TBinaryProtocol(TProtocolBase):
     VERSION_MASK = ...  # type: Any
