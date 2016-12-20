@@ -6,7 +6,7 @@ from typing import Any
 import io
 from . import _collections
 from . import exceptions
-#from .packages import six
+# from .packages import six
 from .connection import HTTPException as HTTPException, BaseSSLError as BaseSSLError
 from .util import response
 

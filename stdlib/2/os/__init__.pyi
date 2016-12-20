@@ -272,8 +272,8 @@ O_LARGEFILE = 0  # Gnu extension if in C library
 P_NOWAIT = 0
 P_NOWAITO = 0
 P_WAIT = 0
-#P_DETACH = 0  # Windows only
-#P_OVERLAY = 0  # Windows only
+# P_DETACH = 0  # Windows only
+# P_OVERLAY = 0  # Windows only
 
 # wait()/waitpid() options
 WNOHANG = 0  # Unix only

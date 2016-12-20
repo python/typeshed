@@ -6,7 +6,7 @@ from typing import Any, IO
 import io
 from . import _collections
 from . import exceptions
-#from .packages import six
+# from .packages import six
 from . import connection
 from .util import response
 

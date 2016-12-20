@@ -42,8 +42,8 @@ binary_type = bytes
 
 MAXSIZE = ...  # type: int
 
-#def add_move
-#def remove_move
+# def add_move
+# def remove_move
 
 from builtins import next as advance_iterator
 next = advance_iterator
@@ -66,7 +66,7 @@ def get_function_globals(fun: types.FunctionType) -> Dict[str, Any]: ...
 def iterkeys(d: Mapping[_K, _V]) -> typing.Iterator[_K]: ...
 def itervalues(d: Mapping[_K, _V]) -> typing.Iterator[_V]: ...
 def iteritems(d: Mapping[_K, _V]) -> typing.Iterator[Tuple[_K, _V]]: ...
-#def iterlists
+# def iterlists
 
 def viewkeys(d: Mapping[_K, _V]) -> KeysView[_K]: ...
 def viewvalues(d: Mapping[_K, _V]) -> ValuesView[_V]: ...

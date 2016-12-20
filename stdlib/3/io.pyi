@@ -18,13 +18,13 @@ open = builtins.open
 
 # FIXME when mypy handle condtional, we can uncomment the next block and remove
 # the temporary fix
-#if sys.version_info >= (3, 3):
-#    BlockingIOError = BlockingIOError
-#    class UnsupportedOperation(OSError, ValueError): ...
-#else:
-#    class BlockingIOError(IOError):
-#        characters_written = ...  # type: int
-#    class UnsupportedOperation(IOError, ValueError): ...
+# if sys.version_info >= (3, 3):
+#     BlockingIOError = BlockingIOError
+#     class UnsupportedOperation(OSError, ValueError): ...
+# else:
+#     class BlockingIOError(IOError):
+#         characters_written = ...  # type: int
+#     class UnsupportedOperation(IOError, ValueError): ...
 class BlockingIOError(OSError):
     characters_written = ...  # type: int
 class UnsupportedOperation(OSError, ValueError): ...
@@ -190,12 +190,12 @@ class TextIOBase(IOBase):
 class TextIOWrapper(TextIO):
     line_buffering = ...  # type: bool
     # TODO uncomment after fixing mypy about using write_through
-    #if sys.version_info >= (3, 3):
+    # if sys.version_info >= (3, 3):
     #    def __init__(self, buffer: IO[bytes], encoding: str = ...,
     #                 errors: Optional[str] = ..., newline: Optional[str] = ...,
     #                 line_buffering: bool = ..., write_through: bool = ...) \
     #                 -> None: ...
-    #else:
+    # else:
     #    def __init__(self, buffer: IO[bytes],
     #                 encoding: str = ..., errors: Optional[str] = ...,
     #                 newline: Optional[str] = ..., line_buffering: bool = ...) \

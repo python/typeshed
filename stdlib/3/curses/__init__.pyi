@@ -4,7 +4,7 @@
 
 from _curses import *
 # Stubgen imports a python version of has_key only if it's not present
-#in _curses (which it is in this stub)
+# in _curses (which it is in this stub)
 # from .has_key import has_key as has_key
 
 def initscr(): ...

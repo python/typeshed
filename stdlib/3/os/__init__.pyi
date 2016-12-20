@@ -94,13 +94,13 @@ EX_NOTFOUND = 0  # Unix only
 P_NOWAIT = 0
 P_NOWAITO = 0
 P_WAIT = 0
-#P_DETACH = 0  # Windows only
-#P_OVERLAY = 0  # Windows only
+# P_DETACH = 0  # Windows only
+# P_OVERLAY = 0  # Windows only
 
 # wait()/waitpid() options
 WNOHANG = 0  # Unix only
-#WCONTINUED = 0  # some Unix systems
-#WUNTRACED = 0  # Unix only
+# WCONTINUED = 0  # some Unix systems
+# WUNTRACED = 0  # Unix only
 
 TMP_MAX = 0  # Undocumented, but used by tempfile
 

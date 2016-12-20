@@ -30,7 +30,7 @@ class AbstractEventLoop(metaclass=ABCMeta):
     @abstractmethod
     def run_forever(self) -> None: ...
 
-    # Can't use a union, see mypy issue  #1873.
+    # Can't use a union, see mypy issue  # 1873.
     @overload
     @abstractmethod
     def run_until_complete(self, future: Generator[Any, Any, _T]) -> _T: ...
@@ -94,28 +94,28 @@ class AbstractEventLoop(metaclass=ABCMeta):
     def create_datagram_endpoint(self, protocol_factory: Any,
                                  local_addr: str = ..., remote_addr: str = ..., *,
                                  family: int = ..., proto: int = ..., flags: int = ...) -> tuple: ...
-                    #?? check Any
+                    # ?? check Any
                     # return (Transport, Protocol)
     # Pipes and subprocesses.
     @abstractmethod
     def connect_read_pipe(self, protocol_factory: Any, pipe: Any) -> tuple: ...
-                    #?? check Any
+                    # ?? check Any
                     # return (Transport, Protocol)
     @abstractmethod
     def connect_write_pipe(self, protocol_factory: Any, pipe: Any) -> tuple: ...
-                    #?? check Any
+                    # ?? check Any
                     # return (Transport, Protocol)
     @abstractmethod
     def subprocess_shell(self, protocol_factory: Any, cmd: Union[bytes, str], *, stdin: Any = ...,
                          stdout: Any = ..., stderr: Any = ...,
                          **kwargs: Any) -> tuple: ...
-                    #?? check Any
+                    # ?? check Any
                     # return (Transport, Protocol)
     @abstractmethod
     def subprocess_exec(self, protocol_factory: Any, *args: List[Any], stdin: Any = ...,
                         stdout: Any = ..., stderr: Any = ...,
                         **kwargs: Any) -> tuple: ...
-                    #?? check Any
+                    # ?? check Any
                     # return (Transport, Protocol)
     @abstractmethod
     def add_reader(self, fd: int, callback: Callable[[], Any], *args: List[Any]) -> None: ...
@@ -127,11 +127,11 @@ class AbstractEventLoop(metaclass=ABCMeta):
     def remove_writer(self, fd: int) -> None: ...
     # Completion based I/O methods returning Futures.
     @abstractmethod
-    def sock_recv(self, sock: Any, nbytes: int) -> Any: ...  #TODO
+    def sock_recv(self, sock: Any, nbytes: int) -> Any: ...  # TODO
     @abstractmethod
-    def sock_sendall(self, sock: Any, data: bytes) -> None: ...  #TODO
+    def sock_sendall(self, sock: Any, data: bytes) -> None: ...  # TODO
     @abstractmethod
-    def sock_connect(self, sock: Any, address: str) -> Any: ...  #TODO
+    def sock_connect(self, sock: Any, address: str) -> Any: ...  # TODO
     @abstractmethod
     def sock_accept(self, sock: Any) -> Any: ...
     # Signal handling.

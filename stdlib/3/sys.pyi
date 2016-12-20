@@ -17,7 +17,7 @@ argv = ...  # type: List[str]
 byteorder = ...  # type: str
 builtin_module_names = ...  # type: Sequence[str] # actually a tuple of strings
 copyright = ...  # type: str
-#dllhandle = 0  # Windows only
+# dllhandle = 0  # Windows only
 dont_write_bytecode = False
 __displayhook__ = ...  # type: Any # contains the original value of displayhook
 __excepthook__ = ...  # type: Any  # contains the original value of excepthook
@@ -53,7 +53,7 @@ api_version = 0
 warnoptions = ...  # type: Any
 #  Each entry is a tuple of the form (action, message, category, module,
 #    lineno)
-#winver = ''  # Windows only
+# winver = ''  # Windows only
 _xoptions = ...  # type: Dict[Any, Any]
 
 flags = ...  # type: _flags

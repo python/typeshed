@@ -15,9 +15,9 @@ class Finder(metaclass=ABCMeta): ...
     # Technically this class defines the following method, but its subclasses
     # in this module violate its signature. Since this class is deprecated, it's
     # easier to simply ignore that this method exists.
-    #@abstractmethod
-    #def find_module(self, fullname: str,
-    #                path: Sequence[_Path] = None) -> Optional[Loader]: ...
+    # @abstractmethod
+    # def find_module(self, fullname: str,
+    #                 path: Sequence[_Path] = None) -> Optional[Loader]: ...
 
 class ResourceLoader(Loader):
     @abstractmethod
