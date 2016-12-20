@@ -141,14 +141,12 @@ class stat_result:
     st_size = 0  # size of file, in bytes,
     st_atime = 0.0  # time of most recent access,
     st_mtime = 0.0  # time of most recent content modification,
-    st_ctime = 0.0  # platform dependent (time of most recent metadata change
-                   # on  Unix, or the time of creation on Windows)
+    st_ctime = 0.0  # platform dependent (time of most recent metadata change on Unix, or the time of creation on Windows)
 
     if sys.version_info >= (3, 3):
         st_atime_ns = 0  # time of most recent access, in nanoseconds
         st_mtime_ns = 0  # time of most recent content modification in nanoseconds
-        st_ctime_ns = 0  # platform dependent (time of most recent metadata change
-                        # on  Unix, or the time of creation on Windows) in nanoseconds
+        st_ctime_ns = 0  # platform dependent (time of most recent metadata change on Unix, or the time of creation on Windows) in nanoseconds
 
     # not documented
     def __init__(self, tuple: Tuple[int, ...]) -> None: ...
@@ -185,7 +183,7 @@ class statvfs_result:  # Unix only
 # ----- os function stubs -----
 def fsencode(filename: str) -> bytes: ...
 def fsdecode(filename: bytes) -> str: ...
-def get_exec_path(env: Optional[Mapping[str, str]] = ...) -> List[str] : ...
+def get_exec_path(env: Optional[Mapping[str, str]] = ...) -> List[str]: ...
 # NOTE: get_exec_path(): returns List[bytes] when env not None
 def ctermid() -> str: ...  # Unix only
 def getegid() -> int: ...  # Unix only

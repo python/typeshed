@@ -71,52 +71,34 @@ class AbstractEventLoop(metaclass=ABCMeta):
     def create_connection(self, protocol_factory: Any, host: str = ..., port: int = ..., *,
                           ssl: Any = ..., family: int = ..., proto: int = ..., flags: int = ..., sock: Any = ...,
                           local_addr: str = ..., server_hostname: str = ...) -> tuple: ...
-                          # ?? check Any
-                          # return (Transport, Protocol)
     @abstractmethod
     def create_server(self, protocol_factory: Any, host: str = ..., port: int = ..., *,
                       family: int = ..., flags: int = ...,
                       sock: Any = ..., backlog: int = ..., ssl: Any = ..., reuse_address: Any = ...) -> Any: ...
-                    # ?? check Any
-                    # return Server
     @abstractmethod
     def create_unix_connection(self, protocol_factory: Any, path: str, *,
                                ssl: Any = ..., sock: Any = ...,
                                server_hostname: str = ...) -> tuple: ...
-                    # ?? check Any
-                    # return tuple(Transport, Protocol)
     @abstractmethod
     def create_unix_server(self, protocol_factory: Any, path: str, *,
                            sock: Any = ..., backlog: int = ..., ssl: Any = ...) -> Any: ...
-                    # ?? check Any
-                    # return Server
     @abstractmethod
     def create_datagram_endpoint(self, protocol_factory: Any,
                                  local_addr: str = ..., remote_addr: str = ..., *,
                                  family: int = ..., proto: int = ..., flags: int = ...) -> tuple: ...
-                    # ?? check Any
-                    # return (Transport, Protocol)
     # Pipes and subprocesses.
     @abstractmethod
     def connect_read_pipe(self, protocol_factory: Any, pipe: Any) -> tuple: ...
-                    # ?? check Any
-                    # return (Transport, Protocol)
     @abstractmethod
     def connect_write_pipe(self, protocol_factory: Any, pipe: Any) -> tuple: ...
-                    # ?? check Any
-                    # return (Transport, Protocol)
     @abstractmethod
     def subprocess_shell(self, protocol_factory: Any, cmd: Union[bytes, str], *, stdin: Any = ...,
                          stdout: Any = ..., stderr: Any = ...,
                          **kwargs: Any) -> tuple: ...
-                    # ?? check Any
-                    # return (Transport, Protocol)
     @abstractmethod
     def subprocess_exec(self, protocol_factory: Any, *args: List[Any], stdin: Any = ...,
                         stdout: Any = ..., stderr: Any = ...,
                         **kwargs: Any) -> tuple: ...
-                    # ?? check Any
-                    # return (Transport, Protocol)
     @abstractmethod
     def add_reader(self, fd: int, callback: Callable[[], Any], *args: List[Any]) -> None: ...
     @abstractmethod

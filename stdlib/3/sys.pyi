@@ -96,9 +96,7 @@ class _hash_info:
 
 int_info = ...  # type: _int_info
 class _int_info:
-    bits_per_digit = 0  # number of bits held in each digit. Python integers
-                        # are stored internally in
-                        # base 2**int_info.bits_per_digit
+    bits_per_digit = 0  # number of bits held in each digit. Python integers are stored internally in base 2**int_info.bits_per_digit
     sizeof_digit = 0    # size in bytes of C type used to represent a digit
 
 class _version_info(Tuple[int, int, int, str, int]):

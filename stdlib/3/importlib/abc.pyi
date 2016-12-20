@@ -12,7 +12,8 @@ if sys.version_info >= (3, 4):
 
 _Path = Union[bytes, str]
 
-class Finder(metaclass=ABCMeta): ...
+class Finder(metaclass=ABCMeta):
+    ...
     # Technically this class defines the following method, but its subclasses
     # in this module violate its signature. Since this class is deprecated, it's
     # easier to simply ignore that this method exists.
