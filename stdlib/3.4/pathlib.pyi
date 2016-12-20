@@ -20,7 +20,7 @@ class PurePath(_PurePathBase):
     suffix = ...  # type: str
     suffixes = ...  # type: List[str]
     stem = ...  # type: str
-    if sys.version_info < (3,5):
+    if sys.version_info < (3, 5):
         def __init__(self, *pathsegments: str) -> None: ...
     else:
         def __new__(cls: Type[_P], *args: Union[str, PurePath]) -> _P: ...

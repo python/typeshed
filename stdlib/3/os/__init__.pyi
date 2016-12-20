@@ -1,7 +1,7 @@
 # Stubs for os
 # Ron Murawski <ron@horizonchess.com>
 
-# based on http://docs.python.org/3.2/library/os.html
+# based on http: //docs.python.org/3.2/library/os.html
 
 from typing import (
     Mapping, MutableMapping, Dict, List, Any, Tuple, Iterator, overload, Union, AnyStr,
@@ -105,7 +105,7 @@ WNOHANG = 0  # Unix only
 TMP_MAX = 0  # Undocumented, but used by tempfile
 
 # ----- os classes (structures) -----
-if sys.version_info >= (3,6):
+if sys.version_info >= (3, 6):
     class PathLike:
         def __fspath__(self) -> AnyStr: ...
 

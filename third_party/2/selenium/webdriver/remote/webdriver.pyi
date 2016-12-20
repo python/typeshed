@@ -22,7 +22,7 @@ class WebDriver:
                  desired_capabilities: Capabilities=None,
                  browser_profile=None,
                  proxy=None,
-                 keep_alive:bool=False
+                 keep_alive: bool=False
                  ) -> None: ...
     @property
     def mobile(self) -> Mobile: ...

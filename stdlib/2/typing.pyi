@@ -80,16 +80,16 @@ class Iterator(Iterable[_T_co], Generic[_T_co]):
 
 class Generator(Iterator[_T_co], Generic[_T_co, _T_contra, _V_co]):
     @abstractmethod
-    def next(self) -> _T_co:...
+    def next(self) -> _T_co: ...
 
     @abstractmethod
-    def send(self, value: _T_contra) -> _T_co:...
+    def send(self, value: _T_contra) -> _T_co: ...
 
     @abstractmethod
-    def throw(self, typ: BaseException, val: Any = None, tb: Any = None) -> None:...
+    def throw(self, typ: BaseException, val: Any = None, tb: Any = None) -> None: ...
 
     @abstractmethod
-    def close(self) -> None:...
+    def close(self) -> None: ...
 
 class Container(Generic[_T_co]):
     @abstractmethod
@@ -176,7 +176,7 @@ class ValuesView(MappingView, Iterable[_VT_co], Generic[_VT_co]):
 
 class Mapping(Sized, Iterable[_KT], Container[_KT], Generic[_KT, _VT_co]):
     # TODO: We wish the key type could also be covariant, but that doesn't work,
-    # see discussion in https://github.com/python/typing/pull/273.
+    # see discussion in https: //github.com/python/typing/pull/273.
     @abstractmethod
     def __getitem__(self, k: _KT) -> _VT_co:
         ...

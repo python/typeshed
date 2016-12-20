@@ -13,5 +13,5 @@ def getopt(args: List[str], shortopts: str,
                                              List[str]]: ...
 
 def gnu_getopt(args: List[str], shortopts: str,
-           longopts: List[str]=...) -> Tuple[List[Tuple[str,str]],
+           longopts: List[str]=...) -> Tuple[List[Tuple[str, str]],
                                              List[str]]: ...
