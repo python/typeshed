@@ -34,7 +34,7 @@ class ParamType:
     def split_envvar_value(self, rv: str) -> List[str]:
         ...
 
-    def fail(self, message: str, param = None, ctx: Context = None) -> None:
+    def fail(self, message: str, param: Parameter = None, ctx: Context = None) -> None:
         ...
 
 

@@ -20,7 +20,7 @@ def wrap_text(
     width: int = 78,
     initial_indent: str = '',
     subsequent_indent: str = '',
-    preserve_paragraphs = False
+    preserve_paragraphs: bool = False
 ) -> str:
     ...
 

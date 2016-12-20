@@ -35,7 +35,7 @@ class parser(object):
         timestr: Union[str, bytes, IO[Any]],
         default: Optional[datetime],
         ignoretz: bool=...,
-        tzinfos =...,
+        tzinfos: Any =...,
     ) -> datetime: ...
 
 DEFAULTPARSER = ...  # type: parser
