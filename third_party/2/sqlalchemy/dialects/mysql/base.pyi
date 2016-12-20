@@ -208,8 +208,8 @@ class LONGBLOB(object,
 class _EnumeratedValues(_StringType): ...
 
 class ENUM(  # sqltypes.Enum,
-           _EnumeratedValues
-           ):
+    _EnumeratedValues
+):
     __visit_name__ = ...  # type: Any
     strict = ...  # type: Any
     def __init__(self, *enums, **kw) -> None: ...

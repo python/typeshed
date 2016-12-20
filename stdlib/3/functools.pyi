@@ -20,8 +20,9 @@ def reduce(function: Callable[[_T, _T], _T],
 
 
 class CacheInfo(NamedTuple('CacheInfo', [
-    ('hits', int), ('misses', int), ('maxsize', int), ('currsize', int)])):
-     pass
+    ('hits', int), ('misses', int), ('maxsize', int), ('currsize', int)])
+):
+    ...
 
 class _lru_cache_wrapper(Generic[_T]):
     __wrapped__ = ...  # type: Callable[..., _T]
@@ -29,8 +30,7 @@ class _lru_cache_wrapper(Generic[_T]):
     def cache_info(self) -> CacheInfo: ...
 
 class lru_cache():
-    def __init__(self, maxsize: Optional[int] = ..., typed: bool = ...) -> None:
-        pass
+    def __init__(self, maxsize: Optional[int] = ..., typed: bool = ...) -> None: ...
     def __call__(self, f: Callable[..., _T]) -> _lru_cache_wrapper[_T]: ...
 
 

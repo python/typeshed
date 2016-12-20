@@ -43,7 +43,7 @@ from .sql import (
     union,
     union_all,
     update,
-    )
+)
 
 from .types import (
     BIGINT,
@@ -87,7 +87,7 @@ from .types import (
     UnicodeText,
     VARBINARY,
     VARCHAR,
-    )
+)
 
 from .schema import (
     CheckConstraint,

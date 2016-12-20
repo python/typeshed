@@ -10,7 +10,9 @@ _have_code = Union[types.MethodType, types.FunctionType, types.CodeType, type]
 _have_code_or_string = Union[_have_code, str, bytes]
 
 
-Instruction = NamedTuple("Instruction", [
+Instruction = NamedTuple(
+    "Instruction",
+    [
         ('opname', str),
         ('opcode', int),
         ('arg', Optional[int]),
@@ -19,7 +21,8 @@ Instruction = NamedTuple("Instruction", [
         ('offset', int),
         ('starts_line', Optional[int]),
         ('is_jump_target', bool)
-    ])
+    ]
+)
 
 
 # if sys.version_info >= (3, 4):

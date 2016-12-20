@@ -44,22 +44,23 @@ class CodeType:
     co_lnotab = ...  # type: bytes
     co_freevars = ...  # type: Tuple[str, ...]
     co_cellvars = ...  # type: Tuple[str, ...]
-    def __init__(self,
-            argcount: int,
-            kwonlyargcount: int,
-            nlocals: int,
-            stacksize: int,
-            flags: int,
-            codestring: bytes,
-            constants: Tuple[Any, ...],
-            names: Tuple[str, ...],
-            varnames: Tuple[str, ...],
-            filename: str,
-            name: str,
-            firstlineno: int,
-            lnotab: bytes,
-            freevars: Tuple[str, ...] = ...,
-            cellvars: Tuple[str, ...] = ...,
+    def __init__(
+        self,
+        argcount: int,
+        kwonlyargcount: int,
+        nlocals: int,
+        stacksize: int,
+        flags: int,
+        codestring: bytes,
+        constants: Tuple[Any, ...],
+        names: Tuple[str, ...],
+        varnames: Tuple[str, ...],
+        filename: str,
+        name: str,
+        firstlineno: int,
+        lnotab: bytes,
+        freevars: Tuple[str, ...] = ...,
+        cellvars: Tuple[str, ...] = ...,
     ) -> None: ...
 
 class MappingProxyType(Mapping[_KT, _VT], Generic[_KT, _VT]):

@@ -60,22 +60,24 @@ if sys.version_info >= (3, 3):
         def invalidate_caches(self) -> None: ...
         if sys.version_info >= (3, 4):
             # Not defined on the actual class, but expected to exist.
-            def find_spec(self, fullname: str, path: Optional[Sequence[_Path]],
-                          target: types.ModuleType = None
-                         ) -> Optional[ModuleSpec]:
+            def find_spec(
+                self, fullname: str, path: Optional[Sequence[_Path]],
+                target: types.ModuleType = None
+            ) -> Optional[ModuleSpec]:
                 ...
 
     class PathEntryFinder(Finder):
         def find_module(self, fullname: str) -> Optional[Loader]: ...
-        def find_loader(self, fullname: str
-                       ) -> Tuple[Optional[Loader], Sequence[_Path]]: ...
+        def find_loader(
+            self, fullname: str
+        ) -> Tuple[Optional[Loader], Sequence[_Path]]: ...
         def invalidate_caches(self) -> None: ...
         if sys.version_info >= (3, 4):
             # Not defined on the actual class, but expected to exist.
-            def find_spec(self, fullname: str,
-                          target: types.ModuleType = None
-                         ) -> Optional[ModuleSpec]:
-                ...
+            def find_spec(
+                self, fullname: str,
+                target: types.ModuleType = None
+            ) -> Optional[ModuleSpec]: ...
 
     class FileLoader(ResourceLoader, ExecutionLoader):
         name = ...  # type: str

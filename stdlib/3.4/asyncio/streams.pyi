@@ -18,31 +18,34 @@ class LimitOverrunError(Exception):
 
 @coroutines.coroutine
 def open_connection(
-        host: str = ...,
-        port: int = ...,
-        *,
-        loop: events.AbstractEventLoop = ...,
-        limit: int = ...,
-        **kwds: Any) -> Generator[Any, None, Tuple[StreamReader, StreamWriter]]: ...
+    host: str = ...,
+    port: int = ...,
+    *,
+    loop: events.AbstractEventLoop = ...,
+    limit: int = ...,
+    **kwds: Any
+) -> Generator[Any, None, Tuple[StreamReader, StreamWriter]]: ...
 
 @coroutines.coroutine
 def start_server(
-        client_connected_cb: ClientConnectedCallback,
-        host: str = ...,
-        port: int = ...,
-        *,
-        loop: events.AbstractEventLoop = ...,
-        limit: int = ...,
-        **kwds: Any) -> Generator[Any, None, events.AbstractServer]: ...
+    client_connected_cb: ClientConnectedCallback,
+    host: str = ...,
+    port: int = ...,
+    *,
+    loop: events.AbstractEventLoop = ...,
+    limit: int = ...,
+    **kwds: Any
+) -> Generator[Any, None, events.AbstractServer]: ...
 
 if hasattr(socket, 'AF_UNIX'):
     @coroutines.coroutine
     def open_unix_connection(
-            path: str = ...,
-            *,
-            loop: events.AbstractEventLoop = ...,
-            limit: int = ...,
-            **kwds: Any)-> Generator[Any, None, Tuple[StreamReader, StreamWriter]]: ...
+        path: str = ...,
+        *,
+        loop: events.AbstractEventLoop = ...,
+        limit: int = ...,
+        **kwds: Any
+    ) -> Generator[Any, None, Tuple[StreamReader, StreamWriter]]: ...
 
     @coroutines.coroutine
     def start_unix_server(

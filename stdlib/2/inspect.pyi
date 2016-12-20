@@ -8,9 +8,10 @@ ModuleInfo = NamedTuple('ModuleInfo', [('name', str),
                                        ('mode', str),
                                        ('module_type', int),
                                        ])
-def getmembers(object: object,
-               predicate: Callable[[Any], bool] = ...
-              ) -> List[Tuple[str, Any]]: ...
+def getmembers(
+    object: object,
+    predicate: Callable[[Any], bool] = ...
+) -> List[Tuple[str, Any]]: ...
 def getmoduleinfo(path: str) -> Optional[ModuleInfo]: ...
 def getmodulename(path: str) -> Optional[str]: ...
 
@@ -65,12 +66,16 @@ def getmro(cls: type) -> Tuple[type, ...]: ...
 
 # The interpreter stack
 
-Traceback = NamedTuple('Traceback', [('filename', str),
-                                     ('lineno', int),
-                                     ('function', str),
-                                     ('code_context', List[str]),
-                                     ('index', int),
-                                    ])
+Traceback = NamedTuple(
+    'Traceback',
+    [
+        ('filename', str),
+        ('lineno', int),
+        ('function', str),
+        ('code_context', List[str]),
+        ('index', int),
+    ]
+)
 
 _FrameRecord = Tuple[FrameType, str, int, str, List[str], int]
 

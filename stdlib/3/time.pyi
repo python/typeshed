@@ -30,10 +30,10 @@ if sys.version_info >= (3, 3):
     class struct_time(
         NamedTuple(
             '_struct_time',
-             [('tm_year', int), ('tm_mon', int), ('tm_mday', int),
-              ('tm_hour', int), ('tm_min', int), ('tm_sec', int),
-              ('tm_wday', int), ('tm_yday', int), ('tm_isdst', int),
-              ('tm_zone', str), ('tm_gmtoff', int)]
+            [('tm_year', int), ('tm_mon', int), ('tm_mday', int),
+             ('tm_hour', int), ('tm_min', int), ('tm_sec', int),
+             ('tm_wday', int), ('tm_yday', int), ('tm_isdst', int),
+             ('tm_zone', str), ('tm_gmtoff', int)]
         )
     ):
         def __init__(
@@ -49,9 +49,9 @@ else:
     class struct_time(
         NamedTuple(
             '_struct_time',
-             [('tm_year', int), ('tm_mon', int), ('tm_mday', int),
-              ('tm_hour', int), ('tm_min', int), ('tm_sec', int),
-              ('tm_wday', int), ('tm_yday', int), ('tm_isdst', int)]
+            [('tm_year', int), ('tm_mon', int), ('tm_mday', int),
+             ('tm_hour', int), ('tm_min', int), ('tm_sec', int),
+             ('tm_wday', int), ('tm_yday', int), ('tm_isdst', int)]
         )
     ):
         def __init__(self, o: TimeTuple, _arg: Any = ...) -> None: ...

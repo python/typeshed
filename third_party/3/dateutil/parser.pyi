@@ -36,7 +36,7 @@ class parser(object):
         default: Optional[datetime],
         ignoretz: bool=...,
         tzinfos =...,
-            ) -> datetime: ...
+    ) -> datetime: ...
 
 DEFAULTPARSER = ...  # type: parser
 

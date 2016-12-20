@@ -85,11 +85,13 @@ class FileIO(RawIOBase):
     mode = ...  # type: str
     name = ...  # type: Union[int, str]
     if sys.version_info >= (3, 3):
-        def __init__(self, name: Union[str, bytes, int], mode: str = ...,
-                     closefd: bool = ...,
-                     opener: Optional[
-                         Callable[[Union[int, str], str], int]] = ...) \
-                     -> None: ...
+        def __init__(
+            self,
+            name: Union[str, bytes, int],
+            mode: str = ...,
+            closefd: bool = ...,
+            opener: Optional[Callable[[Union[int, str], str], int]] = ...
+        ) -> None: ...
     else:
         def __init__(self, name: Union[str, bytes, int],
                      mode: str = ..., closefd: bool = ...) -> None: ...
@@ -198,10 +200,15 @@ class TextIOWrapper(TextIO):
     #                 encoding: str = ..., errors: Optional[str] = ...,
     #                 newline: Optional[str] = ..., line_buffering: bool = ...) \
     #                 -> None: ...
-    def __init__(self, buffer: IO[bytes], encoding: str = ...,
-                 errors: Optional[str] = ..., newline: Optional[str] = ...,
-                 line_buffering: bool = ..., write_through: bool = ...) \
-                 -> None: ...
+    def __init__(
+        self,
+        buffer: IO[bytes],
+        encoding: str = ...,
+        errors: Optional[str] = ...,
+        newline: Optional[str] = ...,
+        line_buffering: bool = ...,
+        write_through: bool = ...
+    ) -> None: ...
     # copied from IOBase
     def __exit__(self, t: type = None, value: BaseException = None,
                  traceback: Any = None) -> bool: ...

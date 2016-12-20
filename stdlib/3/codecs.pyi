@@ -1,13 +1,13 @@
 # Better codecs stubs hand-written by o11c.
 # https://docs.python.org/3/library/codecs.html
 from typing import (
-        BinaryIO,
-        Callable,
-        Iterable,
-        Iterator,
-        List,
-        Tuple,
-        Union,
+    BinaryIO,
+    Callable,
+    Iterable,
+    Iterator,
+    List,
+    Tuple,
+    Union,
 )
 
 from abc import abstractmethod
