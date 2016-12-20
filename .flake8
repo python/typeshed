@@ -1,0 +1,54 @@
+# Some PEP8 deviations are considered irrelevant to stub files:
+# (error counts as of 2016-12-19)
+# 17381 E704 multiple statements on one line (def)
+# 11840 E301 expected 1 blank line
+#  7467 E302 expected 2 blank lines
+#  1772 E501 line too long
+#  1487 F401 imported but unused
+#  1248 E701 multiple statements on one line (colon)
+#   427 F811 redefinition
+#   356 E305 expected 2 blank lines
+
+[flake8]
+ignore = F401, F811, E301, E302, E305, E501, E701, E704
+
+# Errors that we need to fix before enabling flake8 by default:
+#  3097 E261 at least 2 spaces before inline comment
+#   921 F821 undefined name
+#   221 E128 continuation line under-indented for visual indent
+#   213 E231 missing whitespace after , or :
+#    85 E266 too many leading ### in a block comment
+#    59 E265 block comment should start with #
+#    52 E402 module-level import not at top of file
+#    48 E225 missing whitespace around operator
+#    44 E127 continuation line over-indented for visual indent
+#    37 E126 continuation line over-indented for hanging indent
+#    30 E124 closing bracket does not match visual indentation
+#    29 W391 blank line at end of file
+#    28 E116 unexpected indentation (comment)
+#    26 F403 from * import used
+#    20 E101 mixed spaces and tabs
+#    19 W191 tabs
+#    14 E251 unexpected spaces around keyword argument '='
+#    14 E203 whitespace before
+#    10 W291 trailing whitespace
+#     8 B006 mutable argument defaults
+#     7 E999 invalid syntax
+#     7 E111 indentation is not a multiple of four
+#     5 W293 blank line with whitespace
+#     5 F405 name undefined or from * imports
+#     5 E123 closing bracket does not match indentation of opening bracket
+#     4 E262 inline comment should start with #
+#     4 E121 continuation line under-indented for hanging indent
+#     4 E114 indentation is not a multiple of four
+#     3 E303 too many blank lines
+#     3 E125 continuation line with same indent as next logical line
+#     2 W292 no newline at end of file
+#     2 E241 multiple spaces after ,
+#     2 E131 continuation line unaligned for hanging indent
+#     2 B303 __metaclass__ use on Python 3
+#     1 E401 multiple imports on one line
+#     1 E202 whitespace before )
+#
+# Those error codes are disabled by default in pycodestyle:
+# E121, E123, E126, E241
