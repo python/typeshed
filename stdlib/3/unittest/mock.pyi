@@ -1,4 +1,4 @@
-## Stubs for unittest.mock
+# Stubs for unittest.mock
 
 import sys
 from typing import Any

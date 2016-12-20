@@ -1,4 +1,4 @@
-## Stubs for logging.handlers (Python 2.4)
+# Stubs for logging.handlers (Python 2.4)
 
 from typing import Any, Callable, Optional, Tuple, Union, overload
 from logging import Handler, FileHandler, LogRecord

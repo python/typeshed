@@ -1,4 +1,4 @@
-## Stubs for tarfile
+# Stubs for tarfile
 
 from typing import (
     Callable, IO, Iterable, Iterator, List, Mapping, Optional, Type,

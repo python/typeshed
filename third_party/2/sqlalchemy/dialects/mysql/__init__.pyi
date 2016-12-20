@@ -37,4 +37,4 @@ TINYTEXT = base.TINYTEXT
 VARBINARY = base.VARBINARY
 VARCHAR = base.VARCHAR
 YEAR = base.YEAR
-## dialect = base.dialect
+# dialect = base.dialect

@@ -1,4 +1,4 @@
-## Stubs for logging (Python 3.4)
+# Stubs for logging (Python 3.4)
 
 from typing import (
     Any, Callable, Dict, Iterable, Mapping, MutableMapping, Optional, IO,

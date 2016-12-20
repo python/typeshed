@@ -9,10 +9,10 @@ from ... import util
 from ... import types
 
 sqltypes = sql.sqltypes
-## compiler = sql.compiler
-## reflection = engine.reflection
-## default = engine.default
-## topological = util.topological
+# compiler = sql.compiler
+# reflection = engine.reflection
+# default = engine.default
+# topological = util.topological
 DATE = types.DATE
 BOOLEAN = types.BOOLEAN
 BLOB = types.BLOB
@@ -29,19 +29,19 @@ class _NumericType:
     def __init__(self, unsigned=..., zerofill=..., **kw) -> None: ...
 
 class _FloatType(_NumericType,
-                 ## sqltypes.Float
+                 # sqltypes.Float
                  ):
     scale = ...  # type: Any
     def __init__(self, precision=..., scale=..., asdecimal=..., **kw) -> None: ...
 
 class _IntegerType(_NumericType,
-                   ## sqltypes.Integer
+                   # sqltypes.Integer
                    ):
     display_width = ...  # type: Any
     def __init__(self, display_width=..., **kw) -> None: ...
 
 class _StringType(object,
-                  ## sqltypes.String
+                  # sqltypes.String
                   ):
     charset = ...  # type: Any
     ascii = ...  # type: Any
@@ -51,19 +51,19 @@ class _StringType(object,
     def __init__(self, charset=..., collation=..., ascii=..., binary=..., unicode=..., national=..., **kw) -> None: ...
 
 class _MatchType(object,
-                 ## sqltypes.Float,
-                 ## sqltypes.MatchType
+                 # sqltypes.Float,
+                 # sqltypes.MatchType
                  ):
     def __init__(self, **kw) -> None: ...
 
 class NUMERIC(_NumericType,
-              ## sqltypes.NUMERIC
+              # sqltypes.NUMERIC
               ):
     __visit_name__ = ...  # type: Any
     def __init__(self, precision=..., scale=..., asdecimal=..., **kw) -> None: ...
 
 class DECIMAL(_NumericType,
-              ## sqltypes.DECIMAL
+              # sqltypes.DECIMAL
               ):
     __visit_name__ = ...  # type: Any
     def __init__(self, precision=..., scale=..., asdecimal=..., **kw) -> None: ...
@@ -73,26 +73,26 @@ class DOUBLE(_FloatType):
     def __init__(self, precision=..., scale=..., asdecimal=..., **kw) -> None: ...
 
 class REAL(_FloatType,
-           ## sqltypes.REAL
+           # sqltypes.REAL
            ):
     __visit_name__ = ...  # type: Any
     def __init__(self, precision=..., scale=..., asdecimal=..., **kw) -> None: ...
 
 class FLOAT(_FloatType,
-            ## sqltypes.FLOAT
+            # sqltypes.FLOAT
             ):
     __visit_name__ = ...  # type: Any
     def __init__(self, precision=..., scale=..., asdecimal=..., **kw) -> None: ...
     def bind_processor(self, dialect): ...
 
 class INTEGER(_IntegerType,
-              ## sqltypes.INTEGER
+              # sqltypes.INTEGER
               ):
     __visit_name__ = ...  # type: Any
     def __init__(self, display_width=..., **kw) -> None: ...
 
 class BIGINT(_IntegerType,
-             ## sqltypes.BIGINT
+             # sqltypes.BIGINT
              ):
     __visit_name__ = ...  # type: Any
     def __init__(self, display_width=..., **kw) -> None: ...
@@ -106,13 +106,13 @@ class TINYINT(_IntegerType):
     def __init__(self, display_width=..., **kw) -> None: ...
 
 class SMALLINT(_IntegerType,
-               ## sqltypes.SMALLINT
+               # sqltypes.SMALLINT
                ):
     __visit_name__ = ...  # type: Any
     def __init__(self, display_width=..., **kw) -> None: ...
 
 class BIT(object,
-          ## sqltypes.TypeEngine
+          # sqltypes.TypeEngine
           ):
     __visit_name__ = ...  # type: Any
     length = ...  # type: Any
@@ -120,7 +120,7 @@ class BIT(object,
     def result_processor(self, dialect, coltype): ...
 
 class TIME(object,
-           ## sqltypes.TIME
+           # sqltypes.TIME
            ):
     __visit_name__ = ...  # type: Any
     fsp = ...  # type: Any
@@ -128,28 +128,28 @@ class TIME(object,
     def result_processor(self, dialect, coltype): ...
 
 class TIMESTAMP(object,
-                ## sqltypes.TIMESTAMP
+                # sqltypes.TIMESTAMP
                 ):
     __visit_name__ = ...  # type: Any
     fsp = ...  # type: Any
     def __init__(self, timezone=..., fsp=...) -> None: ...
 
 class DATETIME(object,
-               ## sqltypes.DATETIME
+               # sqltypes.DATETIME
                ):
     __visit_name__ = ...  # type: Any
     fsp = ...  # type: Any
     def __init__(self, timezone=..., fsp=...) -> None: ...
 
 class YEAR(object,
-           ## sqltypes.TypeEngine
+           # sqltypes.TypeEngine
            ):
     __visit_name__ = ...  # type: Any
     display_width = ...  # type: Any
     def __init__(self, display_width=...) -> None: ...
 
 class TEXT(_StringType,
-           ## sqltypes.TEXT
+           # sqltypes.TEXT
            ):
     __visit_name__ = ...  # type: Any
     def __init__(self, length=..., **kw) -> None: ...
@@ -167,41 +167,41 @@ class LONGTEXT(_StringType):
     def __init__(self, **kwargs) -> None: ...
 
 class VARCHAR(_StringType,
-              ## sqltypes.VARCHAR
+              # sqltypes.VARCHAR
               ):
     __visit_name__ = ...  # type: Any
     def __init__(self, length=..., **kwargs) -> None: ...
 
 class CHAR(_StringType,
-           ## sqltypes.CHAR
+           # sqltypes.CHAR
            ):
     __visit_name__ = ...  # type: Any
     def __init__(self, length=..., **kwargs) -> None: ...
 
 class NVARCHAR(_StringType,
-               ## sqltypes.NVARCHAR
+               # sqltypes.NVARCHAR
                ):
     __visit_name__ = ...  # type: Any
     def __init__(self, length=..., **kwargs) -> None: ...
 
 class NCHAR(_StringType,
-            ## sqltypes.NCHAR
+            # sqltypes.NCHAR
             ):
     __visit_name__ = ...  # type: Any
     def __init__(self, length=..., **kwargs) -> None: ...
 
 class TINYBLOB(object,
-               ## sqltypes._Binary
+               # sqltypes._Binary
                ):
     __visit_name__ = ...  # type: Any
 
 class MEDIUMBLOB(object,
-                 ## sqltypes._Binary
+                 # sqltypes._Binary
                  ):
     __visit_name__ = ...  # type: Any
 
 class LONGBLOB(object,
-               ## sqltypes._Binary
+               # sqltypes._Binary
                ):
     __visit_name__ = ...  # type: Any
 
@@ -260,12 +260,12 @@ colspecs = ...  # type: Any
 ischema_names = ...  # type: Any
 
 class MySQLExecutionContext(object,
-                            ## default.DefaultExecutionContext
+                            # default.DefaultExecutionContext
                             ):
     def should_autocommit_text(self, statement): ...
 
 class MySQLCompiler(object,
-                    ## compiler.SQLCompiler
+                    # compiler.SQLCompiler
                     ):
     render_table_with_column_in_update_from = ...  # type: Any
     extract_map = ...  # type: Any
@@ -289,7 +289,7 @@ class MySQLCompiler(object,
     def update_from_clause(self, update_stmt, from_table, extra_froms, from_hints, **kw): ...
 
 class MySQLDDLCompiler(object,
-                       ## compiler.DDLCompiler
+                       # compiler.DDLCompiler
                        ):
     def create_table_constraints(self, table, **kw): ...
     def get_column_specification(self, column, **kw): ...
@@ -301,7 +301,7 @@ class MySQLDDLCompiler(object,
     def define_constraint_match(self, constraint): ...
 
 class MySQLTypeCompiler(object,
-                        ## compiler.GenericTypeCompiler
+                        # compiler.GenericTypeCompiler
                         ):
     def visit_NUMERIC(self, type_, **kw): ...
     def visit_DECIMAL(self, type_, **kw): ...
@@ -339,13 +339,13 @@ class MySQLTypeCompiler(object,
     def visit_BOOLEAN(self, type, **kw): ...
 
 class MySQLIdentifierPreparer(object,
-                              ## compiler.IdentifierPreparer
+                              # compiler.IdentifierPreparer
                               ):
     reserved_words = ...  # type: Any
     def __init__(self, dialect, server_ansiquotes=..., **kw) -> None: ...
 
 class MySQLDialect(object,
-                   ## default.DefaultDialect
+                   # default.DefaultDialect
                    ):
     name = ...  # type: Any
     supports_alter = ...  # type: Any
