@@ -7,9 +7,6 @@ from . import base
 from . import selectable
 from . import dml
 
-func = functions.func  # type: functions._FunctionGenerator
-modifier = functions.modifier  # type: functions._FunctionGenerator
-
 from .visitors import Visitable
 
 from .elements import ClauseElement, ColumnElement,\
@@ -27,6 +24,9 @@ from .selectable import Alias, Join, Select, Selectable, TableClause, \
     alias, GenerativeSelect, \
     subquery, HasPrefixes, HasSuffixes, Exists, ScalarSelect, TextAsFrom
 from .dml import Insert, Update, Delete, UpdateBase, ValuesBase
+
+func = functions.func  # type: functions._FunctionGenerator
+modifier = functions.modifier  # type: functions._FunctionGenerator
 
 and_ = ...  # type: Any
 or_ = ...  # type: Any

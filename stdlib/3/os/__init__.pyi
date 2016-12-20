@@ -3,12 +3,13 @@
 
 # based on http: //docs.python.org/3.2/library/os.html
 
+from builtins import OSError as error
+from io import TextIOWrapper as _TextIOWrapper
+import sys
 from typing import (
     Mapping, MutableMapping, Dict, List, Any, Tuple, Iterator, overload, Union, AnyStr,
     Optional, Generic, Set, Callable
 )
-import sys
-from builtins import OSError as error
 from . import path
 
 # ----- os variables -----
@@ -323,7 +324,6 @@ def killpg(pgid: int, sig: int) -> None: ...  # Unix only
 def nice(increment: int) -> int: ...  # Unix only
 def plock(op: int) -> None: ...  # Unix only ???op is int?
 
-from io import TextIOWrapper as _TextIOWrapper
 class popen(_TextIOWrapper):
     # TODO 'b' modes or bytes command not accepted?
     def __init__(self, command: str, mode: str = ...,

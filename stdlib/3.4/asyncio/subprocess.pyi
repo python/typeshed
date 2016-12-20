@@ -1,13 +1,11 @@
-from typing import Any, AnyStr, Tuple, Union
-
-__all__ = ...  # type: str
-
 from asyncio import events
 from asyncio import protocols
 from asyncio import streams
 from asyncio import transports
 from asyncio.coroutines import coroutine
+from typing import Any, AnyStr, Tuple, Union
 
+__all__ = ...  # type: str
 
 PIPE = ...  # type: int
 STDOUT = ...  # type: int

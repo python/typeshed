@@ -2,14 +2,19 @@
 
 from __future__ import print_function
 
+import types
 from typing import (
     Any, AnyStr, Callable, Iterable, Mapping, Optional,
     Pattern, Tuple, TypeVar, Union, overload, ValuesView, KeysView, ItemsView
 )
 import typing
-
 import unittest
-import types
+
+# Exports
+from __builtin__ import unichr as unichr
+from StringIO import StringIO as StringIO, StringIO as BytesIO
+from functools import wraps as wraps
+
 
 _T = TypeVar('_T')
 _K = TypeVar('_K')
@@ -62,12 +67,10 @@ def viewitems(d: Mapping[_K, _V]) -> ItemsView[_K, _V]: ...
 
 def b(s: str) -> binary_type: ...
 def u(s: str) -> text_type: ...
-from __builtin__ import unichr as unichr
 int2byte = chr
 def byte2int(bs: binary_type) -> int: ...
 def indexbytes(buf: binary_type, i: int) -> int: ...
 def iterbytes(buf: binary_type) -> typing.Iterator[int]: ...
-from StringIO import StringIO as StringIO, StringIO as BytesIO
 
 def assertCountEqual(self: unittest.TestCase, first: Iterable[_T], second: Iterable[_T], msg: str = ...) -> None: ...
 @overload
@@ -81,8 +84,6 @@ def exec_(_code_: Union[unicode, types.CodeType], _globs_: Dict[str, Any] = ...,
 def raise_from(value: BaseException, from_value: BaseException) -> None: ...
 
 print_ = print
-
-from functools import wraps as wraps
 
 def with_metaclass(meta: type, *bases: type) -> type: ...
 def add_metaclass(metaclass: type) -> Callable[[_T], _T]: ...

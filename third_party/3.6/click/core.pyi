@@ -430,5 +430,5 @@ class Argument(Parameter):
     ) -> None:
         ...
 
-
-from click.types import ParamType  # cyclic dependency
+# cyclic dependency
+from click.types import ParamType  # noqa: E402

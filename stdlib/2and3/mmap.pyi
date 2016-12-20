@@ -1,15 +1,14 @@
 # Stubs for mmap
 
-from typing import (Optional, Sequence, Union, Generic, TypeVar, overload,
-                    Iterable, Container, Sized, Reversible)
 import sys
+from types import TracebackType
+from typing import (Optional, Sequence, Union, Generic, TypeVar, overload,
+                    Iterable, Container, Sized, Reversible, Type)
 
 
 _T = TypeVar('_T', str, bytes)
 
 # TODO already in PEP, have to get added to mypy
-from typing import Type
-from types import TracebackType
 _C = TypeVar('_C')
 class _ContextManager(Generic[_C]):
     def __enter__(self) -> _C: ...

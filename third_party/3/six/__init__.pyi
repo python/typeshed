@@ -19,10 +19,14 @@ from typing import (
     ValuesView,
     overload,
 )
-import typing
-
-import unittest
 import types
+import typing
+import unittest
+
+# Exports
+from io import StringIO as StringIO, BytesIO as BytesIO
+from builtins import next as next
+from functools import wraps as wraps
 
 _T = TypeVar('_T')
 _K = TypeVar('_K')
@@ -44,9 +48,6 @@ MAXSIZE = ...  # type: int
 
 # def add_move
 # def remove_move
-
-from builtins import next as advance_iterator
-next = advance_iterator
 
 def callable(obj: object) -> bool: ...
 
@@ -80,7 +81,6 @@ def int2byte(i: int) -> bytes: ...
 def byte2int(bs: binary_type) -> int: ...
 def indexbytes(buf: binary_type, i: int) -> int: ...
 def iterbytes(buf: binary_type) -> typing.Iterator[int]: ...
-from io import StringIO as StringIO, BytesIO as BytesIO
 
 def assertCountEqual(self: unittest.TestCase, first: Iterable[_T], second: Iterable[_T], msg: str = None) -> None: ...
 @overload
@@ -95,8 +95,6 @@ def reraise(tp: type, value: Optional[BaseException], tb: Optional[types.Traceba
 def raise_from(value: BaseException, from_value: BaseException) -> None: ...
 
 print_ = print
-
-from functools import wraps as wraps
 
 def with_metaclass(meta: type, *bases: type) -> type: ...
 def add_metaclass(metaclass: type) -> Callable[[_T], _T]: ...

@@ -9,6 +9,10 @@ from typing import (
     Union, overload
 )
 
+# ModuleType is exported from this module, but for circular import
+# reasons exists in its own stub file (with ModuleSpec and Loader).
+from _importlib_modulespec import ModuleType as ModuleType  # Exported
+
 _T = TypeVar('_T')
 _KT = TypeVar('_KT')
 _VT = TypeVar('_VT')
@@ -106,10 +110,6 @@ class BuiltinFunctionType:
     __self__ = ...  # type: Union[object, ModuleType]
     def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
 BuiltinMethodType = BuiltinFunctionType
-
-# ModuleType is exported from this module, but for circular import
-# reasons exists in its own stub file (with ModuleSpec and Loader).
-from _importlib_modulespec import ModuleType as ModuleType  # Exported
 
 class TracebackType:
     tb_frame = ...  # type: FrameType

@@ -1,10 +1,5 @@
 from typing import Any, Union, Callable, TypeVar, List, Generic, Iterable, Generator, Awaitable
 from .events import AbstractEventLoop
-
-__all__ = ...  # type: str
-
-_T = TypeVar('_T')
-
 from concurrent.futures._base import (
     Error as Error,
 )
@@ -12,6 +7,11 @@ from concurrent.futures import (
     CancelledError as CancelledError,
     TimeoutError as TimeoutError,
 )
+
+__all__ = ...  # type: str
+
+_T = TypeVar('_T')
+
 class InvalidStateError(Error): ...
 
 class _TracebackLogger:

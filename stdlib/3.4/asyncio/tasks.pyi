@@ -2,11 +2,10 @@ from typing import (Any, TypeVar, Set, Dict, List, TextIO, Union, Tuple, Generic
                     Coroutine, Generator, Iterable, Awaitable, overload, Sequence, Iterator,
                     Optional)
 import concurrent.futures
-
-__all__ = ...  # type: str
-
 from .events import AbstractEventLoop
 from .futures import Future
+
+__all__ = ...  # type: str
 
 _T = TypeVar('_T')
 

@@ -4,6 +4,8 @@
 
 from typing import Any, Optional
 
+from markupsafe import Markup, escape, soft_unicode
+
 missing = ...  # type: Any
 internal_code = ...  # type: Any
 concat = ...  # type: Any
@@ -60,5 +62,3 @@ class Joiner:
     used = ...  # type: bool
     def __init__(self, sep: str = ...) -> None: ...
     def __call__(self): ...
-
-from markupsafe import Markup, escape, soft_unicode

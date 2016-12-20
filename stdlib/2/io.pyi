@@ -4,9 +4,9 @@
 
 # Only a subset of functionality is included.
 
-DEFAULT_BUFFER_SIZE = 0
-
 from typing import List, BinaryIO, TextIO, IO, overload, Iterator, Iterable, Any, Union
+
+DEFAULT_BUFFER_SIZE = 0
 
 def open(file: Union[str, unicode, int],
          mode: unicode = ..., buffering: int = ..., encoding: unicode = ...,
