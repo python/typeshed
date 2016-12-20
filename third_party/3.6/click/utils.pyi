@@ -57,7 +57,6 @@ class LazyFile:
         ...
 
 
-
 class KeepOpenFile(object):
     _file: IO
 
