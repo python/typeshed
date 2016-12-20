@@ -1,7 +1,7 @@
 from typing import Any, Callable, TypeVar, Iterable, Optional
 from ._base import Future, Executor
 
-EXTRA_QUEUED_CALLS = ... # type: Any
+EXTRA_QUEUED_CALLS = ...  # type: Any
 
 class BrokenProcessPool(RuntimeError): ...
 

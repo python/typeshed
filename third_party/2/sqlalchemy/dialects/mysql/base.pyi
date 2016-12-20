@@ -19,35 +19,35 @@ BLOB = types.BLOB
 BINARY = types.BINARY
 VARBINARY = types.VARBINARY
 
-RESERVED_WORDS = ... # type: Any
-AUTOCOMMIT_RE = ... # type: Any
-SET_RE = ... # type: Any
+RESERVED_WORDS = ...  # type: Any
+AUTOCOMMIT_RE = ...  # type: Any
+SET_RE = ...  # type: Any
 
 class _NumericType:
-    unsigned = ... # type: Any
-    zerofill = ... # type: Any
+    unsigned = ...  # type: Any
+    zerofill = ...  # type: Any
     def __init__(self, unsigned=..., zerofill=..., **kw) -> None: ...
 
 class _FloatType(_NumericType,
                  ## sqltypes.Float
                  ):
-    scale = ... # type: Any
+    scale = ...  # type: Any
     def __init__(self, precision=..., scale=..., asdecimal=..., **kw) -> None: ...
 
 class _IntegerType(_NumericType,
                    ## sqltypes.Integer
                    ):
-    display_width = ... # type: Any
+    display_width = ...  # type: Any
     def __init__(self, display_width=..., **kw) -> None: ...
 
 class _StringType(object,
                   ## sqltypes.String
                   ):
-    charset = ... # type: Any
-    ascii = ... # type: Any
-    unicode = ... # type: Any
-    binary = ... # type: Any
-    national = ... # type: Any
+    charset = ...  # type: Any
+    ascii = ...  # type: Any
+    unicode = ...  # type: Any
+    binary = ...  # type: Any
+    national = ...  # type: Any
     def __init__(self, charset=..., collation=..., ascii=..., binary=..., unicode=..., national=..., **kw) -> None: ...
 
 class _MatchType(object,
@@ -59,205 +59,205 @@ class _MatchType(object,
 class NUMERIC(_NumericType,
               ## sqltypes.NUMERIC
               ):
-    __visit_name__ = ... # type: Any
+    __visit_name__ = ...  # type: Any
     def __init__(self, precision=..., scale=..., asdecimal=..., **kw) -> None: ...
 
 class DECIMAL(_NumericType,
               ## sqltypes.DECIMAL
               ):
-    __visit_name__ = ... # type: Any
+    __visit_name__ = ...  # type: Any
     def __init__(self, precision=..., scale=..., asdecimal=..., **kw) -> None: ...
 
 class DOUBLE(_FloatType):
-    __visit_name__ = ... # type: Any
+    __visit_name__ = ...  # type: Any
     def __init__(self, precision=..., scale=..., asdecimal=..., **kw) -> None: ...
 
 class REAL(_FloatType,
            ## sqltypes.REAL
            ):
-    __visit_name__ = ... # type: Any
+    __visit_name__ = ...  # type: Any
     def __init__(self, precision=..., scale=..., asdecimal=..., **kw) -> None: ...
 
 class FLOAT(_FloatType,
             ## sqltypes.FLOAT
             ):
-    __visit_name__ = ... # type: Any
+    __visit_name__ = ...  # type: Any
     def __init__(self, precision=..., scale=..., asdecimal=..., **kw) -> None: ...
     def bind_processor(self, dialect): ...
 
 class INTEGER(_IntegerType,
               ## sqltypes.INTEGER
               ):
-    __visit_name__ = ... # type: Any
+    __visit_name__ = ...  # type: Any
     def __init__(self, display_width=..., **kw) -> None: ...
 
 class BIGINT(_IntegerType,
              ## sqltypes.BIGINT
              ):
-    __visit_name__ = ... # type: Any
+    __visit_name__ = ...  # type: Any
     def __init__(self, display_width=..., **kw) -> None: ...
 
 class MEDIUMINT(_IntegerType):
-    __visit_name__ = ... # type: Any
+    __visit_name__ = ...  # type: Any
     def __init__(self, display_width=..., **kw) -> None: ...
 
 class TINYINT(_IntegerType):
-    __visit_name__ = ... # type: Any
+    __visit_name__ = ...  # type: Any
     def __init__(self, display_width=..., **kw) -> None: ...
 
 class SMALLINT(_IntegerType,
                ## sqltypes.SMALLINT
                ):
-    __visit_name__ = ... # type: Any
+    __visit_name__ = ...  # type: Any
     def __init__(self, display_width=..., **kw) -> None: ...
 
 class BIT(object,
           ## sqltypes.TypeEngine
           ):
-    __visit_name__ = ... # type: Any
-    length = ... # type: Any
+    __visit_name__ = ...  # type: Any
+    length = ...  # type: Any
     def __init__(self, length=...) -> None: ...
     def result_processor(self, dialect, coltype): ...
 
 class TIME(object,
            ## sqltypes.TIME
            ):
-    __visit_name__ = ... # type: Any
-    fsp = ... # type: Any
+    __visit_name__ = ...  # type: Any
+    fsp = ...  # type: Any
     def __init__(self, timezone=..., fsp=...) -> None: ...
     def result_processor(self, dialect, coltype): ...
 
 class TIMESTAMP(object,
                 ## sqltypes.TIMESTAMP
                 ):
-    __visit_name__ = ... # type: Any
-    fsp = ... # type: Any
+    __visit_name__ = ...  # type: Any
+    fsp = ...  # type: Any
     def __init__(self, timezone=..., fsp=...) -> None: ...
 
 class DATETIME(object,
                ## sqltypes.DATETIME
                ):
-    __visit_name__ = ... # type: Any
-    fsp = ... # type: Any
+    __visit_name__ = ...  # type: Any
+    fsp = ...  # type: Any
     def __init__(self, timezone=..., fsp=...) -> None: ...
 
 class YEAR(object,
            ## sqltypes.TypeEngine
            ):
-    __visit_name__ = ... # type: Any
-    display_width = ... # type: Any
+    __visit_name__ = ...  # type: Any
+    display_width = ...  # type: Any
     def __init__(self, display_width=...) -> None: ...
 
 class TEXT(_StringType,
            ## sqltypes.TEXT
            ):
-    __visit_name__ = ... # type: Any
+    __visit_name__ = ...  # type: Any
     def __init__(self, length=..., **kw) -> None: ...
 
 class TINYTEXT(_StringType):
-    __visit_name__ = ... # type: Any
+    __visit_name__ = ...  # type: Any
     def __init__(self, **kwargs) -> None: ...
 
 class MEDIUMTEXT(_StringType):
-    __visit_name__ = ... # type: Any
+    __visit_name__ = ...  # type: Any
     def __init__(self, **kwargs) -> None: ...
 
 class LONGTEXT(_StringType):
-    __visit_name__ = ... # type: Any
+    __visit_name__ = ...  # type: Any
     def __init__(self, **kwargs) -> None: ...
 
 class VARCHAR(_StringType,
               ## sqltypes.VARCHAR
               ):
-    __visit_name__ = ... # type: Any
+    __visit_name__ = ...  # type: Any
     def __init__(self, length=..., **kwargs) -> None: ...
 
 class CHAR(_StringType,
            ## sqltypes.CHAR
            ):
-    __visit_name__ = ... # type: Any
+    __visit_name__ = ...  # type: Any
     def __init__(self, length=..., **kwargs) -> None: ...
 
 class NVARCHAR(_StringType,
                ## sqltypes.NVARCHAR
                ):
-    __visit_name__ = ... # type: Any
+    __visit_name__ = ...  # type: Any
     def __init__(self, length=..., **kwargs) -> None: ...
 
 class NCHAR(_StringType,
             ## sqltypes.NCHAR
             ):
-    __visit_name__ = ... # type: Any
+    __visit_name__ = ...  # type: Any
     def __init__(self, length=..., **kwargs) -> None: ...
 
 class TINYBLOB(object,
                ## sqltypes._Binary
                ):
-    __visit_name__ = ... # type: Any
+    __visit_name__ = ...  # type: Any
 
 class MEDIUMBLOB(object,
                  ## sqltypes._Binary
                  ):
-    __visit_name__ = ... # type: Any
+    __visit_name__ = ...  # type: Any
 
 class LONGBLOB(object,
                ## sqltypes._Binary
                ):
-    __visit_name__ = ... # type: Any
+    __visit_name__ = ...  # type: Any
 
 class _EnumeratedValues(_StringType): ...
 
-class ENUM(## sqltypes.Enum,
+class ENUM(  # sqltypes.Enum,
            _EnumeratedValues
            ):
-    __visit_name__ = ... # type: Any
-    strict = ... # type: Any
+    __visit_name__ = ...  # type: Any
+    strict = ...  # type: Any
     def __init__(self, *enums, **kw) -> None: ...
     def bind_processor(self, dialect): ...
     def adapt(self, cls, **kw): ...
 
 class SET(_EnumeratedValues):
-    __visit_name__ = ... # type: Any
-    retrieve_as_bitwise = ... # type: Any
-    values = ... # type: Any
+    __visit_name__ = ...  # type: Any
+    retrieve_as_bitwise = ...  # type: Any
+    values = ...  # type: Any
     def __init__(self, *values, **kw) -> None: ...
     def column_expression(self, colexpr): ...
     def result_processor(self, dialect, coltype): ...
     def bind_processor(self, dialect): ...
     def adapt(self, impltype, **kw): ...
 
-MSTime = ... # type: Any
-MSSet = ... # type: Any
-MSEnum = ... # type: Any
-MSLongBlob = ... # type: Any
-MSMediumBlob = ... # type: Any
-MSTinyBlob = ... # type: Any
-MSBlob = ... # type: Any
-MSBinary = ... # type: Any
-MSVarBinary = ... # type: Any
-MSNChar = ... # type: Any
-MSNVarChar = ... # type: Any
-MSChar = ... # type: Any
-MSString = ... # type: Any
-MSLongText = ... # type: Any
-MSMediumText = ... # type: Any
-MSTinyText = ... # type: Any
-MSText = ... # type: Any
-MSYear = ... # type: Any
-MSTimeStamp = ... # type: Any
-MSBit = ... # type: Any
-MSSmallInteger = ... # type: Any
-MSTinyInteger = ... # type: Any
-MSMediumInteger = ... # type: Any
-MSBigInteger = ... # type: Any
-MSNumeric = ... # type: Any
-MSDecimal = ... # type: Any
-MSDouble = ... # type: Any
-MSReal = ... # type: Any
-MSFloat = ... # type: Any
-MSInteger = ... # type: Any
-colspecs = ... # type: Any
-ischema_names = ... # type: Any
+MSTime = ...  # type: Any
+MSSet = ...  # type: Any
+MSEnum = ...  # type: Any
+MSLongBlob = ...  # type: Any
+MSMediumBlob = ...  # type: Any
+MSTinyBlob = ...  # type: Any
+MSBlob = ...  # type: Any
+MSBinary = ...  # type: Any
+MSVarBinary = ...  # type: Any
+MSNChar = ...  # type: Any
+MSNVarChar = ...  # type: Any
+MSChar = ...  # type: Any
+MSString = ...  # type: Any
+MSLongText = ...  # type: Any
+MSMediumText = ...  # type: Any
+MSTinyText = ...  # type: Any
+MSText = ...  # type: Any
+MSYear = ...  # type: Any
+MSTimeStamp = ...  # type: Any
+MSBit = ...  # type: Any
+MSSmallInteger = ...  # type: Any
+MSTinyInteger = ...  # type: Any
+MSMediumInteger = ...  # type: Any
+MSBigInteger = ...  # type: Any
+MSNumeric = ...  # type: Any
+MSDecimal = ...  # type: Any
+MSDouble = ...  # type: Any
+MSReal = ...  # type: Any
+MSFloat = ...  # type: Any
+MSInteger = ...  # type: Any
+colspecs = ...  # type: Any
+ischema_names = ...  # type: Any
 
 class MySQLExecutionContext(object,
                             ## default.DefaultExecutionContext
@@ -267,8 +267,8 @@ class MySQLExecutionContext(object,
 class MySQLCompiler(object,
                     ## compiler.SQLCompiler
                     ):
-    render_table_with_column_in_update_from = ... # type: Any
-    extract_map = ... # type: Any
+    render_table_with_column_in_update_from = ...  # type: Any
+    extract_map = ...  # type: Any
     def visit_random_func(self, fn, **kw): ...
     def visit_utc_timestamp_func(self, fn, **kw): ...
     def visit_sysdate_func(self, fn, **kw): ...
@@ -341,30 +341,30 @@ class MySQLTypeCompiler(object,
 class MySQLIdentifierPreparer(object,
                               ## compiler.IdentifierPreparer
                               ):
-    reserved_words = ... # type: Any
+    reserved_words = ...  # type: Any
     def __init__(self, dialect, server_ansiquotes=..., **kw) -> None: ...
 
 class MySQLDialect(object,
                    ## default.DefaultDialect
                    ):
-    name = ... # type: Any
-    supports_alter = ... # type: Any
-    supports_native_boolean = ... # type: Any
-    max_identifier_length = ... # type: Any
-    max_index_name_length = ... # type: Any
-    supports_native_enum = ... # type: Any
-    supports_sane_rowcount = ... # type: Any
-    supports_sane_multi_rowcount = ... # type: Any
-    supports_multivalues_insert = ... # type: Any
-    default_paramstyle = ... # type: Any
-    colspecs = ... # type: Any
-    statement_compiler = ... # type: Any
-    ddl_compiler = ... # type: Any
-    type_compiler = ... # type: Any
-    ischema_names = ... # type: Any
-    preparer = ... # type: Any
-    construct_arguments = ... # type: Any
-    isolation_level = ... # type: Any
+    name = ...  # type: Any
+    supports_alter = ...  # type: Any
+    supports_native_boolean = ...  # type: Any
+    max_identifier_length = ...  # type: Any
+    max_index_name_length = ...  # type: Any
+    supports_native_enum = ...  # type: Any
+    supports_sane_rowcount = ...  # type: Any
+    supports_sane_multi_rowcount = ...  # type: Any
+    supports_multivalues_insert = ...  # type: Any
+    default_paramstyle = ...  # type: Any
+    colspecs = ...  # type: Any
+    statement_compiler = ...  # type: Any
+    ddl_compiler = ...  # type: Any
+    type_compiler = ...  # type: Any
+    ischema_names = ...  # type: Any
+    preparer = ...  # type: Any
+    construct_arguments = ...  # type: Any
+    isolation_level = ...  # type: Any
     def __init__(self, isolation_level=..., **kwargs) -> None: ...
     def on_connect(self): ...
     def set_isolation_level(self, connection, level): ...
@@ -378,7 +378,7 @@ class MySQLDialect(object,
     def do_recover_twophase(self, connection): ...
     def is_disconnect(self, e, connection, cursor): ...
     def has_table(self, connection, table_name, schema=...): ...
-    identifier_preparer = ... # type: Any
+    identifier_preparer = ...  # type: Any
     def initialize(self, connection): ...
     def get_schema_names(self, connection, **kw): ...
     def get_table_names(self, connection, schema=..., **kw): ...
@@ -392,22 +392,22 @@ class MySQLDialect(object,
     def get_view_definition(self, connection, view_name, schema=..., **kw): ...
 
 class ReflectedState:
-    columns = ... # type: Any
-    table_options = ... # type: Any
-    table_name = ... # type: Any
-    keys = ... # type: Any
-    constraints = ... # type: Any
+    columns = ...  # type: Any
+    table_options = ...  # type: Any
+    table_name = ...  # type: Any
+    keys = ...  # type: Any
+    constraints = ...  # type: Any
     def __init__(self) -> None: ...
 
 class MySQLTableDefinitionParser:
-    dialect = ... # type: Any
-    preparer = ... # type: Any
+    dialect = ...  # type: Any
+    preparer = ...  # type: Any
     def __init__(self, dialect, preparer) -> None: ...
     def parse(self, show_create, charset): ...
 
 class _DecodingRowProxy:
-    rowproxy = ... # type: Any
-    charset = ... # type: Any
+    rowproxy = ...  # type: Any
+    charset = ...  # type: Any
     def __init__(self, rowproxy, charset) -> None: ...
     def __getitem__(self, index): ...
     def __getattr__(self, attr): ...

@@ -1,7 +1,7 @@
 from typing import Any, Union, Callable, TypeVar, List, Generic, Iterable, Generator, Awaitable
 from .events import AbstractEventLoop
 
-__all__ = ... # type: str
+__all__ = ...  # type: str
 
 _T = TypeVar('_T')
 
@@ -16,7 +16,7 @@ class InvalidStateError(Error): ...
 
 class _TracebackLogger:
     exc = ...  # type: BaseException
-    tb = ... # type: List[str]
+    tb = ...  # type: List[str]
     def __init__(self, exc: Any, loop: AbstractEventLoop) -> None: ...
     def activate(self) -> None: ...
     def clear(self) -> None: ...
@@ -24,7 +24,7 @@ class _TracebackLogger:
 
 class Future(Iterable[_T], Awaitable[_T], Generic[_T]):
     _state = ...  # type: str
-    _exception = ... # type: BaseException
+    _exception = ...  # type: BaseException
     _blocking = False
     _log_traceback = False
     _tb_logger = _TracebackLogger

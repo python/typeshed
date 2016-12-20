@@ -15,7 +15,7 @@ accept2dyear = False
 altzone = 0
 daylight = 0
 timezone = 0
-tzname = ... # type: Tuple[str, str]
+tzname = ...  # type: Tuple[str, str]
 
 if sys.version_info >= (3, 3) and sys.platform != 'win32':
     CLOCK_HIGHRES = 0  # Solaris only

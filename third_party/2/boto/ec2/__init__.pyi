@@ -4,7 +4,7 @@
 
 from typing import Any
 
-RegionData = ... # type: Any
+RegionData = ...  # type: Any
 
 def regions(**kw_params): ...
 def connect_to_region(region_name, **kw_params): ...

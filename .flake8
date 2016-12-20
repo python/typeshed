@@ -13,7 +13,6 @@
 ignore = F401, F811, E301, E302, E305, E501, E701, E704
 
 # Errors that we need to fix before enabling flake8 by default:
-#  3097 E261 at least 2 spaces before inline comment
 #   921 F821 undefined name
 #   221 E128 continuation line under-indented for visual indent
 #   213 E231 missing whitespace after , or :

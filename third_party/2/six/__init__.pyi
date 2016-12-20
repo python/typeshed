@@ -27,7 +27,7 @@ class_types = (type, types.ClassType)
 text_type = unicode
 binary_type = str
 
-MAXSIZE = ... # type: int
+MAXSIZE = ...  # type: int
 
 #def add_move
 #def remove_move

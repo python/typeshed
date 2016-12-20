@@ -1,6 +1,6 @@
 from typing import AnyStr
 
-__all__ = ... # type: str
+__all__ = ...  # type: str
 
 from asyncio import transports
 

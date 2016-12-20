@@ -25,8 +25,8 @@ class Logger:
     level = ...  # type: int
     parent = ...  # type: Union[Logger, PlaceHolder]
     propagate = ...  # type: bool
-    handlers = ... # type: List[Handler]
-    disabled = ... # type: int
+    handlers = ...  # type: List[Handler]
+    disabled = ...  # type: int
     def setLevel(self, lvl: Union[int, str]) -> None: ...
     def isEnabledFor(self, lvl: int) -> bool: ...
     def getEffectiveLevel(self) -> int: ...

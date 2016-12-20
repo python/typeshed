@@ -5,22 +5,22 @@
 from typing import Any
 import logging
 
-Version = ... # type: Any
-UserAgent = ... # type: Any
-config = ... # type: Any
-BUCKET_NAME_RE = ... # type: Any
-TOO_LONG_DNS_NAME_COMP = ... # type: Any
-GENERATION_RE = ... # type: Any
-VERSION_RE = ... # type: Any
-ENDPOINTS_PATH = ... # type: Any
+Version = ...  # type: Any
+UserAgent = ...  # type: Any
+config = ...  # type: Any
+BUCKET_NAME_RE = ...  # type: Any
+TOO_LONG_DNS_NAME_COMP = ...  # type: Any
+GENERATION_RE = ...  # type: Any
+VERSION_RE = ...  # type: Any
+ENDPOINTS_PATH = ...  # type: Any
 
 def init_logging(): ...
 
 class NullHandler(logging.Handler):
     def emit(self, record): ...
 
-log = ... # type: Any
-perflog = ... # type: Any
+log = ...  # type: Any
+perflog = ...  # type: Any
 
 def set_file_logger(name, filepath, level=..., format_string=...): ...
 def set_stream_logger(name, level=..., format_string=...): ...

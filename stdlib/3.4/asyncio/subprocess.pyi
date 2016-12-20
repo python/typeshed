@@ -1,6 +1,6 @@
 from typing import Any, AnyStr, Tuple, Union
 
-__all__ = ... # type: str
+__all__ = ...  # type: str
 
 from asyncio import events
 from asyncio import protocols
@@ -9,9 +9,9 @@ from asyncio import transports
 from asyncio.coroutines import coroutine
 
 
-PIPE = ... # type: int
-STDOUT = ... # type: int
-DEVNULL = ... # type: int
+PIPE = ...  # type: int
+STDOUT = ...  # type: int
+DEVNULL = ...  # type: int
 
 class SubprocessStreamProtocol(streams.FlowControlMixin,
                                protocols.SubprocessProtocol):
@@ -40,7 +40,7 @@ class Process:
 
 @coroutine
 def create_subprocess_shell(
-        *Args: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue #1236
+        *Args: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue  #1236
         stdin: int = ...,
         stdout: int = ...,
         stderr: int = ...,
@@ -50,7 +50,7 @@ def create_subprocess_shell(
 
 @coroutine
 def create_subprocess_exec(
-        program: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue #1236
+        program: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue  #1236
         *args: Any,
         stdin: int = ...,
         stdout: int = ...,

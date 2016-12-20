@@ -14,8 +14,8 @@ HTTPHeaderDict = _collections.HTTPHeaderDict
 ProtocolError = exceptions.ProtocolError
 DecodeError = exceptions.DecodeError
 ReadTimeoutError = exceptions.ReadTimeoutError
-binary_type = str # six.binary_type
-PY3 = True # six.PY3
+binary_type = str  # six.binary_type
+PY3 = True  # six.PY3
 is_fp_closed = response.is_fp_closed
 
 class DeflateDecoder:

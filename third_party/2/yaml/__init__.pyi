@@ -12,7 +12,7 @@ from typing import Any
 # TODO: stubs for cyaml?
 # from cyaml import *
 
-__with_libyaml__ = ... # type: Any
+__with_libyaml__ = ...  # type: Any
 
 def scan(stream, Loader=...): ...
 def parse(stream, Loader=...): ...
@@ -40,11 +40,11 @@ class YAMLObjectMetaclass(type):
     def __init__(cls, name, bases, kwds) -> None: ...
 
 class YAMLObject:
-    __metaclass__ = ... # type: Any
-    yaml_loader = ... # type: Any
-    yaml_dumper = ... # type: Any
-    yaml_tag = ... # type: Any
-    yaml_flow_style = ... # type: Any
+    __metaclass__ = ...  # type: Any
+    yaml_loader = ...  # type: Any
+    yaml_dumper = ...  # type: Any
+    yaml_tag = ...  # type: Any
+    yaml_flow_style = ...  # type: Any
     @classmethod
     def from_yaml(cls, loader, node): ...
     @classmethod

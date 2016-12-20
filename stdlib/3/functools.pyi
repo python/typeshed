@@ -24,7 +24,7 @@ class CacheInfo(NamedTuple('CacheInfo', [
      pass
 
 class _lru_cache_wrapper(Generic[_T]):
-    __wrapped__ = ... # type: Callable[..., _T]
+    __wrapped__ = ...  # type: Callable[..., _T]
     def __call__(self, *args: Any, **kwargs: Any) -> _T: ...
     def cache_info(self) -> CacheInfo: ...
 
@@ -34,8 +34,8 @@ class lru_cache():
     def __call__(self, f: Callable[..., _T]) -> _lru_cache_wrapper[_T]: ...
 
 
-WRAPPER_ASSIGNMENTS = ... # type: Sequence[str]
-WRAPPER_UPDATES = ... # type: Sequence[str]
+WRAPPER_ASSIGNMENTS = ...  # type: Sequence[str]
+WRAPPER_UPDATES = ...  # type: Sequence[str]
 
 def update_wrapper(wrapper: _AnyCallable, wrapped: _AnyCallable, assigned: Sequence[str] = ...,
                    updated: Sequence[str] = ...) -> None: ...

@@ -5,14 +5,14 @@
 from typing import Any, AnyStr, List
 from genericpath import *
 
-curdir = ... # type: Any
-pardir = ... # type: Any
-extsep = ... # type: Any
-sep = ... # type: Any
-pathsep = ... # type: Any
-defpath = ... # type: Any
-altsep = ... # type: Any
-devnull = ... # type: Any
+curdir = ...  # type: Any
+pardir = ...  # type: Any
+extsep = ...  # type: Any
+sep = ...  # type: Any
+pathsep = ...  # type: Any
+defpath = ...  # type: Any
+altsep = ...  # type: Any
+devnull = ...  # type: Any
 
 def normcase(s): ...
 def isabs(s): ...
@@ -35,7 +35,7 @@ def normpath(path): ...
 def abspath(path): ...
 def realpath(filename): ...
 
-supports_unicode_filenames = ... # type: Any
+supports_unicode_filenames = ...  # type: Any
 
 def relpath(path, start=...): ...
 

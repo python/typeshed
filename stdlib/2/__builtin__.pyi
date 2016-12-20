@@ -808,13 +808,13 @@ class buffer(Sized):
     def __mul__(self, x: int) -> str: ...
 
 class memoryview(Sized, Container[bytes]):
-    format = ... # type: str
-    itemsize = ... # type: int
-    shape = ... # type: Optional[Tuple[int, ...]]
-    strides = ... # type: Optional[Tuple[int, ...]]
-    suboffsets = ... # type: Optional[Tuple[int, ...]]
-    readonly = ... # type: bool
-    ndim = ... # type: int
+    format = ...  # type: str
+    itemsize = ...  # type: int
+    shape = ...  # type: Optional[Tuple[int, ...]]
+    strides = ...  # type: Optional[Tuple[int, ...]]
+    suboffsets = ...  # type: Optional[Tuple[int, ...]]
+    readonly = ...  # type: bool
+    ndim = ...  # type: int
 
     def __init__(self, obj: Union[str, bytearray, buffer, memoryview]) -> None: ...
 

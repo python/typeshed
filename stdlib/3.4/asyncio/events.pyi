@@ -3,7 +3,7 @@ from abc import ABCMeta, abstractmethod
 from asyncio.futures import Future
 from asyncio.coroutines import coroutine
 
-__all__ = ... # type: str
+__all__ = ...  # type: str
 
 _T = TypeVar('_T')
 
@@ -14,7 +14,7 @@ AI_PASSIVE = 0
 
 class Handle:
     _cancelled = False
-    _args = ... # type: List[Any]
+    _args = ...  # type: List[Any]
     def __init__(self, callback: Callable[..., Any], args: List[Any],
         loop: AbstractEventLoop) -> None: ...
     def __repr__(self) -> str: ...
@@ -30,7 +30,7 @@ class AbstractEventLoop(metaclass=ABCMeta):
     @abstractmethod
     def run_forever(self) -> None: ...
 
-    # Can't use a union, see mypy issue #1873.
+    # Can't use a union, see mypy issue  #1873.
     @overload
     @abstractmethod
     def run_until_complete(self, future: Generator[Any, Any, _T]) -> _T: ...
@@ -127,11 +127,11 @@ class AbstractEventLoop(metaclass=ABCMeta):
     def remove_writer(self, fd: int) -> None: ...
     # Completion based I/O methods returning Futures.
     @abstractmethod
-    def sock_recv(self, sock: Any, nbytes: int) -> Any: ... #TODO
+    def sock_recv(self, sock: Any, nbytes: int) -> Any: ...  #TODO
     @abstractmethod
-    def sock_sendall(self, sock: Any, data: bytes) -> None: ... #TODO
+    def sock_sendall(self, sock: Any, data: bytes) -> None: ...  #TODO
     @abstractmethod
-    def sock_connect(self, sock: Any, address: str) -> Any: ... #TODO
+    def sock_connect(self, sock: Any, address: str) -> Any: ...  #TODO
     @abstractmethod
     def sock_accept(self, sock: Any) -> Any: ...
     # Signal handling.
@@ -163,7 +163,7 @@ class AbstractEventLoopPolicy(metaclass=ABCMeta):
     @abstractmethod
     def get_child_watcher(self) -> Any: ...  # TODO: unix_events.AbstractChildWatcher
     @abstractmethod
-    def set_child_watcher(self, watcher: Any) -> None: ... # TODO: unix_events.AbstractChildWatcher
+    def set_child_watcher(self, watcher: Any) -> None: ...  # TODO: unix_events.AbstractChildWatcher
 
 class BaseDefaultEventLoopPolicy(AbstractEventLoopPolicy):
     def __init__(self) -> None: ...
@@ -179,4 +179,4 @@ def set_event_loop(loop: AbstractEventLoop) -> None: ...
 def new_event_loop() -> AbstractEventLoop: ...
 
 def get_child_watcher() -> Any: ...  # TODO: unix_events.AbstractChildWatcher
-def set_child_watcher(watcher: Any) -> None: ... # TODO: unix_events.AbstractChildWatcher
+def set_child_watcher(watcher: Any) -> None: ...  # TODO: unix_events.AbstractChildWatcher

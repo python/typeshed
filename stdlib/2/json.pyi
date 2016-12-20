@@ -70,14 +70,14 @@ class JSONDecoder(object):
         idx: int = ...) -> Tuple[Any, Any]: ...
 
 class JSONEncoder(object):
-    item_separator = ... # type: str
-    key_separator = ... # type: str
-    skipkeys = ... # type: bool
-    ensure_ascii = ... # type: bool
-    check_circular = ... # type: bool
-    allow_nan = ... # type: bool
-    sort_keys = ... # type: bool
-    indent = ... # type: int
+    item_separator = ...  # type: str
+    key_separator = ...  # type: str
+    skipkeys = ...  # type: bool
+    ensure_ascii = ...  # type: bool
+    check_circular = ...  # type: bool
+    allow_nan = ...  # type: bool
+    sort_keys = ...  # type: bool
+    indent = ...  # type: int
 
     def __init__(self,
         skipkeys: bool = ...,

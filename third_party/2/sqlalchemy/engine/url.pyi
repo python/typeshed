@@ -8,13 +8,13 @@ from .. import dialects
 ## registry = dialects.registry
 
 class URL:
-    drivername = ... # type: Any
-    username = ... # type: Any
-    password = ... # type: Any
-    host = ... # type: Any
-    port = ... # type: Any
-    database = ... # type: Any
-    query = ... # type: Any
+    drivername = ...  # type: Any
+    username = ...  # type: Any
+    password = ...  # type: Any
+    host = ...  # type: Any
+    port = ...  # type: Any
+    database = ...  # type: Any
+    query = ...  # type: Any
     def __init__(self, drivername, username=..., password=..., host=..., port=..., database=..., query=...) -> None: ...
     def __to_string__(self, hide_password=...): ...
     def __hash__(self): ...

@@ -188,13 +188,13 @@ class FunctionTestCase(TestCase):
                  description: Optional[str] = ...) -> None: ...
 
 class _AssertRaisesContext:
-    exception = ... # type: Exception
+    exception = ...  # type: Exception
     def __enter__(self) -> _AssertRaisesContext: ...
     def __exit__(self, exc_type: Optional[type], exc_val: Optional[Exception],
                  exc_tb: Optional[TracebackType]) -> bool: ...
 
 class _AssertWarnsContext:
-    warning = ... # type: Warning
+    warning = ...  # type: Warning
     filename = ...  # type: str
     lineno = ...  # type: int
     def __enter__(self) -> _AssertWarnsContext: ...
@@ -249,11 +249,11 @@ _SysExcInfoType = Tuple[Optional[Type[BaseException]],
                         Optional[TracebackType]]
 
 class TestResult:
-    errors = ... # type: List[Tuple[TestCase, str]]
-    failures = ... # type: List[Tuple[TestCase, str]]
-    skipped = ... # type: List[Tuple[TestCase, str]]
-    expectedFailures = ... # type: List[Tuple[TestCase, str]]
-    unexpectedSuccesses = ... # type: List[TestCase]
+    errors = ...  # type: List[Tuple[TestCase, str]]
+    failures = ...  # type: List[Tuple[TestCase, str]]
+    skipped = ...  # type: List[Tuple[TestCase, str]]
+    expectedFailures = ...  # type: List[Tuple[TestCase, str]]
+    unexpectedSuccesses = ...  # type: List[TestCase]
     shouldStop = ...  # type: bool
     testsRun = ...  # type: int
     buffer = ...  # type: bool

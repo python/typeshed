@@ -44,7 +44,7 @@ get_auth_from_url = utils.get_auth_from_url
 codes = status_codes.codes
 REDIRECT_STATI = models.REDIRECT_STATI
 
-REDIRECT_CACHE_SIZE = ... # type: Any
+REDIRECT_CACHE_SIZE = ...  # type: Any
 
 def merge_setting(request_setting, session_setting, dict_class=...): ...
 def merge_hooks(request_hooks, session_hooks, dict_class=...): ...
@@ -56,20 +56,20 @@ class SessionRedirectMixin:
     def rebuild_proxies(self, prepared_request, proxies): ...
 
 class Session(SessionRedirectMixin):
-    __attrs__ = ... # type: Any
-    headers = ... # type: Optional[MutableMapping[Text, Text]]
-    auth = ... # type: Union[None, Tuple[Text, Text], Callable[[Request], Request]]
-    proxies = ... # type: Optional[MutableMapping[Text, Text]]
-    hooks = ... # type: Optional[MutableMapping[Text, Callable[[Request], Any]]]
-    params = ... # type: Union[None, bytes, MutableMapping[Text, Text]]
-    stream = ... # type: bool
-    verify = ... # type: bool
-    cert = ... # type: Union[None, Text, Tuple[Text, Text]]
-    max_redirects = ... # type: int
-    trust_env = ... # type: bool
-    cookies = ... # type: Union[None, RequestsCookieJar, MutableMapping[Text, Text]]
-    adapters = ... # type: MutableMapping
-    redirect_cache = ... # type: RecentlyUsedContainer
+    __attrs__ = ...  # type: Any
+    headers = ...  # type: Optional[MutableMapping[Text, Text]]
+    auth = ...  # type: Union[None, Tuple[Text, Text], Callable[[Request], Request]]
+    proxies = ...  # type: Optional[MutableMapping[Text, Text]]
+    hooks = ...  # type: Optional[MutableMapping[Text, Callable[[Request], Any]]]
+    params = ...  # type: Union[None, bytes, MutableMapping[Text, Text]]
+    stream = ...  # type: bool
+    verify = ...  # type: bool
+    cert = ...  # type: Union[None, Text, Tuple[Text, Text]]
+    max_redirects = ...  # type: int
+    trust_env = ...  # type: bool
+    cookies = ...  # type: Union[None, RequestsCookieJar, MutableMapping[Text, Text]]
+    adapters = ...  # type: MutableMapping
+    redirect_cache = ...  # type: RecentlyUsedContainer
     def __init__(self) -> None: ...
     def __enter__(self) -> 'Session': ...
     def __exit__(self, *args) -> None: ...

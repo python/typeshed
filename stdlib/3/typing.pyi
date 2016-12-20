@@ -276,7 +276,7 @@ class MutableMapping(Mapping[_KT, _VT], Generic[_KT, _VT]):
     # the first overload, but by using overloading rather than a Union,
     # mypy will commit to using the first overload when the argument is
     # known to be a Mapping with unknown type parameters, which is closer
-    # to the behavior we want. See mypy issue #1430.
+    # to the behavior we want. See mypy issue  #1430.
     @overload
     def update(self, m: Mapping[_KT, _VT]) -> None: ...
     @overload
@@ -365,7 +365,7 @@ class TextIO(IO[str]):
     @property
     def line_buffering(self) -> int: ...  # int on PyPy, bool on CPython
     @property
-    def newlines(self) -> Any: ... # None, str or tuple
+    def newlines(self) -> Any: ...  # None, str or tuple
     @abstractmethod
     def __enter__(self) -> TextIO: ...
 

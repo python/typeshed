@@ -24,12 +24,12 @@ _encoded = str
 
 # TODO: It is not possible to specify these signatures correctly, because
 # they have an optional positional or keyword argument for errors=.
-_encode_type = Callable[[_decoded], _encoded] # signature of Codec().encode
-_decode_type = Callable[[_encoded], _decoded] # signature of Codec().decode
-_stream_reader_type = Callable[[BinaryIO], 'StreamReader'] # signature of StreamReader __init__
-_stream_writer_type = Callable[[BinaryIO], 'StreamWriter'] # signature of StreamWriter __init__
-_incremental_encoder_type = Callable[[], 'IncrementalEncoder'] # signature of IncrementalEncoder __init__
-_incremental_decode_type = Callable[[], 'IncrementalDecoder'] # signature of IncrementalDecoder __init__
+_encode_type = Callable[[_decoded], _encoded]  # signature of Codec().encode
+_decode_type = Callable[[_encoded], _decoded]  # signature of Codec().decode
+_stream_reader_type = Callable[[BinaryIO], 'StreamReader']  # signature of StreamReader __init__
+_stream_writer_type = Callable[[BinaryIO], 'StreamWriter']  # signature of StreamWriter __init__
+_incremental_encoder_type = Callable[[], 'IncrementalEncoder']  # signature of IncrementalEncoder __init__
+_incremental_decode_type = Callable[[], 'IncrementalDecoder']  # signature of IncrementalDecoder __init__
 
 
 def encode(obj: _decoded, encoding: str = ..., errors: str = ...) -> _encoded:

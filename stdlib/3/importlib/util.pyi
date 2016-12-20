@@ -15,7 +15,7 @@ if sys.version_info >= (3, 3):
     def resolve_name(name: str, package: str) -> str: ...
 
 if sys.version_info >= (3, 4):
-    MAGIC_NUMBER = ... # type: bytes
+    MAGIC_NUMBER = ...  # type: bytes
 
     def cache_from_source(path: str, debug_override: bool = None, *,
                           optimization: Any = None) -> str: ...

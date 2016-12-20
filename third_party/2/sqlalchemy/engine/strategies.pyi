@@ -6,7 +6,7 @@ from typing import Any
 
 from . import base
 
-strategies = ... # type: Any
+strategies = ...  # type: Any
 
 class EngineStrategy:
     def __init__(self) -> None: ...
@@ -16,21 +16,21 @@ class DefaultEngineStrategy(EngineStrategy):
     def create(self, name_or_url, **kwargs): ...
 
 class PlainEngineStrategy(DefaultEngineStrategy):
-    name = ... # type: Any
-    engine_cls = ... # type: Any
+    name = ...  # type: Any
+    engine_cls = ...  # type: Any
 
 class ThreadLocalEngineStrategy(DefaultEngineStrategy):
-    name = ... # type: Any
-    engine_cls = ... # type: Any
+    name = ...  # type: Any
+    engine_cls = ...  # type: Any
 
 class MockEngineStrategy(EngineStrategy):
-    name = ... # type: Any
+    name = ...  # type: Any
     def create(self, name_or_url, executor, **kwargs): ...
     class MockConnection(base.Connectable):
         def __init__(self, dialect, execute) -> None: ...
-        engine = ... # type: Any
-        dialect = ... # type: Any
-        name = ... # type: Any
+        engine = ...  # type: Any
+        dialect = ...  # type: Any
+        name = ...  # type: Any
         def contextual_connect(self, **kwargs): ...
         def execution_options(self, **kw): ...
         def compiler(self, statement, parameters, **kwargs): ...

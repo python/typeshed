@@ -7,18 +7,18 @@ from typing import Any
 from thrift.Thrift import *
 
 class TProtocolException(TException):
-    UNKNOWN = ... # type: Any
-    INVALID_DATA = ... # type: Any
-    NEGATIVE_SIZE = ... # type: Any
-    SIZE_LIMIT = ... # type: Any
-    BAD_VERSION = ... # type: Any
-    NOT_IMPLEMENTED = ... # type: Any
-    DEPTH_LIMIT = ... # type: Any
-    type = ... # type: Any
+    UNKNOWN = ...  # type: Any
+    INVALID_DATA = ...  # type: Any
+    NEGATIVE_SIZE = ...  # type: Any
+    SIZE_LIMIT = ...  # type: Any
+    BAD_VERSION = ...  # type: Any
+    NOT_IMPLEMENTED = ...  # type: Any
+    DEPTH_LIMIT = ...  # type: Any
+    type = ...  # type: Any
     def __init__(self, type=..., message=...) -> None: ...
 
 class TProtocolBase:
-    trans = ... # type: Any
+    trans = ...  # type: Any
     def __init__(self, trans) -> None: ...
     def writeMessageBegin(self, name, ttype, seqid): ...
     def writeMessageEnd(self): ...

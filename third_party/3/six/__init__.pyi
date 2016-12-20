@@ -40,7 +40,7 @@ class_types = type,
 text_type = str
 binary_type = bytes
 
-MAXSIZE = ... # type: int
+MAXSIZE = ...  # type: int
 
 #def add_move
 #def remove_move

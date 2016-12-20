@@ -426,13 +426,13 @@ class bytearray(MutableSequence[int], ByteString):
 
 
 class memoryview(Sized, Container[bytes]):
-    format = ... # type: str
-    itemsize = ... # type: int
-    shape = ... # type: Optional[Tuple[int, ...]]
-    strides = ... # type: Optional[Tuple[int, ...]]
-    suboffsets = ... # type: Optional[Tuple[int, ...]]
-    readonly = ... # type: bool
-    ndim = ... # type: int
+    format = ...  # type: str
+    itemsize = ...  # type: int
+    shape = ...  # type: Optional[Tuple[int, ...]]
+    strides = ...  # type: Optional[Tuple[int, ...]]
+    suboffsets = ...  # type: Optional[Tuple[int, ...]]
+    readonly = ...  # type: bool
+    ndim = ...  # type: int
 
     def __init__(self, obj: Union[str, bytes, bytearray, memoryview]) -> None: ...
 
@@ -495,7 +495,7 @@ class function:
     __name__ = ...  # type: str
     __qualname__ = ...  # type: str
     __module__ = ...  # type: str
-    __code__ = ... # type: Any
+    __code__ = ...  # type: Any
 
 class list(MutableSequence[_T], Generic[_T]):
     @overload
@@ -786,7 +786,7 @@ def zip(iter1: Iterable[_T1], iter2: Iterable[_T2],
 @overload
 def zip(iter1: Iterable[_T1], iter2: Iterable[_T2], iter3: Iterable[_T3],
         iter4: Iterable[_T4]) -> Iterator[Tuple[_T1, _T2,
-                                               _T3, _T4]]: ... # TODO more than four iterables
+                                               _T3, _T4]]: ...  # TODO more than four iterables
 def __import__(name: str, globals: Dict[str, Any] = {}, locals: Dict[str, Any] = {},
                fromlist: List[str] = [], level: int = -1) -> Any: ...
 
@@ -801,9 +801,9 @@ Ellipsis = ...  # type: ellipsis
 
 class BaseException:
     args = ...  # type: Tuple[Any, ...]
-    __cause__ = ... # type: BaseException
-    __context__ = ... # type: BaseException
-    __traceback__ = ... # type: TracebackType
+    __cause__ = ...  # type: BaseException
+    __context__ = ...  # type: BaseException
+    __traceback__ = ...  # type: TracebackType
     def __init__(self, *args: Any) -> None: ...
     def with_traceback(self, tb: Any) -> BaseException: ...
 
@@ -872,19 +872,19 @@ class TypeError(Exception): ...
 class UnboundLocalError(NameError): ...
 class UnicodeError(ValueError): ...
 class UnicodeDecodeError(UnicodeError):
-    encoding = ... # type: str
-    object = ... # type: bytes
-    start = ... # type: int
-    end = ... # type: int
-    reason = ... # type: str
+    encoding = ...  # type: str
+    object = ...  # type: bytes
+    start = ...  # type: int
+    end = ...  # type: int
+    reason = ...  # type: str
     def __init__(self, __encoding: str, __object: bytes, __start: int, __end: int,
                  __reason: str) -> None: ...
 class UnicodeEncodeError(UnicodeError):
-    encoding = ... # type: str
-    object = ... # type: str
-    start = ... # type: int
-    end = ... # type: int
-    reason = ... # type: str
+    encoding = ...  # type: str
+    object = ...  # type: str
+    start = ...  # type: int
+    end = ...  # type: int
+    reason = ...  # type: str
     def __init__(self, __encoding: str, __object: str, __start: int, __end: int,
                  __reason: str) -> None: ...
 class UnicodeTranslateError(UnicodeError): ...

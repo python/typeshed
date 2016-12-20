@@ -103,24 +103,24 @@ FileType = file
 XRangeType = xrange
 
 class TracebackType:
-    tb_frame = ... # type: FrameType
-    tb_lasti = ... # type: int
-    tb_lineno = ... # type: int
-    tb_next = ... # type: TracebackType
+    tb_frame = ...  # type: FrameType
+    tb_lasti = ...  # type: int
+    tb_lineno = ...  # type: int
+    tb_next = ...  # type: TracebackType
 
 class FrameType:
-    f_back = ... # type: FrameType
-    f_builtins = ... # type: Dict[str, Any]
-    f_code = ... # type: CodeType
-    f_exc_type = ... # type: None
-    f_exc_value = ... # type: None
-    f_exc_traceback = ... # type: None
-    f_globals = ... # type: Dict[str, Any]
-    f_lasti = ... # type: int
-    f_lineno = ... # type: int
-    f_locals = ... # type: Dict[str, Any]
-    f_restricted = ... # type: bool
-    f_trace = ... # type: Callable[[], None]
+    f_back = ...  # type: FrameType
+    f_builtins = ...  # type: Dict[str, Any]
+    f_code = ...  # type: CodeType
+    f_exc_type = ...  # type: None
+    f_exc_value = ...  # type: None
+    f_exc_traceback = ...  # type: None
+    f_globals = ...  # type: Dict[str, Any]
+    f_lasti = ...  # type: int
+    f_lineno = ...  # type: int
+    f_locals = ...  # type: Dict[str, Any]
+    f_restricted = ...  # type: bool
+    f_trace = ...  # type: Callable[[], None]
 
     def clear(self) -> None: pass
 

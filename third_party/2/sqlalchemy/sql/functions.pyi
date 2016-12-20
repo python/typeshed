@@ -13,8 +13,8 @@ class _FunctionGenerator(object):
     def __getattr__(self, name): ...
     def __call__(self, *c, **kwargs) -> Function: ...
 
-func = ... # type: _FunctionGenerator
-modifier = ... # type: _FunctionGenerator
+func = ...  # type: _FunctionGenerator
+modifier = ...  # type: _FunctionGenerator
 
 class Function(FunctionElement): ...
 

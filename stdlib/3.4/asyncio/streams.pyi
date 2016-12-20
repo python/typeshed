@@ -8,7 +8,7 @@ from . import events
 from . import protocols
 from . import transports
 
-__all__ = ... # type: str
+__all__ = ...  # type: str
 
 class IncompleteReadError(EOFError):
     def __init__(self, partial: str, expected: int) -> None: ...

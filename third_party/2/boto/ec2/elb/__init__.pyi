@@ -5,16 +5,16 @@
 from typing import Any
 from boto.connection import AWSQueryConnection
 
-RegionData = ... # type: Any
+RegionData = ...  # type: Any
 
 def regions(): ...
 def connect_to_region(region_name, **kw_params): ...
 
 class ELBConnection(AWSQueryConnection):
-    APIVersion = ... # type: Any
-    DefaultRegionName = ... # type: Any
-    DefaultRegionEndpoint = ... # type: Any
-    region = ... # type: Any
+    APIVersion = ...  # type: Any
+    DefaultRegionName = ...  # type: Any
+    DefaultRegionEndpoint = ...  # type: Any
+    region = ...  # type: Any
     def __init__(self, aws_access_key_id=..., aws_secret_access_key=..., is_secure=..., port=..., proxy=..., proxy_port=..., proxy_user=..., proxy_pass=..., debug=..., https_connection_factory=..., region=..., path=..., security_token=..., validate_certs=..., profile_name=...) -> None: ...
     def build_list_params(self, params, items, label): ...
     def get_all_load_balancers(self, load_balancer_names=..., marker=...): ...

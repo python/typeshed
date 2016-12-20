@@ -29,21 +29,21 @@ LambdaType = FunctionType
 
 class CodeType:
     """Create a code object.  Not for the faint of heart."""
-    co_argcount = ... # type: int
-    co_kwonlyargcount = ... # type: int
-    co_nlocals = ... # type: int
-    co_stacksize = ... # type: int
-    co_flags = ... # type: int
-    co_code = ... # type: bytes
-    co_consts = ... # type: Tuple[Any, ...]
-    co_names = ... # type: Tuple[str, ...]
-    co_varnames = ... # type: Tuple[str, ...]
-    co_filename = ... # type: Optional[str]
-    co_name = ... # type: str
-    co_firstlineno = ... # type: int
-    co_lnotab = ... # type: bytes
-    co_freevars = ... # type: Tuple[str, ...]
-    co_cellvars = ... # type: Tuple[str, ...]
+    co_argcount = ...  # type: int
+    co_kwonlyargcount = ...  # type: int
+    co_nlocals = ...  # type: int
+    co_stacksize = ...  # type: int
+    co_flags = ...  # type: int
+    co_code = ...  # type: bytes
+    co_consts = ...  # type: Tuple[Any, ...]
+    co_names = ...  # type: Tuple[str, ...]
+    co_varnames = ...  # type: Tuple[str, ...]
+    co_filename = ...  # type: Optional[str]
+    co_name = ...  # type: str
+    co_firstlineno = ...  # type: int
+    co_lnotab = ...  # type: bytes
+    co_freevars = ...  # type: Tuple[str, ...]
+    co_cellvars = ...  # type: Tuple[str, ...]
     def __init__(self,
             argcount: int,
             kwonlyargcount: int,
@@ -111,20 +111,20 @@ BuiltinMethodType = BuiltinFunctionType
 from _importlib_modulespec import ModuleType as ModuleType  # Exported
 
 class TracebackType:
-    tb_frame = ... # type: FrameType
-    tb_lasti = ... # type: int
-    tb_lineno = ... # type: int
-    tb_next = ... # type: TracebackType
+    tb_frame = ...  # type: FrameType
+    tb_lasti = ...  # type: int
+    tb_lineno = ...  # type: int
+    tb_next = ...  # type: TracebackType
 
 class FrameType:
-    f_back = ... # type: FrameType
-    f_builtins = ... # type: Dict[str, Any]
-    f_code = ... # type: CodeType
-    f_globals = ... # type: Dict[str, Any]
-    f_lasti = ... # type: int
-    f_lineno = ... # type: int
-    f_locals = ... # type: Dict[str, Any]
-    f_trace = ... # type: Callable[[], None]
+    f_back = ...  # type: FrameType
+    f_builtins = ...  # type: Dict[str, Any]
+    f_code = ...  # type: CodeType
+    f_globals = ...  # type: Dict[str, Any]
+    f_lasti = ...  # type: int
+    f_lineno = ...  # type: int
+    f_locals = ...  # type: Dict[str, Any]
+    f_trace = ...  # type: Callable[[], None]
 
     def clear(self) -> None: pass
 

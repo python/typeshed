@@ -148,16 +148,16 @@ else:
     class PathFinder: ...
 
 if sys.version_info >= (3, 3):
-    SOURCE_SUFFIXES = ... # type: List[str]
-    DEBUG_BYTECODE_SUFFIXES = ... # type: List[str]
-    OPTIMIZED_BYTECODE_SUFFIXES = ... # type: List[str]
-    BYTECODE_SUFFIXES = ... # type: List[str]
-    EXTENSION_SUFFIXES = ... # type: List[str]
+    SOURCE_SUFFIXES = ...  # type: List[str]
+    DEBUG_BYTECODE_SUFFIXES = ...  # type: List[str]
+    OPTIMIZED_BYTECODE_SUFFIXES = ...  # type: List[str]
+    BYTECODE_SUFFIXES = ...  # type: List[str]
+    EXTENSION_SUFFIXES = ...  # type: List[str]
 
     def all_suffixes() -> List[str]: ...
 
     class FileFinder(importlib.abc.PathEntryFinder):
-        path = ... # type: str
+        path = ...  # type: str
         def __init__(self, path: str,
                      *loader_details: Tuple[importlib.abc.Loader, List[str]]
                     ) -> None: ...

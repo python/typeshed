@@ -10,14 +10,14 @@ threading = util.threading
 memoized_property = util.memoized_property
 chop_traceback = util.chop_traceback
 
-proxies = ... # type: Any
+proxies = ...  # type: Any
 
 def manage(module, **params): ...
 def clear_managers(): ...
 
-reset_rollback = ... # type: Any
-reset_commit = ... # type: Any
-reset_none = ... # type: Any
+reset_rollback = ...  # type: Any
+reset_commit = ...  # type: Any
+reset_none = ...  # type: Any
 
 class _ConnDialect:
     def do_rollback(self, dbapi_connection): ...
@@ -25,8 +25,8 @@ class _ConnDialect:
     def do_close(self, dbapi_connection): ...
 
 class Pool(log.Identified):
-    logging_name = ... # type: Any
-    echo = ... # type: Any
+    logging_name = ...  # type: Any
+    echo = ...  # type: Any
     def __init__(self, creator, recycle=..., echo=..., use_threadlocal=..., logging_name=..., reset_on_return=..., listeners=..., events=..., _dispatch=..., _dialect=...) -> None: ...
     def add_listener(self, listener): ...
     def unique_connection(self): ...
@@ -35,31 +35,31 @@ class Pool(log.Identified):
     def connect(self): ...
     def status(self): ...
 
-    _threadconns = ... # type: Any
-    _creator = ... # type: Any
-    _recycle = ... # type: Any
-    _invalidate_time = ... # type: Any
-    dispatch = ... # type: Any
-    _dialect = ... # type: Any
-    _orig_logging_name = ... # type: Any
-    _reset_on_return = ... # type: Any
-    _use_threadlocal = ... # type: Any
+    _threadconns = ...  # type: Any
+    _creator = ...  # type: Any
+    _recycle = ...  # type: Any
+    _invalidate_time = ...  # type: Any
+    dispatch = ...  # type: Any
+    _dialect = ...  # type: Any
+    _orig_logging_name = ...  # type: Any
+    _reset_on_return = ...  # type: Any
+    _use_threadlocal = ...  # type: Any
 
 class _ConnectionRecord:
-    connection = ... # type: Any
-    finalize_callback = ... # type: Any
+    connection = ...  # type: Any
+    finalize_callback = ...  # type: Any
     def __init__(self, pool) -> None: ...
     def info(self): ...
     @classmethod
     def checkout(cls, pool): ...
-    fairy_ref = ... # type: Any
+    fairy_ref = ...  # type: Any
     def checkin(self): ...
     def close(self): ...
     def invalidate(self, e=..., soft=...): ...
     def get_connection(self): ...
 
 class _ConnectionFairy:
-    connection = ... # type: Any
+    connection = ...  # type: Any
     def __init__(self, dbapi_connection, connection_record, echo) -> None: ...
     @property
     def is_valid(self): ...
@@ -71,7 +71,7 @@ class _ConnectionFairy:
     def close(self): ...
 
 class SingletonThreadPool(Pool):
-    size = ... # type: Any
+    size = ...  # type: Any
     def __init__(self, creator, pool_size=..., **kw) -> None: ...
     def recreate(self): ...
     def dispose(self): ...
@@ -105,10 +105,10 @@ class AssertionPool(Pool):
     def recreate(self): ...
 
 class _DBProxy:
-    module = ... # type: Any
-    kw = ... # type: Any
-    poolclass = ... # type: Any
-    pools = ... # type: Any
+    module = ...  # type: Any
+    kw = ...  # type: Any
+    poolclass = ...  # type: Any
+    pools = ...  # type: Any
     def __init__(self, module, poolclass=..., **kw) -> None: ...
     def close(self): ...
     def __del__(self): ...

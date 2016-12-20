@@ -1,6 +1,6 @@
 from typing import TypeVar, Generic
 
-__all__ = ... # type: str
+__all__ = ...  # type: str
 
 from asyncio.events import AbstractEventLoop
 from .coroutines import coroutine

@@ -281,7 +281,7 @@ class TextIO(IO[unicode]):
     @property
     def line_buffering(self) -> bool: ...
     @property
-    def newlines(self) -> Any: ... # None, str or tuple
+    def newlines(self) -> Any: ...  # None, str or tuple
     @abstractmethod
     def __enter__(self) -> TextIO: ...
 

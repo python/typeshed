@@ -30,16 +30,16 @@ O_DSYNC = 0    # Unix only
 O_RSYNC = 0    # Unix only
 O_SYNC = 0     # Unix only
 O_NDELAY = 0   # Unix only
-O_NONBLOCK = 0 # Unix only
+O_NONBLOCK = 0  # Unix only
 O_NOCTTY = 0   # Unix only
 O_SHLOCK = 0   # Unix only
 O_EXLOCK = 0   # Unix only
 O_BINARY = 0     # Windows only
 O_NOINHERIT = 0  # Windows only
-O_SHORT_LIVED = 0# Windows only
+O_SHORT_LIVED = 0  # Windows only
 O_TEMPORARY = 0  # Windows only
 O_RANDOM = 0     # Windows only
-O_SEQUENTIAL = 0 # Windows only
+O_SEQUENTIAL = 0  # Windows only
 O_TEXT = 0       # Windows only
 O_ASYNC = 0      # Gnu extension if in C library
 O_DIRECT = 0     # Gnu extension if in C library
@@ -56,7 +56,7 @@ pathsep = ...  # type: str
 defpath = ...  # type: str
 linesep = ...  # type: str
 devnull = ...  # type: str
-name = ... # type: str
+name = ...  # type: str
 
 F_OK = 0
 R_OK = 0
@@ -70,7 +70,7 @@ environ = ...  # type: _Environ[str]
 environb = ...  # type: _Environ[bytes]
 
 confstr_names = ...  # type: Dict[str, int]  # Unix only
-pathconf_names = ...  # type: Dict[str, int] # Unix only
+pathconf_names = ...  # type: Dict[str, int]  # Unix only
 sysconf_names = ...  # type: Dict[str, int]  # Unix only
 
 EX_OK = 0        # Unix only
@@ -83,7 +83,7 @@ EX_UNAVAILABLE = 0  # Unix only
 EX_SOFTWARE = 0  # Unix only
 EX_OSERR = 0     # Unix only
 EX_OSFILE = 0    # Unix only
-EX_CANTCREAT = 0 # Unix only
+EX_CANTCREAT = 0  # Unix only
 EX_IOERR = 0     # Unix only
 EX_TEMPFAIL = 0  # Unix only
 EX_PROTOCOL = 0  # Unix only
@@ -131,22 +131,22 @@ class stat_result:
     # st_ino, st_dev, st_nlink, st_uid, st_gid, st_size, st_atime, st_mtime,
     # st_ctime. More items may be added at the end by some implementations.
 
-    st_mode = 0 # protection bits,
-    st_ino = 0 # inode number,
-    st_dev = 0 # device,
-    st_nlink = 0 # number of hard links,
-    st_uid = 0 # user id of owner,
-    st_gid = 0 # group id of owner,
-    st_size = 0 # size of file, in bytes,
-    st_atime = 0.0 # time of most recent access,
-    st_mtime = 0.0 # time of most recent content modification,
-    st_ctime = 0.0 # platform dependent (time of most recent metadata change
+    st_mode = 0  # protection bits,
+    st_ino = 0  # inode number,
+    st_dev = 0  # device,
+    st_nlink = 0  # number of hard links,
+    st_uid = 0  # user id of owner,
+    st_gid = 0  # group id of owner,
+    st_size = 0  # size of file, in bytes,
+    st_atime = 0.0  # time of most recent access,
+    st_mtime = 0.0  # time of most recent content modification,
+    st_ctime = 0.0  # platform dependent (time of most recent metadata change
                    # on  Unix, or the time of creation on Windows)
 
     if sys.version_info >= (3, 3):
-        st_atime_ns = 0 # time of most recent access, in nanoseconds
-        st_mtime_ns = 0 # time of most recent content modification in nanoseconds
-        st_ctime_ns = 0 # platform dependent (time of most recent metadata change
+        st_atime_ns = 0  # time of most recent access, in nanoseconds
+        st_mtime_ns = 0  # time of most recent content modification in nanoseconds
+        st_ctime_ns = 0  # platform dependent (time of most recent metadata change
                         # on  Unix, or the time of creation on Windows) in nanoseconds
 
     # not documented
@@ -154,15 +154,15 @@ class stat_result:
 
     # On some Unix systems (such as Linux), the following attributes may also
     # be available:
-    st_blocks = 0 # number of blocks allocated for file
-    st_blksize = 0 # filesystem blocksize
-    st_rdev = 0 # type of device if an inode device
-    st_flags = 0 # user defined flags for file
+    st_blocks = 0  # number of blocks allocated for file
+    st_blksize = 0  # filesystem blocksize
+    st_rdev = 0  # type of device if an inode device
+    st_flags = 0  # user defined flags for file
 
     # On other Unix systems (such as FreeBSD), the following attributes may be
     # available (but may be only filled out if root tries to use them):
-    st_gen = 0 # file generation number
-    st_birthtime = 0 # time of file creation
+    st_gen = 0  # file generation number
+    st_birthtime = 0  # time of file creation
 
     # On Mac OS systems, the following attributes may also be available:
     st_rsize = 0
@@ -291,7 +291,7 @@ if sys.version_info >= (3, 5):
     def scandir(path: bytes) -> Iterator[DirEntry]: ...
 def stat(path: AnyStr) -> stat_result: ...
 def stat_float_times(newvalue: Union[bool, None] = ...) -> bool: ...
-def statvfs(path: str) -> statvfs_result: ... # Unix only
+def statvfs(path: str) -> statvfs_result: ...  # Unix only
 def symlink(source: AnyStr, link_name: AnyStr,
             target_is_directory: bool = ...) -> None:
     ...  # final argument in Windows only
@@ -306,10 +306,10 @@ def walk(top: AnyStr, topdown: bool = ..., onerror: Any = ...,
 def abort() -> 'None': ...
 def execl(path: AnyStr, arg0: AnyStr, *args: AnyStr) -> None: ...
 def execle(path: AnyStr, arg0: AnyStr,
-           *args: Any) -> None: ... # Imprecise signature
+           *args: Any) -> None: ...  # Imprecise signature
 def execlp(path: AnyStr, arg0: AnyStr, *args: AnyStr) -> None: ...
 def execlpe(path: AnyStr, arg0: AnyStr,
-            *args: Any) -> None: ... # Imprecise signature
+            *args: Any) -> None: ...  # Imprecise signature
 def execv(path: AnyStr, args: Union[Tuple[AnyStr], List[AnyStr]]) -> None: ...
 def execve(path: AnyStr, args: Union[Tuple[AnyStr], List[AnyStr]], env: Mapping[AnyStr, AnyStr]) -> None: ...
 def execvp(file: AnyStr, args: Union[Tuple[AnyStr], List[AnyStr]]) -> None: ...
@@ -328,15 +328,15 @@ class popen(_TextIOWrapper):
     # TODO 'b' modes or bytes command not accepted?
     def __init__(self, command: str, mode: str = ...,
                  bufsize: int = ...) -> None: ...
-    def close(self) -> Any: ... # may return int
+    def close(self) -> Any: ...  # may return int
 
 def spawnl(mode: int, path: AnyStr, arg0: AnyStr, *args: AnyStr) -> int: ...
 def spawnle(mode: int, path: AnyStr, arg0: AnyStr,
-            *args: Any) -> int: ... # Imprecise sig
+            *args: Any) -> int: ...  # Imprecise sig
 def spawnlp(mode: int, file: AnyStr, arg0: AnyStr,
             *args: AnyStr) -> int: ...  # Unix only TODO
 def spawnlpe(mode: int, file: AnyStr, arg0: AnyStr, *args: Any) -> int:
-    ... # Imprecise signature; Unix only TODO
+    ...  # Imprecise signature; Unix only TODO
 def spawnv(mode: int, path: AnyStr, args: List[AnyStr]) -> int: ...
 def spawnve(mode: int, path: AnyStr, args: List[AnyStr],
             env: Mapping[str, str]) -> int: ...

@@ -4,13 +4,13 @@
 
 from typing import Any
 
-HAVE_HTTPS_CONNECTION = ... # type: Any
-ON_APP_ENGINE = ... # type: Any
-PORTS_BY_SECURITY = ... # type: Any
-DEFAULT_CA_CERTS_FILE = ... # type: Any
+HAVE_HTTPS_CONNECTION = ...  # type: Any
+ON_APP_ENGINE = ...  # type: Any
+PORTS_BY_SECURITY = ...  # type: Any
+DEFAULT_CA_CERTS_FILE = ...  # type: Any
 
 class HostConnectionPool:
-    queue = ... # type: Any
+    queue = ...  # type: Any
     def __init__(self) -> None: ...
     def size(self): ...
     def put(self, conn): ...
@@ -18,11 +18,11 @@ class HostConnectionPool:
     def clean(self): ...
 
 class ConnectionPool:
-    CLEAN_INTERVAL = ... # type: Any
-    STALE_DURATION = ... # type: Any
-    host_to_pool = ... # type: Any
-    last_clean_time = ... # type: Any
-    mutex = ... # type: Any
+    CLEAN_INTERVAL = ...  # type: Any
+    STALE_DURATION = ...  # type: Any
+    host_to_pool = ...  # type: Any
+    last_clean_time = ...  # type: Any
+    mutex = ...  # type: Any
     def __init__(self) -> None: ...
     def size(self): ...
     def get_http_connection(self, host, port, is_secure): ...
@@ -30,56 +30,56 @@ class ConnectionPool:
     def clean(self): ...
 
 class HTTPRequest:
-    method = ... # type: Any
-    protocol = ... # type: Any
-    host = ... # type: Any
-    port = ... # type: Any
-    path = ... # type: Any
-    auth_path = ... # type: Any
-    params = ... # type: Any
-    headers = ... # type: Any
-    body = ... # type: Any
+    method = ...  # type: Any
+    protocol = ...  # type: Any
+    host = ...  # type: Any
+    port = ...  # type: Any
+    path = ...  # type: Any
+    auth_path = ...  # type: Any
+    params = ...  # type: Any
+    headers = ...  # type: Any
+    body = ...  # type: Any
     def __init__(self, method, protocol, host, port, path, auth_path, params, headers, body) -> None: ...
     def authorize(self, connection, **kwargs): ...
 
 class AWSAuthConnection:
-    suppress_consec_slashes = ... # type: Any
-    num_retries = ... # type: Any
-    is_secure = ... # type: Any
-    https_validate_certificates = ... # type: Any
-    ca_certificates_file = ... # type: Any
-    port = ... # type: Any
-    http_exceptions = ... # type: Any
-    http_unretryable_exceptions = ... # type: Any
-    socket_exception_values = ... # type: Any
-    https_connection_factory = ... # type: Any
-    protocol = ... # type: Any
-    host = ... # type: Any
-    path = ... # type: Any
-    debug = ... # type: Any
-    host_header = ... # type: Any
-    http_connection_kwargs = ... # type: Any
-    provider = ... # type: Any
-    auth_service_name = ... # type: Any
-    request_hook = ... # type: Any
+    suppress_consec_slashes = ...  # type: Any
+    num_retries = ...  # type: Any
+    is_secure = ...  # type: Any
+    https_validate_certificates = ...  # type: Any
+    ca_certificates_file = ...  # type: Any
+    port = ...  # type: Any
+    http_exceptions = ...  # type: Any
+    http_unretryable_exceptions = ...  # type: Any
+    socket_exception_values = ...  # type: Any
+    https_connection_factory = ...  # type: Any
+    protocol = ...  # type: Any
+    host = ...  # type: Any
+    path = ...  # type: Any
+    debug = ...  # type: Any
+    host_header = ...  # type: Any
+    http_connection_kwargs = ...  # type: Any
+    provider = ...  # type: Any
+    auth_service_name = ...  # type: Any
+    request_hook = ...  # type: Any
     def __init__(self, host, aws_access_key_id=..., aws_secret_access_key=..., is_secure=..., port=..., proxy=..., proxy_port=..., proxy_user=..., proxy_pass=..., debug=..., https_connection_factory=..., path=..., provider=..., security_token=..., suppress_consec_slashes=..., validate_certs=..., profile_name=...) -> None: ...
-    auth_region_name = ... # type: Any
+    auth_region_name = ...  # type: Any
     def connection(self): ...
     def aws_access_key_id(self): ...
-    gs_access_key_id = ... # type: Any
-    access_key = ... # type: Any
+    gs_access_key_id = ...  # type: Any
+    access_key = ...  # type: Any
     def aws_secret_access_key(self): ...
-    gs_secret_access_key = ... # type: Any
-    secret_key = ... # type: Any
+    gs_secret_access_key = ...  # type: Any
+    secret_key = ...  # type: Any
     def profile_name(self): ...
     def get_path(self, path=...): ...
     def server_name(self, port=...): ...
-    proxy = ... # type: Any
-    proxy_port = ... # type: Any
-    proxy_user = ... # type: Any
-    proxy_pass = ... # type: Any
-    no_proxy = ... # type: Any
-    use_proxy = ... # type: Any
+    proxy = ...  # type: Any
+    proxy_port = ...  # type: Any
+    proxy_user = ...  # type: Any
+    proxy_pass = ...  # type: Any
+    no_proxy = ...  # type: Any
+    use_proxy = ...  # type: Any
     def handle_proxy(self, proxy, proxy_port, proxy_user, proxy_pass): ...
     def get_http_connection(self, host, port, is_secure): ...
     def skip_proxy(self, host): ...
@@ -96,8 +96,8 @@ class AWSAuthConnection:
     def close(self): ...
 
 class AWSQueryConnection(AWSAuthConnection):
-    APIVersion = ... # type: Any
-    ResponseError = ... # type: Any
+    APIVersion = ...  # type: Any
+    ResponseError = ...  # type: Any
     def __init__(self, aws_access_key_id=..., aws_secret_access_key=..., is_secure=..., port=..., proxy=..., proxy_port=..., proxy_user=..., proxy_pass=..., host=..., debug=..., https_connection_factory=..., path=..., security_token=..., validate_certs=..., profile_name=..., provider=...) -> None: ...
     def get_utf8_value(self, value): ...
     def make_request(self, action, params=..., path=..., verb=...): ...

@@ -13,8 +13,8 @@ class _SessionClassMethods:
     def object_session(cls, instance): ...
 
 class SessionTransaction:
-    session = ... # type: Any
-    nested = ... # type: Any
+    session = ...  # type: Any
+    nested = ...  # type: Any
     def __init__(self, session, parent=..., nested=...) -> None: ...
     @property
     def is_active(self): ...
@@ -27,17 +27,17 @@ class SessionTransaction:
     def __exit__(self, type, value, traceback): ...
 
 class Session(_SessionClassMethods):
-    public_methods = ... # type: Any
-    identity_map = ... # type: Any
-    bind = ... # type: Any
-    transaction = ... # type: Any
-    hash_key = ... # type: Any
-    autoflush = ... # type: Any
-    autocommit = ... # type: Any
-    expire_on_commit = ... # type: Any
-    twophase = ... # type: Any
+    public_methods = ...  # type: Any
+    identity_map = ...  # type: Any
+    bind = ...  # type: Any
+    transaction = ...  # type: Any
+    hash_key = ...  # type: Any
+    autoflush = ...  # type: Any
+    autocommit = ...  # type: Any
+    expire_on_commit = ...  # type: Any
+    twophase = ...  # type: Any
     def __init__(self, bind=..., autoflush=..., expire_on_commit=..., _enable_transaction_accounting=..., autocommit=..., twophase=..., weak_identity_map=..., binds=..., extension=..., info=..., query_cls=...) -> None: ...
-    connection_callable = ... # type: Any
+    connection_callable = ...  # type: Any
     def info(self): ...
     def begin(self, subtransactions=..., nested=...): ...
     def begin_nested(self): ...
@@ -83,8 +83,8 @@ class Session(_SessionClassMethods):
     def new(self): ...
 
 class sessionmaker(_SessionClassMethods):
-    kw = ... # type: Any
-    class_ = ... # type: Any
+    kw = ...  # type: Any
+    class_ = ...  # type: Any
     def __init__(self, bind=..., class_=..., autoflush=..., autocommit=..., expire_on_commit=..., info=..., **kw) -> None: ...
     def __call__(self, **local_kw): ...
     def configure(self, **new_kw): ...

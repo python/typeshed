@@ -24,29 +24,29 @@ class Testable(metaclass=ABCMeta):
 # TODO ABC for test runners?
 
 class TestResult:
-    errors = ... # type: List[Tuple[Testable, str]]
-    failures = ... # type: List[Tuple[Testable, str]]
+    errors = ...  # type: List[Tuple[Testable, str]]
+    failures = ...  # type: List[Tuple[Testable, str]]
     testsRun = 0
-    shouldStop = ... # type: bool
+    shouldStop = ...  # type: bool
 
     def wasSuccessful(self) -> bool: ...
     def stop(self) -> None: ...
     def startTest(self, test: Testable) -> None: ...
     def stopTest(self, test: Testable) -> None: ...
     def addError(self, test: Testable,
-                  err: Tuple[type, Any, Any]) -> None: ... # TODO
+                  err: Tuple[type, Any, Any]) -> None: ...  # TODO
     def addFailure(self, test: Testable,
-                    err: Tuple[type, Any, Any]) -> None: ... # TODO
+                    err: Tuple[type, Any, Any]) -> None: ...  # TODO
     def addSuccess(self, test: Testable) -> None: ...
 
 class _AssertRaisesBaseContext:
-    expected = ... # type: Any
-    failureException = ... # type: type
+    expected = ...  # type: Any
+    failureException = ...  # type: type
     obj_name = ...  # type: str
-    expected_regex = ... # type: Pattern[str]
+    expected_regex = ...  # type: Pattern[str]
 
 class _AssertRaisesContext(_AssertRaisesBaseContext):
-    exception = ... # type: Any # TODO precise type
+    exception = ...  # type: Any # TODO precise type
     def __enter__(self) -> _AssertRaisesContext: ...
     def __exit__(self, exc_type, exc_value, tb) -> bool: ...
 
@@ -131,7 +131,7 @@ class TestCase(Testable):
     def countTestCases(self) -> int: ...
     def defaultTestResult(self) -> TestResult: ...
     def id(self) -> str: ...
-    def shortDescription(self) -> str: ... # May return None
+    def shortDescription(self) -> str: ...  # May return None
     def addCleanup(function: Any, *args: Any, **kwargs: Any) -> None: ...
     def skipTest(self, reason: Any) -> None: ...
 
@@ -170,7 +170,7 @@ def skip(reason: str) -> Any: ...
 
 def main(module: str = ..., defaultTest: str = ...,
          argv: List[str] = ..., testRunner: Any = ...,
-         testLoader: Any = ...) -> None: ... # TODO types
+         testLoader: Any = ...) -> None: ...  # TODO types
 
 # private but occasionally used
 util = ...  # type: module

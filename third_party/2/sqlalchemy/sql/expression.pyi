@@ -7,8 +7,8 @@ from . import base
 from . import selectable
 from . import dml
 
-func = functions.func # type: functions._FunctionGenerator
-modifier = functions.modifier # type: functions._FunctionGenerator
+func = functions.func  # type: functions._FunctionGenerator
+modifier = functions.modifier  # type: functions._FunctionGenerator
 
 from .visitors import Visitable
 
@@ -28,40 +28,40 @@ from .selectable import Alias, Join, Select, Selectable, TableClause, \
     subquery, HasPrefixes, HasSuffixes, Exists, ScalarSelect, TextAsFrom
 from .dml import Insert, Update, Delete, UpdateBase, ValuesBase
 
-and_ = ... # type: Any
-or_ = ... # type: Any
-bindparam = ... # type: Any
-select = ... # type: Any
-text = ... # type: Any
-table = ... # type: Any
-column = ... # type: Any
-over = ... # type: Any
-label = ... # type: Any
-case = ... # type: Any
-cast = ... # type: Any
-extract = ... # type: Any
-tuple_ = ... # type: Any
-except_ = ... # type: Any
-except_all = ... # type: Any
-intersect = ... # type: Any
-intersect_all = ... # type: Any
-union = ... # type: Any
-union_all = ... # type: Any
-exists = ... # type: Any
-nullsfirst = ... # type: Any
-nullslast = ... # type: Any
-asc = ... # type: Any
-desc = ... # type: Any
-distinct = ... # type: Any
-true = ... # type: Any
-false = ... # type: Any
-null = ... # type: Any
-join = ... # type: Any
-outerjoin = ... # type: Any
-insert = ... # type: Any
-update = ... # type: Any
-delete = ... # type: Any
-funcfilter = ... # type: Any
+and_ = ...  # type: Any
+or_ = ...  # type: Any
+bindparam = ...  # type: Any
+select = ...  # type: Any
+text = ...  # type: Any
+table = ...  # type: Any
+column = ...  # type: Any
+over = ...  # type: Any
+label = ...  # type: Any
+case = ...  # type: Any
+cast = ...  # type: Any
+extract = ...  # type: Any
+tuple_ = ...  # type: Any
+except_ = ...  # type: Any
+except_all = ...  # type: Any
+intersect = ...  # type: Any
+intersect_all = ...  # type: Any
+union = ...  # type: Any
+union_all = ...  # type: Any
+exists = ...  # type: Any
+nullsfirst = ...  # type: Any
+nullslast = ...  # type: Any
+asc = ...  # type: Any
+desc = ...  # type: Any
+distinct = ...  # type: Any
+true = ...  # type: Any
+false = ...  # type: Any
+null = ...  # type: Any
+join = ...  # type: Any
+outerjoin = ...  # type: Any
+insert = ...  # type: Any
+update = ...  # type: Any
+delete = ...  # type: Any
+funcfilter = ...  # type: Any
 
 # old names for compatibility
 _Executable = Executable

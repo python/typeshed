@@ -31,7 +31,7 @@ def setcontext(c: Context) -> None: ...
 
 DecimalTuple = NamedTuple('DecimalTuple',
                           [('sign', int),
-                           ('digits', Sequence[int]), # TODO: Use Tuple[int, ...]
+                           ('digits', Sequence[int]),  # TODO: Use Tuple[int, ...]
                            ('exponent', int)])
 
 class _ContextManager:

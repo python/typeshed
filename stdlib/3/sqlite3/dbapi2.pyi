@@ -6,62 +6,62 @@ from numbers import Integral
 from datetime import time, datetime
 from collections import Iterable
 
-paramstyle = ... # type: str
-threadsafety = ... # type: int
-apilevel = ... # type: str
-Date = ... # type: datetime
-Time = ... # type: time
-Timestamp = ... # type: datetime
+paramstyle = ...  # type: str
+threadsafety = ...  # type: int
+apilevel = ...  # type: str
+Date = ...  # type: datetime
+Time = ...  # type: time
+Timestamp = ...  # type: datetime
 
 def DateFromTicks(ticks): ...
 def TimeFromTicks(ticks): ...
 def TimestampFromTicks(ticks): ...
 
-version_info = ... # type: Any
-sqlite_version_info = ... # type: Any
-Binary = ... # type: Any
+version_info = ...  # type: Any
+sqlite_version_info = ...  # type: Any
+Binary = ...  # type: Any
 
 def register_adapters_and_converters(): ...
 
 # The remaining definitions are imported from _sqlite3.
 
-PARSE_COLNAMES = ... # type: int
-PARSE_DECLTYPES = ... # type: int
-SQLITE_ALTER_TABLE = ... # type: int
-SQLITE_ANALYZE = ... # type: int
-SQLITE_ATTACH = ... # type: int
-SQLITE_CREATE_INDEX = ... # type: int
-SQLITE_CREATE_TABLE = ... # type: int
-SQLITE_CREATE_TEMP_INDEX = ... # type: int
-SQLITE_CREATE_TEMP_TABLE = ... # type: int
-SQLITE_CREATE_TEMP_TRIGGER = ... # type: int
-SQLITE_CREATE_TEMP_VIEW = ... # type: int
-SQLITE_CREATE_TRIGGER = ... # type: int
-SQLITE_CREATE_VIEW = ... # type: int
-SQLITE_DELETE = ... # type: int
-SQLITE_DENY = ... # type: int
-SQLITE_DETACH = ... # type: int
-SQLITE_DROP_INDEX = ... # type: int
-SQLITE_DROP_TABLE = ... # type: int
-SQLITE_DROP_TEMP_INDEX = ... # type: int
-SQLITE_DROP_TEMP_TABLE = ... # type: int
-SQLITE_DROP_TEMP_TRIGGER = ... # type: int
-SQLITE_DROP_TEMP_VIEW = ... # type: int
-SQLITE_DROP_TRIGGER = ... # type: int
-SQLITE_DROP_VIEW = ... # type: int
-SQLITE_IGNORE = ... # type: int
-SQLITE_INSERT = ... # type: int
-SQLITE_OK = ... # type: int
-SQLITE_PRAGMA = ... # type: int
-SQLITE_READ = ... # type: int
-SQLITE_REINDEX = ... # type: int
-SQLITE_SELECT = ... # type: int
-SQLITE_TRANSACTION = ... # type: int
-SQLITE_UPDATE = ... # type: int
-adapters = ... # type: Any
-converters = ... # type: Any
-sqlite_version = ... # type: str
-version = ... # type: str
+PARSE_COLNAMES = ...  # type: int
+PARSE_DECLTYPES = ...  # type: int
+SQLITE_ALTER_TABLE = ...  # type: int
+SQLITE_ANALYZE = ...  # type: int
+SQLITE_ATTACH = ...  # type: int
+SQLITE_CREATE_INDEX = ...  # type: int
+SQLITE_CREATE_TABLE = ...  # type: int
+SQLITE_CREATE_TEMP_INDEX = ...  # type: int
+SQLITE_CREATE_TEMP_TABLE = ...  # type: int
+SQLITE_CREATE_TEMP_TRIGGER = ...  # type: int
+SQLITE_CREATE_TEMP_VIEW = ...  # type: int
+SQLITE_CREATE_TRIGGER = ...  # type: int
+SQLITE_CREATE_VIEW = ...  # type: int
+SQLITE_DELETE = ...  # type: int
+SQLITE_DENY = ...  # type: int
+SQLITE_DETACH = ...  # type: int
+SQLITE_DROP_INDEX = ...  # type: int
+SQLITE_DROP_TABLE = ...  # type: int
+SQLITE_DROP_TEMP_INDEX = ...  # type: int
+SQLITE_DROP_TEMP_TABLE = ...  # type: int
+SQLITE_DROP_TEMP_TRIGGER = ...  # type: int
+SQLITE_DROP_TEMP_VIEW = ...  # type: int
+SQLITE_DROP_TRIGGER = ...  # type: int
+SQLITE_DROP_VIEW = ...  # type: int
+SQLITE_IGNORE = ...  # type: int
+SQLITE_INSERT = ...  # type: int
+SQLITE_OK = ...  # type: int
+SQLITE_PRAGMA = ...  # type: int
+SQLITE_READ = ...  # type: int
+SQLITE_REINDEX = ...  # type: int
+SQLITE_SELECT = ...  # type: int
+SQLITE_TRANSACTION = ...  # type: int
+SQLITE_UPDATE = ...  # type: int
+adapters = ...  # type: Any
+converters = ...  # type: Any
+sqlite_version = ...  # type: str
+version = ...  # type: str
 
 # TODO: adapt needs to get probed
 def adapt(obj, protocol, alternate): ...
@@ -85,21 +85,21 @@ class Cache:
     def get(self, *args, **kwargs) -> None: ...
 
 class Connection:
-    DataError = ... # type: Any
-    DatabaseError = ... # type: Any
-    Error = ... # type: Any
-    IntegrityError = ... # type: Any
-    InterfaceError = ... # type: Any
-    InternalError = ... # type: Any
-    NotSupportedError = ... # type: Any
-    OperationalError = ... # type: Any
-    ProgrammingError = ... # type: Any
-    Warning = ... # type: Any
-    in_transaction = ... # type: Any
-    isolation_level = ... # type: Any
-    row_factory = ... # type: Any
-    text_factory = ... # type: Any
-    total_changes = ... # type: Any
+    DataError = ...  # type: Any
+    DatabaseError = ...  # type: Any
+    Error = ...  # type: Any
+    IntegrityError = ...  # type: Any
+    InterfaceError = ...  # type: Any
+    InternalError = ...  # type: Any
+    NotSupportedError = ...  # type: Any
+    OperationalError = ...  # type: Any
+    ProgrammingError = ...  # type: Any
+    Warning = ...  # type: Any
+    in_transaction = ...  # type: Any
+    isolation_level = ...  # type: Any
+    row_factory = ...  # type: Any
+    text_factory = ...  # type: Any
+    total_changes = ...  # type: Any
     def __init__(self, *args, **kwargs): ...
     def close(self) -> None: ...
     def commit(self) -> None: ...
@@ -126,12 +126,12 @@ class Connection:
     def __exit__(self, *args, **kwargs): ...
 
 class Cursor(Iterator[Any]):
-    arraysize = ... # type: Any
-    connection = ... # type: Any
-    description = ... # type: Any
-    lastrowid = ... # type: Any
-    row_factory = ... # type: Any
-    rowcount = ... # type: Any
+    arraysize = ...  # type: Any
+    connection = ...  # type: Any
+    description = ...  # type: Any
+    lastrowid = ...  # type: Any
+    row_factory = ...  # type: Any
+    rowcount = ...  # type: Any
     # TODO: Cursor class accepts exactly 1 argument
     # required type is sqlite3.Connection (which is imported as _Connection)
     # however, the name of the __init__ variable is unknown
@@ -166,7 +166,7 @@ class NotSupportedError(DatabaseError): ...
 class OperationalError(DatabaseError): ...
 
 class OptimizedUnicode:
-    maketrans = ... # type: Any
+    maketrans = ...  # type: Any
     def __init__(self, *args, **kwargs): ...
     def capitalize(self, *args, **kwargs): ...
     def casefold(self, *args, **kwargs): ...

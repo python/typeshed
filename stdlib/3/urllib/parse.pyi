@@ -40,10 +40,10 @@ class _ResultMixinBytes(_ResultMixinBase[str]):
 
 
 class _NetlocResultMixinBase(Generic[AnyStr]):
-    username = ... # type: AnyStr
-    password = ... # type: AnyStr
-    hostname = ... # type: AnyStr
-    port = ... # type: int
+    username = ...  # type: AnyStr
+    password = ...  # type: AnyStr
+    hostname = ...  # type: AnyStr
+    port = ...  # type: int
 
 class _NetlocResultMixinStr(_NetlocResultMixinBase[str], _ResultMixinStr): ...
 
@@ -51,23 +51,23 @@ class _NetlocResultMixinStr(_NetlocResultMixinBase[str], _ResultMixinStr): ...
 class _NetlocResultMixinBytes(_NetlocResultMixinBase[str], _ResultMixinBytes): ...
 
 class _DefragResultBase(tuple, Generic[AnyStr]):
-    url = ... # type: AnyStr
-    fragment = ... # type: AnyStr
+    url = ...  # type: AnyStr
+    fragment = ...  # type: AnyStr
 
 class _SplitResultBase(tuple, Generic[AnyStr]):
-    scheme = ... # type: AnyStr
-    netloc = ... # type: AnyStr
-    path = ... # type: AnyStr
-    query = ... # type: AnyStr
-    fragment = ... # type: AnyStr
+    scheme = ...  # type: AnyStr
+    netloc = ...  # type: AnyStr
+    path = ...  # type: AnyStr
+    query = ...  # type: AnyStr
+    fragment = ...  # type: AnyStr
 
 class _ParseResultBase(tuple, Generic[AnyStr]):
-    scheme = ... # type: AnyStr
-    netloc = ... # type: AnyStr
-    path = ... # type: AnyStr
-    params = ... # type: AnyStr
-    query = ... # type: AnyStr
-    fragment = ... # type: AnyStr
+    scheme = ...  # type: AnyStr
+    netloc = ...  # type: AnyStr
+    path = ...  # type: AnyStr
+    params = ...  # type: AnyStr
+    query = ...  # type: AnyStr
+    fragment = ...  # type: AnyStr
 
 # Structured result objects for string data
 class DefragResult(_DefragResultBase[str], _ResultMixinStr): ...

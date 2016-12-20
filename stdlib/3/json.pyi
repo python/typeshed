@@ -32,7 +32,7 @@ def dump(obj: Any,
     **kwds: Any) -> None: ...
 
 def loads(s: str,
-    encoding: Any = ..., # ignored and deprecated
+    encoding: Any = ...,  # ignored and deprecated
     cls: Any = ...,
     object_hook: Optional[Callable[[Dict], Any]] = ...,
     parse_float: Optional[Callable[[str], Any]] = ...,

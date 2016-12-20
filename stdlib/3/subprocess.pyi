@@ -180,8 +180,8 @@ else:
 
 
 # TODO types
-PIPE = ... # type: Any
-STDOUT = ... # type: Any
+PIPE = ...  # type: Any
+STDOUT = ...  # type: Any
 if sys.version_info >= (3, 3):
     DEVNULL = ...  # type: Any
     class SubprocessError(Exception): ...
@@ -191,7 +191,7 @@ if sys.version_info >= (3, 3):
 class CalledProcessError(Exception):
     returncode = 0
     cmd = ...  # type: str
-    output = b'' # May be None
+    output = b''  # May be None
 
     if sys.version_info >= (3, 5):
         stdout = b''
@@ -201,9 +201,9 @@ class CalledProcessError(Exception):
                  stderr: Optional[str] = ...) -> None: ...
 
 class Popen:
-    stdin = ... # type: IO[Any]
-    stdout = ... # type: IO[Any]
-    stderr = ... # type: IO[Any]
+    stdin = ...  # type: IO[Any]
+    stdout = ...  # type: IO[Any]
+    stderr = ...  # type: IO[Any]
     pid = 0
     returncode = 0
 

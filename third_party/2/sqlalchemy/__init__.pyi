@@ -121,4 +121,4 @@ from . import pool as pool
 from .inspection import inspect
 from .engine import create_engine, engine_from_config
 
-__version__ = ... # type: int
+__version__ = ...  # type: int

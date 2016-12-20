@@ -3,7 +3,7 @@ from typing import (Any, TypeVar, Set, Dict, List, TextIO, Union, Tuple, Generic
                     Optional)
 import concurrent.futures
 
-__all__ = ... # type: str
+__all__ = ...  # type: str
 
 from .events import AbstractEventLoop
 from .futures import Future
@@ -41,7 +41,7 @@ class Task(Future[_T], Generic[_T]):
     @classmethod
     def all_tasks(cls, loop: AbstractEventLoop = ...) -> Set[Task]: ...
 
-    # Can't use a union, see mypy issue #1873.
+    # Can't use a union, see mypy issue  #1873.
     @overload
     def __init__(self, coro: Generator[Any, None, _T],
                  *, loop: AbstractEventLoop = ...) -> None: ...

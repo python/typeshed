@@ -26,7 +26,7 @@ class module(ModuleType):
     def __dir__(self): ...
 
 
-__version__ = ... # type: Any
+__version__ = ...  # type: Any
 
 run_simple = serving.run_simple
 test_app = testapp.test_app

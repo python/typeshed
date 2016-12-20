@@ -1,7 +1,7 @@
 import logging
 from typing import Any
 
-rootlogger = ... # type: Any
+rootlogger = ...  # type: Any
 
 class Identified(object):
     def _should_log_debug(self) -> bool: ...

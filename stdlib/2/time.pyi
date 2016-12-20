@@ -8,7 +8,7 @@ accept2dyear = False
 altzone = 0
 daylight = 0
 timezone = 0
-tzname = ... # type: Tuple[str, str]
+tzname = ...  # type: Tuple[str, str]
 
 class struct_time(NamedTuple('_struct_time',
                              [('tm_year', int), ('tm_mon', int), ('tm_mday', int),
