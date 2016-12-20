@@ -67,7 +67,7 @@ version = ...  # type: str
 def adapt(obj, protocol, alternate): ...
 def complete_statement(sql: str) -> bool: ...
 def connect(database: Union[bytes, AnyStr],
-            timeout: float = ... ,
+            timeout: float = ...,
             detect_types: int = ...,
             isolation_level: Union[str, None] = ...,
             check_same_thread: bool = ...,

@@ -1,7 +1,7 @@
 from typing import List, Union, Iterator, Tuple, Optional, Any, IO, NamedTuple
 
 from opcode import (hasconst, hasname, hasjrel, hasjabs, haslocal, hascompare,
-                    hasfree, hasnargs, cmp_op, opname , opmap , HAVE_ARGUMENT,
+                    hasfree, hasnargs, cmp_op, opname, opmap, HAVE_ARGUMENT,
                     EXTENDED_ARG, stack_effect)
 
 import types

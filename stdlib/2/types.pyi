@@ -59,8 +59,8 @@ class CodeType:
     co_lnotab = ...  # type: str
     co_name = ...  # type: str
     co_names = ...  # type: Tuple[str, ...]
-    co_nlocals= ...  # type: int
-    co_stacksize= ...  # type: int
+    co_nlocals = ...  # type: int
+    co_stacksize = ...  # type: int
     co_varnames = ...  # type: Tuple[str, ...]
 
 class GeneratorType:
