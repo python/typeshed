@@ -1,4 +1,5 @@
 # Stubs for decimal (Python 3.4)
+# TODO: merge with stdlib/2.7/decimal.pyi
 
 from typing import (
     Any, Union, SupportsInt, SupportsFloat, SupportsAbs, SupportsRound, Sequence,
