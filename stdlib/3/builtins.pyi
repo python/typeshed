@@ -787,8 +787,8 @@ def zip(iter1: Iterable[_T1], iter2: Iterable[_T2],
 def zip(iter1: Iterable[_T1], iter2: Iterable[_T2], iter3: Iterable[_T3],
         iter4: Iterable[_T4]) -> Iterator[Tuple[_T1, _T2,
                                                _T3, _T4]]: ...  # TODO more than four iterables
-def __import__(name: str, globals: Dict[str, Any] = {}, locals: Dict[str, Any] = {},
-               fromlist: List[str] = [], level: int = -1) -> Any: ...
+def __import__(name: str, globals: Dict[str, Any] = ..., locals: Dict[str, Any] = ...,
+               fromlist: List[str] = ..., level: int = -1) -> Any: ...
 
 # Ellipsis
 

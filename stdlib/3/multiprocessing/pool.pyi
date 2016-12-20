@@ -17,11 +17,11 @@ class ThreadPool():
     def apply(self,
               func: Callable[..., Any],
               args: Iterable[Any]=(),
-              kwds: Dict[str, Any]={}) -> Any: ...
+              kwds: Dict[str, Any]=...) -> Any: ...
     def apply_async(self,
                 func: Callable[..., Any],
                 args: Iterable[Any]=(),
-                kwds: Dict[str, Any]={},
+                kwds: Dict[str, Any]=...,
                 callback: Callable[..., None] = None,
                 error_callback: Callable[[BaseException], None] = None) -> AsyncResult: ...
     def map(self,

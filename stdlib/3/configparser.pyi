@@ -129,7 +129,7 @@ class ConfigParser(RawConfigParser):
                  empty_lines_in_values: bool = ...,
                  default_section: str = ...,
                  interpolation: Interpolation = None,
-                 converters: _converters = {}) -> None: ...
+                 converters: _converters = ...) -> None: ...
 
 
 class Error(Exception):
