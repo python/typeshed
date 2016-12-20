@@ -14,9 +14,9 @@ DecimalTuple = NamedTuple('DecimalTuple',
                            ('exponent', int)])
 
 ROUND_DOWN = ...  # type: str
-ROUND_HALF_UP = ...  # type: str 
+ROUND_HALF_UP = ...  # type: str
 ROUND_HALF_EVEN = ...  # type: str
-ROUND_CEILING = ...  # type: str 
+ROUND_CEILING = ...  # type: str
 ROUND_FLOOR = ...  # type: str
 ROUND_UP = ...  # type: str
 ROUND_HALF_DOWN = ...  # type: str
@@ -155,16 +155,16 @@ class Decimal(SupportsAbs[Decimal], SupportsFloat, SupportsInt):
     def __format__(self, specifier, context=None, _localeconv=None) -> str: ...
 
 class _ContextManager:
-    new_context = ...  # type: Context 
+    new_context = ...  # type: Context
     saved_context = ...  # type: Context
     def __init__(self, new_context: Context) -> None: ...
     def __enter__(self): ...
     def __exit__(self, t, v, tb): ...
 
 class Context:
-    prec = ...  # type: int 
-    rounding = ...  # type: str 
-    Emin = ...  # type: int 
+    prec = ...  # type: int
+    rounding = ...  # type: str
+    Emin = ...  # type: int
     Emax = ...  # type: int
     capitals = ...  # type: int
     traps = ...  # type: Dict[type, bool]

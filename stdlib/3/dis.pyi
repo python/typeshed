@@ -22,7 +22,7 @@ Instruction = NamedTuple("Instruction", [
     ])
 
 
-# if sys.version_info >= (3, 4): 
+# if sys.version_info >= (3, 4):
 class Bytecode:
     codeobj = ...  # type: types.CodeType
     first_line = ...  # type: int
@@ -36,7 +36,7 @@ class Bytecode:
     @classmethod
     def from_traceback(cls, tb: types.TracebackType) -> Bytecode: ...
 
- 
+
 COMPILER_FLAG_NAMES = ...  # type:  Dict[int, str]
 
 
@@ -50,7 +50,7 @@ def findlinestarts(code: _have_code) -> Iterator[Tuple[int, int]]: ...
 
 # if sys.version_info >= (3, 2):
 def code_info(x: _have_code_or_string) -> str: ...
-    
+
 # `file` parameter requires sys.version_info >= (3, 4):
 def dis(x: _have_code_or_string = ..., *, file = ...) -> None: ...
 def distb(tb: types.TracebackType = ..., *, file: IO[str] = ...) -> None: ...

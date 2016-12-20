@@ -38,6 +38,3 @@ class NodeVisitor():
 
 class NodeTransformer(NodeVisitor):
     def generic_visit(self, node: AST) -> None: ...
-
-
-

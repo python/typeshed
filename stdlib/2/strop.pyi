@@ -70,4 +70,3 @@ def translate(s: str, table: str, deletechars: str = ...) -> str:
 
 def upper(s: str) -> str:
     raise DeprecationWarning()
-

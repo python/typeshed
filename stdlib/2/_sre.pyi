@@ -29,8 +29,8 @@ class SRE_Scanner(object):
 
 class SRE_Pattern(object):
     pattern = ...  # type: str
-    flags = ...  # type: int 
-    groups = ...  # type: int 
+    flags = ...  # type: int
+    groups = ...  # type: int
     groupindex = ...  # type: Mapping[int, int]
     indexgroup = ...  # type: Sequence[int]
     def findall(self, source: str, pos:int = ..., endpos:int = ...) -> List[Union[tuple, str]]: ...
