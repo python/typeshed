@@ -4,7 +4,7 @@ language: python
 matrix:
   include:
     - python: "3.5"
-      env: TEST_CMD="./tests/flake8_test.py"
+      env: TEST_CMD="flake8"
     - python: "3.5"
       env: TEST_CMD="./tests/mypy_test.py"
     - python: "2.7"
@@ -12,7 +12,7 @@ matrix:
 
 install:
   # pytype needs py-2.7, mypy needs py-3.2+. Additional logic in runtests.py
-  - if [[ $TRAVIS_PYTHON_VERSION == '3.5' ]]; then pip install -U git+git://github.com/python/mypy git+git://github.com/dropbox/typed_ast flake8-bugbear; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == '3.5' ]]; then pip install -U git+git://github.com/python/mypy git+git://github.com/dropbox/typed_ast flake8==3.2.1 flake8-bugbear flake8-pyi; fi
   - if [[ $TRAVIS_PYTHON_VERSION == '2.7' ]]; then pip install -U git+git://github.com/google/pytype; fi
 
 script:

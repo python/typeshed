@@ -116,7 +116,7 @@ mypy tests and flake8 tests by invoking:
 ```
 (.venv3)$ python tests/mypy_test.py
 ...
-(.venv3)$ python tests/flake8_test.py
+(.venv3)$ flake8
 ...
 ```
 To run the pytype tests, you need a separate virtual environment with
@@ -146,7 +146,7 @@ running mypy --python-version 3.2 --strict-optional # with 453 files
 running mypy --python-version 2.7 --strict-optional # with 502 files
 Running pytype tests...
 Ran pytype with 244 pyis, got 0 errors.
-Running flake8 on 886 .pyi files...
+Running flake8...
 flake8 run clean.
 (.venv3)$
 ```
