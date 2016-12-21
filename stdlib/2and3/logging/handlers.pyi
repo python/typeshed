@@ -5,7 +5,7 @@ from logging import Handler, FileHandler, LogRecord
 from socket import SocketType
 import ssl
 import sys
-from typing import Any, Callable, Optional, Tuple, Union, overload
+from typing import Any, Callable, List, Optional, Tuple, Union, overload
 if sys.version_info >= (3,):
     from queue import Queue
 else:

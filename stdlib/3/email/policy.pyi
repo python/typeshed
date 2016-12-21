@@ -1,7 +1,7 @@
 # Stubs for email.policy (Python 3.4)
 
 from abc import abstractmethod
-from typing import Any, Optional, Tuple, Union, Callable
+from typing import Any, List, Optional, Tuple, Union, Callable
 import sys
 from email.message import Message
 from email.errors import MessageDefect

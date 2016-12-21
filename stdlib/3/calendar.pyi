@@ -1,4 +1,4 @@
-from typing import Any, Iterable, Optional, Tuple, Sequence
+from typing import Any, Iterable, List, Optional, Tuple, Sequence
 import datetime
 
 LocaleType = Tuple[Optional[str], Optional[str]]

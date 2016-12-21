@@ -1,5 +1,5 @@
 
-from typing import AnyStr, Dict, Union
+from typing import AnyStr, Dict, List, Union
 from urllib import addinfourl
 
 class URLError(IOError):

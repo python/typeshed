@@ -1,6 +1,6 @@
 # Stubs for mimetypes
 
-from typing import Dict, IO, Optional, Sequence, Text, Tuple
+from typing import Dict, IO, List, Optional, Sequence, Text, Tuple
 import sys
 
 def guess_type(url: Text,

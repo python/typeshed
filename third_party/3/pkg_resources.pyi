@@ -2,7 +2,7 @@
 
 from typing import (
     Any, Callable, Dict, IO, Iterable, Generator, Optional, Sequence, Tuple,
-    Union,
+    List, Union,
     TypeVar, overload,
 )
 import importlib.abc

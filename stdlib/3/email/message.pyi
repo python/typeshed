@@ -1,7 +1,7 @@
 # Stubs for email.message (Python 3.4)
 
 from typing import (
-    Optional, Union, Tuple, TypeVar, Generator, Sequence, Iterator, Any
+    List, Optional, Union, Tuple, TypeVar, Generator, Sequence, Iterator, Any
 )
 import sys
 from email.charset import Charset
