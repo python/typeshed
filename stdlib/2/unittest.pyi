@@ -5,7 +5,7 @@
 # Only a subset of functionality is included.
 
 from typing import (
-    Any, Callable, Iterable, Tuple, List, TextIO, Sequence,
+    Any, Callable, Dict, Iterable, Tuple, List, TextIO, Sequence,
     overload, TypeVar, Pattern
 )
 from abc import abstractmethod, ABCMeta

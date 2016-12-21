@@ -1,8 +1,8 @@
 # Stubs for urllib.request (Python 3.4)
 
 from typing import (
-    Any, Callable, List, IO, Mapping, Optional, Sequence, Tuple, TypeVar, Union,
-    overload,
+    Any, Callable, Dict, List, IO, Mapping, Optional, Sequence, Tuple, TypeVar,
+    Union, overload,
 )
 from http.client import HTTPResponse, HTTPMessage
 from http.cookiejar import CookieJar

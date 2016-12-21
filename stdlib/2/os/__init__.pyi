@@ -2,7 +2,7 @@
 
 from typing import (
     List, Tuple, Union, Sequence, Mapping, IO, Any, Optional, AnyStr, Iterator,
-    MutableMapping, NamedTuple, overload
+    Dict, MutableMapping, NamedTuple, overload
 )
 from . import path
 

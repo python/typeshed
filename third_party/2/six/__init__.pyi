@@ -4,7 +4,7 @@ from __future__ import print_function
 
 import types
 from typing import (
-    Any, AnyStr, Callable, Iterable, Mapping, Optional,
+    Any, AnyStr, Callable, Dict, Iterable, Mapping, Optional,
     Pattern, Tuple, TypeVar, Union, overload, ValuesView, KeysView, ItemsView
 )
 import typing

@@ -1,7 +1,7 @@
 # Stubs for unittest
 
 from typing import (
-    Any, Callable, Iterable, Iterator, List, Optional, Pattern, Sequence,
+    Any, Callable, Dict, Iterable, Iterator, List, Optional, Pattern, Sequence,
     TextIO, Tuple, Type, TypeVar, Union,
     overload,
 )

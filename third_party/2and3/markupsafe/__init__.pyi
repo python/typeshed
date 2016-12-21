@@ -4,7 +4,7 @@
 
 import sys
 
-from typing import Any, Callable, Iterable, List, Optional, Text, Tuple, Union
+from typing import Any, Callable, Dict, Iterable, List, Optional, Text, Tuple, Union
 from collections import Mapping
 from markupsafe._compat import text_type
 import string

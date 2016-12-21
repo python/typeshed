@@ -1,6 +1,6 @@
 # Stubs for gc
 
-from typing import Any, List, Tuple
+from typing import Any, Dict, List, Tuple
 
 
 DEBUG_COLLECTABLE = ...  # type: int
