@@ -6,7 +6,7 @@
 
 from typing import (
     Any, Callable, Dict, Iterable, Tuple, List, TextIO, Sequence,
-    overload, TypeVar, Pattern
+    overload, Set, TypeVar, Pattern
 )
 from abc import abstractmethod, ABCMeta
 
