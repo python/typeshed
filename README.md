@@ -2,7 +2,7 @@
 
 ## About
 
-Typeshed models function types for the Python standard library
+Typeshed contains external type annotations for the Python standard library
 and Python builtins, as well as third party packages.
 
 This data can e.g. be used for static analysis, type checking or type inference.
@@ -88,6 +88,11 @@ else:
 This can be used for modules in 2and3/ that only have minor changes between
 Python 2 and Python 3. If the difference between versions is more drastic, it
 can make more sense to have seperate files in 2.x/ and 3.x/.
+
+## Contributing
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting pull
+requests.
 
 ## Running the tests
 
