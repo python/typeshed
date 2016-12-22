@@ -4,7 +4,7 @@
 
 from .bucket import Bucket
 
-from typing import Any, Optional, Text, Type
+from typing import Any, Dict, Optional, Text, Type
 from boto.connection import AWSAuthConnection
 from boto.exception import BotoClientError
 
@@ -68,4 +68,4 @@ class S3Connection(AWSAuthConnection):
     def lookup(self, bucket_name, validate: bool = ..., headers: Optional[Dict[Text, Text]] = ...): ...
     def create_bucket(self, bucket_name, headers: Optional[Dict[Text, Text]] = ..., location: Any = ..., policy: Optional[Any] = ...): ...
     def delete_bucket(self, bucket, headers: Optional[Dict[Text, Text]] = ...): ...
-    def make_request(self, method, bucket: str = ..., key: str = ..., headers: Optional[Any] = ..., data: str = ..., query_args: Optional[Any] = ..., sender: Optional[Any] = ..., override_num_retries: Optional[Any] = ..., retry_handler: Optional[Any] = ..., *args, **kwargs): ...
+    def make_request(self, method, bucket: str = ..., key: str = ..., headers: Optional[Any] = ..., data: str = ..., query_args: Optional[Any] = ..., sender: Optional[Any] = ..., override_num_retries: Optional[Any] = ..., retry_handler: Optional[Any] = ..., *args, **kwargs): ...  # FIXME: signature incompatible with base class
