@@ -19,6 +19,7 @@ from werkzeug import testapp
 from werkzeug import urls
 from werkzeug import useragents
 from werkzeug import utils
+from werkzeug import wrappers
 from werkzeug import wsgi
 
 class module(ModuleType):
