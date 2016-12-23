@@ -113,7 +113,7 @@ rule is that they should be as concise as possible.  Specifically:
 * prefer ``...`` over ``pass``;
 * prefer ``...`` on the same line as the class/function signature;
 * avoid vertical whitespace between consecutive module-level functions,
-  names, methods and fields within a single class;
+  names, or methods and fields within a single class;
 * prefer type comments over variable annotations unless your stubs are
   exclusively targeting Python 3.6.
 
@@ -138,6 +138,15 @@ maintain the stubs in the future.
 NOTE: there are stubs in this repository that don't conform to the
 style described above.  Fixing them is a great starting point for new
 contributors.
+
+### What to do when a project's documentation and implementation disagree
+
+Type stubs are meant to be external type annotations for a given
+library.  While they are useful documentation in its own merit, they
+augment the project's concrete implementation, not the project's
+documentation.  Whenever you find them disagreeing, model the type
+information after the actual implementation and file an issue on the
+project's tracker to fix their documentation.
 
 ## Issue-tracker conventions
 
