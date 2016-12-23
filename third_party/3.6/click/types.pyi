@@ -1,4 +1,4 @@
-from typing import Any, Callable, IO, Iterable, Optional, TypeVar, Union
+from typing import Any, Callable, IO, Iterable, List, Optional, TypeVar, Union
 import uuid
 
 from click.core import Context, Parameter

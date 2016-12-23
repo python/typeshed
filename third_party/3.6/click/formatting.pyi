@@ -1,5 +1,5 @@
 from contextlib import contextmanager
-from typing import Generator, Iterable, Optional, Tuple
+from typing import Generator, Iterable, List, Optional, Tuple
 
 
 FORCED_WIDTH: Optional[int]
