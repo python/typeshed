@@ -6,14 +6,24 @@ checker on your Python code, your experience and what you can contribute
 are important to the project's success.
 
 
-## Getting started, building, and testing
+## The contribution process at a glance
 
-If you haven't already, take a look at the project's
-[README.md file](README.md)
-and try adding type annotations to your file and type-checking it with
-a tool like [Mypy](http://www.mypy-lang.org/),
-[pytype](https://github.com/google/pytype), or
-[PyCharm](https://www.jetbrains.com/pycharm/).
+1. Read the [README.md file](README.md).
+2. Set up your environment to be able to run all tests with `runtests.sh`.  They should pass.
+3. [Prepare your changes](#preparing-changes):
+    * [Contact us](#discussion) before starting significant work.
+    * IMPORTANT: For new libraries, [get permission from the library owner first](#adding-a-new-library).
+    * Create your stubs [conforming to the coding style](#stub-file-coding-style).
+    * Make sure `runtests.sh` passes cleanly on Mypy, pytype, and flake8.
+4. [Submit your changes](#submitting-changes):
+    * Open a pull request
+    * For new libraries, [include a reference to where you got permission](#adding-a-new-library)
+5. You can expect a reply within a few days:
+    * Diffs are merged when considered ready by the core team.
+    * Feel free to ping the core team if your pull request goes without
+      a reply for more than a few days.
+
+For more details, read below.
 
 
 ## Discussion
@@ -70,11 +80,14 @@ At present the core developers are (alphabetically):
 
 ## Preparing Changes
 
-Before you begin: if your change will be a significant amount of work
-to write, we highly recommend starting by opening an issue laying out
-what you want to do.  That lets a conversation happen early in case
-other contributors disagree with what you'd like to do or have ideas
-that will help you do it.
+### Before you begin
+
+If your change will be a significant amount of work to write, we highly
+recommend starting by opening an issue laying out what you want to do.
+That lets a conversation happen early in case other contributors disagree
+with what you'd like to do or have ideas that will help you do it.
+
+### Adding a new library
 
 If you want to submit type stubs for a new library, you need to
 **contact the maintainers of the original library** first to let them

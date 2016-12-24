@@ -7,6 +7,10 @@ and Python builtins, as well as third party packages.
 
 This data can e.g. be used for static analysis, type checking or type inference.
 
+For information on how to use `typeshed`, read below.  Information for
+contributors can be found in [CONTRIBUTING.md](CONTRIBUTING.md).  **Please read
+it before submitting pull requests.**
+
 ## Format
 
 Each Python module is represented by a `.pyi` "stub". This is a normal Python
