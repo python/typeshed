@@ -29,6 +29,6 @@ class Attribute:
         exclude_from_repr: bool = False,
         exclude_from_immutable: bool = False,
         default_value: Any = NOTHING,
-        default_factory: Optional[Callable[[None] ,Any]] = None,
+        default_factory: Optional[Callable[[None], Any]] = None,
         instance_of: Optional[Any] = None,
         init_aliaser: Optional[Callable[[AnyStr], AnyStr]] = strip_leading_underscores) -> None: ...
