@@ -1,1 +1,0 @@
-third_party/2and3/boto/.*
