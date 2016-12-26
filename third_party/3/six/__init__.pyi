@@ -14,6 +14,7 @@ from typing import (
     Optional,
     Pattern,
     Tuple,
+    Type,
     TypeVar,
     Union,
     ValuesView,
@@ -91,7 +92,7 @@ def assertRegex(self: unittest.TestCase, text: AnyStr, expected_regex: Union[Any
 
 exec_ = exec
 
-def reraise(tp: type, value: Optional[BaseException], tb: Optional[types.TracebackType] = None) -> None: ...
+def reraise(tp: Optional[Type[BaseException]], value: Optional[BaseException], tb: Optional[types.TracebackType] = None) -> None: ...
 def raise_from(value: BaseException, from_value: BaseException) -> None: ...
 
 print_ = print
