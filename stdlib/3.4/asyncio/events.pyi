@@ -2,7 +2,7 @@ from typing import Any, Awaitable, TypeVar, List, Callable, Tuple, Union, Dict, 
 from abc import ABCMeta, abstractmethod
 from asyncio.futures import Future
 from asyncio.coroutines import coroutine
-from asyncio.task import Task
+from asyncio.tasks import Task
 
 __all__ = ...  # type: str
 
