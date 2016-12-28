@@ -77,10 +77,10 @@ class Request(RequestHooksMixin):
     def prepare(self): ...
 
 class PreparedRequest(RequestEncodingMixin, RequestHooksMixin):
-    method = ...  # type: Any
-    url = ...  # type: Any
-    headers = ...  # type: Any
-    body = ...  # type: Any
+    method = ...  # type: str
+    url = ...  # type: str
+    headers = ...  # type: Dict[str, str]
+    body = ...  # type: str
     hooks = ...  # type: Any
     def __init__(self) -> None: ...
     def prepare(self, method=..., url=..., headers=..., files=..., data=..., params=...,
