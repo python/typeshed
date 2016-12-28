@@ -1,11 +1,17 @@
 # Stubs for requests.api (Python 3)
 
-from typing import Union
+from typing import Union, Optional, AnyStr
 
 from .models import Response
 
 def request(method: str, url: str, **kwargs) -> Response: ...
-def get(url: Union[str, unicode], **kwargs) -> Response: ...
+
+def get(url: Union[str, unicode],
+        params: Optional[Union[dict[Union[str, unicode],
+                                    Union[str, unicode]],
+                               Union[str, unicode]]]=None,
+        **kwargs) -> Response: ...
+
 def options(url: Union[str, unicode], **kwargs) -> Response: ...
 def head(url: Union[str, unicode], **kwargs) -> Response: ...
 def post(url: Union[str, unicode], data=..., json=...,
