@@ -17,6 +17,8 @@ from . import utils
 from . import compat
 from . import status_codes
 
+from typing import Optional, Union
+
 default_hooks = hooks.default_hooks
 CaseInsensitiveDict = structures.CaseInsensitiveDict
 HTTPBasicAuth = auth.HTTPBasicAuth
@@ -77,10 +79,10 @@ class Request(RequestHooksMixin):
     def prepare(self): ...
 
 class PreparedRequest(RequestEncodingMixin, RequestHooksMixin):
-    method = ...  # type: str
-    url = ...  # type: str
-    headers = ...  # type: Dict[str, str]
-    body = ...  # type: str
+    method = ...  # type: Optional[Union[str, unicode]]
+    url = ...  # type: Optional[Union[str, unicode]]
+    headers = ...  # type: CaseInsensitiveDict
+    body = ...  # type: Optional[Union[str, unicode]]
     hooks = ...  # type: Any
     def __init__(self) -> None: ...
     def prepare(self, method=..., url=..., headers=..., files=..., data=..., params=...,
