@@ -258,6 +258,12 @@ class Str(expr):
 class Bytes(expr):
     s = ...  # type: bytes
 
+class FormattedValue(expr):
+    value = ...  # type: expr
+
+class JoinedStr(expr):
+    values = ...  # type: typing.List[typing.Union[Str, FormattedValue]]
+
 class NameConstant(expr):
     value = ...  # type: Any
 
