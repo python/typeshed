@@ -12,7 +12,7 @@ from contextlib import ContextManager
 
 
 _T = TypeVar('_T')
-_FT = TypeVar('_FT', Callable[[Any], Any])
+_FT = TypeVar('_FT', bound=Callable[[Any], Any])
 
 
 def skip(reason: str) -> Callable[[_FT], _FT]: ...
