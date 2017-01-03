@@ -1,3 +1,4 @@
+import sys
 from typing import Any, Awaitable, TypeVar, List, Callable, Tuple, Union, Dict, Generator, overload, Optional
 from abc import ABCMeta, abstractmethod
 from asyncio.futures import Future
@@ -55,8 +56,9 @@ class AbstractEventLoop(metaclass=ABCMeta):
     @abstractmethod
     def time(self) -> float: ...
     # Future methods
-    @abstractmethod
-    def create_future(self) -> Future[Any]: ...
+    if sys.version_info > (3, 5):
+        @abstractmethod
+        def create_future(self) -> Future[Any]: ...
     # Tasks methods
     @abstractmethod
     def create_task(self, coro: Union[Future[_T], Generator[Any, None, _T]]) -> Task[_T]: ...
