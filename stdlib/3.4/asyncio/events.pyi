@@ -56,7 +56,7 @@ class AbstractEventLoop(metaclass=ABCMeta):
     @abstractmethod
     def time(self) -> float: ...
     # Future methods
-    if sys.version_info > (3, 5):
+    if sys.version_info >= (3, 5):
         @abstractmethod
         def create_future(self) -> Future[Any]: ...
     # Tasks methods
