@@ -1,7 +1,9 @@
-from typing import Any, Awaitable, TypeVar, List, Callable, Tuple, Union, Dict, Generator, overload
+import sys
+from typing import Any, Awaitable, TypeVar, List, Callable, Tuple, Union, Dict, Generator, overload, Optional
 from abc import ABCMeta, abstractmethod
 from asyncio.futures import Future
 from asyncio.coroutines import coroutine
+from asyncio.tasks import Task
 
 __all__ = ...  # type: str
 
@@ -53,6 +55,17 @@ class AbstractEventLoop(metaclass=ABCMeta):
     def call_at(self, when: float, callback: Callable[..., Any], *args: Any) -> Handle: ...
     @abstractmethod
     def time(self) -> float: ...
+    # Future methods
+    if sys.version_info >= (3, 5):
+        @abstractmethod
+        def create_future(self) -> Future[Any]: ...
+    # Tasks methods
+    @abstractmethod
+    def create_task(self, coro: Union[Future[_T], Generator[Any, None, _T]]) -> Task[_T]: ...
+    @abstractmethod
+    def set_task_factory(self, factory: Optional[Callable[[AbstractEventLoop, Generator[Any, None, _T]], Future[_T]]]) -> None: ...
+    @abstractmethod
+    def get_task_factory(self) -> Optional[Callable[[AbstractEventLoop, Generator[Any, None, _T]], Future[_T]]]: ...
     # Methods for interacting with threads
     @abstractmethod
     def call_soon_threadsafe(self, callback: Callable[..., Any], *args: Any) -> Handle: ...
