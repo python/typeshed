@@ -11,6 +11,7 @@ from typing import (
     Optional, Generic, Set, Callable
 )
 from . import path
+from mypy_extensions import NoReturn
 
 # ----- os variables -----
 
@@ -314,7 +315,7 @@ def execve(path: AnyStr, args: Union[Tuple[AnyStr], List[AnyStr]], env: Mapping[
 def execvp(file: AnyStr, args: Union[Tuple[AnyStr], List[AnyStr]]) -> None: ...
 def execvpe(file: AnyStr, args: Union[Tuple[AnyStr], List[AnyStr]],
             env: Mapping[str, str]) -> None: ...
-def _exit(n: int) -> None: ...
+def _exit(n: int) -> NoReturn: ...
 def fork() -> int: ...  # Unix only
 def forkpty() -> Tuple[int, int]: ...  # some flavors of Unix
 def kill(pid: int, sig: int) -> None: ...
