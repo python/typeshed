@@ -10,6 +10,7 @@ from typing import (
 from abc import abstractmethod, ABCMeta
 from types import TracebackType
 import sys
+from mypy_extensions import NoReturn
 
 # Note that names imported above are not automatically made visible via the
 # implicit builtins import.
@@ -697,7 +698,7 @@ def eval(source: str, globals: Dict[str, Any] = None,
          locals: Mapping[str, Any] = None) -> Any: ...  # TODO code object as source
 def exec(object: str, globals: Dict[str, Any] = None,
          locals: Mapping[str, Any] = None) -> Any: ...  # TODO code object as source
-def exit(code: int = None) -> None: ...
+def exit(code: int = None) -> NoReturn: ...
 @overload
 def filter(function: Callable[[_T], Any], iterable: Iterable[_T]) -> Iterator[_T]: ...
 @overload
