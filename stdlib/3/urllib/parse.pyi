@@ -1,5 +1,5 @@
 # Stubs for urllib.parse
-from typing import Any, List, Dict, Tuple, AnyStr, Generic, overload, Sequence, Mapping, Union
+from typing import Any, List, Dict, Tuple, AnyStr, Generic, overload, Sequence, Mapping, Union, NamedTuple
 
 __all__ = (
     'urlparse',
@@ -54,34 +54,46 @@ class _DefragResultBase(tuple, Generic[AnyStr]):
     url = ...  # type: AnyStr
     fragment = ...  # type: AnyStr
 
-class _SplitResultBase(tuple, Generic[AnyStr]):
-    scheme = ...  # type: AnyStr
-    netloc = ...  # type: AnyStr
-    path = ...  # type: AnyStr
-    query = ...  # type: AnyStr
-    fragment = ...  # type: AnyStr
 
-class _ParseResultBase(tuple, Generic[AnyStr]):
-    scheme = ...  # type: AnyStr
-    netloc = ...  # type: AnyStr
-    path = ...  # type: AnyStr
-    params = ...  # type: AnyStr
-    query = ...  # type: AnyStr
-    fragment = ...  # type: AnyStr
+_SplitResultBase = NamedTuple(
+    '_SplitResultBase',
+    [
+        ('scheme', str), ('netloc', str), ('path', str), ('query', str), ('fragment', str)
+    ]
+)
+_SplitResultBytesBase = NamedTuple(
+    '_SplitResultBytesBase',
+    [
+        ('scheme', bytes), ('netloc', bytes), ('path', bytes), ('query', bytes), ('fragment', bytes)
+    ]
+)
+
+_ParseResultBase = NamedTuple(
+    '_ParseResultBase',
+    [
+        ('scheme', str), ('netloc', str), ('path', str), ('params', str), ('query', str), ('fragment', str)
+    ]
+)
+_ParseResultBytesBase = NamedTuple(
+    '_ParseResultBytesBase',
+    [
+        ('scheme', bytes), ('netloc', bytes), ('path', bytes), ('params', bytes), ('query', bytes), ('fragment', bytes)
+    ]
+)
 
 # Structured result objects for string data
 class DefragResult(_DefragResultBase[str], _ResultMixinStr): ...
 
-class SplitResult(_SplitResultBase[str], _NetlocResultMixinStr): ...
+class SplitResult(_SplitResultBase, _NetlocResultMixinStr): ...
 
-class ParseResult(_ParseResultBase[str], _NetlocResultMixinStr): ...
+class ParseResult(_ParseResultBase, _NetlocResultMixinStr): ...
 
 # Structured result objects for bytes data
 class DefragResultBytes(_DefragResultBase[bytes], _ResultMixinBytes): ...
 
-class SplitResultBytes(_SplitResultBase[bytes], _NetlocResultMixinBytes): ...
+class SplitResultBytes(_SplitResultBytesBase, _NetlocResultMixinBytes): ...
 
-class ParseResultBytes(_ParseResultBase[bytes], _NetlocResultMixinBytes): ...
+class ParseResultBytes(_ParseResultBytesBase, _NetlocResultMixinBytes): ...
 
 
 def parse_qs(qs: str, keep_blank_values: bool = ..., strict_parsing: bool = ..., encoding: str = ..., errors: str = ...) -> Dict[str, List[str]]: ...
