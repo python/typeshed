@@ -47,6 +47,9 @@ class object:
     def __getattribute__(self, name: str) -> Any: ...
     def __delattr__(self, name: str) -> None: ...
 
+    if sys.version_info >= (3, 6):
+        def __init_subclass__(cls) -> None: ...
+
 class type:
     __bases__ = ...  # type: Tuple[type, ...]
     __name__ = ...  # type: str
