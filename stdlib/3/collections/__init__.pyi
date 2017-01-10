@@ -6,14 +6,29 @@
 
 # These are not exported.
 from typing import (
-    TypeVar, Iterable, Generic, Iterator, Dict, overload,
-    Mapping, List, Tuple, Callable, Sized, Any, Type,
-    Optional, Union
+    TypeVar, Generic, Dict, overload, List, Tuple,
+    Callable, Any, Type, Optional, Union
 )
 # These are exported.
 # TODO reexport more.
 from typing import (
     Container as Container,
+    Hashable as Hashable,
+    Iterable as Iterable,
+    Iterator as Iterator,
+    Sized as Sized,
+    Generator as Generator,
+    ByteString as ByteString,
+    Awaitable as Awaitable,
+    Coroutine as Coroutine,
+    AsyncIterable as AsyncIterable,
+    AsyncIterator as AsyncIterator,
+    Reversible as Reversible,
+    Mapping as Mapping,
+    MappingView as MappingView,
+    ItemsView as ItemsView,
+    KeysView as KeysView,
+    ValuesView as ValuesView,
     MutableMapping as MutableMapping,
     Sequence as Sequence,
     MutableSequence as MutableSequence,
