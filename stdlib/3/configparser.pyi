@@ -105,7 +105,7 @@ class RawConfigParser(_parser):
         ...
 
     # This is incompatible with Mapping so we ignore the type.
-    def items(self, section: str = ..., raw: bool = ..., vars: _section = ...) -> Iterable[Tuple[str, str]]: ...  # type: ignore
+    def items(self, section: str = ..., raw: bool = ..., vars: _section = ...) -> Iterable[Tuple[str, _section]]: ...  # type: ignore
 
     def set(self, section: str, option: str, value: str) -> None: ...
 
