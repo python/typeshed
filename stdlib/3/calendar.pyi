@@ -1,5 +1,8 @@
-from typing import Any, Iterable, List, Optional, Tuple, Sequence
 import datetime
+
+from time import struct_time
+from typing import Any, Iterable, List, Optional, Tuple, Sequence, Union
+
 
 LocaleType = Tuple[Optional[str], Optional[str]]
 
@@ -72,7 +75,7 @@ c = ...  # type: TextCalendar
 def setfirstweekday(firstweekday: int) -> None: ...
 def format(cols: int, colwidth: int = ..., spacing: int = ...) -> str: ...
 def formatstring(cols: int, colwidth: int = ..., spacing: int = ...) -> str: ...
-def timegm(tuple: Tuple[int, ...]) -> int: ...
+def timegm(tuple: Union[Tuple[int, ...], struct_time]) -> int: ...
 
 # Data attributes
 day_name = ...  # type: Sequence[str]
