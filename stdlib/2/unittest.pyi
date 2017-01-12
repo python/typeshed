@@ -6,7 +6,7 @@
 
 from typing import (
     Any, Callable, Dict, Iterable, Tuple, List, TextIO, Sequence,
-    overload, Set, TypeVar, Pattern
+    overload, Set, TypeVar, Union, Pattern
 )
 from abc import abstractmethod, ABCMeta
 
@@ -123,9 +123,9 @@ class TestCase(Testable):
                  msg: object = ...) -> None: ...
     def assertNotIn(self, first: _T, second: Iterable[_T],
                     msg: object = ...) -> None: ...
-    def assertIsInstance(self, obj: Any, cls: type,
+    def assertIsInstance(self, obj: Any, cls: Union[type, Tuple[type, ...]],
                          msg: object = ...) -> None: ...
-    def assertNotIsInstance(self, obj: Any, cls: type,
+    def assertNotIsInstance(self, obj: Any, cls: Union[type, Tuple[type, ...]],
                             msg: object = ...) -> None: ...
     def fail(self, msg: object = ...) -> None: ...
     def countTestCases(self) -> int: ...
