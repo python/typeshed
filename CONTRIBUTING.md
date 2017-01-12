@@ -77,6 +77,10 @@ At present the core developers are (alphabetically):
 * Greg Price (@gnprice)
 * Guido van Rossum (@gvanrossum)
 
+NOTE: the process for preparing and submitting changes also applies to
+core developers.  This ensures high quality contributions and keeps
+everybody on the same page.  Avoid direct pushes to the repository.
+
 
 ## Preparing Changes
 
@@ -127,6 +131,12 @@ rule is that they should be as concise as possible.  Specifically:
 * prefer ``...`` on the same line as the class/function signature;
 * avoid vertical whitespace between consecutive module-level functions,
   names, or methods and fields within a single class;
+* use a single blank line between top-level class definitions, or none
+  if the classes are very small;
+* add a top-level comment followed by an empty line that makes it clear
+  the file contains a stub and not the actual code for the module,
+  for example `# Stubs for pathlib (Python 3.4)`;
+* do not use docstrings;
 * prefer type comments over variable annotations unless your stubs are
   exclusively targeting Python 3.6.
 
