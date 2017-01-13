@@ -27,7 +27,7 @@ WSGIApplication = Callable[
         Dict[_Text, _Text],
         Union[
             Callable[[_Text, List[Tuple[_Text, _Text]]], Callable[[_Text], None]],
-            Callable[[_Text, List[Tuple[_Text, _Text]], _exc_info], Callable[[_Text], None]],
+            Callable[[_Text, List[Tuple[_Text, _Text]], _exc_info], Callable[[_Text], None]]
         ]
     ],
     Iterable[_Text]
