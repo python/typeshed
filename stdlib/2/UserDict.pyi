@@ -14,7 +14,7 @@ class UserDict(Dict[_KT, _VT], Generic[_KT, _VT]):
 class IterableUserDict(UserDict[_KT, _VT], Generic[_KT, _VT]):
     ...
 
-class DictMixin(Sized, Iterable[_KT], Container[_KT], Generic[_KT, _VT]):
+class DictMixin(Iterable[_KT], Container[_KT], Sized, Generic[_KT, _VT]):
     def has_key(self, key: _KT) -> bool: ...
 
     # From  typing.Mapping[_KT, _VT]
