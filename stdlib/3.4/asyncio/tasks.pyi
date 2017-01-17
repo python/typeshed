@@ -8,28 +8,28 @@ from .futures import Future
 __all__ = ...  # type: str
 
 _T = TypeVar('_T')
+_FutureT = Union[Future[_T], Generator[Any, None, _T], Awaitable[_T]]
 
 FIRST_EXCEPTION = 'FIRST_EXCEPTION'
 FIRST_COMPLETED = 'FIRST_COMPLETED'
 ALL_COMPLETED = 'ALL_COMPLETED'
 
-def as_completed(fs: Sequence[Future[_T]], *, loop: AbstractEventLoop = ...,
+def as_completed(fs: Sequence[_FutureT[_T]], *, loop: AbstractEventLoop = ...,
                  timeout=None) -> Iterator[Generator[Any, None, _T]]: ...
-def ensure_future(coro_or_future: Union[Future[_T], Generator[Any, None, _T]],
+def ensure_future(coro_or_future: _FutureT[_T],
                   *, loop: AbstractEventLoop = ...) -> Future[_T]: ...
 # TODO: gather() should use variadic type vars instead of _TAny.
 _TAny = Any
-def gather(*coros_or_futures: Union[Future[_TAny], Generator[Any, None, _TAny], Awaitable[_TAny]],
+def gather(*coros_or_futures: _FutureT[_TAny],
            loop: AbstractEventLoop = ..., return_exceptions: bool = False) -> Future[List[_TAny]]: ...
-def run_coroutine_threadsafe(coro: Union[Generator[Any, None, _T], Coroutine[Any, None, _T], Awaitable[_T]],
+def run_coroutine_threadsafe(coro: _FutureT[_T],
                              loop: AbstractEventLoop) -> concurrent.futures.Future[_T]: ...
-def shield(arg: Union[Future[_T], Generator[Any, None, _T]],
-           *, loop: AbstractEventLoop = ...) -> Future[_T]: ...
+def shield(arg: _FutureT[_T], *, loop: AbstractEventLoop = ...) -> Future[_T]: ...
 def sleep(delay: float, result: _T = ..., loop: AbstractEventLoop = ...) -> Future[_T]: ...
 def wait(fs: List[Task[_T]], *, loop: AbstractEventLoop = ...,
     timeout: float = ...,
          return_when: str = ...) -> Future[Tuple[Set[Future[_T]], Set[Future[_T]]]]: ...
-def wait_for(fut: Union[Future[_T], Generator[Any, None, _T], Awaitable[_T]], timeout: Optional[float],
+def wait_for(fut: _FutureT[_T], timeout: Optional[float],
              *, loop: AbstractEventLoop = ...) -> Future[_T]: ...
 
 class Task(Future[_T], Generic[_T]):
