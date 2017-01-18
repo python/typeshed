@@ -1,15 +1,25 @@
-# Stubs for requests.api (Python 3)
+# Stubs for requests.api (Python 2)
 
-from typing import Union, Optional, AnyStr
+from typing import Union, Optional, Iterable, Dict
 
 from .models import Response
 
 def request(method: str, url: str, **kwargs) -> Response: ...
 
 def get(url: Union[str, unicode],
-        params: Optional[Union[dict[Union[str, unicode],
-                                    Union[str, unicode]],
-                               Union[str, unicode]]]=None,
+        params: Optional[
+               Union[
+                Dict[
+                        Union[str, unicode, int, float], 
+                        Union[str, unicode, int, float, Iterable]
+                ], 
+                Union[str, unicode], 
+                Tuple[
+                        Union[str, unicode, int, float], 
+                        Union[str, unicode, int, float, Iterable]
+                ]
+               ]
+              ]=None,
         **kwargs) -> Response: ...
 
 def options(url: Union[str, unicode], **kwargs) -> Response: ...
