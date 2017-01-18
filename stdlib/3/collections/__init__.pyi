@@ -5,6 +5,7 @@
 # TODO more abstract base classes (interfaces in mypy)
 
 # These are not exported.
+import sys
 from typing import (
     TypeVar, Generic, Dict, overload, List, Tuple,
     Callable, Any, Type, Optional, Union
