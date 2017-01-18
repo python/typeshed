@@ -10,9 +10,7 @@ def get(url: Union[str, unicode],
         params: Optional[
             Union[Dict[Union[str, unicode, int, float], Union[str, unicode, int, float, Iterable]],
                   Union[str, unicode],
-                  Tuple[Union[str, unicode, int, float], Union[str, unicode, int, float, Iterable]]
-            ]
-        ] = None,
+                  Tuple[Union[str, unicode, int, float], Union[str, unicode, int, float, Iterable]]]] = None,
         **kwargs) -> Response: ...
 
 def options(url: Union[str, unicode], **kwargs) -> Response: ...
