@@ -5,6 +5,7 @@
 # TODO more abstract base classes (interfaces in mypy)
 
 # These are not exported.
+import sys
 from typing import (
     TypeVar, Generic, Dict, overload, List, Tuple,
     Callable, Any, Type, Optional, Union
@@ -35,6 +36,8 @@ from typing import (
     MutableSet as MutableSet,
     AbstractSet as Set,
 )
+if sys.version_info >= (3, 6):
+    from typing import AsyncGenerator as AsyncGenerator
 
 _T = TypeVar('_T')
 _KT = TypeVar('_KT')
