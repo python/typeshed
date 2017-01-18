@@ -35,6 +35,8 @@ from typing import (
     MutableSet as MutableSet,
     AbstractSet as Set,
 )
+if sys.version_info >= (3, 6):
+    from typing import AsyncGenerator as AsyncGenerator
 
 _T = TypeVar('_T')
 _KT = TypeVar('_KT')
