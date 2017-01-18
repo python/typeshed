@@ -1,6 +1,6 @@
 # Stubs for requests.api (Python 2)
 
-from typing import Union, Optional, Iterable, Dict
+from typing import Union, Optional, Iterable, Dict, Tuple
 
 from .models import Response
 
@@ -8,18 +8,11 @@ def request(method: str, url: str, **kwargs) -> Response: ...
 
 def get(url: Union[str, unicode],
         params: Optional[
-               Union[
-                Dict[
-                        Union[str, unicode, int, float], 
-                        Union[str, unicode, int, float, Iterable]
-                ], 
-                Union[str, unicode], 
-                Tuple[
-                        Union[str, unicode, int, float], 
-                        Union[str, unicode, int, float, Iterable]
-                ]
-               ]
-              ]=None,
+            Union[Dict[Union[str, unicode, int, float], Union[str, unicode, int, float, Iterable]],
+                  Union[str, unicode],
+                  Tuple[Union[str, unicode, int, float], Union[str, unicode, int, float, Iterable]]
+            ]
+        ] = None,
         **kwargs) -> Response: ...
 
 def options(url: Union[str, unicode], **kwargs) -> Response: ...
