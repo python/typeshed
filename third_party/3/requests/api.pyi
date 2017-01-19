@@ -1,6 +1,6 @@
 # Stubs for requests.api (Python 3)
 
-from typing import Optional, Union, Any, Iterable, Dict, Tuple
+from typing import Optional, Union, Any, Iterable, Mapping, Tuple
 
 from .models import Response
 
@@ -11,6 +11,12 @@ def get(url: Union[str, bytes],
                 Dict[Union[str, bytes, int, float], Union[str, bytes, int, float, Iterable[Union[str, bytes, int, float]]]],
                 Union[str, bytes],
                 Tuple[Union[str, bytes, int, float], Union[str, bytes, int, float, Iterable[Union[str, bytes, int, float]]]]]] = None,
+                               Mapping[Union[str, bytes], Union[str, bytes]],
+                               Mapping[str, str],
+                               Mapping[str, bytes],
+                               Mapping[bytes, str],
+                               Mapping[bytes, bytes]
+                               ]]=None,
         **kwargs) -> Response: ...
 def options(url: str, **kwargs) -> Response: ...
 def head(url: str, **kwargs) -> Response: ...
