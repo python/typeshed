@@ -6,17 +6,10 @@ from .models import Response
 
 def request(method: str, url: str, **kwargs) -> Response: ...
 def get(url: Union[str, bytes],
-        params: Optional[
-            Union[
+        params: Optional[Union[str, bytes, Mapping[Union[str, bytes], Union[str, bytes]], Mapping[str, str], Mapping[str, bytes], Mapping[bytes, str], Mapping[bytes, bytes]]]=None,
                 Dict[Union[str, bytes, int, float], Union[str, bytes, int, float, Iterable[Union[str, bytes, int, float]]]],
                 Union[str, bytes],
                 Tuple[Union[str, bytes, int, float], Union[str, bytes, int, float, Iterable[Union[str, bytes, int, float]]]]]] = None,
-                               Mapping[Union[str, bytes], Union[str, bytes]],
-                               Mapping[str, str],
-                               Mapping[str, bytes],
-                               Mapping[bytes, str],
-                               Mapping[bytes, bytes]
-                               ]]=None,
         **kwargs) -> Response: ...
 def options(url: str, **kwargs) -> Response: ...
 def head(url: str, **kwargs) -> Response: ...
