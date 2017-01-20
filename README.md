@@ -56,9 +56,6 @@ go into `third_party`. Since these modules can behave differently for different
 versions of Python, `third_party` has version subdirectories, just like
 `stdlib`.
 
-We're welcoming contributions (pull requests) for type definitions of
-third-party packages.
-
 NOTE: When you're contributing a new stub for a package that you did
 not develop, please obtain consent of the package owner (this is
 specified in [PEP
@@ -67,31 +64,9 @@ The best way to obtain consent is to file an issue in the third-party
 package's tracker and include the link to a positive response in your PR
 for typeshed.
 
-### Version directories
-
-We store stubs for both Python 2 as well as Python 3. We also distinguish
-between minor versions (E.g. 3.2 <-> 3.3). To accomplish not having to duplicate
-modules that are the same between all minor versions, we have e.g. a top-level
-directory 3/ that contains all the stubs for Python 3. More specialized stubs
-go into e.g. 3.3/ and supersede the more generic stubs in 3/.
-Modules that are the same under both Python 2 and Python 3 go into 2and3/.
-Note that the only supported version of Python 2 is 2.7.
-
-### Combining multiple versions in a single file
-
-According to PEP 484, type checkers are expected to understand simple
-version and platform checks. So the following syntax is legal in a `pyi`:
-
-```python
-if sys.version_info >= (3,):
-    # Python 3 specific definitions
-else:
-    # Python 2 specific definitions
-```
-
-This can be used for modules in 2and3/ that only have minor changes between
-Python 2 and Python 3. If the difference between versions is more drastic, it
-can make more sense to have seperate files in 2.x/ and 3.x/.
+For more information on directory structure and stub versioning, see
+[the relevant section of CONTRIBUTING.md](
+https://github.com/python/typeshed/blob/master/CONTRIBUTING.md#stub-versioning).
 
 ## Contributing
 
