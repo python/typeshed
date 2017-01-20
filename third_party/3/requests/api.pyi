@@ -4,19 +4,19 @@ from typing import Optional, Union, Any, Iterable, Mapping, Tuple
 
 from .models import Response
 
-ParametersMappingValueType = Union[str, bytes, int, float, Iterable[Union[str, bytes, int, float]]]
+ParamsMappingValueType = Union[str, bytes, int, float, Iterable[Union[str, bytes, int, float]]]
 
 def request(method: str, url: str, **kwargs) -> Response: ...
 def get(url: Union[str, bytes],
         params: Optional[
             Union[
-                Mapping[Union[str, bytes, int, float], ParametersMappingValueType],
+                Mapping[Union[str, bytes, int, float], ParamsMappingValueType],
                 Union[str, bytes],
-                Tuple[Union[str, bytes, int, float], ParametersMappingValueType],
-                Mapping[str, ParametersMappingValueType],
-                Mapping[bytes, ParametersMappingValueType],
-                Mapping[int, ParametersMappingValueType],
-                Mapping[float, ParametersMappingValueType]]]=None,
+                Tuple[Union[str, bytes, int, float], ParamsMappingValueType],
+                Mapping[str, ParamsMappingValueType],
+                Mapping[bytes, ParamsMappingValueType],
+                Mapping[int, ParamsMappingValueType],
+                Mapping[float, ParamsMappingValueType]]]=None,
         **kwargs) -> Response: ...
 def options(url: str, **kwargs) -> Response: ...
 def head(url: str, **kwargs) -> Response: ...
