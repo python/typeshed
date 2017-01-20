@@ -72,7 +72,6 @@ from asyncio.queues import (
     Queue as Queue,
     PriorityQueue as PriorityQueue,
     LifoQueue as LifoQueue,
-    JoinableQueue as JoinableQueue,
     QueueFull as QueueFull,
     QueueEmpty as QueueEmpty,
 )
@@ -83,6 +82,9 @@ from asyncio.locks import (
     Semaphore as Semaphore,
     BoundedSemaphore as BoundedSemaphore,
 )
+
+if sys.version_info < (3, 5):
+    from asyncio.queues import JoinableQueue as JoinableQueue
 
 # TODO: It should be possible to instantiate these classes, but mypy
 # currently disallows this.
