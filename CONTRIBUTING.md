@@ -153,6 +153,10 @@ a stub file.  You can also use the name of the class within its own
 body.  Focus on making your stubs clear to the reader.  Avoid using
 string literals in type annotations.
 
+Type variables and aliases you introduce purely for legibility reasons
+should be prefixed with an underscore to make it obvious to the reader
+they are not part of the stubbed API.
+
 Finally, remember to include a comment on the top of your file about the
 version of the Python language your stubs were tested against and
 version of the library they were built for.  This makes it easier to
@@ -161,6 +165,44 @@ maintain the stubs in the future.
 NOTE: there are stubs in this repository that don't conform to the
 style described above.  Fixing them is a great starting point for new
 contributors.
+
+### Stub versioning
+
+There are separate directories for `stdlib` and `third_party` stubs.
+Within those, there are separate directories for different versions of
+Python the stubs target.  If the given library works on both Python 2
+and Python 3, prefer to put your stubs in an `2and3` directory, unless
+the types are so different that the stubs become unreadable that way.
+
+You can use checks like `if sys.version_info >= (3, 4):` to denote new
+functionality introduced in a given Python version or solve type
+differences.  When doing so, only use one-tuples or two-tuples.  This is
+because:
+
+* mypy doesn't support more fine-grained version checks; and more
+  importantly
+
+* the micro versions of a Python release will change over time in your
+  checking environment and the checker should return consistent results
+  regardless of the micro version used.
+
+Because of this, if a given functionality was introduced in, say, Python
+3.4.4, your check:
+
+* should be expressed as `if sys.version_info >= (3, 4):`
+* should NOT be expressed as `if sys.version_info >= (3, 4, 4):`
+* should NOT be expressed as `if sys.version_info >= (3, 5):`
+
+This makes the type checker assume the functionality was also available
+in 3.4.0 - 3.4.3, which while *technically* incorrect is relatively
+harmless.  This is a strictly better compromise than using the latter
+two forms, which would generate false positive errors for correct use
+under Python 3.4.4.
+
+Note: in its current implementation, typeshed cannot contain stubs for
+multiple versions of the same third-party library.  Prefer to generate
+stubs for the latest version released on PyPI at the time of your
+stubbing.
 
 ### What to do when a project's documentation and implementation disagree
 
