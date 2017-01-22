@@ -1,6 +1,0 @@
-#!/home/ptz/stuff/tmp/typeshed/.venv2/bin/python2.7
-# EASY-INSTALL-DEV-SCRIPT: 'pytype==0.2','pytd'
-__requires__ = 'pytype==0.2'
-__import__('pkg_resources').require('pytype==0.2')
-__file__ = '/home/ptz/stuff/tmp/typeshed/.venv2/src/pytype/scripts/pytd'
-exec(compile(open(__file__).read(), __file__, 'exec'))
