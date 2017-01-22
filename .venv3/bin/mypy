@@ -1,0 +1,6 @@
+#!/home/ptz/stuff/tmp/typeshed/.venv3/bin/python3.5
+"""Mypy type checker command line tool."""
+
+from mypy.main import main
+
+main(__file__)
