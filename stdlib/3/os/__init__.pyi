@@ -382,5 +382,7 @@ if sys.version_info >= (3, 3):
               dir_fd: int = ...) -> Iterator[Tuple[AnyStr, List[AnyStr],
                                              List[AnyStr], int]]: ...  # Unix only
 
+    def get_terminal_size(fd: int = ...) -> Tuple[int, int]: ...
+
 if sys.version_info >= (3, 4):
     def cpu_count() -> Optional[int]: ...
