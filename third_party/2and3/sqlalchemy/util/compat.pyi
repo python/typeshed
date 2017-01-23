@@ -1,6 +1,6 @@
 # Stubs for sqlalchemy.util.compat (Python 2)
 
-from typing import Any
+from typing import Any, Text
 from collections import namedtuple
 
 import threading
@@ -34,7 +34,7 @@ def inspect_getargspec(func): ...
 
 string_types = ...  # type: Any
 binary_type = ...  # type: Any
-text_type = unicode
+text_type = Text
 int_types = ...  # type: Any
 
 def callable(fn): ...
