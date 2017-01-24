@@ -7,8 +7,8 @@ from .charset import MBLENGTH as MBLENGTH, charset_by_name as charset_by_name, c
 from .cursors import Cursor as Cursor
 from .constants import FIELD_TYPE as FIELD_TYPE, FLAG as FLAG
 from .constants import SERVER_STATUS as SERVER_STATUS
-from .constants.CLIENT import *
-from .constants.COMMAND import *
+from .constants import CLIENT as CLIENT
+from .constants import COMMAND as COMMAND
 from .util import join_bytes as join_bytes, byte2int as byte2int, int2byte as int2byte
 from .converters import escape_item as escape_item, encoders as encoders, decoders as decoders
 from .err import raise_mysql_exception as raise_mysql_exception, Warning as Warning, Error as Error, InterfaceError as InterfaceError, DataError as DataError, DatabaseError as DatabaseError, OperationalError as OperationalError, IntegrityError as IntegrityError, InternalError as InternalError, NotSupportedError as NotSupportedError, ProgrammingError as ProgrammingError
