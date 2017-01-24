@@ -13,9 +13,9 @@ class ColumnElement(ColumnOperators, ClauseElement):
     __visit_name__ = 'column'  # type: Text
     primary_key = False  # type: Any
     foreign_keys = []  # type: Any
-    _label = None
-    _key_label = key = None
-    _alt_names = ()
+    _label = None  # type: Any
+    _key_label = key = None  # type: Any
+    _alt_names = ()  # type: Any
     def self_group(self, against=None): ...
     def _negate(self): ...
     @util.memoized_property
