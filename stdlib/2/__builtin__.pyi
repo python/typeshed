@@ -44,7 +44,7 @@ class object:
     def __getattribute__(self, name: str) -> Any: ...
     def __delattr__(self, name: str) -> None: ...
 
-class type:
+class type(object):
     __bases__ = ...  # type: Tuple[type, ...]
     __name__ = ...  # type: str
     __module__ = ...  # type: str
