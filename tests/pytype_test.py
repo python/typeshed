@@ -70,11 +70,17 @@ def pytype_test(args):
         print("Cannot run pytd. Did you install pytype?")
         return 0, 0
 
-    wanted = re.compile(r"stdlib/(2|2\.7|2and3)/.*\.pyi$")
+    wanted = re.compile(r"stdlib/(2|2\.7|2and3)/.*\.pyi?$")
     skipped = re.compile("(%s)$" % "|".join(load_blacklist()))
     files = []
 
     for root, _, filenames in os.walk("stdlib"):
+        for f in sorted(filenames):
+            f = os.path.join(root, f)
+            if wanted.search(f) and not skipped.search(f):
+                files.append(f)
+
+    for root, _, filenames in os.walk("test_data/stdlib"):
         for f in sorted(filenames):
             f = os.path.join(root, f)
             if wanted.search(f) and not skipped.search(f):

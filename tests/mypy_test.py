@@ -63,7 +63,7 @@ def libpath(major, minor):
     versions.append('2and3')
     paths = []
     for v in versions:
-        for top in ['stdlib', 'third_party']:
+        for top in ['stdlib', 'third_party', 'test_data/stdlib', 'test_data/third_party']:
             p = os.path.join(top, v)
             if os.path.isdir(p):
                 paths.append(p)
