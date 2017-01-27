@@ -30,7 +30,7 @@ class classmethod: pass  # Special, only valid as a decorator.
 class object:
     __doc__ = ...  # type: Optional[str]
     __class__ = ...  # type: type
-    __dict__ = ...  # type: Dict[Union[str, unicode], Any]
+    __dict__ = ...  # type: Dict[str, Any]
     __slots__ = ...  # type: Optional[Union[str, unicode, Iterable[Union[str, unicode]]]]
     __module__ = ...  # type: Any
 
