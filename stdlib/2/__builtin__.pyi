@@ -488,11 +488,6 @@ class tuple(Sequence[_T_co], Generic[_T_co]):
     def count(self, x: Any) -> int: ...
     def index(self, x: Any) -> int: ...
 
-class function:
-    # TODO name of the class (corresponds to Python 'function' class)
-    __name__ = ...  # type: str
-    __module__ = ...  # type: str
-
 class list(MutableSequence[_T], Generic[_T]):
     @overload
     def __init__(self) -> None: ...
