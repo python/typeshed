@@ -57,7 +57,6 @@ class type:
     __name__ = ...  # type: str
     __qualname__ = ...  # type: str
     __module__ = ...  # type: str
-    __dict__ = ...  # type: Dict[str, Any]
     __mro__ = ...  # type: Tuple[type, ...]
 
     @overload
@@ -674,11 +673,10 @@ class range(Sequence[int]):
     def __repr__(self) -> str: ...
     def __reversed__(self) -> Iterator[int]: ...
 
-class module:
+class module(object):
     # TODO not defined in builtins!
     __name__ = ...  # type: str
     __file__ = ...  # type: str
-    __dict__ = ...  # type: Dict[str, Any]
 
 class property:
     def __init__(self, fget: Callable[[Any], Any] = None,

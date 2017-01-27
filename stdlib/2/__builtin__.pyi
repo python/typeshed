@@ -51,7 +51,6 @@ class type(object):
     __bases__ = ...  # type: Tuple[type, ...]
     __name__ = ...  # type: str
     __module__ = ...  # type: str
-    __dict__ = ...  # type: Dict[unicode, Any]
 
     @overload
     def __init__(self, o: object) -> None: ...
@@ -655,12 +654,11 @@ class xrange(Sized, Iterable[int], Reversible[int]):
     def __getitem__(self, i: int) -> int: ...
     def __reversed__(self) -> Iterator[int]: ...
 
-class module:
+class module(object):
     __name__ = ...  # type: str
     __file__ = ...  # type: str
-    __dict__ = ...  # type: Dict[unicode, Any]
 
-class property:
+class property(object):
     def __init__(self, fget: Callable[[Any], Any] = None,
                  fset: Callable[[Any, Any], None] = None,
                  fdel: Callable[[Any], None] = None, doc: str = None) -> None: ...
