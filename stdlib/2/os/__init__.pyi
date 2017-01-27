@@ -10,7 +10,7 @@ from mypy_extensions import NoReturn
 error = OSError
 name = ...  # type: str
 
-class _Environ(MutableMapping[Union[str, unicode], Union[str, unicode]]):
+class _Environ(MutableMapping[str, str]):
     def copy(self) -> Dict[str, str]: ...
 
 environ = ...  # type: _Environ
