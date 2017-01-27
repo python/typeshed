@@ -27,6 +27,8 @@ class FunctionType:
     __dict__ = ...  # type: Dict[str, Any]
     __globals__ = ...  # type: Dict[str, Any]
     __name__ = ...  # type: str
+    __annotations__ = ...  # type: Dict[str, Any]
+    __kwdefaults__ = ...  # type: Dict[str, Any]
     def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
     def __get__(self, obj: Optional[object], type: Optional[type]) -> 'MethodType': ...
 LambdaType = FunctionType
