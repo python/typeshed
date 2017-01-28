@@ -1,5 +1,6 @@
 """The asyncio package, tracking PEP 3156."""
 
+import socket
 import sys
 from typing import Type
 
@@ -23,6 +24,12 @@ from asyncio.streams import (
     IncompleteReadError as IncompleteReadError,
     LimitOverrunError as LimitOverrunError,
 )
+if hasattr(socket, 'AF_UNIX'):
+    from asyncio.streams import (
+        open_unix_connection as open_unix_connection,
+        start_unix_server as start_unix_server,
+    )
+
 from asyncio.subprocess import (
     create_subprocess_exec as create_subprocess_exec,
     create_subprocess_shell as create_subprocess_shell,
