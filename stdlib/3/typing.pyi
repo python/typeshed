@@ -175,7 +175,7 @@ if sys.version_info >= (3, 6):
         @abstractmethod
         def __aiter__(self) -> 'AsyncGenerator[_T_co, _T_contra]': ...
 
-        ag_await = ...   type: Any
+        ag_await = ...  # type: Any
         ag_code = ...  # type: CodeType
         ag_frame = ...  # type: FrameType
         ag_running = ...  # type: bool
