@@ -463,7 +463,7 @@ class bytearray(MutableSequence[int]):
 class bool(int, SupportsInt, SupportsFloat):
     def __init__(self, o: object = ...) -> None: ...
 
-class slice:
+class slice(object):
     start = ...  # type: int
     step = ...  # type: int
     stop = ...  # type: int
