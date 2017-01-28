@@ -24,12 +24,6 @@ from asyncio.streams import (
     IncompleteReadError as IncompleteReadError,
     LimitOverrunError as LimitOverrunError,
 )
-if hasattr(socket, 'AF_UNIX'):
-    from asyncio.streams import (
-        open_unix_connection as open_unix_connection,
-        start_unix_server as start_unix_server,
-    )
-
 from asyncio.subprocess import (
     create_subprocess_exec as create_subprocess_exec,
     create_subprocess_shell as create_subprocess_shell,
@@ -92,6 +86,11 @@ from asyncio.locks import (
 
 if sys.version_info < (3, 5):
     from asyncio.queues import JoinableQueue as JoinableQueue
+if hasattr(socket, 'AF_UNIX'):
+    from asyncio.streams import (
+        open_unix_connection as open_unix_connection,
+        start_unix_server as start_unix_server,
+    )
 
 # TODO: It should be possible to instantiate these classes, but mypy
 # currently disallows this.
