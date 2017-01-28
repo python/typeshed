@@ -464,10 +464,13 @@ class bool(int, SupportsInt, SupportsFloat):
     def __init__(self, o: object = ...) -> None: ...
 
 class slice(object):
-    start = ...  # type: int
-    step = ...  # type: int
-    stop = ...  # type: int
-    def __init__(self, start: int, stop: int = 0, step: int = 0) -> None: ...
+    start = ...  # type: Optional[int]
+    step = ...  # type: Optional[int]
+    stop = ...  # type: Optional[int]
+    @overload
+    def __init__(self, stop: int = None): ...
+    @overload
+    def __init__(self, start: int = None, stop: int = None, step: int = None) -> None: ...
 
 class tuple(Sequence[_T_co], Generic[_T_co]):
     def __init__(self, iterable: Iterable[_T_co] = ...) -> None: ...
