@@ -15,6 +15,7 @@ Callable = object()
 Type = object()
 _promote = object()
 no_type_check = object()
+ClassVar = object()
 
 class GenericMeta(type): ...
 
