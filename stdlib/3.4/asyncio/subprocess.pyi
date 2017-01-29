@@ -3,7 +3,7 @@ from asyncio import protocols
 from asyncio import streams
 from asyncio import transports
 from asyncio.coroutines import coroutine
-from typing import Any, AnyStr, Tuple, Union
+from typing import Any, AnyStr, Optional, Tuple, Union
 
 __all__ = ...  # type: str
 
@@ -33,7 +33,7 @@ class Process:
     def terminate(self) -> None: ...
     def kill(self) -> None: ...
     @coroutine
-    def communicate(self, input: bytes = ...) -> Tuple[bytes, bytes]: ...
+    def communicate(self, input: Optional[bytes] = ...) -> Tuple[bytes, bytes]: ...
 
 
 @coroutine
