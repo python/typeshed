@@ -1,4 +1,4 @@
-from typing import (Optional, Union)
+from typing import Optional, Union
 
 LOG_ALERT = ...  # type: int
 LOG_AUTH = ...  # type: int
