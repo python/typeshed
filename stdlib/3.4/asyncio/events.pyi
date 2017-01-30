@@ -1,5 +1,5 @@
 import sys
-from typing import Any, Awaitable, TypeVar, List, Callable, Tuple, Union, Dict, Generator, overload, Optional
+from typing import Any, Awaitable, Callable, Dict, Generator, List, Optional, Tuple, TypeVar, Union, overload
 from abc import ABCMeta, abstractmethod
 from asyncio.futures import Future
 from asyncio.coroutines import coroutine
@@ -8,6 +8,7 @@ from asyncio.tasks import Task
 __all__ = ...  # type: str
 
 _T = TypeVar('_T')
+_Context = Dict[str, Any]
 
 PIPE = ...  # type: Any  # from subprocess.PIPE
 
@@ -136,11 +137,11 @@ class AbstractEventLoop(metaclass=ABCMeta):
     def remove_signal_handler(self, sig: int) -> None: ...
     # Error handlers.
     @abstractmethod
-    def set_exception_handler(self, handler: Callable[..., Any]) -> None: ...
+    def set_exception_handler(self, handler: Callable[[AbstractEventLoop, _Context], Any]) -> None: ...
     @abstractmethod
-    def default_exception_handler(self, context: Any) -> None: ...
+    def default_exception_handler(self, context: _Context) -> None: ...
     @abstractmethod
-    def call_exception_handler(self, context: Any) -> None: ...
+    def call_exception_handler(self, context: _Context) -> None: ...
     # Debug flag management.
     @abstractmethod
     def get_debug(self) -> bool: ...
