@@ -8,14 +8,14 @@ from types import TracebackType
 
 if sys.version_info >= (3, 5):
     class CompletedProcess:
-        args = ...  # type: Union[List, str]
+        args = ...  # type: Union[Sequence[str], str]
         returncode = ...  # type: int
         stdout = ...  # type: Any
         stderr = ...  # type: Any
         def __init__(self, args: Union[List, str],
                      returncode: int,
-                     stdout: Union[str, bytes],
-                     stderr: Union[str, bytes]) -> None: ...
+                     stdout: Union[str, bytes, None] = ...,
+                     stderr: Union[str, bytes, None] = ...) -> None: ...
         def check_returncode(self) -> None: ...
 
     # Nearly same args as Popen.__init__ except for timeout, input, and check
