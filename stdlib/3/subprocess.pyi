@@ -10,8 +10,8 @@ if sys.version_info >= (3, 5):
     class CompletedProcess:
         args = ...  # type: Union[Sequence[str], str]
         returncode = ...  # type: int
-        stdout = ...  # type: Union[str, bytes, None]
-        stderr = ...  # type: Union[str, bytes, None]
+        stdout = ...  # type: Any
+        stderr = ...  # type: Any
         def __init__(self, args: Union[List, str],
                      returncode: int,
                      stdout: Union[str, bytes, None] = ...,
