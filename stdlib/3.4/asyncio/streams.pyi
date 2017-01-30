@@ -1,12 +1,12 @@
 import socket
-from typing import Any, Callable, Generator, Iterable, Tuple
+from typing import Any, Awaitable, Callable, Generator, Iterable, Optional, Tuple
 
 from . import coroutines
 from . import events
 from . import protocols
 from . import transports
 
-ClientConnectedCallback = Callable[[Tuple[StreamReader, StreamWriter]], None]
+ClientConnectedCallback = Callable[[StreamReader, StreamWriter], Optional[Awaitable[None]]]
 
 
 __all__ = ...  # type: str
