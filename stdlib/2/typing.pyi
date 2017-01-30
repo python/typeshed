@@ -13,6 +13,7 @@ Tuple = object()
 Callable = object()
 Type = object()
 _promote = object()
+ClassVar = object()
 
 class GenericMeta(type): ...
 
