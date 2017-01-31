@@ -1,7 +1,7 @@
 # Stubs for pytz (Python 3.5)
 
 import datetime as dt
-from typing import Optional, List, Set, Dict  # NOQA
+from typing import Optional, List, Set, Dict, Union  # NOQA
 
 all_timezones = ...  # type: List
 all_timezones_set = ...  # type: Set
@@ -23,4 +23,20 @@ class _UTCclass(dt.tzinfo):
 utc = ...  # type: _UTCclass
 UTC = ...  # type: _UTCclass
 
-def timezone(zone: str) -> dt.tzinfo: ...
+
+class _BaseTzInfo(dt.tzinfo):
+    zone = ...  # type: str
+
+    def fromutc(self, dt: dt.datetime) -> dt.datetime: ...
+    def localize(self, dt: dt.datetime, is_dst: Optional[bool]=False) -> dt.datetime: ...
+
+
+class _StaticTzInfo(_BaseTzInfo):
+    def normalize(self, dt: dt.datetime, is_dst: Optional[bool]=False) -> dt.datetime: ...
+
+
+class _DstTzInfo(_BaseTzInfo):
+    def normalize(self, dt: dt.datetime) -> dt.datetime: ...
+
+
+def timezone(zone: str) -> Union[_StaticTzInfo, _DstTzInfo]: ...
