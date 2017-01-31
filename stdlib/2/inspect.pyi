@@ -1,6 +1,5 @@
-# TODO incomplete
 from types import TracebackType, FrameType, ModuleType
-from typing import Any, Callable, List, Optional, Tuple, Union, NamedTuple
+from typing import Any, Dict, Callable, List, Optional, Tuple, Union, NamedTuple, Type
 
 # Types and members
 ModuleInfo = NamedTuple('ModuleInfo', [('name', str),
@@ -47,8 +46,8 @@ def getsource(object: object) -> str: ...
 def cleandoc(doc: str) -> str: ...
 
 # Classes and functions
-# TODO make the return type more specific
-def getclasstree(classes: List[type], unique: bool = ...) -> Any: ...
+def getclasstree(classes: List[type], unique: bool = ...) -> List[
+    Union[Tuple[type, Tuple[type, ...]], list]]: ...
 
 ArgSpec = NamedTuple('ArgSpec', [('args', List[str]),
                                  ('varargs', str),
@@ -57,12 +56,15 @@ ArgSpec = NamedTuple('ArgSpec', [('args', List[str]),
                                  ])
 
 def getargspec(func: object) -> ArgSpec: ...
-# TODO make the return type more specific
-def getargvalues(frame: FrameType) -> Any: ...
-# TODO formatargspec
-# TODO formatargvalues
+def getargvalues(frame: FrameType) -> ArgSpec: ...
+def formatargspec(args, varargs=..., varkw=..., defaults=...,
+        formatarg=..., formatvarargs=..., formatvarkw=..., formatvalue=...,
+        join=...) -> str: ...
+def formatargvalues(args, varargs=..., varkw=..., defaults=...,
+        formatarg=..., formatvarargs=..., formatvarkw=..., formatvalue=...,
+        join=...) -> str: ...
 def getmro(cls: type) -> Tuple[type, ...]: ...
-# TODO getcallargs
+def getcallargs(func, *args, **kwds) -> Dict[str, Any]: ...
 
 # The interpreter stack
 
