@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Test runner for typeshed.
 
 Depends on mypy and pytype being installed.
