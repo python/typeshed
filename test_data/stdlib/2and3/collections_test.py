@@ -1,14 +1,15 @@
 from collections import namedtuple
 
 
-def test_collections_namedtuple():
-    # type: () -> None
+def test_namedtuple():
     Point = namedtuple('Point', 'x y')
     p = Point(1, 2)
 
-    p._replace(y=3.14)
-    p._asdict()
-    p.x, p.y
-    p[0] + p[1]
-    p.index(1)
-    Point._make([('x', 1), ('y', 3.14)])
+    assert p == Point(1, 2)
+    assert p == (1, 2)
+    assert p._replace(y=3.14).y == 3.14
+    assert p._asdict()['x'] == 1
+    assert (p.x, p.y) == (1, 2)
+    assert p[0] + p[1] == 3
+    assert p.index(1) == 0
+    assert Point._make([1, 3.14]).y == 3.14

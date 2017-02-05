@@ -124,6 +124,7 @@ def main():
             runs += 1
             flags = ['--python-version', '%d.%d' % (major, minor)]
             flags.append('--strict-optional')
+            flags.append('--check-untyped-defs')
             if (major, minor) >= (3, 6):
                 flags.append('--fast-parser')
             # flags.append('--warn-unused-ignores')  # Fast parser and regular parser disagree.
