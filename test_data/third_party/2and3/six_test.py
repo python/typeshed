@@ -2,8 +2,8 @@ import pip  # type: ignore
 
 pip.main('install six==1.10.0'.split())
 
-from six import PY2, PY3
-from six.moves import xrange
+from six import PY2, PY3  # noqa: E402
+from six.moves import xrange  # noqa: E402
 
 
 def test_python_checks():
