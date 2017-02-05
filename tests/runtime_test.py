@@ -21,9 +21,7 @@ def main():
     possible_paths = [os.path.join('test_data', t, v)
                       for t in top_dirs
                       for v in version_dirs]
-    print(possible_paths)
     paths = [path for path in possible_paths if os.path.exists(path)]
-    print(paths)
     pytest.main(paths)
 
 
