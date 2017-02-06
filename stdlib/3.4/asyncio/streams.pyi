@@ -1,12 +1,12 @@
 import sys
-from typing import Any, Callable, Generator, Iterable, Tuple
+from typing import Any, Awaitable, Callable, Generator, Iterable, Optional, Tuple
 
 from . import coroutines
 from . import events
 from . import protocols
 from . import transports
 
-ClientConnectedCallback = Callable[[Tuple[StreamReader, StreamWriter]], None]
+ClientConnectedCallback = Callable[[StreamReader, StreamWriter], Optional[Awaitable[None]]]
 
 
 __all__ = ...  # type: str
@@ -83,7 +83,8 @@ class StreamWriter:
     def can_write_eof(self) -> bool: ...
     def close(self) -> None: ...
     def get_extra_info(self, name: str, default: Any = ...) -> Any: ...
-    def drain(self) -> None: ...
+    @coroutines.coroutine
+    def drain(self) -> Generator[Any, None, None]: ...
 
 class StreamReader:
     def __init__(self,

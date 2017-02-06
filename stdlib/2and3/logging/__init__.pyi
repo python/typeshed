@@ -1,7 +1,7 @@
 # Stubs for logging (Python 3.4)
 
 from typing import (
-    Any, Callable, Dict, Iterable, Mapping, MutableMapping, Optional, IO,
+    Any, Callable, Dict, Iterable, List, Mapping, MutableMapping, Optional, IO,
     Tuple, Text, Union, overload,
 )
 from string import Template
@@ -275,7 +275,7 @@ else:
     @overload
     def getLogger() -> Logger: ...
     @overload
-    def getLogger(name: str) -> Logger: ...
+    def getLogger(name: Union[Text, str]) -> Logger: ...
 def getLoggerClass() -> type: ...
 if sys.version_info >= (3,):
     def getLogRecordFactory() -> Callable[..., LogRecord]: ...
