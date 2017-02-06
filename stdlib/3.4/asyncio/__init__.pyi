@@ -86,7 +86,7 @@ from asyncio.locks import (
 
 if sys.version_info < (3, 5):
     from asyncio.queues import JoinableQueue as JoinableQueue
-if hasattr(socket, 'AF_UNIX'):
+if sys.platform != 'win32':
     from asyncio.streams import (
         open_unix_connection as open_unix_connection,
         start_unix_server as start_unix_server,

@@ -38,7 +38,7 @@ def start_server(
     **kwds: Any
 ) -> Generator[Any, None, events.AbstractServer]: ...
 
-if hasattr(socket, 'AF_UNIX'):
+if sys.platform != 'win32':
     @coroutines.coroutine
     def open_unix_connection(
         path: str = ...,
