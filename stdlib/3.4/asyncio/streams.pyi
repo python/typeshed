@@ -1,4 +1,4 @@
-import socket
+import sys
 from typing import Any, Callable, Generator, Iterable, Tuple
 
 from . import coroutines
