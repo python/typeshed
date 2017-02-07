@@ -1,7 +1,6 @@
-from collections import namedtuple
-
-
 def test_namedtuple():
+    from collections import namedtuple
+
     Point = namedtuple('Point', 'x y')
     p = Point(1, 2)
 
