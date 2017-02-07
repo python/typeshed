@@ -14,9 +14,7 @@ are important to the project's success.
     * [Contact us](#discussion) before starting significant work.
     * IMPORTANT: For new libraries, [get permission from the library owner first](#adding-a-new-library).
     * Create your stubs [conforming to the coding style](#stub-file-coding-style).
-    * Add tests for your stubs to `test_data`. These tests should are
-      checked both statically via a type checker and at run-time via
-      pytest.
+    * Optionally, [add some unit tests for your stubs](#adding-tests-for-stubs).
     * Make sure `runtests.sh` passes cleanly on Mypy, pytype, and flake8.
 4. [Submit your changes](#submitting-changes):
     * Open a pull request
@@ -215,6 +213,69 @@ augment the project's concrete implementation, not the project's
 documentation.  Whenever you find them disagreeing, model the type
 information after the actual implementation and file an issue on the
 project's tracker to fix their documentation.
+
+### Adding tests for stubs
+
+If you're fixing a stub file due to some false errors reported by your type
+checker, consider adding a unit test that would show that your changes actually
+fix these false errors.
+
+For example, Mypy is showing false errors about a hypothetical `example`
+module:
+
+```python
+import example
+
+example.foo()  # error: "module" has no attribute "foo"
+example.bar(10)  # error: Argument 1 to "bar" has incompatible type "int"
+```
+
+You might start with a pytest test that passes at run-time, but fails
+(incorrectly) during type checking. For a third-party library `example` that
+runs on both Python 2 and 3 put it into
+`test_data/third_party/2and3/example_test.py`:
+
+```python
+def test_foo_bar():
+    import example
+    
+    example.foo()
+    assert example.bar(10) - 10 == 0
+```
+
+Since `example` is a third-party library, create `example_requirements.txt`
+with the requirements specs for your test next to your test file:
+
+```python
+example==1.2.0
+```
+
+pytest will install the requirements automatically via a test fixture.
+
+You should put your third-party imports inside test functions in your test file,
+so the imports are not executed until pytype installs your requirements.
+
+Then, run both static and run-time tests for your test data. Alternatively, run
+them for all the test data:
+
+```python
+./tests/mypy_test.py
+./tests/runtime_test.py
+```
+
+The first one should fail with a false error (since you haven't fixed it yet)
+while the second one should pass, showing that you're using the API of `example`
+correctly.
+
+Next, add the stub file `third_party/2and3/example.pyi` that actually fixes
+these false errors:
+
+```python
+def foo() -> None: ...
+def bar(x: int) -> int: ...
+```
+
+Finally, re-run the tests to make sure the problem has gone.
 
 ## Issue-tracker conventions
 
