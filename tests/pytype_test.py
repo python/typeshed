@@ -80,12 +80,6 @@ def pytype_test(args):
             if wanted.search(f) and not skipped.search(f):
                 files.append(f)
 
-    for root, _, filenames in os.walk("test_data/stdlib"):
-        for f in sorted(filenames):
-            f = os.path.join(root, f)
-            if wanted.search(f) and not skipped.search(f):
-                files.append(f)
-
     running_tests = collections.deque()
     max_code, runs, errors = 0, 0, 0
     print("Running pytype tests...")
