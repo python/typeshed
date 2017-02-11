@@ -32,6 +32,10 @@ List = TypeAlias(object)
 Dict = TypeAlias(object)
 DefaultDict = TypeAlias(object)
 Set = TypeAlias(object)
+Counter = TypeAlias(object)
+Deque = TypeAlias(object)
+if sys.version_info >= (3, 3):
+    ChainMap = TypeAlias(object)
 
 # Predefined type variables.
 AnyStr = TypeVar('AnyStr', str, bytes)

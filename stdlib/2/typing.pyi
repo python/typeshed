@@ -30,6 +30,8 @@ List = TypeAlias(object)
 Dict = TypeAlias(object)
 DefaultDict = TypeAlias(object)
 Set = TypeAlias(object)
+Counter = TypeAlias(object)
+Deque = TypeAlias(object)
 
 # Predefined type variables.
 AnyStr = TypeVar('AnyStr', str, unicode)
