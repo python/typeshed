@@ -17,30 +17,28 @@ _T = TypeVar('_T')
 # called with a homogeneous list)
 _parser_input_type = Union[bytes, Text]
 
-# Type for individual tag/attr/ns/text values in arguments.
-# The library is extremely permissive in what it accepts.
-# In py2, the library accepts 7-bit bytestrings or unicode strings everywhere
-# and treats them as interchangeable in arguments.
-# In py3, you can also use bytes -- but this is probably an error, so we
-# exclude that possibility here. (why? the parser never produces bytestrings
-# when it parses XML, so e.g., Element.get(b'name') will always return None for
-# XML that comes in from the parser, even if there is a 'name' attribute.)
+# Type for individual tag/attr/ns/text values in args to most functions.
+# In py2, the library accepts str or unicode everywhere and coerces
+# aggressively.
+# In py3, bytes is not coerced to str and so use of bytes is probably an error,
+# so we exclude it. (why? the parser never produces bytes when it parses XML,
+# so e.g., element.get(b'name') will always return None for parsed XML, even if
+# there is a 'name' attribute.)
 _str_argument_type = Union[str, Text]
 
-# Type for individual tag/attr/text values in return values & fields.
+# Type for return values from individual tag/attr/text values and serialization
 if sys.version_info >= (3,):
     # note: in python3, everything comes out as str, yay:
     _str_result_type = str
     # unfortunately, tostring and tostringlist can return either bytes or str
-    # depending on the value of a parameter. Client code knows best:
+    # depending on the value of `encoding` parameter. Client code knows best:
     _tostring_result_type = Any
 else:
     # in python2, if the tag/attribute/text wasn't decode-able as ascii, it
     # comes out as a unicode string; otherwise it comes out as str. (see
-    # _fixtext function in the source). Since client code knows better than we
-    # do what they're expecting, we have to fallback on Any here.
+    # _fixtext function in the source). Client code knows best:
     _str_result_type = Any
-    # tostring and tostringlist always return bytestrings
+    # On the bright side, tostring and tostringlist always return bytes:
     _tostring_result_type = bytes
 
 class Element(Sequence['Element']):
