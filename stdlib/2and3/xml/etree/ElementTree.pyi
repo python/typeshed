@@ -14,7 +14,7 @@ _T = TypeVar('_T')
 
 # Type for parser inputs. Parser will accept any unicode/str/bytes and coerce,
 # and this is true in py2 and py3 (even fromstringlist() in python3 can be
-# called with a homogeneous list)
+# called with a heterogeneous list)
 _parser_input_type = Union[bytes, Text]
 
 # Type for individual tag/attr/ns/text values in args to most functions.
@@ -139,7 +139,7 @@ def fromstringlist(sequence: Sequence[_parser_input_type], parser: 'XMLParser'=.
 # TreeBuilder is called by client code (they could pass strs, bytes or whatever);
 # but we don't want to use a too-broad type, or it would be too hard to write
 # elementfactories.
-_ElementFactory = Callable[[Any, Any], Element]
+_ElementFactory = Callable[[Any, Dict[Any, Any]], Element]
 
 class TreeBuilder:
     def __init__(self, element_factory: _ElementFactory=...) -> None: ...
