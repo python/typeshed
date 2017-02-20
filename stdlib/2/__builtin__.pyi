@@ -663,7 +663,7 @@ class module:
     __file__ = ...  # type: str
     __dict__ = ...  # type: Dict[unicode, Any]
 
-class property:
+class property(object):
     def __init__(self, fget: Callable[[Any], Any] = None,
                  fset: Callable[[Any, Any], None] = None,
                  fdel: Callable[[Any], None] = None, doc: str = None) -> None: ...
