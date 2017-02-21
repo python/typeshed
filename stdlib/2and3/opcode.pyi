@@ -16,6 +16,8 @@ opmap = ...  # Dict[str, int]
 HAVE_ARGUMENT = ...  # type: int
 EXTENDED_ARG = ...  # type: int
 
-if sys.version_info >= (3,):
-    hasnargs = ...  # type: List[int]
+if sys.version_info >= (3, 4):
     def stack_effect(opcode: int, oparg: int = ...) -> int: ...
+
+if sys.version_info >= (3, 6):
+    hasnargs = ...  # type: List[int]
