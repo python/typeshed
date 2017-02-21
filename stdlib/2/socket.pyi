@@ -337,7 +337,8 @@ def create_connection(address: Tuple[str, int],
 # the 5th tuple item is an address
 def getaddrinfo(
         host: Optional[str], port: Union[str, int, None], family: int = ...,
-        socktype: int = ..., proto: int = ..., flags: int = ...) -> List[Tuple[int, int, int, str, Union[Tuple[str, int], Tuple[str, int, int, int]]]]:
+        socktype: int = ..., proto: int = ...,
+        flags: int = ...) -> List[Tuple[int, int, int, str, Union[Tuple[str, int], Tuple[str, int, int, int]]]]:
     ...
 
 def getfqdn(name: str = ...) -> str: ...
