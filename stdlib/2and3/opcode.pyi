@@ -1,4 +1,4 @@
-from typing import List, Sequence
+from typing import List, Dict, Sequence
 
 import sys
 
