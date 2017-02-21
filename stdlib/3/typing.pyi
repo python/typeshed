@@ -32,6 +32,10 @@ List = TypeAlias(object)
 Dict = TypeAlias(object)
 DefaultDict = TypeAlias(object)
 Set = TypeAlias(object)
+Counter = TypeAlias(object)
+Deque = TypeAlias(object)
+if sys.version_info >= (3, 3):
+    ChainMap = TypeAlias(object)
 
 # Predefined type variables.
 AnyStr = TypeVar('AnyStr', str, bytes)
@@ -421,6 +425,8 @@ class Match(Generic[AnyStr]):
     def start(self, group: Union[int, str] = ...) -> int: ...
     def end(self, group: Union[int, str] = ...) -> int: ...
     def span(self, group: Union[int, str] = ...) -> Tuple[int, int]: ...
+    if sys.version_info >= (3, 6):
+        def __getitem__(self, g: Union[int, str]) -> AnyStr: ...
 
 class Pattern(Generic[AnyStr]):
     flags = 0

@@ -1,4 +1,4 @@
-import socket
+import sys
 from typing import Any, Awaitable, Callable, Generator, Iterable, Optional, Tuple
 
 from . import coroutines
@@ -38,7 +38,7 @@ def start_server(
     **kwds: Any
 ) -> Generator[Any, None, events.AbstractServer]: ...
 
-if hasattr(socket, 'AF_UNIX'):
+if sys.platform != 'win32':
     @coroutines.coroutine
     def open_unix_connection(
         path: str = ...,
