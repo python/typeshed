@@ -1,10 +1,17 @@
 from typing import List, Union, Iterator, Tuple, Optional, Any, IO, NamedTuple, Dict
 
-from opcode import (hasconst, hasname, hasjrel, hasjabs, haslocal, hascompare,
-                    hasfree, hasnargs, cmp_op, opname, opmap, HAVE_ARGUMENT,
-                    EXTENDED_ARG, stack_effect)
-
+import sys
 import types
+
+from opcode import (hasconst, hasname, hasjrel, hasjabs, haslocal, hascompare,
+                    hasfree, cmp_op, opname, opmap, HAVE_ARGUMENT,
+                    EXTENDED_ARG)
+
+if sys.version_info >= (3, 4):
+    from opcode import stack_effect
+
+if sys.version_info >= (3, 6):
+    from opcode import hasnargs
 
 _have_code = Union[types.MethodType, types.FunctionType, types.CodeType, type]
 _have_code_or_string = Union[_have_code, str, bytes]
