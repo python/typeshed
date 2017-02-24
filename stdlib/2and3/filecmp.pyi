@@ -28,9 +28,9 @@ class dircmp(Generic[AnyStr]):
 
     # These are created at runtime by __getattr__
     subdirs = ...  # type: Dict[AnyStr, dircmp[AnyStr]]
-    same_files = ... # type: List[AnyStr]
-    diff_files = ... # type: List[AnyStr]
-    funny_files = ... # type: List[AnyStr]
+    same_files = ...  # type: List[AnyStr]
+    diff_files = ...  # type: List[AnyStr]
+    funny_files = ...  # type: List[AnyStr]
     common_dirs = ...  # type: List[AnyStr]
     common_files = ...  # type: List[AnyStr]
     common_funny = ...  # type: List[AnyStr]
