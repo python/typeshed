@@ -5,20 +5,20 @@ from typing import AnyStr, Callable, Dict, Generic, Iterable, List, Optional, Se
 DEFAULT_IGNORES = ...  # type: List[str]
 
 if sys.version_info >= (3,):
-    def cmp(f1:AnyStr, f2:AnyStr, shallow: bool = ...) -> bool: ...
-    def cmpfiles(a:AnyStr, b:AnyStr,
-                 common:Iterable[AnyStr],
+    def cmp(f1: AnyStr, f2: AnyStr, shallow: bool = ...) -> bool: ...
+    def cmpfiles(a: AnyStr, b: AnyStr,
+                 common: Iterable[AnyStr],
                  shallow: bool = ...) -> Tuple[List[AnyStr], List[AnyStr], List[AnyStr]]: ...
     def clear_cache() -> None: ...
 else:
     # Python 2 has a default value of 1 for shallow.  But it accepts a bool too.
-    def cmp(f1:AnyStr, f2:AnyStr, shallow: Union[int, bool] = ...) -> bool: ...
-    def cmpfiles(a:AnyStr, b:AnyStr,
-                 common:Iterable[AnyStr],
+    def cmp(f1: AnyStr, f2: AnyStr, shallow: Union[int, bool] = ...) -> bool: ...
+    def cmpfiles(a: AnyStr, b: AnyStr,
+                 common: Iterable[AnyStr],
                  shallow: Union[int, bool] = ...) -> Tuple[List[AnyStr], List[AnyStr], List[AnyStr]]: ...
 
 class dircmp(Generic[AnyStr]):
-    def __init__(self, a:AnyStr, b:AnyStr,
+    def __init__(self, a: AnyStr, b: AnyStr,
                  ignore: Optional[Sequence[AnyStr]] = ...,
                  hide: Optional[Sequence[AnyStr]] = ...) -> None: ...
     left = ...  # type: AnyStr
