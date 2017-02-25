@@ -1,15 +1,15 @@
 # Stubs for ftplib (Python 2.7/3)
 import sys
-from typing import Optional, BinaryIO, Tuple, TextIO, Iterable, Callable, List, Union, Iterator, Dict
+from typing import Optional, BinaryIO, Tuple, TextIO, Iterable, Callable, List, Union, Iterator, Dict, Text
 from socket import socket
 from ssl import SSLContext
 
-MSG_OOB = ... # type: int
-FTP_PORT = ... # type: int
-MAXLINE = ... # type: int
-CRLF = ... # type: str
+MSG_OOB = ...  # type: int
+FTP_PORT = ...  # type: int
+MAXLINE = ...  # type: int
+CRLF = ...  # type: str
 if sys.version_info >= (3,):
-    B_CRLF = ... # type: bytes
+    B_CRLF = ...  # type: bytes
 
 class Error(Exception): ...
 class error_reply(Error): ...
@@ -110,11 +110,10 @@ class FTP_TLS(FTP):
     if sys.version_info >= (3, 3):
         def ccc(self) -> str: ...
 
-if sys.version == (2,):
+if sys.version_info == (2,):
     class Netrc:
-        def __init__(self, filename: Optional[unicode] = ...) -> None: ...
+        def __init__(self, filename: Optional[Text] = ...) -> None: ...
         def get_hosts(self) -> List[str]: ...
         def get_account(self, host: str) -> Tuple[Optional[str], Optional[str], Optional[str]]: ...
         def get_macros(self) -> List[str]: ...
         def get_macro(self, macro: str) -> Tuple[str, ...]: ...
-
