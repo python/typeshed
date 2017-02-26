@@ -31,7 +31,7 @@ def dump(obj: Any,
     sort_keys: bool = ...,
     **kwds: Any) -> None: ...
 
-def loads(s: str,
+def loads(s: Union[str, bytes, bytearray],
     encoding: Any = ...,  # ignored and deprecated
     cls: Any = ...,
     object_hook: Optional[Callable[[Dict], Any]] = ...,
