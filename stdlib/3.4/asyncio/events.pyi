@@ -3,12 +3,15 @@ from typing import Any, Awaitable, Callable, Dict, Generator, List, Optional, Tu
 from abc import ABCMeta, abstractmethod
 from asyncio.futures import Future
 from asyncio.coroutines import coroutine
+from asyncio.protocols import BaseProtocol
 from asyncio.tasks import Task
+from asyncio.transports import BaseTransport
 
 __all__ = ...  # type: str
 
 _T = TypeVar('_T')
 _Context = Dict[str, Any]
+_ExceptionHandler = Callable[[AbstractEventLoop, _Context], Any]
 
 PIPE = ...  # type: Any  # from subprocess.PIPE
 
@@ -46,7 +49,13 @@ class AbstractEventLoop(metaclass=ABCMeta):
     @abstractmethod
     def is_running(self) -> bool: ...
     @abstractmethod
+    def is_closed(self) -> bool: ...
+    @abstractmethod
     def close(self) -> None: ...
+    if sys.version_info >= (3, 6):
+        @abstractmethod
+        @coroutine
+        def shutdown_asyncgens(self) -> None: ...
     # Methods scheduling callbacks.  All these return Handles.
     @abstractmethod
     def call_soon(self, callback: Callable[..., Any], *args: Any) -> Handle: ...
@@ -71,39 +80,52 @@ class AbstractEventLoop(metaclass=ABCMeta):
     @abstractmethod
     def call_soon_threadsafe(self, callback: Callable[..., Any], *args: Any) -> Handle: ...
     @abstractmethod
+    @coroutine
     def run_in_executor(self, executor: Any,
         callback: Callable[..., Any], *args: Any) -> Future[Any]: ...
     @abstractmethod
     def set_default_executor(self, executor: Any) -> None: ...
     # Network I/O methods returning Futures.
     @abstractmethod
+    @coroutine
     def getaddrinfo(self, host: str, port: int, *,
         family: int = ..., type: int = ..., proto: int = ..., flags: int = ...) -> Future[List[Tuple[int, int, int, str, tuple]]]: ...
     @abstractmethod
+    @coroutine
     def getnameinfo(self, sockaddr: tuple, flags: int = ...) -> Future[Tuple[str, int]]: ...
     @abstractmethod
+    @coroutine
     def create_connection(self, protocol_factory: Any, host: str = ..., port: int = ..., *,
                           ssl: Any = ..., family: int = ..., proto: int = ..., flags: int = ..., sock: Any = ...,
                           local_addr: str = ..., server_hostname: str = ...) -> tuple: ...
     @abstractmethod
+    @coroutine
     def create_server(self, protocol_factory: Any, host: str = ..., port: int = ..., *,
                       family: int = ..., flags: int = ...,
                       sock: Any = ..., backlog: int = ..., ssl: Any = ..., reuse_address: Any = ...) -> Any: ...
     @abstractmethod
+    @coroutine
     def create_unix_connection(self, protocol_factory: Any, path: str, *,
                                ssl: Any = ..., sock: Any = ...,
                                server_hostname: str = ...) -> tuple: ...
     @abstractmethod
+    @coroutine
     def create_unix_server(self, protocol_factory: Any, path: str, *,
                            sock: Any = ..., backlog: int = ..., ssl: Any = ...) -> Any: ...
     @abstractmethod
+    @coroutine
     def create_datagram_endpoint(self, protocol_factory: Any,
                                  local_addr: str = ..., remote_addr: str = ..., *,
                                  family: int = ..., proto: int = ..., flags: int = ...) -> tuple: ...
+    @abstractmethod
+    @coroutine
+    def connect_accepted_socket(self, protocol_factory: Any, sock: Any, *, ssl: Any = ...) -> Tuple[BaseTransport, BaseProtocol]: ...
     # Pipes and subprocesses.
     @abstractmethod
+    @coroutine
     def connect_read_pipe(self, protocol_factory: Any, pipe: Any) -> tuple: ...
     @abstractmethod
+    @coroutine
     def connect_write_pipe(self, protocol_factory: Any, pipe: Any) -> tuple: ...
     @abstractmethod
     def subprocess_shell(self, protocol_factory: Any, cmd: Union[bytes, str], *, stdin: Any = ...,
@@ -123,12 +145,16 @@ class AbstractEventLoop(metaclass=ABCMeta):
     def remove_writer(self, fd: int) -> None: ...
     # Completion based I/O methods returning Futures.
     @abstractmethod
+    @coroutine
     def sock_recv(self, sock: Any, nbytes: int) -> Any: ...  # TODO
     @abstractmethod
+    @coroutine
     def sock_sendall(self, sock: Any, data: bytes) -> None: ...  # TODO
     @abstractmethod
+    @coroutine
     def sock_connect(self, sock: Any, address: str) -> Any: ...  # TODO
     @abstractmethod
+    @coroutine
     def sock_accept(self, sock: Any) -> Any: ...
     # Signal handling.
     @abstractmethod
@@ -137,7 +163,9 @@ class AbstractEventLoop(metaclass=ABCMeta):
     def remove_signal_handler(self, sig: int) -> None: ...
     # Error handlers.
     @abstractmethod
-    def set_exception_handler(self, handler: Callable[[AbstractEventLoop, _Context], Any]) -> None: ...
+    def set_exception_handler(self, handler: _ExceptionHandler) -> None: ...
+    @abstractmethod
+    def get_exception_handler(self) -> _ExceptionHandler: ...
     @abstractmethod
     def default_exception_handler(self, context: _Context) -> None: ...
     @abstractmethod
