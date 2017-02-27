@@ -1,12 +1,12 @@
 # Better codecs stubs hand-written by o11c.
-# https://docs.python.org/2/library/codecs.html
+# https://docs.python.org/2/library/codecs.html and https://docs.python.org/3/library/codecs.html
+import sys
 from typing import (
     BinaryIO,
     Callable,
     Iterable,
     Iterator,
     List,
-    Optional,
     Tuple,
     Union,
 )
@@ -15,13 +15,18 @@ from abc import abstractmethod
 
 
 # TODO: this only satisfies the most common interface, where
-# str is the raw form and unicode is the cooked form.
+# bytes (py2 str) is the raw form and str (py2 unicode) is the cooked form.
 # In the long run, both should become template parameters maybe?
-# There *are* str->str and unicode->unicode encodings in the standard library.
-# And unlike python 3, they are in fairly widespread use.
+# There *are* bytes->bytes and str->str encodings in the standard library.
+# They are much more common in Python 2 than in Python 3.
+# Python 3.5 supposedly might change something there.
 
-_decoded = unicode
-_encoded = str
+if sys.version_info >= (3, 0):
+    _decoded = str
+    _encoded = bytes
+else:
+    _decoded = unicode
+    _encoded = str
 
 # TODO: It is not possible to specify these signatures correctly, because
 # they have an optional positional or keyword argument for errors=.
@@ -41,7 +46,6 @@ def decode(obj: _encoded, encoding: str = ..., errors: str = ...) -> _decoded:
 def lookup(encoding: str) -> 'CodecInfo':
     ...
 class CodecInfo(Tuple[_encode_type, _decode_type, _stream_reader_type, _stream_writer_type]):
-    def __init__(self, encode: _encode_type, decode: _decode_type, streamreader: _stream_reader_type = ..., streamwriter: _stream_writer_type = ..., incrementalencoder: _incremental_encoder_type = ..., incrementaldecoder: _incremental_decoder_type = ..., name: str = ...) -> None: ...
     encode = ...  # type: _encode_type
     decode = ...  # type: _decode_type
     streamreader = ...  # type: _stream_reader_type
@@ -49,6 +53,7 @@ class CodecInfo(Tuple[_encode_type, _decode_type, _stream_reader_type, _stream_w
     incrementalencoder = ...  # type: _incremental_encoder_type
     incrementaldecoder = ...  # type: _incremental_decoder_type
     name = ...  # type: str
+    def __init__(self, encode: _encode_type, decode: _decode_type, streamreader: _stream_reader_type = ..., streamwriter: _stream_writer_type = ..., incrementalencoder: _incremental_encoder_type = ..., incrementaldecoder: _incremental_decoder_type = ..., name: str = ...) -> None: ...
 
 def getencoder(encoding: str) -> _encode_type:
     ...
@@ -69,7 +74,7 @@ def register(search_function: Callable[[str], CodecInfo]) -> None:
 def open(filename: str, mode: str = ..., encoding: str = ..., errors: str = ..., buffering: int = ...) -> StreamReaderWriter:
     ...
 
-def EncodedFile(file: BinaryIO, data_encoding: str, file_encoding: str = ..., errors: Optional[str] = ...) -> 'StreamRecoder':
+def EncodedFile(file: BinaryIO, data_encoding: str, file_encoding: str = ..., errors: str = ...) -> 'StreamRecoder':
     ...
 
 def iterencode(iterator: Iterable[_decoded], encoding: str, errors: str = ...) -> Iterator[_encoded]:
@@ -155,7 +160,7 @@ class BufferedIncrementalEncoder(IncrementalEncoder):
     def encode(self, input: _decoded, final: bool = ...) -> _encoded:
         ...
 class BufferedIncrementalDecoder(IncrementalDecoder):
-    buffer = ...  # type: str
+    buffer = ...  # type: bytes
     def __init__(self, errors: str = ...) -> None:
         ...
     @abstractmethod
@@ -193,7 +198,7 @@ class StreamReader(Codec):
 class StreamReaderWriter:
     def __init__(self, stream: BinaryIO, Reader: _stream_reader_type, Writer: _stream_writer_type, errors: str = ...) -> None:
         ...
-    def __enter__(self) -> BinaryIO:
+    def __enter__(self) -> StreamReaderWriter:
         ...
     def __exit__(self, typ, exc, tb) -> bool:
         ...
