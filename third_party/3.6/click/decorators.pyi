@@ -1,3 +1,4 @@
+from distutils.version import Version
 from typing import Any, Callable, Dict, List, TypeVar, Union
 
 from click.core import Command, Group, Argument, Option, Parameter, Context
@@ -163,10 +164,11 @@ def password_option(
 
 # Defaults copied from the decorator body.
 def version_option(
-    version: str = None,
+    version: Union[str, Version] = None,
     *param_decls: str,
     cls: type = Option,
     # Option
+    prog_name: str = None,
     show_default: bool = False,
     prompt: bool = False,
     confirmation_prompt: bool = False,
