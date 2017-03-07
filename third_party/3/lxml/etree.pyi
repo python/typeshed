@@ -17,7 +17,7 @@ DictAnyStr = Union[Dict[str, str], Dict[bytes, bytes]]
 Dict_Tuple2AnyStr_Any = Union[Dict[Tuple[str, str], Any], Tuple[bytes, bytes], Any]
 
 
-class ElementChildIterator(Iterator['_Element;']):
+class ElementChildIterator(Iterator['_Element']):
     def __iter__(self) -> 'ElementChildIterator': ...
     def __next__(self) -> '_Element': ...
 
