@@ -1,6 +1,6 @@
 # Stubs for ftplib (Python 2.7/3)
 import sys
-from typing import Optional, BinaryIO, Tuple, TextIO, Iterable, Callable, List, Union, Iterator, Dict, Text
+from typing import Optional, BinaryIO, Tuple, TextIO, Iterable, Callable, List, Union, Iterator, Dict, Text, TypeVar, Generic, AnyStr
 from types import TracebackType
 from socket import socket
 from ssl import SSLContext
@@ -18,9 +18,11 @@ class error_temp(Error): ...
 class error_perm(Error): ...
 class error_proto(Error): ...
 
-class FTP:
+T = TypeVar('T')
+
+class FTP(Generic[AnyStr]):
     debugging = ...  # type: int
-    host = ...  # type: str
+    host = ...  # type: AnyStr
     port = ...  # type: int
     maxline = ...  # type: int
     sock = ...  # type: Optional[socket]
@@ -33,7 +35,7 @@ class FTP:
     if sys.version_info >= (3,):
         file = ...  # type: Optional[TextIO]
         encoding = ...  # type: str
-        def __enter__(self) -> FTP: ...
+        def __enter__(self: T) -> T: ...
         def __exit__(self, exc_type: Optional[type], exc_val: Optional[Exception],
                      exc_tb: Optional[TracebackType]) -> bool: ...
     else:
@@ -41,14 +43,14 @@ class FTP:
 
     if sys.version_info >= (3, 3):
         source_address = ...  # type: Optional[Tuple[str, int]]
-        def __init__(self, host: str = ..., user: str = ..., passwd: str = ..., acct: str = ...,
+        def __init__(self, host: AnyStr = ..., user: str = ..., passwd: str = ..., acct: str = ...,
                      timeout: float = ..., source_address: Optional[Tuple[str, int]] = ...) -> None: ...
-        def connect(self, host: str = ..., port: int = ..., timeout: float = ...,
+        def connect(self, host: AnyStr = ..., port: int = ..., timeout: float = ...,
                     source_address: Optional[Tuple[str, int]] = ...) -> str: ...
     else:
-        def __init__(self, host: str = ..., user: str = ..., passwd: str = ..., acct: str = ...,
+        def __init__(self, host: AnyStr = ..., user: str = ..., passwd: str = ..., acct: str = ...,
                      timeout: float = ...) -> None: ...
-        def connect(self, host: str = ..., port: int = ..., timeout: float = ...) -> str: ...
+        def connect(self, host: AnyStr = ..., port: int = ..., timeout: float = ...) -> str: ...
 
     def getwelcome(self) -> str: ...
     def set_debuglevel(self, level: int) -> None: ...
@@ -79,7 +81,7 @@ class FTP:
     def nlst(self, *args: str) -> List[str]: ...
 
     # Technically only the last arg can be a Callable but ...
-    def dir(self, *args: Union[str, Callable[[str], None]]) -> str: ...
+    def dir(self, *args: Union[str, Callable[[str], None]]) -> None: ...
 
     if sys.version_info >= (3, 3):
         def mlsd(self, path: str = ..., facts: Iterable[str] = ...) -> Iterator[Tuple[str, Dict[str, str]]]: ...
@@ -94,7 +96,7 @@ class FTP:
     def close(self) -> None: ...
 
 class FTP_TLS(FTP):
-    def __init__(self, host: str = ..., user: str = ..., passwd: str = ..., acct: str = ...,
+    def __init__(self, host: AnyStr = ..., user: str = ..., passwd: str = ..., acct: str = ...,
                  keyfile: Optional[str] = ..., certfile: Optional[str] = ...,
                  context: Optional[SSLContext] = ..., timeout: float = ...,
                  source_address: Optional[Tuple[str, int]] = ...) -> None: ...
