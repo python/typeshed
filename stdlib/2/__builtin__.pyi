@@ -619,7 +619,7 @@ class set(MutableSet[_T], Generic[_T]):
     def __gt__(self, s: AbstractSet[Any]) -> bool: ...
     # TODO more set operations
 
-class frozenset(FrozenSet[_T], Generic[_T]):
+class frozenset(AbstractSet[_T], Generic[_T]):
     @overload
     def __init__(self) -> None: ...
     @overload
