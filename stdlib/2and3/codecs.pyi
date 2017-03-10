@@ -7,6 +7,7 @@ from typing import (
     Iterable,
     Iterator,
     List,
+    Text,
     Tuple,
     Union,
 )
@@ -21,12 +22,8 @@ from abc import abstractmethod
 # They are much more common in Python 2 than in Python 3.
 # Python 3.5 supposedly might change something there.
 
-if sys.version_info >= (3, 0):
-    _decoded = str
-    _encoded = bytes
-else:
-    _decoded = unicode
-    _encoded = str
+_decoded = Text
+_encoded = bytes
 
 # TODO: It is not possible to specify these signatures correctly, because
 # they have an optional positional or keyword argument for errors=.
