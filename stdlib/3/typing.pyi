@@ -178,7 +178,14 @@ class Container(Generic[_T_co]):
     @abstractmethod
     def __contains__(self, x: object) -> bool: ...
 
-class Sequence(Iterable[_T_co], Container[_T_co], Sized, Reversible[_T_co], Generic[_T_co]):
+
+if sys.version_info >= (3, 6):
+    class Collection(Sized, Iterable[_T_co], Container[_T_co], Generic[_T_co]): pass
+    _Collection = Collection
+else:
+    class _Collection(Sized, Iterable[_T_co], Container[_T_co], Generic[_T_co]): pass
+
+class Sequence(_Collection[_T_co], Reversible[_T_co], Generic[_T_co]):
     @overload
     @abstractmethod
     def __getitem__(self, i: int) -> _T_co: ...
@@ -218,7 +225,7 @@ class MutableSequence(Sequence[_T], Generic[_T]):
     def remove(self, object: _T) -> None: ...
     def __iadd__(self, x: Iterable[_T]) -> MutableSequence[_T]: ...
 
-class AbstractSet(Iterable[_T_co], Container[_T_co], Sized, Generic[_T_co]):
+class AbstractSet(_Collection[_T_co], Generic[_T_co]):
     @abstractmethod
     def __contains__(self, x: object) -> bool: ...
     # Mixin methods
@@ -266,7 +273,7 @@ class ValuesView(MappingView, Iterable[_VT_co], Generic[_VT_co]):
 
 # TODO: ContextManager (only if contextlib.AbstractContextManager exists)
 
-class Mapping(Iterable[_KT], Container[_KT], Sized, Generic[_KT, _VT_co]):
+class Mapping(_Collection[_KT], Generic[_KT, _VT_co]):
     # TODO: We wish the key type could also be covariant, but that doesn't work,
     # see discussion in https: //github.com/python/typing/pull/273.
     @abstractmethod
