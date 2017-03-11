@@ -12,6 +12,7 @@ __all__ = ...  # type: str
 _T = TypeVar('_T')
 _Context = Dict[str, Any]
 _ExceptionHandler = Callable[[AbstractEventLoop, _Context], Any]
+_ProtocolFactory = Callable[[], BaseProtocol]
 _TransProtPair = Tuple[BaseTransport, BaseProtocol]
 
 PIPE = ...  # type: Any  # from subprocess.PIPE
@@ -96,46 +97,46 @@ class AbstractEventLoop(metaclass=ABCMeta):
     def getnameinfo(self, sockaddr: tuple, flags: int = ...) -> Generator[None, None, Tuple[str, int]]: ...
     @abstractmethod
     @coroutine
-    def create_connection(self, protocol_factory: Any, host: str = ..., port: int = ..., *,
+    def create_connection(self, protocol_factory: _ProtocolFactory, host: str = ..., port: int = ..., *,
                           ssl: Any = ..., family: int = ..., proto: int = ..., flags: int = ..., sock: Any = ...,
                           local_addr: str = ..., server_hostname: str = ...) -> Generator[None, None, _TransProtPair]: ...
     @abstractmethod
     @coroutine
-    def create_server(self, protocol_factory: Any, host: str = ..., port: int = ..., *,
+    def create_server(self, protocol_factory: _ProtocolFactory, host: str = ..., port: int = ..., *,
                       family: int = ..., flags: int = ...,
                       sock: Any = ..., backlog: int = ..., ssl: Any = ..., reuse_address: Any = ...) -> Generator[None, None, Any]: ...
     @abstractmethod
     @coroutine
-    def create_unix_connection(self, protocol_factory: Any, path: str, *,
+    def create_unix_connection(self, protocol_factory: _ProtocolFactory, path: str, *,
                                ssl: Any = ..., sock: Any = ...,
                                server_hostname: str = ...) -> Generator[None, None, _TransProtPair]: ...
     @abstractmethod
     @coroutine
-    def create_unix_server(self, protocol_factory: Any, path: str, *,
+    def create_unix_server(self, protocol_factory: _ProtocolFactory, path: str, *,
                            sock: Any = ..., backlog: int = ..., ssl: Any = ...) -> Generator[None, None, Any]: ...
     @abstractmethod
     @coroutine
-    def create_datagram_endpoint(self, protocol_factory: Any,
+    def create_datagram_endpoint(self, protocol_factory: _ProtocolFactory,
                                  local_addr: str = ..., remote_addr: str = ..., *,
                                  family: int = ..., proto: int = ..., flags: int = ...) -> Generator[None, None, _TransProtPair]: ...
     @abstractmethod
     @coroutine
-    def connect_accepted_socket(self, protocol_factory: Any, sock: Any, *, ssl: Any = ...) -> Generator[None, None, _TransProtPair]: ...
+    def connect_accepted_socket(self, protocol_factory: _ProtocolFactory, sock: Any, *, ssl: Any = ...) -> Generator[None, None, _TransProtPair]: ...
     # Pipes and subprocesses.
     @abstractmethod
     @coroutine
-    def connect_read_pipe(self, protocol_factory: Any, pipe: Any) -> Generator[None, None, _TransProtPair]: ...
+    def connect_read_pipe(self, protocol_factory: _ProtocolFactory, pipe: Any) -> Generator[None, None, _TransProtPair]: ...
     @abstractmethod
     @coroutine
-    def connect_write_pipe(self, protocol_factory: Any, pipe: Any) -> Generator[None, None, _TransProtPair]: ...
+    def connect_write_pipe(self, protocol_factory: _ProtocolFactory, pipe: Any) -> Generator[None, None, _TransProtPair]: ...
     @abstractmethod
     @coroutine
-    def subprocess_shell(self, protocol_factory: Any, cmd: Union[bytes, str], *, stdin: Any = ...,
+    def subprocess_shell(self, protocol_factory: _ProtocolFactory, cmd: Union[bytes, str], *, stdin: Any = ...,
                          stdout: Any = ..., stderr: Any = ...,
                          **kwargs: Any) -> Generator[None, None, _TransProtPair]: ...
     @abstractmethod
     @coroutine
-    def subprocess_exec(self, protocol_factory: Any, *args: List[Any], stdin: Any = ...,
+    def subprocess_exec(self, protocol_factory: _ProtocolFactory, *args: List[Any], stdin: Any = ...,
                         stdout: Any = ..., stderr: Any = ...,
                         **kwargs: Any) -> Generator[None, None, _TransProtPair]: ...
     @abstractmethod
