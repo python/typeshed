@@ -87,7 +87,7 @@ class AbstractEventLoop(metaclass=ABCMeta):
     @abstractmethod
     @coroutine
     def run_in_executor(self, executor: Any,
-        callback: Callable[..., Any], *args: Any) -> Generator[Any, None, Any]: ...
+        callback: Callable[..., _T], *args: Any) -> Generator[Any, None, _T]: ...
     @abstractmethod
     def set_default_executor(self, executor: Any) -> None: ...
     # Network I/O methods returning Futures.
@@ -107,7 +107,7 @@ class AbstractEventLoop(metaclass=ABCMeta):
     @coroutine
     def create_server(self, protocol_factory: _ProtocolFactory, host: str = ..., port: int = ..., *,
                       family: int = ..., flags: int = ...,
-                      sock: socket = ..., backlog: int = ..., ssl: _SSLContext = ..., reuse_address: Any = ...) -> Generator[Any, None, Any]: ...
+                      sock: socket = ..., backlog: int = ..., ssl: _SSLContext = ..., reuse_address: Any = ...) -> Generator[Any, None, AbstractServer]: ...
     @abstractmethod
     @coroutine
     def create_unix_connection(self, protocol_factory: _ProtocolFactory, path: str, *,
@@ -116,7 +116,7 @@ class AbstractEventLoop(metaclass=ABCMeta):
     @abstractmethod
     @coroutine
     def create_unix_server(self, protocol_factory: _ProtocolFactory, path: str, *,
-                           sock: socket = ..., backlog: int = ..., ssl: _SSLContext = ...) -> Generator[Any, None, Any]: ...
+                           sock: socket = ..., backlog: int = ..., ssl: _SSLContext = ...) -> Generator[Any, None, AbstractServer]: ...
     @abstractmethod
     @coroutine
     def create_datagram_endpoint(self, protocol_factory: _ProtocolFactory,
