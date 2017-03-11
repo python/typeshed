@@ -107,7 +107,7 @@ class AbstractEventLoop(metaclass=ABCMeta):
     @coroutine
     def create_server(self, protocol_factory: _ProtocolFactory, host: str = ..., port: int = ..., *,
                       family: int = ..., flags: int = ...,
-                      sock: socket = ..., backlog: int = ..., ssl: _SSLContext = ..., reuse_address: Any = ...) -> Generator[Any, None, AbstractServer]: ...
+                      sock: socket = ..., backlog: int = ..., ssl: _SSLContext = ..., reuse_address: Optional[bool] = ...) -> Generator[Any, None, AbstractServer]: ...
     @abstractmethod
     @coroutine
     def create_unix_connection(self, protocol_factory: _ProtocolFactory, path: str, *,
