@@ -1,3 +1,4 @@
+from socket import socket
 import ssl
 import sys
 from typing import Any, Awaitable, Callable, Dict, Generator, List, Optional, Tuple, TypeVar, Union, overload
@@ -152,16 +153,16 @@ class AbstractEventLoop(metaclass=ABCMeta):
     # Completion based I/O methods returning Futures.
     @abstractmethod
     @coroutine
-    def sock_recv(self, sock: Any, nbytes: int) -> Generator[Any, None, Any]: ...  # TODO
+    def sock_recv(self, sock: socket, nbytes: int) -> Generator[Any, None, bytes]: ...
     @abstractmethod
     @coroutine
-    def sock_sendall(self, sock: Any, data: bytes) -> Generator[Any, None, None]: ...  # TODO
+    def sock_sendall(self, sock: socket, data: bytes) -> Generator[Any, None, None]: ...
     @abstractmethod
     @coroutine
-    def sock_connect(self, sock: Any, address: str) -> Generator[Any, None, Any]: ...  # TODO
+    def sock_connect(self, sock: socket, address: str) -> Generator[Any, None, None]: ...
     @abstractmethod
     @coroutine
-    def sock_accept(self, sock: Any) -> Generator[Any, None, Any]: ...
+    def sock_accept(self, sock: socket) -> Generator[Any, None, Tuple[socket, Any]]: ...
     # Signal handling.
     @abstractmethod
     def add_signal_handler(self, sig: int, callback: Callable[..., Any], *args: List[Any]) -> None: ...
