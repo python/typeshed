@@ -8,7 +8,7 @@ from types import TracebackType
 from typing import AnyStr, IO, Optional, Tuple, Type
 
 # global variables
-tempdir = ...  # type: str
+tempdir = ...  # type: Optional[str]
 template = ...  # type: str
 
 
