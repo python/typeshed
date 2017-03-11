@@ -101,22 +101,22 @@ class AbstractEventLoop(metaclass=ABCMeta):
     @abstractmethod
     @coroutine
     def create_connection(self, protocol_factory: _ProtocolFactory, host: str = ..., port: int = ..., *,
-                          ssl: _SSLContext = ..., family: int = ..., proto: int = ..., flags: int = ..., sock: Any = ...,
+                          ssl: _SSLContext = ..., family: int = ..., proto: int = ..., flags: int = ..., sock: socket = ...,
                           local_addr: str = ..., server_hostname: str = ...) -> Generator[Any, None, _TransProtPair]: ...
     @abstractmethod
     @coroutine
     def create_server(self, protocol_factory: _ProtocolFactory, host: str = ..., port: int = ..., *,
                       family: int = ..., flags: int = ...,
-                      sock: Any = ..., backlog: int = ..., ssl: _SSLContext = ..., reuse_address: Any = ...) -> Generator[Any, None, Any]: ...
+                      sock: socket = ..., backlog: int = ..., ssl: _SSLContext = ..., reuse_address: Any = ...) -> Generator[Any, None, Any]: ...
     @abstractmethod
     @coroutine
     def create_unix_connection(self, protocol_factory: _ProtocolFactory, path: str, *,
-                               ssl: _SSLContext = ..., sock: Any = ...,
+                               ssl: _SSLContext = ..., sock: socket = ...,
                                server_hostname: str = ...) -> Generator[Any, None, _TransProtPair]: ...
     @abstractmethod
     @coroutine
     def create_unix_server(self, protocol_factory: _ProtocolFactory, path: str, *,
-                           sock: Any = ..., backlog: int = ..., ssl: _SSLContext = ...) -> Generator[Any, None, Any]: ...
+                           sock: socket = ..., backlog: int = ..., ssl: _SSLContext = ...) -> Generator[Any, None, Any]: ...
     @abstractmethod
     @coroutine
     def create_datagram_endpoint(self, protocol_factory: _ProtocolFactory,
@@ -124,7 +124,7 @@ class AbstractEventLoop(metaclass=ABCMeta):
                                  family: int = ..., proto: int = ..., flags: int = ...) -> Generator[Any, None, _TransProtPair]: ...
     @abstractmethod
     @coroutine
-    def connect_accepted_socket(self, protocol_factory: _ProtocolFactory, sock: Any, *, ssl: _SSLContext = ...) -> Generator[Any, None, _TransProtPair]: ...
+    def connect_accepted_socket(self, protocol_factory: _ProtocolFactory, sock: socket, *, ssl: _SSLContext = ...) -> Generator[Any, None, _TransProtPair]: ...
     # Pipes and subprocesses.
     @abstractmethod
     @coroutine
