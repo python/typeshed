@@ -5,7 +5,7 @@
 
 import sys
 from types import TracebackType
-from typing import AnyStr, IO, Optional, Tuple, Type
+from typing import Any, AnyStr, Generic, IO, Optional, Tuple, Type
 
 # global variables
 tempdir = ...  # type: Optional[str]
