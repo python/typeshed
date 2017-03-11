@@ -1,3 +1,4 @@
+import ssl
 import sys
 from typing import Any, Awaitable, Callable, Dict, Generator, List, Optional, Tuple, TypeVar, Union, overload
 from abc import ABCMeta, abstractmethod
@@ -13,6 +14,7 @@ _T = TypeVar('_T')
 _Context = Dict[str, Any]
 _ExceptionHandler = Callable[[AbstractEventLoop, _Context], Any]
 _ProtocolFactory = Callable[[], BaseProtocol]
+_SSLContext = Union[bool, None, ssl.SSLContext]
 _TransProtPair = Tuple[BaseTransport, BaseProtocol]
 
 PIPE = ...  # type: Any  # from subprocess.PIPE
@@ -98,22 +100,22 @@ class AbstractEventLoop(metaclass=ABCMeta):
     @abstractmethod
     @coroutine
     def create_connection(self, protocol_factory: _ProtocolFactory, host: str = ..., port: int = ..., *,
-                          ssl: Any = ..., family: int = ..., proto: int = ..., flags: int = ..., sock: Any = ...,
+                          ssl: _SSLContext = ..., family: int = ..., proto: int = ..., flags: int = ..., sock: Any = ...,
                           local_addr: str = ..., server_hostname: str = ...) -> Generator[None, None, _TransProtPair]: ...
     @abstractmethod
     @coroutine
     def create_server(self, protocol_factory: _ProtocolFactory, host: str = ..., port: int = ..., *,
                       family: int = ..., flags: int = ...,
-                      sock: Any = ..., backlog: int = ..., ssl: Any = ..., reuse_address: Any = ...) -> Generator[None, None, Any]: ...
+                      sock: Any = ..., backlog: int = ..., ssl: _SSLContext = ..., reuse_address: Any = ...) -> Generator[None, None, Any]: ...
     @abstractmethod
     @coroutine
     def create_unix_connection(self, protocol_factory: _ProtocolFactory, path: str, *,
-                               ssl: Any = ..., sock: Any = ...,
+                               ssl: _SSLContext = ..., sock: Any = ...,
                                server_hostname: str = ...) -> Generator[None, None, _TransProtPair]: ...
     @abstractmethod
     @coroutine
     def create_unix_server(self, protocol_factory: _ProtocolFactory, path: str, *,
-                           sock: Any = ..., backlog: int = ..., ssl: Any = ...) -> Generator[None, None, Any]: ...
+                           sock: Any = ..., backlog: int = ..., ssl: _SSLContext = ...) -> Generator[None, None, Any]: ...
     @abstractmethod
     @coroutine
     def create_datagram_endpoint(self, protocol_factory: _ProtocolFactory,
@@ -121,7 +123,7 @@ class AbstractEventLoop(metaclass=ABCMeta):
                                  family: int = ..., proto: int = ..., flags: int = ...) -> Generator[None, None, _TransProtPair]: ...
     @abstractmethod
     @coroutine
-    def connect_accepted_socket(self, protocol_factory: _ProtocolFactory, sock: Any, *, ssl: Any = ...) -> Generator[None, None, _TransProtPair]: ...
+    def connect_accepted_socket(self, protocol_factory: _ProtocolFactory, sock: Any, *, ssl: _SSLContext = ...) -> Generator[None, None, _TransProtPair]: ...
     # Pipes and subprocesses.
     @abstractmethod
     @coroutine
