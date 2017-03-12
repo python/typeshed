@@ -1,7 +1,7 @@
 # Stubs for unicodedata (Python 3.4)
 from typing import Any, TypeVar, Union
 
-ucd_3_2_0 = ...  # type: Any
+ucd_3_2_0 = ...  # type: UCD
 ucnhash_CAPI = ...  # type: Any
 unidata_version = ...  # type: str
 
