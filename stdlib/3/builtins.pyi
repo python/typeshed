@@ -546,13 +546,6 @@ class tuple(Sequence[_T_co], Generic[_T_co]):
     else:
         def index(self, x: Any) -> int: ...
 
-class function:
-    # TODO not defined in builtins!
-    __name__ = ...  # type: str
-    __qualname__ = ...  # type: str
-    __module__ = ...  # type: str
-    __code__ = ...  # type: Any
-
 class list(MutableSequence[_T], Generic[_T]):
     @overload
     def __init__(self) -> None: ...
