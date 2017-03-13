@@ -4,7 +4,7 @@ from .coroutines import coroutine
 from .events import AbstractEventLoop
 from .futures import Future
 
-T = TypeVar('T')
+_T = TypeVar('_T')
 
 __all__ = ...  # type: str
 
@@ -44,7 +44,7 @@ class Condition(_ContextManagerMixin):
     @coroutine
     def wait(self) -> Generator[Any, None, bool]: ...
     @coroutine
-    def wait_for(self, predicate: Callable[[], T]) -> Generator[Any, None, T]: ...
+    def wait_for(self, predicate: Callable[[], _T]) -> Generator[Any, None, _T]: ...
     def notify(self, n: int = 1) -> None: ...
     def notify_all(self) -> None: ...
 
