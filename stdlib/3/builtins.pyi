@@ -36,7 +36,7 @@ class object:
     __slots__ = ...  # type: Optional[Union[str, Iterable[str]]]
     __module__ = ...  # type: str
     if sys.version_info >= (3, 6):
-        __annotations__ = ... # type: Dict[str, Any]
+        __annotations__ = ...  # type: Dict[str, Any]
 
     def __init__(self) -> None: ...
     def __new__(cls) -> Any: ...
@@ -554,7 +554,7 @@ class function:
     __qualname__ = ...  # type: str
     __module__ = ...  # type: str
     __code__ = ...  # type: Any
-    __annotations__ = ... # type: Dict[str, Any]
+    __annotations__ = ...  # type: Dict[str, Any]
 
 class list(MutableSequence[_T], Generic[_T]):
     @overload
