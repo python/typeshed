@@ -15,7 +15,7 @@ template = ...  # type: str
 if sys.version_info >= (3, 5):
     def TemporaryFile(
         mode: str = ..., buffering: int = ..., encoding: str = ...,
-        newline: str = ..., suffix: Optional[AnyStr ]= ..., prefix: Optional[AnyStr] = ...,
+        newline: str = ..., suffix: Optional[AnyStr]= ..., prefix: Optional[AnyStr] = ...,
         dir: Optional[AnyStr] = ...
     ) -> IO[Any]:
         ...
