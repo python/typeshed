@@ -5,6 +5,8 @@ from types import TracebackType
 from socket import socket
 from ssl import SSLContext
 
+_T = TypeVar('_T')
+
 MSG_OOB = ...  # type: int
 FTP_PORT = ...  # type: int
 MAXLINE = ...  # type: int
@@ -18,7 +20,7 @@ class error_temp(Error): ...
 class error_perm(Error): ...
 class error_proto(Error): ...
 
-T = TypeVar('T')
+all_errors = Tuple[Exception, ...]
 
 class FTP(Generic[AnyStr]):
     debugging = ...  # type: int
@@ -35,7 +37,7 @@ class FTP(Generic[AnyStr]):
     if sys.version_info >= (3,):
         file = ...  # type: Optional[TextIO]
         encoding = ...  # type: str
-        def __enter__(self: T) -> T: ...
+        def __enter__(self: _T) -> _T: ...
         def __exit__(self, exc_type: Optional[type], exc_val: Optional[Exception],
                      exc_tb: Optional[TracebackType]) -> bool: ...
     else:
@@ -95,7 +97,7 @@ class FTP(Generic[AnyStr]):
     def quit(self) -> str: ...
     def close(self) -> None: ...
 
-class FTP_TLS(FTP):
+class FTP_TLS(FTP[AnyStr], Generic[AnyStr]):
     def __init__(self, host: AnyStr = ..., user: str = ..., passwd: str = ..., acct: str = ...,
                  keyfile: Optional[str] = ..., certfile: Optional[str] = ...,
                  context: Optional[SSLContext] = ..., timeout: float = ...,
