@@ -93,8 +93,10 @@ class AbstractEventLoop(metaclass=ABCMeta):
     # Network I/O methods returning Futures.
     @abstractmethod
     @coroutine
+    # TODO the "Tuple[Any]" should be "Union[Tuple[str, int], Tuple[str, int, int, int]]" but that triggers
+    # https://github.com/python/mypy/issues/2509
     def getaddrinfo(self, host: str, port: int, *,
-        family: int = ..., type: int = ..., proto: int = ..., flags: int = ...) -> Generator[Any, None, List[Tuple[int, int, int, str, Union[Tuple[str, int], Tuple[str, int, int, int]]]]]: ...
+        family: int = ..., type: int = ..., proto: int = ..., flags: int = ...) -> Generator[Any, None, List[Tuple[int, int, int, str, Tuple[Any]]]]: ...
     @abstractmethod
     @coroutine
     def getnameinfo(self, sockaddr: tuple, flags: int = ...) -> Generator[Any, None, Tuple[str, int]]: ...
