@@ -41,7 +41,7 @@ class parser(object):
 DEFAULTPARSER = ...  # type: parser
 
 
-def parse(timestr, parserinfo: parserinfo=..., **kwargs) -> datetime:
+def parse(timestr: Union[str, bytes, IO[Any]], parserinfo: parserinfo=..., **kwargs) -> datetime:
     ...
 
 

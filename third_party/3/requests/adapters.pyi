@@ -44,9 +44,9 @@ DEFAULT_RETRIES = ...  # type: Any
 
 class BaseAdapter:
     def __init__(self) -> None: ...
-    def send(self, request: PreparedRequest, stream=False,
+    def send(self, request: PreparedRequest, stream: bool=False,
              timeout: Union[None, float, Tuple[float, float]]=None,
-             verify=False,
+             verify: bool=False,
              cert: Union[None, Union[str, bytes], Container[Union[str, bytes]]]=None
              ) -> Response: ...
     def close(self) -> None: ...
