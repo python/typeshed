@@ -1,6 +1,6 @@
 # Stubs for requests.api (Python 3)
 
-from typing import Optional, Union, Any, Iterable, Mapping, MutableMapping, Tuple
+from typing import Optional, Union, Any, Iterable, Mapping, MutableMapping, Tuple, IO, Text
 
 from .models import Response
 
