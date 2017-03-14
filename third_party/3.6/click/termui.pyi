@@ -63,7 +63,7 @@ _T = TypeVar('_T')
 
 @contextmanager
 def progressbar(
-    iterable=Iterable[_T],
+    iterable: Optional[Iterable[_T]] = None,
     length: int = None,
     label: str = None,
     show_eta: bool = True,
