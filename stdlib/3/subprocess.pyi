@@ -1,9 +1,10 @@
 # Stubs for subprocess
 
-# Based on http://docs.python.org/3.6/library/subprocess.html
+# Based on http://docs.python.org/3.5/library/subprocess.html
 import sys
 from typing import Sequence, Any, AnyStr, Mapping, Callable, Tuple, IO, Optional, Union, List, Type
 from types import TracebackType
+
 
 if sys.version_info >= (3, 5):
     class CompletedProcess:
@@ -17,52 +18,27 @@ if sys.version_info >= (3, 5):
                      stderr: Union[str, bytes, None] = ...) -> None: ...
         def check_returncode(self) -> None: ...
 
-    if sys.version_info >= (3, 6):
-        # Nearly same args as Popen.__init__ except for timeout, input, and check
-        def run(args: Union[str, Sequence[str]],
-                timeout: float = ...,
-                input: Union[str, bytes] = ...,
-                check: bool = ...,
-                bufsize: int = ...,
-                executable: str = ...,
-                stdin: Any = ...,
-                stdout: Any = ...,
-                stderr: Any = ...,
-                preexec_fn: Callable[[], Any] = ...,
-                close_fds: bool = ...,
-                shell: bool = ...,
-                cwd: str = ...,
-                env: Mapping[str, str] = ...,
-                universal_newlines: bool = ...,
-                startupinfo: Any = ...,
-                creationflags: int = ...,
-                restore_signals: bool = ...,
-                start_new_session: bool = ...,
-                pass_fds: Any = ...,
-                encoding: str = ...,
-                errors: str = ...) -> CompletedProcess: ...
-    else:
-        # Nearly same args as Popen.__init__ except for timeout, input, and check
-        def run(args: Union[str, Sequence[str]],
-                timeout: float = ...,
-                input: Union[str, bytes] = ...,
-                check: bool = ...,
-                bufsize: int = ...,
-                executable: str = ...,
-                stdin: Any = ...,
-                stdout: Any = ...,
-                stderr: Any = ...,
-                preexec_fn: Callable[[], Any] = ...,
-                close_fds: bool = ...,
-                shell: bool = ...,
-                cwd: str = ...,
-                env: Mapping[str, str] = ...,
-                universal_newlines: bool = ...,
-                startupinfo: Any = ...,
-                creationflags: int = ...,
-                restore_signals: bool = ...,
-                start_new_session: bool = ...,
-                pass_fds: Any = ...) -> CompletedProcess: ...
+    # Nearly same args as Popen.__init__ except for timeout, input, and check
+    def run(args: Union[str, Sequence[str]],
+            timeout: float = ...,
+            input: Union[str, bytes] = ...,
+            check: bool = ...,
+            bufsize: int = ...,
+            executable: str = ...,
+            stdin: Any = ...,
+            stdout: Any = ...,
+            stderr: Any = ...,
+            preexec_fn: Callable[[], Any] = ...,
+            close_fds: bool = ...,
+            shell: bool = ...,
+            cwd: str = ...,
+            env: Mapping[str, str] = ...,
+            universal_newlines: bool = ...,
+            startupinfo: Any = ...,
+            creationflags: int = ...,
+            restore_signals: bool = ...,
+            start_new_session: bool = ...,
+            pass_fds: Any = ...) -> CompletedProcess: ...
 
 # Same args as Popen.__init__
 if sys.version_info >= (3, 3):
@@ -231,46 +207,24 @@ class Popen:
     pid = 0
     returncode = 0
 
-    if sys.version_info >= (3, 6):
-        def __init__(self,
-                     args: Union[str, Sequence[str]],
-                     bufsize: int = ...,
-                     executable: Optional[str] = ...,
-                     stdin: Optional[Any] = ...,
-                     stdout: Optional[Any] = ...,
-                     stderr: Optional[Any] = ...,
-                     preexec_fn: Optional[Callable[[], Any]] = ...,
-                     close_fds: bool = ...,
-                     shell: bool = ...,
-                     cwd: Optional[str] = ...,
-                     env: Optional[Mapping[str, str]] = ...,
-                     universal_newlines: bool = ...,
-                     startupinfo: Optional[Any] = ...,
-                     creationflags: int = ...,
-                     restore_signals: bool = ...,
-                     start_new_session: bool = ...,
-                     pass_fds: Any = ...,
-                     encoding: str = ...,
-                     errors: str = ...) -> None: ...
-    else:
-        def __init__(self,
-                     args: Union[str, Sequence[str]],
-                     bufsize: int = ...,
-                     executable: Optional[str] = ...,
-                     stdin: Optional[Any] = ...,
-                     stdout: Optional[Any] = ...,
-                     stderr: Optional[Any] = ...,
-                     preexec_fn: Optional[Callable[[], Any]] = ...,
-                     close_fds: bool = ...,
-                     shell: bool = ...,
-                     cwd: Optional[str] = ...,
-                     env: Optional[Mapping[str, str]] = ...,
-                     universal_newlines: bool = ...,
-                     startupinfo: Optional[Any] = ...,
-                     creationflags: int = ...,
-                     restore_signals: bool = ...,
-                     start_new_session: bool = ...,
-                     pass_fds: Any = ...) -> None: ...
+    def __init__(self,
+                  args: Union[str, Sequence[str]],
+                  bufsize: int = ...,
+                  executable: Optional[str] = ...,
+                  stdin: Optional[Any] = ...,
+                  stdout: Optional[Any] = ...,
+                  stderr: Optional[Any] = ...,
+                  preexec_fn: Optional[Callable[[], Any]] = ...,
+                  close_fds: bool = ...,
+                  shell: bool = ...,
+                  cwd: Optional[str] = ...,
+                  env: Optional[Mapping[str, str]] = ...,
+                  universal_newlines: bool = ...,
+                  startupinfo: Optional[Any] = ...,
+                  creationflags: int = ...,
+                  restore_signals: bool = ...,
+                  start_new_session: bool = ...,
+                  pass_fds: Any = ...) -> None: ...
 
     def poll(self) -> int: ...
     if sys.version_info >= (3, 3):

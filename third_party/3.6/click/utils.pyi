@@ -22,11 +22,11 @@ def make_default_short_help(help: str, max_length: int = 45):
 
 
 class LazyFile:
-    name = ...  # type: str
-    mode = ...  # type: str
-    encoding = ...  # type: Optional[str]
-    errors = ...  # type: str
-    atomic = ...  # type: bool
+    name: str
+    mode: str
+    encoding: Optional[str]
+    errors: str
+    atomic: bool
 
     def __init__(
         self,
@@ -58,7 +58,7 @@ class LazyFile:
 
 
 class KeepOpenFile(object):
-    _file = ...  # type: IO
+    _file: IO
 
     def __init__(self, file: IO) -> None:
         ...

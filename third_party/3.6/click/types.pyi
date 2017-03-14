@@ -5,9 +5,9 @@ from click.core import Context, Parameter
 
 
 class ParamType:
-    name = ...  # type: str
-    is_composite = ...  # type: bool
-    envvar_list_splitter = ...  # type: Optional[str]
+    name: str
+    is_composite: bool
+    envvar_list_splitter: Optional[str]
 
     def __call__(
         self,
@@ -57,11 +57,11 @@ class BoolParamType(ParamType):
 
 
 class CompositeParamType(ParamType):
-    arity = ...  # type: int
+    arity: int
 
 
 class Choice(ParamType):
-    choices = ...  # type: Iterable[str]
+    choices: Iterable[str]
     def __init__(self, choices: Iterable[str]) -> None:
         ...
 
@@ -124,7 +124,7 @@ _Func = Callable[[Optional[str]], _F]
 
 
 class FuncParamType(ParamType):
-    func = ...  # type: _Func
+    func: _Func
 
     def __init__(self, func: _Func) -> None:
         ...
@@ -226,7 +226,7 @@ class StringParamType(ParamType):
 
 
 class Tuple(CompositeParamType):
-    types = ...  # type: List[ParamType]
+    types: List[ParamType]
 
     def __init__(self, types: Iterable[Any]) -> None:
         ...

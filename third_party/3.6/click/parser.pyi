@@ -22,16 +22,16 @@ def split_arg_string(string: str) -> List[str]:
 
 
 class Option:
-    dest = ...  # type: str
-    action = ...  # type: str
-    nargs = ...  # type: int
-    const = ...  # type: Any
-    obj = ...  # type: Any
-    prefixes = ...  # type: Set[str]
-    _short_opts = ...  # type: List[str]
-    _long_opts = ...  # type: List[str]
+    dest: str
+    action: str
+    nargs: int
+    const: Any
+    obj: Any
+    prefixes: Set[str]
+    _short_opts: List[str]
+    _long_opts: List[str]
     # properties
-    takes_value = ...  # type: bool
+    takes_value: bool
 
     def __init__(
         self,
@@ -49,9 +49,9 @@ class Option:
 
 
 class Argument:
-    dest = ...  # type: str
-    nargs = ...  # type: int
-    obj = ...  # type: Any
+    dest: str
+    nargs: int
+    obj: Any
 
     def __init__(self, dest: str, nargs: int = 1, obj: Any = None) -> None:
         ...
@@ -61,23 +61,23 @@ class Argument:
 
 
 class ParsingState:
-    opts = ...  # type: Dict[str, Any]
-    largs = ...  # type: List[str]
-    rargs = ...  # type: List[str]
-    order = ...  # type: List[Any]
+    opts: Dict[str, Any]
+    largs: List[str]
+    rargs: List[str]
+    order: List[Any]
 
     def __init__(self, rargs: List[str]) -> None:
         ...
 
 
 class OptionParser:
-    ctx = ...  # type: Optional[Context]
-    allow_interspersed_args = ...  # type: bool
-    ignore_unknown_options = ...  # type: bool
-    _short_opt = ...  # type: Dict[str, Option]
-    _long_opt = ...  # type: Dict[str, Option]
-    _opt_prefixes = ...  # type: Set[str]
-    _args = ...  # type: List[Argument]
+    ctx: Optional[Context]
+    allow_interspersed_args: bool
+    ignore_unknown_options: bool
+    _short_opt: Dict[str, Option]
+    _long_opt: Dict[str, Option]
+    _opt_prefixes: Set[str]
+    _args: List[Argument]
 
     def __init__(self, ctx: Context = None) -> None:
         ...

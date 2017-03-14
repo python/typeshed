@@ -4,8 +4,8 @@ from click.core import Context, Parameter
 
 
 class ClickException(Exception):
-    exit_code = ...  # type: int
-    message = ...  # type: str
+    exit_code: int
+    message: str
 
     def __init__(self, message: str) -> None:
         ...
@@ -18,7 +18,7 @@ class ClickException(Exception):
 
 
 class UsageError(ClickException):
-    ctx = ...  # type: Optional[Context]
+    ctx: Optional[Context]
 
     def __init__(self, message: str, ctx: Context = None) -> None:
         ...
@@ -28,8 +28,8 @@ class UsageError(ClickException):
 
 
 class BadParameter(UsageError):
-    param = ...  # type: Optional[Parameter]
-    param_hint = ...  # type: Optional[str]
+    param: Optional[Parameter]
+    param_hint: Optional[str]
 
     def __init__(
         self,
@@ -42,7 +42,7 @@ class BadParameter(UsageError):
 
 
 class MissingParameter(BadParameter):
-    param_type = ...  # type: str  # valid values: 'parameter', 'option', 'argument'
+    param_type: str  # valid values: 'parameter', 'option', 'argument'
 
     def __init__(
         self,
@@ -56,8 +56,8 @@ class MissingParameter(BadParameter):
 
 
 class NoSuchOption(UsageError):
-    option_name = ...  # type: str
-    possibilities = ...  # type: Optional[List[str]]
+    option_name: str
+    possibilities: Optional[List[str]]
 
     def __init__(
         self,
@@ -80,8 +80,8 @@ class BadArgumentUsage(UsageError):
 
 
 class FileError(ClickException):
-    ui_filename = ...  # type: str
-    filename = ...  # type: str
+    ui_filename: str
+    filename: str
 
     def __init__(self, filename: str, hint: str = None) -> None:
         ...
