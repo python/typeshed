@@ -7,6 +7,7 @@ from typing import (
 )
 import email.message
 import io
+from socket import socket
 import sys
 import ssl
 import types
@@ -87,7 +88,7 @@ if sys.version_info >= (3, 5):
         closed = ...  # type: bool
         status = ...  # type: int
         reason = ...  # type: str
-        def __init__(self, sock, debuglevel: int = ...,
+        def __init__(self, sock: socket, debuglevel: int = ...,
                      method: Optional[str] = ..., url: Optional[str] = ...) -> None: ...
         def read(self, amt: Optional[int] = ...) -> bytes: ...
         def readinto(self, b: bytearray) -> int: ...
