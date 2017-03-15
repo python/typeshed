@@ -6,9 +6,9 @@ from typing import Any, Callable, Generator, Iterable, List, NamedTuple, Optiona
 from builtins import open as _builtin_open
 from token import *  # noqa: F403
 
-COMMENT = 0
-NL = 0
-ENCODING = 0
+COMMENT = ...  # type: int
+NL = ...  # type: int
+ENCODING = ...  # type: int
 
 _Position = Tuple[int, int]
 
