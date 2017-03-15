@@ -12,12 +12,15 @@ ENCODING = 0
 
 _Position = Tuple[int, int]
 
-class TokenInfo(NamedTuple):
-    type: int
-    string: str
-    start: _Position
-    end: _Position
-    line: str
+_TokenInfo = NamedTuple('TokenInfo', [
+    ('type', int),
+    ('string', str),
+    ('start', _Position),
+    ('end', _Position),
+    ('line', str)
+])
+
+class TokenInfo(_TokenInfo):
     @property
     def exact_type(self) -> int: ...
 
@@ -37,7 +40,7 @@ class Untokenizer:
     def untokenize(self, iterable: Iterable[_Token]) -> str: ...
     def compat(self, token: Sequence[Union[int, str]], iterable: Iterable[_Token]) -> None: ...
 
-def untokenize(iterable: Iterable[_Token]) -> Union[str, bytes]: ...
+def untokenize(iterable: Iterable[_Token]) -> Any: ...
 def detect_encoding(readline: Callable[[], bytes]) -> Tuple[str, Sequence[bytes]]: ...
 def tokenize(readline: Callable[[], bytes]) -> Generator[TokenInfo, None, None]: ...
 
