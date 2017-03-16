@@ -17,6 +17,12 @@ from mypy_extensions import NoReturn
 
 supports_bytes_environ = False  # TODO: True when bytes implemented?
 
+if sys.version_info >= (3, 3):
+    supports_dir_fd = ...  # type: Set[Callable[..., Any]]
+    supports_fd = ...  # type: Set[Callable[..., Any]]
+    supports_effective_ids = ...  # type: Set[Callable[..., Any]]
+    supports_follow_symlinks = ...  # type: Set[Callable[..., Any]]
+
 SEEK_SET = 0
 SEEK_CUR = 0
 SEEK_END = 0
