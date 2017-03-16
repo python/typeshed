@@ -63,11 +63,11 @@ class SupportsFloat(metaclass=ABCMeta):
 
 class SupportsComplex(metaclass=ABCMeta):
     @abstractmethod
-    def __complex__(self) -> complex: pass
+    def __complex__(self) -> complex: ...
 
 class SupportsBytes(metaclass=ABCMeta):
     @abstractmethod
-    def __bytes__(self) -> bytes: pass
+    def __bytes__(self) -> bytes: ...
 
 class SupportsAbs(Generic[_T]):
     @abstractmethod
@@ -180,10 +180,10 @@ class Container(Generic[_T_co]):
 
 
 if sys.version_info >= (3, 6):
-    class Collection(Sized, Iterable[_T_co], Container[_T_co], Generic[_T_co]): pass
+    class Collection(Sized, Iterable[_T_co], Container[_T_co], Generic[_T_co]): ...
     _Collection = Collection
 else:
-    class _Collection(Sized, Iterable[_T_co], Container[_T_co], Generic[_T_co]): pass
+    class _Collection(Sized, Iterable[_T_co], Container[_T_co], Generic[_T_co]): ...
 
 class Sequence(_Collection[_T_co], Reversible[_T_co], Generic[_T_co]):
     @overload

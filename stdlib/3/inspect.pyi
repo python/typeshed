@@ -95,7 +95,7 @@ class Signature:
                       follow_wrapped: bool = True) -> 'Signature': ...
 
 # The name is the same as the enum's name in CPython
-class _ParameterKind: pass
+class _ParameterKind: ...
 
 class Parameter:
     def __init__(self,

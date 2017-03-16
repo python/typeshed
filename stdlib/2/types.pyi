@@ -127,7 +127,7 @@ class FrameType:
     f_restricted = ...  # type: bool
     f_trace = ...  # type: Callable[[], None]
 
-    def clear(self) -> None: pass
+    def clear(self) -> None: ...
 
 SliceType = slice
 class EllipsisType: ...
