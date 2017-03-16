@@ -3,7 +3,7 @@
 
 # based on http: //docs.python.org/3.2/library/os.html
 
-from builtins import OSError as error
+from builtins import function, OSError as error
 from io import TextIOWrapper as _TextIOWrapper
 import sys
 from typing import (
@@ -16,6 +16,12 @@ from mypy_extensions import NoReturn
 # ----- os variables -----
 
 supports_bytes_environ = False  # TODO: True when bytes implemented?
+
+if sys.version_info >= (3, 3):
+    supports_dir_fd = ...  # type: Set[function]
+    supports_fd = ...  # type: Set[function]
+    supports_effective_ids = ...  # type: Set[function]
+    supports_follow_symlinks = ...  # type: Set[function]
 
 SEEK_SET = 0
 SEEK_CUR = 0
