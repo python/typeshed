@@ -48,4 +48,4 @@ class VerifiedHTTPSConnection(HTTPSConnection):
 
 UnverifiedHTTPSConnection = ...  # type: Any
 
-class ConnectionError(Exception): pass
+class ConnectionError(Exception): ...

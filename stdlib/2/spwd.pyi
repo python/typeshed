@@ -11,5 +11,5 @@ class struct_spwd(object):
     sp_expire = ...  # type: int
     sp_flag = ...  # type: int
 
-def getspall() -> List[struct_spwd]: pass
-def getspnam() -> struct_spwd: pass
+def getspall() -> List[struct_spwd]: ...
+def getspnam() -> struct_spwd: ...
