@@ -6,7 +6,7 @@
 
 from typing import (
     Any, Callable, Dict, Iterable, Tuple, List, TextIO, Sequence,
-    overload, Set, TypeVar, Union, Pattern, Type
+    overload, Set, TypeVar, Union, Pattern, Type, AbstractSet
 )
 from abc import abstractmethod, ABCMeta
 
@@ -101,7 +101,7 @@ class TestCase(Testable):
                         msg: object = ...) -> None: ...
     def assertTupleEqual(self, first: Tuple[Any, ...], second: Tuple[Any, ...],
                          msg: object = ...) -> None: ...
-    def assertSetEqual(self, first: Set[Any], second: Set[Any],
+    def assertSetEqual(self, first: AbstractSet[Any], second: AbstractSet[Any],
                        msg: object = ...) -> None: ...
     def assertDictEqual(self, first: Dict[Any, Any], second: Dict[Any, Any],
                         msg: object = ...) -> None: ...
