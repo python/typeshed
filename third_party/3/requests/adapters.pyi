@@ -1,6 +1,6 @@
 # Stubs for requests.adapters (Python 3)
 
-from typing import Any, Container, Union, Tuple
+from typing import Any, Container, Union, Text, Tuple
 from . import models
 from .packages.urllib3 import poolmanager
 from .packages.urllib3 import response
@@ -47,7 +47,7 @@ class BaseAdapter:
     def send(self, request: PreparedRequest, stream: bool=False,
              timeout: Union[None, float, Tuple[float, float]]=None,
              verify: bool=False,
-             cert: Union[None, Union[str, bytes], Container[Union[str, bytes]]]=None
+             cert: Union[None, Union[bytes, Text], Container[Union[bytes, Text]]]=None
              ) -> Response: ...
     def close(self) -> None: ...
 class HTTPAdapter(BaseAdapter):

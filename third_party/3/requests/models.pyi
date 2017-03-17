@@ -1,6 +1,6 @@
 # Stubs for requests.models (Python 3)
 
-from typing import Any, List, MutableMapping, Iterator, Dict
+from typing import Any, List, MutableMapping, Iterator, Dict, Text
 import datetime
 
 from . import hooks
@@ -80,10 +80,10 @@ class Request(RequestHooksMixin):
     def prepare(self): ...
 
 class PreparedRequest(RequestEncodingMixin, RequestHooksMixin):
-    method = ...  # type: Optional[str]
-    url = ...  # type: Optional[str]
+    method = ...  # type: Optional[Union[str, Text]]
+    url = ...  # type: Optional[Union[str, Text]]
     headers = ...  # type: CaseInsensitiveDict
-    body = ...  # type: Optional[Union[str, bytes]]
+    body = ...  # type: Optional[Union[bytes, Text]]
     hooks = ...  # type: Any
     def __init__(self) -> None: ...
     def prepare(self, method=..., url=..., headers=..., files=..., data=..., params=...,
