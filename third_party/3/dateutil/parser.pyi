@@ -4,7 +4,7 @@ from datetime import datetime
 __all__ = ...  # type: List[str]
 
 
-class parserinfo(object):
+class parserinfo:
     JUMP = ...  # type: List[str]
     WEEKDAYS = ...  # type: List[Tuple[str, str]]
     MONTHS = ...  # type: List[Tuple[str, str]]
@@ -27,7 +27,7 @@ class parserinfo(object):
     def validate(self, year: datetime) -> bool: ...
 
 
-class parser(object):
+class parser:
     def __init__(self, info: parserinfo=...) -> None: ...
 
     def parse(
@@ -45,7 +45,7 @@ def parse(timestr, parserinfo: parserinfo=..., **kwargs) -> datetime:
     ...
 
 
-class _tzparser(object):
+class _tzparser:
     ...
 
 

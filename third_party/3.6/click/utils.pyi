@@ -57,7 +57,7 @@ class LazyFile:
         ...
 
 
-class KeepOpenFile(object):
+class KeepOpenFile:
     _file: IO
 
     def __init__(self, file: IO) -> None:
