@@ -1,9 +1,9 @@
 # Stubs for requests.structures (Python 3)
 
-from typing import Any, Iterator, MutableMapping, Tuple, Union
+from typing import Any, Iterator, MutableMapping, Text, Tuple, Union
 
-class CaseInsensitiveDict(MutableMapping[str, Union[str, bytes]]):
-    def lower_items(self) -> Iterator[Tuple[str, Union[str, bytes]]]: ...
+class CaseInsensitiveDict(MutableMapping[str, Union[Text, bytes]]):
+    def lower_items(self) -> Iterator[Tuple[str, Union[Text, bytes]]]: ...
 
 class LookupDict(dict):
     name = ...  # type: Any

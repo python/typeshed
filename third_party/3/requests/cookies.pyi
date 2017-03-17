@@ -1,12 +1,14 @@
 # Stubs for requests.cookies (Python 3)
 
+import sys
 from typing import Any, MutableMapping
-# import cookielib
-from http import cookiejar as cookielib
 import collections
 from . import compat
 
-# cookielib = compat.cookielib
+if sys.version_info < (3, 0):
+    from cookielib import CookieJar
+else:
+    from http.cookiejar import CookieJar
 
 class MockRequest:
     type = ...  # type: Any
@@ -39,7 +41,7 @@ def remove_cookie_by_name(cookiejar, name, domain=..., path=...): ...
 
 class CookieConflictError(RuntimeError): ...
 
-class RequestsCookieJar(cookielib.CookieJar, MutableMapping):
+class RequestsCookieJar(CookieJar, MutableMapping):
     def get(self, name, default=..., domain=..., path=...): ...
     def set(self, name, value, **kwargs): ...
     def iterkeys(self): ...
