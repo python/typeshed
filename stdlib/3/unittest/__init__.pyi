@@ -2,7 +2,7 @@
 
 from typing import (
     Any, Callable, Dict, Iterable, Iterator, List, Optional, Pattern, Sequence,
-    Set, TextIO, Tuple, Type, TypeVar, Union,
+    Set, TextIO, Tuple, Type, TypeVar, Union, Generic,
     overload,
 )
 import logging
@@ -13,6 +13,7 @@ from contextlib import ContextManager
 
 _T = TypeVar('_T')
 _FT = TypeVar('_FT', Callable[[Any], Any])
+_E = TypeVar('_E', bound=Exception)
 
 
 def skip(reason: str) -> Callable[[_FT], _FT]: ...
@@ -70,25 +71,25 @@ class TestCase:
     @overload
     def assertRaises(self,  # type: ignore
                      exception: Union[Type[BaseException], Tuple[Type[BaseException], ...]],
-                     callable: Callable[..., Any] = ...,
+                     callable: Callable[..., Any],
                      *args: Any, **kwargs: Any) -> None: ...
     @overload
     def assertRaises(self,
-                     exception: Union[Type[BaseException], Tuple[Type[BaseException], ...]],
-                     msg: Any = ...) -> _AssertRaisesContext: ...
+                     exception: Union[Type[_E], Tuple[Type[_E], ...]],
+                     msg: Any = ...) -> _AssertRaisesContext[_E]: ...
     @overload
     def assertRaisesRegex(self,  # type: ignore
                           exception: Union[Type[BaseException], Tuple[Type[BaseException], ...]],
-                          callable: Callable[..., Any] = ...,
+                          callable: Callable[..., Any],
                           *args: Any, **kwargs: Any) -> None: ...
     @overload
     def assertRaisesRegex(self,
-                          exception: Union[Type[BaseException], Tuple[Type[BaseException], ...]],
-                          msg: Any = ...) -> _AssertRaisesContext: ...
+                          exception: Union[Type[_E], Tuple[Type[_E], ...]],
+                          msg: Any = ...) -> _AssertRaisesContext[_E]: ...
     @overload
     def assertWarns(self,  # type: ignore
                     exception: Union[Type[Warning], Tuple[Type[Warning], ...]],
-                    callable: Callable[..., Any] = ...,
+                    callable: Callable[..., Any],
                     *args: Any, **kwargs: Any) -> None: ...
     @overload
     def assertWarns(self,
@@ -97,7 +98,7 @@ class TestCase:
     @overload
     def assertWarnsRegex(self,  # type: ignore
                          exception: Union[Type[Warning], Tuple[Type[Warning], ...]],
-                         callable: Callable[..., Any] = ...,
+                         callable: Callable[..., Any],
                          *args: Any, **kwargs: Any) -> None: ...
     @overload
     def assertWarnsRegex(self,
@@ -159,8 +160,8 @@ class TestCase:
                          *args: Any, **kwargs: Any) -> None: ...
     @overload
     def failUnlessRaises(self,
-                         exception: Union[Type[BaseException], Tuple[Type[BaseException], ...]],
-                         msg: Any = ...) -> _AssertRaisesContext: ...
+                         exception: Union[Type[_E], Tuple[Type[_E], ...]],
+                         msg: Any = ...) -> _AssertRaisesContext[_E]: ...
     def failUnlessAlmostEqual(self, first: float, second: float,
                               places: int = ..., msg: Any = ...) -> None: ...
     def assertAlmostEquals(self, first: float, second: float, places: int = ...,
@@ -179,8 +180,8 @@ class TestCase:
                            *args: Any, **kwargs: Any) -> None: ...
     @overload
     def assertRaisesRegexp(self,
-                           exception: Union[Type[BaseException], Tuple[Type[BaseException], ...]],
-                           msg: Any = ...) -> _AssertRaisesContext: ...
+                           exception: Union[Type[_E], Tuple[Type[_E], ...]],
+                           msg: Any = ...) -> _AssertRaisesContext[_E]: ...
 
 class FunctionTestCase(TestCase):
     def __init__(self, testFunc: Callable[[], None],
@@ -188,9 +189,9 @@ class FunctionTestCase(TestCase):
                  tearDown: Optional[Callable[[], None]] = ...,
                  description: Optional[str] = ...) -> None: ...
 
-class _AssertRaisesContext:
-    exception = ...  # type: Exception
-    def __enter__(self) -> _AssertRaisesContext: ...
+class _AssertRaisesContext(Generic[_E]):
+    exception = ...  # type: _E
+    def __enter__(self) -> _AssertRaisesContext[_E]: ...
     def __exit__(self, exc_type: Optional[type], exc_val: Optional[Exception],
                  exc_tb: Optional[TracebackType]) -> bool: ...
 
