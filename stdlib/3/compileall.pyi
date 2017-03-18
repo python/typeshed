@@ -9,6 +9,7 @@ if sys.version_info < (3, 6):
 else:
     _Path = Union[str, bytes, os.PathLike]
 
+# fx can be any object with a 'search' method; once we have Protocols we can change the type
 if sys.version_info < (3, 5):
     def compile_dir(dir: _Path, maxlevels: int = ..., ddir: _Path = ..., force: bool = ..., rx: Optional[Pattern] = ..., quiet: int = ..., legacy: bool = ..., optimize: int = ...) -> None: ...
 else:
