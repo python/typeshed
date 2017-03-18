@@ -1,6 +1,6 @@
-import sys
 from typing import (
     Any,
+    IO,
     Tuple,
     Union,
 )
@@ -8,23 +8,18 @@ from typing import (
 
 class Error(Exception): ...
 
-REASONABLY_LARGE = ... # type: int
-LINELEN = ... # type: int
-RUNCHAR = ... # type: bytes
+REASONABLY_LARGE = ...  # type: int
+LINELEN = ...  # type: int
+RUNCHAR = ...  # type: bytes
 
 class FInfo:
     def __init__(self) -> None: ...
-    Type = ... # type: str
-    Creator = ... # type: str
-    Flags = ... # type: int
+    Type = ...  # type: str
+    Creator = ...  # type: str
+    Flags = ...  # type: int
 
 _FileInfoTuple = Tuple[str, FInfo, int, int]
-
-if sys.version_info < (3, 0):
-    _FileHandleUnion = Union[str, file]
-else:
-    from io import FileIO
-    _FileHandleUnion = Union[str, FileIO]
+_FileHandleUnion = Union[str, IO[bytes]]
 
 def getfileinfo(name: str) -> _FileInfoTuple: ...
 
