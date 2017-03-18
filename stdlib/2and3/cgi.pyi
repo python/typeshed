@@ -18,7 +18,7 @@ def escape(s: str, quote: bool = ...) -> str: ...
 
 
 class MiniFieldStorage:
-    # The "Any" attributes here are always None, but mypy doesn't support that
+    # The first five "Any" attributes here are always None, but mypy doesn't support that
     filename = ...  # type: Any
     list = ...  # type: Any
     type = ...  # type: Any
