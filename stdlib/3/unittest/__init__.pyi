@@ -70,7 +70,7 @@ class TestCase:
     @overload
     def assertRaises(self,  # type: ignore
                      exception: Union[Type[BaseException], Tuple[Type[BaseException], ...]],
-                     callable: Callable[..., Any] = ...,
+                     callable: Callable[..., Any],
                      *args: Any, **kwargs: Any) -> None: ...
     @overload
     def assertRaises(self,
@@ -79,7 +79,7 @@ class TestCase:
     @overload
     def assertRaisesRegex(self,  # type: ignore
                           exception: Union[Type[BaseException], Tuple[Type[BaseException], ...]],
-                          callable: Callable[..., Any] = ...,
+                          callable: Callable[..., Any],
                           *args: Any, **kwargs: Any) -> None: ...
     @overload
     def assertRaisesRegex(self,
@@ -88,7 +88,7 @@ class TestCase:
     @overload
     def assertWarns(self,  # type: ignore
                     exception: Union[Type[Warning], Tuple[Type[Warning], ...]],
-                    callable: Callable[..., Any] = ...,
+                    callable: Callable[..., Any],
                     *args: Any, **kwargs: Any) -> None: ...
     @overload
     def assertWarns(self,
@@ -97,7 +97,7 @@ class TestCase:
     @overload
     def assertWarnsRegex(self,  # type: ignore
                          exception: Union[Type[Warning], Tuple[Type[Warning], ...]],
-                         callable: Callable[..., Any] = ...,
+                         callable: Callable[..., Any],
                          *args: Any, **kwargs: Any) -> None: ...
     @overload
     def assertWarnsRegex(self,
@@ -189,7 +189,7 @@ class FunctionTestCase(TestCase):
                  description: Optional[str] = ...) -> None: ...
 
 class _AssertRaisesContext:
-    exception = ...  # type: Exception
+    exception = ...  # type: Any
     def __enter__(self) -> _AssertRaisesContext: ...
     def __exit__(self, exc_type: Optional[type], exc_val: Optional[Exception],
                  exc_tb: Optional[TracebackType]) -> bool: ...
