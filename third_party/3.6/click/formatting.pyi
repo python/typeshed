@@ -2,7 +2,7 @@ from contextlib import contextmanager
 from typing import Generator, Iterable, List, Optional, Tuple
 
 
-FORCED_WIDTH: Optional[int]
+FORCED_WIDTH = ...  # type: Optional[int]
 
 
 def measure_table(rows: Iterable[Iterable[str]]) -> Tuple[int, ...]:
@@ -26,10 +26,10 @@ def wrap_text(
 
 
 class HelpFormatter:
-    indent_increment: int
-    width: Optional[int]
-    current_indent: int
-    buffer: List[str]
+    indent_increment = ...  # type: int
+    width = ...  # type: Optional[int]
+    current_indent = ...  # type: int
+    buffer = ...  # type: List[str]
 
     def __init__(
         self,
