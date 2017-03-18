@@ -2,10 +2,11 @@
 
 from decimal import Decimal
 from fractions import Fraction
-from typing import Iterable, TypeVar
+import sys
+from typing import Iterable, Optional, TypeVar
 
 # Most functions in this module accept homogeneous collections of one of these types
-_Number = TypeVar(int, float, Decimal, Fraction)
+_Number = TypeVar('_Number', int, float, Decimal, Fraction)
 
 class StatisticsError(ValueError): ...
 
