@@ -53,7 +53,7 @@ class FieldStorage(object):
     innerboundary = ...  # type: bytes
     length = ...  # type: int
     done = ...  # type: int
-    list = ... # type: Optional[List[Any]]
+    list = ...  # type: Optional[List[Any]]
     value = ...  # type: Union[None, bytes, List[Any]]
 
     if sys.version_info >= (3, 0):
@@ -104,7 +104,8 @@ if sys.version_info <= (3, 0):
 
     class FormContent(FormContentDict):
         # incompatible with supertype
-        def values(self, key: Any) -> Any: ...  # type: ignore
+        def values(self, key: Any) -> Any: # type: ignore
+            ...
         def indexed_value(self, key: Any, location: int) -> Any: ...
         def value(self, key: Any) -> Any: ...
         def length(self, key: Any) -> int: ...
