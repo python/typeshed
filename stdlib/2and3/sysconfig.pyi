@@ -1,6 +1,6 @@
 # Stubs for sysconfig
 
-from typing import overload, Any, Dict, Optional
+from typing import overload, Any, Dict, List, Optional, Tuple, Union
 
 @overload
 def get_config_vars(*args: str) -> List[Any]: ...
