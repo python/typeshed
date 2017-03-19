@@ -1,0 +1,13 @@
+from typing import Any, TYPE_CHECKING
+from .result import ResultProxy
+
+if TYPE_CHECKING:
+    from .base import Connection
+
+class Connectable:
+    def execute(self, object, *multiparams: Any, **params: Any) -> ResultProxy: ...
+    def connect(self, **kwargs: Any) -> Connection: ...
+    def contextual_connect(self) -> Connection: ...
+    # Note: The return type `Any` should be a DB API 2 value type once defined
+    # TODO: See #1037
+    def scalar(self, object, *multiparams: Any, **params: Any) -> Any: ...
