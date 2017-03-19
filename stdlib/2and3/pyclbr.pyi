@@ -4,7 +4,7 @@ from typing import List, Union, Sequence, Optional, Dict
 class Class:
     module = ...  # type: str
     name = ...  # type: str
-    super = Optional[List[Union["Class", str]]]
+    super = ...  # type: Optional[List[Union["Class", str]]]
     methods = ...  # type: Dict[str, int]
     file = ...  # type: int
     lineno = ...  # type: int
