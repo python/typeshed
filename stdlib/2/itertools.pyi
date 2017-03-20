@@ -85,7 +85,7 @@ def izip(iter1: Iterable[_T1], iter2: Iterable[_T2],
          iter5: Iterable[_T5], iter6: Iterable[_T6]) -> Iterator[Tuple[_T1, _T2, _T3,
                                                                  _T4, _T5, _T6]]: ...
 @overload
-def izip(*iter: Iterable) -> Iterator[tuple]
+def izip(*iter: Iterable[Any]) -> Iterator[tuple]: ...
 # TODO izip loses type information for 6 arguments and more
 
 def izip_longest(*p: Iterable[Any],
