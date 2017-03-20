@@ -71,7 +71,12 @@ def izip(iter1: Iterable[_T1], iter2: Iterable[_T2],
 @overload
 def izip(iter1: Iterable[_T1], iter2: Iterable[_T2], iter3: Iterable[_T3],
          iter4: Iterable[_T4]) -> Iterator[Tuple[_T1, _T2,
-                                           _T3, _T4]]: ...  # TODO more than four iterables
+                                           _T3, _T4]]: ...
+@overload
+def izip(iter1: Iterable[_T1], iter2: Iterable[_T2], iter3: Iterable[_T3],
+         iter4: Iterable[_T4], iter5: Iterable[_T5])
+         -> Iterator[Tuple[_T1, _T2, _T3, _T4, _T5]]: ...  # TODO more than five iterables
+
 def izip_longest(*p: Iterable[Any],
                  fillvalue: Any = ...) -> Iterator[Any]: ...
 
