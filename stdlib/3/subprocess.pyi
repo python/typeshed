@@ -223,9 +223,9 @@ class CalledProcessError(Exception):
 
     def __init__(self,
                  returncode: int,
-                 cmd: Union[str, bytes, List[str], List[bytes]],
-                 output: Optional[Union[str, bytes]] = ...,
-                 stderr: Optional[Union[str, bytes]] = ...) -> None: ...
+                 cmd: Union[bytes, Text, List[bytes], List[Text]],
+                 output: Optional[Union[bytes, Text]] = ...,
+                 stderr: Optional[Union[bytes, Text]] = ...) -> None: ...
 
 class Popen:
     stdin = ...  # type: IO[Any]

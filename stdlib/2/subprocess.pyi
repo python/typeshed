@@ -2,7 +2,7 @@
 
 # Based on http://docs.python.org/2/library/subprocess.html and Python 3 stub
 
-from typing import Sequence, Any, AnyStr, Mapping, Callable, Tuple, IO, Union, Optional
+from typing import Sequence, Any, AnyStr, Mapping, Callable, Tuple, IO, Union, Optional, List
 
 _FILE = Union[int, IO[Any]]
 
@@ -57,15 +57,13 @@ STDOUT = ...  # type: int
 
 class CalledProcessError(Exception):
     returncode = 0
-    # morally: Union[str, bytes, List[str], List[bytes]]
     cmd = ...  # type: Any
-    # morally: Optional[Union[str, bytes]]
     output = ...  # type: Any
 
     def __init__(self,
                  returncode: int,
-                 cmd: Union[str, bytes, List[str], List[bytes]],
-                 output: Optional[Union[str, bytes]] = ...) -> None: ...
+                 cmd: Union[bytes, Text, List[bytes], List[Text]],
+                 output: Optional[Union[bytes, Text]] = ...) -> None: ...
 
 class Popen:
     stdin = ...  # type: Optional[IO[Any]]
