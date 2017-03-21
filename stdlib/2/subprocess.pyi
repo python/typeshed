@@ -57,10 +57,15 @@ STDOUT = ...  # type: int
 
 class CalledProcessError(Exception):
     returncode = 0
-    cmd = ...  # type: str
-    output = ...  # type: str  # May be None
+    # morally: Union[str, bytes, List[str], List[bytes]]
+    cmd = ...  # type: Any
+    # morally: Optional[Union[str, bytes]]
+    output = ...  # type: Any
 
-    def __init__(self, returncode: int, cmd: str, output: Optional[str] = ...) -> None: ...
+    def __init__(self,
+                 returncode: int,
+                 cmd: Union[str, bytes, List[str], List[bytes]],
+                 output: Optional[Union[str, bytes]] = ...) -> None: ...
 
 class Popen:
     stdin = ...  # type: Optional[IO[Any]]

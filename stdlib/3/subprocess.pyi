@@ -214,15 +214,18 @@ if sys.version_info >= (3, 3):
 
 class CalledProcessError(Exception):
     returncode = 0
-    cmd = ...  # type: str
-    output = b''  # May be None
+    cmd = ...  # type: Any
+    output = ...  # type: Any
 
     if sys.version_info >= (3, 5):
-        stdout = b''
-        stderr = b''
+        stdout = ...  # type: Any
+        stderr = ...  # type: Any
 
-    def __init__(self, returncode: int, cmd: str, output: Optional[str] = ...,
-                 stderr: Optional[str] = ...) -> None: ...
+    def __init__(self,
+                 returncode: int,
+                 cmd: Union[str, bytes, List[str], List[bytes]],
+                 output: Optional[Union[str, bytes]] = ...,
+                 stderr: Optional[Union[str, bytes]] = ...) -> None: ...
 
 class Popen:
     stdin = ...  # type: IO[Any]
