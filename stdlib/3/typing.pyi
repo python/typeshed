@@ -32,6 +32,7 @@ List = TypeAlias(object)
 Dict = TypeAlias(object)
 DefaultDict = TypeAlias(object)
 Set = TypeAlias(object)
+FrozenSet = TypeAlias(object)
 Counter = TypeAlias(object)
 Deque = TypeAlias(object)
 if sys.version_info >= (3, 3):
@@ -239,8 +240,6 @@ class AbstractSet(_Collection[_T_co], Generic[_T_co]):
     def __xor__(self, s: AbstractSet[_T]) -> AbstractSet[Union[_T_co, _T]]: ...
     # TODO: Argument can be a more general ABC?
     def isdisjoint(self, s: AbstractSet[Any]) -> bool: ...
-
-class FrozenSet(AbstractSet[_T_co], Generic[_T_co]): ...
 
 class MutableSet(AbstractSet[_T], Generic[_T]):
     @abstractmethod
