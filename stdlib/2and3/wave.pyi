@@ -2,7 +2,7 @@
 
 import sys
 from mypy_extensions import NoReturn
-from typing import Any, NamedTuple, Optional, Text, BinaryIO, Union
+from typing import Any, NamedTuple, Optional, Text, BinaryIO, Union, Tuple
 
 _File = Union[Text, BinaryIO]
 
