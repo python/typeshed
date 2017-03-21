@@ -76,6 +76,7 @@ At present the core developers are (alphabetically):
 * Matthias Kramm (@matthiaskramm)
 * Greg Price (@gnprice)
 * Guido van Rossum (@gvanrossum)
+* Jelle Zijlstra (@JelleZijlstra)
 
 NOTE: the process for preparing and submitting changes also applies to
 core developers.  This ensures high quality contributions and keeps
