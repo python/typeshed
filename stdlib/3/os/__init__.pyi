@@ -114,8 +114,7 @@ TMP_MAX = 0  # Undocumented, but used by tempfile
 
 # ----- os classes (structures) -----
 if sys.version_info >= (3, 6):
-    class PathLike:
-        def __fspath__(self) -> AnyStr: ...
+    from builtins import _PathLike as PathLike  # See comment in builtins
 
 _PathType = Union[bytes, Text]
 
