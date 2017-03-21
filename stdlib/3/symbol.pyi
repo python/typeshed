@@ -1,5 +1,8 @@
 # Stubs for symbol (Python 3)
 
+import sys
+from typing import Dict
+
 single_input = ...  # type: int
 file_input = ...  # type: int
 eval_input = ...  # type: int
