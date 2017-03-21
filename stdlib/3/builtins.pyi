@@ -802,7 +802,7 @@ if sys.version_info >= (3, 6):
     # This class is to be exported as PathLike from os,
     # but we define it here as _PathLike to avoid import cycle issues.
     # See https://github.com/python/typeshed/pull/991#issuecomment-288160993
-    class _PathLike:
+    class _PathLike(Generic[AnyStr]):
         def __fspath__(self) -> AnyStr: ...
 
     def open(file: Union[str, bytes, int, _PathLike], mode: str = 'r', buffering: int = -1, encoding: str = None,
