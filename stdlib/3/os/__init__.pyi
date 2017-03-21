@@ -335,12 +335,12 @@ class popen(_TextIOWrapper):
                  bufsize: int = ...) -> None: ...
     def close(self) -> Any: ...  # may return int
 
-def spawnl(mode: int, path: _PathType, arg0: _PathType, *args: _PathType) -> int: ...
-def spawnle(mode: int, path: _PathType, arg0: _PathType,
+def spawnl(mode: int, path: _PathType, arg0: Union[bytes, Text], *args: Union[bytes, Text]) -> int: ...
+def spawnle(mode: int, path: _PathType, arg0: Union[bytes, Text],
             *args: Any) -> int: ...  # Imprecise sig
-def spawnlp(mode: int, file: _PathType, arg0: _PathType,
-            *args: _PathType) -> int: ...  # Unix only TODO
-def spawnlpe(mode: int, file: _PathType, arg0: _PathType, *args: Any) -> int:
+def spawnlp(mode: int, file: _PathType, arg0: Union[bytes, Text],
+            *args: Union[bytes, Text]) -> int: ...  # Unix only TODO
+def spawnlpe(mode: int, file: _PathType, arg0: Union[bytes, Text], *args: Any) -> int:
     ...  # Imprecise signature; Unix only TODO
 def spawnv(mode: int, path: _PathType, args: List[Union[bytes, Text]]) -> int: ...
 def spawnve(mode: int, path: _PathType, args: List[Union[bytes, Text]],
