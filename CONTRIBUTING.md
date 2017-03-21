@@ -240,4 +240,4 @@ and labels mean.
 Core developers should follow these rules when processing pull requests:
 
 * Always wait for tests to pass before merging PRs.
-* Use "Squash and merge" to merge PRs.
+* Use "[Squash and merge](https://github.com/blog/2141-squash-your-commits)" to merge PRs.
