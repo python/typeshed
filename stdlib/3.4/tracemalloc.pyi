@@ -43,7 +43,7 @@ class Snapshot:
     def load(cls, filename: str) -> Snapshot: ...
     def statistics(self, key_type: str, cumulative: bool = ...) -> List[Statistic]: ...
     traceback_limit = ...  # type: int
-    traces: Sequence[Trace]
+    traces = ...  # type: Sequence[Trace]
 
 class Statistic:
     count = ...  # type: int
