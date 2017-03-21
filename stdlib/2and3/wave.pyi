@@ -8,7 +8,7 @@ _File = Union[Text, BinaryIO]
 
 class Error(Exception): ...
 
-WAVE_FORMAT_PCM: int
+WAVE_FORMAT_PCM = ...  # type: int
 
 if sys.version_info < (3, 0):
     _wave_params = Tuple[int, int, int, int, str, str]
