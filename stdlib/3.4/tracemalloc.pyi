@@ -1,5 +1,8 @@
 # Stubs for tracemalloc (Python 3.4+)
 
+import sys
+from typing import Any, List, Optional, Sequence, Tuple, Union
+
 def clear_traces() -> None: ...
 def get_object_traceback(obj: object) -> Optional[Traceback]: ...
 def get_traceback_limit() -> int: ...
@@ -18,7 +21,7 @@ if sys.version_info >= (3, 6):
 
 class Filter:
     if sys.version_info >= (3, 6):
-        domain: Optional[int]
+        domain = ...  # type: Optional[int]
     inclusive = ...  # type: bool
     lineno = ...  # type: Optional[int]
     filename_pattern = ...  # type: str
@@ -59,4 +62,4 @@ class Trace:
     traceback = ...  # type: Traceback
 
 class Traceback(Sequence[Frame]):
-    def format(limit: Optional[int] = ...) -> List[str]: ...
+    def format(self, limit: Optional[int] = ...) -> List[str]: ...
