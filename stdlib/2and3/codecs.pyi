@@ -4,15 +4,21 @@ import sys
 from typing import (
     BinaryIO,
     Callable,
+    IO,
     Iterable,
     Iterator,
     List,
+    Optional,
     Text,
+    TextIO,
     Tuple,
+    Type,
+    TypeVar,
     Union,
 )
 
 from abc import abstractmethod
+import types
 
 
 # TODO: this only satisfies the most common interface, where
@@ -29,8 +35,8 @@ _encoded = bytes
 # they have an optional positional or keyword argument for errors=.
 _encode_type = Callable[[_decoded], _encoded]  # signature of Codec().encode
 _decode_type = Callable[[_encoded], _decoded]  # signature of Codec().decode
-_stream_reader_type = Callable[[BinaryIO], 'StreamReader']  # signature of StreamReader __init__
-_stream_writer_type = Callable[[BinaryIO], 'StreamWriter']  # signature of StreamWriter __init__
+_stream_reader_type = Callable[[IO[_encoded]], 'StreamReader']  # signature of StreamReader __init__
+_stream_writer_type = Callable[[IO[_encoded]], 'StreamWriter']  # signature of StreamWriter __init__
 _incremental_encoder_type = Callable[[], 'IncrementalEncoder']  # signature of IncrementalEncoder __init__
 _incremental_decoder_type = Callable[[], 'IncrementalDecoder']  # signature of IncrementalDecoder __init__
 
@@ -71,7 +77,7 @@ def register(search_function: Callable[[str], CodecInfo]) -> None:
 def open(filename: str, mode: str = ..., encoding: str = ..., errors: str = ..., buffering: int = ...) -> StreamReaderWriter:
     ...
 
-def EncodedFile(file: BinaryIO, data_encoding: str, file_encoding: str = ..., errors: str = ...) -> 'StreamRecoder':
+def EncodedFile(file: IO[_encoded], data_encoding: str, file_encoding: str = ..., errors: str = ...) -> 'StreamRecoder':
     ...
 
 def iterencode(iterator: Iterable[_decoded], encoding: str, errors: str = ...) -> Iterator[_encoded]:
@@ -170,18 +176,18 @@ class BufferedIncrementalDecoder(IncrementalDecoder):
 # attributes and methods are passed-through from the stream.
 class StreamWriter(Codec):
     errors = ...  # type: str
-    def __init__(self, stream: BinaryIO, errors: str = ...) -> None:
+    def __init__(self, stream: IO[_encoded], errors: str = ...) -> None:
         ...
     def write(self, obj: _decoded) -> None:
         ...
-    def writelines(self, list: List[str]) -> None:
+    def writelines(self, list: Iterable[_decoded]) -> None:
         ...
     def reset(self) -> None:
         ...
 
 class StreamReader(Codec):
     errors = ...  # type: str
-    def __init__(self, stream: BinaryIO, errors: str = ...) -> None:
+    def __init__(self, stream: IO[_encoded], errors: str = ...) -> None:
         ...
     def read(self, size: int = ..., chars: int = ..., firstline: bool = ...) -> _decoded:
         ...
@@ -192,14 +198,26 @@ class StreamReader(Codec):
     def reset(self) -> None:
         ...
 
-class StreamReaderWriter:
-    def __init__(self, stream: BinaryIO, Reader: _stream_reader_type, Writer: _stream_writer_type, errors: str = ...) -> None:
-        ...
-    def __enter__(self) -> BinaryIO:
-        ...
-    def __exit__(self, typ, exc, tb) -> bool:
-        ...
+_T = TypeVar('_T', bound='StreamReaderWriter')
+
+# Doesn't actually inherit from TextIO, but wraps a BinaryIO to provide text reading and writing
+# and delegates attributes to the underlying binary stream with __getattr__.
+class StreamReaderWriter(TextIO):
+    def __init__(self, stream: IO[_encoded], Reader: _stream_reader_type, Writer: _stream_writer_type, errors: str = ...) -> None: ...
+    def read(self, size: int= ...) -> _decoded: ...
+    def readline(self, size: Optional[int] = ...) -> _decoded: ...
+    def readlines(self, sizehint: Optional[int] = ...) -> List[_decoded]: ...
+    def __next__(self) -> _decoded: ...
+    def __iter__(self: _T) -> _T: ...
+    # This actually returns None, but that's incompatible with the supertype
+    def write(self, data: _decoded) -> int: ...
+    def writelines(self, list: Iterable[_decoded]) -> None: ...
+    def reset(self) -> None: ...
+    # Same as write()
+    def seek(self, offset: int, whence: int = ...) -> int: ...
+    def __enter__(self: _T) -> _T: ...
+    def __exit__(self, typ: Optional[Type[BaseException]], exc: Optional[BaseException], tb: Optional[types.TracebackType]) -> bool: ...
 
 class StreamRecoder(BinaryIO):
-    def __init__(self, stream: BinaryIO, encode: _encode_type, decode: _decode_type, Reader: _stream_reader_type, Writer: _stream_writer_type, errors: str = ...) -> None:
+    def __init__(self, stream: IO[_encoded], encode: _encode_type, decode: _decode_type, Reader: _stream_reader_type, Writer: _stream_writer_type, errors: str = ...) -> None:
         ...
