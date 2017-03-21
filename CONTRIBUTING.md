@@ -234,3 +234,10 @@ and labels mean.
   there should be no user-facing effect.
 * **duplicate**, **wontfix**: These identify issues that we've closed
   for the respective reasons.
+
+### Core developer guidelines
+
+Core developers should follow these rules when processing pull requests:
+
+* Always wait for tests to pass before merging PRs.
+* Use "[Squash and merge](https://github.com/blog/2141-squash-your-commits)" to merge PRs.
