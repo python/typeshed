@@ -12,22 +12,22 @@ def take_snapshot() -> Snapshot: ...
 
 if sys.version_info >= (3, 6):
     class DomainFilter:
-        inclusive: bool
-        domain: int
+        inclusive = ...  # type: bool
+        domain = ...  # type: int
         def __init__(self, inclusive: bool, domain: int) -> None: ...
 
 class Filter:
     if sys.version_info >= (3, 6):
         domain: Optional[int]
-    inclusive: bool
-    lineno: Optional[int]
-    filename_pattern: str
-    all_frames: bool
+    inclusive = ...  # type: bool
+    lineno = ...  # type: Optional[int]
+    filename_pattern = ...  # type: str
+    all_frames = ...  # type: bool
     def __init__(self, inclusive: bool, filename_pattern: str, lineno: Optional[int] = ..., all_frames: bool = ..., domain: Optional[int] = ...) -> None: ...
 
 class Frame:
-    filename: str
-    lineno: int
+    filename = ...  # type: str
+    lineno = ...  # type: int
 
 class Snapshot:
     def compare_to(self, old_snapshot: Snapshot, key_type: str, cumulative: bool = ...) -> List[StatisticDiff]: ...
@@ -39,24 +39,24 @@ class Snapshot:
     @classmethod
     def load(cls, filename: str) -> Snapshot: ...
     def statistics(self, key_type: str, cumulative: bool = ...) -> List[Statistic]: ...
-    traceback_limit: int
+    traceback_limit = ...  # type: int
     traces: Sequence[Trace]
 
 class Statistic:
-    count: int
-    size: int
-    traceback: Traceback
+    count = ...  # type: int
+    size = ...  # type: int
+    traceback = ...  # type: Traceback
 
 class StatisticDiff:
-    count: int
-    count_diff: int
-    size: int
-    size_diff: int
-    traceback: Traceback
+    count = ...  # type: int
+    count_diff = ...  # type: int
+    size = ...  # type: int
+    size_diff = ...  # type: int
+    traceback = ...  # type: Traceback
 
 class Trace:
-    size: int
-    traceback: Traceback
+    size = ...  # type: int
+    traceback = ...  # type: Traceback
 
 class Traceback(Sequence[Frame]):
     def format(limit: Optional[int] = ...) -> List[str]: ...
