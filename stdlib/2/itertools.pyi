@@ -84,8 +84,11 @@ def izip(iter1: Iterable[_T1], iter2: Iterable[_T2],
          iter3: Iterable[_T3], iter4: Iterable[_T4],
          iter5: Iterable[_T5], iter6: Iterable[_T6]) -> Iterator[Tuple[_T1, _T2, _T3,
                                                                  _T4, _T5, _T6]]: ...
-# TODO more than 6 iterables
-# TODO should have a fallback for the n-ary variant
+@overload
+def izip(iter1: Iterable[Any], iter2: Iterable[Any],
+         iter3: Iterable[Any], iter4: Iterable[Any],
+         iter5: Iterable[Any], iter6: Iterable[Any],
+         iter7: Iterable[Any], *iterables: Iterable[Any]) -> Iterator[Tuple[Any, ...]]: ...
 
 def izip_longest(*p: Iterable[Any],
                  fillvalue: Any = ...) -> Iterator[Any]: ...
