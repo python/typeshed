@@ -2,7 +2,7 @@
 
 from typing import (
     Any, Callable, Dict, Iterable, Iterator, List, Optional, Pattern, Sequence,
-    Set, TextIO, Tuple, Type, TypeVar, Union, Generic,
+    Set, FrozenSet, TextIO, Tuple, Type, TypeVar, Union, Generic,
     overload,
 )
 import logging
@@ -131,8 +131,8 @@ class TestCase:
                         msg: Any = ...) -> None: ...
     def assertTupleEqual(self, first: Tuple[Any, ...], second: Tuple[Any, ...],
                          msg: Any = ...) -> None: ...
-    def assertSetEqual(self, first: Set[Any], second: Set[Any],
-                       msg: Any = ...) -> None: ...
+    def assertSetEqual(self, first: Union[Set[Any], FrozenSet[Any]],
+                       second: Union[Set[Any], FrozenSet[Any]], msg: Any = ...) -> None: ...
     def assertDictEqual(self, first: Dict[Any, Any], second: Dict[Any, Any],
                         msg: Any = ...) -> None: ...
     def fail(self, msg: Any = ...) -> None: ...
