@@ -57,12 +57,14 @@ STDOUT = ...  # type: int
 
 class CalledProcessError(Exception):
     returncode = 0
+    # morally: Union[bytes, Text, Sequence[bytes], Sequence[Text]]
     cmd = ...  # type: Any
+    # morally: Optional[Union[bytes, Text]]
     output = ...  # type: Any
 
     def __init__(self,
                  returncode: int,
-                 cmd: Union[bytes, Text, List[bytes], List[Text]],
+                 cmd: Union[bytes, Text, Sequence[bytes], Sequence[Text]],
                  output: Optional[Union[bytes, Text]] = ...) -> None: ...
 
 class Popen:
