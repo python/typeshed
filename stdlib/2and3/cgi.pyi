@@ -90,7 +90,7 @@ class FieldStorage(object):
         def make_file(self, binary: Any = ...) -> IO[bytes]: ...
 
 
-if sys.version_info <= (3, 0):
+if sys.version_info < (3, 0):
     from UserDict import UserDict
 
     class FormContentDict(UserDict):
