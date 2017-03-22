@@ -1,8 +1,6 @@
 from typing import Any, TYPE_CHECKING
 from .result import ResultProxy
-
-if TYPE_CHECKING:
-    from .base import Connection
+from .base import Connection
 
 class Connectable:
     def execute(self, object, *multiparams: Any, **params: Any) -> ResultProxy: ...
