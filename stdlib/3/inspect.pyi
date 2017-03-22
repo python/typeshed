@@ -172,7 +172,7 @@ def getargvalues(frame: FrameType) -> ArgInfo: ...
 def formatargspec(args: List[str],
                   varargs: Optional[str] = ...,
                   varkw: Optional[str] = ...,
-                  defaults: Optional[Tuple[Any]] = ...,
+                  defaults: Optional[Tuple[Any, ...]] = ...,
                   kwonlyargs: Optional[List[str]] = ...,
                   kwonlydefaults: Optional[Dict[str, Any]] = ...,
                   annotations: Optional[Dict[str, Any]] = ...,
