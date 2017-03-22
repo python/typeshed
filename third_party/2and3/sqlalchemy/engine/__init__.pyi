@@ -4,8 +4,8 @@
 
 from .base import Connection as Connection
 from .base import Engine as Engine
-from .base import RowProxy as RowProxy
 from .base import Transaction as Transaction
+from .result import RowProxy as RowProxy
 
 def create_engine(*args, **kwargs): ...
 def engine_from_config(configuration, prefix=..., **kwargs): ...
