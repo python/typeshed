@@ -52,7 +52,7 @@ def check_output(args: _CMD,
                  env: Mapping[_TXT, _TXT] = ...,
                  universal_newlines: bool = ...,
                  startupinfo: Any = ...,
-                 creationflags: int = ...,
+                 creationflags: int = ...
                  ) -> Any: ...  # morally: _TXT
 
 PIPE = ...  # type: int
