@@ -27,7 +27,4 @@ class poll:
 _R = TypeVar("_R")
 _W = TypeVar("_W")
 _X = TypeVar("_X")
-def select(rlist: Sequence[_R], wlist: Sequence[_W], xlist: Sequence[_X],
-           timeout: float = ...) -> Tuple[List[_R],
-                                           List[_W],
-                                           List[_X]]: ...
+def select(rlist: Sequence[_R], wlist: Sequence[_W], xlist: Sequence[_X], timeout: float = ...) -> Tuple[List[_R], List[_W], List[_X]]: ...
