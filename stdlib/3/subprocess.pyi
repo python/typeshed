@@ -169,7 +169,7 @@ if sys.version_info >= (3, 4):
                      pass_fds: Any = ...,
                      timeout: float = ...,
                      input: _TXT = ...,
-                    ) -> Any: ...  # morally: -> _TXT
+                     ) -> Any: ...  # morally: -> _TXT
 elif sys.version_info >= (3, 3):
     # 3.3 added timeout
     def check_output(args: _CMD,
@@ -189,7 +189,7 @@ elif sys.version_info >= (3, 3):
                      start_new_session: bool = ...,
                      pass_fds: Any = ...,
                      timeout: float = ...,
-                    ) -> Any: ...  # morally: -> _TXT
+                     ) -> Any: ...  # morally: -> _TXT
 else:
     # Same args as Popen.__init__, except for stdout
     def check_output(args: _CMD,
@@ -208,7 +208,7 @@ else:
                      restore_signals: bool = ...,
                      start_new_session: bool = ...,
                      pass_fds: Any = ...,
-                    ) -> Any: ...  # morally: -> _TXT
+                     ) -> Any: ...  # morally: -> _TXT
 
 
 # TODO types
@@ -247,7 +247,7 @@ class Popen:
 
     if sys.version_info >= (3, 6):
         def __init__(self,
-                     args: _CMD],
+                     args: _CMD,
                      bufsize: int = ...,
                      executable: Optional[_TXT] = ...,
                      stdin: Optional[_FILE] = ...,
@@ -297,11 +297,11 @@ class Popen:
         def communicate(self,
                         input: Optional[_TXT] = ...,
                         timeout: Optional[float] = ...,
-                       ) -> Tuple[Any, Any]: ...  # morally: -> Tuple[_TXT, _TXT]
+                        ) -> Tuple[Any, Any]: ...  # morally: -> Tuple[_TXT, _TXT]
     else:
         def communicate(self,
                         input: Optional[AnyStr] = ...,
-                       ) -> Tuple[Any, Any]: ...  # morally: -> Tuple[_TXT, _TXT]
+                        ) -> Tuple[Any, Any]: ...  # morally: -> Tuple[_TXT, _TXT]
     def send_signal(self, signal: int) -> None: ...
     def terminate(self) -> None: ...
     def kill(self) -> None: ...

@@ -53,7 +53,7 @@ def check_output(args: _CMD,
                  universal_newlines: bool = ...,
                  startupinfo: Any = ...,
                  creationflags: int = ...,
-                ) -> Any: ...  # morally: _TXT
+                 ) -> Any: ...  # morally: _TXT
 
 PIPE = ...  # type: int
 STDOUT = ...  # type: int
