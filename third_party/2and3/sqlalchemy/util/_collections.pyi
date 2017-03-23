@@ -163,10 +163,10 @@ class PopulateDict(dict):
     def __init__(self, creator) -> None: ...
     def __missing__(self, key): ...
 
-column_set = ...  # type: Any
-column_dict = ...  # type: Any
-ordered_column_set = ...  # type: Any
-populate_column_dict = ...  # type: Any
+column_set = set
+column_dict = dict
+ordered_column_set = OrderedSet
+populate_column_dict = PopulateDict
 
 def unique_list(seq, hashfunc: Optional[Any] = ...): ...
 

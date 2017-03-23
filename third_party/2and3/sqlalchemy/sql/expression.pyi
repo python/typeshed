@@ -44,3 +44,26 @@ outerjoin = ...  # type: Any
 insert = ...  # type: Any
 update = ...  # type: Any
 delete = ...  # type: Any
+
+# old names for compatibility
+_Executable = Executable
+_BindParamClause = BindParameter
+_Label = Label
+_SelectBase = SelectBase
+_BinaryExpression = BinaryExpression
+_Cast = Cast
+_Null = Null
+_False = False_
+_True = True_
+_TextClause = TextClause
+_UnaryExpression = UnaryExpression
+_Case = Case
+_Tuple = Tuple
+_Over = Over
+_Generative = Generative
+_TypeClause = TypeClause
+_Extract = Extract
+_Exists = Exists
+_Grouping = Grouping
+_FromGrouping = FromGrouping
+_ScalarSelect = ScalarSelect
