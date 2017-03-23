@@ -5,34 +5,39 @@ import sys
 from typing import Sequence, Any, AnyStr, Mapping, Callable, Tuple, IO, Optional, Union, List, Type, Text
 from types import TracebackType
 
+_FILE = Union[int, IO[Any]]
+_TXT = Union[bytes, Text]
+_CMD = Union[_TXT, Sequence[_TXT]]
+
 if sys.version_info >= (3, 5):
     class CompletedProcess:
-        args = ...  # type: Union[Sequence[str], str]
+        # morally: _CMD
+        args = ...  # type: Any
         returncode = ...  # type: int
         stdout = ...  # type: Any
         stderr = ...  # type: Any
-        def __init__(self, args: Union[List, str],
+        def __init__(self, args: _CMD,
                      returncode: int,
-                     stdout: Union[str, bytes, None] = ...,
-                     stderr: Union[str, bytes, None] = ...) -> None: ...
+                     stdout: Optional[_TXT] = ...,
+                     stderr: Optional[_TXT] = ...) -> None: ...
         def check_returncode(self) -> None: ...
 
     if sys.version_info >= (3, 6):
         # Nearly same args as Popen.__init__ except for timeout, input, and check
-        def run(args: Union[str, Sequence[str]],
+        def run(args: _CMD,
                 timeout: float = ...,
-                input: Union[str, bytes] = ...,
+                input: _TXT = ...,
                 check: bool = ...,
                 bufsize: int = ...,
-                executable: str = ...,
-                stdin: Any = ...,
-                stdout: Any = ...,
-                stderr: Any = ...,
+                executable: _TXT = ...,
+                stdin: _FILE = ...,
+                stdout: _FILE = ...,
+                stderr: _FILE = ...,
                 preexec_fn: Callable[[], Any] = ...,
                 close_fds: bool = ...,
                 shell: bool = ...,
-                cwd: str = ...,
-                env: Mapping[str, str] = ...,
+                cwd: _TXT = ...,
+                env: Mapping[_TXT, _TXT] = ...,
                 universal_newlines: bool = ...,
                 startupinfo: Any = ...,
                 creationflags: int = ...,
@@ -43,20 +48,20 @@ if sys.version_info >= (3, 5):
                 errors: str = ...) -> CompletedProcess: ...
     else:
         # Nearly same args as Popen.__init__ except for timeout, input, and check
-        def run(args: Union[str, Sequence[str]],
+        def run(args: _CMD,
                 timeout: float = ...,
-                input: Union[str, bytes] = ...,
+                input: _TXT = ...,
                 check: bool = ...,
                 bufsize: int = ...,
-                executable: str = ...,
-                stdin: Any = ...,
-                stdout: Any = ...,
-                stderr: Any = ...,
+                executable: _TXT = ...,
+                stdin: _FILE = ...,
+                stdout: _FILE = ...,
+                stderr: _FILE = ...,
                 preexec_fn: Callable[[], Any] = ...,
                 close_fds: bool = ...,
                 shell: bool = ...,
-                cwd: str = ...,
-                env: Mapping[str, str] = ...,
+                cwd: _TXT = ...,
+                env: Mapping[_TXT, _TXT] = ...,
                 universal_newlines: bool = ...,
                 startupinfo: Any = ...,
                 creationflags: int = ...,
@@ -67,17 +72,17 @@ if sys.version_info >= (3, 5):
 # Same args as Popen.__init__
 if sys.version_info >= (3, 3):
     # 3.3 added timeout
-    def call(args: Union[str, Sequence[str]],
+    def call(args: _CMD,
              bufsize: int = ...,
-             executable: str = ...,
-             stdin: Any = ...,
-             stdout: Any = ...,
-             stderr: Any = ...,
+             executable: _TXT = ...,
+             stdin: _FILE = ...,
+             stdout: _FILE = ...,
+             stderr: _FILE = ...,
              preexec_fn: Callable[[], Any] = ...,
              close_fds: bool = ...,
              shell: bool = ...,
-             cwd: str = ...,
-             env: Mapping[str, str] = ...,
+             cwd: _TXT = ...,
+             env: Mapping[_TXT, _TXT] = ...,
              universal_newlines: bool = ...,
              startupinfo: Any = ...,
              creationflags: int = ...,
@@ -86,17 +91,17 @@ if sys.version_info >= (3, 3):
              pass_fds: Any = ...,
              timeout: float = ...) -> int: ...
 else:
-    def call(args: Union[str, Sequence[str]],
+    def call(args: _CMD,
              bufsize: int = ...,
-             executable: str = ...,
-             stdin: Any = ...,
-             stdout: Any = ...,
-             stderr: Any = ...,
+             executable: _TXT = ...,
+             stdin: _FILE = ...,
+             stdout: _FILE = ...,
+             stderr: _FILE = ...,
              preexec_fn: Callable[[], Any] = ...,
              close_fds: bool = ...,
              shell: bool = ...,
-             cwd: str = ...,
-             env: Mapping[str, str] = ...,
+             cwd: _TXT = ...,
+             env: Mapping[_TXT, _TXT] = ...,
              universal_newlines: bool = ...,
              startupinfo: Any = ...,
              creationflags: int = ...,
@@ -107,17 +112,17 @@ else:
 # Same args as Popen.__init__
 if sys.version_info >= (3, 3):
     # 3.3 added timeout
-    def check_call(args: Union[str, Sequence[str]],
+    def check_call(args: _CMD,
                    bufsize: int = ...,
-                   executable: str = ...,
-                   stdin: Any = ...,
-                   stdout: Any = ...,
-                   stderr: Any = ...,
+                   executable: _TXT = ...,
+                   stdin: _FILE = ...,
+                   stdout: _FILE = ...,
+                   stderr: _FILE = ...,
                    preexec_fn: Callable[[], Any] = ...,
                    close_fds: bool = ...,
                    shell: bool = ...,
-                   cwd: str = ...,
-                   env: Mapping[str, str] = ...,
+                   cwd: _TXT = ...,
+                   env: Mapping[_TXT, _TXT] = ...,
                    universal_newlines: bool = ...,
                    startupinfo: Any = ...,
                    creationflags: int = ...,
@@ -126,17 +131,17 @@ if sys.version_info >= (3, 3):
                    pass_fds: Any = ...,
                    timeout: float = ...) -> int: ...
 else:
-    def check_call(args: Union[str, Sequence[str]],
+    def check_call(args: _CMD,
                    bufsize: int = ...,
-                   executable: str = ...,
-                   stdin: Any = ...,
-                   stdout: Any = ...,
-                   stderr: Any = ...,
+                   executable: _TXT = ...,
+                   stdin: _FILE = ...,
+                   stdout: _FILE = ...,
+                   stderr: _FILE = ...,
                    preexec_fn: Callable[[], Any] = ...,
                    close_fds: bool = ...,
                    shell: bool = ...,
-                   cwd: str = ...,
-                   env: Mapping[str, str] = ...,
+                   cwd: _TXT = ...,
+                   env: Mapping[_TXT, _TXT] = ...,
                    universal_newlines: bool = ...,
                    startupinfo: Any = ...,
                    creationflags: int = ...,
@@ -146,16 +151,16 @@ else:
 
 if sys.version_info >= (3, 4):
     # 3.4 added input
-    def check_output(args: Union[str, Sequence[str]],
+    def check_output(args: _CMD,
                      bufsize: int = ...,
-                     executable: str = ...,
-                     stdin: Any = ...,
-                     stderr: Any = ...,
+                     executable: _TXT = ...,
+                     stdin: _FILE = ...,
+                     stderr: _FILE = ...,
                      preexec_fn: Callable[[], Any] = ...,
                      close_fds: bool = ...,
                      shell: bool = ...,
-                     cwd: str = ...,
-                     env: Mapping[str, str] = ...,
+                     cwd: _TXT = ...,
+                     env: Mapping[_TXT, _TXT] = ...,
                      universal_newlines: bool = ...,
                      startupinfo: Any = ...,
                      creationflags: int = ...,
@@ -163,44 +168,47 @@ if sys.version_info >= (3, 4):
                      start_new_session: bool = ...,
                      pass_fds: Any = ...,
                      timeout: float = ...,
-                     input: Union[str, bytes] = ...) -> Any: ...
+                     input: _TXT = ...,
+                    ) -> Any: ...  # morally: -> _TXT
 elif sys.version_info >= (3, 3):
     # 3.3 added timeout
-    def check_output(args: Union[str, Sequence[str]],
+    def check_output(args: _CMD,
                      bufsize: int = ...,
-                     executable: str = ...,
-                     stdin: Any = ...,
-                     stderr: Any = ...,
+                     executable: _TXT = ...,
+                     stdin: _FILE = ...,
+                     stderr: _FILE = ...,
                      preexec_fn: Callable[[], Any] = ...,
                      close_fds: bool = ...,
                      shell: bool = ...,
-                     cwd: str = ...,
-                     env: Mapping[str, str] = ...,
+                     cwd: _TXT = ...,
+                     env: Mapping[_TXT, _TXT] = ...,
                      universal_newlines: bool = ...,
                      startupinfo: Any = ...,
                      creationflags: int = ...,
                      restore_signals: bool = ...,
                      start_new_session: bool = ...,
                      pass_fds: Any = ...,
-                     timeout: float = ...) -> Any: ...
+                     timeout: float = ...,
+                    ) -> Any: ...  # morally: -> _TXT
 else:
     # Same args as Popen.__init__, except for stdout
-    def check_output(args: Union[str, Sequence[str]],
+    def check_output(args: _CMD,
                      bufsize: int = ...,
-                     executable: str = ...,
-                     stdin: Any = ...,
-                     stderr: Any = ...,
+                     executable: _TXT = ...,
+                     stdin: _FILE = ...,
+                     stderr: _FILE = ...,
                      preexec_fn: Callable[[], Any] = ...,
                      close_fds: bool = ...,
                      shell: bool = ...,
-                     cwd: str = ...,
-                     env: Mapping[str, str] = ...,
+                     cwd: _TXT = ...,
+                     env: Mapping[_TXT, _TXT] = ...,
                      universal_newlines: bool = ...,
                      startupinfo: Any = ...,
                      creationflags: int = ...,
                      restore_signals: bool = ...,
                      start_new_session: bool = ...,
-                     pass_fds: Any = ...) -> Any: ...
+                     pass_fds: Any = ...,
+                    ) -> Any: ...  # morally: -> _TXT
 
 
 # TODO types
@@ -214,21 +222,21 @@ if sys.version_info >= (3, 3):
 
 class CalledProcessError(Exception):
     returncode = 0
-    # morally: Union[bytes, Text, Sequence[bytes], Sequence[Text]]
+    # morally: _CMD
     cmd = ...  # type: Any
-    # morally: Optional[Union[bytes, Text]]
+    # morally: Optional[_TXT]
     output = ...  # type: Any
 
     if sys.version_info >= (3, 5):
-        # morally: Optional[Union[bytes, Text]]
+        # morally: Optional[_TXT]
         stdout = ...  # type: Any
         stderr = ...  # type: Any
 
     def __init__(self,
                  returncode: int,
-                 cmd: Union[bytes, Text, Sequence[bytes], Sequence[Text]],
-                 output: Optional[Union[bytes, Text]] = ...,
-                 stderr: Optional[Union[bytes, Text]] = ...) -> None: ...
+                 cmd: _CMD,
+                 output: Optional[_TXT] = ...,
+                 stderr: Optional[_TXT] = ...) -> None: ...
 
 class Popen:
     stdin = ...  # type: IO[Any]
@@ -239,17 +247,17 @@ class Popen:
 
     if sys.version_info >= (3, 6):
         def __init__(self,
-                     args: Union[str, Sequence[str]],
+                     args: _CMD],
                      bufsize: int = ...,
-                     executable: Optional[str] = ...,
-                     stdin: Optional[Any] = ...,
-                     stdout: Optional[Any] = ...,
-                     stderr: Optional[Any] = ...,
+                     executable: Optional[_TXT] = ...,
+                     stdin: Optional[_FILE] = ...,
+                     stdout: Optional[_FILE] = ...,
+                     stderr: Optional[_FILE] = ...,
                      preexec_fn: Optional[Callable[[], Any]] = ...,
                      close_fds: bool = ...,
                      shell: bool = ...,
-                     cwd: Optional[str] = ...,
-                     env: Optional[Mapping[str, str]] = ...,
+                     cwd: Optional[_TXT] = ...,
+                     env: Optional[Mapping[_TXT, _TXT]] = ...,
                      universal_newlines: bool = ...,
                      startupinfo: Optional[Any] = ...,
                      creationflags: int = ...,
@@ -260,17 +268,17 @@ class Popen:
                      errors: str = ...) -> None: ...
     else:
         def __init__(self,
-                     args: Union[str, Sequence[str]],
+                     args: _CMD,
                      bufsize: int = ...,
-                     executable: Optional[str] = ...,
-                     stdin: Optional[Any] = ...,
-                     stdout: Optional[Any] = ...,
-                     stderr: Optional[Any] = ...,
+                     executable: Optional[_TXT] = ...,
+                     stdin: Optional[_FILE] = ...,
+                     stdout: Optional[_FILE] = ...,
+                     stderr: Optional[_FILE] = ...,
                      preexec_fn: Optional[Callable[[], Any]] = ...,
                      close_fds: bool = ...,
                      shell: bool = ...,
-                     cwd: Optional[str] = ...,
-                     env: Optional[Mapping[str, str]] = ...,
+                     cwd: Optional[_TXT] = ...,
+                     env: Optional[Mapping[_TXT, _TXT]] = ...,
                      universal_newlines: bool = ...,
                      startupinfo: Optional[Any] = ...,
                      creationflags: int = ...,
@@ -286,16 +294,22 @@ class Popen:
         def wait(self) ->int: ...
     # Return str/bytes
     if sys.version_info >= (3, 3):
-        def communicate(self, input: Optional[AnyStr] = ..., timeout: Optional[float] = ...) -> Tuple[Any, Any]: ...
+        def communicate(self,
+                        input: Optional[_TXT] = ...,
+                        timeout: Optional[float] = ...,
+                       ) -> Tuple[Any, Any]: ...  # morally: -> Tuple[_TXT, _TXT]
     else:
-        def communicate(self, input: Optional[AnyStr] = ...) -> Tuple[Any, Any]: ...
+        def communicate(self,
+                        input: Optional[AnyStr] = ...,
+                       ) -> Tuple[Any, Any]: ...  # morally: -> Tuple[_TXT, _TXT]
     def send_signal(self, signal: int) -> None: ...
     def terminate(self) -> None: ...
     def kill(self) -> None: ...
     def __enter__(self) -> 'Popen': ...
     def __exit__(self, type: Optional[Type[BaseException]], value: Optional[BaseException], traceback: Optional[TracebackType]) -> bool: ...
 
-def getstatusoutput(cmd: str) -> Tuple[int, str]: ...
-def getoutput(cmd: str) -> str: ...
+# The result really is always a str.
+def getstatusoutput(cmd: _TXT) -> Tuple[int, str]: ...
+def getoutput(cmd: _TXT) -> str: ...
 
 # Windows-only: STARTUPINFO etc.
