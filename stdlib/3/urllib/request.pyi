@@ -109,7 +109,7 @@ class HTTPPasswordMgr:
     def find_user_password(self, realm: str, authuri: str) \
                            -> Tuple[Optional[str], Optional[str]]: ...
 
-class HTTPPasswordMgrWithDefaultRealm:
+class HTTPPasswordMgrWithDefaultRealm(HTTPPasswordMgr):
     def add_password(self, realm: str, uri: Union[str, Sequence[str]],
                      user: str, passwd: str) -> None: ...
     def find_user_password(self, realm: str, authuri: str) \
