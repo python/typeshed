@@ -52,8 +52,7 @@ def check_output(args: _CMD,
                  env: Mapping[_TXT, _TXT] = ...,
                  universal_newlines: bool = ...,
                  startupinfo: Any = ...,
-                 creationflags: int = ...
-                 ) -> Any: ...  # morally: _TXT
+                 creationflags: int = ...) -> bytes: ...
 
 PIPE = ...  # type: int
 STDOUT = ...  # type: int
@@ -62,13 +61,13 @@ class CalledProcessError(Exception):
     returncode = 0
     # morally: _CMD
     cmd = ...  # type: Any
-    # morally: Optional[_TXT]
+    # morally: Optional[bytes]
     output = ...  # type: Any
 
     def __init__(self,
                  returncode: int,
                  cmd: _CMD,
-                 output: Optional[_TXT] = ...) -> None: ...
+                 output: Optional[bytes] = ...) -> None: ...
 
 class Popen:
     stdin = ...  # type: Optional[IO[Any]]
@@ -95,7 +94,7 @@ class Popen:
 
     def poll(self) -> int: ...
     def wait(self) -> int: ...
-    # morally: -> Tuple[_TXT, _TXT]
+    # morally: -> Tuple[Optional[bytes], Optional[bytes]]
     def communicate(self, input: Optional[_TXT] = ...) -> Tuple[Any, Any]: ...
     def send_signal(self, signal: int) -> None: ...
     def terminate(self) -> None: ...

@@ -14,6 +14,7 @@ if sys.version_info >= (3, 5):
         # morally: _CMD
         args = ...  # type: Any
         returncode = ...  # type: int
+        # morally: Optional[_TXT]
         stdout = ...  # type: Any
         stderr = ...  # type: Any
         def __init__(self, args: _CMD,
@@ -297,11 +298,13 @@ class Popen:
         def communicate(self,
                         input: Optional[_TXT] = ...,
                         timeout: Optional[float] = ...,
-                        ) -> Tuple[Any, Any]: ...  # morally: -> Tuple[_TXT, _TXT]
+                        # morally: -> Tuple[Optional[_TXT], Optional[_TXT]]
+                        ) -> Tuple[Any, Any]: ...
     else:
         def communicate(self,
-                        input: Optional[AnyStr] = ...,
-                        ) -> Tuple[Any, Any]: ...  # morally: -> Tuple[_TXT, _TXT]
+                        input: Optional[_TXT] = ...,
+                        # morally: -> Tuple[Optional[_TXT], Optional[_TXT]]
+                        ) -> Tuple[Any, Any]: ...
     def send_signal(self, signal: int) -> None: ...
     def terminate(self) -> None: ...
     def kill(self) -> None: ...
