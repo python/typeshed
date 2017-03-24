@@ -4,7 +4,7 @@
 
 from typing import Any
 import collections
-import util
+from sqlalchemy import util
 from .visitors import ClauseVisitor as ClauseVisitor
 
 PARSE_AUTOCOMMIT = ...  # type: Any

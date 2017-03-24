@@ -8,7 +8,6 @@
 from typing import Any, Mapping, Optional
 from ..sql import expression as expression, sqltypes as sqltypes
 from ..sql import util as sql_util
-from sqlalchemy.cresultproxy import BaseRowProxy
 
 def rowproxy_reconstructor(cls, state): ...
 

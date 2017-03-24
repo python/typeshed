@@ -4,7 +4,7 @@
 
 from typing import Any
 from sqlalchemy import pool as poollib
-import base
+from . import base
 
 strategies = ...  # type: Any
 

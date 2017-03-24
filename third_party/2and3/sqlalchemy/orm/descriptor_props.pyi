@@ -7,7 +7,7 @@ from .interfaces import MapperProperty as MapperProperty, PropComparator as Prop
 from .util import _none_set as _none_set
 from .. import exc as sa_exc
 from ..sql import expression as expression
-import query
+from . import query
 
 class DescriptorProperty(MapperProperty):
     doc = ...  # type: Any

@@ -4,8 +4,7 @@
 
 from typing import Any, Optional
 from .elements import ClauseElement as ClauseElement, TextClause as TextClause, ClauseList as ClauseList, and_ as and_, Grouping as Grouping, UnaryExpression as UnaryExpression, literal_column as literal_column, BindParameter as BindParameter
-from .elements import _clone as _clone, _literal_as_text as _literal_as_text, _interpret_as_column_or_from as _interpret_as_column_or_from, _expand_cloned as _expand_cloned, _select_iterables as _select_iterables, _anonymous_label as _anonymous_label, _clause_element_as_expr as _clause_element_as_expr, _cloned_intersection as _cloned_intersection, _cloned_difference as _cloned_difference, True_ as True_, _literal_as_label_reference as _literal_as_label_reference, _literal_and_labels_as_label_reference as _literal_and_labels_as_label_reference
-from .base import Immutable as Immutable, Executable as Executable, _generative as _generative, ColumnCollection as ColumnCollection, ColumnSet as ColumnSet, _from_objects as _from_objects, Generative as Generative
+from .base import Immutable as Immutable, Executable as Executable, ColumnCollection as ColumnCollection, ColumnSet as ColumnSet, Generative as Generative
 from .annotation import Annotated as Annotated
 
 class _OffsetLimitParam(BindParameter): ...
@@ -182,7 +181,6 @@ class CompoundSelect(GenerativeSelect):
     def is_derived_from(self, fromclause): ...
     def get_children(self, column_collections: bool = ..., **kwargs): ...
     def bind(self): ...
-    bind = ...  # type: Any
 
 class Select(HasPrefixes, HasSuffixes, GenerativeSelect):
     __visit_name__ = ...  # type: str
@@ -221,7 +219,6 @@ class Select(HasPrefixes, HasSuffixes, GenerativeSelect):
     def intersect(self, other, **kwargs): ...
     def intersect_all(self, other, **kwargs): ...
     def bind(self): ...
-    bind = ...  # type: Any
 
 class ScalarSelect(Generative, Grouping):
     element = ...  # type: Any

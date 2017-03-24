@@ -10,3 +10,7 @@
 #   postgresql
 #   sqlite
 #   sybase
+from . import util
+
+registry = ...  # type: util.PluginLoader
+plugins = ...  # type: util.PluginLoader

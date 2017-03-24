@@ -9,10 +9,6 @@ from .elements import TypeCoerce as type_coerce
 from .base import _bind_or_error as _bind_or_error, SchemaEventTarget as SchemaEventTarget
 from ..util import pickle as pickle
 from ..util import compat as compat
-import TypeEngine
-import String
-import Indexable
-import Concatenable
 
 class _DateAffinity:
     class Comparator(TypeEngine.Comparator): ...
