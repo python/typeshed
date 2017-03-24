@@ -4,12 +4,10 @@
 
 from typing import Any, Optional
 from . import visitors
-from .base import _from_objects as _from_objects, ColumnSet as ColumnSet
+from .base import ColumnSet as ColumnSet
 from .elements import BindParameter as BindParameter, ColumnClause as ColumnClause, ColumnElement as ColumnElement, Null as Null, UnaryExpression as UnaryExpression, literal_column as literal_column, Label as Label, _label_reference as _label_reference, _textual_label_reference as _textual_label_reference
 from .selectable import ScalarSelect as ScalarSelect, Join as Join, FromClause as FromClause, FromGrouping as FromGrouping
 from .schema import Column as Column
-from .annotation import _shallow_annotate as _shallow_annotate, _deep_annotate as _deep_annotate, _deep_deannotate as _deep_deannotate
-from .elements import _find_columns as _find_columns
 from .ddl import sort_tables as sort_tables
 
 join_condition = ...  # type: Any

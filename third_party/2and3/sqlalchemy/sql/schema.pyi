@@ -5,8 +5,8 @@
 from typing import Any, Optional
 from . import visitors
 from .base import SchemaEventTarget as SchemaEventTarget, DialectKWArgs as DialectKWArgs
-from .base import _bind_or_error as _bind_or_error, ColumnCollection as ColumnCollection
-from .elements import ClauseElement as ClauseElement, ColumnClause as ColumnClause, _as_truncated as _as_truncated, TextClause as TextClause, _literal_as_text as _literal_as_text, ColumnElement as ColumnElement, quoted_name as quoted_name
+from .base import ColumnCollection as ColumnCollection
+from .elements import ClauseElement as ClauseElement, ColumnClause as ColumnClause, TextClause as TextClause, ColumnElement as ColumnElement, quoted_name as quoted_name
 from .selectable import TableClause as TableClause
 
 RETAIN_SCHEMA = ...  # type: Any
@@ -172,7 +172,6 @@ class ColumnCollectionConstraint(ColumnCollectionMixin, Constraint):
 class CheckConstraint(ColumnCollectionConstraint):
     sqltext = ...  # type: Any
     def __init__(self, sqltext, name: Optional[Any] = ..., deferrable: Optional[Any] = ..., initially: Optional[Any] = ..., table: Optional[Any] = ..., info: Optional[Any] = ..., _create_rule: Optional[Any] = ..., _autoattach: bool = ..., _type_bound: bool = ...) -> None: ...
-    def __visit_name__(self): ...
     __visit_name__ = ...  # type: Any
     def copy(self, target_table: Optional[Any] = ..., **kw): ...
 

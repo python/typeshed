@@ -49,7 +49,7 @@ from .sql import (
     union as union,
     union_all as union_all,
     update as update,
-within_group as within_group
+    within_group as within_group
 )
 
 from .types import (

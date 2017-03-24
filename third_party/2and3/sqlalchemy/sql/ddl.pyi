@@ -4,7 +4,7 @@
 
 from typing import Any, Optional
 from .elements import ClauseElement as ClauseElement
-from .base import Executable as Executable, _generative as _generative, SchemaVisitor as SchemaVisitor, _bind_or_error as _bind_or_error
+from .base import Executable as Executable, SchemaVisitor as SchemaVisitor
 from ..util import topological as topological
 
 class _DDLCompiles(ClauseElement): ...
@@ -14,7 +14,7 @@ class DDLElement(Executable, _DDLCompiles):
     on = ...  # type: Any
     dialect = ...  # type: Any
     callable_ = ...  # type: Any
-    def execute(self, bind: Optional[Any] = ..., target: Optional[Any] = ...): ...
+    def execute(self, *multiparams, **params): ...
     def execute_at(self, event_name, target): ...
     def against(self, target): ...
     state = ...  # type: Any
