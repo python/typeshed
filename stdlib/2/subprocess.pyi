@@ -7,6 +7,7 @@ from typing import Sequence, Any, AnyStr, Mapping, Callable, Tuple, IO, Union, O
 _FILE = Union[int, IO[Any]]
 _TXT = Union[bytes, Text]
 _CMD = Union[_TXT, Sequence[_TXT]]
+_ENV = Union[Mapping[bytes, _TXT], Mapping[Text, _TXT]]
 
 # Same args as Popen.__init__
 def call(args: _CMD,
@@ -19,7 +20,7 @@ def call(args: _CMD,
          close_fds: bool = ...,
          shell: bool = ...,
          cwd: _TXT = ...,
-         env: Mapping[_TXT, _TXT] = ...,
+         env: _ENV = ...,
          universal_newlines: bool = ...,
          startupinfo: Any = ...,
          creationflags: int = ...) -> int: ...
@@ -34,7 +35,7 @@ def check_call(args: _CMD,
                close_fds: bool = ...,
                shell: bool = ...,
                cwd: _TXT = ...,
-               env: Mapping[_TXT, _TXT] = ...,
+               env: _ENV = ...,
                universal_newlines: bool = ...,
                startupinfo: Any = ...,
                creationflags: int = ...) -> int: ...
@@ -49,7 +50,7 @@ def check_output(args: _CMD,
                  close_fds: bool = ...,
                  shell: bool = ...,
                  cwd: _TXT = ...,
-                 env: Mapping[_TXT, _TXT] = ...,
+                 env: _ENV = ...,
                  universal_newlines: bool = ...,
                  startupinfo: Any = ...,
                  creationflags: int = ...) -> bytes: ...
@@ -87,7 +88,7 @@ class Popen:
                  close_fds: bool = ...,
                  shell: bool = ...,
                  cwd: Optional[_TXT] = ...,
-                 env: Optional[Mapping[_TXT, _TXT]] = ...,
+                 env: Optional[_ENV] = ...,
                  universal_newlines: bool = ...,
                  startupinfo: Optional[Any] = ...,
                  creationflags: int = ...) -> None: ...
