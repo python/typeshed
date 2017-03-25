@@ -14,3 +14,5 @@ from .. import util
 
 registry = ...  # type: util.PluginLoader
 plugins = ...  # type: util.PluginLoader
+
+from . import firebird as firebird, mssql as mssql, mysql as mysql, oracle as oracle, postgresql as postgresql, sqlite as sqlite, sybase as sybase
