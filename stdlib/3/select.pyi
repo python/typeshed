@@ -2,7 +2,7 @@
 
 # NOTE: These are incomplete!
 
-from typing import Any, Tuple, List, Sequence, TypeVar
+from typing import Any, Tuple, List, Sequence
 
 class error(Exception): ...
 
@@ -21,10 +21,7 @@ class poll:
     def unregister(self, fd: Any) -> None: ...
     def poll(self, timeout: int = ...) -> List[Tuple[int, int]]: ...
 
-# Not the canonical naming choices, but these map to the select arguments. We
-# need 3 because nothing in select prevents the read set from being socket
-# objects and the write set from being file descriptors.
-_R = TypeVar("_R")
-_W = TypeVar("_W")
-_X = TypeVar("_X")
-def select(rlist: Sequence[_R], wlist: Sequence[_W], xlist: Sequence[_X], timeout: float = ...) -> Tuple[List[_R], List[_W], List[_X]]: ...
+def select(rlist: Sequence, wlist: Sequence, xlist: Sequence,
+           timeout: float = ...) -> Tuple[List[Any],
+                                           List[Any],
+                                           List[Any]]: ...

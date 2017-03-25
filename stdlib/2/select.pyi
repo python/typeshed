@@ -1,6 +1,6 @@
 """Stubs for the 'select' module."""
 
-from typing import Any, Optional, Tuple, Iterable, List, Sequence, TypeVar
+from typing import Any, Optional, Tuple, Iterable, List
 
 EPOLLERR = ...  # type: int
 EPOLLET = ...  # type: int
@@ -66,11 +66,7 @@ POLLWRBAND = ...  # type: int
 POLLWRNORM = ...  # type: int
 
 def poll() -> epoll: ...
-
-_R = TypeVar("_R")
-_W = TypeVar("_W")
-_X = TypeVar("_X")
-def select(rlist: Sequence[_R], wlist: Sequence[_W], xlist: Sequence[_X], timeout: float = None) -> Tuple[List[_R], List[_W], List[_X]]: ...
+def select(rlist, wlist, xlist, timeout: float = None) -> Tuple[List, List, List]: ...
 
 class error(Exception): ...
 
