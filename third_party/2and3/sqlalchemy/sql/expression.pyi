@@ -36,7 +36,7 @@ from .elements import (
     False_ as False_,
     Grouping as Grouping,
 )
-from .base import ColumnCollection as ColumnCollection, Generative as Generative
+from .base import ColumnCollection as ColumnCollection, Generative as Generative, Executable as Executable
 from .selectable import (
     Alias as Alias,
     Join as Join,

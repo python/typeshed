@@ -36,7 +36,7 @@ class ClauseElement(Visitable):
 
 class ColumnElement(operators.ColumnOperators, ClauseElement):
     __visit_name__ = ...  # type: str
-    primary_key = ...  # type: bool
+    primary_key = ...  # type: Any
     foreign_keys = ...  # type: Any
     key = ...  # type: Any
     def self_group(self, against: Optional[Any] = ...): ...

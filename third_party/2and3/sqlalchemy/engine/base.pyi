@@ -7,7 +7,6 @@ from sqlalchemy import log
 from ..sql import util as sql_util
 from ..sql import schema as schema
 from .interfaces import Connectable as Connectable, ExceptionContext as ExceptionContext
-from .util import _distill_params as _distill_params
 
 class Connection(Connectable):
     schema_for_object = ...  # type: Any
