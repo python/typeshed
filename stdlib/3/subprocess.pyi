@@ -151,7 +151,29 @@ else:
                    start_new_session: bool = ...,
                    pass_fds: Any = ...) -> int: ...
 
-if sys.version_info >= (3, 4):
+if sys.version_info >= (3, 6):
+    # 3.6 added encoding
+    def check_output(args: _CMD,
+                     bufsize: int = ...,
+                     executable: _TXT = ...,
+                     stdin: _FILE = ...,
+                     stderr: _FILE = ...,
+                     preexec_fn: Callable[[], Any] = ...,
+                     close_fds: bool = ...,
+                     shell: bool = ...,
+                     encoding: str = ...,
+                     cwd: _TXT = ...,
+                     env: _ENV = ...,
+                     universal_newlines: bool = ...,
+                     startupinfo: Any = ...,
+                     creationflags: int = ...,
+                     restore_signals: bool = ...,
+                     start_new_session: bool = ...,
+                     pass_fds: Any = ...,
+                     timeout: float = ...,
+                     input: _TXT = ...,
+                     ) -> Any: ...  # morally: -> _TXT
+elif sys.version_info >= (3, 4):
     # 3.4 added input
     def check_output(args: _CMD,
                      bufsize: int = ...,
