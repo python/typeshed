@@ -46,8 +46,9 @@ if sys.version_info >= (3, 5):
                 restore_signals: bool = ...,
                 start_new_session: bool = ...,
                 pass_fds: Any = ...,
-                encoding: str = ...,
-                errors: str = ...) -> CompletedProcess: ...
+                *,
+                encoding: Optional[str] = ...,
+                errors: Optional[str] = ...) -> CompletedProcess: ...
     else:
         # Nearly same args as Popen.__init__ except for timeout, input, and check
         def run(args: _CMD,
@@ -152,7 +153,7 @@ else:
                    pass_fds: Any = ...) -> int: ...
 
 if sys.version_info >= (3, 6):
-    # 3.6 added encoding
+    # 3.6 added encoding and errors
     def check_output(args: _CMD,
                      bufsize: int = ...,
                      executable: _TXT = ...,
@@ -161,7 +162,6 @@ if sys.version_info >= (3, 6):
                      preexec_fn: Callable[[], Any] = ...,
                      close_fds: bool = ...,
                      shell: bool = ...,
-                     encoding: str = ...,
                      cwd: _TXT = ...,
                      env: _ENV = ...,
                      universal_newlines: bool = ...,
@@ -170,8 +170,11 @@ if sys.version_info >= (3, 6):
                      restore_signals: bool = ...,
                      start_new_session: bool = ...,
                      pass_fds: Any = ...,
+                     *,
                      timeout: float = ...,
                      input: _TXT = ...,
+                     encoding: Optional[str] = ...,
+                     errors: Optional[str] = ...,
                      ) -> Any: ...  # morally: -> _TXT
 elif sys.version_info >= (3, 4):
     # 3.4 added input
@@ -288,8 +291,9 @@ class Popen:
                      restore_signals: bool = ...,
                      start_new_session: bool = ...,
                      pass_fds: Any = ...,
-                     encoding: str = ...,
-                     errors: str = ...) -> None: ...
+                     *,
+                     encoding: Optional[str] = ...,
+                     errors: Optional[str] = ...) -> None: ...
     else:
         def __init__(self,
                      args: _CMD,
