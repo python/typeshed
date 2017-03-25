@@ -44,7 +44,7 @@ OP_REMOVE = ...  # type: Any
 OP_APPEND = ...  # type: Any
 OP_REPLACE = ...  # type: Any
 
-class Event:
+class Event(object):
     impl = ...  # type: Any
     op = ...  # type: Any
     parent_token = ...  # type: Any
@@ -54,7 +54,7 @@ class Event:
     def key(self): ...
     def hasparent(self, state): ...
 
-class AttributeImpl:
+class AttributeImpl(object):
     class_ = ...  # type: Any
     key = ...  # type: Any
     callable_ = ...  # type: Any

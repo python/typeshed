@@ -9,7 +9,7 @@ from ...engine import default as default, reflection as reflection
 from ...sql import compiler as compiler
 from ...types import BLOB as BLOB, BOOLEAN as BOOLEAN, CHAR as CHAR, DECIMAL as DECIMAL, FLOAT as FLOAT, INTEGER as INTEGER, REAL as REAL, NUMERIC as NUMERIC, SMALLINT as SMALLINT, TEXT as TEXT, TIMESTAMP as TIMESTAMP, VARCHAR as VARCHAR
 
-class _DateTimeMixin:
+class _DateTimeMixin(object):
     def __init__(self, storage_format: Optional[Any] = ..., regexp: Optional[Any] = ..., **kw) -> None: ...
     @property
     def format_is_text_affinity(self): ...

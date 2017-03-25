@@ -58,12 +58,12 @@ class StrategizedProperty(MapperProperty):
     @classmethod
     def strategy_for(cls, **kw): ...
 
-class MapperOption:
+class MapperOption(object):
     propagate_to_loaders = ...  # type: bool
     def process_query(self, query): ...
     def process_query_conditionally(self, query): ...
 
-class LoaderStrategy:
+class LoaderStrategy(object):
     parent_property = ...  # type: Any
     is_class_level = ...  # type: bool
     parent = ...  # type: Any

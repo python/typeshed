@@ -4,7 +4,7 @@
 
 from typing import Any, Optional
 
-class _EventKey:
+class _EventKey(object):
     target = ...  # type: Any
     identifier = ...  # type: Any
     fn = ...  # type: Any

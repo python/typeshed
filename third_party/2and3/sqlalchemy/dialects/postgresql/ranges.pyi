@@ -5,7 +5,7 @@
 from typing import Any
 from ... import types as sqltypes
 
-class RangeOperators:
+class RangeOperators(object):
     comparator_factory = ...  # type: Any
 
 class INT4RANGE(RangeOperators, sqltypes.TypeEngine):

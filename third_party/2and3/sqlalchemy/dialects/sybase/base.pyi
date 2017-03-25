@@ -16,7 +16,7 @@ from sqlalchemy.types import CHAR as CHAR, VARCHAR as VARCHAR, TIME as TIME, NCH
 
 RESERVED_WORDS = ...  # type: Any
 
-class _SybaseUnitypeMixin:
+class _SybaseUnitypeMixin(object):
     def result_processor(self, dialect, coltype): ...
 
 class UNICHAR(_SybaseUnitypeMixin, sqltypes.Unicode):

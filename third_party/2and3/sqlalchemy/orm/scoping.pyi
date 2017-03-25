@@ -6,7 +6,7 @@ from typing import Any, Optional
 from .. import exc as sa_exc
 from . import exc as orm_exc
 
-class scoped_session:
+class scoped_session(object):
     session_factory = ...  # type: Any
     registry = ...  # type: Any
     def __init__(self, session_factory, scopefunc: Optional[Any] = ...) -> None: ...

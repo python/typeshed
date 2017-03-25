@@ -20,10 +20,10 @@ class Selectable(ClauseElement):
     @property
     def selectable(self): ...
 
-class HasPrefixes:
+class HasPrefixes(object):
     def prefix_with(self, *expr, **kw): ...
 
-class HasSuffixes:
+class HasSuffixes(object):
     def suffix_with(self, *expr, **kw): ...
 
 class FromClause(Selectable):
@@ -101,7 +101,7 @@ class CTE(Generative, HasSuffixes, Alias):
     def union(self, other): ...
     def union_all(self, other): ...
 
-class HasCTE:
+class HasCTE(object):
     def cte(self, name: Optional[Any] = ..., recursive: bool = ...): ...
 
 class FromGrouping(FromClause):

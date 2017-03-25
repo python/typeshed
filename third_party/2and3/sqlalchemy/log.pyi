@@ -8,12 +8,12 @@ rootlogger = ...  # type: Any
 
 def class_logger(cls): ...
 
-class Identified:
+class Identified(object):
     logging_name = ...  # type: Any
     def _should_log_debug(self) -> bool: ...
     def _should_log_info(self) -> bool: ...
 
-class InstanceLogger:
+class InstanceLogger(object):
     echo = ...  # type: Any
     logger = ...  # type: Any
     def __init__(self, echo, name) -> None: ...
@@ -30,7 +30,7 @@ class InstanceLogger:
 
 def instance_logger(instance, echoflag: Optional[Any] = ...): ...
 
-class echo_property:
+class echo_property(object):
     __doc__ = ...  # type: str
     def __get__(self, instance, owner): ...
     def __set__(self, instance, value): ...

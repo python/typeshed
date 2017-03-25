@@ -35,7 +35,7 @@ class DynamicAttributeImpl(attributes.AttributeImpl):
     def remove(self, state, dict_, value, initiator, passive: Any = ...): ...
     def pop(self, state, dict_, value, initiator, passive: Any = ...): ...
 
-class AppenderMixin:
+class AppenderMixin(object):
     query_class = ...  # type: Any
     instance = ...  # type: Any
     attr = ...  # type: Any
@@ -52,7 +52,7 @@ class AppenderQuery(AppenderMixin, Query): ...
 
 def mixin_user_query(cls): ...
 
-class CollectionHistory:
+class CollectionHistory(object):
     unchanged_items = ...  # type: Any
     added_items = ...  # type: Any
     deleted_items = ...  # type: Any

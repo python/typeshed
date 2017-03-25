@@ -29,7 +29,7 @@ class FunctionElement(Executable, ColumnElement, FromClause):
     def execute(self): ...
     def self_group(self, against: Optional[Any] = ...): ...
 
-class _FunctionGenerator:
+class _FunctionGenerator(object):
     opts = ...  # type: Any
     def __init__(self, **opts) -> None: ...
     def __getattr__(self, name): ...
@@ -48,7 +48,7 @@ class Function(FunctionElement):
 class _GenericMeta(VisitableType):
     def __init__(cls, clsname, bases, clsdict) -> None: ...
 
-class GenericFunction:
+class GenericFunction(object):
     coerce_arguments = ...  # type: bool
     packagenames = ...  # type: Any
     clause_expr = ...  # type: Any

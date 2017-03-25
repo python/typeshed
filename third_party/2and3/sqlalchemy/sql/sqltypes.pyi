@@ -10,13 +10,13 @@ from .base import SchemaEventTarget as SchemaEventTarget
 from ..util import pickle as pickle
 from ..util import compat as compat
 
-class _DateAffinity:
+class _DateAffinity(object):
     comparator_factory = ...  # type: Any
 
-class Concatenable:
+class Concatenable(object):
     comparator_factory = ...  # type: Any
 
-class Indexable:
+class Indexable(object):
     comparator_factory = ...  # type: Any
 
 class String(Concatenable, TypeEngine):

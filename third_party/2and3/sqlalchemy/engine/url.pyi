@@ -5,7 +5,7 @@
 from typing import Any, Optional
 from ..dialects import registry as registry, plugins as plugins
 
-class URL:
+class URL(object):
     drivername = ...  # type: Any
     username = ...  # type: Any
     password = ...  # type: Any

@@ -7,7 +7,7 @@ from .base import class_mapper as class_mapper
 
 log = ...  # type: Any
 
-class PathRegistry:
+class PathRegistry(object):
     is_token = ...  # type: bool
     is_root = ...  # type: bool
     def __eq__(self, other): ...

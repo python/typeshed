@@ -8,7 +8,7 @@ from ...orm import class_mapper as class_mapper, interfaces as interfaces
 
 def add_class(classname, cls): ...
 
-class _MultipleClassMarker:
+class _MultipleClassMarker(object):
     on_remove = ...  # type: Any
     contents = ...  # type: Any
     def __init__(self, classes, on_remove: Optional[Any] = ...) -> None: ...
@@ -16,7 +16,7 @@ class _MultipleClassMarker:
     def attempt_get(self, path, key): ...
     def add_item(self, item): ...
 
-class _ModuleMarker:
+class _ModuleMarker(object):
     parent = ...  # type: Any
     name = ...  # type: Any
     contents = ...  # type: Any
@@ -29,22 +29,22 @@ class _ModuleMarker:
     def get_module(self, name): ...
     def add_class(self, name, cls): ...
 
-class _ModNS:
+class _ModNS(object):
     def __init__(self, parent) -> None: ...
     def __getattr__(self, key): ...
 
-class _GetColumns:
+class _GetColumns(object):
     cls = ...  # type: Any
     def __init__(self, cls) -> None: ...
     def __getattr__(self, key): ...
 
-class _GetTable:
+class _GetTable(object):
     key = ...  # type: Any
     metadata = ...  # type: Any
     def __init__(self, key, metadata) -> None: ...
     def __getattr__(self, key): ...
 
-class _class_resolver:
+class _class_resolver(object):
     cls = ...  # type: Any
     prop = ...  # type: Any
     arg = ...  # type: Any

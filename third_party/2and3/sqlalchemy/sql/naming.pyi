@@ -6,7 +6,7 @@ from typing import Any
 from .schema import Constraint as Constraint, ForeignKeyConstraint as ForeignKeyConstraint, PrimaryKeyConstraint as PrimaryKeyConstraint, UniqueConstraint as UniqueConstraint, CheckConstraint as CheckConstraint, Index as Index, Table as Table, Column as Column
 from .elements import _truncated_label as _truncated_label, _defer_name as _defer_name, _defer_none_name as _defer_none_name, conv as conv
 
-class ConventionDict:
+class ConventionDict(object):
     const = ...  # type: Any
     table = ...  # type: Any
     convention = ...  # type: Any

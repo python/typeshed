@@ -4,7 +4,7 @@
 
 from typing import Any
 
-class Annotated:
+class Annotated(object):
     def __new__(cls, *args): ...
     __dict__ = ...  # type: Any
     def __init__(self, element, values) -> None: ...

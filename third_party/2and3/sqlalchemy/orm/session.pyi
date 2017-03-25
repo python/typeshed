@@ -7,7 +7,7 @@ from .. import exc as sa_exc
 from ..sql import util as sql_util
 from . import state as statelib
 
-class _SessionClassMethods:
+class _SessionClassMethods(object):
     @classmethod
     def close_all(cls): ...
     @classmethod
@@ -15,7 +15,7 @@ class _SessionClassMethods:
     @classmethod
     def object_session(cls, instance): ...
 
-class SessionTransaction:
+class SessionTransaction(object):
     session = ...  # type: Any
     nested = ...  # type: Any
     def __init__(self, session, parent: Optional[Any] = ..., nested: bool = ...) -> None: ...

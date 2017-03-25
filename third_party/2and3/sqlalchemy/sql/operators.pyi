@@ -6,7 +6,7 @@ from typing import Any, Optional
 
 div = ...  # type: Any
 
-class Operators:
+class Operators(object):
     def __and__(self, other): ...
     def __or__(self, other): ...
     def __invert__(self): ...
@@ -14,7 +14,7 @@ class Operators:
     def operate(self, op, *other, **kwargs): ...
     def reverse_operate(self, op, other, **kwargs): ...
 
-class custom_op:
+class custom_op(object):
     __name__ = ...  # type: str
     opstring = ...  # type: Any
     precedence = ...  # type: Any

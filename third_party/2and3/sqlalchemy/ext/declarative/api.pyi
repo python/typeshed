@@ -34,7 +34,7 @@ class _stateful_declared_attr(declared_attr):
 def declarative_base(bind: Optional[Any] = ..., metadata: Optional[Any] = ..., mapper: Optional[Any] = ..., cls: Any = ..., name: str = ..., constructor: Any = ..., class_registry: Optional[Any] = ..., metaclass: Any = ...): ...
 def as_declarative(**kw): ...
 
-class ConcreteBase:
+class ConcreteBase(object):
     @classmethod
     def __declare_first__(cls): ...
 
@@ -43,6 +43,6 @@ class AbstractConcreteBase(ConcreteBase):
     @classmethod
     def __declare_first__(cls): ...
 
-class DeferredReflection:
+class DeferredReflection(object):
     @classmethod
     def prepare(cls, engine): ...

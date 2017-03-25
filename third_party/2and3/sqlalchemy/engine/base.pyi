@@ -58,7 +58,7 @@ class ExceptionContextImpl(ExceptionContext):
     invalidate_pool_on_disconnect = ...  # type: Any
     def __init__(self, exception, sqlalchemy_exception, engine, connection, cursor, statement, parameters, context, is_disconnect, invalidate_pool_on_disconnect) -> None: ...
 
-class Transaction:
+class Transaction(object):
     connection = ...  # type: Any
     is_active = ...  # type: bool
     def __init__(self, connection, parent) -> None: ...
@@ -95,7 +95,7 @@ class Engine(Connectable, log.Identified):
     @property
     def driver(self): ...
     def dispose(self): ...
-    class _trans_ctx:
+    class _trans_ctx(object):
         conn = ...  # type: Any
         transaction = ...  # type: Any
         close_with_result = ...  # type: Any

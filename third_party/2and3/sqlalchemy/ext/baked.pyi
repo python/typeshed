@@ -14,7 +14,7 @@ from .. import exc as sa_exc
 
 log = ...  # type: Any
 
-class BakedQuery:
+class BakedQuery(object):
     steps = ...  # type: Any
     def __init__(self, bakery, initial_fn, args: Any = ...) -> None: ...
     @classmethod
@@ -27,7 +27,7 @@ class BakedQuery:
     def __call__(self, session): ...
     def spoil(self, full: bool = ...): ...
 
-class Result:
+class Result(object):
     bq = ...  # type: Any
     session = ...  # type: Any
     def __init__(self, bq, session) -> None: ...

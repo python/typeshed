@@ -39,7 +39,7 @@ class TIME(sqltypes.TIME):
 
 _MSTime = TIME
 
-class _DateTimeBase:
+class _DateTimeBase(object):
     def bind_processor(self, dialect): ...
 
 class _MSDateTime(_DateTimeBase, sqltypes.DateTime): ...
@@ -57,7 +57,7 @@ class DATETIMEOFFSET(sqltypes.TypeEngine):
     precision = ...  # type: Any
     def __init__(self, precision: Optional[Any] = ..., **kwargs) -> None: ...
 
-class _StringType:
+class _StringType(object):
     def __init__(self, collation: Optional[Any] = ...) -> None: ...
 
 class NTEXT(sqltypes.UnicodeText):

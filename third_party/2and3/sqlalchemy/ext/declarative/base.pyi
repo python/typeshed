@@ -14,7 +14,7 @@ from ...sql import expression as expression
 declared_attr = ...  # type: Any
 declarative_props = ...  # type: Any
 
-class _MapperConfig:
+class _MapperConfig(object):
     @classmethod
     def setup_mapping(cls, cls_, classname, dict_): ...
     cls = ...  # type: Any

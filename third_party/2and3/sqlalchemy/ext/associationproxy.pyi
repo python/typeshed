@@ -41,13 +41,13 @@ class AssociationProxy(interfaces.InspectionAttrInfo):
     def __eq__(self, obj): ...
     def __ne__(self, obj): ...
 
-class _lazy_collection:
+class _lazy_collection(object):
     ref = ...  # type: Any
     target = ...  # type: Any
     def __init__(self, obj, target) -> None: ...
     def __call__(self): ...
 
-class _AssociationCollection:
+class _AssociationCollection(object):
     lazy_collection = ...  # type: Any
     creator = ...  # type: Any
     getter = ...  # type: Any

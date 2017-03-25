@@ -5,7 +5,7 @@
 from typing import Any, Optional
 from ... import types as sqltypes
 
-class _NumericType:
+class _NumericType(object):
     unsigned = ...  # type: Any
     zerofill = ...  # type: Any
     def __init__(self, unsigned: bool = ..., zerofill: bool = ..., **kw) -> None: ...

@@ -12,7 +12,7 @@ from .. import exc as sa_exc
 from ..sql import util as sql_util
 from ..sql.selectable import ForUpdateArg
 
-class Query:
+class Query(object):
     session = ...  # type: Any
     def __init__(self, entities, session: Optional[Any] = ...) -> None: ...
     @property
@@ -95,7 +95,7 @@ class LockmodeArg(ForUpdateArg):
     @classmethod
     def parse_legacy_query(self, mode): ...
 
-class _QueryEntity:
+class _QueryEntity(object):
     def __new__(cls, *args, **kwargs): ...
 
 class _MapperEntity(_QueryEntity):
@@ -177,7 +177,7 @@ class _ColumnEntity(_QueryEntity):
     def row_processor(self, query, context, result): ...
     def setup_context(self, query, context): ...
 
-class QueryContext:
+class QueryContext(object):
     statement = ...  # type: Any
     from_clause = ...  # type: Any
     whereclause = ...  # type: Any

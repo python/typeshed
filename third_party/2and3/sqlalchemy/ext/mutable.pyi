@@ -6,7 +6,7 @@ from ..orm.attributes import flag_modified as flag_modified
 from ..orm import mapper as mapper, object_mapper as object_mapper, Mapper as Mapper
 from ..util import memoized_property as memoized_property
 
-class MutableBase:
+class MutableBase(object):
     @classmethod
     def coerce(cls, key, value): ...
 

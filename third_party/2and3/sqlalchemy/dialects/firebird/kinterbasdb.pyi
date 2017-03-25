@@ -6,7 +6,7 @@ from typing import Any, Optional
 from .base import FBDialect as FBDialect, FBExecutionContext as FBExecutionContext
 from ... import types as sqltypes
 
-class _kinterbasdb_numeric:
+class _kinterbasdb_numeric(object):
     def bind_processor(self, dialect): ...
 
 class _FBNumeric_kinterbasdb(_kinterbasdb_numeric, sqltypes.Numeric): ...

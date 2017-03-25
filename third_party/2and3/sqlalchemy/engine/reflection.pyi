@@ -11,7 +11,7 @@ from .base import Connectable as Connectable
 
 def cache(fn, self, con, *args, **kw): ...
 
-class Inspector:
+class Inspector(object):
     bind = ...  # type: Any
     engine = ...  # type: Any
     dialect = ...  # type: Any

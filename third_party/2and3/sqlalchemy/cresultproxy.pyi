@@ -6,7 +6,7 @@ from typing import Any
 
 def safe_rowproxy_reconstructor(*args, **kwargs): ...
 
-class BaseRowProxy:
+class BaseRowProxy(object):
     _keymap = ...  # type: Any
     _parent = ...  # type: Any
     _processors = ...  # type: Any

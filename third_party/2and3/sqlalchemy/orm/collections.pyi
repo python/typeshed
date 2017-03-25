@@ -5,14 +5,14 @@
 from typing import Any, Optional
 from .. import exc as sa_exc
 
-class _PlainColumnGetter:
+class _PlainColumnGetter(object):
     cols = ...  # type: Any
     composite = ...  # type: Any
     def __init__(self, cols) -> None: ...
     def __reduce__(self): ...
     def __call__(self, value): ...
 
-class _SerializableColumnGetter:
+class _SerializableColumnGetter(object):
     colkeys = ...  # type: Any
     composite = ...  # type: Any
     def __init__(self, colkeys) -> None: ...
@@ -27,7 +27,7 @@ class _SerializableColumnGetterV2(_PlainColumnGetter):
 
 def column_mapped_collection(mapping_spec): ...
 
-class _SerializableAttrGetter:
+class _SerializableAttrGetter(object):
     name = ...  # type: Any
     getter = ...  # type: Any
     def __init__(self, name) -> None: ...
@@ -37,7 +37,7 @@ class _SerializableAttrGetter:
 def attribute_mapped_collection(attr_name): ...
 def mapped_collection(keyfunc): ...
 
-class collection:
+class collection(object):
     @staticmethod
     def appender(fn): ...
     @staticmethod
@@ -62,7 +62,7 @@ class collection:
 
 collection_adapter = ...  # type: Any
 
-class CollectionAdapter:
+class CollectionAdapter(object):
     attr = ...  # type: Any
     owner_state = ...  # type: Any
     invalidated = ...  # type: bool

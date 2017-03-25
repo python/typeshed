@@ -7,7 +7,7 @@ from .. import exc as sa_exc
 from . import util as mapperutil
 from .interfaces import ONETOMANY as ONETOMANY, MANYTOONE as MANYTOONE, MANYTOMANY as MANYTOMANY
 
-class DependencyProcessor:
+class DependencyProcessor(object):
     prop = ...  # type: Any
     cascade = ...  # type: Any
     mapper = ...  # type: Any

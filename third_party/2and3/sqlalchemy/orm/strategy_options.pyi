@@ -29,7 +29,7 @@ class _UnboundLoad(Load):
     local_opts = ...  # type: Any
     def __init__(self) -> None: ...
 
-class loader_option:
+class loader_option(object):
     def __init__(self) -> None: ...
     name = ...  # type: Any
     fn = ...  # type: Any

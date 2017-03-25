@@ -8,7 +8,7 @@ from time import time as _time
 class Empty(Exception): ...
 class Full(Exception): ...
 
-class Queue:
+class Queue(object):
     mutex = ...  # type: Any
     not_empty = ...  # type: Any
     not_full = ...  # type: Any

@@ -59,7 +59,7 @@ class InstanceState(interfaces.InspectionAttr):
     @property
     def unloaded(self): ...
 
-class AttributeState:
+class AttributeState(object):
     state = ...  # type: Any
     key = ...  # type: Any
     def __init__(self, state, key) -> None: ...
@@ -71,7 +71,7 @@ class AttributeState:
     def history(self): ...
     def load_history(self): ...
 
-class PendingCollection:
+class PendingCollection(object):
     deleted_items = ...  # type: Any
     added_items = ...  # type: Any
     def __init__(self) -> None: ...

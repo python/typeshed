@@ -84,7 +84,7 @@ class ForeignKey(DialectKWArgs, SchemaItem):
     def get_referent(self, table): ...
     def column(self): ...
 
-class _NotAColumnExpr:
+class _NotAColumnExpr(object):
     __clause_element__ = ...  # type: Any
     self_group = ...  # type: Any
 
@@ -157,7 +157,7 @@ class Constraint(DialectKWArgs, SchemaItem):
     def table(self): ...
     def copy(self, **kw): ...
 
-class ColumnCollectionMixin:
+class ColumnCollectionMixin(object):
     columns = ...  # type: Any
     def __init__(self, *columns, **kw) -> None: ...
 
@@ -241,7 +241,7 @@ class ThreadLocalMetaData(MetaData):
     def is_bound(self): ...
     def dispose(self): ...
 
-class _SchemaTranslateMap:
+class _SchemaTranslateMap(object):
     map_ = ...  # type: Any
     __call__ = ...  # type: Any
     hash_key = ...  # type: Any

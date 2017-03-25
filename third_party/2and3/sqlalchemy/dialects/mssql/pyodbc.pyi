@@ -7,7 +7,7 @@ from .base import MSExecutionContext as MSExecutionContext, MSDialect as MSDiale
 from ...connectors.pyodbc import PyODBCConnector as PyODBCConnector
 from ... import types as sqltypes
 
-class _ms_numeric_pyodbc:
+class _ms_numeric_pyodbc(object):
     def bind_processor(self, dialect): ...
 
 class _MSNumeric_pyodbc(_ms_numeric_pyodbc, sqltypes.Numeric): ...

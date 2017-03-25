@@ -16,7 +16,7 @@ FUNCTIONS = ...  # type: Any
 EXTRACT_MAP = ...  # type: Any
 COMPOUND_KEYWORDS = ...  # type: Any
 
-class Compiled:
+class Compiled(object):
     execution_options = ...  # type: Any
     dialect = ...  # type: Any
     bind = ...  # type: Any
@@ -35,7 +35,7 @@ class Compiled:
     def execute(self, *multiparams, **params): ...
     def scalar(self, *multiparams, **params): ...
 
-class TypeCompiler:
+class TypeCompiler(object):
     ensure_kwarg = ...  # type: str
     dialect = ...  # type: Any
     def __init__(self, dialect) -> None: ...
@@ -254,7 +254,7 @@ class GenericTypeCompiler(TypeCompiler):
 class StrSQLTypeCompiler(GenericTypeCompiler):
     def __getattr__(self, key): ...
 
-class IdentifierPreparer:
+class IdentifierPreparer(object):
     reserved_words = ...  # type: Any
     legal_characters = ...  # type: Any
     illegal_initial_characters = ...  # type: Any

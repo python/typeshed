@@ -8,7 +8,7 @@ from . import base
 
 strategies = ...  # type: Any
 
-class EngineStrategy:
+class EngineStrategy(object):
     def __init__(self) -> None: ...
     def create(self, *args, **kwargs): ...
 
