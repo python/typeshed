@@ -8,8 +8,8 @@ from ..sql import expression as expression, visitors as visitors, operators as o
 from ..sql import util as sql_util
 from . import exc as orm_exc
 from . import util as orm_util
-from .interfaces import MapperProperty as MapperProperty, InspectionAttr as InspectionAttr, _MappedAttribute as _MappedAttribute
-from .base import _class_to_mapper as _class_to_mapper, _state_mapper as _state_mapper, class_mapper as class_mapper, state_str as state_str, _INSTRUMENTOR as _INSTRUMENTOR
+from .interfaces import MapperProperty as MapperProperty, InspectionAttr as InspectionAttr
+from .base import class_mapper as class_mapper, state_str as state_str
 from .path_registry import PathRegistry as PathRegistry
 
 NO_ATTRIBUTE = ...  # type: Any

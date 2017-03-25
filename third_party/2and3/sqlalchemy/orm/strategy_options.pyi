@@ -4,11 +4,10 @@
 
 from typing import Any, Optional
 from .interfaces import MapperOption as MapperOption, PropComparator as PropComparator
-from ..sql.base import _generative as _generative, Generative as Generative
+from ..sql.base import Generative as Generative
 from .. import exc as sa_exc
-from .base import _is_aliased_class as _is_aliased_class, _class_to_mapper as _class_to_mapper
 from . import util as orm_util
-from .path_registry import PathRegistry as PathRegistry, TokenRegistry as TokenRegistry, _WILDCARD_TOKEN as _WILDCARD_TOKEN, _DEFAULT_TOKEN as _DEFAULT_TOKEN
+from .path_registry import PathRegistry as PathRegistry, TokenRegistry as TokenRegistry
 
 class Load(Generative, MapperOption):
     path = ...  # type: Any

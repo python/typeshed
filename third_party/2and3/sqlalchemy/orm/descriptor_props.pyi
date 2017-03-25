@@ -4,7 +4,6 @@
 
 from typing import Any, Optional
 from .interfaces import MapperProperty as MapperProperty, PropComparator as PropComparator
-from .util import _none_set as _none_set
 from .. import exc as sa_exc
 from ..sql import expression as expression
 from . import query

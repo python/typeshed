@@ -5,9 +5,8 @@
 from typing import Any
 from .. import exc as sa_exc
 from . import exc as orm_exc
-from .base import state_str as state_str, _attr_as_key as _attr_as_key, _entity_descriptor as _entity_descriptor
+from .base import state_str as state_str
 from ..sql import expression as expression
-from ..sql.base import _from_objects as _from_objects
 
 def save_obj(base_mapper, states, uowtransaction, single: bool = ...): ...
 def post_update(base_mapper, states, uowtransaction, post_update_cols): ...

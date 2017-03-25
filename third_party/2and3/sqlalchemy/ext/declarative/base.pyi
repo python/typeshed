@@ -6,9 +6,8 @@ from typing import Any
 from ...schema import Table as Table, Column as Column
 from ...orm import mapper as mapper, class_mapper as class_mapper, synonym as synonym
 from ...orm.interfaces import MapperProperty as MapperProperty
-from ...orm.properties import ColumnProperty as ColumnProperty, CompositeProperty as CompositeProperty
+from ...orm.properties import ColumnProperty as ColumnProperty
 from ...orm.attributes import QueryableAttribute as QueryableAttribute
-from ...orm.base import _is_mapped_class as _is_mapped_class
 from ...util import topological as topological
 from ...sql import expression as expression
 

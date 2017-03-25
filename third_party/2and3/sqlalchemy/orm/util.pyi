@@ -5,14 +5,12 @@
 from typing import Any, Optional, Text
 from ..sql.selectable import FromClause
 
-import sql_util
-import expression
 from .. import exc as sa_exc
 from ..sql import expression as expression, operators as operators
 from ..sql import util as sql_util
 from .interfaces import PropComparator as PropComparator, MapperProperty as MapperProperty
-from .base import instance_str as instance_str, state_str as state_str, state_class_str as state_class_str, attribute_str as attribute_str, state_attribute_str as state_attribute_str, object_mapper as object_mapper, object_state as object_state, _none_set as _none_set, _never_set as _never_set
-from .base import class_mapper as class_mapper, _class_to_mapper as _class_to_mapper
+from .base import instance_str as instance_str, state_str as state_str, state_class_str as state_class_str, attribute_str as attribute_str, state_attribute_str as state_attribute_str, object_mapper as object_mapper, object_state as object_state
+from .base import class_mapper as class_mapper
 from .base import InspectionAttr as InspectionAttr
 from .path_registry import PathRegistry as PathRegistry
 

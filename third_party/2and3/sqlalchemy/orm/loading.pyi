@@ -5,8 +5,7 @@
 from typing import Any, Optional
 from . import exc as orm_exc
 from ..sql import util as sql_util
-from .util import _none_set as _none_set, state_str as state_str
-from .base import _SET_DEFERRED_EXPIRED as _SET_DEFERRED_EXPIRED, _DEFER_FOR_STATE as _DEFER_FOR_STATE
+from .util import state_str as state_str
 from .. import exc as sa_exc
 
 def instances(query, cursor, context): ...

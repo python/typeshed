@@ -39,5 +39,4 @@ from .base import (
     VARBINARY as VARBINARY,
     VARCHAR as VARCHAR,
     YEAR as YEAR,
-    dialect as dialect
 )

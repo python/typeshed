@@ -4,7 +4,6 @@
 
 from typing import Any
 from .. import event
-from .base import _mapper_or_none as _mapper_or_none
 from .session import Session as Session, sessionmaker as sessionmaker
 from .scoping import scoped_session as scoped_session
 from .attributes import QueryableAttribute as QueryableAttribute

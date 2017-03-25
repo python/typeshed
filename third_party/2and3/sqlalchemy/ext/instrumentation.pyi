@@ -4,7 +4,7 @@
 
 from typing import Any, Optional
 from ..orm import instrumentation as orm_instrumentation
-from ..orm.instrumentation import ClassManager as ClassManager, InstrumentationFactory as InstrumentationFactory, _default_state_getter as _default_state_getter, _default_dict_getter as _default_dict_getter, _default_manager_getter as _default_manager_getter
+from ..orm.instrumentation import ClassManager as ClassManager, InstrumentationFactory as InstrumentationFactory
 from ..orm import attributes as attributes, collections as collections
 from ..orm import base as orm_base
 from ..orm import exc as orm_exc

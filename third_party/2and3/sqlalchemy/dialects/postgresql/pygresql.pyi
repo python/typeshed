@@ -6,7 +6,7 @@ from typing import Any
 from ...types import Numeric as Numeric
 from ...types import JSON as Json
 from ...sql.elements import Null as Null
-from .base import PGDialect as PGDialect, PGCompiler as PGCompiler, PGIdentifierPreparer as PGIdentifierPreparer, _DECIMAL_TYPES as _DECIMAL_TYPES, _FLOAT_TYPES as _FLOAT_TYPES, _INT_TYPES as _INT_TYPES, UUID as UUID
+from .base import PGDialect as PGDialect, PGCompiler as PGCompiler, PGIdentifierPreparer as PGIdentifierPreparer, UUID as UUID
 from .hstore import HSTORE as HSTORE
 from .json import JSON as JSON, JSONB as JSONB
 
