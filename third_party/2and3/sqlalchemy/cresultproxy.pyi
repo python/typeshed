@@ -7,10 +7,10 @@ from typing import Any
 def safe_rowproxy_reconstructor(*args, **kwargs): ...
 
 class BaseRowProxy:
-    _keymap = ... # type: Any
-    _parent = ... # type: Any
-    _processors = ... # type: Any
-    _row = ... # type: Any
+    _keymap = ...  # type: Any
+    _parent = ...  # type: Any
+    _processors = ...  # type: Any
+    _row = ...  # type: Any
     def __init__(self, *args, **kwargs): ...
     def values(self, *args, **kwargs): ...
     def __getitem__(self, index): ...

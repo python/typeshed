@@ -9,6 +9,7 @@ from collections import namedtuple
 from io import BytesIO as byte_buffer
 from io import StringIO
 from inspect import getargspec as inspect_getfullargspec
+from operator import attrgetter as dottedgetter
 if sys.version_info < (3, 0):
     from itertools import izip_longest as zip_longest
     import cPickle as pickle
@@ -19,7 +20,6 @@ else:
     import pickle as pickle
     from urllib.parse import (quote_plus as quote_plus, unquote_plus as unquote_plus,
                               parse_qsl as parse_qsl, quote as quote, unquote as unquote)
-from operator import attrgetter as dottedgetter
 
 py36 = ...  # type: Any
 py33 = ...  # type: Any
