@@ -8,7 +8,7 @@ from io import TextIOWrapper as _TextIOWrapper
 import sys
 from typing import (
     Mapping, MutableMapping, Dict, List, Any, Tuple, Iterator, overload, Union, AnyStr,
-    Optional, Generic, Set, Callable, Text
+    Optional, Generic, Set, Callable, Text, Sequence
 )
 from . import path
 from mypy_extensions import NoReturn
@@ -243,15 +243,15 @@ def putenv(key: AnyStr, value: AnyStr) -> None: ...
 def setegid(egid: int) -> None: ...  # Unix only
 def seteuid(euid: int) -> None: ...  # Unix only
 def setgid(gid: int) -> None: ...  # Unix only
-def setgroups(groups: List[int]) -> None: ...  # Unix only
-def setpgrp() -> int: ...  # Unix only
-def setpgid(pid: int, pgrp: int) -> int: ...  # Unix only
+def setgroups(groups: Sequence[int]) -> None: ...  # Unix only
+def setpgrp() -> None: ...  # Unix only
+def setpgid(pid: int, pgrp: int) -> None: ...  # Unix only
 def setregid(rgid: int, egid: int) -> None: ...  # Unix only
 def setresgid(rgid: int, egid: int, sgid: int) -> None: ...  # Unix only
 def setresuid(ruid: int, euid: int, suid: int) -> None: ...  # Unix only
 def setreuid(ruid: int, euid: int) -> None: ...  # Unix only
 def getsid(pid: int) -> int: ...  # Unix only
-def setsid() -> int: ...  # Unix only
+def setsid() -> None: ...  # Unix only
 def setuid(uid: int) -> None: ...  # Unix only
 def strerror(code: int) -> str: ...
 def umask(mask: int) -> int: ...
@@ -268,7 +268,7 @@ def dup2(fd: int, fd2: int) -> None: ...
 def fchmod(fd: int, mode: int) -> None: ...  # Unix only
 def fchown(fd: int, uid: int, gid: int) -> None: ...  # Unix only
 def fdatasync(fd: int) -> None: ...  # Unix only, not Mac
-def fpathconf(fd: int, name: str) -> int: ...  # Unix only
+def fpathconf(fd: int, name: Union[str, int]) -> int: ...  # Unix only
 def fstat(fd: int) -> stat_result: ...
 def fstatvfs(fd: int) -> statvfs_result: ...  # Unix only
 def fsync(fd: int) -> None: ...
@@ -311,7 +311,7 @@ def makedev(major: int, minor: int) -> int: ...
 def mkdir(path: _PathType, mode: int = ...) -> None: ...
 def makedirs(path: _PathType, mode: int = ...,
              exist_ok: bool = ...) -> None: ...
-def pathconf(path: _PathType, name: str) -> int: ...  # Unix only
+def pathconf(path: _PathType, name: Union[str, int]) -> int: ...  # Unix only
 def readlink(path: AnyStr) -> AnyStr: ...
 def remove(path: _PathType) -> None: ...
 def removedirs(path: _PathType) -> None: ...
@@ -332,19 +332,19 @@ def symlink(source: _PathType, link_name: _PathType,
             target_is_directory: bool = ...) -> None:
     ...  # final argument in Windows only
 def unlink(path: _PathType) -> None: ...
-def utime(path: _PathType, times: Union[Tuple[int, int], Tuple[float, float]] = ...) -> None: ...
+def utime(path: _PathType, times: Optional[Tuple[float, float]] = ...) -> None: ...
 
 # TODO onerror: function from OSError to void
 def walk(top: AnyStr, topdown: bool = ..., onerror: Any = ...,
          followlinks: bool = ...) -> Iterator[Tuple[AnyStr, List[AnyStr],
                                                     List[AnyStr]]]: ...
 
-def abort() -> 'None': ...
-def execl(path: _PathType, arg0: Union[bytes, Text], *args: Union[bytes, Text]) -> None: ...
-def execle(path: _PathType, arg0: Union[bytes, Text],
+def abort() -> NoReturn: ...
+def execl(file: _PathType, arg0: Union[bytes, Text], *args: Union[bytes, Text]) -> None: ...
+def execle(file: _PathType, arg0: Union[bytes, Text],
            *args: Any) -> None: ...  # Imprecise signature
-def execlp(path: _PathType, arg0: Union[bytes, Text], *args: Union[bytes, Text]) -> None: ...
-def execlpe(path: _PathType, arg0: Union[bytes, Text],
+def execlp(file: _PathType, arg0: Union[bytes, Text], *args: Union[bytes, Text]) -> None: ...
+def execlpe(file: _PathType, arg0: Union[bytes, Text],
             *args: Any) -> None: ...  # Imprecise signature
 
 # The docs say `args: tuple or list of strings`
@@ -388,7 +388,7 @@ def system(command: _PathType) -> int: ...
 def times() -> Tuple[float, float, float, float, float]: ...
 def wait() -> Tuple[int, int]: ...  # Unix only
 def waitpid(pid: int, options: int) -> Tuple[int, int]: ...
-def wait3(options: Union[int, None] = ...) -> Tuple[int, int, Any]: ...  # Unix only
+def wait3(options: int) -> Tuple[int, int, Any]: ...  # Unix only
 def wait4(pid: int, options: int) -> Tuple[int, int, Any]: ...  # Unix only
 def WCOREDUMP(status: int) -> bool: ...  # Unix only
 def WIFCONTINUED(status: int) -> bool: ...  # Unix only
@@ -398,9 +398,9 @@ def WIFEXITED(status: int) -> bool: ...  # Unix only
 def WEXITSTATUS(status: int) -> bool: ...  # Unix only
 def WSTOPSIG(status: int) -> bool: ...  # Unix only
 def WTERMSIG(status: int) -> bool: ...  # Unix only
-def confstr(name: str) -> str: ...  # Unix only
+def confstr(name: Union[str, int]) -> Optional[str]: ...  # Unix only
 def getloadavg() -> Tuple[float, float, float]: ...  # Unix only
-def sysconf(name: str) -> int: ...  # Unix only
+def sysconf(name: Union[str, int]) -> int: ...  # Unix only
 def urandom(n: int) -> bytes: ...
 
 def sched_getaffinity(id: int) -> Set[int]: ...
