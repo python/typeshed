@@ -389,8 +389,7 @@ def times() -> Tuple[float, float, float, float, float]: ...
 def wait() -> Tuple[int, int]: ...  # Unix only
 def waitpid(pid: int, options: int) -> Tuple[int, int]: ...
 def wait3(options: Union[int, None] = ...) -> Tuple[int, int, Any]: ...  # Unix only
-def wait4(pid: int, options: int) -> Tuple[int, int, Any]:
-    ...  # Unix only
+def wait4(pid: int, options: int) -> Tuple[int, int, Any]: ...  # Unix only
 def WCOREDUMP(status: int) -> bool: ...  # Unix only
 def WIFCONTINUED(status: int) -> bool: ...  # Unix only
 def WIFSTOPPED(status: int) -> bool: ...  # Unix only
