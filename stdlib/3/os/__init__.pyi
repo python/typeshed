@@ -340,12 +340,13 @@ def walk(top: AnyStr, topdown: bool = ..., onerror: Any = ...,
                                                     List[AnyStr]]]: ...
 
 def abort() -> NoReturn: ...
-def execl(file: _PathType, arg0: Union[bytes, Text], *args: Union[bytes, Text]) -> None: ...
-def execle(file: _PathType, arg0: Union[bytes, Text],
-           *args: Any) -> None: ...  # Imprecise signature
-def execlp(file: _PathType, arg0: Union[bytes, Text], *args: Union[bytes, Text]) -> None: ...
-def execlpe(file: _PathType, arg0: Union[bytes, Text],
-            *args: Any) -> None: ...  # Imprecise signature
+# These are defined as execl(file, *args) but the first *arg is mandatory.
+def execl(file: _PathType, arg0: Union[bytes, Text], *args: Union[bytes, Text]) -> NoReturn: ...
+def execlp(file: _PathType, arg0: Union[bytes, Text], *args: Union[bytes, Text]) -> NoReturn: ...
+
+# These are: execle(file, *args, env) but env is pulled from the last element of the args.
+def execle(file: _PathType, arg0: Union[bytes, Text], *args: Any) -> NoReturn: ...
+def execlpe(file: _PathType, arg0: Union[bytes, Text], *args: Any) -> NoReturn: ...
 
 # The docs say `args: tuple or list of strings`
 # The implementation enforces tuple or list so we can't use Sequence.
@@ -395,9 +396,9 @@ def WIFCONTINUED(status: int) -> bool: ...  # Unix only
 def WIFSTOPPED(status: int) -> bool: ...  # Unix only
 def WIFSIGNALED(status: int) -> bool: ...  # Unix only
 def WIFEXITED(status: int) -> bool: ...  # Unix only
-def WEXITSTATUS(status: int) -> bool: ...  # Unix only
-def WSTOPSIG(status: int) -> bool: ...  # Unix only
-def WTERMSIG(status: int) -> bool: ...  # Unix only
+def WEXITSTATUS(status: int) -> int: ...  # Unix only
+def WSTOPSIG(status: int) -> int: ...  # Unix only
+def WTERMSIG(status: int) -> int: ...  # Unix only
 def confstr(name: Union[str, int]) -> Optional[str]: ...  # Unix only
 def getloadavg() -> Tuple[float, float, float]: ...  # Unix only
 def sysconf(name: Union[str, int]) -> int: ...  # Unix only
