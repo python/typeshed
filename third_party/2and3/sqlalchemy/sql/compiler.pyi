@@ -4,6 +4,7 @@
 
 from typing import Any, Optional
 from . import visitors
+from .. import util
 
 RESERVED_WORDS = ...  # type: Any
 LEGAL_CHARACTERS = ...  # type: Any
@@ -35,7 +36,7 @@ class Compiled(object):
     def execute(self, *multiparams, **params): ...
     def scalar(self, *multiparams, **params): ...
 
-class TypeCompiler(object):
+class TypeCompiler(metaclass=util.EnsureKWArgType):
     ensure_kwarg = ...  # type: str
     dialect = ...  # type: Any
     def __init__(self, dialect) -> None: ...

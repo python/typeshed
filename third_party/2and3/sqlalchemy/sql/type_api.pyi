@@ -48,7 +48,7 @@ class TypeEngine(Visitable):
 
 class VisitableCheckKWArg(util.EnsureKWArgType, VisitableType): ...
 
-class UserDefinedType(object):
+class UserDefinedType(TypeEngine, metaclass=VisitableCheckKWArg):
     __visit_name__ = ...  # type: str
     ensure_kwarg = ...  # type: str
     class Comparator(TypeEngine.Comparator): ...

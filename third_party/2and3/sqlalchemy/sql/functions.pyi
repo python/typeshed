@@ -48,7 +48,7 @@ class Function(FunctionElement):
 class _GenericMeta(VisitableType):
     def __init__(cls, clsname, bases, clsdict) -> None: ...
 
-class GenericFunction(object):
+class GenericFunction(Function, metaclass=_GenericMeta):
     coerce_arguments = ...  # type: bool
     packagenames = ...  # type: Any
     clause_expr = ...  # type: Any
