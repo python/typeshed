@@ -8,7 +8,7 @@ from io import TextIOWrapper as _TextIOWrapper
 import sys
 from typing import (
     Mapping, MutableMapping, Dict, List, Any, Tuple, Iterator, overload, Union, AnyStr,
-    Optional, Generic, Set, Callable, Text, Sequence
+    Optional, Generic, Set, Callable, Text, Sequence, NamedTuple
 )
 from . import path
 from mypy_extensions import NoReturn
@@ -145,61 +145,57 @@ elif sys.version_info >= (3, 5):
         def is_symlink(self) -> bool: ...
         def stat(self) -> stat_result: ...
 
+class stat_result(NamedTuple('stat_result', [
+        ('st_mode', int),
+        ('st_ino', int),
+        ('st_dev', int),
+        ('st_nlink', int),
+        ('st_uid', int),
+        ('st_gid', int),
+        ('st_size', int),
+        ('st_atime', float),
+        ('st_mtime', float),
+        ('st_ctime', float)])):
 
-class stat_result:
     # For backward compatibility, the return value of stat() is also
     # accessible as a tuple of at least 10 integers giving the most important
     # (and portable) members of the stat structure, in the order st_mode,
     # st_ino, st_dev, st_nlink, st_uid, st_gid, st_size, st_atime, st_mtime,
     # st_ctime. More items may be added at the end by some implementations.
 
-    st_mode = 0  # protection bits,
-    st_ino = 0  # inode number,
-    st_dev = 0  # device,
-    st_nlink = 0  # number of hard links,
-    st_uid = 0  # user id of owner,
-    st_gid = 0  # group id of owner,
-    st_size = 0  # size of file, in bytes,
-    st_atime = 0.0  # time of most recent access,
-    st_mtime = 0.0  # time of most recent content modification,
-    st_ctime = 0.0  # platform dependent (time of most recent metadata change on Unix, or the time of creation on Windows)
-
     if sys.version_info >= (3, 3):
-        st_atime_ns = 0  # time of most recent access, in nanoseconds
-        st_mtime_ns = 0  # time of most recent content modification in nanoseconds
-        st_ctime_ns = 0  # platform dependent (time of most recent metadata change on Unix, or the time of creation on Windows) in nanoseconds
-
-    # not documented
-    def __init__(self, tuple: Tuple[int, ...]) -> None: ...
+        st_atime_ns = ...  # type: int
+        st_mtime_ns = ...  # type: int
+        st_ctime_ns = ...  # type: int
 
     # On some Unix systems (such as Linux), the following attributes may also
     # be available:
-    st_blocks = 0  # number of blocks allocated for file
-    st_blksize = 0  # filesystem blocksize
-    st_rdev = 0  # type of device if an inode device
-    st_flags = 0  # user defined flags for file
+    st_blocks = ...  # type: int
+    st_blksize = ...  # type: int
+    st_rdev = ...  # type: int
+    st_flags = ...  # type: int
 
     # On other Unix systems (such as FreeBSD), the following attributes may be
     # available (but may be only filled out if root tries to use them):
-    st_gen = 0  # file generation number
-    st_birthtime = 0  # time of file creation
+    st_gen = ...  # type: int
+    st_birthtime = ...  # type: int
 
     # On Mac OS systems, the following attributes may also be available:
-    st_rsize = 0
-    st_creator = 0
-    st_type = 0
+    st_rsize = ...  # type: int
+    st_creator = ...  # type: int
+    st_type = ...  # type: int
 
-class statvfs_result:  # Unix only
-    f_bsize = 0
-    f_frsize = 0
-    f_blocks = 0
-    f_bfree = 0
-    f_bavail = 0
-    f_files = 0
-    f_ffree = 0
-    f_favail = 0
-    f_flag = 0
-    f_namemax = 0
+statvfs_result = NamedTuple('statvfs_result', [
+    ('f_bsize', int),
+    ('f_frsize', int),
+    ('f_blocks', int),
+    ('f_bfree', int),
+    ('f_bavail', int),
+    ('f_files', int),
+    ('f_ffree', int),
+    ('f_favail', int),
+    ('f_flag', int),
+    ('f_namemax', int)])
 
 # ----- os function stubs -----
 if sys.version_info >= (3, 6):
@@ -325,8 +321,11 @@ if sys.version_info >= (3, 5):
     def scandir(path: str = ...) -> Iterator[DirEntry[str]]: ...
     @overload
     def scandir(path: bytes) -> Iterator[DirEntry[bytes]]: ...
+@overload
+def stat_float_times(newvalue: bool) -> None: ...
+@overload
+def stat_float_times() -> bool: ...
 def stat(path: _PathType) -> stat_result: ...
-def stat_float_times(newvalue: Union[bool, None] = ...) -> bool: ...
 def statvfs(path: _PathType) -> statvfs_result: ...  # Unix only
 def symlink(source: _PathType, link_name: _PathType,
             target_is_directory: bool = ...) -> None:

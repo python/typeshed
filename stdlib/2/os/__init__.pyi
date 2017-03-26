@@ -1,5 +1,6 @@
 # created from https://docs.python.org/2/library/os.html
 
+import sys
 from typing import (
     Mapping, MutableMapping, Dict, List, Any, Tuple, Iterator, overload, Union, AnyStr,
     Optional, Generic, Set, Callable, Text, Sequence, IO, NamedTuple
@@ -94,10 +95,58 @@ WUNTRACED = 0  # Unix only
 
 TMP_MAX = 0  # Undocumented, but used by tempfile
 _PathType = Union[bytes, Text]
-_StatVFS = NamedTuple('_StatVFS', [('f_bsize', int), ('f_frsize', int), ('f_blocks', int),
-                                   ('f_bfree', int), ('f_bavail', int), ('f_files', int),
-                                   ('f_ffree', int), ('f_favail', int), ('f_flag', int),
-                                   ('f_namemax', int)])
+
+class stat_result(NamedTuple('stat_result', [
+        ('st_mode', int),
+        ('st_ino', int),
+        ('st_dev', int),
+        ('st_nlink', int),
+        ('st_uid', int),
+        ('st_gid', int),
+        ('st_size', int),
+        ('st_atime', float),
+        ('st_mtime', float),
+        ('st_ctime', float)])):
+
+    # For backward compatibility, the return value of stat() is also
+    # accessible as a tuple of at least 10 integers giving the most important
+    # (and portable) members of the stat structure, in the order st_mode,
+    # st_ino, st_dev, st_nlink, st_uid, st_gid, st_size, st_atime, st_mtime,
+    # st_ctime. More items may be added at the end by some implementations.
+
+    if sys.version_info >= (3, 3):
+        st_atime_ns = ...  # type: int
+        st_mtime_ns = ...  # type: int
+        st_ctime_ns = ...  # type: int
+
+    # On some Unix systems (such as Linux), the following attributes may also
+    # be available:
+    st_blocks = ...  # type: int
+    st_blksize = ...  # type: int
+    st_rdev = ...  # type: int
+    st_flags = ...  # type: int
+
+    # On other Unix systems (such as FreeBSD), the following attributes may be
+    # available (but may be only filled out if root tries to use them):
+    st_gen = ...  # type: int
+    st_birthtime = ...  # type: int
+
+    # On Mac OS systems, the following attributes may also be available:
+    st_rsize = ...  # type: int
+    st_creator = ...  # type: int
+    st_type = ...  # type: int
+
+statvfs_result = NamedTuple('statvfs_result', [
+    ('f_bsize', int),
+    ('f_frsize', int),
+    ('f_blocks', int),
+    ('f_bfree', int),
+    ('f_bavail', int),
+    ('f_files', int),
+    ('f_ffree', int),
+    ('f_favail', int),
+    ('f_flag', int),
+    ('f_namemax', int)])
 def ctermid() -> str: ...  # Unix only
 def getegid() -> int: ...  # Unix only
 def geteuid() -> int: ...  # Unix only
@@ -140,8 +189,8 @@ def fchmod(fd: int, mode: int) -> None: ...  # Unix only
 def fchown(fd: int, uid: int, gid: int) -> None: ...  # Unix only
 def fdatasync(fd: int) -> None: ...  # Unix only, not Mac
 def fpathconf(fd: int, name: Union[str, int]) -> int: ...  # Unix only
-def fstat(fd: int) -> Any: ...
-def fstatvfs(fd: int) -> _StatVFS: ...  # Unix only
+def fstat(fd: int) -> stat_result: ...
+def fstatvfs(fd: int) -> statvfs_result: ...  # Unix only
 def fsync(fd: int) -> None: ...
 def ftruncate(fd: int, length: int) -> None: ...  # Unix only
 def isatty(fd: int) -> bool: ...  # Unix only
@@ -168,7 +217,7 @@ def lchmod(path: _PathType, mode: int) -> None: ...  # Unix only
 def lchown(path: _PathType, uid: int, gid: int) -> None: ...  # Unix only
 def link(src: _PathType, link_name: _PathType) -> None: ...
 def listdir(path: AnyStr) -> List[AnyStr]: ...
-def lstat(path: _PathType) -> Any: ...
+def lstat(path: _PathType) -> stat_result: ...
 def mkfifo(path: _PathType, mode: int = ...) -> None: ...  # Unix only
 def mknod(filename: _PathType, mode: int = ..., device: int = ...) -> None: ...
 def major(device: int) -> int: ...
@@ -183,12 +232,12 @@ def removedirs(path: _PathType) -> None: ...
 def rename(src: _PathType, dst: _PathType) -> None: ...
 def renames(old: _PathType, new: _PathType) -> None: ...
 def rmdir(path: _PathType) -> None: ...
-def stat(path: _PathType) -> Any: ...
 @overload
-def stat_float_times(newvalue: bool = ...) -> None: ...
+def stat_float_times(newvalue: bool) -> None: ...
 @overload
 def stat_float_times() -> bool: ...
-def statvfs(path: _PathType) -> _StatVFS: ...  # Unix only
+def stat(path: _PathType) -> stat_result: ...
+def statvfs(path: _PathType) -> statvfs_result: ...  # Unix only
 def symlink(source: _PathType, link_name: _PathType) -> None: ...
 def unlink(path: _PathType) -> None: ...
 def utime(path: _PathType, times: Optional[Tuple[float, float]]) -> None: ...
