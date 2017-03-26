@@ -97,14 +97,14 @@ class Logger:
                        exc_info: Optional[_SysExcInfoType],
                        func: Optional[str] = ...,
                        extra: Optional[Mapping[str, Any]] = ...,
-                       sinfo: Optional[str] = ...) -> None: ...
+                       sinfo: Optional[str] = ...) -> LogRecord: ...
     else:
         def makeRecord(self,
                        name: str, lvl: int, fn: str, lno: int, msg: Text,
                        args: Mapping[str, Any],
                        exc_info: Optional[_SysExcInfoType],
                        func: Optional[str] = ...,
-                       extra: Optional[Mapping[str, Any]] = ...) -> None: ...
+                       extra: Optional[Mapping[str, Any]] = ...) -> LogRecord: ...
     if sys.version_info >= (3,):
         def hasHandlers(self) -> bool: ...
 
