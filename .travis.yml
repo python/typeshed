@@ -17,4 +17,4 @@ install:
   - if [[ $TRAVIS_PYTHON_VERSION == '2.7' ]]; then pip install -U git+git://github.com/google/pytype; fi
 
 script:
-  - $TEST_CMD
+  - bash -c "$TEST_CMD"
