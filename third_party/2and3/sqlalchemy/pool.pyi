@@ -38,7 +38,9 @@ class _ConnectionRecord(object):
     fairy_ref = ...  # type: Any
     starttime = ...  # type: Any
     connection = ...  # type: Any
+    @property
     def info(self): ...
+    @property
     def record_info(self): ...
     @classmethod
     def checkout(cls, pool): ...

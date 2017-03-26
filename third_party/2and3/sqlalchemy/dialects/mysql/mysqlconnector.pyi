@@ -29,6 +29,7 @@ class MySQLDialect_mysqlconnector(MySQLDialect):
     statement_compiler = ...  # type: Any
     preparer = ...  # type: Any
     colspecs = ...  # type: Any
+    @property
     def supports_unicode_statements(self): ...
     @classmethod
     def dbapi(cls): ...

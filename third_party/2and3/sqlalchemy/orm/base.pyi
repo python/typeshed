@@ -59,6 +59,7 @@ class InspectionAttr(object):
     extension_type = ...  # type: Any
 
 class InspectionAttrInfo(InspectionAttr):
+    @property
     def info(self): ...
 
 class _MappedAttribute(object): ...
