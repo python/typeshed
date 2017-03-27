@@ -1,14 +1,16 @@
 # created from https://docs.python.org/2/library/os.html
 
+from builtins import OSError as error
 import sys
 from typing import (
     Mapping, MutableMapping, Dict, List, Any, Tuple, Iterator, overload, Union, AnyStr,
-    Optional, Generic, Set, Callable, Text, Sequence, IO, NamedTuple
+    Optional, Generic, Set, Callable, Text, Sequence, IO, NamedTuple, TypeVar
 )
-from . import path
+from . import path as path
 from mypy_extensions import NoReturn
 
-error = OSError
+_T = TypeVar('_T')
+
 SEEK_SET = 0
 SEEK_CUR = 0
 SEEK_END = 0
@@ -59,13 +61,15 @@ R_OK = 0
 W_OK = 0
 X_OK = 0
 
-class _Environ(MutableMapping[str, str]):
-    def copy(self) -> Dict[str, str]: ...
+class _Environ(MutableMapping[AnyStr, AnyStr], Generic[AnyStr]):
+    def copy(self) -> Dict[AnyStr, AnyStr]: ...
 
-environ = ...  # type: _Environ
-confstr_names = ...  # type: Mapping[str, int]  # Unix only
-pathconf_names = ...  # type: Mapping[str, int]  # Unix only
-sysconf_names = ...  # type: Mapping[str, int]  # Unix only
+environ = ...  # type: _Environ[str]
+
+confstr_names = ...  # type: Dict[str, int]  # Unix only
+pathconf_names = ...  # type: Dict[str, int]  # Unix only
+sysconf_names = ...  # type: Dict[str, int]  # Unix only
+
 EX_OK = 0        # Unix only
 EX_USAGE = 0     # Unix only
 EX_DATAERR = 0   # Unix only
@@ -161,8 +165,6 @@ def getppid() -> int: ...
 def getresuid() -> Tuple[int, int, int]: ...  # Unix only
 def getresgid() -> Tuple[int, int, int]: ...  # Unix only
 def getuid() -> int: ...  # Unix only
-def getenv(varname: unicode, value: unicode = ...) -> str: ...
-def putenv(varname: unicode, value: unicode) -> None: ...
 def setegid(egid: int) -> None: ...  # Unix only
 def seteuid(euid: int) -> None: ...  # Unix only
 def setgid(gid: int) -> None: ...  # Unix only
@@ -179,7 +181,14 @@ def setuid(uid: int) -> None: ...  # Unix only
 def strerror(code: int) -> str: ...
 def umask(mask: int) -> int: ...
 def uname() -> Tuple[str, str, str, str, str]: ...  # Unix only
-def unsetenv(varname: str) -> None: ...
+
+@overload
+def getenv(key: Text) -> Optional[str]: ...
+@overload
+def getenv(key: Text, default: _T) -> Union[str, _T]: ...
+def putenv(key: Union[bytes, Text], value: Union[bytes, Text]) -> None: ...
+def unsetenv(key: Union[bytes, Text]) -> None: ...
+
 def fdopen(fd: int, *args, **kwargs) -> IO[Any]: ...
 def close(fd: int) -> None: ...
 def closerange(fd_low: int, fd_high: int) -> None: ...
