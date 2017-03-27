@@ -1,7 +1,7 @@
 from socket import socket
 import ssl
 import sys
-from typing import Any, Awaitable, Callable, Dict, Generator, List, Optional, Tuple, TypeVar, Union, overload
+from typing import Any, Awaitable, Callable, Dict, Generator, List, Optional, Sequence, Tuple, TypeVar, Union, overload
 from abc import ABCMeta, abstractmethod
 from asyncio.futures import Future
 from asyncio.coroutines import coroutine
