@@ -1,3 +1,5 @@
+# Stubs for os
+#
 # created from https://docs.python.org/2/library/os.html
 
 from builtins import OSError as error
@@ -15,7 +17,6 @@ SEEK_SET = 0
 SEEK_CUR = 0
 SEEK_END = 0
 
-# More constants, copied from stdlib/3/os/__init__.pyi
 O_RDONLY = 0
 O_WRONLY = 0
 O_RDWR = 0
@@ -86,6 +87,8 @@ EX_TEMPFAIL = 0  # Unix only
 EX_PROTOCOL = 0  # Unix only
 EX_NOPERM = 0    # Unix only
 EX_CONFIG = 0    # Unix only
+EX_NOTFOUND = 0  # Unix only
+
 P_NOWAIT = 0
 P_NOWAITO = 0
 P_WAIT = 0
@@ -279,7 +282,7 @@ def forkpty() -> Tuple[int, int]: ...  # some flavors of Unix
 def kill(pid: int, sig: int) -> None: ...
 def killpg(pgid: int, sig: int) -> None: ...  # Unix only
 def nice(increment: int) -> int: ...  # Unix only
-# TODO: plock, popen*, P_*
+def plock(op: int) -> None: ...  # Unix only
 def popen(command: str, *args, **kwargs) -> Optional[IO[Any]]: ...
 def popen2(cmd: str, *args, **kwargs) -> Tuple[IO[Any], IO[Any]]: ...
 def popen3(cmd: str, *args, **kwargs) -> Tuple[IO[Any], IO[Any], IO[Any]]: ...

@@ -1,6 +1,6 @@
 # Stubs for os
 # Ron Murawski <ron@horizonchess.com>
-
+#
 # based on http: //docs.python.org/3.2/library/os.html
 
 from builtins import OSError as error
@@ -56,6 +56,7 @@ O_DIRECT = 0     # Gnu extension if in C library
 O_DIRECTORY = 0  # Gnu extension if in C library
 O_NOFOLLOW = 0   # Gnu extension if in C library
 O_NOATIME = 0    # Gnu extension if in C library
+O_LARGEFILE = 0  # Gnu extension if in C library
 
 curdir = ...  # type: str
 pardir = ...  # type: str
@@ -109,8 +110,8 @@ P_WAIT = 0
 
 # wait()/waitpid() options
 WNOHANG = 0  # Unix only
-# WCONTINUED = 0  # some Unix systems
-# WUNTRACED = 0  # Unix only
+WCONTINUED = 0  # some Unix systems
+WUNTRACED = 0  # Unix only
 
 TMP_MAX = 0  # Undocumented, but used by tempfile
 
@@ -367,7 +368,7 @@ def forkpty() -> Tuple[int, int]: ...  # some flavors of Unix
 def kill(pid: int, sig: int) -> None: ...
 def killpg(pgid: int, sig: int) -> None: ...  # Unix only
 def nice(increment: int) -> int: ...  # Unix only
-def plock(op: int) -> None: ...  # Unix only ???op is int?
+def plock(op: int) -> None: ...  # Unix only
 
 class popen(_TextIOWrapper):
     # TODO 'b' modes or bytes command not accepted?
