@@ -107,7 +107,7 @@ class AbstractEventLoop(metaclass=ABCMeta):
                           local_addr: str = ..., server_hostname: str = ...) -> Generator[Any, None, _TransProtPair]: ...
     @abstractmethod
     @coroutine
-    def create_server(self, protocol_factory: _ProtocolFactory, host: str = ..., port: int = ..., *,
+    def create_server(self, protocol_factory: _ProtocolFactory, host: Union[str, Sequence[str]] = ..., port: int = ..., *,
                       family: int = ..., flags: int = ...,
                       sock: socket = ..., backlog: int = ..., ssl: _SSLContext = ...,
                       reuse_address: Optional[bool] = ...,
@@ -126,8 +126,9 @@ class AbstractEventLoop(metaclass=ABCMeta):
     def create_datagram_endpoint(self, protocol_factory: _ProtocolFactory,
                                  local_addr: str = ..., remote_addr: str = ..., *,
                                  family: int = ..., proto: int = ..., flags: int = ...,
-                                 sock: socket = ..., reuse_address: Optional[bool] = ...,
-                                 reuse_port: Optional[bool] = ...) -> Generator[Any, None, _TransProtPair]: ...
+                                 reuse_address: Optional[bool] = ..., reuse_port: Optional[bool] = ...,
+                                 allow_broadcast: Optional[bool] = ...,
+                                 sock: socket = ...) -> Generator[Any, None, _TransProtPair]: ...
     @abstractmethod
     @coroutine
     def connect_accepted_socket(self, protocol_factory: _ProtocolFactory, sock: socket, *, ssl: _SSLContext = ...) -> Generator[Any, None, _TransProtPair]: ...
