@@ -103,24 +103,24 @@ class AbstractEventLoop(metaclass=ABCMeta):
     @abstractmethod
     @coroutine
     def create_connection(self, protocol_factory: _ProtocolFactory, host: str = ..., port: int = ..., *,
-                          ssl: _SSLContext = ..., family: int = ..., proto: int = ..., flags: int = ..., sock: socket = ...,
+                          ssl: _SSLContext = ..., family: int = ..., proto: int = ..., flags: int = ..., sock: Optional[socket] = ...,
                           local_addr: str = ..., server_hostname: str = ...) -> Generator[Any, None, _TransProtPair]: ...
     @abstractmethod
     @coroutine
     def create_server(self, protocol_factory: _ProtocolFactory, host: Union[str, Sequence[str]] = ..., port: int = ..., *,
                       family: int = ..., flags: int = ...,
-                      sock: socket = ..., backlog: int = ..., ssl: _SSLContext = ...,
+                      sock: Optional[socket] = ..., backlog: int = ..., ssl: _SSLContext = ...,
                       reuse_address: Optional[bool] = ...,
                       reuse_port: Optional[bool] = ...) -> Generator[Any, None, AbstractServer]: ...
     @abstractmethod
     @coroutine
     def create_unix_connection(self, protocol_factory: _ProtocolFactory, path: str, *,
-                               ssl: _SSLContext = ..., sock: socket = ...,
+                               ssl: _SSLContext = ..., sock: Optional[socket] = ...,
                                server_hostname: str = ...) -> Generator[Any, None, _TransProtPair]: ...
     @abstractmethod
     @coroutine
     def create_unix_server(self, protocol_factory: _ProtocolFactory, path: str, *,
-                           sock: socket = ..., backlog: int = ..., ssl: _SSLContext = ...) -> Generator[Any, None, AbstractServer]: ...
+                           sock: Optional[socket] = ..., backlog: int = ..., ssl: _SSLContext = ...) -> Generator[Any, None, AbstractServer]: ...
     @abstractmethod
     @coroutine
     def create_datagram_endpoint(self, protocol_factory: _ProtocolFactory,
@@ -128,7 +128,7 @@ class AbstractEventLoop(metaclass=ABCMeta):
                                  family: int = ..., proto: int = ..., flags: int = ...,
                                  reuse_address: Optional[bool] = ..., reuse_port: Optional[bool] = ...,
                                  allow_broadcast: Optional[bool] = ...,
-                                 sock: socket = ...) -> Generator[Any, None, _TransProtPair]: ...
+                                 sock: Optional[socket] = ...) -> Generator[Any, None, _TransProtPair]: ...
     @abstractmethod
     @coroutine
     def connect_accepted_socket(self, protocol_factory: _ProtocolFactory, sock: socket, *, ssl: _SSLContext = ...) -> Generator[Any, None, _TransProtPair]: ...
