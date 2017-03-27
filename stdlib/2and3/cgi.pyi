@@ -25,7 +25,7 @@ class MiniFieldStorage:
     filename = ...  # type: Any
     list = ...  # type: Any
     type = ...  # type: Any
-    file = ...  # type: Any
+    file = ...  # type: Optional[IO[bytes]]  # Always None
     type_options = ...  # type: Dict[Any, Any]
     disposition = ...  # type: Any
     disposition_options = ...  # type: Dict[Any, Any]
@@ -51,6 +51,7 @@ class FieldStorage(object):
     disposition = ...  # type: str
     disposition_options = ...  # type: Dict[str, str]
     filename = ...  # type: Optional[str]
+    file = ...  # type: Optional[IO[bytes]]
     type = ...  # type: str
     type_options = ...  # type: Dict[str, str]
     innerboundary = ...  # type: bytes
