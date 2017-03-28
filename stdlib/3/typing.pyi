@@ -438,7 +438,7 @@ class Match(Generic[AnyStr]):
 
 class Pattern(Generic[AnyStr]):
     flags = 0
-    groupindex = 0
+    groupindex = ...  # type: Mapping[str, int]
     groups = 0
     pattern = ...  # type: AnyStr
 
