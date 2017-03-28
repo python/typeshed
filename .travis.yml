@@ -5,8 +5,10 @@ matrix:
   include:
     - python: "3.6-dev"
       env: TEST_CMD="flake8"
+    - python: "3.6"
+      env: TEST_CMD="./tests/mypy_selftest.py"
     - python: "3.5"
-      env: TEST_CMD="./tests/mypy_test.py && ./tests/mypy_selftest.py"
+      env: TEST_CMD="./tests/mypy_test.py"
     - python: "2.7"
       env: TEST_CMD="./tests/pytype_test.py --num-parallel=4"
 
@@ -17,4 +19,4 @@ install:
   - if [[ $TRAVIS_PYTHON_VERSION == '2.7' ]]; then pip install -U git+git://github.com/google/pytype; fi
 
 script:
-  - bash -c "$TEST_CMD"
+  - $TEST_CMD
