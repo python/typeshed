@@ -27,22 +27,6 @@ _T4 = TypeVar('_T4')
 _T5 = TypeVar('_T5')
 _TT = TypeVar('_TT', bound='type')
 
-class staticmethod:  # Special, only valid as a decorator.
-    __func__ = ...  # type: function
-    __isabstractmethod__ = ...  # type: bool
-
-    def __init__(self, f: function) -> None: ...
-    def __new__(cls: Type[_T], *args: Any, **kwargs: Any) -> _T: ...
-    def __get__(self, obj: _T, type: Type[_T]=None) -> function: ...
-
-class classmethod:  # Special, only valid as a decorator.
-    __func__ = ...  # type: function
-    __isabstractmethod__ = ...  # type: bool
-
-    def __init__(self, f: function) -> None: ...
-    def __new__(cls: Type[_T], *args: Any, **kwargs: Any) -> _T: ...
-    def __get__(self, obj: _T, type: Type[_T]=None) -> function: ...
-
 class object:
     __doc__ = ...  # type: Optional[str]
     __class__ = ...  # type: type
@@ -69,6 +53,22 @@ class object:
 
     if sys.version_info >= (3, 6):
         def __init_subclass__(cls) -> None: ...
+
+class staticmethod:  # Special, only valid as a decorator.
+    __func__ = ...  # type: function
+    __isabstractmethod__ = ...  # type: bool
+
+    def __init__(self, f: function) -> None: ...
+    def __new__(cls: Type[_T], *args: Any, **kwargs: Any) -> _T: ...
+    def __get__(self, obj: _T, type: Optional[Type[_T]]=...) -> function: ...
+
+class classmethod:  # Special, only valid as a decorator.
+    __func__ = ...  # type: function
+    __isabstractmethod__ = ...  # type: bool
+
+    def __init__(self, f: function) -> None: ...
+    def __new__(cls: Type[_T], *args: Any, **kwargs: Any) -> _T: ...
+    def __get__(self, obj: _T, type: Optional[Type[_T]]=...) -> function: ...
 
 class type:
     __bases__ = ...  # type: Tuple[type, ...]
