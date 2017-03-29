@@ -13,7 +13,7 @@ TypeType = type
 ObjectType = object
 
 IntType = int
-LongType = long
+LongType = int  # Really long, but can't reference that due to a mypy import cycle
 FloatType = float
 BooleanType = bool
 ComplexType = complex
