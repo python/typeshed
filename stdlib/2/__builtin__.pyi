@@ -25,9 +25,6 @@ _T4 = TypeVar('_T4')
 _T5 = TypeVar('_T5')
 _TT = TypeVar('_TT', bound='type')
 
-class staticmethod: ...   # Special, only valid as a decorator.
-class classmethod: ...  # Special, only valid as a decorator.
-
 class object:
     __doc__ = ...  # type: Optional[str]
     __class__ = ...  # type: type
@@ -48,6 +45,20 @@ class object:
     def __sizeof__(self) -> int: ...
     def __reduce__(self) -> tuple: ...
     def __reduce_ex__(self, protocol: int) -> tuple: ...
+
+class staticmethod(object):  # Special, only valid as a decorator.
+    __func__ = ...  # type: function
+
+    def __init__(self, f: function) -> None: ...
+    def __new__(cls: Type[_T], *args: Any, **kwargs: Any) -> _T: ...
+    def __get__(self, obj: _T, type: Optional[Type[_T]]=...) -> function: ...
+
+class classmethod(object):  # Special, only valid as a decorator.
+    __func__ = ...  # type: function
+
+    def __init__(self, f: function) -> None: ...
+    def __new__(cls: Type[_T], *args: Any, **kwargs: Any) -> _T: ...
+    def __get__(self, obj: _T, type: Optional[Type[_T]]=...) -> function: ...
 
 class type(object):
     __bases__ = ...  # type: Tuple[type, ...]
