@@ -2,6 +2,7 @@
 
 import sys
 from abc import abstractmethod, ABCMeta
+from types import CodeType, FrameType
 
 # Definitions of special type checking related constructs.  Their definition
 # are not used, so their value does not matter.
@@ -120,6 +121,11 @@ class Generator(Iterator[_T_co], Generic[_T_co, _T_contra, _V_co]):
     @abstractmethod
     def __iter__(self) -> 'Generator[_T_co, _T_contra, _V_co]': ...
 
+    gi_code = ...  # type: CodeType
+    gi_frame = ...  # type: FrameType
+    gi_running = ...  # type: bool
+    gi_yieldfrom = ...  # type: Optional[Generator]
+
 # TODO: Several types should only be defined if sys.python_version >= (3, 5):
 # Awaitable, AsyncIterator, AsyncIterable, Coroutine, Collection, ContextManager.
 # See https: //github.com/python/typeshed/issues/655 for why this is not easy.
@@ -174,6 +180,11 @@ if sys.version_info >= (3, 6):
 
         @abstractmethod
         def __aiter__(self) -> 'AsyncGenerator[_T_co, _T_contra]': ...
+
+        ag_await = ...  # type: Any
+        ag_code = ...  # type: CodeType
+        ag_frame = ...  # type: FrameType
+        ag_running = ...  # type: bool
 
 class Container(Generic[_T_co]):
     @abstractmethod
