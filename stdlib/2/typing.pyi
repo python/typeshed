@@ -3,7 +3,7 @@
 from abc import abstractmethod, ABCMeta
 from types import CodeType, FrameType
 
-# Definitions of special type checking related constructs.  Their definition
+# Definitions of special type checking related constructs.  Their definitions
 # are not used, so their value does not matter.
 
 overload = object()
