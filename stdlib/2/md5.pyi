@@ -1,5 +1,7 @@
 # Stubs for Python 2.7 md5 stdlib module
 
+from typing import AnyStr
+
 class md5(object):
     name = ...  # type: str
     block_size = ...  # type: int
