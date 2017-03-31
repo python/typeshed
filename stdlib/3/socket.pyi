@@ -7,7 +7,7 @@
 
 import sys
 from typing import Any, Tuple, List, Optional, Union, overload
-from enum import IntEnum
+from enum import IntEnum, IntFlag
 
 # ----- variables and constants -----
 
@@ -254,7 +254,7 @@ TIPC_ZONE_SCOPE = 0
 
 # enum versions of above flags py 3.4+
 if sys.version_info >= (3, 4):
-    class AddressInfo(IntEnum):
+    class AddressInfo(IntFlag):
         AI_ADDRCONFIG = ...
         AI_ALL = ...
         AI_CANONNAME = ...
@@ -294,7 +294,7 @@ if sys.version_info >= (3, 4):
         AF_WANPIPE = ...
         AF_X25 = ...
 
-    class MsgFlag(IntEnum):
+    class MsgFlag(IntFlag):
         MSG_CTRUNC = ...
         MSG_DONTROUTE = ...
         MSG_DONTWAIT = ...
