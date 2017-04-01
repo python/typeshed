@@ -1,7 +1,6 @@
 # Stubs for Python 2.7 md5 stdlib module
 
-from hashlib import _hash as md5
+from hashlib import md5 as md5, md5 as new
 
-def new(string: str = ...) -> md5: ...
 blocksize = 0
 digest_size = 0
