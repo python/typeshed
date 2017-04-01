@@ -1,6 +1,7 @@
 # Stubs for pprint
 
-# Based on http://docs.python.org/3.2/library/pprint.html
+# Based on http://docs.python.org/2/library/pprint.html
+# Based on http://docs.python.org/3/library/pprint.html
 
 from typing import Any, Dict, Tuple, IO
 
