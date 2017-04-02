@@ -1,18 +1,36 @@
+# Stubs for os
+# Ron Murawski <ron@horizonchess.com>
+#
 # created from https://docs.python.org/2/library/os.html
+#          and http: //docs.python.org/3/library/os.html
 
+from builtins import OSError as error
+from io import TextIOWrapper as _TextIOWrapper
+import sys
 from typing import (
     Mapping, MutableMapping, Dict, List, Any, Tuple, Iterator, overload, Union, AnyStr,
-    Optional, Generic, Set, Callable, Text, Sequence, IO, NamedTuple
+    Optional, Generic, Set, Callable, Text, Sequence, NamedTuple, TypeVar, IO
 )
-from . import path
+from . import path as path
 from mypy_extensions import NoReturn
 
-error = OSError
+_T = TypeVar('_T')
+
+# ----- os variables -----
+
+if sys.version_info >= (3, ):
+    supports_bytes_environ = False  # TODO: True when bytes implemented?
+
+if sys.version_info >= (3, 3):
+    supports_dir_fd = ...  # type: Set[Callable[..., Any]]
+    supports_fd = ...  # type: Set[Callable[..., Any]]
+    supports_effective_ids = ...  # type: Set[Callable[..., Any]]
+    supports_follow_symlinks = ...  # type: Set[Callable[..., Any]]
+
 SEEK_SET = 0
 SEEK_CUR = 0
 SEEK_END = 0
 
-# More constants, copied from stdlib/3/os/__init__.pyi
 O_RDONLY = 0
 O_WRONLY = 0
 O_RDWR = 0
@@ -58,13 +76,17 @@ R_OK = 0
 W_OK = 0
 X_OK = 0
 
-class _Environ(MutableMapping[str, str]):
-    def copy(self) -> Dict[str, str]: ...
+class _Environ(MutableMapping[AnyStr, AnyStr], Generic[AnyStr]):
+    def copy(self) -> Dict[AnyStr, AnyStr]: ...
 
-environ = ...  # type: _Environ
-confstr_names = ...  # type: Mapping[str, int]  # Unix only
-pathconf_names = ...  # type: Mapping[str, int]  # Unix only
-sysconf_names = ...  # type: Mapping[str, int]  # Unix only
+environ = ...  # type: _Environ[str]
+if sys.version_info >= (3, ):
+    environb = ...  # type: _Environ[bytes]
+
+confstr_names = ...  # type: Dict[str, int]  # Unix only
+pathconf_names = ...  # type: Dict[str, int]  # Unix only
+sysconf_names = ...  # type: Dict[str, int]  # Unix only
+
 EX_OK = 0        # Unix only
 EX_USAGE = 0     # Unix only
 EX_DATAERR = 0   # Unix only
@@ -81,6 +103,8 @@ EX_TEMPFAIL = 0  # Unix only
 EX_PROTOCOL = 0  # Unix only
 EX_NOPERM = 0    # Unix only
 EX_CONFIG = 0    # Unix only
+EX_NOTFOUND = 0  # Unix only
+
 P_NOWAIT = 0
 P_NOWAITO = 0
 P_WAIT = 0
@@ -93,11 +117,115 @@ WCONTINUED = 0  # some Unix systems
 WUNTRACED = 0  # Unix only
 
 TMP_MAX = 0  # Undocumented, but used by tempfile
+
+# ----- os classes (structures) -----
+if sys.version_info >= (3, 6):
+    from builtins import _PathLike as PathLike  # See comment in builtins
+
 _PathType = Union[bytes, Text]
-_StatVFS = NamedTuple('_StatVFS', [('f_bsize', int), ('f_frsize', int), ('f_blocks', int),
-                                   ('f_bfree', int), ('f_bavail', int), ('f_files', int),
-                                   ('f_ffree', int), ('f_favail', int), ('f_flag', int),
-                                   ('f_namemax', int)])
+
+if sys.version_info >= (3, 6):
+    class DirEntry(PathLike[AnyStr]):
+        # This is what the scandir interator yields
+        # The constructor is hidden
+
+        name = ...  # type: AnyStr
+        path = ...  # type: AnyStr
+        def inode(self) -> int: ...
+        def is_dir(self, follow_symlinks: bool = ...) -> bool: ...
+        def is_file(self, follow_symlinks: bool = ...) -> bool: ...
+        def is_symlink(self) -> bool: ...
+        def stat(self) -> stat_result: ...
+
+        def __fspath__(self) -> AnyStr: ...
+elif sys.version_info >= (3, 5):
+    class DirEntry(Generic[AnyStr]):
+        # This is what the scandir interator yields
+        # The constructor is hidden
+
+        name = ...  # type: AnyStr
+        path = ...  # type: AnyStr
+        def inode(self) -> int: ...
+        def is_dir(self, follow_symlinks: bool = ...) -> bool: ...
+        def is_file(self, follow_symlinks: bool = ...) -> bool: ...
+        def is_symlink(self) -> bool: ...
+        def stat(self) -> stat_result: ...
+
+class stat_result(NamedTuple('stat_result', [
+        ('st_mode', int),
+        ('st_ino', int),
+        ('st_dev', int),
+        ('st_nlink', int),
+        ('st_uid', int),
+        ('st_gid', int),
+        ('st_size', int),
+        ('st_atime', float),
+        ('st_mtime', float),
+        ('st_ctime', float)])):
+
+    # For backward compatibility, the return value of stat() is also
+    # accessible as a tuple of at least 10 integers giving the most important
+    # (and portable) members of the stat structure, in the order st_mode,
+    # st_ino, st_dev, st_nlink, st_uid, st_gid, st_size, st_atime, st_mtime,
+    # st_ctime. More items may be added at the end by some implementations.
+
+    if sys.version_info >= (3, 3):
+        st_atime_ns = ...  # type: int
+        st_mtime_ns = ...  # type: int
+        st_ctime_ns = ...  # type: int
+
+    # On some Unix systems (such as Linux), the following attributes may also
+    # be available:
+    st_blocks = ...  # type: int
+    st_blksize = ...  # type: int
+    st_rdev = ...  # type: int
+    st_flags = ...  # type: int
+
+    # On other Unix systems (such as FreeBSD), the following attributes may be
+    # available (but may be only filled out if root tries to use them):
+    st_gen = ...  # type: int
+    st_birthtime = ...  # type: int
+
+    # On Mac OS systems, the following attributes may also be available:
+    st_rsize = ...  # type: int
+    st_creator = ...  # type: int
+    st_type = ...  # type: int
+
+statvfs_result = NamedTuple('statvfs_result', [
+    ('f_bsize', int),
+    ('f_frsize', int),
+    ('f_blocks', int),
+    ('f_bfree', int),
+    ('f_bavail', int),
+    ('f_files', int),
+    ('f_ffree', int),
+    ('f_favail', int),
+    ('f_flag', int),
+    ('f_namemax', int)])
+
+# ----- os function stubs -----
+if sys.version_info >= (3, 6):
+    def fsencode(filename: Union[str, bytes, PathLike]) -> bytes: ...
+elif sys.version_info >= (3, ):
+    def fsencode(filename: Union[str, bytes]) -> bytes: ...
+
+if sys.version_info >= (3, 6):
+    def fsdecode(filename: Union[str, bytes, PathLike]) -> str: ...
+elif sys.version_info >= (3, ):
+    def fsdecode(filename: Union[str, bytes]) -> str: ...
+
+if sys.version_info >= (3, 6):
+    @overload
+    def fspath(path: str) -> str: ...
+    @overload
+    def fspath(path: bytes) -> bytes: ...
+    @overload
+    def fspath(path: PathLike) -> Any: ...
+
+if sys.version_info >= (3, ):
+    def get_exec_path(env: Optional[Mapping[str, str]] = ...) -> List[str]: ...
+    # NOTE: get_exec_path(): returns List[bytes] when env not None
+
 def ctermid() -> str: ...  # Unix only
 def getegid() -> int: ...  # Unix only
 def geteuid() -> int: ...  # Unix only
@@ -112,8 +240,6 @@ def getppid() -> int: ...
 def getresuid() -> Tuple[int, int, int]: ...  # Unix only
 def getresgid() -> Tuple[int, int, int]: ...  # Unix only
 def getuid() -> int: ...  # Unix only
-def getenv(varname: unicode, value: unicode = ...) -> str: ...
-def putenv(varname: unicode, value: unicode) -> None: ...
 def setegid(egid: int) -> None: ...  # Unix only
 def seteuid(euid: int) -> None: ...  # Unix only
 def setgid(gid: int) -> None: ...  # Unix only
@@ -130,18 +256,35 @@ def setuid(uid: int) -> None: ...  # Unix only
 def strerror(code: int) -> str: ...
 def umask(mask: int) -> int: ...
 def uname() -> Tuple[str, str, str, str, str]: ...  # Unix only
-def unsetenv(varname: str) -> None: ...
-def fdopen(fd: int, *args, **kwargs) -> IO[Any]: ...
+
+@overload
+def getenv(key: Text) -> Optional[str]: ...
+@overload
+def getenv(key: Text, default: _T) -> Union[str, _T]: ...
+if sys.version_info >= (3, ):
+    def getenvb(key: bytes, default: bytes = ...) -> bytes: ...
+def putenv(key: Union[bytes, Text], value: Union[bytes, Text]) -> None: ...
+def unsetenv(key: Union[bytes, Text]) -> None: ...
+
+if sys.version_info >= (3, ):
+    # TODO: Return IO or TextIO
+    def fdopen(fd: int, mode: str = ..., buffering: int = ..., encoding: str = ...,
+               errors: str = ..., newline: str = ..., closefd: bool = ...) -> Any: ...
+else:
+    def fdopen(fd: int, *args, **kwargs) -> IO[Any]: ...
+
 def close(fd: int) -> None: ...
 def closerange(fd_low: int, fd_high: int) -> None: ...
+if sys.version_info >= (3, ):
+    def device_encoding(fd: int) -> Optional[str]: ...
 def dup(fd: int) -> int: ...
 def dup2(fd: int, fd2: int) -> None: ...
 def fchmod(fd: int, mode: int) -> None: ...  # Unix only
 def fchown(fd: int, uid: int, gid: int) -> None: ...  # Unix only
 def fdatasync(fd: int) -> None: ...  # Unix only, not Mac
 def fpathconf(fd: int, name: Union[str, int]) -> int: ...  # Unix only
-def fstat(fd: int) -> Any: ...
-def fstatvfs(fd: int) -> _StatVFS: ...  # Unix only
+def fstat(fd: int) -> stat_result: ...
+def fstatvfs(fd: int) -> statvfs_result: ...  # Unix only
 def fsync(fd: int) -> None: ...
 def ftruncate(fd: int, length: int) -> None: ...  # Unix only
 def isatty(fd: int) -> bool: ...  # Unix only
@@ -158,7 +301,10 @@ def access(path: _PathType, mode: int) -> bool: ...
 def chdir(path: _PathType) -> None: ...
 def fchdir(fd: int) -> None: ...
 def getcwd() -> str: ...
-def getcwdu() -> unicode: ...
+if sys.version_info >= (3, ):
+    def getcwdb() -> bytes: ...
+else:
+    def getcwdu() -> Text: ...
 def chflags(path: _PathType, flags: int) -> None: ...  # Unix only
 def chroot(path: _PathType) -> None: ...  # Unix only
 def chmod(path: _PathType, mode: int) -> None: ...
@@ -167,31 +313,56 @@ def lchflags(path: _PathType, flags: int) -> None: ...  # Unix only
 def lchmod(path: _PathType, mode: int) -> None: ...  # Unix only
 def lchown(path: _PathType, uid: int, gid: int) -> None: ...  # Unix only
 def link(src: _PathType, link_name: _PathType) -> None: ...
-def listdir(path: AnyStr) -> List[AnyStr]: ...
-def lstat(path: _PathType) -> Any: ...
+if sys.version_info >= (3, ):
+    @overload
+    def listdir(path: str = ...) -> List[str]: ...
+    @overload
+    def listdir(path: bytes) -> List[bytes]: ...
+else:
+    def listdir(path: AnyStr) -> List[AnyStr]: ...
+def lstat(path: _PathType) -> stat_result: ...
 def mkfifo(path: _PathType, mode: int = ...) -> None: ...  # Unix only
 def mknod(filename: _PathType, mode: int = ..., device: int = ...) -> None: ...
 def major(device: int) -> int: ...
 def minor(device: int) -> int: ...
 def makedev(major: int, minor: int) -> int: ...
 def mkdir(path: _PathType, mode: int = ...) -> None: ...
-def makedirs(path: _PathType, mode: int = ...) -> None: ...
+if sys.version_info >= (3, ):
+    def makedirs(path: _PathType, mode: int = ...,
+                 exist_ok: bool = ...) -> None: ...
+else:
+    def makedirs(path: _PathType, mode: int = ...) -> None: ...
 def pathconf(path: _PathType, name: Union[str, int]) -> int: ...  # Unix only
 def readlink(path: AnyStr) -> AnyStr: ...
 def remove(path: _PathType) -> None: ...
 def removedirs(path: _PathType) -> None: ...
 def rename(src: _PathType, dst: _PathType) -> None: ...
 def renames(old: _PathType, new: _PathType) -> None: ...
+if sys.version_info >= (3, 3):
+    def replace(src: _PathType, dst: _PathType) -> None: ...
 def rmdir(path: _PathType) -> None: ...
-def stat(path: _PathType) -> Any: ...
+if sys.version_info >= (3, 5):
+    @overload
+    def scandir(path: str = ...) -> Iterator[DirEntry[str]]: ...
+    @overload
+    def scandir(path: bytes) -> Iterator[DirEntry[bytes]]: ...
 @overload
-def stat_float_times(newvalue: bool = ...) -> None: ...
+def stat_float_times(newvalue: bool) -> None: ...
 @overload
 def stat_float_times() -> bool: ...
-def statvfs(path: _PathType) -> _StatVFS: ...  # Unix only
-def symlink(source: _PathType, link_name: _PathType) -> None: ...
+def stat(path: _PathType) -> stat_result: ...
+def statvfs(path: _PathType) -> statvfs_result: ...  # Unix only
+if sys.version_info >= (3, ):
+    def symlink(source: _PathType, link_name: _PathType,
+                target_is_directory: bool = ...) -> None:
+        ...  # final argument in Windows only
+else:
+    def symlink(source: _PathType, link_name: _PathType) -> None: ...
 def unlink(path: _PathType) -> None: ...
-def utime(path: _PathType, times: Optional[Tuple[float, float]]) -> None: ...
+if sys.version_info >= (3, ):
+    def utime(path: _PathType, times: Optional[Tuple[float, float]] = ...) -> None: ...
+else:
+    def utime(path: _PathType, times: Optional[Tuple[float, float]]) -> None: ...
 
 # TODO onerror: function from OSError to void
 def walk(top: AnyStr, topdown: bool = ..., onerror: Any = ...,
@@ -221,11 +392,19 @@ def forkpty() -> Tuple[int, int]: ...  # some flavors of Unix
 def kill(pid: int, sig: int) -> None: ...
 def killpg(pgid: int, sig: int) -> None: ...  # Unix only
 def nice(increment: int) -> int: ...  # Unix only
-# TODO: plock, popen*, P_*
-def popen(command: str, *args, **kwargs) -> Optional[IO[Any]]: ...
-def popen2(cmd: str, *args, **kwargs) -> Tuple[IO[Any], IO[Any]]: ...
-def popen3(cmd: str, *args, **kwargs) -> Tuple[IO[Any], IO[Any], IO[Any]]: ...
-def popen4(cmd: str, *args, **kwargs) -> Tuple[IO[Any], IO[Any]]: ...
+def plock(op: int) -> None: ...  # Unix only
+
+if sys.version_info >= (3, ):
+    class popen(_TextIOWrapper):
+        # TODO 'b' modes or bytes command not accepted?
+        def __init__(self, command: str, mode: str = ...,
+                     bufsize: int = ...) -> None: ...
+        def close(self) -> Any: ...  # may return int
+else:
+    def popen(command: str, *args, **kwargs) -> Optional[IO[Any]]: ...
+    def popen2(cmd: str, *args, **kwargs) -> Tuple[IO[Any], IO[Any]]: ...
+    def popen3(cmd: str, *args, **kwargs) -> Tuple[IO[Any], IO[Any], IO[Any]]: ...
+    def popen4(cmd: str, *args, **kwargs) -> Tuple[IO[Any], IO[Any]]: ...
 
 def spawnl(mode: int, path: _PathType, arg0: Union[bytes, Text], *args: Union[bytes, Text]) -> int: ...
 def spawnle(mode: int, path: _PathType, arg0: Union[bytes, Text],
@@ -261,10 +440,32 @@ def getloadavg() -> Tuple[float, float, float]: ...  # Unix only
 def sysconf(name: Union[str, int]) -> int: ...  # Unix only
 def urandom(n: int) -> bytes: ...
 
-def tmpfile() -> IO[Any]: ...
-def tmpnam() -> str: ...
-def tempnam(dir: str = ..., prefix: str = ...) -> str: ...
+if sys.version_info >= (3, ):
+    def sched_getaffinity(id: int) -> Set[int]: ...
+    class waitresult:
+        si_pid = 0
+    def waitid(idtype: int, id: int, options: int) -> waitresult: ...
+
+if sys.version_info < (3, ):
+    def tmpfile() -> IO[Any]: ...
+    def tmpnam() -> str: ...
+    def tempnam(dir: str = ..., prefix: str = ...) -> str: ...
 
 P_ALL = 0
 WEXITED = 0
 WNOWAIT = 0
+
+if sys.version_info >= (3, 3):
+    def sync() -> None: ...  # Unix only
+
+    def truncate(path: Union[_PathType, int], length: int) -> None: ...  # Unix only up to version 3.4
+
+    def fwalk(top: AnyStr = ..., topdown: bool = ...,
+              onerror: Callable = ..., *, follow_symlinks: bool = ...,
+              dir_fd: int = ...) -> Iterator[Tuple[AnyStr, List[AnyStr],
+                                             List[AnyStr], int]]: ...  # Unix only
+
+    def get_terminal_size(fd: int = ...) -> Tuple[int, int]: ...
+
+if sys.version_info >= (3, 4):
+    def cpu_count() -> Optional[int]: ...
