@@ -15,7 +15,7 @@ if sys.version_info >= (3,):
     _WriteBufferType = Union[array, bytearray, memoryview]
 else:
     _BufferType = Union[bytes, bytearray, buffer, memoryview]
-    _WriteBufferType = Union[array, bytearray, buffer, memoryview]
+    _WriteBufferType = Union[array[Any], bytearray, buffer, memoryview]
 
 def pack(fmt: _FmtType, *v: Any) -> bytes: ...
 def pack_into(fmt: _FmtType, buffer: _WriteBufferType, offset: int, *v: Any) -> None: ...
