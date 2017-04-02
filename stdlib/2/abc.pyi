@@ -1,11 +1,12 @@
 from typing import Any, Dict, Set, Tuple, Type
+from types import ModuleType
 import _weakrefset
 
 # mypy has special processing for ABCMeta and abstractmethod.
 
 WeakSet = ...  # type: _weakrefset.WeakSet
 _InstanceType = ...  # type: type
-types = ...  # type: module
+types = ...  # type: ModuleType
 
 def abstractmethod(funcobj: Any) -> Any: ...
 

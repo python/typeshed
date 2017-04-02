@@ -9,6 +9,7 @@ from typing import (
     overload, Set, FrozenSet, TypeVar, Union, Pattern, Type
 )
 from abc import abstractmethod, ABCMeta
+from types import ModuleType
 
 _T = TypeVar('_T')
 _FT = TypeVar('_FT')
@@ -173,4 +174,4 @@ def main(module: str = ..., defaultTest: str = ...,
          testLoader: Any = ...) -> None: ...  # TODO types
 
 # private but occasionally used
-util = ...  # type: module
+util = ...  # type: ModuleType

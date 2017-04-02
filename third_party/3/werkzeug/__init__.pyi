@@ -22,11 +22,6 @@ from werkzeug import utils
 from werkzeug import wrappers
 from werkzeug import wsgi
 
-class module(ModuleType):
-    def __getattr__(self, name): ...
-    def __dir__(self): ...
-
-
 __version__ = ...  # type: Any
 
 run_simple = serving.run_simple
