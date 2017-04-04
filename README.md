@@ -79,8 +79,7 @@ The tests are automatically run by Travis CI on every PR and push to
 the repo.  There are two separate sets of tests: `tests/mypy_test.py`
 runs tests against [mypy](https://github.com/python/mypy/), while
 `tests/pytype_tests.py` runs tests against
-[pytype](https://github.com/google/pytype/).  The script runtests.sh
-runs both sets of tests and flake8 over all .pyi files.
+[pytype](https://github.com/google/pytype/).
 
 Both sets of tests are shallow -- they verify that all stubs can be
 imported but they don't check whether stubs match their implementation
@@ -88,21 +87,25 @@ imported but they don't check whether stubs match their implementation
 that each set of tests has a blacklist of modules that are not tested
 at all.  The blacklists also live in the tests directory.
 
-To manually run the mypy tests, you need to have Python 3.5 or higher.
+To manually run the mypy tests, you need to have Python 3.5 or higher;
+Python 3.6.1 or higher is recommended.
 Run:
 ```
-$ python3.5 -m venv .venv3
+$ python3.6 -m venv .venv3
 $ source .venv3/bin/activate
-(.venv3)$ pip install -r requirements-tests-py3.txt
+(.venv3)$ pip3 install -r requirements-tests-py3.txt
 ```
-This will install mypy-lang, typed-ast, and flake8. You can then run
-mypy tests and flake8 tests by invoking:
+This will install mypy (you need the latest master branch from GitHub),
+typed-ast, and flake8. You can then run mypy tests and flake8 tests by
+invoking:
 ```
-(.venv3)$ python tests/mypy_test.py
+(.venv3)$ python3 tests/mypy_test.py
 ...
 (.venv3)$ flake8
 ...
 ```
+(Note that flake8 only works with Python 3.6 or higher.)
+
 To run the pytype tests, you need a separate virtual environment with
 Python 2.7. Run:
 ```
@@ -114,25 +117,6 @@ This will install pytype from its GitHub repo. You can then run pytype
 tests by running:
 ```
 (.venv2)$ python tests/pytype_test.py
-```
-
-To be able to everything with ``runtests.sh``, copy the ``pytype`` script
-from the Python 2 virtualenv to the Python 3 one:
-```
-$ cp .venv2/bin/pytype .venv3/bin/pytype
-$ source .venv3/bin/activate
-(.venv3)$ ./runtests.sh
-running mypy --python-version 3.6 --strict-optional # with 479 files
-running mypy --python-version 3.5 --strict-optional # with 469 files
-running mypy --python-version 3.4 --strict-optional # with 469 files
-running mypy --python-version 3.3 --strict-optional # with 454 files
-running mypy --python-version 3.2 --strict-optional # with 453 files
-running mypy --python-version 2.7 --strict-optional # with 502 files
-Running pytype tests...
-Ran pytype with 244 pyis, got 0 errors.
-Running flake8...
-flake8 run clean.
-(.venv3)$
 ```
 
 For mypy, if you are in the typeshed repo that is submodule of the
