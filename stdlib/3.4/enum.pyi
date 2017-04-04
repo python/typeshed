@@ -1,10 +1,9 @@
-import abc
 import sys
 from typing import List, Any, TypeVar, Union, Iterable, Iterator, TypeVar, Generic, Type
 
 _T = TypeVar('_T', bound=Enum)
 
-class EnumMeta(abc.ABCMeta, Iterable[Enum]):
+class EnumMeta(type, Iterable[Enum]):
     def __iter__(self: Type[_T]) -> Iterator[_T]: ...  # type: ignore
 
 class Enum(metaclass=EnumMeta):
