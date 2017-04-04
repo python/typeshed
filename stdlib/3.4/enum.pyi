@@ -2,6 +2,7 @@ import sys
 from typing import List, Any, TypeVar, Union, Iterable, Iterator, TypeVar, Generic, Type
 
 _T = TypeVar('_T', bound=Enum)
+_S = TypeVar('_S', bound=Type[Enum])
 
 class EnumMeta(type, Iterable[Enum]):
     def __iter__(self: Type[_T]) -> Iterator[_T]: ...  # type: ignore
