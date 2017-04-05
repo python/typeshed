@@ -1,10 +1,12 @@
 # Stubs for base64
 
-from typing import IO, Union
+from typing import IO, Union, Text
 import sys
 
-
-if sys.version_info < (3, 3):
+if sys.version_info < (3,):
+    _encodable = Union[bytes, Text]
+    _decodable = Union[bytes, Text]
+elif sys.version_info < (3, 3):
     _encodable = bytes
     _decodable = bytes
 elif sys.version_info[:2] == (3, 3):
