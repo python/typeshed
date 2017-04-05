@@ -2,6 +2,7 @@ import sys
 from typing import List, Any, TypeVar, Union, Iterable, Iterator, TypeVar, Generic, Type
 
 _T = TypeVar('_T', bound=Enum)
+_S = TypeVar('_S', bound=Type[Enum])
 
 class EnumMeta(type, Iterable[Enum]):
     def __iter__(self: Type[_T]) -> Iterator[_T]: ...  # type: ignore
@@ -21,7 +22,7 @@ class Enum(metaclass=EnumMeta):
 class IntEnum(int, Enum):
     value = ...  # type: int
 
-def unique(enumeration: _T) -> _T: ...
+def unique(enumeration: _S) -> _S: ...
 
 if sys.version_info >= (3, 6):
     _auto_null = ...  # type: Any
