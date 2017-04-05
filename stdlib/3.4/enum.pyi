@@ -22,7 +22,7 @@ class Enum(metaclass=EnumMeta):
 class IntEnum(int, Enum):
     value = ...  # type: int
 
-def unique(enumeration: _T) -> _T: ...
+def unique(enumeration: _S) -> _S: ...
 
 if sys.version_info >= (3, 6):
     _auto_null = ...  # type: Any
