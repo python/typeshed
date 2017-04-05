@@ -1,10 +1,10 @@
 import sys
-from typing import List, Any, TypeVar, Union, Iterable, Iterator, TypeVar, Generic, Type
+from typing import List, Any, TypeVar, Union, Iterable, Iterator, TypeVar, Generic, Type, Sized
 
 _T = TypeVar('_T', bound=Enum)
 _S = TypeVar('_S', bound=Type[Enum])
 
-class EnumMeta(type, Iterable[Enum]):
+class EnumMeta(type, Iterable[Enum], Sized):
     def __iter__(self: Type[_T]) -> Iterator[_T]: ...  # type: ignore
 
 class Enum(metaclass=EnumMeta):
