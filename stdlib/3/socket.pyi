@@ -4,7 +4,7 @@
 # based on: http://docs.python.org/3.2/library/socket.html
 # see: http://hg.python.org/cpython/file/3d0686d90f55/Lib/socket.py
 # see: http://nullege.com/codes/search/socket
-
+# adapted for Python 2.7 by Michal Pokorny
 import sys
 from typing import Any, Tuple, List, Optional, Union, overload
 
@@ -22,7 +22,7 @@ SOCK_CLOEXEC = 0
 SOCK_NONBLOCK = 0
 SOMAXCONN = 0
 has_ipv6 = False
-_GLOBAL_DEFAULT_TIMEOUT = 0.0
+_GLOBAL_DEFAULT_TIMEOUT = ...  # type: Any
 SocketType = ...  # type: Any
 SocketIO = ...  # type: Any
 
@@ -344,8 +344,12 @@ class socket:
     type = 0
     proto = 0
 
-    def __init__(self, family: int = ..., type: int = ...,
-                 proto: int = ..., fileno: Optional[int] = ...) -> None: ...
+    if sys.version_info < (3,):
+        def __init__(self, family: int = ..., type: int = ...,
+                 proto: int = ...) -> None: ...
+    else:
+        def __init__(self, family: int = ..., type: int = ...,
+                     proto: int = ..., fileno: Optional[int] = ...) -> None: ...
 
     # --- methods ---
     # second tuple item is an address
@@ -386,7 +390,10 @@ class socket:
     def send(self, data: bytes, flags: int = ...) -> int: ...
     def sendall(self, data: bytes, flags: int =...) -> None:
         ...  # return type: None on success
-    def sendto(self, data: bytes, address: Union[tuple, str], flags: int = ...) -> int: ...
+    @overload
+    def sendto(self, data: bytes, address: Union[tuple, str]) -> int: ...
+    @overload
+    def sendto(self, data: bytes, flags: int, address: Union[tuple, str]) -> int: ...
     def setblocking(self, flag: bool) -> None: ...
     def settimeout(self, value: Union[float, None]) -> None: ...
     def setsockopt(self, level: int, optname: int, value: Union[int, bytes]) -> None: ...
