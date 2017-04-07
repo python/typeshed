@@ -1,3 +1,4 @@
+import sys
 from typing import Dict
 
 ENDMARKER = 0
@@ -25,7 +26,8 @@ GREATER = 0
 EQUAL = 0
 DOT = 0
 PERCENT = 0
-BACKQUOTE = 0
+if sys.version_info < (3,):
+    BACKQUOTE = 0
 LBRACE = 0
 RBRACE = 0
 EQEQUAL = 0
@@ -51,12 +53,19 @@ DOUBLESTAREQUAL = 0
 DOUBLESLASH = 0
 DOUBLESLASHEQUAL = 0
 AT = 0
+if sys.version_info >= (3,):
+    RARROW = 0
+    ELLIPSIS = 0
+if sys.version_info >= (3, 5):
+    ATEQUAL = ...  # type: int
+    AWAIT = ...  # type: int
+    ASYNC = ...  # type: int
 OP = 0
 ERRORTOKEN = 0
 N_TOKENS = 0
 NT_OFFSET = 0
 tok_name = ...  # type: Dict[int, str]
 
-def ISTERMINAL(x) -> bool: ...
-def ISNONTERMINAL(x) -> bool: ...
-def ISEOF(x) -> bool: ...
+def ISTERMINAL(x: int) -> bool: ...
+def ISNONTERMINAL(x: int) -> bool: ...
+def ISEOF(x: int) -> bool: ...
