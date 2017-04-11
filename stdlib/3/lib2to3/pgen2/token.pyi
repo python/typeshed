@@ -1,6 +1,6 @@
 # Stubs for lib2to3.pgen2.token (Python 3.6)
 
-from typing import Dict
+from typing import Dict, Text
 
 ENDMARKER: int
 NAME: int
@@ -63,7 +63,7 @@ ASYNC: int
 ERRORTOKEN: int
 N_TOKENS: int
 NT_OFFSET: int
-tok_name: Dict[int, str]
+tok_name: Dict[int, Text]
 
 def ISTERMINAL(x: int) -> bool: ...
 def ISNONTERMINAL(x: int) -> bool: ...
