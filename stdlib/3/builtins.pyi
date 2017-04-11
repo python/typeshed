@@ -731,12 +731,6 @@ class range(Sequence[int]):
     def __repr__(self) -> str: ...
     def __reversed__(self) -> Iterator[int]: ...
 
-class module:
-    # TODO not defined in builtins!
-    __name__ = ...  # type: str
-    __file__ = ...  # type: str
-    __dict__ = ...  # type: Dict[str, Any]
-
 class property:
     def __init__(self, fget: Callable[[Any], Any] = None,
                  fset: Callable[[Any, Any], None] = None,
