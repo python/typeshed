@@ -21,6 +21,10 @@ class SubprocessStreamProtocol(streams.FlowControlMixin,
 
 
 class Process:
+    stdin = ...  # type: Optional[streams.StreamWriter]
+    stdout = ...  # type: Optional[streams.StreamReader]
+    stderr = ...  # type: Optional[streams.StreamReader]
+    pid = ...  # type: int
     def __init__(self,
             transport: transports.BaseTransport,
             protocol: protocols.BaseProtocol,
