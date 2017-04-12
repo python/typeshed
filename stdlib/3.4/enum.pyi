@@ -1,12 +1,14 @@
-# FIXME: Stub incomplete, ommissions include:
-# * the metaclass
-# * _sunder_ methods with their transformations
-
 import sys
-from typing import List, Any, TypeVar, Union
+from typing import List, Any, TypeVar, Union, Iterable, Iterator, TypeVar, Generic, Type, Sized
 
-class Enum:
-    def __new__(cls, value: Any) -> None: ...
+_T = TypeVar('_T', bound=Enum)
+_S = TypeVar('_S', bound=Type[Enum])
+
+class EnumMeta(type, Iterable[Enum], Sized):
+    def __iter__(self: Type[_T]) -> Iterator[_T]: ...  # type: ignore
+
+class Enum(metaclass=EnumMeta):
+    def __new__(cls: Type[_T], value: Any) -> _T: ...
     def __repr__(self) -> str: ...
     def __str__(self) -> str: ...
     def __dir__(self) -> List[str]: ...
@@ -20,9 +22,7 @@ class Enum:
 class IntEnum(int, Enum):
     value = ...  # type: int
 
-_T = TypeVar('_T')
-
-def unique(enumeration: _T) -> _T: ...
+def unique(enumeration: _S) -> _S: ...
 
 if sys.version_info >= (3, 6):
     _auto_null = ...  # type: Any
