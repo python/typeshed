@@ -1,5 +1,6 @@
 # Stubs for lib2to3.pgen2.token (Python 3.6)
 
+import sys
 from typing import Dict, Text
 
 ENDMARKER: int
@@ -52,14 +53,16 @@ RIGHTSHIFTEQUAL: int
 DOUBLESTAREQUAL: int
 DOUBLESLASH: int
 DOUBLESLASHEQUAL: int
-AT: int
-ATEQUAL: int
 OP: int
 COMMENT: int
 NL: int
-RARROW: int
-AWAIT: int
-ASYNC: int
+if sys.version_info >= (3,):
+    RARROW: int
+if sys.version_info >= (3, 5):
+    AT: int
+    ATEQUAL: int
+    AWAIT: int
+    ASYNC: int
 ERRORTOKEN: int
 N_TOKENS: int
 NT_OFFSET: int
