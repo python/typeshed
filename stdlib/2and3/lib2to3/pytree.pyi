@@ -2,7 +2,7 @@
 
 from typing import Any, Dict, Iterator, List, Optional, Text, Tuple, TypeVar, Union
 
-from .pgen2.grammar import Grammar
+from lib2to3.pgen2.grammar import Grammar
 
 _P = TypeVar('_P')
 _NL = Union[Node, Leaf]
@@ -20,7 +20,6 @@ class Base:
     was_changed: bool
     was_checked: bool
     def __eq__(self, other: Any) -> bool: ...
-    __hash__: None  # type: ignore
     def _eq(self: _P, other: _P) -> bool: ...
     def clone(self: _P) -> _P: ...
     def post_order(self) -> Iterator[_NL]: ...
