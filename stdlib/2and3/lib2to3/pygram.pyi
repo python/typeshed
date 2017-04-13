@@ -4,6 +4,9 @@ from typing import Any
 from lib2to3.pgen2.grammar import Grammar
 
 class Symbols:
+    def __init__(self, grammar: Grammar) -> None: ...
+
+class python_symbols(Symbols):
     and_expr: int
     and_test: int
     annassign: int
@@ -98,10 +101,16 @@ class Symbols:
     yield_arg: int
     yield_expr: int
     yield_stmt: int
-    def __init__(self, grammar: Grammar) -> None: ...
+
+class pattern_symbols(Symbols):
+    Alternative: int
+    Alternatives: int
+    Details: int
+    Matcher: int
+    NegatedUnit: int
+    Repeater: int
+    Unit: int
 
 python_grammar: Grammar
-python_symbols: Symbols
 python_grammar_no_print_statement: Grammar
 pattern_grammar: Grammar
-pattern_symbols: Symbols
