@@ -69,8 +69,6 @@ class _TextIOBase(_IOBase):
     newlines = ...  # type: Union[str, unicode]
     encoding = ...  # type: Optional[str]
     def read(self, n: int = ...) -> str: ...
-    def write(self) -> None:
-        raise UnsupportedOperation
     def detach(self) -> None:
         raise UnsupportedOperation
 
