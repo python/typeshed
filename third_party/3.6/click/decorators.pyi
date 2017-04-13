@@ -57,6 +57,8 @@ def group(
     short_help: str = None,
     options_metavar: str = '[OPTIONS]',
     add_help_option: bool = True,
+    # User-defined
+    **kwargs: Any,
 ) -> _Decorator:
     ...
 

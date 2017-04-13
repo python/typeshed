@@ -1,8 +1,9 @@
 # Stubs for typing (Python 2.7)
 
 from abc import abstractmethod, ABCMeta
+from types import CodeType, FrameType
 
-# Definitions of special type checking related constructs.  Their definition
+# Definitions of special type checking related constructs.  Their definitions
 # are not used, so their value does not matter.
 
 overload = object()
@@ -108,6 +109,10 @@ class Generator(Iterator[_T_co], Generic[_T_co, _T_contra, _V_co]):
 
     @abstractmethod
     def close(self) -> None: ...
+
+    gi_code = ...  # type: CodeType
+    gi_frame = ...  # type: FrameType
+    gi_running = ...  # type: bool
 
 class Container(Generic[_T_co]):
     @abstractmethod

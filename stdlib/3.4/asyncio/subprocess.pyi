@@ -13,6 +13,9 @@ DEVNULL = ...  # type: int
 
 class SubprocessStreamProtocol(streams.FlowControlMixin,
                                protocols.SubprocessProtocol):
+    stdin = ...  # type: Optional[streams.StreamWriter]
+    stdout = ...  # type: Optional[streams.StreamReader]
+    stderr = ...  # type: Optional[streams.StreamReader]
     def __init__(self, limit: int, loop: events.AbstractEventLoop) -> None: ...
     def connection_made(self, transport: transports.BaseTransport) -> None: ...
     def pipe_data_received(self, fd: int, data: AnyStr) -> None: ...
@@ -21,6 +24,10 @@ class SubprocessStreamProtocol(streams.FlowControlMixin,
 
 
 class Process:
+    stdin = ...  # type: Optional[streams.StreamWriter]
+    stdout = ...  # type: Optional[streams.StreamReader]
+    stderr = ...  # type: Optional[streams.StreamReader]
+    pid = ...  # type: int
     def __init__(self,
             transport: transports.BaseTransport,
             protocol: protocols.BaseProtocol,
