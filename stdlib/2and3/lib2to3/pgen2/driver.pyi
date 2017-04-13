@@ -5,12 +5,10 @@ import sys
 from typing import Any, Callable, IO, Iterable, List, Optional, Text, Tuple, Union
 
 from logging import Logger
-from lib2to3.pytree import _Context, _NL
+from lib2to3.pytree import _Convert, _NL
 from lib2to3.pgen2 import _Path
 from lib2to3.pgen2.grammar import Grammar
 
-_RawNode = Tuple[int, Text, _Context, Optional[List[_NL]]]
-_Convert = Callable[[Grammar, _RawNode], _NL]
 
 class Driver:
     grammar: Grammar

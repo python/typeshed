@@ -9,6 +9,8 @@ _P = TypeVar('_P')
 _NL = Union[Node, Leaf]
 _Context = Tuple[Text, int, int]
 _Results = Dict[Text, _NL]
+_RawNode = Tuple[int, Text, _Context, Optional[List[_NL]]]
+_Convert = Callable[[Grammar, _RawNode], Any]
 
 HUGE: int
 
@@ -55,7 +57,7 @@ class Leaf(Base):
     fixers_applied: List[Any]
     def __init__(self, type: int, value: Text, context: Optional[_Context] = ..., prefix: Optional[Text] = ..., fixers_applied: List[Any] = ...) -> None: ...
 
-def convert(gr: Grammar, raw_node: Tuple[int, Text, _Context, List[_NL]]) -> _NL: ...
+def convert(gr: Grammar, raw_node: _RawNode) -> _NL: ...
 
 class BasePattern:
     type: int

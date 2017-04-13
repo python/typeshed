@@ -2,9 +2,8 @@
 
 from typing import Any, Dict, List, Optional, Sequence, Set, Text, Tuple
 
-from lib2to3.pgen2.driver import _Convert, _RawNode
 from lib2to3.pgen2.grammar import Grammar, _DFAS
-from lib2to3.pytree import _NL
+from lib2to3.pytree import _NL, _Convert, _RawNode
 
 _Context = Sequence[Any]
 
