@@ -7,7 +7,7 @@
 
 from abc import ABCMeta
 import sys
-from typing import Any, Optional
+from typing import Dict, Any, Optional
 
 if sys.version_info >= (3, 4):
     class ModuleSpec:
@@ -26,6 +26,7 @@ if sys.version_info >= (3, 4):
 class ModuleType:
     __name__ = ...  # type: str
     __file__ = ...  # type: str
+    __dict__ = ...  # type: Dict[str, Any]
     if sys.version_info >= (3, 4):
         __loader__ = ...  # type: Optional[Loader]
         __package__ = ...  # type: Optional[str]
