@@ -1,5 +1,6 @@
 # Stubs for lib2to3.pytree (Python 3.6)
 
+import sys
 from typing import Any, Dict, Iterator, List, Optional, Text, Tuple, TypeVar, Union
 
 from lib2to3.pgen2.grammar import Grammar
@@ -16,6 +17,7 @@ def type_repr(type_num: int) -> Text: ...
 class Base:
     type: int
     parent: Optional[Node]
+    prefix: Text
     children: List[_NL]
     was_changed: bool
     was_checked: bool
@@ -35,9 +37,11 @@ class Base:
     def leaves(self) -> Iterator[Leaf]: ...
     def depth(self) -> int: ...
     def get_suffix(self) -> Text: ...
+    if sys.version_info < (3,):
+        def get_prefix(self) -> Text: ...
+        def set_prefix(self, prefix: Text) -> None: ...
 
 class Node(Base):
-    prefix: Text
     fixers_applied: List[Any]
     def __init__(self, type: int, children: List[_NL], context: Optional[Any] = ..., prefix: Optional[Text] = ..., fixers_applied: Optional[List[Any]] = ...) -> None: ...
     def set_child(self, i: int, child: _NL) -> None: ...
@@ -47,7 +51,6 @@ class Node(Base):
 class Leaf(Base):
     lineno: int
     column: int
-    prefix: Text
     value: Text
     fixers_applied: List[Any]
     def __init__(self, type: int, value: Text, context: Optional[_Context] = ..., prefix: Optional[Text] = ..., fixers_applied: List[Any] = ...) -> None: ...
