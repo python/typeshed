@@ -5,6 +5,7 @@
 # Only a subset of functionality is included.
 
 from typing import List, BinaryIO, TextIO, IO, overload, Iterator, Iterable, Any, Union, Optional
+import _io
 
 DEFAULT_BUFFER_SIZE = 0
 
@@ -13,9 +14,7 @@ def open(file: Union[str, unicode, int],
          errors: unicode = ..., newline: unicode = ...,
          closefd: bool = ...) -> IO[Any]: ...
 
-class IOBase:
-    # TODO
-    ...
+class IOBase(BinaryIO, _io._IOBase): ...
 
 class BytesIO(BinaryIO):
     def __init__(self, initial_bytes: str = ...) -> None: ...
