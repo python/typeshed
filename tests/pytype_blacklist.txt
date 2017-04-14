@@ -2,7 +2,6 @@
 
 stdlib/2/__builtin__.pyi
 stdlib/2/builtins.pyi
-stdlib/2/types.pyi
 stdlib/2/typing.pyi
 
 # Because of 'from . import path':
