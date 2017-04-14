@@ -675,11 +675,6 @@ class xrange(Sized, Iterable[int], Reversible[int]):
     def __getitem__(self, i: int) -> int: ...
     def __reversed__(self) -> Iterator[int]: ...
 
-class module:
-    __name__ = ...  # type: str
-    __file__ = ...  # type: str
-    __dict__ = ...  # type: Dict[unicode, Any]
-
 class property(object):
     def __init__(self, fget: Callable[[Any], Any] = None,
                  fset: Callable[[Any, Any], None] = None,

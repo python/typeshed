@@ -104,6 +104,7 @@ class ModuleType:
     __name__ = ...  # type: str
     __package__ = ...  # type: Optional[str]
     __path__ = ...  # type: Optional[Iterable[str]]
+    __dict__ = ...  # type: Dict[str, Any]
     def __init__(self, name: str, doc: Optional[str] = ...) -> None: ...
 FileType = file
 XRangeType = xrange
