@@ -10,7 +10,12 @@ from typing import (
 )
 
 _T = TypeVar('_T')
-_PathType = Union[bytes, Text]
+
+if sys.version_info >= (3, 6):
+    from builtins import _PathLike
+    _PathType = Union[bytes, Text, _PathLike]
+else:
+    _PathType = Union[bytes, Text]
 
 # ----- os.path variables -----
 supports_unicode_filenames = False
