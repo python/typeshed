@@ -38,7 +38,8 @@ def open(name: Optional[str] = ..., mode: str = ...,
         encoding: Optional[str] = ..., errors: str = ...,
         pax_headers: Optional[Mapping[str, str]] = ...,
         debug: Optional[int] = ...,
-        errorlevel: Optional[int] = ...) -> TarFile: ...
+        errorlevel: Optional[int] = ...,
+        compresslevel: Optional[int] = ...) -> TarFile: ...
 
 
 class TarFile(Iterable[TarInfo]):
@@ -64,7 +65,8 @@ class TarFile(Iterable[TarInfo]):
                  encoding: Optional[str] = ..., errors: str = ...,
                  pax_headers: Optional[Mapping[str, str]] = ...,
                  debug: Optional[int] = ...,
-                 errorlevel: Optional[int] = ...) -> None: ...
+                 errorlevel: Optional[int] = ...,
+                 compresslevel: Optional[int] = ...) -> None: ...
     def __enter__(self) -> TarFile: ...
     def __exit__(self,
                  exc_type: Optional[Type[BaseException]],
