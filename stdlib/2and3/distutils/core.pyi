@@ -41,8 +41,8 @@ def setup(name: str = ...,
           ext_package: str = ...,
           include_dirs: List[str] = ...,
           data_files: List[str] = ...,
-          password: str,
-          fullname: str) -> None: ...
+          password: str = ...,
+          fullname: str = ...) -> None: ...
 
 def run_setup(script_name: str,
               script_args: Optional[List[str]] = ...,
