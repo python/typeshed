@@ -76,7 +76,7 @@ requests.
 ## Running the tests
 
 The tests are automatically run by Travis CI on every PR and push to
-the repo.  There are two separate sets of tests: `tests/mypy_test.py`
+the repo.  There are several sets of tests: `tests/mypy_test.py`
 runs tests against [mypy](https://github.com/python/mypy/), while
 `tests/pytype_tests.py` runs tests against
 [pytype](https://github.com/google/pytype/).
@@ -87,8 +87,14 @@ imported but they don't check whether stubs match their implementation
 that each set of tests has a blacklist of modules that are not tested
 at all.  The blacklists also live in the tests directory.
 
+In addition, you can run `tests/mypy_selftest.py` to run mypy's own
+test suite using the typeshed code in your repo. This will sometimes
+catch issues with incorrectly typed stubs, but is much slower than the
+other tests.
+
 To manually run the mypy tests, you need to have Python 3.5 or higher;
 Python 3.6.1 or higher is recommended.
+
 Run:
 ```
 $ python3.6 -m venv .venv3
@@ -100,6 +106,8 @@ typed-ast, and flake8. You can then run mypy tests and flake8 tests by
 invoking:
 ```
 (.venv3)$ python3 tests/mypy_test.py
+...
+(.venv3)$ python tests/mypy_selftest.py
 ...
 (.venv3)$ flake8
 ...
