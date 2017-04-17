@@ -29,7 +29,21 @@ def setup(name: str = ...,
           platforms: Union[List[str], str] = ...,
           cmdclass: Mapping[str, Command] = ...,
           data_files: List[Tuple[str, List[str]]] = ...,
-          package_dir: Mapping[str, str] = ...) -> None: ...
+          package_dir: Mapping[str, str] = ...,
+          obsoletes: List[str] = ...,
+          provides: List[str] = ...,
+          requires: List[str] = ...,
+          command_packages: List[str] = ...,
+          command_options: Dict[str, Dict[str, Tuple[Any, Any]]] = ...,
+          package_data: Dict[str, List[str]] = ...,
+          libraries: List[str] = ...,
+          headers: List[str] = ...,
+          ext_package: str = ...,
+          include_dirs: List[str] = ...,
+          data_files: List[str] = ...,
+          password: str,
+          fullname: str) -> None: ...
+
 def run_setup(script_name: str,
               script_args: Optional[List[str]] = ...,
               stop_after: str = ...) -> Distribution: ...
