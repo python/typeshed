@@ -1,6 +1,6 @@
 # Stubs for sets (Python 2)
 
-from typing import Any, Callable, Hashable, Iterable, Iterator, Mapping, Optional, Union
+from typing import Any, Callable, Hashable, Iterable, Iterator, Mapping, Optional, TypeVar, Union
 
 T = TypeVar('T')
 Setlike = Union['BaseSet', Iterable]
