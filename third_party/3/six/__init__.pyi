@@ -40,9 +40,9 @@ PY2 = False
 PY3 = True
 PY34 = ...  # type: bool
 
-string_types = str,
-integer_types = int,
-class_types = type,
+string_types = str
+integer_types = int
+class_types = type
 text_type = str
 binary_type = bytes
 
