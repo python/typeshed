@@ -34,6 +34,7 @@ if sys.version_info >= (3, 5):
 
 if sys.version_info >= (3, 6):
     from . import (
+        Collection as Collection,
         Reversible as Reversible,
         AsyncGenerator as AsyncGenerator,
     )

@@ -38,7 +38,10 @@ from typing import (
     AbstractSet as Set,
 )
 if sys.version_info >= (3, 6):
-    from typing import AsyncGenerator as AsyncGenerator
+    from typing import (
+        Collection as Collection,
+        AsyncGenerator as AsyncGenerator,
+    )
 
 _T = TypeVar('_T')
 _KT = TypeVar('_KT')
