@@ -13,10 +13,6 @@ from builtins import map as map
 from os import getcwd as getcwd
 from os import getcwdb as getcwdb
 from builtins import range as range
-if sys.version_info >= (3, 4):
-    from importlib import reload as reload_module
-else:
-    from imp import reload as reload_module
 from functools import reduce as reduce
 from shlex import quote as shlex_quote
 from io import StringIO as StringIO
@@ -69,3 +65,8 @@ import six.moves.urllib as urllib
 import urllib.robotparser as urllib_robotparser
 # import xmlrpc.client as xmlrpc_client
 # import xmlrpc.server as xmlrpc_server
+
+if sys.version_info >= (3, 4):
+    from importlib import reload as reload_module
+else:
+    from imp import reload as reload_module
