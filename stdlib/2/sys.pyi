@@ -5,6 +5,7 @@ from typing import (
     overload, Type,
 )
 from types import FrameType, ModuleType, TracebackType, ClassType
+from mypy_extensions import NoReturn
 
 class _flags:
     bytes_warning = ...  # type: int
@@ -118,7 +119,7 @@ def exc_info() -> Tuple[Optional[Type[BaseException]],
                         Optional[TracebackType]]: ...
 
 # sys.exit() accepts an optional argument of anything printable
-def exit(arg: Any = ...) -> None:
+def exit(arg: Any = ...) -> NoReturn:
     raise SystemExit()
 def getcheckinterval() -> int: ...  # deprecated
 def getdefaultencoding() -> str: ...

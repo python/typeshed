@@ -1,5 +1,6 @@
 """The asyncio package, tracking PEP 3156."""
 
+import socket
 import sys
 from typing import Type
 
@@ -47,6 +48,7 @@ from asyncio.tasks import (
     ALL_COMPLETED as ALL_COMPLETED,
     as_completed as as_completed,
     ensure_future as ensure_future,
+    ensure_future as async,
     gather as gather,
     run_coroutine_threadsafe as run_coroutine_threadsafe,
     shield as shield,
@@ -72,7 +74,6 @@ from asyncio.queues import (
     Queue as Queue,
     PriorityQueue as PriorityQueue,
     LifoQueue as LifoQueue,
-    JoinableQueue as JoinableQueue,
     QueueFull as QueueFull,
     QueueEmpty as QueueEmpty,
 )
@@ -83,6 +84,14 @@ from asyncio.locks import (
     Semaphore as Semaphore,
     BoundedSemaphore as BoundedSemaphore,
 )
+
+if sys.version_info < (3, 5):
+    from asyncio.queues import JoinableQueue as JoinableQueue
+if sys.platform != 'win32':
+    from asyncio.streams import (
+        open_unix_connection as open_unix_connection,
+        start_unix_server as start_unix_server,
+    )
 
 # TODO: It should be possible to instantiate these classes, but mypy
 # currently disallows this.

@@ -5,10 +5,11 @@ from __future__ import print_function
 import types
 from typing import (
     Any, AnyStr, Callable, Dict, Iterable, Mapping, Optional,
-    Pattern, Tuple, TypeVar, Union, overload, ValuesView, KeysView, ItemsView
+    Pattern, Tuple, Type, TypeVar, Union, overload, ValuesView, KeysView, ItemsView
 )
 import typing
 import unittest
+from mypy_extensions import NoReturn
 
 # Exports
 from __builtin__ import unichr as unichr
@@ -26,7 +27,7 @@ PY2 = True
 PY3 = False
 PY34 = False
 
-string_types = basestring,
+string_types = (str, unicode)
 integer_types = (int, long)
 class_types = (type, types.ClassType)
 text_type = unicode
@@ -79,7 +80,7 @@ def assertRaisesRegex(self: unittest.TestCase, msg: str = ...) -> Any: ...
 def assertRaisesRegex(self: unittest.TestCase, callable_obj: Callable[..., Any], *args: Any, **kwargs: Any) -> Any: ...
 def assertRegex(self: unittest.TestCase, text: AnyStr, expected_regex: Union[AnyStr, Pattern[AnyStr]], msg: str = ...) -> None: ...
 
-def reraise(tp: type, value: Optional[BaseException], tb: Optional[types.TracebackType] = ...) -> None: ...
+def reraise(tp: Optional[Type[BaseException]], value: Optional[BaseException], tb: Optional[types.TracebackType] = ...) -> NoReturn: ...
 def exec_(_code_: Union[unicode, types.CodeType], _globs_: Dict[str, Any] = ..., _locs_: Dict[str, Any] = ...): ...
 def raise_from(value: BaseException, from_value: BaseException) -> None: ...
 

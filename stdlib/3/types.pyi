@@ -27,6 +27,8 @@ class FunctionType:
     __dict__ = ...  # type: Dict[str, Any]
     __globals__ = ...  # type: Dict[str, Any]
     __name__ = ...  # type: str
+    __annotations__ = ...  # type: Dict[str, Any]
+    __kwdefaults__ = ...  # type: Dict[str, Any]
     def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
     def __get__(self, obj: Optional[object], type: Optional[type]) -> 'MethodType': ...
 LambdaType = FunctionType
@@ -127,7 +129,7 @@ class FrameType:
     f_locals = ...  # type: Dict[str, Any]
     f_trace = ...  # type: Callable[[], None]
 
-    def clear(self) -> None: pass
+    def clear(self) -> None: ...
 
 class GetSetDescriptorType:
     __name__ = ...  # type: str

@@ -46,7 +46,6 @@ if sys.version_info >= (3, 4):
                                capath: Optional[str] = ...,
                                cadata: Optional[str] = ...) -> 'SSLContext': ...
 
-if sys.version_info >= (3, 4, 3):
     def _create_unverified_context(protocol: int = ..., *,
                                    cert_reqs: int = ...,
                                    check_hostname: bool = ...,
@@ -94,7 +93,6 @@ if sys.version_info >= (3, 4):
     VERIFY_CRL_CHECK_LEAF = ...  # type: int
     VERIFY_CRL_CHECK_CHAIN = ...  # type: int
     VERIFY_X509_STRICT = ...  # type: int
-if sys.version_info >= (3, 4, 4):
     VERIFY_X509_TRUSTED_FIRST = ...  # type: int
 
 PROTOCOL_SSLv23 = ...  # type: int
@@ -229,7 +227,7 @@ class SSLContext:
     def wrap_socket(self, sock: socket.socket, server_side: bool = ...,
                     do_handshake_on_connect: bool = ...,
                     suppress_ragged_eofs: bool = ...,
-                    server_hostname: Optional[str] = ...) -> 'SSLContext': ...
+                    server_hostname: Optional[str] = ...) -> SSLSocket: ...
     if sys.version_info >= (3, 5):
         def wrap_bio(self, incoming: 'MemoryBIO', outgoing: 'MemoryBIO',
                      server_side: bool = ...,

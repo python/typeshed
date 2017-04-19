@@ -9,6 +9,7 @@ from typing import (
     Mapping,
     Optional,
     Sequence,
+    Set,
     Tuple,
     TypeVar,
     Union,
@@ -238,8 +239,8 @@ class Command(BaseCommand):
         ...
 
 
-T = TypeVar('T')
-Decorator = Callable[[T], T]
+_T = TypeVar('_T')
+_Decorator = Callable[[_T], _T]
 
 
 class MultiCommand(Command):
@@ -263,7 +264,7 @@ class MultiCommand(Command):
 
     def resultcallback(
         self, replace: bool = False
-    ) -> Decorator:
+    ) -> _Decorator:
         ...
 
     def format_commands(self, ctx: Context, formatter: HelpFormatter) -> None:
@@ -292,10 +293,10 @@ class Group(MultiCommand):
     def add_command(self, cmd: Command, name: str = None):
         ...
 
-    def command(self, *args, **kwargs) -> Decorator:
+    def command(self, *args, **kwargs) -> _Decorator:
         ...
 
-    def group(self, *args, **kwargs) -> Decorator:
+    def group(self, *args, **kwargs) -> _Decorator:
         ...
 
 

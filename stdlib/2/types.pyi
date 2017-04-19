@@ -3,7 +3,7 @@
 
 from typing import (
     Any, Callable, Dict, Iterable, Iterator, List, Optional,
-    Tuple, TypeVar, Union, overload,
+    Tuple, Type, TypeVar, Union, overload,
 )
 
 _T = TypeVar('_T')
@@ -13,17 +13,18 @@ TypeType = type
 ObjectType = object
 
 IntType = int
-LongType = long
+LongType = int  # Really long, but can't reference that due to a mypy import cycle
 FloatType = float
 BooleanType = bool
 ComplexType = complex
 StringType = str
 UnicodeType = unicode
-StringTypes = (StringType, UnicodeType)
+StringTypes = ...  # type: Tuple[Type[StringType], Type[UnicodeType]]
 BufferType = buffer
 TupleType = tuple
 ListType = list
-DictType = DictionaryType = dict
+DictType = dict
+DictionaryType = dict
 
 class _Cell:
     cell_contents = ...  # type: Any
@@ -84,7 +85,12 @@ class UnboundMethodType:
     __func__ = im_func
     __self__ = im_self
     def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
-class InstanceType: ...
+
+class InstanceType:
+    __doc__ = ...  # type: Optional[str]
+    __class__ = ...  # type: type
+    __module__ = ...  # type: Any
+
 MethodType = UnboundMethodType
 
 class BuiltinFunctionType:
@@ -98,7 +104,8 @@ class ModuleType:
     __name__ = ...  # type: str
     __package__ = ...  # type: Optional[str]
     __path__ = ...  # type: Optional[Iterable[str]]
-    def __init__(self, name: str, doc: str) -> None: ...
+    __dict__ = ...  # type: Dict[str, Any]
+    def __init__(self, name: str, doc: Optional[str] = ...) -> None: ...
 FileType = file
 XRangeType = xrange
 
@@ -122,7 +129,7 @@ class FrameType:
     f_restricted = ...  # type: bool
     f_trace = ...  # type: Callable[[], None]
 
-    def clear(self) -> None: pass
+    def clear(self) -> None: ...
 
 SliceType = slice
 class EllipsisType: ...
