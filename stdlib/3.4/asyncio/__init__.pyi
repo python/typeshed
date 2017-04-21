@@ -41,6 +41,7 @@ from asyncio.futures import (
     CancelledError as CancelledError,
     TimeoutError as TimeoutError,
     InvalidStateError as InvalidStateError,
+    wrap_future as wrap_future,
 )
 from asyncio.tasks import (
     FIRST_COMPLETED as FIRST_COMPLETED,
