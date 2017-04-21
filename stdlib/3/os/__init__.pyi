@@ -118,7 +118,7 @@ TMP_MAX = 0  # Undocumented, but used by tempfile
 if sys.version_info >= (3, 6):
     from builtins import _PathLike as PathLike  # See comment in builtins
 
-_PathType = Union[bytes, Text]
+_PathType = path._PathType
 
 if sys.version_info >= (3, 6):
     class DirEntry(PathLike[AnyStr]):
