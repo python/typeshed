@@ -6,6 +6,7 @@ from concurrent.futures._base import (
 from concurrent.futures import (
     CancelledError as CancelledError,
     TimeoutError as TimeoutError,
+    Future as ConcurrentFuture,
 )
 
 __all__ = ...  # type: str
@@ -44,3 +45,5 @@ class Future(Iterable[_T], Awaitable[_T], Generic[_T]):
     def _copy_state(self, other: Any) -> None: ...
     def __iter__(self) -> Generator[Any, None, _T]: ...
     def __await__(self) -> Generator[Any, None, _T]: ...
+
+def wrap_future(f: Union[ConcurrentFuture[_T], Future[_T]]) -> Future[_T]: ...
