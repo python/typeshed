@@ -14,6 +14,8 @@ are important to the project's success.
     * [Contact us](#discussion) before starting significant work.
     * IMPORTANT: For new libraries, [get permission from the library owner first](#adding-a-new-library).
     * Create your stubs [conforming to the coding style](#stub-file-coding-style).
+    * Add tests for your stubs to `test_data`. These tests are not meant
+      to be executable. Type checkers analyze them statically.
     * Make sure `runtests.sh` passes cleanly on Mypy, pytype, and flake8.
 4. [Submit your changes](#submitting-changes):
     * Open a pull request
