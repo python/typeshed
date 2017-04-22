@@ -58,8 +58,7 @@ class _mmap(Generic[_T]):
     def __len__(self) -> int: ...
 
 if sys.version_info >= (3,):
-    class mmap(_mmap, _ContextManager[mmap], Iterable[bytes], Container[bytes],
-               Sized, Reversible[bytes]):
+    class mmap(_mmap, _ContextManager[mmap], Iterable[bytes], Sized):
         closed = ...  # type: bool
         def rfind(self, sub: bytes, start: int = ..., stop: int = ...) -> int: ...
         @overload
@@ -71,6 +70,9 @@ if sys.version_info >= (3,):
         def __setitem__(self, index: int, object: int) -> None: ...
         @overload
         def __setitem__(self, index: slice, object: bytes) -> None: ...
+        # Doesn't actually exist, but the object is actually iterable because it has __getitem__ and
+        # __len__, so we claim that there is also an __iter__ to help type checkers.
+        def __iter__(self) -> Iterator[bytes]: ...
 else:
     class mmap(_mmap, Sequence[bytes]):
         def rfind(self, string: bytes, start: int = ..., stop: int = ...) -> int: ...
