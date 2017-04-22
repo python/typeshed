@@ -7,8 +7,10 @@ from typing import Any, IO, List, Optional, Tuple, TypeVar, Union
 
 from _imp import (lock_held as lock_held, acquire_lock as acquire_lock, release_lock as release_lock,
                   get_frozen_object as get_frozen_object, is_frozen_package as is_frozen_package,
-                  init_frozen as init_frozen, is_builtin as is_builtin, is_frozen as is_frozen,
-                  create_dynamic as create_dynamic)
+                  init_frozen as init_frozen, is_builtin as is_builtin, is_frozen as is_frozen)
+
+if sys.version_info >= (3, 5):
+    from _imp import create_dynamic as create_dynamic
 
 _T = TypeVar('_T')
 
