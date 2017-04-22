@@ -4,7 +4,7 @@ from datetime import date, datetime, timedelta
 __all__ = ...  # type: List[str]
 
 _SelfT = TypeVar('_SelfT', bound=relativedelta)
-_DateT = TypeVar('_DateT', bound=date)
+_DateT = TypeVar('_DateT', date, datetime)
 
 
 class weekday(object):
@@ -52,7 +52,7 @@ class relativedelta(object):
     @weeks.setter
     def weeks(self, value: int) -> None: ...
 
-    def normalized(self) -> 'relativedelta': ...
+    def normalized(self: _SelfT) -> _SelfT: ...
 
     @overload
     def __add__(self: _SelfT, other: relativedelta) -> _SelfT: ...
