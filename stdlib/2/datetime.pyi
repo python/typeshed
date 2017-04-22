@@ -134,7 +134,7 @@ class timedelta(SupportsAbs[timedelta]):
     def __gt__(self, other: timedelta) -> bool: ...
     def __hash__(self) -> int: ...
 
-class datetime:
+class datetime(object):
     # TODO: is actually subclass of date, but __le__, __lt__, __ge__, __gt__, __sub__ don't work with date.
     min = ...  # type: datetime
     max = ...  # type: datetime
