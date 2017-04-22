@@ -3,7 +3,7 @@
 import sys
 from types import TracebackType
 from typing import (Optional, Sequence, Union, Generic, TypeVar, overload,
-                    Iterable, Container, Sized, Reversible, Type)
+                    Iterable, Iterator, Sized, Type)
 
 
 _T = TypeVar('_T', str, bytes)
