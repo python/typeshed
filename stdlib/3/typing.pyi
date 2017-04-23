@@ -2,7 +2,7 @@
 
 import sys
 from abc import abstractmethod, ABCMeta
-from types import CodeType, FrameType
+from types import CodeType, FrameType, TracebackType
 
 # Definitions of special type checking related constructs.  Their definition
 # are not used, so their value does not matter.
@@ -281,7 +281,12 @@ class ValuesView(MappingView, Iterable[_VT_co], Generic[_VT_co]):
     def __contains__(self, o: object) -> bool: ...
     def __iter__(self) -> Iterator[_VT_co]: ...
 
-# TODO: ContextManager (only if contextlib.AbstractContextManager exists)
+if sys.version_info >= (3, 6):
+    class ContextManager(Generic[_T]):
+        def __enter__(self) -> _T: ...
+        def __exit__(self, exc_type: Optional[Type[BaseException]],
+                     exc_val: Optional[BaseException],
+                     exc_tb: Optional[TracebackType]) -> bool: ...
 
 class Mapping(_Collection[_KT], Generic[_KT, _VT_co]):
     # TODO: We wish the key type could also be covariant, but that doesn't work,
