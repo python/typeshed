@@ -2,16 +2,28 @@
 
 # Based on http://docs.python.org/2.7/library/collections.html
 
-# TODO more abstract base classes (interfaces in mypy)
+# These are not exported.
+from typing import Any, Dict, Generic, TypeVar, Tuple, overload, Type, Optional, List, Union, Reversible
 
-# NOTE: These are incomplete!
-
+# These are exported.
 from typing import (
-    Any, Container, Dict, Generic, TypeVar, Iterable, Tuple, Callable, Mapping, overload,
-    Iterator, Type, Sized, Optional, List, Set, Sequence, Union, Reversible,
-    MutableMapping, MutableSet, MutableSequence,
+    Callable as Callable,
+    Container as Container,
+    Hashable as Hashable,
+    ItemsView as ItemsView,
+    Iterable as Iterable,
+    Iterator as Iterator,
+    KeysView as KeysView,
+    Mapping as Mapping,
+    MappingView as MappingView,
+    MutableMapping as MutableMapping,
+    MutableSequence as MutableSequence,
+    MutableSet as MutableSet,
+    Sequence as Sequence,
+    AbstractSet as Set,
+    Sized as Sized,
+    ValuesView as ValuesView,
 )
-import typing
 
 _T = TypeVar('_T')
 _KT = TypeVar('_KT')
