@@ -1,6 +1,6 @@
 # Stubs for SimpleHTTPServer (Python 2)
 
-from typing import Any, AnyStr, IO, Mapping, Optional
+from typing import Any, AnyStr, IO, Mapping, Optional, Union
 import BaseHTTPServer
 from StringIO import StringIO
 
