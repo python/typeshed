@@ -20,7 +20,7 @@ _VT = TypeVar('_VT')
 class _Cell:
     cell_contents = ...  # type: Any
 
-class FunctionType:
+class FunctionType(Callable):
     __closure__ = ...  # type: Optional[Tuple[_Cell, ...]]
     __code__ = ...  # type: CodeType
     __defaults__ = ...  # type: Optional[Tuple[Any, ...]]
@@ -104,7 +104,7 @@ class CoroutineType:
     @overload
     def throw(self, typ: type, val: BaseException = ..., tb: 'TracebackType' = ...) -> Any: ...
 
-class MethodType:
+class MethodType(Callable):
     __func__ = ...  # type: FunctionType
     __self__ = ...  # type: object
     def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
