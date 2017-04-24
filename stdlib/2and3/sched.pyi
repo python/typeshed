@@ -3,12 +3,13 @@
 import sys
 from typing import Any, Callable, Dict, List, NamedTuple, Text, Tuple
 
-class Event(NamedTuple):
-    time: float
-    priority: Any
-    action: Callable[..., Any]
-    argument: Tuple[Any, ...]
-    kwargs: Dict[Text, Any]
+Event = NamedTuple('Event', [
+    ('time', float),
+    ('priority', Any),
+    ('action', Callable[..., Any]),
+    ('argument', Tuple[Any, ...]),
+    ('kwargs', Dict[Text, Any]),
+])
 
 class scheduler:
     if sys.version_info >= (3, 3):
