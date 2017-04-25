@@ -9,7 +9,7 @@ from ssl import SSLContext
 from StringIO import StringIO
 from gzip import GzipFile
 
-_Unmarshaller = TypeVar('_Unmarshaller')
+_Unmarshaller = Any
 _timeTuple = Tuple[int, int, int, int, int, int, int, int, int]
 # Represents types that can be compared against a DateTime object
 _dateTimeComp = Union[AnyStr, DateTime, datetime, _timeTuple]
