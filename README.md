@@ -28,13 +28,15 @@ of the stub files.
 The below is an excerpt from the types for the `datetime` module.
 
 ```python
+from typing import Union
+
 MAXYEAR = ...  # type: int
 MINYEAR = ...  # type: int
 
 class date(object):
     def __init__(self, year: int, month: int, day: int) -> None: ...
     @classmethod
-    def fromtimestamp(cls, timestamp: int or float) -> date: ...
+    def fromtimestamp(cls, timestamp: Union[int, float]) -> date: ...
     @classmethod
     def fromordinal(cls, ordinal: int) -> date: ...
     @classmethod
