@@ -7,9 +7,9 @@ from typing import Any, Dict, IO, Iterable, List, Text, Tuple, TypeVar, Union, o
 _Selector = Union[str, float, int]
 _T = TypeVar('_T', bound='Stats')
 if sys.version_info >= (3, 6):
-    _Path = Union[str, bytes, os.PathLike[Any]]
+    _Path = Union[bytes, Text, os.PathLike[Any]]
 else:
-    _Path = Union[str, bytes]
+    _Path = Union[bytes, Text]
 
 class Stats:
     def __init__(self: _T, __arg: Union[None, str, Text, Profile, cProfile] = ...,
