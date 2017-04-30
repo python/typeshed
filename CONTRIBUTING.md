@@ -217,23 +217,25 @@ project's tracker to fix their documentation.
 
 ## Issue-tracker conventions
 
-We aim to reply to all new issues promptly.  We'll assign a milestone
-to help us track which issues we intend to get to when, and may apply
-labels to carry some other information.  Here's what our milestones
-and labels mean.
+We aim to reply to all new issues promptly.  We'll assign one or more
+labels to to indicate we've triaged an issue, but most typeshed issues
+are relatively simple (stubs for a given module or package are
+missing, incomplete or incorrect) and we won't add noise to the
+tracker by labeling all of them.  Here's what our labels mean.  (We
+also apply these to pull requests.)
 
-### Labels
-
-* **needs discussion**: This issue needs agreement on some kind of
-  design before it makes sense to implement it, and it either doesn't
-  yet have a design or doesn't yet have agreement on one.
-* **help wanted**: This issue could use a volunteer willing to implement
-  it. Those issues can be great starting points for new contributors!
-* **enhancement**, **bug**, **refactoring**: These classify the
-  user-facing impact of the change.  Specifically "refactoring" means
-  there should be no user-facing effect.
-* **duplicate**, **wontfix**: These identify issues that we've closed
-  for the respective reasons.
+* **blocked**: This issue is waiting for the resolution of some issue
+    external to typeshed.
+* **bug**: It's a bug in a stub.
+* **bytes-unicode**: It's related to bytes vs. unicode, usually Python 2.
+* **feature**: It's a new typeshed feature.
+* **priority-high**: This issue is more important than most.
+* **priority-low**: This issue is less important than most.
+* **priority-normal**: This issue has average priority.
+* **question**: Not really an issue, but a question on how to do something.
+* **size-large**: An issue of high complexity or affecting many files.
+* **size-medium**: An issue of average complexity.
+* **size-small**: An issue that will take only little effort to fix.
 
 ### Core developer guidelines
 
