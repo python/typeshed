@@ -4,7 +4,7 @@ from mypy_extensions import NoReturn
 import socket
 import ssl
 import sys
-from typing import Any, BinaryIO, Dict, List, Optional, Pattern, Text, Tuple
+from typing import Any, BinaryIO, Dict, List, Optional, overload, Pattern, Text, Tuple
 
 _LongResp = Tuple[bytes, List[bytes], int]
 
@@ -49,7 +49,12 @@ class POP3:
     else:
         def apop(self, user: Text, password: Text) -> bytes: ...
     def top(self, which: Any, howmuch: int) -> _LongResp: ...
-    def uidl(self, which: Optional[Any] = ...) -> _LongResp: ...
+
+    @overload
+    def uidl(self) -> _LongResp: ...
+    @overload
+    def uidl(self, which: Any) -> bytes: ...
+
     if sys.version_info >= (3, 5):
         def utf8(self) -> bytes: ...
     if sys.version_info >= (3, 4):
