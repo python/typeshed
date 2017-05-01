@@ -1,4 +1,4 @@
-from typing import Dict, Type, TypeVar, Union, Callable
+from typing import Dict, Type, TypeVar, Union, Callable, Any
 
 _T = TypeVar('_T')
 
@@ -10,4 +10,4 @@ def TypedDict(typename: str, fields: Dict[str, Type[_T]]) -> Type[dict]: ...
 # distinguish the None type from the None value.
 NoReturn = Union[None]
 
-def decorated_type(t: Type) -> Callable[[_T], _T]: pass
+def decorated_type(t: Type[Any]) -> Callable[[_T], _T]: ...
