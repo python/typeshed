@@ -4,7 +4,7 @@ from mypy_extensions import NoReturn
 import socket
 import ssl
 import sys
-from typing import Any, BinaryIO, Dict, List, Optional, Pattern, Text, Tuple
+from typing import Any, BinaryIO, Dict, List, Optional, overload, Pattern, Text, Tuple
 
 _LongResp = Tuple[bytes, List[bytes], int]
 
