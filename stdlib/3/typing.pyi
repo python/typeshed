@@ -285,8 +285,8 @@ if sys.version_info >= (3, 6):
     class ContextManager(Generic[_T]):
         def __enter__(self) -> _T: ...
         def __exit__(self, exc_type: Optional[Type[BaseException]],
-                     exc_val: Optional[BaseException],
-                     exc_tb: Optional[TracebackType]) -> bool: ...
+                     exc_value: Optional[BaseException],
+                     traceback: Optional[TracebackType]) -> Optional[bool]: ...
 
 class Mapping(_Collection[_KT], Generic[_KT, _VT_co]):
     # TODO: We wish the key type could also be covariant, but that doesn't work,
