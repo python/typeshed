@@ -2,18 +2,18 @@
 
 # Based on http://docs.python.org/3.2/library/collections.html
 
-# TODO more abstract base classes (interfaces in mypy)
-
 # These are not exported.
 import sys
 import typing
 from typing import (
     TypeVar, Generic, Dict, overload, List, Tuple,
-    Callable, Any, Type, Optional, Union
+    Any, Type, Optional, Union
 )
 # These are exported.
-# TODO reexport more.
+from . import abc
+
 from typing import (
+    Callable as Callable,
     Container as Container,
     Hashable as Hashable,
     Iterable as Iterable,
@@ -21,10 +21,6 @@ from typing import (
     Sized as Sized,
     Generator as Generator,
     ByteString as ByteString,
-    Awaitable as Awaitable,
-    Coroutine as Coroutine,
-    AsyncIterable as AsyncIterable,
-    AsyncIterator as AsyncIterator,
     Reversible as Reversible,
     Mapping as Mapping,
     MappingView as MappingView,
@@ -41,6 +37,13 @@ if sys.version_info >= (3, 6):
     from typing import (
         Collection as Collection,
         AsyncGenerator as AsyncGenerator,
+    )
+if sys.version_info >= (3, 5):
+    from typing import (
+        Awaitable as Awaitable,
+        Coroutine as Coroutine,
+        AsyncIterable as AsyncIterable,
+        AsyncIterator as AsyncIterator,
     )
 
 _T = TypeVar('_T')
