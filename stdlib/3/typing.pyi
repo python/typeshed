@@ -127,7 +127,7 @@ class Generator(Iterator[_T_co], Generic[_T_co, _T_contra, _V_co]):
     gi_yieldfrom = ...  # type: Optional[Generator]
 
 # TODO: Several types should only be defined if sys.python_version >= (3, 5):
-# Awaitable, AsyncIterator, AsyncIterable, Coroutine, Collection, ContextManager.
+# Awaitable, AsyncIterator, AsyncIterable, Coroutine, Collection.
 # See https: //github.com/python/typeshed/issues/655 for why this is not easy.
 
 class Awaitable(Generic[_T_co]):
