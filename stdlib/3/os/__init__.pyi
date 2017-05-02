@@ -118,7 +118,7 @@ TMP_MAX = 0  # Undocumented, but used by tempfile
 if sys.version_info >= (3, 6):
     from builtins import _PathLike as PathLike  # See comment in builtins
 
-_PathType = Union[bytes, Text]
+_PathType = path._PathType
 
 if sys.version_info >= (3, 6):
     class DirEntry(PathLike[AnyStr]):
@@ -428,7 +428,8 @@ if sys.version_info >= (3, 3):
               dir_fd: int = ...) -> Iterator[Tuple[AnyStr, List[AnyStr],
                                              List[AnyStr], int]]: ...  # Unix only
 
-    def get_terminal_size(fd: int = ...) -> Tuple[int, int]: ...
+    terminal_size = NamedTuple('terminal_size', [('columns', int), ('lines', int)])
+    def get_terminal_size(fd: int = ...) -> terminal_size: ...
 
 if sys.version_info >= (3, 4):
     def cpu_count() -> Optional[int]: ...

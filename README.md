@@ -11,6 +11,8 @@ For information on how to use `typeshed`, read below.  Information for
 contributors can be found in [CONTRIBUTING.md](CONTRIBUTING.md).  **Please read
 it before submitting pull requests.**
 
+Typeshed supports Python versions 2.7 and 3.3 and up.
+
 ## Format
 
 Each Python module is represented by a `.pyi` "stub". This is a normal Python
@@ -26,13 +28,15 @@ of the stub files.
 The below is an excerpt from the types for the `datetime` module.
 
 ```python
+from typing import Union
+
 MAXYEAR = ...  # type: int
 MINYEAR = ...  # type: int
 
 class date(object):
     def __init__(self, year: int, month: int, day: int) -> None: ...
     @classmethod
-    def fromtimestamp(cls, timestamp: int or float) -> date: ...
+    def fromtimestamp(cls, timestamp: Union[int, float]) -> date: ...
     @classmethod
     def fromordinal(cls, ordinal: int) -> date: ...
     @classmethod
