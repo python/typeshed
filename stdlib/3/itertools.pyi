@@ -3,7 +3,7 @@
 # Based on http://docs.python.org/3.2/library/itertools.html
 
 from typing import (Iterator, TypeVar, Iterable, overload, Any, Callable, Tuple,
-                    Union, Sequence, Generic, Optional)
+                    Generic, Optional)
 
 _T = TypeVar('_T')
 _S = TypeVar('_S')
@@ -48,10 +48,6 @@ def starmap(func: Callable[..., _S], iterable: Iterable[Iterable[Any]]) -> Itera
 def takewhile(predicate: Callable[[_T], Any],
               iterable: Iterable[_T]) -> Iterator[_T]: ...
 def tee(iterable: Iterable[_T], n: int = ...) -> Tuple[Iterator[_T], ...]: ...
-@overload
-def zip_longest(*p: Iterable[_T],
-                fillvalue: _S = ...) -> Iterator[Union[_T, _S]]: ...
-@overload
 def zip_longest(*p: Iterable[Any],
                 fillvalue: Any = ...) -> Iterator[Any]: ...
 
