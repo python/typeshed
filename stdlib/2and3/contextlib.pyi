@@ -10,6 +10,9 @@ import sys
 
 _T = TypeVar('_T')
 
+if sys.version_info >= (3, 7):
+    from typing import AsyncContextManager as AbstractAsyncContextManager
+
 if sys.version_info >= (3, 6):
     from typing import ContextManager as AbstractContextManager
     _ContextManager = AbstractContextManager

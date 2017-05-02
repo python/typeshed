@@ -288,6 +288,12 @@ if sys.version_info >= (3, 6):
                      exc_value: Optional[BaseException],
                      traceback: Optional[TracebackType]) -> Optional[bool]: ...
 
+if sys.version_info >= (3, 5):
+    class AsyncContextManager(Generic[_T]):
+        async def __aenter__(self) -> _T: ...
+        async def __aexit__(self, exc_type: Optional[Type[BaseException]], exc_value: Optional[BaseException],
+                            traceback: Optional[TracebackType]) -> Optional[bool]: ...
+
 class Mapping(_Collection[_KT], Generic[_KT, _VT_co]):
     # TODO: We wish the key type could also be covariant, but that doesn't work,
     # see discussion in https: //github.com/python/typing/pull/273.
