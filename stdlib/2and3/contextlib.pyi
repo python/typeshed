@@ -6,6 +6,8 @@ from typing import (
 )
 from types import TracebackType
 import sys
+if sys.version_info >= (3, 7):
+    from typing import AsyncIterator
 
 
 _T = TypeVar('_T')
@@ -34,6 +36,9 @@ if sys.version_info >= (3, 2):
     def contextmanager(func: Callable[..., Iterator[_T]]) -> Callable[..., GeneratorContextManager[_T]]: ...
 else:
     def contextmanager(func: Callable[..., Iterator[_T]]) -> Callable[..., _ContextManager[_T]]: ...
+
+if sys.version_info >= (3, 7):
+    def asynccontextmanager(func: Callable[..., AsyncIterator[_T]]) -> Callable[..., AbstractAsyncContextManager[_T]]: ...
 
 if sys.version_info < (3,):
     def nested(*mgr: _ContextManager[Any]) -> _ContextManager[Iterable[Any]]: ...
