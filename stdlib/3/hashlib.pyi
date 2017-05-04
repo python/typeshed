@@ -37,8 +37,6 @@ def new(name: str, data: _DataType = ...) -> Hash: ...
 algorithms_guaranteed = ...  # type: AbstractSet[str]
 algorithms_available = ...  # type: AbstractSet[str]
 
-# New in version 3.4, rounds renamed to iterations in 3.5
-if sys.version_info >= (3, 5):
+# New in version 3.4
+if sys.version_info >= (3, 4):
     def pbkdf2_hmac(hash_name: str, password: _DataType, salt: _DataType, iterations: int, dklen: Optional[int] = ...) -> bytes: ...
-else:
-    def pbkdf2_hmac(name: str, password: _DataType, salt: _DataType, rounds: int, dklen: Optional[int] = ...) -> bytes: ...
