@@ -1,7 +1,8 @@
 # Stubs for hashlib
 
+import sys
 from abc import abstractmethod, ABCMeta
-from typing import AbstractSet, Union
+from typing import AbstractSet, Optional, Union
 
 _DataType = Union[bytes, bytearray, memoryview]
 
@@ -37,4 +38,5 @@ algorithms_guaranteed = ...  # type: AbstractSet[str]
 algorithms_available = ...  # type: AbstractSet[str]
 
 # New in version 3.4
-def pbkdf2_hmac(name: str, password: _DataType, salt: _DataType, rounds: int, dklen: int = ...) -> bytes: ...
+if sys.version_info >= (3, 4):
+    def pbkdf2_hmac(hash_name: str, password: _DataType, salt: _DataType, iterations: int, dklen: Optional[int] = ...) -> bytes: ...
