@@ -2,16 +2,17 @@
 
 from typing import (
     Any, Callable, Generator, IO, Iterable, Iterator, Optional, Type,
-    Generic, TypeVar,
+    Generic, TypeVar
 )
-from typing import ContextManager as AbstractContextManager
 from types import TracebackType
 import sys
+# Aliased here for backwards compatibility; TODO eventually remove this
+from typing import ContextManager as ContextManager
+
+if sys.version_info >= (3, 6):
+    from typing import ContextManager as AbstractContextManager
 
 _T = TypeVar('_T')
-
-# Aliased here for backwards compatibility; TODO eventually remove this
-ContextManager = AbstractContextManager
 
 _ExitFunc = Callable[[Optional[Type[BaseException]],
                       Optional[BaseException],
