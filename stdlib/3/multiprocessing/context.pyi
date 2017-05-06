@@ -1,4 +1,4 @@
-# Stubs for multiprocessing.managers
+# Stubs for multiprocessing.context
 
 # NOTE: These are incomplete!
 
