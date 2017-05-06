@@ -1,7 +1,7 @@
 # Stubs for typing (Python 2.7)
 
 from abc import abstractmethod, ABCMeta
-from types import CodeType, FrameType
+from types import CodeType, FrameType, TracebackType
 
 # Definitions of special type checking related constructs.  Their definitions
 # are not used, so their value does not matter.
@@ -198,6 +198,12 @@ class KeysView(AbstractSet[_KT_co], MappingView, Generic[_KT_co]):
 class ValuesView(MappingView, Iterable[_VT_co], Generic[_VT_co]):
     def __contains__(self, o: object) -> bool: ...
     def __iter__(self) -> Iterator[_VT_co]: ...
+
+class ContextManager(Generic[_T_co]):
+    def __enter__(self) -> _T_co: ...
+    def __exit__(self, exc_type: Optional[Type[BaseException]],
+                 exc_value: Optional[BaseException],
+                 traceback: Optional[TracebackType]) -> Optional[bool]: ...
 
 class Mapping(Iterable[_KT], Container[_KT], Sized, Generic[_KT, _VT_co]):
     # TODO: We wish the key type could also be covariant, but that doesn't work,

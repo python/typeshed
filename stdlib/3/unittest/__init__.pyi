@@ -3,12 +3,11 @@
 from typing import (
     Any, Callable, Dict, Iterable, Iterator, List, Optional, Pattern, Sequence,
     Set, FrozenSet, TextIO, Tuple, Type, TypeVar, Union, Generic,
-    overload,
+    overload, ContextManager
 )
 import logging
 import sys
 from types import ModuleType, TracebackType
-from contextlib import _ContextManager
 
 
 _T = TypeVar('_T')
@@ -40,7 +39,7 @@ class TestCase:
     def run(self, result: Optional[TestResult] = ...) -> TestCase: ...
     def skipTest(self, reason: Any) -> None: ...
     if sys.version_info >= (3, 4):
-        def subTest(self, msg: Any = ..., **params: Any) -> _ContextManager[None]: ...
+        def subTest(self, msg: Any = ..., **params: Any) -> ContextManager[None]: ...
     def debug(self) -> None: ...
     def assertEqual(self, first: Any, second: Any, msg: Any = ...) -> None: ...
     def assertNotEqual(self, first: Any, second: Any,
