@@ -1,4 +1,6 @@
-from multiprocessing import Event
+# Stubs for multiprocessing.managers
 
-class BaseContext(object):
-    def Event(self) -> Event: ...
+# NOTE: These are incomplete!
+
+class BaseContext(object): ...
+
