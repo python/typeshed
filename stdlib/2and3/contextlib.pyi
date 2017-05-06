@@ -4,12 +4,12 @@ from typing import (
     Any, Callable, Generator, IO, Iterable, Iterator, Optional, Type,
     Generic, TypeVar,
 )
+from typing import ContextManager as AbstractContextManager
 from types import TracebackType
 import sys
 
 _T = TypeVar('_T')
 
-from typing import ContextManager as AbstractContextManager
 # Aliased here for backwards compatibility; TODO eventually remove this
 ContextManager = AbstractContextManager
 
