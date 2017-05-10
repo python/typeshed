@@ -18,7 +18,7 @@ else:
     _ExcInfoType = Union[None, bool, _SysExcInfoType]
 _ArgsType = Union[Tuple[Any, ...], Dict[str, Any]]
 _FilterType = Union['Filter', Callable[['LogRecord'], int]]
-_Level = Union[int, str, Text]
+_Level = Union[int, Text]
 
 
 class Logger:
