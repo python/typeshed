@@ -1,9 +1,9 @@
 from typing import TypeVar, Generic, Any, Iterable, Iterator, Callable, Tuple, Optional, Set
 from collections import namedtuple
 
-FIRST_COMPLETED = ...  # type: Any
-FIRST_EXCEPTION = ...  # type: Any
-ALL_COMPLETED = ...  # type: Any
+FIRST_COMPLETED = ...  # type: str
+FIRST_EXCEPTION = ...  # type: str
+ALL_COMPLETED = ...  # type: str
 PENDING = ...  # type: Any
 RUNNING = ...  # type: Any
 CANCELLED = ...  # type: Any
