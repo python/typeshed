@@ -37,7 +37,7 @@ class BaseContext(object):
     def Barrier(self, parties: int, action: Optional[Callable] = None, timeout: Optional[int] = None) -> Any: ...
 
     # TODO: change return to Queue once a stub exists in multiprocessing.queues
-    def Event(self, maxsize: Optional[int] = 0) -> Any: ...
+    def Queue(self, maxsize: Optional[int] = 0) -> Any: ...
 
     # TODO: change return to Queue once a stub exists in multiprocessing.queues
     def JoinableQueue(self, maxsize: Optional[int] = 0) -> Any: ...
@@ -111,11 +111,3 @@ class BaseContext(object):
     def reducer(self, reduction: str) -> None: ...
 
     def _check_available(self) -> None: ...
-
-
-
-
-
-
-
-
