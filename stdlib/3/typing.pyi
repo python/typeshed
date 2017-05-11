@@ -486,7 +486,8 @@ class Pattern(Generic[AnyStr]):
 
 # Functions
 
-def get_type_hints(obj: Callable) -> dict[str, Any]: ...
+def get_type_hints(obj: Callable, globalns: Optional[dict],
+                   localns: Optional[dict]) -> dict[str, Any]: ...
 
 def cast(tp: Type[_T], obj: Any) -> _T: ...
 
