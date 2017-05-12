@@ -32,7 +32,7 @@ class ModuleType:
         __package__ = ...  # type: Optional[str]
         __spec__ = ...  # type: Optional[ModuleSpec]
     def __init__(self, name: str, doc: Optional[str] = ...) -> None: ...
-    def __getattr__(self, name) -> Any: ...  # modules can contain anything
+    # TODO: def __getattr__(self, name) -> Any: ...  # modules can contain anything
 
 class Loader(metaclass=ABCMeta):
     def load_module(self, fullname: str) -> ModuleType: ...
