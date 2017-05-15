@@ -42,7 +42,7 @@ if sys.version_info >= (3, 4):
     def pbkdf2_hmac(hash_name: str, password: _DataType, salt: _DataType, iterations: int, dklen: Optional[int] = ...) -> bytes: ...
 
 if sys.version_info >= (3, 6):
-    class VarLenHash(metaclass=ABCMeta):
+    class _VarLenHash(metaclass=ABCMeta):
         digest_size = ...  # type: int
         block_size = ...  # type: int
         name = ...  # type: str
