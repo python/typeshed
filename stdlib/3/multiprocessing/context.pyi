@@ -2,7 +2,7 @@
 
 from logging import Logger
 from multiprocessing import Process
-from typing import Any, Callable, Optional, List, Sequence, Tuple, Union
+from typing import Any, Callable, Optional, List, Sequence, Tuple, Type, Union
 
 class ProcessError(Exception): ...
 
@@ -13,14 +13,15 @@ class TimeoutError(ProcessError): ...
 class AuthenticationError(ProcessError): ...
 
 class BaseContext(object):
-    ProcessError = ...  # type: Exception
-    BufferTooShort = ...  # type: Exception
-    TimeoutError = ...  # type: Exception
-    AuthenticationError = ...  # type: Exception
+    ProcessError = ...  # type: Type[Exception]
+    BufferTooShort = ...  # type: Type[Exception]
+    TimeoutError = ...  # type: Type[Exception]
+    AuthenticationError = ...  # type: Type[Exception]
 
-    current_process = ...  # type: Process
-    active_children = ...  # type: List[Process]
-
+    @staticmethod
+    def current_process() -> Process: ...
+    @staticmethod
+    def active_children() -> List[Process]: ...
     def cpu_count(self) -> int: ...
     # TODO: change return to SyncManager once a stub exists in multiprocessing.managers
     def Manager(self) -> Any: ...
