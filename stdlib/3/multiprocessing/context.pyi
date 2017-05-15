@@ -97,3 +97,15 @@ class BaseContext(object):
     @reducer.setter
     def reducer(self, reduction: str) -> None: ...
     def _check_available(self) -> None: ...
+
+class ForkContext(BaseContext):
+    # TODO: type should be BaseProcess once a stub in multiprocessing.process exists
+    Process = ...  # type: Type[Any]
+
+class SpawnContext(BaseContext):
+    # TODO: type should be BaseProcess once a stub in multiprocessing.process exists
+    Process = ...  # type: Type[Any]
+
+class ForkServerContext(BaseContext):
+    # TODO: type should be BaseProcess once a stub in multiprocessing.process exists
+    Process = ...  # type: Type[Any]
