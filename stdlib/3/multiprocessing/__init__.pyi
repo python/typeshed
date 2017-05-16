@@ -3,6 +3,7 @@
 from typing import Any, Callable, Iterable, Mapping, Optional, Dict, List
 
 from multiprocessing.context import BaseContext
+from multiprocessing.managers import SyncManager
 from multiprocessing.process import current_process as current_process
 
 class Lock():
@@ -105,3 +106,4 @@ class Value():
 # ----- multiprocessing function stubs -----
 def cpu_count() -> int: ...
 def freeze_support() -> None: ...
+def Manager() -> SyncManager: ...
