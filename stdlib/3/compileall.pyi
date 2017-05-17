@@ -11,7 +11,7 @@ else:
     _Path = Union[str, bytes, os.PathLike]
     _SuccessType = int
 
-# fx can be any object with a 'search' method; once we have Protocols we can change the type
+# rx can be any object with a 'search' method; once we have Protocols we can change the type
 if sys.version_info < (3, 5):
     def compile_dir(dir: _Path, maxlevels: int = ..., ddir: Optional[_Path] = ..., force: bool = ..., rx: Optional[Pattern] = ..., quiet: int = ..., legacy: bool = ..., optimize: int = ...) -> _SuccessType: ...
 else:
