@@ -1,7 +1,8 @@
 # Stubs for multiprocessing.context
 
 from logging import Logger
-from multiprocessing import Process
+import multiprocessing
+import sys
 from typing import Any, Callable, Optional, List, Sequence, Tuple, Type, Union
 
 class ProcessError(Exception): ...
@@ -19,9 +20,9 @@ class BaseContext(object):
     AuthenticationError = ...  # type: Type[Exception]
 
     @staticmethod
-    def current_process() -> Process: ...
+    def current_process() -> multiprocessing.Process: ...
     @staticmethod
-    def active_children() -> List[Process]: ...
+    def active_children() -> List[multiprocessing.Process]: ...
     def cpu_count(self) -> int: ...
     # TODO: change return to SyncManager once a stub exists in multiprocessing.managers
     def Manager(self) -> Any: ...
@@ -98,14 +99,70 @@ class BaseContext(object):
     def reducer(self, reduction: str) -> None: ...
     def _check_available(self) -> None: ...
 
-class ForkContext(BaseContext):
+class Process(object):
+    _start_method = ...  # type: Type[None]
+    @staticmethod
     # TODO: type should be BaseProcess once a stub in multiprocessing.process exists
-    Process = ...  # type: Type[Any]
+    def _Popen(process_obj: Any) -> DefaultContext: ...
 
-class SpawnContext(BaseContext):
-    # TODO: type should be BaseProcess once a stub in multiprocessing.process exists
-    Process = ...  # type: Type[Any]
+class DefaultContext(object):
+    Process = ...  # type: Type[multiprocessing.Process]
 
-class ForkServerContext(BaseContext):
+    def __init__(self, context: BaseContext) -> None: ...
+    def get_context(self, method: Optional[str] = ...) -> BaseContext: ...
+    def set_start_method(self, method: str, force: bool = ...) -> None: ...
+    def get_start_method(self, allow_none: bool = ...) -> str: ...
+    def get_all_start_methods(self) -> List[str]: ...
+
+if sys.platform != 'win32':
     # TODO: type should be BaseProcess once a stub in multiprocessing.process exists
-    Process = ...  # type: Type[Any]
+    class ForkProcess(object):
+        _start_method = ...  # type: Type[str]
+        @staticmethod
+        def _Popen(process_obj: Any) -> Any: ...
+
+    # TODO: type should be BaseProcess once a stub in multiprocessing.process exists
+    class SpawnProcess(object):
+        _start_method = ...  # type: Type[str]
+        @staticmethod
+        def _Popen(process_obj: Any) -> SpawnProcess: ...
+
+    # TODO: type should be BaseProcess once a stub in multiprocessing.process exists
+    class ForkServerProcess(object):
+        _start_method = ...  # type: Type[str]
+        @staticmethod
+        def _Popen(process_obj: Any) -> Any: ...
+
+    class ForkContext(BaseContext):
+        _name = ...  # type: Type[str]
+        # TODO: type should be BaseProcess once a stub in multiprocessing.process exists
+        Process = ...  # type: Type[ForkProcess]
+
+    class SpawnContext(BaseContext):
+        _name = ...  # type: Type[str]
+        # TODO: type should be BaseProcess once a stub in multiprocessing.process exists
+        Process = ...  # type: Type[SpawnProcess]
+
+    class ForkServerContext(BaseContext):
+        _name = ...  # type: Type[str]
+        # TODO: type should be BaseProcess once a stub in multiprocessing.process exists
+        Process = ...  # type: Type[ForkServerProcess]
+else:
+    # TODO: type should be BaseProcess once a stub in multiprocessing.process exists
+    class SpawnProcess(object):
+        _start_method = ...  # type: Type[str]
+        @staticmethod
+        # TODO: type should be BaseProcess once a stub in multiprocessing.process exists
+        def _Popen(process_obj: Process) -> Any: ...
+
+    class SpawnContext(BaseContext):
+        # TODO: type should be BaseProcess once a stub in multiprocessing.process exists
+        _name = ...  # type: Type[str]
+        Process = ...  # type: Type[SpawnProcess]
+
+def _force_start_method(method: str) -> None: ...
+# TODO: type should be BaseProcess once a stub in multiprocessing.process exists
+def get_spawning_popen() -> Optional[Any]: ...
+# TODO: type should be BaseProcess once a stub in multiprocessing.process exists
+def set_spawning_popen(popen: Any) -> None: ...
+def assert_spawning(obj: Any) -> None: ...
