@@ -116,19 +116,19 @@ class DefaultContext(object):
 
 if sys.platform != 'win32':
     # TODO: type should be BaseProcess once a stub in multiprocessing.process exists
-    class ForkProcess(Any):  # ignore
+    class ForkProcess(Any):  # type: ignore
         _start_method: str
         @staticmethod
         def _Popen(process_obj: Any) -> Any: ...
 
     # TODO: type should be BaseProcess once a stub in multiprocessing.process exists
-    class SpawnProcess(Any):  # ignore
+    class SpawnProcess(Any):  # type: ignore
         _start_method: str
         @staticmethod
         def _Popen(process_obj: Any) -> SpawnProcess: ...
 
     # TODO: type should be BaseProcess once a stub in multiprocessing.process exists
-    class ForkServerProcess(Any):  # ignore
+    class ForkServerProcess(Any):  # type: ignore
         _start_method: str
         @staticmethod
         def _Popen(process_obj: Any) -> Any: ...
@@ -146,7 +146,7 @@ if sys.platform != 'win32':
         Process = ...  # type: Type[ForkServerProcess]
 else:
     # TODO: type should be BaseProcess once a stub in multiprocessing.process exists
-    class SpawnProcess(Any):  # ignore
+    class SpawnProcess(Any):  # type: ignore
         _start_method: str
         @staticmethod
         # TODO: type should be BaseProcess once a stub in multiprocessing.process exists
