@@ -1,14 +1,14 @@
 from typing import Mapping, Any, Optional, Union
 
 
-def decode(jwt: Union[str, bytes], key: Union[str, bytes]=...,
-           verify: bool=..., algorithms: Optional[Any]=...,
-           options: Optional[Mapping[Any, Any]]=...,
+def decode(jwt: Union[str, bytes], key: Union[str, bytes] = ...,
+           verify: bool = ..., algorithms: Optional[Any] = ...,
+           options: Optional[Mapping[Any, Any]] = ...,
            **kwargs: Any) -> Mapping[str, Any]: ...
 
 def encode(payload: Mapping[str, Any], key: Union[str, bytes],
-           algorithm: str=..., headers: Optional[Mapping[str, Any]]=...,
-           json_encoder: Optional[Any]=...) -> bytes: ...
+           algorithm: str = ..., headers: Optional[Mapping[str, Any]] = ...,
+           json_encoder: Optional[Any] = ...) -> bytes: ...
 
 class InvalidTokenError(Exception): pass
 
