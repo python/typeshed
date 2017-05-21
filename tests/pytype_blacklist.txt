@@ -8,6 +8,9 @@ stdlib/2/typing.pyi
 stdlib/3/builtins.pyi
 stdlib/3/typing.pyi
 
+# Because of 'class ForkProcess(Any):  # type: ignore'
+stdlib/3/multiprocessing/context.pyi
+
 # Because of 'from . import path':
 stdlib/2/os/__init__.pyi
 stdlib/3/os/__init__.pyi
