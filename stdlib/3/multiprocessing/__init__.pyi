@@ -10,8 +10,8 @@ class Lock():
     def release(self) -> None: ...
 
 class AsyncResult():
-    def get(self, timeout: float = -1) -> Any: ...
-    def wait(self, timeout: float = -1) -> None: ...
+    def get(self, timeout: float = ...) -> Any: ...
+    def wait(self, timeout: float = ...) -> None: ...
     def ready(self) -> bool: ...
     def successful(self) -> bool: ...
 
@@ -20,49 +20,49 @@ class Event(object):
     def is_set(self) -> bool: ...
     def set(self) -> None: ...
     def clear(self) -> None: ...
-    def wait(self, timeout: Optional[int] = None) -> bool: ...
+    def wait(self, timeout: Optional[int] = ...) -> bool: ...
 
 class Pool():
-    def __init__(self, processes: Optional[int] = None,
-                 initializer: Optional[Callable[..., None]] = None,
-                 initargs: Iterable[Any] = (),
-                 maxtasksperchild: Optional[int] = None,
+    def __init__(self, processes: Optional[int] = ...,
+                 initializer: Optional[Callable[..., None]] = ...,
+                 initargs: Iterable[Any] = ...,
+                 maxtasksperchild: Optional[int] = ...,
                  context: Any = None) -> None: ...
     def apply(self,
               func: Callable[..., Any],
-              args: Iterable[Any]=(),
+              args: Iterable[Any] = ...,
               kwds: Dict[str, Any]=...) -> Any: ...
     def apply_async(self,
                 func: Callable[..., Any],
-                args: Iterable[Any]=(),
-                kwds: Dict[str, Any]=...,
+                args: Iterable[Any] = ...,
+                kwds: Dict[str, Any] = ...,
                 callback: Callable[..., None] = None,
                 error_callback: Callable[[BaseException], None] = None) -> AsyncResult: ...
     def map(self,
             func: Callable[..., Any],
-            iterable: Iterable[Any]=(),
-            chunksize: Optional[int] = None) -> List[Any]: ...
+            iterable: Iterable[Any] = ...,
+            chunksize: Optional[int] = ...) -> List[Any]: ...
     def map_async(self, func: Callable[..., Any],
-                  iterable: Iterable[Any] = (),
-                  chunksize: Optional[int] = None,
+                  iterable: Iterable[Any] = ...,
+                  chunksize: Optional[int] = ...,
                   callback: Callable[..., None] = None,
                   error_callback: Callable[[BaseException], None] = None) -> AsyncResult: ...
     def imap(self,
              func: Callable[..., Any],
-             iterable: Iterable[Any]=(),
+             iterable: Iterable[Any] = ...,
              chunksize: Optional[int] = None) -> Iterable[Any]: ...
     def imap_unordered(self,
                        func: Callable[..., Any],
-                       iterable: Iterable[Any]=(),
+                       iterable: Iterable[Any] = ...,
                        chunksize: Optional[int] = None) -> Iterable[Any]: ...
     def starmap(self,
                 func: Callable[..., Any],
-                iterable: Iterable[Iterable[Any]]=(),
+                iterable: Iterable[Iterable[Any]] = ...,
                 chunksize: Optional[int] = None) -> List[Any]: ...
     def starmap_async(self,
                       func: Callable[..., Any],
-                      iterable: Iterable[Iterable[Any]] = (),
-                      chunksize: Optional[int] = None,
+                      iterable: Iterable[Iterable[Any]] = ...,
+                      chunksize: Optional[int] = ...,
                       callback: Callable[..., None] = None,
                       error_callback: Callable[[BaseException], None] = None) -> AsyncResult: ...
     def close(self) -> None: ...
