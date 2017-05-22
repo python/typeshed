@@ -135,9 +135,6 @@ rule is that they should be as concise as possible.  Specifically:
   names, or methods and fields within a single class;
 * use a single blank line between top-level class definitions, or none
   if the classes are very small;
-* add a top-level comment followed by an empty line that makes it clear
-  the file contains a stub and not the actual code for the module,
-  for example `# Stubs for pathlib (Python 3.4)`;
 * do not use docstrings.
 
 Imports in stubs are considered private (not part of the exported API)
@@ -156,11 +153,6 @@ string literals in type annotations.
 Type variables and aliases you introduce purely for legibility reasons
 should be prefixed with an underscore to make it obvious to the reader
 they are not part of the stubbed API.
-
-Finally, remember to include a comment on the top of your file about the
-version of the Python language your stubs were tested against and
-version of the library they were built for.  This makes it easier to
-maintain the stubs in the future.
 
 NOTE: there are stubs in this repository that don't conform to the
 style described above.  Fixing them is a great starting point for new
