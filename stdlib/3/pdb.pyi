@@ -1,5 +1,3 @@
-# Stub for pdb (incomplete, only some global functions)
-
 from typing import Any, Dict
 
 def run(statement: str,
