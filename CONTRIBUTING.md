@@ -9,12 +9,12 @@ are important to the project's success.
 ## The contribution process at a glance
 
 1. Read the [README.md file](README.md).
-2. Set up your environment to be able to run all tests with `runtests.sh`.  They should pass.
+2. Set up your environment to be able to [run all tests](README.md#running-the-tests).  They should pass.
 3. [Prepare your changes](#preparing-changes):
     * [Contact us](#discussion) before starting significant work.
     * IMPORTANT: For new libraries, [get permission from the library owner first](#adding-a-new-library).
     * Create your stubs [conforming to the coding style](#stub-file-coding-style).
-    * Make sure `runtests.sh` passes cleanly on Mypy, pytype, and flake8.
+    * Make sure your tests pass cleanly on Mypy, pytype, and flake8.
 4. [Submit your changes](#submitting-changes):
     * Open a pull request
     * For new libraries, [include a reference to where you got permission](#adding-a-new-library)
@@ -103,8 +103,8 @@ should prefer to external type stubs).  When the project owners agree
 for you to submit stubs here, open a pull request **referencing the
 message where you received permission**.
 
-Make sure your changes pass tests by running ``runtests.sh`` (the
-[README](README.md) has more information).
+Make sure your changes pass the tests (the [README](README.md#running-the-tests)
+has more information).
 
 ### Using stubgen
 
