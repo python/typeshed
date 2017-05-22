@@ -5,7 +5,7 @@
 #  7155 E302 expected 2 blank lines
 #  2307 E501 line too long
 #  1463 F401 imported but unused
-#  967 E701 multiple statements on one line (colon)
+#   967 E701 multiple statements on one line (colon)
 #   457 F811 redefinition
 #   390 E305 expected 2 blank lines
 
