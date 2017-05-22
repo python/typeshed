@@ -174,17 +174,20 @@ There are separate directories for `stdlib` and `third_party` stubs.
 Within those, there are separate directories for different versions of
 Python the stubs target.
 
-As a convention, the directory name indicates the lowest major version of Python
-that a stub targets, with the exception of the `2and3` directory which applies
-to both Python 2 and 3. For example, stubs in the `3` directory will be applied
-to all versions of Python 3, though stubs in the `3.6` directory will only be
-applied to versions 3.6 and above.
+The directory name indicates the major version of Python that a stub targets
+and optionally the lowest minor version, with the exception of the `2and3`
+directory which applies to both Python 2 and 3.
+
+For example, stubs in the `3` directory will be applied to all versions of
+Python 3, though stubs in the `3.6` directory will only be applied to versions
+3.6 and above. However, stubs in the `2` directory will not be applied to
+Python 3.
 
 It is preferred to use a single stub in the more generic directory that
 conditionally targets specific versions when needed, as opposed
 to maintaining multiple stub files within more specific directories. Similarly,
 if the given library works on both Python 2 and Python 3, prefer to put your
-stubs in an `2and3` directory, unless the types are so different that the stubs
+stubs in the `2and3` directory, unless the types are so different that the stubs
 become unreadable that way.
 
 You can use checks like `if sys.version_info >= (3, 4):` to denote new
