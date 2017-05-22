@@ -13,6 +13,32 @@ it before submitting pull requests.**
 
 Typeshed supports Python versions 2.7 and 3.3 and up.
 
+## Using
+
+If you're just using mypy (or pytype or PyCharm), as opposed to
+developing it, you don't need to interact with the typeshed repo at
+all: a copy of typeshed is bundled with mypy.
+
+When you use a checked-out clone of the mypy repo, a copy of typeshed
+should be included as a submodule, using
+
+    $ git clone --recurse-submodules https://github.com/python/mypy.git
+
+or
+
+    $ git clone https://github.com/python/mypy.git
+    $ cd mypy
+    $ git submodule init
+    $ git submodule update
+
+and occasionally you will have to repeat the final command (`git
+submodule update`) to pull in changes made in the upstream typeshed
+repo.
+
+PyCharm and pytype similarly include a copy of typeshed.  The one in
+pytype can be updated in the same way if you are working with the
+pytype repo.
+
 ## Format
 
 Each Python module is represented by a `.pyi` "stub". This is a normal Python
