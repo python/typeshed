@@ -138,9 +138,7 @@ rule is that they should be as concise as possible.  Specifically:
 * add a top-level comment followed by an empty line that makes it clear
   the file contains a stub and not the actual code for the module,
   for example `# Stubs for pathlib (Python 3.4)`;
-* do not use docstrings;
-* prefer type comments over variable annotations unless your stubs are
-  exclusively targeting Python 3.6.
+* do not use docstrings.
 
 Imports in stubs are considered private (not part of the exported API)
 unless:
