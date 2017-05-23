@@ -146,6 +146,8 @@ class SectionProxy(MutableMapping[str, str]):
     def get(self, option: str, fallback: Optional[str] = ..., *, raw: bool = ...,  # type: ignore
             vars: Optional[_section] = ...,
             **kwargs: Any) -> str: ...
+    # SectionProxy can have arbitrary attributes when custon converters are used
+    def __getattr__(self, key: str) -> Callable[..., str]: ...
 
 class ConverterMapping(MutableMapping[str, Optional[_converter]]):
     GETTERCRE: Pattern
