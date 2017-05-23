@@ -11,93 +11,94 @@ from mypy_extensions import NoReturn
 
 _T = TypeVar('_T')
 
-SEEK_SET = 0
-SEEK_CUR = 0
-SEEK_END = 0
+SEEK_SET: int
+SEEK_CUR: int
+SEEK_END: int
 
 # More constants, copied from stdlib/3/os/__init__.pyi
-O_RDONLY = 0
-O_WRONLY = 0
-O_RDWR = 0
-O_APPEND = 0
-O_CREAT = 0
-O_EXCL = 0
-O_TRUNC = 0
-O_DSYNC = 0    # Unix only
-O_RSYNC = 0    # Unix only
-O_SYNC = 0     # Unix only
-O_NDELAY = 0   # Unix only
-O_NONBLOCK = 0  # Unix only
-O_NOCTTY = 0   # Unix only
-O_SHLOCK = 0   # Unix only
-O_EXLOCK = 0   # Unix only
-O_BINARY = 0     # Windows only
-O_NOINHERIT = 0  # Windows only
-O_SHORT_LIVED = 0  # Windows only
-O_TEMPORARY = 0  # Windows only
-O_RANDOM = 0     # Windows only
-O_SEQUENTIAL = 0  # Windows only
-O_TEXT = 0       # Windows only
-O_ASYNC = 0      # Gnu extension if in C library
-O_DIRECT = 0     # Gnu extension if in C library
-O_DIRECTORY = 0  # Gnu extension if in C library
-O_NOFOLLOW = 0   # Gnu extension if in C library
-O_NOATIME = 0    # Gnu extension if in C library
-O_LARGEFILE = 0  # Gnu extension if in C library
+O_RDONLY: int
+O_WRONLY: int
+O_RDWR: int
+O_APPEND: int
+O_CREAT: int
+O_EXCL: int
+O_TRUNC: int
+O_DSYNC: int    # Unix only
+O_RSYNC: int    # Unix only
+O_SYNC: int     # Unix only
+O_NDELAY: int   # Unix only
+O_NONBLOCK: int  # Unix only
+O_NOCTTY: int   # Unix only
+O_SHLOCK: int   # Unix only
+O_EXLOCK: int   # Unix only
+O_BINARY: int     # Windows only
+O_NOINHERIT: int  # Windows only
+O_SHORT_LIVED: int  # Windows only
+O_TEMPORARY: int  # Windows only
+O_RANDOM: int     # Windows only
+O_SEQUENTIAL: int  # Windows only
+O_TEXT: int       # Windows only
+O_ASYNC: int      # Gnu extension if in C library
+O_DIRECT: int     # Gnu extension if in C library
+O_DIRECTORY: int  # Gnu extension if in C library
+O_NOFOLLOW: int   # Gnu extension if in C library
+O_NOATIME: int    # Gnu extension if in C library
+O_LARGEFILE: int  # Gnu extension if in C library
 
-curdir = ...  # type: str
-pardir = ...  # type: str
-sep = ...  # type: str
-altsep = ...  # type: str
-extsep = ...  # type: str
-pathsep = ...  # type: str
-defpath = ...  # type: str
-linesep = ...  # type: str
-devnull = ...  # type: str
-name = ...  # type: str
+curdir: str
+pardir: str
+sep: str
+altsep: str
+extsep: str
+pathsep: str
+defpath: str
+linesep: str
+devnull: str
+name: str
 
-F_OK = 0
-R_OK = 0
-W_OK = 0
-X_OK = 0
+F_OK: int
+R_OK: int
+W_OK: int
+X_OK: int
 
 class _Environ(MutableMapping[AnyStr, AnyStr], Generic[AnyStr]):
     def copy(self) -> Dict[AnyStr, AnyStr]: ...
 
-environ = ...  # type: _Environ[str]
+environ: _Environ[str]
 
-confstr_names = ...  # type: Dict[str, int]  # Unix only
-pathconf_names = ...  # type: Dict[str, int]  # Unix only
-sysconf_names = ...  # type: Dict[str, int]  # Unix only
+confstr_names: Dict[str, int]  # Unix only
+pathconf_names: Dict[str, int]  # Unix only
+sysconf_names: Dict[str, int]  # Unix only
 
-EX_OK = 0        # Unix only
-EX_USAGE = 0     # Unix only
-EX_DATAERR = 0   # Unix only
-EX_NOINPUT = 0   # Unix only
-EX_NOUSER = 0    # Unix only
-EX_NOHOST = 0    # Unix only
-EX_UNAVAILABLE = 0  # Unix only
-EX_SOFTWARE = 0  # Unix only
-EX_OSERR = 0     # Unix only
-EX_OSFILE = 0    # Unix only
-EX_CANTCREAT = 0  # Unix only
-EX_IOERR = 0     # Unix only
-EX_TEMPFAIL = 0  # Unix only
-EX_PROTOCOL = 0  # Unix only
-EX_NOPERM = 0    # Unix only
-EX_CONFIG = 0    # Unix only
-P_NOWAIT = 0
-P_NOWAITO = 0
-P_WAIT = 0
-# P_DETACH = 0  # Windows only
-# P_OVERLAY = 0  # Windows only
+EX_OK: int        # Unix only
+EX_USAGE: int     # Unix only
+EX_DATAERR: int   # Unix only
+EX_NOINPUT: int   # Unix only
+EX_NOUSER: int    # Unix only
+EX_NOHOST: int    # Unix only
+EX_UNAVAILABLE: int  # Unix only
+EX_SOFTWARE: int  # Unix only
+EX_OSERR: int     # Unix only
+EX_OSFILE: int    # Unix only
+EX_CANTCREAT: int  # Unix only
+EX_IOERR: int     # Unix only
+EX_TEMPFAIL: int  # Unix only
+EX_PROTOCOL: int  # Unix only
+EX_NOPERM: int    # Unix only
+EX_CONFIG: int    # Unix only
+P_NOWAIT: int
+P_NOWAITO: int
+P_WAIT: int
+if sys.platform == 'win32':
+    P_DETACH: int  # Windows only
+    P_OVERLAY: int  # Windows only
 
 # wait()/waitpid() options
-WNOHANG = 0  # Unix only
-WCONTINUED = 0  # some Unix systems
-WUNTRACED = 0  # Unix only
+WNOHANG: int  # Unix only
+WCONTINUED: int  # some Unix systems
+WUNTRACED: int  # Unix only
 
-TMP_MAX = 0  # Undocumented, but used by tempfile
+TMP_MAX: int  # Undocumented, but used by tempfile
 _PathType = Union[bytes, Text]
 _StatVFS = NamedTuple('_StatVFS', [('f_bsize', int), ('f_frsize', int), ('f_blocks', int),
                                    ('f_bfree', int), ('f_bavail', int), ('f_files', int),
@@ -275,6 +276,6 @@ def tmpfile() -> IO[Any]: ...
 def tmpnam() -> str: ...
 def tempnam(dir: str = ..., prefix: str = ...) -> str: ...
 
-P_ALL = 0
-WEXITED = 0
-WNOWAIT = 0
+P_ALL: int
+WEXITED: int
+WNOWAIT: int
