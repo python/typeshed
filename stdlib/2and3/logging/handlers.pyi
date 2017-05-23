@@ -11,7 +11,7 @@ if sys.version_info >= (3,):
 else:
     from Queue import Queue
 # TODO update socket stubs to add SocketKind
-SocketKind = int
+_SocketKind = int
 
 
 class WatchedFileHandler(Handler):
@@ -122,7 +122,7 @@ class SysLogHandler(Handler):
     LOG_LOCAL6 = ...  # type: int
     LOG_LOCAL7 = ...  # type: int
     def __init__(self, address: Union[Tuple[str, int], str] = ...,
-            facility: int = ..., socktype: SocketKind = ...) -> None: ...
+            facility: int = ..., socktype: _SocketKind = ...) -> None: ...
     def encodePriority(self, facility: Union[int, str],
                        priority: Union[int, str]) -> int: ...
     def mapPriority(self, levelName: int) -> str: ...
