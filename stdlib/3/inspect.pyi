@@ -12,7 +12,7 @@ if sys.version_info < (3, 6):
                                            ('suffix', str),
                                            ('mode', str),
                                            ('module_type', int),
-                                          ])
+                                           ])
     def getmoduleinfo(path: str) -> Optional[ModuleInfo]: ...
 
 def getmembers(object: object,
