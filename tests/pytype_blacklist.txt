@@ -19,6 +19,7 @@ stdlib/3/os/__init__.pyi
 # The below are files that have regressed and need fixing:
 stdlib/3/collections/__init__.pyi
 stdlib/3/collections/abc.pyi
+stdlib/3/configparser.pyi
 stdlib/3/concurrent/futures/__init__.pyi
 stdlib/3/concurrent/futures/_base.pyi
 stdlib/3/concurrent/futures/process.pyi

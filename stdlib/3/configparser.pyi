@@ -1,21 +1,19 @@
-# Stubs for configparser
-
 # Based on http://docs.python.org/3.5/library/configparser.html and on
 # reading configparser.py.
 
 from typing import (MutableMapping, Mapping, Dict, Sequence, List, Union,
-                    Iterable, Iterator, Callable, Any, IO, overload, Optional)
+                    Iterable, Iterator, Callable, Any, IO, overload, Optional, Pattern)
 # Types only used in type comments only
 from typing import Optional, Tuple  # noqa
 
 # Internal type aliases
-_section = Dict[str, str]
+_section = Mapping[str, str]
 _parser = MutableMapping[str, _section]
-_converters = Dict[str, Callable[[str], Any]]
+_converter = Callable[[str], Any]
+_converters = Dict[str, _converter]
 
-
-DEFAULTSECT = ...  # type: str
-
+DEFAULTSECT: str
+MAX_INTERPOLATION_DEPTH: int
 
 class Interpolation:
     def before_get(self, parser: _parser,
@@ -40,27 +38,24 @@ class Interpolation:
                      value: str) -> str: ...
 
 
-class BasicInterpolation(Interpolation):
-    pass
-
-
-class ExtendedInterpolation(Interpolation):
-    pass
+class BasicInterpolation(Interpolation): ...
+class ExtendedInterpolation(Interpolation): ...
+class LegacyInterpolation(Interpolation): ...
 
 
 class RawConfigParser(_parser):
     def __init__(self,
-                 defaults: _section = None,
+                 defaults: Optional[_section] = ...,
                  dict_type: Mapping[str, str] = ...,
                  allow_no_value: bool = ...,
                  *,
                  delimiters: Sequence[str] = ...,
                  comment_prefixes: Sequence[str] = ...,
-                 inline_comment_prefixes: Sequence[str] = None,
+                 inline_comment_prefixes: Optional[Sequence[str]] = ...,
                  strict: bool = ...,
                  empty_lines_in_values: bool = ...,
                  default_section: str = ...,
-                 interpolation: Interpolation = None) -> None: ...
+                 interpolation: Optional[Interpolation] = ...) -> None: ...
 
     def __len__(self) -> int: ...
 
@@ -133,6 +128,33 @@ class ConfigParser(RawConfigParser):
                  default_section: str = ...,
                  interpolation: Interpolation = None,
                  converters: _converters = ...) -> None: ...
+
+class SafeConfigParser(ConfigParser): ...
+
+class SectionProxy(MutableMapping[str, str]):
+    def __init__(self, parser: RawConfigParser, name: str) -> None: ...
+    def __getitem__(self, key: str) -> str: ...
+    def __setitem__(self, key: str, value: str) -> None: ...
+    def __delitem__(self, key: str) -> None: ...
+    def __contains__(self, key: object) -> bool: ...
+    def __len__(self) -> int: ...
+    def __iter__(self) -> Iterator[str]: ...
+    @property
+    def parser(self) -> RawConfigParser: ...
+    @property
+    def name(self) -> str: ...
+    def get(self, option: str, fallback: Optional[str] = ..., *, raw: bool = ...,  # type: ignore
+            vars: Optional[_section] = ...,
+            **kwargs: Any) -> str: ...
+
+class ConverterMapping(MutableMapping[str, Optional[_converter]]):
+    GETTERCRE: Pattern
+    def __init__(self, parser: RawConfigParser) -> None: ...
+    def __getitem__(self, key: str) -> _converter: ...
+    def __setitem__(self, key: str, value: Optional[_converter]) -> None: ...
+    def __delitem__(self, key: str) -> None: ...
+    def __iter__(self) -> Iterator[str]: ...
+    def __len__(self) -> int: ...
 
 
 class Error(Exception):
