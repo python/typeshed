@@ -20,6 +20,8 @@ _ArgsType = Union[Tuple[Any, ...], Dict[str, Any]]
 _FilterType = Union['Filter', Callable[['LogRecord'], int]]
 _Level = Union[int, Text]
 
+raiseExceptions: bool
+
 
 class Logger:
     name = ...  # type: str
@@ -111,6 +113,7 @@ class Logger:
 
 
 CRITICAL = ...  # type: int
+FATAL = ...  # type: int
 ERROR = ...  # type: int
 WARNING = ...  # type: int
 WARN = ...  # type: int
@@ -323,6 +326,7 @@ else:
                   extra: Optional[Dict[str, Any]] = ..., **kwargs: Any) -> None: ...
     def log(lvl: int, msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
             extra: Optional[Dict[str, Any]] = ..., **kwargs: Any) -> None: ...
+fatal = critical
 
 def disable(lvl: int) -> None: ...
 def addLevelName(lvl: int, levelName: str) -> None: ...
@@ -345,6 +349,9 @@ else:
 def shutdown() -> None: ...
 
 def setLoggerClass(klass: type) -> None: ...
+
+def captureWarnings(capture: bool) -> None: ...
+
 if sys.version_info >= (3,):
     def setLogRecordFactory(factory: Callable[..., LogRecord]) -> None: ...
 
