@@ -3,9 +3,9 @@ from asyncio import protocols
 from asyncio import streams
 from asyncio import transports
 from asyncio.coroutines import coroutine
-from typing import Any, AnyStr, Generator, Optional, Tuple, Union
+from typing import Any, AnyStr, Generator, List, Optional, Tuple, Union
 
-__all__ = ...  # type: str
+__all__: List[str]
 
 PIPE = ...  # type: int
 STDOUT = ...  # type: int

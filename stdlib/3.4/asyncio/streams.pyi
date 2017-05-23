@@ -1,15 +1,15 @@
 import sys
-from typing import Any, Awaitable, Callable, Generator, Iterable, Optional, Tuple
+from typing import Any, Awaitable, Callable, Generator, Iterable, List, Optional, Tuple
 
 from . import coroutines
 from . import events
 from . import protocols
 from . import transports
 
-ClientConnectedCallback = Callable[[StreamReader, StreamWriter], Optional[Awaitable[None]]]
+_ClientConnectedCallback = Callable[[StreamReader, StreamWriter], Optional[Awaitable[None]]]
 
 
-__all__ = ...  # type: str
+__all__: List[str]
 
 class IncompleteReadError(EOFError):
     def __init__(self, partial: str, expected: int) -> None: ...
@@ -29,7 +29,7 @@ def open_connection(
 
 @coroutines.coroutine
 def start_server(
-    client_connected_cb: ClientConnectedCallback,
+    client_connected_cb: _ClientConnectedCallback,
     host: str = ...,
     port: int = ...,
     *,
@@ -50,7 +50,7 @@ if sys.platform != 'win32':
 
     @coroutines.coroutine
     def start_unix_server(
-        client_connected_cb: ClientConnectedCallback,
+        client_connected_cb: _ClientConnectedCallback,
         path: str = ...,
         *,
         loop: int = ...,
@@ -62,7 +62,7 @@ class FlowControlMixin(protocols.Protocol): ...
 class StreamReaderProtocol(FlowControlMixin, protocols.Protocol):
     def __init__(self,
             stream_reader: StreamReader,
-            client_connected_cb: ClientConnectedCallback = ...,
+            client_connected_cb: _ClientConnectedCallback = ...,
             loop: events.AbstractEventLoop = ...) -> None: ...
     def connection_made(self, transport: transports.BaseTransport) -> None: ...
     def connection_lost(self, exc: Exception) -> None: ...
@@ -99,8 +99,8 @@ class StreamReader:
     @coroutines.coroutine
     def readline(self) -> Generator[Any, None, bytes]: ...
     @coroutines.coroutine
-    def readuntil(self, separator=b'\n') -> Generator[Any, None, bytes]: ...
+    def readuntil(self, separator: bytes = ...) -> Generator[Any, None, bytes]: ...
     @coroutines.coroutine
-    def read(self, n=-1) -> Generator[Any, None, bytes]: ...
+    def read(self, n: int = ...) -> Generator[Any, None, bytes]: ...
     @coroutines.coroutine
     def readexactly(self, n) -> Generator[Any, None, bytes]: ...
