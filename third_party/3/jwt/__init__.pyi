@@ -1,8 +1,6 @@
 from typing import Mapping, Any, Optional, Union
 
-# This is not actually in the module namespace, so we'll
-# prefix it with an underscore.
-from .algorithms import Algorithm as _Algorithm
+from . import algorithms
 
 def decode(jwt: Union[str, bytes], key: Union[str, bytes] = ...,
            verify: bool = ..., algorithms: Optional[Any] = ...,
@@ -13,7 +11,8 @@ def encode(payload: Mapping[str, Any], key: Union[str, bytes],
            algorithm: str = ..., headers: Optional[Mapping[str, Any]] = ...,
            json_encoder: Optional[Any] = ...) -> bytes: ...
 
-def register_algorithm(alg_id: str, alg_obj: _Algorithm) -> None: ...
+def register_algorithm(alg_id: str,
+                       alg_obj: algorithms.Algorithm) -> None: ...
 
 def unregister_algorithm(alg_id: str) -> None: ...
 
