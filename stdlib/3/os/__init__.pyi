@@ -340,10 +340,15 @@ def symlink(source: _PathType, link_name: _PathType,
 def unlink(path: _PathType) -> None: ...
 def utime(path: _PathType, times: Optional[Tuple[float, float]] = ...) -> None: ...
 
-# TODO onerror: function from OSError to void
-def walk(top: AnyStr, topdown: bool = ..., onerror: Any = ...,
-         followlinks: bool = ...) -> Iterator[Tuple[AnyStr, List[AnyStr],
-                                                    List[AnyStr]]]: ...
+if sys.version_info >= (3, 6):
+    def walk(top: Union[AnyStr, PathLike[AnyStr]], topdown: bool = ...,
+             onerror: Optional[Callable[[OSError], Any]] = ...,
+             followlinks: bool = ...) -> Iterator[Tuple[AnyStr, List[AnyStr],
+                                                        List[AnyStr]]]: ...
+else:
+    def walk(top: AnyStr, topdown: bool = ..., onerror: Optional[Callable[[OSError], Any]] = ...,
+             followlinks: bool = ...) -> Iterator[Tuple[AnyStr, List[AnyStr],
+                                                        List[AnyStr]]]: ...
 
 def abort() -> NoReturn: ...
 # These are defined as execl(file, *args) but the first *arg is mandatory.

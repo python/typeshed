@@ -18,6 +18,9 @@ else:
     _ExcInfoType = Union[None, bool, _SysExcInfoType]
 _ArgsType = Union[Tuple[Any, ...], Dict[str, Any]]
 _FilterType = Union['Filter', Callable[['LogRecord'], int]]
+_Level = Union[int, Text]
+
+raiseExceptions: bool
 
 
 class Logger:
@@ -110,6 +113,7 @@ class Logger:
 
 
 CRITICAL = ...  # type: int
+FATAL = ...  # type: int
 ERROR = ...  # type: int
 WARNING = ...  # type: int
 WARN = ...  # type: int
@@ -130,7 +134,7 @@ class Handler(Filterer):
     level = ...  # type: int
     formatter = ...  # type: Optional[Formatter]
     lock = ...  # type: Optional[threading.Lock]
-    def __init__(self, level: int = ...) -> None: ...
+    def __init__(self, level: _Level = ...) -> None: ...
     def createLock(self) -> None: ...
     def acquire(self) -> None: ...
     def release(self) -> None: ...
@@ -322,6 +326,7 @@ else:
                   extra: Optional[Dict[str, Any]] = ..., **kwargs: Any) -> None: ...
     def log(lvl: int, msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
             extra: Optional[Dict[str, Any]] = ..., **kwargs: Any) -> None: ...
+fatal = critical
 
 def disable(lvl: int) -> None: ...
 def addLevelName(lvl: int, levelName: str) -> None: ...
@@ -332,7 +337,7 @@ def makeLogRecord(attrdict: Mapping[str, Any]) -> LogRecord: ...
 if sys.version_info >= (3,):
     def basicConfig(*, filename: str = ..., filemode: str = ...,
                     format: str = ..., datefmt: str = ..., style: str = ...,
-                    level: int = ..., stream: IO[str] = ...,
+                    level: _Level = ..., stream: IO[str] = ...,
                     handlers: Iterable[Handler] = ...) -> None: ...
 else:
     @overload
@@ -340,10 +345,13 @@ else:
     @overload
     def basicConfig(*, filename: str = ..., filemode: str = ...,
                     format: str = ..., datefmt: str = ...,
-                    level: int = ..., stream: IO[str] = ...) -> None: ...
+                    level: _Level = ..., stream: IO[str] = ...) -> None: ...
 def shutdown() -> None: ...
 
 def setLoggerClass(klass: type) -> None: ...
+
+def captureWarnings(capture: bool) -> None: ...
+
 if sys.version_info >= (3,):
     def setLogRecordFactory(factory: Callable[..., LogRecord]) -> None: ...
 

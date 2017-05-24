@@ -3,9 +3,9 @@ from asyncio import protocols
 from asyncio import streams
 from asyncio import transports
 from asyncio.coroutines import coroutine
-from typing import Any, AnyStr, Generator, Optional, Tuple, Union
+from typing import Any, AnyStr, Generator, List, Optional, Tuple, Union
 
-__all__ = ...  # type: str
+__all__: List[str]
 
 PIPE = ...  # type: int
 STDOUT = ...  # type: int
@@ -19,7 +19,7 @@ class SubprocessStreamProtocol(streams.FlowControlMixin,
     def __init__(self, limit: int, loop: events.AbstractEventLoop) -> None: ...
     def connection_made(self, transport: transports.BaseTransport) -> None: ...
     def pipe_data_received(self, fd: int, data: AnyStr) -> None: ...
-    def pipe_connection_lost(self, fd: int, exc: Exception): ...
+    def pipe_connection_lost(self, fd: int, exc: Exception) -> None: ...
     def process_exited(self) -> None: ...
 
 

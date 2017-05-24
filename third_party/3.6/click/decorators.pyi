@@ -1,5 +1,5 @@
 from distutils.version import Version
-from typing import Any, Callable, Dict, List, TypeVar, Union
+from typing import Any, Callable, Dict, List, Optional, TypeVar, Union
 
 from click.core import Command, Group, Argument, Option, Parameter, Context
 from click.types import ParamType
@@ -7,6 +7,10 @@ from click.types import ParamType
 _T = TypeVar('_T')
 _Decorator = Callable[[_T], _T]
 
+_Callback = Callable[
+    [Context, Union[Option, Parameter], Union[bool, int, str]],
+    Any
+]
 
 def pass_context(_T) -> _T:
     ...
@@ -29,6 +33,7 @@ def command(
     name: str = None,
     cls: type = Command,
     # Command
+    context_settings: Optional[Dict] = ...,
     help: str = None,
     epilog: str = None,
     short_help: str = None,
@@ -71,7 +76,7 @@ def argument(
     # Parameter
     type: Union[type, ParamType] = None,
     default: Any = None,
-    callback: Callable[[Context, Parameter, str], Any] = None,
+    callback: Optional[_Callback] = ...,
     nargs: int = None,
     metavar: str = None,
     expose_value: bool = True,
@@ -98,7 +103,7 @@ def option(
     help: str = None,
     # Parameter
     default: Any = None,
-    callback: Callable[[Context, Parameter, str], Any] = None,
+    callback: Optional[_Callback] = ...,
     nargs: int = None,
     metavar: str = None,
     expose_value: bool = True,
@@ -126,7 +131,7 @@ def confirmation_option(
     help: str = 'Confirm the action without prompting.',
     # Parameter
     default: Any = None,
-    callback: Callable[[Context, Parameter, str], Any] = None,
+    callback: Optional[_Callback] = ...,
     nargs: int = None,
     metavar: str = None,
     expose_value: bool = False,
@@ -154,7 +159,7 @@ def password_option(
     help: str = None,
     # Parameter
     default: Any = None,
-    callback: Callable[[Context, Parameter, str], Any] = None,
+    callback: Optional[_Callback] = ...,
     nargs: int = None,
     metavar: str = None,
     expose_value: bool = True,
@@ -184,7 +189,7 @@ def version_option(
     help: str = 'Show the version and exit.',
     # Parameter
     default: Any = None,
-    callback: Callable[[Context, Parameter, str], Any] = None,
+    callback: Optional[_Callback] = ...,
     nargs: int = None,
     metavar: str = None,
     expose_value: bool = False,
@@ -212,7 +217,7 @@ def help_option(
     help: str = 'Show this message and exit.',
     # Parameter
     default: Any = None,
-    callback: Callable[[Context, Parameter, str], Any] = None,
+    callback: Optional[_Callback] = ...,
     nargs: int = None,
     metavar: str = None,
     expose_value: bool = False,
