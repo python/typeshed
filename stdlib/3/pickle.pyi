@@ -1,39 +1,29 @@
 import sys
-from typing import Any, IO, Union, Tuple, Callable, Optional, Iterator
-# Imports used in type comments only.
-from typing import Mapping  # noqa
+from typing import Any, IO, Mapping, Union, Tuple, Callable, Optional, Iterator
 
-HIGHEST_PROTOCOL = ...  # type: int
-DEFAULT_PROTOCOL = ...  # type: int
-
-
-def dump(obj: Any, file: IO[bytes], protocol: int = None, *,
-         fix_imports: bool = ...) -> None: ...
+HIGHEST_PROTOCOL: int
+if sys.version_info >= (3, 0):
+    DEFAULT_PROTOCOL: int
 
 
-def dumps(obj: Any, protocol: int = ..., *,
-          fix_imports: bool = ...) -> bytes: ...
+if sys.version_info >= (3, 0):
+    def dump(obj: Any, file: IO[bytes], protocol: Optional[int] = ..., *,
+             fix_imports: bool = ...) -> None: ...
+    def dumps(obj: Any, protocol: Optional[int] = ..., *,
+              fix_imports: bool = ...) -> bytes: ...
+    def loads(bytes_object: bytes, *, fix_imports: bool = ...,
+              encoding: str = ..., errors: str = ...) -> Any: ...
+    def load(file: IO[bytes], *, fix_imports: bool = ..., encoding: str = ...,
+             errors: str = ...) -> Any: ...
+else:
+    def dump(obj: Any, file: IO[bytes], protocol: Optional[int] = ...) -> None: ...
+    def dumps(obj: Any, protocol: Optional[int] = ...) -> bytes: ...
+    def load(file: IO[bytes]) -> Any: ...
+    def loads(string: bytes) -> Any: ...
 
-
-def loads(bytes_object: bytes, *, fix_imports: bool = ...,
-          encoding: str = ..., errors: str = ...) -> Any: ...
-
-
-def load(file: IO[bytes], *, fix_imports: bool = ..., encoding: str = ...,
-         errors: str = ...) -> Any: ...
-
-
-class PickleError(Exception):
-    pass
-
-
-class PicklingError(PickleError):
-    pass
-
-
-class UnpicklingError(PickleError):
-    pass
-
+class PickleError(Exception): ...
+class PicklingError(PickleError): ...
+class UnpicklingError(PickleError): ...
 
 _reducedtype = Union[str,
                      Tuple[Callable[..., Any], Tuple],
@@ -45,25 +35,32 @@ _reducedtype = Union[str,
 
 
 class Pickler:
-    dispatch_table = ...  # type: Mapping[type, Callable[[Any], _reducedtype]]
+    fast: bool
+    if sys.version_info >= (3, 3):
+        dispatch_table: Mapping[type, Callable[[Any], _reducedtype]]
 
-    def __init__(self, file: IO[bytes], protocol: int = None, *,
-                 fix_imports: bool = ...) -> None: ...
+    if sys.version_info >= (3, 0):
+        def __init__(self, file: IO[bytes], protocol: Optional[int] = ..., *,
+                     fix_imports: bool = ...) -> None: ...
+    else:
+        def __init__(self, file: IO[bytes], protocol: Optional[int] = ...) -> None: ...
 
     def dump(self, obj: Any) -> None: ...
-
+    def clear_memo(self) -> None: ...
     def persistent_id(self, obj: Any) -> Any: ...
 
 
 class Unpickler:
-    def __init__(self, file: IO[bytes], *, fix_imports: bool = ...,
-                 encoding: str = ..., errors: str = ...) -> None: ...
+    if sys.version_info >= (3, 0):
+        def __init__(self, file: IO[bytes], *, fix_imports: bool = ...,
+                     encoding: str = ..., errors: str = ...) -> None: ...
+    else:
+        def __init__(self, file: IO[bytes]) -> None: ...
 
     def load(self) -> Any: ...
-
-    def persistent_load(self, pid: Any) -> Any: ...
-
     def find_class(self, module: str, name: str) -> Any: ...
+    if sys.version_info >= (3, 0):
+        def persistent_load(self, pid: Any) -> Any: ...
 
 MARK: bytes
 STOP: bytes
@@ -110,6 +107,7 @@ BINFLOAT: bytes
 TRUE: bytes
 FALSE: bytes
 
+# protocol 2
 PROTO: bytes
 NEWOBJ: bytes
 EXT1: bytes
@@ -123,10 +121,13 @@ NEWFALSE: bytes
 LONG1: bytes
 LONG4: bytes
 
-BINBYTES: bytes
-SHORT_BINBYTES: bytes
+if sys.version_info >= (3, 0):
+    # protocol 3
+    BINBYTES: bytes
+    SHORT_BINBYTES: bytes
 
 if sys.version_info >= (3, 4):
+    # protocol 4
     SHORT_BINUNICODE: bytes
     BINUNICODE8: bytes
     BINBYTES8: bytes
