@@ -9,17 +9,17 @@ from types import CodeType, FrameType, TracebackType
 overload = object()
 Any = object()
 TypeVar = object()
-Generic = object()
-Callable = object()
-Type = object()
 _promote = object()
 no_type_check = object()
-ClassVar = object()
 
-class _Tuple:
+class _GenericBaseTypeClass:
     def __getitem__(self, typeargs: Any) -> Any: ...
 
-Tuple = _Tuple()
+Tuple: _GenericBaseTypeClass
+Generic: _GenericBaseTypeClass
+Callable: _GenericBaseTypeClass
+Type: _GenericBaseTypeClass
+ClassVar: _GenericBaseTypeClass
 
 class GenericMeta(type): ...
 
