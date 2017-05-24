@@ -13,14 +13,14 @@ TypeVar = object()
 _promote = object()
 no_type_check = object()
 
-class _GenericBaseTypeClass:
+class _SpecialForm:
     def __getitem__(self, typeargs: Any) -> Any: ...
 
-Tuple: _GenericBaseTypeClass
-Generic: _GenericBaseTypeClass
-Callable: _GenericBaseTypeClass
-Type: _GenericBaseTypeClass
-ClassVar: _GenericBaseTypeClass
+Tuple: _SpecialForm
+Generic: _SpecialForm
+Callable: _SpecialForm
+Type: _SpecialForm
+ClassVar: _SpecialForm
 
 class GenericMeta(type): ...
 
