@@ -11,12 +11,16 @@ overload = object()
 Any = object()
 TypeVar = object()
 Generic = object()
-Tuple = object()
 Callable = object()
 Type = object()
 _promote = object()
 no_type_check = object()
 ClassVar = object()
+
+class _Tuple:
+    def __getitem__(self, typeargs: Any) -> Any: ...
+
+Tuple = _Tuple()
 
 class GenericMeta(type): ...
 
