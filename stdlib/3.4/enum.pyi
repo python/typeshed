@@ -34,7 +34,7 @@ if sys.version_info >= (3, 6):
 
     class auto(IntFlag):
         value = ...  # type: Any
-        def __init__(self) -> None: pass
+        def __init__(self) -> None: ...
 
     class Flag(Enum):
         def __contains__(self: _T, other: _T) -> bool: ...
