@@ -5,7 +5,7 @@ import concurrent.futures
 from .events import AbstractEventLoop
 from .futures import Future
 
-__all__ = ...  # type: str
+__all__: List[str]
 
 _T = TypeVar('_T')
 _FutureT = Union[Future[_T], Generator[Any, None, _T], Awaitable[_T]]
@@ -18,6 +18,7 @@ def as_completed(fs: Sequence[_FutureT[_T]], *, loop: AbstractEventLoop = ...,
                  timeout: Optional[float] = ...) -> Iterator[Generator[Any, None, _T]]: ...
 def ensure_future(coro_or_future: _FutureT[_T],
                   *, loop: AbstractEventLoop = ...) -> Future[_T]: ...
+async = ensure_future
 # TODO: gather() should use variadic type vars instead of _TAny.
 _TAny = Any
 def gather(*coros_or_futures: _FutureT[_TAny],

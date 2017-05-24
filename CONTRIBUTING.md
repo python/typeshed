@@ -9,12 +9,12 @@ are important to the project's success.
 ## The contribution process at a glance
 
 1. Read the [README.md file](README.md).
-2. Set up your environment to be able to run all tests with `runtests.sh`.  They should pass.
+2. Set up your environment to be able to [run all tests](README.md#running-the-tests).  They should pass.
 3. [Prepare your changes](#preparing-changes):
     * [Contact us](#discussion) before starting significant work.
     * IMPORTANT: For new libraries, [get permission from the library owner first](#adding-a-new-library).
     * Create your stubs [conforming to the coding style](#stub-file-coding-style).
-    * Make sure `runtests.sh` passes cleanly on Mypy, pytype, and flake8.
+    * Make sure your tests pass cleanly on `mypy`, `pytype`, and `flake8`.
 4. [Submit your changes](#submitting-changes):
     * Open a pull request
     * For new libraries, [include a reference to where you got permission](#adding-a-new-library)
@@ -103,8 +103,8 @@ should prefer to external type stubs).  When the project owners agree
 for you to submit stubs here, open a pull request **referencing the
 message where you received permission**.
 
-Make sure your changes pass tests by running ``runtests.sh`` (the
-[README](README.md) has more information).
+Make sure your changes pass the tests (the [README](README.md#running-the-tests)
+has more information).
 
 ### Using stubgen
 
@@ -135,12 +135,7 @@ rule is that they should be as concise as possible.  Specifically:
   names, or methods and fields within a single class;
 * use a single blank line between top-level class definitions, or none
   if the classes are very small;
-* add a top-level comment followed by an empty line that makes it clear
-  the file contains a stub and not the actual code for the module,
-  for example `# Stubs for pathlib (Python 3.4)`;
-* do not use docstrings;
-* prefer type comments over variable annotations unless your stubs are
-  exclusively targeting Python 3.6.
+* do not use docstrings.
 
 Imports in stubs are considered private (not part of the exported API)
 unless:
@@ -159,11 +154,6 @@ Type variables and aliases you introduce purely for legibility reasons
 should be prefixed with an underscore to make it obvious to the reader
 they are not part of the stubbed API.
 
-Finally, remember to include a comment on the top of your file about the
-version of the Python language your stubs were tested against and
-version of the library they were built for.  This makes it easier to
-maintain the stubs in the future.
-
 NOTE: there are stubs in this repository that don't conform to the
 style described above.  Fixing them is a great starting point for new
 contributors.
@@ -172,9 +162,23 @@ contributors.
 
 There are separate directories for `stdlib` and `third_party` stubs.
 Within those, there are separate directories for different versions of
-Python the stubs target.  If the given library works on both Python 2
-and Python 3, prefer to put your stubs in an `2and3` directory, unless
-the types are so different that the stubs become unreadable that way.
+Python the stubs target.
+
+The directory name indicates the major version of Python that a stub targets
+and optionally the lowest minor version, with the exception of the `2and3`
+directory which applies to both Python 2 and 3.
+
+For example, stubs in the `3` directory will be applied to all versions of
+Python 3, though stubs in the `3.6` directory will only be applied to versions
+3.6 and above. However, stubs in the `2` directory will not be applied to
+Python 3.
+
+It is preferred to use a single stub in the more generic directory that
+conditionally targets specific versions when needed, as opposed
+to maintaining multiple stub files within more specific directories. Similarly,
+if the given library works on both Python 2 and Python 3, prefer to put your
+stubs in the `2and3` directory, unless the types are so different that the stubs
+become unreadable that way.
 
 You can use checks like `if sys.version_info >= (3, 4):` to denote new
 functionality introduced in a given Python version or solve type
@@ -244,3 +248,5 @@ Core developers should follow these rules when processing pull requests:
 * Always wait for tests to pass before merging PRs.
 * Use "[Squash and merge](https://github.com/blog/2141-squash-your-commits)" to merge PRs.
 * Delete branches for merged PRs (by core devs pushing to the main repo).
+* Make sure commit messages to master are meaningful. For example, remove irrelevant
+  intermediate commit messages.

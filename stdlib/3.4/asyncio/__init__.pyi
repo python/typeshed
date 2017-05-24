@@ -1,8 +1,5 @@
-"""The asyncio package, tracking PEP 3156."""
-
-import socket
 import sys
-from typing import Type
+from typing import List, Type
 
 from asyncio.coroutines import (
     coroutine as coroutine,
@@ -49,7 +46,7 @@ from asyncio.tasks import (
     ALL_COMPLETED as ALL_COMPLETED,
     as_completed as as_completed,
     ensure_future as ensure_future,
-    ensure_future as async,
+    async as async,
     gather as gather,
     run_coroutine_threadsafe as run_coroutine_threadsafe,
     shield as shield,
@@ -63,6 +60,7 @@ from asyncio.events import (
     AbstractEventLoop as AbstractEventLoop,
     AbstractServer as AbstractServer,
     Handle as Handle,
+    TimerHandle as TimerHandle,
     get_event_loop_policy as get_event_loop_policy,
     set_event_loop_policy as set_event_loop_policy,
     get_event_loop as get_event_loop,
@@ -88,6 +86,12 @@ from asyncio.locks import (
 
 if sys.version_info < (3, 5):
     from asyncio.queues import JoinableQueue as JoinableQueue
+else:
+    from asyncio.futures import isfuture as isfuture
+    from asyncio.events import (
+        _set_running_loop as _set_running_loop,
+        _get_running_loop as _get_running_loop,
+    )
 if sys.platform != 'win32':
     from asyncio.streams import (
         open_unix_connection as open_unix_connection,
@@ -104,4 +108,4 @@ DefaultEventLoopPolicy = ...  # type: Type[AbstractEventLoopPolicy]
 
 # TODO: AbstractChildWatcher (UNIX only)
 
-__all__ = ...  # type: str
+__all__: List[str]

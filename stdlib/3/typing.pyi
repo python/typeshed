@@ -2,7 +2,7 @@
 
 import sys
 from abc import abstractmethod, ABCMeta
-from types import CodeType, FrameType
+from types import CodeType, FrameType, TracebackType
 
 # Definitions of special type checking related constructs.  Their definition
 # are not used, so their value does not matter.
@@ -127,7 +127,7 @@ class Generator(Iterator[_T_co], Generic[_T_co, _T_contra, _V_co]):
     gi_yieldfrom = ...  # type: Optional[Generator]
 
 # TODO: Several types should only be defined if sys.python_version >= (3, 5):
-# Awaitable, AsyncIterator, AsyncIterable, Coroutine, Collection, ContextManager.
+# Awaitable, AsyncIterator, AsyncIterable, Coroutine, Collection.
 # See https: //github.com/python/typeshed/issues/655 for why this is not easy.
 
 class Awaitable(Generic[_T_co]):
@@ -281,7 +281,11 @@ class ValuesView(MappingView, Iterable[_VT_co], Generic[_VT_co]):
     def __contains__(self, o: object) -> bool: ...
     def __iter__(self) -> Iterator[_VT_co]: ...
 
-# TODO: ContextManager (only if contextlib.AbstractContextManager exists)
+class ContextManager(Generic[_T_co]):
+    def __enter__(self) -> _T_co: ...
+    def __exit__(self, exc_type: Optional[Type[BaseException]],
+                 exc_value: Optional[BaseException],
+                 traceback: Optional[TracebackType]) -> Optional[bool]: ...
 
 class Mapping(_Collection[_KT], Generic[_KT, _VT_co]):
     # TODO: We wish the key type could also be covariant, but that doesn't work,

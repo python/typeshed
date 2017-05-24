@@ -1,8 +1,6 @@
-# Stubs for difflib
+# Based on https://docs.python.org/2.7/library/difflib.html and https://docs.python.org/3.2/library/difflib.html
 
-# Based on https://docs.python.org/2.7/library/difflib.html
-
-# TODO: Support unicode?
+# TODO: Support unicode in Python 2?
 
 from typing import (
     TypeVar, Callable, Iterable, Iterator, List, NamedTuple, Sequence, Tuple,
