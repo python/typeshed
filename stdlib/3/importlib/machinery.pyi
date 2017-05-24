@@ -125,7 +125,7 @@ else:
         def load_module(cls, fullname: str) -> types.ModuleType: ...
 
 if sys.version_info >= (3, 3):
-    class WindowsRegisteryFinder(importlib.abc.MetaPathFinder):
+    class WindowsRegistryFinder(importlib.abc.MetaPathFinder):
         @classmethod
         def find_module(
             cls, fullname: str,
