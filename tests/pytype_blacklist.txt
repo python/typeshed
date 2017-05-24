@@ -32,6 +32,7 @@ stdlib/3/inspect.pyi
 stdlib/3/json/__init__.pyi
 stdlib/3/json/decoder.pyi
 stdlib/3/json/encoder.pyi
+stdlib/3/ssl.pyi
 stdlib/3/subprocess.pyi
 stdlib/3/sys.pyi
 stdlib/3/textwrap.pyi
