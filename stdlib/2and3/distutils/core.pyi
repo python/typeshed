@@ -36,12 +36,14 @@ def setup(name: str = ...,
           command_packages: List[str] = ...,
           command_options: Mapping[str, Mapping[str, Tuple[Any, Any]]] = ...,
           package_data: Mapping[str, List[str]] = ...,
+          include_package_data: bool = ...,
           libraries: List[str] = ...,
           headers: List[str] = ...,
           ext_package: str = ...,
           include_dirs: List[str] = ...,
           password: str = ...,
-          fullname: str = ...) -> None: ...
+          fullname: str = ...,
+          **attrs: Any) -> None: ...
 
 def run_setup(script_name: str,
               script_args: Optional[List[str]] = ...,
