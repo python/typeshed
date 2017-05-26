@@ -23,8 +23,6 @@ stdlib/3/concurrent/futures/__init__.pyi
 stdlib/3/concurrent/futures/_base.pyi
 stdlib/3/concurrent/futures/process.pyi
 stdlib/3/concurrent/futures/thread.pyi
-stdlib/3/email/headerregistry.pyi
-stdlib/3/email/message.pyi
 stdlib/3/email/policy.pyi
 stdlib/3/fileinput.pyi
 stdlib/3/gzip.pyi
@@ -44,7 +42,6 @@ stdlib/3/types.pyi
 stdlib/3/unittest/__init__.pyi
 stdlib/3/unittest/mock.pyi
 stdlib/3/urllib/parse.pyi
-stdlib/3/urllib/request.pyi
 stdlib/3/wsgiref/types.pyi
 stdlib/3.4/asyncio/events.pyi
 stdlib/3.4/asyncio/futures.pyi
