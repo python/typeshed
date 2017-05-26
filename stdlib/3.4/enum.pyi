@@ -33,7 +33,7 @@ if sys.version_info >= (3, 6):
     _auto_null = ...  # type: Any
 
     class auto(IntFlag):
-        """auto: subclassing IntFlag so it picks up all implemented base functions, best modeling behavior of enum.auto()
+        """auto: subclassing IntFlag so it picks up all implemented base functions, best modeling behavior of enum.auto()"""
         value = ...  # type: Any
         def __init__(self) -> None: ...
 
