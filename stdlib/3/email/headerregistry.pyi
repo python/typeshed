@@ -1,6 +1,6 @@
 # Stubs for email.headerregistry (Python 3.4)
 
-import datetime as dt
+from datetime import datetime as _datetime
 import sys
 from typing import Dict, Tuple, Optional, Any, Union, Mapping
 from email.errors import MessageDefect
@@ -27,9 +27,9 @@ if sys.version_info >= (3, 3):
     class UniqueUnstructuredHeader(UnstructuredHeader): ...
 
     class DateHeader:
-        datetime = ...  # type: dt.datetime
+        datetime = ...  # type: _datetime
         @classmethod
-        def parse(cls, string: Union[str, dt.datetime],
+        def parse(cls, string: Union[str, _datetime],
                   kwds: Dict[str, Any]) -> None: ...
 
     class UniqueDateHeader(DateHeader): ...
@@ -68,7 +68,7 @@ if sys.version_info >= (3, 3):
     class ContentDispositionHeader(ParameterizedMIMEHeader):
         content_disposition = ...  # type: str
 
-    class ContentTransferEncoding:
+    class ContentTransferEncodingHeader:
         cte = ...  # type: str
         @classmethod
         def parse(cls, string: str, kwds: Dict[str, Any]) -> None: ...
