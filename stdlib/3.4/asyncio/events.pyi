@@ -9,7 +9,7 @@ from asyncio.protocols import BaseProtocol
 from asyncio.tasks import Task
 from asyncio.transports import BaseTransport
 
-__all__ = ...  # type: str
+__all__: List[str]
 
 _T = TypeVar('_T')
 _Context = Dict[str, Any]
@@ -17,11 +17,6 @@ _ExceptionHandler = Callable[[AbstractEventLoop, _Context], Any]
 _ProtocolFactory = Callable[[], BaseProtocol]
 _SSLContext = Union[bool, None, ssl.SSLContext]
 _TransProtPair = Tuple[BaseTransport, BaseProtocol]
-
-PIPE = ...  # type: Any  # from subprocess.PIPE
-
-AF_UNSPEC = 0     # from socket
-AI_PASSIVE = 0
 
 class Handle:
     _cancelled = False
@@ -31,6 +26,11 @@ class Handle:
     def __repr__(self) -> str: ...
     def cancel(self) -> None: ...
     def _run(self) -> None: ...
+
+class TimerHandle(Handle):
+    def __init__(self, when: float, callback: Callable[..., Any], args: List[Any],
+                 loop: AbstractEventLoop) -> None: ...
+    def __hash__(self) -> int: ...
 
 class AbstractServer:
     def close(self) -> None: ...
@@ -218,3 +218,6 @@ def new_event_loop() -> AbstractEventLoop: ...
 
 def get_child_watcher() -> Any: ...  # TODO: unix_events.AbstractChildWatcher
 def set_child_watcher(watcher: Any) -> None: ...  # TODO: unix_events.AbstractChildWatcher
+
+def _set_running_loop(loop: AbstractEventLoop) -> None: ...
+def _get_running_loop() -> AbstractEventLoop: ...

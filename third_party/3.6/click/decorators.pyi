@@ -103,7 +103,7 @@ def option(
     help: str = None,
     # Parameter
     default: Any = None,
-    callback: _Callback = None,
+    callback: Optional[_Callback] = ...,
     nargs: int = None,
     metavar: str = None,
     expose_value: bool = True,
@@ -131,7 +131,7 @@ def confirmation_option(
     help: str = 'Confirm the action without prompting.',
     # Parameter
     default: Any = None,
-    callback: _Callback = None,
+    callback: Optional[_Callback] = ...,
     nargs: int = None,
     metavar: str = None,
     expose_value: bool = False,
@@ -159,7 +159,7 @@ def password_option(
     help: str = None,
     # Parameter
     default: Any = None,
-    callback: _Callback = None,
+    callback: Optional[_Callback] = ...,
     nargs: int = None,
     metavar: str = None,
     expose_value: bool = True,
@@ -189,7 +189,7 @@ def version_option(
     help: str = 'Show the version and exit.',
     # Parameter
     default: Any = None,
-    callback: _Callback = None,
+    callback: Optional[_Callback] = ...,
     nargs: int = None,
     metavar: str = None,
     expose_value: bool = False,
@@ -217,7 +217,7 @@ def help_option(
     help: str = 'Show this message and exit.',
     # Parameter
     default: Any = None,
-    callback: _Callback = None,
+    callback: Optional[_Callback] = ...,
     nargs: int = None,
     metavar: str = None,
     expose_value: bool = False,
