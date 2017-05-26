@@ -32,9 +32,6 @@ def unique(enumeration: _S) -> _S: ...
 if sys.version_info >= (3, 6):
     _auto_null = ...  # type: Any
 
-    class auto:
-        value = ...  # type: Any
-
     class Flag(Enum):
         def __contains__(self: _T, other: _T) -> bool: ...
         def __repr__(self) -> str: ...
@@ -54,3 +51,6 @@ if sys.version_info >= (3, 6):
         __ror__ = __or__
         __rand__ = __and__
         __rxor__ = __xor__
+
+    class auto(IntFlag):
+        value = ...  # type: Any
