@@ -26,7 +26,7 @@ class Enum(metaclass=EnumMeta):
 
 _T1 = TypeVar('_T1')
 
-class IntEnum(int, Enum):
+class IntEnum(int, Enum):  # type: ignore
     value = ...  # type: int
     def __new__(cls: Type[_T1], value: Any) -> _T1: ...
 

@@ -14,7 +14,7 @@ class Enum:
 
 _T = TypeVar('_T')
 
-class IntEnum(int, Enum):
+class IntEnum(int, Enum):  # type: ignore
     def __new__(cls: Type[_T], value: Any) -> _T: ...
 
 def unique(enumeration: _T) -> _T: ...
