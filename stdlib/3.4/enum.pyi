@@ -32,10 +32,9 @@ def unique(enumeration: _S) -> _S: ...
 if sys.version_info >= (3, 6):
     _auto_null = ...  # type: Any
 
+# auto: subclassing IntFlag so it picks up all implemented base functions, best modeling behavior of enum.auto()
     class auto(IntFlag):
-        """auto: subclassing IntFlag so it picks up all implemented base functions, best modeling behavior of enum.auto()"""
         value = ...  # type: Any
-        def __init__(self) -> None: ...
 
     class Flag(Enum):
         def __contains__(self: _T, other: _T) -> bool: ...
