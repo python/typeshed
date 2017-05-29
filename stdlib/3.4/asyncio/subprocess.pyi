@@ -46,9 +46,9 @@ class Process:
 @coroutine
 def create_subprocess_shell(
     *Args: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue  #1236
-    stdin: Union[int, IO[Any]] = ...,
-    stdout: Union[int, IO[Any]] = ...,
-    stderr: Union[int, IO[Any]] = ...,
+    stdin: Union[int, IO[Any], None] = ...,
+    stdout: Union[int, IO[Any], None] = ...,
+    stderr: Union[int, IO[Any], None] = ...,
     loop: events.AbstractEventLoop = ...,
     limit: int = ...,
     **kwds: Any
@@ -58,9 +58,9 @@ def create_subprocess_shell(
 def create_subprocess_exec(
     program: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue  #1236
     *args: Any,
-    stdin: Union[int, IO[Any]] = ...,
-    stdout: Union[int, IO[Any]] = ...,
-    stderr: Union[int, IO[Any]] = ...,
+    stdin: Union[int, IO[Any], None] = ...,
+    stdout: Union[int, IO[Any], None] = ...,
+    stderr: Union[int, IO[Any], None] = ...,
     loop: events.AbstractEventLoop = ...,
     limit: int = ...,
     **kwds: Any
