@@ -108,7 +108,7 @@ requests.
 The tests are automatically run by Travis CI on every PR and push to
 the repo.  There are several sets of tests: `tests/mypy_test.py`
 runs tests against [mypy](https://github.com/python/mypy/), while
-`tests/pytype_tests.py` runs tests against
+`tests/pytype_test.py` runs tests against
 [pytype](https://github.com/google/pytype/).
 
 Both sets of tests are shallow -- they verify that all stubs can be
