@@ -3,7 +3,7 @@ from asyncio import protocols
 from asyncio import streams
 from asyncio import transports
 from asyncio.coroutines import coroutine
-from typing import Any, AnyStr, Generator, List, Optional, Tuple, Union
+from typing import Any, AnyStr, Generator, List, Optional, Tuple, Union, IO
 
 __all__: List[str]
 
@@ -46,9 +46,9 @@ class Process:
 @coroutine
 def create_subprocess_shell(
     *Args: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue  #1236
-    stdin: int = ...,
-    stdout: int = ...,
-    stderr: int = ...,
+    stdin: Union[int, IO[Any]] = ...,
+    stdout: Union[int, IO[Any]] = ...,
+    stderr: Union[int, IO[Any]] = ...,
     loop: events.AbstractEventLoop = ...,
     limit: int = ...,
     **kwds: Any
@@ -58,9 +58,9 @@ def create_subprocess_shell(
 def create_subprocess_exec(
     program: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue  #1236
     *args: Any,
-    stdin: int = ...,
-    stdout: int = ...,
-    stderr: int = ...,
+    stdin: Union[int, IO[Any]] = ...,
+    stdout: Union[int, IO[Any]] = ...,
+    stderr: Union[int, IO[Any]] = ...,
     loop: events.AbstractEventLoop = ...,
     limit: int = ...,
     **kwds: Any
