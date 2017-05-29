@@ -17,23 +17,14 @@ def register_algorithm(alg_id: str,
 def unregister_algorithm(alg_id: str) -> None: ...
 
 class InvalidTokenError(Exception): pass
-
 class DecodeError(InvalidTokenError): pass
-
 class ExpiredSignatureError(InvalidTokenError): pass
-
 class InvalidAudienceError(InvalidTokenError): pass
-
 class InvalidIssuerError(InvalidTokenError): pass
-
 class InvalidIssuedAtError(InvalidTokenError): pass
-
 class ImmatureSignatureError(InvalidTokenError): pass
-
 class InvalidKeyError(Exception): pass
-
 class InvalidAlgorithmError(InvalidTokenError): pass
-
 class MissingRequiredClaimError(InvalidTokenError): ...
 
 # Compatibility aliases (deprecated)
