@@ -3,12 +3,11 @@
 from typing import (
     Any, Callable, Dict, Iterable, Iterator, List, Optional, Pattern, Sequence,
     Set, FrozenSet, TextIO, Tuple, Type, TypeVar, Union, Generic,
-    overload,
+    overload, ContextManager
 )
 import logging
 import sys
 from types import ModuleType, TracebackType
-from contextlib import ContextManager
 
 
 _T = TypeVar('_T')

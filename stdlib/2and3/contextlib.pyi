@@ -2,23 +2,22 @@
 
 from typing import (
     Any, Callable, Generator, IO, Iterable, Iterator, Optional, Type,
-    Generic, TypeVar,
+    Generic, TypeVar
 )
 from types import TracebackType
 import sys
+# Aliased here for backwards compatibility; TODO eventually remove this
+from typing import ContextManager as ContextManager
+
+if sys.version_info >= (3, 6):
+    from typing import ContextManager as AbstractContextManager
 
 _T = TypeVar('_T')
+
 _ExitFunc = Callable[[Optional[Type[BaseException]],
-                      Optional[Exception],
+                      Optional[BaseException],
                       Optional[TracebackType]], bool]
 _CM_EF = TypeVar('_CM_EF', ContextManager, _ExitFunc)
-
-# TODO already in PEP, have to get added to mypy
-class ContextManager(Generic[_T]):
-    def __enter__(self) -> _T: ...
-    def __exit__(self, exc_type: Optional[Type[BaseException]],
-                 exc_val: Optional[Exception],
-                 exc_tb: Optional[TracebackType]) -> bool: ...
 
 if sys.version_info >= (3, 2):
     class GeneratorContextManager(Generic[_T], ContextManager[_T]):

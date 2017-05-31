@@ -62,3 +62,6 @@ analyze.py
 .vscode/
 .idea/
 .venv*/
+
+# Mypy cache
+.mypy_cache/

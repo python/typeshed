@@ -2,7 +2,7 @@
 
 import sys
 from abc import abstractmethod, ABCMeta
-from types import CodeType, FrameType
+from types import CodeType, FrameType, TracebackType
 
 # Definitions of special type checking related constructs.  Their definition
 # are not used, so their value does not matter.
@@ -127,7 +127,7 @@ class Generator(Iterator[_T_co], Generic[_T_co, _T_contra, _V_co]):
     gi_yieldfrom = ...  # type: Optional[Generator]
 
 # TODO: Several types should only be defined if sys.python_version >= (3, 5):
-# Awaitable, AsyncIterator, AsyncIterable, Coroutine, Collection, ContextManager.
+# Awaitable, AsyncIterator, AsyncIterable, Coroutine, Collection.
 # See https: //github.com/python/typeshed/issues/655 for why this is not easy.
 
 class Awaitable(Generic[_T_co]):
@@ -281,7 +281,11 @@ class ValuesView(MappingView, Iterable[_VT_co], Generic[_VT_co]):
     def __contains__(self, o: object) -> bool: ...
     def __iter__(self) -> Iterator[_VT_co]: ...
 
-# TODO: ContextManager (only if contextlib.AbstractContextManager exists)
+class ContextManager(Generic[_T_co]):
+    def __enter__(self) -> _T_co: ...
+    def __exit__(self, exc_type: Optional[Type[BaseException]],
+                 exc_value: Optional[BaseException],
+                 traceback: Optional[TracebackType]) -> Optional[bool]: ...
 
 class Mapping(_Collection[_KT], Generic[_KT, _VT_co]):
     # TODO: We wish the key type could also be covariant, but that doesn't work,
@@ -290,9 +294,9 @@ class Mapping(_Collection[_KT], Generic[_KT, _VT_co]):
     def __getitem__(self, k: _KT) -> _VT_co:
         ...
     # Mixin methods
-    @overload  # type: ignore
+    @overload
     def get(self, k: _KT) -> Optional[_VT_co]: ...
-    @overload  # type: ignore
+    @overload
     def get(self, k: _KT, default: Union[_VT_co, _T]) -> Union[_VT_co, _T]: ...
     def items(self) -> AbstractSet[Tuple[_KT, _VT_co]]: ...
     def keys(self) -> AbstractSet[_KT]: ...
@@ -323,9 +327,11 @@ class MutableMapping(Mapping[_KT, _VT], Generic[_KT, _VT]):
     # known to be a Mapping with unknown type parameters, which is closer
     # to the behavior we want. See mypy issue  #1430.
     @overload
-    def update(self, m: Mapping[_KT, _VT], **kwargs: _VT) -> None: ...
+    def update(self, __m: Mapping[_KT, _VT], **kwargs: _VT) -> None: ...
     @overload
-    def update(self, m: Iterable[Tuple[_KT, _VT]], **kwargs: _VT) -> None: ...
+    def update(self, __m: Iterable[Tuple[_KT, _VT]], **kwargs: _VT) -> None: ...
+    @overload
+    def update(self, **kwargs: _VT) -> None: ...
 
 Text = str
 
@@ -482,7 +488,8 @@ class Pattern(Generic[AnyStr]):
 
 # Functions
 
-def get_type_hints(obj: Callable) -> dict[str, Any]: ...
+def get_type_hints(obj: Callable, globalns: Optional[dict[str, Any]] = ...,
+                   localns: Optional[dict[str, Any]] = ...) -> dict[str, Any]: ...
 
 def cast(tp: Type[_T], obj: Any) -> _T: ...
 
@@ -491,9 +498,10 @@ def cast(tp: Type[_T], obj: Any) -> _T: ...
 # NamedTuple is special-cased in the type checker
 class NamedTuple(tuple):
     _fields = ...  # type: Tuple[str, ...]
+    _source = ...  # type: str
 
-    def __init__(self, typename: str, fields: Iterable[Tuple[str, Any]], *,
-                 verbose: bool = ..., rename: bool = ..., module: Any = ...) -> None: ...
+    def __init__(self, typename: str, fields: Iterable[Tuple[str, Any]] = ..., *,
+                 verbose: bool = ..., rename: bool = ..., **kwargs: Any) -> None: ...
 
     @classmethod
     def _make(cls, iterable: Iterable[Any]) -> NamedTuple: ...

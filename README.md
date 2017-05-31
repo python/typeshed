@@ -11,6 +11,34 @@ For information on how to use `typeshed`, read below.  Information for
 contributors can be found in [CONTRIBUTING.md](CONTRIBUTING.md).  **Please read
 it before submitting pull requests.**
 
+Typeshed supports Python versions 2.7 and 3.3 and up.
+
+## Using
+
+If you're just using mypy (or pytype or PyCharm), as opposed to
+developing it, you don't need to interact with the typeshed repo at
+all: a copy of typeshed is bundled with mypy.
+
+When you use a checked-out clone of the mypy repo, a copy of typeshed
+should be included as a submodule, using
+
+    $ git clone --recurse-submodules https://github.com/python/mypy.git
+
+or
+
+    $ git clone https://github.com/python/mypy.git
+    $ cd mypy
+    $ git submodule init
+    $ git submodule update
+
+and occasionally you will have to repeat the final command (`git
+submodule update`) to pull in changes made in the upstream typeshed
+repo.
+
+PyCharm and pytype similarly include a copy of typeshed.  The one in
+pytype can be updated in the same way if you are working with the
+pytype repo.
+
 ## Format
 
 Each Python module is represented by a `.pyi` "stub". This is a normal Python
@@ -26,13 +54,15 @@ of the stub files.
 The below is an excerpt from the types for the `datetime` module.
 
 ```python
+from typing import Union
+
 MAXYEAR = ...  # type: int
 MINYEAR = ...  # type: int
 
 class date(object):
     def __init__(self, year: int, month: int, day: int) -> None: ...
     @classmethod
-    def fromtimestamp(cls, timestamp: int or float) -> date: ...
+    def fromtimestamp(cls, timestamp: Union[int, float]) -> date: ...
     @classmethod
     def fromordinal(cls, ordinal: int) -> date: ...
     @classmethod
@@ -76,9 +106,9 @@ requests.
 ## Running the tests
 
 The tests are automatically run by Travis CI on every PR and push to
-the repo.  There are two separate sets of tests: `tests/mypy_test.py`
+the repo.  There are several sets of tests: `tests/mypy_test.py`
 runs tests against [mypy](https://github.com/python/mypy/), while
-`tests/pytype_tests.py` runs tests against
+`tests/pytype_test.py` runs tests against
 [pytype](https://github.com/google/pytype/).
 
 Both sets of tests are shallow -- they verify that all stubs can be
@@ -87,8 +117,14 @@ imported but they don't check whether stubs match their implementation
 that each set of tests has a blacklist of modules that are not tested
 at all.  The blacklists also live in the tests directory.
 
+In addition, you can run `tests/mypy_selftest.py` to run mypy's own
+test suite using the typeshed code in your repo. This will sometimes
+catch issues with incorrectly typed stubs, but is much slower than the
+other tests.
+
 To manually run the mypy tests, you need to have Python 3.5 or higher;
 Python 3.6.1 or higher is recommended.
+
 Run:
 ```
 $ python3.6 -m venv .venv3
@@ -100,6 +136,8 @@ typed-ast, and flake8. You can then run mypy tests and flake8 tests by
 invoking:
 ```
 (.venv3)$ python3 tests/mypy_test.py
+...
+(.venv3)$ python3 tests/mypy_selftest.py
 ...
 (.venv3)$ flake8
 ...
