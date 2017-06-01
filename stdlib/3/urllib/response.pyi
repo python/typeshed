@@ -1,9 +1,9 @@
 # private module, we only expose what's needed
 
-from typing import BinaryIO, Mapping, Optional
+from typing import _ConcreteBinaryIO, Mapping, Optional
 from types import TracebackType
 
-class addinfourl(BinaryIO):
+class addinfourl(_ConcreteBinaryIO):
     headers = ...  # type: Mapping[str, str]
     url = ...  # type: str
     code = ...  # type: int
