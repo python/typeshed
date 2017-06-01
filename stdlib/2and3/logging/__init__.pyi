@@ -13,7 +13,7 @@ import threading
 _SysExcInfoType = Union[Tuple[type, BaseException, TracebackType],
                         Tuple[None, None, None]]
 if sys.version_info >= (3, 5):
-    _ExcInfoType = Union[None, bool, _SysExcInfoType, Exception]
+    _ExcInfoType = Union[None, bool, _SysExcInfoType, BaseException]
 else:
     _ExcInfoType = Union[None, bool, _SysExcInfoType]
 _ArgsType = Union[Tuple[Any, ...], Dict[str, Any]]
