@@ -5,6 +5,7 @@ import sys
 
 if sys.version_info >= (3, 3):
     from . import (
+        Callable as Callable,
         Container as Container,
         Hashable as Hashable,
         Iterable as Iterable,

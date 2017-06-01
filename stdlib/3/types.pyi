@@ -9,6 +9,12 @@ from typing import (
     Union, overload, Type
 )
 
+if sys.version_info >= (3, 3):
+   from collections.abc import Callable as CallableABC
+else:
+   from collections import Callable as CallableABC
+
+
 # ModuleType is exported from this module, but for circular import
 # reasons exists in its own stub file (with ModuleSpec and Loader).
 from _importlib_modulespec import ModuleType as ModuleType  # Exported
@@ -22,7 +28,7 @@ _VT = TypeVar('_VT')
 class _Cell:
     cell_contents = ...  # type: Any
 
-class FunctionType:
+class FunctionType(CallableABC):
     __closure__ = ...  # type: Optional[Tuple[_Cell, ...]]
     __code__ = ...  # type: CodeType
     __defaults__ = ...  # type: Optional[Tuple[Any, ...]]
@@ -121,7 +127,7 @@ class CoroutineType:
     @overload
     def throw(self, typ: type, val: BaseException = ..., tb: 'TracebackType' = ...) -> Any: ...
 
-class MethodType:
+class MethodType(CallableABC):
     __func__ = ...  # type: FunctionType
     __self__ = ...  # type: object
     def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
