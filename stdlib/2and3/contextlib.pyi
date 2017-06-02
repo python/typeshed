@@ -20,7 +20,7 @@ _ExitFunc = Callable[[Optional[Type[BaseException]],
 _CM_EF = TypeVar('_CM_EF', ContextManager, _ExitFunc)
 
 if sys.version_info >= (3, 2):
-    class GeneratorContextManager(Generic[_T], ContextManager[_T]):
+    class GeneratorContextManager(ContextManager[_T], Generic[_T]):
         def __call__(self, func: Callable[..., _T]) -> Callable[..., _T]: ...
     def contextmanager(func: Callable[..., Iterator[_T]]) -> Callable[..., GeneratorContextManager[_T]]: ...
 else:
@@ -29,7 +29,7 @@ else:
 if sys.version_info < (3,):
     def nested(*mgr: ContextManager[Any]) -> ContextManager[Iterable[Any]]: ...
 
-class closing(Generic[_T], ContextManager[_T]):
+class closing(ContextManager[_T], Generic[_T]):
     def __init__(self, thing: _T) -> None: ...
 
 if sys.version_info >= (3, 4):
