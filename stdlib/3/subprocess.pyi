@@ -5,7 +5,7 @@ import sys
 from typing import Sequence, Any, Mapping, Callable, Tuple, IO, Optional, Union, List, Type, Text
 from types import TracebackType
 
-_FILE = Union[int, IO[Any]]
+_FILE = Union[None, int, IO[Any]]
 _TXT = Union[bytes, Text]
 _CMD = Union[_TXT, Sequence[_TXT]]
 _ENV = Union[Mapping[bytes, _TXT], Mapping[Text, _TXT]]
