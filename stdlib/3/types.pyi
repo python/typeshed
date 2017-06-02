@@ -121,8 +121,23 @@ class CoroutineType:
     @overload
     def throw(self, typ: type, val: BaseException = ..., tb: 'TracebackType' = ...) -> Any: ...
 
+class _StaticFunctionType:
+    """Fictional type to correct the type of MethodType.__func__.
+
+    FunctionType is a descriptor, so mypy follows the descriptor protocol and
+    converts MethodType.__func__ back to MethodType (the return type of
+    FunctionType.__get__). But this is actually a special case; MethodType is
+    implemented in C and its attribute access doesn't go through
+    __getattribute__.
+
+    By wrapping FunctionType in _StaticFunctionType, we get the right result;
+    similar to wrapping a function in staticmethod() at runtime to prevent it
+    being bound as a method.
+    """
+    def __get__(self, obj: Optional[object], type: Optional[type]) -> 'FunctionType': ...
+
 class MethodType:
-    __func__ = ...  # type: FunctionType
+    __func__ = ...  # type: _StaticFunctionType
     __self__ = ...  # type: object
     def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
 class BuiltinFunctionType:
