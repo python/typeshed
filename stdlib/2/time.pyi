@@ -32,7 +32,7 @@ def gmtime(secs: Optional[float] = ...) -> struct_time: ...
 
 def localtime(secs: Optional[float] = ...) -> struct_time: ...
 
-def mktime(t: struct_time) -> float:
+def mktime(t: Union[struct_time, _TIME_TUPLE]) -> float:
     raise OverflowError()
     raise ValueError()
 

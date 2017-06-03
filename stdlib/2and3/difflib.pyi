@@ -1,15 +1,20 @@
-# Stubs for difflib
+# Based on https://docs.python.org/2.7/library/difflib.html and https://docs.python.org/3.2/library/difflib.html
 
-# Based on https://docs.python.org/2.7/library/difflib.html
+# TODO: Support unicode in Python 2?
 
-# TODO: Support unicode?
-
+import sys
 from typing import (
     TypeVar, Callable, Iterable, Iterator, List, NamedTuple, Sequence, Tuple,
     Generic, Optional
 )
 
 _T = TypeVar('_T')
+
+Match = NamedTuple('Match', [
+    ('a', int),
+    ('b', int),
+    ('size', int),
+])
 
 class SequenceMatcher(Generic[_T]):
     def __init__(self, isjunk: Optional[Callable[[_T], bool]] = ...,
@@ -20,7 +25,7 @@ class SequenceMatcher(Generic[_T]):
     def set_seq2(self, b: Sequence[_T]) -> None: ...
     def find_longest_match(self, alo: int, ahi: int, blo: int,
                            bhi: int) -> Tuple[int, int, int]: ...
-    def get_matching_blocks(self) -> List[Tuple[int, int, int]]: ...
+    def get_matching_blocks(self) -> List[Match]: ...
     def get_opcodes(self) -> List[Tuple[str, int, int, int, int]]: ...
     def get_grouped_opcodes(self, n: int = ...
                             ) -> Iterable[Tuple[str, int, int, int, int]]: ...
@@ -62,3 +67,16 @@ class HtmlDiff(object):
                    numlines: int = ...) -> str: ...
 
 def restore(delta: Iterable[str], which: int) -> Iterator[int]: ...
+
+if sys.version_info >= (3, 5):
+    def diff_bytes(
+        dfunc: Callable[[Sequence[str], Sequence[str], str, str, str, str, int, str], Iterator[str]],
+        a: Sequence[bytes],
+        b: Sequence[bytes],
+        fromfile: bytes = ...,
+        tofile: bytes = ...,
+        fromfiledate: bytes = ...,
+        tofiledate: bytes = ...,
+        n: int = ...,
+        lineterm: bytes = ...
+    ) -> Iterator[bytes]: ...

@@ -13,6 +13,32 @@ it before submitting pull requests.**
 
 Typeshed supports Python versions 2.7 and 3.3 and up.
 
+## Using
+
+If you're just using mypy (or pytype or PyCharm), as opposed to
+developing it, you don't need to interact with the typeshed repo at
+all: a copy of typeshed is bundled with mypy.
+
+When you use a checked-out clone of the mypy repo, a copy of typeshed
+should be included as a submodule, using
+
+    $ git clone --recurse-submodules https://github.com/python/mypy.git
+
+or
+
+    $ git clone https://github.com/python/mypy.git
+    $ cd mypy
+    $ git submodule init
+    $ git submodule update
+
+and occasionally you will have to repeat the final command (`git
+submodule update`) to pull in changes made in the upstream typeshed
+repo.
+
+PyCharm and pytype similarly include a copy of typeshed.  The one in
+pytype can be updated in the same way if you are working with the
+pytype repo.
+
 ## Format
 
 Each Python module is represented by a `.pyi` "stub". This is a normal Python
@@ -82,7 +108,7 @@ requests.
 The tests are automatically run by Travis CI on every PR and push to
 the repo.  There are several sets of tests: `tests/mypy_test.py`
 runs tests against [mypy](https://github.com/python/mypy/), while
-`tests/pytype_tests.py` runs tests against
+`tests/pytype_test.py` runs tests against
 [pytype](https://github.com/google/pytype/).
 
 Both sets of tests are shallow -- they verify that all stubs can be
@@ -111,7 +137,7 @@ invoking:
 ```
 (.venv3)$ python3 tests/mypy_test.py
 ...
-(.venv3)$ python tests/mypy_selftest.py
+(.venv3)$ python3 tests/mypy_selftest.py
 ...
 (.venv3)$ flake8
 ...

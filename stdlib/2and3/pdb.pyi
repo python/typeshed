@@ -1,4 +1,4 @@
-# Stub for pdb (incomplete, only some global functions)
+# NOTE: This stub is incomplete - only contains some global functions
 
 from typing import Any, Dict
 

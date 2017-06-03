@@ -1,6 +1,6 @@
 from typing import Dict, Any, TypeVar, Mapping, List
 
-__all__ = ...  # type: str
+__all__: List[str]
 
 class BaseTransport:
     def __init__(self, extra: Mapping[Any, Any] = ...) -> None: ...
