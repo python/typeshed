@@ -4,9 +4,17 @@ from typing import (
     Callable, IO, Iterable, Iterator, List, Mapping, Optional, Type,
     Union,
 )
+import os
 import sys
 from types import TracebackType
 
+
+if sys.version_info >= (3, 6):
+    _Path = Union[bytes, str, os.PathLike]
+elif sys.version_info >= (3,):
+    _Path = Union[bytes, str]
+else:
+    _Path = Union[str, unicode]
 
 ENCODING = ...  # type: str
 
@@ -30,7 +38,7 @@ if sys.version_info < (3,):
     TAR_PLAIN = ...  # type: int
     TAR_GZIPPED = ...  # type: int
 
-def open(name: Optional[str] = ..., mode: str = ...,
+def open(name: Optional[_Path] = ..., mode: str = ...,
         fileobj: Optional[IO[bytes]] = ..., bufsize: int = ...,
         *, format: Optional[int] = ..., tarinfo: Optional[TarInfo] = ...,
         dereference: Optional[bool] = ...,
@@ -43,7 +51,7 @@ def open(name: Optional[str] = ..., mode: str = ...,
 
 
 class TarFile(Iterable[TarInfo]):
-    name = ...  # type: Optional[str]
+    name = ...  # type: Optional[_Path]
     mode = ...  # type: str
     fileobj = ...  # type: Optional[IO[bytes]]
     format = ...  # type: Optional[int]
@@ -57,7 +65,7 @@ class TarFile(Iterable[TarInfo]):
     errorlevel = ...  # type: Optional[int]
     if sys.version_info < (3,):
         posix = ...  # type: bool
-    def __init__(self, name: Optional[str] = ..., mode: str = ...,
+    def __init__(self, name: Optional[_Path] = ..., mode: str = ...,
                  fileobj: Optional[IO[bytes]] = ...,
                  format: Optional[int] = ..., tarinfo: Optional[TarInfo] = ...,
                  dereference: Optional[bool] = ...,
@@ -74,7 +82,7 @@ class TarFile(Iterable[TarInfo]):
                  exc_tb: Optional[TracebackType]) -> bool: ...
     def __iter__(self) -> Iterator[TarInfo]: ...
     @classmethod
-    def open(cls, name: Optional[str] = ..., mode: str = ...,
+    def open(cls, name: Optional[_Path] = ..., mode: str = ...,
              fileobj: Optional[IO[bytes]] = ..., bufsize: int = ...,
              *, format: Optional[int] = ..., tarinfo: Optional[TarInfo] = ...,
              dereference: Optional[bool] = ...,
@@ -93,22 +101,22 @@ class TarFile(Iterable[TarInfo]):
         def list(self, verbose: bool = ...) -> None: ...
     def next(self) -> Optional[TarInfo]: ...
     if sys.version_info >= (3, 5):
-        def extractall(self, path: str = ...,
+        def extractall(self, path: _Path = ...,
                        members: Optional[List[TarInfo]] = ...,
                        *, numeric_owner: bool = ...) -> None: ...
     else:
-        def extractall(self, path: str = ...,
+        def extractall(self, path: _Path = ...,
                        members: Optional[List[TarInfo]] = ...) -> None: ...
     if sys.version_info >= (3, 5):
-        def extract(self, member: Union[str, TarInfo], path: str = ...,
+        def extract(self, member: Union[str, TarInfo], path: _Path = ...,
                     set_attrs: bool = ...,
                     *, numeric_owner: bool = ...) -> None: ...
     elif sys.version_info >= (3,):
-        def extract(self, member: Union[str, TarInfo], path: str = ...,
+        def extract(self, member: Union[str, TarInfo], path: _Path = ...,
                     set_attrs: bool = ...) -> None: ...
     else:
         def extract(self, member: Union[str, TarInfo],
-                    path: str = ...) -> None: ...
+                    path: _Path = ...) -> None: ...
     def extractfile(self,
                     member: Union[str, TarInfo]) -> Optional[IO[bytes]]: ...
     if sys.version_info >= (3,):
