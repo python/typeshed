@@ -121,13 +121,13 @@ def product(iter1: Iterable[_T1],
             iter5: Iterable[_T5],
             iter6: Iterable[_T6]) -> Iterator[Tuple[_T1, _T2, _T3, _T4, _T5, _T6]]: ...
 @overload
-def product(iter1: Iterable[_T1],
-            iter2: Iterable[_T2],
-            iter3: Iterable[_T3],
-            iter4: Iterable[_T4],
-            iter5: Iterable[_T5],
-            iter6: Iterable[_T6],
-            iter7: Iterable[_T7], *iterables: Iterable) -> Iterator[Tuple]: ...
+def product(iter1: Iterable[Any],
+            iter2: Iterable[Any],
+            iter3: Iterable[Any],
+            iter4: Iterable[Any],
+            iter5: Iterable[Any],
+            iter6: Iterable[Any],
+            iter7: Iterable[Any], *iterables: Iterable) -> Iterator[Tuple]: ...
 
 def permutations(iterable: Iterable[_T],
                  r: int = ...) -> Iterator[Sequence[_T]]: ...
