@@ -60,29 +60,29 @@ _T6 = TypeVar('_T6')
 
 @overload
 def product(iter1: Iterable[_T1], *,
-            repeat:int = ...) -> Iterator[Tuple[_T1]]: ...
+            repeat: int = ...) -> Iterator[Tuple[_T1]]: ...
 @overload
 def product(iter1: Iterable[_T1],
             iter2: Iterable[_T2], *,
-            repeat:int = ...) -> Iterator[Tuple[_T1, _T2]]: ...
+            repeat: int = ...) -> Iterator[Tuple[_T1, _T2]]: ...
 @overload
 def product(iter1: Iterable[_T1],
             iter2: Iterable[_T2],
             iter3: Iterable[_T3], *,
-            repeat:int = ...) -> Iterator[Tuple[_T1, _T2, _T3]]: ...
+            repeat: int = ...) -> Iterator[Tuple[_T1, _T2, _T3]]: ...
 @overload
 def product(iter1: Iterable[_T1],
             iter2: Iterable[_T2],
             iter3: Iterable[_T3],
             iter4: Iterable[_T4], *,
-            repeat:int = ...) -> Iterator[Tuple[_T1, _T2, _T3, _T4]]: ...
+            repeat: int = ...) -> Iterator[Tuple[_T1, _T2, _T3, _T4]]: ...
 @overload
 def product(iter1: Iterable[_T1],
             iter2: Iterable[_T2],
             iter3: Iterable[_T3],
             iter4: Iterable[_T4],
             iter5: Iterable[_T5], *,
-            repeat:int = ...) -> Iterator[Tuple[_T1, _T2, _T3, _T4, _T5]]: ...
+            repeat: int = ...) -> Iterator[Tuple[_T1, _T2, _T3, _T4, _T5]]: ...
 @overload
 def product(iter1: Iterable[_T1],
             iter2: Iterable[_T2],
@@ -90,7 +90,7 @@ def product(iter1: Iterable[_T1],
             iter4: Iterable[_T4],
             iter5: Iterable[_T5],
             iter6: Iterable[_T6], *,
-            repeat:int = ...) -> Iterator[Tuple[_T1, _T2, _T3, _T4, _T5, _T6]]: ...
+            repeat: int = ...) -> Iterator[Tuple[_T1, _T2, _T3, _T4, _T5, _T6]]: ...
 @overload
 def product(iter1: Iterable[Any],
             iter2: Iterable[Any],
@@ -99,7 +99,7 @@ def product(iter1: Iterable[Any],
             iter5: Iterable[Any],
             iter6: Iterable[Any],
             iter7: Iterable[Any], *iterables: Iterable,
-            repeat:int = ...) -> Iterator[Tuple]: ...
+            repeat: int = ...) -> Iterator[Tuple]: ...
 
 def permutations(iterable: Iterable[_T],
                  r: Optional[int] = ...) -> Iterator[Tuple[_T, ...]]: ...
