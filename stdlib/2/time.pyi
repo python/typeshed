@@ -14,9 +14,9 @@ class struct_time(NamedTuple('_struct_time',
                              [('tm_year', int), ('tm_mon', int), ('tm_mday', int),
                               ('tm_hour', int), ('tm_min', int), ('tm_sec', int),
                               ('tm_wday', int), ('tm_yday', int), ('tm_isdst', int)])):
-    def __init__(self, o: Tuple[int, int, int,
-                                int, int, int,
-                                int, int, int], _arg: Any = ...) -> None: ...
+    def __new__(cls, o: Tuple[int, int, int,
+                              int, int, int,
+                              int, int, int], _arg: Any = ...) -> struct_time: ...
 
 _TIME_TUPLE = Tuple[int, int, int, int, int, int, int, int, int]
 
