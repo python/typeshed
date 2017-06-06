@@ -17,6 +17,9 @@ class struct_time(NamedTuple('_struct_time',
     def __init__(self, o: Tuple[int, int, int,
                                 int, int, int,
                                 int, int, int], _arg: Any = ...) -> None: ...
+    def __new__(cls, o: Tuple[int, int, int,
+                              int, int, int,
+                              int, int, int], _arg: Any = ...) -> struct_time: ...
 
 _TIME_TUPLE = Tuple[int, int, int, int, int, int, int, int, int]
 
