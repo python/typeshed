@@ -1,14 +1,13 @@
 # Filip Hron <filip.hron@gmail.com>
 # based heavily on Andrey Vlasovskikh's python-skeletons https://github.com/JetBrains/python-skeletons/blob/master/sqlite3.py
 
+import sys
 from typing import Any, Union, List, Iterator, Optional, TypeVar, Callable
 from numbers import Integral
 from datetime import time, datetime
 from collections import Iterable
 
 _T = TypeVar('_T')
-
-import sys
 
 paramstyle = ...  # type: str
 threadsafety = ...  # type: int
