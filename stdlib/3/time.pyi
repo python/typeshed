@@ -36,6 +36,15 @@ if sys.version_info >= (3, 3):
              ('tm_zone', str), ('tm_gmtoff', int)]
         )
     ):
+        def __init__(
+            self,
+            o: Union[
+                Tuple[int, int, int, int, int, int, int, int, int],
+                Tuple[int, int, int, int, int, int, int, int, int, str],
+                Tuple[int, int, int, int, int, int, int, int, int, str, int]
+            ],
+            _arg: Any = ...,
+        ) -> None: ...
         def __new__(
             cls,
             o: Union[
@@ -54,6 +63,7 @@ else:
              ('tm_wday', int), ('tm_yday', int), ('tm_isdst', int)]
         )
     ):
+        def __init__(self, o: TimeTuple, _arg: Any = ...) -> None: ...
         def __new__(cls, o: TimeTuple, _arg: Any = ...) -> struct_time: ...
 
 
