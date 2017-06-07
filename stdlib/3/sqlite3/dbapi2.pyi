@@ -1,12 +1,13 @@
 # Filip Hron <filip.hron@gmail.com>
 # based heavily on Andrey Vlasovskikh's python-skeletons https://github.com/JetBrains/python-skeletons/blob/master/sqlite3.py
 
-from typing import Any, Union, List, Iterator, Optional
+import sys
+from typing import Any, Union, List, Iterator, Optional, TypeVar, Callable
 from numbers import Integral
 from datetime import time, datetime
 from collections import Iterable
 
-import sys
+_T = TypeVar('_T')
 
 paramstyle = ...  # type: str
 threadsafety = ...  # type: int
@@ -74,9 +75,9 @@ else:
     def connect(database: Union[bytes, str], timeout: float = ..., detect_types: int = ..., isolation_level: Union[str, None] = ..., check_same_thread: bool = ..., factory: Union[Connection, None] = ..., cached_statements: int = ...) -> Connection: ...
 def enable_callback_tracebacks(flag: bool) -> None: ...
 def enable_shared_cache(do_enable: int) -> None: ...
-def register_adapter(type: type, callable: Any) -> None: ...
+def register_adapter(type: _T, callable: Callable[[_T], Union[int, float, str, bytes]]) -> None: ...
 # TODO: sqlite3.register_converter.__doc__ specifies callable as unknown
-def register_converter(typename: str, callable: bytes) -> None: ...
+def register_converter(typename: str, callable: Callable[[bytes], Any]) -> None: ...
 
 class Cache:
     def __init__(self, *args, **kwargs) -> None: ...
