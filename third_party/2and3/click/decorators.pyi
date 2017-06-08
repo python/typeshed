@@ -103,6 +103,7 @@ def option(
     help: str = None,
     # Parameter
     default: Any = None,
+    required: bool = False,
     callback: Optional[_Callback] = ...,
     nargs: int = None,
     metavar: str = None,
