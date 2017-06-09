@@ -96,7 +96,7 @@ class FileIO(_RawIOBase, BytesIO):  # type: ignore
 
 class IncrementalNewlineDecoder(object):
     newlines = ...  # type: Union[str, unicode]
-    def __init__(self, decoder, translate, z = ...) -> None: ...
+    def __init__(self, decoder, translate, z=...) -> None: ...
     def decode(self, input, final) -> Any: ...
     def getstate(self) -> Tuple[Any, int]: ...
     def setstate(self, state: Tuple[Any, int]) -> None: ...
@@ -105,7 +105,7 @@ class IncrementalNewlineDecoder(object):
 class _TextIOBase(_IOBase, TextIO):
     errors = ...  # type: Optional[str]
     newlines = ...  # type: Union[str, unicode]
-    encoding = ...  # type: Optional[str]
+    encoding = ...  # type: str
     def __iter__(self) -> Iterator[unicode]: ...  # type: ignore
     def next(self) -> unicode: ...  # type: ignore
     def read(self, size: int = ...) -> unicode: ...  # type: ignore
@@ -127,7 +127,7 @@ class TextIOWrapper(_TextIOBase):
     line_buffering = ...  # type: bool
     buffer = ...  # type: BinaryIO
     _CHUNK_SIZE = ...  # type: int
-    def __init__(self, buffer: IO[unicode], encoding: unicode = ...,
+    def __init__(self, buffer: IO, encoding: unicode = ...,
                  errors: unicode = ..., newline: unicode = ...,
                  line_buffering: bool = ...,
                  write_through: bool = ...) -> None: ...
