@@ -103,7 +103,7 @@ https://github.com/python/typeshed/blob/master/CONTRIBUTING.md#stub-versioning).
 ## Contributing
 
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting pull
-requests. If you have questions related to contributing, drop by the [mypy Gitter](https://gitter.im/python/mypy).
+requests. If you have questions related to contributing, drop by the [typing Gitter](https://gitter.im/python/typing).
 
 ## Running the tests
 
