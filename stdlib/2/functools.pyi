@@ -26,7 +26,7 @@ def wraps(wrapped: _AnyCallable, assigned: Sequence[str] = ..., updated: Sequenc
 def total_ordering(cls: type) -> type: ...
 def cmp_to_key(mycmp: Callable[[_T, _T], int]) -> Callable[[_T], Any]: ...
 
-class partial(Generic[_T]):
+class partial(Callable[..., _T]):
     func = ...  # Callable[..., _T]
     args = ...  # type: Tuple[Any, ...]
     keywords = ...  # type: Dict[str, Any]
