@@ -1,4 +1,4 @@
-from typing import Any, IO
+from typing import Any, IO, Text
 import io
 
 class GzipFile(io.BufferedIOBase):
@@ -14,7 +14,7 @@ class GzipFile(io.BufferedIOBase):
     fileobj = ...  # type: Any
     offset = ...  # type: Any
     mtime = ...  # type: Any
-    def __init__(self, filename: str = ..., mode: str = ..., compresslevel: int = ...,
+    def __init__(self, filename: str = ..., mode: Text = ..., compresslevel: int = ...,
                  fileobj: IO[str] = ..., mtime: float = ...) -> None: ...
     @property
     def filename(self): ...
@@ -34,4 +34,4 @@ class GzipFile(io.BufferedIOBase):
     def seek(self, offset, whence=...): ...
     def readline(self, size=...): ...
 
-def open(filename: str, mode: str = ..., compresslevel: int = ...) -> GzipFile: ...
+def open(filename: str, mode: Text = ..., compresslevel: int = ...) -> GzipFile: ...
