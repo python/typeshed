@@ -30,5 +30,5 @@ class RawIOBase(_io._RawIOBase, IOBase):
 class BufferedIOBase(_io._BufferedIOBase, IOBase):
     pass
 
-class TextIOBase(_io._TextIOBase, IOBase):
+class TextIOBase(_io._TextIOBase, IOBase):  # type: ignore
     pass
