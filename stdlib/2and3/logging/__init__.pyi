@@ -22,6 +22,7 @@ _Level = Union[int, Text]
 
 raiseExceptions: bool
 
+_levelNames = ...  # type: Dict[int, str]
 
 class Logger:
     name = ...  # type: str
