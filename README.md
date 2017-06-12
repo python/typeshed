@@ -1,5 +1,7 @@
 # typeshed
 
+[![Chat at https://gitter.im/python/mypy](https://badges.gitter.im/python/mypy.svg)](https://gitter.im/python/mypy?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ## About
 
 Typeshed contains external type annotations for the Python standard library
@@ -101,7 +103,7 @@ https://github.com/python/typeshed/blob/master/CONTRIBUTING.md#stub-versioning).
 ## Contributing
 
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting pull
-requests.
+requests. If you have questions related to contributing, drop by the [mypy Gitter](https://gitter.im/python/mypy).
 
 ## Running the tests
 
