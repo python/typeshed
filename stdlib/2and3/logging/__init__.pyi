@@ -22,7 +22,11 @@ _Level = Union[int, Text]
 
 raiseExceptions: bool
 
-_levelNames = ...  # type: Dict[int, str]
+if sys.version_info >= (3,):
+    _levelToName = ...  # type: Dict[int, str]
+    _nameToLevel = ...  # type: Dict[str, int]
+else:
+    _levelNames = ...  # type: dict
 
 class Logger:
     name = ...  # type: str
