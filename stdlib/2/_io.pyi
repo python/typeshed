@@ -152,7 +152,7 @@ class TextIOWrapper(_TextIOBase):
     line_buffering = ...  # type: bool
     buffer = ...  # type: BinaryIO
     _CHUNK_SIZE = ...  # type: int
-    def __init__(self, buffer: IO, 
+    def __init__(self, buffer: IO,
                  encoding: Optional[Text] = ...,
                  errors: Optional[Text] = ...,
                  newline: Optional[Text] = ...,
