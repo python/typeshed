@@ -93,9 +93,41 @@ def izip(iter1: Iterable[Any], iter2: Iterable[Any],
 def izip_longest(*p: Iterable[Any],
                  fillvalue: Any = ...) -> Iterator[Any]: ...
 
-# TODO: Return type should be Iterator[Tuple[..]], but unknown tuple shape.
-#       Iterator[Sequence[_T]] loses this type information.
-def product(*p: Iterable[_T], repeat: int = ...) -> Iterator[Sequence[_T]]: ...
+@overload
+def product(iter1: Iterable[_T1]) -> Iterator[Tuple[_T1]]: ...
+@overload
+def product(iter1: Iterable[_T1],
+            iter2: Iterable[_T2]) -> Iterator[Tuple[_T1, _T2]]: ...
+@overload
+def product(iter1: Iterable[_T1],
+            iter2: Iterable[_T2],
+            iter3: Iterable[_T3]) -> Iterator[Tuple[_T1, _T2, _T3]]: ...
+@overload
+def product(iter1: Iterable[_T1],
+            iter2: Iterable[_T2],
+            iter3: Iterable[_T3],
+            iter4: Iterable[_T4]) -> Iterator[Tuple[_T1, _T2, _T3, _T4]]: ...
+@overload
+def product(iter1: Iterable[_T1],
+            iter2: Iterable[_T2],
+            iter3: Iterable[_T3],
+            iter4: Iterable[_T4],
+            iter5: Iterable[_T5]) -> Iterator[Tuple[_T1, _T2, _T3, _T4, _T5]]: ...
+@overload
+def product(iter1: Iterable[_T1],
+            iter2: Iterable[_T2],
+            iter3: Iterable[_T3],
+            iter4: Iterable[_T4],
+            iter5: Iterable[_T5],
+            iter6: Iterable[_T6]) -> Iterator[Tuple[_T1, _T2, _T3, _T4, _T5, _T6]]: ...
+@overload
+def product(iter1: Iterable[Any],
+            iter2: Iterable[Any],
+            iter3: Iterable[Any],
+            iter4: Iterable[Any],
+            iter5: Iterable[Any],
+            iter6: Iterable[Any],
+            iter7: Iterable[Any], *iterables: Iterable) -> Iterator[Tuple]: ...
 
 def permutations(iterable: Iterable[_T],
                  r: int = ...) -> Iterator[Sequence[_T]]: ...
