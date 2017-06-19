@@ -2,6 +2,7 @@
 
 # NOTE: These are incomplete!
 
+from mypy_extensions import NoReturn
 from typing import Any, Callable, Iterable, Mapping, Optional, Dict, List
 
 class AsyncResult():
@@ -12,7 +13,7 @@ class AsyncResult():
 
 class ThreadPool():
     def __init__(self, processes: Optional[int] = None,
-                 initializer: Optional[Callable[..., None]] = None,
+                 initializer: Optional[Callable[..., NoReturn]] = None,
                  initargs: Iterable[Any] = ...) -> None: ...
     def apply(self,
               func: Callable[..., Any],
