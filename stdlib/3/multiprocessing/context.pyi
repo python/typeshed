@@ -3,7 +3,6 @@
 from logging import Logger
 import multiprocessing
 import sys
-from mypy_extensions import NoReturn
 from typing import Any, Callable, Optional, List, Sequence, Tuple, Type, Union
 
 class ProcessError(Exception): ...
@@ -53,7 +52,7 @@ class BaseContext(object):
     def Pool(
         self,
         processes: Optional[int] = ...,
-        initializer: Optional[Callable[..., NoReturn]] = ...,
+        initializer: Optional[Callable[..., Any]] = ...,
         initargs: Tuple = ...,
         maxtasksperchild: Optional[int] = ...
     ) -> multiprocessing.Pool: ...

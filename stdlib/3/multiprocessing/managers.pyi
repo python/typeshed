@@ -4,7 +4,6 @@
 
 import queue
 import threading
-from mypy_extensions import NoReturn
 from typing import (
     Any, Callable, Dict, Iterable, List, Mapping, Optional, Sequence, TypeVar
 )
@@ -20,7 +19,7 @@ _Namespace = Namespace
 class BaseManager:
     def register(self, typeid: str, callable: Any = ...) -> None: ...
     def shutdown(self) -> None: ...
-    def start(self, initializer: Optional[Callable[..., NoReturn]] = ...,
+    def start(self, initializer: Optional[Callable[..., Any]] = ...,
               initargs: Iterable[Any] = ...) -> None: ...
     def __enter__(self) -> 'BaseManager': ...
     def __exit__(self, exc_type, exc_value, tb) -> None: ...
