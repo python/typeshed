@@ -12,7 +12,7 @@ class AsyncResult():
 
 class ThreadPool():
     def __init__(self, processes: Optional[int] = None,
-                 initializer: Optional[Callable[..., None]] = None,
+                 initializer: Optional[Callable[..., Any]] = None,
                  initargs: Iterable[Any] = ...) -> None: ...
     def apply(self,
               func: Callable[..., Any],
