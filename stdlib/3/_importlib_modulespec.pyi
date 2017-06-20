@@ -12,8 +12,8 @@ from typing import Dict, Any, Optional
 if sys.version_info >= (3, 4):
     class ModuleSpec:
         def __init__(self, name: str, loader: Optional['Loader'], *,
-                     origin: str = None, loader_state: Any = None,
-                     is_package: bool = None) -> None: ...
+                     origin: Optional[str] = None, loader_state: Any = None,
+                     is_package: Optional[bool] = None) -> None: ...
         name = ...  # type: str
         loader = ...  # type: Optional[Loader]
         origin = ...  # type: Optional[str]
