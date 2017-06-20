@@ -155,7 +155,7 @@ class AwaitableGenerator(Generator[_T_co, _T_contra, _V_co], Awaitable[_V_co],
 
 class AsyncIterable(Generic[_T_co]):
     @abstractmethod
-    def __anext__(self) -> Awaitable[_T_co]: ...
+    def __aiter__(self) -> 'AsyncIterator[_T_co]': ...
 
 class AsyncIterator(AsyncIterable[_T_co],
                     Generic[_T_co]):
