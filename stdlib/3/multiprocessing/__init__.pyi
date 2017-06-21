@@ -25,7 +25,7 @@ class Pool():
                  initializer: Optional[Callable[..., None]] = ...,
                  initargs: Iterable[Any] = ...,
                  maxtasksperchild: Optional[int] = ...,
-                 context: Any = None) -> None: ...
+                 context: Optional[Any] = None) -> None: ...
     def apply(self,
               func: Callable[..., Any],
               args: Iterable[Any] = ...,
@@ -34,8 +34,8 @@ class Pool():
                 func: Callable[..., Any],
                 args: Iterable[Any] = ...,
                 kwds: Dict[str, Any] = ...,
-                callback: Callable[..., None] = None,
-                error_callback: Callable[[BaseException], None] = None) -> AsyncResult: ...
+                callback: Optional[Callable[..., None]] = None,
+                error_callback: Optional[Callable[[BaseException], None]] = None) -> AsyncResult: ...
     def map(self,
             func: Callable[..., Any],
             iterable: Iterable[Any] = ...,
@@ -43,8 +43,8 @@ class Pool():
     def map_async(self, func: Callable[..., Any],
                   iterable: Iterable[Any] = ...,
                   chunksize: Optional[int] = ...,
-                  callback: Callable[..., None] = None,
-                  error_callback: Callable[[BaseException], None] = None) -> AsyncResult: ...
+                  callback: Optional[Callable[..., None]] = None,
+                  error_callback: Optional[Callable[[BaseException], None]] = None) -> AsyncResult: ...
     def imap(self,
              func: Callable[..., Any],
              iterable: Iterable[Any] = ...,
@@ -61,8 +61,8 @@ class Pool():
                       func: Callable[..., Any],
                       iterable: Iterable[Iterable[Any]] = ...,
                       chunksize: Optional[int] = ...,
-                      callback: Callable[..., None] = None,
-                      error_callback: Callable[[BaseException], None] = None) -> AsyncResult: ...
+                      callback: Optional[Callable[..., None]] = None,
+                      error_callback: Optional[Callable[[BaseException], None]] = None) -> AsyncResult: ...
     def close(self) -> None: ...
     def terminate(self) -> None: ...
     def join(self) -> None: ...
