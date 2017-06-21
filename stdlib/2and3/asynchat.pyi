@@ -2,7 +2,7 @@ from abc import abstractmethod
 import asyncore
 import socket
 import sys
-from typing import Union, Tuple, Sequence
+from typing import Optional, Sequence, Tuple, Union
 
 
 class simple_producer:
@@ -12,7 +12,7 @@ class simple_producer:
 class async_chat(asyncore.dispatcher):
     ac_in_buffer_size = ...  # type: int
     ac_out_buffer_size = ...  # type: int
-    def __init__(self, sock: socket.socket = None, map: asyncore._maptype = None) -> None: ...
+    def __init__(self, sock: Optional[socket.socket] = None, map: Optional[asyncore._maptype] = None) -> None: ...
 
     @abstractmethod
     def collect_incoming_data(self, data: bytes) -> None: ...
