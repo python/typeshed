@@ -12,8 +12,8 @@ class ParamType:
     def __call__(
         self,
         value: Optional[str],
-        param: Parameter = None,
-        ctx: Context = None,
+        param: Optional[Parameter] = None,
+        ctx: Optional[Context] = None,
     ) -> Any:
         ...
 
@@ -34,7 +34,7 @@ class ParamType:
     def split_envvar_value(self, rv: str) -> List[str]:
         ...
 
-    def fail(self, message: str, param: Parameter = None, ctx: Context = None) -> None:
+    def fail(self, message: str, param: Optional[Parameter] = None, ctx: Optional[Context] = None) -> None:
         ...
 
 
@@ -42,8 +42,8 @@ class BoolParamType(ParamType):
     def __call__(
         self,
         value: Optional[str],
-        param: Parameter = None,
-        ctx: Context = None,
+        param: Optional[Parameter] = None,
+        ctx: Optional[Context] = None,
     ) -> bool:
         ...
 
@@ -70,8 +70,8 @@ class FloatParamType(ParamType):
     def __call__(
         self,
         value: Optional[str],
-        param: Parameter = None,
-        ctx: Context = None,
+        param: Optional[Parameter] = None,
+        ctx: Optional[Context] = None,
     ) -> float:
         ...
 
@@ -92,18 +92,18 @@ class File(ParamType):
     def __init__(
         self,
         mode: str = 'r',
-        encoding: str = None,
-        errors: str = None,
-        lazy: bool = None,
-        atomic: bool = None,
+        encoding: Optional[str] = None,
+        errors: Optional[str] = None,
+        lazy: Optional[bool] = None,
+        atomic: Optional[bool] = None,
     ) -> None:
         ...
 
     def __call__(
         self,
         value: Optional[str],
-        param: Parameter = None,
-        ctx: Context = None,
+        param: Optional[Parameter] = None,
+        ctx: Optional[Context] = None,
     ) -> IO:
         ...
 
@@ -132,8 +132,8 @@ class FuncParamType(ParamType):
     def __call__(
         self,
         value: Optional[str],
-        param: Parameter = None,
-        ctx: Context = None,
+        param: Optional[Parameter] = None,
+        ctx: Optional[Context] = None,
     ) -> _F:
         ...
 
@@ -150,8 +150,8 @@ class IntParamType(ParamType):
     def __call__(
         self,
         value: Optional[str],
-        param: Parameter = None,
-        ctx: Context = None,
+        param: Optional[Parameter] = None,
+        ctx: Optional[Context] = None,
     ) -> int:
         ...
 
@@ -166,7 +166,7 @@ class IntParamType(ParamType):
 
 class IntRange(IntParamType):
     def __init__(
-        self, min: int = None, max: int = None, clamp: bool = False
+        self, min: Optional[int] = None, max: Optional[int] = None, clamp: bool = False
     ) -> None:
         ...
 
@@ -184,7 +184,7 @@ class Path(ParamType):
         readable: bool = True,
         resolve_path: bool = False,
         allow_dash: bool = False,
-        path_type: _PathType = None,
+        path_type: Optional[_PathType] = None,
     ) -> None:
         ...
 
@@ -194,8 +194,8 @@ class Path(ParamType):
     def __call__(
         self,
         value: Optional[str],
-        param: Parameter = None,
-        ctx: Context = None,
+        param: Optional[Parameter] = None,
+        ctx: Optional[Context] = None,
     ) -> _PathType:
         ...
 
@@ -211,8 +211,8 @@ class StringParamType(ParamType):
     def __call__(
         self,
         value: Optional[str],
-        param: Parameter = None,
-        ctx: Context = None,
+        param: Optional[Parameter] = None,
+        ctx: Optional[Context] = None,
     ) -> str:
         ...
 
@@ -234,8 +234,8 @@ class Tuple(CompositeParamType):
     def __call__(
         self,
         value: Optional[str],
-        param: Parameter = None,
-        ctx: Context = None,
+        param: Optional[Parameter] = None,
+        ctx: Optional[Context] = None,
     ) -> Tuple:
         ...
 
@@ -256,8 +256,8 @@ class UUIDParameterType(ParamType):
     def __call__(
         self,
         value: Optional[str],
-        param: Parameter = None,
-        ctx: Context = None,
+        param: Optional[Parameter] = None,
+        ctx: Optional[Context] = None,
     ) -> uuid.UUID:
         ...
 
@@ -270,7 +270,7 @@ class UUIDParameterType(ParamType):
         ...
 
 
-def convert_type(ty: Any, default: Any = None) -> ParamType:
+def convert_type(ty: Any, default: Optional[Any] = None) -> ParamType:
     ...
 
 # parameter type shortcuts

@@ -13,5 +13,5 @@ def pop_context() -> None:
     ...
 
 
-def resolve_color_default(color: bool = None) -> Optional[bool]:
+def resolve_color_default(color: Optional[bool] = None) -> Optional[bool]:
     ...
