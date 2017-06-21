@@ -27,8 +27,8 @@ if sys.version_info >= (3, 5):
     if sys.version_info >= (3, 6):
         # Nearly same args as Popen.__init__ except for timeout, input, and check
         def run(args: _CMD,
-                timeout: float = ...,
-                input: _TXT = ...,
+                timeout: Optional[float] = ...,
+                input: Optional[_TXT] = ...,
                 check: bool = ...,
                 bufsize: int = ...,
                 executable: _TXT = ...,
@@ -52,8 +52,8 @@ if sys.version_info >= (3, 5):
     else:
         # Nearly same args as Popen.__init__ except for timeout, input, and check
         def run(args: _CMD,
-                timeout: float = ...,
-                input: _TXT = ...,
+                timeout: Optional[float] = ...,
+                input: Optional[_TXT] = ...,
                 check: bool = ...,
                 bufsize: int = ...,
                 executable: _TXT = ...,
