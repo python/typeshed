@@ -135,7 +135,8 @@ rule is that they should be as concise as possible.  Specifically:
   names, or methods and fields within a single class;
 * use a single blank line between top-level class definitions, or none
   if the classes are very small;
-* do not use docstrings.
+* do not use docstrings;
+* for arguments with a type and a default, use spaces around the `=`.
 
 Imports in stubs are considered private (not part of the exported API)
 unless:
@@ -143,6 +144,14 @@ unless:
   explicit ``as`` even if the name stays the same); or
 * they use the form ``from library import *`` which means all names
   from that library are exported.
+
+For arguments with type and a default value of `None`, PEP 484
+prescribes that the type automatically becomes `Optional`.  However we
+prefer explicit over implicit in this case, and require the explicit
+`Optional[]` around the type.  The mypy tests enforce this (through
+the use of --no-implicit-optional) and the error looks like
+`Incompatible types in assignment (expression has type None, variable
+has type "Blah") `.
 
 Stub files support forward references natively.  In other words, the
 order of class declarations and type aliases does not matter in

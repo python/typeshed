@@ -22,17 +22,17 @@ class ThreadPool():
                 func: Callable[..., Any],
                 args: Iterable[Any] = ...,
                 kwds: Dict[str, Any] = ...,
-                callback: Callable[..., None] = None,
-                error_callback: Callable[[BaseException], None] = None) -> AsyncResult: ...
+                callback: Optional[Callable[..., None]] = None,
+                error_callback: Optional[Callable[[BaseException], None]] = None) -> AsyncResult: ...
     def map(self,
             func: Callable[..., Any],
             iterable: Iterable[Any] = ...,
             chunksize: Optional[int] = None) -> List[Any]: ...
     def map_async(self, func: Callable[..., Any],
                   iterable: Iterable[Any] = ...,
-                  chunksize: Optional[int] = None,
-                  callback: Callable[..., None] = None,
-                  error_callback: Callable[[BaseException], None] = None) -> AsyncResult: ...
+                  chunksize: Optional[Optional[int]] = None,
+                  callback: Optional[Callable[..., None]] = None,
+                  error_callback: Optional[Callable[[BaseException], None]] = None) -> AsyncResult: ...
     def imap(self,
              func: Callable[..., Any],
              iterable: Iterable[Any] = ...,
@@ -49,8 +49,8 @@ class ThreadPool():
                       func: Callable[..., Any],
                       iterable: Iterable[Iterable[Any]] = ...,
                       chunksize: Optional[int] = None,
-                      callback: Callable[..., None] = None,
-                      error_callback: Callable[[BaseException], None] = None) -> AsyncResult: ...
+                      callback: Optional[Callable[..., None]] = None,
+                      error_callback: Optional[Callable[[BaseException], None]] = None) -> AsyncResult: ...
     def close(self) -> None: ...
     def terminate(self) -> None: ...
     def join(self) -> None: ...
