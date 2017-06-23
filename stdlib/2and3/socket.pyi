@@ -6,7 +6,8 @@
 # see: http://nullege.com/codes/search/socket
 # adapted for Python 2.7 by Michal Pokorny
 import sys
-from typing import Any, Tuple, List, Optional, Union, overload
+from typing import Any, Tuple, List, Optional, Union, overload, TypeVar
+
 
 # ----- variables and constants -----
 
@@ -506,7 +507,8 @@ class socket:
                      proto: int = ..., fileno: Optional[int] = ...) -> None: ...
 
     if sys.version_info >= (3, 2):
-        def __enter__(self) -> socket: ...
+        _SelfT = TypeVar('_SelfT', bound=socket)
+        def __enter__(self:_SelfT) -> _SelfT: ...
         def __exit__(self, *args: Any) -> None: ...
 
     # --- methods ---
