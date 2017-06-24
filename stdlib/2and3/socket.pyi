@@ -6,7 +6,8 @@
 # see: http://nullege.com/codes/search/socket
 # adapted for Python 2.7 by Michal Pokorny
 import sys
-from typing import Any, Tuple, List, Optional, Union, overload
+from typing import Any, Tuple, List, Optional, Union, overload, TypeVar
+
 
 # ----- variables and constants -----
 
@@ -491,6 +492,7 @@ class timeout(error):
 
 # TODO AF_PACKET and AF_BLUETOOTH address objects
 
+_SelfT = TypeVar('_SelfT', bound=socket)
 
 # ----- classes -----
 class socket:
@@ -504,6 +506,10 @@ class socket:
     else:
         def __init__(self, family: int = ..., type: int = ...,
                      proto: int = ..., fileno: Optional[int] = ...) -> None: ...
+
+    if sys.version_info >= (3, 2):
+        def __enter__(self: _SelfT) -> _SelfT: ...
+        def __exit__(self, *args: Any) -> None: ...
 
     # --- methods ---
     # second tuple item is an address
