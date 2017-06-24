@@ -492,6 +492,7 @@ class timeout(error):
 
 # TODO AF_PACKET and AF_BLUETOOTH address objects
 
+_SelfT = TypeVar('_SelfT', bound=socket)
 
 # ----- classes -----
 class socket:
@@ -507,8 +508,7 @@ class socket:
                      proto: int = ..., fileno: Optional[int] = ...) -> None: ...
 
     if sys.version_info >= (3, 2):
-        _SelfT = TypeVar('_SelfT', bound=socket)
-        def __enter__(self:_SelfT) -> _SelfT: ...
+        def __enter__(self: _SelfT) -> _SelfT: ...
         def __exit__(self, *args: Any) -> None: ...
 
     # --- methods ---
