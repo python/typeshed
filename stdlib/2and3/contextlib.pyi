@@ -9,6 +9,9 @@ import sys
 # Aliased here for backwards compatibility; TODO eventually remove this
 from typing import ContextManager as ContextManager
 
+if sys.version_info >= (3, 5):
+    from typing import AsyncContextManager, AsyncIterator
+
 if sys.version_info >= (3, 6):
     from typing import ContextManager as AbstractContextManager
 
@@ -25,6 +28,9 @@ if sys.version_info >= (3, 2):
     def contextmanager(func: Callable[..., Iterator[_T]]) -> Callable[..., GeneratorContextManager[_T]]: ...
 else:
     def contextmanager(func: Callable[..., Iterator[_T]]) -> Callable[..., ContextManager[_T]]: ...
+
+if sys.version_info >= (3, 7):
+    def asynccontextmanager(func: Callable[..., AsyncIterator[_T]]) -> Callable[..., AsyncContextManager[_T]]: ...
 
 if sys.version_info < (3,):
     def nested(*mgr: ContextManager[Any]) -> ContextManager[Iterable[Any]]: ...
