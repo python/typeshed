@@ -2,6 +2,7 @@
 
 from typing import Any, Callable, Iterable, Mapping, Optional, Dict, List
 
+from logging import Logger
 from multiprocessing.context import BaseContext
 from multiprocessing.managers import SyncManager
 from multiprocessing.pool import AsyncResult
