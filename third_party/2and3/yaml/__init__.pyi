@@ -37,10 +37,10 @@ class YAMLObjectMetaclass(type):
 
 class YAMLObject:
     __metaclass__ = YAMLObjectMetaclass
-    yaml_loader = ...  # type
-    yaml_dumper = ...  # type
-    yaml_tag = ...  # type
-    yaml_flow_style = ...  # type
+    yaml_loader = ...  # type: Any
+    yaml_dumper = ...  # type: Any
+    yaml_tag = ...  # type: Any
+    yaml_flow_style = ...  # type: Any
     @classmethod
     def from_yaml(cls: Any, loader: Any, node: Any) -> Any: ...
     @classmethod
