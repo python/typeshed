@@ -1,12 +1,12 @@
 from typing import Any, Optional
 
-log = ...  # type: Any
+log: Any
 
 class ThrottleBase:
-    capacity = ...  # type: Any
-    window = ...  # type: Any
-    records = ...  # type: Any
-    sleep_interval = ...  # type: Any
+    capacity: Any
+    window: Any
+    records: Any
+    sleep_interval: Any
     def __init__(self, capacity, window: int = ..., initial_sleep: Optional[Any] = ...) -> None: ...
     def add_record(self, record): ...
     def throttle(self): ...

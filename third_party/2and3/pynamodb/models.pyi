@@ -1,14 +1,14 @@
 from .exceptions import DoesNotExist
 from typing import Any, Dict, Generic, Iterable, Iterator, List, Optional, Tuple, Type, TypeVar, Text, Union
 
-log = ...  # type: Any
+log: Any
 
 class DefaultMeta: ...
 
 class ResultSet(Iterable):
-    results = ...  # type: Any
-    operation = ...  # type: Any
-    arguments = ...  # type: Any
+    results: Any
+    operation: Any
+    arguments: Any
     def __init__(self, results, operation, arguments) -> None: ...
     def __iter__(self): ...
 
@@ -20,7 +20,7 @@ KeyType = Union[Text, bytes, float, int]
 
 class Model(metaclass=MetaModel):
     DoesNotExist = DoesNotExist
-    attribute_values = ...  # type: Dict[Text, Any]
+    attribute_values: Dict[Text, Any]
     def __init__(self, hash_key: Optional[KeyType] = ..., range_key: Optional[Any] = ..., **attrs) -> None: ...
     @classmethod
     def has_map_or_list_attributes(cls: Type[_T]) -> bool: ...
@@ -64,10 +64,10 @@ class Model(metaclass=MetaModel):
     def get_throttle(cls): ...
 
 class ModelContextManager(Generic[_T]):
-    model = ...  # type: Type[_T]
-    auto_commit = ...  # type: bool
-    max_operations = ...  # type: int
-    pending_operations = ...  # type: List[Dict[Text, Any]]
+    model: Type[_T]
+    auto_commit: bool
+    max_operations: int
+    pending_operations: List[Dict[Text, Any]]
     def __init__(self, model: Type[_T], auto_commit: bool = ...) -> None: ...
     def __enter__(self) -> ModelContextManager: ...
 
@@ -75,5 +75,5 @@ class BatchWrite(Generic[_T], ModelContextManager[_T]):
     def save(self, put_item: _T) -> None: ...
     def delete(self, del_item: _T) -> None: ...
     def __exit__(self, exc_type, exc_val, exc_tb) -> None: ...
-    pending_operations = ...  # type: Any
+    pending_operations: Any
     def commit(self) -> None: ...

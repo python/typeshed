@@ -1,8 +1,8 @@
 from typing import Any, Optional
 
 class TableConnection:
-    table_name = ...  # type: Any
-    connection = ...  # type: Any
+    table_name: Any
+    connection: Any
     def __init__(self, table_name, region: Optional[Any] = ..., host: Optional[Any] = ..., session_cls: Optional[Any] = ..., request_timeout_seconds: Optional[Any] = ..., max_retry_attempts: Optional[Any] = ..., base_backoff_ms: Optional[Any] = ...) -> None: ...
     def delete_item(self, hash_key, range_key: Optional[Any] = ..., expected: Optional[Any] = ..., conditional_operator: Optional[Any] = ..., return_values: Optional[Any] = ..., return_consumed_capacity: Optional[Any] = ..., return_item_collection_metrics: Optional[Any] = ...): ...
     def update_item(self, hash_key, range_key: Optional[Any] = ..., attribute_updates: Optional[Any] = ..., expected: Optional[Any] = ..., conditional_operator: Optional[Any] = ..., return_consumed_capacity: Optional[Any] = ..., return_item_collection_metrics: Optional[Any] = ..., return_values: Optional[Any] = ...): ...

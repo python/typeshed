@@ -1,1 +1,1 @@
-__license__ = ...  # type: str
+__license__: str

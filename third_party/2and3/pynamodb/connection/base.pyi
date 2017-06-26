@@ -1,10 +1,10 @@
 from typing import Any, Dict, Optional, Text
 
-BOTOCORE_EXCEPTIONS = ...  # type: Any
-log = ...  # type: Any
+BOTOCORE_EXCEPTIONS: Any
+log: Any
 
 class MetaTable:
-    data = ...  # type: Dict
+    data: Dict
     def __init__(self, data: Dict) -> None: ...
     @property
     def range_keyname(self) -> Optional[Text]: ...
@@ -17,9 +17,9 @@ class MetaTable:
     def get_exclusive_start_key_map(self, exclusive_start_key): ...
 
 class Connection:
-    host = ...  # type: Any
-    region = ...  # type: Any
-    session_cls = ...  # type: Any
+    host: Any
+    region: Any
+    session_cls: Any
     def __init__(self, region: Optional[Any] = ..., host: Optional[Any] = ..., session_cls: Optional[Any] = ..., request_timeout_seconds: Optional[Any] = ..., max_retry_attempts: Optional[Any] = ..., base_backoff_ms: Optional[Any] = ...) -> None: ...
     def dispatch(self, operation_name, operation_kwargs): ...
     @property

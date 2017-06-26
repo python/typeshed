@@ -1,5 +1,5 @@
-STRING = ...  # type: str
-NUMBER = ...  # type: str
-BINARY = ...  # type: str
-HASH = ...  # type: str
-RANGE = ...  # type: str
+STRING: str
+NUMBER: str
+BINARY: str
+HASH: str
+RANGE: str

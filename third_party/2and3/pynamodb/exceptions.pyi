@@ -1,40 +1,40 @@
 from typing import Any, Optional
 
 class PynamoDBException(Exception):
-    msg = ...  # type: Any
-    cause = ...  # type: Any
+    msg: Any
+    cause: Any
     def __init__(self, msg: Optional[Any] = ..., cause: Optional[Any] = ...) -> None: ...
 
 class PynamoDBConnectionError(PynamoDBException):
-    msg = ...  # type: str
+    msg: str
 
 class DeleteError(PynamoDBConnectionError):
-    msg = ...  # type: str
+    msg: str
 
 class QueryError(PynamoDBConnectionError):
-    msg = ...  # type: str
+    msg: str
 
 class ScanError(PynamoDBConnectionError):
-    msg = ...  # type: str
+    msg: str
 
 class PutError(PynamoDBConnectionError):
-    msg = ...  # type: str
+    msg: str
 
 class UpdateError(PynamoDBConnectionError):
-    msg = ...  # type: str
+    msg: str
 
 class GetError(PynamoDBConnectionError):
-    msg = ...  # type: str
+    msg: str
 
 class TableError(PynamoDBConnectionError):
-    msg = ...  # type: str
+    msg: str
 
 class DoesNotExist(PynamoDBException):
-    msg = ...  # type: str
+    msg: str
 
 class TableDoesNotExist(PynamoDBException):
     def __init__(self, table_name) -> None: ...
 
 class VerboseClientError(Exception):
-    MSG_TEMPLATE = ...  # type: Any
+    MSG_TEMPLATE: Any
     def __init__(self, error_response, operation_name, verbose_properties: Optional[Any] = ...) -> None: ...

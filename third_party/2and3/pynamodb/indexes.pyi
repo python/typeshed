@@ -4,7 +4,7 @@ class IndexMeta(type):
     def __init__(cls, name, bases, attrs) -> None: ...
 
 class Index:
-    Meta = ...  # type: Any
+    Meta: Any
     def __init__(self) -> None: ...
     @classmethod
     def count(cls, hash_key, consistent_read: bool = ..., **filters) -> int: ...
@@ -15,16 +15,16 @@ class GlobalSecondaryIndex(Index): ...
 class LocalSecondaryIndex(Index): ...
 
 class Projection:
-    projection_type = ...  # type: Any
-    non_key_attributes = ...  # type: Any
+    projection_type: Any
+    non_key_attributes: Any
 
 class KeysOnlyProjection(Projection):
-    projection_type = ...  # type: Any
+    projection_type: Any
 
 class IncludeProjection(Projection):
-    projection_type = ...  # type: Any
-    non_key_attributes = ...  # type: Any
+    projection_type: Any
+    non_key_attributes: Any
     def __init__(self, non_attr_keys: Optional[Any] = ...) -> None: ...
 
 class AllProjection(Projection):
-    projection_type = ...  # type: Any
+    projection_type: Any

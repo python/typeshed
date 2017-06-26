@@ -1,166 +1,166 @@
 from typing import Any
 
-BATCH_WRITE_ITEM = ...  # type: str
-DESCRIBE_TABLE = ...  # type: str
-BATCH_GET_ITEM = ...  # type: str
-CREATE_TABLE = ...  # type: str
-UPDATE_TABLE = ...  # type: str
-DELETE_TABLE = ...  # type: str
-LIST_TABLES = ...  # type: str
-UPDATE_ITEM = ...  # type: str
-DELETE_ITEM = ...  # type: str
-GET_ITEM = ...  # type: str
-PUT_ITEM = ...  # type: str
-QUERY = ...  # type: str
-SCAN = ...  # type: str
-GLOBAL_SECONDARY_INDEX_UPDATES = ...  # type: str
-RETURN_ITEM_COLL_METRICS = ...  # type: str
-EXCLUSIVE_START_TABLE_NAME = ...  # type: str
-RETURN_CONSUMED_CAPACITY = ...  # type: str
-COMPARISON_OPERATOR = ...  # type: str
-SCAN_INDEX_FORWARD = ...  # type: str
-ATTR_DEFINITIONS = ...  # type: str
-ATTR_VALUE_LIST = ...  # type: str
-TABLE_DESCRIPTION = ...  # type: str
-UNPROCESSED_KEYS = ...  # type: str
-UNPROCESSED_ITEMS = ...  # type: str
-CONSISTENT_READ = ...  # type: str
-DELETE_REQUEST = ...  # type: str
-RETURN_VALUES = ...  # type: str
-REQUEST_ITEMS = ...  # type: str
-ATTRS_TO_GET = ...  # type: str
-ATTR_UPDATES = ...  # type: str
-TABLE_STATUS = ...  # type: str
-SCAN_FILTER = ...  # type: str
-TABLE_NAME = ...  # type: str
-KEY_SCHEMA = ...  # type: str
-ATTR_NAME = ...  # type: str
-ATTR_TYPE = ...  # type: str
-ITEM_COUNT = ...  # type: str
-CAMEL_COUNT = ...  # type: str
-PUT_REQUEST = ...  # type: str
-INDEX_NAME = ...  # type: str
-ATTRIBUTES = ...  # type: str
-TABLE_KEY = ...  # type: str
-RESPONSES = ...  # type: str
-RANGE_KEY = ...  # type: str
-KEY_TYPE = ...  # type: str
-ACTION = ...  # type: str
-UPDATE = ...  # type: str
-EXISTS = ...  # type: str
-SELECT = ...  # type: str
-ACTIVE = ...  # type: str
-LIMIT = ...  # type: str
-ITEMS = ...  # type: str
-ITEM = ...  # type: str
-KEYS = ...  # type: str
-UTC = ...  # type: str
-KEY = ...  # type: str
-DEFAULT_ENCODING = ...  # type: str
-DEFAULT_REGION = ...  # type: str
-DATETIME_FORMAT = ...  # type: str
-SERVICE_NAME = ...  # type: str
-HTTP_OK = ...  # type: int
-HTTP_BAD_REQUEST = ...  # type: int
-PROVISIONED_THROUGHPUT = ...  # type: str
-READ_CAPACITY_UNITS = ...  # type: str
-WRITE_CAPACITY_UNITS = ...  # type: str
-STRING_SHORT = ...  # type: str
-STRING_SET_SHORT = ...  # type: str
-NUMBER_SHORT = ...  # type: str
-NUMBER_SET_SHORT = ...  # type: str
-BINARY_SHORT = ...  # type: str
-BINARY_SET_SHORT = ...  # type: str
-MAP_SHORT = ...  # type: str
-LIST_SHORT = ...  # type: str
-BOOLEAN = ...  # type: str
-BOOLEAN_SHORT = ...  # type: str
-STRING = ...  # type: str
-STRING_SET = ...  # type: str
-NUMBER = ...  # type: str
-NUMBER_SET = ...  # type: str
-BINARY = ...  # type: str
-BINARY_SET = ...  # type: str
-MAP = ...  # type: str
-LIST = ...  # type: str
-SHORT_ATTR_TYPES = ...  # type: Any
-ATTR_TYPE_MAP = ...  # type: Any
-LOCAL_SECONDARY_INDEX = ...  # type: str
-LOCAL_SECONDARY_INDEXES = ...  # type: str
-GLOBAL_SECONDARY_INDEX = ...  # type: str
-GLOBAL_SECONDARY_INDEXES = ...  # type: str
-PROJECTION = ...  # type: str
-PROJECTION_TYPE = ...  # type: str
-NON_KEY_ATTRIBUTES = ...  # type: str
-KEYS_ONLY = ...  # type: str
-ALL = ...  # type: str
-INCLUDE = ...  # type: str
-STREAM_VIEW_TYPE = ...  # type: str
-STREAM_SPECIFICATION = ...  # type: str
-STREAM_ENABLED = ...  # type: str
-STREAM_NEW_IMAGE = ...  # type: str
-STREAM_OLD_IMAGE = ...  # type: str
-STREAM_NEW_AND_OLD_IMAGE = ...  # type: str
-STREAM_KEYS_ONLY = ...  # type: str
-EXCLUSIVE_START_KEY = ...  # type: str
-LAST_EVALUATED_KEY = ...  # type: str
-QUERY_FILTER = ...  # type: str
-BEGINS_WITH = ...  # type: str
-BETWEEN = ...  # type: str
-EQ = ...  # type: str
-NE = ...  # type: str
-LE = ...  # type: str
-LT = ...  # type: str
-GE = ...  # type: str
-GT = ...  # type: str
-IN = ...  # type: str
-KEY_CONDITIONS = ...  # type: str
-COMPARISON_OPERATOR_VALUES = ...  # type: Any
-QUERY_OPERATOR_MAP = ...  # type: Any
-NOT_NULL = ...  # type: str
-NULL = ...  # type: str
-CONTAINS = ...  # type: str
-NOT_CONTAINS = ...  # type: str
-ALL_ATTRIBUTES = ...  # type: str
-ALL_PROJECTED_ATTRIBUTES = ...  # type: str
-SPECIFIC_ATTRIBUTES = ...  # type: str
-COUNT = ...  # type: str
-SELECT_VALUES = ...  # type: Any
-SCAN_OPERATOR_MAP = ...  # type: Any
-QUERY_FILTER_OPERATOR_MAP = ...  # type: Any
-DELETE_FILTER_OPERATOR_MAP = ...  # type: Any
-UPDATE_FILTER_OPERATOR_MAP = ...  # type: Any
-PUT_FILTER_OPERATOR_MAP = ...  # type: Any
-SEGMENT = ...  # type: str
-TOTAL_SEGMENTS = ...  # type: str
-SCAN_FILTER_VALUES = ...  # type: Any
-QUERY_FILTER_VALUES = ...  # type: Any
-DELETE_FILTER_VALUES = ...  # type: Any
-VALUE = ...  # type: str
-EXPECTED = ...  # type: str
-CONSUMED_CAPACITY = ...  # type: str
-CAPACITY_UNITS = ...  # type: str
-INDEXES = ...  # type: str
-TOTAL = ...  # type: str
-NONE = ...  # type: str
-RETURN_CONSUMED_CAPACITY_VALUES = ...  # type: Any
-SIZE = ...  # type: str
-RETURN_ITEM_COLL_METRICS_VALUES = ...  # type: Any
-ALL_OLD = ...  # type: str
-UPDATED_OLD = ...  # type: str
-ALL_NEW = ...  # type: str
-UPDATED_NEW = ...  # type: str
-RETURN_VALUES_VALUES = ...  # type: Any
-PUT = ...  # type: str
-DELETE = ...  # type: str
-ADD = ...  # type: str
-ATTR_UPDATE_ACTIONS = ...  # type: Any
-BATCH_GET_PAGE_LIMIT = ...  # type: int
-BATCH_WRITE_PAGE_LIMIT = ...  # type: int
-META_CLASS_NAME = ...  # type: str
-REGION = ...  # type: str
-HOST = ...  # type: str
-CONDITIONAL_OPERATOR = ...  # type: str
-AND = ...  # type: str
-OR = ...  # type: str
-CONDITIONAL_OPERATORS = ...  # type: Any
+BATCH_WRITE_ITEM: str
+DESCRIBE_TABLE: str
+BATCH_GET_ITEM: str
+CREATE_TABLE: str
+UPDATE_TABLE: str
+DELETE_TABLE: str
+LIST_TABLES: str
+UPDATE_ITEM: str
+DELETE_ITEM: str
+GET_ITEM: str
+PUT_ITEM: str
+QUERY: str
+SCAN: str
+GLOBAL_SECONDARY_INDEX_UPDATES: str
+RETURN_ITEM_COLL_METRICS: str
+EXCLUSIVE_START_TABLE_NAME: str
+RETURN_CONSUMED_CAPACITY: str
+COMPARISON_OPERATOR: str
+SCAN_INDEX_FORWARD: str
+ATTR_DEFINITIONS: str
+ATTR_VALUE_LIST: str
+TABLE_DESCRIPTION: str
+UNPROCESSED_KEYS: str
+UNPROCESSED_ITEMS: str
+CONSISTENT_READ: str
+DELETE_REQUEST: str
+RETURN_VALUES: str
+REQUEST_ITEMS: str
+ATTRS_TO_GET: str
+ATTR_UPDATES: str
+TABLE_STATUS: str
+SCAN_FILTER: str
+TABLE_NAME: str
+KEY_SCHEMA: str
+ATTR_NAME: str
+ATTR_TYPE: str
+ITEM_COUNT: str
+CAMEL_COUNT: str
+PUT_REQUEST: str
+INDEX_NAME: str
+ATTRIBUTES: str
+TABLE_KEY: str
+RESPONSES: str
+RANGE_KEY: str
+KEY_TYPE: str
+ACTION: str
+UPDATE: str
+EXISTS: str
+SELECT: str
+ACTIVE: str
+LIMIT: str
+ITEMS: str
+ITEM: str
+KEYS: str
+UTC: str
+KEY: str
+DEFAULT_ENCODING: str
+DEFAULT_REGION: str
+DATETIME_FORMAT: str
+SERVICE_NAME: str
+HTTP_OK: int
+HTTP_BAD_REQUEST: int
+PROVISIONED_THROUGHPUT: str
+READ_CAPACITY_UNITS: str
+WRITE_CAPACITY_UNITS: str
+STRING_SHORT: str
+STRING_SET_SHORT: str
+NUMBER_SHORT: str
+NUMBER_SET_SHORT: str
+BINARY_SHORT: str
+BINARY_SET_SHORT: str
+MAP_SHORT: str
+LIST_SHORT: str
+BOOLEAN: str
+BOOLEAN_SHORT: str
+STRING: str
+STRING_SET: str
+NUMBER: str
+NUMBER_SET: str
+BINARY: str
+BINARY_SET: str
+MAP: str
+LIST: str
+SHORT_ATTR_TYPES: Any
+ATTR_TYPE_MAP: Any
+LOCAL_SECONDARY_INDEX: str
+LOCAL_SECONDARY_INDEXES: str
+GLOBAL_SECONDARY_INDEX: str
+GLOBAL_SECONDARY_INDEXES: str
+PROJECTION: str
+PROJECTION_TYPE: str
+NON_KEY_ATTRIBUTES: str
+KEYS_ONLY: str
+ALL: str
+INCLUDE: str
+STREAM_VIEW_TYPE: str
+STREAM_SPECIFICATION: str
+STREAM_ENABLED: str
+STREAM_NEW_IMAGE: str
+STREAM_OLD_IMAGE: str
+STREAM_NEW_AND_OLD_IMAGE: str
+STREAM_KEYS_ONLY: str
+EXCLUSIVE_START_KEY: str
+LAST_EVALUATED_KEY: str
+QUERY_FILTER: str
+BEGINS_WITH: str
+BETWEEN: str
+EQ: str
+NE: str
+LE: str
+LT: str
+GE: str
+GT: str
+IN: str
+KEY_CONDITIONS: str
+COMPARISON_OPERATOR_VALUES: Any
+QUERY_OPERATOR_MAP: Any
+NOT_NULL: str
+NULL: str
+CONTAINS: str
+NOT_CONTAINS: str
+ALL_ATTRIBUTES: str
+ALL_PROJECTED_ATTRIBUTES: str
+SPECIFIC_ATTRIBUTES: str
+COUNT: str
+SELECT_VALUES: Any
+SCAN_OPERATOR_MAP: Any
+QUERY_FILTER_OPERATOR_MAP: Any
+DELETE_FILTER_OPERATOR_MAP: Any
+UPDATE_FILTER_OPERATOR_MAP: Any
+PUT_FILTER_OPERATOR_MAP: Any
+SEGMENT: str
+TOTAL_SEGMENTS: str
+SCAN_FILTER_VALUES: Any
+QUERY_FILTER_VALUES: Any
+DELETE_FILTER_VALUES: Any
+VALUE: str
+EXPECTED: str
+CONSUMED_CAPACITY: str
+CAPACITY_UNITS: str
+INDEXES: str
+TOTAL: str
+NONE: str
+RETURN_CONSUMED_CAPACITY_VALUES: Any
+SIZE: str
+RETURN_ITEM_COLL_METRICS_VALUES: Any
+ALL_OLD: str
+UPDATED_OLD: str
+ALL_NEW: str
+UPDATED_NEW: str
+RETURN_VALUES_VALUES: Any
+PUT: str
+DELETE: str
+ADD: str
+ATTR_UPDATE_ACTIONS: Any
+BATCH_GET_PAGE_LIMIT: int
+BATCH_WRITE_PAGE_LIMIT: int
+META_CLASS_NAME: str
+REGION: str
+HOST: str
+CONDITIONAL_OPERATOR: str
+AND: str
+OR: str
+CONDITIONAL_OPERATORS: Any

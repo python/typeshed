@@ -1,8 +1,8 @@
 from typing import Any
 
-log = ...  # type: Any
-default_settings_dict = ...  # type: Any
-OVERRIDE_SETTINGS_PATH = ...  # type: Any
-override_settings = ...  # type: Any
+log: Any
+default_settings_dict: Any
+OVERRIDE_SETTINGS_PATH: Any
+override_settings: Any
 
 def get_settings_value(key): ...
