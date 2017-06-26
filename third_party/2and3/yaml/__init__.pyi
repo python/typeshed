@@ -1,10 +1,10 @@
 from typing import Any
-# from yaml.error import *
-# from yaml.tokens import *
-# from yaml.events import *
-# from yaml.nodes import *
-# from yaml.loader import *
-# from yaml.dumper import *
+from yaml.error import *
+from yaml.tokens import *
+from yaml.events import *
+from yaml.nodes import *
+from yaml.loader import *
+from yaml.dumper import *
 # TODO: stubs for cyaml?
 # from cyaml import *
 
