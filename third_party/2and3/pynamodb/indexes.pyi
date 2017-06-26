@@ -3,7 +3,7 @@ from typing import Any, Optional
 class IndexMeta(type):
     def __init__(cls, name, bases, attrs) -> None: ...
 
-class Index:
+class Index(metaclass=IndexMeta):
     Meta: Any
     def __init__(self) -> None: ...
     @classmethod
@@ -14,7 +14,7 @@ class Index:
 class GlobalSecondaryIndex(Index): ...
 class LocalSecondaryIndex(Index): ...
 
-class Projection:
+class Projection(object):
     projection_type: Any
     non_key_attributes: Any
 

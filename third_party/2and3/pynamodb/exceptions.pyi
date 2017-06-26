@@ -1,36 +1,36 @@
 from typing import Any, Optional
 
 class PynamoDBException(Exception):
-    msg: Any
+    msg: str
     cause: Any
     def __init__(self, msg: Optional[Any] = ..., cause: Optional[Any] = ...) -> None: ...
 
 class PynamoDBConnectionError(PynamoDBException):
-    msg: str
+    pass
 
 class DeleteError(PynamoDBConnectionError):
-    msg: str
+    pass
 
 class QueryError(PynamoDBConnectionError):
-    msg: str
+    pass
 
 class ScanError(PynamoDBConnectionError):
-    msg: str
+    pass
 
 class PutError(PynamoDBConnectionError):
-    msg: str
+    pass
 
 class UpdateError(PynamoDBConnectionError):
-    msg: str
+    pass
 
 class GetError(PynamoDBConnectionError):
-    msg: str
+    pass
 
 class TableError(PynamoDBConnectionError):
-    msg: str
+    pass
 
 class DoesNotExist(PynamoDBException):
-    msg: str
+    pass
 
 class TableDoesNotExist(PynamoDBException):
     def __init__(self, table_name) -> None: ...
