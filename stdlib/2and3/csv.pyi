@@ -1,6 +1,6 @@
 from collections import OrderedDict
 import sys
-from typing import Any, Dict, Iterable, Iterator, List, Optional, Sequence, Text, Union
+from typing import Any, Dict, Iterable, Iterator, List, Optional, Sequence, Union
 
 from _csv import (_reader,
                   _writer,
@@ -65,7 +65,7 @@ if sys.version_info >= (3, 6):
         def __iter__(self) -> Iterator[OrderedDict[str, str]]: ...
         def next(self) -> OrderedDict[str, str]: ...
 else:
-    class DictReader(Iterator[Dict[Text, str]]):
+    class DictReader(Iterator[Dict[Any, str]]):
         restkey = ...  # type: Optional[str]
         restval = ...  # type: Optional[str]
         reader = ...  # type: _reader
@@ -75,8 +75,8 @@ else:
         def __init__(self, f: Iterator[str], fieldnames: Sequence[str] = ...,
                      restkey: Optional[str] = ..., restval: Optional[str] = ..., dialect: _Dialect = ...,
                      *args: Any, **kwds: Any) -> None: ...
-        def __iter__(self) -> Iterator[OrderedDict[Text, str]]: ...
-        def next(self) -> OrderedDict[Text, str]: ...
+        def __iter__(self) -> Iterator[OrderedDict[Any, str]]: ...
+        def next(self) -> OrderedDict[Any, str]: ...
 
 class DictWriter(object):
     fieldnames = ...  # type: Sequence[str]
