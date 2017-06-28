@@ -7,6 +7,7 @@ from multiprocessing.context import BaseContext
 from multiprocessing.managers import SyncManager
 from multiprocessing.pool import AsyncResult
 from multiprocessing.process import current_process as current_process
+import sys
 
 class Lock():
     def acquire(self, block: bool = ..., timeout: int = ...) -> None: ...
