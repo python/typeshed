@@ -82,6 +82,7 @@ class UnboundMethodType:
     im_class = ...  # type: type
     im_func = ...  # type: FunctionType
     im_self = ...  # type: Optional[object]
+    __name__ = ...  # type: str
     __func__ = im_func
     __self__ = im_self
     def __call__(self, *args: Any, **kwargs: Any) -> Any: ...

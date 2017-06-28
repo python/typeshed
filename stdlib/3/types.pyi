@@ -139,6 +139,7 @@ class _StaticFunctionType:
 class MethodType:
     __func__ = ...  # type: _StaticFunctionType
     __self__ = ...  # type: object
+    __name__ = ...  # type: str
     def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
 class BuiltinFunctionType:
     __self__ = ...  # type: Union[object, ModuleType]
