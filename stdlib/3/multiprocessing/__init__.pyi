@@ -1,6 +1,6 @@
 # Stubs for multiprocessing
 
-from typing import Any, Callable, Iterable, Mapping, Optional, Dict, List
+from typing import Any, Callable, Iterable, Mapping, Optional, Dict, List, Union
 
 from logging import Logger
 from multiprocessing.context import BaseContext
