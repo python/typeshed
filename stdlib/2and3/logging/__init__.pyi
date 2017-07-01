@@ -28,7 +28,14 @@ if sys.version_info >= (3,):
 else:
     _levelNames = ...  # type: dict
 
-class Logger:
+class Filterer(object):
+    filters = ...  # type: List[Filter]
+    def __init__(self) -> None: ...
+    def addFilter(self, filter: Filter) -> None: ...
+    def removeFilter(self, filter: Filter) -> None: ...
+    def filter(self, record: 'LogRecord') -> bool: ...
+
+class Logger(Filterer):
     name = ...  # type: str
     level = ...  # type: int
     parent = ...  # type: Union[Logger, PlaceHolder]
@@ -126,14 +133,6 @@ WARN = ...  # type: int
 INFO = ...  # type: int
 DEBUG = ...  # type: int
 NOTSET = ...  # type: int
-
-
-class Filterer(object):
-    filters = ...  # type: List[Filter]
-    def __init__(self) -> None: ...
-    def addFilter(self, filter: Filter) -> None: ...
-    def removeFilter(self, filter: Filter) -> None: ...
-    def filter(self, record: 'LogRecord') -> bool: ...
 
 
 class Handler(Filterer):
