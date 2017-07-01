@@ -254,7 +254,11 @@ def setsid() -> None: ...  # Unix only
 def setuid(uid: int) -> None: ...  # Unix only
 def strerror(code: int) -> str: ...
 def umask(mask: int) -> int: ...
-def uname() -> Tuple[str, str, str, str, str]: ...  # Unix only
+if sys.version_info >= (3, 3):
+    from posix import uname_result
+    def uname() -> uname_result: ...  # Unix only
+else:
+    def uname() -> Tuple[str, str, str, str, str]: ...  # Unix only
 
 @overload
 def getenv(key: Text) -> Optional[str]: ...
