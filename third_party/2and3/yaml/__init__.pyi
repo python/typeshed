@@ -1,10 +1,10 @@
 from typing import Any
-# from yaml.error import *
-# from yaml.tokens import *
-# from yaml.events import *
-# from yaml.nodes import *
-# from yaml.loader import *
-# from yaml.dumper import *
+from yaml.error import *  # noqa: F403
+from yaml.tokens import *  # noqa: F403
+from yaml.events import *  # noqa: F403
+from yaml.nodes import *  # noqa: F403
+from yaml.loader import *  # noqa: F403
+from yaml.dumper import *  # noqa: F403
 # TODO: stubs for cyaml?
 # from cyaml import *
 
