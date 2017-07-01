@@ -1,3 +1,4 @@
+import selectors
 from socket import socket
 import ssl
 import sys
@@ -124,7 +125,7 @@ class AbstractEventLoop(metaclass=ABCMeta):
     @abstractmethod
     @coroutine
     def create_datagram_endpoint(self, protocol_factory: _ProtocolFactory,
-                                 local_addr: str = ..., remote_addr: str = ..., *,
+                                 local_addr: Optional[Tuple[str, int]] = ..., remote_addr: Optional[Tuple[str, int]] = ..., *,
                                  family: int = ..., proto: int = ..., flags: int = ...,
                                  reuse_address: Optional[bool] = ..., reuse_port: Optional[bool] = ...,
                                  allow_broadcast: Optional[bool] = ...,
@@ -150,13 +151,13 @@ class AbstractEventLoop(metaclass=ABCMeta):
                         stdout: Any = ..., stderr: Any = ...,
                         **kwargs: Any) -> Generator[Any, None, _TransProtPair]: ...
     @abstractmethod
-    def add_reader(self, fd: int, callback: Callable[..., Any], *args: List[Any]) -> None: ...
+    def add_reader(self, fd: selectors._FileObject, callback: Callable[..., Any], *args: List[Any]) -> None: ...
     @abstractmethod
-    def remove_reader(self, fd: int) -> None: ...
+    def remove_reader(self, fd: selectors._FileObject) -> None: ...
     @abstractmethod
-    def add_writer(self, fd: int, callback: Callable[..., Any], *args: List[Any]) -> None: ...
+    def add_writer(self, fd: selectors._FileObject, callback: Callable[..., Any], *args: List[Any]) -> None: ...
     @abstractmethod
-    def remove_writer(self, fd: int) -> None: ...
+    def remove_writer(self, fd: selectors._FileObject) -> None: ...
     # Completion based I/O methods returning Futures.
     @abstractmethod
     @coroutine
