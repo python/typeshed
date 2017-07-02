@@ -5,10 +5,12 @@ from pipes import Template
 from typing import Dict, List, Optional
 
 
-class error(Exception): ...
-
+__all__: List[str]
 table: Dict[str, Template]
 t: Template
 uncompress: Template
+
+class error(Exception): ...
+
 def toaiff(filename: str) -> Optional[str]: ...
 def _toaiff(filename: str, temps: List[str]) -> str: ... 
