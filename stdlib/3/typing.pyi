@@ -3,6 +3,7 @@
 import sys
 from abc import abstractmethod, ABCMeta
 from types import CodeType, FrameType, TracebackType
+import collections  # Needed by aliases like DefaultDict, Deque, etc.
 
 # Definitions of special type checking related constructs.  Their definition
 # are not used, so their value does not matter.
