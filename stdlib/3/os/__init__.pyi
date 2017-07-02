@@ -1,14 +1,12 @@
 # Stubs for os
 # Ron Murawski <ron@horizonchess.com>
 
-# based on http: //docs.python.org/3.2/library/os.html
-
 from builtins import OSError as error
 from io import TextIOWrapper as _TextIOWrapper
 import sys
 from typing import (
     Mapping, MutableMapping, Dict, List, Any, Tuple, Iterator, overload, Union, AnyStr,
-    Optional, Generic, Set, Callable, Text, Sequence, NamedTuple, TypeVar
+    Optional, Generic, Set, Callable, Text, Sequence, IO, NamedTuple, TypeVar
 )
 from . import path as path
 from mypy_extensions import NoReturn
@@ -17,7 +15,8 @@ _T = TypeVar('_T')
 
 # ----- os variables -----
 
-supports_bytes_environ: bool
+if sys.version_info >= (3, 2):
+    supports_bytes_environ: bool
 
 if sys.version_info >= (3, 3):
     supports_dir_fd: Set[Callable[..., Any]]
@@ -56,6 +55,7 @@ O_DIRECT: int     # Gnu extension if in C library
 O_DIRECTORY: int  # Gnu extension if in C library
 O_NOFOLLOW: int   # Gnu extension if in C library
 O_NOATIME: int    # Gnu extension if in C library
+O_LARGEFILE: int  # Gnu extension if in C library
 
 curdir: str
 pardir: str
@@ -77,7 +77,8 @@ class _Environ(MutableMapping[AnyStr, AnyStr], Generic[AnyStr]):
     def copy(self) -> Dict[AnyStr, AnyStr]: ...
 
 environ: _Environ[str]
-environb: _Environ[bytes]
+if sys.version_info >= (3, 2):
+    environb: _Environ[bytes]
 
 confstr_names: Dict[str, int]  # Unix only
 pathconf_names: Dict[str, int]  # Unix only
@@ -346,7 +347,11 @@ def symlink(source: _PathType, link_name: _PathType,
             target_is_directory: bool = ...) -> None:
     ...  # final argument in Windows only
 def unlink(path: _PathType) -> None: ...
-def utime(path: _PathType, times: Optional[Tuple[float, float]] = ...) -> None: ...
+# TODO: add ns, dir_fd, follow_symlinks argument
+if sys.version_info >= (3, 0):
+    def utime(path: _PathType, times: Optional[Tuple[float, float]] = ...) -> None: ...
+else:
+    def utime(path: _PathType, times: Optional[Tuple[float, float]]) -> None: ...
 
 if sys.version_info >= (3, 6):
     def walk(top: Union[AnyStr, PathLike[AnyStr]], topdown: bool = ...,
@@ -383,11 +388,17 @@ def killpg(pgid: int, sig: int) -> None: ...  # Unix only
 def nice(increment: int) -> int: ...  # Unix only
 def plock(op: int) -> None: ...  # Unix only ???op is int?
 
-class popen(_TextIOWrapper):
-    # TODO 'b' modes or bytes command not accepted?
-    def __init__(self, command: str, mode: str = ...,
-                 bufsize: int = ...) -> None: ...
-    def close(self) -> Any: ...  # may return int
+if sys.version_info >= (3, 0):
+    class popen(_TextIOWrapper):
+        # TODO 'b' modes or bytes command not accepted?
+        def __init__(self, command: str, mode: str = ...,
+                     bufsize: int = ...) -> None: ...
+        def close(self) -> Any: ...  # may return int
+else:
+    def popen(command: str, *args, **kwargs) -> Optional[IO[Any]]: ...
+    def popen2(cmd: str, *args, **kwargs) -> Tuple[IO[Any], IO[Any]]: ...
+    def popen3(cmd: str, *args, **kwargs) -> Tuple[IO[Any], IO[Any], IO[Any]]: ...
+    def popen4(cmd: str, *args, **kwargs) -> Tuple[IO[Any], IO[Any]]: ...
 
 def spawnl(mode: int, path: _PathType, arg0: Union[bytes, Text], *args: Union[bytes, Text]) -> int: ...
 def spawnle(mode: int, path: _PathType, arg0: Union[bytes, Text],
@@ -423,10 +434,18 @@ def getloadavg() -> Tuple[float, float, float]: ...  # Unix only
 def sysconf(name: Union[str, int]) -> int: ...  # Unix only
 def urandom(n: int) -> bytes: ...
 
-def sched_getaffinity(id: int) -> Set[int]: ...
-class waitresult:
-    si_pid: int
-def waitid(idtype: int, id: int, options: int) -> waitresult: ...
+if sys.version_info >= (3, 0):
+    def sched_getaffinity(id: int) -> Set[int]: ...
+if sys.version_info >= (3, 3):
+    class waitresult:
+        si_pid: int
+    def waitid(idtype: int, id: int, options: int) -> waitresult: ...
+
+if sys.version_info < (3, 0):
+    def tmpfile() -> IO[Any]: ...
+    def tmpnam() -> str: ...
+    def tempnam(dir: str = ..., prefix: str = ...) -> str: ...
+
 P_ALL: int
 WEXITED: int
 WNOWAIT: int
