@@ -2,9 +2,10 @@
 
 # Docs: https://docs.python.org/2/library/user.html
 # Source: https://hg.python.org/cpython/file/2.7/Lib/user.py
-from typing import BinaryIO, Text, Union
+from typing import Any, BinaryIO, Text, Union
 
 
+def __getattr__(name) -> Any: ...
 home: str
 pythonrc: Union[bytes, Text]
 f: BinaryIO
