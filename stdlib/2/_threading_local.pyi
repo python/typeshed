@@ -2,11 +2,10 @@
 from typing import Any, List, Type, TypeVar
 
 __all__: List[str]
-
 _cls = TypeVar('_cls')
 
 class _localbase:
-    def __new__(Type[cls], *args, **kw) -> _cls: ...
+    def __new__(cls: Type[_cls], *args, **kw) -> _cls: ...
 
 class local(_localbase):
     def __getattribute__(self, name: str) -> Any: ...
