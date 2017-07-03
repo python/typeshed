@@ -1,6 +1,4 @@
 # Source: https://hg.python.org/cpython/file/2.7/Lib/stringold.py
-
-
 from typing import Any, AnyStr, Iterable, List, Optional
 from stringold import *
 
