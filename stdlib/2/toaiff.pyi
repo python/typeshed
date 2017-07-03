@@ -2,7 +2,7 @@
 
 # Source: https://hg.python.org/cpython/file/2.7/Lib/toaiff.py
 from pipes import Template
-from typing import Dict, List, Optional
+from typing import Dict, List
 
 
 __all__: List[str]
@@ -12,5 +12,5 @@ uncompress: Template
 
 class error(Exception): ...
 
-def toaiff(filename: str) -> Optional[str]: ...
+def toaiff(filename: str) -> str: ...
 def _toaiff(filename: str, temps: List[str]) -> str: ...
