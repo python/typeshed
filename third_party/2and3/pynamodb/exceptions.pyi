@@ -1,9 +1,9 @@
-from typing import Any, Optional
+from typing import Any, Optional, Text
 
 class PynamoDBException(Exception):
     msg: str
     cause: Any
-    def __init__(self, msg: Optional[Any] = ..., cause: Optional[Any] = ...) -> None: ...
+    def __init__(self, msg: Optional[Text] = ..., cause: Optional[Exception] = ...) -> None: ...
 
 class PynamoDBConnectionError(PynamoDBException):
     pass
