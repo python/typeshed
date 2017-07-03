@@ -1,6 +1,6 @@
 # Source: https://github.com/python/cpython/blob/master/Lib/_threading_local.py
 from contextlib import contextmanager
-from typing import Any, Dict, Iterator, List, Tuple, Type, TypeVar
+from typing import Any, Dict, Generator, List, Tuple, Type, TypeVar
 from weakref import ReferenceType
 
 __all__: List[str]
@@ -21,4 +21,4 @@ class local:
     def __delattr__(self, name: str) -> None: ...
 
 @contextmanager
-def _patch(self: local) -> Iterator[None]: ...
+def _patch(self: local) -> Generator[None, None, None]: ...
