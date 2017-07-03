@@ -1,11 +1,11 @@
 # Source: https://hg.python.org/cpython/file/2.7/Lib/stringold.py
-from typing import Any, AnyStr, Iterable, List, Optional
+from typing import AnyStr, Iterable, List
 from stringold import *
 
 whitespace = ...  # type: str
 lowercase = ...  # type: str
 uppercase = ...  # type: str
-letters = ...  # type: Any
+letters = ...  # type: str
 digits = ...  # type: str
 hexdigits = ...  # type: str
 octdigits = ...  # type: str
