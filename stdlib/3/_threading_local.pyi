@@ -1,10 +1,8 @@
 # Source: https://github.com/python/cpython/blob/master/Lib/_threading_local.py
-from contextlib import contextmanager
-from typing import Any, Dict, Generator, List, Tuple, Type, TypeVar
+from typing import Any, Dict, List, Tuple
 from weakref import ReferenceType
 
 __all__: List[str]
-_cls = TypeVar('_cls')
 localdict = Dict[Any, Any]
 
 class _localimpl:
@@ -15,11 +13,6 @@ class _localimpl:
     def create_dict(self) -> localdict: ...
 
 class local:
-    def __new__(cls: Type[_cls], *args, **kw) -> _cls: ...
     def __getattribute__(self, name: str) -> Any: ...
     def __setattr__(self, name: str, value: Any) -> None: ...
     def __delattr__(self, name: str) -> None: ...
-
-@contextmanager
-def _patch(self: local) -> Generator[None, None, None]:
-    ...
