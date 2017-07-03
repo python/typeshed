@@ -1,11 +1,9 @@
 # Source: https://hg.python.org/cpython/file/2.7/Lib/_threading_local.py
-from typing import Any, List, Type, TypeVar
+from typing import Any, List
 
 __all__: List[str]
-_cls = TypeVar('_cls')
 
-class _localbase:
-    def __new__(cls: Type[_cls], *args, **kw) -> _cls: ...
+class _localbase(object): ...
 
 class local(_localbase):
     def __getattribute__(self, name: str) -> Any: ...
