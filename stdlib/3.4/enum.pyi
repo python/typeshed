@@ -24,11 +24,8 @@ class Enum(metaclass=EnumMeta):
     name = ...  # type: str
     value = ...  # type: Any
 
-_T1 = TypeVar('_T1')
-
-class IntEnum(int, Enum):  # type: ignore
+class IntEnum(int, Enum):
     value = ...  # type: int
-    def __new__(cls: Type[_T1], value: Any) -> _T1: ...
 
 def unique(enumeration: _S) -> _S: ...
 
