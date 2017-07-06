@@ -10,10 +10,10 @@ hexdigits = ...  # type: str
 octdigits = ...  # type: str
 _idmap = ...  # type: str
 _idmapL = ...  # type: Optional[List[str]]
-index_error = ...  # type: Type[ValueError]
-atoi_error = ...  # type: Type[ValueError]
-atof_error = ...  # type: Type[ValueError]
-atol_error = ...  # type: Type[ValueError]
+index_error = ValueError
+atoi_error = ValueError
+atof_error = ValueError
+atol_error = ValueError
 
 
 def lower(s: AnyStr) -> AnyStr: ...
