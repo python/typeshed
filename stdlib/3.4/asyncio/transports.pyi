@@ -1,4 +1,4 @@
-from typing import Dict, Any, TypeVar, Mapping, List
+from typing import Dict, Any, TypeVar, Mapping, List, Optional, Tuple
 
 __all__: List[str]
 
@@ -26,7 +26,7 @@ class WriteTransport(BaseTransport):
 class Transport(ReadTransport, WriteTransport): ...
 
 class DatagramTransport(BaseTransport):
-    def sendto(self, data: Any, addr: str = ...) -> None: ...
+    def sendto(self, data: Any, addr: Optional[Tuple[str, int]] = ...) -> None: ...
     def abort(self) -> None: ...
 
 class SubprocessTransport(BaseTransport):
