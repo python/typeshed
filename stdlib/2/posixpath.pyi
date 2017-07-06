@@ -1,4 +1,4 @@
-from typing import Any, AnyStr, List
+from typing import Any
 from genericpath import *  # noqa: F403
 
 curdir = ...  # type: Any
