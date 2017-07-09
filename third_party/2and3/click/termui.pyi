@@ -137,7 +137,7 @@ def launch(url: str, wait: bool = False, locate: bool = False) -> int:
     ...
 
 
-def getchar(echo: bool = False) -> str:
+def getchar(echo: bool = False) -> bytes:
     ...
 
 
