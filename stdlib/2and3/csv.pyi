@@ -52,34 +52,27 @@ if sys.version_info >= (3,):
         quoting = ...  # type: int
 
 if sys.version_info >= (3, 6):
-    class DictReader(Iterator[OrderedDict[str, str]]):
-        restkey = ...  # type: Optional[str]
-        restval = ...  # type: Optional[str]
-        reader = ...  # type: _reader
-        dialect = ...  # type: _Dialect
-        line_num = ...  # type: int
-        fieldnames = ...  # type: Sequence[str]
-        def __init__(self, f: Iterable[str], fieldnames: Sequence[str] = ...,
-                     restkey: Optional[str] = ..., restval: Optional[str] = ..., dialect: _Dialect = ...,
-                     *args: Any, **kwds: Any) -> None: ...
-        def __iter__(self) -> 'DictReader': ...
-        def __next__(self) -> OrderedDict[str, str]: ...
+    _DRMapping = OrderedDict[str, str]
 else:
-    class DictReader(Iterator[Dict[Any, str]]):
-        restkey = ...  # type: Optional[str]
-        restval = ...  # type: Optional[str]
-        reader = ...  # type: _reader
-        dialect = ...  # type: _Dialect
-        line_num = ...  # type: int
-        fieldnames = ...  # type: Sequence[str]
-        def __init__(self, f: Iterable[str], fieldnames: Sequence[str] = ...,
-                     restkey: Optional[str] = ..., restval: Optional[str] = ..., dialect: _Dialect = ...,
-                     *args: Any, **kwds: Any) -> None: ...
-        def __iter__(self) -> 'DictReader': ...
-        if sys.version_info >= (3,):
-            def __next__(self) -> OrderedDict[Any, str]: ...
-        else:
-            def next(self) -> OrderedDict[Any, str]: ...
+    _DRMapping = Dict[str, str]
+
+
+class DictReader(Iterator[_DRMapping]):
+    restkey = ...  # type: Optional[str]
+    restval = ...  # type: Optional[str]
+    reader = ...  # type: _reader
+    dialect = ...  # type: _Dialect
+    line_num = ...  # type: int
+    fieldnames = ...  # type: Sequence[str]
+    def __init__(self, f: Iterable[str], fieldnames: Sequence[str] = ...,
+                 restkey: Optional[str] = ..., restval: Optional[str] = ..., dialect: _Dialect = ...,
+                 *args: Any, **kwds: Any) -> None: ...
+    def __iter__(self) -> 'DictReader': ...
+    if sys.version_info >= (3,):
+        def __next__(self) -> _DRMapping: ...
+    else:
+        def next(self) -> _DRMapping: ...
+
 
 class DictWriter(object):
     fieldnames = ...  # type: Sequence[str]
