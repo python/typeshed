@@ -1,8 +1,8 @@
 from typing import Any
 from . import connectionpool
-from . import filepost
-from . import poolmanager
-from . import response
+from . import filepost as filepost
+from . import poolmanager as poolmanager
+from . import response as response
 from .util import request as _request
 from .util import url
 from .util import timeout
