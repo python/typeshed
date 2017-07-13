@@ -1,5 +1,5 @@
 import sys
-from typing import Any, Union, Callable, TypeVar, List, Generic, Iterable, Generator, Awaitable as Awaitable
+from typing import Any, Union, Callable, TypeVar, List, Generic, Iterable, Generator, Awaitable
 from .events import AbstractEventLoop
 from concurrent.futures import (
     CancelledError as CancelledError,
