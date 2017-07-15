@@ -1,6 +1,6 @@
 from typing import Any, Optional
 
-from markupsafe import Markup, escape, soft_unicode
+from markupsafe import Markup as Markup, escape as escape, soft_unicode as soft_unicode
 
 missing = ...  # type: Any
 internal_code = ...  # type: Any
