@@ -17,7 +17,7 @@ SEEK_END = ...  # type: int
 open = builtins.open
 
 if sys.version_info >= (3, 3):
-    BlockingIOError = BlockingIOError
+    BlockingIOError = builtins.BlockingIOError
     class UnsupportedOperation(OSError, ValueError): ...
 else:
     class BlockingIOError(IOError):
