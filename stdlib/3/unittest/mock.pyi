@@ -31,6 +31,11 @@ if sys.version_info >= (3, 3):
     class Base:
         def __init__(self, *args: Any, **kwargs: Any) -> None: ...
 
+    # TODO: Get rid of the # type: ignore below.
+    # It is currently required to shut up mypy when run with `--strict`
+    # or `--disallow-subclassing-any`. The `Any` base class is currently
+    # the only way to allow passing an instance of `Mock` to functions
+    # expecting other classes (as is Mock's purpose)
     class NonCallableMock(Any):  # type: ignore
         def __new__(cls, *args: Any, **kw: Any) -> Any: ...
         def __init__(self, spec: Optional[Any] = None, wraps: Optional[Any] = None, name: Optional[Any] = None, spec_set: Optional[Any] = None, parent: Optional[Any] = None, _spec_state: Optional[Any] = None, _new_name: Any ='', _new_parent: Optional[Any] = None, _spec_as_instance: Any = False, _eat_self: Optional[Any] = None, unsafe: Any = False, **kwargs: Any) -> None: ...
