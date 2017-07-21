@@ -24,4 +24,3 @@ if sys.version_info >= (3, 5):
 
 if sys.version_info >= (3, 6):
     from typing import AsyncGenerator as AsyncGenerator
-
