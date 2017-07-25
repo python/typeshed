@@ -33,11 +33,12 @@ if sys.version_info >= (3, 5):
     def extract_tb(tb: Optional[TracebackType], limit: Optional[int] = ...) -> StackSummary: ...
     def extract_stack(f: Optional[FrameType] = ...,
                       limit: Optional[int] = ...) -> StackSummary: ...
+    def format_list(extracted_list: List[FrameSummary]) -> List[str]: ...
 else:
     def extract_tb(tb: Optional[TracebackType], limit: Optional[int] = ...) -> List[_PT]: ...
     def extract_stack(f: Optional[FrameType] = ...,
                       limit: Optional[int] = ...) -> List[_PT]: ...
-def format_list(extracted_list: List[_PT]) -> List[str]: ...
+    def format_list(extracted_list: List[_PT]) -> List[str]: ...
 def format_exception_only(etype: Type[BaseException],
                           value: BaseException) -> List[str]: ...
 if sys.version_info >= (3,):
@@ -88,7 +89,13 @@ if sys.version_info >= (3, 5):
 
 
 if sys.version_info >= (3, 5):
-    class StackSummary(List):
+    class FrameSummary:
+        def __init__(self, filename: str, lineno: int, name: str,
+                     lookup_line: bool = ...,
+                     locals: Optional[Mapping[str, str]] = ...,
+                     line: Optional[int] = ...) -> None: ...
+
+    class StackSummary(List[FrameSummary]):
         @classmethod
         def extract(cls,
                     frame_gen: Generator[Tuple[FrameType, int], None, None],
@@ -96,11 +103,3 @@ if sys.version_info >= (3, 5):
                     capture_locals: bool = ...) -> StackSummary: ...
         @classmethod
         def from_list(cls, a_list: List[_PT]) -> StackSummary: ...
-
-
-if sys.version_info >= (3, 5):
-    class FrameSummary:
-        def __init__(self, filename: str, lineno: int, name: str,
-                     lookup_line: bool = ...,
-                     locals: Optional[Mapping[str, str]] = ...,
-                     line: Optional[int] = ...) -> None: ...
