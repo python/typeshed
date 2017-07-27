@@ -14,7 +14,7 @@ HEXDIGITS = ...  # type: FrozenSet[str]
 ASCIILETTERS = ...  # type: FrozenSet[str]
 WHITESPACE = ...  # type: FrozenSet[str]
 ESCAPES = ...  # type: Dict[str, Tuple[NIC, int]]
-CATEGORIES = ...  # type: type: Dict[str, Union[Tuple[NIC, NIC], Tuple[NIC, List[Tuple[NIC, NIC]]]]]
+CATEGORIES = ...  # type: Dict[str, Union[Tuple[NIC, NIC], Tuple[NIC, List[Tuple[NIC, NIC]]]]]
 FLAGS = ...  # type: Dict[str, int]
 GLOBAL_FLAGS = ...  # type: int
 
