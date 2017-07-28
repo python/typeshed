@@ -65,7 +65,7 @@ class Session(SessionRedirectMixin):
     hooks = ...  # type: Optional[MutableMapping[Text, Callable[[Request], Any]]]
     params = ...  # type: Union[None, bytes, MutableMapping[Text, Text]]
     stream = ...  # type: bool
-    verify = ...  # type: bool
+    verify = ...  # type: Union[None, bool, Text]
     cert = ...  # type: Union[None, Text, Tuple[Text, Text]]
     max_redirects = ...  # type: int
     trust_env = ...  # type: bool
@@ -88,7 +88,7 @@ class Session(SessionRedirectMixin):
                 proxies: Optional[MutableMapping[Text, Text]] = ...,
                 hooks: Optional[MutableMapping[Text, Callable[[Request], Any]]] = ...,
                 stream: Optional[bool] = ...,
-                verify: Optional[bool] = ...,
+                verify: Union[None, bool, Text] = ...,
                 cert: Union[Text, Tuple[Text, Text], None] = ...,
                 json: Optional[MutableMapping] = ...,
                 ) -> Response: ...
