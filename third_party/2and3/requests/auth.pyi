@@ -3,6 +3,7 @@
 from typing import Any
 from . import compat
 from . import cookies
+from . import models
 from . import utils
 from . import status_codes
 
@@ -15,7 +16,7 @@ CONTENT_TYPE_FORM_URLENCODED = ...  # type: Any
 CONTENT_TYPE_MULTI_PART = ...  # type: Any
 
 class AuthBase:
-    def __call__(self, r): ...
+    def __call__(self, r: models.Request) -> models.Request: ...
 
 class HTTPBasicAuth(AuthBase):
     username = ...  # type: Any
