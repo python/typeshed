@@ -1,18 +1,18 @@
 from typing import Tuple, Pattern, List, Dict, Union
 
-_DEFAULT_DELIMITER = ':'
+_DEFAULT_DELIMITER = ...  # type: str
 
 
 def emojize(
     string: str,
-    use_aliases: bool=False,
-    delimiters: Tuple[str, str]=(_DEFAULT_DELIMITER, _DEFAULT_DELIMITER)
+    use_aliases: bool=...,
+    delimiters: Tuple[str, str]=...
 ) -> str: ...
 
 
 def demojize(
     string: str,
-    delimiters: Tuple[str, str]=(_DEFAULT_DELIMITER, _DEFAULT_DELIMITER)
+    delimiters: Tuple[str, str]=...
 ) -> str: ...
 
 
