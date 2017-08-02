@@ -1,6 +1,6 @@
 # Stubs for requests.auth (Python 3)
 
-from typing import Any, AnyStr, Union
+from typing import Any, Text, Union
 from . import compat
 from . import cookies
 from . import utils
