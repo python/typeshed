@@ -3,19 +3,7 @@
 import typing
 from typing import Any, Iterator, Union
 
-from _ast import (
-    Add, alias, And, arguments, Assert, Assign, AST, Attribute, AugAssign,
-    AugLoad, AugStore, BinOp, BitAnd, BitOr, BitXor, BoolOp, boolop, Break,
-    Call, ClassDef, cmpop, Compare, comprehension, Continue, Del, Delete, Dict,
-    DictComp, Div, Ellipsis, Eq, ExceptHandler, Exec, Expr, expr, Expression,
-    expr_context, ExtSlice, FloorDiv, For, FunctionDef, GeneratorExp, Global,
-    Gt, GtE, If, IfExp, Import, ImportFrom, In, Index, Interactive, Invert, Is,
-    IsNot, keyword, Lambda, List, ListComp, Load, LShift, Lt, LtE, Mod, mod,
-    Module, Mult, Name, Not, NotEq, NotIn, Num, operator, Or, Param, Pass, Pow,
-    Print, Raise, Repr, Return, RShift, Set, SetComp, Slice, slice, stmt,
-    Store, Str, Sub, Subscript, Suite, TryExcept, TryFinally, Tuple, UAdd,
-    UnaryOp, unaryop, USub, While, With, Yield
-)
+from _ast import *
 
 __version__ = ...  # type: str
 PyCF_ONLY_AST = ...  # type: int
