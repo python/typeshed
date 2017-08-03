@@ -74,6 +74,24 @@ class date(object):
     def weekday(self) -> int: ...
 ```
 
+## Conventions
+
+* At the time of this writing, `unicode` arguments, in Python 2 stubs, are
+  interpreted by type-checkers as `Union[bytes, unicode]` (so it means the same
+  as `Text`).
+  Even so, in Python 2, whenever possible, use `unicode` if that's the only
+  possible type, and `Text` if it can be either `unicode` or `bytes`.
+* Most type-checkers interpret optional parameters of the form `x : Foo = None`
+  as `x : Optional[Foo] = ...`. (So the former is a shortcut for the latter)
+  In typeshed, however, we prefer the explicit latter form.
+* When something is declared as taking only float, it also takes `int`. See
+  https://www.python.org/dev/peps/pep-0484/#the-numeric-tower. So write `float`
+  instead of `Union[int, float]`.
+* Avoid Union return types: https://github.com/python/mypy/issues/1693
+* Avoid invariant collection types (List, Dict) in argument positions, in favor
+  of covariant types like Mapping or Sequence.
+
+
 ## Directory structure
 
 ### stdlib

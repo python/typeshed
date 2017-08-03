@@ -25,6 +25,11 @@ ClassVar: _SpecialForm = ...
 
 class GenericMeta(type): ...
 
+# Return type that indicates a function does not return.
+# This type is equivalent to the None type, but the no-op Union is necessary to
+# distinguish the None type from the None value.
+NoReturn = Union[None]
+
 # Type aliases and type constructors
 
 class TypeAlias:
@@ -116,9 +121,8 @@ class Generator(Iterator[_T_co], Generic[_T_co, _T_contra, _V_co]):
     def send(self, value: _T_contra) -> _T_co: ...
 
     @abstractmethod
-    def throw(self, typ: Type[BaseException], val: Optional[BaseException] = None,
-              # TODO: tb should be TracebackType but that's defined in types
-              tb: Any = None) -> None: ...
+    def throw(self, typ: Type[BaseException], val: Optional[BaseException] = ...,
+              tb: Optional[TracebackType] = ...) -> None: ...
 
     @abstractmethod
     def close(self) -> None: ...
@@ -144,9 +148,8 @@ class Coroutine(Awaitable[_V_co], Generic[_T_co, _T_contra, _V_co]):
     def send(self, value: _T_contra) -> _T_co: ...
 
     @abstractmethod
-    def throw(self, typ: Type[BaseException], val: Optional[BaseException] = None,
-              # TODO: tb should be TracebackType but that's defined in types
-              tb: Any = None) -> None: ...
+    def throw(self, typ: Type[BaseException], val: Optional[BaseException] = ...,
+              tb: Optional[TracebackType] = ...) -> None: ...
 
     @abstractmethod
     def close(self) -> None: ...
@@ -399,8 +402,7 @@ class IO(Iterator[AnyStr], Generic[AnyStr]):
     def __enter__(self) -> 'IO[AnyStr]': ...
     @abstractmethod
     def __exit__(self, t: Optional[Type[BaseException]], value: Optional[BaseException],
-                 # TODO: traceback should be TracebackType but that's defined in types
-                 traceback: Optional[Any]) -> bool: ...
+                 traceback: Optional[TracebackType]) -> bool: ...
 
 class BinaryIO(IO[bytes]):
     # TODO readinto

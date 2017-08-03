@@ -1,5 +1,3 @@
-# Stubs for io
-
 from typing import (
     List, BinaryIO, TextIO, Iterator, Union, Optional, Callable, Tuple, Any, IO, Iterable
 )
@@ -16,19 +14,13 @@ SEEK_END = ...  # type: int
 
 open = builtins.open
 
-# FIXME when mypy handle condtional, we can uncomment the next block and remove
-# the temporary fix
-# if sys.version_info >= (3, 3):
-#     BlockingIOError = BlockingIOError
-#     class UnsupportedOperation(OSError, ValueError): ...
-# else:
-#     class BlockingIOError(IOError):
-#         characters_written = ...  # type: int
-#     class UnsupportedOperation(IOError, ValueError): ...
-class BlockingIOError(OSError):
-    characters_written = ...  # type: int
-class UnsupportedOperation(OSError, ValueError): ...
-
+if sys.version_info >= (3, 3):
+    BlockingIOError = builtins.BlockingIOError
+    class UnsupportedOperation(OSError, ValueError): ...
+else:
+    class BlockingIOError(IOError):
+        characters_written: int
+    class UnsupportedOperation(IOError, ValueError): ...
 
 class IOBase:
     def __iter__(self) -> Iterator[bytes]: ...
@@ -257,4 +249,5 @@ class StringIO(TextIOWrapper):
     def getvalue(self) -> str: ...
     def __enter__(self) -> 'StringIO': ...
 
-class IncrementalNewlineDecoder(codecs.IncrementalDecoder): ...
+class IncrementalNewlineDecoder(codecs.IncrementalDecoder):
+    def decode(self, input: codecs._encoded, final: bool = ...) -> codecs._decoded: ...
