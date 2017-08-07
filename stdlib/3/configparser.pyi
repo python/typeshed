@@ -113,6 +113,11 @@ class RawConfigParser(_parser):
         ...
 
     # This is incompatible with Mapping so we ignore the type.
+    # This should really be an override with the following line added.  See
+    # https://github.com/python/mypy/issues/3805 for why it isn't.
+    # def items(self, section: str = ..., raw: bool = ..., vars: _section = ...) -> Iterable[Tuple[str, str]]: ...
+    # (It could be a union of the two in the meantime, to improve matters
+    # slightly, but then we hit https://github.com/python/mypy/issues/1855.)
     def items(self, section: Optional[str] = ..., raw: bool = ..., vars: _section = ...) -> Iterable[Tuple[str, SectionProxy]]: ...  # type: ignore
 
     def set(self, section: str, option: str, value: str) -> None: ...
