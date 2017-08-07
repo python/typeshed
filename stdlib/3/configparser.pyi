@@ -2,9 +2,9 @@
 # reading configparser.py.
 
 import sys
-from typing import (MutableMapping, Mapping, Dict, Sequence, List, Union,
-                    Iterable, Iterator, Callable, Any, IO, overload, Optional,
-                    Pattern, TypeVar)
+from typing import (AbstractSet, MutableMapping, Mapping, Dict, Sequence, List,
+                    Union, Iterable, Iterator, Callable, Any, IO, overload,
+                    Optional, Pattern, TypeVar)
 # Types only used in type comments only
 from typing import Optional, Tuple  # noqa
 
@@ -112,13 +112,11 @@ class RawConfigParser(_parser):
     def get(self, section: str, option: str, *, raw: bool = ..., vars: _section = ..., fallback: str = ...) -> str:  # type: ignore
         ...
 
-    # This is incompatible with Mapping so we ignore the type.
-    # This should really be an override with the following line added.  See
-    # https://github.com/python/mypy/issues/3805 for why it isn't.
-    # def items(self, section: str = ..., raw: bool = ..., vars: _section = ...) -> Iterable[Tuple[str, str]]: ...
-    # (It could be a union of the two in the meantime, to improve matters
-    # slightly, but then we hit https://github.com/python/mypy/issues/1855.)
-    def items(self, section: Optional[str] = ..., raw: bool = ..., vars: _section = ...) -> Iterable[Tuple[str, SectionProxy]]: ...  # type: ignore
+    @overload
+    def items(self, *, raw: bool = ..., vars: _section = ...) -> AbstractSet[Tuple[str, SectionProxy]]: ...
+
+    @overload
+    def items(self, section: str, raw: bool = ..., vars: _section = ...) -> Iterable[Tuple[str, str]]: ...
 
     def set(self, section: str, option: str, value: str) -> None: ...
 
