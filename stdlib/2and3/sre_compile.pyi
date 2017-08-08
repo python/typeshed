@@ -3,11 +3,16 @@
 
 import sys
 from sre_parse import SubPattern
-from typing import Any, Pattern, Tuple, Type, Union
+from typing import Any, Pattern, Tuple, Type, TypeVar, Union
 
 MAXCODE = ...  # type: int
 if sys.version_info < (3, 0):
-    STRING_TYPES = ...  # type: Union[Tuple[Type[str]], Tuple[Type[str], Type[unicode]]]
+    STRING_TYPES = (str, unicode)
+    _IsStringType = int
+else:
+    from sre_constants import _NamedIntConstant
+    def dis(code: List[_NamedIntConstant]) -> None: ...
+    _IsStringType = bool
 
-def isstring(obj: Any) -> int: ...
-def compile(p: Union[str, SubPattern], flags: int = ...) -> Pattern: ...
+def isstring(obj: Any) -> _IsStringType: ...
+def compile(p: Union[str, bytes, SubPattern], flags: int = ...) -> Pattern: ...
