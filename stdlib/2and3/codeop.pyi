@@ -2,8 +2,9 @@
 # Source(py3): https://github.com/python/cpython/blob/master/Lib/codeop.py
 
 from types import CodeType
+from typing import Optional
 
-def compile_command(source: str, filename: str = ..., symbol: str = ...) -> CodeType: ...
+def compile_command(source: str, filename: str = ..., symbol: str = ...) -> Optional[CodeType]: ...
 
 class Compile:
     flags = ...  # type: int
@@ -13,4 +14,4 @@ class Compile:
 class CommandCompiler:
     compiler = ...  # type: Compile
     def __init__(self) -> None: ...
-    def __call__(self, source: str, filename: str = ..., symbol: str = ...) -> CodeType: ...
+    def __call__(self, source: str, filename: str = ..., symbol: str = ...) -> Optional[CodeType]: ...
