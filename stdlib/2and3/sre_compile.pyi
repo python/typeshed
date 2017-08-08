@@ -3,7 +3,7 @@
 
 import sys
 from sre_parse import SubPattern
-from typing import Any, Pattern, Tuple, Type, TypeVar, Union
+from typing import Any, List, Pattern, Tuple, Type, TypeVar, Union
 
 MAXCODE = ...  # type: int
 if sys.version_info < (3, 0):
