@@ -5,12 +5,15 @@ import builtins
 import codecs
 import sys
 from types import TracebackType
+from typing import TypeVar
 
 DEFAULT_BUFFER_SIZE = ...  # type: int
 
 SEEK_SET = ...  # type: int
 SEEK_CUR = ...  # type: int
 SEEK_END = ...  # type: int
+
+_T = TypeVar('_T', bound='IOBase')
 
 open = builtins.open
 
@@ -25,7 +28,7 @@ else:
 class IOBase:
     def __iter__(self) -> Iterator[bytes]: ...
     def __next__(self) -> bytes: ...
-    def __enter__(self) -> 'IOBase': ...
+    def __enter__(self: _T) -> _T: ...
     def __exit__(self, exc_type: Optional[type], exc_val: Optional[Exception],
                  exc_tb: Optional[TracebackType]) -> bool: ...
     def close(self) -> None: ...
@@ -164,7 +167,6 @@ class TextIOBase(IOBase):
     newlines = ...  # type: Union[str, Tuple[str, ...], None]
     def __iter__(self) -> Iterator[str]: ...  # type: ignore
     def __next__(self) -> str: ...  # type: ignore
-    def __enter__(self) -> 'TextIOBase': ...
     def detach(self) -> IOBase: ...
     def write(self, s: str) -> int: ...
     if sys.version_info >= (3, 4):
