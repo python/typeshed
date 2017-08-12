@@ -3,7 +3,8 @@
 
 import sys
 from typing import (MutableMapping, Mapping, Dict, Sequence, List, Union,
-                    Iterable, Iterator, Callable, Any, IO, Optional, Pattern)
+                    Iterable, Iterator, Callable, Any, IO, overload, Optional,
+                    Pattern, TypeVar)
 # Types only used in type comments only
 from typing import Optional, Tuple  # noqa
 
@@ -15,6 +16,7 @@ _section = Mapping[str, str]
 _parser = MutableMapping[str, _section]
 _converter = Callable[[str], Any]
 _converters = Dict[str, _converter]
+_T = TypeVar('_T')
 
 if sys.version_info >= (3, 6):
     _Path = Union[str, PathLike[str]]
@@ -103,6 +105,8 @@ class RawConfigParser(_parser):
     def getfloat(self, section: str, option: str, *, raw: bool = ..., vars: _section = ..., fallback: float = ...) -> float: ...
 
     def getboolean(self, section: str, option: str, *, raw: bool = ..., vars: _section = ..., fallback: bool = ...) -> bool: ...
+
+    def _get_conv(self, section: str, option: str, conv: Callable[[str], _T], *, raw: bool = ..., vars: _section = ..., fallback: _T = ...) -> _T: ...
 
     # This is incompatible with MutableMapping so we ignore the type
     def get(self, section: str, option: str, *, raw: bool = ..., vars: _section = ..., fallback: str = ...) -> str:  # type: ignore
