@@ -1,16 +1,25 @@
 # Based on http://docs.python.org/3.5/library/configparser.html and on
 # reading configparser.py.
 
+import sys
 from typing import (MutableMapping, Mapping, Dict, Sequence, List, Union,
-                    Iterable, Iterator, Callable, Any, IO, overload, Optional, Pattern)
+                    Iterable, Iterator, Callable, Any, IO, Optional, Pattern)
 # Types only used in type comments only
 from typing import Optional, Tuple  # noqa
+
+if sys.version_info >= (3, 6):
+    from os import PathLike
 
 # Internal type aliases
 _section = Mapping[str, str]
 _parser = MutableMapping[str, _section]
 _converter = Callable[[str], Any]
 _converters = Dict[str, _converter]
+
+if sys.version_info >= (3, 6):
+    _Path = Union[str, PathLike[str]]
+else:
+    _Path = str
 
 DEFAULTSECT: str
 MAX_INTERPOLATION_DEPTH: int
@@ -79,7 +88,7 @@ class RawConfigParser(_parser):
 
     def has_option(self, section: str, option: str) -> bool: ...
 
-    def read(self, filenames: Union[str, Sequence[str]],
+    def read(self, filenames: Union[_Path, Iterable[_Path]],
              encoding: Optional[str] = None) -> List[str]: ...
 
     def read_file(self, f: Iterable[str], source: Optional[str] = None) -> None: ...
