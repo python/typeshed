@@ -1,6 +1,5 @@
 # Stubs for fcntl
 from typing import Any, IO, Union
-import typing
 
 FASYNC = ...  # type: int
 FD_CLOEXEC = ...  # type: int
