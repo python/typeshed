@@ -29,7 +29,7 @@ basestring = py_str
 
 gs: Dict[str, Any]  # Should match the return type of globals()
 
-_T = TypeVar('T')
+_T = TypeVar('_T')
 
 class _ArrayType(object, Generic[_T]):
     is_array: bool
