@@ -1,6 +1,9 @@
 # Stubs for multiprocessing
 
-from typing import Any, Callable, Iterable, Mapping, Optional, Dict, List, Union, TypeVar
+from typing import (
+    Any, Callable, ContextManager, Iterable, Mapping, Optional, Dict, List,
+    Union, TypeVar,
+)
 
 from logging import Logger
 from multiprocessing.context import BaseContext
@@ -12,11 +15,9 @@ import queue
 
 _T = TypeVar('_T')
 
-class Lock():
+class Lock(ContextManager[Lock]):
     def acquire(self, block: bool = ..., timeout: int = ...) -> None: ...
     def release(self) -> None: ...
-    def __enter__(self) -> 'Lock': ...
-    def __exit__(self, exc_type, exc_value, tb) -> None: ...
 
 class Event(object):
     def __init__(self, *, ctx: BaseContext) -> None: ...
@@ -25,7 +26,7 @@ class Event(object):
     def clear(self) -> None: ...
     def wait(self, timeout: Optional[int] = ...) -> bool: ...
 
-class Pool():
+class Pool(ContextManager[Pool]):
     def __init__(self, processes: Optional[int] = ...,
                  initializer: Optional[Callable[..., None]] = ...,
                  initargs: Iterable[Any] = ...,
@@ -71,8 +72,6 @@ class Pool():
     def close(self) -> None: ...
     def terminate(self) -> None: ...
     def join(self) -> None: ...
-    def __enter__(self) -> 'Pool': ...
-    def __exit__(self, exc_type, exc_val, exc_tb) -> None: ...
 
 class Process():
     name: str
