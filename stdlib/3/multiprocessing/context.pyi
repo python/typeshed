@@ -51,6 +51,9 @@ class BaseContext(object):
     def JoinableQueue(self, maxsize: int = ...) -> Any: ...
     # TODO: change return to SimpleQueue once a stub exists in multiprocessing.queues
     def SimpleQueue(self) -> Any: ...
+    # N.B. This method is partially applied at runtime to generate
+    # multiprocessing.Pool, so the two signatures should be identical (modulo
+    # self).
     def Pool(
         self,
         processes: Optional[int] = ...,

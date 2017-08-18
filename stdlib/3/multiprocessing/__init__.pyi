@@ -6,6 +6,7 @@ from typing import (
 )
 
 from logging import Logger
+from multiprocessing import pool
 from multiprocessing.context import BaseContext
 from multiprocessing.managers import SyncManager
 from multiprocessing.pool import AsyncResult
@@ -25,6 +26,14 @@ class Event(object):
     def set(self) -> None: ...
     def clear(self) -> None: ...
     def wait(self, timeout: Optional[int] = ...) -> bool: ...
+
+# N.B. This is generated at runtime by partially applying
+# multiprocessing.context.BaseContext.Pool, so the two signatures should be
+# identical (modulo self).
+def Pool(processes: Optional[int] = ...,
+         initializer: Optional[Callable[..., Any]] = ...,
+         initargs: Iterable[Any] = ...,
+         maxtasksperchild: Optional[int] = ...) -> pool.Pool: ...
 
 class Process():
     name: str
