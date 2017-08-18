@@ -4,7 +4,10 @@
 
 from typing import (
     Any, Callable, ContextManager, Iterable, Mapping, Optional, Dict, List,
+    TypeVar,
 )
+
+_T = TypeVar('_T', bound='Pool')
 
 class AsyncResult():
     def get(self, timeout: float = ...) -> Any: ...
@@ -58,6 +61,7 @@ class Pool(ContextManager[Pool]):
     def close(self) -> None: ...
     def terminate(self) -> None: ...
     def join(self) -> None: ...
+    def __enter__(self: _T) -> _T: ...
 
 
 class ThreadPool(Pool, ContextManager[ThreadPool]):
