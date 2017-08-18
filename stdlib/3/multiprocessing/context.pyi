@@ -3,7 +3,9 @@
 from logging import Logger
 import multiprocessing
 import sys
-from typing import Any, Callable, Optional, List, Sequence, Tuple, Type, Union
+from typing import (
+    Any, Callable, Iterable, Optional, List, Sequence, Tuple, Type, Union,
+)
 
 class ProcessError(Exception): ...
 
@@ -53,9 +55,9 @@ class BaseContext(object):
         self,
         processes: Optional[int] = ...,
         initializer: Optional[Callable[..., Any]] = ...,
-        initargs: Tuple = ...,
+        initargs: Iterable[Any] = ...,
         maxtasksperchild: Optional[int] = ...
-    ) -> multiprocessing.Pool: ...
+    ) -> multiprocessing.pool.Pool: ...
     # TODO: typecode_or_type param is a ctype with a base class of _SimpleCData or array.typecode Need to figure out
     # how to handle the ctype
     # TODO: change return to RawValue once a stub exists in multiprocessing.sharedctypes
