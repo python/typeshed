@@ -30,6 +30,6 @@ if sys.version_info >= (3, 5):
 if sys.version_info >= (3, 6):
     from typing import AsyncGenerator as AsyncGenerator
 
-is sys.version_info >= (3, 5, 2) or sys.version_info < (3, 5, 0):
+if sys.version_info >= (3, 5, 2) or sys.version_info < (3, 5, 0):
     def runtime(cls: _T) -> _T: ...
     Protocol: _SpecialForm = ...
