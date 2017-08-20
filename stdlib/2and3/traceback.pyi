@@ -1,6 +1,6 @@
 # Stubs for traceback
 
-from typing import Generator, IO, Iterator, List, Mapping, Optional, Tuple, Type
+from typing import Generator, IO, Iterator, List, Mapping, Optional, Tuple, Type, Any
 from types import FrameType, TracebackType
 import sys
 
@@ -92,10 +92,19 @@ if sys.version_info >= (3, 5):
 
 if sys.version_info >= (3, 5):
     class FrameSummary:
+        filename = ...  # type: str
+        lineno = ...  # type: int
+        name = ...  # type: str
+        locals = ...  # type: Any
         def __init__(self, filename: str, lineno: int, name: str,
                      lookup_line: bool = ...,
                      locals: Optional[Mapping[str, str]] = ...,
                      line: Optional[int] = ...) -> None: ...
+        def __eq__(self, other) -> bool: ...
+        def __getitem__(self, pos): ...
+        def __iter__(self): ...
+        @property
+        def line(self): ...
 
     class StackSummary(List[FrameSummary]):
         @classmethod
