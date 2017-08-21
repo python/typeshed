@@ -16,6 +16,8 @@ from typing import TypeVar, Any
 _TC = TypeVar('_TC', bound=Type[object])
 class _SpecialForm:
     def __getitem__(self, typeargs: Any) -> Any: ...
+def runtime(cls: _TC) -> _TC: ...
+Protocol: _SpecialForm = ...
 
 if sys.version_info >= (3, 3):
     from typing import ChainMap as ChainMap
@@ -29,7 +31,3 @@ if sys.version_info >= (3, 5):
 
 if sys.version_info >= (3, 6):
     from typing import AsyncGenerator as AsyncGenerator
-
-if sys.version_info >= (3, 5, 2) or sys.version_info < (3, 5, 0):
-    def runtime(cls: _TC) -> _TC: ...
-    Protocol: _SpecialForm = ...
