@@ -11,6 +11,13 @@ from typing import overload as overload
 from typing import Text as Text
 from typing import Type as Type
 from typing import TYPE_CHECKING as TYPE_CHECKING
+from typing import TypeVar, Any
+
+_TC = TypeVar('_TC', bound=Type[object])
+class _SpecialForm:
+    def __getitem__(self, typeargs: Any) -> Any: ...
+def runtime(cls: _TC) -> _TC: ...
+Protocol: _SpecialForm = ...
 
 if sys.version_info >= (3, 3):
     from typing import ChainMap as ChainMap
