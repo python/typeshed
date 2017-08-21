@@ -102,6 +102,11 @@ PROTOCOL_TLSv1 = ...  # type: int
 if sys.version_info >= (3, 4):
     PROTOCOL_TLSv1_1 = ...  # type: int
     PROTOCOL_TLSv1_2 = ...  # type: int
+if sys.version_info >= (3, 5):
+    PROTOCOL_TLS = ...  # type: int
+if sys.version_info >= (3, 6):
+    PROTOCOL_TLS_CLIENT = ...  # type: int
+    PROTOCOL_TLS_SERVER = ...  # type: int
 
 OP_ALL = ...  # type: int
 OP_NO_SSLv2 = ...  # type: int
@@ -114,6 +119,8 @@ OP_CIPHER_SERVER_PREFERENCE = ...  # type: int
 OP_SINGLE_DH_USE = ...  # type: int
 OP_SINGLE_ECDH_USE = ...  # type: int
 OP_NO_COMPRESSION = ...  # type: int
+if sys.version_info >= (3, 6):
+    OP_NO_TICKET = ...  # type: int
 
 if sys.version_info >= (3, 5):
     HAS_ALPN = ...  # type: int
