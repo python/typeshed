@@ -2,9 +2,9 @@
 # reading configparser.py.
 
 import sys
-from typing import (MutableMapping, Mapping, Dict, Sequence, List, Union,
-                    Iterable, Iterator, Callable, Any, IO, overload, Optional,
-                    Pattern, TypeVar)
+from typing import (AbstractSet, MutableMapping, Mapping, Dict, Sequence, List,
+                    Union, Iterable, Iterator, Callable, Any, IO, overload,
+                    Optional, Pattern, TypeVar)
 # Types only used in type comments only
 from typing import Optional, Tuple  # noqa
 
@@ -70,7 +70,7 @@ class RawConfigParser(_parser):
 
     def __len__(self) -> int: ...
 
-    def __getitem__(self, section: str) -> _section: ...
+    def __getitem__(self, section: str) -> SectionProxy: ...
 
     def __setitem__(self, section: str, options: _section) -> None: ...
 
@@ -112,8 +112,11 @@ class RawConfigParser(_parser):
     def get(self, section: str, option: str, *, raw: bool = ..., vars: _section = ..., fallback: str = ...) -> str:  # type: ignore
         ...
 
-    # This is incompatible with Mapping so we ignore the type.
-    def items(self, section: str = ..., raw: bool = ..., vars: _section = ...) -> Iterable[Tuple[str, _section]]: ...  # type: ignore
+    @overload
+    def items(self, *, raw: bool = ..., vars: _section = ...) -> AbstractSet[Tuple[str, SectionProxy]]: ...
+
+    @overload
+    def items(self, section: str, raw: bool = ..., vars: _section = ...) -> List[Tuple[str, str]]: ...
 
     def set(self, section: str, option: str, value: str) -> None: ...
 
