@@ -29,7 +29,7 @@ class WatchedFileHandler(Handler):
 
 if sys.version_info >= (3,):
     class BaseRotatingHandler(FileHandler):
-        namer = ...  # type: Optional[Callable[[str], None]]
+        namer = ...  # type: Optional[Callable[[str], str]]
         rotator = ...  # type: Optional[Callable[[str, str], None]]
         def __init__(self, filename: str, mode: str,
                      encoding: Optional[str] = ...,

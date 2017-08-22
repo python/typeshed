@@ -69,6 +69,12 @@ For every pull request, we aim to promptly either merge it or say why
 it's not yet ready; if you go a few days without a reply, please feel
 free to ping the thread by adding a new comment.
 
+To get your pull request merged sooner, you should explain why you are
+making the change. For example, you can point to a code sample that is
+processed incorrectly by a type checker. It is also helpful to add
+links to online documentation or to the implementation of the code
+you are changing.
+
 At present the core developers are (alphabetically):
 * David Fisher (@ddfisher)
 * Łukasz Langa (@ambv)
