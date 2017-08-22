@@ -4,7 +4,7 @@
 import sys
 from typing import (AbstractSet, MutableMapping, Mapping, Dict, Sequence, List,
                     Union, Iterable, Iterator, Callable, Any, IO, overload,
-                    Optional, Pattern, TypeVar)
+                    Optional, Pattern, Type, TypeVar)
 # Types only used in type comments only
 from typing import Optional, Tuple  # noqa
 
@@ -57,7 +57,7 @@ class LegacyInterpolation(Interpolation): ...
 class RawConfigParser(_parser):
     def __init__(self,
                  defaults: Optional[_section] = ...,
-                 dict_type: Mapping[str, str] = ...,
+                 dict_type: Type[Mapping[str, str]] = ...,
                  allow_no_value: bool = ...,
                  *,
                  delimiters: Sequence[str] = ...,
