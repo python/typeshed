@@ -175,6 +175,10 @@ class SSLSocket(socket.socket):
     context = ...  # type: SSLContext
     server_side = ...  # type: bool
     server_hostname = ...  # type: Optional[str]
+    if sys.version_info >= (3, 6):
+        session = ...  # type: Optional[SSLSession]
+        session_reused = ...  # type: Optional[bool]
+
     def read(self, len: int = ...,
              buffer: Optional[bytearray] = ...) -> bytes: ...
     def write(self, buf: bytes) -> int: ...
@@ -244,6 +248,9 @@ if sys.version_info >= (3, 5):
         context = ...  # type: SSLContext
         server_side = ...  # type: bool
         server_hostname = ...  # type: Optional[str]
+        if sys.version_info >= (3, 6):
+            session = ...  # type: Optional[SSLSession]
+            session_reused = ...  # type: bool
         def read(self, len: int = ...,
                  buffer: Optional[bytearray] = ...) -> bytes: ...
         def write(self, buf: bytes) -> int: ...
@@ -263,6 +270,14 @@ if sys.version_info >= (3, 5):
         def read(self, n: int = ...) -> bytes: ...
         def write(self, buf: bytes) -> int: ...
         def write_eof(self) -> None: ...
+
+if sys.version_info >= (3, 6):
+    class SSLSession:
+        id = ...  # type: bytes
+        time = ...  # type: int
+        timeout = ...  # type: int
+        ticket_lifetime_hint = ...  # type: int
+        has_ticket = ...  # type: bool
 
 
 # TODO below documented in cpython but not in docs.python.org
