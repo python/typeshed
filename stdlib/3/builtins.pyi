@@ -726,6 +726,9 @@ class enumerate(Iterator[Tuple[int, _T]], Generic[_T]):
     def __next__(self) -> Tuple[int, _T]: ...
 
 class range(Sequence[int]):
+    start = ...  # type: int
+    stop = ...  # type: int
+    step = ...  # type: int
     @overload
     def __init__(self, stop: int) -> None: ...
     @overload
