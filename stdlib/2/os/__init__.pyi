@@ -126,6 +126,9 @@ _StatVFS = NamedTuple('_StatVFS', [('f_bsize', int), ('f_frsize', int), ('f_bloc
                                    ('f_bfree', int), ('f_bavail', int), ('f_files', int),
                                    ('f_ffree', int), ('f_favail', int), ('f_flag', int),
                                    ('f_namemax', int)])
+
+from posix import stat_result as stat_result  # TODO: use this, see https://github.com/python/mypy/issues/3078
+
 def ctermid() -> str: ...  # Unix only
 def getegid() -> int: ...  # Unix only
 def geteuid() -> int: ...  # Unix only

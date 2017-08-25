@@ -1,6 +1,6 @@
 # Stubs for traceback
 
-from typing import Generator, IO, Iterator, List, Mapping, Optional, Tuple, Type
+from typing import Dict, Generator, IO, Iterator, List, Mapping, Optional, Tuple, Type
 from types import FrameType, TracebackType
 import sys
 
@@ -92,10 +92,19 @@ if sys.version_info >= (3, 5):
 
 if sys.version_info >= (3, 5):
     class FrameSummary:
+        filename: str
+        lineno: int
+        name: str
+        line: str
+        locals: Optional[Dict[str, str]]
         def __init__(self, filename: str, lineno: int, name: str,
                      lookup_line: bool = ...,
                      locals: Optional[Mapping[str, str]] = ...,
                      line: Optional[int] = ...) -> None: ...
+        # TODO: more precise typing for __getitem__ and __iter__,
+        # for a namedtuple-like view on (filename, lineno, name, str).
+        def __getitem__(self, i: int) -> Any: ...
+        def __iter__(self) -> Iterator[Any]: ...
 
     class StackSummary(List[FrameSummary]):
         @classmethod
@@ -105,3 +114,4 @@ if sys.version_info >= (3, 5):
                     capture_locals: bool = ...) -> StackSummary: ...
         @classmethod
         def from_list(cls, a_list: List[_PT]) -> StackSummary: ...
+        def format(self) -> List[str]: ...
