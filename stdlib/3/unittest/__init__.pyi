@@ -11,7 +11,7 @@ from types import ModuleType, TracebackType
 
 
 _T = TypeVar('_T')
-_FT = TypeVar('_FT', bound=Callable[[Any], Any])
+_FT = TypeVar('_FT', bound=Callable[..., Any])
 _E = TypeVar('_E', bound=Exception)
 
 
