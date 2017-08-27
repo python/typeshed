@@ -238,11 +238,10 @@ else:
                      ) -> Any: ...  # morally: -> _TXT
 
 
-# TODO types
-PIPE = ...  # type: Any
-STDOUT = ...  # type: Any
+PIPE = ...  # type: int
+STDOUT = ...  # type: int
 if sys.version_info >= (3, 3):
-    DEVNULL = ...  # type: Any
+    DEVNULL = ...  # type: int
     class SubprocessError(Exception): ...
     class TimeoutExpired(SubprocessError): ...
 
