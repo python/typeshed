@@ -1,0 +1,3 @@
+from typing import Text
+
+def pythonize_name(name: Text) -> Text: ...
