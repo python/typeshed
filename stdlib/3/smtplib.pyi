@@ -1,5 +1,6 @@
 from email.message import Message as _Message
-from typing import Any, AnyStr, Dict, Generic, List, Optional, Tuple, Union
+from typing import (
+    Any, AnyStr, Dict, Generic, List, Optional, Sequence, Tuple, Union)
 
 _Reply = Tuple[int, bytes]
 _SendErrs = Dict[str, _Reply]
