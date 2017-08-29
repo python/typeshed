@@ -15,14 +15,14 @@ class SMTPResponseException(SMTPException):
 
 class SMTPSenderRefused(SMTPResponseException):
     smtp_code = ...  # type: int
-    smtp_error = ...  # type: Any
-    sender = ...  # type: Any
-    args = ...  # type: Any
+    smtp_error = ...  # type: bytes
+    sender = ...  # type: str
+    args = ...  # type: Tuple[int, bytes, str]
     def __init__(self, code: int, msg: bytes, sender: str) -> None: ...
 
 class SMTPRecipientsRefused(SMTPException):
-    recipients = ...  # type: Any
-    args = ...  # type: Any
+    recipients = ...  # type: _SendErrs
+    args = ...  # type: Tuple[_SendErrs]
     def __init__(self, recipients: _SendErrs) -> None: ...
 
 class SMTPDataError(SMTPResponseException): ...
