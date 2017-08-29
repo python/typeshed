@@ -11,7 +11,7 @@ class SMTPServerDisconnected(SMTPException): ...
 class SMTPResponseException(SMTPException):
     smtp_code = ...  # type: int
     smtp_error = ...  # type: Union[bytes, str]
-    args = ...  # type: Tuple[int, Union[bytes, str]]
+    args = ...  # type: Union[Tuple[int, Union[bytes, str]], Tuple[int, bytes, str]]
     def __init__(self, code: int, msg: Union[bytes, str]) -> None: ...
 
 class SMTPSenderRefused(SMTPResponseException):
