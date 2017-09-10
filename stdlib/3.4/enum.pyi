@@ -7,7 +7,7 @@ _S = TypeVar('_S', bound=Type[Enum])
 
 # Note: EnumMeta actually subclasses type directly, not ABCMeta.
 # This is a temporary workaround to allow multiple creation of enums with builtins
-# such as str as mixins, which due to the handling of ABCs of builtin types, cause 
+# such as str as mixins, which due to the handling of ABCs of builtin types, cause
 # spurious inconsistent metaclass structure. See #1595.
 class EnumMeta(ABCMeta, Iterable[Enum], Sized, Reversible[Enum], Container[Enum]):
     def __iter__(self: Type[_T]) -> Iterator[_T]: ...
