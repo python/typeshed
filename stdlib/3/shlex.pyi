@@ -29,7 +29,7 @@ class shlex(Iterator[_T]):
     token = ...  # type: str
     eof = ...  # type: str
     if sys.version_info >= (3, 6):
-        punctuation_chars = ... # type: str
+        punctuation_chars = ...  # type: str
 
     if sys.version_info >= (3, 6):
         def __init__(self, instream: Union[str, TextIO] = ..., infile: Optional[str] = ...,
