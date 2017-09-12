@@ -1,4 +1,3 @@
-import _thread
 import datetime
 import logging
 import logging.handlers
@@ -6,14 +5,14 @@ import subprocess
 import time
 
 import boto.connection
-import boto.provider
 from typing import (
+    _KT,
+    _VT,
     Any,
     Callable,
     Dict,
-    Hashable,
-    Iterable,
     IO,
+    Iterable,
     List,
     Optional,
     Sequence,
@@ -22,9 +21,12 @@ from typing import (
     Union,
 )
 
+_Provider = Any  # TODO replace this with boto.provider.Provider once stubs exist
+_LockType = Any  # TODO replace this with _thread.LockType once stubs exist
 
-JSONDecodeError = ...  # type: ValueError
+JSONDecodeError = ...  # type: Type[ValueError]
 qsa_of_interest = ...  # type: List[str]
+
 
 def unquote_v(nv: str) -> Union[str, Tuple[str, str]]: ...
 def canonical_string(
@@ -32,14 +34,14 @@ def canonical_string(
     path: str,
     headers: Dict[str, str],
     expires: Optional[int] = ...,
-    provider: Optional[boto.provider.Provider] = ...,
+    provider: Optional[_Provider] = ...,
 ): ...
 def merge_meta(
     headers: Dict[str, str],
     metadata: Dict[str, str],
-    provider: Optional[boto.provider.Provider] = ...,
+    provider: Optional[_Provider] = ...,
 ): ...
-def get_aws_metadata(headers: Dict[str, str], provider: Optional[boto.provider.Provider] = ...): ...
+def get_aws_metadata(headers: Dict[str, str], provider: Optional[_Provider] = ...): ...
 def retry_url(
     url: str,
     retry_on_404: bool = ...,
@@ -47,24 +49,21 @@ def retry_url(
     timeout: Optional[int] = ...,
 ): ...
 
-class LazyLoadMetadata(Dict):
+class LazyLoadMetadata(Dict[_KT, _VT]):
     def __init__(
         self,
         url: str,
         num_retries: int,
         timeout: Optional[int] = ...,
     ) -> None: ...
-    def __getitem__(self, key: Hashable): ...
-    def get(self, key: Hashable, default: Optional[Any] = ...) -> Any: ...
-    def values(self): ...
-    def items(self): ...
+    def get(self, key: _KT, default: Optional[Any] = ...) -> Any: ...
 
 def get_instance_metadata(
     version: str = ...,
     url: str = ...,
     data: str = ...,
     timeout: Optional[int] = ...,
-    num_retries: int = ...
+    num_retries: int = ...,
 ) -> Optional[LazyLoadMetadata]: ...
 def get_instance_identity(
     version: str = ...,
@@ -83,12 +82,12 @@ def get_instance_userdata(
 ISO8601 = ...  # type: str
 ISO8601_MS = ...  # type: str
 RFC1123 = ...  # type: str
-LOCALE_LOCK = ...  # type: _thread.LockType
+LOCALE_LOCK = ...  # type: _LockType
 
 def setlocale(name: Union[str, Tuple[str, str]]): ...
 def get_ts(ts: Optional[time.struct_time] = ...) -> str: ...
 def parse_ts(ts: str) -> datetime.datetime: ...
-def find_class(module_name: str, class_name: Optional[str] = ...) -> Optional[Type[object]]: ...
+def find_class(module_name: str, class_name: Optional[str] = ...) -> Optional[Type[Any]]: ...
 def update_dme(username: str, password: str, dme_id: str, ip_address: str) -> str: ...
 def fetch_file(
     uri: str,
@@ -138,34 +137,33 @@ class AuthSMTPHandler(logging.handlers.SMTPHandler):
     ) -> None: ...
     def emit(self, record: logging.LogRecord) -> None: ...
 
-class LRUCache(Dict):
+class LRUCache(Dict[_KT, _VT]):
     class _Item:
-        previous = ...  # type: Optional[Any]
-        key = ...  # type: Hashable
-        value = ...  # type: Any
-        def __init__(self, key, value) -> None: ...
+        previous = ...  # type: Optional[LRUCache._Item]
+        key = ...  # type: _KT
+        value = ...  # type: _VT
+        def __init__(self, key: _KT, value: _VT) -> None: ...
 
     capacity = ...  # type: int
-    head = ...  # type: Optional[_Item]
-    tail = ...  # type: Optional[_Item]
+    head = ...  # type: Optional[LRUCache._Item]
+    tail = ...  # type: Optional[LRUCache._Item]
 
     def __init__(self, capacity: int) -> None: ...
-    def __contains__(self, key) -> bool: ...
-    def __iter__(self): ...
-    def __len__(self) -> int: ...
-    def __getitem__(self, key: Hashable) -> Any: ...
-    def __setitem__(self, key: Hashable, value: Any): ...
+
+
+# This exists to work around Password.str's name shadowing the str type
+_str = str
 
 class Password:
     hashfunc = ...  # type: Callable
-    str = ...  # type: Optional[str]
+    str = ...  # type: Optional[_str]
 
     def __init__(
         self,
-        str: Optional[str] = ...,
+        str: Optional[_str] = ...,
         hashfunc: Optional[Callable] = ...,
     ) -> None: ...
-    def set(self, value: Union[bytes, str]): ...
+    def set(self, value: Union[bytes, _str]): ...
     def __eq__(self, other: Any) -> bool: ...
     def __len__(self) -> bool: ...
 
