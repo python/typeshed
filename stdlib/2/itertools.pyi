@@ -40,7 +40,7 @@ def groupby(iterable: Iterable[_T],
 @overload
 def islice(iterable: Iterable[_T], stop: int) -> Iterator[_T]: ...
 @overload
-def islice(iterable: Iterable[_T], start: int, stop: Optional[int],
+def islice(iterable: Iterable[_T], start: Optional[int], stop: Optional[int],
            step: int = ...) -> Iterator[_T]: ...
 
 _T1 = TypeVar('_T1')
