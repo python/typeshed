@@ -25,7 +25,6 @@ from __builtin__ import NotImplementedError
 from __builtin__ import OSError
 from __builtin__ import OverflowError
 from __builtin__ import PendingDeprecationWarning
-from __builtin__ import ReferenceError
 from __builtin__ import RuntimeError
 from __builtin__ import RuntimeWarning
 from __builtin__ import StandardError
@@ -46,3 +45,5 @@ from __builtin__ import UserWarning
 from __builtin__ import ValueError
 from __builtin__ import Warning
 from __builtin__ import ZeroDivisionError
+
+class ReferenceError(StandardError): ...
