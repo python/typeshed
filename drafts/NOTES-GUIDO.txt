@@ -1,0 +1,51 @@
+Notes from meeting
+------------------
+
+Meeting at Dropbox.  Attendees: Guido, Jukka, Jim Baker, Jeremy Siek,
+Michael Vitousek (student of Jeremy's).
+
+
+- Could have a few examples in Abstract.
+
+- Discussion of function types, e.g. keyword parameters.  Observation
+  that what the type checker can represent may be more than what the
+  syntax supports.  Jukka says in practice callbacks rarely if ever
+  are called with callbacks.
+
+- Any reason you use format() in the first example?  (It is worthy of
+  a very custom checker all by itself.)
+
+- Let's not mention the 'types' module much, nor use it in examples.
+  Its types are too concrete for most practical purposes.
+  E.g. types.FunctionType does not include built-in types nor bound
+  methods, but those rarely pose problems.
+
+- The early function/callable examples don't specify the signature.
+  It would be good to fill in the bodies of the example functions.
+
+- Discussion of Jython, mostly java.util.List.  Jim wants to generate
+  mypy stubs from .class files and then run standard mypy; he wants
+  java.util.List to be compatible with typing.List.
+
+- We want Set[Employee] to actually create a new class object that
+  knows it is a Set of Employees (not just Set).  However
+  Set[Employee]() should just return an empty concrete set,
+  i.e. set().
+
+- Problems with the filter() example -- how does it construct an
+  instance of Y?
+
+- Discussion about typevar('T', values=(alt1, alt2)) vs. Var('T',
+  base=...).  Jeremy doesn't like base= because it reeks of
+  subclassing too much.  Note that AnyStr is very different from
+  Union[str, bytes].
+
+- Jython wants to use type hints for code generation and doesn't want
+  to change its parser to retain #type: comments.  But List[int]() is
+  ugly and slows down execution.  No clear solution; maybe Jython's
+  type inferencing can infer the type of p in cases like this::
+
+    def primes(n: int) -> List[int]:
+        p = []
+        ...fill p with n primes...
+        return p
