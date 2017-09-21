@@ -1,6 +1,6 @@
 # Stubs for socketserver
 
-from typing import BinaryIO, Optional, Tuple
+from typing import Any, BinaryIO, Optional, Tuple
 from socket import SocketType
 import sys
 import types
@@ -50,15 +50,16 @@ class UDPServer(BaseServer):
                  RequestHandlerClass: type,
                  bind_and_activate: bool = ...) -> None: ...
 
-class UnixStreamServer(BaseServer):
-    def __init__(self, server_address: Tuple[str, int],
-                 RequestHandlerClass: type,
-                 bind_and_activate: bool = ...) -> None: ...
+if sys.platform != 'win32':
+    class UnixStreamServer(BaseServer):
+        def __init__(self, server_address: Tuple[str, int],
+                     RequestHandlerClass: type,
+                     bind_and_activate: bool = ...) -> None: ...
 
-class UnixDatagramServer(BaseServer):
-    def __init__(self, server_address: Tuple[str, int],
-                 RequestHandlerClass: type,
-                 bind_and_activate: bool = ...) -> None: ...
+    class UnixDatagramServer(BaseServer):
+        def __init__(self, server_address: Tuple[str, int],
+                     RequestHandlerClass: type,
+                     bind_and_activate: bool = ...) -> None: ...
 
 class ForkingMixIn: ...
 class ThreadingMixIn: ...
@@ -67,8 +68,22 @@ class ForkingTCPServer(ForkingMixIn, TCPServer): ...
 class ForkingUDPServer(ForkingMixIn, UDPServer): ...
 class ThreadingTCPServer(ThreadingMixIn, TCPServer): ...
 class ThreadingUDPServer(ThreadingMixIn, UDPServer): ...
+if sys.platform != 'win32':
+    class ThreadingUnixStreamServer(ThreadingMixIn, UnixStreamServer): ...
+    class ThreadingUnixDatagramServer(ThreadingMixIn, UnixDatagramServer): ...
+
 
 class BaseRequestHandler:
+    # Those are technically of types, respectively:
+    # * Union[SocketType, Tuple[bytes, SocketType]]
+    # * Union[Tuple[str, int], str]
+    # But there are some concerns that having unions here would cause
+    # too much inconvenience to people using it (see
+    # https://github.com/python/typeshed/pull/384#issuecomment-234649696)
+    request = ...  # type: Any
+    client_address = ...  # type: Any
+
+    server = ...  # type: BaseServer
     def setup(self) -> None: ...
     def handle(self) -> None: ...
     def finish(self) -> None: ...

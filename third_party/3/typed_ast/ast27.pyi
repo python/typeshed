@@ -2,34 +2,32 @@ import typing
 from typing import Any, Optional, Union, Generic, Iterator
 
 class NodeVisitor():
-    __doc__ = ...  # type: str
     def visit(self, node: AST) -> Any: ...
     def generic_visit(self, node: AST) -> None: ...
 
 class NodeTransformer(NodeVisitor):
-    __doc__ = ...  # type: str
     def generic_visit(self, node: AST) -> None: ...
 
 def parse(source: Union[str, bytes], filename: Union[str, bytes] = ..., mode: str = ...) -> AST: ...
 def copy_location(new_node: AST, old_node: AST) -> AST: ...
 def dump(node: AST, annotate_fields: bool = ..., include_attributes: bool = ...) -> str: ...
 def fix_missing_locations(node: AST) -> AST: ...
-def get_docstring(node: AST, clean: bool = ...) -> str: ...
+def get_docstring(node: AST, clean: bool = ...) -> Optional[bytes]: ...
 def increment_lineno(node: AST, n: int = ...) -> AST: ...
 def iter_child_nodes(node: AST) -> Iterator[AST]: ...
 def iter_fields(node: AST) -> Iterator[typing.Tuple[str, Any]]: ...
 def literal_eval(node_or_string: Union[str, AST]) -> Any: ...
 def walk(node: AST) -> Iterator[AST]: ...
 
-PyCF_ONLY_AST = ... # type: int
+PyCF_ONLY_AST = ...  # type: int
 
 # ast classes
 
 identifier = str
 
 class AST:
-    _attributes = ... # type: typing.Tuple[str, ...]
-    _fields = ... # type: typing.Tuple[str, ...]
+    _attributes = ...  # type: typing.Tuple[str, ...]
+    _fields = ...  # type: typing.Tuple[str, ...]
     def __init__(self, *args, **kwargs) -> None: ...
 
 class mod(AST):
@@ -244,10 +242,10 @@ class Repr(expr):
     value = ...  # type: expr
 
 class Num(expr):
-    n = ...  # type: Union[int, float]
+    n = ...  # type: Union[int, float, complex]
 
 class Str(expr):
-    s = ...  # type: str
+    s = ...  # type: bytes
 
 class Attribute(expr):
     value = ...  # type: expr
@@ -347,6 +345,7 @@ class arguments(AST):
     vararg = ...  # type: Optional[identifier]
     kwarg = ...  # type: Optional[identifier]
     defaults = ...  # type: typing.List[expr]
+    type_comments = ...  # type: typing.List[str]
 
 class keyword(AST):
     arg = ...  # type: identifier

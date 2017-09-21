@@ -59,6 +59,7 @@ analyze.py
 # Editor backup files
 *~
 .*.sw?
+<<<<<<< HEAD
 =======
 MANIFEST
 build/
@@ -70,3 +71,10 @@ __pycache__/
 tmp/
 *.swp
 *.pyc
+=======
+.vscode/
+.idea/
+.venv*/
+
+# Mypy cache
+.mypy_cache/

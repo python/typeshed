@@ -1,8 +1,8 @@
-from typing import AnyStr
-
-__all__ = ... # type: str
-
 from asyncio import transports
+from typing import AnyStr, List
+
+__all__: List[str]
+
 
 class BaseProtocol:
     def connection_made(self, transport: transports.BaseTransport) -> None: ...
@@ -11,7 +11,7 @@ class BaseProtocol:
     def resume_writing(self) -> None: ...
 
 class Protocol(BaseProtocol):
-    def data_received(self, data: AnyStr) -> None: ...
+    def data_received(self, data: bytes) -> None: ...
     def eof_received(self) -> bool: ...
 
 class DatagramProtocol(BaseProtocol):

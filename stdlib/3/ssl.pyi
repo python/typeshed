@@ -15,9 +15,9 @@ _PasswordType = Union[Callable[[], Union[str, bytes]], str, bytes]
 
 
 if sys.version_info >= (3, 5):
-    _SC1ArgT = Union['SSLSocket', 'SSLObject']
+    _SC1ArgT = Union[SSLSocket, SSLObject]
 else:
-    _SC1ArgT = 'SSLSocket'
+    _SC1ArgT = SSLSocket
 _SrvnmeCbType = Callable[[_SC1ArgT, Optional[str], 'SSLSocket'], Optional[int]]
 
 class SSLError(OSError):
@@ -46,6 +46,16 @@ if sys.version_info >= (3, 4):
                                capath: Optional[str] = ...,
                                cadata: Optional[str] = ...) -> 'SSLContext': ...
 
+    def _create_unverified_context(protocol: int = ..., *,
+                                   cert_reqs: int = ...,
+                                   check_hostname: bool = ...,
+                                   purpose: Any = ...,
+                                   certfile: Optional[str] = ...,
+                                   keyfile: Optional[str] = ...,
+                                   cafile: Optional[str] = ...,
+                                   capath: Optional[str] = ...,
+                                   cadata: Optional[str] = ...) -> 'SSLContext': ...
+    _create_default_https_context = ...  # type: Callable[..., 'SSLContext']
 
 def RAND_bytes(num: int) -> bytes: ...
 def RAND_pseudo_bytes(num: int) -> Tuple[bytes, bool]: ...
@@ -74,52 +84,58 @@ if sys.version_info >= (3, 4) and sys.platform == 'win32':
     def enum_crls(store_name: str) -> _EnumRetType: ...
 
 
-CERT_NONE = ... # type: int
-CERT_OPTIONAL = ... # type: int
-CERT_REQUIRED = ... # type: int
+CERT_NONE = ...  # type: int
+CERT_OPTIONAL = ...  # type: int
+CERT_REQUIRED = ...  # type: int
 
 if sys.version_info >= (3, 4):
-    VERIFY_DEFAULT = ... # type: int
-    VERIFY_CRL_CHECK_LEAF = ... # type: int
-    VERIFY_CRL_CHECK_CHAIN = ... # type: int
-    VERIFY_X509_STRICT = ... # type: int
-if sys.version_info >= (3, 4, 4):
-    VERIFY_X509_TRUSTED_FIRST = ... # type: int
+    VERIFY_DEFAULT = ...  # type: int
+    VERIFY_CRL_CHECK_LEAF = ...  # type: int
+    VERIFY_CRL_CHECK_CHAIN = ...  # type: int
+    VERIFY_X509_STRICT = ...  # type: int
+    VERIFY_X509_TRUSTED_FIRST = ...  # type: int
 
-PROTOCOL_SSLv23 = ... # type: int
-PROTOCOL_SSLv2 = ... # type: int
-PROTOCOL_SSLv3 = ... # type: int
-PROTOCOL_TLSv1 = ... # type: int
+PROTOCOL_SSLv23 = ...  # type: int
+PROTOCOL_SSLv2 = ...  # type: int
+PROTOCOL_SSLv3 = ...  # type: int
+PROTOCOL_TLSv1 = ...  # type: int
 if sys.version_info >= (3, 4):
-    PROTOCOL_TLSv1_1 = ... # type: int
-    PROTOCOL_TLSv1_2 = ... # type: int
+    PROTOCOL_TLSv1_1 = ...  # type: int
+    PROTOCOL_TLSv1_2 = ...  # type: int
+if sys.version_info >= (3, 5):
+    PROTOCOL_TLS = ...  # type: int
+if sys.version_info >= (3, 6):
+    PROTOCOL_TLS_CLIENT = ...  # type: int
+    PROTOCOL_TLS_SERVER = ...  # type: int
 
-OP_ALL = ... # type: int
-OP_NO_SSLv2 = ... # type: int
-OP_NO_SSLv3 = ... # type: int
-OP_NO_TLSv1 = ... # type: int
+OP_ALL = ...  # type: int
+OP_NO_SSLv2 = ...  # type: int
+OP_NO_SSLv3 = ...  # type: int
+OP_NO_TLSv1 = ...  # type: int
 if sys.version_info >= (3, 4):
-    OP_NO_TLSv1_1 = ... # type: int
-    OP_NO_TLSv1_2 = ... # type: int
-OP_CIPHER_SERVER_PREFERENCE = ... # type: int
-OP_SINGLE_DH_USE = ... # type: int
-OP_SINGLE_ECDH_USE = ... # type: int
-OP_NO_COMPRESSION = ... # type: int
+    OP_NO_TLSv1_1 = ...  # type: int
+    OP_NO_TLSv1_2 = ...  # type: int
+OP_CIPHER_SERVER_PREFERENCE = ...  # type: int
+OP_SINGLE_DH_USE = ...  # type: int
+OP_SINGLE_ECDH_USE = ...  # type: int
+OP_NO_COMPRESSION = ...  # type: int
+if sys.version_info >= (3, 6):
+    OP_NO_TICKET = ...  # type: int
 
 if sys.version_info >= (3, 5):
     HAS_ALPN = ...  # type: int
-HAS_ECDH = ... # type: bool
-HAS_SNI = ... # type: bool
-HAS_NPN = ... # type: bool
-CHANNEL_BINDING_TYPES = ... # type: List[str]
+HAS_ECDH = ...  # type: bool
+HAS_SNI = ...  # type: bool
+HAS_NPN = ...  # type: bool
+CHANNEL_BINDING_TYPES = ...  # type: List[str]
 
-OPENSSL_VERSION = ... # type: str
-OPENSSL_VERSION_INFO = ... # type: Tuple[int, int, int, int, int]
-OPENSSL_VERSION_NUMBER = ... # type: int
+OPENSSL_VERSION = ...  # type: str
+OPENSSL_VERSION_INFO = ...  # type: Tuple[int, int, int, int, int]
+OPENSSL_VERSION_NUMBER = ...  # type: int
 
 if sys.version_info >= (3, 4):
-    ALERT_DESCRIPTION_HANDSHAKE_FAILURE = ... # type: int
-    ALERT_DESCRIPTION_INTERNAL_ERROR = ... # type: int
+    ALERT_DESCRIPTION_HANDSHAKE_FAILURE = ...  # type: int
+    ALERT_DESCRIPTION_INTERNAL_ERROR = ...  # type: int
     ALERT_DESCRIPTION_ACCESS_DENIED = ...  # type: int
     ALERT_DESCRIPTION_BAD_CERTIFICATE = ...  # type: int
     ALERT_DESCRIPTION_BAD_CERTIFICATE_HASH_VALUE = ...  # type: int
@@ -151,14 +167,18 @@ if sys.version_info >= (3, 4):
                              [('nid', int), ('shortname', str),
                               ('longname', str), ('oid', str)])
     class Purpose:
-        SERVER_AUTH = ... # type: _PurposeType
-        CLIENT_AUTH = ... # type: _PurposeType
+        SERVER_AUTH = ...  # type: _PurposeType
+        CLIENT_AUTH = ...  # type: _PurposeType
 
 
 class SSLSocket(socket.socket):
-    context = ... # type: SSLContext
-    server_side = ... # type: bool
-    server_hostname = ... # type: Optional[str]
+    context = ...  # type: SSLContext
+    server_side = ...  # type: bool
+    server_hostname = ...  # type: Optional[str]
+    if sys.version_info >= (3, 6):
+        session = ...  # type: Optional[SSLSession]
+        session_reused = ...  # type: Optional[bool]
+
     def read(self, len: int = ...,
              buffer: Optional[bytearray] = ...) -> bytes: ...
     def write(self, buf: bytes) -> int: ...
@@ -180,13 +200,13 @@ class SSLSocket(socket.socket):
 
 class SSLContext:
     if sys.version_info >= (3, 4):
-        check_hostname = ... # type: bool
-    options = ... # type: int
+        check_hostname = ...  # type: bool
+    options = ...  # type: int
     @property
     def protocol(self) -> int: ...
     if sys.version_info >= (3, 4):
-        verify_flags = ... # type: int
-    verify_mode = ... # type: int
+        verify_flags = ...  # type: int
+    verify_mode = ...  # type: int
     def __init__(self, protocol: int) -> None: ...
     if sys.version_info >= (3, 4):
         def cert_store_stats(self) -> Dict[str, int]: ...
@@ -196,31 +216,28 @@ class SSLContext:
         def load_default_certs(self, purpose: _PurposeType = ...) -> None: ...
         def load_verify_locations(self, cafile: Optional[str] = ...,
                                   capath: Optional[str] = ...,
-                                  cadata: Union[str, bytes, None] = ...) \
-                                  -> None: ...
+                                  cadata: Union[str, bytes, None] = ...) -> None: ...
         def get_ca_certs(self,
-                         binary_form: bool = ...) \
-                         -> Union[List[_PeerCertRetDictType], List[bytes]]: ...
+                         binary_form: bool = ...) -> Union[List[_PeerCertRetDictType], List[bytes]]: ...
     else:
-        def load_verify_locations(self,  # type: ignore
+        def load_verify_locations(self,
                                   cafile: Optional[str] = ...,
                                   capath: Optional[str] = ...) -> None: ...
     def set_default_verify_paths(self) -> None: ...
     def set_ciphers(self, ciphers: str) -> None: ...
     if sys.version_info >= (3, 5):
-        def set_alpn_protocols(protocols: List[str]) -> None: ...
-    def set_npn_protocols(protocols: List[str]) -> None: ...
+        def set_alpn_protocols(self, protocols: List[str]) -> None: ...
+    def set_npn_protocols(self, protocols: List[str]) -> None: ...
     def set_servername_callback(self,
-                                server_name_callback: Optional[_SrvnmeCbType]) \
-                                -> None: ...
+                                server_name_callback: Optional[_SrvnmeCbType]) -> None: ...
     def load_dh_params(self, dhfile: str) -> None: ...
     def set_ecdh_curve(self, curve_name: str) -> None: ...
     def wrap_socket(self, sock: socket.socket, server_side: bool = ...,
                     do_handshake_on_connect: bool = ...,
                     suppress_ragged_eofs: bool = ...,
-                    server_hostname: Optional[str] = ...) -> 'SSLContext': ...
+                    server_hostname: Optional[str] = ...) -> SSLSocket: ...
     if sys.version_info >= (3, 5):
-        def wrap_bio(incoming: 'MemoryBIO', outgoing: 'MemoryBIO',
+        def wrap_bio(self, incoming: 'MemoryBIO', outgoing: 'MemoryBIO',
                      server_side: bool = ...,
                      server_hostname: Optional[str] = ...) -> 'SSLObject': ...
     def session_stats(self) -> Dict[str, int]: ...
@@ -228,9 +245,12 @@ class SSLContext:
 
 if sys.version_info >= (3, 5):
     class SSLObject:
-        context = ... # type: SSLContext
-        server_side = ... # type: bool
-        server_hostname = ... # type: Optional[str]
+        context = ...  # type: SSLContext
+        server_side = ...  # type: bool
+        server_hostname = ...  # type: Optional[str]
+        if sys.version_info >= (3, 6):
+            session = ...  # type: Optional[SSLSession]
+            session_reused = ...  # type: bool
         def read(self, len: int = ...,
                  buffer: Optional[bytearray] = ...) -> bytes: ...
         def write(self, buf: bytes) -> int: ...
@@ -250,3 +270,33 @@ if sys.version_info >= (3, 5):
         def read(self, n: int = ...) -> bytes: ...
         def write(self, buf: bytes) -> int: ...
         def write_eof(self) -> None: ...
+
+if sys.version_info >= (3, 6):
+    class SSLSession:
+        id = ...  # type: bytes
+        time = ...  # type: int
+        timeout = ...  # type: int
+        ticket_lifetime_hint = ...  # type: int
+        has_ticket = ...  # type: bool
+
+
+# TODO below documented in cpython but not in docs.python.org
+# taken from python 3.4
+SSL_ERROR_EOF = ...  # type: int
+SSL_ERROR_INVALID_ERROR_CODE = ...  # type: int
+SSL_ERROR_SSL = ...  # type: int
+SSL_ERROR_SYSCALL = ...  # type: int
+SSL_ERROR_WANT_CONNECT = ...  # type: int
+SSL_ERROR_WANT_READ = ...  # type: int
+SSL_ERROR_WANT_WRITE = ...  # type: int
+SSL_ERROR_WANT_X509_LOOKUP = ...  # type: int
+SSL_ERROR_ZERO_RETURN = ...  # type: int
+
+def get_protocol_name(protocol_code: int) -> str: ...
+
+AF_INET = ...  # type: int
+PEM_FOOTER = ...  # type: str
+PEM_HEADER = ...  # type: str
+SOCK_STREAM = ...  # type: int
+SOL_SOCKET = ...  # type: int
+SO_TYPE = ...  # type: int

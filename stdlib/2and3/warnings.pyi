@@ -1,33 +1,39 @@
 # Stubs for warnings
 
-# Based on http://docs.python.org/3.2/library/warnings.html
+from typing import Any, Dict, List, NamedTuple, Optional, TextIO, Tuple, Type, Union
+from types import ModuleType, TracebackType
 
-from typing import Any, List, TextIO, Union
-
-def warn(message: Union[str, Warning], category: type = ...,
+def warn(message: Union[str, Warning], category: Optional[Type[Warning]] = ...,
          stacklevel: int = ...) -> None: ...
-
-def warn_explicit(message: Union[str, Warning], category: type, filename: str,
-                  lineno: int, module: str = ..., registry: Any = ...,
-                  module_globals: Any = ...) -> None: ...
-
-# logging modifies showwarning => make it a variable.
-def _showwarning(message: str, category: type, filename: str, lineno: int,
-                 file: TextIO = ..., line: str = ...) -> None: ...
-showwarning = _showwarning
-
-def formatwarning(message: str, category: type, filename: str, lineno: int,
-                  line: str = ...) -> None: ...
-def filterwarnings(action: str, message: str = ..., category: type = ...,
-                   module: str = ..., lineno: int = ...,
-                   append: bool = ...) -> None: ...
-def simplefilter(action: str, category: type = ..., lineno: int = ...,
+def warn_explicit(message: Union[str, Warning], category: Type[Warning],
+                  filename: str, lineno: int, module: Optional[str] = ...,
+                  registry: Optional[Dict[Union[str, Tuple[str, Type[Warning], int]], int]] = ...,
+                  module_globals: Optional[Dict[str, Any]] = ...) -> None: ...
+def showwarning(message: str, category: Type[Warning], filename: str,
+                lineno: int, file: Optional[TextIO] = ...,
+                line: Optional[str] = ...) -> None: ...
+def formatwarning(message: str, category: Type[Warning], filename: str,
+                  lineno: int, line: Optional[str] = ...) -> None: ...
+def filterwarnings(action: str, message: str = ...,
+                   category: Type[Warning] = ..., module: str = ...,
+                   lineno: int = ..., append: bool = ...) -> None: ...
+def simplefilter(action: str, category: Type[Warning] = ..., lineno: int = ...,
                  append: bool = ...) -> None: ...
 def resetwarnings() -> None: ...
 
+_Record = NamedTuple('_Record',
+    [('message', str),
+     ('category', Type[Warning]),
+     ('filename', str),
+     ('lineno', int),
+     ('file', Optional[TextIO]),
+     ('line', Optional[str])]
+)
+
 class catch_warnings:
-    # TODO record and module must be keyword arguments!
-    # TODO type of module?
-    def __init__(self, record: bool = ..., module: Any = ...) -> None: ...
-    def __enter__(self) -> List[Any]: ...
-    def __exit__(self, type, value, traceback) -> bool: ...
+    def __init__(self, *, record: bool = ...,
+                 module: Optional[ModuleType] = ...) -> None: ...
+    def __enter__(self) -> Optional[List[_Record]]: ...
+    def __exit__(self, exc_type: Optional[Type[BaseException]],
+                 exc_val: Optional[Exception],
+                 exc_tb: Optional[TracebackType]) -> bool: ...

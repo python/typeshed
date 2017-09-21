@@ -7,7 +7,7 @@
 
 from typing import (
     List, Iterator, overload, Callable, Tuple, Sequence, Dict,
-    Generic, AnyStr, Match, Pattern, Any
+    Generic, AnyStr, Match, Pattern, Any, Optional, Union
 )
 
 # ----- re variables and constants -----
@@ -26,6 +26,8 @@ X = 0
 VERBOSE = 0
 U = 0
 UNICODE = 0
+T = 0
+TEMPLATE = 0
 
 class error(Exception): ...
 
@@ -43,6 +45,12 @@ def search(pattern: Pattern[AnyStr], string: AnyStr, flags: int = ...) -> Match[
 def match(pattern: AnyStr, string: AnyStr, flags: int = ...) -> Match[AnyStr]: ...
 @overload
 def match(pattern: Pattern[AnyStr], string: AnyStr, flags: int = ...) -> Match[AnyStr]: ...
+
+# New in Python 3.4
+@overload
+def fullmatch(pattern: AnyStr, string: AnyStr, flags: int = ...) -> Optional[Match[AnyStr]]: ...
+@overload
+def fullmatch(pattern: Pattern[AnyStr], string: AnyStr, flags: int = ...) -> Optional[Match[AnyStr]]: ...
 
 @overload
 def split(pattern: AnyStr, string: AnyStr,
@@ -98,3 +106,4 @@ def subn(pattern: Pattern[AnyStr], repl: Callable[[Match[AnyStr]], AnyStr],
 def escape(string: AnyStr) -> AnyStr: ...
 
 def purge() -> None: ...
+def template(pattern: Union[AnyStr, Pattern[AnyStr]], flags: int = ...) -> Pattern[AnyStr]: ...

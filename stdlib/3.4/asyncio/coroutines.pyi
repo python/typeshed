@@ -1,9 +1,9 @@
-from typing import Callable, Any, TypeVar
+from typing import Any, Callable, Generator, List, TypeVar
 
-__all__ = ... # type: str
+__all__: List[str]
 
-_T = TypeVar('_T')
+_F = TypeVar('_F', bound=Callable[..., Any])
 
-def coroutine(func: _T) -> _T: ...
+def coroutine(func: _F) -> _F: ...
 def iscoroutinefunction(func: Callable[..., Any]) -> bool: ...
 def iscoroutine(obj: Any) -> bool: ...
