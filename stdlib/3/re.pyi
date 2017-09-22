@@ -50,7 +50,7 @@ if sys.version_info >= (3, 6):
     UNICODE = RegexFlag.UNICODE
     T = RegexFlag.T
     TEMPLATE = RegexFlag.TEMPLATE
-    _FlagsType = RegexFlag
+    _FlagsType = Union[int, RegexFlag]
 else:
     A = 0
     ASCII = 0
