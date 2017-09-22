@@ -4,6 +4,7 @@ import typing
 from typing import Any, Iterator, Union
 
 from _ast import *
+from _ast import AST, Module
 
 __version__ = ...  # type: str
 PyCF_ONLY_AST = ...  # type: int
