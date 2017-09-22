@@ -3,7 +3,7 @@
 # Any use of `Any` below means I couldn't figure out the type.
 
 import typing
-from typing import Any, Dict, List, MutableMapping, Tuple, Union
+from typing import Any, Dict, List, MutableMapping, Tuple, Union, Optional
 from typing import Iterable, Iterator, SupportsBytes
 
 
@@ -23,7 +23,12 @@ class ElementChildIterator(Iterator['_Element']):
 
 class _Element(Iterable['_Element']):
     def addprevious(self, element: '_Element') -> None: ...
-
+    def addnext(self, element: '_Element') -> None: ...
+    def clear(self) -> None: ...
+    def get(self, key: _AnyStr, default: Optional[_AnyStr] = ...) -> _AnyStr: ...
+    def xpath(self, _path: _AnyStr, namespaces: Optional[_DictAnyStr] = ..., extensions: Any = ..., smart_strings: bool = ..., **_variables: Any) -> Any: ...
+    # indeed returns a Union[bool, float, _AnyStr, List[Union[ElementBase, _AnyStr, Tuple[]]]]: ...
+    # http://lxml.de/xpathxslt.html#xpath-return-values
     attrib = ...  # type: MutableMapping[str, str]
     text = ...  # type: _AnyStr
     tag = ...  # type: str
@@ -45,6 +50,7 @@ class _ElementTree:
               exclusive: bool = ...,
               with_comments: bool = ...,
               inclusive_ns_prefixes: _ListAnyStr = ...) -> None: ...
+    def xpath(self, _path: _AnyStr, namespaces: Optional[_DictAnyStr] = ..., extensions: Any = ..., smart_strings: bool = ..., **_variables: Any) -> Any: ...
 
 class _XSLTResultTree(SupportsBytes): ...
 
