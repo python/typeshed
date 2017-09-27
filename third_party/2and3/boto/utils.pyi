@@ -162,11 +162,11 @@ class LRUCache(Dict[_KT, _VT]):
     class _Item:
         previous = ...  # type: Optional[LRUCache._Item]
         next = ...  # type: Optional[LRUCache._Item]
-        key = ...  # type: _KT
-        value = ...  # type: _VT
-        def __init__(self, key: _KT, value: _VT) -> None: ...
+        key = ...
+        value = ...
+        def __init__(self, key, value) -> None: ...
 
-    _dict = ... #type: Dict[_KT, LRUCache._Item]
+    _dict = ... # type: Dict[_KT, LRUCache._Item]
     capacity = ...  # type: int
     head = ...  # type: Optional[LRUCache._Item]
     tail = ...  # type: Optional[LRUCache._Item]
