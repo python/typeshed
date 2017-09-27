@@ -163,10 +163,10 @@ class LRUCache(Dict[_KT, _VT]):
         previous = ...  # type: Optional[LRUCache._Item]
         next = ...  # type: Optional[LRUCache._Item]
         key = ...  # type: _KT
-        value = ... # type: _VT
+        value = ...  # type: _VT
         def __init__(self, key: _KT, value: _VT) -> None: ...
 
-    _dict = Dict[_KT, 'LRUCache._Item']
+    _dict = ... #type: Dict[_KT, LRUCache._Item]
     capacity = ...  # type: int
     head = ...  # type: Optional[LRUCache._Item]
     tail = ...  # type: Optional[LRUCache._Item]
@@ -184,7 +184,7 @@ class Password:
     def __init__(
         self,
         str: Optional[_str] = ...,
-        hashfunc: Optional[Callable[bytes], _HashType] = ...,
+        hashfunc: Optional[Callable[[bytes], _HashType]] = ...,
     ) -> None: ...
     def set(self, value: Union[bytes, _str]) -> None: ...
     def __eq__(self, other: Any) -> bool: ...
