@@ -5,7 +5,6 @@ import sys
 import time
 
 import boto.connection
-from email.message import Message
 from typing import (
     Any,
     Callable,
@@ -26,19 +25,25 @@ from typing import (
 _KT = TypeVar('_KT')
 _VT = TypeVar('_VT')
 
-# TODO move _StringIO definition into boto.compat once stubs exist
 if sys.version_info[0] >= 3:
+    # TODO move _StringIO definition into boto.compat once stubs exist and rename to StringIO
     import io
     _StringIO = io.StringIO
 
     from hashlib import _Hash
     _HashType = _Hash
+
+    from email.message import Message as _Message
 else:
+    # TODO move _StringIO definition into boto.compat once stubs exist and rename to StringIO
     import StringIO
     _StringIO = StringIO.StringIO
 
     from hashlib import _hash
     _HashType = _hash
+
+    # TODO use email.message.Message once stubs exist
+    _Message = Any
 
 _Provider = Any  # TODO replace this with boto.provider.Provider once stubs exist
 _LockType = Any  # TODO replace this with _thread.LockType once stubs exist
@@ -166,7 +171,7 @@ class LRUCache(Dict[_KT, _VT]):
         value = ...
         def __init__(self, key, value) -> None: ...
 
-    _dict = ... # type: Dict[_KT, LRUCache._Item]
+    _dict = ...  # type: Dict[_KT, LRUCache._Item]
     capacity = ...  # type: int
     head = ...  # type: Optional[LRUCache._Item]
     tail = ...  # type: Optional[LRUCache._Item]
@@ -195,7 +200,7 @@ def notify(
     body: Optional[str] = ...,
     html_body: Optional[Union[Sequence[str], str]] = ...,
     to_string: Optional[str] = ...,
-    attachments: Optional[Iterable[Message]] = ...,
+    attachments: Optional[Iterable[_Message]] = ...,
     append_instance_id: bool = ...,
 ) -> None: ...
 def get_utf8_value(value: str) -> bytes: ...
