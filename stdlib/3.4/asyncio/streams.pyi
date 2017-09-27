@@ -12,9 +12,12 @@ _ClientConnectedCallback = Callable[[StreamReader, StreamWriter], Optional[Await
 __all__: List[str]
 
 class IncompleteReadError(EOFError):
-    def __init__(self, partial: str, expected: int) -> None: ...
+    expected = ...  # type: Optional[int]
+    partial = ...  # type: bytes
+    def __init__(self, partial: bytes, expected: Optional[int]) -> None: ...
 
 class LimitOverrunError(Exception):
+    consumed = ...  # type: int
     def __init__(self, message: str, consumed: int) -> None: ...
 
 @coroutines.coroutine
@@ -22,7 +25,7 @@ def open_connection(
     host: str = ...,
     port: int = ...,
     *,
-    loop: events.AbstractEventLoop = ...,
+    loop: Optional[events.AbstractEventLoop] = ...,
     limit: int = ...,
     **kwds: Any
 ) -> Generator[Any, None, Tuple[StreamReader, StreamWriter]]: ...
@@ -33,7 +36,7 @@ def start_server(
     host: str = ...,
     port: int = ...,
     *,
-    loop: events.AbstractEventLoop = ...,
+    loop: Optional[events.AbstractEventLoop] = ...,
     limit: int = ...,
     **kwds: Any
 ) -> Generator[Any, None, events.AbstractServer]: ...
@@ -43,7 +46,7 @@ if sys.platform != 'win32':
     def open_unix_connection(
         path: str = ...,
         *,
-        loop: events.AbstractEventLoop = ...,
+        loop: Optional[events.AbstractEventLoop] = ...,
         limit: int = ...,
         **kwds: Any
     ) -> Generator[Any, None, Tuple[StreamReader, StreamWriter]]: ...
@@ -63,7 +66,7 @@ class StreamReaderProtocol(FlowControlMixin, protocols.Protocol):
     def __init__(self,
             stream_reader: StreamReader,
             client_connected_cb: _ClientConnectedCallback = ...,
-            loop: events.AbstractEventLoop = ...) -> None: ...
+            loop: Optional[events.AbstractEventLoop] = ...) -> None: ...
     def connection_made(self, transport: transports.BaseTransport) -> None: ...
     def connection_lost(self, exc: Exception) -> None: ...
     def data_received(self, data: bytes) -> None: ...
@@ -89,7 +92,7 @@ class StreamWriter:
 class StreamReader:
     def __init__(self,
             limit: int = ...,
-            loop: events.AbstractEventLoop = ...) -> None: ...
+            loop: Optional[events.AbstractEventLoop] = ...) -> None: ...
     def exception(self) -> Exception: ...
     def set_exception(self, exc: Exception) -> None: ...
     def set_transport(self, transport: transports.BaseTransport) -> None: ...

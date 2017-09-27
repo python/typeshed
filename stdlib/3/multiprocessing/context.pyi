@@ -3,7 +3,9 @@
 from logging import Logger
 import multiprocessing
 import sys
-from typing import Any, Callable, Optional, List, Sequence, Tuple, Type, Union
+from typing import (
+    Any, Callable, Iterable, Optional, List, Mapping, Sequence, Tuple, Type, Union,
+)
 
 class ProcessError(Exception): ...
 
@@ -49,13 +51,26 @@ class BaseContext(object):
     def JoinableQueue(self, maxsize: int = ...) -> Any: ...
     # TODO: change return to SimpleQueue once a stub exists in multiprocessing.queues
     def SimpleQueue(self) -> Any: ...
+    # N.B. This method is partially applied at runtime to generate
+    # multiprocessing.Pool, so the two signatures should be identical (modulo
+    # self).
     def Pool(
         self,
         processes: Optional[int] = ...,
         initializer: Optional[Callable[..., Any]] = ...,
-        initargs: Tuple = ...,
+        initargs: Iterable[Any] = ...,
         maxtasksperchild: Optional[int] = ...
-    ) -> multiprocessing.Pool: ...
+    ) -> multiprocessing.pool.Pool: ...
+    def Process(
+        self,
+        group: Any = ...,
+        target: Optional[Callable] = ...,
+        name: Optional[str] = ...,
+        args: Iterable[Any] = ...,
+        kwargs: Mapping[Any, Any] = ...,
+        *,
+        daemon: Optional[bool] = ...
+    ) -> multiprocessing.Process: ...
     # TODO: typecode_or_type param is a ctype with a base class of _SimpleCData or array.typecode Need to figure out
     # how to handle the ctype
     # TODO: change return to RawValue once a stub exists in multiprocessing.sharedctypes
