@@ -1,28 +1,47 @@
 import datetime
-import logging
 import logging.handlers
 import subprocess
+import sys
 import time
 
 import boto.connection
+from email.message import Message
 from typing import (
-    _KT,
-    _VT,
     Any,
     Callable,
     Dict,
     IO,
     Iterable,
     List,
+    Mapping,
     Optional,
     Sequence,
     Tuple,
     Type,
+    TypeVar,
     Union,
 )
 
+_KT = TypeVar('_KT')
+_VT = TypeVar('_VT')
+
+# TODO move _StringIO definition into boto.compat once stubs exist
+if sys.version_info[0] >= 3:
+    import io
+    _StringIO = io.StringIO
+
+    from hashlib import _Hash
+    _HashType = _Hash
+else:
+    import StringIO
+    _StringIO = StringIO.StringIO
+
+    from hashlib import _hash
+    _HashType = _hash
+
 _Provider = Any  # TODO replace this with boto.provider.Provider once stubs exist
 _LockType = Any  # TODO replace this with _thread.LockType once stubs exist
+
 
 JSONDecodeError = ...  # type: Type[ValueError]
 qsa_of_interest = ...  # type: List[str]
@@ -32,19 +51,19 @@ def unquote_v(nv: str) -> Union[str, Tuple[str, str]]: ...
 def canonical_string(
     method: str,
     path: str,
-    headers: Dict[str, str],
+    headers: Mapping[str, Optional[str]],
     expires: Optional[int] = ...,
     provider: Optional[_Provider] = ...,
 ) -> str: ...
 def merge_meta(
-    headers: Dict[str, str],
-    metadata: Dict[str, str],
+    headers: Mapping[str, str],
+    metadata: Mapping[str, str],
     provider: Optional[_Provider] = ...,
-) -> Dict[str, str]: ...
+) -> Mapping[str, str]: ...
 def get_aws_metadata(
-    headers: Dict[str, str],
+    headers: Mapping[str, str],
     provider: Optional[_Provider] = ...,
-) -> Dict[str, str]: ...
+) -> Mapping[str, str]: ...
 def retry_url(
     url: str,
     retry_on_404: bool = ...,
@@ -59,7 +78,6 @@ class LazyLoadMetadata(Dict[_KT, _VT]):
         num_retries: int,
         timeout: Optional[int] = ...,
     ) -> None: ...
-    def get(self, key: _KT, default: Optional[Any] = ...) -> Any: ...
 
 def get_instance_metadata(
     version: str = ...,
@@ -73,14 +91,14 @@ def get_instance_identity(
     url: str = ...,
     timeout: Optional[int] = ...,
     num_retries: int = ...,
-) -> Optional[Dict[str, Any]]: ...
+) -> Optional[Mapping[str, Any]]: ...
 def get_instance_userdata(
     version: str = ...,
     sep: Optional[str] = ...,
     url: str = ...,
     timeout: Optional[int] = ...,
     num_retries: int = ...,
-) -> Dict[str, str]: ...
+) -> Mapping[str, str]: ...
 
 ISO8601 = ...  # type: str
 ISO8601_MS = ...  # type: str
@@ -94,15 +112,15 @@ def find_class(module_name: str, class_name: Optional[str] = ...) -> Optional[Ty
 def update_dme(username: str, password: str, dme_id: str, ip_address: str) -> str: ...
 def fetch_file(
     uri: str,
-    file: Optional[IO] = ...,
+    file: Optional[IO[str]] = ...,
     username: Optional[str] = ...,
     password: Optional[str] = ...,
-) -> IO: ...
+) -> Optional[IO[str]]: ...
 
 class ShellCommand:
     exit_code = ...  # type: int
     command = ...  # type: subprocess._CMD
-    log_fp = ...  # type: IO
+    log_fp = ...  # type: _StringIO
     wait = ...  # type: bool
     fail_fast = ...  # type: bool
 
@@ -138,15 +156,16 @@ class AuthSMTPHandler(logging.handlers.SMTPHandler):
         toaddrs: Sequence[str],
         subject: str,
     ) -> None: ...
-    def emit(self, record: logging.LogRecord) -> None: ...
 
 class LRUCache(Dict[_KT, _VT]):
     class _Item:
         previous = ...  # type: Optional[LRUCache._Item]
-        key = ...
-        value = ...
-        def __init__(self, key, value) -> None: ...
+        next = ...  # type: Optional[LRUCache._Item]
+        key = ...  # type: _KT
+        value = ... # type: _VT
+        def __init__(self, key: _KT, value: _VT) -> None: ...
 
+    _dict = Dict[_KT, 'LRUCache._Item']
     capacity = ...  # type: int
     head = ...  # type: Optional[LRUCache._Item]
     tail = ...  # type: Optional[LRUCache._Item]
@@ -158,16 +177,15 @@ class LRUCache(Dict[_KT, _VT]):
 _str = str
 
 class Password:
-    hashfunc = ...  # type: Callable
+    hashfunc = ...  # type: Callable[[bytes], _HashType]
     str = ...  # type: Optional[_str]
 
     def __init__(
         self,
         str: Optional[_str] = ...,
-        hashfunc: Optional[Callable] = ...,
+        hashfunc: Optional[Callable[bytes], _HashType] = ...,
     ) -> None: ...
     def set(self, value: Union[bytes, _str]) -> None: ...
-    def __str__(self) -> _str: ...
     def __eq__(self, other: Any) -> bool: ...
     def __len__(self) -> int: ...
 
@@ -176,10 +194,10 @@ def notify(
     body: Optional[str] = ...,
     html_body: Optional[Union[Sequence[str], str]] = ...,
     to_string: Optional[str] = ...,
-    attachments: Optional[Iterable] = ...,
+    attachments: Optional[Iterable[Message]] = ...,
     append_instance_id: bool = ...,
 ) -> None: ...
-def get_utf8_value(value: str) -> str: ...
+def get_utf8_value(value: str) -> bytes: ...
 def mklist(value: Any) -> List: ...
 def pythonize_name(name: str) -> str: ...
 def write_mime_multipart(
@@ -190,18 +208,18 @@ def write_mime_multipart(
 ) -> str: ...
 def guess_mime_type(content: str, deftype: str) -> str: ...
 def compute_md5(
-    fp: IO,
+    fp: IO[Any],
     buf_size: int = ...,
     size: Optional[int] = ...,
 ) -> Tuple[str, str, int]: ...
 def compute_hash(
-    fp: IO,
+    fp: IO[Any],
     buf_size: int = ...,
     size: Optional[int] = ...,
     hash_algorithm: Any = ...,
 ) -> Tuple[str, str, int]: ...
-def find_matching_headers(name: str, headers: Dict[str, str]) -> List[str]: ...
-def merge_headers_by_name(name: str, headers: Dict[str, str]) -> str: ...
+def find_matching_headers(name: str, headers: Mapping[str, Optional[str]]) -> List[str]: ...
+def merge_headers_by_name(name: str, headers: Mapping[str, Optional[str]]) -> str: ...
 
 class RequestHook:
     def handle_request_data(
