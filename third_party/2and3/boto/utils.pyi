@@ -9,6 +9,7 @@ from email.message import Message
 from typing import (
     Any,
     Callable,
+    ContextManager,
     Dict,
     IO,
     Iterable,
@@ -105,7 +106,7 @@ ISO8601_MS = ...  # type: str
 RFC1123 = ...  # type: str
 LOCALE_LOCK = ...  # type: _LockType
 
-def setlocale(name: Union[str, Tuple[str, str]]) -> None: ...
+def setlocale(name: Union[str, Tuple[str, str]]) -> ContextManager[str]: ...
 def get_ts(ts: Optional[time.struct_time] = ...) -> str: ...
 def parse_ts(ts: str) -> datetime.datetime: ...
 def find_class(module_name: str, class_name: Optional[str] = ...) -> Optional[Type[Any]]: ...
