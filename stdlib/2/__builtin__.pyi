@@ -10,7 +10,8 @@ from typing import (
     SupportsRound, IO, BinaryIO, Union, AnyStr, MutableSequence, MutableMapping,
     MutableSet, ItemsView, KeysView, ValuesView, Optional, Container, Type
 )
-from abc import abstractmethod, ABCMeta
+
+from abc import ABCMeta
 
 _T = TypeVar('_T')
 _T_co = TypeVar('_T_co', covariant=True)
@@ -26,11 +27,14 @@ _TT = TypeVar('_TT', bound='type')
 
 class object:
     __doc__ = ...  # type: Optional[str]
-    __class__ = ...  # type: type
     __dict__ = ...  # type: Dict[str, Any]
     __slots__ = ...  # type: Optional[Union[str, unicode, Iterable[Union[str, unicode]]]]
     __module__ = ...  # type: str
 
+    @property
+    def __class__(self: _T) -> Type[_T]: ...
+    @__class__.setter
+    def __class__(self, __type: Type[object]) -> None: ...
     def __init__(self) -> None: ...
     def __new__(cls) -> Any: ...
     def __setattr__(self, name: str, value: Any) -> None: ...
