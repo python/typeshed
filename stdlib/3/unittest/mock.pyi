@@ -42,6 +42,7 @@ if sys.version_info >= (3, 3):
         def attach_mock(self, mock: Any, attribute: Any) -> Any: ...
         def mock_add_spec(self, spec: Any, spec_set: Any = False) -> Any: ...
         return_value = ...  # type: Any
+        __class__ = ...  # type: type
         called = ...  # type: Any
         call_count = ...  # type: Any
         call_args = ...  # type: Any

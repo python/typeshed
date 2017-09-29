@@ -90,6 +90,7 @@ class UnboundMethodType:
 
 class InstanceType:
     __doc__ = ...  # type: Optional[str]
+    __class__ = ...  # type: type
     __module__ = ...  # type: Any
 
 MethodType = UnboundMethodType
