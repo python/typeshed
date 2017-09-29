@@ -150,7 +150,7 @@ class datetime:
     max = ...  # type: datetime
     resolution = ...  # type: timedelta
 
-    def __init__(self, year: int, month: int = ..., day: int = ..., hour: int = ...,
+    def __init__(self, year: int, month: int, day: int, hour: int = ...,
                  minute: int = ..., second: int = ..., microsecond: int = ...,
                  tzinfo: Optional[tzinfo] = ...) -> None: ...
 
