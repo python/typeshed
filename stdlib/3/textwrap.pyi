@@ -94,7 +94,7 @@ def fill(
         drop_whitespace: bool = ...,
         max_lines: int = ...,
         placeholder: str = ...
-):
+) -> str:
     ...
 
 def shorten(
@@ -112,7 +112,7 @@ def shorten(
         drop_whitespace: bool = ...,
         # Omit `max_lines: int = None`, it is forced to 1 here.
         placeholder: str = ...
-):
+) -> str:
     ...
 
 def dedent(text: str) -> str:
