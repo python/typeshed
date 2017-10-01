@@ -2,11 +2,12 @@
 
 from typing import Any, Tuple, Optional
 
+GLOBAL_ACK_EINTR = ...  # type: int
+GLOBAL_ALL = ...  # type: int
+GLOBAL_DEFAULT = ...  # type: int
+GLOBAL_NOTHING = ...  # type: int
 GLOBAL_SSL = ...  # type: int
 GLOBAL_WIN32 = ...  # type: int
-GLOBAL_ALL = ...  # type: int
-GLOBAL_NOTHING = ...  # type: int
-GLOBAL_DEFAULT = ...  # type: int
 
 def global_init(option: int) -> None: ...
 def global_cleanup() -> None: ...
@@ -131,12 +132,6 @@ FTP_SSL_CCC = ...  # type: int
 FTP_USE_EPRT = ...  # type: int
 FTP_USE_EPSV = ...  # type: int
 FTP_USE_PRET = ...  # type: int
-GLOBAL_ACK_EINTR = ...  # type: int
-GLOBAL_ALL = ...  # type: int
-GLOBAL_DEFAULT = ...  # type: int
-GLOBAL_NOTHING = ...  # type: int
-GLOBAL_SSL = ...  # type: int
-GLOBAL_WIN32 = ...  # type: int
 GSSAPI_DELEGATION = ...  # type: int
 GSSAPI_DELEGATION_FLAG = ...  # type: int
 GSSAPI_DELEGATION_NONE = ...  # type: int
