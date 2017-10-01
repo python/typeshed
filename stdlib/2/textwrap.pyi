@@ -1,4 +1,4 @@
-from typing import Any, AnyStr
+from typing import AnyStr, List
 
 class TextWrapper(object):
     width: int = ...
@@ -21,8 +21,7 @@ class TextWrapper(object):
         subsequent_indent: str = ...,
         fix_sentence_endings: bool = ...,
         break_long_words: bool = ...,
-        break_on_hyphens: bool = ...,
-    ) -> None:
+        break_on_hyphens: bool = ...) -> None:
         ...
 
     def wrap(self, text: AnyStr) -> List[AnyStr]:
@@ -32,8 +31,8 @@ class TextWrapper(object):
         ...
 
 def wrap(
-        text: AnyStr, 
-        width: int = ..., 
+        text: AnyStr,
+        width: int = ...,
         expand_tabs: bool = ...,
         replace_whitespace: bool = ...,
         drop_whitespace: bool = ...,
@@ -41,8 +40,7 @@ def wrap(
         subsequent_indent: str = ...,
         fix_sentence_endings: bool = ...,
         break_long_words: bool = ...,
-        break_on_hyphens: bool = ...,
-        ) -> AnyStr:
+        break_on_hyphens: bool = ...) -> AnyStr:
     ...
 
 def fill(
@@ -55,7 +53,5 @@ def fill(
         subsequent_indent: str = ...,
         fix_sentence_endings: bool = ...,
         break_long_words: bool = ...,
-        break_on_hyphens: bool = ...,
-        ) -> AnyStr:
+        break_on_hyphens: bool = ...) -> AnyStr:
     ...
-
