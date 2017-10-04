@@ -56,26 +56,26 @@ class _Element(Iterable['_Element']):
 
     # Iterators
     def __iter__(self) -> ElementChildIterator: ...
-    def iter(self, 
-        tag: Optional[Union[str, _Element]]=..., 
+    def iter(self,
+        tag: Optional[Union[str, _Element]]=...,
         *tags: Any) -> ElementDepthFirstIterator: ...
-    def iterancestors(self, 
-        tag: Optional[Union[str, _Element]]=..., 
+    def iterancestors(self,
+        tag: Optional[Union[str, _Element]]=...,
         *tags: Any) -> AncestorsIterator: ...
-    def iterchildren(self, 
-        tag: Optional[Union[str, _Element]]=..., 
-        reversed=False, 
+    def iterchildren(self,
+        tag: Optional[Union[str, _Element]]=...,
+        reversed=False,
         *tags: Any) -> ElementChildIterator: ...
-    def iterdescendants(self, 
-        tag: Optional[Union[str, _Element]]=..., 
+    def iterdescendants(self,
+        tag: Optional[Union[str, _Element]]=...,
         *tags: Any) -> ElementDepthFirstIterator: ...
-    def itersiblings(self, 
-        tag: Optional[Union[str, _Element]]=..., 
-        preceding=False, 
+    def itersiblings(self,
+        tag: Optional[Union[str, _Element]]=...,
+        preceding=False,
         *tags: Any) -> SiblingsIterator: ...
-    def itertext(self, 
-        tag: Optional[Union[str, _Element]]=..., 
-        with_tail=True, 
+    def itertext(self,
+        tag: Optional[Union[str, _Element]]=...,
+        with_tail=True,
         *tags: Any) -> ElementTextIterator: ...
 
 
