@@ -5,7 +5,7 @@ from builtins import OSError as error
 from io import TextIOWrapper as _TextIOWrapper
 import sys
 from typing import (
-    Mapping, MutableMapping, Dict, List, Any, Tuple, Iterable, Iterator, overload, Union, AnyStr,
+    Mapping, MutableMapping, Dict, List, Any, Tuple, IO, Iterable, Iterator, overload, Union, AnyStr,
     Optional, Generic, Set, Callable, Text, Sequence, NamedTuple, TypeVar
 )
 from . import path as path
@@ -532,14 +532,13 @@ else:
              followlinks: bool = ...) -> Iterator[Tuple[AnyStr, List[AnyStr],
                                                         List[AnyStr]]]: ...
 if sys.version_info >= (3, 3):
-    def fwalk(top: AnyStr = ..., topdown: bool = ...,
+    def fwalk(top: _PathType = ..., topdown: bool = ...,
               onerror: Optional[Callable] = ..., *, follow_symlinks: bool = ...,
-              dir_fd: Optional[int] = ...) -> Iterator[Tuple[AnyStr, List[AnyStr],
-                                             List[AnyStr], int]]: ...  # Unix only
-    def getxattr(path: _FdOrPathType, attribute: AnyStr, *, follow_symlinks: bool = ...) -> bytes: ...  # Linux only
+              dir_fd: Optional[int] = ...) -> Iterator[Tuple[str, List[str], List[str], int]]: ...  # Unix only
+    def getxattr(path: _FdOrPathType, attribute: _PathType, *, follow_symlinks: bool = ...) -> bytes: ...  # Linux only
     def listxattr(path: _FdOrPathType, *, follow_symlinks: bool = ...) -> List[str]: ...  # Linux only
-    def removexattr(path: _FdOrPathType, attribute: AnyStr, *, follow_symlinks: bool = ...) -> None: ...  # Linux only
-    def setxattr(path: _FdOrPathType, attribute: AnyStr, value: bytes, flags: int = ..., *,
+    def removexattr(path: _FdOrPathType, attribute: _PathType, *, follow_symlinks: bool = ...) -> None: ...  # Linux only
+    def setxattr(path: _FdOrPathType, attribute: _PathType, value: bytes, flags: int = ..., *,
                  follow_symlinks: bool = ...) -> None: ...  # Linux only
 
 def abort() -> NoReturn: ...
@@ -567,10 +566,17 @@ def killpg(pgid: int, sig: int) -> None: ...  # Unix only
 def nice(increment: int) -> int: ...  # Unix only
 def plock(op: int) -> None: ...  # Unix only ???op is int?
 
-class popen(_TextIOWrapper):
-    def __init__(self, command: str, mode: str = ...,
-                 bufsize: int = ...) -> None: ...
-    def close(self) -> Any: ...  # may return int
+if sys.version_info >= (3, 0):
+    class _wrap_close(_TextIOWrapper):
+        def close(self) -> Optional[int]: ...  # type: ignore
+    def popen(self, command: str, mode: str = ..., buffering: int = ...) -> _wrap_close: ...
+else:
+    class _wrap_close(IO[Text]):
+        def close(self) -> Optional[int]: ...  # type: ignore
+    def popen(__cmd: Text, __mode: Text = ..., __bufsize: int = ...) -> _wrap_close: ...
+    def popen2(__cmd: Text, __mode: Text = ..., __bufsize: int = ...) -> Tuple[IO[Text], IO[Text]]: ...
+    def popen3(__cmd: Text, __mode: Text = ..., __bufsize: int = ...) -> Tuple[IO[Text], IO[Text], IO[Text]]: ...
+    def popen4(__cmd: Text, __mode: Text = ..., __bufsize: int = ...) -> Tuple[IO[Text], IO[Text]]: ...
 
 def spawnl(mode: int, path: _PathType, arg0: Union[bytes, Text], *args: Union[bytes, Text]) -> int: ...
 def spawnle(mode: int, path: _PathType, arg0: Union[bytes, Text],
