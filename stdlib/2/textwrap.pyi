@@ -39,8 +39,8 @@ class TextWrapper(object):
 def wrap(
         text: AnyStr,
         width: int = ...,
-        initial_indent: str = ...,
-        subsequent_indent: str = ...,
+        initial_indent: AnyStr = ...,
+        subsequent_indent: AnyStr = ...,
         expand_tabs: bool = ...,
         replace_whitespace: bool = ...,
         fix_sentence_endings: bool = ...,
@@ -52,8 +52,8 @@ def wrap(
 def fill(
         text: AnyStr,
         width: int =...,
-        initial_indent: str = ...,
-        subsequent_indent: str = ...,
+        initial_indent: AnyStr = ...,
+        subsequent_indent: AnyStr = ...,
         expand_tabs: bool = ...,
         replace_whitespace: bool = ...,
         fix_sentence_endings: bool = ...,
