@@ -112,16 +112,31 @@ message where you received permission**.
 Make sure your changes pass the tests (the [README](README.md#running-the-tests)
 has more information).
 
+### What to include
+
+Stubs should include all public objects (classes, functions, constants,
+etc.) in the module they cover. Omitting objects can confuse users,
+because users who see an error like "module X has no attribute Y" will
+not know whether the error appeared because their code had a bug or
+because the stub is wrong. If you are submitting stubs to typeshed and
+you are unable to provide fully typed stubs for some of the objects in
+the library, you can use stubgen (see below) to generate untyped stubs.
+Although we prefer having exact types for all stubs, such stubs are
+better than nothing.
+
+What counts as a "public object" is not always clear. Use your judgment,
+but objects that are listed in the module's documentation, that are
+included in ``__all__`` (if present), and whose names do not start with an
+underscore are more likely to merit inclusion in a stub. If in doubt, err
+on the side of including more objects.
+
 ### Using stubgen
 
 Mypy includes a tool called [stubgen](https://github.com/python/mypy/blob/master/mypy/stubgen.py)
 that you can use as a starting point for your stubs.  Note that this
 generator is currently unable to determine most argument and return
 types and omits them or uses ``Any`` in their place.  Fill out the types
-that you know.  Leave out modules that you are not using at all.  It's
-strictly better to provide partial stubs that have detailed type
-information than to submit unmodified ``stubgen`` output for an entire
-library.
+that you know.
 
 ### Stub file coding style
 
