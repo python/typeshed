@@ -11,7 +11,7 @@ from concurrent.futures import (
 __all__: List[str]
 
 _T = TypeVar('_T')
-_S = TypeVar('_S')
+_S = TypeVar('_S', bound=Future)
 
 class InvalidStateError(Error): ...
 
