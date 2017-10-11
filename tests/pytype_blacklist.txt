@@ -8,9 +8,6 @@ stdlib/2/typing.pyi
 stdlib/3/builtins.pyi
 stdlib/3/typing.pyi
 
-# pytype doesn't yet support 'raise' annotations
-stdlib/3/collections/__init__.pyi
-
 # pytype doesn't yet support aliases with implicit type parameters
 # (e.g., here, FutureT = Future[T])
 stdlib/3.4/asyncio/tasks.pyi
