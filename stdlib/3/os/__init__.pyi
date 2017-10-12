@@ -569,7 +569,7 @@ def plock(op: int) -> None: ...  # Unix only ???op is int?
 if sys.version_info >= (3, 0):
     class _wrap_close(_TextIOWrapper):
         def close(self) -> Optional[int]: ...  # type: ignore
-    def popen(self, command: str, mode: str = ..., buffering: int = ...) -> _wrap_close: ...
+    def popen(command: str, mode: str = ..., buffering: int = ...) -> _wrap_close: ...
 else:
     class _wrap_close(IO[Text]):
         def close(self) -> Optional[int]: ...  # type: ignore
