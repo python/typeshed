@@ -11,7 +11,7 @@ stdlib/3/typing.pyi
 # pytype doesn't yet support "# type: ignore" after decorators, sometimes
 # used when overriding methods, especially those inherited from container
 # abstract base classes:
-stdlib/3/array.pyi
+stdlib/2and3/array.pyi
 
 # Because of 'from . import path':
 stdlib/2/os/__init__.pyi
