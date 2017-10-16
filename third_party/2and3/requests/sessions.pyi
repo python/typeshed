@@ -56,13 +56,14 @@ class SessionRedirectMixin:
     def rebuild_proxies(self, prepared_request, proxies): ...
 
 _Data = Union[None, bytes, MutableMapping[Text, Text], IO]
+_Hooks = MutableMapping[Text, Union[Callable[[Request], Any], Callable[[Response], Any]]]
 
 class Session(SessionRedirectMixin):
     __attrs__ = ...  # type: Any
     headers = ...  # type: Optional[MutableMapping[Text, Text]]
     auth = ...  # type: Union[None, Tuple[Text, Text], Callable[[Request], Request]]
     proxies = ...  # type: Optional[MutableMapping[Text, Text]]
-    hooks = ...  # type: Optional[MutableMapping[Text, Callable[[Request], Any]]]
+    hooks = ...  # type: Optional[_Hooks]
     params = ...  # type: Union[None, bytes, MutableMapping[Text, Text]]
     stream = ...  # type: bool
     verify = ...  # type: bool
@@ -86,7 +87,7 @@ class Session(SessionRedirectMixin):
                 timeout: Union[None, float, Tuple[float, float]] = ...,
                 allow_redirects: Optional[bool] = ...,
                 proxies: Optional[MutableMapping[Text, Text]] = ...,
-                hooks: Optional[MutableMapping[Text, Callable[[Request], Any]]] = ...,
+                hooks: Optional[_Hooks] = ...,
                 stream: Optional[bool] = ...,
                 verify: Optional[bool] = ...,
                 cert: Union[Text, Tuple[Text, Text], None] = ...,
