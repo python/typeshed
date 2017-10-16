@@ -59,9 +59,9 @@ _Data = Union[None, bytes, MutableMapping[Text, Text], IO]
 
 class Session(SessionRedirectMixin):
     __attrs__ = ...  # type: Any
-    headers = ...  # type: Optional[MutableMapping[Text, Text]]
+    headers = ...  # type: MutableMapping[Text, Text]
     auth = ...  # type: Union[None, Tuple[Text, Text], Callable[[Request], Request]]
-    proxies = ...  # type: Optional[MutableMapping[Text, Text]]
+    proxies = ...  # type: MutableMapping[Text, Text]
     hooks = ...  # type: Optional[MutableMapping[Text, Callable[[Request], Any]]]
     params = ...  # type: Union[None, bytes, MutableMapping[Text, Text]]
     stream = ...  # type: bool
