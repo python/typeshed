@@ -2,7 +2,7 @@
 
 from typing import (
     Any, Callable, ContextManager, Iterable, Mapping, Optional, Dict, List,
-    Union, TypeVar,
+    Union, TypeVar, Sequence,
 )
 
 from logging import Logger
@@ -73,6 +73,13 @@ class Queue(queue.Queue[_T]):
 class Value():
     value: Any = ...
     def __init__(self, typecode_or_type: str, *args: Any, lock: bool = ...) -> None: ...
+
+class Array():
+    def __init__(self,
+                 typecode_or_type: str,
+                 size_or_intializer: Union[int, Sequence[Any]],
+                 *args: Any,
+                 lock: bool = ...) -> None: ...
 
 # ----- multiprocessing function stubs -----
 def active_children() -> List[Process]: ...
