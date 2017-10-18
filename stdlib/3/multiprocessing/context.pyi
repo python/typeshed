@@ -21,6 +21,9 @@ class BaseContext(object):
     TimeoutError = ...  # type: Type[Exception]
     AuthenticationError = ...  # type: Type[Exception]
 
+    # N.B. The methods below are applied at runtime to generate
+    # multiprocessing.*, so the signatures should be identical (modulo self).
+
     @staticmethod
     def current_process() -> multiprocessing.Process: ...
     @staticmethod
@@ -51,9 +54,6 @@ class BaseContext(object):
     def JoinableQueue(self, maxsize: int = ...) -> Any: ...
     # TODO: change return to SimpleQueue once a stub exists in multiprocessing.queues
     def SimpleQueue(self) -> Any: ...
-    # N.B. This method is partially applied at runtime to generate
-    # multiprocessing.Pool, so the two signatures should be identical (modulo
-    # self).
     def Pool(
         self,
         processes: Optional[int] = ...,
