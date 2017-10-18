@@ -7,7 +7,9 @@ from typing import (
 
 from logging import Logger
 from multiprocessing import pool, synchronize
-from multiprocessing.context import BaseContext
+from multiprocessing.context import (
+    BaseContext,
+    ProcessError, BufferTooShort, TimeoutError, AuthenticationError)
 from multiprocessing.managers import SyncManager
 from multiprocessing.process import current_process as current_process
 import queue
