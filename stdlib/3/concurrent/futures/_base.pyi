@@ -1,5 +1,4 @@
-from typing import TypeVar, Generic, Any, Iterable, Iterator, Callable, Tuple, Optional, Set
-from collections import namedtuple
+from typing import TypeVar, Generic, Any, Iterable, Iterator, Callable, Tuple, Optional, Set, NamedTuple
 
 FIRST_COMPLETED = ...  # type: str
 FIRST_EXCEPTION = ...  # type: str
@@ -15,7 +14,7 @@ class Error(Exception): ...
 class CancelledError(Error): ...
 class TimeoutError(Error): ...
 
-DoneAndNotDoneFutures = namedtuple('DoneAndNotDoneFutures', 'done not_done')
+DoneAndNotDoneFutures = NamedTuple('DoneAndNotDoneFutures', [('done', Future[Any]), ('not_done', Future[Any])])
 
 _T = TypeVar('_T')
 
