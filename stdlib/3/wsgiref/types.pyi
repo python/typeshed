@@ -29,5 +29,5 @@ WSGIApplication = Callable[
             Callable[[str, List[Tuple[str, str]], _exc_info], Callable[[Union[bytes, str]], None]]
         ]
     ],
-    Iterable[Union[bytes, str]],
+    Iterable[Union[bytes, str]]
 ]
