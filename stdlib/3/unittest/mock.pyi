@@ -77,7 +77,7 @@ if sys.version_info >= (3, 3):
         new = ...  # type: Any
         new_callable = ...  # type: Any
         spec = ...  # type: Any
-        create = ...  # type: Any
+        create = ...  # type: bool
         has_local = ...  # type: Any
         spec_set = ...  # type: Any
         autospec = ...  # type: Any
@@ -98,8 +98,9 @@ if sys.version_info >= (3, 3):
         def stop(self) -> Any: ...
 
     class _patcher:
-        def __call__(self, target: Any, new: Optional[Any] = None, spec: Optional[Any] = None, create: Any = False, spec_set: Optional[Any] = None, autospec: Optional[Any] = None, new_callable: Optional[Any] = None, **kwargs: Any) -> Any: ...
-        def object(self, target: Any, attribute: str, new: Optional[Any] = None, spec: Optional[Any] = None, create: Any = False, spec_set: Optional[Any] = None, autospec: Optional[Any] = None, new_callable: Optional[Any] = None, **kwargs: Any) -> _patch: ...
+        def __call__(self, target: Any, new: Optional[Any] = ..., spec: Optional[Any] = ..., create: bool = ..., spec_set: Optional[Any] = ..., autospec: Optional[Any] = ..., new_callable: Optional[Any] = ..., **kwargs: Any) -> Any: ...
+        def object(self, target: Any, attribute: str, new: Optional[Any] = ..., spec: Optional[Any] = ..., create: bool = ..., spec_set: Optional[Any] = ..., autospec: Optional[Any] = ..., new_callable: Optional[Any] = ..., **kwargs: Any) -> _patch: ...
+        def multiple(self, target: Any, spec: Optional[Any] = ..., create: bool = ..., spec_set: Optional[Any] = ..., autospec: Optional[Any] = ..., new_callable: Optional[Any] = ..., **kwargs: Any) -> Any: ...
 
     patch = ...  # type: _patcher
 
