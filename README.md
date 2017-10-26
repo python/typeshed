@@ -68,6 +68,7 @@ class date(object):
     def fromtimestamp(cls, timestamp: Union[int, float]) -> date: ...
     @classmethod
     def fromordinal(cls, ordinal: int) -> date: ...
+    def replace(self, year: int = ..., month: int = ..., day: int = ...) -> date: ...
     @classmethod
     def today(self) -> date: ...
     def ctime(self) -> str: ...
@@ -81,6 +82,8 @@ class date(object):
   as `Text`).
   Even so, in Python 2, whenever possible, use `unicode` if that's the only
   possible type, and `Text` if it can be either `unicode` or `bytes`.
+* For arguments with default values, use `...` instead of the actual
+  default value.
 * Most type-checkers interpret optional parameters of the form `x : Foo = None`
   as `x : Optional[Foo] = ...`. (So the former is a shortcut for the latter)
   In typeshed, however, we prefer the explicit latter form.
