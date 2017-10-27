@@ -1,5 +1,5 @@
 from .tz import (
-    tzutc as tzutz,
+    tzutc as tzutc,
     tzoffset as tzoffset,
     tzlocal as tzlocal,
     tzfile as tzfile,
