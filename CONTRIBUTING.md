@@ -140,6 +140,29 @@ that you know.
 
 ### Stub file coding style
 
+#### Syntax example
+
+The below is an excerpt from the types for the `datetime` module.
+
+```python
+MAXYEAR = ...  # type: int
+MINYEAR = ...  # type: int
+
+class date(object):
+    def __init__(self, year: int, month: int, day: int) -> None: ...
+    @classmethod
+    def fromtimestamp(cls, timestamp: float) -> date: ...
+    @classmethod
+    def today(cls) -> date: ...
+    @classmethod
+    def fromordinal(cls, ordinal: int) -> date: ...
+    def replace(self, year: int = ..., month: int = ..., day: int = ...) -> date: ...
+    def ctime(self) -> str: ...
+    def weekday(self) -> int: ...
+```
+
+#### Conventions
+
 Stub files are *like* Python files and you should generally expect them
 to look the same.  Your tools should be able to successfully treat them
 as regular Python files.  However, there are a few important differences
@@ -156,8 +179,23 @@ rule is that they should be as concise as possible.  Specifically:
   names, or methods and fields within a single class;
 * use a single blank line between top-level class definitions, or none
   if the classes are very small;
-* do not use docstrings;
-* for arguments with a type and a default, use spaces around the `=`.
+* do not use docstrings.
+
+Stub files should only contain information necessary for the type
+checker, and leave out unnecessary detail:
+* for arguments with a default, use `...` instead of the actual
+  default;
+* for arguments with a type and a default, use spaces around the `=`;
+* for arguments that default to `None`, use `Optional[]` explicitly
+  (see below for details);
+* use `float` instead of `Union[int, float]`.
+
+Some further tips for good type hints:
+* avoid invariant collection types (`List`, `Dict`) in argument
+  positions, in favor of covariant types like `Mapping` or `Sequence`;
+* avoid Union return types: https://github.com/python/mypy/issues/1693;
+* in Python 2, whenever possible, use `unicode` if that's the only
+  possible type, and `Text` if it can be either `unicode` or `bytes`.
 
 Imports in stubs are considered private (not part of the exported API)
 unless:
