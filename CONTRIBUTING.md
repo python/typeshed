@@ -179,13 +179,13 @@ rule is that they should be as concise as possible.  Specifically:
   names, or methods and fields within a single class;
 * use a single blank line between top-level class definitions, or none
   if the classes are very small;
-* do not use docstrings.
+* do not use docstrings;
+* for arguments with a type and a default, use spaces around the `=`.
 
 Stub files should only contain information necessary for the type
 checker, and leave out unnecessary detail:
 * for arguments with a default, use `...` instead of the actual
   default;
-* for arguments with a type and a default, use spaces around the `=`;
 * for arguments that default to `None`, use `Optional[]` explicitly
   (see below for details);
 * use `float` instead of `Union[int, float]`.
