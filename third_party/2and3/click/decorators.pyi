@@ -1,5 +1,5 @@
 from distutils.version import Version
-from typing import Any, Callable, Dict, List, Optional, TypeVar, Union
+from typing import Any, Callable, Dict, List, Optional, TypeVar, Union, Text
 
 from click.core import Command, Group, Argument, Option, Parameter, Context
 from click.types import ParamType
@@ -91,7 +91,7 @@ def option(
     cls: type = Option,
     # Option
     show_default: bool = False,
-    prompt: bool = False,
+    prompt: Union[bool, Text] = False,
     confirmation_prompt: bool = False,
     hide_input: bool = False,
     is_flag: Optional[bool] = None,
@@ -120,7 +120,7 @@ def confirmation_option(
     cls: type = Option,
     # Option
     show_default: bool = False,
-    prompt: str = 'Do you want to continue?',
+    prompt: Union[bool, Text] = 'Do you want to continue?',
     confirmation_prompt: bool = False,
     hide_input: bool = False,
     is_flag: bool = True,
@@ -148,7 +148,7 @@ def password_option(
     cls: type = Option,
     # Option
     show_default: bool = False,
-    prompt: bool = True,
+    prompt: Union[bool, Text] = True,
     confirmation_prompt: bool = True,
     hide_input: bool = True,
     is_flag: Optional[bool] = None,
@@ -178,7 +178,7 @@ def version_option(
     # Option
     prog_name: Optional[str] = None,
     show_default: bool = False,
-    prompt: bool = False,
+    prompt: Union[bool, Text] = False,
     confirmation_prompt: bool = False,
     hide_input: bool = False,
     is_flag: bool = True,
@@ -206,7 +206,7 @@ def help_option(
     cls: type = Option,
     # Option
     show_default: bool = False,
-    prompt: bool = False,
+    prompt: Union[bool, Text] = False,
     confirmation_prompt: bool = False,
     hide_input: bool = False,
     is_flag: bool = True,
