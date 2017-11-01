@@ -54,14 +54,14 @@ class Thread:
         def __init__(self, group: None = ...,
                      target: Optional[Callable[..., None]] = ...,
                      name: Optional[str] = ...,
-                     args: Tuple[Any, ...] = ...,
+                     args: Iterable = ...,
                      kwargs: Mapping[str, Any] = ...,
                      *, daemon: Optional[bool] = ...) -> None: ...
     else:
         def __init__(self, group: None = ...,
                      target: Optional[Callable[..., None]] = ...,
                      name: Optional[str] = ...,
-                     args: Tuple[Any, ...] = ...,
+                     args: Iterable = ...,
                      kwargs: Mapping[str, Any] = ...) -> None: ...
     def start(self) -> None: ...
     def run(self) -> None: ...
