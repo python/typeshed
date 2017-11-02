@@ -1,8 +1,9 @@
 import sys
-from typing import List, Any, TypeVar, Union, Iterable, Iterator, TypeVar, Generic, Type, Sized, Reversible, Container, Mapping
+from typing import List, Any, TypeVar, Union, Iterable, Iterator, Type, Sized, Reversible, Container, Mapping, Optional
 from abc import ABCMeta
 
 _T = TypeVar('_T', bound=Enum)
+_T2 = TypeVar('_T2', bound=object)
 _S = TypeVar('_S', bound=Type[Enum])
 
 # Note: EnumMeta actually subclasses type directly, not ABCMeta.
@@ -18,7 +19,7 @@ class EnumMeta(ABCMeta, Iterable[Enum], Sized, Reversible[Enum], Container[Enum]
     def __members__(self: Type[_T]) -> Mapping[str, _T]: ...
 
 class Enum(metaclass=EnumMeta):
-    def __new__(cls: Type[_T], value: Any) -> _T: ...
+    def __new__(cls: Type[_T], value: str, names: Optional[str], module: Optional[str], qualname: Optional[str], type: Optional[Type[_T2]], start: Optional[int]) -> _T: ...
     def __repr__(self) -> str: ...
     def __str__(self) -> str: ...
     def __dir__(self) -> List[str]: ...
