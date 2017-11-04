@@ -6,7 +6,11 @@ from typing import Sequence, Any, Mapping, Callable, Tuple, IO, Optional, Union,
 from types import TracebackType
 
 _FILE = Union[None, int, IO[Any]]
-_TXT = Union[bytes, Text]
+if sys.version_info >= (3, 6):
+    from builtins import _PathLike
+    _TXT = Union[bytes, Text, _PathLike]
+else:
+    _TXT = Union[bytes, Text]
 _CMD = Union[_TXT, Sequence[_TXT]]
 _ENV = Union[Mapping[bytes, _TXT], Mapping[Text, _TXT]]
 
