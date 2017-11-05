@@ -2,24 +2,30 @@ from typing import Callable, ContextManager, Optional, Union
 
 from multiprocessing.context import BaseContext
 import threading
+import sys
+
+_LockLike = Union[Lock, RLock]
 
 class Barrier(threading.Barrier):
     def __init__(self,
                  parties: int,
                  action: Optional[Callable] = ...,
-                 timeout: Optional[float] = ...) -> None: ...
+                 timeout: Optional[float] = ...,
+                 *
+                 ctx: BaseContext) -> None: ...
 
 class BoundedSemaphore(Semaphore):
     def __init__(self, value: int = ..., *, ctx: BaseContext) -> None: ...
-
-_LockLike = Union[Lock, RLock]
 
 class Condition(ContextManager[bool]):
     def __init__(self,
                  lock: Optional[_LockLike] = ...,
                  *,
                  ctx: BaseContext) -> None: ...
-    def notify(self, n: int = ...) -> None: ...
+    if sys.version_info >= (3, 7):
+        def notify(self, n: int = ...) -> None: ...
+    else:
+        def notify(self) -> None: ...
     def notify_all(self) -> None: ...
     def wait(self, timeout: Optional[float] = ...) -> bool: ...
     def wait_for(self,
