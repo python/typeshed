@@ -9,9 +9,11 @@ _FILE = Union[None, int, IO[Any]]
 _TXT = Union[bytes, Text]
 if sys.version_info >= (3, 6):
     from builtins import _PathLike
-    _PATH = Union[bytes, Text, PathLike]
+    _PATH = Union[bytes, Text, _PathLike]
 else:
     _PATH = Union[bytes, Text]
+# Python 3.6 does't support _CMD being a single PathLike.
+# See: https://bugs.python.org/issue31961
 _CMD = Union[_TXT, Sequence[_PATH]]
 _ENV = Union[Mapping[bytes, _TXT], Mapping[Text, _TXT]]
 
@@ -282,7 +284,7 @@ class Popen:
         def __init__(self,
                      args: _CMD,
                      bufsize: int = ...,
-                     executable: Optional[_TXT] = ...,
+                     executable: Optional[_PATH] = ...,
                      stdin: Optional[_FILE] = ...,
                      stdout: Optional[_FILE] = ...,
                      stderr: Optional[_FILE] = ...,
@@ -304,7 +306,7 @@ class Popen:
         def __init__(self,
                      args: _CMD,
                      bufsize: int = ...,
-                     executable: Optional[_TXT] = ...,
+                     executable: Optional[_PATH] = ...,
                      stdin: Optional[_FILE] = ...,
                      stdout: Optional[_FILE] = ...,
                      stderr: Optional[_FILE] = ...,
