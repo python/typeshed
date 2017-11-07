@@ -7,7 +7,7 @@
 
 from abc import ABCMeta
 import sys
-from typing import Dict, Any, Optional
+from typing import Any, Dict, List, Optional
 
 if sys.version_info >= (3, 4):
     class ModuleSpec:
