@@ -80,7 +80,7 @@ class Context:
         default_map: Optional[Mapping[str, Any]] = None,
         terminal_width: Optional[int] = None,
         max_content_width: Optional[int] = None,
-        resilient_parsing: bool = False,
+        resilient_parsing: bool = ...,
         allow_extra_args: Optional[bool] = None,
         allow_interspersed_args: Optional[bool] = None,
         ignore_unknown_options: Optional[bool] = None,
@@ -91,7 +91,7 @@ class Context:
         ...
 
     @contextmanager
-    def scope(self, cleanup: bool = True) -> Generator['Context', None, None]:
+    def scope(self, cleanup: bool = ...) -> Generator['Context', None, None]:
         ...
 
     def make_formatter(self) -> HelpFormatter:
@@ -172,7 +172,7 @@ class BaseCommand:
         args: Optional[List[str]] = None,
         prog_name: Optional[str] = None,
         complete_var: Optional[str] = None,
-        standalone_mode: bool = True,
+        standalone_mode: bool = ...,
         **extra
     ) -> Any:
         ...
@@ -199,8 +199,8 @@ class Command(BaseCommand):
         help: Optional[str] = None,
         epilog: Optional[str] = None,
         short_help: Optional[str] = None,
-        options_metavar: str = '[OPTIONS]',
-        add_help_option: bool = True
+        options_metavar: str = ...,
+        add_help_option: bool = ...
     ) -> None:
         ...
 
@@ -253,17 +253,17 @@ class MultiCommand(Command):
     def __init__(
         self,
         name: Optional[str] = None,
-        invoke_without_command: bool = False,
+        invoke_without_command: bool = ...,
         no_args_is_help: Optional[bool] = None,
         subcommand_metavar: Optional[str] = None,
-        chain: bool = False,
+        chain: bool = ...,
         result_callback: Optional[Callable] = None,
         **attrs
     ) -> None:
         ...
 
     def resultcallback(
-        self, replace: bool = False
+        self, replace: bool = ...
     ) -> _Decorator:
         ...
 
@@ -334,13 +334,13 @@ class Parameter:
         self,
         param_decls: Optional[List[str]] = None,
         type: Optional[Union[type, 'ParamType']] = None,
-        required: bool = False,
+        required: bool = ...,
         default: Optional[Any] = None,
         callback: Optional[Callable[[Context, 'Parameter', str], Any]] = None,
         nargs: Optional[int] = None,
         metavar: Optional[str] = None,
-        expose_value: bool = True,
-        is_eager: bool = False,
+        expose_value: bool = ...,
+        is_eager: bool = ...,
         envvar: Optional[Union[str, List[str]]] = None
     ) -> None:
         ...
@@ -403,15 +403,15 @@ class Option(Parameter):
     def __init__(
         self,
         param_decls: Optional[List[str]] = None,
-        show_default: bool = False,
+        show_default: bool = ...,
         prompt: Union[bool, str] = False,
-        confirmation_prompt: bool = False,
-        hide_input: bool = False,
+        confirmation_prompt: bool = ...,
+        hide_input: bool = ...,
         is_flag: Optional[bool] = None,
         flag_value: Optional[Any] = None,
-        multiple: bool = False,
-        count: bool = False,
-        allow_from_autoenv: bool = True,
+        multiple: bool = ...,
+        count: bool = ...,
+        allow_from_autoenv: bool = ...,
         type: Optional[Union[type, 'ParamType']] = None,
         help: Optional[str] = None,
         **attrs

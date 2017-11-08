@@ -19,7 +19,7 @@ def hidden_prompt_func(prompt: str) -> str:
 def _build_prompt(
     text: str,
     suffix: str,
-    show_default: bool = False,
+    show_default: bool = ...,
     default: Optional[str] = None,
 ) -> str:
     ...
@@ -28,24 +28,24 @@ def _build_prompt(
 def prompt(
     text: str,
     default: Optional[str] = None,
-    hide_input: bool = False,
-    confirmation_prompt: bool = False,
+    hide_input: bool = ...,
+    confirmation_prompt: bool = ...,
     type: Optional[Any] = None,
     value_proc: Optional[Callable[[Optional[str]], Any]] = None,
-    prompt_suffix: str = ': ',
-    show_default: bool = True,
-    err: bool = False,
+    prompt_suffix: str = ...,
+    show_default: bool = ...,
+    err: bool = ...,
 ) -> Any:
     ...
 
 
 def confirm(
     text: str,
-    default: bool = False,
-    abort: bool = False,
-    prompt_suffix: str = ': ',
-    show_default: bool = True,
-    err: bool = False,
+    default: bool = ...,
+    abort: bool = ...,
+    prompt_suffix: str = ...,
+    show_default: bool = ...,
+    err: bool = ...,
 ) -> bool:
     ...
 
@@ -66,15 +66,15 @@ def progressbar(
     iterable: Optional[Iterable[_T]] = None,
     length: Optional[int] = None,
     label: Optional[str] = None,
-    show_eta: bool = True,
+    show_eta: bool = ...,
     show_percent: Optional[bool] = None,
-    show_pos: bool = False,
+    show_pos: bool = ...,
     item_show_func: Optional[Callable[[_T], str]] = None,
-    fill_char: str = '#',
-    empty_char: str = '-',
-    bar_template: str = '%(label)s  [%(bar)s]  %(info)s',
-    info_sep: str = '  ',
-    width: int = 36,
+    fill_char: str = ...,
+    empty_char: str = ...,
+    bar_template: str = ...,
+    info_sep: str = ...,
+    width: int = ...,
     file: Optional[IO] = None,
     color: Optional[bool] = None,
 ) -> Generator[_T, None, None]:
@@ -94,7 +94,7 @@ def style(
     underline: Optional[bool] = None,
     blink: Optional[bool] = None,
     reverse: Optional[bool] = None,
-    reset: bool = True,
+    reset: bool = ...,
 ):
     ...
 
@@ -108,7 +108,7 @@ def secho(
     text: str,
     file: Optional[IO] = None,
     nl: bool =True,
-    err: bool = False,
+    err: bool = ...,
     color: Optional[bool] = None,
     fg: Optional[str] = None,
     bg: Optional[str] = None,
@@ -117,7 +117,7 @@ def secho(
     underline: Optional[bool] = None,
     blink: Optional[bool] = None,
     reverse: Optional[bool] = None,
-    reset: bool = True,
+    reset: bool = ...,
 ):
     ...
 
@@ -126,22 +126,22 @@ def edit(
     text: Optional[str] = None,
     editor: Optional[str] = None,
     env: Optional[str] = None,
-    require_save: bool = True,
-    extension: str = '.txt',
+    require_save: bool = ...,
+    extension: str = ...,
     filename: Optional[str] = None,
 ) -> str:
     ...
 
 
-def launch(url: str, wait: bool = False, locate: bool = False) -> int:
+def launch(url: str, wait: bool = ..., locate: bool = ...) -> int:
     ...
 
 
-def getchar(echo: bool = False) -> str:
+def getchar(echo: bool = ...) -> str:
     ...
 
 
 def pause(
-    info: str ='Press any key to continue ...', err: bool = False
+    info: str ='Press any key to continue ...', err: bool = ...
 ) -> None:
     ...

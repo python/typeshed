@@ -17,7 +17,7 @@ def make_str(value: Any) -> str:
     ...
 
 
-def make_default_short_help(help: str, max_length: int = 45):
+def make_default_short_help(help: str, max_length: int = ...):
     ...
 
 
@@ -31,10 +31,10 @@ class LazyFile:
     def __init__(
         self,
         filename: str,
-        mode: str = 'r',
+        mode: str = ...,
         encoding: Optional[str] = None,
-        errors: str = 'strict',
-        atomic: bool = False
+        errors: str = ...,
+        atomic: bool = ...
     ) -> None:
         ...
 
@@ -76,8 +76,8 @@ class KeepOpenFile:
 def echo(
     message: Optional[str] = None,
     file: Optional[IO] = None,
-    nl: bool = True,
-    err: bool = False,
+    nl: bool = ...,
+    err: bool = ...,
     color: Optional[bool] = None,
 ) -> None:
     ...
@@ -88,18 +88,18 @@ def get_binary_stream(name: str) -> IO[bytes]:
 
 
 def get_text_stream(
-    name: str, encoding: Optional[str] = None, errors: str = 'strict'
+    name: str, encoding: Optional[str] = None, errors: str = ...
 ) -> IO[str]:
     ...
 
 
 def open_file(
     filename: str,
-    mode: str = 'r',
+    mode: str = ...,
     encoding: Optional[str] = None,
-    errors: str = 'strict',
-    lazy: bool = False,
-    atomic: bool = False
+    errors: str = ...,
+    lazy: bool = ...,
+    atomic: bool = ...
 ) -> Union[IO, LazyFile, KeepOpenFile]:
     ...
 
@@ -108,11 +108,11 @@ def get_os_args() -> List[str]:
     ...
 
 
-def format_filename(filename: str, shorten: bool = False) -> str:
+def format_filename(filename: str, shorten: bool = ...) -> str:
     ...
 
 
 def get_app_dir(
-    app_name: str, roaming: bool = True, force_posix: bool = False
+    app_name: str, roaming: bool = ..., force_posix: bool = ...
 ) -> str:
     ...

@@ -21,7 +21,7 @@ def pass_obj(_T) -> _T:
 
 
 def make_pass_decorator(
-    object_type: type, ensure: bool = False
+    object_type: type, ensure: bool = ...
 ) -> Callable[[_T], _T]:
     ...
 
@@ -37,8 +37,8 @@ def command(
     help: Optional[str] = None,
     epilog: Optional[str] = None,
     short_help: Optional[str] = None,
-    options_metavar: str = '[OPTIONS]',
-    add_help_option: bool = True,
+    options_metavar: str = ...,
+    add_help_option: bool = ...,
 ) -> _Decorator:
     ...
 
@@ -51,17 +51,17 @@ def group(
     # Group
     commands: Optional[Dict[str, Command]] = None,
     # MultiCommand
-    invoke_without_command: bool = False,
+    invoke_without_command: bool = ...,
     no_args_is_help: Optional[bool] = None,
     subcommand_metavar: Optional[str] = None,
-    chain: bool = False,
+    chain: bool = ...,
     result_callback: Optional[Callable] = None,
     # Command
     help: Optional[str] = None,
     epilog: Optional[str] = None,
     short_help: Optional[str] = None,
-    options_metavar: str = '[OPTIONS]',
-    add_help_option: bool = True,
+    options_metavar: str = ...,
+    add_help_option: bool = ...,
     # User-defined
     **kwargs: Any,
 ) -> _Decorator:
@@ -79,8 +79,8 @@ def argument(
     callback: Optional[_Callback] = ...,
     nargs: Optional[int] = None,
     metavar: Optional[str] = None,
-    expose_value: bool = True,
-    is_eager: bool = False,
+    expose_value: bool = ...,
+    is_eager: bool = ...,
     envvar: Optional[Union[str, List[str]]] = None
 ) -> _Decorator:
     ...
@@ -90,25 +90,25 @@ def option(
     *param_decls: str,
     cls: type = Option,
     # Option
-    show_default: bool = False,
+    show_default: bool = ...,
     prompt: Union[bool, Text] = False,
-    confirmation_prompt: bool = False,
-    hide_input: bool = False,
+    confirmation_prompt: bool = ...,
+    hide_input: bool = ...,
     is_flag: Optional[bool] = None,
     flag_value: Optional[Any] = None,
-    multiple: bool = False,
-    count: bool = False,
-    allow_from_autoenv: bool = True,
+    multiple: bool = ...,
+    count: bool = ...,
+    allow_from_autoenv: bool = ...,
     type: Optional[Union[type, ParamType]] = None,
     help: Optional[str] = None,
     # Parameter
     default: Optional[Any] = None,
-    required: bool = False,
+    required: bool = ...,
     callback: Optional[_Callback] = ...,
     nargs: Optional[int] = None,
     metavar: Optional[str] = None,
-    expose_value: bool = True,
-    is_eager: bool = False,
+    expose_value: bool = ...,
+    is_eager: bool = ...,
     envvar: Optional[Union[str, List[str]]] = None
 ) -> _Decorator:
     ...
@@ -119,24 +119,24 @@ def confirmation_option(
     *param_decls: str,
     cls: type = Option,
     # Option
-    show_default: bool = False,
+    show_default: bool = ...,
     prompt: Union[bool, Text] = 'Do you want to continue?',
-    confirmation_prompt: bool = False,
-    hide_input: bool = False,
-    is_flag: bool = True,
+    confirmation_prompt: bool = ...,
+    hide_input: bool = ...,
+    is_flag: bool = ...,
     flag_value: Optional[Any] = None,
-    multiple: bool = False,
-    count: bool = False,
-    allow_from_autoenv: bool = True,
+    multiple: bool = ...,
+    count: bool = ...,
+    allow_from_autoenv: bool = ...,
     type: Optional[Union[type, ParamType]] = None,
-    help: str = 'Confirm the action without prompting.',
+    help: str = ...,
     # Parameter
     default: Optional[Any] = None,
     callback: Optional[_Callback] = ...,
     nargs: Optional[int] = None,
     metavar: Optional[str] = None,
-    expose_value: bool = False,
-    is_eager: bool = False,
+    expose_value: bool = ...,
+    is_eager: bool = ...,
     envvar: Optional[Union[str, List[str]]] = None
 ) -> _Decorator:
     ...
@@ -147,15 +147,15 @@ def password_option(
     *param_decls: str,
     cls: type = Option,
     # Option
-    show_default: bool = False,
+    show_default: bool = ...,
     prompt: Union[bool, Text] = True,
-    confirmation_prompt: bool = True,
-    hide_input: bool = True,
+    confirmation_prompt: bool = ...,
+    hide_input: bool = ...,
     is_flag: Optional[bool] = None,
     flag_value: Optional[Any] = None,
-    multiple: bool = False,
-    count: bool = False,
-    allow_from_autoenv: bool = True,
+    multiple: bool = ...,
+    count: bool = ...,
+    allow_from_autoenv: bool = ...,
     type: Optional[Union[type, ParamType]] = None,
     help: Optional[str] = None,
     # Parameter
@@ -163,8 +163,8 @@ def password_option(
     callback: Optional[_Callback] = ...,
     nargs: Optional[int] = None,
     metavar: Optional[str] = None,
-    expose_value: bool = True,
-    is_eager: bool = False,
+    expose_value: bool = ...,
+    is_eager: bool = ...,
     envvar: Optional[Union[str, List[str]]] = None
 ) -> _Decorator:
     ...
@@ -177,24 +177,24 @@ def version_option(
     cls: type = Option,
     # Option
     prog_name: Optional[str] = None,
-    show_default: bool = False,
+    show_default: bool = ...,
     prompt: Union[bool, Text] = False,
-    confirmation_prompt: bool = False,
-    hide_input: bool = False,
-    is_flag: bool = True,
+    confirmation_prompt: bool = ...,
+    hide_input: bool = ...,
+    is_flag: bool = ...,
     flag_value: Optional[Any] = None,
-    multiple: bool = False,
-    count: bool = False,
-    allow_from_autoenv: bool = True,
+    multiple: bool = ...,
+    count: bool = ...,
+    allow_from_autoenv: bool = ...,
     type: Optional[Union[type, ParamType]] = None,
-    help: str = 'Show the version and exit.',
+    help: str = ...,
     # Parameter
     default: Optional[Any] = None,
     callback: Optional[_Callback] = ...,
     nargs: Optional[int] = None,
     metavar: Optional[str] = None,
-    expose_value: bool = False,
-    is_eager: bool = True,
+    expose_value: bool = ...,
+    is_eager: bool = ...,
     envvar: Optional[Union[str, List[str]]] = None
 ) -> _Decorator:
     ...
@@ -205,24 +205,24 @@ def help_option(
     *param_decls: str,
     cls: type = Option,
     # Option
-    show_default: bool = False,
+    show_default: bool = ...,
     prompt: Union[bool, Text] = False,
-    confirmation_prompt: bool = False,
-    hide_input: bool = False,
-    is_flag: bool = True,
+    confirmation_prompt: bool = ...,
+    hide_input: bool = ...,
+    is_flag: bool = ...,
     flag_value: Optional[Any] = None,
-    multiple: bool = False,
-    count: bool = False,
-    allow_from_autoenv: bool = True,
+    multiple: bool = ...,
+    count: bool = ...,
+    allow_from_autoenv: bool = ...,
     type: Optional[Union[type, ParamType]] = None,
-    help: str = 'Show this message and exit.',
+    help: str = ...,
     # Parameter
     default: Optional[Any] = None,
     callback: Optional[_Callback] = ...,
     nargs: Optional[int] = None,
     metavar: Optional[str] = None,
-    expose_value: bool = False,
-    is_eager: bool = True,
+    expose_value: bool = ...,
+    is_eager: bool = ...,
     envvar: Optional[Union[str, List[str]]] = None
 ) -> _Decorator:
     ...

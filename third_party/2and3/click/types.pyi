@@ -91,7 +91,7 @@ class FloatRange(FloatParamType):
 class File(ParamType):
     def __init__(
         self,
-        mode: str = 'r',
+        mode: str = ...,
         encoding: Optional[str] = None,
         errors: Optional[str] = None,
         lazy: Optional[bool] = None,
@@ -166,7 +166,7 @@ class IntParamType(ParamType):
 
 class IntRange(IntParamType):
     def __init__(
-        self, min: Optional[int] = None, max: Optional[int] = None, clamp: bool = False
+        self, min: Optional[int] = None, max: Optional[int] = None, clamp: bool = ...
     ) -> None:
         ...
 
@@ -177,13 +177,13 @@ _PathType = TypeVar('_PathType', str, bytes)
 class Path(ParamType):
     def __init__(
         self,
-        exists: bool = False,
-        file_okay: bool = True,
-        dir_okay: bool = True,
-        writable: bool = False,
-        readable: bool = True,
-        resolve_path: bool = False,
-        allow_dash: bool = False,
+        exists: bool = ...,
+        file_okay: bool = ...,
+        dir_okay: bool = ...,
+        writable: bool = ...,
+        readable: bool = ...,
+        resolve_path: bool = ...,
+        allow_dash: bool = ...,
         path_type: Optional[_PathType] = None,
     ) -> None:
         ...

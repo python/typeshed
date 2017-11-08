@@ -2,7 +2,7 @@ from click.core import Context
 from typing import Optional
 
 
-def get_current_context(silent: bool = False) -> Context:
+def get_current_context(silent: bool = ...) -> Context:
     ...
 
 

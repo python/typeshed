@@ -13,10 +13,10 @@ _T = TypeVar('_T')
 
 def attributes(
     attrs: Sequence[Union[AnyStr, Attribute]],
-    apply_with_cmp: bool = True,
-    apply_with_init: bool = True,
-    apply_with_repr: bool = True,
-    apply_immutable: bool = False,
+    apply_with_cmp: bool = ...,
+    apply_with_init: bool = ...,
+    apply_with_repr: bool = ...,
+    apply_immutable: bool = ...,
     store_attributes: Optional[Callable[[type, Attribute], Any]] = None,
     **kw: Optional[dict]) -> Callable[[Type[_T]], Type[_T]]: ...
 
@@ -24,10 +24,10 @@ class Attribute:
     def __init__(
         self,
         name: AnyStr,
-        exclude_from_cmp: bool = False,
-        exclude_from_init: bool = False,
-        exclude_from_repr: bool = False,
-        exclude_from_immutable: bool = False,
+        exclude_from_cmp: bool = ...,
+        exclude_from_init: bool = ...,
+        exclude_from_repr: bool = ...,
+        exclude_from_immutable: bool = ...,
         default_value: Any = NOTHING,
         default_factory: Optional[Callable[[None], Any]] = None,
         instance_of: Optional[Any] = None,

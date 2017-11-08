@@ -38,7 +38,7 @@ class Option:
         opts: Iterable[str],
         dest: str,
         action: Optional[str] = None,
-        nargs: int = 1,
+        nargs: int = ...,
         const: Optional[Any] = None,
         obj: Optional[Any] = None
     ) -> None:
@@ -53,7 +53,7 @@ class Argument:
     nargs: int
     obj: Any
 
-    def __init__(self, dest: str, nargs: int = 1, obj: Optional[Any] = None) -> None:
+    def __init__(self, dest: str, nargs: int = ..., obj: Optional[Any] = None) -> None:
         ...
 
     def process(self, value: Any, state: 'ParsingState') -> None:
@@ -87,13 +87,13 @@ class OptionParser:
         opts: Iterable[str],
         dest: str,
         action: Optional[str] = None,
-        nargs: int = 1,
+        nargs: int = ...,
         const: Optional[Any] = None,
         obj: Optional[Any] = None
     ) -> None:
         ...
 
-    def add_argument(self, dest: str, nargs: int = 1, obj: Optional[Any] = None) -> None:
+    def add_argument(self, dest: str, nargs: int = ..., obj: Optional[Any] = None) -> None:
         ...
 
     def parse_args(
