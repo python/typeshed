@@ -49,7 +49,8 @@ class IOBase:
     else:
         def readline(self, limit: int = ...) -> bytes: ...
     if sys.version_info >= (3, 2):
-        closed = ...  # type: bool
+        @property
+        def closed(self) -> bool: ...
     else:
         def closed(self) -> bool: ...
 
