@@ -103,8 +103,7 @@ stdlib/3/multiprocessing/synchronize.pyi
 # (e.g., here, FutureT = Future[T])
 stdlib/3.4/asyncio/tasks.pyi
 
-# ParseError: syntax error, unexpected ')', expecting NAME or NUMBER or
-# ELLIPSIS
+# BadDependencyError: No SupportsBytes in module typing, referenced from 'builtins'
 stdlib/2and3/locale.pyi
 stdlib/3/io.pyi
 stdlib/3/calendar.pyi
