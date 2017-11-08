@@ -5,8 +5,10 @@ from typing import (
     Type, TypeVar,
 )
 from typing import Dict as DictT
-from enum import Enum
 import sys
+if sys.version_info >= (3,):
+    from enum import Enum
+
 
 mm = MutableMapping[str, Any]
 _D = TypeVar('_D', bound=mm)
