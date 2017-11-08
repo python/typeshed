@@ -32,7 +32,7 @@ class LazyFile:
         self,
         filename: str,
         mode: str = ...,
-        encoding: Optional[str] = None,
+        encoding: Optional[str] = ...,
         errors: str = ...,
         atomic: bool = ...
     ) -> None:
@@ -74,11 +74,11 @@ class KeepOpenFile:
 
 
 def echo(
-    message: Optional[str] = None,
-    file: Optional[IO] = None,
+    message: Optional[str] = ...,
+    file: Optional[IO] = ...,
     nl: bool = ...,
     err: bool = ...,
-    color: Optional[bool] = None,
+    color: Optional[bool] = ...,
 ) -> None:
     ...
 
@@ -88,7 +88,7 @@ def get_binary_stream(name: str) -> IO[bytes]:
 
 
 def get_text_stream(
-    name: str, encoding: Optional[str] = None, errors: str = ...
+    name: str, encoding: Optional[str] = ..., errors: str = ...
 ) -> IO[str]:
     ...
 
@@ -96,7 +96,7 @@ def get_text_stream(
 def open_file(
     filename: str,
     mode: str = ...,
-    encoding: Optional[str] = None,
+    encoding: Optional[str] = ...,
     errors: str = ...,
     lazy: bool = ...,
     atomic: bool = ...

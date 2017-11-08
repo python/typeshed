@@ -91,9 +91,9 @@ class RawConfigParser(_parser):
     def has_option(self, section: str, option: str) -> bool: ...
 
     def read(self, filenames: Union[_Path, Iterable[_Path]],
-             encoding: Optional[str] = None) -> List[str]: ...
+             encoding: Optional[str] = ...) -> List[str]: ...
 
-    def read_file(self, f: Iterable[str], source: Optional[str] = None) -> None: ...
+    def read_file(self, f: Iterable[str], source: Optional[str] = ...) -> None: ...
 
     def read_string(self, string: str, source: str = ...) -> None: ...
 
@@ -135,7 +135,7 @@ class RawConfigParser(_parser):
 
 class ConfigParser(RawConfigParser):
     def __init__(self,
-                 defaults: Optional[_section] = None,
+                 defaults: Optional[_section] = ...,
                  dict_type: Mapping[str, str] = ...,
                  allow_no_value: bool = ...,
                  delimiters: Sequence[str] = ...,
@@ -144,7 +144,7 @@ class ConfigParser(RawConfigParser):
                  strict: bool = ...,
                  empty_lines_in_values: bool = ...,
                  default_section: str = ...,
-                 interpolation: Optional[Interpolation] = None,
+                 interpolation: Optional[Interpolation] = ...,
                  converters: _converters = ...) -> None: ...
 
 class SafeConfigParser(ConfigParser): ...

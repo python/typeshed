@@ -180,7 +180,7 @@ if sys.version_info >= (3, 6):
         def asend(self, value: _T_contra) -> Awaitable[_T_co]: ...
 
         @abstractmethod
-        def athrow(self, typ: Type[BaseException], val: Optional[BaseException] = None,
+        def athrow(self, typ: Type[BaseException], val: Optional[BaseException] = ...,
                    tb: Any = None) -> Awaitable[_T_co]: ...
 
         @abstractmethod

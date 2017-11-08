@@ -34,8 +34,8 @@ class HelpFormatter:
     def __init__(
         self,
         indent_increment: int = ...,
-        width: Optional[int] = None,
-        max_width: Optional[int] = None,
+        width: Optional[int] = ...,
+        max_width: Optional[int] = ...,
     ) -> None:
         ...
 

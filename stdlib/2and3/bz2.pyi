@@ -7,15 +7,15 @@ def decompress(data: bytes) -> bytes: ...
 
 def open(filename: Union[str, bytes, IO[Any]],
          mode: str = ...,
-         encoding: Optional[str] = None,
-         errors: Optional[str] = None,
-         newline: Optional[str] = None) -> IO[Any]: ...
+         encoding: Optional[str] = ...,
+         errors: Optional[str] = ...,
+         newline: Optional[str] = ...) -> IO[Any]: ...
 
 class BZ2File(BinaryIO):
     def __init__(self,
                  filename: Union[str, bytes, IO[Any]],
                  mode: str = "r",
-                 buffering: Optional[Any] = None,
+                 buffering: Optional[Any] = ...,
                  compresslevel: int = ...) -> None: ...
 
 class BZ2Compressor(object):

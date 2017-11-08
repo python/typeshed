@@ -30,5 +30,5 @@ class Attribute:
         exclude_from_immutable: bool = ...,
         default_value: Any = NOTHING,
         default_factory: Optional[Callable[[None], Any]] = None,
-        instance_of: Optional[Any] = None,
+        instance_of: Optional[Any] = ...,
         init_aliaser: Optional[Callable[[AnyStr], AnyStr]] = strip_leading_underscores) -> None: ...

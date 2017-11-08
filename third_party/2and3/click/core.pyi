@@ -30,7 +30,7 @@ def invoke_param_callback(
 
 @contextmanager
 def augment_usage_errors(
-    ctx: 'Context', param: Optional['Parameter'] = None
+    ctx: 'Context', param: Optional['Parameter'] = ...
 ) -> Generator[None, None, None]:
     ...
 
@@ -73,20 +73,20 @@ class Context:
     def __init__(
         self,
         command: 'Command',
-        parent: Optional['Context'] = None,
-        info_name: Optional[str] = None,
-        obj: Optional[Any] = None,
-        auto_envvar_prefix: Optional[str] = None,
+        parent: Optional['Context'] = ...,
+        info_name: Optional[str] = ...,
+        obj: Optional[Any] = ...,
+        auto_envvar_prefix: Optional[str] = ...,
         default_map: Optional[Mapping[str, Any]] = None,
-        terminal_width: Optional[int] = None,
-        max_content_width: Optional[int] = None,
+        terminal_width: Optional[int] = ...,
+        max_content_width: Optional[int] = ...,
         resilient_parsing: bool = ...,
-        allow_extra_args: Optional[bool] = None,
-        allow_interspersed_args: Optional[bool] = None,
-        ignore_unknown_options: Optional[bool] = None,
+        allow_extra_args: Optional[bool] = ...,
+        allow_interspersed_args: Optional[bool] = ...,
+        ignore_unknown_options: Optional[bool] = ...,
         help_option_names: Optional[List[str]] = None,
         token_normalize_func: Optional[Callable[[str], str]] = None,
-        color: Optional[bool] = None
+        color: Optional[bool] = ...
     ) -> None:
         ...
 
@@ -147,7 +147,7 @@ class BaseCommand:
     name: str
     context_settings: Dict
 
-    def __init__(self, name: str, context_settings: Optional[Dict] = None) -> None:
+    def __init__(self, name: str, context_settings: Optional[Dict] = ...) -> None:
         ...
 
     def get_usage(self, ctx: Context) -> str:
@@ -157,7 +157,7 @@ class BaseCommand:
         ...
 
     def make_context(
-        self, info_name: str, args: List[str], parent: Optional[Context] = None, **extra
+        self, info_name: str, args: List[str], parent: Optional[Context] = ..., **extra
     ) -> Context:
         ...
 
@@ -170,8 +170,8 @@ class BaseCommand:
     def main(
         self,
         args: Optional[List[str]] = None,
-        prog_name: Optional[str] = None,
-        complete_var: Optional[str] = None,
+        prog_name: Optional[str] = ...,
+        complete_var: Optional[str] = ...,
         standalone_mode: bool = ...,
         **extra
     ) -> Any:
@@ -193,12 +193,12 @@ class Command(BaseCommand):
     def __init__(
         self,
         name: str,
-        context_settings: Optional[Dict] = None,
-        callback: Optional[Callable] = None,
+        context_settings: Optional[Dict] = ...,
+        callback: Optional[Callable] = ...,
         params: Optional[List['Parameter']] = None,
-        help: Optional[str] = None,
-        epilog: Optional[str] = None,
-        short_help: Optional[str] = None,
+        help: Optional[str] = ...,
+        epilog: Optional[str] = ...,
+        short_help: Optional[str] = ...,
         options_metavar: str = ...,
         add_help_option: bool = ...
     ) -> None:
@@ -252,12 +252,12 @@ class MultiCommand(Command):
 
     def __init__(
         self,
-        name: Optional[str] = None,
+        name: Optional[str] = ...,
         invoke_without_command: bool = ...,
-        no_args_is_help: Optional[bool] = None,
-        subcommand_metavar: Optional[str] = None,
+        no_args_is_help: Optional[bool] = ...,
+        subcommand_metavar: Optional[str] = ...,
         chain: bool = ...,
-        result_callback: Optional[Callable] = None,
+        result_callback: Optional[Callable] = ...,
         **attrs
     ) -> None:
         ...
@@ -286,11 +286,11 @@ class Group(MultiCommand):
     commands: Dict[str, Command]
 
     def __init__(
-        self, name: Optional[str] = None, commands: Optional[Dict[str, Command]] = None, **attrs
+        self, name: Optional[str] = ..., commands: Optional[Dict[str, Command]] = None, **attrs
     ) -> None:
         ...
 
-    def add_command(self, cmd: Command, name: Optional[str] = None):
+    def add_command(self, cmd: Command, name: Optional[str] = ...):
         ...
 
     def command(self, *args, **kwargs) -> _Decorator:
@@ -304,7 +304,7 @@ class CommandCollection(MultiCommand):
     sources: List[MultiCommand]
 
     def __init__(
-        self, name: Optional[str] = None, sources: Optional[List[MultiCommand]] = None, **attrs
+        self, name: Optional[str] = ..., sources: Optional[List[MultiCommand]] = None, **attrs
     ) -> None:
         ...
 
@@ -335,10 +335,10 @@ class Parameter:
         param_decls: Optional[List[str]] = None,
         type: Optional[Union[type, 'ParamType']] = None,
         required: bool = ...,
-        default: Optional[Any] = None,
+        default: Optional[Any] = ...,
         callback: Optional[Callable[[Context, 'Parameter', str], Any]] = None,
-        nargs: Optional[int] = None,
-        metavar: Optional[str] = None,
+        nargs: Optional[int] = ...,
+        metavar: Optional[str] = ...,
         expose_value: bool = ...,
         is_eager: bool = ...,
         envvar: Optional[Union[str, List[str]]] = None
@@ -407,13 +407,13 @@ class Option(Parameter):
         prompt: Union[bool, str] = False,
         confirmation_prompt: bool = ...,
         hide_input: bool = ...,
-        is_flag: Optional[bool] = None,
-        flag_value: Optional[Any] = None,
+        is_flag: Optional[bool] = ...,
+        flag_value: Optional[Any] = ...,
         multiple: bool = ...,
         count: bool = ...,
         allow_from_autoenv: bool = ...,
         type: Optional[Union[type, 'ParamType']] = None,
-        help: Optional[str] = None,
+        help: Optional[str] = ...,
         **attrs
     ) -> None:
         ...
@@ -426,7 +426,7 @@ class Argument(Parameter):
     def __init__(
         self,
         param_decls: Optional[List[str]] = None,
-        required: Optional[bool] = None,
+        required: Optional[bool] = ...,
         **attrs
     ) -> None:
         ...
