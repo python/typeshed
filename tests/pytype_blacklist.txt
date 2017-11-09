@@ -17,25 +17,12 @@ stdlib/2/typing.pyi
 stdlib/3/builtins.pyi
 stdlib/3/typing.pyi
 
-# PyType does not allow classes to inherit from an Any constant.
-stdlib/2/UserList.pyi
-stdlib/2/UserString.pyi
-stdlib/2/multiprocessing/__init__.pyi
-stdlib/2/multiprocessing/util.pyi
-stdlib/2/shelve.pyi
-stdlib/2/sqlite3/__init__.pyi
-stdlib/2/sqlite3/dbapi2.pyi
-stdlib/2and3/logging/handlers.pyi
+# AttributeError: 'UnionType' object has no attribute 'name'
 stdlib/3.4/asyncio/subprocess.pyi
 stdlib/3/fileinput.pyi
 stdlib/3.4/asyncio/protocols.pyi
-stdlib/2and3/logging/handlers.pyi
-stdlib/3.4/asyncio/tasks.pyi
-stdlib/3/sqlite3/dbapi2.pyi
 stdlib/3.4/asyncio/__init__.pyi
-stdlib/3/sqlite3/__init__.pyi
 stdlib/3.4/asyncio/events.pyi
-stdlib/3/shelve.pyi
 
 # Non resolvable imports
 # imports non existing "builtins" module.
