@@ -64,13 +64,13 @@ class Session(SessionRedirectMixin):
     auth = ...  # type: Union[None, Tuple[Text, Text], Callable[[Request], Request]]
     proxies = ...  # type: MutableMapping[Text, Text]
     hooks = ...  # type: _Hooks
-    params = ...  # type: Union[None, bytes, MutableMapping[Text, Text]]
+    params = ...  # type: Union[bytes, MutableMapping[Text, Text]]
     stream = ...  # type: bool
     verify = ...  # type: bool
     cert = ...  # type: Union[None, Text, Tuple[Text, Text]]
     max_redirects = ...  # type: int
     trust_env = ...  # type: bool
-    cookies = ...  # type: Union[None, RequestsCookieJar, MutableMapping[Text, Text]]
+    cookies = ...  # type: Union[RequestsCookieJar, MutableMapping[Text, Text]]
     adapters = ...  # type: MutableMapping
     redirect_cache = ...  # type: RecentlyUsedContainer
     def __init__(self) -> None: ...
