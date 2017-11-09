@@ -404,7 +404,7 @@ class Option(Parameter):
         self,
         param_decls: Optional[List[str]] = ...,
         show_default: bool = ...,
-        prompt: Union[bool, str] = False,
+        prompt: Union[bool, str] = ...,
         confirmation_prompt: bool = ...,
         hide_input: bool = ...,
         is_flag: Optional[bool] = ...,

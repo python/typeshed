@@ -91,7 +91,7 @@ def option(
     cls: type = Option,
     # Option
     show_default: bool = ...,
-    prompt: Union[bool, Text] = False,
+    prompt: Union[bool, Text] = ...,
     confirmation_prompt: bool = ...,
     hide_input: bool = ...,
     is_flag: Optional[bool] = ...,
@@ -178,7 +178,7 @@ def version_option(
     # Option
     prog_name: Optional[str] = ...,
     show_default: bool = ...,
-    prompt: Union[bool, Text] = False,
+    prompt: Union[bool, Text] = ...,
     confirmation_prompt: bool = ...,
     hide_input: bool = ...,
     is_flag: bool = ...,
@@ -206,7 +206,7 @@ def help_option(
     cls: type = Option,
     # Option
     show_default: bool = ...,
-    prompt: Union[bool, Text] = False,
+    prompt: Union[bool, Text] = ...,
     confirmation_prompt: bool = ...,
     hide_input: bool = ...,
     is_flag: bool = ...,
