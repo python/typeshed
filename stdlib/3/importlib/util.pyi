@@ -35,7 +35,7 @@ if sys.version_info >= (3, 4):
     def spec_from_file_location(
         name: str, location: str, *,
         loader: Optional[importlib.abc.Loader] = ...,
-        submodule_search_locations: Optional[List[str]] = None
+        submodule_search_locations: Optional[List[str]] = ...
     ) -> importlib.machinery.ModuleSpec: ...
 
 if sys.version_info >= (3, 5):

@@ -30,7 +30,7 @@ class parser(object):
     def __init__(self, info: Optional[parserinfo] = ...) -> None: ...
     def parse(self, timestr: Union[str, unicode, IO[unicode]],
               default: Optional[datetime] = ...,
-              ignoretz: bool = ..., tzinfos: Optional[Dict[Union[str, unicode], tzinfo]] = None,
+              ignoretz: bool = ..., tzinfos: Optional[Dict[Union[str, unicode], tzinfo]] = ...,
               **kwargs: Any) -> datetime: ...
 
 DEFAULTPARSER = ...  # type: parser

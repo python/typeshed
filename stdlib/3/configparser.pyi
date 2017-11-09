@@ -140,7 +140,7 @@ class ConfigParser(RawConfigParser):
                  allow_no_value: bool = ...,
                  delimiters: Sequence[str] = ...,
                  comment_prefixes: Sequence[str] = ...,
-                 inline_comment_prefixes: Optional[Sequence[str]] = None,
+                 inline_comment_prefixes: Optional[Sequence[str]] = ...,
                  strict: bool = ...,
                  empty_lines_in_values: bool = ...,
                  default_section: str = ...,

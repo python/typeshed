@@ -77,15 +77,15 @@ class Context:
         info_name: Optional[str] = ...,
         obj: Optional[Any] = ...,
         auto_envvar_prefix: Optional[str] = ...,
-        default_map: Optional[Mapping[str, Any]] = None,
+        default_map: Optional[Mapping[str, Any]] = ...,
         terminal_width: Optional[int] = ...,
         max_content_width: Optional[int] = ...,
         resilient_parsing: bool = ...,
         allow_extra_args: Optional[bool] = ...,
         allow_interspersed_args: Optional[bool] = ...,
         ignore_unknown_options: Optional[bool] = ...,
-        help_option_names: Optional[List[str]] = None,
-        token_normalize_func: Optional[Callable[[str], str]] = None,
+        help_option_names: Optional[List[str]] = ...,
+        token_normalize_func: Optional[Callable[[str], str]] = ...,
         color: Optional[bool] = ...
     ) -> None:
         ...
@@ -169,7 +169,7 @@ class BaseCommand:
 
     def main(
         self,
-        args: Optional[List[str]] = None,
+        args: Optional[List[str]] = ...,
         prog_name: Optional[str] = ...,
         complete_var: Optional[str] = ...,
         standalone_mode: bool = ...,
@@ -195,7 +195,7 @@ class Command(BaseCommand):
         name: str,
         context_settings: Optional[Dict] = ...,
         callback: Optional[Callable] = ...,
-        params: Optional[List['Parameter']] = None,
+        params: Optional[List['Parameter']] = ...,
         help: Optional[str] = ...,
         epilog: Optional[str] = ...,
         short_help: Optional[str] = ...,
@@ -286,7 +286,7 @@ class Group(MultiCommand):
     commands: Dict[str, Command]
 
     def __init__(
-        self, name: Optional[str] = ..., commands: Optional[Dict[str, Command]] = None, **attrs
+        self, name: Optional[str] = ..., commands: Optional[Dict[str, Command]] = ..., **attrs
     ) -> None:
         ...
 
@@ -304,7 +304,7 @@ class CommandCollection(MultiCommand):
     sources: List[MultiCommand]
 
     def __init__(
-        self, name: Optional[str] = ..., sources: Optional[List[MultiCommand]] = None, **attrs
+        self, name: Optional[str] = ..., sources: Optional[List[MultiCommand]] = ..., **attrs
     ) -> None:
         ...
 
@@ -332,16 +332,16 @@ class Parameter:
 
     def __init__(
         self,
-        param_decls: Optional[List[str]] = None,
-        type: Optional[Union[type, 'ParamType']] = None,
+        param_decls: Optional[List[str]] = ...,
+        type: Optional[Union[type, 'ParamType']] = ...,
         required: bool = ...,
         default: Optional[Any] = ...,
-        callback: Optional[Callable[[Context, 'Parameter', str], Any]] = None,
+        callback: Optional[Callable[[Context, 'Parameter', str], Any]] = ...,
         nargs: Optional[int] = ...,
         metavar: Optional[str] = ...,
         expose_value: bool = ...,
         is_eager: bool = ...,
-        envvar: Optional[Union[str, List[str]]] = None
+        envvar: Optional[Union[str, List[str]]] = ...
     ) -> None:
         ...
 
@@ -402,7 +402,7 @@ class Option(Parameter):
 
     def __init__(
         self,
-        param_decls: Optional[List[str]] = None,
+        param_decls: Optional[List[str]] = ...,
         show_default: bool = ...,
         prompt: Union[bool, str] = False,
         confirmation_prompt: bool = ...,
@@ -412,7 +412,7 @@ class Option(Parameter):
         multiple: bool = ...,
         count: bool = ...,
         allow_from_autoenv: bool = ...,
-        type: Optional[Union[type, 'ParamType']] = None,
+        type: Optional[Union[type, 'ParamType']] = ...,
         help: Optional[str] = ...,
         **attrs
     ) -> None:
@@ -425,7 +425,7 @@ class Option(Parameter):
 class Argument(Parameter):
     def __init__(
         self,
-        param_decls: Optional[List[str]] = None,
+        param_decls: Optional[List[str]] = ...,
         required: Optional[bool] = ...,
         **attrs
     ) -> None:
