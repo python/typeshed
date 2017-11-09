@@ -77,14 +77,14 @@ class BaseResponse:
     direct_passthrough = ...  # type: bool
     response = ...  # type: Iterable[str]
     def __init__(self,
-                 response: Optional[Union[Iterable[str], str]] = None,
-                 status: Optional[Union[basestring, int]] = None,
+                 response: Optional[Union[Iterable[str], str]] = ...,
+                 status: Optional[Union[basestring, int]] = ...,
                  headers: Optional[Union[Headers,
                                          Mapping[basestring, basestring],
                                          Sequence[Tuple[basestring, basestring]]]] = None,
                  mimetype: Optional[basestring] = ...,
                  content_type: Optional[basestring] = ...,
-                 direct_passthrough: Optional[bool] = False) -> None: ...
+                 direct_passthrough: Optional[bool] = ...) -> None: ...
     def call_on_close(self, func): ...
     @classmethod
     def force_type(cls, response, environ=None): ...

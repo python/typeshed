@@ -4,8 +4,8 @@ import sys
 import types
 from typing import Any, Mapping, Optional, Sequence
 
-def __import__(name: str, globals: Optional[Mapping[str, Any]] = None,
-               locals: Optional[Mapping[str, Any]] = None,
+def __import__(name: str, globals: Optional[Mapping[str, Any]] = ...,
+               locals: Optional[Mapping[str, Any]] = ...,
                fromlist: Sequence[str] = ...,
                level: int = ...) -> types.ModuleType: ...
 

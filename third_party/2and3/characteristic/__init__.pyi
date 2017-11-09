@@ -17,7 +17,7 @@ def attributes(
     apply_with_init: bool = ...,
     apply_with_repr: bool = ...,
     apply_immutable: bool = ...,
-    store_attributes: Optional[Callable[[type, Attribute], Any]] = None,
+    store_attributes: Optional[Callable[[type, Attribute], Any]] = ...,
     **kw: Optional[dict]) -> Callable[[Type[_T]], Type[_T]]: ...
 
 class Attribute:
@@ -29,6 +29,6 @@ class Attribute:
         exclude_from_repr: bool = ...,
         exclude_from_immutable: bool = ...,
         default_value: Any = NOTHING,
-        default_factory: Optional[Callable[[None], Any]] = None,
+        default_factory: Optional[Callable[[None], Any]] = ...,
         instance_of: Optional[Any] = ...,
         init_aliaser: Optional[Callable[[AnyStr], AnyStr]] = strip_leading_underscores) -> None: ...

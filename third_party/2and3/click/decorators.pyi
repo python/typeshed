@@ -49,7 +49,7 @@ def group(
     name: Optional[str] = ...,
     cls: type = Group,
     # Group
-    commands: Optional[Dict[str, Command]] = None,
+    commands: Optional[Dict[str, Command]] = ...,
     # MultiCommand
     invoke_without_command: bool = ...,
     no_args_is_help: Optional[bool] = ...,
@@ -74,14 +74,14 @@ def argument(
     # Argument
     required: Optional[bool] = ...,
     # Parameter
-    type: Optional[Union[type, ParamType]] = None,
+    type: Optional[Union[type, ParamType]] = ...,
     default: Optional[Any] = ...,
     callback: Optional[_Callback] = ...,
     nargs: Optional[int] = ...,
     metavar: Optional[str] = ...,
     expose_value: bool = ...,
     is_eager: bool = ...,
-    envvar: Optional[Union[str, List[str]]] = None
+    envvar: Optional[Union[str, List[str]]] = ...
 ) -> _Decorator:
     ...
 
@@ -91,7 +91,7 @@ def option(
     cls: type = Option,
     # Option
     show_default: bool = ...,
-    prompt: Union[bool, Text] = False,
+    prompt: Union[bool, Text] = ...,
     confirmation_prompt: bool = ...,
     hide_input: bool = ...,
     is_flag: Optional[bool] = ...,
@@ -99,7 +99,7 @@ def option(
     multiple: bool = ...,
     count: bool = ...,
     allow_from_autoenv: bool = ...,
-    type: Optional[Union[type, ParamType]] = None,
+    type: Optional[Union[type, ParamType]] = ...,
     help: Optional[str] = ...,
     # Parameter
     default: Optional[Any] = ...,
@@ -109,7 +109,7 @@ def option(
     metavar: Optional[str] = ...,
     expose_value: bool = ...,
     is_eager: bool = ...,
-    envvar: Optional[Union[str, List[str]]] = None
+    envvar: Optional[Union[str, List[str]]] = ...
 ) -> _Decorator:
     ...
 
@@ -128,7 +128,7 @@ def confirmation_option(
     multiple: bool = ...,
     count: bool = ...,
     allow_from_autoenv: bool = ...,
-    type: Optional[Union[type, ParamType]] = None,
+    type: Optional[Union[type, ParamType]] = ...,
     help: str = ...,
     # Parameter
     default: Optional[Any] = ...,
@@ -137,7 +137,7 @@ def confirmation_option(
     metavar: Optional[str] = ...,
     expose_value: bool = ...,
     is_eager: bool = ...,
-    envvar: Optional[Union[str, List[str]]] = None
+    envvar: Optional[Union[str, List[str]]] = ...
 ) -> _Decorator:
     ...
 
@@ -148,7 +148,7 @@ def password_option(
     cls: type = Option,
     # Option
     show_default: bool = ...,
-    prompt: Union[bool, Text] = True,
+    prompt: Union[bool, Text] = ...,
     confirmation_prompt: bool = ...,
     hide_input: bool = ...,
     is_flag: Optional[bool] = ...,
@@ -156,7 +156,7 @@ def password_option(
     multiple: bool = ...,
     count: bool = ...,
     allow_from_autoenv: bool = ...,
-    type: Optional[Union[type, ParamType]] = None,
+    type: Optional[Union[type, ParamType]] = ...,
     help: Optional[str] = ...,
     # Parameter
     default: Optional[Any] = ...,
@@ -165,20 +165,20 @@ def password_option(
     metavar: Optional[str] = ...,
     expose_value: bool = ...,
     is_eager: bool = ...,
-    envvar: Optional[Union[str, List[str]]] = None
+    envvar: Optional[Union[str, List[str]]] = ...
 ) -> _Decorator:
     ...
 
 
 # Defaults copied from the decorator body.
 def version_option(
-    version: Optional[Union[str, Version]] = None,
+    version: Optional[Union[str, Version]] = ...,
     *param_decls: str,
     cls: type = Option,
     # Option
     prog_name: Optional[str] = ...,
     show_default: bool = ...,
-    prompt: Union[bool, Text] = False,
+    prompt: Union[bool, Text] = ...,
     confirmation_prompt: bool = ...,
     hide_input: bool = ...,
     is_flag: bool = ...,
@@ -186,7 +186,7 @@ def version_option(
     multiple: bool = ...,
     count: bool = ...,
     allow_from_autoenv: bool = ...,
-    type: Optional[Union[type, ParamType]] = None,
+    type: Optional[Union[type, ParamType]] = ...,
     help: str = ...,
     # Parameter
     default: Optional[Any] = ...,
@@ -195,7 +195,7 @@ def version_option(
     metavar: Optional[str] = ...,
     expose_value: bool = ...,
     is_eager: bool = ...,
-    envvar: Optional[Union[str, List[str]]] = None
+    envvar: Optional[Union[str, List[str]]] = ...
 ) -> _Decorator:
     ...
 
@@ -206,7 +206,7 @@ def help_option(
     cls: type = Option,
     # Option
     show_default: bool = ...,
-    prompt: Union[bool, Text] = False,
+    prompt: Union[bool, Text] = ...,
     confirmation_prompt: bool = ...,
     hide_input: bool = ...,
     is_flag: bool = ...,
@@ -214,7 +214,7 @@ def help_option(
     multiple: bool = ...,
     count: bool = ...,
     allow_from_autoenv: bool = ...,
-    type: Optional[Union[type, ParamType]] = None,
+    type: Optional[Union[type, ParamType]] = ...,
     help: str = ...,
     # Parameter
     default: Optional[Any] = ...,
@@ -223,6 +223,6 @@ def help_option(
     metavar: Optional[str] = ...,
     expose_value: bool = ...,
     is_eager: bool = ...,
-    envvar: Optional[Union[str, List[str]]] = None
+    envvar: Optional[Union[str, List[str]]] = ...
 ) -> _Decorator:
     ...

@@ -19,7 +19,7 @@ class Finder(metaclass=ABCMeta):
     # easier to simply ignore that this method exists.
     # @abstractmethod
     # def find_module(self, fullname: str,
-    #                 path: Optional[Sequence[_Path]] = None) -> Optional[Loader]: ...
+    #                 path: Optional[Sequence[_Path]] = ...) -> Optional[Loader]: ...
 
 class ResourceLoader(Loader):
     @abstractmethod

@@ -31,7 +31,7 @@ def prompt(
     hide_input: bool = ...,
     confirmation_prompt: bool = ...,
     type: Optional[Any] = ...,
-    value_proc: Optional[Callable[[Optional[str]], Any]] = None,
+    value_proc: Optional[Callable[[Optional[str]], Any]] = ...,
     prompt_suffix: str = ...,
     show_default: bool = ...,
     err: bool = ...,
@@ -63,13 +63,13 @@ _T = TypeVar('_T')
 
 @contextmanager
 def progressbar(
-    iterable: Optional[Iterable[_T]] = None,
+    iterable: Optional[Iterable[_T]] = ...,
     length: Optional[int] = ...,
     label: Optional[str] = ...,
     show_eta: bool = ...,
     show_percent: Optional[bool] = ...,
     show_pos: bool = ...,
-    item_show_func: Optional[Callable[[_T], str]] = None,
+    item_show_func: Optional[Callable[[_T], str]] = ...,
     fill_char: str = ...,
     empty_char: str = ...,
     bar_template: str = ...,

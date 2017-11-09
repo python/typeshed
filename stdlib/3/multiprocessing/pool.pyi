@@ -29,8 +29,8 @@ class Pool(ContextManager[Pool]):
                 func: Callable[..., Any],
                 args: Iterable[Any] = ...,
                 kwds: Dict[str, Any] = ...,
-                callback: Optional[Callable[..., None]] = None,
-                error_callback: Optional[Callable[[BaseException], None]] = None) -> AsyncResult: ...
+                callback: Optional[Callable[..., None]] = ...,
+                error_callback: Optional[Callable[[BaseException], None]] = ...) -> AsyncResult: ...
     def map(self,
             func: Callable[..., Any],
             iterable: Iterable[Any] = ...,
@@ -38,8 +38,8 @@ class Pool(ContextManager[Pool]):
     def map_async(self, func: Callable[..., Any],
                   iterable: Iterable[Any] = ...,
                   chunksize: Optional[int] = ...,
-                  callback: Optional[Callable[..., None]] = None,
-                  error_callback: Optional[Callable[[BaseException], None]] = None) -> AsyncResult: ...
+                  callback: Optional[Callable[..., None]] = ...,
+                  error_callback: Optional[Callable[[BaseException], None]] = ...) -> AsyncResult: ...
     def imap(self,
              func: Callable[..., Any],
              iterable: Iterable[Any] = ...,
@@ -56,8 +56,8 @@ class Pool(ContextManager[Pool]):
                       func: Callable[..., Any],
                       iterable: Iterable[Iterable[Any]] = ...,
                       chunksize: Optional[int] = ...,
-                      callback: Optional[Callable[..., None]] = None,
-                      error_callback: Optional[Callable[[BaseException], None]] = None) -> AsyncResult: ...
+                      callback: Optional[Callable[..., None]] = ...,
+                      error_callback: Optional[Callable[[BaseException], None]] = ...) -> AsyncResult: ...
     def close(self) -> None: ...
     def terminate(self) -> None: ...
     def join(self) -> None: ...
@@ -67,5 +67,5 @@ class Pool(ContextManager[Pool]):
 class ThreadPool(Pool, ContextManager[ThreadPool]):
 
     def __init__(self, processes: Optional[int] = ...,
-                 initializer: Optional[Callable[..., Any]] = None,
+                 initializer: Optional[Callable[..., Any]] = ...,
                  initargs: Iterable[Any] = ...) -> None: ...

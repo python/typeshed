@@ -63,7 +63,7 @@ class NoSuchOption(UsageError):
         self,
         option_name: str,
         message: Optional[str] = ...,
-        possibilities: Optional[List[str]] = None,
+        possibilities: Optional[List[str]] = ...,
         ctx: Optional[Context] = ...
     ) -> None:
         ...
