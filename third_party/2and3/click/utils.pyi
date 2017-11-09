@@ -1,5 +1,4 @@
-from typing import Any, Callable, Iterator, IO, List, Optional, TypeVar, Union
-
+from typing import Any, Callable, Iterator, IO, List, Optional, TypeVar, Union, Text
 
 _T = TypeVar('_T')
 _Decorator = Callable[[_T], _T]
@@ -74,7 +73,7 @@ class KeepOpenFile:
 
 
 def echo(
-    message: Optional[str] = None,
+    message: Optional[Union[bytes, Text]] = None,
     file: Optional[IO] = None,
     nl: bool = True,
     err: bool = False,
