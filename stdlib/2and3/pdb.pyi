@@ -23,7 +23,7 @@ def runcall(*args: Any, **kwds: Any) -> Any:
 def set_trace() -> None:
     ...
 
-def post_mortem(t: Optional[Any] = None) -> None:
+def post_mortem(t: Optional[Any] = ...) -> None:
     ...
 
 def pm() -> None:

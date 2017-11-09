@@ -20,7 +20,7 @@ class Pool(ContextManager[Pool]):
                  initializer: Optional[Callable[..., None]] = ...,
                  initargs: Iterable[Any] = ...,
                  maxtasksperchild: Optional[int] = ...,
-                 context: Optional[Any] = None) -> None: ...
+                 context: Optional[Any] = ...) -> None: ...
     def apply(self,
               func: Callable[..., Any],
               args: Iterable[Any] = ...,
@@ -34,28 +34,28 @@ class Pool(ContextManager[Pool]):
     def map(self,
             func: Callable[..., Any],
             iterable: Iterable[Any] = ...,
-            chunksize: Optional[int] = None) -> List[Any]: ...
+            chunksize: Optional[int] = ...) -> List[Any]: ...
     def map_async(self, func: Callable[..., Any],
                   iterable: Iterable[Any] = ...,
-                  chunksize: Optional[int] = None,
+                  chunksize: Optional[int] = ...,
                   callback: Optional[Callable[..., None]] = None,
                   error_callback: Optional[Callable[[BaseException], None]] = None) -> AsyncResult: ...
     def imap(self,
              func: Callable[..., Any],
              iterable: Iterable[Any] = ...,
-             chunksize: Optional[int] = None) -> Iterable[Any]: ...
+             chunksize: Optional[int] = ...) -> Iterable[Any]: ...
     def imap_unordered(self,
                        func: Callable[..., Any],
                        iterable: Iterable[Any] = ...,
-                       chunksize: Optional[int] = None) -> Iterable[Any]: ...
+                       chunksize: Optional[int] = ...) -> Iterable[Any]: ...
     def starmap(self,
                 func: Callable[..., Any],
                 iterable: Iterable[Iterable[Any]] = ...,
-                chunksize: Optional[int] = None) -> List[Any]: ...
+                chunksize: Optional[int] = ...) -> List[Any]: ...
     def starmap_async(self,
                       func: Callable[..., Any],
                       iterable: Iterable[Iterable[Any]] = ...,
-                      chunksize: Optional[int] = None,
+                      chunksize: Optional[int] = ...,
                       callback: Optional[Callable[..., None]] = None,
                       error_callback: Optional[Callable[[BaseException], None]] = None) -> AsyncResult: ...
     def close(self) -> None: ...
@@ -66,6 +66,6 @@ class Pool(ContextManager[Pool]):
 
 class ThreadPool(Pool, ContextManager[ThreadPool]):
 
-    def __init__(self, processes: Optional[int] = None,
+    def __init__(self, processes: Optional[int] = ...,
                  initializer: Optional[Callable[..., Any]] = None,
                  initargs: Iterable[Any] = ...) -> None: ...

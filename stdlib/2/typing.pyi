@@ -113,7 +113,7 @@ class Generator(Iterator[_T_co], Generic[_T_co, _T_contra, _V_co]):
     def send(self, value: _T_contra) -> _T_co: ...
 
     @abstractmethod
-    def throw(self, typ: Type[BaseException], val: Optional[BaseException] = None,
+    def throw(self, typ: Type[BaseException], val: Optional[BaseException] = ...,
               # TODO: tb should be TracebackType but that's defined in types
               tb: Any = None) -> _T_co: ...
 

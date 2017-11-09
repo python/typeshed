@@ -81,8 +81,8 @@ class BaseResponse:
                  headers: Optional[Union[Headers,
                                          Mapping[str, str],
                                          Sequence[Tuple[str, str]]]]=None,
-                 mimetype: Optional[str] = None,
-                 content_type: Optional[str] = None,
+                 mimetype: Optional[str] = ...,
+                 content_type: Optional[str] = ...,
                  direct_passthrough: bool=False) -> None: ...
     def call_on_close(self, func): ...
     @classmethod

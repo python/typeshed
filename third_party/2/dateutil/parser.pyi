@@ -27,13 +27,13 @@ class parserinfo(object):
     def validate(self, res: datetime) -> bool: ...
 
 class parser(object):
-    def __init__(self, info: Optional[parserinfo] = None) -> None: ...
+    def __init__(self, info: Optional[parserinfo] = ...) -> None: ...
     def parse(self, timestr: Union[str, unicode, IO[unicode]],
-              default: Optional[datetime] = None,
+              default: Optional[datetime] = ...,
               ignoretz: bool = ..., tzinfos: Optional[Dict[Union[str, unicode], tzinfo]] = None,
               **kwargs: Any) -> datetime: ...
 
 DEFAULTPARSER = ...  # type: parser
 def parse(timestr: Union[str, unicode, IO[unicode]],
-          parserinfo: Optional[parserinfo] = None,
+          parserinfo: Optional[parserinfo] = ...,
           **kwargs: Any) -> datetime: ...
