@@ -76,8 +76,8 @@ class BaseResponse:
     status = ...  # type: str
     direct_passthrough = ...  # type: bool
     response = ...  # type: Iterable[bytes]
-    def __init__(self, response: Optional[Union[Iterable[bytes], bytes]]=None,
-                 status: Optional[Union[str, int]]=None,
+    def __init__(self, response: Optional[Union[Iterable[bytes], bytes]] = ...,
+                 status: Optional[Union[str, int]] = ...,
                  headers: Optional[Union[Headers,
                                          Mapping[str, str],
                                          Sequence[Tuple[str, str]]]]=None,
