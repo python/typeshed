@@ -47,9 +47,7 @@ class PytdRun(object):
         temp.close()  # Windows compat.
 
         self.args = []
-        self.args.extend([
-            '--convert-to-pickle=%s' % temp.name,
-            ])
+        self.args.append('--convert-to-pickle=%s' % temp.name)
         self.args.extend(args)
 
         self.dry_run = dry_run
