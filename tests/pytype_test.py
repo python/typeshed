@@ -12,6 +12,7 @@ import re
 import sys
 import argparse
 import subprocess
+import tempfile
 import collections
 
 parser = argparse.ArgumentParser(description="Pytype tests.")
@@ -42,7 +43,15 @@ def load_blacklist():
 
 class PytdRun(object):
     def __init__(self, args, dry_run=False):
-        self.args = args
+        temp = tempfile.NamedTemporaryFile(delete=False)
+        temp.close()  # Windows compat.
+
+        self.args = []
+        self.args.extend([
+            '--convert-to-pickle=%s' % temp.name,
+            ])
+        self.args.extend(args)
+
         self.dry_run = dry_run
         self.results = None
 
@@ -50,9 +59,10 @@ class PytdRun(object):
             self.results = (0, "", "")
         else:
             self.proc = subprocess.Popen(
-                ["pytd"] + args,
+                ["pytype"] + self.args,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE)
+        os.remove(temp.name)
 
     def communicate(self):
         if self.results:
@@ -97,7 +107,7 @@ def pytype_test(args):
         runs += 1
 
         if code:
-            print("pytd error processing \"%s\":" % test_run.args[0])
+            print("pytd error processing \"%s\":" % test_run.args[1])
             print(stderr)
             errors += 1
 
