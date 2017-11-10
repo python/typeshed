@@ -120,7 +120,7 @@ def confirmation_option(
     cls: type = Option,
     # Option
     show_default: bool = ...,
-    prompt: Union[bool, Text] = 'Do you want to continue?',
+    prompt: Union[bool, Text] = ...,
     confirmation_prompt: bool = ...,
     hide_input: bool = ...,
     is_flag: bool = ...,
