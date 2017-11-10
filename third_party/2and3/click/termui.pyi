@@ -107,7 +107,7 @@ def unstyle(text: str) -> str:
 def secho(
     text: str,
     file: Optional[IO] = ...,
-    nl: bool =True,
+    nl: bool = ...,
     err: bool = ...,
     color: Optional[bool] = ...,
     fg: Optional[str] = ...,
