@@ -1,11 +1,13 @@
 from typing import (
-    Any, Iterable, Mapping, Optional, Sequence, Tuple, Type, Union,
+    Any, Callable, Iterable, Iterator, Mapping, Optional, Sequence, Text, Tuple, Type, TypeVar, Union,
 )
 
 from .datastructures import (
     CombinedMultiDict, EnvironHeaders, Headers, ImmutableMultiDict,
     MultiDict, TypeConversionDict,
 )
+
+_Environ = Mapping[str, object]
 
 class BaseRequest:
     charset = ...  # type: str
@@ -16,11 +18,11 @@ class BaseRequest:
     list_storage_class = ...  # type: Type
     dict_storage_class = ...  # type: Type
     form_data_parser_class = ...  # type: Type
-    trusted_hosts = ...  # type: Optional[Sequence[str]]
+    trusted_hosts = ...  # type: Optional[Sequence[Text]]
     disable_data_descriptor = ...  # type: Any
-    environ = ...  # type: Mapping[str, object]
+    environ = ...  # type: _Environ
     shallow = ...  # type: Any
-    def __init__(self, environ: Mapping[str, object], populate_request: bool=True, shallow: bool=False) -> None: ...
+    def __init__(self, environ: _Environ, populate_request: bool = ..., shallow: bool = ...) -> None: ...
     @property
     def url_charset(self) -> str: ...
     @classmethod
@@ -37,32 +39,35 @@ class BaseRequest:
     input_stream = ...  # type: Any
     args = ...  # type: ImmutableMultiDict
     def data(self): ...
-    def get_data(self, cache: bool=True, as_text: bool=False, parse_form_data: bool=False) -> bytes: ...
+    def get_data(self, cache: bool = ..., as_text: bool = ..., parse_form_data: bool = ...) -> bytes: ...
     form = ...  # type: ImmutableMultiDict
     values = ...  # type: CombinedMultiDict
     files = ...  # type: MultiDict
     cookies = ...  # type: TypeConversionDict
     headers = ...  # type: EnvironHeaders
-    path = ...  # type: str
-    full_path = ...  # type: str
-    script_root = ...  # type: str
-    url = ...  # type: str
-    base_url = ...  # type: str
-    url_root = ...  # type: str
-    host_url = ...  # type: str
-    host = ...  # type: str
+    path = ...  # type: Text
+    full_path = ...  # type: Text
+    script_root = ...  # type: Text
+    url = ...  # type: Text
+    base_url = ...  # type: Text
+    url_root = ...  # type: Text
+    host_url = ...  # type: Text
+    host = ...  # type: Text
     query_string = ...  # type: bytes
-    method = ...  # type: str
+    method = ...  # type: Text
     def access_route(self): ...
     @property
     def remote_addr(self) -> str: ...
-    remote_user = ...  # type: str
+    remote_user = ...  # type: Text
     scheme = ...  # type: str
     is_xhr = ...  # type: bool
     is_secure = ...  # type: bool
     is_multithread = ...  # type: bool
     is_multiprocess = ...  # type: bool
     is_run_once = ...  # type: bool
+
+_OnCloseT = TypeVar('_OnCloseT', bound=Callable[[], Any])
+_SelfT = TypeVar('_SelfT', bound=BaseResponse)
 
 class BaseResponse:
     charset = ...  # type: str
@@ -76,25 +81,25 @@ class BaseResponse:
     status = ...  # type: str
     direct_passthrough = ...  # type: bool
     response = ...  # type: Iterable[bytes]
-    def __init__(self, response: Optional[Union[Iterable[bytes], bytes]]=None,
-                 status: Optional[Union[str, int]]=None,
+    def __init__(self, response: Optional[Union[Iterable[bytes], bytes]] = ...,
+                 status: Optional[Union[Text, int]] = ...,
                  headers: Optional[Union[Headers,
-                                         Mapping[str, str],
-                                         Sequence[Tuple[str, str]]]]=None,
-                 mimetype: Optional[str] = ...,
-                 content_type: Optional[str] = ...,
-                 direct_passthrough: bool=False) -> None: ...
-    def call_on_close(self, func): ...
+                                         Mapping[Text, Text],
+                                         Sequence[Tuple[Text, Text]]]] = ...,
+                 mimetype: Optional[Text] = ...,
+                 content_type: Optional[Text] = ...,
+                 direct_passthrough: bool = ...) -> None: ...
+    def call_on_close(self, func: _OnCloseT) -> _OnCloseT: ...
     @classmethod
-    def force_type(cls, response, environ=None): ...
+    def force_type(cls: _SelfT, response: object, environ: Optional[_Environ] = ...) -> _SelfT: ...
     @classmethod
-    def from_app(cls, app, environ, buffered=False): ...
-    def get_data(self, as_text=False): ...
-    def set_data(self, value): ...
+    def from_app(cls: _SelfT, app: Any, environ: _Environ, buffered: bool = ...) -> _SelfT: ...
+    def get_data(self, as_text: bool = ...) -> Any: ...  # returns bytes if as_text is False (the default), else Text
+    def set_data(self, value: Union[bytes, Text]) -> None: ...
     data = ...  # type: Any
-    def calculate_content_length(self): ...
-    def make_sequence(self): ...
-    def iter_encoded(self): ...
+    def calculate_content_length(self) -> Optional[int]: ...
+    def make_sequence(self) -> None: ...
+    def iter_encoded(self) -> Iterator[bytes]: ...
     def set_cookie(self, key, value='', max_age=None, expires=None, path='', domain=None, secure=False, httponly=False): ...
     def delete_cookie(self, key, path='', domain=None): ...
     @property
