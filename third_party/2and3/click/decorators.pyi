@@ -1,5 +1,5 @@
 from distutils.version import Version
-from typing import Any, Callable, Dict, List, Optional, TypeVar, Union, Text
+from typing import Any, Callable, Dict, List, Optional, Type, TypeVar, Union, Text
 
 from click.core import Command, Group, Argument, Option, Parameter, Context
 from click.types import ParamType
@@ -31,7 +31,7 @@ def make_pass_decorator(
 
 def command(
     name: Optional[str] = ...,
-    cls: type = Command,
+    cls: Optional[Type[Command]] = ...,
     # Command
     context_settings: Optional[Dict] = ...,
     help: Optional[str] = ...,
@@ -47,7 +47,7 @@ def command(
 
 def group(
     name: Optional[str] = ...,
-    cls: type = Group,
+    cls: Type[Command] = ...,
     # Group
     commands: Optional[Dict[str, Command]] = ...,
     # MultiCommand
@@ -70,7 +70,7 @@ def group(
 
 def argument(
     *param_decls: str,
-    cls: type = Argument,
+    cls: Type[Argument] = ...,
     # Argument
     required: Optional[bool] = ...,
     # Parameter
@@ -88,7 +88,7 @@ def argument(
 
 def option(
     *param_decls: str,
-    cls: type = Option,
+    cls: Type[Option] = ...,
     # Option
     show_default: bool = ...,
     prompt: Union[bool, Text] = ...,
@@ -114,10 +114,9 @@ def option(
     ...
 
 
-# Defaults copied from the decorator body.
 def confirmation_option(
     *param_decls: str,
-    cls: type = Option,
+    cls: Type[Option] = ...,
     # Option
     show_default: bool = ...,
     prompt: Union[bool, Text] = ...,
@@ -142,10 +141,9 @@ def confirmation_option(
     ...
 
 
-# Defaults copied from the decorator body.
 def password_option(
     *param_decls: str,
-    cls: type = Option,
+    cls: Type[Option] = ...,
     # Option
     show_default: bool = ...,
     prompt: Union[bool, Text] = ...,
@@ -170,11 +168,10 @@ def password_option(
     ...
 
 
-# Defaults copied from the decorator body.
 def version_option(
     version: Optional[Union[str, Version]] = ...,
     *param_decls: str,
-    cls: type = Option,
+    cls: Type[Option] = ...,
     # Option
     prog_name: Optional[str] = ...,
     show_default: bool = ...,
@@ -200,10 +197,9 @@ def version_option(
     ...
 
 
-# Defaults copied from the decorator body.
 def help_option(
     *param_decls: str,
-    cls: type = Option,
+    cls: Type[Option] = ...,
     # Option
     show_default: bool = ...,
     prompt: Union[bool, Text] = ...,
