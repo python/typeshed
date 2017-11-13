@@ -25,8 +25,8 @@ def gcd(a: Integral, b: Integral) -> Integral: ...
 class Fraction(Rational):
     @overload
     def __init__(self,
-                 numerator: Union[int, Rational] = 0,
-                 denominator: Optional[Union[int, Rational]] = 0,
+                 numerator: Union[int, Rational] = ...,
+                 denominator: Optional[Union[int, Rational]] = ...,
                  *,
                  _normalize: bool = ...) -> None: ...
     @overload
