@@ -12,7 +12,7 @@ from typing import Any, Dict, List, Optional
 if sys.version_info >= (3, 4):
     class ModuleSpec:
         def __init__(self, name: str, loader: Optional['Loader'], *,
-                     origin: Optional[str] = ..., loader_state: Any = None,
+                     origin: Optional[str] = ..., loader_state: Any = ...,
                      is_package: Optional[bool] = ...) -> None: ...
         name = ...  # type: str
         loader = ...  # type: Optional[Loader]
