@@ -1,5 +1,5 @@
 from asyncio import transports
-from typing import AnyStr, List
+from typing import AnyStr, List, Tuple
 
 __all__: List[str]
 
