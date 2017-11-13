@@ -107,7 +107,7 @@ def unstyle(text: str) -> str:
 def secho(
     text: str,
     file: Optional[IO] = ...,
-    nl: bool =True,
+    nl: bool = ...,
     err: bool = ...,
     color: Optional[bool] = ...,
     fg: Optional[str] = ...,
@@ -142,6 +142,6 @@ def getchar(echo: bool = ...) -> str:
 
 
 def pause(
-    info: str ='Press any key to continue ...', err: bool = ...
+    info: str = ..., err: bool = ...
 ) -> None:
     ...

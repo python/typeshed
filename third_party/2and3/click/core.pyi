@@ -121,7 +121,7 @@ class Context:
     def abort(self) -> None:
         ...
 
-    def exit(self, code: Union[int, str] = 0) -> None:
+    def exit(self, code: Union[int, str] = ...) -> None:
         ...
 
     def get_usage(self) -> str:
