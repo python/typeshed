@@ -13,7 +13,7 @@ stdlib/3/typing.pyi
 stdlib/3.4/asyncio/tasks.pyi
 
 # builtins not found
-stdlib/2/os/__init__.pyi
+stdlib/2/os/__init__.pyi # parse only
 
 # Below files can not be loaded by PyType without an error.
 # Notice that the current travis configuration loads these files with Python 2.7.
