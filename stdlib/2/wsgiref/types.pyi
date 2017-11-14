@@ -22,9 +22,10 @@ _exc_info = Tuple[Optional[Type[BaseException]],
                   Optional[BaseException],
                   Optional[TracebackType]]
 _Text = Union[unicode, str]
+WSGIEnvironment = Dict[_Text, _Text]
 WSGIApplication = Callable[
     [
-        Dict[_Text, _Text],
+        WSGIEnvironment,
         Union[
             Callable[[_Text, List[Tuple[_Text, _Text]]], Callable[[_Text], None]],
             Callable[[_Text, List[Tuple[_Text, _Text]], _exc_info], Callable[[_Text], None]]
