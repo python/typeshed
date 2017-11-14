@@ -51,10 +51,10 @@ def load_blacklist():
     parse_only = []
     parse_only_re = re.compile(_PARSE_ONLY_REGEX)
     for f in lines:
-      if parse_only_re.search(f):
-        parse_only.append(f.split("#")[0].strip())
-      else:
-        blacklist.append(f)
+        if parse_only_re.search(f):
+            parse_only.append(f.split("#")[0].strip())
+        else:
+            blacklist.append(f)
     return blacklist, parse_only
 
 
@@ -74,7 +74,7 @@ class BinaryRun(object):
                 stderr=subprocess.PIPE)
 
         if close_handler:
-          close_handler()
+              close_handler()
 
     def communicate(self):
         if self.results:
@@ -104,10 +104,10 @@ def pytype_test(args):
         for f in sorted(filenames):
             f = os.path.join(root, f)
             if wanted.search(f):
-               if parse_only.search(f):
-                 pytd_run.append(f)
-               elif not skipped.search(f):
-                 pytype_run.append(f)
+                if parse_only.search(f):
+                    pytd_run.append(f)
+                elif not skipped.search(f):
+                    pytype_run.append(f)
 
     running_tests = collections.deque()
     max_code, runs, errors = 0, 0, 0
@@ -116,19 +116,19 @@ def pytype_test(args):
         while files and len(running_tests) < args.num_parallel:
             f = files.pop()
             if f in pytype_run:
-              temp = tempfile.NamedTemporaryFile(delete=False)
-              temp.close()  # Windows compat.
-              test_run = BinaryRun(["pytype",
-                                    "--typeshed-location=%s" % os.getcwd(),
-                                    "--module-name=%s" % _get_module_name(f),
-                                    '--convert-to-pickle=%s' % temp.name,
-                                    f],
-                                   dry_run=args.dry_run,
-                                   close_handler=lambda: os.remove(temp.name))
+                temp = tempfile.NamedTemporaryFile(delete=False)
+                temp.close()  # Windows compat.
+                test_run = BinaryRun(["pytype",
+                                      "--typeshed-location=%s" % os.getcwd(),
+                                      "--module-name=%s" % _get_module_name(f),
+                                      '--convert-to-pickle=%s' % temp.name,
+                                      f],
+                                     dry_run=args.dry_run,
+                                     close_handler=lambda: os.remove(temp.name))
             elif f in pytd_run:
-              test_run = BinaryRun(["pytd", f], dry_run=args.dry_run)
+                test_run = BinaryRun(["pytd", f], dry_run=args.dry_run)
             else:
-              raise ValueError("Unknown action for file: %s" % f)
+                raise ValueError("Unknown action for file: %s" % f)
             running_tests.append(test_run)
 
         if not running_tests:
@@ -140,7 +140,6 @@ def pytype_test(args):
         runs += 1
 
         if code:
-            print "Error for args: %s" % str(test_run.args)
             print(stderr)
             errors += 1
 
@@ -148,9 +147,9 @@ def pytype_test(args):
     return max_code, runs
 
 def _get_module_name(filename):
-  """Converts a filename stdblib/m.n/module/foo to module.foo."""
-  return ".".join(filename.split(os.path.sep)[2:]).replace(
-      ".pyi", "").replace('.__init__', '')
+    """Converts a filename stdblib/m.n/module/foo to module.foo."""
+    return ".".join(filename.split(os.path.sep)[2:]).replace(
+        ".pyi", "").replace('.__init__', '')
 
 if __name__ == '__main__':
     main()
