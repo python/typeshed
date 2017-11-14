@@ -74,7 +74,7 @@ class BinaryRun(object):
                 stderr=subprocess.PIPE)
 
         if close_handler:
-              close_handler()
+            close_handler()
 
     def communicate(self):
         if self.results:
@@ -125,7 +125,7 @@ def pytype_test(args):
                                       f],
                                       dry_run=args.dry_run,
                                       close_handler=lambda: os.remove(temp.name)
-                )
+                                      )
             elif f in pytd_run:
                 test_run = BinaryRun(["pytd", f], dry_run=args.dry_run)
             else:
