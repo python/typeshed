@@ -21,7 +21,7 @@ from types import TracebackType
 _exc_info = Tuple[Optional[Type[BaseException]],
                   Optional[BaseException],
                   Optional[TracebackType]]
-WSGIEnvironment = Dict[str, str]
+WSGIEnvironment = Dict[str, Any]
 WSGIApplication = Callable[
     [
         WSGIEnvironment,
