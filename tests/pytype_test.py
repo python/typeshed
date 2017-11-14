@@ -123,8 +123,9 @@ def pytype_test(args):
                                       "--module-name=%s" % _get_module_name(f),
                                       '--convert-to-pickle=%s' % temp.name,
                                       f],
-                                     dry_run=args.dry_run,
-                                     close_handler=lambda: os.remove(temp.name))
+                                      dry_run=args.dry_run,
+                                      close_handler=lambda: os.remove(temp.name)
+                )
             elif f in pytd_run:
                 test_run = BinaryRun(["pytd", f], dry_run=args.dry_run)
             else:
