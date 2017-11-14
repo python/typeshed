@@ -34,17 +34,17 @@ def main():
     code, runs = pytype_test(args)
 
     if code:
-        print("--- exit status %d ---" % code)
+        print('--- exit status %d ---' % code)
         sys.exit(code)
     if not runs:
-        print("--- nothing to do; exit 1 ---")
+        print('--- nothing to do; exit 1 ---')
         sys.exit(1)
 
-_PARSE_ONLY_REGEX = r"\s*#\s*parse only\s*"
+_PARSE_ONLY_REGEX = r'\s*#\s*parse only\s*'
 
 def load_blacklist():
     filename = os.path.join(os.path.dirname(__file__), "pytype_blacklist.txt")
-    regex = r"^\s*([^\s#]+(?:%s)?)\s*(?:#.*)?$" % _PARSE_ONLY_REGEX
+    regex = r'^\s*([^\s#]+(?:%s)?)\s*(?:#.*)?$' % _PARSE_ONLY_REGEX
     with open(filename) as f:
         lines = re.findall(regex, f.read(), flags=re.M)
     blacklist = []
@@ -52,7 +52,7 @@ def load_blacklist():
     parse_only_re = re.compile(_PARSE_ONLY_REGEX)
     for f in lines:
         if parse_only_re.search(f):
-            parse_only.append(f.split("#")[0].strip())
+            parse_only.append(f.split('#')[0].strip())
         else:
             blacklist.append(f)
     return blacklist, parse_only
@@ -66,7 +66,7 @@ class BinaryRun(object):
         self.results = None
 
         if dry_run:
-            self.results = (0, "", "")
+            self.results = (0, '', '')
         else:
             self.proc = subprocess.Popen(
                 self.args,
@@ -87,20 +87,20 @@ class BinaryRun(object):
 
 def pytype_test(args):
     try:
-        BinaryRun(["pytd", "-h"]).communicate()
+        BinaryRun(['pytd', '-h']).communicate()
     except OSError:
-        print("Cannot run pytd. Did you install pytype?")
+        print('Cannot run pytd. Did you install pytype?')
         return 0, 0
 
     blacklist, parse_only = load_blacklist()
-    wanted = re.compile(r"stdlib/.*\.pyi$")
-    skipped = re.compile("(%s)$" % "|".join(blacklist))
-    parse_only = re.compile("(%s)$" % "|".join(parse_only))
+    wanted = re.compile(r'stdlib/.*\.pyi$')
+    skipped = re.compile('(%s)$' % '|'.join(blacklist))
+    parse_only = re.compile('(%s)$' % '|'.join(parse_only))
 
     pytype_run = []
     pytd_run = []
 
-    for root, _, filenames in os.walk("stdlib"):
+    for root, _, filenames in os.walk('stdlib'):
         for f in sorted(filenames):
             f = os.path.join(root, f)
             if wanted.search(f):
@@ -118,18 +118,18 @@ def pytype_test(args):
             if f in pytype_run:
                 temp = tempfile.NamedTemporaryFile(delete=False)
                 temp.close()  # Windows compat.
-                test_run = BinaryRun(["pytype",
-                                      "--typeshed-location=%s" % os.getcwd(),
-                                      "--module-name=%s" % _get_module_name(f),
-                                      '--convert-to-pickle=%s' % temp.name,
-                                      f],
-                                      dry_run=args.dry_run,
-                                      close_handler=lambda: os.remove(temp.name)
-                                      )
+                test_run = BinaryRun(
+                    ['pytype',
+                     '--typeshed-location=%s' % os.getcwd(),
+                     '--module-name=%s' % _get_module_name(f),
+                     '--convert-to-pickle=%s' % temp.name,
+                     f],
+                    dry_run=args.dry_run,
+                    close_handler=lambda: os.remove(temp.name))
             elif f in pytd_run:
-                test_run = BinaryRun(["pytd", f], dry_run=args.dry_run)
+                test_run = BinaryRun(['pytd', f], dry_run=args.dry_run)
             else:
-                raise ValueError("Unknown action for file: %s" % f)
+                raise ValueError('Unknown action for file: %s' % f)
             running_tests.append(test_run)
 
         if not running_tests:
@@ -144,13 +144,13 @@ def pytype_test(args):
             print(stderr)
             errors += 1
 
-    print("Ran pytype with %d pyis, got %d errors." % (runs, errors))
+    print('Ran pytype with %d pyis, got %d errors.' % (runs, errors))
     return max_code, runs
 
 def _get_module_name(filename):
     """Converts a filename stdblib/m.n/module/foo to module.foo."""
-    return ".".join(filename.split(os.path.sep)[2:]).replace(
-        ".pyi", "").replace('.__init__', '')
+    return '.'.join(filename.split(os.path.sep)[2:]).replace(
+        '.pyi', '').replace('.__init__', '')
 
 if __name__ == '__main__':
     main()
