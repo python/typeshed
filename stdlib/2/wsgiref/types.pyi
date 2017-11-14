@@ -15,7 +15,7 @@
 # you need to use 'WSGIApplication' and not simply WSGIApplication when type
 # hinting your code.  Otherwise Python will raise NameErrors.
 
-from typing import Callable, Dict, Iterable, List, Optional, Tuple, Type, Union
+from typing import Callable, Dict, Iterable, List, Optional, Tuple, Type, Union, Any
 from types import TracebackType
 
 _exc_info = Tuple[Optional[Type[BaseException]],
