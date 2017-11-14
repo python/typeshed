@@ -18,9 +18,9 @@ class BaseRequest:
     form_data_parser_class = ...  # type: Type
     trusted_hosts = ...  # type: Optional[Sequence[unicode]]
     disable_data_descriptor = ...  # type: Any
-    environ = ...  # type: Dict[str, Any]
+    environ = ...  # type: Dict[Union[str, unicode], Any]
     shallow = ...  # type: Any
-    def __init__(self, environ: Dict[str, Any], populate_request: bool = ..., shallow: bool = ...) -> None: ...
+    def __init__(self, environ: Dict[Union[str, unicode], Any], populate_request: bool = ..., shallow: bool = ...) -> None: ...
     @property
     def url_charset(self) -> str: ...
     @classmethod
