@@ -20,7 +20,6 @@ import re
 import sys
 import argparse
 import subprocess
-import tempfile
 import collections
 
 parser = argparse.ArgumentParser(description="Pytype tests.")
