@@ -54,7 +54,7 @@ def load_blacklist():
             if parse_only_match:
                 parse_only.append(parse_only_match.group(1))
             elif skip_match:
-              skip.append(skip_match.group(1))
+                skip.append(skip_match.group(1))
 
     return skip, parse_only
 
