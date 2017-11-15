@@ -95,9 +95,9 @@ def pytype_test(args):
         print('Cannot run pytd. Did you install pytype?')
         return 0, 0
 
-    blacklist, parse_only = load_blacklist()
+    skip, parse_only = load_blacklist()
     wanted = re.compile(r'stdlib/.*\.pyi$')
-    skipped = re.compile('(%s)$' % '|'.join(blacklist))
+    skipped = re.compile('(%s)$' % '|'.join(skip))
     parse_only = re.compile('(%s)$' % '|'.join(parse_only))
 
     pytype_run = []
