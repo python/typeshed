@@ -82,6 +82,12 @@ class BinaryRun(object):
         return self.results
 
 
+def _get_module_name(filename):
+    """Converts a filename stdblib/m.n/module/foo to module.foo."""
+    return '.'.join(filename.split(os.path.sep)[2:]).replace(
+        '.pyi', '').replace('.__init__', '')
+
+
 def pytype_test(args):
     try:
         BinaryRun(['pytd', '-h']).communicate()
@@ -140,11 +146,6 @@ def pytype_test(args):
 
     print('Ran pytype with %d pyis, got %d errors.' % (runs, errors))
     return max_code, runs
-
-def _get_module_name(filename):
-    """Converts a filename stdblib/m.n/module/foo to module.foo."""
-    return '.'.join(filename.split(os.path.sep)[2:]).replace(
-        '.pyi', '').replace('.__init__', '')
 
 if __name__ == '__main__':
     main()
