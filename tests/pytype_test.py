@@ -40,22 +40,24 @@ def main():
         print('--- nothing to do; exit 1 ---')
         sys.exit(1)
 
-_PARSE_ONLY_REGEX = r'\s*#\s*parse only\s*'
 
 def load_blacklist():
     filename = os.path.join(os.path.dirname(__file__), "pytype_blacklist.txt")
-    regex = r'^\s*([^\s#]+(?:%s)?)\s*(?:#.*)?$' % _PARSE_ONLY_REGEX
-    with open(filename) as f:
-        lines = re.findall(regex, f.read(), flags=re.M)
-    blacklist = []
+    skip_re = re.compile(r'^\s*([^\s#]+)\s*(?:#.*)?$')
+    parse_only_re = re.compile(r'^\s*([^\s#]+)\s*#\s*parse only\s*')
+    skip = []
     parse_only = []
-    parse_only_re = re.compile(_PARSE_ONLY_REGEX)
-    for f in lines:
-        if parse_only_re.search(f):
-            parse_only.append(f.split('#')[0].strip())
-        else:
-            blacklist.append(f)
-    return blacklist, parse_only
+
+    with open(filename) as f:
+        for line in f:
+            parse_only_match = parse_only_re.match(line)
+            skip_match = skip_re.match(line)
+            if parse_only_match:
+                parse_only.append(parse_only_match.group(1))
+            elif skip_match:
+              skip.append(skip_match.group(1))
+
+    return skip, parse_only
 
 
 class BinaryRun(object):
