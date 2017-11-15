@@ -59,7 +59,7 @@ def load_blacklist():
 
 
 class BinaryRun(object):
-    def __init__(self, args, dry_run=False, close_handler=None):
+    def __init__(self, args, dry_run=False):
         self.args = args
 
         self.dry_run = dry_run
@@ -72,9 +72,6 @@ class BinaryRun(object):
                 self.args,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE)
-
-        if close_handler:
-            close_handler()
 
     def communicate(self):
         if self.results:
@@ -116,16 +113,13 @@ def pytype_test(args):
         while files and len(running_tests) < args.num_parallel:
             f = files.pop()
             if f in pytype_run:
-                temp = tempfile.NamedTemporaryFile(delete=False)
-                temp.close()  # Windows compat.
                 test_run = BinaryRun(
                     ['pytype',
                      '--typeshed-location=%s' % os.getcwd(),
                      '--module-name=%s' % _get_module_name(f),
-                     '--convert-to-pickle=%s' % temp.name,
+                     '--convert-to-pickle=%s' % os.devnull,
                      f],
-                    dry_run=args.dry_run,
-                    close_handler=lambda: os.remove(temp.name))
+                    dry_run=args.dry_run)
             elif f in pytd_run:
                 test_run = BinaryRun(['pytd', f], dry_run=args.dry_run)
             else:
