@@ -28,6 +28,7 @@ _TT = TypeVar('_TT', bound='type')
 class object:
     __doc__ = ...  # type: Optional[str]
     __class__ = ...  # type: type
+    __dict__ = ...  # type: Dict[str, Any]
     __slots__ = ...  # type: Optional[Union[str, unicode, Iterable[Union[str, unicode]]]]
     __module__ = ...  # type: str
 
@@ -64,7 +65,6 @@ class type(object):
     __bases__ = ...  # type: Tuple[type, ...]
     __name__ = ...  # type: str
     __module__ = ...  # type: str
-    __dict__ = ...  # type: Dict[unicode, Any]
 
     @overload
     def __init__(self, o: object) -> None: ...
