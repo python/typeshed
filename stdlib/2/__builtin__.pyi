@@ -726,11 +726,17 @@ def isinstance(o: object, t: Union[type, Tuple[Union[type, Tuple], ...]]) -> boo
 def issubclass(cls: type, classinfo: Union[type, Tuple[Union[type, Tuple], ...]]) -> bool: ...
 def len(o: Sized) -> int: ...
 @overload
-def map(func: Optional[Callable[[_T1], _S]], iter1: Iterable[_T1]) -> List[_S]: ...
+def map(func: Callable[[_T1], _S], iter1: Iterable[_T1]) -> List[_S]: ...
 @overload
-def map(func: Optional[Callable[[_T1, _T2], _S]],
+def map(func: Callable[[_T1, _T2], _S],
         iter1: Iterable[_T1],
         iter2: Iterable[_T2]) -> List[_S]: ...  # TODO more than two iterables
+@overload
+def map(func: None, iter1: Iterable[_T1]) -> List[_T1]: ...
+@overload
+def map(func: None,
+        iter1: Iterable[_T1],
+        iter2: Iterable[_T2]) -> List[Tuple[_T1, _T2]]: ...  # TODO more than two iterables
 @overload
 def max(arg1: _T, arg2: _T, *args: _T, key: Callable[[_T], Any] = ...) -> _T: ...
 @overload
