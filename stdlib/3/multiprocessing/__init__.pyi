@@ -2,7 +2,7 @@
 
 from typing import (
     Any, Callable, ContextManager, Iterable, Mapping, Optional, Dict, List,
-    Union, TypeVar, Sequence, Tuple, overload
+    Union, TypeVar, Sequence, Tuple, Type, overload
 )
 
 import ctypes
@@ -13,7 +13,7 @@ from multiprocessing.context import (
     ProcessError, BufferTooShort, TimeoutError, AuthenticationError)
 from multiprocessing.managers import SyncManager
 from multiprocessing.process import current_process as current_process
-from multiprocessing.sharedctypes import T, _CData, SynchronizedBase, SynchronizedArray
+from multiprocessing.sharedctypes import _T, _CData, SynchronizedBase, SynchronizedArray
 import queue
 import sys
 
