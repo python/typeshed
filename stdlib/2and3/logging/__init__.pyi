@@ -48,54 +48,54 @@ class Logger(Filterer):
     def getEffectiveLevel(self) -> int: ...
     def getChild(self, suffix: str) -> 'Logger': ...
     if sys.version_info >= (3,):
-        def debug(self, msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+        def debug(self, msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                   stack_info: bool = ..., extra: Optional[Dict[str, Any]] = ...,
                   **kwargs: Any) -> None: ...
-        def info(self, msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+        def info(self, msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                  stack_info: bool = ..., extra: Optional[Dict[str, Any]] = ...,
                  **kwargs: Any) -> None: ...
-        def warning(self, msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+        def warning(self, msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                     stack_info: bool = ..., extra: Optional[Dict[str, Any]] = ...,
                     **kwargs: Any) -> None: ...
-        def warn(self, msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+        def warn(self, msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                  stack_info: bool = ..., extra: Optional[Dict[str, Any]] = ...,
                  **kwargs: Any) -> None: ...
-        def error(self, msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+        def error(self, msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                   stack_info: bool = ..., extra: Optional[Dict[str, Any]] = ...,
                   **kwargs: Any) -> None: ...
-        def critical(self, msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+        def critical(self, msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                      stack_info: bool = ..., extra: Optional[Dict[str, Any]] = ...,
                      **kwargs: Any) -> None: ...
-        def log(self, lvl: int, msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+        def log(self, lvl: int, msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                 stack_info: bool = ..., extra: Optional[Dict[str, Any]] = ...,
                 **kwargs: Any) -> None: ...
-        def exception(self, msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+        def exception(self, msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                       stack_info: bool = ..., extra: Optional[Dict[str, Any]] = ...,
                       **kwargs: Any) -> None: ...
     else:
         def debug(self,
-                  msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+                  msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                   extra: Optional[Dict[str, Any]] = ..., **kwargs: Any) -> None: ...
         def info(self,
-                 msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+                 msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                  extra: Optional[Dict[str, Any]] = ..., **kwargs: Any) -> None: ...
         def warning(self,
-                    msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+                    msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                     extra: Optional[Dict[str, Any]] = ..., **kwargs: Any) -> None: ...
         def warn(self,
-                 msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+                 msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                  extra: Optional[Dict[str, Any]] = ..., **kwargs: Any) -> None: ...
         def error(self,
-                  msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+                  msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                   extra: Optional[Dict[str, Any]] = ..., **kwargs: Any) -> None: ...
         def critical(self,
-                     msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+                     msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                      extra: Optional[Dict[str, Any]] = ..., **kwargs: Any) -> None: ...
         def log(self,
-                lvl: int, msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+                lvl: int, msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                 extra: Optional[Dict[str, Any]] = ..., **kwargs: Any) -> None: ...
         def exception(self,
-                      msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+                      msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                       extra: Optional[Dict[str, Any]] = ..., **kwargs: Any) -> None: ...
     def addFilter(self, filt: _FilterType) -> None: ...
     def removeFilter(self, filt: _FilterType) -> None: ...
@@ -108,7 +108,7 @@ class Logger(Filterer):
         def findCaller(self) -> Tuple[str, int, str]: ...
     def handle(self, record: 'LogRecord') -> None: ...
     if sys.version_info >= (3,):
-        def makeRecord(self, name: str, lvl: int, fn: str, lno: int, msg: Text,
+        def makeRecord(self, name: str, lvl: int, fn: str, lno: int, msg: Any,
                        args: Mapping[str, Any],
                        exc_info: Optional[_SysExcInfoType],
                        func: Optional[str] = ...,
@@ -116,7 +116,7 @@ class Logger(Filterer):
                        sinfo: Optional[str] = ...) -> LogRecord: ...
     else:
         def makeRecord(self,
-                       name: str, lvl: int, fn: str, lno: int, msg: Text,
+                       name: str, lvl: int, fn: str, lno: int, msg: Any,
                        args: Mapping[str, Any],
                        exc_info: Optional[_SysExcInfoType],
                        func: Optional[str] = ...,
@@ -211,14 +211,14 @@ class LogRecord:
     threadName = ...  # type: str
     if sys.version_info >= (3,):
         def __init__(self, name: str, level: int, pathname: str, lineno: int,
-                     msg: Text, args: _ArgsType,
+                     msg: Any, args: _ArgsType,
                      exc_info: Optional[_SysExcInfoType],
                      func: Optional[str] = ...,
                      sinfo: Optional[str] = ...) -> None: ...
     else:
         def __init__(self,
                      name: str, level: int, pathname: str, lineno: int,
-                     msg: Text, args: _ArgsType,
+                     msg: Any, args: _ArgsType,
                      exc_info: Optional[_SysExcInfoType],
                      func: Optional[str] = ...) -> None: ...
     def getMessage(self) -> str: ...
@@ -226,50 +226,50 @@ class LogRecord:
 
 class LoggerAdapter:
     def __init__(self, logger: Logger, extra: Mapping[str, Any]) -> None: ...
-    def process(self, msg: Text, kwargs: MutableMapping[str, Any]) -> Tuple[str, MutableMapping[str, Any]]: ...
+    def process(self, msg: Any, kwargs: MutableMapping[str, Any]) -> Tuple[str, MutableMapping[str, Any]]: ...
     if sys.version_info >= (3,):
-        def debug(self, msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+        def debug(self, msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                   stack_info: bool = ..., extra: Optional[Dict[str, Any]] = ...,
                   **kwargs: Any) -> None: ...
-        def info(self, msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+        def info(self, msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                  stack_info: bool = ..., extra: Optional[Dict[str, Any]] = ...,
                  **kwargs: Any) -> None: ...
-        def warning(self, msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+        def warning(self, msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                     stack_info: bool = ..., extra: Optional[Dict[str, Any]] = ...,
                     **kwargs: Any) -> None: ...
-        def error(self, msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+        def error(self, msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                   stack_info: bool = ..., extra: Optional[Dict[str, Any]] = ...,
                   **kwargs: Any) -> None: ...
-        def exception(self, msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+        def exception(self, msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                       stack_info: bool = ..., extra: Optional[Dict[str, Any]] = ...,
                       **kwargs: Any) -> None: ...
-        def critical(self, msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+        def critical(self, msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                      stack_info: bool = ..., extra: Optional[Dict[str, Any]] = ...,
                      **kwargs: Any) -> None: ...
-        def log(self, lvl: int, msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+        def log(self, lvl: int, msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                 stack_info: bool = ..., extra: Optional[Dict[str, Any]] = ...,
                 **kwargs: Any) -> None: ...
     else:
         def debug(self,
-                  msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+                  msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                   extra: Optional[Dict[str, Any]] = ..., **kwargs: Any) -> None: ...
         def info(self,
-                 msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+                 msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                  extra: Optional[Dict[str, Any]] = ..., **kwargs: Any) -> None: ...
         def warning(self,
-                    msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+                    msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                     extra: Optional[Dict[str, Any]] = ..., **kwargs: Any) -> None: ...
         def error(self,
-                  msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+                  msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                   extra: Optional[Dict[str, Any]] = ..., **kwargs: Any) -> None: ...
         def exception(self,
-                      msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+                      msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                       extra: Optional[Dict[str, Any]] = ..., **kwargs: Any) -> None: ...
         def critical(self,
-                     msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+                     msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                      extra: Optional[Dict[str, Any]] = ..., **kwargs: Any) -> None: ...
         def log(self,
-                lvl: int, msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+                lvl: int, msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                 extra: Optional[Dict[str, Any]] = ..., **kwargs: Any) -> None: ...
     def isEnabledFor(self, lvl: int) -> bool: ...
     if sys.version_info >= (3,):
@@ -290,46 +290,46 @@ if sys.version_info >= (3,):
     def getLogRecordFactory() -> Callable[..., LogRecord]: ...
 
 if sys.version_info >= (3,):
-    def debug(msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+    def debug(msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
               stack_info: bool = ..., extra: Optional[Dict[str, Any]] = ...,
               **kwargs: Any) -> None: ...
-    def info(msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+    def info(msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
              stack_info: bool = ..., extra: Optional[Dict[str, Any]] = ...,
              **kwargs: Any) -> None: ...
-    def warning(msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+    def warning(msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                 stack_info: bool = ..., extra: Optional[Dict[str, Any]] = ...,
                 **kwargs: Any) -> None: ...
-    def warn(msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+    def warn(msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
              stack_info: bool = ..., extra: Optional[Dict[str, Any]] = ...,
              **kwargs: Any) -> None: ...
-    def error(msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+    def error(msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
               stack_info: bool = ..., extra: Optional[Dict[str, Any]] = ...,
               **kwargs: Any) -> None: ...
-    def critical(msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+    def critical(msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                  stack_info: bool = ..., extra: Optional[Dict[str, Any]] = ...,
                  **kwargs: Any) -> None: ...
-    def exception(msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+    def exception(msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                   stack_info: bool = ..., extra: Optional[Dict[str, Any]] = ...,
                   **kwargs: Any) -> None: ...
-    def log(lvl: int, msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+    def log(lvl: int, msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
             stack_info: bool = ..., extra: Optional[Dict[str, Any]] = ...,
             **kwargs: Any) -> None: ...
 else:
-    def debug(msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+    def debug(msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
               extra: Optional[Dict[str, Any]] = ..., **kwargs: Any) -> None: ...
-    def info(msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+    def info(msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
              extra: Optional[Dict[str, Any]] = ..., **kwargs: Any) -> None: ...
-    def warning(msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+    def warning(msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                 extra: Optional[Dict[str, Any]] = ..., **kwargs: Any) -> None: ...
-    def warn(msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+    def warn(msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
              extra: Optional[Dict[str, Any]] = ..., **kwargs: Any) -> None: ...
-    def error(msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+    def error(msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
               extra: Optional[Dict[str, Any]] = ..., **kwargs: Any) -> None: ...
-    def critical(msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+    def critical(msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                  extra: Optional[Dict[str, Any]] = ..., **kwargs: Any) -> None: ...
-    def exception(msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+    def exception(msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                   extra: Optional[Dict[str, Any]] = ..., **kwargs: Any) -> None: ...
-    def log(lvl: int, msg: Text, *args: Any, exc_info: _ExcInfoType = ...,
+    def log(lvl: int, msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
             extra: Optional[Dict[str, Any]] = ..., **kwargs: Any) -> None: ...
 fatal = critical
 
