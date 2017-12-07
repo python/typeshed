@@ -18,10 +18,7 @@ _Data = Union[
     MutableMapping[str, Text],
     MutableMapping[Text, str],
     MutableMapping[Text, Text],
-    Iterable[Tuple[str, str]],
-    Iterable[Tuple[str, Text]],
-    Iterable[Tuple[Text, str]],
-    Iterable[Tuple[Text, Text]],
+    Iterable[Tuple[_Text, _Text]],
     IO
 ]
 
