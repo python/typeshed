@@ -11,7 +11,19 @@ else:
     _Text = Union[str, Text]
 
 _ParamsMappingValueType = Union[_Text, bytes, int, float, Iterable[Union[_Text, bytes, int, float]]]
-_Data = Union[None, bytes, MutableMapping[_Text, _Text], Iterable[Tuple[_Text, _Text]], IO]
+_Data = Union[
+        None,
+        bytes,
+        MutableMapping[str, str],
+        MutableMapping[str, Text],
+        MutableMapping[Text, str],
+        MutableMapping[Text, Text],
+        Iterable[Tuple[str, str]],
+        Iterable[Tuple[str, Text]],
+        Iterable[Tuple[Text, str]],
+        Iterable[Tuple[Text, Text]],
+        IO
+]
 
 def request(method: str, url: str, **kwargs) -> Response: ...
 def get(url: Union[_Text, bytes],
