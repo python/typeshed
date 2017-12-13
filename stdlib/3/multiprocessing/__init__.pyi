@@ -2,9 +2,10 @@
 
 from typing import (
     Any, Callable, ContextManager, Iterable, Mapping, Optional, Dict, List,
-    Union, TypeVar, Sequence, Tuple
+    Union, TypeVar, Sequence, Tuple, Type, overload
 )
 
+import ctypes
 from logging import Logger
 from multiprocessing import connection, pool, synchronize
 from multiprocessing.context import (
@@ -12,6 +13,7 @@ from multiprocessing.context import (
     ProcessError, BufferTooShort, TimeoutError, AuthenticationError)
 from multiprocessing.managers import SyncManager
 from multiprocessing.process import current_process as current_process
+from multiprocessing.sharedctypes import _U, _CData, SynchronizedBase, SynchronizedArray
 import queue
 import sys
 
@@ -75,9 +77,22 @@ class Queue(queue.Queue[_T]):
     def join_thread(self) -> None: ...
     def cancel_join_thread(self) -> None: ...
 
-class Value():
-    value: Any = ...
-    def __init__(self, typecode_or_type: str, *args: Any, lock: bool = ...) -> None: ...
+@overload
+def RawValue(typecode_or_type: Type[_U], *args: Any) -> _U: ...
+@overload
+def RawValue(typecode_or_type: str, *args: Any) -> ctypes._SimpleCData: ...
+
+# TODO: return ctypes.Array[_U] instead
+def RawArray(typecode_or_type: Union[Type, str], size_or_initializer: Union[int, Sequence]) -> ctypes.Array: ...
+
+@overload
+def Value(typecode_or_type: _U, *args: Any, lock: bool = ...) -> SynchronizedBase[_U]: ...
+@overload
+def Value(typecode_or_type: str, *args: Any, lock: bool = ...) -> SynchronizedBase[Any]: ...
+
+def Array(typecode_or_type: Union[Type, str],
+          size_or_initializer: Union[int, Sequence],
+          *, lock: bool = ...) -> SynchronizedArray[ctypes.Array]: ...
 
 # ----- multiprocessing function stubs -----
 def active_children() -> List[Process]: ...
