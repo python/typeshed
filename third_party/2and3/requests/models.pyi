@@ -1,6 +1,7 @@
 # Stubs for requests.models (Python 3)
 
-from typing import Any, List, MutableMapping, Iterator, Dict, Text
+from typing import (Any, Dict, Iterator, List, MutableMapping, Optional, Text,
+                    Union)
 import datetime
 import types
 
@@ -18,7 +19,6 @@ from . import utils
 from . import compat
 from . import status_codes
 
-from typing import Optional, Union
 
 default_hooks = hooks.default_hooks
 CaseInsensitiveDict = structures.CaseInsensitiveDict
