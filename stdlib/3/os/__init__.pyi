@@ -5,11 +5,12 @@ from builtins import OSError as error
 from io import TextIOWrapper as _TextIOWrapper
 import sys
 from typing import (
-    Mapping, MutableMapping, Dict, List, Any, Tuple, IO, Iterable, Iterator, overload, Union, AnyStr,
-    Optional, Generic, Set, Callable, Text, Sequence, NamedTuple, TypeVar
+    Mapping, MutableMapping, Dict, List, Any, Tuple, Iterator, overload, Union, AnyStr,
+    Optional, Generic, Set, Callable, Text, Sequence, IO, NamedTuple, TypeVar, Iterable
 )
 from . import path as path
 from mypy_extensions import NoReturn
+from types import TracebackType
 
 _T = TypeVar('_T')
 
@@ -487,10 +488,16 @@ if sys.version_info >= (3, 3):
 else:
     def rmdir(path: _PathType) -> None: ...
 if sys.version_info >= (3, 6):
+    class ScandirIterator(Iterable):
+        def __iter__(self) -> Iterator[DirEntry[str]]: ...
+        def __next__(self) -> DirEntry[str]: ...
+        def __enter__(self: _T) -> _T: ...
+        def __exit__(self, exc_type: Optional[type], exc_val: Optional[Exception],
+                     exc_tb: Optional[TracebackType]) -> bool: ...
     @overload
     def scandir() -> Iterator[DirEntry[str]]: ...
     @overload
-    def scandir(path: Union[AnyStr, PathLike[AnyStr]]) -> Iterator[DirEntry[AnyStr]]: ...
+    def scandir(path: Union[AnyStr, PathLike[AnyStr]]) -> ScandirIterator: ...
 elif sys.version_info >= (3, 5):
     @overload
     def scandir() -> Iterator[DirEntry[str]]: ...
