@@ -6,7 +6,7 @@ from io import TextIOWrapper as _TextIOWrapper
 import sys
 from typing import (
     Mapping, MutableMapping, Dict, List, Any, Tuple, IO, Iterable, Iterator, overload, Union, AnyStr,
-    Optional, Generic, Set, Callable, Text, Sequence, NamedTuple, TypeVar
+    Optional, Generic, Set, Callable, Text, Sequence, NamedTuple, TypeVar, ContextManager
 )
 from . import path as path
 from mypy_extensions import NoReturn
@@ -487,10 +487,12 @@ if sys.version_info >= (3, 3):
 else:
     def rmdir(path: _PathType) -> None: ...
 if sys.version_info >= (3, 6):
+    class _ScandirIterator(Iterator[DirEntry[AnyStr]], ContextManager[_ScandirIterator[AnyStr]]):
+        def close(self) -> None: ...
     @overload
-    def scandir() -> Iterator[DirEntry[str]]: ...
+    def scandir() -> _ScandirIterator[str]: ...
     @overload
-    def scandir(path: Union[AnyStr, PathLike[AnyStr]]) -> Iterator[DirEntry[AnyStr]]: ...
+    def scandir(path: Union[AnyStr, PathLike[AnyStr]]) -> _ScandirIterator[AnyStr]: ...
 elif sys.version_info >= (3, 5):
     @overload
     def scandir() -> Iterator[DirEntry[str]]: ...
