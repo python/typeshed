@@ -102,6 +102,11 @@ PROTOCOL_TLSv1 = ...  # type: int
 if sys.version_info >= (3, 4):
     PROTOCOL_TLSv1_1 = ...  # type: int
     PROTOCOL_TLSv1_2 = ...  # type: int
+if sys.version_info >= (3, 5):
+    PROTOCOL_TLS = ...  # type: int
+if sys.version_info >= (3, 6):
+    PROTOCOL_TLS_CLIENT = ...  # type: int
+    PROTOCOL_TLS_SERVER = ...  # type: int
 
 OP_ALL = ...  # type: int
 OP_NO_SSLv2 = ...  # type: int
@@ -114,6 +119,8 @@ OP_CIPHER_SERVER_PREFERENCE = ...  # type: int
 OP_SINGLE_DH_USE = ...  # type: int
 OP_SINGLE_ECDH_USE = ...  # type: int
 OP_NO_COMPRESSION = ...  # type: int
+if sys.version_info >= (3, 6):
+    OP_NO_TICKET = ...  # type: int
 
 if sys.version_info >= (3, 5):
     HAS_ALPN = ...  # type: int
@@ -168,6 +175,10 @@ class SSLSocket(socket.socket):
     context = ...  # type: SSLContext
     server_side = ...  # type: bool
     server_hostname = ...  # type: Optional[str]
+    if sys.version_info >= (3, 6):
+        session = ...  # type: Optional[SSLSession]
+        session_reused = ...  # type: Optional[bool]
+
     def read(self, len: int = ...,
              buffer: Optional[bytearray] = ...) -> bytes: ...
     def write(self, buf: bytes) -> int: ...
@@ -237,6 +248,9 @@ if sys.version_info >= (3, 5):
         context = ...  # type: SSLContext
         server_side = ...  # type: bool
         server_hostname = ...  # type: Optional[str]
+        if sys.version_info >= (3, 6):
+            session = ...  # type: Optional[SSLSession]
+            session_reused = ...  # type: bool
         def read(self, len: int = ...,
                  buffer: Optional[bytearray] = ...) -> bytes: ...
         def write(self, buf: bytes) -> int: ...
@@ -256,6 +270,14 @@ if sys.version_info >= (3, 5):
         def read(self, n: int = ...) -> bytes: ...
         def write(self, buf: bytes) -> int: ...
         def write_eof(self) -> None: ...
+
+if sys.version_info >= (3, 6):
+    class SSLSession:
+        id = ...  # type: bytes
+        time = ...  # type: int
+        timeout = ...  # type: int
+        ticket_lifetime_hint = ...  # type: int
+        has_ticket = ...  # type: bool
 
 
 # TODO below documented in cpython but not in docs.python.org

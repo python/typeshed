@@ -39,5 +39,7 @@ class RawIOBase(_io._RawIOBase, IOBase):
 class BufferedIOBase(_io._BufferedIOBase, IOBase):
     pass
 
-class TextIOBase(_io._TextIOBase, IOBase):  # type: ignore
+# Note: In the actual io.py, TextIOBase subclasses IOBase.
+# (Which we don't do here because we don't want to subclass both TextIO and BinaryIO.)
+class TextIOBase(_io._TextIOBase):
     pass
