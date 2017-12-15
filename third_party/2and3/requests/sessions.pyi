@@ -2,7 +2,7 @@
 
 from typing import Any, Union, MutableMapping, Text, Optional, IO, Tuple, Callable
 from . import adapters
-from . import auth
+from . import auth as _auth
 from . import compat
 from . import cookies
 from . import models
@@ -16,7 +16,6 @@ from . import adapters
 from . import status_codes
 
 BaseAdapter = adapters.BaseAdapter
-AuthBase = auth.AuthBase
 OrderedDict = compat.OrderedDict
 cookiejar_from_dict = cookies.cookiejar_from_dict
 extract_cookies_to_jar = cookies.extract_cookies_to_jar
@@ -62,7 +61,7 @@ _Hooks = MutableMapping[Text, Callable[[Response], Any]]
 class Session(SessionRedirectMixin):
     __attrs__ = ...  # type: Any
     headers = ...  # type: MutableMapping[Text, Text]
-    auth = ...  # type: Union[None, Tuple[Text, Text], AuthBase, Callable[[Request], Request]]
+    auth = ...  # type: Union[None, Tuple[Text, Text], _auth.AuthBase, Callable[[Request], Request]]
     proxies = ...  # type: MutableMapping[Text, Text]
     hooks = ...  # type: _Hooks
     params = ...  # type: Union[bytes, MutableMapping[Text, Text]]
@@ -84,7 +83,7 @@ class Session(SessionRedirectMixin):
                 headers: Optional[MutableMapping[Text, Text]] = ...,
                 cookies: Union[None, RequestsCookieJar, MutableMapping[Text, Text]] = ...,
                 files: Optional[MutableMapping[Text, IO]] = ...,
-                auth: Union[None, Tuple[Text, Text], AuthBase, Callable[[Request], Request]] = ...,
+                auth: Union[None, Tuple[Text, Text], _auth.AuthBase, Callable[[Request], Request]] = ...,
                 timeout: Union[None, float, Tuple[float, float]] = ...,
                 allow_redirects: Optional[bool] = ...,
                 proxies: Optional[MutableMapping[Text, Text]] = ...,
