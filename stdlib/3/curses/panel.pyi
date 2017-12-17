@@ -1,4 +1,3 @@
-import _curses
 from _curses import _CursesWindow
 
 class _Curses_Panel:  # type is <class '_curses_panel.curses panel'> (note the space in the class name)

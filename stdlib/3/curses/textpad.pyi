@@ -1,4 +1,3 @@
-import _curses
 from _curses import _CursesWindow
 from typing import Callable, Union
 
