@@ -34,6 +34,8 @@ stdlib/3/concurrent/futures/__init__.pyi # parse only
 stdlib/3/concurrent/futures/process.pyi # parse only
 stdlib/3/concurrent/futures/thread.pyi # parse only
 stdlib/3/curses/__init__.pyi # parse only
+stdlib/3/curses/panel.pyi # parse only
+stdlib/3/curses/textpad.pyi # parse only
 stdlib/3/email/__init__.pyi # parse only
 stdlib/3/email/contentmanager.pyi # parse only
 stdlib/3/email/encoders.pyi # parse only
