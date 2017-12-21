@@ -1,4 +1,4 @@
-from typing import Sequence, Union, overload
+from typing import List, Union, overload
 
 NUL: int
 SOH: int
@@ -37,7 +37,7 @@ US: int
 SP: int
 DEL: int
 
-controlnames: Sequence[int]
+controlnames: List[int]
 
 def isalnum(c: str) -> bool: ...
 def isalpha(c: str) -> bool: ...
