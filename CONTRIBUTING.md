@@ -290,7 +290,7 @@ project's tracker to fix their documentation.
 ## Issue-tracker conventions
 
 We aim to reply to all new issues promptly.  We'll assign one or more
-labels to to indicate we've triaged an issue, but most typeshed issues
+labels to indicate we've triaged an issue, but most typeshed issues
 are relatively simple (stubs for a given module or package are
 missing, incomplete or incorrect) and we won't add noise to the
 tracker by labeling all of them.  Here's what our labels mean.  (We
