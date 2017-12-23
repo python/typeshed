@@ -58,6 +58,7 @@ stdlib/3/imp.pyi # parse only
 stdlib/3/importlib/__init__.pyi # parse only
 stdlib/3/importlib/abc.pyi # parse only
 stdlib/3/importlib/machinery.pyi # parse only
+stdlib/3/importlib/util.pyi # parse only
 stdlib/3/io.pyi # parse only
 stdlib/3/json/__init__.pyi # parse only
 stdlib/3/multiprocessing/__init__.pyi # parse only
