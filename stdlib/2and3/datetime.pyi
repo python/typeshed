@@ -1,6 +1,7 @@
 import sys
 from time import struct_time
-from typing import AnyStr, Optional, SupportsAbs, Tuple, Union, overload
+from typing import AnyStr, Optional, SupportsAbs, Tuple, Union, overload, \
+    ClassVar
 
 if sys.version_info >= (3,):
     _Text = str
@@ -18,9 +19,9 @@ class tzinfo:
 
 if sys.version_info >= (3, 2):
     class timezone(tzinfo):
-        utc = ...  # type: timezone
-        min = ...  # type: timezone
-        max = ...  # type: timezone
+        utc: ClassVar['timezone']
+        min: ClassVar['timezone']
+        max: ClassVar['timezone']
 
         def __init__(self, offset: timedelta, name: str = ...) -> None: ...
         def __hash__(self) -> int: ...
@@ -28,9 +29,9 @@ if sys.version_info >= (3, 2):
 _tzinfo = tzinfo
 
 class date:
-    min = ...  # type: date
-    max = ...  # type: date
-    resolution = ...  # type: timedelta
+    min: ClassVar['date']
+    max: ClassVar['date']
+    resolution: ClassVar['timedelta']
 
     def __init__(self, year: int, month: int, day: int) -> None: ...
 
@@ -73,9 +74,9 @@ class date:
     def isocalendar(self) -> Tuple[int, int, int]: ...
 
 class time:
-    min = ...  # type: time
-    max = ...  # type: time
-    resolution = ...  # type: timedelta
+    min: ClassVar['time']
+    max: ClassVar['time']
+    resolution: ClassVar['timedelta']
 
     def __init__(self, hour: int = ..., minute: int = ..., second: int = ..., microsecond: int = ...,
                  tzinfo: Optional[tzinfo] = ...) -> None: ...
@@ -112,9 +113,9 @@ _date = date
 _time = time
 
 class timedelta(SupportsAbs[timedelta]):
-    min = ...  # type: timedelta
-    max = ...  # type: timedelta
-    resolution = ...  # type: timedelta
+    min: ClassVar['timedelta']
+    max: ClassVar['timedelta']
+    resolution: ClassVar['timedelta']
 
     def __init__(self, days: float = ..., seconds: float = ..., microseconds: float = ...,
                  milliseconds: float = ..., minutes: float = ..., hours: float = ...,
@@ -161,9 +162,9 @@ class timedelta(SupportsAbs[timedelta]):
 
 class datetime:
     # TODO: Is a subclass of date, but this would make some types incompatible.
-    min = ...  # type: datetime
-    max = ...  # type: datetime
-    resolution = ...  # type: timedelta
+    min: ClassVar['datetime']
+    max: ClassVar['datetime']
+    resolution: ClassVar['timedelta']
 
     def __init__(self, year: int, month: int, day: int, hour: int = ...,
                  minute: int = ..., second: int = ..., microsecond: int = ...,
