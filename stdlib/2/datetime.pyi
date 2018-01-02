@@ -1,14 +1,10 @@
-# Stubs for datetime
-
-# NOTE: These are incomplete!
-
 from time import struct_time
 from typing import AnyStr, Optional, SupportsAbs, Tuple, Union, overload
 
 MINYEAR = 0
 MAXYEAR = 0
 
-class tzinfo(object):
+class tzinfo:
     def tzname(self, dt: Optional[datetime]) -> str: ...
     def utcoffset(self, dt: Optional[datetime]) -> Optional[timedelta]: ...
     def dst(self, dt: Optional[datetime]) -> Optional[timedelta]: ...
@@ -16,7 +12,7 @@ class tzinfo(object):
 
 _tzinfo = tzinfo
 
-class date(object):
+class date:
     min = ...  # type: date
     max = ...  # type: date
     resolution = ...  # type: timedelta
@@ -64,7 +60,7 @@ class time:
     resolution = ...  # type: timedelta
 
     def __init__(self, hour: int = ..., minute: int = ..., second: int = ..., microsecond: int = ...,
-                 tzinfo: tzinfo = ...) -> None: ...
+                 tzinfo: Optional[tzinfo] = ...) -> None: ...
 
     @property
     def hour(self) -> int: ...
@@ -75,7 +71,7 @@ class time:
     @property
     def microsecond(self) -> int: ...
     @property
-    def tzinfo(self) -> _tzinfo: ...
+    def tzinfo(self) -> Optional[_tzinfo]: ...
 
     def __le__(self, other: time) -> bool: ...
     def __lt__(self, other: time) -> bool: ...
@@ -134,15 +130,15 @@ class timedelta(SupportsAbs[timedelta]):
     def __gt__(self, other: timedelta) -> bool: ...
     def __hash__(self) -> int: ...
 
-class datetime(object):
-    # TODO: is actually subclass of date, but __le__, __lt__, __ge__, __gt__, __sub__ don't work with date.
+class datetime:
+    # TODO: Is a subclass of date, but this would make some types incompatible.
     min = ...  # type: datetime
     max = ...  # type: datetime
     resolution = ...  # type: timedelta
 
     def __init__(self, year: int, month: int, day: int, hour: int = ...,
                  minute: int = ..., second: int = ..., microsecond: int = ...,
-                 tzinfo: tzinfo = ...) -> None: ...
+                 tzinfo: Optional[tzinfo] = ...) -> None: ...
     def __new__(cls, year: int, month: int, day: int, hour: int = ...,
                 minute: int = ..., second: int = ..., microsecond: int = ...,
                 tzinfo: tzinfo = ...) -> datetime: ...
@@ -165,7 +161,7 @@ class datetime(object):
     def tzinfo(self) -> Optional[_tzinfo]: ...
 
     @classmethod
-    def fromtimestamp(cls, t: float, tz: _tzinfo = ...) -> datetime: ...
+    def fromtimestamp(cls, t: float, tz: Optional[_tzinfo] = ...) -> datetime: ...
     @classmethod
     def utcfromtimestamp(cls, t: float) -> datetime: ...
     @classmethod
@@ -173,7 +169,7 @@ class datetime(object):
     @classmethod
     def fromordinal(cls, n: int) -> datetime: ...
     @classmethod
-    def now(cls, tz: _tzinfo = ...) -> datetime: ...
+    def now(cls, tz: Optional[_tzinfo] = ...) -> datetime: ...
     @classmethod
     def utcnow(cls) -> datetime: ...
     @classmethod
