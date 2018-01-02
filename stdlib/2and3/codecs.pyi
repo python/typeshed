@@ -7,7 +7,6 @@ from typing import (
     Generator,
     IO,
     Iterable,
-    Iterator,
     List,
     Optional,
     Text,
