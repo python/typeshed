@@ -145,8 +145,8 @@ that you know.
 The below is an excerpt from the types for the `datetime` module.
 
 ```python
-MAXYEAR: int = ...
-MINYEAR: int = ...
+MAXYEAR: int
+MINYEAR: int
 
 class date:
     def __init__(self, year: int, month: int, day: int) -> None: ...
