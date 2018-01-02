@@ -145,10 +145,10 @@ that you know.
 The below is an excerpt from the types for the `datetime` module.
 
 ```python
-MAXYEAR = ...  # type: int
-MINYEAR = ...  # type: int
+MAXYEAR: int = ...
+MINYEAR: int = ...
 
-class date(object):
+class date:
     def __init__(self, year: int, month: int, day: int) -> None: ...
     @classmethod
     def fromtimestamp(cls, timestamp: float) -> date: ...
