@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Test runner for typeshed.
+r"""Test runner for typeshed.
 
 Depends on mypy and pytype being installed.
 
@@ -15,17 +15,29 @@ will load the file and all the builtins, typeshed dependencies. This will
 also discover incorrect usage of imported modules.
 """
 
+import argparse
+import collections
 import os
 import re
-import sys
-import argparse
 import subprocess
-import collections
+import sys
 
-parser = argparse.ArgumentParser(description="Pytype tests.")
-parser.add_argument('-n', '--dry-run', action='store_true', help="Don't actually run tests")
+parser = argparse.ArgumentParser(description='Pytype/typeshed tests.')
+parser.add_argument('-n', '--dry-run', action='store_true',
+                    help="Don't actually run tests")
 parser.add_argument('--num-parallel', type=int, default=1,
-                    help="Number of test processes to spawn")
+                    help='Number of test processes to spawn')
+# Default to '' so that symlinking typeshed/stdlib in cwd will work.
+parser.add_argument('--typeshed-location', type=str, default='',
+                    help='Path to typeshed installation.')
+# Default to '' so that finding pytype in path will work.
+parser.add_argument('--pytype-bin-dir', type=str, default='',
+                    help='Path to directory with pytype and pytd executables.')
+# Set to true to print a stack trace every time an exception is thrown.
+parser.add_argument('--print-stderr', type=bool, default=False,
+                    help='Print stderr every time an error is encountered.')
+
+Dirs = collections.namedtuple('Dirs', ['pytype', 'typeshed'])
 
 
 def main():
@@ -40,8 +52,14 @@ def main():
         sys.exit(1)
 
 
-def load_blacklist():
-    filename = os.path.join(os.path.dirname(__file__), "pytype_blacklist.txt")
+def get_project_dirs(args):
+    """Top-level project directories for pytype executables and typeshed."""
+    typeshed_location = args.typeshed_location or os.getcwd()
+    return Dirs(args.pytype_bin_dir, typeshed_location)
+
+
+def load_blacklist(dirs):
+    filename = os.path.join(dirs.typeshed, 'tests', 'pytype_blacklist.txt')
     skip_re = re.compile(r'^\s*([^\s#]+)\s*(?:#.*)?$')
     parse_only_re = re.compile(r'^\s*([^\s#]+)\s*#\s*parse only\s*')
     skip = []
@@ -60,6 +78,7 @@ def load_blacklist():
 
 
 class BinaryRun(object):
+
     def __init__(self, args, dry_run=False):
         self.args = args
 
@@ -83,34 +102,56 @@ class BinaryRun(object):
         return self.results
 
 
+def _get_relative(filename):
+    top = filename.find('stdlib')
+    return filename[top:]
+
+
 def _get_module_name(filename):
-    """Converts a filename stdblib/m.n/module/foo to module.foo."""
-    return '.'.join(filename.split(os.path.sep)[2:]).replace(
+    """Converts a filename stdlib/m.n/module/foo to module.foo."""
+    return '.'.join(_get_relative(filename).split(os.path.sep)[2:]).replace(
         '.pyi', '').replace('.__init__', '')
 
 
 def pytype_test(args):
-    try:
-        BinaryRun(['pytd', '-h']).communicate()
-    except OSError:
-        print('Cannot run pytd. Did you install pytype?')
-        return 0, 0
+    dirs = get_project_dirs(args)
+    pytype_exe = os.path.join(dirs.pytype, 'pytype')
+    pytd_exe = os.path.join(dirs.pytype, 'pytd')
+    stdlib_path = os.path.join(dirs.typeshed, 'stdlib')
 
-    skip, parse_only = load_blacklist()
+    if not os.path.isdir(stdlib_path):
+      print('Cannot find typeshed stdlib at %s '
+            '(specify parent dir via --typeshed_location)' % stdlib_path)
+      return 0, 0
+
+    try:
+        BinaryRun([pytd_exe, '-h']).communicate()
+    except OSError:
+        # See if pytd is named pytd_tool instead.
+        pytd_exe = os.path.join(dirs.pytype, 'pytd_tool')
+        try:
+            BinaryRun([pytd_exe, '-h']).communicate()
+        except OSError:
+            print('Cannot run pytd. Did you install pytype?')
+            return 0, 0
+
+    skip, parse_only = load_blacklist(dirs)
     wanted = re.compile(r'stdlib/.*\.pyi$')
     skipped = re.compile('(%s)$' % '|'.join(skip))
     parse_only = re.compile('(%s)$' % '|'.join(parse_only))
 
     pytype_run = []
     pytd_run = []
+    bad = []
 
-    for root, _, filenames in os.walk('stdlib'):
+    for root, _, filenames in os.walk(stdlib_path):
         for f in sorted(filenames):
             f = os.path.join(root, f)
-            if wanted.search(f):
-                if parse_only.search(f):
+            rel = _get_relative(f)
+            if wanted.search(rel):
+                if parse_only.search(rel):
                     pytd_run.append(f)
-                elif not skipped.search(f):
+                elif not skipped.search(rel):
                     pytype_run.append(f)
 
     running_tests = collections.deque()
@@ -119,16 +160,20 @@ def pytype_test(args):
     while 1:
         while files and len(running_tests) < args.num_parallel:
             f = files.pop()
+            if 'stdlib/3' in f:
+                version = '3.6'
+            else:
+                version = '2.7'
             if f in pytype_run:
                 test_run = BinaryRun(
-                    ['pytype',
-                     '--typeshed-location=%s' % os.getcwd(),
+                    [pytype_exe,
+                     '--typeshed-location=%s' % dirs.typeshed,
                      '--module-name=%s' % _get_module_name(f),
                      '--convert-to-pickle=%s' % os.devnull,
-                     f],
-                    dry_run=args.dry_run)
+                     '-V %s' % version,
+                     f])
             elif f in pytd_run:
-                test_run = BinaryRun(['pytd', f], dry_run=args.dry_run)
+                test_run = BinaryRun([pytd_exe, f], dry_run=args.dry_run)
             else:
                 raise ValueError('Unknown action for file: %s' % f)
             running_tests.append(test_run)
@@ -137,15 +182,20 @@ def pytype_test(args):
             break
 
         test_run = running_tests.popleft()
-        code, stdout, stderr = test_run.communicate()
+        code, _, stderr = test_run.communicate()
         max_code = max(max_code, code)
         runs += 1
 
         if code:
-            print(stderr)
+            if args.print_stderr:
+              print(stderr)
             errors += 1
+            bad.append((_get_relative(test_run.args[-1]),
+                        stderr.rstrip().rsplit('\n', 1)[-1]))
 
     print('Ran pytype with %d pyis, got %d errors.' % (runs, errors))
+    for f, err in bad:
+      print '%s: %s' % (f, err)
     return max_code, runs
 
 if __name__ == '__main__':
