@@ -120,9 +120,9 @@ def pytype_test(args):
     stdlib_path = os.path.join(dirs.typeshed, 'stdlib')
 
     if not os.path.isdir(stdlib_path):
-      print('Cannot find typeshed stdlib at %s '
+        print('Cannot find typeshed stdlib at %s '
             '(specify parent dir via --typeshed_location)' % stdlib_path)
-      return 0, 0
+        return 0, 0
 
     try:
         BinaryRun([pytd_exe, '-h']).communicate()
@@ -188,14 +188,14 @@ def pytype_test(args):
 
         if code:
             if args.print_stderr:
-              print(stderr)
+                print(stderr)
             errors += 1
             bad.append((_get_relative(test_run.args[-1]),
                         stderr.rstrip().rsplit('\n', 1)[-1]))
 
     print('Ran pytype with %d pyis, got %d errors.' % (runs, errors))
     for f, err in bad:
-      print '%s: %s' % (f, err)
+        print '%s: %s' % (f, err)
     return max_code, runs
 
 if __name__ == '__main__':
