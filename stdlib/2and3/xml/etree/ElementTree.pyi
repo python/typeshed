@@ -1,7 +1,6 @@
 # Stubs for xml.etree.ElementTree
 
 from typing import Any, Callable, Dict, Generator, IO, ItemsView, Iterable, Iterator, KeysView, List, MutableSequence, Optional, Sequence, Text, Tuple, TypeVar, Union
-
 import io
 import sys
 
