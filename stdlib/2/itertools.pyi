@@ -80,9 +80,8 @@ def imap(func: Callable[[_T1, _T2, _T3, _T4, _T5, _T6], _S],
 @overload
 def imap(func: Callable[..., _S],
          iter1: Iterable[Any], iter2: Iterable[Any], iter3: Iterable[Any],
-         iter4: Iterable[Any], iter5: Iterable[Any],
-         iter6: Iterable[Any], iter7: Iterable[Any],
-         *iterables: Iterable[Any]) -> Iterator[_S]: ...
+         iter4: Iterable[Any], iter5: Iterable[Any], iter6: Iterable[Any],
+         iter7: Iterable[Any], *iterables: Iterable[Any]) -> Iterator[_S]: ...
 
 def starmap(func: Any, iterable: Iterable[Any]) -> Iterator[Any]: ...
 def takewhile(predicate: Callable[[_T], Any],
