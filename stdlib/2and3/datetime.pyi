@@ -21,9 +21,9 @@ class tzinfo:
 
 if sys.version_info >= (3, 2):
     class timezone(tzinfo):
-        utc: ClassVar['timezone']
-        min: ClassVar['timezone']
-        max: ClassVar['timezone']
+        utc: ClassVar[timezone]
+        min: ClassVar[timezone]
+        max: ClassVar[timezone]
 
         def __init__(self, offset: timedelta, name: str = ...) -> None: ...
         def __hash__(self) -> int: ...
@@ -31,9 +31,9 @@ if sys.version_info >= (3, 2):
 _tzinfo = tzinfo
 
 class date:
-    min: ClassVar['date']
-    max: ClassVar['date']
-    resolution: ClassVar['timedelta']
+    min: ClassVar[date]
+    max: ClassVar[date]
+    resolution: ClassVar[timedelta]
 
     def __init__(self, year: int, month: int, day: int) -> None: ...
 
@@ -76,9 +76,9 @@ class date:
     def isocalendar(self) -> Tuple[int, int, int]: ...
 
 class time:
-    min: ClassVar['time']
-    max: ClassVar['time']
-    resolution: ClassVar['timedelta']
+    min: ClassVar[time]
+    max: ClassVar[time]
+    resolution: ClassVar[timedelta]
 
     def __init__(self, hour: int = ..., minute: int = ..., second: int = ..., microsecond: int = ...,
                  tzinfo: Optional[tzinfo] = ...) -> None: ...
@@ -115,9 +115,9 @@ _date = date
 _time = time
 
 class timedelta(SupportsAbs[timedelta]):
-    min: ClassVar['timedelta']
-    max: ClassVar['timedelta']
-    resolution: ClassVar['timedelta']
+    min: ClassVar[timedelta]
+    max: ClassVar[timedelta]
+    resolution: ClassVar[timedelta]
 
     def __init__(self, days: float = ..., seconds: float = ..., microseconds: float = ...,
                  milliseconds: float = ..., minutes: float = ..., hours: float = ...,
@@ -164,9 +164,9 @@ class timedelta(SupportsAbs[timedelta]):
 
 class datetime:
     # TODO: Is a subclass of date, but this would make some types incompatible.
-    min: ClassVar['datetime']
-    max: ClassVar['datetime']
-    resolution: ClassVar['timedelta']
+    min: ClassVar[datetime]
+    max: ClassVar[datetime]
+    resolution: ClassVar[timedelta]
 
     def __init__(self, year: int, month: int, day: int, hour: int = ...,
                  minute: int = ..., second: int = ..., microsecond: int = ...,
