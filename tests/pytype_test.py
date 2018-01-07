@@ -161,7 +161,7 @@ def pytype_test(args):
         while files and len(running_tests) < args.num_parallel:
             f = files.pop()
             if 'stdlib/3' in f:
-                version = '3.6'
+                version = '3.5'
             else:
                 version = '2.7'
             if f in pytype_run:
