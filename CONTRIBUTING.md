@@ -182,6 +182,8 @@ rule is that they should be as concise as possible.  Specifically:
 * use a single blank line between top-level class definitions, or none
   if the classes are very small;
 * do not use docstrings;
+* use variable annotations instead of type comments, even for stubs
+  that target older versions of Python;
 * for arguments with a type and a default, use spaces around the `=`.
 
 Stub files should only contain information necessary for the type
