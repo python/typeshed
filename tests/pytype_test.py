@@ -107,7 +107,7 @@ class BinaryRun(object):
 
 
 def _get_relative(filename):
-    top = filename.find('stdlib')
+    top = filename.find('stdlib/')
     return filename[top:]
 
 
@@ -117,10 +117,17 @@ def _get_module_name(filename):
         '.pyi', '').replace('.__init__', '')
 
 
+def can_run(path, exe, *args):
+  exe = os.path.join(path, exe)
+  try:
+      BinaryRun([exe] + list(args)).communicate()
+      return True
+  except OSError:
+      return False
+
 def pytype_test(args):
     dirs = get_project_dirs(args)
     pytype_exe = os.path.join(dirs.pytype, 'pytype')
-    pytd_exe = os.path.join(dirs.pytype, 'pytd')
     stdlib_path = os.path.join(dirs.typeshed, 'stdlib')
 
     if not os.path.isdir(stdlib_path):
@@ -128,16 +135,13 @@ def pytype_test(args):
             '(specify parent dir via --typeshed_location)' % stdlib_path)
         return 0, 0
 
-    try:
-        BinaryRun([pytd_exe, '-h']).communicate()
-    except OSError:
-        # See if pytd is named pytd_tool instead.
-        pytd_exe = os.path.join(dirs.pytype, 'pytd_tool')
-        try:
-            BinaryRun([pytd_exe, '-h']).communicate()
-        except OSError:
-            print('Cannot run pytd. Did you install pytype?')
-            return 0, 0
+    if can_run(dirs.pytype, 'pytd', '-h'):
+       pytd_exe = os.path.join(dirs.pytype, 'pytd')
+    elif can_run(dirs.pytype, 'pytd_tool', '-h'):
+       pytd_exe = os.path.join(dirs.pytype, 'pytd_tool')
+    else:
+        print('Cannot run pytd. Did you install pytype?')
+        return 0, 0
 
     skip, parse_only = load_blacklist(dirs)
     wanted = re.compile(r'stdlib/.*\.pyi$')
@@ -195,6 +199,8 @@ def pytype_test(args):
             if args.print_stderr:
                 print(stderr)
             errors += 1
+            # We strip off the stack trace and just leave the last line with the
+            # actual error; to see the stack traces use --print_stderr.
             bad.append((_get_relative(test_run.args[-1]),
                         stderr.rstrip().rsplit('\n', 1)[-1]))
 
