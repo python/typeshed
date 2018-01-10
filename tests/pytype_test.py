@@ -118,12 +118,12 @@ def _get_module_name(filename):
 
 
 def can_run(path, exe, *args):
-  exe = os.path.join(path, exe)
-  try:
-      BinaryRun([exe] + list(args)).communicate()
-      return True
-  except OSError:
-      return False
+    exe = os.path.join(path, exe)
+    try:
+        BinaryRun([exe] + list(args)).communicate()
+        return True
+    except OSError:
+        return False
 
 def pytype_test(args):
     dirs = get_project_dirs(args)
@@ -136,9 +136,9 @@ def pytype_test(args):
         return 0, 0
 
     if can_run(dirs.pytype, 'pytd', '-h'):
-       pytd_exe = os.path.join(dirs.pytype, 'pytd')
+        pytd_exe = os.path.join(dirs.pytype, 'pytd')
     elif can_run(dirs.pytype, 'pytd_tool', '-h'):
-       pytd_exe = os.path.join(dirs.pytype, 'pytd_tool')
+        pytd_exe = os.path.join(dirs.pytype, 'pytd_tool')
     else:
         print('Cannot run pytd. Did you install pytype?')
         return 0, 0
