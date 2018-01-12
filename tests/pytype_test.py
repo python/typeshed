@@ -67,7 +67,7 @@ class BinaryRun(object):
         if dry_run:
             self.results = (0, '', '')
         else:
-            if env:
+            if env is not None:
                 full_env = os.environ.copy()
                 full_env.update(env)
             else:
@@ -127,7 +127,8 @@ def pytype_test(args):
                 test_run = BinaryRun(
                     ['pytype',
                      '--module-name=%s' % _get_module_name(f),
-                     '--parse-pyi', f],
+                     '--parse-pyi',
+                     f],
                     dry_run=args.dry_run,
                     env={"TYPESHED_HOME": os.getcwd()})
             elif f in pytd_run:
