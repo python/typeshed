@@ -82,20 +82,23 @@ def load_blacklist(dirs):
 
 
 class BinaryRun(object):
-
-    def __init__(self, args, dry_run=False):
+    def __init__(self, args, dry_run=False, env=None):
         self.args = args
-
-        self.dry_run = dry_run
         self.results = None
 
         if dry_run:
             self.results = (0, '', '')
         else:
+            if env is not None:
+                full_env = os.environ.copy()
+                full_env.update(env)
+            else:
+                full_env = None
             self.proc = subprocess.Popen(
                 self.args,
                 stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE)
+                stderr=subprocess.PIPE,
+                env=full_env)
 
     def communicate(self):
         if self.results:
@@ -180,7 +183,10 @@ def pytype_test(args):
                     '--python_exe=%s' % args.python36_exe
                 ]
             if f in pytype_run:
-                test_run = BinaryRun(run_cmd + [f])
+                test_run = BinaryRun(
+                    run_cmd + [f],
+                    dry_run=args.dry_run,
+                    env={"TYPESHED_HOME": os.getcwd()})
             elif f in pytd_run:
                 test_run = BinaryRun([pytd_exe, f], dry_run=args.dry_run)
             else:
