@@ -171,18 +171,18 @@ def pytype_test(args):
     while 1:
         while files and len(running_tests) < args.num_parallel:
             f = files.pop()
-            run_cmd = [
-                pytype_exe,
-                '--typeshed-location=%s' % dirs.typeshed,
-                '--module-name=%s' % _get_module_name(f),
-                '--convert-to-pickle=%s' % os.devnull
-            ]
-            if 'stdlib/3' in f:
-                run_cmd += [
-                    '-V 3.6',
-                    '--python_exe=%s' % args.python36_exe
-                ]
             if f in pytype_run:
+                run_cmd = [
+                    pytype_exe,
+                    '--typeshed-location=%s' % dirs.typeshed,
+                    '--module-name=%s' % _get_module_name(f),
+                    '--convert-to-pickle=%s' % os.devnull
+                ]
+                if 'stdlib/3' in f:
+                    run_cmd += [
+                        '-V 3.6',
+                        '--python_exe=%s' % args.python36_exe
+                    ]
                 test_run = BinaryRun(
                     run_cmd + [f],
                     dry_run=args.dry_run,
