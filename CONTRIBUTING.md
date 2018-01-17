@@ -148,10 +148,10 @@ that you know.
 The below is an excerpt from the types for the `datetime` module.
 
 ```python
-MAXYEAR = ...  # type: int
-MINYEAR = ...  # type: int
+MAXYEAR: int
+MINYEAR: int
 
-class date(object):
+class date:
     def __init__(self, year: int, month: int, day: int) -> None: ...
     @classmethod
     def fromtimestamp(cls, timestamp: float) -> date: ...
@@ -159,6 +159,8 @@ class date(object):
     def today(cls) -> date: ...
     @classmethod
     def fromordinal(cls, ordinal: int) -> date: ...
+    @property
+    def year(self) -> int: ...
     def replace(self, year: int = ..., month: int = ..., day: int = ...) -> date: ...
     def ctime(self) -> str: ...
     def weekday(self) -> int: ...
@@ -183,6 +185,8 @@ rule is that they should be as concise as possible.  Specifically:
 * use a single blank line between top-level class definitions, or none
   if the classes are very small;
 * do not use docstrings;
+* use variable annotations instead of type comments, even for stubs
+  that target older versions of Python;
 * for arguments with a type and a default, use spaces around the `=`.
 
 Stub files should only contain information necessary for the type
