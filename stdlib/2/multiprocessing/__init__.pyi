@@ -1,8 +1,8 @@
-from typing import Optional
+from typing import Optional, TypeVar
 
 from multiprocessing.process import Process as Process, current_process as current_process, active_children as active_children
 from multiprocessing.util import SUBDEBUG as SUBDEBUG, SUBWARNING as SUBWARNING
-import Queue as _queue
+from Queue import Queue as _BaseQueue
 
 class ProcessError(Exception): ...
 class BufferTooShort(ProcessError): ...
@@ -11,7 +11,7 @@ class AuthenticationError(ProcessError): ...
 
 _T = TypeVar('_T')
 
-class Queue(_queue.Queue[_T]):
+class Queue(_BaseQueue[_T]):
     def __init__(self, maxsize: int = ...) -> None: ...
     def get(self, block: bool = ..., timeout: Optional[float] = ...) -> _T: ...
     def put(self, item: _T, block: bool = ..., timeout: Optional[float] = ...) -> None: ...
