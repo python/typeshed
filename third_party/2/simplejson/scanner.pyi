@@ -1,4 +1,4 @@
-from typing import Any, IO, Optional
+from typing import Optional
 
 class JSONDecodeError(ValueError):
     msg: str = ...
