@@ -20,7 +20,7 @@ class BaseRequest:
     form_data_parser_class = ...  # type: Type
     trusted_hosts = ...  # type: Optional[Sequence[str]]
     disable_data_descriptor = ...  # type: Any
-    environ: WSGIEnvironment
+    environ: WSGIEnvironment = ...
     shallow = ...  # type: Any
     def __init__(self, environ: WSGIEnvironment, populate_request: bool = ..., shallow: bool = ...) -> None: ...
     @property
