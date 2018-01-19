@@ -174,9 +174,8 @@ def pytype_test(args):
             if f in pytype_run:
                 run_cmd = [
                     pytype_exe,
-                    '--typeshed-location=%s' % dirs.typeshed,
                     '--module-name=%s' % _get_module_name(f),
-                    '--convert-to-pickle=%s' % os.devnull
+                    '--parse-pyi'
                 ]
                 if 'stdlib/3' in f:
                     run_cmd += [
@@ -186,7 +185,7 @@ def pytype_test(args):
                 test_run = BinaryRun(
                     run_cmd + [f],
                     dry_run=args.dry_run,
-                    env={"TYPESHED_HOME": os.getcwd()})
+                    env={"TYPESHED_HOME": dirs.typeshed})
             elif f in pytd_run:
                 test_run = BinaryRun([pytd_exe, f], dry_run=args.dry_run)
             else:
