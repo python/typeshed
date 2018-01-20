@@ -62,6 +62,19 @@ def get_project_dirs(args):
     return Dirs(args.pytype_bin_dir, typeshed_location)
 
 
+class PathMatcher(object):
+  def __init__(self, patterns):
+    if patterns:
+      self.matcher = re.compile('(%s)$' % '|'.join(patterns))
+    else:
+      self.matcher = None
+
+  def search(self, path):
+    if not self.matcher:
+      return False
+    return self.matcher.search(path)
+
+
 def load_blacklist(dirs):
     filename = os.path.join(dirs.typeshed, 'tests', 'pytype_blacklist.txt')
     skip_re = re.compile(r'^\s*([^\s#]+)\s*(?:#.*)?$')
@@ -146,10 +159,10 @@ def pytype_test(args):
         print('Cannot run pytd. Did you install pytype?')
         return 0, 0
 
-    skip, parse_only = load_blacklist(dirs)
     wanted = re.compile(r'stdlib/.*\.pyi$')
-    skipped = re.compile('(%s)$' % '|'.join(skip))
-    parse_only = re.compile('(%s)$' % '|'.join(parse_only))
+    skip, parse_only = load_blacklist(dirs)
+    skipped = PathMatcher(skip)
+    parse_only = PathMatcher(parse_only)
 
     pytype_run = []
     pytd_run = []
