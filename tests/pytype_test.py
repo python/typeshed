@@ -63,16 +63,16 @@ def get_project_dirs(args):
 
 
 class PathMatcher(object):
-  def __init__(self, patterns):
-    if patterns:
-      self.matcher = re.compile('(%s)$' % '|'.join(patterns))
-    else:
-      self.matcher = None
+    def __init__(self, patterns):
+        if patterns:
+            self.matcher = re.compile('(%s)$' % '|'.join(patterns))
+        else:
+            self.matcher = None
 
-  def search(self, path):
-    if not self.matcher:
-      return False
-    return self.matcher.search(path)
+    def search(self, path):
+        if not self.matcher:
+            return False
+        return self.matcher.search(path)
 
 
 def load_blacklist(dirs):
