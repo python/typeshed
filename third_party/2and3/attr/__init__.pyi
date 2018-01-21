@@ -15,7 +15,7 @@ _ValidatorArgType = Union[_ValidatorType[_T], List[_ValidatorType[_T]], Tuple[_V
 
 # _make --
 
-NOTHING : object
+NOTHING: object
 
 # NOTE: Factory lies about its return type to make this possible: `x: List[int] = Factory(list)`
 def Factory(factory: Union[Callable[[], _T], Callable[[Any], _T]], takes_self: bool = ...) -> _T: ...
