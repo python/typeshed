@@ -4,9 +4,10 @@
 
 # Only a subset of functionality is included.
 
-from typing import (Any, Callable, Dict, FrozenSet, Iterable, List, NoReturn,
-                    Optional, overload, Pattern, Sequence, Set, TextIO, Tuple,
-                    Type, TypeVar, Union)
+from mypy_extensions import NoReturn
+from typing import (Any, Callable, Dict, FrozenSet, Iterable, List, Optional,
+                    overload, Pattern, Sequence, Set, TextIO, Tuple, Type,
+                    TypeVar, Union)
 from abc import abstractmethod, ABCMeta
 import types
 
