@@ -66,7 +66,7 @@ class LZMACompressor(object):
     def flush(self) -> bytes: ...
 
 
-class LZMAFile(io.BufferedIOBase):
+class LZMAFile(BinaryIO):
     def __init__(self,
                  filename: _PathOrFile = ...,
                  mode: str = ...,
