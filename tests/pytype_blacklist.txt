@@ -7,7 +7,7 @@ stdlib/2/builtins.pyi
 stdlib/2/typing.pyi
 stdlib/3/builtins.pyi
 stdlib/3/typing.pyi
-stdlib/3/collections/__init__.pyi # parse only.pyi
+stdlib/3/collections/__init__.pyi # parse only
 
 # builtins not found
 stdlib/2/os/__init__.pyi # parse only
