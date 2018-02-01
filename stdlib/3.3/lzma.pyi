@@ -5,10 +5,8 @@ from typing import Any, BinaryIO, IO, List, Mapping, Optional, Union
 if sys.version_info >= (3, 6):
     from os import PathLike
     _PathOrFile = Union[str, bytes, IO[Any], PathLike[Any]]
-elif sys.version_info >= (3, 3):
-    _PathOrFile = Union[str, bytes, IO[Any]]
 else:
-    _PathOrFile = str
+    _PathOrFile = Union[str, bytes, IO[Any]]
 
 _FilterChain = List[Mapping[str, Any]]
 
