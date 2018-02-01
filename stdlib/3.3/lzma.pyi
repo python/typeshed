@@ -68,7 +68,7 @@ class LZMACompressor(object):
 
 class LZMAFile(BinaryIO):
     def __init__(self,
-                 filename: _PathOrFile = ...,
+                 filename: Optional[_PathOrFile] = ...,
                  mode: str = ...,
                  *,
                  format: Optional[int] = ...,
@@ -91,7 +91,7 @@ class LZMAFile(BinaryIO):
     def tell(self) -> int: ...
 
 
-def open(filename: _PathOrFile = ...,
+def open(filename: _PathOrFile,
          mode: str = ...,
          *,
          format: Optional[int] = ...,
