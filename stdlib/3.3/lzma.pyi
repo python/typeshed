@@ -1,6 +1,6 @@
 import io
 import sys
-from typing import Any, BinaryIO, IO, List, Mapping, Optional, Union
+from typing import Any, BinaryIO, IO, List, Mapping, Optional, Sequence, Union
 
 if sys.version_info >= (3, 6):
     from os import PathLike
@@ -8,7 +8,7 @@ if sys.version_info >= (3, 6):
 else:
     _PathOrFile = Union[str, bytes, IO[Any]]
 
-_FilterChain = List[Mapping[str, Any]]
+_FilterChain = Sequence[Mapping[str, Any]]
 
 FORMAT_AUTO: int
 FORMAT_XZ: int
