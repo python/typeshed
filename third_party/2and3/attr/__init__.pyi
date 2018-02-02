@@ -11,7 +11,10 @@ _C = TypeVar('_C', bound=type)
 _ValidatorType = Callable[[Any, Attribute, _T], Any]
 _ConverterType = Callable[[Any], _T]
 _FilterType = Callable[[Attribute, Any], bool]
-_ValidatorArgType = Union[_ValidatorType[_T], List[_ValidatorType[_T]], Tuple[_ValidatorType[_T], ...]]
+# FIXME: in reality, if multiple validators are passed they must be in a list or tuple,
+# but those are invariant and so would prevent subtypes of _ValidatorType from working
+# when passed in a list or tuple.
+_ValidatorArgType = Union[_ValidatorType[_T], Sequence[_ValidatorType[_T]]]
 
 # _make --
 
@@ -46,7 +49,7 @@ class Attribute(Generic[_T]):
 #   - Pros: more informative errors than #1
 #   - Cons: validator tests results in confusing error.
 #     e.g. `attr.ib(type=int, validator=validate_str)`
-# 3) type
+# 3) type (and do all of the work in the mypy plugin)
 #   - Pros: in mypy, the behavior of type argument is exactly the same as with
 #     annotations.
 #   - Cons: completely disables type inspections in PyCharm when using the
@@ -71,7 +74,8 @@ def attrib(default: Optional[_T] = ...,
            cmp: bool = ...,
            hash: Optional[bool] = ...,
            init: bool = ...,
-           metadata: Mapping = ...,
+           convert: Optional[_ConverterType[_T]] = ...,
+           metadata: Optional[Mapping[Any, Any]] = ...,
            type: Optional[Type[_T]] = ...,
            converter: Optional[_ConverterType[_T]] = ...) -> _T: ...
 # 2nd form no _T , so returns Any.
@@ -82,9 +86,23 @@ def attrib(default: None = ...,
            cmp: bool = ...,
            hash: Optional[bool] = ...,
            init: bool = ...,
-           metadata: Mapping = ...,
+           convert: Optional[_ConverterType[_T]] = ...,
+           metadata: Optional[Mapping[Any, Any]] = ...,
            type: None = ...,
            converter: None = ...) -> Any: ...
+# 3rd form covers non-Type: e.g. forward references (str), Any
+@overload
+def attrib(default: Optional[_T] = ...,
+           validator: Optional[_ValidatorArgType[_T]] = ...,
+           repr: bool = ...,
+           cmp: bool = ...,
+           hash: Optional[bool] = ...,
+           init: bool = ...,
+           convert: Optional[_ConverterType[_T]] = ...,
+           metadata: Optional[Mapping[Any, Any]] = ...,
+           type: object = ...,
+           converter: Optional[_ConverterType[_T]] = ...) -> Any: ...
+
 
 # NOTE: If you update these, update `s` and `attributes` below.
 @overload
@@ -122,7 +140,18 @@ def validate(inst: Any) -> None: ...
 
 # TODO: add support for returning a proper attrs class from the mypy plugin
 # we use Any instead of _CountingAttr so that e.g. `make_class('Foo', [attr.ib()])` is valid
-def make_class(name, attrs: Union[List[str], Dict[str, Any]], bases: Tuple[type, ...] = ..., **attributes_arguments) -> type: ...
+def make_class(name: str,
+               attrs: Union[List[str], Tuple[str, ...], Dict[str, Any]],
+               bases: Tuple[type, ...] = ...,
+               repr_ns: Optional[str] = ...,
+               repr: bool = ...,
+               cmp: bool = ...,
+               hash: Optional[bool] = ...,
+               init: bool = ...,
+               slots: bool = ...,
+               frozen: bool = ...,
+               str:  bool = ...,
+               auto_attribs: bool = ...) -> type: ...
 
 # _funcs --
 
@@ -130,9 +159,17 @@ def make_class(name, attrs: Union[List[str], Dict[str, Any]], bases: Tuple[type,
 # FIXME: asdict/astuple do not honor their factory args.  waiting on one of these:
 # https://github.com/python/mypy/issues/4236
 # https://github.com/python/typing/issues/253
-def asdict(inst: Any, recurse: bool = ..., filter: Optional[_FilterType] = ..., dict_factory: Type[Mapping] = ..., retain_collection_types: bool = ...) -> Dict[str, Any]: ...
+def asdict(inst: Any,
+           recurse: bool = ...,
+           filter: Optional[_FilterType] = ...,
+           dict_factory: Type[Mapping[Any, Any]] = ...,
+           retain_collection_types: bool = ...) -> Dict[str, Any]: ...
 # TODO: add support for returning NamedTuple from the mypy plugin
-def astuple(inst: Any, recurse: bool = ..., filter: Optional[_FilterType] = ..., tuple_factory: Type[Sequence] = ..., retain_collection_types: bool = ...) -> Tuple[Any, ...]: ...
+def astuple(inst: Any,
+            recurse: bool = ...,
+            filter: Optional[_FilterType] = ...,
+            tuple_factory: Type[Sequence] = ...,
+            retain_collection_types: bool = ...) -> Tuple[Any, ...]: ...
 def has(cls: type) -> bool: ...
 def assoc(inst: _T, **changes: Any) -> _T: ...
 def evolve(inst: _T, **changes: Any) -> _T: ...
@@ -142,14 +179,17 @@ def evolve(inst: _T, **changes: Any) -> _T: ...
 def set_run_validators(run: bool) -> None: ...
 def get_run_validators() -> bool: ...
 
+
 # aliases --
+
+# FIXME: there is a bug in PyCharm with creating aliases to overloads.
+# Use the aliases instead of the duplicated overloads when the bug is fixed:
+# https://youtrack.jetbrains.com/issue/PY-27788
+
 # s = attributes = attrs
 # ib = attr = attrib
 # dataclass = attrs # Technically, partial(attrs, auto_attribs=True) ;)
 
-# FIXME: there is a bug in PyCharm with creating aliases to overloads.
-# Remove these when the bug is fixed:
-# https://youtrack.jetbrains.com/issue/PY-27788
 
 @overload
 def ib(default: Optional[_T] = ...,
@@ -158,7 +198,8 @@ def ib(default: Optional[_T] = ...,
        cmp: bool = ...,
        hash: Optional[bool] = ...,
        init: bool = ...,
-       metadata: Mapping = ...,
+       convert: Optional[_ConverterType[_T]] = ...,
+       metadata: Optional[Mapping[Any, Any]] = ...,
        type: Optional[Type[_T]] = ...,
        converter: Optional[_ConverterType[_T]] = ...) -> _T: ...
 @overload
@@ -168,9 +209,21 @@ def ib(default: None = ...,
        cmp: bool = ...,
        hash: Optional[bool] = ...,
        init: bool = ...,
-       metadata: Mapping = ...,
+       convert: Optional[_ConverterType[_T]] = ...,
+       metadata: Optional[Mapping[Any, Any]] = ...,
        type: None = ...,
        converter: None = ...) -> Any: ...
+@overload
+def ib(default: Optional[_T] = ...,
+       validator: Optional[_ValidatorArgType[_T]] = ...,
+       repr: bool = ...,
+       cmp: bool = ...,
+       hash: Optional[bool] = ...,
+       init: bool = ...,
+       convert: Optional[_ConverterType[_T]] = ...,
+       metadata: Optional[Mapping[Any, Any]] = ...,
+       type: object = ...,
+       converter: Optional[_ConverterType[_T]] = ...) -> Any: ...
 
 @overload
 def attr(default: Optional[_T] = ...,
@@ -179,7 +232,8 @@ def attr(default: Optional[_T] = ...,
          cmp: bool = ...,
          hash: Optional[bool] = ...,
          init: bool = ...,
-         metadata: Mapping = ...,
+         convert: Optional[_ConverterType[_T]] = ...,
+         metadata: Optional[Mapping[Any, Any]] = ...,
          type: Optional[Type[_T]] = ...,
          converter: Optional[_ConverterType[_T]] = ...) -> _T: ...
 @overload
@@ -189,9 +243,21 @@ def attr(default: None = ...,
          cmp: bool = ...,
          hash: Optional[bool] = ...,
          init: bool = ...,
-         metadata: Mapping = ...,
+         convert: Optional[_ConverterType[_T]] = ...,
+         metadata: Optional[Mapping[Any, Any]] = ...,
          type: None = ...,
          converter: None = ...) -> Any: ...
+@overload
+def attr(default: Optional[_T] = ...,
+         validator: Optional[_ValidatorArgType[_T]] = ...,
+         repr: bool = ...,
+         cmp: bool = ...,
+         hash: Optional[bool] = ...,
+         init: bool = ...,
+         convert: Optional[_ConverterType[_T]] = ...,
+         metadata: Optional[Mapping[Any, Any]] = ...,
+         type: object = ...,
+         converter: Optional[_ConverterType[_T]] = ...) -> Any: ...
 
 @overload
 def attributes(maybe_cls: _C,
