@@ -150,7 +150,7 @@ def make_class(name: str,
                init: bool = ...,
                slots: bool = ...,
                frozen: bool = ...,
-               str:  bool = ...,
+               str: bool = ...,
                auto_attribs: bool = ...) -> type: ...
 
 # _funcs --
