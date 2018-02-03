@@ -937,27 +937,17 @@ class SystemExit(BaseException):
     code = 0
 class Exception(BaseException): ...
 class ArithmeticError(Exception): ...
-if sys.version_info >= (3, 3):
-    class OSError(Exception):
-        errno = 0
-        strerror = ...  # type: str
-        filename = ...  # type: Union[str, bytes, None]
-        if sys.version_info >= (3, 4):
-            filename2 = ...  # type: Union[str, bytes, None]
-        if sys.platform == 'win32':
-            winerror = 0
-    IOError = OSError
-    EnvironmentError = OSError
-    WindowsError = OSError
-else:
-    class EnvironmentError(Exception):
-        errno = 0
-        strerror = ...  # type: str
-        filename = ...  # type: Union[str, bytes, None]
-    class IOError(EnvironmentError): ...
-    class OSError(EnvironmentError): ...
-    class WindowsError(OSError):
+class OSError(Exception):
+    errno = 0
+    strerror = ...  # type: str
+    filename = ...  # type: Union[str, bytes, None]
+    if sys.version_info >= (3, 4):
+        filename2 = ...  # type: Union[str, bytes, None]
+    if sys.platform == 'win32':
         winerror = 0
+IOError = OSError
+EnvironmentError = OSError
+WindowsError = OSError
 class LookupError(Exception): ...
 class RuntimeError(Exception): ...
 class ValueError(Exception): ...
