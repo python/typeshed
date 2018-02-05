@@ -940,9 +940,10 @@ class ArithmeticError(Exception): ...
 class OSError(Exception):
     errno = 0
     strerror = ...  # type: str
-    filename = ...  # type: Union[str, bytes, None]
+    # filename, filename2 are actually Union[str, bytes, None]
+    filename = ...  # type: Any
     if sys.version_info >= (3, 4):
-        filename2 = ...  # type: Union[str, bytes, None]
+        filename2 = ...  # type: Any
     if sys.platform == 'win32':
         winerror = 0
 IOError = OSError
