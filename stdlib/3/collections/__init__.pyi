@@ -285,6 +285,8 @@ class OrderedDict(Dict[_KT, _VT], Reversible[_KT], Generic[_KT, _VT]):
     def copy(self: _OrderedDictT) -> _OrderedDictT: ...
     def __reversed__(self) -> Iterator[_KT]: ...
 
+_DefaultDictT = TypeVar('_DefaultDictT', bound=defaultdict)
+
 class defaultdict(Dict[_KT, _VT], Generic[_KT, _VT]):
     default_factory = ...  # type: Callable[[], _VT]
 
@@ -298,9 +300,9 @@ class defaultdict(Dict[_KT, _VT], Generic[_KT, _VT]):
     @overload
     def __init__(self, default_factory: Optional[Callable[[], _VT]],
                  iterable: Iterable[Tuple[_KT, _VT]]) -> None: ...
-
     def __missing__(self, key: _KT) -> _VT: ...
     # TODO __reversed__
+    def copy(self: _DefaultDictT) -> _DefaultDictT: ...
 
 if sys.version_info >= (3, 3):
     class ChainMap(MutableMapping[_KT, _VT], Generic[_KT, _VT]):
