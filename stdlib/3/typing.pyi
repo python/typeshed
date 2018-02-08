@@ -535,6 +535,7 @@ def cast(tp: Type[_T], obj: Any) -> _T: ...
 
 # NamedTuple is special-cased in the type checker
 class NamedTuple(tuple):
+    _field_types = ...  # type: collections.OrderedDict[str, Type[Any]]
     _fields = ...  # type: Tuple[str, ...]
     _source = ...  # type: str
 
