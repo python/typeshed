@@ -85,7 +85,7 @@ ArgInfo = NamedTuple('ArgInfo', [('args', List[str]),
                                  ('locals', Dict[str, Any]),
                                  ])
 
-Arguments = NamedTuple('Arguments', [('args', List[Union[str, list]]),
+Arguments = NamedTuple('Arguments', [('args', List[Union[str, List[Any]]]),
                                      ('varargs', Optional[str]),
                                      ('keywords', Optional[str]),
                                      ])
