@@ -88,7 +88,7 @@ ArgInfo = NamedTuple('ArgInfo', [('args', List[str]),
 Arguments = NamedTuple('Arguments', [('args', List[Union[str, list]]),
                                      ('varargs', Optional[str]),
                                      ('keywords', Optional[str]),
-                                    ])
+                                     ])
 
 def getargs(co: CodeType) -> Arguments: ...
 def getargspec(func: object) -> ArgSpec: ...
@@ -130,6 +130,6 @@ Attribute = NamedTuple('Attribute', [('name', str),
                                      ('kind', str),
                                      ('defining_class', type),
                                      ('object', object),
-                                    ])
+                                     ])
 
 def classify_class_attrs(cls: type) -> List[Attribute]: ...

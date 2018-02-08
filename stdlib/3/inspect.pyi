@@ -177,7 +177,7 @@ ArgSpec = NamedTuple('ArgSpec', [('args', List[str]),
 Arguments = NamedTuple('Arguments', [('args', List[str]),
                                      ('varargs', Optional[str]),
                                      ('varkw', Optional[str]),
-                                    ])
+                                     ])
 
 def getargs(co: CodeType) -> Arguments: ...
 def getargspec(func: object) -> ArgSpec: ...
@@ -201,7 +201,7 @@ ArgInfo = NamedTuple('ArgInfo', [('args', List[str]),
                                  ])
 
 def getargvalues(frame: FrameType) -> ArgInfo: ...
-def formatannotation(annotation: object, base_module: str = None) -> str: ...
+def formatannotation(annotation: object, base_module: Optional[str] = None) -> str: ...
 def formatannotationrelativeto(object: object) -> Callable[[object], str]: ...
 def formatargspec(args: List[str],
                   varargs: Optional[str] = ...,
@@ -321,6 +321,6 @@ Attribute = NamedTuple('Attribute', [('name', str),
                                      ('kind', str),
                                      ('defining_class', type),
                                      ('object', object),
-                                    ])
+                                     ])
 
 def classify_class_attrs(cls: type) -> List[Attribute]: ...
