@@ -15,6 +15,8 @@ class BlockFinder:
     islambda: bool
     started: bool
     passline: bool
+    indecorator: bool
+    decoratorhasargs: bool
     last: int
     def tokeneater(self, type: int, token: str, srow_scol: Tuple[int, int],
                    erow_ecol: Tuple[int, int], line: str) -> None: ...
