@@ -76,7 +76,7 @@ class ArgumentParser:
                      help: _Text = ...,
                      metavar: Union[_Text, Tuple[_Text, ...]] = ...,
                      dest: _Text = ...,
-                     version: _Text = ...) -> None: ...  # weirdly documented
+                     version: _Text = ...) -> Action: ...
     def parse_args(self, args: Optional[Sequence[_Text]] = ...,
                    namespace: Optional[Namespace] = ...) -> Namespace: ...
     def add_subparsers(self, title: _Text = ...,
@@ -115,6 +115,17 @@ if sys.version_info >= (3,):
     class MetavarTypeHelpFormatter(HelpFormatter): ...
 
 class Action:
+    option_strings: Sequence[_Text]
+    dest: _Text
+    nargs: Optional[Union[int, _Text]]
+    const: Any
+    default: Any
+    type: Union[Callable[[str], Any], FileType, None]
+    choices: Optional[Iterable]
+    required: bool
+    help: Optional[_Text]
+    metavar: Union[_Text, Tuple[_Text, ...]]
+
     def __init__(self,
                  option_strings: Sequence[_Text],
                  dest: _Text = ...,
