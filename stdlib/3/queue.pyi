@@ -2,6 +2,7 @@
 
 # NOTE: These are incomplete!
 
+from threading import Lock, Condition
 from typing import Any, TypeVar, Generic, Optional
 
 _T = TypeVar('_T')
@@ -11,6 +12,11 @@ class Full(Exception): ...
 
 class Queue(Generic[_T]):
     maxsize = ...  # type: int
+    mutex = ... # type: Lock
+    not_empty = ... # type: Condition
+    not_full = ... # type: Condition
+    all_tasks_done = ... # type: Condition
+    unfinished_tasks = ... # type: int
     def __init__(self, maxsize: int = ...) -> None: ...
     def _init(self, maxsize: int) -> None: ...
     def empty(self) -> bool: ...
