@@ -2,9 +2,10 @@
 
 # NOTE: These are incomplete!
 
+from queue import Queue
 from typing import (
     Any, Callable, ContextManager, Iterable, Mapping, Optional, Dict, List,
-    TypeVar,
+    Tuple, TypeVar
 )
 
 _T = TypeVar('_T', bound='Pool')
@@ -16,6 +17,7 @@ class AsyncResult():
     def successful(self) -> bool: ...
 
 class Pool(ContextManager[Pool]):
+    _taskqueue: Queue[Tuple]
     def __init__(self, processes: Optional[int] = ...,
                  initializer: Optional[Callable[..., None]] = ...,
                  initargs: Iterable[Any] = ...,
