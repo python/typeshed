@@ -75,7 +75,7 @@ class ArgumentParser:
                      required: bool = ...,
                      help: _Text = ...,
                      metavar: Union[_Text, Tuple[_Text, ...]] = ...,
-                     dest: _Text = ...,
+                     dest: Optional[_Text] = ...,
                      version: _Text = ...) -> Action: ...
     def parse_args(self, args: Optional[Sequence[_Text]] = ...,
                    namespace: Optional[Namespace] = ...) -> Namespace: ...
@@ -172,8 +172,8 @@ class _ArgumentGroup:
                      required: bool = ...,
                      help: _Text = ...,
                      metavar: Union[_Text, Tuple[_Text, ...]] = ...,
-                     dest: _Text = ...,
-                     version: _Text = ...) -> None: ...
+                     dest: Optional[_Text] = ...,
+                     version: _Text = ...) -> Action: ...
     def add_mutually_exclusive_group(self, required: bool = ...) -> _MutuallyExclusiveGroup: ...
 
 class _MutuallyExclusiveGroup(_ArgumentGroup): ...
