@@ -903,7 +903,10 @@ class memoryview(Sized, Container[bytes]):
 
 class BaseException(object):
     args = ...  # type: Tuple[Any, ...]
-    message = ...  # type: str
+    # The type for message is debatable; an ASCII-only unicode object
+    # is acceptable, but non-ASCII characters will cause the message
+    # to be replaced with '<exception str() failed>'.
+    message = ...  # type: Text
     def __init__(self, *args: object, **kwargs: object) -> None: ...
     def __getitem__(self, i: int) -> Any: ...
     def __getslice__(self, start: int, stop: int) -> Tuple[Any, ...]: ...
