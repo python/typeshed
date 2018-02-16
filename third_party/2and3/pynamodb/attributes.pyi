@@ -6,7 +6,6 @@ _T = TypeVar('_T')
 _KT = TypeVar('_KT')
 _VT = TypeVar('_VT')
 _MT = TypeVar('_MT', bound='MapAttribute')
-Number = Union[int, float]
 
 class Attribute(Generic[_T]):
     attr_name: Optional[Text]
@@ -48,11 +47,11 @@ class LegacyBooleanAttribute(Attribute[bool]):
 class BooleanAttribute(Attribute[bool]):
     def __get__(self, instance: Any, owner: Any) -> bool: ...
 
-class NumberSetAttribute(SetMixin, Attribute[Set[Number]]):
-    def __get__(self, instance: Any, owner: Any) -> Set[Number]: ...
+class NumberSetAttribute(SetMixin, Attribute[Set[float]]):
+    def __get__(self, instance: Any, owner: Any) -> Set[float]: ...
 
-class NumberAttribute(Attribute[Number]):
-    def __get__(self, instance: Any, owner: Any) -> Number: ...
+class NumberAttribute(Attribute[float]):
+    def __get__(self, instance: Any, owner: Any) -> float: ...
 
 class UTCDateTimeAttribute(Attribute[datetime]):
     def __get__(self, instance: Any, owner: Any) -> datetime: ...
