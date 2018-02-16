@@ -8,7 +8,7 @@ from typing import (
     Sequence, Mapping, Tuple, List, Any, Dict, Callable, Generic, Set,
     AbstractSet, FrozenSet, Sized, Reversible, SupportsInt, SupportsFloat, SupportsAbs,
     SupportsRound, IO, BinaryIO, Union, AnyStr, MutableSequence, MutableMapping,
-    MutableSet, ItemsView, KeysView, ValuesView, Optional, Container, Type
+    MutableSet, ItemsView, KeysView, ValuesView, Optional, Container, Type, Text,
 )
 from abc import abstractmethod, ABCMeta
 from mypy_extensions import NoReturn
