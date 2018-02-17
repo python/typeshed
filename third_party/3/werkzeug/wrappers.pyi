@@ -2,6 +2,8 @@ from typing import (
     Any, Callable, Iterable, Iterator, Mapping, Optional, Sequence, Text, Tuple, Type, TypeVar, Union,
 )
 
+from wsgiref.types import WSGIEnvironment
+
 from .datastructures import (
     CombinedMultiDict, EnvironHeaders, Headers, ImmutableMultiDict,
     MultiDict, TypeConversionDict,
@@ -20,9 +22,9 @@ class BaseRequest:
     form_data_parser_class = ...  # type: Type
     trusted_hosts = ...  # type: Optional[Sequence[Text]]
     disable_data_descriptor = ...  # type: Any
-    environ = ...  # type: _Environ
+    environ: WSGIEnvironment = ...
     shallow = ...  # type: Any
-    def __init__(self, environ: _Environ, populate_request: bool = ..., shallow: bool = ...) -> None: ...
+    def __init__(self, environ: WSGIEnvironment, populate_request: bool = ..., shallow: bool = ...) -> None: ...
     @property
     def url_charset(self) -> str: ...
     @classmethod
@@ -38,7 +40,8 @@ class BaseRequest:
     def stream(self): ...
     input_stream = ...  # type: Any
     args = ...  # type: ImmutableMultiDict
-    def data(self): ...
+    @property
+    def data(self) -> bytes: ...
     def get_data(self, cache: bool = ..., as_text: bool = ..., parse_form_data: bool = ...) -> bytes: ...
     form = ...  # type: ImmutableMultiDict
     values = ...  # type: CombinedMultiDict

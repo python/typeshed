@@ -5,6 +5,7 @@ from yaml.events import *  # noqa: F403
 from yaml.nodes import *  # noqa: F403
 from yaml.loader import *  # noqa: F403
 from yaml.dumper import *  # noqa: F403
+from . import resolver  # Help mypy a bit; this is implied by loader and dumper
 # TODO: stubs for cyaml?
 # from cyaml import *
 

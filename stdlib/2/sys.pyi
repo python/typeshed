@@ -2,7 +2,7 @@
 
 from typing import (
     IO, Union, List, Sequence, Any, Dict, Tuple, BinaryIO, Optional, Callable,
-    overload, Type,
+    overload, Text, Type,
 )
 from types import FrameType, ModuleType, TracebackType, ClassType
 from mypy_extensions import NoReturn
@@ -132,6 +132,7 @@ def getprofile() -> None: ...
 def gettrace() -> None: ...
 def setcheckinterval(interval: int) -> None: ...  # deprecated
 def setdlopenflags(n: int) -> None: ...
+def setdefaultencoding(encoding: Text) -> None: ...  # only exists after reload(sys)
 def setprofile(profilefunc: Any) -> None: ...  # TODO type
 def setrecursionlimit(limit: int) -> None: ...
 def settrace(tracefunc: Any) -> None: ...  # TODO type

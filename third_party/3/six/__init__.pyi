@@ -29,6 +29,7 @@ from mypy_extensions import NoReturn
 from io import StringIO as StringIO, BytesIO as BytesIO
 from builtins import next as next
 from functools import wraps as wraps
+from . import moves
 
 _T = TypeVar('_T')
 _K = TypeVar('_K')
