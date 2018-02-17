@@ -9,8 +9,6 @@ from .datastructures import (
     MultiDict, TypeConversionDict,
 )
 
-_Environ = Mapping[str, object]
-
 class BaseRequest:
     charset = ...  # type: str
     encoding_errors = ...  # type: str
