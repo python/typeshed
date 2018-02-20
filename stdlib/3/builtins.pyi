@@ -948,7 +948,7 @@ class OSError(Exception):
     if sys.version_info >= (3, 4):
         filename2 = ...  # type: Any
     if sys.platform == 'win32':
-        winerror = 0
+        winerror = ...  # type: int
 IOError = OSError
 EnvironmentError = OSError
 WindowsError = OSError
