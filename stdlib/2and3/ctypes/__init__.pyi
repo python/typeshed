@@ -12,7 +12,7 @@ if sys.platform == 'win32':
     _DLLT = TypeVar('_DLLT', CDLL, OleDLL, WinDLL, PyDLL)
 else:
     _DLLT = TypeVar('_DLLT', CDLL, PyDLL)
-_CT = TypeVar('_CT', _CData)
+_CT = TypeVar('_CT', bound=_CData)
 
 
 RTLD_GLOBAL: int = ...
