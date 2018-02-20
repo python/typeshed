@@ -12,7 +12,7 @@ from multiprocessing.context import (
     ProcessError, BufferTooShort, TimeoutError, AuthenticationError)
 from multiprocessing.managers import SyncManager
 from multiprocessing.process import current_process as current_process
-from multiprocessing.queues import Queue, SimpleQueue, JoinableQueue
+from multiprocessing.queues import Queue as Queue, SimpleQueue as SimpleQueue, JoinableQueue as JoinableQueue
 import sys
 
 # N.B. The functions below are generated at runtime by partially applying

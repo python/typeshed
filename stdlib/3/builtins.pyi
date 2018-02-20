@@ -947,11 +947,10 @@ class OSError(Exception):
     filename = ...  # type: Any
     if sys.version_info >= (3, 4):
         filename2 = ...  # type: Any
-    if sys.platform == 'win32':
-        winerror = 0
 IOError = OSError
 EnvironmentError = OSError
-WindowsError = OSError
+class WindowsError(OSError):
+    winerror = ...  # type: int
 class LookupError(Exception): ...
 class RuntimeError(Exception): ...
 class ValueError(Exception): ...
