@@ -1,7 +1,7 @@
 # Stubs for ctypes
 
 from typing import (
-    Any, Callable, Iterable, Mapping, Optional, Sequence, Sized, Tuple, Type,
+    Any, Callable, Iterable, List, Mapping, Optional, Sequence, Sized, Tuple, Type,
     Generic, TypeVar, overload,
 )
 from typing import Union as UnionT
