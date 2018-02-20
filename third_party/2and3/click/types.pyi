@@ -270,7 +270,7 @@ class UUIDParameterType(ParamType):
         ...
 
 
-_ConvertibleType = Union[type, ParamType, PyTuple[type, ...], Callable[[Optional[str]], Any]]
+_ConvertibleType = Union[type, ParamType, PyTuple[type, ...], Callable[[str], Any], Callable[[Optional[str]], Any]]
 
 def convert_type(ty: Optional[_ConvertibleType], default: Optional[Any] = ...) -> ParamType:
     ...
