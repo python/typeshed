@@ -3,12 +3,11 @@
 
 from typing import NamedTuple, Tuple, Union, Any, Optional
 
-# ----- variables and constants -----
-accept2dyear = False
-altzone = 0
-daylight = 0
-timezone = 0
-tzname = ...  # type: Tuple[str, str]
+accept2dyear: bool = ...
+altzone: int = ...
+daylight: int = ...
+timezone: int = ...
+tzname: Tuple[str, str] = ...
 
 class struct_time(NamedTuple('_struct_time',
                              [('tm_year', int), ('tm_mon', int), ('tm_mday', int),
@@ -23,32 +22,15 @@ class struct_time(NamedTuple('_struct_time',
 
 _TIME_TUPLE = Tuple[int, int, int, int, int, int, int, int, int]
 
-def asctime(t: Union[struct_time, _TIME_TUPLE] = ...) -> str:
-    raise ValueError()
-
+def asctime(t: Union[struct_time, _TIME_TUPLE] = ...) -> str: ...
 def clock() -> float: ...
-
-def ctime(secs: Optional[float] = ...) -> str:
-    raise ValueError()
-
+def ctime(secs: Optional[float] = ...) -> str: ...
 def gmtime(secs: Optional[float] = ...) -> struct_time: ...
-
 def localtime(secs: Optional[float] = ...) -> struct_time: ...
-
-def mktime(t: Union[struct_time, _TIME_TUPLE]) -> float:
-    raise OverflowError()
-    raise ValueError()
-
+def mktime(t: Union[struct_time, _TIME_TUPLE]) -> float: ...
 def sleep(secs: float) -> None: ...
-
-def strftime(format: str, t: Union[struct_time, _TIME_TUPLE] = ...) -> str:
-    raise MemoryError()
-    raise ValueError()
-
-def strptime(string: str, format: str = ...) -> struct_time:
-    raise ValueError()
-
-def time() -> float:
-    raise IOError()
-
+def strftime(format: str, t: Union[struct_time, _TIME_TUPLE] = ...) -> str: ...
+def strptime(string: str, format: str = ...) -> struct_time: ...
+def time() -> float: ...
 def tzset() -> None: ...
+
