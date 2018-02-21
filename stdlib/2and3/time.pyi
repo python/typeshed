@@ -3,7 +3,8 @@
 
 import sys
 from typing import Any, NamedTuple, Tuple, Union, Optional
-from types import SimpleNamespace
+if sys.version_info >= (3, 3):
+    from types import SimpleNamespace
 
 TimeTuple = Tuple[int, int, int, int, int, int, int, int, int]
 
