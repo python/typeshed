@@ -1,8 +1,8 @@
 # Stubs for argparse (Python 2.7 and 3.4)
 
 from typing import (
-    Any, Callable, Iterable, List, IO, Optional, Sequence, Tuple, Type, Union,
-    TypeVar, overload
+    Any, Callable, Generic, Iterable, List, IO, Optional, Sequence, Tuple, Type,
+    Union, TypeVar, overload
 )
 import sys
 
@@ -114,21 +114,31 @@ class ArgumentDefaultsHelpFormatter(HelpFormatter): ...
 if sys.version_info >= (3,):
     class MetavarTypeHelpFormatter(HelpFormatter): ...
 
-class Action:
+class Action(Generic[_T]):
+    option_strings: Sequence[_Text]
+    dest: _Text
+    nargs: Optional[Union[int, _Text]]
+    const: Any
+    default: Any
+    type: Optional[Union[Callable[[str], _T], FileType]]
+    choices: Optional[Iterable[_T]]
+    required: bool
+    help: Optional[_Text]
+    metavar: Optional[Union[_Text, Tuple[_Text, ...]]]
     def __init__(self,
                  option_strings: Sequence[_Text],
                  dest: _Text = ...,
                  nargs: Optional[Union[int, _Text]] = ...,
                  const: Any = ...,
                  default: Any = ...,
-                 type: Union[Callable[[str], _T], FileType, None] = ...,
+                 type: Optional[Union[Callable[[str], _T], FileType]] = ...,
                  choices: Optional[Iterable[_T]] = ...,
                  required: bool = ...,
                  help: Optional[_Text] = ...,
-                 metavar: Union[_Text, Tuple[_Text, ...]] = ...) -> None: ...
+                 metavar: Optional[Union[_Text, Tuple[_Text, ...]]] = ...) -> None: ...
     def __call__(self, parser: ArgumentParser, namespace: Namespace,
                  values: Union[_Text, Sequence[Any], None],
-                 option_string: _Text = ...) -> None: ...
+                 option_string: Optional[_Text] = ...) -> None: ...
 
 class Namespace:
     def __init__(self, **kwargs: Any) -> None: ...
