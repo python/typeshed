@@ -2,7 +2,7 @@
 # See https://docs.python.org/3/library/time.html
 
 import sys
-from typing import Any, NamedTuple, Tuple, Union
+from typing import Any, NamedTuple, Tuple, Union, Optional
 from types import SimpleNamespace
 
 TimeTuple = Tuple[int, int, int, int, int, int, int, int, int]
