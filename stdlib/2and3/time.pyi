@@ -8,11 +8,11 @@ if sys.version_info >= (3, 3):
 
 TimeTuple = Tuple[int, int, int, int, int, int, int, int, int]
 
-accept2dyear: bool = ...
-altzone: int = ...
-daylight: int = ...
-timezone: int = ...
-tzname: Tuple[str, str] = ...
+accept2dyear: bool
+altzone: int
+daylight: int
+timezone: int
+tzname: Tuple[str, str]
 
 if sys.version_info >= (3, 3) and sys.platform != 'win32':
     CLOCK_HIGHRES: int = ...  # Solaris only
