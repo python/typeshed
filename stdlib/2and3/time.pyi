@@ -8,7 +8,8 @@ if sys.version_info >= (3, 3):
 
 TimeTuple = Tuple[int, int, int, int, int, int, int, int, int]
 
-accept2dyear: bool
+if sys.version_info < (3, 3):
+    accept2dyear: bool
 altzone: int
 daylight: int
 timezone: int
