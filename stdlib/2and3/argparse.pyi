@@ -1,8 +1,8 @@
 # Stubs for argparse (Python 2.7 and 3.4)
 
 from typing import (
-    Any, Callable, Generic, Iterable, List, IO, Optional, Sequence, Tuple, Type,
-    Union, TypeVar, overload
+    Any, Callable, Iterable, List, IO, Optional, Sequence, Tuple, Type, Union,
+    TypeVar, overload
 )
 import sys
 
@@ -114,14 +114,14 @@ class ArgumentDefaultsHelpFormatter(HelpFormatter): ...
 if sys.version_info >= (3,):
     class MetavarTypeHelpFormatter(HelpFormatter): ...
 
-class Action(Generic[_T]):
+class Action:
     option_strings: Sequence[_Text]
     dest: _Text
     nargs: Optional[Union[int, _Text]]
     const: Any
     default: Any
-    type: Optional[Union[Callable[[str], _T], FileType]]
-    choices: Optional[Iterable[_T]]
+    type: Optional[Union[Callable[[str], Any], FileType]]
+    choices: Optional[Iterable[Any]]
     required: bool
     help: Optional[_Text]
     metavar: Optional[Union[_Text, Tuple[_Text, ...]]]
