@@ -9,7 +9,7 @@ from logging import Logger
 from multiprocessing import connection, pool, synchronize
 from multiprocessing.context import (
     BaseContext,
-    ProcessError, BufferTooShort, TimeoutError, AuthenticationError)
+    ProcessError as ProcessError, BufferTooShort as BufferTooShort, TimeoutError as TimeoutError, AuthenticationError as AuthenticationError)
 from multiprocessing.managers import SyncManager
 from multiprocessing.process import current_process as current_process
 from multiprocessing.queues import Queue as Queue, SimpleQueue as SimpleQueue, JoinableQueue as JoinableQueue
