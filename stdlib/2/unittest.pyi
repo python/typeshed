@@ -206,7 +206,7 @@ class TestLoader:
 defaultTestLoader = ...  # type: TestLoader
 
 class TextTestResult(TestResult):
-  def __init__(self, stream: TextIO, descriptions: bool, verbosity: int) -> None: ...
+    def __init__(self, stream: TextIO, descriptions: bool, verbosity: int) -> None: ...
 
 class TextTestRunner:
     def __init__(self, stream: Optional[TextIO] = ..., descriptions: bool = ...,
