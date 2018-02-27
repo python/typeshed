@@ -10,6 +10,7 @@ from typing import (
     Optional,
     Sequence,
     Set,
+    Text,
     Tuple,
     TypeVar,
     Union,
@@ -20,10 +21,10 @@ from click.parser import OptionParser
 
 
 def invoke_param_callback(
-    callback: Callable[['Context', 'Parameter', Optional[str]], Any],
+    callback: Callable[['Context', 'Parameter', Optional[Text]], Any],
     ctx: 'Context',
     param: 'Parameter',
-    value: Optional[str]
+    value: Optional[Text]
 ) -> Any:
     ...
 
@@ -45,47 +46,47 @@ def iter_params_for_processing(
 class Context:
     parent: Optional['Context']
     command: 'Command'
-    info_name: Optional[str]
+    info_name: Optional[Text]
     params: Dict
-    args: List[str]
-    protected_args: List[str]
+    args: List[Text]
+    protected_args: List[Text]
     obj: Any
-    default_map: Mapping[str, Any]
-    invoked_subcommand: Optional[str]
+    default_map: Mapping[Text, Any]
+    invoked_subcommand: Optional[Text]
     terminal_width: Optional[int]
     max_content_width: Optional[int]
     allow_extra_args: bool
     allow_interspersed_args: bool
     ignore_unknown_options: bool
-    help_option_names: List[str]
-    token_normalize_func: Optional[Callable[[str], str]]
+    help_option_names: List[Text]
+    token_normalize_func: Optional[Callable[[Text], Text]]
     resilient_parsing: bool
-    auto_envvar_prefix: Optional[str]
+    auto_envvar_prefix: Optional[Text]
     color: Optional[bool]
-    _meta: Dict[str, Any]
+    _meta: Dict[Text, Any]
     _close_callbacks: List
     _depth: int
 
     # properties
-    meta: Dict[str, Any]
-    command_path: str
+    meta: Dict[Text, Any]
+    command_path: Text
 
     def __init__(
         self,
         command: 'Command',
         parent: Optional['Context'] = ...,
-        info_name: Optional[str] = ...,
+        info_name: Optional[Text] = ...,
         obj: Optional[Any] = ...,
-        auto_envvar_prefix: Optional[str] = ...,
-        default_map: Optional[Mapping[str, Any]] = ...,
+        auto_envvar_prefix: Optional[Text] = ...,
+        default_map: Optional[Mapping[Text, Any]] = ...,
         terminal_width: Optional[int] = ...,
         max_content_width: Optional[int] = ...,
         resilient_parsing: bool = ...,
         allow_extra_args: Optional[bool] = ...,
         allow_interspersed_args: Optional[bool] = ...,
         ignore_unknown_options: Optional[bool] = ...,
-        help_option_names: Optional[List[str]] = ...,
-        token_normalize_func: Optional[Callable[[str], str]] = ...,
+        help_option_names: Optional[List[Text]] = ...,
+        token_normalize_func: Optional[Callable[[Text], Text]] = ...,
         color: Optional[bool] = ...
     ) -> None:
         ...
@@ -112,22 +113,22 @@ class Context:
     def ensure_object(self, object_type: type) -> Any:
         ...
 
-    def lookup_default(self, name: str) -> Any:
+    def lookup_default(self, name: Text) -> Any:
         ...
 
-    def fail(self, message: str) -> None:
+    def fail(self, message: Text) -> None:
         ...
 
     def abort(self) -> None:
         ...
 
-    def exit(self, code: Union[int, str] = ...) -> None:
+    def exit(self, code: Union[int, Text] = ...) -> None:
         ...
 
-    def get_usage(self) -> str:
+    def get_usage(self) -> Text:
         ...
 
-    def get_help(self) -> str:
+    def get_help(self) -> Text:
         ...
 
     def invoke(
@@ -144,24 +145,24 @@ class BaseCommand:
     allow_extra_args: bool
     allow_interspersed_args: bool
     ignore_unknown_options: bool
-    name: str
+    name: Text
     context_settings: Dict
 
-    def __init__(self, name: str, context_settings: Optional[Dict] = ...) -> None:
+    def __init__(self, name: Text, context_settings: Optional[Dict] = ...) -> None:
         ...
 
-    def get_usage(self, ctx: Context) -> str:
+    def get_usage(self, ctx: Context) -> Text:
         ...
 
-    def get_help(self, ctx: Context) -> str:
+    def get_help(self, ctx: Context) -> Text:
         ...
 
     def make_context(
-        self, info_name: str, args: List[str], parent: Optional[Context] = ..., **extra
+        self, info_name: Text, args: List[Text], parent: Optional[Context] = ..., **extra
     ) -> Context:
         ...
 
-    def parse_args(self, ctx: Context, args: List[str]) -> List[str]:
+    def parse_args(self, ctx: Context, args: List[Text]) -> List[Text]:
         ...
 
     def invoke(self, ctx: Context) -> Any:
@@ -169,9 +170,9 @@ class BaseCommand:
 
     def main(
         self,
-        args: Optional[List[str]] = ...,
-        prog_name: Optional[str] = ...,
-        complete_var: Optional[str] = ...,
+        args: Optional[List[Text]] = ...,
+        prog_name: Optional[Text] = ...,
+        complete_var: Optional[Text] = ...,
         standalone_mode: bool = ...,
         **extra
     ) -> Any:
@@ -184,22 +185,22 @@ class BaseCommand:
 class Command(BaseCommand):
     callback: Optional[Callable]
     params: List['Parameter']
-    help: Optional[str]
-    epilog: Optional[str]
-    short_help: Optional[str]
-    options_metavar: str
+    help: Optional[Text]
+    epilog: Optional[Text]
+    short_help: Optional[Text]
+    options_metavar: Text
     add_help_option: bool
 
     def __init__(
         self,
-        name: str,
+        name: Text,
         context_settings: Optional[Dict] = ...,
         callback: Optional[Callable] = ...,
         params: Optional[List['Parameter']] = ...,
-        help: Optional[str] = ...,
-        epilog: Optional[str] = ...,
-        short_help: Optional[str] = ...,
-        options_metavar: str = ...,
+        help: Optional[Text] = ...,
+        epilog: Optional[Text] = ...,
+        short_help: Optional[Text] = ...,
+        options_metavar: Text = ...,
         add_help_option: bool = ...
     ) -> None:
         ...
@@ -214,10 +215,10 @@ class Command(BaseCommand):
     ) -> None:
         ...
 
-    def collect_usage_pieces(self, ctx: Context) -> List[str]:
+    def collect_usage_pieces(self, ctx: Context) -> List[Text]:
         ...
 
-    def get_help_option_names(self, ctx: Context) -> Set[str]:
+    def get_help_option_names(self, ctx: Context) -> Set[Text]:
         ...
 
     def get_help_option(self, ctx: Context) -> Optional['Option']:
@@ -246,16 +247,16 @@ _Decorator = Callable[[_T], _T]
 class MultiCommand(Command):
     no_args_is_help: bool
     invoke_without_command: bool
-    subcommand_metavar: str
+    subcommand_metavar: Text
     chain: bool
     result_callback: Callable
 
     def __init__(
         self,
-        name: Optional[str] = ...,
+        name: Optional[Text] = ...,
         invoke_without_command: bool = ...,
         no_args_is_help: Optional[bool] = ...,
-        subcommand_metavar: Optional[str] = ...,
+        subcommand_metavar: Optional[Text] = ...,
         chain: bool = ...,
         result_callback: Optional[Callable] = ...,
         **attrs
@@ -271,11 +272,11 @@ class MultiCommand(Command):
         ...
 
     def resolve_command(
-        self, ctx: Context, args: List[str]
-    ) -> Tuple[str, Command, List[str]]:
+        self, ctx: Context, args: List[Text]
+    ) -> Tuple[Text, Command, List[Text]]:
         ...
 
-    def get_command(self, ctx: Context, cmd_name: str) -> Optional[Command]:
+    def get_command(self, ctx: Context, cmd_name: Text) -> Optional[Command]:
         ...
 
     def list_commands(self, ctx: Context) -> Iterable[Command]:
@@ -283,14 +284,14 @@ class MultiCommand(Command):
 
 
 class Group(MultiCommand):
-    commands: Dict[str, Command]
+    commands: Dict[Text, Command]
 
     def __init__(
-        self, name: Optional[str] = ..., commands: Optional[Dict[str, Command]] = ..., **attrs
+        self, name: Optional[Text] = ..., commands: Optional[Dict[Text, Command]] = ..., **attrs
     ) -> None:
         ...
 
-    def add_command(self, cmd: Command, name: Optional[str] = ...):
+    def add_command(self, cmd: Command, name: Optional[Text] = ...):
         ...
 
     def command(self, *args, **kwargs) -> _Decorator:
@@ -304,7 +305,7 @@ class CommandCollection(MultiCommand):
     sources: List[MultiCommand]
 
     def __init__(
-        self, name: Optional[str] = ..., sources: Optional[List[MultiCommand]] = ..., **attrs
+        self, name: Optional[Text] = ..., sources: Optional[List[MultiCommand]] = ..., **attrs
     ) -> None:
         ...
 
@@ -313,39 +314,39 @@ class CommandCollection(MultiCommand):
 
 
 class Parameter:
-    param_type_name: str
-    name: str
-    opts: List[str]
-    secondary_opts: List[str]
+    param_type_name: Text
+    name: Text
+    opts: List[Text]
+    secondary_opts: List[Text]
     type: 'ParamType'
     required: bool
-    callback: Optional[Callable[[Context, 'Parameter', str], Any]]
+    callback: Optional[Callable[[Context, 'Parameter', Text], Any]]
     nargs: int
     multiple: bool
     expose_value: bool
     default: Any
     is_eager: bool
-    metavar: Optional[str]
-    envvar: Union[str, List[str], None]
+    metavar: Optional[Text]
+    envvar: Union[Text, List[Text], None]
     # properties
-    human_readable_name: str
+    human_readable_name: Text
 
     def __init__(
         self,
-        param_decls: Optional[List[str]] = ...,
+        param_decls: Optional[List[Text]] = ...,
         type: Optional[Union[type, 'ParamType']] = ...,
         required: bool = ...,
         default: Optional[Any] = ...,
-        callback: Optional[Callable[[Context, 'Parameter', str], Any]] = ...,
+        callback: Optional[Callable[[Context, 'Parameter', Text], Any]] = ...,
         nargs: Optional[int] = ...,
-        metavar: Optional[str] = ...,
+        metavar: Optional[Text] = ...,
         expose_value: bool = ...,
         is_eager: bool = ...,
-        envvar: Optional[Union[str, List[str]]] = ...
+        envvar: Optional[Union[Text, List[Text]]] = ...
     ) -> None:
         ...
 
-    def make_metavar(self) -> str:
+    def make_metavar(self) -> Text:
         ...
 
     def get_default(self, ctx: Context) -> Any:
@@ -354,7 +355,7 @@ class Parameter:
     def add_to_parser(self, parser: OptionParser, ctx: Context) -> None:
         ...
 
-    def consume_value(self, ctx: Context, opts: Dict[str, Any]) -> Any:
+    def consume_value(self, ctx: Context, opts: Dict[Text, Any]) -> Any:
         ...
 
     def type_cast_value(self, ctx: Context, value: Any) -> Any:
@@ -369,26 +370,26 @@ class Parameter:
     def full_process_value(self, ctx: Context, value: Any) -> Any:
         ...
 
-    def resolve_envvar_value(self, ctx: Context) -> str:
+    def resolve_envvar_value(self, ctx: Context) -> Text:
         ...
 
-    def value_from_envvar(self, ctx: Context) -> Union[str, List[str]]:
+    def value_from_envvar(self, ctx: Context) -> Union[Text, List[Text]]:
         ...
 
     def handle_parse_result(
-        self, ctx: Context, opts: Dict[str, Any], args: List[str]
-    ) -> Tuple[Any, List[str]]:
+        self, ctx: Context, opts: Dict[Text, Any], args: List[Text]
+    ) -> Tuple[Any, List[Text]]:
         ...
 
-    def get_help_record(self, ctx: Context) -> Tuple[str, str]:
+    def get_help_record(self, ctx: Context) -> Tuple[Text, Text]:
         ...
 
-    def get_usage_pieces(self, ctx: Context) -> List[str]:
+    def get_usage_pieces(self, ctx: Context) -> List[Text]:
         ...
 
 
 class Option(Parameter):
-    prompt: str  # sic
+    prompt: Text  # sic
     confirmation_prompt: bool
     hide_input: bool
     is_flag: bool
@@ -397,14 +398,14 @@ class Option(Parameter):
     count: bool
     multiple: bool
     allow_from_autoenv: bool
-    help: Optional[str]
+    help: Optional[Text]
     show_default: bool
 
     def __init__(
         self,
-        param_decls: Optional[List[str]] = ...,
+        param_decls: Optional[List[Text]] = ...,
         show_default: bool = ...,
-        prompt: Union[bool, str] = ...,
+        prompt: Union[bool, Text] = ...,
         confirmation_prompt: bool = ...,
         hide_input: bool = ...,
         is_flag: Optional[bool] = ...,
@@ -413,7 +414,7 @@ class Option(Parameter):
         count: bool = ...,
         allow_from_autoenv: bool = ...,
         type: Optional[Union[type, 'ParamType']] = ...,
-        help: Optional[str] = ...,
+        help: Optional[Text] = ...,
         **attrs
     ) -> None:
         ...
@@ -425,7 +426,7 @@ class Option(Parameter):
 class Argument(Parameter):
     def __init__(
         self,
-        param_decls: Optional[List[str]] = ...,
+        param_decls: Optional[List[Text]] = ...,
         required: Optional[bool] = ...,
         **attrs
     ) -> None:

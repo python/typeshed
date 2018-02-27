@@ -1,47 +1,47 @@
-from typing import Any, Callable, IO, Iterable, List, Optional, TypeVar, Union
+from typing import Any, Callable, IO, Iterable, List, Optional, Text, TypeVar, Union
 import uuid
 
 from click.core import Context, Parameter
 
 
 class ParamType:
-    name: str
+    name: Text
     is_composite: bool
-    envvar_list_splitter: Optional[str]
+    envvar_list_splitter: Optional[Text]
 
     def __call__(
         self,
-        value: Optional[str],
+        value: Optional[Text],
         param: Optional[Parameter] = ...,
         ctx: Optional[Context] = ...,
     ) -> Any:
         ...
 
-    def get_metavar(self, param: Parameter) -> str:
+    def get_metavar(self, param: Parameter) -> Text:
         ...
 
-    def get_missing_message(self, param: Parameter) -> str:
+    def get_missing_message(self, param: Parameter) -> Text:
         ...
 
     def convert(
         self,
-        value: str,
+        value: Text,
         param: Optional[Parameter],
         ctx: Optional[Context],
     ) -> Any:
         ...
 
-    def split_envvar_value(self, rv: str) -> List[str]:
+    def split_envvar_value(self, rv: Text) -> List[Text]:
         ...
 
-    def fail(self, message: str, param: Optional[Parameter] = ..., ctx: Optional[Context] = ...) -> None:
+    def fail(self, message: Text, param: Optional[Parameter] = ..., ctx: Optional[Context] = ...) -> None:
         ...
 
 
 class BoolParamType(ParamType):
     def __call__(
         self,
-        value: Optional[str],
+        value: Optional[Text],
         param: Optional[Parameter] = ...,
         ctx: Optional[Context] = ...,
     ) -> bool:
@@ -49,7 +49,7 @@ class BoolParamType(ParamType):
 
     def convert(
         self,
-        value: str,
+        value: Text,
         param: Optional[Parameter],
         ctx: Optional[Context],
     ) -> bool:
@@ -61,15 +61,15 @@ class CompositeParamType(ParamType):
 
 
 class Choice(ParamType):
-    choices: Iterable[str]
-    def __init__(self, choices: Iterable[str]) -> None:
+    choices: Iterable[Text]
+    def __init__(self, choices: Iterable[Text]) -> None:
         ...
 
 
 class FloatParamType(ParamType):
     def __call__(
         self,
-        value: Optional[str],
+        value: Optional[Text],
         param: Optional[Parameter] = ...,
         ctx: Optional[Context] = ...,
     ) -> float:
@@ -77,7 +77,7 @@ class FloatParamType(ParamType):
 
     def convert(
         self,
-        value: str,
+        value: Text,
         param: Optional[Parameter],
         ctx: Optional[Context],
     ) -> float:
@@ -91,9 +91,9 @@ class FloatRange(FloatParamType):
 class File(ParamType):
     def __init__(
         self,
-        mode: str = ...,
-        encoding: Optional[str] = ...,
-        errors: Optional[str] = ...,
+        mode: Text = ...,
+        encoding: Optional[Text] = ...,
+        errors: Optional[Text] = ...,
         lazy: Optional[bool] = ...,
         atomic: Optional[bool] = ...,
     ) -> None:
@@ -101,7 +101,7 @@ class File(ParamType):
 
     def __call__(
         self,
-        value: Optional[str],
+        value: Optional[Text],
         param: Optional[Parameter] = ...,
         ctx: Optional[Context] = ...,
     ) -> IO:
@@ -109,18 +109,18 @@ class File(ParamType):
 
     def convert(
         self,
-        value: str,
+        value: Text,
         param: Optional[Parameter],
         ctx: Optional[Context],
     ) -> IO:
         ...
 
-    def resolve_lazy_flag(self, value: str) -> bool:
+    def resolve_lazy_flag(self, value: Text) -> bool:
         ...
 
 
 _F = TypeVar('_F')  # result of the function
-_Func = Callable[[Optional[str]], _F]
+_Func = Callable[[Optional[Text]], _F]
 
 
 class FuncParamType(ParamType):
@@ -131,7 +131,7 @@ class FuncParamType(ParamType):
 
     def __call__(
         self,
-        value: Optional[str],
+        value: Optional[Text],
         param: Optional[Parameter] = ...,
         ctx: Optional[Context] = ...,
     ) -> _F:
@@ -139,7 +139,7 @@ class FuncParamType(ParamType):
 
     def convert(
         self,
-        value: str,
+        value: Text,
         param: Optional[Parameter],
         ctx: Optional[Context],
     ) -> _F:
@@ -149,7 +149,7 @@ class FuncParamType(ParamType):
 class IntParamType(ParamType):
     def __call__(
         self,
-        value: Optional[str],
+        value: Optional[Text],
         param: Optional[Parameter] = ...,
         ctx: Optional[Context] = ...,
     ) -> int:
@@ -157,7 +157,7 @@ class IntParamType(ParamType):
 
     def convert(
         self,
-        value: str,
+        value: Text,
         param: Optional[Parameter],
         ctx: Optional[Context],
     ) -> int:
@@ -171,7 +171,7 @@ class IntRange(IntParamType):
         ...
 
 
-_PathType = TypeVar('_PathType', str, bytes)
+_PathType = TypeVar('_PathType', Text, bytes)
 
 
 class Path(ParamType):
@@ -188,12 +188,12 @@ class Path(ParamType):
     ) -> None:
         ...
 
-    def coerce_path_result(self, rv: Union[str, bytes]) -> _PathType:
+    def coerce_path_result(self, rv: Union[Text, bytes]) -> _PathType:
         ...
 
     def __call__(
         self,
-        value: Optional[str],
+        value: Optional[Text],
         param: Optional[Parameter] = ...,
         ctx: Optional[Context] = ...,
     ) -> _PathType:
@@ -201,7 +201,7 @@ class Path(ParamType):
 
     def convert(
         self,
-        value: str,
+        value: Text,
         param: Optional[Parameter],
         ctx: Optional[Context],
     ) -> _PathType:
@@ -210,18 +210,18 @@ class Path(ParamType):
 class StringParamType(ParamType):
     def __call__(
         self,
-        value: Optional[str],
+        value: Optional[Text],
         param: Optional[Parameter] = ...,
         ctx: Optional[Context] = ...,
-    ) -> str:
+    ) -> Text:
         ...
 
     def convert(
         self,
-        value: str,
+        value: Text,
         param: Optional[Parameter],
         ctx: Optional[Context],
-    ) -> str:
+    ) -> Text:
         ...
 
 
@@ -233,7 +233,7 @@ class Tuple(CompositeParamType):
 
     def __call__(
         self,
-        value: Optional[str],
+        value: Optional[Text],
         param: Optional[Parameter] = ...,
         ctx: Optional[Context] = ...,
     ) -> Tuple:
@@ -241,7 +241,7 @@ class Tuple(CompositeParamType):
 
     def convert(
         self,
-        value: str,
+        value: Text,
         param: Optional[Parameter],
         ctx: Optional[Context],
     ) -> Tuple:
@@ -255,7 +255,7 @@ class UnprocessedParamType(ParamType):
 class UUIDParameterType(ParamType):
     def __call__(
         self,
-        value: Optional[str],
+        value: Optional[Text],
         param: Optional[Parameter] = ...,
         ctx: Optional[Context] = ...,
     ) -> uuid.UUID:
@@ -263,7 +263,7 @@ class UUIDParameterType(ParamType):
 
     def convert(
         self,
-        value: str,
+        value: Text,
         param: Optional[Parameter],
         ctx: Optional[Context],
     ) -> uuid.UUID:
