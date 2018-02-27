@@ -15,6 +15,9 @@ class AsyncResult():
     def ready(self) -> bool: ...
     def successful(self) -> bool: ...
 
+class IMapIterator(Iterable[Any]):
+    def next(self, timeout: float = ...) -> Any: ...
+
 class Pool(ContextManager[Pool]):
     def __init__(self, processes: Optional[int] = ...,
                  initializer: Optional[Callable[..., None]] = ...,
@@ -43,11 +46,11 @@ class Pool(ContextManager[Pool]):
     def imap(self,
              func: Callable[..., Any],
              iterable: Iterable[Any] = ...,
-             chunksize: Optional[int] = ...) -> Iterable[Any]: ...
+             chunksize: Optional[int] = ...) -> IMapIterator: ...
     def imap_unordered(self,
                        func: Callable[..., Any],
                        iterable: Iterable[Any] = ...,
-                       chunksize: Optional[int] = ...) -> Iterable[Any]: ...
+                       chunksize: Optional[int] = ...) -> IMapIterator: ...
     def starmap(self,
                 func: Callable[..., Any],
                 iterable: Iterable[Iterable[Any]] = ...,
