@@ -228,6 +228,10 @@ class Namespace(_AttributeHolder):
     def __contains__(self, key: str) -> bool: ...
 
 class FileType:
+    _mode: _Text
+    _bufsize: int
+    _encoding: Optional[_Text]
+    _errors: Optional[_Text]
     if sys.version_info >= (3, 4):
         def __init__(self, mode: _Text = ..., bufsize: int = ...,
                      encoding: Optional[_Text] = ...,
@@ -241,11 +245,16 @@ class FileType:
     def __call__(self, string: _Text) -> IO[Any]: ...
 
 class _ArgumentGroup(_ActionsContainer):
+    title: Optional[_Text]
+    _group_actions: List[Action]
     def __init__(self, container: _ActionsContainer,
                  title: Optional[_Text] = ...,
                  description: Optional[_Text] = ..., **kwargs: Any) -> None: ...
 
-class _MutuallyExclusiveGroup(_ArgumentGroup): ...
+class _MutuallyExclusiveGroup(_ArgumentGroup):
+    required: bool
+    _container: _ActionsContainer
+    def __init__(self, container: _ActionsContainer, required: bool = ...) -> None: ...
 
 class _StoreAction(Action): ...
 
@@ -303,6 +312,7 @@ class _HelpAction(Action):
                  help: Optional[_Text] = ...) -> None: ...
 
 class _VersionAction(Action):
+    version: Optional[_Text]
     def __init__(self,
                  option_strings: Sequence[_Text],
                  version: Optional[_Text] = ...,
@@ -311,8 +321,22 @@ class _VersionAction(Action):
                  help: _Text = ...) -> None: ...
 
 class _SubParsersAction(Action):
+    _ChoicesPseudoAction: Type[Any]  # nested class
+    _prog_prefix: _Text
+    _parser_class: Type[ArgumentParser]
+    _name_parser_map: Dict[_Text, ArgumentParser]
+    _choices_actions: List[Action]
+    def __init__(self,
+                 option_strings: Sequence[_Text],
+                 prog: _Text,
+                 parser_class: Type[ArgumentParser],
+                 dest: _Text = ...,
+                 required: bool = ...,
+                 help: Optional[_Text] = ...,
+                 metavar: Optional[Union[_Text, Tuple[_Text, ...]]] = ...) -> None: ...
     # TODO: Type keyword args properly.
     def add_parser(self, name: _Text, **kwargs: Any) -> ArgumentParser: ...
+    def _get_subactions(self) -> List[Action]: ...
 
 # not documented
 class ArgumentTypeError(Exception): ...
