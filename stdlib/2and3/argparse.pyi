@@ -174,7 +174,70 @@ class _ArgumentGroup(_ActionsContainer):
 
 class _MutuallyExclusiveGroup(_ArgumentGroup): ...
 
-class _SubParsersAction:
+class _StoreAction(Action): ...
+
+class _StoreConstAction(Action):
+    def __init__(self,
+                 option_strings: Sequence[_Text],
+                 dest: _Text,
+                 const: Any,
+                 default: Any = ...,
+                 required: bool = ...,
+                 help: Optional[_Text] = ...,
+                 metavar: Optional[Union[_Text, Tuple[_Text, ...]]] = ...) -> None: ...
+
+class _StoreTrueAction(_StoreConstAction):
+    def __init__(self,
+                 option_strings: Sequence[_Text],
+                 dest: _Text,
+                 default: bool = ...,
+                 required: bool = ...,
+                 help: Optional[_Text] = ...) -> None: ...
+
+class _StoreFalseAction(_StoreConstAction):
+    def __init__(self,
+                 option_strings: Sequence[_Text],
+                 dest: _Text,
+                 default: bool = ...,
+                 required: bool = ...,
+                 help: Optional[_Text] = ...) -> None: ...
+
+class _AppendAction(Action): ...
+
+class _AppendConstAction(Action):
+    def __init__(self,
+                 option_strings: Sequence[_Text],
+                 dest: _Text,
+                 const: Any,
+                 default: Any = ...,
+                 required: bool = ...,
+                 help: Optional[_Text] = ...,
+                 metavar: Optional[Union[_Text, Tuple[_Text, ...]]] = ...) -> None: ...
+
+class _CountAction(Action):
+    def __init__(self,
+                 option_strings: Sequence[_Text],
+                 dest: _Text,
+                 default: Any = ...,
+                 required: bool = ...,
+                 help: Optional[_Text] = ...) -> None: ...
+
+class _HelpAction(Action):
+    def __init__(self,
+                 option_strings: Sequence[_Text],
+                 dest: _Text = ...,
+                 default: _Text = ...,
+                 help: Optional[_Text] = ...) -> None: ...
+
+class _VersionAction(Action):
+    def __init__(self,
+                 option_strings: Sequence[_Text],
+                 version: Optional[_Text] = ...,
+                 dest: _Text = ...,
+                 default: _Text = ...,
+                 help: _Text = ...) -> None: ...
+
+class _SubParsersAction(Action):
     # TODO: Type keyword args properly.
     def add_parser(self, name: _Text, **kwargs: Any) -> ArgumentParser: ...
 
