@@ -14,12 +14,13 @@ if sys.version_info >= (3,):
 else:
     _Text = Union[str, unicode]
 
-ONE_OR_MORE = ...  # type: str
-OPTIONAL = ...  # type: str
-PARSER = ...  # type: str
-REMAINDER = ...  # type: str
-SUPPRESS = ...  # type: str
-ZERO_OR_MORE = ...  # type: str
+ONE_OR_MORE: str
+OPTIONAL: str
+PARSER: str
+REMAINDER: str
+SUPPRESS: str
+ZERO_OR_MORE: str
+_UNRECOGNIZED_ARGS_ATTR: str
 
 class ArgumentError(Exception): ...
 
@@ -243,3 +244,8 @@ class _SubParsersAction(Action):
 
 # not documented
 class ArgumentTypeError(Exception): ...
+
+if sys.version_info <= (3, 6):
+    def _ensure_value(namespace: Namespace, name: _Text, value: Any) -> Any: ...
+
+def _get_action_name(argument: Optional[Action]) -> Optional[str]: ...
