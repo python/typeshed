@@ -1,8 +1,8 @@
 # Stubs for argparse (Python 2.7 and 3.4)
 
 from typing import (
-    Any, Callable, Dict, Iterable, List, IO, NoReturn, Optional, Sequence,
-    Tuple, Type, Union, TypeVar, overload
+    Any, Callable, Dict, Iterable, List, IO, NoReturn, Optional, Pattern,
+    Sequence, Tuple, Type, Union, TypeVar, overload
 )
 import sys
 
@@ -29,6 +29,20 @@ class _AttributeHolder:
     def _get_args(self) -> List[Any]: ...
 
 class _ActionsContainer:
+    description: Optional[_Text]
+    prefix_chars: _Text
+    argument_default: Optional[_Text]
+    conflict_handler: _Text
+
+    _registries: Dict[_Text, Dict[Any, Any]]
+    _actions: List[Action]
+    _option_string_actions: Dict[_Text, Action]
+    _action_groups: List[_ArgumentGroup]
+    _mutually_exclusive_groups: List[_MutuallyExclusiveGroup]
+    _defaults: Dict[str, Any]
+    _negative_number_matcher: Pattern[str]
+    _has_negative_number_optionals: List[bool]
+
     def __init__(self, description: Optional[_Text], prefix_chars: _Text,
                  argument_default: Optional[_Text], conflict_handler: _Text) -> None: ...
     def register(self, registry_name: _Text, value: Any, object: Any) -> None: ...
@@ -50,19 +64,15 @@ class _ActionsContainer:
     def _handle_conflict_resolve(self, action: Action, conflicting_actions: Iterable[Tuple[_Text, Action]]) -> None: ...
 
 class ArgumentParser(_AttributeHolder, _ActionsContainer):
-    prog = ...  # type: _Text
-    usage = ...  # type: Optional[_Text]
-    description = ...  # type: Optional[_Text]
-    epilog = ...  # type: Optional[_Text]
-    formatter_class = ...  # type: Type[HelpFormatter]
-    prefix_chars = ...  # type: _Text
-    fromfile_prefix_chars = ...  # type: Optional[_Text]
-    argument_default = ...  # type: Optional[_Text]
-    conflict_handler = ...  # type: _Text
-    add_help = ...  # type: bool
+    prog: _Text
+    usage: Optional[_Text]
+    epilog: Optional[_Text]
+    formatter_class: Type[HelpFormatter]
+    fromfile_prefix_chars: Optional[_Text]
+    add_help: bool
 
     if sys.version_info >= (3, 5):
-        allow_abbrev = ...  # type: bool
+        allow_abbrev: bool
 
     if sys.version_info >= (3, 5):
         def __init__(self,
