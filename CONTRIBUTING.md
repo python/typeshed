@@ -82,6 +82,7 @@ At present the core developers are (alphabetically):
 * David Fisher (@ddfisher)
 * Łukasz Langa (@ambv)
 * Jukka Lehtosalo (@JukkaL)
+* Ivan Levkivskyi (@ilevkivskyi)
 * Matthias Kramm (@matthiaskramm)
 * Greg Price (@gnprice)
 * Guido van Rossum (@gvanrossum)
@@ -132,6 +133,15 @@ but objects that are listed in the module's documentation, that are
 included in ``__all__`` (if present), and whose names do not start with an
 underscore are more likely to merit inclusion in a stub. If in doubt, err
 on the side of including more objects.
+
+**NEW:** Sometimes it makes sense to include non-public objects
+in a stub.  Mark these with a comment of the form ``# undocumented``.
+See the [motivation](https://github.com/python/typeshed/issues/1902).
+Example:
+
+```python
+def list2cmdline(seq: Sequence[str]) -> str: ...  # undocumented
+```
 
 ### Using stubgen
 
