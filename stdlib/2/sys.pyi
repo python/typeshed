@@ -1,11 +1,10 @@
 """Stubs for the 'sys' module."""
 
 from typing import (
-    IO, Union, List, Sequence, Any, Dict, Tuple, BinaryIO, Optional, Callable,
-    overload, Text, Type,
+    IO, NoReturn, Union, List, Sequence, Any, Dict, Tuple, BinaryIO, Optional,
+    Callable, overload, Text, Type,
 )
 from types import FrameType, ModuleType, TracebackType, ClassType
-from mypy_extensions import NoReturn
 
 class _flags:
     bytes_warning = ...  # type: int

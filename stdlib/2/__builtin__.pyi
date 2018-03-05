@@ -4,14 +4,13 @@
 # Python 3, and stub files conform to Python 3 syntax.
 
 from typing import (
-    TypeVar, Iterator, Iterable, overload,
+    TypeVar, Iterator, Iterable, NoReturn, overload,
     Sequence, Mapping, Tuple, List, Any, Dict, Callable, Generic, Set,
     AbstractSet, FrozenSet, Sized, Reversible, SupportsInt, SupportsFloat, SupportsAbs,
     SupportsRound, IO, BinaryIO, Union, AnyStr, MutableSequence, MutableMapping,
     MutableSet, ItemsView, KeysView, ValuesView, Optional, Container, Type
 )
 from abc import abstractmethod, ABCMeta
-from mypy_extensions import NoReturn
 
 _T = TypeVar('_T')
 _T_co = TypeVar('_T_co', covariant=True)
