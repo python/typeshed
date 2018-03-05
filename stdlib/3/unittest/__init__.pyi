@@ -1,10 +1,9 @@
 # Stubs for unittest
 
-from mypy_extensions import NoReturn
 from typing import (
     Any, Callable, ContextManager, Dict, FrozenSet, Generic, Iterable, Iterator,
-    List, Optional, overload, Pattern, Sequence, Set, TextIO, Tuple, Type,
-    TypeVar, Union
+    List, NoReturn, Optional, overload, Pattern, Sequence, Set, TextIO, Tuple,
+    Type, TypeVar, Union
 )
 import logging
 import sys

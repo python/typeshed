@@ -2,7 +2,7 @@
 
 from typing import (
     TypeVar, Iterator, Iterable, overload, Container,
-    Sequence, MutableSequence, Mapping, MutableMapping, Tuple, List, Any, Dict, Callable, Generic,
+    Sequence, MutableSequence, Mapping, MutableMapping, NoReturn, Tuple, List, Any, Dict, Callable, Generic,
     Set, AbstractSet, FrozenSet, MutableSet, Sized, Reversible, SupportsInt, SupportsFloat,
     SupportsBytes, SupportsAbs, SupportsRound, IO, Union, ItemsView, KeysView, ValuesView,
     ByteString, Optional, AnyStr, Type,
@@ -10,7 +10,6 @@ from typing import (
 from abc import abstractmethod, ABCMeta
 from types import TracebackType, CodeType
 import sys
-from mypy_extensions import NoReturn
 
 # Note that names imported above are not automatically made visible via the
 # implicit builtins import.
