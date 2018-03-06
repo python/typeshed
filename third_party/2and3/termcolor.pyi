@@ -1,9 +1,9 @@
 # Stub for termcolor: https://pypi.python.org/pypi/termcolor
-from typing import Any, AnyStr, Iterable, Optional
+from typing import Any, Iterable, Optional, Text
 
 
 def colored(
-    text: AnyStr,
+    text: Text,
     color: Optional[str] = ...,
     on_color: Optional[str] = ...,
     attrs: Optional[Iterable[str]] = ...,
@@ -12,7 +12,7 @@ def colored(
 
 
 def cprint(
-    text: AnyStr,
+    text: Text,
     color: Optional[str] = ...,
     on_color: Optional[str] = ...,
     attrs: Optional[Iterable[str]] = ...,
