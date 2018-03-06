@@ -8,10 +8,7 @@ from typing import Union as _UnionT
 import sys
 
 _T = TypeVar('_T')
-if sys.platform == 'win32':
-    _DLLT = TypeVar('_DLLT', CDLL, OleDLL, WinDLL, PyDLL)
-else:
-    _DLLT = TypeVar('_DLLT', CDLL, PyDLL)
+_DLLT = TypeVar('_DLLT', bound=CDLL)
 _CT = TypeVar('_CT', bound=_CData)
 
 
