@@ -1,4 +1,4 @@
-from typing import Any, Callable, IO, Iterable, List, Optional, TypeVar, Union, Tuple as PyTuple
+from typing import Any, Callable, IO, Iterable, List, Optional, TypeVar, Union, Tuple as _PyTuple
 import uuid
 
 from click.core import Context, Parameter
@@ -270,7 +270,7 @@ class UUIDParameterType(ParamType):
         ...
 
 
-_ConvertibleType = Union[type, ParamType, PyTuple[type, ...], Callable[[str], Any], Callable[[Optional[str]], Any]]
+_ConvertibleType = Union[type, ParamType, _PyTuple[type, ...], Callable[[str], Any], Callable[[Optional[str]], Any]]
 
 def convert_type(ty: Optional[_ConvertibleType], default: Optional[Any] = ...) -> ParamType:
     ...
