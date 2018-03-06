@@ -68,7 +68,7 @@ class _CData(metaclass=_CDataMeta):
     @classmethod
     def from_param(cls: Type[_CT], obj: Any) -> _UnionT[_CT, _cparam]: ...
     @classmethod
-    def in_dll(cls: Type[_CT], library: _DLL, name: str) -> _CT: ...
+    def in_dll(cls: Type[_CT], library: CDLL, name: str) -> _CT: ...
 
 class _PointerLike(_CData): pass
 
@@ -85,7 +85,7 @@ class _FuncPointer(_PointerLike, _CData):
     @overload
     def __init__(self, callable: Callable[..., Any]) -> None: ...
     @overload
-    def __init__(self, func_spec: Tuple[_UnionT[str, int], _DLL],
+    def __init__(self, func_spec: Tuple[_UnionT[str, int], CDLL],
                  paramflags: Tuple[_PF, ...] = ...) -> None: ...
     @overload
     def __init__(self, vtlb_index: int, name: str,
