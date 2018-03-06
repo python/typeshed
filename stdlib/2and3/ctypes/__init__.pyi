@@ -80,30 +80,6 @@ class _FuncPointer(_PointerLike, _CData):
     restype: _UnionT[Type[_CData], Callable[[int], None], None] = ...
     argtypes: Tuple[Type[_CData], ...] = ...
     errcheck: _ECT = ...
-    def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
-
-class ArgumentError(Exception): ...
-
-
-def CFUNCTYPE(restype: Type[_CData],
-              *argtypes: Type[_CData],
-              use_errno: bool = ...,
-              use_last_error: bool = ...) -> Type[_FuncProto]: ...
-if sys.platform == 'win32':
-    def WINFUNCTYPE(restype: Type[_CData],
-                    *argtypes: Type[_CData],
-                    use_errno: bool = ...,
-                    use_last_error: bool = ...) -> Type[_FuncProto]: ...
-def PYFUNCTYPE(restype: Type[_CData],
-               *argtypes: Type[_CData]) -> Type[_FuncProto]: ...
-
-_PF = _UnionT[
-    Tuple[int],
-    Tuple[int, str],
-    Tuple[int, str, Any]
-]
-
-class _FuncProto(_FuncPointer):
     @overload
     def __init__(self, address: int) -> None: ...
     @overload
@@ -115,6 +91,28 @@ class _FuncProto(_FuncPointer):
     def __init__(self, vtlb_index: int, name: str,
                  paramflags: Tuple[_PF, ...] = ...,
                  iid: _Pointer[c_int] = ...) -> None: ...
+    def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
+
+class ArgumentError(Exception): ...
+
+
+def CFUNCTYPE(restype: Type[_CData],
+              *argtypes: Type[_CData],
+              use_errno: bool = ...,
+              use_last_error: bool = ...) -> Type[_FuncPointer]: ...
+if sys.platform == 'win32':
+    def WINFUNCTYPE(restype: Type[_CData],
+                    *argtypes: Type[_CData],
+                    use_errno: bool = ...,
+                    use_last_error: bool = ...) -> Type[_FuncPointer]: ...
+def PYFUNCTYPE(restype: Type[_CData],
+               *argtypes: Type[_CData]) -> Type[_FuncPointer]: ...
+
+_PF = _UnionT[
+    Tuple[int],
+    Tuple[int, str],
+    Tuple[int, str, Any]
+]
 
 class _cparam: ...
 
