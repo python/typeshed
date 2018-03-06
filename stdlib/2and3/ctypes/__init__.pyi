@@ -75,6 +75,11 @@ _ECT = Callable[[Optional[Type[_CData]],
                  _FuncPointer,
                  Tuple[_CData, ...]],
                 _CData]
+_PF = _UnionT[
+    Tuple[int],
+    Tuple[int, str],
+    Tuple[int, str, Any]
+]
 class _FuncPointer(_PointerLike, _CData):
     restype: _UnionT[Type[_CData], Callable[[int], None], None] = ...
     argtypes: Tuple[Type[_CData], ...] = ...
@@ -106,12 +111,6 @@ if sys.platform == 'win32':
                     use_last_error: bool = ...) -> Type[_FuncPointer]: ...
 def PYFUNCTYPE(restype: Type[_CData],
                *argtypes: Type[_CData]) -> Type[_FuncPointer]: ...
-
-_PF = _UnionT[
-    Tuple[int],
-    Tuple[int, str],
-    Tuple[int, str, Any]
-]
 
 class _cparam: ...
 
