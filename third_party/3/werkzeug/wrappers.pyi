@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import (
     Any, Iterable, Mapping, Optional, Sequence, Tuple, Type, Union,
 )
@@ -6,7 +7,7 @@ from wsgiref.types import WSGIEnvironment
 
 from .datastructures import (
     CombinedMultiDict, EnvironHeaders, Headers, ImmutableMultiDict,
-    MultiDict, TypeConversionDict,
+    MultiDict, TypeConversionDict, HeaderSet,
 )
 
 class BaseRequest:
@@ -167,18 +168,26 @@ class ResponseStreamMixin:
     def stream(self): ...
 
 class CommonRequestDescriptorsMixin:
-    content_type = ...  # type: Any
-    def content_length(self): ...
-    content_encoding = ...  # type: Any
-    content_md5 = ...  # type: Any
-    referrer = ...  # type: Any
-    date = ...  # type: Any
-    max_forwards = ...  # type: Any
     @property
-    def mimetype(self): ...
+    def content_type(self) -> Optional[str]: ...
     @property
-    def mimetype_params(self): ...
-    def pragma(self): ...
+    def content_length(self) -> Optional[int]: ...
+    @property
+    def content_encoding(self) -> Optional[str]: ...
+    @property
+    def content_md5(self) -> Optional[str]: ...
+    @property
+    def referrer(self) -> Optional[str]: ...
+    @property
+    def date(self) -> Optional[datetime]: ...
+    @property
+    def max_forwards(self) -> Optional[int]: ...
+    @property
+    def mimetype(self) -> str: ...
+    @property
+    def mimetype_params(self) -> Mapping[str, str]: ...
+    @property
+    def pragma(self) -> HeaderSet: ...
 
 class CommonResponseDescriptorsMixin:
     mimetype = ...  # type: Any
