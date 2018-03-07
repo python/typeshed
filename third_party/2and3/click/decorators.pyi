@@ -110,7 +110,7 @@ def option(
     expose_value: bool = ...,
     is_eager: bool = ...,
     envvar: Optional[Union[str, List[str]]] = ...,
-    **kwargs: Any = ...
+    **kwargs: Any
 ) -> _Decorator:
     ...
 
