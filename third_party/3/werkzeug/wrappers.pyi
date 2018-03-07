@@ -1,6 +1,7 @@
 from datetime import datetime
 from typing import (
-    Any, Iterable, Mapping, Optional, Sequence, Tuple, Type, Union,
+    Any, Iterable, Mapping, MutableMapping, Optional, Sequence, Tuple, Type,
+    Union,
 )
 
 from wsgiref.types import WSGIEnvironment
@@ -190,22 +191,23 @@ class CommonRequestDescriptorsMixin:
     def pragma(self) -> HeaderSet: ...
 
 class CommonResponseDescriptorsMixin:
-    mimetype = ...  # type: Any
-    mimetype_params = ...  # type: Any
-    location = ...  # type: Any
-    age = ...  # type: Any
-    content_type = ...  # type: Any
-    content_length = ...  # type: Any
-    content_location = ...  # type: Any
-    content_encoding = ...  # type: Any
-    content_md5 = ...  # type: Any
-    date = ...  # type: Any
-    expires = ...  # type: Any
-    last_modified = ...  # type: Any
-    retry_after = ...  # type: Any
-    vary = ...  # type: Any
-    content_language = ...  # type: Any
-    allow = ...  # type: Any
+    mimetype: Optional[str] = ...
+    @property
+    def mimetype_params(self) -> MutableMapping[str, str]: ...
+    location: Optional[str] = ...
+    age: Any = ...  # get: Optional[timedelta]
+    content_type: Optional[str] = ...
+    content_length: Optional[int] = ...
+    content_location: Optional[str] = ...
+    content_encoding: Optional[str] = ...
+    content_md5: Optional[str] = ...
+    date: Any = ...  # get: Optional[datetime.datetime]
+    expires: Any = ...  # get: Optional[datetime.datetime]
+    last_modified: Any = ...  # get: Optional[datetime.datetime]
+    retry_after: Any = ...  # get: Optional[datetime.datetime]
+    vary: Optional[str] = ...
+    content_language: Optional[str] = ...
+    allow: Optional[str] = ...
 
 class WWWAuthenticateMixin:
     @property
