@@ -1,10 +1,10 @@
-from typing import Any, Callable, Iterator, IO, List, Optional, TypeVar, Union, Text
+from typing import Any, Callable, Iterator, IO, List, Optional, Text, TypeVar, Union
 
 _T = TypeVar('_T')
 _Decorator = Callable[[_T], _T]
 
 
-def _posixify(name: str) -> str:
+def _posixify(name: Text) -> Text:
     ...
 
 
@@ -12,27 +12,27 @@ def safecall(func: _T) -> _T:
     ...
 
 
-def make_str(value: Any) -> str:
+def make_str(value: Any) -> Text:
     ...
 
 
-def make_default_short_help(help: str, max_length: int = ...):
+def make_default_short_help(help: Text, max_length: int = ...):
     ...
 
 
 class LazyFile:
-    name: str
-    mode: str
-    encoding: Optional[str]
-    errors: str
+    name: Text
+    mode: Text
+    encoding: Optional[Text]
+    errors: Text
     atomic: bool
 
     def __init__(
         self,
-        filename: str,
-        mode: str = ...,
-        encoding: Optional[str] = ...,
-        errors: str = ...,
+        filename: Text,
+        mode: Text = ...,
+        encoding: Optional[Text] = ...,
+        errors: Text = ...,
         atomic: bool = ...
     ) -> None:
         ...
@@ -82,36 +82,36 @@ def echo(
     ...
 
 
-def get_binary_stream(name: str) -> IO[bytes]:
+def get_binary_stream(name: Text) -> IO[bytes]:
     ...
 
 
 def get_text_stream(
-    name: str, encoding: Optional[str] = ..., errors: str = ...
-) -> IO[str]:
+    name: Text, encoding: Optional[Text] = ..., errors: Text = ...
+) -> IO[Text]:
     ...
 
 
 def open_file(
-    filename: str,
-    mode: str = ...,
-    encoding: Optional[str] = ...,
-    errors: str = ...,
+    filename: Text,
+    mode: Text = ...,
+    encoding: Optional[Text] = ...,
+    errors: Text = ...,
     lazy: bool = ...,
     atomic: bool = ...
 ) -> Union[IO, LazyFile, KeepOpenFile]:
     ...
 
 
-def get_os_args() -> List[str]:
+def get_os_args() -> List[Text]:
     ...
 
 
-def format_filename(filename: str, shorten: bool = ...) -> str:
+def format_filename(filename: Text, shorten: bool = ...) -> Text:
     ...
 
 
 def get_app_dir(
-    app_name: str, roaming: bool = ..., force_posix: bool = ...
-) -> str:
+    app_name: Text, roaming: bool = ..., force_posix: bool = ...
+) -> Text:
     ...

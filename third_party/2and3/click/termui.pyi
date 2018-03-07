@@ -7,32 +7,33 @@ from typing import (
     IO,
     List,
     Optional,
+    Text,
     Tuple,
     TypeVar,
 )
 
 
-def hidden_prompt_func(prompt: str) -> str:
+def hidden_prompt_func(prompt: Text) -> Text:
     ...
 
 
 def _build_prompt(
-    text: str,
-    suffix: str,
+    text: Text,
+    suffix: Text,
     show_default: bool = ...,
-    default: Optional[str] = ...,
-) -> str:
+    default: Optional[Text] = ...,
+) -> Text:
     ...
 
 
 def prompt(
-    text: str,
-    default: Optional[str] = ...,
+    text: Text,
+    default: Optional[Text] = ...,
     hide_input: bool = ...,
     confirmation_prompt: bool = ...,
     type: Optional[Any] = ...,
-    value_proc: Optional[Callable[[Optional[str]], Any]] = ...,
-    prompt_suffix: str = ...,
+    value_proc: Optional[Callable[[Optional[Text]], Any]] = ...,
+    prompt_suffix: Text = ...,
     show_default: bool = ...,
     err: bool = ...,
 ) -> Any:
@@ -40,10 +41,10 @@ def prompt(
 
 
 def confirm(
-    text: str,
+    text: Text,
     default: bool = ...,
     abort: bool = ...,
-    prompt_suffix: str = ...,
+    prompt_suffix: Text = ...,
     show_default: bool = ...,
     err: bool = ...,
 ) -> bool:
@@ -54,7 +55,7 @@ def get_terminal_size() -> Tuple[int, int]:
     ...
 
 
-def echo_via_pager(text: str, color: Optional[bool] = ...) -> None:
+def echo_via_pager(text: Text, color: Optional[bool] = ...) -> None:
     ...
 
 
@@ -65,15 +66,15 @@ _T = TypeVar('_T')
 def progressbar(
     iterable: Optional[Iterable[_T]] = ...,
     length: Optional[int] = ...,
-    label: Optional[str] = ...,
+    label: Optional[Text] = ...,
     show_eta: bool = ...,
     show_percent: Optional[bool] = ...,
     show_pos: bool = ...,
-    item_show_func: Optional[Callable[[_T], str]] = ...,
-    fill_char: str = ...,
-    empty_char: str = ...,
-    bar_template: str = ...,
-    info_sep: str = ...,
+    item_show_func: Optional[Callable[[_T], Text]] = ...,
+    fill_char: Text = ...,
+    empty_char: Text = ...,
+    bar_template: Text = ...,
+    info_sep: Text = ...,
     width: int = ...,
     file: Optional[IO] = ...,
     color: Optional[bool] = ...,
@@ -86,9 +87,9 @@ def clear() -> None:
 
 
 def style(
-    text: str,
-    fg: Optional[str] = ...,
-    bg: Optional[str] = ...,
+    text: Text,
+    fg: Optional[Text] = ...,
+    bg: Optional[Text] = ...,
     bold: Optional[bool] = ...,
     dim: Optional[bool] = ...,
     underline: Optional[bool] = ...,
@@ -99,19 +100,19 @@ def style(
     ...
 
 
-def unstyle(text: str) -> str:
+def unstyle(text: Text) -> Text:
     ...
 
 
 # Styling options copied from style() for nicer type checking.
 def secho(
-    text: str,
+    text: Text,
     file: Optional[IO] = ...,
     nl: bool = ...,
     err: bool = ...,
     color: Optional[bool] = ...,
-    fg: Optional[str] = ...,
-    bg: Optional[str] = ...,
+    fg: Optional[Text] = ...,
+    bg: Optional[Text] = ...,
     bold: Optional[bool] = ...,
     dim: Optional[bool] = ...,
     underline: Optional[bool] = ...,
@@ -123,25 +124,25 @@ def secho(
 
 
 def edit(
-    text: Optional[str] = ...,
-    editor: Optional[str] = ...,
-    env: Optional[str] = ...,
+    text: Optional[Text] = ...,
+    editor: Optional[Text] = ...,
+    env: Optional[Text] = ...,
     require_save: bool = ...,
-    extension: str = ...,
-    filename: Optional[str] = ...,
-) -> str:
+    extension: Text = ...,
+    filename: Optional[Text] = ...,
+) -> Text:
     ...
 
 
-def launch(url: str, wait: bool = ..., locate: bool = ...) -> int:
+def launch(url: Text, wait: bool = ..., locate: bool = ...) -> int:
     ...
 
 
-def getchar(echo: bool = ...) -> str:
+def getchar(echo: bool = ...) -> Text:
     ...
 
 
 def pause(
-    info: str = ..., err: bool = ...
+    info: Text = ..., err: bool = ...
 ) -> None:
     ...
