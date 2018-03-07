@@ -109,7 +109,9 @@ def option(
     metavar: Optional[str] = ...,
     expose_value: bool = ...,
     is_eager: bool = ...,
-    envvar: Optional[Union[str, List[str]]] = ...
+    envvar: Optional[Union[str, List[str]]] = ...,
+    # User-defined
+    **kwargs: Any,
 ) -> _Decorator:
     ...
 
