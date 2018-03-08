@@ -4,18 +4,18 @@ from typing import Any, Iterable, Optional, Text
 
 def colored(
     text: Text,
-    color: Optional[str] = ...,
-    on_color: Optional[str] = ...,
-    attrs: Optional[Iterable[str]] = ...,
-) -> str:
+    color: Optional[Text] = ...,
+    on_color: Optional[Text] = ...,
+    attrs: Optional[Iterable[Text]] = ...,
+) -> Text:
     ...
 
 
 def cprint(
     text: Text,
-    color: Optional[str] = ...,
-    on_color: Optional[str] = ...,
-    attrs: Optional[Iterable[str]] = ...,
+    color: Optional[Text] = ...,
+    on_color: Optional[Text] = ...,
+    attrs: Optional[Iterable[Text]] = ...,
     **kwargs: Any,
 ) -> None:
     ...
