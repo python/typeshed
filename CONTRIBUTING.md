@@ -313,8 +313,6 @@ missing, incomplete or incorrect) and we won't add noise to the
 tracker by labeling all of them.  Here's what our labels mean.  (We
 also apply these to pull requests.)
 
-* **blocked**: This issue is waiting for the resolution of some issue
-    external to typeshed.
 * **bug**: It's a bug in a stub.
 * **bytes-unicode**: It's related to bytes vs. unicode, usually Python 2.
 * **feature**: It's a new typeshed feature.
@@ -325,6 +323,11 @@ also apply these to pull requests.)
 * **size-large**: An issue of high complexity or affecting many files.
 * **size-medium**: An issue of average complexity.
 * **size-small**: An issue that will take only little effort to fix.
+
+Sometimes a PR can't make progress until some external issue is
+addressed.  We indicate this by editing the subject to add a ``[WIP]``
+prefix.  (This should be removed before committing the issue once
+unblocked!)
 
 ### Core developer guidelines
 
