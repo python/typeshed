@@ -1,9 +1,10 @@
 # private module, we only expose what's needed
 
-from typing import BinaryIO, Mapping, Optional
+from io import BufferedRandom
+from typing import Mapping, Optional
 from types import TracebackType
 
-class addinfourl(BinaryIO):
+class addinfourl(BufferedRandom):
     headers = ...  # type: Mapping[str, str]
     url = ...  # type: str
     code = ...  # type: int
