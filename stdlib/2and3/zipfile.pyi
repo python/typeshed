@@ -1,6 +1,6 @@
 # Stubs for zipfile
 
-from typing import Callable, IO, List, Optional, Text, Tuple, Type, Union
+from typing import Callable, IO, Iterable, List, Optional, Text, Tuple, Type, Union
 from types import TracebackType
 import sys
 
