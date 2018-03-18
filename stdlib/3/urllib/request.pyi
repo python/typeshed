@@ -47,6 +47,7 @@ class Request:
     origin_req_host = ...  # type: str
     selector = ...  # type: str
     data = ...  # type: Optional[bytes]
+    headers = ...  # type: Dict[str, str]
     unverifiable = ...  # type: bool
     method = ...  # type: Optional[str]
     def __init__(self, url: str, data: Optional[bytes] = ...,
@@ -68,7 +69,7 @@ class Request:
 
 class OpenerDirector:
     def add_handler(self, handler: BaseHandler) -> None: ...
-    def open(self, url: Union[str, Request], data: Optional[bytes] = None,
+    def open(self, url: Union[str, Request], data: Optional[bytes] = ...,
              timeout: float = ...) -> _UrlopenRet: ...
     def error(self, proto: str, *args: Any) -> _UrlopenRet: ...
 
@@ -159,7 +160,7 @@ class HTTPHandler(BaseHandler):
     def http_open(self, req: Request) -> _UrlopenRet: ...
 
 class HTTPSHandler(BaseHandler):
-    def __init__(self, debuglevel: int = 0,
+    def __init__(self, debuglevel: int = ...,
                  context: Optional[ssl.SSLContext] = ...,
                  check_hostname: bool = ...) -> None: ...
     def https_open(self, req: Request) -> _UrlopenRet: ...

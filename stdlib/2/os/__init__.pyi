@@ -3,13 +3,13 @@
 
 from builtins import OSError as error
 from io import TextIOWrapper as _TextIOWrapper
+from posix import stat_result as stat_result  # TODO: use this, see https://github.com/python/mypy/issues/3078
 import sys
 from typing import (
     Mapping, MutableMapping, Dict, List, Any, Tuple, Iterator, overload, Union, AnyStr,
-    Optional, Generic, Set, Callable, Text, Sequence, IO, NamedTuple, TypeVar
+    Optional, Generic, Set, Callable, Text, Sequence, IO, NamedTuple, NoReturn, TypeVar
 )
 from . import path as path
-from mypy_extensions import NoReturn
 
 _T = TypeVar('_T')
 
@@ -126,6 +126,7 @@ _StatVFS = NamedTuple('_StatVFS', [('f_bsize', int), ('f_frsize', int), ('f_bloc
                                    ('f_bfree', int), ('f_bavail', int), ('f_files', int),
                                    ('f_ffree', int), ('f_favail', int), ('f_flag', int),
                                    ('f_namemax', int)])
+
 def ctermid() -> str: ...  # Unix only
 def getegid() -> int: ...  # Unix only
 def geteuid() -> int: ...  # Unix only
@@ -272,7 +273,7 @@ if sys.version_info >= (3, 0):
                      bufsize: int = ...) -> None: ...
         def close(self) -> Any: ...  # may return int
 else:
-    def popen(command: str, *args, **kwargs) -> Optional[IO[Any]]: ...
+    def popen(command: str, *args, **kwargs) -> IO[Any]: ...
     def popen2(cmd: str, *args, **kwargs) -> Tuple[IO[Any], IO[Any]]: ...
     def popen3(cmd: str, *args, **kwargs) -> Tuple[IO[Any], IO[Any], IO[Any]]: ...
     def popen4(cmd: str, *args, **kwargs) -> Tuple[IO[Any], IO[Any]]: ...

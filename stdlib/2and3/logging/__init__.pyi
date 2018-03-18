@@ -366,10 +366,17 @@ if sys.version_info >= (3,):
 
 
 class StreamHandler(Handler):
+    stream = ...  # type: IO[str]
+    if sys.version_info >= (3,):
+        terminator = ...  # type: str
     def __init__(self, stream: Optional[IO[str]] = ...) -> None: ...
 
 
 class FileHandler(Handler):
+    baseFilename = ...  # type: str
+    mode = ...  # type: str
+    encoding = ...  # type: Optional[str]
+    delay = ...  # type: bool
     def __init__(self, filename: str, mode: str = ...,
                  encoding: Optional[str] = ..., delay: bool = ...) -> None: ...
 

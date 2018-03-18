@@ -15,40 +15,98 @@
 """
 
 # Core classes
-from .core import Context, BaseCommand, Command, MultiCommand, Group, \
-    CommandCollection, Parameter, Option, Argument
+from .core import (
+    Context as Context,
+    BaseCommand as BaseCommand,
+    Command as Command,
+    MultiCommand as MultiCommand,
+    Group as Group,
+    CommandCollection as CommandCollection,
+    Parameter as Parameter,
+    Option as Option,
+    Argument as Argument,
+)
 
 # Globals
-from .globals import get_current_context
+from .globals import get_current_context as get_current_context
 
 # Decorators
-from .decorators import pass_context, pass_obj, make_pass_decorator, \
-    command, group, argument, option, confirmation_option, \
-    password_option, version_option, help_option
+from .decorators import (
+    pass_context as pass_context,
+    pass_obj as pass_obj,
+    make_pass_decorator as make_pass_decorator,
+    command as command,
+    group as group,
+    argument as argument,
+    option as option,
+    confirmation_option as confirmation_option,
+    password_option as password_option,
+    version_option as version_option,
+    help_option as help_option,
+)
 
 # Types
-from .types import ParamType, File, Path, Choice, IntRange, Tuple, \
-    STRING, INT, FLOAT, BOOL, UUID, UNPROCESSED
+from .types import (
+    ParamType as ParamType,
+    File as File,
+    Path as Path,
+    Choice as Choice,
+    IntRange as IntRange,
+    Tuple as Tuple,
+    STRING as STRING,
+    INT as INT,
+    FLOAT as FLOAT,
+    BOOL as BOOL,
+    UUID as UUID,
+    UNPROCESSED as UNPROCESSED,
+)
 
 # Utilities
-from .utils import echo, get_binary_stream, get_text_stream, open_file, \
-    format_filename, get_app_dir, get_os_args
+from .utils import (
+    echo as echo,
+    get_binary_stream as get_binary_stream,
+    get_text_stream as get_text_stream,
+    open_file as open_file,
+    format_filename as format_filename,
+    get_app_dir as get_app_dir,
+    get_os_args as get_os_args,
+)
 
 # Terminal functions
-from .termui import prompt, confirm, get_terminal_size, echo_via_pager, \
-    progressbar, clear, style, unstyle, secho, edit, launch, getchar, \
-    pause
+from .termui import (
+    prompt as prompt,
+    confirm as confirm,
+    get_terminal_size as get_terminal_size,
+    echo_via_pager as echo_via_pager,
+    progressbar as progressbar,
+    clear as clear,
+    style as style,
+    unstyle as unstyle,
+    secho as secho,
+    edit as edit,
+    launch as launch,
+    getchar as getchar,
+    pause as pause,
+)
 
 # Exceptions
-from .exceptions import ClickException, UsageError, BadParameter, \
-    FileError, Abort, NoSuchOption, BadOptionUsage, BadArgumentUsage, \
-    MissingParameter
+from .exceptions import (
+    ClickException as ClickException,
+    UsageError as UsageError,
+    BadParameter as BadParameter,
+    FileError as FileError,
+    Abort as Abort,
+    NoSuchOption as NoSuchOption,
+    BadOptionUsage as BadOptionUsage,
+    BadArgumentUsage as BadArgumentUsage,
+    MissingParameter as MissingParameter,
+)
 
 # Formatting
-from .formatting import HelpFormatter, wrap_text
+from .formatting import HelpFormatter as HelpFormatter, wrap_text as wrap_text
 
 # Parsing
-from .parser import OptionParser
+from .parser import OptionParser as OptionParser
 
 
 __all__ = [

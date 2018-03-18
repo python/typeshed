@@ -1,4 +1,4 @@
-# Stubs for argparse (Python 3.4)
+# Stubs for argparse (Python 2.7 and 3.4)
 
 from typing import (
     Any, Callable, Iterable, List, IO, Optional, Sequence, Tuple, Type, Union,
@@ -23,6 +23,20 @@ ZERO_OR_MORE = ...  # type: str
 class ArgumentError(Exception): ...
 
 class ArgumentParser:
+    prog = ...  # type: _Text
+    usage = ...  # type: Optional[_Text]
+    description = ...  # type: Optional[_Text]
+    epilog = ...  # type: Optional[_Text]
+    formatter_class = ...  # type: Type[HelpFormatter]
+    prefix_chars = ...  # type: _Text
+    fromfile_prefix_chars = ...  # type: Optional[_Text]
+    argument_default = ...  # type: Optional[_Text]
+    conflict_handler = ...  # type: _Text
+    add_help = ...  # type: bool
+
+    if sys.version_info >= (3, 5):
+        allow_abbrev = ...  # type: bool
+
     if sys.version_info >= (3, 5):
         def __init__(self,
                      prog: Optional[str] = ...,
@@ -101,24 +115,36 @@ if sys.version_info >= (3,):
     class MetavarTypeHelpFormatter(HelpFormatter): ...
 
 class Action:
+    option_strings: Sequence[_Text]
+    dest: _Text
+    nargs: Optional[Union[int, _Text]]
+    const: Any
+    default: Any
+    type: Optional[Union[Callable[[str], Any], FileType]]
+    choices: Optional[Iterable[Any]]
+    required: bool
+    help: Optional[_Text]
+    metavar: Optional[Union[_Text, Tuple[_Text, ...]]]
     def __init__(self,
                  option_strings: Sequence[_Text],
                  dest: _Text = ...,
                  nargs: Optional[Union[int, _Text]] = ...,
                  const: Any = ...,
                  default: Any = ...,
-                 type: Union[Callable[[str], _T], FileType, None] = ...,
+                 type: Optional[Union[Callable[[str], _T], FileType]] = ...,
                  choices: Optional[Iterable[_T]] = ...,
                  required: bool = ...,
                  help: Optional[_Text] = ...,
-                 metavar: Union[_Text, Tuple[_Text, ...]] = ...) -> None: ...
+                 metavar: Optional[Union[_Text, Tuple[_Text, ...]]] = ...) -> None: ...
     def __call__(self, parser: ArgumentParser, namespace: Namespace,
                  values: Union[_Text, Sequence[Any], None],
-                 option_string: _Text = ...) -> None: ...
+                 option_string: Optional[_Text] = ...) -> None: ...
 
 class Namespace:
+    def __init__(self, **kwargs: Any) -> None: ...
     def __getattr__(self, name: _Text) -> Any: ...
     def __setattr__(self, name: _Text, value: Any) -> None: ...
+    def __contains__(self, key: str) -> bool: ...
 
 class FileType:
     if sys.version_info >= (3, 4):

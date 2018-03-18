@@ -5,7 +5,8 @@
 import queue
 import threading
 from typing import (
-    Any, Callable, Dict, Iterable, List, Mapping, Optional, Sequence, TypeVar
+    Any, Callable, ContextManager, Dict, Iterable, List, Mapping, Optional,
+    Sequence, TypeVar,
 )
 
 _T = TypeVar('_T')
@@ -16,13 +17,11 @@ class Namespace: ...
 
 _Namespace = Namespace
 
-class BaseManager:
+class BaseManager(ContextManager[BaseManager]):
     def register(self, typeid: str, callable: Any = ...) -> None: ...
     def shutdown(self) -> None: ...
     def start(self, initializer: Optional[Callable[..., Any]] = ...,
               initargs: Iterable[Any] = ...) -> None: ...
-    def __enter__(self) -> 'BaseManager': ...
-    def __exit__(self, exc_type, exc_value, tb) -> None: ...
 
 class SyncManager(BaseManager):
     def BoundedSemaphore(self, value: Any = ...) -> threading.BoundedSemaphore: ...
