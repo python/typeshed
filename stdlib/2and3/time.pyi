@@ -1,29 +1,27 @@
-# Stubs for time
-# Ron Murawski <ron@horizonchess.com>
-
-# based on: http://docs.python.org/3.3/library/time.html#module-time
-# see: http://nullege.com/codes/search?cq=time
+"""Stub file for the 'time' module."""
+# See https://docs.python.org/3/library/time.html
 
 import sys
-from typing import Any, NamedTuple, Tuple, Union
-from types import SimpleNamespace
+from typing import Any, NamedTuple, Tuple, Union, Optional
+if sys.version_info >= (3, 3):
+    from types import SimpleNamespace
 
-TimeTuple = Tuple[int, int, int, int, int, int, int, int, int]
+_TimeTuple = Tuple[int, int, int, int, int, int, int, int, int]
 
-# ----- variables and constants -----
-accept2dyear = False
-altzone = 0
-daylight = 0
-timezone = 0
-tzname = ...  # type: Tuple[str, str]
+if sys.version_info < (3, 3):
+    accept2dyear: bool
+altzone: int
+daylight: int
+timezone: int
+tzname: Tuple[str, str]
 
 if sys.version_info >= (3, 3) and sys.platform != 'win32':
-    CLOCK_HIGHRES = 0  # Solaris only
-    CLOCK_MONOTONIC = 0  # Unix only
-    CLOCK_MONOTONIC_RAW = 0  # Linux 2.6.28 or later
-    CLOCK_PROCESS_CPUTIME_ID = 0  # Unix only
-    CLOCK_REALTIME = 0  # Unix only
-    CLOCK_THREAD_CPUTIME_ID = 0  # Unix only
+    CLOCK_HIGHRES: int = ...  # Solaris only
+    CLOCK_MONOTONIC: int = ...  # Unix only
+    CLOCK_MONOTONIC_RAW: int = ...  # Linux 2.6.28 or later
+    CLOCK_PROCESS_CPUTIME_ID: int = ...  # Unix only
+    CLOCK_REALTIME: int = ...  # Unix only
+    CLOCK_THREAD_CPUTIME_ID: int = ...  # Unix only
 
 
 if sys.version_info >= (3, 3):
@@ -63,22 +61,18 @@ else:
              ('tm_wday', int), ('tm_yday', int), ('tm_isdst', int)]
         )
     ):
-        def __init__(self, o: TimeTuple, _arg: Any = ...) -> None: ...
-        def __new__(cls, o: TimeTuple, _arg: Any = ...) -> struct_time: ...
+        def __init__(self, o: _TimeTuple, _arg: Any = ...) -> None: ...
+        def __new__(cls, o: _TimeTuple, _arg: Any = ...) -> struct_time: ...
 
-
-# ----- functions -----
-def asctime(t: Union[TimeTuple, struct_time, None] = ...) -> str: ...  # return current time
+def asctime(t: Union[_TimeTuple, struct_time] = ...) -> str: ...
 def clock() -> float: ...
-def ctime(secs: Union[float, None] = ...) -> str: ...  # return current time
-def gmtime(secs: Union[float, None] = ...) -> struct_time: ...  # return current time
-def localtime(secs: Union[float, None] = ...) -> struct_time: ...  # return current time
-def mktime(t: Union[TimeTuple, struct_time]) -> float: ...
-def sleep(secs: Union[int, float]) -> None: ...
-def strftime(format: str,
-             t: Union[TimeTuple, struct_time, None] = ...) -> str: ...  # return current time
-def strptime(string: str,
-             format: str = ...) -> struct_time: ...
+def ctime(secs: Optional[float] = ...) -> str: ...
+def gmtime(secs: Optional[float] = ...) -> struct_time: ...
+def localtime(secs: Optional[float] = ...) -> struct_time: ...
+def mktime(t: Union[_TimeTuple, struct_time]) -> float: ...
+def sleep(secs: float) -> None: ...
+def strftime(format: str, t: Union[_TimeTuple, struct_time] = ...) -> str: ...
+def strptime(string: str, format: str = ...) -> struct_time: ...
 def time() -> float: ...
 if sys.platform != 'win32':
     def tzset() -> None: ...  # Unix only
