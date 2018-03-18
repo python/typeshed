@@ -1,6 +1,7 @@
 from datetime import datetime
 from typing import (
-    Any, Callable, Iterable, Iterator, Mapping, Optional, Sequence, Text, Tuple, Type, TypeVar, Union,
+    Any, Callable, Iterable, Iterator, Mapping, MutableMapping, Optional, Sequence, Text,
+    Tuple, Type, TypeVar, Union,
 )
 
 from wsgiref.types import WSGIEnvironment
