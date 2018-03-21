@@ -230,8 +230,9 @@ class Namespace(_AttributeHolder):
 class FileType:
     _mode: _Text
     _bufsize: int
-    _encoding: Optional[_Text]
-    _errors: Optional[_Text]
+    if sys.version_info >= (3, 4):
+        _encoding: Optional[_Text]
+        _errors: Optional[_Text]
     if sys.version_info >= (3, 4):
         def __init__(self, mode: _Text = ..., bufsize: int = ...,
                      encoding: Optional[_Text] = ...,
