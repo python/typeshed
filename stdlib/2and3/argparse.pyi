@@ -20,14 +20,16 @@ PARSER: str
 REMAINDER: str
 SUPPRESS: str
 ZERO_OR_MORE: str
-_UNRECOGNIZED_ARGS_ATTR: str
+_UNRECOGNIZED_ARGS_ATTR: str  # undocumented
 
 class ArgumentError(Exception): ...
 
+# undocumented
 class _AttributeHolder:
     def _get_kwargs(self) -> List[Tuple[str, Any]]: ...
     def _get_args(self) -> List[Any]: ...
 
+# undocumented
 class _ActionsContainer:
     description: Optional[_Text]
     prefix_chars: _Text
@@ -74,6 +76,7 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
     if sys.version_info >= (3, 5):
         allow_abbrev: bool
 
+    # undocumented
     _positionals: _ArgumentGroup
     _optionals: _ArgumentGroup
     _subparsers: Optional[_ArgumentGroup]
@@ -131,6 +134,7 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
         def parse_known_intermixed_args(self,
                                         args: Optional[Sequence[_Text]] = ...,
                                         namespace: Optional[Namespace] = ...) -> Tuple[Namespace, List[str]]: ...
+    # undocumented
     def _get_optional_actions(self) -> List[Action]: ...
     def _get_positional_actions(self) -> List[Action]: ...
     def _parse_known_args(self, arg_strings: List[_Text], namespace: Namespace) -> Tuple[Namespace, List[str]]: ...
@@ -147,7 +151,7 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
     def _print_message(self, message: str, file: Optional[IO[str]] = ...) -> None: ...
 
 class HelpFormatter:
-    # not documented
+    # undocumented
     _prog: _Text
     _indent_increment: int
     _max_help_position: int
@@ -228,6 +232,7 @@ class Namespace(_AttributeHolder):
     def __contains__(self, key: str) -> bool: ...
 
 class FileType:
+    # undocumented
     _mode: _Text
     _bufsize: int
     if sys.version_info >= (3, 4):
@@ -339,10 +344,12 @@ class _SubParsersAction(Action):
     def add_parser(self, name: _Text, **kwargs: Any) -> ArgumentParser: ...
     def _get_subactions(self) -> List[Action]: ...
 
-# not documented
+# undocumented
 class ArgumentTypeError(Exception): ...
 
 if sys.version_info < (3, 7):
+    # undocumented
     def _ensure_value(namespace: Namespace, name: _Text, value: Any) -> Any: ...
 
+# undocumented
 def _get_action_name(argument: Optional[Action]) -> Optional[str]: ...
