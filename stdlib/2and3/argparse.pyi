@@ -250,6 +250,7 @@ class FileType:
                      mode: _Text = ..., bufsize: Optional[int] = ...) -> None: ...
     def __call__(self, string: _Text) -> IO[Any]: ...
 
+# undocumented
 class _ArgumentGroup(_ActionsContainer):
     title: Optional[_Text]
     _group_actions: List[Action]
@@ -257,13 +258,16 @@ class _ArgumentGroup(_ActionsContainer):
                  title: Optional[_Text] = ...,
                  description: Optional[_Text] = ..., **kwargs: Any) -> None: ...
 
+# undocumented
 class _MutuallyExclusiveGroup(_ArgumentGroup):
     required: bool
     _container: _ActionsContainer
     def __init__(self, container: _ActionsContainer, required: bool = ...) -> None: ...
 
+# undocumented
 class _StoreAction(Action): ...
 
+# undocumented
 class _StoreConstAction(Action):
     def __init__(self,
                  option_strings: Sequence[_Text],
@@ -274,6 +278,7 @@ class _StoreConstAction(Action):
                  help: Optional[_Text] = ...,
                  metavar: Optional[Union[_Text, Tuple[_Text, ...]]] = ...) -> None: ...
 
+# undocumented
 class _StoreTrueAction(_StoreConstAction):
     def __init__(self,
                  option_strings: Sequence[_Text],
@@ -282,6 +287,7 @@ class _StoreTrueAction(_StoreConstAction):
                  required: bool = ...,
                  help: Optional[_Text] = ...) -> None: ...
 
+# undocumented
 class _StoreFalseAction(_StoreConstAction):
     def __init__(self,
                  option_strings: Sequence[_Text],
@@ -290,8 +296,10 @@ class _StoreFalseAction(_StoreConstAction):
                  required: bool = ...,
                  help: Optional[_Text] = ...) -> None: ...
 
+# undocumented
 class _AppendAction(Action): ...
 
+# undocumented
 class _AppendConstAction(Action):
     def __init__(self,
                  option_strings: Sequence[_Text],
@@ -302,6 +310,7 @@ class _AppendConstAction(Action):
                  help: Optional[_Text] = ...,
                  metavar: Optional[Union[_Text, Tuple[_Text, ...]]] = ...) -> None: ...
 
+# undocumented
 class _CountAction(Action):
     def __init__(self,
                  option_strings: Sequence[_Text],
@@ -310,6 +319,7 @@ class _CountAction(Action):
                  required: bool = ...,
                  help: Optional[_Text] = ...) -> None: ...
 
+# undocumented
 class _HelpAction(Action):
     def __init__(self,
                  option_strings: Sequence[_Text],
@@ -317,6 +327,7 @@ class _HelpAction(Action):
                  default: _Text = ...,
                  help: Optional[_Text] = ...) -> None: ...
 
+# undocumented
 class _VersionAction(Action):
     version: Optional[_Text]
     def __init__(self,
@@ -326,6 +337,7 @@ class _VersionAction(Action):
                  default: _Text = ...,
                  help: _Text = ...) -> None: ...
 
+# undocumented
 class _SubParsersAction(Action):
     _ChoicesPseudoAction: Type[Any]  # nested class
     _prog_prefix: _Text
