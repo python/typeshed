@@ -81,7 +81,9 @@ def attrib(default: None = ...,
            convert: Optional[_ConverterType[_T]] = ...,
            metadata: Optional[Mapping[Any, Any]] = ...,
            type: Optional[Type[_T]] = ...,
-           converter: Optional[_ConverterType[_T]] = ...) -> _T: ...
+           converter: Optional[_ConverterType[_T]] = ...,
+           factory: Optional[Callable[[], _T]] = ...,
+           ) -> _T: ...
 # This form catches an explicit default argument.
 @overload
 def attrib(default: _T,
@@ -93,7 +95,9 @@ def attrib(default: _T,
            convert: Optional[_ConverterType[_T]] = ...,
            metadata: Optional[Mapping[Any, Any]] = ...,
            type: Optional[Type[_T]] = ...,
-           converter: Optional[_ConverterType[_T]] = ...) -> _T: ...
+           converter: Optional[_ConverterType[_T]] = ...,
+           factory: Optional[Callable[[], _T]] = ...,
+           ) -> _T: ...
 # This form catches explicit None or no default but with no other arguments returns Any.
 @overload
 def attrib(default: None = ...,
@@ -105,7 +109,9 @@ def attrib(default: None = ...,
            convert: None = ...,
            metadata: Optional[Mapping[Any, Any]] = ...,
            type: None = ...,
-           converter: None = ...) -> Any: ...
+           converter: None = ...,
+           factory: None = ...,
+           ) -> Any: ...
 # This form covers type=non-Type: e.g. forward references (str), Any
 @overload
 def attrib(default: Optional[_T] = ...,
@@ -117,7 +123,9 @@ def attrib(default: Optional[_T] = ...,
            convert: Optional[_ConverterType[_T]] = ...,
            metadata: Optional[Mapping[Any, Any]] = ...,
            type: object = ...,
-           converter: Optional[_ConverterType[_T]] = ...) -> Any: ...
+           converter: Optional[_ConverterType[_T]] = ...,
+           factory: Optional[Callable[[], _T]] = ...,
+           ) -> Any: ...
 
 
 # NOTE: If you update these, update `s` and `attributes` below.
@@ -152,6 +160,7 @@ class _Fields(Tuple[Attribute, ...]):
     def __getattr__(self, name: str) -> Attribute: ...
 
 def fields(cls: type) -> _Fields: ...
+def fields_dict(cls: type) -> Dict[str, Attribute]: ...
 def validate(inst: Any) -> None: ...
 
 # TODO: add support for returning a proper attrs class from the mypy plugin
@@ -217,7 +226,9 @@ def ib(default: None = ...,
        convert: Optional[_ConverterType[_T]] = ...,
        metadata: Optional[Mapping[Any, Any]] = ...,
        type: Optional[Type[_T]] = ...,
-       converter: Optional[_ConverterType[_T]] = ...) -> _T: ...
+       converter: Optional[_ConverterType[_T]] = ...,
+       factory: Optional[Callable[[], _T]] = ...,
+       ) -> _T: ...
 @overload
 def ib(default: _T,
        validator: Optional[_ValidatorArgType[_T]] = ...,
@@ -228,7 +239,9 @@ def ib(default: _T,
        convert: Optional[_ConverterType[_T]] = ...,
        metadata: Optional[Mapping[Any, Any]] = ...,
        type: Optional[Type[_T]] = ...,
-       converter: Optional[_ConverterType[_T]] = ...) -> _T: ...
+       converter: Optional[_ConverterType[_T]] = ...,
+       factory: Optional[Callable[[], _T]] = ...,
+       ) -> _T: ...
 @overload
 def ib(default: None = ...,
        validator: None = ...,
@@ -239,7 +252,9 @@ def ib(default: None = ...,
        convert: None = ...,
        metadata: Optional[Mapping[Any, Any]] = ...,
        type: None = ...,
-       converter: None = ...) -> Any: ...
+       converter: None = ...,
+       factory: None = ...,
+       ) -> Any: ...
 @overload
 def ib(default: Optional[_T] = ...,
        validator: Optional[_ValidatorArgType[_T]] = ...,
@@ -250,7 +265,9 @@ def ib(default: Optional[_T] = ...,
        convert: Optional[_ConverterType[_T]] = ...,
        metadata: Optional[Mapping[Any, Any]] = ...,
        type: object = ...,
-       converter: Optional[_ConverterType[_T]] = ...) -> Any: ...
+       converter: Optional[_ConverterType[_T]] = ...,
+       factory: Optional[Callable[[], _T]] = ...,
+       ) -> Any: ...
 
 @overload
 def attr(default: None = ...,
@@ -262,7 +279,9 @@ def attr(default: None = ...,
          convert: Optional[_ConverterType[_T]] = ...,
          metadata: Optional[Mapping[Any, Any]] = ...,
          type: Optional[Type[_T]] = ...,
-         converter: Optional[_ConverterType[_T]] = ...) -> _T: ...
+         converter: Optional[_ConverterType[_T]] = ...,
+         factory: Optional[Callable[[], _T]] = ...,
+         ) -> _T: ...
 @overload
 def attr(default: _T,
          validator: Optional[_ValidatorArgType[_T]] = ...,
@@ -273,7 +292,9 @@ def attr(default: _T,
          convert: Optional[_ConverterType[_T]] = ...,
          metadata: Optional[Mapping[Any, Any]] = ...,
          type: Optional[Type[_T]] = ...,
-         converter: Optional[_ConverterType[_T]] = ...) -> _T: ...
+         converter: Optional[_ConverterType[_T]] = ...,
+         factory: Optional[Callable[[], _T]] = ...,
+         ) -> _T: ...
 @overload
 def attr(default: None = ...,
          validator: None = ...,
@@ -284,7 +305,9 @@ def attr(default: None = ...,
          convert: None = ...,
          metadata: Optional[Mapping[Any, Any]] = ...,
          type: None = ...,
-         converter: None = ...) -> Any: ...
+         converter: None = ...,
+         factory: None = ...,
+         ) -> Any: ...
 @overload
 def attr(default: Optional[_T] = ...,
          validator: Optional[_ValidatorArgType[_T]] = ...,
@@ -295,7 +318,9 @@ def attr(default: Optional[_T] = ...,
          convert: Optional[_ConverterType[_T]] = ...,
          metadata: Optional[Mapping[Any, Any]] = ...,
          type: object = ...,
-         converter: Optional[_ConverterType[_T]] = ...) -> Any: ...
+         converter: Optional[_ConverterType[_T]] = ...,
+         factory: Optional[Callable[[], _T]] = ...,
+         ) -> Any: ...
 
 @overload
 def attributes(maybe_cls: _C,
