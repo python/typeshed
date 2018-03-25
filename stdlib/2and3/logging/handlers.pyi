@@ -41,7 +41,6 @@ if sys.version_info >= (3,):
 
 if sys.version_info >= (3,):
     class RotatingFileHandler(BaseRotatingHandler):
-        terminator = ...  # type: str
         def __init__(self, filename: str, mode: str = ..., maxBytes: int = ...,
                      backupCount: int = ..., encoding: Optional[str] = ...,
                      delay: bool = ...) -> None: ...
