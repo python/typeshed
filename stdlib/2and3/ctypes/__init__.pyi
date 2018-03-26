@@ -205,7 +205,7 @@ class c_bool(_SimpleCData[bool]):
     def __init__(self, value: bool) -> None: ...
 
 if sys.platform == 'win32':
-    class HRESULT(_SimpleCData[Any]): ...  # TODO undocumented
+    class HRESULT(_SimpleCData[int]): ...  # TODO undocumented
 
 class py_object(_SimpleCData[_T]): ...
 
