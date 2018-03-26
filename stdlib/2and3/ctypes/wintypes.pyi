@@ -2,20 +2,20 @@ from . import _Pointer, _SimpleCData, Array, Structure, c_byte, c_char, c_char_p
 
 BYTE = c_byte
 WORD = c_ushort
-DWORD = c_ulong 
+DWORD = c_ulong
 CHAR = c_char
 WCHAR = c_wchar
 UINT = c_uint
 INT = c_int
 DOUBLE = c_double
-FLOAT = c_float 
+FLOAT = c_float
 BOOLEAN = BYTE
-BOOL = c_long 
-class VARIANT_BOOL(_SimpleCData[bool]): ... 
+BOOL = c_long
+class VARIANT_BOOL(_SimpleCData[bool]): ...
 ULONG = c_ulong
-LONG = c_long 
+LONG = c_long
 USHORT = c_ushort
-SHORT = c_short 
+SHORT = c_short
 _LARGE_INTEGER = LARGE_INTEGER = c_longlong
 _ULARGE_INTEGER = ULARGE_INTEGER = c_ulonglong
 
@@ -30,13 +30,13 @@ class WPARAM(_SimpleCData[int]): ...
 class LPARAM(_SimpleCData[int]): ...
 
 ATOM = WORD
-LANGID = WORD 
+LANGID = WORD
 COLORREF = DWORD
 LGRPID = DWORD
-LCTYPE = DWORD 
+LCTYPE = DWORD
 LCID = DWORD
 
-HANDLE = c_void_p 
+HANDLE = c_void_p
 HACCEL = HANDLE
 HBITMAP = HANDLE
 HBRUSH = HANDLE
