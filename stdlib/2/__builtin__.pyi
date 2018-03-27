@@ -757,13 +757,67 @@ def map(func: Callable[[_T1], _S], iter1: Iterable[_T1]) -> List[_S]: ...
 @overload
 def map(func: Callable[[_T1, _T2], _S],
         iter1: Iterable[_T1],
-        iter2: Iterable[_T2]) -> List[_S]: ...  # TODO more than two iterables
+        iter2: Iterable[_T2]) -> List[_S]: ...
+@overload
+def map(func: Callable[[_T1, _T2, _T3], _S],
+        iter1: Iterable[_T1],
+        iter2: Iterable[_T2],
+        iter3: Iterable[_T3]) -> List[_S]: ...
+@overload
+def map(func: Callable[[_T1, _T2, _T3, _T4], _S],
+        iter1: Iterable[_T1],
+        iter2: Iterable[_T2],
+        iter3: Iterable[_T3],
+        iter4: Iterable[_T4]) -> List[_S]: ...
+@overload
+def map(func: Callable[[_T1, _T2, _T3, _T4, _T5], _S],
+        iter1: Iterable[_T1],
+        iter2: Iterable[_T2],
+        iter3: Iterable[_T3],
+        iter4: Iterable[_T4],
+        iter5: Iterable[_T5]) -> List[_S]: ...
+@overload
+def map(func: Callable[..., _S],
+        iter1: Iterable[Any],
+        iter2: Iterable[Any],
+        iter3: Iterable[Any],
+        iter4: Iterable[Any],
+        iter5: Iterable[Any],
+        iter6: Iterable[Any],
+        *iterables: Iterable[Any]) -> List[_S]: ...
 @overload
 def map(func: None, iter1: Iterable[_T1]) -> List[_T1]: ...
 @overload
 def map(func: None,
         iter1: Iterable[_T1],
-        iter2: Iterable[_T2]) -> List[Tuple[_T1, _T2]]: ...  # TODO more than two iterables
+        iter2: Iterable[_T2]) -> List[Tuple[_T1, _T2]]: ...
+@overload
+def map(func: None,
+        iter1: Iterable[_T1],
+        iter2: Iterable[_T2],
+        iter3: Iterable[_T3]) -> List[Tuple[_T1, _T2, _T3]]: ...
+@overload
+def map(func: None,
+        iter1: Iterable[_T1],
+        iter2: Iterable[_T2],
+        iter3: Iterable[_T3],
+        iter4: Iterable[_T4]) -> List[Tuple[_T1, _T2, _T3, _T4]]: ...
+@overload
+def map(func: None,
+        iter1: Iterable[_T1],
+        iter2: Iterable[_T2],
+        iter3: Iterable[_T3],
+        iter4: Iterable[_T4],
+        iter5: Iterable[_T5]) -> List[Tuple[_T1, _T2, _T3, _T4, _T5]]: ...
+@overload
+def map(func: None,
+        iter1: Iterable[Any],
+        iter2: Iterable[Any],
+        iter3: Iterable[Any],
+        iter4: Iterable[Any],
+        iter5: Iterable[Any],
+        iter6: Iterable[Any],
+        *iterables: Iterable[Any]) -> List[Tuple[Any, ...]]: ...
 @overload
 def max(arg1: _T, arg2: _T, *args: _T, key: Callable[[_T], Any] = ...) -> _T: ...
 @overload
