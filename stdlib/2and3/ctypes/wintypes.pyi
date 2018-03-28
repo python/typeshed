@@ -16,13 +16,20 @@ ULONG = c_ulong
 LONG = c_long
 USHORT = c_ushort
 SHORT = c_short
-_LARGE_INTEGER = LARGE_INTEGER = c_longlong
-_ULARGE_INTEGER = ULARGE_INTEGER = c_ulonglong
+LARGE_INTEGER = c_longlong
+_LARGE_INTEGER = c_longlong
+ULARGE_INTEGER = c_ulonglong
+_ULARGE_INTEGER = c_ulonglong
 
-LPCOLESTR = LPOLESTR = OLESTR = c_wchar_p
-LPCWSTR = LPWSTR = c_wchar_p
-LPCSTR = LPSTR = c_char_p
-LPCVOID = LPVOID = c_void_p
+OLESTR = c_wchar_p
+LPOLESTR = c_wchar_p
+LPCOLESTR = c_wchar_p
+LPWSTR = c_wchar_p
+LPCWSTR = c_wchar_p
+LPSTR = c_char_p
+LPCSTR = c_char_p
+LPVOID = c_void_p
+LPCVOID = c_void_p
 
 # These two types are pointer-sized unsigned and signed ints, respectively.
 # At runtime, they are either c_[u]long or c_[u]longlong, depending on the host's pointer size (they are not really separate classes).
@@ -74,7 +81,9 @@ class RECT(Structure):
     top: LONG
     right: LONG
     bottom: LONG
-tagRECT = _RECTL = RECTL = RECT
+RECTL = RECT
+_RECTL = RECT
+tagRECT = RECT
 
 class _SMALL_RECT(Structure):
     Left: SHORT
@@ -90,12 +99,15 @@ class _COORD(Structure):
 class POINT(Structure):
     x: LONG
     y: LONG
-tagPOINT = _POINTL = POINTL = POINT
+POINTL = POINT
+_POINTL = POINT
+tagPOINT = POINT
 
 class SIZE(Structure):
     cx: LONG
     cy: LONG
-tagSIZE = SIZEL = SIZE
+SIZEL = SIZE
+tagSIZE = SIZE
 
 def RGB(red: int, green: int, blue: int) -> int: ...
 
@@ -139,36 +151,53 @@ class WIN32_FIND_DATAW(Structure):
     cAlternateFileName: Array[WCHAR]
 
 # These pointer type definitions use _Pointer instead of POINTER, to allow them to be used in type annotations.
-LPBOOL = PBOOL = _Pointer[BOOL]
+PBOOL = _Pointer[BOOL]
+LPBOOL = _Pointer[BOOL]
 PBOOLEAN = _Pointer[BOOLEAN]
-LPBYTE = PBYTE = _Pointer[BYTE]
+PBYTE = _Pointer[BYTE]
+LPBYTE = _Pointer[BYTE]
 PCHAR = _Pointer[CHAR]
 LPCOLORREF = _Pointer[COLORREF]
-LPDWORD = PDWORD = _Pointer[DWORD]
-LPFILETIME = PFILETIME = _Pointer[FILETIME]
+PDWORD = _Pointer[DWORD]
+LPDWORD = _Pointer[DWORD]
+PFILETIME = _Pointer[FILETIME]
+LPFILETIME = _Pointer[FILETIME]
 PFLOAT = _Pointer[FLOAT]
-LPHANDLE = PHANDLE = _Pointer[HANDLE]
+PHANDLE = _Pointer[HANDLE]
+LPHANDLE = _Pointer[HANDLE]
 PHKEY = _Pointer[HKEY]
 LPHKL = _Pointer[HKL]
-LPINT = PINT = _Pointer[INT]
+PINT = _Pointer[INT]
+LPINT = _Pointer[INT]
 PLARGE_INTEGER = _Pointer[LARGE_INTEGER]
 PLCID = _Pointer[LCID]
-LPLONG = PLONG = _Pointer[LONG]
-LPMSG = PMSG = _Pointer[MSG]
-LPPOINT = PPOINT = _Pointer[POINT]
+PLONG = _Pointer[LONG]
+LPLONG = _Pointer[LONG]
+PMSG = _Pointer[MSG]
+LPMSG = _Pointer[MSG]
+PPOINT = _Pointer[POINT]
+LPPOINT = _Pointer[POINT]
 PPOINTL = _Pointer[POINTL]
-LPRECT = PRECT = _Pointer[RECT]
-LPRECTL = PRECTL = _Pointer[RECTL]
+PRECT = _Pointer[RECT]
+LPRECT = _Pointer[RECT]
+PRECTL = _Pointer[RECTL]
+LPRECTL = _Pointer[RECTL]
 LPSC_HANDLE = _Pointer[SC_HANDLE]
 PSHORT = _Pointer[SHORT]
-LPSIZE = PSIZE = _Pointer[SIZE]
-LPSIZEL = PSIZEL = _Pointer[SIZEL]
+PSIZE = _Pointer[SIZE]
+LPSIZE = _Pointer[SIZE]
+PSIZEL = _Pointer[SIZEL]
+LPSIZEL = _Pointer[SIZEL]
 PSMALL_RECT = _Pointer[SMALL_RECT]
-LPUINT = PUINT = _Pointer[UINT]
+PUINT = _Pointer[UINT]
+LPUINT = _Pointer[UINT]
 PULARGE_INTEGER = _Pointer[ULARGE_INTEGER]
 PULONG = _Pointer[ULONG]
 PUSHORT = _Pointer[USHORT]
 PWCHAR = _Pointer[WCHAR]
-LPWIN32_FIND_DATAA = PWIN32_FIND_DATAA = _Pointer[WIN32_FIND_DATAA]
-LPWIN32_FIND_DATAW = PWIN32_FIND_DATAW = _Pointer[WIN32_FIND_DATAW]
-LPWORD = PWORD = _Pointer[WORD]
+PWIN32_FIND_DATAA = _Pointer[WIN32_FIND_DATAA]
+LPWIN32_FIND_DATAA = _Pointer[WIN32_FIND_DATAA]
+PWIN32_FIND_DATAW = _Pointer[WIN32_FIND_DATAW]
+LPWIN32_FIND_DATAW = _Pointer[WIN32_FIND_DATAW]
+PWORD = _Pointer[WORD]
+LPWORD = _Pointer[WORD]
