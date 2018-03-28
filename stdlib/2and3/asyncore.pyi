@@ -6,6 +6,7 @@ import sys
 import time
 import warnings
 from socket import SocketType
+from typing import Optional
 
 from errno import (EALREADY, EINPROGRESS, EWOULDBLOCK, ECONNRESET, EINVAL,
                    ENOTCONN, ESHUTDOWN, EINTR, EISCONN, EBADF, ECONNABORTED,
@@ -38,7 +39,7 @@ class dispatcher:
     connecting = ...  # type: bool
     closing = ...  # type: bool
     ignore_log_types = ...  # type: frozenset[str]
-    socket = ...  # type: SocketType
+    socket = ...  # type: Optional[SocketType] # undocumented
 
     def __init__(self, sock: Optional[SocketType] = ..., map: _maptype = ...) -> None: ...
     def add_channel(self, map: _maptype = ...) -> None: ...
