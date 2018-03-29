@@ -49,7 +49,8 @@ class _CDataMeta(type):
     # TODO The return type is not accurate. The method definition *should* look like this:
     # def __mul__(cls: Type[_CT], other: int) -> Type[Array[_CT]]: ...
     # but that is not valid, because technically a _CDataMeta might not be a Type[_CT].
-    # This can never actually happen, because all _CDataMeta instances are _CData subclasses, but a typechecker doesn't know that.
+    # This can never actually happen, because all _CDataMeta instances are _CData subclasses,
+    # but a typechecker doesn't know that.
     def __mul__(cls: _CDataMeta, other: int) -> Type[Array[Any]]: ...
     def __rmul__(cls: _CDataMeta, other: int) -> Type[Array[Any]]: ...
 class _CData(metaclass=_CDataMeta):
@@ -112,10 +113,13 @@ def PYFUNCTYPE(restype: Type[_CData],
 
 class _CArgObject: ...
 
-# Any type that can be implicitly converted to c_void_p when passed as a C function argument. (bytes is not included here, see below.)
+# Any type that can be implicitly converted to c_void_p when passed as a C function argument.
+# (bytes is not included here, see below.)
 _CVoidPLike = _UnionT[_PointerLike, Array[Any], _CArgObject, int]
 # Same as above, but including types known to be read-only (i. e. bytes).
-# This distinction is not strictly necessary (ctypes doesn't differentiate between const and non-const pointers), but it catches errors like memmove(b'foo', buf, 4) when memmove(buf, b'foo', 4) was intended.
+# This distinction is not strictly necessary (ctypes doesn't differentiate between const
+# and non-const pointers), but it catches errors like memmove(b'foo', buf, 4)
+# when memmove(buf, b'foo', 4) was intended.
 _CVoidConstPLike = _UnionT[_CVoidPLike, bytes]
 
 def addressof(obj: _CData) -> int: ...
@@ -233,11 +237,17 @@ class Array(Generic[_T], Sized, _CData):
     raw: bytes = ...  # TODO only available with _T == c_char
     value: bytes = ...  # TODO only available with _T == c_char
     # TODO These methods cannot be annotated correctly at the moment.
-    # All of these "Any"s stand for the array's element type, but it's not possible to use _T here, because of a special feature of ctypes.
+    # All of these "Any"s stand for the array's element type, but it's not possible to use _T here,
+    # because of a special feature of ctypes.
     # By default, when accessing an element of an Array[_T], the returned object has type _T.
-    # However, when _T is a "simple type" like c_int, ctypes automatically "unboxes" the object and converts it to the corresponding Python primitive. For example, when accessing an element of an Array[c_int], a Python int object is returned, not a c_int.
-    # This behavior does *not* apply to subclasses of "simple types". If MyInt is a subclass of c_int, then accessing an element of an Array[MyInt] returns a MyInt, not an int.
-    # This special behavior is not easy to model in a stub, so for now all places where the array element type would belong are annotated with Any instead.
+    # However, when _T is a "simple type" like c_int, ctypes automatically "unboxes" the object
+    # and converts it to the corresponding Python primitive. For example, when accessing an element
+    # of an Array[c_int], a Python int object is returned, not a c_int.
+    # This behavior does *not* apply to subclasses of "simple types".
+    # If MyInt is a subclass of c_int, then accessing an element of an Array[MyInt] returns
+    # a MyInt, not an int.
+    # This special behavior is not easy to model in a stub, so for now all places where
+    # the array element type would belong are annotated with Any instead.
     def __init__(self, *args: Any) -> None: ...
     @overload
     def __getitem__(self, i: int) -> Any: ...

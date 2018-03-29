@@ -1,4 +1,8 @@
-from . import _Pointer, _SimpleCData, Array, Structure, c_byte, c_char, c_char_p, c_double, c_float, c_int, c_long, c_longlong, c_short, c_uint, c_ulong, c_ulonglong, c_ushort, c_void_p, c_wchar, c_wchar_p
+from . import (
+    _Pointer, _SimpleCData, Array, Structure, c_byte, c_char, c_char_p, c_double, c_float, c_int,
+    c_long, c_longlong, c_short, c_uint, c_ulong, c_ulonglong, c_ushort, c_void_p, c_wchar,
+    c_wchar_p,
+)
 
 BYTE = c_byte
 WORD = c_ushort
@@ -32,7 +36,8 @@ LPVOID = c_void_p
 LPCVOID = c_void_p
 
 # These two types are pointer-sized unsigned and signed ints, respectively.
-# At runtime, they are either c_[u]long or c_[u]longlong, depending on the host's pointer size (they are not really separate classes).
+# At runtime, they are either c_[u]long or c_[u]longlong, depending on the host's pointer size
+# (they are not really separate classes).
 class WPARAM(_SimpleCData[int]): ...
 class LPARAM(_SimpleCData[int]): ...
 
@@ -150,7 +155,8 @@ class WIN32_FIND_DATAW(Structure):
     cFileName: Array[WCHAR]
     cAlternateFileName: Array[WCHAR]
 
-# These pointer type definitions use _Pointer instead of POINTER, to allow them to be used in type annotations.
+# These pointer type definitions use _Pointer instead of POINTER, to allow them to be used
+# in type annotations.
 PBOOL = _Pointer[BOOL]
 LPBOOL = _Pointer[BOOL]
 PBOOLEAN = _Pointer[BOOLEAN]
