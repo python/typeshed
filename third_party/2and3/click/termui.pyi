@@ -7,6 +7,7 @@ from typing import (
     IO,
     List,
     Optional,
+    Text,
     Tuple,
     TypeVar,
 )
