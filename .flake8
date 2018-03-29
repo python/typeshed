@@ -8,6 +8,7 @@
 #   967 E701 multiple statements on one line (colon)
 #   457 F811 redefinition
 #   390 E305 expected 2 blank lines
+#     4 E741 ambiguous variable name
 
 # Nice-to-haves ignored for now
 #   159 E128 continuation line under-indented for visual indent
