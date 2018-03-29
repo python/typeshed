@@ -4,10 +4,9 @@
 from io import TextIOWrapper as _TextIOWrapper
 import sys
 from typing import (
-    Mapping, MutableMapping, Dict, List, Any, Tuple, IO, Iterable, Iterator, overload, Union, AnyStr,
+    Mapping, MutableMapping, Dict, List, Any, Tuple, IO, Iterable, Iterator, NoReturn, overload, Union, AnyStr,
     Optional, Generic, Set, Callable, Text, Sequence, NamedTuple, TypeVar, ContextManager
 )
-from mypy_extensions import NoReturn
 
 # Re-exported names from other modules.
 from builtins import OSError as error

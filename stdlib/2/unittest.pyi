@@ -2,10 +2,9 @@
 
 # Based on http://docs.python.org/2.7/library/unittest.html
 
-from mypy_extensions import NoReturn
 from typing import (Any, Callable, Dict, FrozenSet, Iterable, Iterator,
-                    List, Optional, overload, Pattern, Sequence, Set, Text,
-                    TextIO, Tuple, Type, TypeVar, Union)
+                    List, NoReturn, Optional, overload, Pattern, Sequence, Set,
+                    Text, TextIO, Tuple, Type, TypeVar, Union)
 from abc import abstractmethod, ABCMeta
 import types
 

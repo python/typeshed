@@ -217,11 +217,12 @@ class Action(_AttributeHolder):
     nargs: Optional[Union[int, _Text]]
     const: Any
     default: Any
-    type: Optional[Union[Callable[[str], Any], FileType]]
+    type: Union[Callable[[str], Any], FileType, None]
     choices: Optional[Iterable[Any]]
     required: bool
     help: Optional[_Text]
-    metavar: Optional[Union[_Text, Tuple[_Text, ...]]]
+    metavar: Union[_Text, Tuple[_Text, ...]]
+
     def __init__(self,
                  option_strings: Sequence[_Text],
                  dest: _Text,

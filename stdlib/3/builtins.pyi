@@ -2,7 +2,7 @@
 
 from typing import (
     TypeVar, Iterator, Iterable, overload, Container,
-    Sequence, MutableSequence, Mapping, MutableMapping, Tuple, List, Any, Dict, Callable, Generic,
+    Sequence, MutableSequence, Mapping, MutableMapping, NoReturn, Tuple, List, Any, Dict, Callable, Generic,
     Set, AbstractSet, FrozenSet, MutableSet, Sized, Reversible, SupportsInt, SupportsFloat,
     SupportsBytes, SupportsAbs, SupportsRound, IO, Union, ItemsView, KeysView, ValuesView,
     ByteString, Optional, AnyStr, Type,
@@ -10,7 +10,6 @@ from typing import (
 from abc import abstractmethod, ABCMeta
 from types import TracebackType, CodeType
 import sys
-from mypy_extensions import NoReturn
 
 # Note that names imported above are not automatically made visible via the
 # implicit builtins import.
@@ -504,7 +503,6 @@ class bytearray(MutableSequence[int], ByteString):
     def __gt__(self, x: bytes) -> bool: ...
     def __ge__(self, x: bytes) -> bool: ...
 
-
 class memoryview(Sized, Container[bytes]):
     format = ...  # type: str
     itemsize = ...  # type: int
@@ -537,7 +535,6 @@ class memoryview(Sized, Container[bytes]):
 
     if sys.version_info >= (3, 5):
         def hex(self) -> str: ...
-
 
 class bool(int):
     def __init__(self, o: object = ...) -> None: ...
@@ -721,7 +718,6 @@ class set(MutableSet[_T], Generic[_T]):
     def __lt__(self, s: AbstractSet[object]) -> bool: ...
     def __ge__(self, s: AbstractSet[object]) -> bool: ...
     def __gt__(self, s: AbstractSet[object]) -> bool: ...
-    # TODO more set operations
 
 class frozenset(AbstractSet[_T], Generic[_T]):
     def __init__(self, iterable: Iterable[_T] = ...) -> None: ...
@@ -833,7 +829,34 @@ def locals() -> Dict[str, Any]: ...
 def map(func: Callable[[_T1], _S], iter1: Iterable[_T1]) -> Iterator[_S]: ...
 @overload
 def map(func: Callable[[_T1, _T2], _S], iter1: Iterable[_T1],
-        iter2: Iterable[_T2]) -> Iterator[_S]: ...  # TODO more than two iterables
+        iter2: Iterable[_T2]) -> Iterator[_S]: ...
+@overload
+def map(func: Callable[[_T1, _T2, _T3], _S],
+        iter1: Iterable[_T1],
+        iter2: Iterable[_T2],
+        iter3: Iterable[_T3]) -> Iterator[_S]: ...
+@overload
+def map(func: Callable[[_T1, _T2, _T3, _T4], _S],
+        iter1: Iterable[_T1],
+        iter2: Iterable[_T2],
+        iter3: Iterable[_T3],
+        iter4: Iterable[_T4]) -> Iterator[_S]: ...
+@overload
+def map(func: Callable[[_T1, _T2, _T3, _T4, _T5], _S],
+        iter1: Iterable[_T1],
+        iter2: Iterable[_T2],
+        iter3: Iterable[_T3],
+        iter4: Iterable[_T4],
+        iter5: Iterable[_T5]) -> Iterator[_S]: ...
+@overload
+def map(func: Callable[..., _S],
+        iter1: Iterable[Any],
+        iter2: Iterable[Any],
+        iter3: Iterable[Any],
+        iter4: Iterable[Any],
+        iter5: Iterable[Any],
+        iter6: Iterable[Any],
+        *iterables: Iterable[Any]) -> Iterator[_S]: ...
 @overload
 def max(arg1: _T, arg2: _T, *args: _T, key: Callable[[_T], Any] = ...) -> _T: ...
 @overload
@@ -862,7 +885,6 @@ else:
              errors: Optional[str] = ..., newline: Optional[str] = ..., closefd: bool = ...) -> IO[Any]: ...
 
 def ord(c: Union[str, bytes, bytearray]) -> int: ...
-# TODO: in Python 3.2, print() does not support flush
 def print(*values: Any, sep: str = ..., end: str = ..., file: Optional[IO[str]] = ..., flush: bool = ...) -> None: ...
 @overload
 def pow(x: int, y: int) -> Any: ...  # The return type can be int or float, depending on y
@@ -928,11 +950,11 @@ Ellipsis = ...  # type: ellipsis
 
 class BaseException:
     args = ...  # type: Tuple[Any, ...]
-    __cause__ = ...  # type: BaseException
-    __context__ = ...  # type: BaseException
-    __traceback__ = ...  # type: TracebackType
+    __cause__ = ...  # type: Optional[BaseException]
+    __context__ = ...  # type: Optional[BaseException]
+    __traceback__ = ...  # type: Optional[TracebackType]
     def __init__(self, *args: object, **kwargs: object) -> None: ...
-    def with_traceback(self, tb: Any) -> BaseException: ...
+    def with_traceback(self, tb: Optional[TracebackType]) -> BaseException: ...
 
 class GeneratorExit(BaseException): ...
 class KeyboardInterrupt(BaseException): ...

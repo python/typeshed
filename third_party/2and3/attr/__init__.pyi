@@ -21,7 +21,11 @@ _ValidatorArgType = Union[_ValidatorType[_T], Sequence[_ValidatorType[_T]]]
 NOTHING: object
 
 # NOTE: Factory lies about its return type to make this possible: `x: List[int] = Factory(list)`
-def Factory(factory: Union[Callable[[], _T], Callable[[Any], _T]], takes_self: bool = ...) -> _T: ...
+# Work around mypy issue #4554 by using an overload vs a Union.
+@overload
+def Factory(factory: Callable[[], _T], takes_self: bool = ...) -> _T: ...
+@overload
+def Factory(factory: Callable[[Any], _T], takes_self: bool = ...) -> _T: ...
 
 class Attribute(Generic[_T]):
     name: str
@@ -66,7 +70,19 @@ class Attribute(Generic[_T]):
 # This makes this type of assignments possible:
 #     x: int = attr(8)
 
-# 1st form catches _T set and works around mypy issue #4554
+# This form catches an explicit None or no default and infers the type from the other arguments.
+@overload
+def attrib(default: None = ...,
+           validator: Optional[_ValidatorArgType[_T]] = ...,
+           repr: bool = ...,
+           cmp: bool = ...,
+           hash: Optional[bool] = ...,
+           init: bool = ...,
+           convert: Optional[_ConverterType[_T]] = ...,
+           metadata: Optional[Mapping[Any, Any]] = ...,
+           type: Optional[Type[_T]] = ...,
+           converter: Optional[_ConverterType[_T]] = ...) -> _T: ...
+# This form catches an explicit default argument.
 @overload
 def attrib(default: _T,
            validator: Optional[_ValidatorArgType[_T]] = ...,
@@ -78,19 +94,7 @@ def attrib(default: _T,
            metadata: Optional[Mapping[Any, Any]] = ...,
            type: Optional[Type[_T]] = ...,
            converter: Optional[_ConverterType[_T]] = ...) -> _T: ...
-# 2nd one with an optional default.
-@overload
-def attrib(default: Optional[_T] = ...,
-           validator: Optional[_ValidatorArgType[_T]] = ...,
-           repr: bool = ...,
-           cmp: bool = ...,
-           hash: Optional[bool] = ...,
-           init: bool = ...,
-           convert: Optional[_ConverterType[_T]] = ...,
-           metadata: Optional[Mapping[Any, Any]] = ...,
-           type: Optional[Type[_T]] = ...,
-           converter: Optional[_ConverterType[_T]] = ...) -> _T: ...
-# 3rd form no _T , so returns Any.
+# This form catches explicit None or no default but with no other arguments returns Any.
 @overload
 def attrib(default: None = ...,
            validator: None = ...,
@@ -102,7 +106,7 @@ def attrib(default: None = ...,
            metadata: Optional[Mapping[Any, Any]] = ...,
            type: None = ...,
            converter: None = ...) -> Any: ...
-# 4th form covers type=non-Type: e.g. forward references (str), Any
+# This form covers type=non-Type: e.g. forward references (str), Any
 @overload
 def attrib(default: Optional[_T] = ...,
            validator: Optional[_ValidatorArgType[_T]] = ...,
@@ -204,7 +208,7 @@ def get_run_validators() -> bool: ...
 
 
 @overload
-def ib(default: _T,
+def ib(default: None = ...,
        validator: Optional[_ValidatorArgType[_T]] = ...,
        repr: bool = ...,
        cmp: bool = ...,
@@ -215,7 +219,7 @@ def ib(default: _T,
        type: Optional[Type[_T]] = ...,
        converter: Optional[_ConverterType[_T]] = ...) -> _T: ...
 @overload
-def ib(default: Optional[_T] = ...,
+def ib(default: _T,
        validator: Optional[_ValidatorArgType[_T]] = ...,
        repr: bool = ...,
        cmp: bool = ...,
@@ -249,7 +253,7 @@ def ib(default: Optional[_T] = ...,
        converter: Optional[_ConverterType[_T]] = ...) -> Any: ...
 
 @overload
-def attr(default: _T,
+def attr(default: None = ...,
          validator: Optional[_ValidatorArgType[_T]] = ...,
          repr: bool = ...,
          cmp: bool = ...,
@@ -260,7 +264,7 @@ def attr(default: _T,
          type: Optional[Type[_T]] = ...,
          converter: Optional[_ConverterType[_T]] = ...) -> _T: ...
 @overload
-def attr(default: Optional[_T] = ...,
+def attr(default: _T,
          validator: Optional[_ValidatorArgType[_T]] = ...,
          repr: bool = ...,
          cmp: bool = ...,
