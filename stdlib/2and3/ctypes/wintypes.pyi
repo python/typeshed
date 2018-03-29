@@ -1,4 +1,4 @@
-from . import (
+from ctypes import (
     _Pointer, _SimpleCData, Array, Structure, c_byte, c_char, c_char_p, c_double, c_float, c_int,
     c_long, c_longlong, c_short, c_uint, c_ulong, c_ulonglong, c_ushort, c_void_p, c_wchar,
     c_wchar_p,
