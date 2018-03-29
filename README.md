@@ -1,5 +1,8 @@
 # typeshed
 
+[![Build Status](https://travis-ci.org/python/typeshed.svg?branch=master)](https://travis-ci.org/python/typeshed)
+[![Chat at https://gitter.im/python/typing](https://badges.gitter.im/python/typing.svg)](https://gitter.im/python/typing?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ## About
 
 Typeshed contains external type annotations for the Python standard library
@@ -13,6 +16,32 @@ it before submitting pull requests.**
 
 Typeshed supports Python versions 2.7 and 3.3 and up.
 
+## Using
+
+If you're just using mypy (or pytype or PyCharm), as opposed to
+developing it, you don't need to interact with the typeshed repo at
+all: a copy of typeshed is bundled with mypy.
+
+When you use a checked-out clone of the mypy repo, a copy of typeshed
+should be included as a submodule, using
+
+    $ git clone --recurse-submodules https://github.com/python/mypy.git
+
+or
+
+    $ git clone https://github.com/python/mypy.git
+    $ cd mypy
+    $ git submodule init
+    $ git submodule update
+
+and occasionally you will have to repeat the final command (`git
+submodule update`) to pull in changes made in the upstream typeshed
+repo.
+
+PyCharm and pytype similarly include a copy of typeshed.  The one in
+pytype can be updated in the same way if you are working with the
+pytype repo.
+
 ## Format
 
 Each Python module is represented by a `.pyi` "stub". This is a normal Python
@@ -20,30 +49,9 @@ file (i.e., it can be interpreted by Python 3), except all the methods are empty
 Python function annotations ([PEP 3107](https://www.python.org/dev/peps/pep-3107/))
 are used to describe the types the function has.
 
-See [PEP 484](http://www.python.org/dev/peps/pep-0484/) for the exact syntax
-of the stub files.
-
-## Syntax example
-
-The below is an excerpt from the types for the `datetime` module.
-
-```python
-from typing import Union
-
-MAXYEAR = ...  # type: int
-MINYEAR = ...  # type: int
-
-class date(object):
-    def __init__(self, year: int, month: int, day: int) -> None: ...
-    @classmethod
-    def fromtimestamp(cls, timestamp: Union[int, float]) -> date: ...
-    @classmethod
-    def fromordinal(cls, ordinal: int) -> date: ...
-    @classmethod
-    def today(self) -> date: ...
-    def ctime(self) -> str: ...
-    def weekday(self) -> int: ...
-```
+See [PEP 484](http://www.python.org/dev/peps/pep-0484/) for the exact
+syntax of the stub files and [CONTRIBUTING.md](CONTRIBUTING.md) for the
+coding style used in typeshed.
 
 ## Directory structure
 
@@ -75,14 +83,14 @@ https://github.com/python/typeshed/blob/master/CONTRIBUTING.md#stub-versioning).
 ## Contributing
 
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting pull
-requests.
+requests. If you have questions related to contributing, drop by the [typing Gitter](https://gitter.im/python/typing).
 
 ## Running the tests
 
 The tests are automatically run by Travis CI on every PR and push to
 the repo.  There are several sets of tests: `tests/mypy_test.py`
 runs tests against [mypy](https://github.com/python/mypy/), while
-`tests/pytype_tests.py` runs tests against
+`tests/pytype_test.py` runs tests against
 [pytype](https://github.com/google/pytype/).
 
 Both sets of tests are shallow -- they verify that all stubs can be
@@ -111,7 +119,7 @@ invoking:
 ```
 (.venv3)$ python3 tests/mypy_test.py
 ...
-(.venv3)$ python tests/mypy_selftest.py
+(.venv3)$ python3 tests/mypy_selftest.py
 ...
 (.venv3)$ flake8
 ...
@@ -119,7 +127,7 @@ invoking:
 (Note that flake8 only works with Python 3.6 or higher.)
 
 To run the pytype tests, you need a separate virtual environment with
-Python 2.7. Run:
+Python 2.7, and a Python 3.6 interpreter somewhere you can point to. Run:
 ```
 $ virtualenv --python=python2.7 .venv2
 $ source .venv2/bin/activate
@@ -128,7 +136,7 @@ $ source .venv2/bin/activate
 This will install pytype from its GitHub repo. You can then run pytype
 tests by running:
 ```
-(.venv2)$ python tests/pytype_test.py
+(.venv2)$ python tests/pytype_test.py --python36-exe=/path/to/python3.6
 ```
 
 For mypy, if you are in the typeshed repo that is submodule of the

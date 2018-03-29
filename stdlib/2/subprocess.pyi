@@ -4,7 +4,7 @@
 
 from typing import Sequence, Any, Mapping, Callable, Tuple, IO, Union, Optional, List, Text
 
-_FILE = Union[int, IO[Any]]
+_FILE = Union[None, int, IO[Any]]
 _TXT = Union[bytes, Text]
 _CMD = Union[_TXT, Sequence[_TXT]]
 _ENV = Union[Mapping[bytes, _TXT], Mapping[Text, _TXT]]

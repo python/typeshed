@@ -10,6 +10,7 @@ if sys.version_info >= (3, 3):
         Iterable as Iterable,
         Iterator as Iterator,
         Sized as Sized,
+        Callable as Callable,
         Mapping as Mapping,
         MutableMapping as MutableMapping,
         Sequence as Sequence,

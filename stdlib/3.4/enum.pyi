@@ -1,13 +1,19 @@
 import sys
-from typing import List, Any, TypeVar, Union, Iterable, Iterator, TypeVar, Generic, Type, Sized, Reversible, Container, Mapping
+from typing import List, Any, TypeVar, Union, Iterator, TypeVar, Generic, Type, Sized, Mapping
+from abc import ABCMeta
 
-_T = TypeVar('_T', bound=Enum)
+_T = TypeVar('_T')
 _S = TypeVar('_S', bound=Type[Enum])
 
-class EnumMeta(type, Iterable[Enum], Sized, Reversible[Enum], Container[Enum]):
-    def __iter__(self: Type[_T]) -> Iterator[_T]: ...  # type: ignore
+# Note: EnumMeta actually subclasses type directly, not ABCMeta.
+# This is a temporary workaround to allow multiple creation of enums with builtins
+# such as str as mixins, which due to the handling of ABCs of builtin types, cause
+# spurious inconsistent metaclass structure. See #1595.
+# Structurally: Iterable[T], Reversible[T], Container[T] where T is the enum itself
+class EnumMeta(ABCMeta, Sized):
+    def __iter__(self: Type[_T]) -> Iterator[_T]: ...
     def __reversed__(self: Type[_T]) -> Iterator[_T]: ...
-    def __contains__(self, member: Any) -> bool: ...
+    def __contains__(self: Type[_T], member: Any) -> bool: ...
     def __getitem__(self: Type[_T], name: str) -> _T: ...
     @property
     def __members__(self: Type[_T]) -> Mapping[str, _T]: ...
@@ -32,7 +38,8 @@ def unique(enumeration: _S) -> _S: ...
 if sys.version_info >= (3, 6):
     _auto_null = ...  # type: Any
 
-    class auto:
+    # subclassing IntFlag so it picks up all implemented base functions, best modeling behavior of enum.auto()
+    class auto(IntFlag):
         value = ...  # type: Any
 
     class Flag(Enum):
@@ -45,11 +52,12 @@ if sys.version_info >= (3, 6):
         def __xor__(self: _T, other: _T) -> _T: ...
         def __invert__(self: _T) -> _T: ...
 
-    # All `type: ignore` comments below due to IntFlag making the function signatures more permissive.
+    # The `type: ignore` comment is needed because mypy considers the type
+    # signatures of several methods defined in int and Flag to be incompatible.
     class IntFlag(int, Flag):  # type: ignore
-        def __or__(self: _T, other: Union[int, _T]) -> _T: ...  # type: ignore
-        def __and__(self: _T, other: Union[int, _T]) -> _T: ...  # type: ignore
-        def __xor__(self: _T, other: Union[int, _T]) -> _T: ...  # type: ignore
+        def __or__(self: _T, other: Union[int, _T]) -> _T: ...
+        def __and__(self: _T, other: Union[int, _T]) -> _T: ...
+        def __xor__(self: _T, other: Union[int, _T]) -> _T: ...
         __ror__ = __or__
         __rand__ = __and__
         __rxor__ = __xor__

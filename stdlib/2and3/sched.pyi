@@ -1,5 +1,3 @@
-# Stub for sched (Python 2 and 3)
-
 import sys
 from typing import Any, Callable, Dict, List, NamedTuple, Text, Tuple
 

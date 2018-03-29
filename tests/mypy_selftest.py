@@ -11,6 +11,7 @@ import tempfile
 if __name__ == '__main__':
     with tempfile.TemporaryDirectory() as tempdir:
         dirpath = Path(tempdir)
+        subprocess.run(['python2.7', '-m', 'pip', 'install', '--user', 'typing'], check=True)
         subprocess.run(['git', 'clone', '--depth', '1', 'git://github.com/python/mypy',
                         str(dirpath / 'mypy')], check=True)
         subprocess.run([sys.executable, '-m', 'pip', 'install', '-U', '-r',
@@ -18,7 +19,7 @@ if __name__ == '__main__':
         shutil.copytree('stdlib', str(dirpath / 'mypy/typeshed/stdlib'))
         shutil.copytree('third_party', str(dirpath / 'mypy/typeshed/third_party'))
         try:
-            subprocess.run(['./runtests.py'], cwd=str(dirpath / 'mypy'), check=True)
+            subprocess.run(['./runtests.py', '-j12'], cwd=str(dirpath / 'mypy'), check=True)
         except subprocess.CalledProcessError as e:
             print('mypy tests failed', file=sys.stderr)
             sys.exit(e.returncode)
