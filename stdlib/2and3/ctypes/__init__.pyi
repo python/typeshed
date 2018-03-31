@@ -1,8 +1,8 @@
 # Stubs for ctypes
 
 from typing import (
-    Any, Callable, ClassVar, Iterable, List, Mapping, Optional, Sequence, Sized, Text, Tuple, Type,
-    Generic, TypeVar, overload,
+    Any, Callable, ClassVar, Iterator, Iterable, List, Mapping, Optional, Sequence, Sized, Text,
+    Tuple, Type, Generic, TypeVar, overload,
 )
 from typing import Union as _UnionT
 import sys
@@ -97,16 +97,16 @@ class _FuncPointer(_PointerLike, _CData):
 class ArgumentError(Exception): ...
 
 
-def CFUNCTYPE(restype: Type[_CData],
+def CFUNCTYPE(restype: Optional[Type[_CData]],
               *argtypes: Type[_CData],
               use_errno: bool = ...,
               use_last_error: bool = ...) -> Type[_FuncPointer]: ...
 if sys.platform == 'win32':
-    def WINFUNCTYPE(restype: Type[_CData],
+    def WINFUNCTYPE(restype: Optional[Type[_CData]],
                     *argtypes: Type[_CData],
                     use_errno: bool = ...,
                     use_last_error: bool = ...) -> Type[_FuncPointer]: ...
-def PYFUNCTYPE(restype: Type[_CData],
+def PYFUNCTYPE(restype: Optional[Type[_CData]],
                *argtypes: Type[_CData]) -> Type[_FuncPointer]: ...
 
 class _CArgObject: ...
@@ -168,7 +168,7 @@ def sizeof(obj_or_type: _UnionT[_CData, Type[_CData]]) -> int: ...
 def string_at(address: _CVoidConstPLike, size: int = ...) -> bytes: ...
 if sys.platform == 'win32':
     def WinError(code: Optional[int] = ...,
-                 desc: Optional[str] = ...) -> OSError: ...
+                 desc: Optional[str] = ...) -> WindowsError: ...
 def wstring_at(address: _CVoidConstPLike, size: int = ...) -> str: ...
 
 class _SimpleCData(Generic[_T], _CData):
@@ -245,7 +245,7 @@ class Structure(_StructUnionBase): pass
 class BigEndianStructure(Structure): pass
 class LittleEndianStructure(Structure): pass
 
-class Array(Generic[_T], Sized, _CData):
+class Array(Generic[_T], _CData):
     _length_: ClassVar[int] = ...
     _type_: ClassVar[Type[_T]] = ...
     raw: bytes = ...  # TODO only available with _T == c_char
@@ -271,4 +271,7 @@ class Array(Generic[_T], Sized, _CData):
     def __setitem__(self, i: int, o: Any) -> None: ...
     @overload
     def __setitem__(self, s: slice, o: Iterable[Any]) -> None: ...
-    def __iter__(self) -> Iterable[Any]: ...
+    def __iter__(self) -> Iterator[Any]: ...
+    # Can't inherit from Sized because the metaclass conflict between
+    # Sized and _CData prevents using _CDataMeta.
+    def __len__(self) -> int: ...
