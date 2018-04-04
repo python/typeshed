@@ -1,4 +1,4 @@
-from typing import Dict, Type, TypeVar, Optional, Union
+from typing import Dict, Type, TypeVar, Union, Callable, Any, Optional
 
 _T = TypeVar('_T')
 
@@ -15,3 +15,5 @@ def KwArg(type: _T = ...) -> _T: ...
 # This type is equivalent to the None type, but the no-op Union is necessary to
 # distinguish the None type from the None value.
 NoReturn = Union[None]  # Deprecated: Use typing.NoReturn instead.
+
+def declared_type(t: Any) -> Callable[[_T], _T]: ...
