@@ -7,7 +7,7 @@ from typing import (
     TypeVar, Iterator, Iterable, NoReturn, overload,
     Sequence, Mapping, Tuple, List, Any, Dict, Callable, Generic, Set,
     AbstractSet, FrozenSet, Sized, Reversible, SupportsInt, SupportsFloat, SupportsAbs,
-    SupportsRound, IO, BinaryIO, Union, AnyStr, MutableSequence, MutableMapping,
+    SupportsComplex, SupportsRound, IO, BinaryIO, Union, AnyStr, MutableSequence, MutableMapping,
     MutableSet, ItemsView, KeysView, ValuesView, Optional, Container, Type
 )
 from abc import abstractmethod, ABCMeta
@@ -187,6 +187,8 @@ class complex:
     def __init__(self, re: float = ..., im: float = ...) -> None: ...
     @overload
     def __init__(self, s: str) -> None: ...
+    @overload
+    def __init__(self, s: SupportsComplex) -> None: ...
 
     @property
     def real(self) -> float: ...
@@ -213,6 +215,7 @@ class complex:
     def __neg__(self) -> complex: ...
     def __pos__(self) -> complex: ...
 
+    def __complex__(self) -> complex: ...
     def __str__(self) -> str: ...
     def __abs__(self) -> float: ...
     def __hash__(self) -> int: ...
@@ -653,7 +656,6 @@ class set(MutableSet[_T], Generic[_T]):
     def __lt__(self, s: AbstractSet[object]) -> bool: ...
     def __ge__(self, s: AbstractSet[object]) -> bool: ...
     def __gt__(self, s: AbstractSet[object]) -> bool: ...
-    # TODO more set operations
 
 class frozenset(AbstractSet[_T], Generic[_T]):
     @overload
@@ -757,13 +759,67 @@ def map(func: Callable[[_T1], _S], iter1: Iterable[_T1]) -> List[_S]: ...
 @overload
 def map(func: Callable[[_T1, _T2], _S],
         iter1: Iterable[_T1],
-        iter2: Iterable[_T2]) -> List[_S]: ...  # TODO more than two iterables
+        iter2: Iterable[_T2]) -> List[_S]: ...
+@overload
+def map(func: Callable[[_T1, _T2, _T3], _S],
+        iter1: Iterable[_T1],
+        iter2: Iterable[_T2],
+        iter3: Iterable[_T3]) -> List[_S]: ...
+@overload
+def map(func: Callable[[_T1, _T2, _T3, _T4], _S],
+        iter1: Iterable[_T1],
+        iter2: Iterable[_T2],
+        iter3: Iterable[_T3],
+        iter4: Iterable[_T4]) -> List[_S]: ...
+@overload
+def map(func: Callable[[_T1, _T2, _T3, _T4, _T5], _S],
+        iter1: Iterable[_T1],
+        iter2: Iterable[_T2],
+        iter3: Iterable[_T3],
+        iter4: Iterable[_T4],
+        iter5: Iterable[_T5]) -> List[_S]: ...
+@overload
+def map(func: Callable[..., _S],
+        iter1: Iterable[Any],
+        iter2: Iterable[Any],
+        iter3: Iterable[Any],
+        iter4: Iterable[Any],
+        iter5: Iterable[Any],
+        iter6: Iterable[Any],
+        *iterables: Iterable[Any]) -> List[_S]: ...
 @overload
 def map(func: None, iter1: Iterable[_T1]) -> List[_T1]: ...
 @overload
 def map(func: None,
         iter1: Iterable[_T1],
-        iter2: Iterable[_T2]) -> List[Tuple[_T1, _T2]]: ...  # TODO more than two iterables
+        iter2: Iterable[_T2]) -> List[Tuple[_T1, _T2]]: ...
+@overload
+def map(func: None,
+        iter1: Iterable[_T1],
+        iter2: Iterable[_T2],
+        iter3: Iterable[_T3]) -> List[Tuple[_T1, _T2, _T3]]: ...
+@overload
+def map(func: None,
+        iter1: Iterable[_T1],
+        iter2: Iterable[_T2],
+        iter3: Iterable[_T3],
+        iter4: Iterable[_T4]) -> List[Tuple[_T1, _T2, _T3, _T4]]: ...
+@overload
+def map(func: None,
+        iter1: Iterable[_T1],
+        iter2: Iterable[_T2],
+        iter3: Iterable[_T3],
+        iter4: Iterable[_T4],
+        iter5: Iterable[_T5]) -> List[Tuple[_T1, _T2, _T3, _T4, _T5]]: ...
+@overload
+def map(func: None,
+        iter1: Iterable[Any],
+        iter2: Iterable[Any],
+        iter3: Iterable[Any],
+        iter4: Iterable[Any],
+        iter5: Iterable[Any],
+        iter6: Iterable[Any],
+        *iterables: Iterable[Any]) -> List[Tuple[Any, ...]]: ...
 @overload
 def max(arg1: _T, arg2: _T, *args: _T, key: Callable[[_T], Any] = ...) -> _T: ...
 @overload
