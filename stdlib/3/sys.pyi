@@ -72,6 +72,8 @@ class _flags:
     bytes_warning = 0
     quiet = 0
     hash_randomization = 0
+    if sys.version_info >= (3, 7):
+        dev_mode: int
 
 float_info = ...  # type: _float_info
 class _float_info:
