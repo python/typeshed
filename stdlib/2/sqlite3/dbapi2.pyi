@@ -1,7 +1,8 @@
 # Filip Hron <filip.hron@gmail.com>
 # based heavily on Andrey Vlasovskikh's python-skeletons https://github.com/JetBrains/python-skeletons/blob/master/sqlite3.py
 
-from typing import Any, Union, List, Iterator, Optional
+import sys
+from typing import Any, Callable, Iterator, List, Optional, Union
 from datetime import time, datetime
 from collections import Iterable
 
@@ -120,6 +121,10 @@ class Connection(object):
     # set_progress_handler(handler, n) -> see https://docs.python.org/2/library/sqlite3.html#sqlite3.Connection.set_progress_handler
     def set_progress_handler(self, *args, **kwargs) -> None: ...
     def set_trace_callback(self, *args, **kwargs): ...
+    if sys.version_info >= (3, 7):
+        def backup(self, target: Connection, *, pages: int = ...,
+                   progress: Optional[Callable[[int, int, int], object]] = ..., name: str = ...,
+                   sleep: float = ...) -> None: ...
     def __call__(self, *args, **kwargs): ...
     def __enter__(self, *args, **kwargs): ...
     def __exit__(self, *args, **kwargs): ...
