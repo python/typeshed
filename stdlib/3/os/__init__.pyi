@@ -502,9 +502,23 @@ else:
              followlinks: bool = ...) -> Iterator[Tuple[AnyStr, List[AnyStr],
                                                         List[AnyStr]]]: ...
 if sys.version_info >= (3, 3):
-    def fwalk(top: _PathType = ..., topdown: bool = ...,
-              onerror: Optional[Callable] = ..., *, follow_symlinks: bool = ...,
-              dir_fd: Optional[int] = ...) -> Iterator[Tuple[str, List[str], List[str], int]]: ...  # Unix only
+    if sys.version_info >= (3, 7):
+        @overload
+        def fwalk(top: Union[str, PathLike[str]] = ..., topdown: bool = ...,
+                  onerror: Optional[Callable] = ..., *, follow_symlinks: bool = ...,
+                  dir_fd: Optional[int] = ...) -> Iterator[Tuple[str, List[str], List[str], int]]: ...  # Unix only
+        @overload
+        def fwalk(top: bytes, topdown: bool = ...,
+                  onerror: Optional[Callable] = ..., *, follow_symlinks: bool = ...,
+                  dir_fd: Optional[int] = ...) -> Iterator[Tuple[bytes, List[bytes], List[bytes], int]]: ...  # Unix only
+    elif sys.version_info >= (3, 6):
+        def fwalk(top: Union[str, PathLike[str]] = ..., topdown: bool = ...,
+                  onerror: Optional[Callable] = ..., *, follow_symlinks: bool = ...,
+                  dir_fd: Optional[int] = ...) -> Iterator[Tuple[str, List[str], List[str], int]]: ...  # Unix only
+    else:
+        def fwalk(top: str = ..., topdown: bool = ...,
+                  onerror: Optional[Callable] = ..., *, follow_symlinks: bool = ...,
+                  dir_fd: Optional[int] = ...) -> Iterator[Tuple[str, List[str], List[str], int]]: ...  # Unix only
     def getxattr(path: _FdOrPathType, attribute: _PathType, *, follow_symlinks: bool = ...) -> bytes: ...  # Linux only
     def listxattr(path: _FdOrPathType, *, follow_symlinks: bool = ...) -> List[str]: ...  # Linux only
     def removexattr(path: _FdOrPathType, attribute: _PathType, *, follow_symlinks: bool = ...) -> None: ...  # Linux only
