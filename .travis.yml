@@ -4,7 +4,7 @@ language: python
 matrix:
   include:
     - python: "3.6-dev"
-      env: TEST_CMD="flake8"
+      env: TEST_CMD="flake8 --exclude=.git"
     - python: "3.6"
       env: TEST_CMD="./tests/mypy_selftest.py"
     - python: "3.5"
