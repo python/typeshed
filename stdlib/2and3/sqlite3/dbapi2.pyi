@@ -2,26 +2,25 @@
 # based heavily on Andrey Vlasovskikh's python-skeletons https://github.com/JetBrains/python-skeletons/blob/master/sqlite3.py
 
 import sys
-from typing import Any, Callable, Iterator, List, Optional, Text, TypeVar, Union
-from datetime import time, datetime
-from collections import Iterable
+from typing import Any, Callable, Iterable, Iterator, List, Optional, Text, Tuple, Type, TypeVar, Union
+from datetime import date, time, datetime
 
 _T = TypeVar('_T')
 
-paramstyle = ...  # type: str
-threadsafety = ...  # type: int
-apilevel = ...  # type: str
-Date = ...  # type: datetime
-Time = ...  # type: time
-Timestamp = ...  # type: datetime
+paramstyle: str
+threadsafety: int
+apilevel: str
+Date = date
+Time = time
+Timestamp = datetime
 
 def DateFromTicks(ticks): ...
 def TimeFromTicks(ticks): ...
 def TimestampFromTicks(ticks): ...
 
-version_info = ...  # type: Any
-sqlite_version_info = ...  # type: Any
-Binary = ...  # type: Any
+version_info: str
+sqlite_version_info: Tuple[int, int, int]
+Binary: Type[Any]
 
 def register_adapters_and_converters(): ...
 
