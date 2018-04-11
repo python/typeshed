@@ -60,7 +60,7 @@ class _ActionsContainer:
                      type: Union[Callable[[_Text], _T], FileType] = ...,
                      choices: Iterable[_T] = ...,
                      required: bool = ...,
-                     help: _Text = ...,
+                     help: Optional[_Text] = ...,
                      metavar: Union[_Text, Tuple[_Text, ...]] = ...,
                      dest: Optional[_Text] = ...,
                      version: _Text = ...) -> Action: ...
