@@ -15,6 +15,8 @@ _T = TypeVar('_T')
 # ----- sys variables -----
 abiflags = ...  # type: str
 argv = ...  # type: List[str]
+base_exec_prefix: str
+base_prefix: str
 byteorder = ...  # type: str
 builtin_module_names = ...  # type: Sequence[str] # actually a tuple of strings
 copyright = ...  # type: str
