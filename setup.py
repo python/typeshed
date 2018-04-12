@@ -1,8 +1,5 @@
-import ast
 import os
-import re
 from setuptools import setup
-import sys
 
 import typeshed
 
