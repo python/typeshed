@@ -1,22 +1,12 @@
 import os
+import sys
 from setuptools import setup
 
 import typeshed
 
 
-CURRENT_DIR = os.path.dirname(__file__)
-
-
-def get_long_description():
-    readme_md = os.path.join(CURRENT_DIR, "README.md")
-    with open(readme_md, encoding="utf8") as ld_file:
-        return ld_file.read()
-
-
-assert not typeshed.__version__.endswith(".dirty"), (
-    "DO NOT PUBLISH DIRTY VERSIONS TO PyPI! "
-    "If you only wish to install locally, stash your changes first."
-)
+if typeshed.__version__.endswith(".dirty"):
+    print("WARNING: there are uncommitted changes.", file=sys.stderr)
 
 
 PROJECT_URL = "https://github.com/python/typeshed/"
@@ -26,6 +16,13 @@ v = typeshed.__version__.split("+", 1)
 if len(v) == 2:
     SOURCE_URL += "commit/" + v[1]
 PUBLIC_VERSION = v[0]
+
+
+def get_long_description():
+    current_dir = os.path.dirname(__file__)
+    readme_md = os.path.join(current_dir, "README.md")
+    with open(readme_md, encoding="utf8") as ld_file:
+        return ld_file.read()
 
 
 setup(
