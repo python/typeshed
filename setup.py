@@ -6,15 +6,22 @@ import sys
 from setuptools import setup
 
 import typeshed
+try:
+    import _typeshed_repo
+except ImportError:
+    _revision = ""
+    _is_dirty = False
+else:
+    _revision = _typeshed_repo.get_revision()
+    _is_dirty = _typeshed_repo.is_dirty()
 
 
 VERSION = typeshed.__version__
 PROJECT_URL = "https://github.com/python/typeshed/"
 ISSUES_URL = PROJECT_URL + "issues/"
 SOURCE_URL = PROJECT_URL
-_commit = typeshed.git_revision()
-if _commit:
-    SOURCE_URL += "commit/" + _commit
+if _revision:
+    SOURCE_URL += "commit/" + _revision
 
 
 def get_long_description():
@@ -49,6 +56,6 @@ setup(
 )
 
 
-if typeshed.is_dirty():
+if _is_dirty:
     print()
     print("WARNING: there are uncommitted changes.", file=sys.stderr)
