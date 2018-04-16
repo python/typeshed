@@ -21,8 +21,8 @@ Typeshed is organized in the following directory structure:
         ├── 3
         └── ...
 
-The `stdlib` directory contains stubs for modules the Python standard library --
-which includes pure Python modules, dynamically loaded extension modules,
+The `stdlib` directory contains stubs for modules of the Python standard library.
+This includes pure Python modules, dynamically loaded extension modules,
 hard-linked extension modules, and the builtins.  Modules that are not shipped
 with Python but have a type description in Python go into `third_party`.
 
