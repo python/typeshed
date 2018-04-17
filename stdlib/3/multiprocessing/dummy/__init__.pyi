@@ -1,35 +1,29 @@
 from typing import Any, Optional, List, Type
 
-import threading
-import sys
-import weakref
 import array
-import itertools
+import sys
+import threading
+import weakref
 
-from multiprocessing import TimeoutError, cpu_count
-from multiprocessing.dummy.connection import Pipe
+from .connection import Pipe
 from threading import Lock, RLock, Semaphore, BoundedSemaphore
-from threading import Event
-from Queue import Queue
+from threading import Event, Condition, Barrier
+from queue import Queue
+
+JoinableQueue = Queue
 
 __all__ = ...  # type: List[str]
 
 
 class DummyProcess(threading.Thread):
-    _children = ...  # type: weakref.WeakKeyDictionary
+    _children = ...  # type: weakref.WeakKeyDictionary[nothing, nothing]
     _parent = ...  # type: threading.Thread
     _pid = ...  # type: None
-    _start_called = ...  # type: bool
+    _start_called = ...  # type: int
+    exitcode = ...  # type: Optional[int]
     def __init__(self, group = ..., target = ..., name = ..., args = ..., kwargs = ...) -> None: ...
-    @property
-    def exitcode(self) -> Optional[int]
-
 
 Process = DummyProcess
-
-# This should be threading._Condition but threading.pyi exports it as Condition
-class Condition(threading.Condition):
-    notify_all = ... # type: Any
 
 class Namespace(object):
     def __init__(self, **kwds) -> None: ...
@@ -39,10 +33,7 @@ class Value(object):
     _value = ...  # type: Any
     value = ...  # type: Any
     def __init__(self, typecode, value, lock = ...) -> None: ...
-    def _get(self) -> Any: ...
-    def _set(self, value) -> None: ...
 
-JoinableQueue = Queue
 
 def Array(typecode, sequence, lock = ...) -> array.array: ...
 def Manager() -> Any: ...
