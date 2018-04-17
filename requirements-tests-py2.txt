@@ -1,1 +1,3 @@
 -e git+https://github.com/google/pytype.git@master#egg=pytype
+six
+pyyaml
