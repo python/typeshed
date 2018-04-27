@@ -1,7 +1,7 @@
 # Stubs for locale
 
 from decimal import Decimal
-from typing import Any, Iterable, List, Mapping, Optional, Sequence, Tuple, Union
+from typing import Any, Dict, Iterable, List, Mapping, Optional, Sequence, Tuple, Union
 import sys
 
 # workaround for mypy#2010
@@ -107,3 +107,6 @@ if sys.version_info >= (3, 5):
 def atof(string: _str) -> float: ...
 def atoi(string: _str) -> int: ...
 def str(float: float) -> _str: ...
+
+locale_alias: Dict[_str, _str]  # undocumented
+locale_encoding_alias: Dict[_str, _str]  # undocumented
