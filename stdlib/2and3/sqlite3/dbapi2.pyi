@@ -20,7 +20,10 @@ def TimestampFromTicks(ticks): ...
 
 version_info: str
 sqlite_version_info: Tuple[int, int, int]
-Binary: Type[Any]
+if sys.version_info >= (3,):
+    Binary = memoryview
+else:
+    Binary = buffer
 
 def register_adapters_and_converters(): ...
 
