@@ -99,6 +99,13 @@ class _hash_info:
     nan = 0
     imag = 0
 
+class _implementation:
+    name = ''
+    version = ... # type: _version_info
+    hexversion = 0
+    cache_tag = ''
+implementation = ...  # type: _implementation
+
 int_info = ...  # type: _int_info
 class _int_info:
     bits_per_digit = 0
