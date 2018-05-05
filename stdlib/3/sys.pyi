@@ -101,7 +101,7 @@ class _hash_info:
 
 class _implementation:
     name = ''
-    version = ... # type: _version_info
+    version = ...  # type: _version_info
     hexversion = 0
     cache_tag = ''
 implementation = ...  # type: _implementation
