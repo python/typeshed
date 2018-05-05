@@ -1,4 +1,4 @@
-from typing import Dict, Optional, Tuple, overload
+from typing import Dict, List, Optional, Tuple, overload
 
 
 class NetrcParseError(Exception):
