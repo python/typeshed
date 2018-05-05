@@ -100,10 +100,10 @@ class _hash_info:
     imag = 0
 
 class _implementation:
-    name = ''
+    name = ...  # type: str
     version = ...  # type: _version_info
     hexversion = 0
-    cache_tag = ''
+    cache_tag = ...  # type: str
 implementation = ...  # type: _implementation
 
 int_info = ...  # type: _int_info
