@@ -4,7 +4,7 @@ from typing import Dict, Optional, Tuple, overload
 class NetrcParseError(Exception):
     filename = ...  # type: Optional[str]
     lineno = ...  # type: Optional[int]
-    msg = ''
+    msg = ...  # type: str
 
 
 # (login, account, password) tuple
@@ -18,6 +18,6 @@ class netrc:
     @overload
     def __init__(self) -> None: ...
     @overload
-    def __init__(self, file) -> None: ...
-    
+    def __init__(self, file: str) -> None: ...
+
     def authenticators(self, host: str) -> Optional[_NetrcTuple]: ...
