@@ -8,7 +8,7 @@ from typing import (
     Union, TypeVar, Callable, Type
 )
 import sys
-from types import FrameType, TracebackType
+from types import FrameType, ModuleType, TracebackType
 
 if sys.version_info >= (3, 3):
     from importlib.abc import MetaPathFinder
@@ -39,7 +39,7 @@ last_traceback: Optional[TracebackType]
 maxsize: int
 maxunicode: int
 meta_path: List[MetaPathFinder]
-modules: Dict[str, Any]
+modules: Dict[str, ModuleType]
 path: List[str]
 path_hooks: List[Any]  # TODO precise type; function, path to finder
 path_importer_cache: Dict[str, Any]  # TODO precise type
