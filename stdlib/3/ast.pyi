@@ -1,16 +1,18 @@
 # Python 3.5 ast
 
 import typing
-from typing import Any, Union, Iterator
+from typing import Any, Union, TypeVar, Iterator
 
 from _ast import *
+
+_T = TypeVar('_T', bound=AST)
 
 class NodeVisitor():
     def visit(self, node: AST) -> Any: ...
     def generic_visit(self, node: AST) -> None: ...
 
 class NodeTransformer(NodeVisitor):
-    def generic_visit(self, node: AST) -> None: ...
+    def generic_visit(self, node: _T) -> _T: ...
 
 def parse(source: Union[str, bytes], filename: Union[str, bytes] = ..., mode: str = ...) -> Module: ...
 def copy_location(new_node: AST, old_node: AST) -> AST: ...
