@@ -1,4 +1,4 @@
-# Type declaration for a WSGI Function in Python 3
+# Type declaration for a WSGI Function
 #
 # wsgiref/types.py doesn't exist and neither does WSGIApplication, it's a type
 # provided for type checking purposes.
@@ -15,20 +15,27 @@
 # you need to use 'WSGIApplication' and not simply WSGIApplication when type
 # hinting your code.  Otherwise Python will raise NameErrors.
 
+import sys
 from typing import Callable, Dict, Iterable, List, Optional, Tuple, Type, Union, Any
 from types import TracebackType
 
 _exc_info = Tuple[Optional[Type[BaseException]],
                   Optional[BaseException],
                   Optional[TracebackType]]
-WSGIEnvironment = Dict[str, Any]
+if sys.version_info < (3,):
+    _Text = Union[unicode, str]
+    _BText = _Text
+else:
+    _Text = str
+    _BText = Union[bytes, str]
+WSGIEnvironment = Dict[_Text, Any]
 WSGIApplication = Callable[
     [
         WSGIEnvironment,
         Union[
-            Callable[[str, List[Tuple[str, str]]], Callable[[Union[bytes, str]], None]],
-            Callable[[str, List[Tuple[str, str]], _exc_info], Callable[[Union[bytes, str]], None]]
+            Callable[[_Text, List[Tuple[_Text, _Text]]], Callable[[_BText], None]],
+            Callable[[_Text, List[Tuple[_Text, _Text]], _exc_info], Callable[[_BText], None]]
         ]
     ],
-    Iterable[Union[bytes, str]]
+    Iterable[_BText]
 ]
