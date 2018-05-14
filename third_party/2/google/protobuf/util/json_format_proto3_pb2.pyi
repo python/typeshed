@@ -66,8 +66,8 @@ class EnumType(int):
     def items(cls) -> List[Tuple[str, EnumType]]: ...
 
 
-FOO = cast(EnumType, 0)
-BAR = cast(EnumType, 1)
+FOO: EnumType
+BAR: EnumType
 
 
 class MessageType(Message):

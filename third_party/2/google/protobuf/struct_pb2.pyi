@@ -33,7 +33,7 @@ class NullValue(int):
     def items(cls) -> List[Tuple[str, NullValue]]: ...
 
 
-NULL_VALUE = cast(NullValue, 0)
+NULL_VALUE: NullValue
 
 
 class Struct(Message):

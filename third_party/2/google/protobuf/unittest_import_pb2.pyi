@@ -27,9 +27,9 @@ class ImportEnum(int):
     def items(cls) -> List[Tuple[str, ImportEnum]]: ...
 
 
-IMPORT_FOO = cast(ImportEnum, 7)
-IMPORT_BAR = cast(ImportEnum, 8)
-IMPORT_BAZ = cast(ImportEnum, 9)
+IMPORT_FOO: ImportEnum
+IMPORT_BAR: ImportEnum
+IMPORT_BAZ: ImportEnum
 
 
 class ImportEnumForMap(int):
@@ -50,9 +50,9 @@ class ImportEnumForMap(int):
     def items(cls) -> List[Tuple[str, ImportEnumForMap]]: ...
 
 
-UNKNOWN = cast(ImportEnumForMap, 0)
-FOO = cast(ImportEnumForMap, 1)
-BAR = cast(ImportEnumForMap, 2)
+UNKNOWN: ImportEnumForMap
+FOO: ImportEnumForMap
+BAR: ImportEnumForMap
 
 
 class ImportMessage(Message):

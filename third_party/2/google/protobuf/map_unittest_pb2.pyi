@@ -38,9 +38,9 @@ class MapEnum(int):
     def items(cls) -> List[Tuple[str, MapEnum]]: ...
 
 
-MAP_ENUM_FOO = cast(MapEnum, 0)
-MAP_ENUM_BAR = cast(MapEnum, 1)
-MAP_ENUM_BAZ = cast(MapEnum, 2)
+MAP_ENUM_FOO: MapEnum
+MAP_ENUM_BAR: MapEnum
+MAP_ENUM_BAZ: MapEnum
 
 
 class TestMap(Message):
@@ -800,7 +800,7 @@ class MessageContainingEnumCalledType(Message):
         @classmethod
         def items(cls) -> List[Tuple[str,
                                      MessageContainingEnumCalledType.Type]]: ...
-    TYPE_FOO = cast(Type, 0)
+    TYPE_FOO: Type
 
     class TypeEntry(Message):
         key = ...  # type: Text

@@ -189,24 +189,24 @@ class FieldDescriptorProto(Message):
 
         @classmethod
         def items(cls) -> List[Tuple[str, FieldDescriptorProto.Type]]: ...
-    TYPE_DOUBLE = cast(Type, 1)
-    TYPE_FLOAT = cast(Type, 2)
-    TYPE_INT64 = cast(Type, 3)
-    TYPE_UINT64 = cast(Type, 4)
-    TYPE_INT32 = cast(Type, 5)
-    TYPE_FIXED64 = cast(Type, 6)
-    TYPE_FIXED32 = cast(Type, 7)
-    TYPE_BOOL = cast(Type, 8)
-    TYPE_STRING = cast(Type, 9)
-    TYPE_GROUP = cast(Type, 10)
-    TYPE_MESSAGE = cast(Type, 11)
-    TYPE_BYTES = cast(Type, 12)
-    TYPE_UINT32 = cast(Type, 13)
-    TYPE_ENUM = cast(Type, 14)
-    TYPE_SFIXED32 = cast(Type, 15)
-    TYPE_SFIXED64 = cast(Type, 16)
-    TYPE_SINT32 = cast(Type, 17)
-    TYPE_SINT64 = cast(Type, 18)
+    TYPE_DOUBLE: Type
+    TYPE_FLOAT: Type
+    TYPE_INT64: Type
+    TYPE_UINT64: Type
+    TYPE_INT32: Type
+    TYPE_FIXED64: Type
+    TYPE_FIXED32: Type
+    TYPE_BOOL: Type
+    TYPE_STRING: Type
+    TYPE_GROUP: Type
+    TYPE_MESSAGE: Type
+    TYPE_BYTES: Type
+    TYPE_UINT32: Type
+    TYPE_ENUM: Type
+    TYPE_SFIXED32: Type
+    TYPE_SFIXED64: Type
+    TYPE_SINT32: Type
+    TYPE_SINT64: Type
 
     class Label(int):
 
@@ -224,9 +224,9 @@ class FieldDescriptorProto(Message):
 
         @classmethod
         def items(cls) -> List[Tuple[str, FieldDescriptorProto.Label]]: ...
-    LABEL_OPTIONAL = cast(Label, 1)
-    LABEL_REQUIRED = cast(Label, 2)
-    LABEL_REPEATED = cast(Label, 3)
+    LABEL_OPTIONAL: Label
+    LABEL_REQUIRED: Label
+    LABEL_REPEATED: Label
     name = ...  # type: Text
     number = ...  # type: int
     label = ...  # type: FieldDescriptorProto.Label
@@ -390,9 +390,9 @@ class FileOptions(Message):
 
         @classmethod
         def items(cls) -> List[Tuple[str, FileOptions.OptimizeMode]]: ...
-    SPEED = cast(OptimizeMode, 1)
-    CODE_SIZE = cast(OptimizeMode, 2)
-    LITE_RUNTIME = cast(OptimizeMode, 3)
+    SPEED: OptimizeMode
+    CODE_SIZE: OptimizeMode
+    LITE_RUNTIME: OptimizeMode
     java_package = ...  # type: Text
     java_outer_classname = ...  # type: Text
     java_multiple_files = ...  # type: bool
@@ -482,9 +482,9 @@ class FieldOptions(Message):
 
         @classmethod
         def items(cls) -> List[Tuple[str, FieldOptions.CType]]: ...
-    STRING = cast(CType, 0)
-    CORD = cast(CType, 1)
-    STRING_PIECE = cast(CType, 2)
+    STRING: CType
+    CORD: CType
+    STRING_PIECE: CType
 
     class JSType(int):
 
@@ -502,9 +502,9 @@ class FieldOptions(Message):
 
         @classmethod
         def items(cls) -> List[Tuple[str, FieldOptions.JSType]]: ...
-    JS_NORMAL = cast(JSType, 0)
-    JS_STRING = cast(JSType, 1)
-    JS_NUMBER = cast(JSType, 2)
+    JS_NORMAL: JSType
+    JS_STRING: JSType
+    JS_NUMBER: JSType
     ctype = ...  # type: FieldOptions.CType
     packed = ...  # type: bool
     jstype = ...  # type: FieldOptions.JSType
@@ -612,9 +612,9 @@ class MethodOptions(Message):
 
         @classmethod
         def items(cls) -> List[Tuple[str, MethodOptions.IdempotencyLevel]]: ...
-    IDEMPOTENCY_UNKNOWN = cast(IdempotencyLevel, 0)
-    NO_SIDE_EFFECTS = cast(IdempotencyLevel, 1)
-    IDEMPOTENT = cast(IdempotencyLevel, 2)
+    IDEMPOTENCY_UNKNOWN: IdempotencyLevel
+    NO_SIDE_EFFECTS: IdempotencyLevel
+    IDEMPOTENT: IdempotencyLevel
     deprecated = ...  # type: bool
     idempotency_level = ...  # type: MethodOptions.IdempotencyLevel
 

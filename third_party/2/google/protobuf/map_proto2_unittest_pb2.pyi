@@ -31,9 +31,9 @@ class Proto2MapEnum(int):
 
     @classmethod
     def items(cls) -> List[Tuple[str, Proto2MapEnum]]: ...
-PROTO2_MAP_ENUM_FOO = cast(Proto2MapEnum, 0)
-PROTO2_MAP_ENUM_BAR = cast(Proto2MapEnum, 1)
-PROTO2_MAP_ENUM_BAZ = cast(Proto2MapEnum, 2)
+PROTO2_MAP_ENUM_FOO: Proto2MapEnum
+PROTO2_MAP_ENUM_BAR: Proto2MapEnum
+PROTO2_MAP_ENUM_BAZ: Proto2MapEnum
 
 
 class Proto2MapEnumPlusExtra(int):
@@ -52,10 +52,10 @@ class Proto2MapEnumPlusExtra(int):
 
     @classmethod
     def items(cls) -> List[Tuple[str, Proto2MapEnumPlusExtra]]: ...
-E_PROTO2_MAP_ENUM_FOO = cast(Proto2MapEnumPlusExtra, 0)
-E_PROTO2_MAP_ENUM_BAR = cast(Proto2MapEnumPlusExtra, 1)
-E_PROTO2_MAP_ENUM_BAZ = cast(Proto2MapEnumPlusExtra, 2)
-E_PROTO2_MAP_ENUM_EXTRA = cast(Proto2MapEnumPlusExtra, 3)
+E_PROTO2_MAP_ENUM_FOO: Proto2MapEnumPlusExtra
+E_PROTO2_MAP_ENUM_BAR: Proto2MapEnumPlusExtra
+E_PROTO2_MAP_ENUM_BAZ: Proto2MapEnumPlusExtra
+E_PROTO2_MAP_ENUM_EXTRA: Proto2MapEnumPlusExtra
 
 
 class TestEnumMap(Message):

@@ -39,8 +39,8 @@ class Syntax(int):
     def items(cls) -> List[Tuple[str, Syntax]]: ...
 
 
-SYNTAX_PROTO2 = cast(Syntax, 0)
-SYNTAX_PROTO3 = cast(Syntax, 1)
+SYNTAX_PROTO2: Syntax
+SYNTAX_PROTO3: Syntax
 
 
 class Type(Message):
@@ -88,25 +88,25 @@ class Field(Message):
 
         @classmethod
         def items(cls) -> List[Tuple[str, Field.Kind]]: ...
-    TYPE_UNKNOWN = cast(Kind, 0)
-    TYPE_DOUBLE = cast(Kind, 1)
-    TYPE_FLOAT = cast(Kind, 2)
-    TYPE_INT64 = cast(Kind, 3)
-    TYPE_UINT64 = cast(Kind, 4)
-    TYPE_INT32 = cast(Kind, 5)
-    TYPE_FIXED64 = cast(Kind, 6)
-    TYPE_FIXED32 = cast(Kind, 7)
-    TYPE_BOOL = cast(Kind, 8)
-    TYPE_STRING = cast(Kind, 9)
-    TYPE_GROUP = cast(Kind, 10)
-    TYPE_MESSAGE = cast(Kind, 11)
-    TYPE_BYTES = cast(Kind, 12)
-    TYPE_UINT32 = cast(Kind, 13)
-    TYPE_ENUM = cast(Kind, 14)
-    TYPE_SFIXED32 = cast(Kind, 15)
-    TYPE_SFIXED64 = cast(Kind, 16)
-    TYPE_SINT32 = cast(Kind, 17)
-    TYPE_SINT64 = cast(Kind, 18)
+    TYPE_UNKNOWN: Kind
+    TYPE_DOUBLE: Kind
+    TYPE_FLOAT: Kind
+    TYPE_INT64: Kind
+    TYPE_UINT64: Kind
+    TYPE_INT32: Kind
+    TYPE_FIXED64: Kind
+    TYPE_FIXED32: Kind
+    TYPE_BOOL: Kind
+    TYPE_STRING: Kind
+    TYPE_GROUP: Kind
+    TYPE_MESSAGE: Kind
+    TYPE_BYTES: Kind
+    TYPE_UINT32: Kind
+    TYPE_ENUM: Kind
+    TYPE_SFIXED32: Kind
+    TYPE_SFIXED64: Kind
+    TYPE_SINT32: Kind
+    TYPE_SINT64: Kind
 
     class Cardinality(int):
 
@@ -124,10 +124,10 @@ class Field(Message):
 
         @classmethod
         def items(cls) -> List[Tuple[str, Field.Cardinality]]: ...
-    CARDINALITY_UNKNOWN = cast(Cardinality, 0)
-    CARDINALITY_OPTIONAL = cast(Cardinality, 1)
-    CARDINALITY_REQUIRED = cast(Cardinality, 2)
-    CARDINALITY_REPEATED = cast(Cardinality, 3)
+    CARDINALITY_UNKNOWN: Cardinality
+    CARDINALITY_OPTIONAL: Cardinality
+    CARDINALITY_REQUIRED: Cardinality
+    CARDINALITY_REPEATED: Cardinality
     kind = ...  # type: Field.Kind
     cardinality = ...  # type: Field.Cardinality
     number = ...  # type: int

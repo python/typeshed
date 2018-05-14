@@ -39,10 +39,10 @@ class ForeignEnum(int):
     def items(cls) -> List[Tuple[str, ForeignEnum]]: ...
 
 
-FOREIGN_ZERO = cast(ForeignEnum, 0)
-FOREIGN_FOO = cast(ForeignEnum, 4)
-FOREIGN_BAR = cast(ForeignEnum, 5)
-FOREIGN_BAZ = cast(ForeignEnum, 6)
+FOREIGN_ZERO: ForeignEnum
+FOREIGN_FOO: ForeignEnum
+FOREIGN_BAR: ForeignEnum
+FOREIGN_BAZ: ForeignEnum
 
 
 class TestAllTypes(Message):
@@ -63,11 +63,11 @@ class TestAllTypes(Message):
 
         @classmethod
         def items(cls) -> List[Tuple[str, TestAllTypes.NestedEnum]]: ...
-    ZERO = cast(NestedEnum, 0)
-    FOO = cast(NestedEnum, 1)
-    BAR = cast(NestedEnum, 2)
-    BAZ = cast(NestedEnum, 3)
-    NEG = cast(NestedEnum, -1)
+    ZERO: NestedEnum
+    FOO: NestedEnum
+    BAR: NestedEnum
+    BAZ: NestedEnum
+    NEG: NestedEnum
 
     class NestedMessage(Message):
         bb = ...  # type: int

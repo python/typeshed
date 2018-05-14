@@ -41,9 +41,9 @@ class ForeignEnum(int):
     def items(cls) -> List[Tuple[str, ForeignEnum]]: ...
 
 
-FOREIGN_FOO = cast(ForeignEnum, 4)
-FOREIGN_BAR = cast(ForeignEnum, 5)
-FOREIGN_BAZ = cast(ForeignEnum, 6)
+FOREIGN_FOO: ForeignEnum
+FOREIGN_BAR: ForeignEnum
+FOREIGN_BAZ: ForeignEnum
 
 
 class TestEnumWithDupValue(int):
@@ -63,11 +63,11 @@ class TestEnumWithDupValue(int):
     def items(cls) -> List[Tuple[str, TestEnumWithDupValue]]: ...
 
 
-FOO1 = cast(TestEnumWithDupValue, 1)
-BAR1 = cast(TestEnumWithDupValue, 2)
-BAZ = cast(TestEnumWithDupValue, 3)
-FOO2 = cast(TestEnumWithDupValue, 1)
-BAR2 = cast(TestEnumWithDupValue, 2)
+FOO1: TestEnumWithDupValue
+BAR1: TestEnumWithDupValue
+BAZ: TestEnumWithDupValue
+FOO2: TestEnumWithDupValue
+BAR2: TestEnumWithDupValue
 
 
 class TestSparseEnum(int):
@@ -87,13 +87,13 @@ class TestSparseEnum(int):
     def items(cls) -> List[Tuple[str, TestSparseEnum]]: ...
 
 
-SPARSE_A = cast(TestSparseEnum, 123)
-SPARSE_B = cast(TestSparseEnum, 62374)
-SPARSE_C = cast(TestSparseEnum, 12589234)
-SPARSE_D = cast(TestSparseEnum, -15)
-SPARSE_E = cast(TestSparseEnum, -53452)
-SPARSE_F = cast(TestSparseEnum, 0)
-SPARSE_G = cast(TestSparseEnum, 2)
+SPARSE_A: TestSparseEnum
+SPARSE_B: TestSparseEnum
+SPARSE_C: TestSparseEnum
+SPARSE_D: TestSparseEnum
+SPARSE_E: TestSparseEnum
+SPARSE_F: TestSparseEnum
+SPARSE_G: TestSparseEnum
 
 
 class TestAllTypes(Message):
@@ -112,10 +112,10 @@ class TestAllTypes(Message):
 
         @classmethod
         def items(cls) -> List[Tuple[str, TestAllTypes.NestedEnum]]: ...
-    FOO = cast(NestedEnum, 1)
-    BAR = cast(NestedEnum, 2)
-    BAZ = cast(NestedEnum, 3)
-    NEG = cast(NestedEnum, -1)
+    FOO: NestedEnum
+    BAR: NestedEnum
+    BAZ: NestedEnum
+    NEG: NestedEnum
 
     class NestedMessage(Message):
         bb = ...  # type: int
@@ -1207,9 +1207,9 @@ class TestOneof2(Message):
 
         @classmethod
         def items(cls) -> List[Tuple[str, TestOneof2.NestedEnum]]: ...
-    FOO = cast(NestedEnum, 1)
-    BAR = cast(NestedEnum, 2)
-    BAZ = cast(NestedEnum, 3)
+    FOO: NestedEnum
+    BAR: NestedEnum
+    BAZ: NestedEnum
 
     class FooGroup(Message):
         a = ...  # type: int
@@ -1417,9 +1417,9 @@ class TestDynamicExtensions(Message):
         @classmethod
         def items(cls) -> List[Tuple[str,
                                      TestDynamicExtensions.DynamicEnumType]]: ...
-    DYNAMIC_FOO = cast(DynamicEnumType, 2200)
-    DYNAMIC_BAR = cast(DynamicEnumType, 2201)
-    DYNAMIC_BAZ = cast(DynamicEnumType, 2202)
+    DYNAMIC_FOO: DynamicEnumType
+    DYNAMIC_BAR: DynamicEnumType
+    DYNAMIC_BAZ: DynamicEnumType
 
     class DynamicMessageType(Message):
         dynamic_field = ...  # type: int

@@ -60,9 +60,9 @@ class ForeignEnum(int):
 
     @classmethod
     def items(cls) -> List[Tuple[str, ForeignEnum]]: ...
-FOREIGN_FOO = cast(ForeignEnum, 0)
-FOREIGN_BAR = cast(ForeignEnum, 1)
-FOREIGN_BAZ = cast(ForeignEnum, 2)
+FOREIGN_FOO: ForeignEnum
+FOREIGN_BAR: ForeignEnum
+FOREIGN_BAZ: ForeignEnum
 
 
 class TestAllTypesProto3(Message):
@@ -83,10 +83,10 @@ class TestAllTypesProto3(Message):
 
         @classmethod
         def items(cls) -> List[Tuple[str, TestAllTypesProto3.NestedEnum]]: ...
-    FOO = cast(NestedEnum, 0)
-    BAR = cast(NestedEnum, 1)
-    BAZ = cast(NestedEnum, 2)
-    NEG = cast(NestedEnum, -1)
+    FOO: NestedEnum
+    BAR: NestedEnum
+    BAZ: NestedEnum
+    NEG: NestedEnum
 
     class NestedMessage(Message):
         a = ...  # type: int

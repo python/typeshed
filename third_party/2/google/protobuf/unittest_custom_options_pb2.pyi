@@ -36,8 +36,8 @@ class MethodOpt1(int):
     def items(cls) -> List[Tuple[str, MethodOpt1]]: ...
 
 
-METHODOPT1_VAL1 = cast(MethodOpt1, 1)
-METHODOPT1_VAL2 = cast(MethodOpt1, 2)
+METHODOPT1_VAL1: MethodOpt1
+METHODOPT1_VAL2: MethodOpt1
 
 
 class AggregateEnum(int):
@@ -58,7 +58,7 @@ class AggregateEnum(int):
     def items(cls) -> List[Tuple[str, AggregateEnum]]: ...
 
 
-VALUE = cast(AggregateEnum, 1)
+VALUE: AggregateEnum
 
 
 class TestMessageWithCustomOptions(Message):
@@ -80,8 +80,8 @@ class TestMessageWithCustomOptions(Message):
         @classmethod
         def items(cls) -> List[Tuple[str,
                                      TestMessageWithCustomOptions.AnEnum]]: ...
-    ANENUM_VAL1 = cast(AnEnum, 1)
-    ANENUM_VAL2 = cast(AnEnum, 2)
+    ANENUM_VAL1: AnEnum
+    ANENUM_VAL2: AnEnum
     field1 = ...  # type: Text
     oneof_field = ...  # type: int
 
@@ -149,8 +149,8 @@ class DummyMessageContainingEnum(Message):
         @classmethod
         def items(cls) -> List[Tuple[str,
                                      DummyMessageContainingEnum.TestEnumType]]: ...
-    TEST_OPTION_ENUM_TYPE1 = cast(TestEnumType, 22)
-    TEST_OPTION_ENUM_TYPE2 = cast(TestEnumType, -23)
+    TEST_OPTION_ENUM_TYPE1: TestEnumType
+    TEST_OPTION_ENUM_TYPE2: TestEnumType
 
     def __init__(self,
                  ) -> None: ...
@@ -385,7 +385,7 @@ class NestedOptionType(Message):
 
         @classmethod
         def items(cls) -> List[Tuple[str, NestedOptionType.NestedEnum]]: ...
-    NESTED_ENUM_VALUE = cast(NestedEnum, 1)
+    NESTED_ENUM_VALUE: NestedEnum
 
     class NestedMessage(Message):
         nested_field = ...  # type: int
@@ -422,7 +422,7 @@ class OldOptionType(Message):
 
         @classmethod
         def items(cls) -> List[Tuple[str, OldOptionType.TestEnum]]: ...
-    OLD_VALUE = cast(TestEnum, 0)
+    OLD_VALUE: TestEnum
     value = ...  # type: OldOptionType.TestEnum
 
     def __init__(self,
@@ -451,8 +451,8 @@ class NewOptionType(Message):
 
         @classmethod
         def items(cls) -> List[Tuple[str, NewOptionType.TestEnum]]: ...
-    OLD_VALUE = cast(TestEnum, 0)
-    NEW_VALUE = cast(TestEnum, 1)
+    OLD_VALUE: TestEnum
+    NEW_VALUE: TestEnum
     value = ...  # type: NewOptionType.TestEnum
 
     def __init__(self,

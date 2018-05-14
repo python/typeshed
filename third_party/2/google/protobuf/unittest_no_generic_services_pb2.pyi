@@ -26,7 +26,7 @@ class TestEnum(int):
     def items(cls) -> List[Tuple[str, TestEnum]]: ...
 
 
-FOO = cast(TestEnum, 1)
+FOO: TestEnum
 
 
 class TestMessage(Message):
