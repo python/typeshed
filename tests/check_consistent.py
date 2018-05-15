@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # Symlinks are bad on Windows, so we cannot use them in typeshed.
 # This checks that certain files are duplicated exactly.
 
