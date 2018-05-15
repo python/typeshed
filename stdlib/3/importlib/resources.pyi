@@ -1,5 +1,5 @@
 import sys
-if sys.version_info >= (3, 7, 0):
+if sys.version_info >= (3, 7):
     import os
 
     from pathlib import Path
