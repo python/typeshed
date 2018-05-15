@@ -1,3 +1,4 @@
+# NB: __builtin__.pyi and builtins.pyi must remain consistent!
 # Stubs for builtins (Python 2.7)
 
 # True and False are deliberately omitted because they are keywords in
