@@ -1,5 +1,5 @@
 from ._common import weekday as weekdaybase
-from typing import Any, List, Optional, Union
+from typing import Any, Iterable, Optional, Union
 import datetime
 
 YEARLY: int
@@ -11,7 +11,7 @@ MINUTELY: int
 SECONDLY: int
 
 class weekday(weekdaybase):
-    def __init__(self, wkday, n: Optional[Any] = ...) -> None: ...
+    ...
 
 MO: weekday
 TU: weekday
@@ -40,16 +40,16 @@ class rrule(rrulebase):
                  wkst: Optional[Union[weekday, int]] = ...,
                  count: Optional[int] = ...,
                  until: Optional[Union[datetime.datetime, int]] = ...,
-                 bysetpos: Optional[Union[int, List[int]]] = ...,
-                 bymonth: Optional[Union[int, List[int]]] = ...,
-                 bymonthday: Optional[Union[int, List[int]]] = ...,
-                 byyearday: Optional[Union[int, List[int]]] = ...,
-                 byeaster: Optional[Union[int, List[int]]] = ...,
-                 byweekno: Optional[Union[int, List[int]]] = ...,
-                 byweekday: Optional[Union[int, List[int]]] = ...,
-                 byhour: Optional[Union[int, List[int]]] = ...,
-                 byminute: Optional[Union[int, List[int]]] = ...,
-                 bysecond: Optional[Union[int, List[int]]] = ...,
+                 bysetpos: Optional[Union[int, Iterable[int]]] = ...,
+                 bymonth: Optional[Union[int, Iterable[int]]] = ...,
+                 bymonthday: Optional[Union[int, Iterable[int]]] = ...,
+                 byyearday: Optional[Union[int, Iterable[int]]] = ...,
+                 byeaster: Optional[Union[int, Iterable[int]]] = ...,
+                 byweekno: Optional[Union[int, Iterable[int]]] = ...,
+                 byweekday: Optional[Union[int, Iterable[int]]] = ...,
+                 byhour: Optional[Union[int, Iterable[int]]] = ...,
+                 byminute: Optional[Union[int, Iterable[int]]] = ...,
+                 bysecond: Optional[Union[int, Iterable[int]]] = ...,
                  cache: bool = ...) -> None: ...
     def replace(self, **kwargs): ...
 
