@@ -70,6 +70,20 @@ class Attribute(Generic[_T]):
 # This makes this type of assignments possible:
 #     x: int = attr(8)
 
+# This form catches explicit None or no default but with no other arguments returns Any.
+@overload
+def attrib(default: None = ...,
+           validator: None = ...,
+           repr: bool = ...,
+           cmp: bool = ...,
+           hash: Optional[bool] = ...,
+           init: bool = ...,
+           convert: None = ...,
+           metadata: Optional[Mapping[Any, Any]] = ...,
+           type: None = ...,
+           converter: None = ...,
+           factory: None = ...,
+           ) -> Any: ...
 # This form catches an explicit None or no default and infers the type from the other arguments.
 @overload
 def attrib(default: None = ...,
@@ -98,20 +112,6 @@ def attrib(default: _T,
            converter: Optional[_ConverterType[_T]] = ...,
            factory: Optional[Callable[[], _T]] = ...,
            ) -> _T: ...
-# This form catches explicit None or no default but with no other arguments returns Any.
-@overload
-def attrib(default: None = ...,
-           validator: None = ...,
-           repr: bool = ...,
-           cmp: bool = ...,
-           hash: Optional[bool] = ...,
-           init: bool = ...,
-           convert: None = ...,
-           metadata: Optional[Mapping[Any, Any]] = ...,
-           type: None = ...,
-           converter: None = ...,
-           factory: None = ...,
-           ) -> Any: ...
 # This form covers type=non-Type: e.g. forward references (str), Any
 @overload
 def attrib(default: Optional[_T] = ...,
@@ -218,6 +218,19 @@ def get_run_validators() -> bool: ...
 
 @overload
 def ib(default: None = ...,
+       validator: None = ...,
+       repr: bool = ...,
+       cmp: bool = ...,
+       hash: Optional[bool] = ...,
+       init: bool = ...,
+       convert: None = ...,
+       metadata: Optional[Mapping[Any, Any]] = ...,
+       type: None = ...,
+       converter: None = ...,
+       factory: None = ...,
+       ) -> Any: ...
+@overload
+def ib(default: None = ...,
        validator: Optional[_ValidatorArgType[_T]] = ...,
        repr: bool = ...,
        cmp: bool = ...,
@@ -243,19 +256,6 @@ def ib(default: _T,
        factory: Optional[Callable[[], _T]] = ...,
        ) -> _T: ...
 @overload
-def ib(default: None = ...,
-       validator: None = ...,
-       repr: bool = ...,
-       cmp: bool = ...,
-       hash: Optional[bool] = ...,
-       init: bool = ...,
-       convert: None = ...,
-       metadata: Optional[Mapping[Any, Any]] = ...,
-       type: None = ...,
-       converter: None = ...,
-       factory: None = ...,
-       ) -> Any: ...
-@overload
 def ib(default: Optional[_T] = ...,
        validator: Optional[_ValidatorArgType[_T]] = ...,
        repr: bool = ...,
@@ -269,6 +269,19 @@ def ib(default: Optional[_T] = ...,
        factory: Optional[Callable[[], _T]] = ...,
        ) -> Any: ...
 
+@overload
+def attr(default: None = ...,
+         validator: None = ...,
+         repr: bool = ...,
+         cmp: bool = ...,
+         hash: Optional[bool] = ...,
+         init: bool = ...,
+         convert: None = ...,
+         metadata: Optional[Mapping[Any, Any]] = ...,
+         type: None = ...,
+         converter: None = ...,
+         factory: None = ...,
+         ) -> Any: ...
 @overload
 def attr(default: None = ...,
          validator: Optional[_ValidatorArgType[_T]] = ...,
@@ -295,19 +308,6 @@ def attr(default: _T,
          converter: Optional[_ConverterType[_T]] = ...,
          factory: Optional[Callable[[], _T]] = ...,
          ) -> _T: ...
-@overload
-def attr(default: None = ...,
-         validator: None = ...,
-         repr: bool = ...,
-         cmp: bool = ...,
-         hash: Optional[bool] = ...,
-         init: bool = ...,
-         convert: None = ...,
-         metadata: Optional[Mapping[Any, Any]] = ...,
-         type: None = ...,
-         converter: None = ...,
-         factory: None = ...,
-         ) -> Any: ...
 @overload
 def attr(default: Optional[_T] = ...,
          validator: Optional[_ValidatorArgType[_T]] = ...,
