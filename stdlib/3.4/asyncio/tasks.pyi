@@ -1,6 +1,6 @@
 from typing import (Any, TypeVar, Set, Dict, List, TextIO, Union, Tuple, Generic, Callable,
                     Coroutine, Generator, Iterable, Awaitable, overload, Sequence, Iterator,
-                    Optional, ClassVar)
+                    Optional)
 from types import FrameType
 import concurrent.futures
 from .events import AbstractEventLoop
@@ -58,8 +58,6 @@ def wait_for(fut: _FutureT[_T], timeout: Optional[float],
              *, loop: AbstractEventLoop = ...) -> Future[_T]: ...
 
 class Task(Future[_T], Generic[_T]):
-    _all_tasks: ClassVar[Set[Task]]
-    _current_tasks: ClassVar[Dict[AbstractEventLoop, Task]]
     @classmethod
     def current_task(cls, loop: AbstractEventLoop = ...) -> Task: ...
     @classmethod
