@@ -37,7 +37,7 @@ WSGIApplication = Callable[
             Callable[[Text, List[Tuple[Text, Text]], _exc_info], Callable[[_BText], None]]
         ]
     ],
-    Iterable[_BText]
+    Iterable[_Bytes]
 ]
 
 # WSGI input streams per PEP 3333
