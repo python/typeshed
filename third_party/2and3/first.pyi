@@ -5,11 +5,9 @@ _S = TypeVar('_S')
 
 @overload
 def first(iterable: Iterable[_T]) -> Optional[_T]: ...
-
-
 @overload
 def first(iterable: Iterable[_T], default: _S) -> Union[_T, _S]: ...
-
-
 @overload
 def first(iterable: Iterable[_T], default: _S, key: Optional[Callable[[_T], Any]]) -> Union[_T, _S]: ...
+@overload
+def first(iterable: Iterable[_T], key: Optional[Callable[[_T], Any]]) -> Optional[_T]: ...
