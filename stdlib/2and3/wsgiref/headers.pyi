@@ -6,7 +6,7 @@ _HeaderList = List[Tuple[str, str]]
 tspecials: Pattern[str]  # undocumented
 
 class Headers:
-    if sys.version_info < (3,5):
+    if sys.version_info < (3, 5):
         def __init__(self, headers: _HeaderList) -> None: ...
     else:
         def __init__(self, headers: Optional[_HeaderList] = ...) -> None: ...
