@@ -15,19 +15,13 @@
 # you need to use 'WSGIApplication' and not simply WSGIApplication when type
 # hinting your code.  Otherwise Python will raise NameErrors.
 
-import sys
 from typing import Callable, Dict, Iterable, List, Optional, Tuple, Type, Union, Any, Text, Protocol
 from types import TracebackType
 
 _exc_info = Tuple[Optional[Type[BaseException]],
                   Optional[BaseException],
                   Optional[TracebackType]]
-if sys.version_info < (3,):
-    _Bytes = str
-    _BText = Text
-else:
-    _Bytes = bytes
-    _BText = Union[bytes, str]
+_BText = Union[bytes, str]
 WSGIEnvironment = Dict[Text, Any]
 WSGIApplication = Callable[
     [
@@ -37,15 +31,15 @@ WSGIApplication = Callable[
             Callable[[Text, List[Tuple[Text, Text]], _exc_info], Callable[[_BText], None]]
         ]
     ],
-    Iterable[_Bytes]
+    Iterable[bytes]
 ]
 
 # WSGI input streams per PEP 3333
 class InputStream(Protocol):
-    def read(self, size: int = ...) -> _Bytes: ...
-    def readline(self, size: int = ...) -> _Bytes: ...
-    def readlines(self, hint: int = ...) -> List[_Bytes]: ...
-    def __iter__(self) -> Iterable[_Bytes]: ...
+    def read(self, size: int = ...) -> bytes: ...
+    def readline(self, size: int = ...) -> bytes: ...
+    def readlines(self, hint: int = ...) -> List[bytes]: ...
+    def __iter__(self) -> Iterable[bytes]: ...
 
 # WSGI error streams per PEP 3333
 class ErrorStream(Protocol):
