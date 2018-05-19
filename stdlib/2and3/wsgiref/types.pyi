@@ -21,14 +21,13 @@ from types import TracebackType
 _exc_info = Tuple[Optional[Type[BaseException]],
                   Optional[BaseException],
                   Optional[TracebackType]]
-_BText = Union[bytes, str]
 WSGIEnvironment = Dict[Text, Any]
 WSGIApplication = Callable[
     [
         WSGIEnvironment,
         Union[
-            Callable[[Text, List[Tuple[Text, Text]]], Callable[[_BText], None]],
-            Callable[[Text, List[Tuple[Text, Text]], _exc_info], Callable[[_BText], None]]
+            Callable[[Text, List[Tuple[Text, Text]]], Callable[[bytes], None]],
+            Callable[[Text, List[Tuple[Text, Text]], _exc_info], Callable[[bytes], None]]
         ]
     ],
     Iterable[bytes]
