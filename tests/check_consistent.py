@@ -13,13 +13,15 @@ consistent_files = [
     {'stdlib/2/os2emxpath.pyi', 'stdlib/2/posixpath.pyi', 'stdlib/2/ntpath.pyi', 'stdlib/2/macpath.pyi'},
     {'stdlib/3/ntpath.pyi', 'stdlib/3/posixpath.pyi', 'stdlib/3/macpath.pyi', 'stdlib/3/posixpath.pyi'},
     {'stdlib/3.4/enum.pyi', 'third_party/3/enum.pyi'},
+    {'stdlib/2/os/path.pyi', 'stdlib/3/os/path.pyi'},
 ]
 
 def main():
     files = [path.join(root, file) for root, dir, files in os.walk('.') for file in files]
-    no_symlink = 'You cannot use symlinks in typeshed, please copy the file to its link.'
+    no_symlink = 'You cannot use symlinks in typeshed, please copy {} to its link.'
     for file in files:
-        if path.islink(file):
+        _, ext = os.path.splitext(file)
+        if ext == '.pyi' and path.islink(file):
             raise ValueError(no_symlink.format(file))
     for file1, *others in consistent_files:
         f1 = path.join(os.getcwd(), file1)
