@@ -3,9 +3,8 @@
 # Symlinks are bad on Windows, so we cannot use them in typeshed.
 # This checks that certain files are duplicated exactly.
 
-import os
+import os.path
 import filecmp
-from os import path
 
 consistent_files = [
     {'stdlib/2/builtins.pyi', 'stdlib/2/__builtin__.pyi'},
@@ -17,16 +16,16 @@ consistent_files = [
 ]
 
 def main():
-    files = [path.join(root, file) for root, dir, files in os.walk('.') for file in files]
+    files = [os.path.join(root, file) for root, dir, files in os.walk('.') for file in files]
     no_symlink = 'You cannot use symlinks in typeshed, please copy {} to its link.'
     for file in files:
         _, ext = os.path.splitext(file)
-        if ext == '.pyi' and path.islink(file):
+        if ext == '.pyi' and os.path.islink(file):
             raise ValueError(no_symlink.format(file))
     for file1, *others in consistent_files:
-        f1 = path.join(os.getcwd(), file1)
+        f1 = os.path.join(os.getcwd(), file1)
         for file2 in others:
-            f2 = path.join(os.getcwd(), file2)
+            f2 = os.path.join(os.getcwd(), file2)
             if not filecmp.cmp(f1, f2):
                 raise ValueError('File {f1} does not match file {f2}. Please copy it to {f2}'.format(f1=file1, f2=file2))
 
