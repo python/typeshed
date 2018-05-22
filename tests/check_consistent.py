@@ -3,7 +3,7 @@
 # Symlinks are bad on Windows, so we cannot use them in typeshed.
 # This checks that certain files are duplicated exactly.
 
-import os.path
+import os
 import filecmp
 
 consistent_files = [
