@@ -8,7 +8,7 @@ import sys
 _P = TypeVar('_P', bound='PurePath')
 
 if sys.version_info >= (3, 6):
-    _PurePathBase = os.PathLike[str]
+    _PurePathBase = os._PathLike[str]
 else:
     _PurePathBase = object
 
