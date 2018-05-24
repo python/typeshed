@@ -10,10 +10,11 @@ _T = TypeVar('_T')
 
 if sys.version_info >= (3,):
     _StrType = Text
-    _JunkCallback = Callable[[str], bool]
 else:
+    # Aliases can't point to type vars, so we need to redeclare AnyStr
     _StrType = TypeVar('_StrType', str, bytes)
-    _JunkCallback = Union[Callable[[Text], bool], Callable[[str], bool]]
+
+_JunkCallback = Union[Callable[[Text], bool], Callable[[str], bool]]
 
 Match = NamedTuple('Match', [
     ('a', int),
