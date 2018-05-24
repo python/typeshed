@@ -141,7 +141,7 @@ else:
     def join(path: AnyStr, *paths: AnyStr) -> AnyStr: ...
 
 @overload
-def relpath(path: _BytesPath, start: _BytesPath) -> bytes: ...  # type: ignore
+def relpath(path: _BytesPath, start: Optional[_BytesPath] = ...) -> bytes: ...  # type: ignore
 @overload
 def relpath(path: _StrPath, start: Optional[_StrPath] = ...) -> Text: ...
 
