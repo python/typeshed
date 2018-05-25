@@ -1,22 +1,13 @@
 import sys
-from types import TracebackType
-from typing import Optional, Dict, TextIO, Text, List, Tuple, Callable, Union, Type, TypeVar
+from typing import Optional, Dict, List, Type, TypeVar
 
 from .handlers import SimpleHandler
-from .types import WSGIApplication, WSGIEnvironment, ErrorStream
+from .types import WSGIApplication, WSGIEnvironment, StartResponse, ErrorStream
 
 if sys.version_info < (3,):
     from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 else:
     from http.server import HTTPServer, BaseHTTPRequestHandler
-
-_exc_info = Tuple[Optional[Type[BaseException]],
-                  Optional[BaseException],
-                  Optional[TracebackType]]
-_StartResponse = Union[
-    Callable[[Text, List[Tuple[Text, Text]]], Callable[[bytes], None]],
-    Callable[[Text, List[Tuple[Text, Text]], _exc_info], Callable[[bytes], None]]
-]
 
 server_version: str  # undocumented
 sys_version: str  # undocumented
@@ -39,7 +30,7 @@ class WSGIRequestHandler(BaseHTTPRequestHandler):
     def get_stderr(self) -> ErrorStream: ...
     def handle(self) -> None: ...
 
-def demo_app(environ: WSGIEnvironment, start_response: _StartResponse) -> List[bytes]: ...
+def demo_app(environ: WSGIEnvironment, start_response: StartResponse) -> List[bytes]: ...
 
 _S = TypeVar("_S", bound=WSGIServer)
 

@@ -21,17 +21,12 @@ from types import TracebackType
 _exc_info = Tuple[Optional[Type[BaseException]],
                   Optional[BaseException],
                   Optional[TracebackType]]
-WSGIEnvironment = Dict[Text, Any]
-WSGIApplication = Callable[
-    [
-        WSGIEnvironment,
-        Union[
-            Callable[[Text, List[Tuple[Text, Text]]], Callable[[bytes], None]],
-            Callable[[Text, List[Tuple[Text, Text]], _exc_info], Callable[[bytes], None]]
-        ]
-    ],
-    Iterable[bytes]
+StartResponse = Union[
+    Callable[[Text, List[Tuple[Text, Text]]], Callable[[bytes], None]],
+    Callable[[Text, List[Tuple[Text, Text]], _exc_info], Callable[[bytes], None]]
 ]
+WSGIEnvironment = Dict[Text, Any]
+WSGIApplication = Callable[[WSGIEnvironment, StartResponse], Iterable[bytes]]
 
 # WSGI input streams per PEP 3333
 class InputStream(Protocol):

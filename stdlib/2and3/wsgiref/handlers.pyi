@@ -1,19 +1,14 @@
 import sys
 from types import TracebackType
-from typing import Optional, Dict, MutableMapping, Type, Text, Callable, Union, List, Tuple, IO
+from typing import Optional, Dict, MutableMapping, Type, Text, Callable, List, Tuple, IO
 
 from .headers import Headers
-from .types import WSGIApplication, WSGIEnvironment, InputStream, ErrorStream
+from .types import WSGIApplication, WSGIEnvironment, StartResponse, InputStream, ErrorStream
 from .util import FileWrapper, guess_scheme
 
 _exc_info = Tuple[Optional[Type[BaseException]],
                   Optional[BaseException],
                   Optional[TracebackType]]
-
-_StartResponse = Union[
-    Callable[[Text, List[Tuple[Text, Text]]], Callable[[bytes], None]],
-    Callable[[Text, List[Tuple[Text, Text]], _exc_info], Callable[[bytes], None]]
-]
 
 def format_date_time(timestamp: Optional[float]) -> str: ...  # undocumented
 if sys.version_info >= (3, 2):
@@ -57,7 +52,7 @@ class BaseHandler:
     def client_is_modern(self) -> bool: ...
     def log_exception(self, exc_info: _exc_info) -> None: ...
     def handle_error(self) -> None: ...
-    def error_output(self, environ: WSGIEnvironment, start_response: _StartResponse) -> List[bytes]: ...
+    def error_output(self, environ: WSGIEnvironment, start_response: StartResponse) -> List[bytes]: ...
 
     def _write(self, data: bytes) -> None:
         raise NotImplementedError()
