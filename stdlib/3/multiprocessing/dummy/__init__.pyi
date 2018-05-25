@@ -13,7 +13,6 @@ from queue import Queue
 JoinableQueue = Queue
 
 
-
 class DummyProcess(threading.Thread):
     _children = ...  # type: weakref.WeakKeyDictionary
     _parent = ...  # type: threading.Thread

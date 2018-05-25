@@ -13,7 +13,6 @@ from threading import Event
 from Queue import Queue
 
 
-
 class DummyProcess(threading.Thread):
     _children = ...  # type: weakref.WeakKeyDictionary
     _parent = ...  # type: threading.Thread
