@@ -81,9 +81,7 @@ class SimpleHandler(BaseHandler):
 class BaseCGIHandler(SimpleHandler): ...
 
 class CGIHandler(BaseCGIHandler):
-    os_environ: MutableMapping[str, str]
     def __init__(self) -> None: ...
 
 class IISCGIHandler(BaseCGIHandler):
-    os_environ: MutableMapping[str, str]
     def __init__(self) -> None: ...
