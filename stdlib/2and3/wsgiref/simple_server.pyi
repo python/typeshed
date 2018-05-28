@@ -1,5 +1,5 @@
 import sys
-from typing import Optional, List, Type, TypeVar
+from typing import Optional, List, Type, TypeVar, overload
 
 from .handlers import SimpleHandler
 from .types import WSGIApplication, WSGIEnvironment, StartResponse, ErrorStream
@@ -34,4 +34,7 @@ def demo_app(environ: WSGIEnvironment, start_response: StartResponse) -> List[by
 
 _S = TypeVar("_S", bound=WSGIServer)
 
-def make_server(host: str, port: int, app: WSGIApplication, server_class: Type[_S] = ..., handler_class: Type[WSGIRequestHandler] = ...) -> _S: ...
+@overload
+def make_server(host: str, port: int, app: WSGIApplication, *, handler_class: Type[WSGIRequestHandler] = ...) -> WSGIServer: ...
+@overload
+def make_server(host: str, port: int, app: WSGIApplication, server_class: Type[_S], handler_class: Type[WSGIRequestHandler] = ...) -> _S: ...
