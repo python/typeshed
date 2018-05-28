@@ -1,4 +1,5 @@
 import sys
+from abc import abstractmethod
 from types import TracebackType
 from typing import Optional, Dict, MutableMapping, Type, Text, Callable, List, Tuple, IO
 
@@ -54,16 +55,16 @@ class BaseHandler:
     def handle_error(self) -> None: ...
     def error_output(self, environ: WSGIEnvironment, start_response: StartResponse) -> List[bytes]: ...
 
-    def _write(self, data: bytes) -> None:
-        raise NotImplementedError()
-    def _flush(self) -> None:
-        raise NotImplementedError()
-    def get_stdin(self) -> InputStream:
-        raise NotImplementedError()
-    def get_stderr(self) -> ErrorStream:
-        raise NotImplementedError()
-    def add_cgi_vars(self) -> None:
-        raise NotImplementedError()
+    @abstractmethod
+    def _write(self, data: bytes) -> None: ...
+    @abstractmethod
+    def _flush(self) -> None: ...
+    @abstractmethod
+    def get_stdin(self) -> InputStream: ...
+    @abstractmethod
+    def get_stderr(self) -> ErrorStream: ...
+    @abstractmethod
+    def add_cgi_vars(self) -> None: ...
 
 class SimpleHandler(BaseHandler):
     stdin: InputStream
