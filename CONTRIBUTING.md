@@ -185,7 +185,7 @@ you should know about.
 
 Style conventions for stub files are different from PEP 8. The general
 rule is that they should be as concise as possible.  Specifically:
-* there is no line length limit;
+* lines can be up to 200 characters long;
 * prefer long lines over elaborate indentation;
 * all function bodies should be empty;
 * prefer ``...`` over ``pass``;
