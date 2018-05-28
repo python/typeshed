@@ -1,5 +1,5 @@
 import sys
-from typing import Optional, Dict, List, Type, TypeVar
+from typing import Optional, List, Type, TypeVar
 
 from .handlers import SimpleHandler
 from .types import WSGIApplication, WSGIEnvironment, StartResponse, ErrorStream
@@ -19,7 +19,7 @@ class ServerHandler(SimpleHandler):  # undocumented
 
 class WSGIServer(HTTPServer):
     application: Optional[WSGIApplication]
-    base_environ: Dict[str, str]  # only available after call to setup_environ()
+    base_environ: WSGIEnvironment  # only available after call to setup_environ()
     def setup_environ(self) -> None: ...
     def get_app(self) -> Optional[WSGIApplication]: ...
     def set_app(self, application: Optional[WSGIApplication]) -> None: ...
