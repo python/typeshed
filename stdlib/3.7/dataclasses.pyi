@@ -33,7 +33,7 @@ class Field(Generic[_T]):
     metadata: Optional[Mapping[str, Any]]
 
 
-@overload # `default` and `default_factory` are optional and mutually exclusive.
+@overload  # `default` and `default_factory` are optional and mutually exclusive.
 def field(*, default: _T = ..., default_factory: _MISSING_TYPE = ...,
     init: bool = ..., repr: bool = ..., hash: Optional[bool] = ..., compare: bool = ...,
     metadata: Optional[Mapping[str, Any]] = ...) -> Field[_T]: ...
