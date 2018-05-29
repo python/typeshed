@@ -34,17 +34,17 @@ class Field(Generic[_T]):
 
 
 @overload  # `default` and `default_factory` are optional and mutually exclusive.
-def field(*, default: _T = ..., default_factory: _MISSING_TYPE = ...,
+def field(*, default: _T,
     init: bool = ..., repr: bool = ..., hash: Optional[bool] = ..., compare: bool = ...,
     metadata: Optional[Mapping[str, Any]] = ...) -> Field[_T]: ...
 
 @overload
-def field(*, default: _MISSING_TYPE = ..., default_factory: Callable[[], _T] = ...,
+def field(*, default_factory: Callable[[], _T],
     init: bool = ..., repr: bool = ..., hash: Optional[bool] = ..., compare: bool = ...,
     metadata: Optional[Mapping[str, Any]] = ...) -> Field[_T]: ...
 
 @overload
-def field(*, default: _MISSING_TYPE = ..., default_factory: _MISSING_TYPE = ...,
+def field(*,
     init: bool = ..., repr: bool = ..., hash: Optional[bool] = ..., compare: bool = ...,
     metadata: Optional[Mapping[str, Any]] = ...) -> Field[Any]: ...
 
