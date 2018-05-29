@@ -1,10 +1,10 @@
-from typing import overload, Any, Callable, Dict, Generic, Iterable, Mapping, Optional, Tuple, Type, TypeVar, Union
+from typing import overload, Any, Callable, Dict, Generic, Iterable, List, Mapping, Optional, Tuple, Type, TypeVar, Union
 
 
 _T = TypeVar('_T')
 
-_DictFactory = Callable[List[Tuple[str, Any]], _T]
-_TupleFactory = Callable[List[Any], _T]
+_DictFactory = Callable[[List[Tuple[str, Any]]], _T]
+_TupleFactory = Callable[[List[Any]], _T]
 
 class _MISSING_TYPE: ...
 MISSING: _MISSING_TYPE
