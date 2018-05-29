@@ -3,17 +3,14 @@ from typing import overload, Any, Callable, Dict, Generic, Iterable, List, Mappi
 
 _T = TypeVar('_T')
 
-_DictFactory = Callable[[List[Tuple[str, Any]]], _T]
-_TupleFactory = Callable[[List[Any]], _T]
-
 class _MISSING_TYPE: ...
 MISSING: _MISSING_TYPE
 
 class _InitVarMeta(type): ...
 
-def asdict(obj: Any, *, dict_factory: _DictFactory = ...) -> _T: ...
+def asdict(obj: Any, *, dict_factory: Callable[[List[Tuple[str, Any]]], _T] = ...) -> _T: ...
 
-def astuple(obj: Any, *, tuple_factory: _TupleFactory = ...) -> _T: ...
+def astuple(obj: Any, *, tuple_factory: Callable[[List[Any]], _T] = ...) -> _T: ...
 
 
 @overload
