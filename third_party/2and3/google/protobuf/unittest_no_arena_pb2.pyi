@@ -28,19 +28,19 @@ from typing import (
 class ForeignEnum(int):
 
     @classmethod
-    def Name(cls, number: int) -> str: ...
+    def Name(cls, number: int) -> bytes: ...
 
     @classmethod
-    def Value(cls, name: str) -> ForeignEnum: ...
+    def Value(cls, name: bytes) -> ForeignEnum: ...
 
     @classmethod
-    def keys(cls) -> List[str]: ...
+    def keys(cls) -> List[bytes]: ...
 
     @classmethod
     def values(cls) -> List[ForeignEnum]: ...
 
     @classmethod
-    def items(cls) -> List[Tuple[str, ForeignEnum]]: ...
+    def items(cls) -> List[Tuple[bytes, ForeignEnum]]: ...
 
 
 FOREIGN_FOO: ForeignEnum
@@ -53,19 +53,19 @@ class TestAllTypes(Message):
     class NestedEnum(int):
 
         @classmethod
-        def Name(cls, number: int) -> str: ...
+        def Name(cls, number: int) -> bytes: ...
 
         @classmethod
-        def Value(cls, name: str) -> TestAllTypes.NestedEnum: ...
+        def Value(cls, name: bytes) -> TestAllTypes.NestedEnum: ...
 
         @classmethod
-        def keys(cls) -> List[str]: ...
+        def keys(cls) -> List[bytes]: ...
 
         @classmethod
         def values(cls) -> List[TestAllTypes.NestedEnum]: ...
 
         @classmethod
-        def items(cls) -> List[Tuple[str, TestAllTypes.NestedEnum]]: ...
+        def items(cls) -> List[Tuple[bytes, TestAllTypes.NestedEnum]]: ...
     FOO: NestedEnum
     BAR: NestedEnum
     BAZ: NestedEnum
@@ -79,7 +79,7 @@ class TestAllTypes(Message):
                      ) -> None: ...
 
         @classmethod
-        def FromString(cls, s: str) -> TestAllTypes.NestedMessage: ...
+        def FromString(cls, s: bytes) -> TestAllTypes.NestedMessage: ...
 
     class OptionalGroup(Message):
         a = ...  # type: int
@@ -89,7 +89,7 @@ class TestAllTypes(Message):
                      ) -> None: ...
 
         @classmethod
-        def FromString(cls, s: str) -> TestAllTypes.OptionalGroup: ...
+        def FromString(cls, s: bytes) -> TestAllTypes.OptionalGroup: ...
 
     class RepeatedGroup(Message):
         a = ...  # type: int
@@ -99,7 +99,7 @@ class TestAllTypes(Message):
                      ) -> None: ...
 
         @classmethod
-        def FromString(cls, s: str) -> TestAllTypes.RepeatedGroup: ...
+        def FromString(cls, s: bytes) -> TestAllTypes.RepeatedGroup: ...
     optional_int32 = ...  # type: int
     optional_int64 = ...  # type: int
     optional_uint32 = ...  # type: int
@@ -114,7 +114,7 @@ class TestAllTypes(Message):
     optional_double = ...  # type: float
     optional_bool = ...  # type: bool
     optional_string = ...  # type: Text
-    optional_bytes = ...  # type: str
+    optional_bytes = ...  # type: bytes
     optional_nested_enum = ...  # type: TestAllTypes.NestedEnum
     optional_foreign_enum = ...  # type: ForeignEnum
     optional_import_enum = ...  # type: ImportEnum
@@ -134,7 +134,7 @@ class TestAllTypes(Message):
     repeated_double = ...  # type: RepeatedScalarFieldContainer[float]
     repeated_bool = ...  # type: RepeatedScalarFieldContainer[bool]
     repeated_string = ...  # type: RepeatedScalarFieldContainer[Text]
-    repeated_bytes = ...  # type: RepeatedScalarFieldContainer[str]
+    repeated_bytes = ...  # type: RepeatedScalarFieldContainer[bytes]
     repeated_nested_enum = ...  # type: RepeatedScalarFieldContainer[TestAllTypes.NestedEnum]
     repeated_foreign_enum = ...  # type: RepeatedScalarFieldContainer[ForeignEnum]
     repeated_import_enum = ...  # type: RepeatedScalarFieldContainer[ImportEnum]
@@ -154,7 +154,7 @@ class TestAllTypes(Message):
     default_double = ...  # type: float
     default_bool = ...  # type: bool
     default_string = ...  # type: Text
-    default_bytes = ...  # type: str
+    default_bytes = ...  # type: bytes
     default_nested_enum = ...  # type: TestAllTypes.NestedEnum
     default_foreign_enum = ...  # type: ForeignEnum
     default_import_enum = ...  # type: ImportEnum
@@ -162,7 +162,7 @@ class TestAllTypes(Message):
     default_cord = ...  # type: Text
     oneof_uint32 = ...  # type: int
     oneof_string = ...  # type: Text
-    oneof_bytes = ...  # type: str
+    oneof_bytes = ...  # type: bytes
 
     @property
     def optionalgroup(self) -> TestAllTypes.OptionalGroup: ...
@@ -223,7 +223,7 @@ class TestAllTypes(Message):
                  optional_double: Optional[float] = ...,
                  optional_bool: Optional[bool] = ...,
                  optional_string: Optional[Text] = ...,
-                 optional_bytes: Optional[str] = ...,
+                 optional_bytes: Optional[bytes] = ...,
                  optionalgroup: Optional[TestAllTypes.OptionalGroup] = ...,
                  optional_nested_message: Optional[TestAllTypes.NestedMessage] = ...,
                  optional_foreign_message: Optional[ForeignMessage] = ...,
@@ -249,7 +249,7 @@ class TestAllTypes(Message):
                  repeated_double: Optional[Iterable[float]] = ...,
                  repeated_bool: Optional[Iterable[bool]] = ...,
                  repeated_string: Optional[Iterable[Text]] = ...,
-                 repeated_bytes: Optional[Iterable[str]] = ...,
+                 repeated_bytes: Optional[Iterable[bytes]] = ...,
                  repeatedgroup: Optional[Iterable[TestAllTypes.RepeatedGroup]] = ...,
                  repeated_nested_message: Optional[Iterable[TestAllTypes.NestedMessage]] = ...,
                  repeated_foreign_message: Optional[Iterable[ForeignMessage]] = ...,
@@ -274,7 +274,7 @@ class TestAllTypes(Message):
                  default_double: Optional[float] = ...,
                  default_bool: Optional[bool] = ...,
                  default_string: Optional[Text] = ...,
-                 default_bytes: Optional[str] = ...,
+                 default_bytes: Optional[bytes] = ...,
                  default_nested_enum: Optional[TestAllTypes.NestedEnum] = ...,
                  default_foreign_enum: Optional[ForeignEnum] = ...,
                  default_import_enum: Optional[ImportEnum] = ...,
@@ -283,12 +283,12 @@ class TestAllTypes(Message):
                  oneof_uint32: Optional[int] = ...,
                  oneof_nested_message: Optional[TestAllTypes.NestedMessage] = ...,
                  oneof_string: Optional[Text] = ...,
-                 oneof_bytes: Optional[str] = ...,
+                 oneof_bytes: Optional[bytes] = ...,
                  lazy_oneof_nested_message: Optional[TestAllTypes.NestedMessage] = ...,
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestAllTypes: ...
+    def FromString(cls, s: bytes) -> TestAllTypes: ...
 
 
 class ForeignMessage(Message):
@@ -299,7 +299,7 @@ class ForeignMessage(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> ForeignMessage: ...
+    def FromString(cls, s: bytes) -> ForeignMessage: ...
 
 
 class TestNoArenaMessage(Message):
@@ -312,4 +312,4 @@ class TestNoArenaMessage(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestNoArenaMessage: ...
+    def FromString(cls, s: bytes) -> TestNoArenaMessage: ...

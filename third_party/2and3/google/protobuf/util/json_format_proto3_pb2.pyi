@@ -51,19 +51,19 @@ from typing import (
 class EnumType(int):
 
     @classmethod
-    def Name(cls, number: int) -> str: ...
+    def Name(cls, number: int) -> bytes: ...
 
     @classmethod
-    def Value(cls, name: str) -> EnumType: ...
+    def Value(cls, name: bytes) -> EnumType: ...
 
     @classmethod
-    def keys(cls) -> List[str]: ...
+    def keys(cls) -> List[bytes]: ...
 
     @classmethod
     def values(cls) -> List[EnumType]: ...
 
     @classmethod
-    def items(cls) -> List[Tuple[str, EnumType]]: ...
+    def items(cls) -> List[Tuple[bytes, EnumType]]: ...
 
 
 FOO: EnumType
@@ -78,7 +78,7 @@ class MessageType(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> MessageType: ...
+    def FromString(cls, s: bytes) -> MessageType: ...
 
 
 class TestMessage(Message):
@@ -90,7 +90,7 @@ class TestMessage(Message):
     float_value = ...  # type: float
     double_value = ...  # type: float
     string_value = ...  # type: Text
-    bytes_value = ...  # type: str
+    bytes_value = ...  # type: bytes
     enum_value = ...  # type: EnumType
     repeated_bool_value = ...  # type: RepeatedScalarFieldContainer[bool]
     repeated_int32_value = ...  # type: RepeatedScalarFieldContainer[int]
@@ -100,7 +100,7 @@ class TestMessage(Message):
     repeated_float_value = ...  # type: RepeatedScalarFieldContainer[float]
     repeated_double_value = ...  # type: RepeatedScalarFieldContainer[float]
     repeated_string_value = ...  # type: RepeatedScalarFieldContainer[Text]
-    repeated_bytes_value = ...  # type: RepeatedScalarFieldContainer[str]
+    repeated_bytes_value = ...  # type: RepeatedScalarFieldContainer[bytes]
     repeated_enum_value = ...  # type: RepeatedScalarFieldContainer[EnumType]
 
     @property
@@ -119,7 +119,7 @@ class TestMessage(Message):
                  float_value: Optional[float] = ...,
                  double_value: Optional[float] = ...,
                  string_value: Optional[Text] = ...,
-                 bytes_value: Optional[str] = ...,
+                 bytes_value: Optional[bytes] = ...,
                  enum_value: Optional[EnumType] = ...,
                  message_value: Optional[MessageType] = ...,
                  repeated_bool_value: Optional[Iterable[bool]] = ...,
@@ -130,19 +130,19 @@ class TestMessage(Message):
                  repeated_float_value: Optional[Iterable[float]] = ...,
                  repeated_double_value: Optional[Iterable[float]] = ...,
                  repeated_string_value: Optional[Iterable[Text]] = ...,
-                 repeated_bytes_value: Optional[Iterable[str]] = ...,
+                 repeated_bytes_value: Optional[Iterable[bytes]] = ...,
                  repeated_enum_value: Optional[Iterable[EnumType]] = ...,
                  repeated_message_value: Optional[Iterable[MessageType]] = ...,
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestMessage: ...
+    def FromString(cls, s: bytes) -> TestMessage: ...
 
 
 class TestOneof(Message):
     oneof_int32_value = ...  # type: int
     oneof_string_value = ...  # type: Text
-    oneof_bytes_value = ...  # type: str
+    oneof_bytes_value = ...  # type: bytes
     oneof_enum_value = ...  # type: EnumType
 
     @property
@@ -151,13 +151,13 @@ class TestOneof(Message):
     def __init__(self,
                  oneof_int32_value: Optional[int] = ...,
                  oneof_string_value: Optional[Text] = ...,
-                 oneof_bytes_value: Optional[str] = ...,
+                 oneof_bytes_value: Optional[bytes] = ...,
                  oneof_enum_value: Optional[EnumType] = ...,
                  oneof_message_value: Optional[MessageType] = ...,
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestOneof: ...
+    def FromString(cls, s: bytes) -> TestOneof: ...
 
 
 class TestMap(Message):
@@ -172,7 +172,7 @@ class TestMap(Message):
                      ) -> None: ...
 
         @classmethod
-        def FromString(cls, s: str) -> TestMap.BoolMapEntry: ...
+        def FromString(cls, s: bytes) -> TestMap.BoolMapEntry: ...
 
     class Int32MapEntry(Message):
         key = ...  # type: int
@@ -184,7 +184,7 @@ class TestMap(Message):
                      ) -> None: ...
 
         @classmethod
-        def FromString(cls, s: str) -> TestMap.Int32MapEntry: ...
+        def FromString(cls, s: bytes) -> TestMap.Int32MapEntry: ...
 
     class Int64MapEntry(Message):
         key = ...  # type: int
@@ -196,7 +196,7 @@ class TestMap(Message):
                      ) -> None: ...
 
         @classmethod
-        def FromString(cls, s: str) -> TestMap.Int64MapEntry: ...
+        def FromString(cls, s: bytes) -> TestMap.Int64MapEntry: ...
 
     class Uint32MapEntry(Message):
         key = ...  # type: int
@@ -208,7 +208,7 @@ class TestMap(Message):
                      ) -> None: ...
 
         @classmethod
-        def FromString(cls, s: str) -> TestMap.Uint32MapEntry: ...
+        def FromString(cls, s: bytes) -> TestMap.Uint32MapEntry: ...
 
     class Uint64MapEntry(Message):
         key = ...  # type: int
@@ -220,7 +220,7 @@ class TestMap(Message):
                      ) -> None: ...
 
         @classmethod
-        def FromString(cls, s: str) -> TestMap.Uint64MapEntry: ...
+        def FromString(cls, s: bytes) -> TestMap.Uint64MapEntry: ...
 
     class StringMapEntry(Message):
         key = ...  # type: Text
@@ -232,7 +232,7 @@ class TestMap(Message):
                      ) -> None: ...
 
         @classmethod
-        def FromString(cls, s: str) -> TestMap.StringMapEntry: ...
+        def FromString(cls, s: bytes) -> TestMap.StringMapEntry: ...
 
     @property
     def bool_map(self) -> MutableMapping[bool, int]: ...
@@ -262,7 +262,7 @@ class TestMap(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestMap: ...
+    def FromString(cls, s: bytes) -> TestMap: ...
 
 
 class TestNestedMap(Message):
@@ -277,7 +277,7 @@ class TestNestedMap(Message):
                      ) -> None: ...
 
         @classmethod
-        def FromString(cls, s: str) -> TestNestedMap.BoolMapEntry: ...
+        def FromString(cls, s: bytes) -> TestNestedMap.BoolMapEntry: ...
 
     class Int32MapEntry(Message):
         key = ...  # type: int
@@ -289,7 +289,7 @@ class TestNestedMap(Message):
                      ) -> None: ...
 
         @classmethod
-        def FromString(cls, s: str) -> TestNestedMap.Int32MapEntry: ...
+        def FromString(cls, s: bytes) -> TestNestedMap.Int32MapEntry: ...
 
     class Int64MapEntry(Message):
         key = ...  # type: int
@@ -301,7 +301,7 @@ class TestNestedMap(Message):
                      ) -> None: ...
 
         @classmethod
-        def FromString(cls, s: str) -> TestNestedMap.Int64MapEntry: ...
+        def FromString(cls, s: bytes) -> TestNestedMap.Int64MapEntry: ...
 
     class Uint32MapEntry(Message):
         key = ...  # type: int
@@ -313,7 +313,7 @@ class TestNestedMap(Message):
                      ) -> None: ...
 
         @classmethod
-        def FromString(cls, s: str) -> TestNestedMap.Uint32MapEntry: ...
+        def FromString(cls, s: bytes) -> TestNestedMap.Uint32MapEntry: ...
 
     class Uint64MapEntry(Message):
         key = ...  # type: int
@@ -325,7 +325,7 @@ class TestNestedMap(Message):
                      ) -> None: ...
 
         @classmethod
-        def FromString(cls, s: str) -> TestNestedMap.Uint64MapEntry: ...
+        def FromString(cls, s: bytes) -> TestNestedMap.Uint64MapEntry: ...
 
     class StringMapEntry(Message):
         key = ...  # type: Text
@@ -337,7 +337,7 @@ class TestNestedMap(Message):
                      ) -> None: ...
 
         @classmethod
-        def FromString(cls, s: str) -> TestNestedMap.StringMapEntry: ...
+        def FromString(cls, s: bytes) -> TestNestedMap.StringMapEntry: ...
 
     class MapMapEntry(Message):
         key = ...  # type: Text
@@ -351,7 +351,7 @@ class TestNestedMap(Message):
                      ) -> None: ...
 
         @classmethod
-        def FromString(cls, s: str) -> TestNestedMap.MapMapEntry: ...
+        def FromString(cls, s: bytes) -> TestNestedMap.MapMapEntry: ...
 
     @property
     def bool_map(self) -> MutableMapping[bool, int]: ...
@@ -385,7 +385,7 @@ class TestNestedMap(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestNestedMap: ...
+    def FromString(cls, s: bytes) -> TestNestedMap: ...
 
 
 class TestWrapper(Message):
@@ -475,7 +475,7 @@ class TestWrapper(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestWrapper: ...
+    def FromString(cls, s: bytes) -> TestWrapper: ...
 
 
 class TestTimestamp(Message):
@@ -492,7 +492,7 @@ class TestTimestamp(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestTimestamp: ...
+    def FromString(cls, s: bytes) -> TestTimestamp: ...
 
 
 class TestDuration(Message):
@@ -509,7 +509,7 @@ class TestDuration(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestDuration: ...
+    def FromString(cls, s: bytes) -> TestDuration: ...
 
 
 class TestFieldMask(Message):
@@ -522,7 +522,7 @@ class TestFieldMask(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestFieldMask: ...
+    def FromString(cls, s: bytes) -> TestFieldMask: ...
 
 
 class TestStruct(Message):
@@ -539,7 +539,7 @@ class TestStruct(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestStruct: ...
+    def FromString(cls, s: bytes) -> TestStruct: ...
 
 
 class TestAny(Message):
@@ -556,7 +556,7 @@ class TestAny(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestAny: ...
+    def FromString(cls, s: bytes) -> TestAny: ...
 
 
 class TestValue(Message):
@@ -573,7 +573,7 @@ class TestValue(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestValue: ...
+    def FromString(cls, s: bytes) -> TestValue: ...
 
 
 class TestListValue(Message):
@@ -590,7 +590,7 @@ class TestListValue(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestListValue: ...
+    def FromString(cls, s: bytes) -> TestListValue: ...
 
 
 class TestBoolValue(Message):
@@ -605,7 +605,7 @@ class TestBoolValue(Message):
                      ) -> None: ...
 
         @classmethod
-        def FromString(cls, s: str) -> TestBoolValue.BoolMapEntry: ...
+        def FromString(cls, s: bytes) -> TestBoolValue.BoolMapEntry: ...
     bool_value = ...  # type: bool
 
     @property
@@ -617,7 +617,7 @@ class TestBoolValue(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestBoolValue: ...
+    def FromString(cls, s: bytes) -> TestBoolValue: ...
 
 
 class TestCustomJsonName(Message):
@@ -628,7 +628,7 @@ class TestCustomJsonName(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestCustomJsonName: ...
+    def FromString(cls, s: bytes) -> TestCustomJsonName: ...
 
 
 class TestExtensions(Message):
@@ -641,7 +641,7 @@ class TestExtensions(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestExtensions: ...
+    def FromString(cls, s: bytes) -> TestExtensions: ...
 
 
 class TestEnumValue(Message):
@@ -656,4 +656,4 @@ class TestEnumValue(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestEnumValue: ...
+    def FromString(cls, s: bytes) -> TestEnumValue: ...

@@ -21,19 +21,19 @@ from typing import (
 class ForeignEnumProto2(int):
 
     @classmethod
-    def Name(cls, number: int) -> str: ...
+    def Name(cls, number: int) -> bytes: ...
 
     @classmethod
-    def Value(cls, name: str) -> ForeignEnumProto2: ...
+    def Value(cls, name: bytes) -> ForeignEnumProto2: ...
 
     @classmethod
-    def keys(cls) -> List[str]: ...
+    def keys(cls) -> List[bytes]: ...
 
     @classmethod
     def values(cls) -> List[ForeignEnumProto2]: ...
 
     @classmethod
-    def items(cls) -> List[Tuple[str, ForeignEnumProto2]]: ...
+    def items(cls) -> List[Tuple[bytes, ForeignEnumProto2]]: ...
 
 
 FOREIGN_FOO: ForeignEnumProto2
@@ -46,19 +46,19 @@ class TestAllTypesProto2(Message):
     class NestedEnum(int):
 
         @classmethod
-        def Name(cls, number: int) -> str: ...
+        def Name(cls, number: int) -> bytes: ...
 
         @classmethod
-        def Value(cls, name: str) -> TestAllTypesProto2.NestedEnum: ...
+        def Value(cls, name: bytes) -> TestAllTypesProto2.NestedEnum: ...
 
         @classmethod
-        def keys(cls) -> List[str]: ...
+        def keys(cls) -> List[bytes]: ...
 
         @classmethod
         def values(cls) -> List[TestAllTypesProto2.NestedEnum]: ...
 
         @classmethod
-        def items(cls) -> List[Tuple[str, TestAllTypesProto2.NestedEnum]]: ...
+        def items(cls) -> List[Tuple[bytes, TestAllTypesProto2.NestedEnum]]: ...
     FOO: NestedEnum
     BAR: NestedEnum
     BAZ: NestedEnum
@@ -76,7 +76,7 @@ class TestAllTypesProto2(Message):
                      ) -> None: ...
 
         @classmethod
-        def FromString(cls, s: str) -> TestAllTypesProto2.NestedMessage: ...
+        def FromString(cls, s: bytes) -> TestAllTypesProto2.NestedMessage: ...
 
     class MapInt32Int32Entry(Message):
         key = ...  # type: int
@@ -89,7 +89,7 @@ class TestAllTypesProto2(Message):
 
         @classmethod
         def FromString(
-            cls, s: str) -> TestAllTypesProto2.MapInt32Int32Entry: ...
+            cls, s: bytes) -> TestAllTypesProto2.MapInt32Int32Entry: ...
 
     class MapInt64Int64Entry(Message):
         key = ...  # type: int
@@ -102,7 +102,7 @@ class TestAllTypesProto2(Message):
 
         @classmethod
         def FromString(
-            cls, s: str) -> TestAllTypesProto2.MapInt64Int64Entry: ...
+            cls, s: bytes) -> TestAllTypesProto2.MapInt64Int64Entry: ...
 
     class MapUint32Uint32Entry(Message):
         key = ...  # type: int
@@ -115,7 +115,7 @@ class TestAllTypesProto2(Message):
 
         @classmethod
         def FromString(
-            cls, s: str) -> TestAllTypesProto2.MapUint32Uint32Entry: ...
+            cls, s: bytes) -> TestAllTypesProto2.MapUint32Uint32Entry: ...
 
     class MapUint64Uint64Entry(Message):
         key = ...  # type: int
@@ -128,7 +128,7 @@ class TestAllTypesProto2(Message):
 
         @classmethod
         def FromString(
-            cls, s: str) -> TestAllTypesProto2.MapUint64Uint64Entry: ...
+            cls, s: bytes) -> TestAllTypesProto2.MapUint64Uint64Entry: ...
 
     class MapSint32Sint32Entry(Message):
         key = ...  # type: int
@@ -141,7 +141,7 @@ class TestAllTypesProto2(Message):
 
         @classmethod
         def FromString(
-            cls, s: str) -> TestAllTypesProto2.MapSint32Sint32Entry: ...
+            cls, s: bytes) -> TestAllTypesProto2.MapSint32Sint32Entry: ...
 
     class MapSint64Sint64Entry(Message):
         key = ...  # type: int
@@ -154,7 +154,7 @@ class TestAllTypesProto2(Message):
 
         @classmethod
         def FromString(
-            cls, s: str) -> TestAllTypesProto2.MapSint64Sint64Entry: ...
+            cls, s: bytes) -> TestAllTypesProto2.MapSint64Sint64Entry: ...
 
     class MapFixed32Fixed32Entry(Message):
         key = ...  # type: int
@@ -167,7 +167,7 @@ class TestAllTypesProto2(Message):
 
         @classmethod
         def FromString(
-            cls, s: str) -> TestAllTypesProto2.MapFixed32Fixed32Entry: ...
+            cls, s: bytes) -> TestAllTypesProto2.MapFixed32Fixed32Entry: ...
 
     class MapFixed64Fixed64Entry(Message):
         key = ...  # type: int
@@ -180,7 +180,7 @@ class TestAllTypesProto2(Message):
 
         @classmethod
         def FromString(
-            cls, s: str) -> TestAllTypesProto2.MapFixed64Fixed64Entry: ...
+            cls, s: bytes) -> TestAllTypesProto2.MapFixed64Fixed64Entry: ...
 
     class MapSfixed32Sfixed32Entry(Message):
         key = ...  # type: int
@@ -193,7 +193,7 @@ class TestAllTypesProto2(Message):
 
         @classmethod
         def FromString(
-            cls, s: str) -> TestAllTypesProto2.MapSfixed32Sfixed32Entry: ...
+            cls, s: bytes) -> TestAllTypesProto2.MapSfixed32Sfixed32Entry: ...
 
     class MapSfixed64Sfixed64Entry(Message):
         key = ...  # type: int
@@ -206,7 +206,7 @@ class TestAllTypesProto2(Message):
 
         @classmethod
         def FromString(
-            cls, s: str) -> TestAllTypesProto2.MapSfixed64Sfixed64Entry: ...
+            cls, s: bytes) -> TestAllTypesProto2.MapSfixed64Sfixed64Entry: ...
 
     class MapInt32FloatEntry(Message):
         key = ...  # type: int
@@ -219,7 +219,7 @@ class TestAllTypesProto2(Message):
 
         @classmethod
         def FromString(
-            cls, s: str) -> TestAllTypesProto2.MapInt32FloatEntry: ...
+            cls, s: bytes) -> TestAllTypesProto2.MapInt32FloatEntry: ...
 
     class MapInt32DoubleEntry(Message):
         key = ...  # type: int
@@ -232,7 +232,7 @@ class TestAllTypesProto2(Message):
 
         @classmethod
         def FromString(
-            cls, s: str) -> TestAllTypesProto2.MapInt32DoubleEntry: ...
+            cls, s: bytes) -> TestAllTypesProto2.MapInt32DoubleEntry: ...
 
     class MapBoolBoolEntry(Message):
         key = ...  # type: bool
@@ -244,7 +244,7 @@ class TestAllTypesProto2(Message):
                      ) -> None: ...
 
         @classmethod
-        def FromString(cls, s: str) -> TestAllTypesProto2.MapBoolBoolEntry: ...
+        def FromString(cls, s: bytes) -> TestAllTypesProto2.MapBoolBoolEntry: ...
 
     class MapStringStringEntry(Message):
         key = ...  # type: Text
@@ -257,20 +257,20 @@ class TestAllTypesProto2(Message):
 
         @classmethod
         def FromString(
-            cls, s: str) -> TestAllTypesProto2.MapStringStringEntry: ...
+            cls, s: bytes) -> TestAllTypesProto2.MapStringStringEntry: ...
 
     class MapStringBytesEntry(Message):
         key = ...  # type: Text
-        value = ...  # type: str
+        value = ...  # type: bytes
 
         def __init__(self,
                      key: Optional[Text] = ...,
-                     value: Optional[str] = ...,
+                     value: Optional[bytes] = ...,
                      ) -> None: ...
 
         @classmethod
         def FromString(
-            cls, s: str) -> TestAllTypesProto2.MapStringBytesEntry: ...
+            cls, s: bytes) -> TestAllTypesProto2.MapStringBytesEntry: ...
 
     class MapStringNestedMessageEntry(Message):
         key = ...  # type: Text
@@ -285,7 +285,7 @@ class TestAllTypesProto2(Message):
 
         @classmethod
         def FromString(
-            cls, s: str) -> TestAllTypesProto2.MapStringNestedMessageEntry: ...
+            cls, s: bytes) -> TestAllTypesProto2.MapStringNestedMessageEntry: ...
 
     class MapStringForeignMessageEntry(Message):
         key = ...  # type: Text
@@ -300,7 +300,7 @@ class TestAllTypesProto2(Message):
 
         @classmethod
         def FromString(
-            cls, s: str) -> TestAllTypesProto2.MapStringForeignMessageEntry: ...
+            cls, s: bytes) -> TestAllTypesProto2.MapStringForeignMessageEntry: ...
 
     class MapStringNestedEnumEntry(Message):
         key = ...  # type: Text
@@ -313,7 +313,7 @@ class TestAllTypesProto2(Message):
 
         @classmethod
         def FromString(
-            cls, s: str) -> TestAllTypesProto2.MapStringNestedEnumEntry: ...
+            cls, s: bytes) -> TestAllTypesProto2.MapStringNestedEnumEntry: ...
 
     class MapStringForeignEnumEntry(Message):
         key = ...  # type: Text
@@ -326,7 +326,7 @@ class TestAllTypesProto2(Message):
 
         @classmethod
         def FromString(
-            cls, s: str) -> TestAllTypesProto2.MapStringForeignEnumEntry: ...
+            cls, s: bytes) -> TestAllTypesProto2.MapStringForeignEnumEntry: ...
 
     class Data(Message):
         group_int32 = ...  # type: int
@@ -338,7 +338,7 @@ class TestAllTypesProto2(Message):
                      ) -> None: ...
 
         @classmethod
-        def FromString(cls, s: str) -> TestAllTypesProto2.Data: ...
+        def FromString(cls, s: bytes) -> TestAllTypesProto2.Data: ...
 
     class MessageSetCorrect(Message):
 
@@ -347,18 +347,18 @@ class TestAllTypesProto2(Message):
 
         @classmethod
         def FromString(
-            cls, s: str) -> TestAllTypesProto2.MessageSetCorrect: ...
+            cls, s: bytes) -> TestAllTypesProto2.MessageSetCorrect: ...
 
     class MessageSetCorrectExtension1(Message):
-        str = ...  # type: Text
+        bytes = ...  # type: Text
 
         def __init__(self,
-                     str: Optional[Text] = ...,
+                     bytes: Optional[Text] = ...,
                      ) -> None: ...
 
         @classmethod
         def FromString(
-            cls, s: builtins.str) -> TestAllTypesProto2.MessageSetCorrectExtension1: ...
+            cls, s: builtins.bytes) -> TestAllTypesProto2.MessageSetCorrectExtension1: ...
 
     class MessageSetCorrectExtension2(Message):
         i = ...  # type: int
@@ -369,7 +369,7 @@ class TestAllTypesProto2(Message):
 
         @classmethod
         def FromString(
-            cls, s: str) -> TestAllTypesProto2.MessageSetCorrectExtension2: ...
+            cls, s: bytes) -> TestAllTypesProto2.MessageSetCorrectExtension2: ...
     optional_int32 = ...  # type: int
     optional_int64 = ...  # type: int
     optional_uint32 = ...  # type: int
@@ -384,7 +384,7 @@ class TestAllTypesProto2(Message):
     optional_double = ...  # type: float
     optional_bool = ...  # type: bool
     optional_string = ...  # type: Text
-    optional_bytes = ...  # type: str
+    optional_bytes = ...  # type: bytes
     optional_nested_enum = ...  # type: TestAllTypesProto2.NestedEnum
     optional_foreign_enum = ...  # type: ForeignEnumProto2
     optional_string_piece = ...  # type: Text
@@ -403,14 +403,14 @@ class TestAllTypesProto2(Message):
     repeated_double = ...  # type: RepeatedScalarFieldContainer[float]
     repeated_bool = ...  # type: RepeatedScalarFieldContainer[bool]
     repeated_string = ...  # type: RepeatedScalarFieldContainer[Text]
-    repeated_bytes = ...  # type: RepeatedScalarFieldContainer[str]
+    repeated_bytes = ...  # type: RepeatedScalarFieldContainer[bytes]
     repeated_nested_enum = ...  # type: RepeatedScalarFieldContainer[TestAllTypesProto2.NestedEnum]
     repeated_foreign_enum = ...  # type: RepeatedScalarFieldContainer[ForeignEnumProto2]
     repeated_string_piece = ...  # type: RepeatedScalarFieldContainer[Text]
     repeated_cord = ...  # type: RepeatedScalarFieldContainer[Text]
     oneof_uint32 = ...  # type: int
     oneof_string = ...  # type: Text
-    oneof_bytes = ...  # type: str
+    oneof_bytes = ...  # type: bytes
     oneof_bool = ...  # type: bool
     oneof_uint64 = ...  # type: int
     oneof_float = ...  # type: float
@@ -495,7 +495,7 @@ class TestAllTypesProto2(Message):
     def map_string_string(self) -> MutableMapping[Text, Text]: ...
 
     @property
-    def map_string_bytes(self) -> MutableMapping[Text, str]: ...
+    def map_string_bytes(self) -> MutableMapping[Text, bytes]: ...
 
     @property
     def map_string_nested_message(
@@ -534,7 +534,7 @@ class TestAllTypesProto2(Message):
                  optional_double: Optional[float] = ...,
                  optional_bool: Optional[bool] = ...,
                  optional_string: Optional[Text] = ...,
-                 optional_bytes: Optional[str] = ...,
+                 optional_bytes: Optional[bytes] = ...,
                  optional_nested_message: Optional[TestAllTypesProto2.NestedMessage] = ...,
                  optional_foreign_message: Optional[ForeignMessageProto2] = ...,
                  optional_nested_enum: Optional[TestAllTypesProto2.NestedEnum] = ...,
@@ -556,7 +556,7 @@ class TestAllTypesProto2(Message):
                  repeated_double: Optional[Iterable[float]] = ...,
                  repeated_bool: Optional[Iterable[bool]] = ...,
                  repeated_string: Optional[Iterable[Text]] = ...,
-                 repeated_bytes: Optional[Iterable[str]] = ...,
+                 repeated_bytes: Optional[Iterable[bytes]] = ...,
                  repeated_nested_message: Optional[Iterable[TestAllTypesProto2.NestedMessage]] = ...,
                  repeated_foreign_message: Optional[Iterable[ForeignMessageProto2]] = ...,
                  repeated_nested_enum: Optional[Iterable[TestAllTypesProto2.NestedEnum]] = ...,
@@ -577,7 +577,7 @@ class TestAllTypesProto2(Message):
                  map_int32_double: Optional[Mapping[int, float]]=...,
                  map_bool_bool: Optional[Mapping[bool, bool]]=...,
                  map_string_string: Optional[Mapping[Text, Text]]=...,
-                 map_string_bytes: Optional[Mapping[Text, str]]=...,
+                 map_string_bytes: Optional[Mapping[Text, bytes]]=...,
                  map_string_nested_message: Optional[Mapping[Text, TestAllTypesProto2.NestedMessage]]=...,
                  map_string_foreign_message: Optional[Mapping[Text, ForeignMessageProto2]]=...,
                  map_string_nested_enum: Optional[Mapping[Text, TestAllTypesProto2.NestedEnum]]=...,
@@ -585,7 +585,7 @@ class TestAllTypesProto2(Message):
                  oneof_uint32: Optional[int] = ...,
                  oneof_nested_message: Optional[TestAllTypesProto2.NestedMessage] = ...,
                  oneof_string: Optional[Text] = ...,
-                 oneof_bytes: Optional[str] = ...,
+                 oneof_bytes: Optional[bytes] = ...,
                  oneof_bool: Optional[bool] = ...,
                  oneof_uint64: Optional[int] = ...,
                  oneof_float: Optional[float] = ...,
@@ -613,7 +613,7 @@ class TestAllTypesProto2(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestAllTypesProto2: ...
+    def FromString(cls, s: bytes) -> TestAllTypesProto2: ...
 
 
 class ForeignMessageProto2(Message):
@@ -624,4 +624,4 @@ class ForeignMessageProto2(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> ForeignMessageProto2: ...
+    def FromString(cls, s: bytes) -> ForeignMessageProto2: ...

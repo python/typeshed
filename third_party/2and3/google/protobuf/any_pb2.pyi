@@ -11,12 +11,12 @@ from typing import (
 
 class Any(Message, well_known_types.Any_):
     type_url = ...  # type: Text
-    value = ...  # type: str
+    value = ...  # type: bytes
 
     def __init__(self,
                  type_url: Optional[Text] = ...,
-                 value: Optional[str] = ...,
+                 value: Optional[bytes] = ...,
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> Any: ...
+    def FromString(cls, s: bytes) -> Any: ...

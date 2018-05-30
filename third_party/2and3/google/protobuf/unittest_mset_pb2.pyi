@@ -25,7 +25,7 @@ class TestMessageSetContainer(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestMessageSetContainer: ...
+    def FromString(cls, s: bytes) -> TestMessageSetContainer: ...
 
 
 class TestMessageSetExtension1(Message):
@@ -36,33 +36,33 @@ class TestMessageSetExtension1(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestMessageSetExtension1: ...
+    def FromString(cls, s: bytes) -> TestMessageSetExtension1: ...
 
 
 class TestMessageSetExtension2(Message):
     str = ...  # type: Text
 
     def __init__(self,
-                 str: Optional[Text] = ...,
+                 bytes: Optional[Text] = ...,
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: builtins.str) -> TestMessageSetExtension2: ...
+    def FromString(cls, s: builtins.bytes) -> TestMessageSetExtension2: ...
 
 
 class RawMessageSet(Message):
 
     class Item(Message):
         type_id = ...  # type: int
-        message = ...  # type: str
+        message = ...  # type: bytes
 
         def __init__(self,
                      type_id: int,
-                     message: str,
+                     message: bytes,
                      ) -> None: ...
 
         @classmethod
-        def FromString(cls, s: str) -> RawMessageSet.Item: ...
+        def FromString(cls, s: bytes) -> RawMessageSet.Item: ...
 
     @property
     def item(self) -> RepeatedCompositeFieldContainer[RawMessageSet.Item]: ...
@@ -72,4 +72,4 @@ class RawMessageSet(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> RawMessageSet: ...
+    def FromString(cls, s: bytes) -> RawMessageSet: ...

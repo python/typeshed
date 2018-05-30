@@ -24,19 +24,19 @@ from typing import (
 class ForeignEnum(int):
 
     @classmethod
-    def Name(cls, number: int) -> str: ...
+    def Name(cls, number: int) -> bytes: ...
 
     @classmethod
-    def Value(cls, name: str) -> ForeignEnum: ...
+    def Value(cls, name: bytes) -> ForeignEnum: ...
 
     @classmethod
-    def keys(cls) -> List[str]: ...
+    def keys(cls) -> List[bytes]: ...
 
     @classmethod
     def values(cls) -> List[ForeignEnum]: ...
 
     @classmethod
-    def items(cls) -> List[Tuple[str, ForeignEnum]]: ...
+    def items(cls) -> List[Tuple[bytes, ForeignEnum]]: ...
 
 
 FOREIGN_ZERO: ForeignEnum
@@ -50,19 +50,19 @@ class TestAllTypes(Message):
     class NestedEnum(int):
 
         @classmethod
-        def Name(cls, number: int) -> str: ...
+        def Name(cls, number: int) -> bytes: ...
 
         @classmethod
-        def Value(cls, name: str) -> TestAllTypes.NestedEnum: ...
+        def Value(cls, name: bytes) -> TestAllTypes.NestedEnum: ...
 
         @classmethod
-        def keys(cls) -> List[str]: ...
+        def keys(cls) -> List[bytes]: ...
 
         @classmethod
         def values(cls) -> List[TestAllTypes.NestedEnum]: ...
 
         @classmethod
-        def items(cls) -> List[Tuple[str, TestAllTypes.NestedEnum]]: ...
+        def items(cls) -> List[Tuple[bytes, TestAllTypes.NestedEnum]]: ...
     ZERO: NestedEnum
     FOO: NestedEnum
     BAR: NestedEnum
@@ -77,7 +77,7 @@ class TestAllTypes(Message):
                      ) -> None: ...
 
         @classmethod
-        def FromString(cls, s: str) -> TestAllTypes.NestedMessage: ...
+        def FromString(cls, s: bytes) -> TestAllTypes.NestedMessage: ...
     optional_int32 = ...  # type: int
     optional_int64 = ...  # type: int
     optional_uint32 = ...  # type: int
@@ -92,7 +92,7 @@ class TestAllTypes(Message):
     optional_double = ...  # type: float
     optional_bool = ...  # type: bool
     optional_string = ...  # type: Text
-    optional_bytes = ...  # type: str
+    optional_bytes = ...  # type: bytes
     optional_nested_enum = ...  # type: TestAllTypes.NestedEnum
     optional_foreign_enum = ...  # type: ForeignEnum
     optional_string_piece = ...  # type: Text
@@ -111,14 +111,14 @@ class TestAllTypes(Message):
     repeated_double = ...  # type: RepeatedScalarFieldContainer[float]
     repeated_bool = ...  # type: RepeatedScalarFieldContainer[bool]
     repeated_string = ...  # type: RepeatedScalarFieldContainer[Text]
-    repeated_bytes = ...  # type: RepeatedScalarFieldContainer[str]
+    repeated_bytes = ...  # type: RepeatedScalarFieldContainer[bytes]
     repeated_nested_enum = ...  # type: RepeatedScalarFieldContainer[TestAllTypes.NestedEnum]
     repeated_foreign_enum = ...  # type: RepeatedScalarFieldContainer[ForeignEnum]
     repeated_string_piece = ...  # type: RepeatedScalarFieldContainer[Text]
     repeated_cord = ...  # type: RepeatedScalarFieldContainer[Text]
     oneof_uint32 = ...  # type: int
     oneof_string = ...  # type: Text
-    oneof_bytes = ...  # type: str
+    oneof_bytes = ...  # type: bytes
 
     @property
     def optional_nested_message(self) -> TestAllTypes.NestedMessage: ...
@@ -172,7 +172,7 @@ class TestAllTypes(Message):
                  optional_double: Optional[float] = ...,
                  optional_bool: Optional[bool] = ...,
                  optional_string: Optional[Text] = ...,
-                 optional_bytes: Optional[str] = ...,
+                 optional_bytes: Optional[bytes] = ...,
                  optional_nested_message: Optional[TestAllTypes.NestedMessage] = ...,
                  optional_foreign_message: Optional[ForeignMessage] = ...,
                  optional_import_message: Optional[ImportMessage] = ...,
@@ -197,7 +197,7 @@ class TestAllTypes(Message):
                  repeated_double: Optional[Iterable[float]] = ...,
                  repeated_bool: Optional[Iterable[bool]] = ...,
                  repeated_string: Optional[Iterable[Text]] = ...,
-                 repeated_bytes: Optional[Iterable[str]] = ...,
+                 repeated_bytes: Optional[Iterable[bytes]] = ...,
                  repeated_nested_message: Optional[Iterable[TestAllTypes.NestedMessage]] = ...,
                  repeated_foreign_message: Optional[Iterable[ForeignMessage]] = ...,
                  repeated_import_message: Optional[Iterable[ImportMessage]] = ...,
@@ -209,11 +209,11 @@ class TestAllTypes(Message):
                  oneof_uint32: Optional[int] = ...,
                  oneof_nested_message: Optional[TestAllTypes.NestedMessage] = ...,
                  oneof_string: Optional[Text] = ...,
-                 oneof_bytes: Optional[str] = ...,
+                 oneof_bytes: Optional[bytes] = ...,
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestAllTypes: ...
+    def FromString(cls, s: bytes) -> TestAllTypes: ...
 
 
 class TestPackedTypes(Message):
@@ -250,7 +250,7 @@ class TestPackedTypes(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestPackedTypes: ...
+    def FromString(cls, s: bytes) -> TestPackedTypes: ...
 
 
 class TestUnpackedTypes(Message):
@@ -287,7 +287,7 @@ class TestUnpackedTypes(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestUnpackedTypes: ...
+    def FromString(cls, s: bytes) -> TestUnpackedTypes: ...
 
 
 class NestedTestAllTypes(Message):
@@ -309,7 +309,7 @@ class NestedTestAllTypes(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> NestedTestAllTypes: ...
+    def FromString(cls, s: bytes) -> NestedTestAllTypes: ...
 
 
 class ForeignMessage(Message):
@@ -320,7 +320,7 @@ class ForeignMessage(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> ForeignMessage: ...
+    def FromString(cls, s: bytes) -> ForeignMessage: ...
 
 
 class TestEmptyMessage(Message):
@@ -329,4 +329,4 @@ class TestEmptyMessage(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestEmptyMessage: ...
+    def FromString(cls, s: bytes) -> TestEmptyMessage: ...

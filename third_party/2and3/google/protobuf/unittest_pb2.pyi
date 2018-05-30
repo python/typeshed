@@ -26,19 +26,19 @@ from typing import (
 
 class ForeignEnum(int):
     @classmethod
-    def Name(cls, number: int) -> str: ...
+    def Name(cls, number: int) -> bytes: ...
 
     @classmethod
-    def Value(cls, name: str) -> ForeignEnum: ...
+    def Value(cls, name: bytes) -> ForeignEnum: ...
 
     @classmethod
-    def keys(cls) -> List[str]: ...
+    def keys(cls) -> List[bytes]: ...
 
     @classmethod
     def values(cls) -> List[ForeignEnum]: ...
 
     @classmethod
-    def items(cls) -> List[Tuple[str, ForeignEnum]]: ...
+    def items(cls) -> List[Tuple[bytes, ForeignEnum]]: ...
 
 
 FOREIGN_FOO: ForeignEnum
@@ -48,19 +48,19 @@ FOREIGN_BAZ: ForeignEnum
 
 class TestEnumWithDupValue(int):
     @classmethod
-    def Name(cls, number: int) -> str: ...
+    def Name(cls, number: int) -> bytes: ...
 
     @classmethod
-    def Value(cls, name: str) -> TestEnumWithDupValue: ...
+    def Value(cls, name: bytes) -> TestEnumWithDupValue: ...
 
     @classmethod
-    def keys(cls) -> List[str]: ...
+    def keys(cls) -> List[bytes]: ...
 
     @classmethod
     def values(cls) -> List[TestEnumWithDupValue]: ...
 
     @classmethod
-    def items(cls) -> List[Tuple[str, TestEnumWithDupValue]]: ...
+    def items(cls) -> List[Tuple[bytes, TestEnumWithDupValue]]: ...
 
 
 FOO1: TestEnumWithDupValue
@@ -72,19 +72,19 @@ BAR2: TestEnumWithDupValue
 
 class TestSparseEnum(int):
     @classmethod
-    def Name(cls, number: int) -> str: ...
+    def Name(cls, number: int) -> bytes: ...
 
     @classmethod
-    def Value(cls, name: str) -> TestSparseEnum: ...
+    def Value(cls, name: bytes) -> TestSparseEnum: ...
 
     @classmethod
-    def keys(cls) -> List[str]: ...
+    def keys(cls) -> List[bytes]: ...
 
     @classmethod
     def values(cls) -> List[TestSparseEnum]: ...
 
     @classmethod
-    def items(cls) -> List[Tuple[str, TestSparseEnum]]: ...
+    def items(cls) -> List[Tuple[bytes, TestSparseEnum]]: ...
 
 
 SPARSE_A: TestSparseEnum
@@ -99,19 +99,19 @@ SPARSE_G: TestSparseEnum
 class TestAllTypes(Message):
     class NestedEnum(int):
         @classmethod
-        def Name(cls, number: int) -> str: ...
+        def Name(cls, number: int) -> bytes: ...
 
         @classmethod
-        def Value(cls, name: str) -> TestAllTypes.NestedEnum: ...
+        def Value(cls, name: bytes) -> TestAllTypes.NestedEnum: ...
 
         @classmethod
-        def keys(cls) -> List[str]: ...
+        def keys(cls) -> List[bytes]: ...
 
         @classmethod
         def values(cls) -> List[TestAllTypes.NestedEnum]: ...
 
         @classmethod
-        def items(cls) -> List[Tuple[str, TestAllTypes.NestedEnum]]: ...
+        def items(cls) -> List[Tuple[bytes, TestAllTypes.NestedEnum]]: ...
     FOO: NestedEnum
     BAR: NestedEnum
     BAZ: NestedEnum
@@ -125,7 +125,7 @@ class TestAllTypes(Message):
                      ) -> None: ...
 
         @classmethod
-        def FromString(cls, s: str) -> TestAllTypes.NestedMessage: ...
+        def FromString(cls, s: bytes) -> TestAllTypes.NestedMessage: ...
 
     class OptionalGroup(Message):
         a = ...  # type: int
@@ -135,7 +135,7 @@ class TestAllTypes(Message):
                      ) -> None: ...
 
         @classmethod
-        def FromString(cls, s: str) -> TestAllTypes.OptionalGroup: ...
+        def FromString(cls, s: bytes) -> TestAllTypes.OptionalGroup: ...
 
     class RepeatedGroup(Message):
         a = ...  # type: int
@@ -145,7 +145,7 @@ class TestAllTypes(Message):
                      ) -> None: ...
 
         @classmethod
-        def FromString(cls, s: str) -> TestAllTypes.RepeatedGroup: ...
+        def FromString(cls, s: bytes) -> TestAllTypes.RepeatedGroup: ...
     optional_int32 = ...  # type: int
     optional_int64 = ...  # type: int
     optional_uint32 = ...  # type: int
@@ -160,7 +160,7 @@ class TestAllTypes(Message):
     optional_double = ...  # type: float
     optional_bool = ...  # type: bool
     optional_string = ...  # type: Text
-    optional_bytes = ...  # type: str
+    optional_bytes = ...  # type: bytes
     optional_nested_enum = ...  # type: TestAllTypes.NestedEnum
     optional_foreign_enum = ...  # type: ForeignEnum
     optional_import_enum = ...  # type: ImportEnum
@@ -180,7 +180,7 @@ class TestAllTypes(Message):
     repeated_double = ...  # type: RepeatedScalarFieldContainer[float]
     repeated_bool = ...  # type: RepeatedScalarFieldContainer[bool]
     repeated_string = ...  # type: RepeatedScalarFieldContainer[Text]
-    repeated_bytes = ...  # type: RepeatedScalarFieldContainer[str]
+    repeated_bytes = ...  # type: RepeatedScalarFieldContainer[bytes]
     repeated_nested_enum = ...  # type: RepeatedScalarFieldContainer[TestAllTypes.NestedEnum]
     repeated_foreign_enum = ...  # type: RepeatedScalarFieldContainer[ForeignEnum]
     repeated_import_enum = ...  # type: RepeatedScalarFieldContainer[ImportEnum]
@@ -200,7 +200,7 @@ class TestAllTypes(Message):
     default_double = ...  # type: float
     default_bool = ...  # type: bool
     default_string = ...  # type: Text
-    default_bytes = ...  # type: str
+    default_bytes = ...  # type: bytes
     default_nested_enum = ...  # type: TestAllTypes.NestedEnum
     default_foreign_enum = ...  # type: ForeignEnum
     default_import_enum = ...  # type: ImportEnum
@@ -208,7 +208,7 @@ class TestAllTypes(Message):
     default_cord = ...  # type: Text
     oneof_uint32 = ...  # type: int
     oneof_string = ...  # type: Text
-    oneof_bytes = ...  # type: str
+    oneof_bytes = ...  # type: bytes
 
     @property
     def optionalgroup(self) -> TestAllTypes.OptionalGroup: ...
@@ -266,7 +266,7 @@ class TestAllTypes(Message):
                  optional_double: Optional[float] = ...,
                  optional_bool: Optional[bool] = ...,
                  optional_string: Optional[Text] = ...,
-                 optional_bytes: Optional[str] = ...,
+                 optional_bytes: Optional[bytes] = ...,
                  optionalgroup: Optional[TestAllTypes.OptionalGroup] = ...,
                  optional_nested_message: Optional[TestAllTypes.NestedMessage] = ...,
                  optional_foreign_message: Optional[ForeignMessage] = ...,
@@ -292,7 +292,7 @@ class TestAllTypes(Message):
                  repeated_double: Optional[Iterable[float]] = ...,
                  repeated_bool: Optional[Iterable[bool]] = ...,
                  repeated_string: Optional[Iterable[Text]] = ...,
-                 repeated_bytes: Optional[Iterable[str]] = ...,
+                 repeated_bytes: Optional[Iterable[bytes]] = ...,
                  repeatedgroup: Optional[Iterable[TestAllTypes.RepeatedGroup]] = ...,
                  repeated_nested_message: Optional[Iterable[TestAllTypes.NestedMessage]] = ...,
                  repeated_foreign_message: Optional[Iterable[ForeignMessage]] = ...,
@@ -317,7 +317,7 @@ class TestAllTypes(Message):
                  default_double: Optional[float] = ...,
                  default_bool: Optional[bool] = ...,
                  default_string: Optional[Text] = ...,
-                 default_bytes: Optional[str] = ...,
+                 default_bytes: Optional[bytes] = ...,
                  default_nested_enum: Optional[TestAllTypes.NestedEnum] = ...,
                  default_foreign_enum: Optional[ForeignEnum] = ...,
                  default_import_enum: Optional[ImportEnum] = ...,
@@ -326,11 +326,11 @@ class TestAllTypes(Message):
                  oneof_uint32: Optional[int] = ...,
                  oneof_nested_message: Optional[TestAllTypes.NestedMessage] = ...,
                  oneof_string: Optional[Text] = ...,
-                 oneof_bytes: Optional[str] = ...,
+                 oneof_bytes: Optional[bytes] = ...,
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestAllTypes: ...
+    def FromString(cls, s: bytes) -> TestAllTypes: ...
 
 
 class NestedTestAllTypes(Message):
@@ -352,7 +352,7 @@ class NestedTestAllTypes(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> NestedTestAllTypes: ...
+    def FromString(cls, s: bytes) -> NestedTestAllTypes: ...
 
 
 class TestDeprecatedFields(Message):
@@ -365,7 +365,7 @@ class TestDeprecatedFields(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestDeprecatedFields: ...
+    def FromString(cls, s: bytes) -> TestDeprecatedFields: ...
 
 
 class TestDeprecatedMessage(Message):
@@ -374,7 +374,7 @@ class TestDeprecatedMessage(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestDeprecatedMessage: ...
+    def FromString(cls, s: bytes) -> TestDeprecatedMessage: ...
 
 
 class ForeignMessage(Message):
@@ -387,7 +387,7 @@ class ForeignMessage(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> ForeignMessage: ...
+    def FromString(cls, s: bytes) -> ForeignMessage: ...
 
 
 class TestReservedFields(Message):
@@ -396,7 +396,7 @@ class TestReservedFields(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestReservedFields: ...
+    def FromString(cls, s: bytes) -> TestReservedFields: ...
 
 
 class TestAllExtensions(Message):
@@ -405,7 +405,7 @@ class TestAllExtensions(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestAllExtensions: ...
+    def FromString(cls, s: bytes) -> TestAllExtensions: ...
 
 
 class OptionalGroup_extension(Message):
@@ -416,7 +416,7 @@ class OptionalGroup_extension(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> OptionalGroup_extension: ...
+    def FromString(cls, s: bytes) -> OptionalGroup_extension: ...
 
 
 class RepeatedGroup_extension(Message):
@@ -427,7 +427,7 @@ class RepeatedGroup_extension(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> RepeatedGroup_extension: ...
+    def FromString(cls, s: bytes) -> RepeatedGroup_extension: ...
 
 
 class TestGroup(Message):
@@ -439,7 +439,7 @@ class TestGroup(Message):
                      ) -> None: ...
 
         @classmethod
-        def FromString(cls, s: str) -> TestGroup.OptionalGroup: ...
+        def FromString(cls, s: bytes) -> TestGroup.OptionalGroup: ...
     optional_foreign_enum = ...  # type: ForeignEnum
 
     @property
@@ -451,7 +451,7 @@ class TestGroup(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestGroup: ...
+    def FromString(cls, s: bytes) -> TestGroup: ...
 
 
 class TestGroupExtension(Message):
@@ -460,7 +460,7 @@ class TestGroupExtension(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestGroupExtension: ...
+    def FromString(cls, s: bytes) -> TestGroupExtension: ...
 
 
 class TestNestedExtension(Message):
@@ -473,13 +473,13 @@ class TestNestedExtension(Message):
 
         @classmethod
         def FromString(
-            cls, s: str) -> TestNestedExtension.OptionalGroup_extension: ...
+            cls, s: bytes) -> TestNestedExtension.OptionalGroup_extension: ...
 
     def __init__(self,
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestNestedExtension: ...
+    def FromString(cls, s: bytes) -> TestNestedExtension: ...
 
 
 class TestRequired(Message):
@@ -554,7 +554,7 @@ class TestRequired(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestRequired: ...
+    def FromString(cls, s: bytes) -> TestRequired: ...
 
 
 class TestRequiredForeign(Message):
@@ -574,7 +574,7 @@ class TestRequiredForeign(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestRequiredForeign: ...
+    def FromString(cls, s: bytes) -> TestRequiredForeign: ...
 
 
 class TestRequiredMessage(Message):
@@ -596,7 +596,7 @@ class TestRequiredMessage(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestRequiredMessage: ...
+    def FromString(cls, s: bytes) -> TestRequiredMessage: ...
 
 
 class TestForeignNested(Message):
@@ -609,7 +609,7 @@ class TestForeignNested(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestForeignNested: ...
+    def FromString(cls, s: bytes) -> TestForeignNested: ...
 
 
 class TestEmptyMessage(Message):
@@ -618,7 +618,7 @@ class TestEmptyMessage(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestEmptyMessage: ...
+    def FromString(cls, s: bytes) -> TestEmptyMessage: ...
 
 
 class TestEmptyMessageWithExtensions(Message):
@@ -627,7 +627,7 @@ class TestEmptyMessageWithExtensions(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestEmptyMessageWithExtensions: ...
+    def FromString(cls, s: bytes) -> TestEmptyMessageWithExtensions: ...
 
 
 class TestMultipleExtensionRanges(Message):
@@ -636,7 +636,7 @@ class TestMultipleExtensionRanges(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestMultipleExtensionRanges: ...
+    def FromString(cls, s: bytes) -> TestMultipleExtensionRanges: ...
 
 
 class TestReallyLargeTagNumber(Message):
@@ -649,7 +649,7 @@ class TestReallyLargeTagNumber(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestReallyLargeTagNumber: ...
+    def FromString(cls, s: bytes) -> TestReallyLargeTagNumber: ...
 
 
 class TestRecursiveMessage(Message):
@@ -664,7 +664,7 @@ class TestRecursiveMessage(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestRecursiveMessage: ...
+    def FromString(cls, s: bytes) -> TestRecursiveMessage: ...
 
 
 class TestMutualRecursionA(Message):
@@ -678,7 +678,7 @@ class TestMutualRecursionA(Message):
                      ) -> None: ...
 
         @classmethod
-        def FromString(cls, s: str) -> TestMutualRecursionA.SubMessage: ...
+        def FromString(cls, s: bytes) -> TestMutualRecursionA.SubMessage: ...
 
     class SubGroup(Message):
 
@@ -694,7 +694,7 @@ class TestMutualRecursionA(Message):
                      ) -> None: ...
 
         @classmethod
-        def FromString(cls, s: str) -> TestMutualRecursionA.SubGroup: ...
+        def FromString(cls, s: bytes) -> TestMutualRecursionA.SubGroup: ...
 
     @property
     def bb(self) -> TestMutualRecursionB: ...
@@ -708,7 +708,7 @@ class TestMutualRecursionA(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestMutualRecursionA: ...
+    def FromString(cls, s: bytes) -> TestMutualRecursionA: ...
 
 
 class TestMutualRecursionB(Message):
@@ -723,7 +723,7 @@ class TestMutualRecursionB(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestMutualRecursionB: ...
+    def FromString(cls, s: bytes) -> TestMutualRecursionB: ...
 
 
 class TestIsInitialized(Message):
@@ -737,7 +737,7 @@ class TestIsInitialized(Message):
 
             @classmethod
             def FromString(
-                cls, s: str) -> TestIsInitialized.SubMessage.SubGroup: ...
+                cls, s: bytes) -> TestIsInitialized.SubMessage.SubGroup: ...
 
         @property
         def subgroup(self) -> TestIsInitialized.SubMessage.SubGroup: ...
@@ -747,7 +747,7 @@ class TestIsInitialized(Message):
                      ) -> None: ...
 
         @classmethod
-        def FromString(cls, s: str) -> TestIsInitialized.SubMessage: ...
+        def FromString(cls, s: bytes) -> TestIsInitialized.SubMessage: ...
 
     @property
     def sub_message(self) -> TestIsInitialized.SubMessage: ...
@@ -757,7 +757,7 @@ class TestIsInitialized(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestIsInitialized: ...
+    def FromString(cls, s: bytes) -> TestIsInitialized: ...
 
 
 class TestDupFieldNumber(Message):
@@ -769,7 +769,7 @@ class TestDupFieldNumber(Message):
                      ) -> None: ...
 
         @classmethod
-        def FromString(cls, s: str) -> TestDupFieldNumber.Foo: ...
+        def FromString(cls, s: bytes) -> TestDupFieldNumber.Foo: ...
 
     class Bar(Message):
         a = ...  # type: int
@@ -779,7 +779,7 @@ class TestDupFieldNumber(Message):
                      ) -> None: ...
 
         @classmethod
-        def FromString(cls, s: str) -> TestDupFieldNumber.Bar: ...
+        def FromString(cls, s: bytes) -> TestDupFieldNumber.Bar: ...
     a = ...  # type: int
 
     @property
@@ -795,7 +795,7 @@ class TestDupFieldNumber(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestDupFieldNumber: ...
+    def FromString(cls, s: bytes) -> TestDupFieldNumber: ...
 
 
 class TestEagerMessage(Message):
@@ -808,7 +808,7 @@ class TestEagerMessage(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestEagerMessage: ...
+    def FromString(cls, s: bytes) -> TestEagerMessage: ...
 
 
 class TestLazyMessage(Message):
@@ -821,7 +821,7 @@ class TestLazyMessage(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestLazyMessage: ...
+    def FromString(cls, s: bytes) -> TestLazyMessage: ...
 
 
 class TestNestedMessageHasBits(Message):
@@ -839,7 +839,7 @@ class TestNestedMessageHasBits(Message):
 
         @classmethod
         def FromString(
-            cls, s: str) -> TestNestedMessageHasBits.NestedMessage: ...
+            cls, s: bytes) -> TestNestedMessageHasBits.NestedMessage: ...
 
     @property
     def optional_nested_message(
@@ -850,7 +850,7 @@ class TestNestedMessageHasBits(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestNestedMessageHasBits: ...
+    def FromString(cls, s: bytes) -> TestNestedMessageHasBits: ...
 
 
 class TestCamelCaseFieldNames(Message):
@@ -888,7 +888,7 @@ class TestCamelCaseFieldNames(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestCamelCaseFieldNames: ...
+    def FromString(cls, s: bytes) -> TestCamelCaseFieldNames: ...
 
 
 class TestFieldOrderings(Message):
@@ -902,7 +902,7 @@ class TestFieldOrderings(Message):
                      ) -> None: ...
 
         @classmethod
-        def FromString(cls, s: str) -> TestFieldOrderings.NestedMessage: ...
+        def FromString(cls, s: bytes) -> TestFieldOrderings.NestedMessage: ...
     my_string = ...  # type: Text
     my_int = ...  # type: int
     my_float = ...  # type: float
@@ -918,7 +918,7 @@ class TestFieldOrderings(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestFieldOrderings: ...
+    def FromString(cls, s: bytes) -> TestFieldOrderings: ...
 
 
 class TestExtensionOrderings1(Message):
@@ -929,7 +929,7 @@ class TestExtensionOrderings1(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestExtensionOrderings1: ...
+    def FromString(cls, s: bytes) -> TestExtensionOrderings1: ...
 
 
 class TestExtensionOrderings2(Message):
@@ -942,7 +942,7 @@ class TestExtensionOrderings2(Message):
 
         @classmethod
         def FromString(
-            cls, s: str) -> TestExtensionOrderings2.TestExtensionOrderings3: ...
+            cls, s: bytes) -> TestExtensionOrderings2.TestExtensionOrderings3: ...
     my_string = ...  # type: Text
 
     def __init__(self,
@@ -950,11 +950,11 @@ class TestExtensionOrderings2(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestExtensionOrderings2: ...
+    def FromString(cls, s: bytes) -> TestExtensionOrderings2: ...
 
 
 class TestExtremeDefaultValues(Message):
-    escaped_bytes = ...  # type: str
+    escaped_bytes = ...  # type: bytes
     large_uint32 = ...  # type: int
     large_uint64 = ...  # type: int
     small_int32 = ...  # type: int
@@ -977,13 +977,13 @@ class TestExtremeDefaultValues(Message):
     nan_float = ...  # type: float
     cpp_trigraph = ...  # type: Text
     string_with_zero = ...  # type: Text
-    bytes_with_zero = ...  # type: str
+    bytes_with_zero = ...  # type: bytes
     string_piece_with_zero = ...  # type: Text
     cord_with_zero = ...  # type: Text
     replacement_string = ...  # type: Text
 
     def __init__(self,
-                 escaped_bytes: Optional[str] = ...,
+                 escaped_bytes: Optional[bytes] = ...,
                  large_uint32: Optional[int] = ...,
                  large_uint64: Optional[int] = ...,
                  small_int32: Optional[int] = ...,
@@ -1006,14 +1006,14 @@ class TestExtremeDefaultValues(Message):
                  nan_float: Optional[float] = ...,
                  cpp_trigraph: Optional[Text] = ...,
                  string_with_zero: Optional[Text] = ...,
-                 bytes_with_zero: Optional[str] = ...,
+                 bytes_with_zero: Optional[bytes] = ...,
                  string_piece_with_zero: Optional[Text] = ...,
                  cord_with_zero: Optional[Text] = ...,
                  replacement_string: Optional[Text] = ...,
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestExtremeDefaultValues: ...
+    def FromString(cls, s: bytes) -> TestExtremeDefaultValues: ...
 
 
 class SparseEnumMessage(Message):
@@ -1024,7 +1024,7 @@ class SparseEnumMessage(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> SparseEnumMessage: ...
+    def FromString(cls, s: bytes) -> SparseEnumMessage: ...
 
 
 class OneString(Message):
@@ -1035,7 +1035,7 @@ class OneString(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> OneString: ...
+    def FromString(cls, s: bytes) -> OneString: ...
 
 
 class MoreString(Message):
@@ -1046,29 +1046,29 @@ class MoreString(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> MoreString: ...
+    def FromString(cls, s: bytes) -> MoreString: ...
 
 
 class OneBytes(Message):
-    data = ...  # type: str
+    data = ...  # type: bytes
 
     def __init__(self,
-                 data: Optional[str] = ...,
+                 data: Optional[bytes] = ...,
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> OneBytes: ...
+    def FromString(cls, s: bytes) -> OneBytes: ...
 
 
 class MoreBytes(Message):
-    data = ...  # type: RepeatedScalarFieldContainer[str]
+    data = ...  # type: RepeatedScalarFieldContainer[bytes]
 
     def __init__(self,
-                 data: Optional[Iterable[str]] = ...,
+                 data: Optional[Iterable[bytes]] = ...,
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> MoreBytes: ...
+    def FromString(cls, s: bytes) -> MoreBytes: ...
 
 
 class Int32Message(Message):
@@ -1079,7 +1079,7 @@ class Int32Message(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> Int32Message: ...
+    def FromString(cls, s: bytes) -> Int32Message: ...
 
 
 class Uint32Message(Message):
@@ -1090,7 +1090,7 @@ class Uint32Message(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> Uint32Message: ...
+    def FromString(cls, s: bytes) -> Uint32Message: ...
 
 
 class Int64Message(Message):
@@ -1101,7 +1101,7 @@ class Int64Message(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> Int64Message: ...
+    def FromString(cls, s: bytes) -> Int64Message: ...
 
 
 class Uint64Message(Message):
@@ -1112,7 +1112,7 @@ class Uint64Message(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> Uint64Message: ...
+    def FromString(cls, s: bytes) -> Uint64Message: ...
 
 
 class BoolMessage(Message):
@@ -1123,7 +1123,7 @@ class BoolMessage(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> BoolMessage: ...
+    def FromString(cls, s: bytes) -> BoolMessage: ...
 
 
 class TestOneof(Message):
@@ -1137,7 +1137,7 @@ class TestOneof(Message):
                      ) -> None: ...
 
         @classmethod
-        def FromString(cls, s: str) -> TestOneof.FooGroup: ...
+        def FromString(cls, s: bytes) -> TestOneof.FooGroup: ...
     foo_int = ...  # type: int
     foo_string = ...  # type: Text
 
@@ -1155,7 +1155,7 @@ class TestOneof(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestOneof: ...
+    def FromString(cls, s: bytes) -> TestOneof: ...
 
 
 class TestOneofBackwardsCompatible(Message):
@@ -1170,7 +1170,7 @@ class TestOneofBackwardsCompatible(Message):
 
         @classmethod
         def FromString(
-            cls, s: str) -> TestOneofBackwardsCompatible.FooGroup: ...
+            cls, s: bytes) -> TestOneofBackwardsCompatible.FooGroup: ...
     foo_int = ...  # type: int
     foo_string = ...  # type: Text
 
@@ -1188,25 +1188,25 @@ class TestOneofBackwardsCompatible(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestOneofBackwardsCompatible: ...
+    def FromString(cls, s: bytes) -> TestOneofBackwardsCompatible: ...
 
 
 class TestOneof2(Message):
     class NestedEnum(int):
         @classmethod
-        def Name(cls, number: int) -> str: ...
+        def Name(cls, number: int) -> bytes: ...
 
         @classmethod
-        def Value(cls, name: str) -> TestOneof2.NestedEnum: ...
+        def Value(cls, name: bytes) -> TestOneof2.NestedEnum: ...
 
         @classmethod
-        def keys(cls) -> List[str]: ...
+        def keys(cls) -> List[bytes]: ...
 
         @classmethod
         def values(cls) -> List[TestOneof2.NestedEnum]: ...
 
         @classmethod
-        def items(cls) -> List[Tuple[str, TestOneof2.NestedEnum]]: ...
+        def items(cls) -> List[Tuple[bytes, TestOneof2.NestedEnum]]: ...
     FOO: NestedEnum
     BAR: NestedEnum
     BAZ: NestedEnum
@@ -1221,7 +1221,7 @@ class TestOneof2(Message):
                      ) -> None: ...
 
         @classmethod
-        def FromString(cls, s: str) -> TestOneof2.FooGroup: ...
+        def FromString(cls, s: bytes) -> TestOneof2.FooGroup: ...
 
     class NestedMessage(Message):
         qux_int = ...  # type: int
@@ -1233,18 +1233,18 @@ class TestOneof2(Message):
                      ) -> None: ...
 
         @classmethod
-        def FromString(cls, s: str) -> TestOneof2.NestedMessage: ...
+        def FromString(cls, s: bytes) -> TestOneof2.NestedMessage: ...
     foo_int = ...  # type: int
     foo_string = ...  # type: Text
     foo_cord = ...  # type: Text
     foo_string_piece = ...  # type: Text
-    foo_bytes = ...  # type: str
+    foo_bytes = ...  # type: bytes
     foo_enum = ...  # type: TestOneof2.NestedEnum
     bar_int = ...  # type: int
     bar_string = ...  # type: Text
     bar_cord = ...  # type: Text
     bar_string_piece = ...  # type: Text
-    bar_bytes = ...  # type: str
+    bar_bytes = ...  # type: bytes
     bar_enum = ...  # type: TestOneof2.NestedEnum
     baz_int = ...  # type: int
     baz_string = ...  # type: Text
@@ -1263,7 +1263,7 @@ class TestOneof2(Message):
                  foo_string: Optional[Text] = ...,
                  foo_cord: Optional[Text] = ...,
                  foo_string_piece: Optional[Text] = ...,
-                 foo_bytes: Optional[str] = ...,
+                 foo_bytes: Optional[bytes] = ...,
                  foo_enum: Optional[TestOneof2.NestedEnum] = ...,
                  foo_message: Optional[TestOneof2.NestedMessage] = ...,
                  foogroup: Optional[TestOneof2.FooGroup] = ...,
@@ -1272,14 +1272,14 @@ class TestOneof2(Message):
                  bar_string: Optional[Text] = ...,
                  bar_cord: Optional[Text] = ...,
                  bar_string_piece: Optional[Text] = ...,
-                 bar_bytes: Optional[str] = ...,
+                 bar_bytes: Optional[bytes] = ...,
                  bar_enum: Optional[TestOneof2.NestedEnum] = ...,
                  baz_int: Optional[int] = ...,
                  baz_string: Optional[Text] = ...,
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestOneof2: ...
+    def FromString(cls, s: bytes) -> TestOneof2: ...
 
 
 class TestRequiredOneof(Message):
@@ -1291,7 +1291,7 @@ class TestRequiredOneof(Message):
                      ) -> None: ...
 
         @classmethod
-        def FromString(cls, s: str) -> TestRequiredOneof.NestedMessage: ...
+        def FromString(cls, s: bytes) -> TestRequiredOneof.NestedMessage: ...
     foo_int = ...  # type: int
     foo_string = ...  # type: Text
 
@@ -1305,7 +1305,7 @@ class TestRequiredOneof(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestRequiredOneof: ...
+    def FromString(cls, s: bytes) -> TestRequiredOneof: ...
 
 
 class TestPackedTypes(Message):
@@ -1342,7 +1342,7 @@ class TestPackedTypes(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestPackedTypes: ...
+    def FromString(cls, s: bytes) -> TestPackedTypes: ...
 
 
 class TestUnpackedTypes(Message):
@@ -1379,7 +1379,7 @@ class TestUnpackedTypes(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestUnpackedTypes: ...
+    def FromString(cls, s: bytes) -> TestUnpackedTypes: ...
 
 
 class TestPackedExtensions(Message):
@@ -1388,7 +1388,7 @@ class TestPackedExtensions(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestPackedExtensions: ...
+    def FromString(cls, s: bytes) -> TestPackedExtensions: ...
 
 
 class TestUnpackedExtensions(Message):
@@ -1397,25 +1397,25 @@ class TestUnpackedExtensions(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestUnpackedExtensions: ...
+    def FromString(cls, s: bytes) -> TestUnpackedExtensions: ...
 
 
 class TestDynamicExtensions(Message):
     class DynamicEnumType(int):
         @classmethod
-        def Name(cls, number: int) -> str: ...
+        def Name(cls, number: int) -> bytes: ...
 
         @classmethod
-        def Value(cls, name: str) -> TestDynamicExtensions.DynamicEnumType: ...
+        def Value(cls, name: bytes) -> TestDynamicExtensions.DynamicEnumType: ...
 
         @classmethod
-        def keys(cls) -> List[str]: ...
+        def keys(cls) -> List[bytes]: ...
 
         @classmethod
         def values(cls) -> List[TestDynamicExtensions.DynamicEnumType]: ...
 
         @classmethod
-        def items(cls) -> List[Tuple[str,
+        def items(cls) -> List[Tuple[bytes,
                                      TestDynamicExtensions.DynamicEnumType]]: ...
     DYNAMIC_FOO: DynamicEnumType
     DYNAMIC_BAR: DynamicEnumType
@@ -1430,7 +1430,7 @@ class TestDynamicExtensions(Message):
 
         @classmethod
         def FromString(
-            cls, s: str) -> TestDynamicExtensions.DynamicMessageType: ...
+            cls, s: bytes) -> TestDynamicExtensions.DynamicMessageType: ...
     scalar_extension = ...  # type: int
     enum_extension = ...  # type: ForeignEnum
     dynamic_enum_extension = ...  # type: TestDynamicExtensions.DynamicEnumType
@@ -1455,7 +1455,7 @@ class TestDynamicExtensions(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestDynamicExtensions: ...
+    def FromString(cls, s: bytes) -> TestDynamicExtensions: ...
 
 
 class TestRepeatedScalarDifferentTagSizes(Message):
@@ -1476,7 +1476,7 @@ class TestRepeatedScalarDifferentTagSizes(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestRepeatedScalarDifferentTagSizes: ...
+    def FromString(cls, s: bytes) -> TestRepeatedScalarDifferentTagSizes: ...
 
 
 class TestParsingMerge(Message):
@@ -1492,7 +1492,7 @@ class TestParsingMerge(Message):
 
             @classmethod
             def FromString(
-                cls, s: str) -> TestParsingMerge.RepeatedFieldsGenerator.Group1: ...
+                cls, s: bytes) -> TestParsingMerge.RepeatedFieldsGenerator.Group1: ...
 
         class Group2(Message):
 
@@ -1505,7 +1505,7 @@ class TestParsingMerge(Message):
 
             @classmethod
             def FromString(
-                cls, s: str) -> TestParsingMerge.RepeatedFieldsGenerator.Group2: ...
+                cls, s: bytes) -> TestParsingMerge.RepeatedFieldsGenerator.Group2: ...
 
         @property
         def field1(self) -> RepeatedCompositeFieldContainer[TestAllTypes]: ...
@@ -1542,7 +1542,7 @@ class TestParsingMerge(Message):
 
         @classmethod
         def FromString(
-            cls, s: str) -> TestParsingMerge.RepeatedFieldsGenerator: ...
+            cls, s: bytes) -> TestParsingMerge.RepeatedFieldsGenerator: ...
 
     class OptionalGroup(Message):
 
@@ -1554,7 +1554,7 @@ class TestParsingMerge(Message):
                      ) -> None: ...
 
         @classmethod
-        def FromString(cls, s: str) -> TestParsingMerge.OptionalGroup: ...
+        def FromString(cls, s: bytes) -> TestParsingMerge.OptionalGroup: ...
 
     class RepeatedGroup(Message):
 
@@ -1566,7 +1566,7 @@ class TestParsingMerge(Message):
                      ) -> None: ...
 
         @classmethod
-        def FromString(cls, s: str) -> TestParsingMerge.RepeatedGroup: ...
+        def FromString(cls, s: bytes) -> TestParsingMerge.RepeatedGroup: ...
 
     @property
     def required_all_types(self) -> TestAllTypes: ...
@@ -1594,7 +1594,7 @@ class TestParsingMerge(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestParsingMerge: ...
+    def FromString(cls, s: bytes) -> TestParsingMerge: ...
 
 
 class TestCommentInjectionMessage(Message):
@@ -1605,7 +1605,7 @@ class TestCommentInjectionMessage(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestCommentInjectionMessage: ...
+    def FromString(cls, s: bytes) -> TestCommentInjectionMessage: ...
 
 
 class FooRequest(Message):
@@ -1614,7 +1614,7 @@ class FooRequest(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> FooRequest: ...
+    def FromString(cls, s: bytes) -> FooRequest: ...
 
 
 class FooResponse(Message):
@@ -1623,7 +1623,7 @@ class FooResponse(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> FooResponse: ...
+    def FromString(cls, s: bytes) -> FooResponse: ...
 
 
 class FooClientMessage(Message):
@@ -1632,7 +1632,7 @@ class FooClientMessage(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> FooClientMessage: ...
+    def FromString(cls, s: bytes) -> FooClientMessage: ...
 
 
 class FooServerMessage(Message):
@@ -1641,7 +1641,7 @@ class FooServerMessage(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> FooServerMessage: ...
+    def FromString(cls, s: bytes) -> FooServerMessage: ...
 
 
 class BarRequest(Message):
@@ -1650,7 +1650,7 @@ class BarRequest(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> BarRequest: ...
+    def FromString(cls, s: bytes) -> BarRequest: ...
 
 
 class BarResponse(Message):
@@ -1659,7 +1659,7 @@ class BarResponse(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> BarResponse: ...
+    def FromString(cls, s: bytes) -> BarResponse: ...
 
 
 class TestJsonName(Message):
@@ -1680,7 +1680,7 @@ class TestJsonName(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestJsonName: ...
+    def FromString(cls, s: bytes) -> TestJsonName: ...
 
 
 class TestHugeFieldNumbers(Message):
@@ -1692,7 +1692,7 @@ class TestHugeFieldNumbers(Message):
                      ) -> None: ...
 
         @classmethod
-        def FromString(cls, s: str) -> TestHugeFieldNumbers.OptionalGroup: ...
+        def FromString(cls, s: bytes) -> TestHugeFieldNumbers.OptionalGroup: ...
 
     class StringStringMapEntry(Message):
         key = ...  # type: Text
@@ -1705,17 +1705,17 @@ class TestHugeFieldNumbers(Message):
 
         @classmethod
         def FromString(
-            cls, s: str) -> TestHugeFieldNumbers.StringStringMapEntry: ...
+            cls, s: bytes) -> TestHugeFieldNumbers.StringStringMapEntry: ...
     optional_int32 = ...  # type: int
     fixed_32 = ...  # type: int
     repeated_int32 = ...  # type: RepeatedScalarFieldContainer[int]
     packed_int32 = ...  # type: RepeatedScalarFieldContainer[int]
     optional_enum = ...  # type: ForeignEnum
     optional_string = ...  # type: Text
-    optional_bytes = ...  # type: str
+    optional_bytes = ...  # type: bytes
     oneof_uint32 = ...  # type: int
     oneof_string = ...  # type: Text
-    oneof_bytes = ...  # type: str
+    oneof_bytes = ...  # type: bytes
 
     @property
     def optional_message(self) -> ForeignMessage: ...
@@ -1736,18 +1736,18 @@ class TestHugeFieldNumbers(Message):
                  packed_int32: Optional[Iterable[int]] = ...,
                  optional_enum: Optional[ForeignEnum] = ...,
                  optional_string: Optional[Text] = ...,
-                 optional_bytes: Optional[str] = ...,
+                 optional_bytes: Optional[bytes] = ...,
                  optional_message: Optional[ForeignMessage] = ...,
                  optionalgroup: Optional[TestHugeFieldNumbers.OptionalGroup] = ...,
                  string_string_map: Optional[Mapping[Text, Text]] = ...,
                  oneof_uint32: Optional[int] = ...,
                  oneof_test_all_types: Optional[TestAllTypes] = ...,
                  oneof_string: Optional[Text] = ...,
-                 oneof_bytes: Optional[str] = ...,
+                 oneof_bytes: Optional[bytes] = ...,
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestHugeFieldNumbers: ...
+    def FromString(cls, s: bytes) -> TestHugeFieldNumbers: ...
 
 
 class TestExtensionInsideTable(Message):
@@ -1774,4 +1774,4 @@ class TestExtensionInsideTable(Message):
                  ) -> None: ...
 
     @classmethod
-    def FromString(cls, s: str) -> TestExtensionInsideTable: ...
+    def FromString(cls, s: bytes) -> TestExtensionInsideTable: ...
