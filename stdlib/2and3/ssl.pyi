@@ -39,12 +39,13 @@ def wrap_socket(sock: socket.socket, keyfile: Optional[str] = ...,
                 ciphers: Optional[str] = ...) -> 'SSLSocket': ...
 
 
-if sys.version_info >= (3, 4):
+if sys.version_info < (3,) or sys.version_info >= (3, 4):
     def create_default_context(purpose: Any = ..., *,
                                cafile: Optional[str] = ...,
                                capath: Optional[str] = ...,
                                cadata: Optional[str] = ...) -> 'SSLContext': ...
 
+if sys.version_info >= (3, 4):
     def _create_unverified_context(protocol: int = ..., *,
                                    cert_reqs: int = ...,
                                    check_hostname: bool = ...,
@@ -56,8 +57,9 @@ if sys.version_info >= (3, 4):
                                    cadata: Optional[str] = ...) -> 'SSLContext': ...
     _create_default_https_context = ...  # type: Callable[..., 'SSLContext']
 
-def RAND_bytes(num: int) -> bytes: ...
-def RAND_pseudo_bytes(num: int) -> Tuple[bytes, bool]: ...
+if sys.version_info >= (3, 3):
+    def RAND_bytes(num: int) -> bytes: ...
+    def RAND_pseudo_bytes(num: int) -> Tuple[bytes, bool]: ...
 def RAND_status() -> bool: ...
 def RAND_egd(path: str) -> None: ...
 def RAND_add(bytes: bytes, entropy: float) -> None: ...
@@ -69,7 +71,7 @@ def get_server_certificate(addr: Tuple[str, int], ssl_version: int = ...,
                            ca_certs: Optional[str] = ...) -> str: ...
 def DER_cert_to_PEM_cert(der_cert_bytes: bytes) -> str: ...
 def PEM_cert_to_DER_cert(pem_cert_string: str) -> bytes: ...
-if sys.version_info >= (3, 4):
+if sys.version_info < (3,) or sys.version_info >= (3, 4):
     DefaultVerifyPaths = NamedTuple('DefaultVerifyPaths',
                                     [('cafile', str), ('capath', str),
                                      ('openssl_cafile_env', str),
@@ -78,7 +80,7 @@ if sys.version_info >= (3, 4):
                                      ('openssl_capath', str)])
     def get_default_verify_paths() -> DefaultVerifyPaths: ...
 
-if sys.version_info >= (3, 4) and sys.platform == 'win32':
+if (sys.version_info < (3,) or sys.version_info >= (3, 4)) and sys.platform == 'win32':
     def enum_certificates(store_name: str) -> _EnumRetType: ...
     def enum_crls(store_name: str) -> _EnumRetType: ...
 
@@ -87,7 +89,7 @@ CERT_NONE = ...  # type: int
 CERT_OPTIONAL = ...  # type: int
 CERT_REQUIRED = ...  # type: int
 
-if sys.version_info >= (3, 4):
+if sys.version_info < (3,) or sys.version_info >= (3, 4):
     VERIFY_DEFAULT = ...  # type: int
     VERIFY_CRL_CHECK_LEAF = ...  # type: int
     VERIFY_CRL_CHECK_CHAIN = ...  # type: int
@@ -98,7 +100,7 @@ PROTOCOL_SSLv23 = ...  # type: int
 PROTOCOL_SSLv2 = ...  # type: int
 PROTOCOL_SSLv3 = ...  # type: int
 PROTOCOL_TLSv1 = ...  # type: int
-if sys.version_info >= (3, 4):
+if sys.version_info < (3,) or sys.version_info >= (3, 4):
     PROTOCOL_TLSv1_1 = ...  # type: int
     PROTOCOL_TLSv1_2 = ...  # type: int
 if sys.version_info >= (3, 5):
@@ -111,7 +113,7 @@ OP_ALL = ...  # type: int
 OP_NO_SSLv2 = ...  # type: int
 OP_NO_SSLv3 = ...  # type: int
 OP_NO_TLSv1 = ...  # type: int
-if sys.version_info >= (3, 4):
+if sys.version_info < (3,) or sys.version_info >= (3, 4):
     OP_NO_TLSv1_1 = ...  # type: int
     OP_NO_TLSv1_2 = ...  # type: int
 OP_CIPHER_SERVER_PREFERENCE = ...  # type: int
@@ -121,7 +123,7 @@ OP_NO_COMPRESSION = ...  # type: int
 if sys.version_info >= (3, 6):
     OP_NO_TICKET = ...  # type: int
 
-if sys.version_info >= (3, 5):
+if sys.version_info < (3,) or sys.version_info >= (3, 5):
     HAS_ALPN = ...  # type: int
 HAS_ECDH = ...  # type: bool
 HAS_SNI = ...  # type: bool
@@ -132,7 +134,7 @@ OPENSSL_VERSION = ...  # type: str
 OPENSSL_VERSION_INFO = ...  # type: Tuple[int, int, int, int, int]
 OPENSSL_VERSION_NUMBER = ...  # type: int
 
-if sys.version_info >= (3, 4):
+if sys.version_info < (3,) or sys.version_info >= (3, 4):
     ALERT_DESCRIPTION_HANDSHAKE_FAILURE = ...  # type: int
     ALERT_DESCRIPTION_INTERNAL_ERROR = ...  # type: int
     ALERT_DESCRIPTION_ACCESS_DENIED = ...  # type: int
@@ -161,7 +163,7 @@ if sys.version_info >= (3, 4):
     ALERT_DESCRIPTION_UNSUPPORTED_EXTENSION = ...  # type: int
     ALERT_DESCRIPTION_USER_CANCELLED = ...  # type: int
 
-if sys.version_info >= (3, 4):
+if sys.version_info < (3,) or sys.version_info >= (3, 4):
     _PurposeType = NamedTuple('_PurposeType',
                              [('nid', int), ('shortname', str),
                               ('longname', str), ('oid', str)])
@@ -188,33 +190,33 @@ class SSLSocket(socket.socket):
         def shared_cipher(self) -> Optional[List[Tuple[str, int, int]]]: ...
     def compression(self) -> Optional[str]: ...
     def get_channel_binding(self, cb_type: str = ...) -> Optional[bytes]: ...
-    if sys.version_info >= (3, 5):
+    if sys.version_info < (3,) or sys.version_info >= (3, 5):
         def selected_alpn_protocol(self) -> Optional[str]: ...
     def selected_npn_protocol(self) -> Optional[str]: ...
     def unwrap(self) -> socket.socket: ...
-    if sys.version_info >= (3, 5):
+    if sys.version_info < (3,) or sys.version_info >= (3, 5):
         def version(self) -> Optional[str]: ...
     def pending(self) -> int: ...
 
 
 class SSLContext:
-    if sys.version_info >= (3, 4):
+    if sys.version_info < (3,) or sys.version_info >= (3, 4):
         check_hostname = ...  # type: bool
     options = ...  # type: int
     @property
     def protocol(self) -> int: ...
-    if sys.version_info >= (3, 4):
+    if sys.version_info < (3,) or sys.version_info >= (3, 4):
         verify_flags = ...  # type: int
     verify_mode = ...  # type: int
     if sys.version_info >= (3, 5):
         def __init__(self, protocol: int = ...) -> None: ...
     else:
         def __init__(self, protocol: int) -> None: ...
-    if sys.version_info >= (3, 4):
+    if sys.version_info < (3,) or sys.version_info >= (3, 4):
         def cert_store_stats(self) -> Dict[str, int]: ...
     def load_cert_chain(self, certfile: str, keyfile: Optional[str] = ...,
                         password: _PasswordType = ...) -> None: ...
-    if sys.version_info >= (3, 4):
+    if sys.version_info < (3,) or sys.version_info >= (3, 4):
         def load_default_certs(self, purpose: _PurposeType = ...) -> None: ...
         def load_verify_locations(self, cafile: Optional[str] = ...,
                                   capath: Optional[str] = ...,
@@ -227,7 +229,7 @@ class SSLContext:
                                   capath: Optional[str] = ...) -> None: ...
     def set_default_verify_paths(self) -> None: ...
     def set_ciphers(self, ciphers: str) -> None: ...
-    if sys.version_info >= (3, 5):
+    if sys.version_info < (3,) or sys.version_info >= (3, 5):
         def set_alpn_protocols(self, protocols: List[str]) -> None: ...
     def set_npn_protocols(self, protocols: List[str]) -> None: ...
     def set_servername_callback(self,
