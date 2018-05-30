@@ -17,7 +17,7 @@ if sys.version_info >= (3, 5):
     _SC1ArgT = Union[SSLSocket, SSLObject]
 else:
     _SC1ArgT = SSLSocket
-_SrvnmeCbType = Callable[[_SC1ArgT, Optional[str], 'SSLSocket'], Optional[int]]
+_SrvnmeCbType = Callable[[_SC1ArgT, Optional[str], SSLSocket], Optional[int]]
 
 class SSLError(OSError):
     library = ...  # type: str
@@ -36,14 +36,14 @@ def wrap_socket(sock: socket.socket, keyfile: Optional[str] = ...,
                 ca_certs: Optional[str] = ...,
                 do_handshake_on_connect: bool = ...,
                 suppress_ragged_eofs: bool = ...,
-                ciphers: Optional[str] = ...) -> 'SSLSocket': ...
+                ciphers: Optional[str] = ...) -> SSLSocket: ...
 
 
 if sys.version_info < (3,) or sys.version_info >= (3, 4):
     def create_default_context(purpose: Any = ..., *,
                                cafile: Optional[str] = ...,
                                capath: Optional[str] = ...,
-                               cadata: Optional[str] = ...) -> 'SSLContext': ...
+                               cadata: Optional[str] = ...) -> SSLContext: ...
 
 if sys.version_info >= (3, 4):
     def _create_unverified_context(protocol: int = ..., *,
@@ -54,8 +54,8 @@ if sys.version_info >= (3, 4):
                                    keyfile: Optional[str] = ...,
                                    cafile: Optional[str] = ...,
                                    capath: Optional[str] = ...,
-                                   cadata: Optional[str] = ...) -> 'SSLContext': ...
-    _create_default_https_context = ...  # type: Callable[..., 'SSLContext']
+                                   cadata: Optional[str] = ...) -> SSLContext: ...
+    _create_default_https_context = ...  # type: Callable[..., SSLContext]
 
 if sys.version_info >= (3, 3):
     def RAND_bytes(num: int) -> bytes: ...
@@ -241,9 +241,9 @@ class SSLContext:
                     suppress_ragged_eofs: bool = ...,
                     server_hostname: Optional[str] = ...) -> SSLSocket: ...
     if sys.version_info >= (3, 5):
-        def wrap_bio(self, incoming: 'MemoryBIO', outgoing: 'MemoryBIO',
+        def wrap_bio(self, incoming: MemoryBIO, outgoing: MemoryBIO,
                      server_side: bool = ...,
-                     server_hostname: Optional[str] = ...) -> 'SSLObject': ...
+                     server_hostname: Optional[str] = ...) -> SSLObject: ...
     def session_stats(self) -> Dict[str, int]: ...
 
 
