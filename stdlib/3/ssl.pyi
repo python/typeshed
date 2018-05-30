@@ -1,4 +1,4 @@
-# Stubs for ssl (Python 3.4)
+# Stubs for ssl
 
 from typing import (
     Any, Dict, Callable, List, NamedTuple, Optional, Set, Tuple, Union,
@@ -12,7 +12,6 @@ _PeerCertRetDictType = Dict[str, Union[str, _PCTRTTT, _PCTRTT]]
 _PeerCertRetType = Union[_PeerCertRetDictType, bytes, None]
 _EnumRetType = List[Tuple[bytes, str, Union[Set[str], bool]]]
 _PasswordType = Union[Callable[[], Union[str, bytes]], str, bytes]
-
 
 if sys.version_info >= (3, 5):
     _SC1ArgT = Union[SSLSocket, SSLObject]
