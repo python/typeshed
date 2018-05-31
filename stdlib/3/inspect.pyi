@@ -28,6 +28,9 @@ CO_VARKEYWORDS = ...  # type: int
 CO_NESTED = ...  # type: int
 CO_GENERATOR = ...  # type: int
 CO_NOFREE = ...  # type: int
+if sys.version_info >= (3, 5):
+    CO_COROUTINE: int
+    CO_ITERABLE_COROUTINE: int
 TPFLAGS_IS_ABSTRACT = ...  # type: int
 
 if sys.version_info < (3, 6):
