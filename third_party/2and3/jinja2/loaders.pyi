@@ -1,4 +1,4 @@
-from typing import Any, Callable, List, Optional, Text, Tuple
+from typing import Any, Callable, Iterable, List, Optional, Text, Tuple, Union
 from types import ModuleType
 
 from .environment import Environment
@@ -15,7 +15,7 @@ class FileSystemLoader(BaseLoader):
     searchpath = ...  # type: Text
     encoding = ...  # type: Any
     followlinks = ...  # type: Any
-    def __init__(self, searchpath: Text, encoding: Text = ..., followlinks: bool = ...) -> None: ...
+    def __init__(self, searchpath: Union[Text, Iterable[Text]], encoding: Text = ..., followlinks: bool = ...) -> None: ...
     def get_source(self, environment: Environment, template: Text) -> Tuple[Text, Text, Callable]: ...
     def list_templates(self): ...
 
@@ -38,7 +38,7 @@ class DictLoader(BaseLoader):
 class FunctionLoader(BaseLoader):
     load_func = ...  # type: Any
     def __init__(self, load_func) -> None: ...
-    def get_source(self, environment: Environment, template: Text) -> Tuple[Text, Text, Callable]: ...
+    def get_source(self, environment: Environment, template: Text) -> Tuple[Text, Optional[Text], Optional[Callable]]: ...
 
 class PrefixLoader(BaseLoader):
     mapping = ...  # type: Any
