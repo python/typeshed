@@ -21,13 +21,13 @@ class BlockFinder:
     def tokeneater(self, type: int, token: str, srow_scol: Tuple[int, int],
                    erow_ecol: Tuple[int, int], line: str) -> None: ...
 
-CO_GENERATOR = ...  # type: int
-CO_NESTED = ...  # type: int
-CO_NEWLOCALS = ...  # type: int
-CO_NOFREE = ...  # type: int
 CO_OPTIMIZED = ...  # type: int
+CO_NEWLOCALS = ...  # type: int
 CO_VARARGS = ...  # type: int
 CO_VARKEYWORDS = ...  # type: int
+CO_NESTED = ...  # type: int
+CO_GENERATOR = ...  # type: int
+CO_NOFREE = ...  # type: int
 TPFLAGS_IS_ABSTRACT = ...  # type: int
 
 if sys.version_info < (3, 6):
