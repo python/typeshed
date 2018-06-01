@@ -1,6 +1,12 @@
+import sys
 from typing import Any
-from socketserver import ThreadingMixIn, ForkingMixIn
-from http.server import HTTPServer, BaseHTTPRequestHandler
+
+if sys.version_info < (3,):
+    from SocketServer import ThreadingMixIn, ForkingMixIn
+    from BaseHTTPServer import HTTPServer, BaseHTTPRequestHandler
+else:
+    from socketserver import ThreadingMixIn, ForkingMixIn
+    from http.server import HTTPServer, BaseHTTPRequestHandler
 
 class _SslDummy:
     def __getattr__(self, name): ...

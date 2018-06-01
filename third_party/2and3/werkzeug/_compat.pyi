@@ -1,5 +1,10 @@
+import sys
 from typing import Any
-from io import StringIO as BytesIO
+
+if sys.version_info < (3,):
+    import StringIO as BytesIO
+else:
+    from io import StringIO as BytesIO
 
 PY2 = ...  # type: Any
 WIN = ...  # type: Any
