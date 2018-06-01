@@ -1,6 +1,12 @@
+import sys
 from typing import Any
-from urllib.request import Request as U2Request
-from http.cookiejar import CookieJar
+
+if sys.version_info < (3,):
+    from urllib2 import Request as U2Request
+    from cookielib import CookieJar
+else:
+    from urllib.request import Request as U2Request
+    from http.cookiejar import CookieJar
 
 def stream_encode_multipart(values, use_tempfile=True, threshold=..., boundary=None, charset=''): ...
 def encode_multipart(values, boundary=None, charset=''): ...
