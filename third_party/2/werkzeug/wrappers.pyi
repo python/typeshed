@@ -4,7 +4,7 @@ from typing import (
     Tuple, Type, TypeVar, Union,
 )
 
-from wsgiref.types import WSGIEnvironment
+from wsgiref.types import WSGIEnvironment, InputStream
 
 from .datastructures import (
     CombinedMultiDict, EnvironHeaders, Headers, ImmutableMultiDict,
@@ -37,8 +37,9 @@ class BaseRequest:
     def close(self) -> None: ...
     def __enter__(self): ...
     def __exit__(self, exc_type, exc_value, tb): ...
-    def stream(self): ...
-    input_stream = ...  # type: Any
+    @property
+    def stream(self) -> InputStream: ...
+    input_stream: InputStream
     args = ...  # type: ImmutableMultiDict
     @property
     def data(self) -> bytes: ...
@@ -169,7 +170,8 @@ class ResponseStream:
     def encoding(self): ...
 
 class ResponseStreamMixin:
-    def stream(self): ...
+    @property
+    def stream(self) -> ResponseStream: ...
 
 class CommonRequestDescriptorsMixin:
     @property
