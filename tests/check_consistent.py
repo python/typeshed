@@ -13,6 +13,7 @@ consistent_files = [
     {'stdlib/3/ntpath.pyi', 'stdlib/3/posixpath.pyi', 'stdlib/3/macpath.pyi', 'stdlib/3/posixpath.pyi'},
     {'stdlib/3.4/enum.pyi', 'third_party/3/enum.pyi'},
     {'stdlib/2/os/path.pyi', 'stdlib/3/os/path.pyi'},
+    {'stdlib/3/unittest/mock.pyi', 'third_party/2and3/mock.pyi'},
 ]
 
 def main():
