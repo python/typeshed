@@ -4,14 +4,13 @@ from typing import (
     Any, Callable, ClassVar, Dict, List, IO, Mapping, Optional, Sequence, Tuple,
     TypeVar, Union, overload,
 )
-from pathlib import Path
 from http.client import HTTPResponse, HTTPMessage
 from http.cookiejar import CookieJar
 from email.message import Message
 from urllib.response import addinfourl
 import ssl
 import sys
-
+import os
 
 _T = TypeVar('_T')
 _UrlopenRet = Union[HTTPResponse, addinfourl]
@@ -188,10 +187,14 @@ class HTTPErrorProcessor(BaseHandler):
     def http_response(self) -> _UrlopenRet: ...
     def https_response(self) -> _UrlopenRet: ...
 
-
-def urlretrieve(url: str, filename: Optional[Union[str, Path]] = ...,
-                reporthook: Optional[Callable[[int, int, int], None]] = ...,
-                data: Optional[bytes] = ...) -> Tuple[str, HTTPMessage]: ...
+if sys.version_info >= (3, 6):
+    def urlretrieve(url: str, filename: Optional[Union[str, os.PathLike]] = ...,
+                    reporthook: Optional[Callable[[int, int, int], None]] = ...,
+                    data: Optional[bytes] = ...) -> Tuple[str, HTTPMessage]: ...
+else:
+    def urlretrieve(url: str, filename: Optional[str] = ...,
+                    reporthook: Optional[Callable[[int, int, int], None]] = ...,
+                    data: Optional[bytes] = ...) -> Tuple[str, HTTPMessage]: ...    
 def urlcleanup() -> None: ...
 
 class URLopener:
