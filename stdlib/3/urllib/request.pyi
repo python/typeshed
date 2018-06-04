@@ -4,6 +4,7 @@ from typing import (
     Any, Callable, ClassVar, Dict, List, IO, Mapping, Optional, Sequence, Tuple,
     TypeVar, Union, overload,
 )
+from pathlib import Path
 from http.client import HTTPResponse, HTTPMessage
 from http.cookiejar import CookieJar
 from email.message import Message
@@ -188,7 +189,7 @@ class HTTPErrorProcessor(BaseHandler):
     def https_response(self) -> _UrlopenRet: ...
 
 
-def urlretrieve(url: str, filename: Optional[str] = ...,
+def urlretrieve(url: str, filename: Optional[Union[str, Path]] = ...,
                 reporthook: Optional[Callable[[int, int, int], None]] = ...,
                 data: Optional[bytes] = ...) -> Tuple[str, HTTPMessage]: ...
 def urlcleanup() -> None: ...
