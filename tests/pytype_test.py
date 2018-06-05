@@ -144,7 +144,7 @@ def can_run(path, exe, *args):
 
 def pytype_test(args):
     dirs = get_project_dirs(args)
-    pytype_exe = os.path.join(dirs.pytype, 'pytype')
+    pytype_exe = os.path.join(dirs.pytype, 'pytype-single')
     stdlib_path = os.path.join(dirs.typeshed, 'stdlib')
 
     if not os.path.isdir(stdlib_path):
