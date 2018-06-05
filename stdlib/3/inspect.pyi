@@ -140,7 +140,7 @@ class Parameter:
                  *,
                  default: Any = ...,
                  annotation: Any = ...) -> None: ...
-    empty: Any
+    empty: Any = ...
     name: str
     default: Any
     annotation: Any
