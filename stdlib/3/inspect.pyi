@@ -109,7 +109,7 @@ if sys.version_info >= (3, 3):
                      *,
                      return_annotation: Any = ...) -> None: ...
         # TODO: can we be more specific here?
-        empty: object
+        empty: object = ...
 
         parameters: Mapping[str, 'Parameter']
 
