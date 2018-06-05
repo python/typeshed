@@ -1,6 +1,4 @@
 from typing import Any
-from urllib.request import parse_http_list as _parse_list_header
-from urllib.parse import unquote_to_bytes as _unquote
 
 HTTP_STATUS_CODES = ...  # type: Any
 
