@@ -21,14 +21,19 @@ class BlockFinder:
     def tokeneater(self, type: int, token: str, srow_scol: Tuple[int, int],
                    erow_ecol: Tuple[int, int], line: str) -> None: ...
 
-CO_GENERATOR = ...  # type: int
-CO_NESTED = ...  # type: int
-CO_NEWLOCALS = ...  # type: int
-CO_NOFREE = ...  # type: int
-CO_OPTIMIZED = ...  # type: int
-CO_VARARGS = ...  # type: int
-CO_VARKEYWORDS = ...  # type: int
-TPFLAGS_IS_ABSTRACT = ...  # type: int
+CO_OPTIMIZED: int
+CO_NEWLOCALS: int
+CO_VARARGS: int
+CO_VARKEYWORDS: int
+CO_NESTED: int
+CO_GENERATOR: int
+CO_NOFREE: int
+if sys.version_info >= (3, 5):
+    CO_COROUTINE: int
+    CO_ITERABLE_COROUTINE: int
+if sys.version_info >= (3, 6):
+    CO_ASYNC_GENERATOR: int
+TPFLAGS_IS_ABSTRACT: int
 
 if sys.version_info < (3, 6):
     ModuleInfo = NamedTuple('ModuleInfo', [('name', str),
@@ -50,11 +55,13 @@ def isfunction(object: object) -> bool: ...
 def isgeneratorfunction(object: object) -> bool: ...
 def isgenerator(object: object) -> bool: ...
 
-# Python 3.5+
-def iscoroutinefunction(object: object) -> bool: ...
-def iscoroutine(object: object) -> bool: ...
-def isawaitable(object: object) -> bool: ...
-
+if sys.version_info >= (3, 5):
+    def iscoroutinefunction(object: object) -> bool: ...
+    def iscoroutine(object: object) -> bool: ...
+    def isawaitable(object: object) -> bool: ...
+if sys.version_info >= (3, 6):
+    def isasyncgenfunction(object: object) -> bool: ...
+    def isasyncgen(object: object) -> bool: ...
 def istraceback(object: object) -> bool: ...
 def isframe(object: object) -> bool: ...
 def iscode(object: object) -> bool: ...
@@ -89,38 +96,39 @@ def indentsize(line: str) -> int: ...
 
 
 #
-# Introspecting callables with the Signature object (Python 3.3+)
+# Introspecting callables with the Signature object
 #
-def signature(callable: Callable[..., Any],
-              *,
-              follow_wrapped: bool = ...) -> 'Signature': ...
+if sys.version_info >= (3, 3):
+    def signature(callable: Callable[..., Any],
+                  *,
+                  follow_wrapped: bool = ...) -> 'Signature': ...
 
-class Signature:
-    def __init__(self,
-                 parameters: Optional[Sequence['Parameter']] = ...,
-                 *,
-                 return_annotation: Any = ...) -> None: ...
-    # TODO: can we be more specific here?
-    empty = ...  # type: object
+    class Signature:
+        def __init__(self,
+                     parameters: Optional[Sequence['Parameter']] = ...,
+                     *,
+                     return_annotation: Any = ...) -> None: ...
+        # TODO: can we be more specific here?
+        empty: object = ...
 
-    parameters = ...  # type: Mapping[str, 'Parameter']
+        parameters: Mapping[str, 'Parameter']
 
-    # TODO: can we be more specific here?
-    return_annotation = ...  # type: Any
+        # TODO: can we be more specific here?
+        return_annotation: Any
 
-    def bind(self, *args: Any, **kwargs: Any) -> 'BoundArguments': ...
-    def bind_partial(self, *args: Any, **kwargs: Any) -> 'BoundArguments': ...
-    def replace(self,
-                *,
-                parameters: Optional[Sequence['Parameter']] = ...,
-                return_annotation: Any = ...) -> 'Signature': ...
+        def bind(self, *args: Any, **kwargs: Any) -> 'BoundArguments': ...
+        def bind_partial(self, *args: Any, **kwargs: Any) -> 'BoundArguments': ...
+        def replace(self,
+                    *,
+                    parameters: Optional[Sequence['Parameter']] = ...,
+                    return_annotation: Any = ...) -> 'Signature': ...
 
-    # Python 3.5+
-    @classmethod
-    def from_callable(cls,
-                      obj: Callable[..., Any],
-                      *,
-                      follow_wrapped: bool = ...) -> 'Signature': ...
+        if sys.version_info >= (3, 5):
+            @classmethod
+            def from_callable(cls,
+                              obj: Callable[..., Any],
+                              *,
+                              follow_wrapped: bool = ...) -> 'Signature': ...
 
 # The name is the same as the enum's name in CPython
 class _ParameterKind: ...
@@ -132,17 +140,17 @@ class Parameter:
                  *,
                  default: Any = ...,
                  annotation: Any = ...) -> None: ...
-    empty = ...  # type: Any
-    name = ...  # type: str
-    default = ...  # type: Any
-    annotation = ...  # type: Any
+    empty: Any = ...
+    name: str
+    default: Any
+    annotation: Any
 
-    kind = ...  # type: _ParameterKind
-    POSITIONAL_ONLY = ...  # type: _ParameterKind
-    POSITIONAL_OR_KEYWORD = ...  # type: _ParameterKind
-    VAR_POSITIONAL = ...  # type: _ParameterKind
-    KEYWORD_ONLY = ...  # type: _ParameterKind
-    VAR_KEYWORD = ...  # type: _ParameterKind
+    kind: _ParameterKind
+    POSITIONAL_ONLY: _ParameterKind = ...
+    POSITIONAL_OR_KEYWORD: _ParameterKind = ...
+    VAR_POSITIONAL: _ParameterKind = ...
+    KEYWORD_ONLY: _ParameterKind = ...
+    VAR_KEYWORD: _ParameterKind = ...
 
     def replace(self,
                 *,
@@ -152,13 +160,13 @@ class Parameter:
                 annotation: Any = ...) -> 'Parameter': ...
 
 class BoundArguments:
-    arguments = ...  # type: MutableMapping[str, Any]
-    args = ...  # type: Tuple[Any, ...]
-    kwargs = ...  # type: Dict[str, Any]
-    signature = ...  # type: Signature
+    arguments: MutableMapping[str, Any]
+    args: Tuple[Any, ...]
+    kwargs: Dict[str, Any]
+    signature: Signature
 
-    # Python 3.5+
-    def apply_defaults(self) -> None: ...
+    if sys.version_info >= (3, 5):
+        def apply_defaults(self) -> None: ...
 
 
 #
@@ -230,24 +238,24 @@ def formatargvalues(args: List[str],
                     ) -> str: ...
 def getmro(cls: type) -> Tuple[type, ...]: ...
 
-# Python 3.2+
-def getcallargs(func: Callable[..., Any],
-                *args: Any,
-                **kwds: Any) -> Dict[str, Any]: ...
+if sys.version_info >= (3, 2):
+    def getcallargs(func: Callable[..., Any],
+                    *args: Any,
+                    **kwds: Any) -> Dict[str, Any]: ...
 
 
-# Python 3.3+
-ClosureVars = NamedTuple('ClosureVars', [('nonlocals', Mapping[str, Any]),
-                                         ('globals', Mapping[str, Any]),
-                                         ('builtins', Mapping[str, Any]),
-                                         ('unbound', AbstractSet[str]),
-                                         ])
-def getclosurevars(func: Callable[..., Any]) -> ClosureVars: ...
+if sys.version_info >= (3, 3):
+    ClosureVars = NamedTuple('ClosureVars', [('nonlocals', Mapping[str, Any]),
+                                             ('globals', Mapping[str, Any]),
+                                             ('builtins', Mapping[str, Any]),
+                                             ('unbound', AbstractSet[str]),
+                                             ])
+    def getclosurevars(func: Callable[..., Any]) -> ClosureVars: ...
 
-# Python 3.4+
-def unwrap(func: Callable[..., Any],
-           *,
-           stop: Callable[[Any], Any]) -> Any: ...
+if sys.version_info >= (3, 4):
+    def unwrap(func: Callable[..., Any],
+               *,
+               stop: Callable[[Any], Any]) -> Any: ...
 
 
 #
@@ -286,8 +294,8 @@ def trace(context: int = ...) -> List[FrameInfo]: ...
 # Fetching attributes statically
 #
 
-# Python 3.2+
-def getattr_static(obj: object, attr: str, default: Optional[Any] = ...) -> Any: ...
+if sys.version_info >= (3, 2):
+    def getattr_static(obj: object, attr: str, default: Optional[Any] = ...) -> Any: ...
 
 
 #
@@ -297,27 +305,27 @@ def getattr_static(obj: object, attr: str, default: Optional[Any] = ...) -> Any:
 # TODO In the next two blocks of code, can we be more specific regarding the
 # type of the "enums"?
 
-# Python 3.2+
-GEN_CREATED = ...  # type: str
-GEN_RUNNING = ...  # type: str
-GEN_SUSPENDED = ...  # type: str
-GEN_CLOSED = ...  # type: str
-def getgeneratorstate(generator: Generator[Any, Any, Any]) -> str: ...
+if sys.version_info >= (3, 2):
+    GEN_CREATED: str
+    GEN_RUNNING: str
+    GEN_SUSPENDED: str
+    GEN_CLOSED: str
+    def getgeneratorstate(generator: Generator[Any, Any, Any]) -> str: ...
 
-# Python 3.5+
-CORO_CREATED = ...  # type: str
-CORO_RUNNING = ...  # type: str
-CORO_SUSPENDED = ...  # type: str
-CORO_CLOSED = ...  # type: str
-# TODO can we be more specific than "object"?
-def getcoroutinestate(coroutine: object) -> str: ...
+if sys.version_info >= (3, 5):
+    CORO_CREATED: str
+    CORO_RUNNING: str
+    CORO_SUSPENDED: str
+    CORO_CLOSED: str
+    # TODO can we be more specific than "object"?
+    def getcoroutinestate(coroutine: object) -> str: ...
 
-# Python 3.3+
-def getgeneratorlocals(generator: Generator[Any, Any, Any]) -> Dict[str, Any]: ...
+if sys.version_info >= (3, 3):
+    def getgeneratorlocals(generator: Generator[Any, Any, Any]) -> Dict[str, Any]: ...
 
-# Python 3.5+
-# TODO can we be more specific than "object"?
-def getcoroutinelocals(coroutine: object) -> Dict[str, Any]: ...
+if sys.version_info >= (3, 5):
+    # TODO can we be more specific than "object"?
+    def getcoroutinelocals(coroutine: object) -> Dict[str, Any]: ...
 
 Attribute = NamedTuple('Attribute', [('name', str),
                                      ('kind', str),
