@@ -31,20 +31,22 @@ class Field(Generic[_T]):
     metadata: Optional[Mapping[str, Any]]
 
 
+# NOTE: Actual return type is 'Field[_T]', but we want to help type checkers
+# to understand the magic that happens at runtime.
 @overload  # `default` and `default_factory` are optional and mutually exclusive.
 def field(*, default: _T,
     init: bool = ..., repr: bool = ..., hash: Optional[bool] = ..., compare: bool = ...,
-    metadata: Optional[Mapping[str, Any]] = ...) -> Field[_T]: ...
+    metadata: Optional[Mapping[str, Any]] = ...) -> _T: ...
 
 @overload
 def field(*, default_factory: Callable[[], _T],
     init: bool = ..., repr: bool = ..., hash: Optional[bool] = ..., compare: bool = ...,
-    metadata: Optional[Mapping[str, Any]] = ...) -> Field[_T]: ...
+    metadata: Optional[Mapping[str, Any]] = ...) -> _T: ...
 
 @overload
 def field(*,
     init: bool = ..., repr: bool = ..., hash: Optional[bool] = ..., compare: bool = ...,
-    metadata: Optional[Mapping[str, Any]] = ...) -> Field[Any]: ...
+    metadata: Optional[Mapping[str, Any]] = ...) -> Any: ...
 
 
 def fields(class_or_instance: Any) -> Tuple[Field[Any], ...]: ...
