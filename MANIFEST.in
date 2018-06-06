@@ -1,0 +1,4 @@
+include *.rst *.md LICENSE
+recursive-include typeshed *.py
+recursive-include typeshed/stdlib *.pyi
+recursive-include typeshed/third_party *.pyi

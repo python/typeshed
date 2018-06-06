@@ -57,9 +57,9 @@ coding style used in typeshed.
 
 ### stdlib
 
-This contains stubs for modules the Python standard library -- which
-includes pure Python modules, dynamically loaded extension modules,
-hard-linked extension modules, and the builtins.
+This contains stubs for modules of the Python standard library -- which includes
+pure Python modules, dynamically loaded extension modules, hard-linked extension
+modules, and the builtins.
 
 ### third_party
 
