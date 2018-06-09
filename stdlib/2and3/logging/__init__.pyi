@@ -10,7 +10,7 @@ from types import TracebackType
 import sys
 import threading
 
-_SysExcInfoType = Union[Tuple[type, BaseException, TracebackType],
+_SysExcInfoType = Union[Tuple[type, BaseException, Optional[TracebackType]],
                         Tuple[None, None, None]]
 if sys.version_info >= (3, 5):
     _ExcInfoType = Union[None, bool, _SysExcInfoType, BaseException]
