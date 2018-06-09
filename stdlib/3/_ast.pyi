@@ -346,7 +346,7 @@ class comprehension(AST):
     iter = ...  # type: expr
     ifs = ...  # type: typing.List[expr]
     if sys.version_info >= (3, 6):
-        is_async = ...  # type: bool
+        is_async = ...  # type: int
 
 
 class ExceptHandler(AST):
