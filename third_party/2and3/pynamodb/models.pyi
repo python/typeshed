@@ -59,6 +59,7 @@ class Model(metaclass=MetaModel):
         max_sleep_between_retry: int = ...,
         max_consecutive_exceptions: int = ...,
         consistent_read: Optional[bool] = ...,
+        index_name: Optional[str] = ...,
         **filters: Any
     ) -> Iterator[_T]:
         ...
