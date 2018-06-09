@@ -55,8 +55,10 @@ class Model(metaclass=MetaModel):
         page_size: Optional[int] = ...,
         timeout_seconds: Optional[int] = ...,
         read_capacity_to_consume_per_second: int = ...,
+        allow_rate_limited_scan_without_consumed_capacity: Optional[bool]=None,
         max_sleep_between_retry: int = ...,
         max_consecutive_exceptions: int = ...,
+        consistent_read: Optional[bool] = ...,
         **filters: Any
     ) -> Iterator[_T]:
         ...
