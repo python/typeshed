@@ -45,7 +45,7 @@ class Model(metaclass=MetaModel):
     def rate_limited_scan(
         cls: Type[_T],
         # TODO: annotate Condition class
-        filter_condition: Optional[Any]=...,
+        filter_condition: Optional[Any] = ...,
         attributes_to_get: Optional[Sequence[Text]] = ...,
         segment: Optional[int] = ...,
         total_segments: Optional[int] = ...,
@@ -61,8 +61,7 @@ class Model(metaclass=MetaModel):
         consistent_read: Optional[bool] = ...,
         index_name: Optional[str] = ...,
         **filters: Any
-    ) -> Iterator[_T]:
-        ...
+    ) -> Iterator[_T]: ...
     @classmethod
     def scan(cls: Type[_T], segment: Optional[int] = ..., total_segments: Optional[int] = ..., limit: Optional[int] = ..., conditional_operator: Optional[Text] = ..., last_evaluated_key: Optional[Any] = ..., page_size: Optional[int] = ..., **filters) -> Iterator[_T]: ...
     @classmethod
