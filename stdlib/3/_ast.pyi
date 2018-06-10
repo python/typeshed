@@ -78,7 +78,7 @@ class AugAssign(stmt):
 if sys.version_info >= (3, 6):
     class AnnAssign(stmt):
         target = ...  # type: expr
-        annotation = ...  # type: expr
+        annotation = ...  # type: Optional[expr]
         value = ...  # type: Optional[expr]
         simple = ...  # type: int
 
