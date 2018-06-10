@@ -1,7 +1,7 @@
 # Stubs for mock
 
 import sys
-from typing import Any, Optional, Type
+from typing import Any, Optional, Text, Type
 
 FILTER_DIR = ...  # type: Any
 
@@ -112,7 +112,7 @@ class _patcher:
     TEST_PREFIX = ...  # type: str
     dict = ...  # type: Type[_patch_dict]
     def __call__(self, target: Any, new: Optional[Any] = ..., spec: Optional[Any] = ..., create: bool = ..., spec_set: Optional[Any] = ..., autospec: Optional[Any] = ..., new_callable: Optional[Any] = ..., **kwargs: Any) -> Any: ...
-    def object(self, target: Any, attribute: str, new: Optional[Any] = ..., spec: Optional[Any] = ..., create: bool = ..., spec_set: Optional[Any] = ..., autospec: Optional[Any] = ..., new_callable: Optional[Any] = ..., **kwargs: Any) -> _patch: ...
+    def object(self, target: Any, attribute: Text, new: Optional[Any] = ..., spec: Optional[Any] = ..., create: bool = ..., spec_set: Optional[Any] = ..., autospec: Optional[Any] = ..., new_callable: Optional[Any] = ..., **kwargs: Any) -> _patch: ...
     def multiple(self, target: Any, spec: Optional[Any] = ..., create: bool = ..., spec_set: Optional[Any] = ..., autospec: Optional[Any] = ..., new_callable: Optional[Any] = ..., **kwargs: Any) -> Any: ...
     def stopall(self) -> None: ...
 
