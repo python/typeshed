@@ -1,5 +1,6 @@
+import io
 import sys
-from typing import Any, BinaryIO, IO, Optional, Union
+from typing import Any, IO, Optional, Union
 
 if sys.version_info >= (3, 6):
     from os import PathLike
@@ -20,7 +21,7 @@ if sys.version_info >= (3, 3):
              errors: Optional[str] = ...,
              newline: Optional[str] = ...) -> IO[Any]: ...
 
-class BZ2File(BinaryIO):
+class BZ2File(io.BufferedIOBase, IO[bytes]):  # type: ignore  # python/mypy#5027
     def __init__(self,
                  filename: _PathOrFile,
                  mode: str = ...,
