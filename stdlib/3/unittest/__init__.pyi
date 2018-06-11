@@ -1,9 +1,9 @@
 # Stubs for unittest
 
 from typing import (
-    Any, Callable, ContextManager, Dict, FrozenSet, Generic, Iterable, Iterator,
-    List, NoReturn, Optional, overload, Pattern, Sequence, Set, TextIO, Tuple,
-    Type, TypeVar, Union
+    Any, Callable, Container, ContextManager, Dict, FrozenSet, Generic, Iterable,
+    Iterator, List, NoReturn, Optional, overload, Pattern, Sequence, Set, TextIO,
+    Tuple, Type, TypeVar, Union
 )
 import logging
 import sys
@@ -50,9 +50,9 @@ class TestCase:
                     msg: Any = ...) -> None: ...
     def assertIsNone(self, expr: Any, msg: Any = ...) -> None: ...
     def assertIsNotNone(self, expr: Any, msg: Any = ...) -> None: ...
-    def assertIn(self, first: _T, second: Iterable[_T],
+    def assertIn(self, member: Any, container: Container[Any],
                  msg: Any = ...) -> None: ...
-    def assertNotIn(self, first: _T, second: Iterable[_T],
+    def assertNotIn(self, member: Any, container: Container[Any],
                     msg: Any = ...) -> None: ...
     def assertIsInstance(self, obj: Any,
                          cls: Union[type, Tuple[type, ...]],

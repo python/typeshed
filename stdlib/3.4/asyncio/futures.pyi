@@ -26,7 +26,7 @@ class _TracebackLogger:
 if sys.version_info >= (3, 5):
     def isfuture(obj: object) -> bool: ...
 
-class Future(Iterable[_T], Awaitable[_T], Generic[_T]):
+class Future(Awaitable[_T], Iterable[_T]):
     _state = ...  # type: str
     _exception = ...  # type: BaseException
     _blocking = False

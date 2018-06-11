@@ -75,6 +75,13 @@ class AugAssign(stmt):
     op = ...  # type: operator
     value = ...  # type: expr
 
+if sys.version_info >= (3, 6):
+    class AnnAssign(stmt):
+        target = ...  # type: expr
+        annotation = ...  # type: expr
+        value = ...  # type: Optional[expr]
+        simple = ...  # type: int
+
 class For(stmt):
     target = ...  # type: expr
     iter = ...  # type: expr
@@ -233,6 +240,15 @@ class Num(expr):
 class Str(expr):
     s = ...  # type: str
 
+if sys.version_info >= (3, 6):
+    class FormattedValue(expr):
+        value = ...  # type: expr
+        conversion = ...  # type: Optional[int]
+        format_spec = ...  # type: Optional[expr]
+
+    class JoinedStr(expr):
+        values = ...  # type: typing.List[expr]
+
 class Bytes(expr):
     s = ...  # type: bytes
 
@@ -329,6 +345,8 @@ class comprehension(AST):
     target = ...  # type: expr
     iter = ...  # type: expr
     ifs = ...  # type: typing.List[expr]
+    if sys.version_info >= (3, 6):
+        is_async = ...  # type: int
 
 
 class ExceptHandler(AST):

@@ -81,6 +81,7 @@ class HTTPMessage(email.message.Message): ...
 if sys.version_info >= (3, 5):
     class HTTPResponse(io.BufferedIOBase):
         msg = ...  # type: HTTPMessage
+        headers = ...  # type: HTTPMessage
         version = ...  # type: int
         debuglevel = ...  # type: int
         closed = ...  # type: bool
@@ -104,6 +105,7 @@ if sys.version_info >= (3, 5):
 else:
     class HTTPResponse:
         msg = ...  # type: HTTPMessage
+        headers = ...  # type: HTTPMessage
         version = ...  # type: int
         debuglevel = ...  # type: int
         closed = ...  # type: bool

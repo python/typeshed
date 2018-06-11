@@ -173,7 +173,7 @@ class Coroutine(Awaitable[_V_co], Generic[_T_co, _T_contra, _V_co]):
 
 # NOTE: This type does not exist in typing.py or PEP 484.
 # The parameters corrrespond to Generator, but the 4th is the original type.
-class AwaitableGenerator(Generator[_T_co, _T_contra, _V_co], Awaitable[_V_co],
+class AwaitableGenerator(Awaitable[_V_co], Generator[_T_co, _T_contra, _V_co],
                          Generic[_T_co, _T_contra, _V_co, _S]):
     pass
 
@@ -434,10 +434,10 @@ class BinaryIO(IO[bytes]):
     # TODO peek?
     @overload
     @abstractmethod
-    def write(self, s: bytes) -> int: ...
+    def write(self, s: bytearray) -> int: ...
     @overload
     @abstractmethod
-    def write(self, s: bytearray) -> int: ...
+    def write(self, s: bytes) -> int: ...
 
     @abstractmethod
     def __enter__(self) -> BinaryIO: ...
