@@ -1,4 +1,4 @@
-from typing import Any, Dict
+from typing import Any, Dict, NoReturn
 
 class HTTPException(Exception):
     code = ...  # type: Any
@@ -147,4 +147,6 @@ class HTTPVersionNotSupported(HTTPException):
 class Aborter:
     mapping = ...  # type: Any
     def __init__(self, mapping=None, extra=None): ...
-    def __call__(self, code, *args, **kwargs): ...
+    def __call__(self, code, *args, **kwargs) -> NoReturn: ...
+
+def abort(status: Any, *args: Any, **kwargs: Any) -> NoReturn: ...
