@@ -6,6 +6,7 @@ from typing import (
     IO,
     List,
     Optional,
+    Text,
     overload,
     Tuple,
     TypeVar,
@@ -157,7 +158,7 @@ def launch(url: str, wait: bool = ..., locate: bool = ...) -> int:
     ...
 
 
-def getchar(echo: bool = ...) -> str:
+def getchar(echo: bool = ...) -> Text:
     ...
 
 
