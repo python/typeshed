@@ -59,9 +59,8 @@ _T4 = TypeVar('_T4')
 _T5 = TypeVar('_T5')
 _T6 = TypeVar('_T6')
 
-# Mypy thinks this overlaps with the last overload, but produces correct types anyway.
 @overload
-def product(iter1: Iterable[_T1]) -> Iterator[Tuple[_T1]]: ...  # type: ignore
+def product(iter1: Iterable[_T1]) -> Iterator[Tuple[_T1]]: ...
 @overload
 def product(iter1: Iterable[_T1],
             iter2: Iterable[_T2]) -> Iterator[Tuple[_T1, _T2]]: ...
