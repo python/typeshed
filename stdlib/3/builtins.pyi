@@ -30,7 +30,7 @@ class object:
     __doc__ = ...  # type: Optional[str]
     __class__ = ...  # type: type
     __dict__ = ...  # type: Dict[str, Any]
-    __slots__ = ...  # type: Optional[Union[str, Iterable[str]]]
+    __slots__ = ...  # type: Union[str, Iterable[str]]
     __module__ = ...  # type: str
     if sys.version_info >= (3, 6):
         __annotations__ = ...  # type: Dict[str, Any]
