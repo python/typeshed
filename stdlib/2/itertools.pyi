@@ -119,9 +119,8 @@ def izip(iter1: Iterable[Any], iter2: Iterable[Any],
 def izip_longest(*p: Iterable[Any],
                  fillvalue: Any = ...) -> Iterator[Any]: ...
 
-# Mypy thinks this overlaps with the last overload, but produces correct types anyway.
 @overload
-def product(iter1: Iterable[_T1]) -> Iterator[Tuple[_T1]]: ...  # type: ignore
+def product(iter1: Iterable[_T1]) -> Iterator[Tuple[_T1]]: ...
 @overload
 def product(iter1: Iterable[_T1],
             iter2: Iterable[_T2]) -> Iterator[Tuple[_T1, _T2]]: ...
