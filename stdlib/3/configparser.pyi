@@ -93,6 +93,8 @@ class RawConfigParser(_parser):
     def read(self, filenames: Union[_Path, Iterable[_Path]],
              encoding: Optional[str] = ...) -> List[str]: ...
 
+    def readfp(self, fp: IO[str], filename: Optional[str] = ...) -> None: ...
+
     def read_file(self, f: Iterable[str], source: Optional[str] = ...) -> None: ...
 
     def read_string(self, string: str, source: str = ...) -> None: ...
@@ -225,7 +227,7 @@ class InterpolationSyntaxError(InterpolationError):
     pass
 
 
-class ParsingError:
+class ParsingError(Error):
     source = ...  # type: str
     errors = ...  # type: Sequence[Tuple[int, str]]
 

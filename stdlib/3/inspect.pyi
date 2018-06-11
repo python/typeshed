@@ -1,12 +1,40 @@
 import sys
-from typing import (AbstractSet, Any, Tuple, List, Dict, Callable, Generator,
-                    Mapping, MutableMapping, NamedTuple, Optional, Sequence, Union,
+from typing import (AbstractSet, Any, Callable, Dict, Generator, List, Mapping,
+                    MutableMapping, NamedTuple, Optional, Sequence, Tuple,
+                    Union,
                     )
-from types import FrameType, ModuleType, TracebackType
+from types import CodeType, FrameType, ModuleType, TracebackType
 
 #
 # Types and members
 #
+class EndOfBlock(Exception): ...
+
+class BlockFinder:
+    indent: int
+    islambda: bool
+    started: bool
+    passline: bool
+    indecorator: bool
+    decoratorhasargs: bool
+    last: int
+    def tokeneater(self, type: int, token: str, srow_scol: Tuple[int, int],
+                   erow_ecol: Tuple[int, int], line: str) -> None: ...
+
+CO_OPTIMIZED: int
+CO_NEWLOCALS: int
+CO_VARARGS: int
+CO_VARKEYWORDS: int
+CO_NESTED: int
+CO_GENERATOR: int
+CO_NOFREE: int
+if sys.version_info >= (3, 5):
+    CO_COROUTINE: int
+    CO_ITERABLE_COROUTINE: int
+if sys.version_info >= (3, 6):
+    CO_ASYNC_GENERATOR: int
+TPFLAGS_IS_ABSTRACT: int
+
 if sys.version_info < (3, 6):
     ModuleInfo = NamedTuple('ModuleInfo', [('name', str),
                                            ('suffix', str),
@@ -16,7 +44,7 @@ if sys.version_info < (3, 6):
     def getmoduleinfo(path: str) -> Optional[ModuleInfo]: ...
 
 def getmembers(object: object,
-               predicate: Callable[[Any], bool] = ...,
+               predicate: Optional[Callable[[Any], bool]] = ...,
                ) -> List[Tuple[str, Any]]: ...
 def getmodulename(path: str) -> Optional[str]: ...
 
@@ -27,11 +55,13 @@ def isfunction(object: object) -> bool: ...
 def isgeneratorfunction(object: object) -> bool: ...
 def isgenerator(object: object) -> bool: ...
 
-# Python 3.5+
-def iscoroutinefunction(object: object) -> bool: ...
-def iscoroutine(object: object) -> bool: ...
-def isawaitable(object: object) -> bool: ...
-
+if sys.version_info >= (3, 5):
+    def iscoroutinefunction(object: object) -> bool: ...
+    def iscoroutine(object: object) -> bool: ...
+    def isawaitable(object: object) -> bool: ...
+if sys.version_info >= (3, 6):
+    def isasyncgenfunction(object: object) -> bool: ...
+    def isasyncgen(object: object) -> bool: ...
 def istraceback(object: object) -> bool: ...
 def isframe(object: object) -> bool: ...
 def iscode(object: object) -> bool: ...
@@ -47,6 +77,9 @@ def ismemberdescriptor(object: object) -> bool: ...
 #
 # Retrieving source code
 #
+def findsource(object: object) -> Tuple[List[str], int]: ...
+def getabsfile(object: object) -> str: ...
+def getblock(lines: Sequence[str]) -> Sequence[str]: ...
 def getdoc(object: object) -> str: ...
 def getcomments(object: object) -> str: ...
 def getfile(object: object) -> str: ...
@@ -59,41 +92,43 @@ def getsourcelines(object: object) -> Tuple[List[str], int]: ...
 # or code object"
 def getsource(object: object) -> str: ...
 def cleandoc(doc: str) -> str: ...
+def indentsize(line: str) -> int: ...
 
 
 #
-# Introspecting callables with the Signature object (Python 3.3+)
+# Introspecting callables with the Signature object
 #
-def signature(callable: Callable[..., Any],
-              *,
-              follow_wrapped: bool = ...) -> 'Signature': ...
+if sys.version_info >= (3, 3):
+    def signature(callable: Callable[..., Any],
+                  *,
+                  follow_wrapped: bool = ...) -> 'Signature': ...
 
-class Signature:
-    def __init__(self,
-                 parameters: Optional[Sequence['Parameter']] = ...,
-                 *,
-                 return_annotation: Any = ...) -> None: ...
-    # TODO: can we be more specific here?
-    empty = ...  # type: object
+    class Signature:
+        def __init__(self,
+                     parameters: Optional[Sequence['Parameter']] = ...,
+                     *,
+                     return_annotation: Any = ...) -> None: ...
+        # TODO: can we be more specific here?
+        empty: object = ...
 
-    parameters = ...  # type: Mapping[str, 'Parameter']
+        parameters: Mapping[str, 'Parameter']
 
-    # TODO: can we be more specific here?
-    return_annotation = ...  # type: Any
+        # TODO: can we be more specific here?
+        return_annotation: Any
 
-    def bind(self, *args: Any, **kwargs: Any) -> 'BoundArguments': ...
-    def bind_partial(self, *args: Any, **kwargs: Any) -> 'BoundArguments': ...
-    def replace(self,
-                *,
-                parameters: Optional[Sequence['Parameter']] = ...,
-                return_annotation: Any = ...) -> 'Signature': ...
+        def bind(self, *args: Any, **kwargs: Any) -> 'BoundArguments': ...
+        def bind_partial(self, *args: Any, **kwargs: Any) -> 'BoundArguments': ...
+        def replace(self,
+                    *,
+                    parameters: Optional[Sequence['Parameter']] = ...,
+                    return_annotation: Any = ...) -> 'Signature': ...
 
-    # Python 3.5+
-    @classmethod
-    def from_callable(cls,
-                      obj: Callable[..., Any],
-                      *,
-                      follow_wrapped: bool = ...) -> 'Signature': ...
+        if sys.version_info >= (3, 5):
+            @classmethod
+            def from_callable(cls,
+                              obj: Callable[..., Any],
+                              *,
+                              follow_wrapped: bool = ...) -> 'Signature': ...
 
 # The name is the same as the enum's name in CPython
 class _ParameterKind: ...
@@ -105,17 +140,17 @@ class Parameter:
                  *,
                  default: Any = ...,
                  annotation: Any = ...) -> None: ...
-    empty = ...  # type: Any
-    name = ...  # type: str
-    default = ...  # type: Any
-    annotation = ...  # type: Any
+    empty: Any = ...
+    name: str
+    default: Any
+    annotation: Any
 
-    kind = ...  # type: _ParameterKind
-    POSITIONAL_ONLY = ...  # type: _ParameterKind
-    POSITIONAL_OR_KEYWORD = ...  # type: _ParameterKind
-    VAR_POSITIONAL = ...  # type: _ParameterKind
-    KEYWORD_ONLY = ...  # type: _ParameterKind
-    VAR_KEYWORD = ...  # type: _ParameterKind
+    kind: _ParameterKind
+    POSITIONAL_ONLY: _ParameterKind = ...
+    POSITIONAL_OR_KEYWORD: _ParameterKind = ...
+    VAR_POSITIONAL: _ParameterKind = ...
+    KEYWORD_ONLY: _ParameterKind = ...
+    VAR_KEYWORD: _ParameterKind = ...
 
     def replace(self,
                 *,
@@ -125,13 +160,13 @@ class Parameter:
                 annotation: Any = ...) -> 'Parameter': ...
 
 class BoundArguments:
-    arguments = ...  # type: MutableMapping[str, Any]
-    args = ...  # Tuple[Any, ...]
-    kwargs = ...  # Dict[str, Any]
-    signature = ...  # type: Signature
+    arguments: MutableMapping[str, Any]
+    args: Tuple[Any, ...]
+    kwargs: Dict[str, Any]
+    signature: Signature
 
-    # Python 3.5+
-    def apply_defaults(self) -> None: ...
+    if sys.version_info >= (3, 5):
+        def apply_defaults(self) -> None: ...
 
 
 #
@@ -149,6 +184,12 @@ ArgSpec = NamedTuple('ArgSpec', [('args', List[str]),
                                  ('defaults', tuple),
                                  ])
 
+Arguments = NamedTuple('Arguments', [('args', List[str]),
+                                     ('varargs', Optional[str]),
+                                     ('varkw', Optional[str]),
+                                     ])
+
+def getargs(co: CodeType) -> Arguments: ...
 def getargspec(func: object) -> ArgSpec: ...
 
 FullArgSpec = NamedTuple('FullArgSpec', [('args', List[str]),
@@ -170,19 +211,21 @@ ArgInfo = NamedTuple('ArgInfo', [('args', List[str]),
                                  ])
 
 def getargvalues(frame: FrameType) -> ArgInfo: ...
+def formatannotation(annotation: object, base_module: Optional[str] = ...) -> str: ...
+def formatannotationrelativeto(object: object) -> Callable[[object], str]: ...
 def formatargspec(args: List[str],
                   varargs: Optional[str] = ...,
                   varkw: Optional[str] = ...,
                   defaults: Optional[Tuple[Any, ...]] = ...,
                   kwonlyargs: Optional[List[str]] = ...,
                   kwonlydefaults: Optional[Dict[str, Any]] = ...,
-                  annotations: Optional[Dict[str, Any]] = ...,
-                  formatarg: Optional[Callable[[str], str]] = ...,
-                  formatvarargs: Optional[Callable[[str], str]] = ...,
-                  formatvarkw: Optional[Callable[[str], str]] = ...,
-                  formatvalue: Optional[Callable[[Any], str]] = ...,
-                  formatreturns: Optional[Callable[[Any], str]] = ...,
-                  formatannotations: Optional[Callable[[Any], str]] = ...,
+                  annotations: Dict[str, Any] = ...,
+                  formatarg: Callable[[str], str] = ...,
+                  formatvarargs: Callable[[str], str] = ...,
+                  formatvarkw: Callable[[str], str] = ...,
+                  formatvalue: Callable[[Any], str] = ...,
+                  formatreturns: Callable[[Any], str] = ...,
+                  formatannotations: Callable[[Any], str] = ...,
                   ) -> str: ...
 def formatargvalues(args: List[str],
                     varargs: Optional[str] = ...,
@@ -195,29 +238,40 @@ def formatargvalues(args: List[str],
                     ) -> str: ...
 def getmro(cls: type) -> Tuple[type, ...]: ...
 
-# Python 3.2+
-def getcallargs(func: Callable[..., Any],
-                *args: Any,
-                **kwds: Any) -> Dict[str, Any]: ...
+if sys.version_info >= (3, 2):
+    def getcallargs(func: Callable[..., Any],
+                    *args: Any,
+                    **kwds: Any) -> Dict[str, Any]: ...
 
 
-# Python 3.3+
-ClosureVars = NamedTuple('ClosureVars', [('nonlocals', Mapping[str, Any]),
-                                         ('globals', Mapping[str, Any]),
-                                         ('builtins', Mapping[str, Any]),
-                                         ('unbound', AbstractSet[str]),
-                                         ])
-def getclosurevars(func: Callable[..., Any]) -> ClosureVars: ...
+if sys.version_info >= (3, 3):
+    ClosureVars = NamedTuple('ClosureVars', [('nonlocals', Mapping[str, Any]),
+                                             ('globals', Mapping[str, Any]),
+                                             ('builtins', Mapping[str, Any]),
+                                             ('unbound', AbstractSet[str]),
+                                             ])
+    def getclosurevars(func: Callable[..., Any]) -> ClosureVars: ...
 
-# Python 3.4+
-def unwrap(func: Callable[..., Any],
-           *,
-           stop: Callable[[Any], Any]) -> Any: ...
+if sys.version_info >= (3, 4):
+    def unwrap(func: Callable[..., Any],
+               *,
+               stop: Callable[[Any], Any]) -> Any: ...
 
 
 #
 # The interpreter stack
 #
+
+Traceback = NamedTuple(
+    'Traceback',
+    [
+        ('filename', str),
+        ('lineno', int),
+        ('function', str),
+        ('code_context', List[str]),
+        ('index', int),
+    ]
+)
 
 # Python 3.5+ (functions returning it used to return regular tuples)
 FrameInfo = NamedTuple('FrameInfo', [('frame', FrameType),
@@ -228,11 +282,10 @@ FrameInfo = NamedTuple('FrameInfo', [('frame', FrameType),
                                      ('index', int),
                                      ])
 
-# TODO make the frame type more specific
-def getframeinfo(frame: Any, context: int = ...) -> FrameInfo: ...
+def getframeinfo(frame: Union[FrameType, TracebackType], context: int = ...) -> Traceback: ...
 def getouterframes(frame: Any, context: int = ...) -> List[FrameInfo]: ...
-def getinnerframes(traceback: TracebackType, context: int = ...) -> List[FrameInfo]:
-    ...
+def getinnerframes(traceback: TracebackType, context: int = ...) -> List[FrameInfo]: ...
+def getlineno(frame: FrameType) -> int: ...
 def currentframe() -> Optional[FrameType]: ...
 def stack(context: int = ...) -> List[FrameInfo]: ...
 def trace(context: int = ...) -> List[FrameInfo]: ...
@@ -241,8 +294,8 @@ def trace(context: int = ...) -> List[FrameInfo]: ...
 # Fetching attributes statically
 #
 
-# Python 3.2+
-def getattr_static(obj: object, attr: str, default: Optional[Any] = ...) -> Any: ...
+if sys.version_info >= (3, 2):
+    def getattr_static(obj: object, attr: str, default: Optional[Any] = ...) -> Any: ...
 
 
 #
@@ -252,39 +305,32 @@ def getattr_static(obj: object, attr: str, default: Optional[Any] = ...) -> Any:
 # TODO In the next two blocks of code, can we be more specific regarding the
 # type of the "enums"?
 
-# Python 3.2+
-GEN_CREATED = ...  # type: str
-GEN_RUNNING = ...  # type: str
-GEN_SUSPENDED = ...  # type: str
-GEN_CLOSED = ...  # type: str
-def getgeneratorstate(generator: Generator[Any, Any, Any]) -> str: ...
+if sys.version_info >= (3, 2):
+    GEN_CREATED: str
+    GEN_RUNNING: str
+    GEN_SUSPENDED: str
+    GEN_CLOSED: str
+    def getgeneratorstate(generator: Generator[Any, Any, Any]) -> str: ...
 
-# Python 3.5+
-CORO_CREATED = ...  # type: str
-CORO_RUNNING = ...  # type: str
-CORO_SUSPENDED = ...  # type: str
-CORO_CLOSED = ...  # type: str
-# TODO can we be more specific than "object"?
-def getcoroutinestate(coroutine: object) -> str: ...
+if sys.version_info >= (3, 5):
+    CORO_CREATED: str
+    CORO_RUNNING: str
+    CORO_SUSPENDED: str
+    CORO_CLOSED: str
+    # TODO can we be more specific than "object"?
+    def getcoroutinestate(coroutine: object) -> str: ...
 
-# Python 3.3+
-def getgeneratorlocals(generator: Generator[Any, Any, Any]) -> Dict[str, Any]: ...
+if sys.version_info >= (3, 3):
+    def getgeneratorlocals(generator: Generator[Any, Any, Any]) -> Dict[str, Any]: ...
 
-# Python 3.5+
-# TODO can we be more specific than "object"?
-def getcoroutinelocals(coroutine: object) -> Dict[str, Any]: ...
+if sys.version_info >= (3, 5):
+    # TODO can we be more specific than "object"?
+    def getcoroutinelocals(coroutine: object) -> Dict[str, Any]: ...
 
-
-#
-# The following seems undocumented but it was already present in this file
-#
-_object = object
-
-# namedtuple('Attribute', 'name kind defining_class object')
-class Attribute(tuple):
-    name = ...  # type: str
-    kind = ...  # type: str
-    defining_class = ...  # type: type
-    object = ...  # type: _object
+Attribute = NamedTuple('Attribute', [('name', str),
+                                     ('kind', str),
+                                     ('defining_class', type),
+                                     ('object', object),
+                                     ])
 
 def classify_class_attrs(cls: type) -> List[Attribute]: ...

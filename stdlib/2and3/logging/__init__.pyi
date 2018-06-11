@@ -10,7 +10,7 @@ from types import TracebackType
 import sys
 import threading
 
-_SysExcInfoType = Union[Tuple[type, BaseException, TracebackType],
+_SysExcInfoType = Union[Tuple[type, BaseException, Optional[TracebackType]],
                         Tuple[None, None, None]]
 if sys.version_info >= (3, 5):
     _ExcInfoType = Union[None, bool, _SysExcInfoType, BaseException]
@@ -226,7 +226,7 @@ class LogRecord:
 
 class LoggerAdapter:
     def __init__(self, logger: Logger, extra: Mapping[str, Any]) -> None: ...
-    def process(self, msg: Any, kwargs: MutableMapping[str, Any]) -> Tuple[str, MutableMapping[str, Any]]: ...
+    def process(self, msg: Any, kwargs: MutableMapping[str, Any]) -> Tuple[Any, MutableMapping[str, Any]]: ...
     if sys.version_info >= (3,):
         def debug(self, msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                   stack_info: bool = ..., extra: Optional[Dict[str, Any]] = ...,
@@ -373,6 +373,10 @@ class StreamHandler(Handler):
 
 
 class FileHandler(Handler):
+    baseFilename = ...  # type: str
+    mode = ...  # type: str
+    encoding = ...  # type: Optional[str]
+    delay = ...  # type: bool
     def __init__(self, filename: str, mode: str = ...,
                  encoding: Optional[str] = ..., delay: bool = ...) -> None: ...
 

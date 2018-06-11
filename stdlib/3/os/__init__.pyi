@@ -1,15 +1,17 @@
 # Stubs for os
 # Ron Murawski <ron@horizonchess.com>
 
-from builtins import OSError as error
 from io import TextIOWrapper as _TextIOWrapper
 import sys
 from typing import (
-    Mapping, MutableMapping, Dict, List, Any, Tuple, IO, Iterable, Iterator, overload, Union, AnyStr,
-    Optional, Generic, Set, Callable, Text, Sequence, NamedTuple, TypeVar
+    Mapping, MutableMapping, Dict, List, Any, Tuple, IO, Iterable, Iterator, NoReturn, overload, Union, AnyStr,
+    Optional, Generic, Set, Callable, Text, Sequence, NamedTuple, TypeVar, ContextManager
 )
+
+# Re-exported names from other modules.
+from builtins import OSError as error
+from posix import stat_result as stat_result
 from . import path as path
-from mypy_extensions import NoReturn
 
 _T = TypeVar('_T')
 
@@ -216,49 +218,6 @@ elif sys.version_info >= (3, 5):
         def stat(self) -> stat_result: ...
 
 
-class stat_result:
-    # For backward compatibility, the return value of stat() is also
-    # accessible as a tuple of at least 10 integers giving the most important
-    # (and portable) members of the stat structure, in the order st_mode,
-    # st_ino, st_dev, st_nlink, st_uid, st_gid, st_size, st_atime, st_mtime,
-    # st_ctime. More items may be added at the end by some implementations.
-
-    st_mode: int  # protection bits,
-    st_ino: int  # inode number,
-    st_dev: int  # device,
-    st_nlink: int  # number of hard links,
-    st_uid: int  # user id of owner,
-    st_gid: int  # group id of owner,
-    st_size: int  # size of file, in bytes,
-    st_atime: float  # time of most recent access,
-    st_mtime: float  # time of most recent content modification,
-    st_ctime: float  # platform dependent (time of most recent metadata change on Unix, or the time of creation on Windows)
-
-    if sys.version_info >= (3, 3):
-        st_atime_ns: int  # time of most recent access, in nanoseconds
-        st_mtime_ns: int  # time of most recent content modification in nanoseconds
-        st_ctime_ns: int  # platform dependent (time of most recent metadata change on Unix, or the time of creation on Windows) in nanoseconds
-
-    # not documented
-    def __init__(self, tuple: Tuple[int, ...]) -> None: ...
-
-    # On some Unix systems (such as Linux), the following attributes may also
-    # be available:
-    st_blocks: int  # number of blocks allocated for file
-    st_blksize: int  # filesystem blocksize
-    st_rdev: int  # type of device if an inode device
-    st_flags: int  # user defined flags for file
-
-    # On other Unix systems (such as FreeBSD), the following attributes may be
-    # available (but may be only filled out if root tries to use them):
-    st_gen: int  # file generation number
-    st_birthtime: int  # time of file creation
-
-    # On Mac OS systems, the following attributes may also be available:
-    st_rsize: int
-    st_creator: int
-    st_type: int
-
 class statvfs_result:  # Unix only
     f_bsize: int
     f_frsize: int
@@ -423,7 +382,16 @@ if sys.version_info >= (3, 3):
 else:
     def link(src: _PathType, link_name: _PathType) -> None: ...
 
-if sys.version_info >= (3, 3):
+if sys.version_info >= (3, 6):
+    @overload
+    def listdir(path: Optional[str] = ...) -> List[str]: ...
+    @overload
+    def listdir(path: bytes) -> List[bytes]: ...
+    @overload
+    def listdir(path: int) -> List[str]: ...
+    @overload
+    def listdir(path: PathLike[str]) -> List[str]: ...
+elif sys.version_info >= (3, 3):
     @overload
     def listdir(path: Optional[str] = ...) -> List[str]: ...
     @overload
@@ -486,11 +454,22 @@ if sys.version_info >= (3, 3):
     def rmdir(path: _PathType, *, dir_fd: Optional[int] = ...) -> None: ...
 else:
     def rmdir(path: _PathType) -> None: ...
-if sys.version_info >= (3, 6):
+if sys.version_info >= (3, 7):
+    class _ScandirIterator(Iterator[DirEntry[AnyStr]], ContextManager[_ScandirIterator[AnyStr]]):
+        def close(self) -> None: ...
     @overload
-    def scandir() -> Iterator[DirEntry[str]]: ...
+    def scandir() -> _ScandirIterator[str]: ...
     @overload
-    def scandir(path: Union[AnyStr, PathLike[AnyStr]]) -> Iterator[DirEntry[AnyStr]]: ...
+    def scandir(path: int) -> _ScandirIterator[str]: ...
+    @overload
+    def scandir(path: Union[AnyStr, PathLike[AnyStr]]) -> _ScandirIterator[AnyStr]: ...
+elif sys.version_info >= (3, 6):
+    class _ScandirIterator(Iterator[DirEntry[AnyStr]], ContextManager[_ScandirIterator[AnyStr]]):
+        def close(self) -> None: ...
+    @overload
+    def scandir() -> _ScandirIterator[str]: ...
+    @overload
+    def scandir(path: Union[AnyStr, PathLike[AnyStr]]) -> _ScandirIterator[AnyStr]: ...
 elif sys.version_info >= (3, 5):
     @overload
     def scandir() -> Iterator[DirEntry[str]]: ...
@@ -501,10 +480,11 @@ if sys.version_info >= (3, 3):
              follow_symlinks: bool = ...) -> stat_result: ...
 else:
     def stat(path: _PathType) -> stat_result: ...
-@overload
-def stat_float_times() -> bool: ...
-@overload
-def stat_float_times(__newvalue: bool) -> None: ...
+if sys.version_info < (3, 7):
+    @overload
+    def stat_float_times() -> bool: ...
+    @overload
+    def stat_float_times(__newvalue: bool) -> None: ...
 def statvfs(path: _FdOrPathType) -> statvfs_result: ...  # Unix only
 if sys.version_info >= (3, 3):
     def symlink(source: _PathType, link_name: _PathType,
@@ -532,9 +512,23 @@ else:
              followlinks: bool = ...) -> Iterator[Tuple[AnyStr, List[AnyStr],
                                                         List[AnyStr]]]: ...
 if sys.version_info >= (3, 3):
-    def fwalk(top: _PathType = ..., topdown: bool = ...,
-              onerror: Optional[Callable] = ..., *, follow_symlinks: bool = ...,
-              dir_fd: Optional[int] = ...) -> Iterator[Tuple[str, List[str], List[str], int]]: ...  # Unix only
+    if sys.version_info >= (3, 7):
+        @overload
+        def fwalk(top: Union[str, PathLike[str]] = ..., topdown: bool = ...,
+                  onerror: Optional[Callable] = ..., *, follow_symlinks: bool = ...,
+                  dir_fd: Optional[int] = ...) -> Iterator[Tuple[str, List[str], List[str], int]]: ...  # Unix only
+        @overload
+        def fwalk(top: bytes, topdown: bool = ...,
+                  onerror: Optional[Callable] = ..., *, follow_symlinks: bool = ...,
+                  dir_fd: Optional[int] = ...) -> Iterator[Tuple[bytes, List[bytes], List[bytes], int]]: ...  # Unix only
+    elif sys.version_info >= (3, 6):
+        def fwalk(top: Union[str, PathLike[str]] = ..., topdown: bool = ...,
+                  onerror: Optional[Callable] = ..., *, follow_symlinks: bool = ...,
+                  dir_fd: Optional[int] = ...) -> Iterator[Tuple[str, List[str], List[str], int]]: ...  # Unix only
+    else:
+        def fwalk(top: str = ..., topdown: bool = ...,
+                  onerror: Optional[Callable] = ..., *, follow_symlinks: bool = ...,
+                  dir_fd: Optional[int] = ...) -> Iterator[Tuple[str, List[str], List[str], int]]: ...  # Unix only
     def getxattr(path: _FdOrPathType, attribute: _PathType, *, follow_symlinks: bool = ...) -> bytes: ...  # Linux only
     def listxattr(path: _FdOrPathType, *, follow_symlinks: bool = ...) -> List[str]: ...  # Linux only
     def removexattr(path: _FdOrPathType, attribute: _PathType, *, follow_symlinks: bool = ...) -> None: ...  # Linux only
@@ -638,3 +632,6 @@ if sys.version_info >= (3, 6):
     def urandom(size: int) -> bytes: ...
 else:
     def urandom(n: int) -> bytes: ...
+
+if sys.version_info >= (3, 7):
+    def register_at_fork(func: Callable[..., object], when: str) -> None: ...

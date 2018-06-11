@@ -1,4 +1,4 @@
-# Python 3.5 _ast
+import sys
 import typing
 from typing import Any, Optional, Union
 
@@ -16,6 +16,8 @@ class mod(AST):
 
 class Module(mod):
     body = ...  # type: typing.List[stmt]
+    if sys.version_info >= (3, 7):
+        docstring: Optional[str]
 
 class Interactive(mod):
     body = ...  # type: typing.List[stmt]
@@ -37,6 +39,8 @@ class FunctionDef(stmt):
     body = ...  # type: typing.List[stmt]
     decorator_list = ...  # type: typing.List[expr]
     returns = ...  # type: Optional[expr]
+    if sys.version_info >= (3, 7):
+        docstring: Optional[str]
 
 class AsyncFunctionDef(stmt):
     name = ...  # type: _identifier
@@ -44,6 +48,8 @@ class AsyncFunctionDef(stmt):
     body = ...  # type: typing.List[stmt]
     decorator_list = ...  # type: typing.List[expr]
     returns = ...  # type: Optional[expr]
+    if sys.version_info >= (3, 7):
+        docstring: Optional[str]
 
 class ClassDef(stmt):
     name = ...  # type: _identifier
@@ -51,6 +57,8 @@ class ClassDef(stmt):
     keywords = ...  # type: typing.List[keyword]
     body = ...  # type: typing.List[stmt]
     decorator_list = ...  # type: typing.List[expr]
+    if sys.version_info >= (3, 7):
+        docstring: Optional[str]
 
 class Return(stmt):
     value = ...  # type: Optional[expr]
@@ -66,6 +74,13 @@ class AugAssign(stmt):
     target = ...  # type: expr
     op = ...  # type: operator
     value = ...  # type: expr
+
+if sys.version_info >= (3, 6):
+    class AnnAssign(stmt):
+        target = ...  # type: expr
+        annotation = ...  # type: expr
+        value = ...  # type: Optional[expr]
+        simple = ...  # type: int
 
 class For(stmt):
     target = ...  # type: expr
@@ -225,6 +240,15 @@ class Num(expr):
 class Str(expr):
     s = ...  # type: str
 
+if sys.version_info >= (3, 6):
+    class FormattedValue(expr):
+        value = ...  # type: expr
+        conversion = ...  # type: Optional[int]
+        format_spec = ...  # type: Optional[expr]
+
+    class JoinedStr(expr):
+        values = ...  # type: typing.List[expr]
+
 class Bytes(expr):
     s = ...  # type: bytes
 
@@ -321,6 +345,8 @@ class comprehension(AST):
     target = ...  # type: expr
     iter = ...  # type: expr
     ifs = ...  # type: typing.List[expr]
+    if sys.version_info >= (3, 6):
+        is_async = ...  # type: int
 
 
 class ExceptHandler(AST):
