@@ -178,12 +178,12 @@ def pytype_test(args):
         run_cmd = [
             pytype_exe,
             '--module-name=%s' % _get_module_name(filename),
-            '--parse-pyi'
+            '--parse-pyi',
         ]
         if major_version == 3:
             run_cmd += [
                 '-V 3.6',
-                '--python_exe=%s' % args.python36_exe
+                '--python_exe=%s' % args.python36_exe,
             ]
         return BinaryRun(run_cmd + [filename],
                          dry_run=args.dry_run,
@@ -204,7 +204,7 @@ def pytype_test(args):
     files = pytype_run + pytd_run
     total_tests = len(files)
     # Files in stdlib/2and3 get tested twice
-    total_tests += len([f for f in pytype_run if 'stdlib/2and3' in f])
+    total_tests += sum(1 for f in pytype_run if 'stdlib/2and3' in f)
     print("Testing files with pytype...")
     while 1:
         while files and len(running_tests) < args.num_parallel:
