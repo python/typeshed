@@ -2,6 +2,7 @@ from typing import (
     Any, Dict, IO, Iterable, List, Iterator, Mapping, Optional, Tuple, Type, TypeVar,
     Union,
     overload,
+    BinaryIO,
 )
 import email.message
 import io
@@ -79,7 +80,8 @@ responses = ...  # type: Dict[int, str]
 class HTTPMessage(email.message.Message): ...
 
 if sys.version_info >= (3, 5):
-    class HTTPResponse(io.BufferedIOBase):
+    # Ignore errors to work around python/mypy#5027
+    class HTTPResponse(io.BufferedIOBase, BinaryIO):  # type: ignore
         msg = ...  # type: HTTPMessage
         headers = ...  # type: HTTPMessage
         version = ...  # type: int
@@ -103,7 +105,7 @@ if sys.version_info >= (3, 5):
                      exc_val: Optional[BaseException],
                      exc_tb: Optional[types.TracebackType]) -> bool: ...
 else:
-    class HTTPResponse:
+    class HTTPResponse(BinaryIO):
         msg = ...  # type: HTTPMessage
         headers = ...  # type: HTTPMessage
         version = ...  # type: int
