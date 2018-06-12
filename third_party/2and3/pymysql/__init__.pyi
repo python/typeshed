@@ -1,5 +1,7 @@
+import sys
 from typing import Union, Tuple, Callable
-from .connections import Connection
+
+from .connections import Connection as _Connection
 from .constants import FIELD_TYPE as FIELD_TYPE
 from .converters import escape_dict as escape_dict, escape_sequence as escape_sequence, escape_string as escape_string
 from .err import (
@@ -24,11 +26,26 @@ from .times import (
     TimestampFromTicks as TimestampFromTicks,
 )
 
+__all__ = [
+    'BINARY', 'Binary', 'Connect', 'Connection', 'DATE', 'Date',
+    'Time', 'Timestamp', 'DateFromTicks', 'TimeFromTicks', 'TimestampFromTicks',
+    'DataError', 'DatabaseError', 'Error', 'FIELD_TYPE', 'IntegrityError',
+    'InterfaceError', 'InternalError', 'MySQLError', 'NULL', 'NUMBER',
+    'NotSupportedError', 'DBAPISet', 'OperationalError', 'ProgrammingError',
+    'ROWID', 'STRING', 'TIME', 'TIMESTAMP', 'Warning', 'apilevel', 'connect',
+    'connections', 'constants', 'converters', 'cursors',
+    'escape_dict', 'escape_sequence', 'escape_string', 'get_client_info',
+    'paramstyle', 'threadsafety', 'version_info',
+
+    "install_as_MySQLdb",
+    "NULL", "__version__",
+]
+
 threadsafety: int
 apilevel: str
 paramstyle: str
 
-class DBAPISet(frozenset):
+class DBAPISet(frozenset[int]):
     def __ne__(self, other) -> bool: ...
     def __eq__(self, other) -> bool: ...
     def __hash__(self) -> int: ...
@@ -39,13 +56,21 @@ NUMBER: DBAPISet
 DATE: DBAPISet
 TIME: DBAPISet
 TIMESTAMP: DBAPISet
+DATETIME: DBAPISet
 ROWID: DBAPISet
-def Binary(x) -> Union[bytearray, bytes]: ...
-def Connect(*args, **kwargs) -> Connection: ...
+
+if sys.version_info >= (3, 0):
+	def Binary(x) -> bytes: ...
+else:
+	def Binary(x) -> bytearray: ...
+def Connect(*args, **kwargs) -> _Connection: ...
 def get_client_info() -> str: ...
 
-connect: Callable[..., Connection]
-
+connect: Callable[..., _Connection]
+Connection: Callable[..., _Connection]
+__version__: str
 version_info: Tuple[int, int, int, str, int]
 NULL: str
+
+def thread_safe() -> bool: ...
 def install_as_MySQLdb() -> None: ...
