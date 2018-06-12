@@ -26,21 +26,6 @@ from .times import (
     TimestampFromTicks as TimestampFromTicks,
 )
 
-__all__ = [
-    'BINARY', 'Binary', 'Connect', 'Connection', 'DATE', 'Date',
-    'Time', 'Timestamp', 'DateFromTicks', 'TimeFromTicks', 'TimestampFromTicks',
-    'DataError', 'DatabaseError', 'Error', 'FIELD_TYPE', 'IntegrityError',
-    'InterfaceError', 'InternalError', 'MySQLError', 'NULL', 'NUMBER',
-    'NotSupportedError', 'DBAPISet', 'OperationalError', 'ProgrammingError',
-    'ROWID', 'STRING', 'TIME', 'TIMESTAMP', 'Warning', 'apilevel', 'connect',
-    'connections', 'constants', 'converters', 'cursors',
-    'escape_dict', 'escape_sequence', 'escape_string', 'get_client_info',
-    'paramstyle', 'threadsafety', 'version_info',
-
-    "install_as_MySQLdb",
-    "NULL", "__version__",
-]
-
 threadsafety: int
 apilevel: str
 paramstyle: str
@@ -60,9 +45,9 @@ DATETIME: DBAPISet
 ROWID: DBAPISet
 
 if sys.version_info >= (3, 0):
-	def Binary(x) -> bytes: ...
+    def Binary(x) -> bytes: ...
 else:
-	def Binary(x) -> bytearray: ...
+    def Binary(x) -> bytearray: ...
 def Connect(*args, **kwargs) -> _Connection: ...
 def get_client_info() -> str: ...
 
