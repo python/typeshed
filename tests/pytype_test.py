@@ -174,6 +174,21 @@ def pytype_test(args):
     pytd_run = []
     bad = []
 
+    def _make_test(filename, major_version):
+        run_cmd = [
+            pytype_exe,
+            '--module-name=%s' % _get_module_name(filename),
+            '--parse-pyi',
+        ]
+        if major_version == 3:
+            run_cmd += [
+                '-V 3.6',
+                '--python_exe=%s' % args.python36_exe,
+            ]
+        return BinaryRun(run_cmd + [filename],
+                         dry_run=args.dry_run,
+                         env={"TYPESHED_HOME": dirs.typeshed})
+
     for root, _, filenames in os.walk(stdlib_path):
         for f in sorted(filenames):
             f = os.path.join(root, f)
@@ -187,31 +202,28 @@ def pytype_test(args):
     running_tests = collections.deque()
     max_code, runs, errors = 0, 0, 0
     files = pytype_run + pytd_run
-    total_files = len(files)
+    total_tests = len(files)
+    # Files in stdlib/2and3 get tested twice
+    total_tests += sum(1 for f in pytype_run if 'stdlib/2and3' in f)
     print("Testing files with pytype...")
     while 1:
         while files and len(running_tests) < args.num_parallel:
             f = files.pop()
             if f in pytype_run:
-                run_cmd = [
-                    pytype_exe,
-                    '--module-name=%s' % _get_module_name(f),
-                    '--parse-pyi'
-                ]
-                if 'stdlib/3' in f:
-                    run_cmd += [
-                        '-V 3.6',
-                        '--python_exe=%s' % args.python36_exe
-                    ]
-                test_run = BinaryRun(
-                    run_cmd + [f],
-                    dry_run=args.dry_run,
-                    env={"TYPESHED_HOME": dirs.typeshed})
+                if 'stdlib/2and3' in f:
+                    running_tests.append(_make_test(f, 2))
+                    running_tests.append(_make_test(f, 3))
+                elif 'stdlib/2' in f:
+                    running_tests.append(_make_test(f, 2))
+                elif 'stdlib/3' in f:
+                    running_tests.append(_make_test(f, 3))
+                else:
+                    print("Unrecognised stdlib path: %s" % f)
             elif f in pytd_run:
                 test_run = BinaryRun([pytd_exe, f], dry_run=args.dry_run)
+                running_tests.append(test_run)
             else:
                 raise ValueError('Unknown action for file: %s' % f)
-            running_tests.append(test_run)
 
         if not running_tests:
             break
@@ -231,7 +243,7 @@ def pytype_test(args):
                         stderr.rstrip().rsplit('\n', 1)[-1]))
 
         if runs % 25 == 0:
-            print("  %3d/%d with %3d errors" % (runs, total_files, errors))
+            print("  %3d/%d with %3d errors" % (runs, total_tests, errors))
 
     print('Ran pytype with %d pyis, got %d errors.' % (runs, errors))
     for f, err in bad:
