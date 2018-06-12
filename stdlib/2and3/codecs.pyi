@@ -62,16 +62,16 @@ def EncodedFile(file: IO[_Encoded], data_encoding: str, file_encoding: str = ...
 def iterencode(iterator: Iterable[_Decoded], encoding: str, errors: str = ...) -> Generator[_Encoded, None, None]: ...
 def iterdecode(iterator: Iterable[_Encoded], encoding: str, errors: str = ...) -> Generator[_Decoded, None, None]: ...
 
-BOM = b""
-BOM_BE = b""
-BOM_LE = b""
-BOM_UTF8 = b""
-BOM_UTF16 = b""
-BOM_UTF16_BE = b""
-BOM_UTF16_LE = b""
-BOM_UTF32 = b""
-BOM_UTF32_BE = b""
-BOM_UTF32_LE = b""
+BOM: bytes
+BOM_BE: bytes
+BOM_LE: bytes
+BOM_UTF8: bytes
+BOM_UTF16: bytes
+BOM_UTF16_BE: bytes
+BOM_UTF16_LE: bytes
+BOM_UTF32: bytes
+BOM_UTF32_BE: bytes
+BOM_UTF32_LE: bytes
 
 # It is expected that different actions be taken depending on which of the
 # three subclasses of `UnicodeError` is actually ...ed. However, the Union
