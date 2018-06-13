@@ -17,6 +17,7 @@ also discover incorrect usage of imported modules.
 
 import argparse
 import collections
+import itertools
 import os
 import re
 import subprocess
@@ -27,7 +28,7 @@ parser.add_argument('-n', '--dry-run', action='store_true',
                     help="Don't actually run tests")
 parser.add_argument('--num-parallel', type=int, default=1,
                     help='Number of test processes to spawn')
-# Default to '' so that symlinking typeshed/stdlib in cwd will work.
+# Default to '' so that symlinking typeshed subdirs in cwd will work.
 parser.add_argument('--typeshed-location', type=str, default='',
                     help='Path to typeshed installation.')
 # Default to '' so that finding pytype in path will work.
@@ -42,6 +43,9 @@ parser.add_argument('--python36-exe', type=str,
                     help='Path to a python 3.6 interpreter.')
 
 Dirs = collections.namedtuple('Dirs', ['pytype', 'typeshed'])
+
+
+TYPESHED_SUBDIRS = ['stdlib', 'third_party']
 
 
 def main():
@@ -123,12 +127,19 @@ class BinaryRun(object):
 
 
 def _get_relative(filename):
-    top = filename.find('stdlib/')
+    top = 0
+    for d in TYPESHED_SUBDIRS:
+        try:
+            top = filename.index(d)
+        except ValueError:
+            continue
+        else:
+            break
     return filename[top:]
 
 
 def _get_module_name(filename):
-    """Converts a filename stdlib/m.n/module/foo to module.foo."""
+    """Converts a filename {subdir}/m.n/module/foo to module.foo."""
     return '.'.join(_get_relative(filename).split(os.path.sep)[2:]).replace(
         '.pyi', '').replace('.__init__', '')
 
@@ -142,15 +153,20 @@ def can_run(path, exe, *args):
         return False
 
 
+def _is_version(path, version):
+    return any('%s/%s' % (d, version) in path for d in TYPESHED_SUBDIRS)
+
+
 def pytype_test(args):
     dirs = get_project_dirs(args)
     pytype_exe = os.path.join(dirs.pytype, 'pytype-single')
-    stdlib_path = os.path.join(dirs.typeshed, 'stdlib')
+    paths = [os.path.join(dirs.typeshed, d) for d in TYPESHED_SUBDIRS]
 
-    if not os.path.isdir(stdlib_path):
-        print('Cannot find typeshed stdlib at %s '
-            '(specify parent dir via --typeshed_location)' % stdlib_path)
-        return 0, 0
+    for p in paths:
+        if not os.path.isdir(p):
+            print('Cannot find typeshed subdir at %s '
+                  '(specify parent dir via --typeshed_location)' % p)
+            return 0, 0
 
     if can_run(dirs.pytype, 'pytd', '-h'):
         pytd_exe = os.path.join(dirs.pytype, 'pytd')
@@ -162,10 +178,14 @@ def pytype_test(args):
 
     if not can_run('', args.python36_exe, '--version'):
         print('Cannot run python3.6 from %s. (point to a valid executable via '
-              '--python36_exe)' % args.python36_exe)
+              '--python36-exe)' % args.python36_exe)
         return 0, 0
 
-    wanted = re.compile(r'stdlib/.*\.pyi$')
+    stdlib = 'stdlib/'
+    six = 'third_party/.*/six/'
+    mypy_extensions = 'third_party/.*/mypy_extensions'
+    wanted = re.compile(
+        r'(?:%s).*\.pyi$' % '|'.join([stdlib, six, mypy_extensions]))
     skip, parse_only = load_blacklist(dirs)
     skipped = PathMatcher(skip)
     parse_only = PathMatcher(parse_only)
@@ -189,7 +209,8 @@ def pytype_test(args):
                          dry_run=args.dry_run,
                          env={"TYPESHED_HOME": dirs.typeshed})
 
-    for root, _, filenames in os.walk(stdlib_path):
+    for root, _, filenames in itertools.chain.from_iterable(
+            os.walk(p) for p in paths):
         for f in sorted(filenames):
             f = os.path.join(root, f)
             rel = _get_relative(f)
@@ -203,22 +224,22 @@ def pytype_test(args):
     max_code, runs, errors = 0, 0, 0
     files = pytype_run + pytd_run
     total_tests = len(files)
-    # Files in stdlib/2and3 get tested twice
-    total_tests += sum(1 for f in pytype_run if 'stdlib/2and3' in f)
+    # Files in {subdir}/2and3 get tested twice
+    total_tests += sum(1 for f in pytype_run if _is_version(f, '2and3'))
     print("Testing files with pytype...")
     while 1:
         while files and len(running_tests) < args.num_parallel:
             f = files.pop()
             if f in pytype_run:
-                if 'stdlib/2and3' in f:
+                if _is_version(f, '2and3'):
                     running_tests.append(_make_test(f, 2))
                     running_tests.append(_make_test(f, 3))
-                elif 'stdlib/2' in f:
+                elif _is_version(f, '2'):
                     running_tests.append(_make_test(f, 2))
-                elif 'stdlib/3' in f:
+                elif _is_version(f, '3'):
                     running_tests.append(_make_test(f, 3))
                 else:
-                    print("Unrecognised stdlib path: %s" % f)
+                    print("Unrecognised path: %s" % f)
             elif f in pytd_run:
                 test_run = BinaryRun([pytd_exe, f], dry_run=args.dry_run)
                 running_tests.append(test_run)
