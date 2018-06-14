@@ -6,7 +6,7 @@ from typing import (
 from wsgiref.types import WSGIEnvironment, InputStream
 
 from .datastructures import (
-    CombinedMultiDict, EnvironHeaders, Headers, ImmutableMultiDict,
+    Authorization, CombinedMultiDict, EnvironHeaders, Headers, ImmutableMultiDict,
     MultiDict, TypeConversionDict, HeaderSet,
 )
 
@@ -139,7 +139,8 @@ class UserAgentMixin:
     def user_agent(self): ...
 
 class AuthorizationMixin:
-    def authorization(self): ...
+    @property
+    def authorization(self) -> Optional[Authorization]: ...
 
 class StreamOnlyMixin:
     disable_data_descriptor = ...  # type: Any
