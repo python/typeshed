@@ -34,10 +34,10 @@ class GNUTranslations(NullTranslations):
     LE_MAGIC = ...  # type: int
     BE_MAGIC = ...  # type: int
 
-def find(domain: str, localedir: str = ..., languages: List[str] = ...,
+def find(domain: str, localedir: Optional[str] = ..., languages: List[str] = ...,
          all: Any = ...) -> Optional[Union[str, List[str]]]: ...
 
-def translation(domain: str, localedir: str = ..., languages: List[str] = ...,
+def translation(domain: str, localedir: Optional[str] = ..., languages: List[str] = ...,
                 class_: Any = ..., fallback: Any = ..., codeset: Any = ...) -> NullTranslations: ...
-def install(domain: str, localedir: str = ..., unicode: Any = ..., codeset: Any = ...,
+def install(domain: str, localedir: Optional[str] = ..., unicode: Any = ..., codeset: Any = ...,
             names: Container[str] = ...) -> None: ...
