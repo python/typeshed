@@ -84,7 +84,7 @@ class BaseResponse:
     status = ...  # type: str
     direct_passthrough = ...  # type: bool
     response = ...  # type: Iterable[bytes]
-    def __init__(self, response: Optional[Union[Iterable[bytes], bytes]] = ...,
+    def __init__(self, response: Optional[Union[str, bytes, bytearray, Iterable[str], Iterable[bytes]]] = ...,
                  status: Optional[Union[Text, int]] = ...,
                  headers: Optional[Union[Headers,
                                          Mapping[Text, Text],
