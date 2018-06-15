@@ -132,6 +132,7 @@ def main():
             flags = ['--python-version', '%d.%d' % (major, minor)]
             flags.append('--strict-optional')
             flags.append('--no-site-packages')
+            flags.append('--show-traceback')
             if args.no_implicit_optional:
                 flags.append('--no-implicit-optional')
             if args.warn_unused_ignores:
