@@ -1,6 +1,6 @@
 # TODO(MichalPokorny): better types
 
-from typing import Any, Container, Dict, IO, List, Optional, Union
+from typing import Any, Container, Dict, IO, List, Optional, Sequence, Union
 
 def bindtextdomain(domain: str, localedir: str = ...) -> str: ...
 def bind_textdomain_codeset(domain: str, codeset: str = ...) -> str: ...
@@ -34,10 +34,10 @@ class GNUTranslations(NullTranslations):
     LE_MAGIC = ...  # type: int
     BE_MAGIC = ...  # type: int
 
-def find(domain: str, localedir: Optional[str] = ..., languages: List[str] = ...,
+def find(domain: str, localedir: Optional[str] = ..., languages: Optional[Sequence[str]] = ...,
          all: Any = ...) -> Optional[Union[str, List[str]]]: ...
 
-def translation(domain: str, localedir: Optional[str] = ..., languages: List[str] = ...,
+def translation(domain: str, localedir: Optional[str] = ..., languages: Optional[Sequence[str]] = ...,
                 class_: Any = ..., fallback: Any = ..., codeset: Any = ...) -> NullTranslations: ...
 def install(domain: str, localedir: Optional[str] = ..., unicode: Any = ..., codeset: Any = ...,
             names: Container[str] = ...) -> None: ...
