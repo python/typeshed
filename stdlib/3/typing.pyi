@@ -174,7 +174,7 @@ class Coroutine(Awaitable[_V_co], Generic[_T_co, _T_contra, _V_co]):
 # NOTE: This type does not exist in typing.py or PEP 484.
 # The parameters corrrespond to Generator, but the 4th is the original type.
 class AwaitableGenerator(Awaitable[_V_co], Generator[_T_co, _T_contra, _V_co],
-                         Generic[_T_co, _T_contra, _V_co, _S]):
+                         Generic[_T_co, _T_contra, _V_co, _S], metaclass=ABCMeta):
     pass
 
 @runtime
@@ -220,11 +220,11 @@ class Container(Protocol[_T_co]):
 
 if sys.version_info >= (3, 6):
     @runtime
-    class Collection(Sized, Iterable[_T_co], Container[_T_co], Protocol[_T_co]): ...
+    class Collection(Sized, Iterable[_T_co], Container[_T_co], Protocol[_T_co], metaclass=ABCMeta): ...
     _Collection = Collection
 else:
     @runtime
-    class _Collection(Sized, Iterable[_T_co], Container[_T_co], Protocol[_T_co]): ...
+    class _Collection(Sized, Iterable[_T_co], Container[_T_co], Protocol[_T_co], metaclass=ABCMeta): ...
 
 class Sequence(_Collection[_T_co], Reversible[_T_co], Generic[_T_co]):
     @overload
@@ -457,7 +457,7 @@ class TextIO(IO[str]):
     @abstractmethod
     def __enter__(self) -> TextIO: ...
 
-class ByteString(Sequence[int]): ...
+class ByteString(Sequence[int], metaclass=ABCMeta): ...
 
 class Match(Generic[AnyStr]):
     pos = 0
