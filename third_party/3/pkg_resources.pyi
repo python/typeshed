@@ -5,6 +5,7 @@ from typing import (
     List, Union,
     TypeVar, overload,
 )
+from abc import ABCMeta
 import importlib.abc
 import sys
 import types
@@ -248,9 +249,9 @@ class ExtractionError(Exception):
 
 
 if sys.version_info >= (3, 3):
-    class _Importer(importlib.abc.MetaPathFinder, importlib.abc.InspectLoader): ...
+    class _Importer(importlib.abc.MetaPathFinder, importlib.abc.InspectLoader, metaclass=ABCMeta): ...
 else:
-    class _Importer(importlib.abc.InspectLoader): ...
+    class _Importer(importlib.abc.InspectLoader, metaclass=ABCMeta): ...
 
 def register_finder(importer_type: type,
                     distribution_finder: _DistFinderType) -> None: ...
