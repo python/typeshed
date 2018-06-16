@@ -1,5 +1,3 @@
-# TODO(MichalPokorny): better types
-
 from typing import Any, Container, Dict, IO, List, Optional, Sequence, Type, Union
 
 def bindtextdomain(domain: str, localedir: str = ...) -> str: ...
@@ -39,5 +37,5 @@ def find(domain: str, localedir: Optional[str] = ..., languages: Optional[Sequen
 
 def translation(domain: str, localedir: Optional[str] = ..., languages: Optional[Sequence[str]] = ...,
                 class_: Optional[Type[NullTranslations]] = ..., fallback: bool = ..., codeset: Optional[str] = ...) -> NullTranslations: ...
-def install(domain: str, localedir: Optional[str] = ..., unicode: Any = ..., codeset: Optional[str] = ...,
+def install(domain: str, localedir: Optional[str] = ..., unicode: bool = ..., codeset: Optional[str] = ...,
             names: Container[str] = ...) -> None: ...
