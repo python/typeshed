@@ -128,15 +128,15 @@ class Generator(Iterator[_T_co], Generic[_T_co, _T_contra, _V_co]):
 
     @abstractmethod
     def throw(self, typ: Type[BaseException], val: Optional[BaseException] = ...,
-              # TODO: tb should be TracebackType but that's defined in types
-              tb: Any = ...) -> _T_co: ...
-
+              tb: TracebackType = ...) -> _T_co: ...
     @abstractmethod
     def close(self) -> None: ...
-
-    gi_code = ...  # type: CodeType
-    gi_frame = ...  # type: FrameType
-    gi_running = ...  # type: bool
+    @property
+    def gi_code(self) -> CodeType: ...
+    @property
+    def gi_frame(self) -> FrameType: ...
+    @property
+    def gi_running(self) -> bool: ...
 
 @runtime
 class Container(Protocol[_T_co]):
@@ -321,11 +321,10 @@ class IO(Iterator[AnyStr], Generic[AnyStr]):
     @abstractmethod
     def __iter__(self) -> Iterator[AnyStr]: ...
     @abstractmethod
-    def __enter__(self) -> 'IO[AnyStr]': ...
+    def __enter__(self) -> IO[AnyStr]: ...
     @abstractmethod
     def __exit__(self, t: Optional[Type[BaseException]], value: Optional[BaseException],
-                 # TODO: traceback should be TracebackType but that's defined in types
-                 traceback: Optional[Any]) -> bool: ...
+                 traceback: Optional[TracebackType]) -> bool: ...
 
 class BinaryIO(IO[str]):
     # TODO readinto
