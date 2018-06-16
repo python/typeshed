@@ -23,6 +23,7 @@ class Dialect:
 class _reader(Iterator[List[str]]):
     dialect = ...  # type: Dialect
     line_num = ...  # type: int
+    def __next__(self) -> List[str]: ...
 
 class _writer:
     dialect = ...  # type: Dialect
