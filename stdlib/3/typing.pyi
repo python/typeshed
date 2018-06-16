@@ -220,11 +220,11 @@ class Container(Protocol[_T_co]):
 
 if sys.version_info >= (3, 6):
     @runtime
-    class Collection(Sized, Iterable[_T_co], Container[_T_co], Protocol[_T_co], metaclass=ABCMeta): ...
+    class Collection(Sized, Iterable[_T_co], Container[_T_co], Protocol[_T_co]): ...
     _Collection = Collection
 else:
     @runtime
-    class _Collection(Sized, Iterable[_T_co], Container[_T_co], Protocol[_T_co], metaclass=ABCMeta): ...
+    class _Collection(Sized, Iterable[_T_co], Container[_T_co], Protocol[_T_co]): ...
 
 class Sequence(_Collection[_T_co], Reversible[_T_co], Generic[_T_co]):
     @overload
