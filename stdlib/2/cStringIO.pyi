@@ -1,12 +1,15 @@
 # Stubs for cStringIO (Python 2.7)
 # See https://docs.python.org/2/library/stringio.html
 
+from abc import ABCMeta
 from typing import overload, IO, List, Iterable, Iterator, Optional, Union
 from types import TracebackType
 
 # TODO the typing.IO[] generics should be split into input and output.
 
-class InputType(IO[str], Iterator[str]):
+# This class isn't actually abstract, but you can't instantiate it
+# directly, so we might as well treat it as abstract in the stub.
+class InputType(IO[str], Iterator[str], metaclass=ABCMeta):
     def getvalue(self) -> str: ...
     def close(self) -> None: ...
     @property
@@ -23,7 +26,8 @@ class InputType(IO[str], Iterator[str]):
     def next(self) -> str: ...
     def reset(self) -> None: ...
 
-class OutputType(IO[str], Iterator[str]):
+
+class OutputType(IO[str], Iterator[str], metaclass=ABCMeta):
     @property
     def softspace(self) -> int: ...
     def getvalue(self) -> str: ...
