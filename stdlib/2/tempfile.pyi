@@ -1,4 +1,6 @@
 from typing import Tuple, IO, Union, AnyStr, Any, overload, Iterator, List, Iterable, Optional
+from thread import LockType
+from random import Random
 
 TMP_MAX = ...  # type: int
 tempdir = ...  # type: str
@@ -6,12 +8,11 @@ template = ...  # type: str
 _name_sequence = ...  # type: Optional[_RandomNameSequence]
 
 class _RandomNameSequence:
-    _rng = ...  # type: random.Random
-    _rng_pid = ...  # type: int
-    characters = ...  # type: str
-    mutex = ...  # type: thread.LockType
-    rng = ...  # type: random.Random
-    def __iter__(self) -> "_RandomNameSequence": ...
+    characters: str = ...
+    mutex: LockType
+    @property
+    def rng(self) -> Random: ...
+    def __iter__(self) -> _RandomNameSequence: ...
     def next(self) -> str: ...
     # from os.path:
     def normcase(self, path: AnyStr) -> AnyStr: ...
