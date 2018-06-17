@@ -105,7 +105,7 @@ if sys.version_info >= (3, 5):
                      exc_val: Optional[BaseException],
                      exc_tb: Optional[types.TracebackType]) -> bool: ...
 else:
-    class HTTPResponse(BinaryIO):
+    class HTTPResponse(io.RawIOBase, BinaryIO):  # type: ignore
         msg = ...  # type: HTTPMessage
         headers = ...  # type: HTTPMessage
         version = ...  # type: int
