@@ -118,6 +118,7 @@ class Iterable(Protocol[_T_co]):
 class Iterator(Iterable[_T_co], Protocol[_T_co]):
     @abstractmethod
     def next(self) -> _T_co: ...
+    def __iter__(self) -> Iterator[_T_co]: ...
 
 class Generator(Iterator[_T_co], Generic[_T_co, _T_contra, _V_co]):
     @abstractmethod
