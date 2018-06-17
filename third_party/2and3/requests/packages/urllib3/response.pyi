@@ -1,4 +1,5 @@
-from typing import Any, IO
+from typing import Any
+import io
 from . import _collections
 from . import exceptions
 from .connection import HTTPException as HTTPException, BaseSSLError as BaseSSLError
@@ -22,7 +23,7 @@ class GzipDecoder:
     def __getattr__(self, name): ...
     def decompress(self, data): ...
 
-class HTTPResponse(IO[Any]):
+class HTTPResponse(io.IOBase):
     CONTENT_DECODERS = ...  # type: Any
     REDIRECT_STATUSES = ...  # type: Any
     headers = ...  # type: Any

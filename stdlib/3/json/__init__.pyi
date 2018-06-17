@@ -41,7 +41,11 @@ def loads(s: Union[str, bytes, bytearray],
     object_pairs_hook: Optional[Callable[[List[Tuple[Any, Any]]], Any]] = ...,
     **kwds: Any) -> Any: ...
 
-def load(fp: IO[str],
+if sys.version_info >= (3, 6):
+    _LoadIO = IO[Any]
+else:
+    _LoadIO = IO[str]
+def load(fp: _LoadIO,
     cls: Any = ...,
     object_hook: Optional[Callable[[Dict], Any]] = ...,
     parse_float: Optional[Callable[[str], Any]] = ...,

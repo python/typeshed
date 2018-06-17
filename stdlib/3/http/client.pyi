@@ -1,7 +1,8 @@
 from typing import (
-    Any, Dict, IO, Iterable, List, Iterator, Mapping, Optional, Tuple, TypeVar,
+    Any, Dict, IO, Iterable, List, Iterator, Mapping, Optional, Tuple, Type, TypeVar,
     Union,
     overload,
+    BinaryIO,
 )
 import email.message
 import io
@@ -79,8 +80,10 @@ responses = ...  # type: Dict[int, str]
 class HTTPMessage(email.message.Message): ...
 
 if sys.version_info >= (3, 5):
-    class HTTPResponse(io.BufferedIOBase):
+    # Ignore errors to work around python/mypy#5027
+    class HTTPResponse(io.BufferedIOBase, BinaryIO):  # type: ignore
         msg = ...  # type: HTTPMessage
+        headers = ...  # type: HTTPMessage
         version = ...  # type: int
         debuglevel = ...  # type: int
         closed = ...  # type: bool
@@ -98,12 +101,13 @@ if sys.version_info >= (3, 5):
         def isclosed(self) -> bool: ...
         def __iter__(self) -> Iterator[bytes]: ...
         def __enter__(self) -> 'HTTPResponse': ...
-        def __exit__(self, exc_type: Optional[type],
-                     exc_val: Optional[Exception],
+        def __exit__(self, exc_type: Optional[Type[BaseException]],
+                     exc_val: Optional[BaseException],
                      exc_tb: Optional[types.TracebackType]) -> bool: ...
 else:
-    class HTTPResponse:
+    class HTTPResponse(io.RawIOBase, BinaryIO):  # type: ignore
         msg = ...  # type: HTTPMessage
+        headers = ...  # type: HTTPMessage
         version = ...  # type: int
         debuglevel = ...  # type: int
         closed = ...  # type: bool
@@ -120,12 +124,19 @@ else:
         def fileno(self) -> int: ...
         def __iter__(self) -> Iterator[bytes]: ...
         def __enter__(self) -> 'HTTPResponse': ...
-        def __exit__(self, exc_type: Optional[type],
-                     exc_val: Optional[Exception],
+        def __exit__(self, exc_type: Optional[Type[BaseException]],
+                     exc_val: Optional[BaseException],
                      exc_tb: Optional[types.TracebackType]) -> bool: ...
 
 class HTTPConnection:
-    if sys.version_info >= (3, 4):
+    if sys.version_info >= (3, 7):
+        def __init__(
+            self,
+            host: str, port: Optional[int] = ...,
+            timeout: int = ...,
+            source_address: Optional[Tuple[str, int]] = ..., blocksize: int = ...
+        ) -> None: ...
+    elif sys.version_info >= (3, 4):
         def __init__(
             self,
             host: str, port: Optional[int] = ...,

@@ -1,7 +1,7 @@
 from typing import List, Any, TypeVar, Union, Iterable, Iterator, TypeVar, Generic, Type, Sized, Reversible, Container, Mapping
 from abc import ABCMeta
 
-_T = TypeVar('_T', bound=Enum)
+_T = TypeVar('_T')
 _S = TypeVar('_S', bound=Type[Enum])
 
 # Note: EnumMeta actually subclasses type directly, not ABCMeta.
@@ -15,6 +15,7 @@ class EnumMeta(ABCMeta, Iterable[Enum], Sized, Reversible[Enum], Container[Enum]
     def __getitem__(self: Type[_T], name: str) -> _T: ...
     @property
     def __members__(self: Type[_T]) -> Mapping[str, _T]: ...
+    def __len__(self) -> int: ...
 
 class Enum(metaclass=EnumMeta):
     def __new__(cls: Type[_T], value: Any) -> _T: ...
@@ -28,6 +29,7 @@ class Enum(metaclass=EnumMeta):
     name = ...  # type: str
     value = ...  # type: Any
 
-class IntEnum(int, Enum): ...
+class IntEnum(int, Enum):
+    value = ...  # type: int
 
 def unique(enumeration: _S) -> _S: ...

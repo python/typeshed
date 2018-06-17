@@ -1,9 +1,9 @@
 # Stubs for unittest
 
 from typing import (
-    Any, Callable, ContextManager, Dict, FrozenSet, Generic, Iterable, Iterator,
-    List, NoReturn, Optional, overload, Pattern, Sequence, Set, TextIO, Tuple,
-    Type, TypeVar, Union
+    Any, Callable, Container, ContextManager, Dict, FrozenSet, Generic, Iterable,
+    Iterator, List, NoReturn, Optional, overload, Pattern, Sequence, Set, TextIO,
+    Tuple, Type, TypeVar, Union
 )
 import logging
 import sys
@@ -50,9 +50,9 @@ class TestCase:
                     msg: Any = ...) -> None: ...
     def assertIsNone(self, expr: Any, msg: Any = ...) -> None: ...
     def assertIsNotNone(self, expr: Any, msg: Any = ...) -> None: ...
-    def assertIn(self, first: _T, second: Iterable[_T],
+    def assertIn(self, member: Any, container: Container[Any],
                  msg: Any = ...) -> None: ...
-    def assertNotIn(self, first: _T, second: Iterable[_T],
+    def assertNotIn(self, member: Any, container: Container[Any],
                     msg: Any = ...) -> None: ...
     def assertIsInstance(self, obj: Any,
                          cls: Union[type, Tuple[type, ...]],
@@ -191,7 +191,7 @@ class FunctionTestCase(TestCase):
 class _AssertRaisesContext(Generic[_E]):
     exception = ...  # type: _E
     def __enter__(self) -> _AssertRaisesContext[_E]: ...
-    def __exit__(self, exc_type: Optional[type], exc_val: Optional[Exception],
+    def __exit__(self, exc_type: Optional[Type[BaseException]], exc_val: Optional[BaseException],
                  exc_tb: Optional[TracebackType]) -> bool: ...
 
 class _AssertWarnsContext:
@@ -199,14 +199,14 @@ class _AssertWarnsContext:
     filename = ...  # type: str
     lineno = ...  # type: int
     def __enter__(self) -> _AssertWarnsContext: ...
-    def __exit__(self, exc_type: Optional[type], exc_val: Optional[Exception],
+    def __exit__(self, exc_type: Optional[Type[BaseException]], exc_val: Optional[BaseException],
                  exc_tb: Optional[TracebackType]) -> bool: ...
 
 class _AssertLogsContext:
     records = ...  # type: List[logging.LogRecord]
     output = ...  # type: List[str]
     def __enter__(self) -> _AssertLogsContext: ...
-    def __exit__(self, exc_type: Optional[type], exc_val: Optional[Exception],
+    def __exit__(self, exc_type: Optional[Type[BaseException]], exc_val: Optional[BaseException],
                  exc_tb: Optional[TracebackType]) -> bool: ...
 
 

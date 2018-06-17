@@ -23,6 +23,10 @@ class Dialect:
 class _reader(Iterator[List[str]]):
     dialect = ...  # type: Dialect
     line_num = ...  # type: int
+    if sys.version_info >= (3, 0):
+        def __next__(self) -> List[str]: ...
+    else:
+        def next(self) -> List[str]: ...
 
 class _writer:
     dialect = ...  # type: Dialect

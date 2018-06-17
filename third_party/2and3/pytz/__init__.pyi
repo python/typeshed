@@ -20,8 +20,10 @@ class _UTCclass(datetime.tzinfo):
     def localize(self, dt: datetime.datetime, is_dst: bool = ...) -> datetime.datetime: ...
     def normalize(self, dt: datetime.datetime, is_dst: bool = ...) -> datetime.datetime: ...
 
-utc = ...  # type: _UTCclass
-UTC = ...  # type: _UTCclass
+utc: _UTCclass
+UTC: _UTCclass
+ZERO: datetime.timedelta
+HOUR: datetime.timedelta
 
 
 class _BaseTzInfo(datetime.tzinfo):

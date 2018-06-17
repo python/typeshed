@@ -4,7 +4,6 @@ import sys
 
 _Str = Union[bytes, str]
 
-__all__ = ...  # type: Tuple[str]
 
 uses_relative = ...  # type: List[str]
 uses_netloc = ...  # type: List[str]
@@ -138,11 +137,11 @@ def urlsplit(url: str, scheme: str = ..., allow_fragments: bool = ...) -> SplitR
 def urlsplit(url: bytes, scheme: bytes = ..., allow_fragments: bool = ...) -> SplitResultBytes: ...
 
 @overload
-def urlunparse(components: Sequence[AnyStr]) -> AnyStr: ...
-@overload
 def urlunparse(components: Tuple[AnyStr, AnyStr, AnyStr, AnyStr, AnyStr, AnyStr]) -> AnyStr: ...
+@overload
+def urlunparse(components: Sequence[AnyStr]) -> AnyStr: ...
 
 @overload
-def urlunsplit(components: Sequence[AnyStr]) -> AnyStr: ...
-@overload
 def urlunsplit(components: Tuple[AnyStr, AnyStr, AnyStr, AnyStr, AnyStr]) -> AnyStr: ...
+@overload
+def urlunsplit(components: Sequence[AnyStr]) -> AnyStr: ...

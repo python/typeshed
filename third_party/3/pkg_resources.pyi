@@ -5,6 +5,7 @@ from typing import (
     List, Union,
     TypeVar, overload,
 )
+from abc import ABCMeta
 import importlib.abc
 import sys
 import types
@@ -108,7 +109,7 @@ def get_entry_info(dist: _EPDistType, group: str,
 @overload
 def get_entry_map(dist: _EPDistType) -> Dict[str, Dict[str, EntryPoint]]: ...
 @overload
-def get_entry_map(dist: _EPDistType, group: str = ...) -> Dict[str, EntryPoint]: ...
+def get_entry_map(dist: _EPDistType, group: str) -> Dict[str, EntryPoint]: ...
 
 class EntryPoint:
     name = ...  # type: str
@@ -174,7 +175,7 @@ class Distribution(IResourceProvider, IMetadataProvider):
     def get_entry_map(dist: _EPDistType) \
                       -> Dict[str, Dict[str, EntryPoint]]: ...
     @overload
-    def get_entry_map(dist: _EPDistType, group: str = ...) \
+    def get_entry_map(dist: _EPDistType, group: str) \
                       -> Dict[str, EntryPoint]: ...
     def load_entry_point(dist: _EPDistType, group: str, name: str) -> None: ...
 
@@ -248,9 +249,9 @@ class ExtractionError(Exception):
 
 
 if sys.version_info >= (3, 3):
-    class _Importer(importlib.abc.MetaPathFinder, importlib.abc.InspectLoader): ...
+    class _Importer(importlib.abc.MetaPathFinder, importlib.abc.InspectLoader, metaclass=ABCMeta): ...
 else:
-    class _Importer(importlib.abc.InspectLoader): ...
+    class _Importer(importlib.abc.InspectLoader, metaclass=ABCMeta): ...
 
 def register_finder(importer_type: type,
                     distribution_finder: _DistFinderType) -> None: ...
