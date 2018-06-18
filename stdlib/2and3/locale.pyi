@@ -110,4 +110,4 @@ def str(float: float) -> _str: ...
 
 locale_alias: Dict[_str, _str]  # undocumented
 locale_encoding_alias: Dict[_str, _str]  # undocumented
-windows_locale: Dict[int, _str]
+windows_locale: Dict[int, _str]  # undocumented
