@@ -114,8 +114,7 @@ else:
         status = ...  # type: int
         reason = ...  # type: str
         def read(self, amt: Optional[int] = ...) -> bytes: ...
-        if sys.version_info >= (3, 3):
-            def readinto(self, b: bytearray) -> int: ...
+        def readinto(self, b: bytearray) -> int: ...
         @overload
         def getheader(self, name: str) -> Optional[str]: ...
         @overload
@@ -136,20 +135,13 @@ class HTTPConnection:
             timeout: int = ...,
             source_address: Optional[Tuple[str, int]] = ..., blocksize: int = ...
         ) -> None: ...
-    elif sys.version_info >= (3, 4):
+    else:
         def __init__(
             self,
             host: str, port: Optional[int] = ...,
             timeout: int = ...,
             source_address: Optional[Tuple[str, int]] = ...
         ) -> None: ...
-    else:
-        def __init__(
-            self,
-            host: str, port: Optional[int] = ...,
-            strict: bool = ..., timeout: int = ...,
-            source_address: Optional[Tuple[str, int]] = ...
-        )-> None: ...
     def request(self, method: str, url: str,
                 body: Optional[_DataType] = ...,
                 headers: Mapping[str, str] = ...) -> None: ...
@@ -166,24 +158,14 @@ class HTTPConnection:
     def send(self, data: _DataType) -> None: ...
 
 class HTTPSConnection(HTTPConnection):
-    if sys.version_info >= (3, 4):
-        def __init__(self,
-                     host: str, port: Optional[int] = ...,
-                     key_file: Optional[str] = ...,
-                     cert_file: Optional[str] = ...,
-                     timeout: int = ...,
-                     source_address: Optional[Tuple[str, int]] = ...,
-                     *, context: Optional[ssl.SSLContext] = ...,
-                     check_hostname: Optional[bool] = ...) -> None: ...
-    else:
-        def __init__(self,
-                     host: str, port: Optional[int] = ...,
-                     key_file: Optional[str] = ...,
-                     cert_file: Optional[str] = ...,
-                     strict: bool = ..., timeout: int = ...,
-                     source_address: Optional[Tuple[str, int]] = ...,
-                     *, context: Optional[ssl.SSLContext] = ...,
-                     check_hostname: Optional[bool] = ...) -> None: ...
+    def __init__(self,
+                 host: str, port: Optional[int] = ...,
+                 key_file: Optional[str] = ...,
+                 cert_file: Optional[str] = ...,
+                 timeout: int = ...,
+                 source_address: Optional[Tuple[str, int]] = ...,
+                 *, context: Optional[ssl.SSLContext] = ...,
+                 check_hostname: Optional[bool] = ...) -> None: ...
 
 class HTTPException(Exception): ...
 error = HTTPException

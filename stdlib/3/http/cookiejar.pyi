@@ -1,14 +1,10 @@
 from typing import Iterable, Iterator, Optional, Sequence, Tuple, TypeVar, Union, overload
 from http.client import HTTPResponse
-import sys
 from urllib.request import Request
 
 _T = TypeVar('_T')
 
-if sys.version_info >= (3, 3):
-    class LoadError(OSError): ...
-else:
-    class LoadError(IOError): ...
+class LoadError(OSError): ...
 
 
 class CookieJar(Iterable['Cookie']):
