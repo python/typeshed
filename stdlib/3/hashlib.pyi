@@ -30,13 +30,10 @@ def sha512(arg: _DataType = ...) -> _Hash: ...
 
 def new(name: str, data: _DataType = ...) -> _Hash: ...
 
-# New in version 3.2
 algorithms_guaranteed = ...  # type: AbstractSet[str]
 algorithms_available = ...  # type: AbstractSet[str]
 
-# New in version 3.4
-if sys.version_info >= (3, 4):
-    def pbkdf2_hmac(hash_name: str, password: _DataType, salt: _DataType, iterations: int, dklen: Optional[int] = ...) -> bytes: ...
+def pbkdf2_hmac(hash_name: str, password: _DataType, salt: _DataType, iterations: int, dklen: Optional[int] = ...) -> bytes: ...
 
 if sys.version_info >= (3, 6):
     class _VarLenHash(object):
