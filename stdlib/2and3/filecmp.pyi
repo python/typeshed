@@ -1,5 +1,6 @@
 # Stubs for filecmp (Python 2/3)
 import sys
+import os
 from typing import AnyStr, Callable, Dict, Generic, Iterable, List, Optional, Sequence, Tuple, Union, Text
 
 DEFAULT_IGNORES = ...  # type: List[str]
@@ -9,7 +10,7 @@ def cmpfiles(a: AnyStr, b: AnyStr, common: Iterable[AnyStr],
              shallow: Union[int, bool] = ...) -> Tuple[List[AnyStr], List[AnyStr], List[AnyStr]]: ...
 
 class dircmp(Generic[AnyStr]):
-    def __init__(self, a: AnyStr, b: AnyStr,
+    def __init__(self, a: Union[AnyStr, os.PathLike], b: Union[AnyStr, os.PathLike],
                  ignore: Optional[Sequence[AnyStr]] = ...,
                  hide: Optional[Sequence[AnyStr]] = ...) -> None: ...
 
