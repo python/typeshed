@@ -98,37 +98,36 @@ def indentsize(line: str) -> int: ...
 #
 # Introspecting callables with the Signature object
 #
-if sys.version_info >= (3, 3):
-    def signature(callable: Callable[..., Any],
-                  *,
-                  follow_wrapped: bool = ...) -> 'Signature': ...
+def signature(callable: Callable[..., Any],
+              *,
+              follow_wrapped: bool = ...) -> 'Signature': ...
 
-    class Signature:
-        def __init__(self,
-                     parameters: Optional[Sequence['Parameter']] = ...,
-                     *,
-                     return_annotation: Any = ...) -> None: ...
-        # TODO: can we be more specific here?
-        empty: object = ...
+class Signature:
+    def __init__(self,
+                 parameters: Optional[Sequence['Parameter']] = ...,
+                 *,
+                 return_annotation: Any = ...) -> None: ...
+    # TODO: can we be more specific here?
+    empty: object = ...
 
-        parameters: Mapping[str, 'Parameter']
+    parameters: Mapping[str, 'Parameter']
 
-        # TODO: can we be more specific here?
-        return_annotation: Any
+    # TODO: can we be more specific here?
+    return_annotation: Any
 
-        def bind(self, *args: Any, **kwargs: Any) -> 'BoundArguments': ...
-        def bind_partial(self, *args: Any, **kwargs: Any) -> 'BoundArguments': ...
-        def replace(self,
-                    *,
-                    parameters: Optional[Sequence['Parameter']] = ...,
-                    return_annotation: Any = ...) -> 'Signature': ...
+    def bind(self, *args: Any, **kwargs: Any) -> 'BoundArguments': ...
+    def bind_partial(self, *args: Any, **kwargs: Any) -> 'BoundArguments': ...
+    def replace(self,
+                *,
+                parameters: Optional[Sequence['Parameter']] = ...,
+                return_annotation: Any = ...) -> 'Signature': ...
 
-        if sys.version_info >= (3, 5):
-            @classmethod
-            def from_callable(cls,
-                              obj: Callable[..., Any],
-                              *,
-                              follow_wrapped: bool = ...) -> 'Signature': ...
+    if sys.version_info >= (3, 5):
+        @classmethod
+        def from_callable(cls,
+                          obj: Callable[..., Any],
+                          *,
+                          follow_wrapped: bool = ...) -> 'Signature': ...
 
 # The name is the same as the enum's name in CPython
 class _ParameterKind: ...
@@ -238,24 +237,21 @@ def formatargvalues(args: List[str],
                     ) -> str: ...
 def getmro(cls: type) -> Tuple[type, ...]: ...
 
-if sys.version_info >= (3, 2):
-    def getcallargs(func: Callable[..., Any],
-                    *args: Any,
-                    **kwds: Any) -> Dict[str, Any]: ...
+def getcallargs(func: Callable[..., Any],
+                *args: Any,
+                **kwds: Any) -> Dict[str, Any]: ...
 
 
-if sys.version_info >= (3, 3):
-    ClosureVars = NamedTuple('ClosureVars', [('nonlocals', Mapping[str, Any]),
-                                             ('globals', Mapping[str, Any]),
-                                             ('builtins', Mapping[str, Any]),
-                                             ('unbound', AbstractSet[str]),
-                                             ])
-    def getclosurevars(func: Callable[..., Any]) -> ClosureVars: ...
+ClosureVars = NamedTuple('ClosureVars', [('nonlocals', Mapping[str, Any]),
+                                         ('globals', Mapping[str, Any]),
+                                         ('builtins', Mapping[str, Any]),
+                                         ('unbound', AbstractSet[str]),
+                                         ])
+def getclosurevars(func: Callable[..., Any]) -> ClosureVars: ...
 
-if sys.version_info >= (3, 4):
-    def unwrap(func: Callable[..., Any],
-               *,
-               stop: Callable[[Any], Any]) -> Any: ...
+def unwrap(func: Callable[..., Any],
+           *,
+           stop: Callable[[Any], Any]) -> Any: ...
 
 
 #
@@ -294,8 +290,7 @@ def trace(context: int = ...) -> List[FrameInfo]: ...
 # Fetching attributes statically
 #
 
-if sys.version_info >= (3, 2):
-    def getattr_static(obj: object, attr: str, default: Optional[Any] = ...) -> Any: ...
+def getattr_static(obj: object, attr: str, default: Optional[Any] = ...) -> Any: ...
 
 
 #
@@ -305,12 +300,11 @@ if sys.version_info >= (3, 2):
 # TODO In the next two blocks of code, can we be more specific regarding the
 # type of the "enums"?
 
-if sys.version_info >= (3, 2):
-    GEN_CREATED: str
-    GEN_RUNNING: str
-    GEN_SUSPENDED: str
-    GEN_CLOSED: str
-    def getgeneratorstate(generator: Generator[Any, Any, Any]) -> str: ...
+GEN_CREATED: str
+GEN_RUNNING: str
+GEN_SUSPENDED: str
+GEN_CLOSED: str
+def getgeneratorstate(generator: Generator[Any, Any, Any]) -> str: ...
 
 if sys.version_info >= (3, 5):
     CORO_CREATED: str
@@ -320,8 +314,7 @@ if sys.version_info >= (3, 5):
     # TODO can we be more specific than "object"?
     def getcoroutinestate(coroutine: object) -> str: ...
 
-if sys.version_info >= (3, 3):
-    def getgeneratorlocals(generator: Generator[Any, Any, Any]) -> Dict[str, Any]: ...
+def getgeneratorlocals(generator: Generator[Any, Any, Any]) -> Dict[str, Any]: ...
 
 if sys.version_info >= (3, 5):
     # TODO can we be more specific than "object"?

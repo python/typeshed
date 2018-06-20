@@ -10,10 +10,7 @@ from typing import (
 import sys
 from types import FrameType, ModuleType, TracebackType
 
-if sys.version_info >= (3, 3):
-    from importlib.abc import MetaPathFinder
-else:
-    MetaPathFinder = Any
+from importlib.abc import MetaPathFinder
 
 _T = TypeVar('_T')
 

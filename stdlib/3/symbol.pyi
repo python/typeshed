@@ -92,7 +92,6 @@ comp_for = ...  # type: int
 comp_if = ...  # type: int
 encoding_decl = ...  # type: int
 yield_expr = ...  # type: int
-if sys.version_info >= (3, 3):
-    yield_arg = ...  # type: int
+yield_arg = ...  # type: int
 
 sym_name = ...  # type: Dict[int, str]
