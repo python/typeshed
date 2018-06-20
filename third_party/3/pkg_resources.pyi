@@ -7,7 +7,6 @@ from typing import (
 )
 from abc import ABCMeta
 import importlib.abc
-import sys
 import types
 import zipimport
 
@@ -248,10 +247,7 @@ class ExtractionError(Exception):
     original_error = ...  # type: Exception
 
 
-if sys.version_info >= (3, 3):
-    class _Importer(importlib.abc.MetaPathFinder, importlib.abc.InspectLoader, metaclass=ABCMeta): ...
-else:
-    class _Importer(importlib.abc.InspectLoader, metaclass=ABCMeta): ...
+class _Importer(importlib.abc.MetaPathFinder, importlib.abc.InspectLoader, metaclass=ABCMeta): ...
 
 def register_finder(importer_type: type,
                     distribution_finder: _DistFinderType) -> None: ...

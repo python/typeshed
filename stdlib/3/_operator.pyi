@@ -59,7 +59,6 @@ from operator import (
 )
 if sys.version_info >= (3, 5):
     from operator import matmul as matmul, imatmul as imatmul
-if sys.version_info >= (3, 4):
-    from operator import length_hint as length_hint
+from operator import length_hint as length_hint
 
 def _compare_digest(a: AnyStr, b: AnyStr) -> bool: ...
