@@ -6,7 +6,7 @@ from typing import AnyStr, Callable, Dict, Generic, Iterable, List, Optional, Se
 DEFAULT_IGNORES = ...  # type: List[str]
 
 def cmp(f1: Union[bytes, Text, os.PathLike], f2: Union[bytes, Text, os.PathLike], shallow: Union[int, bool] = ...) -> bool: ...
-def cmpfiles(a: AnyStr, b: AnyStr, common: Iterable[AnyStr],
+def cmpfiles(a: Union[AnyStr, os.PathLike], b: Union[AnyStr, os.PathLike], common: Iterable[Union[AnyStr, os.PathLike]],
              shallow: Union[int, bool] = ...) -> Tuple[List[AnyStr], List[AnyStr], List[AnyStr]]: ...
 
 class dircmp(Generic[AnyStr]):
