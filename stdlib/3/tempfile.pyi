@@ -4,8 +4,9 @@
 # based on http://docs.python.org/3.3/library/tempfile.html
 
 import sys
+import os
 from types import TracebackType
-from typing import Any, AnyStr, Generic, IO, Optional, Tuple, Type
+from typing import Any, AnyStr, Generic, IO, Optional, Tuple, Type, Union
 
 # global variables
 TMP_MAX: int
@@ -14,6 +15,48 @@ template = ...  # type: str
 
 
 if sys.version_info >= (3, 5):
+    def gettempdirb() -> bytes: ...
+    def gettempprefixb() -> bytes: ...
+
+if sys.version_info >= (3, 6):
+    def TemporaryFile(
+        mode: str = ..., buffering: int = ..., encoding: Optional[str] = ...,
+        newline: Optional[str] = ..., suffix: Optional[AnyStr] = ..., prefix: Optional[AnyStr] = ...,
+        dir: Optional[Union[AnyStr, os.PathLike]] = ...
+    ) -> IO[Any]:
+        ...
+    def NamedTemporaryFile(
+        mode: str = ..., buffering: int = ..., encoding: Optional[str] = ...,
+        newline: Optional[str] = ..., suffix: Optional[AnyStr] = ..., prefix: Optional[AnyStr] = ...,
+        dir: Optional[Union[AnyStr, os.PathLike]] = ..., delete: bool =...
+    ) -> IO[Any]:
+        ...
+    def SpooledTemporaryFile(
+        max_size: int = ..., mode: str = ..., buffering: int = ...,
+        encoding: str = ..., newline: str = ..., suffix: Optional[AnyStr] = ...,
+        prefix: Optional[AnyStr] = ..., dir: Optional[Union[AnyStr, os.PathLike]] = ...
+    ) -> IO[Any]:
+        ...
+
+    class TemporaryDirectory(Generic[AnyStr]):
+        name = ...  # type: str
+        def __init__(self, suffix: Optional[AnyStr] = ..., prefix: Optional[AnyStr] = ...,
+                     dir: Optional[Union[AnyStr, os.PathLike]] = ...) -> None: ...
+        def cleanup(self) -> None: ...
+        def __enter__(self) -> AnyStr: ...
+        def __exit__(self, exc_type: Optional[Type[BaseException]],
+                     exc_val: Optional[BaseException],
+                     exc_tb: Optional[TracebackType]) -> bool: ...
+
+    def mkstemp(suffix: Optional[AnyStr] = ..., prefix: Optional[AnyStr] = ...,
+                dir: Optional[Union[AnyStr, os.PathLike]] = ...,
+                text: bool = ...) -> Tuple[int, AnyStr]: ...
+    def mkdtemp(suffix: Optional[AnyStr] = ..., prefix: Optional[AnyStr] = ...,
+                dir: Optional[Union[AnyStr, os.PathLike]] = ...) -> AnyStr: ...
+    def mktemp(suffix: Optional[AnyStr] = ..., prefix: Optional[AnyStr] = ...,
+               dir: Optional[Union[AnyStr, os.PathLike]] = ...) -> AnyStr: ...
+
+elif sys.version_info >= (3, 5):
     def TemporaryFile(
         mode: str = ..., buffering: int = ..., encoding: Optional[str] = ...,
         newline: Optional[str] = ..., suffix: Optional[AnyStr] = ..., prefix: Optional[AnyStr] = ...,
@@ -49,8 +92,6 @@ if sys.version_info >= (3, 5):
                 dir: Optional[str] = ...) -> AnyStr: ...
     def mktemp(suffix: Optional[AnyStr] = ..., prefix: Optional[AnyStr] = ..., dir: Optional[AnyStr] = ...) -> AnyStr: ...
 
-    def gettempdirb() -> bytes: ...
-    def gettempprefixb() -> bytes: ...
 else:
     def TemporaryFile(
         mode: str = ..., buffering: int = ..., encoding: Optional[str] = ...,
