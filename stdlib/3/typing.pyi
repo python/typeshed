@@ -47,8 +47,7 @@ Set = TypeAlias(object)
 FrozenSet = TypeAlias(object)
 Counter = TypeAlias(object)
 Deque = TypeAlias(object)
-if sys.version_info >= (3, 3):
-    ChainMap = TypeAlias(object)
+ChainMap = TypeAlias(object)
 
 # Predefined type variables.
 AnyStr = TypeVar('AnyStr', str, bytes)
@@ -553,10 +552,7 @@ class NamedTuple(tuple):
     @classmethod
     def _make(cls: Type[_T], iterable: Iterable[Any]) -> _T: ...
 
-    if sys.version_info >= (3, 1):
-        def _asdict(self) -> collections.OrderedDict[str, Any]: ...
-    else:
-        def _asdict(self) -> Dict[str, Any]: ...
+    def _asdict(self) -> collections.OrderedDict[str, Any]: ...
     def _replace(self: _T, **kwargs: Any) -> _T: ...
 
 def NewType(name: str, tp: Type[_T]) -> Type[_T]: ...
