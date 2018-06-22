@@ -6,15 +6,15 @@ import sys
 import time
 from socket import socket as _socket
 from ssl import SSLSocket
-from typing import Any, Callable, Dict, IO, List, Optional, Pattern, Text, Tuple, Union
+from typing import Any, Callable, Dict, IO, List, Optional, Pattern, Text, Tuple, Type, Union
 
 CommandResults = Tuple[str, List[Any]]
 
 
 class IMAP4:
-    error: Exception
-    abort: Exception
-    readonly: Exception
+    error: Type[Exception] = ...
+    abort: Type[Exception] = ...
+    readonly: Type[Exception] = ...
     mustquote: Pattern[Text] = ...
     debug: int = ...
     state: str = ...
