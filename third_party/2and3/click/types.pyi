@@ -1,7 +1,7 @@
 from typing import Any, Callable, IO, Iterable, List, Optional, TypeVar, Union, Tuple as _PyTuple, Type
 import uuid
 
-from click.core import Context, Parameter
+from click.core import Context, Parameter, _ConvertibleType
 
 
 class ParamType:
@@ -270,9 +270,7 @@ class UUIDParameterType(ParamType):
         ...
 
 
-_ConvertibleType = Union[type, ParamType, _PyTuple[type, ...], Callable[[str], Any], Callable[[Optional[str]], Any]]
-
-def convert_type(ty: Optional[_ConvertibleType], default: Optional[Any] = ...) -> ParamType:
+def convert_type(ty: Any, default: Optional[Any] = ...) -> ParamType:
     ...
 
 # parameter type shortcuts

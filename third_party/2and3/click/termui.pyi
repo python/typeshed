@@ -12,7 +12,7 @@ from typing import (
     TypeVar,
 )
 
-from click.types import _ConvertibleType
+from click.core import _ConvertibleType
 from click._termui_impl import ProgressBar as _ProgressBar
 
 

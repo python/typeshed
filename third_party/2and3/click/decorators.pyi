@@ -1,8 +1,7 @@
 from distutils.version import Version
 from typing import Any, Callable, Dict, List, Optional, Type, TypeVar, Union, Text
 
-from click.core import Command, Group, Argument, Option, Parameter, Context
-from click.types import _ConvertibleType
+from click.core import Command, Group, Argument, Option, Parameter, Context, _ConvertibleType
 
 _T = TypeVar('_T')
 _Decorator = Callable[[_T], _T]

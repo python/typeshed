@@ -17,7 +17,7 @@ from typing import (
 
 from click.formatting import HelpFormatter
 from click.parser import OptionParser
-from click.types import ParamType, _ConvertibleType
+from click.types import ParamType
 
 
 def invoke_param_callback(
@@ -311,6 +311,10 @@ class CommandCollection(MultiCommand):
 
     def add_source(self, multi_cmd: MultiCommand) -> None:
         ...
+
+
+# This type is here to resolve https://github.com/python/mypy/issues/5275
+_ConvertibleType = Union[type, ParamType, Tuple[type, ...], Callable[[str], Any], Callable[[Optional[str]], Any]]
 
 
 class Parameter:
