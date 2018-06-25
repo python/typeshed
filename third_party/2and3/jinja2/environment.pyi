@@ -1,9 +1,6 @@
 import sys
 from typing import Any, Callable, Dict, Iterator, List, Optional, Text, Type, Union
 
-if sys.version_info >= (3, 6):
-    from typing import Awaitable, AsyncIterator
-
 from .bccache import BytecodeCache
 from .loaders import BaseLoader
 from .runtime import Context, Undefined
@@ -102,6 +99,8 @@ class Template:
     def debug_info(self): ...
 
     if sys.version_info >= (3, 6):
+        from typing import Awaitable, AsyncIterator
+
         def render_async(self, *args, **kwargs) -> Awaitable[Text]: ...
         def generate_async(self, *args, **kwargs) -> AsyncIterator[Text]: ...
 
