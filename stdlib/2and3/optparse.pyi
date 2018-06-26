@@ -101,7 +101,7 @@ class Option:
     _long_opts = ...  # type: List[_Text]
     _short_opts = ...  # type: List[_Text]
     action = ...  # type: _Text
-    dest = ...  # type: Any
+    dest = ...  # type: Optional[_Text]
     nargs = ...  # type: int
     type = ...  # type: Any
     def __init__(self, *opts, **attrs) -> None: ...
