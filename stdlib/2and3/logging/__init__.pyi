@@ -413,5 +413,7 @@ if sys.version_info >= (3,):
     class StringTemplateStyle(PercentStyle):
         _tpl = ...  # type: Template
 
-    BASIC_FORMAT = ...  # type: str
     _STYLES = ...  # type: Dict[str, Tuple[PercentStyle, str]]
+
+
+BASIC_FORMAT = ...  # type: str
