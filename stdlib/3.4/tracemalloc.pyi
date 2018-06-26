@@ -1,7 +1,7 @@
 # Stubs for tracemalloc (Python 3.4+)
 
 import sys
-from typing import Any, List, Optional, Sequence, Tuple, Union, overload
+from typing import List, Optional, Sequence, Tuple, Union, overload
 
 def clear_traces() -> None: ...
 def get_object_traceback(obj: object) -> Optional[Traceback]: ...
