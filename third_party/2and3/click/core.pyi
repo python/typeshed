@@ -17,8 +17,6 @@ from typing import (
 
 from click.formatting import HelpFormatter
 from click.parser import OptionParser
-from click.types import ParamType, _ConvertibleType
-
 
 def invoke_param_callback(
     callback: Callable[['Context', 'Parameter', Optional[str]], Any],
@@ -313,12 +311,50 @@ class CommandCollection(MultiCommand):
         ...
 
 
+class _ParamType:
+    name: str
+    is_composite: bool
+    envvar_list_splitter: Optional[str]
+
+    def __call__(
+        self,
+        value: Optional[str],
+        param: Optional[Parameter] = ...,
+        ctx: Optional[Context] = ...,
+    ) -> Any:
+        ...
+
+    def get_metavar(self, param: Parameter) -> str:
+        ...
+
+    def get_missing_message(self, param: Parameter) -> str:
+        ...
+
+    def convert(
+        self,
+        value: str,
+        param: Optional[Parameter],
+        ctx: Optional[Context],
+    ) -> Any:
+        ...
+
+    def split_envvar_value(self, rv: str) -> List[str]:
+        ...
+
+    def fail(self, message: str, param: Optional[Parameter] = ..., ctx: Optional[Context] = ...) -> None:
+        ...
+
+
+# This type is here to resolve https://github.com/python/mypy/issues/5275
+_ConvertibleType = Union[type, _ParamType, Tuple[type, ...], Callable[[str], Any], Callable[[Optional[str]], Any]]
+
+
 class Parameter:
     param_type_name: str
     name: str
     opts: List[str]
     secondary_opts: List[str]
-    type: ParamType
+    type: _ParamType
     required: bool
     callback: Optional[Callable[[Context, 'Parameter', str], Any]]
     nargs: int
