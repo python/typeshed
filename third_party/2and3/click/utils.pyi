@@ -1,8 +1,8 @@
 from typing import Any, Callable, Iterator, IO, List, Optional, TypeVar, Union, Text
 
-
 _T = TypeVar('_T')
 _Decorator = Callable[[_T], _T]
+
 
 def _posixify(name: str) -> str:
     ...
