@@ -158,7 +158,7 @@ class OptionGroup(OptionContainer):
 
 class OptionParser(OptionContainer):
     allow_interspersed_args = ...  # type: bool
-    epilog = ...  # type: Any
+    epilog = ...  # type: Optional[_Text]
     formatter = ...  # type: HelpFormatter
     largs = ...  # type: Optional[List[_Text]]
     option_groups = ...  # type: List[OptionParser]
