@@ -164,7 +164,7 @@ class OptionParser(OptionContainer):
     option_groups = ...  # type: List[OptionParser]
     option_list = ...  # type: List[Any]
     process_default_values = ...  # type: Any
-    prog = ...  # type: Any
+    prog = ...  # type: Optional[_Text]
     rargs = ...  # type: Optional[List[Any]]
     standard_option_list = ...  # type: List
     usage = ...  # type: Optional[_Text]
