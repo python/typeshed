@@ -7,7 +7,7 @@ import sys
 
 from typing import (
     List, Iterable, Callable, Any, Tuple, Sequence, NamedTuple, IO,
-    AnyStr, Optional, Union, Set, TypeVar, overload, Type
+    AnyStr, Optional, Union, Set, TypeVar, overload, Type, Protocol
 )
 
 if sys.version_info >= (3, 6):
@@ -40,7 +40,16 @@ else:
     class SpecialFileError(EnvironmentError): ...
     class ExecError(EnvironmentError): ...
 
-def copyfileobj(fsrc: IO[AnyStr], fdst: IO[AnyStr],
+_S_co = TypeVar("_S_co", covariant=True)
+_S_contra = TypeVar("_S_contra", contravariant=True)
+
+class _Reader(Protocol[_S_co]):
+    def read(self, length: int) -> _S_co: ...
+
+class _Writer(Protocol[_S_contra]):
+    def write(self, data: _S_contra) -> Any: ...
+
+def copyfileobj(fsrc: _Reader[AnyStr], fdst: _Writer[AnyStr],
                 length: int = ...) -> None: ...
 
 if sys.version_info >= (3,):
