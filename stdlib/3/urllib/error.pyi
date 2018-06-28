@@ -1,4 +1,4 @@
-from typing import Any, Dict, Union
+from typing import Dict, Union
 from urllib.response import addinfourl
 
 # Stubs for urllib.error

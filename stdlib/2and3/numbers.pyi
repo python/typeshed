@@ -5,7 +5,7 @@
 # Note: these stubs are incomplete. The more complex type
 # signatures are currently omitted.
 
-from typing import Any, Optional, TypeVar, SupportsFloat
+from typing import Optional, SupportsFloat
 from abc import ABCMeta, abstractmethod
 import sys
 

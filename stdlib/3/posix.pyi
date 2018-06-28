@@ -2,8 +2,6 @@
 
 # NOTE: These are incomplete!
 
-import sys
-import typing
 from typing import NamedTuple, Tuple
 
 class stat_result:
