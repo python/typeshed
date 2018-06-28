@@ -17,8 +17,7 @@ version = ...  # type: str
 def version_info() -> Tuple[int, str, int, str, int, str,
                             int, str, tuple, Any, int, Any]: ...
 
-class error(Exception):
-    pass
+class error(Exception): ...
 
 class Curl(object):
     def close(self) -> None: ...
