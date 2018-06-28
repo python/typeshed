@@ -177,8 +177,7 @@ class Coroutine(Awaitable[_V_co], Generic[_T_co, _T_contra, _V_co]):
 # NOTE: This type does not exist in typing.py or PEP 484.
 # The parameters corrrespond to Generator, but the 4th is the original type.
 class AwaitableGenerator(Awaitable[_V_co], Generator[_T_co, _T_contra, _V_co],
-                         Generic[_T_co, _T_contra, _V_co, _S], metaclass=ABCMeta):
-    pass
+                         Generic[_T_co, _T_contra, _V_co, _S], metaclass=ABCMeta): ...
 
 @runtime
 class AsyncIterable(Protocol[_T_co]):

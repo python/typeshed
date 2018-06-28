@@ -122,11 +122,9 @@ def tokenize(readline: Callable[[], str], tokeneater: Callable[[Tuple[int, str, 
 def tokenize_loop(readline: Callable[[], str], tokeneater: Callable[[Tuple[int, str, _Pos, _Pos, str]], None]) -> None: ...
 def untokenize(iterable: Iterable[_TokenType]) -> str: ...
 
-class StopTokenizing(Exception):
-    pass
+class StopTokenizing(Exception): ...
 
-class TokenError(Exception):
-    pass
+class TokenError(Exception): ...
 
 class Untokenizer:
     prev_col = ...  # type: int

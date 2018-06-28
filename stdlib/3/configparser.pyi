@@ -184,12 +184,10 @@ class ConverterMapping(MutableMapping[str, Optional[_converter]]):
     def __len__(self) -> int: ...
 
 
-class Error(Exception):
-    pass
+class Error(Exception): ...
 
 
-class NoSectionError(Error):
-    pass
+class NoSectionError(Error): ...
 
 
 class DuplicateSectionError(Error):
@@ -215,16 +213,14 @@ class InterpolationError(Error):
     option = ...   # type: str
 
 
-class InterpolationDepthError(InterpolationError):
-    pass
+class InterpolationDepthError(InterpolationError): ...
 
 
 class InterpolationMissingOptionError(InterpolationError):
     reference = ...  # type: str
 
 
-class InterpolationSyntaxError(InterpolationError):
-    pass
+class InterpolationSyntaxError(InterpolationError): ...
 
 
 class ParsingError(Error):
