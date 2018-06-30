@@ -17,7 +17,7 @@ _UrlopenRet = Union[HTTPResponse, addinfourl]
 
 
 def urlopen(
-    url: Union[str, 'Request'], data: Optional[bytes] = ...,
+    url: Union[str, Request], data: Optional[bytes] = ...,
     timeout: float = ..., *, cafile: Optional[str] = ...,
     capath: Optional[str] = ..., cadefault: bool = ...,
     context: Optional[ssl.SSLContext] = ...
