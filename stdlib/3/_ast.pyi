@@ -1,6 +1,6 @@
 import sys
 import typing
-from typing import Any, Optional, Union, ClassVar
+from typing import Any, Optional, ClassVar
 
 PyCF_ONLY_AST = ...  # type: int
 
@@ -233,7 +233,7 @@ class Call(expr):
     keywords = ...  # type: typing.List[keyword]
 
 class Num(expr):
-    n = ...  # type: Union[int, float]
+    n = ...  # type: float
 
 class Str(expr):
     s = ...  # type: str

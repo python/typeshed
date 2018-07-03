@@ -260,7 +260,7 @@ class Call(expr):
     keywords = ...  # type: typing.List[keyword]
 
 class Num(expr):
-    n = ...  # type: Union[int, float]
+    n = ...  # type: float
 
 class Str(expr):
     s = ...  # type: str
