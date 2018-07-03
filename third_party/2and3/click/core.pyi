@@ -19,9 +19,9 @@ from click.formatting import HelpFormatter
 from click.parser import OptionParser
 
 def invoke_param_callback(
-    callback: Callable[['Context', 'Parameter', Optional[str]], Any],
-    ctx: 'Context',
-    param: 'Parameter',
+    callback: Callable[[Context, Parameter, Optional[str]], Any],
+    ctx: Context,
+    param: Parameter,
     value: Optional[str]
 ) -> Any:
     ...
@@ -29,21 +29,21 @@ def invoke_param_callback(
 
 @contextmanager
 def augment_usage_errors(
-    ctx: 'Context', param: Optional['Parameter'] = ...
+    ctx: Context, param: Optional[Parameter] = ...
 ) -> Generator[None, None, None]:
     ...
 
 
 def iter_params_for_processing(
-    invocation_order: Sequence['Parameter'],
-    declaration_order: Iterable['Parameter'],
-) -> Iterable['Parameter']:
+    invocation_order: Sequence[Parameter],
+    declaration_order: Iterable[Parameter],
+) -> Iterable[Parameter]:
     ...
 
 
 class Context:
-    parent: Optional['Context']
-    command: 'Command'
+    parent: Optional[Context]
+    command: Command
     info_name: Optional[str]
     params: Dict
     args: List[str]
@@ -71,8 +71,8 @@ class Context:
 
     def __init__(
         self,
-        command: 'Command',
-        parent: Optional['Context'] = ...,
+        command: Command,
+        parent: Optional[Context] = ...,
         info_name: Optional[str] = ...,
         obj: Optional[Any] = ...,
         auto_envvar_prefix: Optional[str] = ...,
@@ -90,7 +90,7 @@ class Context:
         ...
 
     @contextmanager
-    def scope(self, cleanup: bool = ...) -> Generator['Context', None, None]:
+    def scope(self, cleanup: bool = ...) -> Generator[Context, None, None]:
         ...
 
     def make_formatter(self) -> HelpFormatter:
@@ -102,7 +102,7 @@ class Context:
     def close(self) -> None:
         ...
 
-    def find_root(self) -> 'Context':
+    def find_root(self) -> Context:
         ...
 
     def find_object(self, object_type: type) -> Any:
@@ -130,12 +130,12 @@ class Context:
         ...
 
     def invoke(
-        self, callback: Union['Command', Callable], *args, **kwargs
+        self, callback: Union[Command, Callable], *args, **kwargs
     ) -> Any:
         ...
 
     def forward(
-        self, callback: Union['Command', Callable], *args, **kwargs
+        self, callback: Union[Command, Callable], *args, **kwargs
     ) -> Any:
         ...
 
@@ -182,7 +182,7 @@ class BaseCommand:
 
 class Command(BaseCommand):
     callback: Optional[Callable]
-    params: List['Parameter']
+    params: List[Parameter]
     help: Optional[str]
     epilog: Optional[str]
     short_help: Optional[str]
@@ -194,7 +194,7 @@ class Command(BaseCommand):
         name: str,
         context_settings: Optional[Dict] = ...,
         callback: Optional[Callable] = ...,
-        params: Optional[List['Parameter']] = ...,
+        params: Optional[List[Parameter]] = ...,
         help: Optional[str] = ...,
         epilog: Optional[str] = ...,
         short_help: Optional[str] = ...,
@@ -203,7 +203,7 @@ class Command(BaseCommand):
     ) -> None:
         ...
 
-    def get_params(self, ctx: Context) -> List['Parameter']:
+    def get_params(self, ctx: Context) -> List[Parameter]:
         ...
 
     def format_usage(
@@ -219,7 +219,7 @@ class Command(BaseCommand):
     def get_help_option_names(self, ctx: Context) -> Set[str]:
         ...
 
-    def get_help_option(self, ctx: Context) -> Optional['Option']:
+    def get_help_option(self, ctx: Context) -> Optional[Option]:
         ...
 
     def make_parser(self, ctx: Context) -> OptionParser:
@@ -356,7 +356,7 @@ class Parameter:
     secondary_opts: List[str]
     type: _ParamType
     required: bool
-    callback: Optional[Callable[[Context, 'Parameter', str], Any]]
+    callback: Optional[Callable[[Context, Parameter, str], Any]]
     nargs: int
     multiple: bool
     expose_value: bool
@@ -373,7 +373,7 @@ class Parameter:
         type: Optional[_ConvertibleType] = ...,
         required: bool = ...,
         default: Optional[Any] = ...,
-        callback: Optional[Callable[[Context, 'Parameter', str], Any]] = ...,
+        callback: Optional[Callable[[Context, Parameter, str], Any]] = ...,
         nargs: Optional[int] = ...,
         metavar: Optional[str] = ...,
         expose_value: bool = ...,

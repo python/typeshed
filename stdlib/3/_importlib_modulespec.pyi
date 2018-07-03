@@ -10,7 +10,7 @@ import sys
 from typing import Any, Dict, List, Optional
 
 class ModuleSpec:
-    def __init__(self, name: str, loader: Optional['Loader'], *,
+    def __init__(self, name: str, loader: Optional[Loader], *,
                  origin: Optional[str] = ..., loader_state: Any = ...,
                  is_package: Optional[bool] = ...) -> None: ...
     name = ...  # type: str

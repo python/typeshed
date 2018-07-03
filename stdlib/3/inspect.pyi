@@ -100,34 +100,34 @@ def indentsize(line: str) -> int: ...
 #
 def signature(callable: Callable[..., Any],
               *,
-              follow_wrapped: bool = ...) -> 'Signature': ...
+              follow_wrapped: bool = ...) -> Signature: ...
 
 class Signature:
     def __init__(self,
-                 parameters: Optional[Sequence['Parameter']] = ...,
+                 parameters: Optional[Sequence[Parameter]] = ...,
                  *,
                  return_annotation: Any = ...) -> None: ...
     # TODO: can we be more specific here?
     empty: object = ...
 
-    parameters: Mapping[str, 'Parameter']
+    parameters: Mapping[str, Parameter]
 
     # TODO: can we be more specific here?
     return_annotation: Any
 
-    def bind(self, *args: Any, **kwargs: Any) -> 'BoundArguments': ...
-    def bind_partial(self, *args: Any, **kwargs: Any) -> 'BoundArguments': ...
+    def bind(self, *args: Any, **kwargs: Any) -> BoundArguments: ...
+    def bind_partial(self, *args: Any, **kwargs: Any) -> BoundArguments: ...
     def replace(self,
                 *,
-                parameters: Optional[Sequence['Parameter']] = ...,
-                return_annotation: Any = ...) -> 'Signature': ...
+                parameters: Optional[Sequence[Parameter]] = ...,
+                return_annotation: Any = ...) -> Signature: ...
 
     if sys.version_info >= (3, 5):
         @classmethod
         def from_callable(cls,
                           obj: Callable[..., Any],
                           *,
-                          follow_wrapped: bool = ...) -> 'Signature': ...
+                          follow_wrapped: bool = ...) -> Signature: ...
 
 # The name is the same as the enum's name in CPython
 class _ParameterKind: ...
@@ -156,7 +156,7 @@ class Parameter:
                 name: Optional[str] = ...,
                 kind: Optional[_ParameterKind] = ...,
                 default: Any = ...,
-                annotation: Any = ...) -> 'Parameter': ...
+                annotation: Any = ...) -> Parameter: ...
 
 class BoundArguments:
     arguments: MutableMapping[str, Any]
@@ -174,7 +174,7 @@ class BoundArguments:
 
 # TODO: The actual return type should be List[_ClassTreeItem] but mypy doesn't
 # seem to be supporting this at the moment:
-# _ClassTreeItem = Union[List['_ClassTreeItem'], Tuple[type, Tuple[type, ...]]]
+# _ClassTreeItem = Union[List[_ClassTreeItem], Tuple[type, Tuple[type, ...]]]
 def getclasstree(classes: List[type], unique: bool = ...) -> Any: ...
 
 ArgSpec = NamedTuple('ArgSpec', [('args', List[str]),
