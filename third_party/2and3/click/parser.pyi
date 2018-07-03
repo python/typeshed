@@ -44,7 +44,7 @@ class Option:
     ) -> None:
         ...
 
-    def process(self, value: Any, state: 'ParsingState') -> None:
+    def process(self, value: Any, state: ParsingState) -> None:
         ...
 
 
@@ -56,7 +56,7 @@ class Argument:
     def __init__(self, dest: str, nargs: int = ..., obj: Optional[Any] = ...) -> None:
         ...
 
-    def process(self, value: Any, state: 'ParsingState') -> None:
+    def process(self, value: Any, state: ParsingState) -> None:
         ...
 
 

@@ -1,15 +1,17 @@
 import sys
 import typing
-from typing import Any, Optional, Union
+from typing import Any, Optional, Union, ClassVar
 
 PyCF_ONLY_AST = ...  # type: int
 
 _identifier = str
 
 class AST:
-    _attributes = ...  # type: typing.Tuple[str, ...]
-    _fields = ...  # type: typing.Tuple[str, ...]
+    _attributes: ClassVar[typing.Tuple[str, ...]]
+    _fields: ClassVar[typing.Tuple[str, ...]]
     def __init__(self, *args: Any, **kwargs: Any) -> None: ...
+    lineno: int
+    col_offset: int
 
 class mod(AST):
     ...
@@ -29,9 +31,7 @@ class Suite(mod):
     body = ...  # type: typing.List[stmt]
 
 
-class stmt(AST):
-    lineno = ...  # type: int
-    col_offset = ...  # type: int
+class stmt(AST): ...
 
 class FunctionDef(stmt):
     name = ...  # type: _identifier
@@ -165,9 +165,7 @@ class Index(slice):
     value = ...  # type: expr
 
 
-class expr(AST):
-    lineno = ...  # type: int
-    col_offset = ...  # type: int
+class expr(AST): ...
 
 class BoolOp(expr):
     op = ...  # type: boolop
@@ -353,8 +351,6 @@ class ExceptHandler(AST):
     type = ...  # type: Optional[expr]
     name = ...  # type: Optional[_identifier]
     body = ...  # type: typing.List[stmt]
-    lineno = ...  # type: int
-    col_offset = ...  # type: int
 
 
 class arguments(AST):
@@ -368,8 +364,6 @@ class arguments(AST):
 class arg(AST):
     arg = ...  # type: _identifier
     annotation = ...  # type: Optional[expr]
-    lineno = ...  # type: int
-    col_offset = ...  # type: int
 
 class keyword(AST):
     arg = ...  # type: Optional[_identifier]

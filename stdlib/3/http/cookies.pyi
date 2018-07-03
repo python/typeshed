@@ -2,7 +2,7 @@
 
 from typing import Generic, Dict, List, Mapping, MutableMapping, Optional, TypeVar, Union
 
-_DataType = Union[str, Mapping[str, Union[str, 'Morsel']]]
+_DataType = Union[str, Mapping[str, Union[str, Morsel]]]
 _T = TypeVar('_T')
 
 class CookieError(Exception): ...

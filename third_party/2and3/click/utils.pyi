@@ -46,7 +46,7 @@ class LazyFile:
     def close_intelligently(self) -> None:
         ...
 
-    def __enter__(self) -> 'LazyFile':
+    def __enter__(self) -> LazyFile:
         ...
 
     def __exit__(self, exc_type, exc_value, tb):
@@ -62,7 +62,7 @@ class KeepOpenFile:
     def __init__(self, file: IO) -> None:
         ...
 
-    def __enter__(self) -> 'KeepOpenFile':
+    def __enter__(self) -> KeepOpenFile:
         ...
 
     def __exit__(self, exc_type, exc_value, tb):

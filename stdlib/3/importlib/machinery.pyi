@@ -104,7 +104,7 @@ class FileFinder(importlib.abc.PathEntryFinder):
     ) -> None: ...
     @classmethod
     def path_hook(
-        *loader_details: Tuple[importlib.abc.Loader, List[str]]
+        cls, *loader_details: Tuple[importlib.abc.Loader, List[str]]
     ) -> Callable[[str], importlib.abc.PathEntryFinder]: ...
 
 class SourceFileLoader(importlib.abc.FileLoader,
