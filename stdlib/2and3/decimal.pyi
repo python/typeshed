@@ -12,21 +12,21 @@ DecimalTuple = NamedTuple('DecimalTuple',
                            ('digits', Sequence[int]),  # TODO: Use Tuple[int, ...]
                            ('exponent', int)])
 
-ROUND_DOWN = ...  # type: str
-ROUND_HALF_UP = ...  # type: str
-ROUND_HALF_EVEN = ...  # type: str
-ROUND_CEILING = ...  # type: str
-ROUND_FLOOR = ...  # type: str
-ROUND_UP = ...  # type: str
-ROUND_HALF_DOWN = ...  # type: str
-ROUND_05UP = ...  # type: str
+ROUND_DOWN: str
+ROUND_HALF_UP: str
+ROUND_HALF_EVEN: str
+ROUND_CEILING: str
+ROUND_FLOOR: str
+ROUND_UP: str
+ROUND_HALF_DOWN: str
+ROUND_05UP: str
 
 if sys.version_info >= (3,):
-    HAVE_THREADS = ...  # type: bool
-    MAX_EMAX = ...  # type: int
-    MAX_PREC = ...  # type: int
-    MIN_EMIN = ...  # type: int
-    MIN_ETINY = ...  # type: int
+    HAVE_THREADS: bool
+    MAX_EMAX: int
+    MAX_PREC: int
+    MIN_EMIN: int
+    MIN_ETINY: int
 
 class DecimalException(ArithmeticError):
     def handle(self, context, *args): ...
@@ -200,17 +200,17 @@ class _ContextManager:
     def __exit__(self, t, v, tb) -> None: ...
 
 class Context:
-    prec = ...  # type: int
-    rounding = ...  # type: str
-    Emin = ...  # type: int
-    Emax = ...  # type: int
-    capitals = ...  # type: int
+    prec: int
+    rounding: str
+    Emin: int
+    Emax: int
+    capitals: int
     if sys.version_info >= (3,):
-        clamp = ...  # type: int
+        clamp: int
     else:
-        _clamp = ...  # type: int
-    traps = ...  # type: Dict[type, bool]
-    flags = ...  # type: Any
+        _clamp: int
+    traps: Dict[type, bool]
+    flags: Any
     if sys.version_info >= (3,):
         def __init__(self, prec: Optional[int] = ..., rounding: Optional[str] = ...,
                      Emin: Optional[int] = ..., Emax: Optional[int] = ...,
@@ -298,6 +298,6 @@ class Context:
     def to_integral_value(self, a): ...
     def to_integral(self, a): ...
 
-DefaultContext = ...  # type: Context
-BasicContext = ...  # type: Context
-ExtendedContext = ...  # type: Context
+DefaultContext: Context
+BasicContext: Context
+ExtendedContext: Context
