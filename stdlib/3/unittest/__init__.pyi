@@ -1,7 +1,7 @@
 # Stubs for unittest
 
 from typing import (
-    Any, Callable, Container, ContextManager, Dict, FrozenSet, Generic, Iterable,
+    Any, AnyStr, Callable, Container, ContextManager, Dict, FrozenSet, Generic, Iterable,
     Iterator, List, NoReturn, Optional, overload, Pattern, Sequence, Set, TextIO,
     Tuple, Type, TypeVar, Union
 )
@@ -111,9 +111,9 @@ class TestCase:
     def assertNotAlmostEqual(self, first: float, second: float,
                              places: int = ..., msg: Any = ...,
                              delta: float = ...) -> None: ...
-    def assertRegex(self, text: str, regex: Union[str, Pattern[str]],
+    def assertRegex(self, text: AnyStr, regex: Union[AnyStr, Pattern[AnyStr]],
                     msg: Any = ...) -> None: ...
-    def assertNotRegex(self, text: str, regex: Union[str, Pattern[str]],
+    def assertNotRegex(self, text: AnyStr, regex: Union[AnyStr, Pattern[AnyStr]],
                        msg: Any = ...) -> None: ...
     def assertCountEqual(self, first: Iterable[Any], second: Iterable[Any],
                          msg: Any = ...) -> None: ...
@@ -168,7 +168,7 @@ class TestCase:
     def assertNotAlmostEquals(self, first: float, second: float,
                               places: int = ..., msg: Any = ...,
                               delta: float = ...) -> None: ...
-    def assertRegexpMatches(self, text: str, regex: Union[str, Pattern[str]],
+    def assertRegexpMatches(self, text: AnyStr, regex: Union[AnyStr, Pattern[AnyStr]],
                             msg: Any = ...) -> None: ...
     @overload
     def assertRaisesRegexp(self,  # type: ignore
