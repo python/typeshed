@@ -1,4 +1,4 @@
-from typing import Any, Callable, Dict, Optional, Text
+from typing import Any, Callable, Dict, Optional, Text, overload
 
 class Key:
     DefaultContentType: str
@@ -202,6 +202,7 @@ class Key:
         res_download_handler: Optional[Any] = ...,
         response_headers: Optional[Dict[Text, Text]] = ...,
     ): ...
+    @overload
     def get_contents_as_string(
         self,
         headers: Optional[Dict[Text, Text]] = ...,
@@ -210,8 +211,19 @@ class Key:
         torrent: bool = ...,
         version_id: Optional[Any] = ...,
         response_headers: Optional[Dict[Text, Text]] = ...,
-        encoding: Optional[Any] = ...,
-    ) -> str: ...
+        encoding: None = ...,
+    ) -> bytes: ...
+    @overload
+    def get_contents_as_string(
+        self,
+        headers: Optional[Dict[Text, Text]] = ...,
+        cb: Optional[Callable[[int, int], Any]] = ...,
+        num_cb: int = ...,
+        torrent: bool = ...,
+        version_id: Optional[Any] = ...,
+        response_headers: Optional[Dict[Text, Text]] = ...,
+        *, encoding: Text,
+    ) -> Text: ...
     def add_email_grant(self, permission, email_address, headers: Optional[Dict[Text, Text]] = ...): ...
     def add_user_grant(
         self, permission, user_id, headers: Optional[Dict[Text, Text]] = ..., display_name: Optional[Any] = ...
