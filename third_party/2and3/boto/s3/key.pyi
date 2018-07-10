@@ -1,43 +1,43 @@
 from typing import Any, Callable, Dict, Optional, Text
 
 class Key:
-    DefaultContentType = ...  # type: str
-    RestoreBody = ...  # type: str
-    BufferSize = ...  # type: Any
-    base_user_settable_fields = ...  # type: Any
-    base_fields = ...  # type: Any
-    bucket = ...  # type: Any
-    name = ...  # type: str
-    metadata = ...  # type: Any
-    cache_control = ...  # type: Any
-    content_type = ...  # type: Any
-    content_encoding = ...  # type: Any
-    content_disposition = ...  # type: Any
-    content_language = ...  # type: Any
-    filename = ...  # type: Any
-    etag = ...  # type: Any
-    is_latest = ...  # type: bool
-    last_modified = ...  # type: Any
-    owner = ...  # type: Any
-    path = ...  # type: Any
-    resp = ...  # type: Any
-    mode = ...  # type: Any
-    size = ...  # type: Any
-    version_id = ...  # type: Any
-    source_version_id = ...  # type: Any
-    delete_marker = ...  # type: bool
-    encrypted = ...  # type: Any
-    ongoing_restore = ...  # type: Any
-    expiry_date = ...  # type: Any
-    local_hashes = ...  # type: Any
+    DefaultContentType: str
+    RestoreBody: str
+    BufferSize: Any
+    base_user_settable_fields: Any
+    base_fields: Any
+    bucket: Any
+    name: str
+    metadata: Any
+    cache_control: Any
+    content_type: Any
+    content_encoding: Any
+    content_disposition: Any
+    content_language: Any
+    filename: Any
+    etag: Any
+    is_latest: bool
+    last_modified: Any
+    owner: Any
+    path: Any
+    resp: Any
+    mode: Any
+    size: Any
+    version_id: Any
+    source_version_id: Any
+    delete_marker: bool
+    encrypted: Any
+    ongoing_restore: Any
+    expiry_date: Any
+    local_hashes: Any
     def __init__(self, bucket: Optional[Any] = ..., name: Optional[Any] = ...) -> None: ...
     def __iter__(self): ...
     @property
     def provider(self): ...
-    key = ...  # type: Any
-    md5 = ...  # type: Any
-    base64md5 = ...  # type: Any
-    storage_class = ...  # type: Any
+    key: Any
+    md5: Any
+    base64md5: Any
+    storage_class: Any
     def get_md5_from_hexdigest(self, md5_hexdigest): ...
     def handle_encryption_headers(self, resp): ...
     def handle_version_headers(self, resp, force: bool = ...): ...
@@ -46,10 +46,10 @@ class Key:
     def open_read(self, headers: Optional[Dict[Text, Text]] = ..., query_args: str = ..., override_num_retries: Optional[Any] = ..., response_headers: Optional[Dict[Text, Text]] = ...): ...
     def open_write(self, headers: Optional[Dict[Text, Text]] = ..., override_num_retries: Optional[Any] = ...): ...
     def open(self, mode: str = ..., headers: Optional[Dict[Text, Text]] = ..., query_args: Optional[Any] = ..., override_num_retries: Optional[Any] = ...): ...
-    closed = ...  # type: bool
+    closed: bool
     def close(self, fast: bool = ...): ...
     def next(self): ...
-    __next__ = ...  # type: Any
+    __next__: Any
     def read(self, size: int = ...): ...
     def change_storage_class(self, new_storage_class, dst_bucket: Optional[Any] = ..., validate_dst_bucket: bool = ...): ...
     def copy(self, dst_bucket, dst_key, metadata: Optional[Any] = ..., reduced_redundancy: bool = ..., preserve_acl: bool = ..., encrypt_key: bool = ..., validate_dst_bucket: bool = ...): ...
