@@ -1,10 +1,14 @@
+import numbers
 import sys
 from typing import (
     Any, Dict, NamedTuple, Optional, Sequence, Tuple, Union, Text,
 )
 
 _Decimal = Union[Decimal, int]
-_ComparableNum = Union[Decimal, int, float]
+if sys.version_info >= (3,):
+    _ComparableNum = Union[Decimal, numbers.Rational, float]
+else:
+    _ComparableNum = Union[Decimal, int, float]
 
 DecimalTuple = NamedTuple('DecimalTuple',
                           [('sign', int),
