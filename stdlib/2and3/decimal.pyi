@@ -1,7 +1,6 @@
 import sys
 from typing import (
     Any, Dict, NamedTuple, Optional, Sequence, Tuple, Union, Text,
-    SupportsAbs, SupportsFloat, SupportsInt, SupportsRound,
 )
 
 _Decimal = Union[Decimal, int]
@@ -62,14 +61,7 @@ def setcontext(context: Context) -> None: ...
 def getcontext() -> Context: ...
 def localcontext(ctx: Optional[Context] = ...) -> _ContextManager: ...
 
-if sys.version_info >= (3,):
-    _SupportsRound = SupportsRound[int]
-else:
-    _SupportsRound = object
-
-class Decimal(SupportsAbs[Decimal], SupportsFloat, SupportsInt, _SupportsRound):
-    # TODO: SupportsCeil, SupportsFloor, SupportsTrunc?
-
+class Decimal(object):
     def __init__(cls, value: Union[_Decimal, float, Text,
                                    Tuple[int, Sequence[int], int]] = ...,
                  context: Context = ...) -> None: ...
