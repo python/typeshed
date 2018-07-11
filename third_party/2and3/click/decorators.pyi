@@ -4,7 +4,10 @@ from typing import Any, Callable, Dict, List, Optional, Type, TypeVar, Union, Te
 from click.core import Command, Group, Argument, Option, Parameter, Context, _ConvertibleType
 
 _T = TypeVar('_T')
-_Decorator = Callable[[_T], _T]
+_F = TypeVar('_F', bound=Callable[..., Any])
+
+# Until https://github.com/python/mypy/issues/3924 is fixed you can't do the following:
+# _Decorator = Callable[[_F], _F]
 
 _Callback = Callable[
     [Context, Union[Option, Parameter], Union[bool, int, str]],
@@ -38,7 +41,7 @@ def command(
     short_help: Optional[str] = ...,
     options_metavar: str = ...,
     add_help_option: bool = ...,
-) -> _Decorator:
+) -> Callable[[_F], _F]:
     ...
 
 
@@ -63,7 +66,7 @@ def group(
     add_help_option: bool = ...,
     # User-defined
     **kwargs: Any,
-) -> _Decorator:
+) -> Callable[[_F], _F]:
     ...
 
 
@@ -81,7 +84,7 @@ def argument(
     expose_value: bool = ...,
     is_eager: bool = ...,
     envvar: Optional[Union[str, List[str]]] = ...
-) -> _Decorator:
+) -> Callable[[_F], _F]:
     ...
 
 
@@ -111,7 +114,7 @@ def option(
     envvar: Optional[Union[str, List[str]]] = ...,
     # User-defined
     **kwargs: Any,
-) -> _Decorator:
+) -> Callable[[_F], _F]:
     ...
 
 
@@ -138,7 +141,7 @@ def confirmation_option(
     expose_value: bool = ...,
     is_eager: bool = ...,
     envvar: Optional[Union[str, List[str]]] = ...
-) -> _Decorator:
+) -> Callable[[_F], _F]:
     ...
 
 
@@ -165,7 +168,7 @@ def password_option(
     expose_value: bool = ...,
     is_eager: bool = ...,
     envvar: Optional[Union[str, List[str]]] = ...
-) -> _Decorator:
+) -> Callable[[_F], _F]:
     ...
 
 
@@ -195,7 +198,7 @@ def version_option(
     expose_value: bool = ...,
     is_eager: bool = ...,
     envvar: Optional[Union[str, List[str]]] = ...
-) -> _Decorator:
+) -> Callable[[_F], _F]:
     ...
 
 
@@ -222,5 +225,5 @@ def help_option(
     expose_value: bool = ...,
     is_eager: bool = ...,
     envvar: Optional[Union[str, List[str]]] = ...
-) -> _Decorator:
+) -> Callable[[_F], _F]:
     ...

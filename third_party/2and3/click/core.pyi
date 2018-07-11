@@ -239,7 +239,7 @@ class Command(BaseCommand):
 
 
 _T = TypeVar('_T')
-_Decorator = Callable[[_T], _T]
+_F = TypeVar('_F', bound=Callable[..., Any])
 
 
 class MultiCommand(Command):
@@ -263,7 +263,7 @@ class MultiCommand(Command):
 
     def resultcallback(
         self, replace: bool = ...
-    ) -> _Decorator:
+    ) -> Callable[[_F], _F]:
         ...
 
     def format_commands(self, ctx: Context, formatter: HelpFormatter) -> None:
@@ -292,10 +292,10 @@ class Group(MultiCommand):
     def add_command(self, cmd: Command, name: Optional[str] = ...):
         ...
 
-    def command(self, *args, **kwargs) -> _Decorator:
+    def command(self, *args, **kwargs) -> Callable[[_F], _F]:
         ...
 
-    def group(self, *args, **kwargs) -> _Decorator:
+    def group(self, *args, **kwargs) -> Callable[[_F], _F]:
         ...
 
 
