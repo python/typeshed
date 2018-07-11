@@ -9,7 +9,7 @@ _ComparableNum = Union[Decimal, int, float]
 
 DecimalTuple = NamedTuple('DecimalTuple',
                           [('sign', int),
-                           ('digits', Sequence[int]),  # TODO: Use Tuple[int, ...]
+                           ('digits', Tuple[int, ...]),
                            ('exponent', int)])
 
 ROUND_DOWN: str
