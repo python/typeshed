@@ -7,6 +7,7 @@ from typing import (
     Iterable,
     List,
     Mapping,
+    NoReturn,
     Optional,
     Sequence,
     Set,
@@ -120,7 +121,7 @@ class Context:
     def abort(self) -> None:
         ...
 
-    def exit(self, code: Union[int, str] = ...) -> None:
+    def exit(self, code: Union[int, str] = ...) -> NoReturn:
         ...
 
     def get_usage(self) -> str:
