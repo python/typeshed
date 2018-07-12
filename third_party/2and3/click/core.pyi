@@ -115,10 +115,10 @@ class Context:
     def lookup_default(self, name: str) -> Any:
         ...
 
-    def fail(self, message: str) -> None:
+    def fail(self, message: str) -> NoReturn:
         ...
 
-    def abort(self) -> None:
+    def abort(self) -> NoReturn:
         ...
 
     def exit(self, code: Union[int, str] = ...) -> NoReturn:
