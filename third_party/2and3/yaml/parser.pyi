@@ -3,6 +3,8 @@ from yaml.error import MarkedYAMLError
 
 class ParserError(MarkedYAMLError): ...
 
+class ScannerError(MarkedYAMLError): ...
+
 class Parser:
     DEFAULT_TAGS = ...  # type: Any
     current_event = ...  # type: Any
