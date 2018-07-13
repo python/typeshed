@@ -49,7 +49,6 @@ class EnvironBuilder:
     content_length = ...  # type: Any
     closed = ...  # type: Any
     def __init__(self, path='', base_url=None, query_string=None, method='', input_stream=None, content_type=None, content_length=None, errors_stream=None, multithread=False, multiprocess=False, run_once=False, headers=None, data=None, environ_base=None, environ_overrides=None, charset=''): ...
-    def form_property(name, storage, doc): ...
     form = ...  # type: Any
     files = ...  # type: Any
     @property
