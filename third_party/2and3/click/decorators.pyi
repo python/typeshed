@@ -41,7 +41,7 @@ def command(
     short_help: Optional[str] = ...,
     options_metavar: str = ...,
     add_help_option: bool = ...,
-) -> Callable[[_F], _F]:
+) -> Callable[[Callable], Command]:
     ...
 
 
@@ -66,7 +66,7 @@ def group(
     add_help_option: bool = ...,
     # User-defined
     **kwargs: Any,
-) -> Callable[[_F], _F]:
+) -> Callable[[Callable], Group]:
     ...
 
 

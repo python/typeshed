@@ -293,10 +293,10 @@ class Group(MultiCommand):
     def add_command(self, cmd: Command, name: Optional[str] = ...):
         ...
 
-    def command(self, *args, **kwargs) -> Callable[[_F], _F]:
+    def command(self, *args, **kwargs) -> Callable[[Callable], Command]:
         ...
 
-    def group(self, *args, **kwargs) -> Callable[[_F], _F]:
+    def group(self, *args, **kwargs) -> Callable[[Callable], Group]:
         ...
 
 
