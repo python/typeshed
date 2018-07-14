@@ -6,11 +6,11 @@ from typing import (
 )
 
 _Decimal = Union[Decimal, int]
-_DecimalNew = Union[Decimal, int, float, Text, Tuple[int, Sequence[int], int]]
+_DecimalNew = Union[Decimal, float, Text, Tuple[int, Sequence[int], int]]
 if sys.version_info >= (3,):
-    _ComparableNum = Union[Decimal, numbers.Rational, float]
+    _ComparableNum = Union[Decimal, float, numbers.Rational]
 else:
-    _ComparableNum = Union[Decimal, int, float]
+    _ComparableNum = Union[Decimal, float]
 
 DecimalTuple = NamedTuple('DecimalTuple',
                           [('sign', int),
