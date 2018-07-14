@@ -44,10 +44,7 @@ from asyncio.tasks import (
     FIRST_COMPLETED as FIRST_COMPLETED,
     FIRST_EXCEPTION as FIRST_EXCEPTION,
     ALL_COMPLETED as ALL_COMPLETED,
-    all_tasks as all_tasks,
     as_completed as as_completed,
-    create_task as create_task,
-    current_task as current_task,
     ensure_future as ensure_future,
     gather as gather,
     run_coroutine_threadsafe as run_coroutine_threadsafe,
@@ -70,7 +67,6 @@ from asyncio.events import (
     new_event_loop as new_event_loop,
     get_child_watcher as get_child_watcher,
     set_child_watcher as set_child_watcher,
-    get_running_loop as get_running_loop,
 )
 from asyncio.queues import (
     Queue as Queue,
@@ -86,9 +82,6 @@ from asyncio.locks import (
     Semaphore as Semaphore,
     BoundedSemaphore as BoundedSemaphore,
 )
-from asyncio.runners import (
-    run as run,
-)
 
 if sys.version_info < (3, 5):
     from asyncio.queues import JoinableQueue as JoinableQueue
@@ -103,6 +96,20 @@ if sys.platform != 'win32':
         open_unix_connection as open_unix_connection,
         start_unix_server as start_unix_server,
     )
+
+if sys.version_info >= (3, 7):
+    from asyncio.events import (
+        get_running_loop as get_running_loop,
+    )
+    from asyncio.tasks import (
+        all_tasks as all_tasks,
+        create_task as create_task,
+        current_task as current_task,
+    )
+    from asyncio.runners import (
+        run as run,
+    )
+
 
 # TODO: It should be possible to instantiate these classes, but mypy
 # currently disallows this.
