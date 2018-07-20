@@ -1,6 +1,10 @@
-from typing import Awaitable, TypeVar
+import sys
 
 
-_T = TypeVar('_T')
+if sys.version_info >= (3, 7):
+    from typing import Awaitable, TypeVar
 
-def run(main: Awaitable[_T], *, debug: bool = ...) -> _T: ...
+
+    _T = TypeVar('_T')
+
+    def run(main: Awaitable[_T], *, debug: bool = ...) -> _T: ...
