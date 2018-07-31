@@ -1,5 +1,5 @@
 import sys
-from typing import Union, Tuple, Callable
+from typing import Union, Tuple, Callable, FrozenSet
 
 from .connections import Connection as _Connection
 from .constants import FIELD_TYPE as FIELD_TYPE
@@ -30,7 +30,7 @@ threadsafety: int
 apilevel: str
 paramstyle: str
 
-class DBAPISet(frozenset[int]):
+class DBAPISet(FrozenSet[int]):
     def __ne__(self, other) -> bool: ...
     def __eq__(self, other) -> bool: ...
     def __hash__(self) -> int: ...
