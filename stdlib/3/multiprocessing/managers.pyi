@@ -21,7 +21,7 @@ class BaseManager(ContextManager[BaseManager]):
     address: Union[str, Tuple[str, int]]
     def connect(self) -> None: ...
     @classmethod
-    def register(cls, typeid: str, callable: Callable = ...,
+    def register(cls, typeid: str, callable: Optional[Callable] = ...,
                  proxytype: Any = ...,
                  exposed: Optional[Sequence[str]] = ...,
                  method_to_typeid: Optional[Mapping[str, str]] = ...,
