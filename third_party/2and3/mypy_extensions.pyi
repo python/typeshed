@@ -1,6 +1,7 @@
-from typing import Dict, Type, TypeVar, Optional, Union, Any
+from typing import Dict, Type, TypeVar, Optional, Union, Any, Generic
 
 _T = TypeVar('_T')
+_U = TypeVar('_U')
 
 def TypedDict(typename: str, fields: Dict[str, Type[_T]], total: bool = ...) -> Type[dict]: ...
 
@@ -19,3 +20,5 @@ NoReturn = Union[None]  # Deprecated: Use typing.NoReturn instead.
 # This is intended as a class decorator, but mypy rejects abstract classes
 # when a Type[_T] is expected, so we can't give it the type we want
 def trait(cls: Any) -> Any: ...
+
+class FlexibleAlias(Generic[_T, _U]): ...
