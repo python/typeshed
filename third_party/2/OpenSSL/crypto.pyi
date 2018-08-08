@@ -3,6 +3,7 @@
 from typing import Any, Callable, Iterable, List, Optional, Set, Text, Tuple, Union
 
 from cryptography.hazmat.primitives.asymmetric import dsa, rsa
+from datetime import datetime
 
 FILETYPE_PEM = ...  # type: int
 FILETYPE_ASN1 = ...  # type: int
@@ -110,6 +111,7 @@ class X509Store:
     def add_cert(self, cert: X509) -> None: ...
     def add_crl(self, crl: CRL) -> None: ...
     def set_flags(self, flags: int) -> None: ...
+    def set_time(self, vfy_time: datetime) -> None: ...
 
 class X509StoreContextError(Exception):
     certificate = ...  # type: X509
