@@ -2,6 +2,7 @@ from email.message import Message as _Message
 from typing import (
     Any, AnyStr, Dict, Generic, List, Optional, Sequence, Tuple, Union,
     Pattern)
+import sys
 
 _Reply = Tuple[int, bytes]
 _SendErrs = Dict[str, _Reply]
@@ -79,7 +80,10 @@ class SMTP:
     vrfy = ...  # type: Any
     def expn(self, address): ...
     def ehlo_or_helo_if_needed(self): ...
-    def login(self, user, password): ...
+    if sys.version_info >= (3, 5):
+        def login(self, user, password, *, initial_response_ok=...): ...
+    else:
+        def login(self, user, password): ...
     def starttls(self, keyfile=..., certfile=..., context=...): ...
     def sendmail(self, from_addr: str, to_addrs: Union[str, Sequence[str]],
                  msg: Union[bytes, str], mail_options: Sequence[str] = ...,
