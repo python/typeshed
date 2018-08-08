@@ -579,7 +579,7 @@ class socket:
 # ----- functions -----
 def create_connection(address: Tuple[Optional[str], int],
                       timeout: float = ...,
-                      source_address: Tuple[str, int] = ...) -> socket: ...
+                      source_address: Tuple[Union[bytearray, bytes, str], int] = ...) -> socket: ...
 
 # the 5th tuple item is an address
 # TODO the "Tuple[Any, ...]" should be "Union[Tuple[str, int], Tuple[str, int, int, int]]" but that triggers
