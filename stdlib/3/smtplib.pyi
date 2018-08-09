@@ -54,7 +54,7 @@ class SMTP:
     helo_resp = ...  # type: Optional[bytes]
     ehlo_msg = ...  # type: str
     ehlo_resp = ...  # type: Optional[bytes]
-    does_esmtp = ...  # type: bool
+    does_esmtp = ...  # type: int
     default_port = ...  # type: int
     timeout = ...  # type: float
     esmtp_features = ...  # type: Dict[str, str]
