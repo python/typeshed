@@ -22,21 +22,21 @@ class SMTPException(OSError): ...
 class SMTPServerDisconnected(SMTPException): ...
 
 class SMTPResponseException(SMTPException):
-    smtp_code = ...  # type: int
-    smtp_error = ...  # type: Union[bytes, str]
-    args = ...  # type: Union[Tuple[int, Union[bytes, str]], Tuple[int, bytes, str]]
+    smtp_code: int
+    smtp_error: Union[bytes, str]
+    args: Union[Tuple[int, Union[bytes, str]], Tuple[int, bytes, str]]
     def __init__(self, code: int, msg: Union[bytes, str]) -> None: ...
 
 class SMTPSenderRefused(SMTPResponseException):
-    smtp_code = ...  # type: int
-    smtp_error = ...  # type: bytes
-    sender = ...  # type: str
-    args = ...  # type: Tuple[int, bytes, str]
+    smtp_code: int
+    smtp_error: bytes
+    sender: str
+    args: Tuple[int, bytes, str]
     def __init__(self, code: int, msg: bytes, sender: str) -> None: ...
 
 class SMTPRecipientsRefused(SMTPException):
-    recipients = ...  # type: _SendErrs
-    args = ...  # type: Tuple[_SendErrs]
+    recipients: _SendErrs
+    args: Tuple[_SendErrs]
     def __init__(self, recipients: _SendErrs) -> None: ...
 
 class SMTPDataError(SMTPResponseException): ...
@@ -48,25 +48,25 @@ def quoteaddr(addrstring: str) -> str: ...
 def quotedata(data: str) -> str: ...
 
 class SMTP:
-    debuglevel = ...  # type: int
+    debuglevel: int
     # Type of file should match what socket.makefile() returns
-    file = ...  # type: Any
-    helo_resp = ...  # type: Optional[bytes]
-    ehlo_msg = ...  # type: str
-    ehlo_resp = ...  # type: Optional[bytes]
-    does_esmtp = ...  # type: int
-    default_port = ...  # type: int
-    timeout = ...  # type: float
-    esmtp_features = ...  # type: Dict[str, str]
-    source_address = ...  # type: Optional[_SourceAddress]
-    local_hostname = ...  # type: str
+    file: Any
+    helo_resp: Optional[bytes]
+    ehlo_msg: str
+    ehlo_resp: Optional[bytes]
+    does_esmtp: int
+    default_port: int
+    timeout: float
+    esmtp_features: Dict[str, str]
+    source_address: Optional[_SourceAddress]
+    local_hostname: str
     def __init__(self, host: str = ..., port: int = ...,
                  local_hostname: Optional[str] = ..., timeout: float = ...,
                  source_address: Optional[_SourceAddress] = ...) -> None: ...
     def __enter__(self) -> SMTP: ...
     def __exit__(self, *args) -> None: ...
     def set_debuglevel(self, debuglevel: int) -> None: ...
-    sock = ...  # type: Optional[socket]
+    sock: Optional[socket]
     def connect(self, host: str = ..., port: int = ...,
                 source_address: Optional[_SourceAddress] = ...) -> _Reply: ...
     def send(self, s: Union[bytes, str]) -> None: ...
@@ -104,9 +104,9 @@ class SMTP:
     def quit(self) -> _Reply: ...
 
 class SMTP_SSL(SMTP):
-    keyfile = ...  # type: Optional[str]
-    certfile = ...  # type: Optional[str]
-    context = ...  # type: SSLContext
+    keyfile: Optional[str]
+    certfile: Optional[str]
+    context: SSLContext
     def __init__(self, host: str = ..., port: int = ...,
                  local_hostname: Optional[str] = ...,
                  keyfile: Optional[str] = ..., certfile: Optional[str] = ...,
