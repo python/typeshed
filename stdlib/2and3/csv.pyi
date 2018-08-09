@@ -52,9 +52,9 @@ if sys.version_info >= (3,):
         quoting = ...  # type: int
 
 if sys.version_info >= (3, 6):
-    _DRMapping = OrderedDict[str, Optional[str]]
+    _DRMapping = OrderedDict[str, str]
 else:
-    _DRMapping = Dict[str, Optional[str]]
+    _DRMapping = Dict[str, str]
 
 
 class DictReader(Iterator[_DRMapping]):
