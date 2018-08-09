@@ -12,6 +12,7 @@ class URLError(IOError):
 class HTTPError(URLError, addinfourl):
     code = ...  # type: int
     headers = ...  # type: Dict[str, str]
+    def __init__(self, url, code, msg, hdrs, fp) -> None: ...
 
 class Request(object):
     host = ...  # type: str
