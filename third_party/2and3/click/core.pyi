@@ -278,7 +278,7 @@ class MultiCommand(Command):
     def get_command(self, ctx: Context, cmd_name: str) -> Optional[Command]:
         ...
 
-    def list_commands(self, ctx: Context) -> Iterable[Command]:
+    def list_commands(self, ctx: Context) -> Iterable[str]:
         ...
 
 
