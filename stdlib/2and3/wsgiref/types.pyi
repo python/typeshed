@@ -21,10 +21,8 @@ from types import TracebackType
 _exc_info = Tuple[Optional[Type[BaseException]],
                   Optional[BaseException],
                   Optional[TracebackType]]
-StartResponse = Union[
-    Callable[[Text, List[Tuple[Text, Text]]], Callable[[bytes], None]],
-    Callable[[Text, List[Tuple[Text, Text]], _exc_info], Callable[[bytes], None]]
-]
+# (status: str, headers: List[Tuple[str, str]], exc_info = None)
+StartResponse = Callable[..., Callable[[bytes], None]]
 WSGIEnvironment = Dict[Text, Any]
 WSGIApplication = Callable[[WSGIEnvironment, StartResponse], Iterable[bytes]]
 
