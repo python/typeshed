@@ -1,6 +1,7 @@
 # Filip Hron <filip.hron@gmail.com>
 # based heavily on Andrey Vlasovskikh's python-skeletons https://github.com/JetBrains/python-skeletons/blob/master/sqlite3.py
 
+import os
 import sys
 from typing import Any, Callable, Iterable, Iterator, List, Optional, Text, Tuple, Type, TypeVar, Union
 from datetime import date, time, datetime
@@ -70,7 +71,16 @@ version = ...  # type: str
 # TODO: adapt needs to get probed
 def adapt(obj, protocol, alternate): ...
 def complete_statement(sql: str) -> bool: ...
-if sys.version_info >= (3, 4):
+if sys.version_info >= (3, 7):
+    def connect(database: Union[bytes, Text, os.PathLike[Text]],
+                timeout: float = ...,
+                detect_types: int = ...,
+                isolation_level: Optional[str] = ...,
+                check_same_thread: bool = ...,
+                factory: Optional[Type[Connection]] = ...,
+                cached_statements: int = ...,
+                uri: bool = ...) -> Connection: ...
+elif sys.version_info >= (3, 4):
     def connect(database: Union[bytes, Text],
                 timeout: float = ...,
                 detect_types: int = ...,
