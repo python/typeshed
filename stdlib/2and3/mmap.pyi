@@ -2,6 +2,7 @@ import sys
 from typing import (Optional, Sequence, Union, Generic, overload,
                     Iterable, Iterator, Sized, ContextManager, AnyStr)
 
+ACCESS_DEFAULT = ...  # type: int
 ACCESS_READ = ...  # type: int
 ACCESS_WRITE = ...  # type: int
 ACCESS_COPY = ...  # type: int
@@ -9,8 +10,13 @@ ACCESS_COPY = ...  # type: int
 ALLOCATIONGRANULARITY = ...  # type: int
 
 if sys.platform != 'win32':
+    MAP_ANON = ...  # type: int
+    MAP_ANONOMYOUS = ...  # type: int
+    MAP_DENYWRITE = ...  # type: int
+    MAP_EXECUTABLE = ...  # type: int
     MAP_PRIVATE = ...  # type: int
     MAP_SHARED = ...  # type: int
+    PROT_EXEC = ...  # type: int
     PROT_READ = ...  # type: int
     PROT_WRITE = ...  # type: int
 
