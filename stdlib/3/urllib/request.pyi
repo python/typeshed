@@ -2,7 +2,7 @@
 
 from typing import (
     Any, Callable, ClassVar, Dict, List, IO, Mapping, Optional, Sequence, Tuple,
-    TypeVar, Union, overload,
+    TypeVar, Union, overload, NoReturn,
 )
 from http.client import HTTPResponse, HTTPMessage
 from http.cookiejar import CookieJar
@@ -13,8 +13,11 @@ import sys
 import os
 
 _T = TypeVar('_T')
-_UrlopenRet = Union[HTTPResponse, addinfourl]
+_UrlopenRet = Union[_HTTPResponse, addinfourl]
 
+class _HTTPResponse(HTTPResponse):
+    url: str
+    msg: str  # type: ignore
 
 def urlopen(
     url: Union[str, Request], data: Optional[bytes] = ...,
@@ -177,11 +180,11 @@ class CacheFTPHandler(FTPHandler):
     def setMaxConns(self, m: int) -> None: ...
 
 class UnknownHandler(BaseHandler):
-    def unknown_open(self, req: Request) -> _UrlopenRet: ...
+    def unknown_open(self, req: Request) -> NoReturn: ...
 
 class HTTPErrorProcessor(BaseHandler):
-    def http_response(self) -> _UrlopenRet: ...
-    def https_response(self) -> _UrlopenRet: ...
+    def http_response(self, request, response) -> _UrlopenRet: ...
+    def https_response(self, request, response) -> _UrlopenRet: ...
 
 if sys.version_info >= (3, 6):
     def urlretrieve(url: str, filename: Optional[Union[str, os.PathLike]] = ...,
