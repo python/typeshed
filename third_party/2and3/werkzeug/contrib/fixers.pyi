@@ -1,4 +1,4 @@
-from typing import Any, Sequence
+from typing import Any, Sequence, Optional, Iterable
 from wsgiref.types import WSGIApplication, WSGIEnvironment, StartResponse
 
 class CGIRootFix:
