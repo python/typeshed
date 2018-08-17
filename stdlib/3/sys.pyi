@@ -15,8 +15,8 @@ from importlib.abc import MetaPathFinder
 _T = TypeVar('_T')
 
 # The following type alias are stub-only and do not exist during runtime
-ExcInfo = Tuple[Type[BaseException], BaseException, TracebackType]
-OptExcInfo = Tuple[Optional[Type[BaseException]], Optional[BaseException], Optional[TracebackType]]
+_ExcInfo = Tuple[Type[BaseException], BaseException, TracebackType]
+_OptExcInfo = Tuple[Optional[Type[BaseException]], Optional[BaseException], Optional[TracebackType]]
 
 # ----- sys variables -----
 abiflags: str
@@ -132,7 +132,7 @@ def _current_frames() -> Dict[int, Any]: ...
 def displayhook(value: Optional[int]) -> None: ...
 def excepthook(type_: Type[BaseException], value: BaseException,
                traceback: TracebackType) -> None: ...
-def exc_info() -> OptExcInfo: ...
+def exc_info() -> _OptExcInfo: ...
 # sys.exit() accepts an optional argument of anything printable
 def exit(arg: object = ...) -> NoReturn:
     raise SystemExit()

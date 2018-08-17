@@ -15,11 +15,11 @@
 # you need to use 'WSGIApplication' and not simply WSGIApplication when type
 # hinting your code.  Otherwise Python will raise NameErrors.
 
-from sys import OptExcInfo
+from sys import _OptExcInfo
 from typing import Callable, Dict, Iterable, List, Any, Text, Protocol, Tuple, Optional
 
 class StartResponse(Protocol):
-    def __call__(self, status: str, headers: List[Tuple[str, str]], exc_info: Optional[OptExcInfo] = ...) -> Callable[[bytes], Any]: ...
+    def __call__(self, status: str, headers: List[Tuple[str, str]], exc_info: Optional[_OptExcInfo] = ...) -> Callable[[bytes], Any]: ...
 
 WSGIEnvironment = Dict[Text, Any]
 WSGIApplication = Callable[[WSGIEnvironment, StartResponse], Iterable[bytes]]
