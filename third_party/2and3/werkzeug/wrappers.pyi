@@ -7,7 +7,7 @@ from wsgiref.types import WSGIEnvironment, InputStream
 
 from .datastructures import (
     Authorization, CombinedMultiDict, EnvironHeaders, Headers, ImmutableMultiDict,
-    MultiDict, TypeConversionDict, HeaderSet,
+    MultiDict, ImmutableTypeConversionDict, HeaderSet,
     Accept, MIMEAccept, CharsetAccept, LanguageAccept,
 )
 
@@ -47,7 +47,8 @@ class BaseRequest:
     form = ...  # type: ImmutableMultiDict
     values = ...  # type: CombinedMultiDict
     files = ...  # type: MultiDict
-    cookies = ...  # type: TypeConversionDict
+    @property
+    def cookies(self) -> ImmutableTypeConversionDict[str, str]: ...
     headers = ...  # type: EnvironHeaders
     path = ...  # type: Text
     full_path = ...  # type: Text
