@@ -10,7 +10,7 @@ from typing import (
 
 _LongResp = Tuple[bytes, List[bytes], int]
 
-class error_proto(Exception): pass
+class error_proto(Exception): ...
 
 POP3_PORT: int
 POP3_SSL_PORT: int

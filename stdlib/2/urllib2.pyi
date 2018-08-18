@@ -1,6 +1,6 @@
 
 import ssl
-from typing import Any, AnyStr, Dict, List, Union, Optional, Mapping, Callable, Sequence, Tuple
+from typing import Any, AnyStr, Dict, List, Union, Optional, Mapping, Callable, Sequence, Tuple, Type
 from urllib import addinfourl
 from httplib import HTTPResponse
 
@@ -12,6 +12,7 @@ class URLError(IOError):
 class HTTPError(URLError, addinfourl):
     code = ...  # type: int
     headers = ...  # type: Dict[str, str]
+    def __init__(self, url, code, msg, hdrs, fp) -> None: ...
 
 class Request(object):
     host = ...  # type: str
@@ -53,7 +54,7 @@ def urlopen(url: Union[Request, _string], data: Optional[_string] = ..., timeout
             cafile: Optional[_string] = ..., capath: Optional[_string] = ..., cadefault: bool = ...,
             context: Optional[ssl.SSLContext] = ...): ...
 def install_opener(opener: OpenerDirector) -> None: ...
-def build_opener(*handlers: BaseHandler) -> OpenerDirector: ...
+def build_opener(*handlers: Union[BaseHandler, Type[BaseHandler]]) -> OpenerDirector: ...
 
 class BaseHandler:
     handler_order = ...  # type: int

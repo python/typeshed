@@ -1,8 +1,9 @@
+import concurrent.futures
+import sys
 from typing import (Any, TypeVar, Set, Dict, List, TextIO, Union, Tuple, Generic, Callable,
                     Coroutine, Generator, Iterable, Awaitable, overload, Sequence, Iterator,
                     Optional)
 from types import FrameType
-import concurrent.futures
 from .events import AbstractEventLoop
 from .futures import Future
 
@@ -24,7 +25,8 @@ def as_completed(fs: Sequence[_FutureT[_T]], *, loop: AbstractEventLoop = ...,
                  timeout: Optional[float] = ...) -> Iterator[Generator[Any, None, _T]]: ...
 def ensure_future(coro_or_future: _FutureT[_T],
                   *, loop: AbstractEventLoop = ...) -> Future[_T]: ...
-async = ensure_future
+# Prior to Python 3.7 'async' was an alias for 'ensure_future'.
+# It became a keyword in 3.7.
 @overload
 def gather(coro_or_future1: _FutureT[_T1],
            *, loop: AbstractEventLoop = ..., return_exceptions: bool = ...) -> Future[Tuple[_T1]]: ...
@@ -69,3 +71,8 @@ class Task(Future[_T], Generic[_T]):
     def cancel(self) -> bool: ...
     def _step(self, value: Any = ..., exc: Exception = ...) -> None: ...
     def _wakeup(self, future: Future[Any]) -> None: ...
+
+if sys.version_info >= (3, 7):
+    def all_tasks(loop: Optional[AbstractEventLoop] = ...) -> Set[Task]: ...
+    def create_task(coro: Union[Generator[Any, None, _T], Awaitable[_T]]) -> Task: ...
+    def current_task(loop: Optional[AbstractEventLoop] = ...) -> Optional[Task]: ...

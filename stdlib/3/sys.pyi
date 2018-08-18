@@ -10,12 +10,13 @@ from typing import (
 import sys
 from types import FrameType, ModuleType, TracebackType
 
-if sys.version_info >= (3, 3):
-    from importlib.abc import MetaPathFinder
-else:
-    MetaPathFinder = Any
+from importlib.abc import MetaPathFinder
 
 _T = TypeVar('_T')
+
+# The following type alias are stub-only and do not exist during runtime
+_ExcInfo = Tuple[Type[BaseException], BaseException, TracebackType]
+_OptExcInfo = Tuple[Optional[Type[BaseException]], Optional[BaseException], Optional[TracebackType]]
 
 # ----- sys variables -----
 abiflags: str
@@ -131,15 +132,15 @@ def _current_frames() -> Dict[int, Any]: ...
 def displayhook(value: Optional[int]) -> None: ...
 def excepthook(type_: Type[BaseException], value: BaseException,
                traceback: TracebackType) -> None: ...
-def exc_info() -> Tuple[Optional[Type[BaseException]],
-                        Optional[BaseException],
-                        Optional[TracebackType]]: ...
+def exc_info() -> _OptExcInfo: ...
 # sys.exit() accepts an optional argument of anything printable
 def exit(arg: object = ...) -> NoReturn:
     raise SystemExit()
 def getcheckinterval() -> int: ...  # deprecated
 def getdefaultencoding() -> str: ...
-def getdlopenflags() -> int: ...  # Unix only
+if sys.platform != 'win32':
+    # Unix only
+    def getdlopenflags() -> int: ...
 def getfilesystemencoding() -> str: ...
 def getrefcount(arg: Any) -> int: ...
 def getrecursionlimit() -> int: ...
@@ -162,7 +163,7 @@ def setprofile(profilefunc: Optional[_ProfileFunc]) -> None: ...
 
 _TraceFunc = Callable[[FrameType, str, Any], Optional[Callable[[FrameType, str, Any], Any]]]
 def gettrace() -> Optional[_TraceFunc]: ...
-def settrace(tracefunc: _TraceFunc) -> None: ...
+def settrace(tracefunc: Optional[_TraceFunc]) -> None: ...
 
 
 class _WinVersion(Tuple[int, int, int, int,
@@ -181,6 +182,7 @@ class _WinVersion(Tuple[int, int, int, int,
 
 
 def getwindowsversion() -> _WinVersion: ...  # Windows only
+
 def intern(string: str) -> str: ...
 
 if sys.version_info >= (3, 5):

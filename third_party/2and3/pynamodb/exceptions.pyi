@@ -5,32 +5,15 @@ class PynamoDBException(Exception):
     cause: Any
     def __init__(self, msg: Optional[Text] = ..., cause: Optional[Exception] = ...) -> None: ...
 
-class PynamoDBConnectionError(PynamoDBException):
-    pass
-
-class DeleteError(PynamoDBConnectionError):
-    pass
-
-class QueryError(PynamoDBConnectionError):
-    pass
-
-class ScanError(PynamoDBConnectionError):
-    pass
-
-class PutError(PynamoDBConnectionError):
-    pass
-
-class UpdateError(PynamoDBConnectionError):
-    pass
-
-class GetError(PynamoDBConnectionError):
-    pass
-
-class TableError(PynamoDBConnectionError):
-    pass
-
-class DoesNotExist(PynamoDBException):
-    pass
+class PynamoDBConnectionError(PynamoDBException): ...
+class DeleteError(PynamoDBConnectionError): ...
+class QueryError(PynamoDBConnectionError): ...
+class ScanError(PynamoDBConnectionError): ...
+class PutError(PynamoDBConnectionError): ...
+class UpdateError(PynamoDBConnectionError): ...
+class GetError(PynamoDBConnectionError): ...
+class TableError(PynamoDBConnectionError): ...
+class DoesNotExist(PynamoDBException): ...
 
 class TableDoesNotExist(PynamoDBException):
     def __init__(self, table_name) -> None: ...

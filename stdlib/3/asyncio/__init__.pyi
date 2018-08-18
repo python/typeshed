@@ -46,7 +46,6 @@ from asyncio.tasks import (
     ALL_COMPLETED as ALL_COMPLETED,
     as_completed as as_completed,
     ensure_future as ensure_future,
-    async as async,
     gather as gather,
     run_coroutine_threadsafe as run_coroutine_threadsafe,
     shield as shield,
@@ -97,6 +96,20 @@ if sys.platform != 'win32':
         open_unix_connection as open_unix_connection,
         start_unix_server as start_unix_server,
     )
+
+if sys.version_info >= (3, 7):
+    from asyncio.events import (
+        get_running_loop as get_running_loop,
+    )
+    from asyncio.tasks import (
+        all_tasks as all_tasks,
+        create_task as create_task,
+        current_task as current_task,
+    )
+    from asyncio.runners import (
+        run as run,
+    )
+
 
 # TODO: It should be possible to instantiate these classes, but mypy
 # currently disallows this.

@@ -26,50 +26,52 @@ if sys.version_info >= (3, 3):
     supports_effective_ids: Set[Callable[..., Any]]
     supports_follow_symlinks: Set[Callable[..., Any]]
 
-    PRIO_PROCESS: int  # Unix only
-    PRIO_PGRP: int  # Unix only
-    PRIO_USER: int  # Unix only
+    if sys.platform != 'win32':
+        # Unix only
+        PRIO_PROCESS: int
+        PRIO_PGRP: int
+        PRIO_USER: int
 
-    F_LOCK: int  # Unix only
-    F_TLOCK: int  # Unix only
-    F_ULOCK: int  # Unix only
-    F_TEST: int  # Unix only
+        F_LOCK: int
+        F_TLOCK: int
+        F_ULOCK: int
+        F_TEST: int
 
-    POSIX_FADV_NORMAL: int  # Unix only
-    POSIX_FADV_SEQUENTIAL: int  # Unix only
-    POSIX_FADV_RANDOM: int  # Unix only
-    POSIX_FADV_NOREUSE: int  # Unix only
-    POSIX_FADV_WILLNEED: int  # Unix only
-    POSIX_FADV_DONTNEED: int  # Unix only
+        POSIX_FADV_NORMAL: int
+        POSIX_FADV_SEQUENTIAL: int
+        POSIX_FADV_RANDOM: int
+        POSIX_FADV_NOREUSE: int
+        POSIX_FADV_WILLNEED: int
+        POSIX_FADV_DONTNEED: int
 
-    SF_NODISKIO: int  # Unix only
-    SF_MNOWAIT: int  # Unix only
-    SF_SYNC: int  # Unix only
+        SF_NODISKIO: int
+        SF_MNOWAIT: int
+        SF_SYNC: int
 
-    XATTR_SIZE_MAX: int  # Linux only
-    XATTR_CREATE: int  # Linux only
-    XATTR_REPLACE: int  # Linux only
+        XATTR_SIZE_MAX: int  # Linux only
+        XATTR_CREATE: int  # Linux only
+        XATTR_REPLACE: int  # Linux only
 
-    P_PID: int  # Unix only
-    P_PGID: int  # Unix only
-    P_ALL: int  # Unix only
+        P_PID: int
+        P_PGID: int
+        P_ALL: int
 
-    WEXITED: int  # Unix only
-    WSTOPPED: int  # Unix only
-    WNOWAIT: int  # Unix only
+        WEXITED: int
+        WSTOPPED: int
+        WNOWAIT: int
 
-    CLD_EXITED: int  # Unix only
-    CLD_DUMPED: int  # Unix only
-    CLD_TRAPPED: int  # Unix only
-    CLD_CONTINUED: int  # Unix only
+        CLD_EXITED: int
+        CLD_DUMPED: int
+        CLD_TRAPPED: int
+        CLD_CONTINUED: int
 
-    SCHED_OTHER: int  # some flavors of Unix
-    SCHED_BATCH: int  # some flavors of Unix
-    SCHED_IDLE: int  # some flavors of Unix
-    SCHED_SPORADIC: int  # some flavors of Unix
-    SCHED_FIFO: int  # some flavors of Unix
-    SCHED_RR: int  # some flavors of Unix
-    SCHED_RESET_ON_FORK: int  # some flavors of Unix
+        SCHED_OTHER: int  # some flavors of Unix
+        SCHED_BATCH: int  # some flavors of Unix
+        SCHED_IDLE: int  # some flavors of Unix
+        SCHED_SPORADIC: int  # some flavors of Unix
+        SCHED_FIFO: int  # some flavors of Unix
+        SCHED_RR: int  # some flavors of Unix
+        SCHED_RESET_ON_FORK: int  # some flavors of Unix
 
     RTLD_LAZY: int
     RTLD_NOW: int
@@ -83,7 +85,7 @@ if sys.version_info >= (3, 3):
 SEEK_SET: int
 SEEK_CUR: int
 SEEK_END: int
-if sys.version_info >= (3, 3):
+if sys.version_info >= (3, 3) and sys.platform != 'win32':
     SEEK_DATA: int  # some flavors of Unix
     SEEK_HOLE: int  # some flavors of Unix
 
@@ -94,6 +96,9 @@ O_APPEND: int
 O_CREAT: int
 O_EXCL: int
 O_TRUNC: int
+# We don't use sys.platform for O_* flags to denote platform-dependent APIs because some codes,
+# including tests for mypy, use a more finer way than sys.platform before using these APIs
+# See https://github.com/python/typeshed/pull/2286 for discussions
 O_DSYNC: int    # Unix only
 O_RSYNC: int    # Unix only
 O_SYNC: int     # Unix only
@@ -149,39 +154,41 @@ environ: _Environ[str]
 if sys.version_info >= (3, 2):
     environb: _Environ[bytes]
 
-confstr_names: Dict[str, int]  # Unix only
-pathconf_names: Dict[str, int]  # Unix only
-sysconf_names: Dict[str, int]  # Unix only
+if sys.platform != 'win32':
+    confstr_names: Dict[str, int]
+    pathconf_names: Dict[str, int]
+    sysconf_names: Dict[str, int]
 
-EX_OK: int        # Unix only
-EX_USAGE: int     # Unix only
-EX_DATAERR: int   # Unix only
-EX_NOINPUT: int   # Unix only
-EX_NOUSER: int    # Unix only
-EX_NOHOST: int    # Unix only
-EX_UNAVAILABLE: int  # Unix only
-EX_SOFTWARE: int  # Unix only
-EX_OSERR: int     # Unix only
-EX_OSFILE: int    # Unix only
-EX_CANTCREAT: int  # Unix only
-EX_IOERR: int     # Unix only
-EX_TEMPFAIL: int  # Unix only
-EX_PROTOCOL: int  # Unix only
-EX_NOPERM: int    # Unix only
-EX_CONFIG: int    # Unix only
-EX_NOTFOUND: int  # Unix only
+    EX_OK: int
+    EX_USAGE: int
+    EX_DATAERR: int
+    EX_NOINPUT: int
+    EX_NOUSER: int
+    EX_NOHOST: int
+    EX_UNAVAILABLE: int
+    EX_SOFTWARE: int
+    EX_OSERR: int
+    EX_OSFILE: int
+    EX_CANTCREAT: int
+    EX_IOERR: int
+    EX_TEMPFAIL: int
+    EX_PROTOCOL: int
+    EX_NOPERM: int
+    EX_CONFIG: int
+    EX_NOTFOUND: int
 
 P_NOWAIT: int
 P_NOWAITO: int
 P_WAIT: int
 if sys.platform == 'win32':
-    P_DETACH: int  # Windows only
-    P_OVERLAY: int  # Windows only
+    P_DETACH: int
+    P_OVERLAY: int
 
 # wait()/waitpid() options
-WNOHANG: int  # Unix only
-WCONTINUED: int  # some Unix systems
-WUNTRACED: int  # Unix only
+if sys.platform != 'win32':
+    WNOHANG: int  # Unix only
+    WCONTINUED: int  # some Unix systems
+    WUNTRACED: int  # Unix only
 
 TMP_MAX: int  # Undocumented, but used by tempfile
 
@@ -223,17 +230,18 @@ elif sys.version_info >= (3, 5):
         def stat(self) -> stat_result: ...
 
 
-class statvfs_result:  # Unix only
-    f_bsize: int
-    f_frsize: int
-    f_blocks: int
-    f_bfree: int
-    f_bavail: int
-    f_files: int
-    f_ffree: int
-    f_favail: int
-    f_flag: int
-    f_namemax: int
+if sys.platform != 'win32':
+    class statvfs_result:  # Unix only
+        f_bsize: int
+        f_frsize: int
+        f_blocks: int
+        f_bfree: int
+        f_bavail: int
+        f_files: int
+        f_ffree: int
+        f_favail: int
+        f_flag: int
+        f_namemax: int
 
 # ----- os function stubs -----
 if sys.version_info >= (3, 6):
@@ -256,45 +264,48 @@ if sys.version_info >= (3, 6):
 
 def get_exec_path(env: Optional[Mapping[str, str]] = ...) -> List[str]: ...
 # NOTE: get_exec_path(): returns List[bytes] when env not None
-def ctermid() -> str: ...  # Unix only
-def getegid() -> int: ...  # Unix only
-def geteuid() -> int: ...  # Unix only
-def getgid() -> int: ...   # Unix only
-if sys.version_info >= (3, 3):
-    def getgrouplist(user: str, gid: int) -> List[int]: ...  # Unix only
-def getgroups() -> List[int]: ...  # Unix only, behaves differently on Mac
-def initgroups(username: str, gid: int) -> None: ...  # Unix only
 def getlogin() -> str: ...
-def getpgid(pid: int) -> int: ...  # Unix only
-def getpgrp() -> int: ...  # Unix only
 def getpid() -> int: ...
 def getppid() -> int: ...
-if sys.version_info >= (3, 3):
-    def getpriority(which: int, who: int) -> int: ...  # Unix only
-    def setpriority(which: int, who: int, priority: int) -> None: ...  # Unix only
-def getresuid() -> Tuple[int, int, int]: ...  # Unix only
-def getresgid() -> Tuple[int, int, int]: ...  # Unix only
-def getuid() -> int: ...  # Unix only
-def setegid(egid: int) -> None: ...  # Unix only
-def seteuid(euid: int) -> None: ...  # Unix only
-def setgid(gid: int) -> None: ...  # Unix only
-def setgroups(groups: Sequence[int]) -> None: ...  # Unix only
-def setpgrp() -> None: ...  # Unix only
-def setpgid(pid: int, pgrp: int) -> None: ...  # Unix only
-def setregid(rgid: int, egid: int) -> None: ...  # Unix only
-def setresgid(rgid: int, egid: int, sgid: int) -> None: ...  # Unix only
-def setresuid(ruid: int, euid: int, suid: int) -> None: ...  # Unix only
-def setreuid(ruid: int, euid: int) -> None: ...  # Unix only
-def getsid(pid: int) -> int: ...  # Unix only
-def setsid() -> None: ...  # Unix only
-def setuid(uid: int) -> None: ...  # Unix only
 def strerror(code: int) -> str: ...
 def umask(mask: int) -> int: ...
-if sys.version_info >= (3, 3):
-    from posix import uname_result
-    def uname() -> uname_result: ...  # Unix only
-else:
-    def uname() -> Tuple[str, str, str, str, str]: ...  # Unix only
+
+if sys.platform != 'win32':
+    # Unix only
+    def ctermid() -> str: ...
+    def getegid() -> int: ...
+    def geteuid() -> int: ...
+    def getgid() -> int: ...
+    if sys.version_info >= (3, 3):
+        def getgrouplist(user: str, gid: int) -> List[int]: ...
+    def getgroups() -> List[int]: ...  # Unix only, behaves differently on Mac
+    def initgroups(username: str, gid: int) -> None: ...
+    def getpgid(pid: int) -> int: ...
+    def getpgrp() -> int: ...
+    if sys.version_info >= (3, 3):
+        def getpriority(which: int, who: int) -> int: ...
+        def setpriority(which: int, who: int, priority: int) -> None: ...
+    def getresuid() -> Tuple[int, int, int]: ...
+    def getresgid() -> Tuple[int, int, int]: ...
+    def getuid() -> int: ...
+    def setegid(egid: int) -> None: ...
+    def seteuid(euid: int) -> None: ...
+    def setgid(gid: int) -> None: ...
+    def setgroups(groups: Sequence[int]) -> None: ...
+    def setpgrp() -> None: ...
+    def setpgid(pid: int, pgrp: int) -> None: ...
+    def setregid(rgid: int, egid: int) -> None: ...
+    def setresgid(rgid: int, egid: int, sgid: int) -> None: ...
+    def setresuid(ruid: int, euid: int, suid: int) -> None: ...
+    def setreuid(ruid: int, euid: int) -> None: ...
+    def getsid(pid: int) -> int: ...
+    def setsid() -> None: ...
+    def setuid(uid: int) -> None: ...
+    if sys.version_info >= (3, 3):
+        from posix import uname_result
+        def uname() -> uname_result: ...
+    else:
+        def uname() -> Tuple[str, str, str, str, str]: ...
 
 @overload
 def getenv(key: Text) -> Optional[str]: ...
@@ -305,60 +316,64 @@ def putenv(key: Union[bytes, Text], value: Union[bytes, Text]) -> None: ...
 def unsetenv(key: Union[bytes, Text]) -> None: ...
 
 # Return IO or TextIO
-def fdopen(fd: int, mode: str = ..., buffering: int = ..., encoding: str = ...,
+def fdopen(fd: int, mode: str = ..., buffering: int = ..., encoding: Optional[str] = ...,
            errors: str = ..., newline: str = ..., closefd: bool = ...) -> Any: ...
 def close(fd: int) -> None: ...
 def closerange(fd_low: int, fd_high: int) -> None: ...
 def device_encoding(fd: int) -> Optional[str]: ...
 def dup(fd: int) -> int: ...
 def dup2(fd: int, fd2: int) -> None: ...
-def fchmod(fd: int, mode: int) -> None: ...  # Unix only
-def fchown(fd: int, uid: int, gid: int) -> None: ...  # Unix only
-def fdatasync(fd: int) -> None: ...  # Unix only, not Mac
-def fpathconf(fd: int, name: Union[str, int]) -> int: ...  # Unix only
 def fstat(fd: int) -> stat_result: ...
-def fstatvfs(fd: int) -> statvfs_result: ...  # Unix only
 def fsync(fd: int) -> None: ...
-def ftruncate(fd: int, length: int) -> None: ...  # Unix only
-if sys.version_info >= (3, 5):
-    def get_blocking(fd: int) -> bool: ...  # Unix only
-    def set_blocking(fd: int, blocking: bool) -> None: ...  # Unix only
-def isatty(fd: int) -> bool: ...  # Unix only
-if sys.version_info >= (3, 3):
-    def lockf(__fd: int, __cmd: int, __length: int) -> None: ...  # Unix only
 def lseek(fd: int, pos: int, how: int) -> int: ...
 if sys.version_info >= (3, 3):
     def open(file: _PathType, flags: int, mode: int = ..., *, dir_fd: Optional[int] = ...) -> int: ...
 else:
     def open(file: _PathType, flags: int, mode: int = ...) -> int: ...
-def openpty() -> Tuple[int, int]: ...  # some flavors of Unix
 def pipe() -> Tuple[int, int]: ...
-if sys.version_info >= (3, 3):
-    def pipe2(flags: int) -> Tuple[int, int]: ...  # some flavors of Unix
-    def posix_fallocate(fd: int, offset: int, length: int) -> None: ...  # Unix only
-    def posix_fadvise(fd: int, offset: int, length: int, advice: int) -> None: ...  # Unix only
-    def pread(fd: int, buffersize: int, offset: int) -> bytes: ...  # Unix only
-    def pwrite(fd: int, string: bytes, offset: int) -> int: ...  # Unix only
 def read(fd: int, n: int) -> bytes: ...
-if sys.version_info >= (3, 3):
-    @overload
-    def sendfile(__out_fd: int, __in_fd: int, offset: Optional[int], count: int) -> int: ...  # Unix only
-    @overload
-    def sendfile(__out_fd: int, __in_fd: int, offset: int, count: int,
-                 headers: Sequence[bytes] = ..., trailers: Sequence[bytes] = ..., flags: int = ...) -> int: ...  # FreeBSD and Mac OS X only
-    def readv(fd: int, buffers: Sequence[bytearray]) -> int: ...  # Unix only
-    def writev(fd: int, buffers: Sequence[bytes]) -> int: ...  # Unix only
 
-    terminal_size = NamedTuple('terminal_size', [('columns', int), ('lines', int)])
-    def get_terminal_size(fd: int = ...) -> terminal_size: ...
+if sys.platform != 'win32':
+    # Unix only
+    def fchmod(fd: int, mode: int) -> None: ...
+    def fchown(fd: int, uid: int, gid: int) -> None: ...
+    def fdatasync(fd: int) -> None: ...  # Unix only, not Mac
+    def fpathconf(fd: int, name: Union[str, int]) -> int: ...
+    def fstatvfs(fd: int) -> statvfs_result: ...
+    def ftruncate(fd: int, length: int) -> None: ...
+    if sys.version_info >= (3, 5):
+        def get_blocking(fd: int) -> bool: ...
+        def set_blocking(fd: int, blocking: bool) -> None: ...
+    def isatty(fd: int) -> bool: ...
+    if sys.version_info >= (3, 3):
+        def lockf(__fd: int, __cmd: int, __length: int) -> None: ...
+    def openpty() -> Tuple[int, int]: ...  # some flavors of Unix
+    if sys.version_info >= (3, 3):
+        def pipe2(flags: int) -> Tuple[int, int]: ...  # some flavors of Unix
+        def posix_fallocate(fd: int, offset: int, length: int) -> None: ...
+        def posix_fadvise(fd: int, offset: int, length: int, advice: int) -> None: ...
+        def pread(fd: int, buffersize: int, offset: int) -> bytes: ...
+        def pwrite(fd: int, string: bytes, offset: int) -> int: ...
+        @overload
+        def sendfile(__out_fd: int, __in_fd: int, offset: Optional[int], count: int) -> int: ...
+        @overload
+        def sendfile(__out_fd: int, __in_fd: int, offset: int, count: int,
+                     headers: Sequence[bytes] = ..., trailers: Sequence[bytes] = ..., flags: int = ...) -> int: ...  # FreeBSD and Mac OS X only
+        def readv(fd: int, buffers: Sequence[bytearray]) -> int: ...
+        def writev(fd: int, buffers: Sequence[bytes]) -> int: ...
+
+terminal_size = NamedTuple('terminal_size', [('columns', int), ('lines', int)])
+def get_terminal_size(fd: int = ...) -> terminal_size: ...
 
 if sys.version_info >= (3, 4):
     def get_inheritable(fd: int) -> bool: ...
     def set_inheritable(fd: int, inheritable: bool) -> None: ...
 
-def tcgetpgrp(fd: int) -> int: ...  # Unix only
-def tcsetpgrp(fd: int, pg: int) -> None: ...  # Unix only
-def ttyname(fd: int) -> str: ...  # Unix only
+if sys.platform != 'win32':
+    # Unix only
+    def tcgetpgrp(fd: int) -> int: ...
+    def tcsetpgrp(fd: int, pg: int) -> None: ...
+    def ttyname(fd: int) -> str: ...
 def write(fd: int, string: bytes) -> int: ...
 if sys.version_info >= (3, 3):
     def access(path: _FdOrPathType, mode: int, *, dir_fd: Optional[int] = ...,
@@ -370,17 +385,21 @@ def fchdir(fd: int) -> None: ...
 def getcwd() -> str: ...
 def getcwdb() -> bytes: ...
 if sys.version_info >= (3, 3):
-    def chflags(path: _PathType, flags: int, follow_symlinks: bool = ...) -> None: ...  # some flavors of Unix
     def chmod(path: _FdOrPathType, mode: int, *, dir_fd: Optional[int] = ..., follow_symlinks: bool = ...) -> None: ...
-    def chown(path: _FdOrPathType, uid: int, gid: int, *, dir_fd: Optional[int] = ..., follow_symlinks: bool = ...) -> None: ...  # Unix only
+    if sys.platform != 'win32':
+        def chflags(path: _PathType, flags: int, follow_symlinks: bool = ...) -> None: ...  # some flavors of Unix
+        def chown(path: _FdOrPathType, uid: int, gid: int, *, dir_fd: Optional[int] = ..., follow_symlinks: bool = ...) -> None: ...  # Unix only
 else:
-    def chflags(path: _PathType, flags: int) -> None: ...  # Some flavors of Unix
     def chmod(path: _PathType, mode: int) -> None: ...
-    def chown(path: _PathType, uid: int, gid: int) -> None: ...  # Unix only
-def chroot(path: _PathType) -> None: ...  # Unix only
-def lchflags(path: _PathType, flags: int) -> None: ...  # Unix only
-def lchmod(path: _PathType, mode: int) -> None: ...  # Unix only
-def lchown(path: _PathType, uid: int, gid: int) -> None: ...  # Unix only
+    if sys.platform != 'win32':
+        def chflags(path: _PathType, flags: int) -> None: ...  # Some flavors of Unix
+        def chown(path: _PathType, uid: int, gid: int) -> None: ...  # Unix only
+if sys.platform != 'win32':
+    # Unix only
+    def chroot(path: _PathType) -> None: ...
+    def lchflags(path: _PathType, flags: int) -> None: ...
+    def lchmod(path: _PathType, mode: int) -> None: ...
+    def lchown(path: _PathType, uid: int, gid: int) -> None: ...
 if sys.version_info >= (3, 3):
     def link(src: _PathType, link_name: _PathType, *, src_dir_fd: Optional[int] = ...,
              dst_dir_fd: Optional[int] = ..., follow_symlinks: bool = ...) -> None: ...
@@ -412,11 +431,13 @@ else:
 if sys.version_info >= (3, 3):
     def lstat(path: _PathType, *, dir_fd: Optional[int] = ...) -> stat_result: ...
     def mkdir(path: _PathType, mode: int = ..., *, dir_fd: Optional[int] = ...) -> None: ...
-    def mkfifo(path: _PathType, mode: int = ..., *, dir_fd: Optional[int] = ...) -> None: ...  # Unix only
+    if sys.platform != 'win32':
+        def mkfifo(path: _PathType, mode: int = ..., *, dir_fd: Optional[int] = ...) -> None: ...  # Unix only
 else:
     def lstat(path: _PathType) -> stat_result: ...
     def mkdir(path: _PathType, mode: int = ...) -> None: ...
-    def mkfifo(path: _PathType, mode: int = ...) -> None: ...  # Unix only
+    if sys.platform != 'win32':
+        def mkfifo(path: _PathType, mode: int = ...) -> None: ...  # Unix only
 if sys.version_info >= (3, 4):
     def makedirs(name: _PathType, mode: int = ..., exist_ok: bool = ...) -> None: ...
 else:
@@ -432,7 +453,8 @@ else:
 def major(device: int) -> int: ...
 def minor(device: int) -> int: ...
 def makedev(major: int, minor: int) -> int: ...
-def pathconf(path: _FdOrPathType, name: Union[str, int]) -> int: ...  # Unix only
+if sys.platform != 'win32':
+    def pathconf(path: _FdOrPathType, name: Union[str, int]) -> int: ...  # Unix only
 if sys.version_info >= (3, 6):
     def readlink(path: Union[AnyStr, PathLike[AnyStr]], *, dir_fd: Optional[int] = ...) -> AnyStr: ...
 elif sys.version_info >= (3, 3):
@@ -492,11 +514,13 @@ if sys.version_info < (3, 7):
     def stat_float_times() -> bool: ...
     @overload
     def stat_float_times(__newvalue: bool) -> None: ...
-def statvfs(path: _FdOrPathType) -> statvfs_result: ...  # Unix only
+if sys.platform != 'win32':
+    def statvfs(path: _FdOrPathType) -> statvfs_result: ...  # Unix only
 if sys.version_info >= (3, 3):
     def symlink(source: _PathType, link_name: _PathType,
                 target_is_directory: bool = ..., *, dir_fd: Optional[int] = ...) -> None: ...
-    def sync() -> None: ...  # Unix only
+    if sys.platform != 'win32':
+        def sync() -> None: ...  # Unix only
     def truncate(path: _FdOrPathType, length: int) -> None: ...  # Unix only up to version 3.4
     def unlink(path: _PathType, *, dir_fd: Optional[int] = ...) -> None: ...
     def utime(path: _FdOrPathType, times: Optional[Union[Tuple[int, int], Tuple[float, float]]] = ..., *,
@@ -518,24 +542,24 @@ else:
     def walk(top: AnyStr, topdown: bool = ..., onerror: Optional[Callable[[OSError], Any]] = ...,
              followlinks: bool = ...) -> Iterator[Tuple[AnyStr, List[AnyStr],
                                                         List[AnyStr]]]: ...
-if sys.version_info >= (3, 3):
+if sys.platform != 'win32' and sys.version_info >= (3, 3):
     if sys.version_info >= (3, 7):
         @overload
         def fwalk(top: Union[str, PathLike[str]] = ..., topdown: bool = ...,
                   onerror: Optional[Callable] = ..., *, follow_symlinks: bool = ...,
-                  dir_fd: Optional[int] = ...) -> Iterator[Tuple[str, List[str], List[str], int]]: ...  # Unix only
+                  dir_fd: Optional[int] = ...) -> Iterator[Tuple[str, List[str], List[str], int]]: ...
         @overload
         def fwalk(top: bytes, topdown: bool = ...,
                   onerror: Optional[Callable] = ..., *, follow_symlinks: bool = ...,
-                  dir_fd: Optional[int] = ...) -> Iterator[Tuple[bytes, List[bytes], List[bytes], int]]: ...  # Unix only
+                  dir_fd: Optional[int] = ...) -> Iterator[Tuple[bytes, List[bytes], List[bytes], int]]: ...
     elif sys.version_info >= (3, 6):
         def fwalk(top: Union[str, PathLike[str]] = ..., topdown: bool = ...,
                   onerror: Optional[Callable] = ..., *, follow_symlinks: bool = ...,
-                  dir_fd: Optional[int] = ...) -> Iterator[Tuple[str, List[str], List[str], int]]: ...  # Unix only
+                  dir_fd: Optional[int] = ...) -> Iterator[Tuple[str, List[str], List[str], int]]: ...
     else:
         def fwalk(top: str = ..., topdown: bool = ...,
                   onerror: Optional[Callable] = ..., *, follow_symlinks: bool = ...,
-                  dir_fd: Optional[int] = ...) -> Iterator[Tuple[str, List[str], List[str], int]]: ...  # Unix only
+                  dir_fd: Optional[int] = ...) -> Iterator[Tuple[str, List[str], List[str], int]]: ...
     def getxattr(path: _FdOrPathType, attribute: _PathType, *, follow_symlinks: bool = ...) -> bytes: ...  # Linux only
     def listxattr(path: _FdOrPathType, *, follow_symlinks: bool = ...) -> List[str]: ...  # Linux only
     def removexattr(path: _FdOrPathType, attribute: _PathType, *, follow_symlinks: bool = ...) -> None: ...  # Linux only
@@ -560,12 +584,14 @@ def execvp(file: _PathType, args: _ExecVArgs) -> NoReturn: ...
 def execvpe(file: _PathType, args: _ExecVArgs, env: Mapping[str, str]) -> NoReturn: ...
 
 def _exit(n: int) -> NoReturn: ...
-def fork() -> int: ...  # Unix only
-def forkpty() -> Tuple[int, int]: ...  # some flavors of Unix
 def kill(pid: int, sig: int) -> None: ...
-def killpg(pgid: int, sig: int) -> None: ...  # Unix only
-def nice(increment: int) -> int: ...  # Unix only
-def plock(op: int) -> None: ...  # Unix only ???op is int?
+if sys.platform != 'win32':
+    # Unix only
+    def fork() -> int: ...
+    def forkpty() -> Tuple[int, int]: ...  # some flavors of Unix
+    def killpg(pgid: int, sig: int) -> None: ...
+    def nice(increment: int) -> int: ...
+    def plock(op: int) -> None: ...  # ???op is int?
 
 if sys.version_info >= (3, 0):
     class _wrap_close(_TextIOWrapper):
@@ -582,41 +608,41 @@ else:
 def spawnl(mode: int, path: _PathType, arg0: Union[bytes, Text], *args: Union[bytes, Text]) -> int: ...
 def spawnle(mode: int, path: _PathType, arg0: Union[bytes, Text],
             *args: Any) -> int: ...  # Imprecise sig
-def spawnlp(mode: int, file: _PathType, arg0: Union[bytes, Text],
-            *args: Union[bytes, Text]) -> int: ...  # Unix only TODO
-def spawnlpe(mode: int, file: _PathType, arg0: Union[bytes, Text], *args: Any) -> int:
-    ...  # Imprecise signature; Unix only TODO
 def spawnv(mode: int, path: _PathType, args: List[Union[bytes, Text]]) -> int: ...
 def spawnve(mode: int, path: _PathType, args: List[Union[bytes, Text]],
             env: Mapping[str, str]) -> int: ...
-def spawnvp(mode: int, file: _PathType, args: List[Union[bytes, Text]]) -> int: ...  # Unix only
-def spawnvpe(mode: int, file: _PathType, args: List[Union[bytes, Text]],
-             env: Mapping[str, str]) -> int:
-    ...  # Unix only
-def startfile(path: _PathType, operation: Optional[str] = ...) -> None: ...  # Windows only
 def system(command: _PathType) -> int: ...
 if sys.version_info >= (3, 3):
     from posix import times_result
     def times() -> times_result: ...
 else:
     def times() -> Tuple[float, float, float, float, float]: ...
-def wait() -> Tuple[int, int]: ...  # Unix only
-if sys.version_info >= (3, 3):
-    from posix import waitid_result
-    def waitid(idtype: int, ident: int, options: int) -> waitid_result: ...  # Unix only
 def waitpid(pid: int, options: int) -> Tuple[int, int]: ...
-def wait3(options: int) -> Tuple[int, int, Any]: ...  # Unix only
-def wait4(pid: int, options: int) -> Tuple[int, int, Any]: ...  # Unix only
-def WCOREDUMP(status: int) -> bool: ...  # Unix only
-def WIFCONTINUED(status: int) -> bool: ...  # Unix only
-def WIFSTOPPED(status: int) -> bool: ...  # Unix only
-def WIFSIGNALED(status: int) -> bool: ...  # Unix only
-def WIFEXITED(status: int) -> bool: ...  # Unix only
-def WEXITSTATUS(status: int) -> int: ...  # Unix only
-def WSTOPSIG(status: int) -> int: ...  # Unix only
-def WTERMSIG(status: int) -> int: ...  # Unix only
 
-if sys.version_info >= (3, 3):
+if sys.platform == 'win32':
+    def startfile(path: _PathType, operation: Optional[str] = ...) -> None: ...
+else:
+    # Unix only
+    def spawnlp(mode: int, file: _PathType, arg0: Union[bytes, Text], *args: Union[bytes, Text]) -> int: ...
+    def spawnlpe(mode: int, file: _PathType, arg0: Union[bytes, Text], *args: Any) -> int: ...  # Imprecise signature
+    def spawnvp(mode: int, file: _PathType, args: List[Union[bytes, Text]]) -> int: ...
+    def spawnvpe(mode: int, file: _PathType, args: List[Union[bytes, Text]], env: Mapping[str, str]) -> int: ...
+    def wait() -> Tuple[int, int]: ...  # Unix only
+    if sys.version_info >= (3, 3):
+        from posix import waitid_result
+        def waitid(idtype: int, ident: int, options: int) -> waitid_result: ...
+    def wait3(options: int) -> Tuple[int, int, Any]: ...
+    def wait4(pid: int, options: int) -> Tuple[int, int, Any]: ...
+    def WCOREDUMP(status: int) -> bool: ...
+    def WIFCONTINUED(status: int) -> bool: ...
+    def WIFSTOPPED(status: int) -> bool: ...
+    def WIFSIGNALED(status: int) -> bool: ...
+    def WIFEXITED(status: int) -> bool: ...
+    def WEXITSTATUS(status: int) -> int: ...
+    def WSTOPSIG(status: int) -> int: ...
+    def WTERMSIG(status: int) -> int: ...
+
+if sys.platform != 'win32' and sys.version_info >= (3, 3):
     from posix import sched_param
     def sched_get_priority_min(policy: int) -> int: ...  # some flavors of Unix
     def sched_get_priority_max(policy: int) -> int: ...  # some flavors of Unix
@@ -629,11 +655,13 @@ if sys.version_info >= (3, 3):
     def sched_setaffinity(pid: int, mask: Iterable[int]) -> None: ...  # some flavors of Unix
     def sched_getaffinity(pid: int) -> Set[int]: ...  # some flavors of Unix
 
-def confstr(name: Union[str, int]) -> Optional[str]: ...  # Unix only
 if sys.version_info >= (3, 4):
     def cpu_count() -> Optional[int]: ...
-def getloadavg() -> Tuple[float, float, float]: ...  # Unix only
-def sysconf(name: Union[str, int]) -> int: ...  # Unix only
+if sys.platform != 'win32':
+    # Unix only
+    def confstr(name: Union[str, int]) -> Optional[str]: ...
+    def getloadavg() -> Tuple[float, float, float]: ...
+    def sysconf(name: Union[str, int]) -> int: ...
 if sys.version_info >= (3, 6):
     def getrandom(size: int, flags: int = ...) -> bytes: ...
     def urandom(size: int) -> bytes: ...

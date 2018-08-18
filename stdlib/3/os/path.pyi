@@ -167,7 +167,8 @@ else:
     def splitdrive(path: AnyStr) -> Tuple[AnyStr, AnyStr]: ...
     def splitext(path: AnyStr) -> Tuple[AnyStr, AnyStr]: ...
 
-def splitunc(path: AnyStr) -> Tuple[AnyStr, AnyStr]: ...  # Windows only, deprecated
+if sys.platform == 'win32':
+    def splitunc(path: AnyStr) -> Tuple[AnyStr, AnyStr]: ...  # deprecated
 
 if sys.version_info < (3,):
     def walk(path: AnyStr, visit: Callable[[_T, AnyStr, List[AnyStr]], Any], arg: _T) -> None: ...

@@ -12,8 +12,6 @@ def scanstring(a, b, *args, **kwargs) -> tuple:
     raise TypeError()
 
 
-class Encoder(object):
-    pass
+class Encoder(object): ...
 
-class Scanner(object):
-    pass
+class Scanner(object): ...

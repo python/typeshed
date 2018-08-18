@@ -6,6 +6,10 @@ from typing import (
 )
 from types import FrameType, ModuleType, TracebackType, ClassType
 
+# The following type alias are stub-only and do not exist during runtime
+_ExcInfo = Tuple[Type[BaseException], BaseException, TracebackType]
+_OptExcInfo = Tuple[Optional[Type[BaseException]], Optional[BaseException], Optional[TracebackType]]
+
 class _flags:
     bytes_warning = ...  # type: int
     debug = ...  # type: int
@@ -112,10 +116,7 @@ def __displayhook__(value: int) -> None: ...
 def __excepthook__(type_: type, value: BaseException, traceback: TracebackType) -> None: ...
 def exc_clear() -> None:
     raise DeprecationWarning()
-# TODO should be a union of tuple, see mypy#1178
-def exc_info() -> Tuple[Optional[Type[BaseException]],
-                        Optional[BaseException],
-                        Optional[TracebackType]]: ...
+def exc_info() -> _OptExcInfo: ...
 
 # sys.exit() accepts an optional argument of anything printable
 def exit(arg: Any = ...) -> NoReturn:

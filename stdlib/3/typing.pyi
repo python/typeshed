@@ -47,8 +47,7 @@ Set = TypeAlias(object)
 FrozenSet = TypeAlias(object)
 Counter = TypeAlias(object)
 Deque = TypeAlias(object)
-if sys.version_info >= (3, 3):
-    ChainMap = TypeAlias(object)
+ChainMap = TypeAlias(object)
 
 # Predefined type variables.
 AnyStr = TypeVar('AnyStr', str, bytes)
@@ -178,8 +177,7 @@ class Coroutine(Awaitable[_V_co], Generic[_T_co, _T_contra, _V_co]):
 # NOTE: This type does not exist in typing.py or PEP 484.
 # The parameters corrrespond to Generator, but the 4th is the original type.
 class AwaitableGenerator(Awaitable[_V_co], Generator[_T_co, _T_contra, _V_co],
-                         Generic[_T_co, _T_contra, _V_co, _S], metaclass=ABCMeta):
-    pass
+                         Generic[_T_co, _T_contra, _V_co, _S], metaclass=ABCMeta): ...
 
 @runtime
 class AsyncIterable(Protocol[_T_co]):
@@ -476,7 +474,7 @@ class Match(Generic[AnyStr]):
 
     # The regular expression object whose match() or search() method produced
     # this match instance.
-    re = ...  # type: 'Pattern[AnyStr]'
+    re = ...  # type: Pattern[AnyStr]
 
     def expand(self, template: AnyStr) -> AnyStr: ...
 
@@ -544,6 +542,7 @@ def cast(tp: Type[_T], obj: Any) -> _T: ...
 # NamedTuple is special-cased in the type checker
 class NamedTuple(tuple):
     _field_types = ...  # type: collections.OrderedDict[str, Type[Any]]
+    _field_defaults: Dict[str, Any] = ...
     _fields = ...  # type: Tuple[str, ...]
     _source = ...  # type: str
 
@@ -553,10 +552,7 @@ class NamedTuple(tuple):
     @classmethod
     def _make(cls: Type[_T], iterable: Iterable[Any]) -> _T: ...
 
-    if sys.version_info >= (3, 1):
-        def _asdict(self) -> collections.OrderedDict[str, Any]: ...
-    else:
-        def _asdict(self) -> Dict[str, Any]: ...
+    def _asdict(self) -> collections.OrderedDict[str, Any]: ...
     def _replace(self: _T, **kwargs: Any) -> _T: ...
 
 def NewType(name: str, tp: Type[_T]) -> Type[_T]: ...

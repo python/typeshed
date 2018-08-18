@@ -1,5 +1,5 @@
 import typing
-from typing import Optional, Union
+from typing import Optional
 
 __version__ = ...  # type: str
 
@@ -215,7 +215,7 @@ class Repr(expr):
     value = ...  # type: expr
 
 class Num(expr):
-    n = ...  # type: Union[int, float]
+    n = ...  # type: float
 
 class Str(expr):
     s = ...  # type: str
