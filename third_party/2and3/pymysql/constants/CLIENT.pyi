@@ -1,20 +1,18 @@
-from typing import Any
-
-LONG_PASSWORD = ...  # type: Any
-FOUND_ROWS = ...  # type: Any
-LONG_FLAG = ...  # type: Any
-CONNECT_WITH_DB = ...  # type: Any
-NO_SCHEMA = ...  # type: Any
-COMPRESS = ...  # type: Any
-ODBC = ...  # type: Any
-LOCAL_FILES = ...  # type: Any
-IGNORE_SPACE = ...  # type: Any
-PROTOCOL_41 = ...  # type: Any
-INTERACTIVE = ...  # type: Any
-SSL = ...  # type: Any
-IGNORE_SIGPIPE = ...  # type: Any
-TRANSACTIONS = ...  # type: Any
-SECURE_CONNECTION = ...  # type: Any
-MULTI_STATEMENTS = ...  # type: Any
-MULTI_RESULTS = ...  # type: Any
-CAPABILITIES = ...  # type: Any
+LONG_PASSWORD: int
+FOUND_ROWS: int
+LONG_FLAG: int
+CONNECT_WITH_DB: int
+NO_SCHEMA: int
+COMPRESS: int
+ODBC: int
+LOCAL_FILES: int
+IGNORE_SPACE: int
+PROTOCOL_41: int
+INTERACTIVE: int
+SSL: int
+IGNORE_SIGPIPE: int
+TRANSACTIONS: int
+SECURE_CONNECTION: int
+MULTI_STATEMENTS: int
+MULTI_RESULTS: int
+CAPABILITIES: int

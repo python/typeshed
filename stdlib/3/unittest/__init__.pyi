@@ -1,7 +1,7 @@
 # Stubs for unittest
 
 from typing import (
-    Any, Callable, Container, ContextManager, Dict, FrozenSet, Generic, Iterable,
+    Any, AnyStr, Callable, Container, ContextManager, Dict, FrozenSet, Generic, Iterable,
     Iterator, List, NoReturn, Optional, overload, Pattern, Sequence, Set, TextIO,
     Tuple, Type, TypeVar, Union
 )
@@ -37,8 +37,7 @@ class TestCase:
     def tearDownClass(cls) -> None: ...
     def run(self, result: Optional[TestResult] = ...) -> TestCase: ...
     def skipTest(self, reason: Any) -> None: ...
-    if sys.version_info >= (3, 4):
-        def subTest(self, msg: Any = ..., **params: Any) -> ContextManager[None]: ...
+    def subTest(self, msg: Any = ..., **params: Any) -> ContextManager[None]: ...
     def debug(self) -> None: ...
     def assertEqual(self, first: Any, second: Any, msg: Any = ...) -> None: ...
     def assertNotEqual(self, first: Any, second: Any,
@@ -103,19 +102,18 @@ class TestCase:
     def assertWarnsRegex(self,
                          exception: Union[Type[Warning], Tuple[Type[Warning], ...]],
                          msg: Any = ...) -> _AssertWarnsContext: ...
-    if sys.version_info >= (3, 4):
-        def assertLogs(
-            self, logger: Optional[logging.Logger] = ...,
-            level: Union[int, str, None] = ...
-        ) -> _AssertLogsContext: ...
+    def assertLogs(
+        self, logger: Optional[logging.Logger] = ...,
+        level: Union[int, str, None] = ...
+    ) -> _AssertLogsContext: ...
     def assertAlmostEqual(self, first: float, second: float, places: int = ...,
                           msg: Any = ..., delta: float = ...) -> None: ...
     def assertNotAlmostEqual(self, first: float, second: float,
                              places: int = ..., msg: Any = ...,
                              delta: float = ...) -> None: ...
-    def assertRegex(self, text: str, regex: Union[str, Pattern[str]],
+    def assertRegex(self, text: AnyStr, regex: Union[AnyStr, Pattern[AnyStr]],
                     msg: Any = ...) -> None: ...
-    def assertNotRegex(self, text: str, regex: Union[str, Pattern[str]],
+    def assertNotRegex(self, text: AnyStr, regex: Union[AnyStr, Pattern[AnyStr]],
                        msg: Any = ...) -> None: ...
     def assertCountEqual(self, first: Iterable[Any], second: Iterable[Any],
                          msg: Any = ...) -> None: ...
@@ -170,7 +168,7 @@ class TestCase:
     def assertNotAlmostEquals(self, first: float, second: float,
                               places: int = ..., msg: Any = ...,
                               delta: float = ...) -> None: ...
-    def assertRegexpMatches(self, text: str, regex: Union[str, Pattern[str]],
+    def assertRegexpMatches(self, text: AnyStr, regex: Union[AnyStr, Pattern[AnyStr]],
                             msg: Any = ...) -> None: ...
     @overload
     def assertRaisesRegexp(self,  # type: ignore
@@ -273,9 +271,8 @@ class TestResult:
     def addExpectedFailure(self, test: TestCase,
                            err: _SysExcInfoType) -> None: ...
     def addUnexpectedSuccess(self, test: TestCase) -> None: ...
-    if sys.version_info >= (3, 4):
-        def addSubTest(self, test: TestCase, subtest: TestCase,
-                       outcome: Optional[_SysExcInfoType]) -> None: ...
+    def addSubTest(self, test: TestCase, subtest: TestCase,
+                   outcome: Optional[_SysExcInfoType]) -> None: ...
 
 class TextTestResult(TestResult):
     def __init__(self, stream: TextIO, descriptions: bool,
@@ -306,16 +303,12 @@ class TextTestRunner(TestRunner):
                      warnings: Optional[Type[Warning]] = ...) -> None: ...
     def _makeResult(self) -> TestResult: ...
 
-if sys.version_info >= (3, 4):
-    _DefaultTestType = Union[str, Iterable[str], None]
-else:
-    _DefaultTestType = Union[str, None]
-
 # not really documented
 class TestProgram:
     result = ...  # type: TestResult
 
-def main(module: str = ..., defaultTest: _DefaultTestType = ...,
+def main(module: str = ...,
+         defaultTest: Union[str, Iterable[str], None] = ...,
          argv: Optional[List[str]] = ...,
          testRunner: Union[Type[TestRunner], TestRunner, None] = ...,
          testLoader: TestLoader = ..., exit: bool = ..., verbosity: int = ...,

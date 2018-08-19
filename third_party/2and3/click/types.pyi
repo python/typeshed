@@ -1,42 +1,7 @@
 from typing import Any, Callable, IO, Iterable, List, Optional, TypeVar, Union, Tuple as _PyTuple, Type
 import uuid
 
-from click.core import Context, Parameter
-
-
-class ParamType:
-    name: str
-    is_composite: bool
-    envvar_list_splitter: Optional[str]
-
-    def __call__(
-        self,
-        value: Optional[str],
-        param: Optional[Parameter] = ...,
-        ctx: Optional[Context] = ...,
-    ) -> Any:
-        ...
-
-    def get_metavar(self, param: Parameter) -> str:
-        ...
-
-    def get_missing_message(self, param: Parameter) -> str:
-        ...
-
-    def convert(
-        self,
-        value: str,
-        param: Optional[Parameter],
-        ctx: Optional[Context],
-    ) -> Any:
-        ...
-
-    def split_envvar_value(self, rv: str) -> List[str]:
-        ...
-
-    def fail(self, message: str, param: Optional[Parameter] = ..., ctx: Optional[Context] = ...) -> None:
-        ...
-
+from click.core import Context, Parameter, _ParamType as ParamType, _ConvertibleType
 
 class BoolParamType(ParamType):
     def __call__(
@@ -269,8 +234,6 @@ class UUIDParameterType(ParamType):
     ) -> uuid.UUID:
         ...
 
-
-_ConvertibleType = Union[type, ParamType, _PyTuple[type, ...], Callable[[str], Any], Callable[[Optional[str]], Any]]
 
 def convert_type(ty: Optional[_ConvertibleType], default: Optional[Any] = ...) -> ParamType:
     ...

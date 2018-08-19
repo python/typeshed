@@ -2,6 +2,7 @@ from typing import (
     Any, Dict, IO, Iterable, List, Iterator, Mapping, Optional, Tuple, Type, TypeVar,
     Union,
     overload,
+    BinaryIO,
 )
 import email.message
 import io
@@ -79,7 +80,8 @@ responses = ...  # type: Dict[int, str]
 class HTTPMessage(email.message.Message): ...
 
 if sys.version_info >= (3, 5):
-    class HTTPResponse(io.BufferedIOBase):
+    # Ignore errors to work around python/mypy#5027
+    class HTTPResponse(io.BufferedIOBase, BinaryIO):  # type: ignore
         msg = ...  # type: HTTPMessage
         headers = ...  # type: HTTPMessage
         version = ...  # type: int
@@ -98,12 +100,12 @@ if sys.version_info >= (3, 5):
         def fileno(self) -> int: ...
         def isclosed(self) -> bool: ...
         def __iter__(self) -> Iterator[bytes]: ...
-        def __enter__(self) -> 'HTTPResponse': ...
+        def __enter__(self) -> HTTPResponse: ...
         def __exit__(self, exc_type: Optional[Type[BaseException]],
                      exc_val: Optional[BaseException],
                      exc_tb: Optional[types.TracebackType]) -> bool: ...
 else:
-    class HTTPResponse:
+    class HTTPResponse(io.RawIOBase, BinaryIO):  # type: ignore
         msg = ...  # type: HTTPMessage
         headers = ...  # type: HTTPMessage
         version = ...  # type: int
@@ -112,8 +114,7 @@ else:
         status = ...  # type: int
         reason = ...  # type: str
         def read(self, amt: Optional[int] = ...) -> bytes: ...
-        if sys.version_info >= (3, 3):
-            def readinto(self, b: bytearray) -> int: ...
+        def readinto(self, b: bytearray) -> int: ...
         @overload
         def getheader(self, name: str) -> Optional[str]: ...
         @overload
@@ -121,9 +122,9 @@ else:
         def getheaders(self) -> List[Tuple[str, str]]: ...
         def fileno(self) -> int: ...
         def __iter__(self) -> Iterator[bytes]: ...
-        def __enter__(self) -> 'HTTPResponse': ...
-        def __exit__(self, exc_type: Optional[type],
-                     exc_val: Optional[Exception],
+        def __enter__(self) -> HTTPResponse: ...
+        def __exit__(self, exc_type: Optional[Type[BaseException]],
+                     exc_val: Optional[BaseException],
                      exc_tb: Optional[types.TracebackType]) -> bool: ...
 
 class HTTPConnection:
@@ -134,20 +135,13 @@ class HTTPConnection:
             timeout: int = ...,
             source_address: Optional[Tuple[str, int]] = ..., blocksize: int = ...
         ) -> None: ...
-    elif sys.version_info >= (3, 4):
+    else:
         def __init__(
             self,
             host: str, port: Optional[int] = ...,
             timeout: int = ...,
             source_address: Optional[Tuple[str, int]] = ...
         ) -> None: ...
-    else:
-        def __init__(
-            self,
-            host: str, port: Optional[int] = ...,
-            strict: bool = ..., timeout: int = ...,
-            source_address: Optional[Tuple[str, int]] = ...
-        )-> None: ...
     def request(self, method: str, url: str,
                 body: Optional[_DataType] = ...,
                 headers: Mapping[str, str] = ...) -> None: ...
@@ -164,24 +158,14 @@ class HTTPConnection:
     def send(self, data: _DataType) -> None: ...
 
 class HTTPSConnection(HTTPConnection):
-    if sys.version_info >= (3, 4):
-        def __init__(self,
-                     host: str, port: Optional[int] = ...,
-                     key_file: Optional[str] = ...,
-                     cert_file: Optional[str] = ...,
-                     timeout: int = ...,
-                     source_address: Optional[Tuple[str, int]] = ...,
-                     *, context: Optional[ssl.SSLContext] = ...,
-                     check_hostname: Optional[bool] = ...) -> None: ...
-    else:
-        def __init__(self,
-                     host: str, port: Optional[int] = ...,
-                     key_file: Optional[str] = ...,
-                     cert_file: Optional[str] = ...,
-                     strict: bool = ..., timeout: int = ...,
-                     source_address: Optional[Tuple[str, int]] = ...,
-                     *, context: Optional[ssl.SSLContext] = ...,
-                     check_hostname: Optional[bool] = ...) -> None: ...
+    def __init__(self,
+                 host: str, port: Optional[int] = ...,
+                 key_file: Optional[str] = ...,
+                 cert_file: Optional[str] = ...,
+                 timeout: int = ...,
+                 source_address: Optional[Tuple[str, int]] = ...,
+                 *, context: Optional[ssl.SSLContext] = ...,
+                 check_hostname: Optional[bool] = ...) -> None: ...
 
 class HTTPException(Exception): ...
 error = HTTPException

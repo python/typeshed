@@ -2,8 +2,6 @@
 
 # NOTE: These are incomplete!
 
-import sys
-import typing
 from typing import NamedTuple, Tuple
 
 class stat_result:
@@ -23,11 +21,9 @@ class stat_result:
     st_atime: float  # time of most recent access,
     st_mtime: float  # time of most recent content modification,
     st_ctime: float  # platform dependent (time of most recent metadata change on Unix, or the time of creation on Windows)
-
-    if sys.version_info >= (3, 3):
-        st_atime_ns: int  # time of most recent access, in nanoseconds
-        st_mtime_ns: int  # time of most recent content modification in nanoseconds
-        st_ctime_ns: int  # platform dependent (time of most recent metadata change on Unix, or the time of creation on Windows) in nanoseconds
+    st_atime_ns: int  # time of most recent access, in nanoseconds
+    st_mtime_ns: int  # time of most recent content modification in nanoseconds
+    st_ctime_ns: int  # platform dependent (time of most recent metadata change on Unix, or the time of creation on Windows) in nanoseconds
 
     # not documented
     def __init__(self, tuple: Tuple[int, ...]) -> None: ...
@@ -49,26 +45,25 @@ class stat_result:
     st_creator: int
     st_type: int
 
-if sys.version_info >= (3, 3):
-    uname_result = NamedTuple('uname_result', [('sysname', str), ('nodename', str),
-        ('release', str), ('version', str), ('machine', str)])
+uname_result = NamedTuple('uname_result', [('sysname', str), ('nodename', str),
+    ('release', str), ('version', str), ('machine', str)])
 
-    times_result = NamedTuple('times_result', [
-        ('user', float),
-        ('system', float),
-        ('children_user', float),
-        ('children_system', float),
-        ('elapsed', float),
-    ])
+times_result = NamedTuple('times_result', [
+    ('user', float),
+    ('system', float),
+    ('children_user', float),
+    ('children_system', float),
+    ('elapsed', float),
+])
 
-    waitid_result = NamedTuple('waitid_result', [
-        ('si_pid', int),
-        ('si_uid', int),
-        ('si_signo', int),
-        ('si_status', int),
-        ('si_code', int),
-    ])
+waitid_result = NamedTuple('waitid_result', [
+    ('si_pid', int),
+    ('si_uid', int),
+    ('si_signo', int),
+    ('si_status', int),
+    ('si_code', int),
+])
 
-    sched_param = NamedTuple('sched_priority', [
-        ('sched_priority', int),
-    ])
+sched_param = NamedTuple('sched_priority', [
+    ('sched_priority', int),
+])

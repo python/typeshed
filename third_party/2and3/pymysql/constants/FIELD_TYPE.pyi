@@ -1,31 +1,29 @@
-from typing import Any
-
-DECIMAL = ...  # type: Any
-TINY = ...  # type: Any
-SHORT = ...  # type: Any
-LONG = ...  # type: Any
-FLOAT = ...  # type: Any
-DOUBLE = ...  # type: Any
-NULL = ...  # type: Any
-TIMESTAMP = ...  # type: Any
-LONGLONG = ...  # type: Any
-INT24 = ...  # type: Any
-DATE = ...  # type: Any
-TIME = ...  # type: Any
-DATETIME = ...  # type: Any
-YEAR = ...  # type: Any
-NEWDATE = ...  # type: Any
-VARCHAR = ...  # type: Any
-BIT = ...  # type: Any
-NEWDECIMAL = ...  # type: Any
-ENUM = ...  # type: Any
-SET = ...  # type: Any
-TINY_BLOB = ...  # type: Any
-MEDIUM_BLOB = ...  # type: Any
-LONG_BLOB = ...  # type: Any
-BLOB = ...  # type: Any
-VAR_STRING = ...  # type: Any
-STRING = ...  # type: Any
-GEOMETRY = ...  # type: Any
-CHAR = ...  # type: Any
-INTERVAL = ...  # type: Any
+DECIMAL: int
+TINY: int
+SHORT: int
+LONG: int
+FLOAT: int
+DOUBLE: int
+NULL: int
+TIMESTAMP: int
+LONGLONG: int
+INT24: int
+DATE: int
+TIME: int
+DATETIME: int
+YEAR: int
+NEWDATE: int
+VARCHAR: int
+BIT: int
+NEWDECIMAL: int
+ENUM: int
+SET: int
+TINY_BLOB: int
+MEDIUM_BLOB: int
+LONG_BLOB: int
+BLOB: int
+VAR_STRING: int
+STRING: int
+GEOMETRY: int
+CHAR: int
+INTERVAL: int

@@ -6,8 +6,9 @@ from typing import (
 from wsgiref.types import WSGIEnvironment, InputStream
 
 from .datastructures import (
-    CombinedMultiDict, EnvironHeaders, Headers, ImmutableMultiDict,
-    MultiDict, TypeConversionDict, HeaderSet,
+    Authorization, CombinedMultiDict, EnvironHeaders, Headers, ImmutableMultiDict,
+    MultiDict, ImmutableTypeConversionDict, HeaderSet,
+    Accept, MIMEAccept, CharsetAccept, LanguageAccept,
 )
 
 class BaseRequest:
@@ -27,7 +28,7 @@ class BaseRequest:
     @property
     def url_charset(self) -> str: ...
     @classmethod
-    def from_values(cls, *args, **kwargs) -> 'BaseRequest': ...
+    def from_values(cls, *args, **kwargs) -> BaseRequest: ...
     @classmethod
     def application(cls, f): ...
     @property
@@ -46,7 +47,8 @@ class BaseRequest:
     form = ...  # type: ImmutableMultiDict
     values = ...  # type: CombinedMultiDict
     files = ...  # type: MultiDict
-    cookies = ...  # type: TypeConversionDict
+    @property
+    def cookies(self) -> ImmutableTypeConversionDict[str, str]: ...
     headers = ...  # type: EnvironHeaders
     path = ...  # type: Text
     full_path = ...  # type: Text
@@ -84,7 +86,7 @@ class BaseResponse:
     status = ...  # type: str
     direct_passthrough = ...  # type: bool
     response = ...  # type: Iterable[bytes]
-    def __init__(self, response: Optional[Union[Iterable[bytes], bytes]] = ...,
+    def __init__(self, response: Optional[Union[str, bytes, bytearray, Iterable[str], Iterable[bytes]]] = ...,
                  status: Optional[Union[Text, int]] = ...,
                  headers: Optional[Union[Headers,
                                          Mapping[Text, Text],
@@ -120,11 +122,15 @@ class BaseResponse:
     def get_wsgi_response(self, environ): ...
     def __call__(self, environ, start_response): ...
 
-class AcceptMixin:
-    def accept_mimetypes(self): ...
-    def accept_charsets(self): ...
-    def accept_encodings(self): ...
-    def accept_languages(self): ...
+class AcceptMixin(object):
+    @property
+    def accept_mimetypes(self) -> MIMEAccept: ...
+    @property
+    def accept_charsets(self) -> CharsetAccept: ...
+    @property
+    def accept_encodings(self) -> Accept: ...
+    @property
+    def accept_languages(self) -> LanguageAccept: ...
 
 class ETagRequestMixin:
     def cache_control(self): ...
@@ -139,7 +145,8 @@ class UserAgentMixin:
     def user_agent(self): ...
 
 class AuthorizationMixin:
-    def authorization(self): ...
+    @property
+    def authorization(self) -> Optional[Authorization]: ...
 
 class StreamOnlyMixin:
     disable_data_descriptor = ...  # type: Any
