@@ -305,7 +305,7 @@ class OrderedDict(Dict[_KT, _VT], Reversible[_KT], Generic[_KT, _VT]):
 _DefaultDictT = TypeVar('_DefaultDictT', bound=defaultdict)
 
 class defaultdict(Dict[_KT, _VT], Generic[_KT, _VT]):
-    default_factory = ...  # type: Callable[[], _VT]
+    default_factory = ...  # type: Optional[Callable[[], _VT]]
 
     @overload
     def __init__(self, **kwargs: _VT) -> None: ...
