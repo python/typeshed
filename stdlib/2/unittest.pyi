@@ -226,7 +226,7 @@ def skip(reason: Union[str, unicode]) -> Any: ...
 class TestProgram:
     result = ...  # type: TestResult
 
-def main(module: str = ..., defaultTest: Optional[str] = ...,
+def main(module: Union[None, Text, types.ModuleType] = ..., defaultTest: Optional[str] = ...,
          argv: Optional[Sequence[str]] = ...,
          testRunner: Union[Type[TextTestRunner], TextTestRunner, None] = ...,
          testLoader: TestLoader = ..., exit: bool = ..., verbosity: int = ...,
