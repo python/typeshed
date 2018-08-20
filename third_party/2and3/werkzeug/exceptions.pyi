@@ -1,11 +1,12 @@
-from typing import Any, Dict, NoReturn
+from typing import Any, Dict, NoReturn, Optional
 
 from werkzeug.wrappers import Response
 
 class HTTPException(Exception):
-    code = ...  # type: int
-    description = ...  # type: str
-    def __init__(self, description=None, response=None) -> None: ...
+    code = ...  # type: Optional[int]
+    description = ...  # type: Optional[str]
+    response = ...  # type: Optional[Response]
+    def __init__(self, description: Optional[str]=..., response: Optional[Response]=...) -> None: ...
     @classmethod
     def wrap(cls, exception, name=None): ...
     @property
