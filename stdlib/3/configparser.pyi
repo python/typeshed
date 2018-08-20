@@ -113,7 +113,12 @@ class RawConfigParser(_parser):
     def _get_conv(self, section: str, option: str, conv: Callable[[str], _T], *, raw: bool = ..., vars: _section = ..., fallback: _T = ...) -> _T: ...
 
     # This is incompatible with MutableMapping so we ignore the type
+    @overload
     def get(self, section: str, option: str, *, raw: bool = ..., vars: _section = ..., fallback: str = ...) -> str:  # type: ignore
+        ...
+
+    @overload
+    def get(self, section: str, option: str, *, raw: bool = ..., vars: _section = ..., fallback: None = ...) -> Optional[str]:  # type: ignore
         ...
 
     @overload
