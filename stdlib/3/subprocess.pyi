@@ -46,12 +46,8 @@ if sys.version_info >= (3, 5):
     if sys.version_info >= (3, 7):
         # Nearly the same args as for 3.6, except for capture_output and text
         def run(args: _CMD,
-                timeout: Optional[float] = ...,
-                input: Optional[_TXT] = ...,
-                check: bool = ...,
                 bufsize: int = ...,
                 executable: _PATH = ...,
-                capture_output: bool = ...,
                 stdin: _FILE = ...,
                 stdout: _FILE = ...,
                 stderr: _FILE = ...,
@@ -61,21 +57,22 @@ if sys.version_info >= (3, 5):
                 cwd: Optional[_PATH] = ...,
                 env: Optional[_ENV] = ...,
                 universal_newlines: bool = ...,
-                text: Optional[bool] = ...,
                 startupinfo: Any = ...,
                 creationflags: int = ...,
                 restore_signals: bool = ...,
                 start_new_session: bool = ...,
                 pass_fds: Any = ...,
                 *,
+                capture_output: bool = ...,
+                check: bool = ...,
                 encoding: Optional[str] = ...,
-                errors: Optional[str] = ...) -> CompletedProcess: ...
+                errors: Optional[str] = ...,
+                input: Optional[_TXT] = ...,
+                text: Optional[bool] = ...,
+                timeout: Optional[float] = ...) -> CompletedProcess: ...
     elif sys.version_info >= (3, 6):
         # Nearly same args as Popen.__init__ except for timeout, input, and check
         def run(args: _CMD,
-                timeout: Optional[float] = ...,
-                input: Optional[_TXT] = ...,
-                check: bool = ...,
                 bufsize: int = ...,
                 executable: _PATH = ...,
                 stdin: _FILE = ...,
@@ -93,8 +90,11 @@ if sys.version_info >= (3, 5):
                 start_new_session: bool = ...,
                 pass_fds: Any = ...,
                 *,
+                check: bool = ...,
                 encoding: Optional[str] = ...,
-                errors: Optional[str] = ...) -> CompletedProcess: ...
+                errors: Optional[str] = ...,
+                input: Optional[_TXT] = ...,
+                timeout: Optional[float] = ...) -> CompletedProcess: ...
     else:
         # Nearly same args as Popen.__init__ except for timeout, input, and check
         def run(args: _CMD,
