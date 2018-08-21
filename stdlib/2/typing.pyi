@@ -416,7 +416,10 @@ class Pattern(Generic[AnyStr]):
 def get_type_hints(obj: Callable, globalns: Optional[dict[Text, Any]] = ...,
                    localns: Optional[dict[Text, Any]] = ...) -> None: ...
 
+@overload
 def cast(tp: Type[_T], obj: Any) -> _T: ...
+@overload
+def cast(tp: str, obj: Any) -> Any: ...
 
 # Type constructors
 
