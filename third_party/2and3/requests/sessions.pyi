@@ -12,7 +12,6 @@ from . import utils
 from . import exceptions
 from .packages.urllib3 import _collections
 from . import structures
-from . import adapters
 from . import status_codes
 
 BaseAdapter = adapters.BaseAdapter
