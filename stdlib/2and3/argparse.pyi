@@ -122,15 +122,29 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
                      add_help: bool = ...) -> None: ...
     def parse_args(self, args: Optional[Sequence[_Text]] = ...,
                    namespace: Optional[Namespace] = ...) -> Namespace: ...
-    def add_subparsers(self, title: _Text = ...,
-                       description: Optional[_Text] = ...,
-                       prog: _Text = ...,
-                       parser_class: Type[ArgumentParser] = ...,
-                       action: Type[Action] = ...,
-                       option_string: _Text = ...,
-                       dest: Optional[_Text] = ...,
-                       help: Optional[_Text] = ...,
-                       metavar: Optional[_Text] = ...) -> _SubParsersAction: ...
+
+    if sys.version_info >= (3, 7):
+        def add_subparsers(self, title: _Text = ...,
+                           description: Optional[_Text] = ...,
+                           prog: _Text = ...,
+                           parser_class: Type[ArgumentParser] = ...,
+                           action: Type[Action] = ...,
+                           option_string: _Text = ...,
+                           dest: Optional[_Text] = ...,
+                           required: bool = ...,
+                           help: Optional[_Text] = ...,
+                           metavar: Optional[_Text] = ...) -> _SubParsersAction: ...
+    else:
+        def add_subparsers(self, title: _Text = ...,
+                           description: Optional[_Text] = ...,
+                           prog: _Text = ...,
+                           parser_class: Type[ArgumentParser] = ...,
+                           action: Type[Action] = ...,
+                           option_string: _Text = ...,
+                           dest: Optional[_Text] = ...,
+                           help: Optional[_Text] = ...,
+                           metavar: Optional[_Text] = ...) -> _SubParsersAction: ...
+
     def print_usage(self, file: Optional[IO[str]] = ...) -> None: ...
     def print_help(self, file: Optional[IO[str]] = ...) -> None: ...
     def format_usage(self) -> str: ...
