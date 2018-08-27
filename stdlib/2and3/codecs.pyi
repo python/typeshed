@@ -13,10 +13,11 @@ import types
 _Decoded = Text
 _Encoded = bytes
 
-# TODO: It is not possible to specify these signatures correctly, because
-# they have an optional positional or keyword argument for errors=.
-_Encoder = Callable[[_Decoded], Tuple[_Encoded, int]]  # signature of Codec().encode
-_Decoder = Callable[[_Encoded], Tuple[_Decoded, int]]  # signature of Codec().decode
+class _Encoder:
+    def __call__(self, input: _Decoded, errors: str = ...) -> Tuple[_Encoded, int]: ...  # signature of Codec().encode
+class _Decoder:
+    def __call__(self, input: _Encoded, errors: str = ...) -> Tuple[_Decoded, int]: ...  # signature of Codec().decode
+
 _StreamReader = Callable[[IO[_Encoded]], StreamReader]  # signature of StreamReader __init__
 _StreamWriter = Callable[[IO[_Encoded]], StreamWriter]  # signature of StreamWriter __init__
 _IncrementalEncoder = Callable[[], IncrementalEncoder]  # signature of IncrementalEncoder __init__
