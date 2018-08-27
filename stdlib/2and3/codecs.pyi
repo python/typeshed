@@ -1,5 +1,5 @@
 import sys
-from typing import Any, BinaryIO, Callable, Generator, IO, Iterable, List, Optional, Text, TextIO, Tuple, Type, TypeVar, Union
+from typing import Any, BinaryIO, Callable, Generator, IO, Iterable, List, Optional, Protocol, Text, TextIO, Tuple, Type, TypeVar, Union
 
 from abc import abstractmethod
 import types
@@ -13,9 +13,9 @@ import types
 _Decoded = Text
 _Encoded = bytes
 
-class _Encoder:
+class _Encoder(Protocol):
     def __call__(self, input: _Decoded, errors: str = ...) -> Tuple[_Encoded, int]: ...  # signature of Codec().encode
-class _Decoder:
+class _Decoder(Protocol):
     def __call__(self, input: _Encoded, errors: str = ...) -> Tuple[_Decoded, int]: ...  # signature of Codec().decode
 
 _StreamReader = Callable[[IO[_Encoded]], StreamReader]  # signature of StreamReader __init__
