@@ -132,6 +132,8 @@ class SMTP_SSL(SMTP):
                  source_address: Optional[_SourceAddress] = ...,
                  context: Optional[SSLContext] = ...) -> None: ...
 
+LMTP_PORT: int
+
 class LMTP(SMTP):
     def __init__(self, host: str = ..., port: int = ...,
                  local_hostname: Optional[str] = ...,
