@@ -1,5 +1,5 @@
 import sys
-from typing import Any, BinaryIO, Callable, Generator, IO, Iterable, List, Optional, Text, TextIO, Tuple, Type, TypeVar, Union
+from typing import Any, BinaryIO, Callable, Generator, IO, Iterable, List, Optional, Protocol, Text, TextIO, Tuple, Type, TypeVar, Union
 
 from abc import abstractmethod
 import types
@@ -13,14 +13,17 @@ import types
 _Decoded = Text
 _Encoded = bytes
 
-# TODO: It is not possible to specify these signatures correctly, because
-# they have an optional positional or keyword argument for errors=.
-_Encoder = Callable[[_Decoded], Tuple[_Encoded, int]]  # signature of Codec().encode
-_Decoder = Callable[[_Encoded], Tuple[_Decoded, int]]  # signature of Codec().decode
+class _Encoder(Protocol):
+    def __call__(self, input: _Decoded, errors: str = ...) -> Tuple[_Encoded, int]: ...  # signature of Codec().encode
+class _Decoder(Protocol):
+    def __call__(self, input: _Encoded, errors: str = ...) -> Tuple[_Decoded, int]: ...  # signature of Codec().decode
+
+# TODO: Replace the following Callable definitions with protocol classes as above.
 _StreamReader = Callable[[IO[_Encoded]], StreamReader]  # signature of StreamReader __init__
 _StreamWriter = Callable[[IO[_Encoded]], StreamWriter]  # signature of StreamWriter __init__
 _IncrementalEncoder = Callable[[], IncrementalEncoder]  # signature of IncrementalEncoder __init__
 _IncrementalDecoder = Callable[[], IncrementalDecoder]  # signature of IncrementalDecoder __init__
+
 def encode(obj: _Decoded, encoding: str = ..., errors: str = ...) -> _Encoded: ...
 def decode(obj: _Encoded, encoding: str = ..., errors: str = ...) -> _Decoded: ...
 def lookup(encoding: str) -> CodecInfo: ...
