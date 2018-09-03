@@ -23,14 +23,12 @@ class AsyncHTTPClient(Configurable):
     def configure(cls, impl, **kwargs): ...
 
 class HTTPRequest:
-    headers = ...  # type: Any
     proxy_host = ...  # type: Any
     proxy_port = ...  # type: Any
     proxy_username = ...  # type: Any
     proxy_password = ...  # type: Any
     url = ...  # type: Any
     method = ...  # type: Any
-    body = ...  # type: Any
     body_producer = ...  # type: Any
     auth_username = ...  # type: Any
     auth_password = ...  # type: Any
@@ -63,22 +61,6 @@ class HTTPRequest:
     def body(self): ...
     @body.setter
     def body(self, value): ...
-    @property
-    def body_producer(self): ...
-    @body_producer.setter
-    def body_producer(self, value): ...
-    @property
-    def streaming_callback(self): ...
-    @streaming_callback.setter
-    def streaming_callback(self, value): ...
-    @property
-    def header_callback(self): ...
-    @header_callback.setter
-    def header_callback(self, value): ...
-    @property
-    def prepare_curl_callback(self): ...
-    @prepare_curl_callback.setter
-    def prepare_curl_callback(self, value): ...
 
 class HTTPResponse:
     request = ...  # type: Any
