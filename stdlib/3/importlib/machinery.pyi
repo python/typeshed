@@ -31,8 +31,6 @@ class BuiltinImporter(importlib.abc.MetaPathFinder,
     @classmethod
     def get_source(cls, fullname: str) -> None: ...
     # Loader
-    @classmethod
-    def load_module(cls, fullname: str) -> types.ModuleType: ...
     @staticmethod
     def module_repr(module: types.ModuleType) -> str: ...  # type: ignore
     @classmethod
@@ -63,8 +61,6 @@ class FrozenImporter(importlib.abc.MetaPathFinder, importlib.abc.InspectLoader):
     @classmethod
     def get_source(cls, fullname: str) -> None: ...
     # Loader
-    @classmethod
-    def load_module(cls, fullname: str) -> types.ModuleType: ...
     @staticmethod
     def module_repr(module: types.ModuleType) -> str: ...  # type: ignore
     @classmethod
