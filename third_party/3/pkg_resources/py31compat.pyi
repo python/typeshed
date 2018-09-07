@@ -3,6 +3,7 @@ import os
 import sys
 
 needs_makedirs: bool
+
 def _makedirs_31(path: Text, exist_ok: bool = ...) -> None: ...
 
 # _makedirs_31 has special behavior to handle an edge case that was removed in
