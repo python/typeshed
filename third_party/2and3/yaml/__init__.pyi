@@ -36,8 +36,7 @@ def add_multi_representer(data_type, multi_representer, Dumper=...): ...
 class YAMLObjectMetaclass(type):
     def __init__(cls, name, bases, kwds) -> None: ...
 
-class YAMLObject:
-    __metaclass__ = YAMLObjectMetaclass
+class YAMLObject(metaclass=YAMLObjectMetaclass):
     yaml_loader = ...  # type: Any
     yaml_dumper = ...  # type: Any
     yaml_tag = ...  # type: Any
