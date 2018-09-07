@@ -345,7 +345,7 @@ class arguments(AST):
     vararg = ...  # type: Optional[identifier]
     kwarg = ...  # type: Optional[identifier]
     defaults = ...  # type: typing.List[expr]
-    type_comments = ...  # type: typing.List[str]
+    type_comments = ...  # type: typing.List[Optional[str]]
 
 class keyword(AST):
     arg = ...  # type: identifier
