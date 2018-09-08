@@ -110,6 +110,10 @@ if sys.version_info >= (3, 7):
         run as run,
     )
 
+if sys.version_info < (3, 7):
+    from asyncio.tasks import (
+        async as async
+    )
 
 # TODO: It should be possible to instantiate these classes, but mypy
 # currently disallows this.

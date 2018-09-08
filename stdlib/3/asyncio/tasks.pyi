@@ -27,6 +27,8 @@ def ensure_future(coro_or_future: _FutureT[_T],
                   *, loop: AbstractEventLoop = ...) -> Future[_T]: ...
 # Prior to Python 3.7 'async' was an alias for 'ensure_future'.
 # It became a keyword in 3.7.
+if sys.version_info < (3, 7):
+    async = ensure_future
 @overload
 def gather(coro_or_future1: _FutureT[_T1],
            *, loop: AbstractEventLoop = ..., return_exceptions: bool = ...) -> Future[Tuple[_T1]]: ...
