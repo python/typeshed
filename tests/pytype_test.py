@@ -181,11 +181,16 @@ def pytype_test(args):
               '--python36-exe)' % args.python36_exe)
         return 0, 0
 
-    stdlib = 'stdlib/'
-    six = 'third_party/.*/six/'
-    mypy_extensions = 'third_party/.*/mypy_extensions'
-    wanted = re.compile(
-        r'(?:%s).*\.pyi$' % '|'.join([stdlib, six, mypy_extensions]))
+    # TODO(rchen152): Keep expanding our third_party/ coverage so we can move
+    # to a small blacklist rather than an ever-growing whitelist.
+    wanted = [
+        'stdlib/',
+        'third_party/.*/mypy_extensions',
+        'third_party/.*/pkg_resources',
+        'third_party/.*/six/',
+        'third_party/.*/yaml/',
+    ]
+    wanted_re = re.compile(r'(?:%s).*\.pyi$' % '|'.join(wanted))
     skip, parse_only = load_blacklist(dirs)
     skipped = PathMatcher(skip)
     parse_only = PathMatcher(parse_only)
@@ -214,7 +219,7 @@ def pytype_test(args):
         for f in sorted(filenames):
             f = os.path.join(root, f)
             rel = _get_relative(f)
-            if wanted.search(rel):
+            if wanted_re.search(rel):
                 if parse_only.search(rel):
                     pytd_run.append(f)
                 elif not skipped.search(rel):
