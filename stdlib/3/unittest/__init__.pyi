@@ -307,7 +307,7 @@ class TextTestRunner(TestRunner):
 class TestProgram:
     result = ...  # type: TestResult
 
-def main(module: str = ...,
+def main(module: Union[None, str, ModuleType] = ...,
          defaultTest: Union[str, Iterable[str], None] = ...,
          argv: Optional[List[str]] = ...,
          testRunner: Union[Type[TestRunner], TestRunner, None] = ...,
