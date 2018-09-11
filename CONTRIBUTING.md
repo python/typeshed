@@ -117,8 +117,8 @@ should prefer to external type stubs).
 
 If you wish typeshed maintainers to review your third party stubs,
 please [open a new issue](https://github.com/python/typeshed/issues/new)
-in the typeshed repository with a link to the GitHub pull request
-you wish be have reviewed.
+in the typeshed repository with a link to the code you would like us to
+review.  Please note that reviews are provided as time allows.
 
 ### What to include
 
