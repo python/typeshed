@@ -12,12 +12,10 @@ are important to the project's success.
 2. Set up your environment to be able to [run all tests](README.md#running-the-tests).  They should pass.
 3. [Prepare your changes](#preparing-changes):
     * [Contact us](#discussion) before starting significant work.
-    * IMPORTANT: For new libraries, [get permission from the library owner first](#adding-a-new-library).
     * Create your stubs [conforming to the coding style](#stub-file-coding-style).
     * Make sure your tests pass cleanly on `mypy`, `pytype`, and `flake8`.
 4. [Submit your changes](#submitting-changes):
     * Open a pull request
-    * For new libraries, [include a reference to where you got permission](#adding-a-new-library)
 5. You can expect a reply within a few days:
     * Diffs are merged when considered ready by the core team.
     * Feel free to ping the core team if your pull request goes without
@@ -105,17 +103,22 @@ with what you'd like to do or have ideas that will help you do it.
 
 ### Adding a new library
 
-If you want to submit type stubs for a new library, you need to
+Stubs for new third party libraries are generally not accepted into
+typeshed anymore.  Such stubs should either be added directly to the
+third party package or distributed as a separate package.  See
+[PEP 561](https://www.python.org/dev/peps/pep-0561/) for details.
+
+When creating a separate package, you should
 **contact the maintainers of the original library** first to let them
 know and **get their permission**.  Do it by opening an issue on their
 project's bug tracker.  This gives them the opportunity to
 consider adopting type hints directly in their codebase (which you
-should prefer to external type stubs).  When the project owners agree
-for you to submit stubs here, open a pull request **referencing the
-message where you received permission**.
+should prefer to external type stubs).
 
-Make sure your changes pass the tests (the [README](README.md#running-the-tests)
-has more information).
+If you wish typeshed maintainers to review your third party stubs,
+please [open a new issue](https://github.com/python/typeshed/issues/new)
+in the typeshed repository with a link to the GitHub pull request
+you wish be have reviewed.
 
 ### What to include
 
