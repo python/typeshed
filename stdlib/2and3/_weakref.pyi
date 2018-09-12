@@ -1,7 +1,7 @@
 import sys
 from typing import Any, Callable, Generic, Optional, TypeVar, overload
 
-_C = TypeVar('_C', bound=Callable[[...], Any])
+_C = TypeVar('_C', bound=Callable[..., Any])
 _T = TypeVar('_T')
 
 class CallableProxyType(object):  # "weakcallableproxy"
