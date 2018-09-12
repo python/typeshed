@@ -83,8 +83,12 @@ class time:
     max: ClassVar[time]
     resolution: ClassVar[timedelta]
 
-    def __init__(self, hour: int = ..., minute: int = ..., second: int = ..., microsecond: int = ...,
-                 tzinfo: Optional[_tzinfo] = ...) -> None: ...
+    if sys.version_info >= (3, 6):
+        def __init__(self, hour: int = ..., minute: int = ..., second: int = ..., microsecond: int = ...,
+                     tzinfo: Optional[_tzinfo] = ..., *, fold: int = ...) -> None: ...
+    else:
+        def __init__(self, hour: int = ..., minute: int = ..., second: int = ..., microsecond: int = ...,
+                     tzinfo: Optional[_tzinfo] = ...) -> None: ...
 
     @property
     def hour(self) -> int: ...
@@ -133,9 +137,14 @@ class timedelta(SupportsAbs[timedelta]):
     max: ClassVar[timedelta]
     resolution: ClassVar[timedelta]
 
-    def __init__(self, days: float = ..., seconds: float = ..., microseconds: float = ...,
-                 milliseconds: float = ..., minutes: float = ..., hours: float = ...,
-                 weeks: float = ...) -> None: ...
+    if sys.version_info >= (3, 6):
+        def __init__(self, days: float = ..., seconds: float = ..., microseconds: float = ...,
+                     milliseconds: float = ..., minutes: float = ..., hours: float = ...,
+                     weeks: float = ..., *, fold: int = ...) -> None: ...
+    else:
+        def __init__(self, days: float = ..., seconds: float = ..., microseconds: float = ...,
+                     milliseconds: float = ..., minutes: float = ..., hours: float = ...,
+                     weeks: float = ...) -> None: ...
 
     @property
     def days(self) -> int: ...
