@@ -2,7 +2,7 @@ import numbers
 import sys
 from types import TracebackType
 from typing import (
-    Any, Dict, NamedTuple, Optional, Sequence, Tuple, Union, Text, Type, Container, List,
+    Any, Container, Dict, List, NamedTuple, Optional, Sequence, Text, Tuple, Type, TypeVar, Union,
 )
 
 _Decimal = Union[Decimal, int]
@@ -11,6 +11,7 @@ if sys.version_info >= (3,):
     _ComparableNum = Union[Decimal, float, numbers.Rational]
 else:
     _ComparableNum = Union[Decimal, float]
+_DecimalT = TypeVar('_DecimalT', bound=Decimal)
 
 DecimalTuple = NamedTuple('DecimalTuple',
                           [('sign', int),
@@ -68,7 +69,7 @@ def getcontext() -> Context: ...
 def localcontext(ctx: Optional[Context] = ...) -> _ContextManager: ...
 
 class Decimal(object):
-    def __new__(cls, value: _DecimalNew = ..., context: Optional[Context] = ...) -> None: ...
+    def __new__(cls: Type[_DecimalT], value: _DecimalNew = ..., context: Optional[Context] = ...) -> _DecimalT: ...
     @classmethod
     def from_float(cls, f: float) -> Decimal: ...
     if sys.version_info >= (3,):
