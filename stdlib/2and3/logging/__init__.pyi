@@ -191,6 +191,7 @@ class LogRecord:
     asctime = ...  # type: str
     created = ...  # type: int
     exc_info = ...  # type: Optional[_SysExcInfoType]
+    exc_text = ...  # type: Optional[str]
     filename = ...  # type: str
     funcName = ...  # type: str
     levelname = ...  # type: str
