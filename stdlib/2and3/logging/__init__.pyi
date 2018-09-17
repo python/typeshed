@@ -125,20 +125,21 @@ class Logger(Filterer):
         def hasHandlers(self) -> bool: ...
 
 
-CRITICAL = ...  # type: int
-FATAL = ...  # type: int
-ERROR = ...  # type: int
-WARNING = ...  # type: int
-WARN = ...  # type: int
-INFO = ...  # type: int
-DEBUG = ...  # type: int
-NOTSET = ...  # type: int
+CRITICAL: int
+FATAL: int
+ERROR: int
+WARNING: int
+WARN: int
+INFO: int
+DEBUG: int
+NOTSET: int
 
 
 class Handler(Filterer):
-    level = ...  # type: int
-    formatter = ...  # type: Optional[Formatter]
-    lock = ...  # type: Optional[threading.Lock]
+    level: int  # undocumented
+    formatter: Optional[Formatter]  # undocumented
+    lock: Optional[threading.Lock]  # undocumented
+    name: Optional[str]  # undocumented
     def __init__(self, level: _Level = ...) -> None: ...
     def createLock(self) -> None: ...
     def acquire(self) -> None: ...
