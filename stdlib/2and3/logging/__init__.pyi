@@ -136,10 +136,10 @@ NOTSET: int
 
 
 class Handler(Filterer):
-    level: int
-    formatter: Optional[Formatter]
-    lock: Optional[threading.Lock]
-    name: str
+    level: int  # undocumented
+    formatter: Optional[Formatter]  # undocumented
+    lock: Optional[threading.Lock]  # undocumented
+    name: Optional[str]  # undocumented
     def __init__(self, level: _Level = ...) -> None: ...
     def createLock(self) -> None: ...
     def acquire(self) -> None: ...
