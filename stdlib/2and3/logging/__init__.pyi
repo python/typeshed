@@ -226,6 +226,8 @@ class LogRecord:
 
 
 class LoggerAdapter:
+    logger: Logger
+    extra: Mapping[str, Any]
     def __init__(self, logger: Logger, extra: Mapping[str, Any]) -> None: ...
     def process(self, msg: Any, kwargs: MutableMapping[str, Any]) -> Tuple[Any, MutableMapping[str, Any]]: ...
     if sys.version_info >= (3,):
