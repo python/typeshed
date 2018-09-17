@@ -1,5 +1,5 @@
 import sys
-from typing import Any, BinaryIO, Callable, Generator, IO, Iterable, List, Optional, Protocol, Text, TextIO, Tuple, Type, TypeVar, Union
+from typing import Any, BinaryIO, Callable, Generator, IO, Iterable, Iterator, List, Optional, Protocol, Text, TextIO, Tuple, Type, TypeVar, Union
 
 from abc import abstractmethod
 import types
@@ -156,6 +156,7 @@ class StreamReader(Codec):
     def __exit__(
         self, typ: Optional[Type[BaseException]], exc: Optional[BaseException], tb: Optional[types.TracebackType]
     ) -> None: ...
+    def __iter__(self) -> Iterator[_Decoded]: ...
     def __getattr__(self, name: str) -> Any: ...
 
 _T = TypeVar("_T", bound=StreamReaderWriter)
