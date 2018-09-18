@@ -209,6 +209,7 @@ STDOUT = ...  # type: int
 DEVNULL = ...  # type: int
 class SubprocessError(Exception): ...
 class TimeoutExpired(SubprocessError):
+    def __init__(self, cmd: _CMD, timeout: float, output: Optional[_TXT] = ..., stderr: Optional[_TXT] = ...) -> None: ...
     # morally: _CMD
     cmd = ...  # type: Any
     timeout = ...  # type: float
