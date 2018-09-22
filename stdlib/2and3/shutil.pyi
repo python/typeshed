@@ -23,7 +23,7 @@ elif sys.version_info >= (3,):
     _AnyPath = str
     _PathReturn = str
 else:
-    _Path = unicode
+    _Path = Union[str, unicode]
     _AnyStr = TypeVar("_AnyStr", str, unicode)
     _AnyPath = TypeVar("_AnyPath", str, unicode)
     _PathReturn = Type[None]
