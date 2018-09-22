@@ -1,6 +1,6 @@
 # Stubs for traceback
 
-from typing import Any, Dict, Generator, IO, Iterator, List, Mapping, Optional, Tuple, Type, Iterable
+from typing import Any, Dict, Generator, IO, Iterable, Iterator, List, Mapping, Optional, Tuple, Type
 from types import FrameType, TracebackType
 import sys
 
@@ -35,7 +35,10 @@ if sys.version_info >= (3, 5):
     def extract_tb(tb: Optional[TracebackType], limit: Optional[int] = ...) -> StackSummary: ...
     def extract_stack(f: Optional[FrameType] = ...,
                       limit: Optional[int] = ...) -> StackSummary: ...
-    def format_list(extracted_list: List[FrameSummary]) -> List[str]: ...
+    # NOTE(https://bugs.python.org/issue34648): Authors who are diligent
+    # enough to type-check their code are authors who are diligent enough to
+    # upgrade their Tuple[str, int, str, Optional[str]]s to FrameSummarys.
+    def format_list(extracted_list: Iterable[FrameSummary]) -> List[str]: ...
 else:
     def extract_tb(tb: Optional[TracebackType], limit: Optional[int] = ...) -> List[_PT]: ...
     def extract_stack(f: Optional[FrameType] = ...,
@@ -111,6 +114,10 @@ if sys.version_info >= (3, 5):
                     frame_gen: Generator[Tuple[FrameType, int], None, None],
                     *, limit: Optional[int] = ..., lookup_lines: bool = ...,
                     capture_locals: bool = ...) -> StackSummary: ...
+        # NOTE(https://bugs.python.org/issue34648): Authors who are diligent
+        # enough to type-check their code are authors who are diligent enough
+        # to upgrade their Tuple[str, int, str, Optional[str]]s to
+        # FrameSummarys.
         @classmethod
-        def from_list(cls, a_list: List[_PT]) -> StackSummary: ...
+        def from_list(cls, a_list: Iterable[FrameSummary]) -> StackSummary: ...
         def format(self) -> List[str]: ...
