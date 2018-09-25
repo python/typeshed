@@ -1,15 +1,20 @@
 # Stubs for uuid
 
 import sys
-from typing import Tuple, Optional, Any
+from typing import Tuple, Optional, Any, Union
 
 # Because UUID has properties called int and bytes we need to rename these temporarily.
 _Int = int
 _Bytes = bytes
 _FieldsType = Tuple[int, int, int, int, int, int]
+if sys.version_info >= (3,):
+    _Text = str
+else:
+    _Text = Union[str, unicode]
 
 class UUID:
-    def __init__(self, hex: Optional[str] = ..., bytes: Optional[_Bytes] = ...,
+    def __init__(self, hex: Optional[_Text] = ...,
+                 bytes: Optional[_Bytes] = ...,
                  bytes_le: Optional[_Bytes] = ...,
                  fields: Optional[_FieldsType] = ...,
                  int: Optional[_Int] = ...,
