@@ -248,8 +248,8 @@ class LittleEndianStructure(Structure): ...
 class Array(Generic[_CT], _CData):
     _length_: ClassVar[int] = ...
     _type_: ClassVar[Type[_CT]] = ...
-    raw: bytes = ...  # TODO only available with _T == c_char
-    value: bytes = ...  # TODO only available with _T == c_char
+    raw: Any = ...  # Note: bytes if _T == c_char, unavailable otherwise
+    value: Any = ...  # Note: bytes if _T == c_char, Text if _T == c_wchar, unavailable otherwise
     # TODO These methods cannot be annotated correctly at the moment.
     # All of these "Any"s stand for the array's element type, but it's not possible to use _T here,
     # because of a special feature of ctypes.
