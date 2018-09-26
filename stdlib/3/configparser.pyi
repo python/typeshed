@@ -19,7 +19,7 @@ _converters = Dict[str, _converter]
 _T = TypeVar('_T')
 
 if sys.version_info >= (3, 6):
-    _Path = Union[str, PathLike[str]]
+    _Path = Union[str, bytes, PathLike[str]]
 else:
     _Path = str
 
