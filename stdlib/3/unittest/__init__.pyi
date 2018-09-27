@@ -311,7 +311,7 @@ class TextTestRunner(TestRunner):
 # not really documented
 class TestProgram:
     result = ...  # type: TestResult
-    def runTests(self) -> None: ..
+    def runTests(self) -> None: ...
 
 def main(module: Union[None, str, ModuleType] = ...,
          defaultTest: Union[str, Iterable[str], None] = ...,
