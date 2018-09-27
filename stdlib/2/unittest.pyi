@@ -228,7 +228,7 @@ def skip(reason: Union[str, unicode]) -> Any: ...
 # not really documented
 class TestProgram:
     result = ...  # type: TestResult
-    def runTests(self) -> None
+    def runTests(self) -> None: ...
 
 def main(module: Union[None, Text, types.ModuleType] = ..., defaultTest: Optional[str] = ...,
          argv: Optional[Sequence[str]] = ...,
