@@ -28,6 +28,7 @@ class TestCase:
     failureException = ...  # type: Type[BaseException]
     longMessage = ...  # type: bool
     maxDiff = ...  # type: Optional[int]
+    # undocumented
     _testMethodName = ...  # type: str
     def __init__(self, methodName: str = ...) -> None: ...
     def setUp(self) -> None: ...
@@ -143,8 +144,8 @@ class TestCase:
     def addCleanup(self, function: Callable[..., Any], *args: Any,
                    **kwargs: Any) -> None: ...
     def doCleanups(self) -> None: ...
-    def _formatMessage(self, msg: Optional[str], standardMsg: str) -> str: ...
-    def _getAssertEqualityFunc(self, first: Any, second: Any) -> Callable[..., None]: ...
+    def _formatMessage(self, msg: Optional[str], standardMsg: str) -> str: ...  # undocumented
+    def _getAssertEqualityFunc(self, first: Any, second: Any) -> Callable[..., None]: ...  # undocumented
     # below is deprecated
     def failUnlessEqual(self, first: Any, second: Any,
                         msg: Any = ...) -> None: ...
@@ -311,7 +312,7 @@ class TextTestRunner(TestRunner):
 # not really documented
 class TestProgram:
     result = ...  # type: TestResult
-    def runTests(self) -> None: ...
+    def runTests(self) -> None: ...  # undocumented
 
 def main(module: Union[None, str, ModuleType] = ...,
          defaultTest: Union[str, Iterable[str], None] = ...,
