@@ -10,20 +10,26 @@ if sys.version_info >= (3,):
     from queue import Queue
 else:
     from Queue import Queue
+
 # TODO update socket stubs to add SocketKind
 _SocketKind = int
+if sys.version_info >= (3, 6):
+    from os import PathLike
+    _Path = Union[str, PathLike[str]]
+else:
+    _Path = str
 
 
 class WatchedFileHandler(Handler):
     @overload
-    def __init__(self, filename: str) -> None: ...
+    def __init__(self, filename: _Path) -> None: ...
     @overload
-    def __init__(self, filename: str, mode: str) -> None: ...
+    def __init__(self, filename: _Path, mode: str) -> None: ...
     @overload
-    def __init__(self, filename: str, mode: str,
+    def __init__(self, filename: _Path, mode: str,
                  encoding: Optional[str]) -> None: ...
     @overload
-    def __init__(self, filename: str, mode: str, encoding: Optional[str],
+    def __init__(self, filename: _Path, mode: str, encoding: Optional[str],
                  delay: bool) -> None: ...
 
 
@@ -32,7 +38,7 @@ if sys.version_info >= (3,):
         terminator = ...  # type: str
         namer = ...  # type: Optional[Callable[[str], str]]
         rotator = ...  # type: Optional[Callable[[str, str], None]]
-        def __init__(self, filename: str, mode: str,
+        def __init__(self, filename: _Path, mode: str,
                      encoding: Optional[str] = ...,
                      delay: bool = ...) -> None: ...
         def rotation_filename(self, default_name: str) -> None: ...
@@ -41,7 +47,7 @@ if sys.version_info >= (3,):
 
 if sys.version_info >= (3,):
     class RotatingFileHandler(BaseRotatingHandler):
-        def __init__(self, filename: str, mode: str = ..., maxBytes: int = ...,
+        def __init__(self, filename: _Path, mode: str = ..., maxBytes: int = ...,
                      backupCount: int = ..., encoding: Optional[str] = ...,
                      delay: bool = ...) -> None: ...
         def doRollover(self) -> None: ...
@@ -56,7 +62,7 @@ else:
 if sys.version_info >= (3,):
     class TimedRotatingFileHandler(BaseRotatingHandler):
         if sys.version_info >= (3, 4):
-            def __init__(self, filename: str, when: str = ...,
+            def __init__(self, filename: _Path, when: str = ...,
                          interval: int = ...,
                          backupCount: int = ..., encoding: Optional[str] = ...,
                          delay: bool = ..., utc: bool = ...,

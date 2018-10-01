@@ -19,6 +19,11 @@ else:
 _ArgsType = Union[Tuple[Any, ...], Dict[str, Any]]
 _FilterType = Union[Filter, Callable[[LogRecord], int]]
 _Level = Union[int, Text]
+if sys.version_info >= (3, 6):
+    from os import PathLike
+    _Path = Union[str, PathLike[str]]
+else:
+    _Path = str
 
 raiseExceptions: bool
 
@@ -344,7 +349,7 @@ def getLevelName(lvl: int) -> str: ...
 def makeLogRecord(attrdict: Mapping[str, Any]) -> LogRecord: ...
 
 if sys.version_info >= (3,):
-    def basicConfig(*, filename: str = ..., filemode: str = ...,
+    def basicConfig(*, filename: _Path = ..., filemode: str = ...,
                     format: str = ..., datefmt: str = ..., style: str = ...,
                     level: _Level = ..., stream: IO[str] = ...,
                     handlers: Iterable[Handler] = ...) -> None: ...
@@ -381,7 +386,7 @@ class FileHandler(Handler):
     mode = ...  # type: str
     encoding = ...  # type: Optional[str]
     delay = ...  # type: bool
-    def __init__(self, filename: str, mode: str = ...,
+    def __init__(self, filename: _Path, mode: str = ...,
                  encoding: Optional[str] = ..., delay: bool = ...) -> None: ...
 
 
