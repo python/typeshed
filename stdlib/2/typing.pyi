@@ -364,8 +364,9 @@ class Match(Generic[AnyStr]):
     # once for the type of the pattern and once for the type of the matched
     # string.
     re: Pattern[Any]
-    # Can be None if there are no groups; otherwise matches the type of the pattern.
-    lastgroup: Any
+    # Can be None if there are no groups or if the last group was unnamed;
+    # otherwise matches the type of the pattern.
+    lastgroup: Optional[Any]
 
     def expand(self, template: Union[str, Text]) -> Any: ...
 
