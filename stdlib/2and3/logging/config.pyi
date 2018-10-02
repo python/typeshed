@@ -6,11 +6,20 @@ if sys.version_info >= (3,):
     from configparser import RawConfigParser
 else:
     from ConfigParser import RawConfigParser
+if sys.version_info >= (3, 6):
+    from os import PathLike
+
+if sys.version_info >= (3, 7):
+    _Path = Union[str, bytes, PathLike[str]]
+elif sys.version_info >= (3, 6):
+    _Path = Union[str, PathLike[str]]
+else:
+    _Path = str
 
 
 def dictConfig(config: Dict[str, Any]) -> None: ...
 if sys.version_info >= (3, 4):
-    def fileConfig(fname: Union[str, IO[str], RawConfigParser],
+    def fileConfig(fname: Union[_Path, IO[str], RawConfigParser],
                    defaults: Optional[Dict[str, str]] = ...,
                    disable_existing_loggers: bool = ...) -> None: ...
     def listen(port: int = ...,
