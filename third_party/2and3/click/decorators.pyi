@@ -1,5 +1,5 @@
 from distutils.version import Version
-from typing import Any, Callable, Dict, List, Optional, Type, TypeVar, Union, Text
+from typing import Any, Callable, Dict, List, Optional, Type, TypeVar, Union, Text, overload
 
 from click.core import Command, Group, Argument, Option, Parameter, Context, _ConvertibleType
 
@@ -88,6 +88,7 @@ def argument(
     ...
 
 
+@overload
 def option(
     *param_decls: str,
     cls: Type[Option] = ...,
@@ -107,6 +108,37 @@ def option(
     default: Optional[Any] = ...,
     required: bool = ...,
     callback: Optional[_Callback] = ...,
+    nargs: Optional[int] = ...,
+    metavar: Optional[str] = ...,
+    expose_value: bool = ...,
+    is_eager: bool = ...,
+    envvar: Optional[Union[str, List[str]]] = ...,
+    # User-defined
+    **kwargs: Any,
+) -> Callable[[_F], _F]:
+    ...
+
+
+@overload
+def option(
+    *param_decls: str,
+    cls: Type[Option] = ...,
+    # Option
+    show_default: bool = ...,
+    prompt: Union[bool, Text] = ...,
+    confirmation_prompt: bool = ...,
+    hide_input: bool = ...,
+    is_flag: Optional[bool] = ...,
+    flag_value: Optional[Any] = ...,
+    multiple: bool = ...,
+    count: bool = ...,
+    allow_from_autoenv: bool = ...,
+    type: _T = ...,
+    help: Optional[str] = ...,
+    # Parameter
+    default: Optional[Any] = ...,
+    required: bool = ...,
+    callback: Optional[Callable[[Context, Union[Option, Parameter], Union[bool, int, str]], _T]] = ...,
     nargs: Optional[int] = ...,
     metavar: Optional[str] = ...,
     expose_value: bool = ...,
