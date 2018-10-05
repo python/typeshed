@@ -1,7 +1,7 @@
 # Python 2.7 ast
 
 import typing
-from typing import Any, Iterator, Union
+from typing import Any, Iterator, Optional, Union
 
 from _ast import *
 from _ast import AST, Module
@@ -25,5 +25,6 @@ class NodeVisitor():
     def visit(self, node: AST) -> Any: ...
     def generic_visit(self, node: AST) -> None: ...
 
-class NodeTransformer(NodeVisitor):
-    def generic_visit(self, node: AST) -> None: ...
+class NodeTransformer():
+    def visit(self, node: AST) -> Optional[AST]: ...
+    def generic_visit(self, node: AST) -> Optional[AST]: ...
