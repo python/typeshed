@@ -12,7 +12,7 @@ if sys.version_info >= (3,):
     _StrType = Text
 else:
     # Aliases can't point to type vars, so we need to redeclare AnyStr
-    _StrType = TypeVar('_StrType', str, bytes)
+    _StrType = TypeVar('_StrType', Text, bytes)
 
 _JunkCallback = Union[Callable[[Text], bool], Callable[[str], bool]]
 
