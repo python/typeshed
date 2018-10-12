@@ -75,9 +75,6 @@ class TestAllTypes(Message):
         def __init__(self,
                      bb: Optional[int] = ...,
                      ) -> None: ...
-
-        @classmethod
-        def FromString(cls, s: bytes) -> TestAllTypes.NestedMessage: ...
     optional_int32 = ...  # type: int
     optional_int64 = ...  # type: int
     optional_uint32 = ...  # type: int
@@ -212,9 +209,6 @@ class TestAllTypes(Message):
                  oneof_bytes: Optional[bytes] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> TestAllTypes: ...
-
 
 class TestPackedTypes(Message):
     packed_int32 = ...  # type: RepeatedScalarFieldContainer[int]
@@ -248,9 +242,6 @@ class TestPackedTypes(Message):
                  packed_bool: Optional[Iterable[bool]] = ...,
                  packed_enum: Optional[Iterable[ForeignEnum]] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> TestPackedTypes: ...
 
 
 class TestUnpackedTypes(Message):
@@ -286,9 +277,6 @@ class TestUnpackedTypes(Message):
                  repeated_nested_enum: Optional[Iterable[TestAllTypes.NestedEnum]] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> TestUnpackedTypes: ...
-
 
 class NestedTestAllTypes(Message):
 
@@ -308,9 +296,6 @@ class NestedTestAllTypes(Message):
                  repeated_child: Optional[Iterable[NestedTestAllTypes]] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> NestedTestAllTypes: ...
-
 
 class ForeignMessage(Message):
     c = ...  # type: int
@@ -319,14 +304,8 @@ class ForeignMessage(Message):
                  c: Optional[int] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> ForeignMessage: ...
-
 
 class TestEmptyMessage(Message):
 
     def __init__(self,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> TestEmptyMessage: ...

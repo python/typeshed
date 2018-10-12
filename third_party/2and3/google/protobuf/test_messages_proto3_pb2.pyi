@@ -99,9 +99,6 @@ class TestAllTypesProto3(Message):
                      corecursive: Optional[TestAllTypesProto3] = ...,
                      ) -> None: ...
 
-        @classmethod
-        def FromString(cls, s: bytes) -> TestAllTypesProto3.NestedMessage: ...
-
     class MapInt32Int32Entry(Message):
         key = ...  # type: int
         value = ...  # type: int
@@ -110,9 +107,6 @@ class TestAllTypesProto3(Message):
                      key: Optional[int] = ...,
                      value: Optional[int] = ...,
                      ) -> None: ...
-
-        @classmethod
-        def FromString(cls, s: bytes) -> TestAllTypesProto3.MapInt32Int32Entry: ...
 
     class MapInt64Int64Entry(Message):
         key = ...  # type: int
@@ -123,9 +117,6 @@ class TestAllTypesProto3(Message):
                      value: Optional[int] = ...,
                      ) -> None: ...
 
-        @classmethod
-        def FromString(cls, s: bytes) -> TestAllTypesProto3.MapInt64Int64Entry: ...
-
     class MapUint32Uint32Entry(Message):
         key = ...  # type: int
         value = ...  # type: int
@@ -134,9 +125,6 @@ class TestAllTypesProto3(Message):
                      key: Optional[int] = ...,
                      value: Optional[int] = ...,
                      ) -> None: ...
-
-        @classmethod
-        def FromString(cls, s: bytes) -> TestAllTypesProto3.MapUint32Uint32Entry: ...
 
     class MapUint64Uint64Entry(Message):
         key = ...  # type: int
@@ -147,9 +135,6 @@ class TestAllTypesProto3(Message):
                      value: Optional[int] = ...,
                      ) -> None: ...
 
-        @classmethod
-        def FromString(cls, s: bytes) -> TestAllTypesProto3.MapUint64Uint64Entry: ...
-
     class MapSint32Sint32Entry(Message):
         key = ...  # type: int
         value = ...  # type: int
@@ -158,9 +143,6 @@ class TestAllTypesProto3(Message):
                      key: Optional[int] = ...,
                      value: Optional[int] = ...,
                      ) -> None: ...
-
-        @classmethod
-        def FromString(cls, s: bytes) -> TestAllTypesProto3.MapSint32Sint32Entry: ...
 
     class MapSint64Sint64Entry(Message):
         key = ...  # type: int
@@ -171,9 +153,6 @@ class TestAllTypesProto3(Message):
                      value: Optional[int] = ...,
                      ) -> None: ...
 
-        @classmethod
-        def FromString(cls, s: bytes) -> TestAllTypesProto3.MapSint64Sint64Entry: ...
-
     class MapFixed32Fixed32Entry(Message):
         key = ...  # type: int
         value = ...  # type: int
@@ -182,9 +161,6 @@ class TestAllTypesProto3(Message):
                      key: Optional[int] = ...,
                      value: Optional[int] = ...,
                      ) -> None: ...
-
-        @classmethod
-        def FromString(cls, s: bytes) -> TestAllTypesProto3.MapFixed32Fixed32Entry: ...
 
     class MapFixed64Fixed64Entry(Message):
         key = ...  # type: int
@@ -195,9 +171,6 @@ class TestAllTypesProto3(Message):
                      value: Optional[int] = ...,
                      ) -> None: ...
 
-        @classmethod
-        def FromString(cls, s: bytes) -> TestAllTypesProto3.MapFixed64Fixed64Entry: ...
-
     class MapSfixed32Sfixed32Entry(Message):
         key = ...  # type: int
         value = ...  # type: int
@@ -206,9 +179,6 @@ class TestAllTypesProto3(Message):
                      key: Optional[int] = ...,
                      value: Optional[int] = ...,
                      ) -> None: ...
-
-        @classmethod
-        def FromString(cls, s: bytes) -> TestAllTypesProto3.MapSfixed32Sfixed32Entry: ...
 
     class MapSfixed64Sfixed64Entry(Message):
         key = ...  # type: int
@@ -219,9 +189,6 @@ class TestAllTypesProto3(Message):
                      value: Optional[int] = ...,
                      ) -> None: ...
 
-        @classmethod
-        def FromString(cls, s: bytes) -> TestAllTypesProto3.MapSfixed64Sfixed64Entry: ...
-
     class MapInt32FloatEntry(Message):
         key = ...  # type: int
         value = ...  # type: float
@@ -230,9 +197,6 @@ class TestAllTypesProto3(Message):
                      key: Optional[int] = ...,
                      value: Optional[float] = ...,
                      ) -> None: ...
-
-        @classmethod
-        def FromString(cls, s: bytes) -> TestAllTypesProto3.MapInt32FloatEntry: ...
 
     class MapInt32DoubleEntry(Message):
         key = ...  # type: int
@@ -243,9 +207,6 @@ class TestAllTypesProto3(Message):
                      value: Optional[float] = ...,
                      ) -> None: ...
 
-        @classmethod
-        def FromString(cls, s: bytes) -> TestAllTypesProto3.MapInt32DoubleEntry: ...
-
     class MapBoolBoolEntry(Message):
         key = ...  # type: bool
         value = ...  # type: bool
@@ -254,9 +215,6 @@ class TestAllTypesProto3(Message):
                      key: Optional[bool] = ...,
                      value: Optional[bool] = ...,
                      ) -> None: ...
-
-        @classmethod
-        def FromString(cls, s: bytes) -> TestAllTypesProto3.MapBoolBoolEntry: ...
 
     class MapStringStringEntry(Message):
         key = ...  # type: Text
@@ -267,9 +225,6 @@ class TestAllTypesProto3(Message):
                      value: Optional[Text] = ...,
                      ) -> None: ...
 
-        @classmethod
-        def FromString(cls, s: bytes) -> TestAllTypesProto3.MapStringStringEntry: ...
-
     class MapStringBytesEntry(Message):
         key = ...  # type: Text
         value = ...  # type: bytes
@@ -278,9 +233,6 @@ class TestAllTypesProto3(Message):
                      key: Optional[Text] = ...,
                      value: Optional[bytes] = ...,
                      ) -> None: ...
-
-        @classmethod
-        def FromString(cls, s: bytes) -> TestAllTypesProto3.MapStringBytesEntry: ...
 
     class MapStringNestedMessageEntry(Message):
         key = ...  # type: Text
@@ -293,9 +245,6 @@ class TestAllTypesProto3(Message):
                      value: Optional[TestAllTypesProto3.NestedMessage] = ...,
                      ) -> None: ...
 
-        @classmethod
-        def FromString(cls, s: bytes) -> TestAllTypesProto3.MapStringNestedMessageEntry: ...
-
     class MapStringForeignMessageEntry(Message):
         key = ...  # type: Text
 
@@ -307,9 +256,6 @@ class TestAllTypesProto3(Message):
                      value: Optional[ForeignMessage] = ...,
                      ) -> None: ...
 
-        @classmethod
-        def FromString(cls, s: bytes) -> TestAllTypesProto3.MapStringForeignMessageEntry: ...
-
     class MapStringNestedEnumEntry(Message):
         key = ...  # type: Text
         value = ...  # type: TestAllTypesProto3.NestedEnum
@@ -319,9 +265,6 @@ class TestAllTypesProto3(Message):
                      value: Optional[TestAllTypesProto3.NestedEnum] = ...,
                      ) -> None: ...
 
-        @classmethod
-        def FromString(cls, s: bytes) -> TestAllTypesProto3.MapStringNestedEnumEntry: ...
-
     class MapStringForeignEnumEntry(Message):
         key = ...  # type: Text
         value = ...  # type: ForeignEnum
@@ -330,9 +273,6 @@ class TestAllTypesProto3(Message):
                      key: Optional[Text] = ...,
                      value: Optional[ForeignEnum] = ...,
                      ) -> None: ...
-
-        @classmethod
-        def FromString(cls, s: bytes) -> TestAllTypesProto3.MapStringForeignEnumEntry: ...
     optional_int32 = ...  # type: int
     optional_int64 = ...  # type: int
     optional_uint32 = ...  # type: int
@@ -685,9 +625,6 @@ class TestAllTypesProto3(Message):
                  Field_name18__: Optional[int] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> TestAllTypesProto3: ...
-
 
 class ForeignMessage(Message):
     c = ...  # type: int
@@ -695,6 +632,3 @@ class ForeignMessage(Message):
     def __init__(self,
                  c: Optional[int] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> ForeignMessage: ...

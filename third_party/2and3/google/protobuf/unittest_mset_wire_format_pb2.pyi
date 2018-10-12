@@ -11,9 +11,6 @@ class TestMessageSet(Message):
     def __init__(self,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> TestMessageSet: ...
-
 
 class TestMessageSetWireFormatContainer(Message):
 
@@ -23,6 +20,3 @@ class TestMessageSetWireFormatContainer(Message):
     def __init__(self,
                  message_set: Optional[TestMessageSet] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> TestMessageSetWireFormatContainer: ...

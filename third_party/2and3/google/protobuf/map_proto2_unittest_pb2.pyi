@@ -69,9 +69,6 @@ class TestEnumMap(Message):
                      value: Optional[Proto2MapEnum] = ...,
                      ) -> None: ...
 
-        @classmethod
-        def FromString(cls, s: bytes) -> TestEnumMap.KnownMapFieldEntry: ...
-
     class UnknownMapFieldEntry(Message):
         key = ...  # type: int
         value = ...  # type: Proto2MapEnum
@@ -80,9 +77,6 @@ class TestEnumMap(Message):
                      key: Optional[int] = ...,
                      value: Optional[Proto2MapEnum] = ...,
                      ) -> None: ...
-
-        @classmethod
-        def FromString(cls, s: bytes) -> TestEnumMap.UnknownMapFieldEntry: ...
 
     @property
     def known_map_field(self) -> MutableMapping[int, Proto2MapEnum]: ...
@@ -94,9 +88,6 @@ class TestEnumMap(Message):
                  known_map_field: Optional[Mapping[int, Proto2MapEnum]]=...,
                  unknown_map_field: Optional[Mapping[int, Proto2MapEnum]]=...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> TestEnumMap: ...
 
 
 class TestEnumMapPlusExtra(Message):
@@ -110,9 +101,6 @@ class TestEnumMapPlusExtra(Message):
                      value: Optional[Proto2MapEnumPlusExtra] = ...,
                      ) -> None: ...
 
-        @classmethod
-        def FromString(cls, s: bytes) -> TestEnumMapPlusExtra.KnownMapFieldEntry: ...
-
     class UnknownMapFieldEntry(Message):
         key = ...  # type: int
         value = ...  # type: Proto2MapEnumPlusExtra
@@ -121,9 +109,6 @@ class TestEnumMapPlusExtra(Message):
                      key: Optional[int] = ...,
                      value: Optional[Proto2MapEnumPlusExtra] = ...,
                      ) -> None: ...
-
-        @classmethod
-        def FromString(cls, s: bytes) -> TestEnumMapPlusExtra.UnknownMapFieldEntry: ...
 
     @property
     def known_map_field(self) -> MutableMapping[int, Proto2MapEnumPlusExtra]: ...
@@ -135,9 +120,6 @@ class TestEnumMapPlusExtra(Message):
                  known_map_field: Optional[Mapping[int, Proto2MapEnumPlusExtra]]=...,
                  unknown_map_field: Optional[Mapping[int, Proto2MapEnumPlusExtra]]=...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> TestEnumMapPlusExtra: ...
 
 
 class TestImportEnumMap(Message):
@@ -151,18 +133,12 @@ class TestImportEnumMap(Message):
                      value: Optional[ImportEnumForMap] = ...,
                      ) -> None: ...
 
-        @classmethod
-        def FromString(cls, s: bytes) -> TestImportEnumMap.ImportEnumAmpEntry: ...
-
     @property
     def import_enum_amp(self) -> MutableMapping[int, ImportEnumForMap]: ...
 
     def __init__(self,
                  import_enum_amp: Optional[Mapping[int, ImportEnumForMap]]=...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> TestImportEnumMap: ...
 
 
 class TestIntIntMap(Message):
@@ -176,18 +152,12 @@ class TestIntIntMap(Message):
                      value: Optional[int] = ...,
                      ) -> None: ...
 
-        @classmethod
-        def FromString(cls, s: bytes) -> TestIntIntMap.MEntry: ...
-
     @property
     def m(self) -> MutableMapping[int, int]: ...
 
     def __init__(self,
                  m: Optional[Mapping[int, int]]=...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> TestIntIntMap: ...
 
 
 class TestMaps(Message):
@@ -203,9 +173,6 @@ class TestMaps(Message):
                      value: Optional[TestIntIntMap] = ...,
                      ) -> None: ...
 
-        @classmethod
-        def FromString(cls, s: bytes) -> TestMaps.MInt32Entry: ...
-
     class MInt64Entry(Message):
         key = ...  # type: int
 
@@ -216,9 +183,6 @@ class TestMaps(Message):
                      key: Optional[int] = ...,
                      value: Optional[TestIntIntMap] = ...,
                      ) -> None: ...
-
-        @classmethod
-        def FromString(cls, s: bytes) -> TestMaps.MInt64Entry: ...
 
     class MUint32Entry(Message):
         key = ...  # type: int
@@ -231,9 +195,6 @@ class TestMaps(Message):
                      value: Optional[TestIntIntMap] = ...,
                      ) -> None: ...
 
-        @classmethod
-        def FromString(cls, s: bytes) -> TestMaps.MUint32Entry: ...
-
     class MUint64Entry(Message):
         key = ...  # type: int
 
@@ -244,9 +205,6 @@ class TestMaps(Message):
                      key: Optional[int] = ...,
                      value: Optional[TestIntIntMap] = ...,
                      ) -> None: ...
-
-        @classmethod
-        def FromString(cls, s: bytes) -> TestMaps.MUint64Entry: ...
 
     class MSint32Entry(Message):
         key = ...  # type: int
@@ -259,9 +217,6 @@ class TestMaps(Message):
                      value: Optional[TestIntIntMap] = ...,
                      ) -> None: ...
 
-        @classmethod
-        def FromString(cls, s: bytes) -> TestMaps.MSint32Entry: ...
-
     class MSint64Entry(Message):
         key = ...  # type: int
 
@@ -272,9 +227,6 @@ class TestMaps(Message):
                      key: Optional[int] = ...,
                      value: Optional[TestIntIntMap] = ...,
                      ) -> None: ...
-
-        @classmethod
-        def FromString(cls, s: bytes) -> TestMaps.MSint64Entry: ...
 
     class MFixed32Entry(Message):
         key = ...  # type: int
@@ -287,9 +239,6 @@ class TestMaps(Message):
                      value: Optional[TestIntIntMap] = ...,
                      ) -> None: ...
 
-        @classmethod
-        def FromString(cls, s: bytes) -> TestMaps.MFixed32Entry: ...
-
     class MFixed64Entry(Message):
         key = ...  # type: int
 
@@ -300,9 +249,6 @@ class TestMaps(Message):
                      key: Optional[int] = ...,
                      value: Optional[TestIntIntMap] = ...,
                      ) -> None: ...
-
-        @classmethod
-        def FromString(cls, s: bytes) -> TestMaps.MFixed64Entry: ...
 
     class MSfixed32Entry(Message):
         key = ...  # type: int
@@ -315,9 +261,6 @@ class TestMaps(Message):
                      value: Optional[TestIntIntMap] = ...,
                      ) -> None: ...
 
-        @classmethod
-        def FromString(cls, s: bytes) -> TestMaps.MSfixed32Entry: ...
-
     class MSfixed64Entry(Message):
         key = ...  # type: int
 
@@ -328,9 +271,6 @@ class TestMaps(Message):
                      key: Optional[int] = ...,
                      value: Optional[TestIntIntMap] = ...,
                      ) -> None: ...
-
-        @classmethod
-        def FromString(cls, s: bytes) -> TestMaps.MSfixed64Entry: ...
 
     class MBoolEntry(Message):
         key = ...  # type: bool
@@ -343,9 +283,6 @@ class TestMaps(Message):
                      value: Optional[TestIntIntMap] = ...,
                      ) -> None: ...
 
-        @classmethod
-        def FromString(cls, s: bytes) -> TestMaps.MBoolEntry: ...
-
     class MStringEntry(Message):
         key = ...  # type: Text
 
@@ -356,9 +293,6 @@ class TestMaps(Message):
                      key: Optional[Text] = ...,
                      value: Optional[TestIntIntMap] = ...,
                      ) -> None: ...
-
-        @classmethod
-        def FromString(cls, s: bytes) -> TestMaps.MStringEntry: ...
 
     @property
     def m_int32(self) -> MutableMapping[int, TestIntIntMap]: ...
@@ -411,9 +345,6 @@ class TestMaps(Message):
                  m_string: Optional[Mapping[Text, TestIntIntMap]]=...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> TestMaps: ...
-
 
 class TestSubmessageMaps(Message):
 
@@ -423,6 +354,3 @@ class TestSubmessageMaps(Message):
     def __init__(self,
                  m: Optional[TestMaps] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> TestSubmessageMaps: ...

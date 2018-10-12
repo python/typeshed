@@ -28,9 +28,6 @@ class Version(Message):
                  suffix: Optional[Text] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> Version: ...
-
 
 class CodeGeneratorRequest(Message):
     file_to_generate = ...  # type: RepeatedScalarFieldContainer[Text]
@@ -49,9 +46,6 @@ class CodeGeneratorRequest(Message):
                  compiler_version: Optional[Version] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> CodeGeneratorRequest: ...
-
 
 class CodeGeneratorResponse(Message):
 
@@ -66,8 +60,6 @@ class CodeGeneratorResponse(Message):
                      content: Optional[Text] = ...,
                      ) -> None: ...
 
-        @classmethod
-        def FromString(cls, s: bytes) -> CodeGeneratorResponse.File: ...
     error = ...  # type: Text
 
     @property
@@ -77,6 +69,3 @@ class CodeGeneratorResponse(Message):
                  error: Optional[Text] = ...,
                  file: Optional[Iterable[CodeGeneratorResponse.File]] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> CodeGeneratorResponse: ...

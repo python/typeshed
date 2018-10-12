@@ -61,6 +61,3 @@ class ImportMessage(Message):
     def __init__(self,
                  d: Optional[int] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> ImportMessage: ...

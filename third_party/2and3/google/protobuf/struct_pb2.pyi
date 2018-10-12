@@ -50,18 +50,12 @@ class Struct(Message, well_known_types.Struct):
                      value: Optional[Value] = ...,
                      ) -> None: ...
 
-        @classmethod
-        def FromString(cls, s: bytes) -> Struct.FieldsEntry: ...
-
     @property
     def fields(self) -> MutableMapping[Text, Value]: ...
 
     def __init__(self,
                  fields: Optional[Mapping[Text, Value]] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> Struct: ...
 
 
 class _Value(Message):
@@ -85,9 +79,6 @@ class _Value(Message):
                  list_value: Optional[ListValue] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> _Value: ...
-
 
 Value = _Value
 
@@ -100,6 +91,3 @@ class ListValue(Message, well_known_types.ListValue):
     def __init__(self,
                  values: Optional[Iterable[Value]] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> ListValue: ...

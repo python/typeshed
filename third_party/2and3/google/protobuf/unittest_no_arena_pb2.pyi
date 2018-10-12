@@ -78,9 +78,6 @@ class TestAllTypes(Message):
                      bb: Optional[int] = ...,
                      ) -> None: ...
 
-        @classmethod
-        def FromString(cls, s: bytes) -> TestAllTypes.NestedMessage: ...
-
     class OptionalGroup(Message):
         a = ...  # type: int
 
@@ -88,18 +85,12 @@ class TestAllTypes(Message):
                      a: Optional[int] = ...,
                      ) -> None: ...
 
-        @classmethod
-        def FromString(cls, s: bytes) -> TestAllTypes.OptionalGroup: ...
-
     class RepeatedGroup(Message):
         a = ...  # type: int
 
         def __init__(self,
                      a: Optional[int] = ...,
                      ) -> None: ...
-
-        @classmethod
-        def FromString(cls, s: bytes) -> TestAllTypes.RepeatedGroup: ...
     optional_int32 = ...  # type: int
     optional_int64 = ...  # type: int
     optional_uint32 = ...  # type: int
@@ -287,9 +278,6 @@ class TestAllTypes(Message):
                  lazy_oneof_nested_message: Optional[TestAllTypes.NestedMessage] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> TestAllTypes: ...
-
 
 class ForeignMessage(Message):
     c = ...  # type: int
@@ -297,9 +285,6 @@ class ForeignMessage(Message):
     def __init__(self,
                  c: Optional[int] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> ForeignMessage: ...
 
 
 class TestNoArenaMessage(Message):
@@ -310,6 +295,3 @@ class TestNoArenaMessage(Message):
     def __init__(self,
                  arena_message: Optional[ArenaMessage] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> TestNoArenaMessage: ...

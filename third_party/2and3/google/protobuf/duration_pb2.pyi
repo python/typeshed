@@ -16,6 +16,3 @@ class Duration(Message, well_known_types.Duration):
                  seconds: Optional[int] = ...,
                  nanos: Optional[int] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> Duration: ...

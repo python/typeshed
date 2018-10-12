@@ -14,9 +14,6 @@ class DoubleValue(Message):
                  value: Optional[float] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> DoubleValue: ...
-
 
 class FloatValue(Message):
     value = ...  # type: float
@@ -24,9 +21,6 @@ class FloatValue(Message):
     def __init__(self,
                  value: Optional[float] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> FloatValue: ...
 
 
 class Int64Value(Message):
@@ -36,9 +30,6 @@ class Int64Value(Message):
                  value: Optional[int] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> Int64Value: ...
-
 
 class UInt64Value(Message):
     value = ...  # type: int
@@ -46,9 +37,6 @@ class UInt64Value(Message):
     def __init__(self,
                  value: Optional[int] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> UInt64Value: ...
 
 
 class Int32Value(Message):
@@ -58,9 +46,6 @@ class Int32Value(Message):
                  value: Optional[int] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> Int32Value: ...
-
 
 class UInt32Value(Message):
     value = ...  # type: int
@@ -68,9 +53,6 @@ class UInt32Value(Message):
     def __init__(self,
                  value: Optional[int] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> UInt32Value: ...
 
 
 class BoolValue(Message):
@@ -80,9 +62,6 @@ class BoolValue(Message):
                  value: Optional[bool] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> BoolValue: ...
-
 
 class StringValue(Message):
     value = ...  # type: Text
@@ -91,9 +70,6 @@ class StringValue(Message):
                  value: Optional[Text] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> StringValue: ...
-
 
 class BytesValue(Message):
     value = ...  # type: bytes
@@ -101,6 +77,3 @@ class BytesValue(Message):
     def __init__(self,
                  value: Optional[bytes] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> BytesValue: ...

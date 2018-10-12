@@ -24,9 +24,6 @@ class FileDescriptorSet(Message):
                  file: Optional[Iterable[FileDescriptorProto]] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> FileDescriptorSet: ...
-
 
 class FileDescriptorProto(Message):
     name = ...  # type: Text
@@ -73,9 +70,6 @@ class FileDescriptorProto(Message):
                  syntax: Optional[Text] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> FileDescriptorProto: ...
-
 
 class DescriptorProto(Message):
 
@@ -92,9 +86,6 @@ class DescriptorProto(Message):
                      options: Optional[ExtensionRangeOptions] = ...,
                      ) -> None: ...
 
-        @classmethod
-        def FromString(cls, s: bytes) -> DescriptorProto.ExtensionRange: ...
-
     class ReservedRange(Message):
         start = ...  # type: int
         end = ...  # type: int
@@ -103,9 +94,6 @@ class DescriptorProto(Message):
                      start: Optional[int] = ...,
                      end: Optional[int] = ...,
                      ) -> None: ...
-
-        @classmethod
-        def FromString(cls, s: bytes) -> DescriptorProto.ReservedRange: ...
     name = ...  # type: Text
     reserved_name = ...  # type: RepeatedScalarFieldContainer[Text]
 
@@ -153,9 +141,6 @@ class DescriptorProto(Message):
                  reserved_name: Optional[Iterable[Text]] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> DescriptorProto: ...
-
 
 class ExtensionRangeOptions(Message):
 
@@ -166,9 +151,6 @@ class ExtensionRangeOptions(Message):
     def __init__(self,
                  uninterpreted_option: Optional[Iterable[UninterpretedOption]] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> ExtensionRangeOptions: ...
 
 
 class FieldDescriptorProto(Message):
@@ -253,9 +235,6 @@ class FieldDescriptorProto(Message):
                  options: Optional[FieldOptions] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> FieldDescriptorProto: ...
-
 
 class OneofDescriptorProto(Message):
     name = ...  # type: Text
@@ -268,9 +247,6 @@ class OneofDescriptorProto(Message):
                  options: Optional[OneofOptions] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> OneofDescriptorProto: ...
-
 
 class EnumDescriptorProto(Message):
 
@@ -282,10 +258,6 @@ class EnumDescriptorProto(Message):
                      start: Optional[int] = ...,
                      end: Optional[int] = ...,
                      ) -> None: ...
-
-        @classmethod
-        def FromString(
-            cls, s: bytes) -> EnumDescriptorProto.EnumReservedRange: ...
     name = ...  # type: Text
     reserved_name = ...  # type: RepeatedScalarFieldContainer[Text]
 
@@ -308,9 +280,6 @@ class EnumDescriptorProto(Message):
                  reserved_name: Optional[Iterable[Text]] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> EnumDescriptorProto: ...
-
 
 class EnumValueDescriptorProto(Message):
     name = ...  # type: Text
@@ -324,9 +293,6 @@ class EnumValueDescriptorProto(Message):
                  number: Optional[int] = ...,
                  options: Optional[EnumValueOptions] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> EnumValueDescriptorProto: ...
 
 
 class ServiceDescriptorProto(Message):
@@ -344,9 +310,6 @@ class ServiceDescriptorProto(Message):
                  method: Optional[Iterable[MethodDescriptorProto]] = ...,
                  options: Optional[ServiceOptions] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> ServiceDescriptorProto: ...
 
 
 class MethodDescriptorProto(Message):
@@ -367,9 +330,6 @@ class MethodDescriptorProto(Message):
                  client_streaming: Optional[bool] = ...,
                  server_streaming: Optional[bool] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> MethodDescriptorProto: ...
 
 
 class FileOptions(Message):
@@ -438,9 +398,6 @@ class FileOptions(Message):
                  uninterpreted_option: Optional[Iterable[UninterpretedOption]] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> FileOptions: ...
-
 
 class MessageOptions(Message):
     message_set_wire_format = ...  # type: bool
@@ -459,9 +416,6 @@ class MessageOptions(Message):
                  map_entry: Optional[bool] = ...,
                  uninterpreted_option: Optional[Iterable[UninterpretedOption]] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> MessageOptions: ...
 
 
 class FieldOptions(Message):
@@ -526,9 +480,6 @@ class FieldOptions(Message):
                  uninterpreted_option: Optional[Iterable[UninterpretedOption]] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> FieldOptions: ...
-
 
 class OneofOptions(Message):
 
@@ -539,9 +490,6 @@ class OneofOptions(Message):
     def __init__(self,
                  uninterpreted_option: Optional[Iterable[UninterpretedOption]] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> OneofOptions: ...
 
 
 class EnumOptions(Message):
@@ -558,9 +506,6 @@ class EnumOptions(Message):
                  uninterpreted_option: Optional[Iterable[UninterpretedOption]] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> EnumOptions: ...
-
 
 class EnumValueOptions(Message):
     deprecated = ...  # type: bool
@@ -574,9 +519,6 @@ class EnumValueOptions(Message):
                  uninterpreted_option: Optional[Iterable[UninterpretedOption]] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> EnumValueOptions: ...
-
 
 class ServiceOptions(Message):
     deprecated = ...  # type: bool
@@ -589,9 +531,6 @@ class ServiceOptions(Message):
                  deprecated: Optional[bool] = ...,
                  uninterpreted_option: Optional[Iterable[UninterpretedOption]] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> ServiceOptions: ...
 
 
 class MethodOptions(Message):
@@ -628,9 +567,6 @@ class MethodOptions(Message):
                  uninterpreted_option: Optional[Iterable[UninterpretedOption]] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> MethodOptions: ...
-
 
 class UninterpretedOption(Message):
 
@@ -642,9 +578,6 @@ class UninterpretedOption(Message):
                      name_part: Text,
                      is_extension: bool,
                      ) -> None: ...
-
-        @classmethod
-        def FromString(cls, s: bytes) -> UninterpretedOption.NamePart: ...
     identifier_value = ...  # type: Text
     positive_int_value = ...  # type: int
     negative_int_value = ...  # type: int
@@ -666,9 +599,6 @@ class UninterpretedOption(Message):
                  aggregate_value: Optional[Text] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> UninterpretedOption: ...
-
 
 class SourceCodeInfo(Message):
 
@@ -687,9 +617,6 @@ class SourceCodeInfo(Message):
                      leading_detached_comments: Optional[Iterable[Text]] = ...,
                      ) -> None: ...
 
-        @classmethod
-        def FromString(cls, s: bytes) -> SourceCodeInfo.Location: ...
-
     @property
     def location(
         self) -> RepeatedCompositeFieldContainer[SourceCodeInfo.Location]: ...
@@ -697,9 +624,6 @@ class SourceCodeInfo(Message):
     def __init__(self,
                  location: Optional[Iterable[SourceCodeInfo.Location]] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> SourceCodeInfo: ...
 
 
 class GeneratedCodeInfo(Message):
@@ -717,9 +641,6 @@ class GeneratedCodeInfo(Message):
                      end: Optional[int] = ...,
                      ) -> None: ...
 
-        @classmethod
-        def FromString(cls, s: bytes) -> GeneratedCodeInfo.Annotation: ...
-
     @property
     def annotation(
         self) -> RepeatedCompositeFieldContainer[GeneratedCodeInfo.Annotation]: ...
@@ -727,6 +648,3 @@ class GeneratedCodeInfo(Message):
     def __init__(self,
                  annotation: Optional[Iterable[GeneratedCodeInfo.Annotation]] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> GeneratedCodeInfo: ...
