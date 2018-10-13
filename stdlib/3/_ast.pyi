@@ -132,7 +132,7 @@ class Import(stmt):
 class ImportFrom(stmt):
     module = ...  # type: Optional[_identifier]
     names = ...  # type: typing.List[alias]
-    level = ...  # type: Optional[int]
+    level = ...  # type: int
 
 class Global(stmt):
     names = ...  # type: typing.List[_identifier]
