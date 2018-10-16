@@ -23,7 +23,7 @@ open = builtins.open
 BlockingIOError = builtins.BlockingIOError
 class UnsupportedOperation(OSError, ValueError): ...
 
-class IOBase:
+class IOBase(BinaryIO):
     def __iter__(self) -> Iterator[bytes]: ...
     def __next__(self) -> bytes: ...
     def __enter__(self: _T) -> _T: ...
@@ -133,7 +133,7 @@ class BufferedRWPair(BufferedIOBase):
                  buffer_size: int = ...) -> None: ...
 
 
-class TextIOBase(IOBase):
+class TextIOBase(TextIO):
     encoding = ...  # type: str
     errors = ...  # type: Optional[str]
     newlines = ...  # type: Union[str, Tuple[str, ...], None]
@@ -146,8 +146,7 @@ class TextIOBase(IOBase):
     def seek(self, offset: int, whence: int = ...) -> int: ...
     def tell(self) -> int: ...
 
-# TODO should extend from TextIOBase
-class TextIOWrapper(TextIO):
+class TextIOWrapper(TextIOBase):
     line_buffering = ...  # type: bool
     # TODO uncomment after fixing mypy about using write_through
     # def __init__(self, buffer: IO[bytes], encoding: str = ...,
