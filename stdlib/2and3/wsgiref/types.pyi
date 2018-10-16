@@ -42,4 +42,3 @@ class _Readable(Protocol):
 # Optional file wrapper in wsgi.file_wrapper
 class FileWrapper(Protocol):
     def __call__(self, file: _Readable, block_size: int = ...) -> Iterable[bytes]: ...
-
