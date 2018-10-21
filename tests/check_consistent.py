@@ -7,7 +7,7 @@ import os
 import filecmp
 
 consistent_files = [
-    {'stdlib/2/builtins.pyi', 'stdlib/2/__builtin__.pyi'},
+    {'stdlib/2and3/builtins.pyi', 'stdlib/2/__builtin__.pyi'},
     {'stdlib/2/SocketServer.pyi', 'stdlib/3/socketserver.pyi'},
     {'stdlib/2/os2emxpath.pyi', 'stdlib/2/posixpath.pyi', 'stdlib/2/ntpath.pyi', 'stdlib/2/macpath.pyi'},
     {'stdlib/2and3/pyexpat/__init__.pyi', 'stdlib/2and3/xml/parsers/expat/__init__.pyi'},
