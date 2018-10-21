@@ -28,12 +28,12 @@ _T5 = TypeVar('_T5')
 _TT = TypeVar('_TT', bound='type')
 
 class object:
-    __doc__ = ...  # type: Optional[str]
-    __dict__ = ...  # type: Dict[str, Any]
-    __slots__ = ...  # type: Union[Text, Iterable[Text]]
-    __module__ = ...  # type: str
+    __doc__: Optional[str]
+    __dict__: Dict[str, Any]
+    __slots__: Union[Text, Iterable[Text]]
+    __module__: str
     if sys.version_info >= (3, 6):
-        __annotations__ = ...  # type: Dict[str, Any]
+        __annotations__: Dict[str, Any]
 
     @property
     def __class__(self: _T) -> Type[_T]: ...
@@ -59,31 +59,31 @@ class object:
         def __init_subclass__(cls) -> None: ...
 
 class staticmethod(object):  # Special, only valid as a decorator.
-    __func__ = ...  # type: function
+    __func__: function
     if sys.version_info >= (3,):
-        __isabstractmethod__ = ...  # type: bool
+        __isabstractmethod__: bool
 
     def __init__(self, f: function) -> None: ...
     def __new__(cls: Type[_T], *args: Any, **kwargs: Any) -> _T: ...
     def __get__(self, obj: _T, type: Optional[Type[_T]]=...) -> function: ...
 
 class classmethod(object):  # Special, only valid as a decorator.
-    __func__ = ...  # type: function
+    __func__: function
     if sys.version_info >= (3,):
-        __isabstractmethod__ = ...  # type: bool
+        __isabstractmethod__: bool
 
     def __init__(self, f: function) -> None: ...
     def __new__(cls: Type[_T], *args: Any, **kwargs: Any) -> _T: ...
     def __get__(self, obj: _T, type: Optional[Type[_T]]=...) -> function: ...
 
 class type(object):
-    __bases__ = ...  # type: Tuple[type, ...]
-    __name__ = ...  # type: str
-    __module__ = ...  # type: str
+    __bases__: Tuple[type, ...]
+    __name__: str
+    __module__: str
     if sys.version_info >= (3,):
-        __qualname__ = ...  # type: str
-        __dict__ = ...  # type: Dict[str, Any]
-        __mro__ = ...  # type: Tuple[type, ...]
+        __qualname__: str
+        __dict__: Dict[str, Any]
+        __mro__: Tuple[type, ...]
 
     @overload
     def __init__(self, o: object) -> None: ...
@@ -97,7 +97,7 @@ class type(object):
     def __subclasses__(self: _TT) -> List[_TT]: ...
     if sys.version_info < (3,):
         # Only new-style classes
-        __mro__ = ...  # type: Tuple[type, ...]
+        __mro__: Tuple[type, ...]
     # Note: the documentation doesnt specify what the return type is, the standard
     # implementation seems to be returning a list.
     def mro(self) -> List[type]: ...
@@ -723,13 +723,13 @@ else:
     _mv_container_type = str
 
 class memoryview(Sized, Container[_mv_container_type]):
-    format = ...  # type: str
-    itemsize = ...  # type: int
-    shape = ...  # type: Optional[Tuple[int, ...]]
-    strides = ...  # type: Optional[Tuple[int, ...]]
-    suboffsets = ...  # type: Optional[Tuple[int, ...]]
-    readonly = ...  # type: bool
-    ndim = ...  # type: int
+    format: str
+    itemsize: int
+    shape: Optional[Tuple[int, ...]]
+    strides: Optional[Tuple[int, ...]]
+    suboffsets: Optional[Tuple[int, ...]]
+    readonly: bool
+    ndim: int
 
     if sys.version_info >= (3,):
         def __init__(self, obj: Union[bytes, bytearray, memoryview]) -> None: ...
@@ -788,9 +788,9 @@ class bool(int):
     def __rxor__(self, x: int) -> int: ...
 
 class slice(object):
-    start = ...  # type: Optional[int]
-    step = ...  # type: Optional[int]
-    stop = ...  # type: Optional[int]
+    start: Optional[int]
+    step: Optional[int]
+    stop: Optional[int]
     @overload
     def __init__(self, stop: Optional[int]) -> None: ...
     @overload
@@ -821,12 +821,12 @@ class tuple(Sequence[_T_co], Generic[_T_co]):
 
 class function:
     # TODO not defined in builtins!
-    __name__ = ...  # type: str
-    __module__ = ...  # type: str
+    __name__: str
+    __module__: str
     if sys.version_info >= (3,):
-        __qualname__ = ...  # type: str
-        __code__ = ...  # type: CodeType
-        __annotations__ = ...  # type: Dict[str, Any]
+        __qualname__: str
+        __code__: CodeType
+        __annotations__: Dict[str, Any]
 
 class list(MutableSequence[_T], Generic[_T]):
     @overload
@@ -997,9 +997,9 @@ class enumerate(Iterator[Tuple[int, _T]], Generic[_T]):
 
 if sys.version_info >= (3,):
     class range(Sequence[int]):
-        start = ...  # type: int
-        stop = ...  # type: int
-        step = ...  # type: int
+        start: int
+        stop: int
+        step: int
         @overload
         def __init__(self, stop: int) -> None: ...
         @overload
@@ -1044,7 +1044,7 @@ class property(object):
 if sys.version_info < (3,):
     long = int
 
-NotImplemented = ...  # type: Any
+NotImplemented: Any
 
 def abs(n: SupportsAbs[_T]) -> _T: ...
 def all(i: Iterable[object]) -> bool: ...
@@ -1378,7 +1378,7 @@ def __import__(name: Text, globals: Dict[str, Any] = ..., locals: Dict[str, Any]
 # Actually the type of Ellipsis is <type 'ellipsis'>, but since it's
 # not exposed anywhere under that name, we make it private here.
 class ellipsis: ...
-Ellipsis = ...  # type: ellipsis
+Ellipsis: ellipsis
 
 if sys.version_info < (3,):
     # TODO: buffer support is incomplete; e.g. some_string.startswith(some_buffer) doesn't type check.
@@ -1394,13 +1394,13 @@ if sys.version_info < (3,):
         def __mul__(self, x: int) -> str: ...
 
 class BaseException(object):
-    args = ...  # type: Tuple[Any, ...]
+    args: Tuple[Any, ...]
     if sys.version_info < (3,):
-        message = ...  # type: Any
+        message: Any
     if sys.version_info >= (3,):
-        __cause__ = ...  # type: Optional[BaseException]
-        __context__ = ...  # type: Optional[BaseException]
-        __traceback__ = ...  # type: Optional[TracebackType]
+        __cause__: Optional[BaseException]
+        __context__: Optional[BaseException]
+        __traceback__: Optional[TracebackType]
     def __init__(self, *args: object) -> None: ...
     if sys.version_info < (3,):
         def __getitem__(self, i: int) -> Any: ...
@@ -1411,27 +1411,27 @@ class BaseException(object):
 class GeneratorExit(BaseException): ...
 class KeyboardInterrupt(BaseException): ...
 class SystemExit(BaseException):
-    code = 0
+    code: int
 class Exception(BaseException): ...
 class StopIteration(Exception): ...
 if sys.version_info >= (3,):
     _StandardError = Exception
     class OSError(Exception):
-        errno = 0
-        strerror = ...  # type: str
+        errno: int
+        strerror: str
         # filename, filename2 are actually Union[str, bytes, None]
-        filename = ...  # type: Any
-        filename2 = ...  # type: Any
+        filename: Any
+        filename2: Any
     EnvironmentError = OSError
     IOError = OSError
 else:
     class StandardError(Exception): ...
     _StandardError = StandardError
     class EnvironmentError(StandardError):
-        errno = 0
-        strerror = ...  # type: str
+        errno: int
+        strerror: str
         # TODO can this be unicode?
-        filename = ...  # type: str
+        filename: str
     class OSError(EnvironmentError): ...
     class IOError(EnvironmentError): ...
 
@@ -1442,8 +1442,8 @@ class BufferError(_StandardError): ...
 class EOFError(_StandardError): ...
 class ImportError(_StandardError):
     if sys.version_info >= (3,):
-        name = ...  # type: str
-        path = ...  # type: str
+        name: str
+        path: str
 class LookupError(_StandardError): ...
 class MemoryError(_StandardError): ...
 class NameError(_StandardError): ...
@@ -1451,13 +1451,13 @@ class ReferenceError(_StandardError): ...
 class RuntimeError(_StandardError): ...
 if sys.version_info >= (3, 5):
     class StopAsyncIteration(Exception):
-        value = ...  # type: Any
+        value: Any
 class SyntaxError(_StandardError):
-    msg = ...  # type: str
-    lineno = ...  # type: int
-    offset = ...  # type: int
-    text = ...  # type: str
-    filename = ...  # type: str
+    msg: str
+    lineno: int
+    offset: int
+    text: str
+    filename: str
 class SystemError(_StandardError): ...
 class TypeError(_StandardError): ...
 class ValueError(_StandardError): ...
@@ -1475,10 +1475,10 @@ class KeyError(LookupError): ...
 class UnboundLocalError(NameError): ...
 
 class WindowsError(OSError):
-    winerror = ...  # type: int
+    winerror: int
 if sys.version_info >= (3,):
     class BlockingIOError(OSError):
-        characters_written = 0
+        characters_written: int
     class ChildProcessError(OSError): ...
     class ConnectionError(OSError): ...
     class BrokenPipeError(ConnectionError): ...
