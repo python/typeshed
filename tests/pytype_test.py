@@ -37,11 +37,11 @@ parser.add_argument('--pytype-bin-dir', type=str, default='',
 # Set to true to print a stack trace every time an exception is thrown.
 parser.add_argument('--print-stderr', type=bool, default=False,
                     help='Print stderr every time an error is encountered.')
-# We need to invoke python2.7 and 3.6.
+# We need to invoke python2.7 and 3.7.
 parser.add_argument('--python27-exe', type=str, default='python2.7',
                     help='Path to a python 2.7 interpreter.')
-parser.add_argument('--python36-exe', type=str, default='python3.6',
-                    help='Path to a python 3.6 interpreter.')
+parser.add_argument('--python37-exe', type=str, default='python3.7',
+                    help='Path to a python 3.7 interpreter.')
 
 Dirs = collections.namedtuple('Dirs', ['pytype', 'typeshed'])
 
@@ -177,7 +177,7 @@ def pytype_test(args):
         print('Cannot run pytd. Did you install pytype?')
         return 0, 0
 
-    for python_version_str in ('27', '36'):
+    for python_version_str in ('27', '37'):
         dest = 'python%s_exe' % python_version_str
         version = '.'.join(list(python_version_str))
         arg = '--python%s-exe' % python_version_str
@@ -206,8 +206,8 @@ def pytype_test(args):
 
     def _make_test(filename, major_version):
         if major_version == 3:
-            version = '3.6'
-            exe = args.python36_exe
+            version = '3.7'
+            exe = args.python37_exe
         else:
             version = '2.7'
             exe = args.python27_exe
