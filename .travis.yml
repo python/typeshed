@@ -6,6 +6,7 @@ python: 3.7
 matrix:
   include:
     - name: "pytype"
+      python: 3.6
       env:
         - TEST_CMD="./tests/pytype_test.py --num-parallel=4"
         - INSTALL="test"
