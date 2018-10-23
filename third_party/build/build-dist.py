@@ -140,15 +140,15 @@ def create_metadata(package: PackageInfo, src: Path, dest: Path) -> None:
     py_requires = py_version_to_requires(package.py_version)
     with open(dest, "w") as f:
         with open(src, "r") as src_f:
-         for line in src_f:
-             if line.startswith("$TROVE_PY$"):
-                 for trove in py_version_to_trove(package.py_version):
-                     f.write(f"Classifier: {trove}\n")
-             else:
-                 line = line.replace("$PACKAGE$", package.name)
-                 line = line.replace("$VERSION$", pkg_version)
-                 line = line.replace("$PY_REQUIRES$", py_requires)
-                 f.write(line)
+            for line in src_f:
+                if line.startswith("$TROVE_PY$"):
+                    for trove in py_version_to_trove(package.py_version):
+                        f.write(f"Classifier: {trove}\n")
+                else:
+                    line = line.replace("$PACKAGE$", package.name)
+                    line = line.replace("$VERSION$", pkg_version)
+                    line = line.replace("$PY_REQUIRES$", py_requires)
+                    f.write(line)
 
 
 def pack_wheel(package: PackageInfo) -> None:
