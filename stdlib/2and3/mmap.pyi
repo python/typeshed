@@ -11,7 +11,7 @@ ALLOCATIONGRANULARITY = ...  # type: int
 
 if sys.platform != 'win32':
     MAP_ANON = ...  # type: int
-    MAP_ANONOMYOUS = ...  # type: int
+    MAP_ANONYMOUS = ...  # type: int
     MAP_DENYWRITE = ...  # type: int
     MAP_EXECUTABLE = ...  # type: int
     MAP_PRIVATE = ...  # type: int
