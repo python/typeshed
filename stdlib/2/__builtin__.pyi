@@ -89,7 +89,6 @@ class type(object):
     def __call__(self, *args: Any, **kwds: Any) -> Any: ...
 
     # Only new-style classes
-    __mro__ = ...  # type: Tuple[type, ...]
     # Note: the documentation doesnt specify what the return type is, the standard
     # implementation seems to be returning a list.
     def mro(self) -> List[type]: ...
