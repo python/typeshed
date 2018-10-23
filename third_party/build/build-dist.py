@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
 
+# Build a stubs-only distribution for a third-party package.
+#
+# Usage: python3.7 build-dist.py <PACKAGE>
+#
+# The resulting wheel will be saved in third-party/build/dist.
+
 import datetime
 import os
 import re
