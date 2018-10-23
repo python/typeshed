@@ -210,6 +210,7 @@ checker, and leave out unnecessary detail:
 Some further tips for good type hints:
 * avoid invariant collection types (`List`, `Dict`) in argument
   positions, in favor of covariant types like `Mapping` or `Sequence`;
+* prefer using `object` over `Any`, especially in argument positions;
 * avoid Union return types: https://github.com/python/mypy/issues/1693;
 * in Python 2, whenever possible, use `unicode` if that's the only
   possible type, and `Text` if it can be either `unicode` or `bytes`;
