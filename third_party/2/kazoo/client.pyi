@@ -34,7 +34,8 @@ class KazooClient:
     SetPartitioner = ...  # type: Any
     Semaphore = ...  # type: Any
     ShallowParty = ...  # type: Any
-    def __init__(self, hosts=..., timeout=..., client_id=..., handler=..., default_acl=..., auth_data=..., read_only=..., randomize_hosts=..., connection_retry=..., command_retry=..., logger=..., **kwargs) -> None: ...
+    def __init__(self, hosts=..., timeout=..., client_id=..., handler=..., default_acl=..., auth_data=..., read_only=...,
+                 randomize_hosts=..., connection_retry=..., command_retry=..., logger=..., **kwargs) -> None: ...
     @property
     def client_state(self): ...
     @property

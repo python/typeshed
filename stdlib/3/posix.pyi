@@ -45,8 +45,13 @@ class stat_result:
     st_creator: int
     st_type: int
 
-uname_result = NamedTuple('uname_result', [('sysname', str), ('nodename', str),
-    ('release', str), ('version', str), ('machine', str)])
+uname_result = NamedTuple('uname_result', [
+    ('sysname', str),
+    ('nodename', str),
+    ('release', str),
+    ('version', str),
+    ('machine', str),
+])
 
 times_result = NamedTuple('times_result', [
     ('user', float),

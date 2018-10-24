@@ -340,25 +340,25 @@ class TestMap(Message):
     def map_int32_all_types(self) -> MutableMapping[int, TestAllTypes]: ...
 
     def __init__(self,
-                 map_int32_int32: Optional[Mapping[int, int]]=...,
-                 map_int64_int64: Optional[Mapping[int, int]]=...,
-                 map_uint32_uint32: Optional[Mapping[int, int]]=...,
-                 map_uint64_uint64: Optional[Mapping[int, int]]=...,
-                 map_sint32_sint32: Optional[Mapping[int, int]]=...,
-                 map_sint64_sint64: Optional[Mapping[int, int]]=...,
-                 map_fixed32_fixed32: Optional[Mapping[int, int]]=...,
-                 map_fixed64_fixed64: Optional[Mapping[int, int]]=...,
-                 map_sfixed32_sfixed32: Optional[Mapping[int, int]]=...,
-                 map_sfixed64_sfixed64: Optional[Mapping[int, int]]=...,
-                 map_int32_float: Optional[Mapping[int, float]]=...,
-                 map_int32_double: Optional[Mapping[int, float]]=...,
-                 map_bool_bool: Optional[Mapping[bool, bool]]=...,
-                 map_string_string: Optional[Mapping[Text, Text]]=...,
-                 map_int32_bytes: Optional[Mapping[int, bytes]]=...,
-                 map_int32_enum: Optional[Mapping[int, MapEnum]]=...,
-                 map_int32_foreign_message: Optional[Mapping[int, ForeignMessage1]]=...,
-                 map_string_foreign_message: Optional[Mapping[Text, ForeignMessage1]]=...,
-                 map_int32_all_types: Optional[Mapping[int, TestAllTypes]]=...,
+                 map_int32_int32: Optional[Mapping[int, int]] = ...,
+                 map_int64_int64: Optional[Mapping[int, int]] = ...,
+                 map_uint32_uint32: Optional[Mapping[int, int]] = ...,
+                 map_uint64_uint64: Optional[Mapping[int, int]] = ...,
+                 map_sint32_sint32: Optional[Mapping[int, int]] = ...,
+                 map_sint64_sint64: Optional[Mapping[int, int]] = ...,
+                 map_fixed32_fixed32: Optional[Mapping[int, int]] = ...,
+                 map_fixed64_fixed64: Optional[Mapping[int, int]] = ...,
+                 map_sfixed32_sfixed32: Optional[Mapping[int, int]] = ...,
+                 map_sfixed64_sfixed64: Optional[Mapping[int, int]] = ...,
+                 map_int32_float: Optional[Mapping[int, float]] = ...,
+                 map_int32_double: Optional[Mapping[int, float]] = ...,
+                 map_bool_bool: Optional[Mapping[bool, bool]] = ...,
+                 map_string_string: Optional[Mapping[Text, Text]] = ...,
+                 map_int32_bytes: Optional[Mapping[int, bytes]] = ...,
+                 map_int32_enum: Optional[Mapping[int, MapEnum]] = ...,
+                 map_int32_foreign_message: Optional[Mapping[int, ForeignMessage1]] = ...,
+                 map_string_foreign_message: Optional[Mapping[Text, ForeignMessage1]] = ...,
+                 map_int32_all_types: Optional[Mapping[int, TestAllTypes]] = ...,
                  ) -> None: ...
 
     @classmethod
@@ -398,7 +398,7 @@ class TestMessageMap(Message):
     def map_int32_message(self) -> MutableMapping[int, TestAllTypes]: ...
 
     def __init__(self,
-                 map_int32_message: Optional[Mapping[int, TestAllTypes]]=...,
+                 map_int32_message: Optional[Mapping[int, TestAllTypes]] = ...,
                  ) -> None: ...
 
     @classmethod
@@ -438,8 +438,8 @@ class TestSameTypeMap(Message):
     def map2(self) -> MutableMapping[int, int]: ...
 
     def __init__(self,
-                 map1: Optional[Mapping[int, int]]=...,
-                 map2: Optional[Mapping[int, int]]=...,
+                 map1: Optional[Mapping[int, int]] = ...,
+                 map2: Optional[Mapping[int, int]] = ...,
                  ) -> None: ...
 
     @classmethod
@@ -467,7 +467,7 @@ class TestRequiredMessageMap(Message):
     def map_field(self) -> MutableMapping[int, TestRequired]: ...
 
     def __init__(self,
-                 map_field: Optional[Mapping[int, TestRequired]]=...,
+                 map_field: Optional[Mapping[int, TestRequired]] = ...,
                  ) -> None: ...
 
     @classmethod
@@ -757,24 +757,24 @@ class TestArenaMap(Message):
         self) -> MutableMapping[int, ForeignMessage]: ...
 
     def __init__(self,
-                 map_int32_int32: Optional[Mapping[int, int]]=...,
-                 map_int64_int64: Optional[Mapping[int, int]]=...,
-                 map_uint32_uint32: Optional[Mapping[int, int]]=...,
-                 map_uint64_uint64: Optional[Mapping[int, int]]=...,
-                 map_sint32_sint32: Optional[Mapping[int, int]]=...,
-                 map_sint64_sint64: Optional[Mapping[int, int]]=...,
-                 map_fixed32_fixed32: Optional[Mapping[int, int]]=...,
-                 map_fixed64_fixed64: Optional[Mapping[int, int]]=...,
-                 map_sfixed32_sfixed32: Optional[Mapping[int, int]]=...,
-                 map_sfixed64_sfixed64: Optional[Mapping[int, int]]=...,
-                 map_int32_float: Optional[Mapping[int, float]]=...,
-                 map_int32_double: Optional[Mapping[int, float]]=...,
-                 map_bool_bool: Optional[Mapping[bool, bool]]=...,
-                 map_string_string: Optional[Mapping[Text, Text]]=...,
-                 map_int32_bytes: Optional[Mapping[int, bytes]]=...,
-                 map_int32_enum: Optional[Mapping[int, MapEnum]]=...,
-                 map_int32_foreign_message: Optional[Mapping[int, ForeignMessage1]]=...,
-                 map_int32_foreign_message_no_arena: Optional[Mapping[int, ForeignMessage]]=...,
+                 map_int32_int32: Optional[Mapping[int, int]] = ...,
+                 map_int64_int64: Optional[Mapping[int, int]] = ...,
+                 map_uint32_uint32: Optional[Mapping[int, int]] = ...,
+                 map_uint64_uint64: Optional[Mapping[int, int]] = ...,
+                 map_sint32_sint32: Optional[Mapping[int, int]] = ...,
+                 map_sint64_sint64: Optional[Mapping[int, int]] = ...,
+                 map_fixed32_fixed32: Optional[Mapping[int, int]] = ...,
+                 map_fixed64_fixed64: Optional[Mapping[int, int]] = ...,
+                 map_sfixed32_sfixed32: Optional[Mapping[int, int]] = ...,
+                 map_sfixed64_sfixed64: Optional[Mapping[int, int]] = ...,
+                 map_int32_float: Optional[Mapping[int, float]] = ...,
+                 map_int32_double: Optional[Mapping[int, float]] = ...,
+                 map_bool_bool: Optional[Mapping[bool, bool]] = ...,
+                 map_string_string: Optional[Mapping[Text, Text]] = ...,
+                 map_int32_bytes: Optional[Mapping[int, bytes]] = ...,
+                 map_int32_enum: Optional[Mapping[int, MapEnum]] = ...,
+                 map_int32_foreign_message: Optional[Mapping[int, ForeignMessage1]] = ...,
+                 map_int32_foreign_message_no_arena: Optional[Mapping[int, ForeignMessage]] = ...,
                  ) -> None: ...
 
     @classmethod
@@ -822,7 +822,7 @@ class MessageContainingEnumCalledType(Message):
                                      MessageContainingEnumCalledType]: ...
 
     def __init__(self,
-                 type: Optional[Mapping[Text, MessageContainingEnumCalledType]]=...,
+                 type: Optional[Mapping[Text, MessageContainingEnumCalledType]] = ...,
                  ) -> None: ...
 
     @classmethod
@@ -848,7 +848,7 @@ class MessageContainingMapCalledEntry(Message):
     def entry(self) -> MutableMapping[int, int]: ...
 
     def __init__(self,
-                 entry: Optional[Mapping[int, int]]=...,
+                 entry: Optional[Mapping[int, int]] = ...,
                  ) -> None: ...
 
     @classmethod
@@ -875,7 +875,7 @@ class TestRecursiveMapMessage(Message):
     def a(self) -> MutableMapping[Text, TestRecursiveMapMessage]: ...
 
     def __init__(self,
-                 a: Optional[Mapping[Text, TestRecursiveMapMessage]]=...,
+                 a: Optional[Mapping[Text, TestRecursiveMapMessage]] = ...,
                  ) -> None: ...
 
     @classmethod
