@@ -1,4 +1,4 @@
-from typing import IO, List, Optional
+from typing import IO, List, Optional, Any
 
 from click.core import Context, Parameter
 
@@ -13,7 +13,7 @@ class ClickException(Exception):
     def format_message(self) -> str:
         ...
 
-    def show(self, file=None) -> None:
+    def show(self, file: Optional[Any] = ...) -> None:
         ...
 
 

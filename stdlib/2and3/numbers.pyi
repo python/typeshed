@@ -5,7 +5,7 @@
 # Note: these stubs are incomplete. The more complex type
 # signatures are currently omitted.
 
-from typing import Optional, SupportsFloat
+from typing import Any, Optional, SupportsFloat
 from abc import ABCMeta, abstractmethod
 import sys
 
@@ -110,7 +110,7 @@ class Integral(Rational):
         def __long__(self) -> long: ...
     def __index__(self) -> int: ...
     @abstractmethod
-    def __pow__(self, exponent, modulus=None): ...
+    def __pow__(self, exponent, modulus: Optional[Any] = ...): ...
     @abstractmethod
     def __lshift__(self, other): ...
     @abstractmethod
