@@ -69,7 +69,7 @@ class DefaultCookiePolicy(CookiePolicy):
                  rfc2965: bool = ...,
                  rfc2109_as_netscape: Optional[bool] = ...,
                  hide_cookie2: bool = ..., strict_domain: bool = ...,
-                 strict_rfc2965_unverifiable: bool =...,
+                 strict_rfc2965_unverifiable: bool = ...,
                  strict_ns_unverifiable: bool = ...,
                  strict_ns_domain: int = ...,
                  strict_ns_set_initial_dollar: bool = ...,

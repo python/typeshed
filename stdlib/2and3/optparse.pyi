@@ -180,16 +180,17 @@ class OptionParser(OptionContainer):
     usage = ...  # type: Optional[_Text]
     values = ...  # type: Optional[Values]
     version = ...  # type: _Text
-    def __init__(self, usage: Optional[_Text] = ...,
-                       option_list: Iterable[Option] = ...,
-                       option_class: Option = ...,
-                       version: Optional[_Text] = ...,
-                       conflict_handler: _Text = ...,
-                       description: Optional[_Text] = ...,
-                       formatter: Optional[HelpFormatter] = ...,
-                       add_help_option: bool = ...,
-                       prog: Optional[_Text] = ...,
-                       epilog: Optional[_Text] = ...) -> None: ...
+    def __init__(self,
+                 usage: Optional[_Text] = ...,
+                 option_list: Iterable[Option] = ...,
+                 option_class: Option = ...,
+                 version: Optional[_Text] = ...,
+                 conflict_handler: _Text = ...,
+                 description: Optional[_Text] = ...,
+                 formatter: Optional[HelpFormatter] = ...,
+                 add_help_option: bool = ...,
+                 prog: Optional[_Text] = ...,
+                 epilog: Optional[_Text] = ...) -> None: ...
     def _add_help_option(self) -> None: ...
     def _add_version_option(self) -> None: ...
     def _create_option_list(self) -> None: ...

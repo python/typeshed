@@ -88,8 +88,7 @@ class UnboundMethodType:
     def __init__(self, func: Callable, obj: object) -> None: ...
     def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
 
-class InstanceType(object):
-    pass
+class InstanceType(object): ...
 
 MethodType = UnboundMethodType
 

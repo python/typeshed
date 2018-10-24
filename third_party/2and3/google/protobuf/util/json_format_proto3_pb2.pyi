@@ -253,12 +253,12 @@ class TestMap(Message):
     def string_map(self) -> MutableMapping[Text, int]: ...
 
     def __init__(self,
-                 bool_map: Optional[Mapping[bool, int]]=...,
-                 int32_map: Optional[Mapping[int, int]]=...,
-                 int64_map: Optional[Mapping[int, int]]=...,
-                 uint32_map: Optional[Mapping[int, int]]=...,
-                 uint64_map: Optional[Mapping[int, int]]=...,
-                 string_map: Optional[Mapping[Text, int]]=...,
+                 bool_map: Optional[Mapping[bool, int]] = ...,
+                 int32_map: Optional[Mapping[int, int]] = ...,
+                 int64_map: Optional[Mapping[int, int]] = ...,
+                 uint32_map: Optional[Mapping[int, int]] = ...,
+                 uint64_map: Optional[Mapping[int, int]] = ...,
+                 string_map: Optional[Mapping[Text, int]] = ...,
                  ) -> None: ...
 
     @classmethod
@@ -375,13 +375,13 @@ class TestNestedMap(Message):
     def map_map(self) -> MutableMapping[Text, TestNestedMap]: ...
 
     def __init__(self,
-                 bool_map: Optional[Mapping[bool, int]]=...,
-                 int32_map: Optional[Mapping[int, int]]=...,
-                 int64_map: Optional[Mapping[int, int]]=...,
-                 uint32_map: Optional[Mapping[int, int]]=...,
-                 uint64_map: Optional[Mapping[int, int]]=...,
-                 string_map: Optional[Mapping[Text, int]]=...,
-                 map_map: Optional[Mapping[Text, TestNestedMap]]=...,
+                 bool_map: Optional[Mapping[bool, int]] = ...,
+                 int32_map: Optional[Mapping[int, int]] = ...,
+                 int64_map: Optional[Mapping[int, int]] = ...,
+                 uint32_map: Optional[Mapping[int, int]] = ...,
+                 uint64_map: Optional[Mapping[int, int]] = ...,
+                 string_map: Optional[Mapping[Text, int]] = ...,
+                 map_map: Optional[Mapping[Text, TestNestedMap]] = ...,
                  ) -> None: ...
 
     @classmethod
@@ -613,7 +613,7 @@ class TestBoolValue(Message):
 
     def __init__(self,
                  bool_value: Optional[bool] = ...,
-                 bool_map: Optional[Mapping[bool, int]]=...,
+                 bool_map: Optional[Mapping[bool, int]] = ...,
                  ) -> None: ...
 
     @classmethod

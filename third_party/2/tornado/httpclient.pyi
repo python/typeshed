@@ -52,7 +52,12 @@ class HTTPRequest:
     ssl_options = ...  # type: Any
     expect_100_continue = ...  # type: Any
     start_time = ...  # type: Any
-    def __init__(self, url, method=..., headers=..., body=..., auth_username=..., auth_password=..., auth_mode=..., connect_timeout=..., request_timeout=..., if_modified_since=..., follow_redirects=..., max_redirects=..., user_agent=..., use_gzip=..., network_interface=..., streaming_callback=..., header_callback=..., prepare_curl_callback=..., proxy_host=..., proxy_port=..., proxy_username=..., proxy_password=..., allow_nonstandard_methods=..., validate_cert=..., ca_certs=..., allow_ipv6=..., client_key=..., client_cert=..., body_producer=..., expect_100_continue=..., decompress_response=..., ssl_options=...) -> None: ...
+    def __init__(self, url, method=..., headers=..., body=..., auth_username=..., auth_password=..., auth_mode=...,
+                 connect_timeout=..., request_timeout=..., if_modified_since=..., follow_redirects=..., max_redirects=...,
+                 user_agent=..., use_gzip=..., network_interface=..., streaming_callback=..., header_callback=...,
+                 prepare_curl_callback=..., proxy_host=..., proxy_port=..., proxy_username=..., proxy_password=...,
+                 allow_nonstandard_methods=..., validate_cert=..., ca_certs=..., allow_ipv6=..., client_key=..., client_cert=...,
+                 body_producer=..., expect_100_continue=..., decompress_response=..., ssl_options=...) -> None: ...
     @property
     def headers(self): ...
     @headers.setter
@@ -72,7 +77,8 @@ class HTTPResponse:
     error = ...  # type: Any
     request_time = ...  # type: Any
     time_info = ...  # type: Any
-    def __init__(self, request, code, headers=..., buffer=..., effective_url=..., error=..., request_time=..., time_info=..., reason=...) -> None: ...
+    def __init__(self, request, code, headers=..., buffer=..., effective_url=..., error=..., request_time=..., time_info=...,
+                 reason=...) -> None: ...
     body = ...  # type: Any
     def rethrow(self): ...
 

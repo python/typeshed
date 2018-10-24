@@ -54,8 +54,8 @@ _T6 = TypeVar('_T6')
 def imap(func: Callable[[_T1], _S], iter1: Iterable[_T1]) -> Iterator[_S]: ...
 @overload
 def imap(func: Callable[[_T1, _T2], _S],
-        iter1: Iterable[_T1],
-        iter2: Iterable[_T2]) -> Iterator[_S]: ...
+         iter1: Iterable[_T1],
+         iter2: Iterable[_T2]) -> Iterator[_S]: ...
 @overload
 def imap(func: Callable[[_T1, _T2, _T3], _S],
          iter1: Iterable[_T1], iter2: Iterable[_T2],
