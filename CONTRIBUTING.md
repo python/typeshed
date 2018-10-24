@@ -210,7 +210,6 @@ checker, and leave out unnecessary detail:
 Some further tips for good type hints:
 * avoid invariant collection types (`List`, `Dict`) in argument
   positions, in favor of covariant types like `Mapping` or `Sequence`;
-* prefer using `object` over `Any`, especially in argument positions;
 * avoid Union return types: https://github.com/python/mypy/issues/1693;
 * in Python 2, whenever possible, use `unicode` if that's the only
   possible type, and `Text` if it can be either `unicode` or `bytes`;
@@ -223,6 +222,17 @@ unless:
   explicit ``as`` even if the name stays the same); or
 * they use the form ``from library import *`` which means all names
   from that library are exported.
+
+When adding type hints, avoid using the `Any` type when possible. Reserve
+the use of `Any` for when:
+* it is simply not possible to construct the correct type;
+* you are contributing a preliminary set of stubs and are not sure
+  in some cases what the correct types are; and
+* to avoid Union returns (see above).
+
+Note that `Any` is not the correct type to use if you want to indicate
+that some function can accept literally anything: in those cases use
+`object` instead.
 
 For arguments with type and a default value of `None`, PEP 484
 prescribes that the type automatically becomes `Optional`.  However we
