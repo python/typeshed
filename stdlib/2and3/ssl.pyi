@@ -165,9 +165,7 @@ if sys.version_info < (3,) or sys.version_info >= (3, 4):
     ALERT_DESCRIPTION_USER_CANCELLED: int
 
 if sys.version_info < (3,) or sys.version_info >= (3, 4):
-    _PurposeType = NamedTuple('_PurposeType',
-                             [('nid', int), ('shortname', str),
-                              ('longname', str), ('oid', str)])
+    _PurposeType = NamedTuple('_PurposeType', [('nid', int), ('shortname', str), ('longname', str), ('oid', str)])
     class Purpose:
         SERVER_AUTH: _PurposeType
         CLIENT_AUTH: _PurposeType
