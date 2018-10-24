@@ -91,7 +91,7 @@ class RequestedRangeNotSatisfiable(HTTPException):
     code = ...  # type: int
     description = ...  # type: str
     length = ...  # type: Any
-    units = ...  # type: Any
+    units: str
     def __init__(self, length: Optional[Any] = ..., units: str = ..., description: Optional[Any] = ...): ...
     def get_headers(self, environ): ...
 

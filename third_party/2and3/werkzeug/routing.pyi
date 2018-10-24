@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Any, Optional, Text
 from werkzeug.exceptions import HTTPException
 
 def parse_converter_args(argstr): ...
@@ -143,17 +143,17 @@ DEFAULT_CONVERTERS = ...  # type: Any
 class Map:
     default_converters = ...  # type: Any
     default_subdomain = ...  # type: Any
-    charset = ...  # type: Any
-    encoding_errors = ...  # type: Any
+    charset: Text
+    encoding_errors: Text
     strict_slashes = ...  # type: Any
     redirect_defaults = ...  # type: Any
     host_matching = ...  # type: Any
     converters = ...  # type: Any
     sort_parameters = ...  # type: Any
     sort_key = ...  # type: Any
-    def __init__(self, rules: Optional[Any] = ..., default_subdomain: str = ..., charset: str = ...,
+    def __init__(self, rules: Optional[Any] = ..., default_subdomain: str = ..., charset: Text = ...,
                  strict_slashes: bool = ..., redirect_defaults: bool = ..., converters: Optional[Any] = ...,
-                 sort_parameters: bool = ..., sort_key: Optional[Any] = ..., encoding_errors: str = ...,
+                 sort_parameters: bool = ..., sort_key: Optional[Any] = ..., encoding_errors: Text = ...,
                  host_matching: bool = ...): ...
     def is_endpoint_expecting(self, endpoint, *arguments): ...
     def iter_rules(self, endpoint: Optional[Any] = ...): ...

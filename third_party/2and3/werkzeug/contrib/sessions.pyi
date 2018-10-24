@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Any, Optional, Text
 from werkzeug.datastructures import CallbackDict
 
 def generate_key(salt: Optional[Any] = ...): ...
@@ -29,10 +29,10 @@ class SessionStore:
 
 class FilesystemSessionStore(SessionStore):
     path = ...  # type: Any
-    filename_template = ...  # type: Any
+    filename_template: str
     renew_missing = ...  # type: Any
     mode = ...  # type: Any
-    def __init__(self, path: Optional[Any] = ..., filename_template: str = ..., session_class: Optional[Any] = ...,
+    def __init__(self, path: Optional[Any] = ..., filename_template: Text = ..., session_class: Optional[Any] = ...,
                  renew_missing: bool = ..., mode: int = ...): ...
     def get_session_filename(self, sid): ...
     def save(self, session): ...

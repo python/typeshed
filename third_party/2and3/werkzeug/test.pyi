@@ -1,5 +1,5 @@
 import sys
-from typing import Any, Optional
+from typing import Any, Optional, Text
 
 if sys.version_info < (3,):
     from urllib2 import Request as U2Request
@@ -9,8 +9,8 @@ else:
     from http.cookiejar import CookieJar
 
 def stream_encode_multipart(values, use_tempfile: int = ..., threshold=..., boundary: Optional[Any] = ...,
-                            charset: str = ...): ...
-def encode_multipart(values, boundary: Optional[Any] = ..., charset: str = ...): ...
+                            charset: Text = ...): ...
+def encode_multipart(values, boundary: Optional[Any] = ..., charset: Text = ...): ...
 def File(fd, filename: Optional[Any] = ..., mimetype: Optional[Any] = ...): ...
 
 class _TestCookieHeaders:
@@ -32,7 +32,7 @@ class EnvironBuilder:
     server_protocol = ...  # type: Any
     wsgi_version = ...  # type: Any
     request_class = ...  # type: Any
-    charset = ...  # type: Any
+    charset: Text
     path = ...  # type: Any
     base_url = ...  # type: Any
     query_string = ...  # type: Any
@@ -53,7 +53,7 @@ class EnvironBuilder:
                  method: str = ..., input_stream: Optional[Any] = ..., content_type: Optional[Any] = ...,
                  content_length: Optional[Any] = ..., errors_stream: Optional[Any] = ..., multithread: bool = ...,
                  multiprocess: bool = ..., run_once: bool = ..., headers: Optional[Any] = ..., data: Optional[Any] = ...,
-                 environ_base: Optional[Any] = ..., environ_overrides: Optional[Any] = ..., charset: bool = ...): ...
+                 environ_base: Optional[Any] = ..., environ_overrides: Optional[Any] = ..., charset: Text = ...): ...
     form = ...  # type: Any
     files = ...  # type: Any
     @property
@@ -76,7 +76,7 @@ class Client:
                  allow_subdomain_redirects: bool = ...): ...
     def set_cookie(self, server_name, key, value: str = ..., max_age: Optional[Any] = ..., expires: Optional[Any] = ...,
                    path: str = ..., domain: Optional[Any] = ..., secure: Optional[Any] = ..., httponly: bool = ...,
-                   charset: str = ...): ...
+                   charset: Text = ...): ...
     def delete_cookie(self, server_name, key, path: str = ..., domain: Optional[Any] = ...): ...
     def run_wsgi_app(self, environ, buffered: bool = ...): ...
     def resolve_redirect(self, response, new_location, environ, buffered: bool = ...): ...
