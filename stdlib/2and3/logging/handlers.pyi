@@ -150,14 +150,14 @@ class SMTPHandler(Handler):
         def __init__(self, mailhost: Union[str, Tuple[str, int]], fromaddr: str,
                      toaddrs: List[str], subject: str,
                      credentials: Optional[Tuple[str, str]] = ...,
-                     secure: Union[Tuple[str], Tuple[str, str], None] =...,
+                     secure: Union[Tuple[str], Tuple[str, str], None] = ...,
                      timeout: float = ...) -> None: ...
     else:
         def __init__(self,
                      mailhost: Union[str, Tuple[str, int]], fromaddr: str,
                      toaddrs: List[str], subject: str,
                      credentials: Optional[Tuple[str, str]] = ...,
-                     secure: Union[Tuple[str], Tuple[str, str], None] =...) -> None: ...
+                     secure: Union[Tuple[str], Tuple[str, str], None] = ...) -> None: ...
     def getSubject(self, record: LogRecord) -> str: ...
 
 
@@ -167,7 +167,7 @@ class BufferingHandler(Handler):
 
 class MemoryHandler(BufferingHandler):
     def __init__(self, capacity: int, flushLevel: int = ...,
-                 target: Optional[Handler] =...) -> None: ...
+                 target: Optional[Handler] = ...) -> None: ...
     def setTarget(self, target: Handler) -> None: ...
 
 
