@@ -57,8 +57,6 @@ class ZipFile:
         def writestr(self,
                      zinfo_or_arcname: _SZI, bytes: bytes,
                      compress_type: Optional[int] = ...) -> None: ...
-    if sys.version_info >= (3, 6):
-        def is_dir(self) -> bool: ...
 
 class PyZipFile(ZipFile):
     if sys.version_info >= (3,):
@@ -89,7 +87,8 @@ class ZipInfo:
     CRC = ...  # type: int
     compress_size = ...  # type: int
     file_size = ...  # type: int
-    def is_dir(self) -> bool: ...
+    if sys.version_info >= (3, 6):
+        def is_dir(self) -> bool: ...
     if sys.version_info < (3,):
         def __init__(self, filename: Optional[Text] = ...,
                      date_time: Optional[_DT] = ...) -> None: ...
