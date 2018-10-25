@@ -192,8 +192,8 @@ def getargs(co: CodeType) -> Arguments: ...
 def getargspec(func: object) -> ArgSpec: ...
 
 FullArgSpec = NamedTuple('FullArgSpec', [('args', List[str]),
-                                         ('varargs', str),
-                                         ('varkw', str),
+                                         ('varargs', Optional[str]),
+                                         ('varkw', Optional[str]),
                                          ('defaults', tuple),
                                          ('kwonlyargs', List[str]),
                                          ('kwonlydefaults', Dict[str, Any]),
