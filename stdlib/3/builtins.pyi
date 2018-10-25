@@ -1026,7 +1026,7 @@ if sys.version_info >= (3, 5):
 class SyntaxError(Exception):
     msg = ...  # type: str
     lineno = ...  # type: int
-    offset = ...  # type: int
+    offset = ...  # type: Optional[int]
     text = ...  # type: str
     filename = ...  # type: str
 class IndentationError(SyntaxError): ...

@@ -1033,7 +1033,7 @@ class ReferenceError(StandardError): ...
 class SyntaxError(StandardError):
     msg = ...  # type: str
     lineno = ...  # type: int
-    offset = ...  # type: int
+    offset = ...  # type: Optional[int]
     text = ...  # type: str
     filename = ...  # type: str
 class IndentationError(SyntaxError): ...
