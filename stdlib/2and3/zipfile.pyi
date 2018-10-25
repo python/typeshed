@@ -89,6 +89,7 @@ class ZipInfo:
     CRC = ...  # type: int
     compress_size = ...  # type: int
     file_size = ...  # type: int
+    def is_dir(self) -> bool: ...
     if sys.version_info < (3,):
         def __init__(self, filename: Optional[Text] = ...,
                      date_time: Optional[_DT] = ...) -> None: ...
