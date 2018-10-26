@@ -6,12 +6,17 @@
 #
 # The resulting wheel will be saved in third-party/build/dist.
 
+import sys
+
+if sys.version_info < (3, 7):
+    print("This script requires Python 3.7 or higher.", file=sys.stderr)
+    sys.exit(1)
+
 import datetime
 import os
 import re
 import shutil
 import subprocess
-import sys
 from dataclasses import dataclass
 from pathlib import Path
 from typing import List
