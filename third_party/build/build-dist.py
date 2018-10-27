@@ -6,20 +6,20 @@
 #
 # The resulting wheel will be saved in third-party/build/dist.
 
-import sys
-
-if sys.version_info < (3, 7):
-    print("This script requires Python 3.7 or higher.", file=sys.stderr)
-    sys.exit(1)
-
 import datetime
 import os
 import re
 import shutil
 import subprocess
-from dataclasses import dataclass
-from pathlib import Path
-from typing import List
+import sys
+
+try:
+    from dataclasses import dataclass
+    from pathlib import Path
+    from typing import List
+except ImportError:
+    print("This script requires Python 3.7 or higher.", file=sys.stderr)
+    sys.exit(1)
 
 DIST_SUFFIX = "-ts"
 MIN_PYTHON3_VERSION = (3, 4)
