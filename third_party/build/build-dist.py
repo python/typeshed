@@ -12,9 +12,14 @@ import re
 import shutil
 import subprocess
 import sys
-from dataclasses import dataclass
-from pathlib import Path
-from typing import List
+
+try:
+    from dataclasses import dataclass
+    from pathlib import Path
+    from typing import List
+except ImportError:
+    print("This script requires Python 3.7 or higher.", file=sys.stderr)
+    sys.exit(1)
 
 DIST_SUFFIX = "-ts"
 MIN_PYTHON3_VERSION = (3, 4)
