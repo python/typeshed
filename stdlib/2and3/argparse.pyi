@@ -127,8 +127,8 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
                    namespace: Optional[Namespace] = ...) -> Namespace: ...
     _N = TypeVar('_N')
     @overload
-    def parse_args(self, args: Optional[Sequence[_Text]] = ...,
-                   namespace: _N) -> _N: ...
+    def parse_args(self, namespace: _N,
+                   args: Optional[Sequence[_Text]] = ...) -> _N: ...
 
 
     if sys.version_info >= (3, 7):
