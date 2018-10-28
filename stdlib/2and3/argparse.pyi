@@ -121,9 +121,13 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
                      argument_default: Optional[_Text] = ...,
                      conflict_handler: _Text = ...,
                      add_help: bool = ...) -> None: ...
+
     @overload
     def parse_args(self, args: Optional[Sequence[_Text]] = ...,
-                   namespace: Optional[Namespace] = ...) -> Namespace: ...
+                   namespace: None = ...) -> Namespace: ...
+    @overload
+    def parse_args(self, args: Optional[Sequence[_Text]] = ...,
+                   namespace: Namespace = ...) -> Namespace: ...
     _N = TypeVar('_N')
     @overload
     def parse_args(self, args: Optional[Sequence[_Text]] = ...,
