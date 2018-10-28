@@ -8,6 +8,7 @@ import sys
 
 _T = TypeVar('_T')
 _ActionT = TypeVar('_ActionT', bound='Action')
+_N = TypeVar('_N')
 
 if sys.version_info >= (3,):
     _Text = str
@@ -121,7 +122,6 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
                      argument_default: Optional[_Text] = ...,
                      conflict_handler: _Text = ...,
                      add_help: bool = ...) -> None: ...
-    _N = TypeVar('_N')
     @overload
     def parse_args(self, args: Optional[Sequence[_Text]] = ...) -> Namespace: ...
     @overload
