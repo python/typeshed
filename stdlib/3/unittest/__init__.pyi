@@ -81,14 +81,14 @@ class TestCase:
                      msg: Any = ...) -> _AssertRaisesContext[_E]: ...
     @overload
     def assertRaisesRegex(self,  # type: ignore
-                          exception: Union[Type[BaseException], Tuple[Type[BaseException], ...]],
-                          regex: Union[str, bytes],
+                          expected_exception: Union[Type[BaseException], Tuple[Type[BaseException], ...]],
+                          expected_regex: Union[str, bytes],
                           callable: Callable[..., Any],
                           *args: Any, **kwargs: Any) -> None: ...
     @overload
     def assertRaisesRegex(self,
-                          exception: Union[Type[_E], Tuple[Type[_E], ...]],
-                          regex: Union[str, bytes],
+                          expected_exception: Union[Type[_E], Tuple[Type[_E], ...]],
+                          expected_regex: Union[str, bytes],
                           msg: Any = ...) -> _AssertRaisesContext[_E]: ...
     @overload
     def assertWarns(self,  # type: ignore
