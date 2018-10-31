@@ -83,7 +83,7 @@ class type(object):
     if sys.version_info >= (3,):
         __qualname__: str
         __dict__: Dict[str, Any]
-    __mro__: Tuple[type, ...]
+    __mro__: Tuple[type, ...]  # Only new-style classes
 
     @overload
     def __init__(self, o: object) -> None: ...
@@ -95,9 +95,6 @@ class type(object):
     def __new__(cls, name: str, bases: Tuple[type, ...], namespace: Dict[str, Any]) -> type: ...
     def __call__(self, *args: Any, **kwds: Any) -> Any: ...
     def __subclasses__(self: _TT) -> List[_TT]: ...
-    if sys.version_info < (3,):
-        # Only new-style classes
-        __mro__: Tuple[type, ...]
     # Note: the documentation doesnt specify what the return type is, the standard
     # implementation seems to be returning a list.
     def mro(self) -> List[type]: ...
