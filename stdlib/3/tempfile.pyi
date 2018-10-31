@@ -4,8 +4,9 @@
 # based on http://docs.python.org/3.3/library/tempfile.html
 
 import sys
+from abc import abstractmethod
 from types import TracebackType
-from typing import Any, AnyStr, Generic, IO, Optional, Tuple, Type
+from typing import Any, AnyStr, Generic, IO, Iterable, Iterator, Optional, Tuple, Type
 
 # global variables
 TMP_MAX: int
