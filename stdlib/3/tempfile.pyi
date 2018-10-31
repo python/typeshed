@@ -80,7 +80,6 @@ if sys.version_info >= (3, 5):
         @abstractmethod
         def __iter__(self) -> Iterator[AnyStr]: ...
 
-
     class TemporaryDirectory(Generic[AnyStr]):
         name = ...  # type: str
         def __init__(self, suffix: Optional[AnyStr] = ..., prefix: Optional[AnyStr] = ...,
