@@ -1,8 +1,8 @@
 # Stubs for tarfile
 
 from typing import (
-    Callable, ContextManager, IO, Iterable, Iterator, List, Mapping,
-    Optional, Type, Union,
+    Callable, IO, Iterable, Iterator, List, Mapping, Optional, Type,
+    Union,
 )
 import os
 import sys
@@ -50,7 +50,7 @@ def open(name: Optional[_Path] = ..., mode: str = ...,
          compresslevel: Optional[int] = ...) -> TarFile: ...
 
 
-class TarFile(Iterable[TarInfo], ContextManager[TarFile]):
+class TarFile(Iterable[TarInfo]):
     name = ...  # type: Optional[_Path]
     mode = ...  # type: str
     fileobj = ...  # type: Optional[IO[bytes]]
@@ -78,7 +78,7 @@ class TarFile(Iterable[TarInfo], ContextManager[TarFile]):
     def __enter__(self) -> TarFile: ...
     def __exit__(self,
                  exc_type: Optional[Type[BaseException]],
-                 exc_val: Optional[Exception],
+                 exc_val: Optional[BaseException],
                  exc_tb: Optional[TracebackType]) -> bool: ...
     def __iter__(self) -> Iterator[TarInfo]: ...
     @classmethod
