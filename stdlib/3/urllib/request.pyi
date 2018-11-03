@@ -159,6 +159,11 @@ class ProxyDigestAuthHandler(BaseHandler, AbstractDigestAuthHandler):
 
 class HTTPHandler(BaseHandler):
     def http_open(self, req: Request) -> HTTPResponse: ...
+    def do_open(self,
+                http_class: Callable[  # httplib.client.HTTPConnection protocol
+                    [str, Optional[int], int,
+                     Optional[Tuple[str, int]]], Any],
+                req: Request) -> HTTPResponse: ...
 
 class HTTPSHandler(BaseHandler):
     def __init__(self, debuglevel: int = ...,
