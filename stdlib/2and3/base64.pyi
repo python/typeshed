@@ -4,17 +4,11 @@ from typing import IO, Union, Text
 import sys
 
 if sys.version_info < (3,):
-    _encodable = Union[bytes, Text]
-    _decodable = Union[bytes, Text]
-elif sys.version_info < (3, 3):
-    _encodable = bytes
-    _decodable = bytes
-elif sys.version_info[:2] == (3, 3):
+    _encodable = Union[bytes, unicode]
+    _decodable = Union[bytes, unicode]
+else:
     _encodable = bytes
     _decodable = Union[bytes, str]
-elif sys.version_info >= (3, 4):
-    _encodable = Union[bytes, bytearray, memoryview]
-    _decodable = Union[bytes, bytearray, memoryview, str]
 
 def b64encode(s: _encodable, altchars: bytes = ...) -> bytes: ...
 def b64decode(s: _decodable, altchars: bytes = ...,
