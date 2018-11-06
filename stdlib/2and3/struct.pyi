@@ -11,10 +11,10 @@ class error(Exception): ...
 
 _FmtType = Union[bytes, Text]
 if sys.version_info >= (3,):
-    _BufferType = Union[bytes, bytearray, memoryview]
+    _BufferType = Union[array[int], bytes, bytearray, memoryview]
     _WriteBufferType = Union[array, bytearray, memoryview]
 else:
-    _BufferType = Union[bytes, bytearray, buffer, memoryview]
+    _BufferType = Union[array[int], bytes, bytearray, buffer, memoryview]
     _WriteBufferType = Union[array[Any], bytearray, buffer, memoryview]
 
 def pack(fmt: _FmtType, *v: Any) -> bytes: ...
