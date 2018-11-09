@@ -1,6 +1,6 @@
 import socket
 import types
-from multiprocessing.connection import _winapi
+from multiprocessing.connection import Listener
 from typing import Any, Iterable, List, Optional, Tuple, Type, Union
 
 # https://docs.python.org/3/library/multiprocessing.html#address-formats
@@ -25,9 +25,7 @@ class _ConnectionBase:
     def poll(self, timeout: Optional[float] = ...) -> bool: ...
 
 class Connection(_ConnectionBase): ...
-
-if _winapi:
-    class PipeConnection(_ConnectionBase): ...
+class PipeConnection(_ConnectionBase): ...
 
 def deliver_challenge(connection: Connection, authkey: bytes) -> None: ...
 def answer_challenge(connection: Connection, authkey: bytes) -> None: ...
@@ -61,4 +59,3 @@ class Listener:
         exc_value: Optional[BaseException],
         exc_tb: Optional[types.TracebackType],
     ) -> None: ...
-    
