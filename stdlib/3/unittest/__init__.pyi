@@ -12,7 +12,7 @@ from types import ModuleType, TracebackType
 
 _T = TypeVar('_T')
 _FT = TypeVar('_FT', bound=Callable[..., Any])
-_E = TypeVar('_E', bound=Exception)
+_E = TypeVar('_E', bound=BaseException)
 
 
 def expectedFailure(func: _FT) -> _FT: ...
