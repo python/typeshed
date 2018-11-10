@@ -2,7 +2,7 @@
 
 from typing import (
     Any, Callable, ClassVar, Dict, List, IO, Mapping, Optional, Sequence, Tuple,
-    TypeVar, Union, overload, NoReturn,
+    TypeVar, Union, overload, NoReturn, Protocol,
 )
 from http.client import HTTPResponse, HTTPMessage
 from http.cookiejar import CookieJar
@@ -159,8 +159,15 @@ class ProxyDigestAuthHandler(BaseHandler, AbstractDigestAuthHandler):
 
 # TODO: Could this just be turned into something importing from http.client?
 class _HTTPConnectionProtocol(Protocol):  # http.client.HTTPConnection
-    def __call__(self, host: str, port: Optional[int] = ..., timeout: int = ...,
-                 source_address: Optional[Tuple[str, int]] = ..., ...):
+    if sys.version_info >= (3, 7):
+        def __call__(self, host: str, port: Optional[int] = ...,
+                     timeout: int = ...,
+                     source_address: Optional[Tuple[str, int]] = ...,
+                     blocksize: int = ...): ...
+    else:
+        def __call__(self, host: str, port: Optional[int] = ...,
+                     timeout: int = ...,
+                     source_address: Optional[Tuple[str, int]] = ...): ...
 
 class HTTPHandler(BaseHandler):
     def http_open(self, req: Request) -> HTTPResponse: ...
