@@ -1,5 +1,6 @@
 from typing import (
-    Any, Dict, IO, Iterable, List, Iterator, Mapping, Optional, Tuple, Type, TypeVar,
+    Any, Dict, IO, Iterable, List, Iterator, Mapping, Optional,
+    Protocol, Tuple, Type, TypeVar,
     Union,
     overload,
     BinaryIO,
@@ -134,6 +135,17 @@ else:
         def geturl(self) -> str: ...
         def getcode(self) -> int: ...
         def begin(self) -> None: ...
+
+class HTTPConnectionProtocol(Protocol):
+    if sys.version_info >= (3, 7):
+        def __call__(self, host: str, port: Optional[int] = ...,
+                     timeout: int = ...,
+                     source_address: Optional[Tuple[str, int]] = ...,
+                     blocksize: int = ...): ...
+    else:
+        def __call__(self, host: str, port: Optional[int] = ...,
+                     timeout: int = ...,
+                     source_address: Optional[Tuple[str, int]] = ...): ...
 
 class HTTPConnection:
     host: str = ...
