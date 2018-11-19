@@ -312,19 +312,9 @@ We aim to reply to all new issues promptly.  We'll assign one or more
 labels to indicate we've triaged an issue, but most typeshed issues
 are relatively simple (stubs for a given module or package are
 missing, incomplete or incorrect) and we won't add noise to the
-tracker by labeling all of them.  Here's what our labels mean.  (We
-also apply these to pull requests.)
-
-* **bug**: It's a bug in a stub.
-* **bytes-unicode**: It's related to bytes vs. unicode, usually Python 2.
-* **feature**: It's a new typeshed feature.
-* **priority-high**: This issue is more important than most.
-* **priority-low**: This issue is less important than most.
-* **priority-normal**: This issue has average priority.
-* **question**: Not really an issue, but a question on how to do something.
-* **size-large**: An issue of high complexity or affecting many files.
-* **size-medium**: An issue of average complexity.
-* **size-small**: An issue that will take only little effort to fix.
+tracker by labeling all of them.  Please see the
+[list of all labels](https://github.com/python/typeshed/issues/labels)
+for a detailed description of the labels we use.
 
 Sometimes a PR can't make progress until some external issue is
 addressed.  We indicate this by editing the subject to add a ``[WIP]``

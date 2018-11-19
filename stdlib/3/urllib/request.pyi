@@ -4,7 +4,7 @@ from typing import (
     Any, Callable, ClassVar, Dict, List, IO, Mapping, Optional, Sequence, Tuple,
     TypeVar, Union, overload, NoReturn,
 )
-from http.client import HTTPResponse, HTTPMessage
+from http.client import HTTPResponse, HTTPMessage, HTTPConnectionProtocol
 from http.cookiejar import CookieJar
 from email.message import Message
 from urllib.response import addinfourl
@@ -159,6 +159,9 @@ class ProxyDigestAuthHandler(BaseHandler, AbstractDigestAuthHandler):
 
 class HTTPHandler(BaseHandler):
     def http_open(self, req: Request) -> HTTPResponse: ...
+    def do_open(self,  # undocumented
+                http_class: HTTPConnectionProtocol,
+                req: Request) -> HTTPResponse: ...
 
 class HTTPSHandler(BaseHandler):
     def __init__(self, debuglevel: int = ...,
