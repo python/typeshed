@@ -72,7 +72,7 @@ class KeepOpenFile:
 
 
 def echo(
-    message: Optional[object] = ...,
+    message: object = ...,
     file: Optional[IO] = ...,
     nl: bool = ...,
     err: bool = ...,
