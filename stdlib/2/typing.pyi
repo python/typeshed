@@ -144,7 +144,7 @@ class Container(Protocol[_T_co]):
     @abstractmethod
     def __contains__(self, x: object) -> bool: ...
 
-class Sequence(Iterable[_T_co], Container[_T_co], Sized, Reversible[_T_co], Generic[_T_co]):
+class Sequence(Sized, Iterable[_T_co], Container[_T_co], Reversible[_T_co], Generic[_T_co]):
     @overload
     @abstractmethod
     def __getitem__(self, i: int) -> _T_co: ...

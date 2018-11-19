@@ -245,16 +245,16 @@ class Structure(_StructUnionBase): ...
 class BigEndianStructure(Structure): ...
 class LittleEndianStructure(Structure): ...
 
-class Array(Generic[_T], _CData):
+class Array(Generic[_CT], _CData):
     _length_: ClassVar[int] = ...
-    _type_: ClassVar[Type[_T]] = ...
-    raw: bytes = ...  # TODO only available with _T == c_char
-    value: bytes = ...  # TODO only available with _T == c_char
+    _type_: ClassVar[Type[_CT]] = ...
+    raw: bytes = ...  # Note: only available if _CT == c_char
+    value: Any = ...  # Note: bytes if _CT == c_char, Text if _CT == c_wchar, unavailable otherwise
     # TODO These methods cannot be annotated correctly at the moment.
-    # All of these "Any"s stand for the array's element type, but it's not possible to use _T here,
-    # because of a special feature of ctypes.
-    # By default, when accessing an element of an Array[_T], the returned object has type _T.
-    # However, when _T is a "simple type" like c_int, ctypes automatically "unboxes" the object
+    # All of these "Any"s stand for the array's element type, but it's not possible to use _CT
+    # here, because of a special feature of ctypes.
+    # By default, when accessing an element of an Array[_CT], the returned object has type _CT.
+    # However, when _CT is a "simple type" like c_int, ctypes automatically "unboxes" the object
     # and converts it to the corresponding Python primitive. For example, when accessing an element
     # of an Array[c_int], a Python int object is returned, not a c_int.
     # This behavior does *not* apply to subclasses of "simple types".
