@@ -1,6 +1,6 @@
 # Stubs for requests.adapters (Python 3)
 
-from typing import Any, Container, Union, Text, Tuple
+from typing import Any, Container, Union, Text, Tuple, Optional, Mapping
 from . import models
 from .packages.urllib3 import poolmanager
 from .packages.urllib3 import response
