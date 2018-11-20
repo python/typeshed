@@ -29,8 +29,8 @@ For more details, read below.
 ## Discussion
 
 If you've run into behavior in the type checker that suggests the type
-stubs for a given library are incorrect or incomplete, or a library you
-depend on is missing type annotations, we want to hear from you!
+stubs for a given library are incorrect or incomplete,
+we want to hear from you!
 
 Our main forum for discussion is the project's [GitHub issue
 tracker](https://github.com/python/typeshed/issues).  This is the right
@@ -111,8 +111,9 @@ know and **get their permission**.  Do it by opening an issue on their
 project's bug tracker.  This gives them the opportunity to
 consider adopting type hints directly in their codebase (which you
 should prefer to external type stubs).  When the project owners agree
-for you to submit stubs here, open a pull request **referencing the
-message where you received permission**.
+for you to submit stubs here or you do not receive a reply within
+one month, open a pull request **referencing the
+issue where you asked for permission**.
 
 Make sure your changes pass the tests (the [README](README.md#running-the-tests)
 has more information).
