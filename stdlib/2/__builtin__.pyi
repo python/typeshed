@@ -12,7 +12,6 @@ from typing import (
     MutableSet, ItemsView, KeysView, ValuesView, Optional, Container, Type, Text
 )
 from abc import ABCMeta
-from types import CodeType
 from ast import mod
 
 _T = TypeVar('_T')
