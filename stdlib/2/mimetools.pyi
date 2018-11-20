@@ -4,7 +4,7 @@ import rfc822
 class Message(rfc822.Message):
     encodingheader = ...  # type: Any
     typeheader = ...  # type: Any
-    def __init__(self, fp, seekable=1): ...
+    def __init__(self, fp, seekable: int = ...): ...
     plisttext = ...  # type: Any
     type = ...  # type: Any
     maintype = ...  # type: Any
