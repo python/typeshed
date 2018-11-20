@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Optional
 from werkzeug.wrappers import BaseRequest as Request, BaseResponse as Response
 
 PIN_TIME = ...  # type: Any
@@ -25,7 +25,9 @@ class DebuggedApplication:
     secret = ...  # type: Any
     pin_logging = ...  # type: Any
     pin = ...  # type: Any
-    def __init__(self, app, evalex=False, request_key='', console_path='', console_init_func=None, show_hidden_frames=False, lodgeit_url=None, pin_security=True, pin_logging=True): ...
+    def __init__(self, app, evalex: bool = ..., request_key: str = ..., console_path: str = ...,
+                 console_init_func: Optional[Any] = ..., show_hidden_frames: bool = ..., lodgeit_url: Optional[Any] = ...,
+                 pin_security: bool = ..., pin_logging: bool = ...): ...
     @property
     def pin_cookie_name(self): ...
     def debug_application(self, environ, start_response): ...
