@@ -3,7 +3,7 @@ from yaml.resolver import BaseResolver, Resolver
 
 class CParser():
     def __init__(self, stream) -> None: ...
-    
+
 class CBaseLoader(CParser, BaseConstructor, BaseResolver):
     def __init__(self, stream) -> None: ...
 
