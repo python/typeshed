@@ -5,7 +5,7 @@
 
 import sys
 from types import TracebackType
-from typing import Any, AnyStr, Generic, IO, Iterable, Iterator, Optional, Tuple, Type
+from typing import Any, AnyStr, Generic, IO, Iterable, Iterator, List, Optional, Tuple, Type
 
 # global variables
 TMP_MAX: int
