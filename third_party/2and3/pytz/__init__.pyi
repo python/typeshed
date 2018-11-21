@@ -38,3 +38,4 @@ country_timezones: Mapping[str, List[str]]
 country_names: Mapping[str, str]
 ZERO: datetime.timedelta
 HOUR: datetime.timedelta
+VERSION: str
