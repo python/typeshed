@@ -3,7 +3,7 @@
 
 from typing import (
     Any, Callable, Dict, Iterable, Iterator, List, Optional,
-    Tuple, Type, TypeVar, Union, overload,
+    Text, Tuple, Type, TypeVar, Union, overload,
 )
 
 _T = TypeVar('_T')
@@ -33,9 +33,9 @@ class FunctionType:
     func_closure = ...  # type: Optional[Tuple[_Cell, ...]]
     func_code = ...  # type: CodeType
     func_defaults = ...  # type: Optional[Tuple[Any, ...]]
-    func_dict = ...  # type: Dict[str, Any]
-    func_doc = ...  # type: Optional[str]
-    func_globals = ...  # type: Dict[str, Any]
+    func_dict = ...  # type: Dict[Text, Any]
+    func_doc = ...  # type: Optional[Text]
+    func_globals = ...  # type: Dict[Text, Any]
     func_name = ...  # type: str
     __closure__ = func_closure
     __code__ = func_code
@@ -98,13 +98,13 @@ class BuiltinFunctionType:
 BuiltinMethodType = BuiltinFunctionType
 
 class ModuleType:
-    __doc__ = ...  # type: Optional[str]
-    __file__ = ...  # type: Optional[str]
-    __name__ = ...  # type: str
-    __package__ = ...  # type: Optional[str]
-    __path__ = ...  # type: Optional[Iterable[str]]
-    __dict__ = ...  # type: Dict[str, Any]
-    def __init__(self, name: str, doc: Optional[str] = ...) -> None: ...
+    __doc__ = ...  # type: Optional[Text]
+    __file__ = ...  # type: Optional[Text]
+    __name__ = ...  # type: Text
+    __package__ = ...  # type: Optional[Text]
+    __path__ = ...  # type: Optional[Iterable[Text]]
+    __dict__ = ...  # type: Dict[Text, Any]
+    def __init__(self, name: Text, doc: Optional[Text] = ...) -> None: ...
 FileType = file
 XRangeType = xrange
 
@@ -116,15 +116,15 @@ class TracebackType:
 
 class FrameType:
     f_back = ...  # type: FrameType
-    f_builtins = ...  # type: Dict[str, Any]
+    f_builtins = ...  # type: Dict[Text, Any]
     f_code = ...  # type: CodeType
     f_exc_type = ...  # type: None
     f_exc_value = ...  # type: None
     f_exc_traceback = ...  # type: None
-    f_globals = ...  # type: Dict[str, Any]
+    f_globals = ...  # type: Dict[Text, Any]
     f_lasti = ...  # type: int
     f_lineno = ...  # type: int
-    f_locals = ...  # type: Dict[str, Any]
+    f_locals = ...  # type: Dict[Text, Any]
     f_restricted = ...  # type: bool
     f_trace = ...  # type: Callable[[], None]
 

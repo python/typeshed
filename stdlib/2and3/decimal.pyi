@@ -2,7 +2,7 @@ import numbers
 import sys
 from types import TracebackType
 from typing import (
-    Any, Container, Dict, List, NamedTuple, Optional, Sequence, Text, Tuple, Type, TypeVar, Union,
+    Any, AnyStr, Container, Dict, List, NamedTuple, Optional, Sequence, Text, Tuple, Type, TypeVar, Union,
 )
 
 _Decimal = Union[Decimal, int]
@@ -193,7 +193,7 @@ class Decimal(object):
     def __reduce__(self) -> Tuple[Type[Decimal], Tuple[str]]: ...
     def __copy__(self) -> Decimal: ...
     def __deepcopy__(self, memo: Any) -> Decimal: ...
-    def __format__(self, specifier: str, context: Optional[Context] = ...) -> str: ...
+    def __format__(self, specifier: AnyStr, context: Optional[Context] = ...) -> AnyStr: ...
 
 class _ContextManager(object):
     new_context: Context
