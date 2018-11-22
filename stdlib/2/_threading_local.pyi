@@ -1,7 +1,7 @@
 # Source: https://hg.python.org/cpython/file/2.7/Lib/_threading_local.py
 from typing import Any, List, Text
 
-__all__: List[str]
+__all__: List[Text]
 
 class _localbase(object): ...
 

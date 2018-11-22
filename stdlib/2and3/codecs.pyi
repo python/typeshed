@@ -1,3 +1,4 @@
+from six import text_type as unicode
 import sys
 from typing import Any, BinaryIO, Callable, Generator, IO, Iterable, Iterator, List, Optional, Protocol, Text, TextIO, Tuple, Type, TypeVar, Union
 
@@ -10,7 +11,7 @@ import types
 # There *are* bytes->bytes and str->str encodings in the standard library.
 # They are much more common in Python 2 than in Python 3.
 
-_Decoded = Text
+_Decoded = unicode
 _Encoded = bytes
 
 class _Encoder(Protocol):
@@ -171,7 +172,7 @@ class StreamReaderWriter(TextIO):
     if sys.version_info >= (3,):
         def __next__(self) -> Text: ...
     else:
-        def next(self) -> Text: ...
+        def next(self) -> unicode: ...
     def __iter__(self: _T) -> _T: ...
     # This actually returns None, but that's incompatible with the supertype
     def write(self, data: _Decoded) -> int: ...

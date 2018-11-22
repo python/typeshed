@@ -2,7 +2,7 @@
 
 from typing import (
     Any, IO, Mapping, MutableMapping, Optional, Union,
-    Type, TypeVar,
+    Text, Type, TypeVar,
 )
 from typing import Dict as DictT
 import sys
@@ -48,9 +48,9 @@ if sys.version_info < (3,):
 
 if sys.version_info < (3, 7):
     class Dict(dict):
-        def __getattr__(self, attr: str) -> Any: ...
-        def __setattr__(self, attr: str, value: Any) -> None: ...
-        def __delattr__(self, attr: str) -> None: ...
+        def __getattr__(self, attr: Text) -> Any: ...
+        def __setattr__(self, attr: Text, value: Any) -> None: ...
+        def __delattr__(self, attr: Text) -> None: ...
 
 class Data:
     data = ...  # type: bytes

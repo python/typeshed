@@ -1,7 +1,8 @@
 # Stubs for lib2to3.pgen2.pgen (Python 3.6)
 
+from six import text_type as unicode
 from typing import (
-    Any, Dict, IO, Iterable, Iterator, List, NoReturn, Optional, Text, Tuple
+    Any, Dict, IO, Iterable, Iterator, List, NoReturn, Optional, Text, Tuple, Union
 )
 
 from lib2to3.pgen2 import _Path, grammar
@@ -11,10 +12,10 @@ class PgenGrammar(grammar.Grammar): ...
 
 class ParserGenerator:
     filename: _Path
-    stream: IO[Text]
+    stream: Union[IO[str],IO[unicode]]
     generator: Iterator[_TokenInfo]
     first: Dict[Text, Dict[Text, int]]
-    def __init__(self, filename: _Path, stream: Optional[IO[Text]] = ...) -> None: ...
+    def __init__(self, filename: _Path, stream: Optional[Union[IO[str],IO[unicode]]] = ...) -> None: ...
     def make_grammar(self) -> PgenGrammar: ...
     def make_first(self, c: PgenGrammar, name: Text) -> Dict[int, int]: ...
     def make_label(self, c: PgenGrammar, label: Text) -> int: ...

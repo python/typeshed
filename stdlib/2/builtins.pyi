@@ -6,7 +6,7 @@
 
 from typing import (
     TypeVar, Iterator, Iterable, NoReturn, overload,
-    Sequence, Mapping, Tuple, List, Any, Dict, Callable, Generic, Set,
+    Sequence, Mapping, Tuple, List, Any, Dict, Callable, Generic, Set, Text,
     AbstractSet, FrozenSet, Sized, Reversible, SupportsInt, SupportsFloat, SupportsAbs,
     SupportsComplex, SupportsRound, IO, BinaryIO, Union, AnyStr, MutableSequence, MutableMapping,
     MutableSet, ItemsView, KeysView, ValuesView, Optional, Container, Type

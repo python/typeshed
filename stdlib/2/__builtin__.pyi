@@ -6,7 +6,7 @@
 
 from typing import (
     TypeVar, Iterator, Iterable, NoReturn, overload,
-    Sequence, Mapping, Tuple, List, Any, Dict, Callable, Generic, Set,
+    Sequence, Mapping, Tuple, List, Any, Dict, Callable, Generic, Set, Text,
     AbstractSet, FrozenSet, Sized, Reversible, SupportsInt, SupportsFloat, SupportsAbs,
     SupportsComplex, SupportsRound, IO, BinaryIO, Union, AnyStr, MutableSequence, MutableMapping,
     MutableSet, ItemsView, KeysView, ValuesView, Optional, Container, Type
@@ -871,7 +871,7 @@ def open(file: unicode, mode: Text = ..., buffering: int = ...) -> BinaryIO: ...
 def open(file: int, mode: Text = ..., buffering: int = ...) -> BinaryIO: ...
 def ord(c: unicode) -> int: ...
 # This is only available after from __future__ import print_function.
-def print(*values: Any, sep: unicode = ..., end: unicode = ..., file: IO[Any] = ...) -> None: ...
+def print(*values: Any, sep: Text = ..., end: Text = ..., file: IO[Any] = ...) -> None: ...
 @overload
 def pow(x: int, y: int) -> Any: ...  # The return type can be int or float, depending on y.
 @overload

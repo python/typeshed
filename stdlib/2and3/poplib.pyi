@@ -1,11 +1,12 @@
 # Stubs for poplib (Python 2 and 3)
 
 import socket
+from six import text_type as unicode
 import ssl
 import sys
 from typing import (
     Any, BinaryIO, Dict, List, NoReturn, Optional, overload, Pattern, Text,
-    Tuple,
+    Tuple, Union,
 )
 
 _LongResp = Tuple[bytes, List[bytes], int]
@@ -44,7 +45,7 @@ class POP3:
     def close(self) -> None: ...
     def rpop(self, user: Text) -> bytes: ...
 
-    timestamp: Pattern[Text]
+    timestamp: Union[Pattern[str],Pattern[unicode]]
 
     if sys.version_info < (3, 0):
         def apop(self, user: Text, secret: Text) -> bytes: ...

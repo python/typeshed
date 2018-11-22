@@ -12,7 +12,7 @@ _T = TypeVar('_T')
 _FT = TypeVar('_FT')
 
 _ExceptionType = Union[Type[BaseException], Tuple[Type[BaseException], ...]]
-_Regexp = Union[Text, Pattern[Text]]
+_Regexp = Union[Text, Pattern[unicode], Pattern[str]]
 
 class Testable(metaclass=ABCMeta):
     @abstractmethod

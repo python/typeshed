@@ -1,10 +1,11 @@
+from six import text_type as unicode
 from typing import Any, Optional, Union, IO, Text, Tuple, List
 import datetime
 from ._common import tzname_in_python2 as tzname_in_python2, _tzinfo as _tzinfo
 from ._common import tzrangebase as tzrangebase, enfold as enfold
 from ..relativedelta import relativedelta
 
-_FileObj = Union[str, Text, IO[str], IO[Text]]
+_FileObj = Union[str, Text, IO[str], IO[unicode]]
 
 ZERO = ...  # type: datetime.timedelta
 EPOCH = ...  # type: datetime.datetime

@@ -20,7 +20,7 @@ def dumps(obj: Any,
           **kwds: Any) -> str: ...
 
 def dump(obj: Any,
-         fp: Union[IO[str], IO[Text]],
+         fp: Union[IO[str], IO[unicode]],
          skipkeys: bool = ...,
          ensure_ascii: bool = ...,
          check_circular: bool = ...,

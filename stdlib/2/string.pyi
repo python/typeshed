@@ -2,7 +2,7 @@
 
 # Based on http://docs.python.org/3.2/library/string.html
 
-from typing import Mapping, Sequence, Any, Optional, Union, List, Tuple, Iterable, AnyStr
+from typing import Mapping, Sequence, Any, Optional, Union, List, Text, Tuple, Iterable, AnyStr
 
 ascii_letters = ...  # type: str
 ascii_lowercase = ...  # type: str
@@ -70,5 +70,5 @@ class Formatter(object):
         raise KeyError()
     def check_unused_args(self, used_args: Sequence[Union[int, str]], args: Sequence[Any],
                           kwargs: Mapping[str, Any]) -> None: ...
-    def format_field(self, value: Any, format_spec: str) -> Any: ...
+    def format_field(self, value: Any, format_spec: Text) -> Any: ...
     def convert_field(self, value: Any, conversion: str) -> Any: ...
