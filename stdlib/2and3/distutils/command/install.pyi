@@ -1,13 +1,13 @@
 from distutils.cmd import Command
-from typing import Union, Optional
+from typing import Optional, Text
 
 
 class install(Command):
-    user: Union[int, bool]
-    prefix: Optional[str]
-    home: Optional[str]
-    root: Optional[str]
-    install_lib: Optional[str]
+    user: bool
+    prefix: Optional[Text]
+    home: Optional[Text]
+    root: Optional[Text]
+    install_lib: Optional[Text]
 
     def initialize_options(self) -> None: ...
     def finalize_options(self) -> None: ...
