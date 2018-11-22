@@ -277,7 +277,7 @@ class MutableMapping(Mapping[_KT, _VT], Generic[_KT, _VT]):
     @overload
     def update(self, **kwargs: _VT) -> None: ...
 
-Text = unicode
+Text = Union[bytes, unicode]
 
 TYPE_CHECKING = True
 
@@ -397,7 +397,7 @@ class Match(Generic[AnyStr]):
 # Pattern is generic over AnyStr (determining the type of its .pattern
 # attribute), but at the same time its methods take either bytes or
 # Text and return the same type, regardless of the type of the pattern.
-_AnyStr2 = TypeVar('_AnyStr2', bytes, Text)
+_AnyStr2 = TypeVar('_AnyStr2', bytes, unicode, Text)
 
 class Pattern(Generic[AnyStr]):
     flags: int

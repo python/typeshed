@@ -1,4 +1,5 @@
 # Stubs for unicodedata (Python 2.7 and 3.4)
+from six import text_type as unicode
 from typing import Any, Text, TypeVar, Union
 
 ucd_3_2_0 = ...  # type: UCD
