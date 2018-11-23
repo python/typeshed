@@ -14,7 +14,7 @@ class ModuleSpec:
                  origin: Optional[str] = ..., loader_state: Any = ...,
                  is_package: Optional[bool] = ...) -> None: ...
     name = ...  # type: str
-    loader = ...  # type: Optional[Loader]
+    loader = ...  # type: Any
     origin = ...  # type: Optional[str]
     submodule_search_locations = ...  # type: Optional[List[str]]
     loader_state = ...  # type: Any
