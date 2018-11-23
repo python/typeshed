@@ -137,14 +137,14 @@ if sys.version_info < (3, 0):
 elif sys.version_info >= (3, 6):
     # Mypy complains that the signatures overlap (same for relpath below), but things seem to behave correctly anyway.
     @overload
-    def join(path: _StrPath, *paths: _StrPath) -> Text: ...  # type: ignore
+    def join(path: _StrPath, *paths: _StrPath) -> Text: ...
     @overload
     def join(path: _BytesPath, *paths: _BytesPath) -> bytes: ...
 else:
     def join(path: AnyStr, *paths: AnyStr) -> AnyStr: ...
 
 @overload
-def relpath(path: _BytesPath, start: Optional[_BytesPath] = ...) -> bytes: ...  # type: ignore
+def relpath(path: _BytesPath, start: Optional[_BytesPath] = ...) -> bytes: ...
 @overload
 def relpath(path: _StrPath, start: Optional[_StrPath] = ...) -> Text: ...
 

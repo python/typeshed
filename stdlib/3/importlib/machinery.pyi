@@ -32,7 +32,7 @@ class BuiltinImporter(importlib.abc.MetaPathFinder,
     def get_source(cls, fullname: str) -> None: ...
     # Loader
     @staticmethod
-    def module_repr(module: types.ModuleType) -> str: ...  # type: ignore
+    def module_repr(module: types.ModuleType) -> str: ...
     @classmethod
     def create_module(cls, spec: ModuleSpec) -> Optional[types.ModuleType]: ...
     @classmethod
@@ -62,12 +62,12 @@ class FrozenImporter(importlib.abc.MetaPathFinder, importlib.abc.InspectLoader):
     def get_source(cls, fullname: str) -> None: ...
     # Loader
     @staticmethod
-    def module_repr(module: types.ModuleType) -> str: ...  # type: ignore
+    def module_repr(module: types.ModuleType) -> str: ...
     @classmethod
     def create_module(cls, spec: ModuleSpec) -> Optional[types.ModuleType]:
         ...
     @staticmethod
-    def exec_module(module: types.ModuleType) -> None: ...  # type: ignore
+    def exec_module(module: types.ModuleType) -> None: ...
 
 class WindowsRegistryFinder(importlib.abc.MetaPathFinder):
     @classmethod
@@ -113,4 +113,4 @@ class SourcelessFileLoader(importlib.abc.FileLoader,
 
 class ExtensionFileLoader(importlib.abc.ExecutionLoader):
     def get_filename(self, fullname: str) -> importlib.abc._Path: ...
-    def get_source(self, fullname: str) -> None: ...  # type: ignore
+    def get_source(self, fullname: str) -> None: ...
