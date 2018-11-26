@@ -16,7 +16,7 @@ if sys.version_info >= (3, 5):
     _ExcInfoType = Union[None, bool, _SysExcInfoType, BaseException]
 else:
     _ExcInfoType = Union[None, bool, _SysExcInfoType]
-_ArgsType = Union[Tuple[Any, ...], Dict[str, Any]]
+_ArgsType = Union[Tuple[Any, ...], Mapping[str, Any]]
 _FilterType = Union[Filter, Callable[[LogRecord], int]]
 _Level = Union[int, Text]
 if sys.version_info >= (3, 6):
