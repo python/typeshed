@@ -9,6 +9,7 @@ from . import resolver  # Help mypy a bit; this is implied by loader and dumper
 from .cyaml import *
 
 __with_libyaml__ = ...  # type: Any
+__version__ = ...  # type: str
 
 def scan(stream, Loader=...): ...
 def parse(stream, Loader=...): ...
