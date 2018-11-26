@@ -114,7 +114,7 @@ class Logger(Filterer):
     def handle(self, record: LogRecord) -> None: ...
     if sys.version_info >= (3,):
         def makeRecord(self, name: str, lvl: int, fn: str, lno: int, msg: Any,
-                       args: Mapping[str, Any],
+                       args: _ArgsType,
                        exc_info: Optional[_SysExcInfoType],
                        func: Optional[str] = ...,
                        extra: Optional[Mapping[str, Any]] = ...,
@@ -122,7 +122,7 @@ class Logger(Filterer):
     else:
         def makeRecord(self,
                        name: str, lvl: int, fn: str, lno: int, msg: Any,
-                       args: Mapping[str, Any],
+                       args: _ArgsType,
                        exc_info: Optional[_SysExcInfoType],
                        func: Optional[str] = ...,
                        extra: Optional[Mapping[str, Any]] = ...) -> LogRecord: ...
