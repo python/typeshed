@@ -122,14 +122,17 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
                      argument_default: Optional[_Text] = ...,
                      conflict_handler: _Text = ...,
                      add_help: bool = ...) -> None: ...
+
+    # The type-ignores in these overloads should be temporary.  See:
+    # https://github.com/python/typeshed/pull/2643#issuecomment-442280277
     @overload
     def parse_args(self, args: Optional[Sequence[_Text]] = ...) -> Namespace: ...
     @overload
-    def parse_args(self, args: Optional[Sequence[_Text]], namespace: None) -> Namespace: ...
+    def parse_args(self, args: Optional[Sequence[_Text]], namespace: None) -> Namespace: ...  # type: ignore
     @overload
     def parse_args(self, args: Optional[Sequence[_Text]], namespace: _N) -> _N: ...
     @overload
-    def parse_args(self, *, namespace: None) -> Namespace: ...
+    def parse_args(self, *, namespace: None) -> Namespace: ...  # type: ignore
     @overload
     def parse_args(self, *, namespace: _N) -> _N: ...
 
