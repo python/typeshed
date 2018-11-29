@@ -10,7 +10,7 @@ _F = TypeVar('_F', bound=Callable[..., Any])
 # _Decorator = Callable[[_F], _F]
 
 _Callback = Callable[
-    [Context, Union[Option, Parameter], Union[bool, int, str]],
+    [Context, Union[Option, Parameter], Any],
     Any
 ]
 
