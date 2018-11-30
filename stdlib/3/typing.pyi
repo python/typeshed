@@ -332,9 +332,6 @@ class MutableSet(AbstractSet[_T], Generic[_T]):
 
 class MappingView:
     def __len__(self) -> int: ...
-    # Implement Sized (but don't have it as a base class).
-    @abstractmethod
-    def __len__(self) -> int: ...
 
 class ItemsView(AbstractSet[Tuple[_KT_co, _VT_co]], MappingView, Generic[_KT_co, _VT_co]):
     def __contains__(self, o: object) -> bool: ...
