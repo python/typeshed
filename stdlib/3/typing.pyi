@@ -235,13 +235,20 @@ class Container(Protocol[_T_co]):
 
 if sys.version_info >= (3, 6):
     @runtime
-    class Collection(Sized, Iterable[_T_co], Container[_T_co], Protocol[_T_co]): ...
+    class Collection(Iterable[_T_co], Container[_T_co], Protocol[_T_co]):
+        # Implement Sized (but don't have it as a base class).
+        @abstractmethod
+        def __len__(self) -> int: ...
+
     _Collection = Collection
 else:
     @runtime
-    class _Collection(Sized, Iterable[_T_co], Container[_T_co], Protocol[_T_co]): ...
+    class _Collection(Iterable[_T_co], Container[_T_co], Protocol[_T_co]):
+        # Implement Sized (but don't have it as a base class).
+        @abstractmethod
+        def __len__(self) -> int: ...
 
-class Sequence(_Collection[_T_co], Reversible[_T_co], Generic[_T_co]):
+class Sequence(Iterable[_T_co], Container[_T_co], Reversible[_T_co], Generic[_T_co]):
     @overload
     @abstractmethod
     def __getitem__(self, i: int) -> _T_co: ...
@@ -257,6 +264,9 @@ class Sequence(_Collection[_T_co], Reversible[_T_co], Generic[_T_co]):
     def __contains__(self, x: object) -> bool: ...
     def __iter__(self) -> Iterator[_T_co]: ...
     def __reversed__(self) -> Iterator[_T_co]: ...
+    # Implement Sized (but don't have it as a base class).
+    @abstractmethod
+    def __len__(self) -> int: ...
 
 class MutableSequence(Sequence[_T], Generic[_T]):
     @abstractmethod
@@ -302,6 +312,9 @@ class AbstractSet(_Collection[_T_co], Generic[_T_co]):
     def __xor__(self, s: AbstractSet[_T]) -> AbstractSet[Union[_T_co, _T]]: ...
     # TODO: Argument can be a more general ABC?
     def isdisjoint(self, s: AbstractSet[Any]) -> bool: ...
+    # Implement Sized (but don't have it as a base class).
+    @abstractmethod
+    def __len__(self) -> int: ...
 
 class MutableSet(AbstractSet[_T], Generic[_T]):
     @abstractmethod
@@ -317,7 +330,10 @@ class MutableSet(AbstractSet[_T], Generic[_T]):
     def __ixor__(self, s: AbstractSet[_S]) -> MutableSet[Union[_T, _S]]: ...
     def __isub__(self, s: AbstractSet[Any]) -> MutableSet[_T]: ...
 
-class MappingView(Sized):
+class MappingView:
+    def __len__(self) -> int: ...
+    # Implement Sized (but don't have it as a base class).
+    @abstractmethod
     def __len__(self) -> int: ...
 
 class ItemsView(AbstractSet[Tuple[_KT_co, _VT_co]], MappingView, Generic[_KT_co, _VT_co]):
