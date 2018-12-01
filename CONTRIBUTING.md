@@ -147,7 +147,7 @@ def list2cmdline(seq: Sequence[str]) -> str: ...  # undocumented
 
 ### Incomplete stubs
 
-We accept partical stubs, especially for larger packages. These need to
+We accept partial stubs, especially for larger packages. These need to
 follow the following guidelines:
 
 * Included functions and methods must list all arguments, but the arguments
