@@ -188,6 +188,8 @@ you should know about.
 Style conventions for stub files are different from PEP 8. The general
 rule is that they should be as concise as possible.  Specifically:
 * lines can be up to 130 characters long;
+* functions and methods that don't fit in one line should be split up
+  with one argument per line;
 * all function bodies should be empty;
 * prefer ``...`` over ``pass``;
 * prefer ``...`` on the same line as the class/function signature;
@@ -199,6 +201,8 @@ rule is that they should be as concise as possible.  Specifically:
 * use variable annotations instead of type comments, even for stubs
   that target older versions of Python;
 * for arguments with a type and a default, use spaces around the `=`.
+The code formatter [black](https://github.com/ambv/black) will format
+stubs according to this standard.
 
 Stub files should only contain information necessary for the type
 checker, and leave out unnecessary detail:
