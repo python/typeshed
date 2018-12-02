@@ -1,6 +1,6 @@
 # Stubs for requests.adapters (Python 3)
 
-from typing import Any, Container, Union, Text, Tuple
+from typing import Any, Container, Union, Text, Tuple, Optional, Mapping
 from . import models
 from .packages.urllib3 import poolmanager
 from .packages.urllib3 import response
@@ -44,12 +44,15 @@ DEFAULT_RETRIES = ...  # type: Any
 
 class BaseAdapter:
     def __init__(self) -> None: ...
-    def send(self, request: PreparedRequest, stream: bool = ...,
+    def send(self,
+             request: PreparedRequest,
+             stream: bool = ...,
              timeout: Union[None, float, Tuple[float, float]] = ...,
-             verify: bool = ...,
-             cert: Union[None, Union[bytes, Text], Container[Union[bytes, Text]]] = ...
-             ) -> Response: ...
+             verify: Union[bool, str] = ...,
+             cert: Union[None, Union[bytes, Text], Container[Union[bytes, Text]]] = ...,
+             proxies: Optional[Mapping[str, str]] = ...) -> Response: ...
     def close(self) -> None: ...
+
 class HTTPAdapter(BaseAdapter):
     __attrs__ = ...  # type: Any
     max_retries = ...  # type: Any
@@ -67,6 +70,10 @@ class HTTPAdapter(BaseAdapter):
     def request_url(self, request, proxies): ...
     def add_headers(self, request, **kwargs): ...
     def proxy_headers(self, proxy): ...
-    # TODO: "request" is not actually optional, modified to please mypy.
-    def send(self, request=..., stream=..., timeout=..., verify=..., cert=...,
-             proxies=...): ...
+    def send(self,
+             request: PreparedRequest,
+             stream: bool = ...,
+             timeout: Union[None, float, Tuple[float, float]] = ...,
+             verify: Union[bool, str] = ...,
+             cert: Union[None, Union[bytes, Text], Container[Union[bytes, Text]]] = ...,
+             proxies: Optional[Mapping[str, str]] = ...) -> Response: ...
