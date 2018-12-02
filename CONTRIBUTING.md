@@ -225,7 +225,7 @@ unless:
 
 When adding type hints, avoid using the `Any` type when possible. Reserve
 the use of `Any` for when:
-* it is simply not possible to construct the correct type;
+* the correct type cannot be expressed in the current type system;
 * you are contributing a preliminary set of stubs and are not sure
   in some cases what the correct types are; and
 * to avoid Union returns (see above).
