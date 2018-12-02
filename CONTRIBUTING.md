@@ -228,6 +228,17 @@ unless:
 * they use the form ``from library import *`` which means all names
   from that library are exported.
 
+When adding type hints, avoid using the `Any` type when possible. Reserve
+the use of `Any` for when:
+* the correct type cannot be expressed in the current type system;
+* you are contributing a preliminary set of stubs and are not sure
+  in some cases what the correct types are; and
+* to avoid Union returns (see above).
+
+Note that `Any` is not the correct type to use if you want to indicate
+that some function can accept literally anything: in those cases use
+`object` instead.
+
 For arguments with type and a default value of `None`, PEP 484
 prescribes that the type automatically becomes `Optional`.  However we
 prefer explicit over implicit in this case, and require the explicit
