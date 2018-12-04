@@ -1,5 +1,8 @@
 # Python 2.7 ast
 
+# Rename typing to _typing, as not to conflict with typing imported
+# from _ast below when loaded in an unorthodox way by the Dropbox
+# internal Bazel integration.
 import typing as _typing
 from typing import Any, Iterator, Optional, Union
 
