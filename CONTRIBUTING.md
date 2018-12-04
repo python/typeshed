@@ -169,7 +169,7 @@ annotated function `bar()`:
 ```python
 def __getattr__(name: str) -> Any: ...  # incomplete
 
-def Foo:
+class Foo:
     def __getattr__(self, name: str) -> Any:  # incomplete
     x: int
     y: str
