@@ -145,6 +145,38 @@ Example:
 def list2cmdline(seq: Sequence[str]) -> str: ...  # undocumented
 ```
 
+### Incomplete stubs
+
+We accept partial stubs, especially for larger packages. These need to
+follow the following guidelines:
+
+* Included functions and methods must list all arguments, but the arguments
+  can be left unannotated. Do not use `Any` to mark unannotated arguments
+  or return values.
+* Partial classes must include a `__getattr__()` method marked with an
+  `# incomplete` comment (see example below).
+* Partial modules (i.e. modules that are missing some or all classes,
+  functions, or attributes) must include a top-level `__getattr__()`
+  function marked with an `# incomplete` comment (see example below).
+* Partial packages (i.e. packages that are missing one or more sub-modules)
+  must have a `__init__.pyi` stub that is marked as incomplete (see above).
+  A better alternative is to create empty stubs for all sub-modules and
+  mark them as incomplete individually.
+
+Example of a partial module with a partial class `Foo` and a partially
+annotated function `bar()`:
+
+```python
+def __getattr__(name: str) -> Any: ...  # incomplete
+
+class Foo:
+    def __getattr__(self, name: str) -> Any:  # incomplete
+    x: int
+    y: str
+
+def bar(x: str, y, *, z=...): ...
+```
+
 ### Using stubgen
 
 Mypy includes a tool called [stubgen](https://github.com/python/mypy/blob/master/mypy/stubgen.py)
@@ -230,9 +262,7 @@ unless:
 
 When adding type hints, avoid using the `Any` type when possible. Reserve
 the use of `Any` for when:
-* the correct type cannot be expressed in the current type system;
-* you are contributing a preliminary set of stubs and are not sure
-  in some cases what the correct types are; and
+* the correct type cannot be expressed in the current type system; and
 * to avoid Union returns (see above).
 
 Note that `Any` is not the correct type to use if you want to indicate
