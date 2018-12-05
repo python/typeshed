@@ -150,6 +150,12 @@ def option(
     ...
 
 
+@overload
+def option(type: Type[str], callback: Callable[[str], Any]) -> None: ...
+@overload
+def option(type: Type[int], callback: Callable[[int], Any]) -> None: ...
+
+
 def confirmation_option(
     *param_decls: str,
     cls: Type[Option] = ...,
