@@ -70,7 +70,9 @@ class AWSAuthConnection:
     @property
     def aws_access_key_id(self): ...
     @property
-    def gs_access_key_id(self): ...  # type: Any
+    def gs_access_key_id(self):
+      # type: (...) -> Any
+      ...
     access_key = ...  # type: Any
     @property
     def aws_secret_access_key(self): ...
