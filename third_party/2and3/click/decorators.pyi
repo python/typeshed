@@ -151,9 +151,65 @@ def option(
 
 
 @overload
-def option(type: Type[str], callback: Callable[[str], Any]) -> None: ...
+def option(
+    *param_decls: str,
+    cls: Type[Option] = ...,
+    # Option
+    show_default: bool = ...,
+    prompt: Union[bool, Text] = ...,
+    confirmation_prompt: bool = ...,
+    hide_input: bool = ...,
+    is_flag: Optional[bool] = ...,
+    flag_value: Optional[Any] = ...,
+    multiple: bool = ...,
+    count: bool = ...,
+    allow_from_autoenv: bool = ...,
+    type: Type[str] = ...,
+    help: Optional[str] = ...,
+    # Parameter
+    default: Optional[Any] = ...,
+    required: bool = ...,
+    callback: Callable[[str], Any] = ...,
+    nargs: Optional[int] = ...,
+    metavar: Optional[str] = ...,
+    expose_value: bool = ...,
+    is_eager: bool = ...,
+    envvar: Optional[Union[str, List[str]]] = ...,
+    # User-defined
+    **kwargs: Any,
+) -> Callable[[_F], _F]:
+    ...
+
+
 @overload
-def option(type: Type[int], callback: Callable[[int], Any]) -> None: ...
+def option(
+    *param_decls: str,
+    cls: Type[Option] = ...,
+    # Option
+    show_default: bool = ...,
+    prompt: Union[bool, Text] = ...,
+    confirmation_prompt: bool = ...,
+    hide_input: bool = ...,
+    is_flag: Optional[bool] = ...,
+    flag_value: Optional[Any] = ...,
+    multiple: bool = ...,
+    count: bool = ...,
+    allow_from_autoenv: bool = ...,
+    type: Type[int] = ...,
+    help: Optional[str] = ...,
+    # Parameter
+    default: Optional[Any] = ...,
+    required: bool = ...,
+    callback: Callable[[int], Any] = ...,
+    nargs: Optional[int] = ...,
+    metavar: Optional[str] = ...,
+    expose_value: bool = ...,
+    is_eager: bool = ...,
+    envvar: Optional[Union[str, List[str]]] = ...,
+    # User-defined
+    **kwargs: Any,
+) -> Callable[[_F], _F]:
+    ...
 
 
 def confirmation_option(
