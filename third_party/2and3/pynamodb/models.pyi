@@ -1,7 +1,6 @@
+from .attributes import Attribute
 from .exceptions import DoesNotExist as DoesNotExist
 from typing import Any, Dict, Generic, Iterable, Iterator, List, Optional, Sequence, Tuple, Type, TypeVar, Text, Union
-
-from pynamodb.attributes import Attribute
 
 log: Any
 
