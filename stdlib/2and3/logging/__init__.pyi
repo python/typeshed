@@ -71,6 +71,7 @@ class Logger(Filterer):
         def critical(self, msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                      stack_info: bool = ..., extra: Optional[Dict[str, Any]] = ...,
                      **kwargs: Any) -> None: ...
+        fatal = critical
         def log(self, lvl: int, msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                 stack_info: bool = ..., extra: Optional[Dict[str, Any]] = ...,
                 **kwargs: Any) -> None: ...
@@ -96,6 +97,7 @@ class Logger(Filterer):
         def critical(self,
                      msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                      extra: Optional[Dict[str, Any]] = ..., **kwargs: Any) -> None: ...
+        fatal = critical
         def log(self,
                 lvl: int, msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                 extra: Optional[Dict[str, Any]] = ..., **kwargs: Any) -> None: ...
