@@ -136,7 +136,7 @@ class RawConfigParser(_parser):
 class ConfigParser(RawConfigParser):
     def __init__(self,
                  defaults: Optional[_section] = ...,
-                 dict_type: Mapping[str, str] = ...,
+                 dict_type: Type[Mapping[str, str]] = ...,
                  allow_no_value: bool = ...,
                  delimiters: Sequence[str] = ...,
                  comment_prefixes: Sequence[str] = ...,
