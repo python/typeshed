@@ -11,6 +11,9 @@ from typing import (
 )
 from . import path as path
 
+# Workaround a pytype crash (see #2683)
+from builtins import bytes
+
 _T = TypeVar('_T')
 
 # ----- os variables -----
