@@ -1,0 +1,3 @@
+from typing import Any
+def __getattr__(name: str) -> Any: ...  # incomplete
+def safe_repr(obj: object, short: bool = ...) -> str: ...

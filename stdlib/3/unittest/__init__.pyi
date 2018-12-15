@@ -8,6 +8,7 @@ from typing import (
 import logging
 import sys
 from types import ModuleType, TracebackType
+from unittest.case import _Outcome, _SysExcInfoType
 
 
 _T = TypeVar('_T')
@@ -30,6 +31,7 @@ class TestCase:
     maxDiff = ...  # type: Optional[int]
     # undocumented
     _testMethodName = ...  # type: str
+    _outcome = ...  # type: Optional[_Outcome]
     def __init__(self, methodName: str = ...) -> None: ...
     def setUp(self) -> None: ...
     def tearDown(self) -> None: ...
@@ -146,6 +148,10 @@ class TestCase:
     def addCleanup(self, function: Callable[..., Any], *args: Any,
                    **kwargs: Any) -> None: ...
     def doCleanups(self) -> None: ...
+    def _feedErrorsToResult(
+        self, result: TestResult,
+        errors: Iterable[Tuple[TestCase, Optional[_SysExcInfoType]]]
+    ) -> None: ...  # undocumented
     def _formatMessage(self, msg: Optional[str], standardMsg: str) -> str: ...  # undocumented
     def _getAssertEqualityFunc(self, first: Any, second: Any) -> Callable[..., None]: ...  # undocumented
     # below is deprecated
@@ -250,10 +256,6 @@ class TestLoader:
                          testCaseClass: Type[TestCase]) -> Sequence[str]: ...
     def discover(self, start_dir: str, pattern: str = ...,
                  top_level_dir: Optional[str] = ...) -> TestSuite: ...
-
-_SysExcInfoType = Tuple[Optional[Type[BaseException]],
-                        Optional[BaseException],
-                        Optional[TracebackType]]
 
 class TestResult:
     errors = ...  # type: List[Tuple[TestCase, str]]
