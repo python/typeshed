@@ -1,4 +1,4 @@
-# path.pyi, macpath.pyi, posixpath.pyi and ntpath.pyi must remain consistent!
+# NB: path.pyi and stdlib/2 and stdlib/3 must remain consistent!
 # Stubs for os.path
 # Ron Murawski <ron@horizonchess.com>
 
