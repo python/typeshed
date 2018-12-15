@@ -53,7 +53,7 @@ class CodeType:
     co_cellvars = ...  # type: Tuple[str, ...]
     co_code = ...  # type: str
     co_consts = ...  # type: Tuple[Any, ...]
-    co_filename = ...  # type: Optional[str]
+    co_filename = ...  # type: str
     co_firstlineno = ...  # type: int
     co_flags = ...  # type: int
     co_freevars = ...  # type: Tuple[str, ...]
