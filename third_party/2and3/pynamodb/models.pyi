@@ -1,3 +1,4 @@
+from .attributes import Attribute
 from .exceptions import DoesNotExist as DoesNotExist
 from typing import Any, Dict, Generic, Iterable, Iterator, List, Optional, Sequence, Tuple, Type, TypeVar, Text, Union
 
@@ -85,7 +86,9 @@ class Model(metaclass=MetaModel):
     @classmethod
     def get_throttle(cls): ...
     @classmethod
-    def _get_attributes(cls) -> Dict[str, Any]: ...
+    def get_attributes(cls) -> Dict[str, Attribute]: ...
+    @classmethod
+    def _get_attributes(cls) -> Dict[str, Attribute]: ...
 
 class ModelContextManager(Generic[_T]):
     model: Type[_T]
