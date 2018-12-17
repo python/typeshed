@@ -99,6 +99,7 @@ EPROTOTYPE = ...  # type: int
 ENOPROTOOPT = ...  # type: int
 EPROTONOSUPPORT = ...  # type: int
 ESOCKTNOSUPPORT = ...  # type: int
+ENOTSUP = ...  # type: int
 EOPNOTSUPP = ...  # type: int
 EPFNOSUPPORT = ...  # type: int
 EAFNOSUPPORT = ...  # type: int
