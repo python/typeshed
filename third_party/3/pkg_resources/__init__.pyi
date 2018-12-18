@@ -68,10 +68,14 @@ class Environment:
 def parse_requirements(strs: Union[str, Iterable[str]]) -> Generator[Requirement, None, None]: ...
 
 class Requirement:
+    unsafe_name: str
     project_name: str
     key: str
     extras: Tuple[str, ...]
     specs: List[Tuple[str, str]]
+    # TODO: change this to Optional[packaging.markers.Marker] once we can import
+    #       packaging.markers
+    marker: Optional[Any]
     @staticmethod
     def parse(s: Union[str, Iterable[str]]) -> Requirement: ...
     def __contains__(self, item: Union[Distribution, str, Tuple[str, ...]]) -> bool: ...
