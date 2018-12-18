@@ -246,6 +246,7 @@ class Num(expr):
 
 class Str(expr):
     s = ...  # type: bytes
+    kind = ...  # type: str
 
 class Attribute(expr):
     value = ...  # type: expr
