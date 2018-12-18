@@ -264,6 +264,7 @@ class Num(expr):
 
 class Str(expr):
     s = ...  # type: str
+    kind = ...  # type: str
 
 class FormattedValue(expr):
     value = ...  # type: expr
