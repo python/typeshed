@@ -83,7 +83,8 @@ def argument(
     metavar: Optional[str] = ...,
     expose_value: bool = ...,
     is_eager: bool = ...,
-    envvar: Optional[Union[str, List[str]]] = ...
+    envvar: Optional[Union[str, List[str]]] = ...,
+    autocompletion: Callable[[Any, List[str]], str], List[Union[str, Tuple[str, str]]] = ...,
 ) -> Callable[[_F], _F]:
     ...
 
