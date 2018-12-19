@@ -14,6 +14,7 @@ from typing import (
     NoReturn,
     Optional,
     Pattern,
+    Text,
     Tuple,
     Type,
     TypeVar,

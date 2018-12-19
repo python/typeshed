@@ -5,7 +5,7 @@ from __future__ import print_function
 import types
 from typing import (
     Any, AnyStr, Callable, Dict, Iterable, Mapping, NoReturn, Optional,
-    Pattern, Tuple, Type, TypeVar, Union, overload, ValuesView, KeysView, ItemsView
+    Pattern, Text, Tuple, Type, TypeVar, Union, overload, ValuesView, KeysView, ItemsView,
 )
 import typing
 import unittest
