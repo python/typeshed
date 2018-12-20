@@ -1,6 +1,6 @@
 # Stubs for zipfile
 
-from typing import Callable, IO, Iterable, List, Optional, Text, Tuple, Type, Union
+from typing import Callable, Dict, IO, Iterable, List, Optional, Text, Tuple, Type, Union
 from types import TracebackType
 import os
 import sys
@@ -27,6 +27,8 @@ class ZipFile:
     debug = ...  # type: int
     comment = ...  # type: bytes
     filelist = ...  # type: List[ZipInfo]
+    fp = ...  # type: IO[bytes]
+    NameToInfo = ... # type: Dict[str, ZipInfo]
     def __init__(self, file: Union[_Path, IO[bytes]], mode: Text = ..., compression: int = ...,
                  allowZip64: bool = ...) -> None: ...
     def __enter__(self) -> ZipFile: ...
@@ -48,6 +50,7 @@ class ZipFile:
     def setpassword(self, pwd: bytes) -> None: ...
     def read(self, name: _SZI, pwd: Optional[bytes] = ...) -> bytes: ...
     def testzip(self) -> Optional[str]: ...
+    def _writecheck(self, zinfo: ZipInfo) -> None: ...
     def write(self, filename: _Path, arcname: Optional[_Path] = ...,
               compress_type: Optional[int] = ...) -> None: ...
     if sys.version_info >= (3,):
