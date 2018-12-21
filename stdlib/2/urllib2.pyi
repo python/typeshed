@@ -84,7 +84,9 @@ class HTTPRedirectHandler(BaseHandler):
 
 
 class ProxyHandler(BaseHandler):
-    def __init__(self, proxies: Optional[Any] = ...): ...
+    proxies: Mapping[str, str]
+
+    def __init__(self, proxies: Optional[Mapping[str, str]] = ...): ...
     def proxy_open(self, req, proxy, type): ...
 
 class HTTPPasswordMgr:
