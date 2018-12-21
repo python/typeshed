@@ -2,7 +2,7 @@
 # Stubs for os.path
 # Ron Murawski <ron@horizonchess.com>
 
-from posix import stat_result
+import os
 import sys
 from typing import (
     overload, List, Any, AnyStr, Sequence, Tuple, BinaryIO, TextIO,
@@ -150,7 +150,7 @@ def relpath(path: _StrPath, start: Optional[_StrPath] = ...) -> Text: ...
 
 def samefile(path1: _PathType, path2: _PathType) -> bool: ...
 def sameopenfile(fp1: int, fp2: int) -> bool: ...
-def samestat(stat1: stat_result, stat2: stat_result) -> bool: ...
+def samestat(stat1: os.stat_result, stat2: os.stat_result) -> bool: ...
 
 if sys.version_info >= (3, 6):
     @overload
