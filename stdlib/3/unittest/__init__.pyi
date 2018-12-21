@@ -283,8 +283,8 @@ class TestResult:
                    outcome: Optional[_SysExcInfoType]) -> None: ...
 
 class TextTestResult(TestResult):
-    separator1 = ...  # type: str
-    separator2 = ...  # type: str
+    separator1: str
+    separator2: str
     def __init__(self, stream: TextIO, descriptions: bool,
                  verbosity: int) -> None: ...
     def getDescription(self, test: TestCase) -> str: ...
