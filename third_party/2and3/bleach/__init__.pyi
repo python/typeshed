@@ -1,4 +1,4 @@
-from typing import List, Any, Optional
+from typing import List, Any, Optional, Text
 
 from bleach.linkifier import DEFAULT_CALLBACKS as DEFAULT_CALLBACKS, Linker as Linker
 from bleach.sanitizer import (
@@ -11,18 +11,19 @@ from bleach.sanitizer import (
 
 from .linkifier import _Callback
 
-__version__: str
+__releasedate__: Text
+__version__: Text
 VERSION: Any  # packaging.version.Version
 
 def clean(
-    text: str,
-    tags: List[str] = ...,
+    text: Text,
+    tags: List[Text] = ...,
     attributes: Any = ...,
-    styles: List[str] = ...,
-    protocols: List[str] = ...,
+    styles: List[Text] = ...,
+    protocols: List[Text] = ...,
     strip: bool = ...,
     strip_comments: bool = ...,
-) -> str: ...
+) -> Text: ...
 def linkify(
-    text: str, callbacks: List[_Callback] = ..., skip_tags: Optional[List[str]] = ..., parse_email: bool = ...
-) -> str: ...
+    text: Text, callbacks: List[_Callback] = ..., skip_tags: Optional[List[Text]] = ..., parse_email: bool = ...
+) -> Text: ...
