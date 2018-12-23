@@ -6,7 +6,7 @@ from typing import (
 )
 from string import Template
 from time import struct_time
-from types import TracebackType
+from types import TracebackType, FrameType
 import sys
 import threading
 
@@ -26,6 +26,8 @@ else:
     _Path = str
 
 raiseExceptions: bool
+
+currentframe = ...  # type: Callable[[], FrameType]
 
 if sys.version_info >= (3,):
     _levelToName = ...  # type: Dict[int, str]
