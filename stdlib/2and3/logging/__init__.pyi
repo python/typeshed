@@ -27,7 +27,7 @@ else:
 
 raiseExceptions: bool
 
-currentframe = ...  # type: Callable[[], FrameType]
+def currentframe() -> FrameType: ...
 
 if sys.version_info >= (3,):
     _levelToName = ...  # type: Dict[int, str]
