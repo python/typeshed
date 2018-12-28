@@ -9,7 +9,6 @@ from .models import Model
 _T = TypeVar('_T')
 _KT = TypeVar('_KT')
 _VT = TypeVar('_VT')
-_MT = TypeVar('_MT', bound='MapAttribute')
 _AT = TypeVar('_AT', bound='Attribute')
 
 class Attribute(Generic[_T]):
