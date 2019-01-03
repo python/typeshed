@@ -260,7 +260,7 @@ class LoggerAdapter:
         def critical(self, msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                      stack_info: bool = ..., extra: Optional[Dict[str, Any]] = ...,
                      **kwargs: Any) -> None: ...
-        def log(self, lvl: int, msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
+        def log(self, level: int, msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                 stack_info: bool = ..., extra: Optional[Dict[str, Any]] = ...,
                 **kwargs: Any) -> None: ...
     else:
@@ -283,7 +283,7 @@ class LoggerAdapter:
                      msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                      extra: Optional[Dict[str, Any]] = ..., **kwargs: Any) -> None: ...
         def log(self,
-                lvl: int, msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
+                level: int, msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                 extra: Optional[Dict[str, Any]] = ..., **kwargs: Any) -> None: ...
     def isEnabledFor(self, lvl: int) -> bool: ...
     if sys.version_info >= (3,):
