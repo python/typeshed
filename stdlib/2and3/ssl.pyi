@@ -33,7 +33,7 @@ if sys.version_info >= (3, 7):
 
     CertificateError = SSLCertVerificationError
 else:
-    class CertificateError(Exception): ...
+    class CertificateError(ValueError): ...
 
 
 def wrap_socket(sock: socket.socket, keyfile: Optional[str] = ...,
