@@ -1,7 +1,7 @@
 # Stubs for timeit (Python 2 and 3)
 
 import sys
-from typing import Any, Callable, Dict, IO, List, Optional, Text, Tuple, Union
+from typing import Any, Callable, Dict, IO, List, Optional, Sequence, Text, Tuple, Union
 
 _str = Union[str, Text]
 _Timer = Callable[[], float]
@@ -26,8 +26,10 @@ if sys.version_info >= (3, 5):
                number: int = ..., globals: Optional[Dict[str, Any]] = ...) -> float: ...
     def repeat(stmt: _stmt = ..., setup: _stmt = ..., timer: _Timer = ...,
                repeat: int = ..., number: int = ..., globals: Optional[Dict[str, Any]] = ...) -> List[float]: ...
+    def main(args: Optional[Sequence[str]]) -> None: ...
 else:
     def timeit(stmt: _stmt = ..., setup: _stmt = ..., timer: _Timer = ...,
                number: int = ...) -> float: ...
     def repeat(stmt: _stmt = ..., setup: _stmt = ..., timer: _Timer = ...,
                repeat: int = ..., number: int = ...) -> List[float]: ...
+    def main(args: Optional[Sequence[str]]) -> None: ...
