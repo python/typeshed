@@ -8,6 +8,7 @@ from typing import (Iterator, TypeVar, Iterable, overload, Any, Callable, Tuple,
 _T = TypeVar('_T')
 _S = TypeVar('_S')
 _N = TypeVar('_N', int, float)
+Predicate = Callable[[_T], object]
 
 def count(start: _N = ...,
           step: _N = ...) -> Iterator[_N]: ...  # more general types?
@@ -28,9 +29,9 @@ class chain(Iterator[_T], Generic[_T]):
     def from_iterable(iterable: Iterable[Iterable[_S]]) -> Iterator[_S]: ...
 
 def compress(data: Iterable[_T], selectors: Iterable[Any]) -> Iterator[_T]: ...
-def dropwhile(predicate: Callable[[_T], Any],
+def dropwhile(predicate: Predicate[_T],
               iterable: Iterable[_T]) -> Iterator[_T]: ...
-def filterfalse(predicate: Optional[Callable[[_T], Any]],
+def filterfalse(predicate: Optional[Predicate[_T]],
                 iterable: Iterable[_T]) -> Iterator[_T]: ...
 
 @overload
@@ -46,7 +47,7 @@ def islice(iterable: Iterable[_T], start: Optional[int], stop: Optional[int],
            step: Optional[int] = ...) -> Iterator[_T]: ...
 
 def starmap(func: Callable[..., _S], iterable: Iterable[Iterable[Any]]) -> Iterator[_S]: ...
-def takewhile(predicate: Callable[[_T], Any],
+def takewhile(predicate: Predicate[_T],
               iterable: Iterable[_T]) -> Iterator[_T]: ...
 def tee(iterable: Iterable[_T], n: int = ...) -> Tuple[Iterator[_T], ...]: ...
 def zip_longest(*p: Iterable[Any],
