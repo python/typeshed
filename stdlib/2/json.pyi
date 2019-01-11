@@ -73,7 +73,7 @@ class JSONEncoder(object):
     check_circular = ...  # type: bool
     allow_nan = ...  # type: bool
     sort_keys = ...  # type: bool
-    indent = ...  # type: int
+    indent = ...  # type: Optional[int]
 
     def __init__(self,
                  skipkeys: bool = ...,
@@ -81,7 +81,7 @@ class JSONEncoder(object):
                  check_circular: bool = ...,
                  allow_nan: bool = ...,
                  sort_keys: bool = ...,
-                 indent: int = ...,
+                 indent: Optional[int] = ...,
                  separators: Tuple[Union[Text, bytes], Union[Text, bytes]] = ...,
                  encoding: Union[Text, bytes] = ...,
                  default: Callable[..., Any] = ...) -> None: ...
