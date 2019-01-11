@@ -28,7 +28,7 @@ class ZipFile:
     comment = ...  # type: bytes
     filelist = ...  # type: List[ZipInfo]
     fp = ...  # type: IO[bytes]
-    NameToInfo = ...  # type: Dict[str, ZipInfo]
+    NameToInfo = ...  # type: Dict[Text, ZipInfo]
     def __init__(self, file: Union[_Path, IO[bytes]], mode: Text = ..., compression: int = ...,
                  allowZip64: bool = ...) -> None: ...
     def __enter__(self) -> ZipFile: ...
