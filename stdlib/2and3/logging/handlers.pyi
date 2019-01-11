@@ -80,7 +80,7 @@ if sys.version_info >= (3,):
                          delay: bool = ..., utc: bool = ...) -> None: ...
         def doRollover(self) -> None: ...
 else:
-    class TimedRotatingFileHandler:
+    class TimedRotatingFileHandler(Handler):
         def __init__(self,
                      filename: str, when: str = ..., interval: int = ...,
                      backupCount: int = ..., encoding: Optional[str] = ...,
