@@ -14,7 +14,7 @@ from .datastructures import (
 class BaseRequest:
     charset = ...  # type: str
     encoding_errors = ...  # type: str
-    max_content_length = ...  # type: int
+    max_content_length = ...  # type: Optional[int]
     max_form_memory_size = ...  # type: int
     parameter_storage_class = ...  # type: Type
     list_storage_class = ...  # type: Type
