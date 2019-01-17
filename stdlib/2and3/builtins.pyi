@@ -1451,6 +1451,8 @@ class SystemExit(BaseException):
     code: int
 class Exception(BaseException): ...
 class StopIteration(Exception): ...
+    if sys.version_info >= (3,):
+        value: Any
 if sys.version_info >= (3,):
     _StandardError = Exception
     class OSError(Exception):
