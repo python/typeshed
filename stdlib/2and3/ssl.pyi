@@ -29,7 +29,9 @@ class SSLSyscallError(SSLError): ...
 class SSLEOFError(SSLError): ...
 
 if sys.version_info >= (3, 7):
-    class SSLCertVerificationError(SSLError, ValueError): ...
+    class SSLCertVerificationError(SSLError, ValueError):
+        verify_code: int
+        verify_message: str
 
     CertificateError = SSLCertVerificationError
 else:
