@@ -216,6 +216,8 @@ class stat_result:
     st_mtime_ns: int  # time of most recent content modification in nanoseconds
     st_ctime_ns: int  # platform dependent (time of most recent metadata change on Unix, or the time of creation on Windows) in nanoseconds
 
+    def __getitem__(self, key: AnyStr) -> AnyStr: ...
+
     # not documented
     def __init__(self, tuple: Tuple[int, ...]) -> None: ...
 
