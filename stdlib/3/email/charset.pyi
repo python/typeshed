@@ -1,6 +1,6 @@
 # Stubs for email.charset (Python 3.4)
 
-from typing import List, Optional, Iterator, Any, Union
+from typing import List, Optional, Iterator, Any
 
 QP: int
 BASE64: int
@@ -24,7 +24,7 @@ class Charset:
     def __eq__(self, other: Any) -> bool: ...
     def __ne__(self, other: Any) -> bool: ...
 
-def add_charset(charset: Union[str, Charset], header_enc: Optional[int] = ...,
+def add_charset(charset: str, header_enc: Optional[int] = ...,
                 body_enc: Optional[int] = ...,
                 output_charset: Optional[str] = ...) -> None: ...
 def add_alias(alias: str, canonical: str) -> None: ...
