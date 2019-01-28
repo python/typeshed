@@ -114,11 +114,11 @@ class RawConfigParser(_parser):
 
     # This is incompatible with MutableMapping so we ignore the type
     @overload
-    def get(self, section: str, option: str, *, raw: bool = ..., vars: _section = ..., fallback: str = ...) -> str:  # type: ignore
+    def get(self, section: str, option: str, *, raw: bool = ..., vars: _section = ...) -> str:  # type: ignore
         ...
 
     @overload
-    def get(self, section: str, option: str, *, raw: bool = ..., vars: _section = ..., fallback: None = ...) -> Optional[str]:  # type: ignore
+    def get(self, section: str, option: str, *, raw: bool = ..., vars: _section = ..., fallback: _T = ...) -> Union[str, _T]:  # type: ignore
         ...
 
     @overload
