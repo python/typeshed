@@ -18,5 +18,5 @@ class View:
 class MethodViewType(type):
     def __init__(cls, name: Any, bases: Any, d: Any) -> None: ...
 
-class MethodView:
+class MethodView(View, metaclass=MethodViewType):
     def dispatch_request(self, *args: Any, **kwargs: Any): ...
