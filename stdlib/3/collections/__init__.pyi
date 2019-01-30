@@ -42,6 +42,7 @@ if sys.version_info >= (3, 5):
         AsyncIterator as AsyncIterator,
     )
 
+_S = TypeVar('_S')
 _T = TypeVar('_T')
 _KT = TypeVar('_KT')
 _VT = TypeVar('_VT')
@@ -234,6 +235,8 @@ class deque(MutableSequence[_T], Generic[_T]):
 
     def __contains__(self, o: object) -> bool: ...
     def __reversed__(self) -> Iterator[_T]: ...
+
+    def __iadd__(self: _S, iterable: Iterable[_T]) -> _S[_T]: ...
 
     if sys.version_info >= (3, 5):
         def __add__(self, other: deque[_T]) -> deque[_T]: ...
