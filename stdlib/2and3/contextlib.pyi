@@ -1,7 +1,7 @@
 # Stubs for contextlib
 
 from typing import (
-    Any, Callable, Generator, IO, Iterable, Iterator, Optional, Type,
+    Any, Callable, Generator, IO, Iterable, Optional, Type,
     Generic, TypeVar, overload
 )
 from types import TracebackType
@@ -10,7 +10,7 @@ import sys
 from typing import ContextManager as ContextManager
 
 if sys.version_info >= (3, 5):
-    from typing import AsyncContextManager, AsyncIterator
+    from typing import AsyncContextManager, AsyncGenerator
 
 if sys.version_info >= (3, 6):
     from typing import ContextManager as AbstractContextManager
@@ -27,12 +27,12 @@ _CM_EF = TypeVar('_CM_EF', ContextManager, _ExitFunc)
 if sys.version_info >= (3, 2):
     class GeneratorContextManager(ContextManager[_T], Generic[_T]):
         def __call__(self, func: Callable[..., _T]) -> Callable[..., _T]: ...
-    def contextmanager(func: Callable[..., Iterator[_T]]) -> Callable[..., GeneratorContextManager[_T]]: ...
+    def contextmanager(func: Callable[..., Generator[_T, Any, Any]]) -> Callable[..., GeneratorContextManager[_T]]: ...
 else:
-    def contextmanager(func: Callable[..., Iterator[_T]]) -> Callable[..., ContextManager[_T]]: ...
+    def contextmanager(func: Callable[..., Generator[_T, Any, Any]]) -> Callable[..., ContextManager[_T]]: ...
 
 if sys.version_info >= (3, 7):
-    def asynccontextmanager(func: Callable[..., AsyncIterator[_T]]) -> Callable[..., AsyncContextManager[_T]]: ...
+    def asynccontextmanager(func: Callable[..., AsyncGenerator[_T, Any]]) -> Callable[..., AsyncContextManager[_T]]: ...
 
 if sys.version_info < (3,):
     def nested(*mgr: ContextManager[Any]) -> ContextManager[Iterable[Any]]: ...
