@@ -14,7 +14,7 @@ from .datastructures import (
 class BaseRequest:
     charset = ...  # type: str
     encoding_errors = ...  # type: str
-    max_content_length = ...  # type: int
+    max_content_length = ...  # type: Optional[int]
     max_form_memory_size = ...  # type: int
     parameter_storage_class = ...  # type: Type
     list_storage_class = ...  # type: Type
@@ -60,7 +60,8 @@ class BaseRequest:
     host = ...  # type: Text
     query_string = ...  # type: bytes
     method = ...  # type: Text
-    def access_route(self): ...
+    @property
+    def access_route(self) -> Sequence[str]: ...
     @property
     def remote_addr(self) -> str: ...
     remote_user = ...  # type: Text
@@ -70,6 +71,11 @@ class BaseRequest:
     is_multithread = ...  # type: bool
     is_multiprocess = ...  # type: bool
     is_run_once = ...  # type: bool
+
+    # These are not preset at runtime but we add them since monkeypatching this
+    # class is quite common.
+    def __setattr__(self, name: str, value: Any): ...
+    def __getattr__(self, name: str): ...
 
 _OnCloseT = TypeVar('_OnCloseT', bound=Callable[[], Any])
 _SelfT = TypeVar('_SelfT', bound=BaseResponse)
