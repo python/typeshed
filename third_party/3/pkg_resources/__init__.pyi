@@ -120,6 +120,7 @@ def find_distributions(path_item: str, only: bool = ...) -> Generator[Distributi
 def get_distribution(dist: Union[Requirement, str, Distribution]) -> Distribution: ...
 
 class Distribution(IResourceProvider, IMetadataProvider):
+    PKG_INFO: str
     location: str
     project_name: str
     key: str
