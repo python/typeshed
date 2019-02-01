@@ -1,6 +1,6 @@
 # Stubs for requests.utils (Python 3)
 
-from typing import Any
+from typing import Any, Union
 from . import compat
 from . import cookies
 from . import structures
