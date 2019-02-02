@@ -204,7 +204,7 @@ class Command(BaseCommand):
         options_metavar: str = ...,
         add_help_option: bool = ...,
         hidden: bool = ...,
-        deprecated: bool = ...
+        deprecated: bool = ...,
     ) -> None:
         ...
 
