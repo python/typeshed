@@ -179,11 +179,12 @@ def bar(x: str, y, *, z=...): ...
 
 ### Using stubgen
 
-Mypy includes a tool called [stubgen](https://github.com/python/mypy/blob/master/mypy/stubgen.py)
-that you can use as a starting point for your stubs.  Note that this
-generator is currently unable to determine most argument and return
-types and omits them or uses ``Any`` in their place.  Fill out the types
-that you know.
+Mypy includes a tool called [stubgen](https://mypy.readthedocs.io/en/latest/stubgen.html)
+that auto-generates stubs for Python and C modules using static analysis,
+Sphinx docs, and runtime introspection.  It can be used to get a starting
+point for your stubs.  Note that this generator is currently unable to
+determine most argument and return types and omits them or uses ``Any`` in
+their place.  Fill out manually the types that you know.
 
 ### Stub file coding style
 
