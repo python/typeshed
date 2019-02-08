@@ -1,4 +1,4 @@
-from typing import Any, Callable, Dict, Iterable, IO, List, Optional, Union
+from typing import Any, Callable, Dict, Iterable, IO, List, Optional, Sequence, Union
 from types import ModuleType
 
 class Error(Exception): ...
@@ -236,3 +236,7 @@ DEFINE_multi_int = DEFINE_multi_integer
 def DEFINE_multi_float(name: str, default: Optional[Union[float, List[float]]], help: str,
                        lower_bound: float = ..., upper_bound: float = ...,
                        flag_values: FlagValues = ..., **args: Any) -> None: ...
+
+def DEFINE_multi_enum(name: str, default: Optional[Union[Sequence[str], str]],
+                      enum_values: Sequence[str], help: str,
+                      flag_values: FlagValues = ..., case_sensitive: bool = ..., **args: Any): ...
