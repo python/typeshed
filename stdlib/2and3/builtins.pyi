@@ -1494,7 +1494,7 @@ if sys.version_info >= (3, 5):
 class SyntaxError(_StandardError):
     msg: str
     lineno: int
-    offset: int
+    offset: Optional[int]
     text: str
     filename: str
 class SystemError(_StandardError): ...
