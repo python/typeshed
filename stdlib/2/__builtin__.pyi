@@ -771,6 +771,9 @@ class memoryview(Sized, Container[_mv_container_type]):
     ndim: int
 
     if sys.version_info >= (3,):
+        c_contiguous: bool
+        f_contiguous: bool
+        contiguous: bool
         def __init__(self, obj: Union[bytes, bytearray, memoryview]) -> None: ...
         def __enter__(self) -> memoryview: ...
         def __exit__(self, exc_type: Optional[Type[BaseException]], exc_val: Optional[BaseException], exc_tb: Optional[TracebackType]) -> bool: ...
