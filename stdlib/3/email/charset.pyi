@@ -2,6 +2,10 @@
 
 from typing import List, Optional, Iterator, Any
 
+QP: int
+BASE64: int
+SHORTEST: int
+
 class Charset:
     input_charset = ...  # type: str
     header_encoding = ...  # type: int
@@ -20,7 +24,7 @@ class Charset:
     def __eq__(self, other: Any) -> bool: ...
     def __ne__(self, other: Any) -> bool: ...
 
-def add_charset(charset: Charset, header_enc: Optional[int] = ...,
+def add_charset(charset: str, header_enc: Optional[int] = ...,
                 body_enc: Optional[int] = ...,
                 output_charset: Optional[str] = ...) -> None: ...
 def add_alias(alias: str, canonical: str) -> None: ...
