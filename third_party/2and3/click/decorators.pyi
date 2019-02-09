@@ -169,7 +169,7 @@ def option(
     # Parameter
     default: Optional[Any] = ...,
     required: bool = ...,
-    callback: Callable[[Context, Union[Option, Parameter], int], Any] = ...,
+    callback: Callable[[Context, Union[Option, Parameter], str], Any] = ...,
     nargs: Optional[int] = ...,
     metavar: Optional[str] = ...,
     expose_value: bool = ...,
