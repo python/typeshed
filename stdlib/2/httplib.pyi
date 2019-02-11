@@ -46,7 +46,7 @@ class HTTPResponse:
 # or HTTPSConnection.__init__, so HTTPConnectionProtocol only implements the
 # parameters that do_open does use.
 class HTTPConnectionProtocol(Protocol):
-    def __call__(self, host: str, timeout: int = ..., *, context: Optional[ssl.SSLContext] = ...) -> HTTPConnection: ...
+    def __call__(self, host: str, timeout: int = ..., **http_con_args: Any) -> HTTPConnection: ...
 
 class HTTPConnection:
     response_class = ...  # type: Any
