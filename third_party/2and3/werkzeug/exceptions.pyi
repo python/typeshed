@@ -22,7 +22,7 @@ class HTTPException(Exception):
     def get_response(self, environ: Optional[Union[WSGIEnvironment, _EnvironContainer]] = ...) -> Response: ...
     def __call__(self, environ: WSGIEnvironment, start_response: StartResponse) -> Iterable[bytes]: ...
 
-default_exceptions: Dict[int, HTTPException]
+default_exceptions: Dict[int, Type[HTTPException]]
 
 class BadRequest(HTTPException):
     code = ...  # type: int

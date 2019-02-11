@@ -76,7 +76,7 @@ class StreamWriter:
     def __init__(self,
                  transport: transports.BaseTransport,
                  protocol: protocols.BaseProtocol,
-                 reader: StreamReader,
+                 reader: Optional[StreamReader],
                  loop: events.AbstractEventLoop) -> None: ...
     @property
     def transport(self) -> transports.BaseTransport: ...

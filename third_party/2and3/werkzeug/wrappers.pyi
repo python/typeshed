@@ -14,7 +14,7 @@ from .datastructures import (
 class BaseRequest:
     charset = ...  # type: str
     encoding_errors = ...  # type: str
-    max_content_length = ...  # type: int
+    max_content_length = ...  # type: Optional[int]
     max_form_memory_size = ...  # type: int
     parameter_storage_class = ...  # type: Type
     list_storage_class = ...  # type: Type
@@ -43,7 +43,8 @@ class BaseRequest:
     args = ...  # type: ImmutableMultiDict
     @property
     def data(self) -> bytes: ...
-    def get_data(self, cache: bool = ..., as_text: bool = ..., parse_form_data: bool = ...) -> bytes: ...
+    # TODO: once Literal types are supported, overload with as_text
+    def get_data(self, cache: bool = ..., as_text: bool = ..., parse_form_data: bool = ...) -> Any: ...  # returns bytes if as_text is False (the default), else Text
     form = ...  # type: ImmutableMultiDict
     values = ...  # type: CombinedMultiDict
     files = ...  # type: MultiDict
@@ -60,7 +61,8 @@ class BaseRequest:
     host = ...  # type: Text
     query_string = ...  # type: bytes
     method = ...  # type: Text
-    def access_route(self): ...
+    @property
+    def access_route(self) -> Sequence[str]: ...
     @property
     def remote_addr(self) -> str: ...
     remote_user = ...  # type: Text
@@ -70,6 +72,11 @@ class BaseRequest:
     is_multithread = ...  # type: bool
     is_multiprocess = ...  # type: bool
     is_run_once = ...  # type: bool
+
+    # These are not preset at runtime but we add them since monkeypatching this
+    # class is quite common.
+    def __setattr__(self, name: str, value: Any): ...
+    def __getattr__(self, name: str): ...
 
 _OnCloseT = TypeVar('_OnCloseT', bound=Callable[[], Any])
 _SelfT = TypeVar('_SelfT', bound=BaseResponse)
@@ -99,6 +106,7 @@ class BaseResponse:
     def force_type(cls: Type[_SelfT], response: object, environ: Optional[WSGIEnvironment] = ...) -> _SelfT: ...
     @classmethod
     def from_app(cls: Type[_SelfT], app: Any, environ: WSGIEnvironment, buffered: bool = ...) -> _SelfT: ...
+    # TODO: once Literal types are supported, overload with as_text
     def get_data(self, as_text: bool = ...) -> Any: ...  # returns bytes if as_text is False (the default), else Text
     def set_data(self, value: Union[bytes, Text]) -> None: ...
     data = ...  # type: Any

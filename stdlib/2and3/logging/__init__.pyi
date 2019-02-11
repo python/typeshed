@@ -6,7 +6,7 @@ from typing import (
 )
 from string import Template
 from time import struct_time
-from types import TracebackType
+from types import TracebackType, FrameType
 import sys
 import threading
 
@@ -26,6 +26,8 @@ else:
     _Path = str
 
 raiseExceptions: bool
+
+def currentframe() -> FrameType: ...
 
 if sys.version_info >= (3,):
     _levelToName = ...  # type: Dict[int, str]
@@ -258,7 +260,7 @@ class LoggerAdapter:
         def critical(self, msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                      stack_info: bool = ..., extra: Optional[Dict[str, Any]] = ...,
                      **kwargs: Any) -> None: ...
-        def log(self, lvl: int, msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
+        def log(self, level: int, msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                 stack_info: bool = ..., extra: Optional[Dict[str, Any]] = ...,
                 **kwargs: Any) -> None: ...
     else:
@@ -281,7 +283,7 @@ class LoggerAdapter:
                      msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                      extra: Optional[Dict[str, Any]] = ..., **kwargs: Any) -> None: ...
         def log(self,
-                lvl: int, msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
+                level: int, msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                 extra: Optional[Dict[str, Any]] = ..., **kwargs: Any) -> None: ...
     def isEnabledFor(self, lvl: int) -> bool: ...
     if sys.version_info >= (3,):
@@ -346,7 +348,7 @@ fatal = critical
 
 def disable(lvl: int) -> None: ...
 def addLevelName(lvl: int, levelName: str) -> None: ...
-def getLevelName(lvl: int) -> str: ...
+def getLevelName(lvl: Union[int, str]) -> Any: ...
 
 def makeLogRecord(attrdict: Mapping[str, Any]) -> LogRecord: ...
 

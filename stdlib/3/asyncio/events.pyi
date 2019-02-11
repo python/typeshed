@@ -108,11 +108,20 @@ class AbstractEventLoop(metaclass=ABCMeta):
     def create_connection(self, protocol_factory: _ProtocolFactory, host: str = ..., port: int = ..., *,
                           ssl: _SSLContext = ..., family: int = ..., proto: int = ..., flags: int = ..., sock: Optional[socket] = ...,
                           local_addr: str = ..., server_hostname: str = ...) -> Generator[Any, None, _TransProtPair]: ...
+    @overload
     @abstractmethod
     @coroutine
-    def create_server(self, protocol_factory: _ProtocolFactory, host: Union[str, Sequence[str]] = ..., port: int = ..., *,
+    def create_server(self, protocol_factory: _ProtocolFactory, host: Optional[Union[str, Sequence[str]]] = ..., port: int = ..., *,
                       family: int = ..., flags: int = ...,
-                      sock: Optional[socket] = ..., backlog: int = ..., ssl: _SSLContext = ...,
+                      sock: None = ..., backlog: int = ..., ssl: _SSLContext = ...,
+                      reuse_address: Optional[bool] = ...,
+                      reuse_port: Optional[bool] = ...) -> Generator[Any, None, AbstractServer]: ...
+    @overload
+    @abstractmethod
+    @coroutine
+    def create_server(self, protocol_factory: _ProtocolFactory, host: None = ..., port: None = ..., *,
+                      family: int = ..., flags: int = ...,
+                      sock: socket = ..., backlog: int = ..., ssl: _SSLContext = ...,
                       reuse_address: Optional[bool] = ...,
                       reuse_port: Optional[bool] = ...) -> Generator[Any, None, AbstractServer]: ...
     @abstractmethod
