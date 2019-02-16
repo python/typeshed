@@ -31,7 +31,7 @@ waitid_result = NamedTuple('waitid_result', [
     ('si_code', int),
 ])
 
-sched_param = NamedTuple('sched_priority', [
+sched_param = NamedTuple('sched_param', [
     ('sched_priority', int),
 ])
 
