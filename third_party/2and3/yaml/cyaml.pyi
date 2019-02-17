@@ -1,4 +1,4 @@
-from typing import Text, Union, IO, Optional, Sequence, Mapping, Any
+from typing import Any, IO, Mapping, Optional, Sequence, Text, Union
 from typing_extensions import Protocol
 
 from yaml.constructor import BaseConstructor, Constructor, SafeConstructor
@@ -23,19 +23,22 @@ class CSafeLoader(CParser, SafeConstructor, Resolver):
 
 class CDangerLoader(CParser, Constructor, Resolver): ...  # undocumented
 
-class CEmitter:
-    def __init__(self, stream: IO[Any], canonical: Any = ..., indent: Optional[int] = ...,
-                 width: Optional[int] = ..., allow_unicode: Any = ..., line_break: Optional[str] = ...,
-                 encoding: Optional[str] = ..., explicit_start: Any = ..., explicit_end: Any = ...,
-                 version: Optional[Sequence[int]] = ..., tags: Optional[Mapping[str, str]] = ...) -> None: ...
+class CEmitter(object):
+    def __init__(self, stream: IO[Any], canonical: Optional[Any] = ...,
+                 indent: Optional[int] = ..., width: Optional[int] = ...,
+                 allow_unicode: Optional[Any] = ..., line_break: Optional[str] = ...,
+                 encoding: Optional[Text] = ..., explicit_start: Optional[Any] = ...,
+                 explicit_end: Optional[Any] = ..., version: Optional[Sequence[int]] = ...,
+                 tags: Optional[Mapping[Text, Text]] = ...) -> None: ...
 
 class CBaseDumper(CEmitter, BaseRepresenter, BaseResolver):
     def __init__(self, stream: IO[Any], default_style: Optional[str] = ...,
-                 default_flow_style: Optional[bool] = ..., canonical: Any = ...,
+                 default_flow_style: Optional[bool] = ..., canonical: Optional[Any] = ...,
                  indent: Optional[int] = ..., width: Optional[int] = ...,
-                 allow_unicode: Any = ..., line_break: Optional[str] = ...,
-                 encoding: Optional[str] = ..., explicit_start: Any = ..., explicit_end: Any = ...,
-                 version: Optional[Sequence[int]] = ..., tags: Optional[Mapping[str, str]] = ...) -> None: ...
+                 allow_unicode: Optional[Any] = ..., line_break: Optional[str] = ...,
+                 encoding: Optional[Text] = ..., explicit_start: Optional[Any] = ...,
+                 explicit_end: Optional[Any] = ..., version: Optional[Sequence[int]] = ...,
+                 tags: Optional[Mapping[Text, Text]] = ...) -> None: ...
 
 class CDumper(CEmitter, SafeRepresenter, Resolver): ...
 
