@@ -537,7 +537,7 @@ class socket:
     @overload
     def getsockopt(self, level: int, optname: int, buflen: int) -> bytes: ...
 
-    def gettimeout(self) -> float: ...
+    def gettimeout(self) -> Optional[float]: ...
     def ioctl(self, control: object,
               option: Tuple[int, int, int]) -> None: ...
     if sys.version_info < (3, 5):
@@ -579,7 +579,7 @@ class socket:
 
 # ----- functions -----
 def create_connection(address: Tuple[Optional[str], int],
-                      timeout: float = ...,
+                      timeout: Optional[float] = ...,
                       source_address: Tuple[Union[bytearray, bytes, Text], int] = ...) -> socket: ...
 
 # the 5th tuple item is an address
