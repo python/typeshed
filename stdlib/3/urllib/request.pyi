@@ -58,6 +58,7 @@ class Request:
     selector: str
     data: Optional[bytes]
     headers: Dict[str, str]
+    unredirected_hdrs: Dict[str, str]
     unverifiable: bool
     method: Optional[str]
     def __init__(
