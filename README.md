@@ -142,3 +142,17 @@ You can mypy tests to a single version by passing `-p2` or `-p3.5` e.g.
 $ PYTHONPATH=.. python3 tests/mypy_test.py -p3.5
 running mypy --python-version 3.5 --strict-optional # with 342 files
 ```
+
+```
+here is a sample python code using for , if and elif:
+
+
+for a in range(1, 100, 1):
+     if a % 3 == 0:
+          print("Crackle")
+     elif a % 5 == 0:
+          print("pop")
+     elif a % 3 == 0 and a % 5 == 0:
+          print("CracklePop")
+
+```
