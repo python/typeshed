@@ -3,6 +3,8 @@
 import sys
 from typing import Any, Dict, Optional
 
+class Restart(Exception): ...
+
 def run(statement: str, globals: Optional[Dict[str, Any]] = ...,
         locals: Optional[Dict[str, Any]] = ...) -> None: ...
 def runeval(expression: str, globals: Optional[Dict[str, Any]] = ...,
