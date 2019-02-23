@@ -103,11 +103,18 @@ class AbstractEventLoop(metaclass=ABCMeta):
     @abstractmethod
     @coroutine
     def getnameinfo(self, sockaddr: tuple, flags: int = ...) -> Generator[Any, None, Tuple[str, int]]: ...
+    @overload
     @abstractmethod
     @coroutine
     def create_connection(self, protocol_factory: _ProtocolFactory, host: str = ..., port: int = ..., *,
-                          ssl: _SSLContext = ..., family: int = ..., proto: int = ..., flags: int = ..., sock: Optional[socket] = ...,
-                          local_addr: str = ..., server_hostname: str = ...) -> Generator[Any, None, _TransProtPair]: ...
+                          ssl: _SSLContext = ..., family: int = ..., proto: int = ..., flags: int = ..., sock: None = ...,
+                          local_addr: Optional[str] = ..., server_hostname: Optional[str] = ...) -> Generator[Any, None, _TransProtPair]: ...
+    @overload
+    @abstractmethod
+    @coroutine
+    def create_connection(self, protocol_factory: _ProtocolFactory, host: None = ..., port: None = ..., *,
+                          ssl: _SSLContext = ..., family: int = ..., proto: int = ..., flags: int = ..., sock: socket,
+                          local_addr: None = ..., server_hostname: Optional[str] = ...) -> Generator[Any, None, _TransProtPair]: ...
     @overload
     @abstractmethod
     @coroutine
@@ -121,7 +128,7 @@ class AbstractEventLoop(metaclass=ABCMeta):
     @coroutine
     def create_server(self, protocol_factory: _ProtocolFactory, host: None = ..., port: None = ..., *,
                       family: int = ..., flags: int = ...,
-                      sock: socket = ..., backlog: int = ..., ssl: _SSLContext = ...,
+                      sock: socket, backlog: int = ..., ssl: _SSLContext = ...,
                       reuse_address: Optional[bool] = ...,
                       reuse_port: Optional[bool] = ...) -> Generator[Any, None, AbstractServer]: ...
     @abstractmethod
