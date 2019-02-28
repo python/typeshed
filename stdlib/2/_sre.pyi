@@ -21,6 +21,7 @@ class SRE_Match(object):
     def groups(self) -> Tuple[Optional[str], ...]: ...
     def span(self) -> Tuple[int, int]:
         raise IndexError()
+    def regs(self) -> Tuple[Tuple[int, int]]: ...
 
 class SRE_Scanner(object):
     pattern = ...  # type: str
