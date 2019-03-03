@@ -32,6 +32,22 @@ class Enum(metaclass=EnumMeta):
     name = ...  # type: str
     value = ...  # type: Any
 
+    _name_ = ...  # type: str
+    _value_ = ...  # type: Any
+
+    if sys.version_info >= (3, 7):
+        _ignore_ = ...  # type: List[str]
+
+    if sys.version_info >= (3, 6):
+        _order_ = ...  # type: str
+
+        @classmethod
+        def _missing_(cls: Type[_T], value: object) -> Any: ...
+
+        @staticmethod
+        def _generate_next_value_(name: str, start: int,
+                                  count: int, last_values: List[Any]) -> Any: ...
+
 class IntEnum(int, Enum):
     value = ...  # type: int
 
