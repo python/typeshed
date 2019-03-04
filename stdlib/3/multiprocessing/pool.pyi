@@ -1,17 +1,21 @@
 from typing import (
     Any, Callable, ContextManager, Iterable, Mapping, Optional, List,
-    TypeVar, Generic,
+    Type, TypeVar, Generic,
 )
+from types import TracebackType
 
 _PT = TypeVar('_PT', bound='Pool')
 _S = TypeVar('_S')
 _T = TypeVar('_T')
 
-class AsyncResult(Generic[_T]):
+class ApplyResult(Generic[_T]):
     def get(self, timeout: Optional[float] = ...) -> _T: ...
     def wait(self, timeout: Optional[float] = ...) -> None: ...
     def ready(self) -> bool: ...
     def successful(self) -> bool: ...
+
+# alias created during issue #17805
+AsyncResult = ApplyResult
 
 _IMIT = TypeVar('_IMIT', bound=IMapIterator)
 
@@ -76,3 +80,8 @@ class ThreadPool(Pool, ContextManager[ThreadPool]):
     def __init__(self, processes: Optional[int] = ...,
                  initializer: Optional[Callable[..., Any]] = ...,
                  initargs: Iterable[Any] = ...) -> None: ...
+
+# undocumented
+RUN: int
+CLOSE: int
+TERMINATE: int
