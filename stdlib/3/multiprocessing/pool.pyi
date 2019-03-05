@@ -1,6 +1,6 @@
 from typing import (
     Any, Callable, ContextManager, Iterable, Mapping, Optional, List,
-    Type, TypeVar, Generic,
+    Type, TypeVar, Generic, Iterator
 )
 from types import TracebackType
 
@@ -19,7 +19,7 @@ AsyncResult = ApplyResult
 
 _IMIT = TypeVar('_IMIT', bound=IMapIterator)
 
-class IMapIterator(Iterable[_T]):
+class IMapIterator(Iterator[_T]):
     def __iter__(self: _IMIT) -> _IMIT: ...
     def next(self, timeout: Optional[float] = ...) -> _T: ...
     def __next__(self, timeout: Optional[float] = ...) -> _T: ...
