@@ -13,6 +13,8 @@ from multiprocessing.context import (
 from multiprocessing.managers import SyncManager
 from multiprocessing.process import current_process as current_process
 from multiprocessing.queues import Queue as Queue, SimpleQueue as SimpleQueue, JoinableQueue as JoinableQueue
+from multiprocessing.spawn import freeze_support as freeze_support
+from multiprocessing.spawn import set_executable as set_executable
 
 import sys
 
@@ -80,5 +82,3 @@ def get_all_start_methods() -> List[str]: ...
 def get_context(method: Optional[str] = ...) -> BaseContext: ...
 def get_start_method(allow_none: Optional[bool]) -> Optional[str]: ...
 def set_start_method(method: str, force: Optional[bool] = ...) -> None: ...
-freeze_support = spawn.freeze_support
-set_executable = spawn.set_executable
