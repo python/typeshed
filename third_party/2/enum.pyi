@@ -36,13 +36,13 @@ class Enum(metaclass=EnumMeta):
     _value_ = ...  # type: Any
 
     if sys.version_info >= (3, 7):
-        _ignore_ = ...  # type: List[str]
+        _ignore_ = ...  # type: Union[str, List[str]]
 
     if sys.version_info >= (3, 6):
         _order_ = ...  # type: str
 
         @classmethod
-        def _missing_(cls: Type[_T], value: object) -> Any: ...
+        def _missing_(cls, value: object) -> Any: ...
 
         @staticmethod
         def _generate_next_value_(name: str, start: int,
