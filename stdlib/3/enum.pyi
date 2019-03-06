@@ -21,6 +21,18 @@ class EnumMeta(ABCMeta):
     def __len__(self) -> int: ...
 
 class Enum(metaclass=EnumMeta):
+    name: str
+    value: Any
+    _name_: str
+    _value_: Any
+    if sys.version_info >= (3, 7):
+        _ignore_: Union[str, List[str]]
+    if sys.version_info >= (3, 6):
+        _order_: str
+        @classmethod
+        def _missing_(cls, value: object) -> Any: ...
+        @staticmethod
+        def _generate_next_value_(name: str, start: int, count: int, last_values: List[Any]) -> Any: ...
     def __new__(cls: Type[_T], value: object) -> _T: ...
     def __repr__(self) -> str: ...
     def __str__(self) -> str: ...
@@ -29,20 +41,17 @@ class Enum(metaclass=EnumMeta):
     def __hash__(self) -> Any: ...
     def __reduce_ex__(self, proto: object) -> Any: ...
 
-    name = ...  # type: str
-    value = ...  # type: Any
-
 class IntEnum(int, Enum):
-    value = ...  # type: int
+    value: int
 
 def unique(enumeration: _S) -> _S: ...
 
 if sys.version_info >= (3, 6):
-    _auto_null = ...  # type: Any
+    _auto_null: Any
 
     # subclassing IntFlag so it picks up all implemented base functions, best modeling behavior of enum.auto()
     class auto(IntFlag):
-        value = ...  # type: Any
+        value: Any
 
     class Flag(Enum):
         def __contains__(self: _T, other: _T) -> bool: ...
