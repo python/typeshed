@@ -1,6 +1,6 @@
 from collections import OrderedDict
 import sys
-from typing import Any, Dict, Iterable, Iterator, List, Optional, Sequence, Union
+from typing import Any, Dict, Iterable, Iterator, List, Mapping, Optional, Sequence, Union
 
 from _csv import (_reader,
                   _writer,
@@ -19,7 +19,7 @@ from _csv import (_reader,
                   )
 
 _Dialect = Union[str, Dialect]
-_DictRow = Dict[str, Any]
+_DictRow = Mapping[str, Any]
 
 class Dialect(object):
     delimiter = ...  # type: str
