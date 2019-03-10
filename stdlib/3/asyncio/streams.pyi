@@ -42,9 +42,15 @@ def start_server(
 ) -> Generator[Any, None, events.AbstractServer]: ...
 
 if sys.platform != 'win32':
+    if sys.version_info >= (3, 7):
+        from os import PathLike
+        path_type = Union[str, PathLike[str]]
+    else:
+        path_type = str
+
     @coroutines.coroutine
     def open_unix_connection(
-        path: str = ...,
+        path: path_type = ...,
         *,
         loop: Optional[events.AbstractEventLoop] = ...,
         limit: int = ...,
@@ -54,7 +60,7 @@ if sys.platform != 'win32':
     @coroutines.coroutine
     def start_unix_server(
         client_connected_cb: _ClientConnectedCallback,
-        path: str = ...,
+        path: path_type = ...,
         *,
         loop: Optional[events.AbstractEventLoop] = ...,
         limit: int = ...,
@@ -85,6 +91,10 @@ class StreamWriter:
     def write_eof(self) -> None: ...
     def can_write_eof(self) -> bool: ...
     def close(self) -> None: ...
+    if sys.version_info >= (3, 7):
+        def is_closing(self) -> bool: ...
+        @coroutines.coroutine
+        def wait_closed(self) -> None: ...
     def get_extra_info(self, name: str, default: Any = ...) -> Any: ...
     @coroutines.coroutine
     def drain(self) -> Generator[Any, None, None]: ...
