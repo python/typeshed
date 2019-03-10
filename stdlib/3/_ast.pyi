@@ -11,15 +11,30 @@ class AST:
     _fields: ClassVar[typing.Tuple[str, ...]]
     def __init__(self, *args: Any, **kwargs: Any) -> None: ...
     lineno: int
-    col_offset: int
+    col_offset: int  # TODO: Not all nodes have this
+    if sys.version_info >= (3, 8):
+        end_lineno: int
+        end_col_offset: int  # TODO: Not all nodes have this
+        type_comment: Optional[str]  # TODO: Only put this where it exists
 
 class mod(AST):
     ...
+
+if sys.version_info >= (3, 8):
+    class type_ignore(AST): ...
+
+    class TypeIgnore(type_ignore): ...
+
+    class FunctionType(mod):
+        argtypes = ...  # type: typing.List[expr]
+        returns = ...  # type: expr
 
 class Module(mod):
     body = ...  # type: typing.List[stmt]
     if sys.version_info >= (3, 7):
         docstring: Optional[str]
+    if sys.version_info >= (3, 8):
+        type_ignores: typing.List[TypeIgnore]
 
 class Interactive(mod):
     body = ...  # type: typing.List[stmt]
@@ -237,6 +252,8 @@ class Num(expr):
 
 class Str(expr):
     s = ...  # type: str
+    if sys.version_info >= (3, 7):
+        kind = ...  # type: str
 
 if sys.version_info >= (3, 6):
     class FormattedValue(expr):
@@ -252,6 +269,14 @@ class Bytes(expr):
 
 class NameConstant(expr):
     value = ...  # type: Any
+
+if sys.version_info >= (3, 8):
+    class Constant(expr):
+        value = ...  # type: expr
+
+    class NamedExpr(expr):
+        target = ...  # type: expr
+        value = ...  # type: expr
 
 class Ellipsis(expr): ...
 

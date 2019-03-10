@@ -1,5 +1,6 @@
 # Python 3.5 ast
 
+import sys
 # Rename typing to _typing, as not to conflict with typing imported
 # from _ast below when loaded in an unorthodox way by the Dropbox
 # internal Bazel integration.
@@ -17,7 +18,12 @@ class NodeTransformer(NodeVisitor):
 
 _T = TypeVar('_T', bound=AST)
 
-def parse(source: Union[str, bytes], filename: Union[str, bytes] = ..., mode: str = ...) -> Module: ...
+if sys.version_info >= (3, 8):
+    def parse(source: Union[str, bytes], filename: Union[str, bytes] = ..., mode: str = ...,
+              type_comments: bool = ..., feature_version: int = ...) -> AST: ...
+else:
+    def parse(source: Union[str, bytes], filename: Union[str, bytes] = ..., mode: str = ...) -> AST: ...
+
 def copy_location(new_node: _T, old_node: AST) -> _T: ...
 def dump(node: AST, annotate_fields: bool = ..., include_attributes: bool = ...) -> str: ...
 def fix_missing_locations(node: _T) -> _T: ...
