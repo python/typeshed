@@ -23,6 +23,5 @@ class BytesGenerator:
                 linesep: Optional[str] = ...) -> None: ...
 
 class DecodedGenerator(Generator):
-    # TODO `fmt` is positional
     def __init__(self, outfp: TextIO, mangle_from_: bool = ...,
                  maxheaderlen: int = ..., *, fmt: Optional[str] = ...) -> None: ...
