@@ -2,9 +2,9 @@
 
 from typing import List, Optional, Iterator, Any
 
-QP: int
-BASE64: int
-SHORTEST: int
+QP: int  # undocumented
+BASE64: int  # undocumented
+SHORTEST: int  # undocumented
 
 class Charset:
     input_charset = ...  # type: str
