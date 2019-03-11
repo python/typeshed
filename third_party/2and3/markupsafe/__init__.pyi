@@ -4,7 +4,6 @@ from typing import Any, Callable, Dict, Iterable, List, Optional, Sequence, Text
 from collections import Mapping
 from markupsafe._compat import text_type
 import string
-from markupsafe._speedups import escape as escape, escape_silent as escape_silent, soft_unicode as soft_unicode
 from markupsafe._native import escape as escape, escape_silent as escape_silent, soft_unicode as soft_unicode
 
 class Markup(text_type):
