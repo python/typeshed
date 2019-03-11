@@ -44,13 +44,13 @@ def start_server(
 if sys.platform != 'win32':
     if sys.version_info >= (3, 7):
         from os import PathLike
-        path_type = Union[str, PathLike[str]]
+        _PathType = Union[str, PathLike[str]]
     else:
-        path_type = str
+        _PathType = str
 
     @coroutines.coroutine
     def open_unix_connection(
-        path: path_type = ...,
+        path: _PathType = ...,
         *,
         loop: Optional[events.AbstractEventLoop] = ...,
         limit: int = ...,
@@ -60,7 +60,7 @@ if sys.platform != 'win32':
     @coroutines.coroutine
     def start_unix_server(
         client_connected_cb: _ClientConnectedCallback,
-        path: path_type = ...,
+        path: _PathType = ...,
         *,
         loop: Optional[events.AbstractEventLoop] = ...,
         limit: int = ...,
