@@ -29,9 +29,6 @@ _T4 = TypeVar('_T4')
 _T5 = TypeVar('_T5')
 _TT = TypeVar('_TT', bound='type')
 
-class _Writer(Protocol):
-    def write(self, s: Text) -> Any: ...
-
 class object:
     __doc__: Optional[str]
     __dict__: Dict[str, Any]
@@ -1320,8 +1317,12 @@ else:
 
 def ord(c: Union[Text, bytes]) -> int: ...
 if sys.version_info >= (3,):
+    class _Writer(Protocol):
+        def write(self, s: str) -> Any: ...
     def print(*values: object, sep: Text = ..., end: Text = ..., file: Optional[_Writer] = ..., flush: bool = ...) -> None: ...
 else:
+    class _Writer(Protocol):
+        def write(self, s: Any) -> Any: ...
     # This is only available after from __future__ import print_function.
     def print(*values: object, sep: Text = ..., end: Text = ..., file: Optional[_Writer] = ...) -> None: ...
 @overload
