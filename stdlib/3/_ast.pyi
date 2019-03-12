@@ -10,12 +10,13 @@ class AST:
     _attributes: ClassVar[typing.Tuple[str, ...]]
     _fields: ClassVar[typing.Tuple[str, ...]]
     def __init__(self, *args: Any, **kwargs: Any) -> None: ...
+    # TODO: Not all nodes have all of the following attributes
     lineno: int
-    col_offset: int  # TODO: Not all nodes have this
+    col_offset: int
     if sys.version_info >= (3, 8):
-        end_lineno: int
-        end_col_offset: int  # TODO: Not all nodes have this
-        type_comment: Optional[str]  # TODO: Only put this where it exists
+        end_lineno: Optional[int]
+        end_col_offset: Optional[int]
+        type_comment: Optional[str]
 
 class mod(AST):
     ...
@@ -26,8 +27,8 @@ if sys.version_info >= (3, 8):
     class TypeIgnore(type_ignore): ...
 
     class FunctionType(mod):
-        argtypes = ...  # type: typing.List[expr]
-        returns = ...  # type: expr
+        argtypes: typing.List[expr]
+        returns: expr
 
 class Module(mod):
     body = ...  # type: typing.List[stmt]
@@ -247,13 +248,11 @@ class Call(expr):
     args = ...  # type: typing.List[expr]
     keywords = ...  # type: typing.List[keyword]
 
-class Num(expr):
-    n = ...  # type: float
+class Num(expr):  # Deprecated in 3.8; use Constant
+    n = ...  # type: complex
 
-class Str(expr):
+class Str(expr):  # Deprecated in 3.8; use Constant
     s = ...  # type: str
-    if sys.version_info >= (3, 7):
-        kind = ...  # type: str
 
 if sys.version_info >= (3, 6):
     class FormattedValue(expr):
@@ -264,7 +263,7 @@ if sys.version_info >= (3, 6):
     class JoinedStr(expr):
         values = ...  # type: typing.List[expr]
 
-class Bytes(expr):
+class Bytes(expr):  # Deprecated in 3.8; use Constant
     s = ...  # type: bytes
 
 class NameConstant(expr):
@@ -272,11 +271,15 @@ class NameConstant(expr):
 
 if sys.version_info >= (3, 8):
     class Constant(expr):
-        value = ...  # type: expr
+        value: Any  # None, str, bytes, bool, int, float, complex, Ellipsis
+        kind: Optional[str]
+        # Aliases for value, for backwards compatibility
+        s: Any
+        n: complex
 
     class NamedExpr(expr):
-        target = ...  # type: expr
-        value = ...  # type: expr
+        target: expr
+        value: expr
 
 class Ellipsis(expr): ...
 
