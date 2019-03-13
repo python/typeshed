@@ -7,6 +7,7 @@ from typing import (
     Set, AbstractSet, FrozenSet, MutableSet, Sized, Reversible, SupportsInt, SupportsFloat, SupportsAbs,
     SupportsComplex, SupportsRound, IO, BinaryIO, Union,
     ItemsView, KeysView, ValuesView, ByteString, Optional, AnyStr, Type, Text,
+    Protocol,
 )
 from abc import abstractmethod, ABCMeta
 from ast import mod
@@ -1316,10 +1317,14 @@ else:
 
 def ord(c: Union[Text, bytes]) -> int: ...
 if sys.version_info >= (3,):
-    def print(*values: Any, sep: Text = ..., end: Text = ..., file: Optional[IO[str]] = ..., flush: bool = ...) -> None: ...
+    class _Writer(Protocol):
+        def write(self, s: str) -> Any: ...
+    def print(*values: object, sep: Text = ..., end: Text = ..., file: Optional[_Writer] = ..., flush: bool = ...) -> None: ...
 else:
+    class _Writer(Protocol):
+        def write(self, s: Any) -> Any: ...
     # This is only available after from __future__ import print_function.
-    def print(*values: Any, sep: Text = ..., end: Text = ..., file: Optional[IO[Any]] = ...) -> None: ...
+    def print(*values: object, sep: Text = ..., end: Text = ..., file: Optional[_Writer] = ...) -> None: ...
 @overload
 def pow(x: int, y: int) -> Any: ...  # The return type can be int or float, depending on y
 @overload
