@@ -128,8 +128,8 @@ The following should always be included:
 - All objects listed in the module's documentation.
 - All objects included in ``__all__`` (if present).
 
-Other objects may be included if they are being used in practice,
-especially if they are not prefixed with an underscore. This means
+Other objects may be included if they are being used in practice
+or if they are not prefixed with an underscore. This means
 that typeshed will generally accept contributions that add missing
 objects, even if they are undocumented. Undocumented objects should
 be marked with a comment of the form ``# undocumented``.
@@ -147,7 +147,6 @@ checker to point out usage of private objects, we usually prefer false
 negatives (no errors for wrong code) over false positives (type errors
 for correct code). In addition, even for private objects a type checker
 can be helpful in pointing out that an incorrect type was used.
-
 
 ### Incomplete stubs
 
