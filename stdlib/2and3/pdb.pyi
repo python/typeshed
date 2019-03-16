@@ -51,6 +51,8 @@ class Pdb(Cmd):
             stdout: Optional[IO[str]] = ...,
             skip: Optional[Iterable[str]] = ...,
         ) -> None: ...
+    # TODO: The run* and set_trace() methods are actually defined on bdb.Bdb, from which Pdb inherits.
+    # Move these methods there once we have a bdb stub.
     def run(self, statement: str, globals: Optional[Dict[str, Any]] = ...,
             locals: Optional[Dict[str, Any]] = ...) -> None: ...
     def runeval(self, expression: str, globals: Optional[Dict[str, Any]] = ...,
