@@ -2,7 +2,9 @@
 
 from cmd import Cmd
 import sys
-from typing import Any, Dict, IO, Iterable, Optional
+from typing import Any, Callable, Dict, IO, Iterable, Optional, TypeVar
+
+_T = TypeVar('_T')
 
 class Restart(Exception): ...
 
@@ -53,7 +55,7 @@ class Pdb(Cmd):
             locals: Optional[Dict[str, Any]] = ...) -> None: ...
     def runeval(self, expression: str, globals: Optional[Dict[str, Any]] = ...,
                 locals: Optional[Dict[str, Any]] = ...) -> Any: ...
-    def runcall(self, *args: Any, **kwds: Any) -> Any: ...
+    def runcall(self, func: Callable[..., _T], *args: Any, **kwds: Any) -> Optional[_T]: ...
     if sys.version_info >= (3, 7):
         def set_trace(self, *, header: Optional[str] = ...) -> None: ...
     else:
