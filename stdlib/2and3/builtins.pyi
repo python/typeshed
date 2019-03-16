@@ -1451,6 +1451,7 @@ class BaseException(object):
     if sys.version_info >= (3,):
         __cause__: Optional[BaseException]
         __context__: Optional[BaseException]
+        __suppress_context__: bool
         __traceback__: Optional[TracebackType]
     def __init__(self, *args: object) -> None: ...
     if sys.version_info < (3,):
