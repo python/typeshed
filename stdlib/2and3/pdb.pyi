@@ -28,7 +28,7 @@ class Pdb(Cmd):
             completekey: str = ...,
             stdin: Optional[IO[str]] = ...,
             stdout: Optional[IO[str]] = ...,
-            skip: Iterable[str] = ...,
+            skip: Optional[Iterable[str]] = ...,
             nosigint: bool = ...,
             readrc: bool = ...,
         ) -> None: ...
@@ -38,7 +38,7 @@ class Pdb(Cmd):
             completekey: str = ...,
             stdin: Optional[IO[str]] = ...,
             stdout: Optional[IO[str]] = ...,
-            skip: Iterable[str] = ...,
+            skip: Optional[Iterable[str]] = ...,
             nosigint: bool = ...,
         ) -> None: ...
     else:
@@ -47,7 +47,7 @@ class Pdb(Cmd):
             completekey: str = ...,
             stdin: Optional[IO[str]] = ...,
             stdout: Optional[IO[str]] = ...,
-            skip: Iterable[str] = ...,
+            skip: Optional[Iterable[str]] = ...,
         ) -> None: ...
     def run(self, statement: str, globals: Optional[Dict[str, Any]] = ...,
             locals: Optional[Dict[str, Any]] = ...) -> None: ...
