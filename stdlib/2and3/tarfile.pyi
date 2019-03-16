@@ -8,7 +8,6 @@ import os
 import sys
 from types import TracebackType
 
-
 if sys.version_info >= (3, 6):
     _Path = Union[bytes, str, os.PathLike]
 elif sys.version_info >= (3,):
@@ -48,7 +47,6 @@ def open(name: Optional[_Path] = ..., mode: str = ...,
          debug: Optional[int] = ...,
          errorlevel: Optional[int] = ...,
          compresslevel: Optional[int] = ...) -> TarFile: ...
-
 
 class TarFile(Iterable[TarInfo]):
     name = ...  # type: Optional[_Path]
@@ -140,15 +138,15 @@ class TarFile(Iterable[TarInfo]):
                    fileobj: Optional[IO[bytes]] = ...) -> TarInfo: ...
     def close(self) -> None: ...
 
-
 def is_tarfile(name: str) -> bool: ...
 
+if sys.version_info < (3, 8):
+    def filemode(mode: int) -> str: ...  # undocumented
 
 if sys.version_info < (3,):
     class TarFileCompat:
         def __init__(self, filename: str, mode: str = ...,
                      compression: int = ...) -> None: ...
-
 
 class TarError(Exception): ...
 class ReadError(TarError): ...
@@ -156,7 +154,6 @@ class CompressionError(TarError): ...
 class StreamError(TarError): ...
 class ExtractError(TarError): ...
 class HeaderError(TarError): ...
-
 
 class TarInfo:
     name = ...  # type: str
