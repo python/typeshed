@@ -2,6 +2,7 @@
 
 from cmd import Cmd
 import sys
+from types import FrameType
 from typing import Any, Callable, Dict, IO, Iterable, Optional, TypeVar
 
 _T = TypeVar('_T')
@@ -58,7 +59,4 @@ class Pdb(Cmd):
     def runeval(self, expression: str, globals: Optional[Dict[str, Any]] = ...,
                 locals: Optional[Dict[str, Any]] = ...) -> Any: ...
     def runcall(self, func: Callable[..., _T], *args: Any, **kwds: Any) -> Optional[_T]: ...
-    if sys.version_info >= (3, 7):
-        def set_trace(self, *, header: Optional[str] = ...) -> None: ...
-    else:
-        def set_trace(self) -> None: ...
+    def set_trace(self, frame: Optional[FrameType] = ...) -> None: ...
