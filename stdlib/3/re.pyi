@@ -71,7 +71,7 @@ else:
     TEMPLATE = 0
     _FlagsType = int
 
-if sys.version_info <= (3, 6):
+if sys.version_info < (3, 7):
     # undocumented
     _pattern_type = ...  # type: type
 
