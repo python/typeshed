@@ -89,3 +89,7 @@ class FileError(ClickException):
 
 class Abort(RuntimeError):
     ...
+
+
+class Exit(RuntimeError):
+    ...
