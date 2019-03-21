@@ -92,4 +92,5 @@ class Abort(RuntimeError):
 
 
 class Exit(RuntimeError):
-    ...
+    def __init__(self, code: Optional[int] = ...) -> None:
+        ...
