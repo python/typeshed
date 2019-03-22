@@ -11,4 +11,4 @@ from .tz import (
     datetime_ambiguous as datetime_ambiguous,
 )
 
-UTC = ...  # type: tzutc
+UTC: tzutc
