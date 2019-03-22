@@ -10,3 +10,5 @@ from .tz import (
     datetime_exists as datetime_exists,
     datetime_ambiguous as datetime_ambiguous,
 )
+
+UTC = ...  # type: tzutc
