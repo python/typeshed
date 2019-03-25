@@ -7,9 +7,7 @@ If pytype is installed:
     1. For every pyi, do nothing if it is in pytype_blacklist.txt.
     2. If the blacklist line has a "# parse only" comment run
       "pytd <foo.pyi>" in a separate process.
-    3. If the file is not in the blacklist run
-      "pytype --typeshed-location=typeshed_location --module-name=foo \
-      --parse-pyi <foo.pyi>.
+    3. If the file is not in the blacklist call "pytype.io.parse_pyi".
 Option two will parse the file, mostly syntactical correctness. Option three
 will load the file and all the builtins, typeshed dependencies. This will
 also discover incorrect usage of imported modules.
@@ -19,9 +17,12 @@ import argparse
 import collections
 import itertools
 import os
+from pytype import config
+from pytype import io
 import re
 import subprocess
 import sys
+import traceback
 
 parser = argparse.ArgumentParser(description='Pytype/typeshed tests.')
 parser.add_argument('-n', '--dry-run', action='store_true',
@@ -47,6 +48,9 @@ Dirs = collections.namedtuple('Dirs', ['pytype', 'typeshed'])
 
 
 TYPESHED_SUBDIRS = ['stdlib', 'third_party']
+
+
+UNSET = object()  # marker for tracking environment variables in PytypeRun
 
 
 def main():
@@ -123,7 +127,38 @@ class BinaryRun(object):
             return self.results
 
         stdout, stderr = self.proc.communicate()
-        self.results = self.proc.returncode, stdout, stderr
+        self.results = self.proc.returncode, stdout, stderr.decode()
+        return self.results
+
+
+class PytypeRun(object):
+    def __init__(self, args, dry_run=False, env=None):
+        self.args = args
+        self.results = None
+        if dry_run:
+            self.results = (0, '', '')
+        else:
+            self.env = env
+
+    def communicate(self):
+        if self.results:
+            return self.results
+        old_env = {}
+        if self.env:
+            for var, val in self.env.items():
+                old_env[var] = os.environ.get(var, UNSET)
+                os.environ[var] = val
+        try:
+            io.parse_pyi(config.Options(self.args[1:]))
+        except Exception:
+            self.results = (1, '', traceback.format_exc())
+        else:
+            self.results = (0, '', '')
+        for var, val in old_env.items():
+            if val is UNSET:
+                del os.environ[var]
+            else:
+                os.environ[var] = val
         return self.results
 
 
@@ -218,7 +253,7 @@ def pytype_test(args):
             '-V %s' % version,
             '--python_exe=%s' % exe,
         ]
-        return BinaryRun(run_cmd + [filename],
+        return PytypeRun(run_cmd + [filename],
                          dry_run=args.dry_run,
                          env={"TYPESHED_HOME": dirs.typeshed})
 
@@ -274,7 +309,7 @@ def pytype_test(args):
             # We strip off the stack trace and just leave the last line with the
             # actual error; to see the stack traces use --print_stderr.
             bad.append((_get_relative(test_run.args[-1]),
-                        stderr.rstrip().rsplit(b'\n', 1)[-1]))
+                        stderr.rstrip().rsplit('\n', 1)[-1]))
 
         if runs % 25 == 0:
             print("  %3d/%d with %3d errors" % (runs, total_tests, errors))

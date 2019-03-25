@@ -10,6 +10,7 @@ from .datastructures import (
     MultiDict, ImmutableTypeConversionDict, HeaderSet,
     Accept, MIMEAccept, CharsetAccept, LanguageAccept,
 )
+from .useragents import UserAgent
 
 class BaseRequest:
     charset = ...  # type: str
@@ -151,7 +152,8 @@ class ETagRequestMixin:
     def range(self): ...
 
 class UserAgentMixin:
-    def user_agent(self): ...
+    @property
+    def user_agent(self) -> UserAgent: ...
 
 class AuthorizationMixin:
     @property
