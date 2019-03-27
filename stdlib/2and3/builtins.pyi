@@ -10,7 +10,7 @@ from typing import (
     Protocol,
 )
 from abc import abstractmethod, ABCMeta
-from ast import mod
+from ast import mod, AST
 from types import TracebackType, CodeType
 import sys
 
@@ -1117,9 +1117,9 @@ if sys.version_info >= (3, 6):
     # See https://github.com/python/typeshed/pull/991#issuecomment-288160993
     class _PathLike(Generic[AnyStr]):
         def __fspath__(self) -> AnyStr: ...
-    def compile(source: Union[str, bytes, mod], filename: Union[str, bytes, _PathLike], mode: str, flags: int = ..., dont_inherit: int = ..., optimize: int = ...) -> Any: ...
+    def compile(source: Union[str, bytes, mod, AST], filename: Union[str, bytes, _PathLike], mode: str, flags: int = ..., dont_inherit: int = ..., optimize: int = ...) -> Any: ...
 elif sys.version_info >= (3,):
-    def compile(source: Union[str, bytes, mod], filename: Union[str, bytes], mode: str, flags: int = ..., dont_inherit: int = ..., optimize: int = ...) -> Any: ...
+    def compile(source: Union[str, bytes, mod, AST], filename: Union[str, bytes], mode: str, flags: int = ..., dont_inherit: int = ..., optimize: int = ...) -> Any: ...
 else:
     def compile(source: Union[Text, mod], filename: Text, mode: Text, flags: int = ..., dont_inherit: int = ...) -> Any: ...
 if sys.version_info >= (3,):
