@@ -375,7 +375,10 @@ class comprehension(AST):
         is_async = ...  # type: int
 
 
-class ExceptHandler(AST):
+class excepthandler(AST):
+    ...
+
+class ExceptHandler(excepthandler):
     type = ...  # type: Optional[expr]
     name = ...  # type: Optional[_identifier]
     body = ...  # type: typing.List[stmt]

@@ -305,7 +305,11 @@ class comprehension(AST):
     ifs = ...  # type: typing.List[expr]
 
 
-class ExceptHandler(AST):
+class excepthandler(AST):
+    ...
+
+
+class ExceptHandler(excepthandler):
     type = ...  # type: Optional[expr]
     name = ...  # type: Optional[expr]
     body = ...  # type: typing.List[stmt]
