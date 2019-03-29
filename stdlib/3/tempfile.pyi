@@ -5,7 +5,7 @@
 
 import sys
 from types import TracebackType
-from typing import Any, AnyStr, Generic, IO, Iterable, Iterator, List, Optional, Tuple, Type
+from typing import Any, AnyStr, Generic, IO, Iterable, Iterator, List, Optional, overload, Tuple, Type
 
 # global variables
 TMP_MAX: int
@@ -74,6 +74,9 @@ if sys.version_info >= (3, 5):
 
     def mkstemp(suffix: Optional[AnyStr] = ..., prefix: Optional[AnyStr] = ..., dir: Optional[AnyStr] = ...,
                 text: bool = ...) -> Tuple[int, AnyStr]: ...
+    @overload
+    def mkdtemp() -> str: ...
+    @overload
     def mkdtemp(suffix: Optional[AnyStr] = ..., prefix: Optional[AnyStr] = ...,
                 dir: Optional[str] = ...) -> AnyStr: ...
     def mktemp(suffix: Optional[AnyStr] = ..., prefix: Optional[AnyStr] = ..., dir: Optional[AnyStr] = ...) -> AnyStr: ...
