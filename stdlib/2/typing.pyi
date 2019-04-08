@@ -87,11 +87,6 @@ class SupportsAbs(Protocol[_T_co]):
     def __abs__(self) -> _T_co: ...
 
 @runtime
-class SupportsRound(Protocol[_T_co]):
-    @abstractmethod
-    def __round__(self, ndigits: int = ...) -> _T_co: ...
-
-@runtime
 class Reversible(Protocol[_T_co]):
     @abstractmethod
     def __reversed__(self) -> Iterator[_T_co]: ...

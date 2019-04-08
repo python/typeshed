@@ -96,6 +96,8 @@ class SupportsAbs(Protocol[_T_co]):
 @runtime
 class SupportsRound(Protocol[_T_co]):
     @abstractmethod
+    def __round__(self) -> _T_co: ...
+    @abstractmethod
     def __round__(self, ndigits: int = ...) -> _T_co: ...
 
 @runtime

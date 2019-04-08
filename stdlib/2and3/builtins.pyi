@@ -5,7 +5,7 @@ from typing import (
     TypeVar, Iterator, Iterable, NoReturn, overload, Container,
     Sequence, MutableSequence, Mapping, MutableMapping, Tuple, List, Any, Dict, Callable, Generic,
     Set, AbstractSet, FrozenSet, MutableSet, Sized, Reversible, SupportsInt, SupportsFloat, SupportsAbs,
-    SupportsComplex, SupportsRound, IO, BinaryIO, Union,
+    SupportsComplex, IO, BinaryIO, Union,
     ItemsView, KeysView, ValuesView, ByteString, Optional, AnyStr, Type, Text,
     Protocol,
 )
@@ -15,7 +15,7 @@ from types import TracebackType, CodeType
 import sys
 
 if sys.version_info >= (3,):
-    from typing import SupportsBytes
+    from typing import SupportsBytes, SupportsRound
 
 _T = TypeVar('_T')
 _T_co = TypeVar('_T_co', covariant=True)
@@ -1370,9 +1370,9 @@ else:
     @overload
     def round(number: float, ndigits: int) -> float: ...
     @overload
-    def round(number: SupportsRound[_T]) -> _T: ...
+    def round(number: SupportsFloat) -> float: ...
     @overload
-    def round(number: SupportsRound[_T], ndigits: int) -> _T: ...
+    def round(number: SupportsFloat, ndigits: int) -> float: ...
 def setattr(object: Any, name: Text, value: Any) -> None: ...
 if sys.version_info >= (3,):
     def sorted(iterable: Iterable[_T], *,
