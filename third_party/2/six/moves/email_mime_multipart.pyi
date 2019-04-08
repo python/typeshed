@@ -1,1 +1,1 @@
-from email.MIMEMultipart import *
+from email.mime.multipart import *

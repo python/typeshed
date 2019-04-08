@@ -1,1 +1,1 @@
-from email.MIMEBase import *
+from email.mime.base import *
