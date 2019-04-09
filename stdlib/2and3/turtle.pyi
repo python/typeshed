@@ -187,7 +187,7 @@ class TPen:
 _T = TypeVar('_T')
 
 class RawTurtle(TPen, TNavigator):
-    def __init__(self, canvas: Optional[Canvas] = ..., shape: str= ..., undobuffersize: int = ..., visible: bool = ...) -> None: ...
+    def __init__(self, canvas: Optional[Canvas] = ..., shape: str = ..., undobuffersize: int = ..., visible: bool = ...) -> None: ...
     def reset(self) -> None: ...
     def setundobuffer(self, size: Optional[int]) -> None: ...
     def undobufferentries(self) -> int: ...
@@ -254,6 +254,15 @@ RawPen = RawTurtle
 Pen = Turtle
 
 def write_docstringdict(filename: str) -> None: ...
+
+# Note: it's somewhat unfortunate that we have to copy the function signatures.
+# It would be nice if we could partially reduce the redundancy by doing something
+# like the following:
+#
+#     _screen: Screen
+#     clear = _screen.clear
+#
+# However, it seems pytype does not support this type of syntax in pyi files.
 
 # Functions copied from TurtleScreenBase:
 
