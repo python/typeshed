@@ -9,10 +9,10 @@ else:
 # the return type of sys.exc_info(), used by ErrorDuringImport.__init__
 _Exc_Info = Tuple[Optional[Type[BaseException]], Optional[BaseException], Optional[TracebackType]]
 
-__author__ = ...  # type: str
-__date__ = ...  # type: str
-__version__ = ...  # type: str
-__credits__ = ...  # type: str
+__author__: str
+__date__: str
+__version__: str
+__credits__: str
 
 def pathdirs() -> List[str]: ...
 def getdoc(object: object) -> Text: ...
@@ -31,10 +31,10 @@ def source_synopsis(file: IO[AnyStr]) -> Optional[AnyStr]: ...
 def synopsis(filename: str, cache: MutableMapping[str, Tuple[int, str]] = ...) -> Optional[str]: ...
 
 class ErrorDuringImport(Exception):
-    filename = ...  # type: str
-    exc = ...  # type: Optional[Type[BaseException]]
-    value = ...  # type: Optional[BaseException]
-    tb = ...  # type: Optional[TracebackType]
+    filename: str
+    exc: Optional[Type[BaseException]]
+    value: Optional[BaseException]
+    tb: Optional[TracebackType]
     def __init__(self, filename: str, exc_info: _Exc_Info) -> None: ...
 
 def importfile(path: str) -> ModuleType: ...
@@ -52,11 +52,11 @@ class Doc:
     def getdocloc(self, object: object) -> Optional[str]: ...
 
 class HTMLRepr(Repr):
-    maxlist = ...  # type: int
-    maxtuple = ...  # type: int
-    maxdict = ...  # type: int
-    maxstring = ...  # type: int
-    maxother = ...  # type: int
+    maxlist: int
+    maxtuple: int
+    maxdict: int
+    maxstring: int
+    maxother: int
     def __init__(self) -> None: ...
     def escape(self, text: str) -> str: ...
     def repr(self, object: object) -> str: ...
@@ -92,11 +92,11 @@ class HTMLDoc(Doc):
     def index(self, dir: str, shadowed: Optional[MutableMapping[str, bool]] = ...) -> str: ...
 
 class TextRepr(Repr):
-    maxlist = ...  # type: int
-    maxtuple = ...  # type: int
-    maxdict = ...  # type: int
-    maxstring = ...  # type: int
-    maxother = ...  # type: int
+    maxlist: int
+    maxtuple: int
+    maxdict: int
+    maxstring: int
+    maxother: int
     def __init__(self) -> None: ...
     def repr1(self, x: object, level: complex) -> str: ...
     def repr_string(self, x: str, level: complex) -> str: ...
@@ -127,8 +127,8 @@ def plainpager(text: str) -> None: ...
 def describe(thing: Any) -> str: ...
 def locate(path: str, forceload: bool = ...) -> object: ...
 
-text = ...  # type: TextDoc
-html = ...  # type: HTMLDoc
+text: TextDoc
+html: HTMLDoc
 
 class _OldStyleClass: ...
 
@@ -139,12 +139,12 @@ def writedoc(thing: Union[str, object], forceload: bool = ...) -> None: ...
 def writedocs(dir: str, pkgpath: str = ..., done: Optional[Any] = ...) -> None: ...
 
 class Helper:
-    keywords = ...  # type: Dict[str, Union[str, Tuple[str, str]]]
-    symbols = ...  # type: Dict[str, str]
-    topics = ...  # type: Dict[str, Union[str, Tuple[str, ...]]]
+    keywords: Dict[str, Union[str, Tuple[str, str]]]
+    symbols: Dict[str, str]
+    topics: Dict[str, Union[str, Tuple[str, ...]]]
     def __init__(self, input: Optional[IO[str]] = ..., output: Optional[IO[str]] = ...) -> None: ...
-    input = ...  # type: IO[str]
-    output = ...  # type: IO[str]
+    input: IO[str]
+    output: IO[str]
     def __call__(self, request: Union[str, Helper, object] = ...) -> None: ...
     def interact(self) -> None: ...
     def getline(self, prompt: str) -> str: ...
@@ -158,7 +158,7 @@ class Helper:
     def showsymbol(self, symbol: str) -> None: ...
     def listmodules(self, key: str = ...) -> None: ...
 
-help = ...  # type: Helper
+help: Helper
 
 # See Python issue #11182: "remove the unused and undocumented pydoc.Scanner class"
 # class Scanner:
@@ -170,7 +170,7 @@ help = ...  # type: Helper
 #     def next(self): ...
 
 class ModuleScanner:
-    quit = ...  # type: bool
+    quit: bool
     def run(self, callback: Callable[[Optional[str], str, str], None], key: Optional[Any] = ..., completer: Optional[Callable[[], None]] = ..., onerror: Optional[Callable] = ...) -> None: ...
 
 def apropos(key: str) -> None: ...

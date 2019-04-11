@@ -7,7 +7,7 @@ from typing import (
 
 
 class ImportNoArenaNestedMessage(Message):
-    d = ...  # type: int
+    d: int
 
     def __init__(self,
                  d: Optional[int] = ...,

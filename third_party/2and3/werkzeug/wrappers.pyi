@@ -13,18 +13,18 @@ from .datastructures import (
 from .useragents import UserAgent
 
 class BaseRequest:
-    charset = ...  # type: str
-    encoding_errors = ...  # type: str
-    max_content_length = ...  # type: Optional[int]
-    max_form_memory_size = ...  # type: int
-    parameter_storage_class = ...  # type: Type
-    list_storage_class = ...  # type: Type
-    dict_storage_class = ...  # type: Type
-    form_data_parser_class = ...  # type: Type
-    trusted_hosts = ...  # type: Optional[Sequence[Text]]
-    disable_data_descriptor = ...  # type: Any
+    charset: str
+    encoding_errors: str
+    max_content_length: Optional[int]
+    max_form_memory_size: int
+    parameter_storage_class: Type
+    list_storage_class: Type
+    dict_storage_class: Type
+    form_data_parser_class: Type
+    trusted_hosts: Optional[Sequence[Text]]
+    disable_data_descriptor: Any
     environ: WSGIEnvironment = ...
-    shallow = ...  # type: Any
+    shallow: Any
     def __init__(self, environ: WSGIEnvironment, populate_request: bool = ..., shallow: bool = ...) -> None: ...
     @property
     def url_charset(self) -> str: ...
@@ -41,38 +41,38 @@ class BaseRequest:
     @property
     def stream(self) -> InputStream: ...
     input_stream: InputStream
-    args = ...  # type: ImmutableMultiDict
+    args: ImmutableMultiDict
     @property
     def data(self) -> bytes: ...
     # TODO: once Literal types are supported, overload with as_text
     def get_data(self, cache: bool = ..., as_text: bool = ..., parse_form_data: bool = ...) -> Any: ...  # returns bytes if as_text is False (the default), else Text
-    form = ...  # type: ImmutableMultiDict
-    values = ...  # type: CombinedMultiDict
-    files = ...  # type: MultiDict
+    form: ImmutableMultiDict
+    values: CombinedMultiDict
+    files: MultiDict
     @property
     def cookies(self) -> ImmutableTypeConversionDict[str, str]: ...
-    headers = ...  # type: EnvironHeaders
-    path = ...  # type: Text
-    full_path = ...  # type: Text
-    script_root = ...  # type: Text
-    url = ...  # type: Text
-    base_url = ...  # type: Text
-    url_root = ...  # type: Text
-    host_url = ...  # type: Text
-    host = ...  # type: Text
-    query_string = ...  # type: bytes
-    method = ...  # type: Text
+    headers: EnvironHeaders
+    path: Text
+    full_path: Text
+    script_root: Text
+    url: Text
+    base_url: Text
+    url_root: Text
+    host_url: Text
+    host: Text
+    query_string: bytes
+    method: Text
     @property
     def access_route(self) -> Sequence[str]: ...
     @property
     def remote_addr(self) -> str: ...
-    remote_user = ...  # type: Text
-    scheme = ...  # type: str
-    is_xhr = ...  # type: bool
-    is_secure = ...  # type: bool
-    is_multithread = ...  # type: bool
-    is_multiprocess = ...  # type: bool
-    is_run_once = ...  # type: bool
+    remote_user: Text
+    scheme: str
+    is_xhr: bool
+    is_secure: bool
+    is_multithread: bool
+    is_multiprocess: bool
+    is_run_once: bool
 
     # These are not preset at runtime but we add them since monkeypatching this
     # class is quite common.
@@ -83,17 +83,17 @@ _OnCloseT = TypeVar('_OnCloseT', bound=Callable[[], Any])
 _SelfT = TypeVar('_SelfT', bound=BaseResponse)
 
 class BaseResponse:
-    charset = ...  # type: str
-    default_status = ...  # type: int
-    default_mimetype = ...  # type: str
-    implicit_sequence_conversion = ...  # type: bool
-    autocorrect_location_header = ...  # type: bool
-    automatically_set_content_length = ...  # type: bool
-    headers = ...  # type: Headers
-    status_code = ...  # type: int
-    status = ...  # type: str
-    direct_passthrough = ...  # type: bool
-    response = ...  # type: Iterable[bytes]
+    charset: str
+    default_status: int
+    default_mimetype: str
+    implicit_sequence_conversion: bool
+    autocorrect_location_header: bool
+    automatically_set_content_length: bool
+    headers: Headers
+    status_code: int
+    status: str
+    direct_passthrough: bool
+    response: Iterable[bytes]
     def __init__(self, response: Optional[Union[str, bytes, bytearray, Iterable[str], Iterable[bytes]]] = ...,
                  status: Optional[Union[Text, int]] = ...,
                  headers: Optional[Union[Headers,
@@ -110,7 +110,7 @@ class BaseResponse:
     # TODO: once Literal types are supported, overload with as_text
     def get_data(self, as_text: bool = ...) -> Any: ...  # returns bytes if as_text is False (the default), else Text
     def set_data(self, value: Union[bytes, Text]) -> None: ...
-    data = ...  # type: Any
+    data: Any
     def calculate_content_length(self) -> Optional[int]: ...
     def make_sequence(self) -> None: ...
     def iter_encoded(self) -> Iterator[bytes]: ...
@@ -167,25 +167,25 @@ class AuthorizationMixin:
     def authorization(self) -> Optional[Authorization]: ...
 
 class StreamOnlyMixin:
-    disable_data_descriptor = ...  # type: Any
-    want_form_data_parsed = ...  # type: Any
+    disable_data_descriptor: Any
+    want_form_data_parsed: Any
 
 class ETagResponseMixin:
     @property
     def cache_control(self): ...
-    status_code = ...  # type: Any
+    status_code: Any
     def make_conditional(self, request_or_environ, accept_ranges: bool = ..., complete_length: Optional[Any] = ...): ...
     def add_etag(self, overwrite: bool = ..., weak: bool = ...): ...
     def set_etag(self, etag, weak: bool = ...): ...
     def get_etag(self): ...
     def freeze(self, no_etag: bool = ...) -> None: ...
-    accept_ranges = ...  # type: Any
-    content_range = ...  # type: Any
+    accept_ranges: Any
+    content_range: Any
 
 class ResponseStream:
-    mode = ...  # type: Any
-    response = ...  # type: Any
-    closed = ...  # type: Any
+    mode: Any
+    response: Any
+    closed: Any
     def __init__(self, response): ...
     def write(self, value): ...
     def writelines(self, seq): ...

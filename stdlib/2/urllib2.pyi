@@ -7,20 +7,20 @@ from httplib import HTTPConnectionProtocol, HTTPResponse
 _string = Union[str, unicode]
 
 class URLError(IOError):
-    reason = ...  # type: Union[str, BaseException]
+    reason: Union[str, BaseException]
 
 class HTTPError(URLError, addinfourl):
-    code = ...  # type: int
+    code: int
     headers: Mapping[str, str]
     def __init__(self, url, code: int, msg: str, hdrs: Mapping[str, str], fp: addinfourl) -> None: ...
 
 class Request(object):
-    host = ...  # type: str
-    port = ...  # type: str
-    data = ...  # type: str
-    headers = ...  # type: Dict[str, str]
-    unverifiable = ...  # type: bool
-    type = ...  # type: Optional[str]
+    host: str
+    port: str
+    data: str
+    headers: Dict[str, str]
+    unverifiable: bool
+    type: Optional[str]
     origin_req_host = ...
     unredirected_hdrs: Dict[str, str]
 
@@ -61,8 +61,8 @@ def install_opener(opener: OpenerDirector) -> None: ...
 def build_opener(*handlers: Union[BaseHandler, Type[BaseHandler]]) -> OpenerDirector: ...
 
 class BaseHandler:
-    handler_order = ...  # type: int
-    parent = ...  # type: OpenerDirector
+    handler_order: int
+    parent: OpenerDirector
 
     def add_parent(self, parent: OpenerDirector) -> None: ...
     def close(self) -> None: ...
@@ -75,14 +75,14 @@ class HTTPDefaultErrorHandler(BaseHandler):
     def http_error_default(self, req: Request, fp: addinfourl, code: int, msg: str, hdrs: Mapping[str, str]): ...
 
 class HTTPRedirectHandler(BaseHandler):
-    max_repeats = ...  # type: int
-    max_redirections = ...  # type: int
+    max_repeats: int
+    max_redirections: int
     def redirect_request(self, req: Request, fp: addinfourl, code: int, msg: str, headers: Mapping[str, str], newurl): ...
     def http_error_301(self, req: Request, fp: addinfourl, code: int, msg: str, headers: Mapping[str, str]): ...
     def http_error_302(self, req: Request, fp: addinfourl, code: int, msg: str, headers: Mapping[str, str]): ...
     def http_error_303(self, req: Request, fp: addinfourl, code: int, msg: str, headers: Mapping[str, str]): ...
     def http_error_307(self, req: Request, fp: addinfourl, code: int, msg: str, headers: Mapping[str, str]): ...
-    inf_msg = ...  # type: str
+    inf_msg: str
 
 
 class ProxyHandler(BaseHandler):
@@ -107,11 +107,11 @@ class AbstractBasicAuthHandler:
     def retry_http_basic_auth(self, host, req: Request, realm): ...
 
 class HTTPBasicAuthHandler(AbstractBasicAuthHandler, BaseHandler):
-    auth_header = ...  # type: str
+    auth_header: str
     def http_error_401(self, req: Request, fp: addinfourl, code: int, msg: str, headers: Mapping[str, str]): ...
 
 class ProxyBasicAuthHandler(AbstractBasicAuthHandler, BaseHandler):
-    auth_header = ...  # type: str
+    auth_header: str
     def http_error_407(self, req: Request, fp: addinfourl, code: int, msg: str, headers: Mapping[str, str]): ...
 
 class AbstractDigestAuthHandler:
@@ -127,13 +127,13 @@ class AbstractDigestAuthHandler:
     def get_entity_digest(self, data: Optional[bytes], chal: Mapping[str, str]) -> Optional[str]: ...
 
 class HTTPDigestAuthHandler(BaseHandler, AbstractDigestAuthHandler):
-    auth_header = ...  # type: str
-    handler_order = ...  # type: int
+    auth_header: str
+    handler_order: int
     def http_error_401(self, req: Request, fp: addinfourl, code: int, msg: str, headers: Mapping[str, str]): ...
 
 class ProxyDigestAuthHandler(BaseHandler, AbstractDigestAuthHandler):
-    auth_header = ...  # type: str
-    handler_order = ...  # type: int
+    auth_header: str
+    handler_order: int
     def http_error_407(self, req: Request, fp: addinfourl, code: int, msg: str, headers: Mapping[str, str]): ...
 
 class AbstractHTTPHandler(BaseHandler):  # undocumented

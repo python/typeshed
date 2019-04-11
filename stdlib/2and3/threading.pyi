@@ -34,7 +34,7 @@ def setprofile(func: _PF) -> None: ...
 def stack_size(size: int = ...) -> int: ...
 
 if sys.version_info >= (3,):
-    TIMEOUT_MAX = ...  # type: float
+    TIMEOUT_MAX: float
 
 class ThreadError(Exception): ...
 
@@ -46,9 +46,9 @@ class local(object):
 
 
 class Thread:
-    name = ...  # type: str
-    ident = ...  # type: Optional[int]
-    daemon = ...  # type: bool
+    name: str
+    ident: Optional[int]
+    daemon: bool
     if sys.version_info >= (3,):
         def __init__(self, group: None = ...,
                      target: Optional[Callable[..., Any]] = ...,
@@ -175,9 +175,9 @@ class Timer(Thread):
 
 if sys.version_info >= (3,):
     class Barrier:
-        parties = ...  # type: int
-        n_waiting = ...  # type: int
-        broken = ...  # type: bool
+        parties: int
+        n_waiting: int
+        broken: bool
         def __init__(self, parties: int, action: Optional[Callable[[], None]] = ...,
                      timeout: Optional[float] = ...) -> None: ...
         def wait(self, timeout: Optional[float] = ...) -> int: ...

@@ -44,9 +44,9 @@ SYNTAX_PROTO3: Syntax
 
 
 class Type(Message):
-    name = ...  # type: Text
-    oneofs = ...  # type: RepeatedScalarFieldContainer[Text]
-    syntax = ...  # type: Syntax
+    name: Text
+    oneofs: RepeatedScalarFieldContainer[Text]
+    syntax: Syntax
 
     @property
     def fields(self) -> RepeatedCompositeFieldContainer[Field]: ...
@@ -128,15 +128,15 @@ class Field(Message):
     CARDINALITY_OPTIONAL: Cardinality
     CARDINALITY_REQUIRED: Cardinality
     CARDINALITY_REPEATED: Cardinality
-    kind = ...  # type: Field.Kind
-    cardinality = ...  # type: Field.Cardinality
-    number = ...  # type: int
-    name = ...  # type: Text
-    type_url = ...  # type: Text
-    oneof_index = ...  # type: int
-    packed = ...  # type: bool
-    json_name = ...  # type: Text
-    default_value = ...  # type: Text
+    kind: Field.Kind
+    cardinality: Field.Cardinality
+    number: int
+    name: Text
+    type_url: Text
+    oneof_index: int
+    packed: bool
+    json_name: Text
+    default_value: Text
 
     @property
     def options(self) -> RepeatedCompositeFieldContainer[Option]: ...
@@ -159,8 +159,8 @@ class Field(Message):
 
 
 class Enum(Message):
-    name = ...  # type: Text
-    syntax = ...  # type: Syntax
+    name: Text
+    syntax: Syntax
 
     @property
     def enumvalue(self) -> RepeatedCompositeFieldContainer[EnumValue]: ...
@@ -184,8 +184,8 @@ class Enum(Message):
 
 
 class EnumValue(Message):
-    name = ...  # type: Text
-    number = ...  # type: int
+    name: Text
+    number: int
 
     @property
     def options(self) -> RepeatedCompositeFieldContainer[Option]: ...
@@ -201,7 +201,7 @@ class EnumValue(Message):
 
 
 class Option(Message):
-    name = ...  # type: Text
+    name: Text
 
     @property
     def value(self) -> Any: ...

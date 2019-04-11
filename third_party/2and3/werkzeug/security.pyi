@@ -1,7 +1,7 @@
 from typing import Any, Optional
 
-SALT_CHARS = ...  # type: Any
-DEFAULT_PBKDF2_ITERATIONS = ...  # type: Any
+SALT_CHARS: Any
+DEFAULT_PBKDF2_ITERATIONS: Any
 
 def pbkdf2_hex(data, salt, iterations=..., keylen: Optional[Any] = ..., hashfunc: Optional[Any] = ...): ...
 def pbkdf2_bin(data, salt, iterations=..., keylen: Optional[Any] = ..., hashfunc: Optional[Any] = ...): ...

@@ -3,7 +3,7 @@
 from typing import Any, Generic, Iterator, TypeVar, Optional, Union
 
 class defaultdict(dict):
-    default_factory = ...  # type: None
+    default_factory: None
     def __init__(self, default: Any = ..., init: Any = ...) -> None: ...
     def __missing__(self, key) -> Any:
         raise KeyError()
@@ -14,7 +14,7 @@ _T = TypeVar('_T')
 _T2 = TypeVar('_T2')
 
 class deque(Generic[_T]):
-    maxlen = ...  # type: Optional[int]
+    maxlen: Optional[int]
     def __init__(self, iterable: Iterator[_T] = ..., maxlen: int = ...) -> None: ...
     def append(self, x: _T) -> None: ...
     def appendleft(self, x: _T) -> None: ...

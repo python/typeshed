@@ -20,39 +20,39 @@ _KT = TypeVar('_KT')
 _VT = TypeVar('_VT')
 
 class _Cell:
-    cell_contents = ...  # type: Any
+    cell_contents: Any
 
 class FunctionType:
-    __closure__ = ...  # type: Optional[Tuple[_Cell, ...]]
-    __code__ = ...  # type: CodeType
-    __defaults__ = ...  # type: Optional[Tuple[Any, ...]]
-    __dict__ = ...  # type: Dict[str, Any]
-    __globals__ = ...  # type: Dict[str, Any]
-    __name__ = ...  # type: str
-    __qualname__ = ...  # type: str
-    __annotations__ = ...  # type: Dict[str, Any]
-    __kwdefaults__ = ...  # type: Dict[str, Any]
+    __closure__: Optional[Tuple[_Cell, ...]]
+    __code__: CodeType
+    __defaults__: Optional[Tuple[Any, ...]]
+    __dict__: Dict[str, Any]
+    __globals__: Dict[str, Any]
+    __name__: str
+    __qualname__: str
+    __annotations__: Dict[str, Any]
+    __kwdefaults__: Dict[str, Any]
     def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
     def __get__(self, obj: Optional[object], type: Optional[type]) -> MethodType: ...
 LambdaType = FunctionType
 
 class CodeType:
     """Create a code object.  Not for the faint of heart."""
-    co_argcount = ...  # type: int
-    co_kwonlyargcount = ...  # type: int
-    co_nlocals = ...  # type: int
-    co_stacksize = ...  # type: int
-    co_flags = ...  # type: int
-    co_code = ...  # type: bytes
-    co_consts = ...  # type: Tuple[Any, ...]
-    co_names = ...  # type: Tuple[str, ...]
-    co_varnames = ...  # type: Tuple[str, ...]
-    co_filename = ...  # type: str
-    co_name = ...  # type: str
-    co_firstlineno = ...  # type: int
-    co_lnotab = ...  # type: bytes
-    co_freevars = ...  # type: Tuple[str, ...]
-    co_cellvars = ...  # type: Tuple[str, ...]
+    co_argcount: int
+    co_kwonlyargcount: int
+    co_nlocals: int
+    co_stacksize: int
+    co_flags: int
+    co_code: bytes
+    co_consts: Tuple[Any, ...]
+    co_names: Tuple[str, ...]
+    co_varnames: Tuple[str, ...]
+    co_filename: str
+    co_name: str
+    co_firstlineno: int
+    co_lnotab: bytes
+    co_freevars: Tuple[str, ...]
+    co_cellvars: Tuple[str, ...]
     def __init__(
         self,
         argcount: int,
@@ -85,10 +85,10 @@ class SimpleNamespace:
     def __delattr__(self, name: str) -> None: ...
 
 class GeneratorType:
-    gi_code = ...  # type: CodeType
-    gi_frame = ...  # type: FrameType
-    gi_running = ...  # type: bool
-    gi_yieldfrom = ...  # type: Optional[GeneratorType]
+    gi_code: CodeType
+    gi_frame: FrameType
+    gi_running: bool
+    gi_yieldfrom: Optional[GeneratorType]
     def __iter__(self) -> GeneratorType: ...
     def __next__(self) -> Any: ...
     def close(self) -> None: ...
@@ -114,10 +114,10 @@ if sys.version_info >= (3, 6):
         def aclose(self) -> Awaitable[_T_co]: ...
 
 class CoroutineType:
-    cr_await = ...  # type: Optional[Any]
-    cr_code = ...  # type: CodeType
-    cr_frame = ...  # type: FrameType
-    cr_running = ...  # type: bool
+    cr_await: Optional[Any]
+    cr_code: CodeType
+    cr_frame: FrameType
+    cr_running: bool
     def close(self) -> None: ...
     def send(self, arg: Any) -> Any: ...
     @overload
@@ -141,16 +141,16 @@ class _StaticFunctionType:
     def __get__(self, obj: Optional[object], type: Optional[type]) -> FunctionType: ...
 
 class MethodType:
-    __func__ = ...  # type: _StaticFunctionType
-    __self__ = ...  # type: object
-    __name__ = ...  # type: str
-    __qualname__ = ...  # type: str
+    __func__: _StaticFunctionType
+    __self__: object
+    __name__: str
+    __qualname__: str
     def __init__(self, func: Callable, obj: object) -> None: ...
     def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
 class BuiltinFunctionType:
-    __self__ = ...  # type: Union[object, ModuleType]
-    __name__ = ...  # type: str
-    __qualname__ = ...  # type: str
+    __self__: Union[object, ModuleType]
+    __name__: str
+    __qualname__: str
     def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
 BuiltinMethodType = BuiltinFunctionType
 
@@ -170,14 +170,14 @@ class TracebackType:
     def tb_lineno(self) -> int: ...
 
 class FrameType:
-    f_back = ...  # type: FrameType
-    f_builtins = ...  # type: Dict[str, Any]
-    f_code = ...  # type: CodeType
-    f_globals = ...  # type: Dict[str, Any]
-    f_lasti = ...  # type: int
-    f_lineno = ...  # type: int
-    f_locals = ...  # type: Dict[str, Any]
-    f_trace = ...  # type: Callable[[], None]
+    f_back: FrameType
+    f_builtins: Dict[str, Any]
+    f_code: CodeType
+    f_globals: Dict[str, Any]
+    f_lasti: int
+    f_lineno: int
+    f_locals: Dict[str, Any]
+    f_trace: Callable[[], None]
     if sys.version_info >= (3, 7):
         f_trace_lines: bool
         f_trace_opcodes: bool
@@ -185,14 +185,14 @@ class FrameType:
     def clear(self) -> None: ...
 
 class GetSetDescriptorType:
-    __name__ = ...  # type: str
-    __objclass__ = ...  # type: type
+    __name__: str
+    __objclass__: type
     def __get__(self, obj: Any, type: type = ...) -> Any: ...
     def __set__(self, obj: Any) -> None: ...
     def __delete__(self, obj: Any) -> None: ...
 class MemberDescriptorType:
-    __name__ = ...  # type: str
-    __objclass__ = ...  # type: type
+    __name__: str
+    __objclass__: type
     def __get__(self, obj: Any, type: type = ...) -> Any: ...
     def __set__(self, obj: Any) -> None: ...
     def __delete__(self, obj: Any) -> None: ...

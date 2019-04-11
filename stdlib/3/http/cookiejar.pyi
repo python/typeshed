@@ -25,8 +25,8 @@ class CookieJar(Iterable[Cookie]):
     def __len__(self) -> int: ...
 
 class FileCookieJar(CookieJar):
-    filename = ...  # type: str
-    delayload = ...  # type: bool
+    filename: str
+    delayload: bool
     def __init__(self, filename: str = ..., delayload: bool = ...,
                  policy: Optional[CookiePolicy] = ...) -> None: ...
     def save(self, filename: Optional[str] = ..., ignore_discard: bool = ...,
@@ -41,9 +41,9 @@ class LWPCookieJar(FileCookieJar): ...
 
 
 class CookiePolicy:
-    netscape = ...  # type: bool
-    rfc2965 = ...  # type: bool
-    hide_cookie2 = ...  # type: bool
+    netscape: bool
+    rfc2965: bool
+    hide_cookie2: bool
     def set_ok(self, cookie: Cookie, request: Request) -> bool: ...
     def return_ok(self, cookie: Cookie, request: Request) -> bool: ...
     def domain_return_ok(self, domain: str, request: Request) -> bool: ...
@@ -51,18 +51,18 @@ class CookiePolicy:
 
 
 class DefaultCookiePolicy(CookiePolicy):
-    rfc2109_as_netscape = ...  # type: bool
-    strict_domain = ...  # type: bool
-    strict_rfc2965_unverifiable = ...  # type: bool
-    strict_ns_unverifiable = ...  # type: bool
-    strict_ns_domain = ...  # type: int
-    strict_ns_set_initial_dollar = ...  # type: bool
-    strict_ns_set_path = ...  # type: bool
-    DomainStrictNoDots = ...  # type: int
-    DomainStrictNonDomain = ...  # type: int
-    DomainRFC2965Match = ...  # type: int
-    DomainLiberal = ...  # type: int
-    DomainStrict = ...  # type: int
+    rfc2109_as_netscape: bool
+    strict_domain: bool
+    strict_rfc2965_unverifiable: bool
+    strict_ns_unverifiable: bool
+    strict_ns_domain: int
+    strict_ns_set_initial_dollar: bool
+    strict_ns_set_path: bool
+    DomainStrictNoDots: int
+    DomainStrictNonDomain: int
+    DomainRFC2965Match: int
+    DomainLiberal: int
+    DomainStrict: int
     def __init__(self, blocked_domains: Optional[Sequence[str]] = ...,
                  allowed_domains: Optional[Sequence[str]] = ...,
                  netscape: bool = ...,
@@ -83,20 +83,20 @@ class DefaultCookiePolicy(CookiePolicy):
 
 
 class Cookie:
-    version = ...  # type: Optional[int]
-    name = ...  # type: str
-    value = ...  # type: Optional[str]
-    port = ...  # type: Optional[str]
-    path = ...  # type: str
-    secure = ...  # type: bool
-    expires = ...  # type: Optional[int]
-    discard = ...  # type: bool
-    comment = ...  # type: Optional[str]
-    comment_url = ...  # type: Optional[str]
-    rfc2109 = ...  # type: bool
-    port_specified = ...  # type: bool
-    domain_specified = ...  # type: bool
-    domain_initial_dot = ...  # type: bool
+    version: Optional[int]
+    name: str
+    value: Optional[str]
+    port: Optional[str]
+    path: str
+    secure: bool
+    expires: Optional[int]
+    discard: bool
+    comment: Optional[str]
+    comment_url: Optional[str]
+    rfc2109: bool
+    port_specified: bool
+    domain_specified: bool
+    domain_initial_dot: bool
     def has_nonstandard_attr(self, name: str) -> bool: ...
     @overload
     def get_nonstandard_attr(self, name: str) -> Optional[str]: ...

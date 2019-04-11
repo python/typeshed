@@ -2,7 +2,7 @@ from typing import Any, Optional
 from boto.compat import StandardError
 
 class BotoClientError(StandardError):
-    reason = ...  # type: Any
+    reason: Any
     def __init__(self, reason, *args) -> None: ...
 
 class SDBPersistenceError(StandardError): ...
@@ -11,13 +11,13 @@ class S3PermissionsError(StoragePermissionsError): ...
 class GSPermissionsError(StoragePermissionsError): ...
 
 class BotoServerError(StandardError):
-    status = ...  # type: Any
-    reason = ...  # type: Any
-    body = ...  # type: Any
-    request_id = ...  # type: Any
-    error_code = ...  # type: Any
-    message = ...  # type: str
-    box_usage = ...  # type: Any
+    status: Any
+    reason: Any
+    body: Any
+    request_id: Any
+    error_code: Any
+    message: str
+    box_usage: Any
     def __init__(self, status, reason, body: Optional[Any] = ..., *args) -> None: ...
     def __getattr__(self, name): ...
     def __setattr__(self, name, value): ...
@@ -25,17 +25,17 @@ class BotoServerError(StandardError):
     def endElement(self, name, value, connection): ...
 
 class ConsoleOutput:
-    parent = ...  # type: Any
-    instance_id = ...  # type: Any
-    timestamp = ...  # type: Any
-    comment = ...  # type: Any
-    output = ...  # type: Any
+    parent: Any
+    instance_id: Any
+    timestamp: Any
+    comment: Any
+    output: Any
     def __init__(self, parent: Optional[Any] = ...) -> None: ...
     def startElement(self, name, attrs, connection): ...
     def endElement(self, name, value, connection): ...
 
 class StorageCreateError(BotoServerError):
-    bucket = ...  # type: Any
+    bucket: Any
     def __init__(self, status, reason, body: Optional[Any] = ...) -> None: ...
     def endElement(self, name, value, connection): ...
 
@@ -46,18 +46,18 @@ class S3CopyError(StorageCopyError): ...
 class GSCopyError(StorageCopyError): ...
 
 class SQSError(BotoServerError):
-    detail = ...  # type: Any
-    type = ...  # type: Any
+    detail: Any
+    type: Any
     def __init__(self, status, reason, body: Optional[Any] = ...) -> None: ...
     def startElement(self, name, attrs, connection): ...
     def endElement(self, name, value, connection): ...
 
 class SQSDecodeError(BotoClientError):
-    message = ...  # type: Any
+    message: Any
     def __init__(self, reason, message) -> None: ...
 
 class StorageResponseError(BotoServerError):
-    resource = ...  # type: Any
+    resource: Any
     def __init__(self, status, reason, body: Optional[Any] = ...) -> None: ...
     def startElement(self, name, attrs, connection): ...
     def endElement(self, name, value, connection): ...
@@ -66,18 +66,18 @@ class S3ResponseError(StorageResponseError): ...
 class GSResponseError(StorageResponseError): ...
 
 class EC2ResponseError(BotoServerError):
-    errors = ...  # type: Any
+    errors: Any
     def __init__(self, status, reason, body: Optional[Any] = ...) -> None: ...
     def startElement(self, name, attrs, connection): ...
-    request_id = ...  # type: Any
+    request_id: Any
     def endElement(self, name, value, connection): ...
 
 class JSONResponseError(BotoServerError):
-    status = ...  # type: Any
-    reason = ...  # type: Any
-    body = ...  # type: Any
-    error_message = ...  # type: Any
-    error_code = ...  # type: Any
+    status: Any
+    reason: Any
+    body: Any
+    error_message: Any
+    error_code: Any
     def __init__(self, status, reason, body: Optional[Any] = ..., *args) -> None: ...
 
 class DynamoDBResponseError(JSONResponseError): ...
@@ -85,9 +85,9 @@ class SWFResponseError(JSONResponseError): ...
 class EmrResponseError(BotoServerError): ...
 
 class _EC2Error:
-    connection = ...  # type: Any
-    error_code = ...  # type: Any
-    error_message = ...  # type: Any
+    connection: Any
+    error_code: Any
+    error_message: Any
     def __init__(self, connection: Optional[Any] = ...) -> None: ...
     def startElement(self, name, attrs, connection): ...
     def endElement(self, name, value, connection): ...
@@ -99,48 +99,48 @@ class S3DataError(StorageDataError): ...
 class GSDataError(StorageDataError): ...
 
 class InvalidUriError(Exception):
-    message = ...  # type: Any
+    message: Any
     def __init__(self, message) -> None: ...
 
 class InvalidAclError(Exception):
-    message = ...  # type: Any
+    message: Any
     def __init__(self, message) -> None: ...
 
 class InvalidCorsError(Exception):
-    message = ...  # type: Any
+    message: Any
     def __init__(self, message) -> None: ...
 
 class NoAuthHandlerFound(Exception): ...
 
 class InvalidLifecycleConfigError(Exception):
-    message = ...  # type: Any
+    message: Any
     def __init__(self, message) -> None: ...
 
 class ResumableTransferDisposition:
-    START_OVER = ...  # type: str
-    WAIT_BEFORE_RETRY = ...  # type: str
-    ABORT_CUR_PROCESS = ...  # type: str
-    ABORT = ...  # type: str
+    START_OVER: str
+    WAIT_BEFORE_RETRY: str
+    ABORT_CUR_PROCESS: str
+    ABORT: str
 
 class ResumableUploadException(Exception):
-    message = ...  # type: Any
-    disposition = ...  # type: Any
+    message: Any
+    disposition: Any
     def __init__(self, message, disposition) -> None: ...
 
 class ResumableDownloadException(Exception):
-    message = ...  # type: Any
-    disposition = ...  # type: Any
+    message: Any
+    disposition: Any
     def __init__(self, message, disposition) -> None: ...
 
 class TooManyRecordsException(Exception):
-    message = ...  # type: Any
+    message: Any
     def __init__(self, message) -> None: ...
 
 class PleaseRetryException(Exception):
-    message = ...  # type: Any
-    response = ...  # type: Any
+    message: Any
+    response: Any
     def __init__(self, message, response: Optional[Any] = ...) -> None: ...
 
 class InvalidInstanceMetadataError(Exception):
-    MSG = ...  # type: str
+    MSG: str
     def __init__(self, msg) -> None: ...

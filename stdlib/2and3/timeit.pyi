@@ -7,7 +7,7 @@ _str = Union[str, Text]
 _Timer = Callable[[], float]
 _stmt = Union[_str, Callable[[], Any]]
 
-default_timer = ...  # type: _Timer
+default_timer: _Timer
 
 class Timer:
     if sys.version_info >= (3, 5):

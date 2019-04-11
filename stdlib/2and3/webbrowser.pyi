@@ -13,18 +13,18 @@ def open_new(url: Text) -> bool: ...
 def open_new_tab(url: Text) -> bool: ...
 
 class BaseBrowser:
-    args = ...  # type: List[str]
-    name = ...  # type: str
-    basename = ...  # type: str
+    args: List[str]
+    name: str
+    basename: str
     def __init__(self, name: Text = ...) -> None: ...
     def open(self, url: Text, new: int = ..., autoraise: bool = ...) -> bool: ...
     def open_new(self, url: Text) -> bool: ...
     def open_new_tab(self, url: Text) -> bool: ...
 
 class GenericBrowser(BaseBrowser):
-    args = ...  # type: List[str]
-    name = ...  # type: str
-    basename = ...  # type: str
+    args: List[str]
+    name: str
+    basename: str
     def __init__(self, name: Union[Text, Sequence[Text]]) -> None: ...
     def open(self, url: Text, new: int = ..., autoraise: bool = ...) -> bool: ...
 
@@ -32,53 +32,53 @@ class BackgroundBrowser(GenericBrowser):
     def open(self, url: Text, new: int = ..., autoraise: bool = ...) -> bool: ...
 
 class UnixBrowser(BaseBrowser):
-    raise_opts = ...  # type: List[str]
-    background = ...  # type: bool
-    redirect_stdout = ...  # type: bool
-    remote_args = ...  # type: List[str]
-    remote_action = ...  # type: str
-    remote_action_newwin = ...  # type: str
-    remote_action_newtab = ...  # type: str
+    raise_opts: List[str]
+    background: bool
+    redirect_stdout: bool
+    remote_args: List[str]
+    remote_action: str
+    remote_action_newwin: str
+    remote_action_newtab: str
     def open(self, url: Text, new: int = ..., autoraise: bool = ...) -> bool: ...
 
 class Mozilla(UnixBrowser):
-    raise_opts = ...  # type: List[str]
-    remote_args = ...  # type: List[str]
-    remote_action = ...  # type: str
-    remote_action_newwin = ...  # type: str
-    remote_action_newtab = ...  # type: str
-    background = ...  # type: bool
+    raise_opts: List[str]
+    remote_args: List[str]
+    remote_action: str
+    remote_action_newwin: str
+    remote_action_newtab: str
+    background: bool
 
 class Galeon(UnixBrowser):
-    raise_opts = ...  # type: List[str]
-    remote_args = ...  # type: List[str]
-    remote_action = ...  # type: str
-    remote_action_newwin = ...  # type: str
-    background = ...  # type: bool
+    raise_opts: List[str]
+    remote_args: List[str]
+    remote_action: str
+    remote_action_newwin: str
+    background: bool
 
 if sys.version_info[:2] == (2, 7) or sys.version_info >= (3, 3):
     class Chrome(UnixBrowser):
-        remote_args = ...  # type: List[str]
-        remote_action = ...  # type: str
-        remote_action_newwin = ...  # type: str
-        remote_action_newtab = ...  # type: str
-        background = ...  # type: bool
+        remote_args: List[str]
+        remote_action: str
+        remote_action_newwin: str
+        remote_action_newtab: str
+        background: bool
 
 class Opera(UnixBrowser):
-    raise_opts = ...  # type: List[str]
-    remote_args = ...  # type: List[str]
-    remote_action = ...  # type: str
-    remote_action_newwin = ...  # type: str
-    remote_action_newtab = ...  # type: str
-    background = ...  # type: bool
+    raise_opts: List[str]
+    remote_args: List[str]
+    remote_action: str
+    remote_action_newwin: str
+    remote_action_newtab: str
+    background: bool
 
 class Elinks(UnixBrowser):
-    remote_args = ...  # type: List[str]
-    remote_action = ...  # type: str
-    remote_action_newwin = ...  # type: str
-    remote_action_newtab = ...  # type: str
-    background = ...  # type: bool
-    redirect_stdout = ...  # type: bool
+    remote_args: List[str]
+    remote_action: str
+    remote_action_newwin: str
+    remote_action_newtab: str
+    background: bool
+    redirect_stdout: bool
 
 class Konqueror(BaseBrowser):
     def open(self, url: Text, new: int = ..., autoraise: bool = ...) -> bool: ...
@@ -90,7 +90,7 @@ class WindowsDefault(BaseBrowser):
     def open(self, url: Text, new: int = ..., autoraise: bool = ...) -> bool: ...
 
 class MacOSX(BaseBrowser):
-    name = ...  # type: str
+    name: str
     def __init__(self, name: Text) -> None: ...
     def open(self, url: Text, new: int = ..., autoraise: bool = ...) -> bool: ...
 

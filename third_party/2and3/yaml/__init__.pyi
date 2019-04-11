@@ -8,8 +8,8 @@ from yaml.dumper import *  # noqa: F403
 from . import resolver  # Help mypy a bit; this is implied by loader and dumper
 from .cyaml import *
 
-__with_libyaml__ = ...  # type: Any
-__version__ = ...  # type: str
+__with_libyaml__: Any
+__version__: str
 
 def scan(stream, Loader=...): ...
 def parse(stream, Loader=...): ...
@@ -39,10 +39,10 @@ class YAMLObjectMetaclass(type):
     def __init__(self, name, bases, kwds) -> None: ...
 
 class YAMLObject(metaclass=YAMLObjectMetaclass):
-    yaml_loader = ...  # type: Any
-    yaml_dumper = ...  # type: Any
-    yaml_tag = ...  # type: Any
-    yaml_flow_style = ...  # type: Any
+    yaml_loader: Any
+    yaml_dumper: Any
+    yaml_tag: Any
+    yaml_flow_style: Any
     @classmethod
     def from_yaml(cls, loader, node): ...
     @classmethod

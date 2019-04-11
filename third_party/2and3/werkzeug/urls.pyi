@@ -63,10 +63,10 @@ def url_encode_stream(obj, stream: Optional[Any] = ..., charset: Text = ..., enc
 def url_join(base, url, allow_fragments: bool = ...): ...
 
 class Href:
-    base = ...  # type: Any
+    base: Any
     charset: Text
-    sort = ...  # type: Any
-    key = ...  # type: Any
+    sort: Any
+    key: Any
     def __init__(self, base: str = ..., charset: Text = ..., sort: bool = ..., key: Optional[Any] = ...): ...
     def __getattr__(self, name): ...
     def __call__(self, *path, **query): ...

@@ -1,5 +1,5 @@
 from typing import Any
 
-html_parts = ...  # type: Any
+html_parts: Any
 
 def __getattr__(name) -> Any: ...

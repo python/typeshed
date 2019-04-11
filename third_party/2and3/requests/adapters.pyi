@@ -38,9 +38,9 @@ SSLError = exceptions.SSLError
 ProxyError = exceptions.ProxyError
 RetryError = exceptions.RetryError
 
-DEFAULT_POOLBLOCK = ...  # type: Any
-DEFAULT_POOLSIZE = ...  # type: Any
-DEFAULT_RETRIES = ...  # type: Any
+DEFAULT_POOLBLOCK: Any
+DEFAULT_POOLSIZE: Any
+DEFAULT_RETRIES: Any
 
 class BaseAdapter:
     def __init__(self) -> None: ...
@@ -54,13 +54,13 @@ class BaseAdapter:
     def close(self) -> None: ...
 
 class HTTPAdapter(BaseAdapter):
-    __attrs__ = ...  # type: Any
-    max_retries = ...  # type: Any
-    config = ...  # type: Any
-    proxy_manager = ...  # type: Any
+    __attrs__: Any
+    max_retries: Any
+    config: Any
+    proxy_manager: Any
     def __init__(self, pool_connections=..., pool_maxsize=..., max_retries=...,
                  pool_block=...) -> None: ...
-    poolmanager = ...  # type: Any
+    poolmanager: Any
     def init_poolmanager(self, connections, maxsize, block=..., **pool_kwargs): ...
     def proxy_manager_for(self, proxy, **proxy_kwargs): ...
     def cert_verify(self, conn, url, verify, cert): ...

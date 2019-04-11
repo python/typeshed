@@ -1,8 +1,8 @@
 from typing import Any, Optional
 
 class Prefix:
-    bucket = ...  # type: Any
-    name = ...  # type: Any
+    bucket: Any
+    name: Any
     def __init__(self, bucket: Optional[Any] = ..., name: Optional[Any] = ...) -> None: ...
     def startElement(self, name, attrs, connection): ...
     def endElement(self, name, value, connection): ...

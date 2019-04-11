@@ -1,1 +1,1 @@
-__revision__ = ...  # type: str
+__revision__: str

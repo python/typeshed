@@ -8,12 +8,12 @@ from ssl import SSLContext
 _T = TypeVar('_T')
 _IntOrStr = Union[int, Text]
 
-MSG_OOB = ...  # type: int
-FTP_PORT = ...  # type: int
-MAXLINE = ...  # type: int
-CRLF = ...  # type: str
+MSG_OOB: int
+FTP_PORT: int
+MAXLINE: int
+CRLF: str
 if sys.version_info >= (3,):
-    B_CRLF = ...  # type: bytes
+    B_CRLF: bytes
 
 class Error(Exception): ...
 class error_reply(Error): ...
@@ -24,32 +24,32 @@ class error_proto(Error): ...
 all_errors = Tuple[Exception, ...]
 
 class FTP:
-    debugging = ...  # type: int
+    debugging: int
 
     # Note: This is technically the type that's passed in as the host argument.  But to make it easier in Python 2 we
     # accept Text but return str.
-    host = ...  # type: str
+    host: str
 
-    port = ...  # type: int
-    maxline = ...  # type: int
-    sock = ...  # type: Optional[socket]
-    welcome = ...  # type: Optional[str]
-    passiveserver = ...  # type: int
-    timeout = ...  # type: int
-    af = ...  # type: int
-    lastresp = ...  # type: str
+    port: int
+    maxline: int
+    sock: Optional[socket]
+    welcome: Optional[str]
+    passiveserver: int
+    timeout: int
+    af: int
+    lastresp: str
 
     if sys.version_info >= (3,):
-        file = ...  # type: Optional[TextIO]
-        encoding = ...  # type: str
+        file: Optional[TextIO]
+        encoding: str
         def __enter__(self: _T) -> _T: ...
         def __exit__(self, exc_type: Optional[Type[BaseException]], exc_val: Optional[BaseException],
                      exc_tb: Optional[TracebackType]) -> bool: ...
     else:
-        file = ...  # type: Optional[BinaryIO]
+        file: Optional[BinaryIO]
 
     if sys.version_info >= (3, 3):
-        source_address = ...  # type: Optional[Tuple[str, int]]
+        source_address: Optional[Tuple[str, int]]
         def __init__(self, host: Text = ..., user: Text = ..., passwd: Text = ..., acct: Text = ...,
                      timeout: float = ..., source_address: Optional[Tuple[str, int]] = ...) -> None: ...
         def connect(self, host: Text = ..., port: int = ..., timeout: float = ...,
@@ -112,10 +112,10 @@ class FTP_TLS(FTP):
                  context: Optional[SSLContext] = ..., timeout: float = ...,
                  source_address: Optional[Tuple[str, int]] = ...) -> None: ...
 
-    ssl_version = ...  # type: int
-    keyfile = ...  # type: Optional[str]
-    certfile = ...  # type: Optional[str]
-    context = ...  # type: SSLContext
+    ssl_version: int
+    keyfile: Optional[str]
+    certfile: Optional[str]
+    context: SSLContext
 
     def login(self, user: Text = ..., passwd: Text = ..., acct: Text = ..., secure: bool = ...) -> str: ...
     def auth(self) -> str: ...

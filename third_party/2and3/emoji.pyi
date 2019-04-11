@@ -1,6 +1,6 @@
 from typing import Tuple, Pattern, List, Dict, Union
 
-_DEFAULT_DELIMITER = ...  # type: str
+_DEFAULT_DELIMITER: str
 
 def emojize(
     string: str,

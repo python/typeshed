@@ -4,7 +4,7 @@ from typing import Any, Callable, Dict, Generator, IO, ItemsView, Iterable, Iter
 import io
 import sys
 
-VERSION = ...  # type: str
+VERSION: str
 
 class ParseError(SyntaxError): ...
 
@@ -42,10 +42,10 @@ else:
     _tostring_result_type = bytes
 
 class Element(MutableSequence[Element]):
-    tag = ...  # type: _str_result_type
-    attrib = ...  # type: Dict[_str_result_type, _str_result_type]
-    text = ...  # type: Optional[_str_result_type]
-    tail = ...  # type: Optional[_str_result_type]
+    tag: _str_result_type
+    attrib: Dict[_str_result_type, _str_result_type]
+    text: Optional[_str_result_type]
+    tail: Optional[_str_result_type]
     def __init__(self, tag: Union[_str_argument_type, Callable[..., Element]], attrib: Dict[_str_argument_type, _str_argument_type] = ..., **extra: _str_argument_type) -> None: ...
     def append(self, subelement: Element) -> None: ...
     def clear(self) -> None: ...
@@ -86,10 +86,10 @@ def SubElement(parent: Element, tag: _str_argument_type, attrib: Dict[_str_argum
 def Comment(text: Optional[_str_argument_type] = ...) -> Element: ...
 def ProcessingInstruction(target: _str_argument_type, text: Optional[_str_argument_type] = ...) -> Element: ...
 
-PI = ...  # type: Callable[..., Element]
+PI: Callable[..., Element]
 
 class QName:
-    text = ...  # type: str
+    text: str
     def __init__(self, text_or_uri: _str_argument_type, tag: Optional[_str_argument_type] = ...) -> None: ...
 
 
@@ -156,11 +156,11 @@ class TreeBuilder:
     def end(self, tag: _parser_input_type) -> Element: ...
 
 class XMLParser:
-    parser = ...  # type: Any
-    target = ...  # type: TreeBuilder
+    parser: Any
+    target: TreeBuilder
     # TODO-what is entity used for???
-    entity = ...  # type: Any
-    version = ...  # type: str
+    entity: Any
+    version: str
     def __init__(self, html: int = ..., target: Optional[TreeBuilder] = ..., encoding: Optional[str] = ...) -> None: ...
     def doctype(self, name: str, pubid: str, system: str) -> None: ...
     def close(self) -> Element: ...

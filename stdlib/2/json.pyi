@@ -69,14 +69,14 @@ class JSONDecoder(object):
     def raw_decode(self, s: Union[Text, bytes], idx: int = ...) -> Tuple[Any, Any]: ...
 
 class JSONEncoder(object):
-    item_separator = ...  # type: str
-    key_separator = ...  # type: str
-    skipkeys = ...  # type: bool
-    ensure_ascii = ...  # type: bool
-    check_circular = ...  # type: bool
-    allow_nan = ...  # type: bool
-    sort_keys = ...  # type: bool
-    indent = ...  # type: Optional[int]
+    item_separator: str
+    key_separator: str
+    skipkeys: bool
+    ensure_ascii: bool
+    check_circular: bool
+    allow_nan: bool
+    sort_keys: bool
+    indent: Optional[int]
 
     def __init__(self,
                  skipkeys: bool = ...,

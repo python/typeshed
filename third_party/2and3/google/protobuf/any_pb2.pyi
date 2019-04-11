@@ -10,8 +10,8 @@ from typing import (
 
 
 class Any(Message, well_known_types.Any_):
-    type_url = ...  # type: Text
-    value = ...  # type: bytes
+    type_url: Text
+    value: bytes
 
     def __init__(self,
                  type_url: Optional[Text] = ...,

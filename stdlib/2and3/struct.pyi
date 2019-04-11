@@ -32,7 +32,7 @@ class Struct:
         format: str
     else:
         format: bytes
-    size = ...  # type: int
+    size: int
 
     def __init__(self, format: _FmtType) -> None: ...
 

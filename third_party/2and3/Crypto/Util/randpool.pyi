@@ -1,11 +1,11 @@
 from typing import Any, Optional
 
-__revision__ = ...  # type: str
+__revision__: str
 
 class RandomPool:
-    bytes = ...  # type: Any
-    bits = ...  # type: Any
-    entropy = ...  # type: Any
+    bytes: Any
+    bits: Any
+    entropy: Any
     def __init__(self, numbytes: int = ..., cipher: Optional[Any] = ..., hash: Optional[Any] = ..., file: Optional[Any] = ...) -> None: ...
     def get_bytes(self, N): ...
     def randomize(self, N: int = ...): ...

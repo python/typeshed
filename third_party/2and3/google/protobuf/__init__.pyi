@@ -1,1 +1,1 @@
-__version__ = ...  # type: bytes
+__version__: bytes

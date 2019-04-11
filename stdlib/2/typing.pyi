@@ -450,7 +450,7 @@ def cast(tp: str, obj: Any) -> Any: ...
 
 # NamedTuple is special-cased in the type checker
 class NamedTuple(tuple):
-    _fields = ...  # type: Tuple[str, ...]
+    _fields: Tuple[str, ...]
 
     def __init__(self, typename: Text, fields: Iterable[Tuple[Text, Any]] = ..., *,
                  verbose: bool = ..., rename: bool = ..., **kwargs: Any) -> None: ...

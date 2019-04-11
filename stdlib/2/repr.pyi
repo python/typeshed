@@ -1,15 +1,15 @@
 class Repr:
-    maxarray = ...  # type: int
-    maxdeque = ...  # type: int
-    maxdict = ...  # type: int
-    maxfrozenset = ...  # type: int
-    maxlevel = ...  # type: int
-    maxlist = ...  # type: int
-    maxlong = ...  # type: int
-    maxother = ...  # type: int
-    maxset = ...  # type: int
-    maxstring = ...  # type: int
-    maxtuple = ...  # type: int
+    maxarray: int
+    maxdeque: int
+    maxdict: int
+    maxfrozenset: int
+    maxlevel: int
+    maxlist: int
+    maxlong: int
+    maxother: int
+    maxset: int
+    maxstring: int
+    maxtuple: int
     def __init__(self) -> None: ...
     def _repr_iterable(self, x, level: complex, left, right, maxiter, trail=...) -> str: ...
     def repr(self, x) -> str: ...
@@ -27,5 +27,5 @@ class Repr:
 
 def _possibly_sorted(x) -> list: ...
 
-aRepr = ...  # type: Repr
+aRepr: Repr
 def repr(x) -> str: ...

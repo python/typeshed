@@ -9,8 +9,8 @@ from typing import Any, AnyStr, Generic, IO, Iterable, Iterator, List, Optional,
 
 # global variables
 TMP_MAX: int
-tempdir = ...  # type: Optional[str]
-template = ...  # type: str
+tempdir: Optional[str]
+template: str
 
 
 if sys.version_info >= (3, 5):
@@ -63,7 +63,7 @@ if sys.version_info >= (3, 5):
         def __iter__(self) -> Iterator[AnyStr]: ...
 
     class TemporaryDirectory(Generic[AnyStr]):
-        name = ...  # type: str
+        name: str
         def __init__(self, suffix: Optional[AnyStr] = ..., prefix: Optional[AnyStr] = ...,
                      dir: Optional[AnyStr] = ...) -> None: ...
         def cleanup(self) -> None: ...
@@ -104,7 +104,7 @@ else:
         ...
 
     class TemporaryDirectory:
-        name = ...  # type: str
+        name: str
         def __init__(self, suffix: str = ..., prefix: str = ...,
                      dir: Optional[str] = ...) -> None: ...
         def cleanup(self) -> None: ...

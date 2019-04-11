@@ -189,43 +189,43 @@ class NoSectionError(Error): ...
 
 
 class DuplicateSectionError(Error):
-    section = ...  # type: str
-    source = ...   # type: Optional[str]
-    lineno = ...   # type: Optional[int]
+    section: str
+    source: Optional[str]
+    lineno: Optional[int]
 
 
 class DuplicateOptionError(Error):
-    section = ...  # type: str
-    option = ...   # type: str
-    source = ...   # type: Optional[str]
-    lineno = ...   # type: Optional[int]
+    section: str
+    option: str
+    source: Optional[str]
+    lineno: Optional[int]
 
 
 class NoOptionError(Error):
-    section = ...  # type: str
-    option = ...   # type: str
+    section: str
+    option: str
 
 
 class InterpolationError(Error):
-    section = ...  # type: str
-    option = ...   # type: str
+    section: str
+    option: str
 
 
 class InterpolationDepthError(InterpolationError): ...
 
 
 class InterpolationMissingOptionError(InterpolationError):
-    reference = ...  # type: str
+    reference: str
 
 
 class InterpolationSyntaxError(InterpolationError): ...
 
 
 class ParsingError(Error):
-    source = ...  # type: str
-    errors = ...  # type: Sequence[Tuple[int, str]]
+    source: str
+    errors: Sequence[Tuple[int, str]]
 
 
 class MissingSectionHeaderError(ParsingError):
-    lineno = ...  # type: int
-    line = ...    # type: str
+    lineno: int
+    line: str

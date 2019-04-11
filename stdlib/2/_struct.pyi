@@ -5,8 +5,8 @@ from typing import Any, AnyStr, Tuple
 class error(Exception): ...
 
 class Struct(object):
-    size = ...  # type: int
-    format = ...  # type: str
+    size: int
+    format: str
 
     def __init__(self, fmt: str) -> None: ...
     def pack_into(self, buffer: bytearray, offset: int, obj: Any) -> None: ...

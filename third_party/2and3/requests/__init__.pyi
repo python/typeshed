@@ -9,11 +9,11 @@ from . import exceptions
 from . import packages
 import logging
 
-__title__ = ...  # type: Any
-__build__ = ...  # type: Any
-__license__ = ...  # type: Any
-__copyright__ = ...  # type: Any
-__version__ = ...  # type: Any
+__title__: Any
+__build__: Any
+__license__: Any
+__copyright__: Any
+__version__: Any
 
 Request = models.Request
 Response = models.Response

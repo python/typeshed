@@ -24,14 +24,14 @@ class GzipDecoder:
     def decompress(self, data): ...
 
 class HTTPResponse(io.IOBase):
-    CONTENT_DECODERS = ...  # type: Any
-    REDIRECT_STATUSES = ...  # type: Any
-    headers = ...  # type: Any
-    status = ...  # type: Any
-    version = ...  # type: Any
-    reason = ...  # type: Any
-    strict = ...  # type: Any
-    decode_content = ...  # type: Any
+    CONTENT_DECODERS: Any
+    REDIRECT_STATUSES: Any
+    headers: Any
+    status: Any
+    version: Any
+    reason: Any
+    strict: Any
+    decode_content: Any
     def __init__(self, body=..., headers=..., status=..., version=..., reason=..., strict=..., preload_content=..., decode_content=..., original_response=..., pool=..., connection=...) -> None: ...
     def get_redirect_location(self): ...
     def release_conn(self): ...

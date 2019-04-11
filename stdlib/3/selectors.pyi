@@ -15,8 +15,8 @@ _FileDescriptor = int
 _EventMask = int
 
 
-EVENT_READ = ...  # type: _EventMask
-EVENT_WRITE = ...  # type: _EventMask
+EVENT_READ: _EventMask
+EVENT_WRITE: _EventMask
 
 
 SelectorKey = NamedTuple('SelectorKey', [

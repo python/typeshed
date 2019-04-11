@@ -2,19 +2,19 @@ from typing import Any, Optional
 import unittest
 import logging
 
-AsyncHTTPClient = ...  # type: Any
-gen = ...  # type: Any
-HTTPServer = ...  # type: Any
-IOLoop = ...  # type: Any
-netutil = ...  # type: Any
-SimpleAsyncHTTPClient = ...  # type: Any
+AsyncHTTPClient: Any
+gen: Any
+HTTPServer: Any
+IOLoop: Any
+netutil: Any
+SimpleAsyncHTTPClient: Any
 
 def get_unused_port(): ...
 def bind_unused_port(): ...
 
 class AsyncTestCase(unittest.TestCase):
     def __init__(self, *args, **kwargs): ...
-    io_loop = ...  # type: Any
+    io_loop: Any
     def setUp(self): ...
     def tearDown(self): ...
     def get_new_ioloop(self): ...
@@ -23,8 +23,8 @@ class AsyncTestCase(unittest.TestCase):
     def wait(self, condition: Optional[Any] = ..., timeout: float = ...): ...
 
 class AsyncHTTPTestCase(AsyncTestCase):
-    http_client = ...  # type: Any
-    http_server = ...  # type: Any
+    http_client: Any
+    http_server: Any
     def setUp(self): ...
     def get_http_client(self): ...
     def get_http_server(self): ...
@@ -48,10 +48,10 @@ class LogTrapTestCase(unittest.TestCase):
     def run(self, result: Optional[Any] = ...): ...
 
 class ExpectLog(logging.Filter):
-    logger = ...  # type: Any
-    regex = ...  # type: Any
-    required = ...  # type: Any
-    matched = ...  # type: Any
+    logger: Any
+    regex: Any
+    required: Any
+    matched: Any
     def __init__(self, logger, regex, required: bool = ...): ...
     def filter(self, record): ...
     def __enter__(self): ...

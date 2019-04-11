@@ -2,15 +2,15 @@ from typing import Any, Sequence, Optional, Iterable
 from wsgiref.types import WSGIApplication, WSGIEnvironment, StartResponse
 
 class CGIRootFix:
-    app = ...  # type: Any
-    app_root = ...  # type: Any
+    app: Any
+    app_root: Any
     def __init__(self, app, app_root: str = ...): ...
     def __call__(self, environ, start_response): ...
 
-LighttpdCGIRootFix = ...  # type: Any
+LighttpdCGIRootFix: Any
 
 class PathInfoFromRequestUriFix:
-    app = ...  # type: Any
+    app: Any
     def __init__(self, app): ...
     def __call__(self, environ, start_response): ...
 
@@ -22,16 +22,16 @@ class ProxyFix(object):
     def __call__(self, environ: WSGIEnvironment, start_response: StartResponse) -> Iterable[bytes]: ...
 
 class HeaderRewriterFix:
-    app = ...  # type: Any
-    remove_headers = ...  # type: Any
-    add_headers = ...  # type: Any
+    app: Any
+    remove_headers: Any
+    add_headers: Any
     def __init__(self, app, remove_headers: Optional[Any] = ..., add_headers: Optional[Any] = ...): ...
     def __call__(self, environ, start_response): ...
 
 class InternetExplorerFix:
-    app = ...  # type: Any
-    fix_vary = ...  # type: Any
-    fix_attach = ...  # type: Any
+    app: Any
+    fix_vary: Any
+    fix_attach: Any
     def __init__(self, app, fix_vary: bool = ..., fix_attach: bool = ...): ...
     def fix_headers(self, environ, headers, status: Optional[Any] = ...): ...
     def run_fixed(self, environ, start_response): ...

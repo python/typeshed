@@ -495,12 +495,12 @@ class Match(Generic[AnyStr]):
     pos = 0
     endpos = 0
     lastindex = 0
-    lastgroup = ...  # type: AnyStr
-    string = ...  # type: AnyStr
+    lastgroup: AnyStr
+    string: AnyStr
 
     # The regular expression object whose match() or search() method produced
     # this match instance.
-    re = ...  # type: Pattern[AnyStr]
+    re: Pattern[AnyStr]
 
     def expand(self, template: AnyStr) -> AnyStr: ...
 
@@ -525,9 +525,9 @@ class Match(Generic[AnyStr]):
 
 class Pattern(Generic[AnyStr]):
     flags = 0
-    groupindex = ...  # type: Mapping[str, int]
+    groupindex: Mapping[str, int]
     groups = 0
-    pattern = ...  # type: AnyStr
+    pattern: AnyStr
 
     def search(self, string: AnyStr, pos: int = ...,
                endpos: int = ...) -> Optional[Match[AnyStr]]: ...
@@ -570,10 +570,10 @@ def cast(tp: str, obj: Any) -> Any: ...
 
 # NamedTuple is special-cased in the type checker
 class NamedTuple(tuple):
-    _field_types = ...  # type: collections.OrderedDict[str, Type[Any]]
+    _field_types: collections.OrderedDict[str, Type[Any]]
     _field_defaults: Dict[str, Any] = ...
-    _fields = ...  # type: Tuple[str, ...]
-    _source = ...  # type: str
+    _fields: Tuple[str, ...]
+    _source: str
 
     def __init__(self, typename: str, fields: Iterable[Tuple[str, Any]] = ..., *,
                  verbose: bool = ..., rename: bool = ..., **kwargs: Any) -> None: ...

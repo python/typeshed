@@ -17,11 +17,11 @@ def extract_path_info(environ_or_baseurl, path_or_url, charset: Text = ..., erro
                       collapse_http_schemes: bool = ...): ...
 
 class SharedDataMiddleware:
-    app = ...  # type: Any
-    exports = ...  # type: Any
-    cache = ...  # type: Any
-    cache_timeout = ...  # type: Any
-    fallback_mimetype = ...  # type: Any
+    app: Any
+    exports: Any
+    cache: Any
+    cache_timeout: Any
+    fallback_mimetype: Any
     def __init__(self, app, exports, disallow: Optional[Any] = ..., cache: bool = ..., cache_timeout=...,
                  fallback_mimetype: str = ...): ...
     def is_allowed(self, filename): ...
@@ -32,8 +32,8 @@ class SharedDataMiddleware:
     def __call__(self, environ, start_response): ...
 
 class DispatcherMiddleware:
-    app = ...  # type: Any
-    mounts = ...  # type: Any
+    app: Any
+    mounts: Any
     def __init__(self, app, mounts: Optional[Any] = ...): ...
     def __call__(self, environ, start_response): ...
 
@@ -60,13 +60,13 @@ class FileWrapper:
     def __next__(self) -> bytes: ...
 
 class _RangeWrapper:
-    iterable = ...  # type: Any
-    byte_range = ...  # type: Any
-    start_byte = ...  # type: Any
-    end_byte = ...  # type: Any
-    read_length = ...  # type: Any
-    seekable = ...  # type: Any
-    end_reached = ...  # type: Any
+    iterable: Any
+    byte_range: Any
+    start_byte: Any
+    end_byte: Any
+    read_length: Any
+    seekable: Any
+    end_reached: Any
     def __init__(self, iterable, start_byte: int = ..., byte_range: Optional[Any] = ...): ...
     def __iter__(self): ...
     def __next__(self): ...
@@ -76,7 +76,7 @@ def make_line_iter(stream, limit: Optional[Any] = ..., buffer_size=..., cap_at_b
 def make_chunk_iter(stream, separator, limit: Optional[Any] = ..., buffer_size=..., cap_at_buffer: bool = ...): ...
 
 class LimitedStream:
-    limit = ...  # type: Any
+    limit: Any
     def __init__(self, stream, limit): ...
     def __iter__(self): ...
     @property
