@@ -315,7 +315,7 @@ class TextTestRunner(TestRunner):
     buffer: bool
     tb_locals: bool
     warnings: Optional[Type[Warning]]
-    resultclass: Optional[_ResultClassType]
+    resultclass: _ResultClassType
     if sys.version_info >= (3, 5):
         def __init__(self, stream: Optional[IO[str]] = ...,
                      descriptions: bool = ..., verbosity: int = ...,
