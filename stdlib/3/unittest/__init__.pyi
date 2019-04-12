@@ -2,7 +2,7 @@
 
 from typing import (
     Any, AnyStr, Callable, Container, ContextManager, Dict, FrozenSet, Generic, Iterable,
-    Iterator, List, NoReturn, Optional, overload, Pattern, Sequence, Set, TextIO,
+    Iterator, List, NoReturn, Optional, overload, Pattern, Sequence, Set, IO,
     Tuple, Type, TypeVar, Union
 )
 import logging
@@ -289,7 +289,11 @@ class TestResult:
 class TextTestResult(TestResult):
     separator1: str
     separator2: str
-    def __init__(self, stream: TextIO, descriptions: bool,
+    stream: IO[str]
+    showAll: bool
+    dots: bool
+    descriptions: bool
+    def __init__(self, stream: IO[str], descriptions: bool,
                  verbosity: int) -> None: ...
     def getDescription(self, test: TestCase) -> str: ...
     def printErrors(self) -> None: ...
@@ -298,14 +302,22 @@ _TextTestResult = TextTestResult
 
 defaultTestLoader = ...  # type: TestLoader
 
-_ResultClassType = Callable[[TextIO, bool, int], TestResult]
+_ResultClassType = Callable[[IO[str], bool, int], TestResult]
 
 class TestRunner:
     def run(self, test: Union[TestSuite, TestCase]) -> TestResult: ...
 
 class TextTestRunner(TestRunner):
+    stream: IO[str]
+    descriptions: bool
+    verbosity: int
+    failfast: bool
+    buffer: bool
+    tb_locals: bool
+    warnings: Optional[Type[Warning]]
+    resultclass: _ResultClassType
     if sys.version_info >= (3, 5):
-        def __init__(self, stream: Optional[TextIO] = ...,
+        def __init__(self, stream: Optional[IO[str]] = ...,
                      descriptions: bool = ..., verbosity: int = ...,
                      failfast: bool = ..., buffer: bool = ...,
                      resultclass: Optional[_ResultClassType] = ...,
@@ -313,7 +325,7 @@ class TextTestRunner(TestRunner):
                      *, tb_locals: bool = ...) -> None: ...
     else:
         def __init__(self,
-                     stream: Optional[TextIO] = ...,
+                     stream: Optional[IO[str]] = ...,
                      descriptions: bool = ..., verbosity: int = ...,
                      failfast: bool = ..., buffer: bool = ...,
                      resultclass: Optional[_ResultClassType] = ...,
