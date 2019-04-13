@@ -38,6 +38,6 @@ InvalidIssuer = InvalidIssuerError
 # exports them in __init__.py, so we should at least
 # make sure that mypy doesn't raise spurious errors
 # if they're used.
-get_unverified_header = ...  # type: Any
-PyJWT = ...  # type: Any
-PyJWS = ...  # type: Any
+get_unverified_header: Any
+PyJWT: Any
+PyJWS: Any

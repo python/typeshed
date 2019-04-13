@@ -2,7 +2,7 @@ from typing import Any, Callable, Optional, Tuple
 from ._base import Future, Executor
 import sys
 
-EXTRA_QUEUED_CALLS = ...  # type: Any
+EXTRA_QUEUED_CALLS: Any
 
 if sys.version_info >= (3,):
     class BrokenProcessPool(RuntimeError): ...

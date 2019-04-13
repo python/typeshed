@@ -2,9 +2,9 @@ from typing import Any, Optional, Union, Text
 from .pubkey import pubkey
 
 class _RSAobj(pubkey):
-    keydata = ...  # type: Any
-    implementation = ...  # type: Any
-    key = ...  # type: Any
+    keydata: Any
+    implementation: Any
+    key: Any
     def __init__(self, implementation, key, randfunc: Optional[Any] = ...) -> None: ...
     def __getattr__(self, attrname): ...
     def encrypt(self, plaintext, K): ...
@@ -20,13 +20,13 @@ class _RSAobj(pubkey):
     def exportKey(self, format: str = ..., passphrase: Optional[Any] = ..., pkcs: int = ...): ...
 
 class RSAImplementation:
-    error = ...  # type: Any
+    error: Any
     def __init__(self, **kwargs) -> None: ...
     def generate(self, bits, randfunc: Optional[Any] = ..., progress_func: Optional[Any] = ..., e: int = ...): ...
     def construct(self, tup): ...
     def importKey(self, externKey: Any, passphrase: Union[None, bytes, Text] = ...) -> _RSAobj: ...
 
-generate = ...  # type: Any
-construct = ...  # type: Any
-importKey = ...  # type: Any
-error = ...  # type: Any
+generate: Any
+construct: Any
+importKey: Any
+error: Any

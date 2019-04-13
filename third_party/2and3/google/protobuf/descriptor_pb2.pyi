@@ -29,12 +29,12 @@ class FileDescriptorSet(Message):
 
 
 class FileDescriptorProto(Message):
-    name = ...  # type: Text
-    package = ...  # type: Text
-    dependency = ...  # type: RepeatedScalarFieldContainer[Text]
-    public_dependency = ...  # type: RepeatedScalarFieldContainer[int]
-    weak_dependency = ...  # type: RepeatedScalarFieldContainer[int]
-    syntax = ...  # type: Text
+    name: Text
+    package: Text
+    dependency: RepeatedScalarFieldContainer[Text]
+    public_dependency: RepeatedScalarFieldContainer[int]
+    weak_dependency: RepeatedScalarFieldContainer[int]
+    syntax: Text
 
     @property
     def message_type(
@@ -80,8 +80,8 @@ class FileDescriptorProto(Message):
 class DescriptorProto(Message):
 
     class ExtensionRange(Message):
-        start = ...  # type: int
-        end = ...  # type: int
+        start: int
+        end: int
 
         @property
         def options(self) -> ExtensionRangeOptions: ...
@@ -96,8 +96,8 @@ class DescriptorProto(Message):
         def FromString(cls, s: bytes) -> DescriptorProto.ExtensionRange: ...
 
     class ReservedRange(Message):
-        start = ...  # type: int
-        end = ...  # type: int
+        start: int
+        end: int
 
         def __init__(self,
                      start: Optional[int] = ...,
@@ -106,8 +106,8 @@ class DescriptorProto(Message):
 
         @classmethod
         def FromString(cls, s: bytes) -> DescriptorProto.ReservedRange: ...
-    name = ...  # type: Text
-    reserved_name = ...  # type: RepeatedScalarFieldContainer[Text]
+    name: Text
+    reserved_name: RepeatedScalarFieldContainer[Text]
 
     @property
     def field(
@@ -227,15 +227,15 @@ class FieldDescriptorProto(Message):
     LABEL_OPTIONAL: Label
     LABEL_REQUIRED: Label
     LABEL_REPEATED: Label
-    name = ...  # type: Text
-    number = ...  # type: int
-    label = ...  # type: FieldDescriptorProto.Label
-    type = ...  # type: FieldDescriptorProto.Type
-    type_name = ...  # type: Text
-    extendee = ...  # type: Text
-    default_value = ...  # type: Text
-    oneof_index = ...  # type: int
-    json_name = ...  # type: Text
+    name: Text
+    number: int
+    label: FieldDescriptorProto.Label
+    type: FieldDescriptorProto.Type
+    type_name: Text
+    extendee: Text
+    default_value: Text
+    oneof_index: int
+    json_name: Text
 
     @property
     def options(self) -> FieldOptions: ...
@@ -258,7 +258,7 @@ class FieldDescriptorProto(Message):
 
 
 class OneofDescriptorProto(Message):
-    name = ...  # type: Text
+    name: Text
 
     @property
     def options(self) -> OneofOptions: ...
@@ -275,8 +275,8 @@ class OneofDescriptorProto(Message):
 class EnumDescriptorProto(Message):
 
     class EnumReservedRange(Message):
-        start = ...  # type: int
-        end = ...  # type: int
+        start: int
+        end: int
 
         def __init__(self,
                      start: Optional[int] = ...,
@@ -286,8 +286,8 @@ class EnumDescriptorProto(Message):
         @classmethod
         def FromString(
             cls, s: bytes) -> EnumDescriptorProto.EnumReservedRange: ...
-    name = ...  # type: Text
-    reserved_name = ...  # type: RepeatedScalarFieldContainer[Text]
+    name: Text
+    reserved_name: RepeatedScalarFieldContainer[Text]
 
     @property
     def value(
@@ -313,8 +313,8 @@ class EnumDescriptorProto(Message):
 
 
 class EnumValueDescriptorProto(Message):
-    name = ...  # type: Text
-    number = ...  # type: int
+    name: Text
+    number: int
 
     @property
     def options(self) -> EnumValueOptions: ...
@@ -330,7 +330,7 @@ class EnumValueDescriptorProto(Message):
 
 
 class ServiceDescriptorProto(Message):
-    name = ...  # type: Text
+    name: Text
 
     @property
     def method(
@@ -350,11 +350,11 @@ class ServiceDescriptorProto(Message):
 
 
 class MethodDescriptorProto(Message):
-    name = ...  # type: Text
-    input_type = ...  # type: Text
-    output_type = ...  # type: Text
-    client_streaming = ...  # type: bool
-    server_streaming = ...  # type: bool
+    name: Text
+    input_type: Text
+    output_type: Text
+    client_streaming: bool
+    server_streaming: bool
 
     @property
     def options(self) -> MethodOptions: ...
@@ -393,24 +393,24 @@ class FileOptions(Message):
     SPEED: OptimizeMode
     CODE_SIZE: OptimizeMode
     LITE_RUNTIME: OptimizeMode
-    java_package = ...  # type: Text
-    java_outer_classname = ...  # type: Text
-    java_multiple_files = ...  # type: bool
-    java_generate_equals_and_hash = ...  # type: bool
-    java_string_check_utf8 = ...  # type: bool
-    optimize_for = ...  # type: FileOptions.OptimizeMode
-    go_package = ...  # type: Text
-    cc_generic_services = ...  # type: bool
-    java_generic_services = ...  # type: bool
-    py_generic_services = ...  # type: bool
-    php_generic_services = ...  # type: bool
-    deprecated = ...  # type: bool
-    cc_enable_arenas = ...  # type: bool
-    objc_class_prefix = ...  # type: Text
-    csharp_namespace = ...  # type: Text
-    swift_prefix = ...  # type: Text
-    php_class_prefix = ...  # type: Text
-    php_namespace = ...  # type: Text
+    java_package: Text
+    java_outer_classname: Text
+    java_multiple_files: bool
+    java_generate_equals_and_hash: bool
+    java_string_check_utf8: bool
+    optimize_for: FileOptions.OptimizeMode
+    go_package: Text
+    cc_generic_services: bool
+    java_generic_services: bool
+    py_generic_services: bool
+    php_generic_services: bool
+    deprecated: bool
+    cc_enable_arenas: bool
+    objc_class_prefix: Text
+    csharp_namespace: Text
+    swift_prefix: Text
+    php_class_prefix: Text
+    php_namespace: Text
 
     @property
     def uninterpreted_option(
@@ -443,10 +443,10 @@ class FileOptions(Message):
 
 
 class MessageOptions(Message):
-    message_set_wire_format = ...  # type: bool
-    no_standard_descriptor_accessor = ...  # type: bool
-    deprecated = ...  # type: bool
-    map_entry = ...  # type: bool
+    message_set_wire_format: bool
+    no_standard_descriptor_accessor: bool
+    deprecated: bool
+    map_entry: bool
 
     @property
     def uninterpreted_option(
@@ -505,12 +505,12 @@ class FieldOptions(Message):
     JS_NORMAL: JSType
     JS_STRING: JSType
     JS_NUMBER: JSType
-    ctype = ...  # type: FieldOptions.CType
-    packed = ...  # type: bool
-    jstype = ...  # type: FieldOptions.JSType
-    lazy = ...  # type: bool
-    deprecated = ...  # type: bool
-    weak = ...  # type: bool
+    ctype: FieldOptions.CType
+    packed: bool
+    jstype: FieldOptions.JSType
+    lazy: bool
+    deprecated: bool
+    weak: bool
 
     @property
     def uninterpreted_option(
@@ -545,8 +545,8 @@ class OneofOptions(Message):
 
 
 class EnumOptions(Message):
-    allow_alias = ...  # type: bool
-    deprecated = ...  # type: bool
+    allow_alias: bool
+    deprecated: bool
 
     @property
     def uninterpreted_option(
@@ -563,7 +563,7 @@ class EnumOptions(Message):
 
 
 class EnumValueOptions(Message):
-    deprecated = ...  # type: bool
+    deprecated: bool
 
     @property
     def uninterpreted_option(
@@ -579,7 +579,7 @@ class EnumValueOptions(Message):
 
 
 class ServiceOptions(Message):
-    deprecated = ...  # type: bool
+    deprecated: bool
 
     @property
     def uninterpreted_option(
@@ -615,8 +615,8 @@ class MethodOptions(Message):
     IDEMPOTENCY_UNKNOWN: IdempotencyLevel
     NO_SIDE_EFFECTS: IdempotencyLevel
     IDEMPOTENT: IdempotencyLevel
-    deprecated = ...  # type: bool
-    idempotency_level = ...  # type: MethodOptions.IdempotencyLevel
+    deprecated: bool
+    idempotency_level: MethodOptions.IdempotencyLevel
 
     @property
     def uninterpreted_option(
@@ -635,8 +635,8 @@ class MethodOptions(Message):
 class UninterpretedOption(Message):
 
     class NamePart(Message):
-        name_part = ...  # type: Text
-        is_extension = ...  # type: bool
+        name_part: Text
+        is_extension: bool
 
         def __init__(self,
                      name_part: Text,
@@ -645,12 +645,12 @@ class UninterpretedOption(Message):
 
         @classmethod
         def FromString(cls, s: bytes) -> UninterpretedOption.NamePart: ...
-    identifier_value = ...  # type: Text
-    positive_int_value = ...  # type: int
-    negative_int_value = ...  # type: int
-    double_value = ...  # type: float
-    string_value = ...  # type: bytes
-    aggregate_value = ...  # type: Text
+    identifier_value: Text
+    positive_int_value: int
+    negative_int_value: int
+    double_value: float
+    string_value: bytes
+    aggregate_value: Text
 
     @property
     def name(
@@ -673,11 +673,11 @@ class UninterpretedOption(Message):
 class SourceCodeInfo(Message):
 
     class Location(Message):
-        path = ...  # type: RepeatedScalarFieldContainer[int]
-        span = ...  # type: RepeatedScalarFieldContainer[int]
-        leading_comments = ...  # type: Text
-        trailing_comments = ...  # type: Text
-        leading_detached_comments = ...  # type: RepeatedScalarFieldContainer[Text]
+        path: RepeatedScalarFieldContainer[int]
+        span: RepeatedScalarFieldContainer[int]
+        leading_comments: Text
+        trailing_comments: Text
+        leading_detached_comments: RepeatedScalarFieldContainer[Text]
 
         def __init__(self,
                      path: Optional[Iterable[int]] = ...,
@@ -705,10 +705,10 @@ class SourceCodeInfo(Message):
 class GeneratedCodeInfo(Message):
 
     class Annotation(Message):
-        path = ...  # type: RepeatedScalarFieldContainer[int]
-        source_file = ...  # type: Text
-        begin = ...  # type: int
-        end = ...  # type: int
+        path: RepeatedScalarFieldContainer[int]
+        source_file: Text
+        begin: int
+        end: int
 
         def __init__(self,
                      path: Optional[Iterable[int]] = ...,

@@ -9,9 +9,9 @@ class StrongRandom:
     def shuffle(self, x): ...
     def sample(self, population, k): ...
 
-getrandbits = ...  # type: Any
-randrange = ...  # type: Any
-randint = ...  # type: Any
-choice = ...  # type: Any
-shuffle = ...  # type: Any
-sample = ...  # type: Any
+getrandbits: Any
+randrange: Any
+randint: Any
+choice: Any
+shuffle: Any
+sample: Any

@@ -6,11 +6,11 @@ from werkzeug.contrib.sessions import ModificationTrackingDict
 class UnquoteError(Exception): ...
 
 class SecureCookie(ModificationTrackingDict):
-    hash_method = ...  # type: Any
-    serialization_method = ...  # type: Any
-    quote_base64 = ...  # type: Any
-    secret_key = ...  # type: Any
-    new = ...  # type: Any
+    hash_method: Any
+    serialization_method: Any
+    quote_base64: Any
+    secret_key: Any
+    new: Any
     def __init__(self, data: Optional[Any] = ..., secret_key: Optional[Any] = ..., new: bool = ...): ...
     @property
     def should_save(self): ...

@@ -1,7 +1,7 @@
 from typing import Any, Optional
 
-argument_types = ...  # type: Any
-converters = ...  # type: Any
+argument_types: Any
+converters: Any
 
 def run(namespace: Optional[Any] = ..., action_prefix: str = ..., args: Optional[Any] = ...): ...
 def fail(message, code: int = ...): ...

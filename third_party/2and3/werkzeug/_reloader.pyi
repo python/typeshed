@@ -1,8 +1,8 @@
 from typing import Any, Optional
 
 class ReloaderLoop:
-    name = ...  # type: Any
-    extra_files = ...  # type: Any
+    name: Any
+    extra_files: Any
     interval: float
     def __init__(self, extra_files: Optional[Any] = ..., interval: float = ...): ...
     def run(self): ...
@@ -11,19 +11,19 @@ class ReloaderLoop:
     def log_reload(self, filename): ...
 
 class StatReloaderLoop(ReloaderLoop):
-    name = ...  # type: Any
+    name: Any
     def run(self): ...
 
 class WatchdogReloaderLoop(ReloaderLoop):
-    observable_paths = ...  # type: Any
-    name = ...  # type: Any
-    observer_class = ...  # type: Any
-    event_handler = ...  # type: Any
-    should_reload = ...  # type: Any
+    observable_paths: Any
+    name: Any
+    observer_class: Any
+    event_handler: Any
+    should_reload: Any
     def __init__(self, *args, **kwargs): ...
     def trigger_reload(self, filename): ...
     def run(self): ...
 
-reloader_loops = ...  # type: Any
+reloader_loops: Any
 
 def run_with_reloader(main_func, extra_files: Optional[Any] = ..., interval: float = ..., reloader_type: str = ...): ...

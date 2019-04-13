@@ -7,14 +7,14 @@ import sys
 import types
 
 class BaseServer:
-    address_family = ...  # type: int
-    RequestHandlerClass = ...  # type: type
-    server_address = ...  # type: Tuple[str, int]
-    socket = ...  # type: SocketType
-    allow_reuse_address = ...  # type: bool
-    request_queue_size = ...  # type: int
-    socket_type = ...  # type: int
-    timeout = ...  # type: Optional[float]
+    address_family: int
+    RequestHandlerClass: type
+    server_address: Tuple[str, int]
+    socket: SocketType
+    allow_reuse_address: bool
+    request_queue_size: int
+    socket_type: int
+    timeout: Optional[float]
     def __init__(self, server_address: Tuple[str, int],
                  RequestHandlerClass: type) -> None: ...
     def fileno(self) -> int: ...
@@ -82,18 +82,18 @@ class BaseRequestHandler:
     # But there are some concerns that having unions here would cause
     # too much inconvenience to people using it (see
     # https://github.com/python/typeshed/pull/384#issuecomment-234649696)
-    request = ...  # type: Any
-    client_address = ...  # type: Any
+    request: Any
+    client_address: Any
 
-    server = ...  # type: BaseServer
+    server: BaseServer
     def setup(self) -> None: ...
     def handle(self) -> None: ...
     def finish(self) -> None: ...
 
 class StreamRequestHandler(BaseRequestHandler):
-    rfile = ...  # type: BinaryIO
-    wfile = ...  # type: BinaryIO
+    rfile: BinaryIO
+    wfile: BinaryIO
 
 class DatagramRequestHandler(BaseRequestHandler):
-    rfile = ...  # type: BinaryIO
-    wfile = ...  # type: BinaryIO
+    rfile: BinaryIO
+    wfile: BinaryIO

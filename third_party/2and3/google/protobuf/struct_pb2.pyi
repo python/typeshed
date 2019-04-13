@@ -40,7 +40,7 @@ NULL_VALUE: NullValue
 
 class Struct(Message, well_known_types.Struct):
     class FieldsEntry(Message):
-        key = ...  # type: Text
+        key: Text
 
         @property
         def value(self) -> Value: ...
@@ -65,10 +65,10 @@ class Struct(Message, well_known_types.Struct):
 
 
 class _Value(Message):
-    null_value = ...  # type: NullValue
-    number_value = ...  # type: float
-    string_value = ...  # type: Text
-    bool_value = ...  # type: bool
+    null_value: NullValue
+    number_value: float
+    string_value: Text
+    bool_value: bool
 
     @property
     def struct_value(self) -> Struct: ...

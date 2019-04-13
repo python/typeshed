@@ -30,7 +30,7 @@ FOO: TestEnum
 
 
 class TestMessage(Message):
-    a = ...  # type: int
+    a: int
 
     def __init__(self,
                  a: Optional[int] = ...,

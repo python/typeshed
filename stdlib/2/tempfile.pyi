@@ -2,10 +2,10 @@ from typing import Any, AnyStr, IO, Iterable, Iterator, List, Optional, overload
 from thread import LockType
 from random import Random
 
-TMP_MAX = ...  # type: int
-tempdir = ...  # type: str
-template = ...  # type: str
-_name_sequence = ...  # type: Optional[_RandomNameSequence]
+TMP_MAX: int
+tempdir: str
+template: str
+_name_sequence: Optional[_RandomNameSequence]
 
 class _RandomNameSequence:
     characters: str = ...
@@ -81,7 +81,7 @@ def SpooledTemporaryFile(
     ...
 
 class TemporaryDirectory:
-    name = ...  # type: Any  # Can be str or unicode
+    name: Any
     def __init__(self,
                  suffix: Union[bytes, unicode] = ...,
                  prefix: Union[bytes, unicode] = ...,

@@ -4,13 +4,13 @@ from typing import AnyStr, Dict, List, NamedTuple, Tuple, Sequence, Union, overl
 
 _String = Union[str, unicode]
 
-uses_relative = ...  # type: List[str]
-uses_netloc = ...  # type: List[str]
-uses_params = ...  # type: List[str]
-non_hierarchical = ...  # type: List[str]
-uses_query = ...  # type: List[str]
-uses_fragment = ...  # type: List[str]
-scheme_chars = ...  # type: str
+uses_relative: List[str]
+uses_netloc: List[str]
+uses_params: List[str]
+non_hierarchical: List[str]
+uses_query: List[str]
+uses_fragment: List[str]
+scheme_chars: str
 MAX_CACHE_SIZE = 0
 
 def clear_cache() -> None: ...

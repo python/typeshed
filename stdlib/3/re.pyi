@@ -73,7 +73,7 @@ else:
 
 if sys.version_info < (3, 7):
     # undocumented
-    _pattern_type = ...  # type: type
+    _pattern_type: type
 
 class error(Exception): ...
 

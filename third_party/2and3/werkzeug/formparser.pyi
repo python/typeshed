@@ -7,20 +7,20 @@ def parse_form_data(environ, stream_factory: Optional[Any] = ..., charset: Text 
 def exhaust_stream(f): ...
 
 class FormDataParser:
-    stream_factory = ...  # type: Any
+    stream_factory: Any
     charset: Text
     errors: Text
-    max_form_memory_size = ...  # type: Any
-    max_content_length = ...  # type: Any
-    cls = ...  # type: Any
-    silent = ...  # type: Any
+    max_form_memory_size: Any
+    max_content_length: Any
+    cls: Any
+    silent: Any
     def __init__(self, stream_factory: Optional[Any] = ..., charset: Text = ..., errors: Text = ...,
                  max_form_memory_size: Optional[Any] = ..., max_content_length: Optional[Any] = ..., cls: Optional[Any] = ...,
                  silent: bool = ...): ...
     def get_parse_func(self, mimetype, options): ...
     def parse_from_environ(self, environ): ...
     def parse(self, stream, mimetype, content_length, options: Optional[Any] = ...): ...
-    parse_functions = ...  # type: Any
+    parse_functions: Any
 
 def is_valid_multipart_boundary(boundary): ...
 def parse_multipart_headers(iterable): ...
@@ -28,10 +28,10 @@ def parse_multipart_headers(iterable): ...
 class MultiPartParser:
     charset: Text
     errors: Text
-    max_form_memory_size = ...  # type: Any
-    stream_factory = ...  # type: Any
-    cls = ...  # type: Any
-    buffer_size = ...  # type: Any
+    max_form_memory_size: Any
+    stream_factory: Any
+    cls: Any
+    buffer_size: Any
     def __init__(self, stream_factory: Optional[Any] = ..., charset: Text = ..., errors: Text = ...,
                  max_form_memory_size: Optional[Any] = ..., cls: Optional[Any] = ..., buffer_size=...): ...
     def fail(self, message): ...

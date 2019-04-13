@@ -4,18 +4,18 @@
 
 from typing import Any, AnyStr, Iterable, List, Mapping, Optional, overload, Sequence, Text, Tuple, Union
 
-ascii_letters = ...  # type: str
-ascii_lowercase = ...  # type: str
-ascii_uppercase = ...  # type: str
-digits = ...  # type: str
-hexdigits = ...  # type: str
-letters = ...  # type: str
-lowercase = ...  # type: str
-octdigits = ...  # type: str
-punctuation = ...  # type: str
-printable = ...  # type: str
-uppercase = ...  # type: str
-whitespace = ...  # type: str
+ascii_letters: str
+ascii_lowercase: str
+ascii_uppercase: str
+digits: str
+hexdigits: str
+letters: str
+lowercase: str
+octdigits: str
+punctuation: str
+printable: str
+uppercase: str
+whitespace: str
 
 def capwords(s: AnyStr, sep: AnyStr = ...) -> AnyStr: ...
 # TODO: originally named 'from'

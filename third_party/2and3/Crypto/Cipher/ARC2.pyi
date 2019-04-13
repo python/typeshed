@@ -1,19 +1,19 @@
 from typing import Any, Union, Text
 from .blockalgo import BlockAlgo
 
-__revision__ = ...  # type: str
+__revision__: str
 
 class RC2Cipher(BlockAlgo):
     def __init__(self, key: Union[bytes, Text], *args, **kwargs) -> None: ...
 
 def new(key: Union[bytes, Text], *args, **kwargs) -> RC2Cipher: ...
 
-MODE_ECB = ...  # type: int
-MODE_CBC = ...  # type: int
-MODE_CFB = ...  # type: int
-MODE_PGP = ...  # type: int
-MODE_OFB = ...  # type: int
-MODE_CTR = ...  # type: int
-MODE_OPENPGP = ...  # type: int
-block_size = ...  # type: int
-key_size = ...  # type: int
+MODE_ECB: int
+MODE_CBC: int
+MODE_CFB: int
+MODE_PGP: int
+MODE_OFB: int
+MODE_CTR: int
+MODE_OPENPGP: int
+block_size: int
+key_size: int

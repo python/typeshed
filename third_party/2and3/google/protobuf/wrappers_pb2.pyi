@@ -8,7 +8,7 @@ from typing import (
 
 
 class DoubleValue(Message):
-    value = ...  # type: float
+    value: float
 
     def __init__(self,
                  value: Optional[float] = ...,
@@ -19,7 +19,7 @@ class DoubleValue(Message):
 
 
 class FloatValue(Message):
-    value = ...  # type: float
+    value: float
 
     def __init__(self,
                  value: Optional[float] = ...,
@@ -30,7 +30,7 @@ class FloatValue(Message):
 
 
 class Int64Value(Message):
-    value = ...  # type: int
+    value: int
 
     def __init__(self,
                  value: Optional[int] = ...,
@@ -41,7 +41,7 @@ class Int64Value(Message):
 
 
 class UInt64Value(Message):
-    value = ...  # type: int
+    value: int
 
     def __init__(self,
                  value: Optional[int] = ...,
@@ -52,7 +52,7 @@ class UInt64Value(Message):
 
 
 class Int32Value(Message):
-    value = ...  # type: int
+    value: int
 
     def __init__(self,
                  value: Optional[int] = ...,
@@ -63,7 +63,7 @@ class Int32Value(Message):
 
 
 class UInt32Value(Message):
-    value = ...  # type: int
+    value: int
 
     def __init__(self,
                  value: Optional[int] = ...,
@@ -74,7 +74,7 @@ class UInt32Value(Message):
 
 
 class BoolValue(Message):
-    value = ...  # type: bool
+    value: bool
 
     def __init__(self,
                  value: Optional[bool] = ...,
@@ -85,7 +85,7 @@ class BoolValue(Message):
 
 
 class StringValue(Message):
-    value = ...  # type: Text
+    value: Text
 
     def __init__(self,
                  value: Optional[Text] = ...,
@@ -96,7 +96,7 @@ class StringValue(Message):
 
 
 class BytesValue(Message):
-    value = ...  # type: bytes
+    value: bytes
 
     def __init__(self,
                  value: Optional[bytes] = ...,

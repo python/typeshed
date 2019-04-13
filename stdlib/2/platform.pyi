@@ -4,23 +4,23 @@
 
 from typing import Any, Optional, Tuple
 
-__copyright__ = ...  # type: Any
-DEV_NULL = ...  # type: Any
+__copyright__: Any
+DEV_NULL: Any
 
 def libc_ver(executable=..., lib=..., version=..., chunksize: int = ...): ...
 def linux_distribution(distname=..., version=..., id=..., supported_dists=..., full_distribution_name: int = ...): ...
 def dist(distname=..., version=..., id=..., supported_dists=...): ...
 
 class _popen:
-    tmpfile = ...  # type: Any
-    pipe = ...  # type: Any
-    bufsize = ...  # type: Any
-    mode = ...  # type: Any
+    tmpfile: Any
+    pipe: Any
+    bufsize: Any
+    mode: Any
     def __init__(self, cmd, mode=..., bufsize: Optional[Any] = ...): ...
     def read(self): ...
     def readlines(self): ...
     def close(self, remove=..., error=...): ...
-    __del__ = ...  # type: Any
+    __del__: Any
 
 def popen(cmd, mode=..., bufsize: Optional[Any] = ...): ...
 def win32_ver(release=..., version=..., csd=..., ptype=...): ...

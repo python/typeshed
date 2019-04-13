@@ -13,8 +13,8 @@ class AsyncHTTPClient(Configurable):
     @classmethod
     def configurable_default(cls): ...
     def __new__(cls, io_loop=..., force_instance=..., **kwargs): ...
-    io_loop = ...  # type: Any
-    defaults = ...  # type: Any
+    io_loop: Any
+    defaults: Any
     def initialize(self, io_loop, defaults=...): ...
     def close(self): ...
     def fetch(self, request, callback=..., raise_error=..., **kwargs): ...
@@ -23,35 +23,35 @@ class AsyncHTTPClient(Configurable):
     def configure(cls, impl, **kwargs): ...
 
 class HTTPRequest:
-    proxy_host = ...  # type: Any
-    proxy_port = ...  # type: Any
-    proxy_username = ...  # type: Any
-    proxy_password = ...  # type: Any
-    url = ...  # type: Any
-    method = ...  # type: Any
-    body_producer = ...  # type: Any
-    auth_username = ...  # type: Any
-    auth_password = ...  # type: Any
-    auth_mode = ...  # type: Any
-    connect_timeout = ...  # type: Any
-    request_timeout = ...  # type: Any
-    follow_redirects = ...  # type: Any
-    max_redirects = ...  # type: Any
-    user_agent = ...  # type: Any
-    decompress_response = ...  # type: Any
-    network_interface = ...  # type: Any
-    streaming_callback = ...  # type: Any
-    header_callback = ...  # type: Any
-    prepare_curl_callback = ...  # type: Any
-    allow_nonstandard_methods = ...  # type: Any
-    validate_cert = ...  # type: Any
-    ca_certs = ...  # type: Any
-    allow_ipv6 = ...  # type: Any
-    client_key = ...  # type: Any
-    client_cert = ...  # type: Any
-    ssl_options = ...  # type: Any
-    expect_100_continue = ...  # type: Any
-    start_time = ...  # type: Any
+    proxy_host: Any
+    proxy_port: Any
+    proxy_username: Any
+    proxy_password: Any
+    url: Any
+    method: Any
+    body_producer: Any
+    auth_username: Any
+    auth_password: Any
+    auth_mode: Any
+    connect_timeout: Any
+    request_timeout: Any
+    follow_redirects: Any
+    max_redirects: Any
+    user_agent: Any
+    decompress_response: Any
+    network_interface: Any
+    streaming_callback: Any
+    header_callback: Any
+    prepare_curl_callback: Any
+    allow_nonstandard_methods: Any
+    validate_cert: Any
+    ca_certs: Any
+    allow_ipv6: Any
+    client_key: Any
+    client_cert: Any
+    ssl_options: Any
+    expect_100_continue: Any
+    start_time: Any
     def __init__(self, url, method=..., headers=..., body=..., auth_username=..., auth_password=..., auth_mode=...,
                  connect_timeout=..., request_timeout=..., if_modified_since=..., follow_redirects=..., max_redirects=...,
                  user_agent=..., use_gzip=..., network_interface=..., streaming_callback=..., header_callback=...,
@@ -68,28 +68,28 @@ class HTTPRequest:
     def body(self, value): ...
 
 class HTTPResponse:
-    request = ...  # type: Any
-    code = ...  # type: Any
-    reason = ...  # type: Any
-    headers = ...  # type: Any
-    buffer = ...  # type: Any
-    effective_url = ...  # type: Any
-    error = ...  # type: Any
-    request_time = ...  # type: Any
-    time_info = ...  # type: Any
+    request: Any
+    code: Any
+    reason: Any
+    headers: Any
+    buffer: Any
+    effective_url: Any
+    error: Any
+    request_time: Any
+    time_info: Any
     def __init__(self, request, code, headers=..., buffer=..., effective_url=..., error=..., request_time=..., time_info=...,
                  reason=...) -> None: ...
-    body = ...  # type: Any
+    body: Any
     def rethrow(self): ...
 
 class HTTPError(Exception):
-    code = ...  # type: Any
-    response = ...  # type: Any
+    code: Any
+    response: Any
     def __init__(self, code, message=..., response=...) -> None: ...
 
 class _RequestProxy:
-    request = ...  # type: Any
-    defaults = ...  # type: Any
+    request: Any
+    defaults: Any
     def __init__(self, request, defaults) -> None: ...
     def __getattr__(self, name): ...
 

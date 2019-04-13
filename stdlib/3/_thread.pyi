@@ -7,7 +7,7 @@ error = RuntimeError
 
 def _count() -> int: ...
 
-_dangling = ...  # type: Any
+_dangling: Any
 
 class LockType:
     def acquire(self, blocking: bool = ..., timeout: float = ...) -> bool: ...

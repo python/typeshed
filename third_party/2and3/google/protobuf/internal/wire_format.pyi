@@ -1,23 +1,23 @@
 from typing import Any
 
-TAG_TYPE_BITS = ...  # type: Any
-TAG_TYPE_MASK = ...  # type: Any
-WIRETYPE_VARINT = ...  # type: Any
-WIRETYPE_FIXED64 = ...  # type: Any
-WIRETYPE_LENGTH_DELIMITED = ...  # type: Any
-WIRETYPE_START_GROUP = ...  # type: Any
-WIRETYPE_END_GROUP = ...  # type: Any
-WIRETYPE_FIXED32 = ...  # type: Any
-INT32_MAX = ...  # type: Any
-INT32_MIN = ...  # type: Any
-UINT32_MAX = ...  # type: Any
-INT64_MAX = ...  # type: Any
-INT64_MIN = ...  # type: Any
-UINT64_MAX = ...  # type: Any
-FORMAT_UINT32_LITTLE_ENDIAN = ...  # type: Any
-FORMAT_UINT64_LITTLE_ENDIAN = ...  # type: Any
-FORMAT_FLOAT_LITTLE_ENDIAN = ...  # type: Any
-FORMAT_DOUBLE_LITTLE_ENDIAN = ...  # type: Any
+TAG_TYPE_BITS: Any
+TAG_TYPE_MASK: Any
+WIRETYPE_VARINT: Any
+WIRETYPE_FIXED64: Any
+WIRETYPE_LENGTH_DELIMITED: Any
+WIRETYPE_START_GROUP: Any
+WIRETYPE_END_GROUP: Any
+WIRETYPE_FIXED32: Any
+INT32_MAX: Any
+INT32_MIN: Any
+UINT32_MAX: Any
+INT64_MAX: Any
+INT64_MIN: Any
+UINT64_MAX: Any
+FORMAT_UINT32_LITTLE_ENDIAN: Any
+FORMAT_UINT64_LITTLE_ENDIAN: Any
+FORMAT_FLOAT_LITTLE_ENDIAN: Any
+FORMAT_DOUBLE_LITTLE_ENDIAN: Any
 
 def PackTag(field_number, wire_type): ...
 def UnpackTag(tag): ...
@@ -45,6 +45,6 @@ def MessageByteSize(field_number, message): ...
 def MessageSetItemByteSize(field_number, msg): ...
 def TagByteSize(field_number): ...
 
-NON_PACKABLE_TYPES = ...  # type: Any
+NON_PACKABLE_TYPES: Any
 
 def IsTypePackable(field_type): ...
