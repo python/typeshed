@@ -1182,103 +1182,103 @@ if sys.version_info >= (3,):
 def locals() -> Dict[str, Any]: ...
 if sys.version_info >= (3,):
     @overload
-    def map(func: Callable[[_T1], _S], iter1: Iterable[_T1]) -> Iterator[_S]: ...
+    def map(__func: Callable[[_T1], _S], __iter1: Iterable[_T1]) -> Iterator[_S]: ...
     @overload
-    def map(func: Callable[[_T1, _T2], _S], iter1: Iterable[_T1],
-            iter2: Iterable[_T2]) -> Iterator[_S]: ...
+    def map(__func: Callable[[_T1, _T2], _S], __iter1: Iterable[_T1],
+            __iter2: Iterable[_T2]) -> Iterator[_S]: ...
     @overload
-    def map(func: Callable[[_T1, _T2, _T3], _S],
-            iter1: Iterable[_T1],
-            iter2: Iterable[_T2],
-            iter3: Iterable[_T3]) -> Iterator[_S]: ...
+    def map(__func: Callable[[_T1, _T2, _T3], _S],
+            __iter1: Iterable[_T1],
+            __iter2: Iterable[_T2],
+            __iter3: Iterable[_T3]) -> Iterator[_S]: ...
     @overload
-    def map(func: Callable[[_T1, _T2, _T3, _T4], _S],
-            iter1: Iterable[_T1],
-            iter2: Iterable[_T2],
-            iter3: Iterable[_T3],
-            iter4: Iterable[_T4]) -> Iterator[_S]: ...
+    def map(__func: Callable[[_T1, _T2, _T3, _T4], _S],
+            __iter1: Iterable[_T1],
+            __iter2: Iterable[_T2],
+            __iter3: Iterable[_T3],
+            __iter4: Iterable[_T4]) -> Iterator[_S]: ...
     @overload
-    def map(func: Callable[[_T1, _T2, _T3, _T4, _T5], _S],
-            iter1: Iterable[_T1],
-            iter2: Iterable[_T2],
-            iter3: Iterable[_T3],
-            iter4: Iterable[_T4],
-            iter5: Iterable[_T5]) -> Iterator[_S]: ...
+    def map(__func: Callable[[_T1, _T2, _T3, _T4, _T5], _S],
+            __iter1: Iterable[_T1],
+            __iter2: Iterable[_T2],
+            __iter3: Iterable[_T3],
+            __iter4: Iterable[_T4],
+            __iter5: Iterable[_T5]) -> Iterator[_S]: ...
     @overload
-    def map(func: Callable[..., _S],
-            iter1: Iterable[Any],
-            iter2: Iterable[Any],
-            iter3: Iterable[Any],
-            iter4: Iterable[Any],
-            iter5: Iterable[Any],
-            iter6: Iterable[Any],
+    def map(__func: Callable[..., _S],
+            __iter1: Iterable[Any],
+            __iter2: Iterable[Any],
+            __iter3: Iterable[Any],
+            __iter4: Iterable[Any],
+            __iter5: Iterable[Any],
+            __iter6: Iterable[Any],
             *iterables: Iterable[Any]) -> Iterator[_S]: ...
 else:
     @overload
-    def map(func: None, iter1: Iterable[_T1]) -> List[_T1]: ...
+    def map(__func: None, __iter1: Iterable[_T1]) -> List[_T1]: ...
     @overload
-    def map(func: None,
-            iter1: Iterable[_T1],
-            iter2: Iterable[_T2]) -> List[Tuple[_T1, _T2]]: ...
+    def map(__func: None,
+            __iter1: Iterable[_T1],
+            __iter2: Iterable[_T2]) -> List[Tuple[_T1, _T2]]: ...
     @overload
-    def map(func: None,
-            iter1: Iterable[_T1],
-            iter2: Iterable[_T2],
-            iter3: Iterable[_T3]) -> List[Tuple[_T1, _T2, _T3]]: ...
+    def map(__func: None,
+            __iter1: Iterable[_T1],
+            __iter2: Iterable[_T2],
+            __iter3: Iterable[_T3]) -> List[Tuple[_T1, _T2, _T3]]: ...
     @overload
-    def map(func: None,
-            iter1: Iterable[_T1],
-            iter2: Iterable[_T2],
-            iter3: Iterable[_T3],
-            iter4: Iterable[_T4]) -> List[Tuple[_T1, _T2, _T3, _T4]]: ...
+    def map(__func: None,
+            __iter1: Iterable[_T1],
+            __iter2: Iterable[_T2],
+            __iter3: Iterable[_T3],
+            __iter4: Iterable[_T4]) -> List[Tuple[_T1, _T2, _T3, _T4]]: ...
     @overload
-    def map(func: None,
-            iter1: Iterable[_T1],
-            iter2: Iterable[_T2],
-            iter3: Iterable[_T3],
-            iter4: Iterable[_T4],
-            iter5: Iterable[_T5]) -> List[Tuple[_T1, _T2, _T3, _T4, _T5]]: ...
+    def map(__func: None,
+            __iter1: Iterable[_T1],
+            __iter2: Iterable[_T2],
+            __iter3: Iterable[_T3],
+            __iter4: Iterable[_T4],
+            __iter5: Iterable[_T5]) -> List[Tuple[_T1, _T2, _T3, _T4, _T5]]: ...
     @overload
-    def map(func: None,
-            iter1: Iterable[Any],
-            iter2: Iterable[Any],
-            iter3: Iterable[Any],
-            iter4: Iterable[Any],
-            iter5: Iterable[Any],
-            iter6: Iterable[Any],
+    def map(__func: None,
+            __iter1: Iterable[Any],
+            __iter2: Iterable[Any],
+            __iter3: Iterable[Any],
+            __iter4: Iterable[Any],
+            __iter5: Iterable[Any],
+            __iter6: Iterable[Any],
             *iterables: Iterable[Any]) -> List[Tuple[Any, ...]]: ...
     @overload
-    def map(func: Callable[[_T1], _S], iter1: Iterable[_T1]) -> List[_S]: ...
+    def map(__func: Callable[[_T1], _S], __iter1: Iterable[_T1]) -> List[_S]: ...
     @overload
-    def map(func: Callable[[_T1, _T2], _S],
-            iter1: Iterable[_T1],
-            iter2: Iterable[_T2]) -> List[_S]: ...
+    def map(__func: Callable[[_T1, _T2], _S],
+            __iter1: Iterable[_T1],
+            __iter2: Iterable[_T2]) -> List[_S]: ...
     @overload
-    def map(func: Callable[[_T1, _T2, _T3], _S],
-            iter1: Iterable[_T1],
-            iter2: Iterable[_T2],
-            iter3: Iterable[_T3]) -> List[_S]: ...
+    def map(__func: Callable[[_T1, _T2, _T3], _S],
+            __iter1: Iterable[_T1],
+            __iter2: Iterable[_T2],
+            __iter3: Iterable[_T3]) -> List[_S]: ...
     @overload
-    def map(func: Callable[[_T1, _T2, _T3, _T4], _S],
-            iter1: Iterable[_T1],
-            iter2: Iterable[_T2],
-            iter3: Iterable[_T3],
-            iter4: Iterable[_T4]) -> List[_S]: ...
+    def map(__func: Callable[[_T1, _T2, _T3, _T4], _S],
+            __iter1: Iterable[_T1],
+            __iter2: Iterable[_T2],
+            __iter3: Iterable[_T3],
+            __iter4: Iterable[_T4]) -> List[_S]: ...
     @overload
-    def map(func: Callable[[_T1, _T2, _T3, _T4, _T5], _S],
-            iter1: Iterable[_T1],
-            iter2: Iterable[_T2],
-            iter3: Iterable[_T3],
-            iter4: Iterable[_T4],
-            iter5: Iterable[_T5]) -> List[_S]: ...
+    def map(__func: Callable[[_T1, _T2, _T3, _T4, _T5], _S],
+            __iter1: Iterable[_T1],
+            __iter2: Iterable[_T2],
+            __iter3: Iterable[_T3],
+            __iter4: Iterable[_T4],
+            __iter5: Iterable[_T5]) -> List[_S]: ...
     @overload
-    def map(func: Callable[..., _S],
-            iter1: Iterable[Any],
-            iter2: Iterable[Any],
-            iter3: Iterable[Any],
-            iter4: Iterable[Any],
-            iter5: Iterable[Any],
-            iter6: Iterable[Any],
+    def map(__func: Callable[..., _S],
+            __iter1: Iterable[Any],
+            __iter2: Iterable[Any],
+            __iter3: Iterable[Any],
+            __iter4: Iterable[Any],
+            __iter5: Iterable[Any],
+            __iter6: Iterable[Any],
             *iterables: Iterable[Any]) -> List[_S]: ...
 if sys.version_info >= (3,):
     @overload
