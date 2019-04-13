@@ -1308,7 +1308,7 @@ else:
 def next(__i: Iterator[_T]) -> _T: ...
 @overload
 def next(__i: Iterator[_T], default: _VT) -> Union[_T, _VT]: ...
-def oct(i: int) -> str: ...  # TODO __index__
+def oct(__i: int) -> str: ...  # TODO __index__
 
 if sys.version_info >= (3, 6):
     def open(file: Union[str, bytes, int, _PathLike], mode: str = ..., buffering: int = ..., encoding: Optional[str] = ...,
