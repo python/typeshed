@@ -1375,11 +1375,11 @@ else:
     def round(number: SupportsFloat, ndigits: int) -> float: ...
 def setattr(__object: Any, __name: Text, __value: Any) -> None: ...
 if sys.version_info >= (3,):
-    def sorted(iterable: Iterable[_T], *,
+    def sorted(__iterable: Iterable[_T], *,
                key: Optional[Callable[[_T], Any]] = ...,
                reverse: bool = ...) -> List[_T]: ...
 else:
-    def sorted(iterable: Iterable[_T], *,
+    def sorted(__iterable: Iterable[_T], *,
                cmp: Callable[[_T, _T], int] = ...,
                key: Callable[[_T], Any] = ...,
                reverse: bool = ...) -> List[_T]: ...
