@@ -9,8 +9,8 @@ from typing import Any, Iterator, Optional, Union
 from _ast import *
 from _ast import AST, Module
 
-__version__ = ...  # type: str
-PyCF_ONLY_AST = ...  # type: int
+__version__: str
+PyCF_ONLY_AST: int
 
 
 def parse(source: Union[str, unicode], filename: Union[str, unicode] = ..., mode: Union[str, unicode] = ...) -> Module: ...

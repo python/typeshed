@@ -7,7 +7,7 @@ matrix:
     - name: "pytype"
       python: 3.6
       env:
-        - TEST_CMD="./tests/pytype_test.py --num-parallel=4"
+        - TEST_CMD="./tests/pytype_test.py"
         - INSTALL="test"
     - name: "mypy"
       env:

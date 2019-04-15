@@ -11,14 +11,14 @@ else:
     _PurePathBase = object
 
 class PurePath(_PurePathBase):
-    parts = ...  # type: Tuple[str, ...]
-    drive = ...  # type: str
-    root = ...  # type: str
-    anchor = ...  # type: str
-    name = ...  # type: str
-    suffix = ...  # type: str
-    suffixes = ...  # type: List[str]
-    stem = ...  # type: str
+    parts: Tuple[str, ...]
+    drive: str
+    root: str
+    anchor: str
+    name: str
+    suffix: str
+    suffixes: List[str]
+    stem: str
     if sys.version_info < (3, 5):
         def __init__(self, *pathsegments: str) -> None: ...
     elif sys.version_info < (3, 6):

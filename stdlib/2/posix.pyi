@@ -2,55 +2,55 @@ from typing import Dict, List, Mapping, Tuple, Union, Sequence, IO, Optional, Ty
 
 error = OSError
 
-confstr_names = ...  # type: Dict[str, int]
-environ = ...  # type: Dict[str, str]
-pathconf_names = ...  # type: Dict[str, int]
-sysconf_names = ...  # type: Dict[str, int]
+confstr_names: Dict[str, int]
+environ: Dict[str, str]
+pathconf_names: Dict[str, int]
+sysconf_names: Dict[str, int]
 
-EX_CANTCREAT = ...  # type: int
-EX_CONFIG = ...  # type: int
-EX_DATAERR = ...  # type: int
-EX_IOERR = ...  # type: int
-EX_NOHOST = ...  # type: int
-EX_NOINPUT = ...  # type: int
-EX_NOPERM = ...  # type: int
-EX_NOUSER = ...  # type: int
-EX_OK = ...  # type: int
-EX_OSERR = ...  # type: int
-EX_OSFILE = ...  # type: int
-EX_PROTOCOL = ...  # type: int
-EX_SOFTWARE = ...  # type: int
-EX_TEMPFAIL = ...  # type: int
-EX_UNAVAILABLE = ...  # type: int
-EX_USAGE = ...  # type: int
-F_OK = ...  # type: int
-NGROUPS_MAX = ...  # type: int
-O_APPEND = ...  # type: int
-O_ASYNC = ...  # type: int
-O_CREAT = ...  # type: int
-O_DIRECT = ...  # type: int
-O_DIRECTORY = ...  # type: int
-O_DSYNC = ...  # type: int
-O_EXCL = ...  # type: int
-O_LARGEFILE = ...  # type: int
-O_NDELAY = ...  # type: int
-O_NOATIME = ...  # type: int
-O_NOCTTY = ...  # type: int
-O_NOFOLLOW = ...  # type: int
-O_NONBLOCK = ...  # type: int
-O_RDONLY = ...  # type: int
-O_RDWR = ...  # type: int
-O_RSYNC = ...  # type: int
-O_SYNC = ...  # type: int
-O_TRUNC = ...  # type: int
-O_WRONLY = ...  # type: int
-R_OK = ...  # type: int
-TMP_MAX = ...  # type: int
-WCONTINUED = ...  # type: int
-WNOHANG = ...  # type: int
-WUNTRACED = ...  # type: int
-W_OK = ...  # type: int
-X_OK = ...  # type: int
+EX_CANTCREAT: int
+EX_CONFIG: int
+EX_DATAERR: int
+EX_IOERR: int
+EX_NOHOST: int
+EX_NOINPUT: int
+EX_NOPERM: int
+EX_NOUSER: int
+EX_OK: int
+EX_OSERR: int
+EX_OSFILE: int
+EX_PROTOCOL: int
+EX_SOFTWARE: int
+EX_TEMPFAIL: int
+EX_UNAVAILABLE: int
+EX_USAGE: int
+F_OK: int
+NGROUPS_MAX: int
+O_APPEND: int
+O_ASYNC: int
+O_CREAT: int
+O_DIRECT: int
+O_DIRECTORY: int
+O_DSYNC: int
+O_EXCL: int
+O_LARGEFILE: int
+O_NDELAY: int
+O_NOATIME: int
+O_NOCTTY: int
+O_NOFOLLOW: int
+O_NONBLOCK: int
+O_RDONLY: int
+O_RDWR: int
+O_RSYNC: int
+O_SYNC: int
+O_TRUNC: int
+O_WRONLY: int
+R_OK: int
+TMP_MAX: int
+WCONTINUED: int
+WNOHANG: int
+WUNTRACED: int
+W_OK: int
+X_OK: int
 
 def WCOREDUMP(status: int) -> bool: ...
 def WEXITSTATUS(status: int) -> bool: ...
@@ -62,34 +62,34 @@ def WSTOPSIG(status: int) -> bool: ...
 def WTERMSIG(status: int) -> bool: ...
 
 class stat_result(object):
-    n_fields = ...  # type: int
-    n_sequence_fields = ...  # type: int
-    n_unnamed_fields = ...  # type: int
-    st_mode = ...  # type: int
-    st_ino = ...  # type: int
-    st_dev = ...  # type: int
-    st_nlink = ...  # type: int
-    st_uid = ...  # type: int
-    st_gid = ...  # type: int
-    st_size = ...  # type: int
-    st_atime = ...  # type: int
-    st_mtime = ...  # type: int
-    st_ctime = ...  # type: int
+    n_fields: int
+    n_sequence_fields: int
+    n_unnamed_fields: int
+    st_mode: int
+    st_ino: int
+    st_dev: int
+    st_nlink: int
+    st_uid: int
+    st_gid: int
+    st_size: int
+    st_atime: int
+    st_mtime: int
+    st_ctime: int
 
 class statvfs_result(object):
-    n_fields = ...  # type: int
-    n_sequence_fields = ...  # type: int
-    n_unnamed_fields = ...  # type: int
-    f_bsize = ...  # type: int
-    f_frsize = ...  # type: int
-    f_blocks = ...  # type: int
-    f_bfree = ...  # type: int
-    f_bavail = ...  # type: int
-    f_files = ...  # type: int
-    f_ffree = ...  # type: int
-    f_favail = ...  # type: int
-    f_flag = ...  # type: int
-    f_namemax = ...  # type: int
+    n_fields: int
+    n_sequence_fields: int
+    n_unnamed_fields: int
+    f_bsize: int
+    f_frsize: int
+    f_blocks: int
+    f_bfree: int
+    f_bavail: int
+    f_files: int
+    f_ffree: int
+    f_favail: int
+    f_flag: int
+    f_namemax: int
 
 def _exit(status: int) -> None: ...
 def abort() -> None: ...

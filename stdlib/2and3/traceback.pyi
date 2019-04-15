@@ -74,14 +74,14 @@ if sys.version_info >= (3, 5):
     class TracebackException:
         __cause__ = ...  # type:TracebackException
         __context__ = ...  # type:TracebackException
-        __suppress_context__ = ...  # type: bool
-        stack = ...  # type: StackSummary
-        exc_type = ...  # type: Type[BaseException]
-        filename = ...  # type: str
-        lineno = ...  # type: int
-        text = ...  # type: str
-        offset = ...  # type: int
-        msg = ...  # type: str
+        __suppress_context__: bool
+        stack: StackSummary
+        exc_type: Type[BaseException]
+        filename: str
+        lineno: int
+        text: str
+        offset: int
+        msg: str
         def __init__(self, exc_type: Type[BaseException],
                      exc_value: BaseException, exc_traceback: TracebackType,
                      *, limit: Optional[int] = ..., lookup_lines: bool = ...,

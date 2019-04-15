@@ -4,20 +4,20 @@ from werkzeug.datastructures import CallbackDict
 def generate_key(salt: Optional[Any] = ...): ...
 
 class ModificationTrackingDict(CallbackDict):
-    modified = ...  # type: Any
+    modified: Any
     def __init__(self, *args, **kwargs): ...
     def copy(self): ...
     def __copy__(self): ...
 
 class Session(ModificationTrackingDict):
-    sid = ...  # type: Any
-    new = ...  # type: Any
+    sid: Any
+    new: Any
     def __init__(self, data, sid, new: bool = ...): ...
     @property
     def should_save(self): ...
 
 class SessionStore:
-    session_class = ...  # type: Any
+    session_class: Any
     def __init__(self, session_class: Optional[Any] = ...): ...
     def is_valid_key(self, key): ...
     def generate_key(self, salt: Optional[Any] = ...): ...
@@ -28,10 +28,10 @@ class SessionStore:
     def get(self, sid): ...
 
 class FilesystemSessionStore(SessionStore):
-    path = ...  # type: Any
+    path: Any
     filename_template: str
-    renew_missing = ...  # type: Any
-    mode = ...  # type: Any
+    renew_missing: Any
+    mode: Any
     def __init__(self, path: Optional[Any] = ..., filename_template: Text = ..., session_class: Optional[Any] = ...,
                  renew_missing: bool = ..., mode: int = ...): ...
     def get_session_filename(self, sid): ...
@@ -41,16 +41,16 @@ class FilesystemSessionStore(SessionStore):
     def list(self): ...
 
 class SessionMiddleware:
-    app = ...  # type: Any
-    store = ...  # type: Any
-    cookie_name = ...  # type: Any
-    cookie_age = ...  # type: Any
-    cookie_expires = ...  # type: Any
-    cookie_path = ...  # type: Any
-    cookie_domain = ...  # type: Any
-    cookie_secure = ...  # type: Any
-    cookie_httponly = ...  # type: Any
-    environ_key = ...  # type: Any
+    app: Any
+    store: Any
+    cookie_name: Any
+    cookie_age: Any
+    cookie_expires: Any
+    cookie_path: Any
+    cookie_domain: Any
+    cookie_secure: Any
+    cookie_httponly: Any
+    environ_key: Any
     def __init__(self, app, store, cookie_name: str = ..., cookie_age: Optional[Any] = ..., cookie_expires: Optional[Any] = ...,
                  cookie_path: str = ..., cookie_domain: Optional[Any] = ..., cookie_secure: Optional[Any] = ...,
                  cookie_httponly: bool = ..., environ_key: str = ...): ...

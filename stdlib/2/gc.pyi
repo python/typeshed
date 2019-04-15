@@ -18,12 +18,12 @@ def get_referrers(*objs: Any) -> List[Any]: ...
 def get_referents(*objs: Any) -> List[Any]: ...
 def is_tracked(obj: Any) -> bool: ...
 
-garbage = ...  # type: List[Any]
+garbage: List[Any]
 
-DEBUG_STATS = ...  # type: int
-DEBUG_COLLECTABLE = ...  # type: int
-DEBUG_UNCOLLECTABLE = ...  # type: int
-DEBUG_INSTANCES = ...  # type: int
-DEBUG_OBJECTS = ...  # type: int
-DEBUG_SAVEALL = ...  # type: int
-DEBUG_LEAK = ...  # type: int
+DEBUG_STATS: int
+DEBUG_COLLECTABLE: int
+DEBUG_UNCOLLECTABLE: int
+DEBUG_INSTANCES: int
+DEBUG_OBJECTS: int
+DEBUG_SAVEALL: int
+DEBUG_LEAK: int

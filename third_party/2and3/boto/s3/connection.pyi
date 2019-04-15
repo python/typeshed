@@ -28,27 +28,27 @@ class ProtocolIndependentOrdinaryCallingFormat(OrdinaryCallingFormat):
     def build_url_base(self, connection, protocol, server, bucket, key: str = ...): ...
 
 class Location:
-    DEFAULT = ...  # type: str
-    EU = ...  # type: str
-    EUCentral1 = ...  # type: str
-    USWest = ...  # type: str
-    USWest2 = ...  # type: str
-    SAEast = ...  # type: str
-    APNortheast = ...  # type: str
-    APSoutheast = ...  # type: str
-    APSoutheast2 = ...  # type: str
-    CNNorth1 = ...  # type: str
+    DEFAULT: str
+    EU: str
+    EUCentral1: str
+    USWest: str
+    USWest2: str
+    SAEast: str
+    APNortheast: str
+    APSoutheast: str
+    APSoutheast2: str
+    CNNorth1: str
 
 class NoHostProvided: ...
 class HostRequiredError(BotoClientError): ...
 
 class S3Connection(AWSAuthConnection):
-    DefaultHost = ...  # type: Any
-    DefaultCallingFormat = ...  # type: Any
-    QueryString = ...  # type: str
-    calling_format = ...  # type: Any
-    bucket_class = ...  # type: Type[Bucket]
-    anon = ...  # type: Any
+    DefaultHost: Any
+    DefaultCallingFormat: Any
+    QueryString: str
+    calling_format: Any
+    bucket_class: Type[Bucket]
+    anon: Any
     def __init__(self, aws_access_key_id: Optional[Any] = ..., aws_secret_access_key: Optional[Any] = ..., is_secure: bool = ..., port: Optional[Any] = ..., proxy: Optional[Any] = ..., proxy_port: Optional[Any] = ..., proxy_user: Optional[Any] = ..., proxy_pass: Optional[Any] = ..., host: Any = ..., debug: int = ..., https_connection_factory: Optional[Any] = ..., calling_format: Any = ..., path: str = ..., provider: str = ..., bucket_class: Type[Bucket] = ..., security_token: Optional[Any] = ..., suppress_consec_slashes: bool = ..., anon: bool = ..., validate_certs: Optional[Any] = ..., profile_name: Optional[Any] = ...) -> None: ...
     def __iter__(self): ...
     def __contains__(self, bucket_name): ...

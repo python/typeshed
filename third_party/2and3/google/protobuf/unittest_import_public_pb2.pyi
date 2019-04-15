@@ -7,7 +7,7 @@ from typing import (
 
 
 class PublicImportMessage(Message):
-    e = ...  # type: int
+    e: int
 
     def __init__(self,
                  e: Optional[int] = ...,

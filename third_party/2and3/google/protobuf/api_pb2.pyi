@@ -19,9 +19,9 @@ from typing import (
 
 
 class Api(Message):
-    name = ...  # type: Text
-    version = ...  # type: Text
-    syntax = ...  # type: Syntax
+    name: Text
+    version: Text
+    syntax: Syntax
 
     @property
     def methods(self) -> RepeatedCompositeFieldContainer[Method]: ...
@@ -50,12 +50,12 @@ class Api(Message):
 
 
 class Method(Message):
-    name = ...  # type: Text
-    request_type_url = ...  # type: Text
-    request_streaming = ...  # type: bool
-    response_type_url = ...  # type: Text
-    response_streaming = ...  # type: bool
-    syntax = ...  # type: Syntax
+    name: Text
+    request_type_url: Text
+    request_streaming: bool
+    response_type_url: Text
+    response_streaming: bool
+    syntax: Syntax
 
     @property
     def options(self) -> RepeatedCompositeFieldContainer[Option]: ...
@@ -75,8 +75,8 @@ class Method(Message):
 
 
 class Mixin(Message):
-    name = ...  # type: Text
-    root = ...  # type: Text
+    name: Text
+    root: Text
 
     def __init__(self,
                  name: Optional[Text] = ...,

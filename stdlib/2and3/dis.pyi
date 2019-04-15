@@ -34,8 +34,8 @@ if sys.version_info >= (3, 4):
     )
 
     class Bytecode:
-        codeobj = ...  # type: types.CodeType
-        first_line = ...  # type: int
+        codeobj: types.CodeType
+        first_line: int
         def __init__(self, x: _have_code_or_string, *, first_line: Optional[int] = ...,
                      current_offset: Optional[int] = ...) -> None: ...
         def __iter__(self) -> Iterator[Instruction]: ...
@@ -47,7 +47,7 @@ if sys.version_info >= (3, 4):
         def from_traceback(cls, tb: types.TracebackType) -> Bytecode: ...
 
 
-COMPILER_FLAG_NAMES = ...  # type:  Dict[int, str]
+COMPILER_FLAG_NAMES: Dict[int, str]
 
 
 def findlabels(code: _have_code) -> List[int]: ...

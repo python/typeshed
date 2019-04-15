@@ -1,7 +1,7 @@
 from typing import Any
 from collections import namedtuple
 
-singledispatch = ...  # type: Any
+singledispatch: Any
 
 class KeyReuseError(Exception): ...
 class UnknownKeyError(Exception): ...
@@ -14,11 +14,11 @@ def engine(func): ...
 def coroutine(func, replace_callback=...): ...
 
 class Return(Exception):
-    value = ...  # type: Any
+    value: Any
     def __init__(self, value=...) -> None: ...
 
 class WaitIterator:
-    current_index = ...  # type: Any
+    current_index: Any
     def __init__(self, *args, **kwargs) -> None: ...
     def done(self): ...
     def next(self): ...
@@ -29,25 +29,25 @@ class YieldPoint:
     def get_result(self): ...
 
 class Callback(YieldPoint):
-    key = ...  # type: Any
+    key: Any
     def __init__(self, key) -> None: ...
-    runner = ...  # type: Any
+    runner: Any
     def start(self, runner): ...
     def is_ready(self): ...
     def get_result(self): ...
 
 class Wait(YieldPoint):
-    key = ...  # type: Any
+    key: Any
     def __init__(self, key) -> None: ...
-    runner = ...  # type: Any
+    runner: Any
     def start(self, runner): ...
     def is_ready(self): ...
     def get_result(self): ...
 
 class WaitAll(YieldPoint):
-    keys = ...  # type: Any
+    keys: Any
     def __init__(self, keys) -> None: ...
-    runner = ...  # type: Any
+    runner: Any
     def start(self, runner): ...
     def is_ready(self): ...
     def get_result(self): ...
@@ -55,21 +55,21 @@ class WaitAll(YieldPoint):
 def Task(func, *args, **kwargs): ...
 
 class YieldFuture(YieldPoint):
-    future = ...  # type: Any
-    io_loop = ...  # type: Any
+    future: Any
+    io_loop: Any
     def __init__(self, future, io_loop=...) -> None: ...
-    runner = ...  # type: Any
-    key = ...  # type: Any
-    result_fn = ...  # type: Any
+    runner: Any
+    key: Any
+    result_fn: Any
     def start(self, runner): ...
     def is_ready(self): ...
     def get_result(self): ...
 
 class Multi(YieldPoint):
-    keys = ...  # type: Any
-    children = ...  # type: Any
-    unfinished_children = ...  # type: Any
-    quiet_exceptions = ...  # type: Any
+    keys: Any
+    children: Any
+    unfinished_children: Any
+    quiet_exceptions: Any
     def __init__(self, children, quiet_exceptions=...) -> None: ...
     def start(self, runner): ...
     def is_ready(self): ...
@@ -80,20 +80,20 @@ def maybe_future(x): ...
 def with_timeout(timeout, future, io_loop=..., quiet_exceptions=...): ...
 def sleep(duration): ...
 
-moment = ...  # type: Any
+moment: Any
 
 class Runner:
-    gen = ...  # type: Any
-    result_future = ...  # type: Any
-    future = ...  # type: Any
-    yield_point = ...  # type: Any
-    pending_callbacks = ...  # type: Any
-    results = ...  # type: Any
-    running = ...  # type: Any
-    finished = ...  # type: Any
-    had_exception = ...  # type: Any
-    io_loop = ...  # type: Any
-    stack_context_deactivate = ...  # type: Any
+    gen: Any
+    result_future: Any
+    future: Any
+    yield_point: Any
+    pending_callbacks: Any
+    results: Any
+    running: Any
+    finished: Any
+    had_exception: Any
+    io_loop: Any
+    stack_context_deactivate: Any
     def __init__(self, gen, result_future, first_yielded) -> None: ...
     def register_callback(self, key): ...
     def is_ready(self, key): ...

@@ -5,12 +5,9 @@ Depends on pytype being installed.
 
 If pytype is installed:
     1. For every pyi, do nothing if it is in pytype_blacklist.txt.
-    2. If the blacklist line has a "# parse only" comment run
-      "pytd <foo.pyi>" in a separate process.
-    3. If the file is not in the blacklist call "pytype.io.parse_pyi".
-Option two will parse the file, mostly syntactical correctness. Option three
-will load the file and all the builtins, typeshed dependencies. This will
-also discover incorrect usage of imported modules.
+    2. Otherwise, call 'pytype.io.parse_pyi'.
+Option two will load the file and all the builtins, typeshed dependencies. This
+will also discover incorrect usage of imported modules.
 """
 
 import argparse
@@ -25,18 +22,13 @@ import sys
 import traceback
 
 parser = argparse.ArgumentParser(description='Pytype/typeshed tests.')
-parser.add_argument('-n', '--dry-run', action='store_true',
-                    help="Don't actually run tests")
-parser.add_argument('--num-parallel', type=int, default=1,
-                    help='Number of test processes to spawn')
+parser.add_argument('-n', '--dry-run', action='store_true', default=False,
+                    help='Don\'t actually run tests')
 # Default to '' so that symlinking typeshed subdirs in cwd will work.
 parser.add_argument('--typeshed-location', type=str, default='',
                     help='Path to typeshed installation.')
-# Default to '' so that finding pytype in path will work.
-parser.add_argument('--pytype-bin-dir', type=str, default='',
-                    help='Path to directory with pytype and pytd executables.')
 # Set to true to print a stack trace every time an exception is thrown.
-parser.add_argument('--print-stderr', type=bool, default=False,
+parser.add_argument('--print-stderr', action='store_true', default=False,
                     help='Print stderr every time an error is encountered.')
 # We need to invoke python2.7 and 3.6.
 parser.add_argument('--python27-exe', type=str, default='python2.7',
@@ -44,31 +36,18 @@ parser.add_argument('--python27-exe', type=str, default='python2.7',
 parser.add_argument('--python36-exe', type=str, default='python3.6',
                     help='Path to a python 3.6 interpreter.')
 
-Dirs = collections.namedtuple('Dirs', ['pytype', 'typeshed'])
-
 
 TYPESHED_SUBDIRS = ['stdlib', 'third_party']
 
 
-UNSET = object()  # marker for tracking environment variables in PytypeRun
+TYPESHED_HOME = 'TYPESHED_HOME'
+UNSET = object()  # marker for tracking the TYPESHED_HOME environment variable
 
 
 def main():
     args = parser.parse_args()
-    code, runs = pytype_test(args)
-
-    if code:
-        print('--- exit status %d ---' % code)
-        sys.exit(code)
-    if not runs:
-        print('--- nothing to do; exit 1 ---')
-        sys.exit(1)
-
-
-def get_project_dirs(args):
-    """Top-level project directories for pytype executables and typeshed."""
-    typeshed_location = args.typeshed_location or os.getcwd()
-    return Dirs(args.pytype_bin_dir, typeshed_location)
+    code = pytype_test(args)
+    sys.exit(code)
 
 
 class PathMatcher(object):
@@ -84,82 +63,37 @@ class PathMatcher(object):
         return self.matcher.search(path)
 
 
-def load_blacklist(dirs):
-    filename = os.path.join(dirs.typeshed, 'tests', 'pytype_blacklist.txt')
+def load_blacklist(typeshed_location):
+    filename = os.path.join(typeshed_location, 'tests', 'pytype_blacklist.txt')
     skip_re = re.compile(r'^\s*([^\s#]+)\s*(?:#.*)?$')
-    parse_only_re = re.compile(r'^\s*([^\s#]+)\s*#\s*parse only\s*')
     skip = []
-    parse_only = []
 
     with open(filename) as f:
         for line in f:
-            parse_only_match = parse_only_re.match(line)
             skip_match = skip_re.match(line)
-            if parse_only_match:
-                parse_only.append(parse_only_match.group(1))
-            elif skip_match:
+            if skip_match:
                 skip.append(skip_match.group(1))
 
-    return skip, parse_only
+    return skip
 
 
-class BinaryRun(object):
-    def __init__(self, args, dry_run=False, env=None):
-        self.args = args
-        self.results = None
-
-        if dry_run:
-            self.results = (0, '', '')
-        else:
-            if env is not None:
-                full_env = os.environ.copy()
-                full_env.update(env)
-            else:
-                full_env = None
-            self.proc = subprocess.Popen(
-                self.args,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                env=full_env)
-
-    def communicate(self):
-        if self.results:
-            return self.results
-
-        stdout, stderr = self.proc.communicate()
-        self.results = self.proc.returncode, stdout, stderr.decode()
-        return self.results
-
-
-class PytypeRun(object):
-    def __init__(self, args, dry_run=False, env=None):
-        self.args = args
-        self.results = None
-        if dry_run:
-            self.results = (0, '', '')
-        else:
-            self.env = env
-
-    def communicate(self):
-        if self.results:
-            return self.results
-        old_env = {}
-        if self.env:
-            for var, val in self.env.items():
-                old_env[var] = os.environ.get(var, UNSET)
-                os.environ[var] = val
-        try:
-            io.parse_pyi(config.Options(self.args[1:]))
-        except Exception:
-            self.results = (1, '', traceback.format_exc())
-        else:
-            self.results = (0, '', '')
-        for var, val in old_env.items():
-            if val is UNSET:
-                del os.environ[var]
-            else:
-                os.environ[var] = val
-        return self.results
+def run_pytype(args, dry_run, typeshed_location):
+    """Runs pytype, returning the stderr if any."""
+    if dry_run:
+        return None
+    old_typeshed_home = os.environ.get(TYPESHED_HOME, UNSET)
+    os.environ[TYPESHED_HOME] = typeshed_location
+    try:
+        io.parse_pyi(config.Options(args))
+    except Exception:
+        stderr = traceback.format_exc()
+    else:
+        stderr = None
+    if old_typeshed_home is UNSET:
+        del os.environ[TYPESHED_HOME]
+    else:
+        os.environ[TYPESHED_HOME] = old_typeshed_home
+    return stderr
 
 
 def _get_relative(filename):
@@ -183,7 +117,9 @@ def _get_module_name(filename):
 def can_run(path, exe, *args):
     exe = os.path.join(path, exe)
     try:
-        BinaryRun([exe] + list(args)).communicate()
+        subprocess.Popen(
+            [exe] + list(args), stdout=subprocess.PIPE, stderr=subprocess.PIPE
+        ).communicate()
         return True
     except OSError:
         return False
@@ -194,23 +130,15 @@ def _is_version(path, version):
 
 
 def pytype_test(args):
-    dirs = get_project_dirs(args)
-    pytype_exe = os.path.join(dirs.pytype, 'pytype-single')
-    paths = [os.path.join(dirs.typeshed, d) for d in TYPESHED_SUBDIRS]
+    """Test with pytype, returning 0 for success and 1 for failure."""
+    typeshed_location = args.typeshed_location or os.getcwd()
+    paths = [os.path.join(typeshed_location, d) for d in TYPESHED_SUBDIRS]
 
     for p in paths:
         if not os.path.isdir(p):
             print('Cannot find typeshed subdir at %s '
                   '(specify parent dir via --typeshed-location)' % p)
-            return 0, 0
-
-    if can_run(dirs.pytype, 'pytd', '-h'):
-        pytd_exe = os.path.join(dirs.pytype, 'pytd')
-    elif can_run(dirs.pytype, 'pytd_tool', '-h'):
-        pytd_exe = os.path.join(dirs.pytype, 'pytd_tool')
-    else:
-        print('Cannot run pytd. Did you install pytype?')
-        return 0, 0
+            return 1
 
     for python_version_str in ('27', '36'):
         dest = 'python%s_exe' % python_version_str
@@ -219,7 +147,7 @@ def pytype_test(args):
         if not can_run('', getattr(args, dest), '--version'):
             print('Cannot run Python {version}. (point to a valid executable '
                   'via {arg})'.format(version=version, arg=arg))
-            return 0, 0
+            return 1
 
     # TODO(rchen152): Keep expanding our third_party/ coverage so we can move
     # to a small blacklist rather than an ever-growing whitelist.
@@ -231,31 +159,27 @@ def pytype_test(args):
         'third_party/.*/yaml/',
     ]
     wanted_re = re.compile(r'(?:%s).*\.pyi$' % '|'.join(wanted))
-    skip, parse_only = load_blacklist(dirs)
-    skipped = PathMatcher(skip)
-    parse_only = PathMatcher(parse_only)
+    skipped = PathMatcher(load_blacklist(typeshed_location))
 
-    pytype_run = []
-    pytd_run = []
+    files = []
     bad = []
 
-    def _make_test(filename, major_version):
+    def _parse(filename, major_version):
         if major_version == 3:
             version = '3.6'
             exe = args.python36_exe
         else:
             version = '2.7'
             exe = args.python27_exe
-        run_cmd = [
-            pytype_exe,
+        options = [
             '--module-name=%s' % _get_module_name(filename),
             '--parse-pyi',
             '-V %s' % version,
             '--python_exe=%s' % exe,
         ]
-        return PytypeRun(run_cmd + [filename],
-                         dry_run=args.dry_run,
-                         env={"TYPESHED_HOME": dirs.typeshed})
+        return run_pytype(options + [filename],
+                          dry_run=args.dry_run,
+                          typeshed_location=typeshed_location)
 
     for root, _, filenames in itertools.chain.from_iterable(
             os.walk(p) for p in paths):
@@ -263,61 +187,39 @@ def pytype_test(args):
             f = os.path.join(root, f)
             rel = _get_relative(f)
             if wanted_re.search(rel):
-                if parse_only.search(rel):
-                    pytd_run.append(f)
-                elif not skipped.search(rel):
-                    pytype_run.append(f)
+                if not skipped.search(rel):
+                    if _is_version(f, '2and3'):
+                        files.append((f, 2))
+                        files.append((f, 3))
+                    elif _is_version(f, '2'):
+                        files.append((f, 2))
+                    elif _is_version(f, '3'):
+                        files.append((f, 3))
+                    else:
+                        print('Unrecognized path: %s' % f)
 
-    running_tests = collections.deque()
-    max_code, runs, errors = 0, 0, 0
-    files = pytype_run + pytd_run
+    errors = 0
     total_tests = len(files)
-    # Files in {subdir}/2and3 get tested twice
-    total_tests += sum(1 for f in pytype_run if _is_version(f, '2and3'))
-    print("Testing files with pytype...")
-    while 1:
-        while files and len(running_tests) < args.num_parallel:
-            f = files.pop()
-            if f in pytype_run:
-                if _is_version(f, '2and3'):
-                    running_tests.append(_make_test(f, 2))
-                    running_tests.append(_make_test(f, 3))
-                elif _is_version(f, '2'):
-                    running_tests.append(_make_test(f, 2))
-                elif _is_version(f, '3'):
-                    running_tests.append(_make_test(f, 3))
-                else:
-                    print("Unrecognised path: %s" % f)
-            elif f in pytd_run:
-                test_run = BinaryRun([pytd_exe, f], dry_run=args.dry_run)
-                running_tests.append(test_run)
-            else:
-                raise ValueError('Unknown action for file: %s' % f)
-
-        if not running_tests:
-            break
-
-        test_run = running_tests.popleft()
-        code, _, stderr = test_run.communicate()
-        max_code = max(max_code, code)
-        runs += 1
-
-        if code:
+    print('Testing files with pytype...')
+    for i, (f, version) in enumerate(files):
+        stderr = _parse(f, version)
+        if stderr:
             if args.print_stderr:
                 print(stderr)
             errors += 1
             # We strip off the stack trace and just leave the last line with the
             # actual error; to see the stack traces use --print_stderr.
-            bad.append((_get_relative(test_run.args[-1]),
-                        stderr.rstrip().rsplit('\n', 1)[-1]))
+            bad.append((_get_relative(f), stderr.rstrip().rsplit('\n', 1)[-1]))
 
+        runs = i + 1
         if runs % 25 == 0:
-            print("  %3d/%d with %3d errors" % (runs, total_tests, errors))
+            print('  %3d/%d with %3d errors' % (runs, total_tests, errors))
 
-    print('Ran pytype with %d pyis, got %d errors.' % (runs, errors))
+    print('Ran pytype with %d pyis, got %d errors.' % (total_tests, errors))
     for f, err in bad:
         print('%s: %s' % (f, err))
-    return max_code, runs
+    return int(bool(errors))
+
 
 if __name__ == '__main__':
     main()

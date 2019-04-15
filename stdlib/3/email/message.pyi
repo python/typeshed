@@ -19,9 +19,9 @@ _ParamType = Union[str, Tuple[Optional[str], Optional[str], str]]
 _HeaderType = Union[str, Header]
 
 class Message:
-    preamble = ...  # type: Optional[str]
-    epilogue = ...  # type: Optional[str]
-    defects = ...  # type: List[MessageDefect]
+    preamble: Optional[str]
+    epilogue: Optional[str]
+    defects: List[MessageDefect]
     def __str__(self) -> str: ...
     def is_multipart(self) -> bool: ...
     def set_unixfrom(self, unixfrom: str) -> None: ...

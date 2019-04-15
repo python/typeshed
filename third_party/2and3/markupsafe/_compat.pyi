@@ -5,7 +5,7 @@ from typing import Any, Iterator, Mapping, Text, Tuple, TypeVar
 _K = TypeVar('_K')
 _V = TypeVar('_V')
 
-PY2 = ...  # type: bool
+PY2: bool
 def iteritems(d: Mapping[_K, _V]) -> Iterator[Tuple[_K, _V]]: ...
 if sys.version_info[0] >= 3:
     text_type = str

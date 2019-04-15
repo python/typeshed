@@ -2,7 +2,7 @@
 
 from typing import (
     Any, AnyStr, Callable, Container, ContextManager, Dict, FrozenSet, Generic, Iterable,
-    Iterator, List, NoReturn, Optional, overload, Pattern, Sequence, Set, TextIO,
+    Iterator, List, NoReturn, Optional, overload, Pattern, Sequence, Set, IO,
     Tuple, Type, TypeVar, Union
 )
 import logging
@@ -25,11 +25,11 @@ class SkipTest(Exception):
 
 
 class TestCase:
-    failureException = ...  # type: Type[BaseException]
-    longMessage = ...  # type: bool
-    maxDiff = ...  # type: Optional[int]
+    failureException: Type[BaseException]
+    longMessage: bool
+    maxDiff: Optional[int]
     # undocumented
-    _testMethodName = ...  # type: str
+    _testMethodName: str
     def __init__(self, methodName: str = ...) -> None: ...
     def setUp(self) -> None: ...
     def tearDown(self) -> None: ...
@@ -199,22 +199,22 @@ class FunctionTestCase(TestCase):
                  description: Optional[str] = ...) -> None: ...
 
 class _AssertRaisesContext(Generic[_E]):
-    exception = ...  # type: _E
+    exception: _E
     def __enter__(self) -> _AssertRaisesContext[_E]: ...
     def __exit__(self, exc_type: Optional[Type[BaseException]], exc_val: Optional[BaseException],
                  exc_tb: Optional[TracebackType]) -> bool: ...
 
 class _AssertWarnsContext:
-    warning = ...  # type: Warning
-    filename = ...  # type: str
-    lineno = ...  # type: int
+    warning: Warning
+    filename: str
+    lineno: int
     def __enter__(self) -> _AssertWarnsContext: ...
     def __exit__(self, exc_type: Optional[Type[BaseException]], exc_val: Optional[BaseException],
                  exc_tb: Optional[TracebackType]) -> bool: ...
 
 class _AssertLogsContext:
-    records = ...  # type: List[logging.LogRecord]
-    output = ...  # type: List[str]
+    records: List[logging.LogRecord]
+    output: List[str]
     def __enter__(self) -> _AssertLogsContext: ...
     def __exit__(self, exc_type: Optional[Type[BaseException]], exc_val: Optional[BaseException],
                  exc_tb: Optional[TracebackType]) -> bool: ...
@@ -234,10 +234,10 @@ class TestSuite(Iterable[_TestType]):
 
 class TestLoader:
     if sys.version_info >= (3, 5):
-        errors = ...  # type: List[Type[BaseException]]
-    testMethodPrefix = ...  # type: str
-    sortTestMethodsUsing = ...  # type: Callable[[str, str], bool]
-    suiteClass = ...  # type: Callable[[List[TestCase]], TestSuite]
+        errors: List[Type[BaseException]]
+    testMethodPrefix: str
+    sortTestMethodsUsing: Callable[[str, str], bool]
+    suiteClass: Callable[[List[TestCase]], TestSuite]
     def loadTestsFromTestCase(self,
                               testCaseClass: Type[TestCase]) -> TestSuite: ...
     if sys.version_info >= (3, 5):
@@ -260,16 +260,16 @@ _SysExcInfoType = Tuple[Optional[Type[BaseException]],
                         Optional[TracebackType]]
 
 class TestResult:
-    errors = ...  # type: List[Tuple[TestCase, str]]
-    failures = ...  # type: List[Tuple[TestCase, str]]
-    skipped = ...  # type: List[Tuple[TestCase, str]]
-    expectedFailures = ...  # type: List[Tuple[TestCase, str]]
-    unexpectedSuccesses = ...  # type: List[TestCase]
-    shouldStop = ...  # type: bool
-    testsRun = ...  # type: int
-    buffer = ...  # type: bool
-    failfast = ...  # type: bool
-    tb_locals = ...  # type: bool
+    errors: List[Tuple[TestCase, str]]
+    failures: List[Tuple[TestCase, str]]
+    skipped: List[Tuple[TestCase, str]]
+    expectedFailures: List[Tuple[TestCase, str]]
+    unexpectedSuccesses: List[TestCase]
+    shouldStop: bool
+    testsRun: int
+    buffer: bool
+    failfast: bool
+    tb_locals: bool
     def wasSuccessful(self) -> bool: ...
     def stop(self) -> None: ...
     def startTest(self, test: TestCase) -> None: ...
@@ -289,23 +289,35 @@ class TestResult:
 class TextTestResult(TestResult):
     separator1: str
     separator2: str
-    def __init__(self, stream: TextIO, descriptions: bool,
+    stream: IO[str]
+    showAll: bool
+    dots: bool
+    descriptions: bool
+    def __init__(self, stream: IO[str], descriptions: bool,
                  verbosity: int) -> None: ...
     def getDescription(self, test: TestCase) -> str: ...
     def printErrors(self) -> None: ...
     def printErrorList(self, flavour: str, errors: Tuple[TestCase, str]) -> None: ...
 _TextTestResult = TextTestResult
 
-defaultTestLoader = ...  # type: TestLoader
+defaultTestLoader: TestLoader
 
-_ResultClassType = Callable[[TextIO, bool, int], TestResult]
+_ResultClassType = Callable[[IO[str], bool, int], TestResult]
 
 class TestRunner:
     def run(self, test: Union[TestSuite, TestCase]) -> TestResult: ...
 
 class TextTestRunner(TestRunner):
+    stream: IO[str]
+    descriptions: bool
+    verbosity: int
+    failfast: bool
+    buffer: bool
+    tb_locals: bool
+    warnings: Optional[Type[Warning]]
+    resultclass: _ResultClassType
     if sys.version_info >= (3, 5):
-        def __init__(self, stream: Optional[TextIO] = ...,
+        def __init__(self, stream: Optional[IO[str]] = ...,
                      descriptions: bool = ..., verbosity: int = ...,
                      failfast: bool = ..., buffer: bool = ...,
                      resultclass: Optional[_ResultClassType] = ...,
@@ -313,7 +325,7 @@ class TextTestRunner(TestRunner):
                      *, tb_locals: bool = ...) -> None: ...
     else:
         def __init__(self,
-                     stream: Optional[TextIO] = ...,
+                     stream: Optional[IO[str]] = ...,
                      descriptions: bool = ..., verbosity: int = ...,
                      failfast: bool = ..., buffer: bool = ...,
                      resultclass: Optional[_ResultClassType] = ...,
@@ -322,7 +334,7 @@ class TextTestRunner(TestRunner):
 
 # not really documented
 class TestProgram:
-    result = ...  # type: TestResult
+    result: TestResult
     def runTests(self) -> None: ...  # undocumented
 
 def main(module: Union[None, str, ModuleType] = ...,

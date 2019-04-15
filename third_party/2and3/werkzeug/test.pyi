@@ -14,13 +14,13 @@ def encode_multipart(values, boundary: Optional[Any] = ..., charset: Text = ...)
 def File(fd, filename: Optional[Any] = ..., mimetype: Optional[Any] = ...): ...
 
 class _TestCookieHeaders:
-    headers = ...  # type: Any
+    headers: Any
     def __init__(self, headers): ...
     def getheaders(self, name): ...
     def get_all(self, name, default: Optional[Any] = ...): ...
 
 class _TestCookieResponse:
-    headers = ...  # type: Any
+    headers: Any
     def __init__(self, headers): ...
     def info(self): ...
 
@@ -29,33 +29,33 @@ class _TestCookieJar(CookieJar):
     def extract_wsgi(self, environ, headers): ...
 
 class EnvironBuilder:
-    server_protocol = ...  # type: Any
-    wsgi_version = ...  # type: Any
-    request_class = ...  # type: Any
+    server_protocol: Any
+    wsgi_version: Any
+    request_class: Any
     charset: Text
-    path = ...  # type: Any
-    base_url = ...  # type: Any
-    query_string = ...  # type: Any
-    args = ...  # type: Any
-    method = ...  # type: Any
-    headers = ...  # type: Any
-    content_type = ...  # type: Any
-    errors_stream = ...  # type: Any
-    multithread = ...  # type: Any
-    multiprocess = ...  # type: Any
-    run_once = ...  # type: Any
-    environ_base = ...  # type: Any
-    environ_overrides = ...  # type: Any
-    input_stream = ...  # type: Any
-    content_length = ...  # type: Any
-    closed = ...  # type: Any
+    path: Any
+    base_url: Any
+    query_string: Any
+    args: Any
+    method: Any
+    headers: Any
+    content_type: Any
+    errors_stream: Any
+    multithread: Any
+    multiprocess: Any
+    run_once: Any
+    environ_base: Any
+    environ_overrides: Any
+    input_stream: Any
+    content_length: Any
+    closed: Any
     def __init__(self, path: str = ..., base_url: Optional[Any] = ..., query_string: Optional[Any] = ...,
                  method: str = ..., input_stream: Optional[Any] = ..., content_type: Optional[Any] = ...,
                  content_length: Optional[Any] = ..., errors_stream: Optional[Any] = ..., multithread: bool = ...,
                  multiprocess: bool = ..., run_once: bool = ..., headers: Optional[Any] = ..., data: Optional[Any] = ...,
                  environ_base: Optional[Any] = ..., environ_overrides: Optional[Any] = ..., charset: Text = ...): ...
-    form = ...  # type: Any
-    files = ...  # type: Any
+    form: Any
+    files: Any
     @property
     def server_name(self): ...
     @property
@@ -68,10 +68,10 @@ class EnvironBuilder:
 class ClientRedirectError(Exception): ...
 
 class Client:
-    application = ...  # type: Any
-    response_wrapper = ...  # type: Any
-    cookie_jar = ...  # type: Any
-    allow_subdomain_redirects = ...  # type: Any
+    application: Any
+    response_wrapper: Any
+    cookie_jar: Any
+    allow_subdomain_redirects: Any
     def __init__(self, application, response_wrapper: Optional[Any] = ..., use_cookies: bool = ...,
                  allow_subdomain_redirects: bool = ...): ...
     def set_cookie(self, server_name, key, value: str = ..., max_age: Optional[Any] = ..., expires: Optional[Any] = ...,

@@ -2,15 +2,15 @@ from typing import TypeVar, Generic, Any, Iterable, Iterator, Callable, Tuple, O
 from types import TracebackType
 import sys
 
-FIRST_COMPLETED = ...  # type: str
-FIRST_EXCEPTION = ...  # type: str
-ALL_COMPLETED = ...  # type: str
-PENDING = ...  # type: Any
-RUNNING = ...  # type: Any
-CANCELLED = ...  # type: Any
-CANCELLED_AND_NOTIFIED = ...  # type: Any
-FINISHED = ...  # type: Any
-LOGGER = ...  # type: Any
+FIRST_COMPLETED: str
+FIRST_EXCEPTION: str
+ALL_COMPLETED: str
+PENDING: Any
+RUNNING: Any
+CANCELLED: Any
+CANCELLED_AND_NOTIFIED: Any
+FINISHED: Any
+LOGGER: Any
 
 class Error(Exception): ...
 class CancelledError(Error): ...

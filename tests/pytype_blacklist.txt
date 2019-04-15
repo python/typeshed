@@ -6,4 +6,3 @@ stdlib/2/__builtin__.pyi
 stdlib/2/typing.pyi
 stdlib/2and3/builtins.pyi
 stdlib/3/typing.pyi
-stdlib/3/collections/__init__.pyi # parse only

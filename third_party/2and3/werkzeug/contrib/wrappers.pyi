@@ -6,22 +6,22 @@ class JSONRequestMixin:
     def json(self): ...
 
 class ProtobufRequestMixin:
-    protobuf_check_initialization = ...  # type: Any
+    protobuf_check_initialization: Any
     def parse_protobuf(self, proto_type): ...
 
 class RoutingArgsRequestMixin:
-    routing_args = ...  # type: Any
-    routing_vars = ...  # type: Any
+    routing_args: Any
+    routing_vars: Any
 
 class ReverseSlashBehaviorRequestMixin:
     def path(self): ...
     def script_root(self): ...
 
 class DynamicCharsetRequestMixin:
-    default_charset = ...  # type: Any
+    default_charset: Any
     def unknown_charset(self, charset): ...
     def charset(self): ...
 
 class DynamicCharsetResponseMixin:
-    default_charset = ...  # type: Any
-    charset = ...  # type: Any
+    default_charset: Any
+    charset: Any

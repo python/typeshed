@@ -5,16 +5,16 @@
 from typing import Any, Optional
 
 class Message:
-    fp = ...  # type: Any
-    seekable = ...  # type: Any
-    startofheaders = ...  # type: Any
-    startofbody = ...  # type: Any
+    fp: Any
+    seekable: Any
+    startofheaders: Any
+    startofbody: Any
     def __init__(self, fp, seekable: int = ...): ...
     def rewindbody(self): ...
-    dict = ...  # type: Any
-    unixfrom = ...  # type: Any
-    headers = ...  # type: Any
-    status = ...  # type: Any
+    dict: Any
+    unixfrom: Any
+    headers: Any
+    status: Any
     def readheaders(self): ...
     def isheader(self, line): ...
     def islast(self, line): ...
@@ -23,7 +23,7 @@ class Message:
     def getfirstmatchingheader(self, name): ...
     def getrawheader(self, name): ...
     def getheader(self, name, default: Optional[Any] = ...): ...
-    get = ...  # type: Any
+    get: Any
     def getheaders(self, name): ...
     def getaddr(self, name): ...
     def getaddrlist(self, name): ...
@@ -42,14 +42,14 @@ class Message:
     def items(self): ...
 
 class AddrlistClass:
-    specials = ...  # type: Any
-    pos = ...  # type: Any
-    LWS = ...  # type: Any
-    CR = ...  # type: Any
-    atomends = ...  # type: Any
-    phraseends = ...  # type: Any
-    field = ...  # type: Any
-    commentlist = ...  # type: Any
+    specials: Any
+    pos: Any
+    LWS: Any
+    CR: Any
+    atomends: Any
+    phraseends: Any
+    field: Any
+    commentlist: Any
     def __init__(self, field): ...
     def gotonext(self): ...
     def getaddrlist(self): ...
@@ -65,7 +65,7 @@ class AddrlistClass:
     def getphraselist(self): ...
 
 class AddressList(AddrlistClass):
-    addresslist = ...  # type: Any
+    addresslist: Any
     def __init__(self, field): ...
     def __len__(self): ...
     def __add__(self, other): ...

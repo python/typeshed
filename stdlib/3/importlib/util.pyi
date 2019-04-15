@@ -16,7 +16,7 @@ def set_package(
 
 def resolve_name(name: str, package: str) -> str: ...
 
-MAGIC_NUMBER = ...  # type: bytes
+MAGIC_NUMBER: bytes
 
 def cache_from_source(path: str, debug_override: Optional[bool] = ..., *,
                       optimization: Optional[Any] = ...) -> str: ...

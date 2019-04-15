@@ -1,6 +1,6 @@
 from typing import Any
 
-HIREDIS_AVAILABLE = ...  # type: Any
+HIREDIS_AVAILABLE: Any
 
 def from_url(url, db=..., **kwargs): ...
 def pipeline(redis_obj): ...

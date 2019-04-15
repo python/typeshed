@@ -1,12 +1,12 @@
 from typing import Any
 
-ssl = ...  # type: Any
+ssl: Any
 
 class TCPServer:
-    io_loop = ...  # type: Any
-    ssl_options = ...  # type: Any
-    max_buffer_size = ...  # type: Any
-    read_chunk_size = ...  # type: Any
+    io_loop: Any
+    ssl_options: Any
+    max_buffer_size: Any
+    read_chunk_size: Any
     def __init__(self, io_loop=..., ssl_options=..., max_buffer_size=..., read_chunk_size=...) -> None: ...
     def listen(self, port, address=...): ...
     def add_sockets(self, sockets): ...

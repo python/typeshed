@@ -6,10 +6,10 @@ from typing import Optional, List, Text, AnyStr, Union
 _EitherStr = Union[bytes, Text]
 
 class PyCompileError(Exception):
-    exc_type_name = ...  # type: str
-    exc_value = ...  # type: BaseException
-    file = ...  # type: str
-    msg = ...  # type: str
+    exc_type_name: str
+    exc_value: BaseException
+    file: str
+    msg: str
     def __init__(self, exc_type: str, exc_value: BaseException, file: str, msg: str = ...) -> None: ...
 
 if sys.version_info >= (3, 2):
