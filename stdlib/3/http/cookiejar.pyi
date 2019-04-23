@@ -1,4 +1,4 @@
-from typing import Iterable, Iterator, Optional, Sequence, Tuple, TypeVar, Union, overload
+from typing import Dict, Iterable, Iterator, Optional, Sequence, Tuple, TypeVar, Union, overload
 from http.client import HTTPResponse
 from urllib.request import Request
 
@@ -95,8 +95,17 @@ class Cookie:
     comment_url: Optional[str]
     rfc2109: bool
     port_specified: bool
+    domain: str
     domain_specified: bool
     domain_initial_dot: bool
+    def __init__(self, version: Optional[int], name: str, value: Optional[str],
+                 port: Optional[str], port_specified: bool,
+                 domain: str, domain_specified: bool, domain_initial_dot: bool,
+                 path: str, path_specified: bool,
+                 secure: bool, expires: Optional[int], discard: bool,
+                 comment: Optional[str], comment_url: Optional[str],
+                 rest: Dict[str, str],
+                 rfc2109: bool = ...) -> None: ...
     def has_nonstandard_attr(self, name: str) -> bool: ...
     @overload
     def get_nonstandard_attr(self, name: str) -> Optional[str]: ...
