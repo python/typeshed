@@ -95,10 +95,10 @@ class Cookie:
     comment_url: Optional[str]
     rfc2109: bool
     port_specified: bool
-    domain: str
+    domain: str  # undocumented
     domain_specified: bool
     domain_initial_dot: bool
-    def __init__(self, version: Optional[int], name: str, value: Optional[str],
+    def __init__(self, version: Optional[int], name: str, value: Optional[str],  # undocumented
                  port: Optional[str], port_specified: bool,
                  domain: str, domain_specified: bool, domain_initial_dot: bool,
                  path: str, path_specified: bool,
