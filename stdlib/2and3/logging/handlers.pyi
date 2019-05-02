@@ -26,7 +26,7 @@ DEFAULT_SOAP_LOGGING_PORT: int
 SYSLOG_UDP_PORT: int
 SYSLOG_TCP_PORT: int
 
-class WatchedFileHandler(Handler):
+class WatchedFileHandler(FileHandler):
     @overload
     def __init__(self, filename: _Path) -> None: ...
     @overload
