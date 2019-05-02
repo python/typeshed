@@ -72,7 +72,7 @@ class Session(SessionRedirectMixin):
     cert: Union[None, Text, Tuple[Text, Text]]
     max_redirects: int
     trust_env: bool
-    cookies: Union[RequestsCookieJar, MutableMapping[Text, Text]]
+    cookies: RequestsCookieJar
     adapters: MutableMapping
     redirect_cache: RecentlyUsedContainer
     def __init__(self) -> None: ...
