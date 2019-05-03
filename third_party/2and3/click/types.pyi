@@ -30,7 +30,7 @@ class Choice(ParamType):
     def __init__(
         self,
         choices: Iterable[str],
-        case_sensitive: Optional[bool],
+        case_sensitive: bool = ...,
     ) -> None:
         ...
 
