@@ -85,7 +85,7 @@ class BaseHandler:
 class HTTPDefaultErrorHandler(BaseHandler): ...
 
 class HTTPRedirectHandler(BaseHandler):
-    def redirect_request(self, req: Request, fp: IO[str], code: int, msg: int,
+    def redirect_request(self, req: Request, fp: IO[str], code: int, msg: str,
                          hdrs: Mapping[str, str],
                          newurl: str) -> Optional[Request]: ...
     def http_error_301(self, req: Request, fp: IO[str], code: int, msg: int,
