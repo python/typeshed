@@ -235,7 +235,7 @@ if sys.version_info >= (3, 6):
 @runtime
 class Container(Protocol[_T_co]):
     @abstractmethod
-    def __contains__(self, x: object) -> bool: ...
+    def __contains__(self, __x: object) -> bool: ...
 
 
 if sys.version_info >= (3, 6):
