@@ -1,8 +1,8 @@
 from typing import Any
 
-number_re = ...  # type: Any
-regex_type = ...  # type: Any
-test_callable = ...  # type: Any
+number_re: Any
+regex_type: Any
+test_callable: Any
 
 def test_odd(value): ...
 def test_even(value): ...
@@ -21,4 +21,4 @@ def test_sameas(value, other): ...
 def test_iterable(value): ...
 def test_escaped(value): ...
 
-TESTS = ...  # type: Any
+TESTS: Any

@@ -65,6 +65,7 @@ _KT_co = TypeVar('_KT_co', covariant=True)  # Key type covariant containers.
 _VT_co = TypeVar('_VT_co', covariant=True)  # Value type covariant containers.
 _T_contra = TypeVar('_T_contra', contravariant=True)  # Ditto contravariant.
 _TC = TypeVar('_TC', bound=Type[object])
+_C = TypeVar("_C", bound=Callable)
 
 def runtime(cls: _TC) -> _TC: ...
 
@@ -95,8 +96,12 @@ class SupportsAbs(Protocol[_T_co]):
 
 @runtime
 class SupportsRound(Protocol[_T_co]):
+    @overload
     @abstractmethod
-    def __round__(self, ndigits: int = ...) -> _T_co: ...
+    def __round__(self) -> int: ...
+    @overload
+    @abstractmethod
+    def __round__(self, ndigits: int) -> _T_co: ...
 
 @runtime
 class Reversible(Protocol[_T_co]):
@@ -213,7 +218,7 @@ if sys.version_info >= (3, 6):
                    tb: Any = ...) -> Awaitable[_T_co]: ...
 
         @abstractmethod
-        def aclose(self) -> Awaitable[_T_co]: ...
+        def aclose(self) -> Awaitable[None]: ...
 
         @abstractmethod
         def __aiter__(self) -> AsyncGenerator[_T_co, _T_contra]: ...
@@ -230,7 +235,7 @@ if sys.version_info >= (3, 6):
 @runtime
 class Container(Protocol[_T_co]):
     @abstractmethod
-    def __contains__(self, x: object) -> bool: ...
+    def __contains__(self, __x: object) -> bool: ...
 
 
 if sys.version_info >= (3, 6):
@@ -328,12 +333,18 @@ class MappingView:
     def __len__(self) -> int: ...
 
 class ItemsView(MappingView, AbstractSet[Tuple[_KT_co, _VT_co]], Generic[_KT_co, _VT_co]):
+    def __and__(self, o: Iterable[_T]) -> AbstractSet[Union[Tuple[_KT_co, _VT_co], _T]]: ...
     def __contains__(self, o: object) -> bool: ...
     def __iter__(self) -> Iterator[Tuple[_KT_co, _VT_co]]: ...
+    def __or__(self, o: Iterable[_T]) -> AbstractSet[Union[Tuple[_KT_co, _VT_co], _T]]: ...
+    def __xor__(self, o: Iterable[_T]) -> AbstractSet[Union[Tuple[_KT_co, _VT_co], _T]]: ...
 
 class KeysView(MappingView, AbstractSet[_KT_co], Generic[_KT_co]):
+    def __and__(self, o: Iterable[_T]) -> AbstractSet[Union[_KT_co, _T]]: ...
     def __contains__(self, o: object) -> bool: ...
     def __iter__(self) -> Iterator[_KT_co]: ...
+    def __or__(self, o: Iterable[_T]) -> AbstractSet[Union[_KT_co, _T]]: ...
+    def __xor__(self, o: Iterable[_T]) -> AbstractSet[Union[_KT_co, _T]]: ...
 
 class ValuesView(MappingView, Iterable[_VT_co], Generic[_VT_co]):
     def __contains__(self, o: object) -> bool: ...
@@ -491,12 +502,12 @@ class Match(Generic[AnyStr]):
     pos = 0
     endpos = 0
     lastindex = 0
-    lastgroup = ...  # type: AnyStr
-    string = ...  # type: AnyStr
+    lastgroup: AnyStr
+    string: AnyStr
 
     # The regular expression object whose match() or search() method produced
     # this match instance.
-    re = ...  # type: Pattern[AnyStr]
+    re: Pattern[AnyStr]
 
     def expand(self, template: AnyStr) -> AnyStr: ...
 
@@ -521,9 +532,9 @@ class Match(Generic[AnyStr]):
 
 class Pattern(Generic[AnyStr]):
     flags = 0
-    groupindex = ...  # type: Mapping[str, int]
+    groupindex: Mapping[str, int]
     groups = 0
-    pattern = ...  # type: AnyStr
+    pattern: AnyStr
 
     def search(self, string: AnyStr, pos: int = ...,
                endpos: int = ...) -> Optional[Match[AnyStr]]: ...
@@ -566,10 +577,10 @@ def cast(tp: str, obj: Any) -> Any: ...
 
 # NamedTuple is special-cased in the type checker
 class NamedTuple(tuple):
-    _field_types = ...  # type: collections.OrderedDict[str, Type[Any]]
+    _field_types: collections.OrderedDict[str, Type[Any]]
     _field_defaults: Dict[str, Any] = ...
-    _fields = ...  # type: Tuple[str, ...]
-    _source = ...  # type: str
+    _fields: Tuple[str, ...]
+    _source: str
 
     def __init__(self, typename: str, fields: Iterable[Tuple[str, Any]] = ..., *,
                  verbose: bool = ..., rename: bool = ..., **kwargs: Any) -> None: ...
@@ -581,3 +592,6 @@ class NamedTuple(tuple):
     def _replace(self: _T, **kwargs: Any) -> _T: ...
 
 def NewType(name: str, tp: Type[_T]) -> Type[_T]: ...
+
+# This itself is only available during type checking
+def type_check_only(func_or_cls: _C) -> _C: ...

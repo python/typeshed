@@ -2,63 +2,63 @@ from typing import Any, Optional
 from keyword import iskeyword as is_python_keyword
 from jinja2.visitor import NodeVisitor
 
-operators = ...  # type: Any
-dict_item_iter = ...  # type: str
+operators: Any
+dict_item_iter: str
 
-unoptimize_before_dead_code = ...  # type: bool
+unoptimize_before_dead_code: bool
 
 def generate(node, environment, name, filename, stream: Optional[Any] = ..., defer_init: bool = ...): ...
 def has_safe_repr(value): ...
 def find_undeclared(nodes, names): ...
 
 class Identifiers:
-    declared = ...  # type: Any
-    outer_undeclared = ...  # type: Any
-    undeclared = ...  # type: Any
-    declared_locally = ...  # type: Any
-    declared_parameter = ...  # type: Any
+    declared: Any
+    outer_undeclared: Any
+    undeclared: Any
+    declared_locally: Any
+    declared_parameter: Any
     def __init__(self) -> None: ...
     def add_special(self, name): ...
     def is_declared(self, name): ...
     def copy(self): ...
 
 class Frame:
-    eval_ctx = ...  # type: Any
-    identifiers = ...  # type: Any
-    toplevel = ...  # type: bool
-    rootlevel = ...  # type: bool
-    require_output_check = ...  # type: Any
-    buffer = ...  # type: Any
-    block = ...  # type: Any
-    assigned_names = ...  # type: Any
-    parent = ...  # type: Any
+    eval_ctx: Any
+    identifiers: Any
+    toplevel: bool
+    rootlevel: bool
+    require_output_check: Any
+    buffer: Any
+    block: Any
+    assigned_names: Any
+    parent: Any
     def __init__(self, eval_ctx, parent: Optional[Any] = ...) -> None: ...
     def copy(self): ...
     def inspect(self, nodes): ...
     def find_shadowed(self, extra: Any = ...): ...
     def inner(self): ...
     def soft(self): ...
-    __copy__ = ...  # type: Any
+    __copy__: Any
 
 class VisitorExit(RuntimeError): ...
 
 class DependencyFinderVisitor(NodeVisitor):
-    filters = ...  # type: Any
-    tests = ...  # type: Any
+    filters: Any
+    tests: Any
     def __init__(self) -> None: ...
     def visit_Filter(self, node): ...
     def visit_Test(self, node): ...
     def visit_Block(self, node): ...
 
 class UndeclaredNameVisitor(NodeVisitor):
-    names = ...  # type: Any
-    undeclared = ...  # type: Any
+    names: Any
+    undeclared: Any
     def __init__(self, names) -> None: ...
     def visit_Name(self, node): ...
     def visit_Block(self, node): ...
 
 class FrameIdentifierVisitor(NodeVisitor):
-    identifiers = ...  # type: Any
+    identifiers: Any
     def __init__(self, identifiers) -> None: ...
     def visit_Name(self, node): ...
     def visit_If(self, node): ...
@@ -76,20 +76,20 @@ class FrameIdentifierVisitor(NodeVisitor):
 class CompilerExit(Exception): ...
 
 class CodeGenerator(NodeVisitor):
-    environment = ...  # type: Any
-    name = ...  # type: Any
-    filename = ...  # type: Any
-    stream = ...  # type: Any
-    created_block_context = ...  # type: bool
-    defer_init = ...  # type: Any
-    import_aliases = ...  # type: Any
-    blocks = ...  # type: Any
-    extends_so_far = ...  # type: int
-    has_known_extends = ...  # type: bool
-    code_lineno = ...  # type: int
-    tests = ...  # type: Any
-    filters = ...  # type: Any
-    debug_info = ...  # type: Any
+    environment: Any
+    name: Any
+    filename: Any
+    stream: Any
+    created_block_context: bool
+    defer_init: Any
+    import_aliases: Any
+    blocks: Any
+    extends_so_far: int
+    has_known_extends: bool
+    code_lineno: int
+    tests: Any
+    filters: Any
+    debug_info: Any
     def __init__(self, environment, name, filename, stream: Optional[Any] = ..., defer_init: bool = ...) -> None: ...
     def fail(self, msg, lineno): ...
     def temporary_identifier(self): ...
@@ -137,20 +137,20 @@ class CodeGenerator(NodeVisitor):
     def visit_Tuple(self, node, frame): ...
     def visit_List(self, node, frame): ...
     def visit_Dict(self, node, frame): ...
-    def binop(operator, interceptable: bool = ...): ...
-    def uaop(operator, interceptable: bool = ...): ...
-    visit_Add = ...  # type: Any
-    visit_Sub = ...  # type: Any
-    visit_Mul = ...  # type: Any
-    visit_Div = ...  # type: Any
-    visit_FloorDiv = ...  # type: Any
-    visit_Pow = ...  # type: Any
-    visit_Mod = ...  # type: Any
-    visit_And = ...  # type: Any
-    visit_Or = ...  # type: Any
-    visit_Pos = ...  # type: Any
-    visit_Neg = ...  # type: Any
-    visit_Not = ...  # type: Any
+    def binop(self, interceptable: bool = ...): ...
+    def uaop(self, interceptable: bool = ...): ...
+    visit_Add: Any
+    visit_Sub: Any
+    visit_Mul: Any
+    visit_Div: Any
+    visit_FloorDiv: Any
+    visit_Pow: Any
+    visit_Mod: Any
+    visit_And: Any
+    visit_Or: Any
+    visit_Pos: Any
+    visit_Neg: Any
+    visit_Not: Any
     def visit_Concat(self, node, frame): ...
     def visit_Compare(self, node, frame): ...
     def visit_Operand(self, node, frame): ...

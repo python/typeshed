@@ -62,7 +62,7 @@ class _ActionsContainer:
                      choices: Iterable[_T] = ...,
                      required: bool = ...,
                      help: Optional[_Text] = ...,
-                     metavar: Union[_Text, Tuple[_Text, ...]] = ...,
+                     metavar: Optional[Union[_Text, Tuple[_Text, ...]]] = ...,
                      dest: Optional[_Text] = ...,
                      version: _Text = ...,
                      **kwargs: Any) -> Action: ...
@@ -248,7 +248,7 @@ class Action(_AttributeHolder):
     choices: Optional[Iterable[Any]]
     required: bool
     help: Optional[_Text]
-    metavar: Union[_Text, Tuple[_Text, ...]]
+    metavar: Optional[Union[_Text, Tuple[_Text, ...]]]
 
     def __init__(self,
                  option_strings: Sequence[_Text],
@@ -383,6 +383,7 @@ class _SubParsersAction(Action):
     _prog_prefix: _Text
     _parser_class: Type[ArgumentParser]
     _name_parser_map: Dict[_Text, ArgumentParser]
+    choices: Dict[_Text, ArgumentParser]
     _choices_actions: List[Action]
     def __init__(self,
                  option_strings: Sequence[_Text],

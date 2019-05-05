@@ -16,10 +16,10 @@ from typing import (
 
 
 class Version(Message):
-    major = ...  # type: int
-    minor = ...  # type: int
-    patch = ...  # type: int
-    suffix = ...  # type: Text
+    major: int
+    minor: int
+    patch: int
+    suffix: Text
 
     def __init__(self,
                  major: Optional[int] = ...,
@@ -33,8 +33,8 @@ class Version(Message):
 
 
 class CodeGeneratorRequest(Message):
-    file_to_generate = ...  # type: RepeatedScalarFieldContainer[Text]
-    parameter = ...  # type: Text
+    file_to_generate: RepeatedScalarFieldContainer[Text]
+    parameter: Text
 
     @property
     def proto_file(self) -> RepeatedCompositeFieldContainer[FileDescriptorProto]: ...
@@ -56,9 +56,9 @@ class CodeGeneratorRequest(Message):
 class CodeGeneratorResponse(Message):
 
     class File(Message):
-        name = ...  # type: Text
-        insertion_point = ...  # type: Text
-        content = ...  # type: Text
+        name: Text
+        insertion_point: Text
+        content: Text
 
         def __init__(self,
                      name: Optional[Text] = ...,
@@ -68,7 +68,7 @@ class CodeGeneratorResponse(Message):
 
         @classmethod
         def FromString(cls, s: bytes) -> CodeGeneratorResponse.File: ...
-    error = ...  # type: Text
+    error: Text
 
     @property
     def file(self) -> RepeatedCompositeFieldContainer[CodeGeneratorResponse.File]: ...

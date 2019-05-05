@@ -2,6 +2,7 @@
 
 # NOTE: These are incomplete!
 
+from collections import deque
 from typing import Any, TypeVar, Generic, Optional
 
 _T = TypeVar('_T')
@@ -10,7 +11,8 @@ class Empty(Exception): ...
 class Full(Exception): ...
 
 class Queue(Generic[_T]):
-    maxsize = ...  # type: int
+    maxsize: int
+    queue: deque  # undocumented
     def __init__(self, maxsize: int = ...) -> None: ...
     def _init(self, maxsize: int) -> None: ...
     def empty(self) -> bool: ...

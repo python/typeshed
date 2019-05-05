@@ -1,6 +1,6 @@
 from typing import Any, IO
 
-version = ...  # type: int
+version: int
 
 def dump(value: Any, file: IO[Any], version: int = ...) -> None: ...
 def load(file: IO[Any]) -> Any: ...

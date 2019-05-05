@@ -14,7 +14,7 @@ from typing import (
 
 
 class TestAny(Message):
-    int32_value = ...  # type: int
+    int32_value: int
 
     @property
     def any_value(self) -> Any: ...

@@ -14,7 +14,7 @@ from typing import (
 
 
 class FieldMask(Message, well_known_types.FieldMask):
-    paths = ...  # type: RepeatedScalarFieldContainer[Text]
+    paths: RepeatedScalarFieldContainer[Text]
 
     def __init__(self,
                  paths: Optional[Iterable[Text]] = ...,

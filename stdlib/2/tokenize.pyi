@@ -2,113 +2,113 @@
 
 from typing import Any, Callable, Dict, Generator, Iterator, List, Tuple, Union, Iterable
 
-__author__ = ...  # type: str
-__credits__ = ...  # type: str
+__author__: str
+__credits__: str
 
-AMPER = ...  # type: int
-AMPEREQUAL = ...  # type: int
-AT = ...  # type: int
-BACKQUOTE = ...  # type: int
-Binnumber = ...  # type: str
-Bracket = ...  # type: str
-CIRCUMFLEX = ...  # type: int
-CIRCUMFLEXEQUAL = ...  # type: int
-COLON = ...  # type: int
-COMMA = ...  # type: int
-COMMENT = ...  # type: int
-Comment = ...  # type: str
-ContStr = ...  # type: str
-DEDENT = ...  # type: int
-DOT = ...  # type: int
-DOUBLESLASH = ...  # type: int
-DOUBLESLASHEQUAL = ...  # type: int
-DOUBLESTAR = ...  # type: int
-DOUBLESTAREQUAL = ...  # type: int
-Decnumber = ...  # type: str
-Double = ...  # type: str
-Double3 = ...  # type: str
-ENDMARKER = ...  # type: int
-EQEQUAL = ...  # type: int
-EQUAL = ...  # type: int
-ERRORTOKEN = ...  # type: int
-Expfloat = ...  # type: str
-Exponent = ...  # type: str
-Floatnumber = ...  # type: str
-Funny = ...  # type: str
-GREATER = ...  # type: int
-GREATEREQUAL = ...  # type: int
-Hexnumber = ...  # type: str
-INDENT = ...  # type: int
+AMPER: int
+AMPEREQUAL: int
+AT: int
+BACKQUOTE: int
+Binnumber: str
+Bracket: str
+CIRCUMFLEX: int
+CIRCUMFLEXEQUAL: int
+COLON: int
+COMMA: int
+COMMENT: int
+Comment: str
+ContStr: str
+DEDENT: int
+DOT: int
+DOUBLESLASH: int
+DOUBLESLASHEQUAL: int
+DOUBLESTAR: int
+DOUBLESTAREQUAL: int
+Decnumber: str
+Double: str
+Double3: str
+ENDMARKER: int
+EQEQUAL: int
+EQUAL: int
+ERRORTOKEN: int
+Expfloat: str
+Exponent: str
+Floatnumber: str
+Funny: str
+GREATER: int
+GREATEREQUAL: int
+Hexnumber: str
+INDENT: int
 
 def ISEOF(x: int) -> bool: ...
 def ISNONTERMINAL(x: int) -> bool: ...
 def ISTERMINAL(x: int) -> bool: ...
 
-Ignore = ...  # type: str
-Imagnumber = ...  # type: str
-Intnumber = ...  # type: str
-LBRACE = ...  # type: int
-LEFTSHIFT = ...  # type: int
-LEFTSHIFTEQUAL = ...  # type: int
-LESS = ...  # type: int
-LESSEQUAL = ...  # type: int
-LPAR = ...  # type: int
-LSQB = ...  # type: int
-MINEQUAL = ...  # type: int
-MINUS = ...  # type: int
-NAME = ...  # type: int
-NEWLINE = ...  # type: int
-NL = ...  # type: int
-NOTEQUAL = ...  # type: int
-NT_OFFSET = ...  # type: int
-NUMBER = ...  # type: int
-N_TOKENS = ...  # type: int
-Name = ...  # type: str
-Number = ...  # type: str
-OP = ...  # type: int
-Octnumber = ...  # type: str
-Operator = ...  # type: str
-PERCENT = ...  # type: int
-PERCENTEQUAL = ...  # type: int
-PLUS = ...  # type: int
-PLUSEQUAL = ...  # type: int
-PlainToken = ...  # type: str
-Pointfloat = ...  # type: str
-PseudoExtras = ...  # type: str
-PseudoToken = ...  # type: str
-RBRACE = ...  # type: int
-RIGHTSHIFT = ...  # type: int
-RIGHTSHIFTEQUAL = ...  # type: int
-RPAR = ...  # type: int
-RSQB = ...  # type: int
-SEMI = ...  # type: int
-SLASH = ...  # type: int
-SLASHEQUAL = ...  # type: int
-STAR = ...  # type: int
-STAREQUAL = ...  # type: int
-STRING = ...  # type: int
-Single = ...  # type: str
-Single3 = ...  # type: str
-Special = ...  # type: str
-String = ...  # type: str
-TILDE = ...  # type: int
-Token = ...  # type: str
-Triple = ...  # type: str
-VBAR = ...  # type: int
-VBAREQUAL = ...  # type: int
-Whitespace = ...  # type: str
-chain = ...  # type: type
-double3prog = ...  # type: type
-endprogs = ...  # type: Dict[str, Any]
-pseudoprog = ...  # type: type
-single3prog = ...  # type: type
-single_quoted = ...  # type: Dict[str, str]
-t = ...  # type: str
-tabsize = ...  # type: int
-tok_name = ...  # type: Dict[int, str]
-tokenprog = ...  # type: type
-triple_quoted = ...  # type: Dict[str, str]
-x = ...  # type: str
+Ignore: str
+Imagnumber: str
+Intnumber: str
+LBRACE: int
+LEFTSHIFT: int
+LEFTSHIFTEQUAL: int
+LESS: int
+LESSEQUAL: int
+LPAR: int
+LSQB: int
+MINEQUAL: int
+MINUS: int
+NAME: int
+NEWLINE: int
+NL: int
+NOTEQUAL: int
+NT_OFFSET: int
+NUMBER: int
+N_TOKENS: int
+Name: str
+Number: str
+OP: int
+Octnumber: str
+Operator: str
+PERCENT: int
+PERCENTEQUAL: int
+PLUS: int
+PLUSEQUAL: int
+PlainToken: str
+Pointfloat: str
+PseudoExtras: str
+PseudoToken: str
+RBRACE: int
+RIGHTSHIFT: int
+RIGHTSHIFTEQUAL: int
+RPAR: int
+RSQB: int
+SEMI: int
+SLASH: int
+SLASHEQUAL: int
+STAR: int
+STAREQUAL: int
+STRING: int
+Single: str
+Single3: str
+Special: str
+String: str
+TILDE: int
+Token: str
+Triple: str
+VBAR: int
+VBAREQUAL: int
+Whitespace: str
+chain: type
+double3prog: type
+endprogs: Dict[str, Any]
+pseudoprog: type
+single3prog: type
+single_quoted: Dict[str, str]
+t: str
+tabsize: int
+tok_name: Dict[int, str]
+tokenprog: type
+triple_quoted: Dict[str, str]
+x: str
 
 _Pos = Tuple[int, int]
 _TokenType = Tuple[int, str, _Pos, _Pos, str]
@@ -127,9 +127,9 @@ class StopTokenizing(Exception): ...
 class TokenError(Exception): ...
 
 class Untokenizer:
-    prev_col = ...  # type: int
-    prev_row = ...  # type: int
-    tokens = ...  # type: List[str]
+    prev_col: int
+    prev_row: int
+    tokens: List[str]
     def __init__(self) -> None: ...
     def add_whitespace(self, _Pos) -> None: ...
     def compat(self, token: Tuple[int, Any], iterable: Iterator[_TokenType]) -> None: ...

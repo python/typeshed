@@ -1,10 +1,10 @@
-blocksize = ...  # type: int
-digest_size = ...  # type: int
+blocksize: int
+digest_size: int
 
 class MD5Type(object):
-    name = ...  # type: str
-    block_size = ...  # type: int
-    digest_size = ...  # type: int
+    name: str
+    block_size: int
+    digest_size: int
     def copy(self) -> MD5Type: ...
     def digest(self) -> str: ...
     def hexdigest(self) -> str: ...

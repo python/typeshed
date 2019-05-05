@@ -120,38 +120,74 @@ has more information).
 
 ### What to include
 
-Stubs should include all public objects (classes, functions, constants,
-etc.) in the module they cover. Omitting objects can confuse users,
-because users who see an error like "module X has no attribute Y" will
-not know whether the error appeared because their code had a bug or
-because the stub is wrong. If you are submitting stubs to typeshed and
-you are unable to provide fully typed stubs for some of the objects in
-the library, you can use stubgen (see below) to generate untyped stubs.
-Although we prefer having exact types for all stubs, such stubs are
-better than nothing.
+Stubs should include the complete interface (classes, functions,
+constants, etc.) of the module they cover, but it is not always
+clear exactly what is part of the interface.
 
-What counts as a "public object" is not always clear. Use your judgment,
-but objects that are listed in the module's documentation, that are
-included in ``__all__`` (if present), and whose names do not start with an
-underscore are more likely to merit inclusion in a stub. If in doubt, err
-on the side of including more objects.
+The following should always be included:
+- All objects listed in the module's documentation.
+- All objects included in ``__all__`` (if present).
 
-**NEW:** Sometimes it makes sense to include non-public objects
-in a stub.  Mark these with a comment of the form ``# undocumented``.
-See the [motivation](https://github.com/python/typeshed/issues/1902).
+Other objects may be included if they are being used in practice
+or if they are not prefixed with an underscore. This means
+that typeshed will generally accept contributions that add missing
+objects, even if they are undocumented. Undocumented objects should
+be marked with a comment of the form ``# undocumented``.
 Example:
 
 ```python
 def list2cmdline(seq: Sequence[str]) -> str: ...  # undocumented
 ```
 
+We accept such undocumented objects because omitting objects can confuse
+users. Users who see an error like "module X has no attribute Y" will
+not know whether the error appeared because their code had a bug or
+because the stub is wrong. Although it may also be helpful for a type
+checker to point out usage of private objects, we usually prefer false
+negatives (no errors for wrong code) over false positives (type errors
+for correct code). In addition, even for private objects a type checker
+can be helpful in pointing out that an incorrect type was used.
+
+### Incomplete stubs
+
+We accept partial stubs, especially for larger packages. These need to
+follow the following guidelines:
+
+* Included functions and methods must list all arguments, but the arguments
+  can be left unannotated. Do not use `Any` to mark unannotated arguments
+  or return values.
+* Partial classes must include a `__getattr__()` method marked with an
+  `# incomplete` comment (see example below).
+* Partial modules (i.e. modules that are missing some or all classes,
+  functions, or attributes) must include a top-level `__getattr__()`
+  function marked with an `# incomplete` comment (see example below).
+* Partial packages (i.e. packages that are missing one or more sub-modules)
+  must have a `__init__.pyi` stub that is marked as incomplete (see above).
+  A better alternative is to create empty stubs for all sub-modules and
+  mark them as incomplete individually.
+
+Example of a partial module with a partial class `Foo` and a partially
+annotated function `bar()`:
+
+```python
+def __getattr__(name: str) -> Any: ...  # incomplete
+
+class Foo:
+    def __getattr__(self, name: str) -> Any:  # incomplete
+    x: int
+    y: str
+
+def bar(x: str, y, *, z=...): ...
+```
+
 ### Using stubgen
 
-Mypy includes a tool called [stubgen](https://github.com/python/mypy/blob/master/mypy/stubgen.py)
-that you can use as a starting point for your stubs.  Note that this
-generator is currently unable to determine most argument and return
-types and omits them or uses ``Any`` in their place.  Fill out the types
-that you know.
+Mypy includes a tool called [stubgen](https://mypy.readthedocs.io/en/latest/stubgen.html)
+that auto-generates stubs for Python and C modules using static analysis,
+Sphinx docs, and runtime introspection.  It can be used to get a starting
+point for your stubs.  Note that this generator is currently unable to
+determine most argument and return types and omits them or uses ``Any`` in
+their place.  Fill out manually the types that you know.
 
 ### Stub file coding style
 
@@ -201,7 +237,7 @@ rule is that they should be as concise as possible.  Specifically:
 * use variable annotations instead of type comments, even for stubs
   that target older versions of Python;
 * for arguments with a type and a default, use spaces around the `=`.
-The code formatter [black](https://github.com/ambv/black) will format
+The code formatter [black](https://github.com/python/black) will format
 stubs according to this standard.
 
 Stub files should only contain information necessary for the type
@@ -230,9 +266,7 @@ unless:
 
 When adding type hints, avoid using the `Any` type when possible. Reserve
 the use of `Any` for when:
-* the correct type cannot be expressed in the current type system;
-* you are contributing a preliminary set of stubs and are not sure
-  in some cases what the correct types are; and
+* the correct type cannot be expressed in the current type system; and
 * to avoid Union returns (see above).
 
 Note that `Any` is not the correct type to use if you want to indicate

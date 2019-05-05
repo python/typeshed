@@ -8,7 +8,7 @@ from typing import (
 
 
 class SourceContext(Message):
-    file_name = ...  # type: Text
+    file_name: Text
 
     def __init__(self,
                  file_name: Optional[Text] = ...,

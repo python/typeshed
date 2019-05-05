@@ -9,5 +9,5 @@ class weekday(object):
 
     def __repr__(self) -> str: ...
 
-    weekday = ...  # type: int
-    n = ...  # type: int
+    weekday: int
+    n: int

@@ -53,5 +53,5 @@ if sys.version_info < (3, 7):
         def __delattr__(self, attr: str) -> None: ...
 
 class Data:
-    data = ...  # type: bytes
+    data: bytes
     def __init__(self, data: bytes) -> None: ...

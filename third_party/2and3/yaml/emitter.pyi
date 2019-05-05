@@ -4,46 +4,46 @@ from yaml.error import YAMLError
 class EmitterError(YAMLError): ...
 
 class ScalarAnalysis:
-    scalar = ...  # type: Any
-    empty = ...  # type: Any
-    multiline = ...  # type: Any
-    allow_flow_plain = ...  # type: Any
-    allow_block_plain = ...  # type: Any
-    allow_single_quoted = ...  # type: Any
-    allow_double_quoted = ...  # type: Any
-    allow_block = ...  # type: Any
+    scalar: Any
+    empty: Any
+    multiline: Any
+    allow_flow_plain: Any
+    allow_block_plain: Any
+    allow_single_quoted: Any
+    allow_double_quoted: Any
+    allow_block: Any
     def __init__(self, scalar, empty, multiline, allow_flow_plain, allow_block_plain, allow_single_quoted, allow_double_quoted, allow_block) -> None: ...
 
 class Emitter:
-    DEFAULT_TAG_PREFIXES = ...  # type: Any
-    stream = ...  # type: Any
-    encoding = ...  # type: Any
-    states = ...  # type: Any
-    state = ...  # type: Any
-    events = ...  # type: Any
-    event = ...  # type: Any
-    indents = ...  # type: Any
-    indent = ...  # type: Any
-    flow_level = ...  # type: Any
-    root_context = ...  # type: Any
-    sequence_context = ...  # type: Any
-    mapping_context = ...  # type: Any
-    simple_key_context = ...  # type: Any
-    line = ...  # type: Any
-    column = ...  # type: Any
-    whitespace = ...  # type: Any
-    indention = ...  # type: Any
-    open_ended = ...  # type: Any
-    canonical = ...  # type: Any
-    allow_unicode = ...  # type: Any
-    best_indent = ...  # type: Any
-    best_width = ...  # type: Any
-    best_line_break = ...  # type: Any
-    tag_prefixes = ...  # type: Any
-    prepared_anchor = ...  # type: Any
-    prepared_tag = ...  # type: Any
-    analysis = ...  # type: Any
-    style = ...  # type: Any
+    DEFAULT_TAG_PREFIXES: Any
+    stream: Any
+    encoding: Any
+    states: Any
+    state: Any
+    events: Any
+    event: Any
+    indents: Any
+    indent: Any
+    flow_level: Any
+    root_context: Any
+    sequence_context: Any
+    mapping_context: Any
+    simple_key_context: Any
+    line: Any
+    column: Any
+    whitespace: Any
+    indention: Any
+    open_ended: Any
+    canonical: Any
+    allow_unicode: Any
+    best_indent: Any
+    best_width: Any
+    best_line_break: Any
+    tag_prefixes: Any
+    prepared_anchor: Any
+    prepared_tag: Any
+    analysis: Any
+    style: Any
     def __init__(self, stream, canonical=..., indent=..., width=..., allow_unicode=..., line_break=...) -> None: ...
     def dispose(self): ...
     def emit(self, event): ...
@@ -98,7 +98,7 @@ class Emitter:
     def write_version_directive(self, version_text): ...
     def write_tag_directive(self, handle_text, prefix_text): ...
     def write_single_quoted(self, text, split=...): ...
-    ESCAPE_REPLACEMENTS = ...  # type: Any
+    ESCAPE_REPLACEMENTS: Any
     def write_double_quoted(self, text, split=...): ...
     def determine_block_hints(self, text): ...
     def write_folded(self, text): ...

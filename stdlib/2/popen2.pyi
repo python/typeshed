@@ -4,23 +4,23 @@ _T = TypeVar('_T')
 
 
 class Popen3:
-    sts = ...  # type: int
-    cmd = ...  # type: Iterable
-    pid = ...  # type: int
-    tochild = ...  # type: TextIO
-    fromchild = ...  # type: TextIO
-    childerr = ...  # type: Optional[TextIO]
+    sts: int
+    cmd: Iterable
+    pid: int
+    tochild: TextIO
+    fromchild: TextIO
+    childerr: Optional[TextIO]
     def __init__(self, cmd: Iterable = ..., capturestderr: bool = ..., bufsize: int = ...) -> None: ...
     def __del__(self) -> None: ...
     def poll(self, _deadstate: _T = ...) -> Union[int, _T]: ...
     def wait(self) -> int: ...
 
 class Popen4(Popen3):
-    childerr = ...  # type: None
-    cmd = ...  # type: Iterable
-    pid = ...  # type: int
-    tochild = ...  # type: TextIO
-    fromchild = ...  # type: TextIO
+    childerr: None
+    cmd: Iterable
+    pid: int
+    tochild: TextIO
+    fromchild: TextIO
     def __init__(self, cmd: Iterable = ..., bufsize: int = ...) -> None: ...
 
 def popen2(cmd: Iterable = ..., bufsize: int = ..., mode: str = ...) -> Tuple[TextIO, TextIO]: ...

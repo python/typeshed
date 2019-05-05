@@ -1,9 +1,9 @@
 from typing import Any, Optional
 
 class User:
-    type = ...  # type: Any
-    id = ...  # type: Any
-    display_name = ...  # type: Any
+    type: Any
+    id: Any
+    display_name: Any
     def __init__(self, parent: Optional[Any] = ..., id: str = ..., display_name: str = ...) -> None: ...
     def startElement(self, name, attrs, connection): ...
     def endElement(self, name, value, connection): ...

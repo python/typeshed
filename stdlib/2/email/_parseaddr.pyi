@@ -6,15 +6,15 @@ def mktime_tz(data): ...
 def quote(str): ...
 
 class AddrlistClass:
-    specials = ...  # type: Any
-    pos = ...  # type: Any
-    LWS = ...  # type: Any
-    CR = ...  # type: Any
-    FWS = ...  # type: Any
-    atomends = ...  # type: Any
-    phraseends = ...  # type: Any
-    field = ...  # type: Any
-    commentlist = ...  # type: Any
+    specials: Any
+    pos: Any
+    LWS: Any
+    CR: Any
+    FWS: Any
+    atomends: Any
+    phraseends: Any
+    field: Any
+    commentlist: Any
     def __init__(self, field): ...
     def gotonext(self): ...
     def getaddrlist(self): ...
@@ -30,7 +30,7 @@ class AddrlistClass:
     def getphraselist(self): ...
 
 class AddressList(AddrlistClass):
-    addresslist = ...  # type: Any
+    addresslist: Any
     def __init__(self, field): ...
     def __len__(self): ...
     def __add__(self, other): ...

@@ -2,13 +2,17 @@
 
 from typing import List, Optional, Iterator, Any
 
+QP: int  # undocumented
+BASE64: int  # undocumented
+SHORTEST: int  # undocumented
+
 class Charset:
-    input_charset = ...  # type: str
-    header_encoding = ...  # type: int
-    body_encoding = ...  # type: int
-    output_charset = ...  # type: Optional[str]
-    input_codec = ...  # type: Optional[str]
-    output_codec = ...  # type: Optional[str]
+    input_charset: str
+    header_encoding: int
+    body_encoding: int
+    output_charset: Optional[str]
+    input_codec: Optional[str]
+    output_codec: Optional[str]
     def __init__(self, input_charset: str = ...) -> None: ...
     def get_body_encoding(self) -> str: ...
     def get_output_charset(self) -> Optional[str]: ...
@@ -20,7 +24,7 @@ class Charset:
     def __eq__(self, other: Any) -> bool: ...
     def __ne__(self, other: Any) -> bool: ...
 
-def add_charset(charset: Charset, header_enc: Optional[int] = ...,
+def add_charset(charset: str, header_enc: Optional[int] = ...,
                 body_enc: Optional[int] = ...,
                 output_charset: Optional[str] = ...) -> None: ...
 def add_alias(alias: str, canonical: str) -> None: ...

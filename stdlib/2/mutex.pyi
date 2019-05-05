@@ -6,8 +6,8 @@ from typing import Any, Callable, TypeVar
 _ArgType = TypeVar('_ArgType')
 
 class mutex:
-    locked = ...  # type: bool
-    queue = ...  # type: deque
+    locked: bool
+    queue: deque
     def __init__(self) -> None: ...
     def test(self) -> bool: ...
     def testandset(self) -> bool: ...
