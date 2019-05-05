@@ -61,8 +61,8 @@ E_PROTO2_MAP_ENUM_EXTRA: Proto2MapEnumPlusExtra
 class TestEnumMap(Message):
 
     class KnownMapFieldEntry(Message):
-        key = ...  # type: int
-        value = ...  # type: Proto2MapEnum
+        key: int
+        value: Proto2MapEnum
 
         def __init__(self,
                      key: Optional[int] = ...,
@@ -73,8 +73,8 @@ class TestEnumMap(Message):
         def FromString(cls, s: bytes) -> TestEnumMap.KnownMapFieldEntry: ...
 
     class UnknownMapFieldEntry(Message):
-        key = ...  # type: int
-        value = ...  # type: Proto2MapEnum
+        key: int
+        value: Proto2MapEnum
 
         def __init__(self,
                      key: Optional[int] = ...,
@@ -91,8 +91,8 @@ class TestEnumMap(Message):
     def unknown_map_field(self) -> MutableMapping[int, Proto2MapEnum]: ...
 
     def __init__(self,
-                 known_map_field: Optional[Mapping[int, Proto2MapEnum]]=...,
-                 unknown_map_field: Optional[Mapping[int, Proto2MapEnum]]=...,
+                 known_map_field: Optional[Mapping[int, Proto2MapEnum]] = ...,
+                 unknown_map_field: Optional[Mapping[int, Proto2MapEnum]] = ...,
                  ) -> None: ...
 
     @classmethod
@@ -102,8 +102,8 @@ class TestEnumMap(Message):
 class TestEnumMapPlusExtra(Message):
 
     class KnownMapFieldEntry(Message):
-        key = ...  # type: int
-        value = ...  # type: Proto2MapEnumPlusExtra
+        key: int
+        value: Proto2MapEnumPlusExtra
 
         def __init__(self,
                      key: Optional[int] = ...,
@@ -114,8 +114,8 @@ class TestEnumMapPlusExtra(Message):
         def FromString(cls, s: bytes) -> TestEnumMapPlusExtra.KnownMapFieldEntry: ...
 
     class UnknownMapFieldEntry(Message):
-        key = ...  # type: int
-        value = ...  # type: Proto2MapEnumPlusExtra
+        key: int
+        value: Proto2MapEnumPlusExtra
 
         def __init__(self,
                      key: Optional[int] = ...,
@@ -132,8 +132,8 @@ class TestEnumMapPlusExtra(Message):
     def unknown_map_field(self) -> MutableMapping[int, Proto2MapEnumPlusExtra]: ...
 
     def __init__(self,
-                 known_map_field: Optional[Mapping[int, Proto2MapEnumPlusExtra]]=...,
-                 unknown_map_field: Optional[Mapping[int, Proto2MapEnumPlusExtra]]=...,
+                 known_map_field: Optional[Mapping[int, Proto2MapEnumPlusExtra]] = ...,
+                 unknown_map_field: Optional[Mapping[int, Proto2MapEnumPlusExtra]] = ...,
                  ) -> None: ...
 
     @classmethod
@@ -143,8 +143,8 @@ class TestEnumMapPlusExtra(Message):
 class TestImportEnumMap(Message):
 
     class ImportEnumAmpEntry(Message):
-        key = ...  # type: int
-        value = ...  # type: ImportEnumForMap
+        key: int
+        value: ImportEnumForMap
 
         def __init__(self,
                      key: Optional[int] = ...,
@@ -158,7 +158,7 @@ class TestImportEnumMap(Message):
     def import_enum_amp(self) -> MutableMapping[int, ImportEnumForMap]: ...
 
     def __init__(self,
-                 import_enum_amp: Optional[Mapping[int, ImportEnumForMap]]=...,
+                 import_enum_amp: Optional[Mapping[int, ImportEnumForMap]] = ...,
                  ) -> None: ...
 
     @classmethod
@@ -168,8 +168,8 @@ class TestImportEnumMap(Message):
 class TestIntIntMap(Message):
 
     class MEntry(Message):
-        key = ...  # type: int
-        value = ...  # type: int
+        key: int
+        value: int
 
         def __init__(self,
                      key: Optional[int] = ...,
@@ -183,7 +183,7 @@ class TestIntIntMap(Message):
     def m(self) -> MutableMapping[int, int]: ...
 
     def __init__(self,
-                 m: Optional[Mapping[int, int]]=...,
+                 m: Optional[Mapping[int, int]] = ...,
                  ) -> None: ...
 
     @classmethod
@@ -193,7 +193,7 @@ class TestIntIntMap(Message):
 class TestMaps(Message):
 
     class MInt32Entry(Message):
-        key = ...  # type: int
+        key: int
 
         @property
         def value(self) -> TestIntIntMap: ...
@@ -207,7 +207,7 @@ class TestMaps(Message):
         def FromString(cls, s: bytes) -> TestMaps.MInt32Entry: ...
 
     class MInt64Entry(Message):
-        key = ...  # type: int
+        key: int
 
         @property
         def value(self) -> TestIntIntMap: ...
@@ -221,7 +221,7 @@ class TestMaps(Message):
         def FromString(cls, s: bytes) -> TestMaps.MInt64Entry: ...
 
     class MUint32Entry(Message):
-        key = ...  # type: int
+        key: int
 
         @property
         def value(self) -> TestIntIntMap: ...
@@ -235,7 +235,7 @@ class TestMaps(Message):
         def FromString(cls, s: bytes) -> TestMaps.MUint32Entry: ...
 
     class MUint64Entry(Message):
-        key = ...  # type: int
+        key: int
 
         @property
         def value(self) -> TestIntIntMap: ...
@@ -249,7 +249,7 @@ class TestMaps(Message):
         def FromString(cls, s: bytes) -> TestMaps.MUint64Entry: ...
 
     class MSint32Entry(Message):
-        key = ...  # type: int
+        key: int
 
         @property
         def value(self) -> TestIntIntMap: ...
@@ -263,7 +263,7 @@ class TestMaps(Message):
         def FromString(cls, s: bytes) -> TestMaps.MSint32Entry: ...
 
     class MSint64Entry(Message):
-        key = ...  # type: int
+        key: int
 
         @property
         def value(self) -> TestIntIntMap: ...
@@ -277,7 +277,7 @@ class TestMaps(Message):
         def FromString(cls, s: bytes) -> TestMaps.MSint64Entry: ...
 
     class MFixed32Entry(Message):
-        key = ...  # type: int
+        key: int
 
         @property
         def value(self) -> TestIntIntMap: ...
@@ -291,7 +291,7 @@ class TestMaps(Message):
         def FromString(cls, s: bytes) -> TestMaps.MFixed32Entry: ...
 
     class MFixed64Entry(Message):
-        key = ...  # type: int
+        key: int
 
         @property
         def value(self) -> TestIntIntMap: ...
@@ -305,7 +305,7 @@ class TestMaps(Message):
         def FromString(cls, s: bytes) -> TestMaps.MFixed64Entry: ...
 
     class MSfixed32Entry(Message):
-        key = ...  # type: int
+        key: int
 
         @property
         def value(self) -> TestIntIntMap: ...
@@ -319,7 +319,7 @@ class TestMaps(Message):
         def FromString(cls, s: bytes) -> TestMaps.MSfixed32Entry: ...
 
     class MSfixed64Entry(Message):
-        key = ...  # type: int
+        key: int
 
         @property
         def value(self) -> TestIntIntMap: ...
@@ -333,7 +333,7 @@ class TestMaps(Message):
         def FromString(cls, s: bytes) -> TestMaps.MSfixed64Entry: ...
 
     class MBoolEntry(Message):
-        key = ...  # type: bool
+        key: bool
 
         @property
         def value(self) -> TestIntIntMap: ...
@@ -347,7 +347,7 @@ class TestMaps(Message):
         def FromString(cls, s: bytes) -> TestMaps.MBoolEntry: ...
 
     class MStringEntry(Message):
-        key = ...  # type: Text
+        key: Text
 
         @property
         def value(self) -> TestIntIntMap: ...
@@ -397,18 +397,18 @@ class TestMaps(Message):
     def m_string(self) -> MutableMapping[Text, TestIntIntMap]: ...
 
     def __init__(self,
-                 m_int32: Optional[Mapping[int, TestIntIntMap]]=...,
-                 m_int64: Optional[Mapping[int, TestIntIntMap]]=...,
-                 m_uint32: Optional[Mapping[int, TestIntIntMap]]=...,
-                 m_uint64: Optional[Mapping[int, TestIntIntMap]]=...,
-                 m_sint32: Optional[Mapping[int, TestIntIntMap]]=...,
-                 m_sint64: Optional[Mapping[int, TestIntIntMap]]=...,
-                 m_fixed32: Optional[Mapping[int, TestIntIntMap]]=...,
-                 m_fixed64: Optional[Mapping[int, TestIntIntMap]]=...,
-                 m_sfixed32: Optional[Mapping[int, TestIntIntMap]]=...,
-                 m_sfixed64: Optional[Mapping[int, TestIntIntMap]]=...,
-                 m_bool: Optional[Mapping[bool, TestIntIntMap]]=...,
-                 m_string: Optional[Mapping[Text, TestIntIntMap]]=...,
+                 m_int32: Optional[Mapping[int, TestIntIntMap]] = ...,
+                 m_int64: Optional[Mapping[int, TestIntIntMap]] = ...,
+                 m_uint32: Optional[Mapping[int, TestIntIntMap]] = ...,
+                 m_uint64: Optional[Mapping[int, TestIntIntMap]] = ...,
+                 m_sint32: Optional[Mapping[int, TestIntIntMap]] = ...,
+                 m_sint64: Optional[Mapping[int, TestIntIntMap]] = ...,
+                 m_fixed32: Optional[Mapping[int, TestIntIntMap]] = ...,
+                 m_fixed64: Optional[Mapping[int, TestIntIntMap]] = ...,
+                 m_sfixed32: Optional[Mapping[int, TestIntIntMap]] = ...,
+                 m_sfixed64: Optional[Mapping[int, TestIntIntMap]] = ...,
+                 m_bool: Optional[Mapping[bool, TestIntIntMap]] = ...,
+                 m_string: Optional[Mapping[Text, TestIntIntMap]] = ...,
                  ) -> None: ...
 
     @classmethod

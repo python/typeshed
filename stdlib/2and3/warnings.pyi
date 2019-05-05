@@ -22,18 +22,17 @@ def simplefilter(action: str, category: Type[Warning] = ..., lineno: int = ...,
 def resetwarnings() -> None: ...
 
 _Record = NamedTuple('_Record',
-    [('message', str),
-     ('category', Type[Warning]),
-     ('filename', str),
-     ('lineno', int),
-     ('file', Optional[TextIO]),
-     ('line', Optional[str])]
-)
+                     [('message', str),
+                      ('category', Type[Warning]),
+                      ('filename', str),
+                      ('lineno', int),
+                      ('file', Optional[TextIO]),
+                      ('line', Optional[str])])
 
 class catch_warnings:
     def __init__(self, *, record: bool = ...,
                  module: Optional[ModuleType] = ...) -> None: ...
     def __enter__(self) -> Optional[List[_Record]]: ...
     def __exit__(self, exc_type: Optional[Type[BaseException]],
-                 exc_val: Optional[Exception],
+                 exc_val: Optional[BaseException],
                  exc_tb: Optional[TracebackType]) -> bool: ...

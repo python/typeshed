@@ -1,11 +1,11 @@
-from typing import Tuple, IO, Union, AnyStr, Any, overload, Iterator, List, Iterable, Optional
+from typing import Any, AnyStr, IO, Iterable, Iterator, List, Optional, overload, Text, Tuple, Union
 from thread import LockType
 from random import Random
 
-TMP_MAX = ...  # type: int
-tempdir = ...  # type: str
-template = ...  # type: str
-_name_sequence = ...  # type: Optional[_RandomNameSequence]
+TMP_MAX: int
+tempdir: str
+template: str
+_name_sequence: Optional[_RandomNameSequence]
 
 class _RandomNameSequence:
     characters: str = ...
@@ -45,7 +45,7 @@ class _TemporaryFileWrapper(IO[str]):
     def tell(self) -> int: ...
     def truncate(self, size: Optional[int] = ...) -> int: ...
     def writable(self) -> bool: ...
-    def write(self, s: str) -> int: ...
+    def write(self, s: Text) -> int: ...
     def writelines(self, lines: Iterable[str]) -> None: ...
 
 
@@ -81,7 +81,7 @@ def SpooledTemporaryFile(
     ...
 
 class TemporaryDirectory:
-    name = ...  # type: Any  # Can be str or unicode
+    name: Any
     def __init__(self,
                  suffix: Union[bytes, unicode] = ...,
                  prefix: Union[bytes, unicode] = ...,

@@ -1,6 +1,6 @@
 import sys
 from typing import (Any, Container, Generic, Iterable, Iterator, Optional,
-                    overload, SupportsInt, Tuple, TypeVar, Union)
+                    overload, SupportsInt, Tuple, TypeVar)
 
 # Undocumented length constants
 IPV4LENGTH: int
@@ -10,9 +10,9 @@ _A = TypeVar("_A", IPv4Address, IPv6Address)
 _N = TypeVar("_N", IPv4Network, IPv6Network)
 _T = TypeVar("_T")
 
-def ip_address(address: object) -> Union[IPv4Address, IPv6Address]: ...
-def ip_network(address: object, strict: bool = ...) -> Union[IPv4Network, IPv6Network]: ...
-def ip_interface(address: object) -> Union[IPv4Interface, IPv6Interface]: ...
+def ip_address(address: object) -> Any: ...  # morally Union[IPv4Address, IPv6Address]
+def ip_network(address: object, strict: bool = ...) -> Any: ...  # morally Union[IPv4Network, IPv6Network]
+def ip_interface(address: object) -> Any: ...  # morally Union[IPv4Interface, IPv6Interface]
 
 class _IPAddressBase:
     def __eq__(self, other: Any) -> bool: ...
@@ -97,6 +97,8 @@ class _BaseNetwork(_IPAddressBase, Container, Iterable[_A], Generic[_A]):
     def with_netmask(self) -> str: ...
     @property
     def with_prefixlen(self) -> str: ...
+    @property
+    def hostmask(self) -> _A: ...
 
 class _BaseInterface(_BaseAddress, Generic[_A, _N]):
     hostmask: _A

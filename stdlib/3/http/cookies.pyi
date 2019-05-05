@@ -8,9 +8,9 @@ _T = TypeVar('_T')
 class CookieError(Exception): ...
 
 class Morsel(Dict[str, str], Generic[_T]):
-    value = ...  # type: str
-    coded_value = ...  # type: _T
-    key = ...  # type: str
+    value: str
+    coded_value: _T
+    key: str
     def set(self, key: str, val: str, coded_val: _T) -> None: ...
     def isReservedKey(self, K: str) -> bool: ...
     def output(self, attrs: Optional[List[str]] = ...,

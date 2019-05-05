@@ -2,15 +2,15 @@ from typing import TypeVar, Generic, Any, Iterable, Iterator, Callable, Tuple, O
 from types import TracebackType
 import sys
 
-FIRST_COMPLETED = ...  # type: str
-FIRST_EXCEPTION = ...  # type: str
-ALL_COMPLETED = ...  # type: str
-PENDING = ...  # type: Any
-RUNNING = ...  # type: Any
-CANCELLED = ...  # type: Any
-CANCELLED_AND_NOTIFIED = ...  # type: Any
-FINISHED = ...  # type: Any
-LOGGER = ...  # type: Any
+FIRST_COMPLETED: str
+FIRST_EXCEPTION: str
+ALL_COMPLETED: str
+PENDING: Any
+RUNNING: Any
+CANCELLED: Any
+CANCELLED_AND_NOTIFIED: Any
+FINISHED: Any
+LOGGER: Any
 
 class Error(Exception): ...
 class CancelledError(Error): ...
@@ -42,7 +42,8 @@ class Future(Generic[_T]):
 class Executor:
     def submit(self, fn: Callable[..., _T], *args: Any, **kwargs: Any) -> Future[_T]: ...
     if sys.version_info >= (3, 5):
-        def map(self, func: Callable[..., _T], *iterables: Iterable[Any], timeout: Optional[float] = ..., chunksize: int = ...) -> Iterator[_T]: ...
+        def map(self, func: Callable[..., _T], *iterables: Iterable[Any], timeout: Optional[float] = ...,
+                chunksize: int = ...) -> Iterator[_T]: ...
     else:
         def map(self, func: Callable[..., _T], *iterables: Iterable[Any], timeout: Optional[float] = ...,) -> Iterator[_T]: ...
     def shutdown(self, wait: bool = ...) -> None: ...
@@ -51,4 +52,5 @@ class Executor:
 
 def as_completed(fs: Iterable[Future[_T]], timeout: Optional[float] = ...) -> Iterator[Future[_T]]: ...
 
-def wait(fs: Iterable[Future[_T]], timeout: Optional[float] = ..., return_when: str = ...) -> Tuple[Set[Future[_T]], Set[Future[_T]]]: ...
+def wait(fs: Iterable[Future[_T]], timeout: Optional[float] = ..., return_when: str = ...) -> Tuple[Set[Future[_T]],
+                                                                                                    Set[Future[_T]]]: ...

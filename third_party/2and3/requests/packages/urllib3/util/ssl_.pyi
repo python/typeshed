@@ -6,11 +6,11 @@ SSLError = exceptions.SSLError
 InsecurePlatformWarning = exceptions.InsecurePlatformWarning
 SSLContext = ssl.SSLContext
 
-HAS_SNI = ...  # type: Any
-create_default_context = ...  # type: Any
-OP_NO_SSLv2 = ...  # type: Any
-OP_NO_SSLv3 = ...  # type: Any
-OP_NO_COMPRESSION = ...  # type: Any
+HAS_SNI: Any
+create_default_context: Any
+OP_NO_SSLv2: Any
+OP_NO_SSLv3: Any
+OP_NO_COMPRESSION: Any
 
 def assert_fingerprint(cert, fingerprint): ...
 def resolve_cert_reqs(candidate): ...

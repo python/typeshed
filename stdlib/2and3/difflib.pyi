@@ -12,7 +12,7 @@ if sys.version_info >= (3,):
     _StrType = Text
 else:
     # Aliases can't point to type vars, so we need to redeclare AnyStr
-    _StrType = TypeVar('_StrType', str, bytes)
+    _StrType = TypeVar('_StrType', Text, bytes)
 
 _JunkCallback = Union[Callable[[Text], bool], Callable[[str], bool]]
 
@@ -51,7 +51,7 @@ def IS_CHARACTER_JUNK(line: _StrType) -> bool: ...
 def unified_diff(a: Sequence[_StrType], b: Sequence[_StrType], fromfile: _StrType = ...,
                  tofile: _StrType = ..., fromfiledate: _StrType = ..., tofiledate: _StrType = ...,
                  n: int = ..., lineterm: _StrType = ...) -> Iterator[_StrType]: ...
-def context_diff(a: Sequence[_StrType], b: Sequence[_StrType], fromfile: _StrType =...,
+def context_diff(a: Sequence[_StrType], b: Sequence[_StrType], fromfile: _StrType = ...,
                  tofile: _StrType = ..., fromfiledate: _StrType = ..., tofiledate: _StrType = ...,
                  n: int = ..., lineterm: _StrType = ...) -> Iterator[_StrType]: ...
 def ndiff(a: Sequence[_StrType], b: Sequence[_StrType],

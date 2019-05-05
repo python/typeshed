@@ -2,7 +2,7 @@
 
 from typing import (
     Any, Callable, Generator, IO, Iterable, Iterator, Optional, Type,
-    Generic, TypeVar
+    Generic, TypeVar, overload
 )
 from types import TracebackType
 import sys
@@ -91,3 +91,9 @@ if sys.version_info >= (3, 7):
         def pop_all(self: _S) -> _S: ...
         def aclose(self) -> Awaitable[None]: ...
         def __aenter__(self: _S) -> Awaitable[_S]: ...
+
+if sys.version_info >= (3, 7):
+    @overload
+    def nullcontext(enter_result: _T) -> ContextManager[_T]: ...
+    @overload
+    def nullcontext() -> ContextManager[None]: ...

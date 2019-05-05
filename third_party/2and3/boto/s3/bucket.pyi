@@ -5,26 +5,26 @@ from .key import Key
 from typing import Any, Dict, Optional, Text, Type, List
 
 class S3WebsiteEndpointTranslate:
-    trans_region = ...  # type: Dict[str, str]
+    trans_region: Dict[str, str]
     @classmethod
     def translate_region(self, reg: Text) -> str: ...
 
-S3Permissions = ...  # type: List[str]
+S3Permissions: List[str]
 
 class Bucket:
-    LoggingGroup = ...  # type: str
-    BucketPaymentBody = ...  # type: str
-    VersioningBody = ...  # type: str
-    VersionRE = ...  # type: str
-    MFADeleteRE = ...  # type: str
-    name = ...  # type: Text
-    connection = ...  # type: S3Connection
-    key_class = ...  # type: Type[Key]
+    LoggingGroup: str
+    BucketPaymentBody: str
+    VersioningBody: str
+    VersionRE: str
+    MFADeleteRE: str
+    name: Text
+    connection: S3Connection
+    key_class: Type[Key]
     def __init__(self, connection: Optional[S3Connection] = ..., name: Optional[Text] = ..., key_class: Type[Key] = ...) -> None: ...
     def __iter__(self): ...
     def __contains__(self, key_name) -> bool: ...
     def startElement(self, name, attrs, connection): ...
-    creation_date = ...  # type: Any
+    creation_date: Any
     def endElement(self, name, value, connection): ...
     def set_key_class(self, key_class): ...
     def lookup(self, key_name, headers: Optional[Dict[Text, Text]] = ...): ...

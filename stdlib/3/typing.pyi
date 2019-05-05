@@ -65,6 +65,7 @@ _KT_co = TypeVar('_KT_co', covariant=True)  # Key type covariant containers.
 _VT_co = TypeVar('_VT_co', covariant=True)  # Value type covariant containers.
 _T_contra = TypeVar('_T_contra', contravariant=True)  # Ditto contravariant.
 _TC = TypeVar('_TC', bound=Type[object])
+_C = TypeVar("_C", bound=Callable)
 
 def runtime(cls: _TC) -> _TC: ...
 
@@ -95,8 +96,12 @@ class SupportsAbs(Protocol[_T_co]):
 
 @runtime
 class SupportsRound(Protocol[_T_co]):
+    @overload
     @abstractmethod
-    def __round__(self, ndigits: int = ...) -> _T_co: ...
+    def __round__(self) -> int: ...
+    @overload
+    @abstractmethod
+    def __round__(self, ndigits: int) -> _T_co: ...
 
 @runtime
 class Reversible(Protocol[_T_co]):
@@ -163,6 +168,15 @@ class Awaitable(Protocol[_T_co]):
     def __await__(self) -> Generator[Any, None, _T_co]: ...
 
 class Coroutine(Awaitable[_V_co], Generic[_T_co, _T_contra, _V_co]):
+    @property
+    def cr_await(self) -> Optional[Any]: ...
+    @property
+    def cr_code(self) -> CodeType: ...
+    @property
+    def cr_frame(self) -> FrameType: ...
+    @property
+    def cr_running(self) -> bool: ...
+
     @abstractmethod
     def send(self, value: _T_contra) -> _T_co: ...
 
@@ -175,7 +189,7 @@ class Coroutine(Awaitable[_V_co], Generic[_T_co, _T_contra, _V_co]):
 
 
 # NOTE: This type does not exist in typing.py or PEP 484.
-# The parameters corrrespond to Generator, but the 4th is the original type.
+# The parameters correspond to Generator, but the 4th is the original type.
 class AwaitableGenerator(Awaitable[_V_co], Generator[_T_co, _T_contra, _V_co],
                          Generic[_T_co, _T_contra, _V_co, _S], metaclass=ABCMeta): ...
 
@@ -204,7 +218,7 @@ if sys.version_info >= (3, 6):
                    tb: Any = ...) -> Awaitable[_T_co]: ...
 
         @abstractmethod
-        def aclose(self) -> Awaitable[_T_co]: ...
+        def aclose(self) -> Awaitable[None]: ...
 
         @abstractmethod
         def __aiter__(self) -> AsyncGenerator[_T_co, _T_contra]: ...
@@ -221,16 +235,23 @@ if sys.version_info >= (3, 6):
 @runtime
 class Container(Protocol[_T_co]):
     @abstractmethod
-    def __contains__(self, x: object) -> bool: ...
+    def __contains__(self, __x: object) -> bool: ...
 
 
 if sys.version_info >= (3, 6):
     @runtime
-    class Collection(Sized, Iterable[_T_co], Container[_T_co], Protocol[_T_co]): ...
+    class Collection(Iterable[_T_co], Container[_T_co], Protocol[_T_co]):
+        # Implement Sized (but don't have it as a base class).
+        @abstractmethod
+        def __len__(self) -> int: ...
+
     _Collection = Collection
 else:
     @runtime
-    class _Collection(Sized, Iterable[_T_co], Container[_T_co], Protocol[_T_co]): ...
+    class _Collection(Iterable[_T_co], Container[_T_co], Protocol[_T_co]):
+        # Implement Sized (but don't have it as a base class).
+        @abstractmethod
+        def __len__(self) -> int: ...
 
 class Sequence(_Collection[_T_co], Reversible[_T_co], Generic[_T_co]):
     @overload
@@ -252,6 +273,12 @@ class Sequence(_Collection[_T_co], Reversible[_T_co], Generic[_T_co]):
 class MutableSequence(Sequence[_T], Generic[_T]):
     @abstractmethod
     def insert(self, index: int, object: _T) -> None: ...
+    @overload
+    @abstractmethod
+    def __getitem__(self, i: int) -> _T: ...
+    @overload
+    @abstractmethod
+    def __getitem__(self, s: slice) -> MutableSequence[_T]: ...
     @overload
     @abstractmethod
     def __setitem__(self, i: int, o: _T) -> None: ...
@@ -302,16 +329,22 @@ class MutableSet(AbstractSet[_T], Generic[_T]):
     def __ixor__(self, s: AbstractSet[_S]) -> MutableSet[Union[_T, _S]]: ...
     def __isub__(self, s: AbstractSet[Any]) -> MutableSet[_T]: ...
 
-class MappingView(Sized):
+class MappingView:
     def __len__(self) -> int: ...
 
-class ItemsView(AbstractSet[Tuple[_KT_co, _VT_co]], MappingView, Generic[_KT_co, _VT_co]):
+class ItemsView(MappingView, AbstractSet[Tuple[_KT_co, _VT_co]], Generic[_KT_co, _VT_co]):
+    def __and__(self, o: Iterable[_T]) -> AbstractSet[Union[Tuple[_KT_co, _VT_co], _T]]: ...
     def __contains__(self, o: object) -> bool: ...
     def __iter__(self) -> Iterator[Tuple[_KT_co, _VT_co]]: ...
+    def __or__(self, o: Iterable[_T]) -> AbstractSet[Union[Tuple[_KT_co, _VT_co], _T]]: ...
+    def __xor__(self, o: Iterable[_T]) -> AbstractSet[Union[Tuple[_KT_co, _VT_co], _T]]: ...
 
-class KeysView(AbstractSet[_KT_co], MappingView, Generic[_KT_co]):
+class KeysView(MappingView, AbstractSet[_KT_co], Generic[_KT_co]):
+    def __and__(self, o: Iterable[_T]) -> AbstractSet[Union[_KT_co, _T]]: ...
     def __contains__(self, o: object) -> bool: ...
     def __iter__(self) -> Iterator[_KT_co]: ...
+    def __or__(self, o: Iterable[_T]) -> AbstractSet[Union[_KT_co, _T]]: ...
+    def __xor__(self, o: Iterable[_T]) -> AbstractSet[Union[_KT_co, _T]]: ...
 
 class ValuesView(MappingView, Iterable[_VT_co], Generic[_VT_co]):
     def __contains__(self, o: object) -> bool: ...
@@ -469,12 +502,12 @@ class Match(Generic[AnyStr]):
     pos = 0
     endpos = 0
     lastindex = 0
-    lastgroup = ...  # type: AnyStr
-    string = ...  # type: AnyStr
+    lastgroup: AnyStr
+    string: AnyStr
 
     # The regular expression object whose match() or search() method produced
     # this match instance.
-    re = ...  # type: Pattern[AnyStr]
+    re: Pattern[AnyStr]
 
     def expand(self, template: AnyStr) -> AnyStr: ...
 
@@ -499,9 +532,9 @@ class Match(Generic[AnyStr]):
 
 class Pattern(Generic[AnyStr]):
     flags = 0
-    groupindex = ...  # type: Mapping[str, int]
+    groupindex: Mapping[str, int]
     groups = 0
-    pattern = ...  # type: AnyStr
+    pattern: AnyStr
 
     def search(self, string: AnyStr, pos: int = ...,
                endpos: int = ...) -> Optional[Match[AnyStr]]: ...
@@ -544,10 +577,10 @@ def cast(tp: str, obj: Any) -> Any: ...
 
 # NamedTuple is special-cased in the type checker
 class NamedTuple(tuple):
-    _field_types = ...  # type: collections.OrderedDict[str, Type[Any]]
+    _field_types: collections.OrderedDict[str, Type[Any]]
     _field_defaults: Dict[str, Any] = ...
-    _fields = ...  # type: Tuple[str, ...]
-    _source = ...  # type: str
+    _fields: Tuple[str, ...]
+    _source: str
 
     def __init__(self, typename: str, fields: Iterable[Tuple[str, Any]] = ..., *,
                  verbose: bool = ..., rename: bool = ..., **kwargs: Any) -> None: ...
@@ -559,3 +592,6 @@ class NamedTuple(tuple):
     def _replace(self: _T, **kwargs: Any) -> _T: ...
 
 def NewType(name: str, tp: Type[_T]) -> Type[_T]: ...
+
+# This itself is only available during type checking
+def type_check_only(func_or_cls: _C) -> _C: ...

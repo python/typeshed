@@ -1,7 +1,7 @@
 # Stubs for uuid
 
 import sys
-from typing import Tuple, Optional, Any
+from typing import Tuple, Optional, Any, Text
 
 # Because UUID has properties called int and bytes we need to rename these temporarily.
 _Int = int
@@ -9,7 +9,8 @@ _Bytes = bytes
 _FieldsType = Tuple[int, int, int, int, int, int]
 
 class UUID:
-    def __init__(self, hex: Optional[str] = ..., bytes: Optional[_Bytes] = ...,
+    def __init__(self, hex: Optional[Text] = ...,
+                 bytes: Optional[_Bytes] = ...,
                  bytes_le: Optional[_Bytes] = ...,
                  fields: Optional[_FieldsType] = ...,
                  int: Optional[_Int] = ...,
@@ -79,11 +80,11 @@ def uuid3(namespace: UUID, name: str) -> UUID: ...
 def uuid4() -> UUID: ...
 def uuid5(namespace: UUID, name: str) -> UUID: ...
 
-NAMESPACE_DNS = ...  # type: UUID
-NAMESPACE_URL = ...  # type: UUID
-NAMESPACE_OID = ...  # type: UUID
-NAMESPACE_X500 = ...  # type: UUID
-RESERVED_NCS = ...  # type: str
-RFC_4122 = ...  # type: str
-RESERVED_MICROSOFT = ...  # type: str
-RESERVED_FUTURE = ...  # type: str
+NAMESPACE_DNS: UUID
+NAMESPACE_URL: UUID
+NAMESPACE_OID: UUID
+NAMESPACE_X500: UUID
+RESERVED_NCS: str
+RFC_4122: str
+RESERVED_MICROSOFT: str
+RESERVED_FUTURE: str

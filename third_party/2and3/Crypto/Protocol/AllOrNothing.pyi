@@ -1,6 +1,6 @@
 from typing import Any, Optional
 
-__revision__ = ...  # type: str
+__revision__: str
 
 def isInt(x): ...
 

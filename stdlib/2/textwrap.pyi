@@ -36,30 +36,26 @@ class TextWrapper(object):
     def wrap(self, text: AnyStr) -> List[AnyStr]: ...
     def fill(self, text: AnyStr) -> AnyStr: ...
 
-def wrap(
-        text: AnyStr,
-        width: int = ...,
-        initial_indent: AnyStr = ...,
-        subsequent_indent: AnyStr = ...,
-        expand_tabs: bool = ...,
-        replace_whitespace: bool = ...,
-        fix_sentence_endings: bool = ...,
-        break_long_words: bool = ...,
-        drop_whitespace: bool = ...,
-        break_on_hyphens: bool = ...) -> List[AnyStr]:
-    ...
+def wrap(text: AnyStr,
+         width: int = ...,
+         initial_indent: AnyStr = ...,
+         subsequent_indent: AnyStr = ...,
+         expand_tabs: bool = ...,
+         replace_whitespace: bool = ...,
+         fix_sentence_endings: bool = ...,
+         break_long_words: bool = ...,
+         drop_whitespace: bool = ...,
+         break_on_hyphens: bool = ...) -> List[AnyStr]: ...
 
-def fill(
-        text: AnyStr,
-        width: int =...,
-        initial_indent: AnyStr = ...,
-        subsequent_indent: AnyStr = ...,
-        expand_tabs: bool = ...,
-        replace_whitespace: bool = ...,
-        fix_sentence_endings: bool = ...,
-        break_long_words: bool = ...,
-        drop_whitespace: bool = ...,
-        break_on_hyphens: bool = ...) -> AnyStr:
-    ...
+def fill(text: AnyStr,
+         width: int = ...,
+         initial_indent: AnyStr = ...,
+         subsequent_indent: AnyStr = ...,
+         expand_tabs: bool = ...,
+         replace_whitespace: bool = ...,
+         fix_sentence_endings: bool = ...,
+         break_long_words: bool = ...,
+         drop_whitespace: bool = ...,
+         break_on_hyphens: bool = ...) -> AnyStr: ...
 
 def dedent(text: AnyStr) -> AnyStr: ...

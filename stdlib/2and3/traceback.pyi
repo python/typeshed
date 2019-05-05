@@ -1,6 +1,6 @@
 # Stubs for traceback
 
-from typing import Any, Dict, Generator, IO, Iterator, List, Mapping, Optional, Tuple, Type, Iterable
+from typing import Any, Dict, Generator, IO, Iterator, List, Mapping, Optional, Protocol, Tuple, Type, Iterable
 from types import FrameType, TracebackType
 import sys
 
@@ -36,6 +36,10 @@ if sys.version_info >= (3, 5):
     def extract_stack(f: Optional[FrameType] = ...,
                       limit: Optional[int] = ...) -> StackSummary: ...
     def format_list(extracted_list: List[FrameSummary]) -> List[str]: ...
+    class _Writer(Protocol):
+        def write(self, s: str) -> Any: ...
+    # undocumented
+    def print_list(extracted_list: List[FrameSummary], file: Optional[_Writer] = ...) -> None: ...
 else:
     def extract_tb(tb: Optional[TracebackType], limit: Optional[int] = ...) -> List[_PT]: ...
     def extract_stack(f: Optional[FrameType] = ...,
@@ -70,14 +74,14 @@ if sys.version_info >= (3, 5):
     class TracebackException:
         __cause__ = ...  # type:TracebackException
         __context__ = ...  # type:TracebackException
-        __suppress_context__ = ...  # type: bool
-        stack = ...  # type: StackSummary
-        exc_type = ...  # type: Type[BaseException]
-        filename = ...  # type: str
-        lineno = ...  # type: int
-        text = ...  # type: str
-        offset = ...  # type: int
-        msg = ...  # type: str
+        __suppress_context__: bool
+        stack: StackSummary
+        exc_type: Type[BaseException]
+        filename: str
+        lineno: int
+        text: str
+        offset: int
+        msg: str
         def __init__(self, exc_type: Type[BaseException],
                      exc_value: BaseException, exc_traceback: TracebackType,
                      *, limit: Optional[int] = ..., lookup_lines: bool = ...,
@@ -90,8 +94,6 @@ if sys.version_info >= (3, 5):
         def format(self, *, chain: bool = ...) -> Generator[str, None, None]: ...
         def format_exception_only(self) -> Generator[str, None, None]: ...
 
-
-if sys.version_info >= (3, 5):
     class FrameSummary(Iterable):
         filename: str
         lineno: int
@@ -101,7 +103,7 @@ if sys.version_info >= (3, 5):
         def __init__(self, filename: str, lineno: int, name: str,
                      lookup_line: bool = ...,
                      locals: Optional[Mapping[str, str]] = ...,
-                     line: Optional[int] = ...) -> None: ...
+                     line: Optional[str] = ...) -> None: ...
         # TODO: more precise typing for __getitem__ and __iter__,
         # for a namedtuple-like view on (filename, lineno, name, str).
         def __getitem__(self, i: int) -> Any: ...

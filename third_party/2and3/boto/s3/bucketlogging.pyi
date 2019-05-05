@@ -1,9 +1,9 @@
 from typing import Any, Optional
 
 class BucketLogging:
-    target = ...  # type: Any
-    prefix = ...  # type: Any
-    grants = ...  # type: Any
+    target: Any
+    prefix: Any
+    grants: Any
     def __init__(self, target: Optional[Any] = ..., prefix: Optional[Any] = ..., grants: Optional[Any] = ...) -> None: ...
     def add_grant(self, grant): ...
     def startElement(self, name, attrs, connection): ...

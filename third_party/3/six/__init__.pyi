@@ -14,6 +14,7 @@ from typing import (
     NoReturn,
     Optional,
     Pattern,
+    Text,
     Tuple,
     Type,
     TypeVar,
@@ -39,7 +40,7 @@ _V = TypeVar('_V')
 # https://github.com/python/typeshed/issues/17
 PY2 = False
 PY3 = True
-PY34 = ...  # type: bool
+PY34: bool
 
 string_types = str,
 integer_types = int,
@@ -47,7 +48,7 @@ class_types = type,
 text_type = str
 binary_type = bytes
 
-MAXSIZE = ...  # type: int
+MAXSIZE: int
 
 # def add_move
 # def remove_move
@@ -95,10 +96,13 @@ def assertRegex(self: unittest.TestCase, text: AnyStr, expected_regex: Union[Any
 exec_ = exec
 
 def reraise(tp: Optional[Type[BaseException]], value: Optional[BaseException], tb: Optional[types.TracebackType] = ...) -> NoReturn: ...
-def raise_from(value: BaseException, from_value: Optional[BaseException]) -> NoReturn: ...
+def raise_from(value: Union[BaseException, Type[BaseException]], from_value: Optional[BaseException]) -> NoReturn: ...
 
 print_ = print
 
 def with_metaclass(meta: type, *bases: type) -> type: ...
 def add_metaclass(metaclass: type) -> Callable[[_T], _T]: ...
+def ensure_binary(s: Union[bytes, Text], encoding: str = ..., errors: str = ...) -> bytes: ...
+def ensure_str(s: Union[bytes, Text], encoding: str = ..., errors: str = ...) -> str: ...
+def ensure_text(s: Union[bytes, Text], encoding: str = ..., errors: str = ...) -> Text: ...
 def python_2_unicode_compatible(klass: _T) -> _T: ...

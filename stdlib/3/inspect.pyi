@@ -192,8 +192,8 @@ def getargs(co: CodeType) -> Arguments: ...
 def getargspec(func: object) -> ArgSpec: ...
 
 FullArgSpec = NamedTuple('FullArgSpec', [('args', List[str]),
-                                         ('varargs', str),
-                                         ('varkw', str),
+                                         ('varargs', Optional[str]),
+                                         ('varkw', Optional[str]),
                                          ('defaults', tuple),
                                          ('kwonlyargs', List[str]),
                                          ('kwonlydefaults', Dict[str, Any]),
@@ -251,7 +251,7 @@ def getclosurevars(func: Callable[..., Any]) -> ClosureVars: ...
 
 def unwrap(func: Callable[..., Any],
            *,
-           stop: Callable[[Any], Any]) -> Any: ...
+           stop: Optional[Callable[[Any], Any]] = ...) -> Any: ...
 
 
 #

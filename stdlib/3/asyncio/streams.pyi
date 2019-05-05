@@ -12,12 +12,12 @@ _ClientConnectedCallback = Callable[[StreamReader, StreamWriter], Optional[Await
 __all__: List[str]
 
 class IncompleteReadError(EOFError):
-    expected = ...  # type: Optional[int]
-    partial = ...  # type: bytes
+    expected: Optional[int]
+    partial: bytes
     def __init__(self, partial: bytes, expected: Optional[int]) -> None: ...
 
 class LimitOverrunError(Exception):
-    consumed = ...  # type: int
+    consumed: int
     def __init__(self, message: str, consumed: int) -> None: ...
 
 @coroutines.coroutine
@@ -42,9 +42,15 @@ def start_server(
 ) -> Generator[Any, None, events.AbstractServer]: ...
 
 if sys.platform != 'win32':
+    if sys.version_info >= (3, 7):
+        from os import PathLike
+        _PathType = Union[str, PathLike[str]]
+    else:
+        _PathType = str
+
     @coroutines.coroutine
     def open_unix_connection(
-        path: str = ...,
+        path: _PathType = ...,
         *,
         loop: Optional[events.AbstractEventLoop] = ...,
         limit: int = ...,
@@ -54,7 +60,7 @@ if sys.platform != 'win32':
     @coroutines.coroutine
     def start_unix_server(
         client_connected_cb: _ClientConnectedCallback,
-        path: str = ...,
+        path: _PathType = ...,
         *,
         loop: Optional[events.AbstractEventLoop] = ...,
         limit: int = ...,
@@ -64,20 +70,20 @@ class FlowControlMixin(protocols.Protocol): ...
 
 class StreamReaderProtocol(FlowControlMixin, protocols.Protocol):
     def __init__(self,
-            stream_reader: StreamReader,
-            client_connected_cb: _ClientConnectedCallback = ...,
-            loop: Optional[events.AbstractEventLoop] = ...) -> None: ...
+                 stream_reader: StreamReader,
+                 client_connected_cb: _ClientConnectedCallback = ...,
+                 loop: Optional[events.AbstractEventLoop] = ...) -> None: ...
     def connection_made(self, transport: transports.BaseTransport) -> None: ...
-    def connection_lost(self, exc: Exception) -> None: ...
+    def connection_lost(self, exc: Optional[Exception]) -> None: ...
     def data_received(self, data: bytes) -> None: ...
     def eof_received(self) -> bool: ...
 
 class StreamWriter:
     def __init__(self,
-            transport: transports.BaseTransport,
-            protocol: protocols.BaseProtocol,
-            reader: StreamReader,
-            loop: events.AbstractEventLoop) -> None: ...
+                 transport: transports.BaseTransport,
+                 protocol: protocols.BaseProtocol,
+                 reader: Optional[StreamReader],
+                 loop: events.AbstractEventLoop) -> None: ...
     @property
     def transport(self) -> transports.BaseTransport: ...
     def write(self, data: bytes) -> None: ...
@@ -85,14 +91,18 @@ class StreamWriter:
     def write_eof(self) -> None: ...
     def can_write_eof(self) -> bool: ...
     def close(self) -> None: ...
+    if sys.version_info >= (3, 7):
+        def is_closing(self) -> bool: ...
+        @coroutines.coroutine
+        def wait_closed(self) -> None: ...
     def get_extra_info(self, name: str, default: Any = ...) -> Any: ...
     @coroutines.coroutine
     def drain(self) -> Generator[Any, None, None]: ...
 
 class StreamReader:
     def __init__(self,
-            limit: int = ...,
-            loop: Optional[events.AbstractEventLoop] = ...) -> None: ...
+                 limit: int = ...,
+                 loop: Optional[events.AbstractEventLoop] = ...) -> None: ...
     def exception(self) -> Exception: ...
     def set_exception(self, exc: Exception) -> None: ...
     def set_transport(self, transport: transports.BaseTransport) -> None: ...

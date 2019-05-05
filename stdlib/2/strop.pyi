@@ -2,9 +2,9 @@
 
 from typing import List, Sequence
 
-lowercase = ...  # type: str
-uppercase = ...  # type: str
-whitespace = ...  # type: str
+lowercase: str
+uppercase: str
+whitespace: str
 
 def atof(a: str) -> float:
     raise DeprecationWarning()

@@ -4,21 +4,21 @@ from .connections import Connection
 Gen = Union[Tuple[Any, ...], Dict[str, Any]]
 
 class Cursor:
-    connection = ...  # type: Connection
-    description = ...  # type: Tuple[Text, ...]
-    rownumber = ...  # type: int
-    rowcount = ...  # type: int
-    arraysize = ...  # type: int
-    messages = ...  # type: Any
-    errorhandler = ...  # type: Any
-    lastrowid = ...  # type: int
+    connection: Connection
+    description: Tuple[Text, ...]
+    rownumber: int
+    rowcount: int
+    arraysize: int
+    messages: Any
+    errorhandler: Any
+    lastrowid: int
     def __init__(self, connection: Connection) -> None: ...
     def __del__(self) -> None: ...
     def close(self) -> None: ...
     def setinputsizes(self, *args): ...
     def setoutputsizes(self, *args): ...
     def nextset(self): ...
-    def execute(self, query: str, args=None) -> int: ...
+    def execute(self, query: str, args: Optional[Any] = ...) -> int: ...
     def executemany(self, query: str, args) -> int: ...
     def callproc(self, procname, args=...): ...
     def fetchone(self) -> Optional[Gen]: ...
@@ -33,7 +33,7 @@ class DictCursor(Cursor):
     def fetchall(self) -> Optional[Tuple[Dict[str, Any], ...]]: ...
 
 class DictCursorMixin:
-    dict_type = ...  # type: Any
+    dict_type: Any
 
 class SSCursor(Cursor):
     # fetchall return type is incompatible with the supertype.

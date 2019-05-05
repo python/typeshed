@@ -29,7 +29,7 @@ class TestMessageSetContainer(Message):
 
 
 class TestMessageSetExtension1(Message):
-    i = ...  # type: int
+    i: int
 
     def __init__(self,
                  i: Optional[int] = ...,
@@ -40,7 +40,7 @@ class TestMessageSetExtension1(Message):
 
 
 class TestMessageSetExtension2(Message):
-    str = ...  # type: Text
+    str: Text
 
     def __init__(self,
                  bytes: Optional[Text] = ...,
@@ -53,8 +53,8 @@ class TestMessageSetExtension2(Message):
 class RawMessageSet(Message):
 
     class Item(Message):
-        type_id = ...  # type: int
-        message = ...  # type: bytes
+        type_id: int
+        message: bytes
 
         def __init__(self,
                      type_id: int,

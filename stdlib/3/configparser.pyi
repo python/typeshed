@@ -18,7 +18,9 @@ _converter = Callable[[str], Any]
 _converters = Dict[str, _converter]
 _T = TypeVar('_T')
 
-if sys.version_info >= (3, 6):
+if sys.version_info >= (3, 7):
+    _Path = Union[str, bytes, PathLike[str]]
+elif sys.version_info >= (3, 6):
     _Path = Union[str, PathLike[str]]
 else:
     _Path = str
@@ -92,40 +94,36 @@ class RawConfigParser(_parser):
 
     def read(self, filenames: Union[_Path, Iterable[_Path]],
              encoding: Optional[str] = ...) -> List[str]: ...
-
-    def readfp(self, fp: IO[str], filename: Optional[str] = ...) -> None: ...
-
     def read_file(self, f: Iterable[str], source: Optional[str] = ...) -> None: ...
-
     def read_string(self, string: str, source: str = ...) -> None: ...
-
     def read_dict(self, dictionary: Mapping[str, Mapping[str, Any]],
                   source: str = ...) -> None: ...
+    def readfp(self, fp: Iterable[str], filename: Optional[str] = ...) -> None: ...
 
     # These get* methods are partially applied (with the same names) in
     # SectionProxy; the stubs should be kept updated together
-    def getint(self, section: str, option: str, *, raw: bool = ..., vars: _section = ..., fallback: int = ...) -> int: ...
+    def getint(self, section: str, option: str, *, raw: bool = ..., vars: Optional[_section] = ..., fallback: int = ...) -> int: ...
 
-    def getfloat(self, section: str, option: str, *, raw: bool = ..., vars: _section = ..., fallback: float = ...) -> float: ...
+    def getfloat(self, section: str, option: str, *, raw: bool = ..., vars: Optional[_section] = ..., fallback: float = ...) -> float: ...
 
-    def getboolean(self, section: str, option: str, *, raw: bool = ..., vars: _section = ..., fallback: bool = ...) -> bool: ...
+    def getboolean(self, section: str, option: str, *, raw: bool = ..., vars: Optional[_section] = ..., fallback: bool = ...) -> bool: ...
 
-    def _get_conv(self, section: str, option: str, conv: Callable[[str], _T], *, raw: bool = ..., vars: _section = ..., fallback: _T = ...) -> _T: ...
+    def _get_conv(self, section: str, option: str, conv: Callable[[str], _T], *, raw: bool = ..., vars: Optional[_section] = ..., fallback: _T = ...) -> _T: ...
 
     # This is incompatible with MutableMapping so we ignore the type
     @overload
-    def get(self, section: str, option: str, *, raw: bool = ..., vars: _section = ...) -> str:  # type: ignore
+    def get(self, section: str, option: str, *, raw: bool = ..., vars: Optional[_section] = ...) -> str:  # type: ignore
         ...
 
     @overload
-    def get(self, section: str, option: str, *, raw: bool = ..., vars: _section = ..., fallback: _T = ...) -> Union[str, _T]:  # type: ignore
+    def get(self, section: str, option: str, *, raw: bool = ..., vars: Optional[_section] = ..., fallback: _T = ...) -> Union[str, _T]:  # type: ignore
         ...
 
     @overload
-    def items(self, *, raw: bool = ..., vars: _section = ...) -> AbstractSet[Tuple[str, SectionProxy]]: ...
+    def items(self, *, raw: bool = ..., vars: Optional[_section] = ...) -> AbstractSet[Tuple[str, SectionProxy]]: ...
 
     @overload
-    def items(self, section: str, raw: bool = ..., vars: _section = ...) -> List[Tuple[str, str]]: ...
+    def items(self, section: str, raw: bool = ..., vars: Optional[_section] = ...) -> List[Tuple[str, str]]: ...
 
     def set(self, section: str, option: str, value: str) -> None: ...
 
@@ -143,7 +141,7 @@ class RawConfigParser(_parser):
 class ConfigParser(RawConfigParser):
     def __init__(self,
                  defaults: Optional[_section] = ...,
-                 dict_type: Mapping[str, str] = ...,
+                 dict_type: Type[Mapping[str, str]] = ...,
                  allow_no_value: bool = ...,
                  delimiters: Sequence[str] = ...,
                  comment_prefixes: Sequence[str] = ...,
@@ -172,9 +170,9 @@ class SectionProxy(MutableMapping[str, str]):
 
     # These are partially-applied version of the methods with the same names in
     # RawConfigParser; the stubs should be kept updated together
-    def getint(self, option: str, *, raw: bool = ..., vars: _section = ..., fallback: int = ...) -> int: ...
-    def getfloat(self, option: str, *, raw: bool = ..., vars: _section = ..., fallback: float = ...) -> float: ...
-    def getboolean(self, option: str, *, raw: bool = ..., vars: _section = ..., fallback: bool = ...) -> bool: ...
+    def getint(self, option: str, *, raw: bool = ..., vars: Optional[_section] = ..., fallback: int = ...) -> int: ...
+    def getfloat(self, option: str, *, raw: bool = ..., vars: Optional[_section] = ..., fallback: float = ...) -> float: ...
+    def getboolean(self, option: str, *, raw: bool = ..., vars: Optional[_section] = ..., fallback: bool = ...) -> bool: ...
 
     # SectionProxy can have arbitrary attributes when custon converters are used
     def __getattr__(self, key: str) -> Callable[..., Any]: ...
@@ -196,43 +194,43 @@ class NoSectionError(Error): ...
 
 
 class DuplicateSectionError(Error):
-    section = ...  # type: str
-    source = ...   # type: Optional[str]
-    lineno = ...   # type: Optional[int]
+    section: str
+    source: Optional[str]
+    lineno: Optional[int]
 
 
 class DuplicateOptionError(Error):
-    section = ...  # type: str
-    option = ...   # type: str
-    source = ...   # type: Optional[str]
-    lineno = ...   # type: Optional[int]
+    section: str
+    option: str
+    source: Optional[str]
+    lineno: Optional[int]
 
 
 class NoOptionError(Error):
-    section = ...  # type: str
-    option = ...   # type: str
+    section: str
+    option: str
 
 
 class InterpolationError(Error):
-    section = ...  # type: str
-    option = ...   # type: str
+    section: str
+    option: str
 
 
 class InterpolationDepthError(InterpolationError): ...
 
 
 class InterpolationMissingOptionError(InterpolationError):
-    reference = ...  # type: str
+    reference: str
 
 
 class InterpolationSyntaxError(InterpolationError): ...
 
 
 class ParsingError(Error):
-    source = ...  # type: str
-    errors = ...  # type: Sequence[Tuple[int, str]]
+    source: str
+    errors: Sequence[Tuple[int, str]]
 
 
 class MissingSectionHeaderError(ParsingError):
-    lineno = ...  # type: int
-    line = ...    # type: str
+    lineno: int
+    line: str

@@ -63,6 +63,7 @@ _KT_co = TypeVar('_KT_co', covariant=True)  # Key type covariant containers.
 _VT_co = TypeVar('_VT_co', covariant=True)  # Value type covariant containers.
 _T_contra = TypeVar('_T_contra', contravariant=True)  # Ditto contravariant.
 _TC = TypeVar('_TC', bound=Type[object])
+_C = TypeVar("_C", bound=Callable)
 
 def runtime(cls: _TC) -> _TC: ...
 
@@ -85,11 +86,6 @@ class SupportsComplex(Protocol, metaclass=ABCMeta):
 class SupportsAbs(Protocol[_T_co]):
     @abstractmethod
     def __abs__(self) -> _T_co: ...
-
-@runtime
-class SupportsRound(Protocol[_T_co]):
-    @abstractmethod
-    def __round__(self, ndigits: int = ...) -> _T_co: ...
 
 @runtime
 class Reversible(Protocol[_T_co]):
@@ -144,7 +140,7 @@ class Container(Protocol[_T_co]):
     @abstractmethod
     def __contains__(self, x: object) -> bool: ...
 
-class Sequence(Iterable[_T_co], Container[_T_co], Sized, Reversible[_T_co], Generic[_T_co]):
+class Sequence(Iterable[_T_co], Container[_T_co], Reversible[_T_co], Generic[_T_co]):
     @overload
     @abstractmethod
     def __getitem__(self, i: int) -> _T_co: ...
@@ -157,10 +153,19 @@ class Sequence(Iterable[_T_co], Container[_T_co], Sized, Reversible[_T_co], Gene
     def __contains__(self, x: object) -> bool: ...
     def __iter__(self) -> Iterator[_T_co]: ...
     def __reversed__(self) -> Iterator[_T_co]: ...
+    # Implement Sized (but don't have it as a base class).
+    @abstractmethod
+    def __len__(self) -> int: ...
 
 class MutableSequence(Sequence[_T], Generic[_T]):
     @abstractmethod
     def insert(self, index: int, object: _T) -> None: ...
+    @overload
+    @abstractmethod
+    def __getitem__(self, i: int) -> _T: ...
+    @overload
+    @abstractmethod
+    def __getitem__(self, s: slice) -> MutableSequence[_T]: ...
     @overload
     @abstractmethod
     def __setitem__(self, i: int, o: _T) -> None: ...
@@ -181,7 +186,7 @@ class MutableSequence(Sequence[_T], Generic[_T]):
     def remove(self, object: _T) -> None: ...
     def __iadd__(self, x: Iterable[_T]) -> MutableSequence[_T]: ...
 
-class AbstractSet(Sized, Iterable[_T_co], Container[_T_co], Generic[_T_co]):
+class AbstractSet(Iterable[_T_co], Container[_T_co], Generic[_T_co]):
     @abstractmethod
     def __contains__(self, x: object) -> bool: ...
     # Mixin methods
@@ -195,6 +200,10 @@ class AbstractSet(Sized, Iterable[_T_co], Container[_T_co], Generic[_T_co]):
     def __xor__(self, s: AbstractSet[_T]) -> AbstractSet[Union[_T_co, _T]]: ...
     # TODO: argument can be any container?
     def isdisjoint(self, s: AbstractSet[Any]) -> bool: ...
+    # Implement Sized (but don't have it as a base class).
+    @abstractmethod
+    def __len__(self) -> int: ...
+
 
 class MutableSet(AbstractSet[_T], Generic[_T]):
     @abstractmethod
@@ -210,14 +219,14 @@ class MutableSet(AbstractSet[_T], Generic[_T]):
     def __ixor__(self, s: AbstractSet[_S]) -> MutableSet[Union[_T, _S]]: ...
     def __isub__(self, s: AbstractSet[Any]) -> MutableSet[_T]: ...
 
-class MappingView(Sized):
+class MappingView(object):
     def __len__(self) -> int: ...
 
-class ItemsView(AbstractSet[Tuple[_KT_co, _VT_co]], MappingView, Generic[_KT_co, _VT_co]):
+class ItemsView(MappingView, AbstractSet[Tuple[_KT_co, _VT_co]], Generic[_KT_co, _VT_co]):
     def __contains__(self, o: object) -> bool: ...
     def __iter__(self) -> Iterator[Tuple[_KT_co, _VT_co]]: ...
 
-class KeysView(AbstractSet[_KT_co], MappingView, Generic[_KT_co]):
+class KeysView(MappingView, AbstractSet[_KT_co], Generic[_KT_co]):
     def __contains__(self, o: object) -> bool: ...
     def __iter__(self) -> Iterator[_KT_co]: ...
 
@@ -232,7 +241,7 @@ class ContextManager(Protocol[_T_co]):
                  exc_value: Optional[BaseException],
                  traceback: Optional[TracebackType]) -> Optional[bool]: ...
 
-class Mapping(Iterable[_KT], Container[_KT], Sized, Generic[_KT, _VT_co]):
+class Mapping(Iterable[_KT], Container[_KT], Generic[_KT, _VT_co]):
     # TODO: We wish the key type could also be covariant, but that doesn't work,
     # see discussion in https: //github.com/python/typing/pull/273.
     @abstractmethod
@@ -250,6 +259,9 @@ class Mapping(Iterable[_KT], Container[_KT], Sized, Generic[_KT, _VT_co]):
     def itervalues(self) -> Iterator[_VT_co]: ...
     def iteritems(self) -> Iterator[Tuple[_KT, _VT_co]]: ...
     def __contains__(self, o: object) -> bool: ...
+    # Implement Sized (but don't have it as a base class).
+    @abstractmethod
+    def __len__(self) -> int: ...
 
 class MutableMapping(Mapping[_KT, _VT], Generic[_KT, _VT]):
     @abstractmethod
@@ -352,17 +364,23 @@ class TextIO(IO[unicode]):
 class ByteString(Sequence[int], metaclass=ABCMeta): ...
 
 class Match(Generic[AnyStr]):
-    pos = 0
-    endpos = 0
-    lastindex = 0
-    lastgroup = ...  # type: AnyStr
-    string = ...  # type: AnyStr
+    pos: int
+    endpos: int
+    lastindex: Optional[int]
+    string: AnyStr
 
     # The regular expression object whose match() or search() method produced
-    # this match instance.
-    re = ...  # type: Pattern[AnyStr]
+    # this match instance. This should not be Pattern[AnyStr] because the type
+    # of the pattern is independent of the type of the matched string in
+    # Python 2. Strictly speaking Match should be generic over AnyStr twice:
+    # once for the type of the pattern and once for the type of the matched
+    # string.
+    re: Pattern[Any]
+    # Can be None if there are no groups or if the last group was unnamed;
+    # otherwise matches the type of the pattern.
+    lastgroup: Optional[Any]
 
-    def expand(self, template: AnyStr) -> AnyStr: ...
+    def expand(self, template: Union[str, Text]) -> Any: ...
 
     @overload
     def group(self, group1: int = ...) -> AnyStr: ...
@@ -370,46 +388,54 @@ class Match(Generic[AnyStr]):
     def group(self, group1: str) -> AnyStr: ...
     @overload
     def group(self, group1: int, group2: int,
-              *groups: int) -> Sequence[AnyStr]: ...
+              *groups: int) -> Tuple[AnyStr, ...]: ...
     @overload
     def group(self, group1: str, group2: str,
-              *groups: str) -> Sequence[AnyStr]: ...
+              *groups: str) -> Tuple[AnyStr, ...]: ...
 
-    def groups(self, default: AnyStr = ...) -> Sequence[AnyStr]: ...
-    def groupdict(self, default: AnyStr = ...) -> dict[str, AnyStr]: ...
+    def groups(self, default: AnyStr = ...) -> Tuple[AnyStr, ...]: ...
+    def groupdict(self, default: AnyStr = ...) -> Dict[str, AnyStr]: ...
     def start(self, group: Union[int, str] = ...) -> int: ...
     def end(self, group: Union[int, str] = ...) -> int: ...
     def span(self, group: Union[int, str] = ...) -> Tuple[int, int]: ...
 
+# We need a second TypeVar with the same definition as AnyStr, because
+# Pattern is generic over AnyStr (determining the type of its .pattern
+# attribute), but at the same time its methods take either bytes or
+# Text and return the same type, regardless of the type of the pattern.
+_AnyStr2 = TypeVar('_AnyStr2', bytes, Text)
+
 class Pattern(Generic[AnyStr]):
-    flags = 0
-    groupindex = 0
-    groups = 0
-    pattern = ...  # type: AnyStr
+    flags: int
+    groupindex: Dict[AnyStr, int]
+    groups: int
+    pattern: AnyStr
 
-    def search(self, string: AnyStr, pos: int = ...,
-               endpos: int = ...) -> Optional[Match[AnyStr]]: ...
-    def match(self, string: AnyStr, pos: int = ...,
-              endpos: int = ...) -> Optional[Match[AnyStr]]: ...
-    def split(self, string: AnyStr, maxsplit: int = ...) -> list[AnyStr]: ...
-    def findall(self, string: AnyStr, pos: int = ...,
-                endpos: int = ...) -> list[Any]: ...
-    def finditer(self, string: AnyStr, pos: int = ...,
-                 endpos: int = ...) -> Iterator[Match[AnyStr]]: ...
-
-    @overload
-    def sub(self, repl: AnyStr, string: AnyStr,
-            count: int = ...) -> AnyStr: ...
-    @overload
-    def sub(self, repl: Callable[[Match[AnyStr]], AnyStr], string: AnyStr,
-            count: int = ...) -> AnyStr: ...
+    def search(self, string: _AnyStr2, pos: int = ...,
+               endpos: int = ...) -> Optional[Match[_AnyStr2]]: ...
+    def match(self, string: _AnyStr2, pos: int = ...,
+              endpos: int = ...) -> Optional[Match[_AnyStr2]]: ...
+    def split(self, string: _AnyStr2, maxsplit: int = ...) -> List[_AnyStr2]: ...
+    # Returns either a list of _AnyStr2 or a list of tuples, depending on
+    # whether there are groups in the pattern.
+    def findall(self, string: Union[bytes, Text], pos: int = ...,
+                endpos: int = ...) -> List[Any]: ...
+    def finditer(self, string: _AnyStr2, pos: int = ...,
+                 endpos: int = ...) -> Iterator[Match[_AnyStr2]]: ...
 
     @overload
-    def subn(self, repl: AnyStr, string: AnyStr,
-             count: int = ...) -> Tuple[AnyStr, int]: ...
+    def sub(self, repl: _AnyStr2, string: _AnyStr2,
+            count: int = ...) -> _AnyStr2: ...
     @overload
-    def subn(self, repl: Callable[[Match[AnyStr]], AnyStr], string: AnyStr,
-             count: int = ...) -> Tuple[AnyStr, int]: ...
+    def sub(self, repl: Callable[[Match[_AnyStr2]], _AnyStr2], string: _AnyStr2,
+            count: int = ...) -> _AnyStr2: ...
+
+    @overload
+    def subn(self, repl: _AnyStr2, string: _AnyStr2,
+             count: int = ...) -> Tuple[_AnyStr2, int]: ...
+    @overload
+    def subn(self, repl: Callable[[Match[_AnyStr2]], _AnyStr2], string: _AnyStr2,
+             count: int = ...) -> Tuple[_AnyStr2, int]: ...
 
 # Functions
 
@@ -425,9 +451,9 @@ def cast(tp: str, obj: Any) -> Any: ...
 
 # NamedTuple is special-cased in the type checker
 class NamedTuple(tuple):
-    _fields = ...  # type: Tuple[str, ...]
+    _fields: Tuple[str, ...]
 
-    def __init__(self, typename: str, fields: Iterable[Tuple[str, Any]] = ..., *,
+    def __init__(self, typename: Text, fields: Iterable[Tuple[Text, Any]] = ..., *,
                  verbose: bool = ..., rename: bool = ..., **kwargs: Any) -> None: ...
 
     @classmethod
@@ -437,3 +463,6 @@ class NamedTuple(tuple):
     def _replace(self: _T, **kwargs: Any) -> _T: ...
 
 def NewType(name: str, tp: Type[_T]) -> Type[_T]: ...
+
+# This itself is only available during type checking
+def type_check_only(func_or_cls: _C) -> _C: ...

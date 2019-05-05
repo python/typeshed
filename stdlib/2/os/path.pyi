@@ -2,7 +2,7 @@
 # Stubs for os.path
 # Ron Murawski <ron@horizonchess.com>
 
-from posix import stat_result
+import os
 import sys
 from typing import (
     overload, List, Any, AnyStr, Sequence, Tuple, BinaryIO, TextIO,
@@ -27,7 +27,10 @@ supports_unicode_filenames: bool
 curdir: str
 pardir: str
 sep: str
-altsep: str
+if sys.platform == 'win32':
+    altsep: str
+else:
+    altsep: Optional[str]
 extsep: str
 pathsep: str
 defpath: str
@@ -100,7 +103,10 @@ elif sys.version_info >= (3, 5):
 # So, fall back to Any
 def commonprefix(list: Sequence[_PathType]) -> Any: ...
 
-def exists(path: _PathType) -> bool: ...
+if sys.version_info >= (3, 3):
+    def exists(path: Union[_PathType, int]) -> bool: ...
+else:
+    def exists(path: _PathType) -> bool: ...
 def lexists(path: _PathType) -> bool: ...
 
 # These return float if os.stat_float_times() == True,
@@ -134,20 +140,20 @@ if sys.version_info < (3, 0):
 elif sys.version_info >= (3, 6):
     # Mypy complains that the signatures overlap (same for relpath below), but things seem to behave correctly anyway.
     @overload
-    def join(path: _StrPath, *paths: _StrPath) -> Text: ...  # type: ignore
+    def join(path: _StrPath, *paths: _StrPath) -> Text: ...
     @overload
     def join(path: _BytesPath, *paths: _BytesPath) -> bytes: ...
 else:
     def join(path: AnyStr, *paths: AnyStr) -> AnyStr: ...
 
 @overload
-def relpath(path: _BytesPath, start: Optional[_BytesPath] = ...) -> bytes: ...  # type: ignore
+def relpath(path: _BytesPath, start: Optional[_BytesPath] = ...) -> bytes: ...
 @overload
 def relpath(path: _StrPath, start: Optional[_StrPath] = ...) -> Text: ...
 
 def samefile(path1: _PathType, path2: _PathType) -> bool: ...
 def sameopenfile(fp1: int, fp2: int) -> bool: ...
-def samestat(stat1: stat_result, stat2: stat_result) -> bool: ...
+def samestat(stat1: os.stat_result, stat2: os.stat_result) -> bool: ...
 
 if sys.version_info >= (3, 6):
     @overload

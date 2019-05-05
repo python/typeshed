@@ -1,18 +1,18 @@
 # Stubs for timeit (Python 2 and 3)
 
 import sys
-from typing import Any, Callable, Dict, IO, List, Optional, Text, Tuple, Union
+from typing import Any, Callable, Dict, IO, List, Optional, Sequence, Text, Tuple, Union
 
 _str = Union[str, Text]
 _Timer = Callable[[], float]
 _stmt = Union[_str, Callable[[], Any]]
 
-default_timer = ...  # type: _Timer
+default_timer: _Timer
 
 class Timer:
     if sys.version_info >= (3, 5):
         def __init__(self, stmt: _stmt = ..., setup: _stmt = ..., timer: _Timer = ...,
-                     globals: Optional[Dict[str, Any]] =...) -> None: ...
+                     globals: Optional[Dict[str, Any]] = ...) -> None: ...
     else:
         def __init__(self, stmt: _stmt = ..., setup: _stmt = ..., timer: _Timer = ...) -> None: ...
     def print_exc(self, file: Optional[IO[str]] = ...) -> None: ...
@@ -23,11 +23,12 @@ class Timer:
 
 if sys.version_info >= (3, 5):
     def timeit(stmt: _stmt = ..., setup: _stmt = ..., timer: _Timer = ...,
-               number: int = ..., globals: Optional[Dict[str, Any]] =...) -> float: ...
+               number: int = ..., globals: Optional[Dict[str, Any]] = ...) -> float: ...
     def repeat(stmt: _stmt = ..., setup: _stmt = ..., timer: _Timer = ...,
-               repeat: int = ..., number: int = ..., globals: Optional[Dict[str, Any]] =...) -> List[float]: ...
+               repeat: int = ..., number: int = ..., globals: Optional[Dict[str, Any]] = ...) -> List[float]: ...
 else:
     def timeit(stmt: _stmt = ..., setup: _stmt = ..., timer: _Timer = ...,
                number: int = ...) -> float: ...
     def repeat(stmt: _stmt = ..., setup: _stmt = ..., timer: _Timer = ...,
                repeat: int = ..., number: int = ...) -> List[float]: ...
+def main(args: Optional[Sequence[str]]) -> None: ...

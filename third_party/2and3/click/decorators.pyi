@@ -1,5 +1,5 @@
 from distutils.version import Version
-from typing import Any, Callable, Dict, List, Optional, Type, TypeVar, Union, Text
+from typing import Any, Callable, Dict, List, Optional, Type, TypeVar, Union, Text, overload
 
 from click.core import Command, Group, Argument, Option, Parameter, Context, _ConvertibleType
 
@@ -10,7 +10,7 @@ _F = TypeVar('_F', bound=Callable[..., Any])
 # _Decorator = Callable[[_F], _F]
 
 _Callback = Callable[
-    [Context, Union[Option, Parameter], Union[bool, int, str]],
+    [Context, Union[Option, Parameter], Any],
     Any
 ]
 
@@ -41,6 +41,8 @@ def command(
     short_help: Optional[str] = ...,
     options_metavar: str = ...,
     add_help_option: bool = ...,
+    hidden: bool = ...,
+    deprecated: bool = ...,
 ) -> Callable[[Callable], Command]:
     ...
 
@@ -64,6 +66,8 @@ def group(
     short_help: Optional[str] = ...,
     options_metavar: str = ...,
     add_help_option: bool = ...,
+    hidden: bool = ...,
+    deprecated: bool = ...,
     # User-defined
     **kwargs: Any,
 ) -> Callable[[Callable], Group]:
@@ -88,6 +92,7 @@ def argument(
     ...
 
 
+@overload
 def option(
     *param_decls: str,
     cls: Type[Option] = ...,
@@ -107,6 +112,99 @@ def option(
     default: Optional[Any] = ...,
     required: bool = ...,
     callback: Optional[_Callback] = ...,
+    nargs: Optional[int] = ...,
+    metavar: Optional[str] = ...,
+    expose_value: bool = ...,
+    is_eager: bool = ...,
+    envvar: Optional[Union[str, List[str]]] = ...,
+    # User-defined
+    **kwargs: Any,
+) -> Callable[[_F], _F]:
+    ...
+
+
+@overload
+def option(
+    *param_decls: str,
+    cls: Type[Option] = ...,
+    # Option
+    show_default: bool = ...,
+    prompt: Union[bool, Text] = ...,
+    confirmation_prompt: bool = ...,
+    hide_input: bool = ...,
+    is_flag: Optional[bool] = ...,
+    flag_value: Optional[Any] = ...,
+    multiple: bool = ...,
+    count: bool = ...,
+    allow_from_autoenv: bool = ...,
+    type: _T = ...,
+    help: Optional[str] = ...,
+    # Parameter
+    default: Optional[Any] = ...,
+    required: bool = ...,
+    callback: Optional[Callable[[Context, Union[Option, Parameter], Union[bool, int, str]], _T]] = ...,
+    nargs: Optional[int] = ...,
+    metavar: Optional[str] = ...,
+    expose_value: bool = ...,
+    is_eager: bool = ...,
+    envvar: Optional[Union[str, List[str]]] = ...,
+    # User-defined
+    **kwargs: Any,
+) -> Callable[[_F], _F]:
+    ...
+
+
+@overload
+def option(
+    *param_decls: str,
+    cls: Type[Option] = ...,
+    # Option
+    show_default: bool = ...,
+    prompt: Union[bool, Text] = ...,
+    confirmation_prompt: bool = ...,
+    hide_input: bool = ...,
+    is_flag: Optional[bool] = ...,
+    flag_value: Optional[Any] = ...,
+    multiple: bool = ...,
+    count: bool = ...,
+    allow_from_autoenv: bool = ...,
+    type: Type[str] = ...,
+    help: Optional[str] = ...,
+    # Parameter
+    default: Optional[Any] = ...,
+    required: bool = ...,
+    callback: Callable[[Context, Union[Option, Parameter], str], Any] = ...,
+    nargs: Optional[int] = ...,
+    metavar: Optional[str] = ...,
+    expose_value: bool = ...,
+    is_eager: bool = ...,
+    envvar: Optional[Union[str, List[str]]] = ...,
+    # User-defined
+    **kwargs: Any,
+) -> Callable[[_F], _F]:
+    ...
+
+
+@overload
+def option(
+    *param_decls: str,
+    cls: Type[Option] = ...,
+    # Option
+    show_default: bool = ...,
+    prompt: Union[bool, Text] = ...,
+    confirmation_prompt: bool = ...,
+    hide_input: bool = ...,
+    is_flag: Optional[bool] = ...,
+    flag_value: Optional[Any] = ...,
+    multiple: bool = ...,
+    count: bool = ...,
+    allow_from_autoenv: bool = ...,
+    type: Type[int] = ...,
+    help: Optional[str] = ...,
+    # Parameter
+    default: Optional[Any] = ...,
+    required: bool = ...,
+    callback: Callable[[Context, Union[Option, Parameter], int], Any] = ...,
     nargs: Optional[int] = ...,
     metavar: Optional[str] = ...,
     expose_value: bool = ...,

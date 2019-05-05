@@ -22,13 +22,13 @@ from _io import UnsupportedOperation as UnsupportedOperation
 from _io import open as open
 
 def _OpenWrapper(file: Union[str, unicode, int],
-         mode: unicode = ..., buffering: int = ..., encoding: unicode = ...,
-         errors: unicode = ..., newline: unicode = ...,
-         closefd: bool = ...) -> IO[Any]: ...
+                 mode: unicode = ..., buffering: int = ..., encoding: unicode = ...,
+                 errors: unicode = ..., newline: unicode = ...,
+                 closefd: bool = ...) -> IO[Any]: ...
 
-SEEK_SET = ...  # type: int
-SEEK_CUR = ...  # type: int
-SEEK_END = ...  # type: int
+SEEK_SET: int
+SEEK_CUR: int
+SEEK_END: int
 
 
 class IOBase(_io._IOBase): ...

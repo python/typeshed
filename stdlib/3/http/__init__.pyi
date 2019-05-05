@@ -7,8 +7,8 @@ if sys.version_info >= (3, 5):
 
         def __init__(self, *a) -> None: ...
 
-        phrase = ...  # type: str
-        description = ...  # type: str
+        phrase: str
+        description: str
 
         CONTINUE = ...
         SWITCHING_PROTOCOLS = ...

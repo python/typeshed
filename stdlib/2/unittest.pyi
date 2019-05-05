@@ -25,15 +25,15 @@ class Testable(metaclass=ABCMeta):
 # TODO ABC for test runners?
 
 class TestResult:
-    errors = ...  # type: List[Tuple[Testable, str]]
-    failures = ...  # type: List[Tuple[Testable, str]]
-    skipped = ...  # type: List[Tuple[Testable, str]]
-    expectedFailures = ...  # type: List[Tuple[Testable, str]]
-    unexpectedSuccesses = ...  # type: List[Testable]
-    shouldStop = ...  # type: bool
-    testsRun = ...  # type: int
-    buffer = ...  # type: bool
-    failfast = ...  # type: bool
+    errors: List[Tuple[Testable, str]]
+    failures: List[Tuple[Testable, str]]
+    skipped: List[Tuple[Testable, str]]
+    expectedFailures: List[Tuple[Testable, str]]
+    unexpectedSuccesses: List[Testable]
+    shouldStop: bool
+    testsRun: int
+    buffer: bool
+    failfast: bool
 
     def wasSuccessful(self) -> bool: ...
     def stop(self) -> None: ...
@@ -41,30 +41,30 @@ class TestResult:
     def stopTest(self, test: Testable) -> None: ...
     def startTestRun(self) -> None: ...
     def stopTestRun(self) -> None: ...
-    def addError(self, test: Testable,
-                  err: Tuple[type, Any, Any]) -> None: ...  # TODO
-    def addFailure(self, test: Testable,
-                    err: Tuple[type, Any, Any]) -> None: ...  # TODO
+    def addError(self, test: Testable, err: Tuple[type, Any, Any]) -> None: ...  # TODO
+    def addFailure(self, test: Testable, err: Tuple[type, Any, Any]) -> None: ...  # TODO
     def addSuccess(self, test: Testable) -> None: ...
     def addSkip(self, test: Testable, reason: str) -> None: ...
     def addExpectedFailure(self, test: Testable, err: str) -> None: ...
     def addUnexpectedSuccess(self, test: Testable) -> None: ...
 
 class _AssertRaisesBaseContext:
-    expected = ...  # type: Any
-    failureException = ...  # type: Type[BaseException]
-    obj_name = ...  # type: str
-    expected_regex = ...  # type: Pattern[str]
+    expected: Any
+    failureException: Type[BaseException]
+    obj_name: str
+    expected_regex: Pattern[str]
 
 class _AssertRaisesContext(_AssertRaisesBaseContext):
-    exception = ...  # type: Any # TODO precise type
+    exception: Any
     def __enter__(self) -> _AssertRaisesContext: ...
     def __exit__(self, exc_type, exc_value, tb) -> bool: ...
 
 class TestCase(Testable):
-    failureException = ...  # type: Type[BaseException]
-    longMessage = ...  # type: bool
-    maxDiff = ...  # type: Optional[int]
+    failureException: Type[BaseException]
+    longMessage: bool
+    maxDiff: Optional[int]
+    # undocumented
+    _testMethodName: str
     def __init__(self, methodName: str = ...) -> None: ...
     def setUp(self) -> None: ...
     def tearDown(self) -> None: ...
@@ -89,20 +89,32 @@ class TestCase(Testable):
                         msg: object = ...) -> None: ...
     def failIfEqual(self, first: Any, second: Any,
                     msg: object = ...) -> None: ...
-    def assertAlmostEqual(self, first: float, second: float, places: int = ...,
-                          msg: object = ...,
-                          delta: float = ...) -> None: ...
-    def assertAlmostEquals(self, first: float, second: float, places: int = ...,
-                           msg: object = ...,
-                           delta: float = ...) -> None: ...
+    @overload
+    def assertAlmostEqual(self, first: float, second: float,
+                          places: int = ..., msg: Any = ...) -> None: ...
+    @overload
+    def assertAlmostEqual(self, first: float, second: float, *,
+                          msg: Any = ..., delta: float = ...) -> None: ...
+    @overload
+    def assertAlmostEquals(self, first: float, second: float,
+                           places: int = ..., msg: Any = ...) -> None: ...
+    @overload
+    def assertAlmostEquals(self, first: float, second: float, *,
+                           msg: Any = ..., delta: float = ...) -> None: ...
     def failUnlessAlmostEqual(self, first: float, second: float, places: int = ...,
                               msg: object = ...) -> None: ...
-    def assertNotAlmostEqual(self, first: float, second: float, places: int = ...,
-                             msg: object = ...,
-                             delta: float = ...) -> None: ...
-    def assertNotAlmostEquals(self, first: float, second: float, places: int = ...,
-                              msg: object = ...,
-                              delta: float = ...) -> None: ...
+    @overload
+    def assertNotAlmostEqual(self, first: float, second: float,
+                             places: int = ..., msg: Any = ...) -> None: ...
+    @overload
+    def assertNotAlmostEqual(self, first: float, second: float, *,
+                             msg: Any = ..., delta: float = ...) -> None: ...
+    @overload
+    def assertNotAlmostEquals(self, first: float, second: float,
+                              places: int = ..., msg: Any = ...) -> None: ...
+    @overload
+    def assertNotAlmostEquals(self, first: float, second: float, *,
+                              msg: Any = ..., delta: float = ...) -> None: ...
     def failIfAlmostEqual(self, first: float, second: float, places: int = ...,
                           msg: object = ...,
                           delta: float = ...) -> None: ...
@@ -167,6 +179,8 @@ class TestCase(Testable):
     def addCleanup(self, function: Any, *args: Any, **kwargs: Any) -> None: ...
     def doCleanups(self) -> bool: ...
     def skipTest(self, reason: Any) -> None: ...
+    def _formatMessage(self, msg: Optional[Text], standardMsg: Text) -> str: ...  # undocumented
+    def _getAssertEqualityFunc(self, first: Any, second: Any) -> Callable[..., None]: ...  # undocumented
 
 class FunctionTestCase(Testable):
     def __init__(self, testFunc: Callable[[], None],
@@ -187,9 +201,9 @@ class TestSuite(Testable):
     def __iter__(self) -> Iterator[Testable]: ...
 
 class TestLoader:
-    testMethodPrefix = ...  # type: str
-    sortTestMethodsUsing = ...  # type: Optional[Callable[[str, str], int]]
-    suiteClass = ...  # type: Callable[[List[TestCase]], TestSuite]
+    testMethodPrefix: str
+    sortTestMethodsUsing: Optional[Callable[[str, str], int]]
+    suiteClass: Callable[[List[TestCase]], TestSuite]
     def loadTestsFromTestCase(self,
                               testCaseClass: Type[TestCase]) -> TestSuite: ...
     def loadTestsFromModule(self, module: types.ModuleType = ...,
@@ -197,12 +211,12 @@ class TestLoader:
     def loadTestsFromName(self, name: str = ...,
                           module: Optional[types.ModuleType] = ...) -> TestSuite: ...
     def loadTestsFromNames(self, names: List[str] = ...,
-                          module: Optional[types.ModuleType] = ...) -> TestSuite: ...
+                           module: Optional[types.ModuleType] = ...) -> TestSuite: ...
     def discover(self, start_dir: str, pattern: str = ...,
                  top_level_dir: Optional[str] = ...) -> TestSuite: ...
     def getTestCaseNames(self, testCaseClass: Type[TestCase] = ...) -> List[str]: ...
 
-defaultTestLoader = ...  # type: TestLoader
+defaultTestLoader: TestLoader
 
 class TextTestResult(TestResult):
     def __init__(self, stream: TextIO, descriptions: bool, verbosity: int) -> None: ...
@@ -224,9 +238,10 @@ def skip(reason: Union[str, unicode]) -> Any: ...
 
 # not really documented
 class TestProgram:
-    result = ...  # type: TestResult
+    result: TestResult
+    def runTests(self) -> None: ...  # undocumented
 
-def main(module: str = ..., defaultTest: Optional[str] = ...,
+def main(module: Union[None, Text, types.ModuleType] = ..., defaultTest: Optional[str] = ...,
          argv: Optional[Sequence[str]] = ...,
          testRunner: Union[Type[TextTestRunner], TextTestRunner, None] = ...,
          testLoader: TestLoader = ..., exit: bool = ..., verbosity: int = ...,
@@ -244,4 +259,4 @@ def removeHandler() -> None: ...
 def removeHandler(function: Callable[..., Any]) -> Callable[..., Any]: ...
 
 # private but occasionally used
-util = ...  # type: types.ModuleType
+util: types.ModuleType

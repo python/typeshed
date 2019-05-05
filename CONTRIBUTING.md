@@ -29,8 +29,8 @@ For more details, read below.
 ## Discussion
 
 If you've run into behavior in the type checker that suggests the type
-stubs for a given library are incorrect or incomplete, or a library you
-depend on is missing type annotations, we want to hear from you!
+stubs for a given library are incorrect or incomplete,
+we want to hear from you!
 
 Our main forum for discussion is the project's [GitHub issue
 tracker](https://github.com/python/typeshed/issues).  This is the right
@@ -85,6 +85,7 @@ At present the core developers are (alphabetically):
 * Ivan Levkivskyi (@ilevkivskyi)
 * Matthias Kramm (@matthiaskramm)
 * Greg Price (@gnprice)
+* Sebastian Rittau (@srittau)
 * Guido van Rossum (@gvanrossum)
 * Jelle Zijlstra (@JelleZijlstra)
 
@@ -110,46 +111,83 @@ know and **get their permission**.  Do it by opening an issue on their
 project's bug tracker.  This gives them the opportunity to
 consider adopting type hints directly in their codebase (which you
 should prefer to external type stubs).  When the project owners agree
-for you to submit stubs here, open a pull request **referencing the
-message where you received permission**.
+for you to submit stubs here or you do not receive a reply within
+one month, open a pull request **referencing the
+issue where you asked for permission**.
 
 Make sure your changes pass the tests (the [README](README.md#running-the-tests)
 has more information).
 
 ### What to include
 
-Stubs should include all public objects (classes, functions, constants,
-etc.) in the module they cover. Omitting objects can confuse users,
-because users who see an error like "module X has no attribute Y" will
-not know whether the error appeared because their code had a bug or
-because the stub is wrong. If you are submitting stubs to typeshed and
-you are unable to provide fully typed stubs for some of the objects in
-the library, you can use stubgen (see below) to generate untyped stubs.
-Although we prefer having exact types for all stubs, such stubs are
-better than nothing.
+Stubs should include the complete interface (classes, functions,
+constants, etc.) of the module they cover, but it is not always
+clear exactly what is part of the interface.
 
-What counts as a "public object" is not always clear. Use your judgment,
-but objects that are listed in the module's documentation, that are
-included in ``__all__`` (if present), and whose names do not start with an
-underscore are more likely to merit inclusion in a stub. If in doubt, err
-on the side of including more objects.
+The following should always be included:
+- All objects listed in the module's documentation.
+- All objects included in ``__all__`` (if present).
 
-**NEW:** Sometimes it makes sense to include non-public objects
-in a stub.  Mark these with a comment of the form ``# undocumented``.
-See the [motivation](https://github.com/python/typeshed/issues/1902).
+Other objects may be included if they are being used in practice
+or if they are not prefixed with an underscore. This means
+that typeshed will generally accept contributions that add missing
+objects, even if they are undocumented. Undocumented objects should
+be marked with a comment of the form ``# undocumented``.
 Example:
 
 ```python
 def list2cmdline(seq: Sequence[str]) -> str: ...  # undocumented
 ```
 
+We accept such undocumented objects because omitting objects can confuse
+users. Users who see an error like "module X has no attribute Y" will
+not know whether the error appeared because their code had a bug or
+because the stub is wrong. Although it may also be helpful for a type
+checker to point out usage of private objects, we usually prefer false
+negatives (no errors for wrong code) over false positives (type errors
+for correct code). In addition, even for private objects a type checker
+can be helpful in pointing out that an incorrect type was used.
+
+### Incomplete stubs
+
+We accept partial stubs, especially for larger packages. These need to
+follow the following guidelines:
+
+* Included functions and methods must list all arguments, but the arguments
+  can be left unannotated. Do not use `Any` to mark unannotated arguments
+  or return values.
+* Partial classes must include a `__getattr__()` method marked with an
+  `# incomplete` comment (see example below).
+* Partial modules (i.e. modules that are missing some or all classes,
+  functions, or attributes) must include a top-level `__getattr__()`
+  function marked with an `# incomplete` comment (see example below).
+* Partial packages (i.e. packages that are missing one or more sub-modules)
+  must have a `__init__.pyi` stub that is marked as incomplete (see above).
+  A better alternative is to create empty stubs for all sub-modules and
+  mark them as incomplete individually.
+
+Example of a partial module with a partial class `Foo` and a partially
+annotated function `bar()`:
+
+```python
+def __getattr__(name: str) -> Any: ...  # incomplete
+
+class Foo:
+    def __getattr__(self, name: str) -> Any:  # incomplete
+    x: int
+    y: str
+
+def bar(x: str, y, *, z=...): ...
+```
+
 ### Using stubgen
 
-Mypy includes a tool called [stubgen](https://github.com/python/mypy/blob/master/mypy/stubgen.py)
-that you can use as a starting point for your stubs.  Note that this
-generator is currently unable to determine most argument and return
-types and omits them or uses ``Any`` in their place.  Fill out the types
-that you know.
+Mypy includes a tool called [stubgen](https://mypy.readthedocs.io/en/latest/stubgen.html)
+that auto-generates stubs for Python and C modules using static analysis,
+Sphinx docs, and runtime introspection.  It can be used to get a starting
+point for your stubs.  Note that this generator is currently unable to
+determine most argument and return types and omits them or uses ``Any`` in
+their place.  Fill out manually the types that you know.
 
 ### Stub file coding style
 
@@ -186,6 +224,8 @@ you should know about.
 Style conventions for stub files are different from PEP 8. The general
 rule is that they should be as concise as possible.  Specifically:
 * lines can be up to 130 characters long;
+* functions and methods that don't fit in one line should be split up
+  with one argument per line;
 * all function bodies should be empty;
 * prefer ``...`` over ``pass``;
 * prefer ``...`` on the same line as the class/function signature;
@@ -197,6 +237,8 @@ rule is that they should be as concise as possible.  Specifically:
 * use variable annotations instead of type comments, even for stubs
   that target older versions of Python;
 * for arguments with a type and a default, use spaces around the `=`.
+The code formatter [black](https://github.com/python/black) will format
+stubs according to this standard.
 
 Stub files should only contain information necessary for the type
 checker, and leave out unnecessary detail:
@@ -221,6 +263,15 @@ unless:
   explicit ``as`` even if the name stays the same); or
 * they use the form ``from library import *`` which means all names
   from that library are exported.
+
+When adding type hints, avoid using the `Any` type when possible. Reserve
+the use of `Any` for when:
+* the correct type cannot be expressed in the current type system; and
+* to avoid Union returns (see above).
+
+Note that `Any` is not the correct type to use if you want to indicate
+that some function can accept literally anything: in those cases use
+`object` instead.
 
 For arguments with type and a default value of `None`, PEP 484
 prescribes that the type automatically becomes `Optional`.  However we
@@ -311,19 +362,9 @@ We aim to reply to all new issues promptly.  We'll assign one or more
 labels to indicate we've triaged an issue, but most typeshed issues
 are relatively simple (stubs for a given module or package are
 missing, incomplete or incorrect) and we won't add noise to the
-tracker by labeling all of them.  Here's what our labels mean.  (We
-also apply these to pull requests.)
-
-* **bug**: It's a bug in a stub.
-* **bytes-unicode**: It's related to bytes vs. unicode, usually Python 2.
-* **feature**: It's a new typeshed feature.
-* **priority-high**: This issue is more important than most.
-* **priority-low**: This issue is less important than most.
-* **priority-normal**: This issue has average priority.
-* **question**: Not really an issue, but a question on how to do something.
-* **size-large**: An issue of high complexity or affecting many files.
-* **size-medium**: An issue of average complexity.
-* **size-small**: An issue that will take only little effort to fix.
+tracker by labeling all of them.  Please see the
+[list of all labels](https://github.com/python/typeshed/issues/labels)
+for a detailed description of the labels we use.
 
 Sometimes a PR can't make progress until some external issue is
 addressed.  We indicate this by editing the subject to add a ``[WIP]``

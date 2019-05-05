@@ -1,4 +1,4 @@
-from typing import Any, Callable, Dict, Optional, Text, overload
+from typing import Any, Callable, Dict, Optional, Text, Union, overload
 
 class Key:
     DefaultContentType: str
@@ -156,7 +156,7 @@ class Key:
     ): ...
     def set_contents_from_string(
         self,
-        string_data: Text,
+        string_data: Union[Text, bytes],
         headers: Optional[Dict[Text, Text]] = ...,
         replace: bool = ...,
         cb: Optional[Callable[[int, int], Any]] = ...,

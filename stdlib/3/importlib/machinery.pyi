@@ -20,7 +20,7 @@ class BuiltinImporter(importlib.abc.MetaPathFinder,
     def find_spec(cls, fullname: str,
                   path: Optional[Sequence[importlib.abc._Path]],
                   target: Optional[types.ModuleType] = ...) -> Optional[ModuleSpec]:
-            ...
+        ...
     # InspectLoader
     @classmethod
     def is_package(cls, fullname: str) -> bool: ...
@@ -31,10 +31,8 @@ class BuiltinImporter(importlib.abc.MetaPathFinder,
     @classmethod
     def get_source(cls, fullname: str) -> None: ...
     # Loader
-    @classmethod
-    def load_module(cls, fullname: str) -> types.ModuleType: ...
     @staticmethod
-    def module_repr(module: types.ModuleType) -> str: ...  # type: ignore
+    def module_repr(module: types.ModuleType) -> str: ...
     @classmethod
     def create_module(cls, spec: ModuleSpec) -> Optional[types.ModuleType]: ...
     @classmethod
@@ -63,15 +61,13 @@ class FrozenImporter(importlib.abc.MetaPathFinder, importlib.abc.InspectLoader):
     @classmethod
     def get_source(cls, fullname: str) -> None: ...
     # Loader
-    @classmethod
-    def load_module(cls, fullname: str) -> types.ModuleType: ...
     @staticmethod
-    def module_repr(module: types.ModuleType) -> str: ...  # type: ignore
+    def module_repr(module: types.ModuleType) -> str: ...
     @classmethod
     def create_module(cls, spec: ModuleSpec) -> Optional[types.ModuleType]:
         ...
     @staticmethod
-    def exec_module(module: types.ModuleType) -> None: ...  # type: ignore
+    def exec_module(module: types.ModuleType) -> None: ...
 
 class WindowsRegistryFinder(importlib.abc.MetaPathFinder):
     @classmethod
@@ -88,16 +84,16 @@ class WindowsRegistryFinder(importlib.abc.MetaPathFinder):
 
 class PathFinder(importlib.abc.MetaPathFinder): ...
 
-SOURCE_SUFFIXES = ...  # type: List[str]
-DEBUG_BYTECODE_SUFFIXES = ...  # type: List[str]
-OPTIMIZED_BYTECODE_SUFFIXES = ...  # type: List[str]
-BYTECODE_SUFFIXES = ...  # type: List[str]
-EXTENSION_SUFFIXES = ...  # type: List[str]
+SOURCE_SUFFIXES: List[str]
+DEBUG_BYTECODE_SUFFIXES: List[str]
+OPTIMIZED_BYTECODE_SUFFIXES: List[str]
+BYTECODE_SUFFIXES: List[str]
+EXTENSION_SUFFIXES: List[str]
 
 def all_suffixes() -> List[str]: ...
 
 class FileFinder(importlib.abc.PathEntryFinder):
-    path = ...  # type: str
+    path: str
     def __init__(
         self, path: str,
         *loader_details: Tuple[importlib.abc.Loader, List[str]]
@@ -117,4 +113,4 @@ class SourcelessFileLoader(importlib.abc.FileLoader,
 
 class ExtensionFileLoader(importlib.abc.ExecutionLoader):
     def get_filename(self, fullname: str) -> importlib.abc._Path: ...
-    def get_source(self, fullname: str) -> None: ...  # type: ignore
+    def get_source(self, fullname: str) -> None: ...

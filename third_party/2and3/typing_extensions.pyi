@@ -1,5 +1,5 @@
 import sys
-import typing
+from typing import Callable
 from typing import ClassVar as ClassVar
 from typing import ContextManager as ContextManager
 from typing import Counter as Counter
@@ -13,11 +13,15 @@ from typing import Type as Type
 from typing import TYPE_CHECKING as TYPE_CHECKING
 from typing import TypeVar, Any
 
+_F = TypeVar('_F', bound=Callable[..., Any])
 _TC = TypeVar('_TC', bound=Type[object])
 class _SpecialForm:
     def __getitem__(self, typeargs: Any) -> Any: ...
 def runtime(cls: _TC) -> _TC: ...
 Protocol: _SpecialForm = ...
+Final: _SpecialForm = ...
+def final(f: _F) -> _F: ...
+Literal: _SpecialForm = ...
 
 if sys.version_info >= (3, 3):
     from typing import ChainMap as ChainMap

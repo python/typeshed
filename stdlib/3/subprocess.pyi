@@ -32,11 +32,11 @@ _ENV = Union[Mapping[bytes, _TXT], Mapping[Text, _TXT]]
 if sys.version_info >= (3, 5):
     class CompletedProcess:
         # morally: _CMD
-        args = ...  # type: Any
-        returncode = ...  # type: int
+        args: Any
+        returncode: int
         # morally: Optional[_TXT]
-        stdout = ...  # type: Any
-        stderr = ...  # type: Any
+        stdout: Any
+        stderr: Any
         def __init__(self, args: _CMD,
                      returncode: int,
                      stdout: Optional[_TXT] = ...,
@@ -158,7 +158,32 @@ def check_call(args: _CMD,
                pass_fds: Any = ...,
                timeout: float = ...) -> int: ...
 
-if sys.version_info >= (3, 6):
+if sys.version_info >= (3, 7):
+    # 3.7 added text
+    def check_output(args: _CMD,
+                     bufsize: int = ...,
+                     executable: _PATH = ...,
+                     stdin: _FILE = ...,
+                     stderr: _FILE = ...,
+                     preexec_fn: Callable[[], Any] = ...,
+                     close_fds: bool = ...,
+                     shell: bool = ...,
+                     cwd: Optional[_PATH] = ...,
+                     env: Optional[_ENV] = ...,
+                     universal_newlines: bool = ...,
+                     startupinfo: Any = ...,
+                     creationflags: int = ...,
+                     restore_signals: bool = ...,
+                     start_new_session: bool = ...,
+                     pass_fds: Any = ...,
+                     *,
+                     timeout: float = ...,
+                     input: _TXT = ...,
+                     encoding: Optional[str] = ...,
+                     errors: Optional[str] = ...,
+                     text: Optional[bool] = ...,
+                     ) -> Any: ...  # morally: -> _TXT
+elif sys.version_info >= (3, 6):
     # 3.6 added encoding and errors
     def check_output(args: _CMD,
                      bufsize: int = ...,
@@ -204,31 +229,32 @@ else:
                      ) -> Any: ...  # morally: -> _TXT
 
 
-PIPE = ...  # type: int
-STDOUT = ...  # type: int
-DEVNULL = ...  # type: int
+PIPE: int
+STDOUT: int
+DEVNULL: int
 class SubprocessError(Exception): ...
 class TimeoutExpired(SubprocessError):
+    def __init__(self, cmd: _CMD, timeout: float, output: Optional[_TXT] = ..., stderr: Optional[_TXT] = ...) -> None: ...
     # morally: _CMD
-    cmd = ...  # type: Any
-    timeout = ...  # type: float
+    cmd: Any
+    timeout: float
     # morally: Optional[_TXT]
-    output = ...  # type: Any
-    stdout = ...  # type: Any
-    stderr = ...  # type: Any
+    output: Any
+    stdout: Any
+    stderr: Any
 
 
 class CalledProcessError(Exception):
     returncode = 0
     # morally: _CMD
-    cmd = ...  # type: Any
+    cmd: Any
     # morally: Optional[_TXT]
-    output = ...  # type: Any
+    output: Any
 
     if sys.version_info >= (3, 5):
         # morally: Optional[_TXT]
-        stdout = ...  # type: Any
-        stderr = ...  # type: Any
+        stdout: Any
+        stderr: Any
 
     def __init__(self,
                  returncode: int,
@@ -237,10 +263,10 @@ class CalledProcessError(Exception):
                  stderr: Optional[_TXT] = ...) -> None: ...
 
 class Popen:
-    args = ...  # type: _CMD
-    stdin = ...  # type: IO[Any]
-    stdout = ...  # type: IO[Any]
-    stderr = ...  # type: IO[Any]
+    args: _CMD
+    stdin: IO[Any]
+    stdout: IO[Any]
+    stderr: IO[Any]
     pid = 0
     returncode = 0
 

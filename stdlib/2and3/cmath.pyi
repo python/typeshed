@@ -3,8 +3,8 @@
 import sys
 from typing import Union, Tuple
 
-e = ...  # type: float
-pi = ...  # type: float
+e: float
+pi: float
 
 _C = Union[float, complex]
 

@@ -1,6 +1,6 @@
 # Stubs for zipfile
 
-from typing import Callable, IO, Iterable, List, Optional, Text, Tuple, Type, Union
+from typing import Callable, Dict, IO, Iterable, List, Optional, Text, Tuple, Type, Union
 from types import TracebackType
 import os
 import sys
@@ -24,9 +24,11 @@ error = BadZipfile
 class LargeZipFile(Exception): ...
 
 class ZipFile:
-    debug = ...  # type: int
-    comment = ...  # type: bytes
-    filelist = ...  # type: List[ZipInfo]
+    debug: int
+    comment: bytes
+    filelist: List[ZipInfo]
+    fp: IO[bytes]
+    NameToInfo: Dict[Text, ZipInfo]
     def __init__(self, file: Union[_Path, IO[bytes]], mode: Text = ..., compression: int = ...,
                  allowZip64: bool = ...) -> None: ...
     def __enter__(self) -> ZipFile: ...
@@ -57,8 +59,6 @@ class ZipFile:
         def writestr(self,
                      zinfo_or_arcname: _SZI, bytes: bytes,
                      compress_type: Optional[int] = ...) -> None: ...
-    if sys.version_info >= (3, 6):
-        def is_dir(self) -> bool: ...
 
 class PyZipFile(ZipFile):
     if sys.version_info >= (3,):
@@ -72,32 +72,34 @@ class PyZipFile(ZipFile):
                     pathname: Text, basename: Text = ...) -> None: ...
 
 class ZipInfo:
-    filename = ...  # type: Text
-    date_time = ...  # type: _DT
-    compress_type = ...  # type: int
-    comment = ...  # type: bytes
-    extra = ...  # type: bytes
-    create_system = ...  # type: int
-    create_version = ...  # type: int
-    extract_version = ...  # type: int
-    reserved = ...  # type: int
-    flag_bits = ...  # type: int
-    volume = ...  # type: int
-    internal_attr = ...  # type: int
-    external_attr = ...  # type: int
-    header_offset = ...  # type: int
-    CRC = ...  # type: int
-    compress_size = ...  # type: int
-    file_size = ...  # type: int
-    if sys.version_info < (3,):
-        def __init__(self, filename: Optional[Text] = ...,
-                     date_time: Optional[_DT] = ...) -> None: ...
+    filename: Text
+    date_time: _DT
+    compress_type: int
+    comment: bytes
+    extra: bytes
+    create_system: int
+    create_version: int
+    extract_version: int
+    reserved: int
+    flag_bits: int
+    volume: int
+    internal_attr: int
+    external_attr: int
+    header_offset: int
+    CRC: int
+    compress_size: int
+    file_size: int
+    def __init__(self, filename: Optional[Text] = ...,
+                 date_time: Optional[_DT] = ...) -> None: ...
+    if sys.version_info >= (3, 6):
+        def is_dir(self) -> bool: ...
+    def FileHeader(self, zip64: Optional[bool] = ...) -> bytes: ...
 
 
 def is_zipfile(filename: Union[_Path, IO[bytes]]) -> bool: ...
 
-ZIP_STORED = ...  # type: int
-ZIP_DEFLATED = ...  # type: int
+ZIP_STORED: int
+ZIP_DEFLATED: int
 if sys.version_info >= (3, 3):
-    ZIP_BZIP2 = ...  # type: int
-    ZIP_LZMA = ...  # type: int
+    ZIP_BZIP2: int
+    ZIP_LZMA: int
