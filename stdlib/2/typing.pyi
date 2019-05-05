@@ -63,6 +63,7 @@ _KT_co = TypeVar('_KT_co', covariant=True)  # Key type covariant containers.
 _VT_co = TypeVar('_VT_co', covariant=True)  # Value type covariant containers.
 _T_contra = TypeVar('_T_contra', contravariant=True)  # Ditto contravariant.
 _TC = TypeVar('_TC', bound=Type[object])
+_C = TypeVar("_C", bound=Callable)
 
 def runtime(cls: _TC) -> _TC: ...
 
@@ -85,11 +86,6 @@ class SupportsComplex(Protocol, metaclass=ABCMeta):
 class SupportsAbs(Protocol[_T_co]):
     @abstractmethod
     def __abs__(self) -> _T_co: ...
-
-@runtime
-class SupportsRound(Protocol[_T_co]):
-    @abstractmethod
-    def __round__(self, ndigits: int = ...) -> _T_co: ...
 
 @runtime
 class Reversible(Protocol[_T_co]):
@@ -455,9 +451,9 @@ def cast(tp: str, obj: Any) -> Any: ...
 
 # NamedTuple is special-cased in the type checker
 class NamedTuple(tuple):
-    _fields = ...  # type: Tuple[str, ...]
+    _fields: Tuple[str, ...]
 
-    def __init__(self, typename: str, fields: Iterable[Tuple[str, Any]] = ..., *,
+    def __init__(self, typename: Text, fields: Iterable[Tuple[Text, Any]] = ..., *,
                  verbose: bool = ..., rename: bool = ..., **kwargs: Any) -> None: ...
 
     @classmethod
@@ -467,3 +463,6 @@ class NamedTuple(tuple):
     def _replace(self: _T, **kwargs: Any) -> _T: ...
 
 def NewType(name: str, tp: Type[_T]) -> Type[_T]: ...
+
+# This itself is only available during type checking
+def type_check_only(func_or_cls: _C) -> _C: ...

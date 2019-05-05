@@ -89,3 +89,8 @@ class FileError(ClickException):
 
 class Abort(RuntimeError):
     ...
+
+
+class Exit(RuntimeError):
+    def __init__(self, code: int = ...) -> None:
+        ...

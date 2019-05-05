@@ -30,27 +30,27 @@ raiseExceptions: bool
 def currentframe() -> FrameType: ...
 
 if sys.version_info >= (3,):
-    _levelToName = ...  # type: Dict[int, str]
-    _nameToLevel = ...  # type: Dict[str, int]
+    _levelToName: Dict[int, str]
+    _nameToLevel: Dict[str, int]
 else:
-    _levelNames = ...  # type: dict
+    _levelNames: dict
 
 class Filterer(object):
-    filters = ...  # type: List[Filter]
+    filters: List[Filter]
     def __init__(self) -> None: ...
     def addFilter(self, filter: Filter) -> None: ...
     def removeFilter(self, filter: Filter) -> None: ...
     def filter(self, record: LogRecord) -> bool: ...
 
 class Logger(Filterer):
-    name = ...  # type: str
-    level = ...  # type: int
-    parent = ...  # type: Union[Logger, PlaceHolder]
-    propagate = ...  # type: bool
-    handlers = ...  # type: List[Handler]
-    disabled = ...  # type: int
+    name: str
+    level: int
+    parent: Union[Logger, PlaceHolder]
+    propagate: bool
+    handlers: List[Handler]
+    disabled: int
     def __init__(self, name: str, level: _Level = ...) -> None: ...
-    def setLevel(self, lvl: Union[int, str]) -> None: ...
+    def setLevel(self, level: Union[int, str]) -> None: ...
     def isEnabledFor(self, lvl: int) -> bool: ...
     def getEffectiveLevel(self) -> int: ...
     def getChild(self, suffix: str) -> Logger: ...
@@ -74,7 +74,7 @@ class Logger(Filterer):
                      stack_info: bool = ..., extra: Optional[Dict[str, Any]] = ...,
                      **kwargs: Any) -> None: ...
         fatal = critical
-        def log(self, lvl: int, msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
+        def log(self, level: int, msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                 stack_info: bool = ..., extra: Optional[Dict[str, Any]] = ...,
                 **kwargs: Any) -> None: ...
         def exception(self, msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
@@ -99,7 +99,7 @@ class Logger(Filterer):
                      extra: Optional[Dict[str, Any]] = ..., **kwargs: Any) -> None: ...
         fatal = critical
         def log(self,
-                lvl: int, msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
+                level: int, msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                 extra: Optional[Dict[str, Any]] = ..., **kwargs: Any) -> None: ...
         def exception(self,
                       msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
@@ -165,13 +165,13 @@ class Handler(Filterer):
 
 
 class Formatter:
-    converter = ...  # type: Callable[[Optional[float]], struct_time]
-    _fmt = ...  # type: Optional[str]
-    datefmt = ...  # type: Optional[str]
+    converter: Callable[[Optional[float]], struct_time]
+    _fmt: Optional[str]
+    datefmt: Optional[str]
     if sys.version_info >= (3,):
-        _style = ...  # type: PercentStyle
-        default_time_format = ...  # type: str
-        default_msec_format = ...  # type: str
+        _style: PercentStyle
+        default_time_format: str
+        default_msec_format: str
 
     if sys.version_info >= (3,):
         def __init__(self, fmt: Optional[str] = ...,
@@ -186,6 +186,7 @@ class Formatter:
     def formatTime(self, record: LogRecord, datefmt: str = ...) -> str: ...
     def formatException(self, exc_info: _SysExcInfoType) -> str: ...
     if sys.version_info >= (3,):
+        def formatMessage(self, record: LogRecord) -> str: ...  # undocumented
         def formatStack(self, stack_info: str) -> str: ...
 
 
@@ -195,29 +196,29 @@ class Filter:
 
 
 class LogRecord:
-    args = ...  # type: _ArgsType
-    asctime = ...  # type: str
-    created = ...  # type: int
-    exc_info = ...  # type: Optional[_SysExcInfoType]
-    exc_text = ...  # type: Optional[str]
-    filename = ...  # type: str
-    funcName = ...  # type: str
-    levelname = ...  # type: str
-    levelno = ...  # type: int
-    lineno = ...  # type: int
-    module = ...  # type: str
-    msecs = ...  # type: int
-    message = ...  # type: str
-    msg = ...  # type: str
-    name = ...  # type: str
-    pathname = ...  # type: str
-    process = ...  # type: int
-    processName = ...  # type: str
-    relativeCreated = ...  # type: int
+    args: _ArgsType
+    asctime: str
+    created: int
+    exc_info: Optional[_SysExcInfoType]
+    exc_text: Optional[str]
+    filename: str
+    funcName: str
+    levelname: str
+    levelno: int
+    lineno: int
+    module: str
+    msecs: int
+    message: str
+    msg: str
+    name: str
+    pathname: str
+    process: int
+    processName: str
+    relativeCreated: int
     if sys.version_info >= (3,):
-        stack_info = ...  # type: Optional[str]
-    thread = ...  # type: int
-    threadName = ...  # type: str
+        stack_info: Optional[str]
+    thread: int
+    threadName: str
     if sys.version_info >= (3,):
         def __init__(self, name: str, level: int, pathname: str, lineno: int,
                      msg: Any, args: _ArgsType,
@@ -325,7 +326,7 @@ if sys.version_info >= (3,):
     def exception(msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                   stack_info: bool = ..., extra: Optional[Dict[str, Any]] = ...,
                   **kwargs: Any) -> None: ...
-    def log(lvl: int, msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
+    def log(level: int, msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
             stack_info: bool = ..., extra: Optional[Dict[str, Any]] = ...,
             **kwargs: Any) -> None: ...
 else:
@@ -342,7 +343,7 @@ else:
                  extra: Optional[Dict[str, Any]] = ..., **kwargs: Any) -> None: ...
     def exception(msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
                   extra: Optional[Dict[str, Any]] = ..., **kwargs: Any) -> None: ...
-    def log(lvl: int, msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
+    def log(level: int, msg: Any, *args: Any, exc_info: _ExcInfoType = ...,
             extra: Optional[Dict[str, Any]] = ..., **kwargs: Any) -> None: ...
 fatal = critical
 
@@ -375,21 +376,21 @@ if sys.version_info >= (3,):
 
 
 if sys.version_info >= (3,):
-    lastResort = ...  # type: Optional[StreamHandler]
+    lastResort: Optional[StreamHandler]
 
 
 class StreamHandler(Handler):
-    stream = ...  # type: IO[str]
+    stream: IO[str]
     if sys.version_info >= (3,):
-        terminator = ...  # type: str
+        terminator: str
     def __init__(self, stream: Optional[IO[str]] = ...) -> None: ...
 
 
 class FileHandler(Handler):
-    baseFilename = ...  # type: str
-    mode = ...  # type: str
-    encoding = ...  # type: Optional[str]
-    delay = ...  # type: bool
+    baseFilename: str
+    mode: str
+    encoding: Optional[str]
+    delay: bool
     def __init__(self, filename: _Path, mode: str = ...,
                  encoding: Optional[str] = ..., delay: bool = ...) -> None: ...
 
@@ -406,15 +407,15 @@ class PlaceHolder:
 
 class RootLogger(Logger): ...
 
-root = ...  # type: RootLogger
+root: RootLogger
 
 
 if sys.version_info >= (3,):
     class PercentStyle(object):
-        default_format = ...  # type: str
-        asctime_format = ...  # type: str
-        asctime_search = ...  # type: str
-        _fmt = ...  # type: str
+        default_format: str
+        asctime_format: str
+        asctime_search: str
+        _fmt: str
 
         def __init__(self, fmt: str) -> None: ...
         def usesTime(self) -> bool: ...
@@ -424,9 +425,9 @@ if sys.version_info >= (3,):
         ...
 
     class StringTemplateStyle(PercentStyle):
-        _tpl = ...  # type: Template
+        _tpl: Template
 
-    _STYLES = ...  # type: Dict[str, Tuple[PercentStyle, str]]
+    _STYLES: Dict[str, Tuple[PercentStyle, str]]
 
 
-BASIC_FORMAT = ...  # type: str
+BASIC_FORMAT: str

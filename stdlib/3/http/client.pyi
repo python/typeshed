@@ -15,81 +15,81 @@ import types
 _DataType = Union[bytes, IO[Any], Iterable[bytes], str]
 _T = TypeVar('_T')
 
-HTTP_PORT = ...  # type: int
-HTTPS_PORT = ...  # type: int
+HTTP_PORT: int
+HTTPS_PORT: int
 
-CONTINUE = ...  # type: int
-SWITCHING_PROTOCOLS = ...  # type: int
-PROCESSING = ...  # type: int
+CONTINUE: int
+SWITCHING_PROTOCOLS: int
+PROCESSING: int
 
-OK = ...  # type: int
-CREATED = ...  # type: int
-ACCEPTED = ...  # type: int
-NON_AUTHORITATIVE_INFORMATION = ...  # type: int
-NO_CONTENT = ...  # type: int
-RESET_CONTENT = ...  # type: int
-PARTIAL_CONTENT = ...  # type: int
-MULTI_STATUS = ...  # type: int
-IM_USED = ...  # type: int
+OK: int
+CREATED: int
+ACCEPTED: int
+NON_AUTHORITATIVE_INFORMATION: int
+NO_CONTENT: int
+RESET_CONTENT: int
+PARTIAL_CONTENT: int
+MULTI_STATUS: int
+IM_USED: int
 
-MULTIPLE_CHOICES = ...  # type: int
-MOVED_PERMANENTLY = ...  # type: int
-FOUND = ...  # type: int
-SEE_OTHER = ...  # type: int
-NOT_MODIFIED = ...  # type: int
-USE_PROXY = ...  # type: int
-TEMPORARY_REDIRECT = ...  # type: int
+MULTIPLE_CHOICES: int
+MOVED_PERMANENTLY: int
+FOUND: int
+SEE_OTHER: int
+NOT_MODIFIED: int
+USE_PROXY: int
+TEMPORARY_REDIRECT: int
 
-BAD_REQUEST = ...  # type: int
-UNAUTHORIZED = ...  # type: int
-PAYMENT_REQUIRED = ...  # type: int
-FORBIDDEN = ...  # type: int
-NOT_FOUND = ...  # type: int
-METHOD_NOT_ALLOWED = ...  # type: int
-NOT_ACCEPTABLE = ...  # type: int
-PROXY_AUTHENTICATION_REQUIRED = ...  # type: int
-REQUEST_TIMEOUT = ...  # type: int
-CONFLICT = ...  # type: int
-GONE = ...  # type: int
-LENGTH_REQUIRED = ...  # type: int
-PRECONDITION_FAILED = ...  # type: int
-REQUEST_ENTITY_TOO_LARGE = ...  # type: int
-REQUEST_URI_TOO_LONG = ...  # type: int
-UNSUPPORTED_MEDIA_TYPE = ...  # type: int
-REQUESTED_RANGE_NOT_SATISFIABLE = ...  # type: int
-EXPECTATION_FAILED = ...  # type: int
-UNPROCESSABLE_ENTITY = ...  # type: int
-LOCKED = ...  # type: int
-FAILED_DEPENDENCY = ...  # type: int
-UPGRADE_REQUIRED = ...  # type: int
-PRECONDITION_REQUIRED = ...  # type: int
-TOO_MANY_REQUESTS = ...  # type: int
-REQUEST_HEADER_FIELDS_TOO_LARGE = ...  # type: int
+BAD_REQUEST: int
+UNAUTHORIZED: int
+PAYMENT_REQUIRED: int
+FORBIDDEN: int
+NOT_FOUND: int
+METHOD_NOT_ALLOWED: int
+NOT_ACCEPTABLE: int
+PROXY_AUTHENTICATION_REQUIRED: int
+REQUEST_TIMEOUT: int
+CONFLICT: int
+GONE: int
+LENGTH_REQUIRED: int
+PRECONDITION_FAILED: int
+REQUEST_ENTITY_TOO_LARGE: int
+REQUEST_URI_TOO_LONG: int
+UNSUPPORTED_MEDIA_TYPE: int
+REQUESTED_RANGE_NOT_SATISFIABLE: int
+EXPECTATION_FAILED: int
+UNPROCESSABLE_ENTITY: int
+LOCKED: int
+FAILED_DEPENDENCY: int
+UPGRADE_REQUIRED: int
+PRECONDITION_REQUIRED: int
+TOO_MANY_REQUESTS: int
+REQUEST_HEADER_FIELDS_TOO_LARGE: int
 
-INTERNAL_SERVER_ERROR = ...  # type: int
-NOT_IMPLEMENTED = ...  # type: int
-BAD_GATEWAY = ...  # type: int
-SERVICE_UNAVAILABLE = ...  # type: int
-GATEWAY_TIMEOUT = ...  # type: int
-HTTP_VERSION_NOT_SUPPORTED = ...  # type: int
-INSUFFICIENT_STORAGE = ...  # type: int
-NOT_EXTENDED = ...  # type: int
-NETWORK_AUTHENTICATION_REQUIRED = ...  # type: int
+INTERNAL_SERVER_ERROR: int
+NOT_IMPLEMENTED: int
+BAD_GATEWAY: int
+SERVICE_UNAVAILABLE: int
+GATEWAY_TIMEOUT: int
+HTTP_VERSION_NOT_SUPPORTED: int
+INSUFFICIENT_STORAGE: int
+NOT_EXTENDED: int
+NETWORK_AUTHENTICATION_REQUIRED: int
 
-responses = ...  # type: Dict[int, str]
+responses: Dict[int, str]
 
 class HTTPMessage(email.message.Message): ...
 
 if sys.version_info >= (3, 5):
     # Ignore errors to work around python/mypy#5027
     class HTTPResponse(io.BufferedIOBase, BinaryIO):  # type: ignore
-        msg = ...  # type: HTTPMessage
-        headers = ...  # type: HTTPMessage
-        version = ...  # type: int
-        debuglevel = ...  # type: int
-        closed = ...  # type: bool
-        status = ...  # type: int
-        reason = ...  # type: str
+        msg: HTTPMessage
+        headers: HTTPMessage
+        version: int
+        debuglevel: int
+        closed: bool
+        status: int
+        reason: str
         def __init__(self, sock: socket, debuglevel: int = ...,
                      method: Optional[str] = ..., url: Optional[str] = ...) -> None: ...
         def read(self, amt: Optional[int] = ...) -> bytes: ...
@@ -111,13 +111,13 @@ if sys.version_info >= (3, 5):
         def begin(self) -> None: ...
 else:
     class HTTPResponse(io.RawIOBase, BinaryIO):  # type: ignore
-        msg = ...  # type: HTTPMessage
-        headers = ...  # type: HTTPMessage
-        version = ...  # type: int
-        debuglevel = ...  # type: int
-        closed = ...  # type: bool
-        status = ...  # type: int
-        reason = ...  # type: str
+        msg: HTTPMessage
+        headers: HTTPMessage
+        version: int
+        debuglevel: int
+        closed: bool
+        status: int
+        reason: str
         def read(self, amt: Optional[int] = ...) -> bytes: ...
         def readinto(self, b: bytearray) -> int: ...
         @overload

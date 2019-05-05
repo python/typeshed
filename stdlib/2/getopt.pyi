@@ -1,8 +1,8 @@
 from typing import List, Tuple
 
 class GetoptError(Exception):
-    opt = ...  # type: str
-    msg = ...  # type: str
+    opt: str
+    msg: str
     def __init__(self, msg: str, opt: str = ...) -> None: ...
     def __str__(self) -> str: ...
 

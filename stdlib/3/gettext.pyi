@@ -16,8 +16,8 @@ class NullTranslations:
     def install(self, names: List[str] = ...) -> None: ...
 
 class GNUTranslations(NullTranslations):
-    LE_MAGIC = ...  # type: int
-    BE_MAGIC = ...  # type: int
+    LE_MAGIC: int
+    BE_MAGIC: int
 
 def find(domain: str, localedir: str = ..., languages: List[str] = ...,
          all: bool = ...): ...

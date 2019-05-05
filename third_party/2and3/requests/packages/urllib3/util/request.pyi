@@ -3,6 +3,6 @@ from typing import Any
 
 # b = six.b
 
-ACCEPT_ENCODING = ...  # type: Any
+ACCEPT_ENCODING: Any
 
 def make_headers(keep_alive=..., accept_encoding=..., user_agent=..., basic_auth=..., proxy_basic_auth=..., disable_cache=...): ...

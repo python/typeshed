@@ -2,9 +2,9 @@ from typing import Any
 from .request import RequestMethods
 
 class PoolManager(RequestMethods):
-    proxy = ...  # type: Any
-    connection_pool_kw = ...  # type: Any
-    pools = ...  # type: Any
+    proxy: Any
+    connection_pool_kw: Any
+    pools: Any
     def __init__(self, num_pools=..., headers=..., **connection_pool_kw) -> None: ...
     def __enter__(self): ...
     def __exit__(self, exc_type, exc_val, exc_tb): ...
@@ -16,8 +16,8 @@ class PoolManager(RequestMethods):
     def urlopen(self, method, url, body=..., headers=..., encode_multipart=..., multipart_boundary=..., **kw): ...
 
 class ProxyManager(PoolManager):
-    proxy = ...  # type: Any
-    proxy_headers = ...  # type: Any
+    proxy: Any
+    proxy_headers: Any
     def __init__(self, proxy_url, num_pools=..., headers=..., proxy_headers=..., **connection_pool_kw) -> None: ...
     def connection_from_host(self, host, port=..., scheme=...): ...
     # TODO: This was the original signature -- copied another one from base class to fix complaint.

@@ -41,6 +41,8 @@ def command(
     short_help: Optional[str] = ...,
     options_metavar: str = ...,
     add_help_option: bool = ...,
+    hidden: bool = ...,
+    deprecated: bool = ...,
 ) -> Callable[[Callable], Command]:
     ...
 
@@ -64,6 +66,8 @@ def group(
     short_help: Optional[str] = ...,
     options_metavar: str = ...,
     add_help_option: bool = ...,
+    hidden: bool = ...,
+    deprecated: bool = ...,
     # User-defined
     **kwargs: Any,
 ) -> Callable[[Callable], Group]:
@@ -139,6 +143,68 @@ def option(
     default: Optional[Any] = ...,
     required: bool = ...,
     callback: Optional[Callable[[Context, Union[Option, Parameter], Union[bool, int, str]], _T]] = ...,
+    nargs: Optional[int] = ...,
+    metavar: Optional[str] = ...,
+    expose_value: bool = ...,
+    is_eager: bool = ...,
+    envvar: Optional[Union[str, List[str]]] = ...,
+    # User-defined
+    **kwargs: Any,
+) -> Callable[[_F], _F]:
+    ...
+
+
+@overload
+def option(
+    *param_decls: str,
+    cls: Type[Option] = ...,
+    # Option
+    show_default: bool = ...,
+    prompt: Union[bool, Text] = ...,
+    confirmation_prompt: bool = ...,
+    hide_input: bool = ...,
+    is_flag: Optional[bool] = ...,
+    flag_value: Optional[Any] = ...,
+    multiple: bool = ...,
+    count: bool = ...,
+    allow_from_autoenv: bool = ...,
+    type: Type[str] = ...,
+    help: Optional[str] = ...,
+    # Parameter
+    default: Optional[Any] = ...,
+    required: bool = ...,
+    callback: Callable[[Context, Union[Option, Parameter], str], Any] = ...,
+    nargs: Optional[int] = ...,
+    metavar: Optional[str] = ...,
+    expose_value: bool = ...,
+    is_eager: bool = ...,
+    envvar: Optional[Union[str, List[str]]] = ...,
+    # User-defined
+    **kwargs: Any,
+) -> Callable[[_F], _F]:
+    ...
+
+
+@overload
+def option(
+    *param_decls: str,
+    cls: Type[Option] = ...,
+    # Option
+    show_default: bool = ...,
+    prompt: Union[bool, Text] = ...,
+    confirmation_prompt: bool = ...,
+    hide_input: bool = ...,
+    is_flag: Optional[bool] = ...,
+    flag_value: Optional[Any] = ...,
+    multiple: bool = ...,
+    count: bool = ...,
+    allow_from_autoenv: bool = ...,
+    type: Type[int] = ...,
+    help: Optional[str] = ...,
+    # Parameter
+    default: Optional[Any] = ...,
+    required: bool = ...,
+    callback: Callable[[Context, Union[Option, Parameter], int], Any] = ...,
     nargs: Optional[int] = ...,
     metavar: Optional[str] = ...,
     expose_value: bool = ...,

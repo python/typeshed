@@ -1,7 +1,7 @@
-__revision__ = ...  # type: str
+__revision__: str
 
 class BaseRNG:
-    closed = ...  # type: bool
+    closed: bool
     def __init__(self) -> None: ...
     def __del__(self): ...
     def __enter__(self): ...

@@ -1,9 +1,9 @@
 from typing import Any, Optional
 
-available = ...  # type: Any
+available: Any
 
 class MergeStream:
-    streams = ...  # type: Any
+    streams: Any
     def __init__(self, *streams): ...
     def write(self, data): ...
 

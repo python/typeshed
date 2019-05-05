@@ -1,9 +1,9 @@
 from typing import Any
 
-Date = ...  # type: Any
-Time = ...  # type: Any
-TimeDelta = ...  # type: Any
-Timestamp = ...  # type: Any
+Date: Any
+Time: Any
+TimeDelta: Any
+Timestamp: Any
 
 def DateFromTicks(ticks): ...
 def TimeFromTicks(ticks): ...

@@ -4,23 +4,23 @@ from yaml.error import MarkedYAMLError
 class ScannerError(MarkedYAMLError): ...
 
 class SimpleKey:
-    token_number = ...  # type: Any
-    required = ...  # type: Any
-    index = ...  # type: Any
-    line = ...  # type: Any
-    column = ...  # type: Any
-    mark = ...  # type: Any
+    token_number: Any
+    required: Any
+    index: Any
+    line: Any
+    column: Any
+    mark: Any
     def __init__(self, token_number, required, index, line, column, mark) -> None: ...
 
 class Scanner:
-    done = ...  # type: Any
-    flow_level = ...  # type: Any
-    tokens = ...  # type: Any
-    tokens_taken = ...  # type: Any
-    indent = ...  # type: Any
-    indents = ...  # type: Any
-    allow_simple_key = ...  # type: Any
-    possible_simple_keys = ...  # type: Any
+    done: Any
+    flow_level: Any
+    tokens: Any
+    tokens_taken: Any
+    indent: Any
+    indents: Any
+    allow_simple_key: Any
+    possible_simple_keys: Any
     def __init__(self) -> None: ...
     def check_token(self, *choices): ...
     def peek_token(self): ...
@@ -83,8 +83,8 @@ class Scanner:
     def scan_block_scalar_indentation(self): ...
     def scan_block_scalar_breaks(self, indent): ...
     def scan_flow_scalar(self, style): ...
-    ESCAPE_REPLACEMENTS = ...  # type: Any
-    ESCAPE_CODES = ...  # type: Any
+    ESCAPE_REPLACEMENTS: Any
+    ESCAPE_CODES: Any
     def scan_flow_scalar_non_spaces(self, double, start_mark): ...
     def scan_flow_scalar_spaces(self, double, start_mark): ...
     def scan_flow_scalar_breaks(self, double, start_mark): ...

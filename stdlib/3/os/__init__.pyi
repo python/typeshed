@@ -12,9 +12,6 @@ from typing import (
 from builtins import OSError as error
 from . import path as path
 
-# Workaround a pytype crash (see #2683)
-from builtins import bytes
-
 _T = TypeVar('_T')
 
 # ----- os variables -----
@@ -131,7 +128,10 @@ O_LARGEFILE: int  # Gnu extension if in C library
 curdir: str
 pardir: str
 sep: str
-altsep: str
+if sys.platform == 'win32':
+    altsep: str
+else:
+    altsep: Optional[str]
 extsep: str
 pathsep: str
 defpath: str
@@ -215,6 +215,8 @@ class stat_result:
     st_atime_ns: int  # time of most recent access, in nanoseconds
     st_mtime_ns: int  # time of most recent content modification in nanoseconds
     st_ctime_ns: int  # platform dependent (time of most recent metadata change on Unix, or the time of creation on Windows) in nanoseconds
+
+    def __getitem__(self, i: int) -> int: ...
 
     # not documented
     def __init__(self, tuple: Tuple[int, ...]) -> None: ...

@@ -11,21 +11,21 @@ else:
 class _SslDummy:
     def __getattr__(self, name): ...
 
-ssl = ...  # type: Any
-LISTEN_QUEUE = ...  # type: Any
-can_open_by_fd = ...  # type: Any
+ssl: Any
+LISTEN_QUEUE: Any
+can_open_by_fd: Any
 
 class WSGIRequestHandler(BaseHTTPRequestHandler):
     @property
     def server_version(self): ...
     def make_environ(self): ...
-    environ = ...  # type: Any
-    close_connection = ...  # type: Any
+    environ: Any
+    close_connection: Any
     def run_wsgi(self): ...
     def handle(self): ...
     def initiate_shutdown(self): ...
     def connection_dropped(self, error, environ: Optional[Any] = ...): ...
-    raw_requestline = ...  # type: Any
+    raw_requestline: Any
     def handle_one_request(self): ...
     def send_response(self, code, message: Optional[Any] = ...): ...
     def version_string(self): ...
@@ -36,7 +36,7 @@ class WSGIRequestHandler(BaseHTTPRequestHandler):
     def log_message(self, format, *args): ...
     def log(self, type, message, *args): ...
 
-BaseRequestHandler = ...  # type: Any
+BaseRequestHandler: Any
 
 def generate_adhoc_ssl_pair(cn: Optional[Any] = ...): ...
 def make_ssl_devcert(base_path, host: Optional[Any] = ..., cn: Optional[Any] = ...): ...
@@ -52,18 +52,18 @@ def is_ssl_error(error: Optional[Any] = ...): ...
 def select_ip_version(host, port): ...
 
 class BaseWSGIServer(HTTPServer):
-    multithread = ...  # type: Any
-    multiprocess = ...  # type: Any
-    request_queue_size = ...  # type: Any
-    address_family = ...  # type: Any
-    app = ...  # type: Any
-    passthrough_errors = ...  # type: Any
-    shutdown_signal = ...  # type: Any
-    host = ...  # type: Any
-    port = ...  # type: Any
-    socket = ...  # type: Any
-    server_address = ...  # type: Any
-    ssl_context = ...  # type: Any
+    multithread: Any
+    multiprocess: Any
+    request_queue_size: Any
+    address_family: Any
+    app: Any
+    passthrough_errors: Any
+    shutdown_signal: Any
+    host: Any
+    port: Any
+    socket: Any
+    server_address: Any
+    ssl_context: Any
     def __init__(self, host, port, app, handler: Optional[Any] = ..., passthrough_errors: bool = ...,
                  ssl_context: Optional[Any] = ..., fd: Optional[Any] = ...): ...
     def log(self, type, message, *args): ...
@@ -72,12 +72,12 @@ class BaseWSGIServer(HTTPServer):
     def get_request(self): ...
 
 class ThreadedWSGIServer(ThreadingMixIn, BaseWSGIServer):
-    multithread = ...  # type: Any
-    daemon_threads = ...  # type: Any
+    multithread: Any
+    daemon_threads: Any
 
 class ForkingWSGIServer(ForkingMixIn, BaseWSGIServer):
-    multiprocess = ...  # type: Any
-    max_children = ...  # type: Any
+    multiprocess: Any
+    max_children: Any
     def __init__(self, host, port, app, processes: int = ..., handler: Optional[Any] = ..., passthrough_errors: bool = ...,
                  ssl_context: Optional[Any] = ..., fd: Optional[Any] = ...): ...
 

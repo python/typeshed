@@ -1,7 +1,7 @@
 from typing import Any, Optional
 
 class Plugin:
-    capability = ...  # type: Any
+    capability: Any
     @classmethod
     def is_capable(cls, requested_capability): ...
 

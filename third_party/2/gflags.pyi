@@ -1,4 +1,4 @@
-from typing import Any, Callable, Dict, Iterable, IO, List, Optional, Union
+from typing import Any, Callable, Dict, Iterable, IO, List, Optional, Sequence, Union
 from types import ModuleType
 
 class Error(Exception): ...
@@ -86,19 +86,19 @@ class FlagValues:
 # TODO validator: gflags_validators.Validator
     def AddValidator(self, validator: Any) -> None: ...
 
-FLAGS = ...  # type: FlagValues
+FLAGS: FlagValues
 
 class Flag:
-    name = ...  # type: str
-    default = ...  # type: Any
-    default_as_str = ...  # type: str
-    value = ...  # type: Any
-    help = ...  # type: str
-    short_name = ...  # type: str
+    name: str
+    default: Any
+    default_as_str: str
+    value: Any
+    help: str
+    short_name: str
     boolean = False
     present = False
-    parser = ...  # type: ArgumentParser
-    serializer = ...  # type: ArgumentSerializer
+    parser: ArgumentParser
+    serializer: ArgumentSerializer
     allow_override = False
 
     def __init__(self, parser: ArgumentParser, serializer: ArgumentSerializer, name: str,
@@ -112,7 +112,7 @@ class Flag:
     def WriteInfoInXMLFormat(self, outfile: IO[str], module_name: str, is_key: bool = ..., indent: str = ...) -> None: ...
 
 class ArgumentParser(object):
-    syntactic_help = ...  # type: str
+    syntactic_help: str
 # TODO what is this
     def parse(self, argument: Any) -> Any: ...
     Parser = parse
@@ -174,9 +174,9 @@ class NumericParser(ArgumentParser):
     def Convert(self, argument: Any) -> Any: ...
 
 class FloatParser(NumericParser):
-    number_article = ...  # type: str
-    number_name = ...  # type: str
-    syntactic_help = ...  # type: str
+    number_article: str
+    number_name: str
+    syntactic_help: str
     def __init__(self, lower_bound: float = ..., upper_bound: float = ...) -> None: ...
     def Convert(self, argument: Any) -> float: ...
 
@@ -184,9 +184,9 @@ def DEFINE_float(name: str, default: Optional[float], help: str, lower_bound: fl
                  upper_bound: float = ..., flag_values: FlagValues = ..., **args: Any) -> None: ...
 
 class IntegerParser(NumericParser):
-    number_article = ...  # type: str
-    number_name = ...  # type: str
-    syntactic_help = ...  # type: str
+    number_article: str
+    number_name: str
+    syntactic_help: str
     def __init__(self, lower_bound: int = ..., upper_bound: int = ...) -> None: ...
     def Convert(self, argument: Any) -> int: ...
 
@@ -236,3 +236,7 @@ DEFINE_multi_int = DEFINE_multi_integer
 def DEFINE_multi_float(name: str, default: Optional[Union[float, List[float]]], help: str,
                        lower_bound: float = ..., upper_bound: float = ...,
                        flag_values: FlagValues = ..., **args: Any) -> None: ...
+
+def DEFINE_multi_enum(name: str, default: Optional[Union[Sequence[str], str]],
+                      enum_values: Sequence[str], help: str,
+                      flag_values: FlagValues = ..., case_sensitive: bool = ..., **args: Any): ...

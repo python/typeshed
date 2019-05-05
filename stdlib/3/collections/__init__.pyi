@@ -42,6 +42,7 @@ if sys.version_info >= (3, 5):
         AsyncIterator as AsyncIterator,
     )
 
+_S = TypeVar('_S')
 _T = TypeVar('_T')
 _KT = TypeVar('_KT')
 _VT = TypeVar('_VT')
@@ -235,6 +236,8 @@ class deque(MutableSequence[_T], Generic[_T]):
     def __contains__(self, o: object) -> bool: ...
     def __reversed__(self) -> Iterator[_T]: ...
 
+    def __iadd__(self: _S, iterable: Iterable[_T]) -> _S: ...
+
     if sys.version_info >= (3, 5):
         def __add__(self, other: deque[_T]) -> deque[_T]: ...
         def __mul__(self, other: int) -> deque[_T]: ...
@@ -303,7 +306,7 @@ class OrderedDict(Dict[_KT, _VT], Reversible[_KT], Generic[_KT, _VT]):
 _DefaultDictT = TypeVar('_DefaultDictT', bound=defaultdict)
 
 class defaultdict(Dict[_KT, _VT], Generic[_KT, _VT]):
-    default_factory = ...  # type: Optional[Callable[[], _VT]]
+    default_factory: Optional[Callable[[], _VT]]
 
     @overload
     def __init__(self, **kwargs: _VT) -> None: ...

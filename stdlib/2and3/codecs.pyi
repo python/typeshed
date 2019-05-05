@@ -18,11 +18,15 @@ class _Encoder(Protocol):
 class _Decoder(Protocol):
     def __call__(self, input: _Encoded, errors: str = ...) -> Tuple[_Decoded, int]: ...  # signature of Codec().decode
 
-# TODO: Replace the following Callable definitions with protocol classes as above.
-_StreamReader = Callable[[IO[_Encoded]], StreamReader]  # signature of StreamReader __init__
-_StreamWriter = Callable[[IO[_Encoded]], StreamWriter]  # signature of StreamWriter __init__
-_IncrementalEncoder = Callable[[], IncrementalEncoder]  # signature of IncrementalEncoder __init__
-_IncrementalDecoder = Callable[[], IncrementalDecoder]  # signature of IncrementalDecoder __init__
+class _StreamReader(Protocol):
+    def __call__(self, stream: IO[_Encoded], errors: str = ...) -> StreamReader: ...
+class _StreamWriter(Protocol):
+    def __call__(self, stream: IO[_Encoded], errors: str = ...) -> StreamWriter: ...
+
+class _IncrementalEncoder(Protocol):
+    def __call__(self, errors: str = ...) -> IncrementalEncoder: ...
+class _IncrementalDecoder(Protocol):
+    def __call__(self, errors: str = ...) -> IncrementalDecoder: ...
 
 def encode(obj: _Decoded, encoding: str = ..., errors: str = ...) -> _Encoded: ...
 def decode(obj: _Encoded, encoding: str = ..., errors: str = ...) -> _Decoded: ...

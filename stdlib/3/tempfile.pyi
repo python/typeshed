@@ -5,12 +5,12 @@
 
 import sys
 from types import TracebackType
-from typing import Any, AnyStr, Generic, IO, Iterable, Iterator, List, Optional, Tuple, Type
+from typing import Any, AnyStr, Generic, IO, Iterable, Iterator, List, Optional, overload, Tuple, Type
 
 # global variables
 TMP_MAX: int
-tempdir = ...  # type: Optional[str]
-template = ...  # type: str
+tempdir: Optional[str]
+template: str
 
 
 if sys.version_info >= (3, 5):
@@ -63,7 +63,7 @@ if sys.version_info >= (3, 5):
         def __iter__(self) -> Iterator[AnyStr]: ...
 
     class TemporaryDirectory(Generic[AnyStr]):
-        name = ...  # type: str
+        name: str
         def __init__(self, suffix: Optional[AnyStr] = ..., prefix: Optional[AnyStr] = ...,
                      dir: Optional[AnyStr] = ...) -> None: ...
         def cleanup(self) -> None: ...
@@ -74,8 +74,11 @@ if sys.version_info >= (3, 5):
 
     def mkstemp(suffix: Optional[AnyStr] = ..., prefix: Optional[AnyStr] = ..., dir: Optional[AnyStr] = ...,
                 text: bool = ...) -> Tuple[int, AnyStr]: ...
+    @overload
+    def mkdtemp() -> str: ...
+    @overload
     def mkdtemp(suffix: Optional[AnyStr] = ..., prefix: Optional[AnyStr] = ...,
-                dir: Optional[str] = ...) -> AnyStr: ...
+                dir: Optional[AnyStr] = ...) -> AnyStr: ...
     def mktemp(suffix: Optional[AnyStr] = ..., prefix: Optional[AnyStr] = ..., dir: Optional[AnyStr] = ...) -> AnyStr: ...
 
     def gettempdirb() -> bytes: ...
@@ -101,7 +104,7 @@ else:
         ...
 
     class TemporaryDirectory:
-        name = ...  # type: str
+        name: str
         def __init__(self, suffix: str = ..., prefix: str = ...,
                      dir: Optional[str] = ...) -> None: ...
         def cleanup(self) -> None: ...

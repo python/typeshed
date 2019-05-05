@@ -51,11 +51,11 @@ super_len = utils.super_len
 to_native_string = utils.to_native_string
 codes = status_codes.codes
 
-REDIRECT_STATI = ...  # type: Any
-DEFAULT_REDIRECT_LIMIT = ...  # type: Any
-CONTENT_CHUNK_SIZE = ...  # type: Any
-ITER_CHUNK_SIZE = ...  # type: Any
-json_dumps = ...  # type: Any
+REDIRECT_STATI: Any
+DEFAULT_REDIRECT_LIMIT: Any
+CONTENT_CHUNK_SIZE: Any
+ITER_CHUNK_SIZE: Any
+json_dumps: Any
 
 class RequestEncodingMixin:
     @property
@@ -66,26 +66,26 @@ class RequestHooksMixin:
     def deregister_hook(self, event, hook): ...
 
 class Request(RequestHooksMixin):
-    hooks = ...  # type: Any
-    method = ...  # type: Any
-    url = ...  # type: Any
-    headers = ...  # type: Any
-    files = ...  # type: Any
-    data = ...  # type: Any
-    json = ...  # type: Any
-    params = ...  # type: Any
-    auth = ...  # type: Any
-    cookies = ...  # type: Any
+    hooks: Any
+    method: Any
+    url: Any
+    headers: Any
+    files: Any
+    data: Any
+    json: Any
+    params: Any
+    auth: Any
+    cookies: Any
     def __init__(self, method=..., url=..., headers=..., files=..., data=..., params=...,
                  auth=..., cookies=..., hooks=..., json=...) -> None: ...
     def prepare(self): ...
 
 class PreparedRequest(RequestEncodingMixin, RequestHooksMixin):
-    method = ...  # type: Optional[Union[str, Text]]
-    url = ...  # type: Optional[Union[str, Text]]
-    headers = ...  # type: CaseInsensitiveDict
-    body = ...  # type: Optional[Union[bytes, Text]]
-    hooks = ...  # type: Any
+    method: Optional[Union[str, Text]]
+    url: Optional[Union[str, Text]]
+    headers: CaseInsensitiveDict
+    body: Optional[Union[bytes, Text]]
+    hooks: Any
     def __init__(self) -> None: ...
     def prepare(self, method=..., url=..., headers=..., files=..., data=..., params=...,
                 auth=..., cookies=..., hooks=..., json=...): ...
@@ -100,17 +100,17 @@ class PreparedRequest(RequestEncodingMixin, RequestHooksMixin):
     def prepare_hooks(self, hooks): ...
 
 class Response:
-    __attrs__ = ...  # type: Any
-    status_code = ...  # type: int
-    headers = ...  # type: MutableMapping[str, str]
-    raw = ...  # type: Any
-    url = ...  # type: str
-    encoding = ...  # type: str
-    history = ...  # type: List[Response]
-    reason = ...  # type: str
-    cookies = ...  # type: RequestsCookieJar
-    elapsed = ...  # type: datetime.timedelta
-    request = ...  # type: PreparedRequest
+    __attrs__: Any
+    status_code: int
+    headers: MutableMapping[str, str]
+    raw: Any
+    url: str
+    encoding: str
+    history: List[Response]
+    reason: str
+    cookies: RequestsCookieJar
+    elapsed: datetime.timedelta
+    request: PreparedRequest
     def __init__(self) -> None: ...
     def __bool__(self) -> bool: ...
     def __nonzero__(self) -> bool: ...
@@ -127,7 +127,10 @@ class Response:
     def apparent_encoding(self) -> str: ...
     def iter_content(self, chunk_size: Optional[int] = ...,
                      decode_unicode: bool = ...) -> Iterator[Any]: ...
-    def iter_lines(self, chunk_size=..., decode_unicode=..., delimiter=...): ...
+    def iter_lines(self,
+                   chunk_size: Optional[int] = ...,
+                   decode_unicode: bool = ...,
+                   delimiter: Union[Text, bytes] = ...) -> Iterator[Any]: ...
     @property
     def content(self) -> bytes: ...
     @property

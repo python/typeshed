@@ -1,12 +1,17 @@
 # Python 3.5 ast
 
+import sys
 # Rename typing to _typing, as not to conflict with typing imported
 # from _ast below when loaded in an unorthodox way by the Dropbox
 # internal Bazel integration.
 import typing as _typing
 from typing import Any, Iterator, Optional, Union, TypeVar
 
-from _ast import *
+# The same unorthodox Bazel integration causes issues with sys, which
+# is imported in both modules. unfortunately we can't just rename sys,
+# since mypy only supports version checks with a sys that is named
+# sys.
+from _ast import *  # type: ignore
 
 class NodeVisitor():
     def visit(self, node: AST) -> Any: ...
@@ -17,7 +22,12 @@ class NodeTransformer(NodeVisitor):
 
 _T = TypeVar('_T', bound=AST)
 
-def parse(source: Union[str, bytes], filename: Union[str, bytes] = ..., mode: str = ...) -> Module: ...
+if sys.version_info >= (3, 8):
+    def parse(source: Union[str, bytes], filename: Union[str, bytes] = ..., mode: str = ...,
+              type_comments: bool = ..., feature_version: int = ...) -> AST: ...
+else:
+    def parse(source: Union[str, bytes], filename: Union[str, bytes] = ..., mode: str = ...) -> AST: ...
+
 def copy_location(new_node: _T, old_node: AST) -> _T: ...
 def dump(node: AST, annotate_fields: bool = ..., include_attributes: bool = ...) -> str: ...
 def fix_missing_locations(node: _T) -> _T: ...
@@ -27,5 +37,3 @@ def iter_child_nodes(node: AST) -> Iterator[AST]: ...
 def iter_fields(node: AST) -> Iterator[_typing.Tuple[str, Any]]: ...
 def literal_eval(node_or_string: Union[str, AST]) -> Any: ...
 def walk(node: AST) -> Iterator[AST]: ...
-
-PyCF_ONLY_AST = ...  # type: int

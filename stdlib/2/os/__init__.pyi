@@ -11,9 +11,6 @@ from typing import (
 )
 from . import path as path
 
-# Workaround a pytype crash (see #2683)
-from builtins import bytes
-
 _T = TypeVar('_T')
 
 # ----- os variables -----
@@ -66,7 +63,10 @@ O_LARGEFILE: int  # Gnu extension if in C library
 curdir: str
 pardir: str
 sep: str
-altsep: str
+if sys.platform == 'win32':
+    altsep: str
+else:
+    altsep: Optional[str]
 extsep: str
 pathsep: str
 defpath: str

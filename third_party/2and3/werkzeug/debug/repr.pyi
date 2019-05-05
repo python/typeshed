@@ -1,10 +1,10 @@
 from typing import Any, Optional
 
-deque = ...  # type: Any
-missing = ...  # type: Any
-RegexType = ...  # type: Any
-HELP_HTML = ...  # type: Any
-OBJECT_DUMP_HTML = ...  # type: Any
+deque: Any
+missing: Any
+RegexType: Any
+HELP_HTML: Any
+OBJECT_DUMP_HTML: Any
 
 def debug_repr(obj): ...
 def dump(obj=...): ...
@@ -12,15 +12,15 @@ def dump(obj=...): ...
 class _Helper:
     def __call__(self, topic: Optional[Any] = ...): ...
 
-helper = ...  # type: Any
+helper: Any
 
 class DebugReprGenerator:
     def __init__(self): ...
-    list_repr = ...  # type: Any
-    tuple_repr = ...  # type: Any
-    set_repr = ...  # type: Any
-    frozenset_repr = ...  # type: Any
-    deque_repr = ...  # type: Any
+    list_repr: Any
+    tuple_repr: Any
+    set_repr: Any
+    frozenset_repr: Any
+    deque_repr: Any
     def regex_repr(self, obj): ...
     def string_repr(self, obj, limit: int = ...): ...
     def dict_repr(self, d, recursive, limit: int = ...): ...

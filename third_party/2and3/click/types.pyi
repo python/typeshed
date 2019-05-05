@@ -27,7 +27,11 @@ class CompositeParamType(ParamType):
 
 class Choice(ParamType):
     choices: Iterable[str]
-    def __init__(self, choices: Iterable[str]) -> None:
+    def __init__(
+        self,
+        choices: Iterable[str],
+        case_sensitive: bool = ...,
+    ) -> None:
         ...
 
 

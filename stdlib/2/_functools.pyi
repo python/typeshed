@@ -13,8 +13,8 @@ def reduce(function: Callable[[_T, _S], _T],
            sequence: Iterable[_S], initial: _T) -> _T: ...
 
 class partial(object):
-    func = ...  # type: Callable[..., Any]
-    args = ...  # type: Tuple[Any, ...]
-    keywords = ...  # type: Dict[str, Any]
+    func: Callable[..., Any]
+    args: Tuple[Any, ...]
+    keywords: Dict[str, Any]
     def __init__(self, func: Callable[..., Any], *args: Any, **kwargs: Any) -> None: ...
     def __call__(self, *args: Any, **kwargs: Any) -> Any: ...

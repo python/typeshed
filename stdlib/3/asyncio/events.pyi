@@ -21,7 +21,7 @@ _TransProtPair = Tuple[BaseTransport, BaseProtocol]
 
 class Handle:
     _cancelled = False
-    _args = ...  # type: List[Any]
+    _args: List[Any]
     def __init__(self, callback: Callable[..., Any], args: List[Any], loop: AbstractEventLoop) -> None: ...
     def __repr__(self) -> str: ...
     def cancel(self) -> None: ...
@@ -103,16 +103,32 @@ class AbstractEventLoop(metaclass=ABCMeta):
     @abstractmethod
     @coroutine
     def getnameinfo(self, sockaddr: tuple, flags: int = ...) -> Generator[Any, None, Tuple[str, int]]: ...
+    @overload
     @abstractmethod
     @coroutine
     def create_connection(self, protocol_factory: _ProtocolFactory, host: str = ..., port: int = ..., *,
-                          ssl: _SSLContext = ..., family: int = ..., proto: int = ..., flags: int = ..., sock: Optional[socket] = ...,
-                          local_addr: str = ..., server_hostname: str = ...) -> Generator[Any, None, _TransProtPair]: ...
+                          ssl: _SSLContext = ..., family: int = ..., proto: int = ..., flags: int = ..., sock: None = ...,
+                          local_addr: Optional[str] = ..., server_hostname: Optional[str] = ...) -> Generator[Any, None, _TransProtPair]: ...
+    @overload
     @abstractmethod
     @coroutine
-    def create_server(self, protocol_factory: _ProtocolFactory, host: Union[str, Sequence[str]] = ..., port: int = ..., *,
+    def create_connection(self, protocol_factory: _ProtocolFactory, host: None = ..., port: None = ..., *,
+                          ssl: _SSLContext = ..., family: int = ..., proto: int = ..., flags: int = ..., sock: socket,
+                          local_addr: None = ..., server_hostname: Optional[str] = ...) -> Generator[Any, None, _TransProtPair]: ...
+    @overload
+    @abstractmethod
+    @coroutine
+    def create_server(self, protocol_factory: _ProtocolFactory, host: Optional[Union[str, Sequence[str]]] = ..., port: int = ..., *,
                       family: int = ..., flags: int = ...,
-                      sock: Optional[socket] = ..., backlog: int = ..., ssl: _SSLContext = ...,
+                      sock: None = ..., backlog: int = ..., ssl: _SSLContext = ...,
+                      reuse_address: Optional[bool] = ...,
+                      reuse_port: Optional[bool] = ...) -> Generator[Any, None, AbstractServer]: ...
+    @overload
+    @abstractmethod
+    @coroutine
+    def create_server(self, protocol_factory: _ProtocolFactory, host: None = ..., port: None = ..., *,
+                      family: int = ..., flags: int = ...,
+                      sock: socket, backlog: int = ..., ssl: _SSLContext = ...,
                       reuse_address: Optional[bool] = ...,
                       reuse_port: Optional[bool] = ...) -> Generator[Any, None, AbstractServer]: ...
     @abstractmethod
@@ -223,7 +239,7 @@ def new_event_loop() -> AbstractEventLoop: ...
 def get_child_watcher() -> Any: ...  # TODO: unix_events.AbstractChildWatcher
 def set_child_watcher(watcher: Any) -> None: ...  # TODO: unix_events.AbstractChildWatcher
 
-def _set_running_loop(loop: AbstractEventLoop) -> None: ...
+def _set_running_loop(loop: Optional[AbstractEventLoop]) -> None: ...
 def _get_running_loop() -> AbstractEventLoop: ...
 
 if sys.version_info >= (3, 7):

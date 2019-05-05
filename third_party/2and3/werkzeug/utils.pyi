@@ -1,18 +1,18 @@
-from typing import Any, Optional
+from typing import Any, Optional, overload, Type, TypeVar
 from werkzeug._internal import _DictAccessorProperty
 from werkzeug.wrappers import Response
 
 class cached_property(property):
-    __name__ = ...  # type: Any
-    __module__ = ...  # type: Any
-    __doc__ = ...  # type: Any
-    func = ...  # type: Any
+    __name__: Any
+    __module__: Any
+    __doc__: Any
+    func: Any
     def __init__(self, func, name: Optional[Any] = ..., doc: Optional[Any] = ...): ...
     def __set__(self, obj, value): ...
     def __get__(self, obj, type: Optional[Any] = ...): ...
 
 class environ_property(_DictAccessorProperty):
-    read_only = ...  # type: Any
+    read_only: Any
     def lookup(self, obj): ...
 
 class header_property(_DictAccessorProperty):
@@ -23,15 +23,23 @@ class HTMLBuilder:
     def __call__(self, s): ...
     def __getattr__(self, tag): ...
 
-html = ...  # type: Any
-xhtml = ...  # type: Any
+html: Any
+xhtml: Any
 
 def get_content_type(mimetype, charset): ...
 def format_string(string, context): ...
 def secure_filename(filename): ...
 def escape(s, quote: Optional[Any] = ...): ...
 def unescape(s): ...
-def redirect(location, code: int = ..., Response: Optional[Any] = ...) -> Response: ...
+
+# 'redirect' returns a werkzeug Response, unless you give it
+# another Response type to use instead.
+_RC = TypeVar("_RC", bound=Response)
+@overload
+def redirect(location, code: int = ..., Response: None = ...) -> Response: ...
+@overload
+def redirect(location, code: int = ..., Response: Type[_RC] = ...) -> _RC: ...
+
 def append_slash_redirect(environ, code: int = ...): ...
 def import_string(import_name, silent: bool = ...): ...
 def find_modules(import_path, include_packages: bool = ..., recursive: bool = ...): ...
@@ -39,12 +47,12 @@ def validate_arguments(func, args, kwargs, drop_extra: bool = ...): ...
 def bind_arguments(func, args, kwargs): ...
 
 class ArgumentValidationError(ValueError):
-    missing = ...  # type: Any
-    extra = ...  # type: Any
-    extra_positional = ...  # type: Any
+    missing: Any
+    extra: Any
+    extra_positional: Any
     def __init__(self, missing: Optional[Any] = ..., extra: Optional[Any] = ..., extra_positional: Optional[Any] = ...): ...
 
 class ImportStringError(ImportError):
-    import_name = ...  # type: Any
-    exception = ...  # type: Any
+    import_name: Any
+    exception: Any
     def __init__(self, import_name, exception): ...

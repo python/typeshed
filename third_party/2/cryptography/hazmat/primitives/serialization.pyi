@@ -8,26 +8,26 @@ def load_der_public_key(data: bytes, backend): ...
 def load_ssh_public_key(data: bytes, backend): ...
 
 class Encoding(Enum):
-    PEM = ...  # type: str
-    DER = ...  # type: str
-    OpenSSH = ...  # type: str
+    PEM: str
+    DER: str
+    OpenSSH: str
 
 class PrivateFormat(Enum):
-    PKCS8 = ...  # type: str
-    TraditionalOpenSSL = ...  # type: str
+    PKCS8: str
+    TraditionalOpenSSL: str
 
 class PublicFormat(Enum):
-    SubjectPublicKeyInfo = ...  # type: str
-    PKCS1 = ...  # type: str
-    OpenSSH = ...  # type: str
+    SubjectPublicKeyInfo: str
+    PKCS1: str
+    OpenSSH: str
 
 class ParameterFormat(Enum):
-    PKCS3 = ...  # type: str
+    PKCS3: str
 
 class KeySerializationEncryption: ...
 
 class BestAvailableEncryption(KeySerializationEncryption):
-    password = ...  # type: Any
+    password: Any
     def __init__(self, password) -> None: ...
 
 class NoEncryption(KeySerializationEncryption): ...

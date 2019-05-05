@@ -1,6 +1,6 @@
 from Crypto.Util.number import *  # noqa: F403
 
-__revision__ = ...  # type: str
+__revision__: str
 
 class pubkey:
     def __init__(self) -> None: ...
