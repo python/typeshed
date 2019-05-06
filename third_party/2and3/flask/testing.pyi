@@ -4,8 +4,7 @@
 
 from click import BaseCommand
 from click.testing import CliRunner, Result
-from typing import Any, IO, Iterable, Mapping, Optional, Union, Tuple, overload
-from typing_extensions import Literal
+from typing import Any, IO, Iterable, Mapping, Optional, Union
 from werkzeug.test import Client
 from flask.wrappers import Response
 
