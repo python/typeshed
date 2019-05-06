@@ -149,18 +149,7 @@ def pytype_test(args):
                   'via {arg})'.format(version=version, arg=arg))
             return 1
 
-    # TODO(rchen152): Keep expanding our third_party/ coverage so we can move
-    # to a small blacklist rather than an ever-growing whitelist.
-    wanted = [
-        'stdlib/',
-        'third_party/.*/mypy_extensions',
-        'third_party/.*/pkg_resources',
-        'third_party/.*/six/',
-        'third_party/.*/yaml/',
-    ]
-    wanted_re = re.compile(r'(?:%s).*\.pyi$' % '|'.join(wanted))
     skipped = PathMatcher(load_blacklist(typeshed_location))
-
     files = []
     bad = []
 
@@ -186,17 +175,16 @@ def pytype_test(args):
         for f in sorted(filenames):
             f = os.path.join(root, f)
             rel = _get_relative(f)
-            if wanted_re.search(rel):
-                if not skipped.search(rel):
-                    if _is_version(f, '2and3'):
-                        files.append((f, 2))
-                        files.append((f, 3))
-                    elif _is_version(f, '2'):
-                        files.append((f, 2))
-                    elif _is_version(f, '3'):
-                        files.append((f, 3))
-                    else:
-                        print('Unrecognized path: %s' % f)
+            if not skipped.search(rel):
+                if _is_version(f, '2and3'):
+                    files.append((f, 2))
+                    files.append((f, 3))
+                elif _is_version(f, '2'):
+                    files.append((f, 2))
+                elif _is_version(f, '3'):
+                    files.append((f, 3))
+                else:
+                    print('Unrecognized path: %s' % f)
 
     errors = 0
     total_tests = len(files)
