@@ -106,13 +106,3 @@ third_party/2and3/pymysql/converters.pyi
 third_party/2and3/pymysql/cursors.pyi
 third_party/2and3/pymysql/err.pyi
 third_party/2and3/pynamodb/models.pyi
-third_party/2and3/requests/__init__.pyi
-third_party/2and3/requests/adapters.pyi
-third_party/2and3/requests/api.pyi
-third_party/2and3/requests/auth.pyi
-third_party/2and3/requests/models.pyi
-third_party/2and3/requests/packages/urllib3/__init__.pyi
-third_party/2and3/requests/packages/urllib3/connectionpool.pyi
-third_party/2and3/requests/sessions.pyi
-third_party/2and3/werkzeug/__init__.pyi
-third_party/2and3/werkzeug/urls.pyi
