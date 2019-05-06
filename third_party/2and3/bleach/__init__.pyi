@@ -6,7 +6,7 @@ from bleach.sanitizer import (
     ALLOWED_PROTOCOLS as ALLOWED_PROTOCOLS,
     ALLOWED_STYLES as ALLOWED_STYLES,
     ALLOWED_TAGS as ALLOWED_TAGS,
-    Cleaner as Clear,
+    Cleaner as Cleaner,
 )
 
 from .linkifier import _Callback
