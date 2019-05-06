@@ -1,7 +1,7 @@
 from typing import Any, Callable, Container, Dict, Iterable, List, Optional, Pattern, Text, Type, Union
 
 ALLOWED_TAGS: List[Text]
-ALLOWED_ATTRIBUTES: Dict[Text, Container[Text]]
+ALLOWED_ATTRIBUTES: Dict[Text, List[Text]]
 ALLOWED_STYLES: List[Text]
 ALLOWED_PROTOCOLS: List[Text]
 
