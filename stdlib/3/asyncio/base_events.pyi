@@ -1,0 +1,3 @@
+from asyncio.events import AbstractEventLoop
+
+class BaseEventLoop(AbstractEventLoop): ...
