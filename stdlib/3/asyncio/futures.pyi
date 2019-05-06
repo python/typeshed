@@ -1,5 +1,5 @@
 import sys
-from typing import Any, Union, Callable, TypeVar, Type, List, Generic, Iterable, Generator, Awaitable
+from typing import Any, Union, Callable, TypeVar, Type, List, Generic, Iterable, Generator, Awaitable, Optional
 from .events import AbstractEventLoop
 from concurrent.futures import (
     CancelledError as CancelledError,
@@ -32,7 +32,7 @@ class Future(Awaitable[_T], Iterable[_T]):
     _blocking = False
     _log_traceback = False
     _tb_logger: Type[_TracebackLogger]
-    def __init__(self, *, loop: AbstractEventLoop = ...) -> None: ...
+    def __init__(self, *, loop: Optional[AbstractEventLoop] = ...) -> None: ...
     def __repr__(self) -> str: ...
     def __del__(self) -> None: ...
     if sys.version_info >= (3, 7):
