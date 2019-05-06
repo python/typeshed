@@ -13,7 +13,7 @@ if sys.version_info < (3,):
     _Str = Union[Text, str]
 else:
     _Str = str
-# FIXME: the functions really return py2:unicode/py3:str if encoding is None, otherwise py2:str/py3:bytes. Waiting for Issue#5621
+# FIXME: the functions really return py2:unicode/py3:str if encoding is None, otherwise py2:str/py3:bytes. Waiting for python/mypy#5621
 _Yaml = Any
 
 __with_libyaml__: Any
