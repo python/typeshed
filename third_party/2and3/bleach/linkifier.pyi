@@ -1,4 +1,4 @@
-from typing import Any, List, MutableMapping, Protocol, Pattern, Iterable, Optional, Text
+from typing import Any, Container, Iterable, List, MutableMapping, Optional, Pattern, Protocol, Text
 
 _Attrs = MutableMapping[Any, Text]
 
@@ -18,11 +18,12 @@ EMAIL_RE: Pattern[Text]
 class Linker(object):
     def __init__(
         self,
-        callbacks: List[_Callback] = ...,
-        skip_tags: Optional[List[Text]] = ...,
+        callbacks: Iterable[_Callback] = ...,
+        skip_tags: Optional[Container[Text]] = ...,
         parse_email: bool = ...,
         url_re: Pattern[Text] = ...,
         email_re: Pattern[Text] = ...,
+        recognized_tags: Optional[Container[Text]] = ...,
     ) -> None: ...
     def linkify(self, text: Text) -> Text: ...
 
