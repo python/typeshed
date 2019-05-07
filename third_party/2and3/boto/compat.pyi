@@ -10,7 +10,7 @@ expanduser: Any
 if sys.version_info >= (3, 0):
     StandardError = Exception
 else:
-    StandardError = __builtins__.StandardError
+    from __builtin__ import StandardError as StandardError
 
 long_type: Any
 unquote_str: Any
