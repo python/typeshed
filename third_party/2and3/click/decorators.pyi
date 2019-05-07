@@ -1,5 +1,5 @@
 from distutils.version import Version
-from typing import Any, Callable, Dict, List, Optional, Type, TypeVar, Union, Text, overload
+from typing import Any, Callable, Dict, List, Optional, Tuple, Type, TypeVar, Union, Text, overload
 
 from click.core import Command, Group, Argument, Option, Parameter, Context, _ConvertibleType
 
@@ -87,7 +87,8 @@ def argument(
     metavar: Optional[str] = ...,
     expose_value: bool = ...,
     is_eager: bool = ...,
-    envvar: Optional[Union[str, List[str]]] = ...
+    envvar: Optional[Union[str, List[str]]] = ...,
+    autocompletion: Optional[Callable[[Any, List[str], str], List[Union[str, Tuple[str, str]]]]] = ...,
 ) -> Callable[[_F], _F]:
     ...
 
