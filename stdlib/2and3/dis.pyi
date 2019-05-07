@@ -1,4 +1,4 @@
-from typing import List, Union, Iterator, Tuple, Optional, Any, IO, NamedTuple, Dict
+from typing import Callable, List, Union, Iterator, Tuple, Optional, Any, IO, NamedTuple, Dict
 
 import sys
 import types
@@ -14,7 +14,9 @@ if sys.version_info >= (3, 4):
 if sys.version_info >= (3, 6):
     from opcode import hasnargs as hasnargs
 
-_have_code = Union[types.MethodType, types.FunctionType, types.CodeType, type]
+# Strictly this should not have to include Callable, but mypy doesn't use FunctionType
+# for functions (python/mypy#3171)
+_have_code = Union[types.MethodType, types.FunctionType, types.CodeType, type, Callable[..., Any]]
 _have_code_or_string = Union[_have_code, str, bytes]
 
 
