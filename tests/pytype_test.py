@@ -172,7 +172,7 @@ def pytype_test(args):
 
     for root, _, filenames in itertools.chain.from_iterable(
             os.walk(p) for p in paths):
-        for f in sorted(filenames):
+        for f in sorted(f for f in filenames if f.endswith('.pyi')):
             f = os.path.join(root, f)
             rel = _get_relative(f)
             if not skipped.search(rel):

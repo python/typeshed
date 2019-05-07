@@ -1,7 +1,7 @@
-from contextlib import contextmanager
 from typing import (
     Any,
     Callable,
+    ContextManager,
     Dict,
     Generator,
     Iterable,
@@ -28,10 +28,9 @@ def invoke_param_callback(
     ...
 
 
-@contextmanager
 def augment_usage_errors(
     ctx: Context, param: Optional[Parameter] = ...
-) -> Generator[None, None, None]:
+) -> ContextManager[None]:
     ...
 
 
@@ -90,8 +89,7 @@ class Context:
     ) -> None:
         ...
 
-    @contextmanager
-    def scope(self, cleanup: bool = ...) -> Generator[Context, None, None]:
+    def scope(self, cleanup: bool = ...) -> ContextManager[Context]:
         ...
 
     def make_formatter(self) -> HelpFormatter:

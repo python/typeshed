@@ -261,9 +261,9 @@ def convert_type(ty: Optional[_ConvertibleType], default: Optional[Any] = ...) -
 
 # parameter type shortcuts
 
-BOOL = BoolParamType()
-FLOAT = FloatParamType()
-INT = IntParamType()
-STRING = StringParamType()
-UNPROCESSED = UnprocessedParamType()
-UUID = UUIDParameterType()
+BOOL: BoolParamType
+FLOAT: FloatParamType
+INT: IntParamType
+STRING: StringParamType
+UNPROCESSED: UnprocessedParamType
+UUID: UUIDParameterType

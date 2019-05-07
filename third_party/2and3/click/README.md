@@ -1,7 +1,7 @@
 # click 6.6, Python 3
 
-`__init__.pyi` is literally a copy of click/__init__.py. It's a shortcut module
-anyway in the actual sources so it works well without additional changes.
+`__init__.pyi` is almost a copy of `click/__init__.py`. It's a shortcut module
+anyway in the actual sources so it works well with minimal changes.
 
 The types are pretty complete but they were created mostly for public API use
 so some internal modules (`_compat`) or functions (`core._bashcomplete`) are
