@@ -1,5 +1,5 @@
 import sys
-from typing import Any, Union, Callable, TypeVar, Type, List, Generic, Iterable, Generator, Awaitable, Optional
+from typing import Any, Union, Callable, TypeVar, Type, List, Generic, Iterable, Generator, Awaitable, Optional, Tuple
 from .events import AbstractEventLoop
 from concurrent.futures import (
     CancelledError as CancelledError,
@@ -7,6 +7,9 @@ from concurrent.futures import (
     Future as _ConcurrentFuture,
     Error,
 )
+
+if sys.version_info >= (3, 7):
+    from contextvars import Context
 
 __all__: List[str]
 
@@ -37,6 +40,10 @@ class Future(Awaitable[_T], Iterable[_T]):
     def __del__(self) -> None: ...
     if sys.version_info >= (3, 7):
         def get_loop(self) -> AbstractEventLoop: ...
+        def _callbacks(self: _S) -> List[Tuple[Callable[[_S], Any], Context]]: ...
+    else:
+        @property
+        def _callbacks(self: _S) -> List[Callable[[_S], Any]]: ...
     def cancel(self) -> bool: ...
     def _schedule_callbacks(self) -> None: ...
     def cancelled(self) -> bool: ...
