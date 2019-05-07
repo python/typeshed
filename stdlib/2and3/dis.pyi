@@ -1,4 +1,4 @@
-from typing import List, Union, Iterator, Tuple, Optional, Any, IO, NamedTuple, Dict
+from typing import Callable, List, Union, Iterator, Tuple, Optional, Any, IO, NamedTuple, Dict
 
 import sys
 import types
