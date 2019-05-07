@@ -1,5 +1,5 @@
 import sys
-from typing import Any, Union, Callable, TypeVar, Type, List, Generic, Iterable, Generator, Awaitable, Optional
+from typing import Any, Union, Callable, TypeVar, Type, List, Generic, Iterable, Generator, Awaitable, Optional, Sequence
 from .events import AbstractEventLoop
 from concurrent.futures import (
     CancelledError as CancelledError,
@@ -52,5 +52,7 @@ class Future(Awaitable[_T], Iterable[_T]):
     def __await__(self) -> Generator[Any, None, _T]: ...
     @property
     def _loop(self) -> AbstractEventLoop: ...
+    @property
+    def _callbacks(self) -> Sequence[Callable[[_S], Any]]: ...
 
 def wrap_future(f: Union[_ConcurrentFuture[_T], Future[_T]]) -> Future[_T]: ...
