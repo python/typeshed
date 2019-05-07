@@ -34,7 +34,7 @@ class FlagValues:
     def UseGnuGetOpt(self, use_gnu_getopt: bool = ...) -> None: ...
     def is_gnu_getopt(self) -> bool: ...
     IsGnuGetOpt = is_gnu_getopt
-# TODO dict type
+    # TODO dict type
     def FlagDict(self) -> dict: ...
     def flags_by_module_dict(self) -> Dict[str, List[Flag]]: ...
     FlagsByModuleDict = flags_by_module_dict
@@ -83,7 +83,7 @@ class FlagValues:
     AppendFlagsIntoFile = append_flags_into_file
     def write_help_in_xml_format(self, outfile: IO[str] = ...) -> None: ...
     WriteHelpInXMLFormat = write_help_in_xml_format
-# TODO validator: gflags_validators.Validator
+    # TODO validator: gflags_validators.Validator
     def AddValidator(self, validator: Any) -> None: ...
 
 FLAGS: FlagValues
@@ -113,7 +113,7 @@ class Flag:
 
 class ArgumentParser(object):
     syntactic_help: str
-# TODO what is this
+    # TODO what is this
     def parse(self, argument: Any) -> Any: ...
     Parser = parse
     def flag_type(self) -> str: ...
