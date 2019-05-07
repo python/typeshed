@@ -13,7 +13,7 @@ if sys.version_info[0] >= 3:
     unichr = chr
     int_types = int,
 else:
+    from __builtin__ import unichr as unichr
     text_type = unicode
     string_types = (str, unicode)
-    unichr = __builtins__.unichr
     int_types = (int, long)
