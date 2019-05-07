@@ -9,7 +9,6 @@ stdlib/3/typing.pyi
 
 # third_party stubs with constructs that pytype doesn't yet support:
 third_party/2/fb303/FacebookService.pyi
-third_party/2/gflags.pyi
 third_party/2/scribe/scribe.pyi
 third_party/2/tornado/gen.pyi
 third_party/2/tornado/httpserver.pyi
