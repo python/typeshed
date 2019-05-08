@@ -103,6 +103,8 @@ class Popen:
     def __enter__(self) -> Popen: ...
     def __exit__(self, type, value, traceback) -> bool: ...
 
+def list2cmdline(seq: Sequence[str]) -> str: ...  # undocumented
+
 # Windows-only: STARTUPINFO etc.
 
 STD_INPUT_HANDLE: Any
