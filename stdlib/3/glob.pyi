@@ -20,4 +20,4 @@ else:
 
 def escape(pathname: AnyStr) -> AnyStr: ...
 
-def has_magic(s: str) -> bool: ...  # undocumented
+def has_magic(s: Union[str, bytes]) -> bool: ...  # undocumented
