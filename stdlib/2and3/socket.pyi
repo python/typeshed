@@ -503,7 +503,7 @@ _RetAddress = Any
 # TODO AF_PACKET and AF_BLUETOOTH address objects
 
 _CMSG = Tuple[int, int, bytes]
-_SelfT = TypeVar('_SelfT', bound=socket)
+_S = TypeVar('_S', bound=socket)
 
 # ----- classes -----
 class socket:
@@ -517,7 +517,7 @@ class socket:
         def __init__(self, family: int = ..., type: int = ..., proto: int = ..., fileno: Optional[int] = ...) -> None: ...
 
     if sys.version_info >= (3, 2):
-        def __enter__(self: _SelfT) -> _SelfT: ...
+        def __enter__(self: _S) -> _S: ...
         def __exit__(self, *args: Any) -> None: ...
 
     # --- methods ---

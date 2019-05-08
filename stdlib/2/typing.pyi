@@ -403,7 +403,7 @@ class Match(Generic[AnyStr]):
 # Pattern is generic over AnyStr (determining the type of its .pattern
 # attribute), but at the same time its methods take either bytes or
 # Text and return the same type, regardless of the type of the pattern.
-_AnyStr2 = TypeVar('_AnyStr2', bytes, Text)
+_AS = TypeVar('_AS', bytes, Text)
 
 class Pattern(Generic[AnyStr]):
     flags: int
@@ -411,31 +411,31 @@ class Pattern(Generic[AnyStr]):
     groups: int
     pattern: AnyStr
 
-    def search(self, string: _AnyStr2, pos: int = ...,
-               endpos: int = ...) -> Optional[Match[_AnyStr2]]: ...
-    def match(self, string: _AnyStr2, pos: int = ...,
-              endpos: int = ...) -> Optional[Match[_AnyStr2]]: ...
-    def split(self, string: _AnyStr2, maxsplit: int = ...) -> List[_AnyStr2]: ...
-    # Returns either a list of _AnyStr2 or a list of tuples, depending on
+    def search(self, string: _AS, pos: int = ...,
+               endpos: int = ...) -> Optional[Match[_AS]]: ...
+    def match(self, string: _AS, pos: int = ...,
+              endpos: int = ...) -> Optional[Match[_AS]]: ...
+    def split(self, string: _AS, maxsplit: int = ...) -> List[_AS]: ...
+    # Returns either a list of _AS or a list of tuples, depending on
     # whether there are groups in the pattern.
     def findall(self, string: Union[bytes, Text], pos: int = ...,
                 endpos: int = ...) -> List[Any]: ...
-    def finditer(self, string: _AnyStr2, pos: int = ...,
-                 endpos: int = ...) -> Iterator[Match[_AnyStr2]]: ...
+    def finditer(self, string: _AS, pos: int = ...,
+                 endpos: int = ...) -> Iterator[Match[_AS]]: ...
 
     @overload
-    def sub(self, repl: _AnyStr2, string: _AnyStr2,
-            count: int = ...) -> _AnyStr2: ...
+    def sub(self, repl: _AS, string: _AS,
+            count: int = ...) -> _AS: ...
     @overload
-    def sub(self, repl: Callable[[Match[_AnyStr2]], _AnyStr2], string: _AnyStr2,
-            count: int = ...) -> _AnyStr2: ...
+    def sub(self, repl: Callable[[Match[_AS]], _AS], string: _AS,
+            count: int = ...) -> _AS: ...
 
     @overload
-    def subn(self, repl: _AnyStr2, string: _AnyStr2,
-             count: int = ...) -> Tuple[_AnyStr2, int]: ...
+    def subn(self, repl: _AS, string: _AS,
+             count: int = ...) -> Tuple[_AS, int]: ...
     @overload
-    def subn(self, repl: Callable[[Match[_AnyStr2]], _AnyStr2], string: _AnyStr2,
-             count: int = ...) -> Tuple[_AnyStr2, int]: ...
+    def subn(self, repl: Callable[[Match[_AS]], _AS], string: _AS,
+             count: int = ...) -> Tuple[_AS, int]: ...
 
 # Functions
 

@@ -12,20 +12,20 @@ from typing import (
 
 if sys.version_info >= (3, 6):
     _Path = Union[str, os.PathLike[str]]
-    _AnyStr = str
-    _AnyPath = TypeVar("_AnyPath", str, os.PathLike[str])
+    _S = str
+    _P = TypeVar("_P", str, os.PathLike[str])
     # Return value of some functions that may either return a path-like object that was passed in or
     # a string
     _PathReturn = Any
 elif sys.version_info >= (3,):
     _Path = str
-    _AnyStr = str
-    _AnyPath = str
+    _S = str
+    _P = str
     _PathReturn = str
 else:
     _Path = Text
-    _AnyStr = TypeVar("_AnyStr", str, unicode)
-    _AnyPath = TypeVar("_AnyPath", str, unicode)
+    _S = TypeVar("_S", str, unicode)
+    _P = TypeVar("_P", str, unicode)
     _PathReturn = Type[None]
 
 if sys.version_info >= (3,):
@@ -53,8 +53,8 @@ def copyfileobj(fsrc: _Reader[AnyStr], fdst: _Writer[AnyStr],
                 length: int = ...) -> None: ...
 
 if sys.version_info >= (3,):
-    def copyfile(src: _Path, dst: _AnyPath, *,
-                 follow_symlinks: bool = ...) -> _AnyPath: ...
+    def copyfile(src: _Path, dst: _P, *,
+                 follow_symlinks: bool = ...) -> _P: ...
     def copymode(src: _Path, dst: _Path, *,
                  follow_symlinks: bool = ...) -> None: ...
     def copystat(src: _Path, dst: _Path, *,
@@ -70,7 +70,7 @@ else:
     def copy(src: _Path, dst: _Path) -> _PathReturn: ...
     def copy2(src: _Path, dst: _Path) -> _PathReturn: ...
 
-def ignore_patterns(*patterns: _Path) -> Callable[[Any, List[_AnyStr]], Set[_AnyStr]]: ...
+def ignore_patterns(*patterns: _Path) -> Callable[[Any, List[_S]], Set[_S]]: ...
 
 if sys.version_info >= (3,):
     _IgnoreFn = Union[None, Callable[[str, List[str]], Iterable[str]], Callable[[_Path, List[str]], Iterable[str]]]
@@ -88,11 +88,11 @@ if sys.version_info >= (3,):
     def rmtree(path: bytes, ignore_errors: bool = ...,
                onerror: Optional[Callable[[Any, str, Any], Any]] = ...) -> None: ...
     @overload
-    def rmtree(path: _AnyPath, ignore_errors: bool = ...,
-               onerror: Optional[Callable[[Any, _AnyPath, Any], Any]] = ...) -> None: ...
+    def rmtree(path: _P, ignore_errors: bool = ...,
+               onerror: Optional[Callable[[Any, _P, Any], Any]] = ...) -> None: ...
 else:
-    def rmtree(path: _AnyPath, ignore_errors: bool = ...,
-               onerror: Optional[Callable[[Any, _AnyPath, Any], Any]] = ...) -> None: ...
+    def rmtree(path: _P, ignore_errors: bool = ...,
+               onerror: Optional[Callable[[Any, _P, Any], Any]] = ...) -> None: ...
 
 if sys.version_info >= (3, 5):
     _CopyFn = Union[Callable[[str, str], None], Callable[[_Path, _Path], None]]
@@ -111,10 +111,10 @@ if sys.version_info >= (3,):
     def which(cmd: _Path, mode: int = ...,
               path: Optional[_Path] = ...) -> Optional[str]: ...
 
-def make_archive(base_name: _AnyStr, format: str, root_dir: Optional[_Path] = ...,
+def make_archive(base_name: _S, format: str, root_dir: Optional[_Path] = ...,
                  base_dir: Optional[_Path] = ..., verbose: bool = ...,
                  dry_run: bool = ..., owner: Optional[str] = ..., group: Optional[str] = ...,
-                 logger: Optional[Any] = ...) -> _AnyStr: ...
+                 logger: Optional[Any] = ...) -> _S: ...
 def get_archive_formats() -> List[Tuple[str, str]]: ...
 
 def register_archive_format(name: str, function: Callable[..., Any],

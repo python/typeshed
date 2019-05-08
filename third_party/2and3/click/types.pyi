@@ -156,9 +156,7 @@ class IntRange(IntParamType):
     ) -> None:
         ...
 
-
-_PathType = TypeVar('_PathType', str, bytes)
-
+_P = TypeVar('_P', str, bytes)
 
 class Path(ParamType):
     def __init__(
@@ -170,11 +168,11 @@ class Path(ParamType):
         readable: bool = ...,
         resolve_path: bool = ...,
         allow_dash: bool = ...,
-        path_type: Optional[Type[_PathType]] = ...,
+        path_type: Optional[Type[_P]] = ...,
     ) -> None:
         ...
 
-    def coerce_path_result(self, rv: Union[str, bytes]) -> _PathType:
+    def coerce_path_result(self, rv: Union[str, bytes]) -> _P:
         ...
 
     def __call__(
@@ -182,7 +180,7 @@ class Path(ParamType):
         value: Optional[str],
         param: Optional[Parameter] = ...,
         ctx: Optional[Context] = ...,
-    ) -> _PathType:
+    ) -> _P:
         ...
 
     def convert(
@@ -190,7 +188,7 @@ class Path(ParamType):
         value: str,
         param: Optional[Parameter],
         ctx: Optional[Context],
-    ) -> _PathType:
+    ) -> _P:
         ...
 
 class StringParamType(ParamType):

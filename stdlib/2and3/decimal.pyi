@@ -11,7 +11,7 @@ if sys.version_info >= (3,):
     _ComparableNum = Union[Decimal, float, numbers.Rational]
 else:
     _ComparableNum = Union[Decimal, float]
-_DecimalT = TypeVar('_DecimalT', bound=Decimal)
+_D = TypeVar('_D', bound=Decimal)
 
 DecimalTuple = NamedTuple('DecimalTuple',
                           [('sign', int),
@@ -69,7 +69,7 @@ def getcontext() -> Context: ...
 def localcontext(ctx: Optional[Context] = ...) -> _ContextManager: ...
 
 class Decimal(object):
-    def __new__(cls: Type[_DecimalT], value: _DecimalNew = ..., context: Optional[Context] = ...) -> _DecimalT: ...
+    def __new__(cls: Type[_D], value: _DecimalNew = ..., context: Optional[Context] = ...) -> _D: ...
     @classmethod
     def from_float(cls, f: float) -> Decimal: ...
     if sys.version_info >= (3,):
