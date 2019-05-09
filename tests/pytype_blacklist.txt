@@ -10,11 +10,6 @@ stdlib/3/typing.pyi
 # third_party stubs with constructs that pytype doesn't yet support:
 third_party/2/fb303/FacebookService.pyi
 third_party/2/scribe/scribe.pyi
-third_party/2/tornado/gen.pyi
-third_party/2/tornado/httpserver.pyi
-third_party/2/tornado/httputil.pyi
-third_party/2/tornado/web.pyi
-third_party/2and3/Crypto/Protocol/KDF.pyi
 third_party/2and3/attr/__init__.pyi
 third_party/2and3/attr/converters.pyi
 third_party/2and3/attr/filters.pyi
@@ -57,9 +52,4 @@ third_party/2and3/google/protobuf/unittest_pb2.pyi
 third_party/2and3/google/protobuf/unittest_proto3_arena_pb2.pyi
 third_party/2and3/google/protobuf/util/json_format_proto3_pb2.pyi
 third_party/2and3/google/protobuf/wrappers_pb2.pyi
-third_party/2and3/pymysql/__init__.pyi
-third_party/2and3/pymysql/connections.pyi
-third_party/2and3/pymysql/converters.pyi
-third_party/2and3/pymysql/cursors.pyi
-third_party/2and3/pymysql/err.pyi
 third_party/2and3/pynamodb/models.pyi
