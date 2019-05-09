@@ -39,6 +39,7 @@ def prompt(
     prompt_suffix: str = ...,
     show_default: bool = ...,
     err: bool = ...,
+    show_choices: bool = ...,
 ) -> Any:
     ...
 

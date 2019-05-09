@@ -439,6 +439,7 @@ class Option(Parameter):
     allow_from_autoenv: bool
     help: Optional[str]
     show_default: bool
+    show_choices: bool
 
     def __init__(
         self,
@@ -454,6 +455,7 @@ class Option(Parameter):
         allow_from_autoenv: bool = ...,
         type: Optional[_ConvertibleType] = ...,
         help: Optional[str] = ...,
+        show_choices: bool = ...,
         **attrs
     ) -> None:
         ...
