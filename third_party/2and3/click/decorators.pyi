@@ -109,6 +109,7 @@ def option(
     allow_from_autoenv: bool = ...,
     type: Optional[_ConvertibleType] = ...,
     help: Optional[str] = ...,
+    show_choices: bool = ...,
     # Parameter
     default: Optional[Any] = ...,
     required: bool = ...,
@@ -140,6 +141,7 @@ def option(
     allow_from_autoenv: bool = ...,
     type: _T = ...,
     help: Optional[str] = ...,
+    show_choices: bool = ...,
     # Parameter
     default: Optional[Any] = ...,
     required: bool = ...,
@@ -171,6 +173,7 @@ def option(
     allow_from_autoenv: bool = ...,
     type: Type[str] = ...,
     help: Optional[str] = ...,
+    show_choices: bool = ...,
     # Parameter
     default: Optional[Any] = ...,
     required: bool = ...,
@@ -202,6 +205,7 @@ def option(
     allow_from_autoenv: bool = ...,
     type: Type[int] = ...,
     help: Optional[str] = ...,
+    show_choices: bool = ...,
     # Parameter
     default: Optional[Any] = ...,
     required: bool = ...,
@@ -232,6 +236,7 @@ def confirmation_option(
     allow_from_autoenv: bool = ...,
     type: Optional[_ConvertibleType] = ...,
     help: str = ...,
+    show_choices: bool = ...,
     # Parameter
     default: Optional[Any] = ...,
     callback: Optional[_Callback] = ...,
@@ -259,6 +264,7 @@ def password_option(
     allow_from_autoenv: bool = ...,
     type: Optional[_ConvertibleType] = ...,
     help: Optional[str] = ...,
+    show_choices: bool = ...,
     # Parameter
     default: Optional[Any] = ...,
     callback: Optional[_Callback] = ...,
@@ -289,6 +295,7 @@ def version_option(
     allow_from_autoenv: bool = ...,
     type: Optional[_ConvertibleType] = ...,
     help: str = ...,
+    show_choices: bool = ...,
     # Parameter
     default: Optional[Any] = ...,
     callback: Optional[_Callback] = ...,
@@ -316,6 +323,7 @@ def help_option(
     allow_from_autoenv: bool = ...,
     type: Optional[_ConvertibleType] = ...,
     help: str = ...,
+    show_choices: bool = ...,
     # Parameter
     default: Optional[Any] = ...,
     callback: Optional[_Callback] = ...,
