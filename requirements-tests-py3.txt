@@ -3,4 +3,4 @@ typed-ast>=1.0.4
 flake8==3.6.0
 flake8-bugbear==18.8.0
 flake8-pyi==18.3.1
-pytype>=2019.5.6
+pytype>=2019.5.8
