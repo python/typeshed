@@ -117,7 +117,7 @@ def style(
     blink: Optional[bool] = ...,
     reverse: Optional[bool] = ...,
     reset: bool = ...,
-):
+) -> str:
     ...
 
 
