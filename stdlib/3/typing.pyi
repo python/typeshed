@@ -353,9 +353,9 @@ class ValuesView(MappingView, Iterable[_VT_co], Generic[_VT_co]):
 @runtime
 class ContextManager(Protocol[_T_co]):
     def __enter__(self) -> _T_co: ...
-    def __exit__(self, exc_type: Optional[Type[BaseException]],
-                 exc_value: Optional[BaseException],
-                 traceback: Optional[TracebackType]) -> Optional[bool]: ...
+    def __exit__(self, __exc_type: Optional[Type[BaseException]],
+                 __exc_value: Optional[BaseException],
+                 __traceback: Optional[TracebackType]) -> Optional[bool]: ...
 
 if sys.version_info >= (3, 5):
     @runtime
