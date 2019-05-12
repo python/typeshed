@@ -112,10 +112,10 @@ class TestAllTypes(Message):
 
         @classmethod
         def items(cls) -> List[Tuple[bytes, TestAllTypes.NestedEnum]]: ...
-    FOO: NestedEnum
-    BAR: NestedEnum
-    BAZ: NestedEnum
-    NEG: NestedEnum
+    FOO: TestAllTypes.NestedEnum
+    BAR: TestAllTypes.NestedEnum
+    BAZ: TestAllTypes.NestedEnum
+    NEG: TestAllTypes.NestedEnum
 
     class NestedMessage(Message):
         bb: int
@@ -1207,9 +1207,9 @@ class TestOneof2(Message):
 
         @classmethod
         def items(cls) -> List[Tuple[bytes, TestOneof2.NestedEnum]]: ...
-    FOO: NestedEnum
-    BAR: NestedEnum
-    BAZ: NestedEnum
+    FOO: TestOneof2.NestedEnum
+    BAR: TestOneof2.NestedEnum
+    BAZ: TestOneof2.NestedEnum
 
     class FooGroup(Message):
         a: int
@@ -1417,9 +1417,9 @@ class TestDynamicExtensions(Message):
         @classmethod
         def items(cls) -> List[Tuple[bytes,
                                      TestDynamicExtensions.DynamicEnumType]]: ...
-    DYNAMIC_FOO: DynamicEnumType
-    DYNAMIC_BAR: DynamicEnumType
-    DYNAMIC_BAZ: DynamicEnumType
+    DYNAMIC_FOO: TestDynamicExtensions.DynamicEnumType
+    DYNAMIC_BAR: TestDynamicExtensions.DynamicEnumType
+    DYNAMIC_BAZ: TestDynamicExtensions.DynamicEnumType
 
     class DynamicMessageType(Message):
         dynamic_field: int

@@ -88,25 +88,25 @@ class Field(Message):
 
         @classmethod
         def items(cls) -> List[Tuple[bytes, Field.Kind]]: ...
-    TYPE_UNKNOWN: Kind
-    TYPE_DOUBLE: Kind
-    TYPE_FLOAT: Kind
-    TYPE_INT64: Kind
-    TYPE_UINT64: Kind
-    TYPE_INT32: Kind
-    TYPE_FIXED64: Kind
-    TYPE_FIXED32: Kind
-    TYPE_BOOL: Kind
-    TYPE_STRING: Kind
-    TYPE_GROUP: Kind
-    TYPE_MESSAGE: Kind
-    TYPE_BYTES: Kind
-    TYPE_UINT32: Kind
-    TYPE_ENUM: Kind
-    TYPE_SFIXED32: Kind
-    TYPE_SFIXED64: Kind
-    TYPE_SINT32: Kind
-    TYPE_SINT64: Kind
+    TYPE_UNKNOWN: Field.Kind
+    TYPE_DOUBLE: Field.Kind
+    TYPE_FLOAT: Field.Kind
+    TYPE_INT64: Field.Kind
+    TYPE_UINT64: Field.Kind
+    TYPE_INT32: Field.Kind
+    TYPE_FIXED64: Field.Kind
+    TYPE_FIXED32: Field.Kind
+    TYPE_BOOL: Field.Kind
+    TYPE_STRING: Field.Kind
+    TYPE_GROUP: Field.Kind
+    TYPE_MESSAGE: Field.Kind
+    TYPE_BYTES: Field.Kind
+    TYPE_UINT32: Field.Kind
+    TYPE_ENUM: Field.Kind
+    TYPE_SFIXED32: Field.Kind
+    TYPE_SFIXED64: Field.Kind
+    TYPE_SINT32: Field.Kind
+    TYPE_SINT64: Field.Kind
 
     class Cardinality(int):
 
@@ -124,10 +124,10 @@ class Field(Message):
 
         @classmethod
         def items(cls) -> List[Tuple[bytes, Field.Cardinality]]: ...
-    CARDINALITY_UNKNOWN: Cardinality
-    CARDINALITY_OPTIONAL: Cardinality
-    CARDINALITY_REQUIRED: Cardinality
-    CARDINALITY_REPEATED: Cardinality
+    CARDINALITY_UNKNOWN: Field.Cardinality
+    CARDINALITY_OPTIONAL: Field.Cardinality
+    CARDINALITY_REQUIRED: Field.Cardinality
+    CARDINALITY_REPEATED: Field.Cardinality
     kind: Field.Kind
     cardinality: Field.Cardinality
     number: int

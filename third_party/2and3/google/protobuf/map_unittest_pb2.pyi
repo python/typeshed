@@ -800,7 +800,7 @@ class MessageContainingEnumCalledType(Message):
         @classmethod
         def items(cls) -> List[Tuple[bytes,
                                      MessageContainingEnumCalledType.Type]]: ...
-    TYPE_FOO: Type
+    TYPE_FOO: MessageContainingEnumCalledType.Type
 
     class TypeEntry(Message):
         key: Text

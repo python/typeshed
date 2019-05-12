@@ -80,8 +80,8 @@ class TestMessageWithCustomOptions(Message):
         @classmethod
         def items(cls) -> List[Tuple[bytes,
                                      TestMessageWithCustomOptions.AnEnum]]: ...
-    ANENUM_VAL1: AnEnum
-    ANENUM_VAL2: AnEnum
+    ANENUM_VAL1: TestMessageWithCustomOptions.AnEnum
+    ANENUM_VAL2: TestMessageWithCustomOptions.AnEnum
     field1: Text
     oneof_field: int
 
@@ -149,8 +149,8 @@ class DummyMessageContainingEnum(Message):
         @classmethod
         def items(cls) -> List[Tuple[bytes,
                                      DummyMessageContainingEnum.TestEnumType]]: ...
-    TEST_OPTION_ENUM_TYPE1: TestEnumType
-    TEST_OPTION_ENUM_TYPE2: TestEnumType
+    TEST_OPTION_ENUM_TYPE1: DummyMessageContainingEnum.TestEnumType
+    TEST_OPTION_ENUM_TYPE2: DummyMessageContainingEnum.TestEnumType
 
     def __init__(self,
                  ) -> None: ...
@@ -385,7 +385,7 @@ class NestedOptionType(Message):
 
         @classmethod
         def items(cls) -> List[Tuple[bytes, NestedOptionType.NestedEnum]]: ...
-    NESTED_ENUM_VALUE: NestedEnum
+    NESTED_ENUM_VALUE: NestedOptionType.NestedEnum
 
     class NestedMessage(Message):
         nested_field: int
@@ -422,7 +422,7 @@ class OldOptionType(Message):
 
         @classmethod
         def items(cls) -> List[Tuple[bytes, OldOptionType.TestEnum]]: ...
-    OLD_VALUE: TestEnum
+    OLD_VALUE: OldOptionType.TestEnum
     value: OldOptionType.TestEnum
 
     def __init__(self,
@@ -451,8 +451,8 @@ class NewOptionType(Message):
 
         @classmethod
         def items(cls) -> List[Tuple[bytes, NewOptionType.TestEnum]]: ...
-    OLD_VALUE: TestEnum
-    NEW_VALUE: TestEnum
+    OLD_VALUE: NewOptionType.TestEnum
+    NEW_VALUE: NewOptionType.TestEnum
     value: NewOptionType.TestEnum
 
     def __init__(self,
