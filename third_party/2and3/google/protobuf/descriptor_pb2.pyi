@@ -189,24 +189,24 @@ class FieldDescriptorProto(Message):
 
         @classmethod
         def items(cls) -> List[Tuple[bytes, FieldDescriptorProto.Type]]: ...
-    TYPE_DOUBLE: Type
-    TYPE_FLOAT: Type
-    TYPE_INT64: Type
-    TYPE_UINT64: Type
-    TYPE_INT32: Type
-    TYPE_FIXED64: Type
-    TYPE_FIXED32: Type
-    TYPE_BOOL: Type
-    TYPE_STRING: Type
-    TYPE_GROUP: Type
-    TYPE_MESSAGE: Type
-    TYPE_BYTES: Type
-    TYPE_UINT32: Type
-    TYPE_ENUM: Type
-    TYPE_SFIXED32: Type
-    TYPE_SFIXED64: Type
-    TYPE_SINT32: Type
-    TYPE_SINT64: Type
+    TYPE_DOUBLE: FieldDescriptorProto.Type
+    TYPE_FLOAT: FieldDescriptorProto.Type
+    TYPE_INT64: FieldDescriptorProto.Type
+    TYPE_UINT64: FieldDescriptorProto.Type
+    TYPE_INT32: FieldDescriptorProto.Type
+    TYPE_FIXED64: FieldDescriptorProto.Type
+    TYPE_FIXED32: FieldDescriptorProto.Type
+    TYPE_BOOL: FieldDescriptorProto.Type
+    TYPE_STRING: FieldDescriptorProto.Type
+    TYPE_GROUP: FieldDescriptorProto.Type
+    TYPE_MESSAGE: FieldDescriptorProto.Type
+    TYPE_BYTES: FieldDescriptorProto.Type
+    TYPE_UINT32: FieldDescriptorProto.Type
+    TYPE_ENUM: FieldDescriptorProto.Type
+    TYPE_SFIXED32: FieldDescriptorProto.Type
+    TYPE_SFIXED64: FieldDescriptorProto.Type
+    TYPE_SINT32: FieldDescriptorProto.Type
+    TYPE_SINT64: FieldDescriptorProto.Type
 
     class Label(int):
 
@@ -224,9 +224,9 @@ class FieldDescriptorProto(Message):
 
         @classmethod
         def items(cls) -> List[Tuple[bytes, FieldDescriptorProto.Label]]: ...
-    LABEL_OPTIONAL: Label
-    LABEL_REQUIRED: Label
-    LABEL_REPEATED: Label
+    LABEL_OPTIONAL: FieldDescriptorProto.Label
+    LABEL_REQUIRED: FieldDescriptorProto.Label
+    LABEL_REPEATED: FieldDescriptorProto.Label
     name: Text
     number: int
     label: FieldDescriptorProto.Label
@@ -390,9 +390,9 @@ class FileOptions(Message):
 
         @classmethod
         def items(cls) -> List[Tuple[bytes, FileOptions.OptimizeMode]]: ...
-    SPEED: OptimizeMode
-    CODE_SIZE: OptimizeMode
-    LITE_RUNTIME: OptimizeMode
+    SPEED: FileOptions.OptimizeMode
+    CODE_SIZE: FileOptions.OptimizeMode
+    LITE_RUNTIME: FileOptions.OptimizeMode
     java_package: Text
     java_outer_classname: Text
     java_multiple_files: bool
@@ -482,9 +482,9 @@ class FieldOptions(Message):
 
         @classmethod
         def items(cls) -> List[Tuple[bytes, FieldOptions.CType]]: ...
-    STRING: CType
-    CORD: CType
-    STRING_PIECE: CType
+    STRING: FieldOptions.CType
+    CORD: FieldOptions.CType
+    STRING_PIECE: FieldOptions.CType
 
     class JSType(int):
 
@@ -502,9 +502,9 @@ class FieldOptions(Message):
 
         @classmethod
         def items(cls) -> List[Tuple[bytes, FieldOptions.JSType]]: ...
-    JS_NORMAL: JSType
-    JS_STRING: JSType
-    JS_NUMBER: JSType
+    JS_NORMAL: FieldOptions.JSType
+    JS_STRING: FieldOptions.JSType
+    JS_NUMBER: FieldOptions.JSType
     ctype: FieldOptions.CType
     packed: bool
     jstype: FieldOptions.JSType
@@ -612,9 +612,9 @@ class MethodOptions(Message):
 
         @classmethod
         def items(cls) -> List[Tuple[bytes, MethodOptions.IdempotencyLevel]]: ...
-    IDEMPOTENCY_UNKNOWN: IdempotencyLevel
-    NO_SIDE_EFFECTS: IdempotencyLevel
-    IDEMPOTENT: IdempotencyLevel
+    IDEMPOTENCY_UNKNOWN: MethodOptions.IdempotencyLevel
+    NO_SIDE_EFFECTS: MethodOptions.IdempotencyLevel
+    IDEMPOTENT: MethodOptions.IdempotencyLevel
     deprecated: bool
     idempotency_level: MethodOptions.IdempotencyLevel
 

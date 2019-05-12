@@ -63,11 +63,11 @@ class TestAllTypes(Message):
 
         @classmethod
         def items(cls) -> List[Tuple[bytes, TestAllTypes.NestedEnum]]: ...
-    ZERO: NestedEnum
-    FOO: NestedEnum
-    BAR: NestedEnum
-    BAZ: NestedEnum
-    NEG: NestedEnum
+    ZERO: TestAllTypes.NestedEnum
+    FOO: TestAllTypes.NestedEnum
+    BAR: TestAllTypes.NestedEnum
+    BAZ: TestAllTypes.NestedEnum
+    NEG: TestAllTypes.NestedEnum
 
     class NestedMessage(Message):
         bb: int
