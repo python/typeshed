@@ -9,5 +9,7 @@ class weekday(object):
 
     def __repr__(self) -> str: ...
 
+    def __hash__(self) -> int: ...
+
     weekday: int
     n: int
