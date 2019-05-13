@@ -2,9 +2,7 @@ import typing
 from typing import Optional
 
 __version__: str
-
 PyCF_ONLY_AST: int
-
 _identifier = str
 
 class AST:
