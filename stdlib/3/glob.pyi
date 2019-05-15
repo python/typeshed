@@ -1,7 +1,7 @@
 # Stubs for glob
 # Based on http://docs.python.org/3/library/glob.html
 
-from typing import List, Iterator, AnyStr
+from typing import List, Iterator, AnyStr, Union
 import sys
 
 if sys.version_info >= (3, 6):
