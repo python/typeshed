@@ -141,7 +141,7 @@ def main():
                 print("running mypy", ' '.join(flags), "# with", len(files), "files")
             try:
                 if not args.dry_run:
-                    mypy_main('')
+                    mypy_main('', sys.stdout, sys.stderr)
             except SystemExit as err:
                 code = max(code, err.code)
     if code:
