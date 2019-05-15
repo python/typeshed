@@ -187,6 +187,10 @@ def intern(string: str) -> str: ...
 
 if sys.version_info >= (3, 5):
     def is_finalizing() -> bool: ...
+        
+if sys.version_info >= (3, 7):
+    __breakpointhook__: Any  # contains the original value of breakpointhook
+    def breakpointhook(*args: Any, **kws: Any) -> Any: ... 
 
 def setcheckinterval(interval: int) -> None: ...  # deprecated
 def setdlopenflags(n: int) -> None: ...  # Linux only
