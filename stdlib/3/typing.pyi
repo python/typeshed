@@ -90,11 +90,6 @@ class SupportsBytes(Protocol, metaclass=ABCMeta):
     def __bytes__(self) -> bytes: ...
 
 @runtime
-class SupportsIndex(Protocol, metaclass=ABCMeta):
-    @abstractmethod
-    def __index__(self) -> int: ...
-
-@runtime
 class SupportsAbs(Protocol[_T_co]):
     @abstractmethod
     def __abs__(self) -> _T_co: ...
