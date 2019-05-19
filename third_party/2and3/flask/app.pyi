@@ -13,12 +13,49 @@ from .signals import appcontext_tearing_down, got_request_exception, request_fin
 from .templating import DispatchingJinjaLoader, Environment
 from .wrappers import Request, Response
 from .testing import FlaskClient
-from typing import Any, Callable, ContextManager, Dict, List, Optional, Type, TypeVar, Union, Text
+from typing import (
+    Any,
+    Callable,
+    ContextManager,
+    Dict,
+    List,
+    Optional,
+    Type,
+    TypeVar,
+    Union,
+    Text,
+    Tuple,
+    TracebackType,
+    NoReturn,
+    Iterable,
+    ByteString
+)
 from datetime import timedelta
 
 def setupmethod(f: Any): ...
 
 _T = TypeVar('_T')
+
+
+_ExcInfo = Tuple[Optional[Type[BaseException]], Optional[BaseException], Optional[TracebackType]]
+_StartResponse = Callable[[str, List[Tuple[str, str]], Optional[_ExcInfo]], Callable[[bytes], Any]]
+_WSGICallable = Callable[[Dict[Text, Any], _StartResponse], Iterable[bytes]]
+
+_Status = Union[str, int]
+_Headers = Union[Dict[Any, Any], List[Tuple[Any, Any]]]
+_Body = Union[Text, ByteString, Response, _WSGICallable]
+
+_ViewFunc = Union[
+    Callable[..., Text],
+    Callable[..., ByteString],
+    Callable[..., NoReturn],
+    Callable[..., Response],
+    Callable[..., _WSGICallable],
+    Callable[..., Tuple[_Body, _Status, _Headers]],
+    Callable[..., Tuple[_Body, _Status]],
+    Callable[..., Tuple[_Body, _Headers]]
+]
+
 
 class Flask(_PackageBoundObject):
     request_class: type = ...
@@ -96,8 +133,8 @@ class Flask(_PackageBoundObject):
     def make_null_session(self): ...
     def register_blueprint(self, blueprint: Blueprint, **options: Any) -> None: ...
     def iter_blueprints(self): ...
-    def add_url_rule(self, rule: str, endpoint: Optional[str] = ..., view_func: Callable[..., Any] = ..., provide_automatic_options: Optional[bool] = ..., **options: Any) -> None: ...
-    def route(self, rule: str, **options: Any) -> Callable[[Callable[..., _T]], Callable[..., _T]]: ...
+    def add_url_rule(self, rule: str, endpoint: Optional[str] = ..., view_func: _ViewFunc = ..., provide_automatic_options: Optional[bool] = ..., **options: Any) -> None: ...
+    def route(self, rule: str, **options: Any) -> Callable[[_ViewFunc], _ViewFunc]: ...
     def endpoint(self, endpoint: str) -> Callable[[Callable[..., _T]], Callable[..., _T]]: ...
     def errorhandler(self, code_or_exception: Union[int, Type[Exception]]) -> Callable[[Callable[..., _T]], Callable[..., _T]]: ...
     def register_error_handler(self, code_or_exception: Union[int, Type[Exception]], f: Callable[..., Any]) -> None: ...
