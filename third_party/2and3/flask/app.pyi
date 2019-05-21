@@ -13,6 +13,7 @@ from .signals import appcontext_tearing_down, got_request_exception, request_fin
 from .templating import DispatchingJinjaLoader, Environment
 from .wrappers import Request, Response
 from .testing import FlaskClient
+from types import TracebackType
 from typing import (
     Any,
     Callable,
@@ -25,7 +26,6 @@ from typing import (
     Union,
     Text,
     Tuple,
-    TracebackType,
     NoReturn,
     Iterable,
     ByteString
