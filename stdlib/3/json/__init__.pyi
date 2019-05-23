@@ -1,7 +1,7 @@
 import sys
 from typing import Any, IO, Optional, Tuple, Callable, Dict, List, Union, Protocol
 
-from .decoder import JSONDecoder as JSONDecoder
+from .decoder import JSONDecoder as JSONDecoder, _LoadsReturnType
 from .encoder import JSONEncoder as JSONEncoder
 if sys.version_info >= (3, 5):
     from .decoder import JSONDecodeError as JSONDecodeError
@@ -43,7 +43,7 @@ def loads(s: _LoadsString,
           parse_int: Optional[Callable[[str], Any]] = ...,
           parse_constant: Optional[Callable[[str], Any]] = ...,
           object_pairs_hook: Optional[Callable[[List[Tuple[Any, Any]]], Any]] = ...,
-          **kwds: Any) -> Any: ...
+          **kwds: Any) -> _LoadsReturnType: ...
 
 class _Reader(Protocol):
     def read(self) -> _LoadsString: ...
@@ -55,4 +55,4 @@ def load(fp: _Reader,
          parse_int: Optional[Callable[[str], Any]] = ...,
          parse_constant: Optional[Callable[[str], Any]] = ...,
          object_pairs_hook: Optional[Callable[[List[Tuple[Any, Any]]], Any]] = ...,
-         **kwds: Any) -> Any: ...
+         **kwds: Any) -> _LoadsReturnType: ...
