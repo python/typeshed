@@ -1,6 +1,6 @@
 import sys
-from typing import (Optional, Sequence, Union, Generic, overload,
-                    Iterable, Iterator, Sized, ContextManager, AnyStr)
+from typing import (Optional, Union, Generic, overload, Iterable,
+                    Iterator, Sized, ContextManager, AnyStr)
 
 ACCESS_DEFAULT: int
 ACCESS_READ: int
@@ -49,7 +49,10 @@ class _mmap(Generic[AnyStr]):
     def __len__(self) -> int: ...
 
 if sys.version_info >= (3,):
-    class mmap(_mmap, ContextManager[mmap], Iterable[bytes], Sized):
+    # Inherit both `bytearray` and `Iterable[bytes]` because mmap can be used
+    # in places where bytearray is expected, like re.match, while iterating
+    # through `mmap` yields `bytes` objects, not integers.
+    class mmap(_mmap, ContextManager[mmap], bytearray, Iterable[bytes], Sized):
         closed: bool
         def rfind(self, sub: bytes, start: int = ..., stop: int = ...) -> int: ...
         @overload
@@ -65,7 +68,7 @@ if sys.version_info >= (3,):
         # __len__, so we claim that there is also an __iter__ to help type checkers.
         def __iter__(self) -> Iterator[bytes]: ...
 else:
-    class mmap(_mmap, Sequence[bytes]):
+    class mmap(_mmap, bytes):
         def rfind(self, string: bytes, start: int = ..., stop: int = ...) -> int: ...
         def __getitem__(self, index: Union[int, slice]) -> bytes: ...
         def __getslice__(self, i: Optional[int], j: Optional[int]) -> bytes: ...
