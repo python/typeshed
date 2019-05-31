@@ -1,6 +1,6 @@
 from collections import OrderedDict
 import sys
-from typing import Any, Dict, Iterable, Iterator, List, Mapping, Optional, Sequence, Union
+from typing import Any, Dict, Iterable, Iterator, List, Mapping, Optional, Sequence, Type, Union
 
 from _csv import (_reader,
                   _writer,
@@ -18,7 +18,7 @@ from _csv import (_reader,
                   Error as Error,
                   )
 
-_Dialect = Union[str, Dialect]
+_Dialect = Union[str, Dialect, Type[Dialect]]
 _DictRow = Mapping[str, Any]
 
 class Dialect(object):
@@ -89,5 +89,5 @@ class DictWriter(object):
 class Sniffer(object):
     preferred: List[str]
     def __init__(self) -> None: ...
-    def sniff(self, sample: str, delimiters: Optional[str] = ...) -> Dialect: ...
+    def sniff(self, sample: str, delimiters: Optional[str] = ...) -> Type[Dialect]: ...
     def has_header(self, sample: str) -> bool: ...
