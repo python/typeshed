@@ -70,7 +70,7 @@ class NoSuchOption(UsageError):
 
 
 class BadOptionUsage(UsageError):
-    def __init__(self, message: str, ctx: Optional[Context] = ...) -> None:
+    def __init__(self, option_name: str, message: str, ctx: Optional[Context] = ...) -> None:
         ...
 
 

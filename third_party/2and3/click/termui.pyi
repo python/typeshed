@@ -10,6 +10,7 @@ from typing import (
     overload,
     Tuple,
     TypeVar,
+    Union,
 )
 
 from click.core import _ConvertibleType
@@ -59,7 +60,10 @@ def get_terminal_size() -> Tuple[int, int]:
     ...
 
 
-def echo_via_pager(text: str, color: Optional[bool] = ...) -> None:
+def echo_via_pager(
+    text_or_generator: Union[str, Iterable[str], Callable[[], Generator[str, None, None]]],
+    color: Optional[bool]
+) -> None:
     ...
 
 
@@ -127,7 +131,7 @@ def unstyle(text: str) -> str:
 
 # Styling options copied from style() for nicer type checking.
 def secho(
-    text: str,
+    message: Optional[str] = ...,
     file: Optional[IO] = ...,
     nl: bool = ...,
     err: bool = ...,
