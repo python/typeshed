@@ -65,10 +65,6 @@ class Context:
     _close_callbacks: List
     _depth: int
 
-    # properties
-    meta: Dict[str, Any]
-    command_path: str
-
     def __init__(
         self,
         command: Command,
@@ -87,6 +83,14 @@ class Context:
         token_normalize_func: Optional[Callable[[str], str]] = ...,
         color: Optional[bool] = ...
     ) -> None:
+        ...
+
+    @property
+    def meta(self) -> Dict[str, Any]:
+        ...
+
+    @property
+    def command_path(self) -> str:
         ...
 
     def scope(self, cleanup: bool = ...) -> ContextManager[Context]:
@@ -370,8 +374,6 @@ class Parameter:
     is_eager: bool
     metavar: Optional[str]
     envvar: Union[str, List[str], None]
-    # properties
-    human_readable_name: str
 
     def __init__(
         self,
@@ -386,6 +388,10 @@ class Parameter:
         is_eager: bool = ...,
         envvar: Optional[Union[str, List[str]]] = ...
     ) -> None:
+        ...
+
+    @property
+    def human_readable_name(self) -> str:
         ...
 
     def make_metavar(self) -> str:
