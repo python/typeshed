@@ -1,4 +1,4 @@
-# click 6.6, Python 3
+# click 7.0
 
 `__init__.pyi` is almost a copy of `click/__init__.py`. It's a shortcut module
 anyway in the actual sources so it works well with minimal changes.

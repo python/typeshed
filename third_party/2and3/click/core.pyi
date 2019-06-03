@@ -228,6 +228,9 @@ class Command(BaseCommand):
     def make_parser(self, ctx: Context) -> OptionParser:
         ...
 
+    def get_short_help_str(self, limit: int = ...) -> str:
+        ...
+
     def format_help(self, ctx: Context, formatter: HelpFormatter) -> None:
         ...
 
@@ -426,6 +429,9 @@ class Parameter:
     def get_usage_pieces(self, ctx: Context) -> List[str]:
         ...
 
+    def get_error_hint(self, ctx: Context) -> str:
+        ...
+
 
 class Option(Parameter):
     prompt: str  # sic
@@ -438,8 +444,10 @@ class Option(Parameter):
     multiple: bool
     allow_from_autoenv: bool
     help: Optional[str]
+    hidden: bool
     show_default: bool
     show_choices: bool
+    show_envvar: bool
 
     def __init__(
         self,
@@ -455,7 +463,9 @@ class Option(Parameter):
         allow_from_autoenv: bool = ...,
         type: Optional[_ConvertibleType] = ...,
         help: Optional[str] = ...,
+        hidden: bool = ...,
         show_choices: bool = ...,
+        show_envvar: bool = ...,
         **attrs
     ) -> None:
         ...
