@@ -11,7 +11,8 @@ are important to the project's success.
 1. Read the [README.md file](README.md).
 2. Set up your environment to be able to [run all tests](README.md#running-the-tests).  They should pass.
 3. [Prepare your changes](#preparing-changes):
-    * [Contact us](#discussion) before starting significant work.
+    * Small fixes and additions can be submitted directly as pull requests,
+      but [contact us](#discussion) before starting significant work.
     * IMPORTANT: For new libraries, [get permission from the library owner first](#adding-a-new-library).
     * Create your stubs [conforming to the coding style](#stub-file-coding-style).
     * Make sure your tests pass cleanly on `mypy`, `pytype`, and `flake8`.
