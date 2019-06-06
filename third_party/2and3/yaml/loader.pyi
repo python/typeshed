@@ -8,6 +8,9 @@ from yaml.resolver import BaseResolver, Resolver
 class BaseLoader(Reader, Scanner, Parser, Composer, BaseConstructor, BaseResolver):
     def __init__(self, stream) -> None: ...
 
+class FullLoader(Reader, Scanner, Parser, Composer, SafeConstructor, Resolver):
+    def __init__(self, stream) -> None: ...
+
 class SafeLoader(Reader, Scanner, Parser, Composer, SafeConstructor, Resolver):
     def __init__(self, stream) -> None: ...
 
