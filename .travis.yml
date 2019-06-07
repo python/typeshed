@@ -19,6 +19,10 @@ matrix:
         - INSTALL="mypy"
     - name: "mypy self test"
       env: TEST_CMD="./tests/mypy_selftest.py"
+    - name: "mypy self test (new analyzer)"
+      env:
+        - NEWSEMANAL=1
+        - TEST_CMD="./tests/mypy_selftest.py"
     - name: "check file consistency"
       env: TEST_CMD="./tests/check_consistent.py"
     - name: "flake8"
