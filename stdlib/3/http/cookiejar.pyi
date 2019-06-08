@@ -37,8 +37,9 @@ class FileCookieJar(CookieJar):
                ignore_expires: bool = ...) -> None: ...
 
 class MozillaCookieJar(FileCookieJar): ...
-class LWPCookieJar(FileCookieJar): ...
 
+class LWPCookieJar(FileCookieJar):
+    def as_lwp_str(self, ignore_discard: bool = ..., ignore_expires: bool = ...) -> str: ...  # undocumented
 
 class CookiePolicy:
     netscape: bool
