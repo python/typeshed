@@ -62,7 +62,7 @@ _HooksInput = MutableMapping[Text, Union[Iterable[_Hook], _Hook]]
 
 class Session(SessionRedirectMixin):
     __attrs__: Any
-    headers: MutableMapping[Text, Text]
+    headers: CaseInsensitiveDict[Text, Text]
     auth: Union[None, Tuple[Text, Text], _auth.AuthBase, Callable[[Request], Request]]
     proxies: MutableMapping[Text, Text]
     hooks: _Hooks
