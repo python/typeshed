@@ -64,6 +64,23 @@ class CodeType:
     co_nlocals: int
     co_stacksize: int
     co_varnames: Tuple[str, ...]
+    def __init__(
+        self,
+        argcount: int,
+        nlocals: int,
+        stacksize: int,
+        flags: int,
+        codestring: str,
+        constants: Tuple[Any, ...],
+        names: Tuple[str, ...],
+        varnames: Tuple[str, ...],
+        filename: str,
+        name: str,
+        firstlineno: int,
+        lnotab: str,
+        freevars: Tuple[str, ...] = ...,
+        cellvars: Tuple[str, ...] = ...,
+    ) -> None: ...
 
 class GeneratorType:
     gi_code: CodeType
