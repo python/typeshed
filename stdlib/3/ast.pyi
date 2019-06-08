@@ -25,7 +25,7 @@ _T = TypeVar('_T', bound=AST)
 
 if sys.version_info >= (3, 8):
     @overload
-    def parse(source: Union[str, bytes], filename: Union[str, bytes] = ..., mode: Literal["exec"] = "exec",
+    def parse(source: Union[str, bytes], filename: Union[str, bytes] = ..., mode: Literal["exec"] = ...,
               type_comments: bool = ..., feature_version: int = ...) -> Module: ...
 
     @overload
@@ -33,7 +33,7 @@ if sys.version_info >= (3, 8):
               type_comments: bool = ..., feature_version: int = ...) -> AST: ...
 else:
     @overload
-    def parse(source: Union[str, bytes], filename: Union[str, bytes] = ..., mode: Literal["exec"] = "exec") -> Module: ...
+    def parse(source: Union[str, bytes], filename: Union[str, bytes] = ..., mode: Literal["exec"] = ...) -> Module: ...
 
     @overload
     def parse(source: Union[str, bytes], filename: Union[str, bytes] = ..., mode: str = ...) -> AST: ...
