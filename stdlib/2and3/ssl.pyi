@@ -5,6 +5,7 @@ from typing import (
 )
 import socket
 import sys
+import os
 
 _PCTRTT = Tuple[Tuple[str, str], ...]
 _PCTRTTT = Tuple[_PCTRTT, ...]
@@ -221,7 +222,7 @@ class SSLContext:
         def __init__(self, protocol: int) -> None: ...
     if sys.version_info < (3,) or sys.version_info >= (3, 4):
         def cert_store_stats(self) -> Dict[str, int]: ...
-    def load_cert_chain(self, certfile: str, keyfile: Optional[str] = ...,
+    def load_cert_chain(self, certfile: os.PathLike, keyfile: Optional[os.PathLike] = ...,
                         password: _PasswordType = ...) -> None: ...
     if sys.version_info < (3,) or sys.version_info >= (3, 4):
         def load_default_certs(self, purpose: _PurposeType = ...) -> None: ...
@@ -238,6 +239,9 @@ class SSLContext:
     def set_ciphers(self, ciphers: str) -> None: ...
     if sys.version_info < (3,) or sys.version_info >= (3, 5):
         def set_alpn_protocols(self, protocols: List[str]) -> None: ...
+    if sys.version_info >= (3, 7):
+        sni_callback: Callable[[SSLObject, str, SSLContext], Union[None, int]]
+        sslobject_class: SSLObject
     def set_npn_protocols(self, protocols: List[str]) -> None: ...
     def set_servername_callback(self,
                                 server_name_callback: Optional[_SrvnmeCbType]) -> None: ...
