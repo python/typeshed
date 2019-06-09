@@ -13,7 +13,7 @@ import sys
 import os
 
 _T = TypeVar('_T')
-_UrlopenRet = Union[_HTTPResponse, addinfourl]
+_UrlopenRet = Any
 
 class _HTTPResponse(HTTPResponse):
     url: str
