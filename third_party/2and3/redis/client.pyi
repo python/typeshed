@@ -63,6 +63,7 @@ class Redis(object):
         ssl_certfile: Optional[Text] = ...,
         ssl_cert_reqs: Optional[Union[str, int]] = ...,
         ssl_ca_certs: Optional[Text] = ...,
+        max_connections: Optional[int] = ...,
     ) -> None: ...
     def set_response_callback(self, command, callback): ...
     def pipeline(self, transaction=..., shard_hint=...): ...
@@ -144,8 +145,8 @@ class Redis(object):
         self,
         name: Text,
         value: Any,
-        ex: Optional[int] = ...,
-        px: Optional[int] = ...,
+        ex: Union[None, int, timedelta] = ...,
+        px: Union[None, int, timedelta] = ...,
         nx: bool = ...,
         xx: bool = ...,
     ) -> Optional[bool]: ...
