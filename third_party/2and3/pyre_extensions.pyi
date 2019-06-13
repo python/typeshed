@@ -1,0 +1,6 @@
+from typing import List, Optional, Type, TypeVar
+
+_T = TypeVar("_T")
+
+def none_throws(optional: Optional[_T]) -> _T: ...
+def ParameterSpecification(__name: str) -> List[Type]: ...
