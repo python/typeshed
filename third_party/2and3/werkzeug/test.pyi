@@ -88,6 +88,7 @@ class Client(Generic[_ResponseWrapper]):
 
     @overload
     def open(self, *args, as_tuple: Literal[True], **kwargs) -> Tuple[Mapping[str, Any], _ResponseWrapper]: ...
+    @overload
     def open(self, *args, as_tuple: Literal[False] = ..., **kwargs) -> _ResponseWrapper: ...
 
     @overload
