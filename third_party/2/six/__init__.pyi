@@ -3,19 +3,34 @@
 from __future__ import print_function
 
 import types
-from typing import (
-    Any, AnyStr, Callable, Dict, Iterable, Mapping, NoReturn, Optional,
-    Pattern, Text, Tuple, Type, TypeVar, Union, overload, ValuesView, KeysView, ItemsView,
-)
 import typing
 import unittest
-
 # Exports
 from __builtin__ import unichr as unichr
-from StringIO import StringIO as StringIO, StringIO as BytesIO
 from functools import wraps as wraps
-from . import moves
+from StringIO import StringIO as BytesIO
+from typing import (
+    Any,
+    AnyStr,
+    Callable,
+    Dict,
+    ItemsView,
+    Iterable,
+    KeysView,
+    Mapping,
+    NoReturn,
+    Optional,
+    Pattern,
+    Text,
+    Tuple,
+    Type,
+    TypeVar,
+    Union,
+    ValuesView,
+    overload,
+)
 
+from . import moves
 
 _T = TypeVar('_T')
 _K = TypeVar('_K')

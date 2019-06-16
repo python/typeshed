@@ -1,7 +1,6 @@
 # Stubs for py_compile (Python 2 and 3)
 import sys
-
-from typing import Optional, List, Text, AnyStr, Union
+from typing import AnyStr, List, Optional, Text, Union
 
 _EitherStr = Union[bytes, Text]
 

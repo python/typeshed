@@ -1,6 +1,5 @@
 from typing import AnyStr, Dict, List, Optional, Tuple, overload
 
-
 class NetrcParseError(Exception):
     filename: Optional[str]
     lineno: Optional[int]

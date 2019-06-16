@@ -1,7 +1,7 @@
 # private module, we only expose what's needed
 
-from typing import BinaryIO, Iterable, List, Mapping, Optional, Type, TypeVar
 from types import TracebackType
+from typing import BinaryIO, Iterable, List, Mapping, Optional, Type, TypeVar
 
 _AIUT = TypeVar("_AIUT", bound=addbase)
 

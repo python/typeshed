@@ -1,6 +1,5 @@
-from typing import Any, Generic, Optional, TypeVar
-
 import queue
+from typing import Any, Generic, Optional, TypeVar
 
 _T = TypeVar('_T')
 

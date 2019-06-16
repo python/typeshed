@@ -1,6 +1,23 @@
 import sys
-from typing import Any, AnyStr, Callable, Container, Dict, IO, List, Mapping, MutableMapping, NoReturn, Optional, Text, Tuple, Type, Union
 from types import FunctionType, MethodType, ModuleType, TracebackType
+from typing import (
+    IO,
+    Any,
+    AnyStr,
+    Callable,
+    Container,
+    Dict,
+    List,
+    Mapping,
+    MutableMapping,
+    NoReturn,
+    Optional,
+    Text,
+    Tuple,
+    Type,
+    Union,
+)
+
 if sys.version_info >= (3,):
     from reprlib import Repr
 else:

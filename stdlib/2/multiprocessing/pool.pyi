@@ -1,7 +1,4 @@
-from typing import (
-    Any, Callable, ContextManager, Iterable, Optional, Dict, List,
-    TypeVar, Iterator,
-)
+from typing import Any, Callable, ContextManager, Dict, Iterable, Iterator, List, Optional, TypeVar
 
 _T = TypeVar('_T', bound=Pool)
 

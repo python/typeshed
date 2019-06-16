@@ -2,7 +2,7 @@
 
 # NOTE: These are incomplete!
 
-from typing import Mapping, Any, Tuple
+from typing import Any, Mapping, Tuple
 
 CREATE_NEW_CONSOLE = 0
 CREATE_NEW_PROCESS_GROUP = 0

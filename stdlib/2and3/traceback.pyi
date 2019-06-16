@@ -1,8 +1,8 @@
 # Stubs for traceback
 
-from typing import Any, Dict, Generator, IO, Iterator, List, Mapping, Optional, Protocol, Tuple, Type, Iterable
-from types import FrameType, TracebackType
 import sys
+from types import FrameType, TracebackType
+from typing import IO, Any, Dict, Generator, Iterable, Iterator, List, Mapping, Optional, Protocol, Tuple, Type
 
 _PT = Tuple[str, int, str, Optional[str]]
 

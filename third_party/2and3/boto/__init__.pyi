@@ -1,5 +1,5 @@
-from typing import Any, Optional, Text
 import logging
+from typing import Any, Optional, Text
 
 from .s3.connection import S3Connection
 

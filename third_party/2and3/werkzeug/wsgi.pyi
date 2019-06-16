@@ -1,5 +1,5 @@
-from typing import Any, Optional, Protocol, Iterable, Text
-from wsgiref.types import WSGIEnvironment, InputStream
+from typing import Any, Iterable, Optional, Protocol, Text
+from wsgiref.types import InputStream, WSGIEnvironment
 
 def responder(f): ...
 def get_current_url(environ, root_only: bool = ..., strip_querystring: bool = ..., host_only: bool = ...,

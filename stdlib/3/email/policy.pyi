@@ -1,12 +1,12 @@
 # Stubs for email.policy (Python 3.4)
 
-from abc import abstractmethod
-from typing import Any, List, Optional, Tuple, Union, Callable
 import sys
-from email.message import Message
+from abc import abstractmethod
+from email.contentmanager import ContentManager
 from email.errors import MessageDefect
 from email.header import Header
-from email.contentmanager import ContentManager
+from email.message import Message
+from typing import Any, Callable, List, Optional, Tuple, Union
 
 class Policy:
     max_line_length: Optional[int]

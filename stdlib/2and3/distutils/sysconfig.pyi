@@ -1,7 +1,7 @@
 # Stubs for distutils.sysconfig
 
-from typing import Mapping, Optional, Union
 from distutils.ccompiler import CCompiler
+from typing import Mapping, Optional, Union
 
 PREFIX: str
 EXEC_PREFIX: str

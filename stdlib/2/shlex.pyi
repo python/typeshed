@@ -1,4 +1,4 @@
-from typing import Any, IO, List, Optional, TypeVar
+from typing import IO, Any, List, Optional, TypeVar
 
 def split(s: Optional[str], comments: bool = ..., posix: bool = ...) -> List[str]: ...
 

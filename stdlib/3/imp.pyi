@@ -3,11 +3,16 @@
 import os
 import sys
 import types
-from typing import Any, IO, List, Optional, Tuple, TypeVar, Union
+from typing import IO, Any, List, Optional, Tuple, TypeVar, Union
 
-from _imp import (lock_held as lock_held, acquire_lock as acquire_lock, release_lock as release_lock,
-                  get_frozen_object as get_frozen_object, is_frozen_package as is_frozen_package,
-                  init_frozen as init_frozen, is_builtin as is_builtin, is_frozen as is_frozen)
+from _imp import acquire_lock as acquire_lock
+from _imp import get_frozen_object as get_frozen_object
+from _imp import init_frozen as init_frozen
+from _imp import is_builtin as is_builtin
+from _imp import is_frozen as is_frozen
+from _imp import is_frozen_package as is_frozen_package
+from _imp import lock_held as lock_held
+from _imp import release_lock as release_lock
 
 if sys.version_info >= (3, 5):
     from _imp import create_dynamic as create_dynamic

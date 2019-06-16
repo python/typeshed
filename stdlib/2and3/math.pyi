@@ -1,9 +1,8 @@
 # Stubs for math
 # See: http://docs.python.org/2/library/math.html
 
-from typing import Tuple, Iterable, SupportsFloat, SupportsInt
-
 import sys
+from typing import Iterable, SupportsFloat, SupportsInt, Tuple
 
 e: float
 pi: float

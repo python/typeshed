@@ -1,8 +1,8 @@
-from profile import Profile
-from cProfile import Profile as _cProfile
 import os
 import sys
-from typing import Any, Dict, IO, Iterable, List, Text, Tuple, TypeVar, Union, overload
+from cProfile import Profile as _cProfile
+from profile import Profile
+from typing import IO, Any, Dict, Iterable, List, Text, Tuple, TypeVar, Union, overload
 
 _Selector = Union[str, float, int]
 _T = TypeVar('_T', bound='Stats')

@@ -1,6 +1,6 @@
 # Stubs for gettext (Python 3.4)
 
-from typing import Any, IO, List, Optional, Union, Callable
+from typing import IO, Any, Callable, List, Optional, Union
 
 class NullTranslations:
     def __init__(self, fp: IO[str] = ...) -> None: ...

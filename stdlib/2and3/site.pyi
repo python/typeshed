@@ -1,7 +1,7 @@
 # Stubs for site
 
-from typing import List, Iterable, Optional
 import sys
+from typing import Iterable, List, Optional
 
 PREFIXES: List[str]
 ENABLE_USER_SITE: Optional[bool]

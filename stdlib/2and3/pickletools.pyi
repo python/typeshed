@@ -1,6 +1,6 @@
 # Stubs for pickletools (Python 2 and 3)
 import sys
-from typing import Any, Callable, IO, Iterator, List, MutableMapping, Optional, Text, Tuple, Type, Union
+from typing import IO, Any, Callable, Iterator, List, MutableMapping, Optional, Text, Tuple, Type, Union
 
 _Reader = Callable[[IO[bytes]], Any]
 

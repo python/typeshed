@@ -1,14 +1,12 @@
 # Stubs for email.message (Python 3.4)
 
-from typing import (
-    List, Optional, Union, Tuple, TypeVar, Generator, Sequence, Iterator, Any
-)
 import sys
 from email.charset import Charset
+from email.contentmanager import ContentManager
 from email.errors import MessageDefect
 from email.header import Header
 from email.policy import Policy
-from email.contentmanager import ContentManager
+from typing import Any, Generator, Iterator, List, Optional, Sequence, Tuple, TypeVar, Union
 
 _T = TypeVar('_T')
 

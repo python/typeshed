@@ -1,12 +1,11 @@
 import sys
-from typing import Any, Union, Callable, TypeVar, Type, List, Generic, Iterable, Generator, Awaitable, Optional, Tuple
+from concurrent.futures import CancelledError as CancelledError
+from concurrent.futures import Error
+from concurrent.futures import Future as _ConcurrentFuture
+from concurrent.futures import TimeoutError as TimeoutError
+from typing import Any, Awaitable, Callable, Generator, Generic, Iterable, List, Optional, Tuple, Type, TypeVar, Union
+
 from .events import AbstractEventLoop
-from concurrent.futures import (
-    CancelledError as CancelledError,
-    TimeoutError as TimeoutError,
-    Future as _ConcurrentFuture,
-    Error,
-)
 
 if sys.version_info >= (3, 7):
     from contextvars import Context

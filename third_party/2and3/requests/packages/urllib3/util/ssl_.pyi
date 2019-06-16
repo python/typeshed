@@ -1,6 +1,7 @@
-from typing import Any
-from .. import exceptions
 import ssl
+from typing import Any
+
+from .. import exceptions
 
 SSLError = exceptions.SSLError
 InsecurePlatformWarning = exceptions.InsecurePlatformWarning

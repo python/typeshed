@@ -1,9 +1,9 @@
 # Stubs for OpenSSL.crypto (Python 2)
 
+from datetime import datetime
 from typing import Any, Callable, Iterable, List, Optional, Set, Text, Tuple, Union
 
 from cryptography.hazmat.primitives.asymmetric import dsa, rsa
-from datetime import datetime
 
 FILETYPE_PEM: int
 FILETYPE_ASN1: int

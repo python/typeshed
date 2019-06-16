@@ -1,10 +1,8 @@
 # Stubs for ssl
 
-from typing import (
-    Any, Dict, Callable, List, NamedTuple, Optional, Set, Tuple, Union,
-)
 import socket
 import sys
+from typing import Any, Callable, Dict, List, NamedTuple, Optional, Set, Tuple, Union
 
 _PCTRTT = Tuple[Tuple[str, str], ...]
 _PCTRTTT = Tuple[_PCTRTT, ...]

@@ -1,5 +1,5 @@
 import typing
-from typing import Any, Optional, Union, Generic, Iterator
+from typing import Any, Generic, Iterator, Optional, Union
 
 class NodeVisitor():
     def visit(self, node: AST) -> Any: ...

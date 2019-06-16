@@ -1,4 +1,5 @@
-from typing import Container, List, Union, TypeVar, Type, Any, Optional, Tuple
+from typing import Any, Container, List, Optional, Tuple, Type, TypeVar, Union
+
 from . import _ValidatorType
 
 _T = TypeVar("_T")

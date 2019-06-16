@@ -1,9 +1,6 @@
 # Stubs for distutils.fancy_getopt
 
-from typing import (
-    Any, List, Mapping, Optional, Tuple, Union,
-    TypeVar, overload,
-)
+from typing import Any, List, Mapping, Optional, Tuple, TypeVar, Union, overload
 
 _Option = Tuple[str, str, str]
 _GR = Tuple[List[str], OptionDummy]

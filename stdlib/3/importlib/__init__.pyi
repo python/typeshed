@@ -1,6 +1,6 @@
-from importlib.abc import Loader
 import sys
 import types
+from importlib.abc import Loader
 from typing import Any, Mapping, Optional, Sequence
 
 def __import__(name: str, globals: Optional[Mapping[str, Any]] = ...,

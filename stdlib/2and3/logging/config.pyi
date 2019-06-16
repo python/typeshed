@@ -1,8 +1,9 @@
 # Stubs for logging.config (Python 3.4)
 
-from typing import Any, Callable, Dict, Optional, IO, Union
-from threading import Thread
 import sys
+from threading import Thread
+from typing import IO, Any, Callable, Dict, Optional, Union
+
 if sys.version_info >= (3,):
     from configparser import RawConfigParser
 else:

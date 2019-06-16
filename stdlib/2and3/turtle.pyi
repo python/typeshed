@@ -1,5 +1,6 @@
-from typing import Tuple, overload, Optional, Union, Dict, Any, Sequence, TypeVar, List, Callable, Text
 import sys
+from typing import Any, Callable, Dict, List, Optional, Sequence, Text, Tuple, TypeVar, Union, overload
+
 if sys.version_info >= (3,):
     from tkinter import Canvas, PhotoImage
 else:

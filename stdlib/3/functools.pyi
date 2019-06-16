@@ -1,5 +1,20 @@
 import sys
-from typing import Any, Callable, Generic, Dict, Iterable, Mapping, Optional, Sequence, Tuple, Type, TypeVar, NamedTuple, Union, overload
+from typing import (
+    Any,
+    Callable,
+    Dict,
+    Generic,
+    Iterable,
+    Mapping,
+    NamedTuple,
+    Optional,
+    Sequence,
+    Tuple,
+    Type,
+    TypeVar,
+    Union,
+    overload,
+)
 
 _AnyCallable = Callable[..., Any]
 

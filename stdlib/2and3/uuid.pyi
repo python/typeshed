@@ -1,7 +1,7 @@
 # Stubs for uuid
 
 import sys
-from typing import Tuple, Optional, Any, Text
+from typing import Any, Optional, Text, Tuple
 
 # Because UUID has properties called int and bytes we need to rename these temporarily.
 _Int = int

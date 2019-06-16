@@ -1,6 +1,6 @@
 # Stubs for fcntl
 from io import IOBase
-from typing import Any, IO, Union
+from typing import IO, Any, Union
 
 FASYNC: int
 FD_CLOEXEC: int

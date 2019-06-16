@@ -1,7 +1,7 @@
 # Stubs for email.mime.base (Python 3.4)
 
-from typing import Optional, Tuple, Union
 import email.message
+from typing import Optional, Tuple, Union
 
 _ParamsType = Union[str, None, Tuple[str, Optional[str], str]]
 

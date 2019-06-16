@@ -1,9 +1,25 @@
 # Stubs for ftplib (Python 2.7/3)
 import sys
-from typing import Optional, BinaryIO, Tuple, TextIO, Iterable, Callable, List, Union, Iterator, Dict, Text, Type, TypeVar, Generic, Any
-from types import TracebackType
 from socket import socket
 from ssl import SSLContext
+from types import TracebackType
+from typing import (
+    Any,
+    BinaryIO,
+    Callable,
+    Dict,
+    Generic,
+    Iterable,
+    Iterator,
+    List,
+    Optional,
+    Text,
+    TextIO,
+    Tuple,
+    Type,
+    TypeVar,
+    Union,
+)
 
 _T = TypeVar('_T')
 _IntOrStr = Union[int, Text]

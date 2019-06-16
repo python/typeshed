@@ -1,10 +1,12 @@
-import sys
-
-from typing import Any, Callable, Dict, Iterable, List, Optional, Sequence, Text, Tuple, Union
-from collections import Mapping
-from markupsafe._compat import text_type
 import string
-from markupsafe._native import escape as escape, escape_silent as escape_silent, soft_unicode as soft_unicode
+import sys
+from collections import Mapping
+from typing import Any, Callable, Dict, Iterable, List, Optional, Sequence, Text, Tuple, Union
+
+from markupsafe._compat import text_type
+from markupsafe._native import escape as escape
+from markupsafe._native import escape_silent as escape_silent
+from markupsafe._native import soft_unicode as soft_unicode
 
 class Markup(text_type):
     def __new__(cls, base: Text = ..., encoding: Optional[Text] = ..., errors: Text = ...) -> Markup: ...

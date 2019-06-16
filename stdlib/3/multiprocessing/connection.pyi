@@ -1,7 +1,7 @@
-from typing import Any, Iterable, List, Optional, Tuple, Type, Union
 import socket
 import sys
 import types
+from typing import Any, Iterable, List, Optional, Tuple, Type, Union
 
 # https://docs.python.org/3/library/multiprocessing.html#address-formats
 _Address = Union[str, Tuple[str, int]]

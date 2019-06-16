@@ -1,9 +1,9 @@
 # Stubs for email (Python 3.4)
 
-from typing import Callable, Optional, IO
 import sys
 from email.message import Message
 from email.policy import Policy
+from typing import IO, Callable, Optional
 
 def message_from_string(s: str, _class: Callable[[], Message] = ..., *, policy: Policy = ...) -> Message: ...
 def message_from_bytes(s: bytes, _class: Callable[[], Message] = ..., *, policy: Policy = ...) -> Message: ...

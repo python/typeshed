@@ -4,7 +4,7 @@
 # Based on http://docs.python.org/3/library/pprint.html
 
 import sys
-from typing import Any, Dict, Tuple, IO
+from typing import IO, Any, Dict, Tuple
 
 if sys.version_info >= (3, 4):
     def pformat(o: object, indent: int = ..., width: int = ...,

@@ -3,24 +3,22 @@
 # https://docs.python.org/3.3/whatsnew/3.3.html#collections
 import sys
 
-from . import (
-    Container as Container,
-    Hashable as Hashable,
-    Iterable as Iterable,
-    Iterator as Iterator,
-    Sized as Sized,
-    Callable as Callable,
-    Mapping as Mapping,
-    MutableMapping as MutableMapping,
-    Sequence as Sequence,
-    MutableSequence as MutableSequence,
-    Set as Set,
-    MutableSet as MutableSet,
-    MappingView as MappingView,
-    ItemsView as ItemsView,
-    KeysView as KeysView,
-    ValuesView as ValuesView,
-)
+from . import Callable as Callable
+from . import Container as Container
+from . import Hashable as Hashable
+from . import ItemsView as ItemsView
+from . import Iterable as Iterable
+from . import Iterator as Iterator
+from . import KeysView as KeysView
+from . import Mapping as Mapping
+from . import MappingView as MappingView
+from . import MutableMapping as MutableMapping
+from . import MutableSequence as MutableSequence
+from . import MutableSet as MutableSet
+from . import Sequence as Sequence
+from . import Set as Set
+from . import Sized as Sized
+from . import ValuesView as ValuesView
 
 if sys.version_info >= (3, 5):
     from . import (

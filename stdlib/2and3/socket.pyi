@@ -6,7 +6,7 @@
 # see: http://nullege.com/codes/search/socket
 # adapted for Python 2.7 by Michal Pokorny
 import sys
-from typing import Any, Iterable, Tuple, List, Optional, Union, overload, TypeVar, Text
+from typing import Any, Iterable, List, Optional, Text, Tuple, TypeVar, Union, overload
 
 _WriteBuffer = Union[bytearray, memoryview]
 

@@ -7,10 +7,7 @@
 # ----- random classes -----
 
 import _random
-from typing import (
-    Any, TypeVar, Sequence, List, Callable, AbstractSet, Union,
-    overload
-)
+from typing import AbstractSet, Any, Callable, List, Sequence, TypeVar, Union, overload
 
 _T = TypeVar('_T')
 

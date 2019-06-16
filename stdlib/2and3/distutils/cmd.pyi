@@ -1,8 +1,8 @@
 # Stubs for distutils.cmd
 
-from typing import Callable, List, Tuple, Union, Optional, Iterable, Any, Text
 from abc import abstractmethod
 from distutils.dist import Distribution
+from typing import Any, Callable, Iterable, List, Optional, Text, Tuple, Union
 
 class Command:
     sub_commands: List[Tuple[str, Union[Callable[[], bool], str, None]]]

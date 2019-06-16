@@ -1,7 +1,7 @@
 from distutils.version import Version
-from typing import Any, Callable, Dict, List, Optional, Tuple, Type, TypeVar, Union, Text, overload
+from typing import Any, Callable, Dict, List, Optional, Text, Tuple, Type, TypeVar, Union, overload
 
-from click.core import Command, Group, Argument, Option, Parameter, Context, _ConvertibleType
+from click.core import Argument, Command, Context, Group, Option, Parameter, _ConvertibleType
 
 _T = TypeVar('_T')
 _F = TypeVar('_F', bound=Callable[..., Any])

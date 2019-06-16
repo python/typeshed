@@ -1,4 +1,4 @@
-from typing import TypeVar, Any
+from typing import Any, TypeVar
 
 _FT = TypeVar('_FT')
 

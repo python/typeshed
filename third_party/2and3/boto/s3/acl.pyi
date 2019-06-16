@@ -1,6 +1,7 @@
+from typing import Any, Dict, List, Optional, Text, Union
+
 from .connection import S3Connection
 from .user import User
-from typing import Any, Dict, Optional, List, Text, Union
 
 CannedACLStrings: List[str]
 

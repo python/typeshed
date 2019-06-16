@@ -1,5 +1,5 @@
 import sys
-from typing import Any, IO, Mapping, Union, Tuple, Callable, Optional, Iterator
+from typing import IO, Any, Callable, Iterator, Mapping, Optional, Tuple, Union
 
 HIGHEST_PROTOCOL: int
 if sys.version_info >= (3, 0):

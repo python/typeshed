@@ -1,7 +1,4 @@
-from google.protobuf.message import (
-    Message,
-)
-
+from google.protobuf.message import Message
 
 class Empty(Message):
 

@@ -1,5 +1,5 @@
 from types import ModuleType
-from typing import Dict, Optional, Any
+from typing import Any, Dict, Optional
 
 class _TempModule:
     mod_name: str = ...

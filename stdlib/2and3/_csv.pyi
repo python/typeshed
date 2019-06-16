@@ -1,5 +1,4 @@
 import sys
-
 from typing import Any, Iterable, Iterator, List, Optional, Sequence, Text
 
 QUOTE_ALL: int

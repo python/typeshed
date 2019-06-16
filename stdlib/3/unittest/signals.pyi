@@ -1,6 +1,5 @@
-from typing import Any, Callable, overload, TypeVar
 import unittest.result
-
+from typing import Any, Callable, TypeVar, overload
 
 _F = TypeVar('_F', bound=Callable[..., Any])
 

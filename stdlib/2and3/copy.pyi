@@ -1,6 +1,6 @@
 # Stubs for copy
 
-from typing import TypeVar, Optional, Dict, Any
+from typing import Any, Dict, Optional, TypeVar
 
 _T = TypeVar('_T')
 

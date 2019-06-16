@@ -1,8 +1,6 @@
 import abc
 import sys
-from typing import (
-    Dict, Type, TypeVar, Optional, Union, Any, Generic, Mapping, ItemsView, KeysView, ValuesView
-)
+from typing import Any, Dict, Generic, ItemsView, KeysView, Mapping, Optional, Type, TypeVar, Union, ValuesView
 
 _T = TypeVar('_T')
 _U = TypeVar('_U')

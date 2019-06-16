@@ -2,7 +2,7 @@
 
 # NOTE: These are incomplete!
 
-from typing import Tuple, Sequence, Callable
+from typing import Callable, Sequence, Tuple
 
 def cloexec_pipe() -> Tuple[int, int]: ...
 def fork_exec(args: Sequence[str],

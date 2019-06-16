@@ -1,7 +1,7 @@
-from yaml.error import Mark, YAMLError, MarkedYAMLError
-from yaml.nodes import Node, ScalarNode, CollectionNode, SequenceNode, MappingNode
-
 from typing import Any
+
+from yaml.error import Mark, MarkedYAMLError, YAMLError
+from yaml.nodes import CollectionNode, MappingNode, Node, ScalarNode, SequenceNode
 
 class ConstructorError(MarkedYAMLError): ...
 

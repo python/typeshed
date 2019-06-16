@@ -1,7 +1,6 @@
 from distutils.cmd import Command
 from typing import Optional, Text
 
-
 class install(Command):
     user: bool
     prefix: Optional[Text]

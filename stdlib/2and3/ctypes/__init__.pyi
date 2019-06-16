@@ -1,12 +1,26 @@
 # Stubs for ctypes
 
+import sys
 from array import array
 from typing import (
-    Any, Callable, ClassVar, Iterator, Iterable, List, Mapping, Optional, Sequence, Sized, Text,
-    Tuple, Type, Generic, TypeVar, overload,
+    Any,
+    Callable,
+    ClassVar,
+    Generic,
+    Iterable,
+    Iterator,
+    List,
+    Mapping,
+    Optional,
+    Sequence,
+    Sized,
+    Text,
+    Tuple,
+    Type,
+    TypeVar,
 )
 from typing import Union as _UnionT
-import sys
+from typing import overload
 
 _T = TypeVar('_T')
 _DLLT = TypeVar('_DLLT', bound=CDLL)

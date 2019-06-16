@@ -1,22 +1,21 @@
 # Stubs for multiprocessing
 
-from typing import (
-    Any, Callable, ContextManager, Iterable, Mapping, Optional, Dict, List,
-    Union, Sequence, Tuple
-)
-
+import sys
 from logging import Logger
 from multiprocessing import connection, pool, spawn, synchronize
-from multiprocessing.context import (
-    BaseContext,
-    ProcessError as ProcessError, BufferTooShort as BufferTooShort, TimeoutError as TimeoutError, AuthenticationError as AuthenticationError)
+from multiprocessing.context import AuthenticationError as AuthenticationError
+from multiprocessing.context import BaseContext
+from multiprocessing.context import BufferTooShort as BufferTooShort
+from multiprocessing.context import ProcessError as ProcessError
+from multiprocessing.context import TimeoutError as TimeoutError
 from multiprocessing.managers import SyncManager
 from multiprocessing.process import current_process as current_process
-from multiprocessing.queues import Queue as Queue, SimpleQueue as SimpleQueue, JoinableQueue as JoinableQueue
+from multiprocessing.queues import JoinableQueue as JoinableQueue
+from multiprocessing.queues import Queue as Queue
+from multiprocessing.queues import SimpleQueue as SimpleQueue
 from multiprocessing.spawn import freeze_support as freeze_support
 from multiprocessing.spawn import set_executable as set_executable
-
-import sys
+from typing import Any, Callable, ContextManager, Dict, Iterable, List, Mapping, Optional, Sequence, Tuple, Union
 
 # N.B. The functions below are generated at runtime by partially applying
 # multiprocessing.context.BaseContext's methods, so the two signatures should

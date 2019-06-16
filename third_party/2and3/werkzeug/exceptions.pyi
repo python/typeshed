@@ -1,6 +1,6 @@
-from typing import Any, Dict, Tuple, List, Text, NoReturn, Optional, Protocol, Type, Union, Iterable
+from typing import Any, Dict, Iterable, List, NoReturn, Optional, Protocol, Text, Tuple, Type, Union
+from wsgiref.types import StartResponse, WSGIEnvironment
 
-from wsgiref.types import WSGIEnvironment, StartResponse
 from werkzeug.wrappers import Response
 
 class _EnvironContainer(Protocol):

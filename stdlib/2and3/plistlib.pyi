@@ -1,11 +1,10 @@
 # Stubs for plistlib
 
-from typing import (
-    Any, IO, Mapping, MutableMapping, Optional, Union,
-    Type, TypeVar,
-)
-from typing import Dict as DictT
 import sys
+from typing import IO, Any
+from typing import Dict as DictT
+from typing import Mapping, MutableMapping, Optional, Type, TypeVar, Union
+
 if sys.version_info >= (3,):
     from enum import Enum
 

@@ -1,5 +1,5 @@
 from _curses import *  # noqa: F403
-from typing import TypeVar, Callable, Any
+from typing import Any, Callable, TypeVar
 
 _T = TypeVar('_T')
 

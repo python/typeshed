@@ -2,8 +2,19 @@
 
 import sys
 from typing import (
-    TypeVar, Callable, Iterable, Iterator, List, NamedTuple, Sequence, Tuple,
-    Generic, Optional, Text, Union, AnyStr
+    AnyStr,
+    Callable,
+    Generic,
+    Iterable,
+    Iterator,
+    List,
+    NamedTuple,
+    Optional,
+    Sequence,
+    Text,
+    Tuple,
+    TypeVar,
+    Union,
 )
 
 _T = TypeVar('_T')

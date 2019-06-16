@@ -1,6 +1,7 @@
-from typing import Any, Callable, Optional, Tuple
-from ._base import Future, Executor
 import sys
+from typing import Any, Callable, Optional, Tuple
+
+from ._base import Executor, Future
 
 EXTRA_QUEUED_CALLS: Any
 

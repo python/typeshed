@@ -1,11 +1,8 @@
 # Stubs for lib2to3.pgen2.pgen (Python 3.6)
 
-from typing import (
-    Any, Dict, IO, Iterable, Iterator, List, NoReturn, Optional, Text, Tuple
-)
-
 from lib2to3.pgen2 import _Path, grammar
 from lib2to3.pgen2.tokenize import _TokenInfo
+from typing import IO, Any, Dict, Iterable, Iterator, List, NoReturn, Optional, Text, Tuple
 
 class PgenGrammar(grammar.Grammar): ...
 

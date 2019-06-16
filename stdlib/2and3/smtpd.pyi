@@ -1,9 +1,8 @@
 # Stubs for smtpd (Python 2 and 3)
-import sys
-import socket
-import asyncore
 import asynchat
-
+import asyncore
+import socket
+import sys
 from typing import Any, DefaultDict, List, Optional, Text, Tuple, Type
 
 _Address = Tuple[str, int]  # (host, port)

@@ -2,7 +2,6 @@
 
 from typing import Optional, Sequence, Tuple
 
-
 def copy_file(src: str, dst: str, preserve_mode: bool = ...,
               preserve_times: bool = ..., update: bool = ...,
               link: Optional[str] = ..., verbose: bool = ...,

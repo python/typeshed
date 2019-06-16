@@ -1,7 +1,6 @@
-from typing import Iterable, Callable, IO, AnyStr, Generic, Any, Text, Union, Iterator, Optional
-
 import os
 import sys
+from typing import IO, Any, AnyStr, Callable, Generic, Iterable, Iterator, Optional, Text, Union
 
 if sys.version_info >= (3, 6):
     _Path = Union[Text, bytes, os.PathLike[Any]]

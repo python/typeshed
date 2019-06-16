@@ -1,4 +1,5 @@
 from typing import Any, Dict, List, Mapping, Optional, Type
+
 from boto.connection import AWSQueryConnection
 
 class KMSConnection(AWSQueryConnection):

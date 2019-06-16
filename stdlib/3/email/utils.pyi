@@ -1,8 +1,8 @@
 # Stubs for email.utils (Python 3.4)
 
-from typing import List, Optional, Tuple, Union
-from email.charset import Charset
 import datetime
+from email.charset import Charset
+from typing import List, Optional, Tuple, Union
 
 _ParamType = Union[str, Tuple[Optional[str], Optional[str], str]]
 _PDTZ = Tuple[int, int, int, int, int, int, int, int, int, Optional[int]]

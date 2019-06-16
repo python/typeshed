@@ -1,10 +1,9 @@
 # Stubs for zipfile
 
-from typing import Callable, Dict, IO, Iterable, List, Optional, Text, Tuple, Type, Union
-from types import TracebackType
 import os
 import sys
-
+from types import TracebackType
+from typing import IO, Callable, Dict, Iterable, List, Optional, Text, Tuple, Type, Union
 
 if sys.version_info >= (3, 6):
     _Path = Union[os.PathLike[Text], Text]

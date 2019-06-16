@@ -1,7 +1,7 @@
 """Stubs for the 'imp' module."""
 
-from typing import List, Optional, Tuple, Iterable, IO, Any
 import types
+from typing import IO, Any, Iterable, List, Optional, Tuple
 
 C_BUILTIN: int
 C_EXTENSION: int

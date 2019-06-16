@@ -1,7 +1,6 @@
-from typing import IO, List, Optional, Any
+from typing import IO, Any, List, Optional
 
 from click.core import Context, Parameter
-
 
 class ClickException(Exception):
     exit_code: int

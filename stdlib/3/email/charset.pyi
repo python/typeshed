@@ -1,6 +1,6 @@
 # Stubs for email.charset (Python 3.4)
 
-from typing import List, Optional, Iterator, Any
+from typing import Any, Iterator, List, Optional
 
 QP: int  # undocumented
 BASE64: int  # undocumented

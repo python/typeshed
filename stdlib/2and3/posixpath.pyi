@@ -4,10 +4,7 @@
 
 import os
 import sys
-from typing import (
-    overload, List, Any, AnyStr, Sequence, Tuple, BinaryIO, TextIO,
-    TypeVar, Union, Text, Callable, Optional
-)
+from typing import Any, AnyStr, BinaryIO, Callable, List, Optional, Sequence, Text, TextIO, Tuple, TypeVar, Union, overload
 
 _T = TypeVar('_T')
 

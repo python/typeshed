@@ -1,5 +1,19 @@
-from typing import (Any, Container, Dict, Generic, Iterable, Iterator, List,
-                    Mapping, Optional, Sized, Tuple, TypeVar, Union, overload)
+from typing import (
+    Any,
+    Container,
+    Dict,
+    Generic,
+    Iterable,
+    Iterator,
+    List,
+    Mapping,
+    Optional,
+    Sized,
+    Tuple,
+    TypeVar,
+    Union,
+    overload,
+)
 
 _KT = TypeVar('_KT')
 _VT = TypeVar('_VT')

@@ -1,7 +1,7 @@
 # Stubs for email.mime.application
 
-from typing import Callable, Optional, Tuple, Union
 from email.mime.nonmultipart import MIMENonMultipart
+from typing import Callable, Optional, Tuple, Union
 
 _ParamsType = Union[str, None, Tuple[str, Optional[str], str]]
 

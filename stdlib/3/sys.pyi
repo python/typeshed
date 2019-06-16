@@ -3,14 +3,10 @@
 
 # based on http://docs.python.org/3.2/library/sys.html
 
-from typing import (
-    List, NoReturn, Sequence, Any, Dict, Tuple, TextIO, overload, Optional,
-    Union, TypeVar, Callable, Type
-)
 import sys
-from types import FrameType, ModuleType, TracebackType
-
 from importlib.abc import MetaPathFinder
+from types import FrameType, ModuleType, TracebackType
+from typing import Any, Callable, Dict, List, NoReturn, Optional, Sequence, TextIO, Tuple, Type, TypeVar, Union, overload
 
 _T = TypeVar('_T')
 

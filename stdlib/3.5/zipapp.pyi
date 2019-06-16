@@ -1,7 +1,7 @@
 # Stubs for zipapp (Python 3.5+)
 
-from pathlib import Path
 import sys
+from pathlib import Path
 from typing import BinaryIO, Callable, Optional, Union
 
 _Path = Union[str, Path, BinaryIO]

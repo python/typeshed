@@ -1,6 +1,6 @@
 """Stub file for the '_functools' module."""
 
-from typing import Any, Callable, Dict, Iterable, Optional, TypeVar, Tuple, overload
+from typing import Any, Callable, Dict, Iterable, Optional, Tuple, TypeVar, overload
 
 _T = TypeVar("_T")
 _T2 = TypeVar("_T2")

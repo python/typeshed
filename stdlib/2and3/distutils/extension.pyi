@@ -1,7 +1,7 @@
 # Stubs for distutils.extension
 
-from typing import List, Optional, Tuple
 import sys
+from typing import List, Optional, Tuple
 
 class Extension:
     if sys.version_info >= (3,):

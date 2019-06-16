@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 """Script to run mypy's test suite against this version of typeshed."""
 
-from pathlib import Path
 import shutil
 import subprocess
 import sys
 import tempfile
-
+from pathlib import Path
 
 if __name__ == '__main__':
     with tempfile.TemporaryDirectory() as tempdir:

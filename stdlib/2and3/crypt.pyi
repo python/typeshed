@@ -1,7 +1,6 @@
 import sys
 from typing import List, NamedTuple, Optional, Union
 
-
 if sys.version_info >= (3, 3):
     class _Method: ...
 

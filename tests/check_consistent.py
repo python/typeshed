@@ -3,8 +3,8 @@
 # Symlinks are bad on Windows, so we cannot use them in typeshed.
 # This checks that certain files are duplicated exactly.
 
-import os
 import filecmp
+import os
 
 consistent_files = [
     {'stdlib/2and3/builtins.pyi', 'stdlib/2/__builtin__.pyi'},

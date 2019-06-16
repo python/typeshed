@@ -2,7 +2,8 @@
 # See https://docs.python.org/3/library/time.html
 
 import sys
-from typing import Any, NamedTuple, Tuple, Union, Optional
+from typing import Any, NamedTuple, Optional, Tuple, Union
+
 if sys.version_info >= (3, 3):
     from types import SimpleNamespace
 

@@ -1,5 +1,5 @@
-from typing import Any, IO, Text
 import io
+from typing import IO, Any, Text
 
 class GzipFile(io.BufferedIOBase):
     myfileobj: Any

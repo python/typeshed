@@ -15,98 +15,79 @@
 """
 
 # Core classes
-from .core import (
-    Context as Context,
-    BaseCommand as BaseCommand,
-    Command as Command,
-    MultiCommand as MultiCommand,
-    Group as Group,
-    CommandCollection as CommandCollection,
-    Parameter as Parameter,
-    Option as Option,
-    Argument as Argument,
-)
-
+from .core import Argument as Argument
+from .core import BaseCommand as BaseCommand
+from .core import Command as Command
+from .core import CommandCollection as CommandCollection
+from .core import Context as Context
+from .core import Group as Group
+from .core import MultiCommand as MultiCommand
+from .core import Option as Option
+from .core import Parameter as Parameter
+# Decorators
+from .decorators import argument as argument
+from .decorators import command as command
+from .decorators import confirmation_option as confirmation_option
+from .decorators import group as group
+from .decorators import help_option as help_option
+from .decorators import make_pass_decorator as make_pass_decorator
+from .decorators import option as option
+from .decorators import pass_context as pass_context
+from .decorators import pass_obj as pass_obj
+from .decorators import password_option as password_option
+from .decorators import version_option as version_option
+# Exceptions
+from .exceptions import Abort as Abort
+from .exceptions import BadArgumentUsage as BadArgumentUsage
+from .exceptions import BadOptionUsage as BadOptionUsage
+from .exceptions import BadParameter as BadParameter
+from .exceptions import ClickException as ClickException
+from .exceptions import FileError as FileError
+from .exceptions import MissingParameter as MissingParameter
+from .exceptions import NoSuchOption as NoSuchOption
+from .exceptions import UsageError as UsageError
+# Formatting
+from .formatting import HelpFormatter as HelpFormatter
+from .formatting import wrap_text as wrap_text
 # Globals
 from .globals import get_current_context as get_current_context
-
-# Decorators
-from .decorators import (
-    pass_context as pass_context,
-    pass_obj as pass_obj,
-    make_pass_decorator as make_pass_decorator,
-    command as command,
-    group as group,
-    argument as argument,
-    option as option,
-    confirmation_option as confirmation_option,
-    password_option as password_option,
-    version_option as version_option,
-    help_option as help_option,
-)
-
-# Types
-from .types import (
-    ParamType as ParamType,
-    File as File,
-    Path as Path,
-    Choice as Choice,
-    IntRange as IntRange,
-    Tuple as Tuple,
-    STRING as STRING,
-    INT as INT,
-    FLOAT as FLOAT,
-    BOOL as BOOL,
-    UUID as UUID,
-    UNPROCESSED as UNPROCESSED,
-)
-
-# Utilities
-from .utils import (
-    echo as echo,
-    get_binary_stream as get_binary_stream,
-    get_text_stream as get_text_stream,
-    open_file as open_file,
-    format_filename as format_filename,
-    get_app_dir as get_app_dir,
-    get_os_args as get_os_args,
-)
-
-# Terminal functions
-from .termui import (
-    prompt as prompt,
-    confirm as confirm,
-    get_terminal_size as get_terminal_size,
-    echo_via_pager as echo_via_pager,
-    progressbar as progressbar,
-    clear as clear,
-    style as style,
-    unstyle as unstyle,
-    secho as secho,
-    edit as edit,
-    launch as launch,
-    getchar as getchar,
-    pause as pause,
-)
-
-# Exceptions
-from .exceptions import (
-    ClickException as ClickException,
-    UsageError as UsageError,
-    BadParameter as BadParameter,
-    FileError as FileError,
-    Abort as Abort,
-    NoSuchOption as NoSuchOption,
-    BadOptionUsage as BadOptionUsage,
-    BadArgumentUsage as BadArgumentUsage,
-    MissingParameter as MissingParameter,
-)
-
-# Formatting
-from .formatting import HelpFormatter as HelpFormatter, wrap_text as wrap_text
-
 # Parsing
 from .parser import OptionParser as OptionParser
+# Terminal functions
+from .termui import clear as clear
+from .termui import confirm as confirm
+from .termui import echo_via_pager as echo_via_pager
+from .termui import edit as edit
+from .termui import get_terminal_size as get_terminal_size
+from .termui import getchar as getchar
+from .termui import launch as launch
+from .termui import pause as pause
+from .termui import progressbar as progressbar
+from .termui import prompt as prompt
+from .termui import secho as secho
+from .termui import style as style
+from .termui import unstyle as unstyle
+# Types
+from .types import BOOL as BOOL
+from .types import FLOAT as FLOAT
+from .types import INT as INT
+from .types import STRING as STRING
+from .types import UNPROCESSED as UNPROCESSED
+from .types import UUID as UUID
+from .types import Choice as Choice
+from .types import File as File
+from .types import IntRange as IntRange
+from .types import ParamType as ParamType
+from .types import Path as Path
+from .types import Tuple as Tuple
+# Utilities
+from .utils import echo as echo
+from .utils import format_filename as format_filename
+from .utils import get_app_dir as get_app_dir
+from .utils import get_binary_stream as get_binary_stream
+from .utils import get_os_args as get_os_args
+from .utils import get_text_stream as get_text_stream
+from .utils import open_file as open_file
 
 # Controls if click should emit the warning about the use of unicode
 # literals.

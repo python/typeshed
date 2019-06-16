@@ -16,7 +16,7 @@
 # hinting your code.  Otherwise Python will raise NameErrors.
 
 from sys import _OptExcInfo
-from typing import Callable, Dict, Iterable, List, Any, Text, Protocol, Tuple, Optional
+from typing import Any, Callable, Dict, Iterable, List, Optional, Protocol, Text, Tuple
 
 class StartResponse(Protocol):
     def __call__(self, status: str, headers: List[Tuple[str, str]], exc_info: Optional[_OptExcInfo] = ...) -> Callable[[bytes], Any]: ...

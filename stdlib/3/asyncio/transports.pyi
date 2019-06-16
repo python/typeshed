@@ -1,4 +1,4 @@
-from typing import Dict, Any, TypeVar, Mapping, List, Optional, Tuple
+from typing import Any, Dict, List, Mapping, Optional, Tuple, TypeVar
 
 __all__: List[str]
 

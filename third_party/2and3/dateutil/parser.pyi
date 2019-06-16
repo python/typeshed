@@ -1,5 +1,5 @@
-from typing import List, Tuple, Optional, Callable, Union, IO, Any, Dict, Mapping, Text
 from datetime import datetime, tzinfo
+from typing import IO, Any, Callable, Dict, List, Mapping, Optional, Text, Tuple, Union
 
 _FileOrStr = Union[bytes, Text, IO[str], IO[Any]]
 

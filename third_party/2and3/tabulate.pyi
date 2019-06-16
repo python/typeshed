@@ -1,7 +1,6 @@
 # Stub for tabulate: https://bitbucket.org/astanin/python-tabulate
 from typing import Any, Dict, Iterable, Sequence, Union
 
-
 def __getattr__(name: str) -> Any: ...
 
 def tabulate(

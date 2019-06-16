@@ -12,10 +12,10 @@ Approach:
 5. Repeat steps 2-4 for other mypy runs (e.g. --py2)
 """
 
+import argparse
 import os
 import re
 import sys
-import argparse
 
 parser = argparse.ArgumentParser(description="Test runner for typeshed. "
                                              "Patterns are unanchored regexps on the full path.")

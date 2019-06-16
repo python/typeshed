@@ -6,7 +6,7 @@ import sys
 import time
 from socket import socket as _socket
 from ssl import SSLSocket
-from typing import Any, Callable, Dict, IO, List, Optional, Pattern, Text, Tuple, Type, Union
+from typing import IO, Any, Callable, Dict, List, Optional, Pattern, Text, Tuple, Type, Union
 
 CommandResults = Tuple[str, List[Any]]
 

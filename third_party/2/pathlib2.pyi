@@ -1,7 +1,7 @@
-from typing import Any, Generator, IO, Optional, Sequence, Tuple, Type, TypeVar, Union, List
-from types import TracebackType
 import os
 import sys
+from types import TracebackType
+from typing import IO, Any, Generator, List, Optional, Sequence, Tuple, Type, TypeVar, Union
 
 _P = TypeVar('_P', bound='PurePath')
 

@@ -4,10 +4,7 @@
 # TODO parts of this should be conditional on version
 
 import sys
-from typing import (
-    Any, Awaitable, Callable, Dict, Generic, Iterator, Mapping, Optional, Tuple, TypeVar,
-    Union, overload, Type
-)
+from typing import Any, Awaitable, Callable, Dict, Generic, Iterator, Mapping, Optional, Tuple, Type, TypeVar, Union, overload
 
 # ModuleType is exported from this module, but for circular import
 # reasons exists in its own stub file (with ModuleSpec and Loader).

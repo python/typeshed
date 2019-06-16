@@ -1,12 +1,9 @@
-from typing import (
-    List, BinaryIO, TextIO, Iterator, Union, Optional, Callable, Tuple, Type, Any, IO, Iterable
-)
 import builtins
 import codecs
-from mmap import mmap
 import sys
+from mmap import mmap
 from types import TracebackType
-from typing import TypeVar
+from typing import IO, Any, BinaryIO, Callable, Iterable, Iterator, List, Optional, TextIO, Tuple, Type, TypeVar, Union
 
 _bytearray_like = Union[bytearray, mmap]
 

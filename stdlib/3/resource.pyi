@@ -2,7 +2,7 @@
 
 # NOTE: These are incomplete!
 
-from typing import Tuple, Optional, NamedTuple
+from typing import NamedTuple, Optional, Tuple
 
 RLIMIT_AS: int
 RLIMIT_CORE: int

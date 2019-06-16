@@ -1,5 +1,5 @@
 import sys
-from typing import Any, BinaryIO, IO, Optional, Tuple, Union, overload
+from typing import IO, Any, BinaryIO, Optional, Tuple, Union, overload
 
 _chtype = Union[str, bytes, int]
 

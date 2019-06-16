@@ -1,5 +1,5 @@
-from typing import Dict, Iterable, Iterator, Optional, Sequence, Tuple, TypeVar, Union, overload
 from http.client import HTTPResponse
+from typing import Dict, Iterable, Iterator, Optional, Sequence, Tuple, TypeVar, Union, overload
 from urllib.request import Request
 
 _T = TypeVar('_T')

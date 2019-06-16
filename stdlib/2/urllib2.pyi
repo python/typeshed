@@ -1,8 +1,8 @@
 
 import ssl
-from typing import Any, AnyStr, Dict, List, Union, Optional, Mapping, Callable, Sequence, Text, Tuple, Type
-from urllib import addinfourl
 from httplib import HTTPConnectionProtocol, HTTPResponse
+from typing import Any, AnyStr, Callable, Dict, List, Mapping, Optional, Sequence, Text, Tuple, Type, Union
+from urllib import addinfourl
 
 _string = Union[str, unicode]
 

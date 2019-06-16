@@ -1,6 +1,7 @@
-from typing import Any
-from tornado.util import ObjectDict
 from collections import namedtuple
+from typing import Any
+
+from tornado.util import ObjectDict
 
 class SSLError(Exception): ...
 

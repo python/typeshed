@@ -1,6 +1,6 @@
-from typing import Any, AnyStr, BinaryIO, IO, Text, TextIO, Iterable, Iterator, List, Optional, Type, Tuple, TypeVar, Union
 from mmap import mmap
 from types import TracebackType
+from typing import IO, Any, AnyStr, BinaryIO, Iterable, Iterator, List, Optional, Text, TextIO, Tuple, Type, TypeVar, Union
 
 _bytearray_like = Union[bytearray, mmap]
 

@@ -1,5 +1,5 @@
-from typing import Sequence, AnyStr, Text
 import sys
+from typing import AnyStr, Sequence, Text
 
 if sys.version_info >= (3, 0):
     def commonprefix(m: Sequence[str]) -> str: ...

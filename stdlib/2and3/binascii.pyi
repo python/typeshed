@@ -3,8 +3,7 @@
 # Based on http://docs.python.org/3.2/library/binascii.html
 
 import sys
-from typing import Union, Text
-
+from typing import Text, Union
 
 if sys.version_info < (3,):
     # Python 2 accepts unicode ascii pretty much everywhere.

@@ -1,12 +1,28 @@
-from typing import (
-    Any, AnyStr, Callable, Container, ContextManager, Dict, FrozenSet, Generic,
-    Iterable, List, NoReturn, Optional, overload, Pattern, Sequence, Set,
-    Tuple, Type, TypeVar, Union,
-)
 import logging
 import unittest.result
 from types import TracebackType
-
+from typing import (
+    Any,
+    AnyStr,
+    Callable,
+    Container,
+    ContextManager,
+    Dict,
+    FrozenSet,
+    Generic,
+    Iterable,
+    List,
+    NoReturn,
+    Optional,
+    Pattern,
+    Sequence,
+    Set,
+    Tuple,
+    Type,
+    TypeVar,
+    Union,
+    overload,
+)
 
 _E = TypeVar('_E', bound=BaseException)
 _FT = TypeVar('_FT', bound=Callable[..., Any])

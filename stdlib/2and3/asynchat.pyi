@@ -1,9 +1,8 @@
-from abc import abstractmethod
 import asyncore
 import socket
 import sys
+from abc import abstractmethod
 from typing import Optional, Sequence, Tuple, Union
-
 
 class simple_producer:
     def __init__(self, data: bytes, buffer_size: int = ...) -> None: ...

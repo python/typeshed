@@ -1,18 +1,19 @@
 import abc
 import sys
-from typing import Callable
+from typing import TYPE_CHECKING as TYPE_CHECKING
+from typing import Any, Callable
 from typing import ClassVar as ClassVar
 from typing import ContextManager as ContextManager
 from typing import Counter as Counter
 from typing import DefaultDict as DefaultDict
 from typing import Deque as Deque
+from typing import Dict, ItemsView, KeysView, Mapping
 from typing import NewType as NewType
 from typing import NoReturn as NoReturn
-from typing import overload as overload
 from typing import Text as Text
 from typing import Type as Type
-from typing import TYPE_CHECKING as TYPE_CHECKING
-from typing import TypeVar, Any, Mapping, ItemsView, KeysView, ValuesView, Dict, Type
+from typing import TypeVar, ValuesView
+from typing import overload as overload
 
 _T = TypeVar('_T')
 _F = TypeVar('_F', bound=Callable[..., Any])

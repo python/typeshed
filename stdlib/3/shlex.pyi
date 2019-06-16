@@ -2,8 +2,8 @@
 
 # Based on http://docs.python.org/3.2/library/shlex.html
 
-from typing import List, Tuple, Any, TextIO, Union, Optional, Iterable, TypeVar
 import sys
+from typing import Any, Iterable, List, Optional, TextIO, Tuple, TypeVar, Union
 
 def split(s: str, comments: bool = ...,
           posix: bool = ...) -> List[str]: ...

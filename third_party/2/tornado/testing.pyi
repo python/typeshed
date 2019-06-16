@@ -1,6 +1,6 @@
-from typing import Any, Optional
-import unittest
 import logging
+import unittest
+from typing import Any, Optional
 
 AsyncHTTPClient: Any
 gen: Any

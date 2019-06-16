@@ -1,6 +1,6 @@
-from typing import List, Optional, Tuple
-from _markupbase import ParserBase
 import sys
+from _markupbase import ParserBase
+from typing import List, Optional, Tuple
 
 class HTMLParser(ParserBase):
     if sys.version_info >= (3, 5):

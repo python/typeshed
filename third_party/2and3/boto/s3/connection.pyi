@@ -1,8 +1,9 @@
-from .bucket import Bucket
-
 from typing import Any, Dict, Optional, Text, Type
+
 from boto.connection import AWSAuthConnection
 from boto.exception import BotoClientError
+
+from .bucket import Bucket
 
 def check_lowercase_bucketname(n): ...
 def assert_case_insensitive(f): ...

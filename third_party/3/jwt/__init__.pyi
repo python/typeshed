@@ -1,4 +1,4 @@
-from typing import Mapping, Any, Optional, Union, Dict
+from typing import Any, Dict, Mapping, Optional, Union
 
 from . import algorithms
 

@@ -2,7 +2,7 @@
 
 # Based on http://docs.python.org/2/library/subprocess.html and Python 3 stub
 
-from typing import Sequence, Any, Mapping, Callable, Tuple, IO, Union, Optional, List, Text
+from typing import IO, Any, Callable, List, Mapping, Optional, Sequence, Text, Tuple, Union
 
 _FILE = Union[None, int, IO[Any]]
 _TXT = Union[bytes, Text]

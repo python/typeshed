@@ -1,10 +1,7 @@
 import sys
 from typing import Any, Awaitable, Callable, Generator, Iterable, List, Optional, Tuple, Union
 
-from . import coroutines
-from . import events
-from . import protocols
-from . import transports
+from . import coroutines, events, protocols, transports
 
 _ClientConnectedCallback = Callable[[StreamReader, StreamWriter], Optional[Awaitable[None]]]
 

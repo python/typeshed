@@ -1,9 +1,9 @@
 # NOTE: This stub is incomplete - only contains some global functions
 
-from cmd import Cmd
 import sys
+from cmd import Cmd
 from types import FrameType
-from typing import Any, Callable, Dict, IO, Iterable, Optional, TypeVar
+from typing import IO, Any, Callable, Dict, Iterable, Optional, TypeVar
 
 _T = TypeVar('_T')
 

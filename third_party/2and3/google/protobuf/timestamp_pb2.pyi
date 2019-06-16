@@ -1,12 +1,7 @@
-from google.protobuf.message import (
-    Message,
-)
+from typing import Optional
+
 from google.protobuf.internal import well_known_types
-
-from typing import (
-    Optional,
-)
-
+from google.protobuf.message import Message
 
 class Timestamp(Message, well_known_types.Timestamp):
     seconds: int

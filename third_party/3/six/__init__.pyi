@@ -2,6 +2,14 @@
 
 from __future__ import print_function
 
+import types
+import typing
+import unittest
+from builtins import next as next
+from functools import wraps as wraps
+# Exports
+from io import BytesIO as BytesIO
+from io import StringIO as StringIO
 from typing import (
     Any,
     AnyStr,
@@ -22,14 +30,7 @@ from typing import (
     ValuesView,
     overload,
 )
-import types
-import typing
-import unittest
 
-# Exports
-from io import StringIO as StringIO, BytesIO as BytesIO
-from builtins import next as next
-from functools import wraps as wraps
 from . import moves
 
 _T = TypeVar('_T')

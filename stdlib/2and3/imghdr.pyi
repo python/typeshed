@@ -1,7 +1,6 @@
-from typing import overload, Union, Text, BinaryIO, Optional, Any, List, Callable
-import sys
 import os
-
+import sys
+from typing import Any, BinaryIO, Callable, List, Optional, Text, Union, overload
 
 if sys.version_info >= (3, 6):
     _File = Union[Text, os.PathLike[Text], BinaryIO]

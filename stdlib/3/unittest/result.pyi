@@ -1,7 +1,6 @@
-from typing import Any, List, Optional, Tuple, Type
-from types import TracebackType
 import unittest.case
-
+from types import TracebackType
+from typing import Any, List, Optional, Tuple, Type
 
 _SysExcInfoType = Tuple[Optional[Type[BaseException]],
                         Optional[BaseException],

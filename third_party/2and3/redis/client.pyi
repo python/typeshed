@@ -1,5 +1,5 @@
 from datetime import timedelta
-from typing import Any, Text, Optional, Mapping, Union
+from typing import Any, Mapping, Optional, Text, Union
 
 from .connection import ConnectionPool
 

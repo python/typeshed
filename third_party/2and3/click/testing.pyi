@@ -1,5 +1,4 @@
-from typing import (IO, Any, BinaryIO, ContextManager, Dict, Iterable, List,
-                    Mapping, Optional, Text, Tuple, Union)
+from typing import IO, Any, BinaryIO, ContextManager, Dict, Iterable, List, Mapping, Optional, Text, Tuple, Union
 
 from .core import BaseCommand
 

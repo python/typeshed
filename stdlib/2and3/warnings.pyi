@@ -1,7 +1,7 @@
 # Stubs for warnings
 
-from typing import Any, Dict, List, NamedTuple, Optional, TextIO, Tuple, Type, Union
 from types import ModuleType, TracebackType
+from typing import Any, Dict, List, NamedTuple, Optional, TextIO, Tuple, Type, Union
 
 def warn(message: Union[str, Warning], category: Optional[Type[Warning]] = ...,
          stacklevel: int = ...) -> None: ...

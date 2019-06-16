@@ -1,7 +1,7 @@
-from typing import Any, Callable, Generator, Iterable, List, NamedTuple, Optional, Union, Sequence, TextIO, Tuple
-from builtins import open as _builtin_open
 import sys
+from builtins import open as _builtin_open
 from token import *  # noqa: F403
+from typing import Any, Callable, Generator, Iterable, List, NamedTuple, Optional, Sequence, TextIO, Tuple, Union
 
 COMMENT: int
 NL: int

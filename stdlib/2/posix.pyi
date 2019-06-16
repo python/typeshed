@@ -1,4 +1,4 @@
-from typing import Dict, List, Mapping, Tuple, Union, Sequence, IO, Optional, TypeVar
+from typing import IO, Dict, List, Mapping, Optional, Sequence, Tuple, TypeVar, Union
 
 error = OSError
 

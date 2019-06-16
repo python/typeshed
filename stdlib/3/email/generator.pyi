@@ -1,8 +1,8 @@
 # Stubs for email.generator (Python 3.4)
 
-from typing import TextIO, Optional
 from email.message import Message
 from email.policy import Policy
+from typing import Optional, TextIO
 
 class Generator:
     def clone(self, fp: TextIO) -> Generator: ...

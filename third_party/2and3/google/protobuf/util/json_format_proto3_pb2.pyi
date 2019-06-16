@@ -1,30 +1,13 @@
-from google.protobuf.any_pb2 import (
-    Any,
-)
-from google.protobuf.duration_pb2 import (
-    Duration,
-)
-from google.protobuf.field_mask_pb2 import (
-    FieldMask,
-)
-from google.protobuf.internal.containers import (
-    RepeatedCompositeFieldContainer,
-    RepeatedScalarFieldContainer,
-)
-from google.protobuf.message import (
-    Message,
-)
-from google.protobuf.struct_pb2 import (
-    ListValue,
-    Struct,
-    Value,
-)
-from google.protobuf.timestamp_pb2 import (
-    Timestamp,
-)
-from google.protobuf.unittest_pb2 import (
-    TestAllExtensions,
-)
+from typing import Iterable, List, Mapping, MutableMapping, Optional, Text, Tuple, cast
+
+from google.protobuf.any_pb2 import Any
+from google.protobuf.duration_pb2 import Duration
+from google.protobuf.field_mask_pb2 import FieldMask
+from google.protobuf.internal.containers import RepeatedCompositeFieldContainer, RepeatedScalarFieldContainer
+from google.protobuf.message import Message
+from google.protobuf.struct_pb2 import ListValue, Struct, Value
+from google.protobuf.timestamp_pb2 import Timestamp
+from google.protobuf.unittest_pb2 import TestAllExtensions
 from google.protobuf.wrappers_pb2 import (
     BoolValue,
     BytesValue,
@@ -36,17 +19,6 @@ from google.protobuf.wrappers_pb2 import (
     UInt32Value,
     UInt64Value,
 )
-from typing import (
-    Iterable,
-    List,
-    Mapping,
-    MutableMapping,
-    Optional,
-    Text,
-    Tuple,
-    cast,
-)
-
 
 class EnumType(int):
 

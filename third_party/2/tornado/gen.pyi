@@ -1,5 +1,5 @@
-from typing import Any
 from collections import namedtuple
+from typing import Any
 
 singledispatch: Any
 

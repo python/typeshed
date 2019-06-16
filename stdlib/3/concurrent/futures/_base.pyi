@@ -1,6 +1,6 @@
-from typing import TypeVar, Generic, Any, Iterable, Iterator, Callable, Tuple, Optional, Set, NamedTuple
-from types import TracebackType
 import sys
+from types import TracebackType
+from typing import Any, Callable, Generic, Iterable, Iterator, NamedTuple, Optional, Set, Tuple, TypeVar
 
 FIRST_COMPLETED: str
 FIRST_EXCEPTION: str

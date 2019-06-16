@@ -1,13 +1,12 @@
-from abc import ABCMeta, abstractmethod
 import os
 import sys
 import types
-from typing import Any, IO, Iterator, Mapping, Optional, Sequence, Tuple, Union
+from abc import ABCMeta, abstractmethod
+from typing import IO, Any, Iterator, Mapping, Optional, Sequence, Tuple, Union
 
 # Loader is exported from this module, but for circular import reasons
 # exists in its own stub file (with ModuleSpec and ModuleType).
 from _importlib_modulespec import Loader as Loader  # Exported
-
 from _importlib_modulespec import ModuleSpec
 
 _Path = Union[bytes, str]

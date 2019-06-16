@@ -1,10 +1,10 @@
 # Source: https://github.com/python/cpython/blob/master/Lib/sre_parse.py
 
-from typing import (
-    Any, Dict, FrozenSet, Iterable, List, Match,
-    Optional, Pattern as _Pattern, Tuple, Union
-)
-from sre_constants import _NamedIntConstant as NIC, error as _Error
+from sre_constants import _NamedIntConstant as NIC
+from sre_constants import error as _Error
+from typing import Any, Dict, FrozenSet, Iterable, List, Match, Optional
+from typing import Pattern as _Pattern
+from typing import Tuple, Union
 
 SPECIAL_CHARS: str
 REPEAT_CHARS: str

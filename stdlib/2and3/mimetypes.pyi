@@ -1,7 +1,7 @@
 # Stubs for mimetypes
 
-from typing import Dict, IO, List, Optional, Sequence, Text, Tuple
 import sys
+from typing import IO, Dict, List, Optional, Sequence, Text, Tuple
 
 def guess_type(url: Text,
                strict: bool = ...) -> Tuple[Optional[str], Optional[str]]: ...

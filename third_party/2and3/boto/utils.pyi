@@ -3,14 +3,12 @@ import logging.handlers
 import subprocess
 import sys
 import time
-
-import boto.connection
 from typing import (
+    IO,
     Any,
     Callable,
     ContextManager,
     Dict,
-    IO,
     Iterable,
     List,
     Mapping,
@@ -21,6 +19,8 @@ from typing import (
     TypeVar,
     Union,
 )
+
+import boto.connection
 
 _KT = TypeVar('_KT')
 _VT = TypeVar('_VT')

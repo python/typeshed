@@ -1,4 +1,5 @@
 from typing import Any, Callable, Type, TypeVar
+
 # Stubs for abc.
 
 _T = TypeVar('_T')

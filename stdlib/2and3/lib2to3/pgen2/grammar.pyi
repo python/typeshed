@@ -1,7 +1,6 @@
 # Stubs for lib2to3.pgen2.grammar (Python 3.6)
 
 from lib2to3.pgen2 import _Path
-
 from typing import Any, Dict, List, Optional, Text, Tuple, TypeVar
 
 _P = TypeVar('_P')

@@ -1,19 +1,31 @@
 import sys
 import types
+from _weakrefset import WeakSet as WeakSet
 from typing import (
-    TypeVar, Generic, Any, Callable, overload, Mapping, Iterator, Tuple,
-    Iterable, Optional, Type, MutableMapping, Union, List, Dict
+    Any,
+    Callable,
+    Dict,
+    Generic,
+    Iterable,
+    Iterator,
+    List,
+    Mapping,
+    MutableMapping,
+    Optional,
+    Tuple,
+    Type,
+    TypeVar,
+    Union,
+    overload,
 )
 
-from _weakref import (
-    getweakrefcount as getweakrefcount,
-    getweakrefs as getweakrefs,
-    ref as ref,
-    proxy as proxy,
-    CallableProxyType as CallableProxyType,
-    ProxyType as ProxyType,
-    ReferenceType as ReferenceType)
-from _weakrefset import WeakSet as WeakSet
+from _weakref import CallableProxyType as CallableProxyType
+from _weakref import ProxyType as ProxyType
+from _weakref import ReferenceType as ReferenceType
+from _weakref import getweakrefcount as getweakrefcount
+from _weakref import getweakrefs as getweakrefs
+from _weakref import proxy as proxy
+from _weakref import ref as ref
 
 if sys.version_info < (3, 0):
     from exceptions import ReferenceError as ReferenceError

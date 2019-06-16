@@ -1,7 +1,7 @@
 """Stub file for the 'zipimport' module."""
 
-from typing import Optional
 from types import CodeType, ModuleType
+from typing import Optional
 
 class ZipImportError(ImportError): ...
 

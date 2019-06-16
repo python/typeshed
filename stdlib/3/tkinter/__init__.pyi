@@ -1,6 +1,6 @@
-from types import TracebackType
-from typing import Any, Optional, Dict, Callable, Type
 from tkinter.constants import *  # noqa: F403
+from types import TracebackType
+from typing import Any, Callable, Dict, Optional, Type
 
 TclError: Any
 wantobjects: Any

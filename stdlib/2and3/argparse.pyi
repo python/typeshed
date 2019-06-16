@@ -1,8 +1,23 @@
-from typing import (
-    Any, Callable, Dict, Generator, Iterable, List, IO, NoReturn, Optional,
-    Pattern, Sequence, Text, Tuple, Type, Union, TypeVar, overload
-)
 import sys
+from typing import (
+    IO,
+    Any,
+    Callable,
+    Dict,
+    Generator,
+    Iterable,
+    List,
+    NoReturn,
+    Optional,
+    Pattern,
+    Sequence,
+    Text,
+    Tuple,
+    Type,
+    TypeVar,
+    Union,
+    overload,
+)
 
 _T = TypeVar('_T')
 _ActionT = TypeVar('_ActionT', bound='Action')

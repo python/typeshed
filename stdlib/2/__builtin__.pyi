@@ -1,18 +1,50 @@
 # True and False are deliberately omitted because they are keywords in
 # Python 3, and stub files conform to Python 3 syntax.
 
-from typing import (
-    TypeVar, Iterator, Iterable, NoReturn, overload, Container,
-    Sequence, MutableSequence, Mapping, MutableMapping, Tuple, List, Any, Dict, Callable, Generic,
-    Set, AbstractSet, FrozenSet, MutableSet, Sized, Reversible, SupportsInt, SupportsFloat, SupportsAbs,
-    SupportsComplex, IO, BinaryIO, Union,
-    ItemsView, KeysView, ValuesView, ByteString, Optional, AnyStr, Type, Text,
-    Protocol,
-)
-from abc import abstractmethod, ABCMeta
-from ast import mod, AST
-from types import TracebackType, CodeType
 import sys
+from abc import ABCMeta, abstractmethod
+from ast import AST, mod
+from types import CodeType, TracebackType
+from typing import (
+    IO,
+    AbstractSet,
+    Any,
+    AnyStr,
+    BinaryIO,
+    ByteString,
+    Callable,
+    Container,
+    Dict,
+    FrozenSet,
+    Generic,
+    ItemsView,
+    Iterable,
+    Iterator,
+    KeysView,
+    List,
+    Mapping,
+    MutableMapping,
+    MutableSequence,
+    MutableSet,
+    NoReturn,
+    Optional,
+    Protocol,
+    Reversible,
+    Sequence,
+    Set,
+    Sized,
+    SupportsAbs,
+    SupportsComplex,
+    SupportsFloat,
+    SupportsInt,
+    Text,
+    Tuple,
+    Type,
+    TypeVar,
+    Union,
+    ValuesView,
+    overload,
+)
 
 if sys.version_info >= (3,):
     from typing import SupportsBytes, SupportsRound

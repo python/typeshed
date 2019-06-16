@@ -1,8 +1,6 @@
 # Stubs for distutils.dist
 from distutils.cmd import Command
-
-from typing import Any, Mapping, Optional, Dict, Tuple, Iterable, Text
-
+from typing import Any, Dict, Iterable, Mapping, Optional, Text, Tuple
 
 class Distribution:
     def __init__(self, attrs: Optional[Mapping[str, Any]] = ...) -> None: ...

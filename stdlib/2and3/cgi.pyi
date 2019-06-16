@@ -1,5 +1,5 @@
 import sys
-from typing import Any, AnyStr, Dict, IO, Iterable, List, Mapping, Optional, Tuple, TypeVar, Union
+from typing import IO, Any, AnyStr, Dict, Iterable, List, Mapping, Optional, Tuple, TypeVar, Union
 
 _T = TypeVar('_T', bound=FieldStorage)
 

@@ -1,4 +1,4 @@
-from typing import Tuple, NamedTuple
+from typing import NamedTuple, Tuple
 
 class error(Exception): ...
 

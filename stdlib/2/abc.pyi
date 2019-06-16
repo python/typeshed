@@ -1,5 +1,5 @@
-from typing import Any, Dict, Set, Tuple, Type
 import _weakrefset
+from typing import Any, Dict, Set, Tuple, Type
 
 # NOTE: mypy has special processing for ABCMeta and abstractmethod.
 

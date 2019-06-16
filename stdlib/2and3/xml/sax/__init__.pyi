@@ -1,8 +1,7 @@
-from typing import Any, List, NoReturn, Optional, Text, Union, IO
-
 import xml.sax
-from xml.sax.xmlreader import InputSource, Locator
+from typing import IO, Any, List, NoReturn, Optional, Text, Union
 from xml.sax.handler import ContentHandler, ErrorHandler
+from xml.sax.xmlreader import InputSource, Locator
 
 class SAXException(Exception):
     def __init__(self, msg: str, exception: Optional[Exception] = ...) -> None: ...

@@ -4,10 +4,7 @@
 
 import queue
 import threading
-from typing import (
-    Any, Callable, ContextManager, Dict, Iterable, List, Mapping, Optional,
-    Sequence, Tuple, TypeVar, Union,
-)
+from typing import Any, Callable, ContextManager, Dict, Iterable, List, Mapping, Optional, Sequence, Tuple, TypeVar, Union
 
 _T = TypeVar('_T')
 _KT = TypeVar('_KT')

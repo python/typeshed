@@ -1,4 +1,5 @@
-from typing import List, Tuple, AnyStr
+from typing import AnyStr, List, Tuple
+
 from markupbase import ParserBase
 
 class HTMLParser(ParserBase):

@@ -1,14 +1,33 @@
 # Stubs for os
 # Ron Murawski <ron@horizonchess.com>
 
+import sys
 from builtins import OSError as error
 from io import TextIOWrapper as _TextIOWrapper
 from posix import stat_result as stat_result  # TODO: use this, see https://github.com/python/mypy/issues/3078
-import sys
 from typing import (
-    Mapping, MutableMapping, Dict, List, Any, Tuple, Iterator, overload, Union, AnyStr,
-    Optional, Generic, Set, Callable, Text, Sequence, IO, NamedTuple, NoReturn, TypeVar
+    IO,
+    Any,
+    AnyStr,
+    Callable,
+    Dict,
+    Generic,
+    Iterator,
+    List,
+    Mapping,
+    MutableMapping,
+    NamedTuple,
+    NoReturn,
+    Optional,
+    Sequence,
+    Set,
+    Text,
+    Tuple,
+    TypeVar,
+    Union,
+    overload,
 )
+
 from . import path as path
 
 _T = TypeVar('_T')

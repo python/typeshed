@@ -3,9 +3,8 @@
 # NOTE: These are incomplete!
 
 import sys
-from typing import NamedTuple, Tuple
-
 from os import stat_result as stat_result
+from typing import NamedTuple, Tuple
 
 uname_result = NamedTuple('uname_result', [
     ('sysname', str),

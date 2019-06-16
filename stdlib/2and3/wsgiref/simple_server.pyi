@@ -1,8 +1,8 @@
 import sys
-from typing import Optional, List, Type, TypeVar, overload
+from typing import List, Optional, Type, TypeVar, overload
 
 from .handlers import SimpleHandler
-from .types import WSGIApplication, WSGIEnvironment, StartResponse, ErrorStream
+from .types import ErrorStream, StartResponse, WSGIApplication, WSGIEnvironment
 
 if sys.version_info < (3,):
     from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer

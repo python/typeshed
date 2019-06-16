@@ -1,7 +1,7 @@
 # Stubs for email.contentmanager (Python 3.4)
 
-from typing import Any, Callable
 from email.message import Message
+from typing import Any, Callable
 
 class ContentManager:
     def __init__(self) -> None: ...

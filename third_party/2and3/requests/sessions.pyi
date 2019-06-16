@@ -1,18 +1,12 @@
 # Stubs for requests.sessions (Python 3)
 
-from typing import Any, Union, List, MutableMapping, Text, Optional, IO, Tuple, Callable, Iterable
+from typing import IO, Any, Callable, Iterable, List, MutableMapping, Optional, Text, Tuple, Union
+
 from . import adapters
 from . import auth as _auth
-from . import compat
-from . import cookies
-from . import models
+from . import compat, cookies, exceptions, hooks, models, status_codes, structures, utils
 from .models import Response
-from . import hooks
-from . import utils
-from . import exceptions
 from .packages.urllib3 import _collections
-from . import structures
-from . import status_codes
 
 BaseAdapter = adapters.BaseAdapter
 OrderedDict = compat.OrderedDict

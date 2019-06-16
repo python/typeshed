@@ -1,5 +1,5 @@
-from typing import Any, Sequence, Optional, Iterable
-from wsgiref.types import WSGIApplication, WSGIEnvironment, StartResponse
+from typing import Any, Iterable, Optional, Sequence
+from wsgiref.types import StartResponse, WSGIApplication, WSGIEnvironment
 
 class CGIRootFix:
     app: Any

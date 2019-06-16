@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Any, Callable, IO, Mapping, MutableMapping, Optional, Tuple, Union, Text, Generator
+from typing import IO, Any, Callable, Generator, Mapping, MutableMapping, Optional, Text, Tuple, Union
 
 _serializer = Any  # must be an object that has "dumps" and "loads" attributes (e.g. the json module)
 

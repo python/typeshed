@@ -1,8 +1,9 @@
 import sys
-from typing import Any, IO, Optional, Tuple, Callable, Dict, List, Union, Protocol
+from typing import IO, Any, Callable, Dict, List, Optional, Protocol, Tuple, Union
 
 from .decoder import JSONDecoder as JSONDecoder
 from .encoder import JSONEncoder as JSONEncoder
+
 if sys.version_info >= (3, 5):
     from .decoder import JSONDecodeError as JSONDecodeError
 

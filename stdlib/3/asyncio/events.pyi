@@ -1,14 +1,14 @@
 import selectors
-from socket import socket
 import ssl
 import sys
-from typing import Any, Awaitable, Callable, Dict, Generator, List, Optional, Sequence, Tuple, TypeVar, Union, overload
 from abc import ABCMeta, abstractmethod
-from asyncio.futures import Future
 from asyncio.coroutines import coroutine
+from asyncio.futures import Future
 from asyncio.protocols import BaseProtocol
 from asyncio.tasks import Task
 from asyncio.transports import BaseTransport
+from socket import socket
+from typing import Any, Awaitable, Callable, Dict, Generator, List, Optional, Sequence, Tuple, TypeVar, Union, overload
 
 __all__: List[str]
 

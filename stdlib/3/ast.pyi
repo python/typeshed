@@ -5,12 +5,8 @@ import sys
 # from _ast below when loaded in an unorthodox way by the Dropbox
 # internal Bazel integration.
 import typing as _typing
-from typing import Any, Iterator, Optional, Union, TypeVar
+from typing import Any, Iterator, Optional, TypeVar, Union
 
-# The same unorthodox Bazel integration causes issues with sys, which
-# is imported in both modules. unfortunately we can't just rename sys,
-# since mypy only supports version checks with a sys that is named
-# sys.
 from _ast import *  # type: ignore
 
 class NodeVisitor():

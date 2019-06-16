@@ -1,9 +1,9 @@
 # Stubs for http.server (Python 3.4)
 
+import email.message
+import socketserver
 import sys
 from typing import Any, BinaryIO, Dict, List, Mapping, Optional, Tuple, Union
-import socketserver
-import email.message
 
 if sys.version_info >= (3, 7):
     from builtins import _PathLike

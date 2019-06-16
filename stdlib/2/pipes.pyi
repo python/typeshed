@@ -1,4 +1,4 @@
-from typing import Any, IO
+from typing import IO, Any
 
 class Template:
     def __init__(self) -> None: ...

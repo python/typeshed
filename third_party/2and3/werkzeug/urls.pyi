@@ -1,7 +1,6 @@
 from collections import namedtuple
 from typing import Any, Optional, Text
 
-
 _URLTuple = namedtuple(
     '_URLTuple',
     ['scheme', 'netloc', 'path', 'query', 'fragment']

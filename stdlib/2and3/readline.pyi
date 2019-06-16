@@ -1,7 +1,7 @@
 # Stubs for readline
 
-from typing import Callable, Optional, Sequence
 import sys
+from typing import Callable, Optional, Sequence
 
 _CompleterT = Optional[Callable[[str, int], Optional[str]]]
 _CompDispT = Optional[Callable[[str, Sequence[str], int], None]]

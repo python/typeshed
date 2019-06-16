@@ -1,7 +1,7 @@
 # Stubs for sunau (Python 2 and 3)
 
 import sys
-from typing import Any, NamedTuple, NoReturn, Optional, Text, IO, Union, Tuple
+from typing import IO, Any, NamedTuple, NoReturn, Optional, Text, Tuple, Union
 
 _File = Union[Text, IO[bytes]]
 

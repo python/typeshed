@@ -1,4 +1,5 @@
-from typing import Union, Tuple, Any, Dict, Optional, Text, Iterator, List
+from typing import Any, Dict, Iterator, List, Optional, Text, Tuple, Union
+
 from .connections import Connection
 
 Gen = Union[Tuple[Any, ...], Dict[str, Any]]

@@ -1,7 +1,7 @@
 # Stubs for pkgutil
 
-from typing import Any, Callable, Generator, IO, Iterable, Optional, Tuple, NamedTuple
 import sys
+from typing import IO, Any, Callable, Generator, Iterable, NamedTuple, Optional, Tuple
 
 if sys.version_info >= (3,):
     from importlib.abc import Loader

@@ -1,13 +1,16 @@
-from typing import Any, IO, Iterator, Optional, overload, Sequence, Text, Union
 import sys
-from yaml.error import *  # noqa: F403
-from yaml.tokens import *  # noqa: F403
-from yaml.events import *  # noqa: F403
-from yaml.nodes import *  # noqa: F403
-from yaml.loader import *  # noqa: F403
+from typing import IO, Any, Iterator, Optional, Sequence, Text, Union, overload
+
 from yaml.dumper import *  # noqa: F403
-from . import resolver  # Help mypy a bit; this is implied by loader and dumper
+from yaml.error import *  # noqa: F403
+from yaml.events import *  # noqa: F403
+from yaml.loader import *  # noqa: F403
+from yaml.nodes import *  # noqa: F403
+from yaml.tokens import *  # noqa: F403
+
 from .cyaml import *
+
+from . import resolver  # Help mypy a bit; this is implied by loader and dumper
 
 if sys.version_info < (3,):
     _Str = Union[Text, str]

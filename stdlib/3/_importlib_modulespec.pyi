@@ -7,8 +7,8 @@
 #
 # _Loader is the PEP-451-defined interface for a loader type/object.
 
-from abc import ABCMeta
 import sys
+from abc import ABCMeta
 from typing import Any, Dict, List, Optional, Protocol
 
 class _Loader(Protocol):

@@ -1,34 +1,36 @@
 # These are not exported.
 import sys
 import typing
-from typing import (
-    TypeVar, Generic, Dict, overload, List, Tuple,
-    Any, Type, Optional, Union
-)
+from typing import AbstractSet as Set
+from typing import Any
+from typing import ByteString as ByteString
+from typing import Callable as Callable
+from typing import Container as Container
+from typing import Dict
+from typing import Generator as Generator
+from typing import Generic
+from typing import Hashable as Hashable
+from typing import ItemsView as ItemsView
+from typing import Iterable as Iterable
+from typing import Iterator as Iterator
+from typing import KeysView as KeysView
+from typing import List
+from typing import Mapping as Mapping
+from typing import MappingView as MappingView
+from typing import MutableMapping as MutableMapping
+from typing import MutableSequence as MutableSequence
+from typing import MutableSet as MutableSet
+from typing import Optional
+from typing import Reversible as Reversible
+from typing import Sequence as Sequence
+from typing import Sized as Sized
+from typing import Tuple, Type, TypeVar, Union
+from typing import ValuesView as ValuesView
+from typing import overload
+
 # These are exported.
 from . import abc
 
-from typing import (
-    Callable as Callable,
-    Container as Container,
-    Hashable as Hashable,
-    Iterable as Iterable,
-    Iterator as Iterator,
-    Sized as Sized,
-    Generator as Generator,
-    ByteString as ByteString,
-    Reversible as Reversible,
-    Mapping as Mapping,
-    MappingView as MappingView,
-    ItemsView as ItemsView,
-    KeysView as KeysView,
-    ValuesView as ValuesView,
-    MutableMapping as MutableMapping,
-    Sequence as Sequence,
-    MutableSequence as MutableSequence,
-    MutableSet as MutableSet,
-    AbstractSet as Set,
-)
 if sys.version_info >= (3, 6):
     from typing import (
         Collection as Collection,

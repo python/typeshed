@@ -2,11 +2,27 @@
 # reading configparser.py.
 
 import sys
-from typing import (AbstractSet, MutableMapping, Mapping, Dict, Sequence, List,
-                    Union, Iterable, Iterator, Callable, Any, IO, overload,
-                    Optional, Pattern, Type, TypeVar)
 # Types only used in type comments only
-from typing import Optional, Tuple  # noqa
+from typing import (  # noqa
+    IO,
+    AbstractSet,
+    Any,
+    Callable,
+    Dict,
+    Iterable,
+    Iterator,
+    List,
+    Mapping,
+    MutableMapping,
+    Optional,
+    Pattern,
+    Sequence,
+    Tuple,
+    Type,
+    TypeVar,
+    Union,
+    overload,
+)
 
 if sys.version_info >= (3, 6):
     from os import PathLike

@@ -3,8 +3,8 @@
 
 import os
 import sys
+from datetime import date, datetime, time
 from typing import Any, Callable, Iterable, Iterator, List, Optional, Text, Tuple, Type, TypeVar, Union
-from datetime import date, time, datetime
 
 _T = TypeVar('_T')
 

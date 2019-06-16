@@ -1,8 +1,5 @@
-from typing import (
-    Any, Callable, ContextManager, Iterable, Mapping, Optional, List,
-    Type, TypeVar, Generic, Iterator
-)
 from types import TracebackType
+from typing import Any, Callable, ContextManager, Generic, Iterable, Iterator, List, Mapping, Optional, Type, TypeVar
 
 _PT = TypeVar('_PT', bound='Pool')
 _S = TypeVar('_S')

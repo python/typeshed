@@ -1,16 +1,13 @@
 # Stubs for urllib.request (Python 3.4)
 
-from typing import (
-    Any, Callable, ClassVar, Dict, List, IO, Mapping, Optional, Sequence, Tuple,
-    TypeVar, Union, overload, NoReturn,
-)
-from http.client import HTTPResponse, HTTPMessage, HTTPConnectionProtocol
-from http.cookiejar import CookieJar
-from email.message import Message
-from urllib.response import addinfourl
+import os
 import ssl
 import sys
-import os
+from email.message import Message
+from http.client import HTTPConnectionProtocol, HTTPMessage, HTTPResponse
+from http.cookiejar import CookieJar
+from typing import IO, Any, Callable, ClassVar, Dict, List, Mapping, NoReturn, Optional, Sequence, Tuple, TypeVar, Union, overload
+from urllib.response import addinfourl
 
 _T = TypeVar('_T')
 _UrlopenRet = Any

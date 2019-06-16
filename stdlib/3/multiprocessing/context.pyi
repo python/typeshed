@@ -1,14 +1,10 @@
 # Stubs for multiprocessing.context
 
-from logging import Logger
 import multiprocessing
-from multiprocessing import synchronize
-from multiprocessing import queues
 import sys
-from typing import (
-    Any, Callable, Iterable, Optional, List, Mapping, Sequence, Tuple, Type,
-    Union,
-)
+from logging import Logger
+from multiprocessing import queues, synchronize
+from typing import Any, Callable, Iterable, List, Mapping, Optional, Sequence, Tuple, Type, Union
 
 _LockLike = Union[synchronize.Lock, synchronize.RLock]
 

@@ -1,6 +1,5 @@
-from typing import Any, List, Optional, Tuple, Type, TypeVar
-
 from queue import Queue
+from typing import Any, List, Optional, Tuple, Type, TypeVar
 
 families: List[None]
 

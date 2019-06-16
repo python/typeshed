@@ -1,4 +1,5 @@
 from typing import Any, Dict, Optional, Text
+
 from six.moves import http_client
 
 HAVE_HTTPS_CONNECTION: bool

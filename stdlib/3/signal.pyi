@@ -2,8 +2,8 @@
 
 import sys
 from enum import IntEnum
-from typing import Any, Callable, List, Tuple, Dict, Generic, Union, Optional, Iterable, Set
 from types import FrameType
+from typing import Any, Callable, Dict, Generic, Iterable, List, Optional, Set, Tuple, Union
 
 class ItimerError(IOError): ...
 

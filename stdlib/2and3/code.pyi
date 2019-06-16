@@ -1,8 +1,8 @@
 # Stubs for code
 
 import sys
-from typing import Any, Callable, Mapping, Optional
 from types import CodeType
+from typing import Any, Callable, Mapping, Optional
 
 class InteractiveInterpreter:
     def __init__(self, locals: Optional[Mapping[str, Any]] = ...) -> None: ...

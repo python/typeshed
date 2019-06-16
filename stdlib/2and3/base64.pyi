@@ -1,7 +1,7 @@
 # Stubs for base64
 
-from typing import IO, Union, Text
 import sys
+from typing import IO, Text, Union
 
 if sys.version_info < (3,):
     _encodable = Union[bytes, unicode]

@@ -1,6 +1,6 @@
 import collections
-from typing import Any, Optional, Mapping, Dict, TypeVar, Callable, Union, overload, Text
 from collections import Container, Iterable, MutableSet
+from typing import Any, Callable, Dict, Mapping, Optional, Text, TypeVar, Union, overload
 
 _K = TypeVar("_K")
 _V = TypeVar("_V")

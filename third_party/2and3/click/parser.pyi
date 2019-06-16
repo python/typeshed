@@ -2,7 +2,6 @@ from typing import Any, Dict, Iterable, List, Optional, Set, Tuple
 
 from click.core import Context
 
-
 def _unpack_args(
     args: Iterable[str], nargs_spec: Iterable[int]
 ) -> Tuple[Tuple[Optional[Tuple[str, ...]], ...], List[str]]:

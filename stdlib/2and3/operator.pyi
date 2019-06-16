@@ -1,11 +1,19 @@
 # Stubs for operator
 
-from typing import (
-    Any, Callable, Container, Mapping, MutableMapping, MutableSequence, Sequence, SupportsAbs, Tuple,
-    TypeVar, overload,
-)
 import sys
-
+from typing import (
+    Any,
+    Callable,
+    Container,
+    Mapping,
+    MutableMapping,
+    MutableSequence,
+    Sequence,
+    SupportsAbs,
+    Tuple,
+    TypeVar,
+    overload,
+)
 
 _T = TypeVar('_T')
 _K = TypeVar('_K')

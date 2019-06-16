@@ -1,8 +1,9 @@
-from typing import Any
 import io
-from . import _collections
-from . import exceptions
-from .connection import HTTPException as HTTPException, BaseSSLError as BaseSSLError
+from typing import Any
+
+from . import _collections, exceptions
+from .connection import BaseSSLError as BaseSSLError
+from .connection import HTTPException as HTTPException
 from .util import response
 
 HTTPHeaderDict = _collections.HTTPHeaderDict

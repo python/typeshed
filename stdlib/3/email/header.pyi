@@ -1,7 +1,7 @@
 # Stubs for email.header (Python 3.4)
 
-from typing import Union, Optional, Any, List, Tuple
 from email.charset import Charset
+from typing import Any, List, Optional, Tuple, Union
 
 class Header:
     def __init__(self, s: Union[bytes, str, None] = ...,

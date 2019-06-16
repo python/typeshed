@@ -1,13 +1,12 @@
 from typing import Any, Container, Iterable, Optional, Text
 
-from bleach.linkifier import DEFAULT_CALLBACKS as DEFAULT_CALLBACKS, Linker as Linker
-from bleach.sanitizer import (
-    ALLOWED_ATTRIBUTES as ALLOWED_ATTRIBUTES,
-    ALLOWED_PROTOCOLS as ALLOWED_PROTOCOLS,
-    ALLOWED_STYLES as ALLOWED_STYLES,
-    ALLOWED_TAGS as ALLOWED_TAGS,
-    Cleaner as Cleaner,
-)
+from bleach.linkifier import DEFAULT_CALLBACKS as DEFAULT_CALLBACKS
+from bleach.linkifier import Linker as Linker
+from bleach.sanitizer import ALLOWED_ATTRIBUTES as ALLOWED_ATTRIBUTES
+from bleach.sanitizer import ALLOWED_PROTOCOLS as ALLOWED_PROTOCOLS
+from bleach.sanitizer import ALLOWED_STYLES as ALLOWED_STYLES
+from bleach.sanitizer import ALLOWED_TAGS as ALLOWED_TAGS
+from bleach.sanitizer import Cleaner as Cleaner
 
 from .linkifier import _Callback
 

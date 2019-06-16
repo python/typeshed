@@ -1,9 +1,9 @@
-from typing import Any, Callable, Generator, Iterable, Iterator, List, Type, TypeVar, Union, Optional, Awaitable
+from types import TracebackType
+from typing import Any, Awaitable, Callable, Generator, Iterable, Iterator, List, Optional, Type, TypeVar, Union
 
 from .coroutines import coroutine
 from .events import AbstractEventLoop
 from .futures import Future
-from types import TracebackType
 
 _T = TypeVar('_T')
 

@@ -2,7 +2,6 @@
 
 from typing import Any, Callable, List, Optional, Tuple, Union
 
-
 _Macro = Union[Tuple[str], Tuple[str, str]]
 
 

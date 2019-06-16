@@ -2,7 +2,7 @@
 
 import os
 import sys
-from typing import Optional, Union, Pattern
+from typing import Optional, Pattern, Union
 
 if sys.version_info < (3, 6):
     _Path = Union[str, bytes]

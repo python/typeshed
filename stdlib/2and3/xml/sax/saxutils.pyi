@@ -1,8 +1,6 @@
 import sys
 from typing import Mapping, Text
-
-from xml.sax import handler
-from xml.sax import xmlreader
+from xml.sax import handler, xmlreader
 
 def escape(data: Text, entities: Mapping[Text, Text] = ...) -> Text: ...
 def unescape(data: Text, entities: Mapping[Text, Text] = ...) -> Text: ...

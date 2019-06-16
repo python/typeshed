@@ -1,19 +1,12 @@
 from typing import Any
-from . import exceptions
+
+from . import connection, exceptions, packages, request, response
+from .connection import BaseSSLError as BaseSSLError
+from .connection import ConnectionError as ConnectionError
+from .connection import HTTPException as HTTPException
 from .packages import ssl_match_hostname
-from . import packages
-from .connection import (
-    HTTPException as HTTPException,
-    BaseSSLError as BaseSSLError,
-    ConnectionError as ConnectionError,
-)
-from . import request
-from . import response
-from . import connection
 from .util import connection as _connection
-from .util import retry
-from .util import timeout
-from .util import url
+from .util import retry, timeout, url
 
 ClosedPoolError = exceptions.ClosedPoolError
 ProtocolError = exceptions.ProtocolError

@@ -1,4 +1,4 @@
-from typing import Any, Optional, Union, Text
+from typing import Any, Optional, Text, Union
 
 from Crypto.PublicKey.RSA import _RSAobj
 

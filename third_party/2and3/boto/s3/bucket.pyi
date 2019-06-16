@@ -1,8 +1,8 @@
+from typing import Any, Dict, List, Optional, Text, Type
+
 from .bucketlistresultset import BucketListResultSet
 from .connection import S3Connection
 from .key import Key
-
-from typing import Any, Dict, Optional, Text, Type, List
 
 class S3WebsiteEndpointTranslate:
     trans_region: Dict[str, str]

@@ -1,9 +1,6 @@
 import sys
 from time import struct_time
-from typing import (
-    AnyStr, Optional, SupportsAbs, Tuple, Union, overload,
-    ClassVar,
-)
+from typing import AnyStr, ClassVar, Optional, SupportsAbs, Tuple, Union, overload
 
 if sys.version_info >= (3,):
     _Text = str

@@ -1,6 +1,7 @@
-from ._common import weekday as weekdaybase
-from typing import Any, Iterable, Optional, Union
 import datetime
+from typing import Any, Iterable, Optional, Union
+
+from ._common import weekday as weekdaybase
 
 YEARLY: int
 MONTHLY: int

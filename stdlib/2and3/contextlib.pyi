@@ -1,13 +1,11 @@
 # Stubs for contextlib
 
-from typing import (
-    Any, Callable, Generator, IO, Iterable, Iterator, Optional, Type,
-    Generic, TypeVar, overload
-)
-from types import TracebackType
 import sys
+from types import TracebackType
 # Aliased here for backwards compatibility; TODO eventually remove this
+from typing import IO, Any, Callable
 from typing import ContextManager as ContextManager
+from typing import Generator, Generic, Iterable, Iterator, Optional, Type, TypeVar, overload
 
 if sys.version_info >= (3, 5):
     from typing import AsyncContextManager, AsyncIterator

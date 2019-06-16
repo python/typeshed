@@ -1,9 +1,8 @@
-from typing import Callable, Optional, TextIO, Tuple, Type, Union
 import sys
 import unittest.case
 import unittest.result
 import unittest.suite
-
+from typing import Callable, Optional, TextIO, Tuple, Type, Union
 
 _ResultClassType = Callable[[TextIO, bool, int], unittest.result.TestResult]
 

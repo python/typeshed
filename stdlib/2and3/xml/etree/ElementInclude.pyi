@@ -1,6 +1,6 @@
 # Stubs for xml.etree.ElementInclude (Python 3.4)
 
-from typing import Union, Optional, Callable
+from typing import Callable, Optional, Union
 from xml.etree.ElementTree import Element
 
 XINCLUDE: str

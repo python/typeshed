@@ -1,5 +1,7 @@
 from typing import Any, Optional
-from werkzeug.wrappers import BaseRequest as Request, BaseResponse as Response
+
+from werkzeug.wrappers import BaseRequest as Request
+from werkzeug.wrappers import BaseResponse as Response
 
 PIN_TIME: Any
 

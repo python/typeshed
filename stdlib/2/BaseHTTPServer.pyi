@@ -1,8 +1,8 @@
 # Stubs for BaseHTTPServer (Python 2.7)
 
-from typing import Any, BinaryIO, Mapping, Optional, Tuple, Union
-import SocketServer
 import mimetools
+import SocketServer
+from typing import Any, BinaryIO, Mapping, Optional, Tuple, Union
 
 class HTTPServer(SocketServer.TCPServer):
     server_name: str

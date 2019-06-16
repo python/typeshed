@@ -1,8 +1,11 @@
-from typing import Any, Optional, Union, IO, Text, Tuple, List
 import datetime
-from ._common import tzname_in_python2 as tzname_in_python2, _tzinfo as _tzinfo
-from ._common import tzrangebase as tzrangebase, enfold as enfold
+from typing import IO, Any, List, Optional, Text, Tuple, Union
+
 from ..relativedelta import relativedelta
+from ._common import _tzinfo as _tzinfo
+from ._common import enfold as enfold
+from ._common import tzname_in_python2 as tzname_in_python2
+from ._common import tzrangebase as tzrangebase
 
 _FileObj = Union[str, Text, IO[str], IO[Text]]
 

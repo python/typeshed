@@ -1,19 +1,7 @@
-from google.protobuf.message import (
-    Message,
-)
-from google.protobuf.unittest_import_pb2 import (
-    ImportEnumForMap,
-)
-from typing import (
-    List,
-    Mapping,
-    MutableMapping,
-    Optional,
-    Text,
-    Tuple,
-    cast,
-)
+from typing import List, Mapping, MutableMapping, Optional, Text, Tuple, cast
 
+from google.protobuf.message import Message
+from google.protobuf.unittest_import_pb2 import ImportEnumForMap
 
 class Proto2MapEnum(int):
 

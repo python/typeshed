@@ -2,8 +2,7 @@
 
 # Based on http://docs.python.org/3.2/library/itertools.html
 
-from typing import (Iterator, TypeVar, Iterable, overload, Any, Callable, Tuple,
-                    Generic, Optional)
+from typing import Any, Callable, Generic, Iterable, Iterator, Optional, Tuple, TypeVar, overload
 
 _T = TypeVar('_T')
 _S = TypeVar('_S')

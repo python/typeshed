@@ -1,17 +1,11 @@
 # Stubs for requests.adapters (Python 3)
 
-from typing import Any, Container, Union, Text, Tuple, Optional, Mapping
-from . import models
-from .packages.urllib3 import poolmanager
-from .packages.urllib3 import response
-from .packages.urllib3.util import retry
-from . import compat
-from . import utils
-from . import structures
+from typing import Any, Container, Mapping, Optional, Text, Tuple, Union
+
+from . import auth, compat, cookies, exceptions, models, structures, utils
 from .packages.urllib3 import exceptions as urllib3_exceptions
-from . import cookies
-from . import exceptions
-from . import auth
+from .packages.urllib3 import poolmanager, response
+from .packages.urllib3.util import retry
 
 PreparedRequest = models.PreparedRequest
 Response = models.Response

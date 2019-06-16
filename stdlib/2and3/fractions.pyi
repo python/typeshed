@@ -4,10 +4,10 @@
 # Note: these stubs are incomplete. The more complex type
 # signatures are currently omitted. Also see numbers.pyi.
 
-from typing import Optional, TypeVar, Union, overload, Any
-from numbers import Real, Integral, Rational
-from decimal import Decimal
 import sys
+from decimal import Decimal
+from numbers import Integral, Rational, Real
+from typing import Any, Optional, TypeVar, Union, overload
 
 _ComparableNum = Union[int, float, Decimal, Real]
 

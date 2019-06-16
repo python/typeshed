@@ -1,4 +1,4 @@
-from typing import Tuple, Pattern, List, Dict, Union
+from typing import Dict, List, Pattern, Tuple, Union
 
 _DEFAULT_DELIMITER: str
 

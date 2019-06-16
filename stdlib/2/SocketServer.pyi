@@ -1,10 +1,10 @@
 # NB: SocketServer.pyi and socketserver.pyi must remain consistent!
 # Stubs for socketserver
 
-from typing import Any, BinaryIO, Optional, Tuple, Type
-from socket import SocketType
 import sys
 import types
+from socket import SocketType
+from typing import Any, BinaryIO, Optional, Tuple, Type
 
 class BaseServer:
     address_family: int

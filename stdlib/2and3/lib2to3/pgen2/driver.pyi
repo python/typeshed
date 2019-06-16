@@ -2,13 +2,11 @@
 
 import os
 import sys
-from typing import Any, Callable, IO, Iterable, List, Optional, Text, Tuple, Union
-
-from logging import Logger
-from lib2to3.pytree import _Convert, _NL
 from lib2to3.pgen2 import _Path
 from lib2to3.pgen2.grammar import Grammar
-
+from lib2to3.pytree import _NL, _Convert
+from logging import Logger
+from typing import IO, Any, Callable, Iterable, List, Optional, Text, Tuple, Union
 
 class Driver:
     grammar: Grammar

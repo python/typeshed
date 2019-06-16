@@ -1,11 +1,12 @@
 # Stubs for logging.handlers (Python 2.4)
 
 import datetime
-from logging import Handler, FileHandler, LogRecord
-from socket import SocketType
 import ssl
 import sys
+from logging import FileHandler, Handler, LogRecord
+from socket import SocketType
 from typing import Any, Callable, Dict, List, Optional, Tuple, Union, overload
+
 if sys.version_info >= (3,):
     from queue import Queue
 else:

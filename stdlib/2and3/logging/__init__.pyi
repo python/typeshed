@@ -1,14 +1,11 @@
 # Stubs for logging (Python 3.4)
 
-from typing import (
-    Any, Callable, Dict, Iterable, List, Mapping, MutableMapping, Optional, IO,
-    Tuple, Text, Union, overload,
-)
-from string import Template
-from time import struct_time
-from types import TracebackType, FrameType
 import sys
 import threading
+from string import Template
+from time import struct_time
+from types import FrameType, TracebackType
+from typing import IO, Any, Callable, Dict, Iterable, List, Mapping, MutableMapping, Optional, Text, Tuple, Union, overload
 
 _SysExcInfoType = Union[Tuple[type, BaseException, Optional[TracebackType]],
                         Tuple[None, None, None]]

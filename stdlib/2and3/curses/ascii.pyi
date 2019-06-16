@@ -1,4 +1,4 @@
-from typing import List, Union, overload, TypeVar
+from typing import List, TypeVar, Union, overload
 
 _Ch = TypeVar('_Ch', str, int)
 

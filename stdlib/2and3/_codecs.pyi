@@ -1,9 +1,8 @@
 """Stub file for the '_codecs' module."""
 
-import sys
-from typing import Any, Callable, Tuple, Optional, Dict, Text, Union
-
 import codecs
+import sys
+from typing import Any, Callable, Dict, Optional, Text, Tuple, Union
 
 # For convenience:
 _Handler = Callable[[Exception], Tuple[Text, int]]

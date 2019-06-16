@@ -2,11 +2,29 @@
 
 # Based on http://docs.python.org/2.7/library/unittest.html
 
-from typing import (Any, Callable, Dict, FrozenSet, Iterable, Iterator,
-                    List, NoReturn, Optional, overload, Pattern, Sequence, Set,
-                    Text, TextIO, Tuple, Type, TypeVar, Union)
-from abc import abstractmethod, ABCMeta
 import types
+from abc import ABCMeta, abstractmethod
+from typing import (
+    Any,
+    Callable,
+    Dict,
+    FrozenSet,
+    Iterable,
+    Iterator,
+    List,
+    NoReturn,
+    Optional,
+    Pattern,
+    Sequence,
+    Set,
+    Text,
+    TextIO,
+    Tuple,
+    Type,
+    TypeVar,
+    Union,
+    overload,
+)
 
 _T = TypeVar('_T')
 _FT = TypeVar('_FT')

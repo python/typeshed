@@ -1,6 +1,5 @@
 from typing import Any, Callable, Generic, Mapping, Optional, TypeVar, overload
 
-
 _T = TypeVar("_T")
 
 

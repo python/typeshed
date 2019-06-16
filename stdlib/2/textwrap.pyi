@@ -1,4 +1,4 @@
-from typing import AnyStr, List, Dict, Pattern
+from typing import AnyStr, Dict, List, Pattern
 
 class TextWrapper(object):
     width: int = ...

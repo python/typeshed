@@ -1,7 +1,7 @@
 # Stubs for rlcompleter
 
-from typing import Any, Dict, Optional, Union
 import sys
+from typing import Any, Dict, Optional, Union
 
 if sys.version_info >= (3,):
     _Text = str

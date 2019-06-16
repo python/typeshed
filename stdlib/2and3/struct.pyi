@@ -4,9 +4,9 @@
 # Based on http://docs.python.org/2/library/struct.html
 
 import sys
-from typing import Any, Tuple, Text, Union, Iterator
 from array import array
 from mmap import mmap
+from typing import Any, Iterator, Text, Tuple, Union
 
 class error(Exception): ...
 

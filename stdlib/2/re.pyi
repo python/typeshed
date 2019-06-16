@@ -5,8 +5,20 @@
 # based on: http: //docs.python.org/2.7/library/re.html
 
 from typing import (
-    List, Iterator, overload, Callable, Tuple, Sequence, Dict,
-    Generic, AnyStr, Match, Pattern, Any, Optional, Union
+    Any,
+    AnyStr,
+    Callable,
+    Dict,
+    Generic,
+    Iterator,
+    List,
+    Match,
+    Optional,
+    Pattern,
+    Sequence,
+    Tuple,
+    Union,
+    overload,
 )
 
 # ----- re variables and constants -----

@@ -2,7 +2,7 @@
 
 from os import devnull as DEV_NULL
 from os import popen
-from typing import Tuple, NamedTuple
+from typing import NamedTuple, Tuple
 
 def libc_ver(executable: str = ..., lib: str = ..., version: str = ..., chunksize: int = ...) -> Tuple[str, str]: ...
 def linux_distribution(distname: str = ..., version: str = ..., id: str = ..., supported_dists: Tuple[str, ...] = ..., full_distribution_name: bool = ...) -> Tuple[str, str, str]: ...

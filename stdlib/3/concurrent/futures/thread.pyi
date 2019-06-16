@@ -1,6 +1,7 @@
-from typing import Any, Callable, Optional, Tuple
-from ._base import Executor, Future
 import sys
+from typing import Any, Callable, Optional, Tuple
+
+from ._base import Executor, Future
 
 class ThreadPoolExecutor(Executor):
     if sys.version_info >= (3, 7):

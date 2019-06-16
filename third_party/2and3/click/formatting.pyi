@@ -1,6 +1,5 @@
 from typing import ContextManager, Generator, Iterable, List, Optional, Tuple
 
-
 FORCED_WIDTH: Optional[int]
 
 

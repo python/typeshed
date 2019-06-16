@@ -1,5 +1,5 @@
-from typing import Any, Callable, Dict, Iterable, IO, List, Optional, Sequence, Union
 from types import ModuleType
+from typing import IO, Any, Callable, Dict, Iterable, List, Optional, Sequence, Union
 
 class Error(Exception): ...
 FlagsError = Error

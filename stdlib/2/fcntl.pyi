@@ -1,5 +1,5 @@
-from typing import Any, Union, IO
 import io
+from typing import IO, Any, Union
 
 FASYNC: int
 FD_CLOEXEC: int

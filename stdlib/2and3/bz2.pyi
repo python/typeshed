@@ -1,6 +1,6 @@
 import io
 import sys
-from typing import Any, IO, Optional, Union
+from typing import IO, Any, Optional, Union
 
 if sys.version_info >= (3, 6):
     from os import PathLike

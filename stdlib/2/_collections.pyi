@@ -1,6 +1,6 @@
 """Stub file for the '_collections' module."""
 
-from typing import Any, Generic, Iterator, TypeVar, Optional, Union
+from typing import Any, Generic, Iterator, Optional, TypeVar, Union
 
 class defaultdict(dict):
     default_factory: None

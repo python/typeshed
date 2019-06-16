@@ -1,5 +1,4 @@
-from typing import List, Union, Sequence, Optional, Dict
-
+from typing import Dict, List, Optional, Sequence, Union
 
 class Class:
     module: str

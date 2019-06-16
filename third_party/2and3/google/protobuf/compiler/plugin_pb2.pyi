@@ -1,19 +1,8 @@
-from google.protobuf.descriptor_pb2 import (
-    FileDescriptorProto,
-)
-from google.protobuf.internal.containers import (
-    RepeatedCompositeFieldContainer,
-    RepeatedScalarFieldContainer,
-)
-from google.protobuf.message import (
-    Message,
-)
-from typing import (
-    Iterable,
-    Optional,
-    Text,
-)
+from typing import Iterable, Optional, Text
 
+from google.protobuf.descriptor_pb2 import FileDescriptorProto
+from google.protobuf.internal.containers import RepeatedCompositeFieldContainer, RepeatedScalarFieldContainer
+from google.protobuf.message import Message
 
 class Version(Message):
     major: int

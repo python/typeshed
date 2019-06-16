@@ -1,6 +1,5 @@
-from typing import Any, Callable, Dict, Generic, Iterable, List, Mapping, Optional, Text, Type, TypeVar, Union, Set
-
 from datetime import datetime
+from typing import Any, Callable, Dict, Generic, Iterable, List, Mapping, Optional, Set, Text, Type, TypeVar, Union
 
 _T = TypeVar('_T')
 _KT = TypeVar('_KT')

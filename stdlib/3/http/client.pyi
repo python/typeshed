@@ -1,16 +1,26 @@
-from typing import (
-    Any, Dict, IO, Iterable, List, Iterator, Mapping, Optional,
-    Protocol, Tuple, Type, TypeVar,
-    Union,
-    overload,
-    BinaryIO,
-)
 import email.message
 import io
-from socket import socket
-import sys
 import ssl
+import sys
 import types
+from socket import socket
+from typing import (
+    IO,
+    Any,
+    BinaryIO,
+    Dict,
+    Iterable,
+    Iterator,
+    List,
+    Mapping,
+    Optional,
+    Protocol,
+    Tuple,
+    Type,
+    TypeVar,
+    Union,
+    overload,
+)
 
 _DataType = Union[bytes, IO[Any], Iterable[bytes], str]
 _T = TypeVar('_T')

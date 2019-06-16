@@ -1,21 +1,7 @@
-from typing import (
-    Any,
-    Callable,
-    Generator,
-    Iterable,
-    IO,
-    List,
-    Optional,
-    Text,
-    overload,
-    Tuple,
-    TypeVar,
-    Union,
-)
+from typing import IO, Any, Callable, Generator, Iterable, List, Optional, Text, Tuple, TypeVar, Union, overload
 
-from click.core import _ConvertibleType
 from click._termui_impl import ProgressBar as _ProgressBar
-
+from click.core import _ConvertibleType
 
 def hidden_prompt_func(prompt: str) -> str:
     ...

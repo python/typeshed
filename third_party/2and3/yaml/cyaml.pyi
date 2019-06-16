@@ -1,10 +1,11 @@
-from typing import Any, IO, Mapping, Optional, Sequence, Text, Union
-from typing_extensions import Protocol
+from typing import IO, Any, Mapping, Optional, Sequence, Text, Union
 
 from yaml.constructor import BaseConstructor, Constructor, SafeConstructor
 from yaml.representer import BaseRepresenter, Representer, SafeRepresenter
 from yaml.resolver import BaseResolver, Resolver
 from yaml.serializer import Serializer
+
+from typing_extensions import Protocol
 
 class _Readable(Protocol):
     def read(self, size: int) -> Union[Text, bytes]: ...

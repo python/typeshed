@@ -1,6 +1,5 @@
-from typing import Any, Dict, Iterator, List, Optional, Tuple
 import collections
-
+from typing import Any, Dict, Iterator, List, Optional, Tuple
 
 class Shelf(collections.MutableMapping):
     def __init__(self, dict: Dict[Any, Any], protocol: Optional[int] = ..., writeback: bool = ..., keyencoding: str = ...) -> None: ...

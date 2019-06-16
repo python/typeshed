@@ -1,6 +1,5 @@
 import sys
-from typing import Union, Protocol
-
+from typing import Protocol, Union
 
 class _HasFileno(Protocol):
     def fileno(self) -> int: ...

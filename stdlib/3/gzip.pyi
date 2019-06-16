@@ -1,7 +1,7 @@
-from typing import Any, IO, Optional
-from os.path import _PathType
 import _compression
 import zlib
+from os.path import _PathType
+from typing import IO, Any, Optional
 
 def open(filename, mode: str = ..., compresslevel: int = ..., encoding: Optional[str] = ..., errors: Optional[str] = ..., newline: Optional[str] = ...) -> IO[Any]: ...
 

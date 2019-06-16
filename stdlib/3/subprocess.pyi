@@ -2,8 +2,8 @@
 
 # Based on http://docs.python.org/3.6/library/subprocess.html
 import sys
-from typing import Sequence, Any, Mapping, Callable, Tuple, IO, Optional, Union, List, Type, Text
 from types import TracebackType
+from typing import IO, Any, Callable, List, Mapping, Optional, Sequence, Text, Tuple, Type, Union
 
 # We prefer to annotate inputs to methods (eg subprocess.check_call) with these
 # union types. However, outputs (eg check_call return) and class attributes

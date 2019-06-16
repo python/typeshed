@@ -1,5 +1,5 @@
-from types import CodeType, TracebackType, FrameType, ModuleType
-from typing import Any, Dict, Callable, List, NamedTuple, Optional, Sequence, Tuple, Type, Union
+from types import CodeType, FrameType, ModuleType, TracebackType
+from typing import Any, Callable, Dict, List, NamedTuple, Optional, Sequence, Tuple, Type, Union
 
 # Types and members
 class EndOfBlock(Exception): ...

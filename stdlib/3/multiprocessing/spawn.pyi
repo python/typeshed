@@ -1,5 +1,5 @@
-from typing import Any, Dict, List, Mapping, Optional, Sequence
 from types import ModuleType
+from typing import Any, Dict, List, Mapping, Optional, Sequence
 
 WINEXE: bool
 WINSERVICE: bool

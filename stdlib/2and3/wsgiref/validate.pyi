@@ -1,7 +1,6 @@
 import sys
-from typing import Any, Iterable, Iterator, Optional, NoReturn, Callable
-
-from wsgiref.types import WSGIApplication, InputStream, ErrorStream
+from typing import Any, Callable, Iterable, Iterator, NoReturn, Optional
+from wsgiref.types import ErrorStream, InputStream, WSGIApplication
 
 class WSGIWarning(Warning): ...
 

@@ -1,6 +1,7 @@
+from typing import Any, Dict, Generic, Iterable, Iterator, List, Optional, Sequence, Text, Tuple, Type, TypeVar, Union
+
 from .attributes import Attribute
 from .exceptions import DoesNotExist as DoesNotExist
-from typing import Any, Dict, Generic, Iterable, Iterator, List, Optional, Sequence, Tuple, Type, TypeVar, Text, Union
 
 log: Any
 

@@ -1,5 +1,5 @@
-from typing import Any, Optional
 from enum import Enum
+from typing import Any, Optional
 
 def load_pem_private_key(data: bytes, password: Optional[bytes], backend): ...
 def load_pem_public_key(data: bytes, backend): ...

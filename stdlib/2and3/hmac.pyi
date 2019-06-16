@@ -1,8 +1,8 @@
 # Stubs for hmac
 
-from typing import Any, Callable, Optional, Union, overload, AnyStr
-from types import ModuleType
 import sys
+from types import ModuleType
+from typing import Any, AnyStr, Callable, Optional, Union, overload
 
 _B = Union[bytes, bytearray]
 

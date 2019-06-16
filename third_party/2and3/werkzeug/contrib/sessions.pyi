@@ -1,4 +1,5 @@
 from typing import Any, Optional, Text
+
 from werkzeug.datastructures import CallbackDict
 
 def generate_key(salt: Optional[Any] = ...): ...

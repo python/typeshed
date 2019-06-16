@@ -1,9 +1,6 @@
-from asyncio import events
-from asyncio import protocols
-from asyncio import streams
-from asyncio import transports
+from asyncio import events, protocols, streams, transports
 from asyncio.coroutines import coroutine
-from typing import Any, Generator, List, Optional, Text, Tuple, Union, IO
+from typing import IO, Any, Generator, List, Optional, Text, Tuple, Union
 
 __all__: List[str]
 

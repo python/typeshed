@@ -1,15 +1,13 @@
 # Stubs for unittest
 
-from typing import Iterable, List, Optional, Type, Union
 from types import ModuleType
-
+from typing import Iterable, List, Optional, Type, Union
 from unittest.case import *
 from unittest.loader import *
 from unittest.result import *
 from unittest.runner import *
 from unittest.signals import *
 from unittest.suite import *
-
 
 # not really documented
 class TestProgram:

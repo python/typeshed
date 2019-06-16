@@ -14,12 +14,12 @@ import argparse
 import collections
 import itertools
 import os
-from pytype import config
-from pytype import io
 import re
 import subprocess
 import sys
 import traceback
+
+from pytype import config, io
 
 parser = argparse.ArgumentParser(description='Pytype/typeshed tests.')
 parser.add_argument('-n', '--dry-run', action='store_true', default=False,

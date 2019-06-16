@@ -1,8 +1,8 @@
 # Stubs for statistics
 
+import sys
 from decimal import Decimal
 from fractions import Fraction
-import sys
 from typing import Iterable, Optional, TypeVar
 
 # Most functions in this module accept homogeneous collections of one of these types

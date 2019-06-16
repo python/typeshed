@@ -1,5 +1,5 @@
-from typing import Any
 from collections import MutableMapping
+from typing import Any
 
 class RLock:
     def __enter__(self): ...

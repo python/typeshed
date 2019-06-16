@@ -1,6 +1,6 @@
 # Stubs for filecmp (Python 2/3)
 import sys
-from typing import AnyStr, Callable, Dict, Generic, Iterable, List, Optional, Sequence, Tuple, Union, Text
+from typing import AnyStr, Callable, Dict, Generic, Iterable, List, Optional, Sequence, Text, Tuple, Union
 
 DEFAULT_IGNORES: List[str]
 

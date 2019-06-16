@@ -1,6 +1,6 @@
-from typing import Any, IO, List, Mapping, MutableMapping, Optional, Protocol, Text, Type, Union
 import datetime
 import sys
+from typing import IO, Any, List, Mapping, MutableMapping, Optional, Protocol, Text, Type, Union
 
 if sys.version_info >= (3, 4):
     import pathlib

@@ -1,16 +1,26 @@
-from typing import Tuple, Union, Optional, Any, Dict, overload
-
 import os
 import select
 import sys
 import time
 import warnings
+from errno import (
+    EAGAIN,
+    EALREADY,
+    EBADF,
+    ECONNABORTED,
+    ECONNRESET,
+    EINPROGRESS,
+    EINTR,
+    EINVAL,
+    EISCONN,
+    ENOTCONN,
+    EPIPE,
+    ESHUTDOWN,
+    EWOULDBLOCK,
+    errorcode,
+)
 from socket import SocketType
-from typing import Optional
-
-from errno import (EALREADY, EINPROGRESS, EWOULDBLOCK, ECONNRESET, EINVAL,
-                   ENOTCONN, ESHUTDOWN, EINTR, EISCONN, EBADF, ECONNABORTED,
-                   EPIPE, EAGAIN, errorcode)
+from typing import Any, Dict, Optional, Tuple, Union, overload
 
 # cyclic dependence with asynchat
 _maptype = Dict[str, Any]

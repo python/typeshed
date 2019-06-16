@@ -1,7 +1,7 @@
+from typing import Any, Iterable, Iterator, Optional
+
 from .bucket import Bucket
 from .key import Key
-
-from typing import Any, Iterable, Iterator, Optional
 
 def bucket_lister(bucket, prefix: str = ..., delimiter: str = ..., marker: str = ..., headers: Optional[Any] = ..., encoding_type: Optional[Any] = ...): ...
 

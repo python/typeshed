@@ -1,14 +1,29 @@
 import os
 import sys
+from typing import (
+    IO,
+    Any,
+    AnyStr,
+    Callable,
+    Iterable,
+    List,
+    NamedTuple,
+    Optional,
+    Protocol,
+    Sequence,
+    Set,
+    Text,
+    Tuple,
+    Type,
+    TypeVar,
+    Union,
+    overload,
+)
 
 # 'bytes' paths are not properly supported: they don't work with all functions,
 # sometimes they only work partially (broken exception messages), and the test
 # cases don't use them.
 
-from typing import (
-    List, Iterable, Callable, Any, Tuple, Sequence, NamedTuple, IO,
-    AnyStr, Optional, Union, Set, TypeVar, overload, Type, Protocol, Text
-)
 
 if sys.version_info >= (3, 6):
     _Path = Union[str, os.PathLike[str]]

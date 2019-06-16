@@ -3,8 +3,7 @@
 # Based on http://docs.python.org/3.6/library/array.html
 
 import sys
-from typing import (Any, BinaryIO, Generic, Iterable, Iterator, List, MutableSequence,
-                    overload, Text, Tuple, TypeVar, Union)
+from typing import Any, BinaryIO, Generic, Iterable, Iterator, List, MutableSequence, Text, Tuple, TypeVar, Union, overload
 
 _T = TypeVar('_T', int, float, Text)
 

@@ -1,13 +1,12 @@
 # Stubs for requests.packages.urllib3.connection (Python 3.4)
 
+import ssl
 import sys
 from typing import Any
-from . import packages
-import ssl
-from . import exceptions
+
+from . import exceptions, packages, util
 from .packages import ssl_match_hostname
 from .util import ssl_
-from . import util
 
 if sys.version_info < (3, 0):
     from httplib import HTTPConnection as _HTTPConnection

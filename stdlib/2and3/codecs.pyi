@@ -1,8 +1,24 @@
 import sys
-from typing import Any, BinaryIO, Callable, Generator, IO, Iterable, Iterator, List, Optional, Protocol, Text, TextIO, Tuple, Type, TypeVar, Union
-
-from abc import abstractmethod
 import types
+from abc import abstractmethod
+from typing import (
+    IO,
+    Any,
+    BinaryIO,
+    Callable,
+    Generator,
+    Iterable,
+    Iterator,
+    List,
+    Optional,
+    Protocol,
+    Text,
+    TextIO,
+    Tuple,
+    Type,
+    TypeVar,
+    Union,
+)
 
 # TODO: this only satisfies the most common interface, where
 # bytes (py2 str) is the raw form and str (py2 unicode) is the cooked form.

@@ -1,6 +1,6 @@
 import sys
 import typing
-from typing import Any, Optional, ClassVar
+from typing import Any, ClassVar, Optional
 
 PyCF_ONLY_AST: int
 

@@ -1,10 +1,10 @@
 import sys
 from abc import abstractmethod
 from types import TracebackType
-from typing import Optional, Dict, MutableMapping, Type, Text, Callable, List, Tuple, IO
+from typing import IO, Callable, Dict, List, MutableMapping, Optional, Text, Tuple, Type
 
 from .headers import Headers
-from .types import WSGIApplication, WSGIEnvironment, StartResponse, InputStream, ErrorStream
+from .types import ErrorStream, InputStream, StartResponse, WSGIApplication, WSGIEnvironment
 from .util import FileWrapper, guess_scheme
 
 _exc_info = Tuple[Optional[Type[BaseException]],

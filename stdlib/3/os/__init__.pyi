@@ -1,15 +1,35 @@
 # Stubs for os
 # Ron Murawski <ron@horizonchess.com>
 
-from io import TextIOWrapper as _TextIOWrapper
 import sys
-from typing import (
-    Mapping, MutableMapping, Dict, List, Any, Tuple, IO, Iterable, Iterator, NoReturn, overload, Union, AnyStr,
-    Optional, Generic, Set, Callable, Text, Sequence, NamedTuple, TypeVar, ContextManager
-)
-
 # Re-exported names from other modules.
 from builtins import OSError as error
+from io import TextIOWrapper as _TextIOWrapper
+from typing import (
+    IO,
+    Any,
+    AnyStr,
+    Callable,
+    ContextManager,
+    Dict,
+    Generic,
+    Iterable,
+    Iterator,
+    List,
+    Mapping,
+    MutableMapping,
+    NamedTuple,
+    NoReturn,
+    Optional,
+    Sequence,
+    Set,
+    Text,
+    Tuple,
+    TypeVar,
+    Union,
+    overload,
+)
+
 from . import path as path
 
 _T = TypeVar('_T')

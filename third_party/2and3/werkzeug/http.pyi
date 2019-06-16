@@ -1,14 +1,36 @@
 import sys
 from datetime import datetime, timedelta
 from typing import (
-    Dict, Text, Union, Tuple, Any, Optional, Mapping, Iterable, Callable, List, Type,
-    TypeVar, Protocol, overload, SupportsInt,
+    Any,
+    Callable,
+    Dict,
+    Iterable,
+    List,
+    Mapping,
+    Optional,
+    Protocol,
+    SupportsInt,
+    Text,
+    Tuple,
+    Type,
+    TypeVar,
+    Union,
+    overload,
 )
 from wsgiref.types import WSGIEnvironment
 
 from .datastructures import (
-    Headers, Accept, RequestCacheControl, HeaderSet, Authorization, WWWAuthenticate,
-    IfRange, Range, ContentRange, ETags, TypeConversionDict,
+    Accept,
+    Authorization,
+    ContentRange,
+    ETags,
+    Headers,
+    HeaderSet,
+    IfRange,
+    Range,
+    RequestCacheControl,
+    TypeConversionDict,
+    WWWAuthenticate,
 )
 
 if sys.version_info < (3,):

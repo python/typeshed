@@ -1,7 +1,6 @@
-from typing import List, Tuple, Optional, Callable, Any, Protocol, Union, Dict, Text
-
 import pyexpat.errors as errors
 import pyexpat.model as model
+from typing import Any, Callable, Dict, List, Optional, Protocol, Text, Tuple, Union
 
 EXPAT_VERSION: str  # undocumented
 version_info: Tuple[int, int, int]  # undocumented

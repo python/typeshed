@@ -1,24 +1,13 @@
 # Stubs for requests.models (Python 3)
 
-from typing import (Any, Dict, Iterator, List, MutableMapping, Optional, Text,
-                    Union)
 import datetime
 import types
+from typing import Any, Dict, Iterator, List, MutableMapping, Optional, Text, Union
 
-from . import hooks
-from . import structures
-from . import auth
-from . import cookies
+from . import auth, compat, cookies, exceptions, hooks, status_codes, structures, utils
 from .cookies import RequestsCookieJar
-from .packages.urllib3 import fields
-from .packages.urllib3 import filepost
-from .packages.urllib3 import util
 from .packages.urllib3 import exceptions as urllib3_exceptions
-from . import exceptions
-from . import utils
-from . import compat
-from . import status_codes
-
+from .packages.urllib3 import fields, filepost, util
 
 default_hooks = hooks.default_hooks
 CaseInsensitiveDict = structures.CaseInsensitiveDict

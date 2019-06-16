@@ -1,14 +1,14 @@
 import selectors
-from socket import socket
 import ssl
 import sys
-from typing import Any, Awaitable, Callable, Dict, Generator, List, Optional, Sequence, Tuple, TypeVar, Union, overload
-from asyncio.futures import Future
 from asyncio.coroutines import coroutine
 from asyncio.events import AbstractEventLoop, AbstractServer, Handle, TimerHandle
+from asyncio.futures import Future
 from asyncio.protocols import BaseProtocol
 from asyncio.tasks import Task
 from asyncio.transports import BaseTransport
+from socket import socket
+from typing import Any, Awaitable, Callable, Dict, Generator, List, Optional, Sequence, Tuple, TypeVar, Union, overload
 
 _T = TypeVar('_T')
 _Context = Dict[str, Any]

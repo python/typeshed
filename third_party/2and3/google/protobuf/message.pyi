@@ -1,9 +1,6 @@
-from typing import Any, Sequence, Optional, Tuple
+from typing import Any, Optional, Sequence, Tuple
 
-from .descriptor import (
-    DescriptorBase,
-    FieldDescriptor,
-)
+from .descriptor import DescriptorBase, FieldDescriptor
 
 class Error(Exception): ...
 class DecodeError(Error): ...

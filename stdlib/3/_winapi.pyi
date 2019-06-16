@@ -1,4 +1,4 @@
-from typing import Any, Union, Tuple, Optional, overload, Dict, NoReturn, Sequence
+from typing import Any, Dict, NoReturn, Optional, Sequence, Tuple, Union, overload
 
 CREATE_NEW_CONSOLE: int
 CREATE_NEW_PROCESS_GROUP: int

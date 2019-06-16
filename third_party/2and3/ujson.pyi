@@ -1,6 +1,6 @@
 # Stubs for ujson
 # See: https://pypi.python.org/pypi/ujson
-from typing import Any, AnyStr, IO, Optional
+from typing import IO, Any, AnyStr, Optional
 
 __version__: str
 

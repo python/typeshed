@@ -1,9 +1,7 @@
 import sys
-from typing import (AbstractSet, Any, Callable, Dict, Generator, List, Mapping,
-                    NamedTuple, Optional, Sequence, Tuple, Union,
-                    )
-from types import CodeType, FrameType, ModuleType, TracebackType
 from collections import OrderedDict
+from types import CodeType, FrameType, ModuleType, TracebackType
+from typing import AbstractSet, Any, Callable, Dict, Generator, List, Mapping, NamedTuple, Optional, Sequence, Tuple, Union
 
 #
 # Types and members

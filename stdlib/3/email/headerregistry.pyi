@@ -1,9 +1,9 @@
 # Stubs for email.headerregistry (Python 3.4)
 
 from datetime import datetime as _datetime
-from typing import Dict, Tuple, Optional, Any, Union, Mapping
 from email.errors import MessageDefect
 from email.policy import Policy
+from typing import Any, Dict, Mapping, Optional, Tuple, Union
 
 class BaseHeader(str):
     @property

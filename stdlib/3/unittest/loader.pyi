@@ -1,10 +1,9 @@
 import sys
 import unittest.case
-import unittest.suite
 import unittest.result
+import unittest.suite
 from types import ModuleType
 from typing import Any, Callable, List, Optional, Sequence, Type
-
 
 class TestLoader:
     if sys.version_info >= (3, 5):

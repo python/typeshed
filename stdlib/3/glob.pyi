@@ -1,8 +1,8 @@
 # Stubs for glob
 # Based on http://docs.python.org/3/library/glob.html
 
-from typing import List, Iterator, AnyStr, Union
 import sys
+from typing import AnyStr, Iterator, List, Union
 
 if sys.version_info >= (3, 6):
     def glob0(dirname: AnyStr, pattern: AnyStr) -> List[AnyStr]: ...

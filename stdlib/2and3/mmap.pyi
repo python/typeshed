@@ -1,6 +1,5 @@
 import sys
-from typing import (Optional, Sequence, Union, Generic, overload,
-                    Iterable, Iterator, Sized, ContextManager, AnyStr)
+from typing import AnyStr, ContextManager, Generic, Iterable, Iterator, Optional, Sequence, Sized, Union, overload
 
 ACCESS_DEFAULT: int
 ACCESS_READ: int

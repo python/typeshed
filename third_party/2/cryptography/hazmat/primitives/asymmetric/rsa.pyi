@@ -1,5 +1,6 @@
-from cryptography.hazmat.primitives.serialization import Encoding, KeySerializationEncryption, PrivateFormat, PublicFormat
 from typing import Tuple
+
+from cryptography.hazmat.primitives.serialization import Encoding, KeySerializationEncryption, PrivateFormat, PublicFormat
 
 class RSAPrivateKey:
     def signer(self, padding, algorithm): ...

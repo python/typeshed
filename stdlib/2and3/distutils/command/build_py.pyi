@@ -1,5 +1,5 @@
-from distutils.cmd import Command
 import sys
+from distutils.cmd import Command
 
 if sys.version_info >= (3,):
     class build_py(Command):

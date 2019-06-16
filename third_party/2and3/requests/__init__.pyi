@@ -1,13 +1,9 @@
 # Stubs for requests (based on version 2.6.0, Python 3)
 
-from typing import Any
-from . import models
-from . import api
-from . import sessions
-from . import status_codes
-from . import exceptions
-from . import packages
 import logging
+from typing import Any
+
+from . import api, exceptions, models, packages, sessions, status_codes
 
 __title__: Any
 __build__: Any

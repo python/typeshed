@@ -1,12 +1,9 @@
 # Stubs for tarfile
 
-from typing import (
-    Callable, IO, Iterable, Iterator, List, Mapping, Optional, Type,
-    Union,
-)
 import os
 import sys
 from types import TracebackType
+from typing import IO, Callable, Iterable, Iterator, List, Mapping, Optional, Type, Union
 
 if sys.version_info >= (3, 6):
     _Path = Union[bytes, str, os.PathLike]

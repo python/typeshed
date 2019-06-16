@@ -1,7 +1,7 @@
 # NB: third_party/2/enum.pyi and stdlib/3.4/enum.pyi must remain consistent!
 import sys
-from typing import Any, Dict, Iterator, List, Mapping, Type, TypeVar, Union
 from abc import ABCMeta
+from typing import Any, Dict, Iterator, List, Mapping, Type, TypeVar, Union
 
 _T = TypeVar('_T')
 _S = TypeVar('_S', bound=Type[Enum])

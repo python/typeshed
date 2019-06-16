@@ -8,9 +8,7 @@
 
 import _random
 import sys
-from typing import (
-    Any, TypeVar, Sequence, List, Callable, AbstractSet, Union, Optional
-)
+from typing import AbstractSet, Any, Callable, List, Optional, Sequence, TypeVar, Union
 
 _T = TypeVar('_T')
 
