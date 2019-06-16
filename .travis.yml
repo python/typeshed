@@ -7,8 +7,10 @@ matrix:
     - name: "autoformatters"
       python: 3.6
       env:
-        - TEST_CMD="isort --check-only --recursive . && black --check stdlib tests third_party"
         - INSTALL="test"
+      script:
+        - isort --check-only --recursive .
+        - black --check stdlib tests third_party
     - name: "pytype"
       python: 3.6
       env:
