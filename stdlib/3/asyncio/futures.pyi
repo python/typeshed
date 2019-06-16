@@ -12,8 +12,8 @@ if sys.version_info >= (3, 7):
 
 __all__: List[str]
 
-_T = TypeVar('_T')
-_S = TypeVar('_S', bound=Future)
+_T = TypeVar("_T")
+_S = TypeVar("_S", bound=Future)
 
 class InvalidStateError(Error): ...
 

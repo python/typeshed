@@ -21,20 +21,22 @@ from _io import TextIOWrapper as TextIOWrapper
 from _io import UnsupportedOperation as UnsupportedOperation
 from _io import open as open
 
-def _OpenWrapper(file: Union[str, unicode, int],
-                 mode: unicode = ..., buffering: int = ..., encoding: unicode = ...,
-                 errors: unicode = ..., newline: unicode = ...,
-                 closefd: bool = ...) -> IO[Any]: ...
+def _OpenWrapper(
+    file: Union[str, unicode, int],
+    mode: unicode = ...,
+    buffering: int = ...,
+    encoding: unicode = ...,
+    errors: unicode = ...,
+    newline: unicode = ...,
+    closefd: bool = ...,
+) -> IO[Any]: ...
 
 SEEK_SET: int
 SEEK_CUR: int
 SEEK_END: int
 
-
 class IOBase(_io._IOBase): ...
-
 class RawIOBase(_io._RawIOBase, IOBase): ...
-
 class BufferedIOBase(_io._BufferedIOBase, IOBase): ...
 
 # Note: In the actual io.py, TextIOBase subclasses IOBase.

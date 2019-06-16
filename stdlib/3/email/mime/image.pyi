@@ -6,6 +6,10 @@ from typing import Callable, Optional, Tuple, Union
 _ParamsType = Union[str, None, Tuple[str, Optional[str], str]]
 
 class MIMEImage(MIMENonMultipart):
-    def __init__(self, _imagedata: Union[str, bytes], _subtype: Optional[str] = ...,
-                 _encoder: Callable[[MIMEImage], None] = ...,
-                 **_params: _ParamsType) -> None: ...
+    def __init__(
+        self,
+        _imagedata: Union[str, bytes],
+        _subtype: Optional[str] = ...,
+        _encoder: Callable[[MIMEImage], None] = ...,
+        **_params: _ParamsType
+    ) -> None: ...

@@ -20,6 +20,7 @@ _SrvnmeCbType = Callable[[_SC1ArgT, Optional[str], SSLSocket], Optional[int]]
 class SSLError(OSError):
     library: str
     reason: str
+
 class SSLZeroReturnError(SSLError): ...
 class SSLWantReadError(SSLError): ...
 class SSLWantWriteError(SSLError): ...
@@ -30,67 +31,74 @@ if sys.version_info >= (3, 7):
     class SSLCertVerificationError(SSLError, ValueError):
         verify_code: int
         verify_message: str
-
     CertificateError = SSLCertVerificationError
 else:
     class CertificateError(ValueError): ...
 
-
-def wrap_socket(sock: socket.socket, keyfile: Optional[str] = ...,
-                certfile: Optional[str] = ..., server_side: bool = ...,
-                cert_reqs: int = ..., ssl_version: int = ...,
-                ca_certs: Optional[str] = ...,
-                do_handshake_on_connect: bool = ...,
-                suppress_ragged_eofs: bool = ...,
-                ciphers: Optional[str] = ...) -> SSLSocket: ...
-
+def wrap_socket(
+    sock: socket.socket,
+    keyfile: Optional[str] = ...,
+    certfile: Optional[str] = ...,
+    server_side: bool = ...,
+    cert_reqs: int = ...,
+    ssl_version: int = ...,
+    ca_certs: Optional[str] = ...,
+    do_handshake_on_connect: bool = ...,
+    suppress_ragged_eofs: bool = ...,
+    ciphers: Optional[str] = ...,
+) -> SSLSocket: ...
 
 if sys.version_info < (3,) or sys.version_info >= (3, 4):
-    def create_default_context(purpose: Any = ..., *,
-                               cafile: Optional[str] = ...,
-                               capath: Optional[str] = ...,
-                               cadata: Optional[str] = ...) -> SSLContext: ...
+    def create_default_context(
+        purpose: Any = ..., *, cafile: Optional[str] = ..., capath: Optional[str] = ..., cadata: Optional[str] = ...
+    ) -> SSLContext: ...
 
 if sys.version_info >= (3, 4):
-    def _create_unverified_context(protocol: int = ..., *,
-                                   cert_reqs: int = ...,
-                                   check_hostname: bool = ...,
-                                   purpose: Any = ...,
-                                   certfile: Optional[str] = ...,
-                                   keyfile: Optional[str] = ...,
-                                   cafile: Optional[str] = ...,
-                                   capath: Optional[str] = ...,
-                                   cadata: Optional[str] = ...) -> SSLContext: ...
+    def _create_unverified_context(
+        protocol: int = ...,
+        *,
+        cert_reqs: int = ...,
+        check_hostname: bool = ...,
+        purpose: Any = ...,
+        certfile: Optional[str] = ...,
+        keyfile: Optional[str] = ...,
+        cafile: Optional[str] = ...,
+        capath: Optional[str] = ...,
+        cadata: Optional[str] = ...
+    ) -> SSLContext: ...
     _create_default_https_context: Callable[..., SSLContext]
 
 if sys.version_info >= (3, 3):
     def RAND_bytes(num: int) -> bytes: ...
     def RAND_pseudo_bytes(num: int) -> Tuple[bytes, bool]: ...
+
 def RAND_status() -> bool: ...
 def RAND_egd(path: str) -> None: ...
 def RAND_add(bytes: bytes, entropy: float) -> None: ...
-
-
 def match_hostname(cert: _PeerCertRetType, hostname: str) -> None: ...
 def cert_time_to_seconds(cert_time: str) -> int: ...
-def get_server_certificate(addr: Tuple[str, int], ssl_version: int = ...,
-                           ca_certs: Optional[str] = ...) -> str: ...
+def get_server_certificate(addr: Tuple[str, int], ssl_version: int = ..., ca_certs: Optional[str] = ...) -> str: ...
 def DER_cert_to_PEM_cert(der_cert_bytes: bytes) -> str: ...
 def PEM_cert_to_DER_cert(pem_cert_string: str) -> bytes: ...
+
 if sys.version_info < (3,) or sys.version_info >= (3, 4):
-    DefaultVerifyPaths = NamedTuple('DefaultVerifyPaths',
-                                    [('cafile', str), ('capath', str),
-                                     ('openssl_cafile_env', str),
-                                     ('openssl_cafile', str),
-                                     ('openssl_capath_env', str),
-                                     ('openssl_capath', str)])
+    DefaultVerifyPaths = NamedTuple(
+        "DefaultVerifyPaths",
+        [
+            ("cafile", str),
+            ("capath", str),
+            ("openssl_cafile_env", str),
+            ("openssl_cafile", str),
+            ("openssl_capath_env", str),
+            ("openssl_capath", str),
+        ],
+    )
     def get_default_verify_paths() -> DefaultVerifyPaths: ...
 
-if sys.platform == 'win32':
+if sys.platform == "win32":
     if sys.version_info < (3,) or sys.version_info >= (3, 4):
         def enum_certificates(store_name: str) -> _EnumRetType: ...
         def enum_crls(store_name: str) -> _EnumRetType: ...
-
 
 CERT_NONE: int
 CERT_OPTIONAL: int
@@ -171,11 +179,10 @@ if sys.version_info < (3,) or sys.version_info >= (3, 4):
     ALERT_DESCRIPTION_USER_CANCELLED: int
 
 if sys.version_info < (3,) or sys.version_info >= (3, 4):
-    _PurposeType = NamedTuple('_PurposeType', [('nid', int), ('shortname', str), ('longname', str), ('oid', str)])
+    _PurposeType = NamedTuple("_PurposeType", [("nid", int), ("shortname", str), ("longname", str), ("oid", str)])
     class Purpose:
         SERVER_AUTH: _PurposeType
         CLIENT_AUTH: _PurposeType
-
 
 class SSLSocket(socket.socket):
     context: SSLContext
@@ -184,9 +191,7 @@ class SSLSocket(socket.socket):
     if sys.version_info >= (3, 6):
         session: Optional[SSLSession]
         session_reused: Optional[bool]
-
-    def read(self, len: int = ...,
-             buffer: Optional[bytearray] = ...) -> bytes: ...
+    def read(self, len: int = ..., buffer: Optional[bytearray] = ...) -> bytes: ...
     def write(self, buf: bytes) -> int: ...
     def do_handshake(self) -> None: ...
     def getpeercert(self, binary_form: bool = ...) -> _PeerCertRetType: ...
@@ -203,7 +208,6 @@ class SSLSocket(socket.socket):
         def version(self) -> Optional[str]: ...
     def pending(self) -> int: ...
 
-
 class SSLContext:
     if sys.version_info < (3,) or sys.version_info >= (3, 4):
         check_hostname: bool
@@ -219,38 +223,36 @@ class SSLContext:
         def __init__(self, protocol: int) -> None: ...
     if sys.version_info < (3,) or sys.version_info >= (3, 4):
         def cert_store_stats(self) -> Dict[str, int]: ...
-    def load_cert_chain(self, certfile: str, keyfile: Optional[str] = ...,
-                        password: _PasswordType = ...) -> None: ...
+    def load_cert_chain(self, certfile: str, keyfile: Optional[str] = ..., password: _PasswordType = ...) -> None: ...
     if sys.version_info < (3,) or sys.version_info >= (3, 4):
         def load_default_certs(self, purpose: _PurposeType = ...) -> None: ...
-        def load_verify_locations(self, cafile: Optional[str] = ...,
-                                  capath: Optional[str] = ...,
-                                  cadata: Union[str, bytes, None] = ...) -> None: ...
-        def get_ca_certs(self,
-                         binary_form: bool = ...) -> Union[List[_PeerCertRetDictType], List[bytes]]: ...
+        def load_verify_locations(
+            self, cafile: Optional[str] = ..., capath: Optional[str] = ..., cadata: Union[str, bytes, None] = ...
+        ) -> None: ...
+        def get_ca_certs(self, binary_form: bool = ...) -> Union[List[_PeerCertRetDictType], List[bytes]]: ...
     else:
-        def load_verify_locations(self,
-                                  cafile: Optional[str] = ...,
-                                  capath: Optional[str] = ...) -> None: ...
+        def load_verify_locations(self, cafile: Optional[str] = ..., capath: Optional[str] = ...) -> None: ...
     def set_default_verify_paths(self) -> None: ...
     def set_ciphers(self, ciphers: str) -> None: ...
     if sys.version_info < (3,) or sys.version_info >= (3, 5):
         def set_alpn_protocols(self, protocols: List[str]) -> None: ...
     def set_npn_protocols(self, protocols: List[str]) -> None: ...
-    def set_servername_callback(self,
-                                server_name_callback: Optional[_SrvnmeCbType]) -> None: ...
+    def set_servername_callback(self, server_name_callback: Optional[_SrvnmeCbType]) -> None: ...
     def load_dh_params(self, dhfile: str) -> None: ...
     def set_ecdh_curve(self, curve_name: str) -> None: ...
-    def wrap_socket(self, sock: socket.socket, server_side: bool = ...,
-                    do_handshake_on_connect: bool = ...,
-                    suppress_ragged_eofs: bool = ...,
-                    server_hostname: Optional[str] = ...) -> SSLSocket: ...
+    def wrap_socket(
+        self,
+        sock: socket.socket,
+        server_side: bool = ...,
+        do_handshake_on_connect: bool = ...,
+        suppress_ragged_eofs: bool = ...,
+        server_hostname: Optional[str] = ...,
+    ) -> SSLSocket: ...
     if sys.version_info >= (3, 5):
-        def wrap_bio(self, incoming: MemoryBIO, outgoing: MemoryBIO,
-                     server_side: bool = ...,
-                     server_hostname: Optional[str] = ...) -> SSLObject: ...
+        def wrap_bio(
+            self, incoming: MemoryBIO, outgoing: MemoryBIO, server_side: bool = ..., server_hostname: Optional[str] = ...
+        ) -> SSLObject: ...
     def session_stats(self) -> Dict[str, int]: ...
-
 
 if sys.version_info >= (3, 5):
     class SSLObject:
@@ -260,8 +262,7 @@ if sys.version_info >= (3, 5):
         if sys.version_info >= (3, 6):
             session: Optional[SSLSession]
             session_reused: bool
-        def read(self, len: int = ...,
-                 buffer: Optional[bytearray] = ...) -> bytes: ...
+        def read(self, len: int = ..., buffer: Optional[bytearray] = ...) -> bytes: ...
         def write(self, buf: bytes) -> int: ...
         def getpeercert(self, binary_form: bool = ...) -> _PeerCertRetType: ...
         def selected_npn_protocol(self) -> Optional[str]: ...
@@ -272,7 +273,6 @@ if sys.version_info >= (3, 5):
         def do_handshake(self) -> None: ...
         def unwrap(self) -> None: ...
         def get_channel_binding(self, cb_type: str = ...) -> Optional[bytes]: ...
-
     class MemoryBIO:
         pending: int
         eof: bool
@@ -287,7 +287,6 @@ if sys.version_info >= (3, 6):
         timeout: int
         ticket_lifetime_hint: int
         has_ticket: bool
-
 
 # TODO below documented in cpython but not in docs.python.org
 # taken from python 3.4

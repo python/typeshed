@@ -9,12 +9,15 @@ _Bytes = bytes
 _FieldsType = Tuple[int, int, int, int, int, int]
 
 class UUID:
-    def __init__(self, hex: Optional[Text] = ...,
-                 bytes: Optional[_Bytes] = ...,
-                 bytes_le: Optional[_Bytes] = ...,
-                 fields: Optional[_FieldsType] = ...,
-                 int: Optional[_Int] = ...,
-                 version: Optional[_Int] = ...) -> None: ...
+    def __init__(
+        self,
+        hex: Optional[Text] = ...,
+        bytes: Optional[_Bytes] = ...,
+        bytes_le: Optional[_Bytes] = ...,
+        fields: Optional[_FieldsType] = ...,
+        int: Optional[_Int] = ...,
+        version: Optional[_Int] = ...,
+    ) -> None: ...
     @property
     def bytes(self) -> _Bytes: ...
     @property
@@ -47,9 +50,7 @@ class UUID:
     def variant(self) -> str: ...
     @property
     def version(self) -> Optional[_Int]: ...
-
     def __int__(self) -> _Int: ...
-
     if sys.version_info >= (3,):
         def __eq__(self, other: Any) -> bool: ...
         def __lt__(self, other: Any) -> bool: ...

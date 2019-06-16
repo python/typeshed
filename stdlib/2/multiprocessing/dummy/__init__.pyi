@@ -18,7 +18,6 @@ class DummyProcess(threading.Thread):
     @property
     def exitcode(self) -> Optional[int]: ...
 
-
 Process = DummyProcess
 
 # This should be threading._Condition but threading.pyi exports it as Condition

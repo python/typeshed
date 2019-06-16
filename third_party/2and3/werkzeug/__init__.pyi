@@ -24,7 +24,6 @@ class module(ModuleType):
     def __getattr__(self, name): ...
     def __dir__(self): ...
 
-
 __version__: Any
 
 run_simple = serving.run_simple

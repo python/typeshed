@@ -6,18 +6,12 @@ from google.protobuf.message import Message
 
 class TestAny(Message):
     int32_value: int
-
     @property
     def any_value(self) -> Any: ...
-
     @property
     def repeated_any_value(self) -> RepeatedCompositeFieldContainer[Any]: ...
-
-    def __init__(self,
-                 int32_value: Optional[int] = ...,
-                 any_value: Optional[Any] = ...,
-                 repeated_any_value: Optional[Iterable[Any]] = ...,
-                 ) -> None: ...
-
+    def __init__(
+        self, int32_value: Optional[int] = ..., any_value: Optional[Any] = ..., repeated_any_value: Optional[Iterable[Any]] = ...
+    ) -> None: ...
     @classmethod
     def FromString(cls, s: bytes) -> TestAny: ...

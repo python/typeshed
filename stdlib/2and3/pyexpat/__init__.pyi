@@ -50,10 +50,13 @@ class XMLParserType(object):
     EndDoctypeDeclHandler: Optional[Callable[[], Any]]
     ElementDeclHandler: Optional[Callable[[str, _Model], Any]]
     AttlistDeclHandler: Optional[Callable[[str, str, str, Optional[str], bool], Any]]
-    StartElementHandler: Optional[Union[
-        Callable[[str, Dict[str, str]], Any],
-        Callable[[str, List[str]], Any],
-        Callable[[str, Union[Dict[str, str]], List[str]], Any]]]
+    StartElementHandler: Optional[
+        Union[
+            Callable[[str, Dict[str, str]], Any],
+            Callable[[str, List[str]], Any],
+            Callable[[str, Union[Dict[str, str]], List[str]], Any],
+        ]
+    ]
     EndElementHandler: Optional[Callable[[str], Any]]
     ProcessingInstructionHandler: Optional[Callable[[str, str], Any]]
     CharacterDataHandler: Optional[Callable[[str], Any]]

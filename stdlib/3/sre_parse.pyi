@@ -33,14 +33,12 @@ class Pattern:
     def checkgroup(self, gid: int) -> bool: ...
     def checklookbehindgroup(self, gid: int, source: Tokenizer) -> None: ...
 
-
 _OpSubpatternType = Tuple[Optional[int], int, int, SubPattern]
 _OpGroupRefExistsType = Tuple[int, SubPattern, SubPattern]
 _OpInType = List[Tuple[NIC, int]]
 _OpBranchType = Tuple[None, List[SubPattern]]
 _AvType = Union[_OpInType, _OpBranchType, Iterable[SubPattern], _OpGroupRefExistsType, _OpSubpatternType]
 _CodeType = Tuple[NIC, _AvType]
-
 
 class SubPattern:
     pattern: Pattern
@@ -55,7 +53,6 @@ class SubPattern:
     def insert(self, index: int, code: _CodeType) -> None: ...
     def append(self, code: _CodeType) -> None: ...
     def getwidth(self) -> int: ...
-
 
 class Tokenizer:
     istext: bool
@@ -76,6 +73,8 @@ class Tokenizer:
 
 def fix_flags(src: Union[str, bytes], flag: int) -> int: ...
 def parse(str: str, flags: int = ..., pattern: Pattern = ...) -> SubPattern: ...
+
 _TemplateType = Tuple[List[Tuple[int, int]], List[str]]
+
 def parse_template(source: str, pattern: _Pattern) -> _TemplateType: ...
 def expand_template(template: _TemplateType, match: Match) -> str: ...

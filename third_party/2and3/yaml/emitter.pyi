@@ -13,7 +13,9 @@ class ScalarAnalysis:
     allow_single_quoted: Any
     allow_double_quoted: Any
     allow_block: Any
-    def __init__(self, scalar, empty, multiline, allow_flow_plain, allow_block_plain, allow_single_quoted, allow_double_quoted, allow_block) -> None: ...
+    def __init__(
+        self, scalar, empty, multiline, allow_flow_plain, allow_block_plain, allow_single_quoted, allow_double_quoted, allow_block
+    ) -> None: ...
 
 class Emitter:
     DEFAULT_TAG_PREFIXES: Any

@@ -1,6 +1,7 @@
 # Stubs for _operator (Python 3.5)
 
 import sys
+
 # In reality the import is the other way around, but this way we can keep the operator stub in 2and3
 from operator import abs as abs
 from operator import add as add

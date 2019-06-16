@@ -33,7 +33,20 @@ class HTTPResponse(io.IOBase):
     reason: Any
     strict: Any
     decode_content: Any
-    def __init__(self, body=..., headers=..., status=..., version=..., reason=..., strict=..., preload_content=..., decode_content=..., original_response=..., pool=..., connection=...) -> None: ...
+    def __init__(
+        self,
+        body=...,
+        headers=...,
+        status=...,
+        version=...,
+        reason=...,
+        strict=...,
+        preload_content=...,
+        decode_content=...,
+        original_response=...,
+        pool=...,
+        connection=...,
+    ) -> None: ...
     def get_redirect_location(self): ...
     def release_conn(self): ...
     @property

@@ -7,6 +7,10 @@ from typing import Optional, Sequence, Tuple, Union
 _ParamsType = Union[str, None, Tuple[str, Optional[str], str]]
 
 class MIMEMultipart(MIMEBase):
-    def __init__(self, _subtype: str = ..., boundary: Optional[str] = ...,
-                 _subparts: Optional[Sequence[Message]] = ...,
-                 **_params: _ParamsType) -> None: ...
+    def __init__(
+        self,
+        _subtype: str = ...,
+        boundary: Optional[str] = ...,
+        _subparts: Optional[Sequence[Message]] = ...,
+        **_params: _ParamsType
+    ) -> None: ...

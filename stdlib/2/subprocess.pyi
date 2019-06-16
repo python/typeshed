@@ -10,50 +10,55 @@ _CMD = Union[_TXT, Sequence[_TXT]]
 _ENV = Union[Mapping[bytes, _TXT], Mapping[Text, _TXT]]
 
 # Same args as Popen.__init__
-def call(args: _CMD,
-         bufsize: int = ...,
-         executable: _TXT = ...,
-         stdin: _FILE = ...,
-         stdout: _FILE = ...,
-         stderr: _FILE = ...,
-         preexec_fn: Callable[[], Any] = ...,
-         close_fds: bool = ...,
-         shell: bool = ...,
-         cwd: _TXT = ...,
-         env: _ENV = ...,
-         universal_newlines: bool = ...,
-         startupinfo: Any = ...,
-         creationflags: int = ...) -> int: ...
-
-def check_call(args: _CMD,
-               bufsize: int = ...,
-               executable: _TXT = ...,
-               stdin: _FILE = ...,
-               stdout: _FILE = ...,
-               stderr: _FILE = ...,
-               preexec_fn: Callable[[], Any] = ...,
-               close_fds: bool = ...,
-               shell: bool = ...,
-               cwd: _TXT = ...,
-               env: _ENV = ...,
-               universal_newlines: bool = ...,
-               startupinfo: Any = ...,
-               creationflags: int = ...) -> int: ...
+def call(
+    args: _CMD,
+    bufsize: int = ...,
+    executable: _TXT = ...,
+    stdin: _FILE = ...,
+    stdout: _FILE = ...,
+    stderr: _FILE = ...,
+    preexec_fn: Callable[[], Any] = ...,
+    close_fds: bool = ...,
+    shell: bool = ...,
+    cwd: _TXT = ...,
+    env: _ENV = ...,
+    universal_newlines: bool = ...,
+    startupinfo: Any = ...,
+    creationflags: int = ...,
+) -> int: ...
+def check_call(
+    args: _CMD,
+    bufsize: int = ...,
+    executable: _TXT = ...,
+    stdin: _FILE = ...,
+    stdout: _FILE = ...,
+    stderr: _FILE = ...,
+    preexec_fn: Callable[[], Any] = ...,
+    close_fds: bool = ...,
+    shell: bool = ...,
+    cwd: _TXT = ...,
+    env: _ENV = ...,
+    universal_newlines: bool = ...,
+    startupinfo: Any = ...,
+    creationflags: int = ...,
+) -> int: ...
 
 # Same args as Popen.__init__ except for stdout
-def check_output(args: _CMD,
-                 bufsize: int = ...,
-                 executable: _TXT = ...,
-                 stdin: _FILE = ...,
-                 stderr: _FILE = ...,
-                 preexec_fn: Callable[[], Any] = ...,
-                 close_fds: bool = ...,
-                 shell: bool = ...,
-                 cwd: _TXT = ...,
-                 env: _ENV = ...,
-                 universal_newlines: bool = ...,
-                 startupinfo: Any = ...,
-                 creationflags: int = ...) -> bytes: ...
+def check_output(
+    args: _CMD,
+    bufsize: int = ...,
+    executable: _TXT = ...,
+    stdin: _FILE = ...,
+    stderr: _FILE = ...,
+    preexec_fn: Callable[[], Any] = ...,
+    close_fds: bool = ...,
+    shell: bool = ...,
+    cwd: _TXT = ...,
+    env: _ENV = ...,
+    universal_newlines: bool = ...,
+    startupinfo: Any = ...,
+    creationflags: int = ...,
+) -> bytes: ...
 
 PIPE: int
 STDOUT: int
@@ -64,11 +69,7 @@ class CalledProcessError(Exception):
     cmd: Any
     # morally: Optional[bytes]
     output: Any
-
-    def __init__(self,
-                 returncode: int,
-                 cmd: _CMD,
-                 output: Optional[bytes] = ...) -> None: ...
+    def __init__(self, returncode: int, cmd: _CMD, output: Optional[bytes] = ...) -> None: ...
 
 class Popen:
     stdin: Optional[IO[Any]]
@@ -76,23 +77,23 @@ class Popen:
     stderr: Optional[IO[Any]]
     pid = 0
     returncode = 0
-
-    def __init__(self,
-                 args: _CMD,
-                 bufsize: int = ...,
-                 executable: Optional[_TXT] = ...,
-                 stdin: Optional[_FILE] = ...,
-                 stdout: Optional[_FILE] = ...,
-                 stderr: Optional[_FILE] = ...,
-                 preexec_fn: Optional[Callable[[], Any]] = ...,
-                 close_fds: bool = ...,
-                 shell: bool = ...,
-                 cwd: Optional[_TXT] = ...,
-                 env: Optional[_ENV] = ...,
-                 universal_newlines: bool = ...,
-                 startupinfo: Optional[Any] = ...,
-                 creationflags: int = ...) -> None: ...
-
+    def __init__(
+        self,
+        args: _CMD,
+        bufsize: int = ...,
+        executable: Optional[_TXT] = ...,
+        stdin: Optional[_FILE] = ...,
+        stdout: Optional[_FILE] = ...,
+        stderr: Optional[_FILE] = ...,
+        preexec_fn: Optional[Callable[[], Any]] = ...,
+        close_fds: bool = ...,
+        shell: bool = ...,
+        cwd: Optional[_TXT] = ...,
+        env: Optional[_ENV] = ...,
+        universal_newlines: bool = ...,
+        startupinfo: Optional[Any] = ...,
+        creationflags: int = ...,
+    ) -> None: ...
     def poll(self) -> int: ...
     def wait(self) -> int: ...
     # morally: -> Tuple[Optional[bytes], Optional[bytes]]

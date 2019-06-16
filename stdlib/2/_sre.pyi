@@ -42,12 +42,15 @@ class SRE_Pattern(object):
     def sub(self, repl: str, string: str, count: int = ...) -> tuple: ...
     def subn(self, repl: str, string: str, count: int = ...) -> tuple: ...
 
-def compile(pattern: str, flags: int, code: List[int],
-            groups: int = ...,
-            groupindex: Mapping[str, int] = ...,
-            indexgroup: Sequence[int] = ...) -> SRE_Pattern:
+def compile(
+    pattern: str,
+    flags: int,
+    code: List[int],
+    groups: int = ...,
+    groupindex: Mapping[str, int] = ...,
+    indexgroup: Sequence[int] = ...,
+) -> SRE_Pattern:
     raise OverflowError()
 
 def getcodesize() -> int: ...
-
 def getlower(a: int, b: int) -> int: ...

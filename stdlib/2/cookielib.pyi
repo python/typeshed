@@ -17,8 +17,26 @@ class Cookie:
     comment: Any
     comment_url: Any
     rfc2109: Any
-    def __init__(self, version, name, value, port, port_specified, domain, domain_specified, domain_initial_dot, path,
-                 path_specified, secure, expires, discard, comment, comment_url, rest, rfc2109: bool = ...): ...
+    def __init__(
+        self,
+        version,
+        name,
+        value,
+        port,
+        port_specified,
+        domain,
+        domain_specified,
+        domain_initial_dot,
+        path,
+        path_specified,
+        secure,
+        expires,
+        discard,
+        comment,
+        comment_url,
+        rest,
+        rfc2109: bool = ...,
+    ): ...
     def has_nonstandard_attr(self, name): ...
     def get_nonstandard_attr(self, name, default: Optional[Any] = ...): ...
     def set_nonstandard_attr(self, name, value): ...
@@ -46,10 +64,21 @@ class DefaultCookiePolicy(CookiePolicy):
     strict_ns_domain: Any
     strict_ns_set_initial_dollar: Any
     strict_ns_set_path: Any
-    def __init__(self, blocked_domains: Optional[Any] = ..., allowed_domains: Optional[Any] = ..., netscape: bool = ...,
-                 rfc2965: bool = ..., rfc2109_as_netscape: Optional[Any] = ..., hide_cookie2: bool = ...,
-                 strict_domain: bool = ..., strict_rfc2965_unverifiable: bool = ..., strict_ns_unverifiable: bool = ...,
-                 strict_ns_domain=..., strict_ns_set_initial_dollar: bool = ..., strict_ns_set_path: bool = ...): ...
+    def __init__(
+        self,
+        blocked_domains: Optional[Any] = ...,
+        allowed_domains: Optional[Any] = ...,
+        netscape: bool = ...,
+        rfc2965: bool = ...,
+        rfc2109_as_netscape: Optional[Any] = ...,
+        hide_cookie2: bool = ...,
+        strict_domain: bool = ...,
+        strict_rfc2965_unverifiable: bool = ...,
+        strict_ns_unverifiable: bool = ...,
+        strict_ns_domain=...,
+        strict_ns_set_initial_dollar: bool = ...,
+        strict_ns_set_path: bool = ...,
+    ): ...
     def blocked_domains(self): ...
     def set_blocked_domains(self, blocked_domains): ...
     def is_blocked(self, domain): ...
@@ -109,4 +138,5 @@ class LWPCookieJar(FileCookieJar):
     def as_lwp_str(self, ignore_discard: bool = ..., ignore_expires: bool = ...) -> str: ...  # undocumented
 
 MozillaCookieJar = FileCookieJar
+
 def lwp_cookie_str(cookie: Cookie) -> str: ...

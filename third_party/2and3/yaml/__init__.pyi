@@ -33,37 +33,210 @@ def full_load_all(stream: Union[str, IO[str]]) -> Iterator[Any]: ...
 def safe_load(stream: Union[str, IO[str]]) -> Any: ...
 def safe_load_all(stream: Union[str, IO[str]]) -> Iterator[Any]: ...
 def emit(events, stream=..., Dumper=..., canonical=..., indent=..., width=..., allow_unicode=..., line_break=...): ...
-
 @overload
-def serialize_all(nodes, stream: IO[str], Dumper=..., canonical=..., indent=..., width=..., allow_unicode=..., line_break=..., encoding=..., explicit_start=..., explicit_end=..., version=..., tags=...) -> None: ...
+def serialize_all(
+    nodes,
+    stream: IO[str],
+    Dumper=...,
+    canonical=...,
+    indent=...,
+    width=...,
+    allow_unicode=...,
+    line_break=...,
+    encoding=...,
+    explicit_start=...,
+    explicit_end=...,
+    version=...,
+    tags=...,
+) -> None: ...
 @overload
-def serialize_all(nodes, stream: None = ..., Dumper=..., canonical=..., indent=..., width=..., allow_unicode=..., line_break=..., encoding: Optional[_Str] = ..., explicit_start=..., explicit_end=..., version=..., tags=...) -> _Yaml: ...
-
+def serialize_all(
+    nodes,
+    stream: None = ...,
+    Dumper=...,
+    canonical=...,
+    indent=...,
+    width=...,
+    allow_unicode=...,
+    line_break=...,
+    encoding: Optional[_Str] = ...,
+    explicit_start=...,
+    explicit_end=...,
+    version=...,
+    tags=...,
+) -> _Yaml: ...
 @overload
-def serialize(node, stream: IO[str], Dumper=..., canonical=..., indent=..., width=..., allow_unicode=..., line_break=..., encoding=..., explicit_start=..., explicit_end=..., version=..., tags=...) -> None: ...
+def serialize(
+    node,
+    stream: IO[str],
+    Dumper=...,
+    canonical=...,
+    indent=...,
+    width=...,
+    allow_unicode=...,
+    line_break=...,
+    encoding=...,
+    explicit_start=...,
+    explicit_end=...,
+    version=...,
+    tags=...,
+) -> None: ...
 @overload
-def serialize(node, stream: None = ..., Dumper=..., canonical=..., indent=..., width=..., allow_unicode=..., line_break=..., encoding: Optional[_Str] = ..., explicit_start=..., explicit_end=..., version=..., tags=...) -> _Yaml: ...
-
+def serialize(
+    node,
+    stream: None = ...,
+    Dumper=...,
+    canonical=...,
+    indent=...,
+    width=...,
+    allow_unicode=...,
+    line_break=...,
+    encoding: Optional[_Str] = ...,
+    explicit_start=...,
+    explicit_end=...,
+    version=...,
+    tags=...,
+) -> _Yaml: ...
 @overload
-def dump_all(documents: Sequence[Any], stream: IO[str], Dumper=..., default_style=..., default_flow_style=..., canonical=..., indent=..., width=..., allow_unicode=..., line_break=..., encoding=..., explicit_start=..., explicit_end=..., version=..., tags=...) -> None: ...
+def dump_all(
+    documents: Sequence[Any],
+    stream: IO[str],
+    Dumper=...,
+    default_style=...,
+    default_flow_style=...,
+    canonical=...,
+    indent=...,
+    width=...,
+    allow_unicode=...,
+    line_break=...,
+    encoding=...,
+    explicit_start=...,
+    explicit_end=...,
+    version=...,
+    tags=...,
+) -> None: ...
 @overload
-def dump_all(documents: Sequence[Any], stream: None = ..., Dumper=..., default_style=..., default_flow_style=..., canonical=..., indent=..., width=..., allow_unicode=..., line_break=..., encoding: Optional[_Str] = ..., explicit_start=..., explicit_end=..., version=..., tags=...) -> _Yaml: ...
-
+def dump_all(
+    documents: Sequence[Any],
+    stream: None = ...,
+    Dumper=...,
+    default_style=...,
+    default_flow_style=...,
+    canonical=...,
+    indent=...,
+    width=...,
+    allow_unicode=...,
+    line_break=...,
+    encoding: Optional[_Str] = ...,
+    explicit_start=...,
+    explicit_end=...,
+    version=...,
+    tags=...,
+) -> _Yaml: ...
 @overload
-def dump(data: Any, stream: IO[str], Dumper=..., default_style=..., default_flow_style=..., canonical=..., indent=..., width=..., allow_unicode=..., line_break=..., encoding=..., explicit_start=..., explicit_end=..., version=..., tags=...) -> None: ...
+def dump(
+    data: Any,
+    stream: IO[str],
+    Dumper=...,
+    default_style=...,
+    default_flow_style=...,
+    canonical=...,
+    indent=...,
+    width=...,
+    allow_unicode=...,
+    line_break=...,
+    encoding=...,
+    explicit_start=...,
+    explicit_end=...,
+    version=...,
+    tags=...,
+) -> None: ...
 @overload
-def dump(data: Any, stream: None = ..., Dumper=..., default_style=..., default_flow_style=..., canonical=..., indent=..., width=..., allow_unicode=..., line_break=..., encoding: Optional[_Str] = ..., explicit_start=..., explicit_end=..., version=..., tags=...) -> _Yaml: ...
-
+def dump(
+    data: Any,
+    stream: None = ...,
+    Dumper=...,
+    default_style=...,
+    default_flow_style=...,
+    canonical=...,
+    indent=...,
+    width=...,
+    allow_unicode=...,
+    line_break=...,
+    encoding: Optional[_Str] = ...,
+    explicit_start=...,
+    explicit_end=...,
+    version=...,
+    tags=...,
+) -> _Yaml: ...
 @overload
-def safe_dump_all(documents: Sequence[Any], stream: IO[str], default_style=..., default_flow_style=..., canonical=..., indent=..., width=..., allow_unicode=..., line_break=..., encoding=..., explicit_start=..., explicit_end=..., version=..., tags=...) -> None: ...
+def safe_dump_all(
+    documents: Sequence[Any],
+    stream: IO[str],
+    default_style=...,
+    default_flow_style=...,
+    canonical=...,
+    indent=...,
+    width=...,
+    allow_unicode=...,
+    line_break=...,
+    encoding=...,
+    explicit_start=...,
+    explicit_end=...,
+    version=...,
+    tags=...,
+) -> None: ...
 @overload
-def safe_dump_all(documents: Sequence[Any], stream: None = ..., default_style=..., default_flow_style=..., canonical=..., indent=..., width=..., allow_unicode=..., line_break=..., encoding: Optional[_Str] = ..., explicit_start=..., explicit_end=..., version=..., tags=...) -> _Yaml: ...
-
+def safe_dump_all(
+    documents: Sequence[Any],
+    stream: None = ...,
+    default_style=...,
+    default_flow_style=...,
+    canonical=...,
+    indent=...,
+    width=...,
+    allow_unicode=...,
+    line_break=...,
+    encoding: Optional[_Str] = ...,
+    explicit_start=...,
+    explicit_end=...,
+    version=...,
+    tags=...,
+) -> _Yaml: ...
 @overload
-def safe_dump(data: Any, stream: IO[str], default_style=..., default_flow_style=..., canonical=..., indent=..., width=..., allow_unicode=..., line_break=..., encoding=..., explicit_start=..., explicit_end=..., version=..., tags=...) -> None: ...
+def safe_dump(
+    data: Any,
+    stream: IO[str],
+    default_style=...,
+    default_flow_style=...,
+    canonical=...,
+    indent=...,
+    width=...,
+    allow_unicode=...,
+    line_break=...,
+    encoding=...,
+    explicit_start=...,
+    explicit_end=...,
+    version=...,
+    tags=...,
+) -> None: ...
 @overload
-def safe_dump(data: Any, stream: None = ..., default_style=..., default_flow_style=..., canonical=..., indent=..., width=..., allow_unicode=..., line_break=..., encoding: Optional[_Str] = ..., explicit_start=..., explicit_end=..., version=..., tags=...) -> _Yaml: ...
-
+def safe_dump(
+    data: Any,
+    stream: None = ...,
+    default_style=...,
+    default_flow_style=...,
+    canonical=...,
+    indent=...,
+    width=...,
+    allow_unicode=...,
+    line_break=...,
+    encoding: Optional[_Str] = ...,
+    explicit_start=...,
+    explicit_end=...,
+    version=...,
+    tags=...,
+) -> _Yaml: ...
 def add_implicit_resolver(tag, regexp, first=..., Loader=..., Dumper=...): ...
 def add_path_resolver(tag, path, kind=..., Loader=..., Dumper=...): ...
 def add_constructor(tag, constructor, Loader=...): ...

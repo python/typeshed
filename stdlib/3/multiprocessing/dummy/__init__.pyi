@@ -10,7 +10,6 @@ from .connection import Pipe
 
 JoinableQueue = Queue
 
-
 class DummyProcess(threading.Thread):
     _children: weakref.WeakKeyDictionary
     _parent: threading.Thread
@@ -29,7 +28,6 @@ class Value(object):
     _value: Any
     value: Any
     def __init__(self, typecode, value, lock=...) -> None: ...
-
 
 def Array(typecode, sequence, lock=...) -> array.array: ...
 def Manager() -> Any: ...

@@ -53,7 +53,6 @@ if sys.version_info >= (3, 6):
 else:
     _DRMapping = Dict[str, str]
 
-
 class DictReader(Iterator[_DRMapping]):
     restkey: Optional[str]
     restval: Optional[str]
@@ -61,24 +60,37 @@ class DictReader(Iterator[_DRMapping]):
     dialect: _Dialect
     line_num: int
     fieldnames: Sequence[str]
-    def __init__(self, f: Iterable[str], fieldnames: Sequence[str] = ...,
-                 restkey: Optional[str] = ..., restval: Optional[str] = ..., dialect: _Dialect = ...,
-                 *args: Any, **kwds: Any) -> None: ...
+    def __init__(
+        self,
+        f: Iterable[str],
+        fieldnames: Sequence[str] = ...,
+        restkey: Optional[str] = ...,
+        restval: Optional[str] = ...,
+        dialect: _Dialect = ...,
+        *args: Any,
+        **kwds: Any
+    ) -> None: ...
     def __iter__(self) -> DictReader: ...
     if sys.version_info >= (3,):
         def __next__(self) -> _DRMapping: ...
     else:
         def next(self) -> _DRMapping: ...
 
-
 class DictWriter(object):
     fieldnames: Sequence[str]
     restval: Optional[Any]
     extrasaction: str
     writer: _writer
-    def __init__(self, f: Any, fieldnames: Sequence[str],
-                 restval: Optional[Any] = ..., extrasaction: str = ..., dialect: _Dialect = ...,
-                 *args: Any, **kwds: Any) -> None: ...
+    def __init__(
+        self,
+        f: Any,
+        fieldnames: Sequence[str],
+        restval: Optional[Any] = ...,
+        extrasaction: str = ...,
+        dialect: _Dialect = ...,
+        *args: Any,
+        **kwds: Any
+    ) -> None: ...
     def writeheader(self) -> None: ...
     def writerow(self, rowdict: _DictRow) -> None: ...
     def writerows(self, rowdicts: Iterable[_DictRow]) -> None: ...

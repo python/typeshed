@@ -6,20 +6,14 @@
 from typing import Any
 
 def _get_object_traceback(*args, **kwargs) -> Any: ...
-
 def _get_traces() -> Any:
     raise MemoryError()
 
 def clear_traces() -> None: ...
-
 def get_traceback_limit() -> int: ...
-
 def get_traced_memory() -> tuple: ...
-
 def get_tracemalloc_memory() -> Any: ...
-
 def is_tracing() -> bool: ...
-
 def start(*args, **kwargs) -> None:
     raise ValueError()
 

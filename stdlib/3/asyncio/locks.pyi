@@ -5,7 +5,7 @@ from .coroutines import coroutine
 from .events import AbstractEventLoop
 from .futures import Future
 
-_T = TypeVar('_T')
+_T = TypeVar("_T")
 
 __all__: List[str]
 
@@ -19,7 +19,9 @@ class _ContextManagerMixin(Future[_ContextManager]):
     def __enter__(self) -> object: ...
     def __exit__(self, *args: Any) -> None: ...
     def __aenter__(self) -> Awaitable[None]: ...
-    def __aexit__(self, exc_type: Optional[Type[BaseException]], exc: Optional[BaseException], tb: Optional[TracebackType]) -> Awaitable[None]: ...
+    def __aexit__(
+        self, exc_type: Optional[Type[BaseException]], exc: Optional[BaseException], tb: Optional[TracebackType]
+    ) -> Awaitable[None]: ...
 
 class Lock(_ContextManagerMixin):
     def __init__(self, *, loop: Optional[AbstractEventLoop] = ...) -> None: ...

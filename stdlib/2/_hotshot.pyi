@@ -6,7 +6,6 @@
 from typing import Any, Dict, Generic, List, Tuple
 
 def coverage(a: str) -> Any: ...
-
 def logreader(a: str) -> LogReaderType:
     raise IOError()
     raise RuntimeError()
@@ -15,7 +14,6 @@ def profiler(a: str, *args, **kwargs) -> Any:
     raise IOError()
 
 def resolution() -> tuple: ...
-
 
 class LogReaderType(object):
     def close(self) -> None: ...

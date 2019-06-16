@@ -5,7 +5,7 @@ ucd_3_2_0: UCD
 ucnhash_CAPI: Any
 unidata_version: str
 
-_default = TypeVar('_default')
+_default = TypeVar("_default")
 
 def bidirectional(__chr: Text) -> Text: ...
 def category(__chr: Text) -> Text: ...

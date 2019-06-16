@@ -12,40 +12,26 @@ _FileObject = Union[int, _HasFileno]
 _FileDescriptor = int
 _EventMask = int
 
-
 EVENT_READ: _EventMask
 EVENT_WRITE: _EventMask
 
-
-SelectorKey = NamedTuple('SelectorKey', [
-    ('fileobj', _FileObject),
-    ('fd', _FileDescriptor),
-    ('events', _EventMask),
-    ('data', Any)
-])
-
+SelectorKey = NamedTuple(
+    "SelectorKey", [("fileobj", _FileObject), ("fd", _FileDescriptor), ("events", _EventMask), ("data", Any)]
+)
 
 class BaseSelector(metaclass=ABCMeta):
     @abstractmethod
     def register(self, fileobj: _FileObject, events: _EventMask, data: Any = ...) -> SelectorKey: ...
-
     @abstractmethod
     def unregister(self, fileobj: _FileObject) -> SelectorKey: ...
-
     def modify(self, fileobj: _FileObject, events: _EventMask, data: Any = ...) -> SelectorKey: ...
-
     @abstractmethod
     def select(self, timeout: Optional[float] = ...) -> List[Tuple[SelectorKey, _EventMask]]: ...
-
     def close(self) -> None: ...
-
     def get_key(self, fileobj: _FileObject) -> SelectorKey: ...
-
     @abstractmethod
     def get_map(self) -> Mapping[_FileObject, SelectorKey]: ...
-
     def __enter__(self) -> BaseSelector: ...
-
     def __exit__(self, *args: Any) -> None: ...
 
 class SelectSelector(BaseSelector):

@@ -2,8 +2,8 @@ import abc
 import sys
 from typing import Any, Dict, Generic, ItemsView, KeysView, Mapping, Optional, Type, TypeVar, Union, ValuesView
 
-_T = TypeVar('_T')
-_U = TypeVar('_U')
+_T = TypeVar("_T")
+_U = TypeVar("_U")
 
 # Internal mypy fallback type for all typed dicts (does not exist at runtime)
 class _TypedDict(Mapping[str, object], metaclass=abc.ABCMeta):
@@ -22,7 +22,6 @@ class _TypedDict(Mapping[str, object], metaclass=abc.ABCMeta):
     def __delitem__(self, k: NoReturn) -> None: ...
 
 def TypedDict(typename: str, fields: Dict[str, Type[_T]], total: bool = ...) -> Type[dict]: ...
-
 def Arg(type: _T = ..., name: Optional[str] = ...) -> _T: ...
 def DefaultArg(type: _T = ..., name: Optional[str] = ...) -> _T: ...
 def NamedArg(type: _T = ..., name: Optional[str] = ...) -> _T: ...

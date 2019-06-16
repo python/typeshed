@@ -1,7 +1,7 @@
 from _curses import *  # noqa: F403
 from typing import Any, Callable, TypeVar
 
-_T = TypeVar('_T')
+_T = TypeVar("_T")
 
 LINES: int
 COLS: int

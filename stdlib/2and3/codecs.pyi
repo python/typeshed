@@ -31,16 +31,19 @@ _Encoded = bytes
 
 class _Encoder(Protocol):
     def __call__(self, input: _Decoded, errors: str = ...) -> Tuple[_Encoded, int]: ...  # signature of Codec().encode
+
 class _Decoder(Protocol):
     def __call__(self, input: _Encoded, errors: str = ...) -> Tuple[_Decoded, int]: ...  # signature of Codec().decode
 
 class _StreamReader(Protocol):
     def __call__(self, stream: IO[_Encoded], errors: str = ...) -> StreamReader: ...
+
 class _StreamWriter(Protocol):
     def __call__(self, stream: IO[_Encoded], errors: str = ...) -> StreamWriter: ...
 
 class _IncrementalEncoder(Protocol):
     def __call__(self, errors: str = ...) -> IncrementalEncoder: ...
+
 class _IncrementalDecoder(Protocol):
     def __call__(self, errors: str = ...) -> IncrementalDecoder: ...
 

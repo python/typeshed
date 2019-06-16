@@ -33,8 +33,14 @@ class FilesystemSessionStore(SessionStore):
     filename_template: str
     renew_missing: Any
     mode: Any
-    def __init__(self, path: Optional[Any] = ..., filename_template: Text = ..., session_class: Optional[Any] = ...,
-                 renew_missing: bool = ..., mode: int = ...): ...
+    def __init__(
+        self,
+        path: Optional[Any] = ...,
+        filename_template: Text = ...,
+        session_class: Optional[Any] = ...,
+        renew_missing: bool = ...,
+        mode: int = ...,
+    ): ...
     def get_session_filename(self, sid): ...
     def save(self, session): ...
     def delete(self, session): ...
@@ -52,7 +58,17 @@ class SessionMiddleware:
     cookie_secure: Any
     cookie_httponly: Any
     environ_key: Any
-    def __init__(self, app, store, cookie_name: str = ..., cookie_age: Optional[Any] = ..., cookie_expires: Optional[Any] = ...,
-                 cookie_path: str = ..., cookie_domain: Optional[Any] = ..., cookie_secure: Optional[Any] = ...,
-                 cookie_httponly: bool = ..., environ_key: str = ...): ...
+    def __init__(
+        self,
+        app,
+        store,
+        cookie_name: str = ...,
+        cookie_age: Optional[Any] = ...,
+        cookie_expires: Optional[Any] = ...,
+        cookie_path: str = ...,
+        cookie_domain: Optional[Any] = ...,
+        cookie_secure: Optional[Any] = ...,
+        cookie_httponly: bool = ...,
+        environ_key: str = ...,
+    ): ...
     def __call__(self, environ, start_response): ...

@@ -7,11 +7,10 @@ from .futures import Future
 
 __all__: List[str]
 
-
 class QueueEmpty(Exception): ...
 class QueueFull(Exception): ...
 
-_T = TypeVar('_T')
+_T = TypeVar("_T")
 
 class Queue(Generic[_T]):
     def __init__(self, maxsize: int = ..., *, loop: Optional[AbstractEventLoop] = ...) -> None: ...
@@ -38,10 +37,7 @@ class Queue(Generic[_T]):
     def join(self) -> Generator[Any, None, bool]: ...
     def task_done(self) -> None: ...
 
-
 class PriorityQueue(Queue[_T]): ...
-
-
 class LifoQueue(Queue[_T]): ...
 
 if sys.version_info < (3, 5):

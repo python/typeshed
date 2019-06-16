@@ -26,7 +26,14 @@ class Filter:
     lineno: Optional[int]
     filename_pattern: str
     all_frames: bool
-    def __init__(self, inclusive: bool, filename_pattern: str, lineno: Optional[int] = ..., all_frames: bool = ..., domain: Optional[int] = ...) -> None: ...
+    def __init__(
+        self,
+        inclusive: bool,
+        filename_pattern: str,
+        lineno: Optional[int] = ...,
+        all_frames: bool = ...,
+        domain: Optional[int] = ...,
+    ) -> None: ...
 
 class Frame:
     filename: str

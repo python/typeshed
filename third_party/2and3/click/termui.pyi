@@ -3,19 +3,8 @@ from typing import IO, Any, Callable, Generator, Iterable, List, Optional, Text,
 from click._termui_impl import ProgressBar as _ProgressBar
 from click.core import _ConvertibleType
 
-def hidden_prompt_func(prompt: str) -> str:
-    ...
-
-
-def _build_prompt(
-    text: str,
-    suffix: str,
-    show_default: bool = ...,
-    default: Optional[str] = ...,
-) -> str:
-    ...
-
-
+def hidden_prompt_func(prompt: str) -> str: ...
+def _build_prompt(text: str, suffix: str, show_default: bool = ..., default: Optional[str] = ...) -> str: ...
 def prompt(
     text: str,
     default: Optional[str] = ...,
@@ -27,34 +16,16 @@ def prompt(
     show_default: bool = ...,
     err: bool = ...,
     show_choices: bool = ...,
-) -> Any:
-    ...
-
-
+) -> Any: ...
 def confirm(
-    text: str,
-    default: bool = ...,
-    abort: bool = ...,
-    prompt_suffix: str = ...,
-    show_default: bool = ...,
-    err: bool = ...,
-) -> bool:
-    ...
-
-
-def get_terminal_size() -> Tuple[int, int]:
-    ...
-
-
+    text: str, default: bool = ..., abort: bool = ..., prompt_suffix: str = ..., show_default: bool = ..., err: bool = ...
+) -> bool: ...
+def get_terminal_size() -> Tuple[int, int]: ...
 def echo_via_pager(
-    text_or_generator: Union[str, Iterable[str], Callable[[], Generator[str, None, None]]],
-    color: Optional[bool]
-) -> None:
-    ...
+    text_or_generator: Union[str, Iterable[str], Callable[[], Generator[str, None, None]]], color: Optional[bool]
+) -> None: ...
 
-
-_T = TypeVar('_T')
-
+_T = TypeVar("_T")
 @overload
 def progressbar(
     iterable: Iterable[_T],
@@ -71,9 +42,7 @@ def progressbar(
     width: int = ...,
     file: Optional[IO] = ...,
     color: Optional[bool] = ...,
-) -> _ProgressBar[_T]:
-    ...
-
+) -> _ProgressBar[_T]: ...
 @overload
 def progressbar(
     iterable: None = ...,
@@ -90,13 +59,8 @@ def progressbar(
     width: int = ...,
     file: Optional[IO] = ...,
     color: Optional[bool] = ...,
-) -> _ProgressBar[int]:
-    ...
-
-def clear() -> None:
-    ...
-
-
+) -> _ProgressBar[int]: ...
+def clear() -> None: ...
 def style(
     text: str,
     fg: Optional[str] = ...,
@@ -107,13 +71,8 @@ def style(
     blink: Optional[bool] = ...,
     reverse: Optional[bool] = ...,
     reset: bool = ...,
-) -> str:
-    ...
-
-
-def unstyle(text: str) -> str:
-    ...
-
+) -> str: ...
+def unstyle(text: str) -> str: ...
 
 # Styling options copied from style() for nicer type checking.
 def secho(
@@ -130,10 +89,7 @@ def secho(
     blink: Optional[bool] = ...,
     reverse: Optional[bool] = ...,
     reset: bool = ...,
-):
-    ...
-
-
+): ...
 def edit(
     text: Optional[str] = ...,
     editor: Optional[str] = ...,
@@ -141,19 +97,7 @@ def edit(
     require_save: bool = ...,
     extension: str = ...,
     filename: Optional[str] = ...,
-) -> str:
-    ...
-
-
-def launch(url: str, wait: bool = ..., locate: bool = ...) -> int:
-    ...
-
-
-def getchar(echo: bool = ...) -> Text:
-    ...
-
-
-def pause(
-    info: str = ..., err: bool = ...
-) -> None:
-    ...
+) -> str: ...
+def launch(url: str, wait: bool = ..., locate: bool = ...) -> int: ...
+def getchar(echo: bool = ...) -> Text: ...
+def pause(info: str = ..., err: bool = ...) -> None: ...

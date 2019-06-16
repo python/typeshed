@@ -15,7 +15,6 @@ CR: bytes
 LF: bytes
 CRLF: bytes
 
-
 class POP3:
     if sys.version_info >= (3, 0):
         encoding: Text
@@ -25,7 +24,6 @@ class POP3:
     sock: socket.socket
     file: BinaryIO
     welcome: bytes
-
     def __init__(self, host: Text, port: int = ..., timeout: float = ...) -> None: ...
     def getwelcome(self) -> bytes: ...
     def set_debuglevel(self, level: int) -> None: ...
@@ -40,7 +38,6 @@ class POP3:
     def quit(self) -> bytes: ...
     def close(self) -> None: ...
     def rpop(self, user: Text) -> bytes: ...
-
     timestamp: Pattern[Text]
 
     if sys.version_info < (3, 0):
@@ -48,27 +45,31 @@ class POP3:
     else:
         def apop(self, user: Text, password: Text) -> bytes: ...
     def top(self, which: Any, howmuch: int) -> _LongResp: ...
-
     @overload
     def uidl(self) -> _LongResp: ...
     @overload
     def uidl(self, which: Any) -> bytes: ...
-
     if sys.version_info >= (3, 5):
         def utf8(self) -> bytes: ...
     if sys.version_info >= (3, 4):
         def capa(self) -> Dict[Text, List[Text]]: ...
         def stls(self, context: Optional[ssl.SSLContext] = ...) -> bytes: ...
 
-
 class POP3_SSL(POP3):
     if sys.version_info >= (3, 0):
-        def __init__(self, host: Text, port: int = ..., keyfile: Optional[Text] = ..., certfile: Optional[Text] = ...,
-                     timeout: float = ..., context: Optional[ssl.SSLContext] = ...) -> None: ...
+        def __init__(
+            self,
+            host: Text,
+            port: int = ...,
+            keyfile: Optional[Text] = ...,
+            certfile: Optional[Text] = ...,
+            timeout: float = ...,
+            context: Optional[ssl.SSLContext] = ...,
+        ) -> None: ...
     else:
-        def __init__(self, host: Text, port: int = ..., keyfile: Optional[Text] = ..., certfile: Optional[Text] = ...,
-                     timeout: float = ...) -> None: ...
-
+        def __init__(
+            self, host: Text, port: int = ..., keyfile: Optional[Text] = ..., certfile: Optional[Text] = ..., timeout: float = ...
+        ) -> None: ...
     if sys.version_info >= (3, 4):
         # "context" is actually the last argument, but that breaks LSP and it doesn't really matter because all the arguments are ignored
         def stls(self, context: Any = ..., keyfile: Any = ..., certfile: Any = ...) -> bytes: ...

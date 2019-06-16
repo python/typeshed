@@ -3,7 +3,14 @@ import zlib
 from os.path import _PathType
 from typing import IO, Any, Optional
 
-def open(filename, mode: str = ..., compresslevel: int = ..., encoding: Optional[str] = ..., errors: Optional[str] = ..., newline: Optional[str] = ...) -> IO[Any]: ...
+def open(
+    filename,
+    mode: str = ...,
+    compresslevel: int = ...,
+    encoding: Optional[str] = ...,
+    errors: Optional[str] = ...,
+    newline: Optional[str] = ...,
+) -> IO[Any]: ...
 
 class _PaddedFile:
     file: IO[bytes]
@@ -19,7 +26,14 @@ class GzipFile(_compression.BaseStream):
     name: str
     compress: zlib._Compress
     fileobj: IO[bytes]
-    def __init__(self, filename: Optional[_PathType] = ..., mode: Optional[str] = ..., compresslevel: int = ..., fileobj: Optional[IO[bytes]] = ..., mtime: Optional[float] = ...) -> None: ...
+    def __init__(
+        self,
+        filename: Optional[_PathType] = ...,
+        mode: Optional[str] = ...,
+        compresslevel: int = ...,
+        fileobj: Optional[IO[bytes]] = ...,
+        mtime: Optional[float] = ...,
+    ) -> None: ...
     @property
     def filename(self) -> str: ...
     @property

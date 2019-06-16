@@ -3,7 +3,7 @@
 from lib2to3.pgen2 import _Path
 from typing import Any, Dict, List, Optional, Text, Tuple, TypeVar
 
-_P = TypeVar('_P')
+_P = TypeVar("_P")
 _Label = Tuple[int, Optional[Text]]
 _DFA = List[List[Tuple[int, int]]]
 _DFAS = Tuple[_DFA, Dict[int, int]]

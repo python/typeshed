@@ -28,6 +28,7 @@ class NonExistentTimeError(InvalidTimeError): ...
 
 utc: _UTCclass
 UTC: _UTCclass
+
 def timezone(zone: str) -> Union[_UTCclass, _StaticTzInfo, _DstTzInfo]: ...
 
 all_timezones: List[str]

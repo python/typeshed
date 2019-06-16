@@ -9,13 +9,7 @@ ENCODING: int
 
 _Position = Tuple[int, int]
 
-_TokenInfo = NamedTuple('TokenInfo', [
-    ('type', int),
-    ('string', str),
-    ('start', _Position),
-    ('end', _Position),
-    ('line', str)
-])
+_TokenInfo = NamedTuple("TokenInfo", [("type", int), ("string", str), ("start", _Position), ("end", _Position), ("line", str)])
 
 class TokenInfo(_TokenInfo):
     @property
@@ -45,6 +39,7 @@ def generate_tokens(readline: Callable[[], str]) -> Generator[TokenInfo, None, N
 if sys.version_info >= (3, 6):
     from os import PathLike
     def open(filename: Union[str, bytes, int, PathLike]) -> TextIO: ...
+
 else:
     def open(filename: Union[str, bytes, int]) -> TextIO: ...
 

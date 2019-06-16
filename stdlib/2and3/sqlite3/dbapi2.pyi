@@ -6,7 +6,7 @@ import sys
 from datetime import date, datetime, time
 from typing import Any, Callable, Iterable, Iterator, List, Optional, Text, Tuple, Type, TypeVar, Union
 
-_T = TypeVar('_T')
+_T = TypeVar("_T")
 
 paramstyle: str
 threadsafety: int
@@ -71,32 +71,42 @@ version: str
 # TODO: adapt needs to get probed
 def adapt(obj, protocol, alternate): ...
 def complete_statement(sql: str) -> bool: ...
+
 if sys.version_info >= (3, 7):
-    def connect(database: Union[bytes, Text, os.PathLike[Text]],
-                timeout: float = ...,
-                detect_types: int = ...,
-                isolation_level: Optional[str] = ...,
-                check_same_thread: bool = ...,
-                factory: Optional[Type[Connection]] = ...,
-                cached_statements: int = ...,
-                uri: bool = ...) -> Connection: ...
+    def connect(
+        database: Union[bytes, Text, os.PathLike[Text]],
+        timeout: float = ...,
+        detect_types: int = ...,
+        isolation_level: Optional[str] = ...,
+        check_same_thread: bool = ...,
+        factory: Optional[Type[Connection]] = ...,
+        cached_statements: int = ...,
+        uri: bool = ...,
+    ) -> Connection: ...
+
 elif sys.version_info >= (3, 4):
-    def connect(database: Union[bytes, Text],
-                timeout: float = ...,
-                detect_types: int = ...,
-                isolation_level: Optional[str] = ...,
-                check_same_thread: bool = ...,
-                factory: Optional[Type[Connection]] = ...,
-                cached_statements: int = ...,
-                uri: bool = ...) -> Connection: ...
+    def connect(
+        database: Union[bytes, Text],
+        timeout: float = ...,
+        detect_types: int = ...,
+        isolation_level: Optional[str] = ...,
+        check_same_thread: bool = ...,
+        factory: Optional[Type[Connection]] = ...,
+        cached_statements: int = ...,
+        uri: bool = ...,
+    ) -> Connection: ...
+
 else:
-    def connect(database: Union[bytes, Text],
-                timeout: float = ...,
-                detect_types: int = ...,
-                isolation_level: Optional[str] = ...,
-                check_same_thread: bool = ...,
-                factory: Optional[Type[Connection]] = ...,
-                cached_statements: int = ...) -> Connection: ...
+    def connect(
+        database: Union[bytes, Text],
+        timeout: float = ...,
+        detect_types: int = ...,
+        isolation_level: Optional[str] = ...,
+        check_same_thread: bool = ...,
+        factory: Optional[Type[Connection]] = ...,
+        cached_statements: int = ...,
+    ) -> Connection: ...
+
 def enable_callback_tracebacks(flag: bool) -> None: ...
 def enable_shared_cache(do_enable: int) -> None: ...
 def register_adapter(type: Type[_T], callable: Callable[[_T], Union[int, float, str, bytes]]) -> None: ...
@@ -149,9 +159,15 @@ class Connection(object):
     def enable_load_extension(self, enabled: bool) -> None: ...
     def load_extension(self, path: str) -> None: ...
     if sys.version_info >= (3, 7):
-        def backup(self, target: Connection, *, pages: int = ...,
-                   progress: Optional[Callable[[int, int, int], object]] = ..., name: str = ...,
-                   sleep: float = ...) -> None: ...
+        def backup(
+            self,
+            target: Connection,
+            *,
+            pages: int = ...,
+            progress: Optional[Callable[[int, int, int], object]] = ...,
+            name: str = ...,
+            sleep: float = ...
+        ) -> None: ...
     def __call__(self, *args, **kwargs): ...
     def __enter__(self, *args, **kwargs): ...
     def __exit__(self, *args, **kwargs): ...
@@ -182,21 +198,13 @@ class Cursor(Iterator[Any]):
     else:
         def next(self) -> Any: ...
 
-
 class DataError(DatabaseError): ...
-
 class DatabaseError(Error): ...
-
 class Error(Exception): ...
-
 class IntegrityError(DatabaseError): ...
-
 class InterfaceError(Error): ...
-
 class InternalError(DatabaseError): ...
-
 class NotSupportedError(DatabaseError): ...
-
 class OperationalError(DatabaseError): ...
 
 class OptimizedUnicode(object):

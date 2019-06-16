@@ -65,7 +65,9 @@ def getitimer(which: int) -> Tuple[float, float]: ...
 def set_wakeup_fd(fd: int) -> int: ...
 def siginterrupt(signalnum: int, flag: bool) -> None:
     raise RuntimeError()
+
 def signal(signalnum: int, handler: _HANDLER) -> _HANDLER:
     raise RuntimeError()
+
 def default_int_handler(signum: int, frame: FrameType) -> None:
     raise KeyboardInterrupt()

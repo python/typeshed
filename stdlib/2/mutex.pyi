@@ -3,7 +3,7 @@
 from collections import deque
 from typing import Any, Callable, TypeVar
 
-_ArgType = TypeVar('_ArgType')
+_ArgType = TypeVar("_ArgType")
 
 class mutex:
     locked: bool

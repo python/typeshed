@@ -6,29 +6,19 @@ from google.protobuf.unittest_no_arena_import_pb2 import ImportNoArenaNestedMess
 
 class NestedMessage(Message):
     d: int
-
-    def __init__(self,
-                 d: Optional[int] = ...,
-                 ) -> None: ...
-
+    def __init__(self, d: Optional[int] = ...) -> None: ...
     @classmethod
     def FromString(cls, s: bytes) -> NestedMessage: ...
 
-
 class ArenaMessage(Message):
-
     @property
-    def repeated_nested_message(
-        self) -> RepeatedCompositeFieldContainer[NestedMessage]: ...
-
+    def repeated_nested_message(self) -> RepeatedCompositeFieldContainer[NestedMessage]: ...
     @property
-    def repeated_import_no_arena_message(
-        self) -> RepeatedCompositeFieldContainer[ImportNoArenaNestedMessage]: ...
-
-    def __init__(self,
-                 repeated_nested_message: Optional[Iterable[NestedMessage]] = ...,
-                 repeated_import_no_arena_message: Optional[Iterable[ImportNoArenaNestedMessage]] = ...,
-                 ) -> None: ...
-
+    def repeated_import_no_arena_message(self) -> RepeatedCompositeFieldContainer[ImportNoArenaNestedMessage]: ...
+    def __init__(
+        self,
+        repeated_nested_message: Optional[Iterable[NestedMessage]] = ...,
+        repeated_import_no_arena_message: Optional[Iterable[ImportNoArenaNestedMessage]] = ...,
+    ) -> None: ...
     @classmethod
     def FromString(cls, s: bytes) -> ArenaMessage: ...

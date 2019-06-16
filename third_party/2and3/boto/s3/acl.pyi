@@ -34,7 +34,15 @@ class Grant:
     uri: Text
     email_address: Text
     type: Text
-    def __init__(self, permission: Optional[Text] = ..., type: Optional[Text] = ..., id: Optional[Text] = ..., display_name: Optional[Text] = ..., uri: Optional[Text] = ..., email_address: Optional[Text] = ...) -> None: ...
+    def __init__(
+        self,
+        permission: Optional[Text] = ...,
+        type: Optional[Text] = ...,
+        id: Optional[Text] = ...,
+        display_name: Optional[Text] = ...,
+        uri: Optional[Text] = ...,
+        email_address: Optional[Text] = ...,
+    ) -> None: ...
     def startElement(self, name, attrs, connection): ...
     def endElement(self, name: Text, value: Any, connection: S3Connection) -> None: ...
     def to_xml(self) -> str: ...

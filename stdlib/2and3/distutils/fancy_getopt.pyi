@@ -5,10 +5,9 @@ from typing import Any, List, Mapping, Optional, Tuple, TypeVar, Union, overload
 _Option = Tuple[str, str, str]
 _GR = Tuple[List[str], OptionDummy]
 
-def fancy_getopt(options: List[_Option],
-                 negative_opt: Mapping[_Option, _Option],
-                 object: Any,
-                 args: Optional[List[str]]) -> Union[List[str], _GR]: ...
+def fancy_getopt(
+    options: List[_Option], negative_opt: Mapping[_Option, _Option], object: Any, args: Optional[List[str]]
+) -> Union[List[str], _GR]: ...
 def wrap_text(text: str, width: int) -> List[str]: ...
 
 class FancyGetopt:

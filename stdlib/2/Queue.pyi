@@ -3,7 +3,7 @@
 from collections import deque
 from typing import Any, Generic, Optional, TypeVar
 
-_T = TypeVar('_T')
+_T = TypeVar("_T")
 
 class Empty(Exception): ...
 class Full(Exception): ...

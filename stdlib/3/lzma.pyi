@@ -4,6 +4,7 @@ from typing import IO, Any, Mapping, Optional, Sequence, Union
 
 if sys.version_info >= (3, 6):
     from os import PathLike
+
     _PathOrFile = Union[str, bytes, IO[Any], PathLike[Any]]
 else:
     _PathOrFile = Union[str, bytes, IO[Any]]
@@ -41,7 +42,9 @@ PRESET_EXTREME: int
 
 # from _lzma.c
 class LZMADecompressor(object):
-    def __init__(self, format: Optional[int] = ..., memlimit: Optional[int] = ..., filters: Optional[_FilterChain] = ...) -> None: ...
+    def __init__(
+        self, format: Optional[int] = ..., memlimit: Optional[int] = ..., filters: Optional[_FilterChain] = ...
+    ) -> None: ...
     def decompress(self, data: bytes, max_length: int = ...) -> bytes: ...
     @property
     def check(self) -> int: ...
@@ -55,27 +58,25 @@ class LZMADecompressor(object):
 
 # from _lzma.c
 class LZMACompressor(object):
-    def __init__(self,
-                 format: Optional[int] = ...,
-                 check: int = ...,
-                 preset: Optional[int] = ...,
-                 filters: Optional[_FilterChain] = ...) -> None: ...
+    def __init__(
+        self, format: Optional[int] = ..., check: int = ..., preset: Optional[int] = ..., filters: Optional[_FilterChain] = ...
+    ) -> None: ...
     def compress(self, data: bytes) -> bytes: ...
     def flush(self) -> bytes: ...
 
-
 class LZMAError(Exception): ...
 
-
 class LZMAFile(io.BufferedIOBase, IO[bytes]):  # type: ignore  # python/mypy#5027
-    def __init__(self,
-                 filename: Optional[_PathOrFile] = ...,
-                 mode: str = ...,
-                 *,
-                 format: Optional[int] = ...,
-                 check: int = ...,
-                 preset: Optional[int] = ...,
-                 filters: Optional[_FilterChain] = ...) -> None: ...
+    def __init__(
+        self,
+        filename: Optional[_PathOrFile] = ...,
+        mode: str = ...,
+        *,
+        format: Optional[int] = ...,
+        check: int = ...,
+        preset: Optional[int] = ...,
+        filters: Optional[_FilterChain] = ...
+    ) -> None: ...
     def close(self) -> None: ...
     @property
     def closed(self) -> bool: ...
@@ -91,17 +92,20 @@ class LZMAFile(io.BufferedIOBase, IO[bytes]):  # type: ignore  # python/mypy#502
     def seek(self, offset: int, whence: int = ...) -> int: ...
     def tell(self) -> int: ...
 
-
-def open(filename: _PathOrFile,
-         mode: str = ...,
-         *,
-         format: Optional[int] = ...,
-         check: int = ...,
-         preset: Optional[int] = ...,
-         filters: Optional[_FilterChain] = ...,
-         encoding: Optional[str] = ...,
-         errors: Optional[str] = ...,
-         newline: Optional[str] = ...) -> IO[Any]: ...
-def compress(data: bytes, format: int = ..., check: int = ..., preset: Optional[int] = ..., filters: Optional[_FilterChain] = ...) -> bytes: ...
+def open(
+    filename: _PathOrFile,
+    mode: str = ...,
+    *,
+    format: Optional[int] = ...,
+    check: int = ...,
+    preset: Optional[int] = ...,
+    filters: Optional[_FilterChain] = ...,
+    encoding: Optional[str] = ...,
+    errors: Optional[str] = ...,
+    newline: Optional[str] = ...
+) -> IO[Any]: ...
+def compress(
+    data: bytes, format: int = ..., check: int = ..., preset: Optional[int] = ..., filters: Optional[_FilterChain] = ...
+) -> bytes: ...
 def decompress(data: bytes, format: int = ..., memlimit: Optional[int] = ..., filters: Optional[_FilterChain] = ...) -> bytes: ...
 def is_check_supported(check: int) -> bool: ...

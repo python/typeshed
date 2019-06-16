@@ -12,26 +12,25 @@ else:
 
 _ParamsMappingValueType = Union[_Text, bytes, int, float, Iterable[Union[_Text, bytes, int, float]]]
 _Data = Union[
-    None,
-    _Text,
-    bytes,
-    MutableMapping[str, Any],
-    MutableMapping[Text, Any],
-    Iterable[Tuple[_Text, Optional[_Text]]],
-    IO
+    None, _Text, bytes, MutableMapping[str, Any], MutableMapping[Text, Any], Iterable[Tuple[_Text, Optional[_Text]]], IO
 ]
 
 def request(method: str, url: str, **kwargs) -> Response: ...
-def get(url: Union[_Text, bytes],
-        params: Optional[
-            Union[Mapping[Union[_Text, bytes, int, float], _ParamsMappingValueType],
-                  Union[_Text, bytes],
-                  Tuple[Union[_Text, bytes, int, float], _ParamsMappingValueType],
-                  Mapping[_Text, _ParamsMappingValueType],
-                  Mapping[bytes, _ParamsMappingValueType],
-                  Mapping[int, _ParamsMappingValueType],
-                  Mapping[float, _ParamsMappingValueType]]] = ...,
-        **kwargs) -> Response: ...
+def get(
+    url: Union[_Text, bytes],
+    params: Optional[
+        Union[
+            Mapping[Union[_Text, bytes, int, float], _ParamsMappingValueType],
+            Union[_Text, bytes],
+            Tuple[Union[_Text, bytes, int, float], _ParamsMappingValueType],
+            Mapping[_Text, _ParamsMappingValueType],
+            Mapping[bytes, _ParamsMappingValueType],
+            Mapping[int, _ParamsMappingValueType],
+            Mapping[float, _ParamsMappingValueType],
+        ]
+    ] = ...,
+    **kwargs
+) -> Response: ...
 def options(url: _Text, **kwargs) -> Response: ...
 def head(url: _Text, **kwargs) -> Response: ...
 def post(url: _Text, data: _Data = ..., json=..., **kwargs) -> Response: ...

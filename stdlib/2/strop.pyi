@@ -43,7 +43,6 @@ def lstrip(s: str) -> str:
     raise DeprecationWarning()
 
 def maketrans(frm: str, to: str) -> str: ...
-
 def replace(s: str, old: str, new: str, maxsplit: int = ...) -> str:
     raise DeprecationWarning()
 

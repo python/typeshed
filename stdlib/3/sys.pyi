@@ -8,7 +8,7 @@ from importlib.abc import MetaPathFinder
 from types import FrameType, ModuleType, TracebackType
 from typing import Any, Callable, Dict, List, NoReturn, Optional, Sequence, TextIO, Tuple, Type, TypeVar, Union, overload
 
-_T = TypeVar('_T')
+_T = TypeVar("_T")
 
 # The following type alias are stub-only and do not exist during runtime
 _ExcInfo = Tuple[Type[BaseException], BaseException, TracebackType]
@@ -61,8 +61,8 @@ warnoptions: Any
 # winver = ''  # Windows only
 _xoptions: Dict[Any, Any]
 
-
 flags: _flags
+
 class _flags:
     debug: int
     division_warning: int
@@ -81,20 +81,22 @@ class _flags:
         dev_mode: int
 
 float_info: _float_info
+
 class _float_info:
-    epsilon: float   # DBL_EPSILON
-    dig: int         # DBL_DIG
-    mant_dig: int    # DBL_MANT_DIG
-    max: float       # DBL_MAX
-    max_exp: int     # DBL_MAX_EXP
+    epsilon: float  # DBL_EPSILON
+    dig: int  # DBL_DIG
+    mant_dig: int  # DBL_MANT_DIG
+    max: float  # DBL_MAX
+    max_exp: int  # DBL_MAX_EXP
     max_10_exp: int  # DBL_MAX_10_EXP
-    min: float       # DBL_MIN
-    min_exp: int     # DBL_MIN_EXP
+    min: float  # DBL_MIN
+    min_exp: int  # DBL_MIN_EXP
     min_10_exp: int  # DBL_MIN_10_EXP
-    radix: int       # FLT_RADIX
-    rounds: int      # FLT_ROUNDS
+    radix: int  # FLT_RADIX
+    rounds: int  # FLT_ROUNDS
 
 hash_info: _hash_info
+
 class _hash_info:
     width: int
     modulus: int
@@ -103,6 +105,7 @@ class _hash_info:
     imag: int
 
 implementation: _implementation
+
 class _implementation:
     name: str
     version: _version_info
@@ -110,6 +113,7 @@ class _implementation:
     cache_tag: str
 
 int_info: _int_info
+
 class _int_info:
     bits_per_digit: int
     sizeof_digit: int
@@ -120,51 +124,51 @@ class _version_info(Tuple[int, int, int, str, int]):
     micro: int
     releaselevel: str
     serial: int
+
 version_info: _version_info
 
 def call_tracing(fn: Callable[..., _T], args: Any) -> _T: ...
 def _clear_type_cache() -> None: ...
 def _current_frames() -> Dict[int, Any]: ...
 def displayhook(value: Optional[int]) -> None: ...
-def excepthook(type_: Type[BaseException], value: BaseException,
-               traceback: TracebackType) -> None: ...
+def excepthook(type_: Type[BaseException], value: BaseException, traceback: TracebackType) -> None: ...
 def exc_info() -> _OptExcInfo: ...
+
 # sys.exit() accepts an optional argument of anything printable
 def exit(arg: object = ...) -> NoReturn:
     raise SystemExit()
+
 def getcheckinterval() -> int: ...  # deprecated
 def getdefaultencoding() -> str: ...
-if sys.platform != 'win32':
+
+if sys.platform != "win32":
     # Unix only
     def getdlopenflags() -> int: ...
+
 def getfilesystemencoding() -> str: ...
 def getrefcount(arg: Any) -> int: ...
 def getrecursionlimit() -> int: ...
-
 @overload
 def getsizeof(obj: object) -> int: ...
 @overload
 def getsizeof(obj: object, default: int) -> int: ...
-
 def getswitchinterval() -> float: ...
-
 @overload
 def _getframe() -> FrameType: ...
 @overload
 def _getframe(depth: int) -> FrameType: ...
 
 _ProfileFunc = Callable[[FrameType, str, Any], Any]
+
 def getprofile() -> Optional[_ProfileFunc]: ...
 def setprofile(profilefunc: Optional[_ProfileFunc]) -> None: ...
 
 _TraceFunc = Callable[[FrameType, str, Any], Optional[Callable[[FrameType, str, Any], Any]]]
+
 def gettrace() -> Optional[_TraceFunc]: ...
 def settrace(tracefunc: Optional[_TraceFunc]) -> None: ...
 
-
-class _WinVersion(Tuple[int, int, int, int,
-                        str, int, int, int, int,
-                        Tuple[int, int, int]]):
+class _WinVersion(Tuple[int, int, int, int, str, int, int, int, int, Tuple[int, int, int]]):
     major: int
     minor: int
     build: int
@@ -176,9 +180,7 @@ class _WinVersion(Tuple[int, int, int, int,
     product_type: int
     platform_version: Tuple[int, int, int]
 
-
 def getwindowsversion() -> _WinVersion: ...  # Windows only
-
 def intern(string: str) -> str: ...
 
 if sys.version_info >= (3, 5):
@@ -193,5 +195,4 @@ def setdlopenflags(n: int) -> None: ...  # Linux only
 def setrecursionlimit(limit: int) -> None: ...
 def setswitchinterval(interval: float) -> None: ...
 def settscdump(on_flag: bool) -> None: ...
-
 def gettotalrefcount() -> int: ...  # Debug builds only

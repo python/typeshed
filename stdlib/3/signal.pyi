@@ -53,19 +53,15 @@ if sys.version_info >= (3, 5):
         SIGWINCH = ...
         SIGXCPU = ...
         SIGXFSZ = ...
-
     class Handlers(IntEnum):
         SIG_DFL = ...
         SIG_IGN = ...
-
     SIG_DFL = Handlers.SIG_DFL
     SIG_IGN = Handlers.SIG_IGN
-
     class Sigmasks(IntEnum):
         SIG_BLOCK = ...
         SIG_UNBLOCK = ...
         SIG_SETMASK = ...
-
     SIG_BLOCK = Sigmasks.SIG_BLOCK
     SIG_UNBLOCK = Sigmasks.SIG_UNBLOCK
     SIG_SETMASK = Sigmasks.SIG_SETMASK
@@ -146,17 +142,14 @@ class struct_siginfo(Tuple[int, int, int, int, int, int, int]):
     def si_band(self) -> int: ...
 
 def alarm(time: int) -> int: ...
-
 def default_int_handler(signum: int, frame: FrameType) -> None:
     raise KeyboardInterrupt()
 
 def getitimer(which: int) -> Tuple[float, float]: ...
-
 def getsignal(signalnum: _SIGNUM) -> _HANDLER:
     raise ValueError()
 
 def pause() -> None: ...
-
 def pthread_kill(thread_id: int, signum: int) -> None:
     raise OSError()
 
@@ -164,9 +157,7 @@ def pthread_sigmask(how: int, mask: Iterable[int]) -> Set[_SIGNUM]:
     raise OSError()
 
 def set_wakeup_fd(fd: int) -> int: ...
-
 def setitimer(which: int, seconds: float, interval: float = ...) -> Tuple[float, float]: ...
-
 def siginterrupt(signalnum: int, flag: bool) -> None:
     raise OSError()
 

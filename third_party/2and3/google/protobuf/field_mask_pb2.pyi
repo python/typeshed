@@ -6,10 +6,6 @@ from google.protobuf.message import Message
 
 class FieldMask(Message, well_known_types.FieldMask):
     paths: RepeatedScalarFieldContainer[Text]
-
-    def __init__(self,
-                 paths: Optional[Iterable[Text]] = ...,
-                 ) -> None: ...
-
+    def __init__(self, paths: Optional[Iterable[Text]] = ...) -> None: ...
     @classmethod
     def FromString(cls, s: bytes) -> FieldMask: ...

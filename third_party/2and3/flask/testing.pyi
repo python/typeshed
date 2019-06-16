@@ -9,7 +9,15 @@ from click.testing import CliRunner, Result
 
 from werkzeug.test import Client
 
-def make_test_environ_builder(app: Any, path: str = ..., base_url: Optional[Any] = ..., subdomain: Optional[Any] = ..., url_scheme: Optional[Any] = ..., *args: Any, **kwargs: Any): ...
+def make_test_environ_builder(
+    app: Any,
+    path: str = ...,
+    base_url: Optional[Any] = ...,
+    subdomain: Optional[Any] = ...,
+    url_scheme: Optional[Any] = ...,
+    *args: Any,
+    **kwargs: Any,
+): ...
 
 class FlaskClient(Client):
     preserve_context: bool = ...
@@ -32,5 +40,4 @@ class FlaskCliRunner(CliRunner):
         catch_exceptions: bool = ...,
         color: bool = ...,
         **extra: Any,
-    ) -> Result:
-        ...
+    ) -> Result: ...

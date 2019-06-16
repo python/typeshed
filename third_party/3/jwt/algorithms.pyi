@@ -17,7 +17,6 @@ class Algorithm(Generic[_K]):
     @staticmethod
     def from_jwk(jwk: str) -> Any: ...  # should return _K, see python/mypy#1337
 
-
 class NoneAlgorithm(Algorithm[None]):
     def prepare_key(self, key: Optional[str]) -> None: ...
 

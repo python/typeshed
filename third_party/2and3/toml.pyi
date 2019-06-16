@@ -4,8 +4,10 @@ from typing import IO, Any, List, Mapping, MutableMapping, Optional, Protocol, T
 
 if sys.version_info >= (3, 4):
     import pathlib
+
     if sys.version_info >= (3, 6):
         import os
+
         _PathLike = Union[Text, pathlib.PurePath, os.PathLike]
     else:
         _PathLike = Union[Text, pathlib.PurePath]
@@ -19,6 +21,5 @@ class TomlDecodeError(Exception): ...
 
 def load(f: Union[_PathLike, List[Text], IO[str]], _dict: Type[MutableMapping[str, Any]] = ...) -> MutableMapping[str, Any]: ...
 def loads(s: Text, _dict: Type[MutableMapping[str, Any]] = ...) -> MutableMapping[str, Any]: ...
-
 def dump(o: Mapping[str, Any], f: _Writable) -> str: ...
 def dumps(o: Mapping[str, Any]) -> str: ...

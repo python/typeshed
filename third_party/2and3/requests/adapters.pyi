@@ -38,13 +38,15 @@ DEFAULT_RETRIES: Any
 
 class BaseAdapter:
     def __init__(self) -> None: ...
-    def send(self,
-             request: PreparedRequest,
-             stream: bool = ...,
-             timeout: Union[None, float, Tuple[float, float]] = ...,
-             verify: Union[bool, str] = ...,
-             cert: Union[None, Union[bytes, Text], Container[Union[bytes, Text]]] = ...,
-             proxies: Optional[Mapping[str, str]] = ...) -> Response: ...
+    def send(
+        self,
+        request: PreparedRequest,
+        stream: bool = ...,
+        timeout: Union[None, float, Tuple[float, float]] = ...,
+        verify: Union[bool, str] = ...,
+        cert: Union[None, Union[bytes, Text], Container[Union[bytes, Text]]] = ...,
+        proxies: Optional[Mapping[str, str]] = ...,
+    ) -> Response: ...
     def close(self) -> None: ...
 
 class HTTPAdapter(BaseAdapter):
@@ -52,8 +54,7 @@ class HTTPAdapter(BaseAdapter):
     max_retries: Any
     config: Any
     proxy_manager: Any
-    def __init__(self, pool_connections=..., pool_maxsize=..., max_retries=...,
-                 pool_block=...) -> None: ...
+    def __init__(self, pool_connections=..., pool_maxsize=..., max_retries=..., pool_block=...) -> None: ...
     poolmanager: Any
     def init_poolmanager(self, connections, maxsize, block=..., **pool_kwargs): ...
     def proxy_manager_for(self, proxy, **proxy_kwargs): ...
@@ -64,10 +65,12 @@ class HTTPAdapter(BaseAdapter):
     def request_url(self, request, proxies): ...
     def add_headers(self, request, **kwargs): ...
     def proxy_headers(self, proxy): ...
-    def send(self,
-             request: PreparedRequest,
-             stream: bool = ...,
-             timeout: Union[None, float, Tuple[float, float]] = ...,
-             verify: Union[bool, str] = ...,
-             cert: Union[None, Union[bytes, Text], Container[Union[bytes, Text]]] = ...,
-             proxies: Optional[Mapping[str, str]] = ...) -> Response: ...
+    def send(
+        self,
+        request: PreparedRequest,
+        stream: bool = ...,
+        timeout: Union[None, float, Tuple[float, float]] = ...,
+        verify: Union[bool, str] = ...,
+        cert: Union[None, Union[bytes, Text], Container[Union[bytes, Text]]] = ...,
+        proxies: Optional[Mapping[str, str]] = ...,
+    ) -> Response: ...

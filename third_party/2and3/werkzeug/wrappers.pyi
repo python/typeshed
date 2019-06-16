@@ -65,7 +65,9 @@ class BaseRequest:
     @property
     def data(self) -> bytes: ...
     # TODO: once Literal types are supported, overload with as_text
-    def get_data(self, cache: bool = ..., as_text: bool = ..., parse_form_data: bool = ...) -> Any: ...  # returns bytes if as_text is False (the default), else Text
+    def get_data(
+        self, cache: bool = ..., as_text: bool = ..., parse_form_data: bool = ...
+    ) -> Any: ...  # returns bytes if as_text is False (the default), else Text
     form: ImmutableMultiDict
     values: CombinedMultiDict
     files: MultiDict
@@ -99,8 +101,8 @@ class BaseRequest:
     def __setattr__(self, name: str, value: Any): ...
     def __getattr__(self, name: str): ...
 
-_OnCloseT = TypeVar('_OnCloseT', bound=Callable[[], Any])
-_SelfT = TypeVar('_SelfT', bound=BaseResponse)
+_OnCloseT = TypeVar("_OnCloseT", bound=Callable[[], Any])
+_SelfT = TypeVar("_SelfT", bound=BaseResponse)
 
 class BaseResponse:
     charset: str
@@ -114,14 +116,15 @@ class BaseResponse:
     status: str
     direct_passthrough: bool
     response: Iterable[bytes]
-    def __init__(self, response: Optional[Union[str, bytes, bytearray, Iterable[str], Iterable[bytes]]] = ...,
-                 status: Optional[Union[Text, int]] = ...,
-                 headers: Optional[Union[Headers,
-                                         Mapping[Text, Text],
-                                         Sequence[Tuple[Text, Text]]]] = ...,
-                 mimetype: Optional[Text] = ...,
-                 content_type: Optional[Text] = ...,
-                 direct_passthrough: bool = ...) -> None: ...
+    def __init__(
+        self,
+        response: Optional[Union[str, bytes, bytearray, Iterable[str], Iterable[bytes]]] = ...,
+        status: Optional[Union[Text, int]] = ...,
+        headers: Optional[Union[Headers, Mapping[Text, Text], Sequence[Tuple[Text, Text]]]] = ...,
+        mimetype: Optional[Text] = ...,
+        content_type: Optional[Text] = ...,
+        direct_passthrough: bool = ...,
+    ) -> None: ...
     def call_on_close(self, func: _OnCloseT) -> _OnCloseT: ...
     @classmethod
     def force_type(cls: Type[_SelfT], response: object, environ: Optional[WSGIEnvironment] = ...) -> _SelfT: ...
@@ -134,8 +137,17 @@ class BaseResponse:
     def calculate_content_length(self) -> Optional[int]: ...
     def make_sequence(self) -> None: ...
     def iter_encoded(self) -> Iterator[bytes]: ...
-    def set_cookie(self, key, value: str = ..., max_age: Optional[Any] = ..., expires: Optional[Any] = ...,
-                   path: str = ..., domain: Optional[Any] = ..., secure: bool = ..., httponly: bool = ...): ...
+    def set_cookie(
+        self,
+        key,
+        value: str = ...,
+        max_age: Optional[Any] = ...,
+        expires: Optional[Any] = ...,
+        path: str = ...,
+        domain: Optional[Any] = ...,
+        secure: bool = ...,
+        httponly: bool = ...,
+    ): ...
     def delete_cookie(self, key, path: str = ..., domain: Optional[Any] = ...): ...
     @property
     def is_streamed(self) -> bool: ...

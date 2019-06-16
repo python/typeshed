@@ -1,6 +1,7 @@
 # Python 3.5 ast
 
 import sys
+
 # Rename typing to _typing, as not to conflict with typing imported
 # from _ast below when loaded in an unorthodox way by the Dropbox
 # internal Bazel integration.
@@ -9,18 +10,24 @@ from typing import Any, Iterator, Optional, TypeVar, Union
 
 from _ast import *  # type: ignore
 
-class NodeVisitor():
+class NodeVisitor:
     def visit(self, node: AST) -> Any: ...
     def generic_visit(self, node: AST) -> Any: ...
 
 class NodeTransformer(NodeVisitor):
     def generic_visit(self, node: AST) -> Optional[AST]: ...
 
-_T = TypeVar('_T', bound=AST)
+_T = TypeVar("_T", bound=AST)
 
 if sys.version_info >= (3, 8):
-    def parse(source: Union[str, bytes], filename: Union[str, bytes] = ..., mode: str = ...,
-              type_comments: bool = ..., feature_version: int = ...) -> AST: ...
+    def parse(
+        source: Union[str, bytes],
+        filename: Union[str, bytes] = ...,
+        mode: str = ...,
+        type_comments: bool = ...,
+        feature_version: int = ...,
+    ) -> AST: ...
+
 else:
     def parse(source: Union[str, bytes], filename: Union[str, bytes] = ..., mode: str = ...) -> AST: ...
 

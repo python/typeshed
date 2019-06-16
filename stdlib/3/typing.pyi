@@ -50,25 +50,24 @@ Deque = TypeAlias(object)
 ChainMap = TypeAlias(object)
 
 # Predefined type variables.
-AnyStr = TypeVar('AnyStr', str, bytes)
+AnyStr = TypeVar("AnyStr", str, bytes)
 
 # Abstract base classes.
 
 # These type variables are used by the container types.
-_T = TypeVar('_T')
-_S = TypeVar('_S')
-_KT = TypeVar('_KT')  # Key type.
-_VT = TypeVar('_VT')  # Value type.
-_T_co = TypeVar('_T_co', covariant=True)  # Any type covariant containers.
-_V_co = TypeVar('_V_co', covariant=True)  # Any type covariant containers.
-_KT_co = TypeVar('_KT_co', covariant=True)  # Key type covariant containers.
-_VT_co = TypeVar('_VT_co', covariant=True)  # Value type covariant containers.
-_T_contra = TypeVar('_T_contra', contravariant=True)  # Ditto contravariant.
-_TC = TypeVar('_TC', bound=Type[object])
+_T = TypeVar("_T")
+_S = TypeVar("_S")
+_KT = TypeVar("_KT")  # Key type.
+_VT = TypeVar("_VT")  # Value type.
+_T_co = TypeVar("_T_co", covariant=True)  # Any type covariant containers.
+_V_co = TypeVar("_V_co", covariant=True)  # Any type covariant containers.
+_KT_co = TypeVar("_KT_co", covariant=True)  # Key type covariant containers.
+_VT_co = TypeVar("_VT_co", covariant=True)  # Value type covariant containers.
+_T_contra = TypeVar("_T_contra", contravariant=True)  # Ditto contravariant.
+_TC = TypeVar("_TC", bound=Type[object])
 _C = TypeVar("_C", bound=Callable)
 
 def runtime(cls: _TC) -> _TC: ...
-
 @runtime
 class SupportsInt(Protocol, metaclass=ABCMeta):
     @abstractmethod
@@ -135,20 +134,14 @@ class Iterator(Iterable[_T_co], Protocol[_T_co]):
 class Generator(Iterator[_T_co], Generic[_T_co, _T_contra, _V_co]):
     @abstractmethod
     def __next__(self) -> _T_co: ...
-
     @abstractmethod
     def send(self, value: _T_contra) -> _T_co: ...
-
     @abstractmethod
-    def throw(self, typ: Type[BaseException], val: Optional[BaseException] = ...,
-              tb: Optional[TracebackType] = ...) -> _T_co: ...
-
+    def throw(self, typ: Type[BaseException], val: Optional[BaseException] = ..., tb: Optional[TracebackType] = ...) -> _T_co: ...
     @abstractmethod
     def close(self) -> None: ...
-
     @abstractmethod
     def __iter__(self) -> Generator[_T_co, _T_contra, _V_co]: ...
-
     @property
     def gi_code(self) -> CodeType: ...
     @property
@@ -161,7 +154,6 @@ class Generator(Iterator[_T_co], Generic[_T_co, _T_contra, _V_co]):
 # TODO: Several types should only be defined if sys.python_version >= (3, 5):
 # Awaitable, AsyncIterator, AsyncIterable, Coroutine, Collection.
 # See https: //github.com/python/typeshed/issues/655 for why this is not easy.
-
 @runtime
 class Awaitable(Protocol[_T_co]):
     @abstractmethod
@@ -176,22 +168,18 @@ class Coroutine(Awaitable[_V_co], Generic[_T_co, _T_contra, _V_co]):
     def cr_frame(self) -> FrameType: ...
     @property
     def cr_running(self) -> bool: ...
-
     @abstractmethod
     def send(self, value: _T_contra) -> _T_co: ...
-
     @abstractmethod
-    def throw(self, typ: Type[BaseException], val: Optional[BaseException] = ...,
-              tb: Optional[TracebackType] = ...) -> _T_co: ...
-
+    def throw(self, typ: Type[BaseException], val: Optional[BaseException] = ..., tb: Optional[TracebackType] = ...) -> _T_co: ...
     @abstractmethod
     def close(self) -> None: ...
 
-
 # NOTE: This type does not exist in typing.py or PEP 484.
 # The parameters correspond to Generator, but the 4th is the original type.
-class AwaitableGenerator(Awaitable[_V_co], Generator[_T_co, _T_contra, _V_co],
-                         Generic[_T_co, _T_contra, _V_co, _S], metaclass=ABCMeta): ...
+class AwaitableGenerator(
+    Awaitable[_V_co], Generator[_T_co, _T_contra, _V_co], Generic[_T_co, _T_contra, _V_co, _S], metaclass=ABCMeta
+): ...
 
 @runtime
 class AsyncIterable(Protocol[_T_co]):
@@ -199,8 +187,7 @@ class AsyncIterable(Protocol[_T_co]):
     def __aiter__(self) -> AsyncIterator[_T_co]: ...
 
 @runtime
-class AsyncIterator(AsyncIterable[_T_co],
-                    Protocol[_T_co]):
+class AsyncIterator(AsyncIterable[_T_co], Protocol[_T_co]):
     @abstractmethod
     def __anext__(self) -> Awaitable[_T_co]: ...
     def __aiter__(self) -> AsyncIterator[_T_co]: ...
@@ -209,20 +196,14 @@ if sys.version_info >= (3, 6):
     class AsyncGenerator(AsyncIterator[_T_co], Generic[_T_co, _T_contra]):
         @abstractmethod
         def __anext__(self) -> Awaitable[_T_co]: ...
-
         @abstractmethod
         def asend(self, value: _T_contra) -> Awaitable[_T_co]: ...
-
         @abstractmethod
-        def athrow(self, typ: Type[BaseException], val: Optional[BaseException] = ...,
-                   tb: Any = ...) -> Awaitable[_T_co]: ...
-
+        def athrow(self, typ: Type[BaseException], val: Optional[BaseException] = ..., tb: Any = ...) -> Awaitable[_T_co]: ...
         @abstractmethod
         def aclose(self) -> Awaitable[None]: ...
-
         @abstractmethod
         def __aiter__(self) -> AsyncGenerator[_T_co, _T_contra]: ...
-
         @property
         def ag_await(self) -> Any: ...
         @property
@@ -237,14 +218,12 @@ class Container(Protocol[_T_co]):
     @abstractmethod
     def __contains__(self, __x: object) -> bool: ...
 
-
 if sys.version_info >= (3, 6):
     @runtime
     class Collection(Iterable[_T_co], Container[_T_co], Protocol[_T_co]):
         # Implement Sized (but don't have it as a base class).
         @abstractmethod
         def __len__(self) -> int: ...
-
     _Collection = Collection
 else:
     @runtime
@@ -362,24 +341,26 @@ class ValuesView(MappingView, Iterable[_VT_co], Generic[_VT_co]):
 @runtime
 class ContextManager(Protocol[_T_co]):
     def __enter__(self) -> _T_co: ...
-    def __exit__(self, __exc_type: Optional[Type[BaseException]],
-                 __exc_value: Optional[BaseException],
-                 __traceback: Optional[TracebackType]) -> Optional[bool]: ...
+    def __exit__(
+        self,
+        __exc_type: Optional[Type[BaseException]],
+        __exc_value: Optional[BaseException],
+        __traceback: Optional[TracebackType],
+    ) -> Optional[bool]: ...
 
 if sys.version_info >= (3, 5):
     @runtime
     class AsyncContextManager(Protocol[_T_co]):
         def __aenter__(self) -> Awaitable[_T_co]: ...
-        def __aexit__(self, exc_type: Optional[Type[BaseException]],
-                      exc_value: Optional[BaseException],
-                      traceback: Optional[TracebackType]) -> Awaitable[Optional[bool]]: ...
+        def __aexit__(
+            self, exc_type: Optional[Type[BaseException]], exc_value: Optional[BaseException], traceback: Optional[TracebackType]
+        ) -> Awaitable[Optional[bool]]: ...
 
 class Mapping(_Collection[_KT], Generic[_KT, _VT_co]):
     # TODO: We wish the key type could also be covariant, but that doesn't work,
     # see discussion in https: //github.com/python/typing/pull/273.
     @abstractmethod
-    def __getitem__(self, k: _KT) -> _VT_co:
-        ...
+    def __getitem__(self, k: _KT) -> _VT_co: ...
     # Mixin methods
     @overload
     def get(self, k: _KT) -> Optional[_VT_co]: ...
@@ -395,7 +376,6 @@ class MutableMapping(Mapping[_KT, _VT], Generic[_KT, _VT]):
     def __setitem__(self, k: _KT, v: _VT) -> None: ...
     @abstractmethod
     def __delitem__(self, v: _KT) -> None: ...
-
     def clear(self) -> None: ...
     @overload
     def pop(self, k: _KT) -> _VT: ...
@@ -465,7 +445,6 @@ class IO(Iterator[AnyStr], Generic[AnyStr]):
     def write(self, s: AnyStr) -> int: ...
     @abstractmethod
     def writelines(self, lines: Iterable[AnyStr]) -> None: ...
-
     @abstractmethod
     def __next__(self) -> AnyStr: ...
     @abstractmethod
@@ -473,8 +452,9 @@ class IO(Iterator[AnyStr], Generic[AnyStr]):
     @abstractmethod
     def __enter__(self) -> IO[AnyStr]: ...
     @abstractmethod
-    def __exit__(self, t: Optional[Type[BaseException]], value: Optional[BaseException],
-                 traceback: Optional[TracebackType]) -> bool: ...
+    def __exit__(
+        self, t: Optional[Type[BaseException]], value: Optional[BaseException], traceback: Optional[TracebackType]
+    ) -> bool: ...
 
 class BinaryIO(IO[bytes]):
     # TODO readinto
@@ -486,7 +466,6 @@ class BinaryIO(IO[bytes]):
     @overload
     @abstractmethod
     def write(self, s: bytes) -> int: ...
-
     @abstractmethod
     def __enter__(self) -> BinaryIO: ...
 
@@ -517,20 +496,15 @@ class Match(Generic[AnyStr]):
     # The regular expression object whose match() or search() method produced
     # this match instance.
     re: Pattern[AnyStr]
-
     def expand(self, template: AnyStr) -> AnyStr: ...
-
     @overload
     def group(self, group1: int = ...) -> AnyStr: ...
     @overload
     def group(self, group1: str) -> AnyStr: ...
     @overload
-    def group(self, group1: int, group2: int,
-              *groups: int) -> Sequence[AnyStr]: ...
+    def group(self, group1: int, group2: int, *groups: int) -> Sequence[AnyStr]: ...
     @overload
-    def group(self, group1: str, group2: str,
-              *groups: str) -> Sequence[AnyStr]: ...
-
+    def group(self, group1: str, group2: str, *groups: str) -> Sequence[AnyStr]: ...
     def groups(self, default: AnyStr = ...) -> Sequence[AnyStr]: ...
     def groupdict(self, default: AnyStr = ...) -> dict[str, AnyStr]: ...
     def start(self, group: Union[int, str] = ...) -> int: ...
@@ -544,39 +518,27 @@ class Pattern(Generic[AnyStr]):
     groupindex: Mapping[str, int]
     groups = 0
     pattern: AnyStr
-
-    def search(self, string: AnyStr, pos: int = ...,
-               endpos: int = ...) -> Optional[Match[AnyStr]]: ...
-    def match(self, string: AnyStr, pos: int = ...,
-              endpos: int = ...) -> Optional[Match[AnyStr]]: ...
+    def search(self, string: AnyStr, pos: int = ..., endpos: int = ...) -> Optional[Match[AnyStr]]: ...
+    def match(self, string: AnyStr, pos: int = ..., endpos: int = ...) -> Optional[Match[AnyStr]]: ...
     # New in Python 3.4
-    def fullmatch(self, string: AnyStr, pos: int = ...,
-                  endpos: int = ...) -> Optional[Match[AnyStr]]: ...
+    def fullmatch(self, string: AnyStr, pos: int = ..., endpos: int = ...) -> Optional[Match[AnyStr]]: ...
     def split(self, string: AnyStr, maxsplit: int = ...) -> list[AnyStr]: ...
-    def findall(self, string: AnyStr, pos: int = ...,
-                endpos: int = ...) -> list[Any]: ...
-    def finditer(self, string: AnyStr, pos: int = ...,
-                 endpos: int = ...) -> Iterator[Match[AnyStr]]: ...
-
+    def findall(self, string: AnyStr, pos: int = ..., endpos: int = ...) -> list[Any]: ...
+    def finditer(self, string: AnyStr, pos: int = ..., endpos: int = ...) -> Iterator[Match[AnyStr]]: ...
     @overload
-    def sub(self, repl: AnyStr, string: AnyStr,
-            count: int = ...) -> AnyStr: ...
+    def sub(self, repl: AnyStr, string: AnyStr, count: int = ...) -> AnyStr: ...
     @overload
-    def sub(self, repl: Callable[[Match[AnyStr]], AnyStr], string: AnyStr,
-            count: int = ...) -> AnyStr: ...
-
+    def sub(self, repl: Callable[[Match[AnyStr]], AnyStr], string: AnyStr, count: int = ...) -> AnyStr: ...
     @overload
-    def subn(self, repl: AnyStr, string: AnyStr,
-             count: int = ...) -> Tuple[AnyStr, int]: ...
+    def subn(self, repl: AnyStr, string: AnyStr, count: int = ...) -> Tuple[AnyStr, int]: ...
     @overload
-    def subn(self, repl: Callable[[Match[AnyStr]], AnyStr], string: AnyStr,
-             count: int = ...) -> Tuple[AnyStr, int]: ...
+    def subn(self, repl: Callable[[Match[AnyStr]], AnyStr], string: AnyStr, count: int = ...) -> Tuple[AnyStr, int]: ...
 
 # Functions
 
-def get_type_hints(obj: Callable, globalns: Optional[dict[str, Any]] = ...,
-                   localns: Optional[dict[str, Any]] = ...) -> dict[str, Any]: ...
-
+def get_type_hints(
+    obj: Callable, globalns: Optional[dict[str, Any]] = ..., localns: Optional[dict[str, Any]] = ...
+) -> dict[str, Any]: ...
 @overload
 def cast(tp: Type[_T], obj: Any) -> _T: ...
 @overload
@@ -590,13 +552,11 @@ class NamedTuple(tuple):
     _field_defaults: Dict[str, Any] = ...
     _fields: Tuple[str, ...]
     _source: str
-
-    def __init__(self, typename: str, fields: Iterable[Tuple[str, Any]] = ..., *,
-                 verbose: bool = ..., rename: bool = ..., **kwargs: Any) -> None: ...
-
+    def __init__(
+        self, typename: str, fields: Iterable[Tuple[str, Any]] = ..., *, verbose: bool = ..., rename: bool = ..., **kwargs: Any
+    ) -> None: ...
     @classmethod
     def _make(cls: Type[_T], iterable: Iterable[Any]) -> _T: ...
-
     def _asdict(self) -> collections.OrderedDict[str, Any]: ...
     def _replace(self: _T, **kwargs: Any) -> _T: ...
 

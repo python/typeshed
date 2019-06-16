@@ -1,8 +1,7 @@
 import unittest.result
 from typing import Any, Callable, TypeVar, overload
 
-_F = TypeVar('_F', bound=Callable[..., Any])
-
+_F = TypeVar("_F", bound=Callable[..., Any])
 
 def installHandler() -> None: ...
 def registerResult(result: unittest.result.TestResult) -> None: ...

@@ -3,7 +3,7 @@
 import sys
 from typing import Iterable, NamedTuple, Optional
 
-_RequestRate = NamedTuple('_RequestRate', [('requests', int), ('seconds', int)])
+_RequestRate = NamedTuple("_RequestRate", [("requests", int), ("seconds", int)])
 
 class RobotFileParser:
     def __init__(self, url: str = ...) -> None: ...

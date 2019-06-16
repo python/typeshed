@@ -2,6 +2,7 @@
 # Ron Murawski <ron@horizonchess.com>
 
 import sys
+
 # Re-exported names from other modules.
 from builtins import OSError as error
 from io import TextIOWrapper as _TextIOWrapper
@@ -32,7 +33,7 @@ from typing import (
 
 from . import path as path
 
-_T = TypeVar('_T')
+_T = TypeVar("_T")
 
 # ----- os variables -----
 
@@ -45,7 +46,7 @@ if sys.version_info >= (3, 3):
     supports_effective_ids: Set[Callable[..., Any]]
     supports_follow_symlinks: Set[Callable[..., Any]]
 
-    if sys.platform != 'win32':
+    if sys.platform != "win32":
         # Unix only
         PRIO_PROCESS: int
         PRIO_PGRP: int
@@ -100,11 +101,10 @@ if sys.version_info >= (3, 3):
     RTLD_NOLOAD: int
     RTLD_DEEPBIND: int
 
-
 SEEK_SET: int
 SEEK_CUR: int
 SEEK_END: int
-if sys.version_info >= (3, 3) and sys.platform != 'win32':
+if sys.version_info >= (3, 3) and sys.platform != "win32":
     SEEK_DATA: int  # some flavors of Unix
     SEEK_HOLE: int  # some flavors of Unix
 
@@ -118,28 +118,28 @@ O_TRUNC: int
 # We don't use sys.platform for O_* flags to denote platform-dependent APIs because some codes,
 # including tests for mypy, use a more finer way than sys.platform before using these APIs
 # See https://github.com/python/typeshed/pull/2286 for discussions
-O_DSYNC: int    # Unix only
-O_RSYNC: int    # Unix only
-O_SYNC: int     # Unix only
-O_NDELAY: int   # Unix only
+O_DSYNC: int  # Unix only
+O_RSYNC: int  # Unix only
+O_SYNC: int  # Unix only
+O_NDELAY: int  # Unix only
 O_NONBLOCK: int  # Unix only
-O_NOCTTY: int   # Unix only
+O_NOCTTY: int  # Unix only
 if sys.version_info >= (3, 3):
     O_CLOEXEC: int  # Unix only
-O_SHLOCK: int   # Unix only
-O_EXLOCK: int   # Unix only
-O_BINARY: int     # Windows only
+O_SHLOCK: int  # Unix only
+O_EXLOCK: int  # Unix only
+O_BINARY: int  # Windows only
 O_NOINHERIT: int  # Windows only
 O_SHORT_LIVED: int  # Windows only
 O_TEMPORARY: int  # Windows only
-O_RANDOM: int     # Windows only
+O_RANDOM: int  # Windows only
 O_SEQUENTIAL: int  # Windows only
-O_TEXT: int       # Windows only
-O_ASYNC: int      # Gnu extension if in C library
-O_DIRECT: int     # Gnu extension if in C library
+O_TEXT: int  # Windows only
+O_ASYNC: int  # Gnu extension if in C library
+O_DIRECT: int  # Gnu extension if in C library
 O_DIRECTORY: int  # Gnu extension if in C library
-O_NOFOLLOW: int   # Gnu extension if in C library
-O_NOATIME: int    # Gnu extension if in C library
+O_NOFOLLOW: int  # Gnu extension if in C library
+O_NOATIME: int  # Gnu extension if in C library
 if sys.version_info >= (3, 4):
     O_PATH: int  # Gnu extension if in C library
     O_TMPFILE: int  # Gnu extension if in C library
@@ -148,7 +148,7 @@ O_LARGEFILE: int  # Gnu extension if in C library
 curdir: str
 pardir: str
 sep: str
-if sys.platform == 'win32':
+if sys.platform == "win32":
     altsep: str
 else:
     altsep: Optional[str]
@@ -176,7 +176,7 @@ environ: _Environ[str]
 if sys.version_info >= (3, 2):
     environb: _Environ[bytes]
 
-if sys.platform != 'win32':
+if sys.platform != "win32":
     confstr_names: Dict[str, int]
     pathconf_names: Dict[str, int]
     sysconf_names: Dict[str, int]
@@ -202,12 +202,12 @@ if sys.platform != 'win32':
 P_NOWAIT: int
 P_NOWAITO: int
 P_WAIT: int
-if sys.platform == 'win32':
+if sys.platform == "win32":
     P_DETACH: int
     P_OVERLAY: int
 
 # wait()/waitpid() options
-if sys.platform != 'win32':
+if sys.platform != "win32":
     WNOHANG: int  # Unix only
     WCONTINUED: int  # some Unix systems
     WUNTRACED: int  # Unix only
@@ -235,12 +235,9 @@ class stat_result:
     st_atime_ns: int  # time of most recent access, in nanoseconds
     st_mtime_ns: int  # time of most recent content modification in nanoseconds
     st_ctime_ns: int  # platform dependent (time of most recent metadata change on Unix, or the time of creation on Windows) in nanoseconds
-
     def __getitem__(self, i: int) -> int: ...
-
     # not documented
     def __init__(self, tuple: Tuple[int, ...]) -> None: ...
-
     # On some Unix systems (such as Linux), the following attributes may also
     # be available:
     st_blocks: int  # number of blocks allocated for file
@@ -279,8 +276,8 @@ if sys.version_info >= (3, 6):
         def is_file(self, *, follow_symlinks: bool = ...) -> bool: ...
         def is_symlink(self) -> bool: ...
         def stat(self, *, follow_symlinks: bool = ...) -> stat_result: ...
-
         def __fspath__(self) -> AnyStr: ...
+
 elif sys.version_info >= (3, 5):
     class DirEntry(Generic[AnyStr]):
         # This is what the scandir interator yields
@@ -294,8 +291,7 @@ elif sys.version_info >= (3, 5):
         def is_symlink(self) -> bool: ...
         def stat(self, *, follow_symlinks: bool = ...) -> stat_result: ...
 
-
-if sys.platform != 'win32':
+if sys.platform != "win32":
     class statvfs_result:  # Unix only
         f_bsize: int
         f_frsize: int
@@ -311,11 +307,13 @@ if sys.platform != 'win32':
 # ----- os function stubs -----
 if sys.version_info >= (3, 6):
     def fsencode(filename: Union[str, bytes, PathLike]) -> bytes: ...
+
 else:
     def fsencode(filename: Union[str, bytes]) -> bytes: ...
 
 if sys.version_info >= (3, 6):
     def fsdecode(filename: Union[str, bytes, PathLike]) -> str: ...
+
 else:
     def fsdecode(filename: Union[str, bytes]) -> str: ...
 
@@ -328,6 +326,7 @@ if sys.version_info >= (3, 6):
     def fspath(path: PathLike) -> Any: ...
 
 def get_exec_path(env: Optional[Mapping[str, str]] = ...) -> List[str]: ...
+
 # NOTE: get_exec_path(): returns List[bytes] when env not None
 def getlogin() -> str: ...
 def getpid() -> int: ...
@@ -335,7 +334,7 @@ def getppid() -> int: ...
 def strerror(code: int) -> str: ...
 def umask(mask: int) -> int: ...
 
-if sys.platform != 'win32':
+if sys.platform != "win32":
     # Unix only
     def ctermid() -> str: ...
     def getegid() -> int: ...
@@ -381,29 +380,43 @@ def putenv(key: Union[bytes, Text], value: Union[bytes, Text]) -> None: ...
 def unsetenv(key: Union[bytes, Text]) -> None: ...
 
 # Return IO or TextIO
-def fdopen(fd: int, mode: str = ..., buffering: int = ..., encoding: Optional[str] = ...,
-           errors: str = ..., newline: str = ..., closefd: bool = ...) -> Any: ...
+def fdopen(
+    fd: int,
+    mode: str = ...,
+    buffering: int = ...,
+    encoding: Optional[str] = ...,
+    errors: str = ...,
+    newline: str = ...,
+    closefd: bool = ...,
+) -> Any: ...
 def close(fd: int) -> None: ...
 def closerange(fd_low: int, fd_high: int) -> None: ...
 def device_encoding(fd: int) -> Optional[str]: ...
 def dup(fd: int) -> int: ...
+
 if sys.version_info >= (3, 7):
     def dup2(fd: int, fd2: int, inheritable: bool = ...) -> int: ...
+
 elif sys.version_info >= (3, 4):
     def dup2(fd: int, fd2: int, inheritable: bool = ...) -> None: ...
+
 else:
     def dup2(fd: int, fd2: int) -> None: ...
+
 def fstat(fd: int) -> stat_result: ...
 def fsync(fd: int) -> None: ...
 def lseek(fd: int, pos: int, how: int) -> int: ...
+
 if sys.version_info >= (3, 3):
     def open(file: _PathType, flags: int, mode: int = ..., *, dir_fd: Optional[int] = ...) -> int: ...
+
 else:
     def open(file: _PathType, flags: int, mode: int = ...) -> int: ...
+
 def pipe() -> Tuple[int, int]: ...
 def read(fd: int, n: int) -> bytes: ...
 
-if sys.platform != 'win32':
+if sys.platform != "win32":
     # Unix only
     def fchmod(fd: int, mode: int) -> None: ...
     def fchown(fd: int, uid: int, gid: int) -> None: ...
@@ -427,52 +440,78 @@ if sys.platform != 'win32':
         @overload
         def sendfile(__out_fd: int, __in_fd: int, offset: Optional[int], count: int) -> int: ...
         @overload
-        def sendfile(__out_fd: int, __in_fd: int, offset: int, count: int,
-                     headers: Sequence[bytes] = ..., trailers: Sequence[bytes] = ..., flags: int = ...) -> int: ...  # FreeBSD and Mac OS X only
+        def sendfile(
+            __out_fd: int,
+            __in_fd: int,
+            offset: int,
+            count: int,
+            headers: Sequence[bytes] = ...,
+            trailers: Sequence[bytes] = ...,
+            flags: int = ...,
+        ) -> int: ...  # FreeBSD and Mac OS X only
         def readv(fd: int, buffers: Sequence[bytearray]) -> int: ...
         def writev(fd: int, buffers: Sequence[bytes]) -> int: ...
 
-terminal_size = NamedTuple('terminal_size', [('columns', int), ('lines', int)])
+terminal_size = NamedTuple("terminal_size", [("columns", int), ("lines", int)])
+
 def get_terminal_size(fd: int = ...) -> terminal_size: ...
 
 if sys.version_info >= (3, 4):
     def get_inheritable(fd: int) -> bool: ...
     def set_inheritable(fd: int, inheritable: bool) -> None: ...
 
-if sys.platform != 'win32':
+if sys.platform != "win32":
     # Unix only
     def tcgetpgrp(fd: int) -> int: ...
     def tcsetpgrp(fd: int, pg: int) -> None: ...
     def ttyname(fd: int) -> str: ...
+
 def write(fd: int, string: bytes) -> int: ...
+
 if sys.version_info >= (3, 3):
-    def access(path: _FdOrPathType, mode: int, *, dir_fd: Optional[int] = ...,
-               effective_ids: bool = ..., follow_symlinks: bool = ...) -> bool: ...
+    def access(
+        path: _FdOrPathType, mode: int, *, dir_fd: Optional[int] = ..., effective_ids: bool = ..., follow_symlinks: bool = ...
+    ) -> bool: ...
+
 else:
     def access(path: _PathType, mode: int) -> bool: ...
+
 def chdir(path: _FdOrPathType) -> None: ...
 def fchdir(fd: int) -> None: ...
 def getcwd() -> str: ...
 def getcwdb() -> bytes: ...
+
 if sys.version_info >= (3, 3):
     def chmod(path: _FdOrPathType, mode: int, *, dir_fd: Optional[int] = ..., follow_symlinks: bool = ...) -> None: ...
-    if sys.platform != 'win32':
+    if sys.platform != "win32":
         def chflags(path: _PathType, flags: int, follow_symlinks: bool = ...) -> None: ...  # some flavors of Unix
-        def chown(path: _FdOrPathType, uid: int, gid: int, *, dir_fd: Optional[int] = ..., follow_symlinks: bool = ...) -> None: ...  # Unix only
+        def chown(
+            path: _FdOrPathType, uid: int, gid: int, *, dir_fd: Optional[int] = ..., follow_symlinks: bool = ...
+        ) -> None: ...  # Unix only
+
 else:
     def chmod(path: _PathType, mode: int) -> None: ...
-    if sys.platform != 'win32':
+    if sys.platform != "win32":
         def chflags(path: _PathType, flags: int) -> None: ...  # Some flavors of Unix
         def chown(path: _PathType, uid: int, gid: int) -> None: ...  # Unix only
-if sys.platform != 'win32':
+
+if sys.platform != "win32":
     # Unix only
     def chroot(path: _PathType) -> None: ...
     def lchflags(path: _PathType, flags: int) -> None: ...
     def lchmod(path: _PathType, mode: int) -> None: ...
     def lchown(path: _PathType, uid: int, gid: int) -> None: ...
+
 if sys.version_info >= (3, 3):
-    def link(src: _PathType, link_name: _PathType, *, src_dir_fd: Optional[int] = ...,
-             dst_dir_fd: Optional[int] = ..., follow_symlinks: bool = ...) -> None: ...
+    def link(
+        src: _PathType,
+        link_name: _PathType,
+        *,
+        src_dir_fd: Optional[int] = ...,
+        dst_dir_fd: Optional[int] = ...,
+        follow_symlinks: bool = ...
+    ) -> None: ...
+
 else:
     def link(src: _PathType, link_name: _PathType) -> None: ...
 
@@ -485,6 +524,7 @@ if sys.version_info >= (3, 6):
     def listdir(path: int) -> List[str]: ...
     @overload
     def listdir(path: PathLike[str]) -> List[str]: ...
+
 elif sys.version_info >= (3, 3):
     @overload
     def listdir(path: Optional[str] = ...) -> List[str]: ...
@@ -492,6 +532,7 @@ elif sys.version_info >= (3, 3):
     def listdir(path: bytes) -> List[bytes]: ...
     @overload
     def listdir(path: int) -> List[str]: ...
+
 else:
     @overload
     def listdir(path: Optional[str] = ...) -> List[str]: ...
@@ -501,56 +542,73 @@ else:
 if sys.version_info >= (3, 3):
     def lstat(path: _PathType, *, dir_fd: Optional[int] = ...) -> stat_result: ...
     def mkdir(path: _PathType, mode: int = ..., *, dir_fd: Optional[int] = ...) -> None: ...
-    if sys.platform != 'win32':
+    if sys.platform != "win32":
         def mkfifo(path: _PathType, mode: int = ..., *, dir_fd: Optional[int] = ...) -> None: ...  # Unix only
+
 else:
     def lstat(path: _PathType) -> stat_result: ...
     def mkdir(path: _PathType, mode: int = ...) -> None: ...
-    if sys.platform != 'win32':
+    if sys.platform != "win32":
         def mkfifo(path: _PathType, mode: int = ...) -> None: ...  # Unix only
+
 if sys.version_info >= (3, 4):
     def makedirs(name: _PathType, mode: int = ..., exist_ok: bool = ...) -> None: ...
+
 else:
     def makedirs(path: _PathType, mode: int = ..., exist_ok: bool = ...) -> None: ...
+
 if sys.version_info >= (3, 4):
-    def mknod(path: _PathType, mode: int = ..., device: int = ...,
-              *, dir_fd: Optional[int] = ...) -> None: ...
+    def mknod(path: _PathType, mode: int = ..., device: int = ..., *, dir_fd: Optional[int] = ...) -> None: ...
+
 elif sys.version_info >= (3, 3):
-    def mknod(filename: _PathType, mode: int = ..., device: int = ...,
-              *, dir_fd: Optional[int] = ...) -> None: ...
+    def mknod(filename: _PathType, mode: int = ..., device: int = ..., *, dir_fd: Optional[int] = ...) -> None: ...
+
 else:
     def mknod(filename: _PathType, mode: int = ..., device: int = ...) -> None: ...
+
 def major(device: int) -> int: ...
 def minor(device: int) -> int: ...
 def makedev(major: int, minor: int) -> int: ...
-if sys.platform != 'win32':
+
+if sys.platform != "win32":
     def pathconf(path: _FdOrPathType, name: Union[str, int]) -> int: ...  # Unix only
+
 if sys.version_info >= (3, 6):
     def readlink(path: Union[AnyStr, PathLike[AnyStr]], *, dir_fd: Optional[int] = ...) -> AnyStr: ...
+
 elif sys.version_info >= (3, 3):
     def readlink(path: AnyStr, *, dir_fd: Optional[int] = ...) -> AnyStr: ...
+
 else:
     def readlink(path: AnyStr) -> AnyStr: ...
+
 if sys.version_info >= (3, 3):
     def remove(path: _PathType, *, dir_fd: Optional[int] = ...) -> None: ...
+
 else:
     def remove(path: _PathType) -> None: ...
+
 if sys.version_info >= (3, 4):
     def removedirs(name: _PathType) -> None: ...
+
 else:
     def removedirs(path: _PathType) -> None: ...
+
 if sys.version_info >= (3, 3):
-    def rename(src: _PathType, dst: _PathType, *,
-               src_dir_fd: Optional[int] = ..., dst_dir_fd: Optional[int] = ...) -> None: ...
+    def rename(src: _PathType, dst: _PathType, *, src_dir_fd: Optional[int] = ..., dst_dir_fd: Optional[int] = ...) -> None: ...
+
 else:
     def rename(src: _PathType, dst: _PathType) -> None: ...
+
 def renames(old: _PathType, new: _PathType) -> None: ...
+
 if sys.version_info >= (3, 3):
-    def replace(src: _PathType, dst: _PathType, *,
-                src_dir_fd: Optional[int] = ..., dst_dir_fd: Optional[int] = ...) -> None: ...
+    def replace(src: _PathType, dst: _PathType, *, src_dir_fd: Optional[int] = ..., dst_dir_fd: Optional[int] = ...) -> None: ...
     def rmdir(path: _PathType, *, dir_fd: Optional[int] = ...) -> None: ...
+
 else:
     def rmdir(path: _PathType) -> None: ...
+
 if sys.version_info >= (3, 7):
     class _ScandirIterator(Iterator[DirEntry[AnyStr]], ContextManager[_ScandirIterator[AnyStr]]):
         def __next__(self) -> DirEntry[AnyStr]: ...
@@ -561,6 +619,7 @@ if sys.version_info >= (3, 7):
     def scandir(path: int) -> _ScandirIterator[str]: ...
     @overload
     def scandir(path: Union[AnyStr, PathLike[AnyStr]]) -> _ScandirIterator[AnyStr]: ...
+
 elif sys.version_info >= (3, 6):
     class _ScandirIterator(Iterator[DirEntry[AnyStr]], ContextManager[_ScandirIterator[AnyStr]]):
         def __next__(self) -> DirEntry[AnyStr]: ...
@@ -569,74 +628,112 @@ elif sys.version_info >= (3, 6):
     def scandir() -> _ScandirIterator[str]: ...
     @overload
     def scandir(path: Union[AnyStr, PathLike[AnyStr]]) -> _ScandirIterator[AnyStr]: ...
+
 elif sys.version_info >= (3, 5):
     @overload
     def scandir() -> Iterator[DirEntry[str]]: ...
     @overload
     def scandir(path: AnyStr) -> Iterator[DirEntry[AnyStr]]: ...
+
 if sys.version_info >= (3, 3):
-    def stat(path: _FdOrPathType, *, dir_fd: Optional[int] = ...,
-             follow_symlinks: bool = ...) -> stat_result: ...
+    def stat(path: _FdOrPathType, *, dir_fd: Optional[int] = ..., follow_symlinks: bool = ...) -> stat_result: ...
+
 else:
     def stat(path: _PathType) -> stat_result: ...
+
 if sys.version_info < (3, 7):
     @overload
     def stat_float_times() -> bool: ...
     @overload
     def stat_float_times(__newvalue: bool) -> None: ...
-if sys.platform != 'win32':
+
+if sys.platform != "win32":
     def statvfs(path: _FdOrPathType) -> statvfs_result: ...  # Unix only
+
 if sys.version_info >= (3, 3):
-    def symlink(source: _PathType, link_name: _PathType,
-                target_is_directory: bool = ..., *, dir_fd: Optional[int] = ...) -> None: ...
-    if sys.platform != 'win32':
+    def symlink(
+        source: _PathType, link_name: _PathType, target_is_directory: bool = ..., *, dir_fd: Optional[int] = ...
+    ) -> None: ...
+    if sys.platform != "win32":
         def sync() -> None: ...  # Unix only
     def truncate(path: _FdOrPathType, length: int) -> None: ...  # Unix only up to version 3.4
     def unlink(path: _PathType, *, dir_fd: Optional[int] = ...) -> None: ...
-    def utime(path: _FdOrPathType, times: Optional[Union[Tuple[int, int], Tuple[float, float]]] = ..., *,
-              ns: Tuple[int, int] = ..., dir_fd: Optional[int] = ...,
-              follow_symlinks: bool = ...) -> None: ...
+    def utime(
+        path: _FdOrPathType,
+        times: Optional[Union[Tuple[int, int], Tuple[float, float]]] = ...,
+        *,
+        ns: Tuple[int, int] = ...,
+        dir_fd: Optional[int] = ...,
+        follow_symlinks: bool = ...
+    ) -> None: ...
+
 else:
-    def symlink(source: _PathType, link_name: _PathType,
-                target_is_directory: bool = ...) -> None:
-        ...  # final argument in Windows only
+    def symlink(
+        source: _PathType, link_name: _PathType, target_is_directory: bool = ...
+    ) -> None: ...  # final argument in Windows only
     def unlink(path: _PathType) -> None: ...
     def utime(path: _PathType, times: Optional[Tuple[float, float]]) -> None: ...
 
 if sys.version_info >= (3, 6):
-    def walk(top: Union[AnyStr, PathLike[AnyStr]], topdown: bool = ...,
-             onerror: Optional[Callable[[OSError], Any]] = ...,
-             followlinks: bool = ...) -> Iterator[Tuple[AnyStr, List[AnyStr],
-                                                        List[AnyStr]]]: ...
+    def walk(
+        top: Union[AnyStr, PathLike[AnyStr]],
+        topdown: bool = ...,
+        onerror: Optional[Callable[[OSError], Any]] = ...,
+        followlinks: bool = ...,
+    ) -> Iterator[Tuple[AnyStr, List[AnyStr], List[AnyStr]]]: ...
+
 else:
-    def walk(top: AnyStr, topdown: bool = ..., onerror: Optional[Callable[[OSError], Any]] = ...,
-             followlinks: bool = ...) -> Iterator[Tuple[AnyStr, List[AnyStr],
-                                                        List[AnyStr]]]: ...
-if sys.platform != 'win32' and sys.version_info >= (3, 3):
+    def walk(
+        top: AnyStr, topdown: bool = ..., onerror: Optional[Callable[[OSError], Any]] = ..., followlinks: bool = ...
+    ) -> Iterator[Tuple[AnyStr, List[AnyStr], List[AnyStr]]]: ...
+
+if sys.platform != "win32" and sys.version_info >= (3, 3):
     if sys.version_info >= (3, 7):
         @overload
-        def fwalk(top: Union[str, PathLike[str]] = ..., topdown: bool = ...,
-                  onerror: Optional[Callable] = ..., *, follow_symlinks: bool = ...,
-                  dir_fd: Optional[int] = ...) -> Iterator[Tuple[str, List[str], List[str], int]]: ...
+        def fwalk(
+            top: Union[str, PathLike[str]] = ...,
+            topdown: bool = ...,
+            onerror: Optional[Callable] = ...,
+            *,
+            follow_symlinks: bool = ...,
+            dir_fd: Optional[int] = ...
+        ) -> Iterator[Tuple[str, List[str], List[str], int]]: ...
         @overload
-        def fwalk(top: bytes, topdown: bool = ...,
-                  onerror: Optional[Callable] = ..., *, follow_symlinks: bool = ...,
-                  dir_fd: Optional[int] = ...) -> Iterator[Tuple[bytes, List[bytes], List[bytes], int]]: ...
+        def fwalk(
+            top: bytes,
+            topdown: bool = ...,
+            onerror: Optional[Callable] = ...,
+            *,
+            follow_symlinks: bool = ...,
+            dir_fd: Optional[int] = ...
+        ) -> Iterator[Tuple[bytes, List[bytes], List[bytes], int]]: ...
     elif sys.version_info >= (3, 6):
-        def fwalk(top: Union[str, PathLike[str]] = ..., topdown: bool = ...,
-                  onerror: Optional[Callable] = ..., *, follow_symlinks: bool = ...,
-                  dir_fd: Optional[int] = ...) -> Iterator[Tuple[str, List[str], List[str], int]]: ...
+        def fwalk(
+            top: Union[str, PathLike[str]] = ...,
+            topdown: bool = ...,
+            onerror: Optional[Callable] = ...,
+            *,
+            follow_symlinks: bool = ...,
+            dir_fd: Optional[int] = ...
+        ) -> Iterator[Tuple[str, List[str], List[str], int]]: ...
     else:
-        def fwalk(top: str = ..., topdown: bool = ...,
-                  onerror: Optional[Callable] = ..., *, follow_symlinks: bool = ...,
-                  dir_fd: Optional[int] = ...) -> Iterator[Tuple[str, List[str], List[str], int]]: ...
+        def fwalk(
+            top: str = ...,
+            topdown: bool = ...,
+            onerror: Optional[Callable] = ...,
+            *,
+            follow_symlinks: bool = ...,
+            dir_fd: Optional[int] = ...
+        ) -> Iterator[Tuple[str, List[str], List[str], int]]: ...
     def getxattr(path: _FdOrPathType, attribute: _PathType, *, follow_symlinks: bool = ...) -> bytes: ...  # Linux only
     def listxattr(path: _FdOrPathType, *, follow_symlinks: bool = ...) -> List[str]: ...  # Linux only
     def removexattr(path: _FdOrPathType, attribute: _PathType, *, follow_symlinks: bool = ...) -> None: ...  # Linux only
-    def setxattr(path: _FdOrPathType, attribute: _PathType, value: bytes, flags: int = ..., *,
-                 follow_symlinks: bool = ...) -> None: ...  # Linux only
+    def setxattr(
+        path: _FdOrPathType, attribute: _PathType, value: bytes, flags: int = ..., *, follow_symlinks: bool = ...
+    ) -> None: ...  # Linux only
 
 def abort() -> NoReturn: ...
+
 # These are defined as execl(file, *args) but the first *arg is mandatory.
 def execl(file: _PathType, __arg0: Union[bytes, Text], *args: Union[bytes, Text]) -> NoReturn: ...
 def execlp(file: _PathType, __arg0: Union[bytes, Text], *args: Union[bytes, Text]) -> NoReturn: ...
@@ -648,14 +745,15 @@ def execlpe(file: _PathType, __arg0: Union[bytes, Text], *args: Any) -> NoReturn
 # The docs say `args: tuple or list of strings`
 # The implementation enforces tuple or list so we can't use Sequence.
 _ExecVArgs = Union[Tuple[Union[bytes, Text], ...], List[bytes], List[Text], List[Union[bytes, Text]]]
+
 def execv(path: _PathType, args: _ExecVArgs) -> NoReturn: ...
 def execve(path: _FdOrPathType, args: _ExecVArgs, env: Mapping[str, str]) -> NoReturn: ...
 def execvp(file: _PathType, args: _ExecVArgs) -> NoReturn: ...
 def execvpe(file: _PathType, args: _ExecVArgs, env: Mapping[str, str]) -> NoReturn: ...
-
 def _exit(n: int) -> NoReturn: ...
 def kill(pid: int, sig: int) -> None: ...
-if sys.platform != 'win32':
+
+if sys.platform != "win32":
     # Unix only
     def fork() -> int: ...
     def forkpty() -> Tuple[int, int]: ...  # some flavors of Unix
@@ -667,6 +765,7 @@ if sys.version_info >= (3, 0):
     class _wrap_close(_TextIOWrapper):
         def close(self) -> Optional[int]: ...  # type: ignore
     def popen(command: str, mode: str = ..., buffering: int = ...) -> _wrap_close: ...
+
 else:
     class _wrap_close(IO[Text]):
         def close(self) -> Optional[int]: ...
@@ -676,21 +775,23 @@ else:
     def popen4(__cmd: Text, __mode: Text = ..., __bufsize: int = ...) -> Tuple[IO[Text], IO[Text]]: ...
 
 def spawnl(mode: int, path: _PathType, arg0: Union[bytes, Text], *args: Union[bytes, Text]) -> int: ...
-def spawnle(mode: int, path: _PathType, arg0: Union[bytes, Text],
-            *args: Any) -> int: ...  # Imprecise sig
+def spawnle(mode: int, path: _PathType, arg0: Union[bytes, Text], *args: Any) -> int: ...  # Imprecise sig
 def spawnv(mode: int, path: _PathType, args: List[Union[bytes, Text]]) -> int: ...
-def spawnve(mode: int, path: _PathType, args: List[Union[bytes, Text]],
-            env: Mapping[str, str]) -> int: ...
+def spawnve(mode: int, path: _PathType, args: List[Union[bytes, Text]], env: Mapping[str, str]) -> int: ...
 def system(command: _PathType) -> int: ...
+
 if sys.version_info >= (3, 3):
     from posix import times_result
     def times() -> times_result: ...
+
 else:
     def times() -> Tuple[float, float, float, float, float]: ...
+
 def waitpid(pid: int, options: int) -> Tuple[int, int]: ...
 
-if sys.platform == 'win32':
+if sys.platform == "win32":
     def startfile(path: _PathType, operation: Optional[str] = ...) -> None: ...
+
 else:
     # Unix only
     def spawnlp(mode: int, file: _PathType, arg0: Union[bytes, Text], *args: Union[bytes, Text]) -> int: ...
@@ -712,7 +813,7 @@ else:
     def WSTOPSIG(status: int) -> int: ...
     def WTERMSIG(status: int) -> int: ...
 
-if sys.platform != 'win32' and sys.version_info >= (3, 3):
+if sys.platform != "win32" and sys.version_info >= (3, 3):
     from posix import sched_param
     def sched_get_priority_min(policy: int) -> int: ...  # some flavors of Unix
     def sched_get_priority_max(policy: int) -> int: ...  # some flavors of Unix
@@ -727,14 +828,17 @@ if sys.platform != 'win32' and sys.version_info >= (3, 3):
 
 if sys.version_info >= (3, 4):
     def cpu_count() -> Optional[int]: ...
-if sys.platform != 'win32':
+
+if sys.platform != "win32":
     # Unix only
     def confstr(name: Union[str, int]) -> Optional[str]: ...
     def getloadavg() -> Tuple[float, float, float]: ...
     def sysconf(name: Union[str, int]) -> int: ...
+
 if sys.version_info >= (3, 6):
     def getrandom(size: int, flags: int = ...) -> bytes: ...
     def urandom(size: int) -> bytes: ...
+
 else:
     def urandom(n: int) -> bytes: ...
 

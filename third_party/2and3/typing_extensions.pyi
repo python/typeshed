@@ -15,16 +15,22 @@ from typing import Type as Type
 from typing import TypeVar, ValuesView
 from typing import overload as overload
 
-_T = TypeVar('_T')
-_F = TypeVar('_F', bound=Callable[..., Any])
-_TC = TypeVar('_TC', bound=Type[object])
+_T = TypeVar("_T")
+_F = TypeVar("_F", bound=Callable[..., Any])
+_TC = TypeVar("_TC", bound=Type[object])
+
 class _SpecialForm:
     def __getitem__(self, typeargs: Any) -> Any: ...
+
 def runtime(cls: _TC) -> _TC: ...
+
 Protocol: _SpecialForm = ...
 Final: _SpecialForm = ...
+
 def final(f: _F) -> _F: ...
+
 Literal: _SpecialForm = ...
+
 def IntVar(__name: str) -> Type: ...
 
 # Internal mypy fallback type for all typed dicts (does not exist at runtime)

@@ -5,7 +5,6 @@ from . import coroutines, events, protocols, transports
 
 _ClientConnectedCallback = Callable[[StreamReader, StreamWriter], Optional[Awaitable[None]]]
 
-
 __all__: List[str]
 
 class IncompleteReadError(EOFError):
@@ -19,14 +18,8 @@ class LimitOverrunError(Exception):
 
 @coroutines.coroutine
 def open_connection(
-    host: str = ...,
-    port: Union[int, str] = ...,
-    *,
-    loop: Optional[events.AbstractEventLoop] = ...,
-    limit: int = ...,
-    **kwds: Any
+    host: str = ..., port: Union[int, str] = ..., *, loop: Optional[events.AbstractEventLoop] = ..., limit: int = ..., **kwds: Any
 ) -> Generator[Any, None, Tuple[StreamReader, StreamWriter]]: ...
-
 @coroutines.coroutine
 def start_server(
     client_connected_cb: _ClientConnectedCallback,
@@ -38,22 +31,17 @@ def start_server(
     **kwds: Any
 ) -> Generator[Any, None, events.AbstractServer]: ...
 
-if sys.platform != 'win32':
+if sys.platform != "win32":
     if sys.version_info >= (3, 7):
         from os import PathLike
+
         _PathType = Union[str, PathLike[str]]
     else:
         _PathType = str
-
     @coroutines.coroutine
     def open_unix_connection(
-        path: _PathType = ...,
-        *,
-        loop: Optional[events.AbstractEventLoop] = ...,
-        limit: int = ...,
-        **kwds: Any
+        path: _PathType = ..., *, loop: Optional[events.AbstractEventLoop] = ..., limit: int = ..., **kwds: Any
     ) -> Generator[Any, None, Tuple[StreamReader, StreamWriter]]: ...
-
     @coroutines.coroutine
     def start_unix_server(
         client_connected_cb: _ClientConnectedCallback,
@@ -61,26 +49,31 @@ if sys.platform != 'win32':
         *,
         loop: Optional[events.AbstractEventLoop] = ...,
         limit: int = ...,
-        **kwds: Any) -> Generator[Any, None, events.AbstractServer]: ...
+        **kwds: Any
+    ) -> Generator[Any, None, events.AbstractServer]: ...
 
 class FlowControlMixin(protocols.Protocol): ...
 
 class StreamReaderProtocol(FlowControlMixin, protocols.Protocol):
-    def __init__(self,
-                 stream_reader: StreamReader,
-                 client_connected_cb: _ClientConnectedCallback = ...,
-                 loop: Optional[events.AbstractEventLoop] = ...) -> None: ...
+    def __init__(
+        self,
+        stream_reader: StreamReader,
+        client_connected_cb: _ClientConnectedCallback = ...,
+        loop: Optional[events.AbstractEventLoop] = ...,
+    ) -> None: ...
     def connection_made(self, transport: transports.BaseTransport) -> None: ...
     def connection_lost(self, exc: Optional[Exception]) -> None: ...
     def data_received(self, data: bytes) -> None: ...
     def eof_received(self) -> bool: ...
 
 class StreamWriter:
-    def __init__(self,
-                 transport: transports.BaseTransport,
-                 protocol: protocols.BaseProtocol,
-                 reader: Optional[StreamReader],
-                 loop: events.AbstractEventLoop) -> None: ...
+    def __init__(
+        self,
+        transport: transports.BaseTransport,
+        protocol: protocols.BaseProtocol,
+        reader: Optional[StreamReader],
+        loop: events.AbstractEventLoop,
+    ) -> None: ...
     @property
     def transport(self) -> transports.BaseTransport: ...
     def write(self, data: bytes) -> None: ...
@@ -97,9 +90,7 @@ class StreamWriter:
     def drain(self) -> Generator[Any, None, None]: ...
 
 class StreamReader:
-    def __init__(self,
-                 limit: int = ...,
-                 loop: Optional[events.AbstractEventLoop] = ...) -> None: ...
+    def __init__(self, limit: int = ..., loop: Optional[events.AbstractEventLoop] = ...) -> None: ...
     def exception(self) -> Exception: ...
     def set_exception(self, exc: Exception) -> None: ...
     def set_transport(self, transport: transports.BaseTransport) -> None: ...

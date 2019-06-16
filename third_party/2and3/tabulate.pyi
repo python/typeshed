@@ -2,7 +2,6 @@
 from typing import Any, Dict, Iterable, Sequence, Union
 
 def __getattr__(name: str) -> Any: ...
-
 def tabulate(
     tabular_data: Iterable[Iterable[Any]],
     headers: Union[str, Dict[str, str], Sequence[str]] = ...,
@@ -12,6 +11,5 @@ def tabulate(
     stralign: str = ...,
     missingval: str = ...,
     showindex: str = ...,
-    disable_numparse: bool = ...
-) -> str:
-    ...
+    disable_numparse: bool = ...,
+) -> str: ...

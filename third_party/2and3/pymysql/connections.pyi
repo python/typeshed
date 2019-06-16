@@ -103,12 +103,28 @@ class Connection:
     encoders: Any
     decoders: Any
     host_info: Any
-    def __init__(self, host: str = ..., user: Optional[Any] = ..., passwd: str = ..., db: Optional[Any] = ...,
-                 port: int = ..., unix_socket: Optional[Any] = ..., charset: str = ..., sql_mode: Optional[Any] = ...,
-                 read_default_file: Optional[Any] = ..., conv=..., use_unicode: Optional[Any] = ..., client_flag: int = ...,
-                 cursorclass=..., init_command: Optional[Any] = ..., connect_timeout: Optional[Any] = ...,
-                 ssl: Optional[Any] = ..., read_default_group: Optional[Any] = ..., compress: Optional[Any] = ...,
-                 named_pipe: Optional[Any] = ...): ...
+    def __init__(
+        self,
+        host: str = ...,
+        user: Optional[Any] = ...,
+        passwd: str = ...,
+        db: Optional[Any] = ...,
+        port: int = ...,
+        unix_socket: Optional[Any] = ...,
+        charset: str = ...,
+        sql_mode: Optional[Any] = ...,
+        read_default_file: Optional[Any] = ...,
+        conv=...,
+        use_unicode: Optional[Any] = ...,
+        client_flag: int = ...,
+        cursorclass=...,
+        init_command: Optional[Any] = ...,
+        connect_timeout: Optional[Any] = ...,
+        ssl: Optional[Any] = ...,
+        read_default_group: Optional[Any] = ...,
+        compress: Optional[Any] = ...,
+        named_pipe: Optional[Any] = ...,
+    ): ...
     socket: Any
     rfile: Any
     wfile: Any

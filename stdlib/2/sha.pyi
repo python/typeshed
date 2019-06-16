@@ -7,5 +7,6 @@ class sha(object):
     def copy(self) -> sha: ...
 
 def new(string: str = ...) -> sha: ...
+
 blocksize = 0
 digest_size = 0

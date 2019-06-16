@@ -7,9 +7,9 @@ if sys.version_info >= (3, 6):
 else:
     _File = Union[Text, BinaryIO]
 
-
 @overload
 def what(file: _File) -> Optional[str]: ...
 @overload
 def what(file: Any, h: bytes) -> Optional[str]: ...
+
 tests: List[Callable[[bytes, BinaryIO], Optional[str]]]

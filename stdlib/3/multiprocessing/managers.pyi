@@ -6,9 +6,9 @@ import queue
 import threading
 from typing import Any, Callable, ContextManager, Dict, Iterable, List, Mapping, Optional, Sequence, Tuple, TypeVar, Union
 
-_T = TypeVar('_T')
-_KT = TypeVar('_KT')
-_VT = TypeVar('_VT')
+_T = TypeVar("_T")
+_KT = TypeVar("_KT")
+_VT = TypeVar("_VT")
 
 class Namespace: ...
 
@@ -18,14 +18,17 @@ class BaseManager(ContextManager[BaseManager]):
     address: Union[str, Tuple[str, int]]
     def connect(self) -> None: ...
     @classmethod
-    def register(cls, typeid: str, callable: Optional[Callable] = ...,
-                 proxytype: Any = ...,
-                 exposed: Optional[Sequence[str]] = ...,
-                 method_to_typeid: Optional[Mapping[str, str]] = ...,
-                 create_method: bool = ...) -> None: ...
+    def register(
+        cls,
+        typeid: str,
+        callable: Optional[Callable] = ...,
+        proxytype: Any = ...,
+        exposed: Optional[Sequence[str]] = ...,
+        method_to_typeid: Optional[Mapping[str, str]] = ...,
+        create_method: bool = ...,
+    ) -> None: ...
     def shutdown(self) -> None: ...
-    def start(self, initializer: Optional[Callable[..., Any]] = ...,
-              initargs: Iterable[Any] = ...) -> None: ...
+    def start(self, initializer: Optional[Callable[..., Any]] = ..., initargs: Iterable[Any] = ...) -> None: ...
 
 class SyncManager(BaseManager):
     def BoundedSemaphore(self, value: Any = ...) -> threading.BoundedSemaphore: ...

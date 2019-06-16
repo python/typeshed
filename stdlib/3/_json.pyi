@@ -11,8 +11,9 @@ class make_encoder:
     default: Any
     encoder: Any
     item_separator: Any
-    def __init__(self, markers, default, encoder, indent, key_separator,
-                 item_separator, sort_keys, skipkeys, allow_nan) -> None: ...
+    def __init__(
+        self, markers, default, encoder, indent, key_separator, item_separator, sort_keys, skipkeys, allow_nan
+    ) -> None: ...
     def __call__(self, *args, **kwargs) -> Any: ...
 
 class make_scanner:

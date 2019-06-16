@@ -9,12 +9,9 @@ if sys.version_info >= (3,):
     _ComparableNum = Union[Decimal, float, numbers.Rational]
 else:
     _ComparableNum = Union[Decimal, float]
-_DecimalT = TypeVar('_DecimalT', bound=Decimal)
+_DecimalT = TypeVar("_DecimalT", bound=Decimal)
 
-DecimalTuple = NamedTuple('DecimalTuple',
-                          [('sign', int),
-                           ('digits', Tuple[int, ...]),
-                           ('exponent', int)])
+DecimalTuple = NamedTuple("DecimalTuple", [("sign", int), ("digits", Tuple[int, ...]), ("exponent", int)])
 
 ROUND_DOWN: str
 ROUND_HALF_UP: str
@@ -36,27 +33,16 @@ class DecimalException(ArithmeticError):
     def handle(self, context: Context, *args: Any) -> Optional[Decimal]: ...
 
 class Clamped(DecimalException): ...
-
 class InvalidOperation(DecimalException): ...
-
 class ConversionSyntax(InvalidOperation): ...
-
 class DivisionByZero(DecimalException, ZeroDivisionError): ...
-
 class DivisionImpossible(InvalidOperation): ...
-
 class DivisionUndefined(InvalidOperation, ZeroDivisionError): ...
-
 class Inexact(DecimalException): ...
-
 class InvalidContext(InvalidOperation): ...
-
 class Rounded(DecimalException): ...
-
 class Subnormal(DecimalException): ...
-
 class Overflow(Inexact, Rounded): ...
-
 class Underflow(Inexact, Rounded, Subnormal): ...
 
 if sys.version_info >= (3,):
@@ -132,12 +118,12 @@ class Decimal(object):
     def __rpow__(self, other: _Decimal, context: Optional[Context] = ...) -> Decimal: ...
     def normalize(self, context: Optional[Context] = ...) -> Decimal: ...
     if sys.version_info >= (3,):
-        def quantize(self, exp: _Decimal, rounding: Optional[str] = ...,
-                     context: Optional[Context] = ...) -> Decimal: ...
+        def quantize(self, exp: _Decimal, rounding: Optional[str] = ..., context: Optional[Context] = ...) -> Decimal: ...
         def same_quantum(self, other: _Decimal, context: Optional[Context] = ...) -> bool: ...
     else:
-        def quantize(self, exp: _Decimal, rounding: Optional[str] = ...,
-                     context: Optional[Context] = ..., watchexp: bool = ...) -> Decimal: ...
+        def quantize(
+            self, exp: _Decimal, rounding: Optional[str] = ..., context: Optional[Context] = ..., watchexp: bool = ...
+        ) -> Decimal: ...
         def same_quantum(self, other: _Decimal) -> bool: ...
     def to_integral_exact(self, rounding: Optional[str] = ..., context: Optional[Context] = ...) -> Decimal: ...
     def to_integral_value(self, rounding: Optional[str] = ..., context: Optional[Context] = ...) -> Decimal: ...
@@ -218,19 +204,31 @@ class Context(object):
     traps: Dict[_TrapType, bool]
     flags: Dict[_TrapType, bool]
     if sys.version_info >= (3,):
-        def __init__(self, prec: Optional[int] = ..., rounding: Optional[str] = ...,
-                     Emin: Optional[int] = ..., Emax: Optional[int] = ...,
-                     capitals: Optional[int] = ..., clamp: Optional[int] = ...,
-                     flags: Union[None, Dict[_TrapType, bool], Container[_TrapType]] = ...,
-                     traps: Union[None, Dict[_TrapType, bool], Container[_TrapType]] = ...,
-                     _ignored_flags: Optional[List[_TrapType]] = ...) -> None: ...
+        def __init__(
+            self,
+            prec: Optional[int] = ...,
+            rounding: Optional[str] = ...,
+            Emin: Optional[int] = ...,
+            Emax: Optional[int] = ...,
+            capitals: Optional[int] = ...,
+            clamp: Optional[int] = ...,
+            flags: Union[None, Dict[_TrapType, bool], Container[_TrapType]] = ...,
+            traps: Union[None, Dict[_TrapType, bool], Container[_TrapType]] = ...,
+            _ignored_flags: Optional[List[_TrapType]] = ...,
+        ) -> None: ...
     else:
-        def __init__(self, prec: Optional[int] = ..., rounding: Optional[str] = ...,
-                     traps: Union[None, Dict[_TrapType, bool], Container[_TrapType]] = ...,
-                     flags: Union[None, Dict[_TrapType, bool], Container[_TrapType]] = ...,
-                     Emin: Optional[int] = ..., Emax: Optional[int] = ...,
-                     capitals: Optional[int] = ..., _clamp: Optional[int] = ...,
-                     _ignored_flags: Optional[List[_TrapType]] = ...) -> None: ...
+        def __init__(
+            self,
+            prec: Optional[int] = ...,
+            rounding: Optional[str] = ...,
+            traps: Union[None, Dict[_TrapType, bool], Container[_TrapType]] = ...,
+            flags: Union[None, Dict[_TrapType, bool], Container[_TrapType]] = ...,
+            Emin: Optional[int] = ...,
+            Emax: Optional[int] = ...,
+            capitals: Optional[int] = ...,
+            _clamp: Optional[int] = ...,
+            _ignored_flags: Optional[List[_TrapType]] = ...,
+        ) -> None: ...
     if sys.version_info >= (3,):
         # __setattr__() only allows to set a specific set of attributes,
         # already defined above.

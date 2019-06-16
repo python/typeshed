@@ -53,8 +53,7 @@ class _BufferedIOBase(_IOBase):
     def detach(self) -> _IOBase: ...
 
 class BufferedRWPair(_BufferedIOBase):
-    def __init__(self, reader: _RawIOBase, writer: _RawIOBase,
-                 buffer_size: int = ..., max_buffer_size: int = ...) -> None: ...
+    def __init__(self, reader: _RawIOBase, writer: _RawIOBase, buffer_size: int = ..., max_buffer_size: int = ...) -> None: ...
     def peek(self, n: int = ...) -> bytes: ...
     def __enter__(self) -> BufferedRWPair: ...
 
@@ -62,9 +61,7 @@ class BufferedRandom(_BufferedIOBase):
     mode: str
     name: str
     raw: _IOBase
-    def __init__(self, raw: _IOBase,
-                 buffer_size: int = ...,
-                 max_buffer_size: int = ...) -> None: ...
+    def __init__(self, raw: _IOBase, buffer_size: int = ..., max_buffer_size: int = ...) -> None: ...
     def peek(self, n: int = ...) -> bytes: ...
 
 class BufferedReader(_BufferedIOBase):
@@ -78,9 +75,7 @@ class BufferedWriter(_BufferedIOBase):
     name: str
     raw: _IOBase
     mode: str
-    def __init__(self, raw: _IOBase,
-                 buffer_size: int = ...,
-                 max_buffer_size: int = ...) -> None: ...
+    def __init__(self, raw: _IOBase, buffer_size: int = ..., max_buffer_size: int = ...) -> None: ...
 
 class BytesIO(_BufferedIOBase):
     def __init__(self, initial_bytes: bytes = ...) -> None: ...
@@ -114,7 +109,6 @@ class IncrementalNewlineDecoder(object):
     def getstate(self) -> Tuple[Any, int]: ...
     def setstate(self, state: Tuple[Any, int]) -> None: ...
     def reset(self) -> None: ...
-
 
 # Note: In the actual _io.py, _TextIOBase inherits from _IOBase.
 class _TextIOBase(TextIO):
@@ -151,9 +145,7 @@ class _TextIOBase(TextIO):
 
 class StringIO(_TextIOBase):
     line_buffering: bool
-    def __init__(self,
-                 initial_value: Optional[unicode] = ...,
-                 newline: Optional[unicode] = ...) -> None: ...
+    def __init__(self, initial_value: Optional[unicode] = ..., newline: Optional[unicode] = ...) -> None: ...
     def __setstate__(self, state: tuple) -> None: ...
     def __getstate__(self) -> tuple: ...
     # StringIO does not contain a "name" field. This workaround is necessary
@@ -167,17 +159,22 @@ class TextIOWrapper(_TextIOBase):
     line_buffering: bool
     buffer: BinaryIO
     _CHUNK_SIZE: int
-    def __init__(self, buffer: IO,
-                 encoding: Optional[Text] = ...,
-                 errors: Optional[Text] = ...,
-                 newline: Optional[Text] = ...,
-                 line_buffering: bool = ...,
-                 write_through: bool = ...) -> None: ...
+    def __init__(
+        self,
+        buffer: IO,
+        encoding: Optional[Text] = ...,
+        errors: Optional[Text] = ...,
+        newline: Optional[Text] = ...,
+        line_buffering: bool = ...,
+        write_through: bool = ...,
+    ) -> None: ...
 
-def open(file: Union[str, unicode, int],
-         mode: Text = ...,
-         buffering: int = ...,
-         encoding: Optional[Text] = ...,
-         errors: Optional[Text] = ...,
-         newline: Optional[Text] = ...,
-         closefd: bool = ...) -> IO[Any]: ...
+def open(
+    file: Union[str, unicode, int],
+    mode: Text = ...,
+    buffering: int = ...,
+    encoding: Optional[Text] = ...,
+    errors: Optional[Text] = ...,
+    newline: Optional[Text] = ...,
+    closefd: bool = ...,
+) -> IO[Any]: ...

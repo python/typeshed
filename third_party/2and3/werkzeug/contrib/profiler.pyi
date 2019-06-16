@@ -11,5 +11,13 @@ class ProfilerMiddleware:
     def __init__(self, app, stream: Optional[Any] = ..., sort_by=..., restrictions=..., profile_dir: Optional[Any] = ...): ...
     def __call__(self, environ, start_response): ...
 
-def make_action(app_factory, hostname: str = ..., port: int = ..., threaded: bool = ..., processes: int = ...,
-                stream: Optional[Any] = ..., sort_by=..., restrictions=...): ...
+def make_action(
+    app_factory,
+    hostname: str = ...,
+    port: int = ...,
+    threaded: bool = ...,
+    processes: int = ...,
+    stream: Optional[Any] = ...,
+    sort_by=...,
+    restrictions=...,
+): ...

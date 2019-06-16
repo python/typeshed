@@ -12,7 +12,6 @@ class async_chat(asyncore.dispatcher):
     ac_in_buffer_size: int
     ac_out_buffer_size: int
     def __init__(self, sock: Optional[socket.socket] = ..., map: Optional[asyncore._maptype] = ...) -> None: ...
-
     @abstractmethod
     def collect_incoming_data(self, data: bytes) -> None: ...
     @abstractmethod

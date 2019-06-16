@@ -3,7 +3,6 @@ from typing import List, Optional, Text, Tuple, Union
 
 __all__: List[str]
 
-
 class BaseProtocol:
     def connection_made(self, transport: transports.BaseTransport) -> None: ...
     def connection_lost(self, exc: Optional[Exception]) -> None: ...
