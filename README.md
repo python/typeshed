@@ -86,7 +86,7 @@ https://github.com/python/typeshed/blob/master/CONTRIBUTING.md#stub-versioning).
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting pull
 requests. If you have questions related to contributing, drop by the [typing Gitter](https://gitter.im/python/typing).
 
-## Running the tests
+## Running the tests and autoformatters
 
 The tests are automatically run by Travis CI on every PR and push to
 the repo.  There are several sets of tests: `tests/mypy_test.py`
@@ -114,19 +114,26 @@ $ python3.6 -m venv .venv3
 $ source .venv3/bin/activate
 (.venv3)$ pip3 install -r requirements-tests-py3.txt
 ```
-This will install mypy (you need the latest master branch from GitHub),
-typed-ast, flake8, and pytype. You can then run mypy, flake8, and pytype tests
-by invoking:
+This will install mypy (we use the latest master branch from GitHub),
+typed-ast, flake8, pytype, isort, and black. You can then run the tests
+ and autoformatters by invoking:
 ```
+(.venv3)$ isort --recursive .
+...
+(.venv3)$ black stdlib tests third_party
+...
+(.venv3)$ flake8
+...
 (.venv3)$ python3 tests/mypy_test.py
 ...
 (.venv3)$ python3 tests/mypy_selftest.py
 ...
-(.venv3)$ flake8
-...
 (.venv3)$ python3 tests/pytype_test.py
 ...
 ```
+
+If `black` or `isort` made any changes, be sure to commit them before making a pull request.
+
 Note that flake8 only works with Python 3.6 or higher, and that to run the
 pytype tests, you will need Python 2.7 and Python 3.6 interpreters. Pytype will
 find these automatically if they're in `PATH`, but otherwise you must point to

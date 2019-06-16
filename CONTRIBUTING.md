@@ -15,7 +15,7 @@ are important to the project's success.
       but [contact us](#discussion) before starting significant work.
     * IMPORTANT: For new libraries, [get permission from the library owner first](#adding-a-new-library).
     * Create your stubs [conforming to the coding style](#stub-file-coding-style).
-    * Make sure your tests pass cleanly on `mypy`, `pytype`, and `flake8`.
+    * Make sure you first run the autoformmaters `isort` and `black`, then that the tests pass cleanly on `mypy`, `pytype`, and `flake8`.
 4. [Submit your changes](#submitting-changes):
     * Open a pull request
     * For new libraries, [include a reference to where you got permission](#adding-a-new-library)
@@ -223,23 +223,24 @@ as regular Python files.  However, there are a few important differences
 you should know about.
 
 Style conventions for stub files are different from PEP 8. The general
-rule is that they should be as concise as possible.  Specifically:
+rule is that they should be as concise as possible.
+
+We use the code formatter [Black](https://github.com/python/black) to automatically use the below conventions:
 * lines can be up to 130 characters long;
 * functions and methods that don't fit in one line should be split up
   with one argument per line;
-* all function bodies should be empty;
-* prefer ``...`` over ``pass``;
 * prefer ``...`` on the same line as the class/function signature;
 * avoid vertical whitespace between consecutive module-level functions,
   names, or methods and fields within a single class;
-* use a single blank line between top-level class definitions, or none
-  if the classes are very small;
+* use a single blank line between top-level class definitions;
+* for arguments with a type and a default, use spaces around the `=`.
+
+Stub files should also use these style conventions, which Black cannot automatically fix:
+* all function bodies should be empty;
+* prefer ``...`` over ``pass``;
 * do not use docstrings;
 * use variable annotations instead of type comments, even for stubs
   that target older versions of Python;
-* for arguments with a type and a default, use spaces around the `=`.
-The code formatter [black](https://github.com/python/black) will format
-stubs according to this standard.
 
 Stub files should only contain information necessary for the type
 checker, and leave out unnecessary detail:
@@ -258,7 +259,7 @@ Some further tips for good type hints:
 * use platform checks like `if sys.platform == 'win32'` to denote
   platform-dependent APIs.
 
-Imports in stubs are considered private (not part of the exported API)
+Imports in stubs are considered private (not part of the exported API),
 unless:
 * they use the form ``from library import name as name`` (sic, using
   explicit ``as`` even if the name stays the same); or
