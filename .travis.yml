@@ -4,6 +4,11 @@ python: 3.7
 
 matrix:
   include:
+    - name: "autoformatters"
+      python: 3.6
+      env:
+        - TEST_CMD="isort --check-only --recursive . && black --check stdlib tests third_party"
+        - INSTALL="test"
     - name: "pytype"
       python: 3.6
       env:
