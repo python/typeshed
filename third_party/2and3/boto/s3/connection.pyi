@@ -125,7 +125,7 @@ class S3Connection(AWSAuthConnection):
         self, bucket_name, headers: Optional[Dict[Text, Text]] = ..., location: Any = ..., policy: Optional[Any] = ...
     ): ...
     def delete_bucket(self, bucket, headers: Optional[Dict[Text, Text]] = ...): ...
-    def make_request(
+    def make_request(  # type: ignore # https://github.com/python/mypy/issues/1237
         self,
         method,
         bucket: str = ...,
@@ -138,4 +138,4 @@ class S3Connection(AWSAuthConnection):
         retry_handler: Optional[Any] = ...,
         *args,
         **kwargs
-    ): ...  # type: ignore # https://github.com/python/mypy/issues/1237
+    ): ...

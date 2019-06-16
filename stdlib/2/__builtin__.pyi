@@ -1188,18 +1188,18 @@ if sys.version_info >= (3,):
 
 else:
     @overload
-    def filter(
-        __function: Callable[[AnyStr], Any],  # type: ignore
+    def filter(  # type: ignore
+        __function: Callable[[AnyStr], Any],
         __iterable: AnyStr,
     ) -> AnyStr: ...
     @overload
-    def filter(
-        __function: None,  # type: ignore
+    def filter(  # type: ignore
+        __function: None,
         __iterable: Tuple[Optional[_T], ...],
     ) -> Tuple[_T, ...]: ...
     @overload
-    def filter(
-        __function: Callable[[_T], Any],  # type: ignore
+    def filter(  # type: ignore
+        __function: Callable[[_T], Any],
         __iterable: Tuple[_T, ...],
     ) -> Tuple[_T, ...]: ...
     @overload
