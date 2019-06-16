@@ -1,7 +1,7 @@
 # Python 3.5 ast
 
+# fmt: off
 import sys
-
 # Rename typing to _typing, as not to conflict with typing imported
 # from _ast below when loaded in an unorthodox way by the Dropbox
 # internal Bazel integration.
@@ -10,6 +10,7 @@ from typing import Any, Iterator, Optional, TypeVar, Union
 
 from _ast import *  # type: ignore
 
+# fmt: on
 class NodeVisitor:
     def visit(self, node: AST) -> Any: ...
     def generic_visit(self, node: AST) -> Any: ...

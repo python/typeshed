@@ -1,8 +1,8 @@
 # Based on http://docs.python.org/3.5/library/configparser.html and on
 # reading configparser.py.
 
+# fmt: off
 import sys
-
 # Types only used in type comments only
 from typing import (  # noqa
     IO,
@@ -24,6 +24,8 @@ from typing import (  # noqa
     Union,
     overload,
 )
+
+# fmt: on
 
 if sys.version_info >= (3, 6):
     from os import PathLike

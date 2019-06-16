@@ -2,10 +2,10 @@
 
 from __future__ import print_function
 
+# fmt: off
 import types
 import typing
 import unittest
-
 # Exports
 from __builtin__ import unichr as unichr
 from functools import wraps as wraps
@@ -33,6 +33,7 @@ from typing import (
 
 from . import moves
 
+# fmt: on
 _T = TypeVar("_T")
 _K = TypeVar("_K")
 _V = TypeVar("_V")

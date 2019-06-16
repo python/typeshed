@@ -1,7 +1,7 @@
 # Stubs for _operator (Python 3.5)
 
+# fmt: off
 import sys
-
 # In reality the import is the other way around, but this way we can keep the operator stub in 2and3
 from operator import abs as abs
 from operator import add as add
@@ -56,6 +56,8 @@ from operator import truediv as truediv
 from operator import truth as truth
 from operator import xor as xor
 from typing import AnyStr
+
+# fmt: on
 
 if sys.version_info >= (3, 5):
     from operator import matmul as matmul, imatmul as imatmul

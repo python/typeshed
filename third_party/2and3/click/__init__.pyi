@@ -14,6 +14,7 @@
     :license: BSD, see LICENSE for more details.
 """
 
+# fmt: off
 # Core classes
 from .core import Argument as Argument
 from .core import BaseCommand as BaseCommand
@@ -24,7 +25,6 @@ from .core import Group as Group
 from .core import MultiCommand as MultiCommand
 from .core import Option as Option
 from .core import Parameter as Parameter
-
 # Decorators
 from .decorators import argument as argument
 from .decorators import command as command
@@ -37,7 +37,6 @@ from .decorators import pass_context as pass_context
 from .decorators import pass_obj as pass_obj
 from .decorators import password_option as password_option
 from .decorators import version_option as version_option
-
 # Exceptions
 from .exceptions import Abort as Abort
 from .exceptions import BadArgumentUsage as BadArgumentUsage
@@ -48,17 +47,13 @@ from .exceptions import FileError as FileError
 from .exceptions import MissingParameter as MissingParameter
 from .exceptions import NoSuchOption as NoSuchOption
 from .exceptions import UsageError as UsageError
-
 # Formatting
 from .formatting import HelpFormatter as HelpFormatter
 from .formatting import wrap_text as wrap_text
-
 # Globals
 from .globals import get_current_context as get_current_context
-
 # Parsing
 from .parser import OptionParser as OptionParser
-
 # Terminal functions
 from .termui import clear as clear
 from .termui import confirm as confirm
@@ -73,7 +68,6 @@ from .termui import prompt as prompt
 from .termui import secho as secho
 from .termui import style as style
 from .termui import unstyle as unstyle
-
 # Types
 from .types import BOOL as BOOL
 from .types import FLOAT as FLOAT
@@ -87,7 +81,6 @@ from .types import IntRange as IntRange
 from .types import ParamType as ParamType
 from .types import Path as Path
 from .types import Tuple as Tuple
-
 # Utilities
 from .utils import echo as echo
 from .utils import format_filename as format_filename
@@ -96,6 +89,8 @@ from .utils import get_binary_stream as get_binary_stream
 from .utils import get_os_args as get_os_args
 from .utils import get_text_stream as get_text_stream
 from .utils import open_file as open_file
+
+# fmt: on
 
 # Controls if click should emit the warning about the use of unicode
 # literals.

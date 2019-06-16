@@ -2,12 +2,12 @@
 
 from __future__ import print_function
 
+# fmt: off
 import types
 import typing
 import unittest
 from builtins import next as next
 from functools import wraps as wraps
-
 # Exports
 from io import BytesIO as BytesIO
 from io import StringIO as StringIO
@@ -34,6 +34,7 @@ from typing import (
 
 from . import moves
 
+# fmt: on
 _T = TypeVar("_T")
 _K = TypeVar("_K")
 _V = TypeVar("_V")

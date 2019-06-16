@@ -1,8 +1,8 @@
 # Stubs for os
 # Ron Murawski <ron@horizonchess.com>
 
+# fmt: off
 import sys
-
 # Re-exported names from other modules.
 from builtins import OSError as error
 from io import TextIOWrapper as _TextIOWrapper
@@ -33,6 +33,7 @@ from typing import (
 
 from . import path as path
 
+# fmt: on
 _T = TypeVar("_T")
 
 # ----- os variables -----

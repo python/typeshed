@@ -1,6 +1,8 @@
 # Stubs for sysconfig
-
+# fmt: off
 from typing import IO, Any, Dict, List, Optional, Tuple, Union, overload
+
+# fmt: on
 @overload
 def get_config_vars() -> Dict[str, Any]: ...
 @overload
