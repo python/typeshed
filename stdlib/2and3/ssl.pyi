@@ -51,7 +51,7 @@ if sys.version_info < (3,) or sys.version_info >= (3, 4):
     def create_default_context(purpose: Any = ..., *,
                                cafile: Optional[str] = ...,
                                capath: Optional[str] = ...,
-                               cadata: Optional[str] = ...) -> SSLContext: ...
+                               cadata: Union[str, bytes, None] = ...) -> SSLContext: ...
 
 if sys.version_info >= (3, 4):
     def _create_unverified_context(protocol: int = ..., *,
@@ -62,7 +62,7 @@ if sys.version_info >= (3, 4):
                                    keyfile: Optional[str] = ...,
                                    cafile: Optional[str] = ...,
                                    capath: Optional[str] = ...,
-                                   cadata: Optional[str] = ...) -> SSLContext: ...
+                                   cadata: Union[str, bytes, None] = ...) -> SSLContext: ...
     _create_default_https_context: Callable[..., SSLContext]
 
 if sys.version_info >= (3, 3):
