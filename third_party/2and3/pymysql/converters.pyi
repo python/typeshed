@@ -1,8 +1,7 @@
 from typing import Any
 
 from .charset import charset_by_id as charset_by_id
-from .constants import FIELD_TYPE as FIELD_TYPE
-from .constants import FLAG as FLAG
+from .constants import FIELD_TYPE as FIELD_TYPE, FLAG as FLAG
 
 PYTHON3: Any
 ESCAPE_REGEX: Any

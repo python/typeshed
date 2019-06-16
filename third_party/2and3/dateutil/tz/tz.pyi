@@ -2,10 +2,7 @@ import datetime
 from typing import IO, Any, List, Optional, Text, Tuple, Union
 
 from ..relativedelta import relativedelta
-from ._common import _tzinfo as _tzinfo
-from ._common import enfold as enfold
-from ._common import tzname_in_python2 as tzname_in_python2
-from ._common import tzrangebase as tzrangebase
+from ._common import _tzinfo as _tzinfo, enfold as enfold, tzname_in_python2 as tzname_in_python2, tzrangebase as tzrangebase
 
 _FileObj = Union[str, Text, IO[str], IO[Text]]
 

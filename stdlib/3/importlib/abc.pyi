@@ -6,8 +6,7 @@ from typing import IO, Any, Iterator, Mapping, Optional, Sequence, Tuple, Union
 
 # Loader is exported from this module, but for circular import reasons
 # exists in its own stub file (with ModuleSpec and ModuleType).
-from _importlib_modulespec import Loader as Loader  # Exported
-from _importlib_modulespec import ModuleSpec
+from _importlib_modulespec import Loader as Loader, ModuleSpec  # Exported
 
 _Path = Union[bytes, str]
 

@@ -9,8 +9,7 @@ import unittest
 from builtins import next as next
 from functools import wraps as wraps
 # Exports
-from io import BytesIO as BytesIO
-from io import StringIO as StringIO
+from io import BytesIO as BytesIO, StringIO as StringIO
 from typing import (
     Any,
     AnyStr,

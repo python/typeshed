@@ -2,9 +2,7 @@
 
 from typing import IO, Any, Callable, Iterable, List, MutableMapping, Optional, Text, Tuple, Union
 
-from . import adapters
-from . import auth as _auth
-from . import compat, cookies, exceptions, hooks, models, status_codes, structures, utils
+from . import adapters, auth as _auth, compat, cookies, exceptions, hooks, models, status_codes, structures, utils
 from .models import Response
 from .packages.urllib3 import _collections
 

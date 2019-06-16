@@ -19,13 +19,15 @@ from typing import (
     overload,
 )
 
-from _weakref import CallableProxyType as CallableProxyType
-from _weakref import ProxyType as ProxyType
-from _weakref import ReferenceType as ReferenceType
-from _weakref import getweakrefcount as getweakrefcount
-from _weakref import getweakrefs as getweakrefs
-from _weakref import proxy as proxy
-from _weakref import ref as ref
+from _weakref import (
+    CallableProxyType as CallableProxyType,
+    ProxyType as ProxyType,
+    ReferenceType as ReferenceType,
+    getweakrefcount as getweakrefcount,
+    getweakrefs as getweakrefs,
+    proxy as proxy,
+    ref as ref,
+)
 
 if sys.version_info < (3, 0):
     from exceptions import ReferenceError as ReferenceError

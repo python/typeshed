@@ -7,19 +7,21 @@
 from typing import IO, Any, BinaryIO, Iterable, Iterator, List, Optional, TextIO, Union, overload
 
 import _io
-from _io import DEFAULT_BUFFER_SIZE as DEFAULT_BUFFER_SIZE
-from _io import BlockingIOError as BlockingIOError
-from _io import BufferedRandom as BufferedRandom
-from _io import BufferedReader as BufferedReader
-from _io import BufferedRWPair as BufferedRWPair
-from _io import BufferedWriter as BufferedWriter
-from _io import BytesIO as BytesIO
-from _io import FileIO as FileIO
-from _io import IncrementalNewlineDecoder as IncrementalNewlineDecoder
-from _io import StringIO as StringIO
-from _io import TextIOWrapper as TextIOWrapper
-from _io import UnsupportedOperation as UnsupportedOperation
-from _io import open as open
+from _io import (
+    DEFAULT_BUFFER_SIZE as DEFAULT_BUFFER_SIZE,
+    BlockingIOError as BlockingIOError,
+    BufferedRandom as BufferedRandom,
+    BufferedReader as BufferedReader,
+    BufferedRWPair as BufferedRWPair,
+    BufferedWriter as BufferedWriter,
+    BytesIO as BytesIO,
+    FileIO as FileIO,
+    IncrementalNewlineDecoder as IncrementalNewlineDecoder,
+    StringIO as StringIO,
+    TextIOWrapper as TextIOWrapper,
+    UnsupportedOperation as UnsupportedOperation,
+    open as open,
+)
 
 def _OpenWrapper(
     file: Union[str, unicode, int],

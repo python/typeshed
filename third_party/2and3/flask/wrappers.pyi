@@ -6,8 +6,7 @@ from typing import Any, Dict, Optional
 
 from werkzeug.exceptions import HTTPException
 from werkzeug.routing import Rule
-from werkzeug.wrappers import Request as RequestBase
-from werkzeug.wrappers import Response as ResponseBase
+from werkzeug.wrappers import Request as RequestBase, Response as ResponseBase
 
 class JSONMixin:
     @property

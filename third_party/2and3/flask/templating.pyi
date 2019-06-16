@@ -4,8 +4,7 @@
 
 from typing import Any
 
-from jinja2 import BaseLoader
-from jinja2 import Environment as BaseEnvironment
+from jinja2 import BaseLoader, Environment as BaseEnvironment
 
 from .globals import _app_ctx_stack, _request_ctx_stack
 from .signals import before_render_template, template_rendered

@@ -1,26 +1,33 @@
 # These are not exported.
 # These are exported.
-from typing import AbstractSet as Set
-from typing import Callable as Callable
-from typing import Container as Container
-from typing import Dict, Generic
-from typing import Hashable as Hashable
-from typing import ItemsView as ItemsView
-from typing import Iterable as Iterable
-from typing import Iterator as Iterator
-from typing import KeysView as KeysView
-from typing import List
-from typing import Mapping as Mapping
-from typing import MappingView as MappingView
-from typing import MutableMapping as MutableMapping
-from typing import MutableSequence as MutableSequence
-from typing import MutableSet as MutableSet
-from typing import Optional, Reversible
-from typing import Sequence as Sequence
-from typing import Sized as Sized
-from typing import Tuple, Type, TypeVar, Union
-from typing import ValuesView as ValuesView
-from typing import overload
+from typing import (
+    AbstractSet as Set,
+    Callable as Callable,
+    Container as Container,
+    Dict,
+    Generic,
+    Hashable as Hashable,
+    ItemsView as ItemsView,
+    Iterable as Iterable,
+    Iterator as Iterator,
+    KeysView as KeysView,
+    List,
+    Mapping as Mapping,
+    MappingView as MappingView,
+    MutableMapping as MutableMapping,
+    MutableSequence as MutableSequence,
+    MutableSet as MutableSet,
+    Optional,
+    Reversible,
+    Sequence as Sequence,
+    Sized as Sized,
+    Tuple,
+    Type,
+    TypeVar,
+    Union,
+    ValuesView as ValuesView,
+    overload,
+)
 
 _S = TypeVar("_S")
 _T = TypeVar("_T")

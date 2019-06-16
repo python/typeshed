@@ -2,8 +2,7 @@ from typing import List, Mapping, MutableMapping, Optional, Text, Tuple, cast
 
 from google.protobuf.message import Message
 from google.protobuf.unittest_no_arena_pb2 import ForeignMessage
-from google.protobuf.unittest_pb2 import ForeignMessage as ForeignMessage1
-from google.protobuf.unittest_pb2 import TestAllTypes, TestRequired
+from google.protobuf.unittest_pb2 import ForeignMessage as ForeignMessage1, TestAllTypes, TestRequired
 
 class MapEnum(int):
     @classmethod

@@ -1,8 +1,6 @@
 # Source: https://hg.python.org/cpython/file/2.7/Lib/sre_parse.py
 
-from typing import Any, Dict, Iterable, List, Match, Optional
-from typing import Pattern as _Pattern
-from typing import Set, Tuple, Union
+from typing import Any, Dict, Iterable, List, Match, Optional, Pattern as _Pattern, Set, Tuple, Union
 
 SPECIAL_CHARS: str
 REPEAT_CHARS: str

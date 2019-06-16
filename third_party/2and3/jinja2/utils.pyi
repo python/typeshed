@@ -1,8 +1,6 @@
 from typing import Any, Callable, Iterable, Optional
 
-from markupsafe import Markup as Markup
-from markupsafe import escape as escape
-from markupsafe import soft_unicode as soft_unicode
+from markupsafe import Markup as Markup, escape as escape, soft_unicode as soft_unicode
 
 missing: Any
 internal_code: Any

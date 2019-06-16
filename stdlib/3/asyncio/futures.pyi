@@ -1,8 +1,5 @@
 import sys
-from concurrent.futures import CancelledError as CancelledError
-from concurrent.futures import Error
-from concurrent.futures import Future as _ConcurrentFuture
-from concurrent.futures import TimeoutError as TimeoutError
+from concurrent.futures import CancelledError as CancelledError, Error, Future as _ConcurrentFuture, TimeoutError as TimeoutError
 from typing import Any, Awaitable, Callable, Generator, Generic, Iterable, List, Optional, Tuple, Type, TypeVar, Union
 
 from .events import AbstractEventLoop

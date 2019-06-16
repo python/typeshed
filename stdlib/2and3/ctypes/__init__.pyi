@@ -18,9 +18,9 @@ from typing import (
     Tuple,
     Type,
     TypeVar,
+    Union as _UnionT,
+    overload,
 )
-from typing import Union as _UnionT
-from typing import overload
 
 _T = TypeVar("_T")
 _DLLT = TypeVar("_DLLT", bound=CDLL)

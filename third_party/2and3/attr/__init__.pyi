@@ -1,10 +1,7 @@
 from typing import Any, Callable, Dict, Generic, List, Mapping, Optional, Sequence, Tuple, Type, TypeVar, Union, overload
 
 # `import X as X` is required to make these public
-from . import converters as converters
-from . import exceptions as exceptions
-from . import filters as filters
-from . import validators as validators
+from . import converters as converters, exceptions as exceptions, filters as filters, validators as validators
 
 _T = TypeVar("_T")
 _C = TypeVar("_C", bound=type)

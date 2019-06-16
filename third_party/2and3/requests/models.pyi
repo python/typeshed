@@ -6,8 +6,7 @@ from typing import Any, Dict, Iterator, List, MutableMapping, Optional, Text, Un
 
 from . import auth, compat, cookies, exceptions, hooks, status_codes, structures, utils
 from .cookies import RequestsCookieJar
-from .packages.urllib3 import exceptions as urllib3_exceptions
-from .packages.urllib3 import fields, filepost, util
+from .packages.urllib3 import exceptions as urllib3_exceptions, fields, filepost, util
 
 default_hooks = hooks.default_hooks
 CaseInsensitiveDict = structures.CaseInsensitiveDict

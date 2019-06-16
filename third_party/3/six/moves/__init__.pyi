@@ -3,21 +3,13 @@
 # Note: Commented out items means they weren't implemented at the time.
 # Uncomment them when the modules have been added to the typeshed.
 import sys
-from builtins import filter as filter
-from builtins import input as input
-from builtins import map as map
-from builtins import range as xrange
-from builtins import zip as zip
-from collections import UserDict as UserDict
-from collections import UserList as UserList
-from collections import UserString as UserString
+from builtins import filter as filter, input as input, map as map, range as xrange, zip as zip
+from collections import UserDict as UserDict, UserList as UserList, UserString as UserString
 from functools import reduce as reduce
 from importlib import reload as reload_module
 from io import StringIO as StringIO
-from itertools import filterfalse as filterfalse
-from itertools import zip_longest as zip_longest
-from os import getcwd as getcwd
-from os import getcwdb as getcwdb
+from itertools import filterfalse as filterfalse, zip_longest as zip_longest
+from os import getcwd as getcwd, getcwdb as getcwdb
 from shlex import quote as shlex_quote
 from sys import intern as intern
 

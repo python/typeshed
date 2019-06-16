@@ -1,17 +1,19 @@
 import sys
 import types
-from opcode import EXTENDED_ARG as EXTENDED_ARG
-from opcode import HAVE_ARGUMENT as HAVE_ARGUMENT
-from opcode import cmp_op as cmp_op
-from opcode import hascompare as hascompare
-from opcode import hasconst as hasconst
-from opcode import hasfree as hasfree
-from opcode import hasjabs as hasjabs
-from opcode import hasjrel as hasjrel
-from opcode import haslocal as haslocal
-from opcode import hasname as hasname
-from opcode import opmap as opmap
-from opcode import opname as opname
+from opcode import (
+    EXTENDED_ARG as EXTENDED_ARG,
+    HAVE_ARGUMENT as HAVE_ARGUMENT,
+    cmp_op as cmp_op,
+    hascompare as hascompare,
+    hasconst as hasconst,
+    hasfree as hasfree,
+    hasjabs as hasjabs,
+    hasjrel as hasjrel,
+    haslocal as haslocal,
+    hasname as hasname,
+    opmap as opmap,
+    opname as opname,
+)
 from typing import IO, Any, Callable, Dict, Iterator, List, NamedTuple, Optional, Tuple, Union
 
 if sys.version_info >= (3, 4):

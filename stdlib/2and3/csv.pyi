@@ -1,17 +1,20 @@
 import sys
-from _csv import QUOTE_ALL as QUOTE_ALL
-from _csv import QUOTE_MINIMAL as QUOTE_MINIMAL
-from _csv import QUOTE_NONE as QUOTE_NONE
-from _csv import QUOTE_NONNUMERIC as QUOTE_NONNUMERIC
-from _csv import Error as Error
-from _csv import _reader, _writer
-from _csv import field_size_limit as field_size_limit
-from _csv import get_dialect as get_dialect
-from _csv import list_dialects as list_dialects
-from _csv import reader as reader
-from _csv import register_dialect as register_dialect
-from _csv import unregister_dialect as unregister_dialect
-from _csv import writer as writer
+from _csv import (
+    QUOTE_ALL as QUOTE_ALL,
+    QUOTE_MINIMAL as QUOTE_MINIMAL,
+    QUOTE_NONE as QUOTE_NONE,
+    QUOTE_NONNUMERIC as QUOTE_NONNUMERIC,
+    Error as Error,
+    _reader,
+    _writer,
+    field_size_limit as field_size_limit,
+    get_dialect as get_dialect,
+    list_dialects as list_dialects,
+    reader as reader,
+    register_dialect as register_dialect,
+    unregister_dialect as unregister_dialect,
+    writer as writer,
+)
 from collections import OrderedDict
 from typing import Any, Dict, Iterable, Iterator, List, Mapping, Optional, Sequence, Type, Union
 
