@@ -1,4 +1,4 @@
-from typing import Any, Optional, Text, Tuple, Callable, Iterable, TypeVar, NoReturn, Protocol, IO, Generator
+from typing import Any, Optional, Text, Tuple, Callable, Iterable, TypeVar, NoReturn, Protocol, IO, Generator, Dict, Mapping, Union
 from wsgiref.types import WSGIEnvironment
 
 from .datastructures import Headers
@@ -6,7 +6,7 @@ from .datastructures import Headers
 _Dict = Any
 _ParseFunc = Callable[[IO[bytes], str, Optional[int], Mapping[str, str]], Tuple[IO[bytes], _Dict, _Dict]]
 
-_F = TypeVar("_F", Callable[..., Any])
+_F = TypeVar("_F", bound=Callable[..., Any])
 
 class _StreamFactory(Protocol):
     def __call__(
