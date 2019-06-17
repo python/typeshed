@@ -18,7 +18,7 @@ import subprocess
 import traceback
 from typing import List, Match, Optional, Sequence, Tuple
 
-import pytype
+from pytype import config as pytype_config, io as pytype_io
 
 TYPESHED_SUBDIRS = ["stdlib", "third_party"]
 
@@ -86,7 +86,7 @@ def load_blacklist(typeshed_location: str) -> List[str]:
 
 def run_pytype(*, filename: str, python_version: str, python_exe: str, typeshed_location: str) -> Optional[str]:
     """Runs pytype, returning the stderr if any."""
-    options = pytype.config.Options(
+    options = pytype_config.Options(
         [
             "--module-name={}".format(_get_module_name(filename)),
             "--parse-pyi",
@@ -98,7 +98,7 @@ def run_pytype(*, filename: str, python_version: str, python_exe: str, typeshed_
     old_typeshed_home = os.environ.get(TYPESHED_HOME, UNSET)
     os.environ[TYPESHED_HOME] = typeshed_location
     try:
-        pytype.io.parse_pyi(options)
+        pytype_io.parse_pyi(options)
     except Exception:
         stderr = traceback.format_exc()
     else:
