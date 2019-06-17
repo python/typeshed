@@ -179,9 +179,8 @@ def pytype_test(args: argparse.Namespace) -> int:
             if args.print_stderr:
                 print(stderr)
             errors += 1
-            # We strip off the stack trace and just leave the last line with the
-            # actual error; to see the stack traces use --print_stderr.
-            bad.append((_get_relative(f), stderr.rstrip().rsplit("\n", 1)[-1]))
+            stacktrace_final_line = stderr.rstrip().rsplit("\n", 1)[-1]
+            bad.append((_get_relative(f), stacktrace_final_line))
 
         runs = i + 1
         if runs % 25 == 0:
@@ -190,6 +189,7 @@ def pytype_test(args: argparse.Namespace) -> int:
     print("Ran pytype with {:d} pyis, got {:d} errors.".format(total_tests, errors))
     for f, err in bad:
         print("{}: {}".format(f, err))
+    print("\nRun again with --print-stderr to get the full stacktrace.")
     return int(bool(errors))
 
 
