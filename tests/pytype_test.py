@@ -1,5 +1,5 @@
-#!/usr/bin/env python
-r"""Test runner for typeshed.
+#!/usr/bin/env python3
+"""Test runner for typeshed.
 
 Depends on pytype being installed.
 
@@ -44,7 +44,7 @@ def main():
     sys.exit(code)
 
 
-class PathMatcher(object):
+class PathMatcher:
     def __init__(self, patterns):
         if patterns:
             self.matcher = re.compile("(%s)$" % "|".join(patterns))
