@@ -156,6 +156,36 @@ class BuiltinFunctionType:
     def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
 BuiltinMethodType = BuiltinFunctionType
 
+if sys.version_info >= (3, 7):
+    class WrapperDescriptorType:
+        __name__: str
+        __qualname__: str
+        __objclass__: type
+        def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
+        def __get__(self, obj: Any, type: type = ...) -> Any: ...
+
+    class MethodWrapperType:
+        __self__: object
+        __name__: str
+        __qualname__: str
+        __objclass__: type
+        def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
+
+    class MethodDescriptorType:
+        __name__: str
+        __qualname__: str
+        __objclass__: type
+        def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
+        def __get__(self, obj: Any, type: type = ...) -> Any: ...
+
+    class ClassMethodDescriptorType:
+        __name__: str
+        __qualname__: str
+        __objclass__: type
+        def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
+        def __get__(self, obj: Any, type: type = ...) -> Any: ...
+
+
 class TracebackType:
     if sys.version_info >= (3, 7):
         def __init__(self, tb_next: Optional[TracebackType], tb_frame: FrameType, tb_lasti: int, tb_lineno: int) -> None: ...
@@ -200,6 +230,8 @@ class MemberDescriptorType:
     def __delete__(self, obj: Any) -> None: ...
 
 def new_class(name: str, bases: Tuple[type, ...] = ..., kwds: Dict[str, Any] = ..., exec_body: Callable[[Dict[str, Any]], None] = ...) -> type: ...
+if sys.version_info >= (3, 7):
+    def resolve_bases(bases: Tuple[type, ...]) -> Tuple[type, ...]: ...
 def prepare_class(name: str, bases: Tuple[type, ...] = ..., kwds: Dict[str, Any] = ...) -> Tuple[type, Dict[str, Any], Dict[str, Any]]: ...
 
 # Actually a different type, but `property` is special and we want that too.
