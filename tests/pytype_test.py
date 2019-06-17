@@ -11,15 +11,14 @@ will also discover incorrect usage of imported modules.
 """
 
 import argparse
-import collections
 import itertools
 import os
-from pytype import config
-from pytype import io
 import re
 import subprocess
 import sys
 import traceback
+
+import pytype
 
 parser = argparse.ArgumentParser(description='Pytype/typeshed tests.')
 parser.add_argument('-n', '--dry-run', action='store_true', default=False,
@@ -84,7 +83,7 @@ def run_pytype(args, dry_run, typeshed_location):
     old_typeshed_home = os.environ.get(TYPESHED_HOME, UNSET)
     os.environ[TYPESHED_HOME] = typeshed_location
     try:
-        io.parse_pyi(config.Options(args))
+        pytype.io.parse_pyi(pytype.config.Options(args))
     except Exception:
         stderr = traceback.format_exc()
     else:
