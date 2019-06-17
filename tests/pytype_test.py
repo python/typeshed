@@ -20,17 +20,6 @@ import traceback
 
 import pytype
 
-parser = argparse.ArgumentParser(description="Pytype/typeshed tests.")
-parser.add_argument("-n", "--dry-run", action="store_true", default=False, help="Don't actually run tests")
-# Default to '' so that symlinking typeshed subdirs in cwd will work.
-parser.add_argument("--typeshed-location", type=str, default="", help="Path to typeshed installation.")
-# Set to true to print a stack trace every time an exception is thrown.
-parser.add_argument("--print-stderr", action="store_true", default=False, help="Print stderr every time an error is encountered.")
-# We need to invoke python2.7 and 3.6.
-parser.add_argument("--python27-exe", type=str, default="python2.7", help="Path to a python 2.7 interpreter.")
-parser.add_argument("--python36-exe", type=str, default="python3.6", help="Path to a python 3.6 interpreter.")
-
-
 TYPESHED_SUBDIRS = ["stdlib", "third_party"]
 
 
@@ -39,9 +28,24 @@ UNSET = object()  # marker for tracking the TYPESHED_HOME environment variable
 
 
 def main():
-    args = parser.parse_args()
+    args = create_parser().parse_args()
     code = pytype_test(args)
     sys.exit(code)
+
+
+def create_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(description="Pytype/typeshed tests.")
+    parser.add_argument("-n", "--dry-run", action="store_true", default=False, help="Don't actually run tests")
+    # Default to '' so that symlinking typeshed subdirs in cwd will work.
+    parser.add_argument("--typeshed-location", type=str, default="", help="Path to typeshed installation.")
+    # Set to true to print a stack trace every time an exception is thrown.
+    parser.add_argument(
+        "--print-stderr", action="store_true", default=False, help="Print stderr every time an error is encountered."
+    )
+    # We need to invoke python2.7 and 3.6.
+    parser.add_argument("--python27-exe", type=str, default="python2.7", help="Path to a python 2.7 interpreter.")
+    parser.add_argument("--python36-exe", type=str, default="python3.6", help="Path to a python 3.6 interpreter.")
+    return parser
 
 
 class PathMatcher:
