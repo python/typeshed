@@ -36,7 +36,7 @@ def main() -> None:
     if args.dry_run:
         return
     files_to_test = determine_files_to_test(typeshed_location=typeshed_location, subdir_paths=subdir_paths)
-    pytype_test(
+    run_all_tests(
         files_to_test=files_to_test,
         typeshed_location=typeshed_location,
         python27_exe=args.python27_exe,
@@ -84,12 +84,21 @@ def load_blacklist(typeshed_location: str) -> List[str]:
     return skip
 
 
-def run_pytype(args: Sequence[str], typeshed_location: str) -> Optional[str]:
+def run_pytype(*, filename: str, python_version: str, python_exe: str, typeshed_location: str) -> Optional[str]:
     """Runs pytype, returning the stderr if any."""
+    options = pytype.config.Options(
+        [
+            "--module-name={}".format(_get_module_name(filename)),
+            "--parse-pyi",
+            "-V {}".format(python_version),
+            "--python_exe={}".format(python_exe),
+            filename,
+        ]
+    )
     old_typeshed_home = os.environ.get(TYPESHED_HOME, UNSET)
     os.environ[TYPESHED_HOME] = typeshed_location
     try:
-        pytype.io.parse_pyi(pytype.config.Options(args))
+        pytype.io.parse_pyi(options)
     except Exception:
         stderr = traceback.format_exc()
     else:
@@ -131,7 +140,7 @@ def _is_version(path: str, version: str) -> bool:
     return any("{}/{}".format(d, version) in path for d in TYPESHED_SUBDIRS)
 
 
-def check_subdirs_discoverable(subdir_paths: str) -> None:
+def check_subdirs_discoverable(subdir_paths: List[str]) -> None:
     for p in subdir_paths:
         if not os.path.isdir(p):
             raise SystemExit("Cannot find typeshed subdir at {} (specify parent dir via --typeshed-location)".format(p))
@@ -174,32 +183,20 @@ def determine_files_to_test(*, typeshed_location: str, subdir_paths: Sequence[st
     return files
 
 
-def pytype_test(
+def run_all_tests(
     *, files_to_test: Sequence[Tuple[str, int]], typeshed_location: str, python27_exe: str, python36_exe: str, print_stderr: bool
 ) -> None:
-    """Test with pytype."""
-
-    def _parse(filename: str, major_version: int) -> Optional[str]:
-        if major_version == 3:
-            version = "3.6"
-            exe = python36_exe
-        else:
-            version = "2.7"
-            exe = python27_exe
-        options = [
-            "--module-name={}".format(_get_module_name(filename)),
-            "--parse-pyi",
-            "-V {}".format(version),
-            "--python_exe={}".format(exe),
-        ]
-        return run_pytype(options + [filename], typeshed_location=typeshed_location)
-
     bad = []
     errors = 0
     total_tests = len(files_to_test)
     print("Testing files with pytype...")
     for i, (f, version) in enumerate(files_to_test):
-        stderr = _parse(f, version)
+        stderr = run_pytype(
+            filename=f,
+            python_version="2.7" if version == 2 else "3.6",
+            python_exe=python27_exe if version == 2 else python36_exe,
+            typeshed_location=typeshed_location,
+        )
         if stderr:
             if print_stderr:
                 print(stderr)
