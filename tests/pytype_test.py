@@ -16,7 +16,7 @@ import os
 import re
 import subprocess
 import traceback
-from typing import List, Optional, Sequence, Match
+from typing import List, Match, Optional, Sequence, Tuple
 
 import pytype
 
@@ -35,9 +35,10 @@ def main() -> None:
     check_python_exes_runnable(python27_exe_arg=args.python27_exe, python36_exe_arg=args.python36_exe)
     if args.dry_run:
         return
+    files_to_test = determine_files_to_test(typeshed_location=typeshed_location, subdir_paths=subdir_paths)
     pytype_test(
+        files_to_test=files_to_test,
         typeshed_location=typeshed_location,
-        subdir_paths=subdir_paths,
         python27_exe=args.python27_exe,
         python36_exe=args.python36_exe,
         print_stderr=args.print_stderr,
@@ -149,13 +150,34 @@ def check_python_exes_runnable(*, python27_exe_arg: str, python36_exe_arg: str) 
         )
 
 
-def pytype_test(
-    *, typeshed_location: str, subdir_paths: Sequence[str], python27_exe: str, python36_exe: str, print_stderr: bool
-) -> None:
-    """Test with pytype."""
+def determine_files_to_test(*, typeshed_location: str, subdir_paths: Sequence[str]) -> List[Tuple[str, int]]:
+    """Determine all files to test, checking if it's in the blacklist and which Python versions to use.
+
+    Returns a list of pairs of the file path and Python version as an int."""
     skipped = PathMatcher(load_blacklist(typeshed_location))
     files = []
-    bad = []
+    for root, _, filenames in itertools.chain.from_iterable(os.walk(p) for p in subdir_paths):
+        for f in sorted(f for f in filenames if f.endswith(".pyi")):
+            f = os.path.join(root, f)
+            rel = _get_relative(f)
+            if skipped.search(rel):
+                continue
+            if _is_version(f, "2and3"):
+                files.append((f, 2))
+                files.append((f, 3))
+            elif _is_version(f, "2"):
+                files.append((f, 2))
+            elif _is_version(f, "3"):
+                files.append((f, 3))
+            else:
+                print("Unrecognized path: {}".format(f))
+    return files
+
+
+def pytype_test(
+    *, files_to_test: Sequence[Tuple[str, int]], typeshed_location: str, python27_exe: str, python36_exe: str, print_stderr: bool
+) -> None:
+    """Test with pytype."""
 
     def _parse(filename: str, major_version: int) -> Optional[str]:
         if major_version == 3:
@@ -172,25 +194,11 @@ def pytype_test(
         ]
         return run_pytype(options + [filename], typeshed_location=typeshed_location)
 
-    for root, _, filenames in itertools.chain.from_iterable(os.walk(p) for p in subdir_paths):
-        for f in sorted(f for f in filenames if f.endswith(".pyi")):
-            f = os.path.join(root, f)
-            rel = _get_relative(f)
-            if not skipped.search(rel):
-                if _is_version(f, "2and3"):
-                    files.append((f, 2))
-                    files.append((f, 3))
-                elif _is_version(f, "2"):
-                    files.append((f, 2))
-                elif _is_version(f, "3"):
-                    files.append((f, 3))
-                else:
-                    print("Unrecognized path: {}".format(f))
-
+    bad = []
     errors = 0
-    total_tests = len(files)
+    total_tests = len(files_to_test)
     print("Testing files with pytype...")
-    for i, (f, version) in enumerate(files):
+    for i, (f, version) in enumerate(files_to_test):
         stderr = _parse(f, version)
         if stderr:
             if print_stderr:
