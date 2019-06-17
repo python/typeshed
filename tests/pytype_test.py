@@ -114,10 +114,11 @@ def _get_module_name(filename):
 def can_run(path, exe, *args):
     exe = os.path.join(path, exe)
     try:
-        subprocess.Popen([exe] + list(args), stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
-        return True
+        subprocess.run([exe] + list(args), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     except OSError:
         return False
+    else:
+        return True
 
 
 def _is_version(path, version):
