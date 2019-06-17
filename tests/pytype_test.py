@@ -15,7 +15,6 @@ import itertools
 import os
 import re
 import subprocess
-import sys
 import traceback
 from typing import List, Optional, Sequence, Match
 
@@ -30,8 +29,19 @@ UNSET = object()  # marker for tracking the TYPESHED_HOME environment variable
 
 def main() -> None:
     args = create_parser().parse_args()
-    code = pytype_test(args)
-    sys.exit(code)
+    typeshed_location = args.typeshed_location or os.getcwd()
+    subdir_paths = [os.path.join(typeshed_location, d) for d in TYPESHED_SUBDIRS]
+    check_subdirs_discoverable(subdir_paths)
+    check_python_exes_runnable(python27_exe_arg=args.python27_exe, python36_exe_arg=args.python36_exe)
+    if args.dry_run:
+        return
+    pytype_test(
+        typeshed_location=typeshed_location,
+        subdir_paths=subdir_paths,
+        python27_exe=args.python27_exe,
+        python36_exe=args.python36_exe,
+        print_stderr=args.print_stderr,
+    )
 
 
 def create_parser() -> argparse.ArgumentParser:
@@ -107,10 +117,9 @@ def _get_module_name(filename: str) -> str:
     return ".".join(_get_relative(filename).split(os.path.sep)[2:]).replace(".pyi", "").replace(".__init__", "")
 
 
-def can_run(path, exe, *args):
-    exe = os.path.join(path, exe)
+def can_run(exe: str, *, args: List[str]) -> bool:
     try:
-        subprocess.run([exe] + list(args), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        subprocess.run([exe] + args, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     except OSError:
         return False
     else:
@@ -121,27 +130,29 @@ def _is_version(path: str, version: str) -> bool:
     return any("{}/{}".format(d, version) in path for d in TYPESHED_SUBDIRS)
 
 
-def pytype_test(args: argparse.Namespace) -> int:
-    """Test with pytype, returning 0 for success and 1 for failure."""
-    typeshed_location = args.typeshed_location or os.getcwd()
-    paths = [os.path.join(typeshed_location, d) for d in TYPESHED_SUBDIRS]
-
-    for p in paths:
+def check_subdirs_discoverable(subdir_paths: str) -> None:
+    for p in subdir_paths:
         if not os.path.isdir(p):
-            print("Cannot find typeshed subdir at {} (specify parent dir via --typeshed-location)".format(p))
-            return 1
+            raise SystemExit("Cannot find typeshed subdir at {} (specify parent dir via --typeshed-location)".format(p))
 
-    for python_version_str in ("27", "36"):
-        dest = "python{}_exe".format(python_version_str)
-        version = ".".join(list(python_version_str))
-        arg = "--python{}-exe".format(python_version_str)
-        if not can_run("", getattr(args, dest), "--version"):
-            print("Cannot run Python {version}. (point to a valid executable via {arg})".format(version=version, arg=arg))
-            return 1
 
-    if args.dry_run:
-        return 0
+def check_python_exes_runnable(*, python27_exe_arg: str, python36_exe_arg: str) -> None:
+    for exe, version_str in zip([python27_exe_arg, python36_exe_arg], ["27", "3.6"]):
+        if can_run(exe, args=["--version"]):
+            continue
+        formatted_version = ".".join(list(version_str))
+        script_arg = "--python{}-exe".format(version_str)
+        raise SystemExit(
+            "Cannot run Python {version}. (point to a valid executable via {arg})".format(
+                version=formatted_version, arg=script_arg
+            )
+        )
 
+
+def pytype_test(
+    *, typeshed_location: str, subdir_paths: Sequence[str], python27_exe: str, python36_exe: str, print_stderr: bool
+) -> None:
+    """Test with pytype."""
     skipped = PathMatcher(load_blacklist(typeshed_location))
     files = []
     bad = []
@@ -149,14 +160,19 @@ def pytype_test(args: argparse.Namespace) -> int:
     def _parse(filename: str, major_version: int) -> Optional[str]:
         if major_version == 3:
             version = "3.6"
-            exe = args.python36_exe
+            exe = python36_exe
         else:
             version = "2.7"
-            exe = args.python27_exe
-        options = ["--module-name={}".format(_get_module_name(filename)), "--parse-pyi", "-V {}".format(version), "--python_exe={}".format(exe)]
+            exe = python27_exe
+        options = [
+            "--module-name={}".format(_get_module_name(filename)),
+            "--parse-pyi",
+            "-V {}".format(version),
+            "--python_exe={}".format(exe),
+        ]
         return run_pytype(options + [filename], typeshed_location=typeshed_location)
 
-    for root, _, filenames in itertools.chain.from_iterable(os.walk(p) for p in paths):
+    for root, _, filenames in itertools.chain.from_iterable(os.walk(p) for p in subdir_paths):
         for f in sorted(f for f in filenames if f.endswith(".pyi")):
             f = os.path.join(root, f)
             rel = _get_relative(f)
@@ -177,7 +193,7 @@ def pytype_test(args: argparse.Namespace) -> int:
     for i, (f, version) in enumerate(files):
         stderr = _parse(f, version)
         if stderr:
-            if args.print_stderr:
+            if print_stderr:
                 print(stderr)
             errors += 1
             stacktrace_final_line = stderr.rstrip().rsplit("\n", 1)[-1]
@@ -190,8 +206,8 @@ def pytype_test(args: argparse.Namespace) -> int:
     print("Ran pytype with {:d} pyis, got {:d} errors.".format(total_tests, errors))
     for f, err in bad:
         print("{}: {}".format(f, err))
-    print("\nRun again with --print-stderr to get the full stacktrace.")
-    return int(bool(errors))
+    if errors:
+        raise SystemExit("\nRun again with --print-stderr to get the full stacktrace.")
 
 
 if __name__ == "__main__":
