@@ -73,10 +73,8 @@ def load_blacklist(typeshed_location: str) -> List[str]:
     return skip
 
 
-def run_pytype(args: Sequence[str], dry_run: bool, typeshed_location: str) -> Optional[str]:
+def run_pytype(args: Sequence[str], typeshed_location: str) -> Optional[str]:
     """Runs pytype, returning the stderr if any."""
-    if dry_run:
-        return None
     old_typeshed_home = os.environ.get(TYPESHED_HOME, UNSET)
     os.environ[TYPESHED_HOME] = typeshed_location
     try:
@@ -141,6 +139,9 @@ def pytype_test(args: argparse.Namespace) -> int:
             print("Cannot run Python {version}. (point to a valid executable via {arg})".format(version=version, arg=arg))
             return 1
 
+    if args.dry_run:
+        return 0
+
     skipped = PathMatcher(load_blacklist(typeshed_location))
     files = []
     bad = []
@@ -153,7 +154,7 @@ def pytype_test(args: argparse.Namespace) -> int:
             version = "2.7"
             exe = args.python27_exe
         options = ["--module-name={}".format(_get_module_name(filename)), "--parse-pyi", "-V {}".format(version), "--python_exe={}".format(exe)]
-        return run_pytype(options + [filename], dry_run=args.dry_run, typeshed_location=typeshed_location)
+        return run_pytype(options + [filename], typeshed_location=typeshed_location)
 
     for root, _, filenames in itertools.chain.from_iterable(os.walk(p) for p in paths):
         for f in sorted(f for f in filenames if f.endswith(".pyi")):
