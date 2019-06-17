@@ -1,5 +1,6 @@
 [tool.black]
 line_length = 130
+target_version = ["py37"]
 
 [tool.isort]
 multi_line_output = 3
