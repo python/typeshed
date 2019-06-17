@@ -33,8 +33,6 @@ def main() -> None:
     subdir_paths = [os.path.join(typeshed_location, d) for d in TYPESHED_SUBDIRS]
     check_subdirs_discoverable(subdir_paths)
     check_python_exes_runnable(python27_exe_arg=args.python27_exe, python36_exe_arg=args.python36_exe)
-    if args.dry_run:
-        return
     files_to_test = determine_files_to_test(typeshed_location=typeshed_location, subdir_paths=subdir_paths)
     run_all_tests(
         files_to_test=files_to_test,
@@ -42,6 +40,7 @@ def main() -> None:
         python27_exe=args.python27_exe,
         python36_exe=args.python36_exe,
         print_stderr=args.print_stderr,
+        dry_run=args.dry_run,
     )
 
 
@@ -184,18 +183,28 @@ def determine_files_to_test(*, typeshed_location: str, subdir_paths: Sequence[st
 
 
 def run_all_tests(
-    *, files_to_test: Sequence[Tuple[str, int]], typeshed_location: str, python27_exe: str, python36_exe: str, print_stderr: bool
+    *,
+    files_to_test: Sequence[Tuple[str, int]],
+    typeshed_location: str,
+    python27_exe: str,
+    python36_exe: str,
+    print_stderr: bool,
+    dry_run: bool
 ) -> None:
     bad = []
     errors = 0
     total_tests = len(files_to_test)
     print("Testing files with pytype...")
     for i, (f, version) in enumerate(files_to_test):
-        stderr = run_pytype(
-            filename=f,
-            python_version="2.7" if version == 2 else "3.6",
-            python_exe=python27_exe if version == 2 else python36_exe,
-            typeshed_location=typeshed_location,
+        stderr = (
+            run_pytype(
+                filename=f,
+                python_version="2.7" if version == 2 else "3.6",
+                python_exe=python27_exe if version == 2 else python36_exe,
+                typeshed_location=typeshed_location,
+            )
+            if not dry_run
+            else None
         )
         if stderr:
             if print_stderr:
