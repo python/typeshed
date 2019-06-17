@@ -51,7 +51,7 @@ def create_parser() -> argparse.ArgumentParser:
 class PathMatcher:
     def __init__(self, patterns):
         if patterns:
-            self.matcher = re.compile("(%s)$" % "|".join(patterns))
+            self.matcher = re.compile(r"({})$".format("|".join(patterns)))
         else:
             self.matcher = None
 
@@ -121,7 +121,7 @@ def can_run(path, exe, *args):
 
 
 def _is_version(path, version):
-    return any("%s/%s" % (d, version) in path for d in TYPESHED_SUBDIRS)
+    return any("{}/{}".format(d, version) in path for d in TYPESHED_SUBDIRS)
 
 
 def pytype_test(args):
@@ -131,15 +131,15 @@ def pytype_test(args):
 
     for p in paths:
         if not os.path.isdir(p):
-            print("Cannot find typeshed subdir at %s " "(specify parent dir via --typeshed-location)" % p)
+            print("Cannot find typeshed subdir at {} (specify parent dir via --typeshed-location)".format(p))
             return 1
 
     for python_version_str in ("27", "36"):
-        dest = "python%s_exe" % python_version_str
+        dest = "python{}_exe".format(python_version_str)
         version = ".".join(list(python_version_str))
-        arg = "--python%s-exe" % python_version_str
+        arg = "--python{}-exe".format(python_version_str)
         if not can_run("", getattr(args, dest), "--version"):
-            print("Cannot run Python {version}. (point to a valid executable " "via {arg})".format(version=version, arg=arg))
+            print("Cannot run Python {version}. (point to a valid executable via {arg})".format(version=version, arg=arg))
             return 1
 
     skipped = PathMatcher(load_blacklist(typeshed_location))
@@ -153,7 +153,7 @@ def pytype_test(args):
         else:
             version = "2.7"
             exe = args.python27_exe
-        options = ["--module-name=%s" % _get_module_name(filename), "--parse-pyi", "-V %s" % version, "--python_exe=%s" % exe]
+        options = ["--module-name={}".format(_get_module_name(filename)), "--parse-pyi", "-V {}".format(version), "--python_exe={}".format(exe)]
         return run_pytype(options + [filename], dry_run=args.dry_run, typeshed_location=typeshed_location)
 
     for root, _, filenames in itertools.chain.from_iterable(os.walk(p) for p in paths):
@@ -169,7 +169,7 @@ def pytype_test(args):
                 elif _is_version(f, "3"):
                     files.append((f, 3))
                 else:
-                    print("Unrecognized path: %s" % f)
+                    print("Unrecognized path: {}".format(f))
 
     errors = 0
     total_tests = len(files)
@@ -186,11 +186,11 @@ def pytype_test(args):
 
         runs = i + 1
         if runs % 25 == 0:
-            print("  %3d/%d with %3d errors" % (runs, total_tests, errors))
+            print("  {:3d}/{:d} with {:3d} errors".format(runs, total_tests, errors))
 
-    print("Ran pytype with %d pyis, got %d errors." % (total_tests, errors))
+    print("Ran pytype with {:d} pyis, got {:d} errors.".format(total_tests, errors))
     for f, err in bad:
-        print("%s: %s" % (f, err))
+        print("{}: {}".format(f, err))
     return int(bool(errors))
 
 
