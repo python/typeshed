@@ -17,6 +17,7 @@ import re
 import subprocess
 import sys
 import traceback
+from typing import List, Optional, Sequence, Match
 
 import pytype
 
@@ -27,7 +28,7 @@ TYPESHED_HOME = "TYPESHED_HOME"
 UNSET = object()  # marker for tracking the TYPESHED_HOME environment variable
 
 
-def main():
+def main() -> None:
     args = create_parser().parse_args()
     code = pytype_test(args)
     sys.exit(code)
@@ -49,19 +50,16 @@ def create_parser() -> argparse.ArgumentParser:
 
 
 class PathMatcher:
-    def __init__(self, patterns):
-        if patterns:
-            self.matcher = re.compile(r"({})$".format("|".join(patterns)))
-        else:
-            self.matcher = None
+    def __init__(self, patterns: Sequence[str]) -> None:
+        self.matcher = re.compile(r"({})$".format("|".join(patterns))) if patterns else None
 
-    def search(self, path):
+    def search(self, path: str) -> Optional[Match[str]]:
         if not self.matcher:
-            return False
+            return None
         return self.matcher.search(path)
 
 
-def load_blacklist(typeshed_location):
+def load_blacklist(typeshed_location: str) -> List[str]:
     filename = os.path.join(typeshed_location, "tests", "pytype_blacklist.txt")
     skip_re = re.compile(r"^\s*([^\s#]+)\s*(?:#.*)?$")
     skip = []
@@ -75,7 +73,7 @@ def load_blacklist(typeshed_location):
     return skip
 
 
-def run_pytype(args, dry_run, typeshed_location):
+def run_pytype(args: Sequence[str], dry_run: bool, typeshed_location: str) -> Optional[str]:
     """Runs pytype, returning the stderr if any."""
     if dry_run:
         return None
@@ -94,7 +92,7 @@ def run_pytype(args, dry_run, typeshed_location):
     return stderr
 
 
-def _get_relative(filename):
+def _get_relative(filename: str) -> str:
     top = 0
     for d in TYPESHED_SUBDIRS:
         try:
@@ -106,7 +104,7 @@ def _get_relative(filename):
     return filename[top:]
 
 
-def _get_module_name(filename):
+def _get_module_name(filename: str) -> str:
     """Converts a filename {subdir}/m.n/module/foo to module.foo."""
     return ".".join(_get_relative(filename).split(os.path.sep)[2:]).replace(".pyi", "").replace(".__init__", "")
 
@@ -121,11 +119,11 @@ def can_run(path, exe, *args):
         return True
 
 
-def _is_version(path, version):
+def _is_version(path: str, version: str) -> bool:
     return any("{}/{}".format(d, version) in path for d in TYPESHED_SUBDIRS)
 
 
-def pytype_test(args):
+def pytype_test(args: argparse.Namespace) -> int:
     """Test with pytype, returning 0 for success and 1 for failure."""
     typeshed_location = args.typeshed_location or os.getcwd()
     paths = [os.path.join(typeshed_location, d) for d in TYPESHED_SUBDIRS]
@@ -147,7 +145,7 @@ def pytype_test(args):
     files = []
     bad = []
 
-    def _parse(filename, major_version):
+    def _parse(filename: str, major_version: int) -> Optional[str]:
         if major_version == 3:
             version = "3.6"
             exe = args.python36_exe
