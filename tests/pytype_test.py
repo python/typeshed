@@ -147,7 +147,7 @@ def check_subdirs_discoverable(subdir_paths: List[str]) -> None:
 
 
 def check_python_exes_runnable(*, python27_exe_arg: str, python36_exe_arg: str) -> None:
-    for exe, version_str in zip([python27_exe_arg, python36_exe_arg], ["27", "3.6"]):
+    for exe, version_str in zip([python27_exe_arg, python36_exe_arg], ["27", "36"]):
         if can_run(exe, args=["--version"]):
             continue
         formatted_version = ".".join(list(version_str))
