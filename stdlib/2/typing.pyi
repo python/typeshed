@@ -71,39 +71,39 @@ _T_contra = TypeVar('_T_contra', contravariant=True)  # Ditto contravariant.
 _TC = TypeVar('_TC', bound=Type[object])
 _C = TypeVar("_C", bound=Callable)
 
-def runtime(cls: _TC) -> _TC: ...
+def runtime_checkable(cls: _TC) -> _TC: ...
 
-@runtime
+@runtime_checkable
 class SupportsInt(Protocol, metaclass=ABCMeta):
     @abstractmethod
     def __int__(self) -> int: ...
 
-@runtime
+@runtime_checkable
 class SupportsFloat(Protocol, metaclass=ABCMeta):
     @abstractmethod
     def __float__(self) -> float: ...
 
-@runtime
+@runtime_checkable
 class SupportsComplex(Protocol, metaclass=ABCMeta):
     @abstractmethod
     def __complex__(self) -> complex: ...
 
-@runtime
+@runtime_checkable
 class SupportsAbs(Protocol[_T_co]):
     @abstractmethod
     def __abs__(self) -> _T_co: ...
 
-@runtime
+@runtime_checkable
 class Reversible(Protocol[_T_co]):
     @abstractmethod
     def __reversed__(self) -> Iterator[_T_co]: ...
 
-@runtime
+@runtime_checkable
 class Sized(Protocol, metaclass=ABCMeta):
     @abstractmethod
     def __len__(self) -> int: ...
 
-@runtime
+@runtime_checkable
 class Hashable(Protocol, metaclass=ABCMeta):
     # TODO: This is special, in that a subclass of a hashable class may not be hashable
     #   (for example, list vs. object). It's not obvious how to represent this. This class
@@ -111,12 +111,12 @@ class Hashable(Protocol, metaclass=ABCMeta):
     @abstractmethod
     def __hash__(self) -> int: ...
 
-@runtime
+@runtime_checkable
 class Iterable(Protocol[_T_co]):
     @abstractmethod
     def __iter__(self) -> Iterator[_T_co]: ...
 
-@runtime
+@runtime_checkable
 class Iterator(Iterable[_T_co], Protocol[_T_co]):
     @abstractmethod
     def next(self) -> _T_co: ...
@@ -141,7 +141,7 @@ class Generator(Iterator[_T_co], Generic[_T_co, _T_contra, _V_co]):
     @property
     def gi_running(self) -> bool: ...
 
-@runtime
+@runtime_checkable
 class Container(Protocol[_T_co]):
     @abstractmethod
     def __contains__(self, x: object) -> bool: ...
@@ -240,7 +240,7 @@ class ValuesView(MappingView, Iterable[_VT_co], Generic[_VT_co]):
     def __contains__(self, o: object) -> bool: ...
     def __iter__(self) -> Iterator[_VT_co]: ...
 
-@runtime
+@runtime_checkable
 class ContextManager(Protocol[_T_co]):
     def __enter__(self) -> _T_co: ...
     def __exit__(self, __exc_type: Optional[Type[BaseException]],
