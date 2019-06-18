@@ -3,8 +3,6 @@ from wsgiref.types import WSGIEnvironment
 from typing import Any, Generic, Optional, Text, Tuple, Type, TypeVar, overload
 from typing_extensions import Literal
 
-from werkzeug.wrappers import Response
-
 if sys.version_info < (3,):
     from urllib2 import Request as U2Request
     from cookielib import CookieJar

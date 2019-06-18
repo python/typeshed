@@ -4,8 +4,7 @@
 
 from click import BaseCommand
 from click.testing import CliRunner, Result
-from typing import Any, IO, Iterable, Mapping, Optional, Union, Tuple, TypeVar
-from typing_extensions import Literal
+from typing import Any, IO, Iterable, Mapping, Optional, Union, TypeVar
 from werkzeug.test import Client
 
 def make_test_environ_builder(app: Any, path: str = ..., base_url: Optional[Any] = ..., subdomain: Optional[Any] = ..., url_scheme: Optional[Any] = ..., *args: Any, **kwargs: Any): ...
