@@ -71,7 +71,9 @@ class EnvironBuilder:
 
 class ClientRedirectError(Exception): ...
 
-_R = TypeVar('_R', bound=Response)
+# Response type for the client below.
+# By default _R is Tuple[Iterable[Any], Union[Text, int], datastructures.Headers]
+_R = TypeVar('_R')
 
 class Client(Generic[_R]):
     application: Any
