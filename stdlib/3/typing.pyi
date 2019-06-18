@@ -23,6 +23,13 @@ Protocol: _SpecialForm = ...
 Callable: _SpecialForm = ...
 Type: _SpecialForm = ...
 ClassVar: _SpecialForm = ...
+if sys.version_info >= (3, 8):
+    Final: _SpecialForm = ...
+    _F = TypeVar('_F', bound=Callable[..., Any])
+    def final(f: _F) -> _F: ...
+    Literal: _SpecialForm = ...
+    # TypedDict is a (non-subscriptable) special form.
+    TypedDict: object = ...
 
 class GenericMeta(type): ...
 
@@ -67,34 +74,34 @@ _T_contra = TypeVar('_T_contra', contravariant=True)  # Ditto contravariant.
 _TC = TypeVar('_TC', bound=Type[object])
 _C = TypeVar("_C", bound=Callable)
 
-def runtime(cls: _TC) -> _TC: ...
+def runtime_checkable(cls: _TC) -> _TC: ...
 
-@runtime
+@runtime_checkable
 class SupportsInt(Protocol, metaclass=ABCMeta):
     @abstractmethod
     def __int__(self) -> int: ...
 
-@runtime
+@runtime_checkable
 class SupportsFloat(Protocol, metaclass=ABCMeta):
     @abstractmethod
     def __float__(self) -> float: ...
 
-@runtime
+@runtime_checkable
 class SupportsComplex(Protocol, metaclass=ABCMeta):
     @abstractmethod
     def __complex__(self) -> complex: ...
 
-@runtime
+@runtime_checkable
 class SupportsBytes(Protocol, metaclass=ABCMeta):
     @abstractmethod
     def __bytes__(self) -> bytes: ...
 
-@runtime
+@runtime_checkable
 class SupportsAbs(Protocol[_T_co]):
     @abstractmethod
     def __abs__(self) -> _T_co: ...
 
-@runtime
+@runtime_checkable
 class SupportsRound(Protocol[_T_co]):
     @overload
     @abstractmethod
@@ -103,17 +110,17 @@ class SupportsRound(Protocol[_T_co]):
     @abstractmethod
     def __round__(self, ndigits: int) -> _T_co: ...
 
-@runtime
+@runtime_checkable
 class Reversible(Protocol[_T_co]):
     @abstractmethod
     def __reversed__(self) -> Iterator[_T_co]: ...
 
-@runtime
+@runtime_checkable
 class Sized(Protocol, metaclass=ABCMeta):
     @abstractmethod
     def __len__(self) -> int: ...
 
-@runtime
+@runtime_checkable
 class Hashable(Protocol, metaclass=ABCMeta):
     # TODO: This is special, in that a subclass of a hashable class may not be hashable
     #   (for example, list vs. object). It's not obvious how to represent this. This class
@@ -121,12 +128,12 @@ class Hashable(Protocol, metaclass=ABCMeta):
     @abstractmethod
     def __hash__(self) -> int: ...
 
-@runtime
+@runtime_checkable
 class Iterable(Protocol[_T_co]):
     @abstractmethod
     def __iter__(self) -> Iterator[_T_co]: ...
 
-@runtime
+@runtime_checkable
 class Iterator(Iterable[_T_co], Protocol[_T_co]):
     @abstractmethod
     def __next__(self) -> _T_co: ...
@@ -162,7 +169,7 @@ class Generator(Iterator[_T_co], Generic[_T_co, _T_contra, _V_co]):
 # Awaitable, AsyncIterator, AsyncIterable, Coroutine, Collection.
 # See https: //github.com/python/typeshed/issues/655 for why this is not easy.
 
-@runtime
+@runtime_checkable
 class Awaitable(Protocol[_T_co]):
     @abstractmethod
     def __await__(self) -> Generator[Any, None, _T_co]: ...
@@ -193,12 +200,12 @@ class Coroutine(Awaitable[_V_co], Generic[_T_co, _T_contra, _V_co]):
 class AwaitableGenerator(Awaitable[_V_co], Generator[_T_co, _T_contra, _V_co],
                          Generic[_T_co, _T_contra, _V_co, _S], metaclass=ABCMeta): ...
 
-@runtime
+@runtime_checkable
 class AsyncIterable(Protocol[_T_co]):
     @abstractmethod
     def __aiter__(self) -> AsyncIterator[_T_co]: ...
 
-@runtime
+@runtime_checkable
 class AsyncIterator(AsyncIterable[_T_co],
                     Protocol[_T_co]):
     @abstractmethod
@@ -232,14 +239,14 @@ if sys.version_info >= (3, 6):
         @property
         def ag_running(self) -> bool: ...
 
-@runtime
+@runtime_checkable
 class Container(Protocol[_T_co]):
     @abstractmethod
     def __contains__(self, __x: object) -> bool: ...
 
 
 if sys.version_info >= (3, 6):
-    @runtime
+    @runtime_checkable
     class Collection(Iterable[_T_co], Container[_T_co], Protocol[_T_co]):
         # Implement Sized (but don't have it as a base class).
         @abstractmethod
@@ -247,7 +254,7 @@ if sys.version_info >= (3, 6):
 
     _Collection = Collection
 else:
-    @runtime
+    @runtime_checkable
     class _Collection(Iterable[_T_co], Container[_T_co], Protocol[_T_co]):
         # Implement Sized (but don't have it as a base class).
         @abstractmethod
@@ -359,7 +366,7 @@ class ValuesView(MappingView, Iterable[_VT_co], Generic[_VT_co]):
     def __contains__(self, o: object) -> bool: ...
     def __iter__(self) -> Iterator[_VT_co]: ...
 
-@runtime
+@runtime_checkable
 class ContextManager(Protocol[_T_co]):
     def __enter__(self) -> _T_co: ...
     def __exit__(self, __exc_type: Optional[Type[BaseException]],
@@ -367,7 +374,7 @@ class ContextManager(Protocol[_T_co]):
                  __traceback: Optional[TracebackType]) -> Optional[bool]: ...
 
 if sys.version_info >= (3, 5):
-    @runtime
+    @runtime_checkable
     class AsyncContextManager(Protocol[_T_co]):
         def __aenter__(self) -> Awaitable[_T_co]: ...
         def __aexit__(self, exc_type: Optional[Type[BaseException]],
@@ -599,6 +606,17 @@ class NamedTuple(tuple):
 
     def _asdict(self) -> collections.OrderedDict[str, Any]: ...
     def _replace(self: _T, **kwargs: Any) -> _T: ...
+
+# Internal mypy fallback type for all typed dicts (does not exist at runtime)
+class _TypedDict(Mapping[str, object], metaclass=ABCMeta):
+    def copy(self: _T) -> _T: ...
+    # Using NoReturn so that only calls using mypy plugin hook that specialize the signature
+    # can go through.
+    def setdefault(self, k: NoReturn, default: object) -> object: ...
+    # Mypy plugin hook for 'pop' expects that 'default' has a type variable type.
+    def pop(self, k: NoReturn, default: _T = ...) -> object: ...
+    def update(self: _T, __m: _T) -> None: ...
+    def __delitem__(self, k: NoReturn) -> None: ...
 
 def NewType(name: str, tp: Type[_T]) -> Type[_T]: ...
 
