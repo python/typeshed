@@ -4,7 +4,7 @@
 
 from click import BaseCommand
 from click.testing import CliRunner, Result
-from typing import Any, IO, Iterable, Mapping, Optional, Union, Tuple
+from typing import Any, IO, Iterable, Mapping, Optional, Union, Tuple, TypeVar
 from typing_extensions import Literal
 from werkzeug.test import Client
 
