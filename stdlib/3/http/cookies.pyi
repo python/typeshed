@@ -1,13 +1,13 @@
 # Stubs for http.cookies (Python 3.5)
 
-from typing import Generic, Dict, List, Mapping, MutableMapping, Optional, TypeVar, Union
+from typing import Generic, Dict, List, Mapping, MutableMapping, Optional, TypeVar, Union, Any
 
 _DataType = Union[str, Mapping[str, Union[str, Morsel]]]
 _T = TypeVar('_T')
 
 class CookieError(Exception): ...
 
-class Morsel(Dict[str, str], Generic[_T]):
+class Morsel(Dict[str, Any], Generic[_T]):
     value: str
     coded_value: _T
     key: str
