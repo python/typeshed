@@ -590,7 +590,7 @@ def create_connection(address: Tuple[Optional[str], int],
 def getaddrinfo(
         host: Optional[Union[bytearray, bytes, Text]], port: Union[str, int, None], family: int = ...,
         socktype: int = ..., proto: int = ...,
-        flags: int = ...) -> List[Tuple[int, int, int, str, Tuple[Any, ...]]]:
+        flags: int = ...) -> List[Tuple[AddressFamily, SocketKind, int, str, Tuple[Any, ...]]]:
     ...
 
 def getfqdn(name: str = ...) -> str: ...
