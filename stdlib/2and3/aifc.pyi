@@ -5,13 +5,8 @@ import sys
 
 class Error(Exception): ...
 
-class _aifc_params(NamedTuple):
-    nchannels: int
-    sampwidth: int
-    framerate: int
-    nframes: int
-    comptype: bytes
-    compname: bytes
+_aifc_params = NamedTuple('_aifc_params', [('nchannels', int), ('sampwidth', int), ('framerate', int),
+                                           ('nframes', int), ('comptype', bytes), ('compname', bytes)])
 
 _F = Union[Text, IO[bytes]]
 _M = Tuple[int, int, bytes]
@@ -20,7 +15,7 @@ class Aifc_read:
 
     def __init__(self, f: _F) -> None: ...
 
-    if sys.version >= (3, 4):
+    if sys.version_info >= (3, 4):
         def __enter__(self) -> Aifc_read: ...
 
         def __exit__(self, exc_type: Optional[Type[BaseException]], exc_val: Optional[BaseException],
@@ -64,7 +59,7 @@ class Aifc_write:
 
     def __del__(self) -> None: ...
 
-    if sys.version >= (3, 4):
+    if sys.version_info >= (3, 4):
         def __enter__(self) -> Aifc_write: ...
 
         def __exit__(self, exc_type: Optional[Type[BaseException]], exc_val: Optional[BaseException],
