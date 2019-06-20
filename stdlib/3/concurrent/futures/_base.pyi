@@ -1,4 +1,4 @@
-from typing import TypeVar, Generic, Any, Iterable, Iterator, Callable, Tuple, Optional, Set, NamedTuple
+from typing import TypeVar, Generic, Any, Iterable, Iterator, Callable, Tuple, Optional, Set
 from types import TracebackType
 import sys
 
