@@ -1,8 +1,9 @@
 # Stubs for ssl
 
 from typing import (
-    Any, Dict, Callable, List, NamedTuple, Optional, Set, Tuple, Union,
+    Any, Callable, ClassVar, Dict, List, NamedTuple, Optional, Set, Tuple, Union,
 )
+import enum
 import socket
 import sys
 
@@ -172,12 +173,16 @@ if sys.version_info < (3,) or sys.version_info >= (3, 4):
     ALERT_DESCRIPTION_UNSUPPORTED_EXTENSION: int
     ALERT_DESCRIPTION_USER_CANCELLED: int
 
-if sys.version_info < (3,) or sys.version_info >= (3, 4):
-    _PurposeType = NamedTuple('_PurposeType', [('nid', int), ('shortname', str), ('longname', str), ('oid', str)])
-    class Purpose:
-        SERVER_AUTH: _PurposeType
-        CLIENT_AUTH: _PurposeType
-
+if sys.version_info < (3,):
+    class _ASN1Object(NamedTuple('_ASN1Object', [('nid', int), ('shortname', str), ('longname', str), ('oid', str)])): ...
+    class Purpose(_ASN1Object):
+        SERVER_AUTH: ClassVar[Purpose]
+        CLIENT_AUTH: ClassVar[Purpose]
+if sys.version_info >= (3, 4):
+    class _ASN1Object(NamedTuple('_ASN1Object', [('nid', int), ('shortname', str), ('longname', str), ('oid', str)])): ...
+    class Purpose(_ASN1Object, enum.Enum):
+        SERVER_AUTH = ...
+        CLIENT_AUTH = ...
 
 class SSLSocket(socket.socket):
     context: SSLContext
@@ -224,7 +229,7 @@ class SSLContext:
     def load_cert_chain(self, certfile: str, keyfile: Optional[str] = ...,
                         password: _PasswordType = ...) -> None: ...
     if sys.version_info < (3,) or sys.version_info >= (3, 4):
-        def load_default_certs(self, purpose: _PurposeType = ...) -> None: ...
+        def load_default_certs(self, purpose: Purpose = ...) -> None: ...
         def load_verify_locations(self, cafile: Optional[str] = ...,
                                   capath: Optional[str] = ...,
                                   cadata: Union[str, bytes, None] = ...) -> None: ...
