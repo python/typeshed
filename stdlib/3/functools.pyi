@@ -4,10 +4,6 @@ from typing import Any, Callable, Generic, Dict, Iterable, Mapping, Optional, Se
 _AnyCallable = Callable[..., Any]
 
 _T = TypeVar("_T")
-_T2 = TypeVar("_T2")
-_T3 = TypeVar("_T3")
-_T4 = TypeVar("_T4")
-_T5 = TypeVar("_T5")
 _S = TypeVar("_S")
 @overload
 def reduce(function: Callable[[_T, _S], _T],
@@ -44,75 +40,12 @@ def wraps(wrapped: _AnyCallable, assigned: Sequence[str] = ..., updated: Sequenc
 def total_ordering(cls: type) -> type: ...
 def cmp_to_key(mycmp: Callable[[_T, _T], int]) -> Callable[[_T], Any]: ...
 
-@overload
-def partial(__func: Callable[[_T], _S], __arg: _T) -> Callable[[], _S]: ...
-@overload
-def partial(__func: Callable[[_T, _T2], _S], __arg: _T) -> Callable[[_T2], _S]: ...
-@overload
-def partial(__func: Callable[[_T, _T2, _T3], _S], __arg: _T) -> Callable[[_T2, _T3], _S]: ...
-@overload
-def partial(__func: Callable[[_T, _T2, _T3, _T4], _S], __arg: _T) -> Callable[[_T2, _T3, _T4], _S]: ...
-@overload
-def partial(__func: Callable[[_T, _T2, _T3, _T4, _T5], _S], __arg: _T) -> Callable[[_T2, _T3, _T4, _T5], _S]: ...
-
-@overload
-def partial(__func: Callable[[_T, _T2], _S],
-            __arg1: _T,
-            __arg2: _T2) -> Callable[[], _S]: ...
-@overload
-def partial(__func: Callable[[_T, _T2, _T3], _S],
-            __arg1: _T,
-            __arg2: _T2) -> Callable[[_T3], _S]: ...
-@overload
-def partial(__func: Callable[[_T, _T2, _T3, _T4], _S],
-            __arg1: _T,
-            __arg2: _T2) -> Callable[[_T3, _T4], _S]: ...
-@overload
-def partial(__func: Callable[[_T, _T2, _T3, _T4, _T5], _S],
-            __arg1: _T,
-            __arg2: _T2) -> Callable[[_T3, _T4, _T5], _S]: ...
-
-@overload
-def partial(__func: Callable[[_T, _T2, _T3], _S],
-            __arg1: _T,
-            __arg2: _T2,
-            __arg3: _T3) -> Callable[[], _S]: ...
-@overload
-def partial(__func: Callable[[_T, _T2, _T3, _T4], _S],
-            __arg1: _T,
-            __arg2: _T2,
-            __arg3: _T3) -> Callable[[_T4], _S]: ...
-@overload
-def partial(__func: Callable[[_T, _T2, _T3, _T4, _T5], _S],
-            __arg1: _T,
-            __arg2: _T2,
-            __arg3: _T3) -> Callable[[_T4, _T5], _S]: ...
-
-@overload
-def partial(__func: Callable[[_T, _T2, _T3, _T4], _S],
-            __arg1: _T,
-            __arg2: _T2,
-            __arg3: _T3,
-            __arg4: _T4) -> Callable[[], _S]: ...
-@overload
-def partial(__func: Callable[[_T, _T2, _T3, _T4, _T5], _S],
-            __arg1: _T,
-            __arg2: _T2,
-            __arg3: _T3,
-            __arg4: _T4) -> Callable[[_T5], _S]: ...
-
-@overload
-def partial(__func: Callable[[_T, _T2, _T3, _T4, _T5], _S],
-            __arg1: _T,
-            __arg2: _T2,
-            __arg3: _T3,
-            __arg4: _T4,
-            __arg5: _T5) -> Callable[[], _S]: ...
-
-@overload
-def partial(__func: Callable[..., _S],
-            *args: Any,
-            **kwargs: Any) -> Callable[..., _S]: ...
+class partial(Generic[_T]):
+    func: Callable[..., _T]
+    args: Tuple[Any, ...]
+    keywords: Dict[str, Any]
+    def __init__(self, func: Callable[..., _T], *args: Any, **kwargs: Any) -> None: ...
+    def __call__(self, *args: Any, **kwargs: Any) -> _T: ...
 
 # With protocols, this could change into a generic protocol that defines __get__ and returns _T
 _Descriptor = Any
