@@ -1,5 +1,5 @@
 import selectors
-from socket import socket
+from socket import socket, _Address
 import ssl
 import sys
 from typing import Any, Awaitable, Callable, Dict, Generator, List, Optional, Sequence, Tuple, TypeVar, Union, overload
@@ -122,6 +122,8 @@ class BaseEventLoop(AbstractEventLoop):
     def sock_recv(self, sock: socket, nbytes: int) -> Generator[Any, None, bytes]: ...
     @coroutine
     def sock_sendall(self, sock: socket, data: bytes) -> Generator[Any, None, None]: ...
+    @coroutine
+    def sock_connect(self, sock: socket, address: _Address) -> Generator[Any, None, None]: ...
     @coroutine
     def sock_accept(self, sock: socket) -> Generator[Any, None, Tuple[socket, Any]]: ...
     # Signal handling.
