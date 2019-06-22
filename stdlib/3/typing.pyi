@@ -517,8 +517,8 @@ class ByteString(Sequence[int], metaclass=ABCMeta): ...
 class Match(Generic[AnyStr]):
     pos = 0
     endpos = 0
-    lastindex = 0
-    lastgroup: AnyStr
+    lastindex: Optional[int]
+    lastgroup: Optional[AnyStr]
     string: AnyStr
 
     # The regular expression object whose match() or search() method produced
