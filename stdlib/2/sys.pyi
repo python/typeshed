@@ -2,9 +2,10 @@
 
 from typing import (
     IO, NoReturn, Union, List, Sequence, Any, Dict, Tuple, BinaryIO, Optional,
-    Callable, overload, Text, Type,
+    Protocol, Callable, overload, Text, Type,
 )
 from types import FrameType, ModuleType, TracebackType, ClassType
+import abc
 
 # The following type alias are stub-only and do not exist during runtime
 _ExcInfo = Tuple[Type[BaseException], BaseException, TracebackType]
@@ -48,6 +49,11 @@ class _version_info(Tuple[int, int, int, str, int]):
     releaselevel: str
     serial = 0
 
+class _encoding(Protocol):
+    encoding: str
+
+class _stdout(_encoding, IO[str], metaclass=abc.ABCMeta): ...
+
 _mercurial: Tuple[str, str, str]
 api_version: int
 argv: List[str]
@@ -74,7 +80,8 @@ __stdin__: IO[str]
 __stdout__: IO[str]
 stderr: IO[str]
 stdin: IO[str]
-stdout: IO[str]
+stdout: _stdout
+
 subversion: Tuple[str, str, str]
 version: str
 warnoptions: object
