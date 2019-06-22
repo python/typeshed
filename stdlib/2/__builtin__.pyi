@@ -1390,7 +1390,7 @@ if sys.version_info >= (3,):
 else:
     def sorted(__iterable: Iterable[_T], *,
                cmp: Callable[[_T, _T], int] = ...,
-               key: Callable[[_T], Any] = ...,
+               key: Optional[Callable[[_T], Any]] = ...,
                reverse: bool = ...) -> List[_T]: ...
 @overload
 def sum(__iterable: Iterable[_T]) -> Union[_T, int]: ...
