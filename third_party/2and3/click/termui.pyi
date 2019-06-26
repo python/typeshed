@@ -62,7 +62,7 @@ def get_terminal_size() -> Tuple[int, int]:
 
 def echo_via_pager(
     text_or_generator: Union[str, Iterable[str], Callable[[], Generator[str, None, None]]],
-    color: Optional[bool]
+    color: Optional[bool] = ...,
 ) -> None:
     ...
 
