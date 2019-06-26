@@ -60,6 +60,10 @@ class BaseEventLoop(AbstractEventLoop):
                     flags: int = ...) -> Generator[Any, None, List[Tuple[int, int, int, str, Tuple[Any, ...]]]]: ...
     @coroutine
     def getnameinfo(self, sockaddr: tuple, flags: int = ...) -> Generator[Any, None, Tuple[str, int]]: ...
+    if sys.version_info >= (3, 7):
+        @coroutine
+        def sock_sendfile(self, sock: socket, file: IO[bytes], offset: int = ..., count: Optional[int] = ..., *,
+                          fallback: bool = ...) -> int: ...
     @overload
     @coroutine
     def create_connection(self, protocol_factory: _ProtocolFactory, host: str = ..., port: int = ..., *,

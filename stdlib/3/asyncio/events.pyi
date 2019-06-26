@@ -103,6 +103,11 @@ class AbstractEventLoop(metaclass=ABCMeta):
     @abstractmethod
     @coroutine
     def getnameinfo(self, sockaddr: tuple, flags: int = ...) -> Generator[Any, None, Tuple[str, int]]: ...
+    if sys.version_info >= (3, 7):
+        @abstractmethod
+        @coroutine
+        def sock_sendfile(self, sock: socket, file: IO[bytes], offset: int = ..., count: Optional[int] = ..., *,
+                          fallback: bool = ...) -> int: ...
     @overload
     @abstractmethod
     @coroutine
