@@ -2,7 +2,7 @@ import selectors
 from socket import socket, _Address
 import ssl
 import sys
-from typing import Any, Awaitable, Callable, Dict, Generator, List, Optional, Sequence, Tuple, TypeVar, Union, overload
+from typing import Any, Awaitable, Callable, Dict, Generator, IO, List, Optional, Sequence, Tuple, TypeVar, Union, overload
 from abc import ABCMeta, abstractmethod
 from asyncio.futures import Future
 from asyncio.coroutines import coroutine
@@ -131,6 +131,11 @@ class AbstractEventLoop(metaclass=ABCMeta):
                       sock: socket, backlog: int = ..., ssl: _SSLContext = ...,
                       reuse_address: Optional[bool] = ...,
                       reuse_port: Optional[bool] = ...) -> Generator[Any, None, AbstractServer]: ...
+    if sys.version_info >= (3, 7):
+        @abstractmethod
+        @coroutine
+        def sendfile(self, transport: BaseTransport, file: IO[bytes], offset: int = ..., count: Optional[int] = ..., *,
+                     fallback: bool = ...) -> int: ...
     @abstractmethod
     @coroutine
     def create_unix_connection(self, protocol_factory: _ProtocolFactory, path: str, *,
