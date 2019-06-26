@@ -88,6 +88,10 @@ class BaseEventLoop(AbstractEventLoop):
         @coroutine
         def sendfile(self, transport: BaseTransport, file: IO[bytes], offset: int = ..., count: Optional[int] = ..., *,
                      fallback: bool = ...) -> int: ...
+        @coroutine
+        def start_tls(self, transport: BaseTransport, protocol: BaseProtocol, sslcontext: ssl.SSLContext, *,
+                      server_side: bool = ..., server_hostname: Optional[str] = ...,
+                      ssl_handshake_timeout: Optional[float] = ...) -> BaseTransport: ...
     @coroutine
     def create_unix_connection(self, protocol_factory: _ProtocolFactory, path: str, *,
                                ssl: _SSLContext = ..., sock: Optional[socket] = ...,
