@@ -31,7 +31,8 @@ class _IncrementalDecoder(Protocol):
 def encode(obj: _Decoded, encoding: str = ..., errors: str = ...) -> _Encoded: ...
 def decode(obj: _Encoded, encoding: str = ..., errors: str = ...) -> _Decoded: ...
 def lookup(encoding: str) -> CodecInfo: ...
-def utf_16_be_encode(obj: _Decoded, errors: str = ...) -> _Encoded: ...  # undocumented
+def utf_16_be_decode(__obj: _Encoded, __errors: str = ..., __final: bool = ...) -> _Decoded: ...  # undocumented
+def utf_16_be_encode(__obj: _Decoded, __errors: str = ...) -> _Encoded: ...  # undocumented
 
 class CodecInfo(Tuple[_Encoder, _Decoder, _StreamReader, _StreamWriter]):
     @property
