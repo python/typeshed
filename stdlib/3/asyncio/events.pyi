@@ -113,51 +113,89 @@ class AbstractEventLoop(metaclass=ABCMeta):
         @abstractmethod
         async def sock_sendfile(self, sock: socket, file: IO[bytes], offset: int = ..., count: Optional[int] = ..., *,
                           fallback: bool = ...) -> int: ...
-    @overload
-    @abstractmethod
-    @coroutine
-    def create_connection(self, protocol_factory: _ProtocolFactory, host: str = ..., port: int = ..., *,
-                          ssl: _SSLContext = ..., family: int = ..., proto: int = ..., flags: int = ..., sock: None = ...,
-                          local_addr: Optional[str] = ..., server_hostname: Optional[str] = ...) -> Generator[Any, None, _TransProtPair]: ...
-    @overload
-    @abstractmethod
-    @coroutine
-    def create_connection(self, protocol_factory: _ProtocolFactory, host: None = ..., port: None = ..., *,
-                          ssl: _SSLContext = ..., family: int = ..., proto: int = ..., flags: int = ..., sock: socket,
-                          local_addr: None = ..., server_hostname: Optional[str] = ...) -> Generator[Any, None, _TransProtPair]: ...
-    @overload
-    @abstractmethod
-    @coroutine
-    def create_server(self, protocol_factory: _ProtocolFactory, host: Optional[Union[str, Sequence[str]]] = ..., port: int = ..., *,
-                      family: int = ..., flags: int = ...,
-                      sock: None = ..., backlog: int = ..., ssl: _SSLContext = ...,
-                      reuse_address: Optional[bool] = ...,
-                      reuse_port: Optional[bool] = ...) -> Generator[Any, None, AbstractServer]: ...
-    @overload
-    @abstractmethod
-    @coroutine
-    def create_server(self, protocol_factory: _ProtocolFactory, host: None = ..., port: None = ..., *,
-                      family: int = ..., flags: int = ...,
-                      sock: socket, backlog: int = ..., ssl: _SSLContext = ...,
-                      reuse_address: Optional[bool] = ...,
-                      reuse_port: Optional[bool] = ...) -> Generator[Any, None, AbstractServer]: ...
-    if sys.version_info >= (3, 7):
+        @overload
+        @abstractmethod
+        async def create_connection(self, protocol_factory: _ProtocolFactory, host: str = ..., port: int = ..., *,
+                                    ssl: _SSLContext = ..., family: int = ..., proto: int = ..., flags: int = ...,
+                                    sock: None = ..., local_addr: Optional[str] = ..., server_hostname: Optional[str] = ...,
+                                    ssl_handshake_timeout: Optional[float] = ...) ->  _TransProtPair: ...
+        @overload
+        @abstractmethod
+        async def create_connection(self, protocol_factory: _ProtocolFactory, host: None = ..., port: None = ..., *,
+                                    ssl: _SSLContext = ..., family: int = ..., proto: int = ..., flags: int = ...,
+                                    sock: socket, local_addr: None = ..., server_hostname: Optional[str] = ...,
+                                    ssl_handshake_timeout: Optional[float] = ...) ->  _TransProtPair: ...
+        @overload
+        @abstractmethod
+        async def create_server(self, protocol_factory: _ProtocolFactory, host: Optional[Union[str, Sequence[str]]] = ...,
+                                port: int = ..., *, family: int = ..., flags: int = ..., sock: None = ..., backlog: int = ...,
+                                ssl: _SSLContext = ..., reuse_address: Optional[bool] = ..., reuse_port: Optional[bool] = ...,
+                                ssl_handshake_timeout: Optional[float] = ..., start_serving: bool = ...) -> AbstractServer: ...
+        @overload
+        @abstractmethod
+        async def create_server(self, protocol_factory: _ProtocolFactory, host: None = ..., port: None = ..., *,
+                                family: int = ..., flags: int = ..., sock: socket = ..., backlog: int = ...,
+                                ssl: _SSLContext = ..., reuse_address: Optional[bool] = ..., reuse_port: Optional[bool] = ...,
+                                ssl_handshake_timeout: Optional[float] = ..., start_serving: bool = ...) -> AbstractServer: ...
+        @abstractmethod
+        async def create_unix_connection(self, protocol_factory: _ProtocolFactory, path: str, *, ssl: _SSLContext = ...,
+                                         sock: Optional[socket] = ..., server_hostname: str = ...,
+                                         ssl_handshake_timeout: Optional[float]) -> _TransProtPair: ...
+        @abstractmethod
+        async def create_unix_server(self, protocol_factory: _ProtocolFactory, path: str, *, sock: Optional[socket] = ...,
+                                     backlog: int = ..., ssl: _SSLContext = ..., ssl_handshake_timeout: Optional[float] = ...,
+                                     start_serving: bool = ...) -> AbstractServer: ...
+        @abstractmethod
+        async def connect_accepted_socket(self, protocol_factory: _ProtocolFactory, sock: socket, *, ssl: _SSLContext = ...,
+                                          ssl_handshake_timeout: Optional[float] = ...) ->  _TransProtPair: ...
         @abstractmethod
         async def sendfile(self, transport: BaseTransport, file: IO[bytes], offset: int = ..., count: Optional[int] = ..., *,
-                     fallback: bool = ...) -> int: ...
+                           fallback: bool = ...) -> int: ...
         @abstractmethod
         async def start_tls(self, transport: BaseTransport, protocol: BaseProtocol, sslcontext: ssl.SSLContext, *,
-                      server_side: bool = ..., server_hostname: Optional[str] = ...,
-                      ssl_handshake_timeout: Optional[float] = ...) -> BaseTransport: ...
-    @abstractmethod
-    @coroutine
-    def create_unix_connection(self, protocol_factory: _ProtocolFactory, path: str, *,
-                               ssl: _SSLContext = ..., sock: Optional[socket] = ...,
-                               server_hostname: str = ...) -> Generator[Any, None, _TransProtPair]: ...
-    @abstractmethod
-    @coroutine
-    def create_unix_server(self, protocol_factory: _ProtocolFactory, path: str, *,
-                           sock: Optional[socket] = ..., backlog: int = ..., ssl: _SSLContext = ...) -> Generator[Any, None, AbstractServer]: ...
+                            server_side: bool = ..., server_hostname: Optional[str] = ...,
+                            ssl_handshake_timeout: Optional[float] = ...) -> BaseTransport: ...
+    else:
+        @overload
+        @abstractmethod
+        @coroutine
+        def create_connection(self, protocol_factory: _ProtocolFactory, host: str = ..., port: int = ..., *,
+                              ssl: _SSLContext = ..., family: int = ..., proto: int = ..., flags: int = ..., sock: None = ...,
+                              local_addr: Optional[str] = ..., server_hostname: Optional[str] = ...) -> Generator[Any, None, _TransProtPair]: ...
+        @overload
+        @abstractmethod
+        @coroutine
+        def create_connection(self, protocol_factory: _ProtocolFactory, host: None = ..., port: None = ..., *,
+                              ssl: _SSLContext = ..., family: int = ..., proto: int = ..., flags: int = ..., sock: socket,
+                              local_addr: None = ..., server_hostname: Optional[str] = ...) -> Generator[Any, None, _TransProtPair]: ...
+        @overload
+        @abstractmethod
+        @coroutine
+        def create_server(self, protocol_factory: _ProtocolFactory, host: Optional[Union[str, Sequence[str]]] = ..., port: int = ..., *,
+                          family: int = ..., flags: int = ...,
+                          sock: None = ..., backlog: int = ..., ssl: _SSLContext = ...,
+                          reuse_address: Optional[bool] = ...,
+                          reuse_port: Optional[bool] = ...) -> Generator[Any, None, AbstractServer]: ...
+        @overload
+        @abstractmethod
+        @coroutine
+        def create_server(self, protocol_factory: _ProtocolFactory, host: None = ..., port: None = ..., *,
+                          family: int = ..., flags: int = ...,
+                          sock: socket, backlog: int = ..., ssl: _SSLContext = ...,
+                          reuse_address: Optional[bool] = ...,
+                          reuse_port: Optional[bool] = ...) -> Generator[Any, None, AbstractServer]: ...
+        @abstractmethod
+        @coroutine
+        def create_unix_connection(self, protocol_factory: _ProtocolFactory, path: str, *,
+                                   ssl: _SSLContext = ..., sock: Optional[socket] = ...,
+                                   server_hostname: str = ...) -> Generator[Any, None, _TransProtPair]: ...
+        @abstractmethod
+        @coroutine
+        def create_unix_server(self, protocol_factory: _ProtocolFactory, path: str, *,
+                               sock: Optional[socket] = ..., backlog: int = ..., ssl: _SSLContext = ...) -> Generator[Any, None, AbstractServer]: ...
+        @abstractmethod
+        @coroutine
+        def connect_accepted_socket(self, protocol_factory: _ProtocolFactory, sock: socket, *, ssl: _SSLContext = ...) -> Generator[Any, None, _TransProtPair]: ...
     @abstractmethod
     @coroutine
     def create_datagram_endpoint(self, protocol_factory: _ProtocolFactory,
@@ -166,9 +204,6 @@ class AbstractEventLoop(metaclass=ABCMeta):
                                  reuse_address: Optional[bool] = ..., reuse_port: Optional[bool] = ...,
                                  allow_broadcast: Optional[bool] = ...,
                                  sock: Optional[socket] = ...) -> Generator[Any, None, _TransProtPair]: ...
-    @abstractmethod
-    @coroutine
-    def connect_accepted_socket(self, protocol_factory: _ProtocolFactory, sock: socket, *, ssl: _SSLContext = ...) -> Generator[Any, None, _TransProtPair]: ...
     # Pipes and subprocesses.
     @abstractmethod
     @coroutine
