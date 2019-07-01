@@ -271,7 +271,7 @@ class SSLContext:
     if sys.version_info >= (3, 7):
         maximum_version: TLSVersion
         minimum_version: TLSVersion
-        
+
 
 if sys.version_info >= (3, 5):
     class SSLObject:
