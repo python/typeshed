@@ -61,8 +61,7 @@ class BaseEventLoop(AbstractEventLoop):
     @coroutine
     def getnameinfo(self, sockaddr: tuple, flags: int = ...) -> Generator[Any, None, Tuple[str, int]]: ...
     if sys.version_info >= (3, 7):
-        @coroutine
-        def sock_sendfile(self, sock: socket, file: IO[bytes], offset: int = ..., count: Optional[int] = ..., *,
+        async def sock_sendfile(self, sock: socket, file: IO[bytes], offset: int = ..., count: Optional[int] = ..., *,
                           fallback: bool = ...) -> int: ...
     @overload
     @coroutine
@@ -89,11 +88,9 @@ class BaseEventLoop(AbstractEventLoop):
                       reuse_address: Optional[bool] = ...,
                       reuse_port: Optional[bool] = ...) -> Generator[Any, None, AbstractServer]: ...
     if sys.version_info >= (3, 7):
-        @coroutine
-        def sendfile(self, transport: BaseTransport, file: IO[bytes], offset: int = ..., count: Optional[int] = ..., *,
+        async def sendfile(self, transport: BaseTransport, file: IO[bytes], offset: int = ..., count: Optional[int] = ..., *,
                      fallback: bool = ...) -> int: ...
-        @coroutine
-        def start_tls(self, transport: BaseTransport, protocol: BaseProtocol, sslcontext: ssl.SSLContext, *,
+        async def start_tls(self, transport: BaseTransport, protocol: BaseProtocol, sslcontext: ssl.SSLContext, *,
                       server_side: bool = ..., server_hostname: Optional[str] = ...,
                       ssl_handshake_timeout: Optional[float] = ...) -> BaseTransport: ...
     @coroutine
