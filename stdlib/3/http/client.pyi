@@ -141,29 +141,30 @@ else:
 class HTTPConnectionProtocol(Protocol):
     if sys.version_info >= (3, 7):
         def __call__(self, host: str, port: Optional[int] = ...,
-                     timeout: int = ...,
+                     timeout: float = ...,
                      source_address: Optional[Tuple[str, int]] = ...,
                      blocksize: int = ...): ...
     else:
         def __call__(self, host: str, port: Optional[int] = ...,
-                     timeout: int = ...,
+                     timeout: float = ...,
                      source_address: Optional[Tuple[str, int]] = ...): ...
 
 class HTTPConnection:
-    host: str = ...
-    port: int = ...
+    timeout: float
+    host: str
+    port: int
     if sys.version_info >= (3, 7):
         def __init__(
             self,
             host: str, port: Optional[int] = ...,
-            timeout: int = ...,
+            timeout: float = ...,
             source_address: Optional[Tuple[str, int]] = ..., blocksize: int = ...
         ) -> None: ...
     else:
         def __init__(
             self,
             host: str, port: Optional[int] = ...,
-            timeout: int = ...,
+            timeout: float = ...,
             source_address: Optional[Tuple[str, int]] = ...
         ) -> None: ...
     if sys.version_info >= (3, 6):
@@ -196,7 +197,7 @@ class HTTPSConnection(HTTPConnection):
                  host: str, port: Optional[int] = ...,
                  key_file: Optional[str] = ...,
                  cert_file: Optional[str] = ...,
-                 timeout: int = ...,
+                 timeout: float = ...,
                  source_address: Optional[Tuple[str, int]] = ...,
                  *, context: Optional[ssl.SSLContext] = ...,
                  check_hostname: Optional[bool] = ...) -> None: ...
