@@ -2,7 +2,8 @@ from typing import IO, Iterable, List, Optional, Text, Tuple, Union
 from wsgiref.types import StartResponse, WSGIApplication, WSGIEnvironment
 
 class ProfilerMiddleware(object):
-    def __init__(self,
+    def __init__(
+        self,
         app: WSGIApplication,
         stream: IO[str] = ...,
         sort_by: Tuple[Text, Text] = ...,
