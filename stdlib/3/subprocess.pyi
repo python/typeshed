@@ -2,19 +2,28 @@
 
 # Based on http://docs.python.org/3.6/library/subprocess.html
 import sys
-from typing import Sequence, Any, Mapping, Callable, Tuple, IO, Optional, Union, List, Type, Text
+from typing import (
+    Sequence, Any, Mapping, Callable, Tuple, IO, Optional, Union, List, Type, Text,
+    Generic, TypeVar,
+    overload,
+)
+from typing_extensions import Literal
 from types import TracebackType
 
+# We use very laborious literal based overloads to try to
+#
 # We prefer to annotate inputs to methods (eg subprocess.check_call) with these
-# union types. However, outputs (eg check_call return) and class attributes
-# (eg TimeoutError.cmd) we prefer to annotate with Any, so the caller does not
-# have to use an assertion to confirm which type.
+# union types.
+# For outputs we use laborious literal based overloads to try to determine
+# which specific return types to use, and prefer to fall back to Any when
+# this does not work, so the caller does not have to use an assertion to confirm
+# which type.
 #
 # For example:
 #
 # try:
 #    x = subprocess.check_output(["ls", "-l"])
-#    reveal_type(x)  # Any, but morally is _TXT
+#    reveal_type(x)  # bytes, based on the overloads
 # except TimeoutError as e:
 #    reveal_type(e.cmd)  # Any, but morally is _CMD
 _FILE = Union[None, int, IO[Any]]
@@ -29,22 +38,159 @@ else:
 _CMD = Union[_TXT, Sequence[_PATH]]
 _ENV = Union[Mapping[bytes, _TXT], Mapping[Text, _TXT]]
 
+_T = TypeVar('_T')
+
 if sys.version_info >= (3, 5):
-    class CompletedProcess:
+    class _CompletedProcess(Generic[_T]):
         # morally: _CMD
         args: Any
         returncode: int
-        # morally: Optional[_TXT]
-        stdout: Any
-        stderr: Any
+        # These are really both Optional, but requiring checks would be tedious
+        # and writing all the overloads would be horrific.
+        stdout: _T
+        stderr: _T
         def __init__(self, args: _CMD,
                      returncode: int,
-                     stdout: Optional[_TXT] = ...,
-                     stderr: Optional[_TXT] = ...) -> None: ...
+                     stdout: Optional[_T] = ...,
+                     stderr: Optional[_T] = ...) -> None: ...
         def check_returncode(self) -> None: ...
+
+    CompletedProcess = _CompletedProcess[Any]
 
     if sys.version_info >= (3, 7):
         # Nearly the same args as for 3.6, except for capture_output and text
+        @overload
+        def run(args: _CMD,
+                bufsize: int = ...,
+                executable: _PATH = ...,
+                stdin: _FILE = ...,
+                stdout: _FILE = ...,
+                stderr: _FILE = ...,
+                preexec_fn: Callable[[], Any] = ...,
+                close_fds: bool = ...,
+                shell: bool = ...,
+                cwd: Optional[_PATH] = ...,
+                env: Optional[_ENV] = ...,
+                universal_newlines: bool = ...,
+                startupinfo: Any = ...,
+                creationflags: int = ...,
+                restore_signals: bool = ...,
+                start_new_session: bool = ...,
+                pass_fds: Any = ...,
+                *,
+                capture_output: bool = ...,
+                check: bool = ...,
+                encoding: Optional[str] = ...,
+                errors: Optional[str] = ...,
+                input: Optional[str] = ...,
+                text: Literal[True],
+                timeout: Optional[float] = ...) -> _CompletedProcess[str]: ...
+        @overload
+        def run(args: _CMD,
+                bufsize: int = ...,
+                executable: _PATH = ...,
+                stdin: _FILE = ...,
+                stdout: _FILE = ...,
+                stderr: _FILE = ...,
+                preexec_fn: Callable[[], Any] = ...,
+                close_fds: bool = ...,
+                shell: bool = ...,
+                cwd: Optional[_PATH] = ...,
+                env: Optional[_ENV] = ...,
+                universal_newlines: bool = ...,
+                startupinfo: Any = ...,
+                creationflags: int = ...,
+                restore_signals: bool = ...,
+                start_new_session: bool = ...,
+                pass_fds: Any = ...,
+                *,
+                capture_output: bool = ...,
+                check: bool = ...,
+                encoding: str,
+                errors: Optional[str] = ...,
+                input: Optional[str] = ...,
+                text: Optional[bool] = ...,
+                timeout: Optional[float] = ...) -> _CompletedProcess[str]: ...
+        @overload
+        def run(args: _CMD,
+                bufsize: int = ...,
+                executable: _PATH = ...,
+                stdin: _FILE = ...,
+                stdout: _FILE = ...,
+                stderr: _FILE = ...,
+                preexec_fn: Callable[[], Any] = ...,
+                close_fds: bool = ...,
+                shell: bool = ...,
+                cwd: Optional[_PATH] = ...,
+                env: Optional[_ENV] = ...,
+                universal_newlines: bool = ...,
+                startupinfo: Any = ...,
+                creationflags: int = ...,
+                restore_signals: bool = ...,
+                start_new_session: bool = ...,
+                pass_fds: Any = ...,
+                *,
+                capture_output: bool = ...,
+                check: bool = ...,
+                encoding: Optional[str] = ...,
+                errors: str,
+                input: Optional[str] = ...,
+                text: Optional[bool] = ...,
+                timeout: Optional[float] = ...) -> _CompletedProcess[str]: ...
+        @overload
+        def run(args: _CMD,
+                bufsize: int = ...,
+                executable: _PATH = ...,
+                stdin: _FILE = ...,
+                stdout: _FILE = ...,
+                stderr: _FILE = ...,
+                preexec_fn: Callable[[], Any] = ...,
+                close_fds: bool = ...,
+                shell: bool = ...,
+                cwd: Optional[_PATH] = ...,
+                env: Optional[_ENV] = ...,
+                *,
+                universal_newlines: Literal[True],
+                startupinfo: Any = ...,
+                creationflags: int = ...,
+                restore_signals: bool = ...,
+                start_new_session: bool = ...,
+                pass_fds: Any = ...,
+                # where the *real* keyword only args start
+                capture_output: bool = ...,
+                check: bool = ...,
+                encoding: Optional[str] = ...,
+                errors: Optional[str] = ...,
+                input: Optional[str] = ...,
+                text: Optional[bool] = ...,
+                timeout: Optional[float] = ...) -> _CompletedProcess[str]: ...
+        @overload
+        def run(args: _CMD,
+                bufsize: int = ...,
+                executable: _PATH = ...,
+                stdin: _FILE = ...,
+                stdout: _FILE = ...,
+                stderr: _FILE = ...,
+                preexec_fn: Callable[[], Any] = ...,
+                close_fds: bool = ...,
+                shell: bool = ...,
+                cwd: Optional[_PATH] = ...,
+                env: Optional[_ENV] = ...,
+                universal_newlines: Literal[False] = ...,
+                startupinfo: Any = ...,
+                creationflags: int = ...,
+                restore_signals: bool = ...,
+                start_new_session: bool = ...,
+                pass_fds: Any = ...,
+                *,
+                capture_output: bool = ...,
+                check: bool = ...,
+                encoding: Literal[None] = ...,
+                errors: Literal[None] = ...,
+                input: Optional[bytes] = ...,
+                text: Literal[None, False] = ...,
+                timeout: Optional[float] = ...) -> _CompletedProcess[bytes]: ...
+        @overload
         def run(args: _CMD,
                 bufsize: int = ...,
                 executable: _PATH = ...,
@@ -69,9 +215,107 @@ if sys.version_info >= (3, 5):
                 errors: Optional[str] = ...,
                 input: Optional[_TXT] = ...,
                 text: Optional[bool] = ...,
-                timeout: Optional[float] = ...) -> CompletedProcess: ...
+                timeout: Optional[float] = ...) -> _CompletedProcess[Any]: ...
     elif sys.version_info >= (3, 6):
         # Nearly same args as Popen.__init__ except for timeout, input, and check
+        @overload
+        def run(args: _CMD,
+                bufsize: int = ...,
+                executable: _PATH = ...,
+                stdin: _FILE = ...,
+                stdout: _FILE = ...,
+                stderr: _FILE = ...,
+                preexec_fn: Callable[[], Any] = ...,
+                close_fds: bool = ...,
+                shell: bool = ...,
+                cwd: Optional[_PATH] = ...,
+                env: Optional[_ENV] = ...,
+                universal_newlines: bool = ...,
+                startupinfo: Any = ...,
+                creationflags: int = ...,
+                restore_signals: bool = ...,
+                start_new_session: bool = ...,
+                pass_fds: Any = ...,
+                *,
+                check: bool = ...,
+                encoding: str,
+                errors: Optional[str] = ...,
+                input: Optional[str] = ...,
+                timeout: Optional[float] = ...) -> _CompletedProcess[str]: ...
+        @overload
+        def run(args: _CMD,
+                bufsize: int = ...,
+                executable: _PATH = ...,
+                stdin: _FILE = ...,
+                stdout: _FILE = ...,
+                stderr: _FILE = ...,
+                preexec_fn: Callable[[], Any] = ...,
+                close_fds: bool = ...,
+                shell: bool = ...,
+                cwd: Optional[_PATH] = ...,
+                env: Optional[_ENV] = ...,
+                universal_newlines: bool = ...,
+                startupinfo: Any = ...,
+                creationflags: int = ...,
+                restore_signals: bool = ...,
+                start_new_session: bool = ...,
+                pass_fds: Any = ...,
+                *,
+                check: bool = ...,
+                encoding: Optional[str] = ...,
+                errors: str,
+                input: Optional[str] = ...,
+                timeout: Optional[float] = ...) -> _CompletedProcess[str]: ...
+        @overload
+        def run(args: _CMD,
+                bufsize: int = ...,
+                executable: _PATH = ...,
+                stdin: _FILE = ...,
+                stdout: _FILE = ...,
+                stderr: _FILE = ...,
+                preexec_fn: Callable[[], Any] = ...,
+                close_fds: bool = ...,
+                shell: bool = ...,
+                cwd: Optional[_PATH] = ...,
+                env: Optional[_ENV] = ...,
+                *,
+                universal_newlines: Literal[True],
+                startupinfo: Any = ...,
+                creationflags: int = ...,
+                restore_signals: bool = ...,
+                start_new_session: bool = ...,
+                pass_fds: Any = ...,
+                # where the *real* keyword only args start
+                check: bool = ...,
+                encoding: Optional[str] = ...,
+                errors: Optional[str] = ...,
+                input: Optional[str] = ...,
+                timeout: Optional[float] = ...) -> _CompletedProcess[str]: ...
+        @overload
+        def run(args: _CMD,
+                bufsize: int = ...,
+                executable: _PATH = ...,
+                stdin: _FILE = ...,
+                stdout: _FILE = ...,
+                stderr: _FILE = ...,
+                preexec_fn: Callable[[], Any] = ...,
+                close_fds: bool = ...,
+                shell: bool = ...,
+                cwd: Optional[_PATH] = ...,
+                env: Optional[_ENV] = ...,
+                universal_newlines: Literal[False] = ...,
+                startupinfo: Any = ...,
+                creationflags: int = ...,
+                restore_signals: bool = ...,
+                start_new_session: bool = ...,
+                pass_fds: Any = ...,
+                *,
+                check: bool = ...,
+                encoding: Literal[None] = ...,
+                errors: Literal[None] = ...,
+                input: Optional[bytes] = ...,
+                timeout: Optional[float] = ...) -> _CompletedProcess[bytes]: ...
+        @overload
         def run(args: _CMD,
                 bufsize: int = ...,
                 executable: _PATH = ...,
@@ -94,13 +338,56 @@ if sys.version_info >= (3, 5):
                 encoding: Optional[str] = ...,
                 errors: Optional[str] = ...,
                 input: Optional[_TXT] = ...,
-                timeout: Optional[float] = ...) -> CompletedProcess: ...
+                timeout: Optional[float] = ...) -> _CompletedProcess[Any]: ...
     else:
         # Nearly same args as Popen.__init__ except for timeout, input, and check
+        @overload
         def run(args: _CMD,
-                timeout: Optional[float] = ...,
-                input: Optional[_TXT] = ...,
+                bufsize: int = ...,
+                executable: _PATH = ...,
+                stdin: _FILE = ...,
+                stdout: _FILE = ...,
+                stderr: _FILE = ...,
+                preexec_fn: Callable[[], Any] = ...,
+                close_fds: bool = ...,
+                shell: bool = ...,
+                cwd: Optional[_PATH] = ...,
+                env: Optional[_ENV] = ...,
+                *,
+                universal_newlines: Literal[True],
+                startupinfo: Any = ...,
+                creationflags: int = ...,
+                restore_signals: bool = ...,
+                start_new_session: bool = ...,
+                pass_fds: Any = ...,
+                # where the *real* keyword only args start
                 check: bool = ...,
+                input: Optional[str] = ...,
+                timeout: Optional[float] = ...) -> _CompletedProcess[str]: ...
+        @overload
+        def run(args: _CMD,
+                bufsize: int = ...,
+                executable: _PATH = ...,
+                stdin: _FILE = ...,
+                stdout: _FILE = ...,
+                stderr: _FILE = ...,
+                preexec_fn: Callable[[], Any] = ...,
+                close_fds: bool = ...,
+                shell: bool = ...,
+                cwd: Optional[_PATH] = ...,
+                env: Optional[_ENV] = ...,
+                universal_newlines: Literal[False] = ...,
+                startupinfo: Any = ...,
+                creationflags: int = ...,
+                restore_signals: bool = ...,
+                start_new_session: bool = ...,
+                pass_fds: Any = ...,
+                *,
+                check: bool = ...,
+                input: Optional[bytes] = ...,
+                timeout: Optional[float] = ...) -> _CompletedProcess[bytes]: ...
+        @overload
+        def run(args: _CMD,
                 bufsize: int = ...,
                 executable: _PATH = ...,
                 stdin: _FILE = ...,
@@ -116,7 +403,11 @@ if sys.version_info >= (3, 5):
                 creationflags: int = ...,
                 restore_signals: bool = ...,
                 start_new_session: bool = ...,
-                pass_fds: Any = ...) -> CompletedProcess: ...
+                pass_fds: Any = ...,
+                *,
+                check: bool = ...,
+                input: Optional[_TXT] = ...,
+                timeout: Optional[float] = ...) -> _CompletedProcess[Any]: ...
 
 # Same args as Popen.__init__
 def call(args: _CMD,
@@ -160,6 +451,128 @@ def check_call(args: _CMD,
 
 if sys.version_info >= (3, 7):
     # 3.7 added text
+    @overload
+    def check_output(args: _CMD,
+                     bufsize: int = ...,
+                     executable: _PATH = ...,
+                     stdin: _FILE = ...,
+                     stderr: _FILE = ...,
+                     preexec_fn: Callable[[], Any] = ...,
+                     close_fds: bool = ...,
+                     shell: bool = ...,
+                     cwd: Optional[_PATH] = ...,
+                     env: Optional[_ENV] = ...,
+                     universal_newlines: bool = ...,
+                     startupinfo: Any = ...,
+                     creationflags: int = ...,
+                     restore_signals: bool = ...,
+                     start_new_session: bool = ...,
+                     pass_fds: Any = ...,
+                     *,
+                     timeout: float = ...,
+                     input: _TXT = ...,
+                     encoding: Optional[str] = ...,
+                     errors: Optional[str] = ...,
+                     text: Literal[True],
+                     ) -> str: ...
+    @overload
+    def check_output(args: _CMD,
+                     bufsize: int = ...,
+                     executable: _PATH = ...,
+                     stdin: _FILE = ...,
+                     stderr: _FILE = ...,
+                     preexec_fn: Callable[[], Any] = ...,
+                     close_fds: bool = ...,
+                     shell: bool = ...,
+                     cwd: Optional[_PATH] = ...,
+                     env: Optional[_ENV] = ...,
+                     universal_newlines: bool = ...,
+                     startupinfo: Any = ...,
+                     creationflags: int = ...,
+                     restore_signals: bool = ...,
+                     start_new_session: bool = ...,
+                     pass_fds: Any = ...,
+                     *,
+                     timeout: float = ...,
+                     input: _TXT = ...,
+                     encoding: str,
+                     errors: Optional[str] = ...,
+                     text: Optional[bool] = ...,
+                     ) -> str: ...
+    @overload
+    def check_output(args: _CMD,
+                     bufsize: int = ...,
+                     executable: _PATH = ...,
+                     stdin: _FILE = ...,
+                     stderr: _FILE = ...,
+                     preexec_fn: Callable[[], Any] = ...,
+                     close_fds: bool = ...,
+                     shell: bool = ...,
+                     cwd: Optional[_PATH] = ...,
+                     env: Optional[_ENV] = ...,
+                     universal_newlines: bool = ...,
+                     startupinfo: Any = ...,
+                     creationflags: int = ...,
+                     restore_signals: bool = ...,
+                     start_new_session: bool = ...,
+                     pass_fds: Any = ...,
+                     *,
+                     timeout: float = ...,
+                     input: _TXT = ...,
+                     encoding: Optional[str] = ...,
+                     errors: str,
+                     text: Optional[bool] = ...,
+                     ) -> str: ...
+    @overload
+    def check_output(args: _CMD,
+                     bufsize: int = ...,
+                     executable: _PATH = ...,
+                     stdin: _FILE = ...,
+                     stderr: _FILE = ...,
+                     preexec_fn: Callable[[], Any] = ...,
+                     close_fds: bool = ...,
+                     shell: bool = ...,
+                     cwd: Optional[_PATH] = ...,
+                     env: Optional[_ENV] = ...,
+                     *,
+                     universal_newlines: Literal[True],
+                     startupinfo: Any = ...,
+                     creationflags: int = ...,
+                     restore_signals: bool = ...,
+                     start_new_session: bool = ...,
+                     pass_fds: Any = ...,
+                     # where the real keyword only ones start
+                     timeout: float = ...,
+                     input: _TXT = ...,
+                     encoding: Optional[str] = ...,
+                     errors: Optional[str] = ...,
+                     text: Optional[bool] = ...,
+                     ) -> str: ...
+    @overload
+    def check_output(args: _CMD,
+                     bufsize: int = ...,
+                     executable: _PATH = ...,
+                     stdin: _FILE = ...,
+                     stderr: _FILE = ...,
+                     preexec_fn: Callable[[], Any] = ...,
+                     close_fds: bool = ...,
+                     shell: bool = ...,
+                     cwd: Optional[_PATH] = ...,
+                     env: Optional[_ENV] = ...,
+                     universal_newlines: Literal[False] = ...,
+                     startupinfo: Any = ...,
+                     creationflags: int = ...,
+                     restore_signals: bool = ...,
+                     start_new_session: bool = ...,
+                     pass_fds: Any = ...,
+                     *,
+                     timeout: float = ...,
+                     input: _TXT = ...,
+                     encoding: Literal[None] = ...,
+                     errors: Literal[None] = ...,
+                     text: Literal[None, False] = ...,
+                     ) -> bytes: ...
+    @overload
     def check_output(args: _CMD,
                      bufsize: int = ...,
                      executable: _PATH = ...,
@@ -185,6 +598,99 @@ if sys.version_info >= (3, 7):
                      ) -> Any: ...  # morally: -> _TXT
 elif sys.version_info >= (3, 6):
     # 3.6 added encoding and errors
+    @overload
+    def check_output(args: _CMD,
+                     bufsize: int = ...,
+                     executable: _PATH = ...,
+                     stdin: _FILE = ...,
+                     stderr: _FILE = ...,
+                     preexec_fn: Callable[[], Any] = ...,
+                     close_fds: bool = ...,
+                     shell: bool = ...,
+                     cwd: Optional[_PATH] = ...,
+                     env: Optional[_ENV] = ...,
+                     universal_newlines: bool = ...,
+                     startupinfo: Any = ...,
+                     creationflags: int = ...,
+                     restore_signals: bool = ...,
+                     start_new_session: bool = ...,
+                     pass_fds: Any = ...,
+                     *,
+                     timeout: float = ...,
+                     input: _TXT = ...,
+                     encoding: str,
+                     errors: Optional[str] = ...,
+                     ) -> str: ...
+    @overload
+    def check_output(args: _CMD,
+                     bufsize: int = ...,
+                     executable: _PATH = ...,
+                     stdin: _FILE = ...,
+                     stderr: _FILE = ...,
+                     preexec_fn: Callable[[], Any] = ...,
+                     close_fds: bool = ...,
+                     shell: bool = ...,
+                     cwd: Optional[_PATH] = ...,
+                     env: Optional[_ENV] = ...,
+                     universal_newlines: bool = ...,
+                     startupinfo: Any = ...,
+                     creationflags: int = ...,
+                     restore_signals: bool = ...,
+                     start_new_session: bool = ...,
+                     pass_fds: Any = ...,
+                     *,
+                     timeout: float = ...,
+                     input: _TXT = ...,
+                     encoding: Optional[str] = ...,
+                     errors: str,
+                     ) -> str: ...
+    @overload
+    def check_output(args: _CMD,
+                     bufsize: int = ...,
+                     executable: _PATH = ...,
+                     stdin: _FILE = ...,
+                     stderr: _FILE = ...,
+                     preexec_fn: Callable[[], Any] = ...,
+                     close_fds: bool = ...,
+                     shell: bool = ...,
+                     cwd: Optional[_PATH] = ...,
+                     env: Optional[_ENV] = ...,
+                     startupinfo: Any = ...,
+                     creationflags: int = ...,
+                     restore_signals: bool = ...,
+                     start_new_session: bool = ...,
+                     pass_fds: Any = ...,
+                     *,
+                     universal_newlines: Literal[True],
+                     timeout: float = ...,
+                     input: _TXT = ...,
+                     encoding: Optional[str] = ...,
+                     errors: Optional[str] = ...,
+                     ) -> str: ...
+    @overload
+    def check_output(args: _CMD,
+                     bufsize: int = ...,
+                     executable: _PATH = ...,
+                     stdin: _FILE = ...,
+                     stderr: _FILE = ...,
+                     preexec_fn: Callable[[], Any] = ...,
+                     close_fds: bool = ...,
+                     shell: bool = ...,
+                     cwd: Optional[_PATH] = ...,
+                     env: Optional[_ENV] = ...,
+                     universal_newlines: Literal[False] = ...,
+                     startupinfo: Any = ...,
+                     creationflags: int = ...,
+                     restore_signals: bool = ...,
+                     start_new_session: bool = ...,
+                     pass_fds: Any = ...,
+                     *,
+                     timeout: float = ...,
+                     input: _TXT = ...,
+                     encoding: Literal[None] = ...,
+                     errors: Literal[None] = ...,
+                     ) -> bytes: ...
+    @overload
     def check_output(args: _CMD,
                      bufsize: int = ...,
                      executable: _PATH = ...,
@@ -208,6 +714,48 @@ elif sys.version_info >= (3, 6):
                      errors: Optional[str] = ...,
                      ) -> Any: ...  # morally: -> _TXT
 else:
+    @overload
+    def check_output(args: _CMD,
+                     bufsize: int = ...,
+                     executable: _PATH = ...,
+                     stdin: _FILE = ...,
+                     stderr: _FILE = ...,
+                     preexec_fn: Callable[[], Any] = ...,
+                     close_fds: bool = ...,
+                     shell: bool = ...,
+                     cwd: Optional[_PATH] = ...,
+                     env: Optional[_ENV] = ...,
+                     startupinfo: Any = ...,
+                     creationflags: int = ...,
+                     restore_signals: bool = ...,
+                     start_new_session: bool = ...,
+                     pass_fds: Any = ...,
+                     timeout: float = ...,
+                     input: _TXT = ...,
+                     *,
+                     universal_newlines: Literal[True],
+                     ) -> str: ...
+    @overload
+    def check_output(args: _CMD,
+                     bufsize: int = ...,
+                     executable: _PATH = ...,
+                     stdin: _FILE = ...,
+                     stderr: _FILE = ...,
+                     preexec_fn: Callable[[], Any] = ...,
+                     close_fds: bool = ...,
+                     shell: bool = ...,
+                     cwd: Optional[_PATH] = ...,
+                     env: Optional[_ENV] = ...,
+                     universal_newlines: Literal[False] = ...,
+                     startupinfo: Any = ...,
+                     creationflags: int = ...,
+                     restore_signals: bool = ...,
+                     start_new_session: bool = ...,
+                     pass_fds: Any = ...,
+                     timeout: float = ...,
+                     input: _TXT = ...,
+                     ) -> bytes: ...
+    @overload
     def check_output(args: _CMD,
                      bufsize: int = ...,
                      executable: _PATH = ...,
@@ -264,13 +812,39 @@ class CalledProcessError(Exception):
 
 class Popen:
     args: _CMD
+    # We would like to give better types to these fields but currently
+    # have no way of overloading a constructor...
     stdin: IO[Any]
     stdout: IO[Any]
     stderr: IO[Any]
     pid = 0
     returncode = 0
 
-    if sys.version_info >= (3, 6):
+    if sys.version_info >= (3, 7):
+        # text is added in 3.7
+        def __init__(self,
+                     args: _CMD,
+                     bufsize: int = ...,
+                     executable: Optional[_PATH] = ...,
+                     stdin: Optional[_FILE] = ...,
+                     stdout: Optional[_FILE] = ...,
+                     stderr: Optional[_FILE] = ...,
+                     preexec_fn: Optional[Callable[[], Any]] = ...,
+                     close_fds: bool = ...,
+                     shell: bool = ...,
+                     cwd: Optional[_PATH] = ...,
+                     env: Optional[_ENV] = ...,
+                     universal_newlines: bool = ...,
+                     startupinfo: Optional[Any] = ...,
+                     creationflags: int = ...,
+                     restore_signals: bool = ...,
+                     start_new_session: bool = ...,
+                     pass_fds: Any = ...,
+                     *,
+                     text: Optional[bool] = ...,
+                     encoding: Optional[str] = ...,
+                     errors: Optional[str] = ...) -> None: ...
+    elif sys.version_info >= (3, 6):
         def __init__(self,
                      args: _CMD,
                      bufsize: int = ...,
