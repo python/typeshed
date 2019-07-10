@@ -10,8 +10,6 @@ from typing import (
 from typing_extensions import Literal
 from types import TracebackType
 
-# We use very laborious literal based overloads to try to
-#
 # We prefer to annotate inputs to methods (eg subprocess.check_call) with these
 # union types.
 # For outputs we use laborious literal based overloads to try to determine
@@ -185,8 +183,8 @@ if sys.version_info >= (3, 5):
                 *,
                 capture_output: bool = ...,
                 check: bool = ...,
-                encoding: Literal[None] = ...,
-                errors: Literal[None] = ...,
+                encoding: None = ...,
+                errors: None = ...,
                 input: Optional[bytes] = ...,
                 text: Literal[None, False] = ...,
                 timeout: Optional[float] = ...) -> _CompletedProcess[bytes]: ...
@@ -311,8 +309,8 @@ if sys.version_info >= (3, 5):
                 pass_fds: Any = ...,
                 *,
                 check: bool = ...,
-                encoding: Literal[None] = ...,
-                errors: Literal[None] = ...,
+                encoding: None = ...,
+                errors: None = ...,
                 input: Optional[bytes] = ...,
                 timeout: Optional[float] = ...) -> _CompletedProcess[bytes]: ...
         @overload
@@ -568,8 +566,8 @@ if sys.version_info >= (3, 7):
                      *,
                      timeout: float = ...,
                      input: _TXT = ...,
-                     encoding: Literal[None] = ...,
-                     errors: Literal[None] = ...,
+                     encoding: None = ...,
+                     errors: None = ...,
                      text: Literal[None, False] = ...,
                      ) -> bytes: ...
     @overload
@@ -687,8 +685,8 @@ elif sys.version_info >= (3, 6):
                      *,
                      timeout: float = ...,
                      input: _TXT = ...,
-                     encoding: Literal[None] = ...,
-                     errors: Literal[None] = ...,
+                     encoding: None = ...,
+                     errors: None = ...,
                      ) -> bytes: ...
     @overload
     def check_output(args: _CMD,
