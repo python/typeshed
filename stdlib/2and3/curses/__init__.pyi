@@ -7,7 +7,7 @@ _T = TypeVar('_T')
 LINES: int
 COLS: int
 
-# available after calling `curses.init_color()`
+# available after calling `curses.start_color()`
 COLORS: int
 COLOR_PAIRS: int
 
