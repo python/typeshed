@@ -1,4 +1,5 @@
 from _curses import *  # noqa: F403
+from _curses import _CursesWindow as _CursesWindow
 from typing import TypeVar, Callable, Any
 
 _T = TypeVar('_T')
