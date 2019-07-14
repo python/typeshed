@@ -1523,7 +1523,7 @@ class SyntaxError(_StandardError):
     msg: str
     lineno: int
     offset: Optional[int]
-    text: str
+    text: Optional[str]
     filename: str
 class SystemError(_StandardError): ...
 class TypeError(_StandardError): ...
