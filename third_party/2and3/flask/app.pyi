@@ -53,7 +53,8 @@ _ViewFunc = Union[
     Callable[..., _WSGICallable],
     Callable[..., Tuple[_Body, _Status, _Headers]],
     Callable[..., Tuple[_Body, _Status]],
-    Callable[..., Tuple[_Body, _Headers]]
+    Callable[..., Tuple[_Body, _Headers]],
+    Callable[..., Dict[Any, Any]]
 ]
 _VT = TypeVar('_VT', bound=_ViewFunc)
 
