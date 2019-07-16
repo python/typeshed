@@ -39,7 +39,7 @@ _ENV = Union[Mapping[bytes, _TXT], Mapping[Text, _TXT]]
 _T = TypeVar('_T')
 
 if sys.version_info >= (3, 5):
-    class _CompletedProcess(Generic[_T]):
+    class CompletedProcess(Generic[_T]):
         # morally: _CMD
         args: Any
         returncode: int
@@ -52,8 +52,6 @@ if sys.version_info >= (3, 5):
                      stdout: Optional[_T] = ...,
                      stderr: Optional[_T] = ...) -> None: ...
         def check_returncode(self) -> None: ...
-
-    CompletedProcess = _CompletedProcess[Any]
 
     if sys.version_info >= (3, 7):
         # Nearly the same args as for 3.6, except for capture_output and text
@@ -82,7 +80,7 @@ if sys.version_info >= (3, 5):
                 errors: Optional[str] = ...,
                 input: Optional[str] = ...,
                 text: Literal[True],
-                timeout: Optional[float] = ...) -> _CompletedProcess[str]: ...
+                timeout: Optional[float] = ...) -> CompletedProcess[str]: ...
         @overload
         def run(args: _CMD,
                 bufsize: int = ...,
@@ -108,7 +106,7 @@ if sys.version_info >= (3, 5):
                 errors: Optional[str] = ...,
                 input: Optional[str] = ...,
                 text: Optional[bool] = ...,
-                timeout: Optional[float] = ...) -> _CompletedProcess[str]: ...
+                timeout: Optional[float] = ...) -> CompletedProcess[str]: ...
         @overload
         def run(args: _CMD,
                 bufsize: int = ...,
@@ -134,7 +132,7 @@ if sys.version_info >= (3, 5):
                 errors: str,
                 input: Optional[str] = ...,
                 text: Optional[bool] = ...,
-                timeout: Optional[float] = ...) -> _CompletedProcess[str]: ...
+                timeout: Optional[float] = ...) -> CompletedProcess[str]: ...
         @overload
         def run(args: _CMD,
                 bufsize: int = ...,
@@ -161,7 +159,7 @@ if sys.version_info >= (3, 5):
                 errors: Optional[str] = ...,
                 input: Optional[str] = ...,
                 text: Optional[bool] = ...,
-                timeout: Optional[float] = ...) -> _CompletedProcess[str]: ...
+                timeout: Optional[float] = ...) -> CompletedProcess[str]: ...
         @overload
         def run(args: _CMD,
                 bufsize: int = ...,
@@ -187,7 +185,7 @@ if sys.version_info >= (3, 5):
                 errors: None = ...,
                 input: Optional[bytes] = ...,
                 text: Literal[None, False] = ...,
-                timeout: Optional[float] = ...) -> _CompletedProcess[bytes]: ...
+                timeout: Optional[float] = ...) -> CompletedProcess[bytes]: ...
         @overload
         def run(args: _CMD,
                 bufsize: int = ...,
@@ -213,7 +211,7 @@ if sys.version_info >= (3, 5):
                 errors: Optional[str] = ...,
                 input: Optional[_TXT] = ...,
                 text: Optional[bool] = ...,
-                timeout: Optional[float] = ...) -> _CompletedProcess[Any]: ...
+                timeout: Optional[float] = ...) -> CompletedProcess[Any]: ...
     elif sys.version_info >= (3, 6):
         # Nearly same args as Popen.__init__ except for timeout, input, and check
         @overload
@@ -239,7 +237,7 @@ if sys.version_info >= (3, 5):
                 encoding: str,
                 errors: Optional[str] = ...,
                 input: Optional[str] = ...,
-                timeout: Optional[float] = ...) -> _CompletedProcess[str]: ...
+                timeout: Optional[float] = ...) -> CompletedProcess[str]: ...
         @overload
         def run(args: _CMD,
                 bufsize: int = ...,
@@ -263,7 +261,7 @@ if sys.version_info >= (3, 5):
                 encoding: Optional[str] = ...,
                 errors: str,
                 input: Optional[str] = ...,
-                timeout: Optional[float] = ...) -> _CompletedProcess[str]: ...
+                timeout: Optional[float] = ...) -> CompletedProcess[str]: ...
         @overload
         def run(args: _CMD,
                 bufsize: int = ...,
@@ -288,7 +286,7 @@ if sys.version_info >= (3, 5):
                 encoding: Optional[str] = ...,
                 errors: Optional[str] = ...,
                 input: Optional[str] = ...,
-                timeout: Optional[float] = ...) -> _CompletedProcess[str]: ...
+                timeout: Optional[float] = ...) -> CompletedProcess[str]: ...
         @overload
         def run(args: _CMD,
                 bufsize: int = ...,
@@ -312,7 +310,7 @@ if sys.version_info >= (3, 5):
                 encoding: None = ...,
                 errors: None = ...,
                 input: Optional[bytes] = ...,
-                timeout: Optional[float] = ...) -> _CompletedProcess[bytes]: ...
+                timeout: Optional[float] = ...) -> CompletedProcess[bytes]: ...
         @overload
         def run(args: _CMD,
                 bufsize: int = ...,
@@ -336,7 +334,7 @@ if sys.version_info >= (3, 5):
                 encoding: Optional[str] = ...,
                 errors: Optional[str] = ...,
                 input: Optional[_TXT] = ...,
-                timeout: Optional[float] = ...) -> _CompletedProcess[Any]: ...
+                timeout: Optional[float] = ...) -> CompletedProcess[Any]: ...
     else:
         # Nearly same args as Popen.__init__ except for timeout, input, and check
         @overload
@@ -361,7 +359,7 @@ if sys.version_info >= (3, 5):
                 # where the *real* keyword only args start
                 check: bool = ...,
                 input: Optional[str] = ...,
-                timeout: Optional[float] = ...) -> _CompletedProcess[str]: ...
+                timeout: Optional[float] = ...) -> CompletedProcess[str]: ...
         @overload
         def run(args: _CMD,
                 bufsize: int = ...,
@@ -383,7 +381,7 @@ if sys.version_info >= (3, 5):
                 *,
                 check: bool = ...,
                 input: Optional[bytes] = ...,
-                timeout: Optional[float] = ...) -> _CompletedProcess[bytes]: ...
+                timeout: Optional[float] = ...) -> CompletedProcess[bytes]: ...
         @overload
         def run(args: _CMD,
                 bufsize: int = ...,
@@ -405,7 +403,7 @@ if sys.version_info >= (3, 5):
                 *,
                 check: bool = ...,
                 input: Optional[_TXT] = ...,
-                timeout: Optional[float] = ...) -> _CompletedProcess[Any]: ...
+                timeout: Optional[float] = ...) -> CompletedProcess[Any]: ...
 
 # Same args as Popen.__init__
 def call(args: _CMD,
@@ -808,7 +806,7 @@ class CalledProcessError(Exception):
                  output: Optional[_TXT] = ...,
                  stderr: Optional[_TXT] = ...) -> None: ...
 
-class _Popen(Generic[AnyStr]):
+class Popen(Generic[AnyStr]):
     args: _CMD
     stdin: IO[AnyStr]
     stdout: IO[AnyStr]
@@ -843,7 +841,7 @@ class _Popen(Generic[AnyStr]):
                     *,
                     text: Optional[bool] = ...,
                     encoding: str,
-                    errors: Optional[str] = ...) -> _Popen[str]: ...
+                    errors: Optional[str] = ...) -> Popen[str]: ...
         @overload
         def __new__(cls,
                     args: _CMD,
@@ -866,7 +864,7 @@ class _Popen(Generic[AnyStr]):
                     *,
                     text: Optional[bool] = ...,
                     encoding: Optional[str] = ...,
-                    errors: str) -> _Popen[str]: ...
+                    errors: str) -> Popen[str]: ...
         @overload
         def __new__(cls,
                     args: _CMD,
@@ -890,7 +888,7 @@ class _Popen(Generic[AnyStr]):
                     # where the *real* keyword only args start
                     text: Optional[bool] = ...,
                     encoding: Optional[str] = ...,
-                    errors: Optional[str] = ...) -> _Popen[str]: ...
+                    errors: Optional[str] = ...) -> Popen[str]: ...
         @overload
         def __new__(cls,
                     args: _CMD,
@@ -913,7 +911,7 @@ class _Popen(Generic[AnyStr]):
                     *,
                     text: Literal[True],
                     encoding: Optional[str] = ...,
-                    errors: Optional[str] = ...) -> _Popen[str]: ...
+                    errors: Optional[str] = ...) -> Popen[str]: ...
         @overload
         def __new__(cls,
                     args: _CMD,
@@ -936,7 +934,7 @@ class _Popen(Generic[AnyStr]):
                     *,
                     text: Literal[None, False] = ...,
                     encoding: None = ...,
-                    errors: None = ...) -> _Popen[bytes]: ...
+                    errors: None = ...) -> Popen[bytes]: ...
         @overload
         def __new__(cls,
                     args: _CMD,
@@ -959,7 +957,7 @@ class _Popen(Generic[AnyStr]):
                     *,
                     text: Optional[bool] = ...,
                     encoding: Optional[str] = ...,
-                    errors: Optional[str] = ...) -> _Popen[Any]: ...
+                    errors: Optional[str] = ...) -> Popen[Any]: ...
     elif sys.version_info >= (3, 6):
         @overload
         def __new__(cls,
@@ -982,7 +980,7 @@ class _Popen(Generic[AnyStr]):
                     pass_fds: Any = ...,
                     *,
                     encoding: str,
-                    errors: Optional[str] = ...) -> _Popen[str]: ...
+                    errors: Optional[str] = ...) -> Popen[str]: ...
         @overload
         def __new__(cls,
                     args: _CMD,
@@ -1004,7 +1002,7 @@ class _Popen(Generic[AnyStr]):
                     pass_fds: Any = ...,
                     *,
                     encoding: Optional[str] = ...,
-                    errors: str) -> _Popen[str]: ...
+                    errors: str) -> Popen[str]: ...
         @overload
         def __new__(cls,
                     args: _CMD,
@@ -1027,7 +1025,7 @@ class _Popen(Generic[AnyStr]):
                     pass_fds: Any = ...,
                     # where the *real* keyword only args start
                     encoding: Optional[str] = ...,
-                    errors: Optional[str] = ...) -> _Popen[str]: ...
+                    errors: Optional[str] = ...) -> Popen[str]: ...
         @overload
         def __new__(cls,
                     args: _CMD,
@@ -1049,7 +1047,7 @@ class _Popen(Generic[AnyStr]):
                     pass_fds: Any = ...,
                     *,
                     encoding: None = ...,
-                    errors: None = ...) -> _Popen[bytes]: ...
+                    errors: None = ...) -> Popen[bytes]: ...
         @overload
         def __new__(cls,
                     args: _CMD,
@@ -1071,7 +1069,7 @@ class _Popen(Generic[AnyStr]):
                     pass_fds: Any = ...,
                     *,
                     encoding: Optional[str] = ...,
-                    errors: Optional[str] = ...) -> _Popen[Any]: ...
+                    errors: Optional[str] = ...) -> Popen[Any]: ...
     else:
         @overload
         def __new__(cls,
@@ -1092,7 +1090,7 @@ class _Popen(Generic[AnyStr]):
                     creationflags: int = ...,
                     restore_signals: bool = ...,
                     start_new_session: bool = ...,
-                    pass_fds: Any = ...) -> _Popen[str]: ...
+                    pass_fds: Any = ...) -> Popen[str]: ...
         @overload
         def __new__(cls,
                     args: _CMD,
@@ -1112,7 +1110,7 @@ class _Popen(Generic[AnyStr]):
                     creationflags: int = ...,
                     restore_signals: bool = ...,
                     start_new_session: bool = ...,
-                    pass_fds: Any = ...) -> _Popen[bytes]: ...
+                    pass_fds: Any = ...) -> Popen[bytes]: ...
         @overload
         def __new__(cls,
                     args: _CMD,
@@ -1131,7 +1129,7 @@ class _Popen(Generic[AnyStr]):
                     creationflags: int = ...,
                     restore_signals: bool = ...,
                     start_new_session: bool = ...,
-                    pass_fds: Any = ...) -> _Popen[Any]: ...
+                    pass_fds: Any = ...) -> Popen[Any]: ...
 
     def poll(self) -> int: ...
     def wait(self, timeout: Optional[float] = ...) -> int: ...
@@ -1146,8 +1144,6 @@ class _Popen(Generic[AnyStr]):
     def kill(self) -> None: ...
     def __enter__(self) -> Popen: ...
     def __exit__(self, type: Optional[Type[BaseException]], value: Optional[BaseException], traceback: Optional[TracebackType]) -> bool: ...
-
-Popen = _Popen[Any]
 
 # The result really is always a str.
 def getstatusoutput(cmd: _TXT) -> Tuple[int, str]: ...
