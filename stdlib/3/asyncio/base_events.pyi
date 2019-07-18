@@ -17,6 +17,8 @@ _ProtocolFactory = Callable[[], BaseProtocol]
 _SSLContext = Union[bool, None, ssl.SSLContext]
 _TransProtPair = Tuple[BaseTransport, BaseProtocol]
 
+class Server(AbstractServer): ...
+
 class BaseEventLoop(AbstractEventLoop):
     def run_forever(self) -> None: ...
 
@@ -76,21 +78,18 @@ class BaseEventLoop(AbstractEventLoop):
                       family: int = ..., flags: int = ...,
                       sock: None = ..., backlog: int = ..., ssl: _SSLContext = ...,
                       reuse_address: Optional[bool] = ...,
-                      reuse_port: Optional[bool] = ...) -> Generator[Any, None, AbstractServer]: ...
+                      reuse_port: Optional[bool] = ...) -> Generator[Any, None, Server]: ...
     @overload
     @coroutine
     def create_server(self, protocol_factory: _ProtocolFactory, host: None = ..., port: None = ..., *,
                       family: int = ..., flags: int = ...,
                       sock: socket, backlog: int = ..., ssl: _SSLContext = ...,
                       reuse_address: Optional[bool] = ...,
-                      reuse_port: Optional[bool] = ...) -> Generator[Any, None, AbstractServer]: ...
+                      reuse_port: Optional[bool] = ...) -> Generator[Any, None, Server]: ...
     @coroutine
     def create_unix_connection(self, protocol_factory: _ProtocolFactory, path: str, *,
                                ssl: _SSLContext = ..., sock: Optional[socket] = ...,
                                server_hostname: str = ...) -> Generator[Any, None, _TransProtPair]: ...
-    @coroutine
-    def create_unix_server(self, protocol_factory: _ProtocolFactory, path: str, *,
-                           sock: Optional[socket] = ..., backlog: int = ..., ssl: _SSLContext = ...) -> Generator[Any, None, AbstractServer]: ...
     @coroutine
     def create_datagram_endpoint(self, protocol_factory: _ProtocolFactory,
                                  local_addr: Optional[Tuple[str, int]] = ..., remote_addr: Optional[Tuple[str, int]] = ..., *,
