@@ -2,7 +2,12 @@
 
 # Based on http://docs.python.org/2/library/subprocess.html and Python 3 stub
 
-from typing import Sequence, Any, Mapping, Callable, Tuple, IO, Union, Optional, List, Text
+from typing import (
+    Sequence, Any, Mapping, Callable, Tuple, IO, Union, Optional, List, Text, TypeVar, Generic,
+)
+
+# This is a dummy type variable used to make Popen generic like it is in python 3
+_T = TypeVar('_T', bound=bytes)
 
 _FILE = Union[None, int, IO[Any]]
 _TXT = Union[bytes, Text]
@@ -63,17 +68,17 @@ class CalledProcessError(Exception):
     # morally: _CMD
     cmd: Any
     # morally: Optional[bytes]
-    output: Any
+    output: bytes
 
     def __init__(self,
                  returncode: int,
                  cmd: _CMD,
                  output: Optional[bytes] = ...) -> None: ...
 
-class Popen:
-    stdin: Optional[IO[Any]]
-    stdout: Optional[IO[Any]]
-    stderr: Optional[IO[Any]]
+class Popen(Generic[_T]):
+    stdin: Optional[IO[bytes]]
+    stdout: Optional[IO[bytes]]
+    stderr: Optional[IO[bytes]]
     pid = 0
     returncode = 0
 
@@ -96,7 +101,7 @@ class Popen:
     def poll(self) -> int: ...
     def wait(self) -> int: ...
     # morally: -> Tuple[Optional[bytes], Optional[bytes]]
-    def communicate(self, input: Optional[_TXT] = ...) -> Tuple[Any, Any]: ...
+    def communicate(self, input: Optional[_TXT] = ...) -> Tuple[bytes, bytes]: ...
     def send_signal(self, signal: int) -> None: ...
     def terminate(self) -> None: ...
     def kill(self) -> None: ...
