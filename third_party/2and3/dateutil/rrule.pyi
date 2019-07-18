@@ -46,7 +46,7 @@ class rrule(rrulebase):
                  byyearday: Optional[Union[int, Iterable[int]]] = ...,
                  byeaster: Optional[Union[int, Iterable[int]]] = ...,
                  byweekno: Optional[Union[int, Iterable[int]]] = ...,
-                 byweekday: Optional[Union[int, Iterable[int]]] = ...,
+                 byweekday: Optional[Union[int, weekday, Iterable[int], Iterable[weekday]]] = ...,
                  byhour: Optional[Union[int, Iterable[int]]] = ...,
                  byminute: Optional[Union[int, Iterable[int]]] = ...,
                  bysecond: Optional[Union[int, Iterable[int]]] = ...,

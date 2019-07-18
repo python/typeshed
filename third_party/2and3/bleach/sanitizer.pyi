@@ -1,4 +1,4 @@
-from typing import List, Dict, Any, Optional, Type, Pattern, Union, Callable, Container, Text
+from typing import Any, Callable, Container, Dict, Iterable, List, Optional, Pattern, Text, Type, Union
 
 ALLOWED_TAGS: List[Text]
 ALLOWED_ATTRIBUTES: Dict[Text, List[Text]]
@@ -15,21 +15,20 @@ _Filter = Any
 class Cleaner(object):
     def __init__(
         self,
-        tags: List[Text] = ...,
+        tags: Container[Text] = ...,
         attributes: Any = ...,
-        styles: List[Text] = ...,
-        protocols: List[Text] = ...,
+        styles: Container[Text] = ...,
+        protocols: Container[Text] = ...,
         strip: bool = ...,
         strip_comments: bool = ...,
-        filters: Optional[List[Type[_Filter]]] = ...,
+        filters: Optional[Iterable[_Filter]] = ...,
     ) -> None: ...
     def clean(self, text: Text) -> Text: ...
 
 _AttributeFilter = Callable[[Text, Text, Text], bool]
 _AttributeDict = Dict[Text, Union[Container[Text], _AttributeFilter]]
 
-def attribute_filter_factory(attributes: Union[_AttributeFilter, _AttributeDict, List[Text]]) -> _AttributeFilter: ...
+def attribute_filter_factory(attributes: Union[_AttributeFilter, _AttributeDict, Container[Text]]) -> _AttributeFilter: ...
 
 class BleachSanitizerFilter(object):  # TODO: derives from html5lib.sanitizer.Filter
-
     def __getattr__(self, item: str) -> Any: ...  # incomplete

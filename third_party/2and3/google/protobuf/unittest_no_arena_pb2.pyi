@@ -66,13 +66,13 @@ class TestAllTypes(Message):
 
         @classmethod
         def items(cls) -> List[Tuple[bytes, TestAllTypes.NestedEnum]]: ...
-    FOO: NestedEnum
-    BAR: NestedEnum
-    BAZ: NestedEnum
-    NEG: NestedEnum
+    FOO: TestAllTypes.NestedEnum
+    BAR: TestAllTypes.NestedEnum
+    BAZ: TestAllTypes.NestedEnum
+    NEG: TestAllTypes.NestedEnum
 
     class NestedMessage(Message):
-        bb = ...  # type: int
+        bb: int
 
         def __init__(self,
                      bb: Optional[int] = ...,
@@ -82,7 +82,7 @@ class TestAllTypes(Message):
         def FromString(cls, s: bytes) -> TestAllTypes.NestedMessage: ...
 
     class OptionalGroup(Message):
-        a = ...  # type: int
+        a: int
 
         def __init__(self,
                      a: Optional[int] = ...,
@@ -92,7 +92,7 @@ class TestAllTypes(Message):
         def FromString(cls, s: bytes) -> TestAllTypes.OptionalGroup: ...
 
     class RepeatedGroup(Message):
-        a = ...  # type: int
+        a: int
 
         def __init__(self,
                      a: Optional[int] = ...,
@@ -100,69 +100,69 @@ class TestAllTypes(Message):
 
         @classmethod
         def FromString(cls, s: bytes) -> TestAllTypes.RepeatedGroup: ...
-    optional_int32 = ...  # type: int
-    optional_int64 = ...  # type: int
-    optional_uint32 = ...  # type: int
-    optional_uint64 = ...  # type: int
-    optional_sint32 = ...  # type: int
-    optional_sint64 = ...  # type: int
-    optional_fixed32 = ...  # type: int
-    optional_fixed64 = ...  # type: int
-    optional_sfixed32 = ...  # type: int
-    optional_sfixed64 = ...  # type: int
-    optional_float = ...  # type: float
-    optional_double = ...  # type: float
-    optional_bool = ...  # type: bool
-    optional_string = ...  # type: Text
-    optional_bytes = ...  # type: bytes
-    optional_nested_enum = ...  # type: TestAllTypes.NestedEnum
-    optional_foreign_enum = ...  # type: ForeignEnum
-    optional_import_enum = ...  # type: ImportEnum
-    optional_string_piece = ...  # type: Text
-    optional_cord = ...  # type: Text
-    repeated_int32 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_int64 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_uint32 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_uint64 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_sint32 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_sint64 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_fixed32 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_fixed64 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_sfixed32 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_sfixed64 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_float = ...  # type: RepeatedScalarFieldContainer[float]
-    repeated_double = ...  # type: RepeatedScalarFieldContainer[float]
-    repeated_bool = ...  # type: RepeatedScalarFieldContainer[bool]
-    repeated_string = ...  # type: RepeatedScalarFieldContainer[Text]
-    repeated_bytes = ...  # type: RepeatedScalarFieldContainer[bytes]
-    repeated_nested_enum = ...  # type: RepeatedScalarFieldContainer[TestAllTypes.NestedEnum]
-    repeated_foreign_enum = ...  # type: RepeatedScalarFieldContainer[ForeignEnum]
-    repeated_import_enum = ...  # type: RepeatedScalarFieldContainer[ImportEnum]
-    repeated_string_piece = ...  # type: RepeatedScalarFieldContainer[Text]
-    repeated_cord = ...  # type: RepeatedScalarFieldContainer[Text]
-    default_int32 = ...  # type: int
-    default_int64 = ...  # type: int
-    default_uint32 = ...  # type: int
-    default_uint64 = ...  # type: int
-    default_sint32 = ...  # type: int
-    default_sint64 = ...  # type: int
-    default_fixed32 = ...  # type: int
-    default_fixed64 = ...  # type: int
-    default_sfixed32 = ...  # type: int
-    default_sfixed64 = ...  # type: int
-    default_float = ...  # type: float
-    default_double = ...  # type: float
-    default_bool = ...  # type: bool
-    default_string = ...  # type: Text
-    default_bytes = ...  # type: bytes
-    default_nested_enum = ...  # type: TestAllTypes.NestedEnum
-    default_foreign_enum = ...  # type: ForeignEnum
-    default_import_enum = ...  # type: ImportEnum
-    default_string_piece = ...  # type: Text
-    default_cord = ...  # type: Text
-    oneof_uint32 = ...  # type: int
-    oneof_string = ...  # type: Text
-    oneof_bytes = ...  # type: bytes
+    optional_int32: int
+    optional_int64: int
+    optional_uint32: int
+    optional_uint64: int
+    optional_sint32: int
+    optional_sint64: int
+    optional_fixed32: int
+    optional_fixed64: int
+    optional_sfixed32: int
+    optional_sfixed64: int
+    optional_float: float
+    optional_double: float
+    optional_bool: bool
+    optional_string: Text
+    optional_bytes: bytes
+    optional_nested_enum: TestAllTypes.NestedEnum
+    optional_foreign_enum: ForeignEnum
+    optional_import_enum: ImportEnum
+    optional_string_piece: Text
+    optional_cord: Text
+    repeated_int32: RepeatedScalarFieldContainer[int]
+    repeated_int64: RepeatedScalarFieldContainer[int]
+    repeated_uint32: RepeatedScalarFieldContainer[int]
+    repeated_uint64: RepeatedScalarFieldContainer[int]
+    repeated_sint32: RepeatedScalarFieldContainer[int]
+    repeated_sint64: RepeatedScalarFieldContainer[int]
+    repeated_fixed32: RepeatedScalarFieldContainer[int]
+    repeated_fixed64: RepeatedScalarFieldContainer[int]
+    repeated_sfixed32: RepeatedScalarFieldContainer[int]
+    repeated_sfixed64: RepeatedScalarFieldContainer[int]
+    repeated_float: RepeatedScalarFieldContainer[float]
+    repeated_double: RepeatedScalarFieldContainer[float]
+    repeated_bool: RepeatedScalarFieldContainer[bool]
+    repeated_string: RepeatedScalarFieldContainer[Text]
+    repeated_bytes: RepeatedScalarFieldContainer[bytes]
+    repeated_nested_enum: RepeatedScalarFieldContainer[TestAllTypes.NestedEnum]
+    repeated_foreign_enum: RepeatedScalarFieldContainer[ForeignEnum]
+    repeated_import_enum: RepeatedScalarFieldContainer[ImportEnum]
+    repeated_string_piece: RepeatedScalarFieldContainer[Text]
+    repeated_cord: RepeatedScalarFieldContainer[Text]
+    default_int32: int
+    default_int64: int
+    default_uint32: int
+    default_uint64: int
+    default_sint32: int
+    default_sint64: int
+    default_fixed32: int
+    default_fixed64: int
+    default_sfixed32: int
+    default_sfixed64: int
+    default_float: float
+    default_double: float
+    default_bool: bool
+    default_string: Text
+    default_bytes: bytes
+    default_nested_enum: TestAllTypes.NestedEnum
+    default_foreign_enum: ForeignEnum
+    default_import_enum: ImportEnum
+    default_string_piece: Text
+    default_cord: Text
+    oneof_uint32: int
+    oneof_string: Text
+    oneof_bytes: bytes
 
     @property
     def optionalgroup(self) -> TestAllTypes.OptionalGroup: ...
@@ -292,7 +292,7 @@ class TestAllTypes(Message):
 
 
 class ForeignMessage(Message):
-    c = ...  # type: int
+    c: int
 
     def __init__(self,
                  c: Optional[int] = ...,

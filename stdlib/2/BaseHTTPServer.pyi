@@ -5,28 +5,28 @@ import SocketServer
 import mimetools
 
 class HTTPServer(SocketServer.TCPServer):
-    server_name = ...  # type: str
-    server_port = ...  # type: int
+    server_name: str
+    server_port: int
     def __init__(self, server_address: Tuple[str, int],
                  RequestHandlerClass: type) -> None: ...
 
 class BaseHTTPRequestHandler:
-    client_address = ...  # type: Tuple[str, int]
-    server = ...  # type: SocketServer.BaseServer
-    close_connection = ...  # type: bool
-    command = ...  # type: str
-    path = ...  # type: str
-    request_version = ...  # type: str
-    headers = ...  # type: mimetools.Message
-    rfile = ...  # type: BinaryIO
-    wfile = ...  # type: BinaryIO
-    server_version = ...  # type: str
-    sys_version = ...  # type: str
-    error_message_format = ...  # type: str
-    error_content_type = ...  # type: str
-    protocol_version = ...  # type: str
-    MessageClass = ...  # type: type
-    responses = ...  # type: Mapping[int, Tuple[str, str]]
+    client_address: Tuple[str, int]
+    server: SocketServer.BaseServer
+    close_connection: bool
+    command: str
+    path: str
+    request_version: str
+    headers: mimetools.Message
+    rfile: BinaryIO
+    wfile: BinaryIO
+    server_version: str
+    sys_version: str
+    error_message_format: str
+    error_content_type: str
+    protocol_version: str
+    MessageClass: type
+    responses: Mapping[int, Tuple[str, str]]
     def __init__(self, request: bytes, client_address: Tuple[str, int],
                  server: SocketServer.BaseServer) -> None: ...
     def handle(self) -> None: ...

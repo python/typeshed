@@ -1,6 +1,6 @@
 from typing import Any, Optional, Text, Union
 
-greenlet = ...  # type: Any
+greenlet: Any
 
 class IterIO:
     def __new__(cls, obj, sentinel: Union[Text, bytes] = ...): ...
@@ -20,7 +20,7 @@ class IterIO:
 class IterI(IterIO):
     sentinel: Any
     def __new__(cls, func, sentinel: Union[Text, bytes] = ...): ...
-    closed = ...  # type: Any
+    closed: Any
     def close(self): ...
     def write(self, s): ...
     def writelines(self, list): ...
@@ -28,8 +28,8 @@ class IterI(IterIO):
 
 class IterO(IterIO):
     sentinel: Any
-    closed = ...  # type: Any
-    pos = ...  # type: Any
+    closed: Any
+    pos: Any
     def __new__(cls, gen, sentinel: Union[Text, bytes] = ...): ...
     def __iter__(self): ...
     def close(self): ...

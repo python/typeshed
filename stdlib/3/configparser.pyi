@@ -111,8 +111,11 @@ class RawConfigParser(_parser):
     def _get_conv(self, section: str, option: str, conv: Callable[[str], _T], *, raw: bool = ..., vars: Optional[_section] = ..., fallback: _T = ...) -> _T: ...
 
     # This is incompatible with MutableMapping so we ignore the type
-    def get(self, section: str, option: str, *, raw: bool = ..., vars: Optional[_section] = ..., fallback: str = ...) -> str:  # type: ignore
-        ...
+    @overload  # type: ignore
+    def get(self, section: str, option: str, *, raw: bool = ..., vars: Optional[_section] = ...) -> str: ...
+
+    @overload  # type: ignore
+    def get(self, section: str, option: str, *, raw: bool = ..., vars: Optional[_section] = ..., fallback: _T) -> Union[str, _T]: ...
 
     @overload
     def items(self, *, raw: bool = ..., vars: Optional[_section] = ...) -> AbstractSet[Tuple[str, SectionProxy]]: ...
@@ -189,43 +192,43 @@ class NoSectionError(Error): ...
 
 
 class DuplicateSectionError(Error):
-    section = ...  # type: str
-    source = ...   # type: Optional[str]
-    lineno = ...   # type: Optional[int]
+    section: str
+    source: Optional[str]
+    lineno: Optional[int]
 
 
 class DuplicateOptionError(Error):
-    section = ...  # type: str
-    option = ...   # type: str
-    source = ...   # type: Optional[str]
-    lineno = ...   # type: Optional[int]
+    section: str
+    option: str
+    source: Optional[str]
+    lineno: Optional[int]
 
 
 class NoOptionError(Error):
-    section = ...  # type: str
-    option = ...   # type: str
+    section: str
+    option: str
 
 
 class InterpolationError(Error):
-    section = ...  # type: str
-    option = ...   # type: str
+    section: str
+    option: str
 
 
 class InterpolationDepthError(InterpolationError): ...
 
 
 class InterpolationMissingOptionError(InterpolationError):
-    reference = ...  # type: str
+    reference: str
 
 
 class InterpolationSyntaxError(InterpolationError): ...
 
 
 class ParsingError(Error):
-    source = ...  # type: str
-    errors = ...  # type: Sequence[Tuple[int, str]]
+    source: str
+    errors: Sequence[Tuple[int, str]]
 
 
 class MissingSectionHeaderError(ParsingError):
-    lineno = ...  # type: int
-    line = ...    # type: str
+    lineno: int
+    line: str

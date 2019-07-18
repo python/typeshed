@@ -1,4 +1,5 @@
 from typing import Any, Callable, IO, Iterable, List, Optional, TypeVar, Union, Tuple as _PyTuple, Type
+import datetime
 import uuid
 
 from click.core import Context, Parameter, _ParamType as ParamType, _ConvertibleType
@@ -27,7 +28,27 @@ class CompositeParamType(ParamType):
 
 class Choice(ParamType):
     choices: Iterable[str]
-    def __init__(self, choices: Iterable[str]) -> None:
+    def __init__(
+        self,
+        choices: Iterable[str],
+        case_sensitive: bool = ...,
+    ) -> None:
+        ...
+
+
+class DateTime(ParamType):
+    def __init__(
+        self,
+        formats: Optional[List[str]] = ...,
+    ) -> None:
+        ...
+
+    def convert(
+        self,
+        value: str,
+        param: Optional[Parameter],
+        ctx: Optional[Context],
+    ) -> datetime.datetime:
         ...
 
 
@@ -240,9 +261,9 @@ def convert_type(ty: Optional[_ConvertibleType], default: Optional[Any] = ...) -
 
 # parameter type shortcuts
 
-BOOL = BoolParamType()
-FLOAT = FloatParamType()
-INT = IntParamType()
-STRING = StringParamType()
-UNPROCESSED = UnprocessedParamType()
-UUID = UUIDParameterType()
+BOOL: BoolParamType
+FLOAT: FloatParamType
+INT: IntParamType
+STRING: StringParamType
+UNPROCESSED: UnprocessedParamType
+UUID: UUIDParameterType

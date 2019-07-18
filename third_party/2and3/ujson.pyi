@@ -2,7 +2,7 @@
 # See: https://pypi.python.org/pypi/ujson
 from typing import Any, AnyStr, IO, Optional
 
-__version__ = ...  # type: str
+__version__: str
 
 def encode(
     obj: Any,

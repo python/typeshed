@@ -20,25 +20,36 @@ class Result:
     exit_code: int
     exception: Any
     exc_info: Optional[Any]
+    stdout_bytes: bytes
+    stderr_bytes: bytes
     def __init__(
         self,
         runner: CliRunner,
+        stdout_bytes: bytes,
+        stderr_bytes: bytes,
         exit_code: int,
         exception: Any,
         exc_info: Optional[Any] = ...,
     ) -> None: ...
     @property
     def output(self) -> Text: ...
+    @property
+    def stdout(self) -> Text: ...
+    @property
+    def stderr(self) -> Text: ...
 
 class CliRunner:
     charset: str
     env: Mapping[str, str]
     echo_stdin: bool
+    mix_stderr: bool
+
     def __init__(
         self,
         charset: Optional[Text] = ...,
         env: Optional[Mapping[str, str]] = ...,
         echo_stdin: bool = ...,
+        mix_stderr: bool = ...,
     ) -> None:
         ...
     def get_default_prog_name(self, cli: BaseCommand) -> str: ...

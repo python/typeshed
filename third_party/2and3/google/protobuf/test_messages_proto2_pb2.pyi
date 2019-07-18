@@ -59,13 +59,13 @@ class TestAllTypesProto2(Message):
 
         @classmethod
         def items(cls) -> List[Tuple[bytes, TestAllTypesProto2.NestedEnum]]: ...
-    FOO: NestedEnum
-    BAR: NestedEnum
-    BAZ: NestedEnum
-    NEG: NestedEnum
+    FOO: TestAllTypesProto2.NestedEnum
+    BAR: TestAllTypesProto2.NestedEnum
+    BAZ: TestAllTypesProto2.NestedEnum
+    NEG: TestAllTypesProto2.NestedEnum
 
     class NestedMessage(Message):
-        a = ...  # type: int
+        a: int
 
         @property
         def corecursive(self) -> TestAllTypesProto2: ...
@@ -79,8 +79,8 @@ class TestAllTypesProto2(Message):
         def FromString(cls, s: bytes) -> TestAllTypesProto2.NestedMessage: ...
 
     class MapInt32Int32Entry(Message):
-        key = ...  # type: int
-        value = ...  # type: int
+        key: int
+        value: int
 
         def __init__(self,
                      key: Optional[int] = ...,
@@ -92,8 +92,8 @@ class TestAllTypesProto2(Message):
             cls, s: bytes) -> TestAllTypesProto2.MapInt32Int32Entry: ...
 
     class MapInt64Int64Entry(Message):
-        key = ...  # type: int
-        value = ...  # type: int
+        key: int
+        value: int
 
         def __init__(self,
                      key: Optional[int] = ...,
@@ -105,8 +105,8 @@ class TestAllTypesProto2(Message):
             cls, s: bytes) -> TestAllTypesProto2.MapInt64Int64Entry: ...
 
     class MapUint32Uint32Entry(Message):
-        key = ...  # type: int
-        value = ...  # type: int
+        key: int
+        value: int
 
         def __init__(self,
                      key: Optional[int] = ...,
@@ -118,8 +118,8 @@ class TestAllTypesProto2(Message):
             cls, s: bytes) -> TestAllTypesProto2.MapUint32Uint32Entry: ...
 
     class MapUint64Uint64Entry(Message):
-        key = ...  # type: int
-        value = ...  # type: int
+        key: int
+        value: int
 
         def __init__(self,
                      key: Optional[int] = ...,
@@ -131,8 +131,8 @@ class TestAllTypesProto2(Message):
             cls, s: bytes) -> TestAllTypesProto2.MapUint64Uint64Entry: ...
 
     class MapSint32Sint32Entry(Message):
-        key = ...  # type: int
-        value = ...  # type: int
+        key: int
+        value: int
 
         def __init__(self,
                      key: Optional[int] = ...,
@@ -144,8 +144,8 @@ class TestAllTypesProto2(Message):
             cls, s: bytes) -> TestAllTypesProto2.MapSint32Sint32Entry: ...
 
     class MapSint64Sint64Entry(Message):
-        key = ...  # type: int
-        value = ...  # type: int
+        key: int
+        value: int
 
         def __init__(self,
                      key: Optional[int] = ...,
@@ -157,8 +157,8 @@ class TestAllTypesProto2(Message):
             cls, s: bytes) -> TestAllTypesProto2.MapSint64Sint64Entry: ...
 
     class MapFixed32Fixed32Entry(Message):
-        key = ...  # type: int
-        value = ...  # type: int
+        key: int
+        value: int
 
         def __init__(self,
                      key: Optional[int] = ...,
@@ -170,8 +170,8 @@ class TestAllTypesProto2(Message):
             cls, s: bytes) -> TestAllTypesProto2.MapFixed32Fixed32Entry: ...
 
     class MapFixed64Fixed64Entry(Message):
-        key = ...  # type: int
-        value = ...  # type: int
+        key: int
+        value: int
 
         def __init__(self,
                      key: Optional[int] = ...,
@@ -183,8 +183,8 @@ class TestAllTypesProto2(Message):
             cls, s: bytes) -> TestAllTypesProto2.MapFixed64Fixed64Entry: ...
 
     class MapSfixed32Sfixed32Entry(Message):
-        key = ...  # type: int
-        value = ...  # type: int
+        key: int
+        value: int
 
         def __init__(self,
                      key: Optional[int] = ...,
@@ -196,8 +196,8 @@ class TestAllTypesProto2(Message):
             cls, s: bytes) -> TestAllTypesProto2.MapSfixed32Sfixed32Entry: ...
 
     class MapSfixed64Sfixed64Entry(Message):
-        key = ...  # type: int
-        value = ...  # type: int
+        key: int
+        value: int
 
         def __init__(self,
                      key: Optional[int] = ...,
@@ -209,8 +209,8 @@ class TestAllTypesProto2(Message):
             cls, s: bytes) -> TestAllTypesProto2.MapSfixed64Sfixed64Entry: ...
 
     class MapInt32FloatEntry(Message):
-        key = ...  # type: int
-        value = ...  # type: float
+        key: int
+        value: float
 
         def __init__(self,
                      key: Optional[int] = ...,
@@ -222,8 +222,8 @@ class TestAllTypesProto2(Message):
             cls, s: bytes) -> TestAllTypesProto2.MapInt32FloatEntry: ...
 
     class MapInt32DoubleEntry(Message):
-        key = ...  # type: int
-        value = ...  # type: float
+        key: int
+        value: float
 
         def __init__(self,
                      key: Optional[int] = ...,
@@ -235,8 +235,8 @@ class TestAllTypesProto2(Message):
             cls, s: bytes) -> TestAllTypesProto2.MapInt32DoubleEntry: ...
 
     class MapBoolBoolEntry(Message):
-        key = ...  # type: bool
-        value = ...  # type: bool
+        key: bool
+        value: bool
 
         def __init__(self,
                      key: Optional[bool] = ...,
@@ -247,8 +247,8 @@ class TestAllTypesProto2(Message):
         def FromString(cls, s: bytes) -> TestAllTypesProto2.MapBoolBoolEntry: ...
 
     class MapStringStringEntry(Message):
-        key = ...  # type: Text
-        value = ...  # type: Text
+        key: Text
+        value: Text
 
         def __init__(self,
                      key: Optional[Text] = ...,
@@ -260,8 +260,8 @@ class TestAllTypesProto2(Message):
             cls, s: bytes) -> TestAllTypesProto2.MapStringStringEntry: ...
 
     class MapStringBytesEntry(Message):
-        key = ...  # type: Text
-        value = ...  # type: bytes
+        key: Text
+        value: bytes
 
         def __init__(self,
                      key: Optional[Text] = ...,
@@ -273,7 +273,7 @@ class TestAllTypesProto2(Message):
             cls, s: bytes) -> TestAllTypesProto2.MapStringBytesEntry: ...
 
     class MapStringNestedMessageEntry(Message):
-        key = ...  # type: Text
+        key: Text
 
         @property
         def value(self) -> TestAllTypesProto2.NestedMessage: ...
@@ -288,7 +288,7 @@ class TestAllTypesProto2(Message):
             cls, s: bytes) -> TestAllTypesProto2.MapStringNestedMessageEntry: ...
 
     class MapStringForeignMessageEntry(Message):
-        key = ...  # type: Text
+        key: Text
 
         @property
         def value(self) -> ForeignMessageProto2: ...
@@ -303,8 +303,8 @@ class TestAllTypesProto2(Message):
             cls, s: bytes) -> TestAllTypesProto2.MapStringForeignMessageEntry: ...
 
     class MapStringNestedEnumEntry(Message):
-        key = ...  # type: Text
-        value = ...  # type: TestAllTypesProto2.NestedEnum
+        key: Text
+        value: TestAllTypesProto2.NestedEnum
 
         def __init__(self,
                      key: Optional[Text] = ...,
@@ -316,8 +316,8 @@ class TestAllTypesProto2(Message):
             cls, s: bytes) -> TestAllTypesProto2.MapStringNestedEnumEntry: ...
 
     class MapStringForeignEnumEntry(Message):
-        key = ...  # type: Text
-        value = ...  # type: ForeignEnumProto2
+        key: Text
+        value: ForeignEnumProto2
 
         def __init__(self,
                      key: Optional[Text] = ...,
@@ -329,8 +329,8 @@ class TestAllTypesProto2(Message):
             cls, s: bytes) -> TestAllTypesProto2.MapStringForeignEnumEntry: ...
 
     class Data(Message):
-        group_int32 = ...  # type: int
-        group_uint32 = ...  # type: int
+        group_int32: int
+        group_uint32: int
 
         def __init__(self,
                      group_int32: Optional[int] = ...,
@@ -350,7 +350,7 @@ class TestAllTypesProto2(Message):
             cls, s: bytes) -> TestAllTypesProto2.MessageSetCorrect: ...
 
     class MessageSetCorrectExtension1(Message):
-        bytes = ...  # type: Text
+        bytes: Text
 
         def __init__(self,
                      bytes: Optional[Text] = ...,
@@ -361,7 +361,7 @@ class TestAllTypesProto2(Message):
             cls, s: builtins.bytes) -> TestAllTypesProto2.MessageSetCorrectExtension1: ...
 
     class MessageSetCorrectExtension2(Message):
-        i = ...  # type: int
+        i: int
 
         def __init__(self,
                      i: Optional[int] = ...,
@@ -370,70 +370,70 @@ class TestAllTypesProto2(Message):
         @classmethod
         def FromString(
             cls, s: bytes) -> TestAllTypesProto2.MessageSetCorrectExtension2: ...
-    optional_int32 = ...  # type: int
-    optional_int64 = ...  # type: int
-    optional_uint32 = ...  # type: int
-    optional_uint64 = ...  # type: int
-    optional_sint32 = ...  # type: int
-    optional_sint64 = ...  # type: int
-    optional_fixed32 = ...  # type: int
-    optional_fixed64 = ...  # type: int
-    optional_sfixed32 = ...  # type: int
-    optional_sfixed64 = ...  # type: int
-    optional_float = ...  # type: float
-    optional_double = ...  # type: float
-    optional_bool = ...  # type: bool
-    optional_string = ...  # type: Text
-    optional_bytes = ...  # type: bytes
-    optional_nested_enum = ...  # type: TestAllTypesProto2.NestedEnum
-    optional_foreign_enum = ...  # type: ForeignEnumProto2
-    optional_string_piece = ...  # type: Text
-    optional_cord = ...  # type: Text
-    repeated_int32 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_int64 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_uint32 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_uint64 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_sint32 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_sint64 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_fixed32 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_fixed64 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_sfixed32 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_sfixed64 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_float = ...  # type: RepeatedScalarFieldContainer[float]
-    repeated_double = ...  # type: RepeatedScalarFieldContainer[float]
-    repeated_bool = ...  # type: RepeatedScalarFieldContainer[bool]
-    repeated_string = ...  # type: RepeatedScalarFieldContainer[Text]
-    repeated_bytes = ...  # type: RepeatedScalarFieldContainer[bytes]
-    repeated_nested_enum = ...  # type: RepeatedScalarFieldContainer[TestAllTypesProto2.NestedEnum]
-    repeated_foreign_enum = ...  # type: RepeatedScalarFieldContainer[ForeignEnumProto2]
-    repeated_string_piece = ...  # type: RepeatedScalarFieldContainer[Text]
-    repeated_cord = ...  # type: RepeatedScalarFieldContainer[Text]
-    oneof_uint32 = ...  # type: int
-    oneof_string = ...  # type: Text
-    oneof_bytes = ...  # type: bytes
-    oneof_bool = ...  # type: bool
-    oneof_uint64 = ...  # type: int
-    oneof_float = ...  # type: float
-    oneof_double = ...  # type: float
-    oneof_enum = ...  # type: TestAllTypesProto2.NestedEnum
-    fieldname1 = ...  # type: int
-    field_name2 = ...  # type: int
-    _field_name3 = ...  # type: int
-    field__name4_ = ...  # type: int
-    field0name5 = ...  # type: int
-    field_0_name6 = ...  # type: int
-    fieldName7 = ...  # type: int
-    FieldName8 = ...  # type: int
-    field_Name9 = ...  # type: int
-    Field_Name10 = ...  # type: int
-    FIELD_NAME11 = ...  # type: int
-    FIELD_name12 = ...  # type: int
-    __field_name13 = ...  # type: int
-    __Field_name14 = ...  # type: int
-    field__name15 = ...  # type: int
-    field__Name16 = ...  # type: int
-    field_name17__ = ...  # type: int
-    Field_name18__ = ...  # type: int
+    optional_int32: int
+    optional_int64: int
+    optional_uint32: int
+    optional_uint64: int
+    optional_sint32: int
+    optional_sint64: int
+    optional_fixed32: int
+    optional_fixed64: int
+    optional_sfixed32: int
+    optional_sfixed64: int
+    optional_float: float
+    optional_double: float
+    optional_bool: bool
+    optional_string: Text
+    optional_bytes: bytes
+    optional_nested_enum: TestAllTypesProto2.NestedEnum
+    optional_foreign_enum: ForeignEnumProto2
+    optional_string_piece: Text
+    optional_cord: Text
+    repeated_int32: RepeatedScalarFieldContainer[int]
+    repeated_int64: RepeatedScalarFieldContainer[int]
+    repeated_uint32: RepeatedScalarFieldContainer[int]
+    repeated_uint64: RepeatedScalarFieldContainer[int]
+    repeated_sint32: RepeatedScalarFieldContainer[int]
+    repeated_sint64: RepeatedScalarFieldContainer[int]
+    repeated_fixed32: RepeatedScalarFieldContainer[int]
+    repeated_fixed64: RepeatedScalarFieldContainer[int]
+    repeated_sfixed32: RepeatedScalarFieldContainer[int]
+    repeated_sfixed64: RepeatedScalarFieldContainer[int]
+    repeated_float: RepeatedScalarFieldContainer[float]
+    repeated_double: RepeatedScalarFieldContainer[float]
+    repeated_bool: RepeatedScalarFieldContainer[bool]
+    repeated_string: RepeatedScalarFieldContainer[Text]
+    repeated_bytes: RepeatedScalarFieldContainer[bytes]
+    repeated_nested_enum: RepeatedScalarFieldContainer[TestAllTypesProto2.NestedEnum]
+    repeated_foreign_enum: RepeatedScalarFieldContainer[ForeignEnumProto2]
+    repeated_string_piece: RepeatedScalarFieldContainer[Text]
+    repeated_cord: RepeatedScalarFieldContainer[Text]
+    oneof_uint32: int
+    oneof_string: Text
+    oneof_bytes: bytes
+    oneof_bool: bool
+    oneof_uint64: int
+    oneof_float: float
+    oneof_double: float
+    oneof_enum: TestAllTypesProto2.NestedEnum
+    fieldname1: int
+    field_name2: int
+    _field_name3: int
+    field__name4_: int
+    field0name5: int
+    field_0_name6: int
+    fieldName7: int
+    FieldName8: int
+    field_Name9: int
+    Field_Name10: int
+    FIELD_NAME11: int
+    FIELD_name12: int
+    __field_name13: int
+    __Field_name14: int
+    field__name15: int
+    field__Name16: int
+    field_name17__: int
+    Field_name18__: int
 
     @property
     def optional_nested_message(self) -> TestAllTypesProto2.NestedMessage: ...
@@ -617,7 +617,7 @@ class TestAllTypesProto2(Message):
 
 
 class ForeignMessageProto2(Message):
-    c = ...  # type: int
+    c: int
 
     def __init__(self,
                  c: Optional[int] = ...,

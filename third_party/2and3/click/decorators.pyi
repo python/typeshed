@@ -1,5 +1,5 @@
 from distutils.version import Version
-from typing import Any, Callable, Dict, List, Optional, Type, TypeVar, Union, Text, overload
+from typing import Any, Callable, Dict, List, Optional, Tuple, Type, TypeVar, Union, Text, overload
 
 from click.core import Command, Group, Argument, Option, Parameter, Context, _ConvertibleType
 
@@ -87,7 +87,8 @@ def argument(
     metavar: Optional[str] = ...,
     expose_value: bool = ...,
     is_eager: bool = ...,
-    envvar: Optional[Union[str, List[str]]] = ...
+    envvar: Optional[Union[str, List[str]]] = ...,
+    autocompletion: Optional[Callable[[Any, List[str], str], List[Union[str, Tuple[str, str]]]]] = ...,
 ) -> Callable[[_F], _F]:
     ...
 
@@ -108,6 +109,7 @@ def option(
     allow_from_autoenv: bool = ...,
     type: Optional[_ConvertibleType] = ...,
     help: Optional[str] = ...,
+    show_choices: bool = ...,
     # Parameter
     default: Optional[Any] = ...,
     required: bool = ...,
@@ -139,6 +141,7 @@ def option(
     allow_from_autoenv: bool = ...,
     type: _T = ...,
     help: Optional[str] = ...,
+    show_choices: bool = ...,
     # Parameter
     default: Optional[Any] = ...,
     required: bool = ...,
@@ -170,6 +173,7 @@ def option(
     allow_from_autoenv: bool = ...,
     type: Type[str] = ...,
     help: Optional[str] = ...,
+    show_choices: bool = ...,
     # Parameter
     default: Optional[Any] = ...,
     required: bool = ...,
@@ -201,6 +205,7 @@ def option(
     allow_from_autoenv: bool = ...,
     type: Type[int] = ...,
     help: Optional[str] = ...,
+    show_choices: bool = ...,
     # Parameter
     default: Optional[Any] = ...,
     required: bool = ...,
@@ -231,6 +236,7 @@ def confirmation_option(
     allow_from_autoenv: bool = ...,
     type: Optional[_ConvertibleType] = ...,
     help: str = ...,
+    show_choices: bool = ...,
     # Parameter
     default: Optional[Any] = ...,
     callback: Optional[_Callback] = ...,
@@ -258,6 +264,7 @@ def password_option(
     allow_from_autoenv: bool = ...,
     type: Optional[_ConvertibleType] = ...,
     help: Optional[str] = ...,
+    show_choices: bool = ...,
     # Parameter
     default: Optional[Any] = ...,
     callback: Optional[_Callback] = ...,
@@ -288,6 +295,7 @@ def version_option(
     allow_from_autoenv: bool = ...,
     type: Optional[_ConvertibleType] = ...,
     help: str = ...,
+    show_choices: bool = ...,
     # Parameter
     default: Optional[Any] = ...,
     callback: Optional[_Callback] = ...,
@@ -315,6 +323,7 @@ def help_option(
     allow_from_autoenv: bool = ...,
     type: Optional[_ConvertibleType] = ...,
     help: str = ...,
+    show_choices: bool = ...,
     # Parameter
     default: Optional[Any] = ...,
     callback: Optional[_Callback] = ...,

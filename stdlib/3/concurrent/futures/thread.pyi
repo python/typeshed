@@ -1,5 +1,5 @@
 from typing import Any, Callable, Optional, Tuple
-from ._base import Executor, Future
+from ._base import Executor
 import sys
 
 class ThreadPoolExecutor(Executor):

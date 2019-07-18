@@ -56,7 +56,7 @@ BAR: ImportEnumForMap
 
 
 class ImportMessage(Message):
-    d = ...  # type: int
+    d: int
 
     def __init__(self,
                  d: Optional[int] = ...,

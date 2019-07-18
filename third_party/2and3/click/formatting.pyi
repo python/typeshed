@@ -1,5 +1,4 @@
-from contextlib import contextmanager
-from typing import Generator, Iterable, List, Optional, Tuple
+from typing import ContextManager, Generator, Iterable, List, Optional, Tuple
 
 
 FORCED_WIDTH: Optional[int]
@@ -73,12 +72,10 @@ class HelpFormatter:
     ) -> None:
         ...
 
-    @contextmanager
-    def section(self, name) -> Generator[None, None, None]:
+    def section(self, name) -> ContextManager[None]:
         ...
 
-    @contextmanager
-    def indentation(self) -> Generator[None, None, None]:
+    def indentation(self) -> ContextManager[None]:
         ...
 
     def getvalue(self) -> str:

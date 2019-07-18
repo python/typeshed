@@ -2,90 +2,90 @@
 
 from typing import Dict
 
-single_input = ...  # type: int
-file_input = ...  # type: int
-eval_input = ...  # type: int
-decorator = ...  # type: int
-decorators = ...  # type: int
-decorated = ...  # type: int
-funcdef = ...  # type: int
-parameters = ...  # type: int
-varargslist = ...  # type: int
-fpdef = ...  # type: int
-fplist = ...  # type: int
-stmt = ...  # type: int
-simple_stmt = ...  # type: int
-small_stmt = ...  # type: int
-expr_stmt = ...  # type: int
-augassign = ...  # type: int
-print_stmt = ...  # type: int
-del_stmt = ...  # type: int
-pass_stmt = ...  # type: int
-flow_stmt = ...  # type: int
-break_stmt = ...  # type: int
-continue_stmt = ...  # type: int
-return_stmt = ...  # type: int
-yield_stmt = ...  # type: int
-raise_stmt = ...  # type: int
-import_stmt = ...  # type: int
-import_name = ...  # type: int
-import_from = ...  # type: int
-import_as_name = ...  # type: int
-dotted_as_name = ...  # type: int
-import_as_names = ...  # type: int
-dotted_as_names = ...  # type: int
-dotted_name = ...  # type: int
-global_stmt = ...  # type: int
-exec_stmt = ...  # type: int
-assert_stmt = ...  # type: int
-compound_stmt = ...  # type: int
-if_stmt = ...  # type: int
-while_stmt = ...  # type: int
-for_stmt = ...  # type: int
-try_stmt = ...  # type: int
-with_stmt = ...  # type: int
-with_item = ...  # type: int
-except_clause = ...  # type: int
-suite = ...  # type: int
-testlist_safe = ...  # type: int
-old_test = ...  # type: int
-old_lambdef = ...  # type: int
-test = ...  # type: int
-or_test = ...  # type: int
-and_test = ...  # type: int
-not_test = ...  # type: int
-comparison = ...  # type: int
-comp_op = ...  # type: int
-expr = ...  # type: int
-xor_expr = ...  # type: int
-and_expr = ...  # type: int
-shift_expr = ...  # type: int
-arith_expr = ...  # type: int
-term = ...  # type: int
-factor = ...  # type: int
-power = ...  # type: int
-atom = ...  # type: int
-listmaker = ...  # type: int
-testlist_comp = ...  # type: int
-lambdef = ...  # type: int
-trailer = ...  # type: int
-subscriptlist = ...  # type: int
-subscript = ...  # type: int
-sliceop = ...  # type: int
-exprlist = ...  # type: int
-testlist = ...  # type: int
-dictorsetmaker = ...  # type: int
-classdef = ...  # type: int
-arglist = ...  # type: int
-argument = ...  # type: int
-list_iter = ...  # type: int
-list_for = ...  # type: int
-list_if = ...  # type: int
-comp_iter = ...  # type: int
-comp_for = ...  # type: int
-comp_if = ...  # type: int
-testlist1 = ...  # type: int
-encoding_decl = ...  # type: int
-yield_expr = ...  # type: int
+single_input: int
+file_input: int
+eval_input: int
+decorator: int
+decorators: int
+decorated: int
+funcdef: int
+parameters: int
+varargslist: int
+fpdef: int
+fplist: int
+stmt: int
+simple_stmt: int
+small_stmt: int
+expr_stmt: int
+augassign: int
+print_stmt: int
+del_stmt: int
+pass_stmt: int
+flow_stmt: int
+break_stmt: int
+continue_stmt: int
+return_stmt: int
+yield_stmt: int
+raise_stmt: int
+import_stmt: int
+import_name: int
+import_from: int
+import_as_name: int
+dotted_as_name: int
+import_as_names: int
+dotted_as_names: int
+dotted_name: int
+global_stmt: int
+exec_stmt: int
+assert_stmt: int
+compound_stmt: int
+if_stmt: int
+while_stmt: int
+for_stmt: int
+try_stmt: int
+with_stmt: int
+with_item: int
+except_clause: int
+suite: int
+testlist_safe: int
+old_test: int
+old_lambdef: int
+test: int
+or_test: int
+and_test: int
+not_test: int
+comparison: int
+comp_op: int
+expr: int
+xor_expr: int
+and_expr: int
+shift_expr: int
+arith_expr: int
+term: int
+factor: int
+power: int
+atom: int
+listmaker: int
+testlist_comp: int
+lambdef: int
+trailer: int
+subscriptlist: int
+subscript: int
+sliceop: int
+exprlist: int
+testlist: int
+dictorsetmaker: int
+classdef: int
+arglist: int
+argument: int
+list_iter: int
+list_for: int
+list_if: int
+comp_iter: int
+comp_for: int
+comp_if: int
+testlist1: int
+encoding_decl: int
+yield_expr: int
 
-sym_name = ...  # type: Dict[int, str]
+sym_name: Dict[int, str]

@@ -9,4 +9,7 @@ from .tz import (
     gettz as gettz,
     datetime_exists as datetime_exists,
     datetime_ambiguous as datetime_ambiguous,
+    resolve_imaginary as resolve_imaginary,
 )
+
+UTC: tzutc

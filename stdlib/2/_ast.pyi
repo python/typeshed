@@ -1,126 +1,124 @@
 import typing
 from typing import Optional
 
-__version__ = ...  # type: str
-
-PyCF_ONLY_AST = ...  # type: int
-
+__version__: str
+PyCF_ONLY_AST: int
 _identifier = str
 
 class AST:
-    _attributes = ...  # type: typing.Tuple[str, ...]
-    _fields = ...  # type: typing.Tuple[str, ...]
+    _attributes: typing.Tuple[str, ...]
+    _fields: typing.Tuple[str, ...]
     def __init__(self, *args, **kwargs) -> None: ...
 
 class mod(AST):
     ...
 
 class Module(mod):
-    body = ...  # type: typing.List[stmt]
+    body: typing.List[stmt]
 
 class Interactive(mod):
-    body = ...  # type: typing.List[stmt]
+    body: typing.List[stmt]
 
 class Expression(mod):
-    body = ...  # type: expr
+    body: expr
 
 class Suite(mod):
-    body = ...  # type: typing.List[stmt]
+    body: typing.List[stmt]
 
 
 class stmt(AST):
-    lineno = ...  # type: int
-    col_offset = ...  # type: int
+    lineno: int
+    col_offset: int
 
 class FunctionDef(stmt):
-    name = ...  # type: _identifier
-    args = ...  # type: arguments
-    body = ...  # type: typing.List[stmt]
-    decorator_list = ...  # type: typing.List[expr]
+    name: _identifier
+    args: arguments
+    body: typing.List[stmt]
+    decorator_list: typing.List[expr]
 
 class ClassDef(stmt):
-    name = ...  # type: _identifier
-    bases = ...  # type: typing.List[expr]
-    body = ...  # type: typing.List[stmt]
-    decorator_list = ...  # type: typing.List[expr]
+    name: _identifier
+    bases: typing.List[expr]
+    body: typing.List[stmt]
+    decorator_list: typing.List[expr]
 
 class Return(stmt):
-    value = ...  # type: Optional[expr]
+    value: Optional[expr]
 
 class Delete(stmt):
-    targets = ...  # type: typing.List[expr]
+    targets: typing.List[expr]
 
 class Assign(stmt):
-    targets = ...  # type: typing.List[expr]
-    value = ...  # type: expr
+    targets: typing.List[expr]
+    value: expr
 
 class AugAssign(stmt):
-    target = ...  # type: expr
-    op = ...  # type: operator
-    value = ...  # type: expr
+    target: expr
+    op: operator
+    value: expr
 
 class Print(stmt):
-    dest = ...  # type: Optional[expr]
-    values = ...  # type: typing.List[expr]
-    nl = ...  # type: bool
+    dest: Optional[expr]
+    values: typing.List[expr]
+    nl: bool
 
 class For(stmt):
-    target = ...  # type: expr
-    iter = ...  # type: expr
-    body = ...  # type: typing.List[stmt]
-    orelse = ...  # type: typing.List[stmt]
+    target: expr
+    iter: expr
+    body: typing.List[stmt]
+    orelse: typing.List[stmt]
 
 class While(stmt):
-    test = ...  # type: expr
-    body = ...  # type: typing.List[stmt]
-    orelse = ...  # type: typing.List[stmt]
+    test: expr
+    body: typing.List[stmt]
+    orelse: typing.List[stmt]
 
 class If(stmt):
-    test = ...  # type: expr
-    body = ...  # type: typing.List[stmt]
-    orelse = ...  # type: typing.List[stmt]
+    test: expr
+    body: typing.List[stmt]
+    orelse: typing.List[stmt]
 
 class With(stmt):
-    context_expr = ...  # type: expr
-    optional_vars = ...  # type: Optional[expr]
-    body = ...  # type: typing.List[stmt]
+    context_expr: expr
+    optional_vars: Optional[expr]
+    body: typing.List[stmt]
 
 class Raise(stmt):
-    type = ...  # type: Optional[expr]
-    inst = ...  # type: Optional[expr]
-    tback = ...  # type: Optional[expr]
+    type: Optional[expr]
+    inst: Optional[expr]
+    tback: Optional[expr]
 
 class TryExcept(stmt):
-    body = ...  # type: typing.List[stmt]
-    handlers = ...  # type: typing.List[ExceptHandler]
-    orelse = ...  # type: typing.List[stmt]
+    body: typing.List[stmt]
+    handlers: typing.List[ExceptHandler]
+    orelse: typing.List[stmt]
 
 class TryFinally(stmt):
-    body = ...  # type: typing.List[stmt]
-    finalbody = ...  # type: typing.List[stmt]
+    body: typing.List[stmt]
+    finalbody: typing.List[stmt]
 
 class Assert(stmt):
-    test = ...  # type: expr
-    msg = ...  # type: Optional[expr]
+    test: expr
+    msg: Optional[expr]
 
 class Import(stmt):
-    names = ...  # type: typing.List[alias]
+    names: typing.List[alias]
 
 class ImportFrom(stmt):
-    module = ...  # type: Optional[_identifier]
-    names = ...  # type: typing.List[alias]
-    level = ...  # type: Optional[int]
+    module: Optional[_identifier]
+    names: typing.List[alias]
+    level: Optional[int]
 
 class Exec(stmt):
-    body = ...  # type: expr
-    globals = ...  # type: Optional[expr]
-    locals = ...  # type: Optional[expr]
+    body: expr
+    globals: Optional[expr]
+    locals: Optional[expr]
 
 class Global(stmt):
-    names = ...  # type: typing.List[_identifier]
+    names: typing.List[_identifier]
 
 class Expr(stmt):
-    value = ...  # type: expr
+    value: expr
 
 class Pass(stmt): ...
 class Break(stmt): ...
@@ -133,114 +131,114 @@ class slice(AST):
 _slice = slice  # this lets us type the variable named 'slice' below
 
 class Slice(slice):
-    lower = ...  # type: Optional[expr]
-    upper = ...  # type: Optional[expr]
-    step = ...  # type: Optional[expr]
+    lower: Optional[expr]
+    upper: Optional[expr]
+    step: Optional[expr]
 
 class ExtSlice(slice):
-    dims = ...  # type: typing.List[slice]
+    dims: typing.List[slice]
 
 class Index(slice):
-    value = ...  # type: expr
+    value: expr
 
 class Ellipsis(slice): ...
 
 
 class expr(AST):
-    lineno = ...  # type: int
-    col_offset = ...  # type: int
+    lineno: int
+    col_offset: int
 
 class BoolOp(expr):
-    op = ...  # type: boolop
-    values = ...  # type: typing.List[expr]
+    op: boolop
+    values: typing.List[expr]
 
 class BinOp(expr):
-    left = ...  # type: expr
-    op = ...  # type: operator
-    right = ...  # type: expr
+    left: expr
+    op: operator
+    right: expr
 
 class UnaryOp(expr):
-    op = ...  # type: unaryop
-    operand = ...  # type: expr
+    op: unaryop
+    operand: expr
 
 class Lambda(expr):
-    args = ...  # type: arguments
-    body = ...  # type: expr
+    args: arguments
+    body: expr
 
 class IfExp(expr):
-    test = ...  # type: expr
-    body = ...  # type: expr
-    orelse = ...  # type: expr
+    test: expr
+    body: expr
+    orelse: expr
 
 class Dict(expr):
-    keys = ...  # type: typing.List[expr]
-    values = ...  # type: typing.List[expr]
+    keys: typing.List[expr]
+    values: typing.List[expr]
 
 class Set(expr):
-    elts = ...  # type: typing.List[expr]
+    elts: typing.List[expr]
 
 class ListComp(expr):
-    elt = ...  # type: expr
-    generators = ...  # type: typing.List[comprehension]
+    elt: expr
+    generators: typing.List[comprehension]
 
 class SetComp(expr):
-    elt = ...  # type: expr
-    generators = ...  # type: typing.List[comprehension]
+    elt: expr
+    generators: typing.List[comprehension]
 
 class DictComp(expr):
-    key = ...  # type: expr
-    value = ...  # type: expr
-    generators = ...  # type: typing.List[comprehension]
+    key: expr
+    value: expr
+    generators: typing.List[comprehension]
 
 class GeneratorExp(expr):
-    elt = ...  # type: expr
-    generators = ...  # type: typing.List[comprehension]
+    elt: expr
+    generators: typing.List[comprehension]
 
 class Yield(expr):
-    value = ...  # type: Optional[expr]
+    value: Optional[expr]
 
 class Compare(expr):
-    left = ...  # type: expr
-    ops = ...  # type: typing.List[cmpop]
-    comparators = ...  # type: typing.List[expr]
+    left: expr
+    ops: typing.List[cmpop]
+    comparators: typing.List[expr]
 
 class Call(expr):
-    func = ...  # type: expr
-    args = ...  # type: typing.List[expr]
-    keywords = ...  # type: typing.List[keyword]
-    starargs = ...  # type: Optional[expr]
-    kwargs = ...  # type: Optional[expr]
+    func: expr
+    args: typing.List[expr]
+    keywords: typing.List[keyword]
+    starargs: Optional[expr]
+    kwargs: Optional[expr]
 
 class Repr(expr):
-    value = ...  # type: expr
+    value: expr
 
 class Num(expr):
-    n = ...  # type: float
+    n: float
 
 class Str(expr):
-    s = ...  # type: str
+    s: str
 
 class Attribute(expr):
-    value = ...  # type: expr
-    attr = ...  # type: _identifier
-    ctx = ...  # type: expr_context
+    value: expr
+    attr: _identifier
+    ctx: expr_context
 
 class Subscript(expr):
-    value = ...  # type: expr
-    slice = ...  # type: _slice
-    ctx = ...  # type: expr_context
+    value: expr
+    slice: _slice
+    ctx: expr_context
 
 class Name(expr):
-    id = ...  # type: _identifier
-    ctx = ...  # type: expr_context
+    id: _identifier
+    ctx: expr_context
 
 class List(expr):
-    elts = ...  # type: typing.List[expr]
-    ctx = ...  # type: expr_context
+    elts: typing.List[expr]
+    ctx: expr_context
 
 class Tuple(expr):
-    elts = ...  # type: typing.List[expr]
-    ctx = ...  # type: expr_context
+    elts: typing.List[expr]
+    ctx: expr_context
 
 
 class expr_context(AST):
@@ -300,29 +298,33 @@ class NotIn(cmpop): ...
 
 
 class comprehension(AST):
-    target = ...  # type: expr
-    iter = ...  # type: expr
-    ifs = ...  # type: typing.List[expr]
+    target: expr
+    iter: expr
+    ifs: typing.List[expr]
 
 
-class ExceptHandler(AST):
-    type = ...  # type: Optional[expr]
-    name = ...  # type: Optional[expr]
-    body = ...  # type: typing.List[stmt]
-    lineno = ...  # type: int
-    col_offset = ...  # type: int
+class excepthandler(AST):
+    ...
+
+
+class ExceptHandler(excepthandler):
+    type: Optional[expr]
+    name: Optional[expr]
+    body: typing.List[stmt]
+    lineno: int
+    col_offset: int
 
 
 class arguments(AST):
-    args = ...  # type: typing.List[expr]
-    vararg = ...  # type: Optional[_identifier]
-    kwarg = ...  # type: Optional[_identifier]
-    defaults = ...  # type: typing.List[expr]
+    args: typing.List[expr]
+    vararg: Optional[_identifier]
+    kwarg: Optional[_identifier]
+    defaults: typing.List[expr]
 
 class keyword(AST):
-    arg = ...  # type: _identifier
-    value = ...  # type: expr
+    arg: _identifier
+    value: expr
 
 class alias(AST):
-    name = ...  # type: _identifier
-    asname = ...  # type: Optional[_identifier]
+    name: _identifier
+    asname: Optional[_identifier]

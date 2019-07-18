@@ -1,9 +1,9 @@
 import sys
 from typing import (AbstractSet, Any, Callable, Dict, Generator, List, Mapping,
-                    MutableMapping, NamedTuple, Optional, Sequence, Tuple,
-                    Union,
+                    NamedTuple, Optional, Sequence, Tuple, Union,
                     )
 from types import CodeType, FrameType, ModuleType, TracebackType
+from collections import OrderedDict
 
 #
 # Types and members
@@ -159,7 +159,7 @@ class Parameter:
                 annotation: Any = ...) -> Parameter: ...
 
 class BoundArguments:
-    arguments: MutableMapping[str, Any]
+    arguments: OrderedDict[str, Any]
     args: Tuple[Any, ...]
     kwargs: Dict[str, Any]
     signature: Signature

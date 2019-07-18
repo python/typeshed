@@ -9,10 +9,6 @@ from typing import Any, Iterator, Optional, Union
 from _ast import *
 from _ast import AST, Module
 
-__version__ = ...  # type: str
-PyCF_ONLY_AST = ...  # type: int
-
-
 def parse(source: Union[str, unicode], filename: Union[str, unicode] = ..., mode: Union[str, unicode] = ...) -> Module: ...
 def copy_location(new_node: AST, old_node: AST) -> AST: ...
 def dump(node: AST, annotate_fields: bool = ..., include_attributes: bool = ...) -> str: ...

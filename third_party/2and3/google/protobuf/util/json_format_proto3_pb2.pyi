@@ -71,7 +71,7 @@ BAR: EnumType
 
 
 class MessageType(Message):
-    value = ...  # type: int
+    value: int
 
     def __init__(self,
                  value: Optional[int] = ...,
@@ -82,26 +82,26 @@ class MessageType(Message):
 
 
 class TestMessage(Message):
-    bool_value = ...  # type: bool
-    int32_value = ...  # type: int
-    int64_value = ...  # type: int
-    uint32_value = ...  # type: int
-    uint64_value = ...  # type: int
-    float_value = ...  # type: float
-    double_value = ...  # type: float
-    string_value = ...  # type: Text
-    bytes_value = ...  # type: bytes
-    enum_value = ...  # type: EnumType
-    repeated_bool_value = ...  # type: RepeatedScalarFieldContainer[bool]
-    repeated_int32_value = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_int64_value = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_uint32_value = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_uint64_value = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_float_value = ...  # type: RepeatedScalarFieldContainer[float]
-    repeated_double_value = ...  # type: RepeatedScalarFieldContainer[float]
-    repeated_string_value = ...  # type: RepeatedScalarFieldContainer[Text]
-    repeated_bytes_value = ...  # type: RepeatedScalarFieldContainer[bytes]
-    repeated_enum_value = ...  # type: RepeatedScalarFieldContainer[EnumType]
+    bool_value: bool
+    int32_value: int
+    int64_value: int
+    uint32_value: int
+    uint64_value: int
+    float_value: float
+    double_value: float
+    string_value: Text
+    bytes_value: bytes
+    enum_value: EnumType
+    repeated_bool_value: RepeatedScalarFieldContainer[bool]
+    repeated_int32_value: RepeatedScalarFieldContainer[int]
+    repeated_int64_value: RepeatedScalarFieldContainer[int]
+    repeated_uint32_value: RepeatedScalarFieldContainer[int]
+    repeated_uint64_value: RepeatedScalarFieldContainer[int]
+    repeated_float_value: RepeatedScalarFieldContainer[float]
+    repeated_double_value: RepeatedScalarFieldContainer[float]
+    repeated_string_value: RepeatedScalarFieldContainer[Text]
+    repeated_bytes_value: RepeatedScalarFieldContainer[bytes]
+    repeated_enum_value: RepeatedScalarFieldContainer[EnumType]
 
     @property
     def message_value(self) -> MessageType: ...
@@ -140,10 +140,10 @@ class TestMessage(Message):
 
 
 class TestOneof(Message):
-    oneof_int32_value = ...  # type: int
-    oneof_string_value = ...  # type: Text
-    oneof_bytes_value = ...  # type: bytes
-    oneof_enum_value = ...  # type: EnumType
+    oneof_int32_value: int
+    oneof_string_value: Text
+    oneof_bytes_value: bytes
+    oneof_enum_value: EnumType
 
     @property
     def oneof_message_value(self) -> MessageType: ...
@@ -163,8 +163,8 @@ class TestOneof(Message):
 class TestMap(Message):
 
     class BoolMapEntry(Message):
-        key = ...  # type: bool
-        value = ...  # type: int
+        key: bool
+        value: int
 
         def __init__(self,
                      key: Optional[bool] = ...,
@@ -175,8 +175,8 @@ class TestMap(Message):
         def FromString(cls, s: bytes) -> TestMap.BoolMapEntry: ...
 
     class Int32MapEntry(Message):
-        key = ...  # type: int
-        value = ...  # type: int
+        key: int
+        value: int
 
         def __init__(self,
                      key: Optional[int] = ...,
@@ -187,8 +187,8 @@ class TestMap(Message):
         def FromString(cls, s: bytes) -> TestMap.Int32MapEntry: ...
 
     class Int64MapEntry(Message):
-        key = ...  # type: int
-        value = ...  # type: int
+        key: int
+        value: int
 
         def __init__(self,
                      key: Optional[int] = ...,
@@ -199,8 +199,8 @@ class TestMap(Message):
         def FromString(cls, s: bytes) -> TestMap.Int64MapEntry: ...
 
     class Uint32MapEntry(Message):
-        key = ...  # type: int
-        value = ...  # type: int
+        key: int
+        value: int
 
         def __init__(self,
                      key: Optional[int] = ...,
@@ -211,8 +211,8 @@ class TestMap(Message):
         def FromString(cls, s: bytes) -> TestMap.Uint32MapEntry: ...
 
     class Uint64MapEntry(Message):
-        key = ...  # type: int
-        value = ...  # type: int
+        key: int
+        value: int
 
         def __init__(self,
                      key: Optional[int] = ...,
@@ -223,8 +223,8 @@ class TestMap(Message):
         def FromString(cls, s: bytes) -> TestMap.Uint64MapEntry: ...
 
     class StringMapEntry(Message):
-        key = ...  # type: Text
-        value = ...  # type: int
+        key: Text
+        value: int
 
         def __init__(self,
                      key: Optional[Text] = ...,
@@ -268,8 +268,8 @@ class TestMap(Message):
 class TestNestedMap(Message):
 
     class BoolMapEntry(Message):
-        key = ...  # type: bool
-        value = ...  # type: int
+        key: bool
+        value: int
 
         def __init__(self,
                      key: Optional[bool] = ...,
@@ -280,8 +280,8 @@ class TestNestedMap(Message):
         def FromString(cls, s: bytes) -> TestNestedMap.BoolMapEntry: ...
 
     class Int32MapEntry(Message):
-        key = ...  # type: int
-        value = ...  # type: int
+        key: int
+        value: int
 
         def __init__(self,
                      key: Optional[int] = ...,
@@ -292,8 +292,8 @@ class TestNestedMap(Message):
         def FromString(cls, s: bytes) -> TestNestedMap.Int32MapEntry: ...
 
     class Int64MapEntry(Message):
-        key = ...  # type: int
-        value = ...  # type: int
+        key: int
+        value: int
 
         def __init__(self,
                      key: Optional[int] = ...,
@@ -304,8 +304,8 @@ class TestNestedMap(Message):
         def FromString(cls, s: bytes) -> TestNestedMap.Int64MapEntry: ...
 
     class Uint32MapEntry(Message):
-        key = ...  # type: int
-        value = ...  # type: int
+        key: int
+        value: int
 
         def __init__(self,
                      key: Optional[int] = ...,
@@ -316,8 +316,8 @@ class TestNestedMap(Message):
         def FromString(cls, s: bytes) -> TestNestedMap.Uint32MapEntry: ...
 
     class Uint64MapEntry(Message):
-        key = ...  # type: int
-        value = ...  # type: int
+        key: int
+        value: int
 
         def __init__(self,
                      key: Optional[int] = ...,
@@ -328,8 +328,8 @@ class TestNestedMap(Message):
         def FromString(cls, s: bytes) -> TestNestedMap.Uint64MapEntry: ...
 
     class StringMapEntry(Message):
-        key = ...  # type: Text
-        value = ...  # type: int
+        key: Text
+        value: int
 
         def __init__(self,
                      key: Optional[Text] = ...,
@@ -340,7 +340,7 @@ class TestNestedMap(Message):
         def FromString(cls, s: bytes) -> TestNestedMap.StringMapEntry: ...
 
     class MapMapEntry(Message):
-        key = ...  # type: Text
+        key: Text
 
         @property
         def value(self) -> TestNestedMap: ...
@@ -596,8 +596,8 @@ class TestListValue(Message):
 class TestBoolValue(Message):
 
     class BoolMapEntry(Message):
-        key = ...  # type: bool
-        value = ...  # type: int
+        key: bool
+        value: int
 
         def __init__(self,
                      key: Optional[bool] = ...,
@@ -606,7 +606,7 @@ class TestBoolValue(Message):
 
         @classmethod
         def FromString(cls, s: bytes) -> TestBoolValue.BoolMapEntry: ...
-    bool_value = ...  # type: bool
+    bool_value: bool
 
     @property
     def bool_map(self) -> MutableMapping[bool, int]: ...
@@ -621,7 +621,7 @@ class TestBoolValue(Message):
 
 
 class TestCustomJsonName(Message):
-    value = ...  # type: int
+    value: int
 
     def __init__(self,
                  value: Optional[int] = ...,
@@ -645,9 +645,9 @@ class TestExtensions(Message):
 
 
 class TestEnumValue(Message):
-    enum_value1 = ...  # type: EnumType
-    enum_value2 = ...  # type: EnumType
-    enum_value3 = ...  # type: EnumType
+    enum_value1: EnumType
+    enum_value2: EnumType
+    enum_value3: EnumType
 
     def __init__(self,
                  enum_value1: Optional[EnumType] = ...,

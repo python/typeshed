@@ -63,14 +63,14 @@ class TestAllTypes(Message):
 
         @classmethod
         def items(cls) -> List[Tuple[bytes, TestAllTypes.NestedEnum]]: ...
-    ZERO: NestedEnum
-    FOO: NestedEnum
-    BAR: NestedEnum
-    BAZ: NestedEnum
-    NEG: NestedEnum
+    ZERO: TestAllTypes.NestedEnum
+    FOO: TestAllTypes.NestedEnum
+    BAR: TestAllTypes.NestedEnum
+    BAZ: TestAllTypes.NestedEnum
+    NEG: TestAllTypes.NestedEnum
 
     class NestedMessage(Message):
-        bb = ...  # type: int
+        bb: int
 
         def __init__(self,
                      bb: Optional[int] = ...,
@@ -78,47 +78,47 @@ class TestAllTypes(Message):
 
         @classmethod
         def FromString(cls, s: bytes) -> TestAllTypes.NestedMessage: ...
-    optional_int32 = ...  # type: int
-    optional_int64 = ...  # type: int
-    optional_uint32 = ...  # type: int
-    optional_uint64 = ...  # type: int
-    optional_sint32 = ...  # type: int
-    optional_sint64 = ...  # type: int
-    optional_fixed32 = ...  # type: int
-    optional_fixed64 = ...  # type: int
-    optional_sfixed32 = ...  # type: int
-    optional_sfixed64 = ...  # type: int
-    optional_float = ...  # type: float
-    optional_double = ...  # type: float
-    optional_bool = ...  # type: bool
-    optional_string = ...  # type: Text
-    optional_bytes = ...  # type: bytes
-    optional_nested_enum = ...  # type: TestAllTypes.NestedEnum
-    optional_foreign_enum = ...  # type: ForeignEnum
-    optional_string_piece = ...  # type: Text
-    optional_cord = ...  # type: Text
-    repeated_int32 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_int64 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_uint32 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_uint64 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_sint32 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_sint64 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_fixed32 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_fixed64 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_sfixed32 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_sfixed64 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_float = ...  # type: RepeatedScalarFieldContainer[float]
-    repeated_double = ...  # type: RepeatedScalarFieldContainer[float]
-    repeated_bool = ...  # type: RepeatedScalarFieldContainer[bool]
-    repeated_string = ...  # type: RepeatedScalarFieldContainer[Text]
-    repeated_bytes = ...  # type: RepeatedScalarFieldContainer[bytes]
-    repeated_nested_enum = ...  # type: RepeatedScalarFieldContainer[TestAllTypes.NestedEnum]
-    repeated_foreign_enum = ...  # type: RepeatedScalarFieldContainer[ForeignEnum]
-    repeated_string_piece = ...  # type: RepeatedScalarFieldContainer[Text]
-    repeated_cord = ...  # type: RepeatedScalarFieldContainer[Text]
-    oneof_uint32 = ...  # type: int
-    oneof_string = ...  # type: Text
-    oneof_bytes = ...  # type: bytes
+    optional_int32: int
+    optional_int64: int
+    optional_uint32: int
+    optional_uint64: int
+    optional_sint32: int
+    optional_sint64: int
+    optional_fixed32: int
+    optional_fixed64: int
+    optional_sfixed32: int
+    optional_sfixed64: int
+    optional_float: float
+    optional_double: float
+    optional_bool: bool
+    optional_string: Text
+    optional_bytes: bytes
+    optional_nested_enum: TestAllTypes.NestedEnum
+    optional_foreign_enum: ForeignEnum
+    optional_string_piece: Text
+    optional_cord: Text
+    repeated_int32: RepeatedScalarFieldContainer[int]
+    repeated_int64: RepeatedScalarFieldContainer[int]
+    repeated_uint32: RepeatedScalarFieldContainer[int]
+    repeated_uint64: RepeatedScalarFieldContainer[int]
+    repeated_sint32: RepeatedScalarFieldContainer[int]
+    repeated_sint64: RepeatedScalarFieldContainer[int]
+    repeated_fixed32: RepeatedScalarFieldContainer[int]
+    repeated_fixed64: RepeatedScalarFieldContainer[int]
+    repeated_sfixed32: RepeatedScalarFieldContainer[int]
+    repeated_sfixed64: RepeatedScalarFieldContainer[int]
+    repeated_float: RepeatedScalarFieldContainer[float]
+    repeated_double: RepeatedScalarFieldContainer[float]
+    repeated_bool: RepeatedScalarFieldContainer[bool]
+    repeated_string: RepeatedScalarFieldContainer[Text]
+    repeated_bytes: RepeatedScalarFieldContainer[bytes]
+    repeated_nested_enum: RepeatedScalarFieldContainer[TestAllTypes.NestedEnum]
+    repeated_foreign_enum: RepeatedScalarFieldContainer[ForeignEnum]
+    repeated_string_piece: RepeatedScalarFieldContainer[Text]
+    repeated_cord: RepeatedScalarFieldContainer[Text]
+    oneof_uint32: int
+    oneof_string: Text
+    oneof_bytes: bytes
 
     @property
     def optional_nested_message(self) -> TestAllTypes.NestedMessage: ...
@@ -217,20 +217,20 @@ class TestAllTypes(Message):
 
 
 class TestPackedTypes(Message):
-    packed_int32 = ...  # type: RepeatedScalarFieldContainer[int]
-    packed_int64 = ...  # type: RepeatedScalarFieldContainer[int]
-    packed_uint32 = ...  # type: RepeatedScalarFieldContainer[int]
-    packed_uint64 = ...  # type: RepeatedScalarFieldContainer[int]
-    packed_sint32 = ...  # type: RepeatedScalarFieldContainer[int]
-    packed_sint64 = ...  # type: RepeatedScalarFieldContainer[int]
-    packed_fixed32 = ...  # type: RepeatedScalarFieldContainer[int]
-    packed_fixed64 = ...  # type: RepeatedScalarFieldContainer[int]
-    packed_sfixed32 = ...  # type: RepeatedScalarFieldContainer[int]
-    packed_sfixed64 = ...  # type: RepeatedScalarFieldContainer[int]
-    packed_float = ...  # type: RepeatedScalarFieldContainer[float]
-    packed_double = ...  # type: RepeatedScalarFieldContainer[float]
-    packed_bool = ...  # type: RepeatedScalarFieldContainer[bool]
-    packed_enum = ...  # type: RepeatedScalarFieldContainer[ForeignEnum]
+    packed_int32: RepeatedScalarFieldContainer[int]
+    packed_int64: RepeatedScalarFieldContainer[int]
+    packed_uint32: RepeatedScalarFieldContainer[int]
+    packed_uint64: RepeatedScalarFieldContainer[int]
+    packed_sint32: RepeatedScalarFieldContainer[int]
+    packed_sint64: RepeatedScalarFieldContainer[int]
+    packed_fixed32: RepeatedScalarFieldContainer[int]
+    packed_fixed64: RepeatedScalarFieldContainer[int]
+    packed_sfixed32: RepeatedScalarFieldContainer[int]
+    packed_sfixed64: RepeatedScalarFieldContainer[int]
+    packed_float: RepeatedScalarFieldContainer[float]
+    packed_double: RepeatedScalarFieldContainer[float]
+    packed_bool: RepeatedScalarFieldContainer[bool]
+    packed_enum: RepeatedScalarFieldContainer[ForeignEnum]
 
     def __init__(self,
                  packed_int32: Optional[Iterable[int]] = ...,
@@ -254,20 +254,20 @@ class TestPackedTypes(Message):
 
 
 class TestUnpackedTypes(Message):
-    repeated_int32 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_int64 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_uint32 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_uint64 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_sint32 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_sint64 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_fixed32 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_fixed64 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_sfixed32 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_sfixed64 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_float = ...  # type: RepeatedScalarFieldContainer[float]
-    repeated_double = ...  # type: RepeatedScalarFieldContainer[float]
-    repeated_bool = ...  # type: RepeatedScalarFieldContainer[bool]
-    repeated_nested_enum = ...  # type: RepeatedScalarFieldContainer[TestAllTypes.NestedEnum]
+    repeated_int32: RepeatedScalarFieldContainer[int]
+    repeated_int64: RepeatedScalarFieldContainer[int]
+    repeated_uint32: RepeatedScalarFieldContainer[int]
+    repeated_uint64: RepeatedScalarFieldContainer[int]
+    repeated_sint32: RepeatedScalarFieldContainer[int]
+    repeated_sint64: RepeatedScalarFieldContainer[int]
+    repeated_fixed32: RepeatedScalarFieldContainer[int]
+    repeated_fixed64: RepeatedScalarFieldContainer[int]
+    repeated_sfixed32: RepeatedScalarFieldContainer[int]
+    repeated_sfixed64: RepeatedScalarFieldContainer[int]
+    repeated_float: RepeatedScalarFieldContainer[float]
+    repeated_double: RepeatedScalarFieldContainer[float]
+    repeated_bool: RepeatedScalarFieldContainer[bool]
+    repeated_nested_enum: RepeatedScalarFieldContainer[TestAllTypes.NestedEnum]
 
     def __init__(self,
                  repeated_int32: Optional[Iterable[int]] = ...,
@@ -313,7 +313,7 @@ class NestedTestAllTypes(Message):
 
 
 class ForeignMessage(Message):
-    c = ...  # type: int
+    c: int
 
     def __init__(self,
                  c: Optional[int] = ...,

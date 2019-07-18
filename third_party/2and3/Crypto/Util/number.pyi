@@ -1,8 +1,8 @@
 from typing import Any, Optional
 from warnings import warn as _warn
 
-__revision__ = ...  # type: str
-bignum = ...  # type: Any
+__revision__: str
+bignum: Any
 
 def size(N): ...
 def getRandomNumber(N, randfunc: Optional[Any] = ...): ...
@@ -19,4 +19,4 @@ def bytes_to_long(s): ...
 def long2str(n, blocksize: int = ...): ...
 def str2long(s): ...
 
-sieve_base = ...  # type: Any
+sieve_base: Any

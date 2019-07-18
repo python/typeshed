@@ -34,7 +34,7 @@ class FlagValues:
     def UseGnuGetOpt(self, use_gnu_getopt: bool = ...) -> None: ...
     def is_gnu_getopt(self) -> bool: ...
     IsGnuGetOpt = is_gnu_getopt
-# TODO dict type
+    # TODO dict type
     def FlagDict(self) -> dict: ...
     def flags_by_module_dict(self) -> Dict[str, List[Flag]]: ...
     FlagsByModuleDict = flags_by_module_dict
@@ -83,22 +83,22 @@ class FlagValues:
     AppendFlagsIntoFile = append_flags_into_file
     def write_help_in_xml_format(self, outfile: IO[str] = ...) -> None: ...
     WriteHelpInXMLFormat = write_help_in_xml_format
-# TODO validator: gflags_validators.Validator
+    # TODO validator: gflags_validators.Validator
     def AddValidator(self, validator: Any) -> None: ...
 
-FLAGS = ...  # type: FlagValues
+FLAGS: FlagValues
 
 class Flag:
-    name = ...  # type: str
-    default = ...  # type: Any
-    default_as_str = ...  # type: str
-    value = ...  # type: Any
-    help = ...  # type: str
-    short_name = ...  # type: str
+    name: str
+    default: Any
+    default_as_str: str
+    value: Any
+    help: str
+    short_name: str
     boolean = False
     present = False
-    parser = ...  # type: ArgumentParser
-    serializer = ...  # type: ArgumentSerializer
+    parser: ArgumentParser
+    serializer: ArgumentSerializer
     allow_override = False
 
     def __init__(self, parser: ArgumentParser, serializer: ArgumentSerializer, name: str,
@@ -112,8 +112,8 @@ class Flag:
     def WriteInfoInXMLFormat(self, outfile: IO[str], module_name: str, is_key: bool = ..., indent: str = ...) -> None: ...
 
 class ArgumentParser(object):
-    syntactic_help = ...  # type: str
-# TODO what is this
+    syntactic_help: str
+    # TODO what is this
     def parse(self, argument: Any) -> Any: ...
     Parser = parse
     def flag_type(self) -> str: ...
@@ -174,9 +174,9 @@ class NumericParser(ArgumentParser):
     def Convert(self, argument: Any) -> Any: ...
 
 class FloatParser(NumericParser):
-    number_article = ...  # type: str
-    number_name = ...  # type: str
-    syntactic_help = ...  # type: str
+    number_article: str
+    number_name: str
+    syntactic_help: str
     def __init__(self, lower_bound: float = ..., upper_bound: float = ...) -> None: ...
     def Convert(self, argument: Any) -> float: ...
 
@@ -184,9 +184,9 @@ def DEFINE_float(name: str, default: Optional[float], help: str, lower_bound: fl
                  upper_bound: float = ..., flag_values: FlagValues = ..., **args: Any) -> None: ...
 
 class IntegerParser(NumericParser):
-    number_article = ...  # type: str
-    number_name = ...  # type: str
-    syntactic_help = ...  # type: str
+    number_article: str
+    number_name: str
+    syntactic_help: str
     def __init__(self, lower_bound: int = ..., upper_bound: int = ...) -> None: ...
     def Convert(self, argument: Any) -> int: ...
 

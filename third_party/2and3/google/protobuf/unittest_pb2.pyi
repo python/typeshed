@@ -112,13 +112,13 @@ class TestAllTypes(Message):
 
         @classmethod
         def items(cls) -> List[Tuple[bytes, TestAllTypes.NestedEnum]]: ...
-    FOO: NestedEnum
-    BAR: NestedEnum
-    BAZ: NestedEnum
-    NEG: NestedEnum
+    FOO: TestAllTypes.NestedEnum
+    BAR: TestAllTypes.NestedEnum
+    BAZ: TestAllTypes.NestedEnum
+    NEG: TestAllTypes.NestedEnum
 
     class NestedMessage(Message):
-        bb = ...  # type: int
+        bb: int
 
         def __init__(self,
                      bb: Optional[int] = ...,
@@ -128,7 +128,7 @@ class TestAllTypes(Message):
         def FromString(cls, s: bytes) -> TestAllTypes.NestedMessage: ...
 
     class OptionalGroup(Message):
-        a = ...  # type: int
+        a: int
 
         def __init__(self,
                      a: Optional[int] = ...,
@@ -138,7 +138,7 @@ class TestAllTypes(Message):
         def FromString(cls, s: bytes) -> TestAllTypes.OptionalGroup: ...
 
     class RepeatedGroup(Message):
-        a = ...  # type: int
+        a: int
 
         def __init__(self,
                      a: Optional[int] = ...,
@@ -146,69 +146,69 @@ class TestAllTypes(Message):
 
         @classmethod
         def FromString(cls, s: bytes) -> TestAllTypes.RepeatedGroup: ...
-    optional_int32 = ...  # type: int
-    optional_int64 = ...  # type: int
-    optional_uint32 = ...  # type: int
-    optional_uint64 = ...  # type: int
-    optional_sint32 = ...  # type: int
-    optional_sint64 = ...  # type: int
-    optional_fixed32 = ...  # type: int
-    optional_fixed64 = ...  # type: int
-    optional_sfixed32 = ...  # type: int
-    optional_sfixed64 = ...  # type: int
-    optional_float = ...  # type: float
-    optional_double = ...  # type: float
-    optional_bool = ...  # type: bool
-    optional_string = ...  # type: Text
-    optional_bytes = ...  # type: bytes
-    optional_nested_enum = ...  # type: TestAllTypes.NestedEnum
-    optional_foreign_enum = ...  # type: ForeignEnum
-    optional_import_enum = ...  # type: ImportEnum
-    optional_string_piece = ...  # type: Text
-    optional_cord = ...  # type: Text
-    repeated_int32 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_int64 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_uint32 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_uint64 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_sint32 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_sint64 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_fixed32 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_fixed64 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_sfixed32 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_sfixed64 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_float = ...  # type: RepeatedScalarFieldContainer[float]
-    repeated_double = ...  # type: RepeatedScalarFieldContainer[float]
-    repeated_bool = ...  # type: RepeatedScalarFieldContainer[bool]
-    repeated_string = ...  # type: RepeatedScalarFieldContainer[Text]
-    repeated_bytes = ...  # type: RepeatedScalarFieldContainer[bytes]
-    repeated_nested_enum = ...  # type: RepeatedScalarFieldContainer[TestAllTypes.NestedEnum]
-    repeated_foreign_enum = ...  # type: RepeatedScalarFieldContainer[ForeignEnum]
-    repeated_import_enum = ...  # type: RepeatedScalarFieldContainer[ImportEnum]
-    repeated_string_piece = ...  # type: RepeatedScalarFieldContainer[Text]
-    repeated_cord = ...  # type: RepeatedScalarFieldContainer[Text]
-    default_int32 = ...  # type: int
-    default_int64 = ...  # type: int
-    default_uint32 = ...  # type: int
-    default_uint64 = ...  # type: int
-    default_sint32 = ...  # type: int
-    default_sint64 = ...  # type: int
-    default_fixed32 = ...  # type: int
-    default_fixed64 = ...  # type: int
-    default_sfixed32 = ...  # type: int
-    default_sfixed64 = ...  # type: int
-    default_float = ...  # type: float
-    default_double = ...  # type: float
-    default_bool = ...  # type: bool
-    default_string = ...  # type: Text
-    default_bytes = ...  # type: bytes
-    default_nested_enum = ...  # type: TestAllTypes.NestedEnum
-    default_foreign_enum = ...  # type: ForeignEnum
-    default_import_enum = ...  # type: ImportEnum
-    default_string_piece = ...  # type: Text
-    default_cord = ...  # type: Text
-    oneof_uint32 = ...  # type: int
-    oneof_string = ...  # type: Text
-    oneof_bytes = ...  # type: bytes
+    optional_int32: int
+    optional_int64: int
+    optional_uint32: int
+    optional_uint64: int
+    optional_sint32: int
+    optional_sint64: int
+    optional_fixed32: int
+    optional_fixed64: int
+    optional_sfixed32: int
+    optional_sfixed64: int
+    optional_float: float
+    optional_double: float
+    optional_bool: bool
+    optional_string: Text
+    optional_bytes: bytes
+    optional_nested_enum: TestAllTypes.NestedEnum
+    optional_foreign_enum: ForeignEnum
+    optional_import_enum: ImportEnum
+    optional_string_piece: Text
+    optional_cord: Text
+    repeated_int32: RepeatedScalarFieldContainer[int]
+    repeated_int64: RepeatedScalarFieldContainer[int]
+    repeated_uint32: RepeatedScalarFieldContainer[int]
+    repeated_uint64: RepeatedScalarFieldContainer[int]
+    repeated_sint32: RepeatedScalarFieldContainer[int]
+    repeated_sint64: RepeatedScalarFieldContainer[int]
+    repeated_fixed32: RepeatedScalarFieldContainer[int]
+    repeated_fixed64: RepeatedScalarFieldContainer[int]
+    repeated_sfixed32: RepeatedScalarFieldContainer[int]
+    repeated_sfixed64: RepeatedScalarFieldContainer[int]
+    repeated_float: RepeatedScalarFieldContainer[float]
+    repeated_double: RepeatedScalarFieldContainer[float]
+    repeated_bool: RepeatedScalarFieldContainer[bool]
+    repeated_string: RepeatedScalarFieldContainer[Text]
+    repeated_bytes: RepeatedScalarFieldContainer[bytes]
+    repeated_nested_enum: RepeatedScalarFieldContainer[TestAllTypes.NestedEnum]
+    repeated_foreign_enum: RepeatedScalarFieldContainer[ForeignEnum]
+    repeated_import_enum: RepeatedScalarFieldContainer[ImportEnum]
+    repeated_string_piece: RepeatedScalarFieldContainer[Text]
+    repeated_cord: RepeatedScalarFieldContainer[Text]
+    default_int32: int
+    default_int64: int
+    default_uint32: int
+    default_uint64: int
+    default_sint32: int
+    default_sint64: int
+    default_fixed32: int
+    default_fixed64: int
+    default_sfixed32: int
+    default_sfixed64: int
+    default_float: float
+    default_double: float
+    default_bool: bool
+    default_string: Text
+    default_bytes: bytes
+    default_nested_enum: TestAllTypes.NestedEnum
+    default_foreign_enum: ForeignEnum
+    default_import_enum: ImportEnum
+    default_string_piece: Text
+    default_cord: Text
+    oneof_uint32: int
+    oneof_string: Text
+    oneof_bytes: bytes
 
     @property
     def optionalgroup(self) -> TestAllTypes.OptionalGroup: ...
@@ -356,8 +356,8 @@ class NestedTestAllTypes(Message):
 
 
 class TestDeprecatedFields(Message):
-    deprecated_int32 = ...  # type: int
-    deprecated_int32_in_oneof = ...  # type: int
+    deprecated_int32: int
+    deprecated_int32_in_oneof: int
 
     def __init__(self,
                  deprecated_int32: Optional[int] = ...,
@@ -378,8 +378,8 @@ class TestDeprecatedMessage(Message):
 
 
 class ForeignMessage(Message):
-    c = ...  # type: int
-    d = ...  # type: int
+    c: int
+    d: int
 
     def __init__(self,
                  c: Optional[int] = ...,
@@ -409,7 +409,7 @@ class TestAllExtensions(Message):
 
 
 class OptionalGroup_extension(Message):
-    a = ...  # type: int
+    a: int
 
     def __init__(self,
                  a: Optional[int] = ...,
@@ -420,7 +420,7 @@ class OptionalGroup_extension(Message):
 
 
 class RepeatedGroup_extension(Message):
-    a = ...  # type: int
+    a: int
 
     def __init__(self,
                  a: Optional[int] = ...,
@@ -432,7 +432,7 @@ class RepeatedGroup_extension(Message):
 
 class TestGroup(Message):
     class OptionalGroup(Message):
-        a = ...  # type: int
+        a: int
 
         def __init__(self,
                      a: Optional[int] = ...,
@@ -440,7 +440,7 @@ class TestGroup(Message):
 
         @classmethod
         def FromString(cls, s: bytes) -> TestGroup.OptionalGroup: ...
-    optional_foreign_enum = ...  # type: ForeignEnum
+    optional_foreign_enum: ForeignEnum
 
     @property
     def optionalgroup(self) -> TestGroup.OptionalGroup: ...
@@ -465,7 +465,7 @@ class TestGroupExtension(Message):
 
 class TestNestedExtension(Message):
     class OptionalGroup_extension(Message):
-        a = ...  # type: int
+        a: int
 
         def __init__(self,
                      a: Optional[int] = ...,
@@ -483,39 +483,39 @@ class TestNestedExtension(Message):
 
 
 class TestRequired(Message):
-    a = ...  # type: int
-    dummy2 = ...  # type: int
-    b = ...  # type: int
-    dummy4 = ...  # type: int
-    dummy5 = ...  # type: int
-    dummy6 = ...  # type: int
-    dummy7 = ...  # type: int
-    dummy8 = ...  # type: int
-    dummy9 = ...  # type: int
-    dummy10 = ...  # type: int
-    dummy11 = ...  # type: int
-    dummy12 = ...  # type: int
-    dummy13 = ...  # type: int
-    dummy14 = ...  # type: int
-    dummy15 = ...  # type: int
-    dummy16 = ...  # type: int
-    dummy17 = ...  # type: int
-    dummy18 = ...  # type: int
-    dummy19 = ...  # type: int
-    dummy20 = ...  # type: int
-    dummy21 = ...  # type: int
-    dummy22 = ...  # type: int
-    dummy23 = ...  # type: int
-    dummy24 = ...  # type: int
-    dummy25 = ...  # type: int
-    dummy26 = ...  # type: int
-    dummy27 = ...  # type: int
-    dummy28 = ...  # type: int
-    dummy29 = ...  # type: int
-    dummy30 = ...  # type: int
-    dummy31 = ...  # type: int
-    dummy32 = ...  # type: int
-    c = ...  # type: int
+    a: int
+    dummy2: int
+    b: int
+    dummy4: int
+    dummy5: int
+    dummy6: int
+    dummy7: int
+    dummy8: int
+    dummy9: int
+    dummy10: int
+    dummy11: int
+    dummy12: int
+    dummy13: int
+    dummy14: int
+    dummy15: int
+    dummy16: int
+    dummy17: int
+    dummy18: int
+    dummy19: int
+    dummy20: int
+    dummy21: int
+    dummy22: int
+    dummy23: int
+    dummy24: int
+    dummy25: int
+    dummy26: int
+    dummy27: int
+    dummy28: int
+    dummy29: int
+    dummy30: int
+    dummy31: int
+    dummy32: int
+    c: int
 
     def __init__(self,
                  a: int,
@@ -558,7 +558,7 @@ class TestRequired(Message):
 
 
 class TestRequiredForeign(Message):
-    dummy = ...  # type: int
+    dummy: int
 
     @property
     def optional_message(self) -> TestRequired: ...
@@ -640,8 +640,8 @@ class TestMultipleExtensionRanges(Message):
 
 
 class TestReallyLargeTagNumber(Message):
-    a = ...  # type: int
-    bb = ...  # type: int
+    a: int
+    bb: int
 
     def __init__(self,
                  a: Optional[int] = ...,
@@ -653,7 +653,7 @@ class TestReallyLargeTagNumber(Message):
 
 
 class TestRecursiveMessage(Message):
-    i = ...  # type: int
+    i: int
 
     @property
     def a(self) -> TestRecursiveMessage: ...
@@ -712,7 +712,7 @@ class TestMutualRecursionA(Message):
 
 
 class TestMutualRecursionB(Message):
-    optional_int32 = ...  # type: int
+    optional_int32: int
 
     @property
     def a(self) -> TestMutualRecursionA: ...
@@ -729,7 +729,7 @@ class TestMutualRecursionB(Message):
 class TestIsInitialized(Message):
     class SubMessage(Message):
         class SubGroup(Message):
-            i = ...  # type: int
+            i: int
 
             def __init__(self,
                          i: int,
@@ -762,7 +762,7 @@ class TestIsInitialized(Message):
 
 class TestDupFieldNumber(Message):
     class Foo(Message):
-        a = ...  # type: int
+        a: int
 
         def __init__(self,
                      a: Optional[int] = ...,
@@ -772,7 +772,7 @@ class TestDupFieldNumber(Message):
         def FromString(cls, s: bytes) -> TestDupFieldNumber.Foo: ...
 
     class Bar(Message):
-        a = ...  # type: int
+        a: int
 
         def __init__(self,
                      a: Optional[int] = ...,
@@ -780,7 +780,7 @@ class TestDupFieldNumber(Message):
 
         @classmethod
         def FromString(cls, s: bytes) -> TestDupFieldNumber.Bar: ...
-    a = ...  # type: int
+    a: int
 
     @property
     def foo(self) -> TestDupFieldNumber.Foo: ...
@@ -826,7 +826,7 @@ class TestLazyMessage(Message):
 
 class TestNestedMessageHasBits(Message):
     class NestedMessage(Message):
-        nestedmessage_repeated_int32 = ...  # type: RepeatedScalarFieldContainer[int]
+        nestedmessage_repeated_int32: RepeatedScalarFieldContainer[int]
 
         @property
         def nestedmessage_repeated_foreignmessage(
@@ -854,16 +854,16 @@ class TestNestedMessageHasBits(Message):
 
 
 class TestCamelCaseFieldNames(Message):
-    PrimitiveField = ...  # type: int
-    StringField = ...  # type: Text
-    EnumField = ...  # type: ForeignEnum
-    StringPieceField = ...  # type: Text
-    CordField = ...  # type: Text
-    RepeatedPrimitiveField = ...  # type: RepeatedScalarFieldContainer[int]
-    RepeatedStringField = ...  # type: RepeatedScalarFieldContainer[Text]
-    RepeatedEnumField = ...  # type: RepeatedScalarFieldContainer[ForeignEnum]
-    RepeatedStringPieceField = ...  # type: RepeatedScalarFieldContainer[Text]
-    RepeatedCordField = ...  # type: RepeatedScalarFieldContainer[Text]
+    PrimitiveField: int
+    StringField: Text
+    EnumField: ForeignEnum
+    StringPieceField: Text
+    CordField: Text
+    RepeatedPrimitiveField: RepeatedScalarFieldContainer[int]
+    RepeatedStringField: RepeatedScalarFieldContainer[Text]
+    RepeatedEnumField: RepeatedScalarFieldContainer[ForeignEnum]
+    RepeatedStringPieceField: RepeatedScalarFieldContainer[Text]
+    RepeatedCordField: RepeatedScalarFieldContainer[Text]
 
     @property
     def MessageField(self) -> ForeignMessage: ...
@@ -893,8 +893,8 @@ class TestCamelCaseFieldNames(Message):
 
 class TestFieldOrderings(Message):
     class NestedMessage(Message):
-        oo = ...  # type: int
-        bb = ...  # type: int
+        oo: int
+        bb: int
 
         def __init__(self,
                      oo: Optional[int] = ...,
@@ -903,9 +903,9 @@ class TestFieldOrderings(Message):
 
         @classmethod
         def FromString(cls, s: bytes) -> TestFieldOrderings.NestedMessage: ...
-    my_string = ...  # type: Text
-    my_int = ...  # type: int
-    my_float = ...  # type: float
+    my_string: Text
+    my_int: int
+    my_float: float
 
     @property
     def optional_nested_message(self) -> TestFieldOrderings.NestedMessage: ...
@@ -922,7 +922,7 @@ class TestFieldOrderings(Message):
 
 
 class TestExtensionOrderings1(Message):
-    my_string = ...  # type: Text
+    my_string: Text
 
     def __init__(self,
                  my_string: Optional[Text] = ...,
@@ -934,7 +934,7 @@ class TestExtensionOrderings1(Message):
 
 class TestExtensionOrderings2(Message):
     class TestExtensionOrderings3(Message):
-        my_string = ...  # type: Text
+        my_string: Text
 
         def __init__(self,
                      my_string: Optional[Text] = ...,
@@ -943,7 +943,7 @@ class TestExtensionOrderings2(Message):
         @classmethod
         def FromString(
             cls, s: bytes) -> TestExtensionOrderings2.TestExtensionOrderings3: ...
-    my_string = ...  # type: Text
+    my_string: Text
 
     def __init__(self,
                  my_string: Optional[Text] = ...,
@@ -954,33 +954,33 @@ class TestExtensionOrderings2(Message):
 
 
 class TestExtremeDefaultValues(Message):
-    escaped_bytes = ...  # type: bytes
-    large_uint32 = ...  # type: int
-    large_uint64 = ...  # type: int
-    small_int32 = ...  # type: int
-    small_int64 = ...  # type: int
-    really_small_int32 = ...  # type: int
-    really_small_int64 = ...  # type: int
-    utf8_string = ...  # type: Text
-    zero_float = ...  # type: float
-    one_float = ...  # type: float
-    small_float = ...  # type: float
-    negative_one_float = ...  # type: float
-    negative_float = ...  # type: float
-    large_float = ...  # type: float
-    small_negative_float = ...  # type: float
-    inf_double = ...  # type: float
-    neg_inf_double = ...  # type: float
-    nan_double = ...  # type: float
-    inf_float = ...  # type: float
-    neg_inf_float = ...  # type: float
-    nan_float = ...  # type: float
-    cpp_trigraph = ...  # type: Text
-    string_with_zero = ...  # type: Text
-    bytes_with_zero = ...  # type: bytes
-    string_piece_with_zero = ...  # type: Text
-    cord_with_zero = ...  # type: Text
-    replacement_string = ...  # type: Text
+    escaped_bytes: bytes
+    large_uint32: int
+    large_uint64: int
+    small_int32: int
+    small_int64: int
+    really_small_int32: int
+    really_small_int64: int
+    utf8_string: Text
+    zero_float: float
+    one_float: float
+    small_float: float
+    negative_one_float: float
+    negative_float: float
+    large_float: float
+    small_negative_float: float
+    inf_double: float
+    neg_inf_double: float
+    nan_double: float
+    inf_float: float
+    neg_inf_float: float
+    nan_float: float
+    cpp_trigraph: Text
+    string_with_zero: Text
+    bytes_with_zero: bytes
+    string_piece_with_zero: Text
+    cord_with_zero: Text
+    replacement_string: Text
 
     def __init__(self,
                  escaped_bytes: Optional[bytes] = ...,
@@ -1017,7 +1017,7 @@ class TestExtremeDefaultValues(Message):
 
 
 class SparseEnumMessage(Message):
-    sparse_enum = ...  # type: TestSparseEnum
+    sparse_enum: TestSparseEnum
 
     def __init__(self,
                  sparse_enum: Optional[TestSparseEnum] = ...,
@@ -1028,7 +1028,7 @@ class SparseEnumMessage(Message):
 
 
 class OneString(Message):
-    data = ...  # type: Text
+    data: Text
 
     def __init__(self,
                  data: Optional[Text] = ...,
@@ -1039,7 +1039,7 @@ class OneString(Message):
 
 
 class MoreString(Message):
-    data = ...  # type: RepeatedScalarFieldContainer[Text]
+    data: RepeatedScalarFieldContainer[Text]
 
     def __init__(self,
                  data: Optional[Iterable[Text]] = ...,
@@ -1050,7 +1050,7 @@ class MoreString(Message):
 
 
 class OneBytes(Message):
-    data = ...  # type: bytes
+    data: bytes
 
     def __init__(self,
                  data: Optional[bytes] = ...,
@@ -1061,7 +1061,7 @@ class OneBytes(Message):
 
 
 class MoreBytes(Message):
-    data = ...  # type: RepeatedScalarFieldContainer[bytes]
+    data: RepeatedScalarFieldContainer[bytes]
 
     def __init__(self,
                  data: Optional[Iterable[bytes]] = ...,
@@ -1072,7 +1072,7 @@ class MoreBytes(Message):
 
 
 class Int32Message(Message):
-    data = ...  # type: int
+    data: int
 
     def __init__(self,
                  data: Optional[int] = ...,
@@ -1083,7 +1083,7 @@ class Int32Message(Message):
 
 
 class Uint32Message(Message):
-    data = ...  # type: int
+    data: int
 
     def __init__(self,
                  data: Optional[int] = ...,
@@ -1094,7 +1094,7 @@ class Uint32Message(Message):
 
 
 class Int64Message(Message):
-    data = ...  # type: int
+    data: int
 
     def __init__(self,
                  data: Optional[int] = ...,
@@ -1105,7 +1105,7 @@ class Int64Message(Message):
 
 
 class Uint64Message(Message):
-    data = ...  # type: int
+    data: int
 
     def __init__(self,
                  data: Optional[int] = ...,
@@ -1116,7 +1116,7 @@ class Uint64Message(Message):
 
 
 class BoolMessage(Message):
-    data = ...  # type: bool
+    data: bool
 
     def __init__(self,
                  data: Optional[bool] = ...,
@@ -1128,8 +1128,8 @@ class BoolMessage(Message):
 
 class TestOneof(Message):
     class FooGroup(Message):
-        a = ...  # type: int
-        b = ...  # type: Text
+        a: int
+        b: Text
 
         def __init__(self,
                      a: Optional[int] = ...,
@@ -1138,8 +1138,8 @@ class TestOneof(Message):
 
         @classmethod
         def FromString(cls, s: bytes) -> TestOneof.FooGroup: ...
-    foo_int = ...  # type: int
-    foo_string = ...  # type: Text
+    foo_int: int
+    foo_string: Text
 
     @property
     def foo_message(self) -> TestAllTypes: ...
@@ -1160,8 +1160,8 @@ class TestOneof(Message):
 
 class TestOneofBackwardsCompatible(Message):
     class FooGroup(Message):
-        a = ...  # type: int
-        b = ...  # type: Text
+        a: int
+        b: Text
 
         def __init__(self,
                      a: Optional[int] = ...,
@@ -1171,8 +1171,8 @@ class TestOneofBackwardsCompatible(Message):
         @classmethod
         def FromString(
             cls, s: bytes) -> TestOneofBackwardsCompatible.FooGroup: ...
-    foo_int = ...  # type: int
-    foo_string = ...  # type: Text
+    foo_int: int
+    foo_string: Text
 
     @property
     def foo_message(self) -> TestAllTypes: ...
@@ -1207,13 +1207,13 @@ class TestOneof2(Message):
 
         @classmethod
         def items(cls) -> List[Tuple[bytes, TestOneof2.NestedEnum]]: ...
-    FOO: NestedEnum
-    BAR: NestedEnum
-    BAZ: NestedEnum
+    FOO: TestOneof2.NestedEnum
+    BAR: TestOneof2.NestedEnum
+    BAZ: TestOneof2.NestedEnum
 
     class FooGroup(Message):
-        a = ...  # type: int
-        b = ...  # type: Text
+        a: int
+        b: Text
 
         def __init__(self,
                      a: Optional[int] = ...,
@@ -1224,8 +1224,8 @@ class TestOneof2(Message):
         def FromString(cls, s: bytes) -> TestOneof2.FooGroup: ...
 
     class NestedMessage(Message):
-        qux_int = ...  # type: int
-        corge_int = ...  # type: RepeatedScalarFieldContainer[int]
+        qux_int: int
+        corge_int: RepeatedScalarFieldContainer[int]
 
         def __init__(self,
                      qux_int: Optional[int] = ...,
@@ -1234,20 +1234,20 @@ class TestOneof2(Message):
 
         @classmethod
         def FromString(cls, s: bytes) -> TestOneof2.NestedMessage: ...
-    foo_int = ...  # type: int
-    foo_string = ...  # type: Text
-    foo_cord = ...  # type: Text
-    foo_string_piece = ...  # type: Text
-    foo_bytes = ...  # type: bytes
-    foo_enum = ...  # type: TestOneof2.NestedEnum
-    bar_int = ...  # type: int
-    bar_string = ...  # type: Text
-    bar_cord = ...  # type: Text
-    bar_string_piece = ...  # type: Text
-    bar_bytes = ...  # type: bytes
-    bar_enum = ...  # type: TestOneof2.NestedEnum
-    baz_int = ...  # type: int
-    baz_string = ...  # type: Text
+    foo_int: int
+    foo_string: Text
+    foo_cord: Text
+    foo_string_piece: Text
+    foo_bytes: bytes
+    foo_enum: TestOneof2.NestedEnum
+    bar_int: int
+    bar_string: Text
+    bar_cord: Text
+    bar_string_piece: Text
+    bar_bytes: bytes
+    bar_enum: TestOneof2.NestedEnum
+    baz_int: int
+    baz_string: Text
 
     @property
     def foo_message(self) -> TestOneof2.NestedMessage: ...
@@ -1284,7 +1284,7 @@ class TestOneof2(Message):
 
 class TestRequiredOneof(Message):
     class NestedMessage(Message):
-        required_double = ...  # type: float
+        required_double: float
 
         def __init__(self,
                      required_double: float,
@@ -1292,8 +1292,8 @@ class TestRequiredOneof(Message):
 
         @classmethod
         def FromString(cls, s: bytes) -> TestRequiredOneof.NestedMessage: ...
-    foo_int = ...  # type: int
-    foo_string = ...  # type: Text
+    foo_int: int
+    foo_string: Text
 
     @property
     def foo_message(self) -> TestRequiredOneof.NestedMessage: ...
@@ -1309,20 +1309,20 @@ class TestRequiredOneof(Message):
 
 
 class TestPackedTypes(Message):
-    packed_int32 = ...  # type: RepeatedScalarFieldContainer[int]
-    packed_int64 = ...  # type: RepeatedScalarFieldContainer[int]
-    packed_uint32 = ...  # type: RepeatedScalarFieldContainer[int]
-    packed_uint64 = ...  # type: RepeatedScalarFieldContainer[int]
-    packed_sint32 = ...  # type: RepeatedScalarFieldContainer[int]
-    packed_sint64 = ...  # type: RepeatedScalarFieldContainer[int]
-    packed_fixed32 = ...  # type: RepeatedScalarFieldContainer[int]
-    packed_fixed64 = ...  # type: RepeatedScalarFieldContainer[int]
-    packed_sfixed32 = ...  # type: RepeatedScalarFieldContainer[int]
-    packed_sfixed64 = ...  # type: RepeatedScalarFieldContainer[int]
-    packed_float = ...  # type: RepeatedScalarFieldContainer[float]
-    packed_double = ...  # type: RepeatedScalarFieldContainer[float]
-    packed_bool = ...  # type: RepeatedScalarFieldContainer[bool]
-    packed_enum = ...  # type: RepeatedScalarFieldContainer[ForeignEnum]
+    packed_int32: RepeatedScalarFieldContainer[int]
+    packed_int64: RepeatedScalarFieldContainer[int]
+    packed_uint32: RepeatedScalarFieldContainer[int]
+    packed_uint64: RepeatedScalarFieldContainer[int]
+    packed_sint32: RepeatedScalarFieldContainer[int]
+    packed_sint64: RepeatedScalarFieldContainer[int]
+    packed_fixed32: RepeatedScalarFieldContainer[int]
+    packed_fixed64: RepeatedScalarFieldContainer[int]
+    packed_sfixed32: RepeatedScalarFieldContainer[int]
+    packed_sfixed64: RepeatedScalarFieldContainer[int]
+    packed_float: RepeatedScalarFieldContainer[float]
+    packed_double: RepeatedScalarFieldContainer[float]
+    packed_bool: RepeatedScalarFieldContainer[bool]
+    packed_enum: RepeatedScalarFieldContainer[ForeignEnum]
 
     def __init__(self,
                  packed_int32: Optional[Iterable[int]] = ...,
@@ -1346,20 +1346,20 @@ class TestPackedTypes(Message):
 
 
 class TestUnpackedTypes(Message):
-    unpacked_int32 = ...  # type: RepeatedScalarFieldContainer[int]
-    unpacked_int64 = ...  # type: RepeatedScalarFieldContainer[int]
-    unpacked_uint32 = ...  # type: RepeatedScalarFieldContainer[int]
-    unpacked_uint64 = ...  # type: RepeatedScalarFieldContainer[int]
-    unpacked_sint32 = ...  # type: RepeatedScalarFieldContainer[int]
-    unpacked_sint64 = ...  # type: RepeatedScalarFieldContainer[int]
-    unpacked_fixed32 = ...  # type: RepeatedScalarFieldContainer[int]
-    unpacked_fixed64 = ...  # type: RepeatedScalarFieldContainer[int]
-    unpacked_sfixed32 = ...  # type: RepeatedScalarFieldContainer[int]
-    unpacked_sfixed64 = ...  # type: RepeatedScalarFieldContainer[int]
-    unpacked_float = ...  # type: RepeatedScalarFieldContainer[float]
-    unpacked_double = ...  # type: RepeatedScalarFieldContainer[float]
-    unpacked_bool = ...  # type: RepeatedScalarFieldContainer[bool]
-    unpacked_enum = ...  # type: RepeatedScalarFieldContainer[ForeignEnum]
+    unpacked_int32: RepeatedScalarFieldContainer[int]
+    unpacked_int64: RepeatedScalarFieldContainer[int]
+    unpacked_uint32: RepeatedScalarFieldContainer[int]
+    unpacked_uint64: RepeatedScalarFieldContainer[int]
+    unpacked_sint32: RepeatedScalarFieldContainer[int]
+    unpacked_sint64: RepeatedScalarFieldContainer[int]
+    unpacked_fixed32: RepeatedScalarFieldContainer[int]
+    unpacked_fixed64: RepeatedScalarFieldContainer[int]
+    unpacked_sfixed32: RepeatedScalarFieldContainer[int]
+    unpacked_sfixed64: RepeatedScalarFieldContainer[int]
+    unpacked_float: RepeatedScalarFieldContainer[float]
+    unpacked_double: RepeatedScalarFieldContainer[float]
+    unpacked_bool: RepeatedScalarFieldContainer[bool]
+    unpacked_enum: RepeatedScalarFieldContainer[ForeignEnum]
 
     def __init__(self,
                  unpacked_int32: Optional[Iterable[int]] = ...,
@@ -1417,12 +1417,12 @@ class TestDynamicExtensions(Message):
         @classmethod
         def items(cls) -> List[Tuple[bytes,
                                      TestDynamicExtensions.DynamicEnumType]]: ...
-    DYNAMIC_FOO: DynamicEnumType
-    DYNAMIC_BAR: DynamicEnumType
-    DYNAMIC_BAZ: DynamicEnumType
+    DYNAMIC_FOO: TestDynamicExtensions.DynamicEnumType
+    DYNAMIC_BAR: TestDynamicExtensions.DynamicEnumType
+    DYNAMIC_BAZ: TestDynamicExtensions.DynamicEnumType
 
     class DynamicMessageType(Message):
-        dynamic_field = ...  # type: int
+        dynamic_field: int
 
         def __init__(self,
                      dynamic_field: Optional[int] = ...,
@@ -1431,11 +1431,11 @@ class TestDynamicExtensions(Message):
         @classmethod
         def FromString(
             cls, s: bytes) -> TestDynamicExtensions.DynamicMessageType: ...
-    scalar_extension = ...  # type: int
-    enum_extension = ...  # type: ForeignEnum
-    dynamic_enum_extension = ...  # type: TestDynamicExtensions.DynamicEnumType
-    repeated_extension = ...  # type: RepeatedScalarFieldContainer[Text]
-    packed_extension = ...  # type: RepeatedScalarFieldContainer[int]
+    scalar_extension: int
+    enum_extension: ForeignEnum
+    dynamic_enum_extension: TestDynamicExtensions.DynamicEnumType
+    repeated_extension: RepeatedScalarFieldContainer[Text]
+    packed_extension: RepeatedScalarFieldContainer[int]
 
     @property
     def message_extension(self) -> ForeignMessage: ...
@@ -1459,12 +1459,12 @@ class TestDynamicExtensions(Message):
 
 
 class TestRepeatedScalarDifferentTagSizes(Message):
-    repeated_fixed32 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_int32 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_fixed64 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_int64 = ...  # type: RepeatedScalarFieldContainer[int]
-    repeated_float = ...  # type: RepeatedScalarFieldContainer[float]
-    repeated_uint64 = ...  # type: RepeatedScalarFieldContainer[int]
+    repeated_fixed32: RepeatedScalarFieldContainer[int]
+    repeated_int32: RepeatedScalarFieldContainer[int]
+    repeated_fixed64: RepeatedScalarFieldContainer[int]
+    repeated_int64: RepeatedScalarFieldContainer[int]
+    repeated_float: RepeatedScalarFieldContainer[float]
+    repeated_uint64: RepeatedScalarFieldContainer[int]
 
     def __init__(self,
                  repeated_fixed32: Optional[Iterable[int]] = ...,
@@ -1598,7 +1598,7 @@ class TestParsingMerge(Message):
 
 
 class TestCommentInjectionMessage(Message):
-    a = ...  # type: Text
+    a: Text
 
     def __init__(self,
                  a: Optional[Text] = ...,
@@ -1663,12 +1663,12 @@ class BarResponse(Message):
 
 
 class TestJsonName(Message):
-    field_name1 = ...  # type: int
-    fieldName2 = ...  # type: int
-    FieldName3 = ...  # type: int
-    _field_name4 = ...  # type: int
-    FIELD_NAME5 = ...  # type: int
-    field_name6 = ...  # type: int
+    field_name1: int
+    fieldName2: int
+    FieldName3: int
+    _field_name4: int
+    FIELD_NAME5: int
+    field_name6: int
 
     def __init__(self,
                  field_name1: Optional[int] = ...,
@@ -1685,7 +1685,7 @@ class TestJsonName(Message):
 
 class TestHugeFieldNumbers(Message):
     class OptionalGroup(Message):
-        group_a = ...  # type: int
+        group_a: int
 
         def __init__(self,
                      group_a: Optional[int] = ...,
@@ -1695,8 +1695,8 @@ class TestHugeFieldNumbers(Message):
         def FromString(cls, s: bytes) -> TestHugeFieldNumbers.OptionalGroup: ...
 
     class StringStringMapEntry(Message):
-        key = ...  # type: Text
-        value = ...  # type: Text
+        key: Text
+        value: Text
 
         def __init__(self,
                      key: Optional[Text] = ...,
@@ -1706,16 +1706,16 @@ class TestHugeFieldNumbers(Message):
         @classmethod
         def FromString(
             cls, s: bytes) -> TestHugeFieldNumbers.StringStringMapEntry: ...
-    optional_int32 = ...  # type: int
-    fixed_32 = ...  # type: int
-    repeated_int32 = ...  # type: RepeatedScalarFieldContainer[int]
-    packed_int32 = ...  # type: RepeatedScalarFieldContainer[int]
-    optional_enum = ...  # type: ForeignEnum
-    optional_string = ...  # type: Text
-    optional_bytes = ...  # type: bytes
-    oneof_uint32 = ...  # type: int
-    oneof_string = ...  # type: Text
-    oneof_bytes = ...  # type: bytes
+    optional_int32: int
+    fixed_32: int
+    repeated_int32: RepeatedScalarFieldContainer[int]
+    packed_int32: RepeatedScalarFieldContainer[int]
+    optional_enum: ForeignEnum
+    optional_string: Text
+    optional_bytes: bytes
+    oneof_uint32: int
+    oneof_string: Text
+    oneof_bytes: bytes
 
     @property
     def optional_message(self) -> ForeignMessage: ...
@@ -1751,15 +1751,15 @@ class TestHugeFieldNumbers(Message):
 
 
 class TestExtensionInsideTable(Message):
-    field1 = ...  # type: int
-    field2 = ...  # type: int
-    field3 = ...  # type: int
-    field4 = ...  # type: int
-    field6 = ...  # type: int
-    field7 = ...  # type: int
-    field8 = ...  # type: int
-    field9 = ...  # type: int
-    field10 = ...  # type: int
+    field1: int
+    field2: int
+    field3: int
+    field4: int
+    field6: int
+    field7: int
+    field8: int
+    field9: int
+    field10: int
 
     def __init__(self,
                  field1: Optional[int] = ...,

@@ -2,10 +2,10 @@
 
 from typing import Any, Union, Iterable, Optional, Mapping, Sequence, Dict, List, Tuple, overload
 
-CODESIZE = ...  # type: int
-MAGIC = ...  # type: int
-MAXREPEAT = ...  # type: long
-copyright = ...  # type: str
+CODESIZE: int
+MAGIC: int
+MAXREPEAT: long
+copyright: str
 
 class SRE_Match(object):
     def start(self, group: int = ...) -> int:
@@ -23,16 +23,16 @@ class SRE_Match(object):
         raise IndexError()
 
 class SRE_Scanner(object):
-    pattern = ...  # type: str
+    pattern: str
     def match(self) -> SRE_Match: ...
     def search(self) -> SRE_Match: ...
 
 class SRE_Pattern(object):
-    pattern = ...  # type: str
-    flags = ...  # type: int
-    groups = ...  # type: int
-    groupindex = ...  # type: Mapping[str, int]
-    indexgroup = ...  # type: Sequence[int]
+    pattern: str
+    flags: int
+    groups: int
+    groupindex: Mapping[str, int]
+    indexgroup: Sequence[int]
     def findall(self, source: str, pos: int = ..., endpos: int = ...) -> List[Union[tuple, str]]: ...
     def finditer(self, source: str, pos: int = ..., endpos: int = ...) -> Iterable[Union[tuple, str]]: ...
     def match(self, pattern, pos: int = ..., endpos: int = ...) -> SRE_Match: ...

@@ -6,24 +6,24 @@ _serializer = Any  # must be an object that has "dumps" and "loads" attributes (
 def want_bytes(s: Union[Text, bytes], encoding: Text = ..., errors: Text = ...) -> bytes: ...
 
 class BadData(Exception):
-    message = ...  # type: str
+    message: str
     def __init__(self, message: str) -> None: ...
 
 class BadPayload(BadData):
-    original_error = ...  # type: Optional[Exception]
+    original_error: Optional[Exception]
     def __init__(self, message: str, original_error: Optional[Exception] = ...) -> None: ...
 
 class BadSignature(BadData):
-    payload = ...  # type: Optional[Any]
+    payload: Optional[Any]
     def __init__(self, message: str, payload: Optional[Any] = ...) -> None: ...
 
 class BadTimeSignature(BadSignature):
-    date_signed = ...  # type: Optional[int]
+    date_signed: Optional[int]
     def __init__(self, message: str, payload: Optional[Any] = ..., date_signed: Optional[int] = ...) -> None: ...
 
 class BadHeader(BadSignature):
-    header = ...  # type: Any
-    original_error = ...  # type: Any
+    header: Any
+    original_error: Any
     def __init__(self, message, payload: Optional[Any] = ..., header: Optional[Any] = ..., original_error: Optional[Any] = ...) -> None: ...
 
 class SignatureExpired(BadTimeSignature): ...
@@ -39,8 +39,8 @@ class NoneAlgorithm(SigningAlgorithm):
     def get_signature(self, key: bytes, value: bytes) -> bytes: ...
 
 class HMACAlgorithm(SigningAlgorithm):
-    default_digest_method = ...  # type: Callable
-    digest_method = ...  # type: Callable
+    default_digest_method: Callable
+    digest_method: Callable
     def __init__(self, digest_method: Optional[Callable] = ...) -> None: ...
     def get_signature(self, key: bytes, value: bytes) -> bytes: ...
 
@@ -126,7 +126,7 @@ class JSONWebSignatureSerializer(Serializer):
     def make_signer(self, salt: Optional[Union[Text, bytes]] = ..., algorithm: SigningAlgorithm = ...) -> Signer: ...
     def make_header(self, header_fields: Optional[Mapping[str, Any]]) -> MutableMapping[str, Any]: ...
     def dumps(self, obj: Any, salt: Optional[Union[Text, bytes]] = ...,
-              header_fields: Optional[Mapping[str, Any]] = ...) -> str: ...
+              header_fields: Optional[Mapping[str, Any]] = ...) -> bytes: ...
     def loads(self, s: Union[Text, bytes], salt: Optional[Union[Text, bytes]] = ...,
               return_header: bool = ...) -> Any: ...  # morally -> Union[Any, Tuple[Any, MutableMapping[str, Any]]]
     def loads_unsafe(self, s: Union[Text, bytes], salt: Optional[Union[Text, bytes]] = ...,

@@ -1,8 +1,8 @@
 from typing import Any, Optional
 
 class Tag:
-    key = ...  # type: Any
-    value = ...  # type: Any
+    key: Any
+    value: Any
     def __init__(self, key: Optional[Any] = ..., value: Optional[Any] = ...) -> None: ...
     def startElement(self, name, attrs, connection): ...
     def endElement(self, name, value, connection): ...

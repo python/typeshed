@@ -9,8 +9,8 @@ from typing import (
 
 
 class Timestamp(Message, well_known_types.Timestamp):
-    seconds = ...  # type: int
-    nanos = ...  # type: int
+    seconds: int
+    nanos: int
 
     def __init__(self,
                  seconds: Optional[int] = ...,

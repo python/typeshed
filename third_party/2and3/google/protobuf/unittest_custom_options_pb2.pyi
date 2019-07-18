@@ -80,10 +80,10 @@ class TestMessageWithCustomOptions(Message):
         @classmethod
         def items(cls) -> List[Tuple[bytes,
                                      TestMessageWithCustomOptions.AnEnum]]: ...
-    ANENUM_VAL1: AnEnum
-    ANENUM_VAL2: AnEnum
-    field1 = ...  # type: Text
-    oneof_field = ...  # type: int
+    ANENUM_VAL1: TestMessageWithCustomOptions.AnEnum
+    ANENUM_VAL2: TestMessageWithCustomOptions.AnEnum
+    field1: Text
+    oneof_field: int
 
     def __init__(self,
                  field1: Optional[Text] = ...,
@@ -149,8 +149,8 @@ class DummyMessageContainingEnum(Message):
         @classmethod
         def items(cls) -> List[Tuple[bytes,
                                      DummyMessageContainingEnum.TestEnumType]]: ...
-    TEST_OPTION_ENUM_TYPE1: TestEnumType
-    TEST_OPTION_ENUM_TYPE2: TestEnumType
+    TEST_OPTION_ENUM_TYPE1: DummyMessageContainingEnum.TestEnumType
+    TEST_OPTION_ENUM_TYPE2: DummyMessageContainingEnum.TestEnumType
 
     def __init__(self,
                  ) -> None: ...
@@ -214,10 +214,10 @@ class SettingRealsFromNegativeInts(Message):
 
 
 class ComplexOptionType1(Message):
-    foo = ...  # type: int
-    foo2 = ...  # type: int
-    foo3 = ...  # type: int
-    foo4 = ...  # type: RepeatedScalarFieldContainer[int]
+    foo: int
+    foo2: int
+    foo3: int
+    foo4: RepeatedScalarFieldContainer[int]
 
     def __init__(self,
                  foo: Optional[int] = ...,
@@ -233,7 +233,7 @@ class ComplexOptionType1(Message):
 class ComplexOptionType2(Message):
 
     class ComplexOptionType4(Message):
-        waldo = ...  # type: int
+        waldo: int
 
         def __init__(self,
                      waldo: Optional[int] = ...,
@@ -242,7 +242,7 @@ class ComplexOptionType2(Message):
         @classmethod
         def FromString(
             cls, s: bytes) -> ComplexOptionType2.ComplexOptionType4: ...
-    baz = ...  # type: int
+    baz: int
 
     @property
     def bar(self) -> ComplexOptionType1: ...
@@ -268,7 +268,7 @@ class ComplexOptionType2(Message):
 class ComplexOptionType3(Message):
 
     class ComplexOptionType5(Message):
-        plugh = ...  # type: int
+        plugh: int
 
         def __init__(self,
                      plugh: Optional[int] = ...,
@@ -277,7 +277,7 @@ class ComplexOptionType3(Message):
         @classmethod
         def FromString(
             cls, s: bytes) -> ComplexOptionType3.ComplexOptionType5: ...
-    qux = ...  # type: int
+    qux: int
 
     @property
     def complexoptiontype5(self) -> ComplexOptionType3.ComplexOptionType5: ...
@@ -292,7 +292,7 @@ class ComplexOptionType3(Message):
 
 
 class ComplexOpt6(Message):
-    xyzzy = ...  # type: int
+    xyzzy: int
 
     def __init__(self,
                  xyzzy: Optional[int] = ...,
@@ -321,7 +321,7 @@ class AggregateMessageSet(Message):
 
 
 class AggregateMessageSetElement(Message):
-    s = ...  # type: Text
+    s: Text
 
     def __init__(self,
                  s: Optional[Text] = ...,
@@ -332,8 +332,8 @@ class AggregateMessageSetElement(Message):
 
 
 class Aggregate(Message):
-    i = ...  # type: int
-    s = ...  # type: Text
+    i: int
+    s: Text
 
     @property
     def sub(self) -> Aggregate: ...
@@ -357,7 +357,7 @@ class Aggregate(Message):
 
 
 class AggregateMessage(Message):
-    fieldname = ...  # type: int
+    fieldname: int
 
     def __init__(self,
                  fieldname: Optional[int] = ...,
@@ -385,10 +385,10 @@ class NestedOptionType(Message):
 
         @classmethod
         def items(cls) -> List[Tuple[bytes, NestedOptionType.NestedEnum]]: ...
-    NESTED_ENUM_VALUE: NestedEnum
+    NESTED_ENUM_VALUE: NestedOptionType.NestedEnum
 
     class NestedMessage(Message):
-        nested_field = ...  # type: int
+        nested_field: int
 
         def __init__(self,
                      nested_field: Optional[int] = ...,
@@ -422,8 +422,8 @@ class OldOptionType(Message):
 
         @classmethod
         def items(cls) -> List[Tuple[bytes, OldOptionType.TestEnum]]: ...
-    OLD_VALUE: TestEnum
-    value = ...  # type: OldOptionType.TestEnum
+    OLD_VALUE: OldOptionType.TestEnum
+    value: OldOptionType.TestEnum
 
     def __init__(self,
                  value: OldOptionType.TestEnum,
@@ -451,9 +451,9 @@ class NewOptionType(Message):
 
         @classmethod
         def items(cls) -> List[Tuple[bytes, NewOptionType.TestEnum]]: ...
-    OLD_VALUE: TestEnum
-    NEW_VALUE: TestEnum
-    value = ...  # type: NewOptionType.TestEnum
+    OLD_VALUE: NewOptionType.TestEnum
+    NEW_VALUE: NewOptionType.TestEnum
+    value: NewOptionType.TestEnum
 
     def __init__(self,
                  value: NewOptionType.TestEnum,
