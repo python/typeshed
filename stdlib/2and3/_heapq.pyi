@@ -1,6 +1,7 @@
 """Stub file for the '_heapq' module."""
 
 from typing import TypeVar, List, Iterable, Any, Callable, Optional
+import sys
 
 _T = TypeVar("_T")
 
