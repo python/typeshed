@@ -6,9 +6,6 @@ from typing import (
     Sequence, Any, Mapping, Callable, Tuple, IO, Union, Optional, List, Text, TypeVar, Generic,
 )
 
-# This is a dummy type variable used to make Popen generic like it is in python 3
-_T = TypeVar('_T', bound=bytes)
-
 _FILE = Union[None, int, IO[Any]]
 _TXT = Union[bytes, Text]
 _CMD = Union[_TXT, Sequence[_TXT]]
@@ -74,6 +71,9 @@ class CalledProcessError(Exception):
                  returncode: int,
                  cmd: _CMD,
                  output: Optional[bytes] = ...) -> None: ...
+
+# We use a dummy type variable used to make Popen generic like it is in python 3
+_T = TypeVar('_T', bound=bytes)
 
 class Popen(Generic[_T]):
     stdin: Optional[IO[bytes]]
