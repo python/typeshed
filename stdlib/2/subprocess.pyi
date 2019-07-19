@@ -6,9 +6,6 @@ from typing import (
     Sequence, Any, Mapping, Callable, Tuple, IO, Union, Optional, List, Text, TypeVar, Generic,
 )
 
-# This is a dummy type variable used to make Popen generic like it is in python 3
-_T = TypeVar('_T', bound=bytes)
-
 _FILE = Union[None, int, IO[Any]]
 _TXT = Union[bytes, Text]
 _CMD = Union[_TXT, Sequence[_TXT]]
@@ -75,6 +72,9 @@ class CalledProcessError(Exception):
                  cmd: _CMD,
                  output: Optional[bytes] = ...) -> None: ...
 
+# We use a dummy type variable used to make Popen generic like it is in python 3
+_T = TypeVar('_T', bound=bytes)
+
 class Popen(Generic[_T]):
     stdin: Optional[IO[bytes]]
     stdout: Optional[IO[bytes]]
@@ -82,21 +82,21 @@ class Popen(Generic[_T]):
     pid = 0
     returncode = 0
 
-    def __init__(self,
-                 args: _CMD,
-                 bufsize: int = ...,
-                 executable: Optional[_TXT] = ...,
-                 stdin: Optional[_FILE] = ...,
-                 stdout: Optional[_FILE] = ...,
-                 stderr: Optional[_FILE] = ...,
-                 preexec_fn: Optional[Callable[[], Any]] = ...,
-                 close_fds: bool = ...,
-                 shell: bool = ...,
-                 cwd: Optional[_TXT] = ...,
-                 env: Optional[_ENV] = ...,
-                 universal_newlines: bool = ...,
-                 startupinfo: Optional[Any] = ...,
-                 creationflags: int = ...) -> None: ...
+    def __new__(self,
+                args: _CMD,
+                bufsize: int = ...,
+                executable: Optional[_TXT] = ...,
+                stdin: Optional[_FILE] = ...,
+                stdout: Optional[_FILE] = ...,
+                stderr: Optional[_FILE] = ...,
+                preexec_fn: Optional[Callable[[], Any]] = ...,
+                close_fds: bool = ...,
+                shell: bool = ...,
+                cwd: Optional[_TXT] = ...,
+                env: Optional[_ENV] = ...,
+                universal_newlines: bool = ...,
+                startupinfo: Optional[Any] = ...,
+                creationflags: int = ...) -> Popen[bytes]: ...
 
     def poll(self) -> int: ...
     def wait(self) -> int: ...
