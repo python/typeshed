@@ -82,21 +82,21 @@ class Popen(Generic[_T]):
     pid = 0
     returncode = 0
 
-    def __init__(self,
-                 args: _CMD,
-                 bufsize: int = ...,
-                 executable: Optional[_TXT] = ...,
-                 stdin: Optional[_FILE] = ...,
-                 stdout: Optional[_FILE] = ...,
-                 stderr: Optional[_FILE] = ...,
-                 preexec_fn: Optional[Callable[[], Any]] = ...,
-                 close_fds: bool = ...,
-                 shell: bool = ...,
-                 cwd: Optional[_TXT] = ...,
-                 env: Optional[_ENV] = ...,
-                 universal_newlines: bool = ...,
-                 startupinfo: Optional[Any] = ...,
-                 creationflags: int = ...) -> None: ...
+    def __new__(self,
+                args: _CMD,
+                bufsize: int = ...,
+                executable: Optional[_TXT] = ...,
+                stdin: Optional[_FILE] = ...,
+                stdout: Optional[_FILE] = ...,
+                stderr: Optional[_FILE] = ...,
+                preexec_fn: Optional[Callable[[], Any]] = ...,
+                close_fds: bool = ...,
+                shell: bool = ...,
+                cwd: Optional[_TXT] = ...,
+                env: Optional[_ENV] = ...,
+                universal_newlines: bool = ...,
+                startupinfo: Optional[Any] = ...,
+                creationflags: int = ...) -> Popen[bytes]: ...
 
     def poll(self) -> int: ...
     def wait(self) -> int: ...
