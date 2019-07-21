@@ -1,5 +1,5 @@
 import sys
-from typing import Any, IO, Optional, Tuple, Callable, Dict, List, Union, Protocol
+from typing import Any, IO, Optional, Tuple, Callable, Dict, List, Union, Protocol, Type
 
 from .decoder import JSONDecoder as JSONDecoder
 from .encoder import JSONEncoder as JSONEncoder
@@ -11,7 +11,7 @@ def dumps(obj: Any,
           ensure_ascii: bool = ...,
           check_circular: bool = ...,
           allow_nan: bool = ...,
-          cls: Any = ...,
+          cls: Optional[Type[JSONEncoder]] = ...,
           indent: Union[None, int, str] = ...,
           separators: Optional[Tuple[str, str]] = ...,
           default: Optional[Callable[[Any], Any]] = ...,
@@ -24,7 +24,7 @@ def dump(obj: Any,
          ensure_ascii: bool = ...,
          check_circular: bool = ...,
          allow_nan: bool = ...,
-         cls: Any = ...,
+         cls: Optional[Type[JSONEncoder]] = ...,
          indent: Union[None, int, str] = ...,
          separators: Optional[Tuple[str, str]] = ...,
          default: Optional[Callable[[Any], Any]] = ...,
@@ -37,7 +37,7 @@ else:
     _LoadsString = str
 def loads(s: _LoadsString,
           encoding: Any = ...,  # ignored and deprecated
-          cls: Any = ...,
+          cls: Optional[Type[JSONDecoder]] = ...,
           object_hook: Optional[Callable[[Dict], Any]] = ...,
           parse_float: Optional[Callable[[str], Any]] = ...,
           parse_int: Optional[Callable[[str], Any]] = ...,
@@ -49,7 +49,7 @@ class _Reader(Protocol):
     def read(self) -> _LoadsString: ...
 
 def load(fp: _Reader,
-         cls: Any = ...,
+         cls: Optional[Type[JSONDecoder]] = ...,
          object_hook: Optional[Callable[[Dict], Any]] = ...,
          parse_float: Optional[Callable[[str], Any]] = ...,
          parse_int: Optional[Callable[[str], Any]] = ...,
