@@ -269,7 +269,7 @@ class Bytes(expr):  # Deprecated in 3.8; use Constant
 class NameConstant(expr):
     value: Any
 
-if sys.version_info >= (3, 5, 2):
+if sys.version_info >= (3, 6):
     class Constant(expr):
         value: Any  # None, str, bytes, bool, int, float, complex, Ellipsis
         kind: Optional[str]
