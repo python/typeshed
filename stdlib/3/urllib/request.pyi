@@ -4,7 +4,7 @@ from typing import (
     Any, Callable, ClassVar, Dict, List, IO, Mapping, Optional, Sequence, Tuple,
     TypeVar, Union, overload, NoReturn,
 )
-from http.client import HTTPResponse, HTTPMessage, HTTPConnectionProtocol
+from http.client import HTTPResponse, HTTPMessage, _HTTPConnectionProtocol
 from http.cookiejar import CookieJar
 from email.message import Message
 from urllib.response import addinfourl
@@ -162,7 +162,7 @@ class AbstractHTTPHandler(BaseHandler):  # undocumented
     def set_http_debuglevel(self, level: int) -> None: ...
     def do_request_(self, request: Request) -> Request: ...
     def do_open(self,
-                http_class: HTTPConnectionProtocol,
+                http_class: _HTTPConnectionProtocol,
                 req: Request,
                 **http_conn_args: Any) -> HTTPResponse: ...
 
