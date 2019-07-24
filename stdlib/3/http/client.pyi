@@ -138,7 +138,7 @@ else:
 
 # This is an API stub only for the class below, not a class itself.
 # urllib.request uses it for a parameter.
-class HTTPConnectionProtocol(Protocol):
+class _HTTPConnectionProtocol(Protocol):
     if sys.version_info >= (3, 7):
         def __call__(self, host: str, port: Optional[int] = ...,
                      timeout: float = ...,
