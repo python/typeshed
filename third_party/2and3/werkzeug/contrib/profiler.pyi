@@ -1,11 +1,11 @@
-from typing import Any, AnyStr, Iterable, Optional, Protocol
+from typing import Any, AnyStr, Generic, Optional, Protocol, Tuple
 
 from ..middleware.profiler import *
 
-class _Writable(Protocol):
+class _Writable(Protocol[AnyStr]):
     def write(self, __s: AnyStr) -> Any: ...
 
-class MergeStream(object):
-    streams: Iterable[_Writable]
-    def __init__(self, *streams: Iterable[_Writable]) -> None: ...
+class MergeStream(Generic[AnyStr]):
+    streams: Tuple[_Writable[AnyStr]]
+    def __init__(self, *streams: _Writable[AnyStr]) -> None: ...
     def write(self, data: AnyStr) -> None: ...

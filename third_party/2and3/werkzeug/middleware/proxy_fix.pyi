@@ -8,7 +8,7 @@ class ProxyFix(object):
     x_host: int
     x_port: int
     x_prefix: int
-    num_proxies: Optional[int]
+    num_proxies: int
     def __init__(
         self,
         app: WSGIApplication,
