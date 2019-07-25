@@ -84,14 +84,11 @@ from asyncio.locks import (
     BoundedSemaphore as BoundedSemaphore,
 )
 
-if sys.version_info < (3, 5):
-    from asyncio.queues import JoinableQueue as JoinableQueue
-else:
-    from asyncio.futures import isfuture as isfuture
-    from asyncio.events import (
-        _set_running_loop as _set_running_loop,
-        _get_running_loop as _get_running_loop,
-    )
+from asyncio.futures import isfuture as isfuture
+from asyncio.events import (
+    _set_running_loop as _set_running_loop,
+    _get_running_loop as _get_running_loop,
+)
 if sys.platform != 'win32':
     from asyncio.streams import (
         open_unix_connection as open_unix_connection,

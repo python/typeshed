@@ -56,13 +56,12 @@ class Galeon(UnixBrowser):
     remote_action_newwin: str
     background: bool
 
-if sys.version_info[:2] == (2, 7) or sys.version_info >= (3, 3):
-    class Chrome(UnixBrowser):
-        remote_args: List[str]
-        remote_action: str
-        remote_action_newwin: str
-        remote_action_newtab: str
-        background: bool
+class Chrome(UnixBrowser):
+    remote_args: List[str]
+    remote_action: str
+    remote_action_newwin: str
+    remote_action_newtab: str
+    background: bool
 
 class Opera(UnixBrowser):
     raise_opts: List[str]
