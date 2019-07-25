@@ -1,7 +1,8 @@
 # Stubs for ssl
 
 from typing import (
-    Any, Callable, ClassVar, Dict, List, NamedTuple, Optional, Set, Tuple, Union,
+    Any, Callable, ClassVar, Dict, List, NamedTuple, Optional, Set, Text, Tuple,
+    Union,
 )
 import enum
 import socket
@@ -52,9 +53,9 @@ if sys.version_info < (3,) or sys.version_info >= (3, 4):
     def create_default_context(purpose: Any = ..., *,
                                cafile: Optional[str] = ...,
                                capath: Optional[str] = ...,
-                               cadata: Union[str, bytes, None] = ...) -> SSLContext: ...
+                               cadata: Union[Text, bytes, None] = ...) -> SSLContext: ...
 
-if sys.version_info >= (3, 4):
+if sys.version_info < (3,) or sys.version_info >= (3, 4):
     def _create_unverified_context(protocol: int = ..., *,
                                    cert_reqs: int = ...,
                                    check_hostname: bool = ...,
@@ -63,7 +64,7 @@ if sys.version_info >= (3, 4):
                                    keyfile: Optional[str] = ...,
                                    cafile: Optional[str] = ...,
                                    capath: Optional[str] = ...,
-                                   cadata: Union[str, bytes, None] = ...) -> SSLContext: ...
+                                   cadata: Union[Text, bytes, None] = ...) -> SSLContext: ...
     _create_default_https_context: Callable[..., SSLContext]
 
 if sys.version_info >= (3, 3):
@@ -243,7 +244,7 @@ class SSLContext:
         def load_default_certs(self, purpose: Purpose = ...) -> None: ...
         def load_verify_locations(self, cafile: Optional[str] = ...,
                                   capath: Optional[str] = ...,
-                                  cadata: Union[str, bytes, None] = ...) -> None: ...
+                                  cadata: Union[Text, bytes, None] = ...) -> None: ...
         def get_ca_certs(self,
                          binary_form: bool = ...) -> Union[List[_PeerCertRetDictType], List[bytes]]: ...
     else:
