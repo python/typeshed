@@ -46,11 +46,8 @@ _Headers = Union[Dict[Any, Any], List[Tuple[Any, Any]]]
 _Body = Union[Text, ByteString, Dict[Text, Any], Response, _WSGICallable]
 
 _ViewFunc = Union[
-    Callable[..., Text],
-    Callable[..., ByteString],
     Callable[..., NoReturn],
-    Callable[..., Response],
-    Callable[..., _WSGICallable],
+    Callable[..., _Body],
     Callable[..., Tuple[_Body, _Status, _Headers]],
     Callable[..., Tuple[_Body, _Status]],
     Callable[..., Tuple[_Body, _Headers]]
