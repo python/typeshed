@@ -39,7 +39,8 @@ class BaseServer:
         def __exit__(self, exc_type: Optional[Type[BaseException]],
                      exc_val: Optional[BaseException],
                      exc_tb: Optional[types.TracebackType]) -> bool: ...
-    def service_actions(self) -> None: ...
+    if sys.version_info >= (3, 3):
+        def service_actions(self) -> None: ...
 
 class TCPServer(BaseServer):
     def __init__(self, server_address: Tuple[str, int],
