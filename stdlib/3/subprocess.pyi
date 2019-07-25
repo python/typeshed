@@ -221,7 +221,7 @@ if sys.version_info >= (3, 7):
         timeout: Optional[float] = ...,
     ) -> CompletedProcess[Any]: ...
 elif sys.version_info >= (3, 6):
-        # Nearly same args as Popen.__init__ except for timeout, input, and check
+    # Nearly same args as Popen.__init__ except for timeout, input, and check
     @overload
     def run(
         args: _CMD,

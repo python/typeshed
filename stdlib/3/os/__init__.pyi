@@ -2,6 +2,7 @@
 # Ron Murawski <ron@horizonchess.com>
 
 from io import TextIOWrapper as _TextIOWrapper
+from posix import times_result
 import sys
 from typing import (
     Mapping, MutableMapping, Dict, List, Any, Tuple, IO, Iterable, Iterator, NoReturn, overload, Union, AnyStr,
@@ -594,7 +595,6 @@ def spawnv(mode: int, path: _PathType, args: List[Union[bytes, Text]]) -> int: .
 def spawnve(mode: int, path: _PathType, args: List[Union[bytes, Text]],
             env: Mapping[str, str]) -> int: ...
 def system(command: _PathType) -> int: ...
-from posix import times_result
 def times() -> times_result: ...
 def waitpid(pid: int, options: int) -> Tuple[int, int]: ...
 
