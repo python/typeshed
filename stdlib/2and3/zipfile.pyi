@@ -24,6 +24,7 @@ error = BadZipfile
 class LargeZipFile(Exception): ...
 
 class ZipFile:
+    filename: Optional[Text]
     debug: int
     comment: bytes
     filelist: List[ZipInfo]
