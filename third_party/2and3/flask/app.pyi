@@ -43,7 +43,7 @@ _WSGICallable = Callable[[Dict[Text, Any], _StartResponse], Iterable[bytes]]
 
 _Status = Union[str, int]
 _Headers = Union[Dict[Any, Any], List[Tuple[Any, Any]]]
-_Body = Union[Text, ByteString, Response, _WSGICallable]
+_Body = Union[Text, ByteString, Dict[Text, Any], Response, _WSGICallable]
 
 _ViewFunc = Union[
     Callable[..., Text],
