@@ -20,7 +20,7 @@ class GNUTranslations(NullTranslations):
     LE_MAGIC: int
     BE_MAGIC: int
 
-def find(domain: str, localedir: Optional[str] = ..., languages: Optional[Sequence[str]] = ...,
+def find(domain: str, localedir: Optional[str] = ..., languages: Optional[Iterable[str]] = ...,
          all: bool = ...) -> Any: ...
 
 _T = TypeVar('_T')
