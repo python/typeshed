@@ -165,10 +165,6 @@ class Generator(Iterator[_T_co], Generic[_T_co, _T_contra, _V_co]):
     @property
     def gi_yieldfrom(self) -> Optional[Generator]: ...
 
-# TODO: Several types should only be defined if sys.python_version >= (3, 5):
-# Awaitable, AsyncIterator, AsyncIterable, Coroutine, Collection.
-# See https: //github.com/python/typeshed/issues/655 for why this is not easy.
-
 @runtime_checkable
 class Awaitable(Protocol[_T_co]):
     @abstractmethod

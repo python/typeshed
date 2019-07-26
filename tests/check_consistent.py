@@ -13,7 +13,6 @@ consistent_files = [
      'stdlib/2and3/ntpath.pyi', 'stdlib/2and3/macpath.pyi',
      'stdlib/2/os/path.pyi', 'stdlib/3/os/path.pyi'},
     {'stdlib/3/enum.pyi', 'third_party/2/enum.pyi'},
-    {'stdlib/2/os/path.pyi', 'stdlib/3/os/path.pyi'},
     {'stdlib/3/unittest/mock.pyi', 'third_party/2and3/mock.pyi'},
     {'stdlib/3/concurrent/__init__.pyi', 'third_party/2/concurrent/__init__.pyi'},
     {'stdlib/3/concurrent/futures/__init__.pyi', 'third_party/2/concurrent/futures/__init__.pyi'},
