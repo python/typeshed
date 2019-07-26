@@ -49,23 +49,21 @@ def wrap_socket(sock: socket.socket, keyfile: Optional[str] = ...,
                 ciphers: Optional[str] = ...) -> SSLSocket: ...
 
 
-if sys.version_info < (3,) or sys.version_info >= (3, 4):
-    def create_default_context(purpose: Any = ..., *,
+def create_default_context(purpose: Any = ..., *,
+                           cafile: Optional[str] = ...,
+                           capath: Optional[str] = ...,
+                           cadata: Union[Text, bytes, None] = ...) -> SSLContext: ...
+
+def _create_unverified_context(protocol: int = ..., *,
+                               cert_reqs: int = ...,
+                               check_hostname: bool = ...,
+                               purpose: Any = ...,
+                               certfile: Optional[str] = ...,
+                               keyfile: Optional[str] = ...,
                                cafile: Optional[str] = ...,
                                capath: Optional[str] = ...,
                                cadata: Union[Text, bytes, None] = ...) -> SSLContext: ...
-
-if sys.version_info < (3,) or sys.version_info >= (3, 4):
-    def _create_unverified_context(protocol: int = ..., *,
-                                   cert_reqs: int = ...,
-                                   check_hostname: bool = ...,
-                                   purpose: Any = ...,
-                                   certfile: Optional[str] = ...,
-                                   keyfile: Optional[str] = ...,
-                                   cafile: Optional[str] = ...,
-                                   capath: Optional[str] = ...,
-                                   cadata: Union[Text, bytes, None] = ...) -> SSLContext: ...
-    _create_default_https_context: Callable[..., SSLContext]
+_create_default_https_context: Callable[..., SSLContext]
 
 if sys.version_info >= (3, 3):
     def RAND_bytes(num: int) -> bytes: ...
@@ -240,17 +238,12 @@ class SSLContext:
         def cert_store_stats(self) -> Dict[str, int]: ...
     def load_cert_chain(self, certfile: str, keyfile: Optional[str] = ...,
                         password: _PasswordType = ...) -> None: ...
-    if sys.version_info < (3,) or sys.version_info >= (3, 4):
-        def load_default_certs(self, purpose: Purpose = ...) -> None: ...
-        def load_verify_locations(self, cafile: Optional[str] = ...,
-                                  capath: Optional[str] = ...,
-                                  cadata: Union[Text, bytes, None] = ...) -> None: ...
-        def get_ca_certs(self,
-                         binary_form: bool = ...) -> Union[List[_PeerCertRetDictType], List[bytes]]: ...
-    else:
-        def load_verify_locations(self,
-                                  cafile: Optional[str] = ...,
-                                  capath: Optional[str] = ...) -> None: ...
+    def load_default_certs(self, purpose: Purpose = ...) -> None: ...
+    def load_verify_locations(self, cafile: Optional[str] = ...,
+                              capath: Optional[str] = ...,
+                              cadata: Union[Text, bytes, None] = ...) -> None: ...
+    def get_ca_certs(self,
+                     binary_form: bool = ...) -> Union[List[_PeerCertRetDictType], List[bytes]]: ...
     def set_default_verify_paths(self) -> None: ...
     def set_ciphers(self, ciphers: str) -> None: ...
     if sys.version_info < (3,) or sys.version_info >= (3, 5):
