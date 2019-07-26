@@ -56,6 +56,9 @@ Counter = TypeAlias(object)
 Deque = TypeAlias(object)
 ChainMap = TypeAlias(object)
 
+if sys.version_info >= (3, 7):
+    OrderedDict = TypeAlias(object)
+
 # Predefined type variables.
 AnyStr = TypeVar('AnyStr', str, bytes)
 
