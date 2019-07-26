@@ -876,9 +876,9 @@ class function:
     # TODO not defined in builtins!
     __name__: str
     __module__: str
+    __code__: CodeType
     if sys.version_info >= (3,):
         __qualname__: str
-        __code__: CodeType
         __annotations__: Dict[str, Any]
 
 class list(MutableSequence[_T], Generic[_T]):
