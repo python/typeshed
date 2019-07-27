@@ -28,9 +28,8 @@ CO_VARKEYWORDS: int
 CO_NESTED: int
 CO_GENERATOR: int
 CO_NOFREE: int
-if sys.version_info >= (3, 5):
-    CO_COROUTINE: int
-    CO_ITERABLE_COROUTINE: int
+CO_COROUTINE: int
+CO_ITERABLE_COROUTINE: int
 if sys.version_info >= (3, 6):
     CO_ASYNC_GENERATOR: int
 TPFLAGS_IS_ABSTRACT: int
@@ -55,10 +54,9 @@ def isfunction(object: object) -> bool: ...
 def isgeneratorfunction(object: object) -> bool: ...
 def isgenerator(object: object) -> bool: ...
 
-if sys.version_info >= (3, 5):
-    def iscoroutinefunction(object: object) -> bool: ...
-    def iscoroutine(object: object) -> bool: ...
-    def isawaitable(object: object) -> bool: ...
+def iscoroutinefunction(object: object) -> bool: ...
+def iscoroutine(object: object) -> bool: ...
+def isawaitable(object: object) -> bool: ...
 if sys.version_info >= (3, 6):
     def isasyncgenfunction(object: object) -> bool: ...
     def isasyncgen(object: object) -> bool: ...
@@ -122,12 +120,8 @@ class Signature:
                 parameters: Optional[Sequence[Parameter]] = ...,
                 return_annotation: Any = ...) -> Signature: ...
 
-    if sys.version_info >= (3, 5):
-        @classmethod
-        def from_callable(cls,
-                          obj: Callable[..., Any],
-                          *,
-                          follow_wrapped: bool = ...) -> Signature: ...
+    @classmethod
+    def from_callable(cls, obj: Callable[..., Any], *, follow_wrapped: bool = ...) -> Signature: ...
 
 # The name is the same as the enum's name in CPython
 class _ParameterKind: ...
@@ -164,8 +158,7 @@ class BoundArguments:
     kwargs: Dict[str, Any]
     signature: Signature
 
-    if sys.version_info >= (3, 5):
-        def apply_defaults(self) -> None: ...
+    def apply_defaults(self) -> None: ...
 
 
 #
@@ -306,19 +299,17 @@ GEN_SUSPENDED: str
 GEN_CLOSED: str
 def getgeneratorstate(generator: Generator[Any, Any, Any]) -> str: ...
 
-if sys.version_info >= (3, 5):
-    CORO_CREATED: str
-    CORO_RUNNING: str
-    CORO_SUSPENDED: str
-    CORO_CLOSED: str
-    # TODO can we be more specific than "object"?
-    def getcoroutinestate(coroutine: object) -> str: ...
+CORO_CREATED: str
+CORO_RUNNING: str
+CORO_SUSPENDED: str
+CORO_CLOSED: str
+# TODO can we be more specific than "object"?
+def getcoroutinestate(coroutine: object) -> str: ...
 
 def getgeneratorlocals(generator: Generator[Any, Any, Any]) -> Dict[str, Any]: ...
 
-if sys.version_info >= (3, 5):
-    # TODO can we be more specific than "object"?
-    def getcoroutinelocals(coroutine: object) -> Dict[str, Any]: ...
+# TODO can we be more specific than "object"?
+def getcoroutinelocals(coroutine: object) -> Dict[str, Any]: ...
 
 Attribute = NamedTuple('Attribute', [('name', str),
                                      ('kind', str),

@@ -168,10 +168,6 @@ class Generator(Iterator[_T_co], Generic[_T_co, _T_contra, _V_co]):
     @property
     def gi_yieldfrom(self) -> Optional[Generator]: ...
 
-# TODO: Several types should only be defined if sys.python_version >= (3, 5):
-# Awaitable, AsyncIterator, AsyncIterable, Coroutine, Collection.
-# See https: //github.com/python/typeshed/issues/655 for why this is not easy.
-
 @runtime_checkable
 class Awaitable(Protocol[_T_co]):
     @abstractmethod
@@ -271,10 +267,7 @@ class Sequence(_Collection[_T_co], Reversible[_T_co], Generic[_T_co]):
     @abstractmethod
     def __getitem__(self, s: slice) -> Sequence[_T_co]: ...
     # Mixin methods
-    if sys.version_info >= (3, 5):
-        def index(self, x: Any, start: int = ..., end: int = ...) -> int: ...
-    else:
-        def index(self, x: Any) -> int: ...
+    def index(self, x: Any, start: int = ..., end: int = ...) -> int: ...
     def count(self, x: Any) -> int: ...
     def __contains__(self, x: object) -> bool: ...
     def __iter__(self) -> Iterator[_T_co]: ...
@@ -376,13 +369,15 @@ class ContextManager(Protocol[_T_co]):
                  __exc_value: Optional[BaseException],
                  __traceback: Optional[TracebackType]) -> Optional[bool]: ...
 
-if sys.version_info >= (3, 5):
-    @runtime_checkable
-    class AsyncContextManager(Protocol[_T_co]):
-        def __aenter__(self) -> Awaitable[_T_co]: ...
-        def __aexit__(self, exc_type: Optional[Type[BaseException]],
-                      exc_value: Optional[BaseException],
-                      traceback: Optional[TracebackType]) -> Awaitable[Optional[bool]]: ...
+@runtime_checkable
+class AsyncContextManager(Protocol[_T_co]):
+    def __aenter__(self) -> Awaitable[_T_co]: ...
+    def __aexit__(
+        self,
+        exc_type: Optional[Type[BaseException]],
+        exc_value: Optional[BaseException],
+        traceback: Optional[TracebackType],
+    ) -> Awaitable[Optional[bool]]: ...
 
 class Mapping(_Collection[_KT], Generic[_KT, _VT_co]):
     # TODO: We wish the key type could also be covariant, but that doesn't work,

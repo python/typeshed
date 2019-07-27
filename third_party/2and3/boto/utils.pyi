@@ -25,7 +25,7 @@ from typing import (
 _KT = TypeVar('_KT')
 _VT = TypeVar('_VT')
 
-if sys.version_info[0] >= 3:
+if sys.version_info >= (3,):
     # TODO move _StringIO definition into boto.compat once stubs exist and rename to StringIO
     import io
     _StringIO = io.StringIO

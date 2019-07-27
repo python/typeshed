@@ -109,19 +109,14 @@ def urldefrag(url: str) -> DefragResult: ...
 @overload
 def urldefrag(url: bytes) -> DefragResultBytes: ...
 
-if sys.version_info >= (3, 5):
-    def urlencode(query: Union[Mapping[Any, Any],
-                               Mapping[Any, Sequence[Any]],
-                               Sequence[Tuple[Any, Any]],
-                               Sequence[Tuple[Any, Sequence[Any]]]],
-                  doseq: bool = ..., safe: AnyStr = ..., encoding: str = ..., errors: str = ...,
-                  quote_via: Callable[[str, AnyStr, str, str], str] = ...) -> str: ...
-else:
-    def urlencode(query: Union[Mapping[Any, Any],
-                               Mapping[Any, Sequence[Any]],
-                               Sequence[Tuple[Any, Any]],
-                               Sequence[Tuple[Any, Sequence[Any]]]],
-                  doseq: bool = ..., safe: AnyStr = ..., encoding: str = ..., errors: str = ...) -> str: ...
+def urlencode(
+    query: Union[Mapping[Any, Any], Mapping[Any, Sequence[Any]], Sequence[Tuple[Any, Any]], Sequence[Tuple[Any, Sequence[Any]]]],
+    doseq: bool = ...,
+    safe: AnyStr = ...,
+    encoding: str = ...,
+    errors: str = ...,
+    quote_via: Callable[[str, AnyStr, str, str], str] = ...,
+) -> str: ...
 
 def urljoin(base: AnyStr, url: Optional[AnyStr], allow_fragments: bool = ...) -> AnyStr: ...
 
