@@ -35,11 +35,11 @@ class rrulebase:
 class rrule(rrulebase):
     def __init__(self,
                  freq,
-                 dtstart: Optional[datetime.datetime] = ...,
+                 dtstart: Optional[datetime.date] = ...,
                  interval: int = ...,
                  wkst: Optional[Union[weekday, int]] = ...,
                  count: Optional[int] = ...,
-                 until: Optional[Union[datetime.datetime, int]] = ...,
+                 until: Optional[Union[datetime.date, int]] = ...,
                  bysetpos: Optional[Union[int, Iterable[int]]] = ...,
                  bymonth: Optional[Union[int, Iterable[int]]] = ...,
                  bymonthday: Optional[Union[int, Iterable[int]]] = ...,
