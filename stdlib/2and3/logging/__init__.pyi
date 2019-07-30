@@ -26,6 +26,9 @@ else:
     _Path = str
 
 raiseExceptions: bool
+logThreads: bool
+logMultiprocessing: bool
+logProcesses: bool
 
 def currentframe() -> FrameType: ...
 
