@@ -7,7 +7,9 @@ import sys
 
 VERSION: str
 
-class ParseError(SyntaxError): ...
+class ParseError(SyntaxError):
+    code: int
+    position: Tuple[int, int]
 
 def iselement(element: object) -> bool: ...
 
