@@ -48,12 +48,12 @@ _ViewFuncReturnType = Union[
     _Body,
     Tuple[_Body, _Status, _Headers],
     Tuple[_Body, _Status],
-    Tuple[_Body, _Headers],
+    Tuple[_Body, _Headers]
 ]
 
 _ViewFunc = Union[
     Callable[..., NoReturn],
-    Callable[..., _ViewFuncReturnType],
+    Callable[..., _ViewFuncReturnType]
 ]
 _VT = TypeVar('_VT', bound=_ViewFunc)
 
