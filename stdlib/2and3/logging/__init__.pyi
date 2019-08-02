@@ -25,10 +25,16 @@ if sys.version_info >= (3, 6):
 else:
     _Path = str
 
-raiseExceptions: bool
-logThreads: bool
-logMultiprocessing: bool
-logProcesses: bool
+if sys.version_info >= (3, 5):
+    raiseExceptions: bool
+    logThreads: bool
+    logMultiprocessing: bool
+    logProcesses: bool
+else:
+    raiseExceptions: int
+    logThreads: int
+    logMultiprocessing: int
+    logProcesses: int
 
 def currentframe() -> FrameType: ...
 
