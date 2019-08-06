@@ -6,6 +6,8 @@ if sys.version_info >= (3, 7):
     from ._base import BrokenExecutor
     class BrokenThreadPool(BrokenExecutor): ...
 
+_S = TypeVar('_S')
+
 class ThreadPoolExecutor(Executor):
     if sys.version_info >= (3, 7):
         def __init__(self, max_workers: Optional[int] = ...,
@@ -19,11 +21,11 @@ class ThreadPoolExecutor(Executor):
         def __init__(self, max_workers: Optional[int] = ...) -> None: ...
 
 
-class _WorkItem:
-    future: Future = ...
-    fn: Callable[[Future[_T]], Any] = ...
-    args: Any = ...
-    kwargs: Any = ...
-    def __init__(self, future: Future, fn: Callable[[Future[_T]], Any], args: Any,
+class _WorkItem(Generic[_S]):
+    future: Future
+    fn: Callable[[Future[_S]], Any]
+    args: Any
+    kwargs: Any
+    def __init__(self, future: Future, fn: Callable[[Future[_S]], Any], args: Any,
                  kwargs: Any) -> None: ...
     def run(self) -> None: ...
