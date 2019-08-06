@@ -1,8 +1,9 @@
-from typing import Any, Callable, Optional, Tuple, _T
-from ._base import Executor, Future, BrokenExecutor
+from typing import Any, Callable, Optional, Tuple, TypeVar, Generic
+from ._base import Executor, Future
 import sys
 
 if sys.version_info >= (3, 7):
+    from ._base import BrokenExecutor
     class BrokenThreadPool(BrokenExecutor): ...
 
 class ThreadPoolExecutor(Executor):
