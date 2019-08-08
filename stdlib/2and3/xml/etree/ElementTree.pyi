@@ -1,9 +1,13 @@
 # Stubs for xml.etree.ElementTree
 
 from typing import Any, Callable, Dict, Generator, IO, ItemsView, Iterable, Iterator, KeysView, List, MutableSequence, Optional, overload, Sequence, Text, Tuple, TypeVar, Union
-from typing_extensions import Literal
 import io
 import sys
+
+if sys.version < (3,) or sys.version_info >= (3, 8):
+    from typing import Literal
+else:
+    from typing_extensions import Literal
 
 VERSION: str
 

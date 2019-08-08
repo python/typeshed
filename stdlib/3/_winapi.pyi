@@ -1,5 +1,10 @@
 from typing import Any, Union, Tuple, Optional, overload, Dict, NoReturn, Sequence
 
+if sys.version_info >= (3, 8):
+    from typing import Literal
+else:
+    from typing_extensions import Literal
+
 CREATE_NEW_CONSOLE: int
 CREATE_NEW_PROCESS_GROUP: int
 DUPLICATE_CLOSE_SOURCE: int
@@ -46,11 +51,10 @@ WAIT_TIMEOUT: int
 
 def CloseHandle(handle: int) -> None: ...
 
-# TODO: once literal types are supported, overload with Literal[True/False]
 @overload
-def ConnectNamedPipe(handle: int, overlapped: Union[int, bool]) -> Any: ...
+def ConnectNamedPipe(handle: int, overlapped: Literal[True]) -> Overlapped: ...
 @overload
-def ConnectNamedPipe(handle: int) -> None: ...
+def ConnectNamedPipe(handle: int, overlapped: Literal[False] = ...) -> None: ...
 
 def CreateFile(file_name: str, desired_access: int, share_mode: int, security_attributes: int, creation_disposition: int, flags_and_attributes: int, template_file: int) -> int: ...
 def CreateJunction(src_path: str, dest_path: str) -> None: ...
