@@ -3,12 +3,6 @@ from datetime import datetime
 from typing import (
     Any, Callable, Iterable, Iterator, Mapping, MutableMapping, Optional, Sequence, Text, Tuple, Type, TypeVar, Union, overload
 )
-
-if sys.version_info >= (3, 8):
-    from typing import Literal
-else:
-    from typing_extensions import Literal
-
 from wsgiref.types import WSGIEnvironment, InputStream
 
 from .datastructures import (
@@ -17,6 +11,11 @@ from .datastructures import (
     Accept, MIMEAccept, CharsetAccept, LanguageAccept,
 )
 from .useragents import UserAgent
+
+if sys.version_info >= (3, 8):
+    from typing import Literal
+else:
+    from typing_extensions import Literal
 
 class BaseRequest:
     charset: str
