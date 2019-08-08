@@ -1,5 +1,4 @@
-# Stubs for gettext (Python 3.4)
-
+import sys
 from typing import overload, Any, Container, IO, Iterable, Optional, Type, TypeVar
 
 if sys.version_info >= (3, 8):
