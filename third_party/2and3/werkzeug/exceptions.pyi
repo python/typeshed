@@ -9,9 +9,9 @@ class _EnvironContainer(Protocol):
 
 class HTTPException(Exception):
     code: Optional[int]
-    description: Optional[str]
+    description: Optional[Text]
     response: Optional[Response]
-    def __init__(self, description: Optional[str] = ..., response: Optional[Response] = ...) -> None: ...
+    def __init__(self, description: Optional[Text] = ..., response: Optional[Response] = ...) -> None: ...
     @classmethod
     def wrap(cls, exception: Type[Exception], name: Optional[str] = ...) -> Any: ...
     @property
@@ -35,6 +35,13 @@ class BadHost(BadRequest): ...
 class Unauthorized(HTTPException):
     code: int
     description: str
+    www_authenticate: Optional[Iterable[object]]
+    def __init__(
+        self,
+        description: Optional[Text] = ...,
+        response: Optional[Response] = ...,
+        www_authenticate: Union[None, Tuple[object], List[object], object] = ...,
+    ) -> None: ...
 
 class Forbidden(HTTPException):
     code: int
@@ -49,7 +56,6 @@ class MethodNotAllowed(HTTPException):
     description: str
     valid_methods: Any
     def __init__(self, valid_methods: Optional[Any] = ..., description: Optional[Any] = ...): ...
-    def get_headers(self, environ): ...
 
 class NotAcceptable(HTTPException):
     code: int
@@ -93,7 +99,6 @@ class RequestedRangeNotSatisfiable(HTTPException):
     length: Any
     units: str
     def __init__(self, length: Optional[Any] = ..., units: str = ..., description: Optional[Any] = ...): ...
-    def get_headers(self, environ): ...
 
 class ExpectationFailed(HTTPException):
     code: int
