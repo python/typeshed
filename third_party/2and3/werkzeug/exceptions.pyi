@@ -40,7 +40,7 @@ class Unauthorized(HTTPException):
         self,
         description: Optional[Text] = ...,
         response: Optional[Response] = ...,
-        www_authenticate: Union[None, Tuple[object], List[object], object] = ...,
+        www_authenticate: Union[None, Tuple[object, ...], List[object], object] = ...,
     ) -> None: ...
 
 class Forbidden(HTTPException):
