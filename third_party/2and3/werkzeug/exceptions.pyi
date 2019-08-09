@@ -26,7 +26,7 @@ default_exceptions: Dict[int, Type[HTTPException]]
 
 class BadRequest(HTTPException):
     code: int
-    description: str
+    description: Text
 
 class ClientDisconnected(BadRequest): ...
 class SecurityError(BadRequest): ...
@@ -34,7 +34,7 @@ class BadHost(BadRequest): ...
 
 class Unauthorized(HTTPException):
     code: int
-    description: str
+    description: Text
     www_authenticate: Optional[Iterable[object]]
     def __init__(
         self,
@@ -45,116 +45,116 @@ class Unauthorized(HTTPException):
 
 class Forbidden(HTTPException):
     code: int
-    description: str
+    description: Text
 
 class NotFound(HTTPException):
     code: int
-    description: str
+    description: Text
 
 class MethodNotAllowed(HTTPException):
     code: int
-    description: str
+    description: Text
     valid_methods: Any
     def __init__(self, valid_methods: Optional[Any] = ..., description: Optional[Any] = ...): ...
 
 class NotAcceptable(HTTPException):
     code: int
-    description: str
+    description: Text
 
 class RequestTimeout(HTTPException):
     code: int
-    description: str
+    description: Text
 
 class Conflict(HTTPException):
     code: int
-    description: str
+    description: Text
 
 class Gone(HTTPException):
     code: int
-    description: str
+    description: Text
 
 class LengthRequired(HTTPException):
     code: int
-    description: str
+    description: Text
 
 class PreconditionFailed(HTTPException):
     code: int
-    description: str
+    description: Text
 
 class RequestEntityTooLarge(HTTPException):
     code: int
-    description: str
+    description: Text
 
 class RequestURITooLarge(HTTPException):
     code: int
-    description: str
+    description: Text
 
 class UnsupportedMediaType(HTTPException):
     code: int
-    description: str
+    description: Text
 
 class RequestedRangeNotSatisfiable(HTTPException):
     code: int
-    description: str
+    description: Text
     length: Any
     units: str
     def __init__(self, length: Optional[Any] = ..., units: str = ..., description: Optional[Any] = ...): ...
 
 class ExpectationFailed(HTTPException):
     code: int
-    description: str
+    description: Text
 
 class ImATeapot(HTTPException):
     code: int
-    description: str
+    description: Text
 
 class UnprocessableEntity(HTTPException):
     code: int
-    description: str
+    description: Text
 
 class Locked(HTTPException):
     code: int
-    description: str
+    description: Text
 
 class PreconditionRequired(HTTPException):
     code: int
-    description: str
+    description: Text
 
 class TooManyRequests(HTTPException):
     code: int
-    description: str
+    description: Text
 
 class RequestHeaderFieldsTooLarge(HTTPException):
     code: int
-    description: str
+    description: Text
 
 class UnavailableForLegalReasons(HTTPException):
     code: int
-    description: str
+    description: Text
 
 class InternalServerError(HTTPException):
     code: int
-    description: str
+    description: Text
 
 class NotImplemented(HTTPException):
     code: int
-    description: str
+    description: Text
 
 class BadGateway(HTTPException):
     code: int
-    description: str
+    description: Text
 
 class ServiceUnavailable(HTTPException):
     code: int
-    description: str
+    description: Text
 
 class GatewayTimeout(HTTPException):
     code: int
-    description: str
+    description: Text
 
 class HTTPVersionNotSupported(HTTPException):
     code: int
-    description: str
+    description: Text
 
 class Aborter:
     mapping: Any
