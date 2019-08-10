@@ -238,7 +238,7 @@ rule is that they should be as concise as possible.  Specifically:
 * use variable annotations instead of type comments, even for stubs
   that target older versions of Python;
 * for arguments with a type and a default, use spaces around the `=`.
-The code formatter [black](https://github.com/python/black) will format
+The code formatter [black](https://github.com/psf/black) will format
 stubs according to this standard.
 
 Stub files should only contain information necessary for the type
