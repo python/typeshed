@@ -15,6 +15,11 @@ _PeerCertRetType = Union[_PeerCertRetDictType, bytes, None]
 _EnumRetType = List[Tuple[bytes, str, Union[Set[str], bool]]]
 _PasswordType = Union[Callable[[], Union[str, bytes]], str, bytes]
 
+if sys.version_info < (3, 6):
+    _Path = Text
+else:
+    _Path = Union[str, os.PathLike[Any]]
+
 if sys.version_info >= (3, 5):
     _SC1ArgT = Union[SSLSocket, SSLObject]
 else:
@@ -228,7 +233,7 @@ class SSLContext:
     else:
         def __init__(self, protocol: int) -> None: ...
     def cert_store_stats(self) -> Dict[str, int]: ...
-    def load_cert_chain(self, certfile: os.PathLike, keyfile: Optional[os.PathLike] = ...,
+    def load_cert_chain(self, certfile: _Path, keyfile: Optional[_Path] = ...,
                         password: _PasswordType = ...) -> None: ...
     def load_default_certs(self, purpose: Purpose = ...) -> None: ...
     def load_verify_locations(
@@ -242,8 +247,8 @@ class SSLContext:
     def set_ciphers(self, ciphers: str) -> None: ...
     def set_alpn_protocols(self, protocols: List[str]) -> None: ...
     if sys.version_info >= (3, 7):
-        sni_callback: Callable[[SSLObject, str, SSLContext], Union[None, int]]
-        sslobject_class: SSLObject
+        sni_callback: Optional[Callable[[SSLObject, str, SSLContext], Union[None, int]]]
+        sslobject_class: Type[SSLObject]
     def set_npn_protocols(self, protocols: List[str]) -> None: ...
     def set_servername_callback(self,
                                 server_name_callback: Optional[_SrvnmeCbType]) -> None: ...
