@@ -16,7 +16,7 @@ _T = TypeVar('_T')
 
 # The following type alias are stub-only and do not exist during runtime
 _ExcInfo = Tuple[Type[BaseException], BaseException, TracebackType]
-_OptExcInfo = Tuple[Optional[Type[BaseException]], Optional[BaseException], Optional[TracebackType]]
+_OptExcInfo = Union[_ExcInfo, Tuple[None, None, None]]
 
 # ----- sys variables -----
 abiflags: str
@@ -185,8 +185,7 @@ def getwindowsversion() -> _WinVersion: ...  # Windows only
 
 def intern(string: str) -> str: ...
 
-if sys.version_info >= (3, 5):
-    def is_finalizing() -> bool: ...
+def is_finalizing() -> bool: ...
 
 if sys.version_info >= (3, 7):
     __breakpointhook__: Any  # contains the original value of breakpointhook

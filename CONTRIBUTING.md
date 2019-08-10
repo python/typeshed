@@ -307,8 +307,8 @@ and optionally the lowest minor version, with the exception of the `2and3`
 directory which applies to both Python 2 and 3.
 
 For example, stubs in the `3` directory will be applied to all versions of
-Python 3, though stubs in the `3.6` directory will only be applied to versions
-3.6 and above. However, stubs in the `2` directory will not be applied to
+Python 3, though stubs in the `3.7` directory will only be applied to versions
+3.7 and above. However, stubs in the `2` directory will not be applied to
 Python 3.
 
 It is preferred to use a single stub in the more generic directory that
@@ -318,7 +318,7 @@ if the given library works on both Python 2 and Python 3, prefer to put your
 stubs in the `2and3` directory, unless the types are so different that the stubs
 become unreadable that way.
 
-You can use checks like `if sys.version_info >= (3, 4):` to denote new
+You can use checks like `if sys.version_info >= (3, 8):` to denote new
 functionality introduced in a given Python version or solve type
 differences.  When doing so, only use one-tuples or two-tuples.  This is
 because:
@@ -331,17 +331,17 @@ because:
   regardless of the micro version used.
 
 Because of this, if a given functionality was introduced in, say, Python
-3.4.4, your check:
+3.7.4, your check:
 
-* should be expressed as `if sys.version_info >= (3, 4):`
-* should NOT be expressed as `if sys.version_info >= (3, 4, 4):`
-* should NOT be expressed as `if sys.version_info >= (3, 5):`
+* should be expressed as `if sys.version_info >= (3, 7):`
+* should NOT be expressed as `if sys.version_info >= (3, 7, 4):`
+* should NOT be expressed as `if sys.version_info >= (3, 8):`
 
 This makes the type checker assume the functionality was also available
-in 3.4.0 - 3.4.3, which while *technically* incorrect is relatively
+in 3.7.0 - 3.7.3, which while *technically* incorrect is relatively
 harmless.  This is a strictly better compromise than using the latter
 two forms, which would generate false positive errors for correct use
-under Python 3.4.4.
+under Python 3.7.4.
 
 Note: in its current implementation, typeshed cannot contain stubs for
 multiple versions of the same third-party library.  Prefer to generate

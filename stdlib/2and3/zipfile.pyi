@@ -1,7 +1,8 @@
 # Stubs for zipfile
 
-from typing import Callable, Dict, IO, Iterable, List, Optional, Text, Tuple, Type, Union
+from typing import Callable, Dict, IO, Iterable, List, Optional, Text, Tuple, Type, Union, Sequence, Pattern
 from types import TracebackType
+import io
 import os
 import sys
 
@@ -23,7 +24,27 @@ error = BadZipfile
 
 class LargeZipFile(Exception): ...
 
+class ZipExtFile(io.BufferedIOBase):
+    MAX_N: int = ...
+    MIN_READ_SIZE: int = ...
+
+    if sys.version_info < (3, 6):
+        PATTERN: Pattern = ...
+
+    if sys.version_info >= (3, 7):
+        MAX_SEEK_READ: int = ...
+
+    newlines: Optional[List[bytes]]
+    mode: str
+    name: str
+
+    def __init__(self, fileobj: IO[bytes], mode: str, zipinfo: ZipInfo, decrypter: Optional[Callable[[Sequence[int]], bytes]] = ..., close_fileobj: bool = ...) -> None: ...
+    def __repr__(self) -> str: ...
+    def peek(self, n: int = ...) -> bytes: ...
+    def read1(self, n: Optional[int]) -> bytes: ...  # type: ignore
+
 class ZipFile:
+    filename: Optional[Text]
     debug: int
     comment: bytes
     filelist: List[ZipInfo]
