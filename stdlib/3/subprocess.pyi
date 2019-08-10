@@ -7,8 +7,12 @@ from typing import (
     Generic, TypeVar, AnyStr,
     overload,
 )
-from typing_extensions import Literal
 from types import TracebackType
+
+if sys.version_info >= (3, 8):
+    from typing import Literal
+else:
+    from typing_extensions import Literal
 
 # We prefer to annotate inputs to methods (eg subprocess.check_call) with these
 # union types.

@@ -1,7 +1,10 @@
-# Stubs for gettext (Python 3.4)
-
+import sys
 from typing import overload, Any, Container, IO, Iterable, Optional, Type, TypeVar
-from typing_extensions import Literal
+
+if sys.version_info >= (3, 8):
+    from typing import Literal
+else:
+    from typing_extensions import Literal
 
 class NullTranslations:
     def __init__(self, fp: IO[str] = ...) -> None: ...
