@@ -230,7 +230,7 @@ class SSLContext:
     def load_cert_chain(self, certfile: str, keyfile: Optional[str] = ...,
                         password: _PasswordType = ...) -> None: ...
     def load_default_certs(self, purpose: Purpose = ...) -> None: ...
-   def load_verify_locations(
+    def load_verify_locations(
         self,
         cafile: Optional[str] = ...,
         capath: Optional[str] = ...,
