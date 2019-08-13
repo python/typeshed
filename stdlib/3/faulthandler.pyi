@@ -1,16 +1,10 @@
 import sys
 from typing import Union, Protocol
 
-
 class _HasFileno(Protocol):
     def fileno(self) -> int: ...
 
-
-if sys.version_info >= (3, 5):
-    _File = Union[_HasFileno, int]
-else:
-    _File = _HasFileno
-
+_File = Union[_HasFileno, int]
 
 def cancel_dump_traceback_later() -> None: ...
 def disable() -> None: ...

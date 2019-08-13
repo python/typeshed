@@ -784,6 +784,7 @@ class memoryview(Sized, Container[_mv_container_type]):
         c_contiguous: bool
         f_contiguous: bool
         contiguous: bool
+        nbytes: int
         def __init__(self, obj: Union[bytes, bytearray, memoryview]) -> None: ...
         def __enter__(self) -> memoryview: ...
         def __exit__(self, exc_type: Optional[Type[BaseException]], exc_val: Optional[BaseException], exc_tb: Optional[TracebackType]) -> bool: ...
@@ -876,9 +877,9 @@ class function:
     # TODO not defined in builtins!
     __name__: str
     __module__: str
+    __code__: CodeType
     if sys.version_info >= (3,):
         __qualname__: str
-        __code__: CodeType
         __annotations__: Dict[str, Any]
 
 class list(MutableSequence[_T], Generic[_T]):

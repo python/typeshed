@@ -3,8 +3,7 @@ from typing import Any, IO, Optional, Tuple, Callable, Dict, List, Union, Protoc
 
 from .decoder import JSONDecoder as JSONDecoder
 from .encoder import JSONEncoder as JSONEncoder
-if sys.version_info >= (3, 5):
-    from .decoder import JSONDecodeError as JSONDecodeError
+from .decoder import JSONDecodeError as JSONDecodeError
 
 def dumps(obj: Any,
           skipkeys: bool = ...,

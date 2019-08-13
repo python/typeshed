@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Text, Optional
 
 ssl_available: Any
 hiredis_version: Any
@@ -109,7 +109,7 @@ class UnixDomainSocketConnection(Connection):
 
 class ConnectionPool:
     @classmethod
-    def from_url(cls, url, db=..., **kwargs): ...
+    def from_url(cls, url: Text, db: Optional[int] = ..., **kwargs) -> ConnectionPool: ...
     connection_class: Any
     connection_kwargs: Any
     max_connections: Any

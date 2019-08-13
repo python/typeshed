@@ -10,8 +10,8 @@ if sys.version_info >= (3,):
     from enum import Enum
 
     class PlistFormat(Enum):
-        FMT_XML = ...
-        FMT_BINARY = ...
+        FMT_XML: int
+        FMT_BINARY: int
     FMT_XML = PlistFormat.FMT_XML
     FMT_BINARY = PlistFormat.FMT_BINARY
 

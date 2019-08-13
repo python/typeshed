@@ -109,9 +109,6 @@ class TarFile(Iterable[TarInfo]):
         def extract(self, member: Union[str, TarInfo], path: _Path = ...,
                     set_attrs: bool = ...,
                     *, numeric_owner: bool = ...) -> None: ...
-    elif sys.version_info >= (3,):
-        def extract(self, member: Union[str, TarInfo], path: _Path = ...,
-                    set_attrs: bool = ...) -> None: ...
     else:
         def extract(self, member: Union[str, TarInfo],
                     path: _Path = ...) -> None: ...

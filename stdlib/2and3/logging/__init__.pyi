@@ -26,6 +26,9 @@ else:
     _Path = str
 
 raiseExceptions: bool
+logThreads: bool
+logMultiprocessing: bool
+logProcesses: bool
 
 def currentframe() -> FrameType: ...
 
@@ -354,17 +357,17 @@ def getLevelName(lvl: Union[int, str]) -> Any: ...
 def makeLogRecord(attrdict: Mapping[str, Any]) -> LogRecord: ...
 
 if sys.version_info >= (3,):
-    def basicConfig(*, filename: _Path = ..., filemode: str = ...,
-                    format: str = ..., datefmt: str = ..., style: str = ...,
-                    level: _Level = ..., stream: IO[str] = ...,
-                    handlers: Iterable[Handler] = ...) -> None: ...
+    def basicConfig(*, filename: Optional[_Path] = ..., filemode: str = ...,
+                    format: str = ..., datefmt: Optional[str] = ..., style: str = ...,
+                    level: Optional[_Level] = ..., stream: Optional[IO[str]] = ...,
+                    handlers: Optional[Iterable[Handler]] = ...) -> None: ...
 else:
     @overload
     def basicConfig() -> None: ...
     @overload
-    def basicConfig(*, filename: str = ..., filemode: str = ...,
-                    format: str = ..., datefmt: str = ...,
-                    level: _Level = ..., stream: IO[str] = ...) -> None: ...
+    def basicConfig(*, filename: Optional[str] = ..., filemode: str = ...,
+                    format: str = ..., datefmt: Optional[str] = ...,
+                    level: Optional[_Level] = ..., stream: IO[str] = ...) -> None: ...
 def shutdown() -> None: ...
 
 def setLoggerClass(klass: type) -> None: ...
