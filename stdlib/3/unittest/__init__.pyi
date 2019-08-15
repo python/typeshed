@@ -9,6 +9,7 @@ from unittest.result import *
 from unittest.runner import *
 from unittest.signals import *
 from unittest.suite import *
+from unittest.util import *
 
 
 # not really documented
