@@ -82,7 +82,7 @@ class Popen(Generic[_T]):
     pid = 0
     returncode = 0
 
-    def __new__(self,
+    def __new__(cls,
                 args: _CMD,
                 bufsize: int = ...,
                 executable: Optional[_TXT] = ...,
