@@ -1,7 +1,7 @@
 # NB: SocketServer.pyi and socketserver.pyi must remain consistent!
 # Stubs for socketserver
 
-from typing import Any, BinaryIO, Optional, Tuple, Type
+from typing import Any, BinaryIO, Optional, Tuple, Type, AnyStr
 from socket import SocketType
 import sys
 import types
@@ -15,7 +15,7 @@ class BaseServer:
     request_queue_size: int
     socket_type: int
     timeout: Optional[float]
-    def __init__(self, server_address: Tuple[str, int],
+    def __init__(self, server_address: Any,
                  RequestHandlerClass: type) -> None: ...
     def fileno(self) -> int: ...
     def handle_request(self) -> None: ...
@@ -54,12 +54,12 @@ class UDPServer(BaseServer):
 
 if sys.platform != 'win32':
     class UnixStreamServer(BaseServer):
-        def __init__(self, server_address: Tuple[str, int],
+        def __init__(self, server_address: AnyStr,
                      RequestHandlerClass: type,
                      bind_and_activate: bool = ...) -> None: ...
 
     class UnixDatagramServer(BaseServer):
-        def __init__(self, server_address: Tuple[str, int],
+        def __init__(self, server_address: AnyStr,
                      RequestHandlerClass: type,
                      bind_and_activate: bool = ...) -> None: ...
 
