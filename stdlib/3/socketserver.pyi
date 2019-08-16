@@ -1,7 +1,7 @@
 # NB: SocketServer.pyi and socketserver.pyi must remain consistent!
 # Stubs for socketserver
 
-from typing import Any, BinaryIO, Optional, Tuple, Type, AnyStr
+from typing import Any, BinaryIO, Optional, Tuple, Type, Text, Union
 from socket import SocketType
 import sys
 import types
@@ -54,12 +54,12 @@ class UDPServer(BaseServer):
 
 if sys.platform != 'win32':
     class UnixStreamServer(BaseServer):
-        def __init__(self, server_address: AnyStr,
+        def __init__(self, server_address: Union[Text, bytes],
                      RequestHandlerClass: type,
                      bind_and_activate: bool = ...) -> None: ...
 
     class UnixDatagramServer(BaseServer):
-        def __init__(self, server_address: AnyStr,
+        def __init__(self, server_address: Union[Text, bytes],
                      RequestHandlerClass: type,
                      bind_and_activate: bool = ...) -> None: ...
 
