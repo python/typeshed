@@ -11,7 +11,7 @@ from typing import (
 )
 from abc import abstractmethod, ABCMeta
 from ast import mod, AST
-from types import TracebackType, CodeType
+from types import TracebackType, CodeType, ModuleType
 import sys
 
 if sys.version_info >= (3,):
@@ -1437,8 +1437,10 @@ else:
     def zip(__iter1: Iterable[Any], __iter2: Iterable[Any], __iter3: Iterable[Any],
             __iter4: Iterable[Any], __iter5: Iterable[Any], __iter6: Iterable[Any],
             *iterables: Iterable[Any]) -> List[Tuple[Any, ...]]: ...
-def __import__(name: Text, globals: Dict[str, Any] = ..., locals: Dict[str, Any] = ...,
-               fromlist: List[str] = ..., level: int = ...) -> Any: ...
+def __import__(name: Text, globals: Optional[Mapping[str, Any]] = ...,
+               locals: Optional[Mapping[str, Any]] = ...,
+               fromlist: Sequence[str] = ...,
+               level: int = ...) -> ModuleType: ...
 
 # Actually the type of Ellipsis is <type 'ellipsis'>, but since it's
 # not exposed anywhere under that name, we make it private here.
