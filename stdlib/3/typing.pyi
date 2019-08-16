@@ -5,9 +5,6 @@ from abc import abstractmethod, ABCMeta
 from types import CodeType, FrameType, TracebackType
 import collections  # Needed by aliases like DefaultDict, see mypy issue 2986
 
-if sys.version_info < (3, 8):
-    from typing_extensions import Literal
-
 # Definitions of special type checking related constructs.  Their definition
 # are not used, so their value does not matter.
 
@@ -528,17 +525,16 @@ class Match(Generic[AnyStr]):
 
     def expand(self, template: AnyStr) -> AnyStr: ...
 
+    # TODO: The return for a group may be None, except if __group is 0 or not given.
     @overload
-    def group(self, __group: Literal[0] = ...) -> AnyStr: ...
-    @overload
-    def group(self, __group: Union[str, int]) -> Optional[AnyStr]: ...
+    def group(self, __group: Union[str, int] = ...) -> AnyStr: ...
     @overload
     def group(
         self,
         __group1: Union[str, int],
         __group2: Union[str, int],
         *groups: Union[str, int],
-    ) -> Tuple[Optional[AnyStr], ...]: ...
+    ) -> Tuple[AnyStr, ...]: ...
 
     def groups(self, default: AnyStr = ...) -> Sequence[AnyStr]: ...
     def groupdict(self, default: AnyStr = ...) -> dict[str, AnyStr]: ...
