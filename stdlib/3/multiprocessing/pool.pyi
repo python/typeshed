@@ -4,7 +4,7 @@ from typing import (
 )
 from types import TracebackType
 
-_PT = TypeVar('_PT', bound='Pool')
+_PT = TypeVar('_PT', bound=Pool)
 _S = TypeVar('_S')
 _T = TypeVar('_T')
 

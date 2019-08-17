@@ -16,7 +16,7 @@ SEEK_SET: int
 SEEK_CUR: int
 SEEK_END: int
 
-_T = TypeVar('_T', bound='IOBase')
+_T = TypeVar('_T', bound=IOBase)
 
 open = builtins.open
 
