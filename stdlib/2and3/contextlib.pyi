@@ -61,7 +61,7 @@ if sys.version_info >= (3,):
     class ContextDecorator:
         def __call__(self, func: Callable[..., None]) -> Callable[..., ContextManager[None]]: ...
 
-    _U = TypeVar('_U', bound='ExitStack')
+    _U = TypeVar('_U', bound=ExitStack)
 
     class ExitStack(ContextManager[ExitStack]):
         def __init__(self) -> None: ...
@@ -79,7 +79,7 @@ if sys.version_info >= (3,):
 if sys.version_info >= (3, 7):
     from typing import Awaitable
 
-    _S = TypeVar('_S', bound='AsyncExitStack')
+    _S = TypeVar('_S', bound=AsyncExitStack)
 
     _ExitCoroFunc = Callable[[Optional[Type[BaseException]],
                               Optional[BaseException],
