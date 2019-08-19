@@ -1,6 +1,6 @@
 """Stub file for the '_bisect' module."""
 
-from typing import Sequence, TypeVar
+from typing import Sequence, MutableSequence, TypeVar
 
 _T = TypeVar('_T')
 def bisect(a: Sequence[_T], x: _T, lo: int = ..., hi: int = ...) -> int: ...
