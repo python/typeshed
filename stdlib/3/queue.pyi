@@ -15,11 +15,11 @@ class Full(Exception): ...
 class Queue(Generic[_T]):
     maxsize: int
 
-    mutex: Lock
-    not_empty: Condition
-    not_full: Condition
-    all_tasks_done: Condition
-    unfinished_tasks: int
+    mutex: Lock  # undocumented
+    not_empty: Condition  # undocumented
+    not_full: Condition  # undocumented
+    all_tasks_done: Condition  # undocumented
+    unfinished_tasks: int  # undocumented
 
     queue: deque  # undocumented
     def __init__(self, maxsize: int = ...) -> None: ...
