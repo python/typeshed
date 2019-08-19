@@ -3,6 +3,7 @@
 # NOTE: These are incomplete!
 
 from collections import deque
+from threading import Condition, Lock
 from typing import Any, TypeVar, Generic, Optional
 import sys
 
@@ -13,6 +14,13 @@ class Full(Exception): ...
 
 class Queue(Generic[_T]):
     maxsize: int
+
+    mutex: Lock
+    not_empty: Condition
+    not_full: Condition
+    all_tasks_done: Condition
+    unfinished_tasks: int
+
     queue: deque  # undocumented
     def __init__(self, maxsize: int = ...) -> None: ...
     def _init(self, maxsize: int) -> None: ...
