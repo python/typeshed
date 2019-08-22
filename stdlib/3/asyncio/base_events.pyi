@@ -3,6 +3,7 @@ from socket import socket, _Address
 import ssl
 import sys
 from typing import Any, Awaitable, Callable, Dict, Generator, List, Optional, Sequence, Tuple, TypeVar, Union, overload
+from abc import ABCMeta
 from asyncio.futures import Future
 from asyncio.coroutines import coroutine
 from asyncio.events import AbstractEventLoop, AbstractServer, Handle, TimerHandle
@@ -19,7 +20,7 @@ _TransProtPair = Tuple[BaseTransport, BaseProtocol]
 
 class Server(AbstractServer): ...
 
-class BaseEventLoop(AbstractEventLoop):
+class BaseEventLoop(AbstractEventLoop, metaclass=ABCMeta):
     def run_forever(self) -> None: ...
 
     # Can't use a union, see mypy issue  # 1873.
@@ -86,10 +87,6 @@ class BaseEventLoop(AbstractEventLoop):
                       sock: socket, backlog: int = ..., ssl: _SSLContext = ...,
                       reuse_address: Optional[bool] = ...,
                       reuse_port: Optional[bool] = ...) -> Generator[Any, None, Server]: ...
-    @coroutine
-    def create_unix_connection(self, protocol_factory: _ProtocolFactory, path: str, *,
-                               ssl: _SSLContext = ..., sock: Optional[socket] = ...,
-                               server_hostname: str = ...) -> Generator[Any, None, _TransProtPair]: ...
     @coroutine
     def create_datagram_endpoint(self, protocol_factory: _ProtocolFactory,
                                  local_addr: Optional[Tuple[str, int]] = ..., remote_addr: Optional[Tuple[str, int]] = ..., *,
