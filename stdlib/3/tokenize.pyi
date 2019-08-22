@@ -3,9 +3,10 @@ from builtins import open as _builtin_open
 import sys
 from token import *  # noqa: F403
 
-COMMENT: int
-NL: int
-ENCODING: int
+if sys.version_info < (3, 7):
+    COMMENT: int
+    NL: int
+    ENCODING: int
 
 _Position = Tuple[int, int]
 

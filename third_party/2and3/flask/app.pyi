@@ -43,17 +43,17 @@ _WSGICallable = Callable[[Dict[Text, Any], _StartResponse], Iterable[bytes]]
 
 _Status = Union[str, int]
 _Headers = Union[Dict[Any, Any], List[Tuple[Any, Any]]]
-_Body = Union[Text, ByteString, Response, _WSGICallable]
+_Body = Union[Text, ByteString, Dict[Text, Any], Response, _WSGICallable]
+_ViewFuncReturnType = Union[
+    _Body,
+    Tuple[_Body, _Status, _Headers],
+    Tuple[_Body, _Status],
+    Tuple[_Body, _Headers],
+]
 
 _ViewFunc = Union[
-    Callable[..., Text],
-    Callable[..., ByteString],
     Callable[..., NoReturn],
-    Callable[..., Response],
-    Callable[..., _WSGICallable],
-    Callable[..., Tuple[_Body, _Status, _Headers]],
-    Callable[..., Tuple[_Body, _Status]],
-    Callable[..., Tuple[_Body, _Headers]]
+    Callable[..., _ViewFuncReturnType],
 ]
 _VT = TypeVar('_VT', bound=_ViewFunc)
 

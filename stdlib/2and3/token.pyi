@@ -65,6 +65,10 @@ ERRORTOKEN: int
 N_TOKENS: int
 NT_OFFSET: int
 tok_name: Dict[int, str]
+if sys.version_info >= (3, 7):
+    COMMENT: int
+    NL: int
+    ENCODING: int
 
 def ISTERMINAL(x: int) -> bool: ...
 def ISNONTERMINAL(x: int) -> bool: ...

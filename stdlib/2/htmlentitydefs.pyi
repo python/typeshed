@@ -1,5 +1,5 @@
-from typing import Any, Mapping
+from typing import Dict
 
-name2codepoint: Mapping[str, int]
-codepoint2name: Mapping[int, str]
-entitydefs: Mapping[str, str]
+name2codepoint: Dict[str, int]
+codepoint2name: Dict[int, str]
+entitydefs: Dict[str, str]

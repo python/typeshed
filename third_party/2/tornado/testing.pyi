@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Any, Callable, Generator, Optional, overload
 import unittest
 import logging
 
@@ -42,7 +42,13 @@ class AsyncHTTPSTestCase(AsyncHTTPTestCase):
     def get_ssl_options(self): ...
     def get_protocol(self): ...
 
-def gen_test(f): ...
+@overload
+def gen_test(*, timeout: Optional[float] = ...) -> Callable[[Callable[..., Generator]], Callable[..., None]]:
+    ...
+
+@overload
+def gen_test(func: Callable[..., Generator]) -> Callable[..., None]:
+    ...
 
 class LogTrapTestCase(unittest.TestCase):
     def run(self, result: Optional[Any] = ...): ...
