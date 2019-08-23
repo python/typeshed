@@ -83,6 +83,7 @@ class _flags:
     hash_randomization: int
     if sys.version_info >= (3, 7):
         dev_mode: int
+        utf8_mode: int
 
 float_info: _float_info
 class _float_info:
