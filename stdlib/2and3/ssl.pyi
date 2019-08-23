@@ -1,7 +1,8 @@
 # Stubs for ssl
 
 from typing import (
-    Any, Callable, ClassVar, Dict, List, NamedTuple, Optional, Set, Tuple, Union,
+    Any, Callable, ClassVar, Dict, List, NamedTuple, Optional, Set, Text, Tuple,
+    Union,
 )
 import enum
 import socket
@@ -53,20 +54,19 @@ def create_default_context(
     *,
     cafile: Optional[str] = ...,
     capath: Optional[str] = ...,
-    cadata: Union[str, bytes, None] = ...,
+    cadata: Union[Text, bytes, None] = ...,
 ) -> SSLContext: ...
 
-if sys.version_info >= (3, 4):
-    def _create_unverified_context(protocol: int = ..., *,
-                                   cert_reqs: int = ...,
-                                   check_hostname: bool = ...,
-                                   purpose: Any = ...,
-                                   certfile: Optional[str] = ...,
-                                   keyfile: Optional[str] = ...,
-                                   cafile: Optional[str] = ...,
-                                   capath: Optional[str] = ...,
-                                   cadata: Union[str, bytes, None] = ...) -> SSLContext: ...
-    _create_default_https_context: Callable[..., SSLContext]
+def _create_unverified_context(protocol: int = ..., *,
+                               cert_reqs: int = ...,
+                               check_hostname: bool = ...,
+                               purpose: Any = ...,
+                               certfile: Optional[str] = ...,
+                               keyfile: Optional[str] = ...,
+                               cafile: Optional[str] = ...,
+                               capath: Optional[str] = ...,
+                               cadata: Union[Text, bytes, None] = ...) -> SSLContext: ...
+_create_default_https_context: Callable[..., SSLContext]
 
 if sys.version_info >= (3, 3):
     def RAND_bytes(num: int) -> bytes: ...
@@ -234,7 +234,7 @@ class SSLContext:
         self,
         cafile: Optional[str] = ...,
         capath: Optional[str] = ...,
-        cadata: Union[str, bytes, None] = ...,
+        cadata: Union[Text, bytes, None] = ...,
     ) -> None: ...
     def get_ca_certs(self, binary_form: bool = ...) -> Union[List[_PeerCertRetDictType], List[bytes]]: ...
     def set_default_verify_paths(self) -> None: ...
