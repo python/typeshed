@@ -50,6 +50,7 @@ class ZipFile:
     filelist: List[ZipInfo]
     fp: IO[bytes]
     NameToInfo: Dict[Text, ZipInfo]
+    start_dir: int
     def __init__(self, file: Union[_Path, IO[bytes]], mode: Text = ..., compression: int = ...,
                  allowZip64: bool = ...) -> None: ...
     def __enter__(self) -> ZipFile: ...
