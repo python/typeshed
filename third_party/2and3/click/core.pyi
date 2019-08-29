@@ -351,7 +351,7 @@ class _ParamType:
     def split_envvar_value(self, rv: str) -> List[str]:
         ...
 
-    def fail(self, message: str, param: Optional[Parameter] = ..., ctx: Optional[Context] = ...) -> None:
+    def fail(self, message: str, param: Optional[Parameter] = ..., ctx: Optional[Context] = ...) -> NoReturn:
         ...
 
 
