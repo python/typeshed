@@ -9,7 +9,7 @@ from types import TracebackType
 
 
 _E = TypeVar('_E', bound=BaseException)
-_FT = TypeVar('_FT', bound=Callable[..., Any])
+_FT = TypeVar('_FT', bound=Union[Callable[..., Any], Type])
 
 
 def expectedFailure(func: _FT) -> _FT: ...
