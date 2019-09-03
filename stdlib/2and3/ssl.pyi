@@ -1,7 +1,7 @@
 # Stubs for ssl
 
 from typing import (
-    Any, Callable, ClassVar, Dict, List, NamedTuple, Optional, Set, Text, Tuple, Union,
+    Any, Callable, ClassVar, Dict, List, NamedTuple, Optional, Set, Text, Type, Tuple, Union,
 )
 import enum
 import socket
