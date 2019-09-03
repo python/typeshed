@@ -1,12 +1,12 @@
 # Stubs for ssl
 
 from typing import (
-    Any, Callable, ClassVar, Dict, List, NamedTuple, Optional, Set, Text, Tuple,
-    Union,
+    Any, Callable, ClassVar, Dict, List, NamedTuple, Optional, Set, Text, Type, Tuple, Union,
 )
 import enum
 import socket
 import sys
+import os
 
 _PCTRTT = Tuple[Tuple[str, str], ...]
 _PCTRTTT = Tuple[_PCTRTT, ...]
@@ -14,6 +14,11 @@ _PeerCertRetDictType = Dict[str, Union[str, _PCTRTTT, _PCTRTT]]
 _PeerCertRetType = Union[_PeerCertRetDictType, bytes, None]
 _EnumRetType = List[Tuple[bytes, str, Union[Set[str], bool]]]
 _PasswordType = Union[Callable[[], Union[str, bytes]], str, bytes]
+
+if sys.version_info < (3, 6):
+    _Path = Text
+else:
+    _Path = Union[str, os.PathLike[Any]]
 
 if sys.version_info >= (3, 5):
     _SC1ArgT = Union[SSLSocket, SSLObject]
@@ -227,7 +232,7 @@ class SSLContext:
     else:
         def __init__(self, protocol: int) -> None: ...
     def cert_store_stats(self) -> Dict[str, int]: ...
-    def load_cert_chain(self, certfile: str, keyfile: Optional[str] = ...,
+    def load_cert_chain(self, certfile: _Path, keyfile: Optional[_Path] = ...,
                         password: _PasswordType = ...) -> None: ...
     def load_default_certs(self, purpose: Purpose = ...) -> None: ...
     def load_verify_locations(
@@ -240,6 +245,9 @@ class SSLContext:
     def set_default_verify_paths(self) -> None: ...
     def set_ciphers(self, ciphers: str) -> None: ...
     def set_alpn_protocols(self, protocols: List[str]) -> None: ...
+    if sys.version_info >= (3, 7):
+        sni_callback: Optional[Callable[[SSLObject, str, SSLContext], Union[None, int]]]
+        sslobject_class: Type[SSLObject]
     def set_npn_protocols(self, protocols: List[str]) -> None: ...
     def set_servername_callback(self,
                                 server_name_callback: Optional[_SrvnmeCbType]) -> None: ...
