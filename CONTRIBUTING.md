@@ -238,7 +238,7 @@ rule is that they should be as concise as possible.  Specifically:
 * use variable annotations instead of type comments, even for stubs
   that target older versions of Python;
 * for arguments with a type and a default, use spaces around the `=`.
-The code formatter [black](https://github.com/python/black) will format
+The code formatter [black](https://github.com/psf/black) will format
 stubs according to this standard.
 
 Stub files should only contain information necessary for the type
@@ -291,6 +291,15 @@ string literals in type annotations.
 Type variables and aliases you introduce purely for legibility reasons
 should be prefixed with an underscore to make it obvious to the reader
 they are not part of the stubbed API.
+
+When adding type annotations for context manager classes, annotate
+the return type of `__exit__` as bool only if the context manager
+sometimes suppresses annotations -- if it sometimes returns `True`
+at runtime. If the context manager never suppresses exceptions,
+have the return type be either `None` or `Optional[bool]`. If you
+are not sure whether exceptions are suppressed or not or if the
+context manager is meant to be subclassed, pick `Optional[bool]`.
+See https://github.com/python/mypy/issues/7214 for more details.
 
 NOTE: there are stubs in this repository that don't conform to the
 style described above.  Fixing them is a great starting point for new

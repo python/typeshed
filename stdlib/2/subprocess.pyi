@@ -82,7 +82,7 @@ class Popen(Generic[_T]):
     pid = 0
     returncode = 0
 
-    def __new__(self,
+    def __new__(cls,
                 args: _CMD,
                 bufsize: int = ...,
                 executable: Optional[_TXT] = ...,
@@ -106,7 +106,7 @@ class Popen(Generic[_T]):
     def terminate(self) -> None: ...
     def kill(self) -> None: ...
     def __enter__(self) -> Popen: ...
-    def __exit__(self, type, value, traceback) -> bool: ...
+    def __exit__(self, type, value, traceback) -> None: ...
 
 def list2cmdline(seq: Sequence[str]) -> str: ...  # undocumented
 

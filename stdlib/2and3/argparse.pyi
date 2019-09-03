@@ -5,7 +5,7 @@ from typing import (
 import sys
 
 _T = TypeVar('_T')
-_ActionT = TypeVar('_ActionT', bound='Action')
+_ActionT = TypeVar('_ActionT', bound=Action)
 _N = TypeVar('_N')
 
 if sys.version_info >= (3,):
