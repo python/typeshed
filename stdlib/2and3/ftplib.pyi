@@ -1,6 +1,22 @@
-# Stubs for ftplib (Python 2.7/3)
 import sys
-from typing import Optional, BinaryIO, Tuple, TextIO, Iterable, Callable, List, Union, Iterator, Dict, Text, Type, TypeVar, Generic, Any
+from typing import (
+    Any,
+    BinaryIO,
+    Callable,
+    Dict,
+    Generic,
+    Iterable,
+    Iterator,
+    List,
+    Optional,
+    Protocol,
+    Text,
+    TextIO,
+    Tuple,
+    Type,
+    TypeVar,
+    Union,
+)
 from types import TracebackType
 from socket import socket
 from ssl import SSLContext
@@ -22,6 +38,12 @@ class error_perm(Error): ...
 class error_proto(Error): ...
 
 all_errors = Tuple[Exception, ...]
+
+class _Readable(Protocol):
+    def read(self, __length: int) -> bytes: ...
+
+class _ReadLineable(Protocol):
+    def readline(self, _length: int) -> bytes: ...
 
 class FTP:
     debugging: int
@@ -83,10 +105,10 @@ class FTP:
     def ntransfercmd(self, cmd: Text, rest: Optional[_IntOrStr] = ...) -> Tuple[socket, int]: ...
     def transfercmd(self, cmd: Text, rest: Optional[_IntOrStr] = ...) -> socket: ...
     def retrbinary(self, cmd: Text, callback: Callable[[bytes], Any], blocksize: int = ..., rest: Optional[_IntOrStr] = ...) -> str: ...
-    def storbinary(self, cmd: Text, fp: BinaryIO, blocksize: int = ..., callback: Optional[Callable[[bytes], Any]] = ..., rest: Optional[_IntOrStr] = ...) -> str: ...
+    def storbinary(self, cmd: Text, fp: _Readable, blocksize: int = ..., callback: Optional[Callable[[bytes], Any]] = ..., rest: Optional[_IntOrStr] = ...) -> str: ...
 
     def retrlines(self, cmd: Text, callback: Optional[Callable[[str], Any]] = ...) -> str: ...
-    def storlines(self, cmd: Text, fp: BinaryIO, callback: Optional[Callable[[bytes], Any]] = ...) -> str: ...
+    def storlines(self, cmd: Text, fp: _ReadLineable, callback: Optional[Callable[[bytes], Any]] = ...) -> str: ...
 
     def acct(self, password: Text) -> str: ...
     def nlst(self, *args: Text) -> List[str]: ...
