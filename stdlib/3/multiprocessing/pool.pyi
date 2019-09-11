@@ -17,6 +17,8 @@ class ApplyResult(Generic[_T]):
 # alias created during issue #17805
 AsyncResult = ApplyResult
 
+class MapResult(ApplyResult[List[_T]]): ...
+
 _IMIT = TypeVar('_IMIT', bound=IMapIterator)
 
 class IMapIterator(Iterator[_T]):
@@ -50,7 +52,7 @@ class Pool(ContextManager[Pool]):
                   iterable: Iterable[_S] = ...,
                   chunksize: Optional[int] = ...,
                   callback: Optional[Callable[[_T], None]] = ...,
-                  error_callback: Optional[Callable[[BaseException], None]] = ...) -> AsyncResult[List[_T]]: ...
+                  error_callback: Optional[Callable[[BaseException], None]] = ...) -> MapResult[List[_T]]: ...
     def imap(self,
              func: Callable[[_S], _T],
              iterable: Iterable[_S] = ...,
