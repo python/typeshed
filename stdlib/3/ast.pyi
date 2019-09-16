@@ -1,18 +1,20 @@
-# Python 3.5 ast
-
 import sys
 # Rename typing to _typing, as not to conflict with typing imported
 # from _ast below when loaded in an unorthodox way by the Dropbox
 # internal Bazel integration.
 import typing as _typing
 from typing import overload, Any, Iterator, Optional, Union, TypeVar
-from typing_extensions import Literal
 
 # The same unorthodox Bazel integration causes issues with sys, which
 # is imported in both modules. unfortunately we can't just rename sys,
 # since mypy only supports version checks with a sys that is named
 # sys.
 from _ast import *  # type: ignore
+
+if sys.version_info >= (3, 8):
+    from typing import Literal
+else:
+    from typing_extensions import Literal
 
 class NodeVisitor():
     def visit(self, node: AST) -> Any: ...

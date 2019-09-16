@@ -14,6 +14,10 @@ class HTTPServer(socketserver.TCPServer):
     def __init__(self, server_address: Tuple[str, int],
                  RequestHandlerClass: type) -> None: ...
 
+if sys.version_info >= (3, 7):
+    class ThreadingHTTPServer(socketserver.ThreadingMixIn, HTTPServer):
+        daemon_threads: bool  # undocumented
+
 class BaseHTTPRequestHandler:
     client_address: Tuple[str, int]
     server: socketserver.BaseServer

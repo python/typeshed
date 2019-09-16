@@ -8,7 +8,7 @@ from types import FrameType, ModuleType, TracebackType, ClassType
 
 # The following type alias are stub-only and do not exist during runtime
 _ExcInfo = Tuple[Type[BaseException], BaseException, TracebackType]
-_OptExcInfo = Tuple[Optional[Type[BaseException]], Optional[BaseException], Optional[TracebackType]]
+_OptExcInfo = Union[_ExcInfo, Tuple[None, None, None]]
 
 class _flags:
     bytes_warning: int

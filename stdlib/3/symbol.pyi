@@ -9,8 +9,7 @@ eval_input: int
 decorator: int
 decorators: int
 decorated: int
-if sys.version_info >= (3, 5):
-    async_funcdef: int
+async_funcdef: int
 funcdef: int
 parameters: int
 typedargslist: int
@@ -45,8 +44,7 @@ global_stmt: int
 nonlocal_stmt: int
 assert_stmt: int
 compound_stmt: int
-if sys.version_info >= (3, 5):
-    async_stmt: int
+async_stmt: int
 if_stmt: int
 while_stmt: int
 for_stmt: int
@@ -73,8 +71,7 @@ arith_expr: int
 term: int
 factor: int
 power: int
-if sys.version_info >= (3, 5):
-    atom_expr: int
+atom_expr: int
 atom: int
 testlist_comp: int
 trailer: int
