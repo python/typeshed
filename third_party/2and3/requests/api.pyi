@@ -4,9 +4,9 @@ import sys
 from typing import Optional, Union, Any, Iterable, Mapping, MutableMapping, Tuple, IO, Text
 
 from .models import Response
+from .sessions import _Data
 
 _ParamsMappingValueType = Union[Text, bytes, int, float, Iterable[Union[Text, bytes, int, float]]]
-_Data = Union[None, Text, bytes, MutableMapping[str, Any], MutableMapping[Text, Any], Iterable[Tuple[Text, Optional[Text]]], IO]
 
 def request(method: str, url: str, **kwargs) -> Response: ...
 def get(
