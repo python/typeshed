@@ -2,7 +2,7 @@
 
 from typing import Any, Mapping, Sequence
 
-class InvalidDatabaseError(RuntimeError): ...
+from maxminddb.errors import InvalidDatabaseError as InvalidDatabaseError
 
 class Reader:
     closed: bool = ...
