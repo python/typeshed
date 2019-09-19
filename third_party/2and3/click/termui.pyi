@@ -8,6 +8,7 @@ from typing import (
     Optional,
     Text,
     overload,
+    Text,
     Tuple,
     TypeVar,
     Union,
@@ -112,7 +113,7 @@ def clear() -> None:
 
 
 def style(
-    text: str,
+    text: Text,
     fg: Optional[str] = ...,
     bg: Optional[str] = ...,
     bold: Optional[bool] = ...,
@@ -125,7 +126,7 @@ def style(
     ...
 
 
-def unstyle(text: str) -> str:
+def unstyle(text: Text) -> str:
     ...
 
 

@@ -54,7 +54,7 @@ class SessionRedirectMixin:
     def rebuild_auth(self, prepared_request, response): ...
     def rebuild_proxies(self, prepared_request, proxies): ...
 
-_Data = Union[None, bytes, MutableMapping[Text, Text], IO]
+_Data = Union[None, Text, bytes, MutableMapping[str, Any], MutableMapping[Text, Any], Iterable[Tuple[Text, Optional[Text]]], IO]
 
 _Hook = Callable[[Response], Any]
 _Hooks = MutableMapping[Text, List[_Hook]]
@@ -79,7 +79,7 @@ class Session(SessionRedirectMixin):
     def __enter__(self) -> Session: ...
     def __exit__(self, *args) -> None: ...
     def prepare_request(self, request): ...
-    def request(self, method: str, url: str,
+    def request(self, method: str, url: Union[str, bytes, Text],
                 params: Union[None, bytes, MutableMapping[Text, Text]] = ...,
                 data: _Data = ...,
                 headers: Optional[MutableMapping[Text, Text]] = ...,

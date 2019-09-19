@@ -1,9 +1,11 @@
-from typing import Any, Dict, Set, Tuple, Type
+from typing import Any, Callable, Dict, Set, Tuple, Type, TypeVar
 import _weakrefset
+
+_FuncT = TypeVar('_FuncT', bound=Callable[..., Any])
 
 # NOTE: mypy has special processing for ABCMeta and abstractmethod.
 
-def abstractmethod(funcobj: Any) -> Any: ...
+def abstractmethod(funcobj: _FuncT) -> _FuncT: ...
 
 class ABCMeta(type):
     # TODO: FrozenSet

@@ -83,6 +83,7 @@ class _flags:
     hash_randomization: int
     if sys.version_info >= (3, 7):
         dev_mode: int
+        utf8_mode: int
 
 float_info: _float_info
 class _float_info:
@@ -185,8 +186,7 @@ def getwindowsversion() -> _WinVersion: ...  # Windows only
 
 def intern(string: str) -> str: ...
 
-if sys.version_info >= (3, 5):
-    def is_finalizing() -> bool: ...
+def is_finalizing() -> bool: ...
 
 if sys.version_info >= (3, 7):
     __breakpointhook__: Any  # contains the original value of breakpointhook

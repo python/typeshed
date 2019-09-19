@@ -1,6 +1,6 @@
-from typing import Any
+from typing import Dict
 
-name2codepoint: Any
-html5: Any
-codepoint2name: Any
-entitydefs: Any
+name2codepoint: Dict[str, int]
+html5: Dict[str, str]
+codepoint2name: Dict[int, str]
+entitydefs: Dict[str, str]
