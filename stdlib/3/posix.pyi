@@ -3,9 +3,12 @@
 # NOTE: These are incomplete!
 
 import sys
-from typing import NamedTuple, Tuple
+from typing import List, NamedTuple, Optional, overload, Tuple
 
 from os import stat_result as stat_result
+
+if sys.version_info >= (3, 6):
+    from builtins import _PathLike  # See comment in builtins
 
 uname_result = NamedTuple('uname_result', [
     ('sysname', str),
@@ -109,3 +112,20 @@ WNOHANG: int
 WSTOPSIG: int
 WTERMSIG: int
 WUNTRACED: int
+
+if sys.version_info >= (3, 6):
+    @overload
+    def listdir(path: Optional[str] = ...) -> List[str]: ...
+    @overload
+    def listdir(path: bytes) -> List[bytes]: ...
+    @overload
+    def listdir(path: int) -> List[str]: ...
+    @overload
+    def listdir(path: _PathLike[str]) -> List[str]: ...
+else:
+    @overload
+    def listdir(path: Optional[str] = ...) -> List[str]: ...
+    @overload
+    def listdir(path: bytes) -> List[bytes]: ...
+    @overload
+    def listdir(path: int) -> List[str]: ...
