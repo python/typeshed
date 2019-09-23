@@ -49,6 +49,8 @@ from .decorators import (
 from .types import (
     ParamType as ParamType,
     File as File,
+    FloatRange as FloatRange,
+    DateTime as DateTime,
     Path as Path,
     Choice as Choice,
     IntRange as IntRange,
