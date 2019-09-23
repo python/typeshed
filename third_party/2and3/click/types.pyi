@@ -71,7 +71,13 @@ class FloatParamType(ParamType):
 
 
 class FloatRange(FloatParamType):
-    ...
+    def __init__(
+        self,
+        min: Optional[float] = ...,
+        max: Optional[float] = ...,
+        clamp: bool = ...,
+    ) -> None:
+        ...
 
 
 class File(ParamType):
