@@ -356,7 +356,8 @@ class _ParamType:
 
 
 # This type is here to resolve https://github.com/python/mypy/issues/5275
-_ConvertibleType = Union[type, _ParamType, Tuple[type, ...], Callable[[str], Any], Callable[[Optional[str]], Any]]
+_ConvertibleType = Union[type, _ParamType, Tuple[Union[type, _ParamType], ...],
+                         Callable[[str], Any], Callable[[Optional[str]], Any]]
 
 
 class Parameter:
