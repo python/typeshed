@@ -4,7 +4,7 @@
 
 from click import BaseCommand
 from click.testing import CliRunner, Result
-from typing import Any, IO, Iterable, Mapping, Optional, Union, TypeVar
+from typing import Any, IO, Iterable, Mapping, Optional, Text, TypeVar, Union
 from werkzeug.test import Client
 
 def make_test_environ_builder(app: Any, path: str = ..., base_url: Optional[Any] = ..., subdomain: Optional[Any] = ..., url_scheme: Optional[Any] = ..., *args: Any, **kwargs: Any): ...
@@ -29,7 +29,7 @@ class FlaskCliRunner(CliRunner):
         self,
         cli: Optional[BaseCommand] = ...,
         args: Optional[Union[str, Iterable[str]]] = ...,
-        input: Optional[IO] = ...,
+        input: Optional[Union[bytes, IO, Text]] = ...,
         env: Optional[Mapping[str, str]] = ...,
         catch_exceptions: bool = ...,
         color: bool = ...,
