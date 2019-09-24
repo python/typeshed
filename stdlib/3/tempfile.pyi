@@ -7,10 +7,13 @@ import sys
 from types import TracebackType
 from typing import Any, AnyStr, Generic, IO, Optional, Tuple, Type
 
+from . import path as path
+
 # global variables
 TMP_MAX: int
 tempdir = ...  # type: Optional[str]
 template = ...  # type: str
+_PathType = path._PathType
 
 
 if sys.version_info >= (3, 5):
@@ -46,8 +49,8 @@ if sys.version_info >= (3, 5):
     def mkstemp(suffix: Optional[AnyStr] = ..., prefix: Optional[AnyStr] = ..., dir: Optional[AnyStr] = ...,
                 text: bool = ...) -> Tuple[int, AnyStr]: ...
     def mkdtemp(suffix: Optional[AnyStr] = ..., prefix: Optional[AnyStr] = ...,
-                dir: Optional[str] = ...) -> AnyStr: ...
-    def mktemp(suffix: Optional[AnyStr] = ..., prefix: Optional[AnyStr] = ..., dir: Optional[AnyStr] = ...) -> AnyStr: ...
+                dir: Optional[_PathType] = ...) -> AnyStr: ...
+    def mktemp(suffix: Optional[AnyStr] = ..., prefix: Optional[AnyStr] = ..., dir: Optional[_PathType] = ...) -> AnyStr: ...
 
     def gettempdirb() -> bytes: ...
     def gettempprefixb() -> bytes: ...
