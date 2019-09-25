@@ -5,7 +5,7 @@
 
 import sys
 from types import TracebackType
-from typing import Any, AnyStr, Generic, IO, Iterable, Iterator, List, Optional, overload, Tuple, Type
+from typing import Any, AnyStr, Generic, IO, Iterable, Iterator, List, Optional, overload, Tuple, Type, Union
 
 if sys.version_info >= (3, 8):
     from typing import Literal
@@ -17,7 +17,11 @@ TMP_MAX: int
 tempdir: Optional[str]
 template: str
 
-_PathType = AnyStr
+if sys.version_info >= (3, 6):
+    from builtins import _PathLike
+    _PathType = Union[_PathLike[AnyStr], AnyStr]
+else:
+    _PathType = AnyStr
 
 @overload
 def TemporaryFile(
