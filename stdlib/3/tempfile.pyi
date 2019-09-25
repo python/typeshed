@@ -17,6 +17,8 @@ TMP_MAX: int
 tempdir: Optional[str]
 template: str
 
+_PathType = AnyStr
+
 @overload
 def TemporaryFile(
     mode: Literal["r", "w", "a", "x", "r+", "w+", "a+", "x+", "rt", "wt", "at", "xt", "r+t", "w+t", "a+t", "x+t"],
@@ -25,7 +27,7 @@ def TemporaryFile(
     newline: Optional[str] = ...,
     suffix: Optional[AnyStr] = ...,
     prefix: Optional[AnyStr] = ...,
-    dir: Optional[AnyStr] = ...,
+    dir: Optional[_PathType] = ...,
 ) -> IO[str]: ...
 @overload
 def TemporaryFile(
@@ -35,7 +37,7 @@ def TemporaryFile(
     newline: Optional[str] = ...,
     suffix: Optional[AnyStr] = ...,
     prefix: Optional[AnyStr] = ...,
-    dir: Optional[AnyStr] = ...,
+    dir: Optional[_PathType] = ...,
 ) -> IO[bytes]: ...
 @overload
 def TemporaryFile(
@@ -45,7 +47,7 @@ def TemporaryFile(
     newline: Optional[str] = ...,
     suffix: Optional[AnyStr] = ...,
     prefix: Optional[AnyStr] = ...,
-    dir: Optional[AnyStr] = ...,
+    dir: Optional[_PathType] = ...,
 ) -> IO[Any]: ...
 
 @overload
@@ -56,7 +58,7 @@ def NamedTemporaryFile(
     newline: Optional[str] = ...,
     suffix: Optional[AnyStr] = ...,
     prefix: Optional[AnyStr] = ...,
-    dir: Optional[AnyStr] = ...,
+    dir: Optional[_PathType] = ...,
     delete: bool = ...,
 ) -> IO[str]: ...
 @overload
@@ -67,7 +69,7 @@ def NamedTemporaryFile(
     newline: Optional[str] = ...,
     suffix: Optional[AnyStr] = ...,
     prefix: Optional[AnyStr] = ...,
-    dir: Optional[AnyStr] = ...,
+    dir: Optional[_PathType] = ...,
     delete: bool = ...,
 ) -> IO[bytes]: ...
 @overload
@@ -78,7 +80,7 @@ def NamedTemporaryFile(
     newline: Optional[str] = ...,
     suffix: Optional[AnyStr] = ...,
     prefix: Optional[AnyStr] = ...,
-    dir: Optional[AnyStr] = ...,
+    dir: Optional[_PathType] = ...,
     delete: bool = ...,
 ) -> IO[Any]: ...
 
@@ -88,7 +90,7 @@ class SpooledTemporaryFile(IO[AnyStr]):
     def __init__(self, max_size: int = ..., mode: str = ...,
                  buffering: int = ..., encoding: Optional[str] = ...,
                  newline: Optional[str] = ..., suffix: Optional[str] = ...,
-                 prefix: Optional[str] = ..., dir: Optional[str] = ...
+                 prefix: Optional[str] = ..., dir: Optional[_PathType] = ...
                  ) -> None: ...
     def rollover(self) -> None: ...
     def __enter__(self) -> SpooledTemporaryFile: ...
@@ -120,21 +122,21 @@ class SpooledTemporaryFile(IO[AnyStr]):
 class TemporaryDirectory(Generic[AnyStr]):
     name: str
     def __init__(self, suffix: Optional[AnyStr] = ..., prefix: Optional[AnyStr] = ...,
-                 dir: Optional[AnyStr] = ...) -> None: ...
+                 dir: Optional[_PathType] = ...) -> None: ...
     def cleanup(self) -> None: ...
     def __enter__(self) -> AnyStr: ...
     def __exit__(self, exc_type: Optional[Type[BaseException]],
                  exc_val: Optional[BaseException],
                  exc_tb: Optional[TracebackType]) -> None: ...
 
-def mkstemp(suffix: Optional[AnyStr] = ..., prefix: Optional[AnyStr] = ..., dir: Optional[AnyStr] = ...,
+def mkstemp(suffix: Optional[AnyStr] = ..., prefix: Optional[AnyStr] = ..., dir: Optional[_PathType] = ...,
             text: bool = ...) -> Tuple[int, AnyStr]: ...
 @overload
 def mkdtemp() -> str: ...
 @overload
 def mkdtemp(suffix: Optional[AnyStr] = ..., prefix: Optional[AnyStr] = ...,
-            dir: Optional[AnyStr] = ...) -> AnyStr: ...
-def mktemp(suffix: Optional[AnyStr] = ..., prefix: Optional[AnyStr] = ..., dir: Optional[AnyStr] = ...) -> AnyStr: ...
+            dir: Optional[_PathType] = ...) -> AnyStr: ...
+def mktemp(suffix: Optional[AnyStr] = ..., prefix: Optional[AnyStr] = ..., dir: Optional[_PathType] = ...) -> AnyStr: ...
 
 def gettempdirb() -> bytes: ...
 def gettempprefixb() -> bytes: ...
