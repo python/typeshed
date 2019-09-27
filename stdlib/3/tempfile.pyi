@@ -21,7 +21,7 @@ if sys.version_info >= (3, 6):
     from builtins import _PathLike
     _PathType = Union[_PathLike[AnyStr], AnyStr]
 else:
-    _PathType = AnyStr
+    _PathType = Union[AnyStr]
 
 @overload
 def TemporaryFile(
