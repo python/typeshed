@@ -198,7 +198,7 @@ class HTTPHandler(Handler):
 if sys.version_info >= (3,):
     class QueueHandler(Handler):
         if sys.version_info >= (3, 7):
-            def __init__(self, queue: Union[SimpleQueue, Queue]) -> None: ...
+            def __init__(self, queue: Union[SimpleQueue[Any], Queue[Any]]) -> None: ...
         else:
             def __init__(self, queue: Queue[Any]) -> None: ...
         def prepare(self, record: LogRecord) -> Any: ...
@@ -206,7 +206,7 @@ if sys.version_info >= (3,):
 
     class QueueListener:
         if sys.version_info >= (3, 7):
-            def __init__(self, queue: Union[SimpleQueue, Queue],
+            def __init__(self, queue: Union[SimpleQueue[Any], Queue[Any]],
                          *handlers: Handler,
                          respect_handler_level: bool = ...) -> None: ...
         elif sys.version_info >= (3, 5):
