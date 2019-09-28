@@ -81,7 +81,7 @@ if sys.version_info >= (3,):
 else:
     _IgnoreFn = Union[None, Callable[[AnyStr, List[AnyStr]], Iterable[AnyStr]]]
     def copytree(src: AnyStr, dst: AnyStr, symlinks: bool = ...,
-                 ignore: _IgnoreFn = ...) -> _PathReturn: ...
+                 ignore: _IgnoreFn[AnyStr] = ...) -> _PathReturn: ...
 
 if sys.version_info >= (3,):
     @overload

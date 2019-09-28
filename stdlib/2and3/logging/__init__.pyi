@@ -39,7 +39,7 @@ if sys.version_info >= (3,):
     _levelToName: Dict[int, str]
     _nameToLevel: Dict[str, int]
 else:
-    _levelNames: dict
+    _levelNames: Dict[Union[int, str], Union[str, int]]  # Union[int:str, str:int]
 
 class Filterer(object):
     filters: List[Filter]
