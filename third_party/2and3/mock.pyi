@@ -1,9 +1,7 @@
 # Stubs for mock
 
 import sys
-from typing import Any, List, Optional, Text, Tuple, Type, TypeVar
-
-_T = TypeVar("_T")
+from typing import Any, Optional, Text, Type
 
 FILTER_DIR: Any
 
@@ -20,7 +18,7 @@ class _Sentinel:
 sentinel: Any
 DEFAULT: Any
 
-class _CallList(List[_T]):
+class _CallList(list):
     def __contains__(self, value: Any) -> bool: ...
 
 class _MockIter:
@@ -113,7 +111,7 @@ class _ANY:
 
 ANY: Any
 
-class _Call(Tuple[Any, ...]):
+class _Call(tuple):
     def __new__(cls, value: Any = ..., name: Optional[Any] = ..., parent: Optional[Any] = ..., two: bool = ..., from_kall: bool = ...) -> Any: ...
     name: Any
     parent: Any
