@@ -19,6 +19,8 @@ from typing import (
 from click.formatting import HelpFormatter
 from click.parser import OptionParser
 
+_CC = TypeVar("_CC", bound=Callable[[], Any])
+
 def invoke_param_callback(
     callback: Callable[[Context, Parameter, Optional[str]], Any],
     ctx: Context,
@@ -45,7 +47,7 @@ class Context:
     parent: Optional[Context]
     command: Command
     info_name: Optional[str]
-    params: Dict
+    params: Dict[Any, Any]
     args: List[str]
     protected_args: List[str]
     obj: Any
@@ -62,7 +64,7 @@ class Context:
     auto_envvar_prefix: Optional[str]
     color: Optional[bool]
     _meta: Dict[str, Any]
-    _close_callbacks: List
+    _close_callbacks: List[Any]
     _depth: int
 
     def __init__(
@@ -99,8 +101,7 @@ class Context:
     def make_formatter(self) -> HelpFormatter:
         ...
 
-    def call_on_close(self, f: Callable) -> Callable:
-        ...
+    def call_on_close(self, f: _CC) -> _CC: ...
 
     def close(self) -> None:
         ...
@@ -132,25 +133,16 @@ class Context:
     def get_help(self) -> str:
         ...
 
-    def invoke(
-        self, callback: Union[Command, Callable], *args, **kwargs
-    ) -> Any:
-        ...
-
-    def forward(
-        self, callback: Union[Command, Callable], *args, **kwargs
-    ) -> Any:
-        ...
+    def invoke(self, callback: Union[Command, Callable[..., Any]], *args, **kwargs) -> Any: ...
+    def forward(self, callback: Union[Command, Callable[..., Any]], *args, **kwargs) -> Any: ...
 
 class BaseCommand:
     allow_extra_args: bool
     allow_interspersed_args: bool
     ignore_unknown_options: bool
     name: str
-    context_settings: Dict
-
-    def __init__(self, name: str, context_settings: Optional[Dict] = ...) -> None:
-        ...
+    context_settings: Dict[Any, Any]
+    def __init__(self, name: str, context_settings: Optional[Dict[Any, Any]] = ...) -> None: ...
 
     def get_usage(self, ctx: Context) -> str:
         ...
@@ -184,7 +176,7 @@ class BaseCommand:
 
 
 class Command(BaseCommand):
-    callback: Optional[Callable]
+    callback: Optional[Callable[..., Any]]
     params: List[Parameter]
     help: Optional[str]
     epilog: Optional[str]
@@ -197,8 +189,8 @@ class Command(BaseCommand):
     def __init__(
         self,
         name: str,
-        context_settings: Optional[Dict] = ...,
-        callback: Optional[Callable] = ...,
+        context_settings: Optional[Dict[Any, Any]] = ...,
+        callback: Optional[Callable[..., Any]] = ...,
         params: Optional[List[Parameter]] = ...,
         help: Optional[str] = ...,
         epilog: Optional[str] = ...,
@@ -257,7 +249,7 @@ class MultiCommand(Command):
     invoke_without_command: bool
     subcommand_metavar: str
     chain: bool
-    result_callback: Callable
+    result_callback: Callable[..., Any]
 
     def __init__(
         self,
@@ -266,7 +258,7 @@ class MultiCommand(Command):
         no_args_is_help: Optional[bool] = ...,
         subcommand_metavar: Optional[str] = ...,
         chain: bool = ...,
-        result_callback: Optional[Callable] = ...,
+        result_callback: Optional[Callable[..., Any]] = ...,
         **attrs
     ) -> None:
         ...
@@ -302,11 +294,8 @@ class Group(MultiCommand):
     def add_command(self, cmd: Command, name: Optional[str] = ...):
         ...
 
-    def command(self, *args, **kwargs) -> Callable[[Callable], Command]:
-        ...
-
-    def group(self, *args, **kwargs) -> Callable[[Callable], Group]:
-        ...
+    def command(self, *args, **kwargs) -> Callable[[Callable[..., Any]], Command]: ...
+    def group(self, *args, **kwargs) -> Callable[[Callable[..., Any]], Group]: ...
 
 
 class CommandCollection(MultiCommand):

@@ -39,20 +39,20 @@ class NoneAlgorithm(SigningAlgorithm):
     def get_signature(self, key: bytes, value: bytes) -> bytes: ...
 
 class HMACAlgorithm(SigningAlgorithm):
-    default_digest_method: Callable
-    digest_method: Callable
-    def __init__(self, digest_method: Optional[Callable] = ...) -> None: ...
+    default_digest_method: Callable[..., Any]
+    digest_method: Callable[..., Any]
+    def __init__(self, digest_method: Optional[Callable[..., Any]] = ...) -> None: ...
     def get_signature(self, key: bytes, value: bytes) -> bytes: ...
 
 class Signer(object):
-    default_digest_method: Callable = ...
+    default_digest_method: Callable[..., Any] = ...
     default_key_derivation: str = ...
 
     secret_key: bytes
     sep: bytes
     salt: Union[Text, bytes]
     key_derivation: str
-    digest_method: Callable
+    digest_method: Callable[..., Any]
     algorithm: SigningAlgorithm
 
     def __init__(self,
@@ -60,7 +60,7 @@ class Signer(object):
                  salt: Optional[Union[Text, bytes]] = ...,
                  sep: Optional[Union[Text, bytes]] = ...,
                  key_derivation: Optional[str] = ...,
-                 digest_method: Optional[Callable] = ...,
+                 digest_method: Optional[Callable[..., Any]] = ...,
                  algorithm: Optional[SigningAlgorithm] = ...) -> None: ...
     def derive_key(self) -> bytes: ...
     def get_signature(self, value: Union[Text, bytes]) -> bytes: ...

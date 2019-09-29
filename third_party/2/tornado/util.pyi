@@ -1,8 +1,8 @@
-from typing import Any
+from typing import Any, Dict
 
 xrange: Any
 
-class ObjectDict(dict):
+class ObjectDict(Dict[Any, Any]):
     def __getattr__(self, name): ...
     def __setattr__(self, name, value): ...
 

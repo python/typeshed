@@ -22,10 +22,9 @@ class ThreadPoolExecutor(Executor):
 
 
 class _WorkItem(Generic[_S]):
-    future: Future
+    future: Future[Any]
     fn: Callable[[Future[_S]], Any]
     args: Any
     kwargs: Any
-    def __init__(self, future: Future, fn: Callable[[Future[_S]], Any], args: Any,
-                 kwargs: Any) -> None: ...
+    def __init__(self, future: Future[Any], fn: Callable[[Future[_S]], Any], args: Any, kwargs: Any) -> None: ...
     def run(self) -> None: ...
