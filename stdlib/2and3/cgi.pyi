@@ -101,7 +101,7 @@ class FieldStorage(object):
 if sys.version_info < (3, 0):
     from UserDict import UserDict
 
-    class FormContentDict(UserDict):
+    class FormContentDict(UserDict[str, List[str]]):
         query_string: str
         def __init__(self, environ: Mapping[str, str] = ..., keep_blank_values: int = ..., strict_parsing: int = ...) -> None: ...
 
