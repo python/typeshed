@@ -258,8 +258,8 @@ Traceback = NamedTuple(
         ('filename', str),
         ('lineno', int),
         ('function', str),
-        ('code_context', List[str]),
-        ('index', int),
+        ('code_context', Optional[List[str]]),
+        ('index', Optional[int]),
     ]
 )
 
@@ -268,8 +268,8 @@ FrameInfo = NamedTuple('FrameInfo', [('frame', FrameType),
                                      ('filename', str),
                                      ('lineno', int),
                                      ('function', str),
-                                     ('code_context', List[str]),
-                                     ('index', int),
+                                     ('code_context', Optional[List[str]]),
+                                     ('index', Optional[int]),
                                      ])
 
 def getframeinfo(frame: Union[FrameType, TracebackType], context: int = ...) -> Traceback: ...
