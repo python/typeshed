@@ -1,4 +1,4 @@
-from typing import Any, AnyStr, Callable, Generic, IO, Iterable, List, Optional, TypeVar, Union, Tuple as _PyTuple, Type
+from typing import Any, Callable, Generic, IO, Iterable, List, Optional, TypeVar, Union, Tuple as _PyTuple, Type
 import datetime
 import uuid
 
@@ -79,7 +79,7 @@ class FloatRange(FloatParamType):
     ) -> None:
         ...
 
-class File(ParamType, Generic[AnyStr]):
+class File(ParamType):
     def __init__(
         self,
         mode: str = ...,
@@ -88,8 +88,8 @@ class File(ParamType, Generic[AnyStr]):
         lazy: Optional[bool] = ...,
         atomic: Optional[bool] = ...,
     ) -> None: ...
-    def __call__(self, value: Optional[str], param: Optional[Parameter] = ..., ctx: Optional[Context] = ...) -> IO[AnyStr]: ...
-    def convert(self, value: str, param: Optional[Parameter], ctx: Optional[Context]) -> IO[AnyStr]: ...
+    def __call__(self, value: Optional[str], param: Optional[Parameter] = ..., ctx: Optional[Context] = ...) -> IO[Any]: ...
+    def convert(self, value: str, param: Optional[Parameter], ctx: Optional[Context]) -> IO[Any]: ...
     def resolve_lazy_flag(self, value: str) -> bool: ...
 
 _F = TypeVar('_F')  # result of the function
