@@ -32,6 +32,11 @@ def ensure_future(coro_or_future: _FutureT[_T],
                   *, loop: Optional[AbstractEventLoop] = ...) -> Future[_T]: ...
 # Prior to Python 3.7 'async' was an alias for 'ensure_future'.
 # It became a keyword in 3.7.
+
+# `gather()` actually returns a list with length equal to the number
+# of tasks passed; however, Tuple is used similar to the annotation for
+# zip() because typing does not support variadic type variables.  See
+# typing PR #1550 for discussion.
 @overload
 def gather(coro_or_future1: _FutureT[_T1],
            *, loop: Optional[AbstractEventLoop] = ..., return_exceptions: Literal[False] = ...) -> Future[Tuple[_T1]]: ...
@@ -56,7 +61,7 @@ def gather(coro_or_future1: _FutureT[_T1], coro_or_future2: _FutureT[_T2], coro_
 def gather(coro_or_future1: _FutureT[Any], coro_or_future2: _FutureT[Any], coro_or_future3: _FutureT[Any],
            coro_or_future4: _FutureT[Any], coro_or_future5: _FutureT[Any], coro_or_future6: _FutureT[Any],
            *coros_or_futures: _FutureT[Any],
-           loop: Optional[AbstractEventLoop] = ..., return_exceptions: bool = ...) -> Future[Tuple[Any, ...]]: ...
+           loop: Optional[AbstractEventLoop] = ..., return_exceptions: bool = ...) -> Future[List[Any]]: ...
 @overload
 def gather(coro_or_future1: _FutureT[_T1],
            *, loop: Optional[AbstractEventLoop] = ...,
