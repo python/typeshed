@@ -50,7 +50,7 @@ class KeepOpenFile(Generic[AnyStr]):
 
 def echo(
     message: object = ...,
-    file: Optional[IO[Any]] = ...,
+    file: Optional[IO[Text]] = ...,
     nl: bool = ...,
     err: bool = ...,
     color: Optional[bool] = ...,
