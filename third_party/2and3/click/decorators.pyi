@@ -35,7 +35,7 @@ def command(
     name: Optional[str] = ...,
     cls: Optional[Type[Command]] = ...,
     # Command
-    context_settings: Optional[Dict] = ...,
+    context_settings: Optional[Dict[Any, Any]] = ...,
     help: Optional[str] = ...,
     epilog: Optional[str] = ...,
     short_help: Optional[str] = ...,
@@ -43,9 +43,7 @@ def command(
     add_help_option: bool = ...,
     hidden: bool = ...,
     deprecated: bool = ...,
-) -> Callable[[Callable], Command]:
-    ...
-
+) -> Callable[[Callable[..., Any]], Command]: ...
 
 # This inherits attrs from Group, MultiCommand and Command.
 
@@ -59,7 +57,7 @@ def group(
     no_args_is_help: Optional[bool] = ...,
     subcommand_metavar: Optional[str] = ...,
     chain: bool = ...,
-    result_callback: Optional[Callable] = ...,
+    result_callback: Optional[Callable[..., Any]] = ...,
     # Command
     help: Optional[str] = ...,
     epilog: Optional[str] = ...,
@@ -70,9 +68,7 @@ def group(
     deprecated: bool = ...,
     # User-defined
     **kwargs: Any,
-) -> Callable[[Callable], Group]:
-    ...
-
+) -> Callable[[Callable[..., Any]], Group]: ...
 
 def argument(
     *param_decls: str,

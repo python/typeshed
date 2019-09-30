@@ -3,7 +3,7 @@ from jwt.algorithms import Algorithm
 
 from . import _HashAlg
 
-class RSAAlgorithm(Algorithm):
+class RSAAlgorithm(Algorithm[Any]):
     SHA256: _HashAlg
     SHA384: _HashAlg
     SHA512: _HashAlg

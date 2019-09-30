@@ -109,12 +109,12 @@ Traceback = NamedTuple(
         ('filename', str),
         ('lineno', int),
         ('function', str),
-        ('code_context', List[str]),
-        ('index', int),
+        ('code_context', Optional[List[str]]),
+        ('index', Optional[int]),
     ]
 )
 
-_FrameInfo = Tuple[FrameType, str, int, str, List[str], int]
+_FrameInfo = Tuple[FrameType, str, int, str, Optional[List[str]], Optional[int]]
 
 def getouterframes(frame: FrameType, context: int = ...) -> List[_FrameInfo]: ...
 def getframeinfo(frame: Union[FrameType, TracebackType], context: int = ...) -> Traceback: ...

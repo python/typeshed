@@ -7,6 +7,11 @@ from types import FrameType
 from .events import AbstractEventLoop
 from .futures import Future
 
+if sys.version_info >= (3, 8):
+    from typing import Literal
+else:
+    from typing_extensions import Literal
+
 __all__: List[str]
 
 _T = TypeVar('_T')
@@ -27,28 +32,58 @@ def ensure_future(coro_or_future: _FutureT[_T],
                   *, loop: Optional[AbstractEventLoop] = ...) -> Future[_T]: ...
 # Prior to Python 3.7 'async' was an alias for 'ensure_future'.
 # It became a keyword in 3.7.
+
+# `gather()` actually returns a list with length equal to the number
+# of tasks passed; however, Tuple is used similar to the annotation for
+# zip() because typing does not support variadic type variables.  See
+# typing PR #1550 for discussion.
 @overload
 def gather(coro_or_future1: _FutureT[_T1],
-           *, loop: Optional[AbstractEventLoop] = ..., return_exceptions: bool = ...) -> Future[Tuple[_T1]]: ...
+           *, loop: Optional[AbstractEventLoop] = ..., return_exceptions: Literal[False] = ...) -> Future[Tuple[_T1]]: ...
 @overload
 def gather(coro_or_future1: _FutureT[_T1], coro_or_future2: _FutureT[_T2],
-           *, loop: Optional[AbstractEventLoop] = ..., return_exceptions: bool = ...) -> Future[Tuple[_T1, _T2]]: ...
+           *, loop: Optional[AbstractEventLoop] = ..., return_exceptions: Literal[False] = ...) -> Future[Tuple[_T1, _T2]]: ...
 @overload
 def gather(coro_or_future1: _FutureT[_T1], coro_or_future2: _FutureT[_T2], coro_or_future3: _FutureT[_T3],
-           *, loop: Optional[AbstractEventLoop] = ..., return_exceptions: bool = ...) -> Future[Tuple[_T1, _T2, _T3]]: ...
+           *, loop: Optional[AbstractEventLoop] = ...,
+           return_exceptions: Literal[False] = ...) -> Future[Tuple[_T1, _T2, _T3]]: ...
 @overload
 def gather(coro_or_future1: _FutureT[_T1], coro_or_future2: _FutureT[_T2], coro_or_future3: _FutureT[_T3],
            coro_or_future4: _FutureT[_T4],
-           *, loop: Optional[AbstractEventLoop] = ..., return_exceptions: bool = ...) -> Future[Tuple[_T1, _T2, _T3, _T4]]: ...
+           *, loop: Optional[AbstractEventLoop] = ...,
+           return_exceptions: Literal[False] = ...) -> Future[Tuple[_T1, _T2, _T3, _T4]]: ...
 @overload
 def gather(coro_or_future1: _FutureT[_T1], coro_or_future2: _FutureT[_T2], coro_or_future3: _FutureT[_T3],
            coro_or_future4: _FutureT[_T4], coro_or_future5: _FutureT[_T5],
-           *, loop: Optional[AbstractEventLoop] = ..., return_exceptions: bool = ...) -> Future[Tuple[_T1, _T2, _T3, _T4, _T5]]: ...
+           *, loop: Optional[AbstractEventLoop] = ...,
+           return_exceptions: Literal[False] = ...) -> Future[Tuple[_T1, _T2, _T3, _T4, _T5]]: ...
 @overload
 def gather(coro_or_future1: _FutureT[Any], coro_or_future2: _FutureT[Any], coro_or_future3: _FutureT[Any],
            coro_or_future4: _FutureT[Any], coro_or_future5: _FutureT[Any], coro_or_future6: _FutureT[Any],
            *coros_or_futures: _FutureT[Any],
-           loop: Optional[AbstractEventLoop] = ..., return_exceptions: bool = ...) -> Future[Tuple[Any, ...]]: ...
+           loop: Optional[AbstractEventLoop] = ..., return_exceptions: bool = ...) -> Future[List[Any]]: ...
+@overload
+def gather(coro_or_future1: _FutureT[_T1],
+           *, loop: Optional[AbstractEventLoop] = ...,
+           return_exceptions: bool = ...) -> Future[Tuple[Union[_T1, BaseException]]]: ...
+@overload
+def gather(coro_or_future1: _FutureT[_T1], coro_or_future2: _FutureT[_T2],
+           *, loop: Optional[AbstractEventLoop] = ...,
+           return_exceptions: bool = ...) -> Future[Tuple[Union[_T1, BaseException], Union[_T2, BaseException]]]: ...
+@overload
+def gather(coro_or_future1: _FutureT[_T1], coro_or_future2: _FutureT[_T2], coro_or_future3: _FutureT[_T3],
+           *, loop: Optional[AbstractEventLoop] = ..., return_exceptions: bool = ...) -> Future[
+    Tuple[Union[_T1, BaseException], Union[_T2, BaseException], Union[_T3, BaseException]]]: ...
+@overload
+def gather(coro_or_future1: _FutureT[_T1], coro_or_future2: _FutureT[_T2], coro_or_future3: _FutureT[_T3],
+           coro_or_future4: _FutureT[_T4],
+           *, loop: Optional[AbstractEventLoop] = ..., return_exceptions: bool = ...) -> Future[
+    Tuple[Union[_T1, BaseException], Union[_T2, BaseException], Union[_T3, BaseException], Union[_T4, BaseException]]]: ...
+@overload
+def gather(coro_or_future1: _FutureT[_T1], coro_or_future2: _FutureT[_T2], coro_or_future3: _FutureT[_T3],
+           coro_or_future4: _FutureT[_T4], coro_or_future5: _FutureT[_T5],
+           *, loop: Optional[AbstractEventLoop] = ..., return_exceptions: bool = ...) -> Future[
+    Tuple[Union[_T1, BaseException], Union[_T2, BaseException], Union[_T3, BaseException], Union[_T4, BaseException], Union[_T5, BaseException]]]: ...
 def run_coroutine_threadsafe(coro: _FutureT[_T],
                              loop: AbstractEventLoop) -> concurrent.futures.Future[_T]: ...
 def shield(arg: _FutureT[_T], *, loop: Optional[AbstractEventLoop] = ...) -> Future[_T]: ...

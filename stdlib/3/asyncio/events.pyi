@@ -139,7 +139,7 @@ class AbstractEventLoop(metaclass=ABCMeta):
         @abstractmethod
         async def create_unix_connection(self, protocol_factory: _ProtocolFactory, path: str, *, ssl: _SSLContext = ...,
                                          sock: Optional[socket] = ..., server_hostname: str = ...,
-                                         ssl_handshake_timeout: Optional[float]) -> _TransProtPair: ...
+                                         ssl_handshake_timeout: Optional[float] = ...) -> _TransProtPair: ...
         @abstractmethod
         async def create_unix_server(self, protocol_factory: _ProtocolFactory, path: str, *, sock: Optional[socket] = ...,
                                      backlog: int = ..., ssl: _SSLContext = ..., ssl_handshake_timeout: Optional[float] = ...,

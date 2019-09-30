@@ -1,4 +1,4 @@
-# Stubs for logging (Python 3.4)
+# Stubs for logging (Python 3.7)
 
 from typing import (
     Any, Callable, Dict, Iterable, List, Mapping, MutableMapping, Optional, IO,
@@ -18,7 +18,10 @@ else:
     _ExcInfoType = Union[None, bool, _SysExcInfoType]
 _ArgsType = Union[Tuple[Any, ...], Mapping[str, Any]]
 _FilterType = Union[Filter, Callable[[LogRecord], int]]
-_Level = Union[int, Text]
+if sys.version_info >= (3, 2):
+    _Level = Union[int, Text]
+else:
+    _Level = int
 if sys.version_info >= (3, 6):
     from os import PathLike
     _Path = Union[str, PathLike[str]]
@@ -36,7 +39,7 @@ if sys.version_info >= (3,):
     _levelToName: Dict[int, str]
     _nameToLevel: Dict[str, int]
 else:
-    _levelNames: dict
+    _levelNames: Dict[Union[int, str], Union[str, int]]  # Union[int:str, str:int]
 
 class Filterer(object):
     filters: List[Filter]
@@ -53,7 +56,7 @@ class Logger(Filterer):
     handlers: List[Handler]
     disabled: int
     def __init__(self, name: str, level: _Level = ...) -> None: ...
-    def setLevel(self, level: Union[int, str]) -> None: ...
+    def setLevel(self, level: _Level) -> None: ...
     def isEnabledFor(self, level: int) -> bool: ...
     def getEffectiveLevel(self) -> int: ...
     def getChild(self, suffix: str) -> Logger: ...
@@ -154,7 +157,7 @@ class Handler(Filterer):
     def createLock(self) -> None: ...
     def acquire(self) -> None: ...
     def release(self) -> None: ...
-    def setLevel(self, level: Union[int, str]) -> None: ...
+    def setLevel(self, level: _Level) -> None: ...
     def setFormatter(self, fmt: Formatter) -> None: ...
     def addFilter(self, filt: _FilterType) -> None: ...
     def removeFilter(self, filt: _FilterType) -> None: ...
@@ -383,22 +386,25 @@ if sys.version_info >= (3,):
 
 
 class StreamHandler(Handler):
-    stream: IO[str]
-    if sys.version_info >= (3,):
+    stream: IO[str]  # undocumented
+    if sys.version_info >= (3, 2):
         terminator: str
     def __init__(self, stream: Optional[IO[str]] = ...) -> None: ...
+    if sys.version_info >= (3, 7):
+        def setStream(self, stream: IO[str]) -> Optional[IO[str]]: ...
 
 
-class FileHandler(Handler):
-    baseFilename: str
-    mode: str
-    encoding: Optional[str]
-    delay: bool
+class FileHandler(StreamHandler):
+    baseFilename: str  # undocumented
+    mode: str  # undocumented
+    encoding: Optional[str]  # undocumented
+    delay: bool  # undocumented
     def __init__(self, filename: _Path, mode: str = ...,
                  encoding: Optional[str] = ..., delay: bool = ...) -> None: ...
 
 
-class NullHandler(Handler): ...
+if sys.version_info >= (3, 1):
+    class NullHandler(Handler): ...
 
 
 class PlaceHolder:
