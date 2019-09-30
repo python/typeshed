@@ -13,8 +13,9 @@ from errno import (EALREADY, EINPROGRESS, EWOULDBLOCK, ECONNRESET, EINVAL,
                    EPIPE, EAGAIN, errorcode)
 
 # cyclic dependence with asynchat
-_maptype = Dict[str, Any]
+_maptype = Dict[int, Any]
 
+socket_map: _maptype = ...  # Undocumented
 
 class ExitNow(Exception): ...
 
