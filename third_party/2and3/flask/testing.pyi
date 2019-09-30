@@ -29,7 +29,7 @@ class FlaskCliRunner(CliRunner):
         self,
         cli: Optional[BaseCommand] = ...,
         args: Optional[Union[str, Iterable[str]]] = ...,
-        input: Optional[Union[bytes, IO, Text]] = ...,
+        input: Optional[Union[bytes, IO[Any], Text]] = ...,
         env: Optional[Mapping[str, str]] = ...,
         catch_exceptions: bool = ...,
         color: bool = ...,

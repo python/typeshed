@@ -3,10 +3,11 @@ import docutils.parsers.rst.states
 
 from typing import Callable, Any, List, Dict, Tuple
 
-def register_local_role(name: str,
-                        role_fn: Callable[[str, str, str, int, docutils.parsers.rst.states.Inliner, Dict, List],
-                                          Tuple[List[docutils.nodes.reference], List[docutils.nodes.reference]]]
-                        ) -> None:
-    ...
+_RoleFn = Callable[
+    [str, str, str, int, docutils.parsers.rst.states.Inliner, Dict[str, Any], List[str]],
+    Tuple[List[docutils.nodes.reference], List[docutils.nodes.reference]],
+]
 
-def __getattr__(name) -> Any: ...
+def register_local_role(name: str, role_fn: _RoleFn) -> None: ...
+
+def __getattr__(name: str) -> Any: ...  # incomplete
