@@ -26,7 +26,7 @@ import sys
 # Sychronization primitives
 _LockLike = Union[synchronize.Lock, synchronize.RLock]
 def Barrier(parties: int,
-            action: Optional[Callable] = ...,
+            action: Optional[Callable[..., Any]] = ...,
             timeout: Optional[float] = ...) -> synchronize.Barrier: ...
 def BoundedSemaphore(value: int = ...) -> synchronize.BoundedSemaphore: ...
 def Condition(lock: Optional[_LockLike] = ...) -> synchronize.Condition: ...
@@ -52,7 +52,7 @@ class Process():
     # TODO: set type of group to None
     def __init__(self,
                  group: Any = ...,
-                 target: Optional[Callable] = ...,
+                 target: Optional[Callable[..., Any]] = ...,
                  name: Optional[str] = ...,
                  args: Iterable[Any] = ...,
                  kwargs: Mapping[Any, Any] = ...,

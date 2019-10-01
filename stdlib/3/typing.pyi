@@ -75,7 +75,7 @@ _KT_co = TypeVar('_KT_co', covariant=True)  # Key type covariant containers.
 _VT_co = TypeVar('_VT_co', covariant=True)  # Value type covariant containers.
 _T_contra = TypeVar('_T_contra', contravariant=True)  # Ditto contravariant.
 _TC = TypeVar('_TC', bound=Type[object])
-_C = TypeVar("_C", bound=Callable)
+_C = TypeVar("_C", bound=Callable[..., Any])
 
 def runtime_checkable(cls: _TC) -> _TC: ...
 
@@ -166,7 +166,7 @@ class Generator(Iterator[_T_co], Generic[_T_co, _T_contra, _V_co]):
     @property
     def gi_running(self) -> bool: ...
     @property
-    def gi_yieldfrom(self) -> Optional[Generator]: ...
+    def gi_yieldfrom(self) -> Optional[Generator[Any, Any, Any]]: ...
 
 @runtime_checkable
 class Awaitable(Protocol[_T_co]):
@@ -581,8 +581,9 @@ class Pattern(Generic[AnyStr]):
 
 # Functions
 
-def get_type_hints(obj: Callable, globalns: Optional[dict[str, Any]] = ...,
-                   localns: Optional[dict[str, Any]] = ...) -> dict[str, Any]: ...
+def get_type_hints(
+    obj: Callable[..., Any], globalns: Optional[Dict[str, Any]] = ..., localns: Optional[Dict[str, Any]] = ...,
+) -> Dict[str, Any]: ...
 
 @overload
 def cast(tp: Type[_T], obj: Any) -> _T: ...
@@ -592,7 +593,7 @@ def cast(tp: str, obj: Any) -> Any: ...
 # Type constructors
 
 # NamedTuple is special-cased in the type checker
-class NamedTuple(tuple):
+class NamedTuple(Tuple[Any, ...]):
     _field_types: collections.OrderedDict[str, Type[Any]]
     _field_defaults: Dict[str, Any] = ...
     _fields: Tuple[str, ...]

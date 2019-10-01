@@ -282,12 +282,12 @@ if sys.platform != 'win32':
 
 # ----- os function stubs -----
 if sys.version_info >= (3, 6):
-    def fsencode(filename: Union[str, bytes, PathLike]) -> bytes: ...
+    def fsencode(filename: Union[str, bytes, PathLike[Any]]) -> bytes: ...
 else:
     def fsencode(filename: Union[str, bytes]) -> bytes: ...
 
 if sys.version_info >= (3, 6):
-    def fsdecode(filename: Union[str, bytes, PathLike]) -> str: ...
+    def fsdecode(filename: Union[str, bytes, PathLike[Any]]) -> str: ...
 else:
     def fsdecode(filename: Union[str, bytes]) -> str: ...
 
@@ -297,7 +297,7 @@ if sys.version_info >= (3, 6):
     @overload
     def fspath(path: bytes) -> bytes: ...
     @overload
-    def fspath(path: PathLike) -> Any: ...
+    def fspath(path: PathLike[Any]) -> Any: ...
 
 def get_exec_path(env: Optional[Mapping[str, str]] = ...) -> List[str]: ...
 # NOTE: get_exec_path(): returns List[bytes] when env not None
@@ -506,32 +506,34 @@ def utime(
     follow_symlinks: bool = ...,
 ) -> None: ...
 
+_OnError = Callable[[OSError], Any]
+
 if sys.version_info >= (3, 6):
     def walk(top: Union[AnyStr, PathLike[AnyStr]], topdown: bool = ...,
-             onerror: Optional[Callable[[OSError], Any]] = ...,
+             onerror: Optional[_OnError] = ...,
              followlinks: bool = ...) -> Iterator[Tuple[AnyStr, List[AnyStr],
                                                         List[AnyStr]]]: ...
 else:
-    def walk(top: AnyStr, topdown: bool = ..., onerror: Optional[Callable[[OSError], Any]] = ...,
+    def walk(top: AnyStr, topdown: bool = ..., onerror: Optional[_OnError] = ...,
              followlinks: bool = ...) -> Iterator[Tuple[AnyStr, List[AnyStr],
                                                         List[AnyStr]]]: ...
 if sys.platform != 'win32':
     if sys.version_info >= (3, 7):
         @overload
         def fwalk(top: Union[str, PathLike[str]] = ..., topdown: bool = ...,
-                  onerror: Optional[Callable] = ..., *, follow_symlinks: bool = ...,
+                  onerror: Optional[_OnError] = ..., *, follow_symlinks: bool = ...,
                   dir_fd: Optional[int] = ...) -> Iterator[Tuple[str, List[str], List[str], int]]: ...
         @overload
         def fwalk(top: bytes, topdown: bool = ...,
-                  onerror: Optional[Callable] = ..., *, follow_symlinks: bool = ...,
+                  onerror: Optional[_OnError] = ..., *, follow_symlinks: bool = ...,
                   dir_fd: Optional[int] = ...) -> Iterator[Tuple[bytes, List[bytes], List[bytes], int]]: ...
     elif sys.version_info >= (3, 6):
         def fwalk(top: Union[str, PathLike[str]] = ..., topdown: bool = ...,
-                  onerror: Optional[Callable] = ..., *, follow_symlinks: bool = ...,
+                  onerror: Optional[_OnError] = ..., *, follow_symlinks: bool = ...,
                   dir_fd: Optional[int] = ...) -> Iterator[Tuple[str, List[str], List[str], int]]: ...
     else:
         def fwalk(top: str = ..., topdown: bool = ...,
-                  onerror: Optional[Callable] = ..., *, follow_symlinks: bool = ...,
+                  onerror: Optional[_OnError] = ..., *, follow_symlinks: bool = ...,
                   dir_fd: Optional[int] = ...) -> Iterator[Tuple[str, List[str], List[str], int]]: ...
     def getxattr(path: _FdOrPathType, attribute: _PathType, *, follow_symlinks: bool = ...) -> bytes: ...  # Linux only
     def listxattr(path: _FdOrPathType, *, follow_symlinks: bool = ...) -> List[str]: ...  # Linux only
