@@ -37,7 +37,7 @@ if sys.version_info >= (3,):
 else:
     # TODO move _StringIO definition into boto.compat once stubs exist and rename to StringIO
     import StringIO
-    _StringIO = StringIO.StringIO
+    _StringIO = StringIO.StringIO[Any]
 
     from hashlib import _hash
     _HashType = _hash

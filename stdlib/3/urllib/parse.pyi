@@ -35,7 +35,7 @@ class _NetlocResultMixinStr(_NetlocResultMixinBase[str], _ResultMixinStr): ...
 
 class _NetlocResultMixinBytes(_NetlocResultMixinBase[bytes], _ResultMixinBytes): ...
 
-class _DefragResultBase(tuple, Generic[AnyStr]):
+class _DefragResultBase(Tuple[Any, ...], Generic[AnyStr]):
     url: AnyStr
     fragment: AnyStr
 
