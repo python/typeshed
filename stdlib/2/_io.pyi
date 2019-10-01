@@ -169,7 +169,7 @@ class TextIOWrapper(_TextIOBase):
     _CHUNK_SIZE: int
     def __init__(
         self,
-        buffer: IO[unicode],
+        buffer: IO[Any],
         encoding: Optional[Text] = ...,
         errors: Optional[Text] = ...,
         newline: Optional[Text] = ...,
