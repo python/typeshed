@@ -18,10 +18,7 @@ else:
     _ExcInfoType = Union[None, bool, _SysExcInfoType]
 _ArgsType = Union[Tuple[Any, ...], Mapping[str, Any]]
 _FilterType = Union[Filter, Callable[[LogRecord], int]]
-if sys.version_info >= (3, 2):
-    _Level = Union[int, Text]
-else:
-    _Level = int
+_Level = Union[int, Text]
 if sys.version_info >= (3, 6):
     from os import PathLike
     _Path = Union[str, PathLike[str]]
@@ -403,8 +400,7 @@ class FileHandler(StreamHandler):
                  encoding: Optional[str] = ..., delay: bool = ...) -> None: ...
 
 
-if sys.version_info >= (3, 1):
-    class NullHandler(Handler): ...
+class NullHandler(Handler): ...
 
 
 class PlaceHolder:
