@@ -202,7 +202,7 @@ class HTTPErrorProcessor(BaseHandler):
     def https_response(self, request, response) -> _UrlopenRet: ...
 
 if sys.version_info >= (3, 6):
-    def urlretrieve(url: str, filename: Optional[Union[str, os.PathLike]] = ...,
+    def urlretrieve(url: str, filename: Optional[Union[str, os.PathLike[Any]]] = ...,
                     reporthook: Optional[Callable[[int, int, int], None]] = ...,
                     data: Optional[bytes] = ...) -> Tuple[str, HTTPMessage]: ...
 else:

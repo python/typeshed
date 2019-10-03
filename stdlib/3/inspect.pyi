@@ -77,8 +77,7 @@ def ismemberdescriptor(object: object) -> bool: ...
 #
 # Retrieving source code
 #
-_SourceObjectType = Union[ModuleType, Type, MethodType, FunctionType,
-                          TracebackType, FrameType, CodeType]
+_SourceObjectType = Union[ModuleType, Type[Any], MethodType, FunctionType, TracebackType, FrameType, CodeType, Callable[..., Any]]
 
 def findsource(object: _SourceObjectType) -> Tuple[List[str], int]: ...
 def getabsfile(object: _SourceObjectType) -> str: ...
@@ -174,7 +173,7 @@ def getclasstree(classes: List[type], unique: bool = ...) -> Any: ...
 ArgSpec = NamedTuple('ArgSpec', [('args', List[str]),
                                  ('varargs', str),
                                  ('keywords', str),
-                                 ('defaults', tuple),
+                                 ('defaults', Tuple[Any, ...]),
                                  ])
 
 Arguments = NamedTuple('Arguments', [('args', List[str]),
@@ -188,7 +187,7 @@ def getargspec(func: object) -> ArgSpec: ...
 FullArgSpec = NamedTuple('FullArgSpec', [('args', List[str]),
                                          ('varargs', Optional[str]),
                                          ('varkw', Optional[str]),
-                                         ('defaults', tuple),
+                                         ('defaults', Tuple[Any, ...]),
                                          ('kwonlyargs', List[str]),
                                          ('kwonlydefaults', Dict[str, Any]),
                                          ('annotations', Dict[str, Any]),

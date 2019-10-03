@@ -1,7 +1,8 @@
 import abc
 import sys
 from typing import (
-    Dict, Type, TypeVar, Optional, Union, Any, Generic, Mapping, ItemsView, KeysView, ValuesView
+    Dict, Type, TypeVar, Optional, Union, Any, Generic, Mapping, ItemsView, KeysView, ValuesView,
+    Callable,
 )
 
 _T = TypeVar('_T')
@@ -40,5 +41,7 @@ NoReturn = Union[None]  # Deprecated: Use typing.NoReturn instead.
 # This is intended as a class decorator, but mypy rejects abstract classes
 # when a Type[_T] is expected, so we can't give it the type we want
 def trait(cls: Any) -> Any: ...
+
+def mypyc_attr(*attrs: str, **kwattrs: object) -> Callable[[_T], _T]: ...
 
 class FlexibleAlias(Generic[_T, _U]): ...

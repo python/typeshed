@@ -14,7 +14,7 @@ def logreader(a: str) -> LogReaderType:
 def profiler(a: str, *args, **kwargs) -> Any:
     raise IOError()
 
-def resolution() -> tuple: ...
+def resolution() -> Tuple[Any, ...]: ...
 
 
 class LogReaderType(object):

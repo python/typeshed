@@ -10,11 +10,11 @@ def abstractmethod(funcobj: _FuncT) -> _FuncT: ...
 class ABCMeta(type):
     # TODO: FrozenSet
     __abstractmethods__: Set[Any]
-    _abc_cache: _weakrefset.WeakSet
+    _abc_cache: _weakrefset.WeakSet[Any]
     _abc_invalidation_counter: int
-    _abc_negative_cache: _weakrefset.WeakSet
+    _abc_negative_cache: _weakrefset.WeakSet[Any]
     _abc_negative_cache_version: int
-    _abc_registry: _weakrefset.WeakSet
+    _abc_registry: _weakrefset.WeakSet[Any]
     def __init__(self, name: str, bases: Tuple[type, ...], namespace: Dict[Any, Any]) -> None: ...
     def __instancecheck__(cls: ABCMeta, instance: Any) -> Any: ...
     def __subclasscheck__(cls: ABCMeta, subclass: Any) -> Any: ...
