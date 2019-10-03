@@ -3,7 +3,7 @@
 from ipaddress import IPv4Address, IPv6Address
 
 from types import TracebackType
-from typing import Any, Mapping, Optional, Sequence, Type, Union
+from typing import Any, Mapping, Optional, Sequence, Tuple, Type, Union
 
 class Reader:
     closed: bool = ...
