@@ -1,0 +1,29 @@
+from cryptography.hazmat.primitives.ciphers import BlockCipherAlgorithm, CipherAlgorithm
+from cryptography.hazmat.primitives.ciphers.modes import ModeWithNonce
+
+class AES(BlockCipherAlgorithm, CipherAlgorithm):
+    def __init__(self, key: bytes) -> None: ...
+
+class ARC4(CipherAlgorithm):
+    def __init__(self, key: bytes) -> None: ...
+
+class Blowfish(BlockCipherAlgorithm, CipherAlgorithm):
+    def __init__(self, key: bytes) -> None: ...
+
+class Camelia(BlockCipherAlgorithm, CipherAlgorithm):
+    def __init__(self, key: bytes) -> None: ...
+
+class CAST5(BlockCipherAlgorithm, CipherAlgorithm):
+    def __init__(self, key: bytes) -> None: ...
+
+class ChaCha20(CipherAlgorithm, ModeWithNonce):
+    def __init__(self, key: bytes, nonce: bytes) -> None: ...
+
+class IDEA(CipherAlgorithm):
+    def __init__(self, key: bytes) -> None: ...
+
+class SEED(BlockCipherAlgorithm, CipherAlgorithm):
+    def __init__(self, key: bytes) -> None: ...
+
+class TripleDES(BlockCipherAlgorithm, CipherAlgorithm):
+    def __init__(self, key: bytes) -> None: ...
