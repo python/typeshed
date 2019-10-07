@@ -72,8 +72,8 @@ if sys.version_info < (3,):
 
 if sys.version_info >= (3, 5):
     class TracebackException:
-        __cause__ = ...  # type:TracebackException
-        __context__ = ...  # type:TracebackException
+        __cause__: TracebackException
+        __context__: TracebackException
         __suppress_context__: bool
         stack: StackSummary
         exc_type: Type[BaseException]
@@ -94,7 +94,7 @@ if sys.version_info >= (3, 5):
         def format(self, *, chain: bool = ...) -> Generator[str, None, None]: ...
         def format_exception_only(self) -> Generator[str, None, None]: ...
 
-    class FrameSummary(Iterable):
+    class FrameSummary(Iterable[Any]):
         filename: str
         lineno: int
         name: str

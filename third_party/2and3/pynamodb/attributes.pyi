@@ -5,7 +5,7 @@ from datetime import datetime
 _T = TypeVar('_T')
 _KT = TypeVar('_KT')
 _VT = TypeVar('_VT')
-_MT = TypeVar('_MT', bound='MapAttribute')
+_MT = TypeVar('_MT', bound=MapAttribute[Any, Any])
 
 class Attribute(Generic[_T]):
     attr_name: Optional[Text]
@@ -91,6 +91,6 @@ class ListAttribute(Generic[_T], Attribute[List[_T]]):
     def __init__(self, hash_key: bool = ..., range_key: bool = ..., null: Optional[bool] = ..., default: Optional[Union[Any, Callable[..., Any]]] = ..., attr_name: Optional[Text] = ..., of: Optional[Type[_T]] = ...) -> None: ...
     def __get__(self, instance: Any, owner: Any) -> List[_T]: ...
 
-DESERIALIZE_CLASS_MAP: Dict[Text, Attribute]
-SERIALIZE_CLASS_MAP: Dict[Type, Attribute]
-SERIALIZE_KEY_MAP: Dict[Type, Text]
+DESERIALIZE_CLASS_MAP: Dict[Text, Attribute[Any]]
+SERIALIZE_CLASS_MAP: Dict[Type[Any], Attribute[Any]]
+SERIALIZE_KEY_MAP: Dict[Type[Any], Text]

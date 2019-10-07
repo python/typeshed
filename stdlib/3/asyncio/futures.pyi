@@ -14,7 +14,7 @@ if sys.version_info >= (3, 7):
 __all__: List[str]
 
 _T = TypeVar('_T')
-_S = TypeVar('_S', bound=Future)
+_S = TypeVar('_S')
 
 class InvalidStateError(Error): ...
 
@@ -26,8 +26,7 @@ class _TracebackLogger:
     def clear(self) -> None: ...
     def __del__(self) -> None: ...
 
-if sys.version_info >= (3, 5):
-    def isfuture(obj: object) -> bool: ...
+def isfuture(obj: object) -> bool: ...
 
 class Future(Awaitable[_T], Iterable[_T]):
     _state: str

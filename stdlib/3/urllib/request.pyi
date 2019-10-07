@@ -4,7 +4,7 @@ from typing import (
     Any, Callable, ClassVar, Dict, List, IO, Mapping, Optional, Sequence, Tuple,
     TypeVar, Union, overload, NoReturn,
 )
-from http.client import HTTPResponse, HTTPMessage, HTTPConnectionProtocol
+from http.client import HTTPResponse, HTTPMessage, _HTTPConnectionProtocol
 from http.cookiejar import CookieJar
 from email.message import Message
 from urllib.response import addinfourl
@@ -13,7 +13,7 @@ import sys
 import os
 
 _T = TypeVar('_T')
-_UrlopenRet = Union[_HTTPResponse, addinfourl]
+_UrlopenRet = Any
 
 class _HTTPResponse(HTTPResponse):
     url: str
@@ -34,6 +34,7 @@ def pathname2url(path: str) -> str: ...
 def getproxies() -> Dict[str, str]: ...
 def parse_http_list(s: str) -> List[str]: ...
 def parse_keqv_list(l: List[str]) -> Dict[str, str]: ...
+def proxy_bypass(host: str) -> Any: ...  # Undocumented
 
 class Request:
     @property
@@ -115,14 +116,17 @@ class HTTPPasswordMgrWithDefaultRealm(HTTPPasswordMgr):
                      user: str, passwd: str) -> None: ...
     def find_user_password(self, realm: str, authuri: str) -> Tuple[Optional[str], Optional[str]]: ...
 
-if sys.version_info >= (3, 5):
-    class HTTPPasswordMgrWithPriorAuth(HTTPPasswordMgrWithDefaultRealm):
-        def add_password(self, realm: str, uri: Union[str, Sequence[str]],
-                         user: str, passwd: str,
-                         is_authenticated: bool = ...) -> None: ...
-        def update_authenticated(self, uri: Union[str, Sequence[str]],
-                                 is_authenticated: bool = ...) -> None: ...
-        def is_authenticated(self, authuri: str) -> bool: ...
+class HTTPPasswordMgrWithPriorAuth(HTTPPasswordMgrWithDefaultRealm):
+    def add_password(
+        self,
+        realm: str,
+        uri: Union[str, Sequence[str]],
+        user: str,
+        passwd: str,
+        is_authenticated: bool = ...,
+    ) -> None: ...
+    def update_authenticated(self, uri: Union[str, Sequence[str]], is_authenticated: bool = ...) -> None: ...
+    def is_authenticated(self, authuri: str) -> bool: ...
 
 class AbstractBasicAuthHandler:
     def __init__(self,
@@ -162,7 +166,7 @@ class AbstractHTTPHandler(BaseHandler):  # undocumented
     def set_http_debuglevel(self, level: int) -> None: ...
     def do_request_(self, request: Request) -> Request: ...
     def do_open(self,
-                http_class: HTTPConnectionProtocol,
+                http_class: _HTTPConnectionProtocol,
                 req: Request,
                 **http_conn_args: Any) -> HTTPResponse: ...
 
@@ -198,7 +202,7 @@ class HTTPErrorProcessor(BaseHandler):
     def https_response(self, request, response) -> _UrlopenRet: ...
 
 if sys.version_info >= (3, 6):
-    def urlretrieve(url: str, filename: Optional[Union[str, os.PathLike]] = ...,
+    def urlretrieve(url: str, filename: Optional[Union[str, os.PathLike[Any]]] = ...,
                     reporthook: Optional[Callable[[int, int, int], None]] = ...,
                     data: Optional[bytes] = ...) -> Tuple[str, HTTPMessage]: ...
 else:

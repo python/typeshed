@@ -49,5 +49,5 @@ class EscapeFormatter(string.Formatter):
     def __init__(self, escape: Callable[[text_type], Markup]) -> None: ...
     def format_field(self, value: text_type, format_spec: text_type) -> Markup: ...
 
-if sys.version_info[0] >= 3:
+if sys.version_info >= (3,):
     soft_str = soft_unicode

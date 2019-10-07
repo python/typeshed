@@ -64,6 +64,23 @@ class CodeType:
     co_nlocals: int
     co_stacksize: int
     co_varnames: Tuple[str, ...]
+    def __init__(
+        self,
+        argcount: int,
+        nlocals: int,
+        stacksize: int,
+        flags: int,
+        codestring: str,
+        constants: Tuple[Any, ...],
+        names: Tuple[str, ...],
+        varnames: Tuple[str, ...],
+        filename: str,
+        name: str,
+        firstlineno: int,
+        lnotab: str,
+        freevars: Tuple[str, ...] = ...,
+        cellvars: Tuple[str, ...] = ...,
+    ) -> None: ...
 
 class GeneratorType:
     gi_code: CodeType
@@ -86,7 +103,7 @@ class UnboundMethodType:
     __name__: str
     __func__ = im_func
     __self__ = im_self
-    def __init__(self, func: Callable, obj: object) -> None: ...
+    def __init__(self, func: Callable[..., Any], obj: object) -> None: ...
     def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
 
 class InstanceType(object): ...
@@ -137,7 +154,7 @@ class EllipsisType: ...
 class DictProxyType:
     # TODO is it possible to have non-string keys?
     # no __init__
-    def copy(self) -> dict: ...
+    def copy(self) -> Dict[Any, Any]: ...
     def get(self, key: str, default: _T = ...) -> Union[Any, _T]: ...
     def has_key(self, key: str) -> bool: ...
     def items(self) -> List[Tuple[str, Any]]: ...

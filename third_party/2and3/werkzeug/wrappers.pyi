@@ -1,8 +1,8 @@
+import sys
 from datetime import datetime
 from typing import (
-    Any, Callable, Iterable, Iterator, Mapping, MutableMapping, Optional, Sequence, Text, Tuple, Type, TypeVar, Union,
+    Any, Callable, Iterable, Iterator, Mapping, MutableMapping, Optional, Sequence, Text, Tuple, Type, TypeVar, Union, overload
 )
-
 from wsgiref.types import WSGIEnvironment, InputStream
 
 from .datastructures import (
@@ -12,15 +12,20 @@ from .datastructures import (
 )
 from .useragents import UserAgent
 
+if sys.version_info >= (3, 8):
+    from typing import Literal
+else:
+    from typing_extensions import Literal
+
 class BaseRequest:
     charset: str
     encoding_errors: str
     max_content_length: Optional[int]
     max_form_memory_size: int
-    parameter_storage_class: Type
-    list_storage_class: Type
-    dict_storage_class: Type
-    form_data_parser_class: Type
+    parameter_storage_class: Type[Any]
+    list_storage_class: Type[Any]
+    dict_storage_class: Type[Any]
+    form_data_parser_class: Type[Any]
     trusted_hosts: Optional[Sequence[Text]]
     disable_data_descriptor: Any
     environ: WSGIEnvironment = ...
@@ -41,14 +46,22 @@ class BaseRequest:
     @property
     def stream(self) -> InputStream: ...
     input_stream: InputStream
-    args: ImmutableMultiDict
+    args: ImmutableMultiDict[Any, Any]
     @property
     def data(self) -> bytes: ...
-    # TODO: once Literal types are supported, overload with as_text
-    def get_data(self, cache: bool = ..., as_text: bool = ..., parse_form_data: bool = ...) -> Any: ...  # returns bytes if as_text is False (the default), else Text
-    form: ImmutableMultiDict
-    values: CombinedMultiDict
-    files: MultiDict
+    @overload
+    def get_data(self, cache: bool = ..., as_text: Literal[False] = ..., parse_form_data: bool = ...) -> bytes: ...
+    @overload
+    def get_data(self, cache: bool, as_text: Literal[True], parse_form_data: bool = ...) -> Text: ...
+    @overload
+    def get_data(self, *, as_text: Literal[True], parse_form_data: bool = ...) -> Text: ...
+    @overload
+    def get_data(self, cache: bool, as_text: bool, parse_form_data: bool = ...) -> Any: ...
+    @overload
+    def get_data(self, *, as_text: bool, parse_form_data: bool = ...) -> Any: ...
+    form: ImmutableMultiDict[Any, Any]
+    values: CombinedMultiDict[Any, Any]
+    files: MultiDict[Any, Any]
     @property
     def cookies(self) -> ImmutableTypeConversionDict[str, str]: ...
     headers: EnvironHeaders
@@ -107,8 +120,12 @@ class BaseResponse:
     def force_type(cls: Type[_SelfT], response: object, environ: Optional[WSGIEnvironment] = ...) -> _SelfT: ...
     @classmethod
     def from_app(cls: Type[_SelfT], app: Any, environ: WSGIEnvironment, buffered: bool = ...) -> _SelfT: ...
-    # TODO: once Literal types are supported, overload with as_text
-    def get_data(self, as_text: bool = ...) -> Any: ...  # returns bytes if as_text is False (the default), else Text
+    @overload
+    def get_data(self, as_text: Literal[False] = ...) -> bytes: ...
+    @overload
+    def get_data(self, as_text: Literal[True]) -> Text: ...
+    @overload
+    def get_data(self, as_text: bool) -> Any: ...
     def set_data(self, value: Union[bytes, Text]) -> None: ...
     data: Any
     def calculate_content_length(self) -> Optional[int]: ...

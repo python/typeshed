@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Any, Optional, Tuple
 
 whitespace_re: Any
 string_re: Any
@@ -72,7 +72,7 @@ class Failure:
     def __init__(self, message, cls: Any = ...) -> None: ...
     def __call__(self, lineno, filename): ...
 
-class Token(tuple):
+class Token(Tuple[int, Any, Any]):
     lineno: Any
     type: Any
     value: Any

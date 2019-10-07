@@ -1,4 +1,4 @@
-from typing import Any, Callable, IO, Iterable, List, Optional, TypeVar, Union, Tuple as _PyTuple, Type
+from typing import Any, Callable, Generic, IO, Iterable, List, Optional, TypeVar, Union, Tuple as _PyTuple, Type
 import datetime
 import uuid
 
@@ -71,8 +71,13 @@ class FloatParamType(ParamType):
 
 
 class FloatRange(FloatParamType):
-    ...
-
+    def __init__(
+        self,
+        min: Optional[float] = ...,
+        max: Optional[float] = ...,
+        clamp: bool = ...,
+    ) -> None:
+        ...
 
 class File(ParamType):
     def __init__(
@@ -82,38 +87,19 @@ class File(ParamType):
         errors: Optional[str] = ...,
         lazy: Optional[bool] = ...,
         atomic: Optional[bool] = ...,
-    ) -> None:
-        ...
-
-    def __call__(
-        self,
-        value: Optional[str],
-        param: Optional[Parameter] = ...,
-        ctx: Optional[Context] = ...,
-    ) -> IO:
-        ...
-
-    def convert(
-        self,
-        value: str,
-        param: Optional[Parameter],
-        ctx: Optional[Context],
-    ) -> IO:
-        ...
-
-    def resolve_lazy_flag(self, value: str) -> bool:
-        ...
-
+    ) -> None: ...
+    def __call__(self, value: Optional[str], param: Optional[Parameter] = ..., ctx: Optional[Context] = ...) -> IO[Any]: ...
+    def convert(self, value: str, param: Optional[Parameter], ctx: Optional[Context]) -> IO[Any]: ...
+    def resolve_lazy_flag(self, value: str) -> bool: ...
 
 _F = TypeVar('_F')  # result of the function
 _Func = Callable[[Optional[str]], _F]
 
 
-class FuncParamType(ParamType):
-    func: _Func
+class FuncParamType(ParamType, Generic[_F]):
+    func: _Func[_F]
 
-    def __init__(self, func: _Func) -> None:
-        ...
+    def __init__(self, func: _Func[_F]) -> None: ...
 
     def __call__(
         self,

@@ -6,7 +6,7 @@ _VT = TypeVar('_VT')
 _T = TypeVar('_T')
 
 class UserDict(Dict[_KT, _VT], Generic[_KT, _VT]):
-    data: Mapping[_KT, _VT]
+    data: Dict[_KT, _VT]
 
     def __init__(self, initialdata: Mapping[_KT, _VT] = ...) -> None: ...
 
