@@ -24,8 +24,7 @@ class _ProactorWritePipeTransport(_ProactorBaseWritePipeTransport):
 
     def __init__(self, loop: events.AbstractEventLoop, sock: socket, protocol: streams.StreamReaderProtocol, waiter: futures.Future[Any] = ..., extra: Mapping[Any, Any] = ..., server: events.AbstractServer = ...) -> None: ...
 
-class _ProactorDuplexPipeTransport(_ProactorReadPipeTransport, _ProactorBaseWritePipeTransport, transports.Transport):
-    pass
+class _ProactorDuplexPipeTransport(_ProactorReadPipeTransport, _ProactorBaseWritePipeTransport, transports.Transport): ...
 
 class BaseProactorEventLoop(base_events.BaseEventLoop):
 
