@@ -4,7 +4,6 @@
 
 from abc import ABCMeta, abstractmethod
 from typing import Any, Callable, Generic, Dict, Iterable, Optional, Sequence, Tuple, TypeVar, overload
-from collections import namedtuple
 
 _AnyCallable = Callable[..., Any]
 

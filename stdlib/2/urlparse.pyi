@@ -25,15 +25,13 @@ class ResultMixin(object):
     @property
     def port(self) -> int: ...
 
-class SplitResult(
-    NamedTuple(
-        'SplitResult',
-        [
-            ('scheme', str), ('netloc', str), ('path', str), ('query', str), ('fragment', str)
-        ]
-    ),
-    ResultMixin
-):
+class _SplitResult(NamedTuple):
+    scheme: str
+    netloc: str
+    path: str
+    query: str
+    fragment: str
+class SplitResult(_SplitResult, ResultMixin):
     def geturl(self) -> str: ...
 
 class ParseResult(
