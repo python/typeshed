@@ -1,16 +1,16 @@
-from typing import Any
+from typing import Any, Dict
 from tornado.util import ObjectDict
 from collections import namedtuple
 
 class SSLError(Exception): ...
 
-class _NormalizedHeaderCache(dict):
+class _NormalizedHeaderCache(Dict[Any, Any]):
     size: Any
     queue: Any
     def __init__(self, size) -> None: ...
     def __missing__(self, key): ...
 
-class HTTPHeaders(dict):
+class HTTPHeaders(Dict[Any, Any]):
     def __init__(self, *args, **kwargs) -> None: ...
     def add(self, name, value): ...
     def get_list(self, name): ...

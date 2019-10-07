@@ -4,8 +4,8 @@ BOTOCORE_EXCEPTIONS: Any
 log: Any
 
 class MetaTable:
-    data: Dict
-    def __init__(self, data: Dict) -> None: ...
+    data: Dict[Any, Any]
+    def __init__(self, data: Dict[Any, Any]) -> None: ...
     @property
     def range_keyname(self) -> Optional[Text]: ...
     @property

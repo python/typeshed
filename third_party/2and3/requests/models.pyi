@@ -83,7 +83,7 @@ class Request(RequestHooksMixin):
 class PreparedRequest(RequestEncodingMixin, RequestHooksMixin):
     method: Optional[Union[str, Text]]
     url: Optional[Union[str, Text]]
-    headers: CaseInsensitiveDict
+    headers: CaseInsensitiveDict[str]
     body: Optional[Union[bytes, Text]]
     hooks: Any
     def __init__(self) -> None: ...

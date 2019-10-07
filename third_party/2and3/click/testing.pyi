@@ -13,7 +13,7 @@ class EchoingStdin:
     def readlines(self) -> List[bytes]: ...
     def __iter__(self) -> Iterable[bytes]: ...
 
-def make_input_stream(input: Optional[Union[bytes, Text, IO]], charset: Text) -> BinaryIO: ...
+def make_input_stream(input: Optional[Union[bytes, Text, IO[Any]]], charset: Text) -> BinaryIO: ...
 
 class Result:
     runner: CliRunner
@@ -56,7 +56,7 @@ class CliRunner:
     def make_env(self, overrides: Optional[Mapping[str, str]] = ...) -> Dict[str, str]: ...
     def isolation(
         self,
-        input: Optional[IO] = ...,
+        input: Optional[Union[bytes, Text, IO[Any]]] = ...,
         env: Optional[Mapping[str, str]] = ...,
         color: bool = ...,
     ) -> ContextManager[BinaryIO]: ...
@@ -64,7 +64,7 @@ class CliRunner:
         self,
         cli: BaseCommand,
         args: Optional[Union[str, Iterable[str]]] = ...,
-        input: Optional[IO] = ...,
+        input: Optional[Union[bytes, Text, IO[Any]]] = ...,
         env: Optional[Mapping[str, str]] = ...,
         catch_exceptions: bool = ...,
         color: bool = ...,

@@ -54,7 +54,7 @@ class _BaseAddress(_IPAddressBase, SupportsInt):
     @property
     def packed(self) -> bytes: ...
 
-class _BaseNetwork(_IPAddressBase, Container, Iterable[_A], Generic[_A]):
+class _BaseNetwork(_IPAddressBase, Container[_A], Iterable[_A], Generic[_A]):
     network_address: _A
     netmask: _A
     def __init__(self, address: object, strict: bool = ...) -> None: ...

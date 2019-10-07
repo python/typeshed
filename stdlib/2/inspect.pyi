@@ -52,8 +52,7 @@ def isgetsetdescriptor(object: object) -> bool: ...
 def ismemberdescriptor(object: object) -> bool: ...
 
 # Retrieving source code
-_SourceObjectType = Union[ModuleType, Type, MethodType, FunctionType,
-                          TracebackType, FrameType, CodeType]
+_SourceObjectType = Union[ModuleType, Type[Any], MethodType, FunctionType, TracebackType, FrameType, CodeType]
 
 def findsource(object: _SourceObjectType) -> Tuple[List[str], int]: ...
 def getabsfile(object: _SourceObjectType) -> str: ...
@@ -69,13 +68,12 @@ def cleandoc(doc: str) -> str: ...
 def indentsize(line: str) -> int: ...
 
 # Classes and functions
-def getclasstree(classes: List[type], unique: bool = ...) -> List[
-    Union[Tuple[type, Tuple[type, ...]], list]]: ...
+def getclasstree(classes: List[type], unique: bool = ...) -> List[Union[Tuple[type, Tuple[type, ...]], List[Any]]]: ...
 
 ArgSpec = NamedTuple('ArgSpec', [('args', List[str]),
                                  ('varargs', Optional[str]),
                                  ('keywords', Optional[str]),
-                                 ('defaults', tuple),
+                                 ('defaults', Tuple[Any, ...]),
                                  ])
 
 ArgInfo = NamedTuple('ArgInfo', [('args', List[str]),
@@ -109,12 +107,12 @@ Traceback = NamedTuple(
         ('filename', str),
         ('lineno', int),
         ('function', str),
-        ('code_context', List[str]),
-        ('index', int),
+        ('code_context', Optional[List[str]]),
+        ('index', Optional[int]),
     ]
 )
 
-_FrameInfo = Tuple[FrameType, str, int, str, List[str], int]
+_FrameInfo = Tuple[FrameType, str, int, str, Optional[List[str]], Optional[int]]
 
 def getouterframes(frame: FrameType, context: int = ...) -> List[_FrameInfo]: ...
 def getframeinfo(frame: Union[FrameType, TracebackType], context: int = ...) -> Traceback: ...

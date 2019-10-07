@@ -40,6 +40,7 @@ else:
 _CMD = Union[_TXT, Sequence[_PATH]]
 _ENV = Union[Mapping[bytes, _TXT], Mapping[Text, _TXT]]
 
+_S = TypeVar('_S')
 _T = TypeVar('_T')
 
 class CompletedProcess(Generic[_T]):
@@ -451,7 +452,7 @@ def call(args: _CMD,
          restore_signals: bool = ...,
          start_new_session: bool = ...,
          pass_fds: Any = ...,
-         timeout: float = ...) -> int: ...
+         timeout: Optional[float] = ...) -> int: ...
 
 # Same args as Popen.__init__
 def check_call(args: _CMD,
@@ -471,7 +472,7 @@ def check_call(args: _CMD,
                restore_signals: bool = ...,
                start_new_session: bool = ...,
                pass_fds: Any = ...,
-               timeout: float = ...) -> int: ...
+               timeout: Optional[float] = ...) -> int: ...
 
 if sys.version_info >= (3, 7):
     # 3.7 added text
@@ -493,7 +494,7 @@ if sys.version_info >= (3, 7):
                      start_new_session: bool = ...,
                      pass_fds: Any = ...,
                      *,
-                     timeout: float = ...,
+                     timeout: Optional[float] = ...,
                      input: _TXT = ...,
                      encoding: Optional[str] = ...,
                      errors: Optional[str] = ...,
@@ -517,7 +518,7 @@ if sys.version_info >= (3, 7):
                      start_new_session: bool = ...,
                      pass_fds: Any = ...,
                      *,
-                     timeout: float = ...,
+                     timeout: Optional[float] = ...,
                      input: _TXT = ...,
                      encoding: str,
                      errors: Optional[str] = ...,
@@ -541,7 +542,7 @@ if sys.version_info >= (3, 7):
                      start_new_session: bool = ...,
                      pass_fds: Any = ...,
                      *,
-                     timeout: float = ...,
+                     timeout: Optional[float] = ...,
                      input: _TXT = ...,
                      encoding: Optional[str] = ...,
                      errors: str,
@@ -566,7 +567,7 @@ if sys.version_info >= (3, 7):
                      start_new_session: bool = ...,
                      pass_fds: Any = ...,
                      # where the real keyword only ones start
-                     timeout: float = ...,
+                     timeout: Optional[float] = ...,
                      input: _TXT = ...,
                      encoding: Optional[str] = ...,
                      errors: Optional[str] = ...,
@@ -590,7 +591,7 @@ if sys.version_info >= (3, 7):
                      start_new_session: bool = ...,
                      pass_fds: Any = ...,
                      *,
-                     timeout: float = ...,
+                     timeout: Optional[float] = ...,
                      input: _TXT = ...,
                      encoding: None = ...,
                      errors: None = ...,
@@ -614,7 +615,7 @@ if sys.version_info >= (3, 7):
                      start_new_session: bool = ...,
                      pass_fds: Any = ...,
                      *,
-                     timeout: float = ...,
+                     timeout: Optional[float] = ...,
                      input: _TXT = ...,
                      encoding: Optional[str] = ...,
                      errors: Optional[str] = ...,
@@ -640,7 +641,7 @@ elif sys.version_info >= (3, 6):
                      start_new_session: bool = ...,
                      pass_fds: Any = ...,
                      *,
-                     timeout: float = ...,
+                     timeout: Optional[float] = ...,
                      input: _TXT = ...,
                      encoding: str,
                      errors: Optional[str] = ...,
@@ -663,7 +664,7 @@ elif sys.version_info >= (3, 6):
                      start_new_session: bool = ...,
                      pass_fds: Any = ...,
                      *,
-                     timeout: float = ...,
+                     timeout: Optional[float] = ...,
                      input: _TXT = ...,
                      encoding: Optional[str] = ...,
                      errors: str,
@@ -686,7 +687,7 @@ elif sys.version_info >= (3, 6):
                      pass_fds: Any = ...,
                      *,
                      universal_newlines: Literal[True],
-                     timeout: float = ...,
+                     timeout: Optional[float] = ...,
                      input: _TXT = ...,
                      encoding: Optional[str] = ...,
                      errors: Optional[str] = ...,
@@ -709,7 +710,7 @@ elif sys.version_info >= (3, 6):
                      start_new_session: bool = ...,
                      pass_fds: Any = ...,
                      *,
-                     timeout: float = ...,
+                     timeout: Optional[float] = ...,
                      input: _TXT = ...,
                      encoding: None = ...,
                      errors: None = ...,
@@ -732,7 +733,7 @@ elif sys.version_info >= (3, 6):
                      start_new_session: bool = ...,
                      pass_fds: Any = ...,
                      *,
-                     timeout: float = ...,
+                     timeout: Optional[float] = ...,
                      input: _TXT = ...,
                      encoding: Optional[str] = ...,
                      errors: Optional[str] = ...,
@@ -754,7 +755,7 @@ else:
                      restore_signals: bool = ...,
                      start_new_session: bool = ...,
                      pass_fds: Any = ...,
-                     timeout: float = ...,
+                     timeout: Optional[float] = ...,
                      input: _TXT = ...,
                      *,
                      universal_newlines: Literal[True],
@@ -776,7 +777,7 @@ else:
                      restore_signals: bool = ...,
                      start_new_session: bool = ...,
                      pass_fds: Any = ...,
-                     timeout: float = ...,
+                     timeout: Optional[float] = ...,
                      input: _TXT = ...,
                      ) -> bytes: ...
     @overload
@@ -796,7 +797,7 @@ else:
                      restore_signals: bool = ...,
                      start_new_session: bool = ...,
                      pass_fds: Any = ...,
-                     timeout: float = ...,
+                     timeout: Optional[float] = ...,
                      input: _TXT = ...,
                      ) -> Any: ...  # morally: -> _TXT
 
@@ -1169,7 +1170,7 @@ class Popen(Generic[AnyStr]):
     def send_signal(self, signal: int) -> None: ...
     def terminate(self) -> None: ...
     def kill(self) -> None: ...
-    def __enter__(self) -> Popen: ...
+    def __enter__(self: _S) -> _S: ...
     def __exit__(self, type: Optional[Type[BaseException]], value: Optional[BaseException], traceback: Optional[TracebackType]) -> None: ...
 
 # The result really is always a str.

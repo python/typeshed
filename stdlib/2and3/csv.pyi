@@ -79,7 +79,7 @@ class DictWriter(object):
     restval: Optional[Any]
     extrasaction: str
     writer: _writer
-    def __init__(self, f: Any, fieldnames: Sequence[str],
+    def __init__(self, f: Any, fieldnames: Iterable[str],
                  restval: Optional[Any] = ..., extrasaction: str = ..., dialect: _Dialect = ...,
                  *args: Any, **kwds: Any) -> None: ...
     def writeheader(self) -> None: ...
