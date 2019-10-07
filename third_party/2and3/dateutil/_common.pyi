@@ -1,9 +1,11 @@
-from typing import Optional
+from typing import Optional, TypeVar
+
+_T = TypeVar("_T")
 
 class weekday(object):
     def __init__(self, weekday: int, n: Optional[int] = ...) -> None: ...
 
-    def __call__(self, n: int) -> weekday: ...
+    def __call__(self: _T, n: int) -> _T: ...
 
     def __eq__(self, other) -> bool: ...
 

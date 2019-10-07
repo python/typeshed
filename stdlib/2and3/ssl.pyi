@@ -303,6 +303,17 @@ if sys.version_info >= (3, 6):
         ticket_lifetime_hint: int
         has_ticket: bool
 
+    class VerifyFlags(enum.IntFlag):
+        VERIFY_DEFAULT: int
+        VERIFY_CRL_CHECK_LEAF: int
+        VERIFY_CRL_CHECK_CHAIN: int
+        VERIFY_X509_STRICT: int
+        VERIFY_X509_TRUSTED_FIRST: int
+
+    class VerifyMode(enum.IntEnum):
+        CERT_NONE: int
+        CERT_OPTIONAL: int
+        CERT_REQUIRED: int
 
 # TODO below documented in cpython but not in docs.python.org
 # taken from python 3.4
