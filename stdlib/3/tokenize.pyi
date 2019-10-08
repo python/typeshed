@@ -10,13 +10,12 @@ if sys.version_info < (3, 7):
 
 _Position = Tuple[int, int]
 
-_TokenInfo = NamedTuple('TokenInfo', [
-    ('type', int),
-    ('string', str),
-    ('start', _Position),
-    ('end', _Position),
-    ('line', str)
-])
+class _TokenInfo(NamedTuple):
+    type: int
+    string: str
+    start: _Position
+    end: _Position
+    line: str
 
 class TokenInfo(_TokenInfo):
     @property
