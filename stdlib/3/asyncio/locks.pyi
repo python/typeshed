@@ -1,4 +1,4 @@
-from typing import Any, Callable, Generator, Iterable, Iterator, List, Type, TypeVar, Union, Optional, Awaitable
+from typing import Any, Callable, Generator, List, Type, TypeVar, Union, Optional, Awaitable
 
 from .coroutines import coroutine
 from .events import AbstractEventLoop

@@ -3,7 +3,6 @@
 from typing import (
     List, Optional, Union, Tuple, TypeVar, Generator, Sequence, Iterator, Any
 )
-import sys
 from email.charset import Charset
 from email.errors import MessageDefect
 from email.header import Header

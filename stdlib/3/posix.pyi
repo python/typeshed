@@ -3,7 +3,7 @@
 # NOTE: These are incomplete!
 
 import sys
-from typing import List, NamedTuple, Optional, overload, Tuple
+from typing import List, NamedTuple, Optional, overload
 
 from os import stat_result as stat_result
 

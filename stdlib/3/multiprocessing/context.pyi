@@ -5,10 +5,7 @@ import multiprocessing
 from multiprocessing import synchronize
 from multiprocessing import queues
 import sys
-from typing import (
-    Any, Callable, Iterable, Optional, List, Mapping, Sequence, Tuple, Type,
-    Union,
-)
+from typing import Any, Callable, Iterable, Optional, List, Mapping, Sequence, Type, Union
 
 _LockLike = Union[synchronize.Lock, synchronize.RLock]
 

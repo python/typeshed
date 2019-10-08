@@ -1,9 +1,6 @@
 # Stubs for multiprocessing
 
-from typing import (
-    Any, Callable, ContextManager, Iterable, Mapping, Optional, Dict, List,
-    Union, Sequence, Tuple, Type, overload
-)
+from typing import Any, Callable, Iterable, Mapping, Optional, List, Union, Sequence, Tuple, Type, overload
 
 from ctypes import _CData
 from logging import Logger
