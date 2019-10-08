@@ -30,8 +30,7 @@ class Insights(City): ...
 
 class Enterprise(City): ...
 
-class SimpleModel(SimpleEquality):
-    pass
+class SimpleModel(SimpleEquality): ...
 
 class AnonymousIP(SimpleModel):
     is_anonymous: bool
