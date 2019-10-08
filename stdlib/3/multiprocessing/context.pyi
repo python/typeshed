@@ -5,10 +5,7 @@ import multiprocessing
 from multiprocessing import synchronize
 from multiprocessing import queues
 import sys
-from typing import (
-    Any, Callable, Iterable, Optional, List, Mapping, Sequence, Tuple, Type,
-    Union,
-)
+from typing import Any, Callable, Iterable, Optional, List, Mapping, Sequence, Type, Union
 
 _LockLike = Union[synchronize.Lock, synchronize.RLock]
 
@@ -41,7 +38,7 @@ class BaseContext(object):
 
     def Barrier(self,
                 parties: int,
-                action: Optional[Callable] = ...,
+                action: Optional[Callable[..., Any]] = ...,
                 timeout: Optional[float] = ...) -> synchronize.Barrier: ...
     def BoundedSemaphore(self,
                          value: int = ...) -> synchronize.BoundedSemaphore: ...
@@ -52,9 +49,9 @@ class BaseContext(object):
     def RLock(self) -> synchronize.RLock: ...
     def Semaphore(self, value: int = ...) -> synchronize.Semaphore: ...
 
-    def Queue(self, maxsize: int = ...) -> queues.Queue: ...
-    def JoinableQueue(self, maxsize: int = ...) -> queues.JoinableQueue: ...
-    def SimpleQueue(self) -> queues.SimpleQueue: ...
+    def Queue(self, maxsize: int = ...) -> queues.Queue[Any]: ...
+    def JoinableQueue(self, maxsize: int = ...) -> queues.JoinableQueue[Any]: ...
+    def SimpleQueue(self) -> queues.SimpleQueue[Any]: ...
     def Pool(
         self,
         processes: Optional[int] = ...,
@@ -65,7 +62,7 @@ class BaseContext(object):
     def Process(
         self,
         group: Any = ...,
-        target: Optional[Callable] = ...,
+        target: Optional[Callable[..., Any]] = ...,
         name: Optional[str] = ...,
         args: Iterable[Any] = ...,
         kwargs: Mapping[Any, Any] = ...,

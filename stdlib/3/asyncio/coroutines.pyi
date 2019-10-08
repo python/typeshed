@@ -1,4 +1,4 @@
-from typing import Any, Callable, Generator, List, TypeVar
+from typing import Any, Callable, List, TypeVar
 
 __all__: List[str]
 

@@ -52,7 +52,7 @@ if sys.version_info >= (3,):
     # Inherit both `bytearray` and `Iterable[bytes]` because mmap can be used
     # in places where bytearray is expected, like re.match, while iterating
     # through `mmap` yields `bytes` objects, not integers.
-    class mmap(_mmap, ContextManager[mmap], bytearray, Iterable[bytes], Sized):
+    class mmap(_mmap[bytes], ContextManager[mmap], bytearray, Iterable[bytes], Sized):
         closed: bool
         def rfind(self, sub: bytes, start: int = ..., stop: int = ...) -> int: ...
         @overload
@@ -68,7 +68,7 @@ if sys.version_info >= (3,):
         # __len__, so we claim that there is also an __iter__ to help type checkers.
         def __iter__(self) -> Iterator[bytes]: ...
 else:
-    class mmap(_mmap, bytes):
+    class mmap(_mmap[bytes], bytes):
         def rfind(self, string: bytes, start: int = ..., stop: int = ...) -> int: ...
         def __getitem__(self, index: Union[int, slice]) -> bytes: ...
         def __getslice__(self, i: Optional[int], j: Optional[int]) -> bytes: ...

@@ -1,7 +1,7 @@
 # NB: SocketServer.pyi and socketserver.pyi must remain consistent!
 # Stubs for socketserver
 
-from typing import Any, BinaryIO, Optional, Tuple, Type
+from typing import Any, BinaryIO, Optional, Tuple, Type, Text, Union
 from socket import SocketType
 import sys
 import types
@@ -15,7 +15,7 @@ class BaseServer:
     request_queue_size: int
     socket_type: int
     timeout: Optional[float]
-    def __init__(self, server_address: Tuple[str, int],
+    def __init__(self, server_address: Any,
                  RequestHandlerClass: type) -> None: ...
     def fileno(self) -> int: ...
     def handle_request(self) -> None: ...
@@ -38,7 +38,7 @@ class BaseServer:
         def __enter__(self) -> BaseServer: ...
         def __exit__(self, exc_type: Optional[Type[BaseException]],
                      exc_val: Optional[BaseException],
-                     exc_tb: Optional[types.TracebackType]) -> bool: ...
+                     exc_tb: Optional[types.TracebackType]) -> None: ...
     if sys.version_info >= (3, 3):
         def service_actions(self) -> None: ...
 
@@ -54,12 +54,12 @@ class UDPServer(BaseServer):
 
 if sys.platform != 'win32':
     class UnixStreamServer(BaseServer):
-        def __init__(self, server_address: Tuple[str, int],
+        def __init__(self, server_address: Union[Text, bytes],
                      RequestHandlerClass: type,
                      bind_and_activate: bool = ...) -> None: ...
 
     class UnixDatagramServer(BaseServer):
-        def __init__(self, server_address: Tuple[str, int],
+        def __init__(self, server_address: Union[Text, bytes],
                      RequestHandlerClass: type,
                      bind_and_activate: bool = ...) -> None: ...
 

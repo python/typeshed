@@ -1,4 +1,4 @@
-# Stubs for logging (Python 3.4)
+# Stubs for logging (Python 3.7)
 
 from typing import (
     Any, Callable, Dict, Iterable, List, Mapping, MutableMapping, Optional, IO,
@@ -26,6 +26,9 @@ else:
     _Path = str
 
 raiseExceptions: bool
+logThreads: bool
+logMultiprocessing: bool
+logProcesses: bool
 
 def currentframe() -> FrameType: ...
 
@@ -33,7 +36,7 @@ if sys.version_info >= (3,):
     _levelToName: Dict[int, str]
     _nameToLevel: Dict[str, int]
 else:
-    _levelNames: dict
+    _levelNames: Dict[Union[int, str], Union[str, int]]  # Union[int:str, str:int]
 
 class Filterer(object):
     filters: List[Filter]
@@ -50,8 +53,8 @@ class Logger(Filterer):
     handlers: List[Handler]
     disabled: int
     def __init__(self, name: str, level: _Level = ...) -> None: ...
-    def setLevel(self, level: Union[int, str]) -> None: ...
-    def isEnabledFor(self, lvl: int) -> bool: ...
+    def setLevel(self, level: _Level) -> None: ...
+    def isEnabledFor(self, level: int) -> bool: ...
     def getEffectiveLevel(self) -> int: ...
     def getChild(self, suffix: str) -> Logger: ...
     if sys.version_info >= (3,):
@@ -115,7 +118,7 @@ class Logger(Filterer):
         def findCaller(self) -> Tuple[str, int, str]: ...
     def handle(self, record: LogRecord) -> None: ...
     if sys.version_info >= (3,):
-        def makeRecord(self, name: str, lvl: int, fn: str, lno: int, msg: Any,
+        def makeRecord(self, name: str, level: int, fn: str, lno: int, msg: Any,
                        args: _ArgsType,
                        exc_info: Optional[_SysExcInfoType],
                        func: Optional[str] = ...,
@@ -123,7 +126,7 @@ class Logger(Filterer):
                        sinfo: Optional[str] = ...) -> LogRecord: ...
     else:
         def makeRecord(self,
-                       name: str, lvl: int, fn: str, lno: int, msg: Any,
+                       name: str, level: int, fn: str, lno: int, msg: Any,
                        args: _ArgsType,
                        exc_info: Optional[_SysExcInfoType],
                        func: Optional[str] = ...,
@@ -151,8 +154,8 @@ class Handler(Filterer):
     def createLock(self) -> None: ...
     def acquire(self) -> None: ...
     def release(self) -> None: ...
-    def setLevel(self, lvl: Union[int, str]) -> None: ...
-    def setFormatter(self, form: Formatter) -> None: ...
+    def setLevel(self, level: _Level) -> None: ...
+    def setFormatter(self, fmt: Formatter) -> None: ...
     def addFilter(self, filt: _FilterType) -> None: ...
     def removeFilter(self, filt: _FilterType) -> None: ...
     def filter(self, record: LogRecord) -> bool: ...
@@ -354,17 +357,17 @@ def getLevelName(lvl: Union[int, str]) -> Any: ...
 def makeLogRecord(attrdict: Mapping[str, Any]) -> LogRecord: ...
 
 if sys.version_info >= (3,):
-    def basicConfig(*, filename: _Path = ..., filemode: str = ...,
-                    format: str = ..., datefmt: str = ..., style: str = ...,
-                    level: _Level = ..., stream: IO[str] = ...,
-                    handlers: Iterable[Handler] = ...) -> None: ...
+    def basicConfig(*, filename: Optional[_Path] = ..., filemode: str = ...,
+                    format: str = ..., datefmt: Optional[str] = ..., style: str = ...,
+                    level: Optional[_Level] = ..., stream: Optional[IO[str]] = ...,
+                    handlers: Optional[Iterable[Handler]] = ...) -> None: ...
 else:
     @overload
     def basicConfig() -> None: ...
     @overload
-    def basicConfig(*, filename: str = ..., filemode: str = ...,
-                    format: str = ..., datefmt: str = ...,
-                    level: _Level = ..., stream: IO[str] = ...) -> None: ...
+    def basicConfig(*, filename: Optional[str] = ..., filemode: str = ...,
+                    format: str = ..., datefmt: Optional[str] = ...,
+                    level: Optional[_Level] = ..., stream: IO[str] = ...) -> None: ...
 def shutdown() -> None: ...
 
 def setLoggerClass(klass: type) -> None: ...
@@ -380,17 +383,19 @@ if sys.version_info >= (3,):
 
 
 class StreamHandler(Handler):
-    stream: IO[str]
-    if sys.version_info >= (3,):
+    stream: IO[str]  # undocumented
+    if sys.version_info >= (3, 2):
         terminator: str
     def __init__(self, stream: Optional[IO[str]] = ...) -> None: ...
+    if sys.version_info >= (3, 7):
+        def setStream(self, stream: IO[str]) -> Optional[IO[str]]: ...
 
 
-class FileHandler(Handler):
-    baseFilename: str
-    mode: str
-    encoding: Optional[str]
-    delay: bool
+class FileHandler(StreamHandler):
+    baseFilename: str  # undocumented
+    mode: str  # undocumented
+    encoding: Optional[str]  # undocumented
+    delay: bool  # undocumented
     def __init__(self, filename: _Path, mode: str = ...,
                  encoding: Optional[str] = ..., delay: bool = ...) -> None: ...
 

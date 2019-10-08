@@ -1,14 +1,12 @@
-import sys
 from typing import Any, Callable, Dict, List, Optional, Tuple
 
-if sys.version_info >= (3, 5):
-    class JSONDecodeError(ValueError):
-        msg: str
-        doc: str
-        pos: int
-        lineno: int
-        colno: int
-        def __init__(self, msg: str, doc: str, pos: int) -> None: ...
+class JSONDecodeError(ValueError):
+    msg: str
+    doc: str
+    pos: int
+    lineno: int
+    colno: int
+    def __init__(self, msg: str, doc: str, pos: int) -> None: ...
 
 class JSONDecoder:
     object_hook: Callable[[Dict[str, Any]], Any]

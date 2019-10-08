@@ -25,7 +25,7 @@ from typing import (
 _KT = TypeVar('_KT')
 _VT = TypeVar('_VT')
 
-if sys.version_info[0] >= 3:
+if sys.version_info >= (3,):
     # TODO move _StringIO definition into boto.compat once stubs exist and rename to StringIO
     import io
     _StringIO = io.StringIO
@@ -37,7 +37,7 @@ if sys.version_info[0] >= 3:
 else:
     # TODO move _StringIO definition into boto.compat once stubs exist and rename to StringIO
     import StringIO
-    _StringIO = StringIO.StringIO
+    _StringIO = StringIO.StringIO[Any]
 
     from hashlib import _hash
     _HashType = _hash
@@ -91,7 +91,7 @@ def get_instance_metadata(
     data: str = ...,
     timeout: Optional[int] = ...,
     num_retries: int = ...,
-) -> Optional[LazyLoadMetadata]: ...
+) -> Optional[LazyLoadMetadata[Any, Any]]: ...
 def get_instance_identity(
     version: str = ...,
     url: str = ...,
@@ -138,7 +138,7 @@ class ShellCommand:
         cwd: Optional[subprocess._TXT] = ...,
     ) -> None: ...
 
-    process: subprocess.Popen
+    process: subprocess.Popen[Any]
 
     def run(self, cwd: Optional[subprocess._CMD] = ...) -> Optional[int]: ...
     def setReadOnly(self, value) -> None: ...
@@ -204,7 +204,7 @@ def notify(
     append_instance_id: bool = ...,
 ) -> None: ...
 def get_utf8_value(value: str) -> bytes: ...
-def mklist(value: Any) -> List: ...
+def mklist(value: Any) -> List[Any]: ...
 def pythonize_name(name: str) -> str: ...
 def write_mime_multipart(
     content: List[Tuple[str, str]],

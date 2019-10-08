@@ -1,4 +1,4 @@
-from typing import Any, Callable, Iterator, IO, List, Optional, TypeVar, Union, Text
+from typing import Any, AnyStr, Callable, Generic, Iterator, IO, List, Optional, TypeVar, Union, Text
 
 _T = TypeVar('_T')
 
@@ -19,7 +19,7 @@ def make_default_short_help(help: str, max_length: int = ...):
     ...
 
 
-class LazyFile:
+class LazyFile(object):
     name: str
     mode: str
     encoding: Optional[str]
@@ -33,47 +33,24 @@ class LazyFile:
         encoding: Optional[str] = ...,
         errors: str = ...,
         atomic: bool = ...
-    ) -> None:
-        ...
+    ) -> None: ...
+    def open(self) -> IO[Any]: ...
+    def close(self) -> None: ...
+    def close_intelligently(self) -> None: ...
+    def __enter__(self) -> LazyFile: ...
+    def __exit__(self, exc_type, exc_value, tb): ...
+    def __iter__(self) -> Iterator[Any]: ...
 
-    def open(self) -> IO:
-        ...
-
-    def close(self) -> None:
-        ...
-
-    def close_intelligently(self) -> None:
-        ...
-
-    def __enter__(self) -> LazyFile:
-        ...
-
-    def __exit__(self, exc_type, exc_value, tb):
-        ...
-
-    def __iter__(self) -> Iterator:
-        ...
-
-
-class KeepOpenFile:
-    _file: IO
-
-    def __init__(self, file: IO) -> None:
-        ...
-
-    def __enter__(self) -> KeepOpenFile:
-        ...
-
-    def __exit__(self, exc_type, exc_value, tb):
-        ...
-
-    def __iter__(self) -> Iterator:
-        ...
-
+class KeepOpenFile(Generic[AnyStr]):
+    _file: IO[AnyStr]
+    def __init__(self, file: IO[AnyStr]) -> None: ...
+    def __enter__(self) -> KeepOpenFile[AnyStr]: ...
+    def __exit__(self, exc_type, exc_value, tb): ...
+    def __iter__(self) -> Iterator[AnyStr]: ...
 
 def echo(
     message: object = ...,
-    file: Optional[IO] = ...,
+    file: Optional[IO[Text]] = ...,
     nl: bool = ...,
     err: bool = ...,
     color: Optional[bool] = ...,
@@ -90,7 +67,6 @@ def get_text_stream(
 ) -> IO[str]:
     ...
 
-
 def open_file(
     filename: str,
     mode: str = ...,
@@ -98,13 +74,9 @@ def open_file(
     errors: str = ...,
     lazy: bool = ...,
     atomic: bool = ...
-) -> Union[IO, LazyFile, KeepOpenFile]:
-    ...
-
-
+) -> Any: ...  # really Union[IO, LazyFile, KeepOpenFile]
 def get_os_args() -> List[str]:
     ...
-
 
 def format_filename(filename: str, shorten: bool = ...) -> str:
     ...

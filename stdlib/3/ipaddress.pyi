@@ -1,4 +1,3 @@
-import sys
 from typing import (Any, Container, Generic, Iterable, Iterator, Optional,
                     overload, SupportsInt, Tuple, TypeVar)
 
@@ -25,9 +24,8 @@ class _IPAddressBase:
     def compressed(self) -> str: ...
     @property
     def exploded(self) -> str: ...
-    if sys.version_info >= (3, 5):
-        @property
-        def reverse_pointer(self) -> str: ...
+    @property
+    def reverse_pointer(self) -> str: ...
     @property
     def version(self) -> int: ...
 
@@ -56,7 +54,7 @@ class _BaseAddress(_IPAddressBase, SupportsInt):
     @property
     def packed(self) -> bytes: ...
 
-class _BaseNetwork(_IPAddressBase, Container, Iterable[_A], Generic[_A]):
+class _BaseNetwork(_IPAddressBase, Container[_A], Iterable[_A], Generic[_A]):
     network_address: _A
     netmask: _A
     def __init__(self, address: object, strict: bool = ...) -> None: ...

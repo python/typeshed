@@ -1,7 +1,5 @@
-import sys
 from asyncio.events import AbstractEventLoop
 from .coroutines import coroutine
-from .futures import Future
 from typing import Any, Generator, Generic, List, TypeVar, Optional
 
 __all__: List[str]
@@ -42,9 +40,3 @@ class PriorityQueue(Queue[_T]): ...
 
 
 class LifoQueue(Queue[_T]): ...
-
-if sys.version_info < (3, 5):
-    class JoinableQueue(Queue[_T]):
-        def task_done(self) -> None: ...
-        @coroutine
-        def join(self) -> Generator[Any, None, bool]: ...

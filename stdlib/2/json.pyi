@@ -1,4 +1,4 @@
-from typing import Any, IO, Optional, Tuple, Callable, Dict, List, Union, Text, Protocol
+from typing import Any, IO, Optional, Tuple, Callable, Dict, List, Union, Text, Protocol, Type
 
 class JSONDecodeError(ValueError):
     def dumps(self, obj: Any) -> str: ...
@@ -11,7 +11,7 @@ def dumps(obj: Any,
           ensure_ascii: bool = ...,
           check_circular: bool = ...,
           allow_nan: bool = ...,
-          cls: Any = ...,
+          cls: Optional[Type[JSONEncoder]] = ...,
           indent: Optional[int] = ...,
           separators: Optional[Tuple[str, str]] = ...,
           encoding: str = ...,
@@ -25,7 +25,7 @@ def dump(obj: Any,
          ensure_ascii: bool = ...,
          check_circular: bool = ...,
          allow_nan: bool = ...,
-         cls: Any = ...,
+         cls: Optional[Type[JSONEncoder]] = ...,
          indent: Optional[int] = ...,
          separators: Optional[Tuple[str, str]] = ...,
          encoding: str = ...,
@@ -35,8 +35,8 @@ def dump(obj: Any,
 
 def loads(s: Union[Text, bytes],
           encoding: Any = ...,
-          cls: Any = ...,
-          object_hook: Optional[Callable[[Dict], Any]] = ...,
+          cls: Optional[Type[JSONDecoder]] = ...,
+          object_hook: Optional[Callable[[Dict[Any, Any]], Any]] = ...,
           parse_float: Optional[Callable[[str], Any]] = ...,
           parse_int: Optional[Callable[[str], Any]] = ...,
           parse_constant: Optional[Callable[[str], Any]] = ...,
@@ -48,8 +48,8 @@ class _Reader(Protocol):
 
 def load(fp: _Reader,
          encoding: Optional[str] = ...,
-         cls: Any = ...,
-         object_hook: Optional[Callable[[Dict], Any]] = ...,
+         cls: Optional[Type[JSONDecoder]] = ...,
+         object_hook: Optional[Callable[[Dict[Any, Any]], Any]] = ...,
          parse_float: Optional[Callable[[str], Any]] = ...,
          parse_int: Optional[Callable[[str], Any]] = ...,
          parse_constant: Optional[Callable[[str], Any]] = ...,

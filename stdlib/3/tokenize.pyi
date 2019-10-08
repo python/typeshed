@@ -3,9 +3,10 @@ from builtins import open as _builtin_open
 import sys
 from token import *  # noqa: F403
 
-COMMENT: int
-NL: int
-ENCODING: int
+if sys.version_info < (3, 7):
+    COMMENT: int
+    NL: int
+    ENCODING: int
 
 _Position = Tuple[int, int]
 
@@ -44,7 +45,7 @@ def generate_tokens(readline: Callable[[], str]) -> Generator[TokenInfo, None, N
 
 if sys.version_info >= (3, 6):
     from os import PathLike
-    def open(filename: Union[str, bytes, int, PathLike]) -> TextIO: ...
+    def open(filename: Union[str, bytes, int, PathLike[Any]]) -> TextIO: ...
 else:
     def open(filename: Union[str, bytes, int]) -> TextIO: ...
 

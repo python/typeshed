@@ -2,7 +2,6 @@
 
 from abc import abstractmethod
 from typing import Any, List, Optional, Tuple, Union, Callable
-import sys
 from email.message import Message
 from email.errors import MessageDefect
 from email.header import Header
@@ -13,8 +12,7 @@ class Policy:
     linesep: str
     cte_type: str
     raise_on_defect: bool
-    if sys.version_info >= (3, 5):
-        mange_from: bool
+    mange_from: bool
     def __init__(self, **kw: Any) -> None: ...
     def clone(self, **kw: Any) -> Policy: ...
     def handle_defect(self, obj: Message,

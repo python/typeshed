@@ -6,7 +6,9 @@ from socket import SocketType
 import ssl
 import sys
 from typing import Any, Callable, Dict, List, Optional, Tuple, Union, overload
-if sys.version_info >= (3,):
+if sys.version_info >= (3, 7):
+    from queue import SimpleQueue, Queue
+elif sys.version_info >= (3,):
     from queue import Queue
 else:
     from Queue import Queue
@@ -195,13 +197,20 @@ class HTTPHandler(Handler):
 
 if sys.version_info >= (3,):
     class QueueHandler(Handler):
-        def __init__(self, queue: Queue) -> None: ...
+        if sys.version_info >= (3, 7):
+            def __init__(self, queue: Union[SimpleQueue[Any], Queue[Any]]) -> None: ...
+        else:
+            def __init__(self, queue: Queue[Any]) -> None: ...
         def prepare(self, record: LogRecord) -> Any: ...
         def enqueue(self, record: LogRecord) -> None: ...
 
     class QueueListener:
-        if sys.version_info >= (3, 5):
-            def __init__(self, queue: Queue, *handlers: Handler,
+        if sys.version_info >= (3, 7):
+            def __init__(self, queue: Union[SimpleQueue[Any], Queue[Any]],
+                         *handlers: Handler,
+                         respect_handler_level: bool = ...) -> None: ...
+        elif sys.version_info >= (3, 5):
+            def __init__(self, queue: Queue[Any], *handlers: Handler,
                          respect_handler_level: bool = ...) -> None: ...
         else:
             def __init__(self,

@@ -1,6 +1,5 @@
 # Stubs for _operator (Python 3.5)
 
-import sys
 from typing import AnyStr
 
 # In reality the import is the other way around, but this way we can keep the operator stub in 2and3
@@ -57,8 +56,8 @@ from operator import (
     itemgetter as itemgetter,
     attrgetter as attrgetter,
     methodcaller as methodcaller,
+    matmul as matmul,
+    imatmul as imatmul,
 )
-if sys.version_info >= (3, 5):
-    from operator import matmul as matmul, imatmul as imatmul
 
 def _compare_digest(a: AnyStr, b: AnyStr) -> bool: ...

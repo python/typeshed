@@ -4,7 +4,7 @@
 import sys
 from typing import (AbstractSet, MutableMapping, Mapping, Dict, Sequence, List,
                     Union, Iterable, Iterator, Callable, Any, IO, overload,
-                    Optional, Pattern, Type, TypeVar)
+                    Optional, Pattern, Type, TypeVar, ClassVar)
 # Types only used in type comments only
 from typing import Optional, Tuple  # noqa
 
@@ -57,6 +57,7 @@ class LegacyInterpolation(Interpolation): ...
 
 
 class RawConfigParser(_parser):
+    BOOLEAN_STATES: ClassVar[Mapping[str, bool]] = ...  # Undocumented
     def __init__(self,
                  defaults: Optional[_section] = ...,
                  dict_type: Type[Mapping[str, str]] = ...,
@@ -176,7 +177,7 @@ class SectionProxy(MutableMapping[str, str]):
     def __getattr__(self, key: str) -> Callable[..., Any]: ...
 
 class ConverterMapping(MutableMapping[str, Optional[_converter]]):
-    GETTERCRE: Pattern
+    GETTERCRE: Pattern[Any]
     def __init__(self, parser: RawConfigParser) -> None: ...
     def __getitem__(self, key: str) -> _converter: ...
     def __setitem__(self, key: str, value: Optional[_converter]) -> None: ...

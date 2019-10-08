@@ -105,6 +105,8 @@ class FileCookieJar(CookieJar):
     def load(self, filename: Optional[Any] = ..., ignore_discard: bool = ..., ignore_expires: bool = ...): ...
     def revert(self, filename: Optional[Any] = ..., ignore_discard: bool = ..., ignore_expires: bool = ...): ...
 
+class LWPCookieJar(FileCookieJar):
+    def as_lwp_str(self, ignore_discard: bool = ..., ignore_expires: bool = ...) -> str: ...  # undocumented
+
 MozillaCookieJar = FileCookieJar
-LWPCookieJar = FileCookieJar
 def lwp_cookie_str(cookie: Cookie) -> str: ...

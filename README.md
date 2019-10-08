@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/python/typeshed.svg?branch=master)](https://travis-ci.org/python/typeshed)
 [![Chat at https://gitter.im/python/typing](https://badges.gitter.im/python/typing.svg)](https://gitter.im/python/typing?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Pull Requests Welcome](https://img.shields.io/badge/pull%20requests-welcome-brightgreen.svg)](https://github.com/python/typeshed/blob/master/CONTRIBUTING.md)
 
 ## About
 
@@ -14,7 +15,7 @@ For information on how to use `typeshed`, read below.  Information for
 contributors can be found in [CONTRIBUTING.md](CONTRIBUTING.md).  **Please read
 it before submitting pull requests.**
 
-Typeshed supports Python versions 2.7 and 3.4 and up.
+Typeshed supports Python versions 2.7 and 3.5 and up.
 
 ## Using
 

@@ -1,5 +1,4 @@
 from typing import Callable, Optional, TextIO, Tuple, Type, Union
-import sys
 import unittest.case
 import unittest.result
 import unittest.suite
@@ -23,18 +22,16 @@ class TestRunner:
 
 
 class TextTestRunner(TestRunner):
-    if sys.version_info >= (3, 5):
-        def __init__(self, stream: Optional[TextIO] = ...,
-                     descriptions: bool = ..., verbosity: int = ...,
-                     failfast: bool = ..., buffer: bool = ...,
-                     resultclass: Optional[_ResultClassType] = ...,
-                     warnings: Optional[Type[Warning]] = ...,
-                     *, tb_locals: bool = ...) -> None: ...
-    else:
-        def __init__(self,
-                     stream: Optional[TextIO] = ...,
-                     descriptions: bool = ..., verbosity: int = ...,
-                     failfast: bool = ..., buffer: bool = ...,
-                     resultclass: Optional[_ResultClassType] = ...,
-                     warnings: Optional[Type[Warning]] = ...) -> None: ...
+    def __init__(
+        self,
+        stream: Optional[TextIO] = ...,
+        descriptions: bool = ...,
+        verbosity: int = ...,
+        failfast: bool = ...,
+        buffer: bool = ...,
+        resultclass: Optional[_ResultClassType] = ...,
+        warnings: Optional[Type[Warning]] = ...,
+        *,
+        tb_locals: bool = ...,
+    ) -> None: ...
     def _makeResult(self) -> unittest.result.TestResult: ...

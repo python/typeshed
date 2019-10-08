@@ -1,10 +1,6 @@
-from typing import (
-    Any, Callable, ContextManager, Iterable, Mapping, Optional, List,
-    Type, TypeVar, Generic, Iterator
-)
-from types import TracebackType
+from typing import Any, Callable, ContextManager, Iterable, Mapping, Optional, List, TypeVar, Generic, Iterator
 
-_PT = TypeVar('_PT', bound='Pool')
+_PT = TypeVar('_PT', bound=Pool)
 _S = TypeVar('_S')
 _T = TypeVar('_T')
 
@@ -17,14 +13,14 @@ class ApplyResult(Generic[_T]):
 # alias created during issue #17805
 AsyncResult = ApplyResult
 
-_IMIT = TypeVar('_IMIT', bound=IMapIterator)
+class MapResult(ApplyResult[List[_T]]): ...
 
 class IMapIterator(Iterator[_T]):
-    def __iter__(self: _IMIT) -> _IMIT: ...
+    def __iter__(self: _S) -> _S: ...
     def next(self, timeout: Optional[float] = ...) -> _T: ...
     def __next__(self, timeout: Optional[float] = ...) -> _T: ...
 
-class IMapUnorderedIterator(IMapIterator): ...
+class IMapUnorderedIterator(IMapIterator[_T]): ...
 
 class Pool(ContextManager[Pool]):
     def __init__(self, processes: Optional[int] = ...,
@@ -50,7 +46,7 @@ class Pool(ContextManager[Pool]):
                   iterable: Iterable[_S] = ...,
                   chunksize: Optional[int] = ...,
                   callback: Optional[Callable[[_T], None]] = ...,
-                  error_callback: Optional[Callable[[BaseException], None]] = ...) -> AsyncResult[List[_T]]: ...
+                  error_callback: Optional[Callable[[BaseException], None]] = ...) -> MapResult[List[_T]]: ...
     def imap(self,
              func: Callable[[_S], _T],
              iterable: Iterable[_S] = ...,

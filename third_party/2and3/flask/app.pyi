@@ -13,12 +13,50 @@ from .signals import appcontext_tearing_down, got_request_exception, request_fin
 from .templating import DispatchingJinjaLoader, Environment
 from .wrappers import Request, Response
 from .testing import FlaskClient
-from typing import Any, Callable, ContextManager, Dict, List, Optional, Type, TypeVar, Union, Text
+from types import TracebackType
+from typing import (
+    Any,
+    Callable,
+    ContextManager,
+    Dict,
+    List,
+    Optional,
+    Type,
+    TypeVar,
+    Union,
+    Text,
+    Tuple,
+    NoReturn,
+    Iterable,
+    ByteString
+)
 from datetime import timedelta
 
 def setupmethod(f: Any): ...
 
 _T = TypeVar('_T')
+
+
+_ExcInfo = Tuple[Optional[Type[BaseException]], Optional[BaseException], Optional[TracebackType]]
+_StartResponse = Callable[[str, List[Tuple[str, str]], Optional[_ExcInfo]], Callable[[bytes], Any]]
+_WSGICallable = Callable[[Dict[Text, Any], _StartResponse], Iterable[bytes]]
+
+_Status = Union[str, int]
+_Headers = Union[Dict[Any, Any], List[Tuple[Any, Any]]]
+_Body = Union[Text, ByteString, Dict[Text, Any], Response, _WSGICallable]
+_ViewFuncReturnType = Union[
+    _Body,
+    Tuple[_Body, _Status, _Headers],
+    Tuple[_Body, _Status],
+    Tuple[_Body, _Headers],
+]
+
+_ViewFunc = Union[
+    Callable[..., NoReturn],
+    Callable[..., _ViewFuncReturnType],
+]
+_VT = TypeVar('_VT', bound=_ViewFunc)
+
 
 class Flask(_PackageBoundObject):
     request_class: type = ...
@@ -89,15 +127,15 @@ class Flask(_PackageBoundObject):
     env: Optional[str] = ...
     debug: bool = ...
     def run(self, host: Optional[str] = ..., port: Optional[Union[int, str]] = ..., debug: Optional[bool] = ..., load_dotenv: bool = ..., **options: Any) -> None: ...
-    def test_client(self, use_cookies: bool = ..., **kwargs: Any) -> FlaskClient: ...
+    def test_client(self, use_cookies: bool = ..., **kwargs: Any) -> FlaskClient[Response]: ...
     def test_cli_runner(self, **kwargs: Any): ...
     def open_session(self, request: Any): ...
     def save_session(self, session: Any, response: Any): ...
     def make_null_session(self): ...
     def register_blueprint(self, blueprint: Blueprint, **options: Any) -> None: ...
     def iter_blueprints(self): ...
-    def add_url_rule(self, rule: str, endpoint: Optional[str] = ..., view_func: Callable[..., Any] = ..., provide_automatic_options: Optional[bool] = ..., **options: Any) -> None: ...
-    def route(self, rule: str, **options: Any) -> Callable[[Callable[..., _T]], Callable[..., _T]]: ...
+    def add_url_rule(self, rule: str, endpoint: Optional[str] = ..., view_func: _ViewFunc = ..., provide_automatic_options: Optional[bool] = ..., **options: Any) -> None: ...
+    def route(self, rule: str, **options: Any) -> Callable[[_VT], _VT]: ...
     def endpoint(self, endpoint: str) -> Callable[[Callable[..., _T]], Callable[..., _T]]: ...
     def errorhandler(self, code_or_exception: Union[int, Type[Exception]]) -> Callable[[Callable[..., _T]], Callable[..., _T]]: ...
     def register_error_handler(self, code_or_exception: Union[int, Type[Exception]], f: Callable[..., Any]) -> None: ...
