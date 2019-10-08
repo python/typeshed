@@ -31,7 +31,7 @@ class Insights(City): ...
 class Enterprise(City): ...
 
 class SimpleModel(SimpleEquality):
-    __metaclass__: Any
+    pass
 
 class AnonymousIP(SimpleModel):
     is_anonymous: bool

@@ -1,4 +1,4 @@
-# Stubs for maxminddb.decoder (Python 3)
+# Stubs for maxminddb.decoder (Python 2 and 3)
 
 from typing import Any, Tuple
 
