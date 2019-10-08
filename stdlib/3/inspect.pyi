@@ -233,13 +233,11 @@ def getcallargs(func: Callable[..., Any],
                 *args: Any,
                 **kwds: Any) -> Dict[str, Any]: ...
 
-
-class ClosureVars(NamedTuple): 
+class ClosureVars(NamedTuple):
     nonlocals: Mapping[str, Any]
     globals: Mapping[str, Any]
     builtins: Mapping[str, Any]
     unbound: AbstractSet[str]
-                                         ])
 def getclosurevars(func: Callable[..., Any]) -> ClosureVars: ...
 
 def unwrap(func: Callable[..., Any],
