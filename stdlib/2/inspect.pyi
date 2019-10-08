@@ -25,8 +25,8 @@ TPFLAGS_IS_ABSTRACT: int
 class ModuleInfo(NamedTuple):
     name: str
     suffix: str
-    mode:  str
-    module_type:  int
+    mode: str
+    module_type: int
 
 def getmembers(
     object: object,
@@ -107,7 +107,7 @@ class Traceback(NamedTuple):
     lineno: int
     function: str
     code_context: Optional[List[str]]
-    index: Optional[int]
+    index: Optional[int]  # type: ignore
 
 _FrameInfo = Tuple[FrameType, str, int, str, Optional[List[str]], Optional[int]]
 
