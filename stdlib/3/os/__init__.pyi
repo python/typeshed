@@ -5,7 +5,7 @@ from io import TextIOWrapper as _TextIOWrapper
 from posix import listdir as listdir, times_result
 import sys
 from typing import (
-    Mapping, MutableMapping, Dict, List, Any, Tuple, IO, Iterable, Iterator, NoReturn, overload, Union, AnyStr,
+    Mapping, MutableMapping, Dict, List, Any, Tuple, Iterable, Iterator, NoReturn, overload, Union, AnyStr,
     Optional, Generic, Set, Callable, Text, Sequence, NamedTuple, TypeVar, ContextManager
 )
 

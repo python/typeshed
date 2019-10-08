@@ -1,8 +1,8 @@
 import concurrent.futures
 import sys
-from typing import (Any, TypeVar, Set, Dict, List, TextIO, Union, Tuple, Generic, Callable,
-                    Coroutine, Generator, Iterable, Awaitable, overload, Sequence, Iterator,
-                    Optional)
+from typing import (
+    Any, TypeVar, Set, List, TextIO, Union, Tuple, Generic, Generator, Iterable, Awaitable, overload, Iterator, Optional,
+)
 from types import FrameType
 from .events import AbstractEventLoop
 from .futures import Future

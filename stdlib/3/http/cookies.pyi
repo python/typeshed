@@ -1,6 +1,6 @@
 # Stubs for http.cookies (Python 3.5)
 
-from typing import Generic, Dict, List, Mapping, MutableMapping, Optional, TypeVar, Union, Any
+from typing import Generic, Dict, List, Mapping, Optional, TypeVar, Union, Any
 
 _DataType = Union[str, Mapping[str, Union[str, Morsel[Any]]]]
 _T = TypeVar('_T')

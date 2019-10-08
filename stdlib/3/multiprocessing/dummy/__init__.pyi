@@ -1,13 +1,9 @@
-from typing import Any, Optional, List, Type
+from typing import Any, Optional, List
 
 import array
-import sys
 import threading
 import weakref
 
-from .connection import Pipe
-from threading import Lock, RLock, Semaphore, BoundedSemaphore
-from threading import Event, Condition, Barrier
 from queue import Queue
 
 JoinableQueue = Queue

@@ -1,7 +1,5 @@
-import sys
 from asyncio.events import AbstractEventLoop
 from .coroutines import coroutine
-from .futures import Future
 from typing import Any, Generator, Generic, List, TypeVar, Optional
 
 __all__: List[str]
