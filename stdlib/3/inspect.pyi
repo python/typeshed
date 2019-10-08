@@ -254,7 +254,7 @@ class Traceback(NamedTuple):
     lineno: int
     function: str
     code_context: Optional[List[str]]
-    index: Optional[int]
+    index: Optional[int]  # type: ignore
 
 class FrameInfo(NamedTuple):
     frame: FrameType
@@ -262,7 +262,7 @@ class FrameInfo(NamedTuple):
     lineno: int
     function: str
     code_context: Optional[List[str]]
-    index: Optional[int]
+    index: Optional[int]  # type: ignore
 
 def getframeinfo(frame: Union[FrameType, TracebackType], context: int = ...) -> Traceback: ...
 def getouterframes(frame: Any, context: int = ...) -> List[FrameInfo]: ...
