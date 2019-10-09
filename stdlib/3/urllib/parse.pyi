@@ -25,10 +25,10 @@ class _ResultMixinBytes(_ResultMixinBase[str]):
 
 
 class _NetlocResultMixinBase(Generic[AnyStr]):
-    username: AnyStr
-    password: AnyStr
-    hostname: AnyStr
-    port: int
+    username: Optional[AnyStr]
+    password: Optional[AnyStr]
+    hostname: Optional[AnyStr]
+    port: Optional[int]
 
 class _NetlocResultMixinStr(_NetlocResultMixinBase[str], _ResultMixinStr): ...
 
