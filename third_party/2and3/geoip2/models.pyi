@@ -1,5 +1,3 @@
-# Stubs for geoip2.models (Python 2 and 3)
-
 from typing import Any, Mapping, Optional, Sequence, Text
 
 from geoip2 import records

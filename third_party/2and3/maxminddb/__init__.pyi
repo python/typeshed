@@ -1,5 +1,3 @@
-# Stubs for maxminddb (Python 2 and 3)
-
 from typing import Text
 
 from maxminddb import reader

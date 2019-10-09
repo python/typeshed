@@ -1,5 +1,3 @@
-# Stubs for geoip2.records (Python 2 and 3)
-
 from typing import Any, Mapping, Optional, Sequence, Text, Tuple
 
 from geoip2.mixins import SimpleEquality

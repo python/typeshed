@@ -1,5 +1,3 @@
-# Stubs for geoip2.errors (Python 2 and 3)
-
 from typing import Optional, Text
 
 class GeoIP2Error(RuntimeError): ...

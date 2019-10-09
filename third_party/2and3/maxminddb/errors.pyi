@@ -1,3 +1,1 @@
-# Stubs for maxminddb.errors (Python 2 and 3)
-
 class InvalidDatabaseError(RuntimeError): ...

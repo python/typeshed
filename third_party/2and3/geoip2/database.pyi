@@ -1,5 +1,3 @@
-# Stubs for geoip2.database (Python 2 and 3)
-
 from types import TracebackType
 from typing import Optional, Sequence, Text, Type
 

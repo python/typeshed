@@ -1,5 +1,3 @@
-# Stubs for maxminddb.reader (Python 2 and 3)
-
 from ipaddress import IPv4Address, IPv6Address
 
 from types import TracebackType

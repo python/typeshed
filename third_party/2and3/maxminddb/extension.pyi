@@ -1,5 +1,3 @@
-# Stubs for maxminddb.extension (Python 2 and 3)
-
 from typing import Any, Mapping, Sequence, Text
 
 from maxminddb.errors import InvalidDatabaseError as InvalidDatabaseError
