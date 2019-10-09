@@ -21,5 +21,11 @@ jobs:
     - name: "check file consistency"
       script: ./tests/check_consistent.py
     - name: "flake8"
-      install: pip install -r requirements-tests-py3.txt
+      install: pip install $(cat requirements-tests-py3.txt | grep flake8)
       script: flake8
+    - name: "black"
+      install: pip install $(cat requirements-tests-py3.txt | grep black)
+      script: black --check --diff stdlib third_party
+    - name: "isort"
+      install: pip install $(cat requirements-tests-py3.txt | grep isort)
+      script: isort --check-only --diff --recursive stdlib third_party

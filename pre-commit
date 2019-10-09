@@ -1,0 +1,16 @@
+#!/bin/sh
+#
+# An example hook script that will reformat stubs using black and isort
+# prior to committing. Adjust BIN_DIR to where your black and isort
+# scripts are located.
+#
+# To enable this hook, copy this file to ".git/hooks".
+
+BIN_DIR=./.venv/bin
+
+CHANGED_FILES=$(git diff --cached --name-only --diff-filter=AM | grep .pyi)
+
+if test -n "${BIN_DIR}"; then
+    ${BIN_DIR}/black ${CHANGED_FILES}
+    ${BIN_DIR}/isort -y ${CHANGED_FILES}
+fi

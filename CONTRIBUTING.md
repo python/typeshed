@@ -16,6 +16,7 @@ are important to the project's success.
     * IMPORTANT: For new libraries, [get permission from the library owner first](#adding-a-new-library).
     * Create your stubs [conforming to the coding style](#stub-file-coding-style).
     * Make sure your tests pass cleanly on `mypy`, `pytype`, and `flake8`.
+    * Reformat your stubs with black and isort.
 4. [Submit your changes](#submitting-changes):
     * Open a pull request
     * For new libraries, [include a reference to where you got permission](#adding-a-new-library)
@@ -238,8 +239,14 @@ rule is that they should be as concise as possible.  Specifically:
 * use variable annotations instead of type comments, even for stubs
   that target older versions of Python;
 * for arguments with a type and a default, use spaces around the `=`.
-The code formatter [black](https://github.com/psf/black) will format
-stubs according to this standard.
+
+Stubs should be reformatted with the formatters
+[black](https://github.com/psf/black) and
+[isort](https://github.com/timothycrosley/isort) before submission.
+These formatters are included in typeshed's `requirements-tests-py3.txt` file.
+A sample `pre-commit` file is included in the typeshed repository.  Copy it
+to `.git/hooks` and adjust the path to your virtual environment's `bin`
+directory to automatically reformat stubs before commit.
 
 Stub files should only contain information necessary for the type
 checker, and leave out unnecessary detail:
