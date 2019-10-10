@@ -181,8 +181,8 @@ if sys.version_info < (3,):
 else:
     class _ASN1Object(NamedTuple('_ASN1Object', [('nid', int), ('shortname', str), ('longname', str), ('oid', str)])): ...
     class Purpose(_ASN1Object, enum.Enum):
-        SERVER_AUTH: str
-        CLIENT_AUTH: str
+        SERVER_AUTH: _ASN1Object
+        CLIENT_AUTH: _ASN1Object
 
 class SSLSocket(socket.socket):
     context: SSLContext
