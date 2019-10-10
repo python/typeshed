@@ -17,6 +17,11 @@ import sys
 if sys.version_info >= (3,):
     from typing import SupportsBytes, SupportsRound
 
+if sys.version_info >= (3, 8):
+    from typing import Literal
+else:
+    from typing_extensions import Literal
+
 _T = TypeVar('_T')
 _T_co = TypeVar('_T_co', covariant=True)
 _KT = TypeVar('_KT')
@@ -133,6 +138,8 @@ class int:
     @overload
     def __init__(self, x: Union[Text, bytes, bytearray], base: int) -> None: ...
 
+    if sys.version_info >= (3, 8):
+        def as_integer_ratio(self) -> Tuple[int, Literal[1]]: ...
     @property
     def real(self) -> int: ...
     @property
