@@ -26,6 +26,7 @@ consistent_files = [
     {'stdlib/3.7/dataclasses.pyi', 'third_party/3/dataclasses.pyi'},
     {'stdlib/3/pathlib.pyi', 'third_party/2/pathlib2.pyi'},
     {'stdlib/3.7/contextvars.pyi', 'third_party/3/contextvars.pyi'},
+    {'stdlib/3/ipaddress.pyi', 'third_party/2/ipaddress.pyi'},
 ]
 
 def main():
