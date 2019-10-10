@@ -72,7 +72,17 @@ else:
 
 def ignore_patterns(*patterns: _Path) -> Callable[[Any, List[_AnyStr]], Set[_AnyStr]]: ...
 
-if sys.version_info >= (3,):
+if sys.version_info >= (3, 8):
+    def copytree(
+        src: _Path,
+        dst: _Path,
+        symlinks: bool = ...,
+        ignore: Union[None, Callable[[str, List[str]], Iterable[str]], Callable[[_Path, List[str]], Iterable[str]]] = ...,
+        copy_function: Callable[[str, str], None] = ...,
+        ignore_dangling_symlinks: bool = ...,
+        dirs_exist_ok: bool = ...,
+    ) -> _PathReturn: ...
+elif sys.version_info >= (3,):
     def copytree(src: _Path, dst: _Path, symlinks: bool = ...,
                  ignore: Union[None,
                                Callable[[str, List[str]], Iterable[str]],
