@@ -1,3 +1,4 @@
+
 from google.protobuf.message import (
     Message,
 )
@@ -12,6 +13,3 @@ class ImportNoArenaNestedMessage(Message):
     def __init__(self,
                  d: Optional[int] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> ImportNoArenaNestedMessage: ...

@@ -1,3 +1,4 @@
+
 from google.protobuf.descriptor_pb2 import (
     FileOptions,
 )
@@ -90,17 +91,11 @@ class TestMessageWithCustomOptions(Message):
                  oneof_field: Optional[int] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> TestMessageWithCustomOptions: ...
-
 
 class CustomOptionFooRequest(Message):
 
     def __init__(self,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> CustomOptionFooRequest: ...
 
 
 class CustomOptionFooResponse(Message):
@@ -108,26 +103,17 @@ class CustomOptionFooResponse(Message):
     def __init__(self,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> CustomOptionFooResponse: ...
-
 
 class CustomOptionFooClientMessage(Message):
 
     def __init__(self,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> CustomOptionFooClientMessage: ...
-
 
 class CustomOptionFooServerMessage(Message):
 
     def __init__(self,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> CustomOptionFooServerMessage: ...
 
 
 class DummyMessageContainingEnum(Message):
@@ -155,17 +141,11 @@ class DummyMessageContainingEnum(Message):
     def __init__(self,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> DummyMessageContainingEnum: ...
-
 
 class DummyMessageInvalidAsOptionType(Message):
 
     def __init__(self,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> DummyMessageInvalidAsOptionType: ...
 
 
 class CustomOptionMinIntegerValues(Message):
@@ -173,17 +153,11 @@ class CustomOptionMinIntegerValues(Message):
     def __init__(self,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> CustomOptionMinIntegerValues: ...
-
 
 class CustomOptionMaxIntegerValues(Message):
 
     def __init__(self,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> CustomOptionMaxIntegerValues: ...
 
 
 class CustomOptionOtherValues(Message):
@@ -191,26 +165,17 @@ class CustomOptionOtherValues(Message):
     def __init__(self,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> CustomOptionOtherValues: ...
-
 
 class SettingRealsFromPositiveInts(Message):
 
     def __init__(self,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> SettingRealsFromPositiveInts: ...
-
 
 class SettingRealsFromNegativeInts(Message):
 
     def __init__(self,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> SettingRealsFromNegativeInts: ...
 
 
 class ComplexOptionType1(Message):
@@ -226,9 +191,6 @@ class ComplexOptionType1(Message):
                  foo4: Optional[Iterable[int]] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> ComplexOptionType1: ...
-
 
 class ComplexOptionType2(Message):
 
@@ -238,11 +200,6 @@ class ComplexOptionType2(Message):
         def __init__(self,
                      waldo: Optional[int] = ...,
                      ) -> None: ...
-
-        @classmethod
-        def FromString(
-            cls, s: bytes) -> ComplexOptionType2.ComplexOptionType4: ...
-    baz: int
 
     @property
     def bar(self) -> ComplexOptionType1: ...
@@ -261,9 +218,6 @@ class ComplexOptionType2(Message):
                  barney: Optional[Iterable[ComplexOptionType2.ComplexOptionType4]] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> ComplexOptionType2: ...
-
 
 class ComplexOptionType3(Message):
 
@@ -274,11 +228,6 @@ class ComplexOptionType3(Message):
                      plugh: Optional[int] = ...,
                      ) -> None: ...
 
-        @classmethod
-        def FromString(
-            cls, s: bytes) -> ComplexOptionType3.ComplexOptionType5: ...
-    qux: int
-
     @property
     def complexoptiontype5(self) -> ComplexOptionType3.ComplexOptionType5: ...
 
@@ -286,9 +235,6 @@ class ComplexOptionType3(Message):
                  qux: Optional[int] = ...,
                  complexoptiontype5: Optional[ComplexOptionType3.ComplexOptionType5] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> ComplexOptionType3: ...
 
 
 class ComplexOpt6(Message):
@@ -298,26 +244,17 @@ class ComplexOpt6(Message):
                  xyzzy: Optional[int] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> ComplexOpt6: ...
-
 
 class VariousComplexOptions(Message):
 
     def __init__(self,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> VariousComplexOptions: ...
-
 
 class AggregateMessageSet(Message):
 
     def __init__(self,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> AggregateMessageSet: ...
 
 
 class AggregateMessageSetElement(Message):
@@ -326,9 +263,6 @@ class AggregateMessageSetElement(Message):
     def __init__(self,
                  s: Optional[Text] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> AggregateMessageSetElement: ...
 
 
 class Aggregate(Message):
@@ -352,9 +286,6 @@ class Aggregate(Message):
                  mset: Optional[AggregateMessageSet] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> Aggregate: ...
-
 
 class AggregateMessage(Message):
     fieldname: int
@@ -362,9 +293,6 @@ class AggregateMessage(Message):
     def __init__(self,
                  fieldname: Optional[int] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> AggregateMessage: ...
 
 
 class NestedOptionType(Message):
@@ -394,14 +322,8 @@ class NestedOptionType(Message):
                      nested_field: Optional[int] = ...,
                      ) -> None: ...
 
-        @classmethod
-        def FromString(cls, s: bytes) -> NestedOptionType.NestedMessage: ...
-
     def __init__(self,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> NestedOptionType: ...
 
 
 class OldOptionType(Message):
@@ -428,9 +350,6 @@ class OldOptionType(Message):
     def __init__(self,
                  value: OldOptionType.TestEnum,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> OldOptionType: ...
 
 
 class NewOptionType(Message):
@@ -459,14 +378,8 @@ class NewOptionType(Message):
                  value: NewOptionType.TestEnum,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> NewOptionType: ...
-
 
 class TestMessageWithRequiredEnumOption(Message):
 
     def __init__(self,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> TestMessageWithRequiredEnumOption: ...

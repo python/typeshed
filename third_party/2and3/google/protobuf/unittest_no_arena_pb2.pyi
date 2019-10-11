@@ -1,3 +1,4 @@
+
 from google.protobuf.internal.containers import (
     RepeatedCompositeFieldContainer,
     RepeatedScalarFieldContainer,
@@ -78,9 +79,6 @@ class TestAllTypes(Message):
                      bb: Optional[int] = ...,
                      ) -> None: ...
 
-        @classmethod
-        def FromString(cls, s: bytes) -> TestAllTypes.NestedMessage: ...
-
     class OptionalGroup(Message):
         a: int
 
@@ -88,81 +86,12 @@ class TestAllTypes(Message):
                      a: Optional[int] = ...,
                      ) -> None: ...
 
-        @classmethod
-        def FromString(cls, s: bytes) -> TestAllTypes.OptionalGroup: ...
-
     class RepeatedGroup(Message):
         a: int
 
         def __init__(self,
                      a: Optional[int] = ...,
                      ) -> None: ...
-
-        @classmethod
-        def FromString(cls, s: bytes) -> TestAllTypes.RepeatedGroup: ...
-    optional_int32: int
-    optional_int64: int
-    optional_uint32: int
-    optional_uint64: int
-    optional_sint32: int
-    optional_sint64: int
-    optional_fixed32: int
-    optional_fixed64: int
-    optional_sfixed32: int
-    optional_sfixed64: int
-    optional_float: float
-    optional_double: float
-    optional_bool: bool
-    optional_string: Text
-    optional_bytes: bytes
-    optional_nested_enum: TestAllTypes.NestedEnum
-    optional_foreign_enum: ForeignEnum
-    optional_import_enum: ImportEnum
-    optional_string_piece: Text
-    optional_cord: Text
-    repeated_int32: RepeatedScalarFieldContainer[int]
-    repeated_int64: RepeatedScalarFieldContainer[int]
-    repeated_uint32: RepeatedScalarFieldContainer[int]
-    repeated_uint64: RepeatedScalarFieldContainer[int]
-    repeated_sint32: RepeatedScalarFieldContainer[int]
-    repeated_sint64: RepeatedScalarFieldContainer[int]
-    repeated_fixed32: RepeatedScalarFieldContainer[int]
-    repeated_fixed64: RepeatedScalarFieldContainer[int]
-    repeated_sfixed32: RepeatedScalarFieldContainer[int]
-    repeated_sfixed64: RepeatedScalarFieldContainer[int]
-    repeated_float: RepeatedScalarFieldContainer[float]
-    repeated_double: RepeatedScalarFieldContainer[float]
-    repeated_bool: RepeatedScalarFieldContainer[bool]
-    repeated_string: RepeatedScalarFieldContainer[Text]
-    repeated_bytes: RepeatedScalarFieldContainer[bytes]
-    repeated_nested_enum: RepeatedScalarFieldContainer[TestAllTypes.NestedEnum]
-    repeated_foreign_enum: RepeatedScalarFieldContainer[ForeignEnum]
-    repeated_import_enum: RepeatedScalarFieldContainer[ImportEnum]
-    repeated_string_piece: RepeatedScalarFieldContainer[Text]
-    repeated_cord: RepeatedScalarFieldContainer[Text]
-    default_int32: int
-    default_int64: int
-    default_uint32: int
-    default_uint64: int
-    default_sint32: int
-    default_sint64: int
-    default_fixed32: int
-    default_fixed64: int
-    default_sfixed32: int
-    default_sfixed64: int
-    default_float: float
-    default_double: float
-    default_bool: bool
-    default_string: Text
-    default_bytes: bytes
-    default_nested_enum: TestAllTypes.NestedEnum
-    default_foreign_enum: ForeignEnum
-    default_import_enum: ImportEnum
-    default_string_piece: Text
-    default_cord: Text
-    oneof_uint32: int
-    oneof_string: Text
-    oneof_bytes: bytes
 
     @property
     def optionalgroup(self) -> TestAllTypes.OptionalGroup: ...
@@ -287,9 +216,6 @@ class TestAllTypes(Message):
                  lazy_oneof_nested_message: Optional[TestAllTypes.NestedMessage] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> TestAllTypes: ...
-
 
 class ForeignMessage(Message):
     c: int
@@ -297,9 +223,6 @@ class ForeignMessage(Message):
     def __init__(self,
                  c: Optional[int] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> ForeignMessage: ...
 
 
 class TestNoArenaMessage(Message):
@@ -310,6 +233,3 @@ class TestNoArenaMessage(Message):
     def __init__(self,
                  arena_message: Optional[ArenaMessage] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> TestNoArenaMessage: ...
