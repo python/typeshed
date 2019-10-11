@@ -112,14 +112,18 @@ class HTTPResponse(io.BufferedIOBase, BinaryIO):
 # urllib.request uses it for a parameter.
 class _HTTPConnectionProtocol(Protocol):
     if sys.version_info >= (3, 7):
-        def __call__(self, host: str, port: Optional[int] = ...,
-                     timeout: float = ...,
-                     source_address: Optional[Tuple[str, int]] = ...,
-                     blocksize: int = ...): ...
+        def __call__(
+            self,
+            host: str,
+            port: Optional[int] = ...,
+            timeout: float = ...,
+            source_address: Optional[Tuple[str, int]] = ...,
+            blocksize: int = ...,
+        ) -> HTTPConnection: ...
     else:
-        def __call__(self, host: str, port: Optional[int] = ...,
-                     timeout: float = ...,
-                     source_address: Optional[Tuple[str, int]] = ...): ...
+        def __call__(
+            self, host: str, port: Optional[int] = ..., timeout: float = ..., source_address: Optional[Tuple[str, int]] = ...,
+        ) -> HTTPConnection: ...
 
 class HTTPConnection:
     timeout: float
