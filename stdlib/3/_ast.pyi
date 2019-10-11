@@ -3,6 +3,8 @@ import typing
 from typing import Any, Optional, ClassVar
 
 PyCF_ONLY_AST: int
+PyCF_TYPE_COMMENTS: int
+PyCF_ALLOW_TOP_LEVEL_AWAIT: int
 
 _identifier = str
 
