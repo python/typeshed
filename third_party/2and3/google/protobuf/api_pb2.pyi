@@ -1,3 +1,4 @@
+
 from google.protobuf.internal.containers import (
     RepeatedCompositeFieldContainer,
 )
@@ -45,9 +46,6 @@ class Api(Message):
                  syntax: Optional[Syntax] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> Api: ...
-
 
 class Method(Message):
     name: Text
@@ -70,9 +68,6 @@ class Method(Message):
                  syntax: Optional[Syntax] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> Method: ...
-
 
 class Mixin(Message):
     name: Text
@@ -82,6 +77,3 @@ class Mixin(Message):
                  name: Optional[Text] = ...,
                  root: Optional[Text] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> Mixin: ...

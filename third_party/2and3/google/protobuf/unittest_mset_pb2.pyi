@@ -1,3 +1,4 @@
+
 from google.protobuf.internal.containers import (
     RepeatedCompositeFieldContainer,
 )
@@ -24,9 +25,6 @@ class TestMessageSetContainer(Message):
                  message_set: Optional[TestMessageSet] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> TestMessageSetContainer: ...
-
 
 class TestMessageSetExtension1(Message):
     i: int
@@ -35,9 +33,6 @@ class TestMessageSetExtension1(Message):
                  i: Optional[int] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> TestMessageSetExtension1: ...
-
 
 class TestMessageSetExtension2(Message):
     str: Text
@@ -45,9 +40,6 @@ class TestMessageSetExtension2(Message):
     def __init__(self,
                  bytes: Optional[Text] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: builtins.bytes) -> TestMessageSetExtension2: ...
 
 
 class RawMessageSet(Message):
@@ -61,15 +53,9 @@ class RawMessageSet(Message):
                      message: bytes,
                      ) -> None: ...
 
-        @classmethod
-        def FromString(cls, s: bytes) -> RawMessageSet.Item: ...
-
     @property
     def item(self) -> RepeatedCompositeFieldContainer[RawMessageSet.Item]: ...
 
     def __init__(self,
                  item: Optional[Iterable[RawMessageSet.Item]] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> RawMessageSet: ...

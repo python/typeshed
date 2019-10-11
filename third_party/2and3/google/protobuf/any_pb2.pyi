@@ -1,3 +1,4 @@
+
 from google.protobuf.message import (
     Message,
 )
@@ -17,6 +18,3 @@ class Any(Message, well_known_types.Any_):
                  type_url: Optional[Text] = ...,
                  value: Optional[bytes] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> Any: ...

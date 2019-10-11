@@ -1,3 +1,4 @@
+
 from google.protobuf.internal.containers import (
     RepeatedScalarFieldContainer,
 )
@@ -19,6 +20,3 @@ class FieldMask(Message, well_known_types.FieldMask):
     def __init__(self,
                  paths: Optional[Iterable[Text]] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> FieldMask: ...

@@ -1,3 +1,4 @@
+
 from google.protobuf.internal.containers import (
     RepeatedCompositeFieldContainer,
 )
@@ -20,9 +21,6 @@ class NestedMessage(Message):
                  d: Optional[int] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> NestedMessage: ...
-
 
 class ArenaMessage(Message):
 
@@ -38,6 +36,3 @@ class ArenaMessage(Message):
                  repeated_nested_message: Optional[Iterable[NestedMessage]] = ...,
                  repeated_import_no_arena_message: Optional[Iterable[ImportNoArenaNestedMessage]] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> ArenaMessage: ...
