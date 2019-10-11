@@ -1,3 +1,4 @@
+
 from google.protobuf.message import (
     Message,
 )
@@ -35,6 +36,3 @@ class TestMessage(Message):
     def __init__(self,
                  a: Optional[int] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> TestMessage: ...

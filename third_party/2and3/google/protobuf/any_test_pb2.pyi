@@ -1,3 +1,4 @@
+
 from google.protobuf.any_pb2 import (
     Any,
 )
@@ -27,6 +28,3 @@ class TestAny(Message):
                  any_value: Optional[Any] = ...,
                  repeated_any_value: Optional[Iterable[Any]] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> TestAny: ...

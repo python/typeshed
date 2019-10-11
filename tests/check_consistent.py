@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
 
-# Symlinks are bad on Windows, so we cannot use them in typeshed.
-# This checks that certain files are duplicated exactly.
+# For various reasons we need the contents of certain files to be
+# duplicated in two places, for example stdlib/2and3/builtins.pyi and
+# stdlib/2/__builtin__.pyi must be identical.  In the past we used
+# symlinks but that doesn't always work on Windows, so now you must
+# manually update both files, and this test verifies that they are
+# identical.  The list below indicates which sets of files must match.
 
 import os
 import filecmp
@@ -22,6 +26,7 @@ consistent_files = [
     {'stdlib/3.7/dataclasses.pyi', 'third_party/3/dataclasses.pyi'},
     {'stdlib/3/pathlib.pyi', 'third_party/2/pathlib2.pyi'},
     {'stdlib/3.7/contextvars.pyi', 'third_party/3/contextvars.pyi'},
+    {'stdlib/3/ipaddress.pyi', 'third_party/2/ipaddress.pyi'},
 ]
 
 def main():

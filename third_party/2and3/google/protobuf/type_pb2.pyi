@@ -1,3 +1,4 @@
+
 from google.protobuf.any_pb2 import (
     Any,
 )
@@ -65,9 +66,6 @@ class Type(Message):
                  source_context: Optional[SourceContext] = ...,
                  syntax: Optional[Syntax] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> Type: ...
 
 
 class Field(Message):
@@ -154,9 +152,6 @@ class Field(Message):
                  default_value: Optional[Text] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> Field: ...
-
 
 class Enum(Message):
     name: Text
@@ -179,9 +174,6 @@ class Enum(Message):
                  syntax: Optional[Syntax] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> Enum: ...
-
 
 class EnumValue(Message):
     name: Text
@@ -196,9 +188,6 @@ class EnumValue(Message):
                  options: Optional[Iterable[Option]] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> EnumValue: ...
-
 
 class Option(Message):
     name: Text
@@ -210,6 +199,3 @@ class Option(Message):
                  name: Optional[Text] = ...,
                  value: Optional[Any] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> Option: ...

@@ -107,7 +107,7 @@ class AbstractEventLoop(metaclass=ABCMeta):
                     flags: int = ...) -> Generator[Any, None, List[Tuple[int, int, int, str, Tuple[Any, ...]]]]: ...
     @abstractmethod
     @coroutine
-    def getnameinfo(self, sockaddr: tuple, flags: int = ...) -> Generator[Any, None, Tuple[str, int]]: ...
+    def getnameinfo(self, sockaddr: Tuple[Any, ...], flags: int = ...) -> Generator[Any, None, Tuple[str, int]]: ...
     if sys.version_info >= (3, 7):
         @abstractmethod
         async def sock_sendfile(self, sock: socket, file: IO[bytes], offset: int = ..., count: Optional[int] = ..., *,
@@ -139,7 +139,7 @@ class AbstractEventLoop(metaclass=ABCMeta):
         @abstractmethod
         async def create_unix_connection(self, protocol_factory: _ProtocolFactory, path: str, *, ssl: _SSLContext = ...,
                                          sock: Optional[socket] = ..., server_hostname: str = ...,
-                                         ssl_handshake_timeout: Optional[float]) -> _TransProtPair: ...
+                                         ssl_handshake_timeout: Optional[float] = ...) -> _TransProtPair: ...
         @abstractmethod
         async def create_unix_server(self, protocol_factory: _ProtocolFactory, path: str, *, sock: Optional[socket] = ...,
                                      backlog: int = ..., ssl: _SSLContext = ..., ssl_handshake_timeout: Optional[float] = ...,

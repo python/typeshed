@@ -8,6 +8,7 @@ from typing import (
     Optional,
     Text,
     overload,
+    Text,
     Tuple,
     TypeVar,
     Union,
@@ -83,7 +84,7 @@ def progressbar(
     bar_template: str = ...,
     info_sep: str = ...,
     width: int = ...,
-    file: Optional[IO] = ...,
+    file: Optional[IO[Any]] = ...,
     color: Optional[bool] = ...,
 ) -> _ProgressBar[_T]:
     ...
@@ -102,7 +103,7 @@ def progressbar(
     bar_template: str = ...,
     info_sep: str = ...,
     width: int = ...,
-    file: Optional[IO] = ...,
+    file: Optional[IO[Any]] = ...,
     color: Optional[bool] = ...,
 ) -> _ProgressBar[int]:
     ...
@@ -112,7 +113,7 @@ def clear() -> None:
 
 
 def style(
-    text: str,
+    text: Text,
     fg: Optional[str] = ...,
     bg: Optional[str] = ...,
     bold: Optional[bool] = ...,
@@ -125,14 +126,14 @@ def style(
     ...
 
 
-def unstyle(text: str) -> str:
+def unstyle(text: Text) -> str:
     ...
 
 
 # Styling options copied from style() for nicer type checking.
 def secho(
     message: Optional[str] = ...,
-    file: Optional[IO] = ...,
+    file: Optional[IO[Any]] = ...,
     nl: bool = ...,
     err: bool = ...,
     color: Optional[bool] = ...,

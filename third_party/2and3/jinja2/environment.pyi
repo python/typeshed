@@ -36,7 +36,7 @@ class Environment:
     keep_trailing_newline: bool
     undefined: Type[Undefined]
     optimized: bool
-    finalize: Callable
+    finalize: Callable[..., Any]
     autoescape: Any
     filters: Any
     tests: Any
@@ -45,11 +45,56 @@ class Environment:
     cache: Any
     bytecode_cache: BytecodeCache
     auto_reload: bool
-    extensions: List
-    def __init__(self, block_start_string: Text = ..., block_end_string: Text = ..., variable_start_string: Text = ..., variable_end_string: Text = ..., comment_start_string: Any = ..., comment_end_string: Text = ..., line_statement_prefix: Text = ..., line_comment_prefix: Text = ..., trim_blocks: bool = ..., lstrip_blocks: bool = ..., newline_sequence: Text = ..., keep_trailing_newline: bool = ..., extensions: List = ..., optimized: bool = ..., undefined: Type[Undefined] = ..., finalize: Optional[Callable] = ..., autoescape: Union[bool, Callable[[str], bool]] = ..., loader: Optional[BaseLoader] = ..., cache_size: int = ..., auto_reload: bool = ..., bytecode_cache: Optional[BytecodeCache] = ..., enable_async: bool = ...) -> None: ...
+    extensions: List[Any]
+    def __init__(
+        self,
+        block_start_string: Text = ...,
+        block_end_string: Text = ...,
+        variable_start_string: Text = ...,
+        variable_end_string: Text = ...,
+        comment_start_string: Any = ...,
+        comment_end_string: Text = ...,
+        line_statement_prefix: Text = ...,
+        line_comment_prefix: Text = ...,
+        trim_blocks: bool = ...,
+        lstrip_blocks: bool = ...,
+        newline_sequence: Text = ...,
+        keep_trailing_newline: bool = ...,
+        extensions: List[Any] = ...,
+        optimized: bool = ...,
+        undefined: Type[Undefined] = ...,
+        finalize: Optional[Callable[..., Any]] = ...,
+        autoescape: Union[bool, Callable[[str], bool]] = ...,
+        loader: Optional[BaseLoader] = ...,
+        cache_size: int = ...,
+        auto_reload: bool = ...,
+        bytecode_cache: Optional[BytecodeCache] = ...,
+        enable_async: bool = ...,
+    ) -> None: ...
     def add_extension(self, extension): ...
     def extend(self, **attributes): ...
-    def overlay(self, block_start_string: Text = ..., block_end_string: Text = ..., variable_start_string: Text = ..., variable_end_string: Text = ..., comment_start_string: Any = ..., comment_end_string: Text = ..., line_statement_prefix: Text = ..., line_comment_prefix: Text = ..., trim_blocks: bool = ..., lstrip_blocks: bool = ..., extensions: List = ..., optimized: bool = ..., undefined: Type[Undefined] = ..., finalize: Callable = ..., autoescape: bool = ..., loader: Optional[BaseLoader] = ..., cache_size: int = ..., auto_reload: bool = ..., bytecode_cache: Optional[BytecodeCache] = ...): ...
+    def overlay(
+        self,
+        block_start_string: Text = ...,
+        block_end_string: Text = ...,
+        variable_start_string: Text = ...,
+        variable_end_string: Text = ...,
+        comment_start_string: Any = ...,
+        comment_end_string: Text = ...,
+        line_statement_prefix: Text = ...,
+        line_comment_prefix: Text = ...,
+        trim_blocks: bool = ...,
+        lstrip_blocks: bool = ...,
+        extensions: List[Any] = ...,
+        optimized: bool = ...,
+        undefined: Type[Undefined] = ...,
+        finalize: Callable[..., Any] = ...,
+        autoescape: bool = ...,
+        loader: Optional[BaseLoader] = ...,
+        cache_size: int = ...,
+        auto_reload: bool = ...,
+        bytecode_cache: Optional[BytecodeCache] = ...,
+    ): ...
     lexer: Any
     def iter_extensions(self): ...
     def getitem(self, obj, argument): ...
@@ -75,8 +120,7 @@ class Environment:
     # from InternationalizationExtension:
     def install_gettext_translations(self, translations: Any, newstyle: Optional[bool]): ...
     def install_null_translations(self, newstyle: Optional[bool]): ...
-    def install_gettext_callables(self, gettext: Callable, ngettext: Callable,
-                                  newstyle: Optional[bool]): ...
+    def install_gettext_callables(self, gettext: Callable[..., Any], ngettext: Callable[..., Any], newstyle: Optional[bool]): ...
     def uninstall_gettext_translations(self, translations: Any): ...
     def extract_translations(self, source: Any, gettext_functions: Any): ...
     newstyle_gettext: bool

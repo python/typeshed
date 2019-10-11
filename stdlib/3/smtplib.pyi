@@ -2,10 +2,7 @@ from email.message import Message as _Message
 from socket import socket
 from ssl import SSLContext
 from types import TracebackType
-from typing import (
-    Any, AnyStr, Dict, Generic, List, Optional, Sequence, Tuple, Union,
-    Pattern, Type, Callable, Protocol, overload)
-import sys
+from typing import Any, Dict, List, Optional, Sequence, Tuple, Union, Pattern, Type, Protocol, overload
 
 _Reply = Tuple[int, bytes]
 _SendErrs = Dict[str, _Reply]

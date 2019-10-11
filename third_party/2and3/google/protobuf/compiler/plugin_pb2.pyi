@@ -1,3 +1,4 @@
+
 from google.protobuf.descriptor_pb2 import (
     FileDescriptorProto,
 )
@@ -28,9 +29,6 @@ class Version(Message):
                  suffix: Optional[Text] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> Version: ...
-
 
 class CodeGeneratorRequest(Message):
     file_to_generate: RepeatedScalarFieldContainer[Text]
@@ -49,9 +47,6 @@ class CodeGeneratorRequest(Message):
                  compiler_version: Optional[Version] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> CodeGeneratorRequest: ...
-
 
 class CodeGeneratorResponse(Message):
 
@@ -66,10 +61,6 @@ class CodeGeneratorResponse(Message):
                      content: Optional[Text] = ...,
                      ) -> None: ...
 
-        @classmethod
-        def FromString(cls, s: bytes) -> CodeGeneratorResponse.File: ...
-    error: Text
-
     @property
     def file(self) -> RepeatedCompositeFieldContainer[CodeGeneratorResponse.File]: ...
 
@@ -77,6 +68,3 @@ class CodeGeneratorResponse(Message):
                  error: Optional[Text] = ...,
                  file: Optional[Iterable[CodeGeneratorResponse.File]] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> CodeGeneratorResponse: ...

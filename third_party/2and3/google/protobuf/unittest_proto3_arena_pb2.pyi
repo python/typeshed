@@ -1,3 +1,4 @@
+
 from google.protobuf.internal.containers import (
     RepeatedCompositeFieldContainer,
     RepeatedScalarFieldContainer,
@@ -75,50 +76,6 @@ class TestAllTypes(Message):
         def __init__(self,
                      bb: Optional[int] = ...,
                      ) -> None: ...
-
-        @classmethod
-        def FromString(cls, s: bytes) -> TestAllTypes.NestedMessage: ...
-    optional_int32: int
-    optional_int64: int
-    optional_uint32: int
-    optional_uint64: int
-    optional_sint32: int
-    optional_sint64: int
-    optional_fixed32: int
-    optional_fixed64: int
-    optional_sfixed32: int
-    optional_sfixed64: int
-    optional_float: float
-    optional_double: float
-    optional_bool: bool
-    optional_string: Text
-    optional_bytes: bytes
-    optional_nested_enum: TestAllTypes.NestedEnum
-    optional_foreign_enum: ForeignEnum
-    optional_string_piece: Text
-    optional_cord: Text
-    repeated_int32: RepeatedScalarFieldContainer[int]
-    repeated_int64: RepeatedScalarFieldContainer[int]
-    repeated_uint32: RepeatedScalarFieldContainer[int]
-    repeated_uint64: RepeatedScalarFieldContainer[int]
-    repeated_sint32: RepeatedScalarFieldContainer[int]
-    repeated_sint64: RepeatedScalarFieldContainer[int]
-    repeated_fixed32: RepeatedScalarFieldContainer[int]
-    repeated_fixed64: RepeatedScalarFieldContainer[int]
-    repeated_sfixed32: RepeatedScalarFieldContainer[int]
-    repeated_sfixed64: RepeatedScalarFieldContainer[int]
-    repeated_float: RepeatedScalarFieldContainer[float]
-    repeated_double: RepeatedScalarFieldContainer[float]
-    repeated_bool: RepeatedScalarFieldContainer[bool]
-    repeated_string: RepeatedScalarFieldContainer[Text]
-    repeated_bytes: RepeatedScalarFieldContainer[bytes]
-    repeated_nested_enum: RepeatedScalarFieldContainer[TestAllTypes.NestedEnum]
-    repeated_foreign_enum: RepeatedScalarFieldContainer[ForeignEnum]
-    repeated_string_piece: RepeatedScalarFieldContainer[Text]
-    repeated_cord: RepeatedScalarFieldContainer[Text]
-    oneof_uint32: int
-    oneof_string: Text
-    oneof_bytes: bytes
 
     @property
     def optional_nested_message(self) -> TestAllTypes.NestedMessage: ...
@@ -212,9 +169,6 @@ class TestAllTypes(Message):
                  oneof_bytes: Optional[bytes] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> TestAllTypes: ...
-
 
 class TestPackedTypes(Message):
     packed_int32: RepeatedScalarFieldContainer[int]
@@ -248,9 +202,6 @@ class TestPackedTypes(Message):
                  packed_bool: Optional[Iterable[bool]] = ...,
                  packed_enum: Optional[Iterable[ForeignEnum]] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> TestPackedTypes: ...
 
 
 class TestUnpackedTypes(Message):
@@ -286,9 +237,6 @@ class TestUnpackedTypes(Message):
                  repeated_nested_enum: Optional[Iterable[TestAllTypes.NestedEnum]] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> TestUnpackedTypes: ...
-
 
 class NestedTestAllTypes(Message):
 
@@ -308,9 +256,6 @@ class NestedTestAllTypes(Message):
                  repeated_child: Optional[Iterable[NestedTestAllTypes]] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> NestedTestAllTypes: ...
-
 
 class ForeignMessage(Message):
     c: int
@@ -319,14 +264,8 @@ class ForeignMessage(Message):
                  c: Optional[int] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> ForeignMessage: ...
-
 
 class TestEmptyMessage(Message):
 
     def __init__(self,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> TestEmptyMessage: ...

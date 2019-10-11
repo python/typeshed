@@ -1,3 +1,4 @@
+
 from google.protobuf.any_pb2 import (
     Any,
 )
@@ -77,9 +78,6 @@ class MessageType(Message):
                  value: Optional[int] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> MessageType: ...
-
 
 class TestMessage(Message):
     bool_value: bool
@@ -135,9 +133,6 @@ class TestMessage(Message):
                  repeated_message_value: Optional[Iterable[MessageType]] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> TestMessage: ...
-
 
 class TestOneof(Message):
     oneof_int32_value: int
@@ -156,9 +151,6 @@ class TestOneof(Message):
                  oneof_message_value: Optional[MessageType] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> TestOneof: ...
-
 
 class TestMap(Message):
 
@@ -171,9 +163,6 @@ class TestMap(Message):
                      value: Optional[int] = ...,
                      ) -> None: ...
 
-        @classmethod
-        def FromString(cls, s: bytes) -> TestMap.BoolMapEntry: ...
-
     class Int32MapEntry(Message):
         key: int
         value: int
@@ -182,9 +171,6 @@ class TestMap(Message):
                      key: Optional[int] = ...,
                      value: Optional[int] = ...,
                      ) -> None: ...
-
-        @classmethod
-        def FromString(cls, s: bytes) -> TestMap.Int32MapEntry: ...
 
     class Int64MapEntry(Message):
         key: int
@@ -195,9 +181,6 @@ class TestMap(Message):
                      value: Optional[int] = ...,
                      ) -> None: ...
 
-        @classmethod
-        def FromString(cls, s: bytes) -> TestMap.Int64MapEntry: ...
-
     class Uint32MapEntry(Message):
         key: int
         value: int
@@ -206,9 +189,6 @@ class TestMap(Message):
                      key: Optional[int] = ...,
                      value: Optional[int] = ...,
                      ) -> None: ...
-
-        @classmethod
-        def FromString(cls, s: bytes) -> TestMap.Uint32MapEntry: ...
 
     class Uint64MapEntry(Message):
         key: int
@@ -219,9 +199,6 @@ class TestMap(Message):
                      value: Optional[int] = ...,
                      ) -> None: ...
 
-        @classmethod
-        def FromString(cls, s: bytes) -> TestMap.Uint64MapEntry: ...
-
     class StringMapEntry(Message):
         key: Text
         value: int
@@ -230,9 +207,6 @@ class TestMap(Message):
                      key: Optional[Text] = ...,
                      value: Optional[int] = ...,
                      ) -> None: ...
-
-        @classmethod
-        def FromString(cls, s: bytes) -> TestMap.StringMapEntry: ...
 
     @property
     def bool_map(self) -> MutableMapping[bool, int]: ...
@@ -261,9 +235,6 @@ class TestMap(Message):
                  string_map: Optional[Mapping[Text, int]] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> TestMap: ...
-
 
 class TestNestedMap(Message):
 
@@ -276,9 +247,6 @@ class TestNestedMap(Message):
                      value: Optional[int] = ...,
                      ) -> None: ...
 
-        @classmethod
-        def FromString(cls, s: bytes) -> TestNestedMap.BoolMapEntry: ...
-
     class Int32MapEntry(Message):
         key: int
         value: int
@@ -287,9 +255,6 @@ class TestNestedMap(Message):
                      key: Optional[int] = ...,
                      value: Optional[int] = ...,
                      ) -> None: ...
-
-        @classmethod
-        def FromString(cls, s: bytes) -> TestNestedMap.Int32MapEntry: ...
 
     class Int64MapEntry(Message):
         key: int
@@ -300,9 +265,6 @@ class TestNestedMap(Message):
                      value: Optional[int] = ...,
                      ) -> None: ...
 
-        @classmethod
-        def FromString(cls, s: bytes) -> TestNestedMap.Int64MapEntry: ...
-
     class Uint32MapEntry(Message):
         key: int
         value: int
@@ -311,9 +273,6 @@ class TestNestedMap(Message):
                      key: Optional[int] = ...,
                      value: Optional[int] = ...,
                      ) -> None: ...
-
-        @classmethod
-        def FromString(cls, s: bytes) -> TestNestedMap.Uint32MapEntry: ...
 
     class Uint64MapEntry(Message):
         key: int
@@ -324,9 +283,6 @@ class TestNestedMap(Message):
                      value: Optional[int] = ...,
                      ) -> None: ...
 
-        @classmethod
-        def FromString(cls, s: bytes) -> TestNestedMap.Uint64MapEntry: ...
-
     class StringMapEntry(Message):
         key: Text
         value: int
@@ -335,9 +291,6 @@ class TestNestedMap(Message):
                      key: Optional[Text] = ...,
                      value: Optional[int] = ...,
                      ) -> None: ...
-
-        @classmethod
-        def FromString(cls, s: bytes) -> TestNestedMap.StringMapEntry: ...
 
     class MapMapEntry(Message):
         key: Text
@@ -349,9 +302,6 @@ class TestNestedMap(Message):
                      key: Optional[Text] = ...,
                      value: Optional[TestNestedMap] = ...,
                      ) -> None: ...
-
-        @classmethod
-        def FromString(cls, s: bytes) -> TestNestedMap.MapMapEntry: ...
 
     @property
     def bool_map(self) -> MutableMapping[bool, int]: ...
@@ -383,9 +333,6 @@ class TestNestedMap(Message):
                  string_map: Optional[Mapping[Text, int]] = ...,
                  map_map: Optional[Mapping[Text, TestNestedMap]] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> TestNestedMap: ...
 
 
 class TestWrapper(Message):
@@ -474,9 +421,6 @@ class TestWrapper(Message):
                  repeated_bytes_value: Optional[Iterable[BytesValue]] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> TestWrapper: ...
-
 
 class TestTimestamp(Message):
 
@@ -490,9 +434,6 @@ class TestTimestamp(Message):
                  value: Optional[Timestamp] = ...,
                  repeated_value: Optional[Iterable[Timestamp]] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> TestTimestamp: ...
 
 
 class TestDuration(Message):
@@ -508,9 +449,6 @@ class TestDuration(Message):
                  repeated_value: Optional[Iterable[Duration]] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> TestDuration: ...
-
 
 class TestFieldMask(Message):
 
@@ -520,9 +458,6 @@ class TestFieldMask(Message):
     def __init__(self,
                  value: Optional[FieldMask] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> TestFieldMask: ...
 
 
 class TestStruct(Message):
@@ -538,9 +473,6 @@ class TestStruct(Message):
                  repeated_value: Optional[Iterable[Struct]] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> TestStruct: ...
-
 
 class TestAny(Message):
 
@@ -554,9 +486,6 @@ class TestAny(Message):
                  value: Optional[Any] = ...,
                  repeated_value: Optional[Iterable[Any]] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> TestAny: ...
 
 
 class TestValue(Message):
@@ -572,9 +501,6 @@ class TestValue(Message):
                  repeated_value: Optional[Iterable[Value]] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> TestValue: ...
-
 
 class TestListValue(Message):
 
@@ -589,9 +515,6 @@ class TestListValue(Message):
                  repeated_value: Optional[Iterable[ListValue]] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> TestListValue: ...
-
 
 class TestBoolValue(Message):
 
@@ -604,10 +527,6 @@ class TestBoolValue(Message):
                      value: Optional[int] = ...,
                      ) -> None: ...
 
-        @classmethod
-        def FromString(cls, s: bytes) -> TestBoolValue.BoolMapEntry: ...
-    bool_value: bool
-
     @property
     def bool_map(self) -> MutableMapping[bool, int]: ...
 
@@ -616,9 +535,6 @@ class TestBoolValue(Message):
                  bool_map: Optional[Mapping[bool, int]] = ...,
                  ) -> None: ...
 
-    @classmethod
-    def FromString(cls, s: bytes) -> TestBoolValue: ...
-
 
 class TestCustomJsonName(Message):
     value: int
@@ -626,9 +542,6 @@ class TestCustomJsonName(Message):
     def __init__(self,
                  value: Optional[int] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> TestCustomJsonName: ...
 
 
 class TestExtensions(Message):
@@ -639,9 +552,6 @@ class TestExtensions(Message):
     def __init__(self,
                  extensions: Optional[TestAllExtensions] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> TestExtensions: ...
 
 
 class TestEnumValue(Message):
@@ -654,6 +564,3 @@ class TestEnumValue(Message):
                  enum_value2: Optional[EnumType] = ...,
                  enum_value3: Optional[EnumType] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> TestEnumValue: ...

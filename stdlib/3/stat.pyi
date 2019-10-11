@@ -3,7 +3,6 @@
 # Based on http://docs.python.org/3.2/library/stat.html
 
 import sys
-import typing
 
 def S_ISDIR(mode: int) -> bool: ...
 def S_ISCHR(mode: int) -> bool: ...

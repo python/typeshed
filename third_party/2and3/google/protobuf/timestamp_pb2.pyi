@@ -1,3 +1,4 @@
+
 from google.protobuf.message import (
     Message,
 )
@@ -16,6 +17,3 @@ class Timestamp(Message, well_known_types.Timestamp):
                  seconds: Optional[int] = ...,
                  nanos: Optional[int] = ...,
                  ) -> None: ...
-
-    @classmethod
-    def FromString(cls, s: bytes) -> Timestamp: ...
