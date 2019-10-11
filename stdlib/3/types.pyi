@@ -91,7 +91,7 @@ class CodeType:
             co_cellvars: Tuple[str, ...] = ...,
             co_filename: str = ...,
             co_name: str = ...,
-            co_lnotab: PyBytesObject = ...,
+            co_lnotab: bytes = ...,
         ) -> CodeType: ...
 
 class MappingProxyType(Mapping[_KT, _VT], Generic[_KT, _VT]):
