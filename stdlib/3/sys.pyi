@@ -48,12 +48,12 @@ platform: str
 prefix: str
 ps1: str
 ps2: str
-stdin: TextIO
-stdout: TextIO
-stderr: TextIO
-__stdin__: TextIO
-__stdout__: TextIO
-__stderr__: TextIO
+stdin: Optional[TextIO]
+stdout: Optional[TextIO]
+stderr: Optional[TextIO]
+__stdin__: Optional[TextIO]
+__stdout__: Optional[TextIO]
+__stderr__: Optional[TextIO]
 # deprecated and removed in Python 3.3:
 subversion: Tuple[str, str, str]
 tracebacklimit: int
