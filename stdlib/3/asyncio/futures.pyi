@@ -2,11 +2,14 @@ import sys
 from typing import Any, Union, Callable, TypeVar, Type, List, Iterable, Generator, Awaitable, Optional, Tuple
 from .events import AbstractEventLoop
 from concurrent.futures import (
-    CancelledError as CancelledError,
-    TimeoutError as TimeoutError,
     Future as _ConcurrentFuture,
     Error,
 )
+
+if sys.version_info < (3, 8):
+    from concurrent.futures import CancelledError as CancelledError
+    from concurrent.futures import TimeoutError as TimeoutError
+    class InvalidStateError(Error): ...
 
 if sys.version_info >= (3, 7):
     from contextvars import Context
@@ -15,8 +18,6 @@ __all__: List[str]
 
 _T = TypeVar('_T')
 _S = TypeVar('_S')
-
-class InvalidStateError(Error): ...
 
 class _TracebackLogger:
     exc: BaseException
