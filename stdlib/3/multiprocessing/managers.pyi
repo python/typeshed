@@ -3,12 +3,16 @@
 # NOTE: These are incomplete!
 
 import queue
+import sys
 import threading
 from typing import (
     Any, Callable, ContextManager, Dict, Iterable, Generic, List, Mapping, Optional,
     Sequence, Tuple, TypeVar, Union,
 )
 from .context import BaseContext
+
+if sys.version_info >= (3, 8):
+    from .shared_memory import ShareableList, SharedMemory, _SLT
 
 _T = TypeVar('_T')
 _KT = TypeVar('_KT')
@@ -67,3 +71,10 @@ class SyncManager(BaseManager, ContextManager[SyncManager]):
     def list(self, sequence: Sequence[_T] = ...) -> List[_T]: ...
 
 class RemoteError(Exception): ...
+
+if sys.version_info >= (3, 8):
+    class SharedMemoryServer(Server): ...
+    class SharedMemoryManager(BaseManager):
+        def get_server(self) -> SharedMemoryServer: ...
+        def SharedMemory(self, size: int) -> SharedMemory: ...
+        def ShareableList(self, sequence: Optional[Iterable[_SLT]]) -> ShareableList[_SLT]: ...
