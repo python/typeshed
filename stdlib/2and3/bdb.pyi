@@ -4,7 +4,7 @@ from types import FrameType, TracebackType, CodeType
 
 
 _T = TypeVar("_T")
-_TraceDispatch = Callable[[FrameType, str, Any], '_TraceDispatch']  # type: ignore
+_TraceDispatch = Callable[[FrameType, str, Any], '_TraceDispatch']  # type: ignore  # Recursive type
 _ExcInfo = Tuple[Type[BaseException], BaseException, FrameType]
 
 GENERATOR_AND_COROUTINE_FLAGS: int = ...
@@ -16,7 +16,7 @@ class Bdb:
     skip: Set[str]
     breaks: Dict[str, List[int]]
     fncache: Dict[str, str]
-    frame_returning: None
+    frame_returning: Optional[FrameType]
     botframe: Optional[FrameType]
     quitting: bool
     stopframe: Optional[FrameType]
