@@ -8,6 +8,7 @@ from typing import (
     Any, Callable, ContextManager, Dict, Iterable, Generic, List, Mapping, Optional,
     Sequence, Tuple, TypeVar, Union,
 )
+from .context import BaseContext
 
 _T = TypeVar('_T')
 _KT = TypeVar('_KT')
@@ -24,18 +25,32 @@ class ValueProxy(BaseProxy, Generic[_T]):
     def set(self, value: _T) -> None: ...
     value: _T
 
+# Returned by BaseManager.get_server()
+class Server:
+    address: Any
+    def serve_forever(self) -> None: ...
+
 class BaseManager(ContextManager[BaseManager]):
-    address: Union[str, Tuple[str, int]]
+    def __init__(
+        self,
+        address: Optional[Any] = ...,
+        authkey: Optional[bytes] = ...,
+        serializer: str = ...,
+        ctx: Optional[BaseContext] = ...,
+    ) -> None: ...
+    def get_server(self) -> Server: ...
     def connect(self) -> None: ...
+    def start(self, initializer: Optional[Callable[..., Any]] = ..., initargs: Iterable[Any] = ...) -> None: ...
+    def shutdown(self) -> None: ...  # only available after start() was called
+    def join(self, timeout: Optional[float] = ...) -> None: ...  # undocumented
+    @property
+    def address(self) -> Any: ...
     @classmethod
     def register(cls, typeid: str, callable: Optional[Callable[..., Any]] = ...,
                  proxytype: Any = ...,
                  exposed: Optional[Sequence[str]] = ...,
                  method_to_typeid: Optional[Mapping[str, str]] = ...,
                  create_method: bool = ...) -> None: ...
-    def shutdown(self) -> None: ...
-    def start(self, initializer: Optional[Callable[..., Any]] = ...,
-              initargs: Iterable[Any] = ...) -> None: ...
 
 class SyncManager(BaseManager, ContextManager[SyncManager]):
     def BoundedSemaphore(self, value: Any = ...) -> threading.BoundedSemaphore: ...
