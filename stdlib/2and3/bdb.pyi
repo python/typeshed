@@ -4,7 +4,7 @@ from types import FrameType, TracebackType, CodeType
 
 
 _T = TypeVar("_T")
-_TraceDispatch = Callable[[FrameType, str, Any], '_TraceDispatch']  # type: ignore  # Recursive type
+_TraceDispatch = Callable[[FrameType, str, Any], Any]  # TODO: Recursive type
 _ExcInfo = Tuple[Type[BaseException], BaseException, FrameType]
 
 GENERATOR_AND_COROUTINE_FLAGS: int = ...
