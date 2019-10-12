@@ -20,6 +20,9 @@ from multiprocessing.queues import Queue as Queue, SimpleQueue as SimpleQueue, J
 from multiprocessing.spawn import freeze_support as freeze_support
 from multiprocessing.spawn import set_executable as set_executable
 
+if sys.version_info >= (3, 8):
+    from multiprocessing.process import parent_process as parent_process
+
 # N.B. The functions below are generated at runtime by partially applying
 # multiprocessing.context.BaseContext's methods, so the two signatures should
 # be identical (modulo self).
