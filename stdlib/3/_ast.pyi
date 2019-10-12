@@ -3,6 +3,9 @@ import typing
 from typing import Any, Optional, ClassVar
 
 PyCF_ONLY_AST: int
+if sys.version_info >= (3, 8):
+    PyCF_TYPE_COMMENTS: int
+    PyCF_ALLOW_TOP_LEVEL_AWAIT: int
 
 _identifier = str
 
