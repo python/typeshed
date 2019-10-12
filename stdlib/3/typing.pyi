@@ -605,8 +605,8 @@ class NamedTuple(Tuple[Any, ...]):
     _fields: Tuple[str, ...]
     _source: str
 
-    def __init__(self, typename: str, fields: Iterable[Tuple[str, Any]] = ..., *,
-                 verbose: bool = ..., rename: bool = ..., **kwargs: Any) -> None: ...
+    def __init__(self, typename: str, fields: Iterable[Tuple[str, Any]] = ...,
+                 **kwargs: Any) -> None: ...
 
     @classmethod
     def _make(cls: Type[_T], iterable: Iterable[Any]) -> _T: ...
