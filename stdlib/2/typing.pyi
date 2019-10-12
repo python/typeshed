@@ -462,7 +462,7 @@ def cast(tp: str, obj: Any) -> Any: ...
 class NamedTuple(Tuple[Any, ...]):
     _fields: Tuple[str, ...]
 
-    def __init__(self, typename: Text, fields: Iterable[Tuple[Text, Any]] = ..., *,
+    def __init__(self, typename: Text, fields: Iterable[Tuple[Text, Any]] = ...,
                  **kwargs: Any) -> None: ...
 
     @classmethod
