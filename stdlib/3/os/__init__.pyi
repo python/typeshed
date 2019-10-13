@@ -640,3 +640,22 @@ if sys.version_info >= (3, 8):
             def __enter__(self: _T) -> _T: ...
             def __exit__(self, *args: Any) -> None: ...
         def add_dll_directory(path: str) -> _AddedDllDirectory: ...
+    if sys.platform == "linux":
+        MFD_CLOEXEC: int
+        MFD_ALLOW_SEALING: int
+        MFD_HUGETLB: int
+        MFD_HUGE_SHIFT: int
+        MFD_HUGE_MASK: int
+        MFD_HUGE_64KB: int
+        MFD_HUGE_512KB: int
+        MFD_HUGE_1MB: int
+        MFD_HUGE_2MB: int
+        MFD_HUGE_8MB: int
+        MFD_HUGE_16MB: int
+        MFD_HUGE_32MB: int
+        MFD_HUGE_256MB: int
+        MFD_HUGE_512MB: int
+        MFD_HUGE_1GB: int
+        MFD_HUGE_2GB: int
+        MFD_HUGE_16GB: int
+        def memfd_create(name: str, flags: int = ...) -> int: ...
