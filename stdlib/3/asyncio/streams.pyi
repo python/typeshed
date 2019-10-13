@@ -1,5 +1,5 @@
 import sys
-from typing import Any, Awaitable, Callable, Generator, Iterable, List, Optional, Tuple, Union
+from typing import Any, Awaitable, Callable, Generator, Iterable, Optional, Tuple, Union
 
 from . import coroutines
 from . import events
@@ -7,9 +7,6 @@ from . import protocols
 from . import transports
 
 _ClientConnectedCallback = Callable[[StreamReader, StreamWriter], Optional[Awaitable[None]]]
-
-
-__all__: List[str]
 
 if sys.version_info < (3, 8):
     class IncompleteReadError(EOFError):

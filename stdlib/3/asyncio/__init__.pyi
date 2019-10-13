@@ -1,5 +1,5 @@
 import sys
-from typing import List, Type
+from typing import Type
 
 from asyncio.coroutines import (
     coroutine as coroutine,
@@ -139,5 +139,3 @@ else:
         IncompleteReadError as IncompleteReadError,
         LimitOverrunError as LimitOverrunError,
     )
-
-__all__: List[str]

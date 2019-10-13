@@ -1,5 +1,5 @@
 import sys
-from typing import List, Optional
+from typing import Optional
 
 if sys.version_info >= (3, 8):
     class CancelledError(BaseException): ...
@@ -13,5 +13,3 @@ if sys.version_info >= (3, 8):
     class LimitOverrunError(Exception):
         consumed: int
         def __init__(self, message: str, consumed: int) -> None: ...
-
-    __all__: List[str]

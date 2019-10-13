@@ -10,8 +10,6 @@ from asyncio.protocols import BaseProtocol
 from asyncio.tasks import Task
 from asyncio.transports import BaseTransport
 
-__all__: List[str]
-
 _T = TypeVar('_T')
 _Context = Dict[str, Any]
 _ExceptionHandler = Callable[[AbstractEventLoop, _Context], Any]
