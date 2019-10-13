@@ -160,6 +160,9 @@ class Event:
     def clear(self) -> None: ...
     def wait(self, timeout: Optional[float] = ...) -> bool: ...
 
+if sys.version_info >= (3, 8):
+    from _thread import _ExceptHookArgs as ExceptHookArgs, ExceptHookArgs as _ExceptHookArgs  # don't ask
+    excepthook: Callable[[_ExceptHookArgs], Any]
 
 class Timer(Thread):
     if sys.version_info >= (3,):
