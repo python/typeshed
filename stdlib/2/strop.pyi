@@ -6,67 +6,24 @@ lowercase: str
 uppercase: str
 whitespace: str
 
-def atof(a: str) -> float:
-    raise DeprecationWarning()
-
-def atoi(a: str, base: int = ...) -> int:
-    raise DeprecationWarning()
-
-def atol(a: str, base: int = ...) -> long:
-    raise DeprecationWarning()
-
-def capitalize(s: str) -> str:
-    raise DeprecationWarning()
-
-def count(s: str, sub: str, start: int = ..., end: int = ...) -> int:
-    raise DeprecationWarning()
-
-def expandtabs(string: str, tabsize: int = ...) -> str:
-    raise DeprecationWarning()
-    raise OverflowError()
-
-def find(s: str, sub: str, start: int = ..., end: int = ...) -> int:
-    raise DeprecationWarning()
-
-def join(list: Sequence[str], sep: str = ...) -> str:
-    raise DeprecationWarning()
-    raise OverflowError()
-
-def joinfields(list: Sequence[str], sep: str = ...) -> str:
-    raise DeprecationWarning()
-    raise OverflowError()
-
-def lower(s: str) -> str:
-    raise DeprecationWarning()
-
-def lstrip(s: str) -> str:
-    raise DeprecationWarning()
-
+def atof(a: str) -> float: ...
+def atoi(a: str, base: int = ...) -> int: ...
+def atol(a: str, base: int = ...) -> long: ...
+def capitalize(s: str) -> str: ...
+def count(s: str, sub: str, start: int = ..., end: int = ...) -> int: ...
+def expandtabs(string: str, tabsize: int = ...) -> str: ...
+def find(s: str, sub: str, start: int = ..., end: int = ...) -> int: ...
+def join(list: Sequence[str], sep: str = ...) -> str: ...
+def joinfields(list: Sequence[str], sep: str = ...) -> str: ...
+def lower(s: str) -> str: ...
+def lstrip(s: str) -> str: ...
 def maketrans(frm: str, to: str) -> str: ...
-
-def replace(s: str, old: str, new: str, maxsplit: int = ...) -> str:
-    raise DeprecationWarning()
-
-def rfind(s: str, sub: str, start: int = ..., end: int = ...) -> int:
-    raise DeprecationWarning()
-
-def rstrip(s: str) -> str:
-    raise DeprecationWarning()
-
-def split(s: str, sep: str, maxsplit: int = ...) -> List[str]:
-    raise DeprecationWarning()
-
-def splitfields(s: str, sep: str, maxsplit: int = ...) -> List[str]:
-    raise DeprecationWarning()
-
-def strip(s: str) -> str:
-    raise DeprecationWarning()
-
-def swapcase(s: str) -> str:
-    raise DeprecationWarning()
-
-def translate(s: str, table: str, deletechars: str = ...) -> str:
-    raise DeprecationWarning()
-
-def upper(s: str) -> str:
-    raise DeprecationWarning()
+def replace(s: str, old: str, new: str, maxsplit: int = ...) -> str: ...
+def rfind(s: str, sub: str, start: int = ..., end: int = ...) -> int: ...
+def rstrip(s: str) -> str: ...
+def split(s: str, sep: str, maxsplit: int = ...) -> List[str]: ...
+def splitfields(s: str, sep: str, maxsplit: int = ...) -> List[str]: ...
+def strip(s: str) -> str: ...
+def swapcase(s: str) -> str: ...
+def translate(s: str, table: str, deletechars: str = ...) -> str: ...
+def upper(s: str) -> str: ...
