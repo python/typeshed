@@ -210,6 +210,8 @@ class stat_result:
     st_atime_ns: int  # time of most recent access, in nanoseconds
     st_mtime_ns: int  # time of most recent content modification in nanoseconds
     st_ctime_ns: int  # platform dependent (time of most recent metadata change on Unix, or the time of creation on Windows) in nanoseconds
+    if sys.version_info >= (3, 8) and sys.platform == "win32":
+        st_reparse_tag: int
 
     def __getitem__(self, i: int) -> int: ...
 
