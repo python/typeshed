@@ -12,8 +12,6 @@ if sys.version_info >= (3, 8):
 else:
     from typing_extensions import Literal
 
-__all__: List[str]
-
 _T = TypeVar('_T')
 _T1 = TypeVar('_T1')
 _T2 = TypeVar('_T2')

@@ -14,8 +14,6 @@ if sys.version_info < (3, 8):
 if sys.version_info >= (3, 7):
     from contextvars import Context
 
-__all__: List[str]
-
 _T = TypeVar('_T')
 _S = TypeVar('_S')
 

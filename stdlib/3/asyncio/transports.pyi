@@ -2,8 +2,6 @@ import sys
 from typing import Any, Mapping, List, Optional, Tuple
 from asyncio.protocols import BaseProtocol
 
-__all__: List[str]
-
 class BaseTransport:
     def __init__(self, extra: Mapping[Any, Any] = ...) -> None: ...
     def get_extra_info(self, name: Any, default: Any = ...) -> Any: ...
