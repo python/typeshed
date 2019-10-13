@@ -11,14 +11,15 @@ _ClientConnectedCallback = Callable[[StreamReader, StreamWriter], Optional[Await
 
 __all__: List[str]
 
-class IncompleteReadError(EOFError):
-    expected: Optional[int]
-    partial: bytes
-    def __init__(self, partial: bytes, expected: Optional[int]) -> None: ...
+if sys.version_info < (3, 8):
+    class IncompleteReadError(EOFError):
+        expected: Optional[int]
+        partial: bytes
+        def __init__(self, partial: bytes, expected: Optional[int]) -> None: ...
 
-class LimitOverrunError(Exception):
-    consumed: int
-    def __init__(self, message: str, consumed: int) -> None: ...
+    class LimitOverrunError(Exception):
+        consumed: int
+        def __init__(self, message: str, consumed: int) -> None: ...
 
 @coroutines.coroutine
 def open_connection(
