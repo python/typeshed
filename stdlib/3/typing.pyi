@@ -99,6 +99,12 @@ class SupportsBytes(Protocol, metaclass=ABCMeta):
     @abstractmethod
     def __bytes__(self) -> bytes: ...
 
+if sys.version_info >= (3, 8):
+    @runtime_checkable
+    class SupportsIndex(Protocol, metaclass=ABCMeta):
+        @abstractmethod
+        def __index__(self) -> int: ...
+
 @runtime_checkable
 class SupportsAbs(Protocol[_T_co]):
     @abstractmethod
