@@ -33,13 +33,15 @@ def stack_size(size: int = ...) -> int: ...
 TIMEOUT_MAX: int
 
 if sys.version_info >= (3, 8):
+    def get_native_id() -> int: ...  # only available on some platforms
+
     ExceptHookArgs = NamedTuple(
         "ExceptHookArgs",
         [
-            (exc_type, Type[BaseException]),
-            (exc_value, Optional[BaseException]),
-            (exc_traceback, Optional[TracebackType]),
-            (thread, Optional[Thread]),
+            ("exc_type", Type[BaseException]),
+            ("exc_value", Optional[BaseException]),
+            ("exc_traceback", Optional[TracebackType]),
+            ("thread", Optional[Thread]),
         ],
     )
     def _ExceptHookArgs(args) -> ExceptHookArgs: ...
