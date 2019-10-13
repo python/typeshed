@@ -54,8 +54,6 @@ stderr: TextIO
 __stdin__: TextIO
 __stdout__: TextIO
 __stderr__: TextIO
-# deprecated and removed in Python 3.3:
-subversion: Tuple[str, str, str]
 tracebacklimit: int
 version: str
 api_version: int
