@@ -76,6 +76,7 @@ class TestAllTypesProto2(Message):
                      corecursive: Optional[TestAllTypesProto2] = ...,
                      ) -> None: ...
 
+
     class MapInt32Int32Entry(Message):
         key: int
         value: int
@@ -84,6 +85,7 @@ class TestAllTypesProto2(Message):
                      key: Optional[int] = ...,
                      value: Optional[int] = ...,
                      ) -> None: ...
+
 
     class MapInt64Int64Entry(Message):
         key: int
@@ -94,6 +96,7 @@ class TestAllTypesProto2(Message):
                      value: Optional[int] = ...,
                      ) -> None: ...
 
+
     class MapUint32Uint32Entry(Message):
         key: int
         value: int
@@ -102,6 +105,7 @@ class TestAllTypesProto2(Message):
                      key: Optional[int] = ...,
                      value: Optional[int] = ...,
                      ) -> None: ...
+
 
     class MapUint64Uint64Entry(Message):
         key: int
@@ -112,6 +116,7 @@ class TestAllTypesProto2(Message):
                      value: Optional[int] = ...,
                      ) -> None: ...
 
+
     class MapSint32Sint32Entry(Message):
         key: int
         value: int
@@ -120,6 +125,7 @@ class TestAllTypesProto2(Message):
                      key: Optional[int] = ...,
                      value: Optional[int] = ...,
                      ) -> None: ...
+
 
     class MapSint64Sint64Entry(Message):
         key: int
@@ -130,6 +136,7 @@ class TestAllTypesProto2(Message):
                      value: Optional[int] = ...,
                      ) -> None: ...
 
+
     class MapFixed32Fixed32Entry(Message):
         key: int
         value: int
@@ -138,6 +145,7 @@ class TestAllTypesProto2(Message):
                      key: Optional[int] = ...,
                      value: Optional[int] = ...,
                      ) -> None: ...
+
 
     class MapFixed64Fixed64Entry(Message):
         key: int
@@ -148,6 +156,7 @@ class TestAllTypesProto2(Message):
                      value: Optional[int] = ...,
                      ) -> None: ...
 
+
     class MapSfixed32Sfixed32Entry(Message):
         key: int
         value: int
@@ -156,6 +165,7 @@ class TestAllTypesProto2(Message):
                      key: Optional[int] = ...,
                      value: Optional[int] = ...,
                      ) -> None: ...
+
 
     class MapSfixed64Sfixed64Entry(Message):
         key: int
@@ -166,6 +176,7 @@ class TestAllTypesProto2(Message):
                      value: Optional[int] = ...,
                      ) -> None: ...
 
+
     class MapInt32FloatEntry(Message):
         key: int
         value: float
@@ -174,6 +185,7 @@ class TestAllTypesProto2(Message):
                      key: Optional[int] = ...,
                      value: Optional[float] = ...,
                      ) -> None: ...
+
 
     class MapInt32DoubleEntry(Message):
         key: int
@@ -184,6 +196,7 @@ class TestAllTypesProto2(Message):
                      value: Optional[float] = ...,
                      ) -> None: ...
 
+
     class MapBoolBoolEntry(Message):
         key: bool
         value: bool
@@ -192,6 +205,7 @@ class TestAllTypesProto2(Message):
                      key: Optional[bool] = ...,
                      value: Optional[bool] = ...,
                      ) -> None: ...
+
 
     class MapStringStringEntry(Message):
         key: Text
@@ -202,6 +216,7 @@ class TestAllTypesProto2(Message):
                      value: Optional[Text] = ...,
                      ) -> None: ...
 
+
     class MapStringBytesEntry(Message):
         key: Text
         value: bytes
@@ -210,6 +225,7 @@ class TestAllTypesProto2(Message):
                      key: Optional[Text] = ...,
                      value: Optional[bytes] = ...,
                      ) -> None: ...
+
 
     class MapStringNestedMessageEntry(Message):
         key: Text
@@ -222,6 +238,7 @@ class TestAllTypesProto2(Message):
                      value: Optional[TestAllTypesProto2.NestedMessage] = ...,
                      ) -> None: ...
 
+
     class MapStringForeignMessageEntry(Message):
         key: Text
 
@@ -233,6 +250,7 @@ class TestAllTypesProto2(Message):
                      value: Optional[ForeignMessageProto2] = ...,
                      ) -> None: ...
 
+
     class MapStringNestedEnumEntry(Message):
         key: Text
         value: TestAllTypesProto2.NestedEnum
@@ -241,6 +259,7 @@ class TestAllTypesProto2(Message):
                      key: Optional[Text] = ...,
                      value: Optional[TestAllTypesProto2.NestedEnum] = ...,
                      ) -> None: ...
+
 
     class MapStringForeignEnumEntry(Message):
         key: Text
@@ -251,6 +270,7 @@ class TestAllTypesProto2(Message):
                      value: Optional[ForeignEnumProto2] = ...,
                      ) -> None: ...
 
+
     class Data(Message):
         group_int32: int
         group_uint32: int
@@ -260,10 +280,12 @@ class TestAllTypesProto2(Message):
                      group_uint32: Optional[int] = ...,
                      ) -> None: ...
 
+
     class MessageSetCorrect(Message):
 
         def __init__(self,
                      ) -> None: ...
+
 
     class MessageSetCorrectExtension1(Message):
         bytes: Text
@@ -272,12 +294,77 @@ class TestAllTypesProto2(Message):
                      bytes: Optional[Text] = ...,
                      ) -> None: ...
 
+
     class MessageSetCorrectExtension2(Message):
         i: int
 
         def __init__(self,
                      i: Optional[int] = ...,
                      ) -> None: ...
+    optional_int32: int
+    optional_int64: int
+    optional_uint32: int
+    optional_uint64: int
+    optional_sint32: int
+    optional_sint64: int
+    optional_fixed32: int
+    optional_fixed64: int
+    optional_sfixed32: int
+    optional_sfixed64: int
+    optional_float: float
+    optional_double: float
+    optional_bool: bool
+    optional_string: Text
+    optional_bytes: bytes
+    optional_nested_enum: TestAllTypesProto2.NestedEnum
+    optional_foreign_enum: ForeignEnumProto2
+    optional_string_piece: Text
+    optional_cord: Text
+    repeated_int32: RepeatedScalarFieldContainer[int]
+    repeated_int64: RepeatedScalarFieldContainer[int]
+    repeated_uint32: RepeatedScalarFieldContainer[int]
+    repeated_uint64: RepeatedScalarFieldContainer[int]
+    repeated_sint32: RepeatedScalarFieldContainer[int]
+    repeated_sint64: RepeatedScalarFieldContainer[int]
+    repeated_fixed32: RepeatedScalarFieldContainer[int]
+    repeated_fixed64: RepeatedScalarFieldContainer[int]
+    repeated_sfixed32: RepeatedScalarFieldContainer[int]
+    repeated_sfixed64: RepeatedScalarFieldContainer[int]
+    repeated_float: RepeatedScalarFieldContainer[float]
+    repeated_double: RepeatedScalarFieldContainer[float]
+    repeated_bool: RepeatedScalarFieldContainer[bool]
+    repeated_string: RepeatedScalarFieldContainer[Text]
+    repeated_bytes: RepeatedScalarFieldContainer[bytes]
+    repeated_nested_enum: RepeatedScalarFieldContainer[TestAllTypesProto2.NestedEnum]
+    repeated_foreign_enum: RepeatedScalarFieldContainer[ForeignEnumProto2]
+    repeated_string_piece: RepeatedScalarFieldContainer[Text]
+    repeated_cord: RepeatedScalarFieldContainer[Text]
+    oneof_uint32: int
+    oneof_string: Text
+    oneof_bytes: bytes
+    oneof_bool: bool
+    oneof_uint64: int
+    oneof_float: float
+    oneof_double: float
+    oneof_enum: TestAllTypesProto2.NestedEnum
+    fieldname1: int
+    field_name2: int
+    _field_name3: int
+    field__name4_: int
+    field0name5: int
+    field_0_name6: int
+    fieldName7: int
+    FieldName8: int
+    field_Name9: int
+    Field_Name10: int
+    FIELD_NAME11: int
+    FIELD_name12: int
+    __field_name13: int
+    __Field_name14: int
+    field__name15: int
+    field__Name16: int
+    field_name17__: int
+    Field_name18__: int
 
     @property
     def optional_nested_message(self) -> TestAllTypesProto2.NestedMessage: ...
@@ -457,9 +544,11 @@ class TestAllTypesProto2(Message):
                  ) -> None: ...
 
 
+
 class ForeignMessageProto2(Message):
     c: int
 
     def __init__(self,
                  c: Optional[int] = ...,
                  ) -> None: ...
+

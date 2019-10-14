@@ -68,6 +68,7 @@ class Type(Message):
                  ) -> None: ...
 
 
+
 class Field(Message):
 
     class Kind(int):
@@ -153,6 +154,7 @@ class Field(Message):
                  ) -> None: ...
 
 
+
 class Enum(Message):
     name: Text
     syntax: Syntax
@@ -175,6 +177,7 @@ class Enum(Message):
                  ) -> None: ...
 
 
+
 class EnumValue(Message):
     name: Text
     number: int
@@ -189,6 +192,7 @@ class EnumValue(Message):
                  ) -> None: ...
 
 
+
 class Option(Message):
     name: Text
 
@@ -199,3 +203,4 @@ class Option(Message):
                  name: Optional[Text] = ...,
                  value: Optional[Any] = ...,
                  ) -> None: ...
+

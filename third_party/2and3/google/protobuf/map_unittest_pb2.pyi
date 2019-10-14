@@ -55,6 +55,7 @@ class TestMap(Message):
                      value: Optional[int] = ...,
                      ) -> None: ...
 
+
     class MapInt64Int64Entry(Message):
         key: int
         value: int
@@ -63,6 +64,7 @@ class TestMap(Message):
                      key: Optional[int] = ...,
                      value: Optional[int] = ...,
                      ) -> None: ...
+
 
     class MapUint32Uint32Entry(Message):
         key: int
@@ -73,6 +75,7 @@ class TestMap(Message):
                      value: Optional[int] = ...,
                      ) -> None: ...
 
+
     class MapUint64Uint64Entry(Message):
         key: int
         value: int
@@ -81,6 +84,7 @@ class TestMap(Message):
                      key: Optional[int] = ...,
                      value: Optional[int] = ...,
                      ) -> None: ...
+
 
     class MapSint32Sint32Entry(Message):
         key: int
@@ -91,6 +95,7 @@ class TestMap(Message):
                      value: Optional[int] = ...,
                      ) -> None: ...
 
+
     class MapSint64Sint64Entry(Message):
         key: int
         value: int
@@ -99,6 +104,7 @@ class TestMap(Message):
                      key: Optional[int] = ...,
                      value: Optional[int] = ...,
                      ) -> None: ...
+
 
     class MapFixed32Fixed32Entry(Message):
         key: int
@@ -109,6 +115,7 @@ class TestMap(Message):
                      value: Optional[int] = ...,
                      ) -> None: ...
 
+
     class MapFixed64Fixed64Entry(Message):
         key: int
         value: int
@@ -117,6 +124,7 @@ class TestMap(Message):
                      key: Optional[int] = ...,
                      value: Optional[int] = ...,
                      ) -> None: ...
+
 
     class MapSfixed32Sfixed32Entry(Message):
         key: int
@@ -127,6 +135,7 @@ class TestMap(Message):
                      value: Optional[int] = ...,
                      ) -> None: ...
 
+
     class MapSfixed64Sfixed64Entry(Message):
         key: int
         value: int
@@ -135,6 +144,7 @@ class TestMap(Message):
                      key: Optional[int] = ...,
                      value: Optional[int] = ...,
                      ) -> None: ...
+
 
     class MapInt32FloatEntry(Message):
         key: int
@@ -145,6 +155,7 @@ class TestMap(Message):
                      value: Optional[float] = ...,
                      ) -> None: ...
 
+
     class MapInt32DoubleEntry(Message):
         key: int
         value: float
@@ -153,6 +164,7 @@ class TestMap(Message):
                      key: Optional[int] = ...,
                      value: Optional[float] = ...,
                      ) -> None: ...
+
 
     class MapBoolBoolEntry(Message):
         key: bool
@@ -163,6 +175,7 @@ class TestMap(Message):
                      value: Optional[bool] = ...,
                      ) -> None: ...
 
+
     class MapStringStringEntry(Message):
         key: Text
         value: Text
@@ -171,6 +184,7 @@ class TestMap(Message):
                      key: Optional[Text] = ...,
                      value: Optional[Text] = ...,
                      ) -> None: ...
+
 
     class MapInt32BytesEntry(Message):
         key: int
@@ -181,6 +195,7 @@ class TestMap(Message):
                      value: Optional[bytes] = ...,
                      ) -> None: ...
 
+
     class MapInt32EnumEntry(Message):
         key: int
         value: MapEnum
@@ -189,6 +204,7 @@ class TestMap(Message):
                      key: Optional[int] = ...,
                      value: Optional[MapEnum] = ...,
                      ) -> None: ...
+
 
     class MapInt32ForeignMessageEntry(Message):
         key: int
@@ -201,6 +217,7 @@ class TestMap(Message):
                      value: Optional[ForeignMessage1] = ...,
                      ) -> None: ...
 
+
     class MapStringForeignMessageEntry(Message):
         key: Text
 
@@ -212,6 +229,7 @@ class TestMap(Message):
                      value: Optional[ForeignMessage1] = ...,
                      ) -> None: ...
 
+
     class MapInt32AllTypesEntry(Message):
         key: int
 
@@ -222,6 +240,7 @@ class TestMap(Message):
                      key: Optional[int] = ...,
                      value: Optional[TestAllTypes] = ...,
                      ) -> None: ...
+
 
     @property
     def map_int32_int32(self) -> MutableMapping[int, int]: ...
@@ -305,6 +324,7 @@ class TestMap(Message):
                  ) -> None: ...
 
 
+
 class TestMapSubmessage(Message):
 
     @property
@@ -313,6 +333,7 @@ class TestMapSubmessage(Message):
     def __init__(self,
                  test_map: Optional[TestMap] = ...,
                  ) -> None: ...
+
 
 
 class TestMessageMap(Message):
@@ -328,12 +349,14 @@ class TestMessageMap(Message):
                      value: Optional[TestAllTypes] = ...,
                      ) -> None: ...
 
+
     @property
     def map_int32_message(self) -> MutableMapping[int, TestAllTypes]: ...
 
     def __init__(self,
                  map_int32_message: Optional[Mapping[int, TestAllTypes]] = ...,
                  ) -> None: ...
+
 
 
 class TestSameTypeMap(Message):
@@ -347,6 +370,7 @@ class TestSameTypeMap(Message):
                      value: Optional[int] = ...,
                      ) -> None: ...
 
+
     class Map2Entry(Message):
         key: int
         value: int
@@ -355,6 +379,7 @@ class TestSameTypeMap(Message):
                      key: Optional[int] = ...,
                      value: Optional[int] = ...,
                      ) -> None: ...
+
 
     @property
     def map1(self) -> MutableMapping[int, int]: ...
@@ -366,6 +391,7 @@ class TestSameTypeMap(Message):
                  map1: Optional[Mapping[int, int]] = ...,
                  map2: Optional[Mapping[int, int]] = ...,
                  ) -> None: ...
+
 
 
 class TestRequiredMessageMap(Message):
@@ -381,12 +407,14 @@ class TestRequiredMessageMap(Message):
                      value: Optional[TestRequired] = ...,
                      ) -> None: ...
 
+
     @property
     def map_field(self) -> MutableMapping[int, TestRequired]: ...
 
     def __init__(self,
                  map_field: Optional[Mapping[int, TestRequired]] = ...,
                  ) -> None: ...
+
 
 
 class TestArenaMap(Message):
@@ -400,6 +428,7 @@ class TestArenaMap(Message):
                      value: Optional[int] = ...,
                      ) -> None: ...
 
+
     class MapInt64Int64Entry(Message):
         key: int
         value: int
@@ -408,6 +437,7 @@ class TestArenaMap(Message):
                      key: Optional[int] = ...,
                      value: Optional[int] = ...,
                      ) -> None: ...
+
 
     class MapUint32Uint32Entry(Message):
         key: int
@@ -418,6 +448,7 @@ class TestArenaMap(Message):
                      value: Optional[int] = ...,
                      ) -> None: ...
 
+
     class MapUint64Uint64Entry(Message):
         key: int
         value: int
@@ -426,6 +457,7 @@ class TestArenaMap(Message):
                      key: Optional[int] = ...,
                      value: Optional[int] = ...,
                      ) -> None: ...
+
 
     class MapSint32Sint32Entry(Message):
         key: int
@@ -436,6 +468,7 @@ class TestArenaMap(Message):
                      value: Optional[int] = ...,
                      ) -> None: ...
 
+
     class MapSint64Sint64Entry(Message):
         key: int
         value: int
@@ -444,6 +477,7 @@ class TestArenaMap(Message):
                      key: Optional[int] = ...,
                      value: Optional[int] = ...,
                      ) -> None: ...
+
 
     class MapFixed32Fixed32Entry(Message):
         key: int
@@ -454,6 +488,7 @@ class TestArenaMap(Message):
                      value: Optional[int] = ...,
                      ) -> None: ...
 
+
     class MapFixed64Fixed64Entry(Message):
         key: int
         value: int
@@ -462,6 +497,7 @@ class TestArenaMap(Message):
                      key: Optional[int] = ...,
                      value: Optional[int] = ...,
                      ) -> None: ...
+
 
     class MapSfixed32Sfixed32Entry(Message):
         key: int
@@ -472,6 +508,7 @@ class TestArenaMap(Message):
                      value: Optional[int] = ...,
                      ) -> None: ...
 
+
     class MapSfixed64Sfixed64Entry(Message):
         key: int
         value: int
@@ -480,6 +517,7 @@ class TestArenaMap(Message):
                      key: Optional[int] = ...,
                      value: Optional[int] = ...,
                      ) -> None: ...
+
 
     class MapInt32FloatEntry(Message):
         key: int
@@ -490,6 +528,7 @@ class TestArenaMap(Message):
                      value: Optional[float] = ...,
                      ) -> None: ...
 
+
     class MapInt32DoubleEntry(Message):
         key: int
         value: float
@@ -498,6 +537,7 @@ class TestArenaMap(Message):
                      key: Optional[int] = ...,
                      value: Optional[float] = ...,
                      ) -> None: ...
+
 
     class MapBoolBoolEntry(Message):
         key: bool
@@ -508,6 +548,7 @@ class TestArenaMap(Message):
                      value: Optional[bool] = ...,
                      ) -> None: ...
 
+
     class MapStringStringEntry(Message):
         key: Text
         value: Text
@@ -516,6 +557,7 @@ class TestArenaMap(Message):
                      key: Optional[Text] = ...,
                      value: Optional[Text] = ...,
                      ) -> None: ...
+
 
     class MapInt32BytesEntry(Message):
         key: int
@@ -526,6 +568,7 @@ class TestArenaMap(Message):
                      value: Optional[bytes] = ...,
                      ) -> None: ...
 
+
     class MapInt32EnumEntry(Message):
         key: int
         value: MapEnum
@@ -534,6 +577,7 @@ class TestArenaMap(Message):
                      key: Optional[int] = ...,
                      value: Optional[MapEnum] = ...,
                      ) -> None: ...
+
 
     class MapInt32ForeignMessageEntry(Message):
         key: int
@@ -546,6 +590,7 @@ class TestArenaMap(Message):
                      value: Optional[ForeignMessage1] = ...,
                      ) -> None: ...
 
+
     class MapInt32ForeignMessageNoArenaEntry(Message):
         key: int
 
@@ -556,6 +601,7 @@ class TestArenaMap(Message):
                      key: Optional[int] = ...,
                      value: Optional[ForeignMessage] = ...,
                      ) -> None: ...
+
 
     @property
     def map_int32_int32(self) -> MutableMapping[int, int]: ...
@@ -635,6 +681,7 @@ class TestArenaMap(Message):
                  ) -> None: ...
 
 
+
 class MessageContainingEnumCalledType(Message):
 
     class Type(int):
@@ -667,6 +714,7 @@ class MessageContainingEnumCalledType(Message):
                      value: Optional[MessageContainingEnumCalledType] = ...,
                      ) -> None: ...
 
+
     @property
     def type(self) -> MutableMapping[Text,
                                      MessageContainingEnumCalledType]: ...
@@ -674,6 +722,7 @@ class MessageContainingEnumCalledType(Message):
     def __init__(self,
                  type: Optional[Mapping[Text, MessageContainingEnumCalledType]] = ...,
                  ) -> None: ...
+
 
 
 class MessageContainingMapCalledEntry(Message):
@@ -687,12 +736,14 @@ class MessageContainingMapCalledEntry(Message):
                      value: Optional[int] = ...,
                      ) -> None: ...
 
+
     @property
     def entry(self) -> MutableMapping[int, int]: ...
 
     def __init__(self,
                  entry: Optional[Mapping[int, int]] = ...,
                  ) -> None: ...
+
 
 
 class TestRecursiveMapMessage(Message):
@@ -708,9 +759,11 @@ class TestRecursiveMapMessage(Message):
                      value: Optional[TestRecursiveMapMessage] = ...,
                      ) -> None: ...
 
+
     @property
     def a(self) -> MutableMapping[Text, TestRecursiveMapMessage]: ...
 
     def __init__(self,
                  a: Optional[Mapping[Text, TestRecursiveMapMessage]] = ...,
                  ) -> None: ...
+

@@ -8,3 +8,4 @@ class Empty(Message):
 
     def __init__(self,
                  ) -> None: ...
+

@@ -30,6 +30,7 @@ class Version(Message):
                  ) -> None: ...
 
 
+
 class CodeGeneratorRequest(Message):
     file_to_generate: RepeatedScalarFieldContainer[Text]
     parameter: Text
@@ -48,6 +49,7 @@ class CodeGeneratorRequest(Message):
                  ) -> None: ...
 
 
+
 class CodeGeneratorResponse(Message):
 
     class File(Message):
@@ -60,6 +62,7 @@ class CodeGeneratorResponse(Message):
                      insertion_point: Optional[Text] = ...,
                      content: Optional[Text] = ...,
                      ) -> None: ...
+    error: Text
 
     @property
     def file(self) -> RepeatedCompositeFieldContainer[CodeGeneratorResponse.File]: ...
@@ -68,3 +71,4 @@ class CodeGeneratorResponse(Message):
                  error: Optional[Text] = ...,
                  file: Optional[Iterable[CodeGeneratorResponse.File]] = ...,
                  ) -> None: ...
+

@@ -51,12 +51,14 @@ class Struct(Message, well_known_types.Struct):
                      value: Optional[Value] = ...,
                      ) -> None: ...
 
+
     @property
     def fields(self) -> MutableMapping[Text, Value]: ...
 
     def __init__(self,
                  fields: Optional[Mapping[Text, Value]] = ...,
                  ) -> None: ...
+
 
 
 class _Value(Message):
@@ -81,6 +83,7 @@ class _Value(Message):
                  ) -> None: ...
 
 
+
 Value = _Value
 
 
@@ -92,3 +95,4 @@ class ListValue(Message, well_known_types.ListValue):
     def __init__(self,
                  values: Optional[Iterable[Value]] = ...,
                  ) -> None: ...
+

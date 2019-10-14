@@ -28,3 +28,4 @@ class TestAny(Message):
                  any_value: Optional[Any] = ...,
                  repeated_any_value: Optional[Iterable[Any]] = ...,
                  ) -> None: ...
+

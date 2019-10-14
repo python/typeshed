@@ -47,6 +47,7 @@ class Api(Message):
                  ) -> None: ...
 
 
+
 class Method(Message):
     name: Text
     request_type_url: Text
@@ -69,6 +70,7 @@ class Method(Message):
                  ) -> None: ...
 
 
+
 class Mixin(Message):
     name: Text
     root: Text
@@ -77,3 +79,4 @@ class Mixin(Message):
                  name: Optional[Text] = ...,
                  root: Optional[Text] = ...,
                  ) -> None: ...
+

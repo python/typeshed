@@ -36,3 +36,4 @@ class TestMessage(Message):
     def __init__(self,
                  a: Optional[int] = ...,
                  ) -> None: ...
+

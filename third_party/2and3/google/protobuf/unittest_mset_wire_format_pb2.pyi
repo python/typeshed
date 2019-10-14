@@ -13,6 +13,7 @@ class TestMessageSet(Message):
                  ) -> None: ...
 
 
+
 class TestMessageSetWireFormatContainer(Message):
 
     @property
@@ -21,3 +22,4 @@ class TestMessageSetWireFormatContainer(Message):
     def __init__(self,
                  message_set: Optional[TestMessageSet] = ...,
                  ) -> None: ...
+

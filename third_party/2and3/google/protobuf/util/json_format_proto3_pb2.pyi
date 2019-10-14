@@ -79,6 +79,7 @@ class MessageType(Message):
                  ) -> None: ...
 
 
+
 class TestMessage(Message):
     bool_value: bool
     int32_value: int
@@ -134,6 +135,7 @@ class TestMessage(Message):
                  ) -> None: ...
 
 
+
 class TestOneof(Message):
     oneof_int32_value: int
     oneof_string_value: Text
@@ -152,6 +154,7 @@ class TestOneof(Message):
                  ) -> None: ...
 
 
+
 class TestMap(Message):
 
     class BoolMapEntry(Message):
@@ -163,6 +166,7 @@ class TestMap(Message):
                      value: Optional[int] = ...,
                      ) -> None: ...
 
+
     class Int32MapEntry(Message):
         key: int
         value: int
@@ -171,6 +175,7 @@ class TestMap(Message):
                      key: Optional[int] = ...,
                      value: Optional[int] = ...,
                      ) -> None: ...
+
 
     class Int64MapEntry(Message):
         key: int
@@ -181,6 +186,7 @@ class TestMap(Message):
                      value: Optional[int] = ...,
                      ) -> None: ...
 
+
     class Uint32MapEntry(Message):
         key: int
         value: int
@@ -189,6 +195,7 @@ class TestMap(Message):
                      key: Optional[int] = ...,
                      value: Optional[int] = ...,
                      ) -> None: ...
+
 
     class Uint64MapEntry(Message):
         key: int
@@ -199,6 +206,7 @@ class TestMap(Message):
                      value: Optional[int] = ...,
                      ) -> None: ...
 
+
     class StringMapEntry(Message):
         key: Text
         value: int
@@ -207,6 +215,7 @@ class TestMap(Message):
                      key: Optional[Text] = ...,
                      value: Optional[int] = ...,
                      ) -> None: ...
+
 
     @property
     def bool_map(self) -> MutableMapping[bool, int]: ...
@@ -236,6 +245,7 @@ class TestMap(Message):
                  ) -> None: ...
 
 
+
 class TestNestedMap(Message):
 
     class BoolMapEntry(Message):
@@ -247,6 +257,7 @@ class TestNestedMap(Message):
                      value: Optional[int] = ...,
                      ) -> None: ...
 
+
     class Int32MapEntry(Message):
         key: int
         value: int
@@ -255,6 +266,7 @@ class TestNestedMap(Message):
                      key: Optional[int] = ...,
                      value: Optional[int] = ...,
                      ) -> None: ...
+
 
     class Int64MapEntry(Message):
         key: int
@@ -265,6 +277,7 @@ class TestNestedMap(Message):
                      value: Optional[int] = ...,
                      ) -> None: ...
 
+
     class Uint32MapEntry(Message):
         key: int
         value: int
@@ -273,6 +286,7 @@ class TestNestedMap(Message):
                      key: Optional[int] = ...,
                      value: Optional[int] = ...,
                      ) -> None: ...
+
 
     class Uint64MapEntry(Message):
         key: int
@@ -283,6 +297,7 @@ class TestNestedMap(Message):
                      value: Optional[int] = ...,
                      ) -> None: ...
 
+
     class StringMapEntry(Message):
         key: Text
         value: int
@@ -291,6 +306,7 @@ class TestNestedMap(Message):
                      key: Optional[Text] = ...,
                      value: Optional[int] = ...,
                      ) -> None: ...
+
 
     class MapMapEntry(Message):
         key: Text
@@ -302,6 +318,7 @@ class TestNestedMap(Message):
                      key: Optional[Text] = ...,
                      value: Optional[TestNestedMap] = ...,
                      ) -> None: ...
+
 
     @property
     def bool_map(self) -> MutableMapping[bool, int]: ...
@@ -333,6 +350,7 @@ class TestNestedMap(Message):
                  string_map: Optional[Mapping[Text, int]] = ...,
                  map_map: Optional[Mapping[Text, TestNestedMap]] = ...,
                  ) -> None: ...
+
 
 
 class TestWrapper(Message):
@@ -422,6 +440,7 @@ class TestWrapper(Message):
                  ) -> None: ...
 
 
+
 class TestTimestamp(Message):
 
     @property
@@ -434,6 +453,7 @@ class TestTimestamp(Message):
                  value: Optional[Timestamp] = ...,
                  repeated_value: Optional[Iterable[Timestamp]] = ...,
                  ) -> None: ...
+
 
 
 class TestDuration(Message):
@@ -450,6 +470,7 @@ class TestDuration(Message):
                  ) -> None: ...
 
 
+
 class TestFieldMask(Message):
 
     @property
@@ -458,6 +479,7 @@ class TestFieldMask(Message):
     def __init__(self,
                  value: Optional[FieldMask] = ...,
                  ) -> None: ...
+
 
 
 class TestStruct(Message):
@@ -474,6 +496,7 @@ class TestStruct(Message):
                  ) -> None: ...
 
 
+
 class TestAny(Message):
 
     @property
@@ -486,6 +509,7 @@ class TestAny(Message):
                  value: Optional[Any] = ...,
                  repeated_value: Optional[Iterable[Any]] = ...,
                  ) -> None: ...
+
 
 
 class TestValue(Message):
@@ -502,6 +526,7 @@ class TestValue(Message):
                  ) -> None: ...
 
 
+
 class TestListValue(Message):
 
     @property
@@ -516,6 +541,7 @@ class TestListValue(Message):
                  ) -> None: ...
 
 
+
 class TestBoolValue(Message):
 
     class BoolMapEntry(Message):
@@ -526,6 +552,7 @@ class TestBoolValue(Message):
                      key: Optional[bool] = ...,
                      value: Optional[int] = ...,
                      ) -> None: ...
+    bool_value: bool
 
     @property
     def bool_map(self) -> MutableMapping[bool, int]: ...
@@ -536,12 +563,14 @@ class TestBoolValue(Message):
                  ) -> None: ...
 
 
+
 class TestCustomJsonName(Message):
     value: int
 
     def __init__(self,
                  value: Optional[int] = ...,
                  ) -> None: ...
+
 
 
 class TestExtensions(Message):
@@ -554,6 +583,7 @@ class TestExtensions(Message):
                  ) -> None: ...
 
 
+
 class TestEnumValue(Message):
     enum_value1: EnumType
     enum_value2: EnumType
@@ -564,3 +594,4 @@ class TestEnumValue(Message):
                  enum_value2: Optional[EnumType] = ...,
                  enum_value3: Optional[EnumType] = ...,
                  ) -> None: ...
+

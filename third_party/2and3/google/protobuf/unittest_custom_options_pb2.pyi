@@ -92,10 +92,12 @@ class TestMessageWithCustomOptions(Message):
                  ) -> None: ...
 
 
+
 class CustomOptionFooRequest(Message):
 
     def __init__(self,
                  ) -> None: ...
+
 
 
 class CustomOptionFooResponse(Message):
@@ -104,16 +106,19 @@ class CustomOptionFooResponse(Message):
                  ) -> None: ...
 
 
+
 class CustomOptionFooClientMessage(Message):
 
     def __init__(self,
                  ) -> None: ...
 
 
+
 class CustomOptionFooServerMessage(Message):
 
     def __init__(self,
                  ) -> None: ...
+
 
 
 class DummyMessageContainingEnum(Message):
@@ -142,10 +147,12 @@ class DummyMessageContainingEnum(Message):
                  ) -> None: ...
 
 
+
 class DummyMessageInvalidAsOptionType(Message):
 
     def __init__(self,
                  ) -> None: ...
+
 
 
 class CustomOptionMinIntegerValues(Message):
@@ -154,10 +161,12 @@ class CustomOptionMinIntegerValues(Message):
                  ) -> None: ...
 
 
+
 class CustomOptionMaxIntegerValues(Message):
 
     def __init__(self,
                  ) -> None: ...
+
 
 
 class CustomOptionOtherValues(Message):
@@ -166,16 +175,19 @@ class CustomOptionOtherValues(Message):
                  ) -> None: ...
 
 
+
 class SettingRealsFromPositiveInts(Message):
 
     def __init__(self,
                  ) -> None: ...
 
 
+
 class SettingRealsFromNegativeInts(Message):
 
     def __init__(self,
                  ) -> None: ...
+
 
 
 class ComplexOptionType1(Message):
@@ -192,6 +204,7 @@ class ComplexOptionType1(Message):
                  ) -> None: ...
 
 
+
 class ComplexOptionType2(Message):
 
     class ComplexOptionType4(Message):
@@ -200,6 +213,7 @@ class ComplexOptionType2(Message):
         def __init__(self,
                      waldo: Optional[int] = ...,
                      ) -> None: ...
+    baz: int
 
     @property
     def bar(self) -> ComplexOptionType1: ...
@@ -219,6 +233,7 @@ class ComplexOptionType2(Message):
                  ) -> None: ...
 
 
+
 class ComplexOptionType3(Message):
 
     class ComplexOptionType5(Message):
@@ -227,6 +242,7 @@ class ComplexOptionType3(Message):
         def __init__(self,
                      plugh: Optional[int] = ...,
                      ) -> None: ...
+    qux: int
 
     @property
     def complexoptiontype5(self) -> ComplexOptionType3.ComplexOptionType5: ...
@@ -237,6 +253,7 @@ class ComplexOptionType3(Message):
                  ) -> None: ...
 
 
+
 class ComplexOpt6(Message):
     xyzzy: int
 
@@ -245,10 +262,12 @@ class ComplexOpt6(Message):
                  ) -> None: ...
 
 
+
 class VariousComplexOptions(Message):
 
     def __init__(self,
                  ) -> None: ...
+
 
 
 class AggregateMessageSet(Message):
@@ -257,12 +276,14 @@ class AggregateMessageSet(Message):
                  ) -> None: ...
 
 
+
 class AggregateMessageSetElement(Message):
     s: Text
 
     def __init__(self,
                  s: Optional[Text] = ...,
                  ) -> None: ...
+
 
 
 class Aggregate(Message):
@@ -287,12 +308,14 @@ class Aggregate(Message):
                  ) -> None: ...
 
 
+
 class AggregateMessage(Message):
     fieldname: int
 
     def __init__(self,
                  fieldname: Optional[int] = ...,
                  ) -> None: ...
+
 
 
 class NestedOptionType(Message):
@@ -322,8 +345,10 @@ class NestedOptionType(Message):
                      nested_field: Optional[int] = ...,
                      ) -> None: ...
 
+
     def __init__(self,
                  ) -> None: ...
+
 
 
 class OldOptionType(Message):
@@ -350,6 +375,7 @@ class OldOptionType(Message):
     def __init__(self,
                  value: OldOptionType.TestEnum,
                  ) -> None: ...
+
 
 
 class NewOptionType(Message):
@@ -379,7 +405,9 @@ class NewOptionType(Message):
                  ) -> None: ...
 
 
+
 class TestMessageWithRequiredEnumOption(Message):
 
     def __init__(self,
                  ) -> None: ...
+

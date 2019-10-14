@@ -16,12 +16,14 @@ class DoubleValue(Message):
                  ) -> None: ...
 
 
+
 class FloatValue(Message):
     value: float
 
     def __init__(self,
                  value: Optional[float] = ...,
                  ) -> None: ...
+
 
 
 class Int64Value(Message):
@@ -32,12 +34,14 @@ class Int64Value(Message):
                  ) -> None: ...
 
 
+
 class UInt64Value(Message):
     value: int
 
     def __init__(self,
                  value: Optional[int] = ...,
                  ) -> None: ...
+
 
 
 class Int32Value(Message):
@@ -48,12 +52,14 @@ class Int32Value(Message):
                  ) -> None: ...
 
 
+
 class UInt32Value(Message):
     value: int
 
     def __init__(self,
                  value: Optional[int] = ...,
                  ) -> None: ...
+
 
 
 class BoolValue(Message):
@@ -64,6 +70,7 @@ class BoolValue(Message):
                  ) -> None: ...
 
 
+
 class StringValue(Message):
     value: Text
 
@@ -72,9 +79,11 @@ class StringValue(Message):
                  ) -> None: ...
 
 
+
 class BytesValue(Message):
     value: bytes
 
     def __init__(self,
                  value: Optional[bytes] = ...,
                  ) -> None: ...
+

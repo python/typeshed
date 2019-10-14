@@ -26,6 +26,7 @@ class FileDescriptorSet(Message):
                  ) -> None: ...
 
 
+
 class FileDescriptorProto(Message):
     name: Text
     package: Text
@@ -72,6 +73,7 @@ class FileDescriptorProto(Message):
                  ) -> None: ...
 
 
+
 class DescriptorProto(Message):
 
     class ExtensionRange(Message):
@@ -87,6 +89,7 @@ class DescriptorProto(Message):
                      options: Optional[ExtensionRangeOptions] = ...,
                      ) -> None: ...
 
+
     class ReservedRange(Message):
         start: int
         end: int
@@ -95,6 +98,8 @@ class DescriptorProto(Message):
                      start: Optional[int] = ...,
                      end: Optional[int] = ...,
                      ) -> None: ...
+    name: Text
+    reserved_name: RepeatedScalarFieldContainer[Text]
 
     @property
     def field(
@@ -141,6 +146,7 @@ class DescriptorProto(Message):
                  ) -> None: ...
 
 
+
 class ExtensionRangeOptions(Message):
 
     @property
@@ -150,6 +156,7 @@ class ExtensionRangeOptions(Message):
     def __init__(self,
                  uninterpreted_option: Optional[Iterable[UninterpretedOption]] = ...,
                  ) -> None: ...
+
 
 
 class FieldDescriptorProto(Message):
@@ -235,6 +242,7 @@ class FieldDescriptorProto(Message):
                  ) -> None: ...
 
 
+
 class OneofDescriptorProto(Message):
     name: Text
 
@@ -247,6 +255,7 @@ class OneofDescriptorProto(Message):
                  ) -> None: ...
 
 
+
 class EnumDescriptorProto(Message):
 
     class EnumReservedRange(Message):
@@ -257,6 +266,8 @@ class EnumDescriptorProto(Message):
                      start: Optional[int] = ...,
                      end: Optional[int] = ...,
                      ) -> None: ...
+    name: Text
+    reserved_name: RepeatedScalarFieldContainer[Text]
 
     @property
     def value(
@@ -278,6 +289,7 @@ class EnumDescriptorProto(Message):
                  ) -> None: ...
 
 
+
 class EnumValueDescriptorProto(Message):
     name: Text
     number: int
@@ -290,6 +302,7 @@ class EnumValueDescriptorProto(Message):
                  number: Optional[int] = ...,
                  options: Optional[EnumValueOptions] = ...,
                  ) -> None: ...
+
 
 
 class ServiceDescriptorProto(Message):
@@ -307,6 +320,7 @@ class ServiceDescriptorProto(Message):
                  method: Optional[Iterable[MethodDescriptorProto]] = ...,
                  options: Optional[ServiceOptions] = ...,
                  ) -> None: ...
+
 
 
 class MethodDescriptorProto(Message):
@@ -327,6 +341,7 @@ class MethodDescriptorProto(Message):
                  client_streaming: Optional[bool] = ...,
                  server_streaming: Optional[bool] = ...,
                  ) -> None: ...
+
 
 
 class FileOptions(Message):
@@ -396,6 +411,7 @@ class FileOptions(Message):
                  ) -> None: ...
 
 
+
 class MessageOptions(Message):
     message_set_wire_format: bool
     no_standard_descriptor_accessor: bool
@@ -413,6 +429,7 @@ class MessageOptions(Message):
                  map_entry: Optional[bool] = ...,
                  uninterpreted_option: Optional[Iterable[UninterpretedOption]] = ...,
                  ) -> None: ...
+
 
 
 class FieldOptions(Message):
@@ -478,6 +495,7 @@ class FieldOptions(Message):
                  ) -> None: ...
 
 
+
 class OneofOptions(Message):
 
     @property
@@ -487,6 +505,7 @@ class OneofOptions(Message):
     def __init__(self,
                  uninterpreted_option: Optional[Iterable[UninterpretedOption]] = ...,
                  ) -> None: ...
+
 
 
 class EnumOptions(Message):
@@ -504,6 +523,7 @@ class EnumOptions(Message):
                  ) -> None: ...
 
 
+
 class EnumValueOptions(Message):
     deprecated: bool
 
@@ -517,6 +537,7 @@ class EnumValueOptions(Message):
                  ) -> None: ...
 
 
+
 class ServiceOptions(Message):
     deprecated: bool
 
@@ -528,6 +549,7 @@ class ServiceOptions(Message):
                  deprecated: Optional[bool] = ...,
                  uninterpreted_option: Optional[Iterable[UninterpretedOption]] = ...,
                  ) -> None: ...
+
 
 
 class MethodOptions(Message):
@@ -565,6 +587,7 @@ class MethodOptions(Message):
                  ) -> None: ...
 
 
+
 class UninterpretedOption(Message):
 
     class NamePart(Message):
@@ -575,6 +598,12 @@ class UninterpretedOption(Message):
                      name_part: Text,
                      is_extension: bool,
                      ) -> None: ...
+    identifier_value: Text
+    positive_int_value: int
+    negative_int_value: int
+    double_value: float
+    string_value: bytes
+    aggregate_value: Text
 
     @property
     def name(
@@ -589,6 +618,7 @@ class UninterpretedOption(Message):
                  string_value: Optional[bytes] = ...,
                  aggregate_value: Optional[Text] = ...,
                  ) -> None: ...
+
 
 
 class SourceCodeInfo(Message):
@@ -608,6 +638,7 @@ class SourceCodeInfo(Message):
                      leading_detached_comments: Optional[Iterable[Text]] = ...,
                      ) -> None: ...
 
+
     @property
     def location(
         self) -> RepeatedCompositeFieldContainer[SourceCodeInfo.Location]: ...
@@ -615,6 +646,7 @@ class SourceCodeInfo(Message):
     def __init__(self,
                  location: Optional[Iterable[SourceCodeInfo.Location]] = ...,
                  ) -> None: ...
+
 
 
 class GeneratedCodeInfo(Message):
@@ -632,6 +664,7 @@ class GeneratedCodeInfo(Message):
                      end: Optional[int] = ...,
                      ) -> None: ...
 
+
     @property
     def annotation(
         self) -> RepeatedCompositeFieldContainer[GeneratedCodeInfo.Annotation]: ...
@@ -639,3 +672,4 @@ class GeneratedCodeInfo(Message):
     def __init__(self,
                  annotation: Optional[Iterable[GeneratedCodeInfo.Annotation]] = ...,
                  ) -> None: ...
+

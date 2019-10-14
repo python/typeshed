@@ -70,6 +70,7 @@ class TestEnumMap(Message):
                      value: Optional[Proto2MapEnum] = ...,
                      ) -> None: ...
 
+
     class UnknownMapFieldEntry(Message):
         key: int
         value: Proto2MapEnum
@@ -78,6 +79,7 @@ class TestEnumMap(Message):
                      key: Optional[int] = ...,
                      value: Optional[Proto2MapEnum] = ...,
                      ) -> None: ...
+
 
     @property
     def known_map_field(self) -> MutableMapping[int, Proto2MapEnum]: ...
@@ -91,6 +93,7 @@ class TestEnumMap(Message):
                  ) -> None: ...
 
 
+
 class TestEnumMapPlusExtra(Message):
 
     class KnownMapFieldEntry(Message):
@@ -102,6 +105,7 @@ class TestEnumMapPlusExtra(Message):
                      value: Optional[Proto2MapEnumPlusExtra] = ...,
                      ) -> None: ...
 
+
     class UnknownMapFieldEntry(Message):
         key: int
         value: Proto2MapEnumPlusExtra
@@ -110,6 +114,7 @@ class TestEnumMapPlusExtra(Message):
                      key: Optional[int] = ...,
                      value: Optional[Proto2MapEnumPlusExtra] = ...,
                      ) -> None: ...
+
 
     @property
     def known_map_field(self) -> MutableMapping[int, Proto2MapEnumPlusExtra]: ...
@@ -123,6 +128,7 @@ class TestEnumMapPlusExtra(Message):
                  ) -> None: ...
 
 
+
 class TestImportEnumMap(Message):
 
     class ImportEnumAmpEntry(Message):
@@ -134,12 +140,14 @@ class TestImportEnumMap(Message):
                      value: Optional[ImportEnumForMap] = ...,
                      ) -> None: ...
 
+
     @property
     def import_enum_amp(self) -> MutableMapping[int, ImportEnumForMap]: ...
 
     def __init__(self,
                  import_enum_amp: Optional[Mapping[int, ImportEnumForMap]] = ...,
                  ) -> None: ...
+
 
 
 class TestIntIntMap(Message):
@@ -153,12 +161,14 @@ class TestIntIntMap(Message):
                      value: Optional[int] = ...,
                      ) -> None: ...
 
+
     @property
     def m(self) -> MutableMapping[int, int]: ...
 
     def __init__(self,
                  m: Optional[Mapping[int, int]] = ...,
                  ) -> None: ...
+
 
 
 class TestMaps(Message):
@@ -174,6 +184,7 @@ class TestMaps(Message):
                      value: Optional[TestIntIntMap] = ...,
                      ) -> None: ...
 
+
     class MInt64Entry(Message):
         key: int
 
@@ -184,6 +195,7 @@ class TestMaps(Message):
                      key: Optional[int] = ...,
                      value: Optional[TestIntIntMap] = ...,
                      ) -> None: ...
+
 
     class MUint32Entry(Message):
         key: int
@@ -196,6 +208,7 @@ class TestMaps(Message):
                      value: Optional[TestIntIntMap] = ...,
                      ) -> None: ...
 
+
     class MUint64Entry(Message):
         key: int
 
@@ -206,6 +219,7 @@ class TestMaps(Message):
                      key: Optional[int] = ...,
                      value: Optional[TestIntIntMap] = ...,
                      ) -> None: ...
+
 
     class MSint32Entry(Message):
         key: int
@@ -218,6 +232,7 @@ class TestMaps(Message):
                      value: Optional[TestIntIntMap] = ...,
                      ) -> None: ...
 
+
     class MSint64Entry(Message):
         key: int
 
@@ -228,6 +243,7 @@ class TestMaps(Message):
                      key: Optional[int] = ...,
                      value: Optional[TestIntIntMap] = ...,
                      ) -> None: ...
+
 
     class MFixed32Entry(Message):
         key: int
@@ -240,6 +256,7 @@ class TestMaps(Message):
                      value: Optional[TestIntIntMap] = ...,
                      ) -> None: ...
 
+
     class MFixed64Entry(Message):
         key: int
 
@@ -250,6 +267,7 @@ class TestMaps(Message):
                      key: Optional[int] = ...,
                      value: Optional[TestIntIntMap] = ...,
                      ) -> None: ...
+
 
     class MSfixed32Entry(Message):
         key: int
@@ -262,6 +280,7 @@ class TestMaps(Message):
                      value: Optional[TestIntIntMap] = ...,
                      ) -> None: ...
 
+
     class MSfixed64Entry(Message):
         key: int
 
@@ -272,6 +291,7 @@ class TestMaps(Message):
                      key: Optional[int] = ...,
                      value: Optional[TestIntIntMap] = ...,
                      ) -> None: ...
+
 
     class MBoolEntry(Message):
         key: bool
@@ -284,6 +304,7 @@ class TestMaps(Message):
                      value: Optional[TestIntIntMap] = ...,
                      ) -> None: ...
 
+
     class MStringEntry(Message):
         key: Text
 
@@ -294,6 +315,7 @@ class TestMaps(Message):
                      key: Optional[Text] = ...,
                      value: Optional[TestIntIntMap] = ...,
                      ) -> None: ...
+
 
     @property
     def m_int32(self) -> MutableMapping[int, TestIntIntMap]: ...
@@ -347,6 +369,7 @@ class TestMaps(Message):
                  ) -> None: ...
 
 
+
 class TestSubmessageMaps(Message):
 
     @property
@@ -355,3 +378,4 @@ class TestSubmessageMaps(Message):
     def __init__(self,
                  m: Optional[TestMaps] = ...,
                  ) -> None: ...
+

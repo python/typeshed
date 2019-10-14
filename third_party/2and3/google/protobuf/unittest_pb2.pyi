@@ -125,6 +125,7 @@ class TestAllTypes(Message):
                      bb: Optional[int] = ...,
                      ) -> None: ...
 
+
     class OptionalGroup(Message):
         a: int
 
@@ -132,12 +133,76 @@ class TestAllTypes(Message):
                      a: Optional[int] = ...,
                      ) -> None: ...
 
+
     class RepeatedGroup(Message):
         a: int
 
         def __init__(self,
                      a: Optional[int] = ...,
                      ) -> None: ...
+    optional_int32: int
+    optional_int64: int
+    optional_uint32: int
+    optional_uint64: int
+    optional_sint32: int
+    optional_sint64: int
+    optional_fixed32: int
+    optional_fixed64: int
+    optional_sfixed32: int
+    optional_sfixed64: int
+    optional_float: float
+    optional_double: float
+    optional_bool: bool
+    optional_string: Text
+    optional_bytes: bytes
+    optional_nested_enum: TestAllTypes.NestedEnum
+    optional_foreign_enum: ForeignEnum
+    optional_import_enum: ImportEnum
+    optional_string_piece: Text
+    optional_cord: Text
+    repeated_int32: RepeatedScalarFieldContainer[int]
+    repeated_int64: RepeatedScalarFieldContainer[int]
+    repeated_uint32: RepeatedScalarFieldContainer[int]
+    repeated_uint64: RepeatedScalarFieldContainer[int]
+    repeated_sint32: RepeatedScalarFieldContainer[int]
+    repeated_sint64: RepeatedScalarFieldContainer[int]
+    repeated_fixed32: RepeatedScalarFieldContainer[int]
+    repeated_fixed64: RepeatedScalarFieldContainer[int]
+    repeated_sfixed32: RepeatedScalarFieldContainer[int]
+    repeated_sfixed64: RepeatedScalarFieldContainer[int]
+    repeated_float: RepeatedScalarFieldContainer[float]
+    repeated_double: RepeatedScalarFieldContainer[float]
+    repeated_bool: RepeatedScalarFieldContainer[bool]
+    repeated_string: RepeatedScalarFieldContainer[Text]
+    repeated_bytes: RepeatedScalarFieldContainer[bytes]
+    repeated_nested_enum: RepeatedScalarFieldContainer[TestAllTypes.NestedEnum]
+    repeated_foreign_enum: RepeatedScalarFieldContainer[ForeignEnum]
+    repeated_import_enum: RepeatedScalarFieldContainer[ImportEnum]
+    repeated_string_piece: RepeatedScalarFieldContainer[Text]
+    repeated_cord: RepeatedScalarFieldContainer[Text]
+    default_int32: int
+    default_int64: int
+    default_uint32: int
+    default_uint64: int
+    default_sint32: int
+    default_sint64: int
+    default_fixed32: int
+    default_fixed64: int
+    default_sfixed32: int
+    default_sfixed64: int
+    default_float: float
+    default_double: float
+    default_bool: bool
+    default_string: Text
+    default_bytes: bytes
+    default_nested_enum: TestAllTypes.NestedEnum
+    default_foreign_enum: ForeignEnum
+    default_import_enum: ImportEnum
+    default_string_piece: Text
+    default_cord: Text
+    oneof_uint32: int
+    oneof_string: Text
+    oneof_bytes: bytes
 
     @property
     def optionalgroup(self) -> TestAllTypes.OptionalGroup: ...
@@ -259,6 +324,7 @@ class TestAllTypes(Message):
                  ) -> None: ...
 
 
+
 class NestedTestAllTypes(Message):
 
     @property
@@ -278,6 +344,7 @@ class NestedTestAllTypes(Message):
                  ) -> None: ...
 
 
+
 class TestDeprecatedFields(Message):
     deprecated_int32: int
     deprecated_int32_in_oneof: int
@@ -288,10 +355,12 @@ class TestDeprecatedFields(Message):
                  ) -> None: ...
 
 
+
 class TestDeprecatedMessage(Message):
 
     def __init__(self,
                  ) -> None: ...
+
 
 
 class ForeignMessage(Message):
@@ -304,16 +373,19 @@ class ForeignMessage(Message):
                  ) -> None: ...
 
 
+
 class TestReservedFields(Message):
 
     def __init__(self,
                  ) -> None: ...
 
 
+
 class TestAllExtensions(Message):
 
     def __init__(self,
                  ) -> None: ...
+
 
 
 class OptionalGroup_extension(Message):
@@ -324,12 +396,14 @@ class OptionalGroup_extension(Message):
                  ) -> None: ...
 
 
+
 class RepeatedGroup_extension(Message):
     a: int
 
     def __init__(self,
                  a: Optional[int] = ...,
                  ) -> None: ...
+
 
 
 class TestGroup(Message):
@@ -339,6 +413,7 @@ class TestGroup(Message):
         def __init__(self,
                      a: Optional[int] = ...,
                      ) -> None: ...
+    optional_foreign_enum: ForeignEnum
 
     @property
     def optionalgroup(self) -> TestGroup.OptionalGroup: ...
@@ -349,10 +424,12 @@ class TestGroup(Message):
                  ) -> None: ...
 
 
+
 class TestGroupExtension(Message):
 
     def __init__(self,
                  ) -> None: ...
+
 
 
 class TestNestedExtension(Message):
@@ -363,8 +440,10 @@ class TestNestedExtension(Message):
                      a: Optional[int] = ...,
                      ) -> None: ...
 
+
     def __init__(self,
                  ) -> None: ...
+
 
 
 class TestRequired(Message):
@@ -439,6 +518,7 @@ class TestRequired(Message):
                  ) -> None: ...
 
 
+
 class TestRequiredForeign(Message):
     dummy: int
 
@@ -454,6 +534,7 @@ class TestRequiredForeign(Message):
                  repeated_message: Optional[Iterable[TestRequired]] = ...,
                  dummy: Optional[int] = ...,
                  ) -> None: ...
+
 
 
 class TestRequiredMessage(Message):
@@ -475,6 +556,7 @@ class TestRequiredMessage(Message):
                  ) -> None: ...
 
 
+
 class TestForeignNested(Message):
 
     @property
@@ -485,10 +567,12 @@ class TestForeignNested(Message):
                  ) -> None: ...
 
 
+
 class TestEmptyMessage(Message):
 
     def __init__(self,
                  ) -> None: ...
+
 
 
 class TestEmptyMessageWithExtensions(Message):
@@ -497,10 +581,12 @@ class TestEmptyMessageWithExtensions(Message):
                  ) -> None: ...
 
 
+
 class TestMultipleExtensionRanges(Message):
 
     def __init__(self,
                  ) -> None: ...
+
 
 
 class TestReallyLargeTagNumber(Message):
@@ -511,6 +597,7 @@ class TestReallyLargeTagNumber(Message):
                  a: Optional[int] = ...,
                  bb: Optional[int] = ...,
                  ) -> None: ...
+
 
 
 class TestRecursiveMessage(Message):
@@ -525,6 +612,7 @@ class TestRecursiveMessage(Message):
                  ) -> None: ...
 
 
+
 class TestMutualRecursionA(Message):
     class SubMessage(Message):
 
@@ -534,6 +622,7 @@ class TestMutualRecursionA(Message):
         def __init__(self,
                      b: Optional[TestMutualRecursionB] = ...,
                      ) -> None: ...
+
 
     class SubGroup(Message):
 
@@ -548,6 +637,7 @@ class TestMutualRecursionA(Message):
                      not_in_this_scc: Optional[TestAllTypes] = ...,
                      ) -> None: ...
 
+
     @property
     def bb(self) -> TestMutualRecursionB: ...
 
@@ -558,6 +648,7 @@ class TestMutualRecursionA(Message):
                  bb: Optional[TestMutualRecursionB] = ...,
                  subgroup: Optional[TestMutualRecursionA.SubGroup] = ...,
                  ) -> None: ...
+
 
 
 class TestMutualRecursionB(Message):
@@ -572,6 +663,7 @@ class TestMutualRecursionB(Message):
                  ) -> None: ...
 
 
+
 class TestIsInitialized(Message):
     class SubMessage(Message):
         class SubGroup(Message):
@@ -581,6 +673,7 @@ class TestIsInitialized(Message):
                          i: int,
                          ) -> None: ...
 
+
         @property
         def subgroup(self) -> TestIsInitialized.SubMessage.SubGroup: ...
 
@@ -588,12 +681,14 @@ class TestIsInitialized(Message):
                      subgroup: Optional[TestIsInitialized.SubMessage.SubGroup] = ...,
                      ) -> None: ...
 
+
     @property
     def sub_message(self) -> TestIsInitialized.SubMessage: ...
 
     def __init__(self,
                  sub_message: Optional[TestIsInitialized.SubMessage] = ...,
                  ) -> None: ...
+
 
 
 class TestDupFieldNumber(Message):
@@ -604,12 +699,14 @@ class TestDupFieldNumber(Message):
                      a: Optional[int] = ...,
                      ) -> None: ...
 
+
     class Bar(Message):
         a: int
 
         def __init__(self,
                      a: Optional[int] = ...,
                      ) -> None: ...
+    a: int
 
     @property
     def foo(self) -> TestDupFieldNumber.Foo: ...
@@ -624,6 +721,7 @@ class TestDupFieldNumber(Message):
                  ) -> None: ...
 
 
+
 class TestEagerMessage(Message):
 
     @property
@@ -634,6 +732,7 @@ class TestEagerMessage(Message):
                  ) -> None: ...
 
 
+
 class TestLazyMessage(Message):
 
     @property
@@ -642,6 +741,7 @@ class TestLazyMessage(Message):
     def __init__(self,
                  sub_message: Optional[TestAllTypes] = ...,
                  ) -> None: ...
+
 
 
 class TestNestedMessageHasBits(Message):
@@ -657,6 +757,7 @@ class TestNestedMessageHasBits(Message):
                      nestedmessage_repeated_foreignmessage: Optional[Iterable[ForeignMessage]] = ...,
                      ) -> None: ...
 
+
     @property
     def optional_nested_message(
         self) -> TestNestedMessageHasBits.NestedMessage: ...
@@ -664,6 +765,7 @@ class TestNestedMessageHasBits(Message):
     def __init__(self,
                  optional_nested_message: Optional[TestNestedMessageHasBits.NestedMessage] = ...,
                  ) -> None: ...
+
 
 
 class TestCamelCaseFieldNames(Message):
@@ -701,6 +803,7 @@ class TestCamelCaseFieldNames(Message):
                  ) -> None: ...
 
 
+
 class TestFieldOrderings(Message):
     class NestedMessage(Message):
         oo: int
@@ -710,6 +813,9 @@ class TestFieldOrderings(Message):
                      oo: Optional[int] = ...,
                      bb: Optional[int] = ...,
                      ) -> None: ...
+    my_string: Text
+    my_int: int
+    my_float: float
 
     @property
     def optional_nested_message(self) -> TestFieldOrderings.NestedMessage: ...
@@ -722,12 +828,14 @@ class TestFieldOrderings(Message):
                  ) -> None: ...
 
 
+
 class TestExtensionOrderings1(Message):
     my_string: Text
 
     def __init__(self,
                  my_string: Optional[Text] = ...,
                  ) -> None: ...
+
 
 
 class TestExtensionOrderings2(Message):
@@ -737,10 +845,12 @@ class TestExtensionOrderings2(Message):
         def __init__(self,
                      my_string: Optional[Text] = ...,
                      ) -> None: ...
+    my_string: Text
 
     def __init__(self,
                  my_string: Optional[Text] = ...,
                  ) -> None: ...
+
 
 
 class TestExtremeDefaultValues(Message):
@@ -803,12 +913,14 @@ class TestExtremeDefaultValues(Message):
                  ) -> None: ...
 
 
+
 class SparseEnumMessage(Message):
     sparse_enum: TestSparseEnum
 
     def __init__(self,
                  sparse_enum: Optional[TestSparseEnum] = ...,
                  ) -> None: ...
+
 
 
 class OneString(Message):
@@ -819,12 +931,14 @@ class OneString(Message):
                  ) -> None: ...
 
 
+
 class MoreString(Message):
     data: RepeatedScalarFieldContainer[Text]
 
     def __init__(self,
                  data: Optional[Iterable[Text]] = ...,
                  ) -> None: ...
+
 
 
 class OneBytes(Message):
@@ -835,12 +949,14 @@ class OneBytes(Message):
                  ) -> None: ...
 
 
+
 class MoreBytes(Message):
     data: RepeatedScalarFieldContainer[bytes]
 
     def __init__(self,
                  data: Optional[Iterable[bytes]] = ...,
                  ) -> None: ...
+
 
 
 class Int32Message(Message):
@@ -851,12 +967,14 @@ class Int32Message(Message):
                  ) -> None: ...
 
 
+
 class Uint32Message(Message):
     data: int
 
     def __init__(self,
                  data: Optional[int] = ...,
                  ) -> None: ...
+
 
 
 class Int64Message(Message):
@@ -867,6 +985,7 @@ class Int64Message(Message):
                  ) -> None: ...
 
 
+
 class Uint64Message(Message):
     data: int
 
@@ -875,12 +994,14 @@ class Uint64Message(Message):
                  ) -> None: ...
 
 
+
 class BoolMessage(Message):
     data: bool
 
     def __init__(self,
                  data: Optional[bool] = ...,
                  ) -> None: ...
+
 
 
 class TestOneof(Message):
@@ -892,6 +1013,8 @@ class TestOneof(Message):
                      a: Optional[int] = ...,
                      b: Optional[Text] = ...,
                      ) -> None: ...
+    foo_int: int
+    foo_string: Text
 
     @property
     def foo_message(self) -> TestAllTypes: ...
@@ -907,6 +1030,7 @@ class TestOneof(Message):
                  ) -> None: ...
 
 
+
 class TestOneofBackwardsCompatible(Message):
     class FooGroup(Message):
         a: int
@@ -916,6 +1040,8 @@ class TestOneofBackwardsCompatible(Message):
                      a: Optional[int] = ...,
                      b: Optional[Text] = ...,
                      ) -> None: ...
+    foo_int: int
+    foo_string: Text
 
     @property
     def foo_message(self) -> TestAllTypes: ...
@@ -929,6 +1055,7 @@ class TestOneofBackwardsCompatible(Message):
                  foo_message: Optional[TestAllTypes] = ...,
                  foogroup: Optional[TestOneofBackwardsCompatible.FooGroup] = ...,
                  ) -> None: ...
+
 
 
 class TestOneof2(Message):
@@ -960,6 +1087,7 @@ class TestOneof2(Message):
                      b: Optional[Text] = ...,
                      ) -> None: ...
 
+
     class NestedMessage(Message):
         qux_int: int
         corge_int: RepeatedScalarFieldContainer[int]
@@ -968,6 +1096,20 @@ class TestOneof2(Message):
                      qux_int: Optional[int] = ...,
                      corge_int: Optional[Iterable[int]] = ...,
                      ) -> None: ...
+    foo_int: int
+    foo_string: Text
+    foo_cord: Text
+    foo_string_piece: Text
+    foo_bytes: bytes
+    foo_enum: TestOneof2.NestedEnum
+    bar_int: int
+    bar_string: Text
+    bar_cord: Text
+    bar_string_piece: Text
+    bar_bytes: bytes
+    bar_enum: TestOneof2.NestedEnum
+    baz_int: int
+    baz_string: Text
 
     @property
     def foo_message(self) -> TestOneof2.NestedMessage: ...
@@ -999,6 +1141,7 @@ class TestOneof2(Message):
                  ) -> None: ...
 
 
+
 class TestRequiredOneof(Message):
     class NestedMessage(Message):
         required_double: float
@@ -1006,6 +1149,8 @@ class TestRequiredOneof(Message):
         def __init__(self,
                      required_double: float,
                      ) -> None: ...
+    foo_int: int
+    foo_string: Text
 
     @property
     def foo_message(self) -> TestRequiredOneof.NestedMessage: ...
@@ -1015,6 +1160,7 @@ class TestRequiredOneof(Message):
                  foo_string: Optional[Text] = ...,
                  foo_message: Optional[TestRequiredOneof.NestedMessage] = ...,
                  ) -> None: ...
+
 
 
 class TestPackedTypes(Message):
@@ -1051,6 +1197,7 @@ class TestPackedTypes(Message):
                  ) -> None: ...
 
 
+
 class TestUnpackedTypes(Message):
     unpacked_int32: RepeatedScalarFieldContainer[int]
     unpacked_int64: RepeatedScalarFieldContainer[int]
@@ -1085,16 +1232,19 @@ class TestUnpackedTypes(Message):
                  ) -> None: ...
 
 
+
 class TestPackedExtensions(Message):
 
     def __init__(self,
                  ) -> None: ...
 
 
+
 class TestUnpackedExtensions(Message):
 
     def __init__(self,
                  ) -> None: ...
+
 
 
 class TestDynamicExtensions(Message):
@@ -1124,6 +1274,11 @@ class TestDynamicExtensions(Message):
         def __init__(self,
                      dynamic_field: Optional[int] = ...,
                      ) -> None: ...
+    scalar_extension: int
+    enum_extension: ForeignEnum
+    dynamic_enum_extension: TestDynamicExtensions.DynamicEnumType
+    repeated_extension: RepeatedScalarFieldContainer[Text]
+    packed_extension: RepeatedScalarFieldContainer[int]
 
     @property
     def message_extension(self) -> ForeignMessage: ...
@@ -1141,6 +1296,7 @@ class TestDynamicExtensions(Message):
                  repeated_extension: Optional[Iterable[Text]] = ...,
                  packed_extension: Optional[Iterable[int]] = ...,
                  ) -> None: ...
+
 
 
 class TestRepeatedScalarDifferentTagSizes(Message):
@@ -1161,6 +1317,7 @@ class TestRepeatedScalarDifferentTagSizes(Message):
                  ) -> None: ...
 
 
+
 class TestParsingMerge(Message):
     class RepeatedFieldsGenerator(Message):
         class Group1(Message):
@@ -1172,6 +1329,7 @@ class TestParsingMerge(Message):
                          field1: Optional[TestAllTypes] = ...,
                          ) -> None: ...
 
+
         class Group2(Message):
 
             @property
@@ -1180,6 +1338,7 @@ class TestParsingMerge(Message):
             def __init__(self,
                          field1: Optional[TestAllTypes] = ...,
                          ) -> None: ...
+
 
         @property
         def field1(self) -> RepeatedCompositeFieldContainer[TestAllTypes]: ...
@@ -1214,6 +1373,7 @@ class TestParsingMerge(Message):
                      ext2: Optional[Iterable[TestAllTypes]] = ...,
                      ) -> None: ...
 
+
     class OptionalGroup(Message):
 
         @property
@@ -1223,6 +1383,7 @@ class TestParsingMerge(Message):
                      optional_group_all_types: Optional[TestAllTypes] = ...,
                      ) -> None: ...
 
+
     class RepeatedGroup(Message):
 
         @property
@@ -1231,6 +1392,7 @@ class TestParsingMerge(Message):
         def __init__(self,
                      repeated_group_all_types: Optional[TestAllTypes] = ...,
                      ) -> None: ...
+
 
     @property
     def required_all_types(self) -> TestAllTypes: ...
@@ -1258,6 +1420,7 @@ class TestParsingMerge(Message):
                  ) -> None: ...
 
 
+
 class TestCommentInjectionMessage(Message):
     a: Text
 
@@ -1266,10 +1429,12 @@ class TestCommentInjectionMessage(Message):
                  ) -> None: ...
 
 
+
 class FooRequest(Message):
 
     def __init__(self,
                  ) -> None: ...
+
 
 
 class FooResponse(Message):
@@ -1278,10 +1443,12 @@ class FooResponse(Message):
                  ) -> None: ...
 
 
+
 class FooClientMessage(Message):
 
     def __init__(self,
                  ) -> None: ...
+
 
 
 class FooServerMessage(Message):
@@ -1290,16 +1457,19 @@ class FooServerMessage(Message):
                  ) -> None: ...
 
 
+
 class BarRequest(Message):
 
     def __init__(self,
                  ) -> None: ...
 
 
+
 class BarResponse(Message):
 
     def __init__(self,
                  ) -> None: ...
+
 
 
 class TestJsonName(Message):
@@ -1320,6 +1490,7 @@ class TestJsonName(Message):
                  ) -> None: ...
 
 
+
 class TestHugeFieldNumbers(Message):
     class OptionalGroup(Message):
         group_a: int
@@ -1327,6 +1498,7 @@ class TestHugeFieldNumbers(Message):
         def __init__(self,
                      group_a: Optional[int] = ...,
                      ) -> None: ...
+
 
     class StringStringMapEntry(Message):
         key: Text
@@ -1336,6 +1508,16 @@ class TestHugeFieldNumbers(Message):
                      key: Optional[Text] = ...,
                      value: Optional[Text] = ...,
                      ) -> None: ...
+    optional_int32: int
+    fixed_32: int
+    repeated_int32: RepeatedScalarFieldContainer[int]
+    packed_int32: RepeatedScalarFieldContainer[int]
+    optional_enum: ForeignEnum
+    optional_string: Text
+    optional_bytes: bytes
+    oneof_uint32: int
+    oneof_string: Text
+    oneof_bytes: bytes
 
     @property
     def optional_message(self) -> ForeignMessage: ...
@@ -1367,6 +1549,7 @@ class TestHugeFieldNumbers(Message):
                  ) -> None: ...
 
 
+
 class TestExtensionInsideTable(Message):
     field1: int
     field2: int
@@ -1389,3 +1572,4 @@ class TestExtensionInsideTable(Message):
                  field9: Optional[int] = ...,
                  field10: Optional[int] = ...,
                  ) -> None: ...
+

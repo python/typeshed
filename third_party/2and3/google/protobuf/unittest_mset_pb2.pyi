@@ -26,6 +26,7 @@ class TestMessageSetContainer(Message):
                  ) -> None: ...
 
 
+
 class TestMessageSetExtension1(Message):
     i: int
 
@@ -34,12 +35,14 @@ class TestMessageSetExtension1(Message):
                  ) -> None: ...
 
 
+
 class TestMessageSetExtension2(Message):
     str: Text
 
     def __init__(self,
                  bytes: Optional[Text] = ...,
                  ) -> None: ...
+
 
 
 class RawMessageSet(Message):
@@ -53,9 +56,11 @@ class RawMessageSet(Message):
                      message: bytes,
                      ) -> None: ...
 
+
     @property
     def item(self) -> RepeatedCompositeFieldContainer[RawMessageSet.Item]: ...
 
     def __init__(self,
                  item: Optional[Iterable[RawMessageSet.Item]] = ...,
                  ) -> None: ...
+

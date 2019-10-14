@@ -22,6 +22,7 @@ class NestedMessage(Message):
                  ) -> None: ...
 
 
+
 class ArenaMessage(Message):
 
     @property
@@ -36,3 +37,4 @@ class ArenaMessage(Message):
                  repeated_nested_message: Optional[Iterable[NestedMessage]] = ...,
                  repeated_import_no_arena_message: Optional[Iterable[ImportNoArenaNestedMessage]] = ...,
                  ) -> None: ...
+
