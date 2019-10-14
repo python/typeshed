@@ -54,8 +54,6 @@ stderr: TextIO
 __stdin__: TextIO
 __stdout__: TextIO
 __stderr__: TextIO
-# deprecated and removed in Python 3.3:
-subversion: Tuple[str, str, str]
 tracebacklimit: int
 version: str
 api_version: int
@@ -198,3 +196,13 @@ def setswitchinterval(interval: float) -> None: ...
 def settscdump(on_flag: bool) -> None: ...
 
 def gettotalrefcount() -> int: ...  # Debug builds only
+
+if sys.version_info >= (3, 8):
+    # not exported by sys
+    class UnraisableHookArgs:
+        exc_type: Type[BaseException]
+        exc_value: Optional[BaseException]
+        exc_traceback: Optional[TracebackType]
+        err_msg: Optional[str]
+        object: Optional[object]
+    unraisablehook: Callable[[UnraisableHookArgs], Any]

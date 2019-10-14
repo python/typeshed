@@ -99,6 +99,12 @@ class SupportsBytes(Protocol, metaclass=ABCMeta):
     @abstractmethod
     def __bytes__(self) -> bytes: ...
 
+if sys.version_info >= (3, 8):
+    @runtime_checkable
+    class SupportsIndex(Protocol, metaclass=ABCMeta):
+        @abstractmethod
+        def __index__(self) -> int: ...
+
 @runtime_checkable
 class SupportsAbs(Protocol[_T_co]):
     @abstractmethod
@@ -590,6 +596,9 @@ class Pattern(Generic[AnyStr]):
 def get_type_hints(
     obj: Callable[..., Any], globalns: Optional[Dict[str, Any]] = ..., localns: Optional[Dict[str, Any]] = ...,
 ) -> Dict[str, Any]: ...
+if sys.version_info >= (3, 8):
+    def get_origin(tp: Any) -> Optional[Any]: ...
+    def get_args(tp: Any) -> Tuple[Any, ...]: ...
 
 @overload
 def cast(tp: Type[_T], obj: Any) -> _T: ...
