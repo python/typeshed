@@ -1,15 +1,16 @@
 
-from typing import Dict, Any, List, Tuple, Optional, Callable, Type, Union, IO, AnyStr
+from typing import Dict, Any, List, Tuple, Optional, Callable, Type, Union, IO, AnyStr, TypeVar
 from types import FrameType, TracebackType
-from os import PathLike
 import sys
 
 
+_T = TypeVar("_T")
 _ExcInfo = Tuple[Optional[Type[BaseException]], Optional[BaseException], Optional[TracebackType]]
 if sys.version_info >= (3, 6):
-    _Path = Union[AnyStr, PathLike[AnyStr]]
+    from os import PathLike
+    _Path = Union[_T, PathLike[_T]]
 else:
-    _Path = AnyStr
+    _Path = Union[_T]
 
 
 def reset() -> str: ...
@@ -23,10 +24,10 @@ def text(einfo: _ExcInfo, context: int = ...) -> str: ...
 
 class Hook:
 
-    def __init__(self, display: int = ..., logdir: Optional[_Path] = ..., context: int = ..., file: Optional[IO[str]] = ..., format: str = ...) -> None: ...
+    def __init__(self, display: int = ..., logdir: Optional[_Path[AnyStr]] = ..., context: int = ..., file: Optional[IO[str]] = ..., format: str = ...) -> None: ...
     def __call__(self, etype: Optional[Type[BaseException]], evalue: Optional[BaseException], etb: Optional[TracebackType]) -> None: ...
     def handle(self, info: Optional[_ExcInfo] = ...) -> None: ...
 
 handler: Callable[[Optional[Type[BaseException]], Optional[BaseException], Optional[TracebackType]], None]
 
-def enable(display: int = ..., logdir: Optional[_Path] = ..., context: int = ..., format: str = ...) -> None: ...
+def enable(display: int = ..., logdir: Optional[_Path[AnyStr]] = ..., context: int = ..., format: str = ...) -> None: ...
