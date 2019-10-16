@@ -1,7 +1,7 @@
 import sys
 import zlib
 from os.path import _PathType
-from typing import IO, BinaryIO, Optional, TextIO, Union, overload
+from typing import IO, Optional, TextIO, Union, overload
 
 import _compression
 

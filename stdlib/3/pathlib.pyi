@@ -1,9 +1,13 @@
-from builtins import _OPEN_BINARY_MODE, _OPEN_TEXT_MODE
 from typing import (Any, BinaryIO, Generator, IO, List, Optional, Sequence,
                     TextIO, Tuple, Type, TypeVar, Union, overload)
 from types import TracebackType
 import os
 import sys
+
+if sys.version_info >= (3, 8):
+    from typing import Literal
+else:
+    from typing_extensions import Literal
 
 _P = TypeVar('_P', bound=PurePath)
 
@@ -11,6 +15,36 @@ if sys.version_info >= (3, 6):
     _PurePathBase = os.PathLike[str]
 else:
     _PurePathBase = object
+
+if sys.version_info >= (3, 3):
+    # Changed in version 3.3: The 'x' mode was added.
+    _OPEN_TEXT_MODE = Literal[
+        'r', 'r+', '+r', 'rt', 'tr', 'rt+', 'r+t', '+rt', 'tr+', 't+r', '+tr',
+        'w', 'w+', '+w', 'wt', 'tw', 'wt+', 'w+t', '+wt', 'tw+', 't+w', '+tw',
+        'a', 'a+', '+a', 'at', 'ta', 'at+', 'a+t', '+at', 'ta+', 't+a', '+ta',
+        'x', 'x+', '+x', 'xt', 'tx', 'xt+', 'x+t', '+xt', 'tx+', 't+x', '+tx',
+        'U', 'rU', 'Ur', 'rtU', 'rUt', 'Urt', 'trU', 'tUr', 'Utr',
+    ]
+    _OPEN_BINARY_MODE = Literal[
+        'rb', 'br', 'rb+', 'r+b', '+rb', 'br+', 'b+r', '+br',
+        'wb', 'bw', 'wb+', 'w+b', '+wb', 'bw+', 'b+w', '+bw',
+        'ab', 'ba', 'ab+', 'a+b', '+ab', 'ba+', 'b+a', '+ba',
+        'xb', 'bx', 'xb+', 'x+b', '+xb', 'bx+', 'b+x', '+bx',
+        'rbU', 'rUb', 'Urb', 'brU', 'bUr', 'Ubr',
+    ]
+else:
+    _OPEN_TEXT_MODE = Literal[
+        'r', 'r+', '+r', 'rt', 'tr', 'rt+', 'r+t', '+rt', 'tr+', 't+r', '+tr',
+        'w', 'w+', '+w', 'wt', 'tw', 'wt+', 'w+t', '+wt', 'tw+', 't+w', '+tw',
+        'a', 'a+', '+a', 'at', 'ta', 'at+', 'a+t', '+at', 'ta+', 't+a', '+ta',
+        'U', 'rU', 'Ur', 'rtU', 'rUt', 'Urt', 'trU', 'tUr', 'Utr',
+    ]
+    _OPEN_BINARY_MODE = Literal[
+        'rb', 'br', 'rb+', 'r+b', '+rb', 'br+', 'b+r', '+br',
+        'wb', 'bw', 'wb+', 'w+b', '+wb', 'bw+', 'b+w', '+bw',
+        'ab', 'ba', 'ab+', 'a+b', '+ab', 'ba+', 'b+a', '+ba',
+        'rbU', 'rUb', 'Urb', 'brU', 'bUr', 'Ubr',
+    ]
 
 class PurePath(_PurePathBase):
     parts: Tuple[str, ...]
