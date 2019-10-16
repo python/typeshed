@@ -5,7 +5,7 @@ from typing import (
     TypeVar, Iterator, Iterable, NoReturn, overload, Container,
     Sequence, MutableSequence, Mapping, MutableMapping, Tuple, List, Any, Dict, Callable, Generic,
     Set, AbstractSet, FrozenSet, MutableSet, Sized, Reversible, SupportsInt, SupportsFloat, SupportsAbs,
-    SupportsComplex, IO, BinaryIO, Union,
+    SupportsComplex, IO, BinaryIO, TextIO, Union,
     ItemsView, KeysView, ValuesView, ByteString, Optional, AnyStr, Type, Text,
     Protocol,
 )
@@ -1333,16 +1333,74 @@ def next(__i: Iterator[_T]) -> _T: ...
 def next(__i: Iterator[_T], default: _VT) -> Union[_T, _VT]: ...
 def oct(__i: Union[int, _SupportsIndex]) -> str: ...
 
-if sys.version_info >= (3, 6):
-    def open(file: Union[str, bytes, int, _PathLike[Any]], mode: str = ..., buffering: int = ..., encoding: Optional[str] = ...,
-             errors: Optional[str] = ..., newline: Optional[str] = ..., closefd: bool = ...,
-             opener: Optional[Callable[[str, int], int]] = ...) -> IO[Any]: ...
-elif sys.version_info >= (3,):
-    def open(file: Union[str, bytes, int], mode: str = ..., buffering: int = ..., encoding: Optional[str] = ...,
-             errors: Optional[str] = ..., newline: Optional[str] = ..., closefd: bool = ...,
-             opener: Optional[Callable[[str, int], int]] = ...) -> IO[Any]: ...
+if sys.version_info >= (3, 3):
+    # Changed in version 3.3: The 'x' mode was added.
+    _OPEN_TEXT_MODE =  Literal[
+        'r', 'r+', '+r', 'rt', 'tr', 'rt+', 'r+t', '+rt', 'tr+', 't+r', '+tr',
+        'w', 'w+', '+w', 'wt', 'tw', 'wt+', 'w+t', '+wt', 'tw+', 't+w', '+tw',
+        'a', 'a+', '+a', 'at', 'ta', 'at+', 'a+t', '+at', 'ta+', 't+a', '+ta',
+        'x', 'x+', '+x', 'xt', 'tx', 'xt+', 'x+t', '+xt', 'tx+', 't+x', '+tx',
+        'U', 'rU', 'Ur', 'rtU', 'rUt', 'Urt', 'trU', 'tUr', 'Utr',
+    ]
+    _OPEN_BINARY_MODE =  Literal[
+        'rb', 'br', 'rb+', 'r+b', '+rb', 'br+', 'b+r', '+br',
+        'wb', 'bw', 'wb+', 'w+b', '+wb', 'bw+', 'b+w', '+bw',
+        'ab', 'ba', 'ab+', 'a+b', '+ab', 'ba+', 'b+a', '+ba',
+        'xb', 'bx', 'xb+', 'x+b', '+xb', 'bx+', 'b+x', '+bx',
+        'rbU', 'rUb', 'Urb', 'brU', 'bUr', 'Ubr',
+    ]
 else:
-    def open(name: Union[unicode, int], mode: unicode = ..., buffering: int = ...) -> BinaryIO: ...
+    _OPEN_TEXT_MODE =  Literal[
+        'r', 'r+', '+r', 'rt', 'tr', 'rt+', 'r+t', '+rt', 'tr+', 't+r', '+tr',
+        'w', 'w+', '+w', 'wt', 'tw', 'wt+', 'w+t', '+wt', 'tw+', 't+w', '+tw',
+        'a', 'a+', '+a', 'at', 'ta', 'at+', 'a+t', '+at', 'ta+', 't+a', '+ta',
+        'U', 'rU', 'Ur', 'rtU', 'rUt', 'Urt', 'trU', 'tUr', 'Utr',
+    ]
+    _OPEN_BINARY_MODE =  Literal[
+        'rb', 'br', 'rb+', 'r+b', '+rb', 'br+', 'b+r', '+br',
+        'wb', 'bw', 'wb+', 'w+b', '+wb', 'bw+', 'b+w', '+bw',
+        'ab', 'ba', 'ab+', 'a+b', '+ab', 'ba+', 'b+a', '+ba',
+        'rbU', 'rUb', 'Urb', 'brU', 'bUr', 'Ubr',
+    ]
+
+if sys.version_info >= (3, 6):
+    # Changed in version 3.6: Support added to accept objects implementing os.PathLike.
+    _OPEN_FILE = Union[str, bytes, int, _PathLike[Any]]
+elif sys.version_info >= (3,):
+    _OPEN_FILE = Union[str, bytes, int]
+else:
+    _OPEN_FILE = Union[unicode, int]
+
+if sys.version_info >= (3, 3):
+    # Changed in version 3.3: The opener parameter was added.
+    @overload
+    def open(file: _OPEN_FILE, mode: _OPEN_TEXT_MODE = ..., buffering: int = ..., encoding: Optional[str] = ...,
+             errors: Optional[str] = ..., newline: Optional[str] = ..., closefd: bool = ...,
+             opener: Optional[Callable[[str, int], int]] = ...) -> TextIO: ...
+    @overload
+    def open(file: _OPEN_FILE, mode: _OPEN_BINARY_MODE, buffering: int = ..., encoding: None = ..., errors: None = ...,
+             newline: None = ..., closefd: bool = ..., opener: Optional[Callable[[str, int], int]] = ...) -> BinaryIO: ...
+    @overload
+    def open(file: _OPEN_FILE, mode: str, buffering: int = ..., encoding: Optional[str] = ..., errors: Optional[str] = ...,
+             newline: Optional[str] = ..., closefd: bool = ..., opener: Optional[Callable[[str, int], int]] = ...) \
+            -> IO[Any]: ...
+elif sys.version_info >= (3,):
+    @overload
+    def open(file: _OPEN_FILE, mode: _OPEN_TEXT_MODE = ..., buffering: int = ..., encoding: Optional[str] = ...,
+             errors: Optional[str] = ..., newline: Optional[str] = ..., closefd: bool = ...) -> TextIO: ...
+    @overload
+    def open(file: _OPEN_FILE, mode: _OPEN_BINARY_MODE, buffering: int = ..., encoding: None = ..., errors: None = ...,
+             newline: None = ..., closefd: bool = ...) -> BinaryIO: ...
+    @overload
+    def open(file: _OPEN_FILE, mode: str, buffering: int = ..., encoding: Optional[str] = ..., errors: Optional[str] = ...,
+             newline: Optional[str] = ..., closefd: bool = ...) -> IO[Any]: ...
+else:
+    @overload
+    def open(file: _OPEN_FILE, mode: _OPEN_TEXT_MODE = ..., buffering: int = ...) -> TextIO: ...
+    @overload
+    def open(file: _OPEN_FILE, mode: _OPEN_BINARY_MODE, buffering: int = ...) -> BinaryIO: ...
+    @overload
+    def open(file: _OPEN_FILE, mode: unicode, buffering: int = ...) -> IO[Any]: ...
 
 def ord(__c: Union[Text, bytes]) -> int: ...
 if sys.version_info >= (3,):
