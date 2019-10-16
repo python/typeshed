@@ -3,7 +3,7 @@ import sys
 # from _ast below when loaded in an unorthodox way by the Dropbox
 # internal Bazel integration.
 import typing as _typing
-from typing import Any, Iterator, Optional, Tuple, TypeVar, Union, overload
+from typing import Any, Iterator, Optional, TypeVar, Union, overload
 
 # The same unorthodox Bazel integration causes issues with sys, which
 # is imported in both modules. unfortunately we can't just rename sys,
@@ -32,7 +32,7 @@ if sys.version_info >= (3, 8):
         filename: Union[str, bytes] = ...,
         mode: Literal["exec"] = ...,
         type_comments: bool = ...,
-        feature_version: Union[None, int, Tuple[int, int]] = ...,
+        feature_version: Union[None, int, _typing.Tuple[int, int]] = ...,
     ) -> Module: ...
     @overload
     def parse(
@@ -40,7 +40,7 @@ if sys.version_info >= (3, 8):
         filename: Union[str, bytes] = ...,
         mode: str = ...,
         type_comments: bool = ...,
-        feature_version: Union[None, int, Tuple[int, int]] = ...,
+        feature_version: Union[None, int, _typing.Tuple[int, int]] = ...,
     ) -> AST: ...
 
 else:
