@@ -16,15 +16,15 @@ def decompress(data: bytes) -> bytes: ...
 if sys.version_info >= (3, 3):
     if sys.version_info >= (3, 4):
         # Changed in version 3.4: The 'x' (exclusive creation) mode was added.
-        _OPEN_BINARY_MODE = Literal["r", "rb", "w", "wb", "x", "xb", "a", "ab"]
-        _OPEN_TEXT_MODE = Literal["rt", "wt", "xt", "at"]
+        _OpenBinaryMode = Literal["r", "rb", "w", "wb", "x", "xb", "a", "ab"]
+        _OpenTextMode = Literal["rt", "wt", "xt", "at"]
     else:
-        _OPEN_BINARY_MODE = Literal["r", "rb", "w", "wb", "a", "ab"]
-        _OPEN_TEXT_MODE = Literal["rt", "wt", "at"]
+        _OpenBinaryMode = Literal["r", "rb", "w", "wb", "a", "ab"]
+        _OpenTextMode = Literal["rt", "wt", "at"]
     @overload
     def open(
         filename: _PathOrFile,
-        mode: _OPEN_BINARY_MODE = ...,
+        mode: _OpenBinaryMode = ...,
         compresslevel: int = ...,
         encoding: None = ...,
         errors: None = ...,
@@ -33,7 +33,7 @@ if sys.version_info >= (3, 3):
     @overload
     def open(
         filename: _PathType,
-        mode: _OPEN_TEXT_MODE,
+        mode: _OpenTextMode,
         compresslevel: int = ...,
         encoding: Optional[str] = ...,
         errors: Optional[str] = ...,
@@ -42,7 +42,7 @@ if sys.version_info >= (3, 3):
     @overload
     def open(
         filename: _PathOrFile,
-        mode: str = ...,
+        mode: str,
         compresslevel: int = ...,
         encoding: Optional[str] = ...,
         errors: Optional[str] = ...,

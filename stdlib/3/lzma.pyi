@@ -10,11 +10,11 @@ else:
 
 if sys.version_info >= (3, 4):
     # Changed in version 3.4: Added support for the "x", "xb" and "xt" modes.
-    _OPEN_BINARY_WRITING_MODE = Literal["w", "wb", "x", "xb", "a", "ab"]
-    _OPEN_TEXT_WRITING_MODE = Literal["wt", "xt", "at"]
+    _OpenBinaryWritingMode = Literal["w", "wb", "x", "xb", "a", "ab"]
+    _OpenTextWritingMode = Literal["wt", "xt", "at"]
 else:
-    _OPEN_BINARY_WRITING_MODE = Literal["w", "wb", "a", "ab"]
-    _OPEN_TEXT_WRITING_MODE = Literal["wt", "at"]
+    _OpenBinaryWritingMode = Literal["w", "wb", "a", "ab"]
+    _OpenTextWritingMode = Literal["wt", "at"]
 
 _PathOrFile = Union[_PathType, IO[bytes]]
 
@@ -116,7 +116,7 @@ def open(
 @overload
 def open(
     filename: _PathOrFile,
-    mode: _OPEN_BINARY_WRITING_MODE,
+    mode: _OpenBinaryWritingMode,
     *,
     format: Optional[int] = ...,
     check: int = ...,
@@ -142,7 +142,7 @@ def open(
 @overload
 def open(
     filename: _PathType,
-    mode: _OPEN_TEXT_WRITING_MODE,
+    mode: _OpenTextWritingMode,
     *,
     format: Optional[int] = ...,
     check: int = ...,
@@ -155,7 +155,7 @@ def open(
 @overload
 def open(
     filename: _PathOrFile,
-    mode: str = ...,
+    mode: str,
     *,
     format: Optional[int] = ...,
     check: int = ...,

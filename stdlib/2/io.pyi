@@ -5,6 +5,7 @@
 # Only a subset of functionality is included.
 
 from typing import List, BinaryIO, TextIO, IO, overload, Iterator, Iterable, Any, Union, Optional
+from typing_extensions import Literal
 import _io
 
 from _io import BlockingIOError as BlockingIOError
@@ -20,6 +21,19 @@ from _io import StringIO as StringIO
 from _io import TextIOWrapper as TextIOWrapper
 from _io import UnsupportedOperation as UnsupportedOperation
 from _io import open as open
+
+_OpenTextMode = Literal[
+    'r', 'r+', '+r', 'rt', 'tr', 'rt+', 'r+t', '+rt', 'tr+', 't+r', '+tr',
+    'w', 'w+', '+w', 'wt', 'tw', 'wt+', 'w+t', '+wt', 'tw+', 't+w', '+tw',
+    'a', 'a+', '+a', 'at', 'ta', 'at+', 'a+t', '+at', 'ta+', 't+a', '+ta',
+    'U', 'rU', 'Ur', 'rtU', 'rUt', 'Urt', 'trU', 'tUr', 'Utr',
+]
+_OpenBinaryMode = Literal[
+    'rb', 'br', 'rb+', 'r+b', '+rb', 'br+', 'b+r', '+br',
+    'wb', 'bw', 'wb+', 'w+b', '+wb', 'bw+', 'b+w', '+bw',
+    'ab', 'ba', 'ab+', 'a+b', '+ab', 'ba+', 'b+a', '+ba',
+    'rbU', 'rUb', 'Urb', 'brU', 'bUr', 'Ubr',
+]
 
 def _OpenWrapper(file: Union[str, unicode, int],
                  mode: unicode = ..., buffering: int = ..., encoding: unicode = ...,

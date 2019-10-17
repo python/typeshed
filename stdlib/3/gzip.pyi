@@ -10,46 +10,41 @@ if sys.version_info >= (3, 8):
 else:
     from typing_extensions import Literal
 
-if sys.version_info >= (3, 3):
-    # Changed in version 3.3: Added support for filename being a file object, support for text mode, and the encoding, errors and newline arguments.
-
-    if sys.version_info >= (3, 4):
-        # Changed in version 3.4: Added support for the 'x', 'xb' and 'xt' modes.
-        _OPEN_BINARY_MODE = Literal["r", "rb", "a", "ab", "w", "wb", "x", "xb"]
-        _OPEN_TEXT_MODE = Literal["rt", "at", "wt", "xt"]
-    else:
-        _OPEN_BINARY_MODE = Literal["r", "rb", "a", "ab", "w", "wb"]
-        _OPEN_TEXT_MODE = Literal["rt", "at", "wt"]
-    @overload
-    def open(
-        filename: Union[_PathType, IO[bytes]],
-        mode: _OPEN_BINARY_MODE = ...,
-        compresslevel: int = ...,
-        encoding: None = ...,
-        errors: None = ...,
-        newline: None = ...,
-    ) -> GzipFile: ...
-    @overload
-    def open(
-        filename: _PathType,
-        mode: _OPEN_TEXT_MODE,
-        compresslevel: int = ...,
-        encoding: Optional[str] = ...,
-        errors: Optional[str] = ...,
-        newline: Optional[str] = ...,
-    ) -> TextIO: ...
-    @overload
-    def open(
-        filename: Union[_PathType, IO[bytes]],
-        mode: str = ...,
-        compresslevel: int = ...,
-        encoding: Optional[str] = ...,
-        errors: Optional[str] = ...,
-        newline: Optional[str] = ...,
-    ) -> Union[GzipFile, TextIO]: ...
-
+if sys.version_info >= (3, 4):
+    # Changed in version 3.4: Added support for the 'x', 'xb' and 'xt' modes.
+    _OpenBinaryMode = Literal["r", "rb", "a", "ab", "w", "wb", "x", "xb"]
+    _OpenTextMode = Literal["rt", "at", "wt", "xt"]
 else:
-    def open(filename: _PathType, mode: str = ..., compresslevel: int = ...) -> GzipFile: ...
+    _OpenBinaryMode = Literal["r", "rb", "a", "ab", "w", "wb"]
+    _OpenTextMode = Literal["rt", "at", "wt"]
+
+@overload
+def open(
+    filename: Union[_PathType, IO[bytes]],
+    mode: _OpenBinaryMode = ...,
+    compresslevel: int = ...,
+    encoding: None = ...,
+    errors: None = ...,
+    newline: None = ...,
+) -> GzipFile: ...
+@overload
+def open(
+    filename: _PathType,
+    mode: _OpenTextMode,
+    compresslevel: int = ...,
+    encoding: Optional[str] = ...,
+    errors: Optional[str] = ...,
+    newline: Optional[str] = ...,
+) -> TextIO: ...
+@overload
+def open(
+    filename: Union[_PathType, IO[bytes]],
+    mode: str,
+    compresslevel: int = ...,
+    encoding: Optional[str] = ...,
+    errors: Optional[str] = ...,
+    newline: Optional[str] = ...,
+) -> Union[GzipFile, TextIO]: ...
 
 class _PaddedFile:
     file: IO[bytes]
