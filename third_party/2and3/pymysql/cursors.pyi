@@ -1,7 +1,9 @@
-from typing import Union, Tuple, Any, Dict, Optional, Text, Iterator, List
+from typing import Any, Dict, Iterator, List, Optional, Text, Tuple, TypeVar, Union
+
 from .connections import Connection
 
 Gen = Union[Tuple[Any, ...], Dict[str, Any]]
+_SelfT = TypeVar("_SelfT")
 
 class Cursor:
     connection: Connection
@@ -26,6 +28,8 @@ class Cursor:
     def fetchall(self) -> Optional[Tuple[Gen, ...]]: ...
     def scroll(self, value: int, mode: str = ...): ...
     def __iter__(self): ...
+    def __enter__(self: _SelfT) -> _SelfT: ...
+    def __exit__(self, *exc_info: Any) -> None: ...
 
 class DictCursor(Cursor):
     def fetchone(self) -> Optional[Dict[str, Any]]: ...
