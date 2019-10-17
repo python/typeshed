@@ -3,6 +3,7 @@ from typing import (
 )
 import builtins
 import codecs
+import sys
 from mmap import mmap
 from types import TracebackType
 from typing import TypeVar
