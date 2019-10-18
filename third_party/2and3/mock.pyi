@@ -98,6 +98,8 @@ class MagicMixin:
 
 NonCallableMagicMock = Any
 MagicMock = Any
+if sys.version_info >= (3, 8):
+    AsyncMock = Any
 
 class MagicProxy:
     name: Any

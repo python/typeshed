@@ -1,9 +1,6 @@
 from asyncio.events import AbstractEventLoop
 from .coroutines import coroutine
-from typing import Any, Generator, Generic, List, TypeVar, Optional
-
-__all__: List[str]
-
+from typing import Any, Generator, Generic, TypeVar, Optional
 
 class QueueEmpty(Exception): ...
 class QueueFull(Exception): ...

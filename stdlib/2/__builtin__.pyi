@@ -11,7 +11,7 @@ from typing import (
 )
 from abc import abstractmethod, ABCMeta
 from ast import mod, AST
-from types import TracebackType, CodeType, ModuleType
+from types import TracebackType, CodeType
 import sys
 
 if sys.version_info >= (3,):
@@ -813,11 +813,11 @@ class memoryview(Sized, Container[_mv_container_type]):
     def __len__(self) -> int: ...
 
     @overload
+    def __setitem__(self, s: slice, o: memoryview) -> None: ...
+    @overload
     def __setitem__(self, i: int, o: bytes) -> None: ...
     @overload
     def __setitem__(self, s: slice, o: Sequence[bytes]) -> None: ...
-    @overload
-    def __setitem__(self, s: slice, o: memoryview) -> None: ...
 
     def tobytes(self) -> bytes: ...
     def tolist(self) -> List[int]: ...
@@ -1455,7 +1455,7 @@ else:
 def __import__(name: Text, globals: Optional[Mapping[str, Any]] = ...,
                locals: Optional[Mapping[str, Any]] = ...,
                fromlist: Sequence[str] = ...,
-               level: int = ...) -> ModuleType: ...
+               level: int = ...) -> Any: ...
 
 # Actually the type of Ellipsis is <type 'ellipsis'>, but since it's
 # not exposed anywhere under that name, we make it private here.
