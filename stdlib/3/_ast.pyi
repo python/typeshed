@@ -389,6 +389,8 @@ class ExceptHandler(excepthandler):
 
 
 class arguments(AST):
+    if sys.version_info >= (3, 8):
+        posonlyargs: typing.List[arg]
     args: typing.List[arg]
     vararg: Optional[arg]
     kwonlyargs: typing.List[arg]
