@@ -188,9 +188,9 @@ class FullArgSpec(NamedTuple):
     args: List[str]
     varargs: Optional[str]
     varkw: Optional[str]
-    defaults: Tuple[Any, ...]
+    defaults: Optional[Tuple[Any, ...]]
     kwonlyargs: List[str]
-    kwonlydefaults: Dict[str, Any]
+    kwonlydefaults: Optional[Dict[str, Any]]
     annotations: Dict[str, Any]
 
 def getfullargspec(func: object) -> FullArgSpec: ...

@@ -2,11 +2,7 @@
 
 # Based on http://docs.python.org/3.6/library/subprocess.html
 import sys
-from typing import (
-    Sequence, Any, Mapping, Callable, Tuple, IO, Optional, Union, List, Type, Text,
-    Generic, TypeVar, AnyStr,
-    overload,
-)
+from typing import Sequence, Any, Mapping, Callable, Tuple, IO, Optional, Union, Type, Text, Generic, TypeVar, AnyStr, overload
 from types import TracebackType
 
 if sys.version_info >= (3, 8):

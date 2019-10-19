@@ -1,5 +1,3 @@
-# Stubs for maxminddb.decoder (Python 3)
-
 from typing import Any, Tuple
 
 class Decoder:

@@ -115,7 +115,7 @@ class RawConfigParser(_parser):
     @overload  # type: ignore
     def get(self, section: str, option: str, *, raw: bool = ..., vars: Optional[_section] = ...) -> str: ...
 
-    @overload  # type: ignore
+    @overload
     def get(self, section: str, option: str, *, raw: bool = ..., vars: Optional[_section] = ..., fallback: _T) -> Union[str, _T]: ...
 
     @overload

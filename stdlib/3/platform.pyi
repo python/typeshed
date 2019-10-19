@@ -1,7 +1,6 @@
 # Stubs for platform (Python 3.5)
 
 from os import devnull as DEV_NULL
-from os import popen
 from typing import Tuple, NamedTuple
 
 def libc_ver(executable: str = ..., lib: str = ..., version: str = ..., chunksize: int = ...) -> Tuple[str, str]: ...

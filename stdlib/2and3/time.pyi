@@ -21,13 +21,15 @@ if sys.version_info >= (3, 7) and sys.platform != 'win32':
     CLOCK_UPTIME: int  # FreeBSD, OpenBSD
 
 if sys.version_info >= (3, 3) and sys.platform != 'win32':
-    CLOCK_HIGHRES: int = ...  # Solaris only
-    CLOCK_MONOTONIC: int = ...  # Unix only
-    CLOCK_MONOTONIC_RAW: int = ...  # Linux 2.6.28 or later
-    CLOCK_PROCESS_CPUTIME_ID: int = ...  # Unix only
-    CLOCK_REALTIME: int = ...  # Unix only
-    CLOCK_THREAD_CPUTIME_ID: int = ...  # Unix only
+    CLOCK_HIGHRES: int  # Solaris only
+    CLOCK_MONOTONIC: int  # Unix only
+    CLOCK_MONOTONIC_RAW: int  # Linux 2.6.28 or later
+    CLOCK_PROCESS_CPUTIME_ID: int  # Unix only
+    CLOCK_REALTIME: int  # Unix only
+    CLOCK_THREAD_CPUTIME_ID: int  # Unix only
 
+if sys.version_info >= (3, 8) and sys.platform == "darwin":
+    CLOCK_UPTIME_RAW: int
 
 if sys.version_info >= (3, 3):
     class _struct_time(NamedTuple):
@@ -77,7 +79,8 @@ else:
         def __new__(cls, o: _TimeTuple, _arg: Any = ...) -> struct_time: ...
 
 def asctime(t: Union[_TimeTuple, struct_time] = ...) -> str: ...
-def clock() -> float: ...
+if sys.version_info < (3, 8):
+    def clock() -> float: ...
 def ctime(secs: Optional[float] = ...) -> str: ...
 def gmtime(secs: Optional[float] = ...) -> struct_time: ...
 def localtime(secs: Optional[float] = ...) -> struct_time: ...

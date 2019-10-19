@@ -5,7 +5,7 @@ from io import TextIOWrapper as _TextIOWrapper
 from posix import listdir as listdir, times_result
 import sys
 from typing import (
-    Mapping, MutableMapping, Dict, List, Any, Tuple, IO, Iterable, Iterator, NoReturn, overload, Union, AnyStr,
+    Mapping, MutableMapping, Dict, List, Any, Tuple, Iterable, Iterator, NoReturn, overload, Union, AnyStr,
     Optional, Generic, Set, Callable, Text, Sequence, NamedTuple, TypeVar, ContextManager
 )
 
@@ -210,6 +210,8 @@ class stat_result:
     st_atime_ns: int  # time of most recent access, in nanoseconds
     st_mtime_ns: int  # time of most recent content modification in nanoseconds
     st_ctime_ns: int  # platform dependent (time of most recent metadata change on Unix, or the time of creation on Windows) in nanoseconds
+    if sys.version_info >= (3, 8) and sys.platform == "win32":
+        st_reparse_tag: int
 
     def __getitem__(self, i: int) -> int: ...
 
@@ -633,3 +635,31 @@ else:
 
 if sys.version_info >= (3, 7):
     def register_at_fork(func: Callable[..., object], when: str) -> None: ...
+
+if sys.version_info >= (3, 8):
+    if sys.platform == "win32":
+        class _AddedDllDirectory:
+            path: Optional[str]
+            def close(self) -> None: ...
+            def __enter__(self: _T) -> _T: ...
+            def __exit__(self, *args: Any) -> None: ...
+        def add_dll_directory(path: str) -> _AddedDllDirectory: ...
+    if sys.platform == "linux":
+        MFD_CLOEXEC: int
+        MFD_ALLOW_SEALING: int
+        MFD_HUGETLB: int
+        MFD_HUGE_SHIFT: int
+        MFD_HUGE_MASK: int
+        MFD_HUGE_64KB: int
+        MFD_HUGE_512KB: int
+        MFD_HUGE_1MB: int
+        MFD_HUGE_2MB: int
+        MFD_HUGE_8MB: int
+        MFD_HUGE_16MB: int
+        MFD_HUGE_32MB: int
+        MFD_HUGE_256MB: int
+        MFD_HUGE_512MB: int
+        MFD_HUGE_1GB: int
+        MFD_HUGE_2GB: int
+        MFD_HUGE_16GB: int
+        def memfd_create(name: str, flags: int = ...) -> int: ...
