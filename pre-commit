@@ -8,10 +8,11 @@
 
 BIN_DIR=./.venv/bin
 
-CHANGED_FILES=$(git diff --cached --name-only --diff-filter=AM | grep .pyi)
+CHANGED_FILES=$(git diff --cached --name-only --diff-filter=AM | grep .pyi || true)
 
 if test -n "${CHANGED_FILES}" -a -d "${BIN_DIR}"; then
     ${BIN_DIR}/flake8 ${CHANGED_FILES}
-    ${BIN_DIR}/black ${CHANGED_FILES}
-    ${BIN_DIR}/isort -y ${CHANGED_FILES}
+    ${BIN_DIR}/black ${CHANGED_FILES} || true
+    ${BIN_DIR}/isort -y ${CHANGED_FILES} || true
+    git add ${CHANGED_FILES}
 fi
