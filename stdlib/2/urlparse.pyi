@@ -34,16 +34,14 @@ class _SplitResult(NamedTuple):
 class SplitResult(_SplitResult, ResultMixin):
     def geturl(self) -> str: ...
 
-class ParseResult(
-    NamedTuple(
-        'ParseResult',
-        [
-            ('scheme', str), ('netloc', str), ('path', str), ('params', str), ('query', str),
-            ('fragment', str)
-        ]
-    ),
-    ResultMixin
-):
+class _ParseResult(NamedTuple):
+    scheme: str
+    netloc: str
+    path: str
+    params: str
+    query: str
+    fragment: str
+class ParseResult(_ParseResult, ResultMixin):
     def geturl(self) -> str: ...
 
 def urlparse(url: _String, scheme: _String = ...,
