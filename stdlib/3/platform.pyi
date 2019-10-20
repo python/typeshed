@@ -12,7 +12,13 @@ def java_ver(release: str = ..., vendor: str = ..., vminfo: Tuple[str, str, str]
 def system_alias(system: str, release: str, version: str) -> Tuple[str, str, str]: ...
 def architecture(executable: str = ..., bits: str = ..., linkage: str = ...) -> Tuple[str, str]: ...
 
-uname_result = NamedTuple('uname_result', [('system', str), ('node', str), ('release', str), ('version', str), ('machine', str), ('processor', str)])
+class uname_result(NamedTuple):
+    system: str
+    node: str
+    release: str
+    version: str
+    machine: str
+    processor: str
 
 def uname() -> uname_result: ...
 def system() -> str: ...

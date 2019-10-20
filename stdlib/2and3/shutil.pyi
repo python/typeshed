@@ -114,9 +114,10 @@ else:
     def move(src: _Path, dst: _Path) -> _PathReturn: ...
 
 if sys.version_info >= (3,):
-    _ntuple_diskusage = NamedTuple('usage', [('total', int),
-                                             ('used', int),
-                                             ('free', int)])
+    class _ntuple_diskusage(NamedTuple):
+        total: int
+        used: int
+        free: int
     def disk_usage(path: _Path) -> _ntuple_diskusage: ...
     def chown(path: _Path, user: Optional[str] = ...,
               group: Optional[str] = ...) -> None: ...

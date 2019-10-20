@@ -39,31 +39,33 @@ class _DefragResultBase(Tuple[Any, ...], Generic[AnyStr]):
     fragment: AnyStr
 
 
-_SplitResultBase = NamedTuple(
-    '_SplitResultBase',
-    [
-        ('scheme', str), ('netloc', str), ('path', str), ('query', str), ('fragment', str)
-    ]
-)
-_SplitResultBytesBase = NamedTuple(
-    '_SplitResultBytesBase',
-    [
-        ('scheme', bytes), ('netloc', bytes), ('path', bytes), ('query', bytes), ('fragment', bytes)
-    ]
-)
+class _SplitResultBase(NamedTuple):
+    scheme: str
+    netloc: str
+    path: str
+    query: str
+    fragment: str
+class _SplitResultBytesBase(NamedTuple):
+    scheme: bytes
+    netloc: bytes
+    path: bytes
+    query: bytes
+    fragment: bytes
 
-_ParseResultBase = NamedTuple(
-    '_ParseResultBase',
-    [
-        ('scheme', str), ('netloc', str), ('path', str), ('params', str), ('query', str), ('fragment', str)
-    ]
-)
-_ParseResultBytesBase = NamedTuple(
-    '_ParseResultBytesBase',
-    [
-        ('scheme', bytes), ('netloc', bytes), ('path', bytes), ('params', bytes), ('query', bytes), ('fragment', bytes)
-    ]
-)
+class _ParseResultBase(NamedTuple):
+    scheme: str
+    netloc: str
+    path: str
+    params: str
+    query: str
+    fragment: str
+class _ParseResultBytesBase(NamedTuple):
+    scheme: bytes
+    netloc: bytes
+    path: bytes
+    params: bytes
+    query: bytes
+    fragment: bytes
 
 # Structured result objects for string data
 class DefragResult(_DefragResultBase[str], _ResultMixinStr): ...

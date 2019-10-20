@@ -29,13 +29,13 @@ def simplefilter(action: str, category: Type[Warning] = ..., lineno: int = ...,
                  append: bool = ...) -> None: ...
 def resetwarnings() -> None: ...
 
-_Record = NamedTuple('_Record',
-                     [('message', str),
-                      ('category', Type[Warning]),
-                      ('filename', str),
-                      ('lineno', int),
-                      ('file', Optional[TextIO]),
-                      ('line', Optional[str])])
+class _Record(NamedTuple):
+    message: str
+    category: Type[Warning]
+    filename: str
+    lineno: int
+    file: Optional[TextIO]
+    line: Optional[str]
 
 class catch_warnings:
     def __init__(self, *, record: bool = ...,
