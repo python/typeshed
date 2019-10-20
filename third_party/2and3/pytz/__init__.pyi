@@ -1,4 +1,4 @@
-from typing import Optional, List, Set, Mapping, Union
+from typing import Optional, List, Set, Mapping, Union, Dict
 import datetime
 
 class BaseTzInfo(datetime.tzinfo):
@@ -29,6 +29,7 @@ class NonExistentTimeError(InvalidTimeError): ...
 utc: _UTCclass
 UTC: _UTCclass
 def timezone(zone: str) -> Union[_UTCclass, _StaticTzInfo, _DstTzInfo]: ...
+def FixedOffset(offset: int, _tzinfos: Optional[Dict[str, datetime.tzinfo]]) -> Union[_UTCclass, _StaticTzInfo, _DstTzInfo]: ...
 
 all_timezones: List[str]
 all_timezones_set: Set[str]
