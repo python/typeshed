@@ -1,5 +1,3 @@
-# Stubs for maxminddb.compat (Python 3)
-
 from ipaddress import IPv4Address, IPv6Address
 
 from typing import Any

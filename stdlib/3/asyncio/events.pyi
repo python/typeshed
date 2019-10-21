@@ -10,8 +10,6 @@ from asyncio.protocols import BaseProtocol
 from asyncio.tasks import Task
 from asyncio.transports import BaseTransport
 
-__all__: List[str]
-
 _T = TypeVar('_T')
 _Context = Dict[str, Any]
 _ExceptionHandler = Callable[[AbstractEventLoop, _Context], Any]
@@ -82,8 +80,14 @@ class AbstractEventLoop(metaclass=ABCMeta):
     @abstractmethod
     def create_future(self) -> Future[Any]: ...
     # Tasks methods
-    @abstractmethod
-    def create_task(self, coro: Union[Awaitable[_T], Generator[Any, None, _T]]) -> Task[_T]: ...
+    if sys.version_info >= (3, 8):
+        @abstractmethod
+        def create_task(
+            self, coro: Union[Awaitable[_T], Generator[Any, None, _T]], *, name: Optional[str] = ...,
+        ) -> Task[_T]: ...
+    else:
+        @abstractmethod
+        def create_task(self, coro: Union[Awaitable[_T], Generator[Any, None, _T]]) -> Task[_T]: ...
     @abstractmethod
     def set_task_factory(self, factory: Optional[Callable[[AbstractEventLoop, Generator[Any, None, _T]], Future[_T]]]) -> None: ...
     @abstractmethod
@@ -303,3 +307,6 @@ def _get_running_loop() -> AbstractEventLoop: ...
 
 if sys.version_info >= (3, 7):
     def get_running_loop() -> AbstractEventLoop: ...
+
+if sys.version_info < (3, 8):
+    class SendfileNotAvailableError(RuntimeError): ...

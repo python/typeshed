@@ -22,11 +22,12 @@ CO_VARARGS: int
 CO_VARKEYWORDS: int
 TPFLAGS_IS_ABSTRACT: int
 
-ModuleInfo = NamedTuple('ModuleInfo', [('name', str),
-                                       ('suffix', str),
-                                       ('mode', str),
-                                       ('module_type', int),
-                                       ])
+class ModuleInfo(NamedTuple):
+    name: str
+    suffix: str
+    mode: str
+    module_type: int
+
 def getmembers(
     object: object,
     predicate: Optional[Callable[[Any], bool]] = ...
@@ -52,7 +53,7 @@ def isgetsetdescriptor(object: object) -> bool: ...
 def ismemberdescriptor(object: object) -> bool: ...
 
 # Retrieving source code
-_SourceObjectType = Union[ModuleType, Type[Any], MethodType, FunctionType, TracebackType, FrameType, CodeType]
+_SourceObjectType = Union[ModuleType, Type[Any], MethodType, FunctionType, TracebackType, FrameType, CodeType, Callable[..., Any]]
 
 def findsource(object: _SourceObjectType) -> Tuple[List[str], int]: ...
 def getabsfile(object: _SourceObjectType) -> str: ...
@@ -70,22 +71,22 @@ def indentsize(line: str) -> int: ...
 # Classes and functions
 def getclasstree(classes: List[type], unique: bool = ...) -> List[Union[Tuple[type, Tuple[type, ...]], List[Any]]]: ...
 
-ArgSpec = NamedTuple('ArgSpec', [('args', List[str]),
-                                 ('varargs', Optional[str]),
-                                 ('keywords', Optional[str]),
-                                 ('defaults', Tuple[Any, ...]),
-                                 ])
+class ArgSpec(NamedTuple):
+    args: List[str]
+    varargs: Optional[str]
+    keywords: Optional[str]
+    defaults: Tuple[Any, ...]
 
-ArgInfo = NamedTuple('ArgInfo', [('args', List[str]),
-                                 ('varargs', Optional[str]),
-                                 ('keywords', Optional[str]),
-                                 ('locals', Dict[str, Any]),
-                                 ])
+class ArgInfo(NamedTuple):
+    args: List[str]
+    varargs: Optional[str]
+    keywords: Optional[str]
+    locals: Dict[str, Any]
 
-Arguments = NamedTuple('Arguments', [('args', List[Union[str, List[Any]]]),
-                                     ('varargs', Optional[str]),
-                                     ('keywords', Optional[str]),
-                                     ])
+class Arguments(NamedTuple):
+    args: List[Union[str, List[Any]]]
+    varargs: Optional[str]
+    keywords: Optional[str]
 
 def getargs(co: CodeType) -> Arguments: ...
 def getargspec(func: object) -> ArgSpec: ...
@@ -101,16 +102,12 @@ def getcallargs(func, *args, **kwds) -> Dict[str, Any]: ...
 
 # The interpreter stack
 
-Traceback = NamedTuple(
-    'Traceback',
-    [
-        ('filename', str),
-        ('lineno', int),
-        ('function', str),
-        ('code_context', Optional[List[str]]),
-        ('index', Optional[int]),
-    ]
-)
+class Traceback(NamedTuple):
+    filename: str
+    lineno: int
+    function: str
+    code_context: Optional[List[str]]
+    index: Optional[int]  # type: ignore
 
 _FrameInfo = Tuple[FrameType, str, int, str, Optional[List[str]], Optional[int]]
 
@@ -123,10 +120,10 @@ def currentframe(depth: int = ...) -> FrameType: ...
 def stack(context: int = ...) -> List[_FrameInfo]: ...
 def trace(context: int = ...) -> List[_FrameInfo]: ...
 
-Attribute = NamedTuple('Attribute', [('name', str),
-                                     ('kind', str),
-                                     ('defining_class', type),
-                                     ('object', object),
-                                     ])
+class Attribute(NamedTuple):
+    name: str
+    kind: str
+    defining_class: type
+    object: object
 
 def classify_class_attrs(cls: type) -> List[Attribute]: ...

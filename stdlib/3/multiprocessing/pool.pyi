@@ -1,8 +1,4 @@
-from typing import (
-    Any, Callable, ContextManager, Iterable, Mapping, Optional, List,
-    Type, TypeVar, Generic, Iterator
-)
-from types import TracebackType
+from typing import Any, Callable, ContextManager, Iterable, Mapping, Optional, List, TypeVar, Generic, Iterator
 
 _PT = TypeVar('_PT', bound=Pool)
 _S = TypeVar('_S')
@@ -50,7 +46,7 @@ class Pool(ContextManager[Pool]):
                   iterable: Iterable[_S] = ...,
                   chunksize: Optional[int] = ...,
                   callback: Optional[Callable[[_T], None]] = ...,
-                  error_callback: Optional[Callable[[BaseException], None]] = ...) -> MapResult[List[_T]]: ...
+                  error_callback: Optional[Callable[[BaseException], None]] = ...) -> MapResult[_T]: ...
     def imap(self,
              func: Callable[[_S], _T],
              iterable: Iterable[_S] = ...,

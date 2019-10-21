@@ -14,7 +14,7 @@ consistent_files = [
     {'stdlib/2and3/builtins.pyi', 'stdlib/2/__builtin__.pyi'},
     {'stdlib/2/SocketServer.pyi', 'stdlib/3/socketserver.pyi'},
     {'stdlib/2/os2emxpath.pyi', 'stdlib/2and3/posixpath.pyi',
-     'stdlib/2and3/ntpath.pyi', 'stdlib/2and3/macpath.pyi',
+     'stdlib/2and3/ntpath.pyi',
      'stdlib/2/os/path.pyi', 'stdlib/3/os/path.pyi'},
     {'stdlib/3/enum.pyi', 'third_party/2/enum.pyi'},
     {'stdlib/3/unittest/mock.pyi', 'third_party/2and3/mock.pyi'},
@@ -26,6 +26,7 @@ consistent_files = [
     {'stdlib/3.7/dataclasses.pyi', 'third_party/3/dataclasses.pyi'},
     {'stdlib/3/pathlib.pyi', 'third_party/2/pathlib2.pyi'},
     {'stdlib/3.7/contextvars.pyi', 'third_party/3/contextvars.pyi'},
+    {'stdlib/3/ipaddress.pyi', 'third_party/2/ipaddress.pyi'},
 ]
 
 def main():

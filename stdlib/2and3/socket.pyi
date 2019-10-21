@@ -585,6 +585,16 @@ class socket:
 def create_connection(address: Tuple[Optional[str], int],
                       timeout: Optional[float] = ...,
                       source_address: Tuple[Union[bytearray, bytes, Text], int] = ...) -> socket: ...
+if sys.version_info >= (3, 8):
+    def has_dualstack_ipv6() -> bool: ...
+    def create_server(
+        address: Tuple[str, int],
+        *,
+        family: AddressFamily = ...,
+        backlog: Optional[int] = ...,
+        reuse_port: bool = ...,
+        dualstack_ipv6: bool = ...,
+    ) -> socket: ...
 
 # the 5th tuple item is an address
 # TODO the "Tuple[Any, ...]" should be "Union[Tuple[str, int], Tuple[str, int, int, int]]" but that triggers

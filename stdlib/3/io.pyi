@@ -4,7 +4,6 @@ from typing import (
 import builtins
 import codecs
 from mmap import mmap
-import sys
 from types import TracebackType
 from typing import TypeVar
 

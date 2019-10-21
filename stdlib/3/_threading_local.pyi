@@ -1,8 +1,7 @@
 # Source: https://github.com/python/cpython/blob/master/Lib/_threading_local.py
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, Tuple
 from weakref import ReferenceType
 
-__all__: List[str]
 localdict = Dict[Any, Any]
 
 class _localimpl:
