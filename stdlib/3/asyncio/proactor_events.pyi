@@ -1,11 +1,12 @@
-from os import PathLike
-from typing import Any, Mapping, Optional, Generator
-from . import base_events, transports, events, streams, futures, constants
+import sys
 from asyncio import coroutine
 from socket import socket
-import sys
+from typing import Any, Generator, Mapping, Optional, Union
+
+from . import base_events, constants, events, futures, streams, transports
 
 if sys.version_info >= (3, 7):
+    from os import PathLike
     _Path = Union[str, PathLike[str]]
 else:
     _Path = str
@@ -54,7 +55,7 @@ class BaseProactorEventLoop(base_events.BaseEventLoop):
         async def create_unix_connection(
             self,
             protocol_factory: events._ProtocolFactory,
-            path: _Path, 
+            path: _Path,
             *,
             ssl: events._SSLContext = ...,
             sock: Optional[socket] = ...,

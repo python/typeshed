@@ -1,12 +1,13 @@
-from os import PathLike
-from typing import Optional, Any, Generator
-from . import base_events, events
-from socket import socket
-from asyncio import coroutine
 import selectors
 import sys
+from asyncio import coroutine
+from socket import socket
+from typing import Any, Generator, Optional, Union
+
+from . import base_events, events
 
 if sys.version_info >= (3, 7):
+    from os import PathLike
     _Path = Union[str, PathLike[str]]
 else:
     _Path = str
