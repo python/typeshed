@@ -82,9 +82,44 @@ class BaseEventLoop(AbstractEventLoop, metaclass=ABCMeta):
                     flags: int = ...) -> Generator[Any, None, List[Tuple[int, int, int, str, Tuple[Any, ...]]]]: ...
     @coroutine
     def getnameinfo(self, sockaddr: Tuple[Any, ...], flags: int = ...) -> Generator[Any, None, Tuple[str, int]]: ...
-    if sys.version_info >= (3, 7):
-        async def sock_sendfile(self, sock: socket, file: IO[bytes], offset: int = ..., count: Optional[int] = ..., *,
-                                fallback: bool = ...) -> int: ...
+    if sys.version_info >= (3, 8):
+        @overload
+        async def create_connection(
+            self,
+            protocol_factory: _ProtocolFactory,
+            host: str = ...,
+            port: int = ...,
+            *,
+            ssl: _SSLContext = ...,
+            family: int = ...,
+            proto: int = ...,
+            flags: int = ...,
+            sock: None = ...,
+            local_addr: Optional[str] = ...,
+            server_hostname: Optional[str] = ...,
+            ssl_handshake_timeout: Optional[float] = ...,
+            happy_eyeballs_delay: Optional[float] = ...,
+            interleave: Optional[int] = ...,
+        ) -> _TransProtPair: ...
+        @overload
+        async def create_connection(
+            self,
+            protocol_factory: _ProtocolFactory,
+            host: None = ...,
+            port: None = ...,
+            *,
+            ssl: _SSLContext = ...,
+            family: int = ...,
+            proto: int = ...,
+            flags: int = ...,
+            sock: socket,
+            local_addr: None = ...,
+            server_hostname: Optional[str] = ...,
+            ssl_handshake_timeout: Optional[float] = ...,
+            happy_eyeballs_delay: Optional[float] = ...,
+            interleave: Optional[int] = ...,
+        ) -> _TransProtPair: ...
+    elif sys.version_info >= (3, 7):
         @overload
         async def create_connection(self, protocol_factory: _ProtocolFactory, host: str = ..., port: int = ..., *,
                                     ssl: _SSLContext = ..., family: int = ..., proto: int = ..., flags: int = ...,
@@ -95,6 +130,20 @@ class BaseEventLoop(AbstractEventLoop, metaclass=ABCMeta):
                                     ssl: _SSLContext = ..., family: int = ..., proto: int = ..., flags: int = ...,
                                     sock: socket, local_addr: None = ..., server_hostname: Optional[str] = ...,
                                     ssl_handshake_timeout: Optional[float] = ...) -> _TransProtPair: ...
+    else:
+        @overload
+        @coroutine
+        def create_connection(self, protocol_factory: _ProtocolFactory, host: str = ..., port: int = ..., *,
+                              ssl: _SSLContext = ..., family: int = ..., proto: int = ..., flags: int = ..., sock: None = ...,
+                              local_addr: Optional[str] = ..., server_hostname: Optional[str] = ...) -> Generator[Any, None, _TransProtPair]: ...
+        @overload
+        @coroutine
+        def create_connection(self, protocol_factory: _ProtocolFactory, host: None = ..., port: None = ..., *,
+                              ssl: _SSLContext = ..., family: int = ..., proto: int = ..., flags: int = ..., sock: socket,
+                              local_addr: None = ..., server_hostname: Optional[str] = ...) -> Generator[Any, None, _TransProtPair]: ...
+    if sys.version_info >= (3, 7):
+        async def sock_sendfile(self, sock: socket, file: IO[bytes], offset: int = ..., count: Optional[int] = ..., *,
+                                fallback: bool = ...) -> int: ...
         @overload
         async def create_server(self, protocol_factory: _ProtocolFactory, host: Optional[Union[str, Sequence[str]]] = ...,
                                 port: int = ..., *, family: int = ..., flags: int = ..., sock: None = ..., backlog: int = ...,
@@ -113,16 +162,6 @@ class BaseEventLoop(AbstractEventLoop, metaclass=ABCMeta):
                             server_side: bool = ..., server_hostname: Optional[str] = ...,
                             ssl_handshake_timeout: Optional[float] = ...) -> BaseTransport: ...
     else:
-        @overload
-        @coroutine
-        def create_connection(self, protocol_factory: _ProtocolFactory, host: str = ..., port: int = ..., *,
-                              ssl: _SSLContext = ..., family: int = ..., proto: int = ..., flags: int = ..., sock: None = ...,
-                              local_addr: Optional[str] = ..., server_hostname: Optional[str] = ...) -> Generator[Any, None, _TransProtPair]: ...
-        @overload
-        @coroutine
-        def create_connection(self, protocol_factory: _ProtocolFactory, host: None = ..., port: None = ..., *,
-                              ssl: _SSLContext = ..., family: int = ..., proto: int = ..., flags: int = ..., sock: socket,
-                              local_addr: None = ..., server_hostname: Optional[str] = ...) -> Generator[Any, None, _TransProtPair]: ...
         @overload
         @coroutine
         def create_server(self, protocol_factory: _ProtocolFactory, host: Optional[Union[str, Sequence[str]]] = ..., port: int = ..., *,
