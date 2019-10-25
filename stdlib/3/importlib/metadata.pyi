@@ -8,7 +8,10 @@ from typing import Any, Dict, Iterable, List, NamedTuple, Optional, Tuple, Union
 
 if sys.version_info >= (3, 8):
     class PackageNotFoundError(ModuleNotFoundError): ...
-    class EntryPoint(NamedTuple("EntryPointBase", [("name", str), ("value", str), ("group", str)])):
+    class EntryPointBase(NamedTuple):
+        name: str
+        value: str
+    class EntryPoint(EntryPointBase):
         def load(self) -> Any: ...  # Callable[[], Any] or an importable module
         @property
         def extras(self) -> List[str]: ...
