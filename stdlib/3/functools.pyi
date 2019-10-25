@@ -13,13 +13,11 @@ def reduce(function: Callable[[_T, _S], _T],
 def reduce(function: Callable[[_T, _T], _T],
            sequence: Iterable[_T]) -> _T: ...
 
-
-class _CacheInfo(NamedTuple('CacheInfo', [
-    ('hits', int),
-    ('misses', int),
-    ('maxsize', int),
-    ('currsize', int)
-])): ...
+class _CacheInfo(NamedTuple):
+    hits: int
+    misses: int
+    maxsize: int
+    currsize: int
 
 class _lru_cache_wrapper(Generic[_T]):
     __wrapped__: Callable[..., _T]

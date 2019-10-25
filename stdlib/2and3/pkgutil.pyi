@@ -9,7 +9,10 @@ else:
     Loader = Any
 
 if sys.version_info >= (3, 6):
-    ModuleInfo = NamedTuple('ModuleInfo', [('module_finder', Any), ('name', str), ('ispkg', bool)])
+    class ModuleInfo(NamedTuple):
+        module_finder: Any
+        name: str
+        ispkg: bool
     _YMFNI = Generator[ModuleInfo, None, None]
 else:
     _YMFNI = Generator[Tuple[Any, str, bool], None, None]

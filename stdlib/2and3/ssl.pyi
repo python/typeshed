@@ -87,12 +87,13 @@ def get_server_certificate(addr: Tuple[str, int], ssl_version: int = ...,
                            ca_certs: Optional[str] = ...) -> str: ...
 def DER_cert_to_PEM_cert(der_cert_bytes: bytes) -> str: ...
 def PEM_cert_to_DER_cert(pem_cert_string: str) -> bytes: ...
-DefaultVerifyPaths = NamedTuple('DefaultVerifyPaths',
-                                [('cafile', str), ('capath', str),
-                                 ('openssl_cafile_env', str),
-                                 ('openssl_cafile', str),
-                                 ('openssl_capath_env', str),
-                                 ('openssl_capath', str)])
+class DefaultVerifyPaths(NamedTuple):
+    cafile: str
+    capath: str
+    openssl_cafile_env: str
+    openssl_cafile: str
+    openssl_capath_env: str
+    openssl_capath: str
 def get_default_verify_paths() -> DefaultVerifyPaths: ...
 
 if sys.platform == 'win32':
@@ -173,13 +174,16 @@ ALERT_DESCRIPTION_UNSUPPORTED_CERTIFICATE: int
 ALERT_DESCRIPTION_UNSUPPORTED_EXTENSION: int
 ALERT_DESCRIPTION_USER_CANCELLED: int
 
+class _ASN1Object(NamedTuple):
+    nid: int
+    shortname: str
+    longname: str
+    oid: str
 if sys.version_info < (3,):
-    class _ASN1Object(NamedTuple('_ASN1Object', [('nid', int), ('shortname', str), ('longname', str), ('oid', str)])): ...
     class Purpose(_ASN1Object):
         SERVER_AUTH: ClassVar[Purpose]
         CLIENT_AUTH: ClassVar[Purpose]
 else:
-    class _ASN1Object(NamedTuple('_ASN1Object', [('nid', int), ('shortname', str), ('longname', str), ('oid', str)])): ...
     class Purpose(_ASN1Object, enum.Enum):
         SERVER_AUTH: _ASN1Object
         CLIENT_AUTH: _ASN1Object

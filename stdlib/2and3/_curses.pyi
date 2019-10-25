@@ -454,5 +454,8 @@ class _CursesWindow:
     def vline(self, y: int, x: int, ch: _chtype, n: int) -> None: ...
 
 if sys.version_info >= (3, 8):
-    _ncurses_version = NamedTuple("ncurses_version", [("major", int), ("minor", int), ("patch", int)])
+    class _ncurses_version(NamedTuple):
+        major: int
+        minor: int
+        patch: int
     ncurses_version: _ncurses_version

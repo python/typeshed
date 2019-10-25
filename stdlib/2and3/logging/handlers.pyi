@@ -170,6 +170,7 @@ class SMTPHandler(Handler):
 
 
 class BufferingHandler(Handler):
+    buffer: List[LogRecord]
     def __init__(self, capacity: int) -> None: ...
     def shouldFlush(self, record: LogRecord) -> bool: ...
 

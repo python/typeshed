@@ -11,14 +11,14 @@ if sys.version_info >= (3,):
     from inspect import iscoroutinefunction as iscoroutinefunction
     from inspect import getfullargspec as getfullargspec
 else:
-    FullArgSpec = NamedTuple('FullArgSpec', [('args', List[str]),
-                                             ('varargs', Optional[str]),
-                                             ('varkw', Optional[str]),
-                                             ('defaults', Tuple[Any, ...]),
-                                             ('kwonlyargs', List[str]),
-                                             ('kwonlydefaults', Dict[str, Any]),
-                                             ('annotations', Dict[str, Any]),
-                                             ])
+    class FullArgSpec(NamedTuple):
+        args: List[str]
+        varargs: Optional[str]
+        varkw: Optional[str]
+        defaults: Tuple[Any, ...]
+        kwonlyargs: List[str]
+        kwonlydefaults: Dict[str, Any]
+        annotations: Dict[str, Any]
     def iscoroutinefunction(f: Callable[..., Any]) -> bool: ...
     def getfullargspec(func: Any) -> FullArgSpec: ...
 
