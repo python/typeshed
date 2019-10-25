@@ -51,7 +51,6 @@ class Enum(metaclass=EnumMeta):
     def __hash__(self) -> Any: ...
     def __reduce_ex__(self, proto: object) -> Any: ...
 
-
 class IntEnum(int, Enum):
     value: int
 
