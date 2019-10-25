@@ -1,6 +1,6 @@
 # NB: third_party/2/enum.pyi and stdlib/3.4/enum.pyi must remain consistent!
 import sys
-from typing import Any, Dict, Iterator, List, Mapping, Type, TypeVar, Union
+from typing import Any, Dict, Iterator, List, Mapping, Type, TypeVar, Union, Optional, Iterable, Text
 from abc import ABCMeta
 
 _T = TypeVar('_T')
@@ -12,6 +12,13 @@ _S = TypeVar('_S', bound=Type[Enum])
 # spurious inconsistent metaclass structure. See #1595.
 # Structurally: Iterable[T], Reversible[T], Container[T] where T is the enum itself
 class EnumMeta(ABCMeta):
+    __doc__: Optional[str]
+    __dict__: Dict[str, Any]
+    __slots__: Union[Text, Iterable[Text]]
+    __module__: str
+    if sys.version_info >= (3, 6):
+        __annotations__: Dict[str, Any]
+
     def __iter__(self: Type[_T]) -> Iterator[_T]: ...
     def __reversed__(self: Type[_T]) -> Iterator[_T]: ...
     def __contains__(self: Type[_T], member: object) -> bool: ...
@@ -43,8 +50,7 @@ class Enum(metaclass=EnumMeta):
     def __format__(self, format_spec: str) -> str: ...
     def __hash__(self) -> Any: ...
     def __reduce_ex__(self, proto: object) -> Any: ...
-    def __module__(self) -> str: ...
-    def __qualname__(self) -> str: ...
+
 
 class IntEnum(int, Enum):
     value: int
