@@ -53,7 +53,7 @@ class SubPattern:
     width: Optional[int]
 
     if sys.version_info >= (3, 8):
-        state: State 
+        state: State
         def __init__(self, state: State, data: List[_CodeType] = ...) -> None: ...
     else:
         pattern: Pattern
