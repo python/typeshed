@@ -8,7 +8,7 @@ class BaseRepresenter:
     yaml_multi_representers: Any
     default_style: Any
     default_flow_style: Any
-    sort_keys: bool
+    sort_keys: Any
     represented_objects: Any
     object_keeper: Any
     alias_key: Any
