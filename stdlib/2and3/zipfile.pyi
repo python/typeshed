@@ -53,23 +53,23 @@ class ZipFile:
     start_dir: int  # undocumented
     if sys.version_info >= (3, 8):
         def __init__(
-                self,
-                file: Union[_Path, IO[bytes]],
-                mode: Text = ...,
-                compression: int = ...,
-                allowZip64: bool = ...,
-                compresslevel: Optional[int] = ...,
-                *,
-                strict_timestamps: bool = ...,
+            self,
+            file: Union[_Path, IO[bytes]],
+            mode: Text = ...,
+            compression: int = ...,
+            allowZip64: bool = ...,
+            compresslevel: Optional[int] = ...,
+            *,
+            strict_timestamps: bool = ...,
         ) -> None: ...
     elif sys.version_info >= (3, 7):
         def __init__(
-                self,
-                file: Union[_Path, IO[bytes]],
-                mode: Text = ...,
-                compression: int = ...,
-                allowZip64: bool = ...,
-                compresslevel: Optional[int] = ...,
+            self,
+            file: Union[_Path, IO[bytes]],
+            mode: Text = ...,
+            compression: int = ...,
+            allowZip64: bool = ...,
+            compresslevel: Optional[int] = ...,
         ) -> None: ...
     else:
         def __init__(
