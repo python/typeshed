@@ -197,11 +197,13 @@ class TestCase:
     @overload
     def assertRaisesRegexp(self,  # type: ignore
                            exception: Union[Type[BaseException], Tuple[Type[BaseException], ...]],
+                           expected_regex: Union[str, bytes, Pattern[str], Pattern[bytes]],
                            callable: Callable[..., Any] = ...,
                            *args: Any, **kwargs: Any) -> None: ...
     @overload
     def assertRaisesRegexp(self,
                            exception: Union[Type[_E], Tuple[Type[_E], ...]],
+                           expected_regex: Union[str, bytes, Pattern[str], Pattern[bytes]],
                            msg: Any = ...) -> _AssertRaisesContext[_E]: ...
 
 class FunctionTestCase(TestCase):
