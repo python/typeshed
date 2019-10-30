@@ -20,10 +20,13 @@ class DHParameters(metaclass=ABCMeta):
 
 DHParametersWithSerialization = DHParameters
 
-class DHParameterNumbers:
-    p: int
-    g: int
-    q: int
+class DHParameterNumbers(object):
+    @property
+    def p(self) -> int: ...
+    @property
+    def g(self) -> int: ...
+    @property
+    def q(self) -> int: ...
     def __init__(self, p: int, g: int, q: Optional[int]) -> None: ...
     def parameters(self, backend: DHBackend) -> DHParameters: ...
 
@@ -44,14 +47,18 @@ class DHPrivateKeyWithSerialization(DHPrivateKey):
     @abstractmethod
     def private_numbers(self) -> DHPrivateNumbers: ...
 
-class DHPrivateNumbers:
-    public_numbers: DHPublicNumbers
-    x: int
+class DHPrivateNumbers(object):
+    @property
+    def public_numbers(self) -> DHPublicNumbers: ...
+    @property
+    def x(self) -> int: ...
     def __init__(self, x: int, public_numbers: DHPublicNumbers) -> None: ...
     def private_key(self, backend: DHBackend) -> DHPrivateKey: ...
 
 class DHPublicKey(metaclass=ABCMeta):
-    key_size: int
+    @property
+    @abstractmethod
+    def key_size(self) -> int: ...
     @abstractmethod
     def parameters(self) -> DHParameters: ...
     @abstractmethod
@@ -61,8 +68,10 @@ class DHPublicKey(metaclass=ABCMeta):
 
 DHPublicKeyWithSerialization = DHPublicKey
 
-class DHPublicNumbers:
-    parameter_numbers: DHParameterNumbers
-    y: int
+class DHPublicNumbers(object):
+    @property
+    def parameter_numbers(self) -> DHParameterNumbers: ...
+    @property
+    def y(self) -> int: ...
     def __init__(self, y: int, parameter_numbers: DHParameterNumbers) -> None: ...
     def public_key(self, backend: DHBackend) -> DHPublicKey: ...

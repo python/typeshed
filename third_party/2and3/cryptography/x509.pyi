@@ -2,7 +2,7 @@ import datetime
 from abc import ABCMeta, abstractmethod
 from enum import Enum
 from ipaddress import IPv4Address, IPv4Network, IPv6Address, IPv6Network
-from typing import Any, Dict, Generator, List, Optional, Union
+from typing import Any, ClassVar, Dict, Generator, List, Optional, Union
 
 from cryptography.hazmat.backends.interfaces import X509Backend
 from cryptography.hazmat.primitives.asymmetric.dsa import DSAPrivateKey, DSAPublicKey
@@ -13,101 +13,101 @@ from cryptography.hazmat.primitives.asymmetric.rsa import RSAPrivateKey, RSAPubl
 from cryptography.hazmat.primitives.hashes import HashAlgorithm
 from cryptography.hazmat.primitives.serialization import Encoding
 
-class ObjectIdentifier:
+class ObjectIdentifier(object):
     def dotted_string(self) -> str: ...
 
 class CRLEntryExtensionOID(object):
-    CERTIFICATE_ISSUER: ObjectIdentifier
-    CRL_REASON: ObjectIdentifier
-    INVALIDITY_DATE: ObjectIdentifier
+    CERTIFICATE_ISSUER: ClassVar[ObjectIdentifier]
+    CRL_REASON: ClassVar[ObjectIdentifier]
+    INVALIDITY_DATE: ClassVar[ObjectIdentifier]
 
-class ExtensionOID:
-    AUTHORITY_INFORMATION_ACCESS: ObjectIdentifier
-    AUTHORITY_KEY_IDENTIFIER: ObjectIdentifier
-    BASIC_CONSTRAINTS: ObjectIdentifier
-    CERTIFICATE_POLICIES: ObjectIdentifier
-    CRL_DISTRIBUTION_POINTS: ObjectIdentifier
-    CRL_NUMBER: ObjectIdentifier
-    DELTA_CRL_INDICATOR: ObjectIdentifier
-    EXTENDED_KEY_USAGE: ObjectIdentifier
-    FRESHEST_CRL: ObjectIdentifier
-    INHIBIT_ANY_POLICY: ObjectIdentifier
-    ISSUER_ALTERNATIVE_NAME: ObjectIdentifier
-    ISSUING_DISTRIBUTION_POINT: ObjectIdentifier
-    KEY_USAGE: ObjectIdentifier
-    NAME_CONSTRAINTS: ObjectIdentifier
-    OCSP_NO_CHECK: ObjectIdentifier
-    POLICY_CONSTRAINTS: ObjectIdentifier
-    POLICY_MAPPINGS: ObjectIdentifier
-    PRECERT_POISON: ObjectIdentifier
-    PRECERT_SIGNED_CERTIFICATE_TIMESTAMPS: ObjectIdentifier
-    SUBJECT_ALTERNATIVE_NAME: ObjectIdentifier
-    SUBJECT_DIRECTORY_ATTRIBUTES: ObjectIdentifier
-    SUBJECT_INFORMATION_ACCESS: ObjectIdentifier
-    SUBJECT_KEY_IDENTIFIER: ObjectIdentifier
-    TLS_FEATURE: ObjectIdentifier
+class ExtensionOID(object):
+    AUTHORITY_INFORMATION_ACCESS: ClassVar[ObjectIdentifier]
+    AUTHORITY_KEY_IDENTIFIER: ClassVar[ObjectIdentifier]
+    BASIC_CONSTRAINTS: ClassVar[ObjectIdentifier]
+    CERTIFICATE_POLICIES: ClassVar[ObjectIdentifier]
+    CRL_DISTRIBUTION_POINTS: ClassVar[ObjectIdentifier]
+    CRL_NUMBER: ClassVar[ObjectIdentifier]
+    DELTA_CRL_INDICATOR: ClassVar[ObjectIdentifier]
+    EXTENDED_KEY_USAGE: ClassVar[ObjectIdentifier]
+    FRESHEST_CRL: ClassVar[ObjectIdentifier]
+    INHIBIT_ANY_POLICY: ClassVar[ObjectIdentifier]
+    ISSUER_ALTERNATIVE_NAME: ClassVar[ObjectIdentifier]
+    ISSUING_DISTRIBUTION_POINT: ClassVar[ObjectIdentifier]
+    KEY_USAGE: ClassVar[ObjectIdentifier]
+    NAME_CONSTRAINTS: ClassVar[ObjectIdentifier]
+    OCSP_NO_CHECK: ClassVar[ObjectIdentifier]
+    POLICY_CONSTRAINTS: ClassVar[ObjectIdentifier]
+    POLICY_MAPPINGS: ClassVar[ObjectIdentifier]
+    PRECERT_POISON: ClassVar[ObjectIdentifier]
+    PRECERT_SIGNED_CERTIFICATE_TIMESTAMPS: ClassVar[ObjectIdentifier]
+    SUBJECT_ALTERNATIVE_NAME: ClassVar[ObjectIdentifier]
+    SUBJECT_DIRECTORY_ATTRIBUTES: ClassVar[ObjectIdentifier]
+    SUBJECT_INFORMATION_ACCESS: ClassVar[ObjectIdentifier]
+    SUBJECT_KEY_IDENTIFIER: ClassVar[ObjectIdentifier]
+    TLS_FEATURE: ClassVar[ObjectIdentifier]
 
-class NameOID:
-    BUSINESS_CATEGORY: ObjectIdentifier
-    COMMON_NAME: ObjectIdentifier
-    COUNTRY_NAME: ObjectIdentifier
-    DN_QUALIFIER: ObjectIdentifier
-    DOMAIN_COMPONENT: ObjectIdentifier
-    EMAIL_ADDRESS: ObjectIdentifier
-    GENERATION_QUALIFIER: ObjectIdentifier
-    GIVEN_NAME: ObjectIdentifier
-    JURISDICTION_COUNTRY_NAME: ObjectIdentifier
-    JURISDICTION_LOCALITY_NAME: ObjectIdentifier
-    JURISDICTION_STATE_OR_PROVINCE_NAME: ObjectIdentifier
-    LOCALITY_NAME: ObjectIdentifier
-    ORGANIZATIONAL_UNIT_NAME: ObjectIdentifier
-    ORGANIZATION_NAME: ObjectIdentifier
-    POSTAL_ADDRESS: ObjectIdentifier
-    POSTAL_CODE: ObjectIdentifier
-    PSEUDONYM: ObjectIdentifier
-    SERIAL_NUMBER: ObjectIdentifier
-    STATE_OR_PROVINCE_NAME: ObjectIdentifier
-    STREET_ADDRESS: ObjectIdentifier
-    SURNAME: ObjectIdentifier
-    TITLE: ObjectIdentifier
-    USER_ID: ObjectIdentifier
-    X500_UNIQUE_IDENTIFIER: ObjectIdentifier
+class NameOID(object):
+    BUSINESS_CATEGORY: ClassVar[ObjectIdentifier]
+    COMMON_NAME: ClassVar[ObjectIdentifier]
+    COUNTRY_NAME: ClassVar[ObjectIdentifier]
+    DN_QUALIFIER: ClassVar[ObjectIdentifier]
+    DOMAIN_COMPONENT: ClassVar[ObjectIdentifier]
+    EMAIL_ADDRESS: ClassVar[ObjectIdentifier]
+    GENERATION_QUALIFIER: ClassVar[ObjectIdentifier]
+    GIVEN_NAME: ClassVar[ObjectIdentifier]
+    JURISDICTION_COUNTRY_NAME: ClassVar[ObjectIdentifier]
+    JURISDICTION_LOCALITY_NAME: ClassVar[ObjectIdentifier]
+    JURISDICTION_STATE_OR_PROVINCE_NAME: ClassVar[ObjectIdentifier]
+    LOCALITY_NAME: ClassVar[ObjectIdentifier]
+    ORGANIZATIONAL_UNIT_NAME: ClassVar[ObjectIdentifier]
+    ORGANIZATION_NAME: ClassVar[ObjectIdentifier]
+    POSTAL_ADDRESS: ClassVar[ObjectIdentifier]
+    POSTAL_CODE: ClassVar[ObjectIdentifier]
+    PSEUDONYM: ClassVar[ObjectIdentifier]
+    SERIAL_NUMBER: ClassVar[ObjectIdentifier]
+    STATE_OR_PROVINCE_NAME: ClassVar[ObjectIdentifier]
+    STREET_ADDRESS: ClassVar[ObjectIdentifier]
+    SURNAME: ClassVar[ObjectIdentifier]
+    TITLE: ClassVar[ObjectIdentifier]
+    USER_ID: ClassVar[ObjectIdentifier]
+    X500_UNIQUE_IDENTIFIER: ClassVar[ObjectIdentifier]
 
-class OCSPExtensionOID:
-    NONCE: ObjectIdentifier
+class OCSPExtensionOID(object):
+    NONCE: ClassVar[ObjectIdentifier]
 
-class SignatureAlgorithmOID:
-    DSA_WITH_SHA1: ObjectIdentifier
-    DSA_WITH_SHA224: ObjectIdentifier
-    DSA_WITH_SHA256: ObjectIdentifier
-    ECDSA_WITH_SHA1: ObjectIdentifier
-    ECDSA_WITH_SHA224: ObjectIdentifier
-    ECDSA_WITH_SHA256: ObjectIdentifier
-    ECDSA_WITH_SHA384: ObjectIdentifier
-    ECDSA_WITH_SHA512: ObjectIdentifier
-    ED25519: ObjectIdentifier
-    ED448: ObjectIdentifier
-    RSASSA_PSS: ObjectIdentifier
-    RSA_WITH_MD5: ObjectIdentifier
-    RSA_WITH_SHA1: ObjectIdentifier
-    RSA_WITH_SHA224: ObjectIdentifier
-    RSA_WITH_SHA256: ObjectIdentifier
-    RSA_WITH_SHA384: ObjectIdentifier
-    RSA_WITH_SHA512: ObjectIdentifier
+class SignatureAlgorithmOID(object):
+    DSA_WITH_SHA1: ClassVar[ObjectIdentifier]
+    DSA_WITH_SHA224: ClassVar[ObjectIdentifier]
+    DSA_WITH_SHA256: ClassVar[ObjectIdentifier]
+    ECDSA_WITH_SHA1: ClassVar[ObjectIdentifier]
+    ECDSA_WITH_SHA224: ClassVar[ObjectIdentifier]
+    ECDSA_WITH_SHA256: ClassVar[ObjectIdentifier]
+    ECDSA_WITH_SHA384: ClassVar[ObjectIdentifier]
+    ECDSA_WITH_SHA512: ClassVar[ObjectIdentifier]
+    ED25519: ClassVar[ObjectIdentifier]
+    ED448: ClassVar[ObjectIdentifier]
+    RSASSA_PSS: ClassVar[ObjectIdentifier]
+    RSA_WITH_MD5: ClassVar[ObjectIdentifier]
+    RSA_WITH_SHA1: ClassVar[ObjectIdentifier]
+    RSA_WITH_SHA224: ClassVar[ObjectIdentifier]
+    RSA_WITH_SHA256: ClassVar[ObjectIdentifier]
+    RSA_WITH_SHA384: ClassVar[ObjectIdentifier]
+    RSA_WITH_SHA512: ClassVar[ObjectIdentifier]
 
-class NameAttribute:
+class NameAttribute(object):
     oid: ObjectIdentifier
     value: str
     def __init__(self, oid: ObjectIdentifier, value: str) -> None: ...
     def rfc4514_string(self) -> str: ...
 
-class RelativeDistinguishedName:
+class RelativeDistinguishedName(object):
     def __init__(self, attributes: List[NameAttribute]) -> None: ...
     def __iter__(self) -> Generator[NameAttribute, None, None]: ...
     def get_attributes_for_oid(self, oid: ObjectIdentifier) -> List[NameAttribute]: ...
     def rfc4514_string(self) -> str: ...
 
-class Name:
+class Name(object):
     rdns: List[RelativeDistinguishedName]
     def __init__(self, attributes: List[Union[NameAttribute, RelativeDistinguishedName]]) -> None: ...
     def __iter__(self) -> Generator[NameAttribute, None, None]: ...
@@ -138,7 +138,7 @@ class Certificate(metaclass=ABCMeta):
     @abstractmethod
     def public_key(self) -> Union[DSAPublicKey, Ed25519PublicKey, Ed448PublicKey, EllipticCurvePublicKey, RSAPublicKey]: ...
 
-class CertificateBuilder:
+class CertificateBuilder(object):
     def add_extension(self, extension: ExtensionType, critical: bool) -> CertificateBuilder: ...
     def issuer_name(self, name: Name) -> CertificateBuilder: ...
     def not_valid_after(self, time: datetime.datetime) -> CertificateBuilder: ...
@@ -175,7 +175,7 @@ class CertificateRevocationList(metaclass=ABCMeta):
     @abstractmethod
     def public_bytes(self, encoding: Encoding) -> bytes: ...
 
-class CertificateRevocationListBuilder:
+class CertificateRevocationListBuilder(object):
     def add_extension(self, extension: ExtensionType, critical: bool) -> CertificateRevocationListBuilder: ...
     def add_revoked_certificate(self, revoked_certificate: RevokedCertificate) -> CertificateRevocationListBuilder: ...
     def issuer_name(self, name: Name) -> CertificateRevocationListBuilder: ...
@@ -201,7 +201,7 @@ class CertificateSigningRequest(metaclass=ABCMeta):
     @abstractmethod
     def public_key(self) -> Union[DSAPublicKey, Ed25519PublicKey, Ed448PublicKey, EllipticCurvePublicKey, RSAPublicKey]: ...
 
-class CertificateSigningRequestBuilder:
+class CertificateSigningRequestBuilder(object):
     def add_extension(self, extension: ExtensionType, critical: bool) -> CertificateSigningRequestBuilder: ...
     def subject_name(self, name: Name) -> CertificateSigningRequestBuilder: ...
     def sign(
@@ -216,7 +216,7 @@ class RevokedCertificate(metaclass=ABCMeta):
     revocation_date: datetime.datetime
     serial_number: int
 
-class RevokedCertificateBuilder:
+class RevokedCertificateBuilder(object):
     def add_extension(self, extension: ExtensionType, critical: bool) -> RevokedCertificateBuilder: ...
     def build(self, backend: X509Backend) -> RevokedCertificate: ...
     def revocation_date(self, time: datetime.datetime) -> RevokedCertificateBuilder: ...
@@ -257,7 +257,7 @@ class UniformResourceIdentifier(GeneralName):
 
 # X.509 Extensions
 
-class Extension:
+class Extension(object):
     critical: bool
     oid: ExtensionOID
     value: ExtensionType
@@ -265,7 +265,7 @@ class Extension:
 class ExtensionType(metaclass=ABCMeta):
     oid: ExtensionOID
 
-class Extensions:
+class Extensions(object):
     def __init__(self, general_names: List[Extension]) -> None: ...
     def __iter__(self) -> Generator[Extension, None, None]: ...
     def get_extension_for_oid(self, oid: ObjectIdentifier) -> Extension: ...

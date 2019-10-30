@@ -1,6 +1,6 @@
-from typing import Any
+from typing import Any, Optional
 
-class Binding:
-    ffi: Any
-    lib: Any
+class Binding(object):
+    ffi: Optional[Any]
+    lib: Optional[Any]
     def init_static_locks(self) -> None: ...

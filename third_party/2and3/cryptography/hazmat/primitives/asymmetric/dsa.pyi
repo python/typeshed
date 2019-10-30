@@ -13,15 +13,20 @@ class DSAParametersWithNumbers(DSAParameters):
     @abstractmethod
     def parameter_numbers(self) -> DSAParameterNumbers: ...
 
-class DSAParameterNumbers:
-    p: int
-    q: int
-    g: int
+class DSAParameterNumbers(object):
+    @property
+    def p(self) -> int: ...
+    @property
+    def q(self) -> int: ...
+    @property
+    def g(self) -> int: ...
     def __init__(self, p: int, q: int, g: int) -> None: ...
     def parameters(self, backend: DSABackend) -> DSAParameters: ...
 
 class DSAPrivateKey(metaclass=ABCMeta):
-    key_size: int
+    @property
+    @abstractmethod
+    def key_size(self) -> int: ...
     @abstractmethod
     def parameters(self) -> DSAParameters: ...
     @abstractmethod
@@ -37,13 +42,17 @@ class DSAPrivateKeyWithSerialization(DSAPrivateKey):
     @abstractmethod
     def private_numbers(self) -> DSAPrivateNumbers: ...
 
-class DSAPrivateNumbers:
-    x: int
-    public_numbers: DSAPublicNumbers
+class DSAPrivateNumbers(object):
+    @property
+    def x(self) -> int: ...
+    @property
+    def public_numbers(self) -> DSAPublicNumbers: ...
     def __init__(self, x: int, public_numbers: DSAPublicNumbers) -> None: ...
 
 class DSAPublicKey(metaclass=ABCMeta):
-    key_size: int
+    @property
+    @abstractmethod
+    def key_size(self) -> int: ...
     @abstractmethod
     def public_bytes(self, encoding: Encoding, format: PublicFormat) -> bytes: ...
     @abstractmethod
@@ -55,9 +64,11 @@ class DSAPublicKey(metaclass=ABCMeta):
 
 DSAPublicKeyWithSerialization = DSAPublicKey
 
-class DSAPublicNumbers:
-    y: int
-    parameter_numbers: DSAParameterNumbers
+class DSAPublicNumbers(object):
+    @property
+    def y(self) -> int: ...
+    @property
+    def parameter_numbers(self) -> DSAParameterNumbers: ...
     def __init__(self, y: int, parameter_numbers: DSAParameterNumbers) -> None: ...
 
 def generate_parameters(key_size: int, backend: DSABackend) -> DSAParameters: ...

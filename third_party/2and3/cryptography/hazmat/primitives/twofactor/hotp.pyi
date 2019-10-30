@@ -3,7 +3,7 @@ from typing import Optional
 from cryptography.hazmat.backends.interfaces import HMACBackend
 from cryptography.hazmat.primitives.hashes import HashAlgorithm
 
-class HOTP:
+class HOTP(object):
     def __init__(
         self, key: bytes, length: int, algorithm: HashAlgorithm, backend: HMACBackend, enforce_key_length: bool = ...
     ): ...
