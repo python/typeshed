@@ -16,7 +16,7 @@ else:
     _PathType = Union[bytes, Text]
 
 _T = TypeVar("_T")
-_MessageType = TypeVar("_MessageType", bound='Message')
+_MessageType = TypeVar("_MessageType", bound=Message)
 _MessageData = Union[email.message.Message, bytes, str, IO[AnyStr]]
 
 class HasIteritems(Protocol):
@@ -63,7 +63,7 @@ class Mailbox(Generic[_MessageType]):
     def unlock(self) -> None: ...
     def close(self) -> None: ...
 
-class Maildir(Mailbox['MaildirMessage']):
+class Maildir(Mailbox[MaildirMessage]):
 
     colon: str
 
@@ -83,15 +83,15 @@ class _mboxMMDF(_singlefileMailbox[_MessageType]):
 
     def get_file(self, key: str) -> _PartialFile[bytes]: ...
 
-class mbox(_mboxMMDF['mboxMessage']):
+class mbox(_mboxMMDF[mboxMessage]):
 
     def __init__(self, dirname: _PathType, factory: Optional[Callable[[IO[Any]], mboxMessage]] = ..., create: bool = ...) -> None: ...
 
-class MMDF(_mboxMMDF['MMDFMessage']):
+class MMDF(_mboxMMDF[MMDFMessage]):
 
     def __init__(self, dirname: _PathType, factory: Optional[Callable[[IO[Any]], MMDFMessage]] = ..., create: bool = ...) -> None: ...
 
-class MH(Mailbox['MHMessage']):
+class MH(Mailbox[MHMessage]):
 
     def __init__(self, dirname: _PathType, factory: Optional[Callable[[IO[Any]], MHMessage]] = ..., create: bool = ...) -> None: ...
     def get_file(self, key: str) -> _ProxyFile[bytes]: ...
@@ -104,7 +104,7 @@ class MH(Mailbox['MHMessage']):
     def set_sequences(self, sequences: Dict[str, List[int]]) -> None: ...
     def pack(self) -> None: ...
 
-class Babyl(_singlefileMailbox['BabylMessage']):
+class Babyl(_singlefileMailbox[BabylMessage]):
 
     def __init__(self, dirname: _PathType, factory: Optional[Callable[[IO[Any]], BabylMessage]] = ..., create: bool = ...) -> None: ...
 
