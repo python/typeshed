@@ -6,6 +6,7 @@ from typing import (Any, Callable, Dict, FrozenSet, Iterable, Iterator,
                     List, NoReturn, Optional, overload, Pattern, Sequence, Set,
                     Text, TextIO, Tuple, Type, TypeVar, Union)
 from abc import abstractmethod, ABCMeta
+import datetime
 import types
 
 _T = TypeVar('_T')
@@ -96,11 +97,19 @@ class TestCase(Testable):
     def assertAlmostEqual(self, first: float, second: float, *,
                           msg: Any = ..., delta: float = ...) -> None: ...
     @overload
+    def assertAlmostEqual(self, first: datetime.datetime,
+                          second: datetime.datetime, *,
+                          msg: Any = ..., delta: datetime.timedelta = ...) -> None: ...
+    @overload
     def assertAlmostEquals(self, first: float, second: float,
                            places: int = ..., msg: Any = ...) -> None: ...
     @overload
     def assertAlmostEquals(self, first: float, second: float, *,
                            msg: Any = ..., delta: float = ...) -> None: ...
+    @overload
+    def assertAlmostEquals(self, first: datetime.datetime,
+                           second: datetime.datetime, *,
+                           msg: Any = ..., delta: datetime.timedelta = ...) -> None: ...
     def failUnlessAlmostEqual(self, first: float, second: float, places: int = ...,
                               msg: object = ...) -> None: ...
     @overload
@@ -110,11 +119,19 @@ class TestCase(Testable):
     def assertNotAlmostEqual(self, first: float, second: float, *,
                              msg: Any = ..., delta: float = ...) -> None: ...
     @overload
+    def assertNotAlmostEqual(self, first: datetime.datetime,
+                             second: datetime.datetime, *,
+                             msg: Any = ..., delta: datetime.timedelta = ...) -> None: ...
+    @overload
     def assertNotAlmostEquals(self, first: float, second: float,
                               places: int = ..., msg: Any = ...) -> None: ...
     @overload
     def assertNotAlmostEquals(self, first: float, second: float, *,
                               msg: Any = ..., delta: float = ...) -> None: ...
+    @overload
+    def assertNotAlmostEquals(self, first: datetime.datetime,
+                              second: datetime.datetime, *,
+                              msg: Any = ..., delta: datetime.timedelta = ...) -> None: ...
     def failIfAlmostEqual(self, first: float, second: float, places: int = ...,
                           msg: object = ...,
                           delta: float = ...) -> None: ...
