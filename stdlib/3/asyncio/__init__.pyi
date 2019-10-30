@@ -94,6 +94,7 @@ else:
         open_unix_connection as open_unix_connection,
         start_unix_server as start_unix_server,
     )
+    DefaultEventLoopPolicy: Type[AbstractEventLoopPolicy]
 
 if sys.version_info >= (3, 7):
     from asyncio.events import (
@@ -113,7 +114,6 @@ if sys.version_info >= (3, 7):
 # currently disallows this.
 # See https://github.com/python/mypy/issues/1843
 SelectorEventLoop: Type[AbstractEventLoop]
-DefaultEventLoopPolicy: Type[AbstractEventLoopPolicy]
 
 # TODO: AbstractChildWatcher (UNIX only)
 
