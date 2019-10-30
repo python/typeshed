@@ -129,6 +129,7 @@ class HTTPConnection:
     timeout: float
     host: str
     port: int
+    sock: Any
     if sys.version_info >= (3, 7):
         def __init__(
             self,
