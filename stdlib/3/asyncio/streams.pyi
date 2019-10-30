@@ -25,6 +25,7 @@ def open_connection(
     *,
     loop: Optional[events.AbstractEventLoop] = ...,
     limit: int = ...,
+    ssl_handshake_timeout: Optional[float] = ...,
     **kwds: Any
 ) -> Generator[Any, None, Tuple[StreamReader, StreamWriter]]: ...
 
@@ -36,6 +37,7 @@ def start_server(
     *,
     loop: Optional[events.AbstractEventLoop] = ...,
     limit: int = ...,
+    ssl_handshake_timeout: Optional[float] = ...,
     **kwds: Any
 ) -> Generator[Any, None, events.AbstractServer]: ...
 
