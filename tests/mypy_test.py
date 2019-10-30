@@ -17,6 +17,8 @@ import re
 import sys
 import argparse
 
+PLATFORMS = ["win32", "linux"]
+
 parser = argparse.ArgumentParser(description="Test runner for typeshed. "
                                              "Patterns are unanchored regexps on the full path.")
 parser.add_argument('-v', '--verbose', action='count', default=0, help="More output")
@@ -24,6 +26,8 @@ parser.add_argument('-n', '--dry-run', action='store_true', help="Don't actually
 parser.add_argument('-x', '--exclude', type=str, nargs='*', help="Exclude pattern")
 parser.add_argument('-p', '--python-version', type=str, nargs='*',
                     help="These versions only (major[.minor])")
+parser.add_argument('--platforms', type=str, nargs='*',
+                    help="These platforms only")
 parser.add_argument('--warn-unused-ignores', action='store_true',
                     help="Run mypy with --warn-unused-ignores "
                     "(hint: only get rid of warnings that are "
@@ -96,6 +100,8 @@ def main():
             print("--- no versions selected ---")
             sys.exit(1)
 
+    platforms = args.platforms or PLATFORMS
+
     code = 0
     runs = 0
     for major, minor in versions:
@@ -126,25 +132,27 @@ def main():
                                     seen.add(mod)
                                     files.append(fn)
         if files:
-            runs += 1
-            flags = ['--python-version', '%d.%d' % (major, minor)]
-            flags.append('--strict-optional')
-            flags.append('--no-site-packages')
-            flags.append('--show-traceback')
-            flags.append('--no-implicit-optional')
-            flags.append('--disallow-any-generics')
-            if args.warn_unused_ignores:
-                flags.append('--warn-unused-ignores')
-            sys.argv = ['mypy'] + flags + files
-            if args.verbose:
-                print("running", ' '.join(sys.argv))
-            else:
-                print("running mypy", ' '.join(flags), "# with", len(files), "files")
-            try:
-                if not args.dry_run:
-                    mypy_main('', sys.stdout, sys.stderr)
-            except SystemExit as err:
-                code = max(code, err.code)
+            for platform in platforms:
+                runs += 1
+                flags = ['--python-version', '%d.%d' % (major, minor)]
+                flags.append('--strict-optional')
+                flags.append('--no-site-packages')
+                flags.append('--show-traceback')
+                flags.append('--no-implicit-optional')
+                flags.append('--disallow-any-generics')
+                if args.warn_unused_ignores:
+                    flags.append('--warn-unused-ignores')
+                flags += ['--platform', platform]
+                sys.argv = ['mypy'] + flags + files
+                if args.verbose:
+                    print("running", ' '.join(sys.argv))
+                else:
+                    print("running mypy", ' '.join(flags), "# with", len(files), "files")
+                try:
+                    if not args.dry_run:
+                        mypy_main('', sys.stdout, sys.stderr)
+                except SystemExit as err:
+                    code = max(code, err.code)
     if code:
         print("--- exit status", code, "---")
         sys.exit(code)
