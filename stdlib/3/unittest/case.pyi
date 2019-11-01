@@ -198,7 +198,7 @@ class TestCase:
     def assertRaisesRegexp(self,  # type: ignore
                            exception: Union[Type[BaseException], Tuple[Type[BaseException], ...]],
                            expected_regex: Union[str, bytes, Pattern[str], Pattern[bytes]],
-                           callable: Callable[..., Any] = ...,
+                           callable: Callable[..., Any],
                            *args: Any, **kwargs: Any) -> None: ...
     @overload
     def assertRaisesRegexp(self,
