@@ -17,7 +17,7 @@ else:
 
 _T = TypeVar("_T")
 _MessageType = TypeVar("_MessageType", bound=Message)
-_MessageData = Union[email.message.Message, bytes, str, IO[AnyStr]]
+_MessageData = Union[email.message.Message, bytes, str, IO[str], IO[bytes]]
 
 class HasIteritems(Protocol):
     def iteritems(self) -> Iterator[Tuple[str, Message]]: ...
