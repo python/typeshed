@@ -1,3 +1,4 @@
+import datetime
 import logging
 import sys
 import unittest.result
@@ -117,8 +118,13 @@ class TestCase:
         self, logger: Optional[logging.Logger] = ...,
         level: Union[int, str, None] = ...
     ) -> _AssertLogsContext: ...
+    @overload
     def assertAlmostEqual(self, first: float, second: float, places: int = ...,
                           msg: Any = ..., delta: float = ...) -> None: ...
+    @overload
+    def assertAlmostEqual(self, first: datetime.datetime, second: datetime.datetime,
+                          places: int = ..., msg: Any = ...,
+                          delta: datetime.timedelta = ...) -> None: ...
     @overload
     def assertNotAlmostEqual(self, first: float, second: float, *,
                              msg: Any = ...) -> None: ...
@@ -128,6 +134,10 @@ class TestCase:
     @overload
     def assertNotAlmostEqual(self, first: float, second: float, *,
                              msg: Any = ..., delta: float = ...) -> None: ...
+    @overload
+    def assertNotAlmostEqual(self, first: datetime.datetime, second: datetime.datetime,
+                             places: int = ..., msg: Any = ...,
+                             delta: datetime.timedelta = ...) -> None: ...
     def assertRegex(self, text: AnyStr, expected_regex: Union[AnyStr, Pattern[AnyStr]],
                     msg: Any = ...) -> None: ...
     def assertNotRegex(self, text: AnyStr, unexpected_regex: Union[AnyStr, Pattern[AnyStr]],
