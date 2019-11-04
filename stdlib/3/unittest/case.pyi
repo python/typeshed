@@ -5,8 +5,8 @@ import unittest.result
 from types import TracebackType
 from typing import (
     Any, AnyStr, Callable, Container, ContextManager, Dict, FrozenSet, Generic,
-    Iterable, List, NoReturn, Optional, overload, Pattern, Sequence, Set,
-    Tuple, Type, TypeVar, Union,
+    Iterable, List, Mapping, NoReturn, Optional, overload, Pattern, Sequence,
+    Set, Tuple, Type, TypeVar, Union,
 )
 
 _E = TypeVar('_E', bound=BaseException)
@@ -215,6 +215,10 @@ class TestCase:
                            exception: Union[Type[_E], Tuple[Type[_E], ...]],
                            expected_regex: Union[str, bytes, Pattern[str], Pattern[bytes]],
                            msg: Any = ...) -> _AssertRaisesContext[_E]: ...
+    def assertDictContainsSubset(self,
+                                 expected: Mapping[Any, Any],
+                                 actual: Mapping[Any, Any],
+                                 msg: object = ...) -> None: ...
 
 class FunctionTestCase(TestCase):
     def __init__(self, testFunc: Callable[[], None],
