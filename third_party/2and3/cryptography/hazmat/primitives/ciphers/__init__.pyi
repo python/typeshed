@@ -12,10 +12,14 @@ class AEADDecryptionContext(metaclass=ABCMeta):
     def finalize_with_tag(self, tag: bytes) -> bytes: ...
 
 class AEADEncryptionContext(metaclass=ABCMeta):
-    tag: bytes
+    @property
+    @abstractmethod
+    def tag(self) -> bytes: ...
 
 class BlockCipherAlgorithm(metaclass=ABCMeta):
-    block_size: int
+    @property
+    @abstractmethod
+    def block_size(self) -> int: ...
 
 class Cipher(object):
     def __init__(self, algorithm: CipherAlgorithm, mode: Mode, backend: CipherBackend) -> None: ...
@@ -23,8 +27,12 @@ class Cipher(object):
     def encryptor(self) -> CipherContext: ...
 
 class CipherAlgorithm(metaclass=ABCMeta):
-    key_size: int
-    name: str
+    @property
+    @abstractmethod
+    def key_size(self) -> int: ...
+    @property
+    @abstractmethod
+    def name(self) -> str: ...
 
 class CipherContext(metaclass=ABCMeta):
     @abstractmethod
