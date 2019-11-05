@@ -13,13 +13,7 @@ class AST:
     _attributes: ClassVar[typing.Tuple[str, ...]]
     _fields: ClassVar[typing.Tuple[str, ...]]
     def __init__(self, *args: Any, **kwargs: Any) -> None: ...
-    # TODO: Not all nodes have all of the following attributes
-    lineno: int
-    col_offset: int
-    if sys.version_info >= (3, 8):
-        end_lineno: Optional[int]
-        end_col_offset: Optional[int]
-        type_comment: Optional[str]
+    def __getattribute__(self, name: str) -> Any: ...
 
 class mod(AST):
     ...
