@@ -1,7 +1,6 @@
 import sys
-from asyncio import coroutine
 from socket import socket
-from typing import Any, Generator, Mapping, Optional, Union
+from typing import Any, Mapping, Optional, Union
 
 from . import base_events, constants, events, futures, streams, transports
 
@@ -74,10 +73,8 @@ class BaseProactorEventLoop(base_events.BaseEventLoop):
             start_serving: bool = ...,
         ) -> events.AbstractServer: ...
     else:
-        @coroutine
-        def create_unix_connection(self, protocol_factory: events._ProtocolFactory, path: str, *,
-                                   ssl: events._SSLContext = ..., sock: Optional[socket] = ...,
-                                   server_hostname: str = ...) -> Generator[Any, None, events._TransProtPair]: ...
-        @coroutine
-        def create_unix_server(self, protocol_factory: events._ProtocolFactory, path: str, *,
-                               sock: Optional[socket] = ..., backlog: int = ..., ssl: events._SSLContext = ...) -> Generator[Any, None, events.AbstractServer]: ...
+        async def create_unix_connection(self, protocol_factory: events._ProtocolFactory, path: str, *,
+                                         ssl: events._SSLContext = ..., sock: Optional[socket] = ...,
+                                         server_hostname: str = ...) -> events._TransProtPair: ...
+        async def create_unix_server(self, protocol_factory: events._ProtocolFactory, path: str, *,
+                                     sock: Optional[socket] = ..., backlog: int = ..., ssl: events._SSLContext = ...) -> events.AbstractServer: ...
