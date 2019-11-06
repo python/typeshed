@@ -13,12 +13,12 @@ are important to the project's success.
 3. [Prepare your changes](#preparing-changes):
     * Small fixes and additions can be submitted directly as pull requests,
       but [contact us](#discussion) before starting significant work.
-    * IMPORTANT: For new libraries, [get permission from the library owner first](#adding-a-new-library).
+    * IMPORTANT: For new libraries, [notify the library owners](#adding-a-new-library).
     * Create your stubs [conforming to the coding style](#stub-file-coding-style).
     * Make sure your tests pass cleanly on `mypy`, `pytype`, and `flake8`.
 4. [Submit your changes](#submitting-changes):
     * Open a pull request
-    * For new libraries, [include a reference to where you got permission](#adding-a-new-library)
+    * For new libraries, [include a reference to where you notified the owners](#adding-a-new-library)
 5. You can expect a reply within a few days:
     * Diffs are merged when considered ready by the core team.
     * Feel free to ping the core team if your pull request goes without
@@ -107,14 +107,13 @@ with what you'd like to do or have ideas that will help you do it.
 ### Adding a new library
 
 If you want to submit type stubs for a new library, you need to
-**contact the maintainers of the original library** first to let them
-know and **get their permission**.  Do it by opening an issue on their
+**contact the maintainers of the original library** to let them
+know.  Do it by opening an issue on their
 project's bug tracker.  This gives them the opportunity to
 consider adopting type hints directly in their codebase (which you
-should prefer to external type stubs).  When the project owners agree
-for you to submit stubs here or you do not receive a reply within
-one month, open a pull request **referencing the
-issue where you asked for permission**.
+should prefer to external type stubs) or to request their omission.
+In your initial pull request, **reference the
+issue where you notified the owners**.
 
 Make sure your changes pass the tests (the [README](README.md#running-the-tests)
 has more information).
