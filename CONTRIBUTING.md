@@ -372,3 +372,4 @@ Core developers should follow these rules when processing pull requests:
 * Delete branches for merged PRs (by core devs pushing to the main repo).
 * Make sure commit messages to master are meaningful. For example, remove irrelevant
   intermediate commit messages.
+* If stubs for a new library are submitted, notify the library's maintainers.
