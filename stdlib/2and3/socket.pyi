@@ -307,7 +307,6 @@ TCP_KEEPINTVL: int
 TCP_LINGER2: int
 TCP_MAXSEG: int
 TCP_NODELAY: int
-TCP_NOTSENT_LOWAT: int
 TCP_QUICKACK: int
 TCP_SYNCNT: int
 TCP_WINDOW_CLAMP: int
@@ -394,6 +393,25 @@ if sys.version_info >= (3, 6):
     ALG_OP_SIGN: int
     ALG_OP_VERIFY: int
 
+if sys.version_info >= (3, 7):
+    TCP_NOTSENT_LOWAT: int
+
+
+if sys.platform == 'linux':
+    if sys.version_info >= (3, 7):
+        AF_VSOCK: AddressFamily
+        CAN_ISOTP: int
+        IOCTL_VM_SOCKETS_GET_LOCAL_CID: int
+        VMADDR_CID_ANY: int
+        VMADDR_CID_HOST: int
+        VMADDR_PORT_ANY: int
+        SO_VM_SOCKETS_BUFFER_MAX_SIZE: int
+        SO_VM_SOCKETS_BUFFER_SIZE: int
+        SO_VM_SOCKETS_BUFFER_MIN_SIZE: int
+
+    if sys.version_info >= (3, 8):
+        AF_QIPCRTR: AddressFamily
+
 if sys.platform == 'win32':
     SIO_RCVALL: int
     SIO_KEEPALIVE_VALS: int
@@ -441,6 +459,9 @@ if sys.version_info >= (3, 4):
         AF_WANPIPE: int
         AF_X25: int
         AF_LINK: int
+        AF_ALG: int
+        AF_VSOCK: int
+        AF_QIPCRTR: int
 
     class SocketKind(IntEnum):
         SOCK_STREAM: int
