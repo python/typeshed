@@ -12,32 +12,70 @@ _WriteBuffer = Union[bytearray, memoryview]
 
 # ----- variables and constants -----
 
+# Per socketmodule.c only these three are portable
 AF_UNIX: AddressFamily
 AF_INET: AddressFamily
 AF_INET6: AddressFamily
+
 SOCK_STREAM: SocketKind
 SOCK_DGRAM: SocketKind
 SOCK_RAW: SocketKind
 SOCK_RDM: SocketKind
 SOCK_SEQPACKET: SocketKind
-SOCK_CLOEXEC: SocketKind
-SOCK_NONBLOCK: SocketKind
-SOMAXCONN: int
+
+if sys.platform == 'linux' and sys.version_info >= (3,):
+    SOCK_CLOEXEC: SocketKind
+    SOCK_NONBLOCK: SocketKind
+
 has_ipv6: bool
-_GLOBAL_DEFAULT_TIMEOUT: Any
+_GLOBAL_DEFAULT_TIMEOUT: object
 SocketType: Any
 SocketIO: Any
 
-# These are flags that may exist on Python 3.6. Many don't exist on all platforms.
+# Re-exported errno
+EAGAIN: int
+EBADF: int
+EINTR: int
+EWOULDBLOCK: int
+
+if sys.platform == 'linux':
+    AF_NETLINK: AddressFamily
+    NETLINK_ARPD: int
+    NETLINK_CRYPTO: int
+    NETLINK_DNRTMSG: int
+    NETLINK_FIREWALL: int
+    NETLINK_IP6_FW: int
+    NETLINK_NFLOG: int
+    NETLINK_ROUTE6: int
+    NETLINK_ROUTE: int
+    NETLINK_SKIP: int
+    NETLINK_TAPBASE: int
+    NETLINK_TCPDIAG: int
+    NETLINK_USERSOCK: int
+    NETLINK_W1: int
+    NETLINK_XFRM: int
+
+if sys.platform != 'win32' and sys.platform != 'darwin':
+    # Linux and some BSD support is explicit in docs
+    # Windows and macOS do not support in practice
+    AF_BLUETOOTH: AddressFamily
+    BTPROTO_HCI: int
+    BTPROTO_L2CAP: int
+    BTPROTO_RFCOMM: int
+    BTPROTO_SCO: int  # not in FreeBSD
+
+if sys.platform == 'darwin':
+    PF_SYSTEM: int
+    SYSPROTO_CONTROL: int
+
+# Address families not mentioned in socket module docs
 AF_AAL5: AddressFamily
 AF_APPLETALK: AddressFamily
 AF_ASH: AddressFamily
 AF_ATMPVC: AddressFamily
 AF_ATMSVC: AddressFamily
 AF_AX25: AddressFamily
-AF_BLUETOOTH: AddressFamily
 AF_BRIDGE: AddressFamily
-AF_CAN: AddressFamily
 AF_DECnet: AddressFamily
 AF_ECONET: AddressFamily
 AF_IPX: AddressFamily
@@ -45,20 +83,19 @@ AF_IRDA: AddressFamily
 AF_KEY: AddressFamily
 AF_LLC: AddressFamily
 AF_NETBEUI: AddressFamily
-AF_NETLINK: AddressFamily
 AF_NETROM: AddressFamily
-AF_PACKET: AddressFamily
 AF_PPPOX: AddressFamily
-AF_RDS: AddressFamily
 AF_ROSE: AddressFamily
 AF_ROUTE: AddressFamily
 AF_SECURITY: AddressFamily
 AF_SNA: AddressFamily
 AF_SYSTEM: AddressFamily
-AF_TIPC: AddressFamily
 AF_UNSPEC: AddressFamily
 AF_WANPIPE: AddressFamily
 AF_X25: AddressFamily
+
+# The "many constants" referenced by the socket module docs
+SOMAXCONN: int
 AI_ADDRCONFIG: AddressInfo
 AI_ALL: AddressInfo
 AI_CANONNAME: AddressInfo
@@ -69,26 +106,7 @@ AI_NUMERICSERV: AddressInfo
 AI_PASSIVE: AddressInfo
 AI_V4MAPPED: AddressInfo
 AI_V4MAPPED_CFG: AddressInfo
-BDADDR_ANY: str
-BDADDR_LOCAL: str
-BTPROTO_HCI: int
-BTPROTO_L2CAP: int
-BTPROTO_RFCOMM: int
-BTPROTO_SCO: int
-CAN_EFF_FLAG: int
-CAN_EFF_MASK: int
-CAN_ERR_FLAG: int
-CAN_ERR_MASK: int
-CAN_RAW: int
-CAN_RAW_ERR_FILTER: int
-CAN_RAW_FILTER: int
-CAN_RAW_LOOPBACK: int
-CAN_RAW_RECV_OWN_MSGS: int
-CAN_RTR_FLAG: int
-CAN_SFF_MASK: int
-CAPI: int
-EAGAIN: int
-EAI_ADDRFAMILY: int
+EAIEAI_ADDRFAMILY: int
 EAI_AGAIN: int
 EAI_BADFLAGS: int
 EAI_BADHINTS: int
@@ -103,12 +121,6 @@ EAI_PROTOCOL: int
 EAI_SERVICE: int
 EAI_SOCKTYPE: int
 EAI_SYSTEM: int
-EBADF: int
-EINTR: int
-EWOULDBLOCK: int
-HCI_DATA_DIR: int
-HCI_FILTER: int
-HCI_TIME_STAMP: int
 INADDR_ALLHOSTS_GROUP: int
 INADDR_ANY: int
 INADDR_BROADCAST: int
@@ -174,12 +186,13 @@ IPV6_RECVPKTINFO: int
 IPV6_RECVRTHDR: int
 IPV6_RECVTCLASS: int
 IPV6_RTHDR: int
-IPV6_RTHDR_TYPE_0: int
 IPV6_RTHDRDSTOPTS: int
+IPV6_RTHDR_TYPE_0: int
 IPV6_TCLASS: int
 IPV6_UNICAST_HOPS: int
 IPV6_USE_MIN_MTU: int
 IPV6_V6ONLY: int
+IPX_TYPE: int
 IP_ADD_MEMBERSHIP: int
 IP_DEFAULT_MULTICAST_LOOP: int
 IP_DEFAULT_MULTICAST_TTL: int
@@ -197,7 +210,6 @@ IP_RETOPTS: int
 IP_TOS: int
 IP_TRANSPARENT: int
 IP_TTL: int
-IPX_TYPE: int
 LOCAL_PEERCRED: int
 MSG_BCAST: MsgFlag
 MSG_BTAG: MsgFlag
@@ -219,20 +231,6 @@ MSG_OOB: MsgFlag
 MSG_PEEK: MsgFlag
 MSG_TRUNC: MsgFlag
 MSG_WAITALL: MsgFlag
-NETLINK_ARPD: int
-NETLINK_CRYPTO: int
-NETLINK_DNRTMSG: int
-NETLINK_FIREWALL: int
-NETLINK_IP6_FW: int
-NETLINK_NFLOG: int
-NETLINK_ROUTE6: int
-NETLINK_ROUTE: int
-NETLINK_SKIP: int
-NETLINK_TAPBASE: int
-NETLINK_TCPDIAG: int
-NETLINK_USERSOCK: int
-NETLINK_W1: int
-NETLINK_XFRM: int
 NI_DGRAM: int
 NI_MAXHOST: int
 NI_MAXSERV: int
@@ -240,17 +238,6 @@ NI_NAMEREQD: int
 NI_NOFQDN: int
 NI_NUMERICHOST: int
 NI_NUMERICSERV: int
-PACKET_BROADCAST: int
-PACKET_FASTROUTE: int
-PACKET_HOST: int
-PACKET_LOOPBACK: int
-PACKET_MULTICAST: int
-PACKET_OTHERHOST: int
-PACKET_OUTGOING: int
-PF_CAN: int
-PF_PACKET: int
-PF_RDS: int
-PF_SYSTEM: int
 SCM_CREDENTIALS: int
 SCM_CREDS: int
 SCM_RIGHTS: int
@@ -259,17 +246,13 @@ SHUT_RDWR: int
 SHUT_WR: int
 SOL_ATALK: int
 SOL_AX25: int
-SOL_CAN_BASE: int
-SOL_CAN_RAW: int
 SOL_HCI: int
 SOL_IP: int
 SOL_IPX: int
 SOL_NETROM: int
-SOL_RDS: int
 SOL_ROSE: int
 SOL_SOCKET: int
 SOL_TCP: int
-SOL_TIPC: int
 SOL_UDP: int
 SO_ACCEPTCONN: int
 SO_BINDTODEVICE: int
@@ -296,7 +279,6 @@ SO_SNDLOWAT: int
 SO_SNDTIMEO: int
 SO_TYPE: int
 SO_USELOOPBACK: int
-SYSPROTO_CONTROL: int
 TCP_CORK: int
 TCP_DEFER_ACCEPT: int
 TCP_FASTOPEN: int
@@ -310,31 +292,60 @@ TCP_NODELAY: int
 TCP_QUICKACK: int
 TCP_SYNCNT: int
 TCP_WINDOW_CLAMP: int
-TIPC_ADDR_ID: int
-TIPC_ADDR_NAME: int
-TIPC_ADDR_NAMESEQ: int
-TIPC_CFG_SRV: int
-TIPC_CLUSTER_SCOPE: int
-TIPC_CONN_TIMEOUT: int
-TIPC_CRITICAL_IMPORTANCE: int
-TIPC_DEST_DROPPABLE: int
-TIPC_HIGH_IMPORTANCE: int
-TIPC_IMPORTANCE: int
-TIPC_LOW_IMPORTANCE: int
-TIPC_MEDIUM_IMPORTANCE: int
-TIPC_NODE_SCOPE: int
-TIPC_PUBLISHED: int
-TIPC_SRC_DROPPABLE: int
-TIPC_SUB_CANCEL: int
-TIPC_SUB_PORTS: int
-TIPC_SUB_SERVICE: int
-TIPC_SUBSCR_TIMEOUT: int
-TIPC_TOP_SRV: int
-TIPC_WAIT_FOREVER: int
-TIPC_WITHDRAWN: int
-TIPC_ZONE_SCOPE: int
+if sys.version_info >= (3, 7):
+    TCP_NOTSENT_LOWAT: int
 
-if sys.version_info >= (3, 3):
+if sys.platform == 'linux' and sys.version_info >= (3,):
+    AF_CAN: AddressFamily
+    PF_CAN: int
+    SOL_CAN_BASE: int
+    SOL_CAN_RAW: int
+    CAN_EFF_FLAG: int
+    CAN_EFF_MASK: int
+    CAN_ERR_FLAG: int
+    CAN_ERR_MASK: int
+    CAN_RAW: int
+    CAN_RAW_ERR_FILTER: int
+    CAN_RAW_FILTER: int
+    CAN_RAW_LOOPBACK: int
+    CAN_RAW_RECV_OWN_MSGS: int
+    CAN_RTR_FLAG: int
+    CAN_SFF_MASK: int
+
+    CAN_BCM: int
+    CAN_BCM_TX_SETUP: int
+    CAN_BCM_TX_DELETE: int
+    CAN_BCM_TX_READ: int
+    CAN_BCM_TX_SEND: int
+    CAN_BCM_RX_SETUP: int
+    CAN_BCM_RX_DELETE: int
+    CAN_BCM_RX_READ: int
+    CAN_BCM_TX_STATUS: int
+    CAN_BCM_TX_EXPIRED: int
+    CAN_BCM_RX_STATUS: int
+    CAN_BCM_RX_TIMEOUT: int
+    CAN_BCM_RX_CHANGED: int
+
+    CAN_RAW_FD_FRAMES: int
+
+if sys.platform == 'linux' and sys.version_info >= (3, 7):
+    CAN_ISOTP: int
+
+if sys.platform == 'linux':
+    AF_PACKET: AddressFamily
+    PF_PACKET: int
+    PACKET_BROADCAST: int
+    PACKET_FASTROUTE: int
+    PACKET_HOST: int
+    PACKET_LOOPBACK: int
+    PACKET_MULTICAST: int
+    PACKET_OTHERHOST: int
+    PACKET_OUTGOING: int
+
+if sys.platform == 'linux' and sys.version_info >= (3,):
+    AF_RDS: AddressFamily
+    PF_RDS: int
+    SOL_RDS: int
     RDS_CANCEL_SENT_TO: int
     RDS_CMSG_RDMA_ARGS: int
     RDS_CMSG_RDMA_DEST: int
@@ -354,75 +365,89 @@ if sys.version_info >= (3, 3):
     RDS_RDMA_USE_ONCE: int
     RDS_RECVERR: int
 
-if sys.version_info >= (3, 4):
-    CAN_BCM: int
-    CAN_BCM_TX_SETUP: int
-    CAN_BCM_TX_DELETE: int
-    CAN_BCM_TX_READ: int
-    CAN_BCM_TX_SEND: int
-    CAN_BCM_RX_SETUP: int
-    CAN_BCM_RX_DELETE: int
-    CAN_BCM_RX_READ: int
-    CAN_BCM_TX_STATUS: int
-    CAN_BCM_TX_EXPIRED: int
-    CAN_BCM_RX_STATUS: int
-    CAN_BCM_RX_TIMEOUT: int
-    CAN_BCM_RX_CHANGED: int
-    AF_LINK: AddressFamily
-
-if sys.version_info >= (3, 5):
-    CAN_RAW_FD_FRAMES: int
-
-if sys.version_info >= (3, 6):
-    SO_DOMAIN: int
-    SO_PROTOCOL: int
-    SO_PEERSEC: int
-    SO_PASSSEC: int
-    TCP_USER_TIMEOUT: int
-    TCP_CONGESTION: int
-    AF_ALG: AddressFamily
-    SOL_ALG: int
-    ALG_SET_KEY: int
-    ALG_SET_IV: int
-    ALG_SET_OP: int
-    ALG_SET_AEAD_ASSOCLEN: int
-    ALG_SET_AEAD_AUTHSIZE: int
-    ALG_SET_PUBKEY: int
-    ALG_OP_DECRYPT: int
-    ALG_OP_ENCRYPT: int
-    ALG_OP_SIGN: int
-    ALG_OP_VERIFY: int
-
-if sys.version_info >= (3, 7):
-    TCP_NOTSENT_LOWAT: int
-
-
-if sys.platform == 'linux':
-    if sys.version_info >= (3, 7):
-        AF_VSOCK: AddressFamily
-        CAN_ISOTP: int
-        IOCTL_VM_SOCKETS_GET_LOCAL_CID: int
-        VMADDR_CID_ANY: int
-        VMADDR_CID_HOST: int
-        VMADDR_PORT_ANY: int
-        SO_VM_SOCKETS_BUFFER_MAX_SIZE: int
-        SO_VM_SOCKETS_BUFFER_SIZE: int
-        SO_VM_SOCKETS_BUFFER_MIN_SIZE: int
-
-    if sys.version_info >= (3, 8):
-        AF_QIPCRTR: AddressFamily
-
 if sys.platform == 'win32':
     SIO_RCVALL: int
     SIO_KEEPALIVE_VALS: int
+    if sys.version_info >= (3, 6):
+        SIO_LOOPBACK_FAST_PATH: int
     RCVALL_IPLEVEL: int
     RCVALL_MAX: int
     RCVALL_OFF: int
     RCVALL_ON: int
     RCVALL_SOCKETLEVELONLY: int
 
-    if sys.version_info >= (3, 6):
-        SIO_LOOPBACK_FAST_PATH: int
+if sys.platform == 'linux':
+    AF_TIPC: AddressFamily
+    SOL_TIPC: int
+    TIPC_ADDR_ID: int
+    TIPC_ADDR_NAME: int
+    TIPC_ADDR_NAMESEQ: int
+    TIPC_CFG_SRV: int
+    TIPC_CLUSTER_SCOPE: int
+    TIPC_CONN_TIMEOUT: int
+    TIPC_CRITICAL_IMPORTANCE: int
+    TIPC_DEST_DROPPABLE: int
+    TIPC_HIGH_IMPORTANCE: int
+    TIPC_IMPORTANCE: int
+    TIPC_LOW_IMPORTANCE: int
+    TIPC_MEDIUM_IMPORTANCE: int
+    TIPC_NODE_SCOPE: int
+    TIPC_PUBLISHED: int
+    TIPC_SRC_DROPPABLE: int
+    TIPC_SUBSCR_TIMEOUT: int
+    TIPC_SUB_CANCEL: int
+    TIPC_SUB_PORTS: int
+    TIPC_SUB_SERVICE: int
+    TIPC_TOP_SRV: int
+    TIPC_WAIT_FOREVER: int
+    TIPC_WITHDRAWN: int
+    TIPC_ZONE_SCOPE: int
+
+if sys.platform == 'linux' and sys.version_info >= (3, 6):
+    AF_ALG: AddressFamily
+    SOL_ALG: int
+    ALG_OP_DECRYPT: int
+    ALG_OP_ENCRYPT: int
+    ALG_OP_SIGN: int
+    ALG_OP_VERIFY: int
+    ALG_SET_AEAD_ASSOCLEN: int
+    ALG_SET_AEAD_AUTHSIZE: int
+    ALG_SET_IV: int
+    ALG_SET_KEY: int
+    ALG_SET_OP: int
+    ALG_SET_PUBKEY: int
+
+if sys.platform == 'linux' and sys.version_info >= (3, 7):
+    AF_VSOCK: AddressFamily
+    IOCTL_VM_SOCKETS_GET_LOCAL_CID: int
+    VMADDR_CID_ANY: int
+    VMADDR_CID_HOST: int
+    VMADDR_PORT_ANY: int
+    SO_VM_SOCKETS_BUFFER_MAX_SIZE: int
+    SO_VM_SOCKETS_BUFFER_SIZE: int
+    SO_VM_SOCKETS_BUFFER_MIN_SIZE: int
+
+# Availability: BSD, macOS
+AF_LINK: AddressFamily
+
+BDADDR_ANY: str
+BDADDR_LOCAL: str
+
+HCI_FILTER: int
+HCI_TIME_STAMP: int
+HCI_DATA_DIR: int
+
+if sys.version_info >= (3, 6):
+    SO_DOMAIN: int
+    SO_PASSSEC: int
+    SO_PEERSEC: int
+    SO_PROTOCOL: int
+    TCP_CONGESTION: int
+    TCP_USER_TIMEOUT: int
+
+if sys.platform == 'linux' and sys.version_info >= (3, 8):
+    AF_QIPCRTR: AddressFamily
+
 
 # enum versions of above flags py 3.4+
 if sys.version_info >= (3, 4):
@@ -432,6 +457,8 @@ if sys.version_info >= (3, 4):
         AF_UNIX: int
         AF_INET: int
         AF_INET6: int
+        AF_AAL5: int
+        AF_ALG: int
         AF_APPLETALK: int
         AF_ASH: int
         AF_ATMPVC: int
@@ -439,29 +466,31 @@ if sys.version_info >= (3, 4):
         AF_AX25: int
         AF_BLUETOOTH: int
         AF_BRIDGE: int
+        AF_CAN: int
         AF_DECnet: int
         AF_ECONET: int
         AF_IPX: int
         AF_IRDA: int
         AF_KEY: int
+        AF_LINK: int
         AF_LLC: int
         AF_NETBEUI: int
         AF_NETLINK: int
         AF_NETROM: int
         AF_PACKET: int
         AF_PPPOX: int
+        AF_QIPCRTR: int
+        AF_RDS: int
         AF_ROSE: int
         AF_ROUTE: int
         AF_SECURITY: int
         AF_SNA: int
+        AF_SYSTEM: int
         AF_TIPC: int
         AF_UNSPEC: int
+        AF_VSOCK: int
         AF_WANPIPE: int
         AF_X25: int
-        AF_LINK: int
-        AF_ALG: int
-        AF_VSOCK: int
-        AF_QIPCRTR: int
 
     class SocketKind(IntEnum):
         SOCK_STREAM: int
