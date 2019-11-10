@@ -427,6 +427,7 @@ if sys.platform == 'linux' and sys.version_info >= (3, 7):
     SO_VM_SOCKETS_BUFFER_MAX_SIZE: int
     SO_VM_SOCKETS_BUFFER_SIZE: int
     SO_VM_SOCKETS_BUFFER_MIN_SIZE: int
+    VM_SOCKETS_INVALID_VERSION: int
 
 # Availability: BSD, macOS
 AF_LINK: AddressFamily
