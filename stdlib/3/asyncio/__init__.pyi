@@ -109,11 +109,9 @@ if sys.version_info >= (3, 7):
         run as run,
     )
 
-
-# TODO: It should be possible to instantiate these classes, but mypy
-# currently disallows this.
-# See https://github.com/python/mypy/issues/1843
-SelectorEventLoop: Type[AbstractEventLoop]
+if sys.platform != 'win32':
+    # This is already imported above on Windows.
+    SelectorEventLoop: Type[AbstractEventLoop]
 
 # TODO: AbstractChildWatcher (UNIX only)
 
