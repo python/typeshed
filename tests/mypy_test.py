@@ -24,6 +24,8 @@ parser.add_argument('-n', '--dry-run', action='store_true', help="Don't actually
 parser.add_argument('-x', '--exclude', type=str, nargs='*', help="Exclude pattern")
 parser.add_argument('-p', '--python-version', type=str, nargs='*',
                     help="These versions only (major[.minor])")
+parser.add_argument('--platform',
+                    help="Run mypy for a certain OS platform (defaults to sys.platform)")
 parser.add_argument('--warn-unused-ignores', action='store_true',
                     help="Run mypy with --warn-unused-ignores "
                     "(hint: only get rid of warnings that are "
@@ -135,6 +137,8 @@ def main():
             flags.append('--disallow-any-generics')
             if args.warn_unused_ignores:
                 flags.append('--warn-unused-ignores')
+            if args.platform:
+                flags.extend(['--platform', args.platform])
             sys.argv = ['mypy'] + flags + files
             if args.verbose:
                 print("running", ' '.join(sys.argv))
