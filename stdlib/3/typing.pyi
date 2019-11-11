@@ -29,7 +29,7 @@ if sys.version_info >= (3, 8):
     def final(f: _F) -> _F: ...
     Literal: _SpecialForm = ...
     # TypedDict is a (non-subscriptable) special form.
-    TypedDict: object = ...
+    TypedDict: object
 
 class GenericMeta(type): ...
 
@@ -525,8 +525,8 @@ class TextIO(IO[str]):
 class ByteString(Sequence[int], metaclass=ABCMeta): ...
 
 class Match(Generic[AnyStr]):
-    pos = 0
-    endpos = 0
+    pos: int
+    endpos: int
     lastindex: Optional[int]
     lastgroup: Optional[AnyStr]
     string: AnyStr
@@ -559,9 +559,9 @@ class Match(Generic[AnyStr]):
         def __getitem__(self, g: Union[int, str]) -> AnyStr: ...
 
 class Pattern(Generic[AnyStr]):
-    flags = 0
+    flags: int
     groupindex: Mapping[str, int]
-    groups = 0
+    groups: int
     pattern: AnyStr
 
     def search(self, string: AnyStr, pos: int = ...,

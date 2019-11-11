@@ -19,8 +19,8 @@ class shlex(Iterable[str]):
     infile: str
     instream: TextIO
     source: str
-    debug = 0
-    lineno = 0
+    debug: int
+    lineno: int
     token: str
     eof: str
     if sys.version_info >= (3, 6):

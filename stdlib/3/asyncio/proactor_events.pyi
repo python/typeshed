@@ -1,9 +1,15 @@
-
-from typing import Any, Mapping, Optional, Generator
-from . import base_events, transports, events, streams, futures, constants
-from asyncio import coroutine
-from socket import socket
 import sys
+from socket import socket
+from typing import Any, Mapping, Optional, Union
+
+from . import base_events, constants, events, futures, streams, transports
+
+if sys.version_info >= (3, 7):
+    from os import PathLike
+    _Path = Union[str, PathLike[str]]
+else:
+    _Path = str
+
 if sys.version_info >= (3, 8):
     from typing import Literal
 else:
@@ -45,17 +51,30 @@ class BaseProactorEventLoop(base_events.BaseEventLoop):
     # The methods below don't actually exist directly, ProactorEventLoops do not implement them. However, they are
     # needed to satisfy mypy
     if sys.version_info >= (3, 7):
-        async def create_unix_connection(self, protocol_factory: events._ProtocolFactory, path: str, *, ssl: events._SSLContext = ...,
-                                         sock: Optional[socket] = ..., server_hostname: str = ...,
-                                         ssl_handshake_timeout: Optional[float] = ...) -> events._TransProtPair: ...
-        async def create_unix_server(self, protocol_factory: events._ProtocolFactory, path: str, *, sock: Optional[socket] = ...,
-                                     backlog: int = ..., ssl: events._SSLContext = ..., ssl_handshake_timeout: Optional[float] = ...,
-                                     start_serving: bool = ...) -> events.AbstractServer: ...
+        async def create_unix_connection(
+            self,
+            protocol_factory: events._ProtocolFactory,
+            path: _Path,
+            *,
+            ssl: events._SSLContext = ...,
+            sock: Optional[socket] = ...,
+            server_hostname: str = ...,
+            ssl_handshake_timeout: Optional[float] = ...,
+        ) -> events._TransProtPair: ...
+        async def create_unix_server(
+            self,
+            protocol_factory: events._ProtocolFactory,
+            path: _Path,
+            *,
+            sock: Optional[socket] = ...,
+            backlog: int = ...,
+            ssl: events._SSLContext = ...,
+            ssl_handshake_timeout: Optional[float] = ...,
+            start_serving: bool = ...,
+        ) -> events.AbstractServer: ...
     else:
-        @coroutine
-        def create_unix_connection(self, protocol_factory: events._ProtocolFactory, path: str, *,
-                                   ssl: events._SSLContext = ..., sock: Optional[socket] = ...,
-                                   server_hostname: str = ...) -> Generator[Any, None, events._TransProtPair]: ...
-        @coroutine
-        def create_unix_server(self, protocol_factory: events._ProtocolFactory, path: str, *,
-                               sock: Optional[socket] = ..., backlog: int = ..., ssl: events._SSLContext = ...) -> Generator[Any, None, events.AbstractServer]: ...
+        async def create_unix_connection(self, protocol_factory: events._ProtocolFactory, path: str, *,
+                                         ssl: events._SSLContext = ..., sock: Optional[socket] = ...,
+                                         server_hostname: str = ...) -> events._TransProtPair: ...
+        async def create_unix_server(self, protocol_factory: events._ProtocolFactory, path: str, *,
+                                     sock: Optional[socket] = ..., backlog: int = ..., ssl: events._SSLContext = ...) -> events.AbstractServer: ...

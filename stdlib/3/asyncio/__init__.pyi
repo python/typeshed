@@ -87,11 +87,14 @@ from asyncio.events import (
     _set_running_loop as _set_running_loop,
     _get_running_loop as _get_running_loop,
 )
-if sys.platform != 'win32':
+if sys.platform == 'win32':
+    from asyncio.windows_events import *
+else:
     from asyncio.streams import (
         open_unix_connection as open_unix_connection,
         start_unix_server as start_unix_server,
     )
+    DefaultEventLoopPolicy: Type[AbstractEventLoopPolicy]
 
 if sys.version_info >= (3, 7):
     from asyncio.events import (
@@ -111,9 +114,6 @@ if sys.version_info >= (3, 7):
 # currently disallows this.
 # See https://github.com/python/mypy/issues/1843
 SelectorEventLoop: Type[AbstractEventLoop]
-if sys.platform == 'win32':
-    ProactorEventLoop: Type[AbstractEventLoop]
-DefaultEventLoopPolicy: Type[AbstractEventLoopPolicy]
 
 # TODO: AbstractChildWatcher (UNIX only)
 

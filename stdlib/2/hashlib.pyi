@@ -6,9 +6,9 @@ _DataType = Union[str, unicode, bytearray, buffer, memoryview]
 
 class _hash(object):  # This is not actually in the module namespace.
     name: str
-    block_size = 0
-    digest_size = 0
-    digestsize = 0
+    block_size: int
+    digest_size: int
+    digestsize: int
     def __init__(self, arg: _DataType = ...) -> None: ...
     def update(self, arg: _DataType) -> None: ...
     def digest(self) -> str: ...

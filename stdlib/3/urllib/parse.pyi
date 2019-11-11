@@ -11,7 +11,7 @@ non_hierarchical: List[str]
 uses_query: List[str]
 uses_fragment: List[str]
 scheme_chars: str
-MAX_CACHE_SIZE = 0
+MAX_CACHE_SIZE: int
 
 class _ResultMixinBase(Generic[AnyStr]):
     def geturl(self) -> AnyStr: ...
