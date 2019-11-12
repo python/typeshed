@@ -12,7 +12,6 @@ overload = object()
 Any = object()
 TypeVar = object()
 _promote = object()
-no_type_check = object()
 
 class _SpecialForm:
     def __getitem__(self, typeargs: Any) -> Any: ...
@@ -37,6 +36,22 @@ class GenericMeta(type): ...
 # This type is equivalent to the None type, but the no-op Union is necessary to
 # distinguish the None type from the None value.
 NoReturn = Union[None]
+
+# These type variables are used by the container types.
+_T = TypeVar('_T')
+_S = TypeVar('_S')
+_KT = TypeVar('_KT')  # Key type.
+_VT = TypeVar('_VT')  # Value type.
+_T_co = TypeVar('_T_co', covariant=True)  # Any type covariant containers.
+_V_co = TypeVar('_V_co', covariant=True)  # Any type covariant containers.
+_KT_co = TypeVar('_KT_co', covariant=True)  # Key type covariant containers.
+_VT_co = TypeVar('_VT_co', covariant=True)  # Value type covariant containers.
+_T_contra = TypeVar('_T_contra', contravariant=True)  # Ditto contravariant.
+_TC = TypeVar('_TC', bound=Type[object])
+_C = TypeVar("_C", bound=Callable[..., Any])
+
+no_type_check = object()
+def no_type_check_decorator(decorator: _C) -> _C: ...
 
 # Type aliases and type constructors
 
@@ -63,19 +78,6 @@ if sys.version_info >= (3, 7):
 AnyStr = TypeVar('AnyStr', str, bytes)
 
 # Abstract base classes.
-
-# These type variables are used by the container types.
-_T = TypeVar('_T')
-_S = TypeVar('_S')
-_KT = TypeVar('_KT')  # Key type.
-_VT = TypeVar('_VT')  # Value type.
-_T_co = TypeVar('_T_co', covariant=True)  # Any type covariant containers.
-_V_co = TypeVar('_V_co', covariant=True)  # Any type covariant containers.
-_KT_co = TypeVar('_KT_co', covariant=True)  # Key type covariant containers.
-_VT_co = TypeVar('_VT_co', covariant=True)  # Value type covariant containers.
-_T_contra = TypeVar('_T_contra', contravariant=True)  # Ditto contravariant.
-_TC = TypeVar('_TC', bound=Type[object])
-_C = TypeVar("_C", bound=Callable[..., Any])
 
 def runtime_checkable(cls: _TC) -> _TC: ...
 
