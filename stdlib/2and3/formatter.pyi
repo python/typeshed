@@ -2,7 +2,7 @@
 # and https://github.com/python/cpython/blob/master/Lib/formatter.py
 from typing import Any, IO, List, Optional, Tuple
 
-AS_IS = None
+AS_IS: None
 _FontType = Tuple[str, bool, bool, bool]
 _StylesType = Tuple[Any, ...]
 
