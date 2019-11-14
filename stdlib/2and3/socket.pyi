@@ -28,7 +28,6 @@ if sys.platform == 'linux' and sys.version_info >= (3,):
     SOCK_NONBLOCK: SocketKind
 
 has_ipv6: bool
-_GLOBAL_DEFAULT_TIMEOUT: object
 SocketType: Any
 if sys.version_info >= (3,):
     SocketIO: Any
