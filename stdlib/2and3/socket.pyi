@@ -6,7 +6,12 @@
 # see: http://nullege.com/codes/search/socket
 # adapted for Python 2.7 by Michal Pokorny
 import sys
-from typing import Any, Iterable, Tuple, List, Optional, Union, overload, TypeVar, Text
+from typing import Any, BinaryIO, Iterable, List, Optional, Text, TextIO, Tuple, TypeVar, Union, overload
+
+if sys.version_info >= (3, 8):
+    from typing import Literal
+else:
+    from typing_extensions import Literal
 
 _WriteBuffer = Union[bytearray, memoryview]
 
@@ -601,18 +606,27 @@ class socket:
         def listen(self, __backlog: int = ...) -> None: ...
     else:
         def listen(self, __backlog: int) -> None: ...
-
-    # TODO makefile's return value may be BinaryIO or TextIO, depending on mode
+    # Note that the makefile's documented windows-specific behavior is not represented
     if sys.version_info < (3,):
-        def makefile(self, mode: str = ..., buffering: int = ...): ...
+        def makefile(self, mode: unicode = ..., buffering: int = ...) -> BinaryIO: ...
     else:
+        # mode strings with duplicates are intentionally excluded
+        @overload
         def makefile(self,
-                     mode: str = ...,
+                     mode: Literal['r', 'w', 'rw', 'wr', ''],
                      buffering: Optional[int] = ...,
                      *,
                      encoding: Optional[str] = ...,
                      errors: Optional[str] = ...,
-                     newline: Optional[str] = ...) -> Any: ...
+                     newline: Optional[str] = ...) -> TextIO: ...
+        @overload
+        def makefile(self,
+                     mode: Literal['b', 'rb', 'br', 'wb', 'bw', 'rwb', 'rbw', 'wrb', 'wbr', 'brw', 'bwr'] = ...,
+                     buffering: Optional[int] = ...,
+                     *,
+                     encoding: Optional[str] = ...,
+                     errors: Optional[str] = ...,
+                     newline: Optional[str] = ...) -> BinaryIO: ...
     def recv(self, bufsize: int, flags: int = ...) -> bytes: ...
     def recvfrom(self, bufsize: int, flags: int = ...) -> Tuple[bytes, _RetAddress]: ...
 
