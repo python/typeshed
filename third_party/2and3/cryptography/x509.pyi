@@ -2,7 +2,7 @@ import datetime
 from abc import ABCMeta, abstractmethod
 from enum import Enum
 from ipaddress import IPv4Address, IPv4Network, IPv6Address, IPv6Network
-from typing import Any, ClassVar, Generator, List, Optional, Union, Text, Iterable
+from typing import Any, ClassVar, Generator, List, Optional, Union, Text, Iterable, Sequence
 
 from cryptography.hazmat.backends.interfaces import X509Backend
 from cryptography.hazmat.primitives.asymmetric.dsa import DSAPrivateKey, DSAPublicKey
@@ -110,7 +110,7 @@ class RelativeDistinguishedName(object):
 
 class Name(object):
     rdns: List[RelativeDistinguishedName]
-    def __init__(self, attributes: List[Union[NameAttribute, RelativeDistinguishedName]]) -> None: ...
+    def __init__(self, attributes: Sequence[Union[NameAttribute, RelativeDistinguishedName]]) -> None: ...
     def __iter__(self) -> Generator[NameAttribute, None, None]: ...
     def __len__(self) -> int: ...
     def get_attributes_for_oid(self, oid: ObjectIdentifier) -> List[NameAttribute]: ...
