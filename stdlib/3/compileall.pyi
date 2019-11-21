@@ -44,6 +44,7 @@ if sys.version_info >= (3, 7):
         optimize: int = ...,
         invalidation_mode: PycInvalidationMode = ...,
     ) -> _SuccessType: ...
+
 else:
     # rx can be any object with a 'search' method; once we have Protocols we can change the type
     def compile_dir(
@@ -72,5 +73,5 @@ else:
         force: bool = ...,
         quiet: int = ...,
         legacy: bool = ...,
-        optimize: int = ...
+        optimize: int = ...,
     ) -> _SuccessType: ...
