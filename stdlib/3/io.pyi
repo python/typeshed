@@ -156,7 +156,7 @@ class TextIOWrapper(TextIO):
     #              -> None: ...
     def __init__(
         self,
-        buffer: IO[bytes],
+        buffer: BufferedIOBase,
         encoding: Optional[str] = ...,
         errors: Optional[str] = ...,
         newline: Optional[str] = ...,
