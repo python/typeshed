@@ -146,8 +146,7 @@ class TextIOBase(IOBase):
     def seek(self, offset: int, whence: int = ...) -> int: ...
     def tell(self) -> int: ...
 
-# TODO should extend from TextIOBase
-class TextIOWrapper(TextIO):
+class TextIOWrapper(TextIOBase):
     line_buffering: bool
     # TODO uncomment after fixing mypy about using write_through
     # def __init__(self, buffer: IO[bytes], encoding: str = ...,
@@ -156,7 +155,7 @@ class TextIOWrapper(TextIO):
     #              -> None: ...
     def __init__(
         self,
-        buffer: IO[bytes],
+        buffer: BufferedIOBase,
         encoding: Optional[str] = ...,
         errors: Optional[str] = ...,
         newline: Optional[str] = ...,
