@@ -66,7 +66,7 @@ class FileIO(RawIOBase):
     name: Union[int, str]
     def __init__(
         self,
-        name: Union[str, bytes, int],
+        file: Union[str, bytes, int],
         mode: str = ...,
         closefd: bool = ...,
         opener: Optional[Callable[[Union[int, str], str], int]] = ...
