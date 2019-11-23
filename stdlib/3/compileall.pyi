@@ -23,7 +23,7 @@ if sys.version_info >= (3, 7):
         legacy: bool = ...,
         optimize: int = ...,
         workers: int = ...,
-        invalidation_mode: PycInvalidationMode = ...,
+        invalidation_mode: Optional[PycInvalidationMode] = ...,
     ) -> _SuccessType: ...
     def compile_file(
         fullname: _Path,
@@ -33,7 +33,7 @@ if sys.version_info >= (3, 7):
         quiet: int = ...,
         legacy: bool = ...,
         optimize: int = ...,
-        invalidation_mode: PycInvalidationMode = ...,
+        invalidation_mode: Optional[PycInvalidationMode] = ...,
     ) -> _SuccessType: ...
     def compile_path(
         skip_curdir: bool = ...,
@@ -42,7 +42,7 @@ if sys.version_info >= (3, 7):
         quiet: int = ...,
         legacy: bool = ...,
         optimize: int = ...,
-        invalidation_mode: PycInvalidationMode = ...,
+        invalidation_mode: Optional[PycInvalidationMode] = ...,
     ) -> _SuccessType: ...
 
 else:
