@@ -23,7 +23,7 @@ class ModuleFinder:
 
     modules: Dict[str, Module]
 
-    def __init__(self, path: List[str] = ..., debug: int = ..., excludes: Container[str] = ..., replace_paths: Sequence[Tuple[str, str]] = ...) -> None: ...
+    def __init__(self, path: Optional[List[str]] = ..., debug: int = ..., excludes: Container[str] = ..., replace_paths: Sequence[Tuple[str, str]] = ...) -> None: ...
     def msg(self, level: int, str: str, *args: Any) -> None: ...  # undocumented
     def msgin(self, *args: Any) -> None: ...  # undocumented
     def msgout(self, *args: Any) -> None: ...  # undocumented
@@ -31,7 +31,7 @@ class ModuleFinder:
     def load_file(self, pathname: str) -> None: ...  # undocumented
     def import_hook(self, name: str, caller: Optional[Module] = ..., fromlist: Optional[List[str]] = ..., level: int = ...) -> Optional[Module]: ...  # undocumented
     def determine_parent(self, caller: Optional[Module], level: int = ...) -> Optional[Module]: ...  # undocumented
-    def find_head_package(self, parent: Module, name: str) -> Module: ...  # undocumented
+    def find_head_package(self, parent: Module, name: str) -> Tuple[Module, str]: ...  # undocumented
     def load_tail(self, q: Module, tail: str) -> Module: ...  # undocumented
     def ensure_fromlist(self, m: Module, fromlist: Iterable[str], recursive: int = ...) -> None: ...  # undocumented
     def find_all_submodules(self, m: Module) -> Iterable[str]: ...  # undocumented
