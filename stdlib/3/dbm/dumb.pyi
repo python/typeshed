@@ -1,13 +1,12 @@
 
 import sys
-from typing import Union, MutableMapping, Iterator, Optional
+from typing import Union, MutableMapping, Iterator, Optional, Type
 from types import TracebackType
 
 if sys.version_info >= (3, 8):
     from typing import Final
 else:
     from typing_extensions import Final
-from typing import Type
 
 _KeyType = Union[str, bytes]
 _ValueType = Union[str, bytes]
