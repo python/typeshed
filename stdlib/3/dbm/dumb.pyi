@@ -11,7 +11,7 @@ else:
 _KeyType = Union[str, bytes]
 _ValueType = Union[str, bytes]
 
-error: Final[Type[OSError]] = OSError
+error: Final[Type[OSError]]
 
 class _Database(MutableMapping[_KeyType, _ValueType]):
 
