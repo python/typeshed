@@ -1,12 +1,10 @@
 from google.protobuf.descriptor import Descriptor
 from google.protobuf.internal.message_listener import MessageListener
 from google.protobuf.message import Message
-from typing import (
-    Sequence, TypeVar, Generic, Any, Iterator, Iterable,
-    Union, Optional, Callable, overload, List
-)
+from typing import Sequence, TypeVar, Generic, Any, Iterator, Iterable, Union, Optional, Callable, overload, List
 
-_T = TypeVar('_T')
+_T = TypeVar("_T")
+
 class BaseContainer(Sequence[_T]):
     def __init__(self, message_listener: MessageListener) -> None: ...
     def __len__(self) -> int: ...

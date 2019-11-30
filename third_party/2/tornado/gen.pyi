@@ -1,5 +1,4 @@
-from typing import Any
-from collections import namedtuple
+from typing import Any, Dict, NamedTuple, Tuple
 
 singledispatch: Any
 
@@ -104,6 +103,8 @@ class Runner:
     def result_callback(self, key): ...
     def handle_exception(self, typ, value, tb): ...
 
-Arguments = namedtuple('Arguments', ['args', 'kwargs'])
+class Arguments(NamedTuple):
+    args: Tuple[str, ...]
+    kwargs: Dict[str, Any]
 
 def convert_yielded(yielded): ...

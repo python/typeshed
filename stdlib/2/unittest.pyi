@@ -3,9 +3,10 @@
 # Based on http://docs.python.org/2.7/library/unittest.html
 
 from typing import (Any, Callable, Dict, FrozenSet, Iterable, Iterator,
-                    List, NoReturn, Optional, overload, Pattern, Sequence, Set,
-                    Text, TextIO, Tuple, Type, TypeVar, Union)
+                    List, Mapping, NoReturn, Optional, overload, Pattern,
+                    Sequence, Set, Text, TextIO, Tuple, Type, TypeVar, Union)
 from abc import abstractmethod, ABCMeta
+import datetime
 import types
 
 _T = TypeVar('_T')
@@ -96,11 +97,19 @@ class TestCase(Testable):
     def assertAlmostEqual(self, first: float, second: float, *,
                           msg: Any = ..., delta: float = ...) -> None: ...
     @overload
+    def assertAlmostEqual(self, first: datetime.datetime,
+                          second: datetime.datetime, *,
+                          msg: Any = ..., delta: datetime.timedelta = ...) -> None: ...
+    @overload
     def assertAlmostEquals(self, first: float, second: float,
                            places: int = ..., msg: Any = ...) -> None: ...
     @overload
     def assertAlmostEquals(self, first: float, second: float, *,
                            msg: Any = ..., delta: float = ...) -> None: ...
+    @overload
+    def assertAlmostEquals(self, first: datetime.datetime,
+                           second: datetime.datetime, *,
+                           msg: Any = ..., delta: datetime.timedelta = ...) -> None: ...
     def failUnlessAlmostEqual(self, first: float, second: float, places: int = ...,
                               msg: object = ...) -> None: ...
     @overload
@@ -110,11 +119,19 @@ class TestCase(Testable):
     def assertNotAlmostEqual(self, first: float, second: float, *,
                              msg: Any = ..., delta: float = ...) -> None: ...
     @overload
+    def assertNotAlmostEqual(self, first: datetime.datetime,
+                             second: datetime.datetime, *,
+                             msg: Any = ..., delta: datetime.timedelta = ...) -> None: ...
+    @overload
     def assertNotAlmostEquals(self, first: float, second: float,
                               places: int = ..., msg: Any = ...) -> None: ...
     @overload
     def assertNotAlmostEquals(self, first: float, second: float, *,
                               msg: Any = ..., delta: float = ...) -> None: ...
+    @overload
+    def assertNotAlmostEquals(self, first: datetime.datetime,
+                              second: datetime.datetime, *,
+                              msg: Any = ..., delta: datetime.timedelta = ...) -> None: ...
     def failIfAlmostEqual(self, first: float, second: float, places: int = ...,
                           msg: object = ...,
                           delta: float = ...) -> None: ...
@@ -149,7 +166,10 @@ class TestCase(Testable):
     def assertRegexpMatches(self, text: Text, regexp: _Regexp, msg: object = ...) -> None: ...
     def assertNotRegexpMatches(self, text: Text, regexp: _Regexp, msg: object = ...) -> None: ...
     def assertItemsEqual(self, first: Iterable[Any], second: Iterable[Any], msg: object = ...) -> None: ...
-    def assertDictContainsSubset(self, expected: Dict[Any, Any], actual: Dict[Any, Any], msg: object = ...) -> None: ...
+    def assertDictContainsSubset(self,
+                                 expected: Mapping[Any, Any],
+                                 actual: Mapping[Any, Any],
+                                 msg: object = ...) -> None: ...
     def addTypeEqualityFunc(self, typeobj: type, function: Callable[..., None]) -> None: ...
     @overload
     def failUnlessRaises(self, exception: _ExceptionType, callable: Callable[..., Any], *args: Any, **kwargs: Any) -> None: ...

@@ -2,5 +2,5 @@
 
 from hashlib import md5 as md5, md5 as new
 
-blocksize = 0
-digest_size = 0
+blocksize: int
+digest_size: int

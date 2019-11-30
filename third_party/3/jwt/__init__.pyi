@@ -1,13 +1,15 @@
 from typing import Mapping, Any, Optional, Union, Dict
 
 from . import algorithms
+from cryptography.hazmat.primitives.asymmetric import rsa
 
-def decode(jwt: Union[str, bytes], key: Union[str, bytes] = ...,
+
+def decode(jwt: Union[str, bytes], key: Union[str, bytes, rsa.RSAPublicKey, rsa.RSAPrivateKey] = ...,
            verify: bool = ..., algorithms: Optional[Any] = ...,
            options: Optional[Mapping[Any, Any]] = ...,
            **kwargs: Any) -> Dict[str, Any]: ...
 
-def encode(payload: Mapping[str, Any], key: Union[str, bytes],
+def encode(payload: Mapping[str, Any], key: Union[str, bytes, rsa.RSAPublicKey, rsa.RSAPrivateKey],
            algorithm: str = ..., headers: Optional[Mapping[str, Any]] = ...,
            json_encoder: Optional[Any] = ...) -> bytes: ...
 

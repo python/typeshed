@@ -1,6 +1,6 @@
-from typing import Any, Dict
+from typing import Any, Dict, NamedTuple
+
 from tornado.util import ObjectDict
-from collections import namedtuple
 
 class SSLError(Exception): ...
 
@@ -79,11 +79,17 @@ def parse_body_arguments(content_type, body, arguments, files, headers=...): ...
 def parse_multipart_form_data(boundary, data, arguments, files): ...
 def format_timestamp(ts): ...
 
-RequestStartLine = namedtuple('RequestStartLine', ['method', 'path', 'version'])
+class RequestStartLine(NamedTuple):
+    method: str
+    path: str
+    version: str
 
 def parse_request_start_line(line): ...
 
-ResponseStartLine = namedtuple('ResponseStartLine', ['version', 'code', 'reason'])
+class ResponseStartLine(NamedTuple):
+    version: str
+    code: str
+    reason: str
 
 def parse_response_start_line(line): ...
 def doctests(): ...

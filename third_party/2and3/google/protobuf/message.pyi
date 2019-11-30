@@ -2,10 +2,7 @@ import sys
 
 from typing import Any, Sequence, Optional, Tuple, Type, TypeVar, Union
 
-from .descriptor import (
-    DescriptorBase,
-    FieldDescriptor,
-)
+from .descriptor import DescriptorBase, FieldDescriptor
 
 class Error(Exception): ...
 class DecodeError(Error): ...
@@ -44,7 +41,6 @@ class Message:
     def FromString(cls: Type[_T], s: _Serialized) -> _T: ...
     @property
     def Extensions(self) -> _ExtensionDict: ...
-
     # Intentionally left out typing on these three methods, because they are
     # stringly typed and it is not useful to call them on a Message directly.
     # We prefer more specific typing on individual subclasses of Message
@@ -52,6 +48,5 @@ class Message:
     def HasField(self, field_name: Any) -> bool: ...
     def ClearField(self, field_name: Any) -> None: ...
     def WhichOneof(self, oneof_group: Any) -> Any: ...
-
     # TODO: check kwargs
     def __init__(self, **kwargs) -> None: ...
