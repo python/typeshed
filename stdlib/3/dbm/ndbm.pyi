@@ -1,7 +1,8 @@
 
-from typing import MutableMapping, Union, Iterator, Optional, Type
+from typing import Generic, Union, Iterator, Optional, Type, TypeVar, overload, AbstractSet
 from types import TracebackType
 
+_T = TypeVar('_T')
 _KeyType = Union[str, bytes]
 _ValueType = Union[str, bytes]
 
@@ -10,7 +11,7 @@ class error(OSError): ...
 library: str = ...
 
 # Actual typename dbm, not exposed by the implementation
-class _dbm(MutableMapping[_KeyType, _ValueType]):
+class _dbm(Generic[_KeyType, _ValueType]):
 
     def close(self) -> None: ...
     def __getitem__(self, item: _KeyType) -> _ValueType: ...
@@ -22,10 +23,15 @@ class _dbm(MutableMapping[_KeyType, _ValueType]):
     def __enter__(self) -> _dbm: ...
     def __exit__(self, exc_type: Optional[Type[BaseException]], exc_val: Optional[BaseException], exc_tb: Optional[TracebackType]) -> None: ...
 
+    @overload
+    def get(self, k: _KeyType) -> Optional[_ValueType]: ...
+    @overload
+    def get(self, k: _KeyType, default: Union[_ValueType, _T]) -> Union[_ValueType, _T]: ...
+    def keys(self) -> AbstractSet[_KeyType]: ...
+    def setdefault(self, k: _KeyType, default: _ValueType = ...) -> _ValueType: ...
+
     # Don't exist at runtime
     __new__: None  # type: ignore
     __init__: None  # type: ignore
-    items: None  # type: ignore
-    values: None  # type: ignore
 
 def open(filename: str, flag: str = ..., mode: int = ...) -> _dbm: ...
