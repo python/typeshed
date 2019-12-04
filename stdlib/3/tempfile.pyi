@@ -92,6 +92,32 @@ def NamedTemporaryFile(
 # It does not actually derive from IO[AnyStr], but it does implement the
 # protocol.
 class SpooledTemporaryFile(IO[AnyStr]):
+    # bytes needs to go first, as default mode is to open as bytes
+    @overload
+    def __init__(
+        self: SpooledTemporaryFile[bytes],
+        max_size: int = ...,
+        mode: Literal["rb", "wb", "ab", "xb", "r+b", "w+b", "a+b", "x+b"] = ...,
+        buffering: int = ...,
+        encoding: Optional[str] = ...,
+        newline: Optional[str] = ...,
+        suffix: Optional[str] = ...,
+        prefix: Optional[str] = ...,
+        dir: Optional[str] = ...,
+    ) -> None: ...
+    @overload
+    def __init__(
+        self: SpooledTemporaryFile[str],
+        max_size: int = ...,
+        mode: Literal["r", "w", "a", "x", "r+", "w+", "a+", "x+", "rt", "wt", "at", "xt", "r+t", "w+t", "a+t", "x+t"] = ...,
+        buffering: int = ...,
+        encoding: Optional[str] = ...,
+        newline: Optional[str] = ...,
+        suffix: Optional[str] = ...,
+        prefix: Optional[str] = ...,
+        dir: Optional[str] = ...,
+    ) -> None: ...
+    @overload
     def __init__(
         self,
         max_size: int = ...,
