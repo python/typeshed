@@ -13,11 +13,30 @@ if sys.version_info >= (3, 8):
 else:
     from typing_extensions import Literal
 
-_WriteBuffer = Union[bytearray, memoryview]
 
-# ----- variables and constants -----
+# ----- Constants -----
+# Some socket families are listed in the "Socket families" section of the docs,
+# but not the "Constants" section. These are listed at the end of the list of
+# constants.
+#
+# Besides those and the first few constants listed, the constants are listed in
+# documentation order.
 
-# Per socketmodule.c only these three are portable
+# Constants defined by Python (i.e. not OS constants re-exported from C)
+has_ipv6: bool
+SocketType: Any
+if sys.version_info >= (3,):
+    SocketIO: Any
+
+# Re-exported errno
+EAGAIN: int
+EBADF: int
+EINTR: int
+EWOULDBLOCK: int
+
+# Constants re-exported from C
+
+# Per socketmodule.c, only these three families are portable
 AF_UNIX: AddressFamily
 AF_INET: AddressFamily
 AF_INET6: AddressFamily
@@ -32,48 +51,7 @@ if sys.platform == 'linux' and sys.version_info >= (3,):
     SOCK_CLOEXEC: SocketKind
     SOCK_NONBLOCK: SocketKind
 
-has_ipv6: bool
-SocketType: Any
-if sys.version_info >= (3,):
-    SocketIO: Any
-
-# Re-exported errno
-EAGAIN: int
-EBADF: int
-EINTR: int
-EWOULDBLOCK: int
-
-if sys.platform == 'linux':
-    AF_NETLINK: AddressFamily
-    NETLINK_ARPD: int
-    NETLINK_CRYPTO: int
-    NETLINK_DNRTMSG: int
-    NETLINK_FIREWALL: int
-    NETLINK_IP6_FW: int
-    NETLINK_NFLOG: int
-    NETLINK_ROUTE6: int
-    NETLINK_ROUTE: int
-    NETLINK_SKIP: int
-    NETLINK_TAPBASE: int
-    NETLINK_TCPDIAG: int
-    NETLINK_USERSOCK: int
-    NETLINK_W1: int
-    NETLINK_XFRM: int
-
-if sys.platform != 'win32' and sys.platform != 'darwin':
-    # Linux and some BSD support is explicit in docs
-    # Windows and macOS do not support in practice
-    AF_BLUETOOTH: AddressFamily
-    BTPROTO_HCI: int
-    BTPROTO_L2CAP: int
-    BTPROTO_RFCOMM: int
-    BTPROTO_SCO: int  # not in FreeBSD
-
-if sys.platform == 'darwin':
-    PF_SYSTEM: int
-    SYSPROTO_CONTROL: int
-
-# Address families not mentioned in socket module docs
+# Address families not mentioned in the docs
 AF_AAL5: AddressFamily
 AF_APPLETALK: AddressFamily
 AF_ASH: AddressFamily
@@ -99,7 +77,7 @@ AF_UNSPEC: AddressFamily
 AF_WANPIPE: AddressFamily
 AF_X25: AddressFamily
 
-# The "many constants" referenced by the socket module docs
+# The "many constants" referenced by the docs
 SOMAXCONN: int
 AI_ADDRCONFIG: AddressInfo
 AI_ALL: AddressInfo
@@ -300,6 +278,8 @@ TCP_WINDOW_CLAMP: int
 if sys.version_info >= (3, 7):
     TCP_NOTSENT_LOWAT: int
 
+# Specifically-documented constants
+
 if sys.platform == 'linux' and sys.version_info >= (3,):
     AF_CAN: AddressFamily
     PF_CAN: int
@@ -433,15 +413,9 @@ if sys.platform == 'linux' and sys.version_info >= (3, 7):
     SO_VM_SOCKETS_BUFFER_MIN_SIZE: int
     VM_SOCKETS_INVALID_VERSION: int
 
-# Availability: BSD, macOS
-AF_LINK: AddressFamily
+AF_LINK: AddressFamily  # Availability: BSD, macOS
 
-BDADDR_ANY: str
-BDADDR_LOCAL: str
-
-HCI_FILTER: int
-HCI_TIME_STAMP: int
-HCI_DATA_DIR: int
+# BDADDR_* and HCI_* listed with other bluetooth constants below
 
 if sys.version_info >= (3, 6):
     SO_DOMAIN: int
@@ -455,7 +429,51 @@ if sys.platform == 'linux' and sys.version_info >= (3, 8):
     AF_QIPCRTR: AddressFamily
 
 
-# enum versions of above flags py 3.4+
+# Semi-documented constants
+# (Listed under "Socket families" in the docs, but not "Constants")
+
+if sys.platform == 'linux':
+    # Netlink is defined by Linux
+    AF_NETLINK: AddressFamily
+    NETLINK_ARPD: int
+    NETLINK_CRYPTO: int
+    NETLINK_DNRTMSG: int
+    NETLINK_FIREWALL: int
+    NETLINK_IP6_FW: int
+    NETLINK_NFLOG: int
+    NETLINK_ROUTE6: int
+    NETLINK_ROUTE: int
+    NETLINK_SKIP: int
+    NETLINK_TAPBASE: int
+    NETLINK_TCPDIAG: int
+    NETLINK_USERSOCK: int
+    NETLINK_W1: int
+    NETLINK_XFRM: int
+
+if sys.platform != 'win32' and sys.platform != 'darwin':
+    # Linux and some BSD support is explicit in the docs
+    # Windows and macOS do not support in practice
+    AF_BLUETOOTH: AddressFamily
+    BTPROTO_HCI: int
+    BTPROTO_L2CAP: int
+    BTPROTO_RFCOMM: int
+    BTPROTO_SCO: int  # not in FreeBSD
+
+    BDADDR_ANY: str
+    BDADDR_LOCAL: str
+
+    HCI_FILTER: int  # not in NetBSD or DragonFlyBSD
+    # not in FreeBSD, NetBSD, or DragonFlyBSD
+    HCI_TIME_STAMP: int
+    HCI_DATA_DIR: int
+
+if sys.platform == 'darwin':
+    # PF_SYSTEM is defined by macOS
+    PF_SYSTEM: int
+    SYSPROTO_CONTROL: int
+
+
+# enum versions of above flags
 if sys.version_info >= (3, 4):
     from enum import IntEnum
 
@@ -536,7 +554,8 @@ else:
     MsgFlag = int
 
 
-# ----- exceptions -----
+# ----- Exceptions -----
+
 if sys.version_info < (3,):
     class error(IOError): ...
 else:
@@ -552,18 +571,19 @@ class timeout(error):
     def __init__(self, error: int = ..., string: str = ...) -> None: ...
 
 
+# ----- Classes -----
+
 # Addresses can be either tuples of varying lengths (AF_INET, AF_INET6,
 # AF_NETLINK, AF_TIPC) or strings (AF_UNIX).
-
 _Address = Union[tuple, str]
 _RetAddress = Any
-
 # TODO Most methods allow bytes as address objects
+
+_WriteBuffer = Union[bytearray, memoryview]
 
 _CMSG = Tuple[int, int, bytes]
 _SelfT = TypeVar('_SelfT', bound=socket)
 
-# ----- classes -----
 class socket:
     family: int
     type: int
@@ -675,7 +695,8 @@ class socket:
     def shutdown(self, how: int) -> None: ...
 
 
-# ----- functions -----
+# ----- Functions -----
+
 if sys.version_info >= (3, 7):
     def close(fd: int) -> None: ...
 
