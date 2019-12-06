@@ -15,10 +15,6 @@ import os
 _T = TypeVar('_T')
 _UrlopenRet = Any
 
-class _HTTPResponse(HTTPResponse):
-    url: str
-    msg: str  # type: ignore
-
 def urlopen(
     url: Union[str, Request], data: Optional[bytes] = ...,
     timeout: Optional[float] = ..., *, cafile: Optional[str] = ...,
