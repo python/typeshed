@@ -1,3 +1,5 @@
+# https://github.com/ijl/orjson/blob/master/orjson.pyi
+
 from typing import Any, Callable, Optional, Union
 
 __version__ = str
