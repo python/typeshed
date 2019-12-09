@@ -8,21 +8,21 @@ else:
     from typing_extensions import Literal
 
 if sys.platform == "win32":
-    SND_FILENAME: Literal[131072]
-    SND_ALIAS: Literal[65536]
-    SND_LOOP: Literal[8]
-    SND_MEMORY: Literal[4]
-    SND_PURGE: Literal[64]
-    SND_ASYNC: Literal[1]
-    SND_NODEFAULT: Literal[2]
-    SND_NOSTOP: Literal[16]
-    SND_NOWAIT: Literal[8192]
+    SND_FILENAME: int
+    SND_ALIAS: int
+    SND_LOOP: int
+    SND_MEMORY: int
+    SND_PURGE: int
+    SND_ASYNC: int
+    SND_NODEFAULT: int
+    SND_NOSTOP: int
+    SND_NOWAIT: int
 
-    MB_ICONASTERISK: Literal[64]
-    MB_ICONEXCLAMATION: Literal[48]
-    MB_ICONHAND: Literal[16]
-    MB_ICONQUESTION: Literal[32]
-    MB_OK: Literal[0]
+    MB_ICONASTERISK: int
+    MB_ICONEXCLAMATION: int
+    MB_ICONHAND: int
+    MB_ICONQUESTION: int
+    MB_OK: int
 
     def Beep(frequency: int, duration: int) -> None: ...
     def PlaySound(sound: Optional[Union[str, bytes, bytearray, memoryview]], flags: int) -> None: ...
