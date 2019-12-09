@@ -64,7 +64,7 @@ class DictReader(Iterator[_DRMapping]):
     dialect: _Dialect
     line_num: int
     fieldnames: Sequence[str]
-    def __init__(self, f: Iterable[Text], fieldnames: Sequence[str] = ...,
+    def __init__(self, f: Iterable[Text], fieldnames: Optional[Sequence[str]] = ...,
                  restkey: Optional[str] = ..., restval: Optional[str] = ..., dialect: _Dialect = ...,
                  *args: Any, **kwds: Any) -> None: ...
     def __iter__(self) -> DictReader: ...
