@@ -96,7 +96,7 @@ else:
                                         Iterable[AnyStr]]] = ...) -> _PathReturn: ...
 
 if sys.version_info >= (3,):
-    def rmtree(path: Union[str, bytes, os.PathLike[str]], ignore_errors: bool = ...,
+    def rmtree(path: Union[str, _Path], ignore_errors: bool = ...,
                onerror: Optional[Callable[[Any, Any, Any], Any]] = ...) -> None: ...
 else:
     def rmtree(path: _AnyPath, ignore_errors: bool = ...,
