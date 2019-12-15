@@ -1,6 +1,10 @@
 
 import sys
-from typing import Optional, Union
+from typing import Optional, Union, overload
+if sys.version_info >= (3, 8):
+    from typing import Literal
+else:
+    from typing_extensions import Literal
 
 if sys.platform == "win32":
     SND_FILENAME: int
@@ -20,5 +24,9 @@ if sys.platform == "win32":
     MB_OK: int
 
     def Beep(frequency: int, duration: int) -> None: ...
-    def PlaySound(sound: Optional[Union[str, bytes, bytearray, memoryview]], flags: int) -> None: ...
+    # Can actually accept anything ORed with 4, and if not it's definitely str, but that's inexpressible
+    @overload
+    def PlaySound(sound: Optional[bytes], flags: Literal[4]) -> None: ...
+    @overload
+    def PlaySound(sound: Optional[Union[str, bytes]], flags: int) -> None: ...
     def MessageBeep(type: int = ...) -> None: ...
