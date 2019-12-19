@@ -3,9 +3,10 @@ from types import TracebackType
 import unittest.case
 
 
-_SysExcInfoType = Tuple[Optional[Type[BaseException]],
-                        Optional[BaseException],
-                        Optional[TracebackType]]
+_SysExcInfoType = Union[
+    Tuple[Type[BaseException], BaseException, types.TracebackType],
+    Tuple[None, None, None],
+]
 
 
 class TestResult:
