@@ -2,6 +2,7 @@
 
 from typing import (
     Any, Callable, ClassVar, Dict, List, NamedTuple, Optional, Set, Text, Type, Tuple, Union,
+    overload
 )
 import enum
 import socket
