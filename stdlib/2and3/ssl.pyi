@@ -8,6 +8,11 @@ import socket
 import sys
 import os
 
+if sys.version_info >= (3, 8):
+    from typing import Literal
+else:
+    from typing_extensions import Literal
+
 _PCTRTT = Tuple[Tuple[str, str], ...]
 _PCTRTTT = Tuple[_PCTRTT, ...]
 _PeerCertRetDictType = Dict[str, Union[str, _PCTRTTT, _PCTRTT]]
