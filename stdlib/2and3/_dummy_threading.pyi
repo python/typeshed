@@ -1,4 +1,3 @@
-# Stubs for threading
 
 from typing import (
     Any, Callable, Iterable, List, Mapping, Optional, Tuple, Type, Union,
