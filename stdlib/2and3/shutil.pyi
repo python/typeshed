@@ -102,9 +102,14 @@ else:
     def rmtree(path: _AnyPath, ignore_errors: bool = ...,
                onerror: Optional[Callable[[Any, _AnyPath, Any], Any]] = ...) -> None: ...
 
-if sys.version_info >= (3, 5):
-    _CopyFn = Union[Callable[[str, str], None], Callable[[_Path, _Path], None]]
+_CopyFn = Union[Callable[[str, str], None], Callable[[_Path, _Path], None]]
+
+if sys.version_info >= (3, 9):
     def move(src: _Path, dst: _Path,
+             copy_function: _CopyFn = ...) -> _PathReturn: ...
+elif sys.version_info >= (3, 5):
+    # See https://bugs.python.org/issue32689
+    def move(src: str, dst: _Path,
              copy_function: _CopyFn = ...) -> _PathReturn: ...
 else:
     def move(src: _Path, dst: _Path) -> _PathReturn: ...
