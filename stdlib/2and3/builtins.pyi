@@ -157,7 +157,7 @@ class int:
     if sys.version_info >= (3,):
         def to_bytes(self, length: int, byteorder: str, *, signed: bool = ...) -> bytes: ...
         @classmethod
-        def from_bytes(cls, bytes: Sequence[int], byteorder: str, *,
+        def from_bytes(cls, bytes: Union[Iterable[int], SupportsBytes], byteorder: str, *,
                        signed: bool = ...) -> int: ...  # TODO buffer object argument
 
     def __add__(self, x: int) -> int: ...
