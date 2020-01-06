@@ -124,7 +124,9 @@ class Signature:
     def from_callable(cls, obj: Callable[..., Any], *, follow_wrapped: bool = ...) -> Signature: ...
 
 # The name is the same as the enum's name in CPython
-class _ParameterKind: ...
+class _ParameterKind:
+    if sys.version_info >= (3, 8):
+        description: str
 
 class Parameter:
     def __init__(self,
