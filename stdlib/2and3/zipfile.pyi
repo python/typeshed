@@ -60,7 +60,7 @@ class ZipFile:
         def __init__(
             self,
             file: Union[_Path, IO[bytes]],
-            mode: Text = ...,
+            mode: str = ...,
             compression: int = ...,
             allowZip64: bool = ...,
             compresslevel: Optional[int] = ...,
@@ -71,7 +71,7 @@ class ZipFile:
         def __init__(
             self,
             file: Union[_Path, IO[bytes]],
-            mode: Text = ...,
+            mode: str = ...,
             compression: int = ...,
             allowZip64: bool = ...,
             compresslevel: Optional[int] = ...,
@@ -146,16 +146,16 @@ if sys.version_info >= (3, 8):
         @property
         def name(self) -> str: ...
         def __init__(self, root: Union[ZipFile, _Path, IO[bytes]], at: str = ...) -> None: ...
-        def open(self, mode: Text = ..., pwd: Optional[bytes] = ...) -> IO[bytes]: ...
+        def open(self, mode: str = ..., pwd: Optional[bytes] = ...) -> IO[bytes]: ...
         def iterdir(self) -> Iterator[Path]: ...
         def is_dir(self) -> bool: ...
         def is_file(self) -> bool: ...
         def exists(self) -> bool: ...
         def read_text(
             self,
-            encoding: Optional[Text] = ...,
-            errors: Optional[Text] = ...,
-            newline: Optional[Text] = ...,
+            encoding: Optional[str] = ...,
+            errors: Optional[str] = ...,
+            newline: Optional[str] = ...,
             line_buffering: bool = ...,
             write_through: bool = ...,
         ) -> str: ...
