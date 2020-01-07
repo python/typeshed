@@ -1,5 +1,6 @@
 # Stubs for fcntl
 from io import IOBase
+from socket import socket
 from typing import Any, IO, Union
 
 FASYNC: int
@@ -75,7 +76,7 @@ LOCK_SH: int
 LOCK_UN: int
 LOCK_WRITE: int
 
-_AnyFile = Union[int, IO[Any], IOBase]
+_AnyFile = Union[int, IO[Any], IOBase, socket]
 
 # TODO All these return either int or bytes depending on the value of
 # cmd (not on the type of arg).
