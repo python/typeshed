@@ -135,6 +135,7 @@ def main():
             flags.append('--show-traceback')
             flags.append('--no-implicit-optional')
             flags.append('--disallow-any-generics')
+            flags.append('--disallow-subclassing-any')
             if args.warn_unused_ignores:
                 flags.append('--warn-unused-ignores')
             if args.platform:
