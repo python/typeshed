@@ -156,7 +156,7 @@ annotated function `bar()`:
 def __getattr__(name: str) -> Any: ...  # incomplete
 
 class Foo:
-    def __getattr__(self, name: str) -> Any:  # incomplete
+    def __getattr__(self, name: str) -> Any: ...  # incomplete
     x: int
     y: str
 
