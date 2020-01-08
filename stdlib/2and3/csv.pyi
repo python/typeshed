@@ -51,7 +51,9 @@ if sys.version_info >= (3,):
         lineterminator: str
         quoting: int
 
-if sys.version_info >= (3, 6):
+if sys.version_info >= (3, 8):
+    _DRMapping = Dict[str, str]
+elif sys.version_info >= (3, 6):
     _DRMapping = OrderedDict[str, str]
 else:
     _DRMapping = Dict[str, str]
