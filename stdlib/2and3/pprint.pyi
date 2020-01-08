@@ -6,16 +6,45 @@
 import sys
 from typing import Any, Dict, Tuple, IO, Optional
 
-if sys.version_info >= (3, 4):
+if sys.version_info >= (3, 8):
+    def pformat(
+        o: object, indent: int = ..., width: int = ..., depth: Optional[int] = ..., *, compact: bool = ..., sort_dicts: bool = ...
+    ) -> str: ...
+
+elif sys.version_info >= (3, 4):
     def pformat(o: object, indent: int = ..., width: int = ...,
-                depth: Optional[int] = ..., compact: bool = ...) -> str: ...
+                depth: Optional[int] = ..., *, compact: bool = ...) -> str: ...
 else:
     def pformat(o: object, indent: int = ..., width: int = ...,
                 depth: Optional[int] = ...) -> str: ...
 
-if sys.version_info >= (3, 4):
+if sys.version_info >= (3, 8):
+    def pp(
+        o: object,
+        stream: Optional[IO[str]] = ...,
+        indent: int = ...,
+        width: int = ...,
+        depth: Optional[int] = ...,
+        *,
+        compact: bool = ...,
+        sort_dicts: bool = ...,
+    ) -> None: ...
+
+if sys.version_info >= (3, 8):
+    def pprint(
+        o: object,
+        stream: Optional[IO[str]] = ...,
+        indent: int = ...,
+        width: int = ...,
+        depth: Optional[int] = ...,
+        *,
+        compact: bool = ...,
+        sort_dicts: bool = ...,
+    ) -> None: ...
+
+elif sys.version_info >= (3, 4):
     def pprint(o: object, stream: Optional[IO[str]] = ..., indent: int = ..., width: int = ...,
-               depth: Optional[int] = ..., compact: bool = ...) -> None: ...
+               depth: Optional[int] = ..., *, compact: bool = ...) -> None: ...
 else:
     def pprint(o: object, stream: Optional[IO[str]] = ..., indent: int = ..., width: int = ...,
                depth: Optional[int] = ...) -> None: ...
@@ -25,9 +54,20 @@ def isrecursive(o: object) -> bool: ...
 def saferepr(o: object) -> str: ...
 
 class PrettyPrinter:
-    if sys.version_info >= (3, 4):
+    if sys.version_info >= (3, 8):
+        def __init__(
+            self,
+            indent: int = ...,
+            width: int = ...,
+            depth: Optional[int] = ...,
+            stream: Optional[IO[str]] = ...,
+            *,
+            compact: bool = ...,
+            sort_dicts: bool = ...,
+        ) -> None: ...
+    elif sys.version_info >= (3, 4):
         def __init__(self, indent: int = ..., width: int = ..., depth: Optional[int] = ...,
-                     stream: Optional[IO[str]] = ..., compact: bool = ...) -> None: ...
+                     stream: Optional[IO[str]] = ..., *, compact: bool = ...) -> None: ...
     else:
         def __init__(self, indent: int = ..., width: int = ..., depth: Optional[int] = ...,
                      stream: Optional[IO[str]] = ...) -> None: ...
