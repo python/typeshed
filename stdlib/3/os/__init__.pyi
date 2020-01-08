@@ -431,7 +431,7 @@ if sys.platform != 'win32':
     def lchown(path: _PathType, uid: int, gid: int) -> None: ...
 def link(
     src: _PathType,
-    link_name: _PathType,
+    dst: _PathType,
     *,
     src_dir_fd: Optional[int] = ...,
     dst_dir_fd: Optional[int] = ...,
@@ -491,8 +491,8 @@ if sys.version_info < (3, 7):
 if sys.platform != 'win32':
     def statvfs(path: _FdOrPathType) -> statvfs_result: ...  # Unix only
 def symlink(
-    source: _PathType,
-    link_name: _PathType,
+    src: _PathType,
+    dst: _PathType,
     target_is_directory: bool = ...,
     *,
     dir_fd: Optional[int] = ...,
