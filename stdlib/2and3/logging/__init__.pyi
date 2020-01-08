@@ -203,7 +203,11 @@ class Formatter:
         default_time_format: str
         default_msec_format: str
 
-    if sys.version_info >= (3,):
+    if sys.version_info >= (3, 8):
+        def __init__(self, fmt: Optional[str] = ...,
+                     datefmt: Optional[str] = ...,
+                     style: str = ..., validate: bool = ...) -> None: ...
+    elif sys.version_info >= (3,):
         def __init__(self, fmt: Optional[str] = ...,
                      datefmt: Optional[str] = ...,
                      style: str = ...) -> None: ...
