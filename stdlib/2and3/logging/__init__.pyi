@@ -433,7 +433,12 @@ def getLevelName(lvl: Union[int, str]) -> Any: ...
 
 def makeLogRecord(attrdict: Mapping[str, Any]) -> LogRecord: ...
 
-if sys.version_info >= (3,):
+if sys.version_info >= (3, 8):
+    def basicConfig(*, filename: Optional[_Path] = ..., filemode: str = ...,
+                    format: str = ..., datefmt: Optional[str] = ..., style: str = ...,
+                    level: Optional[_Level] = ..., stream: Optional[IO[str]] = ...,
+                    handlers: Optional[Iterable[Handler]] = ..., force: bool = ...) -> None: ...
+elif sys.version_info >= (3,):
     def basicConfig(*, filename: Optional[_Path] = ..., filemode: str = ...,
                     format: str = ..., datefmt: Optional[str] = ..., style: str = ...,
                     level: Optional[_Level] = ..., stream: Optional[IO[str]] = ...,
