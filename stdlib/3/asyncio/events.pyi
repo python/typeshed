@@ -1,4 +1,3 @@
-import selectors
 from socket import socket, _Address, _RetAddress
 import ssl
 import sys
@@ -8,6 +7,7 @@ from asyncio.futures import Future
 from asyncio.protocols import BaseProtocol
 from asyncio.tasks import Task
 from asyncio.transports import BaseTransport
+from _types import FileDescriptorLike
 
 _T = TypeVar('_T')
 _Context = Dict[str, Any]
@@ -253,13 +253,13 @@ class AbstractEventLoop(metaclass=ABCMeta):
                               stdout: Any = ..., stderr: Any = ...,
                               **kwargs: Any) -> _TransProtPair: ...
     @abstractmethod
-    def add_reader(self, fd: selectors._FileObject, callback: Callable[..., Any], *args: Any) -> None: ...
+    def add_reader(self, fd: FileDescriptorLike, callback: Callable[..., Any], *args: Any) -> None: ...
     @abstractmethod
-    def remove_reader(self, fd: selectors._FileObject) -> None: ...
+    def remove_reader(self, fd: FileDescriptorLike) -> None: ...
     @abstractmethod
-    def add_writer(self, fd: selectors._FileObject, callback: Callable[..., Any], *args: Any) -> None: ...
+    def add_writer(self, fd: FileDescriptorLike, callback: Callable[..., Any], *args: Any) -> None: ...
     @abstractmethod
-    def remove_writer(self, fd: selectors._FileObject) -> None: ...
+    def remove_writer(self, fd: FileDescriptorLike) -> None: ...
     # Completion based I/O methods returning Futures prior to 3.7
     if sys.version_info >= (3, 7):
         @abstractmethod
