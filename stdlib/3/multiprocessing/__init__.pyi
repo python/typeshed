@@ -11,8 +11,6 @@ from multiprocessing.context import (
     BaseContext,
     BufferTooShort as BufferTooShort,
     DefaultContext,
-    ForkContext,
-    ForkServerContext,
     Process as Process,
     ProcessError as ProcessError,
     SpawnContext,
@@ -29,6 +27,9 @@ if sys.version_info >= (3, 8):
     from typing import Literal
 else:
     from typing_extensions import Literal
+
+if sys.platform != "win32":
+    from multiprocessing.context import ForkContext, ForkServerContext
 
 
 # N.B. The functions below are generated at runtime by partially applying
@@ -91,13 +92,19 @@ def get_start_method(allow_none: bool = ...) -> Optional[str]: ...
 def set_start_method(method: str, force: Optional[bool] = ...) -> None: ...
 
 
-@overload
-def get_context(method: None = ...) -> DefaultContext: ...
-@overload
-def get_context(method: Literal["fork"]) -> ForkContext: ...
-@overload
-def get_context(method: Literal["spawn"]) -> SpawnContext: ...
-@overload
-def get_context(method: Literal["forkserver"]) -> ForkServerContext: ...
-@overload
-def get_context(method: str) -> BaseContext: ...
+if sys.platform != "win32":
+    @overload
+    def get_context(method: None = ...) -> DefaultContext: ...
+    @overload
+    def get_context(method: Literal["spawn"]) -> SpawnContext: ...
+    @overload
+    def get_context(method: Literal["fork"]) -> ForkContext: ...
+    @overload
+    def get_context(method: Literal["forkserver"]) -> ForkServerContext: ...
+else:
+    @overload
+    def get_context(method: None = ...) -> DefaultContext: ...
+    @overload
+    def get_context(method: Literal["spawn"]) -> SpawnContext: ...
+    @overload
+    def get_context(method: str) -> BaseContext: ...
