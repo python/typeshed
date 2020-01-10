@@ -24,6 +24,7 @@ class TimeoutError(ProcessError): ...
 class AuthenticationError(ProcessError): ...
 
 class BaseContext(object):
+    Process: Type[BaseProcess]
     ProcessError: Type[Exception]
     BufferTooShort: Type[Exception]
     TimeoutError: Type[Exception]
