@@ -270,7 +270,7 @@ else:
 
 
 if sys.platform != 'win32':
-    class statvfs_result:  # Unix only
+    class statvfs_result(NamedTuple):  # Unix only
         f_bsize: int
         f_frsize: int
         f_blocks: int
