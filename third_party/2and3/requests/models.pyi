@@ -102,7 +102,7 @@ class PreparedRequest(RequestEncodingMixin, RequestHooksMixin):
 class Response:
     __attrs__: Any
     status_code: int
-    headers: MutableMapping[str, str]
+    headers: CaseInsensitiveDict[str]
     raw: Any
     url: str
     encoding: str
