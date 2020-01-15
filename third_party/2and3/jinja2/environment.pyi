@@ -126,6 +126,9 @@ class Environment:
     newstyle_gettext: bool
 
 class Template:
+    name: Optional[str]
+    filename: Optional[str]
+
     def __new__(cls, source, block_start_string: Any = ..., block_end_string: Any = ..., variable_start_string: Any = ..., variable_end_string: Any = ..., comment_start_string: Any = ..., comment_end_string: Any = ..., line_statement_prefix: Any = ..., line_comment_prefix: Any = ..., trim_blocks: Any = ..., lstrip_blocks: Any = ..., newline_sequence: Any = ..., keep_trailing_newline: Any = ..., extensions: Any = ..., optimized: bool = ..., undefined: Any = ..., finalize: Optional[Any] = ..., autoescape: bool = ...): ...
     environment: Environment = ...
     @classmethod

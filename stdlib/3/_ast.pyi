@@ -209,7 +209,7 @@ class IfExp(expr):
     orelse: expr
 
 class Dict(expr):
-    keys: typing.List[expr]
+    keys: typing.List[Optional[expr]]
     values: typing.List[expr]
 
 class Set(expr):

@@ -1,5 +1,5 @@
 from abc import ABCMeta, abstractmethod
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, Union
 
 from cryptography.hazmat.primitives.hashes import HashAlgorithm
 
@@ -22,6 +22,6 @@ class PKCS1v15(AsymmetricPadding):
 
 class PSS(AsymmetricPadding):
     MAX_LENGTH: ClassVar[object]
-    def __init__(self, mgf: MGF1, salt_length: int) -> None: ...
+    def __init__(self, mgf: MGF1, salt_length: Union[int, object]) -> None: ...
     @property
     def name(self) -> str: ...

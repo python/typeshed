@@ -7,6 +7,7 @@ import time
 import warnings
 from socket import SocketType
 from typing import Optional
+from _types import FileDescriptorLike
 
 from errno import (EALREADY, EINPROGRESS, EWOULDBLOCK, ECONNRESET, EINVAL,
                    ENOTCONN, ESHUTDOWN, EINTR, EISCONN, EBADF, ECONNABORTED,
@@ -141,5 +142,5 @@ class file_wrapper:
     def fileno(self) -> int: ...
 
 class file_dispatcher(dispatcher):
-    def __init__(self, fd: int, map: _maptype = ...) -> None: ...
+    def __init__(self, fd: FileDescriptorLike, map: _maptype = ...) -> None: ...
     def set_file(self, fd: int) -> None: ...

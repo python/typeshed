@@ -2,8 +2,8 @@ from abc import ABCMeta, abstractmethod
 from typing import ClassVar, Union
 
 from cryptography.hazmat.backends.interfaces import EllipticCurveBackend
-from cryptography.hazmat.primitives.asymmetric.padding import AsymmetricPadding
 from cryptography.hazmat.primitives.asymmetric.utils import Prehashed
+from cryptography.hazmat.primitives.asymmetric import AsymmetricVerificationContext
 from cryptography.hazmat.primitives.hashes import HashAlgorithm
 from cryptography.hazmat.primitives.serialization import Encoding, KeySerializationEncryption, PrivateFormat, PublicFormat
 from cryptography.x509 import ObjectIdentifier
@@ -162,6 +162,8 @@ class EllipticCurvePrivateKey(metaclass=ABCMeta):
     def exchange(self, algorithm: ECDH, peer_public_key: EllipticCurvePublicKey) -> bytes: ...
     @abstractmethod
     def public_key(self) -> EllipticCurvePublicKey: ...
+    @abstractmethod
+    def sign(self, data: bytes, signature_algorithm: EllipticCurveSignatureAlgorithm) -> bytes: ...
 
 class EllipticCurvePrivateKeyWithSerialization(EllipticCurvePrivateKey):
     @abstractmethod
@@ -193,9 +195,9 @@ class EllipticCurvePublicKey(metaclass=ABCMeta):
     @abstractmethod
     def public_numbers(self) -> EllipticCurvePublicNumbers: ...
     @abstractmethod
-    def sign(self, data: bytes, padding: AsymmetricPadding, algorithm: HashAlgorithm) -> bytes: ...
+    def verifier(self, signature: bytes, signature_algorithm: EllipticCurveSignatureAlgorithm) -> AsymmetricVerificationContext: ...
     @abstractmethod
-    def verify(self, signature: bytes, data: bytes, padding: AsymmetricPadding, algorithm: HashAlgorithm) -> None: ...
+    def verify(self, signature: bytes, data: bytes, signature_algorithm: EllipticCurveSignatureAlgorithm) -> None: ...
 
 EllipticCurvePublicKeyWithSerialization = EllipticCurvePublicKey
 

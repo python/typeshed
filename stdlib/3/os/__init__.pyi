@@ -270,17 +270,33 @@ else:
 
 
 if sys.platform != 'win32':
-    class statvfs_result:  # Unix only
-        f_bsize: int
-        f_frsize: int
-        f_blocks: int
-        f_bfree: int
-        f_bavail: int
-        f_files: int
-        f_ffree: int
-        f_favail: int
-        f_flag: int
-        f_namemax: int
+    if sys.version_info >= (3, 7):
+        # f_fsid was added in https://github.com/python/cpython/pull/4571
+        class statvfs_result(NamedTuple):  # Unix only
+            f_bsize: int
+            f_frsize: int
+            f_blocks: int
+            f_bfree: int
+            f_bavail: int
+            f_files: int
+            f_ffree: int
+            f_favail: int
+            f_flag: int
+            f_namemax: int
+            f_fsid: int
+    else:
+        class statvfs_result(NamedTuple):  # Unix only
+            f_bsize: int
+            f_frsize: int
+            f_blocks: int
+            f_bfree: int
+            f_bavail: int
+            f_files: int
+            f_ffree: int
+            f_favail: int
+            f_flag: int
+            f_namemax: int
+
 
 # ----- os function stubs -----
 if sys.version_info >= (3, 6):
@@ -431,7 +447,7 @@ if sys.platform != 'win32':
     def lchown(path: _PathType, uid: int, gid: int) -> None: ...
 def link(
     src: _PathType,
-    link_name: _PathType,
+    dst: _PathType,
     *,
     src_dir_fd: Optional[int] = ...,
     dst_dir_fd: Optional[int] = ...,
@@ -491,8 +507,8 @@ if sys.version_info < (3, 7):
 if sys.platform != 'win32':
     def statvfs(path: _FdOrPathType) -> statvfs_result: ...  # Unix only
 def symlink(
-    source: _PathType,
-    link_name: _PathType,
+    src: _PathType,
+    dst: _PathType,
     target_is_directory: bool = ...,
     *,
     dir_fd: Optional[int] = ...,

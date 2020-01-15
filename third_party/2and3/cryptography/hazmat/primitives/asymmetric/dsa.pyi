@@ -1,7 +1,10 @@
 from abc import ABCMeta, abstractmethod
 
+from typing import Union
+
 from cryptography.hazmat.backends.interfaces import DSABackend
-from cryptography.hazmat.primitives.asymmetric.padding import AsymmetricPadding
+from cryptography.hazmat.primitives.asymmetric import AsymmetricVerificationContext
+from cryptography.hazmat.primitives.asymmetric.utils import Prehashed
 from cryptography.hazmat.primitives.hashes import HashAlgorithm
 from cryptography.hazmat.primitives.serialization import Encoding, KeySerializationEncryption, PrivateFormat, PublicFormat
 
@@ -32,7 +35,7 @@ class DSAPrivateKey(metaclass=ABCMeta):
     @abstractmethod
     def public_key(self) -> DSAPublicKey: ...
     @abstractmethod
-    def sign(self, data: bytes, algorithm: HashAlgorithm) -> bytes: ...
+    def sign(self, data: bytes, algorithm: Union[HashAlgorithm, Prehashed]) -> bytes: ...
 
 class DSAPrivateKeyWithSerialization(DSAPrivateKey):
     @abstractmethod
@@ -58,9 +61,10 @@ class DSAPublicKey(metaclass=ABCMeta):
     @abstractmethod
     def public_numbers(self) -> DSAPublicNumbers: ...
     @abstractmethod
-    def sign(self, data: bytes, padding: AsymmetricPadding, algorithm: HashAlgorithm) -> bytes: ...
+    def verifier(self, signature: bytes,
+                 signature_algorithm: Union[HashAlgorithm, Prehashed]) -> AsymmetricVerificationContext: ...
     @abstractmethod
-    def verify(self, signature: bytes, data: bytes, padding: AsymmetricPadding, algorithm: HashAlgorithm) -> None: ...
+    def verify(self, signature: bytes, data: bytes, algorithm: Union[HashAlgorithm, Prehashed]) -> None: ...
 
 DSAPublicKeyWithSerialization = DSAPublicKey
 
