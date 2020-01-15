@@ -1346,15 +1346,13 @@ def next(__i: Iterator[_T]) -> _T: ...
 def next(__i: Iterator[_T], default: _VT) -> Union[_T, _VT]: ...
 def oct(__i: Union[int, _SupportsIndex]) -> str: ...
 
-if sys.version_info >= (3, 6):
-    # Changed in version 3.6: Support added to accept objects implementing os.PathLike.
-    _OpenFile = Union[str, bytes, int, _PathLike[Any]]
-elif sys.version_info >= (3,):
-    _OpenFile = Union[str, bytes, int]
-else:
-    _OpenFile = Union[unicode, int]
+if sys.version_info >= (3,):
+    if sys.version_info >= (3, 6):
+        # Changed in version 3.6: Support added to accept objects implementing os.PathLike.
+        _OpenFile = Union[str, bytes, int, _PathLike[Any]]
+    else:
+        _OpenFile = Union[str, bytes, int]
 
-if sys.version_info >= (3, 3):
     @overload
     def open(
         file: _OpenFile,
@@ -1390,12 +1388,7 @@ if sys.version_info >= (3, 3):
     ) -> IO[Any]: ...
 
 else:
-    @overload
-    def open(file: _OpenFile, mode: _OpenTextMode = ..., buffering: int = ...) -> TextIO: ...
-    @overload
-    def open(file: _OpenFile, mode: _OpenBinaryMode, buffering: int = ...) -> BinaryIO: ...
-    @overload
-    def open(file: _OpenFile, mode: unicode, buffering: int = ...) -> IO[Any]: ...
+    def open(name: Union[unicode, int], mode: unicode = ..., buffering: int = ...) -> BinaryIO: ...
 
 def ord(__c: Union[Text, bytes]) -> int: ...
 if sys.version_info >= (3,):
