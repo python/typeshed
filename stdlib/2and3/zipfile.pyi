@@ -36,14 +36,24 @@ class ZipExtFile(io.BufferedIOBase):
     newlines: Optional[List[bytes]]
     mode: str
     name: str
-    def __init__(
-        self,
-        fileobj: IO[bytes],
-        mode: str,
-        zipinfo: ZipInfo,
-        decrypter: Optional[Callable[[Sequence[int]], bytes]] = ...,
-        close_fileobj: bool = ...,
-    ) -> None: ...
+    if sys.version_info >= (3, 7):
+        def __init__(
+            self,
+            fileobj: IO[bytes],
+            mode: str,
+            zipinfo: ZipInfo,
+            pwd: Optional[bytes] = ...,
+            close_fileobj: bool = ...,
+        ) -> None: ...
+    else:
+        def __init__(
+            self,
+            fileobj: IO[bytes],
+            mode: str,
+            zipinfo: ZipInfo,
+            decrypter: Optional[Callable[[Sequence[int]], bytes]] = ...,
+            close_fileobj: bool = ...,
+        ) -> None: ...
     def __repr__(self) -> str: ...
     def peek(self, n: int = ...) -> bytes: ...
     def read1(self, n: Optional[int]) -> bytes: ...  # type: ignore
