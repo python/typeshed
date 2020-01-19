@@ -31,6 +31,7 @@ if sys.version_info >= (3, 8):
         source: Union[str, bytes],
         filename: Union[str, bytes] = ...,
         mode: Literal["exec"] = ...,
+        *,
         type_comments: bool = ...,
         feature_version: Union[None, int, _typing.Tuple[int, int]] = ...,
     ) -> Module: ...
@@ -39,6 +40,7 @@ if sys.version_info >= (3, 8):
         source: Union[str, bytes],
         filename: Union[str, bytes] = ...,
         mode: str = ...,
+        *,
         type_comments: bool = ...,
         feature_version: Union[None, int, _typing.Tuple[int, int]] = ...,
     ) -> AST: ...
