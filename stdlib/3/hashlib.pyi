@@ -55,7 +55,7 @@ if sys.version_info >= (3, 6):
     shake_128 = _VarLenHash
     shake_256 = _VarLenHash
 
-    def scrypt(password: _DataType, *, salt: _DataType, n: int, r: int, p: int, maxmem: int = ..., dklen: int = ...) -> bytes: ...
+    def scrypt(password: _DataType, *, salt: Optional[_DataType] = ..., n: Optional[int] = ..., r: Optional[int] = ..., p: Optional[int] = ..., maxmem: int = ..., dklen: int = ...) -> bytes: ...
 
     class _BlakeHash(_Hash):
         MAX_DIGEST_SIZE: int
