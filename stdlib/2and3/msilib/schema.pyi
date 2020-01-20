@@ -1,9 +1,9 @@
 
 import sys
 from typing import List, Tuple, Optional
-from . import Table
 
 if sys.platform == 'win32':
+    from . import Table
 
     _Validation: Table
     ActionText: Table
