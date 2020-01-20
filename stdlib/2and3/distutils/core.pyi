@@ -5,7 +5,9 @@ from distutils.cmd import Command as Command
 from distutils.dist import Distribution as Distribution
 from distutils.extension import Extension as Extension
 
-def setup(name: str = ...,
+def setup(
+          *,
+          name: str = ...,
           version: str = ...,
           description: str = ...,
           long_description: str = ...,
