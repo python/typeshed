@@ -1,7 +1,10 @@
 
+import sys
 from typing import List, Tuple, Optional
 
-ActionText: List[Tuple[str, str, Optional[str]]]
-UIText: List[Tuple[str, Optional[str]]]
+if sys.platform == 'win32':
 
-tables: List[str]
+    ActionText: List[Tuple[str, str, Optional[str]]]
+    UIText: List[Tuple[str, Optional[str]]]
+
+    tables: List[str]
