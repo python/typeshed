@@ -1,20 +1,54 @@
 import sys
-from typing import Any, IO, Mapping, Union, Tuple, Callable, Optional, Iterator
+from typing import (
+    Any, IO, Mapping, Union, Tuple, Callable, Optional, Iterable, Iterator
+)
 
 HIGHEST_PROTOCOL: int
 if sys.version_info >= (3, 0):
     DEFAULT_PROTOCOL: int
 
 
-if sys.version_info >= (3, 0):
+if sys.version_info >= (3, 8):
+    # TODO: holistic design for a type for objects with the buffer interface
+    from typing import NewType
+
+    Buffer = NewType('Buffer', Any)
+
+    class PickleBuffer(Buffer):
+        # buffer must be a buffer-providing object
+        def __init__(self, buffer: Buffer): ...
+        def raw(self) -> memoryview: ...
+        def release(self) -> None: ...
+
+    def dump(
+        obj: Any, file: IO[bytes], protocol: Optional[int] = ..., *,
+        fix_imports: bool = ...,
+        buffer_callback: Optional[Callable[[PickleBuffer], None]] = ...
+    ) -> None: ...
+    def dumps(
+        obj: Any, protocol: Optional[int] = ..., *,
+        fix_imports: bool = ...,
+        buffer_callback: Optional[Callable[[PickleBuffer], None]] = ...
+    ) -> bytes: ...
+    def load(
+        file: IO[bytes], *, fix_imports: bool = ..., encoding: str = ...,
+        errors: str = ..., buffers: Optional[Iterable[Buffer]] = ...
+    ) -> Any: ...
+    def loads(
+        bytes_object: bytes, *, fix_imports: bool = ..., encoding: str = ...,
+        errors: str = ..., buffers: Optional[Iterable[Buffer]] = ...
+    ) -> Any: ...
+
+elif sys.version_info >= (3, 0):
     def dump(obj: Any, file: IO[bytes], protocol: Optional[int] = ..., *,
              fix_imports: bool = ...) -> None: ...
     def dumps(obj: Any, protocol: Optional[int] = ..., *,
               fix_imports: bool = ...) -> bytes: ...
-    def loads(bytes_object: bytes, *, fix_imports: bool = ...,
-              encoding: str = ..., errors: str = ...) -> Any: ...
     def load(file: IO[bytes], *, fix_imports: bool = ..., encoding: str = ...,
              errors: str = ...) -> Any: ...
+    def loads(bytes_object: bytes, *, fix_imports: bool = ...,
+              encoding: str = ..., errors: str = ...) -> Any: ...
+
 else:
     def dump(obj: Any, file: IO[bytes], protocol: Optional[int] = ...) -> None: ...
     def dumps(obj: Any, protocol: Optional[int] = ...) -> bytes: ...
@@ -39,7 +73,13 @@ class Pickler:
     if sys.version_info >= (3, 3):
         dispatch_table: Mapping[type, Callable[[Any], _reducedtype]]
 
-    if sys.version_info >= (3, 0):
+    if sys.version_info >= (3, 8):
+        def __init__(self, file: IO[bytes], protocol: Optional[int] = ..., *,
+                     fix_imports: bool = ...,
+                     buffer_callback: Optional[Callable[[PickleBuffer], None]] = ...
+                     ) -> None: ...
+        def reducer_override(self, obj: Any) -> Union[tuple, type(NotImplemented)]: ...
+    elif sys.version_info >= (3, 0):
         def __init__(self, file: IO[bytes], protocol: Optional[int] = ..., *,
                      fix_imports: bool = ...) -> None: ...
     else:
@@ -52,7 +92,11 @@ class Pickler:
         def reducer_override(self, obj: Any) -> Any: ...
 
 class Unpickler:
-    if sys.version_info >= (3, 0):
+    if sys.version_info >= (3, 8):
+        def __init__(self, file: IO[bytes], *, fix_imports: bool = ...,
+                     encoding: str = ..., errors: str = ...,
+                     buffers: Optional[Iterable[Buffer]] = ...) -> None: ...
+    elif sys.version_info >= (3, 0):
         def __init__(self, file: IO[bytes], *, fix_imports: bool = ...,
                      encoding: str = ..., errors: str = ...) -> None: ...
     else:
