@@ -2,7 +2,7 @@
 
 import sys
 from typing import (
-    TypeVar, Callable, Iterable, Iterator, List, NamedTuple, Sequence, Tuple,
+    Any, TypeVar, Callable, Iterable, Iterator, List, NamedTuple, Sequence, Tuple,
     Generic, Optional, Text, Union, AnyStr
 )
 
@@ -45,8 +45,8 @@ class Differ:
     def __init__(self, linejunk: _JunkCallback = ..., charjunk: _JunkCallback = ...) -> None: ...
     def compare(self, a: Sequence[_StrType], b: Sequence[_StrType]) -> Iterator[_StrType]: ...
 
-def IS_LINE_JUNK(line: _StrType) -> bool: ...
-def IS_CHARACTER_JUNK(line: _StrType) -> bool: ...
+def IS_LINE_JUNK(line: _StrType, pat: Any = ...) -> bool: ...  # pat is undocumented
+def IS_CHARACTER_JUNK(ch: _StrType, ws: _StrType = ...) -> bool: ...  # ws is undocumented
 def unified_diff(a: Sequence[_StrType], b: Sequence[_StrType], fromfile: _StrType = ...,
                  tofile: _StrType = ..., fromfiledate: _StrType = ..., tofiledate: _StrType = ...,
                  n: int = ..., lineterm: _StrType = ...) -> Iterator[_StrType]: ...
@@ -63,9 +63,14 @@ class HtmlDiff(object):
                  linejunk: _JunkCallback = ...,
                  charjunk: _JunkCallback = ...
                  ) -> None: ...
-    def make_file(self, fromlines: Sequence[_StrType], tolines: Sequence[_StrType],
-                  fromdesc: _StrType = ..., todesc: _StrType = ..., context: bool = ...,
-                  numlines: int = ...) -> _StrType: ...
+    if sys.version_info >= (3, 5):
+        def make_file(self, fromlines: Sequence[_StrType], tolines: Sequence[_StrType],
+                      fromdesc: _StrType = ..., todesc: _StrType = ..., context: bool = ...,
+                      numlines: int = ..., *, charset: str = ...) -> _StrType: ...
+    else:
+        def make_file(self, fromlines: Sequence[_StrType], tolines: Sequence[_StrType],
+                      fromdesc: _StrType = ..., todesc: _StrType = ..., context: bool = ...,
+                      numlines: int = ...) -> _StrType: ...
     def make_table(self, fromlines: Sequence[_StrType], tolines: Sequence[_StrType],
                    fromdesc: _StrType = ..., todesc: _StrType = ..., context: bool = ...,
                    numlines: int = ...) -> _StrType: ...
