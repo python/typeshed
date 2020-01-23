@@ -85,6 +85,8 @@ class FlagValues:
     WriteHelpInXMLFormat = write_help_in_xml_format
     # TODO validator: gflags_validators.Validator
     def AddValidator(self, validator: Any) -> None: ...
+    def is_parsed(self) -> bool: ...
+    IsParsed = is_parsed
 
 FLAGS: FlagValues
 
