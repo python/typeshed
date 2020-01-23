@@ -4,7 +4,9 @@ from _csv import (
     QUOTE_MINIMAL as QUOTE_MINIMAL,
     QUOTE_NONE as QUOTE_NONE,
     QUOTE_NONNUMERIC as QUOTE_NONNUMERIC,
+    Dialect as Dialect,
     Error as Error,
+    _DialectLike,
     _reader,
     _writer,
     field_size_limit as field_size_limit,
@@ -18,18 +20,7 @@ from _csv import (
 from collections import OrderedDict
 from typing import Any, Dict, Iterable, Iterator, List, Mapping, Optional, Sequence, Text, Type, Union
 
-_Dialect = Union[str, Dialect, Type[Dialect]]
 _DictRow = Mapping[str, Any]
-
-class Dialect(object):
-    delimiter: str
-    quotechar: Optional[str]
-    escapechar: Optional[str]
-    doublequote: bool
-    skipinitialspace: bool
-    lineterminator: str
-    quoting: int
-    def __init__(self) -> None: ...
 
 class excel(Dialect):
     delimiter: str
@@ -62,7 +53,7 @@ class DictReader(Iterator[_DRMapping]):
     restkey: Optional[str]
     restval: Optional[str]
     reader: _reader
-    dialect: _Dialect
+    dialect: _DialectLike
     line_num: int
     fieldnames: Sequence[str]
     def __init__(
@@ -71,7 +62,7 @@ class DictReader(Iterator[_DRMapping]):
         fieldnames: Optional[Sequence[str]] = ...,
         restkey: Optional[str] = ...,
         restval: Optional[str] = ...,
-        dialect: _Dialect = ...,
+        dialect: _DialectLike = ...,
         *args: Any,
         **kwds: Any,
     ) -> None: ...
@@ -92,7 +83,7 @@ class DictWriter(object):
         fieldnames: Iterable[str],
         restval: Optional[Any] = ...,
         extrasaction: str = ...,
-        dialect: _Dialect = ...,
+        dialect: _DialectLike = ...,
         *args: Any,
         **kwds: Any,
     ) -> None: ...
