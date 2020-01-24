@@ -8,7 +8,7 @@ from socket import socket as _socket
 from ssl import SSLSocket, SSLContext
 from typing import Any, Callable, Dict, IO, List, Optional, Pattern, Text, Tuple, Type, Union
 
-CommandResults = Tuple[str, List[Any]]
+CommandResults = Tuple[str, List[Union[bytes, Tuple[bytes, bytes]]]]
 
 
 class IMAP4:
