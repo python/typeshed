@@ -832,9 +832,9 @@ class CalledProcessError(Exception):
 
 class Popen(Generic[AnyStr]):
     args: _CMD
-    stdin: IO[AnyStr]
-    stdout: IO[AnyStr]
-    stderr: IO[AnyStr]
+    stdin: Optional[IO[AnyStr]]
+    stdout: Optional[IO[AnyStr]]
+    stderr: Optional[IO[AnyStr]]
     pid: int
     returncode: int
 
