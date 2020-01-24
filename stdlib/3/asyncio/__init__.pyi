@@ -64,8 +64,6 @@ from asyncio.events import (
     get_event_loop as get_event_loop,
     set_event_loop as set_event_loop,
     new_event_loop as new_event_loop,
-    get_child_watcher as get_child_watcher,
-    set_child_watcher as set_child_watcher,
 )
 from asyncio.queues import (
     Queue as Queue,
@@ -90,9 +88,14 @@ from asyncio.events import (
 if sys.platform == 'win32':
     from asyncio.windows_events import *
 else:
+    from asyncio.unix_events import *
     from asyncio.streams import (
         open_unix_connection as open_unix_connection,
         start_unix_server as start_unix_server,
+    )
+    from asyncio.events import (
+        get_child_watcher as get_child_watcher,
+        set_child_watcher as set_child_watcher,
     )
     DefaultEventLoopPolicy: Type[AbstractEventLoopPolicy]
 
@@ -112,8 +115,6 @@ if sys.version_info >= (3, 7):
 if sys.platform != 'win32':
     # This is already imported above on Windows.
     SelectorEventLoop: Type[AbstractEventLoop]
-
-# TODO: AbstractChildWatcher (UNIX only)
 
 if sys.version_info >= (3, 8):
     from asyncio.exceptions import (

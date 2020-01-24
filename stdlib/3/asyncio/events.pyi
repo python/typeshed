@@ -9,6 +9,9 @@ from asyncio.tasks import Task
 from asyncio.transports import BaseTransport
 from _types import FileDescriptorLike
 
+if sys.platform != 'win32':
+    from asyncio import AbstractChildWatcher
+
 _T = TypeVar('_T')
 _Context = Dict[str, Any]
 _ExceptionHandler = Callable[[AbstractEventLoop, _Context], Any]
@@ -308,11 +311,12 @@ class AbstractEventLoopPolicy(metaclass=ABCMeta):
     def set_event_loop(self, loop: Optional[AbstractEventLoop]) -> None: ...
     @abstractmethod
     def new_event_loop(self) -> AbstractEventLoop: ...
-    # Child processes handling (Unix only).
-    @abstractmethod
-    def get_child_watcher(self) -> Any: ...  # TODO: unix_events.AbstractChildWatcher
-    @abstractmethod
-    def set_child_watcher(self, watcher: Any) -> None: ...  # TODO: unix_events.AbstractChildWatcher
+    if sys.platform != 'win32':
+        # Child processes handling (Unix only).
+        @abstractmethod
+        def get_child_watcher(self) -> AbstractChildWatcher: ...
+        @abstractmethod
+        def set_child_watcher(self, watcher: AbstractChildWatcher) -> None: ...
 
 class BaseDefaultEventLoopPolicy(AbstractEventLoopPolicy, metaclass=ABCMeta):
     def __init__(self) -> None: ...
@@ -327,8 +331,9 @@ def get_event_loop() -> AbstractEventLoop: ...
 def set_event_loop(loop: Optional[AbstractEventLoop]) -> None: ...
 def new_event_loop() -> AbstractEventLoop: ...
 
-def get_child_watcher() -> Any: ...  # TODO: unix_events.AbstractChildWatcher
-def set_child_watcher(watcher: Any) -> None: ...  # TODO: unix_events.AbstractChildWatcher
+if sys.platform != 'win32':
+    def get_child_watcher() -> AbstractChildWatcher: ...
+    def set_child_watcher(watcher: AbstractChildWatcher) -> None: ...
 
 def _set_running_loop(loop: Optional[AbstractEventLoop]) -> None: ...
 def _get_running_loop() -> AbstractEventLoop: ...
