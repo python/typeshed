@@ -1,3 +1,22 @@
+[build-system]
+requires = ["flit_core >=2,<3"]
+build-backend = "flit_core.buildapi"
+
+[tool.flit.metadata]
+module = "stdlib"
+dist-name = "types-stdlib"
+author = "Ethan Smith"
+author-email = "ethan@ethanhs.me"
+home-page = "https://github.com/python/typeshed"
+classifiers = ["License :: OSI Approved :: Apache Software License"]
+
+[tool.flit.sdist]
+include = ["stdlib"]
+exclude = [
+    "third_party",
+    ".travis.yml",
+]
+
 [tool.black]
 line_length = 130
 target_version = ["py37"]
