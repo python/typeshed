@@ -21,7 +21,7 @@ except ImportError:
     print("This script requires Python 3.7 or higher.", file=sys.stderr)
     sys.exit(1)
 
-DIST_SUFFIX = "-ts"
+DIST_PREFIX = "types-"
 MIN_PYTHON3_VERSION = (3, 4)
 MAX_PYTHON3_VERSION = (3, 7)
 EXCLUDED_PYTHON_VERSIONS = [(3, i) for i in range(MIN_PYTHON3_VERSION[1])]
@@ -113,7 +113,7 @@ def build_distribution(package: PackageInfo) -> None:
 def prepare_build_dir(package: PackageInfo) -> None:
     shutil.rmtree(build_dir, ignore_errors=True)
     copy_package(package)
-    pkg = (package.name + DIST_SUFFIX).replace("-", "_")
+    pkg = (DIST_PREFIX + package.name).replace("-", "_")
     dist_info_dir = build_dir / f"{pkg}-{pkg_version}.dist-info"
     os.mkdir(dist_info_dir)
     shutil.copy(root_dir / "LICENSE", dist_info_dir)
