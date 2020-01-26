@@ -2,6 +2,11 @@
 from io import IOBase
 from typing import IO, Any, Union, overload
 from _types import FileDescriptorLike
+import sys
+if sys.version_info >= (3, 8):
+    from typing import Literal
+else:
+    from typing_extensions import Literal
 
 FASYNC: int
 FD_CLOEXEC: int
@@ -86,10 +91,26 @@ def fcntl(__fd: FileDescriptorLike,
           __arg: bytes) -> bytes: ...
 # TODO This function accepts any object supporting a buffer interface,
 # as arg, is there a better way to express this than bytes?
+@overload
 def ioctl(__fd: FileDescriptorLike,
           __request: int,
-          __arg: Union[int, bytes] = ...,
-          __mutate_flag: bool = ...) -> Any: ...
+          __arg: int = ...,
+          __mutate_flag: bool = ...) -> int: ...
+@overload
+def ioctl(__fd: FileDescriptorLike,
+          __request: int,
+          __arg: bytearray,
+          __mutate_flag: Literal[True] = ...) -> int: ...
+@overload
+def ioctl(__fd: FileDescriptorLike,
+          __request: int,
+          __arg: bytearray,
+          __mutate_flag: Literal[False]) -> bytes: ...
+@overload
+def ioctl(__fd: FileDescriptorLike,
+          __request: int,
+          __arg: bytes,
+          __mutate_flag: bool) -> bytes: ...
 def flock(__fd: FileDescriptorLike, __operation: int) -> None: ...
 def lockf(__fd: FileDescriptorLike,
           __cmd: int,
