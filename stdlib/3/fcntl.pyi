@@ -78,18 +78,18 @@ LOCK_WRITE: int
 
 # TODO All these return either int or bytes depending on the value of
 # cmd (not on the type of arg).
-def fcntl(fd: FileDescriptorLike,
-          cmd: int,
-          arg: Union[int, bytes] = ...) -> Any: ...
+def fcntl(__fd: FileDescriptorLike,
+          __cmd: int,
+          __arg: Union[int, bytes] = ...) -> Any: ...
 # TODO This function accepts any object supporting a buffer interface,
 # as arg, is there a better way to express this than bytes?
-def ioctl(fd: FileDescriptorLike,
-          request: int,
-          arg: Union[int, bytes] = ...,
-          mutate_flag: bool = ...) -> Any: ...
-def flock(fd: FileDescriptorLike, operation: int) -> None: ...
-def lockf(fd: FileDescriptorLike,
-          cmd: int,
-          len: int = ...,
-          start: int = ...,
-          whence: int = ...) -> Any: ...
+def ioctl(__fd: FileDescriptorLike,
+          __request: int,
+          __arg: Union[int, bytes] = ...,
+          __mutate_flag: bool = ...) -> Any: ...
+def flock(__fd: FileDescriptorLike, __operation: int) -> None: ...
+def lockf(__fd: FileDescriptorLike,
+          __cmd: int,
+          __len: int = ...,
+          __start: int = ...,
+          __whence: int = ...) -> Any: ...
