@@ -136,20 +136,7 @@ class RawConfigParser(_parser):
     def optionxform(self, optionstr: str) -> str: ...
 
 
-class ConfigParser(RawConfigParser):
-    def __init__(self,
-                 defaults: Optional[_section] = ...,
-                 dict_type: Type[Mapping[str, str]] = ...,
-                 allow_no_value: bool = ...,
-                 *,
-                 delimiters: Sequence[str] = ...,
-                 comment_prefixes: Sequence[str] = ...,
-                 inline_comment_prefixes: Optional[Sequence[str]] = ...,
-                 strict: bool = ...,
-                 empty_lines_in_values: bool = ...,
-                 default_section: str = ...,
-                 interpolation: Optional[Interpolation] = ...,
-                 converters: _converters = ...) -> None: ...
+class ConfigParser(RawConfigParser): ...
 
 class SafeConfigParser(ConfigParser): ...
 
