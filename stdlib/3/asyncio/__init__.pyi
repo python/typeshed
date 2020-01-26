@@ -113,13 +113,15 @@ if sys.platform != 'win32':
     # This is already imported above on Windows.
     SelectorEventLoop: Type[AbstractEventLoop]
 
-if sys.platform in ('linux', 'darwin'):
+if sys.platform == 'linux' or sys.platform == 'darwin':
     if sys.version_info >= (3, 7):
         from .unix_events import (
             AbstractChildWatcher as AbstractChildWatcher,
             BaseChildWatcher as BaseChildWatcher,
             SafeChildWatcher as SafeChildWatcher,
         )
+    if sys.version_info >= (3, 8):
+        from .unix_events import MultiLoopChildWatcher as MultiLoopChildWatcher, ThreadedChildWatcher as ThreadedChildWatcher
 
 if sys.version_info >= (3, 8):
     from asyncio.exceptions import (

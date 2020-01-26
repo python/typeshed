@@ -1,7 +1,7 @@
 import sys
 import types
 from asyncio import events, selector_events
-from typing import Any, Callable, Optional, TypeVar, Type
+from typing import Any, Callable, Optional, Type, TypeVar
 
 from .events import AbstractEventLoop
 
@@ -18,6 +18,8 @@ if sys.version_info >= (3, 7):
         def __exit__(
             self, typ: Optional[Type[BaseException]], exc: Optional[BaseException], tb: Optional[types.TracebackType]
         ) -> None: ...
+        if sys.version_info >= (3, 8):
+            def is_active(self) -> bool: ...
     class BaseChildWatcher(AbstractChildWatcher):
         def __init__(self) -> None: ...
     class SafeChildWatcher(BaseChildWatcher):
@@ -30,3 +32,19 @@ if sys.version_info >= (3, 7):
         def set_child_watcher(self, watcher: Optional[AbstractChildWatcher]) -> None: ...
     SelectorEventLoop = _UnixSelectorEventLoop
     DefaultEventLoopPolicy = _UnixDefaultEventLoopPolicy
+
+    if sys.version_info >= (3, 8):
+
+        from typing import Protocol
+
+        _T4 = TypeVar('_T4', bound=MultiLoopChildWatcher)
+        _T5 = TypeVar('_T5', bound=ThreadedChildWatcher)
+        class _Warn(Protocol):
+            def __call__(
+                self, message: str, category: Optional[Type[Warning]] = ..., stacklevel: int = ..., source: Optional[Any] = ...
+            ) -> None: ...
+        class MultiLoopChildWatcher(AbstractChildWatcher):
+            def __enter__(self: _T4) -> _T4: ...
+        class ThreadedChildWatcher(AbstractChildWatcher):
+            def __enter__(self: _T5) -> _T5: ...
+            def __del__(self, _warn: _Warn = ...) -> None: ...
