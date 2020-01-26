@@ -1,6 +1,6 @@
 
 import sys
-from typing import List, Tuple, Union, Set, Optional, Dict, Container, Any
+from typing import List, Tuple, Union, Set, Optional, Dict, Container, Any, Type, Iterable, Sequence
 from types import ModuleType
 
 if sys.version_info >= (3, 8):
@@ -12,7 +12,8 @@ if sys.platform == 'win32':
     from _msi import _Database
 
     AMD64: bool
-    Itanium: bool
+    if sys.version_info <= (3, 6):
+        Itanium: bool
     Win64: bool
 
     datasizemask: Literal[0x00ff]
@@ -39,8 +40,8 @@ if sys.platform == 'win32':
 
     class _Unspecified: ...
 
-    def change_sequence(seq: List[Tuple[str, Optional[str], int]], action: str, seqno: Union[int, _Unspecified] = ..., cond: Union[str, _Unspecified] = ...) -> None: ...
-    def add_data(db: _Database, table: str, values: List[Tuple[Any, ...]]) -> None: ...
+    def change_sequence(seq: Sequence[Tuple[str, Optional[str], int]], action: str, seqno: Union[int, Type[_Unspecified]] = ..., cond: Union[str, Type[_Unspecified]] = ...) -> None: ...
+    def add_data(db: _Database, table: str, values: Iterable[Tuple[Any, ...]]) -> None: ...
     def add_stream(db: _Database, name: str, path: str) -> None: ...
     def init_database(name: str, schema: ModuleType, ProductName: str, ProductCode: str, ProductVersion: str, Manufacturer: str) -> _Database: ...
     def add_tables(db: _Database, module: ModuleType) -> None: ...
