@@ -1,9 +1,9 @@
 import sys
 import types
-from asyncio import events, selector_events
 from typing import Any, Callable, Optional, Type, TypeVar
 
-from .events import AbstractEventLoop
+from .events import AbstractEventLoop, BaseDefaultEventLoopPolicy
+from .selector_events import BaseSelectorEventLoop
 
 _T1 = TypeVar('_T1', bound=AbstractChildWatcher)
 _T2 = TypeVar('_T2', bound=SafeChildWatcher)
@@ -30,9 +30,9 @@ class SafeChildWatcher(BaseChildWatcher):
 class FastChildWatcher(BaseChildWatcher):
     def __enter__(self: _T3) -> _T3: ...
 
-class _UnixSelectorEventLoop(selector_events.BaseSelectorEventLoop): ...
+class _UnixSelectorEventLoop(BaseSelectorEventLoop): ...
 
-class _UnixDefaultEventLoopPolicy(events.BaseDefaultEventLoopPolicy):
+class _UnixDefaultEventLoopPolicy(BaseDefaultEventLoopPolicy):
     def get_child_watcher(self) -> AbstractChildWatcher: ...
     def set_child_watcher(self, watcher: Optional[AbstractChildWatcher]) -> None: ...
 
