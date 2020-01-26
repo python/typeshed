@@ -1,6 +1,6 @@
 # Stubs for fcntl
 from io import IOBase
-from typing import Any, IO, Union
+from typing import IO, Any, Union, overload
 from _types import FileDescriptorLike
 
 FASYNC: int
@@ -76,11 +76,14 @@ LOCK_SH: int
 LOCK_UN: int
 LOCK_WRITE: int
 
-# TODO All these return either int or bytes depending on the value of
-# cmd (not on the type of arg).
+@overload
 def fcntl(__fd: FileDescriptorLike,
           __cmd: int,
-          __arg: Union[int, bytes] = ...) -> Any: ...
+          __arg: int = ...) -> int: ...
+@overload
+def fcntl(__fd: FileDescriptorLike,
+          __cmd: int,
+          __arg: bytes) -> bytes: ...
 # TODO This function accepts any object supporting a buffer interface,
 # as arg, is there a better way to express this than bytes?
 def ioctl(__fd: FileDescriptorLike,
