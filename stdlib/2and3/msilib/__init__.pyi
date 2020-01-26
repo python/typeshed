@@ -12,7 +12,7 @@ if sys.platform == 'win32':
     from _msi import _Database
 
     AMD64: bool
-    if sys.version_info <= (3, 6):
+    if sys.version_info < (3, 7):
         Itanium: bool
     Win64: bool
 
