@@ -272,7 +272,7 @@ class Turtle(RawTurtle):
 RawPen = RawTurtle
 Pen = Turtle
 
-def write_docstringdict(filename: str) -> None: ...
+def write_docstringdict(filename: str = ...) -> None: ...
 
 # Note: it's somewhat unfortunate that we have to copy the function signatures.
 # It would be nice if we could partially reduce the redundancy by doing something
