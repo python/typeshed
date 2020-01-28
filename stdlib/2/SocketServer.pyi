@@ -1,7 +1,7 @@
 # NB: SocketServer.pyi and socketserver.pyi must remain consistent!
 # Stubs for socketserver
 
-from typing import Any, BinaryIO, Callable, Optional, Tuple, Type, Text, Union
+from typing import Any, BinaryIO, Callable, List, Optional, Tuple, Type, Text, Union
 from socket import SocketType
 import sys
 import types
@@ -63,8 +63,21 @@ if sys.platform != 'win32':
                      RequestHandlerClass: Callable[..., BaseRequestHandler],
                      bind_and_activate: bool = ...) -> None: ...
 
-class ForkingMixIn: ...
-class ThreadingMixIn: ...
+class ForkingMixIn:
+    timeout: int  # undocumented
+    active_children: Optional[List[int]]  # undocumented
+    max_children: int  # undocumented
+    def collect_children(self) -> None: ...  # undocumented
+    def handle_timeout(self) -> None: ...  # undocumented
+    def process_request(self, request: bytes,
+                        client_address: Tuple[str, int]) -> None: ...
+
+class ThreadingMixIn:
+    daemon_threads: bool
+    def process_request_thread(self, request: bytes,
+                               client_address: Tuple[str, int]) -> None: ...  # undocumented
+    def process_request(self, request: bytes,
+                        client_address: Tuple[str, int]) -> None: ...
 
 class ForkingTCPServer(ForkingMixIn, TCPServer): ...
 class ForkingUDPServer(ForkingMixIn, UDPServer): ...
