@@ -64,7 +64,7 @@ if sys.platform != 'win32':
                      bind_and_activate: bool = ...) -> None: ...
 
 class ForkingMixIn:
-    timeout: int  # undocumented
+    timeout: Optional[float]  # undocumented
     active_children: Optional[List[int]]  # undocumented
     max_children: int  # undocumented
     if sys.version_info >= (3, 7):
