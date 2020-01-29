@@ -89,8 +89,8 @@ last_traceback: TracebackType
 meta_path: List[Any]
 path_hooks: List[Any]
 path_importer_cache: Dict[str, Any]
-displayhook: Callable[[object], None]
-excepthook: Callable[[Type[BaseException], BaseException, TracebackType], None]
+displayhook: Callable[[object], Any]
+excepthook: Callable[[Type[BaseException], BaseException, TracebackType], Any]
 exc_type: Optional[type]
 exc_value: Union[BaseException, ClassType]
 exc_traceback: TracebackType

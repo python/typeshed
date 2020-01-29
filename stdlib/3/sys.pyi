@@ -28,8 +28,8 @@ builtin_module_names: Sequence[str]  # actually a tuple of strings
 copyright: str
 # dllhandle = 0  # Windows only
 dont_write_bytecode: bool
-displayhook: Callable[[object], None]
-excepthook: Callable[[Type[BaseException], BaseException, TracebackType], None]
+displayhook: Callable[[object], Any]
+excepthook: Callable[[Type[BaseException], BaseException, TracebackType], Any]
 exec_prefix: str
 executable: str
 float_repr_style: str
