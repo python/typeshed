@@ -1,4 +1,5 @@
 # Stubs for fcntl
+from array import array
 from io import IOBase
 from typing import IO, Any, Union, overload
 from _types import FileDescriptorLike
@@ -89,8 +90,8 @@ def fcntl(__fd: FileDescriptorLike,
 def fcntl(__fd: FileDescriptorLike,
           __cmd: int,
           __arg: bytes) -> bytes: ...
-# TODO This function accepts any object supporting a buffer interface,
-# as arg, is there a better way to express this than bytes?
+_ReadOnlyBuffer = bytes
+_WritableBuffer = Union[bytearray, memoryview, array]
 @overload
 def ioctl(__fd: FileDescriptorLike,
           __request: int,
@@ -99,17 +100,17 @@ def ioctl(__fd: FileDescriptorLike,
 @overload
 def ioctl(__fd: FileDescriptorLike,
           __request: int,
-          __arg: bytearray,
+          __arg: _WritableBuffer,
           __mutate_flag: Literal[True] = ...) -> int: ...
 @overload
 def ioctl(__fd: FileDescriptorLike,
           __request: int,
-          __arg: bytearray,
+          __arg: _WritableBuffer,
           __mutate_flag: Literal[False]) -> bytes: ...
 @overload
 def ioctl(__fd: FileDescriptorLike,
           __request: int,
-          __arg: bytes,
+          __arg: _ReadOnlyBuffer,
           __mutate_flag: bool) -> bytes: ...
 def flock(__fd: FileDescriptorLike, __operation: int) -> None: ...
 def lockf(__fd: FileDescriptorLike,
