@@ -98,6 +98,7 @@ runs tests against [mypy](https://github.com/python/mypy/)
 typeshed.
 - `tests/check_consistent.py` checks certain files in typeshed remain
 consistent with each other.
+- `tests/stubtest_test.py` checks stubs against the objects at runtime.
 - `flake8` enforces a style guide.
 
 ### Setup
@@ -154,6 +155,26 @@ than the other tests.
 ### check_consistent.py
 
 Run using: `python3 tests/check_consistent.py`
+
+### stubtest_test.py
+
+This test requires Python 3.5 or higher.
+Run using `(.venv3)$ python3 tests/stubtest_test.py`
+
+This test compares the stdlib stubs against the objects at runtime. Because of
+this, the output depends on which version of Python it is run with.
+If you need a specific version of Python to repro a CI failure,
+[pyenv](https://github.com/pyenv/pyenv) can help (as can enabling Travis CI on
+your fork).
+
+Due to its dynamic nature, you may run into false positives. In this case, you
+can add to the whitelists for each affected Python version in
+`tests/stubtest_whitelists`. Please file issues for stubtest false positives
+at [mypy](https://github.com/python/mypy/issues).
+
+To run stubtest against third party stubs, it's easiest to use stubtest
+directly. stubtest can also help you find things missing from the stubs.
+
 
 ### flake8
 
