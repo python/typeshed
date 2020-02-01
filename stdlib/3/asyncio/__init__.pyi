@@ -112,7 +112,6 @@ if sys.version_info >= (3, 7):
 if sys.platform != 'win32':
     # This is already imported above on Windows.
     SelectorEventLoop: Type[AbstractEventLoop]
-else:
     from .unix_events import (
         AbstractChildWatcher as AbstractChildWatcher,
         BaseChildWatcher as BaseChildWatcher,
