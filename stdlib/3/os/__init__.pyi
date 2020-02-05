@@ -649,7 +649,12 @@ if sys.version_info >= (3, 6):
 def urandom(__size: int) -> bytes: ...
 
 if sys.version_info >= (3, 7):
-    def register_at_fork(func: Callable[..., object], when: str) -> None: ...
+    def register_at_fork(
+        *,
+        before: Optional[Callable[..., Any]] = ...,
+        after_in_parent: Optional[Callable[..., Any]] = ...,
+        after_in_child: Optional[Callable[..., Any]] = ...,
+    ) -> None: ...
 
 if sys.version_info >= (3, 8):
     if sys.platform == "win32":
