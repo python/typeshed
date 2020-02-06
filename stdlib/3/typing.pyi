@@ -74,6 +74,9 @@ ChainMap = TypeAlias(object)
 if sys.version_info >= (3, 7):
     OrderedDict = TypeAlias(object)
 
+if sys.version_info >= (3, 9):
+    Annotated: _SpecialForm = ...
+
 # Predefined type variables.
 AnyStr = TypeVar('AnyStr', str, bytes)
 
@@ -599,9 +602,15 @@ class Pattern(Generic[AnyStr]):
 
 # Functions
 
-def get_type_hints(
-    obj: Callable[..., Any], globalns: Optional[Dict[str, Any]] = ..., localns: Optional[Dict[str, Any]] = ...,
-) -> Dict[str, Any]: ...
+if sys.version_info >= (3, 9):
+    def get_type_hints(
+        obj: Callable[..., Any], globalns: Optional[Dict[str, Any]] = ..., localns: Optional[Dict[str, Any]] = ...,
+        include_extras: bool = ...
+    ) -> Dict[str, Any]: ...
+else:
+    def get_type_hints(
+        obj: Callable[..., Any], globalns: Optional[Dict[str, Any]] = ..., localns: Optional[Dict[str, Any]] = ...,
+    ) -> Dict[str, Any]: ...
 if sys.version_info >= (3, 8):
     def get_origin(tp: Any) -> Optional[Any]: ...
     def get_args(tp: Any) -> Tuple[Any, ...]: ...
