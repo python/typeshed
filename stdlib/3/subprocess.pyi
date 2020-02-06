@@ -39,15 +39,18 @@ _ENV = Union[Mapping[bytes, _TXT], Mapping[Text, _TXT]]
 _S = TypeVar('_S')
 _T = TypeVar('_T')
 
-class CompletedProcess(Generic[_T]):
+_StdOutT = TypeVar('_StdOutT', bound=_FILE)
+_StdErrT = TypeVar('_StdErrT', bound=_FILE)
+
+class CompletedProcess(Generic[_StdOutT, _StdErrT]):
     # morally: _CMD
     args: Any
     returncode: int
     # These are really both Optional, but requiring checks would be tedious
     # and writing all the overloads would be horrific.
-    stdout: _T
-    stderr: _T
-    def __init__(self, args: _CMD, returncode: int, stdout: Optional[_T] = ..., stderr: Optional[_T] = ...) -> None: ...
+    stdout: _StdOutT
+    stderr: _StdErrT
+    def __init__(self, args: _CMD, returncode: int, stdout: _StdOutT = ..., stderr: _StdErrT = ...) -> None: ...
     def check_returncode(self) -> None: ...
 
 if sys.version_info >= (3, 7):
@@ -58,8 +61,8 @@ if sys.version_info >= (3, 7):
         bufsize: int = ...,
         executable: _PATH = ...,
         stdin: _FILE = ...,
-        stdout: _FILE = ...,
-        stderr: _FILE = ...,
+        stdout: _StdOutT = ...,
+        stderr: _StdErrT = ...,
         preexec_fn: Callable[[], Any] = ...,
         close_fds: bool = ...,
         shell: bool = ...,
@@ -79,15 +82,15 @@ if sys.version_info >= (3, 7):
         input: Optional[str] = ...,
         text: Literal[True],
         timeout: Optional[float] = ...,
-    ) -> CompletedProcess[str]: ...
+    ) -> CompletedProcess[_StdOutT, _StdErrT]: ...
     @overload
     def run(
         args: _CMD,
         bufsize: int = ...,
         executable: _PATH = ...,
         stdin: _FILE = ...,
-        stdout: _FILE = ...,
-        stderr: _FILE = ...,
+        stdout: _StdOutT = ...,
+        stderr: _StdErrT = ...,
         preexec_fn: Callable[[], Any] = ...,
         close_fds: bool = ...,
         shell: bool = ...,
@@ -107,15 +110,15 @@ if sys.version_info >= (3, 7):
         input: Optional[str] = ...,
         text: Optional[bool] = ...,
         timeout: Optional[float] = ...,
-    ) -> CompletedProcess[str]: ...
+    ) -> CompletedProcess[_StdOutT, _StdErrT]: ...
     @overload
     def run(
         args: _CMD,
         bufsize: int = ...,
         executable: _PATH = ...,
         stdin: _FILE = ...,
-        stdout: _FILE = ...,
-        stderr: _FILE = ...,
+        stdout: _StdOutT = ...,
+        stderr: _StdErrT = ...,
         preexec_fn: Callable[[], Any] = ...,
         close_fds: bool = ...,
         shell: bool = ...,
@@ -135,15 +138,15 @@ if sys.version_info >= (3, 7):
         input: Optional[str] = ...,
         text: Optional[bool] = ...,
         timeout: Optional[float] = ...,
-    ) -> CompletedProcess[str]: ...
+    ) -> CompletedProcess[_StdOutT, _StdErrT]: ...
     @overload
     def run(
         args: _CMD,
         bufsize: int = ...,
         executable: _PATH = ...,
         stdin: _FILE = ...,
-        stdout: _FILE = ...,
-        stderr: _FILE = ...,
+        stdout: _StdOutT = ...,
+        stderr: _StdErrT = ...,
         preexec_fn: Callable[[], Any] = ...,
         close_fds: bool = ...,
         shell: bool = ...,
@@ -164,15 +167,15 @@ if sys.version_info >= (3, 7):
         input: Optional[str] = ...,
         text: Optional[bool] = ...,
         timeout: Optional[float] = ...,
-    ) -> CompletedProcess[str]: ...
+    ) -> CompletedProcess[_StdOutT, _StdErrT]: ...
     @overload
     def run(
         args: _CMD,
         bufsize: int = ...,
         executable: _PATH = ...,
         stdin: _FILE = ...,
-        stdout: _FILE = ...,
-        stderr: _FILE = ...,
+        stdout: _StdOutT = ...,
+        stderr: _StdErrT = ...,
         preexec_fn: Callable[[], Any] = ...,
         close_fds: bool = ...,
         shell: bool = ...,
@@ -192,15 +195,15 @@ if sys.version_info >= (3, 7):
         input: Optional[bytes] = ...,
         text: Literal[None, False] = ...,
         timeout: Optional[float] = ...,
-    ) -> CompletedProcess[bytes]: ...
+    ) -> CompletedProcess[_StdOutT, _StdErrT]: ...
     @overload
     def run(
         args: _CMD,
         bufsize: int = ...,
         executable: _PATH = ...,
         stdin: _FILE = ...,
-        stdout: _FILE = ...,
-        stderr: _FILE = ...,
+        stdout: _StdOutT = ...,
+        stderr: _StdErrT = ...,
         preexec_fn: Callable[[], Any] = ...,
         close_fds: bool = ...,
         shell: bool = ...,
@@ -220,7 +223,7 @@ if sys.version_info >= (3, 7):
         input: Optional[_TXT] = ...,
         text: Optional[bool] = ...,
         timeout: Optional[float] = ...,
-    ) -> CompletedProcess[Any]: ...
+    ) -> CompletedProcess[_StdOutT, _StdErrT]: ...
 elif sys.version_info >= (3, 6):
     # Nearly same args as Popen.__init__ except for timeout, input, and check
     @overload
@@ -229,8 +232,8 @@ elif sys.version_info >= (3, 6):
         bufsize: int = ...,
         executable: _PATH = ...,
         stdin: _FILE = ...,
-        stdout: _FILE = ...,
-        stderr: _FILE = ...,
+        stdout: _StdOutT = ...,
+        stderr: _StdErrT = ...,
         preexec_fn: Callable[[], Any] = ...,
         close_fds: bool = ...,
         shell: bool = ...,
@@ -248,15 +251,15 @@ elif sys.version_info >= (3, 6):
         errors: Optional[str] = ...,
         input: Optional[str] = ...,
         timeout: Optional[float] = ...,
-    ) -> CompletedProcess[str]: ...
+    ) -> CompletedProcess[_StdOutT, _StdErrT]: ...
     @overload
     def run(
         args: _CMD,
         bufsize: int = ...,
         executable: _PATH = ...,
         stdin: _FILE = ...,
-        stdout: _FILE = ...,
-        stderr: _FILE = ...,
+        stdout: _StdOutT = ...,
+        stderr: _StdErrT = ...,
         preexec_fn: Callable[[], Any] = ...,
         close_fds: bool = ...,
         shell: bool = ...,
@@ -274,15 +277,15 @@ elif sys.version_info >= (3, 6):
         errors: str,
         input: Optional[str] = ...,
         timeout: Optional[float] = ...,
-    ) -> CompletedProcess[str]: ...
+    ) -> CompletedProcess[_StdOutT, _StdErrT]: ...
     @overload
     def run(
         args: _CMD,
         bufsize: int = ...,
         executable: _PATH = ...,
         stdin: _FILE = ...,
-        stdout: _FILE = ...,
-        stderr: _FILE = ...,
+        stdout: _StdOutT = ...,
+        stderr: _StdErrT = ...,
         preexec_fn: Callable[[], Any] = ...,
         close_fds: bool = ...,
         shell: bool = ...,
@@ -301,15 +304,15 @@ elif sys.version_info >= (3, 6):
         errors: Optional[str] = ...,
         input: Optional[str] = ...,
         timeout: Optional[float] = ...,
-    ) -> CompletedProcess[str]: ...
+    ) -> CompletedProcess[_StdOutT, _StdErrT]: ...
     @overload
     def run(
         args: _CMD,
         bufsize: int = ...,
         executable: _PATH = ...,
         stdin: _FILE = ...,
-        stdout: _FILE = ...,
-        stderr: _FILE = ...,
+        stdout: _StdOutT = ...,
+        stderr: _StdErrT = ...,
         preexec_fn: Callable[[], Any] = ...,
         close_fds: bool = ...,
         shell: bool = ...,
@@ -327,15 +330,15 @@ elif sys.version_info >= (3, 6):
         errors: None = ...,
         input: Optional[bytes] = ...,
         timeout: Optional[float] = ...,
-    ) -> CompletedProcess[bytes]: ...
+    ) -> CompletedProcess[_StdOutT, _StdErrT]: ...
     @overload
     def run(
         args: _CMD,
         bufsize: int = ...,
         executable: _PATH = ...,
         stdin: _FILE = ...,
-        stdout: _FILE = ...,
-        stderr: _FILE = ...,
+        stdout: _StdOutT = ...,
+        stderr: _StdErrT = ...,
         preexec_fn: Callable[[], Any] = ...,
         close_fds: bool = ...,
         shell: bool = ...,
@@ -353,7 +356,7 @@ elif sys.version_info >= (3, 6):
         errors: Optional[str] = ...,
         input: Optional[_TXT] = ...,
         timeout: Optional[float] = ...,
-    ) -> CompletedProcess[Any]: ...
+    ) -> CompletedProcess[_StdOutT, _StdErrT]: ...
 else:
     # Nearly same args as Popen.__init__ except for timeout, input, and check
     @overload
@@ -362,8 +365,8 @@ else:
         bufsize: int = ...,
         executable: _PATH = ...,
         stdin: _FILE = ...,
-        stdout: _FILE = ...,
-        stderr: _FILE = ...,
+        stdout: _StdOutT = ...,
+        stderr: _StdErrT = ...,
         preexec_fn: Callable[[], Any] = ...,
         close_fds: bool = ...,
         shell: bool = ...,
@@ -380,15 +383,15 @@ else:
         check: bool = ...,
         input: Optional[str] = ...,
         timeout: Optional[float] = ...,
-    ) -> CompletedProcess[str]: ...
+    ) -> CompletedProcess[_StdOutT, _StdErrT]: ...
     @overload
     def run(
         args: _CMD,
         bufsize: int = ...,
         executable: _PATH = ...,
         stdin: _FILE = ...,
-        stdout: _FILE = ...,
-        stderr: _FILE = ...,
+        stdout: _StdOutT = ...,
+        stderr: _StdErrT = ...,
         preexec_fn: Callable[[], Any] = ...,
         close_fds: bool = ...,
         shell: bool = ...,
@@ -404,15 +407,15 @@ else:
         check: bool = ...,
         input: Optional[bytes] = ...,
         timeout: Optional[float] = ...,
-    ) -> CompletedProcess[bytes]: ...
+    ) -> CompletedProcess[_StdOutT, _StdErrT]: ...
     @overload
     def run(
         args: _CMD,
         bufsize: int = ...,
         executable: _PATH = ...,
         stdin: _FILE = ...,
-        stdout: _FILE = ...,
-        stderr: _FILE = ...,
+        stdout: _StdOutT = ...,
+        stderr: _StdErrT = ...,
         preexec_fn: Callable[[], Any] = ...,
         close_fds: bool = ...,
         shell: bool = ...,
@@ -428,7 +431,7 @@ else:
         check: bool = ...,
         input: Optional[_TXT] = ...,
         timeout: Optional[float] = ...,
-    ) -> CompletedProcess[Any]: ...
+    ) -> CompletedProcess[_StdOutT, _StdErrT]: ...
 
 # Same args as Popen.__init__
 def call(args: _CMD,
