@@ -22,6 +22,12 @@ class Module:  # undocumented
 class ModuleFinder:
 
     modules: Dict[str, Module]
+    path: List[str]  # undocumented
+    badmodules: Dict[str, Dict[str, int]]  # undocumented
+    debug: int  # undocumented
+    indent: int  # undocumented
+    excludes: Container[str]  # undocumented
+    replace_paths: Sequence[Tuple[str, str]]  # undocumented
 
     def __init__(self, path: Optional[List[str]] = ..., debug: int = ..., excludes: Container[str] = ..., replace_paths: Sequence[Tuple[str, str]] = ...) -> None: ...
     def msg(self, level: int, str: str, *args: Any) -> None: ...  # undocumented
