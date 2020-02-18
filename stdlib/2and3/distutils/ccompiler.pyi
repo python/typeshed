@@ -19,6 +19,16 @@ def new_compiler(plat: Optional[str] = ..., compiler: Optional[str] = ...,
 def show_compilers() -> None: ...
 
 class CCompiler:
+    dry_run: int
+    force: int
+    verbose: int
+    output_dir: str
+    macros: List[_Macro]
+    include_dirs: List[str]
+    libraries: List[str]
+    library_dirs: List[str]
+    runtime_library_dirs: List[str]
+    objects: List[str]
     def __init__(self, verbose: int = ..., dry_run: int = ...,
                  force: int = ...) -> None: ...
     def add_include_dir(self, dir: str) -> None: ...
