@@ -3,7 +3,7 @@
 from typing import Any, Callable, List, Optional, Tuple, Union
 
 
-_Macro = Union[Tuple[str], Tuple[str, str]]
+_Macro = Union[Tuple[str], Tuple[str, Optional[str]]]
 
 
 def gen_lib_options(compiler: CCompiler, library_dirs: List[str],
@@ -19,10 +19,10 @@ def new_compiler(plat: Optional[str] = ..., compiler: Optional[str] = ...,
 def show_compilers() -> None: ...
 
 class CCompiler:
-    dry_run: int
-    force: int
-    verbose: int
-    output_dir: str
+    dry_run: bool
+    force: bool
+    verbose: bool
+    output_dir: Optional[str]
     macros: List[_Macro]
     include_dirs: List[str]
     libraries: List[str]
