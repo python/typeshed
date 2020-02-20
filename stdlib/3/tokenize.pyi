@@ -1,4 +1,4 @@
-from typing import Any, Callable, Generator, Iterable, List, NamedTuple, Optional, Union, Sequence, TextIO, Tuple
+from typing import Any, Callable, Generator, Iterable, List, NamedTuple, Optional, Pattern, Union, Sequence, TextIO, Tuple
 from builtins import open as _builtin_open
 import sys
 from token import *  # noqa: F403
@@ -7,6 +7,9 @@ if sys.version_info < (3, 7):
     COMMENT: int
     NL: int
     ENCODING: int
+
+cookie_re: Pattern[str]
+blank_re: Pattern[bytes]
 
 _Position = Tuple[int, int]
 
