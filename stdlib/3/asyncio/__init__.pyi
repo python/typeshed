@@ -110,12 +110,11 @@ if sys.version_info >= (3, 7):
     )
 
 if sys.platform != 'win32':
-    # This is already imported above on Windows.
-    SelectorEventLoop: Type[AbstractEventLoop]
     from .unix_events import (
         AbstractChildWatcher as AbstractChildWatcher,
         BaseChildWatcher as BaseChildWatcher,
         SafeChildWatcher as SafeChildWatcher,
+        SelectorEventLoop as SelectorEventLoop,
     )
     if sys.version_info >= (3, 8):
         from .unix_events import MultiLoopChildWatcher as MultiLoopChildWatcher, ThreadedChildWatcher as ThreadedChildWatcher
