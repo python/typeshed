@@ -290,7 +290,6 @@ weakref.getweakrefcount
 webbrowser.Opera.raise_opts
 xml.etree.ElementTree.XMLParser.__init__
 xml.etree.cElementTree.XMLParser.__init__
-xml.sax.make_parser
 zipfile.Path.open
 zipfile.ZipExtFile.__init__
 zipfile.ZipExtFile.seek
