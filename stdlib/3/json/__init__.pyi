@@ -6,6 +6,7 @@ from .encoder import JSONEncoder as JSONEncoder
 from .decoder import JSONDecodeError as JSONDecodeError
 
 def dumps(obj: Any,
+          *,
           skipkeys: bool = ...,
           ensure_ascii: bool = ...,
           check_circular: bool = ...,
@@ -19,6 +20,7 @@ def dumps(obj: Any,
 
 def dump(obj: Any,
          fp: IO[str],
+         *,
          skipkeys: bool = ...,
          ensure_ascii: bool = ...,
          check_circular: bool = ...,
@@ -36,6 +38,7 @@ else:
     _LoadsString = str
 def loads(s: _LoadsString,
           encoding: Any = ...,  # ignored and deprecated
+          *,
           cls: Optional[Type[JSONDecoder]] = ...,
           object_hook: Optional[Callable[[Dict[Any, Any]], Any]] = ...,
           parse_float: Optional[Callable[[str], Any]] = ...,
@@ -48,6 +51,7 @@ class _Reader(Protocol):
     def read(self) -> _LoadsString: ...
 
 def load(fp: _Reader,
+         *,
          cls: Optional[Type[JSONDecoder]] = ...,
          object_hook: Optional[Callable[[Dict[Any, Any]], Any]] = ...,
          parse_float: Optional[Callable[[str], Any]] = ...,
