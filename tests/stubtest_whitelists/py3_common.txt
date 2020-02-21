@@ -608,7 +608,6 @@ random.Random.triangular
 random.SystemRandom.getstate
 random.randrange
 random.triangular
-re.escape
 runpy.run_path
 sched.Event.__doc__
 select.EPOLL_RDHUP
