@@ -122,9 +122,6 @@ fcntl.flock
 fcntl.ioctl
 fcntl.lockf
 functools.partialmethod.__get__
-gc.collect
-gc.is_tracked
-gc.set_debug
 gettext.install
 gettext.translation
 hmac.compare_digest
