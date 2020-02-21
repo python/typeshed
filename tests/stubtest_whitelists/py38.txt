@@ -198,9 +198,6 @@ pyclbr.Function.__init__
 queue.SimpleQueue.__init__
 random.Random.getrandbits
 random.getrandbits
-re.Match.end
-re.Match.span
-re.Match.start
 secrets.SystemRandom.getstate
 secrets.compare_digest
 select.epoll.__exit__
