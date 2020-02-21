@@ -58,7 +58,6 @@ macpath.split
 macpath.splitdrive
 macpath.splitext
 mmap.ACCESS_DEFAULT
-modulefinder.ModuleFinder.scan_opcodes
 multiprocessing.context.BaseContext.reducer
 multiprocessing.shared_memory
 os.DirEntry
