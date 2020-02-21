@@ -37,7 +37,6 @@ if sys.version_info >= (3, 6):
 else:
     _LoadsString = str
 def loads(s: _LoadsString,
-          encoding: Any = ...,  # ignored and deprecated
           *,
           cls: Optional[Type[JSONDecoder]] = ...,
           object_hook: Optional[Callable[[Dict[Any, Any]], Any]] = ...,
