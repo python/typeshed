@@ -179,7 +179,8 @@ class _WinVersion(Tuple[int, int, int, int,
     platform_version: Tuple[int, int, int]
 
 
-def getwindowsversion() -> _WinVersion: ...  # Windows only
+if sys.platform == 'win32':
+    def getwindowsversion() -> _WinVersion: ...
 
 def intern(__string: str) -> str: ...
 
