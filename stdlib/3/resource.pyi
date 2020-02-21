@@ -1,7 +1,5 @@
 # Stubs for resource
 
-# NOTE: These are incomplete!
-
 from typing import Tuple, Optional, NamedTuple
 
 RLIMIT_AS: int
