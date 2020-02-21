@@ -1,4 +1,5 @@
 import sys
+import enum
 from typing import (AbstractSet, Any, Callable, Dict, Generator, List, Mapping,
                     NamedTuple, Optional, Sequence, Tuple, Type, Union,
                     )
@@ -124,7 +125,7 @@ class Signature:
     def from_callable(cls, obj: Callable[..., Any], *, follow_wrapped: bool = ...) -> Signature: ...
 
 # The name is the same as the enum's name in CPython
-class _ParameterKind:
+class _ParameterKind(enum.IntEnum):
     if sys.version_info >= (3, 8):
         description: str
 
