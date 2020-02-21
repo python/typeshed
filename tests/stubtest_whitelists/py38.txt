@@ -198,9 +198,6 @@ pyclbr.Function.__init__
 queue.SimpleQueue.__init__
 random.Random.getrandbits
 random.getrandbits
-re.Match.end
-re.Match.span
-re.Match.start
 resource.getrlimit
 resource.getrusage
 resource.setrlimit
