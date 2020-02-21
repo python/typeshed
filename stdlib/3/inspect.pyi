@@ -20,8 +20,8 @@ class BlockFinder:
     indecorator: bool
     decoratorhasargs: bool
     last: int
-    def tokeneater(self, type: int, token: str, srow_scol: Tuple[int, int],
-                   erow_ecol: Tuple[int, int], line: str) -> None: ...
+    def tokeneater(self, type: int, token: str, srowcol: Tuple[int, int],
+                   erowcol: Tuple[int, int], line: str) -> None: ...
 
 CO_OPTIMIZED: int
 CO_NEWLOCALS: int
