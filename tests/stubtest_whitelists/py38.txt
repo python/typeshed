@@ -47,14 +47,6 @@ asyncio.tasks.Task.set_exception
 asyncio.tasks.Task.set_name
 asyncio.tasks.Task.set_result
 bdb.Bdb.runcall
-binascii.a2b_hex
-binascii.b2a_base64
-binascii.b2a_hqx
-binascii.b2a_uu
-binascii.crc32
-binascii.crc_hqx
-binascii.rlecode_hqx
-binascii.rledecode_hqx
 builtins.bytearray.extend
 builtins.bytearray.pop
 builtins.compile

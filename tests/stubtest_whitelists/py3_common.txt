@@ -86,11 +86,6 @@ base64.b32decode
 base64.b64decode
 base64.b64encode
 bdb.Bdb.__init__
-binascii.a2b_base64
-binascii.a2b_hqx
-binascii.a2b_qp
-binascii.a2b_uu
-binascii.unhexlify
 builtins.WindowsError
 builtins.bytearray.__float__
 builtins.bytearray.__int__
