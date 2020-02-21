@@ -5,7 +5,7 @@ from typing import (
     Optional, Pattern as _Pattern, Tuple, Union
 )
 import sys
-from sre_constants import _NamedIntConstant as NIC, error as _Error
+from sre_constants import _NamedIntConstant as _NIC, error as _Error
 
 SPECIAL_CHARS: str
 REPEAT_CHARS: str
@@ -14,8 +14,8 @@ OCTDIGITS: FrozenSet[str]
 HEXDIGITS: FrozenSet[str]
 ASCIILETTERS: FrozenSet[str]
 WHITESPACE: FrozenSet[str]
-ESCAPES: Dict[str, Tuple[NIC, int]]
-CATEGORIES: Dict[str, Union[Tuple[NIC, NIC], Tuple[NIC, List[Tuple[NIC, NIC]]]]]
+ESCAPES: Dict[str, Tuple[_NIC, int]]
+CATEGORIES: Dict[str, Union[Tuple[_NIC, _NIC], Tuple[_NIC, List[Tuple[_NIC, _NIC]]]]]
 FLAGS: Dict[str, int]
 GLOBAL_FLAGS: int
 
@@ -42,10 +42,10 @@ else:
 
 _OpSubpatternType = Tuple[Optional[int], int, int, SubPattern]
 _OpGroupRefExistsType = Tuple[int, SubPattern, SubPattern]
-_OpInType = List[Tuple[NIC, int]]
+_OpInType = List[Tuple[_NIC, int]]
 _OpBranchType = Tuple[None, List[SubPattern]]
 _AvType = Union[_OpInType, _OpBranchType, Iterable[SubPattern], _OpGroupRefExistsType, _OpSubpatternType]
-_CodeType = Tuple[NIC, _AvType]
+_CodeType = Tuple[_NIC, _AvType]
 
 
 class SubPattern:
