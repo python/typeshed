@@ -216,6 +216,9 @@ class SpooledTemporaryFile(IO[AnyStr]):
             *,
             errors: Optional[str] = ...
         ) -> None: ...
+
+        @property
+        def errors(self) -> Optional[str]: ...
     else:
         @overload
         def __init__(
