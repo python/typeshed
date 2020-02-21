@@ -201,9 +201,6 @@ random.getrandbits
 re.Match.end
 re.Match.span
 re.Match.start
-resource.getrlimit
-resource.getrusage
-resource.setrlimit
 secrets.SystemRandom.getstate
 secrets.compare_digest
 select.epoll.__exit__
