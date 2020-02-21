@@ -1,4 +1,4 @@
-
+import sys
 from typing import Optional, Container, Dict, Sequence, Tuple, List, Any, Iterator, IO, Iterable
 from types import CodeType
 
@@ -43,7 +43,8 @@ class ModuleFinder:
     def find_all_submodules(self, m: Module) -> Iterable[str]: ...  # undocumented
     def import_module(self, partname: str, fqname: str, parent: Module) -> Optional[Module]: ...  # undocumented
     def load_module(self, fqname: str, fp: IO[str], pathname: str, file_info: Tuple[str, str, str]) -> Module: ...  # undocumented
-    def scan_opcodes(self, co: CodeType) -> Iterator[Tuple[str, Tuple[Any, ...]]]: ...  # undocumented
+    if sys.version_info >= (3, 6):
+        def scan_opcodes(self, co: CodeType) -> Iterator[Tuple[str, Tuple[Any, ...]]]: ...  # undocumented
     def scan_code(self, co: CodeType, m: Module) -> None: ...  # undocumented
     def load_package(self, fqname: str, pathname: str) -> Module: ...  # undocumented
     def add_module(self, fqname: str) -> Module: ...  # undocumented
