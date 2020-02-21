@@ -147,10 +147,6 @@ ipaddress.IPv6Interface.hostmask
 ipaddress._BaseNetwork.broadcast_address
 ipaddress._BaseNetwork.hostmask
 itertools.tee
-json.dump
-json.dumps
-json.load
-json.loads
 logging.handlers.MemoryHandler.__init__
 lzma.LZMACompressor.compress
 lzma.is_check_supported
