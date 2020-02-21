@@ -68,9 +68,6 @@ smtpd.SMTPChannel.__init__
 smtpd.SMTPServer.__init__
 socket.NETLINK_CRYPTO
 sre_compile.dis
-sre_parse.GLOBAL_FLAGS
-sre_parse.Tokenizer.pos
-sre_parse.Verbose
 subprocess.check_output
 tracemalloc.Filter.__init__
 typing.AbstractSet.isdisjoint
