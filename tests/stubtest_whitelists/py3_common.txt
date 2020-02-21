@@ -750,14 +750,12 @@ sunau.Au_write.getmarkers
 sunau.Au_write.setcomptype
 sunau.Au_write.setmark
 sys.gettotalrefcount
-sys.getwindowsversion
 sys.implementation
 sys.last_traceback
 sys.last_type
 sys.last_value
 sys.ps1
 sys.ps2
-sys.settscdump
 sys.tracebacklimit
 sysconfig.is_python_build
 sysconfig.parse_config_h

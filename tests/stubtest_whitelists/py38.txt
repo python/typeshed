@@ -226,15 +226,6 @@ struct.iter_unpack
 struct.unpack
 struct.unpack_from
 sys.UnraisableHookArgs
-sys._getframe
-sys.call_tracing
-sys.exit
-sys.getrefcount
-sys.intern
-sys.setcheckinterval
-sys.setdlopenflags
-sys.setrecursionlimit
-sys.setswitchinterval
 tempfile.NamedTemporaryFile
 tempfile.SpooledTemporaryFile.__init__
 tempfile.TemporaryFile
