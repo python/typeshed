@@ -137,7 +137,6 @@ imp.is_builtin
 imp.is_frozen
 imp.is_frozen_package
 importlib.metadata.EntryPointBase
-inspect.getcallargs
 inspect.isasyncgenfunction
 inspect.iscoroutinefunction
 inspect.isgeneratorfunction
