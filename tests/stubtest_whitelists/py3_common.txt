@@ -750,6 +750,7 @@ sunau.Au_write.getmarkers
 sunau.Au_write.setcomptype
 sunau.Au_write.setmark
 sys.gettotalrefcount
+sys.getwindowsversion
 sys.implementation
 sys.last_traceback
 sys.last_type
