@@ -768,7 +768,6 @@ tempfile.SpooledTemporaryFile.__next__
 tempfile.SpooledTemporaryFile.readable
 tempfile.SpooledTemporaryFile.seekable
 tempfile.SpooledTemporaryFile.writable
-tempfile.SpooledTemporaryFile.writelines
 textwrap.TextWrapper.x
 textwrap.indent
 textwrap.wrap
