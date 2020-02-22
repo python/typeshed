@@ -256,8 +256,6 @@ curses.COLORS
 curses.COLOR_PAIRS
 curses.COLS
 curses.LINES
-curses.textpad.Textbox.__init__
-curses.textpad.Textbox.edit
 dbm.error
 dbm.ndbm
 decimal.DecimalException.handle
