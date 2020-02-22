@@ -36,6 +36,10 @@ io.BufferedRandom.read1
 io.BufferedReader.read1
 io.StringIO.readline
 ipaddress._BaseNetwork.__init__
+json.dump
+json.dumps
+json.load
+json.loads
 macpath.basename
 macpath.commonpath
 macpath.commonprefix
