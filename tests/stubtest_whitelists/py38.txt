@@ -130,7 +130,6 @@ mmap.MADV_NOCORE
 mmap.MADV_NOSYNC
 mmap.MADV_PROTECT
 mmap.MADV_SOFT_OFFLINE
-modulefinder.ModuleFinder.__init__
 multiprocessing.pool.CLOSE
 multiprocessing.pool.RUN
 multiprocessing.pool.TERMINATE
