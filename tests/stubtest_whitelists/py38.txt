@@ -179,7 +179,6 @@ pickle.Pickler.reducer_override-redefinition
 platform.DEV_NULL
 profile.Profile.runcall
 pwd.getpwuid
-py_compile.compile
 pyclbr.Class.__init__
 pyclbr.Function.__init__
 queue.SimpleQueue.__init__
