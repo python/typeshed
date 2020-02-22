@@ -21,8 +21,8 @@ class BlockFinder:
     indecorator: bool
     decoratorhasargs: bool
     last: int
-    def tokeneater(self, type: int, token: str, srow_scol: Tuple[int, int],
-                   erow_ecol: Tuple[int, int], line: str) -> None: ...
+    def tokeneater(self, type: int, token: str, srowcol: Tuple[int, int],
+                   erowcol: Tuple[int, int], line: str) -> None: ...
 
 CO_OPTIMIZED: int
 CO_NEWLOCALS: int
@@ -97,7 +97,7 @@ def indentsize(line: str) -> int: ...
 #
 # Introspecting callables with the Signature object
 #
-def signature(callable: Callable[..., Any],
+def signature(obj: Callable[..., Any],
               *,
               follow_wrapped: bool = ...) -> Signature: ...
 
@@ -211,7 +211,7 @@ def formatargspec(args: List[str],
                   varargs: Optional[str] = ...,
                   varkw: Optional[str] = ...,
                   defaults: Optional[Tuple[Any, ...]] = ...,
-                  kwonlyargs: Optional[List[str]] = ...,
+                  kwonlyargs: Optional[Sequence[str]] = ...,
                   kwonlydefaults: Optional[Dict[str, Any]] = ...,
                   annotations: Dict[str, Any] = ...,
                   formatarg: Callable[[str], str] = ...,
@@ -219,12 +219,12 @@ def formatargspec(args: List[str],
                   formatvarkw: Callable[[str], str] = ...,
                   formatvalue: Callable[[Any], str] = ...,
                   formatreturns: Callable[[Any], str] = ...,
-                  formatannotations: Callable[[Any], str] = ...,
+                  formatannotation: Callable[[Any], str] = ...,
                   ) -> str: ...
 def formatargvalues(args: List[str],
-                    varargs: Optional[str] = ...,
-                    varkw: Optional[str] = ...,
-                    locals: Optional[Dict[str, Any]] = ...,
+                    varargs: Optional[str],
+                    varkw: Optional[str],
+                    locals: Optional[Dict[str, Any]],
                     formatarg: Optional[Callable[[str], str]] = ...,
                     formatvarargs: Optional[Callable[[str], str]] = ...,
                     formatvarkw: Optional[Callable[[str], str]] = ...,
@@ -232,7 +232,7 @@ def formatargvalues(args: List[str],
                     ) -> str: ...
 def getmro(cls: type) -> Tuple[type, ...]: ...
 
-def getcallargs(func: Callable[..., Any],
+def getcallargs(__func: Callable[..., Any],
                 *args: Any,
                 **kwds: Any) -> Dict[str, Any]: ...
 
@@ -269,7 +269,7 @@ class FrameInfo(NamedTuple):
 
 def getframeinfo(frame: Union[FrameType, TracebackType], context: int = ...) -> Traceback: ...
 def getouterframes(frame: Any, context: int = ...) -> List[FrameInfo]: ...
-def getinnerframes(traceback: TracebackType, context: int = ...) -> List[FrameInfo]: ...
+def getinnerframes(tb: TracebackType, context: int = ...) -> List[FrameInfo]: ...
 def getlineno(frame: FrameType) -> int: ...
 def currentframe() -> Optional[FrameType]: ...
 def stack(context: int = ...) -> List[FrameInfo]: ...

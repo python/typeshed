@@ -352,17 +352,12 @@ importlib.machinery.WindowsRegistryFinder.find_module
 importlib.machinery.WindowsRegistryFinder.find_spec
 importlib.util.spec_from_file_location
 importlib.util.spec_from_loader
-inspect.BlockFinder.tokeneater
 inspect.Parameter.__init__
 inspect.Parameter.replace
 inspect.Signature.__init__
 inspect.Signature.replace
-inspect.formatargspec
-inspect.formatargvalues
 inspect.getabsfile
-inspect.getinnerframes
 inspect.getmodule
-inspect.signature
 io.BufferedRandom.truncate
 io.BufferedReader.seek
 io.BufferedReader.truncate

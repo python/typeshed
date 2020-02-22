@@ -113,7 +113,6 @@ http.client.HTTPSConnection.__init__
 http.cookiejar.DefaultCookiePolicy.__init__
 http.server.SimpleHTTPRequestHandler.__init__
 importlib.metadata.EntryPointBase
-inspect.getcallargs
 inspect.isasyncgenfunction
 inspect.iscoroutinefunction
 inspect.isgeneratorfunction
