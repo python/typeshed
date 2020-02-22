@@ -221,9 +221,6 @@ sys.setcheckinterval
 sys.setdlopenflags
 sys.setrecursionlimit
 sys.setswitchinterval
-tempfile.NamedTemporaryFile
-tempfile.SpooledTemporaryFile.__init__
-tempfile.TemporaryFile
 threading.ExceptHookArgs
 time.CLOCK_PROF
 time.CLOCK_UPTIME
