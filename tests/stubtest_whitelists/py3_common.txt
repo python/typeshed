@@ -261,10 +261,7 @@ curses.textpad.Textbox.edit
 dbm.error
 dbm.ndbm
 decimal.DecimalException.handle
-difflib.Differ.__init__
-difflib.HtmlDiff.__init__
 difflib.SequenceMatcher.__init__
-difflib.ndiff
 dis.dis
 distutils.archive_util.make_archive
 distutils.archive_util.make_tarball
