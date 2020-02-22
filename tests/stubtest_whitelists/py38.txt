@@ -205,15 +205,6 @@ struct.iter_unpack
 struct.unpack
 struct.unpack_from
 sys.UnraisableHookArgs
-sys._getframe
-sys.call_tracing
-sys.exit
-sys.getrefcount
-sys.intern
-sys.setcheckinterval
-sys.setdlopenflags
-sys.setrecursionlimit
-sys.setswitchinterval
 threading.ExceptHookArgs
 time.CLOCK_PROF
 time.CLOCK_UPTIME
