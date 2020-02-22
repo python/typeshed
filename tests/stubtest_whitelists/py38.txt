@@ -1,13 +1,5 @@
 _bisect.bisect
 _bisect.insort
-_imp.create_builtin
-_imp.exec_builtin
-_imp.exec_dynamic
-_imp.get_frozen_object
-_imp.init_frozen
-_imp.is_builtin
-_imp.is_frozen
-_imp.is_frozen_package
 _thread.ExceptHookArgs
 _thread._ExceptHookArgs
 _tracemalloc._get_object_traceback
@@ -131,11 +123,6 @@ hmac.compare_digest
 http.client.HTTPSConnection.__init__
 http.cookiejar.DefaultCookiePolicy.__init__
 http.server.SimpleHTTPRequestHandler.__init__
-imp.get_frozen_object
-imp.init_frozen
-imp.is_builtin
-imp.is_frozen
-imp.is_frozen_package
 importlib.metadata.EntryPointBase
 inspect.getcallargs
 inspect.isasyncgenfunction
