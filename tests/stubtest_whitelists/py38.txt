@@ -148,7 +148,6 @@ os.setresuid
 os.waitid
 pickle.Pickler.dump
 pickle.Pickler.reducer_override
-pickle.Pickler.reducer_override-redefinition
 platform.DEV_NULL
 profile.Profile.runcall
 pwd.getpwuid
