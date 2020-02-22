@@ -703,10 +703,6 @@ sqlite3.dbapi2.version_info
 sqlite3.register_adapters_and_converters
 sqlite3.version_info
 sre_constants.error.__init__
-sre_parse.NIC
-sre_parse.SubPattern.__init__
-sre_parse.fix_flags
-sre_parse.parse
 ssl.PROTOCOL_SSLv2
 ssl.PROTOCOL_SSLv3
 ssl.RAND_add
