@@ -20,6 +20,9 @@ _T = TypeVar('_T', bound=IOBase)
 
 open = builtins.open
 
+if sys.version_info >= (3, 8):
+    def open_code(path: str) -> IO[bytes]: ...
+
 BlockingIOError = builtins.BlockingIOError
 class UnsupportedOperation(OSError, ValueError): ...
 
