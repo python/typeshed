@@ -29,7 +29,10 @@ class ModuleFinder:
     excludes: Container[str]  # undocumented
     replace_paths: Sequence[Tuple[str, str]]  # undocumented
 
-    def __init__(self, path: Optional[List[str]] = ..., debug: int = ..., excludes: Optional[Container[str]] = ..., replace_paths: Optional[Sequence[Tuple[str, str]]] = ...) -> None: ...
+    if sys.version_info >= (3, 8):
+        def __init__(self, path: Optional[List[str]] = ..., debug: int = ..., excludes: Optional[Container[str]] = ..., replace_paths: Optional[Sequence[Tuple[str, str]]] = ...) -> None: ...
+    else:
+        def __init__(self, path: Optional[List[str]] = ..., debug: int = ..., excludes: Container[str] = ..., replace_paths: Sequence[Tuple[str, str]] = ...) -> None: ...
     def msg(self, level: int, str: str, *args: Any) -> None: ...  # undocumented
     def msgin(self, *args: Any) -> None: ...  # undocumented
     def msgout(self, *args: Any) -> None: ...  # undocumented
