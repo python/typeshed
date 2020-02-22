@@ -99,10 +99,6 @@ email.message.MIMEPart.as_string
 email.mime.message.MIMEMessage.__init__
 email.mime.text.MIMEText.__init__
 enum.Enum._generate_next_value_
-fcntl.fcntl
-fcntl.flock
-fcntl.ioctl
-fcntl.lockf
 functools.partialmethod.__get__
 gettext.install
 gettext.translation
