@@ -103,8 +103,6 @@ contextvars.Context.get
 contextvars.ContextVar.reset
 contextvars.ContextVar.set
 copy.PyStringMap
-curses.panel.new_panel
-curses.wrapper
 dataclasses.dataclass
 dataclasses.field
 dataclasses.make_dataclass
