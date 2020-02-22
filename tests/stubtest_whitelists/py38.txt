@@ -1,13 +1,5 @@
 _bisect.bisect
 _bisect.insort
-_imp.create_builtin
-_imp.exec_builtin
-_imp.exec_dynamic
-_imp.get_frozen_object
-_imp.init_frozen
-_imp.is_builtin
-_imp.is_frozen
-_imp.is_frozen_package
 _thread.ExceptHookArgs
 _thread._ExceptHookArgs
 _tracemalloc._get_object_traceback
@@ -131,11 +123,6 @@ hmac.compare_digest
 http.client.HTTPSConnection.__init__
 http.cookiejar.DefaultCookiePolicy.__init__
 http.server.SimpleHTTPRequestHandler.__init__
-imp.get_frozen_object
-imp.init_frozen
-imp.is_builtin
-imp.is_frozen
-imp.is_frozen_package
 importlib.metadata.EntryPointBase
 inspect.getcallargs
 inspect.isasyncgenfunction
@@ -192,7 +179,6 @@ pickle.Pickler.reducer_override-redefinition
 platform.DEV_NULL
 profile.Profile.runcall
 pwd.getpwuid
-py_compile.compile
 pyclbr.Class.__init__
 pyclbr.Function.__init__
 queue.SimpleQueue.__init__
@@ -226,9 +212,6 @@ struct.iter_unpack
 struct.unpack
 struct.unpack_from
 sys.UnraisableHookArgs
-tempfile.NamedTemporaryFile
-tempfile.SpooledTemporaryFile.__init__
-tempfile.TemporaryFile
 threading.ExceptHookArgs
 time.CLOCK_PROF
 time.CLOCK_UPTIME
@@ -281,7 +264,6 @@ weakref.getweakrefcount
 webbrowser.Opera.raise_opts
 xml.etree.ElementTree.XMLParser.__init__
 xml.etree.cElementTree.XMLParser.__init__
-xml.sax.make_parser
 zipfile.Path.open
 zipfile.ZipExtFile.__init__
 zipfile.ZipExtFile.seek
