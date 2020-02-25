@@ -284,11 +284,23 @@ class SSLContext:
         def set_servername_callback(self, __method: Optional[_SrvnmeCbType]) -> None: ...
     def load_dh_params(self, __path: str) -> None: ...
     def set_ecdh_curve(self, __name: str) -> None: ...
-    def wrap_socket(self, sock: socket.socket, server_side: bool = ...,
-                    do_handshake_on_connect: bool = ...,
-                    suppress_ragged_eofs: bool = ...,
-                    server_hostname: Optional[str] = ...) -> SSLSocket: ...
-    if sys.version_info >= (3, 5):
+    if sys.version_info >= (3, 6):
+        def wrap_socket(self, sock: socket.socket, server_side: bool = ...,
+                        do_handshake_on_connect: bool = ...,
+                        suppress_ragged_eofs: bool = ...,
+                        server_hostname: Optional[str] = ...,
+                        session: Optional[SSLSession] = ...) -> SSLSocket: ...
+    else:
+        def wrap_socket(self, sock: socket.socket, server_side: bool = ...,
+                        do_handshake_on_connect: bool = ...,
+                        suppress_ragged_eofs: bool = ...,
+                        server_hostname: Optional[str] = ...) -> SSLSocket: ...
+    if sys.version_info >= (3, 6):
+        def wrap_bio(self, incoming: MemoryBIO, outgoing: MemoryBIO,
+                     server_side: bool = ...,
+                     server_hostname: Optional[str] = ...,
+                     session: Optional[SSLSession] = ...) -> SSLObject: ...
+    elif sys.version_info >= (3, 5):
         def wrap_bio(self, incoming: MemoryBIO, outgoing: MemoryBIO,
                      server_side: bool = ...,
                      server_hostname: Optional[str] = ...) -> SSLObject: ...
