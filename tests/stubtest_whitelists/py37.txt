@@ -138,4 +138,3 @@ uuid.UUID.int
 uuid.UUID.is_safe
 webbrowser.Opera.raise_opts
 xml.parsers.expat.XMLParserType.ExternalEntityParserCreate
-zipfile.ZipExtFile.__init__
