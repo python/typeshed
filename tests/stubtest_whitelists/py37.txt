@@ -22,7 +22,6 @@ asyncio.selector_events.BaseSelectorEventLoop.create_unix_server
 builtins.dict.get
 builtins.reversed
 builtins.str.maketrans
-cgi.escape
 cmath.log
 collections.AsyncGenerator.ag_await
 collections.AsyncGenerator.ag_code

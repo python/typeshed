@@ -125,9 +125,6 @@ bz2.BZ2File.readinto
 bz2.BZ2File.readlines
 bz2.BZ2File.write
 bz2.BZ2File.writelines
-cgi.FieldStorage.__init__
-cgi.parse
-cgi.parse_header
 codecs.BufferedIncrementalDecoder.decode
 codecs.CodecInfo.decode
 codecs.CodecInfo.encode
