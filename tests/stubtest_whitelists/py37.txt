@@ -86,8 +86,6 @@ queue.SimpleQueue.__init__
 secrets.SystemRandom.getstate
 smtplib.SMTP.sendmail
 sre_constants.RANGE_IGNORE
-ssl.SSLContext.wrap_bio
-ssl.SSLContext.wrap_socket
 struct.calcsize
 struct.iter_unpack
 struct.unpack

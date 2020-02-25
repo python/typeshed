@@ -166,12 +166,6 @@ signal.sigtimedwait
 signal.sigwaitinfo
 smtplib.SMTP.sendmail
 sre_constants.RANGE_IGNORE
-ssl.MemoryBIO.read
-ssl.MemoryBIO.write
-ssl.RAND_bytes
-ssl.RAND_pseudo_bytes
-ssl.SSLContext.wrap_bio
-ssl.SSLContext.wrap_socket
 statistics.NormalDist.samples
 string.Formatter.format
 string.Template.safe_substitute
