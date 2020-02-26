@@ -136,6 +136,11 @@ def register_validator(flag_name: str,
 RegisterValidator = register_validator
 def mark_flag_as_required(flag_name: str, flag_values: FlagValues = ...) -> None: ...
 MarkFlagAsRequired = mark_flag_as_required
+def mark_flags_as_required(flag_names: Iterable[str], flag_values: FlagValues = ...) -> None: ...
+MarkFlagsAsRequired = mark_flags_as_required
+def mark_flags_as_mutual_exclusive(flag_names: Iterable[str], required: bool = ...,
+                                   flag_values: FlagValues = ...) -> None: ...
+MarkFlagsAsMutualExclusive = mark_flags_as_mutual_exclusive
 
 def DEFINE(parser: ArgumentParser, name: str, default: Any, help: str,
            flag_values: FlagValues = ..., serializer: ArgumentSerializer = ..., **args: Any) -> None: ...
@@ -203,7 +208,7 @@ class EnumFlag(Flag):
     def __init__(self, name: str, default: Optional[str], help: str, enum_values: List[str],
                  short_name: str, **args: Any) -> None: ...
 
-def DEFINE_enum(name: str, default: Optional[str], enum_values: List[str], help: str,
+def DEFINE_enum(name: str, default: Optional[str], enum_values: Iterable[str], help: str,
                 flag_values: FlagValues = ..., **args: Any) -> None: ...
 
 class BaseListParser(ArgumentParser):
