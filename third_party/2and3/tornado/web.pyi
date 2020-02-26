@@ -12,7 +12,7 @@ if sys.version_info[:2] >= (3, 5):
     from typing import Awaitable
     _MethodType = Callable[..., Optional[Awaitable[None]]]
 else:
-    _MethodType = Callable[..., None]
+    _MethodType = Callable[..., Any]
 
 class RequestHandler:
     SUPPORTED_METHODS: Any
