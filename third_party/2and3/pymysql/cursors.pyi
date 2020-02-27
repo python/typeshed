@@ -1,4 +1,4 @@
-from typing import Any, Dict, Iterator, List, Optional, Text, Tuple, TypeVar, Union
+from typing import Any, Dict, Iterator, List, Optional, Text, Tuple, TypeVar, Union, Iterable
 
 from .connections import Connection
 
