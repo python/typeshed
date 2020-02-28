@@ -120,6 +120,7 @@ logging.handlers.MemoryHandler.__init__
 lzma.LZMACompressor.compress
 lzma.is_check_supported
 macpath
+macurl2path
 mmap.MADV_AUTOSYNC
 mmap.MADV_CORE
 mmap.MADV_NOCORE
