@@ -855,6 +855,7 @@ webbrowser.UnixBrowser.raise_opts
 webbrowser.UnixBrowser.remote_action
 webbrowser.UnixBrowser.remote_action_newtab
 webbrowser.UnixBrowser.remote_action_newwin
+winreg
 winsound
 wsgiref.types
 wsgiref.util.FileWrapper.__init__
