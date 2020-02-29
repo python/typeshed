@@ -169,12 +169,6 @@ statistics.NormalDist.samples
 string.Formatter.format
 string.Template.safe_substitute
 string.Template.substitute
-struct.Struct.iter_unpack
-struct.Struct.unpack
-struct.calcsize
-struct.iter_unpack
-struct.unpack
-struct.unpack_from
 sys.UnraisableHookArgs
 threading.ExceptHookArgs
 time.CLOCK_PROF
