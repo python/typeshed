@@ -91,7 +91,6 @@ dataclasses.dataclass
 dataclasses.field
 dataclasses.make_dataclass
 dataclasses.replace
-datetime.date.fromtimestamp
 decimal.Decimal.from_float
 decimal.setcontext
 dis.stack_effect
