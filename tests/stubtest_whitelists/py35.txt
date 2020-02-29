@@ -17,7 +17,6 @@ asyncio.runners
 asyncio.tasks.Task.__init__
 bdb.GENERATOR_AND_COROUTINE_FLAGS
 builtins.str.maketrans
-cgi.escape
 cmath.log
 codecs.StreamRecoder.seek
 collections.Reversible
