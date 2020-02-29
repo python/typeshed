@@ -9,7 +9,6 @@ asyncio.protocols.BufferedProtocol
 asyncio.runners
 asyncio.tasks.Task._wakeup
 builtins.str.maketrans
-cgi.escape
 cmath.log
 codecs.StreamRecoder.seek
 collections.AsyncGenerator.ag_await
@@ -68,8 +67,6 @@ pyexpat.XMLParserType.ExternalEntityParserCreate
 secrets.SystemRandom.getstate
 smtplib.SMTP.sendmail
 sre_compile.dis
-ssl.SSLContext.wrap_bio
-ssl.SSLContext.wrap_socket
 tkinter.Menu.tk_bindForTraversal
 tkinter.Misc.tk_menuBar
 typing.AbstractSet.isdisjoint

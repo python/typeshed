@@ -91,7 +91,6 @@ dataclasses.dataclass
 dataclasses.field
 dataclasses.make_dataclass
 dataclasses.replace
-datetime.date.fromtimestamp
 decimal.Decimal.from_float
 decimal.setcontext
 dis.stack_effect
@@ -166,12 +165,6 @@ signal.sigtimedwait
 signal.sigwaitinfo
 smtplib.SMTP.sendmail
 sre_constants.RANGE_IGNORE
-ssl.MemoryBIO.read
-ssl.MemoryBIO.write
-ssl.RAND_bytes
-ssl.RAND_pseudo_bytes
-ssl.SSLContext.wrap_bio
-ssl.SSLContext.wrap_socket
 statistics.NormalDist.samples
 string.Formatter.format
 string.Template.safe_substitute
@@ -230,5 +223,4 @@ webbrowser.Opera.raise_opts
 xml.etree.ElementTree.XMLParser.__init__
 xml.etree.cElementTree.XMLParser.__init__
 zipfile.Path.open
-zipfile.ZipExtFile.__init__
 zipfile.ZipExtFile.seek

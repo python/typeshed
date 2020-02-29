@@ -22,7 +22,6 @@ asyncio.selector_events.BaseSelectorEventLoop.create_unix_server
 builtins.dict.get
 builtins.reversed
 builtins.str.maketrans
-cgi.escape
 cmath.log
 collections.AsyncGenerator.ag_await
 collections.AsyncGenerator.ag_code
@@ -86,8 +85,6 @@ queue.SimpleQueue.__init__
 secrets.SystemRandom.getstate
 smtplib.SMTP.sendmail
 sre_constants.RANGE_IGNORE
-ssl.SSLContext.wrap_bio
-ssl.SSLContext.wrap_socket
 time.CLOCK_PROF
 time.CLOCK_UPTIME
 tkinter.Menu.tk_bindForTraversal
@@ -134,4 +131,3 @@ uuid.UUID.int
 uuid.UUID.is_safe
 webbrowser.Opera.raise_opts
 xml.parsers.expat.XMLParserType.ExternalEntityParserCreate
-zipfile.ZipExtFile.__init__
