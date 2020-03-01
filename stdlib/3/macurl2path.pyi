@@ -1,7 +1,7 @@
 
 import sys
 
-from typing import AnyStr, Union
+from typing import Union
 
 if sys.version_info < (3, 7):
     def url2pathname(pathname: str) -> str: ...
