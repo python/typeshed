@@ -794,8 +794,6 @@ unittest.result.TestResult.addSubTest
 unittest.runner.TestRunner
 unittest.signals.removeHandler
 unittest.suite.TestSuite.run
-urllib.parse.quote
-urllib.parse.quote_plus
 urllib.request.BaseHandler.http_error_nnn
 urllib.request.HTTPBasicAuthHandler.http_error_401
 urllib.request.HTTPDigestAuthHandler.http_error_401
