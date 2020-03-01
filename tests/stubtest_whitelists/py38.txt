@@ -165,7 +165,6 @@ signal.sigtimedwait
 signal.sigwaitinfo
 smtplib.SMTP.sendmail
 sre_constants.RANGE_IGNORE
-statistics.NormalDist.samples
 string.Formatter.format
 string.Template.safe_substitute
 string.Template.substitute

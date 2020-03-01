@@ -709,7 +709,6 @@ ssl.SSLSocket.recvfrom
 ssl.SSLSocket.recvfrom_into
 ssl.SSLSocket.sendto
 ssl._ASN1Object.__new__
-statistics.median_grouped
 string.capwords
 subprocess.Popen.send_signal
 subprocess.call
