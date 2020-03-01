@@ -2,6 +2,10 @@ _bisect.bisect
 _bisect.insort
 _tracemalloc._get_object_traceback
 _tracemalloc.start
+ast.NodeVisitor.visit_AnnAssign
+ast.NodeVisitor.visit_Constant
+ast.NodeVisitor.visit_FormattedValue
+ast.NodeVisitor.visit_JoinedStr
 asyncio.AbstractEventLoop.create_unix_server
 asyncio.AbstractEventLoop.sock_sendfile
 asyncio.Future.__init__

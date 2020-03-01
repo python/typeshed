@@ -1,3 +1,7 @@
+ast.NodeVisitor.visit_AnnAssign
+ast.NodeVisitor.visit_Constant
+ast.NodeVisitor.visit_FormattedValue
+ast.NodeVisitor.visit_JoinedStr
 asyncio.Future.__init__
 asyncio.Task._wakeup
 asyncio.constants.SENDFILE_FALLBACK_READBUFFER_SIZE
