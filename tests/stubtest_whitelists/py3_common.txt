@@ -97,17 +97,12 @@ builtins.bytes.__int__
 builtins.bytes.maketrans
 builtins.classmethod.__get__
 builtins.complex.__complex__
-builtins.complex.__pow__
-builtins.complex.__rpow__
 builtins.copyright
 builtins.credits
 builtins.ellipsis
 builtins.exit
-builtins.float.__pow__
-builtins.float.__rpow__
 builtins.function
 builtins.help
-builtins.int.__rpow__
 builtins.license
 builtins.memoryview.__contains__
 builtins.memoryview.__iter__
