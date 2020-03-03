@@ -1,4 +1,3 @@
-
 import sys
 
 from typing import Optional, Sequence, Text, Union, AnyStr
@@ -11,7 +10,6 @@ else:
     _Path = Union[str, bytes]
 
 class EnvBuilder:
-
     system_site_packages: bool
     clear: bool
     symlinks: bool
@@ -33,8 +31,8 @@ class EnvBuilder:
     def _setup_pip(self, context: SimpleNamespace) -> None: ...  # undocumented
     def setup_scripts(self, context: SimpleNamespace) -> None: ...
     def post_setup(self, context: SimpleNamespace) -> None: ...
-    def replace_variables(self, text: AnyStr, context: SimpleNamespace) -> AnyStr: ...  # undocumented
-    def install_scripts(self, context: SimpleNamespace, path: AnyStr) -> None: ...
+    def replace_variables(self, text: str, context: SimpleNamespace) -> str: ...  # undocumented
+    def install_scripts(self, context: SimpleNamespace, path: str) -> None: ...
 
 if sys.version_info >= (3, 6):
     def create(env_dir: _Path, system_site_packages: bool = ..., clear: bool = ..., symlinks: bool = ..., with_pip: bool = ..., prompt: Optional[str] = ...) -> None: ...
