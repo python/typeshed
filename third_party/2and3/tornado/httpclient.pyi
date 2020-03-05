@@ -79,7 +79,7 @@ class HTTPResponse:
     time_info: Any
     def __init__(self, request, code, headers=..., buffer=..., effective_url=..., error=..., request_time=..., time_info=...,
                  reason=...) -> None: ...
-    body: Any
+    body: bytes
     def rethrow(self): ...
 
 class HTTPError(Exception):
