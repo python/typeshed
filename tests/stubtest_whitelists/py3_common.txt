@@ -492,8 +492,6 @@ os.uname_result._replace
 os.waitid_result._asdict
 os.waitid_result._make
 os.waitid_result._replace
-pdb.Pdb._print_lines
-pdb.Pdb.setup
 pickle.Pickler.persistent_id
 pickle.Unpickler.find_class
 pickle.Unpickler.persistent_load
