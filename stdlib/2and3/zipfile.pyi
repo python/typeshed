@@ -66,7 +66,7 @@ class ZipFile:
     debug: int
     comment: bytes
     filelist: List[ZipInfo]
-    fp: IO[bytes]
+    fp: Optional[IO[bytes]]
     NameToInfo: Dict[Text, ZipInfo]
     start_dir: int  # undocumented
     if sys.version_info >= (3, 8):
