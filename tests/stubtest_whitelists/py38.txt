@@ -119,6 +119,7 @@ logging.handlers.MemoryHandler.__init__
 lzma.LZMACompressor.compress
 lzma.is_check_supported
 macpath
+macurl2path
 mmap.MADV_AUTOSYNC
 mmap.MADV_CORE
 mmap.MADV_NOCORE
@@ -165,9 +166,6 @@ signal.sigtimedwait
 signal.sigwaitinfo
 smtplib.SMTP.sendmail
 sre_constants.RANGE_IGNORE
-string.Formatter.format
-string.Template.safe_substitute
-string.Template.substitute
 sys.UnraisableHookArgs
 threading.ExceptHookArgs
 time.CLOCK_PROF

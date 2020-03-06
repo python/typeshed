@@ -76,6 +76,7 @@ macpath.samestat
 macpath.split
 macpath.splitdrive
 macpath.splitext
+macurl2path
 multiprocessing.shared_memory
 os.utime
 pyclbr.Class.__init__
