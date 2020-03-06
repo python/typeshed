@@ -166,7 +166,6 @@ signal.sigtimedwait
 signal.sigwaitinfo
 smtplib.SMTP.sendmail
 sre_constants.RANGE_IGNORE
-statistics.NormalDist.samples
 sys.UnraisableHookArgs
 threading.ExceptHookArgs
 time.CLOCK_PROF
