@@ -915,5 +915,4 @@ xml.etree.cElementTree.TreeBuilder.start
 xml.sax.xmlreader.AttributesImpl.has_key
 zipfile.ZipExtFile.read
 zipfile.ZipExtFile.readline
-zipfile.ZipFile.extract
 zlib.compressobj
