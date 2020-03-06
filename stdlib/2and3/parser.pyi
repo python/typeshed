@@ -1,9 +1,7 @@
-
 from typing import Any, List, Sequence, Tuple, Union
 from types import CodeType
 
 import sys
-
 
 if sys.version_info >= (3, 6):
     from builtins import _PathLike
