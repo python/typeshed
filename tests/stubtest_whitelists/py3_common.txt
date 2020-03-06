@@ -726,9 +726,6 @@ tempfile.SpooledTemporaryFile.__next__
 tempfile.SpooledTemporaryFile.readable
 tempfile.SpooledTemporaryFile.seekable
 tempfile.SpooledTemporaryFile.writable
-textwrap.TextWrapper.x
-textwrap.indent
-textwrap.wrap
 threading.BoundedSemaphore.__enter__
 threading.BoundedSemaphore.acquire
 threading.Condition.acquire
