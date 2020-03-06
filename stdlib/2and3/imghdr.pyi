@@ -1,11 +1,17 @@
 import os
 import sys
-from typing import IO, Any, BinaryIO, Callable, List, Optional, Text, Union, overload
+from typing import Any, BinaryIO, Callable, List, Optional, Protocol, Text, Union, overload
+
+class _ReadableBinary(Protocol):
+    def tell(self) -> int: ...
+    def read(self, size: int = ...) -> bytes: ...
+    def seek(self, offset: int) -> Optional[int]: ...
+
 
 if sys.version_info >= (3, 6):
-    _File = Union[Text, os.PathLike[Text], IO[bytes]]
+    _File = Union[Text, os.PathLike[Text], _ReadableBinary]
 else:
-    _File = Union[Text, IO[bytes]]
+    _File = Union[Text, _ReadableBinary]
 
 
 @overload
