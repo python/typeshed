@@ -3,17 +3,19 @@ import socketserver
 import pydoc
 
 from xmlrpc.client import Fault
-from typing import Any, Callable, Dict, Iterable, List, Optional, Pattern, Tuple, Type, Union
+from typing import Any, Callable, Dict, Iterable, List, Optional, Pattern, Protocol, Tuple, Type, Union
 from datetime import datetime
 
 _Marshallable = Union[None, bool, int, float, str, bytes, tuple, list, dict, datetime]
+class _DispatchProtocol(Protocol):
+    def __call__(self, *args: _Marshallable) -> _Marshallable: ...
 
 def resolve_dotted_attribute(obj: Any, attr: str, allow_dotted_names: bool = ...) -> Any: ...  # undocumented
 def list_public_methods(obj: Any) -> List[str]: ...  # undocumented
 
 class SimpleXMLRPCDispatcher:  # undocumented
 
-    funcs: Dict[str, Callable[[_Marshallable, ...], _Marshallable]]
+    funcs: Dict[str, _DispatchProtocol]
     instance: Optional[Any]
     allow_none: bool
     encoding: str
@@ -21,7 +23,7 @@ class SimpleXMLRPCDispatcher:  # undocumented
 
     def __init__(self, allow_none: bool = ..., encoding: Optional[str] = ..., use_builtin_types: bool = ...) -> None: ...
     def register_instance(self, instance: Any, allow_dotted_names: bool = ...) -> None: ...
-    def register_function(self, function: Optional[Callable[[_Marshallable, ...], _Marshallable]] = ..., name: Optional[str] = ...) -> Callable[[...], Any]: ...
+    def register_function(self, function: Optional[_DispatchProtocol] = ..., name: Optional[str] = ...) -> Callable[..., Any]: ...
     def register_introspection_functions(self) -> None: ...
     def register_multicall_functions(self) -> None: ...
     def _marshaled_dispatch(self, data: str, dispatch_method: Optional[Callable[[Optional[str], Tuple[_Marshallable, ...]], Union[Fault, Tuple[_Marshallable, ...]]]] = ..., path: Optional[Any] = ...) -> str: ...  # undocumented
@@ -55,7 +57,7 @@ class SimpleXMLRPCServer(socketserver.TCPServer, SimpleXMLRPCDispatcher):
 
 class MultiPathXMLRPCServer(SimpleXMLRPCServer):  # undocumented
 
-    dispatchers: Dict[str, ]
+    dispatchers: Dict[str, SimpleXMLRPCDispatcher]
     allow_none: bool
     encoding: str
 
