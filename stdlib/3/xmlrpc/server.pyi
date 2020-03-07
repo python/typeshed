@@ -3,7 +3,7 @@ import socketserver
 import pydoc
 
 from xmlrpc.client import Fault
-from typing import Any, Callable, Dict, Iterable, List, Optional, Pattern, Protocol, Tuple, Type, Union
+from typing import Any, Callable, Dict, Iterable, List, Mapping, Optional, Pattern, Protocol, Tuple, Type, Union
 from datetime import datetime
 
 _Marshallable = Union[None, bool, int, float, str, bytes, tuple, list, dict, datetime]
@@ -75,6 +75,7 @@ class CGIXMLRPCRequestHandler(SimpleXMLRPCDispatcher):
 
 class ServerHTMLDoc(pydoc.HTMLDoc):  # undocumented
 
+    def docroutine(self, object: object, name: str, mod: Optional[str] = ..., funcs: Mapping[str, str] = ..., classes: Mapping[str, str] = ..., methods: Mapping[str, str] = ..., cl: Optional[type] = ..., *ignored) -> str: ...  # type: ignore
     def docserver(self, server_name: str, package_documentation: str, methods: Dict[str, str]) -> str: ...
 
 class XMLRPCDocGenerator:  # undocumented
