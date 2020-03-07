@@ -75,7 +75,7 @@ class CGIXMLRPCRequestHandler(SimpleXMLRPCDispatcher):
 
 class ServerHTMLDoc(pydoc.HTMLDoc):  # undocumented
 
-    def docroutine(self, object: object, name: str, mod: Optional[str] = ..., funcs: Mapping[str, str] = ..., classes: Mapping[str, str] = ..., methods: Mapping[str, str] = ..., cl: Optional[type] = ..., *ignored) -> str: ...  # type: ignore
+    def docroutine(self, object: object, name: str, mod: Optional[str] = ..., funcs: Mapping[str, str] = ..., classes: Mapping[str, str] = ..., methods: Mapping[str, str] = ..., cl: Optional[type] = ...) -> str: ...  # type: ignore
     def docserver(self, server_name: str, package_documentation: str, methods: Dict[str, str]) -> str: ...
 
 class XMLRPCDocGenerator:  # undocumented
