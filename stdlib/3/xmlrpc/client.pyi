@@ -87,7 +87,6 @@ class Binary:
     data: bytes
 
     def __init__(self, data: Optional[bytes] = ...) -> None: ...
-    def __eq__(self, other: Union[Binary, bytes]) -> bool: ...  # type: ignore
     def decode(self, data: bytes) -> None: ...
     def encode(self, out: IO[str]) -> None: ...
 
@@ -127,7 +126,7 @@ class Marshaller:
 
 class Unmarshaller:
 
-    dispatch: Dict[str, Callable[['Unmarshaller', str], None]] = ...
+    dispatch: Dict[str, Callable[[Unmarshaller, str], None]] = ...
 
     _type: Optional[str]
     _stack: List[_Marshallable]
