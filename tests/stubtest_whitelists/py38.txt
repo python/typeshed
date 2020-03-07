@@ -162,10 +162,6 @@ random.Random.getrandbits
 random.getrandbits
 secrets.SystemRandom.getstate
 secrets.compare_digest
-select.epoll.__exit__
-select.epoll.fromfd
-select.epoll.poll
-select.select
 signal.sigtimedwait
 signal.sigwaitinfo
 smtplib.SMTP.sendmail
