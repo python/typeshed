@@ -5,10 +5,6 @@ _thread._ExceptHookArgs
 _tracemalloc._get_object_traceback
 _tracemalloc.start
 _weakref.getweakrefcount
-ast.NodeVisitor.visit_AnnAssign
-ast.NodeVisitor.visit_FormattedValue
-ast.NodeVisitor.visit_JoinedStr
-ast.NodeVisitor.visit_NamedExpr
 asyncio.AbstractEventLoop.create_unix_server
 asyncio.AbstractEventLoop.sock_sendfile
 asyncio.Future.__init__
@@ -122,12 +118,7 @@ lzma.LZMACompressor.compress
 lzma.is_check_supported
 macpath
 macurl2path
-mmap.MADV_AUTOSYNC
-mmap.MADV_CORE
-mmap.MADV_NOCORE
-mmap.MADV_NOSYNC
-mmap.MADV_PROTECT
-mmap.MADV_SOFT_OFFLINE
+mmap.MADV_[A-Z_]+
 multiprocessing.pool.CLOSE
 multiprocessing.pool.RUN
 multiprocessing.pool.TERMINATE
