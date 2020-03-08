@@ -27,8 +27,6 @@ collections.abc.AsyncGenerator.ag_running
 copy.PyStringMap
 ctypes.CDLL.__init__
 email.message.MIMEPart.as_string
-email.mime.message.MIMEMessage.__init__
-email.mime.text.MIMEText.__init__
 enum.Enum._generate_next_value_
 gettext.NullTranslations.npgettext
 gettext.NullTranslations.pgettext

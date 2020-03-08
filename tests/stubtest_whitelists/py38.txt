@@ -99,8 +99,6 @@ decimal.Decimal.from_float
 decimal.setcontext
 dis.stack_effect
 email.message.MIMEPart.as_string
-email.mime.message.MIMEMessage.__init__
-email.mime.text.MIMEText.__init__
 enum.Enum._generate_next_value_
 functools.partialmethod.__get__
 gettext.install
