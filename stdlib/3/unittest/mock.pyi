@@ -1,7 +1,7 @@
 # Stubs for mock
 
 import sys
-from typing import Any, List, Optional, Text, Tuple, Type, TypeVar,
+from typing import Any, List, Optional, Text, Tuple, Type, TypeVar
 
 _T = TypeVar("_T")
 
