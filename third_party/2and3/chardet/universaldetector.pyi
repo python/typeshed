@@ -1,19 +1,17 @@
 import sys
 from typing import Dict, Union, AnyStr, Pattern, Optional
+from typing_extensions import TypedDict
 from logging import Logger
 
-if sys.version_info >= (3, 8):
-    from typing import TypedDict
+class _FinalResultType(TypedDict):
+    encoding: str
+    confidence: float
+    language: str
 
-    class FinalResultType(TypedDict):
-        encoding: str
-        confidence: float
-        language: str
-
-    class IntermediateResultType(TypedDict):
-        encoding: Optional[str]
-        confidence: float
-        language: Optional[str]
+class _IntermediateResultType(TypedDict):
+    encoding: Optional[str]
+    confidence: float
+    language: Optional[str]
 
 class UniversalDetector(object):
     MINIMUM_THRESHOLD: float
@@ -22,10 +20,7 @@ class UniversalDetector(object):
     WIN_BYTE_DETECTOR: Pattern[bytes]
     ISO_WIN_MAP: Dict[str, str]
 
-    if sys.version_info >= (3, 8):
-        result: IntermediateResultType
-    else:
-        result: Dict[str, Union[str, float]]
+    result: _IntermediateResultType
     done: bool
     lang_filter: int
     logger: Logger
@@ -33,8 +28,4 @@ class UniversalDetector(object):
     def __init__(self, lang_filter: int) -> None: ...
     def reset(self) -> None: ...
     def feed(self, byte_str: bytes) -> None: ...
-
-    if sys.version_info >= (3, 8):
-        def close(self) -> FinalResultType: ...
-    else:
-        def close(self) -> Dict[str, Union[str, float]]: ...
+    def close(self) -> _FinalResultType: ...
