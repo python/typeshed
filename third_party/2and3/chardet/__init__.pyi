@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import sys
 from typing import Any
 
@@ -18,9 +17,3 @@ class _ModelType(TypedDict):
     keep_english_letter: bool
     charset_name: str
     language: str
-=======
-from typing import Any
-from .universaldetector import UniversalDetector as UniversalDetector
-
-def __getattr__(name: str) -> Any: ...  # incomplete
->>>>>>> b44cd294c4f6cdb66fdd6c13aebabb10855e7dc2
