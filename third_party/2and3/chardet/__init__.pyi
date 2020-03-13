@@ -10,7 +10,7 @@ if sys.version_info >= (3, 8):
 else:
     from typing_extensions import TypedDict
 
-class _ModelType(TypedDict):
+class _LangModelType(TypedDict):
     char_to_order_map: Tuple[int]
     precedence_matrix: Tuple[int]
     typical_positive_ratio: float

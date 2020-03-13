@@ -1,6 +1,6 @@
 from typing import Tuple
-from . import _ModelType
+from . import _LangModelType
 
 TIS620CharToOrderMap: Tuple[int]
 ThaiLangModel: Tuple[int]
-TIS620ThaiModel: _ModelType
+TIS620ThaiModel: _LangModelType

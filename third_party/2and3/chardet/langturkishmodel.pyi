@@ -1,6 +1,6 @@
 from typing import Tuple
-from . import _ModelType
+from . import _LangModelType
 
 Latin5_TurkishCharToOrderMap: Tuple[int]
 TurkishLangModel: Tuple[int]
-Latin5TurkishModel: _ModelType
+Latin5TurkishModel: _LangModelType
