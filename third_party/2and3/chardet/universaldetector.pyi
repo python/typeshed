@@ -1,9 +1,5 @@
 import sys
-<<<<<<< HEAD
 from typing import Dict, Pattern, Optional
-=======
-from typing import Dict, Union, AnyStr, Pattern, Optional
->>>>>>> b44cd294c4f6cdb66fdd6c13aebabb10855e7dc2
 from typing_extensions import TypedDict
 from logging import Logger
 
