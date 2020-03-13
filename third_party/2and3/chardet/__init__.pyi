@@ -1,5 +1,5 @@
 import sys
-from typing import Any
+from typing import Any, Tuple
 
 from .universaldetector import UniversalDetector as UniversalDetector
 

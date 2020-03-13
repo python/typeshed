@@ -1,4 +1,4 @@
-from typing import Tuple, TypedDict
+from typing import Tuple
 from . import _ModelType
 
 KOI8R_char_to_order_map: Tuple[int]

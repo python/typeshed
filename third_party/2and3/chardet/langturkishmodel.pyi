@@ -1,4 +1,4 @@
-from typing import Tuple, TypedDict
+from typing import Tuple
 from . import _ModelType
 
 Latin5_TurkishCharToOrderMap: Tuple[int]

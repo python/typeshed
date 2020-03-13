@@ -1,4 +1,4 @@
-from typing import Tuple, TypedDict
+from typing import Tuple
 from . import _ModelType
 
 WIN1255_CHAR_TO_ORDER_MAP: Tuple[int]

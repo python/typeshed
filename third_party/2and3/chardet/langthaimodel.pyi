@@ -1,4 +1,4 @@
-from typing import Tuple, TypedDict
+from typing import Tuple
 from . import _ModelType
 
 TIS620CharToOrderMap: Tuple[int]
