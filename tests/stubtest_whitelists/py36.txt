@@ -40,6 +40,7 @@ io.BufferedRandom.read1
 io.BufferedReader.read1
 io.StringIO.readline
 ipaddress._BaseNetwork.__init__
+json.loads
 logging.handlers.MemoryHandler.__init__
 macpath.basename
 macpath.commonpath

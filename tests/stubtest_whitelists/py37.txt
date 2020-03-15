@@ -56,6 +56,7 @@ http.client.HTTPSConnection.__init__
 http.server.SimpleHTTPRequestHandler.__init__
 importlib.metadata
 ipaddress._BaseNetwork.__init__
+json.loads
 logging.handlers.MemoryHandler.__init__
 macpath.basename
 macpath.commonpath
