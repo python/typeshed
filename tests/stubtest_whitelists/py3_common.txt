@@ -472,10 +472,6 @@ lib2to3.pytree.Base.type
 lib2to3.pytree.BasePattern.type
 lib2to3.pytree.NegatedPattern.match
 lib2to3.pytree.NegatedPattern.match_seq
-locale.atof
-locale.format
-locale.format_string
-locale.str
 logging.Formatter.formatException
 logging.Handler.addFilter
 logging.Handler.removeFilter
