@@ -350,7 +350,6 @@ distutils.sysconfig.set_python_build
 distutils.text_file.TextFile.warn
 distutils.version.Version._cmp
 distutils.version.Version.parse
-doctest.testmod
 email.feedparser.BytesFeedParser.__init__
 email.feedparser.FeedParser.__init__
 email.generator.BytesGenerator.__init__
