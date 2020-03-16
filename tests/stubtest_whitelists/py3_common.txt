@@ -598,7 +598,6 @@ posix.uname_result._replace
 posix.waitid_result._asdict
 posix.waitid_result._make
 posix.waitid_result._replace
-pstats.Stats.__init__
 pwd.getpwnam
 pydoc.Doc.getdocloc
 pydoc.HTMLDoc.docdata
