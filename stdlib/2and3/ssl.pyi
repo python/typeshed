@@ -134,7 +134,9 @@ PROTOCOL_SSLv3: int
 PROTOCOL_TLSv1: int
 PROTOCOL_TLSv1_1: int
 PROTOCOL_TLSv1_2: int
-if sys.version_info >= (3, 5) or (2, 7, 13) <= sys.version_info < (3, 0):
+if sys.version_info >= (3, 5):
+    PROTOCOL_TLS: int
+if (2, 7, 13) <= sys.version_info < (3, 0):
     PROTOCOL_TLS: int
 if sys.version_info >= (3, 6):
     PROTOCOL_TLS_CLIENT: int
