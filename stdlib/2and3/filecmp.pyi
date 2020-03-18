@@ -1,18 +1,30 @@
 # Stubs for filecmp (Python 2/3)
 import sys
 from typing import AnyStr, Callable, Dict, Generic, Iterable, List, Optional, Sequence, Tuple, Union, Text
-from pathlib import Path
+
+if sys.version_info >= (3, ):
+    from pathlib import Path
 
 DEFAULT_IGNORES: List[str]
 
-def cmp(f1: Union[bytes, Text, Path], f2: Union[bytes, Text, Path], shallow: Union[int, bool] = ...) -> bool: ...
-def cmpfiles(a: Union[AnyStr, Path], b: Union[AnyStr, Path], common: Iterable[AnyStr],
-             shallow: Union[int, bool] = ...) -> Tuple[List[AnyStr], List[AnyStr], List[AnyStr]]: ...
+if sys.version_info >= (3, ):
+    def cmp(f1: Union[bytes, Text, Path], f2: Union[bytes, Text, Path], shallow: Union[int, bool] = ...) -> bool: ...
+    def cmpfiles(a: Union[AnyStr, Path], b: Union[AnyStr, Path], common: Iterable[AnyStr],
+                 shallow: Union[int, bool] = ...) -> Tuple[List[AnyStr], List[AnyStr], List[AnyStr]]: ...
+else:
+    def cmp(f1: Union[bytes, Text], f2: Union[bytes, Text], shallow: Union[int, bool] = ...) -> bool: ...
+    def cmpfiles(a: AnyStr, b: AnyStr, common: Iterable[AnyStr],
+                 shallow: Union[int, bool] = ...) -> Tuple[List[AnyStr], List[AnyStr], List[AnyStr]]: ...
 
 class dircmp(Generic[AnyStr]):
-    def __init__(self, a: Union[AnyStr, Path], b: Union[AnyStr, Path],
-                 ignore: Optional[Sequence[AnyStr]] = ...,
-                 hide: Optional[Sequence[AnyStr]] = ...) -> None: ...
+    if sys.version_info >= (3, ):
+        def __init__(self, a: Union[AnyStr, Path], b: Union[AnyStr, Path],
+                     ignore: Optional[Sequence[AnyStr]] = ...,
+                     hide: Optional[Sequence[AnyStr]] = ...) -> None: ...
+    else:
+        def __init__(self, a: AnyStr, b: AnyStr,
+                     ignore: Optional[Sequence[AnyStr]] = ...,
+                     hide: Optional[Sequence[AnyStr]] = ...) -> None: ...
 
     left: AnyStr
     right: AnyStr
