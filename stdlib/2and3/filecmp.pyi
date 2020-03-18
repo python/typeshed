@@ -2,12 +2,12 @@
 import sys
 from typing import AnyStr, Callable, Dict, Generic, Iterable, List, Optional, Sequence, Tuple, Union, Text
 
-if sys.version_info >= (3, ):
+if sys.version_info >= (3, 6):
     from pathlib import Path
 
 DEFAULT_IGNORES: List[str]
 
-if sys.version_info >= (3, ):
+if sys.version_info >= (3, 6):
     def cmp(f1: Union[bytes, Text, Path], f2: Union[bytes, Text, Path], shallow: Union[int, bool] = ...) -> bool: ...
     def cmpfiles(a: Union[AnyStr, Path], b: Union[AnyStr, Path], common: Iterable[AnyStr],
                  shallow: Union[int, bool] = ...) -> Tuple[List[AnyStr], List[AnyStr], List[AnyStr]]: ...
@@ -17,7 +17,7 @@ else:
                  shallow: Union[int, bool] = ...) -> Tuple[List[AnyStr], List[AnyStr], List[AnyStr]]: ...
 
 class dircmp(Generic[AnyStr]):
-    if sys.version_info >= (3, ):
+    if sys.version_info >= (3, 6):
         def __init__(self, a: Union[AnyStr, Path], b: Union[AnyStr, Path],
                      ignore: Optional[Sequence[AnyStr]] = ...,
                      hide: Optional[Sequence[AnyStr]] = ...) -> None: ...
