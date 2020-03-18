@@ -582,7 +582,6 @@ pickle.Unpickler.find_class
 pickle.Unpickler.persistent_load
 pipes.Template.copy
 pkgutil.ImpImporter.__init__
-plistlib.loads
 poplib.POP3_SSL.stls
 posix.EX_NOTFOUND
 posix.sched_param._asdict
