@@ -1,4 +1,7 @@
-from hammurabi.rules.common import MultiplePathRule as MultiplePathRule, SinglePathRule as SinglePathRule
+from hammurabi.rules.common import (
+    MultiplePathRule as MultiplePathRule,
+    SinglePathRule as SinglePathRule,
+)
 from pathlib import Path
 from typing import Iterable
 

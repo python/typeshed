@@ -1,10 +1,10 @@
-from git import Repo
-from github3 import GitHub as GitHub
+from git import Repo  # type: ignore
+from github3 import GitHub as GitHub  # type: ignore
 from pathlib import Path
-from pydantic import BaseSettings
+from pydantic import BaseSettings  # type: ignore
 from typing import Any, Dict, Union
 
-class CommonSettings(BaseSettings):
+class CommonSettings(BaseSettings):  # type: ignore
     dry_run: bool = ...
     rule_can_abort: bool = ...
     git_branch_name: str = ...

@@ -1,4 +1,4 @@
-from github3.repos.repo import Repository as Repository
+from github3.repos.repo import Repository as Repository  # type: ignore
 from hammurabi.config import config as config
 from pathlib import Path
 from typing import Any
