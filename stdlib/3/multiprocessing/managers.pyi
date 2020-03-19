@@ -22,7 +22,7 @@ class Namespace: ...
 
 _Namespace = Namespace
 
-class BaseProxy(ContextManager[BaseProxy]):
+class BaseProxy(object):
     _address_to_local: Dict[Any, Any]
     _mutex: Any
     def __init__(self, token: Any, serializer: str, manager: Optional[Any],
