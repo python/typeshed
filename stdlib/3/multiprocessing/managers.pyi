@@ -7,7 +7,7 @@ import sys
 import threading
 from typing import (
     Any, Callable, ContextManager, Dict, Iterable, Generic, List, Mapping, Optional,
-    Sequence, Tuple, TypeVar, Union,
+    Sequence, Tuple, TypeVar, Union, AnyStr,
 )
 from .context import BaseContext
 
@@ -22,7 +22,16 @@ class Namespace: ...
 
 _Namespace = Namespace
 
-class BaseProxy: ...
+class BaseProxy(ContextManager[BaseProxy]):
+    _address_to_local: Dict[Any, Any]
+    _mutex: Any
+    def __init__(self, token: Any, serializer: str, manager: Optional[Any],
+                 authkey: Optional[AnyStr], exposed: Optional[Any],
+                 incef: bool, manager_owned: bool) -> None: ...
+    def __deepcopy__(self, memo: Optional[Any]) -> Optional[Any]: ...
+    def _callmethod(self, methodname: str, args: Tuple[Any, ...], kwds: Dict[Any, Any]) -> None: ...
+    def _getvalue(self) -> Optional[Any]: ...
+    def __reduce__(self) -> Tuple[Any, Tuple[Any, Any, str, Dict[Any, Any]]]: ...
 
 class ValueProxy(BaseProxy, Generic[_T]):
     def get(self) -> _T: ...
