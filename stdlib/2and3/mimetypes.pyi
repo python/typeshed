@@ -1,6 +1,6 @@
 # Stubs for mimetypes
 
-from typing import Dict, IO, List, Optional, Sequence, Text, Tuple, AnyStr
+from typing import Dict, IO, List, Optional, Sequence, Text, Tuple, AnyStr, Union
 import sys
 
 if sys.version_info >= (3, 8):
