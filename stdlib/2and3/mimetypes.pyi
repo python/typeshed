@@ -5,7 +5,7 @@ import sys
 
 if sys.version_info >= (3, 8):
     from os import PathLike
-    def guess_type(url: PathLike[AnyStr],
+    def guess_type(url: Union[Text, PathLike[AnyStr]],
                    strict: bool = ...) -> Tuple[Optional[str], Optional[str]]: ...
 else:
     def guess_type(url: Text,
