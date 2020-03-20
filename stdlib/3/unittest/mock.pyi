@@ -49,9 +49,7 @@ class _MockIter:
 class Base:
     def __init__(self, *args: Any, **kwargs: Any) -> None: ...
 
-# TODO: Defining this and other mock classes as classes in this stub causes
-#       many false positives with mypy and production code. See if we can
-#       improve mypy somehow and use a class with an "Any" base class.
+
 class NonCallableMock(Base, Any):  # type: ignore
     def __getattr__(self, name: str) -> Any: ...
     if sys.version_info >= (3, 8):
