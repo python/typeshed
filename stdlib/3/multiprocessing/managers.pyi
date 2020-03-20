@@ -22,6 +22,18 @@ class Namespace: ...
 
 _Namespace = Namespace
 
+class Token(object):
+    typeid: Optional[AnyStr]
+    address: Tuple[AnyStr, int]
+    id: Optiona[Union[AnyStr, int]]
+    def __init__(self, typeid: Optional[AnyStr],address: Tuple[AnyStr, int],
+                 id: Optiona[Union[AnyStr, int]]) -> None: ...
+    def __repr__(self) -> str: ...
+    def __getstate__(self) -> Tuple[Optional[AnyStr], Tuple[AnyStr, int],
+                                    Optional[Union[AnyStr, int]]]: ...
+    def __setstate__(self, state: Tuple[Optional[AnyStr], Tuple[AnyStr, int],
+                                        Optional[Union[AnyStr, int]]]) -> None: ...
+
 class BaseProxy(object):
     _address_to_local: Dict[Any, Any]
     _mutex: Any
