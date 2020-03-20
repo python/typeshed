@@ -104,7 +104,8 @@ class CallableMixin(Base):
     def __init__(self, spec: Optional[Any] = ..., side_effect: Optional[Any] = ..., return_value: Any = ..., wraps: Optional[Any] = ..., name: Optional[Any] = ..., spec_set: Optional[Any] = ..., parent: Optional[Any] = ..., _spec_state: Optional[Any] = ..., _new_name: Any = ..., _new_parent: Optional[Any] = ..., **kwargs: Any) -> None: ...
     def __call__(_mock_self, *args: Any, **kwargs: Any) -> Any: ...
 
-Mock = Any
+class Mock(NonCallableMock, CallableMixin):
+    pass
 
 class _patch:
     attribute_name: Any
@@ -158,8 +159,12 @@ patch: _patcher
 class MagicMixin:
     def __init__(self, *args: Any, **kw: Any) -> None: ...
 
-NonCallableMagicMock = Any
-MagicMock = Any
+class NonCallableMagicMock(MagicMixin, NonCallableMock):
+    pass
+
+class MagicMock(MagicMixin, Mock):
+    pass
+
 if sys.version_info >= (3, 8):
     AsyncMock = Any
 
