@@ -4,6 +4,7 @@ import sys
 from abc import abstractmethod, ABCMeta
 from types import CodeType, FrameType, TracebackType
 import collections  # Needed by aliases like DefaultDict, see mypy issue 2986
+from types import CodeType
 
 # Definitions of special type checking related constructs.  Their definitions
 # are not used, so their value does not matter.
@@ -659,3 +660,15 @@ def NewType(name: str, tp: Type[_T]) -> Type[_T]: ...
 
 # This itself is only available during type checking
 def type_check_only(func_or_cls: _C) -> _C: ...
+
+class ForwardRef:
+    __forward_arg__: str
+    __forward_code__: CodeType
+    __forward_evaluated__: bool
+    __forward_value__: Optional[Any]
+    __forward_is_argument__: bool
+    def __init__(self, arg: str, is_argument: bool = ...) -> None: ...
+    def _evaluate(self, globalns: Optional[Dict[str, Any]], localns) -> Optional[Any]: ...
+    def __eq__(self, other: Any) -> Union[bool, NotImplemented]: ...
+    def __hash__(self) -> int: ...
+    def __repr__(self) -> str: ...
