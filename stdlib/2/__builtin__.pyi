@@ -26,6 +26,7 @@ _T = TypeVar('_T')
 _T_co = TypeVar('_T_co', covariant=True)
 _KT = TypeVar('_KT')
 _VT = TypeVar('_VT')
+_VT_co = TypeVar('_VT_co', covariant=True)
 _S = TypeVar('_S')
 _T1 = TypeVar('_T1')
 _T2 = TypeVar('_T2')
@@ -33,9 +34,27 @@ _T3 = TypeVar('_T3')
 _T4 = TypeVar('_T4')
 _T5 = TypeVar('_T5')
 _TT = TypeVar('_TT', bound='type')
+_TC = TypeVar('_TC', bound=Type[object])
 
 class _SupportsIndex(Protocol):
     def __index__(self) -> int: ...
+
+def runtime_checkable(cls: _TC) -> _TC: ...
+
+if sys.version_info >= (3, 6):
+    @runtime_checkable
+    class Collections(Iterable[_T_co], Container[_T_co], Protocol[_T_co]):
+        # Implement Sized (but don't have it as a base class).
+        @abstractmethod
+        def __len__(self) -> int: ...
+
+    _Collection = Collections
+else:
+    @runtime_checkable
+    class _Collection(Iterable[_T_co], Container[_T_co], Protocol[_T_co]):
+        # Implement Sized (but don't have it as a base class).
+        @abstractmethod
+        def __len__(self) -> int: ...
 
 class object:
     __doc__: Optional[str]
@@ -433,7 +452,12 @@ class str(Sequence[str], _str_base):
     def find(self, sub: Text, __start: Optional[int] = ..., __end: Optional[int] = ...) -> int: ...
     def format(self, *args: object, **kwargs: object) -> str: ...
     if sys.version_info >= (3,):
-        def format_map(self, map: Mapping[str, Any]) -> str: ...
+        class _Mapping(Protocol, _Collection[_KT], Generic[_KT, _VT_co]):
+            # TODO: Cant make key type as covariant
+            # see discussion in https://github.com/python/typing/pull/273
+            @abstractmethod
+            def __getitem__(self, k: _KT) -> _VT_co: ...
+        def format_map(self, map: _Mapping[str, Any]) -> str: ...
     def index(self, sub: Text, __start: Optional[int] = ..., __end: Optional[int] = ...) -> int: ...
     def isalnum(self) -> bool: ...
     def isalpha(self) -> bool: ...
