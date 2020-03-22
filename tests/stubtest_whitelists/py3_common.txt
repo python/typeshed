@@ -204,7 +204,6 @@ builtins.reveal_type
 builtins.staticmethod.__get__
 builtins.str._Mapping
 builtins.runtime_checkable
-builtins.Collections
 bz2.BZ2File.readinto
 bz2.BZ2File.readlines
 bz2.BZ2File.write

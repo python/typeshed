@@ -13,6 +13,7 @@ asyncio.protocols.BufferedProtocol
 asyncio.runners
 asyncio.tasks.Task._wakeup
 builtins.str.maketrans
+builtins.Collections
 cmath.log
 codecs.StreamRecoder.seek
 collections.AsyncGenerator.ag_await

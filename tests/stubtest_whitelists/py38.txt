@@ -48,6 +48,7 @@ builtins.bytearray.pop
 builtins.compile
 builtins.dict.get
 builtins.reversed
+builtins.Collections
 bz2.BZ2Compressor.compress
 bz2.BZ2File.read
 bz2.BZ2File.read1
