@@ -7,7 +7,7 @@ from typing import (
     Set, AbstractSet, FrozenSet, MutableSet, Sized, Reversible, SupportsInt, SupportsFloat, SupportsAbs,
     SupportsComplex, IO, BinaryIO, Union,
     ItemsView, KeysView, ValuesView, ByteString, Optional, AnyStr, Type, Text,
-    Protocol, Collection,
+    Protocol,
 )
 from abc import abstractmethod, ABCMeta
 from ast import mod, AST
@@ -40,7 +40,22 @@ _TC = TypeVar('_TC', bound=Type[object])
 class _SupportsIndex(Protocol):
     def __index__(self) -> int: ...
 
-def runtime_checkable(cls: _TC) -> _TC: ... 
+def runtime_checkable(cls: _TC) -> _TC: ...
+
+if sys.version_info >= (3, 6):
+    @runtime_checkable
+    class Collections(Iterable[_T_co], Container[_T_co], Protocol[_T_co]):
+        # Implement Sized (but don't have it as a base class).
+        @abstractmethod
+        def __len__(self) -> int: ...
+
+    _Collection = Collections
+else:
+    @runtime_checkable
+    class _Collection(Iterable[_T_co], Container[_T_co], Protocol[_T_co]):
+        # Implement Sized (but don't have it as a base class).
+        @abstractmethod
+        def __len__(self) -> int: ...
 
 class object:
     __doc__: Optional[str]
@@ -438,21 +453,7 @@ class str(Sequence[str], _str_base):
     def find(self, sub: Text, __start: Optional[int] = ..., __end: Optional[int] = ...) -> int: ...
     def format(self, *args: object, **kwargs: object) -> str: ...
     if sys.version_info >= (3,):
-        if sys.version_info >= (3, 6):
-            @runtime_checkable
-            class Collectionss(Iterable[_T_co], Container[_T_co], Protocol[_T_co]):
-                # Implement Sized (but don't have it as a base class).
-                @abstractmethod
-                def __len__(self) -> int: ...
-
-            _Collection = Collectionss
-        else:
-            @runtime_checkable
-            class _Collection(Iterable[_T_co], Container[_T_co], Protocol[_T_co]):
-                # Implement Sized (but don't have it as a base class).
-                @abstractmethod
-                def __len__(self) -> int: ...
-        class _Mapping(Protocol, Collection[_KT], Generic[_KT, _VT_co]):
+        class _Mapping(Protocol, _Collection[_KT], Generic[_KT, _VT_co]):
             # TODO: Cant make key type as covariant
             # see discussion in https://github.com/python/typing/pull/273
             @abstractmethod
