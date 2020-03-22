@@ -25,7 +25,6 @@ else:
 _T = TypeVar('_T')
 _T_co = TypeVar('_T_co', covariant=True)
 _KT = TypeVar('_KT')
-_KT_contra = TypeVar('_KT_contra', contravariant=True)
 _VT = TypeVar('_VT')
 _VT_co = TypeVar('_VT_co', covariant=True)
 _S = TypeVar('_S')
