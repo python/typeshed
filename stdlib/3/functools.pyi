@@ -5,6 +5,7 @@ _AnyCallable = Callable[..., Any]
 
 _T = TypeVar("_T")
 _S = TypeVar("_S")
+_F = TypeVar("_F", bound=_AnyCallable)
 
 @overload
 def reduce(function: Callable[[_T, _S], _T],
@@ -19,19 +20,19 @@ class _CacheInfo(NamedTuple):
     maxsize: int
     currsize: int
 
-class _lru_cache_wrapper(Generic[_T]):
-    __wrapped__: Callable[..., _T]
-    def __call__(self, *args: Any, **kwargs: Any) -> _T: ...
+class _lru_cache_wrapper(Generic[_F]):
+    __wrapped__: _F
+    __call__: _F
     def cache_info(self) -> _CacheInfo: ...
     def cache_clear(self) -> None: ...
 
 if sys.version_info >= (3, 8):
     @overload
-    def lru_cache(maxsize: Optional[int] = ..., typed: bool = ...) -> Callable[[Callable[..., _T]], _lru_cache_wrapper[_T]]: ...
+    def lru_cache(maxsize: Optional[int] = ..., typed: bool = ...) -> Callable[[_F], _lru_cache_wrapper[_F]]: ...
     @overload
-    def lru_cache(maxsize: Callable[..., _T], typed: bool = ...) -> _lru_cache_wrapper[_T]: ...
+    def lru_cache(maxsize: _F, typed: bool = ...) -> _lru_cache_wrapper[_F]: ...
 else:
-    def lru_cache(maxsize: Optional[int] = ..., typed: bool = ...) -> Callable[[Callable[..., _T]], _lru_cache_wrapper[_T]]: ...
+    def lru_cache(maxsize: Optional[int] = ..., typed: bool = ...) -> Callable[[_F], _lru_cache_wrapper[_F]]: ...
 
 WRAPPER_ASSIGNMENTS: Sequence[str]
 WRAPPER_UPDATES: Sequence[str]
