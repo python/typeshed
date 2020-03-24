@@ -160,10 +160,10 @@ class MagicMixin:
     def __init__(self, *args: Any, **kw: Any) -> None: ...
 
 class NonCallableMagicMock(MagicMixin, NonCallableMock):
-    pass
+    def mock_add_spec(self, spec: Any, spec_set: bool = ...) -> None: ...
 
 class MagicMock(MagicMixin, Mock):
-    pass
+    def mock_add_spec(self, spec: Any, spec_set: bool = ...) -> None: ...
 
 if sys.version_info >= (3, 8):
     AsyncMock = Any
