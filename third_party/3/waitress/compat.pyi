@@ -1,4 +1,10 @@
+import sys
 from typing import Any, Optional
+
+if sys.version_info[0]==3:
+    from urllib import parse as urlparse
+else:
+    import urlparse
 
 PY2: Any
 PY3: Any
@@ -25,6 +31,10 @@ IPPROTO_IPV6: Any
 IPV6_V6ONLY: Any
 
 def set_nonblocking(fd: Any) -> None: ...
-ResourceWarning = ResourceWarning
+
+if sys.version_info[0]==3:
+    ResourceWarning = ResourceWarning
+else:
+    ResourceWarning = UserWarning
 
 def qualname(cls): ...

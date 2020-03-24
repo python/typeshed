@@ -1,7 +1,7 @@
-from .rfc7230 import HEADER_FIELD as HEADER_FIELD
+from .rfc7230 import HEADER_FIELD
 from typing import Any
-from waitress.buffers import OverflowableBuffer as OverflowableBuffer
-from waitress.compat import tostr as tostr, unquote_bytes_to_wsgi as unquote_bytes_to_wsgi, urlparse as urlparse
+from waitress.buffers import OverflowableBuffer
+from waitress.compat import tostr, unquote_bytes_to_wsgi, urlparse
 from waitress.receiver import ChunkedReceiver as ChunkedReceiver, FixedStreamReceiver as FixedStreamReceiver
 from waitress.utilities import BadRequest as BadRequest, RequestEntityTooLarge as RequestEntityTooLarge, RequestHeaderFieldsTooLarge as RequestHeaderFieldsTooLarge, ServerNotImplemented as ServerNotImplemented, find_double_newline as find_double_newline
 
