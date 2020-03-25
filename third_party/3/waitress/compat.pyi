@@ -2,7 +2,7 @@ from io import TextIOWrapper
 import sys
 from typing import Any, Optional, Text, Tuple
 
-if sys.version_info[0]==3:
+if sys.version_info[0] == 3:
     from urllib import parse as urlparse
 else:
     import urlparse

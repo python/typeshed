@@ -1,7 +1,7 @@
 from . import wasyncore as wasyncore
 from _thread import LockType
-import os
 from socket import SocketType
+import sys
 from typing import Callable, Dict, Optional
 from typing_extensions import Literal
 
@@ -18,13 +18,13 @@ class _triggerbase:
     def pull_trigger(self, thunk: Optional[Callable[[None], None]] = ...) -> None: ...
     def handle_read(self) -> None: ...
 
-if os.name=="posix":
+if sys.platform == "linux" or sys.platform == "darwin":
     class trigger(_triggerbase, wasyncore.file_dispatcher):
         kind: str = ...
         def __init__(self, map: Dict[str, _triggerbase]) -> None: ...
 
 else:
-    class trigger(_triggerbase, wasyncore.dispatcher): # type: ignore
+    class trigger(_triggerbase, wasyncore.dispatcher):  # type: ignore
         kind: str = ...
         trigger: SocketType = ...
         def __init__(self, map: Dict[str, _triggerbase]) -> None: ...
