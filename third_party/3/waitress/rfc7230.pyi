@@ -1,15 +1,15 @@
-from .compat import tobytes as tobytes
-from typing import Any
+from .compat import tobytes
+from typing import Pattern
 
 WS: str
-OWS: Any
-RWS: Any
-BWS = OWS
+OWS: str
+RWS: str
+BWS = str
 TCHAR: str
 OBS_TEXT: str
-TOKEN: Any
+TOKEN: str
 VCHAR: str
-FIELD_VCHAR: Any
-FIELD_CONTENT: Any
-FIELD_VALUE: Any
-HEADER_FIELD: Any
+FIELD_VCHAR: str
+FIELD_CONTENT: str
+FIELD_VALUE: str
+HEADER_FIELD: Pattern
