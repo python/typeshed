@@ -13,7 +13,7 @@ class Node:
     NOTATION_NODE: int
 
 
-#ExceptionCode
+# ExceptionCode
 INDEX_SIZE_ERR: int
 DOMSTRING_SIZE_ERR: int
 HIERARCHY_REQUEST_ERR: int
