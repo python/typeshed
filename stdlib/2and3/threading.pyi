@@ -12,6 +12,8 @@ _TF = Callable[[FrameType, str, Any], Optional[Callable[..., Any]]]
 _PF = Callable[[FrameType, str, Any], None]
 _T = TypeVar('_T')
 
+_String = Union[str, unicode]
+
 
 __all__: List[str]
 
@@ -63,14 +65,14 @@ class Thread:
     else:
         def __init__(self, group: None = ...,
                      target: Optional[Callable[..., Any]] = ...,
-                     name: Optional[str] = ...,
+                     name: Optional[_String] = ...,
                      args: Iterable[Any] = ...,
-                     kwargs: Mapping[str, Any] = ...) -> None: ...
+                     kwargs: Mapping[_String, Any] = ...) -> None: ...
     def start(self) -> None: ...
     def run(self) -> None: ...
     def join(self, timeout: Optional[float] = ...) -> None: ...
     def getName(self) -> str: ...
-    def setName(self, name: str) -> None: ...
+    def setName(self, name: _String) -> None: ...
     if sys.version_info >= (3, 8):
         @property
         def native_id(self) -> Optional[int]: ...  # only available on some platforms
