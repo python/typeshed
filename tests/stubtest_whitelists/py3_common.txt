@@ -418,9 +418,6 @@ importlib.machinery.ExtensionFileLoader.get_filename
 importlib.machinery.FrozenImporter.find_module
 importlib.machinery.FrozenImporter.find_spec
 importlib.machinery.FrozenImporter.module_repr
-importlib.machinery.PathFinder.find_module
-importlib.machinery.PathFinder.find_spec
-importlib.machinery.PathFinder.invalidate_caches
 importlib.machinery.SourceFileLoader.set_data
 importlib.machinery.WindowsRegistryFinder.find_module
 importlib.machinery.WindowsRegistryFinder.find_spec
