@@ -1,6 +1,6 @@
 from .rfc7230 import OBS_TEXT, VCHAR
 from logging import Logger
-from typing import Any, Callable, Dict, List, Match, Pattern, Tuple
+from typing import Any, Callable, Mapping, Sequence, Match, Pattern, Tuple
 
 logger: Logger
 queue_logger: Logger
@@ -10,14 +10,14 @@ def concat(*args: Any) -> str: ...
 def join(seq: Any, field: str = ...) -> str: ...
 def group(s: Any) -> str: ...
 
-short_days: List[str]
-long_days: List[str]
+short_days: Sequence[str]
+long_days: Sequence[str]
 short_day_reg: str
 long_day_reg: str
-daymap: Dict[str, int]
+daymap: Mapping[str, int]
 hms_reg: str
-months: List[str]
-monmap: Dict[str, int]
+months: Sequence[str]
+monmap: Mapping[str, int]
 months_reg: str
 rfc822_date: str
 rfc822_reg: Pattern
@@ -29,11 +29,12 @@ rfc850_reg: Pattern
 
 def unpack_rfc850(m: Match) -> Tuple[int, int, int, int, int, int, int, int, int]: ...
 
-weekdayname: List[str]
-monthname: List[str]
+weekdayname: Sequence[str]
+monthname: Sequence[str]
 
 def build_http_date(when: int) -> str: ...
 def parse_http_date(d: str) -> int: ...
+
 vchar_re: str
 obs_text_re: str
 qdtext_re: str
@@ -50,8 +51,8 @@ class Error:
     reason: str = ...
     body: str = ...
     def __init__(self, body: str) -> None: ...
-    def to_response(self) -> Tuple[str, List[Tuple[str, str]], str]: ...
-    def wsgi_response(self, environ: Any, start_response: Callable[[str, List[Tuple[str, str]]], None]) -> str: ...
+    def to_response(self) -> Tuple[str, Sequence[Tuple[str, str]], str]: ...
+    def wsgi_response(self, environ: Any, start_response: Callable[[str, Sequence[Tuple[str, str]]], None]) -> str: ...
 
 class BadRequest(Error):
     code: int = ...
