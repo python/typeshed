@@ -1,6 +1,6 @@
 import sys
 
-from typing import Any, Sequence, Optional, Tuple, Type, TypeVar, Union
+from typing import Any, ByteString, Sequence, Optional, Tuple, Type, TypeVar, Union
 
 from .descriptor import DescriptorBase, FieldDescriptor
 
@@ -17,7 +17,7 @@ _T = TypeVar("_T")
 if sys.version_info < (3,):
     _Serialized = Union[bytes, buffer, unicode]
 else:
-    _Serialized = bytes
+    _Serialized = ByteString
 
 class Message:
     DESCRIPTOR: Any
