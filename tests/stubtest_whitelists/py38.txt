@@ -93,7 +93,6 @@ contextvars.ContextVar.set
 copy.PyStringMap
 dataclasses.dataclass
 dataclasses.field
-dataclasses.make_dataclass
 dataclasses.replace
 decimal.Decimal.from_float
 decimal.setcontext

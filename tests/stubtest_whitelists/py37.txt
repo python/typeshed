@@ -41,9 +41,7 @@ contextvars.Context.__init__
 contextvars.Context.get
 copy.PyStringMap
 ctypes.CDLL.__init__
-dataclasses.dataclass
 dataclasses.field
-dataclasses.make_dataclass
 email.message.MIMEPart.as_string
 enum.Enum._generate_next_value_
 gettext.NullTranslations.npgettext
