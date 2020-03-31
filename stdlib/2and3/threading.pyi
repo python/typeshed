@@ -1,6 +1,6 @@
 
 from typing import (
-    Any, Callable, Iterable, List, Mapping, Optional, Tuple, Type, Union,
+    Any, Callable, Iterable, List, Mapping, Optional, Text, Tuple, Type, Union,
     TypeVar,
 )
 from types import FrameType, TracebackType
@@ -11,9 +11,6 @@ _TF = Callable[[FrameType, str, Any], Optional[Callable[..., Any]]]
 
 _PF = Callable[[FrameType, str, Any], None]
 _T = TypeVar('_T')
-
-_String = Union[str, unicode]
-
 
 __all__: List[str]
 
@@ -65,14 +62,14 @@ class Thread:
     else:
         def __init__(self, group: None = ...,
                      target: Optional[Callable[..., Any]] = ...,
-                     name: Optional[_String] = ...,
+                     name: Optional[Text] = ...,
                      args: Iterable[Any] = ...,
-                     kwargs: Mapping[_String, Any] = ...) -> None: ...
+                     kwargs: Mapping[Text, Any] = ...) -> None: ...
     def start(self) -> None: ...
     def run(self) -> None: ...
     def join(self, timeout: Optional[float] = ...) -> None: ...
     def getName(self) -> str: ...
-    def setName(self, name: _String) -> None: ...
+    def setName(self, name: Text) -> None: ...
     if sys.version_info >= (3, 8):
         @property
         def native_id(self) -> Optional[int]: ...  # only available on some platforms
