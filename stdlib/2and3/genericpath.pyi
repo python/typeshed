@@ -1,4 +1,4 @@
-from typing import Sequence, AnyStr, Text
+from typing import Sequence, AnyStr, Text, Union
 import sys
 
 if sys.version_info >= (3, 0):
