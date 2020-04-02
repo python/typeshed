@@ -5,7 +5,7 @@
 import os
 import sys
 from typing import overload, List, Any, AnyStr, Sequence, Tuple, TypeVar, Union, Text, Callable, Optional
-from genericpath import exists
+from genericpath import exists as exists
 
 _T = TypeVar('_T')
 
