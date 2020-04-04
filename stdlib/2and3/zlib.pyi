@@ -1,6 +1,7 @@
 # Stubs for zlib
 import sys
 from array import array
+from typing import Union, TypeVar, Text
 
 DEFLATED: int
 DEF_MEM_LEVEL: int
@@ -16,6 +17,7 @@ Z_FULL_FLUSH: int
 Z_HUFFMAN_ONLY: int
 Z_NO_FLUSH: int
 Z_SYNC_FLUSH: int
+_T = TypeVar('_T', int, float, Text)
 if sys.version_info >= (3,):
     DEF_BUF_SIZE: int
     ZLIB_RUNTIME_VERSION: str
@@ -48,7 +50,7 @@ if sys.version_info >= (3,):
 else:
     def compressobj(level: int = ..., method: int = ..., wbits: int = ...,
                     memlevel: int = ..., strategy: int = ...) -> _Compress: ...
-def crc32(__data: array[int], __value: int = ...) -> int: ...
+def crc32(__data: Union[array[_T], bytes], __value: int = ...) -> int: ...
 def decompress(__data: bytes, wbits: int = ..., bufsize: int = ...) -> bytes: ...
 if sys.version_info >= (3,):
     def decompressobj(wbits: int = ..., zdict: bytes = ...) -> _Decompress: ...
