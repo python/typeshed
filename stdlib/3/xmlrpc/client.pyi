@@ -16,6 +16,10 @@ else:
 _T = TypeVar("_T")
 class _HasTimeTuple(Protocol):
     def timetuple(self) -> time.struct_time: ...
+class _HasWrite(Protocol):
+    def write(self, __o: str) -> None: ...
+class _HasRead(Protocol):
+    def read(self) -> bytes: ...
 _DateTimeComparable = Union[DateTime, datetime, str, _HasTimeTuple]
 _Marshallable = Union[None, bool, int, float, str, bytes, tuple, list, dict, datetime, DateTime, Binary]
 _XMLDate = Union[int, datetime, Tuple[int, ...], time.struct_time]
@@ -77,7 +81,7 @@ class DateTime:
     def make_comparable(self, other: _DateTimeComparable) -> Tuple[str, str]: ...  # undocumented
     def timetuple(self) -> time.struct_time: ...  # undocumented
     def decode(self, data: Any) -> None: ...
-    def encode(self, out: IO[str]) -> None: ...
+    def encode(self, out: _HasWrite) -> None: ...
 
 def _datetime(data: Any) -> DateTime: ...  # undocumented
 def _datetime_type(data: str) -> datetime: ...  # undocumented
@@ -88,7 +92,7 @@ class Binary:
 
     def __init__(self, data: Optional[bytes] = ...) -> None: ...
     def decode(self, data: bytes) -> None: ...
-    def encode(self, out: IO[str]) -> None: ...
+    def encode(self, out: _HasWrite) -> None: ...
 
 def _binary(data: bytes) -> Binary: ...  # undocumented
 
@@ -102,7 +106,7 @@ class ExpatParser:  # undocumented
 
 class Marshaller:
 
-    dispatch: Dict[Type[Any], Callable[[Marshaller, Any, IO[str]], None]] = ...  # TODO: Replace 'Any' with some kind of binding
+    dispatch: Dict[Type[Any], Callable[[Marshaller, Any, Callable[[str], Any]], None]] = ...  # TODO: Replace 'Any' with some kind of binding
 
     memo: Dict[Any, None]
     data: None
@@ -204,7 +208,7 @@ class GzipDecodedResponse(gzip.GzipFile):  # undocumented
 
     io: io.BytesIO
 
-    def __init__(self, response: IO[bytes]) -> None: ...
+    def __init__(self, response: _HasRead) -> None: ...
     def close(self) -> None: ...
 
 class _Method:  # undocumented
