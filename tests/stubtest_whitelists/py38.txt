@@ -97,6 +97,7 @@ dis.stack_effect
 email.message.MIMEPart.as_string
 enum.Enum._generate_next_value_
 functools.partialmethod.__get__
+functools.singledispatchmethod.__call__  # A lie to reflect that the descriptor get returns a callable
 gettext.install
 gettext.translation
 hmac.compare_digest
