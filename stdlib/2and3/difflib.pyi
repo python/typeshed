@@ -38,8 +38,9 @@ class SequenceMatcher(Generic[_T]):
     def quick_ratio(self) -> float: ...
     def real_quick_ratio(self) -> float: ...
 
+# mypy thinks the signatures of the overloads overlap, but the types still work fine
 @overload
-def get_close_matches(word: AnyStr, possibilities: Iterable[AnyStr],
+def get_close_matches(word: AnyStr, possibilities: Iterable[AnyStr],  # type: ignore
                       n: int = ..., cutoff: float = ...) -> List[AnyStr]: ...
 @overload
 def get_close_matches(word: Sequence[_T], possibilities: Iterable[Sequence[_T]],
