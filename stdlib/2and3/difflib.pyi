@@ -3,7 +3,7 @@
 import sys
 from typing import (
     Any, TypeVar, Callable, Iterable, Iterator, List, NamedTuple, Sequence, Tuple,
-    Generic, Optional, Text, Union, AnyStr
+    Generic, Optional, Text, Union, AnyStr, overload
 )
 
 _T = TypeVar('_T')
@@ -38,6 +38,11 @@ class SequenceMatcher(Generic[_T]):
     def quick_ratio(self) -> float: ...
     def real_quick_ratio(self) -> float: ...
 
+# mypy thinks the signatures of the overloads overlap, but the types still work fine
+@overload
+def get_close_matches(word: AnyStr, possibilities: Iterable[AnyStr],  # type: ignore
+                      n: int = ..., cutoff: float = ...) -> List[AnyStr]: ...
+@overload
 def get_close_matches(word: Sequence[_T], possibilities: Iterable[Sequence[_T]],
                       n: int = ..., cutoff: float = ...) -> List[Sequence[_T]]: ...
 
