@@ -3,7 +3,7 @@
 import sys
 from typing import (
     Any, TypeVar, Callable, Iterable, Iterator, List, NamedTuple, Sequence, Tuple,
-    Generic, Optional, Text, Union, AnyStr
+    Generic, Optional, Text, Union, AnyStr, overload
 )
 
 _T = TypeVar('_T')
