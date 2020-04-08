@@ -1570,10 +1570,10 @@ if sys.version_info >= (3, 5):
         value: Any
 class SyntaxError(_StandardError):
     msg: str
-    lineno: int
+    lineno: Optional[int]
     offset: Optional[int]
     text: Optional[str]
-    filename: str
+    filename: Optional[str]
 class SystemError(_StandardError): ...
 class TypeError(_StandardError): ...
 class ValueError(_StandardError): ...
