@@ -1,7 +1,15 @@
+import sys
+
 from typing import Any, Callable, Iterable, List, Optional, Text, Tuple, Union
 from types import ModuleType
 
 from .environment import Environment
+
+if sys.version_info >= (3, 7):
+    from os import PathLike
+    _SearchPath = Union[Text, PathLike[str], Iterable[Union[Text, PathLike[str]]]]
+else:
+    _SearchPath = Union[Text, Iterable[Text]]
 
 def split_template_path(template: Text) -> List[Text]: ...
 
@@ -15,7 +23,7 @@ class FileSystemLoader(BaseLoader):
     searchpath: Text
     encoding: Any
     followlinks: Any
-    def __init__(self, searchpath: Union[Text, Iterable[Text]], encoding: Text = ..., followlinks: bool = ...) -> None: ...
+    def __init__(self, searchpath: _SearchPath, encoding: Text = ..., followlinks: bool = ...) -> None: ...
     def get_source(self, environment: Environment, template: Text) -> Tuple[Text, Text, Callable[..., Any]]: ...
     def list_templates(self): ...
 
