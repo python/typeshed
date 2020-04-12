@@ -149,8 +149,6 @@ types.WrapperDescriptorType.__get__
 unittest.TestCase.addCleanup
 unittest.case.TestCase.addCleanup
 unittest.doModuleCleanups
-unittest.mock.MagicProxy.__call__
-unittest.mock._MockIter.__iter__
 weakref.WeakValueDictionary.__init__
 weakref.WeakValueDictionary.update
 weakref.getweakrefcount
