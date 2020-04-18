@@ -39,7 +39,7 @@ class Process:
 
 
 async def create_subprocess_shell(
-    *Args: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue  #1236
+    cmd: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue  #1236
     stdin: Union[int, IO[Any], None] = ...,
     stdout: Union[int, IO[Any], None] = ...,
     stderr: Union[int, IO[Any], None] = ...,
