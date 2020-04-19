@@ -43,7 +43,7 @@ async def create_subprocess_shell(
     stdin: Union[int, IO[Any], None] = ...,
     stdout: Union[int, IO[Any], None] = ...,
     stderr: Union[int, IO[Any], None] = ...,
-    loop: events.AbstractEventLoop = ...,
+    loop: Optional[events.AbstractEventLoop] = ...,
     limit: int = ...,
     **kwds: Any
 ) -> Process: ...
@@ -54,7 +54,7 @@ async def create_subprocess_exec(
     stdin: Union[int, IO[Any], None] = ...,
     stdout: Union[int, IO[Any], None] = ...,
     stderr: Union[int, IO[Any], None] = ...,
-    loop: events.AbstractEventLoop = ...,
+    loop: Optional[events.AbstractEventLoop] = ...,
     limit: int = ...,
     **kwds: Any
 ) -> Process: ...
