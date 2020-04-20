@@ -2,14 +2,12 @@ _bisect.bisect
 _bisect.insort
 _tracemalloc._get_object_traceback
 _tracemalloc.start
-asyncio.AbstractEventLoop.create_unix_server
 asyncio.AbstractEventLoop.sock_sendfile
 asyncio.Future.__init__
 asyncio.Future._callbacks
 asyncio.Future._schedule_callbacks
 asyncio.Handle.__init__
 asyncio.TimerHandle.__init__
-asyncio.events.AbstractEventLoop.create_unix_server
 asyncio.events.AbstractEventLoop.sock_sendfile
 asyncio.events.Handle.__init__
 asyncio.events.TimerHandle.__init__
@@ -17,8 +15,6 @@ asyncio.exceptions
 asyncio.futures.Future.__init__
 asyncio.futures.Future._callbacks
 asyncio.futures.Future._schedule_callbacks
-asyncio.proactor_events.BaseProactorEventLoop.create_unix_server
-asyncio.selector_events.BaseSelectorEventLoop.create_unix_server
 builtins.dict.get
 builtins.reversed
 builtins.str.maketrans
