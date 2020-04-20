@@ -32,8 +32,6 @@ asyncio.Task.get_stack
 asyncio.Task.print_stack
 asyncio.WriteTransport.set_write_buffer_limits
 asyncio.base_events.BaseEventLoop.subprocess_exec
-asyncio.create_subprocess_exec
-asyncio.create_subprocess_shell
 asyncio.events.AbstractEventLoop.connect_accepted_socket
 asyncio.events.AbstractEventLoop.create_unix_connection
 asyncio.futures.Future._copy_state
@@ -55,8 +53,6 @@ asyncio.streams.StreamReaderProtocol.__init__
 asyncio.streams.open_connection
 asyncio.streams.open_unix_connection
 asyncio.streams.start_unix_server
-asyncio.subprocess.create_subprocess_exec
-asyncio.subprocess.create_subprocess_shell
 asyncio.tasks.Task._step
 asyncio.tasks.Task.get_stack
 asyncio.tasks.Task.print_stack
