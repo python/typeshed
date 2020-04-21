@@ -112,7 +112,6 @@ if sys.version_info >= (3, 7):
 if sys.platform != 'win32':
     from .unix_events import (
         AbstractChildWatcher as AbstractChildWatcher,
-        BaseChildWatcher as BaseChildWatcher,
         SafeChildWatcher as SafeChildWatcher,
         SelectorEventLoop as SelectorEventLoop,
     )
