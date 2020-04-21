@@ -5,7 +5,6 @@ _tracemalloc.start
 asyncio.AbstractEventLoop.sock_sendfile
 asyncio.Future.__init__
 asyncio.Future._callbacks
-asyncio.Future._schedule_callbacks
 asyncio.Handle.__init__
 asyncio.TimerHandle.__init__
 asyncio.events.AbstractEventLoop.sock_sendfile
@@ -14,7 +13,6 @@ asyncio.events.TimerHandle.__init__
 asyncio.exceptions
 asyncio.futures.Future.__init__
 asyncio.futures.Future._callbacks
-asyncio.futures.Future._schedule_callbacks
 builtins.dict.get
 builtins.reversed
 builtins.str.maketrans
