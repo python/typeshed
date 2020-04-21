@@ -15,8 +15,6 @@ abc.abstractstaticmethod
 aifc.open
 aifc.openfp
 argparse.Namespace.__getattr__
-asyncio.AbstractEventLoop.connect_accepted_socket
-asyncio.AbstractEventLoop.create_unix_connection
 asyncio.BaseChildWatcher
 asyncio.BaseEventLoop.subprocess_exec
 asyncio.Condition.acquire
@@ -32,8 +30,6 @@ asyncio.Task.get_stack
 asyncio.Task.print_stack
 asyncio.WriteTransport.set_write_buffer_limits
 asyncio.base_events.BaseEventLoop.subprocess_exec
-asyncio.events.AbstractEventLoop.connect_accepted_socket
-asyncio.events.AbstractEventLoop.create_unix_connection
 asyncio.futures.Future._copy_state
 asyncio.futures.wrap_future
 asyncio.locks.Condition.acquire
@@ -41,11 +37,9 @@ asyncio.locks.Condition.locked
 asyncio.locks.Condition.release
 asyncio.open_connection
 asyncio.open_unix_connection
-asyncio.proactor_events.BaseProactorEventLoop.create_unix_connection
 asyncio.proactor_events.BaseProactorEventLoop.sock_recv
 asyncio.queues.Queue._consume_done_getters
 asyncio.queues.Queue._consume_done_putters
-asyncio.selector_events.BaseSelectorEventLoop.create_unix_connection
 asyncio.selector_events.BaseSelectorEventLoop.sock_recv
 asyncio.sleep
 asyncio.start_unix_server
@@ -59,8 +53,6 @@ asyncio.tasks.Task.print_stack
 asyncio.tasks.sleep
 asyncio.transports.WriteTransport.set_write_buffer_limits
 asyncio.transports._FlowControlMixin.set_write_buffer_limits
-asyncio.unix_events._UnixSelectorEventLoop.create_unix_connection
-asyncio.unix_events._UnixSelectorEventLoop.create_unix_server
 asyncio.windows_events
 asyncio.windows_utils
 asyncio.wrap_future

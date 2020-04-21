@@ -15,6 +15,7 @@ asyncio.futures._TracebackLogger.__init__
 asyncio.protocols.BufferedProtocol
 asyncio.runners
 asyncio.tasks.Task.__init__
+asyncio.unix_events._UnixSelectorEventLoop.create_unix_server
 bdb.GENERATOR_AND_COROUTINE_FLAGS
 builtins.str.maketrans
 cmath.log
