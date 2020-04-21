@@ -71,10 +71,8 @@ typing.MutableSequence.remove
 typing.MutableSet.add
 typing.MutableSet.discard
 typing.MutableSet.remove
-typing.Protocol
 typing.Sequence.count
 typing.Sequence.index
-typing.Type
 typing.runtime_checkable
 unittest.async_case
 uuid.UUID.int
