@@ -519,7 +519,6 @@ typing.NamedTuple._asdict
 typing.NamedTuple._make
 typing.NamedTuple._replace
 typing.Pattern
-typing.TypeAlias
 typing.type_check_only
 unittest.TestCase.assertAlmostEqual
 unittest.TestCase.assertDictContainsSubset

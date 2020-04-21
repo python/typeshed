@@ -55,24 +55,23 @@ def no_type_check_decorator(decorator: _C) -> _C: ...
 
 # Type aliases and type constructors
 
-class TypeAlias:
+class _Alias:
     # Class for defining generic aliases for library types.
-    def __init__(self, target_type: type) -> None: ...
     def __getitem__(self, typeargs: Any) -> Any: ...
 
-Union = TypeAlias(object)
-Optional = TypeAlias(object)
-List = TypeAlias(object)
-Dict = TypeAlias(object)
-DefaultDict = TypeAlias(object)
-Set = TypeAlias(object)
-FrozenSet = TypeAlias(object)
-Counter = TypeAlias(object)
-Deque = TypeAlias(object)
-ChainMap = TypeAlias(object)
+Union = _Alias()
+Optional = _Alias()
+List = _Alias()
+Dict = _Alias()
+DefaultDict = _Alias()
+Set = _Alias()
+FrozenSet = _Alias()
+Counter = _Alias()
+Deque = _Alias()
+ChainMap = _Alias()
 
 if sys.version_info >= (3, 7):
-    OrderedDict = TypeAlias(object)
+    OrderedDict = _Alias()
 
 if sys.version_info >= (3, 9):
     Annotated: _SpecialForm = ...
