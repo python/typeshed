@@ -174,7 +174,6 @@ typing.Container
 typing.ContextManager
 typing.Coroutine
 typing.Generator
-typing.GenericMeta
 typing.Hashable
 typing.ItemsView
 typing.Iterable
