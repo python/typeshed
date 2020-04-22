@@ -510,17 +510,12 @@ types.coroutine
 types.new_class
 types.prepare_class
 typing.AwaitableGenerator
-typing.Generic
 typing.IO.__iter__
 typing.IO.__next__
 typing.IO.closed
-typing.Match
 typing.NamedTuple._asdict
 typing.NamedTuple._make
 typing.NamedTuple._replace
-typing.Pattern
-typing.TypeAlias
-typing.cast
 typing.type_check_only
 unittest.TestCase.assertAlmostEqual
 unittest.TestCase.assertDictContainsSubset
@@ -592,6 +587,8 @@ builtins.quit
 # Builtins that mypy pretends exist
 builtins.reveal_locals
 builtins.reveal_type
+# Various classes in typing aren't types at runtime. In addition, mypy thinks some special forms are tautologically defined.
+typing.[A-Z]\w+
 # We can't distinguish not having a default value from having a default value of inspect.Parameter.empty
 inspect.Parameter.__init__
 inspect.Signature.__init__
