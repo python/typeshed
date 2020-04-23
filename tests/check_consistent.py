@@ -31,6 +31,7 @@ consistent_files = [
     {'stdlib/2and3/threading.pyi', 'stdlib/2and3/_dummy_threading.pyi'}
 ]
 
+
 def main():
     files = [os.path.join(root, file) for root, dir, files in os.walk('.') for file in files]
     no_symlink = 'You cannot use symlinks in typeshed, please copy {} to its link.'
@@ -44,6 +45,7 @@ def main():
             f2 = os.path.join(os.getcwd(), file2)
             if not filecmp.cmp(f1, f2):
                 raise ValueError('File {f1} does not match file {f2}. Please copy it to {f2}'.format(f1=file1, f2=file2))
+
 
 if __name__ == '__main__':
     main()
