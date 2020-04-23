@@ -9,32 +9,20 @@ from . import exceptions
 from . import packages
 import logging
 
+from .models import Request, Response, PreparedRequest
+from .api import request, get, head, post, patch, put, delete, options
+from .sessions import session, Session
+from .status_codes import codes
+from .exceptions import (
+    RequestException, Timeout, URLRequired,
+    TooManyRedirects, HTTPError, ConnectionError
+)
+
 __title__: Any
 __build__: Any
 __license__: Any
 __copyright__: Any
 __version__: Any
-
-Request = models.Request
-Response = models.Response
-PreparedRequest = models.PreparedRequest
-request = api.request
-get = api.get
-head = api.head
-post = api.post
-patch = api.patch
-put = api.put
-delete = api.delete
-options = api.options
-session = sessions.session
-Session = sessions.Session
-codes = status_codes.codes
-RequestException = exceptions.RequestException
-Timeout = exceptions.Timeout
-URLRequired = exceptions.URLRequired
-TooManyRedirects = exceptions.TooManyRedirects
-HTTPError = exceptions.HTTPError
-ConnectionError = exceptions.ConnectionError
 
 class NullHandler(logging.Handler):
     def emit(self, record): ...
