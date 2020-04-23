@@ -1,6 +1,7 @@
 _csv.Dialect.__init__
 _dummy_threading
 _importlib_modulespec
+_msi
 _operator.methodcaller
 _posixsubprocess.cloexec_pipe
 _subprocess
@@ -349,6 +350,7 @@ mailbox._mboxMMDF.get_string
 mailbox.mbox.__init__
 mimetypes.read_mime_types
 mmap.mmap.__iter__
+msilib(.[a-z]+)?
 msvcrt
 multiprocessing.Array
 multiprocessing.Event
