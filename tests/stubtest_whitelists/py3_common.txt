@@ -1,7 +1,6 @@
 _csv.Dialect.__init__
 _dummy_threading
 _importlib_modulespec
-_msi
 _operator.methodcaller
 _posixsubprocess.cloexec_pipe
 _subprocess
@@ -9,7 +8,6 @@ _types
 _weakref.CallableProxyType.__getattr__
 _weakref.ProxyType.__getattr__
 _weakref.ReferenceType.__call__
-_winapi
 abc.abstractclassmethod
 abc.abstractmethod
 abc.abstractstaticmethod
@@ -350,8 +348,6 @@ mailbox._mboxMMDF.get_string
 mailbox.mbox.__init__
 mimetypes.read_mime_types
 mmap.mmap.__iter__
-msilib(.[a-z]+)?
-msvcrt
 multiprocessing.Array
 multiprocessing.Event
 multiprocessing.JoinableQueue
@@ -559,7 +555,6 @@ webbrowser.UnixBrowser.raise_opts
 webbrowser.UnixBrowser.remote_action
 webbrowser.UnixBrowser.remote_action_newtab
 webbrowser.UnixBrowser.remote_action_newwin
-winsound
 wsgiref.types
 wsgiref.util.FileWrapper.__init__
 wsgiref.util.FileWrapper.close
@@ -574,6 +569,13 @@ xml.sax.xmlreader.AttributesImpl.has_key
 zipfile.ZipExtFile.read
 zipfile.ZipExtFile.readline
 zlib.compressobj
+
+# Modules that do not exist on Linux systems and cannot be checked by our CI process.
+_msi
+_winapi
+msilib(.[a-z]+)?
+msvcrt
+winsound
 
 # ==========
 # Whitelist entries that cannot or should not be fixed
