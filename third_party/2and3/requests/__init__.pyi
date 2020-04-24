@@ -9,14 +9,30 @@ from . import exceptions
 from . import packages
 import logging
 
-from .models import Request, Response, PreparedRequest
-from .api import request, get, head, post, patch, put, delete, options
-from .sessions import session, Session
-from .status_codes import codes
-from .exceptions import (
-    RequestException, Timeout, URLRequired,
-    TooManyRedirects, HTTPError, ConnectionError
-)
+from .models import Request as Request
+from .models import Response as Response
+from .models import PreparedRequest as PreparedRequest
+
+from .api import request as request
+from .api import get as get
+from .api import head as head
+from .api import post as post
+from .api import patch as patch
+from .api import put as put
+from .api import delete as delete
+from .api import options as options
+
+from .sessions import session as session
+from .sessions import Session as Session
+
+from .status_codes import codes as codes
+
+from .exceptions import RequestException as RequestException
+from .exceptions import Timeout as Timeout
+from .exceptions import URLRequired as URLRequired
+from .exceptions import TooManyRedirects as TooManyRedirects
+from .exceptions import HTTPError as HTTPError
+from .exceptions import ConnectionError as ConnectionError
 
 __title__: Any
 __build__: Any
