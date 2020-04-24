@@ -8,7 +8,6 @@ _types
 _weakref.CallableProxyType.__getattr__
 _weakref.ProxyType.__getattr__
 _weakref.ReferenceType.__call__
-_winapi
 abc.abstractclassmethod
 abc.abstractmethod
 abc.abstractstaticmethod
@@ -349,7 +348,6 @@ mailbox._mboxMMDF.get_string
 mailbox.mbox.__init__
 mimetypes.read_mime_types
 mmap.mmap.__iter__
-msvcrt
 multiprocessing.Array
 multiprocessing.Event
 multiprocessing.JoinableQueue
@@ -557,7 +555,6 @@ webbrowser.UnixBrowser.raise_opts
 webbrowser.UnixBrowser.remote_action
 webbrowser.UnixBrowser.remote_action_newtab
 webbrowser.UnixBrowser.remote_action_newwin
-winsound
 wsgiref.types
 wsgiref.util.FileWrapper.__init__
 wsgiref.util.FileWrapper.close
@@ -617,3 +614,10 @@ os.SCHED_[A-Z_]+
 socket.AF_DECnet
 socket.[A-Z0-9_]+
 (termios.[A-Z0-9_]+)?
+
+# Modules that do not exist on Linux systems and cannot be checked by our CI process.
+(_msi)?
+(_winapi)?
+(msilib(.[a-z]+)?)?
+(msvcrt)?
+(winsound)?
