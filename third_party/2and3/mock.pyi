@@ -5,6 +5,25 @@ from typing import Any, List, Optional, Text, Tuple, Type, TypeVar
 
 _T = TypeVar("_T")
 
+__all__ = [
+    'Mock',
+    'MagicMock',
+    'patch',
+    'sentinel',
+    'DEFAULT',
+    'ANY',
+    'call',
+    'create_autospec',
+    'AsyncMock',
+    'FILTER_DIR',
+    'NonCallableMock',
+    'NonCallableMagicMock',
+    'mock_open',
+    'PropertyMock',
+    'seal',
+]
+__version__: str
+
 FILTER_DIR: Any
 
 class _slotted: ...
