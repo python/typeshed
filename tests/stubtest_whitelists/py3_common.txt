@@ -32,7 +32,6 @@ asyncio.open_connection
 asyncio.open_unix_connection
 asyncio.proactor_events.BaseProactorEventLoop.sock_recv
 asyncio.selector_events.BaseSelectorEventLoop.sock_recv
-asyncio.sleep
 asyncio.start_unix_server
 asyncio.streams.StreamReaderProtocol.__init__
 asyncio.streams.open_connection
@@ -40,7 +39,6 @@ asyncio.streams.open_unix_connection
 asyncio.streams.start_unix_server
 asyncio.tasks.Task.get_stack
 asyncio.tasks.Task.print_stack
-asyncio.tasks.sleep
 asyncio.transports.WriteTransport.set_write_buffer_limits
 asyncio.transports._FlowControlMixin.set_write_buffer_limits
 asyncio.windows_events
