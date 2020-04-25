@@ -1,5 +1,5 @@
 import sys
-from typing import Any, Callable, Generic, Dict, Iterable, Mapping, Optional, Sequence, Tuple, Type, TypeVar, NamedTuple, Union, overload
+from typing import Any, Callable, Generic, Dict, Hashable, Iterable, Mapping, Optional, Sequence, Tuple, Type, TypeVar, NamedTuple, Union, overload
 
 _AnyCallable = Callable[..., Any]
 
@@ -21,7 +21,7 @@ class _CacheInfo(NamedTuple):
 
 class _lru_cache_wrapper(Generic[_T]):
     __wrapped__: Callable[..., _T]
-    def __call__(self, *args: Any, **kwargs: Any) -> _T: ...
+    def __call__(self, *args: Hashable, **kwargs: Hashable) -> _T: ...
     def cache_info(self) -> _CacheInfo: ...
     def cache_clear(self) -> None: ...
 
