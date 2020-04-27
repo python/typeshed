@@ -18,7 +18,6 @@ asyncio.BaseEventLoop.subprocess_exec
 asyncio.Condition.acquire
 asyncio.Condition.locked
 asyncio.Condition.release
-asyncio.Server
 asyncio.StreamReaderProtocol.__init__
 asyncio.Task.get_stack
 asyncio.Task.print_stack

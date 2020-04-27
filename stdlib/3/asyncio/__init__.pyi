@@ -49,10 +49,7 @@ from asyncio.tasks import (
     wait_for as wait_for,
     Task as Task,
 )
-from asyncio.base_events import (
-    BaseEventLoop as BaseEventLoop,
-    Server as Server
-)
+from asyncio.base_events import BaseEventLoop as BaseEventLoop
 from asyncio.events import (
     AbstractEventLoopPolicy as AbstractEventLoopPolicy,
     AbstractEventLoop as AbstractEventLoop,
