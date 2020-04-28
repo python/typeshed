@@ -5,7 +5,6 @@ asyncio.futures.Future.__init__
 asyncio.futures._TracebackLogger.__init__
 asyncio.protocols.BufferedProtocol
 asyncio.runners
-asyncio.tasks.Task._wakeup
 asyncio.unix_events._UnixSelectorEventLoop.create_unix_server
 builtins.str.maketrans
 cmath.log
