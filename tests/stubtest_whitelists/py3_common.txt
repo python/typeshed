@@ -23,7 +23,6 @@ asyncio.Task.get_stack
 asyncio.Task.print_stack
 asyncio.WriteTransport.set_write_buffer_limits
 asyncio.base_events.BaseEventLoop.subprocess_exec
-asyncio.futures.wrap_future
 asyncio.locks.Condition.acquire
 asyncio.locks.Condition.locked
 asyncio.locks.Condition.release
@@ -42,7 +41,6 @@ asyncio.transports.WriteTransport.set_write_buffer_limits
 asyncio.transports._FlowControlMixin.set_write_buffer_limits
 asyncio.windows_events
 asyncio.windows_utils
-asyncio.wrap_future
 base64.b32decode
 base64.b64decode
 base64.b64encode
