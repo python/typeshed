@@ -17,7 +17,7 @@ if sys.version_info >= (3, 7):
 if sys.version_info >= (3, 9):
     def compile_dir(
         dir: _Path,
-        maxlevels: int = ...,
+        maxlevels: Optional[int] = ...,
         ddir: Optional[_Path] = ...,
         force: bool = ...,
         rx: Optional[Pattern[Any]] = ...,
