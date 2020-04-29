@@ -1,5 +1,4 @@
 asyncio.Future.__init__
-asyncio.Task._wakeup
 asyncio.exceptions
 asyncio.futures.Future.__init__
 asyncio.futures._TracebackLogger.__init__
