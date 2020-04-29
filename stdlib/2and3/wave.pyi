@@ -5,7 +5,7 @@ from typing import (
     Any, NamedTuple, NoReturn, Optional, Text, BinaryIO, Union, Tuple
 )
 
-_File = Union[Text, BinaryIO]
+_File = Union[Text, IO[bytes]]
 
 class Error(Exception): ...
 
