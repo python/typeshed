@@ -506,13 +506,15 @@ class IO(Iterator[AnyStr], Generic[AnyStr]):
 class BinaryIO(IO[bytes]):
     # TODO readinto
     # TODO read1?
-    # TODO peek?
     @overload
     @abstractmethod
     def write(self, s: bytearray) -> int: ...
     @overload
     @abstractmethod
     def write(self, s: bytes) -> int: ...
+
+    @abstractmethod
+    def peek(self, size: int = ...) -> bytes: ...
 
     @abstractmethod
     def __enter__(self) -> BinaryIO: ...
