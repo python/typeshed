@@ -1,5 +1,5 @@
 import sys
-from typing import overload, Any, Container, IO, Iterable, Optional, Text, Type, TypeVar
+from typing import overload, Any, Container, IO, Iterable, Optional, Text, Type, TypeVar, Union
 
 if sys.version_info >= (3, 8):
     from typing import Literal
