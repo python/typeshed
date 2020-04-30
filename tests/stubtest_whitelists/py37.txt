@@ -64,6 +64,7 @@ tracemalloc.Traceback.format
 types.ClassMethodDescriptorType.__get__
 types.MethodDescriptorType.__get__
 types.WrapperDescriptorType.__get__
+typing.BinaryIO.peek
 typing.runtime_checkable
 unittest.async_case
 urllib.parse.parse_qs

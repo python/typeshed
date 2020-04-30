@@ -53,6 +53,7 @@ sre_compile.dis
 subprocess.check_output
 tracemalloc.Filter.__init__
 typing.AbstractSet.isdisjoint
+typing.BinaryIO.peek
 typing.Coroutine.cr_await
 typing.Coroutine.cr_code
 typing.Coroutine.cr_frame
