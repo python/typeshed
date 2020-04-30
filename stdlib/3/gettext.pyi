@@ -7,6 +7,7 @@ else:
     from typing_extensions import Literal
 
 if sys.version_info >= (3, 6):
+    from builtins import _PathLike
     _StrPath = Union[Text, _PathLike[Text]]
 else:
     _StrPath = Text
