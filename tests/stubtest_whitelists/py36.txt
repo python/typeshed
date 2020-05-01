@@ -1,13 +1,9 @@
 asyncio.Future.__init__
-asyncio.Task._wakeup
-asyncio.constants.SENDFILE_FALLBACK_READBUFFER_SIZE
-asyncio.constants.SSL_HANDSHAKE_TIMEOUT
 asyncio.exceptions
 asyncio.futures.Future.__init__
 asyncio.futures._TracebackLogger.__init__
 asyncio.protocols.BufferedProtocol
 asyncio.runners
-asyncio.tasks.Task._wakeup
 asyncio.unix_events._UnixSelectorEventLoop.create_unix_server
 builtins.str.maketrans
 cmath.log

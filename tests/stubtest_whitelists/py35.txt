@@ -3,9 +3,7 @@ asyncio.Future._exception
 asyncio.Future._loop
 asyncio.Future._tb_logger
 asyncio.Task.__init__
-asyncio.constants.DEBUG_STACK_DEPTH
-asyncio.constants.SENDFILE_FALLBACK_READBUFFER_SIZE
-asyncio.constants.SSL_HANDSHAKE_TIMEOUT
+asyncio.Task._wakeup
 asyncio.exceptions
 asyncio.futures.Future._callbacks
 asyncio.futures.Future._exception
@@ -15,6 +13,7 @@ asyncio.futures._TracebackLogger.__init__
 asyncio.protocols.BufferedProtocol
 asyncio.runners
 asyncio.tasks.Task.__init__
+asyncio.tasks.Task._wakeup
 asyncio.unix_events._UnixSelectorEventLoop.create_unix_server
 bdb.GENERATOR_AND_COROUTINE_FLAGS
 builtins.str.maketrans
