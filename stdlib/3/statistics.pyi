@@ -3,14 +3,13 @@
 from decimal import Decimal
 from fractions import Fraction
 import sys
-from typing import Any, Iterable, List, Optional, SupportsFloat, Type, TypeVar, Union
+from typing import Any, Iterable, List, Optional, SupportsFloat, Type, TypeVar, Union, Protocol
 
 _T = TypeVar("_T")
 # Most functions in this module accept homogeneous collections of one of these types
 _Number = TypeVar('_Number', float, Decimal, Fraction)
 
 # Used in median_high, median_low
-from typing import Protocol
 class _Sortable(Protocol):
     def __lt__(self, other) -> bool: ...
 _SortableT = TypeVar("_SortableT", bound=_Sortable)
