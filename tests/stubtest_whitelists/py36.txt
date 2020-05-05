@@ -2,7 +2,6 @@ asyncio.Future.__init__
 asyncio.exceptions
 asyncio.futures.Future.__init__
 asyncio.futures._TracebackLogger.__init__
-asyncio.protocols.BufferedProtocol
 asyncio.runners
 asyncio.unix_events._UnixSelectorEventLoop.create_unix_server
 builtins.str.maketrans
