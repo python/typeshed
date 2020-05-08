@@ -16,7 +16,7 @@ else:
 
 class RequestHandler:
     SUPPORTED_METHODS: Any
-    application: "Application"
+    application: Application
     request: httputil.HTTPServerRequest
     path_args: List[str]
     path_kwargs: Dict[str, str]
