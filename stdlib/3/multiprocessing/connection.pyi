@@ -7,6 +7,7 @@ import types
 _Address = Union[str, Tuple[str, int]]
 
 class _ConnectionBase:
+    def __init__(self, handle: int = ..., readable: bool = True, writable: bool = True) -> None: ...
     @property
     def closed(self) -> bool: ...  # undocumented
     @property
