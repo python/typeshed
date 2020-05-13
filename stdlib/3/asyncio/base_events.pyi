@@ -10,6 +10,11 @@ from asyncio.tasks import Task
 from asyncio.transports import BaseTransport
 from _types import FileDescriptorLike
 
+if sys.version_info >= (3, 8):
+    from typing import Literal
+else:
+    from typing_extensions import Literal
+
 if sys.version_info >= (3, 7):
     from contextvars import Context
 
@@ -67,8 +72,10 @@ class BaseEventLoop(AbstractEventLoop, metaclass=ABCMeta):
         def call_soon_threadsafe(self, callback: Callable[..., Any], *args: Any, context: Optional[Context] = ...) -> Handle: ...
     else:
         def call_soon_threadsafe(self, callback: Callable[..., Any], *args: Any) -> Handle: ...
-    async def run_in_executor(self, executor: Any,
-                              func: Callable[..., _T], *args: Any) -> _T: ...
+    # run_in_executor is defined as a coroutine in AbstractEventLoop but returns a Future in concrete implementation.
+    # Need to ignore mypy Return type error as a result.
+    def run_in_executor(self, executor: Any,  # type: ignore
+                        func: Callable[..., _T], *args: Any) -> Future[_T]: ...
     def set_default_executor(self, executor: Any) -> None: ...
     # Network I/O methods returning Futures.
     # TODO the "Tuple[Any, ...]" should be "Union[Tuple[str, int], Tuple[str, int, int, int]]" but that triggers
@@ -178,8 +185,9 @@ class BaseEventLoop(AbstractEventLoop, metaclass=ABCMeta):
     async def connect_read_pipe(self, protocol_factory: _ProtocolFactory, pipe: Any) -> _TransProtPair: ...
     async def connect_write_pipe(self, protocol_factory: _ProtocolFactory, pipe: Any) -> _TransProtPair: ...
     async def subprocess_shell(self, protocol_factory: _ProtocolFactory, cmd: Union[bytes, str], *, stdin: Any = ...,
-                               stdout: Any = ..., stderr: Any = ...,
-                               **kwargs: Any) -> _TransProtPair: ...
+                               stdout: Any = ..., stderr: Any = ..., universal_newlines: Literal[False] = ...,
+                               shell: Literal[True] = ..., bufsize: Literal[0] = ..., encoding: None = ...,
+                               errors: None = ..., text: Literal[False, None] = ..., **kwargs: Any) -> _TransProtPair: ...
     async def subprocess_exec(self, protocol_factory: _ProtocolFactory, *args: Any, stdin: Any = ...,
                               stdout: Any = ..., stderr: Any = ...,
                               **kwargs: Any) -> _TransProtPair: ...
