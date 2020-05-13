@@ -1,4 +1,4 @@
-from typing import Any, Iterable, List, Optional, Tuple, Type, Union
+from typing import Any, Iterable, List, Optional, Tuple, Type, Union, SupportsIndex
 import socket
 import sys
 import types
@@ -7,7 +7,7 @@ import types
 _Address = Union[str, Tuple[str, int]]
 
 class _ConnectionBase:
-    def __init__(self, handle: int, readable: bool = ..., writable: bool = ...) -> None: ...
+    def __init__(self, handle: SupportsIndex, readable: bool = ..., writable: bool = ...) -> None: ...
     @property
     def closed(self) -> bool: ...  # undocumented
     @property
