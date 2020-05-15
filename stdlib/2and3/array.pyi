@@ -5,16 +5,29 @@
 import sys
 from typing import (Any, BinaryIO, Generic, Iterable, Iterator, List, MutableSequence,
                     overload, Text, Tuple, TypeVar, Union)
+from typing_extensions import Literal
+
+IntTypeCodes = Literal['b', 'B', 'h', 'H', 'i', 'I', 'l', 'L', 'q', 'Q']
+FloatTypeCodes = Literal['f', 'd']
+UnicodeTypeCodes = Literal['u']
+TypeCodes = Literal[IntTypeCodes, FloatTypeCodes, UnicodeTypeCodes]
 
 _T = TypeVar('_T', int, float, Text)
 
 if sys.version_info >= (3,):
-    typecodes: str
+    typecodes: TypeCodes
 
 class array(MutableSequence[_T], Generic[_T]):
-    typecode: str
+    typecode: TypeCodes
     itemsize: int
-    def __init__(self, typecode: str,
+    @overload
+    def __init__(self: array[int], typecode: IntTypeCodes,
+                 __initializer: Union[bytes, Iterable[_T]] = ...) -> None: ...
+    @overload
+    def __init__(self: array[float], typecode: FloatTypeCodes,
+                 __initializer: Union[bytes, Iterable[_T]] = ...) -> None: ...
+    @overload
+    def __init__(self: array[Text], typecode: UnicodeTypeCodes,
                  __initializer: Union[bytes, Iterable[_T]] = ...) -> None: ...
     def append(self, __v: _T) -> None: ...
     def buffer_info(self) -> Tuple[int, int]: ...
