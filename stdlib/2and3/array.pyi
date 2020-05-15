@@ -7,27 +7,30 @@ from typing import (Any, BinaryIO, Generic, Iterable, Iterator, List, MutableSeq
                     overload, Text, Tuple, TypeVar, Union)
 from typing_extensions import Literal
 
-IntTypeCodes = Literal['b', 'B', 'h', 'H', 'i', 'I', 'l', 'L', 'q', 'Q']
-FloatTypeCodes = Literal['f', 'd']
-UnicodeTypeCodes = Literal['u']
-TypeCodes = Literal[IntTypeCodes, FloatTypeCodes, UnicodeTypeCodes]
+IntTypeCode = Literal['b', 'B', 'h', 'H', 'i', 'I', 'l', 'L', 'q', 'Q']
+FloatTypeCode = Literal['f', 'd']
+UnicodeTypeCode = Literal['u']
+TypeCode = Literal[IntTypeCode, FloatTypeCode, UnicodeTypeCode]
 
 _T = TypeVar('_T', int, float, Text)
 
 if sys.version_info >= (3,):
-    typecodes: TypeCodes
+    typecodes: str
 
 class array(MutableSequence[_T], Generic[_T]):
-    typecode: TypeCodes
+    typecode: TypeCode
     itemsize: int
     @overload
-    def __init__(self: array[int], typecode: IntTypeCodes,
+    def __init__(self: array[int], typecode: IntTypeCode,
                  __initializer: Union[bytes, Iterable[_T]] = ...) -> None: ...
     @overload
-    def __init__(self: array[float], typecode: FloatTypeCodes,
+    def __init__(self: array[float], typecode: FloatTypeCode,
                  __initializer: Union[bytes, Iterable[_T]] = ...) -> None: ...
     @overload
-    def __init__(self: array[Text], typecode: UnicodeTypeCodes,
+    def __init__(self: array[Text], typecode: UnicodeTypeCode,
+                 __initializer: Union[bytes, Iterable[_T]] = ...) -> None: ...
+    @overload
+    def __init__(self, typecode: str,
                  __initializer: Union[bytes, Iterable[_T]] = ...) -> None: ...
     def append(self, __v: _T) -> None: ...
     def buffer_info(self) -> Tuple[int, int]: ...
