@@ -11,8 +11,6 @@ _weakref.ReferenceType.__call__
 abc.abstractclassmethod
 abc.abstractmethod
 abc.abstractstaticmethod
-aifc.open
-aifc.openfp
 argparse.Namespace.__getattr__
 asyncio.BaseEventLoop.subprocess_exec
 asyncio.Condition.acquire
