@@ -74,6 +74,5 @@ unittest.async_case
 urllib.parse.parse_qs
 urllib.parse.parse_qsl
 uuid.UUID.int
-uuid.getnode
 webbrowser.Opera.raise_opts
 xml.parsers.expat.XMLParserType.ExternalEntityParserCreate

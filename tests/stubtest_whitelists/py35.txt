@@ -75,7 +75,6 @@ typing.Sequence.index
 typing.runtime_checkable
 unittest.async_case
 uuid.UUID.int
-uuid.getnode
 xml.etree.cElementTree.XMLPullParser
 xml.parsers.expat.XMLParserType.ExternalEntityParserCreate
 zipfile.ZipFile.open
