@@ -1,3 +1,4 @@
+_pydecimal.Decimal.as_integer_ratio
 asyncio.Future._callbacks
 asyncio.Future._exception
 asyncio.Future._loop

@@ -3,6 +3,7 @@ _dummy_threading
 _importlib_modulespec
 _operator.methodcaller
 _posixsubprocess.cloexec_pipe
+_pydecimal.DecimalException.handle
 _subprocess
 _types
 _weakref.CallableProxyType.__getattr__

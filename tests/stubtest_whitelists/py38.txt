@@ -1,5 +1,7 @@
 _bisect.bisect
 _bisect.insort
+_pydecimal.Decimal.from_float
+_pydecimal.setcontext
 _thread.ExceptHookArgs
 _thread._ExceptHookArgs
 _tracemalloc._get_object_traceback
