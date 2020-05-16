@@ -31,9 +31,6 @@ asyncio.transports.WriteTransport.set_write_buffer_limits
 asyncio.transports._FlowControlMixin.set_write_buffer_limits
 asyncio.windows_events
 asyncio.windows_utils
-base64.b32decode
-base64.b64decode
-base64.b64encode
 bdb.Bdb.__init__
 builtins.WindowsError
 builtins.bytearray.__float__
