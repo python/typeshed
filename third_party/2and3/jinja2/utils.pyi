@@ -10,9 +10,11 @@ concat: Any
 if sys.version_info >= (3, 6):
     from builtins import _PathLike
     _PathType = Union[bytes, Text, _PathLike]
-    text_type = str
 else:
     _PathType = Union[bytes, Text]
+if sys.version_info >= (3,):
+    text_type = str
+else:
     text_type = unicode
 
 _T = TypeVar('_T')
