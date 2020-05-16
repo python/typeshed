@@ -1,3 +1,7 @@
+_collections_abc.AsyncGenerator.ag_await
+_collections_abc.AsyncGenerator.ag_code
+_collections_abc.AsyncGenerator.ag_frame
+_collections_abc.AsyncGenerator.ag_running
 asyncio.Future.__init__
 asyncio.exceptions
 asyncio.futures.Future.__init__
