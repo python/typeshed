@@ -45,6 +45,8 @@ path: List[str]
 path_hooks: List[Any]  # TODO precise type; function, path to finder
 path_importer_cache: Dict[str, Any]  # TODO precise type
 platform: str
+if sys.version_info >= (3, 9):
+    platlibdir: str
 prefix: str
 if sys.version_info >= (3, 8):
     pycache_prefix: Optional[str]
