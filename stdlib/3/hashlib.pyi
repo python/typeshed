@@ -78,7 +78,10 @@ if sys.version_info >= (3, 6):
         PERSON_SIZE: int
         SALT_SIZE: int
 
-        def __init__(self, __data: _DataType = ..., *, digest_size: int = ..., key: _DataType = ..., salt: _DataType = ..., person: _DataType = ..., fanout: int = ..., depth: int = ..., leaf_size: int = ..., node_offset: int = ..., node_depth: int = ..., inner_size: int = ..., last_node: bool = ...) -> None: ...
+        if sys.version_info >= (3, 9):
+            def __init__(self, __data: _DataType = ..., *, digest_size: int = ..., key: _DataType = ..., salt: _DataType = ..., person: _DataType = ..., fanout: int = ..., depth: int = ..., leaf_size: int = ..., node_offset: int = ..., node_depth: int = ..., inner_size: int = ..., last_node: bool = ..., usedforsecurity: bool = ...) -> None: ...
+        else:
+            def __init__(self, __data: _DataType = ..., *, digest_size: int = ..., key: _DataType = ..., salt: _DataType = ..., person: _DataType = ..., fanout: int = ..., depth: int = ..., leaf_size: int = ..., node_offset: int = ..., node_depth: int = ..., inner_size: int = ..., last_node: bool = ...) -> None: ...
 
     blake2b = _BlakeHash
     blake2s = _BlakeHash
