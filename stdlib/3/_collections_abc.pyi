@@ -2,8 +2,6 @@
 from typing import List
 import sys
 
-__all__: List[str]
-
 from typing import (
     AsyncIterable as AsyncIterable,
     AsyncIterator as AsyncIterator,
@@ -35,3 +33,5 @@ if sys.version_info >= (3, 6):
         Reversible as Reversible,
         AsyncGenerator as AsyncGenerator,
     )
+
+__all__: List[str]
