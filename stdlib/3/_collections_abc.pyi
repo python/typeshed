@@ -19,7 +19,7 @@ from typing import (
     MutableMapping as MutableMapping,
     Sequence as Sequence,
     MutableSequence as MutableSequence,
-    Set as Set,
+    AbstractSet as Set,
     MutableSet as MutableSet,
     MappingView as MappingView,
     ItemsView as ItemsView,

@@ -8,36 +8,8 @@ from typing import (
 # These are exported.
 from . import abc
 
-from _collections_abc import (
-    AsyncIterable as AsyncIterable,
-    AsyncIterator as AsyncIterator,
-    Awaitable as Awaitable,
-    Callable as Callable,
-    Container as Container,
-    Coroutine as Coroutine,
-    Hashable as Hashable,
-    Iterable as Iterable,
-    Iterator as Iterator,
-    Sized as Sized,
-    Generator as Generator,
-    ByteString as ByteString,
-    Mapping as Mapping,
-    MappingView as MappingView,
-    ItemsView as ItemsView,
-    KeysView as KeysView,
-    ValuesView as ValuesView,
-    MutableMapping as MutableMapping,
-    Sequence as Sequence,
-    MutableSequence as MutableSequence,
-    MutableSet as MutableSet,
-    Set as Set,
-)
-if sys.version_info >= (3, 6):
-    from _collections_abc import (
-        Collection as Collection,
-        Reversible as Reversible,
-        AsyncGenerator as AsyncGenerator,
-    )
+if sys.version_info < (3, 10):
+    from _collections_abc import *
 
 _S = TypeVar('_S')
 _T = TypeVar('_T')
