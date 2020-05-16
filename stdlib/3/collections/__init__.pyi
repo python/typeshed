@@ -8,7 +8,7 @@ from typing import (
 # These are exported.
 from . import abc
 
-from typing import (
+from _collections_abc import (
     AsyncIterable as AsyncIterable,
     AsyncIterator as AsyncIterator,
     Awaitable as Awaitable,
@@ -21,7 +21,6 @@ from typing import (
     Sized as Sized,
     Generator as Generator,
     ByteString as ByteString,
-    Reversible as Reversible,
     Mapping as Mapping,
     MappingView as MappingView,
     ItemsView as ItemsView,
@@ -31,11 +30,12 @@ from typing import (
     Sequence as Sequence,
     MutableSequence as MutableSequence,
     MutableSet as MutableSet,
-    AbstractSet as Set,
+    Set as Set,
 )
 if sys.version_info >= (3, 6):
-    from typing import (
+    from _collections_abc import (
         Collection as Collection,
+        Reversible as Reversible,
         AsyncGenerator as AsyncGenerator,
     )
 
