@@ -149,6 +149,7 @@ types.WrapperDescriptorType.__get__
 unittest.TestCase.addCleanup
 unittest.case.TestCase.addCleanup
 unittest.doModuleCleanups
+uuid.getnode  # undocumented, unused parameter getters that was later removed
 weakref.WeakValueDictionary.__init__
 weakref.WeakValueDictionary.update
 weakref.getweakrefcount
