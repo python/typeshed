@@ -19,7 +19,6 @@ bdb.GENERATOR_AND_COROUTINE_FLAGS
 builtins.str.maketrans
 cmath.log
 codecs.StreamRecoder.seek
-collections.Reversible
 collections.UserString.maketrans
 ctypes.CDLL.__init__
 decimal.Decimal.as_integer_ratio
