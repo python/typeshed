@@ -167,7 +167,6 @@ dbm.error
 dbm.ndbm
 decimal.DecimalException.handle
 difflib.SequenceMatcher.__init__
-dis.dis
 distutils.archive_util.make_archive
 distutils.archive_util.make_tarball
 distutils.command.bdist_msi
