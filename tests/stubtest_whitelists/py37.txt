@@ -49,8 +49,6 @@ logging.handlers.MemoryHandler.__init__
 macurl2path
 multiprocessing.shared_memory
 os.utime
-pyclbr.Class.__init__
-pyclbr.Function.__init__
 pyexpat.XMLParserType.ExternalEntityParserCreate
 queue.SimpleQueue.__init__
 secrets.SystemRandom.getstate

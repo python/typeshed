@@ -120,8 +120,6 @@ pickle.Pickler.reducer_override
 platform.DEV_NULL
 profile.Profile.runcall
 pwd.getpwuid
-pyclbr.Class.__init__
-pyclbr.Function.__init__
 queue.SimpleQueue.__init__
 random.Random.getrandbits
 random.getrandbits
