@@ -70,7 +70,6 @@ dataclasses.field
 dataclasses.replace
 decimal.Decimal.from_float
 decimal.setcontext
-dis.stack_effect
 email.message.MIMEPart.as_string
 enum.Enum._generate_next_value_
 functools.partialmethod.__get__
@@ -101,7 +100,6 @@ multiprocessing.pool.CLOSE
 multiprocessing.pool.RUN
 multiprocessing.pool.TERMINATE
 multiprocessing.spawn._main
-opcode.stack_effect
 os.MFD_HUGE_32MB
 os.MFD_HUGE_512MB
 os.pipe2
