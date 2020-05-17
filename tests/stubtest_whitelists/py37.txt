@@ -70,5 +70,6 @@ urllib.parse.parse_qs
 urllib.parse.parse_qsl
 uuid.UUID.int
 uuid.UUID.is_safe
+uuid.getnode  # undocumented, unused parameter getters that was later removed
 webbrowser.Opera.raise_opts
 xml.parsers.expat.XMLParserType.ExternalEntityParserCreate
