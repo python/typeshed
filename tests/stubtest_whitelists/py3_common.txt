@@ -18,7 +18,6 @@ asyncio.Condition.locked
 asyncio.Condition.release
 asyncio.Task.get_stack
 asyncio.Task.print_stack
-asyncio.WriteTransport.set_write_buffer_limits
 asyncio.base_events.BaseEventLoop.subprocess_exec
 asyncio.locks.Condition.acquire
 asyncio.locks.Condition.locked
@@ -27,8 +26,6 @@ asyncio.proactor_events.BaseProactorEventLoop.sock_recv
 asyncio.selector_events.BaseSelectorEventLoop.sock_recv
 asyncio.tasks.Task.get_stack
 asyncio.tasks.Task.print_stack
-asyncio.transports.WriteTransport.set_write_buffer_limits
-asyncio.transports._FlowControlMixin.set_write_buffer_limits
 asyncio.windows_events
 asyncio.windows_utils
 bdb.Bdb.__init__
