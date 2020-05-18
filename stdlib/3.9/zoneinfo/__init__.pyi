@@ -7,7 +7,8 @@ from typing import IO, Optional, Sequence, Type, Union
 
 class ZoneInfo(tzinfo):
     _T = typing.TypeVar("_T", bound="ZoneInfo")
-    key: str
+    @property
+    def key(self) -> str: ...
     def __init__(self, key: str) -> None: ...
     @classmethod
     def no_cache(cls: Type[_T], key: str) -> _T: ...
