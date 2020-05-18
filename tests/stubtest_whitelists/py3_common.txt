@@ -436,8 +436,6 @@ ssl.SSLSocket.recvfrom
 ssl.SSLSocket.recvfrom_into
 ssl.SSLSocket.sendto
 ssl._ASN1Object.__new__
-subprocess.Popen.send_signal
-subprocess.call
 sunau.Au_write.getmark
 sunau.Au_write.getmarkers
 sunau.Au_write.setcomptype
