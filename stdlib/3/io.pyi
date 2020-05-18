@@ -172,12 +172,14 @@ class TextIOWrapper(TextIO):
         write_through: bool = ...
     ) -> None: ...
     if sys.version_info >= (3, 7):
-        def reconfigure(self, *,
+        def reconfigure(
+            self,
+            *,
             encoding: Optional[str] = ...,
             errors: Optional[str] = ...,
             newline: Optional[str] = ...,
-            line_buffering: bool = ...,
-            write_through: bool = ...
+            line_buffering: Optional[bool] = ...,
+            write_through: Optional[bool] = ...
         ) -> None: ...
     # copied from IOBase
     def __exit__(self, t: Optional[Type[BaseException]] = ..., value: Optional[BaseException] = ...,
