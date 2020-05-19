@@ -130,7 +130,7 @@ if sys.version_info >= (3, 8):
 elif sys.version_info >= (3,):
     def which(cmd: _Path, mode: int = ..., path: Optional[_Path] = ...) -> Optional[str]: ...
 
-def make_archive(base_name: _AnyStr, format: str, root_dir: Optional[_Path] = ...,
+def make_archive(base_name: _Path, format: str, root_dir: Optional[_Path] = ...,
                  base_dir: Optional[_Path] = ..., verbose: bool = ...,
                  dry_run: bool = ..., owner: Optional[str] = ..., group: Optional[str] = ...,
                  logger: Optional[Any] = ...) -> _AnyStr: ...
