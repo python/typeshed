@@ -3,7 +3,6 @@ _dummy_threading
 _importlib_modulespec
 _operator.methodcaller
 _posixsubprocess.cloexec_pipe
-_subprocess
 _types
 _weakref.CallableProxyType.__getattr__
 _weakref.ProxyType.__getattr__
@@ -436,8 +435,6 @@ ssl.SSLSocket.recvfrom
 ssl.SSLSocket.recvfrom_into
 ssl.SSLSocket.sendto
 ssl._ASN1Object.__new__
-subprocess.Popen.send_signal
-subprocess.call
 sunau.Au_write.getmark
 sunau.Au_write.getmarkers
 sunau.Au_write.setcomptype

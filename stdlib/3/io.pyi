@@ -173,6 +173,16 @@ class TextIOWrapper(TextIO):
     ) -> None: ...
     @property
     def buffer(self) -> BinaryIO: ...
+    if sys.version_info >= (3, 7):
+        def reconfigure(
+            self,
+            *,
+            encoding: Optional[str] = ...,
+            errors: Optional[str] = ...,
+            newline: Optional[str] = ...,
+            line_buffering: Optional[bool] = ...,
+            write_through: Optional[bool] = ...
+        ) -> None: ...
     # copied from IOBase
     def __exit__(self, t: Optional[Type[BaseException]] = ..., value: Optional[BaseException] = ...,
                  traceback: Optional[TracebackType] = ...) -> Optional[bool]: ...
