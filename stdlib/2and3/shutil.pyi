@@ -130,10 +130,18 @@ if sys.version_info >= (3, 8):
 elif sys.version_info >= (3,):
     def which(cmd: _Path, mode: int = ..., path: Optional[_Path] = ...) -> Optional[str]: ...
 
-def make_archive(base_name: _Path, format: str, root_dir: Optional[_Path] = ...,
-                 base_dir: Optional[_Path] = ..., verbose: bool = ...,
-                 dry_run: bool = ..., owner: Optional[str] = ..., group: Optional[str] = ...,
-                 logger: Optional[Any] = ...) -> _AnyStr: ...
+if sys.version_info >= (3, 8):
+    def make_archive(base_name: _Path, format: str, root_dir: Optional[_Path] = ...,
+                    base_dir: Optional[_Path] = ..., verbose: bool = ...,
+                    dry_run: bool = ..., owner: Optional[str] = ..., group: Optional[str] = ...,
+                    logger: Optional[Any] = ...) -> _AnyStr: ...
+else:
+    def make_archive(base_name: _AnyStr, format: str, root_dir: Optional[_Path] = ...,
+                    base_dir: Optional[_Path] = ..., verbose: bool = ...,
+                    dry_run: bool = ..., owner: Optional[str] = ..., group: Optional[str] = ...,
+                    logger: Optional[Any] = ...) -> _AnyStr: ...
+
+
 def get_archive_formats() -> List[Tuple[str, str]]: ...
 
 def register_archive_format(name: str, function: Callable[..., Any],
