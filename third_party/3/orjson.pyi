@@ -3,7 +3,7 @@ from typing import Any, Callable, Optional, Union
 __version__ = str
 
 def dumps(
-    obj: Any,
+    __obj: Any,
     default: Optional[Callable[[Any], Any]] = ...,
     option: Optional[int] = ...,
 ) -> bytes: ...
