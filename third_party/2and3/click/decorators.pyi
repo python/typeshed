@@ -6,7 +6,7 @@ from click.core import Command, Group, Argument, Option, Parameter, Context, _Co
 _T = TypeVar('_T')
 _F = TypeVar('_F', bound=Callable[..., Any])
 
-class IdentityFunction(Protocol):
+class _IdentityFunction(Protocol):
     def __call__(self, __x: _T) -> _T: ...
 
 
@@ -25,7 +25,7 @@ def pass_obj(_T) -> _T:
 
 def make_pass_decorator(
     object_type: type, ensure: bool = ...
-) -> IdentityFunction:
+) -> _IdentityFunction:
     ...
 
 
@@ -86,7 +86,7 @@ def argument(
     is_eager: bool = ...,
     envvar: Optional[Union[str, List[str]]] = ...,
     autocompletion: Optional[Callable[[Any, List[str], str], List[Union[str, Tuple[str, str]]]]] = ...,
-) -> IdentityFunction:
+) -> _IdentityFunction:
     ...
 
 
@@ -118,7 +118,7 @@ def option(
     envvar: Optional[Union[str, List[str]]] = ...,
     # User-defined
     **kwargs: Any,
-) -> IdentityFunction:
+) -> _IdentityFunction:
     ...
 
 
@@ -150,7 +150,7 @@ def option(
     envvar: Optional[Union[str, List[str]]] = ...,
     # User-defined
     **kwargs: Any,
-) -> IdentityFunction:
+) -> _IdentityFunction:
     ...
 
 
@@ -182,7 +182,7 @@ def option(
     envvar: Optional[Union[str, List[str]]] = ...,
     # User-defined
     **kwargs: Any,
-) -> IdentityFunction:
+) -> _IdentityFunction:
     ...
 
 
@@ -214,7 +214,7 @@ def option(
     envvar: Optional[Union[str, List[str]]] = ...,
     # User-defined
     **kwargs: Any,
-) -> IdentityFunction:
+) -> _IdentityFunction:
     ...
 
 
@@ -242,7 +242,7 @@ def confirmation_option(
     expose_value: bool = ...,
     is_eager: bool = ...,
     envvar: Optional[Union[str, List[str]]] = ...
-) -> IdentityFunction:
+) -> _IdentityFunction:
     ...
 
 
@@ -270,7 +270,7 @@ def password_option(
     expose_value: bool = ...,
     is_eager: bool = ...,
     envvar: Optional[Union[str, List[str]]] = ...
-) -> IdentityFunction:
+) -> _IdentityFunction:
     ...
 
 
@@ -301,7 +301,7 @@ def version_option(
     expose_value: bool = ...,
     is_eager: bool = ...,
     envvar: Optional[Union[str, List[str]]] = ...
-) -> IdentityFunction:
+) -> _IdentityFunction:
     ...
 
 
@@ -329,5 +329,5 @@ def help_option(
     expose_value: bool = ...,
     is_eager: bool = ...,
     envvar: Optional[Union[str, List[str]]] = ...
-) -> IdentityFunction:
+) -> _IdentityFunction:
     ...
