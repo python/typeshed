@@ -14,7 +14,7 @@ class IMapIterator(Iterator[Any]):
 
 class IMapUnorderedIterator(IMapIterator): ...
 
-class Pool:
+class Pool(object):
     def __init__(self, processes: Optional[int] = ...,
                  initializer: Optional[Callable[..., None]] = ...,
                  initargs: Iterable[Any] = ...,
