@@ -59,6 +59,7 @@ class StatisticDiff:
     size: int
     size_diff: int
     traceback: Traceback
+    def __init__(self, traceback: Traceback, size: int, size_diff: int, count: int, count_diff: int) -> None: ...
 
 class Trace:
     size: int
