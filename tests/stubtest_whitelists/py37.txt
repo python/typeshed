@@ -56,7 +56,6 @@ time.CLOCK_PROF
 time.CLOCK_UPTIME
 tkinter.Menu.tk_bindForTraversal
 tkinter.Misc.tk_menuBar
-tracemalloc.Traceback.format
 types.ClassMethodDescriptorType.__get__
 types.MethodDescriptorType.__get__
 types.WrapperDescriptorType.__get__
