@@ -397,9 +397,6 @@ shlex.shlex.__init__
 shlex.shlex.error_leader
 shlex.shlex.sourcehook
 shutil.register_unpack_format
-signal.CTRL_BREAK_EVENT
-signal.CTRL_C_EVENT
-signal.SIGBREAK
 signal.SIGEMT
 signal.SIGINFO
 site.getsitepackages
