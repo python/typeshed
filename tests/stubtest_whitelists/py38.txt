@@ -1,7 +1,5 @@
 _thread.ExceptHookArgs
 _thread._ExceptHookArgs
-_tracemalloc._get_object_traceback
-_tracemalloc.start
 _weakref.getweakrefcount
 asyncio.AbstractEventLoop.sock_sendfile
 asyncio.Future.__init__

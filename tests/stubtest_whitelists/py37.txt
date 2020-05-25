@@ -1,5 +1,3 @@
-_tracemalloc._get_object_traceback
-_tracemalloc.start
 asyncio.AbstractEventLoop.sock_sendfile
 asyncio.Future.__init__
 asyncio.Future._callbacks
