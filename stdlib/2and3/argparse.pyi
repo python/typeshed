@@ -96,7 +96,22 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
     _optionals: _ArgumentGroup
     _subparsers: Optional[_ArgumentGroup]
 
-    if sys.version_info >= (3, 5):
+    if sys.version_info >= (3, 9):
+        def __init__(self,
+                     prog: Optional[str] = ...,
+                     usage: Optional[str] = ...,
+                     description: Optional[str] = ...,
+                     epilog: Optional[str] = ...,
+                     parents: Sequence[ArgumentParser] = ...,
+                     formatter_class: _FormatterClass = ...,
+                     prefix_chars: str = ...,
+                     fromfile_prefix_chars: Optional[str] = ...,
+                     argument_default: Optional[str] = ...,
+                     conflict_handler: str = ...,
+                     add_help: bool = ...,
+                     allow_abbrev: bool = ...,
+                     exit_on_error: bool = ...) -> None: ...
+    elif sys.version_info >= (3, 5):
         def __init__(self,
                      prog: Optional[str] = ...,
                      usage: Optional[str] = ...,
