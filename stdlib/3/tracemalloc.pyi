@@ -70,6 +70,7 @@ class Trace:
 
 class Traceback(Sequence[Frame]):
     if sys.version_info >= (3, 9):
+        total_nframe: Optional[int]
         def __init__(self, frames: Tuple[Tuple[str, int], ...], total_nframe: Optional[int] = ...) -> None: ...
     else:
         def __init__(self, frames: Tuple[Tuple[str, int], ...]) -> None: ...
