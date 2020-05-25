@@ -27,7 +27,7 @@ if sys.version_info >= (3, 9):
         workers: int = ...,
         invalidation_mode: Optional[PycInvalidationMode] = ...,
         *,
-        stripdir: Optional[_Path] = ...,
+        stripdir: Optional[str] = ...,  # TODO: change to Optional[_Path] once https://bugs.python.org/issue40447 is resolved
         prependdir: Optional[_Path] = ...,
         limit_sl_dest: Optional[_Path] = ...,
     ) -> _SuccessType: ...
@@ -41,7 +41,7 @@ if sys.version_info >= (3, 9):
         optimize: int = ...,
         invalidation_mode: Optional[PycInvalidationMode] = ...,
         *,
-        stripdir: Optional[_Path] = ...,
+        stripdir: Optional[str] = ...,  # TODO: change to Optional[_Path] once https://bugs.python.org/issue40447 is resolved
         prependdir: Optional[_Path] = ...,
         limit_sl_dest: Optional[_Path] = ...,
     ) -> _SuccessType: ...
