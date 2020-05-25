@@ -451,8 +451,6 @@ tempfile.SpooledTemporaryFile.__next__
 tempfile.SpooledTemporaryFile.readable
 tempfile.SpooledTemporaryFile.seekable
 tempfile.SpooledTemporaryFile.writable
-threading.BoundedSemaphore.__enter__
-threading.BoundedSemaphore.acquire
 threading.Condition.acquire
 threading.Condition.release
 threading.Lock
