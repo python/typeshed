@@ -62,7 +62,9 @@ class StatisticDiff:
     def __init__(self, traceback: Traceback, size: int, size_diff: int, count: int, count_diff: int) -> None: ...
 
 class Trace:
+    domain: int
     size: int
+    traceback: Traceback
     if sys.version_info >= (3, 9):
         def __init__(self, trace: Union[Tuple[int, int, Tuple[Tuple[str, int], ...], Optional[int]], Tuple[int, int, Tuple[Tuple[str, int], ...]]]) -> None: ...
     else:
