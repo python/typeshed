@@ -12,7 +12,7 @@ _COMPILER_CONFIG_VARS: Tuple[str, ...]  # undocumented
 _INITPRE: str  # undocumented
 
 def _find_executable(executable: str, path: Optional[str] = ...) -> Optional[str]: ...  # undocumented
-def _read_output(commandstring: str) -> str: ...  # undocumented
+def _read_output(commandstring: str) -> Optional[str]: ...  # undocumented
 def _find_build_tool(toolname: str) -> str: ...  # undocumented
 
 _SYSTEM_VERSION: Optional[str]  # undocumented
