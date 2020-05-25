@@ -123,17 +123,7 @@ collections.abc.Sequence.count
 collections.abc.Sequence.index
 collections.abc.Set.isdisjoint
 collections.deque.__hash__
-concurrent.futures.BrokenProcessPool
-concurrent.futures.CANCELLED
-concurrent.futures.CANCELLED_AND_NOTIFIED
-concurrent.futures.EXTRA_QUEUED_CALLS
-concurrent.futures.Error
 concurrent.futures.Executor.map
-concurrent.futures.FINISHED
-concurrent.futures.LOGGER
-concurrent.futures.PENDING
-concurrent.futures.ProcessPoolExecutor.map
-concurrent.futures.RUNNING
 concurrent.futures._base.Executor.map
 concurrent.futures.process.ProcessPoolExecutor.map
 configparser.LegacyInterpolation.before_get

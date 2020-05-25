@@ -24,7 +24,7 @@ collections.abc.AsyncGenerator.ag_await
 collections.abc.AsyncGenerator.ag_code
 collections.abc.AsyncGenerator.ag_frame
 collections.abc.AsyncGenerator.ag_running
-concurrent.futures.BrokenThreadPool
+concurrent.futures.ProcessPoolExecutor.map
 contextvars.Context.__init__
 contextvars.Context.get
 copy.PyStringMap

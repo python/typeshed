@@ -47,8 +47,8 @@ collections.abc.Container.__contains__
 collections.abc.ItemsView.__reversed__
 collections.abc.KeysView.__reversed__
 collections.abc.ValuesView.__reversed__
-concurrent.futures.BrokenThreadPool
 concurrent.futures.Executor.submit
+concurrent.futures.ProcessPoolExecutor.map
 concurrent.futures.ProcessPoolExecutor.submit
 concurrent.futures.ThreadPoolExecutor.submit
 concurrent.futures._base.Executor.submit
