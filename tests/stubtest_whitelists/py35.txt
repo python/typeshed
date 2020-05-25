@@ -23,6 +23,7 @@ collections.Reversible
 collections.UserString.maketrans
 ctypes.CDLL.__init__
 decimal.Decimal.as_integer_ratio
+fractions.Fraction.__new__  # private _normalize param was made keyword-only in Python 3.6
 gettext.NullTranslations.npgettext
 gettext.NullTranslations.pgettext
 gettext.dnpgettext
