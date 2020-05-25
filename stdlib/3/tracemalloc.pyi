@@ -63,7 +63,7 @@ class StatisticDiff:
 
 class Trace:
     size: int
-    traceback: Traceback
+    def __init__(self, trace: Tuple[int, int, Tuple[Tuple[Tuple[str, int], ...], Optional[int]]]) -> None: ...
 
 class Traceback(Sequence[Frame]):
     def format(self, limit: Optional[int] = ...) -> List[str]: ...
