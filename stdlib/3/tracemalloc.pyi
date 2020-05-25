@@ -31,6 +31,7 @@ class Filter:
 class Frame:
     filename: str
     lineno: int
+    def __init__(self, frame: Tuple[str, int]) -> None: ...
 
 class Snapshot:
     def compare_to(self, old_snapshot: Snapshot, key_type: str, cumulative: bool = ...) -> List[StatisticDiff]: ...
