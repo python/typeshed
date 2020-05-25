@@ -50,7 +50,6 @@ smtpd.SMTPChannel.__init__
 smtpd.SMTPServer.__init__
 socket.NETLINK_CRYPTO
 sre_compile.dis
-tracemalloc.Filter.__init__
 typing.AbstractSet.isdisjoint
 typing.Coroutine.cr_await
 typing.Coroutine.cr_code

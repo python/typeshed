@@ -134,8 +134,6 @@ time.CLOCK_UPTIME
 tkinter.Menu.tk_bindForTraversal
 tkinter.Misc.tk_menuBar
 trace.Trace.runfunc
-tracemalloc.Traceback.format
-tracemalloc.start
 types.ClassMethodDescriptorType.__get__
 types.CodeType.replace
 types.MethodDescriptorType.__get__

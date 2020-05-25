@@ -459,7 +459,6 @@ timeit.main
 traceback.FrameSummary.__init__
 traceback.TracebackException.__init__
 traceback.TracebackException.from_exception
-tracemalloc.Snapshot.load
 types.GetSetDescriptorType.__get__
 types.GetSetDescriptorType.__set__
 types.MemberDescriptorType.__get__
