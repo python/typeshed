@@ -1,11 +1,17 @@
 import sys
-from typing import Any, Callable, IO, Iterable, Literal, Optional, Protocol, Text, TypeVar, Union
+from typing import Any, Callable, IO, Iterable, Optional, Protocol, Text, TypeVar, Union
 
 from markupsafe import Markup as Markup, escape as escape, soft_unicode as soft_unicode
 
 missing: Any
 internal_code: Any
 concat: Any
+
+if sys.version_info >= (3, 8):
+    from typing import Literal
+    true = Literal[True]
+else:
+    true = bool
 
 if sys.version_info >= (3, 6):
     from builtins import _PathLike
