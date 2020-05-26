@@ -29,6 +29,7 @@ contextvars.Context.__init__
 contextvars.Context.get
 copy.PyStringMap
 ctypes.CDLL.__init__
+dataclasses.Field.__init__
 dataclasses.field
 email.message.MIMEPart.as_string
 enum.Enum._generate_next_value_
@@ -59,6 +60,8 @@ tkinter.Misc.tk_menuBar
 types.ClassMethodDescriptorType.__get__
 types.MethodDescriptorType.__get__
 types.WrapperDescriptorType.__get__
+typing._SpecialForm.__init__
+typing._SpecialForm.__new__
 typing.runtime_checkable
 unittest.async_case
 urllib.parse.parse_qs

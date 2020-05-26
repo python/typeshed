@@ -16,6 +16,7 @@ collections.abc.AsyncGenerator.ag_await
 collections.abc.AsyncGenerator.ag_code
 collections.abc.AsyncGenerator.ag_frame
 collections.abc.AsyncGenerator.ag_running
+contextlib._GeneratorContextManager.__init__
 copy.PyStringMap
 ctypes.CDLL.__init__
 email.message.MIMEPart.as_string
@@ -37,10 +38,12 @@ logging.handlers.MemoryHandler.__init__
 mmap.ACCESS_DEFAULT
 multiprocessing.shared_memory
 os.utime
+plistlib.Dict.__init__
 pyexpat.XMLParserType.ExternalEntityParserCreate
 secrets.SystemRandom.getstate
 smtplib.SMTP.sendmail
 sre_compile.dis
+ssl.SSLSocket.__init__
 tkinter.Menu.tk_bindForTraversal
 tkinter.Misc.tk_menuBar
 typing.AbstractSet.isdisjoint
@@ -52,10 +55,12 @@ typing.Coroutine.cr_await
 typing.Coroutine.cr_code
 typing.Coroutine.cr_frame
 typing.Coroutine.cr_running
+typing.Generator.__new__
 typing.Generator.gi_code
 typing.Generator.gi_frame
 typing.Generator.gi_running
 typing.Generator.gi_yieldfrom
+typing.GenericMeta.__new__
 typing.Mapping.get
 typing.MutableMapping.pop
 typing.MutableMapping.setdefault
@@ -66,6 +71,7 @@ typing.MutableSequence.remove
 typing.MutableSet.add
 typing.MutableSet.discard
 typing.MutableSet.remove
+typing.NamedTuple.__new__
 typing.Sequence.count
 typing.Sequence.index
 typing.runtime_checkable
