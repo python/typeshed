@@ -10,7 +10,6 @@ asyncio.futures.Future._exception
 asyncio.futures.Future._loop
 asyncio.futures.Future._tb_logger
 asyncio.futures._TracebackLogger.__init__
-asyncio.protocols.BufferedProtocol
 asyncio.runners
 asyncio.tasks.Task.__init__
 asyncio.tasks.Task._wakeup
