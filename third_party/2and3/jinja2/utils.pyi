@@ -9,9 +9,9 @@ concat: Any
 
 if sys.version_info >= (3, 8):
     from typing import Literal
-    true = Literal[True]
+    _True = Literal[True]
 else:
-    true = bool
+    _True = bool
 
 if sys.version_info >= (3, 6):
     from builtins import _PathLike
@@ -22,15 +22,15 @@ else:
 _CallableT = TypeVar("_CallableT", bound=Callable[..., Any])
 
 class _ContextFunction(Protocol[_CallableT]):
-    contextfunction: Literal[true]
+    contextfunction: _True
     __call__: _CallableT
 
 class _EvalContextFunction(Protocol[_CallableT]):
-    evalcontextfunction: Literal[true]
+    evalcontextfunction: _True
     __call__: _CallableT
 
 class _EnvironmentFunction(Protocol[_CallableT]):
-    environmentfunction: Literal[true]
+    environmentfunction: _True
     __call__: _CallableT
 
 def contextfunction(f: _CallableT) -> _ContextFunction[_CallableT]: ...
