@@ -53,8 +53,6 @@ queue.SimpleQueue.__init__
 secrets.SystemRandom.getstate
 smtplib.SMTP.sendmail
 sre_constants.RANGE_IGNORE
-time.CLOCK_PROF
-time.CLOCK_UPTIME
 tkinter.Menu.tk_bindForTraversal
 tkinter.Misc.tk_menuBar
 types.ClassMethodDescriptorType.__get__
