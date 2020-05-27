@@ -2,20 +2,18 @@ dist: bionic
 language: python
 python: 3.8
 
+aliases:
+  test_windows: &test_windows
+    os: windows
+    language: shell
+    env: &env_windows
+      PATH: /c/Python38:/c/Python38/Scripts:/c/Python37:/c/Python37/Scripts:/c/Python36:/c/Python36/Scripts:$PATH
+    before_install:
+      - choco install python --version $PYTHON_VERSION
+      - python -m pip install -U pip
+
 jobs:
   include:
-    - name: "stubtest py37 (Windows)"
-      os: windows
-      language: shell
-      env:
-        PATH: /c/Python37:/c/Python37/Scripts:$PATH
-      before_install:
-        - choco install python --version 3.7.7
-        - python --version
-        - python -m ensurepip
-        - python -m pip install -U pip
-      install: pip install -U git+git://github.com/python/mypy@b3d43984
-      script: python ./tests/stubtest_test.py
     - name: "pytype"
       python: 3.6
       install: pip install -r requirements-tests-py3.txt
@@ -57,6 +55,20 @@ jobs:
       python: 3.5
       install: pip install -U git+git://github.com/python/mypy@b3d43984
       script: ./tests/stubtest_test.py
+    - name: "stubtest py38 (Windows)"
+      - <<: *test_windows
+      env:
+        <<: *env_windows
+        PYTHON_VERSION: 3.8.3
+      install: pip install -U git+git://github.com/python/mypy@b3d43984
+      script: python ./tests/stubtest_test.py
+    - name: "stubtest py37 (Windows)"
+      - <<: *test_windows
+      env:
+        <<: *env_windows
+        PYTHON_VERSION: 3.7.7
+      install: pip install -U git+git://github.com/python/mypy@b3d43984
+      script: python ./tests/stubtest_test.py
   allow_failures:
     - name: "stubtest py39"
       python: 3.9-dev
