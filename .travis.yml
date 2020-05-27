@@ -7,6 +7,8 @@ jobs:
     - name: "stubtest py37 (Windows)"
       os: windows
       language: shell
+      env:
+        PATH: /c/Python37:/c/Python37/Scripts:$PATH
       before_install:
         - choco install python --version 3.7.7
         - python --version
