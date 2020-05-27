@@ -638,4 +638,5 @@ socket.[A-Z0-9_]+
 (_winapi)?
 (msilib(.[a-z]+)?)?
 (msvcrt)?
+(winreg)?
 (winsound)?
