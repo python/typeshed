@@ -35,6 +35,7 @@ root_dir = base_dir.parent.parent
 build_dir = base_dir / "build"
 dist_dir = base_dir / "dist"
 
+
 @dataclass
 class PackageInfo:
     path: Path
@@ -77,6 +78,7 @@ def py_version_to_trove(version: str) -> List[str]:
     else:
         versions = py3_versions(int(version[2:])) + ["3 :: Only"]
     return [TROVE_PREFIX + v for v in versions]
+
 
 def py3_versions(min_v: int = MIN_PYTHON3_VERSION[1]) -> List[str]:
     assert min_v <= MAX_PYTHON3_VERSION[1]
