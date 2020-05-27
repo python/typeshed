@@ -9,12 +9,12 @@ else:
     from http.server import HTTPServer, BaseHTTPRequestHandler
 
 if sys.platform == "win32":
-    class _ForkingMixIn: ...
+    class ForkingMixIn(object): ...
 else:
     if sys.version_info < (3,):
-        from SocketServer import ForkingMixIn as _ForkingMixIn
+        from SocketServer import ForkingMixIn as ForkingMixIn
     else:
-        from socketserver import ForkingMixIn as _ForkingMixIn
+        from socketserver import ForkingMixIn as ForkingMixIn
 
 class _SslDummy:
     def __getattr__(self, name): ...
@@ -83,7 +83,7 @@ class ThreadedWSGIServer(ThreadingMixIn, BaseWSGIServer):
     multithread: Any
     daemon_threads: Any
 
-class ForkingWSGIServer(_ForkingMixIn, BaseWSGIServer):
+class ForkingWSGIServer(ForkingMixIn, BaseWSGIServer):
     multiprocess: Any
     max_children: Any
     def __init__(self, host, port, app, processes: int = ..., handler: Optional[Any] = ..., passthrough_errors: bool = ...,
