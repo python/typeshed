@@ -1,8 +1,17 @@
 import socket
 import sys
-from typing import IO, Any, Callable, ClassVar, List, NoReturn, Optional, Tuple
+from typing import IO, Any, Callable, ClassVar, List, NoReturn, Optional, Tuple, Type
 
 from . import events, futures, proactor_events, selector_events, streams, windows_utils
+
+__all__ = [
+    "SelectorEventLoop",
+    "ProactorEventLoop",
+    "IocpProactor",
+    "DefaultEventLoopPolicy",
+    "WindowsSelectorEventLoopPolicy",
+    "WindowsProactorEventLoopPolicy",
+]
 
 NULL: int
 INFINITE: int
@@ -42,24 +51,24 @@ class IocpProactor:
     def sendfile(self, sock: socket.socket, file: IO[bytes], offset: int, count: int) -> futures.Future[Any]: ...
     def accept_pipe(self, pipe: socket.socket) -> futures.Future[Any]: ...
     async def connect_pipe(self, address: bytes) -> windows_utils.PipeHandle: ...
-    def wait_for_handle(self, handle: windows_utils.PipeHandle, timeout: int = ...) -> bool: ...
+    def wait_for_handle(self, handle: windows_utils.PipeHandle, timeout: Optional[int] = ...) -> bool: ...
     def close(self) -> None: ...
 
 SelectorEventLoop = _WindowsSelectorEventLoop
 
 if sys.version_info >= (3, 7):
     class WindowsSelectorEventLoopPolicy(events.BaseDefaultEventLoopPolicy):
-        _loop_factory: ClassVar[events.AbstractEventLoop]
+        _loop_factory: ClassVar[Type[SelectorEventLoop]]
         def get_child_watcher(self) -> NoReturn: ...
         def set_child_watcher(self, watcher: Any) -> NoReturn: ...
     class WindowsProactorEventLoopPolicy(events.BaseDefaultEventLoopPolicy):
-        _loop_factory: ClassVar[events.AbstractEventLoop]
+        _loop_factory: ClassVar[Type[ProactorEventLoop]]
         def get_child_watcher(self) -> NoReturn: ...
         def set_child_watcher(self, watcher: Any) -> NoReturn: ...
     DefaultEventLoopPolicy = WindowsSelectorEventLoopPolicy
 else:
     class _WindowsDefaultEventLoopPolicy(events.BaseDefaultEventLoopPolicy):
-        _loop_factory: ClassVar[events.AbstractEventLoop]
+        _loop_factory: ClassVar[Type[SelectorEventLoop]]
         def get_child_watcher(self) -> NoReturn: ...
         def set_child_watcher(self, watcher: Any) -> NoReturn: ...
     DefaultEventLoopPolicy = _WindowsDefaultEventLoopPolicy
