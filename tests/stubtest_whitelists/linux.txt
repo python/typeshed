@@ -21,11 +21,7 @@ os.lchmod
 os.listxattr
 os.plock
 posix.EX_NOTFOUND
-pwd.getpwnam
 select.EPOLL_RDHUP
-site.getsitepackages
-site.getuserbase
-site.getusersitepackages
 socket.socketpair
 spwd.getspnam
 spwd.struct_spwd._asdict

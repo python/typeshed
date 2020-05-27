@@ -1,2 +1,6 @@
+pwd.getpwnam
+site.getsitepackages
+site.getuserbase
+site.getusersitepackages
 time.CLOCK_PROF
 time.CLOCK_UPTIME
