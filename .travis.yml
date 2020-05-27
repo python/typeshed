@@ -9,9 +9,9 @@ jobs:
       language: shell
       before_install:
         - choco install python --version 3.8.0
-        - python --version
-        - python -m ensurepip
-        - python -m pip install -U pip
+        - python3 --version
+        - python3 -m ensurepip
+        - python3 -m pip install -U pip
       install: pip install -U git+git://github.com/python/mypy@b3d43984
       script: python ./tests/stubtest_test.py
     - name: "pytype"
