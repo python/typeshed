@@ -29,7 +29,6 @@ spwd.struct_spwd._make
 spwd.struct_spwd._replace
 sys.getwindowsversion
 time.CLOCK_HIGHRES
-typing.IO.closed
 urllib.request.proxy_bypass
 
 # ==========

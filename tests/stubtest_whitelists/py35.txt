@@ -45,7 +45,6 @@ nntplib._NNTPBase.starttls
 os.DirEntry
 os.utime
 plistlib.Dict.__init__
-pwd.getpwnam
 pyexpat.XMLParserType.ExternalEntityParserCreate
 site.getsitepackages
 site.getuserbase

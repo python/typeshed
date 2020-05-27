@@ -39,12 +39,8 @@ multiprocessing.shared_memory
 nntplib._NNTPBase.starttls
 os.utime
 plistlib.Dict.__init__
-pwd.getpwnam
 pyexpat.XMLParserType.ExternalEntityParserCreate
 secrets.SystemRandom.getstate
-site.getsitepackages
-site.getuserbase
-site.getusersitepackages
 smtplib.SMTP.sendmail
 sre_compile.dis
 ssl.SSLSocket.__init__

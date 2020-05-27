@@ -73,9 +73,6 @@ pickle.Pickler.reducer_override
 platform.DEV_NULL
 queue.SimpleQueue.__init__
 secrets.SystemRandom.getstate
-site.getsitepackages
-site.getuserbase
-site.getusersitepackages
 smtplib.SMTP.sendmail
 sre_constants.RANGE_IGNORE
 ssl.PROTOCOL_SSLv3
@@ -88,7 +85,6 @@ types.ClassMethodDescriptorType.__get__
 types.CodeType.replace
 types.MethodDescriptorType.__get__
 types.WrapperDescriptorType.__get__
-typing.IO.closed  # Incorrect definition in CPython, fixed in bpo-39493
 typing.NamedTuple.__new__
 typing.NamedTuple._asdict
 typing.NamedTuple._make

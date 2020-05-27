@@ -49,13 +49,9 @@ macurl2path
 multiprocessing.shared_memory
 nntplib._NNTPBase.starttls
 os.utime
-pwd.getpwnam
 pyexpat.XMLParserType.ExternalEntityParserCreate
 queue.SimpleQueue.__init__
 secrets.SystemRandom.getstate
-site.getsitepackages
-site.getuserbase
-site.getusersitepackages
 smtplib.SMTP.sendmail
 sre_constants.RANGE_IGNORE
 ssl.PROTOCOL_SSLv3
