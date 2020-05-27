@@ -133,6 +133,7 @@ collections.abc.Set.isdisjoint
 collections.deque.__hash__
 concurrent.futures.Executor.map
 concurrent.futures._base.Executor.map
+concurrent.futures.ProcessPoolExecutor.map
 concurrent.futures.process.ProcessPoolExecutor.map
 configparser.DuplicateOptionError.__init__
 configparser.DuplicateSectionError.__init__
