@@ -367,7 +367,6 @@ netrc.NetrcParseError.__init__
 netrc.netrc.__init__
 nntplib._NNTPBase.starttls
 ntpath.join
-ntpath.realpath
 numbers.Number.__hash__
 operator.methodcaller
 optparse.HelpFormatter._format__Text

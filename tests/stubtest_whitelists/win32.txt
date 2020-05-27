@@ -12,7 +12,6 @@ tempfile.TemporaryFile  # TODO: Weird inconsistency
 urllib.request.pathname2url  # Parameter name mismatch
 urllib.request.url2pathname  # Same
 winreg.[A-Za-z]+  # Should be made positional only
-zipfile.ZipExtFile.__init__  # TODO: Weird inconsistency
 
 # Modules that do not exist on Windows systems
 _curses
