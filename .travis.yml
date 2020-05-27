@@ -45,3 +45,8 @@ jobs:
       python: 3.5
       install: pip install -U git+git://github.com/python/mypy@0a05e61a
       script: ./tests/stubtest_test.py
+  allow_failures:
+    - name: "stubtest py39"
+      python: 3.9-dev
+      install: pip install -U git+git://github.com/python/mypy
+      script: ./tests/stubtest_test.py

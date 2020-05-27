@@ -1,7 +1,3 @@
-_bisect.bisect
-_bisect.insort
-_pydecimal.Decimal.from_float
-_pydecimal.setcontext
 _thread.ExceptHookArgs
 _thread._ExceptHookArgs
 _tracemalloc._get_object_traceback
@@ -51,8 +47,8 @@ collections.abc.Container.__contains__
 collections.abc.ItemsView.__reversed__
 collections.abc.KeysView.__reversed__
 collections.abc.ValuesView.__reversed__
-concurrent.futures.BrokenThreadPool
 concurrent.futures.Executor.submit
+concurrent.futures.ProcessPoolExecutor.map
 concurrent.futures.ProcessPoolExecutor.submit
 concurrent.futures.ThreadPoolExecutor.submit
 concurrent.futures._base.Executor.submit
@@ -72,7 +68,6 @@ dataclasses.field
 dataclasses.replace
 decimal.Decimal.from_float
 decimal.setcontext
-dis.stack_effect
 email.message.MIMEPart.as_string
 enum.Enum._generate_next_value_
 functools.partialmethod.__get__
@@ -103,7 +98,6 @@ multiprocessing.pool.CLOSE
 multiprocessing.pool.RUN
 multiprocessing.pool.TERMINATE
 multiprocessing.spawn._main
-opcode.stack_effect
 os.MFD_HUGE_32MB
 os.MFD_HUGE_512MB
 os.pipe2
@@ -124,8 +118,6 @@ pickle.Pickler.reducer_override
 platform.DEV_NULL
 profile.Profile.runcall
 pwd.getpwuid
-pyclbr.Class.__init__
-pyclbr.Function.__init__
 queue.SimpleQueue.__init__
 random.Random.getrandbits
 random.getrandbits
@@ -142,8 +134,6 @@ time.CLOCK_UPTIME
 tkinter.Menu.tk_bindForTraversal
 tkinter.Misc.tk_menuBar
 trace.Trace.runfunc
-tracemalloc.Traceback.format
-tracemalloc.start
 types.ClassMethodDescriptorType.__get__
 types.CodeType.replace
 types.MethodDescriptorType.__get__
@@ -151,6 +141,7 @@ types.WrapperDescriptorType.__get__
 unittest.TestCase.addCleanup
 unittest.case.TestCase.addCleanup
 unittest.doModuleCleanups
+uuid.getnode  # undocumented, unused parameter getters that was later removed
 weakref.WeakValueDictionary.__init__
 weakref.WeakValueDictionary.update
 weakref.getweakrefcount
