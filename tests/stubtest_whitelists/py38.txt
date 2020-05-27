@@ -3,6 +3,11 @@ _thread._ExceptHookArgs
 _tracemalloc._get_object_traceback
 _tracemalloc.start
 _weakref.getweakrefcount
+ast.Bytes.__new__
+ast.Ellipsis.__new__
+ast.NameConstant.__new__
+ast.Num.__new__
+ast.Str.__new__
 asyncio.AbstractEventLoop.sock_sendfile
 asyncio.Future.__init__
 asyncio.Future._callbacks
@@ -63,6 +68,8 @@ contextvars.Context.get
 contextvars.ContextVar.reset
 contextvars.ContextVar.set
 copy.PyStringMap
+dataclasses.Field.__init__
+dataclasses.InitVar.__init__
 dataclasses.dataclass
 dataclasses.field
 dataclasses.replace
@@ -92,6 +99,7 @@ lzma.is_check_supported
 macpath
 macurl2path
 mmap.MADV_[A-Z_]+
+multiprocessing.managers.SharedMemoryServer.__init__
 multiprocessing.pool.CLOSE
 multiprocessing.pool.RUN
 multiprocessing.pool.TERMINATE
@@ -136,6 +144,16 @@ types.ClassMethodDescriptorType.__get__
 types.CodeType.replace
 types.MethodDescriptorType.__get__
 types.WrapperDescriptorType.__get__
+typing.NamedTuple.__new__
+typing.SupportsAbs.__init__
+typing.SupportsBytes.__init__
+typing.SupportsComplex.__init__
+typing.SupportsFloat.__init__
+typing.SupportsIndex.__init__
+typing.SupportsInt.__init__
+typing.SupportsRound.__init__
+typing._SpecialForm.__init__
+typing._SpecialForm.__new__
 unittest.TestCase.addCleanup
 unittest.case.TestCase.addCleanup
 unittest.doModuleCleanups
