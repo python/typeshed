@@ -56,21 +56,21 @@ jobs:
       install: pip install -U git+git://github.com/python/mypy@b3d43984
       script: ./tests/stubtest_test.py
     - name: "stubtest py38 (Windows)"
-      - <<: *test_windows
+      <<: *test_windows
       env:
         <<: *env_windows
         PYTHON_VERSION: 3.8.3
       install: pip install -U git+git://github.com/python/mypy@b3d43984
       script: python ./tests/stubtest_test.py
     - name: "stubtest py37 (Windows)"
-      - <<: *test_windows
+      <<: *test_windows
       env:
         <<: *env_windows
         PYTHON_VERSION: 3.7.7
       install: pip install -U git+git://github.com/python/mypy@b3d43984
       script: python ./tests/stubtest_test.py
     - name: "stubtest py37 (Windows)"
-      - <<: *test_windows
+      <<: *test_windows
       env:
         <<: *env_windows
         PYTHON_VERSION: 3.6.10
