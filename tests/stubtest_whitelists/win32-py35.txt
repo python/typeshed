@@ -8,7 +8,6 @@ asyncio.windows_events.IocpProactor.recv_into
 asyncio.windows_events.IocpProactor.sendfile
 ntpath.splitunc
 os.path.splitunc
-os.startfile
 os.path.splitunc
 posixpath.splitunc
 typing.IO.closed

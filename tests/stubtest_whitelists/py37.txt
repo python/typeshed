@@ -53,6 +53,8 @@ queue.SimpleQueue.__init__
 secrets.SystemRandom.getstate
 smtplib.SMTP.sendmail
 sre_constants.RANGE_IGNORE
+ssl.PROTOCOL_SSLv3
+ssl.RAND_egd
 tkinter.Menu.tk_bindForTraversal
 tkinter.Misc.tk_menuBar
 types.ClassMethodDescriptorType.__get__

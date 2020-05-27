@@ -423,9 +423,7 @@ sqlite3.register_adapters_and_converters
 sqlite3.version_info
 sre_constants.error.__init__
 ssl.PROTOCOL_SSLv2
-ssl.PROTOCOL_SSLv3
 ssl.Purpose.__new__
-ssl.RAND_egd
 ssl.SSLContext.__new__
 ssl.SSLObject.__init__
 ssl.SSLSocket.connect
