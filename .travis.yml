@@ -8,7 +8,7 @@ jobs:
       os: windows
       language: shell
       before_install:
-        - choco install python --version 3.7.0
+        - choco install python --version 3.7.7
         - python --version
         - python -m ensurepip
         - python -m pip install -U pip
