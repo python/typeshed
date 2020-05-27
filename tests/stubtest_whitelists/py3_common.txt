@@ -154,7 +154,6 @@ curses.COLS
 curses.LINES
 dbm.error
 dbm.ndbm
-decimal.DecimalException.handle
 difflib.SequenceMatcher.__init__
 distutils.archive_util.make_archive
 distutils.archive_util.make_tarball
@@ -523,6 +522,7 @@ zlib.compressobj
 # ==========
 # Whitelist entries that cannot or should not be fixed
 # ==========
+_pydecimal.*  # See comments in file
 ast.NodeVisitor.visit_\w+  # Methods are discovered dynamically, see #3796
 # Weird special builtins that are typed as functions, but aren't functions
 builtins.copyright

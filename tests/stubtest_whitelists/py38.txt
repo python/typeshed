@@ -66,8 +66,6 @@ copy.PyStringMap
 dataclasses.dataclass
 dataclasses.field
 dataclasses.replace
-decimal.Decimal.from_float
-decimal.setcontext
 email.message.MIMEPart.as_string
 enum.Enum._generate_next_value_
 functools.partialmethod.__get__
