@@ -16,10 +16,12 @@ NSIG: int
 class Signals(IntEnum):
     SIGABRT: int
     SIGALRM: int
-    SIGBREAK: int  # Windows
+    if sys.platform == "win32":
+        SIGBREAK: int
     SIGBUS: int
     SIGCHLD: int
-    SIGCLD: int
+    if sys.platform != "darwin":
+        SIGCLD: int
     SIGCONT: int
     SIGEMT: int
     SIGFPE: int
@@ -31,12 +33,14 @@ class Signals(IntEnum):
     SIGIOT: int
     SIGKILL: int
     SIGPIPE: int
-    SIGPOLL: int
+    if sys.platform != "darwin":
+        SIGPOLL: int
+        SIGPWR: int
     SIGPROF: int
-    SIGPWR: int
     SIGQUIT: int
-    SIGRTMAX: int
-    SIGRTMIN: int
+    if sys.platform != "darwin":
+        SIGRTMAX: int
+        SIGRTMIN: int
     SIGSEGV: int
     SIGSTOP: int
     SIGSYS: int
@@ -74,10 +78,12 @@ _HANDLER = Union[Callable[[Signals, FrameType], None], int, Handlers, None]
 
 SIGABRT: Signals
 SIGALRM: Signals
-SIGBREAK: Signals  # Windows
+if sys.platform == "win32":
+    SIGBREAK: Signals
 SIGBUS: Signals
 SIGCHLD: Signals
-SIGCLD: Signals
+if sys.platform != "darwin":
+    SIGCLD: Signals
 SIGCONT: Signals
 SIGEMT: Signals
 SIGFPE: Signals
@@ -89,12 +95,14 @@ SIGIO: Signals
 SIGIOT: Signals
 SIGKILL: Signals
 SIGPIPE: Signals
-SIGPOLL: Signals
+if sys.platform != "darwin":
+    SIGPOLL: Signals
+    SIGPWR: Signals
 SIGPROF: Signals
-SIGPWR: Signals
 SIGQUIT: Signals
-SIGRTMAX: Signals
-SIGRTMIN: Signals
+if sys.platform != "darwin":
+    SIGRTMAX: Signals
+    SIGRTMIN: Signals
 SIGSEGV: Signals
 SIGSTOP: Signals
 SIGSYS: Signals
@@ -111,9 +119,9 @@ SIGWINCH: Signals
 SIGXCPU: Signals
 SIGXFSZ: Signals
 
-# Windows
-CTRL_C_EVENT: int
-CTRL_BREAK_EVENT: int
+if sys.platform == "win32":
+    CTRL_C_EVENT: int
+    CTRL_BREAK_EVENT: int
 
 class struct_siginfo(Tuple[int, int, int, int, int, int, int]):
     def __init__(self, sequence: Iterable[int]) -> None: ...

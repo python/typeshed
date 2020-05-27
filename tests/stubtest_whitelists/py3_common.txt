@@ -24,7 +24,6 @@ _dummy_threading
 _importlib_modulespec
 _operator.methodcaller
 _posixsubprocess.cloexec_pipe
-_subprocess
 _types
 _weakref.CallableProxyType.__getattr__
 _weakref.ProxyType.__getattr__
@@ -32,8 +31,6 @@ _weakref.ReferenceType.__call__
 abc.abstractclassmethod
 abc.abstractmethod
 abc.abstractstaticmethod
-aifc.open
-aifc.openfp
 argparse.Namespace.__getattr__
 asyncio.BaseEventLoop.subprocess_exec
 asyncio.Condition.acquire
@@ -41,7 +38,6 @@ asyncio.Condition.locked
 asyncio.Condition.release
 asyncio.Task.get_stack
 asyncio.Task.print_stack
-asyncio.WriteTransport.set_write_buffer_limits
 asyncio.base_events.BaseEventLoop.subprocess_exec
 asyncio.locks.Condition.acquire
 asyncio.locks.Condition.locked
@@ -50,13 +46,8 @@ asyncio.proactor_events.BaseProactorEventLoop.sock_recv
 asyncio.selector_events.BaseSelectorEventLoop.sock_recv
 asyncio.tasks.Task.get_stack
 asyncio.tasks.Task.print_stack
-asyncio.transports.WriteTransport.set_write_buffer_limits
-asyncio.transports._FlowControlMixin.set_write_buffer_limits
 asyncio.windows_events
 asyncio.windows_utils
-base64.b32decode
-base64.b64decode
-base64.b64encode
 bdb.Bdb.__init__
 builtins.WindowsError
 builtins.bytearray.__float__
@@ -130,17 +121,7 @@ collections.MutableSet.remove
 collections.Sequence.count
 collections.Sequence.index
 collections.deque.__hash__
-concurrent.futures.BrokenProcessPool
-concurrent.futures.CANCELLED
-concurrent.futures.CANCELLED_AND_NOTIFIED
-concurrent.futures.EXTRA_QUEUED_CALLS
-concurrent.futures.Error
 concurrent.futures.Executor.map
-concurrent.futures.FINISHED
-concurrent.futures.LOGGER
-concurrent.futures.PENDING
-concurrent.futures.ProcessPoolExecutor.map
-concurrent.futures.RUNNING
 concurrent.futures._base.Executor.map
 concurrent.futures.process.ProcessPoolExecutor.map
 configparser.LegacyInterpolation.before_get
@@ -173,7 +154,6 @@ dbm.error
 dbm.ndbm
 decimal.DecimalException.handle
 difflib.SequenceMatcher.__init__
-dis.dis
 distutils.archive_util.make_archive
 distutils.archive_util.make_tarball
 distutils.command.bdist_msi
@@ -405,9 +385,6 @@ shlex.shlex.__init__
 shlex.shlex.error_leader
 shlex.shlex.sourcehook
 shutil.register_unpack_format
-signal.CTRL_BREAK_EVENT
-signal.CTRL_C_EVENT
-signal.SIGBREAK
 signal.SIGEMT
 signal.SIGINFO
 site.getsitepackages
@@ -443,8 +420,6 @@ ssl.SSLSocket.recvfrom
 ssl.SSLSocket.recvfrom_into
 ssl.SSLSocket.sendto
 ssl._ASN1Object.__new__
-subprocess.Popen.send_signal
-subprocess.call
 sunau.Au_write.getmark
 sunau.Au_write.getmarkers
 sunau.Au_write.setcomptype
@@ -461,8 +436,6 @@ tempfile.SpooledTemporaryFile.__next__
 tempfile.SpooledTemporaryFile.readable
 tempfile.SpooledTemporaryFile.seekable
 tempfile.SpooledTemporaryFile.writable
-threading.BoundedSemaphore.__enter__
-threading.BoundedSemaphore.acquire
 threading.Condition.acquire
 threading.Condition.release
 threading.Lock
@@ -474,7 +447,6 @@ timeit.main
 traceback.FrameSummary.__init__
 traceback.TracebackException.__init__
 traceback.TracebackException.from_exception
-tracemalloc.Snapshot.load
 types.GetSetDescriptorType.__get__
 types.GetSetDescriptorType.__set__
 types.MemberDescriptorType.__get__

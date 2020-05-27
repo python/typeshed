@@ -12,6 +12,8 @@ from asyncio.protocols import (
     DatagramProtocol as DatagramProtocol,
     SubprocessProtocol as SubprocessProtocol,
 )
+if sys.version_info >= (3, 7):
+    from asyncio.protocols import BufferedProtocol as BufferedProtocol
 from asyncio.streams import (
     StreamReader as StreamReader,
     StreamWriter as StreamWriter,

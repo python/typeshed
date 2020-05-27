@@ -44,7 +44,10 @@ def main():
         for file2 in others:
             f2 = os.path.join(os.getcwd(), file2)
             if not filecmp.cmp(f1, f2):
-                raise ValueError('File {f1} does not match file {f2}. Please copy it to {f2}'.format(f1=file1, f2=file2))
+                raise ValueError(
+                    "File {f1} does not match file {f2}. Please copy it to {f2}\n"
+                    "Run either:\ncp {f1} {f2}\nOr:\ncp {f2} {f1}".format(f1=file1, f2=file2)
+                )
 
 
 if __name__ == '__main__':
