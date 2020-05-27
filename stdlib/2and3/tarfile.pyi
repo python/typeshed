@@ -144,6 +144,18 @@ class TarFile(Iterable[TarInfo]):
                     path: _Path = ...) -> None: ...
     def extractfile(self,
                     member: Union[str, TarInfo]) -> Optional[IO[bytes]]: ...
+    def makedir(self, tarinfo: TarInfo, targetpath: _Path) -> None: ...  # undocumented
+    def makefile(self, tarinfo: TarInfo, targetpath: _Path) -> None: ...  # undocumented
+    def makeunknown(self, tarinfo: TarInfo, targetpath: _Path) -> None: ...  # undocumented
+    def makefifo(self, tarinfo: TarInfo, targetpath: _Path) -> None: ...  # undocumented
+    def makedev(self, tarinfo: TarInfo, targetpath: _Path) -> None: ...  # undocumented
+    def makelink(self, tarinfo: TarInfo, targetpath: _Path) -> None: ...  # undocumented
+    if sys.version_info >= (3, 5):
+        def chown(self, tarinfo: TarInfo, targetpath: _Path, numeric_owner: bool) -> None: ...  # undocumented
+    else:
+        def chown(self, tarinfo: TarInfo, targetpath: _Path) -> None: ...  # undocumented
+    def chmod(self, tarinfo: TarInfo, targetpath: _Path) -> None: ...  # undocumented
+    def utime(self, tarinfo: TarInfo, targetpath: _Path) -> None: ...  # undocumented
     if sys.version_info >= (3, 7):
         def add(self, name: str, arcname: Optional[str] = ...,
                 recursive: bool = ..., *,

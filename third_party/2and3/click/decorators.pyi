@@ -14,11 +14,11 @@ _Callback = Callable[
     Any
 ]
 
-def pass_context(_T) -> _T:
+def pass_context(__f: _T) -> _T:
     ...
 
 
-def pass_obj(_T) -> _T:
+def pass_obj(__f: _T) -> _T:
     ...
 
 

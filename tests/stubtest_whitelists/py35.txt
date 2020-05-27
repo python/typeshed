@@ -10,7 +10,6 @@ asyncio.futures.Future._exception
 asyncio.futures.Future._loop
 asyncio.futures.Future._tb_logger
 asyncio.futures._TracebackLogger.__init__
-asyncio.protocols.BufferedProtocol
 asyncio.runners
 asyncio.tasks.Task.__init__
 asyncio.tasks.Task._wakeup
@@ -22,6 +21,7 @@ codecs.StreamRecoder.seek
 collections.UserString.maketrans
 ctypes.CDLL.__init__
 decimal.Decimal.as_integer_ratio
+fractions.Fraction.__new__  # private _normalize param was made keyword-only in Python 3.6
 gettext.NullTranslations.npgettext
 gettext.NullTranslations.pgettext
 gettext.dnpgettext
@@ -48,8 +48,6 @@ smtpd.SMTPChannel.__init__
 smtpd.SMTPServer.__init__
 socket.NETLINK_CRYPTO
 sre_compile.dis
-subprocess.check_output
-tracemalloc.Filter.__init__
 typing.AbstractSet.isdisjoint
 typing.Coroutine.cr_await
 typing.Coroutine.cr_code
@@ -74,7 +72,6 @@ typing.Sequence.index
 typing.runtime_checkable
 unittest.async_case
 uuid.UUID.int
-uuid.getnode
 xml.etree.cElementTree.XMLPullParser
 xml.parsers.expat.XMLParserType.ExternalEntityParserCreate
 zipfile.ZipFile.open
