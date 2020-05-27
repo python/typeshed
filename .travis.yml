@@ -45,6 +45,16 @@ jobs:
       python: 3.5
       install: pip install -U git+git://github.com/python/mypy@b3d43984
       script: ./tests/stubtest_test.py
+    - name: "stubtest py38 (win32)"
+      os: windows
+      python: 3.8
+      install: pip install -U git+git://github.com/python/mypy@b3d43984
+      script: ./tests/stubtest_test.py
+    - name: "stubtest py37 (win32)"
+      os: windows
+      python: 3.7
+      install: pip install -U git+git://github.com/python/mypy@b3d43984
+      script: ./tests/stubtest_test.py
   allow_failures:
     - name: "stubtest py39"
       python: 3.9-dev

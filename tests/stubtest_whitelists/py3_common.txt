@@ -632,11 +632,3 @@ os.SCHED_[A-Z_]+
 socket.AF_DECnet
 socket.[A-Z0-9_]+
 (termios.[A-Z0-9_]+)?
-
-# Modules that do not exist on Linux systems and cannot be checked by our CI process.
-(_msi)?
-(_winapi)?
-(msilib(.[a-z]+)?)?
-(msvcrt)?
-(winreg)?
-(winsound)?
