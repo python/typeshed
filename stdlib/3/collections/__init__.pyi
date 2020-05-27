@@ -1,12 +1,9 @@
-# These are not exported.
 import sys
 import typing
 from typing import (
     TypeVar, Generic, Dict, overload, List, Tuple,
     Any, Type, Optional, Union
 )
-# These are exported.
-from . import abc
 
 if sys.version_info < (3, 10):
     from _collections_abc import *

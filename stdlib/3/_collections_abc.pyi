@@ -34,4 +34,31 @@ if sys.version_info >= (3, 6):
         AsyncGenerator as AsyncGenerator,
     )
 
-__all__: List[str]
+# Without the real definition, mypy and pytest both think that __all__ is empty, so re-exports nothing
+__all__ = [
+    "Awaitable",
+    "Coroutine",
+    "AsyncIterable",
+    "AsyncIterator",
+    "AsyncGenerator",
+    "Hashable",
+    "Iterable",
+    "Iterator",
+    "Generator",
+    "Reversible",
+    "Sized",
+    "Container",
+    "Callable",
+    "Collection",
+    "Set",
+    "MutableSet",
+    "Mapping",
+    "MutableMapping",
+    "MappingView",
+    "KeysView",
+    "ItemsView",
+    "ValuesView",
+    "Sequence",
+    "MutableSequence",
+    "ByteString",
+]
