@@ -8,10 +8,8 @@ MAXREPEAT: long
 copyright: str
 
 class SRE_Match(object):
-    def start(self, group: int = ...) -> int:
-        raise IndexError()
-    def end(self, group: int = ...) -> int:
-        raise IndexError()
+    def start(self, group: int = ...) -> int: ...
+    def end(self, group: int = ...) -> int: ...
     def expand(self, s: str) -> Any: ...
     @overload
     def group(self) -> str: ...
@@ -19,8 +17,7 @@ class SRE_Match(object):
     def group(self, group: int = ...) -> Optional[str]: ...
     def groupdict(self) -> Dict[int, Optional[str]]: ...
     def groups(self) -> Tuple[Optional[str], ...]: ...
-    def span(self) -> Tuple[int, int]:
-        raise IndexError()
+    def span(self) -> Tuple[int, int]: ...
     @property
     def regs(self) -> Tuple[Tuple[int, int], ...]: ...  # undocumented
 
@@ -44,11 +41,14 @@ class SRE_Pattern(object):
     def sub(self, repl: str, string: str, count: int = ...) -> Tuple[Any, ...]: ...
     def subn(self, repl: str, string: str, count: int = ...) -> Tuple[Any, ...]: ...
 
-def compile(pattern: str, flags: int, code: List[int],
-            groups: int = ...,
-            groupindex: Mapping[str, int] = ...,
-            indexgroup: Sequence[int] = ...) -> SRE_Pattern:
-    raise OverflowError()
+def compile(
+    pattern: str,
+    flags: int,
+    code: List[int],
+    groups: int = ...,
+    groupindex: Mapping[str, int] = ...,
+    indexgroup: Sequence[int] = ...,
+) -> SRE_Pattern: ...
 
 def getcodesize() -> int: ...
 

@@ -86,7 +86,7 @@ class Session(SessionRedirectMixin):
                 cookies: Union[None, RequestsCookieJar, MutableMapping[Text, Text]] = ...,
                 files: Optional[MutableMapping[Text, IO[Any]]] = ...,
                 auth: Union[None, Tuple[Text, Text], _auth.AuthBase, Callable[[Request], Request]] = ...,
-                timeout: Union[None, float, Tuple[float, float]] = ...,
+                timeout: Union[None, float, Tuple[float, float], Tuple[float, None]] = ...,
                 allow_redirects: Optional[bool] = ...,
                 proxies: Optional[MutableMapping[Text, Text]] = ...,
                 hooks: Optional[_HooksInput] = ...,

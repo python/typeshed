@@ -51,7 +51,7 @@ class Context:
     args: List[str]
     protected_args: List[str]
     obj: Any
-    default_map: Mapping[str, Any]
+    default_map: Optional[Mapping[str, Any]]
     invoked_subcommand: Optional[str]
     terminal_width: Optional[int]
     max_content_width: Optional[int]

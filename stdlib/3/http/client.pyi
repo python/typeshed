@@ -112,31 +112,36 @@ class HTTPResponse(io.BufferedIOBase, BinaryIO):
 # urllib.request uses it for a parameter.
 class _HTTPConnectionProtocol(Protocol):
     if sys.version_info >= (3, 7):
-        def __call__(self, host: str, port: Optional[int] = ...,
-                     timeout: float = ...,
-                     source_address: Optional[Tuple[str, int]] = ...,
-                     blocksize: int = ...): ...
+        def __call__(
+            self,
+            host: str,
+            port: Optional[int] = ...,
+            timeout: float = ...,
+            source_address: Optional[Tuple[str, int]] = ...,
+            blocksize: int = ...,
+        ) -> HTTPConnection: ...
     else:
-        def __call__(self, host: str, port: Optional[int] = ...,
-                     timeout: float = ...,
-                     source_address: Optional[Tuple[str, int]] = ...): ...
+        def __call__(
+            self, host: str, port: Optional[int] = ..., timeout: float = ..., source_address: Optional[Tuple[str, int]] = ...,
+        ) -> HTTPConnection: ...
 
 class HTTPConnection:
-    timeout: float
+    timeout: Optional[float]
     host: str
     port: int
+    sock: Any
     if sys.version_info >= (3, 7):
         def __init__(
             self,
             host: str, port: Optional[int] = ...,
-            timeout: float = ...,
+            timeout: Optional[float] = ...,
             source_address: Optional[Tuple[str, int]] = ..., blocksize: int = ...
         ) -> None: ...
     else:
         def __init__(
             self,
             host: str, port: Optional[int] = ...,
-            timeout: float = ...,
+            timeout: Optional[float] = ...,
             source_address: Optional[Tuple[str, int]] = ...
         ) -> None: ...
     if sys.version_info >= (3, 6):
@@ -169,7 +174,7 @@ class HTTPSConnection(HTTPConnection):
                  host: str, port: Optional[int] = ...,
                  key_file: Optional[str] = ...,
                  cert_file: Optional[str] = ...,
-                 timeout: float = ...,
+                 timeout: Optional[float] = ...,
                  source_address: Optional[Tuple[str, int]] = ...,
                  *, context: Optional[ssl.SSLContext] = ...,
                  check_hostname: Optional[bool] = ...) -> None: ...

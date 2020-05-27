@@ -1,7 +1,9 @@
 # Stubs for _thread
 
+import sys
+from threading import Thread
 from types import TracebackType
-from typing import Any, Callable, Dict, NoReturn, Optional, Tuple, Type
+from typing import Any, Callable, Dict, NamedTuple, NoReturn, Optional, Tuple, Type
 
 error = RuntimeError
 
@@ -28,4 +30,15 @@ def allocate_lock() -> LockType: ...
 def get_ident() -> int: ...
 def stack_size(size: int = ...) -> int: ...
 
-TIMEOUT_MAX: int
+TIMEOUT_MAX: float
+
+if sys.version_info >= (3, 8):
+    def get_native_id() -> int: ...  # only available on some platforms
+
+    class ExceptHookArgs(NamedTuple):
+        exc_type: Type[BaseException]
+        exc_value: Optional[BaseException]
+        exc_traceback: Optional[TracebackType]
+        thread: Optional[Thread]
+    def _ExceptHookArgs(args) -> ExceptHookArgs: ...
+    _excepthook: Callable[[ExceptHookArgs], Any]

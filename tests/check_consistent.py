@@ -14,7 +14,7 @@ consistent_files = [
     {'stdlib/2and3/builtins.pyi', 'stdlib/2/__builtin__.pyi'},
     {'stdlib/2/SocketServer.pyi', 'stdlib/3/socketserver.pyi'},
     {'stdlib/2/os2emxpath.pyi', 'stdlib/2and3/posixpath.pyi',
-     'stdlib/2and3/ntpath.pyi', 'stdlib/2and3/macpath.pyi',
+     'stdlib/2and3/ntpath.pyi',
      'stdlib/2/os/path.pyi', 'stdlib/3/os/path.pyi'},
     {'stdlib/3/enum.pyi', 'third_party/2/enum.pyi'},
     {'stdlib/3/unittest/mock.pyi', 'third_party/2and3/mock.pyi'},
@@ -26,7 +26,11 @@ consistent_files = [
     {'stdlib/3.7/dataclasses.pyi', 'third_party/3/dataclasses.pyi'},
     {'stdlib/3/pathlib.pyi', 'third_party/2/pathlib2.pyi'},
     {'stdlib/3.7/contextvars.pyi', 'third_party/3/contextvars.pyi'},
+    {'stdlib/3/ipaddress.pyi', 'third_party/2/ipaddress.pyi'},
+    {'stdlib/2/copy_reg.pyi', 'stdlib/3/copyreg.pyi'},
+    {'stdlib/2and3/threading.pyi', 'stdlib/2and3/_dummy_threading.pyi'}
 ]
+
 
 def main():
     files = [os.path.join(root, file) for root, dir, files in os.walk('.') for file in files]
@@ -40,7 +44,11 @@ def main():
         for file2 in others:
             f2 = os.path.join(os.getcwd(), file2)
             if not filecmp.cmp(f1, f2):
-                raise ValueError('File {f1} does not match file {f2}. Please copy it to {f2}'.format(f1=file1, f2=file2))
+                raise ValueError(
+                    "File {f1} does not match file {f2}. Please copy it to {f2}\n"
+                    "Run either:\ncp {f1} {f2}\nOr:\ncp {f2} {f1}".format(f1=file1, f2=file2)
+                )
+
 
 if __name__ == '__main__':
     main()

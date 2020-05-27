@@ -14,11 +14,11 @@ _Callback = Callable[
     Any
 ]
 
-def pass_context(_T) -> _T:
+def pass_context(__f: _T) -> _T:
     ...
 
 
-def pass_obj(_T) -> _T:
+def pass_obj(__f: _T) -> _T:
     ...
 
 
@@ -94,7 +94,7 @@ def option(
     *param_decls: str,
     cls: Type[Option] = ...,
     # Option
-    show_default: bool = ...,
+    show_default: Union[bool, Text] = ...,
     prompt: Union[bool, Text] = ...,
     confirmation_prompt: bool = ...,
     hide_input: bool = ...,
@@ -126,7 +126,7 @@ def option(
     *param_decls: str,
     cls: Type[Option] = ...,
     # Option
-    show_default: bool = ...,
+    show_default: Union[bool, Text] = ...,
     prompt: Union[bool, Text] = ...,
     confirmation_prompt: bool = ...,
     hide_input: bool = ...,
@@ -158,7 +158,7 @@ def option(
     *param_decls: str,
     cls: Type[Option] = ...,
     # Option
-    show_default: bool = ...,
+    show_default: Union[bool, Text] = ...,
     prompt: Union[bool, Text] = ...,
     confirmation_prompt: bool = ...,
     hide_input: bool = ...,
@@ -190,7 +190,7 @@ def option(
     *param_decls: str,
     cls: Type[Option] = ...,
     # Option
-    show_default: bool = ...,
+    show_default: Union[bool, Text] = ...,
     prompt: Union[bool, Text] = ...,
     confirmation_prompt: bool = ...,
     hide_input: bool = ...,
@@ -221,7 +221,7 @@ def confirmation_option(
     *param_decls: str,
     cls: Type[Option] = ...,
     # Option
-    show_default: bool = ...,
+    show_default: Union[bool, Text] = ...,
     prompt: Union[bool, Text] = ...,
     confirmation_prompt: bool = ...,
     hide_input: bool = ...,
@@ -249,7 +249,7 @@ def password_option(
     *param_decls: str,
     cls: Type[Option] = ...,
     # Option
-    show_default: bool = ...,
+    show_default: Union[bool, Text] = ...,
     prompt: Union[bool, Text] = ...,
     confirmation_prompt: bool = ...,
     hide_input: bool = ...,
@@ -280,7 +280,7 @@ def version_option(
     # Option
     prog_name: Optional[str] = ...,
     message: Optional[str] = ...,
-    show_default: bool = ...,
+    show_default: Union[bool, Text] = ...,
     prompt: Union[bool, Text] = ...,
     confirmation_prompt: bool = ...,
     hide_input: bool = ...,
@@ -308,7 +308,7 @@ def help_option(
     *param_decls: str,
     cls: Type[Option] = ...,
     # Option
-    show_default: bool = ...,
+    show_default: Union[bool, Text] = ...,
     prompt: Union[bool, Text] = ...,
     confirmation_prompt: bool = ...,
     hide_input: bool = ...,

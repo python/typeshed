@@ -1,6 +1,6 @@
 # Stubs for BaseHTTPServer (Python 2.7)
 
-from typing import Any, BinaryIO, Mapping, Optional, Tuple, Union
+from typing import Any, BinaryIO, Callable, Mapping, Optional, Tuple, Union
 import SocketServer
 import mimetools
 
@@ -8,9 +8,9 @@ class HTTPServer(SocketServer.TCPServer):
     server_name: str
     server_port: int
     def __init__(self, server_address: Tuple[str, int],
-                 RequestHandlerClass: type) -> None: ...
+                 RequestHandlerClass: Callable[..., BaseHTTPRequestHandler]) -> None: ...
 
-class BaseHTTPRequestHandler:
+class BaseHTTPRequestHandler(SocketServer.StreamRequestHandler):
     client_address: Tuple[str, int]
     server: SocketServer.BaseServer
     close_connection: bool

@@ -21,7 +21,7 @@ def call(args: _CMD,
          preexec_fn: Callable[[], Any] = ...,
          close_fds: bool = ...,
          shell: bool = ...,
-         cwd: _TXT = ...,
+         cwd: Optional[_TXT] = ...,
          env: _ENV = ...,
          universal_newlines: bool = ...,
          startupinfo: Any = ...,
@@ -36,7 +36,7 @@ def check_call(args: _CMD,
                preexec_fn: Callable[[], Any] = ...,
                close_fds: bool = ...,
                shell: bool = ...,
-               cwd: _TXT = ...,
+               cwd: Optional[_TXT] = ...,
                env: _ENV = ...,
                universal_newlines: bool = ...,
                startupinfo: Any = ...,
@@ -51,7 +51,7 @@ def check_output(args: _CMD,
                  preexec_fn: Callable[[], Any] = ...,
                  close_fds: bool = ...,
                  shell: bool = ...,
-                 cwd: _TXT = ...,
+                 cwd: Optional[_TXT] = ...,
                  env: _ENV = ...,
                  universal_newlines: bool = ...,
                  startupinfo: Any = ...,
@@ -61,7 +61,7 @@ PIPE: int
 STDOUT: int
 
 class CalledProcessError(Exception):
-    returncode = 0
+    returncode: int
     # morally: _CMD
     cmd: Any
     # morally: Optional[bytes]
@@ -79,8 +79,8 @@ class Popen(Generic[_T]):
     stdin: Optional[IO[bytes]]
     stdout: Optional[IO[bytes]]
     stderr: Optional[IO[bytes]]
-    pid = 0
-    returncode = 0
+    pid: int
+    returncode: int
 
     def __new__(cls,
                 args: _CMD,
@@ -98,7 +98,7 @@ class Popen(Generic[_T]):
                 startupinfo: Optional[Any] = ...,
                 creationflags: int = ...) -> Popen[bytes]: ...
 
-    def poll(self) -> int: ...
+    def poll(self) -> Optional[int]: ...
     def wait(self) -> int: ...
     # morally: -> Tuple[Optional[bytes], Optional[bytes]]
     def communicate(self, input: Optional[_TXT] = ...) -> Tuple[bytes, bytes]: ...

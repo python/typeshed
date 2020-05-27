@@ -3,6 +3,7 @@
 import datetime
 import socket
 import ssl
+import sys
 from typing import Any, Dict, IO, Iterable, List, NamedTuple, Optional, Tuple, TypeVar, Union
 
 _SelfT = TypeVar('_SelfT', bound=_NNTPBase)
@@ -20,17 +21,15 @@ class NNTPDataError(NNTPError): ...
 NNTP_PORT: int
 NNTP_SSL_PORT: int
 
-GroupInfo = NamedTuple('GroupInfo', [
-    ('group', str),
-    ('last', str),
-    ('first', str),
-    ('flag', str),
-])
-ArticleInfo = NamedTuple('ArticleInfo', [
-    ('number', int),
-    ('message_id', str),
-    ('lines', List[bytes]),
-])
+class GroupInfo(NamedTuple):
+    group: str
+    last: str
+    first: str
+    flag: str
+class ArticleInfo(NamedTuple):
+    number: int
+    message_id: str
+    lines: List[bytes]
 
 def decode_header(header_str: str) -> str: ...
 
@@ -74,8 +73,9 @@ class _NNTPBase:
     def xhdr(self, hdr: str, str: Any, *, file: _File = ...) -> Tuple[str, List[str]]: ...
     def xover(self, start: int, end: int, *, file: _File = ...) -> Tuple[str, List[Tuple[int, Dict[str, str]]]]: ...
     def over(self, message_spec: Union[None, str, List[Any], Tuple[Any, ...]], *, file: _File = ...) -> Tuple[str, List[Tuple[int, Dict[str, str]]]]: ...
-    def xgtitle(self, group: str, *, file: _File = ...) -> Tuple[str, List[Tuple[str, str]]]: ...
-    def xpath(self, id: Any) -> Tuple[str, str]: ...
+    if sys.version_info < (3, 9):
+        def xgtitle(self, group: str, *, file: _File = ...) -> Tuple[str, List[Tuple[str, str]]]: ...
+        def xpath(self, id: Any) -> Tuple[str, str]: ...
     def date(self) -> Tuple[str, datetime.datetime]: ...
     def post(self, data: Union[bytes, Iterable[bytes]]) -> str: ...
     def ihave(self, message_id: Any, data: Union[bytes, Iterable[bytes]]) -> str: ...

@@ -1,8 +1,9 @@
 import sys
-from typing import Any, Callable, Dict, List, NamedTuple, Optional, Pattern, Text, Tuple, TypeVar
+from typing import Any, Callable, Dict, Iterator, List, NamedTuple, Optional, Pattern, Text, Tuple, TypeVar
 
 _C = TypeVar("_C", bound=Callable[..., Any])
 _Func = TypeVar("_Func", bound=Callable[..., Any])
+_T = TypeVar("_T")
 
 def get_init(cls): ...
 
@@ -10,14 +11,14 @@ if sys.version_info >= (3,):
     from inspect import iscoroutinefunction as iscoroutinefunction
     from inspect import getfullargspec as getfullargspec
 else:
-    FullArgSpec = NamedTuple('FullArgSpec', [('args', List[str]),
-                                             ('varargs', Optional[str]),
-                                             ('varkw', Optional[str]),
-                                             ('defaults', Tuple[Any, ...]),
-                                             ('kwonlyargs', List[str]),
-                                             ('kwonlydefaults', Dict[str, Any]),
-                                             ('annotations', Dict[str, Any]),
-                                             ])
+    class FullArgSpec(NamedTuple):
+        args: List[str]
+        varargs: Optional[str]
+        varkw: Optional[str]
+        defaults: Tuple[Any, ...]
+        kwonlyargs: List[str]
+        kwonlydefaults: Dict[str, Any]
+        annotations: Dict[str, Any]
     def iscoroutinefunction(f: Callable[..., Any]) -> bool: ...
     def getfullargspec(func: Any) -> FullArgSpec: ...
 
@@ -74,10 +75,10 @@ class FunctionMaker(object):
     ) -> Callable[..., Any]: ...
 
 def decorate(func: _Func, caller: Callable[..., Any], extras: Any = ...) -> _Func: ...
-def decorator(caller: Callable[..., Any], _func: Optional[Callable[..., Any]] = ...) -> Callable[[_C], _C]: ...
+def decorator(caller: Callable[..., Any], _func: Optional[Callable[..., Any]] = ...) -> Callable[[Callable[..., Any]], Callable[..., Any]]: ...
 
-class ContextManager(_GeneratorContextManager[Any]):
+class ContextManager(_GeneratorContextManager[_T]):
     def __call__(self, func: _C) -> _C: ...
 
-def contextmanager(func: _C) -> _C: ...
+def contextmanager(func: Callable[..., Iterator[_T]]) -> Callable[..., ContextManager[_T]]: ...
 def dispatch_on(*dispatch_args: Any) -> Callable[[Callable[..., Any]], Callable[..., Any]]: ...

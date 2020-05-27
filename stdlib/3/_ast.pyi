@@ -3,6 +3,9 @@ import typing
 from typing import Any, Optional, ClassVar
 
 PyCF_ONLY_AST: int
+if sys.version_info >= (3, 8):
+    PyCF_TYPE_COMMENTS: int
+    PyCF_ALLOW_TOP_LEVEL_AWAIT: int
 
 _identifier = str
 
@@ -42,9 +45,6 @@ class Interactive(mod):
 
 class Expression(mod):
     body: expr
-
-class Suite(mod):
-    body: typing.List[stmt]
 
 
 class stmt(AST): ...
@@ -163,24 +163,6 @@ class Pass(stmt): ...
 class Break(stmt): ...
 class Continue(stmt): ...
 
-
-class slice(AST):
-    ...
-
-_slice = slice  # this lets us type the variable named 'slice' below
-
-class Slice(slice):
-    lower: Optional[expr]
-    upper: Optional[expr]
-    step: Optional[expr]
-
-class ExtSlice(slice):
-    dims: typing.List[slice]
-
-class Index(slice):
-    value: expr
-
-
 class expr(AST): ...
 
 class BoolOp(expr):
@@ -206,7 +188,7 @@ class IfExp(expr):
     orelse: expr
 
 class Dict(expr):
-    keys: typing.List[expr]
+    keys: typing.List[Optional[expr]]
     values: typing.List[expr]
 
 class Set(expr):
@@ -248,12 +230,6 @@ class Call(expr):
     args: typing.List[expr]
     keywords: typing.List[keyword]
 
-class Num(expr):  # Deprecated in 3.8; use Constant
-    n: complex
-
-class Str(expr):  # Deprecated in 3.8; use Constant
-    s: str
-
 if sys.version_info >= (3, 6):
     class FormattedValue(expr):
         value: expr
@@ -263,11 +239,20 @@ if sys.version_info >= (3, 6):
     class JoinedStr(expr):
         values: typing.List[expr]
 
-class Bytes(expr):  # Deprecated in 3.8; use Constant
-    s: bytes
+if sys.version_info < (3, 8):
+    class Num(expr):  # Deprecated in 3.8; use Constant
+        n: complex
 
-class NameConstant(expr):
-    value: Any
+    class Str(expr):  # Deprecated in 3.8; use Constant
+        s: str
+
+    class Bytes(expr):  # Deprecated in 3.8; use Constant
+        s: bytes
+
+    class NameConstant(expr):  # Deprecated in 3.8; use Constant
+        value: Any
+
+    class Ellipsis(expr): ...  # Deprecated in 3.8; use Constant
 
 if sys.version_info >= (3, 6):
     class Constant(expr):
@@ -282,16 +267,33 @@ if sys.version_info >= (3, 8):
         target: expr
         value: expr
 
-class Ellipsis(expr): ...
-
 class Attribute(expr):
     value: expr
     attr: _identifier
     ctx: expr_context
 
+if sys.version_info >= (3, 9):
+    _SliceT = expr
+else:
+    class slice(AST):
+        ...
+    _SliceT = slice
+
+class Slice(_SliceT):
+    lower: Optional[expr]
+    upper: Optional[expr]
+    step: Optional[expr]
+
+if sys.version_info < (3, 9):
+    class ExtSlice(slice):
+        dims: typing.List[slice]
+
+    class Index(slice):
+        value: expr
+
 class Subscript(expr):
     value: expr
-    slice: _slice
+    slice: _SliceT
     ctx: expr_context
 
 class Starred(expr):
@@ -314,11 +316,15 @@ class Tuple(expr):
 class expr_context(AST):
     ...
 
-class AugLoad(expr_context): ...
-class AugStore(expr_context): ...
+if sys.version_info < (3, 9):
+    class AugLoad(expr_context): ...
+    class AugStore(expr_context): ...
+    class Param(expr_context): ...
+    class Suite(mod):
+        body: typing.List[stmt]
+
 class Del(expr_context): ...
 class Load(expr_context): ...
-class Param(expr_context): ...
 class Store(expr_context): ...
 
 
@@ -386,6 +392,8 @@ class ExceptHandler(excepthandler):
 
 
 class arguments(AST):
+    if sys.version_info >= (3, 8):
+        posonlyargs: typing.List[arg]
     args: typing.List[arg]
     vararg: Optional[arg]
     kwonlyargs: typing.List[arg]

@@ -448,6 +448,7 @@ def call(args: _CMD,
          restore_signals: bool = ...,
          start_new_session: bool = ...,
          pass_fds: Any = ...,
+         *,
          timeout: Optional[float] = ...) -> int: ...
 
 # Same args as Popen.__init__
@@ -751,9 +752,9 @@ else:
                      restore_signals: bool = ...,
                      start_new_session: bool = ...,
                      pass_fds: Any = ...,
-                     timeout: Optional[float] = ...,
                      input: _TXT = ...,
                      *,
+                     timeout: Optional[float] = ...,
                      universal_newlines: Literal[True],
                      ) -> str: ...
     @overload
@@ -773,8 +774,9 @@ else:
                      restore_signals: bool = ...,
                      start_new_session: bool = ...,
                      pass_fds: Any = ...,
-                     timeout: Optional[float] = ...,
                      input: _TXT = ...,
+                     *,
+                     timeout: Optional[float] = ...,
                      ) -> bytes: ...
     @overload
     def check_output(args: _CMD,
@@ -793,8 +795,9 @@ else:
                      restore_signals: bool = ...,
                      start_new_session: bool = ...,
                      pass_fds: Any = ...,
-                     timeout: Optional[float] = ...,
                      input: _TXT = ...,
+                     *,
+                     timeout: Optional[float] = ...,
                      ) -> Any: ...  # morally: -> _TXT
 
 
@@ -813,8 +816,8 @@ class TimeoutExpired(SubprocessError):
     stderr: Any
 
 
-class CalledProcessError(Exception):
-    returncode = 0
+class CalledProcessError(SubprocessError):
+    returncode: int
     # morally: _CMD
     cmd: Any
     # morally: Optional[_TXT]
@@ -832,11 +835,12 @@ class CalledProcessError(Exception):
 
 class Popen(Generic[AnyStr]):
     args: _CMD
-    stdin: IO[AnyStr]
-    stdout: IO[AnyStr]
-    stderr: IO[AnyStr]
-    pid = 0
-    returncode = 0
+    stdin: Optional[IO[AnyStr]]
+    stdout: Optional[IO[AnyStr]]
+    stderr: Optional[IO[AnyStr]]
+    pid: int
+    returncode: int
+    universal_newlines: bool
 
     # Technically it is wrong that Popen provides __new__ instead of __init__
     # but this shouldn't come up hopefully?
@@ -1155,15 +1159,18 @@ class Popen(Generic[AnyStr]):
                     start_new_session: bool = ...,
                     pass_fds: Any = ...) -> Popen[Any]: ...
 
-    def poll(self) -> int: ...
-    def wait(self, timeout: Optional[float] = ...) -> int: ...
+    def poll(self) -> Optional[int]: ...
+    if sys.version_info >= (3, 7):
+        def wait(self, timeout: Optional[float] = ...) -> int: ...
+    else:
+        def wait(self, timeout: Optional[float] = ..., endtime: Optional[float] = ...) -> int: ...
     # Return str/bytes
     def communicate(self,
                     input: Optional[AnyStr] = ...,
                     timeout: Optional[float] = ...,
                     # morally this should be optional
                     ) -> Tuple[AnyStr, AnyStr]: ...
-    def send_signal(self, signal: int) -> None: ...
+    def send_signal(self, sig: int) -> None: ...
     def terminate(self) -> None: ...
     def kill(self) -> None: ...
     def __enter__(self: _S) -> _S: ...

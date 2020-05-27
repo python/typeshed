@@ -47,7 +47,7 @@ class BaseAdapter:
     def send(self,
              request: PreparedRequest,
              stream: bool = ...,
-             timeout: Union[None, float, Tuple[float, float]] = ...,
+             timeout: Union[None, float, Tuple[float, float], Tuple[float, None]] = ...,
              verify: Union[bool, str] = ...,
              cert: Union[None, Union[bytes, Text], Container[Union[bytes, Text]]] = ...,
              proxies: Optional[Mapping[str, str]] = ...) -> Response: ...
@@ -73,7 +73,7 @@ class HTTPAdapter(BaseAdapter):
     def send(self,
              request: PreparedRequest,
              stream: bool = ...,
-             timeout: Union[None, float, Tuple[float, float]] = ...,
+             timeout: Union[None, float, Tuple[float, float], Tuple[float, None]] = ...,
              verify: Union[bool, str] = ...,
              cert: Union[None, Union[bytes, Text], Container[Union[bytes, Text]]] = ...,
              proxies: Optional[Mapping[str, str]] = ...) -> Response: ...

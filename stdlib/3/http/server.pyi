@@ -1,7 +1,7 @@
 # Stubs for http.server (Python 3.4)
 
 import sys
-from typing import Any, BinaryIO, ClassVar, Dict, List, Mapping, Optional, Sequence, Tuple, Union
+from typing import Any, BinaryIO, Callable, ClassVar, Dict, List, Mapping, Optional, Sequence, Tuple, Union
 import socketserver
 import email.message
 
@@ -12,13 +12,13 @@ class HTTPServer(socketserver.TCPServer):
     server_name: str
     server_port: int
     def __init__(self, server_address: Tuple[str, int],
-                 RequestHandlerClass: type) -> None: ...
+                 RequestHandlerClass: Callable[..., BaseHTTPRequestHandler]) -> None: ...
 
 if sys.version_info >= (3, 7):
     class ThreadingHTTPServer(socketserver.ThreadingMixIn, HTTPServer):
         daemon_threads: bool  # undocumented
 
-class BaseHTTPRequestHandler:
+class BaseHTTPRequestHandler(socketserver.StreamRequestHandler):
     client_address: Tuple[str, int]
     server: socketserver.BaseServer
     close_connection: bool
@@ -27,8 +27,6 @@ class BaseHTTPRequestHandler:
     path: str
     request_version: str
     headers: email.message.Message
-    rfile: BinaryIO
-    wfile: BinaryIO
     server_version: str
     sys_version: str
     error_message_format: str
