@@ -61,7 +61,6 @@ tkinter.Misc.tk_menuBar
 types.ClassMethodDescriptorType.__get__
 types.MethodDescriptorType.__get__
 types.WrapperDescriptorType.__get__
-typing.IO.closed  # Incorrect definition in CPython, fixed in bpo-39493
 typing.NamedTuple._asdict
 typing.NamedTuple._make
 typing.NamedTuple._replace
