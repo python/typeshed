@@ -8,27 +8,27 @@ else:
     from cStringIO import StringIO as BytesIO
     from urllib import quote as url_quote
 
-PY2 = ...  # type: Any
-PYPY = ...  # type: Any
-unichr = ...  # type: Any
-range_type = ...  # type: Any
-text_type = ...  # type: Any
-string_types = ...  # type: Any
-integer_types = ...  # type: Any
-iterkeys = ...  # type: Any
-itervalues = ...  # type: Any
-iteritems = ...  # type: Any
-NativeStringIO = ...  # type: Any
+PY2: Any
+PYPY: Any
+unichr: Any
+range_type: Any
+text_type: Any
+string_types: Any
+integer_types: Any
+iterkeys: Any
+itervalues: Any
+iteritems: Any
+NativeStringIO: Any
 
 def reraise(tp, value, tb: Optional[Any] = ...): ...
 
-ifilter = ...  # type: Any
-imap = ...  # type: Any
-izip = ...  # type: Any
-intern = ...  # type: Any
-implements_iterator = ...  # type: Any
-implements_to_string = ...  # type: Any
-encode_filename = ...  # type: Any
-get_next = ...  # type: Any
+ifilter: Any
+imap: Any
+izip: Any
+intern: Any
+implements_iterator: Any
+implements_to_string: Any
+encode_filename: Any
+get_next: Any
 
 def with_metaclass(meta, *bases): ...

@@ -16,7 +16,7 @@ _T = TypeVar('_T')
 
 # The following type alias are stub-only and do not exist during runtime
 _ExcInfo = Tuple[Type[BaseException], BaseException, TracebackType]
-_OptExcInfo = Tuple[Optional[Type[BaseException]], Optional[BaseException], Optional[TracebackType]]
+_OptExcInfo = Union[_ExcInfo, Tuple[None, None, None]]
 
 # ----- sys variables -----
 abiflags: str
@@ -28,8 +28,8 @@ builtin_module_names: Sequence[str]  # actually a tuple of strings
 copyright: str
 # dllhandle = 0  # Windows only
 dont_write_bytecode: bool
-__displayhook__: Any  # contains the original value of displayhook
-__excepthook__: Any  # contains the original value of excepthook
+displayhook: Callable[[object], Any]
+excepthook: Callable[[Type[BaseException], BaseException, TracebackType], Any]
 exec_prefix: str
 executable: str
 float_repr_style: str
@@ -45,7 +45,11 @@ path: List[str]
 path_hooks: List[Any]  # TODO precise type; function, path to finder
 path_importer_cache: Dict[str, Any]  # TODO precise type
 platform: str
+if sys.version_info >= (3, 9):
+    platlibdir: str
 prefix: str
+if sys.version_info >= (3, 8):
+    pycache_prefix: Optional[str]
 ps1: str
 ps2: str
 stdin: TextIO
@@ -54,8 +58,6 @@ stderr: TextIO
 __stdin__: TextIO
 __stdout__: TextIO
 __stderr__: TextIO
-# deprecated and removed in Python 3.3:
-subversion: Tuple[str, str, str]
 tracebacklimit: int
 version: str
 api_version: int
@@ -83,6 +85,7 @@ class _flags:
     hash_randomization: int
     if sys.version_info >= (3, 7):
         dev_mode: int
+        utf8_mode: int
 
 float_info: _float_info
 class _float_info:
@@ -126,23 +129,22 @@ class _version_info(Tuple[int, int, int, str, int]):
     serial: int
 version_info: _version_info
 
-def call_tracing(fn: Callable[..., _T], args: Any) -> _T: ...
+def call_tracing(__func: Callable[..., _T], __args: Any) -> _T: ...
 def _clear_type_cache() -> None: ...
 def _current_frames() -> Dict[int, Any]: ...
-def displayhook(value: Optional[int]) -> None: ...
-def excepthook(type_: Type[BaseException], value: BaseException,
-               traceback: TracebackType) -> None: ...
+def _debugmallocstats() -> None: ...
+def __displayhook__(value: object) -> None: ...
+def __excepthook__(type_: Type[BaseException], value: BaseException,
+                   traceback: TracebackType) -> None: ...
 def exc_info() -> _OptExcInfo: ...
 # sys.exit() accepts an optional argument of anything printable
-def exit(arg: object = ...) -> NoReturn:
-    raise SystemExit()
-def getcheckinterval() -> int: ...  # deprecated
+def exit(__status: object = ...) -> NoReturn: ...
 def getdefaultencoding() -> str: ...
 if sys.platform != 'win32':
     # Unix only
     def getdlopenflags() -> int: ...
 def getfilesystemencoding() -> str: ...
-def getrefcount(arg: Any) -> int: ...
+def getrefcount(__object: Any) -> int: ...
 def getrecursionlimit() -> int: ...
 
 @overload
@@ -152,10 +154,7 @@ def getsizeof(obj: object, default: int) -> int: ...
 
 def getswitchinterval() -> float: ...
 
-@overload
-def _getframe() -> FrameType: ...
-@overload
-def _getframe(depth: int) -> FrameType: ...
+def _getframe(__depth: int = ...) -> FrameType: ...
 
 _ProfileFunc = Callable[[FrameType, str, Any], Any]
 def getprofile() -> Optional[_ProfileFunc]: ...
@@ -183,15 +182,32 @@ class _WinVersion(Tuple[int, int, int, int,
 
 def getwindowsversion() -> _WinVersion: ...  # Windows only
 
-def intern(string: str) -> str: ...
+def intern(__string: str) -> str: ...
 
-if sys.version_info >= (3, 5):
-    def is_finalizing() -> bool: ...
+def is_finalizing() -> bool: ...
 
-def setcheckinterval(interval: int) -> None: ...  # deprecated
-def setdlopenflags(n: int) -> None: ...  # Linux only
-def setrecursionlimit(limit: int) -> None: ...
-def setswitchinterval(interval: float) -> None: ...
-def settscdump(on_flag: bool) -> None: ...
+if sys.version_info >= (3, 7):
+    __breakpointhook__: Any  # contains the original value of breakpointhook
+    def breakpointhook(*args: Any, **kwargs: Any) -> Any: ...
+
+def setdlopenflags(__flags: int) -> None: ...  # Linux only
+def setrecursionlimit(__limit: int) -> None: ...
+def setswitchinterval(__interval: float) -> None: ...
 
 def gettotalrefcount() -> int: ...  # Debug builds only
+
+if sys.version_info < (3, 9):
+    def getcheckinterval() -> int: ...  # deprecated
+    def setcheckinterval(__n: int) -> None: ...  # deprecated
+
+if sys.version_info >= (3, 8):
+    # not exported by sys
+    class UnraisableHookArgs:
+        exc_type: Type[BaseException]
+        exc_value: Optional[BaseException]
+        exc_traceback: Optional[TracebackType]
+        err_msg: Optional[str]
+        object: Optional[object]
+    unraisablehook: Callable[[UnraisableHookArgs], Any]
+    def addaudithook(hook: Callable[[str, Tuple[Any, ...]], Any]) -> None: ...
+    def audit(__event: str, *args: Any) -> None: ...

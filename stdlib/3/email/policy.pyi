@@ -2,19 +2,17 @@
 
 from abc import abstractmethod
 from typing import Any, List, Optional, Tuple, Union, Callable
-import sys
 from email.message import Message
 from email.errors import MessageDefect
 from email.header import Header
 from email.contentmanager import ContentManager
 
 class Policy:
-    max_line_length = ...  # type: Optional[int]
-    linesep = ...  # type: str
-    cte_type = ...  # type: str
-    raise_on_defect = ...  # type: bool
-    if sys.version_info >= (3, 5):
-        mange_from = ...  # type: bool
+    max_line_length: Optional[int]
+    linesep: str
+    cte_type: str
+    raise_on_defect: bool
+    mange_from: bool
     def __init__(self, **kw: Any) -> None: ...
     def clone(self, **kw: Any) -> Policy: ...
     def handle_defect(self, obj: Message,
@@ -43,13 +41,13 @@ class Compat32(Policy):
     def fold(self, name: str, value: str) -> str: ...
     def fold_binary(self, name: str, value: str) -> bytes: ...
 
-compat32 = ...  # type: Compat32
+compat32: Compat32
 
 class EmailPolicy(Policy):
-    utf8 = ...  # type: bool
-    refold_source = ...  # type: str
-    header_factory = ...  # type: Callable[[str, str], str]
-    content_manager = ...  # type: ContentManager
+    utf8: bool
+    refold_source: str
+    header_factory: Callable[[str, str], str]
+    content_manager: ContentManager
     def header_source_parse(self, sourcelines: List[str]) -> str: ...
     def header_store_parse(self, name: str,
                            value: str) -> Tuple[str, str]: ...
@@ -57,8 +55,8 @@ class EmailPolicy(Policy):
     def fold(self, name: str, value: str) -> str: ...
     def fold_binary(self, name: str, value: str) -> bytes: ...
 
-default = ...  # type: EmailPolicy
-SMTP = ...  # type: EmailPolicy
-SMTPUTF8 = ...  # type: EmailPolicy
-HTTP = ...  # type: EmailPolicy
-strict = ...  # type: EmailPolicy
+default: EmailPolicy
+SMTP: EmailPolicy
+SMTPUTF8: EmailPolicy
+HTTP: EmailPolicy
+strict: EmailPolicy

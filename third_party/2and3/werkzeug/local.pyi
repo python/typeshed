@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Optional
 
 def release_local(local): ...
 
@@ -16,7 +16,7 @@ class LocalStack:
     def __release_local__(self): ...
     def _get__ident_func__(self): ...
     def _set__ident_func__(self, value): ...
-    __ident_func__ = ...  # type: Any
+    __ident_func__: Any
     def __call__(self): ...
     def push(self, obj): ...
     def pop(self): ...
@@ -24,16 +24,16 @@ class LocalStack:
     def top(self): ...
 
 class LocalManager:
-    locals = ...  # type: Any
-    ident_func = ...  # type: Any
-    def __init__(self, locals=None, ident_func=None): ...
+    locals: Any
+    ident_func: Any
+    def __init__(self, locals: Optional[Any] = ..., ident_func: Optional[Any] = ...): ...
     def get_ident(self): ...
     def cleanup(self): ...
     def make_middleware(self, app): ...
     def middleware(self, func): ...
 
 class LocalProxy:
-    def __init__(self, local, name=None): ...
+    def __init__(self, local, name: Optional[Any] = ...): ...
     @property
     def __dict__(self): ...
     def __bool__(self): ...
@@ -42,59 +42,59 @@ class LocalProxy:
     def __getattr__(self, name): ...
     def __setitem__(self, key, value): ...
     def __delitem__(self, key): ...
-    __getslice__ = ...  # type: Any
+    __getslice__: Any
     def __setslice__(self, i, j, seq): ...
     def __delslice__(self, i, j): ...
-    __setattr__ = ...  # type: Any
-    __delattr__ = ...  # type: Any
-    __lt__ = ...  # type: Any
-    __le__ = ...  # type: Any
-    __eq__ = ...  # type: Any
-    __ne__ = ...  # type: Any
-    __gt__ = ...  # type: Any
-    __ge__ = ...  # type: Any
-    __cmp__ = ...  # type: Any
-    __hash__ = ...  # type: Any
-    __call__ = ...  # type: Any
-    __len__ = ...  # type: Any
-    __getitem__ = ...  # type: Any
-    __iter__ = ...  # type: Any
-    __contains__ = ...  # type: Any
-    __add__ = ...  # type: Any
-    __sub__ = ...  # type: Any
-    __mul__ = ...  # type: Any
-    __floordiv__ = ...  # type: Any
-    __mod__ = ...  # type: Any
-    __divmod__ = ...  # type: Any
-    __pow__ = ...  # type: Any
-    __lshift__ = ...  # type: Any
-    __rshift__ = ...  # type: Any
-    __and__ = ...  # type: Any
-    __xor__ = ...  # type: Any
-    __or__ = ...  # type: Any
-    __div__ = ...  # type: Any
-    __truediv__ = ...  # type: Any
-    __neg__ = ...  # type: Any
-    __pos__ = ...  # type: Any
-    __abs__ = ...  # type: Any
-    __invert__ = ...  # type: Any
-    __complex__ = ...  # type: Any
-    __int__ = ...  # type: Any
-    __long__ = ...  # type: Any
-    __float__ = ...  # type: Any
-    __oct__ = ...  # type: Any
-    __hex__ = ...  # type: Any
-    __index__ = ...  # type: Any
-    __coerce__ = ...  # type: Any
-    __enter__ = ...  # type: Any
-    __exit__ = ...  # type: Any
-    __radd__ = ...  # type: Any
-    __rsub__ = ...  # type: Any
-    __rmul__ = ...  # type: Any
-    __rdiv__ = ...  # type: Any
-    __rtruediv__ = ...  # type: Any
-    __rfloordiv__ = ...  # type: Any
-    __rmod__ = ...  # type: Any
-    __rdivmod__ = ...  # type: Any
-    __copy__ = ...  # type: Any
-    __deepcopy__ = ...  # type: Any
+    __setattr__: Any
+    __delattr__: Any
+    __lt__: Any
+    __le__: Any
+    __eq__: Any
+    __ne__: Any
+    __gt__: Any
+    __ge__: Any
+    __cmp__: Any
+    __hash__: Any
+    __call__: Any
+    __len__: Any
+    __getitem__: Any
+    __iter__: Any
+    __contains__: Any
+    __add__: Any
+    __sub__: Any
+    __mul__: Any
+    __floordiv__: Any
+    __mod__: Any
+    __divmod__: Any
+    __pow__: Any
+    __lshift__: Any
+    __rshift__: Any
+    __and__: Any
+    __xor__: Any
+    __or__: Any
+    __div__: Any
+    __truediv__: Any
+    __neg__: Any
+    __pos__: Any
+    __abs__: Any
+    __invert__: Any
+    __complex__: Any
+    __int__: Any
+    __long__: Any
+    __float__: Any
+    __oct__: Any
+    __hex__: Any
+    __index__: Any
+    __coerce__: Any
+    __enter__: Any
+    __exit__: Any
+    __radd__: Any
+    __rsub__: Any
+    __rmul__: Any
+    __rdiv__: Any
+    __rtruediv__: Any
+    __rfloordiv__: Any
+    __rmod__: Any
+    __rdivmod__: Any
+    __copy__: Any
+    __deepcopy__: Any

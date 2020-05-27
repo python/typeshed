@@ -5,7 +5,7 @@ _T = TypeVar("_T")
 
 
 class _SingleDispatchCallable(Generic[_T]):
-    registry = ...  # type: Mapping[Any, Callable[..., _T]]
+    registry: Mapping[Any, Callable[..., _T]]
     def dispatch(self, cls: Any) -> Callable[..., _T]: ...
     @overload
     def register(self, cls: Any) -> Callable[[Callable[..., _T]], Callable[..., _T]]: ...

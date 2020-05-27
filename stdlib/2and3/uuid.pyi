@@ -8,13 +8,33 @@ _Int = int
 _Bytes = bytes
 _FieldsType = Tuple[int, int, int, int, int, int]
 
+if sys.version_info >= (3, 7):
+    from enum import Enum
+    class SafeUUID(Enum):
+        safe: int
+        unsafe: int
+        unknown: None
+
+
 class UUID:
-    def __init__(self, hex: Optional[Text] = ...,
-                 bytes: Optional[_Bytes] = ...,
-                 bytes_le: Optional[_Bytes] = ...,
-                 fields: Optional[_FieldsType] = ...,
-                 int: Optional[_Int] = ...,
-                 version: Optional[_Int] = ...) -> None: ...
+    if sys.version_info >= (3, 7):
+        def __init__(self, hex: Optional[Text] = ...,
+                     bytes: Optional[_Bytes] = ...,
+                     bytes_le: Optional[_Bytes] = ...,
+                     fields: Optional[_FieldsType] = ...,
+                     int: Optional[_Int] = ...,
+                     version: Optional[_Int] = ...,
+                     *,
+                     is_safe: SafeUUID = ...) -> None: ...
+        @property
+        def is_safe(self) -> SafeUUID: ...
+    else:
+        def __init__(self, hex: Optional[Text] = ...,
+                     bytes: Optional[_Bytes] = ...,
+                     bytes_le: Optional[_Bytes] = ...,
+                     fields: Optional[_FieldsType] = ...,
+                     int: Optional[_Int] = ...,
+                     version: Optional[_Int] = ...) -> None: ...
     @property
     def bytes(self) -> _Bytes: ...
     @property
@@ -80,11 +100,11 @@ def uuid3(namespace: UUID, name: str) -> UUID: ...
 def uuid4() -> UUID: ...
 def uuid5(namespace: UUID, name: str) -> UUID: ...
 
-NAMESPACE_DNS = ...  # type: UUID
-NAMESPACE_URL = ...  # type: UUID
-NAMESPACE_OID = ...  # type: UUID
-NAMESPACE_X500 = ...  # type: UUID
-RESERVED_NCS = ...  # type: str
-RFC_4122 = ...  # type: str
-RESERVED_MICROSOFT = ...  # type: str
-RESERVED_FUTURE = ...  # type: str
+NAMESPACE_DNS: UUID
+NAMESPACE_URL: UUID
+NAMESPACE_OID: UUID
+NAMESPACE_X500: UUID
+RESERVED_NCS: str
+RFC_4122: str
+RESERVED_MICROSOFT: str
+RESERVED_FUTURE: str

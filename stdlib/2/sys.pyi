@@ -8,103 +8,103 @@ from types import FrameType, ModuleType, TracebackType, ClassType
 
 # The following type alias are stub-only and do not exist during runtime
 _ExcInfo = Tuple[Type[BaseException], BaseException, TracebackType]
-_OptExcInfo = Tuple[Optional[Type[BaseException]], Optional[BaseException], Optional[TracebackType]]
+_OptExcInfo = Union[_ExcInfo, Tuple[None, None, None]]
 
 class _flags:
-    bytes_warning = ...  # type: int
-    debug = ...  # type: int
-    division_new = ...  # type: int
-    division_warning = ...  # type: int
-    dont_write_bytecode = ...  # type: int
-    hash_randomization = ...  # type: int
-    ignore_environment = ...  # type: int
-    inspect = ...  # type: int
-    interactive = ...  # type: int
-    no_site = ...  # type: int
-    no_user_site = ...  # type: int
-    optimize = ...  # type: int
-    py3k_warning = ...  # type: int
-    tabcheck = ...  # type: int
-    unicode = ...  # type: int
-    verbose = ...  # type: int
+    bytes_warning: int
+    debug: int
+    division_new: int
+    division_warning: int
+    dont_write_bytecode: int
+    hash_randomization: int
+    ignore_environment: int
+    inspect: int
+    interactive: int
+    no_site: int
+    no_user_site: int
+    optimize: int
+    py3k_warning: int
+    tabcheck: int
+    unicode: int
+    verbose: int
 
 class _float_info:
-    max = ...  # type: float
-    max_exp = ...  # type: int
-    max_10_exp = ...  # type: int
-    min = ...  # type: float
-    min_exp = ...  # type: int
-    min_10_exp = ...  # type: int
-    dig = ...  # type: int
-    mant_dig = ...  # type: int
-    epsilon = ...  # type: float
-    radix = ...  # type: int
-    rounds = ...  # type: int
+    max: float
+    max_exp: int
+    max_10_exp: int
+    min: float
+    min_exp: int
+    min_10_exp: int
+    dig: int
+    mant_dig: int
+    epsilon: float
+    radix: int
+    rounds: int
 
 class _version_info(Tuple[int, int, int, str, int]):
-    major = 0
-    minor = 0
-    micro = 0
-    releaselevel = ...  # type: str
-    serial = 0
+    major: int
+    minor: int
+    micro: int
+    releaselevel: str
+    serial: int
 
-_mercurial = ...  # type: Tuple[str, str, str]
-api_version = ...  # type: int
-argv = ...  # type: List[str]
-builtin_module_names = ...  # type: Tuple[str, ...]
-byteorder = ...  # type: str
-copyright = ...  # type: str
-dont_write_bytecode = ...  # type: bool
-exec_prefix = ...  # type: str
-executable = ...  # type: str
-flags = ...  # type: _flags
-float_repr_style = ...  # type: str
-hexversion = ...  # type: int
-long_info = ...  # type: object
-maxint = ...  # type: int
-maxsize = ...  # type: int
-maxunicode = ...  # type: int
-modules = ...  # type: Dict[str, Any]
-path = ...  # type: List[str]
-platform = ...  # type: str
-prefix = ...  # type: str
-py3kwarning = ...  # type: bool
-__stderr__ = ...  # type: IO[str]
-__stdin__ = ...  # type: IO[str]
-__stdout__ = ...  # type: IO[str]
-stderr = ...  # type: IO[str]
-stdin = ...  # type: IO[str]
-stdout = ...  # type: IO[str]
-subversion = ...  # type: Tuple[str, str, str]
-version = ...  # type: str
-warnoptions = ...  # type: object
-float_info = ...  # type: _float_info
-version_info = ...  # type: _version_info
-ps1 = ...  # type: str
-ps2 = ...  # type: str
-last_type = ...  # type: type
-last_value = ...  # type: BaseException
-last_traceback = ...  # type: TracebackType
+_mercurial: Tuple[str, str, str]
+api_version: int
+argv: List[str]
+builtin_module_names: Tuple[str, ...]
+byteorder: str
+copyright: str
+dont_write_bytecode: bool
+exec_prefix: str
+executable: str
+flags: _flags
+float_repr_style: str
+hexversion: int
+long_info: object
+maxint: int
+maxsize: int
+maxunicode: int
+modules: Dict[str, Any]
+path: List[str]
+platform: str
+prefix: str
+py3kwarning: bool
+__stderr__: IO[str]
+__stdin__: IO[str]
+__stdout__: IO[str]
+stderr: IO[str]
+stdin: IO[str]
+stdout: IO[str]
+subversion: Tuple[str, str, str]
+version: str
+warnoptions: object
+float_info: _float_info
+version_info: _version_info
+ps1: str
+ps2: str
+last_type: type
+last_value: BaseException
+last_traceback: TracebackType
 # TODO precise types
-meta_path = ...  # type: List[Any]
-path_hooks = ...  # type: List[Any]
-path_importer_cache = ...  # type: Dict[str, Any]
-displayhook = ...  # type: Optional[Callable[[int], None]]
-excepthook = ...  # type: Optional[Callable[[type, BaseException, TracebackType], None]]
-exc_type = ...  # type: Optional[type]
-exc_value = ...  # type: Union[BaseException, ClassType]
-exc_traceback = ...  # type: TracebackType
+meta_path: List[Any]
+path_hooks: List[Any]
+path_importer_cache: Dict[str, Any]
+displayhook: Callable[[object], Any]
+excepthook: Callable[[Type[BaseException], BaseException, TracebackType], Any]
+exc_type: Optional[type]
+exc_value: Union[BaseException, ClassType]
+exc_traceback: TracebackType
 
 class _WindowsVersionType:
-    major = ...  # type: Any
-    minor = ...  # type: Any
-    build = ...  # type: Any
-    platform = ...  # type: Any
-    service_pack = ...  # type: Any
-    service_pack_major = ...  # type: Any
-    service_pack_minor = ...  # type: Any
-    suite_mask = ...  # type: Any
-    product_type = ...  # type: Any
+    major: Any
+    minor: Any
+    build: Any
+    platform: Any
+    service_pack: Any
+    service_pack_major: Any
+    service_pack_minor: Any
+    suite_mask: Any
+    product_type: Any
 
 def getwindowsversion() -> _WindowsVersionType: ...
 
@@ -112,15 +112,13 @@ def _clear_type_cache() -> None: ...
 def _current_frames() -> Dict[int, FrameType]: ...
 def _getframe(depth: int = ...) -> FrameType: ...
 def call_tracing(fn: Any, args: Any) -> Any: ...
-def __displayhook__(value: int) -> None: ...
+def __displayhook__(value: object) -> None: ...
 def __excepthook__(type_: type, value: BaseException, traceback: TracebackType) -> None: ...
-def exc_clear() -> None:
-    raise DeprecationWarning()
+def exc_clear() -> None: ...
 def exc_info() -> _OptExcInfo: ...
 
 # sys.exit() accepts an optional argument of anything printable
-def exit(arg: Any = ...) -> NoReturn:
-    raise SystemExit()
+def exit(arg: Any = ...) -> NoReturn: ...
 def getcheckinterval() -> int: ...  # deprecated
 def getdefaultencoding() -> str: ...
 def getdlopenflags() -> int: ...

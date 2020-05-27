@@ -4,21 +4,21 @@ class SMTPException(Exception): ...
 class SMTPServerDisconnected(SMTPException): ...
 
 class SMTPResponseException(SMTPException):
-    smtp_code = ...  # type: Any
-    smtp_error = ...  # type: Any
-    args = ...  # type: Any
+    smtp_code: Any
+    smtp_error: Any
+    args: Any
     def __init__(self, code, msg) -> None: ...
 
 class SMTPSenderRefused(SMTPResponseException):
-    smtp_code = ...  # type: Any
-    smtp_error = ...  # type: Any
-    sender = ...  # type: Any
-    args = ...  # type: Any
+    smtp_code: Any
+    smtp_error: Any
+    sender: Any
+    args: Any
     def __init__(self, code, msg, sender) -> None: ...
 
 class SMTPRecipientsRefused(SMTPException):
-    recipients = ...  # type: Any
-    args = ...  # type: Any
+    recipients: Any
+    args: Any
     def __init__(self, recipients) -> None: ...
 
 class SMTPDataError(SMTPResponseException): ...
@@ -30,25 +30,25 @@ def quoteaddr(addr): ...
 def quotedata(data): ...
 
 class SSLFakeFile:
-    sslobj = ...  # type: Any
+    sslobj: Any
     def __init__(self, sslobj) -> None: ...
     def readline(self, size=...): ...
     def close(self): ...
 
 class SMTP:
-    debuglevel = ...  # type: Any
-    file = ...  # type: Any
-    helo_resp = ...  # type: Any
-    ehlo_msg = ...  # type: Any
-    ehlo_resp = ...  # type: Any
-    does_esmtp = ...  # type: Any
-    default_port = ...  # type: Any
-    timeout = ...  # type: Any
-    esmtp_features = ...  # type: Any
-    local_hostname = ...  # type: Any
+    debuglevel: Any
+    file: Any
+    helo_resp: Any
+    ehlo_msg: Any
+    ehlo_resp: Any
+    does_esmtp: Any
+    default_port: Any
+    timeout: Any
+    esmtp_features: Any
+    local_hostname: Any
     def __init__(self, host: str = ..., port: int = ..., local_hostname=..., timeout=...) -> None: ...
     def set_debuglevel(self, debuglevel): ...
-    sock = ...  # type: Any
+    sock: Any
     def connect(self, host=..., port=...): ...
     def send(self, str): ...
     def putcmd(self, cmd, args=...): ...
@@ -64,7 +64,7 @@ class SMTP:
     def rcpt(self, recip, options=...): ...
     def data(self, msg): ...
     def verify(self, address): ...
-    vrfy = ...  # type: Any
+    vrfy: Any
     def expn(self, address): ...
     def ehlo_or_helo_if_needed(self): ...
     def login(self, user, password): ...
@@ -74,13 +74,13 @@ class SMTP:
     def quit(self): ...
 
 class SMTP_SSL(SMTP):
-    default_port = ...  # type: Any
-    keyfile = ...  # type: Any
-    certfile = ...  # type: Any
+    default_port: Any
+    keyfile: Any
+    certfile: Any
     def __init__(self, host=..., port=..., local_hostname=..., keyfile=..., certfile=..., timeout=...) -> None: ...
 
 class LMTP(SMTP):
-    ehlo_msg = ...  # type: Any
+    ehlo_msg: Any
     def __init__(self, host=..., port=..., local_hostname=...) -> None: ...
-    sock = ...  # type: Any
+    sock: Any
     def connect(self, host=..., port=...): ...

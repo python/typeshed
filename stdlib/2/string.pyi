@@ -2,20 +2,20 @@
 
 # Based on http://docs.python.org/3.2/library/string.html
 
-from typing import Mapping, Sequence, Any, Optional, Union, List, Tuple, Iterable, AnyStr
+from typing import Any, AnyStr, Iterable, List, Mapping, Optional, overload, Sequence, Text, Tuple, Union
 
-ascii_letters = ...  # type: str
-ascii_lowercase = ...  # type: str
-ascii_uppercase = ...  # type: str
-digits = ...  # type: str
-hexdigits = ...  # type: str
-letters = ...  # type: str
-lowercase = ...  # type: str
-octdigits = ...  # type: str
-punctuation = ...  # type: str
-printable = ...  # type: str
-uppercase = ...  # type: str
-whitespace = ...  # type: str
+ascii_letters: str
+ascii_lowercase: str
+ascii_uppercase: str
+digits: str
+hexdigits: str
+letters: str
+lowercase: str
+octdigits: str
+punctuation: str
+printable: str
+uppercase: str
+whitespace: str
 
 def capwords(s: AnyStr, sep: AnyStr = ...) -> AnyStr: ...
 # TODO: originally named 'from'
@@ -47,14 +47,18 @@ def center(s: AnyStr, width: int, fillchar: AnyStr = ...) -> AnyStr: ...
 def zfill(s: AnyStr, width: int) -> AnyStr: ...
 def replace(s: AnyStr, old: AnyStr, new: AnyStr, maxreplace: int = ...) -> AnyStr: ...
 
-class Template(object):
-    # TODO: Unicode support?
-    template = ...  # type: str
+class Template:
+    template: Text
 
-    def __init__(self, template: str) -> None: ...
-    def substitute(self, mapping: Mapping[str, str] = ..., **kwds: str) -> str: ...
-    def safe_substitute(self, mapping: Mapping[str, str] = ...,
-                        **kwds: str) -> str: ...
+    def __init__(self, template: Text) -> None: ...
+    @overload
+    def substitute(self, mapping: Union[Mapping[str, str], Mapping[unicode, str]] = ..., **kwds: str) -> str: ...
+    @overload
+    def substitute(self, mapping: Union[Mapping[str, Text], Mapping[unicode, Text]] = ..., **kwds: Text) -> Text: ...
+    @overload
+    def safe_substitute(self, mapping: Union[Mapping[str, str], Mapping[unicode, str]] = ..., **kwds: str) -> str: ...
+    @overload
+    def safe_substitute(self, mapping: Union[Mapping[str, Text], Mapping[unicode, Text]], **kwds: Text) -> Text: ...
 
 # TODO(MichalPokorny): This is probably badly and/or loosely typed.
 class Formatter(object):
@@ -64,10 +68,7 @@ class Formatter(object):
     def parse(self, format_string: str) -> Iterable[Tuple[str, str, str, str]]: ...
     def get_field(self, field_name: str, args: Sequence[Any],
                   kwargs: Mapping[str, Any]) -> Any: ...
-    def get_value(self, key: Union[int, str], args: Sequence[Any],
-                  kwargs: Mapping[str, Any]) -> Any:
-        raise IndexError()
-        raise KeyError()
+    def get_value(self, key: Union[int, str], args: Sequence[Any], kwargs: Mapping[str, Any]) -> Any: ...
     def check_unused_args(self, used_args: Sequence[Union[int, str]], args: Sequence[Any],
                           kwargs: Mapping[str, Any]) -> None: ...
     def format_field(self, value: Any, format_spec: str) -> Any: ...

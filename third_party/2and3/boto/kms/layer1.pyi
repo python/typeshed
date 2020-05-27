@@ -2,13 +2,13 @@ from typing import Any, Dict, List, Mapping, Optional, Type
 from boto.connection import AWSQueryConnection
 
 class KMSConnection(AWSQueryConnection):
-    APIVersion = ...  # type: str
-    DefaultRegionName = ...  # type: str
-    DefaultRegionEndpoint = ...  # type: str
-    ServiceName = ...  # type: str
-    TargetPrefix = ...  # type: str
-    ResponseError = ...  # type: Type[Exception]
-    region = ...  # type: Any
+    APIVersion: str
+    DefaultRegionName: str
+    DefaultRegionEndpoint: str
+    ServiceName: str
+    TargetPrefix: str
+    ResponseError: Type[Exception]
+    region: Any
     def __init__(self, **kwargs) -> None: ...
     def create_alias(self, alias_name: str, target_key_id: str) -> Optional[Dict[str, Any]]: ...
     def create_grant(self, key_id: str, grantee_principal: str, retiring_principal: Optional[str] = ..., operations: Optional[List[str]] = ..., constraints: Optional[Dict[str, Dict[str, str]]] = ..., grant_tokens: Optional[List[str]] = ...) -> Optional[Dict[str, Any]]: ...

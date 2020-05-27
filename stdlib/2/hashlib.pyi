@@ -5,10 +5,10 @@ from typing import Tuple, Union
 _DataType = Union[str, unicode, bytearray, buffer, memoryview]
 
 class _hash(object):  # This is not actually in the module namespace.
-    name = ...  # type: str
-    block_size = 0
-    digest_size = 0
-    digestsize = 0
+    name: str
+    block_size: int
+    digest_size: int
+    digestsize: int
     def __init__(self, arg: _DataType = ...) -> None: ...
     def update(self, arg: _DataType) -> None: ...
     def digest(self) -> str: ...
@@ -24,8 +24,8 @@ def sha256(s: _DataType = ...) -> _hash: ...
 def sha384(s: _DataType = ...) -> _hash: ...
 def sha512(s: _DataType = ...) -> _hash: ...
 
-algorithms = ...  # type: Tuple[str, ...]
-algorithms_guaranteed = ...  # type: Tuple[str, ...]
-algorithms_available = ...  # type: Tuple[str, ...]
+algorithms: Tuple[str, ...]
+algorithms_guaranteed: Tuple[str, ...]
+algorithms_available: Tuple[str, ...]
 
 def pbkdf2_hmac(name: str, password: str, salt: str, rounds: int, dklen: int = ...) -> str: ...

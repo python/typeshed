@@ -1,4 +1,4 @@
-from typing import IO, List, Optional
+from typing import IO, List, Optional, Any
 
 from click.core import Context, Parameter
 
@@ -13,18 +13,15 @@ class ClickException(Exception):
     def format_message(self) -> str:
         ...
 
-    def show(self, file=None) -> None:
+    def show(self, file: Optional[Any] = ...) -> None:
         ...
 
 
 class UsageError(ClickException):
     ctx: Optional[Context]
 
-    def __init__(self, message: str, ctx: Optional[Context] = ...) -> None:
-        ...
-
-    def show(self, file: Optional[IO] = ...) -> None:
-        ...
+    def __init__(self, message: str, ctx: Optional[Context] = ...) -> None: ...
+    def show(self, file: Optional[IO[Any]] = ...) -> None: ...
 
 
 class BadParameter(UsageError):
@@ -70,7 +67,7 @@ class NoSuchOption(UsageError):
 
 
 class BadOptionUsage(UsageError):
-    def __init__(self, message: str, ctx: Optional[Context] = ...) -> None:
+    def __init__(self, option_name: str, message: str, ctx: Optional[Context] = ...) -> None:
         ...
 
 
@@ -89,3 +86,8 @@ class FileError(ClickException):
 
 class Abort(RuntimeError):
     ...
+
+
+class Exit(RuntimeError):
+    def __init__(self, code: int = ...) -> None:
+        ...

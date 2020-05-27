@@ -14,6 +14,7 @@ from typing import (
     NoReturn,
     Optional,
     Pattern,
+    Text,
     Tuple,
     Type,
     TypeVar,
@@ -35,11 +36,13 @@ _T = TypeVar('_T')
 _K = TypeVar('_K')
 _V = TypeVar('_V')
 
+__version__: str
+
 # TODO make constant, then move this stub to 2and3
 # https://github.com/python/typeshed/issues/17
 PY2 = False
 PY3 = True
-PY34 = ...  # type: bool
+PY34: bool
 
 string_types = str,
 integer_types = int,
@@ -47,10 +50,7 @@ class_types = type,
 text_type = str
 binary_type = bytes
 
-MAXSIZE = ...  # type: int
-
-# def add_move
-# def remove_move
+MAXSIZE: int
 
 def callable(obj: object) -> bool: ...
 
@@ -95,10 +95,31 @@ def assertRegex(self: unittest.TestCase, text: AnyStr, expected_regex: Union[Any
 exec_ = exec
 
 def reraise(tp: Optional[Type[BaseException]], value: Optional[BaseException], tb: Optional[types.TracebackType] = ...) -> NoReturn: ...
-def raise_from(value: BaseException, from_value: Optional[BaseException]) -> NoReturn: ...
+def raise_from(value: Union[BaseException, Type[BaseException]], from_value: Optional[BaseException]) -> NoReturn: ...
 
 print_ = print
 
 def with_metaclass(meta: type, *bases: type) -> type: ...
 def add_metaclass(metaclass: type) -> Callable[[_T], _T]: ...
+def ensure_binary(s: Union[bytes, Text], encoding: str = ..., errors: str = ...) -> bytes: ...
+def ensure_str(s: Union[bytes, Text], encoding: str = ..., errors: str = ...) -> str: ...
+def ensure_text(s: Union[bytes, Text], encoding: str = ..., errors: str = ...) -> Text: ...
 def python_2_unicode_compatible(klass: _T) -> _T: ...
+
+class _LazyDescriptor:
+    name: str
+    def __init__(self, name: str) -> None: ...
+    def __get__(self, obj: Optional[object], type: Optional[type] = ...) -> Any: ...
+
+class MovedModule(_LazyDescriptor):
+    mod: str
+    def __init__(self, name: str, old: str, new: Optional[str] = ...) -> None: ...
+    def __getattr__(self, attr: str) -> Any: ...
+
+class MovedAttribute(_LazyDescriptor):
+    mod: str
+    attr: str
+    def __init__(self, name: str, old_mod: str, new_mod: str, old_attr: Optional[str] = ..., new_attr: Optional[str] = ...) -> None: ...
+
+def add_move(move: Union[MovedModule, MovedAttribute]) -> None: ...
+def remove_move(name: str) -> None: ...

@@ -1,7 +1,4 @@
-from typing import (
-    Any, Callable, ContextManager, Iterable, Optional, Dict, List,
-    TypeVar, Iterator,
-)
+from typing import Any, Callable, Dict, Iterable, Iterator, List, Optional, TypeVar
 
 _T = TypeVar('_T', bound=Pool)
 
@@ -11,11 +8,13 @@ class AsyncResult():
     def ready(self) -> bool: ...
     def successful(self) -> bool: ...
 
-class IMapIterator(Iterable[Any]):
+class IMapIterator(Iterator[Any]):
     def __iter__(self) -> Iterator[Any]: ...
     def next(self, timeout: Optional[float] = ...) -> Any: ...
 
-class Pool(ContextManager[Pool]):
+class IMapUnorderedIterator(IMapIterator): ...
+
+class Pool(object):
     def __init__(self, processes: Optional[int] = ...,
                  initializer: Optional[Callable[..., None]] = ...,
                  initargs: Iterable[Any] = ...,
@@ -25,10 +24,10 @@ class Pool(ContextManager[Pool]):
               args: Iterable[Any] = ...,
               kwds: Dict[str, Any] = ...) -> Any: ...
     def apply_async(self,
-                func: Callable[..., Any],
-                args: Iterable[Any] = ...,
-                kwds: Dict[str, Any] = ...,
-                callback: Optional[Callable[..., None]] = ...) -> AsyncResult: ...
+                    func: Callable[..., Any],
+                    args: Iterable[Any] = ...,
+                    kwds: Dict[str, Any] = ...,
+                    callback: Optional[Callable[..., None]] = ...) -> AsyncResult: ...
     def map(self,
             func: Callable[..., Any],
             iterable: Iterable[Any] = ...,
@@ -48,10 +47,8 @@ class Pool(ContextManager[Pool]):
     def close(self) -> None: ...
     def terminate(self) -> None: ...
     def join(self) -> None: ...
-    def __enter__(self: _T) -> _T: ...
 
-class ThreadPool(Pool, ContextManager[ThreadPool]):
-
+class ThreadPool(Pool):
     def __init__(self, processes: Optional[int] = ...,
                  initializer: Optional[Callable[..., Any]] = ...,
                  initargs: Iterable[Any] = ...) -> None: ...

@@ -1,3 +1,4 @@
+import typing
 from typing import Any, Optional
 
 class Impossible(Exception): ...
@@ -6,9 +7,9 @@ class NodeType(type):
     def __new__(cls, name, bases, d): ...
 
 class EvalContext:
-    environment = ...  # type: Any
-    autoescape = ...  # type: Any
-    volatile = ...  # type: bool
+    environment: Any
+    autoescape: Any
+    volatile: bool
     def __init__(self, environment, template_name: Optional[Any] = ...) -> None: ...
     def save(self): ...
     def revert(self, old): ...
@@ -16,9 +17,9 @@ class EvalContext:
 def get_eval_context(node, ctx): ...
 
 class Node:
-    fields = ...  # type: Any
-    attributes = ...  # type: Any
-    abstract = ...  # type: bool
+    fields: Any
+    attributes: Any
+    abstract: bool
     def __init__(self, *fields, **attributes) -> None: ...
     def iter_fields(self, exclude: Optional[Any] = ..., only: Optional[Any] = ...): ...
     def iter_child_nodes(self, exclude: Optional[Any] = ..., only: Optional[Any] = ...): ...
@@ -29,211 +30,215 @@ class Node:
     def set_environment(self, environment): ...
     def __eq__(self, other): ...
     def __ne__(self, other): ...
-    __hash__ = ...  # type: Any
+    __hash__: Any
 
 class Stmt(Node):
-    abstract = ...  # type: bool
+    abstract: bool
 
 class Helper(Node):
-    abstract = ...  # type: bool
+    abstract: bool
 
 class Template(Node):
-    fields = ...  # type: Any
+    fields: Any
 
 class Output(Stmt):
-    fields = ...  # type: Any
+    fields: Any
 
 class Extends(Stmt):
-    fields = ...  # type: Any
+    fields: Any
 
 class For(Stmt):
-    fields = ...  # type: Any
+    fields: Any
 
 class If(Stmt):
-    fields = ...  # type: Any
+    fields: Any
 
 class Macro(Stmt):
-    fields = ...  # type: Any
+    fields: Any
+    name: str
+    args: typing.List[Any]
+    defaults: typing.List[Any]
+    body: typing.List[Any]
 
 class CallBlock(Stmt):
-    fields = ...  # type: Any
+    fields: Any
 
 class FilterBlock(Stmt):
-    fields = ...  # type: Any
+    fields: Any
 
 class Block(Stmt):
-    fields = ...  # type: Any
+    fields: Any
 
 class Include(Stmt):
-    fields = ...  # type: Any
+    fields: Any
 
 class Import(Stmt):
-    fields = ...  # type: Any
+    fields: Any
 
 class FromImport(Stmt):
-    fields = ...  # type: Any
+    fields: Any
 
 class ExprStmt(Stmt):
-    fields = ...  # type: Any
+    fields: Any
 
 class Assign(Stmt):
-    fields = ...  # type: Any
+    fields: Any
 
 class AssignBlock(Stmt):
-    fields = ...  # type: Any
+    fields: Any
 
 class Expr(Node):
-    abstract = ...  # type: bool
+    abstract: bool
     def as_const(self, eval_ctx: Optional[Any] = ...): ...
     def can_assign(self): ...
 
 class BinExpr(Expr):
-    fields = ...  # type: Any
-    operator = ...  # type: Any
-    abstract = ...  # type: bool
+    fields: Any
+    operator: Any
+    abstract: bool
     def as_const(self, eval_ctx: Optional[Any] = ...): ...
 
 class UnaryExpr(Expr):
-    fields = ...  # type: Any
-    operator = ...  # type: Any
-    abstract = ...  # type: bool
+    fields: Any
+    operator: Any
+    abstract: bool
     def as_const(self, eval_ctx: Optional[Any] = ...): ...
 
 class Name(Expr):
-    fields = ...  # type: Any
+    fields: Any
     def can_assign(self): ...
 
 class Literal(Expr):
-    abstract = ...  # type: bool
+    abstract: bool
 
 class Const(Literal):
-    fields = ...  # type: Any
+    fields: Any
     def as_const(self, eval_ctx: Optional[Any] = ...): ...
     @classmethod
     def from_untrusted(cls, value, lineno: Optional[Any] = ..., environment: Optional[Any] = ...): ...
 
 class TemplateData(Literal):
-    fields = ...  # type: Any
+    fields: Any
     def as_const(self, eval_ctx: Optional[Any] = ...): ...
 
 class Tuple(Literal):
-    fields = ...  # type: Any
+    fields: Any
     def as_const(self, eval_ctx: Optional[Any] = ...): ...
     def can_assign(self): ...
 
 class List(Literal):
-    fields = ...  # type: Any
+    fields: Any
     def as_const(self, eval_ctx: Optional[Any] = ...): ...
 
 class Dict(Literal):
-    fields = ...  # type: Any
+    fields: Any
     def as_const(self, eval_ctx: Optional[Any] = ...): ...
 
 class Pair(Helper):
-    fields = ...  # type: Any
+    fields: Any
     def as_const(self, eval_ctx: Optional[Any] = ...): ...
 
 class Keyword(Helper):
-    fields = ...  # type: Any
+    fields: Any
     def as_const(self, eval_ctx: Optional[Any] = ...): ...
 
 class CondExpr(Expr):
-    fields = ...  # type: Any
+    fields: Any
     def as_const(self, eval_ctx: Optional[Any] = ...): ...
 
 class Filter(Expr):
-    fields = ...  # type: Any
+    fields: Any
     def as_const(self, eval_ctx: Optional[Any] = ...): ...
 
 class Test(Expr):
-    fields = ...  # type: Any
+    fields: Any
 
 class Call(Expr):
-    fields = ...  # type: Any
+    fields: Any
     def as_const(self, eval_ctx: Optional[Any] = ...): ...
 
 class Getitem(Expr):
-    fields = ...  # type: Any
+    fields: Any
     def as_const(self, eval_ctx: Optional[Any] = ...): ...
     def can_assign(self): ...
 
 class Getattr(Expr):
-    fields = ...  # type: Any
+    fields: Any
     def as_const(self, eval_ctx: Optional[Any] = ...): ...
     def can_assign(self): ...
 
 class Slice(Expr):
-    fields = ...  # type: Any
+    fields: Any
     def as_const(self, eval_ctx: Optional[Any] = ...): ...
 
 class Concat(Expr):
-    fields = ...  # type: Any
+    fields: Any
     def as_const(self, eval_ctx: Optional[Any] = ...): ...
 
 class Compare(Expr):
-    fields = ...  # type: Any
+    fields: Any
     def as_const(self, eval_ctx: Optional[Any] = ...): ...
 
 class Operand(Helper):
-    fields = ...  # type: Any
+    fields: Any
 
 class Mul(BinExpr):
-    operator = ...  # type: str
+    operator: str
 
 class Div(BinExpr):
-    operator = ...  # type: str
+    operator: str
 
 class FloorDiv(BinExpr):
-    operator = ...  # type: str
+    operator: str
 
 class Add(BinExpr):
-    operator = ...  # type: str
+    operator: str
 
 class Sub(BinExpr):
-    operator = ...  # type: str
+    operator: str
 
 class Mod(BinExpr):
-    operator = ...  # type: str
+    operator: str
 
 class Pow(BinExpr):
-    operator = ...  # type: str
+    operator: str
 
 class And(BinExpr):
-    operator = ...  # type: str
+    operator: str
     def as_const(self, eval_ctx: Optional[Any] = ...): ...
 
 class Or(BinExpr):
-    operator = ...  # type: str
+    operator: str
     def as_const(self, eval_ctx: Optional[Any] = ...): ...
 
 class Not(UnaryExpr):
-    operator = ...  # type: str
+    operator: str
 
 class Neg(UnaryExpr):
-    operator = ...  # type: str
+    operator: str
 
 class Pos(UnaryExpr):
-    operator = ...  # type: str
+    operator: str
 
 class EnvironmentAttribute(Expr):
-    fields = ...  # type: Any
+    fields: Any
 
 class ExtensionAttribute(Expr):
-    fields = ...  # type: Any
+    fields: Any
 
 class ImportedName(Expr):
-    fields = ...  # type: Any
+    fields: Any
 
 class InternalName(Expr):
-    fields = ...  # type: Any
+    fields: Any
     def __init__(self) -> None: ...
 
 class MarkSafe(Expr):
-    fields = ...  # type: Any
+    fields: Any
     def as_const(self, eval_ctx: Optional[Any] = ...): ...
 
 class MarkSafeIfAutoescape(Expr):
-    fields = ...  # type: Any
+    fields: Any
     def as_const(self, eval_ctx: Optional[Any] = ...): ...
 
 class ContextReference(Expr): ...
@@ -241,10 +246,10 @@ class Continue(Stmt): ...
 class Break(Stmt): ...
 
 class Scope(Stmt):
-    fields = ...  # type: Any
+    fields: Any
 
 class EvalContextModifier(Stmt):
-    fields = ...  # type: Any
+    fields: Any
 
 class ScopedEvalContextModifier(EvalContextModifier):
-    fields = ...  # type: Any
+    fields: Any

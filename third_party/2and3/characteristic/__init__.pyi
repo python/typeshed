@@ -1,4 +1,4 @@
-from typing import Sequence, Callable, Union, Any, Optional, AnyStr, TypeVar, Type
+from typing import Sequence, Callable, Union, Any, Optional, AnyStr, TypeVar, Type, Dict
 
 def with_repr(attrs: Sequence[Union[AnyStr, Attribute]]) -> Callable[..., Any]: ...
 def with_cmp(attrs: Sequence[Union[AnyStr, Attribute]]) -> Callable[..., Any]: ...
@@ -18,7 +18,7 @@ def attributes(
     apply_with_repr: bool = ...,
     apply_immutable: bool = ...,
     store_attributes: Optional[Callable[[type, Attribute], Any]] = ...,
-    **kw: Optional[dict]) -> Callable[[Type[_T]], Type[_T]]: ...
+    **kw: Optional[Dict[Any, Any]]) -> Callable[[Type[_T]], Type[_T]]: ...
 
 class Attribute:
     def __init__(

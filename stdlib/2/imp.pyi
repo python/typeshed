@@ -3,19 +3,19 @@
 from typing import List, Optional, Tuple, Iterable, IO, Any
 import types
 
-C_BUILTIN = ...  # type: int
-C_EXTENSION = ...  # type: int
-IMP_HOOK = ...  # type: int
-PKG_DIRECTORY = ...  # type: int
-PY_CODERESOURCE = ...  # type: int
-PY_COMPILED = ...  # type: int
-PY_FROZEN = ...  # type: int
-PY_RESOURCE = ...  # type: int
-PY_SOURCE = ...  # type: int
-SEARCH_ERROR = ...  # type: int
+C_BUILTIN: int
+C_EXTENSION: int
+IMP_HOOK: int
+PKG_DIRECTORY: int
+PY_CODERESOURCE: int
+PY_COMPILED: int
+PY_FROZEN: int
+PY_RESOURCE: int
+PY_SOURCE: int
+SEARCH_ERROR: int
 
 def acquire_lock() -> None: ...
-def find_module(name: str, path: Iterable[str] = ...) -> Optional[Tuple[str, str, Tuple[str, str, int]]]: ...
+def find_module(name: str, path: Iterable[str] = ...) -> Optional[Tuple[IO[Any], str, Tuple[str, str, int]]]: ...
 def get_magic() -> str: ...
 def get_suffixes() -> List[Tuple[str, str, int]]: ...
 def init_builtin(name: str) -> types.ModuleType: ...

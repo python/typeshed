@@ -1,3 +1,4 @@
+import datetime
 from typing import Any, Dict, Tuple, List, Text, NoReturn, Optional, Protocol, Type, Union, Iterable
 
 from wsgiref.types import WSGIEnvironment, StartResponse
@@ -8,10 +9,10 @@ class _EnvironContainer(Protocol):
     def environ(self) -> WSGIEnvironment: ...
 
 class HTTPException(Exception):
-    code = ...  # type: Optional[int]
-    description = ...  # type: Optional[str]
-    response = ...  # type: Optional[Response]
-    def __init__(self, description: Optional[str] = ..., response: Optional[Response] = ...) -> None: ...
+    code: Optional[int]
+    description: Optional[Text]
+    response: Optional[Response]
+    def __init__(self, description: Optional[Text] = ..., response: Optional[Response] = ...) -> None: ...
     @classmethod
     def wrap(cls, exception: Type[Exception], name: Optional[str] = ...) -> Any: ...
     @property
@@ -22,138 +23,158 @@ class HTTPException(Exception):
     def get_response(self, environ: Optional[Union[WSGIEnvironment, _EnvironContainer]] = ...) -> Response: ...
     def __call__(self, environ: WSGIEnvironment, start_response: StartResponse) -> Iterable[bytes]: ...
 
-default_exceptions: Dict[int, HTTPException]
+default_exceptions: Dict[int, Type[HTTPException]]
 
 class BadRequest(HTTPException):
-    code = ...  # type: int
-    description = ...  # type: str
+    code: int
+    description: Text
 
 class ClientDisconnected(BadRequest): ...
 class SecurityError(BadRequest): ...
 class BadHost(BadRequest): ...
 
 class Unauthorized(HTTPException):
-    code = ...  # type: int
-    description = ...  # type: str
+    code: int
+    description: Text
+    www_authenticate: Optional[Iterable[object]]
+    def __init__(
+        self,
+        description: Optional[Text] = ...,
+        response: Optional[Response] = ...,
+        www_authenticate: Union[None, Tuple[object, ...], List[object], object] = ...,
+    ) -> None: ...
 
 class Forbidden(HTTPException):
-    code = ...  # type: int
-    description = ...  # type: str
+    code: int
+    description: Text
 
 class NotFound(HTTPException):
-    code = ...  # type: int
-    description = ...  # type: str
+    code: int
+    description: Text
 
 class MethodNotAllowed(HTTPException):
-    code = ...  # type: int
-    description = ...  # type: str
-    valid_methods = ...  # type: Any
-    def __init__(self, valid_methods=None, description=None): ...
-    def get_headers(self, environ): ...
+    code: int
+    description: Text
+    valid_methods: Any
+    def __init__(self, valid_methods: Optional[Any] = ..., description: Optional[Any] = ...): ...
 
 class NotAcceptable(HTTPException):
-    code = ...  # type: int
-    description = ...  # type: str
+    code: int
+    description: Text
 
 class RequestTimeout(HTTPException):
-    code = ...  # type: int
-    description = ...  # type: str
+    code: int
+    description: Text
 
 class Conflict(HTTPException):
-    code = ...  # type: int
-    description = ...  # type: str
+    code: int
+    description: Text
 
 class Gone(HTTPException):
-    code = ...  # type: int
-    description = ...  # type: str
+    code: int
+    description: Text
 
 class LengthRequired(HTTPException):
-    code = ...  # type: int
-    description = ...  # type: str
+    code: int
+    description: Text
 
 class PreconditionFailed(HTTPException):
-    code = ...  # type: int
-    description = ...  # type: str
+    code: int
+    description: Text
 
 class RequestEntityTooLarge(HTTPException):
-    code = ...  # type: int
-    description = ...  # type: str
+    code: int
+    description: Text
 
 class RequestURITooLarge(HTTPException):
-    code = ...  # type: int
-    description = ...  # type: str
+    code: int
+    description: Text
 
 class UnsupportedMediaType(HTTPException):
-    code = ...  # type: int
-    description = ...  # type: str
+    code: int
+    description: Text
 
 class RequestedRangeNotSatisfiable(HTTPException):
-    code = ...  # type: int
-    description = ...  # type: str
-    length = ...  # type: Any
-    units = ...  # type: Any
-    def __init__(self, length=None, units='', description=None): ...
-    def get_headers(self, environ): ...
+    code: int
+    description: Text
+    length: Any
+    units: str
+    def __init__(self, length: Optional[Any] = ..., units: str = ..., description: Optional[Any] = ...): ...
 
 class ExpectationFailed(HTTPException):
-    code = ...  # type: int
-    description = ...  # type: str
+    code: int
+    description: Text
 
 class ImATeapot(HTTPException):
-    code = ...  # type: int
-    description = ...  # type: str
+    code: int
+    description: Text
 
 class UnprocessableEntity(HTTPException):
-    code = ...  # type: int
-    description = ...  # type: str
+    code: int
+    description: Text
 
 class Locked(HTTPException):
-    code = ...  # type: int
-    description = ...  # type: str
+    code: int
+    description: Text
+
+class FailedDependency(HTTPException):
+    code: int
+    description: Text
 
 class PreconditionRequired(HTTPException):
-    code = ...  # type: int
-    description = ...  # type: str
+    code: int
+    description: Text
 
-class TooManyRequests(HTTPException):
-    code = ...  # type: int
-    description = ...  # type: str
+class _RetryAfter(HTTPException):
+    retry_after: Union[None, int, datetime.datetime]
+    def __init__(
+        self,
+        description: Optional[Text] = ...,
+        response: Optional[Response] = ...,
+        retry_after: Union[None, int, datetime.datetime] = ...,
+    ) -> None: ...
+
+class TooManyRequests(_RetryAfter):
+    code: int
+    description: Text
 
 class RequestHeaderFieldsTooLarge(HTTPException):
-    code = ...  # type: int
-    description = ...  # type: str
+    code: int
+    description: Text
 
 class UnavailableForLegalReasons(HTTPException):
-    code = ...  # type: int
-    description = ...  # type: str
+    code: int
+    description: Text
 
 class InternalServerError(HTTPException):
-    code = ...  # type: int
-    description = ...  # type: str
+    code: int
+    description: Text
 
 class NotImplemented(HTTPException):
-    code = ...  # type: int
-    description = ...  # type: str
+    code: int
+    description: Text
 
 class BadGateway(HTTPException):
-    code = ...  # type: int
-    description = ...  # type: str
+    code: int
+    description: Text
 
-class ServiceUnavailable(HTTPException):
-    code = ...  # type: int
-    description = ...  # type: str
+class ServiceUnavailable(_RetryAfter):
+    code: int
+    description: Text
 
 class GatewayTimeout(HTTPException):
-    code = ...  # type: int
-    description = ...  # type: str
+    code: int
+    description: Text
 
 class HTTPVersionNotSupported(HTTPException):
-    code = ...  # type: int
-    description = ...  # type: str
+    code: int
+    description: Text
 
 class Aborter:
-    mapping = ...  # type: Any
-    def __init__(self, mapping=None, extra=None) -> None: ...
+    mapping: Any
+    def __init__(self, mapping: Optional[Any] = ..., extra: Optional[Any] = ...) -> None: ...
     def __call__(self, code: Union[int, Response], *args: Any, **kwargs: Any) -> NoReturn: ...
 
 def abort(status: Union[int, Response], *args: Any, **kwargs: Any) -> NoReturn: ...
+
+class BadRequestKeyError(BadRequest, KeyError): ...

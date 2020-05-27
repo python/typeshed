@@ -1,7 +1,6 @@
 # Stubs for email.feedparser (Python 3.4)
 
 from typing import Callable
-import sys
 from email.message import Message
 from email.policy import Policy
 
@@ -14,5 +13,5 @@ class FeedParser:
 class BytesFeedParser:
     def __init__(self, _factory: Callable[[], Message] = ..., *,
                  policy: Policy = ...) -> None: ...
-    def feed(self, data: str) -> None: ...
+    def feed(self, data: bytes) -> None: ...
     def close(self) -> Message: ...

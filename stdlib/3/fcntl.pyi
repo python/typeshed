@@ -1,96 +1,120 @@
 # Stubs for fcntl
+from array import array
 from io import IOBase
-from typing import Any, IO, Union
+from typing import IO, Any, Union, overload
+from _types import FileDescriptorLike
+import sys
+if sys.version_info >= (3, 8):
+    from typing import Literal
+else:
+    from typing_extensions import Literal
 
-FASYNC = ...  # type: int
-FD_CLOEXEC = ...  # type: int
-DN_ACCESS = ...  # type: int
-DN_ATTRIB = ...  # type: int
-DN_CREATE = ...  # type: int
-DN_DELETE = ...  # type: int
-DN_MODIFY = ...  # type: int
-DN_MULTISHOT = ...  # type: int
-DN_RENAME = ...  # type: int
-F_DUPFD = ...  # type: int
-F_DUPFD_CLOEXEC = ...  # type: int
-F_FULLFSYNC = ...  # type: int
-F_EXLCK = ...  # type: int
-F_GETFD = ...  # type: int
-F_GETFL = ...  # type: int
-F_GETLEASE = ...  # type: int
-F_GETLK = ...  # type: int
-F_GETLK64 = ...  # type: int
-F_GETOWN = ...  # type: int
-F_NOCACHE = ...  # type: int
-F_GETSIG = ...  # type: int
-F_NOTIFY = ...  # type: int
-F_RDLCK = ...  # type: int
-F_SETFD = ...  # type: int
-F_SETFL = ...  # type: int
-F_SETLEASE = ...  # type: int
-F_SETLK = ...  # type: int
-F_SETLK64 = ...  # type: int
-F_SETLKW = ...  # type: int
-F_SETLKW64 = ...  # type: int
-F_SETOWN = ...  # type: int
-F_SETSIG = ...  # type: int
-F_SHLCK = ...  # type: int
-F_UNLCK = ...  # type: int
-F_WRLCK = ...  # type: int
-I_ATMARK = ...  # type: int
-I_CANPUT = ...  # type: int
-I_CKBAND = ...  # type: int
-I_FDINSERT = ...  # type: int
-I_FIND = ...  # type: int
-I_FLUSH = ...  # type: int
-I_FLUSHBAND = ...  # type: int
-I_GETBAND = ...  # type: int
-I_GETCLTIME = ...  # type: int
-I_GETSIG = ...  # type: int
-I_GRDOPT = ...  # type: int
-I_GWROPT = ...  # type: int
-I_LINK = ...  # type: int
-I_LIST = ...  # type: int
-I_LOOK = ...  # type: int
-I_NREAD = ...  # type: int
-I_PEEK = ...  # type: int
-I_PLINK = ...  # type: int
-I_POP = ...  # type: int
-I_PUNLINK = ...  # type: int
-I_PUSH = ...  # type: int
-I_RECVFD = ...  # type: int
-I_SENDFD = ...  # type: int
-I_SETCLTIME = ...  # type: int
-I_SETSIG = ...  # type: int
-I_SRDOPT = ...  # type: int
-I_STR = ...  # type: int
-I_SWROPT = ...  # type: int
-I_UNLINK = ...  # type: int
-LOCK_EX = ...  # type: int
-LOCK_MAND = ...  # type: int
-LOCK_NB = ...  # type: int
-LOCK_READ = ...  # type: int
-LOCK_RW = ...  # type: int
-LOCK_SH = ...  # type: int
-LOCK_UN = ...  # type: int
-LOCK_WRITE = ...  # type: int
+FASYNC: int
+FD_CLOEXEC: int
+DN_ACCESS: int
+DN_ATTRIB: int
+DN_CREATE: int
+DN_DELETE: int
+DN_MODIFY: int
+DN_MULTISHOT: int
+DN_RENAME: int
+F_DUPFD: int
+F_DUPFD_CLOEXEC: int
+F_FULLFSYNC: int
+F_EXLCK: int
+F_GETFD: int
+F_GETFL: int
+F_GETLEASE: int
+F_GETLK: int
+F_GETLK64: int
+F_GETOWN: int
+F_NOCACHE: int
+F_GETSIG: int
+F_NOTIFY: int
+F_RDLCK: int
+F_SETFD: int
+F_SETFL: int
+F_SETLEASE: int
+F_SETLK: int
+F_SETLK64: int
+F_SETLKW: int
+F_SETLKW64: int
+F_SETOWN: int
+F_SETSIG: int
+F_SHLCK: int
+F_UNLCK: int
+F_WRLCK: int
+I_ATMARK: int
+I_CANPUT: int
+I_CKBAND: int
+I_FDINSERT: int
+I_FIND: int
+I_FLUSH: int
+I_FLUSHBAND: int
+I_GETBAND: int
+I_GETCLTIME: int
+I_GETSIG: int
+I_GRDOPT: int
+I_GWROPT: int
+I_LINK: int
+I_LIST: int
+I_LOOK: int
+I_NREAD: int
+I_PEEK: int
+I_PLINK: int
+I_POP: int
+I_PUNLINK: int
+I_PUSH: int
+I_RECVFD: int
+I_SENDFD: int
+I_SETCLTIME: int
+I_SETSIG: int
+I_SRDOPT: int
+I_STR: int
+I_SWROPT: int
+I_UNLINK: int
+LOCK_EX: int
+LOCK_MAND: int
+LOCK_NB: int
+LOCK_READ: int
+LOCK_RW: int
+LOCK_SH: int
+LOCK_UN: int
+LOCK_WRITE: int
 
-_AnyFile = Union[int, IO[Any], IOBase]
-
-# TODO All these return either int or bytes depending on the value of
-# cmd (not on the type of arg).
-def fcntl(fd: _AnyFile,
-          cmd: int,
-          arg: Union[int, bytes] = ...) -> Any: ...
-# TODO This function accepts any object supporting a buffer interface,
-# as arg, is there a better way to express this than bytes?
-def ioctl(fd: _AnyFile,
-          request: int,
-          arg: Union[int, bytes] = ...,
-          mutate_flag: bool = ...) -> Any: ...
-def flock(fd: _AnyFile, operation: int) -> None: ...
-def lockf(fd: _AnyFile,
-          cmd: int,
-          len: int = ...,
-          start: int = ...,
-          whence: int = ...) -> Any: ...
+@overload
+def fcntl(__fd: FileDescriptorLike,
+          __cmd: int,
+          __arg: int = ...) -> int: ...
+@overload
+def fcntl(__fd: FileDescriptorLike,
+          __cmd: int,
+          __arg: bytes) -> bytes: ...
+_ReadOnlyBuffer = bytes
+_WritableBuffer = Union[bytearray, memoryview, array]
+@overload
+def ioctl(__fd: FileDescriptorLike,
+          __request: int,
+          __arg: int = ...,
+          __mutate_flag: bool = ...) -> int: ...
+@overload
+def ioctl(__fd: FileDescriptorLike,
+          __request: int,
+          __arg: _WritableBuffer,
+          __mutate_flag: Literal[True] = ...) -> int: ...
+@overload
+def ioctl(__fd: FileDescriptorLike,
+          __request: int,
+          __arg: _WritableBuffer,
+          __mutate_flag: Literal[False]) -> bytes: ...
+@overload
+def ioctl(__fd: FileDescriptorLike,
+          __request: int,
+          __arg: _ReadOnlyBuffer,
+          __mutate_flag: bool = ...) -> bytes: ...
+def flock(__fd: FileDescriptorLike, __operation: int) -> None: ...
+def lockf(__fd: FileDescriptorLike,
+          __cmd: int,
+          __len: int = ...,
+          __start: int = ...,
+          __whence: int = ...) -> Any: ...

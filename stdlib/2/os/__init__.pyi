@@ -3,7 +3,7 @@
 
 from builtins import OSError as error
 from io import TextIOWrapper as _TextIOWrapper
-from posix import stat_result as stat_result  # TODO: use this, see https://github.com/python/mypy/issues/3078
+from posix import listdir as listdir, stat_result as stat_result  # TODO: use this, see https://github.com/python/mypy/issues/3078
 import sys
 from typing import (
     Mapping, MutableMapping, Dict, List, Any, Tuple, Iterator, overload, Union, AnyStr,
@@ -63,7 +63,10 @@ O_LARGEFILE: int  # Gnu extension if in C library
 curdir: str
 pardir: str
 sep: str
-altsep: str
+if sys.platform == 'win32':
+    altsep: str
+else:
+    altsep: Optional[str]
 extsep: str
 pathsep: str
 defpath: str
@@ -133,10 +136,17 @@ if sys.version_info >= (3, 6):
 
 _PathType = path._PathType
 
-_StatVFS = NamedTuple('_StatVFS', [('f_bsize', int), ('f_frsize', int), ('f_blocks', int),
-                                   ('f_bfree', int), ('f_bavail', int), ('f_files', int),
-                                   ('f_ffree', int), ('f_favail', int), ('f_flag', int),
-                                   ('f_namemax', int)])
+class _StatVFS(NamedTuple):
+    f_bsize: int
+    f_frsize: int
+    f_blocks: int
+    f_bfree: int
+    f_bavail: int
+    f_files: int
+    f_ffree: int
+    f_favail: int
+    f_flag: int
+    f_namemax: int
 
 def getlogin() -> str: ...
 def getpid() -> int: ...
@@ -189,7 +199,7 @@ def lseek(fd: int, pos: int, how: int) -> int: ...
 def open(file: _PathType, flags: int, mode: int = ...) -> int: ...
 def pipe() -> Tuple[int, int]: ...
 def read(fd: int, n: int) -> bytes: ...
-def write(fd: int, string: bytes) -> int: ...
+def write(fd: int, string: Union[bytes, buffer]) -> int: ...
 def access(path: _PathType, mode: int) -> bool: ...
 def chdir(path: _PathType) -> None: ...
 def fchdir(fd: int) -> None: ...
@@ -197,7 +207,6 @@ def getcwd() -> str: ...
 def getcwdu() -> unicode: ...
 def chmod(path: _PathType, mode: int) -> None: ...
 def link(src: _PathType, link_name: _PathType) -> None: ...
-def listdir(path: AnyStr) -> List[AnyStr]: ...
 def lstat(path: _PathType) -> Any: ...
 def mknod(filename: _PathType, mode: int = ..., device: int = ...) -> None: ...
 def major(device: int) -> int: ...
@@ -282,7 +291,7 @@ if sys.platform != 'win32':
     # Unix only
     def fork() -> int: ...
     def forkpty() -> Tuple[int, int]: ...  # some flavors of Unix
-    def killpg(pgid: int, sig: int) -> None: ...
+    def killpg(__pgid: int, __signal: int) -> None: ...
     def nice(increment: int) -> int: ...
     def plock(op: int) -> None: ...  # ???op is int?
 
@@ -347,20 +356,3 @@ if sys.version_info < (3, 0):
 P_ALL: int
 WEXITED: int
 WNOWAIT: int
-
-if sys.version_info >= (3, 3):
-    if sys.platform != 'win32':
-        # Unix only
-        def sync() -> None: ...
-
-        def truncate(path: Union[_PathType, int], length: int) -> None: ...  # Unix only up to version 3.4
-
-        def fwalk(top: AnyStr = ..., topdown: bool = ...,
-                  onerror: Callable = ..., *, follow_symlinks: bool = ...,
-                  dir_fd: int = ...) -> Iterator[Tuple[AnyStr, List[AnyStr], List[AnyStr], int]]: ...
-
-    terminal_size = NamedTuple('terminal_size', [('columns', int), ('lines', int)])
-    def get_terminal_size(fd: int = ...) -> terminal_size: ...
-
-if sys.version_info >= (3, 4):
-    def cpu_count() -> Optional[int]: ...

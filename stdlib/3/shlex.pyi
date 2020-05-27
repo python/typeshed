@@ -1,35 +1,30 @@
-# Stubs for shlex
-
-# Based on http://docs.python.org/3.2/library/shlex.html
-
 from typing import List, Tuple, Any, TextIO, Union, Optional, Iterable, TypeVar
 import sys
 
-def split(s: str, comments: bool = ...,
-          posix: bool = ...) -> List[str]: ...
-
-# Added in 3.3, use (undocumented) pipes.quote in previous versions.
+def split(s: str, comments: bool = ..., posix: bool = ...) -> List[str]: ...
+if sys.version_info >= (3, 8):
+    def join(split_command: Iterable[str]) -> str: ...
 def quote(s: str) -> str: ...
 
 _SLT = TypeVar('_SLT', bound=shlex)
 
 class shlex(Iterable[str]):
-    commenters = ...  # type: str
-    wordchars = ...  # type: str
-    whitespace = ...  # type: str
-    escape = ...  # type: str
-    quotes = ...  # type: str
-    escapedquotes = ...  # type: str
-    whitespace_split = ...  # type: bool
-    infile = ...  # type: str
-    instream = ...  # type: TextIO
-    source = ...  # type: str
-    debug = 0
-    lineno = 0
-    token = ...  # type: str
-    eof = ...  # type: str
+    commenters: str
+    wordchars: str
+    whitespace: str
+    escape: str
+    quotes: str
+    escapedquotes: str
+    whitespace_split: bool
+    infile: str
+    instream: TextIO
+    source: str
+    debug: int
+    lineno: int
+    token: str
+    eof: str
     if sys.version_info >= (3, 6):
-        punctuation_chars = ...  # type: str
+        punctuation_chars: str
 
     if sys.version_info >= (3, 6):
         def __init__(self, instream: Union[str, TextIO] = ..., infile: Optional[str] = ...,

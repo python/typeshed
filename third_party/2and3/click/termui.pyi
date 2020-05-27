@@ -8,8 +8,10 @@ from typing import (
     Optional,
     Text,
     overload,
+    Text,
     Tuple,
     TypeVar,
+    Union,
 )
 
 from click.core import _ConvertibleType
@@ -39,6 +41,7 @@ def prompt(
     prompt_suffix: str = ...,
     show_default: bool = ...,
     err: bool = ...,
+    show_choices: bool = ...,
 ) -> Any:
     ...
 
@@ -58,7 +61,10 @@ def get_terminal_size() -> Tuple[int, int]:
     ...
 
 
-def echo_via_pager(text: str, color: Optional[bool] = ...) -> None:
+def echo_via_pager(
+    text_or_generator: Union[str, Iterable[str], Callable[[], Generator[str, None, None]]],
+    color: Optional[bool] = ...,
+) -> None:
     ...
 
 
@@ -78,7 +84,7 @@ def progressbar(
     bar_template: str = ...,
     info_sep: str = ...,
     width: int = ...,
-    file: Optional[IO] = ...,
+    file: Optional[IO[Any]] = ...,
     color: Optional[bool] = ...,
 ) -> _ProgressBar[_T]:
     ...
@@ -97,7 +103,7 @@ def progressbar(
     bar_template: str = ...,
     info_sep: str = ...,
     width: int = ...,
-    file: Optional[IO] = ...,
+    file: Optional[IO[Any]] = ...,
     color: Optional[bool] = ...,
 ) -> _ProgressBar[int]:
     ...
@@ -107,7 +113,7 @@ def clear() -> None:
 
 
 def style(
-    text: str,
+    text: Text,
     fg: Optional[str] = ...,
     bg: Optional[str] = ...,
     bold: Optional[bool] = ...,
@@ -116,18 +122,18 @@ def style(
     blink: Optional[bool] = ...,
     reverse: Optional[bool] = ...,
     reset: bool = ...,
-):
+) -> str:
     ...
 
 
-def unstyle(text: str) -> str:
+def unstyle(text: Text) -> str:
     ...
 
 
 # Styling options copied from style() for nicer type checking.
 def secho(
-    text: str,
-    file: Optional[IO] = ...,
+    message: Optional[str] = ...,
+    file: Optional[IO[Any]] = ...,
     nl: bool = ...,
     err: bool = ...,
     color: Optional[bool] = ...,

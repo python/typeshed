@@ -26,6 +26,6 @@ class HTMLParser(ParserBase):
     def unescape(self, s: AnyStr) -> AnyStr: ...
 
 class HTMLParseError(Exception):
-    msg = ...  # type: str
-    lineno = ...  # type: int
-    offset = ...  # type: int
+    msg: str
+    lineno: int
+    offset: int

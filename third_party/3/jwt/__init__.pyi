@@ -1,19 +1,19 @@
-from typing import Mapping, Any, Optional, Union
+from typing import Mapping, Any, Optional, Union, Dict
 
 from . import algorithms
+from cryptography.hazmat.primitives.asymmetric import rsa
 
-def decode(jwt: Union[str, bytes], key: Union[str, bytes] = ...,
+
+def decode(jwt: Union[str, bytes], key: Union[str, bytes, rsa.RSAPublicKey, rsa.RSAPrivateKey] = ...,
            verify: bool = ..., algorithms: Optional[Any] = ...,
            options: Optional[Mapping[Any, Any]] = ...,
-           **kwargs: Any) -> Mapping[str, Any]: ...
+           **kwargs: Any) -> Dict[str, Any]: ...
 
-def encode(payload: Mapping[str, Any], key: Union[str, bytes],
+def encode(payload: Mapping[str, Any], key: Union[str, bytes, rsa.RSAPublicKey, rsa.RSAPrivateKey],
            algorithm: str = ..., headers: Optional[Mapping[str, Any]] = ...,
            json_encoder: Optional[Any] = ...) -> bytes: ...
 
-def register_algorithm(alg_id: str,
-                       alg_obj: algorithms.Algorithm) -> None: ...
-
+def register_algorithm(alg_id: str, alg_obj: algorithms.Algorithm[Any]) -> None: ...
 def unregister_algorithm(alg_id: str) -> None: ...
 
 class PyJWTError(Exception): ...
@@ -38,6 +38,6 @@ InvalidIssuer = InvalidIssuerError
 # exports them in __init__.py, so we should at least
 # make sure that mypy doesn't raise spurious errors
 # if they're used.
-get_unverified_header = ...  # type: Any
-PyJWT = ...  # type: Any
-PyJWS = ...  # type: Any
+get_unverified_header: Any
+PyJWT: Any
+PyJWS: Any

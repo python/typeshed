@@ -1,5 +1,6 @@
 # Stubs for ctypes
 
+from array import array
 from typing import (
     Any, Callable, ClassVar, Iterator, Iterable, List, Mapping, Optional, Sequence, Sized, Text,
     Tuple, Type, Generic, TypeVar, overload,
@@ -23,8 +24,15 @@ class CDLL(object):
     _name: str = ...
     _handle: int = ...
     _FuncPtr: Type[_FuncPointer] = ...
-    def __init__(self, name: str, mode: int = ..., handle: Optional[int] = ...,
-                 use_errno: bool = ..., use_last_error: bool = ...) -> None: ...
+    def __init__(
+        self,
+        name: Optional[str],
+        mode: int = ...,
+        handle: Optional[int] = ...,
+        use_errno: bool = ...,
+        use_last_error: bool = ...,
+        winmode: Optional[int] = ...,
+    ) -> None: ...
     def __getattr__(self, name: str) -> _FuncPointer: ...
     def __getitem__(self, name: str) -> _FuncPointer: ...
 if sys.platform == 'win32':
@@ -45,6 +53,13 @@ if sys.platform == 'win32':
 pydll: LibraryLoader[PyDLL] = ...
 pythonapi: PyDLL = ...
 
+# Anything that implements the read-write buffer interface.
+# The buffer interface is defined purely on the C level, so we cannot define a normal Protocol
+# for it. Instead we have to list the most common stdlib buffer classes in a Union.
+_WritableBuffer = _UnionT[bytearray, memoryview, array, _CData]
+# Same as _WritableBuffer, but also includes read-only buffer types (like bytes).
+_ReadOnlyBuffer = _UnionT[_WritableBuffer, bytes]
+
 class _CDataMeta(type):
     # By default mypy complains about the following two methods, because strictly speaking cls
     # might not be a Type[_CT]. However this can never actually happen, because the only class that
@@ -56,9 +71,9 @@ class _CData(metaclass=_CDataMeta):
     _b_needsfree_: bool = ...
     _objects: Optional[Mapping[Any, int]] = ...
     @classmethod
-    def from_buffer(cls: Type[_CT], source: bytearray, offset: int = ...) -> _CT: ...
+    def from_buffer(cls: Type[_CT], source: _WritableBuffer, offset: int = ...) -> _CT: ...
     @classmethod
-    def from_buffer_copy(cls: Type[_CT], source: bytearray, offset: int = ...) -> _CT: ...
+    def from_buffer_copy(cls: Type[_CT], source: _ReadOnlyBuffer, offset: int = ...) -> _CT: ...
     @classmethod
     def from_address(cls: Type[_CT], address: int) -> _CT: ...
     @classmethod
@@ -220,7 +235,7 @@ class c_wchar_p(_PointerLike, _SimpleCData[Optional[Text]]):
     def __init__(self, value: Optional[_UnionT[int, Text]] = ...) -> None: ...
 
 class c_bool(_SimpleCData[bool]):
-    def __init__(self, value: bool) -> None: ...
+    def __init__(self, value: bool = ...) -> None: ...
 
 if sys.platform == 'win32':
     class HRESULT(_SimpleCData[int]): ...  # TODO undocumented
@@ -245,16 +260,16 @@ class Structure(_StructUnionBase): ...
 class BigEndianStructure(Structure): ...
 class LittleEndianStructure(Structure): ...
 
-class Array(Generic[_T], _CData):
+class Array(Generic[_CT], _CData):
     _length_: ClassVar[int] = ...
-    _type_: ClassVar[Type[_T]] = ...
-    raw: bytes = ...  # TODO only available with _T == c_char
-    value: bytes = ...  # TODO only available with _T == c_char
+    _type_: ClassVar[Type[_CT]] = ...
+    raw: bytes = ...  # Note: only available if _CT == c_char
+    value: Any = ...  # Note: bytes if _CT == c_char, Text if _CT == c_wchar, unavailable otherwise
     # TODO These methods cannot be annotated correctly at the moment.
-    # All of these "Any"s stand for the array's element type, but it's not possible to use _T here,
-    # because of a special feature of ctypes.
-    # By default, when accessing an element of an Array[_T], the returned object has type _T.
-    # However, when _T is a "simple type" like c_int, ctypes automatically "unboxes" the object
+    # All of these "Any"s stand for the array's element type, but it's not possible to use _CT
+    # here, because of a special feature of ctypes.
+    # By default, when accessing an element of an Array[_CT], the returned object has type _CT.
+    # However, when _CT is a "simple type" like c_int, ctypes automatically "unboxes" the object
     # and converts it to the corresponding Python primitive. For example, when accessing an element
     # of an Array[c_int], a Python int object is returned, not a c_int.
     # This behavior does *not* apply to subclasses of "simple types".

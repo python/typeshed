@@ -1,1 +1,1 @@
-LOREM_IPSUM_WORDS = ...  # type: str
+LOREM_IPSUM_WORDS: str

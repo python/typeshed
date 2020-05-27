@@ -4,7 +4,6 @@ from typing import Any, Callable, Dict, Iterable, List, Optional, Sequence, Text
 from collections import Mapping
 from markupsafe._compat import text_type
 import string
-from markupsafe._speedups import escape as escape, escape_silent as escape_silent, soft_unicode as soft_unicode
 from markupsafe._native import escape as escape, escape_silent as escape_silent, soft_unicode as soft_unicode
 
 class Markup(text_type):
@@ -46,9 +45,9 @@ class Markup(text_type):
     def expandtabs(self, tabsize: int = ...) -> Markup: ...
 
 class EscapeFormatter(string.Formatter):
-    escape = ...  # type: Callable[[text_type], Markup]
+    escape: Callable[[text_type], Markup]
     def __init__(self, escape: Callable[[text_type], Markup]) -> None: ...
     def format_field(self, value: text_type, format_spec: text_type) -> Markup: ...
 
-if sys.version_info[0] >= 3:
+if sys.version_info >= (3,):
     soft_str = soft_unicode

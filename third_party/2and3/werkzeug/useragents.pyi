@@ -1,14 +1,14 @@
 from typing import Any
 
 class UserAgentParser:
-    platforms = ...  # type: Any
-    browsers = ...  # type: Any
+    platforms: Any
+    browsers: Any
     def __init__(self): ...
     def __call__(self, user_agent): ...
 
 class UserAgent:
-    string = ...  # type: Any
+    string: Any
     def __init__(self, environ_or_string): ...
     def to_header(self): ...
     def __nonzero__(self): ...
-    __bool__ = ...  # type: Any
+    __bool__: Any

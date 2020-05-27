@@ -1,9 +1,13 @@
-from typing import Optional, List, Any, IO
+from typing import Any, IO, List, Optional, TypeVar
 
 def split(s: Optional[str], comments: bool = ..., posix: bool = ...) -> List[str]: ...
 
+_SLT = TypeVar('_SLT', bound=shlex)
+
 class shlex:
     def __init__(self, instream: IO[Any] = ..., infile: IO[Any] = ..., posix: bool = ...) -> None: ...
+    def __iter__(self: _SLT) -> _SLT: ...
+    def next(self) -> str: ...
     def get_token(self) -> Optional[str]: ...
     def push_token(self, _str: str) -> None: ...
     def read_token(self) -> str: ...
@@ -12,16 +16,16 @@ class shlex:
     def pop_source(self) -> IO[Any]: ...
     def error_leader(self, file: str = ..., line: int = ...) -> str: ...
 
-    commenters = ...  # type: str
-    wordchars = ...  # type: str
-    whitespace = ...  # type: str
-    escape = ...  # type: str
-    quotes = ...  # type: str
-    escapedquotes = ...  # type: str
-    whitespace_split = ...  # type: bool
-    infile = ...  # type: IO[Any]
-    source = ...  # type: Optional[str]
-    debug = ...  # type: int
-    lineno = ...  # type: int
-    token = ...  # type: Any
-    eof = ...  # type: Optional[str]
+    commenters: str
+    wordchars: str
+    whitespace: str
+    escape: str
+    quotes: str
+    escapedquotes: str
+    whitespace_split: bool
+    infile: IO[Any]
+    source: Optional[str]
+    debug: int
+    lineno: int
+    token: Any
+    eof: Optional[str]

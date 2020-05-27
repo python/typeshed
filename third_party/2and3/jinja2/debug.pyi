@@ -1,10 +1,10 @@
 from typing import Any, Optional
 
-tproxy = ...  # type: Any
-raise_helper = ...  # type: str
+tproxy: Any
+raise_helper: str
 
 class TracebackFrameProxy:
-    tb = ...  # type: Any
+    tb: Any
     def __init__(self, tb) -> None: ...
     @property
     def tb_next(self): ...
@@ -16,9 +16,9 @@ class TracebackFrameProxy:
 def make_frame_proxy(frame): ...
 
 class ProcessedTraceback:
-    exc_type = ...  # type: Any
-    exc_value = ...  # type: Any
-    frames = ...  # type: Any
+    exc_type: Any
+    exc_value: Any
+    frames: Any
     def __init__(self, exc_type, exc_value, frames) -> None: ...
     def render_as_text(self, limit: Optional[Any] = ...): ...
     def render_as_html(self, full: bool = ...): ...
@@ -34,4 +34,4 @@ def translate_syntax_error(error, source: Optional[Any] = ...): ...
 def translate_exception(exc_info, initial_skip: int = ...): ...
 def fake_exc_info(exc_info, filename, lineno): ...
 
-tb_set_next = ...  # type: Any
+tb_set_next: Any

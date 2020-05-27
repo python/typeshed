@@ -43,7 +43,7 @@ get_auth_from_url = utils.get_auth_from_url
 codes = status_codes.codes
 REDIRECT_STATI = models.REDIRECT_STATI
 
-REDIRECT_CACHE_SIZE = ...  # type: Any
+REDIRECT_CACHE_SIZE: Any
 
 def merge_setting(request_setting, session_setting, dict_class=...): ...
 def merge_hooks(request_hooks, session_hooks, dict_class=...): ...
@@ -54,39 +54,39 @@ class SessionRedirectMixin:
     def rebuild_auth(self, prepared_request, response): ...
     def rebuild_proxies(self, prepared_request, proxies): ...
 
-_Data = Union[None, bytes, MutableMapping[Text, Text], IO]
+_Data = Union[None, Text, bytes, MutableMapping[str, Any], MutableMapping[Text, Any], Iterable[Tuple[Text, Optional[Text]]], IO]
 
 _Hook = Callable[[Response], Any]
 _Hooks = MutableMapping[Text, List[_Hook]]
 _HooksInput = MutableMapping[Text, Union[Iterable[_Hook], _Hook]]
 
 class Session(SessionRedirectMixin):
-    __attrs__ = ...  # type: Any
-    headers = ...  # type: MutableMapping[Text, Text]
-    auth = ...  # type: Union[None, Tuple[Text, Text], _auth.AuthBase, Callable[[Request], Request]]
-    proxies = ...  # type: MutableMapping[Text, Text]
-    hooks = ...  # type: _Hooks
-    params = ...  # type: Union[bytes, MutableMapping[Text, Text]]
-    stream = ...  # type: bool
-    verify = ...  # type: Union[None, bool, Text]
-    cert = ...  # type: Union[None, Text, Tuple[Text, Text]]
-    max_redirects = ...  # type: int
-    trust_env = ...  # type: bool
-    cookies = ...  # type: Union[RequestsCookieJar, MutableMapping[Text, Text]]
-    adapters = ...  # type: MutableMapping
-    redirect_cache = ...  # type: RecentlyUsedContainer
+    __attrs__: Any
+    headers: CaseInsensitiveDict[Text]
+    auth: Union[None, Tuple[Text, Text], _auth.AuthBase, Callable[[Request], Request]]
+    proxies: MutableMapping[Text, Text]
+    hooks: _Hooks
+    params: Union[bytes, MutableMapping[Text, Text]]
+    stream: bool
+    verify: Union[None, bool, Text]
+    cert: Union[None, Text, Tuple[Text, Text]]
+    max_redirects: int
+    trust_env: bool
+    cookies: RequestsCookieJar
+    adapters: MutableMapping[Any, Any]
+    redirect_cache: RecentlyUsedContainer[Any, Any]
     def __init__(self) -> None: ...
     def __enter__(self) -> Session: ...
     def __exit__(self, *args) -> None: ...
     def prepare_request(self, request): ...
-    def request(self, method: str, url: str,
+    def request(self, method: str, url: Union[str, bytes, Text],
                 params: Union[None, bytes, MutableMapping[Text, Text]] = ...,
                 data: _Data = ...,
                 headers: Optional[MutableMapping[Text, Text]] = ...,
                 cookies: Union[None, RequestsCookieJar, MutableMapping[Text, Text]] = ...,
-                files: Optional[MutableMapping[Text, IO]] = ...,
+                files: Optional[MutableMapping[Text, IO[Any]]] = ...,
                 auth: Union[None, Tuple[Text, Text], _auth.AuthBase, Callable[[Request], Request]] = ...,
-                timeout: Union[None, float, Tuple[float, float]] = ...,
+                timeout: Union[None, float, Tuple[float, float], Tuple[float, None]] = ...,
                 allow_redirects: Optional[bool] = ...,
                 proxies: Optional[MutableMapping[Text, Text]] = ...,
                 hooks: Optional[_HooksInput] = ...,

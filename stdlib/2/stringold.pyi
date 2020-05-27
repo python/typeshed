@@ -1,15 +1,15 @@
 # Source: https://hg.python.org/cpython/file/2.7/Lib/stringold.py
 from typing import AnyStr, Iterable, List, Optional, Type
 
-whitespace = ...  # type: str
-lowercase = ...  # type: str
-uppercase = ...  # type: str
-letters = ...  # type: str
-digits = ...  # type: str
-hexdigits = ...  # type: str
-octdigits = ...  # type: str
-_idmap = ...  # type: str
-_idmapL = ...  # type: Optional[List[str]]
+whitespace: str
+lowercase: str
+uppercase: str
+letters: str
+digits: str
+hexdigits: str
+octdigits: str
+_idmap: str
+_idmapL: Optional[List[str]]
 index_error = ValueError
 atoi_error = ValueError
 atof_error = ValueError

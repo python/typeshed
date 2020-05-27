@@ -9,29 +9,29 @@ from .util import join_bytes as join_bytes, byte2int as byte2int, int2byte as in
 from .converters import escape_item as escape_item, encoders as encoders, decoders as decoders
 from .err import raise_mysql_exception as raise_mysql_exception, Warning as Warning, Error as Error, InterfaceError as InterfaceError, DataError as DataError, DatabaseError as DatabaseError, OperationalError as OperationalError, IntegrityError as IntegrityError, InternalError as InternalError, NotSupportedError as NotSupportedError, ProgrammingError as ProgrammingError
 
-sha_new = ...  # type: Any
-SSL_ENABLED = ...  # type: Any
-DEFAULT_USER = ...  # type: Any
-DEBUG = ...  # type: Any
-NULL_COLUMN = ...  # type: Any
-UNSIGNED_CHAR_COLUMN = ...  # type: Any
-UNSIGNED_SHORT_COLUMN = ...  # type: Any
-UNSIGNED_INT24_COLUMN = ...  # type: Any
-UNSIGNED_INT64_COLUMN = ...  # type: Any
-UNSIGNED_CHAR_LENGTH = ...  # type: Any
-UNSIGNED_SHORT_LENGTH = ...  # type: Any
-UNSIGNED_INT24_LENGTH = ...  # type: Any
-UNSIGNED_INT64_LENGTH = ...  # type: Any
-DEFAULT_CHARSET = ...  # type: Any
+sha_new: Any
+SSL_ENABLED: Any
+DEFAULT_USER: Any
+DEBUG: Any
+NULL_COLUMN: Any
+UNSIGNED_CHAR_COLUMN: Any
+UNSIGNED_SHORT_COLUMN: Any
+UNSIGNED_INT24_COLUMN: Any
+UNSIGNED_INT64_COLUMN: Any
+UNSIGNED_CHAR_LENGTH: Any
+UNSIGNED_SHORT_LENGTH: Any
+UNSIGNED_INT24_LENGTH: Any
+UNSIGNED_INT64_LENGTH: Any
+DEFAULT_CHARSET: Any
 
 def dump_packet(data): ...
 
-SCRAMBLE_LENGTH_323 = ...  # type: Any
+SCRAMBLE_LENGTH_323: Any
 
 class RandStruct_323:
-    max_value = ...  # type: Any
-    seed1 = ...  # type: Any
-    seed2 = ...  # type: Any
+    max_value: Any
+    seed1: Any
+    seed2: Any
     def __init__(self, seed1, seed2): ...
     def my_rnd(self): ...
 
@@ -43,16 +43,16 @@ def unpack_int64(n): ...
 def defaulterrorhandler(connection, cursor, errorclass, errorvalue): ...
 
 class MysqlPacket:
-    connection = ...  # type: Any
+    connection: Any
     def __init__(self, connection): ...
     def packet_number(self): ...
     def get_all_data(self): ...
     def read(self, size): ...
     def read_all(self): ...
     def advance(self, length): ...
-    def rewind(self, position=0): ...
+    def rewind(self, position: int = ...): ...
     def peek(self, size): ...
-    def get_bytes(self, position, length=1): ...
+    def get_bytes(self, position, length: int = ...): ...
     def read_length_coded_binary(self): ...
     def read_length_coded_string(self): ...
     def is_ok_packet(self): ...
@@ -68,35 +68,40 @@ class FieldDescriptorPacket(MysqlPacket):
     def get_column_length(self): ...
 
 class Connection:
-    errorhandler = ...  # type: Any
-    ssl = ...  # type: Any
-    host = ...  # type: Any
-    port = ...  # type: Any
-    user = ...  # type: Any
-    password = ...  # type: Any
-    db = ...  # type: Any
-    unix_socket = ...  # type: Any
-    charset = ...  # type: Any
-    use_unicode = ...  # type: Any
-    client_flag = ...  # type: Any
-    cursorclass = ...  # type: Any
-    connect_timeout = ...  # type: Any
-    messages = ...  # type: Any
-    encoders = ...  # type: Any
-    decoders = ...  # type: Any
-    host_info = ...  # type: Any
-    def __init__(self, host='', user=None, passwd='', db=None, port=3306, unix_socket=None, charset='', sql_mode=None, read_default_file=None, conv=..., use_unicode=None, client_flag=0, cursorclass=..., init_command=None, connect_timeout=None, ssl=None, read_default_group=None, compress=None, named_pipe=None): ...
-    socket = ...  # type: Any
-    rfile = ...  # type: Any
-    wfile = ...  # type: Any
-    def close(self): ...
+    errorhandler: Any
+    ssl: Any
+    host: Any
+    port: Any
+    user: Any
+    password: Any
+    db: Any
+    unix_socket: Any
+    charset: Any
+    use_unicode: Any
+    client_flag: Any
+    cursorclass: Any
+    connect_timeout: Any
+    messages: Any
+    encoders: Any
+    decoders: Any
+    host_info: Any
+    def __init__(self, host: str = ..., user: Optional[Any] = ..., passwd: str = ..., db: Optional[Any] = ...,
+                 port: int = ..., unix_socket: Optional[Any] = ..., charset: str = ..., sql_mode: Optional[Any] = ...,
+                 read_default_file: Optional[Any] = ..., conv=..., use_unicode: Optional[Any] = ..., client_flag: int = ...,
+                 cursorclass=..., init_command: Optional[Any] = ..., connect_timeout: Optional[Any] = ...,
+                 ssl: Optional[Any] = ..., read_default_group: Optional[Any] = ..., compress: Optional[Any] = ...,
+                 named_pipe: Optional[Any] = ...): ...
+    socket: Any
+    rfile: Any
+    wfile: Any
+    def close(self) -> None: ...
     def autocommit(self, value): ...
     def commit(self): ...
     def begin(self) -> None: ...
     def rollback(self): ...
     def escape(self, obj): ...
     def literal(self, obj): ...
-    def cursor(self, cursor: Optional[Type[Cursor]] = ...): ...
+    def cursor(self, cursor: Optional[Type[Cursor]] = ...) -> Cursor: ...
     def __enter__(self): ...
     def __exit__(self, exc, value, traceback): ...
     def query(self, sql): ...
@@ -113,28 +118,28 @@ class Connection:
     def get_proto_info(self): ...
     def get_server_info(self): ...
     def show_warnings(self): ...
-    Warning = ...  # type: Any
-    Error = ...  # type: Any
-    InterfaceError = ...  # type: Any
-    DatabaseError = ...  # type: Any
-    DataError = ...  # type: Any
-    OperationalError = ...  # type: Any
-    IntegrityError = ...  # type: Any
-    InternalError = ...  # type: Any
-    ProgrammingError = ...  # type: Any
-    NotSupportedError = ...  # type: Any
+    Warning: Any
+    Error: Any
+    InterfaceError: Any
+    DatabaseError: Any
+    DataError: Any
+    OperationalError: Any
+    IntegrityError: Any
+    InternalError: Any
+    ProgrammingError: Any
+    NotSupportedError: Any
 
 class MySQLResult:
-    connection = ...  # type: Any
-    affected_rows = ...  # type: Any
-    insert_id = ...  # type: Any
-    server_status = ...  # type: Any
-    warning_count = ...  # type: Any
-    message = ...  # type: Any
-    field_count = ...  # type: Any
-    description = ...  # type: Any
-    rows = ...  # type: Any
-    has_next = ...  # type: Any
+    connection: Any
+    affected_rows: Any
+    insert_id: Any
+    server_status: Any
+    warning_count: Any
+    message: Any
+    field_count: Any
+    description: Any
+    rows: Any
+    has_next: Any
     def __init__(self, connection): ...
-    first_packet = ...  # type: Any
+    first_packet: Any
     def read(self): ...

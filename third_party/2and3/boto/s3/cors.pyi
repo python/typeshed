@@ -1,18 +1,18 @@
-from typing import Any, Optional
+from typing import Any, List, Optional
 
 class CORSRule:
-    allowed_method = ...  # type: Any
-    allowed_origin = ...  # type: Any
-    id = ...  # type: Any
-    allowed_header = ...  # type: Any
-    max_age_seconds = ...  # type: Any
-    expose_header = ...  # type: Any
+    allowed_method: Any
+    allowed_origin: Any
+    id: Any
+    allowed_header: Any
+    max_age_seconds: Any
+    expose_header: Any
     def __init__(self, allowed_method: Optional[Any] = ..., allowed_origin: Optional[Any] = ..., id: Optional[Any] = ..., allowed_header: Optional[Any] = ..., max_age_seconds: Optional[Any] = ..., expose_header: Optional[Any] = ...) -> None: ...
     def startElement(self, name, attrs, connection): ...
     def endElement(self, name, value, connection): ...
     def to_xml(self) -> str: ...
 
-class CORSConfiguration(list):
+class CORSConfiguration(List[CORSRule]):
     def startElement(self, name, attrs, connection): ...
     def endElement(self, name, value, connection): ...
     def to_xml(self) -> str: ...

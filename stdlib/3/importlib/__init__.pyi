@@ -1,6 +1,4 @@
-from importlib import util
 from importlib.abc import Loader
-import sys
 import types
 from typing import Any, Mapping, Optional, Sequence
 

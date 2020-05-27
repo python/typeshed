@@ -21,8 +21,11 @@ def astuple(obj: Any, *, tuple_factory: Callable[[List[Any]], _T]) -> _T: ...
 def dataclass(_cls: Type[_T]) -> Type[_T]: ...
 
 @overload
+def dataclass(_cls: None) -> Callable[[Type[_T]], Type[_T]]: ...
+
+@overload
 def dataclass(*, init: bool = ..., repr: bool = ..., eq: bool = ..., order: bool = ...,
-    unsafe_hash: bool = ..., frozen: bool = ...) -> Callable[[Type[_T]], Type[_T]]: ...
+              unsafe_hash: bool = ..., frozen: bool = ...) -> Callable[[Type[_T]], Type[_T]]: ...
 
 
 class Field(Generic[_T]):
@@ -34,25 +37,25 @@ class Field(Generic[_T]):
     hash: Optional[bool]
     init: bool
     compare: bool
-    metadata: Optional[Mapping[str, Any]]
+    metadata: Mapping[str, Any]
 
 
 # NOTE: Actual return type is 'Field[_T]', but we want to help type checkers
 # to understand the magic that happens at runtime.
 @overload  # `default` and `default_factory` are optional and mutually exclusive.
 def field(*, default: _T,
-    init: bool = ..., repr: bool = ..., hash: Optional[bool] = ..., compare: bool = ...,
-    metadata: Optional[Mapping[str, Any]] = ...) -> _T: ...
+          init: bool = ..., repr: bool = ..., hash: Optional[bool] = ..., compare: bool = ...,
+          metadata: Optional[Mapping[str, Any]] = ...) -> _T: ...
 
 @overload
 def field(*, default_factory: Callable[[], _T],
-    init: bool = ..., repr: bool = ..., hash: Optional[bool] = ..., compare: bool = ...,
-    metadata: Optional[Mapping[str, Any]] = ...) -> _T: ...
+          init: bool = ..., repr: bool = ..., hash: Optional[bool] = ..., compare: bool = ...,
+          metadata: Optional[Mapping[str, Any]] = ...) -> _T: ...
 
 @overload
 def field(*,
-    init: bool = ..., repr: bool = ..., hash: Optional[bool] = ..., compare: bool = ...,
-    metadata: Optional[Mapping[str, Any]] = ...) -> Any: ...
+          init: bool = ..., repr: bool = ..., hash: Optional[bool] = ..., compare: bool = ...,
+          metadata: Optional[Mapping[str, Any]] = ...) -> Any: ...
 
 
 def fields(class_or_instance: Any) -> Tuple[Field[Any], ...]: ...
@@ -64,7 +67,8 @@ class FrozenInstanceError(AttributeError): ...
 class InitVar(Generic[_T]): ...
 
 def make_dataclass(cls_name: str, fields: Iterable[Union[str, Tuple[str, type], Tuple[str, type, Field[Any]]]], *,
-    bases: Tuple[type, ...] = ..., namespace: Optional[Dict[str, Any]] = ...,
-    init: bool = ..., repr: bool = ..., eq: bool = ..., order: bool = ..., hash: bool = ..., frozen: bool = ...): ...
+                   bases: Tuple[type, ...] = ..., namespace: Optional[Dict[str, Any]] = ...,
+                   init: bool = ..., repr: bool = ..., eq: bool = ..., order: bool = ..., unsafe_hash: bool = ...,
+                   frozen: bool = ...) -> type: ...
 
 def replace(obj: _T, **changes: Any) -> _T: ...

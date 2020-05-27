@@ -9,7 +9,7 @@ from .util import timeout
 from .util import retry
 import logging
 
-__license__ = ...  # type: Any
+__license__: Any
 
 HTTPConnectionPool = connectionpool.HTTPConnectionPool
 HTTPSConnectionPool = connectionpool.HTTPSConnectionPool

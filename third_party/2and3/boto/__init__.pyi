@@ -3,22 +3,22 @@ import logging
 
 from .s3.connection import S3Connection
 
-Version = ...  # type: Any
-UserAgent = ...  # type: Any
-config = ...  # type: Any
-BUCKET_NAME_RE = ...  # type: Any
-TOO_LONG_DNS_NAME_COMP = ...  # type: Any
-GENERATION_RE = ...  # type: Any
-VERSION_RE = ...  # type: Any
-ENDPOINTS_PATH = ...  # type: Any
+Version: Any
+UserAgent: Any
+config: Any
+BUCKET_NAME_RE: Any
+TOO_LONG_DNS_NAME_COMP: Any
+GENERATION_RE: Any
+VERSION_RE: Any
+ENDPOINTS_PATH: Any
 
 def init_logging(): ...
 
 class NullHandler(logging.Handler):
     def emit(self, record): ...
 
-log = ...  # type: Any
-perflog = ...  # type: Any
+log: Any
+perflog: Any
 
 def set_file_logger(name, filepath, level: Any = ..., format_string: Optional[Any] = ...): ...
 def set_stream_logger(name, level: Any = ..., format_string: Optional[Any] = ...): ...
@@ -74,3 +74,6 @@ def connect_ec2containerservice(aws_access_key_id: Optional[Any] = ..., aws_secr
 def connect_machinelearning(aws_access_key_id: Optional[Any] = ..., aws_secret_access_key: Optional[Any] = ..., **kwargs): ...
 def storage_uri(uri_str, default_scheme: str = ..., debug: int = ..., validate: bool = ..., bucket_storage_uri_class: Any = ..., suppress_consec_slashes: bool = ..., is_latest: bool = ...): ...
 def storage_uri_for_key(key): ...
+
+# Explicitly mark this package as incomplete.
+def __getattr__(name: str) -> Any: ...

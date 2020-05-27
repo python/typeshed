@@ -9,32 +9,36 @@ from . import exceptions
 from . import packages
 import logging
 
-__title__ = ...  # type: Any
-__build__ = ...  # type: Any
-__license__ = ...  # type: Any
-__copyright__ = ...  # type: Any
-__version__ = ...  # type: Any
+from .models import Request as Request
+from .models import Response as Response
+from .models import PreparedRequest as PreparedRequest
 
-Request = models.Request
-Response = models.Response
-PreparedRequest = models.PreparedRequest
-request = api.request
-get = api.get
-head = api.head
-post = api.post
-patch = api.patch
-put = api.put
-delete = api.delete
-options = api.options
-session = sessions.session
-Session = sessions.Session
-codes = status_codes.codes
-RequestException = exceptions.RequestException
-Timeout = exceptions.Timeout
-URLRequired = exceptions.URLRequired
-TooManyRedirects = exceptions.TooManyRedirects
-HTTPError = exceptions.HTTPError
-ConnectionError = exceptions.ConnectionError
+from .api import request as request
+from .api import get as get
+from .api import head as head
+from .api import post as post
+from .api import patch as patch
+from .api import put as put
+from .api import delete as delete
+from .api import options as options
+
+from .sessions import session as session
+from .sessions import Session as Session
+
+from .status_codes import codes as codes
+
+from .exceptions import RequestException as RequestException
+from .exceptions import Timeout as Timeout
+from .exceptions import URLRequired as URLRequired
+from .exceptions import TooManyRedirects as TooManyRedirects
+from .exceptions import HTTPError as HTTPError
+from .exceptions import ConnectionError as ConnectionError
+
+__title__: Any
+__build__: Any
+__license__: Any
+__copyright__: Any
+__version__: Any
 
 class NullHandler(logging.Handler):
     def emit(self, record): ...

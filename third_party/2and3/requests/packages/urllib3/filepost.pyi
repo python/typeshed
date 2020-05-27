@@ -7,7 +7,7 @@ from . import fields
 # b = six.b
 RequestField = fields.RequestField
 
-writer = ...  # type: Any
+writer: Any
 
 def choose_boundary(): ...
 def iter_field_objects(fields): ...

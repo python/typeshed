@@ -1,10 +1,10 @@
 from typing import Any
 from jinja2.environment import Environment
 
-MAX_RANGE = ...  # type: int
-UNSAFE_FUNCTION_ATTRIBUTES = ...  # type: Any
-UNSAFE_METHOD_ATTRIBUTES = ...  # type: Any
-UNSAFE_GENERATOR_ATTRIBUTES = ...  # type: Any
+MAX_RANGE: int
+UNSAFE_FUNCTION_ATTRIBUTES: Any
+UNSAFE_METHOD_ATTRIBUTES: Any
+UNSAFE_GENERATOR_ATTRIBUTES: Any
 
 def safe_range(*args): ...
 def unsafe(f): ...
@@ -12,14 +12,14 @@ def is_internal_attribute(obj, attr): ...
 def modifies_known_mutable(obj, attr): ...
 
 class SandboxedEnvironment(Environment):
-    sandboxed = ...  # type: bool
-    default_binop_table = ...  # type: Any
-    default_unop_table = ...  # type: Any
-    intercepted_binops = ...  # type: Any
-    intercepted_unops = ...  # type: Any
+    sandboxed: bool
+    default_binop_table: Any
+    default_unop_table: Any
+    intercepted_binops: Any
+    intercepted_unops: Any
     def intercept_unop(self, operator): ...
-    binop_table = ...  # type: Any
-    unop_table = ...  # type: Any
+    binop_table: Any
+    unop_table: Any
     def __init__(self, *args, **kwargs) -> None: ...
     def is_safe_attribute(self, obj, attr, value): ...
     def is_safe_callable(self, obj): ...

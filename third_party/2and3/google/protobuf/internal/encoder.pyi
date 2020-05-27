@@ -1,11 +1,11 @@
 from typing import Any
 
-Int32Sizer = ...  # type: Any
-UInt32Sizer = ...  # type: Any
-SInt32Sizer = ...  # type: Any
-Fixed32Sizer = ...  # type: Any
-Fixed64Sizer = ...  # type: Any
-BoolSizer = ...  # type: Any
+Int32Sizer: Any
+UInt32Sizer: Any
+SInt32Sizer: Any
+Fixed32Sizer: Any
+Fixed64Sizer: Any
+BoolSizer: Any
 
 def StringSizer(field_number, is_repeated, is_packed): ...
 def BytesSizer(field_number, is_repeated, is_packed): ...
@@ -15,15 +15,15 @@ def MessageSetItemSizer(field_number): ...
 def MapSizer(field_descriptor): ...
 def TagBytes(field_number, wire_type): ...
 
-Int32Encoder = ...  # type: Any
-UInt32Encoder = ...  # type: Any
-SInt32Encoder = ...  # type: Any
-Fixed32Encoder = ...  # type: Any
-Fixed64Encoder = ...  # type: Any
-SFixed32Encoder = ...  # type: Any
-SFixed64Encoder = ...  # type: Any
-FloatEncoder = ...  # type: Any
-DoubleEncoder = ...  # type: Any
+Int32Encoder: Any
+UInt32Encoder: Any
+SInt32Encoder: Any
+Fixed32Encoder: Any
+Fixed64Encoder: Any
+SFixed32Encoder: Any
+SFixed64Encoder: Any
+FloatEncoder: Any
+DoubleEncoder: Any
 
 def BoolEncoder(field_number, is_repeated, is_packed): ...
 def StringEncoder(field_number, is_repeated, is_packed): ...

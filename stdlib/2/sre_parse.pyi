@@ -2,22 +2,22 @@
 
 from typing import Any, Dict, Iterable, List, Match, Optional, Pattern as _Pattern, Set, Tuple, Union
 
-SPECIAL_CHARS = ...  # type: str
-REPEAT_CHARS = ...  # type:     str
-DIGITS = ...  # type: Set
-OCTDIGITS = ...  # type: Set
-HEXDIGITS = ...  # type: Set
-WHITESPACE = ...  # type: Set
-ESCAPES = ...  # type: Dict[str, Tuple[str, int]]
-CATEGORIES = ...  # type: Dict[str, Union[Tuple[str, str], Tuple[str, List[Tuple[str, str]]]]]
-FLAGS = ...  # type: Dict[str, int]
+SPECIAL_CHARS: str
+REPEAT_CHARS: str
+DIGITS: Set[Any]
+OCTDIGITS: Set[Any]
+HEXDIGITS: Set[Any]
+WHITESPACE: Set[Any]
+ESCAPES: Dict[str, Tuple[str, int]]
+CATEGORIES: Dict[str, Union[Tuple[str, str], Tuple[str, List[Tuple[str, str]]]]]
+FLAGS: Dict[str, int]
 
 class Pattern:
-    flags = ...  # type: int
-    open = ...  # type: List[int]
-    groups = ...  # type: int
-    groupdict = ...  # type: Dict[str, int]
-    lookbehind = ...  # type: int
+    flags: int
+    open: List[int]
+    groups: int
+    groupdict: Dict[str, int]
+    lookbehind: int
     def __init__(self) -> None: ...
     def opengroup(self, name: str = ...) -> int: ...
     def closegroup(self, gid: int) -> None: ...
@@ -32,9 +32,9 @@ _AvType = Union[_OpInType, _OpBranchType, Iterable[SubPattern], _OpGroupRefExist
 _CodeType = Union[str, _AvType]
 
 class SubPattern:
-    pattern = ...  # type: str
-    data = ...  # type: List[_CodeType]
-    width = ...  # type: Optional[int]
+    pattern: str
+    data: List[_CodeType]
+    width: Optional[int]
     def __init__(self, pattern, data: List[_CodeType] = ...) -> None: ...
     def dump(self, level: int = ...) -> None: ...
     def __len__(self) -> int: ...
@@ -46,8 +46,8 @@ class SubPattern:
     def getwidth(self) -> int: ...
 
 class Tokenizer:
-    string = ...  # type: str
-    index = ...  # type: int
+    string: str
+    index: int
     def __init__(self, string: str) -> None: ...
     def match(self, char: str, skip: int = ...) -> int: ...
     def get(self) -> Optional[str]: ...
@@ -59,5 +59,5 @@ def isdigit(char: str) -> bool: ...
 def isname(name: str) -> bool: ...
 def parse(str: str, flags: int = ..., pattern: Pattern = ...) -> SubPattern: ...
 _Template = Tuple[List[Tuple[int, int]], List[Optional[int]]]
-def parse_template(source: str, pattern: _Pattern) -> _Template: ...
-def expand_template(template: _Template, match: Match) -> str: ...
+def parse_template(source: str, pattern: _Pattern[Any]) -> _Template: ...
+def expand_template(template: _Template, match: Match[Any]) -> str: ...

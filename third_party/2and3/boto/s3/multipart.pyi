@@ -1,23 +1,23 @@
 from typing import Any, Optional
 
 class CompleteMultiPartUpload:
-    bucket = ...  # type: Any
-    location = ...  # type: Any
-    bucket_name = ...  # type: Any
-    key_name = ...  # type: Any
-    etag = ...  # type: Any
-    version_id = ...  # type: Any
-    encrypted = ...  # type: Any
+    bucket: Any
+    location: Any
+    bucket_name: Any
+    key_name: Any
+    etag: Any
+    version_id: Any
+    encrypted: Any
     def __init__(self, bucket: Optional[Any] = ...) -> None: ...
     def startElement(self, name, attrs, connection): ...
     def endElement(self, name, value, connection): ...
 
 class Part:
-    bucket = ...  # type: Any
-    part_number = ...  # type: Any
-    last_modified = ...  # type: Any
-    etag = ...  # type: Any
-    size = ...  # type: Any
+    bucket: Any
+    part_number: Any
+    last_modified: Any
+    etag: Any
+    size: Any
     def __init__(self, bucket: Optional[Any] = ...) -> None: ...
     def startElement(self, name, attrs, connection): ...
     def endElement(self, name, value, connection): ...
@@ -25,18 +25,18 @@ class Part:
 def part_lister(mpupload, part_number_marker: Optional[Any] = ...): ...
 
 class MultiPartUpload:
-    bucket = ...  # type: Any
-    bucket_name = ...  # type: Any
-    key_name = ...  # type: Any
-    id = ...  # type: Any
-    initiator = ...  # type: Any
-    owner = ...  # type: Any
-    storage_class = ...  # type: Any
-    initiated = ...  # type: Any
-    part_number_marker = ...  # type: Any
-    next_part_number_marker = ...  # type: Any
-    max_parts = ...  # type: Any
-    is_truncated = ...  # type: bool
+    bucket: Any
+    bucket_name: Any
+    key_name: Any
+    id: Any
+    initiator: Any
+    owner: Any
+    storage_class: Any
+    initiated: Any
+    part_number_marker: Any
+    next_part_number_marker: Any
+    max_parts: Any
+    is_truncated: bool
     def __init__(self, bucket: Optional[Any] = ...) -> None: ...
     def __iter__(self): ...
     def to_xml(self): ...

@@ -4,27 +4,29 @@ from typing import (
     Any, Dict, FrozenSet, Iterable, List, Match,
     Optional, Pattern as _Pattern, Tuple, Union
 )
-from sre_constants import _NamedIntConstant as NIC, error as _Error
+import sys
+from sre_constants import _NamedIntConstant as _NIC, error as _Error
 
-SPECIAL_CHARS = ...  # type: str
-REPEAT_CHARS = ...  # type: str
-DIGITS = ...  # type: FrozenSet[str]
-OCTDIGITS = ...  # type: FrozenSet[str]
-HEXDIGITS = ...  # type: FrozenSet[str]
-ASCIILETTERS = ...  # type: FrozenSet[str]
-WHITESPACE = ...  # type: FrozenSet[str]
-ESCAPES = ...  # type: Dict[str, Tuple[NIC, int]]
-CATEGORIES = ...  # type: Dict[str, Union[Tuple[NIC, NIC], Tuple[NIC, List[Tuple[NIC, NIC]]]]]
-FLAGS = ...  # type: Dict[str, int]
-GLOBAL_FLAGS = ...  # type: int
+SPECIAL_CHARS: str
+REPEAT_CHARS: str
+DIGITS: FrozenSet[str]
+OCTDIGITS: FrozenSet[str]
+HEXDIGITS: FrozenSet[str]
+ASCIILETTERS: FrozenSet[str]
+WHITESPACE: FrozenSet[str]
+ESCAPES: Dict[str, Tuple[_NIC, int]]
+CATEGORIES: Dict[str, Union[Tuple[_NIC, _NIC], Tuple[_NIC, List[Tuple[_NIC, _NIC]]]]]
+FLAGS: Dict[str, int]
+if sys.version_info >= (3, 6):
+    GLOBAL_FLAGS: int
 
-class Verbose(Exception): ...
+    class Verbose(Exception): ...
 
-class Pattern:
-    flags = ...  # type: int
-    groupdict = ...  # type: Dict[str, int]
-    groupwidths = ...  # type: List[Optional[int]]
-    lookbehindgroups = ...  # type: Optional[int]
+class _State:
+    flags: int
+    groupdict: Dict[str, int]
+    groupwidths: List[Optional[int]]
+    lookbehindgroups: Optional[int]
     def __init__(self) -> None: ...
     @property
     def groups(self) -> int: ...
@@ -33,20 +35,31 @@ class Pattern:
     def checkgroup(self, gid: int) -> bool: ...
     def checklookbehindgroup(self, gid: int, source: Tokenizer) -> None: ...
 
+if sys.version_info >= (3, 8):
+    State = _State
+else:
+    Pattern = _State
+
 
 _OpSubpatternType = Tuple[Optional[int], int, int, SubPattern]
 _OpGroupRefExistsType = Tuple[int, SubPattern, SubPattern]
-_OpInType = List[Tuple[NIC, int]]
+_OpInType = List[Tuple[_NIC, int]]
 _OpBranchType = Tuple[None, List[SubPattern]]
 _AvType = Union[_OpInType, _OpBranchType, Iterable[SubPattern], _OpGroupRefExistsType, _OpSubpatternType]
-_CodeType = Tuple[NIC, _AvType]
+_CodeType = Tuple[_NIC, _AvType]
 
 
 class SubPattern:
-    pattern = ...  # type: Pattern
-    data = ...  # type: List[_CodeType]
-    width = ...  # type: Optional[int]
-    def __init__(self, pattern: Pattern, data: List[_CodeType] = ...) -> None: ...
+    data: List[_CodeType]
+    width: Optional[int]
+
+    if sys.version_info >= (3, 8):
+        state: State
+        def __init__(self, state: State, data: Optional[List[_CodeType]] = ...) -> None: ...
+    else:
+        pattern: Pattern
+        def __init__(self, pattern: Pattern, data: Optional[List[_CodeType]] = ...) -> None: ...
+
     def dump(self, level: int = ...) -> None: ...
     def __len__(self) -> int: ...
     def __delitem__(self, index: Union[int, slice]) -> None: ...
@@ -58,24 +71,32 @@ class SubPattern:
 
 
 class Tokenizer:
-    istext = ...  # type: bool
-    string = ...  # type: Any
-    decoded_string = ...  # type: str
-    index = ...  # type: int
-    next = ...  # type: Optional[str]
+    istext: bool
+    string: Any
+    decoded_string: str
+    index: int
+    next: Optional[str]
     def __init__(self, string: Any) -> None: ...
     def match(self, char: str) -> bool: ...
     def get(self) -> Optional[str]: ...
     def getwhile(self, n: int, charset: Iterable[str]) -> str: ...
-    def getuntil(self, terminator: str) -> str: ...
-    @property
-    def pos(self) -> int: ...
+    if sys.version_info >= (3, 8):
+        def getuntil(self, terminator: str, name: str) -> str: ...
+    else:
+        def getuntil(self, terminator: str) -> str: ...
+    if sys.version_info >= (3, 6):
+        @property
+        def pos(self) -> int: ...
     def tell(self) -> int: ...
     def seek(self, index: int) -> None: ...
     def error(self, msg: str, offset: int = ...) -> _Error: ...
 
-def fix_flags(src: Union[str, bytes], flag: int) -> int: ...
-def parse(str: str, flags: int = ..., pattern: Pattern = ...) -> SubPattern: ...
+def fix_flags(src: Union[str, bytes], flags: int) -> int: ...
 _TemplateType = Tuple[List[Tuple[int, int]], List[str]]
-def parse_template(source: str, pattern: _Pattern) -> _TemplateType: ...
-def expand_template(template: _TemplateType, match: Match) -> str: ...
+if sys.version_info >= (3, 8):
+    def parse(str: str, flags: int = ..., state: Optional[State] = ...) -> SubPattern: ...
+    def parse_template(source: str, state: _Pattern[Any]) -> _TemplateType: ...
+else:
+    def parse(str: str, flags: int = ..., pattern: Optional[Pattern] = ...) -> SubPattern: ...
+    def parse_template(source: str, pattern: _Pattern[Any]) -> _TemplateType: ...
+def expand_template(template: _TemplateType, match: Match[Any]) -> str: ...

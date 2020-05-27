@@ -6,7 +6,9 @@ from socket import SocketType
 import ssl
 import sys
 from typing import Any, Callable, Dict, List, Optional, Tuple, Union, overload
-if sys.version_info >= (3,):
+if sys.version_info >= (3, 7):
+    from queue import SimpleQueue, Queue
+elif sys.version_info >= (3,):
     from queue import Queue
 else:
     from Queue import Queue
@@ -19,25 +21,26 @@ if sys.version_info >= (3, 6):
 else:
     _Path = str
 
+DEFAULT_TCP_LOGGING_PORT: int
+DEFAULT_UDP_LOGGING_PORT: int
+DEFAULT_HTTP_LOGGING_PORT: int
+DEFAULT_SOAP_LOGGING_PORT: int
+SYSLOG_UDP_PORT: int
+SYSLOG_TCP_PORT: int
 
-class WatchedFileHandler(Handler):
-    @overload
-    def __init__(self, filename: _Path) -> None: ...
-    @overload
-    def __init__(self, filename: _Path, mode: str) -> None: ...
-    @overload
-    def __init__(self, filename: _Path, mode: str,
-                 encoding: Optional[str]) -> None: ...
-    @overload
-    def __init__(self, filename: _Path, mode: str, encoding: Optional[str],
-                 delay: bool) -> None: ...
+class WatchedFileHandler(FileHandler):
+    dev: int
+    ino: int
+    def __init__(self, filename: _Path, mode: str = ..., encoding: Optional[str] = ...,
+                 delay: bool = ...) -> None: ...
+    def _statstream(self) -> None: ...
 
 
 if sys.version_info >= (3,):
     class BaseRotatingHandler(FileHandler):
-        terminator = ...  # type: str
-        namer = ...  # type: Optional[Callable[[str], str]]
-        rotator = ...  # type: Optional[Callable[[str, str], None]]
+        terminator: str
+        namer: Optional[Callable[[str], str]]
+        rotator: Optional[Callable[[str, str], None]]
         def __init__(self, filename: _Path, mode: str,
                      encoding: Optional[str] = ...,
                      delay: bool = ...) -> None: ...
@@ -74,7 +77,7 @@ if sys.version_info >= (3,):
                          delay: bool = ..., utc: bool = ...) -> None: ...
         def doRollover(self) -> None: ...
 else:
-    class TimedRotatingFileHandler:
+    class TimedRotatingFileHandler(Handler):
         def __init__(self,
                      filename: str, when: str = ..., interval: int = ...,
                      backupCount: int = ..., encoding: Optional[str] = ...,
@@ -83,9 +86,9 @@ else:
 
 
 class SocketHandler(Handler):
-    retryStart = ...  # type: float
-    retryFactor = ...  # type: float
-    retryMax = ...  # type: float
+    retryStart: float
+    retryFactor: float
+    retryMax: float
     if sys.version_info >= (3, 4):
         def __init__(self, host: str, port: Optional[int]) -> None: ...
     else:
@@ -100,39 +103,39 @@ class DatagramHandler(SocketHandler): ...
 
 
 class SysLogHandler(Handler):
-    LOG_ALERT = ...  # type: int
-    LOG_CRIT = ...  # type: int
-    LOG_DEBUG = ...  # type: int
-    LOG_EMERG = ...  # type: int
-    LOG_ERR = ...  # type: int
-    LOG_INFO = ...  # type: int
-    LOG_NOTICE = ...  # type: int
-    LOG_WARNING = ...  # type: int
-    LOG_AUTH = ...  # type: int
-    LOG_AUTHPRIV = ...  # type: int
-    LOG_CRON = ...  # type: int
-    LOG_DAEMON = ...  # type: int
-    LOG_FTP = ...  # type: int
-    LOG_KERN = ...  # type: int
-    LOG_LPR = ...  # type: int
-    LOG_MAIL = ...  # type: int
-    LOG_NEWS = ...  # type: int
-    LOG_SYSLOG = ...  # type: int
-    LOG_USER = ...  # type: int
-    LOG_UUCP = ...  # type: int
-    LOG_LOCAL0 = ...  # type: int
-    LOG_LOCAL1 = ...  # type: int
-    LOG_LOCAL2 = ...  # type: int
-    LOG_LOCAL3 = ...  # type: int
-    LOG_LOCAL4 = ...  # type: int
-    LOG_LOCAL5 = ...  # type: int
-    LOG_LOCAL6 = ...  # type: int
-    LOG_LOCAL7 = ...  # type: int
+    LOG_ALERT: int
+    LOG_CRIT: int
+    LOG_DEBUG: int
+    LOG_EMERG: int
+    LOG_ERR: int
+    LOG_INFO: int
+    LOG_NOTICE: int
+    LOG_WARNING: int
+    LOG_AUTH: int
+    LOG_AUTHPRIV: int
+    LOG_CRON: int
+    LOG_DAEMON: int
+    LOG_FTP: int
+    LOG_KERN: int
+    LOG_LPR: int
+    LOG_MAIL: int
+    LOG_NEWS: int
+    LOG_SYSLOG: int
+    LOG_USER: int
+    LOG_UUCP: int
+    LOG_LOCAL0: int
+    LOG_LOCAL1: int
+    LOG_LOCAL2: int
+    LOG_LOCAL3: int
+    LOG_LOCAL4: int
+    LOG_LOCAL5: int
+    LOG_LOCAL6: int
+    LOG_LOCAL7: int
     def __init__(self, address: Union[Tuple[str, int], str] = ...,
-            facility: int = ..., socktype: _SocketKind = ...) -> None: ...
+                 facility: int = ..., socktype: _SocketKind = ...) -> None: ...
     def encodePriority(self, facility: Union[int, str],
                        priority: Union[int, str]) -> int: ...
-    def mapPriority(self, levelName: int) -> str: ...
+    def mapPriority(self, levelName: str) -> str: ...
 
 
 class NTEventLogHandler(Handler):
@@ -150,24 +153,25 @@ class SMTPHandler(Handler):
         def __init__(self, mailhost: Union[str, Tuple[str, int]], fromaddr: str,
                      toaddrs: List[str], subject: str,
                      credentials: Optional[Tuple[str, str]] = ...,
-                     secure: Union[Tuple[str], Tuple[str, str], None] =...,
+                     secure: Union[Tuple[str], Tuple[str, str], None] = ...,
                      timeout: float = ...) -> None: ...
     else:
         def __init__(self,
                      mailhost: Union[str, Tuple[str, int]], fromaddr: str,
                      toaddrs: List[str], subject: str,
                      credentials: Optional[Tuple[str, str]] = ...,
-                     secure: Union[Tuple[str], Tuple[str, str], None] =...) -> None: ...
+                     secure: Union[Tuple[str], Tuple[str, str], None] = ...) -> None: ...
     def getSubject(self, record: LogRecord) -> str: ...
 
 
 class BufferingHandler(Handler):
+    buffer: List[LogRecord]
     def __init__(self, capacity: int) -> None: ...
     def shouldFlush(self, record: LogRecord) -> bool: ...
 
 class MemoryHandler(BufferingHandler):
     def __init__(self, capacity: int, flushLevel: int = ...,
-                 target: Optional[Handler] =...) -> None: ...
+                 target: Optional[Handler] = ...) -> None: ...
     def setTarget(self, target: Handler) -> None: ...
 
 
@@ -189,13 +193,20 @@ class HTTPHandler(Handler):
 
 if sys.version_info >= (3,):
     class QueueHandler(Handler):
-        def __init__(self, queue: Queue) -> None: ...
+        if sys.version_info >= (3, 7):
+            def __init__(self, queue: Union[SimpleQueue[Any], Queue[Any]]) -> None: ...
+        else:
+            def __init__(self, queue: Queue[Any]) -> None: ...
         def prepare(self, record: LogRecord) -> Any: ...
         def enqueue(self, record: LogRecord) -> None: ...
 
     class QueueListener:
-        if sys.version_info >= (3, 5):
-            def __init__(self, queue: Queue, *handlers: Handler,
+        if sys.version_info >= (3, 7):
+            def __init__(self, queue: Union[SimpleQueue[Any], Queue[Any]],
+                         *handlers: Handler,
+                         respect_handler_level: bool = ...) -> None: ...
+        elif sys.version_info >= (3, 5):
+            def __init__(self, queue: Queue[Any], *handlers: Handler,
                          respect_handler_level: bool = ...) -> None: ...
         else:
             def __init__(self,

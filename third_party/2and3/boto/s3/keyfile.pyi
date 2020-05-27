@@ -1,15 +1,15 @@
 from typing import Any
 
 class KeyFile:
-    key = ...  # type: Any
-    location = ...  # type: int
-    closed = ...  # type: bool
-    softspace = ...  # type: int
-    mode = ...  # type: str
-    encoding = ...  # type: str
-    errors = ...  # type: str
-    newlines = ...  # type: str
-    name = ...  # type: Any
+    key: Any
+    location: int
+    closed: bool
+    softspace: int
+    mode: str
+    encoding: str
+    errors: str
+    newlines: str
+    name: Any
     def __init__(self, key) -> None: ...
     def tell(self): ...
     def seek(self, pos, whence: Any = ...): ...

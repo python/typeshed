@@ -1,4 +1,4 @@
-__revision__ = ...  # type: str
+__revision__: str
 
 class Chaff:
     def __init__(self, factor: float = ..., blocksper: int = ...) -> None: ...

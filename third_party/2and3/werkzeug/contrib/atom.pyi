@@ -1,28 +1,28 @@
-from typing import Any
+from typing import Any, Optional
 
-XHTML_NAMESPACE = ...  # type: Any
+XHTML_NAMESPACE: Any
 
 def format_iso8601(obj): ...
 
 class AtomFeed:
-    default_generator = ...  # type: Any
-    title = ...  # type: Any
-    title_type = ...  # type: Any
-    url = ...  # type: Any
-    feed_url = ...  # type: Any
-    id = ...  # type: Any
-    updated = ...  # type: Any
-    author = ...  # type: Any
-    icon = ...  # type: Any
-    logo = ...  # type: Any
-    rights = ...  # type: Any
-    rights_type = ...  # type: Any
-    subtitle = ...  # type: Any
-    subtitle_type = ...  # type: Any
-    generator = ...  # type: Any
-    links = ...  # type: Any
-    entries = ...  # type: Any
-    def __init__(self, title=None, entries=None, **kwargs): ...
+    default_generator: Any
+    title: Any
+    title_type: Any
+    url: Any
+    feed_url: Any
+    id: Any
+    updated: Any
+    author: Any
+    icon: Any
+    logo: Any
+    rights: Any
+    rights_type: Any
+    subtitle: Any
+    subtitle_type: Any
+    generator: Any
+    links: Any
+    entries: Any
+    def __init__(self, title: Optional[Any] = ..., entries: Optional[Any] = ..., **kwargs): ...
     def add(self, *args, **kwargs): ...
     def generate(self): ...
     def to_string(self): ...
@@ -30,21 +30,21 @@ class AtomFeed:
     def __call__(self, environ, start_response): ...
 
 class FeedEntry:
-    title = ...  # type: Any
-    title_type = ...  # type: Any
-    content = ...  # type: Any
-    content_type = ...  # type: Any
-    url = ...  # type: Any
-    id = ...  # type: Any
-    updated = ...  # type: Any
-    summary = ...  # type: Any
-    summary_type = ...  # type: Any
-    author = ...  # type: Any
-    published = ...  # type: Any
-    rights = ...  # type: Any
-    links = ...  # type: Any
-    categories = ...  # type: Any
-    xml_base = ...  # type: Any
-    def __init__(self, title=None, content=None, feed_url=None, **kwargs): ...
+    title: Any
+    title_type: Any
+    content: Any
+    content_type: Any
+    url: Any
+    id: Any
+    updated: Any
+    summary: Any
+    summary_type: Any
+    author: Any
+    published: Any
+    rights: Any
+    links: Any
+    categories: Any
+    xml_base: Any
+    def __init__(self, title: Optional[Any] = ..., content: Optional[Any] = ..., feed_url: Optional[Any] = ..., **kwargs): ...
     def generate(self): ...
     def to_string(self): ...

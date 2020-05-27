@@ -5,51 +5,54 @@ from typing import Any, Callable, Iterable, List, Optional, Set, Text, Tuple, Un
 from cryptography.hazmat.primitives.asymmetric import dsa, rsa
 from datetime import datetime
 
-FILETYPE_PEM = ...  # type: int
-FILETYPE_ASN1 = ...  # type: int
-FILETYPE_TEXT = ...  # type: int
-TYPE_RSA = ...  # type: int
-TYPE_DSA = ...  # type: int
+FILETYPE_PEM: int
+FILETYPE_ASN1: int
+FILETYPE_TEXT: int
+TYPE_RSA: int
+TYPE_DSA: int
 
 class Error(Exception): ...
 
+_Key = Union[rsa.RSAPublicKey, rsa.RSAPrivateKey, dsa.DSAPublicKey, dsa.DSAPrivateKey]
+
 class PKey:
     def __init__(self) -> None: ...
-    def to_cryptography_key(self) -> Union[rsa.RSAPublicKey, rsa.RSAPrivateKey, dsa.DSAPublicKey, dsa.DSAPrivateKey]: ...
+    def to_cryptography_key(self) -> _Key: ...
     @classmethod
-    def from_cryptography_key(cls, crypto_key: Union[rsa.RSAPublicKey, rsa.RSAPrivateKey, dsa.DSAPublicKey, dsa.DSAPrivateKey]): ...
+    def from_cryptography_key(cls, crypto_key: _Key): ...
     def generate_key(self, type: int, bits: int) -> None: ...
     def check(self) -> bool: ...
     def type(self) -> int: ...
     def bits(self) -> int: ...
 
 class _EllipticCurve:
-    name = ...  # type: Text
+    name: Text
 
 def get_elliptic_curves() -> Set[_EllipticCurve]: ...
 def get_elliptic_curve(name: str) -> _EllipticCurve: ...
 
 class X509Name:
     def __init__(self, name: X509Name) -> None: ...
-    countryName = ...  # type: Union[str, unicode]
-    stateOrProvinceName = ...  # type: Union[str, unicode]
-    localityName = ...  # type: Union[str, unicode]
-    organizationName = ...  # type: Union[str, unicode]
-    organizationalUnitName = ...  # type: Union[str, unicode]
-    commonName = ...  # type: Union[str, unicode]
-    emailAddress = ...  # type: Union[str, unicode]
-    C = ...  # type: Union[str, unicode]
-    ST = ...  # type: Union[str, unicode]
-    L = ...  # type: Union[str, unicode]
-    O = ...  # type: Union[str, unicode]
-    OU = ...  # type: Union[str, unicode]
-    CN = ...  # type: Union[str, unicode]
+    countryName: Union[str, unicode]
+    stateOrProvinceName: Union[str, unicode]
+    localityName: Union[str, unicode]
+    organizationName: Union[str, unicode]
+    organizationalUnitName: Union[str, unicode]
+    commonName: Union[str, unicode]
+    emailAddress: Union[str, unicode]
+    C: Union[str, unicode]
+    ST: Union[str, unicode]
+    L: Union[str, unicode]
+    O: Union[str, unicode]
+    OU: Union[str, unicode]
+    CN: Union[str, unicode]
     def hash(self) -> int: ...
     def der(self) -> bytes: ...
     def get_components(self) -> List[Tuple[str, str]]: ...
 
 class X509Extension:
-    def __init__(self, type_name: bytes, critical: bool, value: bytes, subject: Optional[X509] = ..., issuer: Optional[X509] = ...) -> None: ...
+    def __init__(self, type_name: bytes, critical: bool, value: bytes, subject: Optional[X509] = ...,
+                 issuer: Optional[X509] = ...) -> None: ...
     def get_critical(self) -> bool: ...
     def get_short_name(self) -> str: ...
     def get_data(self) -> str: ...
@@ -94,17 +97,17 @@ class X509:
     def get_extension(self, index: int) -> X509Extension: ...
 
 class X509StoreFlags:
-    CRL_CHECK = ...  # type: int
-    CRL_CHECK_ALL = ...  # type: int
-    IGNORE_CRITICAL = ...  # type: int
-    X509_STRICT = ...  # type: int
-    ALLOW_PROXY_CERTS = ...  # type: int
-    POLICY_CHECK = ...  # type: int
-    EXPLICIT_POLICY = ...  # type: int
-    INHIBIT_MAP = ...  # type: int
-    NOTIFY_POLICY = ...  # type: int
-    CHECK_SS_SIGNATURE = ...  # type: int
-    CB_ISSUER_CHECK = ...  # type: int
+    CRL_CHECK: int
+    CRL_CHECK_ALL: int
+    IGNORE_CRITICAL: int
+    X509_STRICT: int
+    ALLOW_PROXY_CERTS: int
+    POLICY_CHECK: int
+    EXPLICIT_POLICY: int
+    INHIBIT_MAP: int
+    NOTIFY_POLICY: int
+    CHECK_SS_SIGNATURE: int
+    CB_ISSUER_CHECK: int
 
 class X509Store:
     def __init__(self) -> None: ...
@@ -114,7 +117,7 @@ class X509Store:
     def set_time(self, vfy_time: datetime) -> None: ...
 
 class X509StoreContextError(Exception):
-    certificate = ...  # type: X509
+    certificate: X509
     def __init__(self, message: str, certificate: X509) -> None: ...
 
 class X509StoreContext:
@@ -125,7 +128,8 @@ class X509StoreContext:
 def load_certificate(type: int, buffer: Union[str, unicode]) -> X509: ...
 def dump_certificate(type: int, cert: X509) -> bytes: ...
 def dump_publickey(type: int, pkey: PKey) -> bytes: ...
-def dump_privatekey(type: int, pkey: PKey, cipher: Optional[str] = ..., passphrase: Optional[Union[str, Callable[[int], int]]] = ...) -> bytes: ...
+def dump_privatekey(type: int, pkey: PKey, cipher: Optional[str] = ...,
+                    passphrase: Optional[Union[str, Callable[[int], int]]] = ...) -> bytes: ...
 
 class Revoked:
     def __init__(self) -> None: ...

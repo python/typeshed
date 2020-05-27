@@ -1,8 +1,13 @@
 import sys
-from typing import Any, BinaryIO, Callable, Generator, IO, Iterable, Iterator, List, Optional, Protocol, Text, TextIO, Tuple, Type, TypeVar, Union
+from typing import Any, BinaryIO, Callable, Generator, IO, Iterable, Iterator, List, Optional, Protocol, Text, TextIO, Tuple, Type, TypeVar, Union, overload
 
 from abc import abstractmethod
 import types
+
+if sys.version_info < (3,) or sys.version_info >= (3, 8):
+    from typing import Literal
+else:
+    from typing_extensions import Literal
 
 # TODO: this only satisfies the most common interface, where
 # bytes (py2 str) is the raw form and str (py2 unicode) is the cooked form.
@@ -18,15 +23,53 @@ class _Encoder(Protocol):
 class _Decoder(Protocol):
     def __call__(self, input: _Encoded, errors: str = ...) -> Tuple[_Decoded, int]: ...  # signature of Codec().decode
 
-# TODO: Replace the following Callable definitions with protocol classes as above.
-_StreamReader = Callable[[IO[_Encoded]], StreamReader]  # signature of StreamReader __init__
-_StreamWriter = Callable[[IO[_Encoded]], StreamWriter]  # signature of StreamWriter __init__
-_IncrementalEncoder = Callable[[], IncrementalEncoder]  # signature of IncrementalEncoder __init__
-_IncrementalDecoder = Callable[[], IncrementalDecoder]  # signature of IncrementalDecoder __init__
+class _StreamReader(Protocol):
+    def __call__(self, stream: IO[_Encoded], errors: str = ...) -> StreamReader: ...
+class _StreamWriter(Protocol):
+    def __call__(self, stream: IO[_Encoded], errors: str = ...) -> StreamWriter: ...
 
+class _IncrementalEncoder(Protocol):
+    def __call__(self, errors: str = ...) -> IncrementalEncoder: ...
+class _IncrementalDecoder(Protocol):
+    def __call__(self, errors: str = ...) -> IncrementalDecoder: ...
+
+# The type ignore on `encode` and `decode` is to avoid issues with overlapping overloads, for more details, see #300
+# mypy and pytype disagree about where the type ignore can and cannot go, so alias the long type
+_BytesToBytesEncodingT = Literal[
+    "base64",
+    "base_64",
+    "base64_codec",
+    "bz2",
+    "bz2_codec",
+    "hex",
+    "hex_codec",
+    "quopri",
+    "quotedprintable",
+    "quoted_printable",
+    "quopri_codec",
+    "uu",
+    "uu_codec",
+    "zip",
+    "zlib",
+    "zlib_codec",
+]
+@overload
+def encode(obj: bytes, encoding: _BytesToBytesEncodingT, errors: str = ...) -> bytes: ...
+@overload
+def encode(obj: str, encoding: Literal["rot13", "rot_13"] = ..., errors: str = ...) -> str: ...  # type: ignore
+@overload
 def encode(obj: _Decoded, encoding: str = ..., errors: str = ...) -> _Encoded: ...
+
+@overload
+def decode(obj: bytes, encoding: _BytesToBytesEncodingT, errors: str = ...) -> bytes: ...  # type: ignore
+@overload
+def decode(obj: str, encoding: Literal["rot13", "rot_13"] = ..., errors: str = ...) -> Text: ...
+@overload
 def decode(obj: _Encoded, encoding: str = ..., errors: str = ...) -> _Decoded: ...
+
 def lookup(encoding: str) -> CodecInfo: ...
+def utf_16_be_decode(__obj: _Encoded, __errors: str = ..., __final: bool = ...) -> Tuple[_Decoded, int]: ...  # undocumented
+def utf_16_be_encode(__obj: _Decoded, __errors: str = ...) -> Tuple[_Encoded, int]: ...  # undocumented
 
 class CodecInfo(Tuple[_Encoder, _Decoder, _StreamReader, _StreamWriter]):
     @property
@@ -59,7 +102,7 @@ def getincrementalencoder(encoding: str) -> _IncrementalEncoder: ...
 def getincrementaldecoder(encoding: str) -> _IncrementalDecoder: ...
 def getreader(encoding: str) -> _StreamReader: ...
 def getwriter(encoding: str) -> _StreamWriter: ...
-def register(search_function: Callable[[str], CodecInfo]) -> None: ...
+def register(search_function: Callable[[str], Optional[CodecInfo]]) -> None: ...
 def open(filename: str, mode: str = ..., encoding: str = ..., errors: str = ..., buffering: int = ...) -> StreamReaderWriter: ...
 def EncodedFile(file: IO[_Encoded], data_encoding: str, file_encoding: str = ..., errors: str = ...) -> StreamRecoder: ...
 def iterencode(iterator: Iterable[_Decoded], encoding: str, errors: str = ...) -> Generator[_Encoded, None, None]: ...
@@ -182,7 +225,7 @@ class StreamReaderWriter(TextIO):
     def __enter__(self: _T) -> _T: ...
     def __exit__(
         self, typ: Optional[Type[BaseException]], exc: Optional[BaseException], tb: Optional[types.TracebackType]
-    ) -> bool: ...
+    ) -> None: ...
     def __getattr__(self, name: str) -> Any: ...
     # These methods don't actually exist directly, but they are needed to satisfy the TextIO
     # interface. At runtime, they are delegated through __getattr__.
@@ -223,7 +266,7 @@ class StreamRecoder(BinaryIO):
     def __enter__(self: _SRT) -> _SRT: ...
     def __exit__(
         self, type: Optional[Type[BaseException]], value: Optional[BaseException], tb: Optional[types.TracebackType]
-    ) -> bool: ...
+    ) -> None: ...
     # These methods don't actually exist directly, but they are needed to satisfy the BinaryIO
     # interface. At runtime, they are delegated through __getattr__.
     def seek(self, offset: int, whence: int = ...) -> int: ...

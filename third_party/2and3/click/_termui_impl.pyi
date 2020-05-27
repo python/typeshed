@@ -1,4 +1,4 @@
-from typing import ContextManager, Iterator, Generic, TypeVar
+from typing import ContextManager, Iterator, Generic, TypeVar, Optional
 
 _T = TypeVar("_T")
 
@@ -10,3 +10,5 @@ class ProgressBar(object, Generic[_T]):
     def __iter__(self) -> ProgressBar[_T]: ...
     def next(self) -> _T: ...
     def __next__(self) -> _T: ...
+    length: Optional[int]
+    label: str

@@ -1,12 +1,12 @@
 from typing import Any, Optional
 
 class Parser:
-    environment = ...  # type: Any
-    stream = ...  # type: Any
-    name = ...  # type: Any
-    filename = ...  # type: Any
-    closed = ...  # type: bool
-    extensions = ...  # type: Any
+    environment: Any
+    stream: Any
+    name: Any
+    filename: Any
+    closed: bool
+    extensions: Any
     def __init__(self, environment, source, name: Optional[Any] = ..., filename: Optional[Any] = ..., state: Optional[Any] = ...) -> None: ...
     def fail(self, msg, lineno: Optional[Any] = ..., exc: Any = ...): ...
     def fail_unknown_tag(self, name, lineno: Optional[Any] = ...): ...

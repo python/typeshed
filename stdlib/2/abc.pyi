@@ -1,18 +1,20 @@
-from typing import Any, Dict, Set, Tuple, Type
+from typing import Any, Callable, Dict, Set, Tuple, Type, TypeVar
 import _weakrefset
+
+_FuncT = TypeVar('_FuncT', bound=Callable[..., Any])
 
 # NOTE: mypy has special processing for ABCMeta and abstractmethod.
 
-def abstractmethod(funcobj: Any) -> Any: ...
+def abstractmethod(funcobj: _FuncT) -> _FuncT: ...
 
 class ABCMeta(type):
     # TODO: FrozenSet
-    __abstractmethods__ = ...  # type: Set[Any]
-    _abc_cache = ...  # type: _weakrefset.WeakSet
-    _abc_invalidation_counter = ...  # type: int
-    _abc_negative_cache = ...  # type: _weakrefset.WeakSet
-    _abc_negative_cache_version = ...  # type: int
-    _abc_registry = ...  # type: _weakrefset.WeakSet
+    __abstractmethods__: Set[Any]
+    _abc_cache: _weakrefset.WeakSet[Any]
+    _abc_invalidation_counter: int
+    _abc_negative_cache: _weakrefset.WeakSet[Any]
+    _abc_negative_cache_version: int
+    _abc_registry: _weakrefset.WeakSet[Any]
     def __init__(self, name: str, bases: Tuple[type, ...], namespace: Dict[Any, Any]) -> None: ...
     def __instancecheck__(cls: ABCMeta, instance: Any) -> Any: ...
     def __subclasscheck__(cls: ABCMeta, subclass: Any) -> Any: ...
@@ -22,8 +24,8 @@ class ABCMeta(type):
 # TODO: The real abc.abstractproperty inherits from "property".
 class abstractproperty(object):
     def __new__(cls, func: Any) -> Any: ...
-    __isabstractmethod__ = ...  # type: bool
-    doc = ...  # type: Any
-    fdel = ...  # type: Any
-    fget = ...  # type: Any
-    fset = ...  # type: Any
+    __isabstractmethod__: bool
+    doc: Any
+    fdel: Any
+    fget: Any
+    fset: Any

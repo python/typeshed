@@ -1,7 +1,7 @@
 # Stubs for http.server (Python 3.4)
 
 import sys
-from typing import Any, BinaryIO, Dict, List, Mapping, Optional, Tuple, Union
+from typing import Any, BinaryIO, Callable, ClassVar, Dict, List, Mapping, Optional, Sequence, Tuple, Union
 import socketserver
 import email.message
 
@@ -9,29 +9,33 @@ if sys.version_info >= (3, 7):
     from builtins import _PathLike
 
 class HTTPServer(socketserver.TCPServer):
-    server_name = ...  # type: str
-    server_port = ...  # type: int
+    server_name: str
+    server_port: int
     def __init__(self, server_address: Tuple[str, int],
-                 RequestHandlerClass: type) -> None: ...
+                 RequestHandlerClass: Callable[..., BaseHTTPRequestHandler]) -> None: ...
 
-class BaseHTTPRequestHandler:
-    client_address = ...  # type: Tuple[str, int]
-    server = ...  # type: socketserver.BaseServer
-    close_connection = ...  # type: bool
-    requestline = ...  # type: str
-    command = ...  # type: str
-    path = ...  # type: str
-    request_version = ...  # type: str
-    headers = ...  # type: email.message.Message
-    rfile = ...  # type: BinaryIO
-    wfile = ...  # type: BinaryIO
-    server_version = ...  # type: str
-    sys_version = ...  # type: str
-    error_message_format = ...  # type: str
-    error_content_type = ...  # type: str
-    protocol_version = ...  # type: str
-    MessageClass = ...  # type: type
-    responses = ...  # type: Mapping[int, Tuple[str, str]]
+if sys.version_info >= (3, 7):
+    class ThreadingHTTPServer(socketserver.ThreadingMixIn, HTTPServer):
+        daemon_threads: bool  # undocumented
+
+class BaseHTTPRequestHandler(socketserver.StreamRequestHandler):
+    client_address: Tuple[str, int]
+    server: socketserver.BaseServer
+    close_connection: bool
+    requestline: str
+    command: str
+    path: str
+    request_version: str
+    headers: email.message.Message
+    server_version: str
+    sys_version: str
+    error_message_format: str
+    error_content_type: str
+    protocol_version: str
+    MessageClass: type
+    responses: Mapping[int, Tuple[str, str]]
+    weekdayname: ClassVar[Sequence[str]] = ...  # Undocumented
+    monthname: ClassVar[Sequence[Optional[str]]] = ...  # Undocumented
     def __init__(self, request: bytes, client_address: Tuple[str, int],
                  server: socketserver.BaseServer) -> None: ...
     def handle(self) -> None: ...
@@ -54,9 +58,10 @@ class BaseHTTPRequestHandler:
     def date_time_string(self, timestamp: Optional[int] = ...) -> str: ...
     def log_date_time_string(self) -> str: ...
     def address_string(self) -> str: ...
+    def parse_request(self) -> bool: ...  # Undocumented
 
 class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
-    extensions_map = ...  # type: Dict[str, str]
+    extensions_map: Dict[str, str]
     if sys.version_info >= (3, 7):
         def __init__(self, request: bytes, client_address: Tuple[str, int],
                      server: socketserver.BaseServer, directory: Optional[Union[str, _PathLike[str]]]) -> None: ...
@@ -67,5 +72,5 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
     def do_HEAD(self) -> None: ...
 
 class CGIHTTPRequestHandler(SimpleHTTPRequestHandler):
-    cgi_directories = ...  # type: List[str]
+    cgi_directories: List[str]
     def do_POST(self) -> None: ...

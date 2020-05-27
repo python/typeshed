@@ -1,93 +1,93 @@
 from typing import Any
 
 class Token:
-    start_mark = ...  # type: Any
-    end_mark = ...  # type: Any
+    start_mark: Any
+    end_mark: Any
     def __init__(self, start_mark, end_mark) -> None: ...
 
 class DirectiveToken(Token):
-    id = ...  # type: Any
-    name = ...  # type: Any
-    value = ...  # type: Any
-    start_mark = ...  # type: Any
-    end_mark = ...  # type: Any
+    id: Any
+    name: Any
+    value: Any
+    start_mark: Any
+    end_mark: Any
     def __init__(self, name, value, start_mark, end_mark) -> None: ...
 
 class DocumentStartToken(Token):
-    id = ...  # type: Any
+    id: Any
 
 class DocumentEndToken(Token):
-    id = ...  # type: Any
+    id: Any
 
 class StreamStartToken(Token):
-    id = ...  # type: Any
-    start_mark = ...  # type: Any
-    end_mark = ...  # type: Any
-    encoding = ...  # type: Any
+    id: Any
+    start_mark: Any
+    end_mark: Any
+    encoding: Any
     def __init__(self, start_mark=..., end_mark=..., encoding=...) -> None: ...
 
 class StreamEndToken(Token):
-    id = ...  # type: Any
+    id: Any
 
 class BlockSequenceStartToken(Token):
-    id = ...  # type: Any
+    id: Any
 
 class BlockMappingStartToken(Token):
-    id = ...  # type: Any
+    id: Any
 
 class BlockEndToken(Token):
-    id = ...  # type: Any
+    id: Any
 
 class FlowSequenceStartToken(Token):
-    id = ...  # type: Any
+    id: Any
 
 class FlowMappingStartToken(Token):
-    id = ...  # type: Any
+    id: Any
 
 class FlowSequenceEndToken(Token):
-    id = ...  # type: Any
+    id: Any
 
 class FlowMappingEndToken(Token):
-    id = ...  # type: Any
+    id: Any
 
 class KeyToken(Token):
-    id = ...  # type: Any
+    id: Any
 
 class ValueToken(Token):
-    id = ...  # type: Any
+    id: Any
 
 class BlockEntryToken(Token):
-    id = ...  # type: Any
+    id: Any
 
 class FlowEntryToken(Token):
-    id = ...  # type: Any
+    id: Any
 
 class AliasToken(Token):
-    id = ...  # type: Any
-    value = ...  # type: Any
-    start_mark = ...  # type: Any
-    end_mark = ...  # type: Any
+    id: Any
+    value: Any
+    start_mark: Any
+    end_mark: Any
     def __init__(self, value, start_mark, end_mark) -> None: ...
 
 class AnchorToken(Token):
-    id = ...  # type: Any
-    value = ...  # type: Any
-    start_mark = ...  # type: Any
-    end_mark = ...  # type: Any
+    id: Any
+    value: Any
+    start_mark: Any
+    end_mark: Any
     def __init__(self, value, start_mark, end_mark) -> None: ...
 
 class TagToken(Token):
-    id = ...  # type: Any
-    value = ...  # type: Any
-    start_mark = ...  # type: Any
-    end_mark = ...  # type: Any
+    id: Any
+    value: Any
+    start_mark: Any
+    end_mark: Any
     def __init__(self, value, start_mark, end_mark) -> None: ...
 
 class ScalarToken(Token):
-    id = ...  # type: Any
-    value = ...  # type: Any
-    plain = ...  # type: Any
-    start_mark = ...  # type: Any
-    end_mark = ...  # type: Any
-    style = ...  # type: Any
+    id: Any
+    value: Any
+    plain: Any
+    start_mark: Any
+    end_mark: Any
+    style: Any
     def __init__(self, value, plain, start_mark, end_mark, style=...) -> None: ...

@@ -4,13 +4,13 @@ from yaml.error import MarkedYAMLError
 class ParserError(MarkedYAMLError): ...
 
 class Parser:
-    DEFAULT_TAGS = ...  # type: Any
-    current_event = ...  # type: Any
-    yaml_version = ...  # type: Any
-    tag_handles = ...  # type: Any
-    states = ...  # type: Any
-    marks = ...  # type: Any
-    state = ...  # type: Any
+    DEFAULT_TAGS: Any
+    current_event: Any
+    yaml_version: Any
+    tag_handles: Any
+    states: Any
+    marks: Any
+    state: Any
     def __init__(self) -> None: ...
     def dispose(self): ...
     def check_event(self, *choices): ...

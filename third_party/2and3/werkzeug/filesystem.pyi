@@ -1,6 +1,6 @@
 from typing import Any
 
-has_likely_buggy_unicode_filesystem = ...  # type: Any
+has_likely_buggy_unicode_filesystem: Any
 
 class BrokenFilesystemWarning(RuntimeWarning, UnicodeWarning): ...
 

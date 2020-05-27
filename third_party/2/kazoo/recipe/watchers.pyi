@@ -1,6 +1,6 @@
 from typing import Any
 
-log = ...  # type: Any
+log: Any
 
 class DataWatch:
     def __init__(self, client, path, func=..., *args, **kwargs) -> None: ...
@@ -11,11 +11,11 @@ class ChildrenWatch:
     def __call__(self, func): ...
 
 class PatientChildrenWatch:
-    client = ...  # type: Any
-    path = ...  # type: Any
-    children = ...  # type: Any
-    time_boundary = ...  # type: Any
-    children_changed = ...  # type: Any
+    client: Any
+    path: Any
+    children: Any
+    time_boundary: Any
+    children_changed: Any
     def __init__(self, client, path, time_boundary=...) -> None: ...
-    asy = ...  # type: Any
+    asy: Any
     def start(self): ...

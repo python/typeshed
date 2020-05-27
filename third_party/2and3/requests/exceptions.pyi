@@ -4,8 +4,8 @@ from typing import Any
 from .packages.urllib3.exceptions import HTTPError as BaseHTTPError
 
 class RequestException(IOError):
-    response = ...  # type: Any
-    request = ...  # type: Any
+    response: Any
+    request: Any
     def __init__(self, *args, **kwargs) -> None: ...
 
 class HTTPError(RequestException): ...

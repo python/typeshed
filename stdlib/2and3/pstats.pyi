@@ -2,19 +2,20 @@ from profile import Profile
 from cProfile import Profile as _cProfile
 import os
 import sys
-from typing import Any, Dict, IO, Iterable, List, Text, Tuple, TypeVar, Union, overload
+from typing import Any, Dict, IO, Iterable, List, Optional, Text, Tuple, TypeVar, Union, overload
 
 _Selector = Union[str, float, int]
-_T = TypeVar('_T', bound='Stats')
+_T = TypeVar('_T', bound=Stats)
 if sys.version_info >= (3, 6):
     _Path = Union[bytes, Text, os.PathLike[Any]]
 else:
     _Path = Union[bytes, Text]
 
 class Stats:
+    sort_arg_dict_default: Dict[str, Tuple[Any, str]]
     def __init__(self: _T, __arg: Union[None, str, Text, Profile, _cProfile] = ...,
                  *args: Union[None, str, Text, Profile, _cProfile, _T],
-                 stream: IO[Any] = ...) -> None: ...
+                 stream: Optional[IO[Any]] = ...) -> None: ...
     def init(self, arg: Union[None, str, Text, Profile, _cProfile]) -> None: ...
     def load_stats(self, arg: Union[None, str, Text, Profile, _cProfile]) -> None: ...
     def get_top_level_stats(self) -> None: ...

@@ -2,15 +2,15 @@ from typing import Any
 import rfc822
 
 class Message(rfc822.Message):
-    encodingheader = ...  # type: Any
-    typeheader = ...  # type: Any
-    def __init__(self, fp, seekable=1): ...
-    plisttext = ...  # type: Any
-    type = ...  # type: Any
-    maintype = ...  # type: Any
-    subtype = ...  # type: Any
+    encodingheader: Any
+    typeheader: Any
+    def __init__(self, fp, seekable: int = ...): ...
+    plisttext: Any
+    type: Any
+    maintype: Any
+    subtype: Any
     def parsetype(self): ...
-    plist = ...  # type: Any
+    plist: Any
     def parseplist(self): ...
     def getplist(self): ...
     def getparam(self, name): ...

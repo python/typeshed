@@ -30,8 +30,6 @@ class Option:
     prefixes: Set[str]
     _short_opts: List[str]
     _long_opts: List[str]
-    # properties
-    takes_value: bool
 
     def __init__(
         self,
@@ -42,6 +40,10 @@ class Option:
         const: Optional[Any] = ...,
         obj: Optional[Any] = ...
     ) -> None:
+        ...
+
+    @property
+    def takes_value(self) -> bool:
         ...
 
     def process(self, value: Any, state: ParsingState) -> None:

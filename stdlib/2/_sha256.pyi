@@ -1,10 +1,10 @@
 from typing import Optional
 
 class sha224(object):
-    name = ...  # type: str
-    block_size = ...  # type: int
-    digest_size = ...  # type: int
-    digestsize = ...  # type: int
+    name: str
+    block_size: int
+    digest_size: int
+    digestsize: int
     def __init__(self, init: Optional[str]) -> None: ...
     def copy(self) -> sha224: ...
     def digest(self) -> str: ...
@@ -12,10 +12,10 @@ class sha224(object):
     def update(self, arg: str) -> None: ...
 
 class sha256(object):
-    name = ...  # type: str
-    block_size = ...  # type: int
-    digest_size = ...  # type: int
-    digestsize = ...  # type: int
+    name: str
+    block_size: int
+    digest_size: int
+    digestsize: int
     def __init__(self, init: Optional[str]) -> None: ...
     def copy(self) -> sha256: ...
     def digest(self) -> str: ...

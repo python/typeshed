@@ -2,41 +2,54 @@
 import sys
 from typing import AnyStr, Callable, Dict, Generic, Iterable, List, Optional, Sequence, Tuple, Union, Text
 
-DEFAULT_IGNORES = ...  # type: List[str]
+if sys.version_info >= (3, 6):
+    from os import PathLike
 
-def cmp(f1: Union[bytes, Text], f2: Union[bytes, Text], shallow: Union[int, bool] = ...) -> bool: ...
-def cmpfiles(a: AnyStr, b: AnyStr, common: Iterable[AnyStr],
-             shallow: Union[int, bool] = ...) -> Tuple[List[AnyStr], List[AnyStr], List[AnyStr]]: ...
+DEFAULT_IGNORES: List[str]
+
+if sys.version_info >= (3, 6):
+    def cmp(f1: Union[bytes, Text, PathLike[AnyStr]], f2: Union[bytes, Text, PathLike[AnyStr]], shallow: Union[int, bool] = ...) -> bool: ...
+    def cmpfiles(a: Union[AnyStr, PathLike[AnyStr]], b: Union[AnyStr, PathLike[AnyStr]], common: Iterable[AnyStr],
+                 shallow: Union[int, bool] = ...) -> Tuple[List[AnyStr], List[AnyStr], List[AnyStr]]: ...
+else:
+    def cmp(f1: Union[bytes, Text], f2: Union[bytes, Text], shallow: Union[int, bool] = ...) -> bool: ...
+    def cmpfiles(a: AnyStr, b: AnyStr, common: Iterable[AnyStr],
+                 shallow: Union[int, bool] = ...) -> Tuple[List[AnyStr], List[AnyStr], List[AnyStr]]: ...
 
 class dircmp(Generic[AnyStr]):
-    def __init__(self, a: AnyStr, b: AnyStr,
-                 ignore: Optional[Sequence[AnyStr]] = ...,
-                 hide: Optional[Sequence[AnyStr]] = ...) -> None: ...
+    if sys.version_info >= (3, 6):
+        def __init__(self, a: Union[AnyStr, PathLike[AnyStr]], b: Union[AnyStr, PathLike[AnyStr]],
+                     ignore: Optional[Sequence[AnyStr]] = ...,
+                     hide: Optional[Sequence[AnyStr]] = ...) -> None: ...
+    else:
+        def __init__(self, a: AnyStr, b: AnyStr,
+                     ignore: Optional[Sequence[AnyStr]] = ...,
+                     hide: Optional[Sequence[AnyStr]] = ...) -> None: ...
 
-    left = ...  # type: AnyStr
-    right = ...  # type: AnyStr
-    hide = ...  # type: Sequence[AnyStr]
-    ignore = ...  # type: Sequence[AnyStr]
+    left: AnyStr
+    right: AnyStr
+    hide: Sequence[AnyStr]
+    ignore: Sequence[AnyStr]
 
     # These properties are created at runtime by __getattr__
-    subdirs = ...  # type: Dict[AnyStr, dircmp[AnyStr]]
-    same_files = ...  # type: List[AnyStr]
-    diff_files = ...  # type: List[AnyStr]
-    funny_files = ...  # type: List[AnyStr]
-    common_dirs = ...  # type: List[AnyStr]
-    common_files = ...  # type: List[AnyStr]
-    common_funny = ...  # type: List[AnyStr]
-    common = ...  # type: List[AnyStr]
-    left_only = ...  # type: List[AnyStr]
-    right_only = ...  # type: List[AnyStr]
-    left_list = ...  # type: List[AnyStr]
-    right_list = ...  # type: List[AnyStr]
+    subdirs: Dict[AnyStr, dircmp[AnyStr]]
+    same_files: List[AnyStr]
+    diff_files: List[AnyStr]
+    funny_files: List[AnyStr]
+    common_dirs: List[AnyStr]
+    common_files: List[AnyStr]
+    common_funny: List[AnyStr]
+    common: List[AnyStr]
+    left_only: List[AnyStr]
+    right_only: List[AnyStr]
+    left_list: List[AnyStr]
+    right_list: List[AnyStr]
 
     def report(self) -> None: ...
     def report_partial_closure(self) -> None: ...
     def report_full_closure(self) -> None: ...
 
-    methodmap = ...  # type: Dict[str, Callable[[], None]]
+    methodmap: Dict[str, Callable[[], None]]
     def phase0(self) -> None: ...
     def phase1(self) -> None: ...
     def phase2(self) -> None: ...

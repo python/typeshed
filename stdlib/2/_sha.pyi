@@ -1,12 +1,12 @@
-blocksize = ...  # type: int
-block_size = ...  # type: int
-digest_size = ...  # type: int
+blocksize: int
+block_size: int
+digest_size: int
 
 class sha(object):  # not actually exposed
-    name = ...  # type: str
-    block_size = ...  # type: int
-    digest_size = ...  # type: int
-    digestsize = ...  # type: int
+    name: str
+    block_size: int
+    digest_size: int
+    digestsize: int
     def copy(self) -> sha: ...
     def digest(self) -> str: ...
     def hexdigest(self) -> str: ...

@@ -1,39 +1,39 @@
 from typing import Any, Optional
 from boto.auth_handler import AuthHandler
 
-SIGV4_DETECT = ...  # type: Any
+SIGV4_DETECT: Any
 
 class HmacKeys:
-    host = ...  # type: Any
+    host: Any
     def __init__(self, host, config, provider) -> None: ...
     def update_provider(self, provider): ...
     def algorithm(self): ...
     def sign_string(self, string_to_sign): ...
 
 class AnonAuthHandler(AuthHandler, HmacKeys):
-    capability = ...  # type: Any
+    capability: Any
     def __init__(self, host, config, provider) -> None: ...
     def add_auth(self, http_request, **kwargs): ...
 
 class HmacAuthV1Handler(AuthHandler, HmacKeys):
-    capability = ...  # type: Any
+    capability: Any
     def __init__(self, host, config, provider) -> None: ...
     def update_provider(self, provider): ...
     def add_auth(self, http_request, **kwargs): ...
 
 class HmacAuthV2Handler(AuthHandler, HmacKeys):
-    capability = ...  # type: Any
+    capability: Any
     def __init__(self, host, config, provider) -> None: ...
     def update_provider(self, provider): ...
     def add_auth(self, http_request, **kwargs): ...
 
 class HmacAuthV3Handler(AuthHandler, HmacKeys):
-    capability = ...  # type: Any
+    capability: Any
     def __init__(self, host, config, provider) -> None: ...
     def add_auth(self, http_request, **kwargs): ...
 
 class HmacAuthV3HTTPHandler(AuthHandler, HmacKeys):
-    capability = ...  # type: Any
+    capability: Any
     def __init__(self, host, config, provider) -> None: ...
     def headers_to_sign(self, http_request): ...
     def canonical_headers(self, headers_to_sign): ...
@@ -41,9 +41,9 @@ class HmacAuthV3HTTPHandler(AuthHandler, HmacKeys):
     def add_auth(self, req, **kwargs): ...
 
 class HmacAuthV4Handler(AuthHandler, HmacKeys):
-    capability = ...  # type: Any
-    service_name = ...  # type: Any
-    region_name = ...  # type: Any
+    capability: Any
+    service_name: Any
+    region_name: Any
     def __init__(self, host, config, provider, service_name: Optional[Any] = ..., region_name: Optional[Any] = ...) -> None: ...
     def headers_to_sign(self, http_request): ...
     def host_header(self, host, http_request): ...
@@ -64,8 +64,8 @@ class HmacAuthV4Handler(AuthHandler, HmacKeys):
     def add_auth(self, req, **kwargs): ...
 
 class S3HmacAuthV4Handler(HmacAuthV4Handler, AuthHandler):
-    capability = ...  # type: Any
-    region_name = ...  # type: Any
+    capability: Any
+    region_name: Any
     def __init__(self, *args, **kwargs) -> None: ...
     def clean_region_name(self, region_name): ...
     def canonical_uri(self, http_request): ...
@@ -80,27 +80,27 @@ class S3HmacAuthV4Handler(HmacAuthV4Handler, AuthHandler):
     def presign(self, req, expires, iso_date: Optional[Any] = ...): ...
 
 class STSAnonHandler(AuthHandler):
-    capability = ...  # type: Any
+    capability: Any
     def add_auth(self, http_request, **kwargs): ...
 
 class QuerySignatureHelper(HmacKeys):
     def add_auth(self, http_request, **kwargs): ...
 
 class QuerySignatureV0AuthHandler(QuerySignatureHelper, AuthHandler):
-    SignatureVersion = ...  # type: int
-    capability = ...  # type: Any
+    SignatureVersion: int
+    capability: Any
 
 class QuerySignatureV1AuthHandler(QuerySignatureHelper, AuthHandler):
-    SignatureVersion = ...  # type: int
-    capability = ...  # type: Any
+    SignatureVersion: int
+    capability: Any
     def __init__(self, *args, **kw) -> None: ...
 
 class QuerySignatureV2AuthHandler(QuerySignatureHelper, AuthHandler):
-    SignatureVersion = ...  # type: int
-    capability = ...  # type: Any
+    SignatureVersion: int
+    capability: Any
 
 class POSTPathQSV2AuthHandler(QuerySignatureV2AuthHandler, AuthHandler):
-    capability = ...  # type: Any
+    capability: Any
     def add_auth(self, req, **kwargs): ...
 
 def get_auth_handler(host, config, provider, requested_capability: Optional[Any] = ...): ...

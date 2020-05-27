@@ -1,15 +1,15 @@
 from typing import Any
 
-fastbinary = ...  # type: Any
+fastbinary: Any
 
 class ResultCode:
-    OK = ...  # type: Any
-    TRY_LATER = ...  # type: Any
+    OK: Any
+    TRY_LATER: Any
 
 class LogEntry:
-    thrift_spec = ...  # type: Any
-    category = ...  # type: Any
-    message = ...  # type: Any
+    thrift_spec: Any
+    category: Any
+    message: Any
     def __init__(self, category=..., message=...) -> None: ...
     def read(self, iprot): ...
     def write(self, oprot): ...

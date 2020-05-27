@@ -1,8 +1,8 @@
 from typing import Any, IO, List
 
-HIGHEST_PROTOCOL = ...  # type: int
-compatible_formats = ...  # type: List[str]
-format_version = ...  # type: str
+HIGHEST_PROTOCOL: int
+compatible_formats: List[str]
+format_version: str
 
 class Pickler:
     def __init__(self, file: IO[str], protocol: int = ...) -> None: ...

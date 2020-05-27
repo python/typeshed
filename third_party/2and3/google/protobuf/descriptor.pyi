@@ -1,164 +1,286 @@
 from typing import Any
 
 from .message import Message
+from .descriptor_pb2 import (
+    EnumOptions,
+    EnumValueOptions,
+    FieldOptions,
+    FileOptions,
+    MessageOptions,
+    MethodOptions,
+    OneofOptions,
+    ServiceOptions,
+)
 
 class Error(Exception): ...
 class TypeTransformationError(Error): ...
 
 class DescriptorMetaclass(type):
-    def __instancecheck__(cls, obj): ...
+    def __instancecheck__(self, obj): ...
 
 class DescriptorBase(metaclass=DescriptorMetaclass):
-    has_options = ...  # type: Any
+    has_options: Any
     def __init__(self, options, options_class_name) -> None: ...
     def GetOptions(self): ...
 
 class _NestedDescriptorBase(DescriptorBase):
-    name = ...  # type: Any
-    full_name = ...  # type: Any
-    file = ...  # type: Any
-    containing_type = ...  # type: Any
-    def __init__(self, options, options_class_name, name, full_name, file, containing_type, serialized_start=..., serialized_end=...) -> None: ...
+    name: Any
+    full_name: Any
+    file: Any
+    containing_type: Any
+    def __init__(
+        self, options, options_class_name, name, full_name, file, containing_type, serialized_start=..., serialized_end=...
+    ) -> None: ...
     def GetTopLevelContainingType(self): ...
     def CopyToProto(self, proto): ...
 
 class Descriptor(_NestedDescriptorBase):
-    def __new__(cls, name, full_name, filename, containing_type, fields, nested_types, enum_types, extensions, options=..., is_extendable=..., extension_ranges=..., oneofs=..., file=..., serialized_start=..., serialized_end=..., syntax=...): ...
-    fields = ...  # type: Any
-    fields_by_number = ...  # type: Any
-    fields_by_name = ...  # type: Any
-    nested_types = ...  # type: Any
-    nested_types_by_name = ...  # type: Any
-    enum_types = ...  # type: Any
-    enum_types_by_name = ...  # type: Any
-    enum_values_by_name = ...  # type: Any
-    extensions = ...  # type: Any
-    extensions_by_name = ...  # type: Any
-    is_extendable = ...  # type: Any
-    extension_ranges = ...  # type: Any
-    oneofs = ...  # type: Any
-    oneofs_by_name = ...  # type: Any
-    syntax = ...  # type: Any
-    def __init__(self, name, full_name, filename, containing_type, fields, nested_types, enum_types, extensions, options=..., is_extendable=..., extension_ranges=..., oneofs=..., file=..., serialized_start=..., serialized_end=..., syntax=...) -> None: ...
+    def __new__(
+        cls,
+        name,
+        full_name,
+        filename,
+        containing_type,
+        fields,
+        nested_types,
+        enum_types,
+        extensions,
+        options=...,
+        is_extendable=...,
+        extension_ranges=...,
+        oneofs=...,
+        file=...,
+        serialized_start=...,
+        serialized_end=...,
+        syntax=...,
+    ): ...
+    fields: Any
+    fields_by_number: Any
+    fields_by_name: Any
+    nested_types: Any
+    nested_types_by_name: Any
+    enum_types: Any
+    enum_types_by_name: Any
+    enum_values_by_name: Any
+    extensions: Any
+    extensions_by_name: Any
+    is_extendable: Any
+    extension_ranges: Any
+    oneofs: Any
+    oneofs_by_name: Any
+    syntax: Any
+    def __init__(
+        self,
+        name,
+        full_name,
+        filename,
+        containing_type,
+        fields,
+        nested_types,
+        enum_types,
+        extensions,
+        options=...,
+        is_extendable=...,
+        extension_ranges=...,
+        oneofs=...,
+        file=...,
+        serialized_start=...,
+        serialized_end=...,
+        syntax=...,
+    ) -> None: ...
     def EnumValueName(self, enum, value): ...
     def CopyToProto(self, proto): ...
+    def GetOptions(self) -> MessageOptions: ...
 
 class FieldDescriptor(DescriptorBase):
-    TYPE_DOUBLE = ...  # type: Any
-    TYPE_FLOAT = ...  # type: Any
-    TYPE_INT64 = ...  # type: Any
-    TYPE_UINT64 = ...  # type: Any
-    TYPE_INT32 = ...  # type: Any
-    TYPE_FIXED64 = ...  # type: Any
-    TYPE_FIXED32 = ...  # type: Any
-    TYPE_BOOL = ...  # type: Any
-    TYPE_STRING = ...  # type: Any
-    TYPE_GROUP = ...  # type: Any
-    TYPE_MESSAGE = ...  # type: Any
-    TYPE_BYTES = ...  # type: Any
-    TYPE_UINT32 = ...  # type: Any
-    TYPE_ENUM = ...  # type: Any
-    TYPE_SFIXED32 = ...  # type: Any
-    TYPE_SFIXED64 = ...  # type: Any
-    TYPE_SINT32 = ...  # type: Any
-    TYPE_SINT64 = ...  # type: Any
-    MAX_TYPE = ...  # type: Any
-    CPPTYPE_INT32 = ...  # type: Any
-    CPPTYPE_INT64 = ...  # type: Any
-    CPPTYPE_UINT32 = ...  # type: Any
-    CPPTYPE_UINT64 = ...  # type: Any
-    CPPTYPE_DOUBLE = ...  # type: Any
-    CPPTYPE_FLOAT = ...  # type: Any
-    CPPTYPE_BOOL = ...  # type: Any
-    CPPTYPE_ENUM = ...  # type: Any
-    CPPTYPE_STRING = ...  # type: Any
-    CPPTYPE_MESSAGE = ...  # type: Any
-    MAX_CPPTYPE = ...  # type: Any
-    LABEL_OPTIONAL = ...  # type: Any
-    LABEL_REQUIRED = ...  # type: Any
-    LABEL_REPEATED = ...  # type: Any
-    MAX_LABEL = ...  # type: Any
-    MAX_FIELD_NUMBER = ...  # type: Any
-    FIRST_RESERVED_FIELD_NUMBER = ...  # type: Any
-    LAST_RESERVED_FIELD_NUMBER = ...  # type: Any
-    def __new__(cls, name, full_name, index, number, type, cpp_type, label, default_value, message_type, enum_type, containing_type, is_extension, extension_scope, options=..., file=..., has_default_value=..., containing_oneof=...): ...
-    name = ...  # type: Any
-    full_name = ...  # type: Any
-    index = ...  # type: Any
-    number = ...  # type: Any
-    type = ...  # type: Any
-    cpp_type = ...  # type: Any
-    label = ...  # type: Any
-    has_default_value = ...  # type: Any
-    default_value = ...  # type: Any
-    containing_type = ...  # type: Any
-    message_type = ...  # type: Any
-    enum_type = ...  # type: Any
-    is_extension = ...  # type: Any
-    extension_scope = ...  # type: Any
-    containing_oneof = ...  # type: Any
-    def __init__(self, name, full_name, index, number, type, cpp_type, label, default_value, message_type, enum_type, containing_type, is_extension, extension_scope, options=..., file=..., has_default_value=..., containing_oneof=...) -> None: ...
+    TYPE_DOUBLE: Any
+    TYPE_FLOAT: Any
+    TYPE_INT64: Any
+    TYPE_UINT64: Any
+    TYPE_INT32: Any
+    TYPE_FIXED64: Any
+    TYPE_FIXED32: Any
+    TYPE_BOOL: Any
+    TYPE_STRING: Any
+    TYPE_GROUP: Any
+    TYPE_MESSAGE: Any
+    TYPE_BYTES: Any
+    TYPE_UINT32: Any
+    TYPE_ENUM: Any
+    TYPE_SFIXED32: Any
+    TYPE_SFIXED64: Any
+    TYPE_SINT32: Any
+    TYPE_SINT64: Any
+    MAX_TYPE: Any
+    CPPTYPE_INT32: Any
+    CPPTYPE_INT64: Any
+    CPPTYPE_UINT32: Any
+    CPPTYPE_UINT64: Any
+    CPPTYPE_DOUBLE: Any
+    CPPTYPE_FLOAT: Any
+    CPPTYPE_BOOL: Any
+    CPPTYPE_ENUM: Any
+    CPPTYPE_STRING: Any
+    CPPTYPE_MESSAGE: Any
+    MAX_CPPTYPE: Any
+    LABEL_OPTIONAL: Any
+    LABEL_REQUIRED: Any
+    LABEL_REPEATED: Any
+    MAX_LABEL: Any
+    MAX_FIELD_NUMBER: Any
+    FIRST_RESERVED_FIELD_NUMBER: Any
+    LAST_RESERVED_FIELD_NUMBER: Any
+    def __new__(
+        cls,
+        name,
+        full_name,
+        index,
+        number,
+        type,
+        cpp_type,
+        label,
+        default_value,
+        message_type,
+        enum_type,
+        containing_type,
+        is_extension,
+        extension_scope,
+        options=...,
+        file=...,
+        has_default_value=...,
+        containing_oneof=...,
+    ): ...
+    name: Any
+    full_name: Any
+    index: Any
+    number: Any
+    type: Any
+    cpp_type: Any
+    label: Any
+    has_default_value: Any
+    default_value: Any
+    containing_type: Any
+    message_type: Any
+    enum_type: Any
+    is_extension: Any
+    extension_scope: Any
+    containing_oneof: Any
+    def __init__(
+        self,
+        name,
+        full_name,
+        index,
+        number,
+        type,
+        cpp_type,
+        label,
+        default_value,
+        message_type,
+        enum_type,
+        containing_type,
+        is_extension,
+        extension_scope,
+        options=...,
+        file=...,
+        has_default_value=...,
+        containing_oneof=...,
+    ) -> None: ...
     @staticmethod
     def ProtoTypeToCppProtoType(proto_type): ...
+    def GetOptions(self) -> FieldOptions: ...
 
 class EnumDescriptor(_NestedDescriptorBase):
-    def __new__(cls, name, full_name, filename, values, containing_type=..., options=..., file=..., serialized_start=..., serialized_end=...): ...
-    values = ...  # type: Any
-    values_by_name = ...  # type: Any
-    values_by_number = ...  # type: Any
-    def __init__(self, name, full_name, filename, values, containing_type=..., options=..., file=..., serialized_start=..., serialized_end=...) -> None: ...
+    def __new__(
+        cls,
+        name,
+        full_name,
+        filename,
+        values,
+        containing_type=...,
+        options=...,
+        file=...,
+        serialized_start=...,
+        serialized_end=...,
+    ): ...
+    values: Any
+    values_by_name: Any
+    values_by_number: Any
+    def __init__(
+        self,
+        name,
+        full_name,
+        filename,
+        values,
+        containing_type=...,
+        options=...,
+        file=...,
+        serialized_start=...,
+        serialized_end=...,
+    ) -> None: ...
     def CopyToProto(self, proto): ...
+    def GetOptions(self) -> EnumOptions: ...
 
 class EnumValueDescriptor(DescriptorBase):
     def __new__(cls, name, index, number, type=..., options=...): ...
-    name = ...  # type: Any
-    index = ...  # type: Any
-    number = ...  # type: Any
-    type = ...  # type: Any
+    name: Any
+    index: Any
+    number: Any
+    type: Any
     def __init__(self, name, index, number, type=..., options=...) -> None: ...
+    def GetOptions(self) -> EnumValueOptions: ...
 
 class OneofDescriptor:
     def __new__(cls, name, full_name, index, containing_type, fields): ...
-    name = ...  # type: Any
-    full_name = ...  # type: Any
-    index = ...  # type: Any
-    containing_type = ...  # type: Any
-    fields = ...  # type: Any
+    name: Any
+    full_name: Any
+    index: Any
+    containing_type: Any
+    fields: Any
     def __init__(self, name, full_name, index, containing_type, fields) -> None: ...
+    def GetOptions(self) -> OneofOptions: ...
 
 class ServiceDescriptor(_NestedDescriptorBase):
-    index = ...  # type: Any
-    methods = ...  # type: Any
-    methods_by_name = ...  # type: Any
-    def __init__(self, name, full_name, index, methods, options=..., file=..., serialized_start=..., serialized_end=...) -> None: ...
+    index: Any
+    methods: Any
+    methods_by_name: Any
+    def __init__(
+        self, name, full_name, index, methods, options=..., file=..., serialized_start=..., serialized_end=...
+    ) -> None: ...
     def FindMethodByName(self, name): ...
     def CopyToProto(self, proto): ...
+    def GetOptions(self) -> ServiceOptions: ...
 
 class MethodDescriptor(DescriptorBase):
-    name = ...  # type: Any
-    full_name = ...  # type: Any
-    index = ...  # type: Any
-    containing_service = ...  # type: Any
-    input_type = ...  # type: Any
-    output_type = ...  # type: Any
+    name: Any
+    full_name: Any
+    index: Any
+    containing_service: Any
+    input_type: Any
+    output_type: Any
     def __init__(self, name, full_name, index, containing_service, input_type, output_type, options=...) -> None: ...
+    def GetOptions(self) -> MethodOptions: ...
 
 class FileDescriptor(DescriptorBase):
-    def __new__(cls, name, package, options=..., serialized_pb=..., dependencies=..., public_dependencies=..., syntax=..., pool=...): ...
-    _options = ...  # type: Any
-    pool = ...  # type: Any
-    message_types_by_name = ...  # type: Any
-    name = ...  # type: Any
-    package = ...  # type: Any
-    syntax = ...  # type: Any
-    serialized_pb = ...  # type: Any
-    enum_types_by_name = ...  # type: Any
-    extensions_by_name = ...  # type: Any
-    services_by_name = ...  # type: Any
-    dependencies = ...  # type: Any
-    public_dependencies = ...  # type: Any
-    def __init__(self, name, package, options=..., serialized_pb=..., dependencies=..., public_dependencies=..., syntax=..., pool=...) -> None: ...
+    def __new__(
+        cls, name, package, options=..., serialized_pb=..., dependencies=..., public_dependencies=..., syntax=..., pool=...
+    ): ...
+    _options: Any
+    pool: Any
+    message_types_by_name: Any
+    name: Any
+    package: Any
+    syntax: Any
+    serialized_pb: Any
+    enum_types_by_name: Any
+    extensions_by_name: Any
+    services_by_name: Any
+    dependencies: Any
+    public_dependencies: Any
+    def __init__(
+        self, name, package, options=..., serialized_pb=..., dependencies=..., public_dependencies=..., syntax=..., pool=...
+    ) -> None: ...
     def CopyToProto(self, proto): ...
+    def GetOptions(self) -> FileOptions: ...
 
 def MakeDescriptor(desc_proto, package=..., build_file_if_cpp=..., syntax=...): ...
 def _ParseOptions(message: Message, string: bytes) -> Message: ...

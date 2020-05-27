@@ -1,4 +1,5 @@
-from typing import Any, Callable, IO, Iterable, List, Optional, TypeVar, Union, Tuple as _PyTuple, Type
+from typing import Any, Callable, Generic, IO, Iterable, List, Optional, TypeVar, Union, Tuple as _PyTuple, Type
+import datetime
 import uuid
 
 from click.core import Context, Parameter, _ParamType as ParamType, _ConvertibleType
@@ -27,7 +28,27 @@ class CompositeParamType(ParamType):
 
 class Choice(ParamType):
     choices: Iterable[str]
-    def __init__(self, choices: Iterable[str]) -> None:
+    def __init__(
+        self,
+        choices: Iterable[str],
+        case_sensitive: bool = ...,
+    ) -> None:
+        ...
+
+
+class DateTime(ParamType):
+    def __init__(
+        self,
+        formats: Optional[List[str]] = ...,
+    ) -> None:
+        ...
+
+    def convert(
+        self,
+        value: str,
+        param: Optional[Parameter],
+        ctx: Optional[Context],
+    ) -> datetime.datetime:
         ...
 
 
@@ -50,8 +71,13 @@ class FloatParamType(ParamType):
 
 
 class FloatRange(FloatParamType):
-    ...
-
+    def __init__(
+        self,
+        min: Optional[float] = ...,
+        max: Optional[float] = ...,
+        clamp: bool = ...,
+    ) -> None:
+        ...
 
 class File(ParamType):
     def __init__(
@@ -61,38 +87,19 @@ class File(ParamType):
         errors: Optional[str] = ...,
         lazy: Optional[bool] = ...,
         atomic: Optional[bool] = ...,
-    ) -> None:
-        ...
-
-    def __call__(
-        self,
-        value: Optional[str],
-        param: Optional[Parameter] = ...,
-        ctx: Optional[Context] = ...,
-    ) -> IO:
-        ...
-
-    def convert(
-        self,
-        value: str,
-        param: Optional[Parameter],
-        ctx: Optional[Context],
-    ) -> IO:
-        ...
-
-    def resolve_lazy_flag(self, value: str) -> bool:
-        ...
-
+    ) -> None: ...
+    def __call__(self, value: Optional[str], param: Optional[Parameter] = ..., ctx: Optional[Context] = ...) -> IO[Any]: ...
+    def convert(self, value: str, param: Optional[Parameter], ctx: Optional[Context]) -> IO[Any]: ...
+    def resolve_lazy_flag(self, value: str) -> bool: ...
 
 _F = TypeVar('_F')  # result of the function
 _Func = Callable[[Optional[str]], _F]
 
 
-class FuncParamType(ParamType):
-    func: _Func
+class FuncParamType(ParamType, Generic[_F]):
+    func: _Func[_F]
 
-    def __init__(self, func: _Func) -> None:
-        ...
+    def __init__(self, func: _Func[_F]) -> None: ...
 
     def __call__(
         self,
@@ -240,9 +247,9 @@ def convert_type(ty: Optional[_ConvertibleType], default: Optional[Any] = ...) -
 
 # parameter type shortcuts
 
-BOOL = BoolParamType()
-FLOAT = FloatParamType()
-INT = IntParamType()
-STRING = StringParamType()
-UNPROCESSED = UnprocessedParamType()
-UUID = UUIDParameterType()
+BOOL: BoolParamType
+FLOAT: FloatParamType
+INT: IntParamType
+STRING: StringParamType
+UNPROCESSED: UnprocessedParamType
+UUID: UUIDParameterType

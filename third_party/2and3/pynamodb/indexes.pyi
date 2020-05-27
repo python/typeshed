@@ -1,7 +1,7 @@
 from typing import Any, Optional
 
 class IndexMeta(type):
-    def __init__(cls, name, bases, attrs) -> None: ...
+    def __init__(self, name, bases, attrs) -> None: ...
 
 class Index(metaclass=IndexMeta):
     Meta: Any

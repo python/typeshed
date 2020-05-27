@@ -4,8 +4,6 @@
 from pipes import Template
 from typing import Dict, List
 
-
-__all__: List[str]
 table: Dict[str, Template]
 t: Template
 uncompress: Template

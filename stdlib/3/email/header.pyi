@@ -20,6 +20,6 @@ class Header:
 
 def decode_header(header: Union[Header, str]) -> List[Tuple[bytes, Optional[str]]]: ...
 def make_header(decoded_seq: List[Tuple[bytes, Optional[str]]],
-                maxlinelen: Optional[int] =...,
+                maxlinelen: Optional[int] = ...,
                 header_name: Optional[str] = ...,
                 continuation_ws: str = ...) -> Header: ...

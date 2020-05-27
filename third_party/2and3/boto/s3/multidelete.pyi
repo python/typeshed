@@ -1,27 +1,27 @@
 from typing import Any, Optional
 
 class Deleted:
-    key = ...  # type: Any
-    version_id = ...  # type: Any
-    delete_marker = ...  # type: Any
-    delete_marker_version_id = ...  # type: Any
+    key: Any
+    version_id: Any
+    delete_marker: Any
+    delete_marker_version_id: Any
     def __init__(self, key: Optional[Any] = ..., version_id: Optional[Any] = ..., delete_marker: bool = ..., delete_marker_version_id: Optional[Any] = ...) -> None: ...
     def startElement(self, name, attrs, connection): ...
     def endElement(self, name, value, connection): ...
 
 class Error:
-    key = ...  # type: Any
-    version_id = ...  # type: Any
-    code = ...  # type: Any
-    message = ...  # type: Any
+    key: Any
+    version_id: Any
+    code: Any
+    message: Any
     def __init__(self, key: Optional[Any] = ..., version_id: Optional[Any] = ..., code: Optional[Any] = ..., message: Optional[Any] = ...) -> None: ...
     def startElement(self, name, attrs, connection): ...
     def endElement(self, name, value, connection): ...
 
 class MultiDeleteResult:
-    bucket = ...  # type: Any
-    deleted = ...  # type: Any
-    errors = ...  # type: Any
+    bucket: Any
+    deleted: Any
+    errors: Any
     def __init__(self, bucket: Optional[Any] = ...) -> None: ...
     def startElement(self, name, attrs, connection): ...
     def endElement(self, name, value, connection): ...

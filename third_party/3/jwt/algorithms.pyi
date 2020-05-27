@@ -4,7 +4,7 @@ from typing import Any, Set, Dict, Optional, ClassVar, Union, Generic, TypeVar
 
 requires_cryptography = Set[str]
 
-def get_default_algorithms() -> Dict[str, Algorithm]: ...
+def get_default_algorithms() -> Dict[str, Algorithm[Any]]: ...
 
 _K = TypeVar("_K")
 
@@ -13,10 +13,9 @@ class Algorithm(Generic[_K]):
     def sign(self, msg: bytes, key: _K) -> bytes: ...
     def verify(self, msg: bytes, key: _K, sig: bytes) -> bool: ...
     @staticmethod
-    def to_jwk(key_obj: Any) -> str: ...  # should be key_obj: _K, see python/mypy#1337
+    def to_jwk(key_obj: _K) -> str: ...
     @staticmethod
-    def from_jwk(jwk: str) -> Any: ...  # should return _K, see python/mypy#1337
-
+    def from_jwk(jwk: str) -> _K: ...
 
 class NoneAlgorithm(Algorithm[None]):
     def prepare_key(self, key: Optional[str]) -> None: ...
@@ -44,7 +43,7 @@ class HMACAlgorithm(Algorithm[bytes]):
 # Only defined if cryptography is installed. Types should be tightened when
 # cryptography gets type hints.
 # See https://github.com/python/typeshed/issues/2542
-class RSAAlgorithm(Algorithm):
+class RSAAlgorithm(Algorithm[Any]):
     SHA256: ClassVar[Any]
     SHA384: ClassVar[Any]
     SHA512: ClassVar[Any]
@@ -61,7 +60,7 @@ class RSAAlgorithm(Algorithm):
 # Only defined if cryptography is installed. Types should be tightened when
 # cryptography gets type hints.
 # See https://github.com/python/typeshed/issues/2542
-class ECAlgorithm(Algorithm):
+class ECAlgorithm(Algorithm[Any]):
     SHA256: ClassVar[Any]
     SHA384: ClassVar[Any]
     SHA512: ClassVar[Any]

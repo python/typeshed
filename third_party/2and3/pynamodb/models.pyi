@@ -1,3 +1,4 @@
+from .attributes import Attribute
 from .exceptions import DoesNotExist as DoesNotExist
 from typing import Any, Dict, Generic, Iterable, Iterator, List, Optional, Sequence, Tuple, Type, TypeVar, Text, Union
 
@@ -5,7 +6,7 @@ log: Any
 
 class DefaultMeta: ...
 
-class ResultSet(Iterable):
+class ResultSet(object):
     results: Any
     operation: Any
     arguments: Any
@@ -16,7 +17,7 @@ class MetaModel(type):
     def __init__(self, name: Text, bases: Tuple[type, ...], attrs: Dict[Any, Any]) -> None: ...
 
 _T = TypeVar('_T', bound='Model')
-KeyType = Union[Text, bytes, float, int, Tuple]
+KeyType = Union[Text, bytes, float, int, Tuple[Any, ...]]
 
 class Model(metaclass=MetaModel):
     DoesNotExist = DoesNotExist
@@ -85,7 +86,9 @@ class Model(metaclass=MetaModel):
     @classmethod
     def get_throttle(cls): ...
     @classmethod
-    def _get_attributes(cls) -> Dict[str, Any]: ...
+    def get_attributes(cls) -> Dict[str, Attribute[Any]]: ...
+    @classmethod
+    def _get_attributes(cls) -> Dict[str, Attribute[Any]]: ...
 
 class ModelContextManager(Generic[_T]):
     model: Type[_T]

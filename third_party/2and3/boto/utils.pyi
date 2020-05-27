@@ -25,7 +25,7 @@ from typing import (
 _KT = TypeVar('_KT')
 _VT = TypeVar('_VT')
 
-if sys.version_info[0] >= 3:
+if sys.version_info >= (3,):
     # TODO move _StringIO definition into boto.compat once stubs exist and rename to StringIO
     import io
     _StringIO = io.StringIO
@@ -37,7 +37,7 @@ if sys.version_info[0] >= 3:
 else:
     # TODO move _StringIO definition into boto.compat once stubs exist and rename to StringIO
     import StringIO
-    _StringIO = StringIO.StringIO
+    _StringIO = StringIO.StringIO[Any]
 
     from hashlib import _hash
     _HashType = _hash
@@ -49,8 +49,8 @@ _Provider = Any  # TODO replace this with boto.provider.Provider once stubs exis
 _LockType = Any  # TODO replace this with _thread.LockType once stubs exist
 
 
-JSONDecodeError = ...  # type: Type[ValueError]
-qsa_of_interest = ...  # type: List[str]
+JSONDecodeError: Type[ValueError]
+qsa_of_interest: List[str]
 
 
 def unquote_v(nv: str) -> Union[str, Tuple[str, str]]: ...
@@ -91,7 +91,7 @@ def get_instance_metadata(
     data: str = ...,
     timeout: Optional[int] = ...,
     num_retries: int = ...,
-) -> Optional[LazyLoadMetadata]: ...
+) -> Optional[LazyLoadMetadata[Any, Any]]: ...
 def get_instance_identity(
     version: str = ...,
     url: str = ...,
@@ -106,10 +106,10 @@ def get_instance_userdata(
     num_retries: int = ...,
 ) -> Mapping[str, str]: ...
 
-ISO8601 = ...  # type: str
-ISO8601_MS = ...  # type: str
-RFC1123 = ...  # type: str
-LOCALE_LOCK = ...  # type: _LockType
+ISO8601: str
+ISO8601_MS: str
+RFC1123: str
+LOCALE_LOCK: _LockType
 
 def setlocale(name: Union[str, Tuple[str, str]]) -> ContextManager[str]: ...
 def get_ts(ts: Optional[time.struct_time] = ...) -> str: ...
@@ -124,11 +124,11 @@ def fetch_file(
 ) -> Optional[IO[str]]: ...
 
 class ShellCommand:
-    exit_code = ...  # type: int
-    command = ...  # type: subprocess._CMD
-    log_fp = ...  # type: _StringIO
-    wait = ...  # type: bool
-    fail_fast = ...  # type: bool
+    exit_code: int
+    command: subprocess._CMD
+    log_fp: _StringIO
+    wait: bool
+    fail_fast: bool
 
     def __init__(
         self,
@@ -138,21 +138,21 @@ class ShellCommand:
         cwd: Optional[subprocess._TXT] = ...,
     ) -> None: ...
 
-    process = ...  # type: subprocess.Popen
+    process: subprocess.Popen[Any]
 
     def run(self, cwd: Optional[subprocess._CMD] = ...) -> Optional[int]: ...
     def setReadOnly(self, value) -> None: ...
     def getStatus(self) -> Optional[int]: ...
 
-    status = ...  # type: Optional[int]
+    status: Optional[int]
 
     def getOutput(self) -> str: ...
 
-    output = ...  # type: str
+    output: str
 
 class AuthSMTPHandler(logging.handlers.SMTPHandler):
-    username = ...  # type: str
-    password = ...  # type: str
+    username: str
+    password: str
     def __init__(
         self,
         mailhost: str,
@@ -165,16 +165,16 @@ class AuthSMTPHandler(logging.handlers.SMTPHandler):
 
 class LRUCache(Dict[_KT, _VT]):
     class _Item:
-        previous = ...  # type: Optional[LRUCache._Item]
-        next = ...  # type: Optional[LRUCache._Item]
+        previous: Optional[LRUCache._Item]
+        next: Optional[LRUCache._Item]
         key = ...
         value = ...
         def __init__(self, key, value) -> None: ...
 
-    _dict = ...  # type: Dict[_KT, LRUCache._Item]
-    capacity = ...  # type: int
-    head = ...  # type: Optional[LRUCache._Item]
-    tail = ...  # type: Optional[LRUCache._Item]
+    _dict: Dict[_KT, LRUCache._Item]
+    capacity: int
+    head: Optional[LRUCache._Item]
+    tail: Optional[LRUCache._Item]
 
     def __init__(self, capacity: int) -> None: ...
 
@@ -183,8 +183,8 @@ class LRUCache(Dict[_KT, _VT]):
 _str = str
 
 class Password:
-    hashfunc = ...  # type: Callable[[bytes], _HashType]
-    str = ...  # type: Optional[_str]
+    hashfunc: Callable[[bytes], _HashType]
+    str: Optional[_str]
 
     def __init__(
         self,
@@ -204,7 +204,7 @@ def notify(
     append_instance_id: bool = ...,
 ) -> None: ...
 def get_utf8_value(value: str) -> bytes: ...
-def mklist(value: Any) -> List: ...
+def mklist(value: Any) -> List[Any]: ...
 def pythonize_name(name: str) -> str: ...
 def write_mime_multipart(
     content: List[Tuple[str, str]],

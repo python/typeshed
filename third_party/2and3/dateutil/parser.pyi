@@ -5,16 +5,16 @@ _FileOrStr = Union[bytes, Text, IO[str], IO[Any]]
 
 
 class parserinfo(object):
-    JUMP = ...  # type: List[str]
-    WEEKDAYS = ...  # type: List[Tuple[str, str]]
-    MONTHS = ...  # type: List[Tuple[str, str]]
-    HMS = ...  # type: List[Tuple[str, str, str]]
-    AMPM = ...  # type: List[Tuple[str, str]]
-    UTCZONE = ...  # type: List[str]
-    PERTAIN = ...  # type: List[str]
-    TZOFFSET = ...  # type: Dict[str, int]
+    JUMP: List[str]
+    WEEKDAYS: List[Tuple[str, str]]
+    MONTHS: List[Tuple[str, str]]
+    HMS: List[Tuple[str, str, str]]
+    AMPM: List[Tuple[str, str]]
+    UTCZONE: List[str]
+    PERTAIN: List[str]
+    TZOFFSET: Dict[str, int]
 
-    def __init__(self, dayfirst: bool=..., yearfirst: bool=...) -> None: ...
+    def __init__(self, dayfirst: bool = ..., yearfirst: bool = ...) -> None: ...
     def jump(self, name: Text) -> bool: ...
     def weekday(self, name: Text) -> Optional[int]: ...
     def month(self, name: Text) -> Optional[int]: ...
@@ -33,11 +33,13 @@ class parser(object):
               ignoretz: bool = ..., tzinfos: Optional[Mapping[Text, tzinfo]] = ...,
               **kwargs: Any) -> datetime: ...
 
-DEFAULTPARSER = ...  # type: parser
+def isoparse(dt_str: Union[str, bytes, IO[str], IO[bytes]]) -> datetime: ...
+
+DEFAULTPARSER: parser
 def parse(timestr: _FileOrStr, parserinfo: Optional[parserinfo] = ..., **kwargs: Any) -> datetime: ...
 class _tzparser: ...
 
-DEFAULTTZPARSER = ...  # type: _tzparser
+DEFAULTTZPARSER: _tzparser
 
 class InvalidDatetimeError(ValueError): ...
 class InvalidDateError(InvalidDatetimeError): ...

@@ -1,56 +1,58 @@
-from typing import Dict, List, Mapping, Tuple, Union, Sequence, IO, Optional, TypeVar
+from typing import AnyStr, Dict, IO, List, Mapping, NamedTuple, Optional, Sequence, Tuple, TypeVar, Union
 
 error = OSError
 
-confstr_names = ...  # type: Dict[str, int]
-environ = ...  # type: Dict[str, str]
-pathconf_names = ...  # type: Dict[str, int]
-sysconf_names = ...  # type: Dict[str, int]
+confstr_names: Dict[str, int]
+environ: Dict[str, str]
+pathconf_names: Dict[str, int]
+sysconf_names: Dict[str, int]
 
-EX_CANTCREAT = ...  # type: int
-EX_CONFIG = ...  # type: int
-EX_DATAERR = ...  # type: int
-EX_IOERR = ...  # type: int
-EX_NOHOST = ...  # type: int
-EX_NOINPUT = ...  # type: int
-EX_NOPERM = ...  # type: int
-EX_NOUSER = ...  # type: int
-EX_OK = ...  # type: int
-EX_OSERR = ...  # type: int
-EX_OSFILE = ...  # type: int
-EX_PROTOCOL = ...  # type: int
-EX_SOFTWARE = ...  # type: int
-EX_TEMPFAIL = ...  # type: int
-EX_UNAVAILABLE = ...  # type: int
-EX_USAGE = ...  # type: int
-F_OK = ...  # type: int
-NGROUPS_MAX = ...  # type: int
-O_APPEND = ...  # type: int
-O_ASYNC = ...  # type: int
-O_CREAT = ...  # type: int
-O_DIRECT = ...  # type: int
-O_DIRECTORY = ...  # type: int
-O_DSYNC = ...  # type: int
-O_EXCL = ...  # type: int
-O_LARGEFILE = ...  # type: int
-O_NDELAY = ...  # type: int
-O_NOATIME = ...  # type: int
-O_NOCTTY = ...  # type: int
-O_NOFOLLOW = ...  # type: int
-O_NONBLOCK = ...  # type: int
-O_RDONLY = ...  # type: int
-O_RDWR = ...  # type: int
-O_RSYNC = ...  # type: int
-O_SYNC = ...  # type: int
-O_TRUNC = ...  # type: int
-O_WRONLY = ...  # type: int
-R_OK = ...  # type: int
-TMP_MAX = ...  # type: int
-WCONTINUED = ...  # type: int
-WNOHANG = ...  # type: int
-WUNTRACED = ...  # type: int
-W_OK = ...  # type: int
-X_OK = ...  # type: int
+_T = TypeVar("_T")
+
+EX_CANTCREAT: int
+EX_CONFIG: int
+EX_DATAERR: int
+EX_IOERR: int
+EX_NOHOST: int
+EX_NOINPUT: int
+EX_NOPERM: int
+EX_NOUSER: int
+EX_OK: int
+EX_OSERR: int
+EX_OSFILE: int
+EX_PROTOCOL: int
+EX_SOFTWARE: int
+EX_TEMPFAIL: int
+EX_UNAVAILABLE: int
+EX_USAGE: int
+F_OK: int
+NGROUPS_MAX: int
+O_APPEND: int
+O_ASYNC: int
+O_CREAT: int
+O_DIRECT: int
+O_DIRECTORY: int
+O_DSYNC: int
+O_EXCL: int
+O_LARGEFILE: int
+O_NDELAY: int
+O_NOATIME: int
+O_NOCTTY: int
+O_NOFOLLOW: int
+O_NONBLOCK: int
+O_RDONLY: int
+O_RDWR: int
+O_RSYNC: int
+O_SYNC: int
+O_TRUNC: int
+O_WRONLY: int
+R_OK: int
+TMP_MAX: int
+WCONTINUED: int
+WNOHANG: int
+WUNTRACED: int
+W_OK: int
+X_OK: int
 
 def WCOREDUMP(status: int) -> bool: ...
 def WEXITSTATUS(status: int) -> bool: ...
@@ -62,34 +64,31 @@ def WSTOPSIG(status: int) -> bool: ...
 def WTERMSIG(status: int) -> bool: ...
 
 class stat_result(object):
-    n_fields = ...  # type: int
-    n_sequence_fields = ...  # type: int
-    n_unnamed_fields = ...  # type: int
-    st_mode = ...  # type: int
-    st_ino = ...  # type: int
-    st_dev = ...  # type: int
-    st_nlink = ...  # type: int
-    st_uid = ...  # type: int
-    st_gid = ...  # type: int
-    st_size = ...  # type: int
-    st_atime = ...  # type: int
-    st_mtime = ...  # type: int
-    st_ctime = ...  # type: int
+    n_fields: int
+    n_sequence_fields: int
+    n_unnamed_fields: int
+    st_mode: int
+    st_ino: int
+    st_dev: int
+    st_nlink: int
+    st_uid: int
+    st_gid: int
+    st_size: int
+    st_atime: int
+    st_mtime: int
+    st_ctime: int
 
-class statvfs_result(object):
-    n_fields = ...  # type: int
-    n_sequence_fields = ...  # type: int
-    n_unnamed_fields = ...  # type: int
-    f_bsize = ...  # type: int
-    f_frsize = ...  # type: int
-    f_blocks = ...  # type: int
-    f_bfree = ...  # type: int
-    f_bavail = ...  # type: int
-    f_files = ...  # type: int
-    f_ffree = ...  # type: int
-    f_favail = ...  # type: int
-    f_flag = ...  # type: int
-    f_namemax = ...  # type: int
+class statvfs_result(NamedTuple):
+    f_bsize: int
+    f_frsize: int
+    f_blocks: int
+    f_bfree: int
+    f_bavail: int
+    f_files: int
+    f_ffree: int
+    f_favail: int
+    f_flag: int
+    f_namemax: int
 
 def _exit(status: int) -> None: ...
 def abort() -> None: ...
@@ -111,10 +110,8 @@ def fchmod(fd: int, mode: int) -> None: ...
 def fchown(fd: int, uid: int, gid: int) -> None: ...
 def fdatasync(fd: int) -> None: ...
 def fdopen(fd: int, mode: str = ..., bufsize: int = ...) -> IO[str]: ...
-def fork() -> int:
-    raise OSError()
-def forkpty() -> Tuple[int, int]:
-    raise OSError()
+def fork() -> int: ...
+def forkpty() -> Tuple[int, int]: ...
 def fpathconf(fd: int, name: str) -> None: ...
 def fstat(fd: int) -> stat_result: ...
 def fstatvfs(fd: int) -> statvfs_result: ...
@@ -126,8 +123,7 @@ def getegid() -> int: ...
 def geteuid() -> int: ...
 def getgid() -> int: ...
 def getgroups() -> List[int]: ...
-def getloadavg() -> Tuple[float, float, float]:
-    raise OSError()
+def getloadavg() -> Tuple[float, float, float]: ...
 def getlogin() -> str: ...
 def getpgid(pid: int) -> int: ...
 def getpgrp() -> int: ...
@@ -143,8 +139,7 @@ def kill(pid: int, sig: int) -> None: ...
 def killpg(pgid: int, sig: int) -> None: ...
 def lchown(path: unicode, uid: int, gid: int) -> None: ...
 def link(source: unicode, link_name: str) -> None: ...
-_T = TypeVar("_T")
-def listdir(path: _T) -> List[_T]: ...
+def listdir(path: AnyStr) -> List[AnyStr]: ...
 def lseek(fd: int, pos: int, how: int) -> None: ...
 def lstat(path: unicode) -> stat_result: ...
 def major(device: int) -> int: ...
@@ -194,12 +189,10 @@ def uname() -> Tuple[str, str, str, str, str]: ...
 def unlink(path: unicode) -> None: ...
 def unsetenv(varname: str) -> None: ...
 def urandom(n: int) -> str: ...
-def utime(path: unicode, times: Optional[Tuple[int, int]]) -> None:
-    raise OSError
+def utime(path: unicode, times: Optional[Tuple[int, int]]) -> None: ...
 def wait() -> int: ...
 _r = Tuple[float, float, int, int, int, int, int, int, int, int, int, int, int, int, int, int]
 def wait3(options: int) -> Tuple[int, int, _r]: ...
 def wait4(pid: int, options: int) -> Tuple[int, int, _r]: ...
-def waitpid(pid: int, options: int) -> int:
-    raise OSError()
+def waitpid(pid: int, options: int) -> int: ...
 def write(fd: int, str: str) -> int: ...

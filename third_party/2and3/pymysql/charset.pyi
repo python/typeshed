@@ -1,9 +1,9 @@
 from typing import Any
 
-MBLENGTH = ...  # type: Any
+MBLENGTH: Any
 
 class Charset:
-    is_default = ...  # type: Any
+    is_default: Any
     def __init__(self, id, name, collation, is_default): ...
 
 class Charsets:

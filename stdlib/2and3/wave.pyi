@@ -2,26 +2,25 @@
 
 import sys
 from typing import (
-    Any, NamedTuple, NoReturn, Optional, Text, BinaryIO, Union, Tuple
+    Any, NamedTuple, NoReturn, Optional, Text, BinaryIO, Union, Tuple, IO
 )
 
-_File = Union[Text, BinaryIO]
+_File = Union[Text, IO[bytes]]
 
 class Error(Exception): ...
 
-WAVE_FORMAT_PCM = ...  # type: int
+WAVE_FORMAT_PCM: int
 
 if sys.version_info < (3, 0):
     _wave_params = Tuple[int, int, int, int, str, str]
 else:
-    _wave_params = NamedTuple('_wave_params', [
-        ('nchannels', int),
-        ('sampwidth', int),
-        ('framerate', int),
-        ('nframes', int),
-        ('comptype', str),
-        ('compname', str),
-    ])
+    class _wave_params(NamedTuple):
+        nchannels: int
+        sampwidth: int
+        framerate: int
+        nframes: int
+        comptype: str
+        compname: str
 
 class Wave_read:
     def __init__(self, f: _File) -> None: ...
@@ -73,4 +72,5 @@ class Wave_write:
 
 # Returns a Wave_read if mode is rb and Wave_write if mode is wb
 def open(f: _File, mode: Optional[str] = ...) -> Any: ...
-openfp = open
+if sys.version_info < (3, 9):
+    openfp = open

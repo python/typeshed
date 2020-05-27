@@ -7,32 +7,31 @@ _File = Union[Text, IO[bytes]]
 
 class Error(Exception): ...
 
-AUDIO_FILE_MAGIC = ...  # type: int
-AUDIO_FILE_ENCODING_MULAW_8 = ...  # type: int
-AUDIO_FILE_ENCODING_LINEAR_8 = ...  # type: int
-AUDIO_FILE_ENCODING_LINEAR_16 = ...  # type: int
-AUDIO_FILE_ENCODING_LINEAR_24 = ...  # type: int
-AUDIO_FILE_ENCODING_LINEAR_32 = ...  # type: int
-AUDIO_FILE_ENCODING_FLOAT = ...  # type: int
-AUDIO_FILE_ENCODING_DOUBLE = ...  # type: int
-AUDIO_FILE_ENCODING_ADPCM_G721 = ...  # type: int
-AUDIO_FILE_ENCODING_ADPCM_G722 = ...  # type: int
-AUDIO_FILE_ENCODING_ADPCM_G723_3 = ...  # type: int
-AUDIO_FILE_ENCODING_ADPCM_G723_5 = ...  # type: int
-AUDIO_FILE_ENCODING_ALAW_8 = ...  # type: int
-AUDIO_UNKNOWN_SIZE = ...  # type: int
+AUDIO_FILE_MAGIC: int
+AUDIO_FILE_ENCODING_MULAW_8: int
+AUDIO_FILE_ENCODING_LINEAR_8: int
+AUDIO_FILE_ENCODING_LINEAR_16: int
+AUDIO_FILE_ENCODING_LINEAR_24: int
+AUDIO_FILE_ENCODING_LINEAR_32: int
+AUDIO_FILE_ENCODING_FLOAT: int
+AUDIO_FILE_ENCODING_DOUBLE: int
+AUDIO_FILE_ENCODING_ADPCM_G721: int
+AUDIO_FILE_ENCODING_ADPCM_G722: int
+AUDIO_FILE_ENCODING_ADPCM_G723_3: int
+AUDIO_FILE_ENCODING_ADPCM_G723_5: int
+AUDIO_FILE_ENCODING_ALAW_8: int
+AUDIO_UNKNOWN_SIZE: int
 
 if sys.version_info < (3, 0):
     _sunau_params = Tuple[int, int, int, int, str, str]
 else:
-    _sunau_params = NamedTuple('_sunau_params', [
-        ('nchannels', int),
-        ('sampwidth', int),
-        ('framerate', int),
-        ('nframes', int),
-        ('comptype', str),
-        ('compname', str),
-    ])
+    class _sunau_params(NamedTuple):
+        nchannels: int
+        sampwidth: int
+        framerate: int
+        nframes: int
+        comptype: str
+        compname: str
 
 class Au_read:
     def __init__(self, f: _File) -> None: ...
@@ -84,4 +83,5 @@ class Au_write:
 
 # Returns a Au_read if mode is rb and Au_write if mode is wb
 def open(f: _File, mode: Optional[str] = ...) -> Any: ...
-openfp = open
+if sys.version_info < (3, 9):
+    openfp = open

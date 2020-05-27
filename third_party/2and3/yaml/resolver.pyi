@@ -4,13 +4,13 @@ from yaml.error import YAMLError
 class ResolverError(YAMLError): ...
 
 class BaseResolver:
-    DEFAULT_SCALAR_TAG = ...  # type: Any
-    DEFAULT_SEQUENCE_TAG = ...  # type: Any
-    DEFAULT_MAPPING_TAG = ...  # type: Any
-    yaml_implicit_resolvers = ...  # type: Any
-    yaml_path_resolvers = ...  # type: Any
-    resolver_exact_paths = ...  # type: Any
-    resolver_prefix_paths = ...  # type: Any
+    DEFAULT_SCALAR_TAG: Any
+    DEFAULT_SEQUENCE_TAG: Any
+    DEFAULT_MAPPING_TAG: Any
+    yaml_implicit_resolvers: Any
+    yaml_path_resolvers: Any
+    resolver_exact_paths: Any
+    resolver_prefix_paths: Any
     def __init__(self) -> None: ...
     @classmethod
     def add_implicit_resolver(cls, tag, regexp, first): ...

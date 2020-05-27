@@ -14,43 +14,88 @@ def copy_cache(cache): ...
 def load_extensions(environment, extensions): ...
 
 class Environment:
-    sandboxed = ...  # type: bool
-    overlayed = ...  # type: bool
-    linked_to = ...  # type: Any
-    shared = ...  # type: bool
-    exception_handler = ...  # type: Any
-    exception_formatter = ...  # type: Any
-    code_generator_class = ...  # type: Any
-    context_class = ...  # type: Any
-    block_start_string = ...  # type: Text
-    block_end_string = ...  # type: Text
-    variable_start_string = ...  # type: Text
-    variable_end_string = ...  # type: Text
-    comment_start_string = ...  # type: Text
-    comment_end_string = ...  # type: Text
-    line_statement_prefix = ...  # type: Text
-    line_comment_prefix = ...  # type: Text
-    trim_blocks = ...  # type: bool
-    lstrip_blocks = ...  # type: Any
-    newline_sequence = ...  # type: Text
-    keep_trailing_newline = ...  # type: bool
-    undefined = ...  # type: Type[Undefined]
-    optimized = ...  # type: bool
-    finalize = ...  # type: Callable
-    autoescape = ...  # type: Any
-    filters = ...  # type: Any
-    tests = ...  # type: Any
-    globals = ...  # type: Dict[str, Any]
-    loader = ...  # type: BaseLoader
-    cache = ...  # type: Any
-    bytecode_cache = ...  # type: BytecodeCache
-    auto_reload = ...  # type: bool
-    extensions = ...  # type: List
-    def __init__(self, block_start_string: Text = ..., block_end_string: Text = ..., variable_start_string: Text = ..., variable_end_string: Text = ..., comment_start_string: Any = ..., comment_end_string: Text = ..., line_statement_prefix: Text = ..., line_comment_prefix: Text = ..., trim_blocks: bool = ..., lstrip_blocks: bool = ..., newline_sequence: Text = ..., keep_trailing_newline: bool = ..., extensions: List = ..., optimized: bool = ..., undefined: Type[Undefined] = ..., finalize: Optional[Callable] = ..., autoescape: Union[bool, Callable[[str], bool]] = ..., loader: Optional[BaseLoader] = ..., cache_size: int = ..., auto_reload: bool = ..., bytecode_cache: Optional[BytecodeCache] = ..., enable_async: bool = ...) -> None: ...
+    sandboxed: bool
+    overlayed: bool
+    linked_to: Any
+    shared: bool
+    exception_handler: Any
+    exception_formatter: Any
+    code_generator_class: Any
+    context_class: Any
+    block_start_string: Text
+    block_end_string: Text
+    variable_start_string: Text
+    variable_end_string: Text
+    comment_start_string: Text
+    comment_end_string: Text
+    line_statement_prefix: Text
+    line_comment_prefix: Text
+    trim_blocks: bool
+    lstrip_blocks: Any
+    newline_sequence: Text
+    keep_trailing_newline: bool
+    undefined: Type[Undefined]
+    optimized: bool
+    finalize: Callable[..., Any]
+    autoescape: Any
+    filters: Any
+    tests: Any
+    globals: Dict[str, Any]
+    loader: BaseLoader
+    cache: Any
+    bytecode_cache: BytecodeCache
+    auto_reload: bool
+    extensions: List[Any]
+    def __init__(
+        self,
+        block_start_string: Text = ...,
+        block_end_string: Text = ...,
+        variable_start_string: Text = ...,
+        variable_end_string: Text = ...,
+        comment_start_string: Any = ...,
+        comment_end_string: Text = ...,
+        line_statement_prefix: Text = ...,
+        line_comment_prefix: Text = ...,
+        trim_blocks: bool = ...,
+        lstrip_blocks: bool = ...,
+        newline_sequence: Text = ...,
+        keep_trailing_newline: bool = ...,
+        extensions: List[Any] = ...,
+        optimized: bool = ...,
+        undefined: Type[Undefined] = ...,
+        finalize: Optional[Callable[..., Any]] = ...,
+        autoescape: Union[bool, Callable[[str], bool]] = ...,
+        loader: Optional[BaseLoader] = ...,
+        cache_size: int = ...,
+        auto_reload: bool = ...,
+        bytecode_cache: Optional[BytecodeCache] = ...,
+        enable_async: bool = ...,
+    ) -> None: ...
     def add_extension(self, extension): ...
     def extend(self, **attributes): ...
-    def overlay(self, block_start_string: Text = ..., block_end_string: Text = ..., variable_start_string: Text = ..., variable_end_string: Text = ..., comment_start_string: Any = ..., comment_end_string: Text = ..., line_statement_prefix: Text = ..., line_comment_prefix: Text = ..., trim_blocks: bool = ..., lstrip_blocks: bool = ..., extensions: List = ..., optimized: bool = ..., undefined: Type[Undefined] = ..., finalize: Callable = ..., autoescape: bool = ..., loader: Optional[BaseLoader] = ..., cache_size: int = ..., auto_reload: bool = ..., bytecode_cache: Optional[BytecodeCache] = ...): ...
-    lexer = ...  # type: Any
+    def overlay(
+        self,
+        block_start_string: Text = ...,
+        block_end_string: Text = ...,
+        variable_start_string: Text = ...,
+        variable_end_string: Text = ...,
+        comment_start_string: Any = ...,
+        comment_end_string: Text = ...,
+        line_statement_prefix: Text = ...,
+        line_comment_prefix: Text = ...,
+        trim_blocks: bool = ...,
+        lstrip_blocks: bool = ...,
+        extensions: List[Any] = ...,
+        optimized: bool = ...,
+        undefined: Type[Undefined] = ...,
+        finalize: Callable[..., Any] = ...,
+        autoescape: bool = ...,
+        loader: Optional[BaseLoader] = ...,
+        cache_size: int = ...,
+        auto_reload: bool = ...,
+        bytecode_cache: Optional[BytecodeCache] = ...,
+    ): ...
+    lexer: Any
     def iter_extensions(self): ...
     def getitem(self, obj, argument): ...
     def getattr(self, obj, attribute): ...
@@ -73,15 +118,17 @@ class Environment:
 
     # Frequently added extensions are included here:
     # from InternationalizationExtension:
-    def install_gettext_translations(self, translations: Any, newstyle: Optional[bool]): ...
-    def install_null_translations(self, newstyle: Optional[bool]): ...
-    def install_gettext_callables(self, gettext: Callable, ngettext: Callable,
-                                  newstyle: Optional[bool]): ...
+    def install_gettext_translations(self, translations: Any, newstyle: Optional[bool] = ...): ...
+    def install_null_translations(self, newstyle: Optional[bool] = ...): ...
+    def install_gettext_callables(self, gettext: Callable[..., Any], ngettext: Callable[..., Any], newstyle: Optional[bool] = ...): ...
     def uninstall_gettext_translations(self, translations: Any): ...
     def extract_translations(self, source: Any, gettext_functions: Any): ...
-    newstyle_gettext = ...  # type: bool
+    newstyle_gettext: bool
 
 class Template:
+    name: Optional[str]
+    filename: Optional[str]
+
     def __new__(cls, source, block_start_string: Any = ..., block_end_string: Any = ..., variable_start_string: Any = ..., variable_end_string: Any = ..., comment_start_string: Any = ..., comment_end_string: Any = ..., line_statement_prefix: Any = ..., line_comment_prefix: Any = ..., trim_blocks: Any = ..., lstrip_blocks: Any = ..., newline_sequence: Any = ..., keep_trailing_newline: Any = ..., extensions: Any = ..., optimized: bool = ..., undefined: Any = ..., finalize: Optional[Any] = ..., autoescape: bool = ...): ...
     environment: Environment = ...
     @classmethod
@@ -107,7 +154,7 @@ class Template:
 
 
 class TemplateModule:
-    __name__ = ...  # type: Any
+    __name__: Any
     def __init__(self, template, context) -> None: ...
     def __html__(self): ...
 
@@ -118,7 +165,7 @@ class TemplateExpression:
 class TemplateStream:
     def __init__(self, gen) -> None: ...
     def dump(self, fp, encoding: Optional[Text] = ..., errors: Text = ...): ...
-    buffered = ...  # type: bool
+    buffered: bool
     def disable_buffering(self) -> None: ...
     def enable_buffering(self, size: int = ...) -> None: ...
     def __iter__(self): ...

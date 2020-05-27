@@ -1,65 +1,65 @@
-from typing import Any, Optional
+from typing import Any, Optional, Tuple
 
-whitespace_re = ...  # type: Any
-string_re = ...  # type: Any
-integer_re = ...  # type: Any
-name_re = ...  # type: Any
-float_re = ...  # type: Any
-newline_re = ...  # type: Any
-TOKEN_ADD = ...  # type: Any
-TOKEN_ASSIGN = ...  # type: Any
-TOKEN_COLON = ...  # type: Any
-TOKEN_COMMA = ...  # type: Any
-TOKEN_DIV = ...  # type: Any
-TOKEN_DOT = ...  # type: Any
-TOKEN_EQ = ...  # type: Any
-TOKEN_FLOORDIV = ...  # type: Any
-TOKEN_GT = ...  # type: Any
-TOKEN_GTEQ = ...  # type: Any
-TOKEN_LBRACE = ...  # type: Any
-TOKEN_LBRACKET = ...  # type: Any
-TOKEN_LPAREN = ...  # type: Any
-TOKEN_LT = ...  # type: Any
-TOKEN_LTEQ = ...  # type: Any
-TOKEN_MOD = ...  # type: Any
-TOKEN_MUL = ...  # type: Any
-TOKEN_NE = ...  # type: Any
-TOKEN_PIPE = ...  # type: Any
-TOKEN_POW = ...  # type: Any
-TOKEN_RBRACE = ...  # type: Any
-TOKEN_RBRACKET = ...  # type: Any
-TOKEN_RPAREN = ...  # type: Any
-TOKEN_SEMICOLON = ...  # type: Any
-TOKEN_SUB = ...  # type: Any
-TOKEN_TILDE = ...  # type: Any
-TOKEN_WHITESPACE = ...  # type: Any
-TOKEN_FLOAT = ...  # type: Any
-TOKEN_INTEGER = ...  # type: Any
-TOKEN_NAME = ...  # type: Any
-TOKEN_STRING = ...  # type: Any
-TOKEN_OPERATOR = ...  # type: Any
-TOKEN_BLOCK_BEGIN = ...  # type: Any
-TOKEN_BLOCK_END = ...  # type: Any
-TOKEN_VARIABLE_BEGIN = ...  # type: Any
-TOKEN_VARIABLE_END = ...  # type: Any
-TOKEN_RAW_BEGIN = ...  # type: Any
-TOKEN_RAW_END = ...  # type: Any
-TOKEN_COMMENT_BEGIN = ...  # type: Any
-TOKEN_COMMENT_END = ...  # type: Any
-TOKEN_COMMENT = ...  # type: Any
-TOKEN_LINESTATEMENT_BEGIN = ...  # type: Any
-TOKEN_LINESTATEMENT_END = ...  # type: Any
-TOKEN_LINECOMMENT_BEGIN = ...  # type: Any
-TOKEN_LINECOMMENT_END = ...  # type: Any
-TOKEN_LINECOMMENT = ...  # type: Any
-TOKEN_DATA = ...  # type: Any
-TOKEN_INITIAL = ...  # type: Any
-TOKEN_EOF = ...  # type: Any
-operators = ...  # type: Any
-reverse_operators = ...  # type: Any
-operator_re = ...  # type: Any
-ignored_tokens = ...  # type: Any
-ignore_if_empty = ...  # type: Any
+whitespace_re: Any
+string_re: Any
+integer_re: Any
+name_re: Any
+float_re: Any
+newline_re: Any
+TOKEN_ADD: Any
+TOKEN_ASSIGN: Any
+TOKEN_COLON: Any
+TOKEN_COMMA: Any
+TOKEN_DIV: Any
+TOKEN_DOT: Any
+TOKEN_EQ: Any
+TOKEN_FLOORDIV: Any
+TOKEN_GT: Any
+TOKEN_GTEQ: Any
+TOKEN_LBRACE: Any
+TOKEN_LBRACKET: Any
+TOKEN_LPAREN: Any
+TOKEN_LT: Any
+TOKEN_LTEQ: Any
+TOKEN_MOD: Any
+TOKEN_MUL: Any
+TOKEN_NE: Any
+TOKEN_PIPE: Any
+TOKEN_POW: Any
+TOKEN_RBRACE: Any
+TOKEN_RBRACKET: Any
+TOKEN_RPAREN: Any
+TOKEN_SEMICOLON: Any
+TOKEN_SUB: Any
+TOKEN_TILDE: Any
+TOKEN_WHITESPACE: Any
+TOKEN_FLOAT: Any
+TOKEN_INTEGER: Any
+TOKEN_NAME: Any
+TOKEN_STRING: Any
+TOKEN_OPERATOR: Any
+TOKEN_BLOCK_BEGIN: Any
+TOKEN_BLOCK_END: Any
+TOKEN_VARIABLE_BEGIN: Any
+TOKEN_VARIABLE_END: Any
+TOKEN_RAW_BEGIN: Any
+TOKEN_RAW_END: Any
+TOKEN_COMMENT_BEGIN: Any
+TOKEN_COMMENT_END: Any
+TOKEN_COMMENT: Any
+TOKEN_LINESTATEMENT_BEGIN: Any
+TOKEN_LINESTATEMENT_END: Any
+TOKEN_LINECOMMENT_BEGIN: Any
+TOKEN_LINECOMMENT_END: Any
+TOKEN_LINECOMMENT: Any
+TOKEN_DATA: Any
+TOKEN_INITIAL: Any
+TOKEN_EOF: Any
+operators: Any
+reverse_operators: Any
+operator_re: Any
+ignored_tokens: Any
+ignore_if_empty: Any
 
 def describe_token(token): ...
 def describe_token_expr(expr): ...
@@ -67,35 +67,35 @@ def count_newlines(value): ...
 def compile_rules(environment): ...
 
 class Failure:
-    message = ...  # type: Any
-    error_class = ...  # type: Any
+    message: Any
+    error_class: Any
     def __init__(self, message, cls: Any = ...) -> None: ...
     def __call__(self, lineno, filename): ...
 
-class Token(tuple):
-    lineno = ...  # type: Any
-    type = ...  # type: Any
-    value = ...  # type: Any
+class Token(Tuple[int, Any, Any]):
+    lineno: Any
+    type: Any
+    value: Any
     def __new__(cls, lineno, type, value): ...
     def test(self, expr): ...
     def test_any(self, *iterable): ...
 
 class TokenStreamIterator:
-    stream = ...  # type: Any
+    stream: Any
     def __init__(self, stream) -> None: ...
     def __iter__(self): ...
     def __next__(self): ...
 
 class TokenStream:
-    name = ...  # type: Any
-    filename = ...  # type: Any
-    closed = ...  # type: bool
-    current = ...  # type: Any
+    name: Any
+    filename: Any
+    closed: bool
+    current: Any
     def __init__(self, generator, name, filename) -> None: ...
     def __iter__(self): ...
     def __bool__(self): ...
-    __nonzero__ = ...  # type: Any
-    eos = ...  # type: Any
+    __nonzero__: Any
+    eos: Any
     def push(self, token): ...
     def look(self): ...
     def skip(self, n: int = ...): ...
@@ -108,9 +108,9 @@ class TokenStream:
 def get_lexer(environment): ...
 
 class Lexer:
-    newline_sequence = ...  # type: Any
-    keep_trailing_newline = ...  # type: Any
-    rules = ...  # type: Any
+    newline_sequence: Any
+    keep_trailing_newline: Any
+    rules: Any
     def __init__(self, environment) -> None: ...
     def tokenize(self, source, name: Optional[Any] = ..., filename: Optional[Any] = ..., state: Optional[Any] = ...): ...
     def wrap(self, stream, name: Optional[Any] = ..., filename: Optional[Any] = ...): ...
