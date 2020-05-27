@@ -379,7 +379,6 @@ multiprocessing.synchronize.SemLock.acquire
 multiprocessing.synchronize.SemLock.release
 netrc.NetrcParseError.__init__
 netrc.netrc.__init__
-nntplib._NNTPBase.starttls
 ntpath.join
 ntpath.realpath
 numbers.Number.__hash__
@@ -408,7 +407,6 @@ pipes.Template.copy
 pkgutil.ImpImporter.__init__
 poplib.POP3_SSL.stls
 posix.EX_NOTFOUND
-pwd.getpwnam
 pydoc.HTMLDoc.docdata
 pydoc.HTMLDoc.docproperty
 pydoc.HTMLDoc.docroutine
@@ -435,9 +433,6 @@ shlex.shlex.sourcehook
 shutil.register_unpack_format
 signal.SIGEMT
 signal.SIGINFO
-site.getsitepackages
-site.getuserbase
-site.getusersitepackages
 smtpd.MailmanProxy.process_message
 smtpd.PureProxy.process_message
 smtplib.SMTP.send_message
@@ -513,10 +508,6 @@ types.prepare_class
 typing.AwaitableGenerator
 typing.IO.__iter__
 typing.IO.__next__
-typing.IO.closed
-typing.NamedTuple._asdict
-typing.NamedTuple._make
-typing.NamedTuple._replace
 typing.type_check_only
 unittest.TestCase.assertAlmostEqual
 unittest.TestCase.assertDictContainsSubset
@@ -532,7 +523,6 @@ unittest.case.TestCase.assertAlmostEqual
 unittest.case.TestCase.assertDictContainsSubset
 unittest.case.TestCase.assertNotAlmostEqual
 unittest.case.TestCase.assertSequenceEqual
-unittest.case._AssertLogsContext.__init__
 unittest.case.expectedFailure
 unittest.expectedFailure
 unittest.loader.TestLoader.loadTestsFromModule
@@ -578,10 +568,6 @@ wsgiref.util.FileWrapper.close
 xml.etree.ElementPath._SelectorContext.parent_map
 xml.etree.ElementTree.Element.__bool__
 xml.etree.ElementTree.Element.copy
-xml.etree.ElementTree.TreeBuilder.start
-xml.etree.cElementTree.Element.__bool__
-xml.etree.cElementTree.Element.copy
-xml.etree.cElementTree.TreeBuilder.start
 xml.sax.xmlreader.AttributesImpl.has_key
 zipfile.ZipExtFile.read
 zipfile.ZipExtFile.readline

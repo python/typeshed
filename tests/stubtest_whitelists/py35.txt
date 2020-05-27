@@ -42,10 +42,15 @@ json.loads
 mmap.ACCESS_DEFAULT
 multiprocessing.context.BaseContext.reducer
 multiprocessing.shared_memory
+nntplib._NNTPBase.starttls
 os.DirEntry
 os.utime
 plistlib.Dict.__init__
+pwd.getpwnam
 pyexpat.XMLParserType.ExternalEntityParserCreate
+site.getsitepackages
+site.getuserbase
+site.getusersitepackages
 smtpd.SMTPChannel.__init__
 smtpd.SMTPServer.__init__
 socket.NETLINK_CRYPTO
@@ -62,6 +67,7 @@ typing.Generator.gi_frame
 typing.Generator.gi_running
 typing.Generator.gi_yieldfrom
 typing.GenericMeta.__new__
+typing.IO.closed  # Incorrect definition in CPython, fixed in bpo-39493
 typing.Mapping.get
 typing.MutableMapping.pop
 typing.MutableMapping.setdefault
@@ -73,11 +79,19 @@ typing.MutableSet.add
 typing.MutableSet.discard
 typing.MutableSet.remove
 typing.NamedTuple.__new__
+typing.NamedTuple._asdict
+typing.NamedTuple._make
+typing.NamedTuple._replace
 typing.Sequence.count
 typing.Sequence.index
 typing.runtime_checkable
 unittest.async_case
+unittest.case._AssertLogsContext.__init__
 uuid.UUID.int
+xml.etree.ElementTree.TreeBuilder.start  # Discrepancy between Python and C modules, fixed in bpo-39495
+xml.etree.cElementTree.Element.__bool__
+xml.etree.cElementTree.Element.copy
+xml.etree.cElementTree.TreeBuilder.start  # bpo-39495
 xml.etree.cElementTree.XMLPullParser
 xml.parsers.expat.XMLParserType.ExternalEntityParserCreate
 zipfile.ZipFile.open

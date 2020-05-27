@@ -47,10 +47,15 @@ json.loads
 logging.handlers.MemoryHandler.__init__
 macurl2path
 multiprocessing.shared_memory
+nntplib._NNTPBase.starttls
 os.utime
+pwd.getpwnam
 pyexpat.XMLParserType.ExternalEntityParserCreate
 queue.SimpleQueue.__init__
 secrets.SystemRandom.getstate
+site.getsitepackages
+site.getuserbase
+site.getusersitepackages
 smtplib.SMTP.sendmail
 sre_constants.RANGE_IGNORE
 time.CLOCK_PROF
@@ -60,14 +65,23 @@ tkinter.Misc.tk_menuBar
 types.ClassMethodDescriptorType.__get__
 types.MethodDescriptorType.__get__
 types.WrapperDescriptorType.__get__
+typing.IO.closed  # Incorrect definition in CPython, fixed in bpo-39493
+typing.NamedTuple._asdict
+typing.NamedTuple._make
+typing.NamedTuple._replace
 typing._SpecialForm.__init__
 typing._SpecialForm.__new__
 typing.runtime_checkable
 unittest.async_case
+unittest.case._AssertLogsContext.__init__
 urllib.parse.parse_qs
 urllib.parse.parse_qsl
 uuid.UUID.int
 uuid.UUID.is_safe
 uuid.getnode  # undocumented, unused parameter getters that was later removed
 webbrowser.Opera.raise_opts
+xml.etree.ElementTree.TreeBuilder.start  # Discrepancy between Python and C modules, fixed in bpo-39495
+xml.etree.cElementTree.Element.__bool__
+xml.etree.cElementTree.Element.copy
+xml.etree.cElementTree.TreeBuilder.start  # bpo-39495
 xml.parsers.expat.XMLParserType.ExternalEntityParserCreate
