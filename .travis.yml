@@ -73,7 +73,7 @@ jobs:
       <<: *test_windows
       env:
         <<: *env_windows
-        PYTHON_VERSION: 3.6.10
+        PYTHON_VERSION: 3.6.8
       install: pip install -U git+git://github.com/python/mypy@b3d43984
       script: python ./tests/stubtest_test.py
   allow_failures:

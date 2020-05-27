@@ -3,6 +3,7 @@ ctypes.WinError  # Parameter name mismatch
 locale.[A-Z0-9_]+  # Constants that should be moved to _locale and re-exported conditionally
 locale.nl_langinfo  # Function that should be moved to _locale and re-exported conditionally
 os.path.join  # Parameter name mismatch
+os._AddedDllDirectory.__init__  # Parameters mismatch
 posixpath.altsep  # Type mismatch
 posixpath.realpath  # Parameter name mismatch
 sys.abiflags  # Not present

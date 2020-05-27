@@ -2,6 +2,8 @@
 # Modules that do not exist on Linux systems
 _msi
 _winapi
+asyncio.windows_events
+asyncio.windows_utils
 msilib(.[a-z]+)?
 msvcrt
 winreg

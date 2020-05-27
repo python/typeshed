@@ -31,8 +31,6 @@ asyncio.selector_events.BaseSelectorEventLoop.sock_recv
 asyncio.streams.FlowControlMixin.__init__
 asyncio.tasks.Task.get_stack
 asyncio.tasks.Task.print_stack
-asyncio.windows_events
-asyncio.windows_utils
 bdb.Bdb.__init__
 builtins.WindowsError
 builtins.bytearray.__float__
