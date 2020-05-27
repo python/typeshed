@@ -19,6 +19,7 @@ _collections_abc.MutableSet.discard
 _collections_abc.MutableSet.remove
 _collections_abc.Sequence.count
 _collections_abc.Sequence.index
+_collections_abc.Set.isdisjoint
 _csv.Dialect.__init__
 _dummy_threading
 _importlib_modulespec
@@ -120,6 +121,7 @@ collections.MutableSet.discard
 collections.MutableSet.remove
 collections.Sequence.count
 collections.Sequence.index
+collections.Set.isdisjoint
 collections.deque.__hash__
 concurrent.futures.Executor.map
 concurrent.futures._base.Executor.map
