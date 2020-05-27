@@ -27,13 +27,13 @@ jobs:
     - name: "check file consistency"
       script: ./tests/check_consistent.py
     - name: "flake8"
-      install: pip install $(cat requirements-tests-py3.txt | grep flake8)
+      install: pip install $(grep flake8 requirements-tests-py3.txt)
       script: flake8
     - name: "black"
-      install: pip install $(cat requirements-tests-py3.txt | grep black)
+      install: pip install $(grep black requirements-tests-py3.txt)
       script: black --check --diff stdlib third_party
     - name: "isort"
-      install: pip install $(cat requirements-tests-py3.txt | grep isort)
+      install: pip install $(grep isort requirements-tests-py3.txt)
       script: isort --check-only --diff --recursive stdlib third_party
     - name: "stubtest py38"
       python: 3.8
