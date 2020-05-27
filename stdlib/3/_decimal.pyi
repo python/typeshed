@@ -34,8 +34,7 @@ if sys.version_info >= (3,):
     MIN_EMIN: int
     MIN_ETINY: int
 
-class DecimalException(ArithmeticError):
-    def handle(self, context: Context, *args: Any) -> Optional[Decimal]: ...
+class DecimalException(ArithmeticError): ...
 
 class Clamped(DecimalException): ...
 
