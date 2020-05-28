@@ -2,7 +2,7 @@
 import sys
 from typing import Optional, NoReturn, ClassVar, Sequence
 
-if sys.version_info >= (3, 8)
+if sys.version_info >= (3, 8):
     from typing import Literal
 else:
     from typing_extensions import Literal
