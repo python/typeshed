@@ -381,10 +381,8 @@ pydoc.TextDoc.docother
 pydoc.TextDoc.docproperty
 pydoc.TextDoc.docroutine
 random.Random.randrange
-random.Random.triangular
 random.SystemRandom.getstate
 random.randrange
-random.triangular
 re.error.__init__
 runpy.run_path
 sched.Event.__doc__
