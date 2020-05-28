@@ -2,10 +2,7 @@ _ast.ImportFrom.level
 _dummy_thread
 _thread.ExceptHookArgs
 _thread._ExceptHookArgs
-_tracemalloc._get_object_traceback
-_tracemalloc.start
 _weakref.getweakrefcount
-aifc.openfp
 array.array.fromstring
 array.array.tostring
 ast.Bytes.__new__
@@ -31,7 +28,6 @@ asyncio.futures.Future._callbacks
 asyncio.futures.Future.cancel
 asyncio.proactor_events._ProactorBasePipeTransport.__del__
 asyncio.tasks.Task.cancel
-bdb.Bdb.runcall
 builtins.bytearray.extend
 builtins.bytearray.pop
 builtins.compile
@@ -101,6 +97,7 @@ functools.singledispatchmethod.__call__
 gettext.install
 gettext.translation
 hmac.compare_digest
+hmac.new  # Stub is a white lie; see comments in the stub
 http.client.HTTPSConnection.__init__
 http.cookiejar.DefaultCookiePolicy.__init__
 http.server.SimpleHTTPRequestHandler.__init__
@@ -170,11 +167,9 @@ profile.Profile.runcall
 pwd.getpwnam
 pwd.getpwuid
 queue.SimpleQueue.__init__
-random.Random.getrandbits
-random.Random.sample
-random.getrandbits
-random.sample
+random.SystemRandom.getrandbits
 secrets.SystemRandom.getstate
+secrets.SystemRandom.getrandbits
 secrets.compare_digest
 signal.sigtimedwait
 signal.sigwaitinfo

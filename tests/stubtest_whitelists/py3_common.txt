@@ -30,7 +30,6 @@ asyncio.selector_events.BaseSelectorEventLoop.sock_recv
 asyncio.streams.FlowControlMixin.__init__
 asyncio.tasks.Task.get_stack
 asyncio.tasks.Task.print_stack
-bdb.Bdb.__init__
 builtins.bytearray.__float__
 builtins.bytearray.__int__
 builtins.bytearray.append
@@ -210,15 +209,6 @@ encodings.utf_8.encode
 enum.EnumMeta.__call__
 enum.EnumMeta.__new__
 getopt.GetoptError.__init__
-gettext.GNUTranslations.lngettext
-gettext.GNUTranslations.ngettext
-gettext.NullTranslations.__init__
-gettext.NullTranslations.lngettext
-gettext.NullTranslations.ngettext
-gettext.dngettext
-gettext.ldngettext
-gettext.lngettext
-gettext.ngettext
 hmac.HMAC.__init__
 html.parser.HTMLParser.feed
 http.HTTPStatus.description
@@ -391,10 +381,8 @@ pydoc.TextDoc.docother
 pydoc.TextDoc.docproperty
 pydoc.TextDoc.docroutine
 random.Random.randrange
-random.Random.triangular
 random.SystemRandom.getstate
 random.randrange
-random.triangular
 re.error.__init__
 runpy.run_path
 sched.Event.__doc__
@@ -505,8 +493,6 @@ urllib.error.URLError.__init__
 urllib.parse._DefragResultBase.__new__
 urllib.request.BaseHandler.http_error_nnn
 urllib.request.HTTPPasswordMgrWithPriorAuth.__init__
-urllib.response.addinfo.__init__
-urllib.response.addinfourl.__init__
 urllib.robotparser.RobotFileParser.can_fetch
 warnings.catch_warnings.__init__
 weakref.CallableProxyType.__getattr__
@@ -526,9 +512,7 @@ webbrowser.UnixBrowser.raise_opts
 webbrowser.UnixBrowser.remote_action
 webbrowser.UnixBrowser.remote_action_newtab
 webbrowser.UnixBrowser.remote_action_newwin
-wsgiref.types
-wsgiref.util.FileWrapper.__init__
-wsgiref.util.FileWrapper.close
+wsgiref.types  # Doesn't exist, see comments in file
 xml.etree.ElementPath._SelectorContext.parent_map
 xml.etree.ElementTree.Element.__bool__
 xml.etree.ElementTree.Element.copy
