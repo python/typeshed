@@ -16,6 +16,7 @@ asyncio.events.TimerHandle.__init__
 asyncio.futures.Future.__init__
 asyncio.futures.Future._callbacks
 asyncio.proactor_events._ProactorBasePipeTransport.__del__
+asyncio.threads  # Added in Python 3.9
 builtins.compile
 builtins.dict.get
 builtins.reversed

@@ -9,6 +9,7 @@ asyncio.events.TimerHandle.__init__
 asyncio.exceptions
 asyncio.futures.Future.__init__
 asyncio.futures.Future._callbacks
+asyncio.threads  # Added in Python 3.9
 builtins.dict.get
 builtins.reversed
 builtins.str.maketrans

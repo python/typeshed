@@ -86,6 +86,9 @@ from asyncio.events import (
     _set_running_loop as _set_running_loop,
     _get_running_loop as _get_running_loop,
 )
+if sys.version_info >= (3, 9):
+    from asyncio.threads import to_thread as to_thread
+
 if sys.platform == 'win32':
     from asyncio.windows_events import *
 else:
