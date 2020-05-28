@@ -8,13 +8,8 @@ if sys.version_info >= (3, 8):
 else:
     from typing_extensions import Literal
 
-if sys.version_info >= (3, 4):
-    # Changed in version 3.4: Added support for the "x", "xb" and "xt" modes.
-    _OpenBinaryWritingMode = Literal["w", "wb", "x", "xb", "a", "ab"]
-    _OpenTextWritingMode = Literal["wt", "xt", "at"]
-else:
-    _OpenBinaryWritingMode = Literal["w", "wb", "a", "ab"]
-    _OpenTextWritingMode = Literal["wt", "at"]
+_OpenBinaryWritingMode = Literal["w", "wb", "x", "xb", "a", "ab"]
+_OpenTextWritingMode = Literal["wt", "xt", "at"]
 
 _PathOrFile = Union[_PathType, IO[bytes]]
 

@@ -14,13 +14,8 @@ def compress(data: bytes, compresslevel: int = ...) -> bytes: ...
 def decompress(data: bytes) -> bytes: ...
 
 if sys.version_info >= (3, 3):
-    if sys.version_info >= (3, 4):
-        # Changed in version 3.4: The 'x' (exclusive creation) mode was added.
-        _OpenBinaryMode = Literal["r", "rb", "w", "wb", "x", "xb", "a", "ab"]
-        _OpenTextMode = Literal["rt", "wt", "xt", "at"]
-    else:
-        _OpenBinaryMode = Literal["r", "rb", "w", "wb", "a", "ab"]
-        _OpenTextMode = Literal["rt", "wt", "at"]
+    _OpenBinaryMode = Literal["r", "rb", "w", "wb", "x", "xb", "a", "ab"]
+    _OpenTextMode = Literal["rt", "wt", "xt", "at"]
     @overload
     def open(
         filename: _PathOrFile,

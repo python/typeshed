@@ -10,13 +10,8 @@ if sys.version_info >= (3, 8):
 else:
     from typing_extensions import Literal
 
-if sys.version_info >= (3, 4):
-    # Changed in version 3.4: Added support for the 'x', 'xb' and 'xt' modes.
-    _OpenBinaryMode = Literal["r", "rb", "a", "ab", "w", "wb", "x", "xb"]
-    _OpenTextMode = Literal["rt", "at", "wt", "xt"]
-else:
-    _OpenBinaryMode = Literal["r", "rb", "a", "ab", "w", "wb"]
-    _OpenTextMode = Literal["rt", "at", "wt"]
+_OpenBinaryMode = Literal["r", "rb", "a", "ab", "w", "wb", "x", "xb"]
+_OpenTextMode = Literal["rt", "at", "wt", "xt"]
 
 @overload
 def open(
