@@ -493,8 +493,6 @@ urllib.error.URLError.__init__
 urllib.parse._DefragResultBase.__new__
 urllib.request.BaseHandler.http_error_nnn
 urllib.request.HTTPPasswordMgrWithPriorAuth.__init__
-urllib.response.addinfo.__init__
-urllib.response.addinfourl.__init__
 urllib.robotparser.RobotFileParser.can_fetch
 warnings.catch_warnings.__init__
 weakref.CallableProxyType.__getattr__
