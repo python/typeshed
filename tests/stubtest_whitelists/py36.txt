@@ -6,7 +6,6 @@ asyncio.protocols.BufferedProtocol
 asyncio.runners
 asyncio.unix_events._UnixSelectorEventLoop.create_unix_server
 builtins.str.maketrans
-bz2.BZ2File.read1
 cmath.log
 codecs.StreamRecoder.seek
 collections.AsyncGenerator.ag_await
