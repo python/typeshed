@@ -19,7 +19,8 @@ _ExcInfo = Tuple[Type[BaseException], BaseException, TracebackType]
 _OptExcInfo = Union[_ExcInfo, Tuple[None, None, None]]
 
 # ----- sys variables -----
-abiflags: str
+if sys.platform != "win32":
+    abiflags: str
 argv: List[str]
 base_exec_prefix: str
 base_prefix: str
@@ -179,8 +180,8 @@ class _WinVersion(Tuple[int, int, int, int,
     product_type: int
     platform_version: Tuple[int, int, int]
 
-
-def getwindowsversion() -> _WinVersion: ...  # Windows only
+if sys.platform == "win32":
+    def getwindowsversion() -> _WinVersion: ...  # Windows only
 
 def intern(__string: str) -> str: ...
 
@@ -190,7 +191,8 @@ if sys.version_info >= (3, 7):
     __breakpointhook__: Any  # contains the original value of breakpointhook
     def breakpointhook(*args: Any, **kwargs: Any) -> Any: ...
 
-def setdlopenflags(__flags: int) -> None: ...  # Linux only
+if sys.platform == "linux":
+    def setdlopenflags(__flags: int) -> None: ...
 def setrecursionlimit(__limit: int) -> None: ...
 def setswitchinterval(__interval: float) -> None: ...
 
