@@ -1,5 +1,5 @@
 import sys
-from typing import Dict, Union, AnyStr, Pattern, Optional
+from typing import Dict, Pattern, Optional
 from typing_extensions import TypedDict
 from logging import Logger
 
