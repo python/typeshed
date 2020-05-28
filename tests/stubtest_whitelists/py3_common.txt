@@ -30,7 +30,6 @@ asyncio.selector_events.BaseSelectorEventLoop.sock_recv
 asyncio.streams.FlowControlMixin.__init__
 asyncio.tasks.Task.get_stack
 asyncio.tasks.Task.print_stack
-bdb.Bdb.__init__
 builtins.bytearray.__float__
 builtins.bytearray.__int__
 builtins.bytearray.append
