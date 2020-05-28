@@ -168,9 +168,9 @@ profile.Profile.runcall
 pwd.getpwnam
 pwd.getpwuid
 queue.SimpleQueue.__init__
-random.Random.getrandbits
-random.getrandbits
+random.SystemRandom.getrandbits
 secrets.SystemRandom.getstate
+secrets.SystemRandom.getrandbits
 secrets.compare_digest
 signal.sigtimedwait
 signal.sigwaitinfo
