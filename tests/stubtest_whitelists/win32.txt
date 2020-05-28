@@ -6,7 +6,6 @@ posixpath.altsep  # Type mismatch
 posixpath.realpath  # Parameter name mismatch
 sys.abiflags  # Not present
 sys.setdlopenflags  # Not present
-tempfile.TemporaryFile  # TODO: Weird inconsistency
 urllib.request.pathname2url  # Parameter name mismatch
 urllib.request.url2pathname  # Same
 winreg.[A-Za-z]+  # Should be made positional only
