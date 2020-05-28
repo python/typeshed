@@ -1,10 +1,45 @@
-from typing import Any, IO, Optional
-from os.path import _PathType
-import _compression
 import sys
 import zlib
+from os.path import _PathType
+from typing import IO, Optional, TextIO, Union, overload
 
-def open(filename, mode: str = ..., compresslevel: int = ..., encoding: Optional[str] = ..., errors: Optional[str] = ..., newline: Optional[str] = ...) -> IO[Any]: ...
+import _compression
+
+if sys.version_info >= (3, 8):
+    from typing import Literal
+else:
+    from typing_extensions import Literal
+
+_OpenBinaryMode = Literal["r", "rb", "a", "ab", "w", "wb", "x", "xb"]
+_OpenTextMode = Literal["rt", "at", "wt", "xt"]
+
+@overload
+def open(
+    filename: Union[_PathType, IO[bytes]],
+    mode: _OpenBinaryMode = ...,
+    compresslevel: int = ...,
+    encoding: None = ...,
+    errors: None = ...,
+    newline: None = ...,
+) -> GzipFile: ...
+@overload
+def open(
+    filename: _PathType,
+    mode: _OpenTextMode,
+    compresslevel: int = ...,
+    encoding: Optional[str] = ...,
+    errors: Optional[str] = ...,
+    newline: Optional[str] = ...,
+) -> TextIO: ...
+@overload
+def open(
+    filename: Union[_PathType, IO[bytes]],
+    mode: str,
+    compresslevel: int = ...,
+    encoding: Optional[str] = ...,
+    errors: Optional[str] = ...,
+    newline: Optional[str] = ...,
+) -> Union[GzipFile, TextIO]: ...
 
 class _PaddedFile:
     file: IO[bytes]
@@ -20,7 +55,14 @@ class GzipFile(_compression.BaseStream):
     name: str
     compress: zlib._Compress
     fileobj: IO[bytes]
-    def __init__(self, filename: Optional[_PathType] = ..., mode: Optional[str] = ..., compresslevel: int = ..., fileobj: Optional[IO[bytes]] = ..., mtime: Optional[float] = ...) -> None: ...
+    def __init__(
+        self,
+        filename: Optional[_PathType] = ...,
+        mode: Optional[str] = ...,
+        compresslevel: int = ...,
+        fileobj: Optional[IO[bytes]] = ...,
+        mtime: Optional[float] = ...,
+    ) -> None: ...
     @property
     def filename(self) -> str: ...
     @property
@@ -48,6 +90,8 @@ class _GzipReader(_compression.DecompressReader):
 
 if sys.version_info >= (3, 8):
     def compress(data, compresslevel: int = ..., *, mtime: Optional[float] = ...) -> bytes: ...
+
 else:
     def compress(data, compresslevel: int = ...) -> bytes: ...
+
 def decompress(data: bytes) -> bytes: ...

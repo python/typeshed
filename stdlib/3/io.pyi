@@ -8,6 +8,11 @@ from mmap import mmap
 from types import TracebackType
 from typing import TypeVar
 
+if sys.version_info >= (3, 8):
+    from typing import Literal
+else:
+    from typing_extensions import Literal
+
 _bytearray_like = Union[bytearray, mmap]
 
 DEFAULT_BUFFER_SIZE: int
@@ -17,6 +22,21 @@ SEEK_CUR: int
 SEEK_END: int
 
 _T = TypeVar('_T', bound=IOBase)
+
+_OpenTextMode = Literal[
+    'r', 'r+', '+r', 'rt', 'tr', 'rt+', 'r+t', '+rt', 'tr+', 't+r', '+tr',
+    'w', 'w+', '+w', 'wt', 'tw', 'wt+', 'w+t', '+wt', 'tw+', 't+w', '+tw',
+    'a', 'a+', '+a', 'at', 'ta', 'at+', 'a+t', '+at', 'ta+', 't+a', '+ta',
+    'x', 'x+', '+x', 'xt', 'tx', 'xt+', 'x+t', '+xt', 'tx+', 't+x', '+tx',
+    'U', 'rU', 'Ur', 'rtU', 'rUt', 'Urt', 'trU', 'tUr', 'Utr',
+]
+_OpenBinaryMode = Literal[
+    'rb', 'br', 'rb+', 'r+b', '+rb', 'br+', 'b+r', '+br',
+    'wb', 'bw', 'wb+', 'w+b', '+wb', 'bw+', 'b+w', '+bw',
+    'ab', 'ba', 'ab+', 'a+b', '+ab', 'ba+', 'b+a', '+ba',
+    'xb', 'bx', 'xb+', 'x+b', '+xb', 'bx+', 'b+x', '+bx',
+    'rbU', 'rUb', 'Urb', 'brU', 'bUr', 'Ubr',
+]
 
 open = builtins.open
 

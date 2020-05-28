@@ -1,25 +1,48 @@
 import io
 import sys
-from typing import Any, IO, Optional, Union
+from os.path import _PathType
+from typing import IO, Any, Optional, TextIO, Union, overload
 
-if sys.version_info >= (3, 6):
-    from os import PathLike
-    _PathOrFile = Union[str, bytes, IO[Any], PathLike[Any]]
-elif sys.version_info >= (3, 3):
-    _PathOrFile = Union[str, bytes, IO[Any]]
+if sys.version_info >= (3, 8):
+    from typing import Literal
 else:
-    _PathOrFile = str
+    from typing_extensions import Literal
+
+_PathOrFile = Union[_PathType, IO[bytes]]
 
 def compress(data: bytes, compresslevel: int = ...) -> bytes: ...
 def decompress(data: bytes) -> bytes: ...
 
 if sys.version_info >= (3, 3):
-    def open(filename: _PathOrFile,
-             mode: str = ...,
-             compresslevel: int = ...,
-             encoding: Optional[str] = ...,
-             errors: Optional[str] = ...,
-             newline: Optional[str] = ...) -> IO[Any]: ...
+    _OpenBinaryMode = Literal["r", "rb", "w", "wb", "x", "xb", "a", "ab"]
+    _OpenTextMode = Literal["rt", "wt", "xt", "at"]
+    @overload
+    def open(
+        filename: _PathOrFile,
+        mode: _OpenBinaryMode = ...,
+        compresslevel: int = ...,
+        encoding: None = ...,
+        errors: None = ...,
+        newline: None = ...,
+    ) -> BZ2File: ...
+    @overload
+    def open(
+        filename: _PathType,
+        mode: _OpenTextMode,
+        compresslevel: int = ...,
+        encoding: Optional[str] = ...,
+        errors: Optional[str] = ...,
+        newline: Optional[str] = ...,
+    ) -> TextIO: ...
+    @overload
+    def open(
+        filename: _PathOrFile,
+        mode: str,
+        compresslevel: int = ...,
+        encoding: Optional[str] = ...,
+        errors: Optional[str] = ...,
+        newline: Optional[str] = ...,
+    ) -> Union[BZ2File, TextIO]: ...
 
 class BZ2File(io.BufferedIOBase, IO[bytes]):  # type: ignore  # python/mypy#5027
     if sys.version_info >= (3, 9):

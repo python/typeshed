@@ -1,4 +1,6 @@
-from typing import Any, Generator, IO, Optional, Sequence, Tuple, Type, TypeVar, Union, List
+from io import _OpenBinaryMode, _OpenTextMode
+from typing import (Any, BinaryIO, Generator, IO, List, Optional, Sequence,
+                    TextIO, Tuple, Type, TypeVar, Union, overload)
 from types import TracebackType
 import os
 import sys
@@ -93,8 +95,14 @@ class Path(PurePath):
     else:
         def mkdir(self, mode: int = ..., parents: bool = ...,
                   exist_ok: bool = ...) -> None: ...
-    def open(self, mode: str = ..., buffering: int = ...,
-             encoding: Optional[str] = ..., errors: Optional[str] = ...,
+    @overload
+    def open(self, mode: _OpenTextMode = ..., buffering: int = ..., encoding: Optional[str] = ..., errors: Optional[str] = ...,
+             newline: Optional[str] = ...) -> TextIO: ...
+    @overload
+    def open(self, mode: _OpenBinaryMode, buffering: int = ..., encoding: None = ..., errors: None = ...,
+             newline: None = ...) -> BinaryIO: ...
+    @overload
+    def open(self, mode: str, buffering: int = ..., encoding: Optional[str] = ..., errors: Optional[str] = ...,
              newline: Optional[str] = ...) -> IO[Any]: ...
     def owner(self) -> str: ...
     if sys.version_info >= (3, 8):

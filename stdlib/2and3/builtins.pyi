@@ -5,12 +5,13 @@ from typing import (
     TypeVar, Iterator, Iterable, NoReturn, overload, Container,
     Sequence, MutableSequence, Mapping, MutableMapping, Tuple, List, Any, Dict, Callable, Generic,
     Set, AbstractSet, FrozenSet, MutableSet, Sized, Reversible, SupportsInt, SupportsFloat, SupportsAbs,
-    SupportsComplex, IO, BinaryIO, Union,
+    SupportsComplex, IO, BinaryIO, TextIO, Union,
     ItemsView, KeysView, ValuesView, ByteString, Optional, AnyStr, Type, Text,
     Protocol,
 )
 from abc import abstractmethod, ABCMeta
 from ast import mod, AST
+from io import _OpenBinaryMode, _OpenTextMode
 from types import TracebackType, CodeType
 import sys
 
@@ -1357,14 +1358,47 @@ def next(__i: Iterator[_T]) -> _T: ...
 def next(__i: Iterator[_T], default: _VT) -> Union[_T, _VT]: ...
 def oct(__number: Union[int, _SupportsIndex]) -> str: ...
 
-if sys.version_info >= (3, 6):
-    def open(file: Union[str, bytes, int, _PathLike[Any]], mode: str = ..., buffering: int = ..., encoding: Optional[str] = ...,
-             errors: Optional[str] = ..., newline: Optional[str] = ..., closefd: bool = ...,
-             opener: Optional[Callable[[str, int], int]] = ...) -> IO[Any]: ...
-elif sys.version_info >= (3,):
-    def open(file: Union[str, bytes, int], mode: str = ..., buffering: int = ..., encoding: Optional[str] = ...,
-             errors: Optional[str] = ..., newline: Optional[str] = ..., closefd: bool = ...,
-             opener: Optional[Callable[[str, int], int]] = ...) -> IO[Any]: ...
+if sys.version_info >= (3,):
+    if sys.version_info >= (3, 6):
+        # Changed in version 3.6: Support added to accept objects implementing os.PathLike.
+        _OpenFile = Union[str, bytes, int, _PathLike[Any]]
+    else:
+        _OpenFile = Union[str, bytes, int]
+
+    @overload
+    def open(
+        file: _OpenFile,
+        mode: _OpenTextMode = ...,
+        buffering: int = ...,
+        encoding: Optional[str] = ...,
+        errors: Optional[str] = ...,
+        newline: Optional[str] = ...,
+        closefd: bool = ...,
+        opener: Optional[Callable[[str, int], int]] = ...,
+    ) -> TextIO: ...
+    @overload
+    def open(
+        file: _OpenFile,
+        mode: _OpenBinaryMode,
+        buffering: int = ...,
+        encoding: None = ...,
+        errors: None = ...,
+        newline: None = ...,
+        closefd: bool = ...,
+        opener: Optional[Callable[[str, int], int]] = ...,
+    ) -> BinaryIO: ...
+    @overload
+    def open(
+        file: _OpenFile,
+        mode: str,
+        buffering: int = ...,
+        encoding: Optional[str] = ...,
+        errors: Optional[str] = ...,
+        newline: Optional[str] = ...,
+        closefd: bool = ...,
+        opener: Optional[Callable[[str, int], int]] = ...,
+    ) -> IO[Any]: ...
+
 else:
     def open(name: Union[unicode, int], mode: unicode = ..., buffering: int = ...) -> BinaryIO: ...
 
