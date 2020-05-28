@@ -13,7 +13,6 @@ asyncio.futures._TracebackLogger.__init__
 asyncio.runners
 asyncio.tasks.Task.__init__
 asyncio.tasks.Task._wakeup
-asyncio.unix_events._UnixSelectorEventLoop.create_unix_server
 bdb.GENERATOR_AND_COROUTINE_FLAGS
 builtins.str.maketrans
 cmath.log
@@ -46,14 +45,9 @@ nntplib._NNTPBase.starttls
 os.DirEntry
 os.utime
 plistlib.Dict.__init__
-pwd.getpwnam
 pyexpat.XMLParserType.ExternalEntityParserCreate
-site.getsitepackages
-site.getuserbase
-site.getusersitepackages
 smtpd.SMTPChannel.__init__
 smtpd.SMTPServer.__init__
-socket.NETLINK_CRYPTO
 sre_compile.dis
 ssl.SSLSocket.__init__
 typing.AbstractSet.isdisjoint

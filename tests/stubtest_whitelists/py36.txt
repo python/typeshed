@@ -3,7 +3,6 @@ asyncio.exceptions
 asyncio.futures.Future.__init__
 asyncio.futures._TracebackLogger.__init__
 asyncio.runners
-asyncio.unix_events._UnixSelectorEventLoop.create_unix_server
 builtins.str.maketrans
 cmath.log
 codecs.StreamRecoder.seek
@@ -40,12 +39,8 @@ multiprocessing.shared_memory
 nntplib._NNTPBase.starttls
 os.utime
 plistlib.Dict.__init__
-pwd.getpwnam
 pyexpat.XMLParserType.ExternalEntityParserCreate
 secrets.SystemRandom.getstate
-site.getsitepackages
-site.getuserbase
-site.getusersitepackages
 smtplib.SMTP.sendmail
 sre_compile.dis
 ssl.SSLSocket.__init__

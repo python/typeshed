@@ -3,7 +3,6 @@ _csv.Dialect.__init__
 _dummy_threading
 _importlib_modulespec
 _operator.methodcaller
-_posixsubprocess.cloexec_pipe
 _threading_local.local.__new__
 _types
 _weakref.CallableProxyType.__getattr__
@@ -31,10 +30,7 @@ asyncio.selector_events.BaseSelectorEventLoop.sock_recv
 asyncio.streams.FlowControlMixin.__init__
 asyncio.tasks.Task.get_stack
 asyncio.tasks.Task.print_stack
-asyncio.windows_events
-asyncio.windows_utils
 bdb.Bdb.__init__
-builtins.WindowsError
 builtins.bytearray.__float__
 builtins.bytearray.__int__
 builtins.bytearray.append
@@ -165,18 +161,12 @@ ctypes.memmove
 ctypes.memset
 ctypes.pointer
 ctypes.string_at
-ctypes.wintypes
 ctypes.wstring_at
-curses.COLORS
-curses.COLOR_PAIRS
-curses.COLS
-curses.LINES
 dbm.error
 dbm.ndbm
 difflib.SequenceMatcher.__init__
 distutils.archive_util.make_archive
 distutils.archive_util.make_tarball
-distutils.command.bdist_msi
 distutils.command.bdist_packager
 distutils.core.Extension.__init__
 distutils.debug.DEBUG
@@ -229,10 +219,6 @@ gettext.dngettext
 gettext.ldngettext
 gettext.lngettext
 gettext.ngettext
-grp.getgrgid
-grp.struct_group._asdict
-grp.struct_group._make
-grp.struct_group._replace
 hmac.HMAC.__init__
 html.parser.HTMLParser.feed
 http.HTTPStatus.description
@@ -380,7 +366,6 @@ multiprocessing.synchronize.SemLock.release
 netrc.NetrcParseError.__init__
 netrc.netrc.__init__
 ntpath.join
-ntpath.realpath
 numbers.Number.__hash__
 operator.methodcaller
 optparse.HelpFormatter._format__Text
@@ -388,25 +373,15 @@ optparse.OptionParser.__init__
 optparse.Values.__getattr__
 optparse.Values.read_file
 optparse.Values.read_module
-os.EX_NOTFOUND
-os.SF_MNOWAIT
-os.SF_NODISKIO
-os.SF_SYNC
 os._Environ.__init__
 os._Environ.setdefault
 os._wrap_close.__init__
-os.chflags
-os.lchflags
-os.lchmod
-os.listxattr
-os.plock
 pickle.Pickler.persistent_id
 pickle.Unpickler.find_class
 pickle.Unpickler.persistent_load
 pipes.Template.copy
 pkgutil.ImpImporter.__init__
 poplib.POP3_SSL.stls
-posix.EX_NOTFOUND
 pydoc.HTMLDoc.docdata
 pydoc.HTMLDoc.docproperty
 pydoc.HTMLDoc.docroutine
@@ -423,7 +398,6 @@ random.triangular
 re.error.__init__
 runpy.run_path
 sched.Event.__doc__
-select.EPOLL_RDHUP
 select.poll
 selectors.DevpollSelector
 selectors.KqueueSelector
@@ -437,14 +411,9 @@ smtpd.MailmanProxy.process_message
 smtpd.PureProxy.process_message
 smtplib.SMTP.send_message
 socket.create_connection
-socket.socketpair
 socketserver.BaseServer.fileno
 socketserver.BaseServer.get_request
 socketserver.BaseServer.server_bind
-spwd.getspnam
-spwd.struct_spwd._asdict
-spwd.struct_spwd._make
-spwd.struct_spwd._replace
 sqlite3.Row.__len__
 sqlite3.dbapi2.Row.__len__
 sqlite3.dbapi2.register_adapters_and_converters
@@ -453,9 +422,7 @@ sqlite3.register_adapters_and_converters
 sqlite3.version_info
 sre_constants.error.__init__
 ssl.PROTOCOL_SSLv2
-ssl.PROTOCOL_SSLv3
 ssl.Purpose.__new__
-ssl.RAND_egd
 ssl.SSLContext.__new__
 ssl.SSLObject.__init__
 ssl.SSLSocket.connect
@@ -474,7 +441,6 @@ sunau.Au_write.setmark
 symtable.Symbol.__init__
 symtable.SymbolTable.__init__
 sys.gettotalrefcount
-sys.getwindowsversion
 sys.implementation
 sysconfig.is_python_build
 sysconfig.parse_config_h
@@ -491,7 +457,6 @@ threading.Lock
 threading.Semaphore.__enter__
 threading.Semaphore.acquire
 threading.Thread.__init__
-time.CLOCK_HIGHRES
 timeit.main
 trace.CoverageResults.__init__
 traceback.FrameSummary.__init__
@@ -540,7 +505,6 @@ urllib.error.URLError.__init__
 urllib.parse._DefragResultBase.__new__
 urllib.request.BaseHandler.http_error_nnn
 urllib.request.HTTPPasswordMgrWithPriorAuth.__init__
-urllib.request.proxy_bypass
 urllib.response.addinfo.__init__
 urllib.response.addinfourl.__init__
 urllib.robotparser.RobotFileParser.can_fetch
@@ -594,7 +558,6 @@ typing.[A-Z]\w+
 inspect.Parameter.__init__
 inspect.Signature.__init__
 os.[a-z]+_(param|result)._(asdict|make|replace)  # NamedTuple like, but not actually NamedTuples
-posix.[a-z]+_(param|result)._(asdict|make|replace)  # NamedTuple like, but not actually NamedTuples
 # sys attributes that are not always defined
 sys.last_traceback
 sys.last_type
@@ -610,19 +573,9 @@ urllib.response.addbase.\w+
 
 # Platform differences that cannot be captured by the type system
 errno.[A-Z0-9]+
-fcntl.[A-Z0-9_]+
 os.O_[A-Z_]+
-os.SCHED_[A-Z_]+
 (posix.O_[A-Z_]+)?
 (posix.ST_[A-Z]+)?
 socket.AF_DECnet
 socket.[A-Z0-9_]+
 (termios.[A-Z0-9_]+)?
-
-# Modules that do not exist on Linux systems and cannot be checked by our CI process.
-(_msi)?
-(_winapi)?
-(msilib(.[a-z]+)?)?
-(msvcrt)?
-(winreg)?
-(winsound)?

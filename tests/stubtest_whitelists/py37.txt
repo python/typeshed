@@ -49,23 +49,18 @@ macurl2path
 multiprocessing.shared_memory
 nntplib._NNTPBase.starttls
 os.utime
-pwd.getpwnam
 pyexpat.XMLParserType.ExternalEntityParserCreate
 queue.SimpleQueue.__init__
 secrets.SystemRandom.getstate
-site.getsitepackages
-site.getuserbase
-site.getusersitepackages
 smtplib.SMTP.sendmail
 sre_constants.RANGE_IGNORE
-time.CLOCK_PROF
-time.CLOCK_UPTIME
+ssl.PROTOCOL_SSLv3
+ssl.RAND_egd
 tkinter.Menu.tk_bindForTraversal
 tkinter.Misc.tk_menuBar
 types.ClassMethodDescriptorType.__get__
 types.MethodDescriptorType.__get__
 types.WrapperDescriptorType.__get__
-typing.IO.closed  # Incorrect definition in CPython, fixed in bpo-39493
 typing.NamedTuple._asdict
 typing.NamedTuple._make
 typing.NamedTuple._replace

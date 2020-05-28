@@ -182,6 +182,8 @@ smtplib.LMTP.__init__
 smtplib.SMTP.sendmail
 sre_constants.RANGE_IGNORE
 ssl.AF_INET
+ssl.PROTOCOL_SSLv3
+ssl.RAND_egd
 symtable.SymbolTable.has_exec
 sys.UnraisableHookArgs
 threading.ExceptHookArgs

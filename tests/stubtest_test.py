@@ -18,6 +18,8 @@ import sys
 def run_stubtest(typeshed_dir: Path) -> int:
     whitelist_dir = typeshed_dir / "tests" / "stubtest_whitelists"
     version_whitelist = "py{}{}.txt".format(sys.version_info.major, sys.version_info.minor)
+    platform_whitelist = "{}.txt".format(sys.platform)
+    combined_whitelist = "{}-py{}{}.txt".format(sys.platform, sys.version_info.major, sys.version_info.minor)
 
     cmd = [
         sys.executable,
@@ -35,6 +37,16 @@ def run_stubtest(typeshed_dir: Path) -> int:
         "--whitelist",
         str(whitelist_dir / version_whitelist),
     ]
+    if (whitelist_dir / platform_whitelist).exists():
+        cmd += [
+            "--whitelist",
+            str(whitelist_dir / platform_whitelist),
+        ]
+    if (whitelist_dir / combined_whitelist).exists():
+        cmd += [
+            "--whitelist",
+            str(whitelist_dir / combined_whitelist),
+        ]
     if sys.version_info < (3, 9):
         # As discussed in https://github.com/python/typeshed/issues/3693, we only aim for
         # positional-only arg accuracy for the latest Python version.
