@@ -293,6 +293,9 @@ class AbstractEventLoop(metaclass=ABCMeta):
     def get_debug(self) -> bool: ...
     @abstractmethod
     def set_debug(self, enabled: bool) -> None: ...
+    if sys.version_info >= (3, 9):
+        @abstractmethod
+        async def shutdown_default_executor(self) -> None: ...
 
 class AbstractEventLoopPolicy(metaclass=ABCMeta):
     @abstractmethod
