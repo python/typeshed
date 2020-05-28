@@ -85,6 +85,8 @@ At present the core developers are (alphabetically):
 * Greg Price (@gnprice)
 * Sebastian Rittau (@srittau)
 * Guido van Rossum (@gvanrossum)
+* Shantanu (@hauntsaninja)
+* Rune Tynan (@CraftSpider)
 * Jelle Zijlstra (@JelleZijlstra)
 
 NOTE: the process for preparing and submitting changes also applies to
