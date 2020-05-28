@@ -3,7 +3,6 @@ _dummy_thread
 _thread.ExceptHookArgs
 _thread._ExceptHookArgs
 _weakref.getweakrefcount
-aifc.openfp
 array.array.fromstring
 array.array.tostring
 ast.Bytes.__new__
