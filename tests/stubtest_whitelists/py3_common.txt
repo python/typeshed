@@ -247,6 +247,7 @@ io.BufferedReader.truncate
 io.BufferedWriter.seek
 io.BufferedWriter.truncate
 io.BytesIO.readlines
+io.BytesIO.seek
 io.FileIO.seek
 io.StringIO.seek
 io.StringIO.truncate
