@@ -167,7 +167,7 @@ else:
     def splitdrive(p: AnyStr) -> Tuple[AnyStr, AnyStr]: ...
     def splitext(p: AnyStr) -> Tuple[AnyStr, AnyStr]: ...
 
-if sys.platform == 'win32':
+if sys.version_info < (3, 7) and sys.platform == 'win32':
     def splitunc(path: AnyStr) -> Tuple[AnyStr, AnyStr]: ...  # deprecated
 
 if sys.version_info < (3,):

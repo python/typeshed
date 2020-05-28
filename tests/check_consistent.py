@@ -28,7 +28,8 @@ consistent_files = [
     {'stdlib/3.7/contextvars.pyi', 'third_party/3/contextvars.pyi'},
     {'stdlib/3/ipaddress.pyi', 'third_party/2/ipaddress.pyi'},
     {'stdlib/2/copy_reg.pyi', 'stdlib/3/copyreg.pyi'},
-    {'stdlib/2and3/threading.pyi', 'stdlib/2and3/_dummy_threading.pyi'}
+    {'stdlib/2and3/threading.pyi', 'stdlib/2and3/_dummy_threading.pyi'},
+    {'stdlib/3/winreg.pyi', 'stdlib/2/_winreg.pyi'}
 ]
 
 

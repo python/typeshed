@@ -14,5 +14,5 @@ if sys.version_info >= (3, 8):
     from ._base import InvalidStateError as InvalidStateError
 if sys.version_info >= (3, 7):
     from ._base import BrokenExecutor as BrokenExecutor
-from .thread import ThreadPoolExecutor
-from .process import ProcessPoolExecutor
+from .thread import ThreadPoolExecutor as ThreadPoolExecutor
+from .process import ProcessPoolExecutor as ProcessPoolExecutor
