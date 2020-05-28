@@ -28,7 +28,6 @@ asyncio.futures.Future._callbacks
 asyncio.futures.Future.cancel
 asyncio.proactor_events._ProactorBasePipeTransport.__del__
 asyncio.tasks.Task.cancel
-bdb.Bdb.runcall
 builtins.bytearray.extend
 builtins.bytearray.pop
 builtins.compile
