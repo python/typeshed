@@ -88,7 +88,7 @@ class BytesIO(BufferedIOBase, BinaryIO):
     if sys.version_info >= (3, 7):
         def read1(self, __size: int = ...) -> bytes: ...
     else:
-        def read1(self, __size: int) -> bytes: ...
+        def read1(self, __size: int) -> bytes: ...  # type: ignore
 
 class BufferedReader(BufferedIOBase):
     def __init__(self, raw: RawIOBase, buffer_size: int = ...) -> None: ...
@@ -96,7 +96,7 @@ class BufferedReader(BufferedIOBase):
     if sys.version_info >= (3, 7):
         def read1(self, __size: int = ...) -> bytes: ...
     else:
-        def read1(self, __size: int) -> bytes: ...
+        def read1(self, __size: int) -> bytes: ...  # type: ignore
 
 class BufferedWriter(BufferedIOBase):
     def __init__(self, raw: RawIOBase, buffer_size: int = ...) -> None: ...
@@ -110,7 +110,7 @@ class BufferedRandom(BufferedReader, BufferedWriter):
     if sys.version_info >= (3, 7):
         def read1(self, __size: int = ...) -> bytes: ...
     else:
-        def read1(self, __size: int) -> bytes: ...
+        def read1(self, __size: int) -> bytes: ...  # type: ignore
 
 class BufferedRWPair(BufferedIOBase):
     def __init__(self, reader: RawIOBase, writer: RawIOBase,
