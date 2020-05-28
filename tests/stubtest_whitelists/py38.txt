@@ -1,7 +1,5 @@
 _thread.ExceptHookArgs
 _thread._ExceptHookArgs
-_tracemalloc._get_object_traceback
-_tracemalloc.start
 ast.Bytes.__new__
 ast.Ellipsis.__new__
 ast.NameConstant.__new__

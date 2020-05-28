@@ -2,8 +2,6 @@ _ast.ImportFrom.level
 _dummy_thread
 _thread.ExceptHookArgs
 _thread._ExceptHookArgs
-_tracemalloc._get_object_traceback
-_tracemalloc.start
 _weakref.getweakrefcount
 aifc.openfp
 array.array.fromstring
