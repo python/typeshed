@@ -34,7 +34,7 @@ class addbase(BinaryIO):
     def writelines(self, lines: Iterable[bytes]) -> None: ...
 
 class addclosehook(addbase):
-    closehook: Callable
+    closehook: Callable[..., object]
     hookargs: Tuple[Any, ...]
     def __init__(self, fp: IO[bytes], closehook: Callable[..., object], *hookargs: Any) -> None: ...
 
