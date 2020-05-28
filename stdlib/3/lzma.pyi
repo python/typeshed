@@ -1,6 +1,6 @@
 import io
 import sys
-from typing import Any, IO, Mapping, Optional, Sequence, Union
+from typing import Any, IO, Mapping, Optional, Sequence, Union, TypeVar
 
 if sys.version_info >= (3, 6):
     from os import PathLike
@@ -9,6 +9,7 @@ else:
     _PathOrFile = Union[str, bytes, IO[Any]]
 
 _FilterChain = Sequence[Mapping[str, Any]]
+_T = TypeVar("_T")
 
 FORMAT_AUTO: int
 FORMAT_XZ: int
@@ -66,7 +67,7 @@ class LZMACompressor(object):
 class LZMAError(Exception): ...
 
 
-class LZMAFile(io.BufferedIOBase, IO[bytes]):  # type: ignore  # python/mypy#5027
+class LZMAFile(io.BufferedIOBase, IO[bytes]):
     def __init__(self,
                  filename: Optional[_PathOrFile] = ...,
                  mode: str = ...,
@@ -75,6 +76,7 @@ class LZMAFile(io.BufferedIOBase, IO[bytes]):  # type: ignore  # python/mypy#502
                  check: int = ...,
                  preset: Optional[int] = ...,
                  filters: Optional[_FilterChain] = ...) -> None: ...
+    def __enter__(self: _T) -> _T: ...
     def close(self) -> None: ...
     @property
     def closed(self) -> bool: ...

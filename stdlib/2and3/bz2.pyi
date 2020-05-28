@@ -1,6 +1,6 @@
 import io
 import sys
-from typing import Any, IO, Optional, Union
+from typing import Any, IO, Optional, Union, TypeVar
 
 if sys.version_info >= (3, 6):
     from os import PathLike
@@ -9,6 +9,7 @@ elif sys.version_info >= (3, 3):
     _PathOrFile = Union[str, bytes, IO[Any]]
 else:
     _PathOrFile = str
+_T = TypeVar("_T")
 
 def compress(data: bytes, compresslevel: int = ...) -> bytes: ...
 def decompress(data: bytes) -> bytes: ...
@@ -21,7 +22,8 @@ if sys.version_info >= (3, 3):
              errors: Optional[str] = ...,
              newline: Optional[str] = ...) -> IO[Any]: ...
 
-class BZ2File(io.BufferedIOBase, IO[bytes]):  # type: ignore  # python/mypy#5027
+class BZ2File(io.BufferedIOBase, IO[bytes]):
+    def __enter__(self: _T) -> _T: ...
     if sys.version_info >= (3, 9):
         def __init__(self,
                      filename: _PathOrFile,
