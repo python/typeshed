@@ -1,7 +1,7 @@
 import io
 import sys
 from os.path import _PathType
-from typing import IO, Any, Mapping, Optional, Sequence, TextIO, Union, overload
+from typing import IO, Any, Mapping, Optional, Sequence, TextIO, TypeVar, Union, overload
 
 if sys.version_info >= (3, 8):
     from typing import Literal
@@ -14,6 +14,7 @@ _OpenTextWritingMode = Literal["wt", "xt", "at"]
 _PathOrFile = Union[_PathType, IO[bytes]]
 
 _FilterChain = Sequence[Mapping[str, Any]]
+_T = TypeVar("_T")
 
 FORMAT_AUTO: int
 FORMAT_XZ: int
@@ -69,7 +70,7 @@ class LZMACompressor(object):
 
 class LZMAError(Exception): ...
 
-class LZMAFile(io.BufferedIOBase, IO[bytes]):  # type: ignore  # python/mypy#5027
+class LZMAFile(io.BufferedIOBase, IO[bytes]):
     def __init__(
         self,
         filename: Optional[_PathOrFile] = ...,
@@ -80,6 +81,7 @@ class LZMAFile(io.BufferedIOBase, IO[bytes]):  # type: ignore  # python/mypy#502
         preset: Optional[int] = ...,
         filters: Optional[_FilterChain] = ...,
     ) -> None: ...
+    def __enter__(self: _T) -> _T: ...
     def close(self) -> None: ...
     @property
     def closed(self) -> bool: ...
