@@ -12,6 +12,8 @@ from asyncio.protocols import (
     DatagramProtocol as DatagramProtocol,
     SubprocessProtocol as SubprocessProtocol,
 )
+if sys.version_info >= (3, 7):
+    from asyncio.protocols import BufferedProtocol as BufferedProtocol
 from asyncio.streams import (
     StreamReader as StreamReader,
     StreamWriter as StreamWriter,
@@ -49,10 +51,7 @@ from asyncio.tasks import (
     wait_for as wait_for,
     Task as Task,
 )
-from asyncio.base_events import (
-    BaseEventLoop as BaseEventLoop,
-    Server as Server
-)
+from asyncio.base_events import BaseEventLoop as BaseEventLoop
 from asyncio.events import (
     AbstractEventLoopPolicy as AbstractEventLoopPolicy,
     AbstractEventLoop as AbstractEventLoop,
@@ -112,7 +111,7 @@ if sys.version_info >= (3, 7):
 if sys.platform != 'win32':
     from .unix_events import (
         AbstractChildWatcher as AbstractChildWatcher,
-        BaseChildWatcher as BaseChildWatcher,
+        FastChildWatcher as FastChildWatcher,
         SafeChildWatcher as SafeChildWatcher,
         SelectorEventLoop as SelectorEventLoop,
     )

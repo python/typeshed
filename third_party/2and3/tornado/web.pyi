@@ -1,6 +1,6 @@
 import sys
 
-from typing import Any, Callable, Optional
+from typing import Any, Callable, Dict, List, Optional
 from tornado import httputil
 
 MIN_SUPPORTED_SIGNED_VALUE_VERSION: Any
@@ -16,10 +16,10 @@ else:
 
 class RequestHandler:
     SUPPORTED_METHODS: Any
-    application: Any
-    request: Any
-    path_args: Any
-    path_kwargs: Any
+    application: Application
+    request: httputil.HTTPServerRequest
+    path_args: List[str]
+    path_kwargs: Dict[str, str]
     ui: Any
     def __init__(self, application, request, **kwargs) -> None: ...
     initialize: Callable[..., None] = ...

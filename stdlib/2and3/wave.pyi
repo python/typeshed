@@ -2,10 +2,10 @@
 
 import sys
 from typing import (
-    Any, NamedTuple, NoReturn, Optional, Text, BinaryIO, Union, Tuple
+    Any, NamedTuple, NoReturn, Optional, Text, BinaryIO, Union, Tuple, IO
 )
 
-_File = Union[Text, BinaryIO]
+_File = Union[Text, IO[bytes]]
 
 class Error(Exception): ...
 
@@ -72,4 +72,5 @@ class Wave_write:
 
 # Returns a Wave_read if mode is rb and Wave_write if mode is wb
 def open(f: _File, mode: Optional[str] = ...) -> Any: ...
-openfp = open
+if sys.version_info < (3, 9):
+    openfp = open
