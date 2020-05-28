@@ -398,7 +398,6 @@ signal.SIGINFO
 smtpd.MailmanProxy.process_message
 smtpd.PureProxy.process_message
 smtplib.SMTP.send_message
-socket.create_connection
 socketserver.BaseServer.fileno
 socketserver.BaseServer.get_request
 socketserver.BaseServer.server_bind

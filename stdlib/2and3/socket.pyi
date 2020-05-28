@@ -713,7 +713,7 @@ if sys.version_info >= (3, 7):
 
 def create_connection(address: Tuple[Optional[str], int],
                       timeout: Optional[float] = ...,
-                      source_address: Tuple[Union[bytearray, bytes, Text], int] = ...) -> socket: ...
+                      source_address: Optional[Tuple[Union[bytearray, bytes, Text], int]] = ...) -> socket: ...
 
 if sys.version_info >= (3, 8):
     def create_server(address: _Address,
