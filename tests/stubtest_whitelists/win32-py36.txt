@@ -1,9 +1,5 @@
 _winapi.GetACP
 _winapi.GetFileType
-asyncio.IocpProactor.recv_into
-asyncio.IocpProactor.sendfile
-asyncio.windows_events.IocpProactor.recv_into
-asyncio.windows_events.IocpProactor.sendfile
 hashlib.scrypt
 ntpath.splitunc
 os.path.splitunc

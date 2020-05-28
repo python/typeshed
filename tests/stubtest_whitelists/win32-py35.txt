@@ -2,10 +2,6 @@ _codecs.oem_decode
 _codecs.oem_encode
 _winapi.GetACP
 _winapi.GetFileType
-asyncio.IocpProactor.recv_into
-asyncio.IocpProactor.sendfile
-asyncio.windows_events.IocpProactor.recv_into
-asyncio.windows_events.IocpProactor.sendfile
 ntpath.splitunc
 os.path.splitunc
 os.path.splitunc
