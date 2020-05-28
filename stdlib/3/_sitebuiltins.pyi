@@ -1,5 +1,11 @@
 
-from typing import Optional, NoReturn, ClassVar, Literal, Sequence
+import sys
+from typing import Optional, NoReturn, ClassVar, Sequence
+
+if sys.version_info >= (3, 8)
+    from typing import Literal
+else:
+    from typing_extensions import Literal
 
 class Quitter:
     def __init__(self, name: str, eof: str) -> None: ...
