@@ -1,6 +1,6 @@
 # private module, we only expose what's needed
 
-from typing import BinaryIO, Callable, Iterable, List, Mapping, Optional, Type, TypeVar
+from typing import Any, BinaryIO, Callable, Iterable, List, Mapping, Optional, Tuple, Type, TypeVar
 from email.message import Message
 from types import TracebackType
 
@@ -46,6 +46,6 @@ class addinfo(addbase):
 class addinfourl(addinfo):
     url: str
     code: int
-    def __init__(self, fp: BinaryIO, headers: Message, url: str, code: Optional[int] = None) -> None: ...
+    def __init__(self, fp: BinaryIO, headers: Message, url: str, code: Optional[int] = ...) -> None: ...
     def geturl(self) -> str: ...
     def getcode(self) -> int: ...
