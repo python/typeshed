@@ -31,12 +31,6 @@ dataclasses.Field.__init__
 dataclasses.field
 email.message.MIMEPart.as_string
 enum.Enum._generate_next_value_
-gettext.NullTranslations.npgettext
-gettext.NullTranslations.pgettext
-gettext.dnpgettext
-gettext.dpgettext
-gettext.npgettext
-gettext.pgettext
 http.client.HTTPSConnection.__init__
 http.server.SimpleHTTPRequestHandler.__init__
 importlib.metadata

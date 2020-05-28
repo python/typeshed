@@ -22,12 +22,6 @@ collections.UserString.maketrans
 contextlib._GeneratorContextManager.__init__
 ctypes.CDLL.__init__
 fractions.Fraction.__new__  # private _normalize param was made keyword-only in Python 3.6
-gettext.NullTranslations.npgettext
-gettext.NullTranslations.pgettext
-gettext.dnpgettext
-gettext.dpgettext
-gettext.npgettext
-gettext.pgettext
 importlib.metadata
 importlib.resources
 io.BufferedRandom.read1

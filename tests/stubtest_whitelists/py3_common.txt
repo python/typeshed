@@ -210,15 +210,6 @@ encodings.utf_8.encode
 enum.EnumMeta.__call__
 enum.EnumMeta.__new__
 getopt.GetoptError.__init__
-gettext.GNUTranslations.lngettext
-gettext.GNUTranslations.ngettext
-gettext.NullTranslations.__init__
-gettext.NullTranslations.lngettext
-gettext.NullTranslations.ngettext
-gettext.dngettext
-gettext.ldngettext
-gettext.lngettext
-gettext.ngettext
 hmac.HMAC.__init__
 html.parser.HTMLParser.feed
 http.HTTPStatus.description

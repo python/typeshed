@@ -20,12 +20,6 @@ copy.PyStringMap
 ctypes.CDLL.__init__
 email.message.MIMEPart.as_string
 enum.Enum._generate_next_value_
-gettext.NullTranslations.npgettext
-gettext.NullTranslations.pgettext
-gettext.dnpgettext
-gettext.dpgettext
-gettext.npgettext
-gettext.pgettext
 importlib.metadata
 importlib.resources
 io.BufferedRandom.read1
