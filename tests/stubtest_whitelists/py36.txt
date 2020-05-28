@@ -1,8 +1,9 @@
 asyncio.Future.__init__
-asyncio.exceptions
+asyncio.exceptions  # Added in Python 3.8
 asyncio.futures.Future.__init__
 asyncio.futures._TracebackLogger.__init__
 asyncio.runners
+asyncio.threads  # Added in Python 3.9
 builtins.str.maketrans
 cmath.log
 codecs.StreamRecoder.seek
