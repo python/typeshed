@@ -36,7 +36,7 @@ class addbase(BinaryIO):
 class addclosehook(addbase):
     closehook: Callable
     hookargs: Tuple[Any, ...]
-    def __init__(self, fp: BinaryIO, closehook: Callable, *hookargs: Any) -> None: ...
+    def __init__(self, fp: IO[bytes], closehook: Callable[..., object], *hookargs: Any) -> None: ...
 
 class addinfo(addbase):
     headers: Message
