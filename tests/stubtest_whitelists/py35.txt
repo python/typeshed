@@ -17,6 +17,7 @@ asyncio.tasks.Task._wakeup
 asyncio.unix_events._UnixSelectorEventLoop.create_unix_server
 bdb.GENERATOR_AND_COROUTINE_FLAGS
 builtins.str.maketrans
+bz2.BZ2File.read1
 cmath.log
 codecs.StreamRecoder.seek
 collections.Reversible
