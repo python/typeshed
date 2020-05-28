@@ -8,7 +8,6 @@ sys.abiflags  # Not present
 sys.setdlopenflags  # Not present
 urllib.request.pathname2url  # Parameter name mismatch
 urllib.request.url2pathname  # Same
-winreg.[A-Za-z]+  # Should be made positional only
 
 # ==========
 # Whitelist entries that cannot or should not be fixed
