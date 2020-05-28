@@ -1,5 +1,3 @@
-_winapi.GetACP
-_winapi.GetFileType
 hashlib.scrypt
 ntpath.splitunc
 os.path.splitunc

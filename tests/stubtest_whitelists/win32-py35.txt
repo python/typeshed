@@ -1,7 +1,5 @@
 _codecs.oem_decode
 _codecs.oem_encode
-_winapi.GetACP
-_winapi.GetFileType
 ntpath.splitunc
 os.path.splitunc
 os.path.splitunc
