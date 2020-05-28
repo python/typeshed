@@ -169,9 +169,7 @@ pwd.getpwnam
 pwd.getpwuid
 queue.SimpleQueue.__init__
 random.Random.getrandbits
-random.Random.sample
 random.getrandbits
-random.sample
 secrets.SystemRandom.getstate
 secrets.compare_digest
 signal.sigtimedwait
