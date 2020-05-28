@@ -526,9 +526,7 @@ webbrowser.UnixBrowser.raise_opts
 webbrowser.UnixBrowser.remote_action
 webbrowser.UnixBrowser.remote_action_newtab
 webbrowser.UnixBrowser.remote_action_newwin
-wsgiref.types
-wsgiref.util.FileWrapper.__init__
-wsgiref.util.FileWrapper.close
+wsgiref.types  # Doesn't exist, see comments in file
 xml.etree.ElementPath._SelectorContext.parent_map
 xml.etree.ElementTree.Element.__bool__
 xml.etree.ElementTree.Element.copy
