@@ -1,5 +1,5 @@
 import sys
-from typing import overload, Any, Container, IO, Iterable, Optional, Type, TypeVar, Union
+from typing import overload, Any, Container, IO, Iterable, Optional, Sequence, Type, TypeVar, Union
 
 if sys.version_info >= (3, 8):
     from typing import Literal
@@ -31,6 +31,8 @@ class NullTranslations:
 class GNUTranslations(NullTranslations):
     LE_MAGIC: int
     BE_MAGIC: int
+    CONTEXT: str
+    VERSIONS: Sequence[int]
 
 def find(domain: str, localedir: Optional[_Path] = ..., languages: Optional[Iterable[str]] = ...,
          all: bool = ...) -> Any: ...
