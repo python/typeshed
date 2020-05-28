@@ -46,6 +46,7 @@ functools.partialmethod.__get__
 functools.singledispatchmethod.__call__  # A lie to reflect that the descriptor get returns a callable
 gettext.install
 gettext.translation
+hmac.new  # Stub is a white lie; see comments in the stub
 http.client.HTTPSConnection.__init__
 http.cookiejar.DefaultCookiePolicy.__init__
 http.server.SimpleHTTPRequestHandler.__init__

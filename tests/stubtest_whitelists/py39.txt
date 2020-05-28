@@ -97,6 +97,7 @@ functools.singledispatchmethod.__call__
 gettext.install
 gettext.translation
 hmac.compare_digest
+hmac.new  # Stub is a white lie; see comments in the stub
 http.client.HTTPSConnection.__init__
 http.cookiejar.DefaultCookiePolicy.__init__
 http.server.SimpleHTTPRequestHandler.__init__
