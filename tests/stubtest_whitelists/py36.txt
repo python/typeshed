@@ -23,8 +23,6 @@ email.message.MIMEPart.as_string
 enum.Enum._generate_next_value_
 importlib.metadata
 importlib.resources
-io.BufferedRandom.read1
-io.BufferedReader.read1
 io.StringIO.readline
 ipaddress._BaseNetwork.__init__
 json.loads

@@ -256,6 +256,7 @@ io.BufferedReader.truncate
 io.BufferedWriter.seek
 io.BufferedWriter.truncate
 io.BytesIO.readlines
+io.BytesIO.seek  # Parameter name for a positional-only param differs from its name in the inherited method
 io.FileIO.seek
 io.StringIO.seek
 io.StringIO.truncate
