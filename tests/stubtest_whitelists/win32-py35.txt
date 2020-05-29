@@ -1,5 +1,3 @@
-_codecs.oem_decode
-_codecs.oem_encode
 ntpath.splitunc
 os.path.splitunc
 os.path.splitunc
