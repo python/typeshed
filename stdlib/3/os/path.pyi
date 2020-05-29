@@ -168,7 +168,7 @@ else:
     def splitext(p: AnyStr) -> Tuple[AnyStr, AnyStr]: ...
 
 if sys.version_info < (3, 7) and sys.platform == 'win32':
-    def splitunc(path: AnyStr) -> Tuple[AnyStr, AnyStr]: ...  # deprecated
+    def splitunc(p: AnyStr) -> Tuple[AnyStr, AnyStr]: ...  # deprecated
 
 if sys.version_info < (3,):
     def walk(path: AnyStr, visit: Callable[[_T, AnyStr, List[AnyStr]], Any], arg: _T) -> None: ...
