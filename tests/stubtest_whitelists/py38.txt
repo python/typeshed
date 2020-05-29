@@ -1,7 +1,5 @@
 _thread.ExceptHookArgs
 _thread._ExceptHookArgs
-_tracemalloc._get_object_traceback
-_tracemalloc.start
 ast.Bytes.__new__
 ast.Ellipsis.__new__
 ast.NameConstant.__new__
@@ -18,6 +16,7 @@ asyncio.events.TimerHandle.__init__
 asyncio.futures.Future.__init__
 asyncio.futures.Future._callbacks
 asyncio.proactor_events._ProactorBasePipeTransport.__del__
+asyncio.threads  # Added in Python 3.9
 builtins.compile
 builtins.dict.get
 builtins.reversed
@@ -48,6 +47,7 @@ functools.partialmethod.__get__
 functools.singledispatchmethod.__call__  # A lie to reflect that the descriptor get returns a callable
 gettext.install
 gettext.translation
+hmac.new  # Stub is a white lie; see comments in the stub
 http.client.HTTPSConnection.__init__
 http.cookiejar.DefaultCookiePolicy.__init__
 http.server.SimpleHTTPRequestHandler.__init__
