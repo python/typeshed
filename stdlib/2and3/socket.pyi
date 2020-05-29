@@ -325,6 +325,38 @@ if sys.platform == 'linux' and sys.version_info >= (3,):
 if sys.platform == 'linux' and sys.version_info >= (3, 7):
     CAN_ISOTP: int
 
+if sys.platform == 'linux' and sys.version_info >= (3, 9):
+    CAN_J1939: int
+
+    J1939_MAX_UNICAST_ADDR: int
+    J1939_IDLE_ADDR: int
+    J1939_NO_ADDR: int
+    J1939_NO_NAME: int
+    J1939_PGN_REQUEST: int
+    J1939_PGN_ADDRESS_CLAIMED: int
+    J1939_PGN_ADDRESS_COMMANDED: int
+    J1939_PGN_PDU1_MAX: int
+    J1939_PGN_MAX: int
+    J1939_NO_PGN: int
+
+    SO_J1939_FILTER: int
+    SO_J1939_PROMISC: int
+    SO_J1939_SEND_PRIO: int
+    SO_J1939_ERRQUEUE: int
+
+    SCM_J1939_DEST_ADDR: int
+    SCM_J1939_DEST_NAME: int
+    SCM_J1939_PRIO: int
+    SCM_J1939_ERRQUEUE: int
+
+    J1939_NLA_PAD: int
+    J1939_NLA_BYTES_ACKED: int
+
+    J1939_EE_INFO_NONE: int
+    J1939_EE_INFO_TX_ABORT: int
+
+    J1939_FILTER_MAX: int
+
 if sys.platform == 'linux':
     AF_PACKET: AddressFamily
     PF_PACKET: int
