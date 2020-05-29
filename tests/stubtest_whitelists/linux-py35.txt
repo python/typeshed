@@ -6,4 +6,3 @@ site.getuserbase
 site.getusersitepackages
 ssl.PROTOCOL_SSLv3
 ssl.RAND_egd
-typing.IO.closed
