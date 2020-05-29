@@ -2,4 +2,3 @@ ntpath.splitunc
 os.path.splitunc
 os.path.splitunc
 posixpath.splitunc
-typing.IO.closed
