@@ -21,7 +21,8 @@ SUPPRESS: str
 ZERO_OR_MORE: str
 _UNRECOGNIZED_ARGS_ATTR: str  # undocumented
 
-class ArgumentError(Exception): ...
+class ArgumentError(Exception):
+    def __init__(self, argument: Optional[Action], message: str) -> None: ...
 
 # undocumented
 class _AttributeHolder:
@@ -282,6 +283,21 @@ class Action(_AttributeHolder):
                  option_string: Optional[Text] = ...) -> None: ...
     if sys.version_info >= (3, 9):
         def format_usage(self) -> str: ...
+
+if sys.version_info >= (3, 9):
+    class BooleanOptionalAction(Action):
+        def __init__(
+            self,
+            option_strings: Sequence[Text],
+            dest: Text,
+            const: Any = ...,
+            default: Any = ...,
+            type: Optional[Union[Callable[[Text], _T], Callable[[str], _T], FileType]] = ...,
+            choices: Optional[Iterable[_T]] = ...,
+            required: bool = ...,
+            help: Optional[Text] = ...,
+            metavar: Optional[Union[Text, Tuple[Text, ...]]] = ...,
+        ) -> None: ...
 
 class Namespace(_AttributeHolder):
     def __init__(self, **kwargs: Any) -> None: ...
