@@ -1,6 +1,3 @@
 hashlib.scrypt
-ntpath.splitunc
-os.path.splitunc
 os.startfile
-os.path.splitunc
-posixpath.splitunc
+posixpath.splitunc  # This doesn't exist, but our hands are tied by check_consistent
