@@ -322,6 +322,20 @@ if sys.platform == 'linux' and sys.version_info >= (3,):
 
     CAN_RAW_FD_FRAMES: int
 
+if sys.platform == 'linux' and sys.version_info >= (3, 8):
+    CAN_BCM_SETTIMER: int
+    CAN_BCM_STARTTIMER: int
+    CAN_BCM_TX_COUNTEVT: int
+    CAN_BCM_TX_ANNOUNCE: int
+    CAN_BCM_TX_CP_CAN_ID: int
+    CAN_BCM_RX_FILTER_ID: int
+    CAN_BCM_RX_CHECK_DLC: int
+    CAN_BCM_RX_NO_AUTOTIMER: int
+    CAN_BCM_RX_ANNOUNCE_RESUME: int
+    CAN_BCM_TX_RESET_MULTI_IDX: int
+    CAN_BCM_RX_RTR_FRAME: int
+    CAN_BCM_CAN_FD_FRAME: int
+
 if sys.platform == 'linux' and sys.version_info >= (3, 7):
     CAN_ISOTP: int
 
