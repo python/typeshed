@@ -16,4 +16,3 @@ _FINISHED: Literal["FINISHED"]  # undocumented
 def isfuture(obj: object) -> bool: ...
 def _format_callbacks(cb: Sequence[Tuple[Callable[[futures.Future], None], contextvars.Context]]) -> str: ...  # undocumented
 def _future_repr_info(future: futures.Future) -> List[str]: ...  # undocumented
-
