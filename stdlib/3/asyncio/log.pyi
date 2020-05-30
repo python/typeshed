@@ -1,4 +1,4 @@
 
 import logging
 
-log: logging.Logger
+logger: logging.Logger
