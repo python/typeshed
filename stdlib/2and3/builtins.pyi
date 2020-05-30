@@ -1400,7 +1400,7 @@ if sys.version_info >= (3,):
     def open(
         file: _OpenFile,
         mode: _OpenBinaryModeUpdating,
-        buffering: Literal[-1, 1],
+        buffering: Literal[-1, 1] = ...,
         encoding: None = ...,
         errors: None = ...,
         newline: None = ...,
@@ -1411,7 +1411,7 @@ if sys.version_info >= (3,):
     def open(
         file: _OpenFile,
         mode: _OpenBinaryModeWriting,
-        buffering: Literal[-1, 1],
+        buffering: Literal[-1, 1] = ...,
         encoding: None = ...,
         errors: None = ...,
         newline: None = ...,
@@ -1422,42 +1422,7 @@ if sys.version_info >= (3,):
     def open(
         file: _OpenFile,
         mode: _OpenBinaryModeReading,
-        buffering: Literal[-1, 1],
-        encoding: None = ...,
-        errors: None = ...,
-        newline: None = ...,
-        closefd: bool = ...,
-        opener: Optional[_Opener] = ...,
-    ) -> BufferedReader: ...
-
-    # Buffering argument is not given: return BufferedRandom, BufferedReader, or BufferedWriter
-    @overload
-    def open(
-        file: _OpenFile,
-        mode: _OpenBinaryModeUpdating,
-        *,
-        encoding: None = ...,
-        errors: None = ...,
-        newline: None = ...,
-        closefd: bool = ...,
-        opener: Optional[_Opener] = ...,
-    ) -> BufferedRandom: ...
-    @overload
-    def open(
-        file: _OpenFile,
-        mode: _OpenBinaryModeWriting,
-        *,
-        encoding: None = ...,
-        errors: None = ...,
-        newline: None = ...,
-        closefd: bool = ...,
-        opener: Optional[_Opener] = ...,
-    ) -> BufferedWriter: ...
-    @overload
-    def open(
-        file: _OpenFile,
-        mode: _OpenBinaryModeReading,
-        *,
+        buffering: Literal[-1, 1] = ...,
         encoding: None = ...,
         errors: None = ...,
         newline: None = ...,
