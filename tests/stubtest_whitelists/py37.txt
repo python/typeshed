@@ -1,5 +1,5 @@
 asyncio.AbstractEventLoop.sock_sendfile
-asyncio.compat  # Removed in 3.7+
+asyncio.compat  # Removed in 3.7
 asyncio.Future.__init__
 asyncio.Future._callbacks
 asyncio.Handle.__init__

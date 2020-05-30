@@ -5,6 +5,7 @@ asyncio.Future._tb_logger
 asyncio.Task.__init__
 asyncio.Task._wakeup
 asyncio.exceptions  # Added in Python 3.8
+asyncio.format_helpers  # Added in Python 3.7
 asyncio.futures.Future._callbacks
 asyncio.futures.Future._exception
 asyncio.futures.Future._loop
