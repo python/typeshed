@@ -28,12 +28,20 @@ _OpenTextMode = Literal[
     'a', 'a+', '+a', 'at', 'ta', 'at+', 'a+t', '+at', 'ta+', 't+a', '+ta',
     'U', 'rU', 'Ur', 'rtU', 'rUt', 'Urt', 'trU', 'tUr', 'Utr',
 ]
-_OpenBinaryMode = Literal[
-    'rb', 'br', 'rb+', 'r+b', '+rb', 'br+', 'b+r', '+br',
-    'wb', 'bw', 'wb+', 'w+b', '+wb', 'bw+', 'b+w', '+bw',
-    'ab', 'ba', 'ab+', 'a+b', '+ab', 'ba+', 'b+a', '+ba',
+_OpenBinaryModeUpdating = Literal[
+    'rb+', 'r+b', '+rb', 'br+', 'b+r', '+br',
+    'wb+', 'w+b', '+wb', 'bw+', 'b+w', '+bw',
+    'ab+', 'a+b', '+ab', 'ba+', 'b+a', '+ba',
+]
+_OpenBinaryModeWriting = Literal[
+    'wb', 'bw',
+    'ab', 'ba',
+]
+_OpenBinaryModeReading = Literal[
+    'rb', 'br',
     'rbU', 'rUb', 'Urb', 'brU', 'bUr', 'Ubr',
 ]
+_OpenBinaryMode = Union[_OpenBinaryModeUpdating, _OpenBinaryModeReading, _OpenBinaryModeWriting]
 
 def _OpenWrapper(file: Union[str, unicode, int],
                  mode: unicode = ..., buffering: int = ..., encoding: unicode = ...,
