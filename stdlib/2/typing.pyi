@@ -9,7 +9,15 @@ import collections  # Needed by aliases like DefaultDict, see mypy issue 2986
 
 overload = object()
 Any = object()
-TypeVar = object()
+
+class TypeVar:
+    __name__: str
+    __bound__: Optional[Type[Any]]
+    __constraints__: Tuple[Type[Any], ...]
+    __covariant__: bool
+    __contravariant__: bool
+    def __init__(self, name: str, *constraints: Type[Any], bound: Optional[Type[Any]] = ..., covariant: bool = ..., contravariant: bool = ...) -> None: ...
+
 _promote = object()
 
 class _SpecialForm(object):
