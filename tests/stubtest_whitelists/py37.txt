@@ -41,7 +41,7 @@ importlib.metadata
 ipaddress._BaseNetwork.__init__
 json.loads
 logging.handlers.MemoryHandler.__init__
-macurl2path  # removed in 3.7+
+macurl2path  # removed in 3.7
 multiprocessing.shared_memory
 nntplib._NNTPBase.starttls
 os.utime
