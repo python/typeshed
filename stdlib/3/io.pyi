@@ -29,13 +29,22 @@ _OpenTextMode = Literal[
     'x', 'x+', '+x', 'xt', 'tx', 'xt+', 'x+t', '+xt', 'tx+', 't+x', '+tx',
     'U', 'rU', 'Ur', 'rtU', 'rUt', 'Urt', 'trU', 'tUr', 'Utr',
 ]
-_OpenBinaryMode = Literal[
-    'rb', 'br', 'rb+', 'r+b', '+rb', 'br+', 'b+r', '+br',
-    'wb', 'bw', 'wb+', 'w+b', '+wb', 'bw+', 'b+w', '+bw',
-    'ab', 'ba', 'ab+', 'a+b', '+ab', 'ba+', 'b+a', '+ba',
-    'xb', 'bx', 'xb+', 'x+b', '+xb', 'bx+', 'b+x', '+bx',
+_OpenBinaryModeUpdating = Literal[
+    'rb+', 'r+b', '+rb', 'br+', 'b+r', '+br',
+    'wb+', 'w+b', '+wb', 'bw+', 'b+w', '+bw',
+    'ab+', 'a+b', '+ab', 'ba+', 'b+a', '+ba',
+    'xb+', 'x+b', '+xb', 'bx+', 'b+x', '+bx',
+]
+_OpenBinaryModeWriting = Literal[
+    'wb', 'bw',
+    'ab', 'ba',
+    'xb', 'bx',
+]
+_OpenBinaryModeReading = Literal[
+    'rb', 'br',
     'rbU', 'rUb', 'Urb', 'brU', 'bUr', 'Ubr',
 ]
+_OpenBinaryMode = Union[_OpenBinaryModeUpdating, _OpenBinaryModeReading, _OpenBinaryModeWriting]
 
 open = builtins.open
 

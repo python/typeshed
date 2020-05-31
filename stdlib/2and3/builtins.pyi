@@ -5,13 +5,16 @@ from typing import (
     TypeVar, Iterator, Iterable, NoReturn, overload, Container,
     Sequence, MutableSequence, Mapping, MutableMapping, Tuple, List, Any, Dict, Callable, Generic,
     Set, AbstractSet, FrozenSet, MutableSet, Sized, Reversible, SupportsInt, SupportsFloat, SupportsAbs,
-    SupportsComplex, IO, BinaryIO, TextIO, Union,
+    SupportsComplex, IO, BinaryIO, Union,
     ItemsView, KeysView, ValuesView, ByteString, Optional, AnyStr, Type, Text,
     Protocol,
 )
-from abc import abstractmethod, ABCMeta
+from abc import ABCMeta
 from ast import mod, AST
-from io import _OpenBinaryMode, _OpenTextMode
+from io import (
+    _OpenBinaryMode, _OpenTextMode, _OpenBinaryModeUpdating, _OpenBinaryModeWriting, _OpenBinaryModeReading,
+    TextIOWrapper, FileIO, BufferedRandom, BufferedReader, BufferedWriter
+)
 from types import TracebackType, CodeType
 import sys
 
@@ -1364,7 +1367,9 @@ if sys.version_info >= (3,):
         _OpenFile = Union[str, bytes, int, _PathLike[Any]]
     else:
         _OpenFile = Union[str, bytes, int]
+    _Opener = Callable[[str, int], int]
 
+    # Text mode: always returns a TextIOWrapper
     @overload
     def open(
         file: _OpenFile,
@@ -1374,19 +1379,71 @@ if sys.version_info >= (3,):
         errors: Optional[str] = ...,
         newline: Optional[str] = ...,
         closefd: bool = ...,
-        opener: Optional[Callable[[str, int], int]] = ...,
-    ) -> TextIO: ...
+        opener: Optional[_Opener] = ...,
+    ) -> TextIOWrapper: ...
+
+    # Unbuffered binary mode: returns a FileIO
     @overload
     def open(
         file: _OpenFile,
         mode: _OpenBinaryMode,
-        buffering: int = ...,
+        buffering: Literal[0],
         encoding: None = ...,
         errors: None = ...,
         newline: None = ...,
         closefd: bool = ...,
-        opener: Optional[Callable[[str, int], int]] = ...,
+        opener: Optional[_Opener] = ...,
+    ) -> FileIO: ...
+
+    # Buffering is on: return BufferedRandom, BufferedReader, or BufferedWriter
+    @overload
+    def open(
+        file: _OpenFile,
+        mode: _OpenBinaryModeUpdating,
+        buffering: Literal[-1, 1] = ...,
+        encoding: None = ...,
+        errors: None = ...,
+        newline: None = ...,
+        closefd: bool = ...,
+        opener: Optional[_Opener] = ...,
+    ) -> BufferedRandom: ...
+    @overload
+    def open(
+        file: _OpenFile,
+        mode: _OpenBinaryModeWriting,
+        buffering: Literal[-1, 1] = ...,
+        encoding: None = ...,
+        errors: None = ...,
+        newline: None = ...,
+        closefd: bool = ...,
+        opener: Optional[_Opener] = ...,
+    ) -> BufferedWriter: ...
+    @overload
+    def open(
+        file: _OpenFile,
+        mode: _OpenBinaryModeReading,
+        buffering: Literal[-1, 1] = ...,
+        encoding: None = ...,
+        errors: None = ...,
+        newline: None = ...,
+        closefd: bool = ...,
+        opener: Optional[_Opener] = ...,
+    ) -> BufferedReader: ...
+
+    # Buffering cannot be determined: fall back to BinaryIO
+    @overload
+    def open(
+        file: _OpenFile,
+        mode: _OpenBinaryMode,
+        buffering: int,
+        encoding: None = ...,
+        errors: None = ...,
+        newline: None = ...,
+        closefd: bool = ...,
+        opener: Optional[_Opener] = ...,
     ) -> BinaryIO: ...
+
+    # Fallback if mode is not specified
     @overload
     def open(
         file: _OpenFile,
@@ -1396,7 +1453,7 @@ if sys.version_info >= (3,):
         errors: Optional[str] = ...,
         newline: Optional[str] = ...,
         closefd: bool = ...,
-        opener: Optional[Callable[[str, int], int]] = ...,
+        opener: Optional[_Opener] = ...,
     ) -> IO[Any]: ...
 
 else:
