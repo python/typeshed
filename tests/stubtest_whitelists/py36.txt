@@ -4,7 +4,9 @@ asyncio.format_helpers  # Added in Python 3.7
 asyncio.futures.Future.__init__
 asyncio.futures._TracebackLogger.__init__
 asyncio.runners
+asyncio.staggered  # Added in Python 3.8
 asyncio.threads  # Added in Python 3.9
+asyncio.trsock  # Added in Python 3.8
 builtins.str.maketrans
 cmath.log
 codecs.StreamRecoder.seek
