@@ -14,6 +14,7 @@ ast.NameConstant.__new__
 ast.Num.__new__
 ast.Str.__new__
 asyncio.AbstractEventLoop.sock_sendfile
+asyncio.compat  # removed in 3.7
 asyncio.Future.__init__
 asyncio.Future._callbacks
 asyncio.Handle.__init__
@@ -121,7 +122,7 @@ logging.handlers.WatchedFileHandler.__init__
 lzma.LZMACompressor.compress
 lzma.is_check_supported
 macpath
-macurl2path
+macurl2path  # removed in 3.7
 mmap.MADV_AUTOSYNC
 mmap.MADV_CORE
 mmap.MADV_NOCORE
