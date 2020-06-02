@@ -48,8 +48,11 @@ def unused_files(unused: str) -> List[Tuple[str, str]]:
 
 
 def find_unused_in_file(unused: str, path: str) -> bool:
-    with open(path) as f:
-        return any(line.strip().split(" ")[0] == unused for line in f)
+    try:
+        with open(path) as f:
+            return any(line.strip().split(" ")[0] == unused for line in f)
+    except FileNotFoundError:
+        return False
 
 
 if __name__ == "__main__":
