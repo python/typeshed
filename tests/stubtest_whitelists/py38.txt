@@ -6,6 +6,7 @@ ast.NameConstant.__new__
 ast.Num.__new__
 ast.Str.__new__
 asyncio.AbstractEventLoop.sock_sendfile
+asyncio.compat  # removed in 3.7
 asyncio.Future.__init__
 asyncio.Future._callbacks
 asyncio.Handle.__init__
@@ -61,7 +62,7 @@ ipaddress._BaseNetwork.broadcast_address
 ipaddress._BaseNetwork.hostmask
 logging.handlers.MemoryHandler.__init__
 macpath
-macurl2path
+macurl2path  # removed in 3.7
 mmap.MADV_[A-Z_]+
 multiprocessing.managers.SharedMemoryServer.__init__
 multiprocessing.pool.CLOSE

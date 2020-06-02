@@ -1,4 +1,5 @@
 asyncio.AbstractEventLoop.sock_sendfile
+asyncio.compat  # Removed in 3.7
 asyncio.Future.__init__
 asyncio.Future._callbacks
 asyncio.Handle.__init__
@@ -9,7 +10,9 @@ asyncio.events.TimerHandle.__init__
 asyncio.exceptions  # Added in Python 3.8
 asyncio.futures.Future.__init__
 asyncio.futures.Future._callbacks
+asyncio.staggered  # Added in Python 3.8
 asyncio.threads  # Added in Python 3.9
+asyncio.trsock  # Added in Python 3.8
 builtins.dict.get
 builtins.reversed
 builtins.str.maketrans
@@ -38,7 +41,7 @@ importlib.metadata
 ipaddress._BaseNetwork.__init__
 json.loads
 logging.handlers.MemoryHandler.__init__
-macurl2path
+macurl2path  # removed in 3.7
 multiprocessing.shared_memory
 nntplib._NNTPBase.starttls
 os.utime

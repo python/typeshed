@@ -39,10 +39,6 @@ jobs:
     - name: "flake8"
       install: pip install -r requirements-tests-py3.txt
       script: flake8
-    - name: "stubtest py39"
-      python: 3.9-dev
-      install: pip install -U git+git://github.com/python/mypy@b3d43984
-      script: ./tests/stubtest_test.py
     - name: "stubtest py38"
       python: 3.8
       install: pip install -U git+git://github.com/python/mypy@b3d43984

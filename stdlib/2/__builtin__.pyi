@@ -5,13 +5,16 @@ from typing import (
     TypeVar, Iterator, Iterable, NoReturn, overload, Container,
     Sequence, MutableSequence, Mapping, MutableMapping, Tuple, List, Any, Dict, Callable, Generic,
     Set, AbstractSet, FrozenSet, MutableSet, Sized, Reversible, SupportsInt, SupportsFloat, SupportsAbs,
-    SupportsComplex, IO, BinaryIO, TextIO, Union,
+    SupportsComplex, IO, BinaryIO, Union,
     ItemsView, KeysView, ValuesView, ByteString, Optional, AnyStr, Type, Text,
     Protocol,
 )
-from abc import abstractmethod, ABCMeta
+from abc import ABCMeta
 from ast import mod, AST
-from io import _OpenBinaryMode, _OpenTextMode
+from io import (
+    _OpenBinaryMode, _OpenTextMode, _OpenBinaryModeUpdating, _OpenBinaryModeWriting, _OpenBinaryModeReading,
+    TextIOWrapper, FileIO, BufferedRandom, BufferedReader, BufferedWriter
+)
 from types import TracebackType, CodeType
 import sys
 
@@ -1364,7 +1367,9 @@ if sys.version_info >= (3,):
         _OpenFile = Union[str, bytes, int, _PathLike[Any]]
     else:
         _OpenFile = Union[str, bytes, int]
+    _Opener = Callable[[str, int], int]
 
+    # Text mode: always returns a TextIOWrapper
     @overload
     def open(
         file: _OpenFile,
@@ -1374,19 +1379,71 @@ if sys.version_info >= (3,):
         errors: Optional[str] = ...,
         newline: Optional[str] = ...,
         closefd: bool = ...,
-        opener: Optional[Callable[[str, int], int]] = ...,
-    ) -> TextIO: ...
+        opener: Optional[_Opener] = ...,
+    ) -> TextIOWrapper: ...
+
+    # Unbuffered binary mode: returns a FileIO
     @overload
     def open(
         file: _OpenFile,
         mode: _OpenBinaryMode,
-        buffering: int = ...,
+        buffering: Literal[0],
         encoding: None = ...,
         errors: None = ...,
         newline: None = ...,
         closefd: bool = ...,
-        opener: Optional[Callable[[str, int], int]] = ...,
+        opener: Optional[_Opener] = ...,
+    ) -> FileIO: ...
+
+    # Buffering is on: return BufferedRandom, BufferedReader, or BufferedWriter
+    @overload
+    def open(
+        file: _OpenFile,
+        mode: _OpenBinaryModeUpdating,
+        buffering: Literal[-1, 1] = ...,
+        encoding: None = ...,
+        errors: None = ...,
+        newline: None = ...,
+        closefd: bool = ...,
+        opener: Optional[_Opener] = ...,
+    ) -> BufferedRandom: ...
+    @overload
+    def open(
+        file: _OpenFile,
+        mode: _OpenBinaryModeWriting,
+        buffering: Literal[-1, 1] = ...,
+        encoding: None = ...,
+        errors: None = ...,
+        newline: None = ...,
+        closefd: bool = ...,
+        opener: Optional[_Opener] = ...,
+    ) -> BufferedWriter: ...
+    @overload
+    def open(
+        file: _OpenFile,
+        mode: _OpenBinaryModeReading,
+        buffering: Literal[-1, 1] = ...,
+        encoding: None = ...,
+        errors: None = ...,
+        newline: None = ...,
+        closefd: bool = ...,
+        opener: Optional[_Opener] = ...,
+    ) -> BufferedReader: ...
+
+    # Buffering cannot be determined: fall back to BinaryIO
+    @overload
+    def open(
+        file: _OpenFile,
+        mode: _OpenBinaryMode,
+        buffering: int,
+        encoding: None = ...,
+        errors: None = ...,
+        newline: None = ...,
+        closefd: bool = ...,
+        opener: Optional[_Opener] = ...,
     ) -> BinaryIO: ...
+
+    # Fallback if mode is not specified
     @overload
     def open(
         file: _OpenFile,
@@ -1396,7 +1453,7 @@ if sys.version_info >= (3,):
         errors: Optional[str] = ...,
         newline: Optional[str] = ...,
         closefd: bool = ...,
-        opener: Optional[Callable[[str, int], int]] = ...,
+        opener: Optional[_Opener] = ...,
     ) -> IO[Any]: ...
 
 else:
@@ -1416,6 +1473,12 @@ else:
     # This is only available after from __future__ import print_function.
     def print(*values: object, sep: Optional[Text] = ..., end: Optional[Text] = ..., file: Optional[_Writer] = ...) -> None: ...
 
+_E = TypeVar("_E", contravariant=True)
+_M = TypeVar("_M", contravariant=True)
+class _SupportsPow2(Protocol[_E, _T_co]):
+    def __pow__(self, __other: _E) -> _T_co: ...
+class _SupportsPow3(Protocol[_E, _M, _T_co]):
+    def __pow__(self, __other: _E, __modulo: _M) -> _T_co: ...
 if sys.version_info >= (3, 8):
     @overload
     def pow(base: int, exp: int, mod: None = ...) -> Any: ...  # returns int or float depending on whether exp is non-negative
@@ -1423,6 +1486,10 @@ if sys.version_info >= (3, 8):
     def pow(base: int, exp: int, mod: int) -> int: ...
     @overload
     def pow(base: float, exp: float, mod: None = ...) -> float: ...
+    @overload
+    def pow(base: _SupportsPow2[_E, _T_co], exp: _E) -> _T_co: ...
+    @overload
+    def pow(base: _SupportsPow3[_E, _M, _T_co], exp: _E, mod: _M) -> _T_co: ...
 else:
     @overload
     def pow(__base: int, __exp: int, __mod: None = ...) -> Any: ...  # returns int or float depending on whether exp is non-negative
@@ -1430,6 +1497,10 @@ else:
     def pow(__base: int, __exp: int, __mod: int) -> int: ...
     @overload
     def pow(__base: float, __exp: float, __mod: None = ...) -> float: ...
+    @overload
+    def pow(__base: _SupportsPow2[_E, _T_co], __exp: _E) -> _T_co: ...
+    @overload
+    def pow(__base: _SupportsPow3[_E, _M, _T_co], __exp: _E, __mod: _M) -> _T_co: ...
 def quit(code: object = ...) -> NoReturn: ...
 if sys.version_info < (3,):
     def range(__x: int, __y: int = ..., __step: int = ...) -> List[int]: ...
