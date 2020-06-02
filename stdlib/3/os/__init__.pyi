@@ -216,6 +216,8 @@ class stat_result:
     st_ctime_ns: int  # platform dependent (time of most recent metadata change on Unix, or the time of creation on Windows) in nanoseconds
     if sys.version_info >= (3, 8) and sys.platform == "win32":
         st_reparse_tag: int
+    if sys.version_info >= (3, 5) and sys.platform == "win32":
+        st_file_attributes: int
 
     def __getitem__(self, i: int) -> int: ...
 
