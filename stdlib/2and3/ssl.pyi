@@ -323,6 +323,7 @@ class SSLContext:
                      server_hostname: Optional[str] = ...) -> SSLObject: ...
     def session_stats(self) -> Dict[str, int]: ...
     if sys.version_info >= (3, 7):
+        hostname_checks_common_name: bool
         maximum_version: TLSVersion
         minimum_version: TLSVersion
 
