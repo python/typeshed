@@ -4,6 +4,12 @@ from asyncio import streams
 from asyncio import transports
 from typing import Any, Optional, Text, Tuple, Union, IO
 
+if sys.version_info >= (3, 6):
+    from os import PathLike
+    _Path = Union[str, PathLike[str]]
+else:
+    _Path = str
+
 PIPE: int
 STDOUT: int
 DEVNULL: int
@@ -39,7 +45,7 @@ class Process:
 
 
 async def create_subprocess_shell(
-    cmd: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue  #1236
+    cmd: Union[str, bytes, _Path],  # Union used instead of AnyStr due to mypy issue  #1236
     stdin: Union[int, IO[Any], None] = ...,
     stdout: Union[int, IO[Any], None] = ...,
     stderr: Union[int, IO[Any], None] = ...,
@@ -49,7 +55,7 @@ async def create_subprocess_shell(
 ) -> Process: ...
 
 async def create_subprocess_exec(
-    program: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue  #1236
+    program: Union[str, bytes, _Path],  # Union used instead of AnyStr due to mypy issue  #1236
     *args: Any,
     stdin: Union[int, IO[Any], None] = ...,
     stdout: Union[int, IO[Any], None] = ...,
