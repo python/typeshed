@@ -1,3 +1,4 @@
+import sys
 from asyncio import events
 from asyncio import protocols
 from asyncio import streams
