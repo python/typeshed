@@ -151,9 +151,8 @@ if sys.version_info >= (3, 6):
         OP_SINGLE_DH_USE: int
         OP_SINGLE_ECDH_USE: int
         OP_NO_COMPRESSION: int
-        if sys.version_info >= (3, 6):
-            OP_NO_TICKET: int
-            OP_ENABLE_MIDDLEBOX_COMPAT: int
+        OP_NO_TICKET: int
+        OP_ENABLE_MIDDLEBOX_COMPAT: int
         if sys.version_info >= (3, 7):
             OP_NO_RENEGOTIATION: int
 else:
@@ -167,8 +166,6 @@ else:
     OP_SINGLE_DH_USE: int
     OP_SINGLE_ECDH_USE: int
     OP_NO_COMPRESSION: int
-    if sys.version_info >= (3, 6):
-        OP_NO_TICKET: int
 
 HAS_ALPN: int
 HAS_ECDH: bool
