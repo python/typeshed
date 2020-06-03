@@ -13,18 +13,14 @@
 # is not used, types from this module must be quoted.
 
 import sys
-from typing import Text, TypeVar
+from typing import AnyStr, Text, Union
 
-_T = TypeVar("_T")
-
-# PathType can be used in places where starting with Python 3.6 a path
-# can be used instead of a string. The alias is generic over the string
-# type and should be used as PathType[str], PathType[Text], or
-# PathType[bytes], where only on of these types is allowed, or as
-# PathType[Union[Text, bytes]], PathType[Union[str, bytes]], or
-# PathType[AnyStr] when both bytes and str (or unicode) are supported.
+# StrPath and AnyPath can be used in places where a
+# path can be used instead of a string, starting with Python 3.6.
 if sys.version_info >= (3, 6):
     from os import PathLike
-    PathType = Union[_T, PathLike[_T]]
+    StrPath = Union[str, PathLike[str]]
+    AnyPath = Union[AnyStr, PathLike[AnyStr]]
 else:
-    PathType = _T
+    StrPath = Text
+    AnyPath = AnyStr

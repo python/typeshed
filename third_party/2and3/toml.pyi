@@ -1,13 +1,13 @@
 from typing import Any, IO, List, Mapping, MutableMapping, Optional, Protocol, Text, Type, Union
-from _typeshed import PathType
+from _typeshed import StrPath
 import datetime
 import sys
 
 if sys.version_info >= (3, 4):
     import pathlib
-    _PathLike = Union[PathType[str], pathlib.PurePath]
+    _PathLike = Union[StrPath, pathlib.PurePath]
 else:
-    _PathLike = PathType[Text]
+    _PathLike = StrPath
 
 class _Writable(Protocol):
     def write(self, obj: str) -> Any: ...
