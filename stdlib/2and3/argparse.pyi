@@ -271,8 +271,8 @@ class Action(_AttributeHolder):
                  option_strings: Sequence[Text],
                  dest: Text,
                  nargs: Optional[Union[int, Text]] = ...,
-                 const: Any = ...,
-                 default: Any = ...,
+                 const: Optional[_T] = ...,
+                 default: Union[_T, str, None] = ...,
                  type: Optional[Union[Callable[[Text], _T], Callable[[str], _T], FileType]] = ...,
                  choices: Optional[Iterable[_T]] = ...,
                  required: bool = ...,
@@ -288,10 +288,10 @@ if sys.version_info >= (3, 9):
     class BooleanOptionalAction(Action):
         def __init__(
             self,
-            option_strings: Sequence[Text],
-            dest: Text,
-            const: Any = ...,
-            default: Any = ...,
+            option_strings: Sequence[str],
+            dest: str,
+            const: None = ...,  # unused in implementation
+            default: Union[_T, str, None] = ...,
             type: Optional[Union[Callable[[Text], _T], Callable[[str], _T], FileType]] = ...,
             choices: Optional[Iterable[_T]] = ...,
             required: bool = ...,
