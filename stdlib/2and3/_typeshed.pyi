@@ -20,7 +20,9 @@ from typing import Text, Union
 if sys.version_info >= (3, 6):
     from os import PathLike
     StrPath = Union[str, PathLike[str]]
+    BytesPath = Union[bytes, PathLike[bytes]]
     AnyPath = Union[str, bytes, PathLike[str], PathLike[bytes]]
 else:
     StrPath = Text
+    BytesPath = bytes
     AnyPath = Union[Text, bytes]
