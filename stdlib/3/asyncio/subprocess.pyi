@@ -7,9 +7,9 @@ from typing import Any, Optional, Text, Tuple, Union, IO
 
 if sys.version_info >= (3, 6):
     from os import PathLike
-    _PathLike = PathLike[str]
+    _PathLike = Union[str, bytes, PathLike[str], PathLike[bytes]]
 else:
-    _PathLike = str
+    _PathLike = Union[str, bytes]
 
 PIPE: int
 STDOUT: int
@@ -46,7 +46,7 @@ class Process:
 
 
 async def create_subprocess_shell(
-    cmd: Union[str, bytes, _PathLike],  # Union used instead of AnyStr due to mypy issue  #1236
+    cmd: _PathLike,
     stdin: Union[int, IO[Any], None] = ...,
     stdout: Union[int, IO[Any], None] = ...,
     stderr: Union[int, IO[Any], None] = ...,
@@ -56,8 +56,8 @@ async def create_subprocess_shell(
 ) -> Process: ...
 
 async def create_subprocess_exec(
-    program: Union[str, bytes, _PathLike],  # Union used instead of AnyStr due to mypy issue  #1236
-    *args: Any,
+    program: _PathLike,
+    *args: Union[str, bytes, _PathLike],
     stdin: Union[int, IO[Any], None] = ...,
     stdout: Union[int, IO[Any], None] = ...,
     stderr: Union[int, IO[Any], None] = ...,
