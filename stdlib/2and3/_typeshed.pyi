@@ -13,8 +13,9 @@
 # is not used, types from this module must be quoted.
 
 import sys
-from typing import Text
+from typing import Text, TypeVar
 
+_T = TypeVar("_T")
 
 # PathType can be used in places where starting with Python 3.6 a path
 # can be used instead of a string. The alias is generic over the string
