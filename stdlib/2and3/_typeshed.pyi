@@ -9,7 +9,7 @@
 #     if TYPE_CHECKING:
 #         from _typeshed import ...
 #
-# On Python versions < 3.10 and if "from __future__ import type_checking"
+# On Python versions < 3.10 and if "from __future__ import annotations"
 # is not used, types from this module must be quoted.
 
 import sys
