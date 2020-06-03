@@ -23,4 +23,4 @@ if sys.version_info >= (3, 6):
     AnyPath = Union[AnyStr, PathLike[AnyStr]]
 else:
     StrPath = Text
-    AnyPath = AnyStr
+    AnyPath = Union[Text, bytes]
