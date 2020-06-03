@@ -1,6 +1,6 @@
 import sys
 from typing import Any, AnyStr, Callable, ContextManager, Generic, IO, Optional, Text, Type, Union
-from _typing import PathType
+from _typeshed import PathType
 
 _Path = PathType[Union[Text, bytes]]
 
