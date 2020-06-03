@@ -1,11 +1,8 @@
 import sys
 from typing import Any, AnyStr, Callable, ContextManager, Generic, IO, Optional, Text, Type, Union
+from _typing import PathType
 
-if sys.version_info >= (3, 6):
-    from os import PathLike
-    _Path = Union[str, bytes, PathLike[str], PathLike[bytes]]
-else:
-    _Path = Union[Text, bytes]
+_Path = PathType[Union[Text, bytes]]
 
 def replace_atomic(src: AnyStr, dst: AnyStr) -> None: ...
 def move_atomic(src: AnyStr, dst: AnyStr) -> None: ...
