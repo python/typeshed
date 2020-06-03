@@ -9,18 +9,18 @@
 #     if TYPE_CHECKING:
 #         from _typeshed import ...
 #
-# On Python versions < 3.10 and if "from __future__ import type_checking" 
+# On Python versions < 3.10 and if "from __future__ import type_checking"
 # is not used, types from this module must be quoted.
 
 import sys
-from typing import AnyStr, Text, Union
+from typing import Text, Union
 
 # StrPath and AnyPath can be used in places where a
 # path can be used instead of a string, starting with Python 3.6.
 if sys.version_info >= (3, 6):
     from os import PathLike
     StrPath = Union[str, PathLike[str]]
-    AnyPath = Union[AnyStr, PathLike[AnyStr]]
+    AnyPath = Union[str, bytes, PathLike[Union[str, bytes]]]
 else:
     StrPath = Text
     AnyPath = Union[Text, bytes]

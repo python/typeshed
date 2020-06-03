@@ -5,6 +5,7 @@ _importlib_modulespec
 _operator.methodcaller
 _threading_local.local.__new__
 _types
+_typeshed
 _weakref.CallableProxyType.__getattr__
 _weakref.ProxyType.__getattr__
 _weakref.ReferenceType.__call__
