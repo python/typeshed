@@ -46,9 +46,7 @@ class Process:
 
 
 async def create_subprocess_shell(
-    # Seems that support for Path objects may depend on the loop implementation.
-    # But, they seem to work with asyncio's default loop.
-    cmd: _PathLike,
+    cmd: Union[str, bytes],
     stdin: Union[int, IO[Any], None] = ...,
     stdout: Union[int, IO[Any], None] = ...,
     stderr: Union[int, IO[Any], None] = ...,
@@ -58,8 +56,6 @@ async def create_subprocess_shell(
 ) -> Process: ...
 
 async def create_subprocess_exec(
-    # Seems that support for Path objects may depend on the loop implementation.
-    # But, they seem to work with asyncio's default loop.
     program: _PathLike,
     *args: Union[str, bytes, _PathLike],
     stdin: Union[int, IO[Any], None] = ...,
