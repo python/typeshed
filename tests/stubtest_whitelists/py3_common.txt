@@ -13,8 +13,7 @@ abc.ABCMeta.__new__
 abc.abstractclassmethod
 abc.abstractmethod
 abc.abstractstaticmethod
-argparse.ArgumentError.__init__
-argparse.Namespace.__getattr__
+argparse.Namespace.__getattr__  # The whole point of this class is its attributes are dynamic
 asyncio.BaseEventLoop.subprocess_exec
 asyncio.Condition.acquire
 asyncio.Condition.locked
