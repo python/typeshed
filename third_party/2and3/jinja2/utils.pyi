@@ -1,5 +1,6 @@
 import sys
 from typing import Any, Callable, IO, Iterable, Optional, Protocol, Text, TypeVar, Union
+from _typeshed import AnyPath
 
 from markupsafe import Markup as Markup, escape as escape, soft_unicode as soft_unicode
 
@@ -12,12 +13,6 @@ if sys.version_info >= (3, 8):
     _True = Literal[True]
 else:
     _True = bool
-
-if sys.version_info >= (3, 6):
-    from builtins import _PathLike
-    _PathType = Union[bytes, Text, _PathLike]
-else:
-    _PathType = Union[bytes, Text]
 
 _CallableT = TypeVar("_CallableT", bound=Callable[..., Any])
 
@@ -42,7 +37,7 @@ def select_autoescape(enabled_extensions: Iterable[str] = ..., disabled_extensio
 def consume(iterable: Iterable[object]) -> None: ...
 def clear_caches() -> None: ...
 def import_string(import_name: str, silent: bool = ...) -> Any: ...
-def open_if_exists(filename: _PathType, mode: str = ...) -> Optional[IO[Any]]: ...
+def open_if_exists(filename: AnyPath, mode: str = ...) -> Optional[IO[Any]]: ...
 def object_type_repr(obj: object) -> str: ...
 def pformat(obj: object, verbose: bool = ...) -> str: ...
 def urlize(text: Union[Markup, Text], trim_url_limit: Optional[int] = ..., rel: Optional[Union[Markup, Text]] = ..., target: Optional[Union[Markup, Text]] = ...) -> str: ...
