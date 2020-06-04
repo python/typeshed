@@ -1,6 +1,6 @@
 import sys
 from typing import Any, Iterable, Iterator, List, Mapping, Optional, Protocol, Tuple
-from wsgiref.types import StartResponse, WSGIApplication, WSGIEnvironment
+from _typeshed.wsgi import StartResponse, WSGIApplication, WSGIEnvironment
 
 from ..datastructures import Headers
 
