@@ -5,11 +5,11 @@ from asyncio import streams
 from asyncio import transports
 from typing import Any, Optional, Text, Tuple, Union, IO
 
-if sys.version_info >= (3, 6):
+if sys.version_info >= (3, 8):
     from os import PathLike
-    _PathLike = Union[str, bytes, PathLike[str], PathLike[bytes]]
+    _ExecArg = Union[str, bytes, PathLike[str], PathLike[bytes]]
 else:
-    _PathLike = Union[str, bytes]
+    _ExecArg = Union[str, bytes]  # Union used instead of AnyStr due to mypy issue  #1236
 
 PIPE: int
 STDOUT: int
@@ -56,8 +56,8 @@ async def create_subprocess_shell(
 ) -> Process: ...
 
 async def create_subprocess_exec(
-    program: _PathLike,
-    *args: Union[str, bytes, _PathLike],
+    program: _ExecArg,
+    *args: _ExecArg,
     stdin: Union[int, IO[Any], None] = ...,
     stdout: Union[int, IO[Any], None] = ...,
     stderr: Union[int, IO[Any], None] = ...,
