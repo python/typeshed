@@ -1,5 +1,5 @@
 from typing import Any, Optional, Protocol, Iterable, Text
-from wsgiref.types import WSGIEnvironment, InputStream
+from _typeshed.wsgi import WSGIEnvironment, InputStream
 
 from .middleware.dispatcher import DispatcherMiddleware as DispatcherMiddleware
 from .middleware.http_proxy import ProxyMiddleware as ProxyMiddleware

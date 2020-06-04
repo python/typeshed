@@ -3,7 +3,7 @@ from datetime import datetime
 from typing import (
     Any, Callable, Iterable, Iterator, Mapping, MutableMapping, Optional, Sequence, Text, Tuple, Type, TypeVar, Union, overload
 )
-from wsgiref.types import WSGIEnvironment, InputStream
+from _typeshed.wsgi import WSGIEnvironment, InputStream
 
 from .datastructures import (
     Authorization, CombinedMultiDict, EnvironHeaders, Headers, ImmutableMultiDict,
