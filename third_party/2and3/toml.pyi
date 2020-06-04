@@ -3,7 +3,9 @@ from _typeshed import StrPath
 import datetime
 import sys
 
-if sys.version_info >= (3, 4):
+if sys.version_info >= (3, 6):
+    _PathLike = StrPath
+elif sys.version_info >= (3, 4):
     import pathlib
     _PathLike = Union[StrPath, pathlib.PurePath]
 else:
