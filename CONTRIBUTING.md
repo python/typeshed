@@ -278,7 +278,7 @@ they are not part of the stubbed API.
 
 When adding type annotations for context manager classes, annotate
 the return type of `__exit__` as bool only if the context manager
-sometimes suppresses annotations -- if it sometimes returns `True`
+sometimes suppresses exceptions -- if it sometimes returns `True`
 at runtime. If the context manager never suppresses exceptions,
 have the return type be either `None` or `Optional[bool]`. If you
 are not sure whether exceptions are suppressed or not or if the
