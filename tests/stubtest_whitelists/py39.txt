@@ -3,8 +3,6 @@ _dummy_thread
 _thread.ExceptHookArgs
 _thread._ExceptHookArgs
 _weakref.getweakrefcount
-array.array.fromstring
-array.array.tostring
 ast.Bytes.__new__
 ast.Ellipsis.__new__
 ast.ExtSlice.__new__
