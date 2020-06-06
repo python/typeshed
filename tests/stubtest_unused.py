@@ -22,16 +22,11 @@ def main() -> int:
 
 
 def run_stubtest() -> List[str]:
-    popen = subprocess.Popen(
-        ["./tests/stubtest_test.py"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True,
+    proc = subprocess.run(
+        ["./tests/stubtest_test.py"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT
     )
-    assert popen.stdout is not None
-    unused = []
-    for line in popen.stdout:
-        if line.startswith(_UNUSED_NOTE):
-            unused.append(line[len(_UNUSED_NOTE):].strip())
-    popen.wait()
-    return unused
+    output = proc.stdout.decode("utf-8").splitlines()
+    return [line[len(_UNUSED_NOTE):].strip() for line in output if line.startswith(_UNUSED_NOTE)]
 
 
 def unused_files(unused: str) -> List[Tuple[str, str]]:
