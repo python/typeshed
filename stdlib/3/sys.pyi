@@ -217,9 +217,9 @@ if sys.version_info >= (3, 8):
 
 if sys.version_info >= (3, 6):
     from typing import AsyncGenerator
-    _AsyncgenHook = Callable[[AsyncGenerator[Any, Any]], None]
+    _AsyncgenHook = Optional[Callable[[AsyncGenerator[Any, Any]], None]]
     class _asyncgen_hooks(Tuple[_AsyncgenHook, _AsyncgenHook]):
         firstiter: _AsyncgenHook
         finalizer: _AsyncgenHook
     def get_asyncgen_hooks() -> _asyncgen_hooks: ...
-    def set_asyncgen_hooks(firstiter: _AsyncgenHook, finalizer: _AsyncgenHook) -> None: ...
+    def set_asyncgen_hooks(firstiter: _AsyncgenHook = ..., finalizer: _AsyncgenHook = ...) -> None: ...
