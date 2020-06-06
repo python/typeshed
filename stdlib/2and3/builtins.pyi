@@ -26,6 +26,12 @@ if sys.version_info >= (3, 8):
 else:
     from typing_extensions import Literal
 
+class _SupportsIndex(Protocol):
+    def __index__(self) -> int: ...
+
+class _SupportsLessThan(Protocol):
+    def __lt__(self, other: Any) -> bool: ...
+
 _T = TypeVar('_T')
 _T_co = TypeVar('_T_co', covariant=True)
 _KT = TypeVar('_KT')
@@ -37,9 +43,7 @@ _T3 = TypeVar('_T3')
 _T4 = TypeVar('_T4')
 _T5 = TypeVar('_T5')
 _TT = TypeVar('_TT', bound='type')
-
-class _SupportsIndex(Protocol):
-    def __index__(self) -> int: ...
+_LT = TypeVar('_LT', bound=_SupportsLessThan)
 
 class object:
     __doc__: Optional[str]
@@ -943,7 +947,10 @@ class list(MutableSequence[_T], Generic[_T]):
     def remove(self, __value: _T) -> None: ...
     def reverse(self) -> None: ...
     if sys.version_info >= (3,):
-        def sort(self, *, key: Optional[Callable[[_T], Any]] = ..., reverse: bool = ...) -> None: ...
+        @overload
+        def sort(self: List[_LT], *, key: None = ..., reverse: bool = ...) -> None: ...
+        @overload
+        def sort(self, *, key: Callable[[_T], _SupportsLessThan], reverse: bool = ...) -> None: ...
     else:
         def sort(self, cmp: Callable[[_T, _T], Any] = ..., key: Callable[[_T], Any] = ..., reverse: bool = ...) -> None: ...
 
@@ -1539,8 +1546,13 @@ else:
     def round(number: SupportsFloat, ndigits: int) -> float: ...
 def setattr(__obj: Any, __name: Text, __value: Any) -> None: ...
 if sys.version_info >= (3,):
+    @overload
+    def sorted(__iterable: Iterable[_LT], *,
+               key: None = ...,
+               reverse: bool = ...) -> List[_LT]: ...
+    @overload
     def sorted(__iterable: Iterable[_T], *,
-               key: Optional[Callable[[_T], Any]] = ...,
+               key: Callable[[_T], _SupportsLessThan],
                reverse: bool = ...) -> List[_T]: ...
 else:
     def sorted(__iterable: Iterable[_T], *,
