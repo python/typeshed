@@ -22,7 +22,7 @@ _TransProtPair = Tuple[BaseTransport, BaseProtocol]
 class Handle:
     _cancelled = False
     _args: Sequence[Any]
-    if sys.version >= (3, 7):
+    if sys.version_info >= (3, 7):
         def __init__(self, callback: Callable[..., Any], args: Sequence[Any], loop: AbstractEventLoop, context: Optional[Context] = ...) -> None: ...
     else:
         def __init__(self, callback: Callable[..., Any], args: Sequence[Any], loop: AbstractEventLoop) -> None: ...
@@ -33,7 +33,7 @@ class Handle:
         def cancelled(self) -> bool: ...
 
 class TimerHandle(Handle):
-    if sys.version >= (3, 7):
+    if sys.version_info >= (3, 7):
         def __init__(self, when: float, callback: Callable[..., Any], args: List[Any],
                      loop: AbstractEventLoop, context: Optional[Context] = ...) -> None: ...
     else:
