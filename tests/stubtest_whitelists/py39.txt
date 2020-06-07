@@ -113,7 +113,6 @@ ipaddress._BaseNetwork.hostmask
 itertools.tee
 logging.FileHandler.__init__
 logging.handlers.BaseRotatingHandler.__init__
-logging.handlers.MemoryHandler.__init__
 logging.handlers.RotatingFileHandler.__init__
 logging.handlers.TimedRotatingFileHandler.__init__
 logging.handlers.WatchedFileHandler.__init__
