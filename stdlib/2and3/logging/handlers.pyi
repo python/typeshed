@@ -139,7 +139,7 @@ class SysLogHandler(Handler):
 
 
 class NTEventLogHandler(Handler):
-    def __init__(self, appname: str, dllname: str = ...,
+    def __init__(self, appname: str, dllname: Optional[str] = ...,
                  logtype: str = ...) -> None: ...
     def getEventCategory(self, record: LogRecord) -> int: ...
     # TODO correct return value?
