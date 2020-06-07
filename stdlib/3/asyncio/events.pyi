@@ -34,10 +34,10 @@ class Handle:
 
 class TimerHandle(Handle):
     if sys.version_info >= (3, 7):
-        def __init__(self, when: float, callback: Callable[..., Any], args: List[Any],
+        def __init__(self, when: float, callback: Callable[..., Any], args: Sequence[Any],
                      loop: AbstractEventLoop, context: Optional[Context] = ...) -> None: ...
     else:
-        def __init__(self, when: float, callback: Callable[..., Any], args: List[Any],
+        def __init__(self, when: float, callback: Callable[..., Any], args: Sequence[Any],
                      loop: AbstractEventLoop) -> None: ...
     def __hash__(self) -> int: ...
     if sys.version_info >= (3, 7):
