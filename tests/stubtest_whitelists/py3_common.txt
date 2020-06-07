@@ -292,7 +292,6 @@ lib2to3.pytree.BasePattern.__new__
 lib2to3.pytree.BasePattern.type
 lib2to3.pytree.NegatedPattern.match
 lib2to3.pytree.NegatedPattern.match_seq
-logging.handlers.SysLogHandler.__init__
 mailbox.Babyl.__init__
 mailbox.MH.__init__
 mailbox.MMDF.__init__
