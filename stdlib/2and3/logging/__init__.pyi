@@ -533,7 +533,8 @@ class PlaceHolder:
 
 # Below aren't in module docs but still visible
 
-class RootLogger(Logger): ...
+class RootLogger(Logger):
+    def __init__(self, level: int) -> None: ...
 
 root: RootLogger
 
