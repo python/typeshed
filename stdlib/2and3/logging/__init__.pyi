@@ -2,7 +2,7 @@
 
 from typing import (
     Any, Callable, Dict, Iterable, List, Mapping, MutableMapping, Optional, IO,
-    Tuple, Text, Union, overload,
+    Sequence, Tuple, Text, Union, overload,
 )
 from string import Template
 from time import struct_time
@@ -490,7 +490,7 @@ else:
     def basicConfig(*, filename: Optional[str] = ..., filemode: str = ...,
                     format: str = ..., datefmt: Optional[str] = ...,
                     level: Optional[_Level] = ..., stream: IO[str] = ...) -> None: ...
-def shutdown() -> None: ...
+def shutdown(handlerList: Sequence[Any] = ...) -> None: ...  # handlerList is undocumented
 
 def setLoggerClass(klass: type) -> None: ...
 
