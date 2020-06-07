@@ -8,7 +8,8 @@ from asyncio.protocols import BaseProtocol
 from asyncio.tasks import Task
 from asyncio.transports import BaseTransport
 from asyncio.unix_events import AbstractChildWatcher
-from contextvars import Context
+if sys.version_info >= (3, 7):
+    from contextvars import Context
 
 from _types import FileDescriptorLike
 
