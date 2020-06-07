@@ -29,7 +29,6 @@ importlib.resources
 io.StringIO.readline
 ipaddress._BaseNetwork.__init__
 json.loads
-logging.handlers.MemoryHandler.__init__
 mmap.ACCESS_DEFAULT
 multiprocessing.shared_memory
 nntplib._NNTPBase.starttls

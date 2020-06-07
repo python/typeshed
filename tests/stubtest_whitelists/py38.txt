@@ -60,7 +60,6 @@ ipaddress.IPv4Interface.hostmask
 ipaddress.IPv6Interface.hostmask
 ipaddress._BaseNetwork.broadcast_address
 ipaddress._BaseNetwork.hostmask
-logging.handlers.MemoryHandler.__init__
 macpath
 macurl2path  # removed in 3.7
 mmap.MADV_[A-Z_]+
