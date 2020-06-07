@@ -1,9 +1,15 @@
+import sys
 from types import TracebackType
-from typing import Literal, Optional, Type, Union, MutableMapping
+from typing import Optional, Type, Union, MutableMapping
 
 _KeyType = Union[str, bytes]
 _ValueType = Union[str, bytes]
-_Flag = Literal['r', 'w', 'c', 'n']
+
+if sys.version >= (3, 8):
+    from typing import Literal
+    _Flag = Literal['r', 'w', 'c', 'n']
+else:
+    _Flag = str
 
 class _Database(MutableMapping[_KeyType, bytes]):
     def close(self) -> None: ...
