@@ -3,7 +3,7 @@ from typing import Literal, Optional, Type, Union, MutableMapping
 
 _KeyType = Union[str, bytes]
 _ValueType = Union[str, bytes]
-_Mode = Literal['r', 'w', 'c', 'n']
+_Flag = Literal['r', 'w', 'c', 'n']
 
 class _Database(MutableMapping[_KeyType, bytes]):
     def close(self) -> None: ...
