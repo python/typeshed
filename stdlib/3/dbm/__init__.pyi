@@ -5,7 +5,7 @@ from typing import Iterator, Optional, Type, Union, MutableMapping
 _KeyType = Union[str, bytes]
 _ValueType = Union[str, bytes]
 
-if sys.version >= (3, 8):
+if sys.version_info >= (3, 8):
     from typing import Literal
     _Flag = Literal['r', 'w', 'c', 'n']
 else:
