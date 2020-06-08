@@ -2,11 +2,10 @@ import sys
 from types import TracebackType
 from typing import Iterator, Optional, Type, Union, MutableMapping
 
+from typing_extensions import Literal
+
 _KeyType = Union[str, bytes]
 _ValueType = Union[str, bytes]
-
-from typing_extensions import Literal
-_Flag = Literal['r', 'w', 'c', 'n']
 
 class _Database(MutableMapping[_KeyType, bytes]):
     def close(self) -> None: ...
@@ -23,4 +22,4 @@ class error(Exception): ...
 
 def whichdb(filename: str) -> str: ...
 
-def open(file: str, flag: _Flag = ..., mode: int = ...) -> _Database: ...
+def open(file: str, flag: Literal['r', 'w', 'c', 'n'] = ..., mode: int = ...) -> _Database: ...
