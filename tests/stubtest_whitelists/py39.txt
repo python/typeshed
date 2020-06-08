@@ -33,7 +33,6 @@ bz2.BZ2File.read
 bz2.BZ2File.read1
 bz2.BZ2File.readline
 bz2.BZ2File.seek
-cProfile.Profile.runcall
 codecs.lookup
 codecs.lookup_error
 codecs.register
@@ -157,7 +156,6 @@ platform.DEV_NULL
 platform.uname_result.__new__
 platform.uname_result._fields
 platform.uname_result.processor
-profile.Profile.runcall
 pwd.getpwnam
 pwd.getpwuid
 queue.SimpleQueue.__init__
