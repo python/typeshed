@@ -9,11 +9,7 @@ asyncio.AbstractEventLoop.sock_sendfile
 asyncio.compat  # removed in 3.7
 asyncio.Future.__init__
 asyncio.Future._callbacks
-asyncio.Handle.__init__
-asyncio.TimerHandle.__init__
 asyncio.events.AbstractEventLoop.sock_sendfile
-asyncio.events.Handle.__init__
-asyncio.events.TimerHandle.__init__
 asyncio.futures.Future.__init__
 asyncio.futures.Future._callbacks
 asyncio.proactor_events._ProactorBasePipeTransport.__del__
@@ -79,8 +75,6 @@ ssl.PROTOCOL_SSLv3
 ssl.RAND_egd
 sys.UnraisableHookArgs
 threading.ExceptHookArgs
-tkinter.Menu.tk_bindForTraversal
-tkinter.Misc.tk_menuBar
 types.ClassMethodDescriptorType.__get__
 types.CodeType.replace
 types.MethodDescriptorType.__get__
