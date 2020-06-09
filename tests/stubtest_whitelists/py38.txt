@@ -79,8 +79,6 @@ ssl.PROTOCOL_SSLv3
 ssl.RAND_egd
 sys.UnraisableHookArgs
 threading.ExceptHookArgs
-tkinter.Menu.tk_bindForTraversal
-tkinter.Misc.tk_menuBar
 types.ClassMethodDescriptorType.__get__
 types.CodeType.replace
 types.MethodDescriptorType.__get__

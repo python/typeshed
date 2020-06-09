@@ -176,8 +176,6 @@ sys.UnraisableHookArgs
 threading.ExceptHookArgs
 time.CLOCK_PROF
 time.CLOCK_UPTIME
-tkinter.Menu.tk_bindForTraversal
-tkinter.Misc.tk_menuBar
 trace.Trace.runfunc
 types.ClassMethodDescriptorType.__get__
 types.CodeType.replace
