@@ -523,6 +523,8 @@ typing.[A-Z]\w+
 # We can't distinguish not having a default value from having a default value of inspect.Parameter.empty
 inspect.Parameter.__init__
 inspect.Signature.__init__
+# Any field can be set on Namespace
+multiprocessing.(dummy|managers).Namespace.__[gs]etattr__
 os.[a-z]+_(param|result)._(asdict|make|replace)  # NamedTuple like, but not actually NamedTuples
 # sys attributes that are not always defined
 sys.last_traceback
