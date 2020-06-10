@@ -236,7 +236,6 @@ class InterpolationMissingOptionError(InterpolationError):
     def __init__(self, option: str, section: str, rawval: object, reference: str) -> None: ...
 
 
-
 class InterpolationSyntaxError(InterpolationError): ...
 
 
