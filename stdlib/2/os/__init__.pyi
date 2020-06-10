@@ -4,12 +4,13 @@ from posix import listdir as listdir, stat_result as stat_result  # TODO: use th
 import sys
 from typing import (
     Mapping, MutableMapping, Dict, List, Any, Tuple, Iterator, overload, Union, AnyStr,
-    Optional, Generic, Set, Callable, Text, Sequence, IO, NamedTuple, NoReturn, TypeVar
+    Optional, Generic, Set, Callable, Text, Sequence, IO, NamedTuple, NoReturn
 )
 from _typeshed import AnyPath
 from . import path as path
 
-_T = TypeVar('_T')
+# We need to use something from path, or flake8 and pytype get unhappy
+_T = path._T
 
 # ----- os variables -----
 
