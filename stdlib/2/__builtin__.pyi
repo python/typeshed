@@ -12,10 +12,10 @@ from typing import (
 from abc import ABCMeta
 from ast import mod, AST
 from io import (
-    _OpenBinaryMode, _OpenTextMode, _OpenBinaryModeUpdating, _OpenBinaryModeWriting, _OpenBinaryModeReading,
     TextIOWrapper, FileIO, BufferedRandom, BufferedReader, BufferedWriter
 )
 from types import TracebackType, CodeType
+from _typeshed import AnyPath, OpenBinaryMode, OpenTextMode, OpenBinaryModeUpdating, OpenBinaryModeWriting, OpenBinaryModeReading
 import sys
 
 if sys.version_info >= (3,):
@@ -1384,18 +1384,14 @@ def next(__i: Iterator[_T], default: _VT) -> Union[_T, _VT]: ...
 def oct(__number: Union[int, _SupportsIndex]) -> str: ...
 
 if sys.version_info >= (3,):
-    if sys.version_info >= (3, 6):
-        # Changed in version 3.6: Support added to accept objects implementing os.PathLike.
-        _OpenFile = Union[str, bytes, int, _PathLike[Any]]
-    else:
-        _OpenFile = Union[str, bytes, int]
+    _OpenFile = Union[AnyPath, int]
     _Opener = Callable[[str, int], int]
 
     # Text mode: always returns a TextIOWrapper
     @overload
     def open(
         file: _OpenFile,
-        mode: _OpenTextMode = ...,
+        mode: OpenTextMode = ...,
         buffering: int = ...,
         encoding: Optional[str] = ...,
         errors: Optional[str] = ...,
@@ -1408,7 +1404,7 @@ if sys.version_info >= (3,):
     @overload
     def open(
         file: _OpenFile,
-        mode: _OpenBinaryMode,
+        mode: OpenBinaryMode,
         buffering: Literal[0],
         encoding: None = ...,
         errors: None = ...,
@@ -1421,7 +1417,7 @@ if sys.version_info >= (3,):
     @overload
     def open(
         file: _OpenFile,
-        mode: _OpenBinaryModeUpdating,
+        mode: OpenBinaryModeUpdating,
         buffering: Literal[-1, 1] = ...,
         encoding: None = ...,
         errors: None = ...,
@@ -1432,7 +1428,7 @@ if sys.version_info >= (3,):
     @overload
     def open(
         file: _OpenFile,
-        mode: _OpenBinaryModeWriting,
+        mode: OpenBinaryModeWriting,
         buffering: Literal[-1, 1] = ...,
         encoding: None = ...,
         errors: None = ...,
@@ -1443,7 +1439,7 @@ if sys.version_info >= (3,):
     @overload
     def open(
         file: _OpenFile,
-        mode: _OpenBinaryModeReading,
+        mode: OpenBinaryModeReading,
         buffering: Literal[-1, 1] = ...,
         encoding: None = ...,
         errors: None = ...,
@@ -1456,7 +1452,7 @@ if sys.version_info >= (3,):
     @overload
     def open(
         file: _OpenFile,
-        mode: _OpenBinaryMode,
+        mode: OpenBinaryMode,
         buffering: int,
         encoding: None = ...,
         errors: None = ...,
