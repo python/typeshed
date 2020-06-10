@@ -16,15 +16,11 @@ from io import (
 )
 from types import TracebackType, CodeType
 from _typeshed import AnyPath, OpenBinaryMode, OpenTextMode, OpenBinaryModeUpdating, OpenBinaryModeWriting, OpenBinaryModeReading
+from typing_extensions import Literal
 import sys
 
 if sys.version_info >= (3,):
     from typing import SupportsBytes, SupportsRound
-
-if sys.version_info >= (3, 8):
-    from typing import Literal
-else:
-    from typing_extensions import Literal
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
