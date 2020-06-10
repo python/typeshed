@@ -1,8 +1,7 @@
-from typing import Dict, Any, List, Tuple, Optional, Callable, Type, Union, IO, AnyStr, TypeVar
+from typing import Dict, Any, List, Tuple, Optional, Callable, Type, IO
 from types import FrameType, TracebackType
 from _typeshed import AnyPath
 
-_T = TypeVar("_T")
 _ExcInfo = Tuple[Optional[Type[BaseException]], Optional[BaseException], Optional[TracebackType]]
 
 def reset() -> str: ...  # undocumented
