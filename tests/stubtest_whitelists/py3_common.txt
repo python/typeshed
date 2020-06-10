@@ -130,17 +130,7 @@ concurrent.futures.Executor.map
 concurrent.futures._base.Executor.map
 concurrent.futures.ProcessPoolExecutor.map
 concurrent.futures.process.ProcessPoolExecutor.map
-configparser.DuplicateOptionError.__init__
-configparser.DuplicateSectionError.__init__
-configparser.Error.__init__
-configparser.InterpolationDepthError.__init__
-configparser.InterpolationError.__init__
-configparser.InterpolationMissingOptionError.__init__
 configparser.LegacyInterpolation.before_get
-configparser.MissingSectionHeaderError.__init__
-configparser.NoOptionError.__init__
-configparser.NoSectionError.__init__
-configparser.ParsingError.__init__
 configparser.SectionProxy.__getattr__
 configparser.SectionProxy.getboolean
 configparser.SectionProxy.getfloat

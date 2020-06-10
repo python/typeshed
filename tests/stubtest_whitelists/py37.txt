@@ -2,11 +2,7 @@ asyncio.AbstractEventLoop.sock_sendfile
 asyncio.compat  # Removed in 3.7
 asyncio.Future.__init__
 asyncio.Future._callbacks
-asyncio.Handle.__init__
-asyncio.TimerHandle.__init__
 asyncio.events.AbstractEventLoop.sock_sendfile
-asyncio.events.Handle.__init__
-asyncio.events.TimerHandle.__init__
 asyncio.exceptions  # Added in Python 3.8
 asyncio.futures.Future.__init__
 asyncio.futures.Future._callbacks
