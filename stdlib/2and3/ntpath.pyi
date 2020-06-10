@@ -123,7 +123,6 @@ if sys.version_info < (3, 0):
     @overload
     def join(__p1: Text, *p: AnyPath) -> Text: ...
 elif sys.version_info >= (3, 6):
-    # Mypy complains that the signatures overlap (same for relpath below), but things seem to behave correctly anyway.
     @overload
     def join(a: StrPath, *paths: StrPath) -> Text: ...
     @overload
