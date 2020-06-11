@@ -3,9 +3,8 @@ _csv.Dialect.__init__
 _dummy_threading
 _importlib_modulespec
 _operator.methodcaller
-_posixsubprocess.cloexec_pipe
 _threading_local.local.__new__
-_types
+_typeshed.*  # Utility types for typeshed, doesn't exist at runtime
 _weakref.CallableProxyType.__getattr__
 _weakref.ProxyType.__getattr__
 _weakref.ReferenceType.__call__
@@ -13,8 +12,7 @@ abc.ABCMeta.__new__
 abc.abstractclassmethod
 abc.abstractmethod
 abc.abstractstaticmethod
-argparse.ArgumentError.__init__
-argparse.Namespace.__getattr__
+argparse.Namespace.__getattr__  # The whole point of this class is its attributes are dynamic
 asyncio.BaseEventLoop.subprocess_exec
 asyncio.Condition.acquire
 asyncio.Condition.locked
@@ -31,10 +29,6 @@ asyncio.selector_events.BaseSelectorEventLoop.sock_recv
 asyncio.streams.FlowControlMixin.__init__
 asyncio.tasks.Task.get_stack
 asyncio.tasks.Task.print_stack
-asyncio.windows_events
-asyncio.windows_utils
-bdb.Bdb.__init__
-builtins.WindowsError
 builtins.bytearray.__float__
 builtins.bytearray.__int__
 builtins.bytearray.append
@@ -135,17 +129,7 @@ concurrent.futures.Executor.map
 concurrent.futures._base.Executor.map
 concurrent.futures.ProcessPoolExecutor.map
 concurrent.futures.process.ProcessPoolExecutor.map
-configparser.DuplicateOptionError.__init__
-configparser.DuplicateSectionError.__init__
-configparser.Error.__init__
-configparser.InterpolationDepthError.__init__
-configparser.InterpolationError.__init__
-configparser.InterpolationMissingOptionError.__init__
 configparser.LegacyInterpolation.before_get
-configparser.MissingSectionHeaderError.__init__
-configparser.NoOptionError.__init__
-configparser.NoSectionError.__init__
-configparser.ParsingError.__init__
 configparser.SectionProxy.__getattr__
 configparser.SectionProxy.getboolean
 configparser.SectionProxy.getfloat
@@ -165,18 +149,12 @@ ctypes.memmove
 ctypes.memset
 ctypes.pointer
 ctypes.string_at
-ctypes.wintypes
 ctypes.wstring_at
-curses.COLORS
-curses.COLOR_PAIRS
-curses.COLS
-curses.LINES
 dbm.error
 dbm.ndbm
 difflib.SequenceMatcher.__init__
 distutils.archive_util.make_archive
 distutils.archive_util.make_tarball
-distutils.command.bdist_msi
 distutils.command.bdist_packager
 distutils.core.Extension.__init__
 distutils.debug.DEBUG
@@ -220,19 +198,6 @@ encodings.utf_8.encode
 enum.EnumMeta.__call__
 enum.EnumMeta.__new__
 getopt.GetoptError.__init__
-gettext.GNUTranslations.lngettext
-gettext.GNUTranslations.ngettext
-gettext.NullTranslations.__init__
-gettext.NullTranslations.lngettext
-gettext.NullTranslations.ngettext
-gettext.dngettext
-gettext.ldngettext
-gettext.lngettext
-gettext.ngettext
-grp.getgrgid
-grp.struct_group._asdict
-grp.struct_group._make
-grp.struct_group._replace
 hmac.HMAC.__init__
 html.parser.HTMLParser.feed
 http.HTTPStatus.description
@@ -280,6 +245,7 @@ io.BufferedReader.truncate
 io.BufferedWriter.seek
 io.BufferedWriter.truncate
 io.BytesIO.readlines
+io.BytesIO.seek  # Parameter name for a positional-only param differs from its name in the inherited method
 io.FileIO.seek
 io.StringIO.seek
 io.StringIO.truncate
@@ -315,24 +281,6 @@ lib2to3.pytree.BasePattern.__new__
 lib2to3.pytree.BasePattern.type
 lib2to3.pytree.NegatedPattern.match
 lib2to3.pytree.NegatedPattern.match_seq
-logging.Formatter.formatException
-logging.Handler.addFilter
-logging.Handler.removeFilter
-logging.Logger.addFilter
-logging.Logger.removeFilter
-logging.LoggerAdapter.isEnabledFor
-logging.LoggerAdapter.setLevel
-logging.RootLogger.__init__
-logging.addLevelName
-logging.disable
-logging.getLevelName
-logging.handlers.DatagramHandler.send
-logging.handlers.NTEventLogHandler.__init__
-logging.handlers.SocketHandler.makeSocket
-logging.handlers.SocketHandler.send
-logging.handlers.SysLogHandler.__init__
-logging.makeLogRecord
-logging.shutdown
 mailbox.Babyl.__init__
 mailbox.MH.__init__
 mailbox.MMDF.__init__
@@ -379,9 +327,7 @@ multiprocessing.synchronize.SemLock.acquire
 multiprocessing.synchronize.SemLock.release
 netrc.NetrcParseError.__init__
 netrc.netrc.__init__
-nntplib._NNTPBase.starttls
 ntpath.join
-ntpath.realpath
 numbers.Number.__hash__
 operator.methodcaller
 optparse.HelpFormatter._format__Text
@@ -389,26 +335,15 @@ optparse.OptionParser.__init__
 optparse.Values.__getattr__
 optparse.Values.read_file
 optparse.Values.read_module
-os.EX_NOTFOUND
-os.SF_MNOWAIT
-os.SF_NODISKIO
-os.SF_SYNC
 os._Environ.__init__
 os._Environ.setdefault
 os._wrap_close.__init__
-os.chflags
-os.lchflags
-os.lchmod
-os.listxattr
-os.plock
 pickle.Pickler.persistent_id
 pickle.Unpickler.find_class
 pickle.Unpickler.persistent_load
 pipes.Template.copy
 pkgutil.ImpImporter.__init__
 poplib.POP3_SSL.stls
-posix.EX_NOTFOUND
-pwd.getpwnam
 pydoc.HTMLDoc.docdata
 pydoc.HTMLDoc.docproperty
 pydoc.HTMLDoc.docroutine
@@ -418,14 +353,11 @@ pydoc.TextDoc.docother
 pydoc.TextDoc.docproperty
 pydoc.TextDoc.docroutine
 random.Random.randrange
-random.Random.triangular
 random.SystemRandom.getstate
 random.randrange
-random.triangular
 re.error.__init__
 runpy.run_path
 sched.Event.__doc__
-select.EPOLL_RDHUP
 select.poll
 selectors.DevpollSelector
 selectors.KqueueSelector
@@ -435,21 +367,12 @@ shlex.shlex.sourcehook
 shutil.register_unpack_format
 signal.SIGEMT
 signal.SIGINFO
-site.getsitepackages
-site.getuserbase
-site.getusersitepackages
 smtpd.MailmanProxy.process_message
 smtpd.PureProxy.process_message
 smtplib.SMTP.send_message
-socket.create_connection
-socket.socketpair
 socketserver.BaseServer.fileno
 socketserver.BaseServer.get_request
 socketserver.BaseServer.server_bind
-spwd.getspnam
-spwd.struct_spwd._asdict
-spwd.struct_spwd._make
-spwd.struct_spwd._replace
 sqlite3.Row.__len__
 sqlite3.dbapi2.Row.__len__
 sqlite3.dbapi2.register_adapters_and_converters
@@ -458,9 +381,7 @@ sqlite3.register_adapters_and_converters
 sqlite3.version_info
 sre_constants.error.__init__
 ssl.PROTOCOL_SSLv2
-ssl.PROTOCOL_SSLv3
 ssl.Purpose.__new__
-ssl.RAND_egd
 ssl.SSLContext.__new__
 ssl.SSLObject.__init__
 ssl.SSLSocket.connect
@@ -479,7 +400,6 @@ sunau.Au_write.setmark
 symtable.Symbol.__init__
 symtable.SymbolTable.__init__
 sys.gettotalrefcount
-sys.getwindowsversion
 sys.implementation
 sysconfig.is_python_build
 sysconfig.parse_config_h
@@ -496,7 +416,6 @@ threading.Lock
 threading.Semaphore.__enter__
 threading.Semaphore.acquire
 threading.Thread.__init__
-time.CLOCK_HIGHRES
 timeit.main
 trace.CoverageResults.__init__
 traceback.FrameSummary.__init__
@@ -513,10 +432,6 @@ types.prepare_class
 typing.AwaitableGenerator
 typing.IO.__iter__
 typing.IO.__next__
-typing.IO.closed
-typing.NamedTuple._asdict
-typing.NamedTuple._make
-typing.NamedTuple._replace
 typing.type_check_only
 unittest.TestCase.assertAlmostEqual
 unittest.TestCase.assertDictContainsSubset
@@ -532,7 +447,6 @@ unittest.case.TestCase.assertAlmostEqual
 unittest.case.TestCase.assertDictContainsSubset
 unittest.case.TestCase.assertNotAlmostEqual
 unittest.case.TestCase.assertSequenceEqual
-unittest.case._AssertLogsContext.__init__
 unittest.case.expectedFailure
 unittest.expectedFailure
 unittest.loader.TestLoader.loadTestsFromModule
@@ -550,9 +464,6 @@ urllib.error.URLError.__init__
 urllib.parse._DefragResultBase.__new__
 urllib.request.BaseHandler.http_error_nnn
 urllib.request.HTTPPasswordMgrWithPriorAuth.__init__
-urllib.request.proxy_bypass
-urllib.response.addinfo.__init__
-urllib.response.addinfourl.__init__
 urllib.robotparser.RobotFileParser.can_fetch
 warnings.catch_warnings.__init__
 weakref.CallableProxyType.__getattr__
@@ -572,16 +483,10 @@ webbrowser.UnixBrowser.raise_opts
 webbrowser.UnixBrowser.remote_action
 webbrowser.UnixBrowser.remote_action_newtab
 webbrowser.UnixBrowser.remote_action_newwin
-wsgiref.types
-wsgiref.util.FileWrapper.__init__
-wsgiref.util.FileWrapper.close
+wsgiref.types  # Doesn't exist, see comments in file
 xml.etree.ElementPath._SelectorContext.parent_map
 xml.etree.ElementTree.Element.__bool__
 xml.etree.ElementTree.Element.copy
-xml.etree.ElementTree.TreeBuilder.start
-xml.etree.cElementTree.Element.__bool__
-xml.etree.cElementTree.Element.copy
-xml.etree.cElementTree.TreeBuilder.start
 xml.sax.xmlreader.AttributesImpl.has_key
 zipfile.ZipExtFile.read
 zipfile.ZipExtFile.readline
@@ -607,8 +512,9 @@ typing.[A-Z]\w+
 # We can't distinguish not having a default value from having a default value of inspect.Parameter.empty
 inspect.Parameter.__init__
 inspect.Signature.__init__
+# Any field can be set on Namespace
+multiprocessing.(dummy|managers).Namespace.__[gs]etattr__
 os.[a-z]+_(param|result)._(asdict|make|replace)  # NamedTuple like, but not actually NamedTuples
-posix.[a-z]+_(param|result)._(asdict|make|replace)  # NamedTuple like, but not actually NamedTuples
 # sys attributes that are not always defined
 sys.last_traceback
 sys.last_type
@@ -624,18 +530,9 @@ urllib.response.addbase.\w+
 
 # Platform differences that cannot be captured by the type system
 errno.[A-Z0-9]+
-fcntl.[A-Z0-9_]+
 os.O_[A-Z_]+
-os.SCHED_[A-Z_]+
 (posix.O_[A-Z_]+)?
 (posix.ST_[A-Z]+)?
 socket.AF_DECnet
 socket.[A-Z0-9_]+
 (termios.[A-Z0-9_]+)?
-
-# Modules that do not exist on Linux systems and cannot be checked by our CI process.
-(_msi)?
-(_winapi)?
-(msilib(.[a-z]+)?)?
-(msvcrt)?
-(winsound)?

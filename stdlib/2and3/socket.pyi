@@ -16,11 +16,7 @@ CPython C source: https://github.com/python/cpython/blob/master/Modules/socketmo
 #   adapted for Python 2.7 by Michal Pokorny
 import sys
 from typing import Any, BinaryIO, Iterable, List, Optional, Text, TextIO, Tuple, TypeVar, Union, overload
-
-if sys.version_info >= (3, 8):
-    from typing import Literal
-else:
-    from typing_extensions import Literal
+from typing_extensions import Literal
 
 
 # ----- Constants -----
@@ -322,8 +318,54 @@ if sys.platform == 'linux' and sys.version_info >= (3,):
 
     CAN_RAW_FD_FRAMES: int
 
+if sys.platform == 'linux' and sys.version_info >= (3, 8):
+    CAN_BCM_SETTIMER: int
+    CAN_BCM_STARTTIMER: int
+    CAN_BCM_TX_COUNTEVT: int
+    CAN_BCM_TX_ANNOUNCE: int
+    CAN_BCM_TX_CP_CAN_ID: int
+    CAN_BCM_RX_FILTER_ID: int
+    CAN_BCM_RX_CHECK_DLC: int
+    CAN_BCM_RX_NO_AUTOTIMER: int
+    CAN_BCM_RX_ANNOUNCE_RESUME: int
+    CAN_BCM_TX_RESET_MULTI_IDX: int
+    CAN_BCM_RX_RTR_FRAME: int
+    CAN_BCM_CAN_FD_FRAME: int
+
 if sys.platform == 'linux' and sys.version_info >= (3, 7):
     CAN_ISOTP: int
+
+if sys.platform == 'linux' and sys.version_info >= (3, 9):
+    CAN_J1939: int
+
+    J1939_MAX_UNICAST_ADDR: int
+    J1939_IDLE_ADDR: int
+    J1939_NO_ADDR: int
+    J1939_NO_NAME: int
+    J1939_PGN_REQUEST: int
+    J1939_PGN_ADDRESS_CLAIMED: int
+    J1939_PGN_ADDRESS_COMMANDED: int
+    J1939_PGN_PDU1_MAX: int
+    J1939_PGN_MAX: int
+    J1939_NO_PGN: int
+
+    SO_J1939_FILTER: int
+    SO_J1939_PROMISC: int
+    SO_J1939_SEND_PRIO: int
+    SO_J1939_ERRQUEUE: int
+
+    SCM_J1939_DEST_ADDR: int
+    SCM_J1939_DEST_NAME: int
+    SCM_J1939_PRIO: int
+    SCM_J1939_ERRQUEUE: int
+
+    J1939_NLA_PAD: int
+    J1939_NLA_BYTES_ACKED: int
+
+    J1939_EE_INFO_NONE: int
+    J1939_EE_INFO_TX_ABORT: int
+
+    J1939_FILTER_MAX: int
 
 if sys.platform == 'linux':
     AF_PACKET: AddressFamily
@@ -713,7 +755,7 @@ if sys.version_info >= (3, 7):
 
 def create_connection(address: Tuple[Optional[str], int],
                       timeout: Optional[float] = ...,
-                      source_address: Tuple[Union[bytearray, bytes, Text], int] = ...) -> socket: ...
+                      source_address: Optional[Tuple[Union[bytearray, bytes, Text], int]] = ...) -> socket: ...
 
 if sys.version_info >= (3, 8):
     def create_server(address: _Address,
@@ -773,6 +815,8 @@ def setdefaulttimeout(timeout: Optional[float]) -> None: ...
 if sys.version_info >= (3, 3):
     if sys.platform != "win32":
         def sethostname(name: str) -> None: ...
-    def if_nameindex() -> List[Tuple[int, str]]: ...
-    def if_nametoindex(name: str) -> int: ...
-    def if_indextoname(index: int) -> str: ...
+    # Windows added these in 3.8, but didn't have them before
+    if sys.platform != "win32" or sys.version_info >= (3, 8):
+        def if_nameindex() -> List[Tuple[int, str]]: ...
+        def if_nametoindex(name: str) -> int: ...
+        def if_indextoname(index: int) -> str: ...

@@ -1,9 +1,12 @@
 asyncio.Future.__init__
-asyncio.exceptions
+asyncio.exceptions  # Added in Python 3.8
+asyncio.format_helpers  # Added in Python 3.7
 asyncio.futures.Future.__init__
 asyncio.futures._TracebackLogger.__init__
 asyncio.runners
-asyncio.unix_events._UnixSelectorEventLoop.create_unix_server
+asyncio.staggered  # Added in Python 3.8
+asyncio.threads  # Added in Python 3.9
+asyncio.trsock  # Added in Python 3.8
 builtins.str.maketrans
 cmath.log
 codecs.StreamRecoder.seek
@@ -21,22 +24,14 @@ copy.PyStringMap
 ctypes.CDLL.__init__
 email.message.MIMEPart.as_string
 enum.Enum._generate_next_value_
-gettext.NullTranslations.npgettext
-gettext.NullTranslations.pgettext
-gettext.dnpgettext
-gettext.dpgettext
-gettext.npgettext
-gettext.pgettext
 importlib.metadata
 importlib.resources
-io.BufferedRandom.read1
-io.BufferedReader.read1
 io.StringIO.readline
 ipaddress._BaseNetwork.__init__
 json.loads
-logging.handlers.MemoryHandler.__init__
 mmap.ACCESS_DEFAULT
 multiprocessing.shared_memory
+nntplib._NNTPBase.starttls
 os.utime
 plistlib.Dict.__init__
 pyexpat.XMLParserType.ExternalEntityParserCreate
@@ -44,8 +39,6 @@ secrets.SystemRandom.getstate
 smtplib.SMTP.sendmail
 sre_compile.dis
 ssl.SSLSocket.__init__
-tkinter.Menu.tk_bindForTraversal
-tkinter.Misc.tk_menuBar
 typing.AbstractSet.isdisjoint
 typing.AsyncGenerator.ag_await
 typing.AsyncGenerator.ag_code
@@ -61,6 +54,7 @@ typing.Generator.gi_frame
 typing.Generator.gi_running
 typing.Generator.gi_yieldfrom
 typing.GenericMeta.__new__
+typing.IO.closed  # Incorrect definition in CPython, fixed in bpo-39493
 typing.Mapping.get
 typing.MutableMapping.pop
 typing.MutableMapping.setdefault
@@ -72,12 +66,20 @@ typing.MutableSet.add
 typing.MutableSet.discard
 typing.MutableSet.remove
 typing.NamedTuple.__new__
+typing.NamedTuple._asdict
+typing.NamedTuple._make
+typing.NamedTuple._replace
 typing.Sequence.count
 typing.Sequence.index
 typing.runtime_checkable
 unittest.async_case
+unittest.case._AssertLogsContext.__init__
 urllib.parse.parse_qs
 urllib.parse.parse_qsl
 uuid.UUID.int
 webbrowser.Opera.raise_opts
+xml.etree.ElementTree.TreeBuilder.start  # Discrepancy between Python and C modules, fixed in bpo-39495
+xml.etree.cElementTree.Element.__bool__
+xml.etree.cElementTree.Element.copy
+xml.etree.cElementTree.TreeBuilder.start  # bpo-39495
 xml.parsers.expat.XMLParserType.ExternalEntityParserCreate

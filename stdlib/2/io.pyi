@@ -4,7 +4,7 @@
 
 # Only a subset of functionality is included.
 
-from typing import List, BinaryIO, TextIO, IO, overload, Iterator, Iterable, Any, Union, Optional
+from typing import IO, Any, Union
 import _io
 
 from _io import BlockingIOError as BlockingIOError
