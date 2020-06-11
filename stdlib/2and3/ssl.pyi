@@ -1,18 +1,12 @@
-# Stubs for ssl
-
+from _typeshed import StrPath
 from typing import (
     Any, Callable, ClassVar, Dict, Iterable, List, NamedTuple, Optional, Set, Text, Type, Tuple, Union,
     overload
 )
+from typing_extensions import Literal
 import enum
 import socket
 import sys
-import os
-
-if sys.version_info >= (3, 8):
-    from typing import Literal
-else:
-    from typing_extensions import Literal
 
 _PCTRTT = Tuple[Tuple[str, str], ...]
 _PCTRTTT = Tuple[_PCTRTT, ...]
@@ -20,11 +14,6 @@ _PeerCertRetDictType = Dict[str, Union[str, _PCTRTTT, _PCTRTT]]
 _PeerCertRetType = Union[_PeerCertRetDictType, bytes, None]
 _EnumRetType = List[Tuple[bytes, str, Union[Set[str], bool]]]
 _PasswordType = Union[Callable[[], Union[str, bytes]], str, bytes]
-
-if sys.version_info < (3, 6):
-    _Path = Text
-else:
-    _Path = Union[str, os.PathLike[Any]]
 
 if sys.version_info >= (3, 5):
     _SC1ArgT = Union[SSLSocket, SSLObject]
@@ -278,13 +267,13 @@ class SSLContext:
     else:
         def __init__(self, protocol: int) -> None: ...
     def cert_store_stats(self) -> Dict[str, int]: ...
-    def load_cert_chain(self, certfile: _Path, keyfile: Optional[_Path] = ...,
+    def load_cert_chain(self, certfile: StrPath, keyfile: Optional[StrPath] = ...,
                         password: Optional[_PasswordType] = ...) -> None: ...
     def load_default_certs(self, purpose: Purpose = ...) -> None: ...
     def load_verify_locations(
         self,
-        cafile: Optional[_Path] = ...,
-        capath: Optional[_Path] = ...,
+        cafile: Optional[StrPath] = ...,
+        capath: Optional[StrPath] = ...,
         cadata: Union[Text, bytes, None] = ...,
     ) -> None: ...
     def get_ca_certs(self, binary_form: bool = ...) -> Union[List[_PeerCertRetDictType], List[bytes]]: ...

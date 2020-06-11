@@ -1,21 +1,16 @@
 import sys
 import zlib
-from os.path import _PathType
 from typing import IO, Optional, TextIO, Union, overload
-
 import _compression
-
-if sys.version_info >= (3, 8):
-    from typing import Literal
-else:
-    from typing_extensions import Literal
+from _typeshed import AnyPath
+from typing_extensions import Literal
 
 _OpenBinaryMode = Literal["r", "rb", "a", "ab", "w", "wb", "x", "xb"]
 _OpenTextMode = Literal["rt", "at", "wt", "xt"]
 
 @overload
 def open(
-    filename: Union[_PathType, IO[bytes]],
+    filename: Union[AnyPath, IO[bytes]],
     mode: _OpenBinaryMode = ...,
     compresslevel: int = ...,
     encoding: None = ...,
@@ -24,7 +19,7 @@ def open(
 ) -> GzipFile: ...
 @overload
 def open(
-    filename: _PathType,
+    filename: AnyPath,
     mode: _OpenTextMode,
     compresslevel: int = ...,
     encoding: Optional[str] = ...,
@@ -33,7 +28,7 @@ def open(
 ) -> TextIO: ...
 @overload
 def open(
-    filename: Union[_PathType, IO[bytes]],
+    filename: Union[AnyPath, IO[bytes]],
     mode: str,
     compresslevel: int = ...,
     encoding: Optional[str] = ...,
@@ -57,7 +52,7 @@ class GzipFile(_compression.BaseStream):
     fileobj: IO[bytes]
     def __init__(
         self,
-        filename: Optional[_PathType] = ...,
+        filename: Optional[AnyPath] = ...,
         mode: Optional[str] = ...,
         compresslevel: int = ...,
         fileobj: Optional[IO[bytes]] = ...,

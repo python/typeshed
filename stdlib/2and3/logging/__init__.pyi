@@ -1,5 +1,4 @@
-# Stubs for logging (Python 3.7)
-
+from _typeshed import StrPath
 from typing import (
     Any, Callable, Dict, Iterable, List, Mapping, MutableMapping, Optional, IO,
     Sequence, Tuple, Text, Union, overload,
@@ -19,11 +18,6 @@ else:
 _ArgsType = Union[Tuple[Any, ...], Mapping[str, Any]]
 _FilterType = Union[Filter, Callable[[LogRecord], int]]
 _Level = Union[int, Text]
-if sys.version_info >= (3, 6):
-    from os import PathLike
-    _Path = Union[str, PathLike[str]]
-else:
-    _Path = str
 
 raiseExceptions: bool
 logThreads: bool
@@ -474,12 +468,12 @@ def getLevelName(level: Union[int, str]) -> Any: ...
 def makeLogRecord(dict: Mapping[str, Any]) -> LogRecord: ...
 
 if sys.version_info >= (3, 8):
-    def basicConfig(*, filename: Optional[_Path] = ..., filemode: str = ...,
+    def basicConfig(*, filename: Optional[StrPath] = ..., filemode: str = ...,
                     format: str = ..., datefmt: Optional[str] = ..., style: str = ...,
                     level: Optional[_Level] = ..., stream: Optional[IO[str]] = ...,
                     handlers: Optional[Iterable[Handler]] = ..., force: bool = ...) -> None: ...
 elif sys.version_info >= (3,):
-    def basicConfig(*, filename: Optional[_Path] = ..., filemode: str = ...,
+    def basicConfig(*, filename: Optional[StrPath] = ..., filemode: str = ...,
                     format: str = ..., datefmt: Optional[str] = ..., style: str = ...,
                     level: Optional[_Level] = ..., stream: Optional[IO[str]] = ...,
                     handlers: Optional[Iterable[Handler]] = ...) -> None: ...
@@ -518,7 +512,7 @@ class FileHandler(StreamHandler):
     mode: str  # undocumented
     encoding: Optional[str]  # undocumented
     delay: bool  # undocumented
-    def __init__(self, filename: _Path, mode: str = ...,
+    def __init__(self, filename: StrPath, mode: str = ...,
                  encoding: Optional[str] = ..., delay: bool = ...) -> None: ...
     def _open(self) -> IO[Any]: ...
 
