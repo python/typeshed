@@ -4,7 +4,6 @@ _dummy_threading
 _importlib_modulespec
 _operator.methodcaller
 _threading_local.local.__new__
-_types
 _typeshed.*  # Utility types for typeshed, doesn't exist at runtime
 _weakref.CallableProxyType.__getattr__
 _weakref.ProxyType.__getattr__

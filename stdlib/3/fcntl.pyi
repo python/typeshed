@@ -1,7 +1,7 @@
 from array import array
 from typing import Any, Union, overload
-from _types import FileDescriptorLike
 from typing_extensions import Literal
+from _typeshed import FileDescriptorLike
 
 FASYNC: int
 FD_CLOEXEC: int

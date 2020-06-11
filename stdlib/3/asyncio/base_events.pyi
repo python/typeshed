@@ -9,7 +9,7 @@ from asyncio.events import AbstractEventLoop, AbstractServer, Handle, TimerHandl
 from asyncio.protocols import BaseProtocol
 from asyncio.tasks import Task
 from asyncio.transports import BaseTransport
-from _types import FileDescriptorLike
+from _typeshed import FileDescriptorLike
 
 if sys.version_info >= (3, 7):
     from contextvars import Context
