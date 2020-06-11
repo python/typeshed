@@ -1,8 +1,6 @@
-# Stubs for fcntl
 from array import array
-from io import IOBase
-from typing import IO, Any, Union, overload
-from _types import FileDescriptorLike
+from typing import Any, Union, overload
+from _typeshed import FileDescriptorLike
 import sys
 if sys.version_info >= (3, 8):
     from typing import Literal

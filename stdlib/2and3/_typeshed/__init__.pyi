@@ -13,7 +13,7 @@
 # is not used, types from this module must be quoted.
 
 import sys
-from typing import Text, Union
+from typing import Protocol, Text, Union, type_check_only
 from typing_extensions import Literal
 
 # StrPath and AnyPath can be used in places where a
@@ -51,3 +51,10 @@ OpenBinaryModeReading = Literal[
     'rbU', 'rUb', 'Urb', 'brU', 'bUr', 'Ubr',
 ]
 OpenBinaryMode = Union[OpenBinaryModeUpdating, OpenBinaryModeReading, OpenBinaryModeWriting]
+
+@type_check_only
+class HasFileno(Protocol):
+    def fileno(self) -> int: ...
+
+FileDescriptor = int
+FileDescriptorLike = Union[int, HasFileno]

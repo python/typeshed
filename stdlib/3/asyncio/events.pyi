@@ -11,7 +11,7 @@ from asyncio.unix_events import AbstractChildWatcher
 if sys.version_info >= (3, 7):
     from contextvars import Context
 
-from _types import FileDescriptorLike
+from _typeshed import FileDescriptorLike
 
 _T = TypeVar('_T')
 _Context = Dict[str, Any]
