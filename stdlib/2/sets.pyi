@@ -1,9 +1,9 @@
 # Stubs for sets (Python 2)
 from typing import Any, Callable, Hashable, Iterable, Iterator, MutableMapping, Optional, TypeVar, Union
 
-_T = TypeVar('_T')
+_T = TypeVar("_T")
 _Setlike = Union[BaseSet[_T], Iterable[_T]]
-_SelfT = TypeVar('_SelfT')
+_SelfT = TypeVar("_SelfT")
 
 class BaseSet(Iterable[_T]):
     def __init__(self) -> None: ...

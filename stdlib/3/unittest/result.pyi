@@ -1,18 +1,15 @@
-from typing import Any, Callable, List, Optional, Tuple, Type, TypeVar, Union
-from types import TracebackType
 import unittest.case
-
+from types import TracebackType
+from typing import Any, Callable, List, Optional, Tuple, Type, TypeVar, Union
 
 _SysExcInfoType = Union[
-    Tuple[Type[BaseException], BaseException, TracebackType],
-    Tuple[None, None, None],
+    Tuple[Type[BaseException], BaseException, TracebackType], Tuple[None, None, None],
 ]
 
 _F = TypeVar("_F", bound=Callable[..., Any])
 
 # undocumented
 def failfast(method: _F) -> _F: ...
-
 
 class TestResult:
     errors: List[Tuple[unittest.case.TestCase, str]]
@@ -35,8 +32,8 @@ class TestResult:
     def addFailure(self, test: unittest.case.TestCase, err: _SysExcInfoType) -> None: ...
     def addSuccess(self, test: unittest.case.TestCase) -> None: ...
     def addSkip(self, test: unittest.case.TestCase, reason: str) -> None: ...
-    def addExpectedFailure(self, test: unittest.case.TestCase,
-                           err: _SysExcInfoType) -> None: ...
+    def addExpectedFailure(self, test: unittest.case.TestCase, err: _SysExcInfoType) -> None: ...
     def addUnexpectedSuccess(self, test: unittest.case.TestCase) -> None: ...
-    def addSubTest(self, test: unittest.case.TestCase, subtest: unittest.case.TestCase,
-                   outcome: Optional[_SysExcInfoType]) -> None: ...
+    def addSubTest(
+        self, test: unittest.case.TestCase, subtest: unittest.case.TestCase, outcome: Optional[_SysExcInfoType]
+    ) -> None: ...

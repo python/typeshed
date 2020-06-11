@@ -1,7 +1,6 @@
-from typing import List, Tuple, Optional, Callable, Any, Protocol, Union, Dict, Text
-
 import pyexpat.errors as errors
 import pyexpat.model as model
+from typing import Any, Callable, Dict, List, Optional, Protocol, Text, Tuple, Union
 
 EXPAT_VERSION: str  # undocumented
 version_info: Tuple[int, int, int]  # undocumented
@@ -51,10 +50,13 @@ class XMLParserType(object):
     EndDoctypeDeclHandler: Optional[Callable[[], Any]]
     ElementDeclHandler: Optional[Callable[[str, _Model], Any]]
     AttlistDeclHandler: Optional[Callable[[str, str, str, Optional[str], bool], Any]]
-    StartElementHandler: Optional[Union[
-        Callable[[str, Dict[str, str]], Any],
-        Callable[[str, List[str]], Any],
-        Callable[[str, Union[Dict[str, str]], List[str]], Any]]]
+    StartElementHandler: Optional[
+        Union[
+            Callable[[str, Dict[str, str]], Any],
+            Callable[[str, List[str]], Any],
+            Callable[[str, Union[Dict[str, str]], List[str]], Any],
+        ]
+    ]
     EndElementHandler: Optional[Callable[[str], Any]]
     ProcessingInstructionHandler: Optional[Callable[[str, str], Any]]
     CharacterDataHandler: Optional[Callable[[str], Any]]
@@ -72,5 +74,8 @@ class XMLParserType(object):
     ExternalEntityRefHandler: Optional[Callable[[str, Optional[str], Optional[str], Optional[str]], int]]
 
 def ErrorString(__code: int) -> str: ...
+
 # intern is undocumented
-def ParserCreate(encoding: Optional[Text] = ..., namespace_separator: Optional[Text] = ..., intern: Optional[Dict[str, Any]] = ...) -> XMLParserType: ...
+def ParserCreate(
+    encoding: Optional[Text] = ..., namespace_separator: Optional[Text] = ..., intern: Optional[Dict[str, Any]] = ...
+) -> XMLParserType: ...

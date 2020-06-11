@@ -1,10 +1,8 @@
-from typing import Iterable, Iterator, List, Union
 import unittest.case
 import unittest.result
-
+from typing import Iterable, Iterator, List, Union
 
 _TestType = Union[unittest.case.TestCase, TestSuite]
-
 
 class BaseTestSuite(Iterable[_TestType]):
     _tests: List[unittest.case.TestCase]
@@ -17,6 +15,5 @@ class BaseTestSuite(Iterable[_TestType]):
     def debug(self) -> None: ...
     def countTestCases(self) -> int: ...
     def __iter__(self) -> Iterator[_TestType]: ...
-
 
 class TestSuite(BaseTestSuite): ...

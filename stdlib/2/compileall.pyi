@@ -1,5 +1,6 @@
-from _typeshed import AnyPath
 from typing import Any, Optional, Pattern
+
+from _typeshed import AnyPath
 
 # rx can be any object with a 'search' method; once we have Protocols we can change the type
 def compile_dir(

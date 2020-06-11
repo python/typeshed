@@ -1,5 +1,6 @@
 import sys
 from enum import IntEnum
+
 from typing_extensions import Literal
 
 class HTTPStatus(IntEnum):

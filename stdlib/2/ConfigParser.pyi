@@ -1,4 +1,4 @@
-from typing import Any, IO, Sequence, Tuple, Union, List, Dict, Protocol, Optional
+from typing import IO, Any, Dict, List, Optional, Protocol, Sequence, Tuple, Union
 
 DEFAULTSECT: str
 MAX_INTERPOLATION_DEPTH: int

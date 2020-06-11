@@ -14,12 +14,14 @@
 
 import sys
 from typing import Protocol, Text, Union, type_check_only
+
 from typing_extensions import Literal
 
 # StrPath and AnyPath can be used in places where a
 # path can be used instead of a string, starting with Python 3.6.
 if sys.version_info >= (3, 6):
     from os import PathLike
+
     StrPath = Union[str, PathLike[str]]
     BytesPath = Union[bytes, PathLike[bytes]]
     AnyPath = Union[str, bytes, PathLike[str], PathLike[bytes]]
@@ -29,29 +31,93 @@ else:
     AnyPath = Union[Text, bytes]
 
 OpenTextMode = Literal[
-    'r', 'r+', '+r', 'rt', 'tr', 'rt+', 'r+t', '+rt', 'tr+', 't+r', '+tr',
-    'w', 'w+', '+w', 'wt', 'tw', 'wt+', 'w+t', '+wt', 'tw+', 't+w', '+tw',
-    'a', 'a+', '+a', 'at', 'ta', 'at+', 'a+t', '+at', 'ta+', 't+a', '+ta',
-    'x', 'x+', '+x', 'xt', 'tx', 'xt+', 'x+t', '+xt', 'tx+', 't+x', '+tx',
-    'U', 'rU', 'Ur', 'rtU', 'rUt', 'Urt', 'trU', 'tUr', 'Utr',
+    "r",
+    "r+",
+    "+r",
+    "rt",
+    "tr",
+    "rt+",
+    "r+t",
+    "+rt",
+    "tr+",
+    "t+r",
+    "+tr",
+    "w",
+    "w+",
+    "+w",
+    "wt",
+    "tw",
+    "wt+",
+    "w+t",
+    "+wt",
+    "tw+",
+    "t+w",
+    "+tw",
+    "a",
+    "a+",
+    "+a",
+    "at",
+    "ta",
+    "at+",
+    "a+t",
+    "+at",
+    "ta+",
+    "t+a",
+    "+ta",
+    "x",
+    "x+",
+    "+x",
+    "xt",
+    "tx",
+    "xt+",
+    "x+t",
+    "+xt",
+    "tx+",
+    "t+x",
+    "+tx",
+    "U",
+    "rU",
+    "Ur",
+    "rtU",
+    "rUt",
+    "Urt",
+    "trU",
+    "tUr",
+    "Utr",
 ]
 OpenBinaryModeUpdating = Literal[
-    'rb+', 'r+b', '+rb', 'br+', 'b+r', '+br',
-    'wb+', 'w+b', '+wb', 'bw+', 'b+w', '+bw',
-    'ab+', 'a+b', '+ab', 'ba+', 'b+a', '+ba',
-    'xb+', 'x+b', '+xb', 'bx+', 'b+x', '+bx',
+    "rb+",
+    "r+b",
+    "+rb",
+    "br+",
+    "b+r",
+    "+br",
+    "wb+",
+    "w+b",
+    "+wb",
+    "bw+",
+    "b+w",
+    "+bw",
+    "ab+",
+    "a+b",
+    "+ab",
+    "ba+",
+    "b+a",
+    "+ba",
+    "xb+",
+    "x+b",
+    "+xb",
+    "bx+",
+    "b+x",
+    "+bx",
 ]
 OpenBinaryModeWriting = Literal[
-    'wb', 'bw',
-    'ab', 'ba',
-    'xb', 'bx',
+    "wb", "bw", "ab", "ba", "xb", "bx",
 ]
 OpenBinaryModeReading = Literal[
-    'rb', 'br',
-    'rbU', 'rUb', 'Urb', 'brU', 'bUr', 'Ubr',
+    "rb", "br", "rbU", "rUb", "Urb", "brU", "bUr", "Ubr",
 ]
 OpenBinaryMode = Union[OpenBinaryModeUpdating, OpenBinaryModeReading, OpenBinaryModeWriting]
-
 @type_check_only
 class HasFileno(Protocol):
     def fileno(self) -> int: ...

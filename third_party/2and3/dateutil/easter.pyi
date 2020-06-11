@@ -1,4 +1,5 @@
 from datetime import date
+
 from typing_extensions import Literal
 
 EASTER_JULIAN: Literal[1]

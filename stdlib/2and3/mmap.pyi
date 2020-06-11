@@ -1,6 +1,5 @@
 import sys
-from typing import (Optional, Sequence, Union, Generic, overload,
-                    Iterable, Iterator, Sized, ContextManager, AnyStr)
+from typing import AnyStr, ContextManager, Generic, Iterable, Iterator, Optional, Sequence, Sized, Union, overload
 
 ACCESS_DEFAULT: int
 ACCESS_READ: int
@@ -9,7 +8,7 @@ ACCESS_COPY: int
 
 ALLOCATIONGRANULARITY: int
 
-if sys.platform != 'win32':
+if sys.platform != "win32":
     MAP_ANON: int
     MAP_ANONYMOUS: int
     MAP_DENYWRITE: int
@@ -23,18 +22,16 @@ if sys.platform != 'win32':
     PAGESIZE: int
 
 class _mmap(Generic[AnyStr]):
-    if sys.platform == 'win32':
-        def __init__(self, fileno: int, length: int,
-                     tagname: Optional[str] = ..., access: int = ...,
-                     offset: int = ...) -> None: ...
+    if sys.platform == "win32":
+        def __init__(
+            self, fileno: int, length: int, tagname: Optional[str] = ..., access: int = ..., offset: int = ...
+        ) -> None: ...
     else:
-        def __init__(self,
-                     fileno: int, length: int, flags: int = ...,
-                     prot: int = ..., access: int = ...,
-                     offset: int = ...) -> None: ...
+        def __init__(
+            self, fileno: int, length: int, flags: int = ..., prot: int = ..., access: int = ..., offset: int = ...
+        ) -> None: ...
     def close(self) -> None: ...
-    def find(self, sub: AnyStr,
-             start: int = ..., end: int = ...) -> int: ...
+    def find(self, sub: AnyStr, start: int = ..., end: int = ...) -> int: ...
     if sys.version_info >= (3, 8):
         def flush(self, offset: int = ..., size: int = ...) -> None: ...
     else:
@@ -69,6 +66,7 @@ if sys.version_info >= (3,):
         # Doesn't actually exist, but the object is actually iterable because it has __getitem__ and
         # __len__, so we claim that there is also an __iter__ to help type checkers.
         def __iter__(self) -> Iterator[bytes]: ...
+
 else:
     class mmap(_mmap[bytes], Sequence[bytes]):
         def rfind(self, string: bytes, start: int = ..., stop: int = ...) -> int: ...

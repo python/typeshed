@@ -1,4 +1,5 @@
 from typing import Iterable, Optional
+
 from _typeshed.wsgi import StartResponse, WSGIApplication, WSGIEnvironment
 
 class ProxyFix(object):

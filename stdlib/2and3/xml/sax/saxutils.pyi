@@ -1,10 +1,8 @@
 import sys
-from typing import Mapping, Text, Optional, Protocol, Union, TextIO
-from io import TextIOBase, RawIOBase
-from codecs import StreamWriter, StreamReaderWriter
-
-from xml.sax import handler
-from xml.sax import xmlreader
+from codecs import StreamReaderWriter, StreamWriter
+from io import RawIOBase, TextIOBase
+from typing import Mapping, Optional, Protocol, Text, TextIO, Union
+from xml.sax import handler, xmlreader
 
 class _Writable(Protocol):
     def write(self, data: str) -> None: ...
@@ -15,9 +13,18 @@ def quoteattr(data: Text, entities: Mapping[Text, Text] = ...) -> Text: ...
 
 class XMLGenerator(handler.ContentHandler):
     if sys.version_info >= (3, 0):
-        def __init__(self, out: Optional[Union[TextIOBase, RawIOBase, StreamWriter, StreamReaderWriter, _Writable]] = ..., encoding: str = ..., short_empty_elements: bool = ...) -> None: ...
+        def __init__(
+            self,
+            out: Optional[Union[TextIOBase, RawIOBase, StreamWriter, StreamReaderWriter, _Writable]] = ...,
+            encoding: str = ...,
+            short_empty_elements: bool = ...,
+        ) -> None: ...
     else:
-        def __init__(self, out: Optional[Union[TextIOBase, RawIOBase, StreamWriter, StreamReaderWriter, _Writable]] = ..., encoding: Text = ...) -> None: ...
+        def __init__(
+            self,
+            out: Optional[Union[TextIOBase, RawIOBase, StreamWriter, StreamReaderWriter, _Writable]] = ...,
+            encoding: Text = ...,
+        ) -> None: ...
     def startDocument(self): ...
     def endDocument(self): ...
     def startPrefixMapping(self, prefix, uri): ...
