@@ -1163,7 +1163,12 @@ class property(object):
 if sys.version_info < (3,):
     long = int
 
-NotImplemented: Any
+class _NotImplementedType(Any):  # type: ignore
+    # A little weird, but typing the __call__ as NotImplemented makes the error message
+    # for NotImplemented() much better
+    __call__: NotImplemented  # type: ignore
+
+NotImplemented: _NotImplementedType
 
 def abs(__x: SupportsAbs[_T]) -> _T: ...
 def all(__iterable: Iterable[object]) -> bool: ...
