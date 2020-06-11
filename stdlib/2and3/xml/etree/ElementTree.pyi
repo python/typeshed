@@ -1,5 +1,3 @@
-# Stubs for xml.etree.ElementTree
-
 from typing import (
     Any,
     Callable,
@@ -21,13 +19,8 @@ from typing import (
     Union,
     overload,
 )
-import io
 import sys
-
-if sys.version_info < (3,) or sys.version_info >= (3, 8):
-    from typing import Literal
-else:
-    from typing_extensions import Literal
+from typing_extensions import Literal
 
 VERSION: str
 

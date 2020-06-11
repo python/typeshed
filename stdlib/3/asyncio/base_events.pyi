@@ -2,6 +2,7 @@ from socket import socket, _Address, _RetAddress
 import ssl
 import sys
 from typing import Any, Awaitable, Callable, Dict, Generator, IO, List, Optional, Sequence, Tuple, TypeVar, Union, overload
+from typing_extensions import Literal
 from abc import ABCMeta
 from asyncio.futures import Future
 from asyncio.events import AbstractEventLoop, AbstractServer, Handle, TimerHandle
@@ -9,11 +10,6 @@ from asyncio.protocols import BaseProtocol
 from asyncio.tasks import Task
 from asyncio.transports import BaseTransport
 from _types import FileDescriptorLike
-
-if sys.version_info >= (3, 8):
-    from typing import Literal
-else:
-    from typing_extensions import Literal
 
 if sys.version_info >= (3, 7):
     from contextvars import Context
