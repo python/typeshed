@@ -6,7 +6,6 @@ import codecs
 import sys
 from mmap import mmap
 from types import TracebackType
-from typing import IO, Any, BinaryIO, Callable, Iterable, Iterator, List, Optional, TextIO, Tuple, Type, TypeVar, Union
 
 _bytearray_like = Union[bytearray, mmap]
 
