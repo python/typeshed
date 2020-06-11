@@ -3,7 +3,7 @@ from posix import listdir as listdir, times_result
 import sys
 from typing import (
     Mapping, MutableMapping, Dict, List, Any, Tuple, Iterable, Iterator, NoReturn, overload, Union, AnyStr,
-    Optional, Generic, Set, Callable, Text, Sequence, NamedTuple, ContextManager
+    Optional, Generic, Set, Callable, Text, Sequence, NamedTuple, ContextManager, TypeVar
 )
 from _typeshed import AnyPath
 
@@ -12,7 +12,9 @@ from builtins import OSError as error
 from . import path as path
 
 # We need to use something from path, or flake8 and pytype get unhappy
-_T = path._T
+_supports_unicode_filenames = path.supports_unicode_filenames
+
+_T = TypeVar("_T")
 
 # ----- os variables -----
 

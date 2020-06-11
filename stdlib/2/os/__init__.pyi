@@ -4,13 +4,15 @@ from posix import listdir as listdir, stat_result as stat_result  # TODO: use th
 import sys
 from typing import (
     Mapping, MutableMapping, Dict, List, Any, Tuple, Iterator, overload, Union, AnyStr,
-    Optional, Generic, Set, Callable, Text, Sequence, IO, NamedTuple, NoReturn
+    Optional, Generic, Set, Callable, Text, Sequence, IO, NamedTuple, NoReturn, TypeVar
 )
 from _typeshed import AnyPath
 from . import path as path
 
 # We need to use something from path, or flake8 and pytype get unhappy
-_T = path._T
+_supports_unicode_filenames = path.supports_unicode_filenames
+
+_T = TypeVar("_T")
 
 # ----- os variables -----
 
