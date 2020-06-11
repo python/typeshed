@@ -1,5 +1,5 @@
-import sys
 from typing import Any, Callable, IO, Iterable, Optional, Protocol, Text, TypeVar, Union
+from typing_extensions import Literal
 from _typeshed import AnyPath
 
 from markupsafe import Markup as Markup, escape as escape, soft_unicode as soft_unicode
@@ -8,24 +8,18 @@ missing: Any
 internal_code: Any
 concat: Any
 
-if sys.version_info >= (3, 8):
-    from typing import Literal
-    _True = Literal[True]
-else:
-    _True = bool
-
 _CallableT = TypeVar("_CallableT", bound=Callable[..., Any])
 
 class _ContextFunction(Protocol[_CallableT]):
-    contextfunction: _True
+    contextfunction: Literal[True]
     __call__: _CallableT
 
 class _EvalContextFunction(Protocol[_CallableT]):
-    evalcontextfunction: _True
+    evalcontextfunction: Literal[True]
     __call__: _CallableT
 
 class _EnvironmentFunction(Protocol[_CallableT]):
-    environmentfunction: _True
+    environmentfunction: Literal[True]
     __call__: _CallableT
 
 def contextfunction(f: _CallableT) -> _ContextFunction[_CallableT]: ...

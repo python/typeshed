@@ -4,14 +4,10 @@ import time
 import gzip
 import http.client
 
-from typing import Any, Callable, Dict, IO, Iterable, List, Mapping, Optional, Protocol, Text, Tuple, Type, TypeVar, Union, overload
+from typing import Any, Callable, Dict, Iterable, List, Mapping, Optional, Protocol, Text, Tuple, Type, TypeVar, Union, overload
+from typing_extensions import Literal
 from types import TracebackType
 from datetime import datetime
-
-if sys.version_info >= (3, 8):
-    from typing import Literal
-else:
-    from typing_extensions import Literal
 
 _T = TypeVar("_T")
 class _HasTimeTuple(Protocol):
