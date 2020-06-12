@@ -22,7 +22,7 @@ class _DispatchArity4(Protocol):
     def __call__(self, __arg1: _Marshallable, __arg2: _Marshallable, __arg3: _Marshallable, __arg4: _Marshallable) -> _Marshallable: ...
 class _DispatchArityN(Protocol):
     def __call__(self, *args: _Marshallable) -> _Marshallable: ...
-_DispatchProtocol = Union[_DispatchArity0, _DispatchArity1, _DispatchArity2, _DispatchArityN]
+_DispatchProtocol = Union[_DispatchArity0, _DispatchArity1, _DispatchArity2, _DispatchArity3, _DispatchArity4, _DispatchArityN]
 
 
 def resolve_dotted_attribute(obj: Any, attr: str, allow_dotted_names: bool = ...) -> Any: ...  # undocumented
