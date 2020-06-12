@@ -23,6 +23,8 @@ from typing import (
 
 from typing_extensions import Literal
 
+from _typeshed import AnyPath, FileDescriptor
+
 VERSION: str
 
 class ParseError(SyntaxError):
@@ -57,12 +59,7 @@ else:
     # _fixtext function in the source). Client code knows best:
     _str_result_type = Any
 
-if sys.version_info >= (3, 6):
-    from os import PathLike
-
-    _file_or_filename = Union[str, bytes, PathLike[str], int, IO[Any]]
-else:
-    _file_or_filename = Union[str, bytes, int, IO[Any]]
+_file_or_filename = Union[AnyPath, FileDescriptor, IO[Any]]
 
 if sys.version_info >= (3, 8):
     class _Writeable(Protocol):
