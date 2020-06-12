@@ -151,7 +151,6 @@ ctypes.pointer
 ctypes.string_at
 ctypes.wstring_at
 dbm.error
-dbm.ndbm
 difflib.SequenceMatcher.__init__
 distutils.archive_util.make_archive
 distutils.archive_util.make_tarball
