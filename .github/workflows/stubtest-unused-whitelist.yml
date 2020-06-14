@@ -1,6 +1,6 @@
 name: Find unused stubtest whitelist entries
 
-on: [push, pr]
+on: [push, pull_request]
 #  schedule:
 #    - cron: '0 4 * * *'
 
