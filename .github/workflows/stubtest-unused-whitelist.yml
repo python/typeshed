@@ -24,6 +24,7 @@ jobs:
           python -m pip install -U pip
           pip install -U mypy==0.780
       - name: Run stubtest
+        shell: bash
         run: ./tests/stubtest_unused.py | tee stubtest-output-${{ matrix.os }}-${{ matrix.python-version }} || true
       - name: Store output
         uses: actions/upload-artifact@v2
