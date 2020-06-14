@@ -10,6 +10,7 @@ from _typeshed import AnyPath
 from builtins import OSError as error
 from . import path as path
 
+# We need to use something from path, or flake8 and pytype get unhappy
 _supports_unicode_filenames = path.supports_unicode_filenames
 
 _T = TypeVar("_T")
