@@ -285,6 +285,16 @@ are not sure whether exceptions are suppressed or not or if the
 context manager is meant to be subclassed, pick `Optional[bool]`.
 See https://github.com/python/mypy/issues/7214 for more details.
 
+A few guidelines for protocol names below. In cases that don't fall
+into any of those categories, use your best judgement.
+
+* Use plain names for protocols that represent a clear concept
+  (e.g. `Iterator`, `Container`).
+* Use `SupportsX` for protocols that provide callable methods (e.g.
+  `SupportsInt`, `SupportsRead`, `SupportsReadSeek`).
+* Use `HasX` for protocols that have readable and/or writable attributes
+  or getter/setter methods (e.g. `HasItems`, `HasFileno`).
+
 NOTE: there are stubs in this repository that don't conform to the
 style described above.  Fixing them is a great starting point for new
 contributors.
