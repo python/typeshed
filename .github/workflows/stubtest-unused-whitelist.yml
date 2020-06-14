@@ -41,6 +41,6 @@ jobs:
         with:
           name: stubtest-output
       - name: Remove duplicates
-        run: cat stubtest-output-* | sort -u | tee stubtest-output
-      - name: Fail if there was any output
-        run: test "$(wc -l foo | cut -d ' ' -f 1)" = 0
+        run: |
+          cat stubtest-output-* | sort -u | tee stubtest-output
+          test "$(wc -l stubtest-output | cut -d ' ' -f 1)" = 0
