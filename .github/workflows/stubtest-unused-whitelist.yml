@@ -1,8 +1,8 @@
 name: Find unused stubtest whitelist entries
 
-on:
-  schedule:
-    - cron: '0 4 * * *'
+on: [push, pr]
+#  schedule:
+#    - cron: '0 4 * * *'
 
 jobs:
   stubtest:
