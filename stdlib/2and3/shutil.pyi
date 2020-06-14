@@ -3,9 +3,9 @@ import sys
 
 from typing import (
     List, Iterable, Callable, Any, Tuple, Sequence, NamedTuple,
-    AnyStr, Optional, Union, Set, TypeVar, overload, Type, Protocol, Text
+    AnyStr, Optional, Union, Set, TypeVar, overload, Type, Text
 )
-from _typeshed import StrPath
+from _typeshed import StrPath, SupportsRead, SupportsWrite
 
 if sys.version_info >= (3, 6):
     _AnyStr = str
@@ -34,16 +34,7 @@ else:
     class SpecialFileError(EnvironmentError): ...
     class ExecError(EnvironmentError): ...
 
-_S_co = TypeVar("_S_co", covariant=True)
-_S_contra = TypeVar("_S_contra", contravariant=True)
-
-class _Reader(Protocol[_S_co]):
-    def read(self, length: int) -> _S_co: ...
-
-class _Writer(Protocol[_S_contra]):
-    def write(self, data: _S_contra) -> Any: ...
-
-def copyfileobj(fsrc: _Reader[AnyStr], fdst: _Writer[AnyStr],
+def copyfileobj(fsrc: SupportsRead[AnyStr], fdst: SupportsWrite[AnyStr],
                 length: int = ...) -> None: ...
 
 if sys.version_info >= (3,):

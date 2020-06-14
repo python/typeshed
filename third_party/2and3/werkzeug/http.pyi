@@ -2,7 +2,7 @@ import sys
 from datetime import datetime, timedelta
 from typing import (
     Dict, Text, Union, Tuple, Any, Optional, Mapping, Iterable, Callable, List, Type,
-    TypeVar, Protocol, overload, SupportsInt,
+    TypeVar, overload, SupportsInt,
 )
 from _typeshed.wsgi import WSGIEnvironment
 
