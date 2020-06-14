@@ -15,7 +15,7 @@ from io import (
     TextIOWrapper, FileIO, BufferedRandom, BufferedReader, BufferedWriter
 )
 from types import TracebackType, CodeType
-from _typeshed import AnyPath, OpenBinaryMode, OpenTextMode, OpenBinaryModeUpdating, OpenBinaryModeWriting, OpenBinaryModeReading
+from _typeshed import AnyPath, OpenBinaryMode, OpenTextMode, OpenBinaryModeUpdating, OpenBinaryModeWriting, OpenBinaryModeReading, SupportsWrite
 from typing_extensions import Literal
 import sys
 
@@ -1480,17 +1480,13 @@ else:
 
 def ord(__c: Union[Text, bytes]) -> int: ...
 if sys.version_info >= (3,):
-    class _Writer(Protocol):
-        def write(self, __s: str) -> Any: ...
     def print(
-        *values: object, sep: Optional[Text] = ..., end: Optional[Text] = ..., file: Optional[_Writer] = ..., flush: bool = ...
+        *values: object, sep: Optional[Text] = ..., end: Optional[Text] = ..., file: Optional[SupportsWrite[str]] = ..., flush: bool = ...
     ) -> None: ...
 
 else:
-    class _Writer(Protocol):
-        def write(self, __s: Any) -> Any: ...
     # This is only available after from __future__ import print_function.
-    def print(*values: object, sep: Optional[Text] = ..., end: Optional[Text] = ..., file: Optional[_Writer] = ...) -> None: ...
+    def print(*values: object, sep: Optional[Text] = ..., end: Optional[Text] = ..., file: Optional[SupportsWrite[Any]] = ...) -> None: ...
 
 _E = TypeVar("_E", contravariant=True)
 _M = TypeVar("_M", contravariant=True)
