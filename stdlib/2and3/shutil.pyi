@@ -1,10 +1,6 @@
 import os
 import sys
 
-# 'bytes' paths are not properly supported: they don't work with all functions,
-# sometimes they only work partially (broken exception messages), and the test
-# cases don't use them.
-
 from typing import (
     List, Iterable, Callable, Any, Tuple, Sequence, NamedTuple,
     AnyStr, Optional, Union, Set, TypeVar, overload, Type, Protocol, Text

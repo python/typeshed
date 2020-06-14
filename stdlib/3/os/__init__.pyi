@@ -7,7 +7,6 @@ from typing import (
 )
 from _typeshed import AnyPath
 
-# Re-exported names from other modules.
 from builtins import OSError as error
 from . import path as path
 
