@@ -12,6 +12,8 @@
 # If on Python versions < 3.10 and "from __future__ import annotations"
 # is not used, types from this module must be quoted.
 
+import array
+import mmap
 import sys
 from typing import Protocol, Text, TypeVar, Union
 from typing_extensions import Literal
@@ -67,3 +69,6 @@ class SupportsReadline(Protocol[_T_co]):
     def readline(self, __length: int = ...) -> _T_co: ...
 class SupportsWrite(Protocol[_T_contra]):
     def write(self, __s: _T_contra) -> int: ...
+
+ReadableBuffer = Union[bytes, bytearray, memoryview, array.array, mmap.mmap]
+WriteableBuffer = Union[bytearray, memoryview, array.array, mmap.mmap]
