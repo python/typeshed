@@ -24,4 +24,23 @@ jobs:
           python -m pip install -U pip
           pip install -U mypy==0.780
       - name: Run stubtest
-        run: ./tests/stubtest_unused.py
+        shell: bash
+        run: ./tests/stubtest_unused.py | tee stubtest-output-${{ matrix.os }}-${{ matrix.python-version }} || true
+      - name: Store output
+        uses: actions/upload-artifact@v2
+        with:
+          name: stubtest-output
+          path: stubtest-output-${{ matrix.os }}-${{ matrix.python-version }}
+
+  collate:
+    runs-on: ubuntu-latest
+    needs: stubtest
+    steps:
+      - name: Get stubtest outputs
+        uses: actions/download-artifact@v2
+        with:
+          name: stubtest-output
+      - name: Remove duplicates
+        run: |
+          cat stubtest-output-* | sort -u | tee stubtest-output
+          test "$(wc -l stubtest-output | cut -d ' ' -f 1)" = 0
