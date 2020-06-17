@@ -591,11 +591,12 @@ def execlpe(file: AnyPath, __arg0: AnyPath, *args: Any) -> NoReturn: ...
 # The docs say `args: tuple or list of strings`
 # The implementation enforces tuple or list so we can't use Sequence.
 if sys.version_info >= (3, 6):
-    # Not separating out PathLike[str] and PathLike[bytes] here because it doesn't make much
-    # difference in practice, and doing so would make this already long union way too long.
+    # Not separating out PathLike[str] and PathLike[bytes] here because it doesn't make much difference
+    # in practice, and doing so would explode the number of combinations in this already long union.
+    # All these combinations are necessary due to List being invariant.
     _ExecVArgs = Union[
-        Tuple[AnyPath, ...], List[bytes], List[Text], List[PathLike], List[Union[bytes, Text]],
-        List[Union[bytes, PathLike]], List[Union[Text, PathLike]], List[Union[bytes, Text, PathLike]]
+        Tuple[AnyPath, ...], List[bytes], List[Text], List[PathLike[Any]], List[Union[bytes, Text]],
+        List[Union[bytes, PathLike[Any]]], List[Union[Text, PathLike[Any]]], List[Union[bytes, Text, PathLike[Any]]]
     ]
 else:
     _ExecVArgs = Union[Tuple[AnyPath, ...], List[bytes], List[Text], List[Union[bytes, Text]]]
