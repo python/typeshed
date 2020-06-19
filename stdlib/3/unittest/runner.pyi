@@ -26,6 +26,7 @@ class TestRunner:
 
 
 class TextTestRunner(TestRunner):
+    resultclass: _ResultClassType
     def __init__(
         self,
         stream: Optional[TextIO] = ...,

@@ -70,6 +70,19 @@ class Base:
 
 
 class NonCallableMock(Base, Any):  # type: ignore
+    def __new__(cls, *args, **kw) -> NonCallableMock: ...
+    def __init__(self,
+                 spec: Optional[Any] = ...,
+                 wraps: Optional[Any] = ...,
+                 name: Optional[str] = ...,
+                 spec_set: Optional[bool] = ...,
+                 parent: Optional[NonCallableMock] = ...,
+                 _spec_state: Optional[Any] = ...,
+                 _new_name: str = ...,
+                 _new_parent: Optional[NonCallableMock] = ...,
+                 _spec_as_instance: bool = ...,
+                 _eat_self: Optional[bool] = ...,
+                 unsafe: bool = ..., **kwargs) -> None: ...
     def __getattr__(self, name: str) -> Any: ...
     if sys.version_info >= (3, 8):
         def _calls_repr(self, prefix: str = ...) -> str: ...
@@ -92,6 +105,7 @@ class NonCallableMock(Base, Any):  # type: ignore
         def assert_called_once(_mock_self) -> None: ...
 
     if sys.version_info >= (3, 6):
+        def assert_called(_mock_self) -> None: ...
         def reset_mock(self, visited: Any = ..., *, return_value: bool = ..., side_effect: bool = ...) -> None: ...
     elif sys.version_info >= (3, 5):
         def reset_mock(self, visited: Any = ...) -> None: ...
