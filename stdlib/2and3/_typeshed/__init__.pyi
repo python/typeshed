@@ -13,8 +13,11 @@
 # is not used, types from this module must be quoted.
 
 import sys
-from typing import Protocol, Text, Union, type_check_only
+from typing import Protocol, Text, TypeVar, Union
 from typing_extensions import Literal
+
+_T_co = TypeVar("_T_co", covariant=True)
+_T_contra = TypeVar("_T_contra", contravariant=True)
 
 # StrPath and AnyPath can be used in places where a
 # path can be used instead of a string, starting with Python 3.6.
@@ -52,9 +55,15 @@ OpenBinaryModeReading = Literal[
 ]
 OpenBinaryMode = Union[OpenBinaryModeUpdating, OpenBinaryModeReading, OpenBinaryModeWriting]
 
-@type_check_only
 class HasFileno(Protocol):
     def fileno(self) -> int: ...
 
 FileDescriptor = int
 FileDescriptorLike = Union[int, HasFileno]
+
+class SupportsRead(Protocol[_T_co]):
+    def read(self, __length: int = ...) -> _T_co: ...
+class SupportsReadline(Protocol[_T_co]):
+    def readline(self, __length: int = ...) -> _T_co: ...
+class SupportsWrite(Protocol[_T_contra]):
+    def write(self, __s: _T_contra) -> int: ...

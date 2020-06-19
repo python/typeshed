@@ -8,10 +8,10 @@ from asyncio.protocols import BaseProtocol
 from asyncio.tasks import Task
 from asyncio.transports import BaseTransport
 from asyncio.unix_events import AbstractChildWatcher
+from _typeshed import FileDescriptorLike
+
 if sys.version_info >= (3, 7):
     from contextvars import Context
-
-from _typeshed import FileDescriptorLike
 
 _T = TypeVar('_T')
 _Context = Dict[str, Any]
