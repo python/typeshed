@@ -70,5 +70,9 @@ class SupportsReadline(Protocol[_T_co]):
 class SupportsWrite(Protocol[_T_contra]):
     def write(self, __s: _T_contra) -> int: ...
 
-ReadableBuffer = Union[bytes, bytearray, memoryview, array.array, mmap.mmap]
-WriteableBuffer = Union[bytearray, memoryview, array.array, mmap.mmap]
+if sys.version_info >= (3,):
+    ReadableBuffer = Union[bytes, bytearray, memoryview, array.array, mmap.mmap]
+    WriteableBuffer = Union[bytearray, memoryview, array.array, mmap.mmap]
+else:
+    ReadableBuffer = Union[bytes, bytearray, memoryview, array.array, mmap.mmap, buffer]
+    WriteableBuffer = Union[bytearray, memoryview, array.array, mmap.mmap, buffer]
