@@ -71,3 +71,6 @@ def get_type_hints(
 
 Annotated: _SpecialForm = ...
 _AnnotatedAlias: Any = ...  # undocumented
+
+# TypeAlias is a (non-subscriptable) special form.
+TypeAlias: object
