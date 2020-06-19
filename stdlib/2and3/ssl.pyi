@@ -141,21 +141,38 @@ if sys.version_info >= (3, 6):
         OP_SINGLE_ECDH_USE: int
         OP_NO_COMPRESSION: int
         OP_NO_TICKET: int
-        OP_ENABLE_MIDDLEBOX_COMPAT: int
         if sys.version_info >= (3, 7):
             OP_NO_RENEGOTIATION: int
-else:
-    OP_ALL: int
-    OP_NO_SSLv2: int
-    OP_NO_SSLv3: int
-    OP_NO_TLSv1: int
-    OP_NO_TLSv1_1: int
-    OP_NO_TLSv1_2: int
-    OP_CIPHER_SERVER_PREFERENCE: int
-    OP_SINGLE_DH_USE: int
-    OP_SINGLE_ECDH_USE: int
-    OP_NO_COMPRESSION: int
+            OP_NO_TLSv1_3: int
+        if sys.version_info >= (3, 8):
+            OP_ENABLE_MIDDLEBOX_COMPAT: int
 
+OP_ALL: int
+OP_NO_SSLv2: int
+OP_NO_SSLv3: int
+OP_NO_TLSv1: int
+OP_NO_TLSv1_1: int
+OP_NO_TLSv1_2: int
+OP_CIPHER_SERVER_PREFERENCE: int
+OP_SINGLE_DH_USE: int
+OP_SINGLE_ECDH_USE: int
+OP_NO_COMPRESSION: int
+if sys.version_info >= (3, 6):
+    OP_NO_TICKET: int
+if sys.version_info >= (3, 7):
+    OP_NO_RENEGOTIATION: int
+    OP_NO_TLSv1_3: int
+if sys.version_info >= (3, 8):
+    OP_ENABLE_MIDDLEBOX_COMPAT: int
+
+if sys.version_info >= (3, 7):
+    HAS_NEVER_CHECK_COMMON_NAME: bool
+    HAS_SSLv2: bool
+    HAS_SSLv3: bool
+    HAS_TLSv1: bool
+    HAS_TLSv1_1: bool
+    HAS_TLSv1_2: bool
+    HAS_TLSv1_3: bool
 HAS_ALPN: int
 HAS_ECDH: bool
 HAS_SNI: bool
