@@ -1,46 +1,18 @@
 # Stubs for unittest
 
-from typing import Any, Iterable, List, Optional, Type, Union
-from types import ModuleType
+import sys
+from typing import Optional
 
-from unittest.async_case import *
+if sys.version_info >= (3, 8):
+    from unittest.async_case import *
+
 from unittest.case import *
 from unittest.loader import *
+from unittest.main import *
 from unittest.result import TestResult as TestResult
 from unittest.runner import *
 from unittest.signals import *
 from unittest.suite import *
-
-
-class _TestRunner(Protocol):
-    def run(self, test: Union[TestSuite, TestCase]) -> TestResult: ...
-
-
-# not really documented
-class TestProgram:
-    result: TestResult
-    module: Union[None, str, ModuleType]
-    verbosity: int
-    failfast: Optional[bool]
-    catchbreak: Optional[bool]
-    buffer: Optional[bool]
-    progName: Optional[str]
-    warnings: Optional[str]
-    def __init__(self, module: Union[None, str, ModuleType] = ...,
-                 defaultTest: Union[str, Iterable[str], None] = ...,
-                 argv: Optional[List[str]] = ...,
-                 testRunner: Union[Type[_TestRunner], _TestRunner, None] = ...,
-                 testLoader: TestLoader = ..., exit: bool = ..., verbosity: int = ...,
-                 failfast: Optional[bool] = ..., catchbreak: Optional[bool] = ...,
-                 buffer: Optional[bool] = ...,
-                 warnings: Optional[str] = ..., *,
-                 tb_locals: bool = ...) -> None: ...
-    def usageExit(self, msg: Any = ...) -> None: ...
-    def parseArgs(self, argv: List[str]) -> None: ...
-    def createTests(self) -> None: ...
-    def runTests(self) -> None: ...  # undocumented
-
-main = TestProgram
 
 def load_tests(loader: TestLoader, tests: TestSuite,
                pattern: Optional[str]) -> TestSuite: ...

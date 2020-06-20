@@ -1,3 +1,4 @@
+import sys
 import unittest.case
 import unittest.suite
 import unittest.result
@@ -12,6 +13,10 @@ class TestLoader:
     errors: List[Type[BaseException]]
     testMethodPrefix: str
     sortTestMethodsUsing: _SortComparisonMethod
+
+    if sys.version_info >= (3, 7):
+        testNamePatterns: Optional[List[str]]
+
     suiteClass: _SuiteClass
     def loadTestsFromTestCase(self,
                               testCaseClass: Type[unittest.case.TestCase]) -> unittest.suite.TestSuite: ...
@@ -27,8 +32,14 @@ class TestLoader:
 
 defaultTestLoader: TestLoader
 
-def getTestCaseNames(testCaseClass: Type[unittest.case.TestCase], prefix: str,
-                     sortUsing: _SortComparisonMethod = ...) -> Sequence[str]: ...
+
+if sys.version_info >= (3, 7):
+    def getTestCaseNames(testCaseClass: Type[unittest.case.TestCase], prefix: str,
+                         sortUsing: _SortComparisonMethod = ...,
+                         testNamePatterns: Optional[List[str]] = ...) -> Sequence[str]: ...
+else:
+    def getTestCaseNames(testCaseClass: Type[unittest.case.TestCase], prefix: str,
+                         sortUsing: _SortComparisonMethod = ...) -> Sequence[str]: ...
 
 def makeSuite(testCaseClass: Type[unittest.case.TestCase], prefix: str = ...,
               sortUsing: _SortComparisonMethod = ...,
