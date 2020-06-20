@@ -1,11 +1,8 @@
 # Stubs for unittest
 
-import sys
 from typing import Optional
 
-if sys.version_info >= (3, 8):
-    from unittest.async_case import *
-
+from unittest.async_case import *
 from unittest.case import *
 from unittest.loader import *
 from unittest.main import *
