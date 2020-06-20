@@ -141,9 +141,28 @@ if sys.version_info >= (3, 6):
         OP_SINGLE_ECDH_USE: int
         OP_NO_COMPRESSION: int
         OP_NO_TICKET: int
-        OP_ENABLE_MIDDLEBOX_COMPAT: int
         if sys.version_info >= (3, 7):
             OP_NO_RENEGOTIATION: int
+            OP_NO_TLSv1_3: int
+        if sys.version_info >= (3, 8):
+            OP_ENABLE_MIDDLEBOX_COMPAT: int
+
+    OP_ALL: Options
+    OP_NO_SSLv2: Options
+    OP_NO_SSLv3: Options
+    OP_NO_TLSv1: Options
+    OP_NO_TLSv1_1: Options
+    OP_NO_TLSv1_2: Options
+    OP_CIPHER_SERVER_PREFERENCE: Options
+    OP_SINGLE_DH_USE: Options
+    OP_SINGLE_ECDH_USE: Options
+    OP_NO_COMPRESSION: Options
+    OP_NO_TICKET: Options
+    if sys.version_info >= (3, 7):
+        OP_NO_RENEGOTIATION: Options
+        OP_NO_TLSv1_3: Options
+    if sys.version_info >= (3, 8):
+        OP_ENABLE_MIDDLEBOX_COMPAT: Options
 else:
     OP_ALL: int
     OP_NO_SSLv2: int
@@ -156,7 +175,15 @@ else:
     OP_SINGLE_ECDH_USE: int
     OP_NO_COMPRESSION: int
 
-HAS_ALPN: int
+if sys.version_info >= (3, 7):
+    HAS_NEVER_CHECK_COMMON_NAME: bool
+    HAS_SSLv2: bool
+    HAS_SSLv3: bool
+    HAS_TLSv1: bool
+    HAS_TLSv1_1: bool
+    HAS_TLSv1_2: bool
+    HAS_TLSv1_3: bool
+HAS_ALPN: bool
 HAS_ECDH: bool
 HAS_SNI: bool
 HAS_NPN: bool
