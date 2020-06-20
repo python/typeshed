@@ -1,7 +1,7 @@
 # Stubs for mock
 
 import sys
-from typing import Any, List, Optional, Sequence, Text, Tuple, Type, TypeVar
+from typing import Any, List, Optional, Sequence, Text, Tuple, Type, TypeVar, Union
 
 _T = TypeVar("_T")
 
@@ -72,10 +72,10 @@ class Base:
 class NonCallableMock(Base, Any):  # type: ignore
     def __new__(cls, *args, **kw) -> NonCallableMock: ...
     def __init__(self,
-                 spec: Optional[Any] = ...,
+                 spec: Union[List[str], object, Type[object], None] = ...,
                  wraps: Optional[Any] = ...,
                  name: Optional[str] = ...,
-                 spec_set: Optional[bool] = ...,
+                 spec_set: Union[List[str], object, Type[object], None] = ...,
                  parent: Optional[NonCallableMock] = ...,
                  _spec_state: Optional[Any] = ...,
                  _new_name: str = ...,

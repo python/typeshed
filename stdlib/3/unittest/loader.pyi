@@ -5,13 +5,13 @@ from types import ModuleType
 from typing import Any, Callable, List, Optional, Sequence, Type
 
 
-_SortMethodComparison = Callable[[str, str], bool]
+_SortComparisonMethod = Callable[[str, str], bool]
 _SuiteClass = Callable[[List[unittest.case.TestCase]], unittest.suite.TestSuite]
 
 class TestLoader:
     errors: List[Type[BaseException]]
     testMethodPrefix: str
-    sortTestMethodsUsing: _SortMethodComparison
+    sortTestMethodsUsing: _SortComparisonMethod
     suiteClass: _SuiteClass
     def loadTestsFromTestCase(self,
                               testCaseClass: Type[unittest.case.TestCase]) -> unittest.suite.TestSuite: ...
@@ -28,11 +28,11 @@ class TestLoader:
 defaultTestLoader: TestLoader
 
 def getTestCaseNames(testCaseClass: Type[unittest.case.TestCase], prefix: str,
-                     sortUsing: _SortMethodComparison = ...)-> Sequence[str]: ...
+                     sortUsing: _SortComparisonMethod = ...) -> Sequence[str]: ...
 
 def makeSuite(testCaseClass: Type[unittest.case.TestCase], prefix: str = ...,
-              sortUsing: _SortMethodComparison = ...,
+              sortUsing: _SortComparisonMethod = ...,
               suiteClass: _SuiteClass = ...) -> unittest.suite.TestSuite: ...
 
-def findTestCases(module, prefix: str = ..., sortUsing: _SortMethodComparison = ...,
+def findTestCases(module, prefix: str = ..., sortUsing: _SortComparisonMethod = ...,
                   suiteClass: _SuiteClass = ...) -> unittest.suite.TestSuite: ...

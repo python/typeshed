@@ -21,11 +21,7 @@ class TextTestResult(unittest.result.TestResult):
     def printErrorList(self, flavour: str, errors: Tuple[unittest.case.TestCase, str]) -> None: ...
 
 
-class TestRunner:
-    def run(self, test: Union[unittest.suite.TestSuite, unittest.case.TestCase]) -> unittest.result.TestResult: ...
-
-
-class TextTestRunner(TestRunner):
+class TextTestRunner(object):
     resultclass: _ResultClassType
     def __init__(
         self,
@@ -40,3 +36,4 @@ class TextTestRunner(TestRunner):
         tb_locals: bool = ...,
     ) -> None: ...
     def _makeResult(self) -> unittest.result.TestResult: ...
+    def run(self, test: Union[unittest.suite.TestSuite, unittest.case.TestCase]) -> unittest.result.TestResult: ...
