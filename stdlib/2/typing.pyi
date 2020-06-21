@@ -138,9 +138,15 @@ class Generator(Iterator[_T_co], Generic[_T_co, _T_contra, _V_co]):
     @abstractmethod
     def send(self, value: _T_contra) -> _T_co: ...
 
+    @overload
     @abstractmethod
-    def throw(self, typ: Type[BaseException], val: Optional[BaseException] = ...,
-              tb: TracebackType = ...) -> _T_co: ...
+    def throw(self, typ: Type[BaseException], val: Union[BaseException, object] = ...,
+              tb: Optional[TracebackType] = ...) -> _T_co: ...
+    @overload
+    @abstractmethod
+    def throw(self, typ: BaseException, val: None = ...,
+              tb: Optional[TracebackType] = ...) -> _T_co: ...
+
     @abstractmethod
     def close(self) -> None: ...
     @property

@@ -169,8 +169,13 @@ class Generator(Iterator[_T_co], Generic[_T_co, _T_contra, _V_co]):
     @abstractmethod
     def send(self, value: _T_contra) -> _T_co: ...
 
+    @overload
     @abstractmethod
-    def throw(self, typ: Type[BaseException], val: Optional[BaseException] = ...,
+    def throw(self, typ: Type[BaseException], val: Union[BaseException, object] = ...,
+              tb: Optional[TracebackType] = ...) -> _T_co: ...
+    @overload
+    @abstractmethod
+    def throw(self, typ: BaseException, val: None = ...,
               tb: Optional[TracebackType] = ...) -> _T_co: ...
 
     @abstractmethod
@@ -206,8 +211,13 @@ class Coroutine(Awaitable[_V_co], Generic[_T_co, _T_contra, _V_co]):
     @abstractmethod
     def send(self, value: _T_contra) -> _T_co: ...
 
+    @overload
     @abstractmethod
-    def throw(self, typ: Type[BaseException], val: Optional[BaseException] = ...,
+    def throw(self, typ: Type[BaseException], val: Union[BaseException, object] = ...,
+              tb: Optional[TracebackType] = ...) -> _T_co: ...
+    @overload
+    @abstractmethod
+    def throw(self, typ: BaseException, val: None = ...,
               tb: Optional[TracebackType] = ...) -> _T_co: ...
 
     @abstractmethod
@@ -239,9 +249,15 @@ if sys.version_info >= (3, 6):
         @abstractmethod
         def asend(self, value: _T_contra) -> Awaitable[_T_co]: ...
 
+        @overload
         @abstractmethod
-        def athrow(self, typ: Type[BaseException], val: Optional[BaseException] = ...,
-                   tb: Any = ...) -> Awaitable[_T_co]: ...
+        def athrow(self, typ: Type[BaseException], val: Union[BaseException, object] = ...,
+                   tb: Optional[TracebackType] = ...) -> Awaitable[_T_co]: ...
+
+        @overload
+        @abstractmethod
+        def athrow(self, typ: BaseException, val: None = ...,
+                   tb: Optional[TracebackType] = ...) -> Awaitable[_T_co]: ...
 
         @abstractmethod
         def aclose(self) -> Awaitable[None]: ...
