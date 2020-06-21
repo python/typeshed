@@ -1,7 +1,7 @@
 # Stubs for mock
 
 import sys
-from typing import Any, List, Optional, Sequence, Text, Tuple, Type, TypeVar
+from typing import Any, List, Optional, Sequence, Text, Tuple, Type, TypeVar, Union
 
 _T = TypeVar("_T")
 
@@ -70,6 +70,19 @@ class Base:
 
 
 class NonCallableMock(Base, Any):  # type: ignore
+    def __new__(cls, *args, **kw) -> NonCallableMock: ...
+    def __init__(self,
+                 spec: Union[List[str], object, Type[object], None] = ...,
+                 wraps: Optional[Any] = ...,
+                 name: Optional[str] = ...,
+                 spec_set: Union[List[str], object, Type[object], None] = ...,
+                 parent: Optional[NonCallableMock] = ...,
+                 _spec_state: Optional[Any] = ...,
+                 _new_name: str = ...,
+                 _new_parent: Optional[NonCallableMock] = ...,
+                 _spec_as_instance: bool = ...,
+                 _eat_self: Optional[bool] = ...,
+                 unsafe: bool = ..., **kwargs) -> None: ...
     def __getattr__(self, name: str) -> Any: ...
     if sys.version_info >= (3, 8):
         def _calls_repr(self, prefix: str = ...) -> str: ...
@@ -87,8 +100,10 @@ class NonCallableMock(Base, Any):  # type: ignore
         def _format_mock_failure_message(self, args: Any, kwargs: Any) -> str: ...
 
     if sys.version_info >= (3, 8):
+        def assert_called(self) -> None: ...
         def assert_called_once(self) -> None: ...
     elif sys.version_info >= (3, 6):
+        def assert_called(_mock_self) -> None: ...
         def assert_called_once(_mock_self) -> None: ...
 
     if sys.version_info >= (3, 6):
