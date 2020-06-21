@@ -6,7 +6,7 @@ from types import ModuleType
 from typing import Any, Callable, List, Optional, Sequence, Type
 
 
-_SortComparisonMethod = Callable[[str, str], bool]
+_SortComparisonMethod = Callable[[str, str], int]
 _SuiteClass = Callable[[List[unittest.case.TestCase]], unittest.suite.TestSuite]
 
 class TestLoader:
