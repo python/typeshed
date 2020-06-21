@@ -1,5 +1,5 @@
 import sys
-from typing import Sequence, Any, Mapping, Callable, Tuple, IO, Optional, Union, Type, Text, Generic, TypeVar, AnyStr, overload
+from typing import Sequence, Any, Mapping, Callable, Tuple, IO, Optional, Union, Type, Generic, TypeVar, AnyStr, overload
 from types import TracebackType
 from typing_extensions import Literal
 from _typeshed import AnyPath
@@ -19,11 +19,11 @@ from _typeshed import AnyPath
 # except TimeoutError as e:
 #    reveal_type(e.cmd)  # Any, but morally is _CMD
 _FILE = Union[None, int, IO[Any]]
-_TXT = Union[bytes, Text]
+_TXT = Union[bytes, str]
 # Python 3.6 does't support _CMD being a single PathLike.
 # See: https://bugs.python.org/issue31961
 _CMD = Union[_TXT, Sequence[AnyPath]]
-_ENV = Union[Mapping[bytes, _TXT], Mapping[Text, _TXT]]
+_ENV = Union[Mapping[bytes, _TXT], Mapping[str, _TXT]]
 
 _S = TypeVar('_S')
 _T = TypeVar('_T')
