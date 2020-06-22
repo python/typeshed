@@ -15,7 +15,11 @@ from io import (
     TextIOWrapper, FileIO, BufferedRandom, BufferedReader, BufferedWriter
 )
 from types import TracebackType, CodeType
-from _typeshed import AnyPath, OpenBinaryMode, OpenTextMode, OpenBinaryModeUpdating, OpenBinaryModeWriting, OpenBinaryModeReading, SupportsWrite
+from _typeshed import (
+    AnyPath, OpenBinaryMode, OpenTextMode,
+    OpenBinaryModeUpdating, OpenBinaryModeWriting, OpenBinaryModeReading,
+    SupportsWrite, ReadableBuffer,
+)
 from typing_extensions import Literal
 import sys
 
@@ -821,12 +825,12 @@ class memoryview(Sized, Container[_mv_container_type]):
         f_contiguous: bool
         contiguous: bool
         nbytes: int
-        def __init__(self, obj: Union[bytes, bytearray, memoryview]) -> None: ...
+        def __init__(self, obj: ReadableBuffer) -> None: ...
         def __enter__(self) -> memoryview: ...
         def __exit__(self, exc_type: Optional[Type[BaseException]], exc_val: Optional[BaseException], exc_tb: Optional[TracebackType]) -> None: ...
         def cast(self, format: str, shape: Union[List[int], Tuple[int]] = ...) -> memoryview: ...
     else:
-        def __init__(self, obj: Union[bytes, bytearray, buffer, memoryview]) -> None: ...
+        def __init__(self, obj: ReadableBuffer) -> None: ...
 
     @overload
     def __getitem__(self, i: int) -> _mv_container_type: ...
