@@ -4,7 +4,7 @@ import time
 import gzip
 import http.client
 
-from typing import Any, Callable, Dict, Iterable, List, Mapping, Optional, Protocol, Text, Tuple, Type, Union, overload
+from typing import Any, Callable, Dict, Iterable, List, Mapping, Optional, Protocol, Tuple, Type, Union, overload
 from typing_extensions import Literal
 from types import TracebackType
 from datetime import datetime
@@ -93,7 +93,7 @@ WRAPPERS: Tuple[Type[DateTime], Type[Binary]]  # undocumented
 class ExpatParser:  # undocumented
 
     def __init__(self, target: Unmarshaller) -> None: ...
-    def feed(self, data: Union[Text, bytes]) -> None: ...
+    def feed(self, data: Union[str, bytes]) -> None: ...
     def close(self) -> None: ...
 
 class Marshaller:

@@ -1,6 +1,6 @@
 import sys
 from _typeshed import AnyPath
-from typing import Optional, Sequence, Text
+from typing import Optional, Sequence
 from types import SimpleNamespace
 
 class EnvBuilder:
@@ -39,4 +39,4 @@ elif sys.version_info >= (3, 6):
 else:
     def create(env_dir: AnyPath, system_site_packages: bool = ..., clear: bool = ..., symlinks: bool = ..., with_pip: bool = ...) -> None: ...
 
-def main(args: Optional[Sequence[Text]] = ...) -> None: ...
+def main(args: Optional[Sequence[str]] = ...) -> None: ...

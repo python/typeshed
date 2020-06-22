@@ -3,7 +3,7 @@ from posix import listdir as listdir, times_result
 import sys
 from typing import (
     Mapping, MutableMapping, Dict, List, Any, Tuple, Iterable, Iterator, NoReturn, overload, Union, AnyStr,
-    Optional, Generic, Set, Callable, Text, Sequence, NamedTuple, ContextManager, TypeVar
+    Optional, Generic, Set, Callable, Sequence, NamedTuple, ContextManager, TypeVar
 )
 from _typeshed import AnyPath
 
@@ -365,18 +365,18 @@ if sys.platform != 'win32':
     def uname() -> uname_result: ...
 
 @overload
-def getenv(key: Text) -> Optional[str]: ...
+def getenv(key: str) -> Optional[str]: ...
 @overload
-def getenv(key: Text, default: _T) -> Union[str, _T]: ...
+def getenv(key: str, default: _T) -> Union[str, _T]: ...
 
 if sys.platform != "win32":
     @overload
     def getenvb(key: bytes) -> Optional[bytes]: ...
     @overload
     def getenvb(key: bytes, default: _T = ...) -> Union[bytes, _T]: ...
-def putenv(__name: Union[bytes, Text], __value: Union[bytes, Text]) -> None: ...
+def putenv(__name: Union[bytes, str], __value: Union[bytes, str]) -> None: ...
 if sys.platform != "win32":
-    def unsetenv(__name: Union[bytes, Text]) -> None: ...
+    def unsetenv(__name: Union[bytes, str]) -> None: ...
 
 # Return IO or TextIO
 def fdopen(fd: int, mode: str = ..., buffering: int = ..., encoding: Optional[str] = ...,
@@ -595,11 +595,11 @@ if sys.version_info >= (3, 6):
     # in practice, and doing so would explode the number of combinations in this already long union.
     # All these combinations are necessary due to List being invariant.
     _ExecVArgs = Union[
-        Tuple[AnyPath, ...], List[bytes], List[Text], List[PathLike[Any]], List[Union[bytes, Text]],
-        List[Union[bytes, PathLike[Any]]], List[Union[Text, PathLike[Any]]], List[Union[bytes, Text, PathLike[Any]]]
+        Tuple[AnyPath, ...], List[bytes], List[str], List[PathLike[Any]], List[Union[bytes, str]],
+        List[Union[bytes, PathLike[Any]]], List[Union[str, PathLike[Any]]], List[Union[bytes, str, PathLike[Any]]]
     ]
 else:
-    _ExecVArgs = Union[Tuple[AnyPath, ...], List[bytes], List[Text], List[Union[bytes, Text]]]
+    _ExecVArgs = Union[Tuple[AnyPath, ...], List[bytes], List[str], List[Union[bytes, str]]]
 
 _ExecEnv = Union[Mapping[bytes, Union[bytes, str]], Mapping[str, Union[bytes, str]]]
 def execv(__path: AnyPath, __argv: _ExecVArgs) -> NoReturn: ...
