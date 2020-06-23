@@ -31,19 +31,24 @@ if sys.version_info >= (3, 3) and sys.platform != 'win32':
 if sys.version_info >= (3, 8) and sys.platform == "darwin":
     CLOCK_UPTIME_RAW: int
 
+class _struct_time(NamedTuple):
+    tm_year: int
+    tm_mon: int
+    tm_mday: int
+    tm_hour: int
+    tm_min: int
+    tm_sec: int
+    tm_wday: int
+    tm_yday: int
+    tm_isdst: int
+
+    @property
+    def n_fields(self) -> int: ...
+    @property
+    def n_sequence_fields(self) -> int: ...
+    @property
+    def n_unnamed_fields(self) -> int: ...
 if sys.version_info >= (3, 3):
-    class _struct_time(NamedTuple):
-        tm_year: int
-        tm_mon: int
-        tm_mday: int
-        tm_hour: int
-        tm_min: int
-        tm_sec: int
-        tm_wday: int
-        tm_yday: int
-        tm_isdst: int
-        tm_zone: str
-        tm_gmtoff: int
     class struct_time(_struct_time):
         def __init__(
             self,
@@ -63,17 +68,11 @@ if sys.version_info >= (3, 3):
             ],
             _arg: Any = ...,
         ) -> struct_time: ...
+        @property
+        def tm_zone(self) -> str: ...
+        @property
+        def tm_gmtoff(self) -> int: ...
 else:
-    class _struct_time(NamedTuple):
-        tm_year: int
-        tm_mon: int
-        tm_mday: int
-        tm_hour: int
-        tm_min: int
-        tm_sec: int
-        tm_wday: int
-        tm_yday: int
-        tm_isdst: int
     class struct_time(_struct_time):
         def __init__(self, o: _TimeTuple, _arg: Any = ...) -> None: ...
         def __new__(cls, o: _TimeTuple, _arg: Any = ...) -> struct_time: ...
