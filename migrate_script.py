@@ -13,6 +13,10 @@ DEFAULT_PY3_VERSION = "3.5"
 PY2_NAMESPACE = "python2"
 OUTPUT_DIR = "out"
 
+MISSING_WHITELIST = {
+    "thrift",
+}
+
 # Manually collected special cases.
 package_to_distribution = {
     "_pytest": "pytest",
@@ -103,6 +107,8 @@ def collect_third_party_packages() -> Tuple[List[ThirdPartyPackage], List[ThirdP
 
 
 def get_top_imported_names(file: str) -> Set[str]:
+    if not file.endswith(".pyi"):
+        return set()
     with open(os.path.join(file), "rb") as f:
         content = f.read()
     parsed = ast.parse(content)
@@ -110,7 +116,7 @@ def get_top_imported_names(file: str) -> Set[str]:
     for node in ast.walk(parsed):
         if isinstance(node, ast.Import):
             for name in node.names:
-                top_imported.add(name.split('.')[0])
+                top_imported.add(name.name.split('.')[0])
         elif isinstance(node, ast.ImportFrom):
             if node.level > 0:
                 continue
@@ -134,12 +140,19 @@ def populate_requirements(package: ThirdPartyPackage,
     for name in all_top_imports:
         distribution = package_to_distribution.get(name, name)
         if package.py3_compatible and name not in stdlib:
-            assert distribution in known_distributions, distribution
-            requirements.add(distribution)
+            if distribution in known_distributions:
+                requirements.add(distribution)
+            else:
+                # Likely a conditional import.
+                assert distribution in py2_stdlib or distribution in MISSING_WHITELIST
         if package.py2_compatible and name not in py2_stdlib:
-            assert distribution in known_distributions, distribution
-            requirements.add(distribution)
-    package.requires = sorted(requirements)
+            if distribution in known_distributions:
+                requirements.add(distribution)
+            else:
+                # Likely a conditional import.
+                assert distribution in stdlib or distribution in MISSING_WHITELIST
+    current_distribution = package_to_distribution.get(package.name, package.name)
+    package.requires = sorted(requirements - {current_distribution})
 
 
 def generate_versions(packages: List[StdLibPackage]) -> str:
@@ -147,7 +160,7 @@ def generate_versions(packages: List[StdLibPackage]) -> str:
     for package in packages:
         assert package.py_version is not None
         lines.append(f"{package.name}: {package.py_version}")
-    return "\n".join(lines)
+    return "\n".join(sorted(lines))
 
 
 def copy_stdlib(packages: List[StdLibPackage], py2_packages: List[StdLibPackage]) -> None:
@@ -161,7 +174,7 @@ def copy_stdlib(packages: List[StdLibPackage], py2_packages: List[StdLibPackage]
         if not package.is_dir:
             shutil.copy(package.path, stdlib_dir)
         else:
-            shutil.copytree(package.path, stdlib_dir)
+            shutil.copytree(package.path, os.path.join(stdlib_dir, package.name))
 
     if py2_packages:
         py2_stdlib_dir = os.path.join(stdlib_dir, PY2_NAMESPACE)
@@ -170,7 +183,7 @@ def copy_stdlib(packages: List[StdLibPackage], py2_packages: List[StdLibPackage]
             if not package.is_dir:
                 shutil.copy(package.path, py2_stdlib_dir)
             else:
-                shutil.copytree(package.path, py2_stdlib_dir)
+                shutil.copytree(package.path, os.path.join(py2_stdlib_dir, package.name))
 
 
 def generate_metadata(package: ThirdPartyPackage, py2_packages: List[str]) -> str:
@@ -180,7 +193,7 @@ def generate_metadata(package: ThirdPartyPackage, py2_packages: List[str]) -> st
     if not package.py3_compatible:
         lines.append("python3 = false")
     if package.requires:
-        lines.append(f"requires = [{','.join(package.requires)}]")
+        lines.append(f"requires = [{', '.join(package.requires)}]")
     return "\n".join(lines)
 
 
@@ -200,7 +213,7 @@ def copy_third_party(packages: List[ThirdPartyPackage],
         if not package.is_dir:
             shutil.copy(package.path, distribution_dir)
         else:
-            shutil.copytree(package.path, distribution_dir)
+            shutil.copytree(package.path, os.path.join(distribution_dir, package.name))
 
     for package in py2_packages:
         distribution = package_to_distribution.get(package.name, package.name)
@@ -209,7 +222,7 @@ def copy_third_party(packages: List[ThirdPartyPackage],
         if not package.is_dir:
             shutil.copy(package.path, distribution_dir)
         else:
-            shutil.copytree(package.path, distribution_dir)
+            shutil.copytree(package.path, os.path.join(distribution_dir, package.name))
 
 
 def main() -> None:
