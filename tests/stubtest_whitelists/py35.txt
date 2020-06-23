@@ -77,8 +77,7 @@ typing.NamedTuple._replace
 typing.Sequence.count
 typing.Sequence.index
 typing.runtime_checkable
-unittest.async_case
-unittest.case._AssertLogsContext.__init__
+unittest.async_case  # Added in Python 3.8
 uuid.UUID.int
 xml.etree.ElementTree.TreeBuilder.start  # Discrepancy between Python and C modules, fixed in bpo-39495
 xml.etree.cElementTree.Element.__bool__
