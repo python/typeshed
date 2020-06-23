@@ -1,9 +1,10 @@
+import ast
 import os
 import os.path
 import shutil
 
 from dataclasses import dataclass
-from typing import Optional, List, Tuple
+from typing import Optional, List, Set, Tuple
 
 STDLIB_NAMESPACE = "stdlib"
 THIRD_PARTY_NAMESPACE = "stubs"
@@ -101,9 +102,44 @@ def collect_third_party_packages() -> Tuple[List[ThirdPartyPackage], List[ThirdP
     return third_party, py2_third_party
 
 
+def get_top_imported_names(file: str) -> Set[str]:
+    with open(os.path.join(file), "rb") as f:
+        content = f.read()
+    parsed = ast.parse(content)
+    top_imported = set()
+    for node in ast.walk(parsed):
+        if isinstance(node, ast.Import):
+            for name in node.names:
+                top_imported.add(name.split('.')[0])
+        elif isinstance(node, ast.ImportFrom):
+            if node.level > 0:
+                continue
+            assert node.module
+            top_imported.add(node.module.split('.')[0])
+    return top_imported
+
+
 def populate_requirements(package: ThirdPartyPackage,
-                          stdlib: List[str], py2_stdlib: List[str]) -> None:
-    pass
+                          stdlib: List[str], py2_stdlib: List[str],
+                          known_distributions: Set[str]) -> None:
+    assert not package.requires, "Populate must be called once"
+    if not package.is_dir:
+        all_top_imports = get_top_imported_names(package.path)
+    else:
+        all_top_imports = set()
+        for dir_path, dir_names, file_names in os.walk(package.path):
+            for file_name in file_names:
+                all_top_imports |= get_top_imported_names(os.path.join(dir_path, file_name))
+    requirements = set()
+    for name in all_top_imports:
+        distribution = package_to_distribution.get(name, name)
+        if package.py3_compatible and name not in stdlib:
+            assert distribution in known_distributions, distribution
+            requirements.add(distribution)
+        if package.py2_compatible and name not in py2_stdlib:
+            assert distribution in known_distributions, distribution
+            requirements.add(distribution)
+    package.requires = sorted(requirements)
 
 
 def generate_versions(packages: List[StdLibPackage]) -> str:
@@ -117,12 +153,12 @@ def generate_versions(packages: List[StdLibPackage]) -> str:
 def copy_stdlib(packages: List[StdLibPackage], py2_packages: List[StdLibPackage]) -> None:
     stdlib_dir = os.path.join(OUTPUT_DIR, STDLIB_NAMESPACE)
     os.makedirs(stdlib_dir, exist_ok=True)
-    with open(os.path.join(stdlib_dir, "VERSIONS")) as f:
+    with open(os.path.join(stdlib_dir, "VERSIONS"), "w") as f:
         f.write(generate_versions(packages))
         f.write("\n")
 
     for package in packages:
-        if package.is_dir:
+        if not package.is_dir:
             shutil.copy(package.path, stdlib_dir)
         else:
             shutil.copytree(package.path, stdlib_dir)
@@ -131,15 +167,49 @@ def copy_stdlib(packages: List[StdLibPackage], py2_packages: List[StdLibPackage]
         py2_stdlib_dir = os.path.join(stdlib_dir, PY2_NAMESPACE)
         os.makedirs(py2_stdlib_dir, exist_ok=True)
         for package in py2_packages:
-            if package.is_dir:
+            if not package.is_dir:
                 shutil.copy(package.path, py2_stdlib_dir)
             else:
                 shutil.copytree(package.path, py2_stdlib_dir)
 
 
+def generate_metadata(package: ThirdPartyPackage, py2_packages: List[str]) -> str:
+    lines = [f"version = {DEFAULT_VERSION}"]
+    if package.py2_compatible or package.name in py2_packages:
+        lines.append("python2 = true")
+    if not package.py3_compatible:
+        lines.append("python3 = false")
+    if package.requires:
+        lines.append(f"requires = [{','.join(package.requires)}]")
+    return "\n".join(lines)
+
+
 def copy_third_party(packages: List[ThirdPartyPackage],
                      py2_packages: List[ThirdPartyPackage]) -> None:
-    pass
+    third_party_dir = os.path.join(OUTPUT_DIR, THIRD_PARTY_NAMESPACE)
+    os.makedirs(third_party_dir, exist_ok=True)
+    for package in packages:
+        distribution = package_to_distribution.get(package.name, package.name)
+        distribution_dir = os.path.join(third_party_dir, distribution)
+        os.makedirs(distribution_dir, exist_ok=True)
+        metadate_file = os.path.join(distribution_dir, "METADATA.toml")
+        if not os.path.isfile(metadate_file):
+            with open(metadate_file, "w") as f:
+                f.write(generate_metadata(package, [package.name for package in py2_packages]))
+                f.write("\n")
+        if not package.is_dir:
+            shutil.copy(package.path, distribution_dir)
+        else:
+            shutil.copytree(package.path, distribution_dir)
+
+    for package in py2_packages:
+        distribution = package_to_distribution.get(package.name, package.name)
+        distribution_dir = os.path.join(third_party_dir, distribution, PY2_NAMESPACE)
+        os.makedirs(distribution_dir, exist_ok=True)
+        if not package.is_dir:
+            shutil.copy(package.path, distribution_dir)
+        else:
+            shutil.copytree(package.path, distribution_dir)
 
 
 def main() -> None:
@@ -150,8 +220,11 @@ def main() -> None:
     py2_stdlib_names = [package.name for package in py2_stdlib]
     py2_stdlib_names += [package.name for package in stdlib if package.py_version == "2.7"]
 
+    known_distributions = {package_to_distribution.get(package.name, package.name)
+                           for package in third_party + py2_third_party}
+
     for package in third_party + py2_third_party:
-        populate_requirements(package, stdlib_names, py2_stdlib_names)
+        populate_requirements(package, stdlib_names, py2_stdlib_names, known_distributions)
 
     if not os.path.isdir(OUTPUT_DIR):
         os.mkdir(OUTPUT_DIR)
