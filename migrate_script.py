@@ -30,7 +30,24 @@ package_to_distribution = {
     "_pytest": "pytest",
     "yaml": "PyYAML",
     "typing_extensions": "typing-extensions",
-    "mypy_extensions": "mypy-extensions"
+    "mypy_extensions": "mypy-extensions",
+    "pyre_extensions": "pyre-extensions",
+    "concurrent": "futures",
+    "Crypto": "pycrypto",
+    "datetimerange": "DateTimeRange",
+    "dateutil": "python-dateutil",
+    "enum": "enum34",
+    "flask": "Flask",
+    "gflags": "python-gflags",
+    "google": "protobuf",
+    "jinja2": "Jinja2",
+    "markupsafe": "MarkupSafe",
+    "OpenSSL": "openssl-python",
+    "pymysql": "PyMySQL",
+    "pyVmomi": "pyvmomi",
+    "routes": "Routes",
+    "typed_ast": "typed-ast",
+    "werkzeug": "Werkzeug",
 }
 
 
