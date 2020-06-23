@@ -93,7 +93,6 @@ typing.SupportsInt.__init__
 typing.SupportsRound.__init__
 typing._SpecialForm.__init__
 typing._SpecialForm.__new__
-unittest.case._AssertLogsContext.__init__
 unittest.doModuleCleanups
 uuid.getnode  # undocumented, unused parameter getters that was later removed
 weakref.WeakValueDictionary.__init__

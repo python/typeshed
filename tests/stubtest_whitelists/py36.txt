@@ -72,8 +72,7 @@ typing.NamedTuple._replace
 typing.Sequence.count
 typing.Sequence.index
 typing.runtime_checkable
-unittest.async_case
-unittest.case._AssertLogsContext.__init__
+unittest.async_case  # Added in Python 3.8
 urllib.parse.parse_qs
 urllib.parse.parse_qsl
 uuid.UUID.int
