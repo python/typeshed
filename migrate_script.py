@@ -180,7 +180,7 @@ def populate_requirements(package: ThirdPartyPackage,
         all_top_imports = get_top_imported_names(package.path)
     else:
         all_top_imports = set()
-        for dir_path, dir_names, file_names in os.walk(package.path):
+        for dir_path, _, file_names in os.walk(package.path):
             for file_name in file_names:
                 all_top_imports |= get_top_imported_names(os.path.join(dir_path, file_name))
 
