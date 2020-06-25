@@ -38,15 +38,14 @@ class attrdict(Dict[str, T], Generic[T]):
     def __add__(self: _SelfT, rhs: Mapping[str, T]) -> _SelfT: ...
 
 OP: attrdict[str]
-DJANGO_MAP: attrdict[Any]
+DJANGO_MAP: attrdict[Callable[[Any, Any], Any]]
 JOIN: attrdict[str]
 
 def chunked(it: Iterator[T], n: int) -> Generator[List[T], None, None]: ...
 
-class _callable_context_manager(ContextManager[T]):
-    def __call__(self, fn: Callable[..., Any]): ...
-
 _CallBack = TypeVar("_CallBack", bound=Callable[[Any], None])
+
+## todo
 
 class Proxy:
     def __init__(self) -> None: ...
