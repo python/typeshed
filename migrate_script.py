@@ -50,6 +50,11 @@ package_to_distribution = {
     "werkzeug": "Werkzeug",
 }
 
+known_versoins = {
+    "mypy-extensions": "0.4.3",
+    "typing-extensions": "3.7.4.2",
+    "typed-ast": "1.4.1",
+}
 
 # Classes with "Package" in name represent both packages and modules.
 # The latter two are distinguished by is_dir flag.
@@ -253,7 +258,11 @@ def generate_metadata(package: ThirdPartyPackage, py2_packages: List[str]) -> st
     an arbitrary package to populate it, since it should be the same for all
     packages.
     """
-    lines = [f"version = {DEFAULT_VERSION}"]
+    version = known_versoins.get(
+        package_to_distribution.get(package.name, package.name),
+        DEFAULT_VERSION,
+    )
+    lines = [f'version = "{version}"']
     if package.py2_compatible or package.name in py2_packages:
         # Note: for packages like six that appear in both normal and Python 2 only
         # lists we force set python2 = true.
@@ -261,7 +270,9 @@ def generate_metadata(package: ThirdPartyPackage, py2_packages: List[str]) -> st
     if not package.py3_compatible:
         lines.append("python3 = false")
     if package.requires:
-        lines.append(f"requires = [{', '.join(package.requires)}]")
+        distributions = [f'"types-{package_to_distribution.get(dep, dep)}"'
+                         for dep in package.requires]
+        lines.append(f"requires = [{', '.join(distributions)}]")
     return "\n".join(lines)
 
 
