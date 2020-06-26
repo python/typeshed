@@ -12,6 +12,23 @@ __version__ = version
 def _get_mock_module(config: _Config) -> _MockModule: ...
 
 class MockFixture:
+    mock_module: _MockModule
+    patch: _Patcher
+    Mock = unittest.mock.Mock
+    MagicMock = unittest.mock.MagicMock
+    NonCallableMock = unittest.mock.NonCallableMock
+    PropertyMock = unittest.mock.PropertyMock
+    call = unittest.mock.call
+    ANY = unittest.mock.ANY
+    DEFAULT = unittest.mock.DEFAULT
+    create_autospec = unittest.mock.create_autospec
+    sentinel = unittest.mock.sentinel
+    mock_open = unittest.mock.mock_open
+    def __init__(self, config: _Config) -> None: ...
+    def resetall(self) -> None: ...
+    def stopall(self) -> None: ...
+    def spy(self, obj: object, name: str) -> unittest.mock.MagicMock: ...
+    def stub(self, name: Optional[str] = ...) -> unittest.mock.MagicMock: ...
     class _Patcher:
         mock_module: _MockModule
         def object(
@@ -61,24 +78,6 @@ class MockFixture:
             new_callable: Optional[Any] = ...,
             **kwargs: Any,
         ) -> _T: ...
-
-    mock_module: _MockModule
-    patch: _Patcher
-    Mock = unittest.mock.Mock
-    MagicMock = unittest.mock.MagicMock
-    NonCallableMock = unittest.mock.NonCallableMock
-    PropertyMock = unittest.mock.PropertyMock
-    call = unittest.mock.call
-    ANY = unittest.mock.ANY
-    DEFAULT = unittest.mock.DEFAULT
-    create_autospec = unittest.mock.create_autospec
-    sentinel = unittest.mock.sentinel
-    mock_open = unittest.mock.mock_open
-    def __init__(self, config: _Config) -> None: ...
-    def resetall(self) -> None: ...
-    def stopall(self) -> None: ...
-    def spy(self, obj: object, name: str) -> unittest.mock.MagicMock: ...
-    def stub(self, name: Optional[str] = ...) -> unittest.mock.MagicMock: ...
 
 mocker: Any
 class_mocker: Any
