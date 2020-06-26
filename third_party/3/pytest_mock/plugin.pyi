@@ -13,7 +13,7 @@ def _get_mock_module(config: _Config) -> _MockModule: ...
 
 class MockFixture:
     mock_module: _MockModule
-    patch: _Patcher
+    patch: MockFixture._Patcher  # google/pytype#611
     Mock = unittest.mock.Mock
     MagicMock = unittest.mock.MagicMock
     NonCallableMock = unittest.mock.NonCallableMock
