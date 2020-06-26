@@ -56,6 +56,7 @@ known_versoins = {
     "typed-ast": "1.4.1",
 }
 
+
 # Classes with "Package" in name represent both packages and modules.
 # The latter two are distinguished by is_dir flag.
 class PackageBase:
