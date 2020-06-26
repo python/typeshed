@@ -4,9 +4,17 @@ import os.path
 import shutil
 import tempfile
 from textwrap import dedent
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Tuple
 
 import toml
+
+META = "METADATA.toml"
+
+THIRD_PARTY_NAMESPACE = "stubs"
+PY2_NAMESPACE = "python2"
+SUFFIX = "-stubs"
+PY2_SUFFIX = "-python2-stubs"
+OUTPUT_DIR = "out"
 
 SETUP_TEMPLATE = dedent("""
 from setuptools import setup
@@ -26,7 +34,7 @@ setup(name=name,
           "Typing :: Typed",
       ]
 )
-""")
+""").lstrip()
 
 
 def find_stub_files(top: str) -> List[str]:
@@ -45,28 +53,37 @@ def read_matadata(file: str) -> Dict[str, Any]:
         return toml.loads(f.read())
 
 
-def copy_stubs(distribution: str, dst: str) -> None:
-    base_dir = os.path.join("stubs", distribution)
+def copy_stubs(distribution: str, dst: str, suffix: str) -> None:
+    base_dir = os.path.join(THIRD_PARTY_NAMESPACE, distribution)
     for entry in os.listdir(base_dir):
         if os.path.isfile(os.path.join(base_dir, entry)):
             if not entry.endswith(".pyi"):
                 continue
-            stub_dir = os.path.join(dst, entry.split(".")[0] + "-stubs")
+            stub_dir = os.path.join(dst, entry.split(".")[0] + suffix)
             os.mkdir(stub_dir)
             shutil.copy(os.path.join(base_dir, entry), os.path.join(stub_dir, "__init__.pyi"))
         else:
-            stub_dir = os.path.join(dst, entry + "-stubs")
-            shutil.copytree(os.path.join(base_dir, entry), stub_dir)
-        shutil.copy(os.path.join(base_dir, "METADATA.toml"), stub_dir)
+            if entry == PY2_NAMESPACE:
+                continue
+            else:
+                stub_dir = os.path.join(dst, entry + suffix)
+                shutil.copytree(os.path.join(base_dir, entry), stub_dir)
+
+        if os.path.isfile(os.path.join(base_dir, META)):
+            shutil.copy(os.path.join(base_dir, META), stub_dir)
+        else:
+            upper_dir = os.path.dirname(base_dir)
+            assert os.path.isfile(os.path.join(upper_dir, META))
+            shutil.copy(os.path.join(upper_dir, META), stub_dir)
 
 
-def generate_setup_file(distribution: str, increment: str) -> str:
-    base_dir = os.path.join("stubs", distribution)
-    metadata = read_matadata(os.path.join(base_dir, "METADATA.toml"))
+def collect_setup_entries(distribution: str,
+                          suffix: str) -> Tuple[List[str], Dict[str, List[str]]]:
     packages = []
     package_data = {}
+    base_dir = os.path.join(THIRD_PARTY_NAMESPACE, distribution)
     for entry in os.listdir(base_dir):
-        if entry == "METADATA.toml":
+        if entry == META:
             continue
         original_entry = entry
         if os.path.isfile(os.path.join(base_dir, entry)):
@@ -74,16 +91,31 @@ def generate_setup_file(distribution: str, increment: str) -> str:
                 if not entry.endswith((".md", ".rst")):
                     raise ValueError("Only stub files are allowed")
                 continue
-            entry = entry.split('.')[0] + "-stubs"
+            entry = entry.split('.')[0] + suffix
             packages.append(entry)
             package_data[entry] = ["__init__.pyi"]
         else:
-            entry += "-stubs"
+            if entry == PY2_NAMESPACE:
+                continue
+            entry += suffix
             packages.append(entry)
             package_data[entry] = find_stub_files(
                 os.path.join(base_dir, original_entry)
             )
-        package_data[entry].append("METADATA.toml")
+        package_data[entry].append(META)
+    return packages, package_data
+
+
+def generate_setup_file(distribution: str, increment: str) -> str:
+    base_dir = os.path.join(THIRD_PARTY_NAMESPACE, distribution)
+    metadata = read_matadata(os.path.join(base_dir, META))
+    packages, package_data = collect_setup_entries(distribution, SUFFIX)
+    if PY2_NAMESPACE in os.listdir(os.path.join(THIRD_PARTY_NAMESPACE, distribution)):
+        py2_packages, py2_package_data = collect_setup_entries(
+            os.path.join(distribution, PY2_NAMESPACE), PY2_SUFFIX
+        )
+        packages += py2_packages
+        package_data.update(py2_package_data)
     return SETUP_TEMPLATE.format(
         distribution=distribution,
         version=f"{metadata['version']}.{increment}",
@@ -94,12 +126,14 @@ def generate_setup_file(distribution: str, increment: str) -> str:
 
 
 def main(distribution: str, increment: str) -> None:
-    os.chdir("out")
+    os.chdir(OUTPUT_DIR)
     tmpdir = tempfile.mkdtemp()
-    print(tmpdir)
     with open(os.path.join(tmpdir, "setup.py"), "w") as f:
         f.write(generate_setup_file(distribution, increment))
-    copy_stubs(distribution, tmpdir)
+    copy_stubs(distribution, tmpdir, SUFFIX)
+    if PY2_NAMESPACE in os.listdir(os.path.join(THIRD_PARTY_NAMESPACE, distribution)):
+        copy_stubs(os.path.join(distribution, PY2_NAMESPACE), tmpdir, PY2_SUFFIX)
+    print(tmpdir)
 
 
 if __name__ == "__main__":
