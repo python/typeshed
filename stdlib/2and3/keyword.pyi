@@ -1,7 +1,7 @@
 import sys
 from typing import Sequence, Text, Union
 
-def iskeyword(s: Union[Text, str]) -> bool: ...
+def iskeyword(s: Text) -> bool: ...
 kwlist: Sequence[str]
 
 if sys.version_info >= (3, 9):
