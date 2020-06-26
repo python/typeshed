@@ -338,7 +338,6 @@ os._Environ.__init__
 os._Environ.setdefault
 os._wrap_close.__init__
 pickle.Pickler.persistent_id
-pickle.Unpickler.find_class
 pickle.Unpickler.persistent_load
 pipes.Template.copy
 pkgutil.ImpImporter.__init__
