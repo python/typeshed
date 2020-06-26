@@ -216,7 +216,6 @@ http.cookies.Morsel.setdefault
 http.cookies.Morsel.update
 http.server.HTTPServer.__init__
 imaplib.IMAP4_SSL.ssl
-imaplib.IMAP4_stream.open
 importlib.abc.FileLoader.get_filename
 importlib.abc.Loader.exec_module
 importlib.abc.MetaPathFinder.find_spec
