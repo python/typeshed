@@ -290,7 +290,6 @@ if sys.version_info >= (3, 9):
             self,
             option_strings: Sequence[str],
             dest: str,
-            const: None = ...,  # unused in implementation
             default: Union[_T, str, None] = ...,
             type: Optional[Union[Callable[[Text], _T], Callable[[str], _T], FileType]] = ...,
             choices: Optional[Iterable[_T]] = ...,
