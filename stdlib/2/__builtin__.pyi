@@ -131,8 +131,6 @@ class type(object):
     if sys.version_info >= (3,):
         @classmethod
         def __prepare__(metacls, __name: str, __bases: Tuple[type, ...], **kwds: Any) -> Mapping[str, Any]: ...
-    if sys.version_info >= (3, 9):
-        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 class super(object):
     if sys.version_info >= (3,):
