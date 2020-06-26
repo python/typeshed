@@ -3,6 +3,7 @@ import os
 import os.path
 import shutil
 import tempfile
+import subprocess
 from textwrap import dedent
 from typing import List, Dict, Any, Tuple
 
@@ -133,7 +134,9 @@ def main(distribution: str, increment: str) -> None:
     copy_stubs(distribution, tmpdir, SUFFIX)
     if PY2_NAMESPACE in os.listdir(os.path.join(THIRD_PARTY_NAMESPACE, distribution)):
         copy_stubs(os.path.join(distribution, PY2_NAMESPACE), tmpdir, PY2_SUFFIX)
-    print(tmpdir)
+    os.chdir(tmpdir)
+    subprocess.run(["python3", "setup.py", "bdist_wheel"])
+    print(f"Wheel generated in {tmpdir}/dist")
 
 
 if __name__ == "__main__":
