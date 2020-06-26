@@ -55,7 +55,9 @@ def create_parser() -> argparse.ArgumentParser:
     # We need to invoke python2.7 and 3.6.
     parser.add_argument("--python27-exe", type=str, default="python2.7", help="Path to a python 2.7 interpreter.")
     parser.add_argument("--python36-exe", type=str, default="python3.6", help="Path to a python 3.6 interpreter.")
-    parser.add_argument("files", metavar="FILE", type=str, nargs="*", help="Files or directories to check. (Default: Check all files.)")
+    parser.add_argument(
+        "files", metavar="FILE", type=str, nargs="*", help="Files or directories to check. (Default: Check all files.)",
+    )
     return parser
 
 
