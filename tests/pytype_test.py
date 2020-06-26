@@ -11,7 +11,6 @@ will also discover incorrect usage of imported modules.
 """
 
 import argparse
-import itertools
 import os
 import re
 import subprocess
@@ -33,7 +32,7 @@ def main() -> None:
     subdir_paths = [os.path.join(typeshed_location, d) for d in TYPESHED_SUBDIRS]
     check_subdirs_discoverable(subdir_paths)
     check_python_exes_runnable(python27_exe_arg=args.python27_exe, python36_exe_arg=args.python36_exe)
-    files_to_test = determine_files_to_test(typeshed_location=typeshed_location, subdir_paths=subdir_paths)
+    files_to_test = determine_files_to_test(typeshed_location=typeshed_location, paths=args.files or subdir_paths)
     run_all_tests(
         files_to_test=files_to_test,
         typeshed_location=typeshed_location,
@@ -56,6 +55,7 @@ def create_parser() -> argparse.ArgumentParser:
     # We need to invoke python2.7 and 3.6.
     parser.add_argument("--python27-exe", type=str, default="python2.7", help="Path to a python 2.7 interpreter.")
     parser.add_argument("--python36-exe", type=str, default="python3.6", help="Path to a python 3.6 interpreter.")
+    parser.add_argument("files", metavar="FILE", type=str, nargs="*", help="Files or directories to check. (Default: Check all files.)")
     return parser
 
 
@@ -156,28 +156,38 @@ def check_python_exes_runnable(*, python27_exe_arg: str, python36_exe_arg: str) 
         )
 
 
-def determine_files_to_test(*, typeshed_location: str, subdir_paths: Sequence[str]) -> List[Tuple[str, int]]:
+def determine_files_to_test(*, typeshed_location: str, paths: Sequence[str]) -> List[Tuple[str, int]]:
     """Determine all files to test, checking if it's in the blacklist and which Python versions to use.
 
     Returns a list of pairs of the file path and Python version as an int."""
     skipped = PathMatcher(load_blacklist(typeshed_location))
+    filenames = find_stubs_in_paths(paths)
     files = []
-    for root, _, filenames in itertools.chain.from_iterable(os.walk(p) for p in subdir_paths):
-        for f in sorted(f for f in filenames if f.endswith(".pyi")):
-            f = os.path.join(root, f)
-            rel = _get_relative(f)
-            if skipped.search(rel):
-                continue
-            if _is_version(f, "2and3"):
-                files.append((f, 2))
-                files.append((f, 3))
-            elif _is_version(f, "2"):
-                files.append((f, 2))
-            elif _is_version(f, "3"):
-                files.append((f, 3))
-            else:
-                print("Unrecognized path: {}".format(f))
+    for f in sorted(filenames):
+        rel = _get_relative(f)
+        if skipped.search(rel):
+            continue
+        if _is_version(f, "2and3"):
+            files.append((f, 2))
+            files.append((f, 3))
+        elif _is_version(f, "2"):
+            files.append((f, 2))
+        elif _is_version(f, "3"):
+            files.append((f, 3))
+        else:
+            print("Unrecognized path: {}".format(f))
     return files
+
+
+def find_stubs_in_paths(paths: Sequence[str]) -> List[str]:
+    filenames = []
+    for path in paths:
+        if os.path.isdir(path):
+            for root, _, fns in os.walk(path):
+                filenames.extend(os.path.join(root, fn) for fn in fns if fn.endswith(".pyi"))
+        else:
+            filenames.append(path)
+    return filenames
 
 
 def run_all_tests(
