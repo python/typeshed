@@ -1289,10 +1289,10 @@ class BooleanField(Field):
     field_type: ClassVar[str]
     adapt: Any
 
-class BareField(Field):
-    adapt: Any
-    def __init__(self, adapt: Optional[Any] = ..., *args: Any, **kwargs: Any) -> None: ...
-    def ddl_datatype(self, ctx: Context) -> None: ... # type: ignore[override]
+class BareField(Field, Generic[_F]):
+    adapt: _F
+    def __init__(self, adapt: Optional[_F] = ..., *args, **kwargs) -> None: ...
+    def ddl_datatype(self, ctx: Context) -> None: ...  # type: ignore[override]
 
 class ForeignKeyField(Field):
     accessor_class: ClassVar[Type[ForeignKeyAccessor]]
@@ -1648,8 +1648,8 @@ class _ModelQueryHelper:
     def objects(self, constructor: Optional[Any] = ...) -> None: ...
 
 class ModelRaw(_ModelQueryHelper, RawQuery):
-    model: Any
-    def __init__(self, model: Any, sql: Any, params: Any, **kwargs: Any) -> None: ...
+    model: Type[Model]
+    def __init__(self, model: Type[Model], sql: Any, params: Any, **kwargs: Any) -> None: ...
     def get(self): ...
 
 class BaseModelSelect(_ModelQueryHelper):
