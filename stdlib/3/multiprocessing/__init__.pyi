@@ -13,6 +13,7 @@ from multiprocessing.context import (
     ProcessError as ProcessError,
     SpawnContext,
     TimeoutError as TimeoutError,
+    _default_context,
 )
 from multiprocessing.managers import SyncManager
 from multiprocessing.process import active_children as active_children, current_process as current_process
@@ -60,9 +61,8 @@ def get_all_start_methods() -> List[str]: ...
 def get_start_method(allow_none: bool = ...) -> Optional[str]: ...
 def set_start_method(method: str, force: Optional[bool] = ...) -> None: ...
 
-_default_context: DefaultContext
-Array = DefaultContext.Array
-Value = DefaultContext.Value
+Array = _default_context.Array
+Value = _default_context.Value
 
 if sys.platform != "win32":
     @overload

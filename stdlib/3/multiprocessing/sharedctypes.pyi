@@ -1,4 +1,4 @@
-from ctypes import _CData 
+from ctypes import _CData
 from typing import Any, List, Optional, Sequence, Type, Union, overload
 
 from multiprocessing.synchronize import _LockLike

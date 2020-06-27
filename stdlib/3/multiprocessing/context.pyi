@@ -74,7 +74,6 @@ class BaseContext(object):
     def RawArray(self, typecode_or_type: Any, size_or_initializer: Union[int, Sequence[Any]]) -> Any: ...
     # TODO: typecode_or_type param is a ctype with a base class of _SimpleCData or array.typecode Need to figure out
     # how to handle the ctype
-    # TODO: change return to Value once a stub exists in multiprocessing.sharedctypes
     def Value(
         self,
         typecode_or_type: Any,
@@ -83,7 +82,6 @@ class BaseContext(object):
     ) -> sharedctypes._Value: ...
     # TODO: typecode_or_type param is a ctype with a base class of _SimpleCData or array.typecode Need to figure out
     # how to handle the ctype
-    # TODO: change return to Array once a stub exists in multiprocessing.sharedctypes
     def Array(
         self,
         typecode_or_type: Any,
@@ -179,3 +177,5 @@ def _force_start_method(method: str) -> None: ...
 def get_spawning_popen() -> Optional[Any]: ...
 def set_spawning_popen(popen: Any) -> None: ...
 def assert_spawning(obj: Any) -> None: ...
+
+_default_context: DefaultContext
