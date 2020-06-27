@@ -1,28 +1,29 @@
 import decimal
 import itertools
-import logging
+import sqlite3
 import sys
 import threading
 import uuid
 from collections import namedtuple
 from typing import (
     Any,
-    Optional,
-    TypeVar,
+    Callable,
+    ClassVar,
+    ContextManager,
+    Dict,
+    Generator,
+    Generic,
     Iterable,
     Iterator,
-    Generator,
     List,
     Mapping,
-    Callable,
-    ContextManager,
+    Optional,
+    Text,
+    Tuple as TupleT,
     Type,
+    TypeVar,
     Union,
-    Generic,
-    Dict,
-    Tuple as TupleT, Text
 )
-import sqlite3
 
 text_type = str
 bytes_type = bytes
@@ -33,7 +34,6 @@ izip_longest = itertools.zip_longest
 
 _SelfT = TypeVar("_SelfT")
 T = TypeVar("T")
-K = TypeVar("K")
 
 class attrdict(Dict[str, T], Generic[T]):
     def __getattr__(self, attr: str) -> T: ...
@@ -1056,7 +1056,6 @@ class ObjectIdAccessor:
     def __get__(self, instance: Any, instance_type: Optional[Any] = ...): ...
     def __set__(self, instance: Any, value: Any) -> None: ...
 
-from typing import ClassVar
 
 class Field(ColumnBase):
     accessor_class: ClassVar[Type[FieldAccessor]]
