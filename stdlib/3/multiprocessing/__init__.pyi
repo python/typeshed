@@ -3,7 +3,7 @@ from typing import Any, Callable, Iterable, Optional, List, Union, Sequence, Tup
 from typing_extensions import Literal
 from ctypes import _CData
 from logging import Logger
-from multiprocessing import connection, pool, spawn, synchronize
+from multiprocessing import connection, pool, sharedctypes, spawn, synchronize
 from multiprocessing.context import (
     AuthenticationError as AuthenticationError,
     BaseContext,
@@ -13,7 +13,6 @@ from multiprocessing.context import (
     ProcessError as ProcessError,
     SpawnContext,
     TimeoutError as TimeoutError,
-    _default_context,
 )
 from multiprocessing.managers import SyncManager
 from multiprocessing.process import active_children as active_children, current_process as current_process
@@ -50,6 +49,22 @@ def Pool(processes: Optional[int] = ...,
          initargs: Iterable[Any] = ...,
          maxtasksperchild: Optional[int] = ...) -> pool.Pool: ...
 
+# Functions Array and Value are copied from context.pyi.
+# See https://github.com/python/typeshed/blob/ac234f25927634e06d9c96df98d72d54dd80dfc4/stdlib/2and3/turtle.pyi#L284-L291
+# for rationale
+def Array(
+    typecode_or_type: Any,
+    size_or_initializer: Union[int, Sequence[Any]],
+    *,
+    lock: bool = ...
+) -> sharedctypes._Array: ...
+
+def Value(
+    typecode_or_type: Any,
+    *args: Any,
+    lock: bool = ...
+) -> sharedctypes._Value: ...
+
 # ----- multiprocessing function stubs -----
 def allow_connection_pickling() -> None: ...
 def cpu_count() -> int: ...
@@ -61,8 +76,6 @@ def get_all_start_methods() -> List[str]: ...
 def get_start_method(allow_none: bool = ...) -> Optional[str]: ...
 def set_start_method(method: str, force: Optional[bool] = ...) -> None: ...
 
-Array = _default_context.Array
-Value = _default_context.Value
 
 if sys.platform != "win32":
     @overload
