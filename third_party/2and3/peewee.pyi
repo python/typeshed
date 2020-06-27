@@ -2,6 +2,7 @@ import itertools
 import logging
 import sys
 import threading
+import uuid
 from collections import namedtuple
 from typing import (
     Any,
@@ -18,7 +19,7 @@ from typing import (
     Union,
     Generic,
     Dict,
-    Tuple as TupleT
+    Tuple as TupleT, Text
 )
 import sqlite3
 
@@ -1204,9 +1205,9 @@ class BigBitField(BlobField):
     def db_value(self, value: Any): ...
 
 class UUIDField(Field):
-    field_type: str = ...
-    def db_value(self, value: Any): ...
-    def python_value(self, value: Any): ...
+    field_type: ClassVar[str]
+    def db_value(self, value: Union[bytes, str, uuid.UUID]) -> str: ...
+    def python_value(self, value: str) -> uuid.UUID: ...
 
 class BinaryUUIDField(BlobField):
     field_type: str = ...
