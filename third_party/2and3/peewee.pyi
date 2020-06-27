@@ -1137,10 +1137,10 @@ class FloatField(Field):
     def adapt(self, value: Any) -> float: ...
 
 class DoubleField(FloatField):
-    field_type: str = ...
+    field_type: ClassVar[str]
 
 class DecimalField(Field):
-    field_type: str = ...
+    field_type: ClassVar[str]
     max_digits: Any
     decimal_places: Any
     auto_round: Any
