@@ -1287,7 +1287,7 @@ class IPField(BigIntegerField):
 
 class BooleanField(Field):
     field_type: ClassVar[str]
-    adapt: Any
+    def adapt(self, value: Any) -> bool: ...
 
 class BareField(Field, Generic[_F]):
     adapt: _F
