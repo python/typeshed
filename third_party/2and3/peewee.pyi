@@ -1,3 +1,4 @@
+import decimal
 import itertools
 import logging
 import sys
@@ -1141,22 +1142,22 @@ class DoubleField(FloatField):
 
 class DecimalField(Field):
     field_type: ClassVar[str]
-    max_digits: Any
-    decimal_places: Any
-    auto_round: Any
-    rounding: Any
+    max_digits: int
+    decimal_places: int
+    auto_round: bool
+    rounding: str
     def __init__(
         self,
         max_digits: int = ...,
         decimal_places: int = ...,
         auto_round: bool = ...,
-        rounding: Optional[Any] = ...,
+        rounding: Optional[str] = ...,
         *args: Any,
         **kwargs: Any,
     ) -> None: ...
-    def get_modifiers(self): ...
-    def db_value(self, value: Any): ...
-    def python_value(self, value: Any): ...
+    def get_modifiers(self) -> TupleT[int, int]: ...
+    def db_value(self, value: Any) -> Optional[decimal.Decimal]: ...
+    def python_value(self, value: Any) -> Optional[decimal.Decimal]: ...
 
 class _StringField(Field):
     def adapt(self, value: Any): ...
