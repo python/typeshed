@@ -1,6 +1,5 @@
 import decimal
 import itertools
-import sqlite3
 import sys
 import threading
 import uuid
@@ -33,19 +32,19 @@ long = int
 izip_longest = itertools.zip_longest
 
 _SelfT = TypeVar("_SelfT")
-T = TypeVar("T")
+_T = TypeVar("_T")
 
-class attrdict(Dict[str, T], Generic[T]):
-    def __getattr__(self, attr: str) -> T: ...
-    def __setattr__(self, attr: str, value: T) -> None: ...
-    def __iadd__(self: _SelfT, rhs: Mapping[str, T]) -> _SelfT: ...
-    def __add__(self: _SelfT, rhs: Mapping[str, T]) -> _SelfT: ...
+class attrdict(Dict[str, _T], Generic[_T]):
+    def __getattr__(self, attr: str) -> _T: ...
+    def __setattr__(self, attr: str, value: _T) -> None: ...
+    def __iadd__(self: _SelfT, rhs: Mapping[str, _T]) -> _SelfT: ...
+    def __add__(self: _SelfT, rhs: Mapping[str, _T]) -> _SelfT: ...
 
 OP: attrdict[str]
 DJANGO_MAP: attrdict[Callable[[Any, Any], Any]]
 JOIN: attrdict[str]
 
-def chunked(it: Iterator[T], n: int) -> Generator[List[T], None, None]: ...
+def chunked(it: Iterator[_T], n: int) -> Generator[List[_T], None, None]: ...
 
 _CallBack = TypeVar("_CallBack", bound=Callable[[Any], None])
 
@@ -334,10 +333,10 @@ class BitwiseNegated(BitwiseMixin, WrappedNode):
 
 class Value(ColumnBase):
     value: Any
-    converter: Callable[[T], Any]
+    converter: Callable[[_T], Any]
     multi: Any
     values: Any
-    def __init__(self, value: T, converter: Optional[Callable[[T], Any]] = ..., unpack: bool = ...) -> None: ...
+    def __init__(self, value: _T, converter: Optional[Callable[[_T], Any]] = ..., unpack: bool = ...) -> None: ...
     def __sql__(self, ctx: Context) -> Context: ...
 
 def AsIs(value: Any) -> Value: ...
@@ -1056,7 +1055,6 @@ class ObjectIdAccessor:
     def __get__(self, instance: Any, instance_type: Optional[Any] = ...): ...
     def __set__(self, instance: Any, value: Any) -> None: ...
 
-
 class Field(ColumnBase):
     accessor_class: ClassVar[Type[FieldAccessor]]
     auto_increment: ClassVar[Type[bool]]
@@ -1190,7 +1188,7 @@ class FlagDescriptor:
     _field: BitField
     def __init__(self, field: BitField, value: int):
         ...
-    def __get__(self, instance, instance_type=None) -> int:
+    def __get__(self, instance, instance_type=...) -> int:
         ...
     def __set__(self, instance, is_set) -> None:
         ...
@@ -1676,7 +1674,7 @@ class ModelSelect(BaseModelSelect, Select):
     model: Any
     def __init__(
         self,
-        model: Union[Type[Model], model, Type[ModelAlias], ModelAlias],
+        model: Union[Type[Model], Model, Type[ModelAlias], ModelAlias],
         fields_or_models: List[_Selection],
         is_default: bool = ...,
     ) -> None: ...
