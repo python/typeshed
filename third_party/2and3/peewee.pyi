@@ -345,13 +345,15 @@ class Cast(WrappedNode):
     def __init__(self, node: ColumnBase, cast: str) -> None: ...
     def __sql__(self, ctx: Context) -> Context: ...
 
-_order = str
-_sort_nulls = str
 if sys.version_info >= (3, 8):
     from typing import Literal
 
-    _order = Literal["ASC", "DESC"]
-    _sort_nulls = Literal["FIRST", "LAST"]
+    _order = Type[Literal["ASC", "DESC"]]
+    _sort_nulls = Type[Literal["FIRST", "LAST"]]
+
+else:
+    _order = Type[str]
+    _sort_nulls = Type[str]
 
 class Ordering(WrappedNode):
     direction: _order = ...
@@ -1057,7 +1059,7 @@ class ObjectIdAccessor:
 
 class Field(ColumnBase):
     accessor_class: ClassVar[Type[FieldAccessor]]
-    auto_increment: ClassVar[Type[bool]]
+    auto_increment: ClassVar[bool]
     default_index_type: ClassVar[None]
     field_type: ClassVar[str]
     unpack: ClassVar[bool]
@@ -1121,7 +1123,7 @@ class SmallIntegerField(IntegerField):
     field_type: ClassVar[str]
 
 class AutoField(IntegerField):
-    auto_increment: TypeVar[bool]
+    auto_increment: ClassVar[bool]
     field_type: ClassVar[str]
 
 class BigAutoField(AutoField):
@@ -1156,7 +1158,7 @@ class DecimalField(Field):
         *args: Any,
         **kwargs: Any,
     ) -> None: ...
-    def get_modifiers(self) -> TupleT[int, int]: ...
+    def get_modifiers(self) -> TupleT[int, int]: ...  # type: ignore[override]
     def db_value(self, value: Any) -> Optional[decimal.Decimal]: ...
     def python_value(self, value: Any) -> Optional[decimal.Decimal]: ...
 
@@ -1166,17 +1168,17 @@ class _StringField(Field):
     def __radd__(self, other: Any): ...
 
 class CharField(_StringField):
-    field_type: str = ...
+    field_type: ClassVar[str]
     max_length: Any
     def __init__(self, max_length: int = ..., *args: Any, **kwargs: Any) -> None: ...
     def get_modifiers(self): ...
 
 class FixedCharField(CharField):
-    field_type: str = ...
+    field_type: ClassVar[str]
     def python_value(self, value: Any): ...
 
 class TextField(_StringField):
-    field_type: str = ...
+    field_type: ClassVar[str]
 
 class BlobField(Field):
     field_type: ClassVar[str]
@@ -1211,7 +1213,7 @@ class BigBitFieldAccessor(FieldAccessor):
     def __set__(self, instance: Any, value: Any) -> None: ...
 
 class BigBitField(BlobField):
-    accessor_class: ClassVar[BigBitFieldAccessor]
+    accessor_class: ClassVar[Type[BigBitFieldAccessor]]
     def __init__(self, *args: Any, **kwargs: Any) -> None: ...
     def db_value(self, value: Any): ...
 
@@ -1221,7 +1223,7 @@ class UUIDField(Field):
     def python_value(self, value: str) -> uuid.UUID: ...
 
 class BinaryUUIDField(BlobField):
-    field_type: str = ...
+    field_type: ClassVar[str]
     def db_value(self, value: Any): ...
     def python_value(self, value: Any): ...
 
@@ -1230,7 +1232,7 @@ class _BaseFormattedField(Field):
     def __init__(self, formats: Optional[Any] = ..., *args: Any, **kwargs: Any) -> None: ...
 
 class DateTimeField(_BaseFormattedField):
-    field_type: str = ...
+    field_type: ClassVar[str]
     formats: Any
     def adapt(self, value: Any): ...
     def to_timestamp(self): ...
@@ -1243,7 +1245,7 @@ class DateTimeField(_BaseFormattedField):
     second: Any
 
 class DateField(_BaseFormattedField):
-    field_type: str = ...
+    field_type: ClassVar[str]
     formats: Any
     def adapt(self, value: Any): ...
     def to_timestamp(self): ...
@@ -1253,7 +1255,7 @@ class DateField(_BaseFormattedField):
     day: Any
 
 class TimeField(_BaseFormattedField):
-    field_type: str = ...
+    field_type: ClassVar[str]
     formats: Any
     def adapt(self, value: Any): ...
     hour: Any
@@ -1284,16 +1286,16 @@ class IPField(BigIntegerField):
     def python_value(self, val: Any): ...
 
 class BooleanField(Field):
-    field_type: str = ...
+    field_type: ClassVar[str]
     adapt: Any
 
 class BareField(Field):
     adapt: Any
     def __init__(self, adapt: Optional[Any] = ..., *args: Any, **kwargs: Any) -> None: ...
-    def ddl_datatype(self, ctx: Any) -> None: ...
+    def ddl_datatype(self, ctx: Context) -> None: ... # type: ignore[override]
 
 class ForeignKeyField(Field):
-    accessor_class: Any
+    accessor_class: ClassVar[Type[ForeignKeyAccessor]]
     rel_model: Any
     rel_field: Any
     declared_backref: Any
@@ -1366,7 +1368,7 @@ class ManyToManyFieldAccessor(FieldAccessor):
     def __set__(self, instance: Any, value: Any) -> None: ...
 
 class ManyToManyField(MetaField):
-    accessor_class: Any
+    accessor_class: ClassVar[Type[ManyToManyFieldAccessor]]
     rel_model: Any
     backref: Any
     def __init__(
