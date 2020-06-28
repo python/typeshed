@@ -16,6 +16,7 @@ if sys.version_info >= (3, 7):
     from typing import AsyncContextManager as AbstractAsyncContextManager
 
 _T = TypeVar('_T')
+_T_io = TypeVar('_T_io', bound=Optional[IO[str]])
 _F = TypeVar('_F', bound=Callable[..., Any])
 
 _ExitFunc = Callable[[Optional[Type[BaseException]],
@@ -48,12 +49,12 @@ if sys.version_info >= (3, 4):
                      excinst: Optional[BaseException],
                      exctb: Optional[TracebackType]) -> bool: ...
 
-    class redirect_stdout(ContextManager[None]):
-        def __init__(self, new_target: Optional[IO[str]]) -> None: ...
+    class redirect_stdout(ContextManager[_T_io]):
+        def __init__(self, new_target: _T_io) -> None: ...
 
 if sys.version_info >= (3, 5):
-    class redirect_stderr(ContextManager[None]):
-        def __init__(self, new_target: Optional[IO[str]]) -> None: ...
+    class redirect_stderr(ContextManager[_T_io]):
+        def __init__(self, new_target: _T_io) -> None: ...
 
 if sys.version_info >= (3,):
     class ContextDecorator:
