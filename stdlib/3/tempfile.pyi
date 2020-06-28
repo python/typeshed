@@ -1,7 +1,8 @@
 import os
 import sys
 from types import TracebackType
-from typing import Any, AnyStr, Generic, IO, Iterable, Iterator, List, Optional, overload, Tuple, Type, TypeVar, Union
+from typing import IO, Any, AnyStr, Generic, Iterable, Iterator, List, Optional, Tuple, Type, TypeVar, Union, overload
+
 from typing_extensions import Literal
 
 # global variables
@@ -28,7 +29,7 @@ if sys.version_info >= (3, 8):
         dir: Optional[_DirT[AnyStr]] = ...,
         delete: bool = ...,
         *,
-        errors: Optional[str] = ...
+        errors: Optional[str] = ...,
     ) -> IO[str]: ...
     @overload
     def NamedTemporaryFile(
@@ -41,7 +42,7 @@ if sys.version_info >= (3, 8):
         dir: Optional[_DirT[AnyStr]] = ...,
         delete: bool = ...,
         *,
-        errors: Optional[str] = ...
+        errors: Optional[str] = ...,
     ) -> IO[bytes]: ...
     @overload
     def NamedTemporaryFile(
@@ -54,8 +55,9 @@ if sys.version_info >= (3, 8):
         dir: Optional[_DirT[AnyStr]] = ...,
         delete: bool = ...,
         *,
-        errors: Optional[str] = ...
+        errors: Optional[str] = ...,
     ) -> IO[Any]: ...
+
 else:
     @overload
     def NamedTemporaryFile(
@@ -105,7 +107,7 @@ else:
             prefix: Optional[AnyStr] = ...,
             dir: Optional[_DirT[AnyStr]] = ...,
             *,
-            errors: Optional[str] = ...
+            errors: Optional[str] = ...,
         ) -> IO[str]: ...
         @overload
         def TemporaryFile(
@@ -117,7 +119,7 @@ else:
             prefix: Optional[AnyStr] = ...,
             dir: Optional[_DirT[AnyStr]] = ...,
             *,
-            errors: Optional[str] = ...
+            errors: Optional[str] = ...,
         ) -> IO[bytes]: ...
         @overload
         def TemporaryFile(
@@ -129,7 +131,7 @@ else:
             prefix: Optional[AnyStr] = ...,
             dir: Optional[_DirT[AnyStr]] = ...,
             *,
-            errors: Optional[str] = ...
+            errors: Optional[str] = ...,
         ) -> IO[Any]: ...
     else:
         @overload
@@ -180,7 +182,7 @@ class SpooledTemporaryFile(IO[AnyStr]):
             prefix: Optional[str] = ...,
             dir: Optional[str] = ...,
             *,
-            errors: Optional[str] = ...
+            errors: Optional[str] = ...,
         ) -> None: ...
         @overload
         def __init__(
@@ -194,7 +196,7 @@ class SpooledTemporaryFile(IO[AnyStr]):
             prefix: Optional[str] = ...,
             dir: Optional[str] = ...,
             *,
-            errors: Optional[str] = ...
+            errors: Optional[str] = ...,
         ) -> None: ...
         @overload
         def __init__(
@@ -208,9 +210,8 @@ class SpooledTemporaryFile(IO[AnyStr]):
             prefix: Optional[str] = ...,
             dir: Optional[str] = ...,
             *,
-            errors: Optional[str] = ...
+            errors: Optional[str] = ...,
         ) -> None: ...
-
         @property
         def errors(self) -> Optional[str]: ...
     else:

@@ -1,5 +1,6 @@
 from typing import Any, Iterable, List, Mapping, Optional, Sequence, Set, Text
-from _typeshed.wsgi import WSGIApplication, WSGIEnvironment, StartResponse
+
+from _typeshed.wsgi import StartResponse, WSGIApplication, WSGIEnvironment
 
 from ..middleware.proxy_fix import ProxyFix as ProxyFix
 

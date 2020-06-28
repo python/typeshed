@@ -1,11 +1,11 @@
 """Stub file for the '_collections' module."""
 
-from typing import Any, Callable, Dict, Generic, Iterator, TypeVar, Optional, Union
+from typing import Any, Callable, Dict, Generic, Iterator, Optional, TypeVar, Union
 
 _K = TypeVar("_K")
 _V = TypeVar("_V")
-_T = TypeVar('_T')
-_T2 = TypeVar('_T2')
+_T = TypeVar("_T")
+_T2 = TypeVar("_T2")
 
 class defaultdict(Dict[_K, _V]):
     default_factory: None

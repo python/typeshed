@@ -56,8 +56,7 @@ typing.NamedTuple._replace
 typing._SpecialForm.__init__
 typing._SpecialForm.__new__
 typing.runtime_checkable
-unittest.async_case
-unittest.case._AssertLogsContext.__init__
+unittest.async_case  # Added in Python 3.8
 urllib.parse.parse_qs
 urllib.parse.parse_qsl
 uuid.UUID.int

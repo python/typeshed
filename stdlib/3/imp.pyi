@@ -1,16 +1,22 @@
 import os
 import sys
-from _typeshed import StrPath
 import types
-from typing import Any, IO, List, Optional, Tuple, TypeVar, Union
+from typing import IO, Any, List, Optional, Tuple, TypeVar, Union
 
-from _imp import (lock_held as lock_held, acquire_lock as acquire_lock, release_lock as release_lock,
-                  get_frozen_object as get_frozen_object, is_frozen_package as is_frozen_package,
-                  init_frozen as init_frozen, is_builtin as is_builtin, is_frozen as is_frozen)
+from _imp import (
+    acquire_lock as acquire_lock,
+    create_dynamic as create_dynamic,
+    get_frozen_object as get_frozen_object,
+    init_frozen as init_frozen,
+    is_builtin as is_builtin,
+    is_frozen as is_frozen,
+    is_frozen_package as is_frozen_package,
+    lock_held as lock_held,
+    release_lock as release_lock,
+)
+from _typeshed import StrPath
 
-from _imp import create_dynamic as create_dynamic
-
-_T = TypeVar('_T')
+_T = TypeVar("_T")
 
 SEARCH_ERROR: int
 PY_SOURCE: int
@@ -39,10 +45,15 @@ def load_source(name: str, pathname: str, file: Optional[IO[Any]] = ...) -> type
 def load_compiled(name: str, pathname: str, file: Optional[IO[Any]] = ...) -> types.ModuleType: ...
 def load_package(name: str, path: StrPath) -> types.ModuleType: ...
 def load_module(name: str, file: IO[Any], filename: str, details: Tuple[str, str, int]) -> types.ModuleType: ...
+
 if sys.version_info >= (3, 6):
-    def find_module(name: str, path: Union[None, List[str], List[os.PathLike[str]], List[StrPath]] = ...) -> Tuple[IO[Any], str, Tuple[str, str, int]]: ...
+    def find_module(
+        name: str, path: Union[None, List[str], List[os.PathLike[str]], List[StrPath]] = ...
+    ) -> Tuple[IO[Any], str, Tuple[str, str, int]]: ...
+
 else:
     def find_module(name: str, path: Optional[List[str]] = ...) -> Tuple[IO[Any], str, Tuple[str, str, int]]: ...
+
 def reload(module: types.ModuleType) -> types.ModuleType: ...
 def init_builtin(name: str) -> Optional[types.ModuleType]: ...
 def load_dynamic(name: str, path: str, file: Optional[IO[Any]] = ...) -> types.ModuleType: ...

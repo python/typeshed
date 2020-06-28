@@ -1,4 +1,5 @@
-from typing import Any, IO, Sequence, Tuple, Union, List, Dict, Optional
+from typing import IO, Any, Dict, List, Optional, Sequence, Tuple, Union
+
 from _typeshed import SupportsReadline
 
 DEFAULTSECT: str

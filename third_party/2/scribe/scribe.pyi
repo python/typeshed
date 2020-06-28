@@ -1,8 +1,9 @@
 from typing import Any
 
 import fb303.FacebookService
-from .ttypes import *  # noqa: F403
 from thrift.Thrift import TProcessor  # type: ignore  # We don't have thrift stubs in typeshed
+
+from .ttypes import *  # noqa: F403
 
 class Iface(fb303.FacebookService.Iface):
     def Log(self, messages): ...
