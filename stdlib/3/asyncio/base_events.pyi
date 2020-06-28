@@ -73,10 +73,7 @@ class BaseEventLoop(AbstractEventLoop, metaclass=ABCMeta):
     # run_in_executor is defined as a coroutine in AbstractEventLoop but returns a Future in concrete implementation.
     # Need to ignore mypy Return type error as a result.
     def run_in_executor(  # type: ignore
-        self,
-        executor: Any,
-        func: Callable[..., _T],
-        *args: Any,
+        self, executor: Any, func: Callable[..., _T], *args: Any,
     ) -> Future[_T]: ...
     def set_default_executor(self, executor: Any) -> None: ...
     # Network I/O methods returning Futures.
