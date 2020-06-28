@@ -7,8 +7,18 @@ def strip_slashes(name): ...
 
 class SubMapperParent:
     def submapper(self, **kargs): ...
-    def collection(self, collection_name, resource_name, path_prefix=..., member_prefix=..., controller=...,
-                   collection_actions=..., member_actions=..., member_options=..., **kwargs): ...
+    def collection(
+        self,
+        collection_name,
+        resource_name,
+        path_prefix=...,
+        member_prefix=...,
+        controller=...,
+        collection_actions=...,
+        member_actions=...,
+        member_options=...,
+        **kwargs,
+    ): ...
 
 class SubMapper(SubMapperParent):
     kwargs: Any

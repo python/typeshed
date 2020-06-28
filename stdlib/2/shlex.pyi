@@ -1,8 +1,8 @@
-from typing import Any, IO, List, Optional, TypeVar
+from typing import IO, Any, List, Optional, TypeVar
 
 def split(s: Optional[str], comments: bool = ..., posix: bool = ...) -> List[str]: ...
 
-_SLT = TypeVar('_SLT', bound=shlex)
+_SLT = TypeVar("_SLT", bound=shlex)
 
 class shlex:
     def __init__(self, instream: IO[Any] = ..., infile: IO[Any] = ..., posix: bool = ...) -> None: ...
@@ -15,7 +15,6 @@ class shlex:
     def push_source(self, stream: IO[Any], filename: str = ...) -> None: ...
     def pop_source(self) -> IO[Any]: ...
     def error_leader(self, file: str = ..., line: int = ...) -> str: ...
-
     commenters: str
     wordchars: str
     whitespace: str

@@ -1,6 +1,4 @@
 import sys
-from typing import Any, Callable, Iterable, Optional, List, Union, Sequence, Tuple, Type, overload
-from typing_extensions import Literal
 from ctypes import _CData
 from logging import Logger
 from multiprocessing import connection, pool, sharedctypes, spawn, synchronize
@@ -16,9 +14,11 @@ from multiprocessing.context import (
 )
 from multiprocessing.managers import SyncManager
 from multiprocessing.process import active_children as active_children, current_process as current_process
-from multiprocessing.queues import Queue as Queue, SimpleQueue as SimpleQueue, JoinableQueue as JoinableQueue
-from multiprocessing.spawn import freeze_support as freeze_support
-from multiprocessing.spawn import set_executable as set_executable
+from multiprocessing.queues import JoinableQueue as JoinableQueue, Queue as Queue, SimpleQueue as SimpleQueue
+from multiprocessing.spawn import freeze_support as freeze_support, set_executable as set_executable
+from typing import Any, Callable, Iterable, List, Optional, Sequence, Tuple, Type, Union, overload
+
+from typing_extensions import Literal
 
 if sys.version_info >= (3, 8):
     from multiprocessing.process import parent_process as parent_process
@@ -32,38 +32,27 @@ if sys.platform != "win32":
 
 # Sychronization primitives
 _LockLike = Union[synchronize.Lock, synchronize.RLock]
-def Barrier(parties: int,
-            action: Optional[Callable[..., Any]] = ...,
-            timeout: Optional[float] = ...) -> synchronize.Barrier: ...
+
+def Barrier(parties: int, action: Optional[Callable[..., Any]] = ..., timeout: Optional[float] = ...) -> synchronize.Barrier: ...
 def BoundedSemaphore(value: int = ...) -> synchronize.BoundedSemaphore: ...
 def Condition(lock: Optional[_LockLike] = ...) -> synchronize.Condition: ...
 def Event(lock: Optional[_LockLike] = ...) -> synchronize.Event: ...
 def Lock() -> synchronize.Lock: ...
 def RLock() -> synchronize.RLock: ...
 def Semaphore(value: int = ...) -> synchronize.Semaphore: ...
-
 def Pipe(duplex: bool = ...) -> Tuple[connection.Connection, connection.Connection]: ...
-
-def Pool(processes: Optional[int] = ...,
-         initializer: Optional[Callable[..., Any]] = ...,
-         initargs: Iterable[Any] = ...,
-         maxtasksperchild: Optional[int] = ...) -> pool.Pool: ...
+def Pool(
+    processes: Optional[int] = ...,
+    initializer: Optional[Callable[..., Any]] = ...,
+    initargs: Iterable[Any] = ...,
+    maxtasksperchild: Optional[int] = ...,
+) -> pool.Pool: ...
 
 # Functions Array and Value are copied from context.pyi.
 # See https://github.com/python/typeshed/blob/ac234f25927634e06d9c96df98d72d54dd80dfc4/stdlib/2and3/turtle.pyi#L284-L291
 # for rationale
-def Array(
-    typecode_or_type: Any,
-    size_or_initializer: Union[int, Sequence[Any]],
-    *,
-    lock: bool = ...
-) -> sharedctypes._Array: ...
-
-def Value(
-    typecode_or_type: Any,
-    *args: Any,
-    lock: bool = ...
-) -> sharedctypes._Value: ...
+def Array(typecode_or_type: Any, size_or_initializer: Union[int, Sequence[Any]], *, lock: bool = ...) -> sharedctypes._Array: ...
+def Value(typecode_or_type: Any, *args: Any, lock: bool = ...) -> sharedctypes._Value: ...
 
 # ----- multiprocessing function stubs -----
 def allow_connection_pickling() -> None: ...
@@ -76,7 +65,6 @@ def get_all_start_methods() -> List[str]: ...
 def get_start_method(allow_none: bool = ...) -> Optional[str]: ...
 def set_start_method(method: str, force: Optional[bool] = ...) -> None: ...
 
-
 if sys.platform != "win32":
     @overload
     def get_context(method: None = ...) -> DefaultContext: ...
@@ -88,6 +76,7 @@ if sys.platform != "win32":
     def get_context(method: Literal["forkserver"]) -> ForkServerContext: ...
     @overload
     def get_context(method: str) -> BaseContext: ...
+
 else:
     @overload
     def get_context(method: None = ...) -> DefaultContext: ...
