@@ -32,6 +32,7 @@ jobs:
     - name: "black"
       install: pip install $(grep black requirements-tests-py3.txt)
       script: black --check --diff stdlib third_party
+  allow_failures:
     - name: "isort"
       install: pip install $(grep isort requirements-tests-py3.txt)
       script: isort --check-only --diff --recursive stdlib third_party
