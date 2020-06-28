@@ -2,8 +2,8 @@
 # See https://docs.python.org/2/library/stringio.html
 
 from abc import ABCMeta
-from typing import overload, IO, List, Iterable, Iterator, Optional, Union
 from types import TracebackType
+from typing import IO, Iterable, Iterator, List, Optional, Union, overload
 
 # TODO the typing.IO[] generics should be split into input and output.
 
@@ -25,7 +25,6 @@ class InputType(IO[str], Iterator[str], metaclass=ABCMeta):
     def __iter__(self) -> InputType: ...
     def next(self) -> str: ...
     def reset(self) -> None: ...
-
 
 class OutputType(IO[str], Iterator[str], metaclass=ABCMeta):
     @property

@@ -1,33 +1,19 @@
 from distutils.version import Version
-from typing import Any, Callable, Dict, List, Optional, Tuple, Type, TypeVar, Union, Text, overload, Protocol
+from typing import Any, Callable, Dict, List, Optional, Protocol, Text, Tuple, Type, TypeVar, Union, overload
 
-from click.core import Command, Group, Argument, Option, Parameter, Context, _ConvertibleType
+from click.core import Argument, Command, Context, Group, Option, Parameter, _ConvertibleType
 
-_T = TypeVar('_T')
-_F = TypeVar('_F', bound=Callable[..., Any])
+_T = TypeVar("_T")
+_F = TypeVar("_F", bound=Callable[..., Any])
 
 class _IdentityFunction(Protocol):
     def __call__(self, __x: _T) -> _T: ...
 
+_Callback = Callable[[Context, Union[Option, Parameter], Any], Any]
 
-_Callback = Callable[
-    [Context, Union[Option, Parameter], Any],
-    Any
-]
-
-def pass_context(__f: _T) -> _T:
-    ...
-
-
-def pass_obj(__f: _T) -> _T:
-    ...
-
-
-def make_pass_decorator(
-    object_type: type, ensure: bool = ...
-) -> _IdentityFunction:
-    ...
-
+def pass_context(__f: _T) -> _T: ...
+def pass_obj(__f: _T) -> _T: ...
+def make_pass_decorator(object_type: type, ensure: bool = ...) -> _IdentityFunction: ...
 
 # NOTE: Decorators below have **attrs converted to concrete constructor
 # arguments from core.pyi to help with type checking.
@@ -70,7 +56,6 @@ def group(
     # User-defined
     **kwargs: Any,
 ) -> Callable[[Callable[..., Any]], Group]: ...
-
 def argument(
     *param_decls: str,
     cls: Type[Argument] = ...,
@@ -86,10 +71,7 @@ def argument(
     is_eager: bool = ...,
     envvar: Optional[Union[str, List[str]]] = ...,
     autocompletion: Optional[Callable[[Any, List[str], str], List[Union[str, Tuple[str, str]]]]] = ...,
-) -> _IdentityFunction:
-    ...
-
-
+) -> _IdentityFunction: ...
 @overload
 def option(
     *param_decls: str,
@@ -118,10 +100,7 @@ def option(
     envvar: Optional[Union[str, List[str]]] = ...,
     # User-defined
     **kwargs: Any,
-) -> _IdentityFunction:
-    ...
-
-
+) -> _IdentityFunction: ...
 @overload
 def option(
     *param_decls: str,
@@ -150,10 +129,7 @@ def option(
     envvar: Optional[Union[str, List[str]]] = ...,
     # User-defined
     **kwargs: Any,
-) -> _IdentityFunction:
-    ...
-
-
+) -> _IdentityFunction: ...
 @overload
 def option(
     *param_decls: str,
@@ -182,10 +158,7 @@ def option(
     envvar: Optional[Union[str, List[str]]] = ...,
     # User-defined
     **kwargs: Any,
-) -> _IdentityFunction:
-    ...
-
-
+) -> _IdentityFunction: ...
 @overload
 def option(
     *param_decls: str,
@@ -214,10 +187,7 @@ def option(
     envvar: Optional[Union[str, List[str]]] = ...,
     # User-defined
     **kwargs: Any,
-) -> _IdentityFunction:
-    ...
-
-
+) -> _IdentityFunction: ...
 def confirmation_option(
     *param_decls: str,
     cls: Type[Option] = ...,
@@ -241,11 +211,8 @@ def confirmation_option(
     metavar: Optional[str] = ...,
     expose_value: bool = ...,
     is_eager: bool = ...,
-    envvar: Optional[Union[str, List[str]]] = ...
-) -> _IdentityFunction:
-    ...
-
-
+    envvar: Optional[Union[str, List[str]]] = ...,
+) -> _IdentityFunction: ...
 def password_option(
     *param_decls: str,
     cls: Type[Option] = ...,
@@ -269,11 +236,8 @@ def password_option(
     metavar: Optional[str] = ...,
     expose_value: bool = ...,
     is_eager: bool = ...,
-    envvar: Optional[Union[str, List[str]]] = ...
-) -> _IdentityFunction:
-    ...
-
-
+    envvar: Optional[Union[str, List[str]]] = ...,
+) -> _IdentityFunction: ...
 def version_option(
     version: Optional[Union[str, Version]] = ...,
     *param_decls: str,
@@ -300,11 +264,8 @@ def version_option(
     metavar: Optional[str] = ...,
     expose_value: bool = ...,
     is_eager: bool = ...,
-    envvar: Optional[Union[str, List[str]]] = ...
-) -> _IdentityFunction:
-    ...
-
-
+    envvar: Optional[Union[str, List[str]]] = ...,
+) -> _IdentityFunction: ...
 def help_option(
     *param_decls: str,
     cls: Type[Option] = ...,
@@ -328,6 +289,5 @@ def help_option(
     metavar: Optional[str] = ...,
     expose_value: bool = ...,
     is_eager: bool = ...,
-    envvar: Optional[Union[str, List[str]]] = ...
-) -> _IdentityFunction:
-    ...
+    envvar: Optional[Union[str, List[str]]] = ...,
+) -> _IdentityFunction: ...

@@ -1,11 +1,11 @@
 import collections
 from typing import (
+    IO,
     Any,
     Callable,
     Container,
     Dict,
     Generic,
-    IO,
     Iterable,
     Iterator,
     List,
@@ -20,6 +20,7 @@ from typing import (
     Union,
     overload,
 )
+
 from _typeshed import SupportsWrite
 
 _K = TypeVar("_K")
@@ -414,8 +415,9 @@ class WWWAuthenticate(UpdateDictMixin, Dict[str, Any]):
     on_update: Any
     def __init__(self, auth_type: Optional[Any] = ..., values: Optional[Any] = ..., on_update: Optional[Any] = ...): ...
     def set_basic(self, realm: str = ...): ...
-    def set_digest(self, realm, nonce, qop=..., opaque: Optional[Any] = ..., algorithm: Optional[Any] = ...,
-                   stale: bool = ...): ...
+    def set_digest(
+        self, realm, nonce, qop=..., opaque: Optional[Any] = ..., algorithm: Optional[Any] = ..., stale: bool = ...
+    ): ...
     def to_header(self): ...
     @staticmethod
     def auth_property(name, doc: Optional[Any] = ...): ...

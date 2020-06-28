@@ -1,5 +1,6 @@
-from _typeshed import AnyPath
 from typing import Iterable, Tuple
+
+from _typeshed import AnyPath
 
 verbose: int
 filename_only: int

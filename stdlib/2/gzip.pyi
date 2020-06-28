@@ -1,5 +1,5 @@
-from typing import Any, IO, Text
 import io
+from typing import IO, Any, Text
 
 class GzipFile(io.BufferedIOBase):
     myfileobj: Any
@@ -14,8 +14,9 @@ class GzipFile(io.BufferedIOBase):
     fileobj: Any
     offset: Any
     mtime: Any
-    def __init__(self, filename: str = ..., mode: Text = ..., compresslevel: int = ...,
-                 fileobj: IO[str] = ..., mtime: float = ...) -> None: ...
+    def __init__(
+        self, filename: str = ..., mode: Text = ..., compresslevel: int = ..., fileobj: IO[str] = ..., mtime: float = ...
+    ) -> None: ...
     @property
     def filename(self): ...
     size: Any

@@ -1,4 +1,5 @@
 from typing import Any, Iterable, Mapping, Optional, Text
+
 from _typeshed.wsgi import StartResponse, WSGIApplication, WSGIEnvironment
 
 class DispatcherMiddleware(object):
