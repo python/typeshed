@@ -72,9 +72,9 @@ class BaseEventLoop(AbstractEventLoop, metaclass=ABCMeta):
         def call_soon_threadsafe(self, callback: Callable[..., Any], *args: Any) -> Handle: ...
     # run_in_executor is defined as a coroutine in AbstractEventLoop but returns a Future in concrete implementation.
     # Need to ignore mypy Return type error as a result.
-    def run_in_executor(
+    def run_in_executor(  # type: ignore
         self,
-        executor: Any,  # type: ignore
+        executor: Any,
         func: Callable[..., _T],
         *args: Any,
     ) -> Future[_T]: ...

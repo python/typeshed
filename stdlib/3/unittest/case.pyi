@@ -81,8 +81,8 @@ class TestCase:
     def assertLess(self, a: Any, b: Any, msg: Any = ...) -> None: ...
     def assertLessEqual(self, a: Any, b: Any, msg: Any = ...) -> None: ...
     @overload
-    def assertRaises(
-        self,  # type: ignore
+    def assertRaises(  # type: ignore
+        self,
         expected_exception: Union[Type[BaseException], Tuple[Type[BaseException], ...]],
         callable: Callable[..., Any],
         *args: Any,
@@ -93,8 +93,8 @@ class TestCase:
         self, expected_exception: Union[Type[_E], Tuple[Type[_E], ...]], msg: Any = ...
     ) -> _AssertRaisesContext[_E]: ...
     @overload
-    def assertRaisesRegex(
-        self,  # type: ignore
+    def assertRaisesRegex(  # type: ignore
+        self,
         expected_exception: Union[Type[BaseException], Tuple[Type[BaseException], ...]],
         expected_regex: Union[str, bytes, Pattern[str], Pattern[bytes]],
         callable: Callable[..., Any],
@@ -109,8 +109,8 @@ class TestCase:
         msg: Any = ...,
     ) -> _AssertRaisesContext[_E]: ...
     @overload
-    def assertWarns(
-        self,  # type: ignore
+    def assertWarns(  # type: ignore
+        self,
         expected_warning: Union[Type[Warning], Tuple[Type[Warning], ...]],
         callable: Callable[..., Any],
         *args: Any,
@@ -121,8 +121,8 @@ class TestCase:
         self, expected_warning: Union[Type[Warning], Tuple[Type[Warning], ...]], msg: Any = ...
     ) -> _AssertWarnsContext: ...
     @overload
-    def assertWarnsRegex(
-        self,  # type: ignore
+    def assertWarnsRegex(  # type: ignore
+        self,
         expected_warning: Union[Type[Warning], Tuple[Type[Warning], ...]],
         expected_regex: Union[str, bytes, Pattern[str], Pattern[bytes]],
         callable: Callable[..., Any],
@@ -207,8 +207,8 @@ class TestCase:
     def assert_(self, expr: bool, msg: Any = ...) -> None: ...
     def failIf(self, expr: bool, msg: Any = ...) -> None: ...
     @overload
-    def failUnlessRaises(
-        self,  # type: ignore
+    def failUnlessRaises(  # type: ignore
+        self,
         exception: Union[Type[BaseException], Tuple[Type[BaseException], ...]],
         callable: Callable[..., Any] = ...,
         *args: Any,
@@ -225,8 +225,8 @@ class TestCase:
     def assertRegexpMatches(self, text: AnyStr, regex: Union[AnyStr, Pattern[AnyStr]], msg: Any = ...) -> None: ...
     def assertNotRegexpMatches(self, text: AnyStr, regex: Union[AnyStr, Pattern[AnyStr]], msg: Any = ...) -> None: ...
     @overload
-    def assertRaisesRegexp(
-        self,  # type: ignore
+    def assertRaisesRegexp(  # type: ignore
+        self,
         exception: Union[Type[BaseException], Tuple[Type[BaseException], ...]],
         expected_regex: Union[str, bytes, Pattern[str], Pattern[bytes]],
         callable: Callable[..., Any],
