@@ -51,7 +51,7 @@ def find_stub_files(top: str) -> List[str]:
     Raise if we find any unknown file extensions during collection.
     """
     result = []
-    for root, dirs, files in os.walk(top):
+    for root, _, files in os.walk(top):
         for file in files:
             if file.endswith(".pyi"):
                 result.append(os.path.relpath(os.path.join(root, file), top))
