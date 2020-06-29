@@ -151,9 +151,11 @@ def generate_setup_file(distribution: str, increment: str) -> str:
         )
         packages += py2_packages
         package_data.update(py2_package_data)
+    version = metadata["version"]
+    assert version.count(".") == 1, f"Version must be major.minor, not {version}"
     return SETUP_TEMPLATE.format(
         distribution=distribution,
-        version=f"{metadata['version']}.{increment}",
+        version=f"{version}.{increment}",
         requires=metadata.get("requires", []),
         packages=packages,
         package_data=package_data,
