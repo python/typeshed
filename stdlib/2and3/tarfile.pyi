@@ -1,8 +1,7 @@
 import sys
+from _typeshed import AnyPath
 from types import TracebackType
 from typing import IO, Callable, Dict, Iterable, Iterator, List, Mapping, Optional, Set, Tuple, Type, Union
-
-from _typeshed import AnyPath
 
 # tar constants
 NUL: bytes

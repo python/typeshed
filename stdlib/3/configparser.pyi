@@ -1,4 +1,5 @@
 import sys
+from _typeshed import AnyPath, StrPath
 from typing import (
     IO,
     AbstractSet,
@@ -20,8 +21,6 @@ from typing import (
     Union,
     overload,
 )
-
-from _typeshed import AnyPath, StrPath
 
 # Internal type aliases
 _section = Mapping[str, str]

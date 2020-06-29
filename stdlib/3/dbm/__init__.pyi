@@ -1,7 +1,6 @@
 import sys
 from types import TracebackType
 from typing import Iterator, MutableMapping, Optional, Type, Union
-
 from typing_extensions import Literal
 
 _KeyType = Union[str, bytes]

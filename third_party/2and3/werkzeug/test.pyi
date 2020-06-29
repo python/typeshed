@@ -1,9 +1,7 @@
 import sys
-from typing import Any, Generic, Optional, Text, Tuple, Type, TypeVar, overload
-
-from typing_extensions import Literal
-
 from _typeshed.wsgi import WSGIEnvironment
+from typing import Any, Generic, Optional, Text, Tuple, Type, TypeVar, overload
+from typing_extensions import Literal
 
 if sys.version_info < (3,):
     from urllib2 import Request as U2Request

@@ -1,4 +1,5 @@
 import collections
+from _typeshed import SupportsWrite
 from typing import (
     IO,
     Any,
@@ -20,8 +21,6 @@ from typing import (
     Union,
     overload,
 )
-
-from _typeshed import SupportsWrite
 
 _K = TypeVar("_K")
 _V = TypeVar("_V")

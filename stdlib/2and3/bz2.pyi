@@ -1,10 +1,8 @@
 import io
 import sys
-from typing import IO, Any, Optional, TextIO, TypeVar, Union, overload
-
-from typing_extensions import Literal
-
 from _typeshed import AnyPath
+from typing import IO, Any, Optional, TextIO, TypeVar, Union, overload
+from typing_extensions import Literal
 
 _PathOrFile = Union[AnyPath, IO[bytes]]
 _T = TypeVar("_T")

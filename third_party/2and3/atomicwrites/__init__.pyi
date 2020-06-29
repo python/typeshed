@@ -1,7 +1,6 @@
 import sys
-from typing import IO, Any, AnyStr, Callable, ContextManager, Generic, Optional, Text, Type, Union
-
 from _typeshed import AnyPath
+from typing import IO, Any, AnyStr, Callable, ContextManager, Generic, Optional, Text, Type, Union
 
 def replace_atomic(src: AnyStr, dst: AnyStr) -> None: ...
 def move_atomic(src: AnyStr, dst: AnyStr) -> None: ...

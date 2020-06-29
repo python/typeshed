@@ -1,10 +1,9 @@
 # NB: path.pyi and stdlib/2 and stdlib/3 must remain consistent!
 import os
 import sys
+from _typeshed import AnyPath, BytesPath, StrPath
 from genericpath import exists as exists
 from typing import Any, AnyStr, Callable, List, Optional, Sequence, Text, Tuple, TypeVar, overload
-
-from _typeshed import AnyPath, BytesPath, StrPath
 
 _T = TypeVar("_T")
 

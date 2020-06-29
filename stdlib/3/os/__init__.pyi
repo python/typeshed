@@ -1,4 +1,5 @@
 import sys
+from _typeshed import AnyPath
 from builtins import OSError as error
 from io import TextIOWrapper as _TextIOWrapper
 from posix import listdir as listdir, times_result
@@ -24,8 +25,6 @@ from typing import (
     Union,
     overload,
 )
-
-from _typeshed import AnyPath
 
 from . import path as path
 

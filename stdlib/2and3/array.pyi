@@ -4,7 +4,6 @@
 
 import sys
 from typing import Any, BinaryIO, Generic, Iterable, Iterator, List, MutableSequence, Text, Tuple, TypeVar, Union, overload
-
 from typing_extensions import Literal
 
 _IntTypeCode = Literal["b", "B", "h", "H", "i", "I", "l", "L", "q", "Q"]

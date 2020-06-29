@@ -1,9 +1,8 @@
 import os
 import sys
+from _typeshed import OpenBinaryMode, OpenTextMode
 from types import TracebackType
 from typing import IO, Any, BinaryIO, Generator, List, Optional, Sequence, TextIO, Tuple, Type, TypeVar, Union, overload
-
-from _typeshed import OpenBinaryMode, OpenTextMode
 
 _P = TypeVar("_P", bound=PurePath)
 

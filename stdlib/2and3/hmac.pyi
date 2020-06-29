@@ -1,10 +1,9 @@
 # Stubs for hmac
 
 import sys
+from _typeshed import ReadableBuffer
 from types import ModuleType
 from typing import Any, AnyStr, Callable, Optional, Union, overload
-
-from _typeshed import ReadableBuffer
 
 _B = Union[bytes, bytearray]
 

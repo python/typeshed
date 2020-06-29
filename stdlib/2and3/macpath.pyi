@@ -3,9 +3,8 @@
 
 import os
 import sys
-from typing import Any, AnyStr, Callable, List, Optional, Sequence, Text, Tuple, TypeVar, Union, overload
-
 from _typeshed import AnyPath, BytesPath, StrPath
+from typing import Any, AnyStr, Callable, List, Optional, Sequence, Text, Tuple, TypeVar, Union, overload
 
 if sys.version_info < (3, 8):
     _T = TypeVar("_T")

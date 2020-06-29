@@ -1,8 +1,7 @@
+from _typeshed import AnyPath
 from cProfile import Profile as _cProfile
 from profile import Profile
 from typing import IO, Any, Dict, Iterable, List, Optional, Text, Tuple, TypeVar, Union, overload
-
-from _typeshed import AnyPath
 
 _Selector = Union[str, float, int]
 _T = TypeVar("_T", bound=Stats)

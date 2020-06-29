@@ -1,7 +1,6 @@
 import sys
 from logging import Logger
 from typing import Dict, Optional, Pattern
-
 from typing_extensions import TypedDict
 
 class _FinalResultType(TypedDict):

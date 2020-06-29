@@ -1,5 +1,6 @@
 import ssl
 import sys
+from _typeshed import FileDescriptorLike
 from abc import ABCMeta
 from asyncio.events import AbstractEventLoop, AbstractServer, Handle, TimerHandle
 from asyncio.futures import Future
@@ -8,10 +9,7 @@ from asyncio.tasks import Task
 from asyncio.transports import BaseTransport
 from socket import _Address, _RetAddress, socket
 from typing import IO, Any, Awaitable, Callable, Dict, Generator, List, Optional, Sequence, Tuple, TypeVar, Union, overload
-
 from typing_extensions import Literal
-
-from _typeshed import FileDescriptorLike
 
 if sys.version_info >= (3, 7):
     from contextvars import Context

@@ -1,7 +1,6 @@
+from _typeshed import AnyPath
 from types import FrameType
 from typing import List, Optional
-
-from _typeshed import AnyPath
 
 from . import tasks
 

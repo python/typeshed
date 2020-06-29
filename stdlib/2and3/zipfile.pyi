@@ -1,5 +1,6 @@
 import io
 import sys
+from _typeshed import StrPath
 from types import TracebackType
 from typing import (
     IO,
@@ -18,8 +19,6 @@ from typing import (
     Type,
     Union,
 )
-
-from _typeshed import StrPath
 
 _SZI = Union[Text, ZipInfo]
 _DT = Tuple[int, int, int, int, int, int]

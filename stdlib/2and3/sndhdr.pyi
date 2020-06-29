@@ -1,7 +1,6 @@
 import sys
-from typing import NamedTuple, Optional, Tuple, Union
-
 from _typeshed import AnyPath
+from typing import NamedTuple, Optional, Tuple, Union
 
 if sys.version_info >= (3, 5):
     class SndHeaders(NamedTuple):

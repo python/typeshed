@@ -1,7 +1,6 @@
 import sys
 from types import ModuleType
 from typing import Any, Container, Dict, Iterable, List, Optional, Sequence, Set, Tuple, Type, Union
-
 from typing_extensions import Literal
 
 if sys.platform == "win32":

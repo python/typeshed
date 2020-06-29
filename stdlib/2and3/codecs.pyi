@@ -20,7 +20,6 @@ from typing import (
     Union,
     overload,
 )
-
 from typing_extensions import Literal
 
 # TODO: this only satisfies the most common interface, where

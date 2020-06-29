@@ -1,6 +1,5 @@
-from typing import IO, Any, Callable, Dict, List, Optional, Text, Tuple, Type, Union
-
 from _typeshed import SupportsRead
+from typing import IO, Any, Callable, Dict, List, Optional, Text, Tuple, Type, Union
 
 class JSONDecodeError(ValueError):
     def dumps(self, obj: Any) -> str: ...
