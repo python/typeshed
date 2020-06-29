@@ -32,6 +32,7 @@ package_to_distribution = {
     "typing_extensions": "typing-extensions",
     "mypy_extensions": "mypy-extensions",
     "pyre_extensions": "pyre-extensions",
+    "attr": "attrs",
     "concurrent": "futures",
     "Crypto": "pycrypto",
     "datetimerange": "DateTimeRange",
