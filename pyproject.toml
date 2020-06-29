@@ -10,4 +10,4 @@ use_parentheses = true
 combine_as_imports = true
 line_length = 130
 default_section = "THIRDPARTY"
-known_standard_library = ["typing_extensions", "_typeshed"]
+known_standard_library = ["typing_extensions", "_typeshed", "_compression", "_markupbase", "opcode"]
