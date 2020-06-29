@@ -1,8 +1,7 @@
 import datetime
 import sys
-from typing import IO, Any, List, Mapping, MutableMapping, Optional, Text, Type, Union
-
 from _typeshed import StrPath, SupportsWrite
+from typing import IO, Any, List, Mapping, MutableMapping, Optional, Text, Type, Union
 
 if sys.version_info >= (3, 6):
     _PathLike = StrPath

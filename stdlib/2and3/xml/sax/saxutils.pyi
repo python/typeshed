@@ -1,10 +1,9 @@
 import sys
+from _typeshed import SupportsWrite
 from codecs import StreamReaderWriter, StreamWriter
 from io import RawIOBase, TextIOBase
 from typing import Mapping, Optional, Text, TextIO, Union
 from xml.sax import handler, xmlreader
-
-from _typeshed import SupportsWrite
 
 def escape(data: Text, entities: Mapping[Text, Text] = ...) -> Text: ...
 def unescape(data: Text, entities: Mapping[Text, Text] = ...) -> Text: ...

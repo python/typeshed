@@ -4,7 +4,6 @@ from logging import Logger
 from multiprocessing import queues, sharedctypes, synchronize
 from multiprocessing.process import BaseProcess
 from typing import Any, Callable, Iterable, List, Optional, Sequence, Type, Union, overload
-
 from typing_extensions import Literal
 
 _LockLike = Union[synchronize.Lock, synchronize.RLock]

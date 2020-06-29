@@ -1,3 +1,4 @@
+from _typeshed.wsgi import WSGIEnvironment
 from typing import (
     IO,
     Any,
@@ -14,8 +15,6 @@ from typing import (
     TypeVar,
     Union,
 )
-
-from _typeshed.wsgi import WSGIEnvironment
 
 from .datastructures import Headers
 

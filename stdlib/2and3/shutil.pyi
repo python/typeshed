@@ -1,5 +1,6 @@
 import os
 import sys
+from _typeshed import StrPath, SupportsRead, SupportsWrite
 from typing import (
     Any,
     AnyStr,
@@ -17,8 +18,6 @@ from typing import (
     Union,
     overload,
 )
-
-from _typeshed import StrPath, SupportsRead, SupportsWrite
 
 if sys.version_info >= (3, 6):
     _AnyStr = str

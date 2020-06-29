@@ -1,11 +1,9 @@
 import _compression
 import sys
 import zlib
-from typing import IO, Optional, TextIO, Union, overload
-
-from typing_extensions import Literal
-
 from _typeshed import AnyPath, ReadableBuffer
+from typing import IO, Optional, TextIO, Union, overload
+from typing_extensions import Literal
 
 _OpenBinaryMode = Literal["r", "rb", "a", "ab", "w", "wb", "x", "xb"]
 _OpenTextMode = Literal["rt", "at", "wt", "xt"]

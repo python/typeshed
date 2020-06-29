@@ -2,7 +2,6 @@ import os
 import sys
 from types import TracebackType
 from typing import IO, Any, AnyStr, Generic, Iterable, Iterator, List, Optional, Tuple, Type, TypeVar, Union, overload
-
 from typing_extensions import Literal
 
 # global variables

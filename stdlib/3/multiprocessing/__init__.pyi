@@ -1,7 +1,7 @@
 import sys
 from ctypes import _CData
 from logging import Logger
-from multiprocessing import connection, pool, sharedctypes, spawn, synchronize, queues
+from multiprocessing import connection, pool, queues, sharedctypes, spawn, synchronize
 from multiprocessing.context import (
     AuthenticationError as AuthenticationError,
     BaseContext,
@@ -16,7 +16,6 @@ from multiprocessing.managers import SyncManager
 from multiprocessing.process import active_children as active_children, current_process as current_process
 from multiprocessing.spawn import freeze_support as freeze_support
 from typing import Any, Callable, Iterable, List, Optional, Sequence, Tuple, Type, Union, overload
-
 from typing_extensions import Literal
 
 if sys.version_info >= (3, 8):

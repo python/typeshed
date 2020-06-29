@@ -6,7 +6,6 @@ from typing import IO, Any, Iterable, Mapping, Optional, Text, TypeVar, Union
 
 from click import BaseCommand
 from click.testing import CliRunner, Result
-
 from werkzeug.test import Client
 
 def make_test_environ_builder(

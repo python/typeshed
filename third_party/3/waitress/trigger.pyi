@@ -2,7 +2,6 @@ import sys
 from socket import SocketType
 from threading import Lock
 from typing import Callable, Mapping, Optional
-
 from typing_extensions import Literal
 
 from . import wasyncore as wasyncore

@@ -1,11 +1,10 @@
 import datetime
 import ssl
 import sys
+from _typeshed import StrPath
 from logging import FileHandler, Handler, LogRecord
 from socket import SocketType
 from typing import Any, Callable, Dict, List, Optional, Tuple, Union, overload
-
-from _typeshed import StrPath
 
 if sys.version_info >= (3, 7):
     from queue import SimpleQueue, Queue

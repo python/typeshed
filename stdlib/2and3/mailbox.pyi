@@ -1,4 +1,5 @@
 import email
+from _typeshed import AnyPath
 from types import TracebackType
 from typing import (
     IO,
@@ -21,10 +22,7 @@ from typing import (
     Union,
     overload,
 )
-
 from typing_extensions import Literal
-
-from _typeshed import AnyPath
 
 _T = TypeVar("_T")
 _MessageType = TypeVar("_MessageType", bound=Message)

@@ -3,13 +3,11 @@ import http.client
 import io
 import sys
 import time
+from _typeshed import SupportsRead, SupportsWrite
 from datetime import datetime
 from types import TracebackType
 from typing import Any, Callable, Dict, Iterable, List, Mapping, Optional, Protocol, Tuple, Type, Union, overload
-
 from typing_extensions import Literal
-
-from _typeshed import SupportsRead, SupportsWrite
 
 class _SupportsTimeTuple(Protocol):
     def timetuple(self) -> time.struct_time: ...

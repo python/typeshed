@@ -2,6 +2,16 @@
 # Python 3, and stub files conform to Python 3 syntax.
 
 import sys
+from _typeshed import (
+    AnyPath,
+    OpenBinaryMode,
+    OpenBinaryModeReading,
+    OpenBinaryModeUpdating,
+    OpenBinaryModeWriting,
+    OpenTextMode,
+    ReadableBuffer,
+    SupportsWrite,
+)
 from abc import ABCMeta
 from ast import AST, mod
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
@@ -46,19 +56,7 @@ from typing import (
     ValuesView,
     overload,
 )
-
 from typing_extensions import Literal
-
-from _typeshed import (
-    AnyPath,
-    OpenBinaryMode,
-    OpenBinaryModeReading,
-    OpenBinaryModeUpdating,
-    OpenBinaryModeWriting,
-    OpenTextMode,
-    ReadableBuffer,
-    SupportsWrite,
-)
 
 if sys.version_info >= (3,):
     from typing import SupportsBytes, SupportsRound

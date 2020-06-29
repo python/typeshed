@@ -1,7 +1,6 @@
 import sys
-from typing import Any, Optional, Pattern
-
 from _typeshed import AnyPath
+from typing import Any, Optional, Pattern
 
 if sys.version_info < (3, 6):
     _SuccessType = bool

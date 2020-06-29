@@ -1,9 +1,8 @@
 # Stubs for hashlib
 
 import sys
-from typing import AbstractSet, Optional, Union
-
 from _typeshed import ReadableBuffer
+from typing import AbstractSet, Optional, Union
 
 class _Hash(object):
     digest_size: int

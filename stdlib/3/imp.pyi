@@ -1,6 +1,7 @@
 import os
 import sys
 import types
+from _typeshed import StrPath
 from typing import IO, Any, List, Optional, Tuple, TypeVar, Union
 
 from _imp import (
@@ -14,7 +15,6 @@ from _imp import (
     lock_held as lock_held,
     release_lock as release_lock,
 )
-from _typeshed import StrPath
 
 _T = TypeVar("_T")
 

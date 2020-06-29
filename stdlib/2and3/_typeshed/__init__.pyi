@@ -16,7 +16,6 @@ import array
 import mmap
 import sys
 from typing import Protocol, Text, TypeVar, Union
-
 from typing_extensions import Literal
 
 _T_co = TypeVar("_T_co", covariant=True)

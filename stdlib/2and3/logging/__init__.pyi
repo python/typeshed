@@ -1,5 +1,6 @@
 import sys
 import threading
+from _typeshed import StrPath
 from string import Template
 from time import struct_time
 from types import FrameType, TracebackType
@@ -19,8 +20,6 @@ from typing import (
     Union,
     overload,
 )
-
-from _typeshed import StrPath
 
 _SysExcInfoType = Union[Tuple[type, BaseException, Optional[TracebackType]], Tuple[None, None, None]]
 if sys.version_info >= (3, 5):

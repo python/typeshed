@@ -1,4 +1,5 @@
 import sys
+from _typeshed import SupportsRead, SupportsReadline
 from socket import socket
 from ssl import SSLContext
 from types import TracebackType
@@ -19,8 +20,6 @@ from typing import (
     TypeVar,
     Union,
 )
-
-from _typeshed import SupportsRead, SupportsReadline
 
 _T = TypeVar("_T")
 _IntOrStr = Union[int, Text]

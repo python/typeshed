@@ -1,8 +1,7 @@
 import sys
+from _typeshed import AnyPath, StrPath
 from threading import Thread
 from typing import IO, Any, Callable, Dict, Optional, Union
-
-from _typeshed import AnyPath, StrPath
 
 if sys.version_info >= (3,):
     from configparser import RawConfigParser

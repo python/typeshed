@@ -1,4 +1,5 @@
 import sys
+from _typeshed import SupportsWrite
 from types import FunctionType, MethodType, ModuleType, TracebackType
 from typing import (
     IO,
@@ -17,8 +18,6 @@ from typing import (
     Type,
     Union,
 )
-
-from _typeshed import SupportsWrite
 
 if sys.version_info >= (3,):
     from reprlib import Repr

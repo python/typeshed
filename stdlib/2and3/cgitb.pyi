@@ -1,7 +1,6 @@
+from _typeshed import AnyPath
 from types import FrameType, TracebackType
 from typing import IO, Any, Callable, Dict, List, Optional, Tuple, Type
-
-from _typeshed import AnyPath
 
 _ExcInfo = Tuple[Optional[Type[BaseException]], Optional[BaseException], Optional[TracebackType]]
 

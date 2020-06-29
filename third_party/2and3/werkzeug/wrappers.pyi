@@ -1,4 +1,5 @@
 import sys
+from _typeshed.wsgi import InputStream, WSGIEnvironment
 from datetime import datetime
 from typing import (
     Any,
@@ -16,10 +17,7 @@ from typing import (
     Union,
     overload,
 )
-
 from typing_extensions import Literal
-
-from _typeshed.wsgi import InputStream, WSGIEnvironment
 
 from .datastructures import (
     Accept,

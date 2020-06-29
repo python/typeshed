@@ -1,10 +1,8 @@
 import sys
+from _typeshed import AnyPath
 from types import TracebackType
 from typing import IO, Any, AnyStr, Callable, Generic, Mapping, Optional, Sequence, Tuple, Type, TypeVar, Union, overload
-
 from typing_extensions import Literal
-
-from _typeshed import AnyPath
 
 # We prefer to annotate inputs to methods (eg subprocess.check_call) with these
 # union types.
