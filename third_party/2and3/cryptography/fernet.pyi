@@ -1,4 +1,4 @@
-from typing import List, Optional, Union, Text
+from typing import List, Optional, Text, Union
 
 class InvalidToken(Exception): ...
 

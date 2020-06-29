@@ -6,21 +6,21 @@ _T = TypeVar("_T")
 _TT = TypeVar("_TT", bound=Type[Any])
 
 __all__ = [
-    'Mock',
-    'MagicMock',
-    'patch',
-    'sentinel',
-    'DEFAULT',
-    'ANY',
-    'call',
-    'create_autospec',
-    'AsyncMock',
-    'FILTER_DIR',
-    'NonCallableMock',
-    'NonCallableMagicMock',
-    'mock_open',
-    'PropertyMock',
-    'seal',
+    "Mock",
+    "MagicMock",
+    "patch",
+    "sentinel",
+    "DEFAULT",
+    "ANY",
+    "call",
+    "create_autospec",
+    "AsyncMock",
+    "FILTER_DIR",
+    "NonCallableMock",
+    "NonCallableMagicMock",
+    "mock_open",
+    "PropertyMock",
+    "seal",
 ]
 __version__: str
 
@@ -40,11 +40,15 @@ sentinel: Any
 DEFAULT: Any
 
 class _Call(Tuple[Any, ...]):
-    def __new__(cls, value: Any = ..., name: Optional[Any] = ..., parent: Optional[Any] = ..., two: bool = ..., from_kall: bool = ...) -> Any: ...
+    def __new__(
+        cls, value: Any = ..., name: Optional[Any] = ..., parent: Optional[Any] = ..., two: bool = ..., from_kall: bool = ...
+    ) -> Any: ...
     name: Any
     parent: Any
     from_kall: Any
-    def __init__(self, value: Any = ..., name: Optional[Any] = ..., parent: Optional[Any] = ..., two: bool = ..., from_kall: bool = ...) -> None: ...
+    def __init__(
+        self, value: Any = ..., name: Optional[Any] = ..., parent: Optional[Any] = ..., two: bool = ..., from_kall: bool = ...
+    ) -> None: ...
     def __eq__(self, other: Any) -> bool: ...
     __ne__: Any
     def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
@@ -54,7 +58,6 @@ class _Call(Tuple[Any, ...]):
     def call_list(self) -> Any: ...
 
 call: Any
-
 
 class _CallList(List[_Call]):
     def __contains__(self, value: Any) -> bool: ...
@@ -68,53 +71,48 @@ class _MockIter:
 class Base:
     def __init__(self, *args: Any, **kwargs: Any) -> None: ...
 
-
 class NonCallableMock(Base, Any):  # type: ignore
     def __new__(cls, *args, **kw) -> NonCallableMock: ...
-    def __init__(self,
-                 spec: Union[List[str], object, Type[object], None] = ...,
-                 wraps: Optional[Any] = ...,
-                 name: Optional[str] = ...,
-                 spec_set: Union[List[str], object, Type[object], None] = ...,
-                 parent: Optional[NonCallableMock] = ...,
-                 _spec_state: Optional[Any] = ...,
-                 _new_name: str = ...,
-                 _new_parent: Optional[NonCallableMock] = ...,
-                 _spec_as_instance: bool = ...,
-                 _eat_self: Optional[bool] = ...,
-                 unsafe: bool = ..., **kwargs) -> None: ...
+    def __init__(
+        self,
+        spec: Union[List[str], object, Type[object], None] = ...,
+        wraps: Optional[Any] = ...,
+        name: Optional[str] = ...,
+        spec_set: Union[List[str], object, Type[object], None] = ...,
+        parent: Optional[NonCallableMock] = ...,
+        _spec_state: Optional[Any] = ...,
+        _new_name: str = ...,
+        _new_parent: Optional[NonCallableMock] = ...,
+        _spec_as_instance: bool = ...,
+        _eat_self: Optional[bool] = ...,
+        unsafe: bool = ...,
+        **kwargs,
+    ) -> None: ...
     def __getattr__(self, name: str) -> Any: ...
     if sys.version_info >= (3, 8):
         def _calls_repr(self, prefix: str = ...) -> str: ...
-
         def assert_called_with(self, *args: Any, **kwargs: Any) -> None: ...
         def assert_not_called(self) -> None: ...
         def assert_called_once_with(self, *args: Any, **kwargs: Any) -> None: ...
-
         def _format_mock_failure_message(self, args: Any, kwargs: Any, action: str = ...) -> str: ...
     elif sys.version_info >= (3, 5):
         def assert_called_with(_mock_self, *args: Any, **kwargs: Any) -> None: ...
         def assert_not_called(_mock_self) -> None: ...
         def assert_called_once_with(_mock_self, *args: Any, **kwargs: Any) -> None: ...
-
         def _format_mock_failure_message(self, args: Any, kwargs: Any) -> str: ...
-
     if sys.version_info >= (3, 8):
         def assert_called(self) -> None: ...
         def assert_called_once(self) -> None: ...
     elif sys.version_info >= (3, 6):
         def assert_called(_mock_self) -> None: ...
         def assert_called_once(_mock_self) -> None: ...
-
     if sys.version_info >= (3, 6):
         def reset_mock(self, visited: Any = ..., *, return_value: bool = ..., side_effect: bool = ...) -> None: ...
     elif sys.version_info >= (3, 5):
         def reset_mock(self, visited: Any = ...) -> None: ...
-
     if sys.version_info >= (3, 7):
         def _extract_mock_name(self) -> str: ...
         def _get_call_signature_from_name(self, name: str) -> Any: ...
-
     def assert_any_call(self, *args: Any, **kwargs: Any) -> None: ...
     def assert_has_calls(self, calls: Sequence[_Call], any_order: bool = ...) -> None: ...
     def mock_add_spec(self, spec: Any, spec_set: bool = ...) -> None: ...
@@ -132,10 +130,22 @@ class NonCallableMock(Base, Any):  # type: ignore
     def _call_matcher(self, _call: Tuple[_Call, ...]) -> _Call: ...
     def _get_child_mock(self, **kw: Any) -> NonCallableMock: ...
 
-
 class CallableMixin(Base):
     side_effect: Any
-    def __init__(self, spec: Optional[Any] = ..., side_effect: Optional[Any] = ..., return_value: Any = ..., wraps: Optional[Any] = ..., name: Optional[Any] = ..., spec_set: Optional[Any] = ..., parent: Optional[Any] = ..., _spec_state: Optional[Any] = ..., _new_name: Any = ..., _new_parent: Optional[Any] = ..., **kwargs: Any) -> None: ...
+    def __init__(
+        self,
+        spec: Optional[Any] = ...,
+        side_effect: Optional[Any] = ...,
+        return_value: Any = ...,
+        wraps: Optional[Any] = ...,
+        name: Optional[Any] = ...,
+        spec_set: Optional[Any] = ...,
+        parent: Optional[Any] = ...,
+        _spec_state: Optional[Any] = ...,
+        _new_name: Any = ...,
+        _new_parent: Optional[Any] = ...,
+        **kwargs: Any,
+    ) -> None: ...
     def __call__(_mock_self, *args: Any, **kwargs: Any) -> Any: ...
 
 class Mock(CallableMixin, NonCallableMock): ...
@@ -303,7 +313,9 @@ class _ANY:
 
 ANY: Any
 
-def create_autospec(spec: Any, spec_set: Any = ..., instance: Any = ..., _parent: Optional[Any] = ..., _name: Optional[Any] = ..., **kwargs: Any) -> Any: ...
+def create_autospec(
+    spec: Any, spec_set: Any = ..., instance: Any = ..., _parent: Optional[Any] = ..., _name: Optional[Any] = ..., **kwargs: Any
+) -> Any: ...
 
 class _SpecState:
     spec: Any
@@ -312,7 +324,15 @@ class _SpecState:
     parent: Any
     instance: Any
     name: Any
-    def __init__(self, spec: Any, spec_set: Any = ..., parent: Optional[Any] = ..., name: Optional[Any] = ..., ids: Optional[Any] = ..., instance: Any = ...) -> None: ...
+    def __init__(
+        self,
+        spec: Any,
+        spec_set: Any = ...,
+        parent: Optional[Any] = ...,
+        name: Optional[Any] = ...,
+        ids: Optional[Any] = ...,
+        instance: Any = ...,
+    ) -> None: ...
 
 def mock_open(mock: Optional[Any] = ..., read_data: Any = ...) -> Any: ...
 

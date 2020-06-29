@@ -1,6 +1,6 @@
 """Stub file for the '_sre' module."""
 
-from typing import Any, Union, Iterable, Optional, Mapping, Sequence, Dict, List, Tuple, overload
+from typing import Any, Dict, Iterable, List, Mapping, Optional, Sequence, Tuple, Union, overload
 
 CODESIZE: int
 MAGIC: int
@@ -49,7 +49,5 @@ def compile(
     groupindex: Mapping[str, int] = ...,
     indexgroup: Sequence[int] = ...,
 ) -> SRE_Pattern: ...
-
 def getcodesize() -> int: ...
-
 def getlower(a: int, b: int) -> int: ...

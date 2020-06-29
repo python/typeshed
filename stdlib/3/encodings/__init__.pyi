@@ -2,7 +2,6 @@
 # be removed when a release with a fix was released.
 
 import codecs
-
 from typing import Any
 
 def search_function(encoding: str) -> codecs.CodecInfo: ...

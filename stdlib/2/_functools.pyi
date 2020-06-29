@@ -1,16 +1,13 @@
 """Stub file for the '_functools' module."""
 
-from typing import Any, Callable, Dict, Iterable, Optional, TypeVar, Tuple, overload
+from typing import Any, Callable, Dict, Iterable, Optional, Tuple, TypeVar, overload
 
 _T = TypeVar("_T")
 _S = TypeVar("_S")
-
 @overload
-def reduce(function: Callable[[_T, _T], _T],
-           sequence: Iterable[_T]) -> _T: ...
+def reduce(function: Callable[[_T, _T], _T], sequence: Iterable[_T]) -> _T: ...
 @overload
-def reduce(function: Callable[[_T, _S], _T],
-           sequence: Iterable[_S], initial: _T) -> _T: ...
+def reduce(function: Callable[[_T, _S], _T], sequence: Iterable[_S], initial: _T) -> _T: ...
 
 class partial(object):
     func: Callable[..., Any]
