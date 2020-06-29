@@ -1,12 +1,10 @@
-from typing import (
-    List, BinaryIO, TextIO, Iterator, Union, Optional, Callable, Tuple, Type, Any, IO, Iterable, TypeVar
-)
 import builtins
 import codecs
 import sys
+from _typeshed import ReadableBuffer, WriteableBuffer
 from mmap import mmap
 from types import TracebackType
-from _typeshed import ReadableBuffer, WriteableBuffer
+from typing import IO, Any, BinaryIO, Callable, Iterable, Iterator, List, Optional, TextIO, Tuple, Type, TypeVar, Union
 
 DEFAULT_BUFFER_SIZE: int
 
@@ -14,7 +12,7 @@ SEEK_SET: int
 SEEK_CUR: int
 SEEK_END: int
 
-_T = TypeVar('_T', bound=IOBase)
+_T = TypeVar("_T", bound=IOBase)
 
 open = builtins.open
 
@@ -22,14 +20,16 @@ if sys.version_info >= (3, 8):
     def open_code(path: str) -> IO[bytes]: ...
 
 BlockingIOError = builtins.BlockingIOError
+
 class UnsupportedOperation(OSError, ValueError): ...
 
 class IOBase:
     def __iter__(self) -> Iterator[bytes]: ...
     def __next__(self) -> bytes: ...
     def __enter__(self: _T) -> _T: ...
-    def __exit__(self, exc_type: Optional[Type[BaseException]], exc_val: Optional[BaseException],
-                 exc_tb: Optional[TracebackType]) -> Optional[bool]: ...
+    def __exit__(
+        self, exc_type: Optional[Type[BaseException]], exc_val: Optional[BaseException], exc_tb: Optional[TracebackType]
+    ) -> Optional[bool]: ...
     def close(self) -> None: ...
     def fileno(self) -> int: ...
     def flush(self) -> None: ...
@@ -72,7 +72,7 @@ class FileIO(RawIOBase, BinaryIO):
         file: Union[str, bytes, int],
         mode: str = ...,
         closefd: bool = ...,
-        opener: Optional[Callable[[Union[int, str], str], int]] = ...
+        opener: Optional[Callable[[Union[int, str], str], int]] = ...,
     ) -> None: ...
     def write(self, __b: ReadableBuffer) -> int: ...
     def read(self, __size: int = ...) -> bytes: ...
@@ -116,9 +116,7 @@ class BufferedRandom(BufferedReader, BufferedWriter):
         def read1(self, __size: int) -> bytes: ...  # type: ignore
 
 class BufferedRWPair(BufferedIOBase):
-    def __init__(self, reader: RawIOBase, writer: RawIOBase,
-                 buffer_size: int = ...) -> None: ...
-
+    def __init__(self, reader: RawIOBase, writer: RawIOBase, buffer_size: int = ...) -> None: ...
 
 class TextIOBase(IOBase):
     encoding: str
@@ -143,7 +141,7 @@ class TextIOWrapper(TextIOBase, TextIO):
         errors: Optional[str] = ...,
         newline: Optional[str] = ...,
         line_buffering: bool = ...,
-        write_through: bool = ...
+        write_through: bool = ...,
     ) -> None: ...
     @property
     def buffer(self) -> BinaryIO: ...
@@ -155,7 +153,7 @@ class TextIOWrapper(TextIOBase, TextIO):
             errors: Optional[str] = ...,
             newline: Optional[str] = ...,
             line_buffering: Optional[bool] = ...,
-            write_through: Optional[bool] = ...
+            write_through: Optional[bool] = ...,
         ) -> None: ...
     closed: bool
     # These are inherited from TextIOBase, but must exist in the stub to satisfy mypy.
@@ -168,8 +166,7 @@ class TextIOWrapper(TextIOBase, TextIO):
     def seek(self, __cookie: int, __whence: int = ...) -> int: ...
 
 class StringIO(TextIOWrapper):
-    def __init__(self, initial_value: Optional[str] = ...,
-                 newline: Optional[str] = ...) -> None: ...
+    def __init__(self, initial_value: Optional[str] = ..., newline: Optional[str] = ...) -> None: ...
     # StringIO does not contain a "name" field. This workaround is necessary
     # to allow StringIO sub-classes to add this field, as it is defined
     # as a read-only property on IO[].
@@ -177,6 +174,5 @@ class StringIO(TextIOWrapper):
     def getvalue(self) -> str: ...
 
 class IncrementalNewlineDecoder(codecs.IncrementalDecoder):
-    def __init__(self, decoder: Optional[codecs.IncrementalDecoder],
-                 translate: bool, errors: str = ...) -> None: ...
+    def __init__(self, decoder: Optional[codecs.IncrementalDecoder], translate: bool, errors: str = ...) -> None: ...
     def decode(self, input: Union[bytes, str], final: bool = ...) -> str: ...

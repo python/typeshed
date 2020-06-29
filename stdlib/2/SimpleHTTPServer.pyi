@@ -1,8 +1,8 @@
 # Stubs for SimpleHTTPServer (Python 2)
 
-from typing import Any, AnyStr, IO, Mapping, Optional, Union
 import BaseHTTPServer
 from StringIO import StringIO
+from typing import IO, Any, AnyStr, Mapping, Optional, Union
 
 class SimpleHTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     server_version: str

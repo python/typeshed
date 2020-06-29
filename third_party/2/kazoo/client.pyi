@@ -34,8 +34,21 @@ class KazooClient:
     SetPartitioner: Any
     Semaphore: Any
     ShallowParty: Any
-    def __init__(self, hosts=..., timeout=..., client_id=..., handler=..., default_acl=..., auth_data=..., read_only=...,
-                 randomize_hosts=..., connection_retry=..., command_retry=..., logger=..., **kwargs) -> None: ...
+    def __init__(
+        self,
+        hosts=...,
+        timeout=...,
+        client_id=...,
+        handler=...,
+        default_acl=...,
+        auth_data=...,
+        read_only=...,
+        randomize_hosts=...,
+        connection_retry=...,
+        command_retry=...,
+        logger=...,
+        **kwargs,
+    ) -> None: ...
     @property
     def client_state(self): ...
     @property
@@ -93,5 +106,4 @@ class TransactionRequest:
     def __enter__(self): ...
     def __exit__(self, exc_type, exc_value, exc_tb): ...
 
-class KazooState:
-    ...
+class KazooState: ...

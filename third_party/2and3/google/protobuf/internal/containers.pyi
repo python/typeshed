@@ -1,7 +1,8 @@
+from typing import Any, Callable, Generic, Iterable, Iterator, List, Optional, Sequence, TypeVar, Union, overload
+
 from google.protobuf.descriptor import Descriptor
 from google.protobuf.internal.message_listener import MessageListener
 from google.protobuf.message import Message
-from typing import Sequence, TypeVar, Generic, Any, Iterator, Iterable, Union, Optional, Callable, overload, List
 
 _T = TypeVar("_T")
 
@@ -52,6 +53,7 @@ class RepeatedCompositeFieldContainer(BaseContainer[_T]):
 # Classes not yet typed
 class Mapping(object):
     def __getattr__(self, name: str) -> Any: ...  # incomplete
+
 class MutableMapping(Mapping): ...
 class ScalarMap(MutableMapping): ...
 class MessageMap(MutableMapping): ...

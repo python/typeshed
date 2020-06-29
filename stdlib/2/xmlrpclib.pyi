@@ -1,13 +1,13 @@
 # Stubs for xmlrpclib (Python 2)
 
-from typing import Any, AnyStr, Callable, IO, Iterable, List, Mapping, MutableMapping, Optional, Tuple, Type, TypeVar, Union
-from types import InstanceType
 from datetime import datetime
-from time import struct_time
+from gzip import GzipFile
 from httplib import HTTPConnection, HTTPResponse, HTTPSConnection
 from ssl import SSLContext
 from StringIO import StringIO
-from gzip import GzipFile
+from time import struct_time
+from types import InstanceType
+from typing import IO, Any, AnyStr, Callable, Iterable, List, Mapping, MutableMapping, Optional, Tuple, Type, TypeVar, Union
 
 _Unmarshaller = Any
 _timeTuple = Tuple[int, int, int, int, int, int, int, int, int]
@@ -131,8 +131,18 @@ class Marshaller:
     def dump_bool(self, value: bool, write: Callable[[str], None]) -> None: ...
     def dump_long(self, value: long, write: Callable[[str], None]) -> None: ...
     def dump_double(self, value: float, write: Callable[[str], None]) -> None: ...
-    def dump_string(self, value: str, write: Callable[[str], None], escape: Callable[[AnyStr, Callable[[AnyStr, AnyStr, AnyStr], AnyStr]], AnyStr] = ...) -> None: ...
-    def dump_unicode(self, value: unicode, write: Callable[[str], None], escape: Callable[[AnyStr, Callable[[AnyStr, AnyStr, AnyStr], AnyStr]], AnyStr] = ...) -> None: ...
+    def dump_string(
+        self,
+        value: str,
+        write: Callable[[str], None],
+        escape: Callable[[AnyStr, Callable[[AnyStr, AnyStr, AnyStr], AnyStr]], AnyStr] = ...,
+    ) -> None: ...
+    def dump_unicode(
+        self,
+        value: unicode,
+        write: Callable[[str], None],
+        escape: Callable[[AnyStr, Callable[[AnyStr, AnyStr, AnyStr], AnyStr]], AnyStr] = ...,
+    ) -> None: ...
     def dump_array(self, value: Iterable[Any], write: Callable[[str], None]) -> None: ...
     def dump_struct(
         self,
@@ -170,6 +180,7 @@ class Unmarshaller:
 
 class _MultiCallMethod:
     def __init__(self, call_list: List[Tuple[str, Tuple[Any, ...]]], name: str) -> None: ...
+
 class MultiCallIterator:
     def __init__(self, results: List[Any]) -> None: ...
 
@@ -187,7 +198,6 @@ def dumps(
     allow_none: bool = ...,
 ) -> str: ...
 def loads(data: str, use_datetime: bool = ...) -> Tuple[Tuple[Any, ...], Optional[str]]: ...
-
 def gzip_encode(data: str) -> str: ...
 def gzip_decode(data: str, max_decode: int = ...) -> str: ...
 
@@ -224,7 +234,16 @@ class SafeTransport(Transport):
     def make_connection(self, host: _hostDesc) -> HTTPSConnection: ...
 
 class ServerProxy:
-    def __init__(self, uri: str, transport: Optional[Transport] = ..., encoding: Optional[str] = ..., verbose: bool = ..., allow_none: bool = ..., use_datetime: bool = ..., context: Optional[SSLContext] = ...) -> None: ...
+    def __init__(
+        self,
+        uri: str,
+        transport: Optional[Transport] = ...,
+        encoding: Optional[str] = ...,
+        verbose: bool = ...,
+        allow_none: bool = ...,
+        use_datetime: bool = ...,
+        context: Optional[SSLContext] = ...,
+    ) -> None: ...
     def __getattr__(self, name: str) -> _Method: ...
     def __call__(self, attr: str) -> Optional[Transport]: ...
 

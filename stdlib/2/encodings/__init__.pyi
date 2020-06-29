@@ -1,5 +1,4 @@
 import codecs
-
 from typing import Any
 
 def search_function(encoding: str) -> codecs.CodecInfo: ...
