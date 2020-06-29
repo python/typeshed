@@ -14,7 +14,7 @@ from typing import Optional, List, Set, Tuple
 # These names may be still discussed so I make them constants.
 STDLIB_NAMESPACE = "stdlib"
 THIRD_PARTY_NAMESPACE = "stubs"
-DEFAULT_VERSION = "0.0.1"
+DEFAULT_VERSION = "0.1"
 DEFAULT_PY3_VERSION = "3.5"
 PY2_NAMESPACE = "python2"
 OUTPUT_DIR = "out"
@@ -51,10 +51,10 @@ package_to_distribution = {
     "werkzeug": "Werkzeug",
 }
 
-known_versoins = {
-    "mypy-extensions": "0.4.3",
-    "typing-extensions": "3.7.4.2",
-    "typed-ast": "1.4.1",
+known_versions = {
+    "mypy-extensions": "0.4",
+    "typing-extensions": "3.7",
+    "typed-ast": "1.4",
 }
 
 
@@ -260,7 +260,7 @@ def generate_metadata(package: ThirdPartyPackage, py2_packages: List[str]) -> st
     an arbitrary package to populate it, since it should be the same for all
     packages.
     """
-    version = known_versoins.get(
+    version = known_versions.get(
         package_to_distribution.get(package.name, package.name),
         DEFAULT_VERSION,
     )
