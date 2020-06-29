@@ -5,8 +5,8 @@ from typing import (
     Iterable,
     Iterator,
     List,
-    Mapping as Mapping,  # reexport
-    MutableMapping as MutableMapping,  # reexport
+    Mapping as Mapping,
+    MutableMapping as MutableMapping,
     Optional,
     Sequence,
     TypeVar,
