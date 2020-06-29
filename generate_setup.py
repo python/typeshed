@@ -64,7 +64,7 @@ def find_stub_files(top: str) -> List[str]:
 def read_matadata(file: str) -> Dict[str, Any]:
     """Parse metadata from file."""
     with open(file) as f:
-        return toml.loads(f.read())
+        return dict(toml.loads(f.read()))
 
 
 def copy_stubs(distribution: str, dst: str, suffix: str) -> None:
