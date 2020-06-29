@@ -17,4 +17,5 @@ third_party/2and3/attr/validators.pyi
 third_party/2and3/pynamodb/models.pyi
 
 # https://github.com/google/pytype/issues/613
+third_party/2and3/nmap/__init__.pyi
 third_party/2and3/nmap/nmap.pyi
