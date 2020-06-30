@@ -1,3 +1,4 @@
+import datetime
 import decimal
 import itertools
 import sys
@@ -1233,16 +1234,16 @@ class _BaseFormattedField(Field):
 
 class DateTimeField(_BaseFormattedField):
     field_type: ClassVar[str]
-    formats: Any
-    def adapt(self, value: Any): ...
-    def to_timestamp(self): ...
-    def truncate(self, part: Any): ...
-    year: Any
-    month: Any
-    day: Any
-    hour: Any
-    minute: Any
-    second: Any
+    formats: ClassVar[List[str]]
+    def adapt(self, value: str) -> datetime.datetime: ...
+    def to_timestamp(self) -> int: ...
+    def truncate(self, part: Any) -> str: ...
+    year: int
+    month: int
+    day: int
+    hour: int
+    minute: int
+    second: int
 
 class DateField(_BaseFormattedField):
     field_type: ClassVar[str]
