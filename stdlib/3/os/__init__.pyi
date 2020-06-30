@@ -1,11 +1,13 @@
 import sys
-from _typeshed import AnyPath
+from _typeshed import AnyPath, OpenBinaryMode, OpenBinaryModeReading, OpenBinaryModeUpdating, OpenBinaryModeWriting, OpenTextMode
 from builtins import OSError as error
-from io import TextIOWrapper as _TextIOWrapper
+from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper as _TextIOWrapper
 from posix import listdir as listdir, times_result
 from typing import (
+    IO,
     Any,
     AnyStr,
+    BinaryIO,
     Callable,
     ContextManager,
     Dict,
@@ -25,6 +27,7 @@ from typing import (
     Union,
     overload,
 )
+from typing_extensions import Literal
 
 from . import path as path
 
@@ -396,16 +399,84 @@ def putenv(__name: Union[bytes, str], __value: Union[bytes, str]) -> None: ...
 if sys.platform != "win32":
     def unsetenv(__name: Union[bytes, str]) -> None: ...
 
-# Return IO or TextIO
+_Opener = Callable[[str, int], int]
+@overload
 def fdopen(
     fd: int,
-    mode: str = ...,
+    mode: OpenTextMode = ...,
     buffering: int = ...,
     encoding: Optional[str] = ...,
-    errors: str = ...,
-    newline: str = ...,
+    errors: Optional[str] = ...,
+    newline: Optional[str] = ...,
     closefd: bool = ...,
-) -> Any: ...
+    opener: Optional[_Opener] = ...,
+) -> _TextIOWrapper: ...
+@overload
+def fdopen(
+    fd: int,
+    mode: OpenBinaryMode,
+    buffering: Literal[0],
+    encoding: None = ...,
+    errors: None = ...,
+    newline: None = ...,
+    closefd: bool = ...,
+    opener: Optional[_Opener] = ...,
+) -> FileIO: ...
+@overload
+def fdopen(
+    fd: int,
+    mode: OpenBinaryModeUpdating,
+    buffering: Literal[-1, 1] = ...,
+    encoding: None = ...,
+    errors: None = ...,
+    newline: None = ...,
+    closefd: bool = ...,
+    opener: Optional[_Opener] = ...,
+) -> BufferedRandom: ...
+@overload
+def fdopen(
+    fd: int,
+    mode: OpenBinaryModeWriting,
+    buffering: Literal[-1, 1] = ...,
+    encoding: None = ...,
+    errors: None = ...,
+    newline: None = ...,
+    closefd: bool = ...,
+    opener: Optional[_Opener] = ...,
+) -> BufferedWriter: ...
+@overload
+def fdopen(
+    fd: int,
+    mode: OpenBinaryModeReading,
+    buffering: Literal[-1, 1] = ...,
+    encoding: None = ...,
+    errors: None = ...,
+    newline: None = ...,
+    closefd: bool = ...,
+    opener: Optional[_Opener] = ...,
+) -> BufferedReader: ...
+@overload
+def fdopen(
+    fd: int,
+    mode: OpenBinaryMode,
+    buffering: int,
+    encoding: None = ...,
+    errors: None = ...,
+    newline: None = ...,
+    closefd: bool = ...,
+    opener: Optional[_Opener] = ...,
+) -> BinaryIO: ...
+@overload
+def fdopen(
+    fd: int,
+    mode: str,
+    buffering: int = ...,
+    encoding: Optional[str] = ...,
+    errors: Optional[str] = ...,
+    newline: Optional[str] = ...,
+    closefd: bool = ...,
+    opener: Optional[_Opener] = ...,
+) -> IO[Any]: ...
 def close(fd: int) -> None: ...
 def closerange(__fd_low: int, __fd_high: int) -> None: ...
 def device_encoding(fd: int) -> Optional[str]: ...
