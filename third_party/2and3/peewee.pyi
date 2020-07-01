@@ -1237,7 +1237,7 @@ class DateTimeField(_BaseFormattedField):
     formats: ClassVar[List[str]]
     def adapt(self, value: str) -> datetime.datetime: ...
     def to_timestamp(self) -> int: ...
-    def truncate(self, part: Any) -> str: ...
+    def truncate(self, part: str) -> Function: ...
     year: int
     month: int
     day: int
@@ -1247,21 +1247,21 @@ class DateTimeField(_BaseFormattedField):
 
 class DateField(_BaseFormattedField):
     field_type: ClassVar[str]
-    formats: Any
-    def adapt(self, value: Any): ...
-    def to_timestamp(self): ...
-    def truncate(self, part: Any): ...
-    year: Any
-    month: Any
-    day: Any
+    formats: ClassVar[List[str]]
+    def adapt(self, value: Union[datetime.date, datetime.datetime, str]) -> datetime.date: ...
+    def to_timestamp(self) -> int: ...
+    def truncate(self, part: str) -> Function: ...
+    year: int
+    month: int
+    day: int
 
 class TimeField(_BaseFormattedField):
     field_type: ClassVar[str]
-    formats: Any
-    def adapt(self, value: Any): ...
-    hour: Any
-    minute: Any
-    second: Any
+    formats: ClassVar[List[str]]
+    def adapt(self, value: Any) -> datetime.time: ...
+    hour: int
+    minute: int
+    second: int
 
 class TimestampField(BigIntegerField):
     valid_resolutions: Any
