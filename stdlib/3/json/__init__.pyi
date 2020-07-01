@@ -2,6 +2,7 @@ import sys
 from _typeshed import SupportsRead
 from typing import IO, Any, Callable, Dict, List, Optional, Tuple, Type, Union
 
+from . import decoder, encoder
 from .decoder import JSONDecodeError as JSONDecodeError, JSONDecoder as JSONDecoder
 from .encoder import JSONEncoder as JSONEncoder
 
