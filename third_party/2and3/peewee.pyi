@@ -1170,9 +1170,9 @@ class _StringField(Field):
 
 class CharField(_StringField):
     field_type: ClassVar[str]
-    max_length: Any
+    max_length: int
     def __init__(self, max_length: int = ..., *args: Any, **kwargs: Any) -> None: ...
-    def get_modifiers(self): ...
+    def get_modifiers(self) -> int: ...
 
 class FixedCharField(CharField):
     field_type: ClassVar[str]
