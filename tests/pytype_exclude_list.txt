@@ -1,4 +1,4 @@
-# Pytype blacklist. Files will not be tested with pytype.
+# Pytype exclude list. Files will not be tested with pytype.
 
 # pytype has its own version of these files, and thus doesn't mind if it
 # can't parse the typeshed version:

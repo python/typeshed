@@ -4,7 +4,7 @@
 Depends on pytype being installed.
 
 If pytype is installed:
-    1. For every pyi, do nothing if it is in pytype_blacklist.txt.
+    1. For every pyi, do nothing if it is in pytype_exclude_list.txt.
     2. Otherwise, call 'pytype.io.parse_pyi'.
 Option two will load the file and all the builtins, typeshed dependencies. This
 will also discover incorrect usage of imported modules.
@@ -72,8 +72,8 @@ class PathMatcher:
         return self.matcher.search(path)
 
 
-def load_blacklist(typeshed_location: str) -> List[str]:
-    filename = os.path.join(typeshed_location, "tests", "pytype_blacklist.txt")
+def load_exclude_list(typeshed_location: str) -> List[str]:
+    filename = os.path.join(typeshed_location, "tests", "pytype_exclude_list.txt")
     skip_re = re.compile(r"^\s*([^\s#]+)\s*(?:#.*)?$")
     skip = []
 
@@ -159,10 +159,10 @@ def check_python_exes_runnable(*, python27_exe_arg: str, python36_exe_arg: str) 
 
 
 def determine_files_to_test(*, typeshed_location: str, paths: Sequence[str]) -> List[Tuple[str, int]]:
-    """Determine all files to test, checking if it's in the blacklist and which Python versions to use.
+    """Determine all files to test, checking if it's in the exclude list and which Python versions to use.
 
     Returns a list of pairs of the file path and Python version as an int."""
-    skipped = PathMatcher(load_blacklist(typeshed_location))
+    skipped = PathMatcher(load_exclude_list(typeshed_location))
     filenames = find_stubs_in_paths(paths)
     files = []
     for f in sorted(filenames):
