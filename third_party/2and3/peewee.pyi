@@ -1176,7 +1176,7 @@ class CharField(_StringField):
 
 class FixedCharField(CharField):
     field_type: ClassVar[str]
-    def python_value(self, value: Any): ...
+    def python_value(self, value: Any) -> str: ...
 
 class TextField(_StringField):
     field_type: ClassVar[str]
