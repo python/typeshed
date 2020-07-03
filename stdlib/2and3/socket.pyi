@@ -755,8 +755,6 @@ if sys.platform == "win32" and sys.version_info >= (3, 3):
     def fromshare(info: bytes) -> socket: ...
 
 # the 5th tuple item is an address
-# TODO the "Tuple[Any, ...]" should be "Union[Tuple[str, int], Tuple[str, int, int, int]]" but that triggers
-# https://github.com/python/mypy/issues/2509
 if sys.version_info >= (3,):
     def getaddrinfo(
         host: Optional[Union[bytearray, bytes, Text]],
@@ -765,7 +763,7 @@ if sys.version_info >= (3,):
         type: int = ...,
         proto: int = ...,
         flags: int = ...,
-    ) -> List[Tuple[AddressFamily, SocketKind, int, str, Tuple[Any, ...]]]: ...
+    ) -> List[Tuple[AddressFamily, SocketKind, int, str, Union[Tuple[str, int], Tuple[str, int, int, int]]]]: ...
 
 else:
     def getaddrinfo(
