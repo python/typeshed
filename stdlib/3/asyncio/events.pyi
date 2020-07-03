@@ -7,7 +7,7 @@ from asyncio.protocols import BaseProtocol
 from asyncio.tasks import Task
 from asyncio.transports import BaseTransport
 from asyncio.unix_events import AbstractChildWatcher
-from socket import _Address, _RetAddress, socket, AddressFamily, SocketKind
+from socket import AddressFamily, SocketKind, _Address, _RetAddress, socket
 from typing import IO, Any, Awaitable, Callable, Dict, Generator, List, Optional, Sequence, Tuple, TypeVar, Union, overload
 
 if sys.version_info >= (3, 7):
