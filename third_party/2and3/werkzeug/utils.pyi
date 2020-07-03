@@ -1,4 +1,4 @@
-from typing import Any, Optional, Type, TypeVar, overload, Text
+from typing import Any, Optional, Text, Type, TypeVar, overload
 
 from werkzeug._internal import _DictAccessorProperty
 from werkzeug.wrappers import Response
