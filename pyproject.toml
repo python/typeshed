@@ -25,6 +25,7 @@ extra_standard_library = [
     "pyexpat",
     # Python 2 modules
     "__builtin__",
+    "cookielib",
     "cStringIO",
     "httplib",
     "mimetools",
