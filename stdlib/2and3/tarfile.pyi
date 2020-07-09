@@ -61,7 +61,7 @@ def open(
     bufsize: int = ...,
     *,
     format: Optional[int] = ...,
-    tarinfo: Optional[TarInfo] = ...,
+    tarinfo: Optional[Type[TarInfo]] = ...,
     dereference: Optional[bool] = ...,
     ignore_zeros: Optional[bool] = ...,
     encoding: Optional[str] = ...,
@@ -77,7 +77,7 @@ class TarFile(Iterable[TarInfo]):
     mode: str
     fileobj: Optional[IO[bytes]]
     format: Optional[int]
-    tarinfo: Optional[TarInfo]
+    tarinfo: Type[TarInfo]
     dereference: Optional[bool]
     ignore_zeros: Optional[bool]
     encoding: Optional[str]
@@ -93,7 +93,7 @@ class TarFile(Iterable[TarInfo]):
         mode: str = ...,
         fileobj: Optional[IO[bytes]] = ...,
         format: Optional[int] = ...,
-        tarinfo: Optional[TarInfo] = ...,
+        tarinfo: Optional[Type[TarInfo]] = ...,
         dereference: Optional[bool] = ...,
         ignore_zeros: Optional[bool] = ...,
         encoding: Optional[str] = ...,
@@ -117,7 +117,7 @@ class TarFile(Iterable[TarInfo]):
         bufsize: int = ...,
         *,
         format: Optional[int] = ...,
-        tarinfo: Optional[TarInfo] = ...,
+        tarinfo: Optional[Type[TarInfo]] = ...,
         dereference: Optional[bool] = ...,
         ignore_zeros: Optional[bool] = ...,
         encoding: Optional[str] = ...,
