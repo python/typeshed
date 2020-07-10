@@ -15,11 +15,26 @@
 import array
 import mmap
 import sys
-from typing import Protocol, Text, TypeVar, Union
+from typing import AbstractSet, Container, Protocol, Text, Tuple, TypeVar, Union
 from typing_extensions import Literal
 
+_KT = TypeVar("_KT")
+_VT = TypeVar("_VT")
+_VT_co = TypeVar("_VT_co", covariant=True)
 _T_co = TypeVar("_T_co", covariant=True)
 _T_contra = TypeVar("_T_contra", contravariant=True)
+
+# Mapping-like protocols
+
+class SupportsItems(Protocol[_KT, _VT_co]):
+    def items(self) -> AbstractSet[Tuple[_KT, _VT_co]]: ...
+
+class SupportsGetItem(Container[_KT], Protocol[_KT, _VT_co]):
+    def __getitem__(self, __k: _KT) -> _VT_co: ...
+
+class SupportsItemAccess(SupportsGetItem[_KT, _VT], Protocol[_KT, _VT]):
+    def __setitem__(self, __k: _KT, __v: _VT) -> None: ...
+    def __delitem__(self, __v: _KT) -> None: ...
 
 # StrPath and AnyPath can be used in places where a
 # path can be used instead of a string, starting with Python 3.6.
