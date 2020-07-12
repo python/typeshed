@@ -377,9 +377,7 @@ sys.gettotalrefcount
 sys.implementation
 sysconfig.is_python_build
 sysconfig.parse_config_h
-tarfile.TarFile.__init__
 tarfile.TarFile.errors
-tarfile.TarFile.tarinfo
 tempfile.SpooledTemporaryFile.__next__
 tempfile.SpooledTemporaryFile.readable
 tempfile.SpooledTemporaryFile.seekable

@@ -48,6 +48,7 @@ smtpd.SMTPChannel.__init__
 smtpd.SMTPServer.__init__
 sre_compile.dis
 ssl.SSLSocket.__init__
+tarfile.TarFile.__init__  # undocumented arg copybufsize doesn't exist
 typing.Coroutine.cr_await
 typing.Coroutine.cr_code
 typing.Coroutine.cr_frame

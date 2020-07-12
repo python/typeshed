@@ -101,7 +101,7 @@ class TarFile(Iterable[TarInfo]):
         pax_headers: Optional[Mapping[str, str]] = ...,
         debug: Optional[int] = ...,
         errorlevel: Optional[int] = ...,
-        compresslevel: Optional[int] = ...,
+        copybufsize: Optional[int] = ...,  # undocumented
     ) -> None: ...
     def __enter__(self) -> TarFile: ...
     def __exit__(
