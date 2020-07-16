@@ -1,5 +1,6 @@
+import pyexpat.errors as errors
+import pyexpat.model as model
 from _typeshed import SupportsRead
-from pyexpat import errors as errors, model as model
 from typing import Any, Callable, Dict, List, Optional, Text, Tuple, Union
 
 EXPAT_VERSION: str  # undocumented
