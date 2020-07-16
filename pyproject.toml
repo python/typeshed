@@ -7,7 +7,38 @@ multi_line_output = 3
 include_trailing_comma = true
 force_grid_wrap = 0
 use_parentheses = true
+ensure_newline_before_comments = true
 combine_as_imports = true
 line_length = 130
-default_section = "THIRDPARTY"
-known_standard_library = ["typing_extensions", "_typeshed", "_compression", "_markupbase", "opcode"]
+extra_standard_library = [
+    "typing_extensions",
+    "_typeshed",
+    # Extra modules not recognized by isort
+    "_compression",
+    "_csv",
+    "_curses",
+    "_markupbase",
+    "_random",
+    "_weakrefset",
+    "genericpath",
+    "opcode",
+    "pyexpat",
+    # Python 2 modules
+    "__builtin__",
+    "cookielib",
+    "cStringIO",
+    "httplib",
+    "mimetools",
+    "rfc822",
+    "thread",
+    "urllib2",
+    "urlparse",
+    "BaseHTTPServer",
+    "Queue",
+    "SimpleHTTPServer",
+    "SocketServer",
+    "StringIO",
+    "UserDict",
+    "UserList",
+    "UserString",
+]

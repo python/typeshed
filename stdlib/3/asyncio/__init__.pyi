@@ -89,13 +89,10 @@ else:
         from asyncio.events import SendfileNotAvailableError as SendfileNotAvailableError
     from asyncio.futures import (
         CancelledError as CancelledError,
-        TimeoutError as TimeoutError,
         InvalidStateError as InvalidStateError,
+        TimeoutError as TimeoutError,
     )
-    from asyncio.streams import (
-        IncompleteReadError as IncompleteReadError,
-        LimitOverrunError as LimitOverrunError,
-    )
+    from asyncio.streams import IncompleteReadError as IncompleteReadError, LimitOverrunError as LimitOverrunError
 
 if sys.version_info >= (3, 7):
     from asyncio.protocols import BufferedProtocol as BufferedProtocol
@@ -104,11 +101,7 @@ if sys.version_info >= (3, 7):
     from asyncio.runners import run as run
 
 if sys.version_info >= (3, 7):
-    from asyncio.tasks import (
-        all_tasks as all_tasks,
-        create_task as create_task,
-        current_task as current_task,
-    )
+    from asyncio.tasks import all_tasks as all_tasks, create_task as create_task, current_task as current_task
 if sys.version_info >= (3, 9):
     from asyncio.threads import to_thread as to_thread
 
@@ -117,10 +110,8 @@ if sys.platform == "win32":
     from asyncio.windows_events import *
 
 if sys.platform != "win32":
-    from asyncio.streams import (
-        open_unix_connection as open_unix_connection,
-        start_unix_server as start_unix_server,
-    )
+    from asyncio.streams import open_unix_connection as open_unix_connection, start_unix_server as start_unix_server
+
     from .unix_events import (
         AbstractChildWatcher as AbstractChildWatcher,
         FastChildWatcher as FastChildWatcher,
