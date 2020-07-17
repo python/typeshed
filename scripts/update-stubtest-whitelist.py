@@ -25,7 +25,7 @@ def main() -> None:
 def parse_input_file(input_file: str) -> Dict[str, Set[str]]:
     to_remove = defaultdict(set)
     with open(input_file) as f:
-        for filename, wl_entry in [parse_input_line(l) for l in f if l.strip()]:
+        for filename, wl_entry in [parse_input_line(li) for li in f if li.strip()]:
             to_remove[filename].add(wl_entry)
     return to_remove
 
