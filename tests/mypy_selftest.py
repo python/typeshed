@@ -2,7 +2,6 @@
 """Script to run mypy against its own code base."""
 
 from pathlib import Path
-import shutil
 import subprocess
 import sys
 import tempfile
