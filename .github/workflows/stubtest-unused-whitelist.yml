@@ -55,4 +55,4 @@ jobs:
         uses: peter-evans/create-pull-request@v2
         with:
           commit-message: Remove unused stubtest whitelist entries
-          title: [gh-action] Remove unused stubtest whitelist entries
+          title: "[gh-action] Remove unused stubtest whitelist entries"
