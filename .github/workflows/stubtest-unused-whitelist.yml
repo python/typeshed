@@ -1,4 +1,4 @@
-name: Find unused stubtest whitelist entries
+name: Remove unused stubtest whitelist entries
 
 on:
   workflow_dispatch:
@@ -39,11 +39,20 @@ jobs:
     runs-on: ubuntu-latest
     needs: stubtest
     steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
       - name: Get stubtest outputs
         uses: actions/download-artifact@v2
         with:
           name: stubtest-output
-      - name: Remove duplicates
-        run: |
-          cat stubtest-output-* | sort -u | tee stubtest-output
-          test "$(wc -l stubtest-output | cut -d ' ' -f 1)" = 0
+      - name: Collate and remove duplicates
+        run: cat stubtest-output-* | sort -u | tee stubtest-output
+      - name: Remove entries from whitelists
+        run: python/scripts/update-stubtest-whitelist.py stubtest-output
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v2
+        with:
+          commit-message: Remove unused stubtest whitelist entries
+          title: [gh-action] Remove unused stubtest whitelist entries
