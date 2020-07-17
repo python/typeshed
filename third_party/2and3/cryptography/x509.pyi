@@ -14,8 +14,8 @@ from cryptography.hazmat.primitives.hashes import HashAlgorithm
 from cryptography.hazmat.primitives.serialization import Encoding
 
 class ObjectIdentifier(object):
+    dotted_string: str
     def __init__(self, dotted_string: str) -> None: ...
-    def dotted_string(self) -> str: ...
 
 class CRLEntryExtensionOID(object):
     CERTIFICATE_ISSUER: ClassVar[ObjectIdentifier]
