@@ -33,7 +33,7 @@ def parse_input_file(input_file: str) -> Dict[str, Set[str]]:
 # Returns a (filename, entry) tuple.
 def parse_input_line(line: str) -> Tuple[str, str]:
     line = line.strip()
-    return line.split(":", maxsplit=2)
+    return line.split(":", maxsplit=1)
 
 
 def remove_entries_from_whitelist(filename: str, entries: Set[str]) -> None:
