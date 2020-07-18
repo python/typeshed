@@ -237,7 +237,6 @@ ipaddress._BaseAddress.packed
 ipaddress._BaseNetwork.max_prefixlen
 itertools.accumulate
 itertools.chain.from_iterable
-itertools.combinations
 itertools.combinations_with_replacement
 itertools.compress
 itertools.count
@@ -265,13 +264,9 @@ mailbox._mboxMMDF.get_string
 mailbox.mbox.__init__
 mimetypes.read_mime_types
 mmap.mmap.__iter__
-multiprocessing.Array
-multiprocessing.Event
 multiprocessing.JoinableQueue
 multiprocessing.Queue
 multiprocessing.SimpleQueue
-multiprocessing.Value
-multiprocessing.context.BaseContext.Event
 multiprocessing.managers.BaseManager.shutdown
 multiprocessing.managers.Server.__init__
 multiprocessing.managers.SyncManager.Event
@@ -292,7 +287,6 @@ multiprocessing.queues.Queue.__init__
 multiprocessing.queues.Queue.put_nowait
 multiprocessing.queues.SimpleQueue.__init__
 multiprocessing.queues.SimpleQueue.put
-multiprocessing.set_executable
 multiprocessing.synchronize.Barrier.__init__
 multiprocessing.synchronize.Condition.acquire
 multiprocessing.synchronize.Condition.release
