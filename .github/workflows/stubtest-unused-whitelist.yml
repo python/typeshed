@@ -50,7 +50,7 @@ jobs:
       - name: Collate duplicates
         run: cat stubtest-output-* | sort -u | tee stubtest-output
       - name: Remove entries from whitelists
-        run: python/scripts/update-stubtest-whitelist.py stubtest-output
+        run: python scripts/update-stubtest-whitelist.py stubtest-output
       - name: Create pull request
         uses: peter-evans/create-pull-request@v2
         with:
