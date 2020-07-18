@@ -18,7 +18,18 @@ if __name__ == "__main__":
         )
         try:
             subprocess.run([sys.executable, "-m", "pip", "install", f"mypy=={MYPY_VERSION}"], check=True)
-            subprocess.run(["mypy", "--custom-typeshed-dir", ".", dirpath / "mypy", dirpath / "mypyc"], check=True)
+            subprocess.run(
+                [
+                    "mypy",
+                    "--config-file",
+                    dirpath / "mypy_self_check.ini",
+                    "--custom-typeshed-dir",
+                    ".",
+                    dirpath / "mypy",
+                    dirpath / "mypyc",
+                ],
+                check=True,
+            )
         except subprocess.CalledProcessError as e:
             print("mypy self test failed", file=sys.stderr)
             sys.exit(e.returncode)
