@@ -3,7 +3,6 @@ import sys
 from google.protobuf.descriptor import (
     Descriptor as google___protobuf___descriptor___Descriptor,
     EnumDescriptor as google___protobuf___descriptor___EnumDescriptor,
-    FieldDescriptor as google___protobuf___descriptor___FieldDescriptor,
     FileDescriptor as google___protobuf___descriptor___FileDescriptor,
 )
 
@@ -34,25 +33,27 @@ builtin___int = int
 
 DESCRIPTOR: google___protobuf___descriptor___FileDescriptor = ...
 
-TestEnumValue = typing___NewType('TestEnumValue', builtin___int)
-type___TestEnumValue = TestEnumValue
-TestEnum: _TestEnum
-class _TestEnum(google___protobuf___internal___enum_type_wrapper____EnumTypeWrapper[TestEnumValue]):
+ImportEnumLiteValue = typing___NewType('ImportEnumLiteValue', builtin___int)
+type___ImportEnumLiteValue = ImportEnumLiteValue
+ImportEnumLite: _ImportEnumLite
+class _ImportEnumLite(google___protobuf___internal___enum_type_wrapper____EnumTypeWrapper[ImportEnumLiteValue]):
     DESCRIPTOR: google___protobuf___descriptor___EnumDescriptor = ...
-    FOO = typing___cast(TestEnumValue, 1)
-FOO = typing___cast(TestEnumValue, 1)
-type___TestEnum = TestEnum
+    IMPORT_LITE_FOO = typing___cast(ImportEnumLiteValue, 7)
+    IMPORT_LITE_BAR = typing___cast(ImportEnumLiteValue, 8)
+    IMPORT_LITE_BAZ = typing___cast(ImportEnumLiteValue, 9)
+IMPORT_LITE_FOO = typing___cast(ImportEnumLiteValue, 7)
+IMPORT_LITE_BAR = typing___cast(ImportEnumLiteValue, 8)
+IMPORT_LITE_BAZ = typing___cast(ImportEnumLiteValue, 9)
+type___ImportEnumLite = ImportEnumLite
 
-class TestMessage(google___protobuf___message___Message):
+class ImportMessageLite(google___protobuf___message___Message):
     DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...
-    a: builtin___int = ...
+    d: builtin___int = ...
 
     def __init__(self,
         *,
-        a : typing___Optional[builtin___int] = None,
+        d : typing___Optional[builtin___int] = None,
         ) -> None: ...
-    def HasField(self, field_name: typing_extensions___Literal[u"a",b"a"]) -> builtin___bool: ...
-    def ClearField(self, field_name: typing_extensions___Literal[u"a",b"a"]) -> None: ...
-type___TestMessage = TestMessage
-
-test_extension: google___protobuf___descriptor___FieldDescriptor = ...
+    def HasField(self, field_name: typing_extensions___Literal[u"d",b"d"]) -> builtin___bool: ...
+    def ClearField(self, field_name: typing_extensions___Literal[u"d",b"d"]) -> None: ...
+type___ImportMessageLite = ImportMessageLite
