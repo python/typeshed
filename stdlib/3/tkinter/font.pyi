@@ -1,6 +1,6 @@
 import tkinter
-from typing import Any, List, Optional, Tuple, TypedDict, Union, overload
-from typing_extensions import Literal
+from typing import Any, List, Optional, Tuple, Union, overload
+from typing_extensions import Literal, TypedDict
 
 NORMAL: Literal["normal"]
 ROMAN: Literal["roman"]
