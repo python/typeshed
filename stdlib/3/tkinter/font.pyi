@@ -10,7 +10,13 @@ ITALIC: Literal["italic"]
 def nametofont(name: str) -> Font: ...
 
 # See 'FONT DESCRIPTIONS' in font man page. This uses str because Literal
-# inside Tuple doesn't work.
+# inside Tuple doesn't work. Also, some Sequences don't work, and we really
+# need this to accept just List or Tuple:
+#
+#    >>> tkinter.Label(font=('Helvetica', 12, collections.deque(['bold'])))
+#    Traceback (most recent call last):
+#      ...
+#    _tkinter.TclError: unknown font style "deque(['bold'])"
 _FontDescription = Union[
     str, Font, Tuple[str, int], Tuple[str, int, Tuple[str, ...]], Tuple[str, int, List[str]],
 ]
