@@ -1,5 +1,5 @@
 import tkinter
-from typing import List, Optional, Tuple, Union, overload
+from typing import List, Optional, Tuple, TypeVar, Union, overload
 from typing_extensions import Literal, TypedDict
 
 NORMAL: Literal["normal"]
@@ -9,16 +9,21 @@ ITALIC: Literal["italic"]
 
 def nametofont(name: str) -> Font: ...
 
-# See 'FONT DESCRIPTIONS' in font man page. This uses str because Literal
-# inside Tuple doesn't work. Also, some Sequences don't work, and we really
-# need this to accept just List or Tuple:
+# _TkinterSequence[T] represents a sequence that tkinter understands. It
+# differs from typing.Sequence[T]. For example, collections.deque a valid
+# Sequence but not a valid _TkinterSequence:
 #
 #    >>> tkinter.Label(font=('Helvetica', 12, collections.deque(['bold'])))
 #    Traceback (most recent call last):
 #      ...
 #    _tkinter.TclError: unknown font style "deque(['bold'])"
+_T = TypeVar("_T")
+_TkinterSequence = Union[List[_T], Tuple[_T, ...]]
+
+# See 'FONT DESCRIPTIONS' in font man page. This uses str because Literal
+# inside Tuple doesn't work.
 _FontDescription = Union[
-    str, Font, Tuple[str, int], Tuple[str, int, Tuple[str, ...]], Tuple[str, int, List[str]],
+    str, Font, Tuple[str, int], Tuple[str, int, _TkinterSequence[str]],
 ]
 
 class _FontDict(TypedDict):
