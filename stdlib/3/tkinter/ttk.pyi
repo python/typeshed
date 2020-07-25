@@ -1,14 +1,10 @@
 import sys
 import tkinter
-from tkinter import Event
-from typing import Any, Callable, Dict, List, Optional, Tuple, Type, TypeVar, Union, overload
-from typing_extensions import Literal
 from enum import Enum
+from tkinter import Event
 from types import TracebackType
 from typing import Any, Callable, Dict, List, Optional, Sequence, Tuple, Type, TypeVar, Union, overload
 from typing_extensions import Literal
-
-import _tkinter
 
 # copy/pasta from __init__.py to make pytype happy
 # https://github.com/google/pytype/issues/626
