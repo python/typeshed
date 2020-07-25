@@ -2,29 +2,17 @@ import tkinter
 from typing import List, Optional, Tuple, TypeVar, Union, overload
 from typing_extensions import Literal, TypedDict
 
+# copy/pasta from __init__.py to make pytype happy
+# https://github.com/google/pytype/issues/626
+_T = TypeVar("_T")
+_TkinterSequence = Union[List[_T], Tuple[_T, ...]]
+
 NORMAL: Literal["normal"]
 ROMAN: Literal["roman"]
 BOLD: Literal["bold"]
 ITALIC: Literal["italic"]
 
 def nametofont(name: str) -> Font: ...
-
-# _TkinterSequence[T] represents a sequence that tkinter understands. It
-# differs from typing.Sequence[T]. For example, collections.deque a valid
-# Sequence but not a valid _TkinterSequence:
-#
-#    >>> tkinter.Label(font=('Helvetica', 12, collections.deque(['bold'])))
-#    Traceback (most recent call last):
-#      ...
-#    _tkinter.TclError: unknown font style "deque(['bold'])"
-_T = TypeVar("_T")
-_TkinterSequence = Union[List[_T], Tuple[_T, ...]]
-
-# See 'FONT DESCRIPTIONS' in font man page. This uses str because Literal
-# inside Tuple doesn't work.
-_FontDescription = Union[
-    str, Font, Tuple[str, int], Tuple[str, int, _TkinterSequence[str]],
-]
 
 class _FontDict(TypedDict):
     family: str
@@ -48,7 +36,7 @@ class Font:
         # In tkinter, 'root' refers to tkinter.Tk by convention, but the code
         # actually works with any tkinter widget so we use tkinter.Misc.
         root: Optional[tkinter.Misc] = ...,
-        font: Optional[_FontDescription] = ...,
+        font: Optional[tkinter._FontDescription] = ...,
         name: Optional[str] = ...,
         exists: bool = ...,
         *,
