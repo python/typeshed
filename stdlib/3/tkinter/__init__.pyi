@@ -659,7 +659,7 @@ class Tk(Misc, Wm):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         background: _Color = ...,
         bd: _ScreenUnits = ...,
@@ -750,7 +750,7 @@ class Toplevel(BaseWidget, Wm):
     def __init__(
         self,
         master: Optional[Misc] = ...,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         background: _Color = ...,
         bd: _ScreenUnits = ...,
@@ -821,7 +821,7 @@ class Button(Widget):
     def __init__(
         self,
         master: Optional[Misc] = ...,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         activebackground: _Color = ...,
         activeforeground: _Color = ...,
@@ -867,7 +867,7 @@ class Button(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         activebackground: _Color = ...,
         activeforeground: _Color = ...,
@@ -947,7 +947,7 @@ class Canvas(Widget, XView, YView):
     def __init__(
         self,
         master: Optional[Misc] = ...,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         background: _Color = ...,
         bd: _ScreenUnits = ...,
@@ -986,7 +986,7 @@ class Canvas(Widget, XView, YView):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         background: _Color = ...,
         bd: _ScreenUnits = ...,
@@ -1140,7 +1140,7 @@ class Checkbutton(Widget):
     def __init__(
         self,
         master: Optional[Misc] = ...,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         activebackground: _Color = ...,
         activeforeground: _Color = ...,
@@ -1197,7 +1197,7 @@ class Checkbutton(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         activebackground: _Color = ...,
         activeforeground: _Color = ...,
@@ -1292,7 +1292,7 @@ class Entry(Widget, XView):
     def __init__(
         self,
         master: Optional[Misc] = ...,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         background: _Color = ...,
         bd: _ScreenUnits = ...,
@@ -1332,7 +1332,7 @@ class Entry(Widget, XView):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         background: _Color = ...,
         bd: _ScreenUnits = ...,
@@ -1418,7 +1418,7 @@ class Frame(Widget):
     def __init__(
         self,
         master: Optional[Misc] = ...,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         background: _Color = ...,
         bd: _ScreenUnits = ...,
@@ -1442,7 +1442,7 @@ class Frame(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         background: _Color = ...,
         bd: _ScreenUnits = ...,
@@ -1501,7 +1501,7 @@ class Label(Widget):
     def __init__(
         self,
         master: Optional[Misc] = ...,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         activebackground: _Color = ...,
         activeforeground: _Color = ...,
@@ -1537,7 +1537,7 @@ class Label(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         activebackground: _Color = ...,
         activeforeground: _Color = ...,
@@ -1610,7 +1610,7 @@ class Listbox(Widget, XView, YView):
     def __init__(
         self,
         master: Optional[Misc] = ...,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         activestyle: Literal["dotbox", "none", "underline"] = ...,
         background: _Color = ...,
@@ -1658,7 +1658,7 @@ class Listbox(Widget, XView, YView):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         activestyle: Literal["dotbox", "none", "underline"] = ...,
         background: _Color = ...,
@@ -1744,7 +1744,7 @@ class Menu(Widget):
     def __init__(
         self,
         master: Optional[Misc] = ...,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         activebackground: _Color = ...,
         activeborderwidth: _ScreenUnits = ...,
@@ -1773,7 +1773,7 @@ class Menu(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         activebackground: _Color = ...,
         activeborderwidth: _ScreenUnits = ...,
@@ -1868,7 +1868,7 @@ class Menubutton(Widget):
     def __init__(
         self,
         master: Optional[Misc] = ...,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         activebackground: _Color = ...,
         activeforeground: _Color = ...,
@@ -1907,7 +1907,7 @@ class Menubutton(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         activebackground: _Color = ...,
         activeforeground: _Color = ...,
@@ -1950,7 +1950,7 @@ class Menubutton(Widget):
     @overload
     def config(
         self,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         activebackground: _Color = ...,
         activeforeground: _Color = ...,
@@ -2018,7 +2018,7 @@ class Message(Widget):
     def __init__(
         self,
         master: Optional[Misc] = ...,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         anchor: _Anchor = ...,
         aspect: int = ...,
@@ -2046,7 +2046,7 @@ class Message(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         anchor: _Anchor = ...,
         aspect: int = ...,
@@ -2122,7 +2122,7 @@ class Radiobutton(Widget):
     def __init__(
         self,
         master: Optional[Misc] = ...,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         activebackground: _Color = ...,
         activeforeground: _Color = ...,
@@ -2168,7 +2168,7 @@ class Radiobutton(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         activebackground: _Color = ...,
         activeforeground: _Color = ...,
@@ -2260,7 +2260,7 @@ class Scale(Widget):
     def __init__(
         self,
         master: Optional[Misc] = ...,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         activebackground: _Color = ...,
         background: _Color = ...,
@@ -2300,7 +2300,7 @@ class Scale(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         activebackground: _Color = ...,
         background: _Color = ...,
@@ -2372,7 +2372,7 @@ class Scrollbar(Widget):
     def __init__(
         self,
         master: Optional[Misc] = ...,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         activebackground: _Color = ...,
         activerelief: _Relief = ...,
@@ -2402,7 +2402,7 @@ class Scrollbar(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         activebackground: _Color = ...,
         activerelief: _Relief = ...,
@@ -2487,7 +2487,7 @@ class Text(Widget, XView, YView):
     def __init__(
         self,
         master: Optional[Misc] = ...,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         autoseparators: bool = ...,
         background: _Color = ...,
@@ -2541,7 +2541,7 @@ class Text(Widget, XView, YView):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         autoseparators: bool = ...,
         background: _Color = ...,
@@ -2789,7 +2789,7 @@ class Spinbox(Widget, XView):
     def __init__(
         self,
         master: Optional[Misc] = ...,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         activebackground: _Color = ...,
         background: _Color = ...,
@@ -2843,7 +2843,7 @@ class Spinbox(Widget, XView):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         activebackground: _Color = ...,
         background: _Color = ...,
@@ -2948,7 +2948,7 @@ class LabelFrame(Widget):
     def __init__(
         self,
         master: Optional[Misc] = ...,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         background: _Color = ...,
         bd: _ScreenUnits = ...,
@@ -2978,7 +2978,7 @@ class LabelFrame(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         background: _Color = ...,
         bd: _ScreenUnits = ...,
@@ -3033,7 +3033,7 @@ class PanedWindow(Widget):
     def __init__(
         self,
         master: Optional[Misc] = ...,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         background: _Color = ...,
         bd: _ScreenUnits = ...,
@@ -3059,7 +3059,7 @@ class PanedWindow(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         background: _Color = ...,
         bd: _ScreenUnits = ...,

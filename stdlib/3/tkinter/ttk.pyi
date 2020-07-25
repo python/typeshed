@@ -75,7 +75,7 @@ class Button(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         command: tkinter._ButtonCommand = ...,
         compound: _TtkCompound = ...,
@@ -141,7 +141,7 @@ class Checkbutton(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         command: tkinter._ButtonCommand = ...,
         compound: _TtkCompound = ...,
@@ -207,7 +207,7 @@ class Entry(Widget):  # actually inherits from tkinter.Entry
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         cursor: tkinter._Cursor = ...,
         exportselection: bool = ...,
@@ -286,7 +286,7 @@ class Combobox(Widget):  # actually inherits from Entry
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         cursor: tkinter._Cursor = ...,
         exportselection: bool = ...,
@@ -349,7 +349,7 @@ class Frame(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         borderwidth: tkinter._ScreenUnits = ...,
         cursor: tkinter._Cursor = ...,
@@ -415,7 +415,7 @@ class Label(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         anchor: tkinter._Anchor = ...,
         background: tkinter._Color = ...,
@@ -465,7 +465,7 @@ class Labelframe(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         cursor: tkinter._Cursor = ...,
         height: tkinter._ScreenUnits = ...,
@@ -523,7 +523,7 @@ class Menubutton(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         compound: _TtkCompound = ...,
         cursor: tkinter._Cursor = ...,
@@ -545,7 +545,7 @@ class Menubutton(Widget):
     @overload
     def config(
         self,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         compound: _TtkCompound = ...,
         cursor: tkinter._Cursor = ...,
@@ -580,7 +580,7 @@ class Notebook(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         cursor: tkinter._Cursor = ...,
         height: int = ...,
@@ -623,7 +623,7 @@ class Panedwindow(Widget):  # actally inherits from tkinter.PanedWindow
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         cursor: tkinter._Cursor = ...,
         height: int = ...,
@@ -683,7 +683,7 @@ class Progressbar(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         cursor: tkinter._Cursor = ...,
         length: tkinter._ScreenUnits = ...,
@@ -744,7 +744,7 @@ class Radiobutton(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         command: tkinter._ButtonCommand = ...,
         compound: _TtkCompound = ...,
@@ -790,7 +790,7 @@ class Scale(Widget):  # actually inherits from tkinter.Scale
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         command: Union[str, Callable[[str], None]] = ...,
         cursor: tkinter._Cursor = ...,
@@ -827,7 +827,7 @@ class Scrollbar(Widget):  # actually inherits from tkinter.Scrollbar
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         command: Union[Callable[..., Optional[Tuple[float, float]]], str] = ...,
         cursor: tkinter._Cursor = ...,
@@ -862,7 +862,7 @@ class Separator(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         cursor: tkinter._Cursor = ...,
         orient: Literal["horizontal", "vertical"] = ...,
@@ -887,7 +887,7 @@ class Sizegrip(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         cursor: tkinter._Cursor = ...,
         style: str = ...,
@@ -936,7 +936,7 @@ if sys.version_info >= (3, 7):
         @overload
         def configure(
             self,
-            cnf: Dict[str, Any] = ...,
+            cnf: Optional[Dict[str, Any]] = ...,
             *,
             command: Union[Callable[[], None], str, tkinter._TkinterSequence[str]] = ...,
             cursor: tkinter._Cursor = ...,
@@ -1019,7 +1019,7 @@ class Treeview(Widget, tkinter.XView, tkinter.YView):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] = ...,
+        cnf: Optional[Dict[str, Any]] = ...,
         *,
         columns: _TkinterSequence[str] = ...,
         cursor: tkinter._Cursor = ...,
