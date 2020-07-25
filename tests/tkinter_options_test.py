@@ -278,7 +278,7 @@ def is_configure_method_with_options_as_kwargs(node: ast.stmt) -> bool:
     assert cnf.arg == "cnf"
     assert cnf.annotation is not None
 
-    [expected_cnf_annotation] = ast.parse("Dict[str, Any]").body
+    [expected_cnf_annotation] = ast.parse("Optional[Dict[str, Any]]").body
     assert isinstance(expected_cnf_annotation, ast.Expr)
     return ast.dump(cnf.annotation) == ast.dump(expected_cnf_annotation.value)
 
