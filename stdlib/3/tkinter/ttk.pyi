@@ -1,9 +1,7 @@
 import sys
 import tkinter
-from enum import Enum
 from tkinter import Event
-from types import TracebackType
-from typing import Any, Callable, Dict, List, Optional, Sequence, Tuple, Type, TypeVar, Union, overload
+from typing import Any, Callable, Dict, List, Optional, Tuple, TypeVar, Union, overload
 from typing_extensions import Literal
 
 # copy/pasta from __init__.py to make pytype happy

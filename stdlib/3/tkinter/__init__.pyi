@@ -3,8 +3,8 @@ from enum import Enum
 from tkinter import font
 from tkinter.constants import *  # comment this out to find undefined identifier names with flake8
 from types import TracebackType
-from typing import Any, Callable, Dict, Generic, List, Optional, Sequence, Tuple, Type, TypeVar, Union, overload
-from typing_extensions import Literal, TypedDict
+from typing import Any, Callable, Dict, Generic, List, Optional, Tuple, Type, TypeVar, Union, overload
+from typing_extensions import Literal
 
 TclError: Any
 wantobjects: Any
