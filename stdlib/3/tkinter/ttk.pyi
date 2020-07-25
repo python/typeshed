@@ -188,6 +188,7 @@ class Entry(Widget):  # actually inherits from tkinter.Entry
     def __init__(
         self,
         master: Optional[tkinter.Misc] = ...,
+        widget: Optional[str] = ...,
         *,
         class_: str = ...,
         cursor: tkinter._Cursor = ...,
