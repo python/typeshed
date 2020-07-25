@@ -38,7 +38,8 @@ from typing import Dict, Iterable, List, Sequence, Tuple, Union, cast
 
 
 def create_child_widgets(parent: tkinter.Misc) -> Dict[str, tkinter.Misc]:
-    img = tkinter.image_names()[0]
+    # TODO: remove ignore comment when image_names() has type hints
+    img: str = tkinter.image_names()[0]  # type: ignore
 
     # image can't be given to __init__, must config afterwards
     nonttk_optionmenu = tkinter.OptionMenu(parent, tkinter.StringVar(), "foo")
@@ -154,7 +155,9 @@ class ValueGenerator:
             if full_name == "tkinter._Cursor":
                 return ["hand2", ("hand2", "red"), ("hand2", "red", "blue")]
             if full_name == "tkinter._ImageSpec":
-                return cast(List[object], self.images) + list(tkinter.image_names())
+                # TODO: remove ignore comment when image_names() has type hints
+                image_names: Tuple[str] = tkinter.image_names()  # type: ignore
+                return cast(List[object], self.images) + list(image_names)
             if full_name == "tkinter._Padding":
                 return ["2c", ("2c",), ("2c", "3c"), ("2c", "3c", "4c"), ("2c", "3c", "4c", "5c")]
             if full_name == "tkinter._Relief":
