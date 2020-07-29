@@ -413,7 +413,7 @@ class Tk(Misc, Wm):
         sync: bool = ...,
         use: Optional[str] = ...,
     ) -> None: ...
-    def loadtk(self) -> None: ...
+    def loadtk(self) -> None: ...  # differs from _tkinter.TkappType.loadtk
     def destroy(self) -> None: ...
     def readprofile(self, baseName: str, className: str) -> None: ...
     report_callback_exception: Callable[[Type[BaseException], BaseException, TracebackType], Any]
@@ -441,7 +441,6 @@ class Tk(Misc, Wm):
     globalsetvar: Any
     globalunsetvar: Any
     interpaddr: Any
-    loadtk: Any
     mainloop: Any
     quit: Any
     record: Any
