@@ -302,7 +302,8 @@ class Misc:
     def grid_bbox(self, column: int, row: int) -> Optional[Tuple[int, int, int, int]]: ...
     @overload
     def grid_bbox(self, column: int, row: int, column2: int, row2: int) -> Optional[Tuple[int, int, int, int]]: ...
-    bbox = grid_bbox
+    # commented out to avoid conflicting with other bbox methods
+    # bbox = grid_bbox
     def grid_columnconfigure(self, index, cnf=..., **kw): ...  # TODO
     def grid_rowconfigure(self, index, cnf=..., **kw): ...  # TODO
     columnconfigure = grid_columnconfigure
@@ -563,11 +564,11 @@ class Grid:
     def grid_remove(self) -> None: ...
     def grid_info(self) -> _GridInfo: ...
     grid = grid_configure
-    bbox = Misc.grid_bbox
     location = Misc.grid_location
     size = Misc.grid_size
     # commented out to avoid mypy getting confused with multiple
     # inheritance and how things get overrided with different things
+    # bbox = Misc.grid_bbox
     # grid_bbox = Misc.grid_bbox
     # forget = grid_forget
     # info = grid_info
