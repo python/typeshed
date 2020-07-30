@@ -440,7 +440,10 @@ class Tk(Misc, Wm):
 
 def Tcl(screenName: Optional[Any] = ..., baseName: Optional[Any] = ..., className: str = ..., useTk: bool = ...): ...
 
-class _PackInfo(TypedDict):
+_InMiscTotal = TypedDict("_InMiscTotal", {"in": Misc})
+_InMiscNonTotal = TypedDict("_InMiscNonTotal", {"in": Misc}, total=False)
+
+class _PackInfo(_InMiscTotal):
     # 'before' and 'after' never appear in _PackInfo
     anchor: _Anchor
     expand: Literal[0, 1]
@@ -452,8 +455,6 @@ class _PackInfo(TypedDict):
     ipady: Union[int, Tuple[int, int]]
     padx: Union[int, Tuple[int, int]]
     pady: Union[int, Tuple[int, int]]
-    # FIXME: invalid syntax
-    # in: Misc
 
 class Pack:
     # _PackInfo is not the valid type for cnf because pad stuff accepts any
@@ -486,7 +487,7 @@ class Pack:
     slaves = Misc.pack_slaves
     pack_slaves = Misc.pack_slaves
 
-class _PlaceInfo(TypedDict, total=False):  # empty dict if widget hasn't been placed
+class _PlaceInfo(_InMiscNonTotal, total=False):  # empty dict if widget hasn't been placed
     anchor: _Anchor
     bordermode: Literal["inside", "outside", "ignore"]
     width: str  # can be int()ed (even after e.g. widget.place(height='2.3c') or similar)
@@ -497,8 +498,6 @@ class _PlaceInfo(TypedDict, total=False):  # empty dict if widget hasn't been pl
     relwidth: str  # can be float()ed if not empty string
     relx: float  # can be float()ed if not empty string
     rely: float  # can be float()ed if not empty string
-    # FIXME: invalid syntax
-    # in: Misc
 
 class Place:
     def place_configure(
@@ -527,7 +526,7 @@ class Place:
     slaves = Misc.place_slaves
     place_slaves = Misc.place_slaves
 
-class _GridInfo(TypedDict, total=False):  # empty dict if widget hasn't been gridded
+class _GridInfo(_InMiscNonTotal, total=False):  # empty dict if widget hasn't been gridded
     column: int
     columnspan: int
     row: int
@@ -537,8 +536,6 @@ class _GridInfo(TypedDict, total=False):  # empty dict if widget hasn't been gri
     padx: int
     pady: int
     sticky: str  # consists of letters 'n', 's', 'w', 'e', no repeats, may be empty
-    # FIXME: invalid syntax
-    # in: Misc
 
 class Grid:
     def grid_configure(
