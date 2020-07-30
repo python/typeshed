@@ -17,6 +17,7 @@ from typing import (
     NoReturn as NoReturn,
     Optional,
     Text as Text,
+    Tuple,
     Type as Type,
     TypeVar,
     ValuesView,
@@ -87,6 +88,8 @@ def get_type_hints(
     localns: Optional[Dict[str, Any]] = ...,
     include_extras: bool = ...,
 ) -> Dict[str, Any]: ...
+
+def get_args(tp: type) -> Tuple[type, ...]: ...
 
 Annotated: _SpecialForm = ...
 _AnnotatedAlias: Any = ...  # undocumented
