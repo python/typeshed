@@ -159,25 +159,12 @@ class TarFile(Iterable[TarInfo]):
         def chown(self, tarinfo: TarInfo, targetpath: AnyPath) -> None: ...  # undocumented
     def chmod(self, tarinfo: TarInfo, targetpath: AnyPath) -> None: ...  # undocumented
     def utime(self, tarinfo: TarInfo, targetpath: AnyPath) -> None: ...  # undocumented
-    # 3.7: exclude removed
-    # 3.6: any StrPath works instead of just str (not documented)
     if sys.version_info >= (3, 7):
         def add(
             self,
-            # name and arcname get converted to str in gettarinfo(), which needs str for using os.sep
             name: StrPath,
             arcname: Optional[StrPath] = ...,
             recursive: bool = ...,
-            *,
-            filter: Optional[Callable[[TarInfo], Optional[TarInfo]]] = ...,
-        ) -> None: ...
-    elif sys.version_info >= (3, 6):
-        def add(
-            self,
-            name: StrPath,
-            arcname: Optional[StrPath] = ...,
-            recursive: bool = ...,
-            exclude: Optional[Callable[[str], bool]] = ...,
             *,
             filter: Optional[Callable[[TarInfo], Optional[TarInfo]]] = ...,
         ) -> None: ...
