@@ -171,8 +171,8 @@ class TarFile(Iterable[TarInfo]):
     elif sys.version_info >= (3,):
         def add(
             self,
-            name: str,
-            arcname: Optional[str] = ...,
+            name: StrPath,
+            arcname: Optional[StrPath] = ...,
             recursive: bool = ...,
             exclude: Optional[Callable[[str], bool]] = ...,
             *,
