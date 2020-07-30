@@ -284,7 +284,7 @@ class Misc:
     def nametowidget(self, name): ...
     register: Any
     def configure(self, cnf: Optional[Any] = ..., **kw): ...
-    config: Any
+    config = configure
     def cget(self, key): ...
     __getitem__: Any
     def __setitem__(self, key, value): ...
@@ -306,7 +306,7 @@ class Misc:
     def grid_columnconfigure(self, index, cnf=..., **kw): ...  # TODO
     def grid_rowconfigure(self, index, cnf=..., **kw): ...  # TODO
     columnconfigure = grid_columnconfigure
-    rowconfigure: grid_rowconfigure
+    rowconfigure = grid_rowconfigure
     def grid_location(self, x: _ScreenUnits, y: _ScreenUnits) -> Tuple[int, int]: ...
     @overload
     def grid_propagate(self, flag: bool) -> None: ...
@@ -481,11 +481,15 @@ class Pack:
     def pack_info(self) -> _PackInfo: ...  # errors if widget hasn't been packed
     pack = pack_configure
     forget = pack_forget
-    info = pack_info
     propagate = Misc.pack_propagate
-    pack_propagate = Misc.pack_propagate
-    slaves = Misc.pack_slaves
-    pack_slaves = Misc.pack_slaves
+    # commented out to avoid mypy getting confused with multiple
+    # inheritance and how things get overrided with different things
+    # info = pack_info
+    # pack_propagate = Misc.pack_propagate
+    # configure = pack_configure
+    # config = pack_configure
+    # slaves = Misc.pack_slaves
+    # pack_slaves = Misc.pack_slaves
 
 class _PlaceInfo(_InMiscNonTotal, total=False):  # empty dict if widget hasn't been placed
     anchor: _Anchor
@@ -519,12 +523,14 @@ class Place:
     def place_forget(self) -> None: ...
     def place_info(self) -> _PlaceInfo: ...
     place = place_configure
-    config = place_configure
-    configure = place_configure
-    forget = place_forget
     info = place_info
-    slaves = Misc.place_slaves
-    place_slaves = Misc.place_slaves
+    # commented out to avoid mypy getting confused with multiple
+    # inheritance and how things get overrided with different things
+    # config = place_configure
+    # configure = place_configure
+    # forget = place_forget
+    # slaves = Misc.place_slaves
+    # place_slaves = Misc.place_slaves
 
 class _GridInfo(_InMiscNonTotal, total=False):  # empty dict if widget hasn't been gridded
     column: int
@@ -557,24 +563,26 @@ class Grid:
     def grid_remove(self) -> None: ...
     def grid_info(self) -> _GridInfo: ...
     grid = grid_configure
-    config = grid_configure
-    configure = grid_configure
-    grid_bbox = Misc.grid_bbox
     bbox = Misc.grid_bbox
-    grid_columnconfigure = Misc.grid_columnconfigure
-    columnconfigure = Misc.grid_columnconfigure
-    forget = grid_forget
-    info = grid_info
     location = Misc.grid_location
-    grid_location = Misc.grid_location
-    propagate = Misc.grid_propagate
-    grid_propagate = Misc.grid_propagate
-    rowconfigure = Misc.grid_rowconfigure
-    grid_rowconfigure = Misc.grid_rowconfigure
     size = Misc.grid_size
-    grid_size = Misc.grid_size
-    slaves = Misc.grid_slaves
-    grid_slaves = Misc.grid_slaves
+    # commented out to avoid mypy getting confused with multiple
+    # inheritance and how things get overrided with different things
+    # grid_bbox = Misc.grid_bbox
+    # forget = grid_forget
+    # info = grid_info
+    # grid_location = Misc.grid_location
+    # grid_propagate = Misc.grid_propagate
+    # grid_size = Misc.grid_size
+    # rowconfigure = Misc.grid_rowconfigure
+    # grid_rowconfigure = Misc.grid_rowconfigure
+    # grid_columnconfigure = Misc.grid_columnconfigure
+    # columnconfigure = Misc.grid_columnconfigure
+    # config = grid_configure
+    # configure = grid_configure
+    # propagate = Misc.grid_propagate
+    # slaves = Misc.grid_slaves
+    # grid_slaves = Misc.grid_slaves
 
 class BaseWidget(Misc):
     widgetName: Any
