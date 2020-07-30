@@ -2,7 +2,7 @@ import sys
 from enum import Enum
 from tkinter.constants import *  # noqa: F403
 from types import TracebackType
-from typing import Any, Callable, Dict, Generic, Optional, Tuple, Type, TypeVar, Union, overload
+from typing import Any, Callable, Dict, Generic, List, Optional, Tuple, Type, TypeVar, Union, overload
 from typing_extensions import Literal
 
 TclError: Any
