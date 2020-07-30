@@ -3,7 +3,7 @@ from enum import Enum
 from tkinter.constants import *  # noqa: F403
 from types import TracebackType
 from typing import Any, Callable, Dict, Generic, Optional, Tuple, Type, TypeVar, Union, overload
-from typing_extensions import Literal
+from typing_extensions import Literal, TypedDict
 
 TclError: Any
 wantobjects: Any
@@ -12,6 +12,16 @@ TclVersion: Any
 READABLE: Any
 WRITABLE: Any
 EXCEPTION: Any
+
+# If a manual page mentions Tk_GetAnchor or refers to another manual page named
+# 'options', then it means this. Note that some ttk widgets have other things
+# named 'anchor' with a different set of allowed values.
+_Anchor = Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"]
+
+# string must be e.g. '12.34', '12.34c', '12.34i', '12.34m', '12.34p'
+# see Tk_GetPixels man page for what each suffix means
+# Some ttk widgets also use empty string.
+_ScreenUnits = Union[str, float]
 
 if sys.version_info >= (3, 6):
     class EventType(str, Enum):
@@ -420,40 +430,144 @@ class Tk(Misc, Wm):
 
 def Tcl(screenName: Optional[Any] = ..., baseName: Optional[Any] = ..., className: str = ..., useTk: bool = ...): ...
 
+class _PackInfo(TypedDict):
+    # 'before' and 'after' never appear in _PackInfo
+    anchor: _Anchor
+    expand: Literal[0, 1]
+    fill: Literal["none", "x", "y", "both"]
+    side: Literal["left", "right", "top", "bottom"]
+    # Paddings come out as int or tuple of int, even though any _ScreenUnits
+    # can be specified in pack().
+    ipadx: Union[int, Tuple[int, int]]
+    ipady: Union[int, Tuple[int, int]]
+    padx: Union[int, Tuple[int, int]]
+    pady: Union[int, Tuple[int, int]]
+    # FIXME: invalid syntax
+    # in: Misc
+
 class Pack:
-    def pack_configure(self, cnf=..., **kw): ...
-    pack: Any
-    def pack_forget(self): ...
-    forget: Any
-    def pack_info(self): ...
-    info: Any
-    propagate: Any
-    slaves: Any
+    # _PackInfo is not the valid type for cnf because pad stuff accepts any
+    # _ScreenUnits instead of int only. I didn't bother to create another
+    # TypedDict for cnf because it appears to be a legacy thing that was
+    # replaced by **kwargs.
+    def pack_configure(
+        self,
+        cnf: Optional[Dict[str, Any]] = ...,
+        *,
+        after: Misc = ...,
+        anchor: _Anchor = ...,
+        before: Misc = ...,
+        expand: bool = ...,
+        fill: Literal["none", "x", "y", "both"] = ...,
+        side: Literal["left", "right", "top", "bottom"] = ...,
+        ipadx: Union[_ScreenUnits, Tuple[_ScreenUnits, _ScreenUnits]] = ...,
+        ipady: Union[_ScreenUnits, Tuple[_ScreenUnits, _ScreenUnits]] = ...,
+        padx: Union[_ScreenUnits, Tuple[_ScreenUnits, _ScreenUnits]] = ...,
+        pady: Union[_ScreenUnits, Tuple[_ScreenUnits, _ScreenUnits]] = ...,
+        in_: Misc = ...,
+    ) -> None: ...
+    def pack_forget(self) -> None: ...
+    def pack_info(self) -> _PackInfo: ...  # errors if widget hasn't been packed
+    pack = pack_configure
+    forget = pack_forget
+    info = pack_info
+    propagate = Misc.pack_propagate
+    pack_propagate = Misc.pack_propagate
+    slaves = Misc.pack_slaves
+    pack_slaves = Misc.pack_slaves
+
+class _PlaceInfo(TypedDict, total=False):  # empty dict if widget hasn't been placed
+    anchor: _Anchor
+    bordermode: Literal["inside", "outside", "ignore"]
+    width: str  # can be int()ed (even after e.g. widget.place(height='2.3c') or similar)
+    height: str  # can be int()ed
+    x: str  # can be int()ed
+    y: str  # can be int()ed
+    relheight: str  # can be float()ed if not empty string
+    relwidth: str  # can be float()ed if not empty string
+    relx: float  # can be float()ed if not empty string
+    rely: float  # can be float()ed if not empty string
+    # FIXME: invalid syntax
+    # in: Misc
 
 class Place:
-    def place_configure(self, cnf=..., **kw): ...
-    place: Any
-    def place_forget(self): ...
-    forget: Any
-    def place_info(self): ...
-    info: Any
-    slaves: Any
+    def place_configure(
+        self,
+        cnf: Optional[Dict[str, Any]] = ...,
+        *,
+        anchor: _Anchor = ...,
+        bordermode: Literal["inside", "outside", "ignore"] = ...,
+        width: _ScreenUnits = ...,
+        height: _ScreenUnits = ...,
+        x: _ScreenUnits = ...,
+        y: _ScreenUnits = ...,
+        relheight: float = ...,
+        relwidth: float = ...,
+        relx: float = ...,
+        rely: float = ...,
+        in_: Misc = ...,
+    ) -> None: ...
+    def place_forget(self) -> None: ...
+    def place_info(self) -> _PlaceInfo: ...
+    place = place_configure
+    config = place_configure
+    configure = place_configure
+    forget = place_forget
+    info = place_info
+    slaves = Misc.place_slaves
+    place_slaves = Misc.place_slaves
+
+class _GridInfo(TypedDict, total=False):  # empty dict if widget hasn't been gridded
+    column: int
+    columnspan: int
+    row: int
+    rowspan: int
+    ipadx: int
+    ipady: int
+    padx: int
+    pady: int
+    sticky: str  # consists of letters 'n', 's', 'w', 'e', no repeats, may be empty
+    # FIXME: invalid syntax
+    # in: Misc
 
 class Grid:
-    def grid_configure(self, cnf=..., **kw): ...
-    grid: Any
-    bbox: Any
-    columnconfigure: Any
-    def grid_forget(self): ...
-    forget: Any
-    def grid_remove(self): ...
-    def grid_info(self): ...
-    info: Any
-    location: Any
-    propagate: Any
-    rowconfigure: Any
-    size: Any
-    slaves: Any
+    def grid_configure(
+        self,
+        cnf: Optional[Dict[str, Any]] = ...,
+        *,
+        column: int = ...,
+        columnspan: int = ...,
+        row: int = ...,
+        rowspan: int = ...,
+        ipadx: _ScreenUnits = ...,
+        ipady: _ScreenUnits = ...,
+        padx: _ScreenUnits = ...,
+        pady: _ScreenUnits = ...,
+        sticky: str = ...,  # consists of letters 'n', 's', 'w', 'e', may contain repeats, may be empty
+        in_: Misc = ...,
+    ) -> None: ...
+    def grid_forget(self) -> None: ...
+    def grid_remove(self) -> None: ...
+    def grid_info(self) -> _GridInfo: ...
+    grid = grid_configure
+    config = grid_configure
+    configure = grid_configure
+    grid_bbox = Misc.grid_bbox
+    bbox = Misc.grid_bbox
+    grid_columnconfigure = Misc.grid_columnconfigure
+    columnconfigure = Misc.grid_columnconfigure
+    forget = grid_forget
+    info = grid_info
+    location = Misc.grid_location
+    grid_location = Misc.grid_location
+    propagate = Misc.grid_propagate
+    grid_propagate = Misc.grid_propagate
+    rowconfigure = Misc.grid_rowconfigure
+    grid_rowconfigure = Misc.grid_rowconfigure
+    size = Misc.grid_size
+    grid_size = Misc.grid_size
+    slaves = Misc.grid_slaves
+    grid_slaves = Misc.grid_slaves
 
 class BaseWidget(Misc):
     widgetName: Any
