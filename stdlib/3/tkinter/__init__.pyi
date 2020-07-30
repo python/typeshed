@@ -419,8 +419,8 @@ class Tk(Misc, Wm):
     report_callback_exception: Callable[[Type[BaseException], BaseException, TracebackType], Any]
     # Tk has __getattr__ so that tk_instance.foo falls back to tk_instance.tk.foo
     # Please keep in sync with _tkinter.TkappType
-    def call(self, __command: str, *args: Any) -> str: ...
-    def eval(self, __script: str) -> Any: ...
+    call: Callable[..., str]
+    eval: Callable[str, Any]
     adderrorinfo: Any
     createcommand: Any
     createfilehandler: Any
