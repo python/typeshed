@@ -420,7 +420,7 @@ class Tk(Misc, Wm):
     # Tk has __getattr__ so that tk_instance.foo falls back to tk_instance.tk.foo
     # Please keep in sync with _tkinter.TkappType
     call: Callable[..., str]
-    eval: Callable[str, Any]
+    eval: Callable[[str], Any]
     adderrorinfo: Any
     createcommand: Any
     createfilehandler: Any
