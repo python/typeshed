@@ -383,6 +383,8 @@ threading.Semaphore.__enter__
 threading.Semaphore.acquire
 threading.Thread.__init__
 timeit.main
+tkinter.Misc.grid_propagate
+tkinter.Misc.pack_propagate
 trace.CoverageResults.__init__
 traceback.FrameSummary.__init__
 traceback.TracebackException.__init__

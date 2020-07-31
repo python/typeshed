@@ -3,7 +3,7 @@ from enum import Enum
 from tkinter.constants import *  # noqa: F403
 from types import TracebackType
 from typing import Any, Callable, Dict, Generic, List, Optional, Tuple, Type, TypeVar, Union, overload
-from typing_extensions import Literal
+from typing_extensions import Literal, TypedDict
 
 TclError: Any
 wantobjects: Any
@@ -12,6 +12,16 @@ TclVersion: Any
 READABLE: Any
 WRITABLE: Any
 EXCEPTION: Any
+
+# If a manual page mentions Tk_GetAnchor or refers to another manual page named
+# 'options', then it means this. Note that some ttk widgets have other things
+# named 'anchor' with a different set of allowed values.
+_Anchor = Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"]
+
+# string must be e.g. '12.34', '12.34c', '12.34i', '12.34m', '12.34p'
+# see Tk_GetPixels man page for what each suffix means
+# Some ttk widgets also use empty string.
+_ScreenUnits = Union[str, float]
 
 if sys.version_info >= (3, 6):
     class EventType(str, Enum):
@@ -280,31 +290,44 @@ class Misc:
     def nametowidget(self, name): ...
     register: Any
     def configure(self, cnf: Optional[Any] = ..., **kw): ...
-    config: Any
+    config = configure
     def cget(self, key): ...
     __getitem__: Any
     def __setitem__(self, key, value): ...
     def keys(self): ...
-    def pack_propagate(self, flag=...): ...
-    propagate: Any
-    def pack_slaves(self): ...
-    slaves: Any
-    def place_slaves(self): ...
-    def grid_anchor(self, anchor: Optional[Any] = ...): ...
-    anchor: Any
+    @overload
+    def pack_propagate(self, flag: bool) -> Optional[bool]: ...
+    @overload
+    def pack_propagate(self) -> None: ...
+    propagate = pack_propagate
+    def grid_anchor(self, anchor: Optional[_Anchor] = ...) -> None: ...
+    anchor = grid_anchor
+    @overload
     def grid_bbox(
-        self, column: Optional[Any] = ..., row: Optional[Any] = ..., col2: Optional[Any] = ..., row2: Optional[Any] = ...
-    ): ...
-    bbox: Any
-    def grid_columnconfigure(self, index, cnf=..., **kw): ...
-    columnconfigure: Any
-    def grid_location(self, x, y): ...
-    def grid_propagate(self, flag=...): ...
-    def grid_rowconfigure(self, index, cnf=..., **kw): ...
-    rowconfigure: Any
-    def grid_size(self): ...
-    size: Any
-    def grid_slaves(self, row: Optional[Any] = ..., column: Optional[Any] = ...): ...
+        self, column: None = ..., row: None = ..., col2: None = ..., row2: None = ...
+    ) -> Optional[Tuple[int, int, int, int]]: ...
+    @overload
+    def grid_bbox(self, column: int, row: int, col2: None = ..., row2: None = ...) -> Optional[Tuple[int, int, int, int]]: ...
+    @overload
+    def grid_bbox(self, column: int, row: int, col2: int, row2: int) -> Optional[Tuple[int, int, int, int]]: ...
+    # commented out to avoid conflicting with other bbox methods
+    # bbox = grid_bbox
+    def grid_columnconfigure(self, index, cnf=..., **kw): ...  # TODO
+    def grid_rowconfigure(self, index, cnf=..., **kw): ...  # TODO
+    columnconfigure = grid_columnconfigure
+    rowconfigure = grid_rowconfigure
+    def grid_location(self, x: _ScreenUnits, y: _ScreenUnits) -> Tuple[int, int]: ...
+    @overload
+    def grid_propagate(self, flag: bool) -> None: ...
+    @overload
+    def grid_propagate(self) -> bool: ...
+    def grid_size(self) -> Tuple[int, int]: ...
+    size = grid_size
+    # Widget because Toplevel or Tk is never a slave
+    def pack_slaves(self) -> List[Widget]: ...
+    def grid_slaves(self, row: Optional[int] = ..., column: Optional[int] = ...) -> List[Widget]: ...
+    def place_slaves(self) -> List[Widget]: ...
+    slaves = pack_slaves
     def event_add(self, virtual, *sequences): ...
     def event_delete(self, virtual, *sequences): ...
     def event_generate(self, sequence, **kw): ...
@@ -426,40 +449,149 @@ class Tk(Misc, Wm):
 
 def Tcl(screenName: Optional[Any] = ..., baseName: Optional[Any] = ..., className: str = ..., useTk: bool = ...): ...
 
+_InMiscTotal = TypedDict("_InMiscTotal", {"in": Misc})
+_InMiscNonTotal = TypedDict("_InMiscNonTotal", {"in": Misc}, total=False)
+
+class _PackInfo(_InMiscTotal):
+    # 'before' and 'after' never appear in _PackInfo
+    anchor: _Anchor
+    expand: Literal[0, 1]
+    fill: Literal["none", "x", "y", "both"]
+    side: Literal["left", "right", "top", "bottom"]
+    # Paddings come out as int or tuple of int, even though any _ScreenUnits
+    # can be specified in pack().
+    ipadx: Union[int, Tuple[int, int]]
+    ipady: Union[int, Tuple[int, int]]
+    padx: Union[int, Tuple[int, int]]
+    pady: Union[int, Tuple[int, int]]
+
 class Pack:
-    def pack_configure(self, cnf=..., **kw): ...
-    pack: Any
-    def pack_forget(self): ...
-    forget: Any
-    def pack_info(self): ...
-    info: Any
-    propagate: Any
-    slaves: Any
+    # _PackInfo is not the valid type for cnf because pad stuff accepts any
+    # _ScreenUnits instead of int only. I didn't bother to create another
+    # TypedDict for cnf because it appears to be a legacy thing that was
+    # replaced by **kwargs.
+    def pack_configure(
+        self,
+        cnf: Optional[Dict[str, Any]] = ...,
+        *,
+        after: Misc = ...,
+        anchor: _Anchor = ...,
+        before: Misc = ...,
+        expand: bool = ...,
+        fill: Literal["none", "x", "y", "both"] = ...,
+        side: Literal["left", "right", "top", "bottom"] = ...,
+        ipadx: Union[_ScreenUnits, Tuple[_ScreenUnits, _ScreenUnits]] = ...,
+        ipady: Union[_ScreenUnits, Tuple[_ScreenUnits, _ScreenUnits]] = ...,
+        padx: Union[_ScreenUnits, Tuple[_ScreenUnits, _ScreenUnits]] = ...,
+        pady: Union[_ScreenUnits, Tuple[_ScreenUnits, _ScreenUnits]] = ...,
+        in_: Misc = ...,
+    ) -> None: ...
+    def pack_forget(self) -> None: ...
+    def pack_info(self) -> _PackInfo: ...  # errors if widget hasn't been packed
+    pack = pack_configure
+    forget = pack_forget
+    propagate = Misc.pack_propagate
+    # commented out to avoid mypy getting confused with multiple
+    # inheritance and how things get overrided with different things
+    # info = pack_info
+    # pack_propagate = Misc.pack_propagate
+    # configure = pack_configure
+    # config = pack_configure
+    # slaves = Misc.pack_slaves
+    # pack_slaves = Misc.pack_slaves
+
+class _PlaceInfo(_InMiscNonTotal, total=False):  # empty dict if widget hasn't been placed
+    anchor: _Anchor
+    bordermode: Literal["inside", "outside", "ignore"]
+    width: str  # can be int()ed (even after e.g. widget.place(height='2.3c') or similar)
+    height: str  # can be int()ed
+    x: str  # can be int()ed
+    y: str  # can be int()ed
+    relheight: str  # can be float()ed if not empty string
+    relwidth: str  # can be float()ed if not empty string
+    relx: float  # can be float()ed if not empty string
+    rely: float  # can be float()ed if not empty string
 
 class Place:
-    def place_configure(self, cnf=..., **kw): ...
-    place: Any
-    def place_forget(self): ...
-    forget: Any
-    def place_info(self): ...
-    info: Any
-    slaves: Any
+    def place_configure(
+        self,
+        cnf: Optional[Dict[str, Any]] = ...,
+        *,
+        anchor: _Anchor = ...,
+        bordermode: Literal["inside", "outside", "ignore"] = ...,
+        width: _ScreenUnits = ...,
+        height: _ScreenUnits = ...,
+        x: _ScreenUnits = ...,
+        y: _ScreenUnits = ...,
+        relheight: float = ...,
+        relwidth: float = ...,
+        relx: float = ...,
+        rely: float = ...,
+        in_: Misc = ...,
+    ) -> None: ...
+    def place_forget(self) -> None: ...
+    def place_info(self) -> _PlaceInfo: ...
+    place = place_configure
+    info = place_info
+    # commented out to avoid mypy getting confused with multiple
+    # inheritance and how things get overrided with different things
+    # config = place_configure
+    # configure = place_configure
+    # forget = place_forget
+    # slaves = Misc.place_slaves
+    # place_slaves = Misc.place_slaves
+
+class _GridInfo(_InMiscNonTotal, total=False):  # empty dict if widget hasn't been gridded
+    column: int
+    columnspan: int
+    row: int
+    rowspan: int
+    ipadx: int
+    ipady: int
+    padx: int
+    pady: int
+    sticky: str  # consists of letters 'n', 's', 'w', 'e', no repeats, may be empty
 
 class Grid:
-    def grid_configure(self, cnf=..., **kw): ...
-    grid: Any
-    bbox: Any
-    columnconfigure: Any
-    def grid_forget(self): ...
-    forget: Any
-    def grid_remove(self): ...
-    def grid_info(self): ...
-    info: Any
-    location: Any
-    propagate: Any
-    rowconfigure: Any
-    size: Any
-    slaves: Any
+    def grid_configure(
+        self,
+        cnf: Optional[Dict[str, Any]] = ...,
+        *,
+        column: int = ...,
+        columnspan: int = ...,
+        row: int = ...,
+        rowspan: int = ...,
+        ipadx: _ScreenUnits = ...,
+        ipady: _ScreenUnits = ...,
+        padx: _ScreenUnits = ...,
+        pady: _ScreenUnits = ...,
+        sticky: str = ...,  # consists of letters 'n', 's', 'w', 'e', may contain repeats, may be empty
+        in_: Misc = ...,
+    ) -> None: ...
+    def grid_forget(self) -> None: ...
+    def grid_remove(self) -> None: ...
+    def grid_info(self) -> _GridInfo: ...
+    grid = grid_configure
+    location = Misc.grid_location
+    size = Misc.grid_size
+    # commented out to avoid mypy getting confused with multiple
+    # inheritance and how things get overrided with different things
+    # bbox = Misc.grid_bbox
+    # grid_bbox = Misc.grid_bbox
+    # forget = grid_forget
+    # info = grid_info
+    # grid_location = Misc.grid_location
+    # grid_propagate = Misc.grid_propagate
+    # grid_size = Misc.grid_size
+    # rowconfigure = Misc.grid_rowconfigure
+    # grid_rowconfigure = Misc.grid_rowconfigure
+    # grid_columnconfigure = Misc.grid_columnconfigure
+    # columnconfigure = Misc.grid_columnconfigure
+    # config = grid_configure
+    # configure = grid_configure
+    # propagate = Misc.grid_propagate
+    # slaves = Misc.grid_slaves
+    # grid_slaves = Misc.grid_slaves
 
 class BaseWidget(Misc):
     widgetName: Any
