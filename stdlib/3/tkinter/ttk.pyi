@@ -276,7 +276,7 @@ class Combobox(Widget):  # actually inherits from Entry
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
         textvariable: tkinter.Variable = ...,
-        values: Union[tkinter._TkinterSequence[str], tkinter._TkinterSequence[float]] = ...,
+        values: tkinter._TkinterSequence[str] = ...,
         width: int = ...,
     ) -> None: ...
     @overload
@@ -293,7 +293,7 @@ class Combobox(Widget):  # actually inherits from Entry
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
         textvariable: tkinter.Variable = ...,
-        values: Union[tkinter._TkinterSequence[str], tkinter._TkinterSequence[float]] = ...,
+        values: tkinter._TkinterSequence[str] = ...,
         width: int = ...,
     ) -> Optional[Dict[str, Tuple[str, str, str, Any, Any]]]: ...
     @overload
@@ -925,7 +925,7 @@ if sys.version_info >= (3, 7):
             style: str = ...,
             takefocus: tkinter._TakeFocusValue = ...,
             to: float = ...,
-            values: Union[tkinter._TkinterSequence[str], tkinter._TkinterSequence[float]] = ...,
+            values: tkinter._TkinterSequence[str] = ...,
             wrap: bool = ...,
             xscrollcommand: tkinter._XYScrollCommand = ...,
         ) -> None: ...
@@ -943,7 +943,7 @@ if sys.version_info >= (3, 7):
             style: str = ...,
             takefocus: tkinter._TakeFocusValue = ...,
             to: float = ...,
-            values: Union[tkinter._TkinterSequence[str], tkinter._TkinterSequence[float]] = ...,
+            values: tkinter._TkinterSequence[str] = ...,
             wrap: bool = ...,
             xscrollcommand: tkinter._XYScrollCommand = ...,
         ) -> Optional[Dict[str, Tuple[str, str, str, Any, Any]]]: ...
