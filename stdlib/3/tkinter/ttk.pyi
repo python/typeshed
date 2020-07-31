@@ -4,11 +4,6 @@ from tkinter import Event
 from typing import Any, Callable, Dict, List, Optional, Tuple, TypeVar, Union, overload
 from typing_extensions import Literal
 
-# copy/pasta from __init__.py to make pytype happy
-# https://github.com/google/pytype/issues/626
-_T = TypeVar("_T")
-_TkinterSequence = Union[List[_T], Tuple[_T, ...]]
-
 def tclobjs_to_py(adict): ...
 def setup_master(master: Optional[Any] = ...): ...
 
@@ -281,7 +276,7 @@ class Combobox(Widget):  # actually inherits from Entry
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
         textvariable: tkinter.Variable = ...,
-        values: Union[_TkinterSequence[str], _TkinterSequence[float]] = ...,
+        values: Union[tkinter._TkinterSequence[str], tkinter._TkinterSequence[float]] = ...,
         width: int = ...,
     ) -> None: ...
     @overload
@@ -298,7 +293,7 @@ class Combobox(Widget):  # actually inherits from Entry
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
         textvariable: tkinter.Variable = ...,
-        values: Union[_TkinterSequence[str], _TkinterSequence[float]] = ...,
+        values: Union[tkinter._TkinterSequence[str], tkinter._TkinterSequence[float]] = ...,
         width: int = ...,
     ) -> Optional[Dict[str, Tuple[str, str, str, Any, Any]]]: ...
     @overload
@@ -930,7 +925,7 @@ if sys.version_info >= (3, 7):
             style: str = ...,
             takefocus: tkinter._TakeFocusValue = ...,
             to: float = ...,
-            values: Union[_TkinterSequence[str], _TkinterSequence[float]] = ...,
+            values: Union[tkinter._TkinterSequence[str], tkinter._TkinterSequence[float]] = ...,
             wrap: bool = ...,
             xscrollcommand: tkinter._XYScrollCommand = ...,
         ) -> None: ...
@@ -948,7 +943,7 @@ if sys.version_info >= (3, 7):
             style: str = ...,
             takefocus: tkinter._TakeFocusValue = ...,
             to: float = ...,
-            values: Union[_TkinterSequence[str], _TkinterSequence[float]] = ...,
+            values: Union[tkinter._TkinterSequence[str], tkinter._TkinterSequence[float]] = ...,
             wrap: bool = ...,
             xscrollcommand: tkinter._XYScrollCommand = ...,
         ) -> Optional[Dict[str, Tuple[str, str, str, Any, Any]]]: ...
@@ -1001,9 +996,9 @@ class Treeview(Widget, tkinter.XView, tkinter.YView):
         master: Optional[tkinter.Misc] = ...,
         *,
         class_: str = ...,
-        columns: _TkinterSequence[str] = ...,
+        columns: tkinter._TkinterSequence[str] = ...,
         cursor: tkinter._Cursor = ...,
-        displaycolumns: Union[_TkinterSequence[str], _TkinterSequence[int], Literal["#all"]] = ...,
+        displaycolumns: Union[tkinter._TkinterSequence[str], tkinter._TkinterSequence[int], Literal["#all"]] = ...,
         height: int = ...,
         padding: tkinter._Padding = ...,
         selectmode: Literal["extended", "browse", "none"] = ...,
@@ -1011,7 +1006,7 @@ class Treeview(Widget, tkinter.XView, tkinter.YView):
         #
         # 'tree headings' is same as ['tree', 'headings'], and I wouldn't be
         # surprised if someone was using it.
-        show: Union[Literal["tree", "headings", "tree headings"], _TkinterSequence[str]] = ...,
+        show: Union[Literal["tree", "headings", "tree headings"], tkinter._TkinterSequence[str]] = ...,
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
         xscrollcommand: tkinter._XYScrollCommand = ...,
@@ -1022,13 +1017,13 @@ class Treeview(Widget, tkinter.XView, tkinter.YView):
         self,
         cnf: Optional[Dict[str, Any]] = ...,
         *,
-        columns: _TkinterSequence[str] = ...,
+        columns: tkinter._TkinterSequence[str] = ...,
         cursor: tkinter._Cursor = ...,
-        displaycolumns: Union[_TkinterSequence[str], _TkinterSequence[int], Literal["#all"]] = ...,
+        displaycolumns: Union[tkinter._TkinterSequence[str], tkinter._TkinterSequence[int], Literal["#all"]] = ...,
         height: int = ...,
         padding: tkinter._Padding = ...,
         selectmode: Literal["extended", "browse", "none"] = ...,
-        show: Union[Literal["tree", "headings", "tree headings"], _TkinterSequence[str]] = ...,
+        show: Union[Literal["tree", "headings", "tree headings"], tkinter._TkinterSequence[str]] = ...,
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
         xscrollcommand: tkinter._XYScrollCommand = ...,

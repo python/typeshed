@@ -2,11 +2,6 @@ import tkinter
 from typing import List, Optional, Tuple, TypeVar, Union, overload
 from typing_extensions import Literal, TypedDict
 
-# copy/pasta from __init__.py to make pytype happy
-# https://github.com/google/pytype/issues/626
-_T = TypeVar("_T")
-_TkinterSequence = Union[List[_T], Tuple[_T, ...]]
-
 NORMAL: Literal["normal"]
 ROMAN: Literal["roman"]
 BOLD: Literal["bold"]
