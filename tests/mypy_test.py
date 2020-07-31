@@ -39,9 +39,9 @@ def log(args, *varargs):
         print(*varargs)
 
 
-def match(fn, args, blacklist):
-    if blacklist.match(fn):
-        log(args, fn, 'exluded by blacklist')
+def match(fn, args, exclude_list):
+    if exclude_list.match(fn):
+        log(args, fn, 'exluded by exclude list')
         return False
     if not args.filter and not args.exclude:
         log(args, fn, 'accept by default')
@@ -80,8 +80,8 @@ def libpath(major, minor):
 def main():
     args = parser.parse_args()
 
-    with open(os.path.join(os.path.dirname(__file__), "mypy_blacklist.txt")) as f:
-        blacklist = re.compile("(%s)$" % "|".join(
+    with open(os.path.join(os.path.dirname(__file__), "mypy_exclude_list.txt")) as f:
+        exclude_list = re.compile("(%s)$" % "|".join(
             re.findall(r"^\s*([^\s#]+)\s*(?:#.*)?$", f.read(), flags=re.M)))
 
     try:
@@ -90,7 +90,7 @@ def main():
         print("Cannot import mypy. Did you install it?")
         sys.exit(1)
 
-    versions = [(3, 8), (3, 7), (3, 6), (3, 5), (2, 7)]
+    versions = [(3, 9), (3, 8), (3, 7), (3, 6), (3, 5), (2, 7)]
     if args.python_version:
         versions = [v for v in versions
                     if any(('%d.%d' % v).startswith(av) for av in args.python_version)]
@@ -112,7 +112,7 @@ def main():
                 if mod in seen or mod.startswith('.'):
                     continue
                 if ext in ['.pyi', '.py']:
-                    if match(full, args, blacklist):
+                    if match(full, args, exclude_list):
                         seen.add(mod)
                         files.append(full)
                 elif (os.path.isfile(os.path.join(full, '__init__.pyi')) or
@@ -124,7 +124,7 @@ def main():
                             m, x = os.path.splitext(f)
                             if x in ['.pyi', '.py']:
                                 fn = os.path.join(r, f)
-                                if match(fn, args, blacklist):
+                                if match(fn, args, exclude_list):
                                     seen.add(mod)
                                     files.append(fn)
         if files:
@@ -135,6 +135,7 @@ def main():
             flags.append('--show-traceback')
             flags.append('--no-implicit-optional')
             flags.append('--disallow-any-generics')
+            flags.append('--disallow-subclassing-any')
             if args.warn_unused_ignores:
                 flags.append('--warn-unused-ignores')
             if args.platform:

@@ -1,4 +1,8 @@
 import sys
+from _typeshed import SupportsRead, SupportsReadline
+from socket import socket
+from ssl import SSLContext
+from types import TracebackType
 from typing import (
     Any,
     BinaryIO,
@@ -9,7 +13,6 @@ from typing import (
     Iterator,
     List,
     Optional,
-    Protocol,
     Text,
     TextIO,
     Tuple,
@@ -17,9 +20,6 @@ from typing import (
     TypeVar,
     Union,
 )
-from types import TracebackType
-from socket import socket
-from ssl import SSLContext
 
 _T = TypeVar("_T")
 _IntOrStr = Union[int, Text]
@@ -37,13 +37,7 @@ class error_temp(Error): ...
 class error_perm(Error): ...
 class error_proto(Error): ...
 
-all_errors = Tuple[Exception, ...]
-
-class _Readable(Protocol):
-    def read(self, __length: int) -> bytes: ...
-
-class _ReadLineable(Protocol):
-    def readline(self, _length: int) -> bytes: ...
+all_errors = Tuple[Type[Exception], ...]
 
 class FTP:
     debugging: int
@@ -118,13 +112,13 @@ class FTP:
     def storbinary(
         self,
         cmd: Text,
-        fp: _Readable,
+        fp: SupportsRead[bytes],
         blocksize: int = ...,
         callback: Optional[Callable[[bytes], Any]] = ...,
         rest: Optional[_IntOrStr] = ...,
     ) -> str: ...
     def retrlines(self, cmd: Text, callback: Optional[Callable[[str], Any]] = ...) -> str: ...
-    def storlines(self, cmd: Text, fp: _ReadLineable, callback: Optional[Callable[[bytes], Any]] = ...) -> str: ...
+    def storlines(self, cmd: Text, fp: SupportsReadline[bytes], callback: Optional[Callable[[bytes], Any]] = ...) -> str: ...
     def acct(self, password: Text) -> str: ...
     def nlst(self, *args: Text) -> List[str]: ...
     # Technically only the last arg can be a Callable but ...
@@ -134,7 +128,7 @@ class FTP:
     def rename(self, fromname: Text, toname: Text) -> str: ...
     def delete(self, filename: Text) -> str: ...
     def cwd(self, dirname: Text) -> str: ...
-    def size(self, filename: Text) -> str: ...
+    def size(self, filename: Text) -> Optional[int]: ...
     def mkd(self, dirname: Text) -> str: ...
     def rmd(self, dirname: Text) -> str: ...
     def pwd(self) -> str: ...

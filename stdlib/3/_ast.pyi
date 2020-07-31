@@ -1,6 +1,6 @@
 import sys
 import typing
-from typing import Any, Optional, ClassVar
+from typing import Any, ClassVar, Optional
 
 PyCF_ONLY_AST: int
 if sys.version_info >= (3, 8):
@@ -21,14 +21,11 @@ class AST:
         end_col_offset: Optional[int]
         type_comment: Optional[str]
 
-class mod(AST):
-    ...
+class mod(AST): ...
 
 if sys.version_info >= (3, 8):
     class type_ignore(AST): ...
-
     class TypeIgnore(type_ignore): ...
-
     class FunctionType(mod):
         argtypes: typing.List[expr]
         returns: expr
@@ -45,10 +42,6 @@ class Interactive(mod):
 
 class Expression(mod):
     body: expr
-
-class Suite(mod):
-    body: typing.List[stmt]
-
 
 class stmt(AST): ...
 
@@ -165,25 +158,6 @@ class Expr(stmt):
 class Pass(stmt): ...
 class Break(stmt): ...
 class Continue(stmt): ...
-
-
-class slice(AST):
-    ...
-
-_slice = slice  # this lets us type the variable named 'slice' below
-
-class Slice(slice):
-    lower: Optional[expr]
-    upper: Optional[expr]
-    step: Optional[expr]
-
-class ExtSlice(slice):
-    dims: typing.List[slice]
-
-class Index(slice):
-    value: expr
-
-
 class expr(AST): ...
 
 class BoolOp(expr):
@@ -251,26 +225,24 @@ class Call(expr):
     args: typing.List[expr]
     keywords: typing.List[keyword]
 
-class Num(expr):  # Deprecated in 3.8; use Constant
-    n: complex
-
-class Str(expr):  # Deprecated in 3.8; use Constant
-    s: str
-
 if sys.version_info >= (3, 6):
     class FormattedValue(expr):
         value: expr
         conversion: Optional[int]
         format_spec: Optional[expr]
-
     class JoinedStr(expr):
         values: typing.List[expr]
 
-class Bytes(expr):  # Deprecated in 3.8; use Constant
-    s: bytes
-
-class NameConstant(expr):
-    value: Any
+if sys.version_info < (3, 8):
+    class Num(expr):  # Deprecated in 3.8; use Constant
+        n: complex
+    class Str(expr):  # Deprecated in 3.8; use Constant
+        s: str
+    class Bytes(expr):  # Deprecated in 3.8; use Constant
+        s: bytes
+    class NameConstant(expr):  # Deprecated in 3.8; use Constant
+        value: Any
+    class Ellipsis(expr): ...  # Deprecated in 3.8; use Constant
 
 if sys.version_info >= (3, 6):
     class Constant(expr):
@@ -285,16 +257,31 @@ if sys.version_info >= (3, 8):
         target: expr
         value: expr
 
-class Ellipsis(expr): ...
-
 class Attribute(expr):
     value: expr
     attr: _identifier
     ctx: expr_context
 
+if sys.version_info >= (3, 9):
+    _SliceT = expr
+else:
+    class slice(AST): ...
+    _SliceT = slice
+
+class Slice(_SliceT):
+    lower: Optional[expr]
+    upper: Optional[expr]
+    step: Optional[expr]
+
+if sys.version_info < (3, 9):
+    class ExtSlice(slice):
+        dims: typing.List[slice]
+    class Index(slice):
+        value: expr
+
 class Subscript(expr):
     value: expr
-    slice: _slice
+    slice: _SliceT
     ctx: expr_context
 
 class Starred(expr):
@@ -313,27 +300,22 @@ class Tuple(expr):
     elts: typing.List[expr]
     ctx: expr_context
 
+class expr_context(AST): ...
 
-class expr_context(AST):
-    ...
+if sys.version_info < (3, 9):
+    class AugLoad(expr_context): ...
+    class AugStore(expr_context): ...
+    class Param(expr_context): ...
+    class Suite(mod):
+        body: typing.List[stmt]
 
-class AugLoad(expr_context): ...
-class AugStore(expr_context): ...
 class Del(expr_context): ...
 class Load(expr_context): ...
-class Param(expr_context): ...
 class Store(expr_context): ...
-
-
-class boolop(AST):
-    ...
-
+class boolop(AST): ...
 class And(boolop): ...
 class Or(boolop): ...
-
-class operator(AST):
-    ...
-
+class operator(AST): ...
 class Add(operator): ...
 class BitAnd(operator): ...
 class BitOr(operator): ...
@@ -347,18 +329,12 @@ class MatMult(operator): ...
 class Pow(operator): ...
 class RShift(operator): ...
 class Sub(operator): ...
-
-class unaryop(AST):
-    ...
-
+class unaryop(AST): ...
 class Invert(unaryop): ...
 class Not(unaryop): ...
 class UAdd(unaryop): ...
 class USub(unaryop): ...
-
-class cmpop(AST):
-    ...
-
+class cmpop(AST): ...
 class Eq(cmpop): ...
 class Gt(cmpop): ...
 class GtE(cmpop): ...
@@ -370,7 +346,6 @@ class LtE(cmpop): ...
 class NotEq(cmpop): ...
 class NotIn(cmpop): ...
 
-
 class comprehension(AST):
     target: expr
     iter: expr
@@ -378,15 +353,12 @@ class comprehension(AST):
     if sys.version_info >= (3, 6):
         is_async: int
 
-
-class excepthandler(AST):
-    ...
+class excepthandler(AST): ...
 
 class ExceptHandler(excepthandler):
     type: Optional[expr]
     name: Optional[_identifier]
     body: typing.List[stmt]
-
 
 class arguments(AST):
     if sys.version_info >= (3, 8):

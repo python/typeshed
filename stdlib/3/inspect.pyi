@@ -1,11 +1,8 @@
+import enum
 import sys
-from typing import (AbstractSet, Any, Callable, Dict, Generator, List, Mapping,
-                    NamedTuple, Optional, Sequence, Tuple, Type, Union,
-                    )
-from types import (CodeType, FrameType, FunctionType, MethodType, ModuleType,
-                   TracebackType,
-                   )
 from collections import OrderedDict
+from types import CodeType, FrameType, FunctionType, MethodType, ModuleType, TracebackType
+from typing import AbstractSet, Any, Callable, Dict, Generator, List, Mapping, NamedTuple, Optional, Sequence, Tuple, Type, Union
 
 #
 # Types and members
@@ -20,8 +17,7 @@ class BlockFinder:
     indecorator: bool
     decoratorhasargs: bool
     last: int
-    def tokeneater(self, type: int, token: str, srow_scol: Tuple[int, int],
-                   erow_ecol: Tuple[int, int], line: str) -> None: ...
+    def tokeneater(self, type: int, token: str, srowcol: Tuple[int, int], erowcol: Tuple[int, int], line: str) -> None: ...
 
 CO_OPTIMIZED: int
 CO_NEWLOCALS: int
@@ -44,24 +40,22 @@ if sys.version_info < (3, 6):
         module_type: int
     def getmoduleinfo(path: str) -> Optional[ModuleInfo]: ...
 
-def getmembers(object: object,
-               predicate: Optional[Callable[[Any], bool]] = ...,
-               ) -> List[Tuple[str, Any]]: ...
+def getmembers(object: object, predicate: Optional[Callable[[Any], bool]] = ...,) -> List[Tuple[str, Any]]: ...
 def getmodulename(path: str) -> Optional[str]: ...
-
 def ismodule(object: object) -> bool: ...
 def isclass(object: object) -> bool: ...
 def ismethod(object: object) -> bool: ...
 def isfunction(object: object) -> bool: ...
 def isgeneratorfunction(object: object) -> bool: ...
 def isgenerator(object: object) -> bool: ...
-
 def iscoroutinefunction(object: object) -> bool: ...
 def iscoroutine(object: object) -> bool: ...
 def isawaitable(object: object) -> bool: ...
+
 if sys.version_info >= (3, 6):
     def isasyncgenfunction(object: object) -> bool: ...
     def isasyncgen(object: object) -> bool: ...
+
 def istraceback(object: object) -> bool: ...
 def isframe(object: object) -> bool: ...
 def iscode(object: object) -> bool: ...
@@ -72,7 +66,6 @@ def ismethoddescriptor(object: object) -> bool: ...
 def isdatadescriptor(object: object) -> bool: ...
 def isgetsetdescriptor(object: object) -> bool: ...
 def ismemberdescriptor(object: object) -> bool: ...
-
 
 #
 # Retrieving source code
@@ -92,19 +85,13 @@ def getsource(object: _SourceObjectType) -> str: ...
 def cleandoc(doc: str) -> str: ...
 def indentsize(line: str) -> int: ...
 
-
 #
 # Introspecting callables with the Signature object
 #
-def signature(callable: Callable[..., Any],
-              *,
-              follow_wrapped: bool = ...) -> Signature: ...
+def signature(obj: Callable[..., Any], *, follow_wrapped: bool = ...) -> Signature: ...
 
 class Signature:
-    def __init__(self,
-                 parameters: Optional[Sequence[Parameter]] = ...,
-                 *,
-                 return_annotation: Any = ...) -> None: ...
+    def __init__(self, parameters: Optional[Sequence[Parameter]] = ..., *, return_annotation: Any = ...) -> None: ...
     # TODO: can we be more specific here?
     empty: object = ...
 
@@ -112,27 +99,19 @@ class Signature:
 
     # TODO: can we be more specific here?
     return_annotation: Any
-
     def bind(self, *args: Any, **kwargs: Any) -> BoundArguments: ...
     def bind_partial(self, *args: Any, **kwargs: Any) -> BoundArguments: ...
-    def replace(self,
-                *,
-                parameters: Optional[Sequence[Parameter]] = ...,
-                return_annotation: Any = ...) -> Signature: ...
-
+    def replace(self, *, parameters: Optional[Sequence[Parameter]] = ..., return_annotation: Any = ...) -> Signature: ...
     @classmethod
     def from_callable(cls, obj: Callable[..., Any], *, follow_wrapped: bool = ...) -> Signature: ...
 
 # The name is the same as the enum's name in CPython
-class _ParameterKind: ...
+class _ParameterKind(enum.IntEnum):
+    if sys.version_info >= (3, 8):
+        description: str
 
 class Parameter:
-    def __init__(self,
-                 name: str,
-                 kind: _ParameterKind,
-                 *,
-                 default: Any = ...,
-                 annotation: Any = ...) -> None: ...
+    def __init__(self, name: str, kind: _ParameterKind, *, default: Any = ..., annotation: Any = ...) -> None: ...
     empty: Any = ...
     name: str
     default: Any
@@ -144,22 +123,16 @@ class Parameter:
     VAR_POSITIONAL: _ParameterKind = ...
     KEYWORD_ONLY: _ParameterKind = ...
     VAR_KEYWORD: _ParameterKind = ...
-
-    def replace(self,
-                *,
-                name: Optional[str] = ...,
-                kind: Optional[_ParameterKind] = ...,
-                default: Any = ...,
-                annotation: Any = ...) -> Parameter: ...
+    def replace(
+        self, *, name: Optional[str] = ..., kind: Optional[_ParameterKind] = ..., default: Any = ..., annotation: Any = ...
+    ) -> Parameter: ...
 
 class BoundArguments:
     arguments: OrderedDict[str, Any]
     args: Tuple[Any, ...]
     kwargs: Dict[str, Any]
     signature: Signature
-
     def apply_defaults(self) -> None: ...
-
 
 #
 # Classes and functions
@@ -172,8 +145,8 @@ def getclasstree(classes: List[type], unique: bool = ...) -> Any: ...
 
 class ArgSpec(NamedTuple):
     args: List[str]
-    varargs: str
-    keywords: str
+    varargs: Optional[str]
+    keywords: Optional[str]
     defaults: Tuple[Any, ...]
 
 class Arguments(NamedTuple):
@@ -204,46 +177,42 @@ class ArgInfo(NamedTuple):
 def getargvalues(frame: FrameType) -> ArgInfo: ...
 def formatannotation(annotation: object, base_module: Optional[str] = ...) -> str: ...
 def formatannotationrelativeto(object: object) -> Callable[[object], str]: ...
-def formatargspec(args: List[str],
-                  varargs: Optional[str] = ...,
-                  varkw: Optional[str] = ...,
-                  defaults: Optional[Tuple[Any, ...]] = ...,
-                  kwonlyargs: Optional[List[str]] = ...,
-                  kwonlydefaults: Optional[Dict[str, Any]] = ...,
-                  annotations: Dict[str, Any] = ...,
-                  formatarg: Callable[[str], str] = ...,
-                  formatvarargs: Callable[[str], str] = ...,
-                  formatvarkw: Callable[[str], str] = ...,
-                  formatvalue: Callable[[Any], str] = ...,
-                  formatreturns: Callable[[Any], str] = ...,
-                  formatannotations: Callable[[Any], str] = ...,
-                  ) -> str: ...
-def formatargvalues(args: List[str],
-                    varargs: Optional[str] = ...,
-                    varkw: Optional[str] = ...,
-                    locals: Optional[Dict[str, Any]] = ...,
-                    formatarg: Optional[Callable[[str], str]] = ...,
-                    formatvarargs: Optional[Callable[[str], str]] = ...,
-                    formatvarkw: Optional[Callable[[str], str]] = ...,
-                    formatvalue: Optional[Callable[[Any], str]] = ...,
-                    ) -> str: ...
+def formatargspec(
+    args: List[str],
+    varargs: Optional[str] = ...,
+    varkw: Optional[str] = ...,
+    defaults: Optional[Tuple[Any, ...]] = ...,
+    kwonlyargs: Optional[Sequence[str]] = ...,
+    kwonlydefaults: Optional[Dict[str, Any]] = ...,
+    annotations: Dict[str, Any] = ...,
+    formatarg: Callable[[str], str] = ...,
+    formatvarargs: Callable[[str], str] = ...,
+    formatvarkw: Callable[[str], str] = ...,
+    formatvalue: Callable[[Any], str] = ...,
+    formatreturns: Callable[[Any], str] = ...,
+    formatannotation: Callable[[Any], str] = ...,
+) -> str: ...
+def formatargvalues(
+    args: List[str],
+    varargs: Optional[str],
+    varkw: Optional[str],
+    locals: Optional[Dict[str, Any]],
+    formatarg: Optional[Callable[[str], str]] = ...,
+    formatvarargs: Optional[Callable[[str], str]] = ...,
+    formatvarkw: Optional[Callable[[str], str]] = ...,
+    formatvalue: Optional[Callable[[Any], str]] = ...,
+) -> str: ...
 def getmro(cls: type) -> Tuple[type, ...]: ...
-
-def getcallargs(func: Callable[..., Any],
-                *args: Any,
-                **kwds: Any) -> Dict[str, Any]: ...
+def getcallargs(__func: Callable[..., Any], *args: Any, **kwds: Any) -> Dict[str, Any]: ...
 
 class ClosureVars(NamedTuple):
     nonlocals: Mapping[str, Any]
     globals: Mapping[str, Any]
     builtins: Mapping[str, Any]
     unbound: AbstractSet[str]
+
 def getclosurevars(func: Callable[..., Any]) -> ClosureVars: ...
-
-def unwrap(func: Callable[..., Any],
-           *,
-           stop: Optional[Callable[[Any], Any]] = ...) -> Any: ...
-
+def unwrap(func: Callable[..., Any], *, stop: Optional[Callable[[Any], Any]] = ...) -> Any: ...
 
 #
 # The interpreter stack
@@ -266,7 +235,7 @@ class FrameInfo(NamedTuple):
 
 def getframeinfo(frame: Union[FrameType, TracebackType], context: int = ...) -> Traceback: ...
 def getouterframes(frame: Any, context: int = ...) -> List[FrameInfo]: ...
-def getinnerframes(traceback: TracebackType, context: int = ...) -> List[FrameInfo]: ...
+def getinnerframes(tb: TracebackType, context: int = ...) -> List[FrameInfo]: ...
 def getlineno(frame: FrameType) -> int: ...
 def currentframe() -> Optional[FrameType]: ...
 def stack(context: int = ...) -> List[FrameInfo]: ...
@@ -277,7 +246,6 @@ def trace(context: int = ...) -> List[FrameInfo]: ...
 #
 
 def getattr_static(obj: object, attr: str, default: Optional[Any] = ...) -> Any: ...
-
 
 #
 # Current State of Generators and Coroutines
@@ -290,6 +258,7 @@ GEN_CREATED: str
 GEN_RUNNING: str
 GEN_SUSPENDED: str
 GEN_CLOSED: str
+
 def getgeneratorstate(generator: Generator[Any, Any, Any]) -> str: ...
 
 CORO_CREATED: str
@@ -298,7 +267,6 @@ CORO_SUSPENDED: str
 CORO_CLOSED: str
 # TODO can we be more specific than "object"?
 def getcoroutinestate(coroutine: object) -> str: ...
-
 def getgeneratorlocals(generator: Generator[Any, Any, Any]) -> Dict[str, Any]: ...
 
 # TODO can we be more specific than "object"?

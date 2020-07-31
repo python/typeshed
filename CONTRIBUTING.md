@@ -15,6 +15,7 @@ are important to the project's success.
       but [contact us](#discussion) before starting significant work.
     * Create your stubs [conforming to the coding style](#stub-file-coding-style).
     * Make sure your tests pass cleanly on `mypy`, `pytype`, and `flake8`.
+    * Reformat your stubs with `black` and `isort`.
 4. [Submit your changes](#submitting-changes) by opening a pull request.
 5. You can expect a reply within a few days:
     * Diffs are merged when considered ready by the core team.
@@ -85,6 +86,8 @@ At present the core developers are (alphabetically):
 * Greg Price (@gnprice)
 * Sebastian Rittau (@srittau)
 * Guido van Rossum (@gvanrossum)
+* Shantanu (@hauntsaninja)
+* Rune Tynan (@CraftSpider)
 * Jelle Zijlstra (@JelleZijlstra)
 
 NOTE: the process for preparing and submitting changes also applies to
@@ -156,7 +159,7 @@ annotated function `bar()`:
 def __getattr__(name: str) -> Any: ...  # incomplete
 
 class Foo:
-    def __getattr__(self, name: str) -> Any:  # incomplete
+    def __getattr__(self, name: str) -> Any: ...  # incomplete
     x: int
     y: str
 
@@ -220,8 +223,14 @@ rule is that they should be as concise as possible.  Specifically:
 * use variable annotations instead of type comments, even for stubs
   that target older versions of Python;
 * for arguments with a type and a default, use spaces around the `=`.
-The code formatter [black](https://github.com/psf/black) will format
-stubs according to this standard.
+
+Stubs should be reformatted with the formatters
+[black](https://github.com/psf/black) and
+[isort](https://github.com/timothycrosley/isort) before submission.
+These formatters are included in typeshed's `requirements-tests-py3.txt` file.
+A sample `pre-commit` file is included in the typeshed repository.  Copy it
+to `.git/hooks` and adjust the path to your virtual environment's `bin`
+directory to automatically reformat stubs before commit.
 
 Stub files should only contain information necessary for the type
 checker, and leave out unnecessary detail:
@@ -276,12 +285,22 @@ they are not part of the stubbed API.
 
 When adding type annotations for context manager classes, annotate
 the return type of `__exit__` as bool only if the context manager
-sometimes suppresses annotations -- if it sometimes returns `True`
+sometimes suppresses exceptions -- if it sometimes returns `True`
 at runtime. If the context manager never suppresses exceptions,
 have the return type be either `None` or `Optional[bool]`. If you
 are not sure whether exceptions are suppressed or not or if the
 context manager is meant to be subclassed, pick `Optional[bool]`.
 See https://github.com/python/mypy/issues/7214 for more details.
+
+A few guidelines for protocol names below. In cases that don't fall
+into any of those categories, use your best judgement.
+
+* Use plain names for protocols that represent a clear concept
+  (e.g. `Iterator`, `Container`).
+* Use `SupportsX` for protocols that provide callable methods (e.g.
+  `SupportsInt`, `SupportsRead`, `SupportsReadSeek`).
+* Use `HasX` for protocols that have readable and/or writable attributes
+  or getter/setter methods (e.g. `HasItems`, `HasFileno`).
 
 NOTE: there are stubs in this repository that don't conform to the
 style described above.  Fixing them is a great starting point for new
@@ -373,3 +392,13 @@ Core developers should follow these rules when processing pull requests:
 * Make sure commit messages to master are meaningful. For example, remove irrelevant
   intermediate commit messages.
 * If stubs for a new library are submitted, notify the library's maintainers.
+
+When reviewing PRs, follow these guidelines:
+
+* Typing is hard. Try to be helpful and explain issues with the PR,
+  especially to new contributors.
+* When reviewing auto-generated stubs, just scan for red flags and obvious
+  errors. Leave possible manual improvements for separate PRs.
+* When reviewing large, hand-crafted PRs, you only need to look for red flags
+  and general issues, and do a few spot checks.
+* Review smaller, hand-crafted PRs thoroughly.

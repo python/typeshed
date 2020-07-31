@@ -14,7 +14,7 @@ class error(Exception):
 
 class _NamedIntConstant(int):
     name: Any
-    def __new__(cls, value: int, name: str): ...
+    def __new__(cls, value: int, name: str) -> _NamedIntConstant: ...
 
 MAXREPEAT: _NamedIntConstant
 OPCODES: List[_NamedIntConstant]
@@ -38,7 +38,6 @@ SRE_FLAG_ASCII: int
 SRE_INFO_PREFIX: int
 SRE_INFO_LITERAL: int
 SRE_INFO_CHARSET: int
-
 
 # Stubgen above; manually defined constants below (dynamic at runtime)
 

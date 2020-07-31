@@ -1,7 +1,7 @@
 # Stubs for urllib.robotparser (Python 3.4)
 
-from typing import Iterable, NamedTuple, Optional
 import sys
+from typing import Iterable, List, NamedTuple, Optional
 
 class _RequestRate(NamedTuple):
     requests: int
@@ -18,3 +18,5 @@ class RobotFileParser:
     if sys.version_info >= (3, 6):
         def crawl_delay(self, useragent: str) -> Optional[str]: ...
         def request_rate(self, useragent: str) -> Optional[_RequestRate]: ...
+    if sys.version_info >= (3, 8):
+        def site_maps(self) -> Optional[List[str]]: ...

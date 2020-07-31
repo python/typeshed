@@ -1,7 +1,7 @@
-from typing import List, Tuple, Optional, Callable, Any, Protocol, Union, Dict, Text
-
 import pyexpat.errors as errors
 import pyexpat.model as model
+from _typeshed import SupportsRead
+from typing import Any, Callable, Dict, List, Optional, Text, Tuple, Union
 
 EXPAT_VERSION: str  # undocumented
 version_info: Tuple[int, int, int]  # undocumented
@@ -15,9 +15,6 @@ class ExpatError(Exception):
 
 error = ExpatError
 
-class _Reader(Protocol):
-    def read(self, length: int) -> bytes: ...
-
 XML_PARAM_ENTITY_PARSING_NEVER: int
 XML_PARAM_ENTITY_PARSING_UNLESS_STANDALONE: int
 XML_PARAM_ENTITY_PARSING_ALWAYS: int
@@ -25,14 +22,14 @@ XML_PARAM_ENTITY_PARSING_ALWAYS: int
 _Model = Tuple[int, int, Optional[str], tuple]
 
 class XMLParserType(object):
-    def Parse(self, data: Union[Text, bytes], isfinal: bool = ...) -> int: ...
-    def ParseFile(self, file: _Reader) -> int: ...
-    def SetBase(self, base: Text) -> None: ...
+    def Parse(self, __data: Union[Text, bytes], __isfinal: bool = ...) -> int: ...
+    def ParseFile(self, __file: SupportsRead[bytes]) -> int: ...
+    def SetBase(self, __base: Text) -> None: ...
     def GetBase(self) -> Optional[str]: ...
     def GetInputContext(self) -> Optional[bytes]: ...
-    def ExternalEntityParserCreate(self, context: Optional[Text], encoding: Text = ...) -> XMLParserType: ...
-    def SetParamEntityParsing(self, flag: int) -> int: ...
-    def UseForeignDTD(self, flag: bool = ...) -> None: ...
+    def ExternalEntityParserCreate(self, __context: Optional[Text], __encoding: Text = ...) -> XMLParserType: ...
+    def SetParamEntityParsing(self, __flag: int) -> int: ...
+    def UseForeignDTD(self, __flag: bool = ...) -> None: ...
     buffer_size: int
     buffer_text: bool
     buffer_used: int
@@ -51,10 +48,13 @@ class XMLParserType(object):
     EndDoctypeDeclHandler: Optional[Callable[[], Any]]
     ElementDeclHandler: Optional[Callable[[str, _Model], Any]]
     AttlistDeclHandler: Optional[Callable[[str, str, str, Optional[str], bool], Any]]
-    StartElementHandler: Optional[Union[
-        Callable[[str, Dict[str, str]], Any],
-        Callable[[str, List[str]], Any],
-        Callable[[str, Union[Dict[str, str]], List[str]], Any]]]
+    StartElementHandler: Optional[
+        Union[
+            Callable[[str, Dict[str, str]], Any],
+            Callable[[str, List[str]], Any],
+            Callable[[str, Union[Dict[str, str]], List[str]], Any],
+        ]
+    ]
     EndElementHandler: Optional[Callable[[str], Any]]
     ProcessingInstructionHandler: Optional[Callable[[str, str], Any]]
     CharacterDataHandler: Optional[Callable[[str], Any]]
@@ -71,5 +71,9 @@ class XMLParserType(object):
     NotStandaloneHandler: Optional[Callable[[], int]]
     ExternalEntityRefHandler: Optional[Callable[[str, Optional[str], Optional[str], Optional[str]], int]]
 
-def ErrorString(errno: int) -> str: ...
-def ParserCreate(encoding: Optional[Text] = ..., namespace_separator: Optional[Text] = ...) -> XMLParserType: ...
+def ErrorString(__code: int) -> str: ...
+
+# intern is undocumented
+def ParserCreate(
+    encoding: Optional[Text] = ..., namespace_separator: Optional[Text] = ..., intern: Optional[Dict[str, Any]] = ...
+) -> XMLParserType: ...

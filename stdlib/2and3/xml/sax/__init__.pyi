@@ -1,8 +1,8 @@
-from typing import Any, List, NoReturn, Optional, Text, Union, IO
-
+import sys
 import xml.sax
-from xml.sax.xmlreader import InputSource, Locator
+from typing import IO, Any, Iterable, List, NoReturn, Optional, Text, Union
 from xml.sax.handler import ContentHandler, ErrorHandler
+from xml.sax.xmlreader import InputSource, Locator
 
 class SAXException(Exception):
     def __init__(self, msg: str, exception: Optional[Exception] = ...) -> None: ...
@@ -23,12 +23,20 @@ class SAXReaderNotAvailable(SAXNotSupportedException): ...
 
 default_parser_list: List[str]
 
-def make_parser(parser_list: List[str] = ...) -> xml.sax.xmlreader.XMLReader: ...
+if sys.version_info >= (3, 8):
+    def make_parser(parser_list: Iterable[str] = ...) -> xml.sax.xmlreader.XMLReader: ...
 
-def parse(source: Union[str, IO[str]], handler: xml.sax.handler.ContentHandler,
-          errorHandler: xml.sax.handler.ErrorHandler = ...) -> None: ...
+else:
+    def make_parser(parser_list: List[str] = ...) -> xml.sax.xmlreader.XMLReader: ...
 
-def parseString(string: Union[bytes, Text], handler: xml.sax.handler.ContentHandler,
-                errorHandler: Optional[xml.sax.handler.ErrorHandler] = ...) -> None: ...
-
+def parse(
+    source: Union[str, IO[str], IO[bytes]],
+    handler: xml.sax.handler.ContentHandler,
+    errorHandler: xml.sax.handler.ErrorHandler = ...,
+) -> None: ...
+def parseString(
+    string: Union[bytes, Text],
+    handler: xml.sax.handler.ContentHandler,
+    errorHandler: Optional[xml.sax.handler.ErrorHandler] = ...,
+) -> None: ...
 def _create_parser(parser_name: str) -> xml.sax.xmlreader.XMLReader: ...

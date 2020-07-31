@@ -2,7 +2,7 @@ import datetime
 from abc import ABCMeta, abstractmethod
 from enum import Enum
 from ipaddress import IPv4Address, IPv4Network, IPv6Address, IPv6Network
-from typing import Any, ClassVar, Generator, List, Optional, Union, Text, Iterable, Sequence
+from typing import Any, ClassVar, Generator, Generic, Iterable, List, Optional, Sequence, Text, Type, TypeVar, Union
 
 from cryptography.hazmat.backends.interfaces import X509Backend
 from cryptography.hazmat.primitives.asymmetric.dsa import DSAPrivateKey, DSAPublicKey
@@ -14,8 +14,8 @@ from cryptography.hazmat.primitives.hashes import HashAlgorithm
 from cryptography.hazmat.primitives.serialization import Encoding
 
 class ObjectIdentifier(object):
+    dotted_string: str
     def __init__(self, dotted_string: str) -> None: ...
-    def dotted_string(self) -> str: ...
 
 class CRLEntryExtensionOID(object):
     CERTIFICATE_ISSUER: ClassVar[ObjectIdentifier]
@@ -141,12 +141,16 @@ class Certificate(metaclass=ABCMeta):
     def public_key(self) -> Union[DSAPublicKey, Ed25519PublicKey, Ed448PublicKey, EllipticCurvePublicKey, RSAPublicKey]: ...
 
 class CertificateBuilder(object):
-    def __init__(self, issuer_name: Optional[Name] = ..., subject_name: Optional[Name] = ...,
-                 public_key: Union[DSAPublicKey, Ed25519PublicKey, Ed448PublicKey, EllipticCurvePublicKey, RSAPublicKey, None] = ...,
-                 serial_number: Optional[int] = ...,
-                 not_valid_before: Optional[datetime.datetime] = ...,
-                 not_valid_after: Optional[datetime.datetime] = ...,
-                 extensions: Optional[Iterable[ExtensionType]] = ...) -> None: ...
+    def __init__(
+        self,
+        issuer_name: Optional[Name] = ...,
+        subject_name: Optional[Name] = ...,
+        public_key: Union[DSAPublicKey, Ed25519PublicKey, Ed448PublicKey, EllipticCurvePublicKey, RSAPublicKey, None] = ...,
+        serial_number: Optional[int] = ...,
+        not_valid_before: Optional[datetime.datetime] = ...,
+        not_valid_after: Optional[datetime.datetime] = ...,
+        extensions: Optional[Iterable[ExtensionType]] = ...,
+    ) -> None: ...
     def add_extension(self, extension: ExtensionType, critical: bool) -> CertificateBuilder: ...
     def issuer_name(self, name: Name) -> CertificateBuilder: ...
     def not_valid_after(self, time: datetime.datetime) -> CertificateBuilder: ...
@@ -205,7 +209,7 @@ class CertificateSigningRequest(metaclass=ABCMeta):
     subject: Name
     tbs_certrequest_bytes: bytes
     @abstractmethod
-    def public_bytes(self) -> bytes: ...
+    def public_bytes(self, encoding: Encoding) -> bytes: ...
     @abstractmethod
     def public_key(self) -> Union[DSAPublicKey, Ed25519PublicKey, Ed448PublicKey, EllipticCurvePublicKey, RSAPublicKey]: ...
 
@@ -232,7 +236,8 @@ class RevokedCertificateBuilder(object):
 
 # General Name Classes
 
-class GeneralName(metaclass=ABCMeta): ...
+class GeneralName(metaclass=ABCMeta):
+    value: Any
 
 class DirectoryName(GeneralName):
     value: Name
@@ -265,27 +270,31 @@ class UniformResourceIdentifier(GeneralName):
 
 # X.509 Extensions
 
-class Extension(object):
-    critical: bool
-    oid: ExtensionOID
-    value: ExtensionType
-
 class ExtensionType(metaclass=ABCMeta):
     oid: ExtensionOID
+
+_T = TypeVar("_T", bound="ExtensionType")
+
+class Extension(Generic[_T]):
+    critical: bool
+    oid: ExtensionOID
+    value: _T
 
 class Extensions(object):
     def __init__(self, general_names: List[Extension]) -> None: ...
     def __iter__(self) -> Generator[Extension, None, None]: ...
     def get_extension_for_oid(self, oid: ObjectIdentifier) -> Extension: ...
-    def get_extension_for_class(self, extclass: ExtensionType) -> Extension: ...
+    def get_extension_for_class(self, extclass: Type[_T]) -> Extension[_T]: ...
 
 class IssuerAlternativeName(ExtensionType):
     def __init__(self, general_names: List[GeneralName]) -> None: ...
     def __iter__(self) -> Generator[GeneralName, None, None]: ...
+    def get_values_for_type(self, type: Type[GeneralName]) -> List[Any]: ...
 
 class SubjectAlternativeName(ExtensionType):
     def __init__(self, general_names: List[GeneralName]) -> None: ...
     def __iter__(self) -> Generator[GeneralName, None, None]: ...
+    def get_values_for_type(self, type: Type[GeneralName]) -> List[Any]: ...
 
 def load_der_x509_certificate(data: bytes, backend: X509Backend) -> Certificate: ...
 def load_pem_x509_certificate(data: bytes, backend: X509Backend) -> Certificate: ...

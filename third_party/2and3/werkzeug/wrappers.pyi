@@ -1,21 +1,39 @@
 import sys
+from _typeshed.wsgi import InputStream, WSGIEnvironment
 from datetime import datetime
 from typing import (
-    Any, Callable, Iterable, Iterator, Mapping, MutableMapping, Optional, Sequence, Text, Tuple, Type, TypeVar, Union, overload
+    Any,
+    Callable,
+    Iterable,
+    Iterator,
+    Mapping,
+    MutableMapping,
+    Optional,
+    Sequence,
+    Text,
+    Tuple,
+    Type,
+    TypeVar,
+    Union,
+    overload,
 )
-from wsgiref.types import WSGIEnvironment, InputStream
+from typing_extensions import Literal
 
 from .datastructures import (
-    Authorization, CombinedMultiDict, EnvironHeaders, Headers, ImmutableMultiDict,
-    MultiDict, ImmutableTypeConversionDict, HeaderSet,
-    Accept, MIMEAccept, CharsetAccept, LanguageAccept,
+    Accept,
+    Authorization,
+    CharsetAccept,
+    CombinedMultiDict,
+    EnvironHeaders,
+    Headers,
+    HeaderSet,
+    ImmutableMultiDict,
+    ImmutableTypeConversionDict,
+    LanguageAccept,
+    MIMEAccept,
+    MultiDict,
 )
 from .useragents import UserAgent
-
-if sys.version_info >= (3, 8):
-    from typing import Literal
-else:
-    from typing_extensions import Literal
 
 class BaseRequest:
     charset: str
@@ -87,13 +105,8 @@ class BaseRequest:
     is_multiprocess: bool
     is_run_once: bool
 
-    # These are not preset at runtime but we add them since monkeypatching this
-    # class is quite common.
-    def __setattr__(self, name: str, value: Any): ...
-    def __getattr__(self, name: str): ...
-
-_OnCloseT = TypeVar('_OnCloseT', bound=Callable[[], Any])
-_SelfT = TypeVar('_SelfT', bound=BaseResponse)
+_OnCloseT = TypeVar("_OnCloseT", bound=Callable[[], Any])
+_SelfT = TypeVar("_SelfT", bound=BaseResponse)
 
 class BaseResponse:
     charset: str
@@ -107,14 +120,15 @@ class BaseResponse:
     status: str
     direct_passthrough: bool
     response: Iterable[bytes]
-    def __init__(self, response: Optional[Union[str, bytes, bytearray, Iterable[str], Iterable[bytes]]] = ...,
-                 status: Optional[Union[Text, int]] = ...,
-                 headers: Optional[Union[Headers,
-                                         Mapping[Text, Text],
-                                         Sequence[Tuple[Text, Text]]]] = ...,
-                 mimetype: Optional[Text] = ...,
-                 content_type: Optional[Text] = ...,
-                 direct_passthrough: bool = ...) -> None: ...
+    def __init__(
+        self,
+        response: Optional[Union[str, bytes, bytearray, Iterable[str], Iterable[bytes]]] = ...,
+        status: Optional[Union[Text, int]] = ...,
+        headers: Optional[Union[Headers, Mapping[Text, Text], Sequence[Tuple[Text, Text]]]] = ...,
+        mimetype: Optional[Text] = ...,
+        content_type: Optional[Text] = ...,
+        direct_passthrough: bool = ...,
+    ) -> None: ...
     def call_on_close(self, func: _OnCloseT) -> _OnCloseT: ...
     @classmethod
     def force_type(cls: Type[_SelfT], response: object, environ: Optional[WSGIEnvironment] = ...) -> _SelfT: ...
@@ -131,8 +145,18 @@ class BaseResponse:
     def calculate_content_length(self) -> Optional[int]: ...
     def make_sequence(self) -> None: ...
     def iter_encoded(self) -> Iterator[bytes]: ...
-    def set_cookie(self, key, value: str = ..., max_age: Optional[Any] = ..., expires: Optional[Any] = ...,
-                   path: str = ..., domain: Optional[Any] = ..., secure: bool = ..., httponly: bool = ...): ...
+    def set_cookie(
+        self,
+        key,
+        value: str = ...,
+        max_age: Optional[Any] = ...,
+        expires: Optional[Any] = ...,
+        path: str = ...,
+        domain: Optional[Any] = ...,
+        secure: bool = ...,
+        httponly: bool = ...,
+        samesite: Optional[str] = ...,
+    ): ...
     def delete_cookie(self, key, path: str = ..., domain: Optional[Any] = ...): ...
     @property
     def is_streamed(self) -> bool: ...

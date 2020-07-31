@@ -1,11 +1,12 @@
 import collections
+from _typeshed import SupportsWrite
 from typing import (
+    IO,
     Any,
     Callable,
     Container,
     Dict,
     Generic,
-    IO,
     Iterable,
     Iterator,
     List,
@@ -13,7 +14,6 @@ from typing import (
     MutableSet,
     NoReturn,
     Optional,
-    Protocol,
     Text,
     Tuple,
     Type,
@@ -414,8 +414,9 @@ class WWWAuthenticate(UpdateDictMixin, Dict[str, Any]):
     on_update: Any
     def __init__(self, auth_type: Optional[Any] = ..., values: Optional[Any] = ..., on_update: Optional[Any] = ...): ...
     def set_basic(self, realm: str = ...): ...
-    def set_digest(self, realm, nonce, qop=..., opaque: Optional[Any] = ..., algorithm: Optional[Any] = ...,
-                   stale: bool = ...): ...
+    def set_digest(
+        self, realm, nonce, qop=..., opaque: Optional[Any] = ..., algorithm: Optional[Any] = ..., stale: bool = ...
+    ): ...
     def to_header(self): ...
     @staticmethod
     def auth_property(name, doc: Optional[Any] = ...): ...
@@ -427,9 +428,6 @@ class WWWAuthenticate(UpdateDictMixin, Dict[str, Any]):
     algorithm: Any
     qop: Any
     stale: Any
-
-class _Writer(Protocol):
-    def write(self, data: bytes) -> Any: ...
 
 class FileStorage(object):
     name: Optional[Text]
@@ -453,7 +451,7 @@ class FileStorage(object):
     def mimetype(self) -> str: ...
     @property
     def mimetype_params(self) -> Dict[str, str]: ...
-    def save(self, dst: Union[Text, _Writer], buffer_size: int = ...): ...
+    def save(self, dst: Union[Text, SupportsWrite[bytes]], buffer_size: int = ...): ...
     def close(self) -> None: ...
     def __nonzero__(self) -> bool: ...
     def __bool__(self) -> bool: ...

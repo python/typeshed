@@ -1,4 +1,4 @@
-from typing import AnyStr, Dict, List, Mapping, Tuple, Union, Sequence, IO, Optional, TypeVar
+from typing import IO, AnyStr, Dict, List, Mapping, NamedTuple, Optional, Sequence, Tuple, TypeVar, Union
 
 error = OSError
 
@@ -78,10 +78,7 @@ class stat_result(object):
     st_mtime: int
     st_ctime: int
 
-class statvfs_result(object):
-    n_fields: int
-    n_sequence_fields: int
-    n_unnamed_fields: int
+class statvfs_result(NamedTuple):
     f_bsize: int
     f_frsize: int
     f_blocks: int
@@ -194,7 +191,9 @@ def unsetenv(varname: str) -> None: ...
 def urandom(n: int) -> str: ...
 def utime(path: unicode, times: Optional[Tuple[int, int]]) -> None: ...
 def wait() -> int: ...
+
 _r = Tuple[float, float, int, int, int, int, int, int, int, int, int, int, int, int, int, int]
+
 def wait3(options: int) -> Tuple[int, int, _r]: ...
 def wait4(pid: int, options: int) -> Tuple[int, int, _r]: ...
 def waitpid(pid: int, options: int) -> int: ...

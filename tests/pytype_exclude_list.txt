@@ -1,0 +1,30 @@
+# Pytype exclude list. Files will not be tested with pytype.
+
+# pytype has its own version of these files, and thus doesn't mind if it
+# can't parse the typeshed version:
+stdlib/2/__builtin__.pyi
+stdlib/2/typing.pyi
+stdlib/2and3/builtins.pyi
+stdlib/3/typing.pyi
+
+# third_party stubs with constructs that pytype doesn't yet support:
+third_party/2/fb303/FacebookService.pyi
+third_party/2/scribe/scribe.pyi
+third_party/2and3/attr/__init__.pyi
+third_party/2and3/attr/converters.pyi
+third_party/2and3/attr/filters.pyi
+third_party/2and3/attr/validators.pyi
+third_party/2and3/pynamodb/models.pyi
+
+# anything that imports tkinter (https://github.com/google/pytype/issues/637)
+stdlib/3/tkinter/__init__.pyi
+stdlib/3/tkinter/dialog.pyi
+stdlib/3/tkinter/filedialog.pyi
+stdlib/3/tkinter/font.pyi
+stdlib/3/tkinter/ttk.pyi
+third_party/3/six/moves/tkinter.pyi
+third_party/3/six/moves/tkinter_dialog.pyi
+third_party/3/six/moves/tkinter_filedialog.pyi
+third_party/3/six/moves/tkinter_tkfiledialog.pyi
+third_party/3/six/moves/tkinter_ttk.pyi
+stdlib/2and3/turtle.pyi

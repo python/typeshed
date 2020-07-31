@@ -1,5 +1,5 @@
-from typing import TypeVar, Any
+from typing import Any, TypeVar
 
-_FT = TypeVar('_FT')
+_FT = TypeVar("_FT")
 
 def register(func: _FT, *args: Any, **kargs: Any) -> _FT: ...
