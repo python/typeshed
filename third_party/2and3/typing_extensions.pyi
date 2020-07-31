@@ -92,7 +92,6 @@ def get_type_hints(
 if sys.version_info[:3] >= (3, 7, 0):
     @overload
     def get_args(tp: type) -> Tuple[type, ...]: ...
-
     @overload
     def get_args(tp: type) -> Tuple[str, ...]: ...
 
