@@ -1,4 +1,5 @@
 import sys
+from builtins import type as _type
 from _typeshed import SupportsGetItem, SupportsItemAccess
 from typing import IO, Any, AnyStr, Dict, Iterable, Iterator, List, Mapping, Optional, Protocol, Tuple, TypeVar, Union
 
@@ -56,7 +57,7 @@ class MiniFieldStorage:
     def __repr__(self) -> str: ...
 
 class FieldStorage(object):
-    FieldStorageClass: Optional[type]
+    FieldStorageClass: Optional[_type]
     keep_blank_values: int
     strict_parsing: int
     qs_on_post: Optional[str]
