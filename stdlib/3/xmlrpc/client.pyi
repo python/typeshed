@@ -1,5 +1,6 @@
 import gzip
 import http.client
+from io import BytesIO
 import sys
 import time
 from _typeshed import SupportsRead, SupportsWrite
@@ -197,7 +198,7 @@ def gzip_decode(data: bytes, max_decode: int = ...) -> bytes: ...  # undocumente
 
 class GzipDecodedResponse(gzip.GzipFile):  # undocumented
 
-    io: io.BytesIO
+    io: BytesIO
     def __init__(self, response: SupportsRead[bytes]) -> None: ...
     def close(self) -> None: ...
 
