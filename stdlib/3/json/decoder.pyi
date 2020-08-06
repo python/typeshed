@@ -13,7 +13,7 @@ class JSONDecoder:
     object_hook: Callable[[Dict[str, Any]], Any]
     parse_float: Callable[[str], Any]
     parse_int: Callable[[str], Any]
-    parse_constant = ...  # Callable[[str], Any]
+    parse_constant: Callable[[str], Any] = ...
     strict: bool
     object_pairs_hook: Callable[[List[Tuple[str, Any]]], Any]
 
@@ -40,3 +40,4 @@ class JSONDecoder:
         ) -> None: ...
     def decode(self, s: str, _w: Callable[..., Any] = ...) -> Any: ...  # _w is undocumented
     def raw_decode(self, s: str, idx: int = ...) -> Tuple[Any, int]: ...
+

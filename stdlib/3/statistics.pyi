@@ -11,7 +11,7 @@ _Number = TypeVar("_Number", float, Decimal, Fraction)
 
 # Used in median_high, median_low
 class _Sortable(Protocol):
-    def __lt__(self, other) -> bool: ...
+    def __lt__(self, other: Any) -> bool: ...
 
 _SortableT = TypeVar("_SortableT", bound=_Sortable)
 
@@ -80,3 +80,4 @@ if sys.version_info >= (3, 8):
         def __rsub__(self, x2: Union[float, NormalDist]) -> NormalDist: ...
         __rmul__ = __mul__
         def __hash__(self) -> int: ...
+
