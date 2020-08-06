@@ -38,7 +38,7 @@ from typing import (
 )
 
 # These are exported.
-from . import abc
+from . import abc as abc
 
 if sys.version_info >= (3, 6):
     from typing import AsyncGenerator as AsyncGenerator, Collection as Collection

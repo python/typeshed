@@ -6,7 +6,6 @@ from typing import (
     Any,
     Callable,
     ContextManager as ContextManager,
-    Generator,
     Generic,
     Iterable,
     Iterator,

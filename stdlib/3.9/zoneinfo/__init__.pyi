@@ -1,6 +1,6 @@
 import os
 import typing
-from datetime import datetime, tzinfo
+from datetime import tzinfo
 from typing import Any, Iterable, Optional, Protocol, Sequence, Set, Type, Union
 
 _T = typing.TypeVar("_T", bound="ZoneInfo")

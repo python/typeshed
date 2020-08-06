@@ -1,6 +1,5 @@
 import gzip
 import http.client
-import io
 import sys
 import time
 from _typeshed import SupportsRead, SupportsWrite

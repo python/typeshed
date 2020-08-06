@@ -5,10 +5,8 @@ from ssl import SSLContext
 from types import TracebackType
 from typing import (
     Any,
-    BinaryIO,
     Callable,
     Dict,
-    Generic,
     Iterable,
     Iterator,
     List,
