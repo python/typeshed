@@ -1,10 +1,10 @@
 import gzip
 import http.client
-from io import BytesIO
 import sys
 import time
 from _typeshed import SupportsRead, SupportsWrite
 from datetime import datetime
+from io import BytesIO
 from types import TracebackType
 from typing import Any, Callable, Dict, Iterable, List, Mapping, Optional, Protocol, Tuple, Type, Union, overload
 from typing_extensions import Literal
