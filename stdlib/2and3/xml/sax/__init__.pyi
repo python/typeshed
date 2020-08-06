@@ -1,6 +1,6 @@
 import sys
 from typing import IO, Any, Iterable, List, NoReturn, Optional, Text, Union
-from xml.sax.handler import ErrorHandler
+from xml.sax.handler import ContentHandler, ErrorHandler
 from xml.sax.xmlreader import Locator, XMLReader
 
 class SAXException(Exception):
@@ -30,12 +30,12 @@ else:
 
 def parse(
     source: Union[str, IO[str], IO[bytes]],
-    handler: xml.sax.handler.ContentHandler,
+    handler: ContentHandler,
     errorHandler: ErrorHandler = ...,
 ) -> None: ...
 def parseString(
     string: Union[bytes, Text],
-    handler: xml.sax.handler.ContentHandler,
+    handler: ContentHandler,
     errorHandler: Optional[ErrorHandler] = ...,
 ) -> None: ...
 def _create_parser(parser_name: str) -> XMLReader: ...
