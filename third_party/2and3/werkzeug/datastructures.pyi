@@ -1,4 +1,3 @@
-import collections
 from _typeshed import SupportsWrite
 from typing import (
     IO,
