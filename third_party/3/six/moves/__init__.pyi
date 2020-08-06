@@ -22,39 +22,5 @@ from sys import intern as intern
 # import tkinter.tix as tkinter_tix
 # import copyreg as copyreg
 # import dbm.gnu as dbm_gnu
-from . import (
-    BaseHTTPServer as BaseHTTPServer,
-    CGIHTTPServer as CGIHTTPServer,
-    SimpleHTTPServer as SimpleHTTPServer,
-    _dummy_thread as _dummy_thread,
-    _thread as _thread,
-    builtins as builtins,
-    configparser as configparser,
-    cPickle as cPickle,
-    email_mime_base as email_mime_base,
-    email_mime_multipart as email_mime_multipart,
-    email_mime_nonmultipart as email_mime_nonmultipart,
-    email_mime_text as email_mime_text,
-    html_entities as html_entities,
-    html_parser as html_parser,
-    http_client as http_client,
-    http_cookiejar as http_cookiejar,
-    http_cookies as http_cookies,
-    queue as queue,
-    reprlib as reprlib,
-    socketserver as socketserver,
-    tkinter as tkinter,
-    tkinter_commondialog as tkinter_commondialog,
-    tkinter_constants as tkinter_constants,
-    tkinter_dialog as tkinter_dialog,
-    tkinter_filedialog as tkinter_filedialog,
-    tkinter_tkfiledialog as tkinter_tkfiledialog,
-    tkinter_ttk as tkinter_ttk,
-    urllib as urllib,
-    urllib_error as urllib_error,
-    urllib_parse as urllib_parse,
-    urllib_robotparser as urllib_robotparser,
-)
-
 # import xmlrpc.client as xmlrpc_client
 # import xmlrpc.server as xmlrpc_server
