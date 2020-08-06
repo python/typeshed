@@ -36,9 +36,6 @@ from typing import (
     overload,
 )
 
-if sys.version_info < (3, 9):
-    from . import abc as abc
-
 if sys.version_info >= (3, 6):
     from typing import AsyncGenerator as AsyncGenerator, Collection as Collection
 
