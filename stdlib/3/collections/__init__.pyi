@@ -1,4 +1,3 @@
-# These are not exported.
 import sys
 import typing
 from typing import (
@@ -36,9 +35,6 @@ from typing import (
     ValuesView as ValuesView,
     overload,
 )
-
-# These are exported.
-from . import abc
 
 if sys.version_info >= (3, 6):
     from typing import AsyncGenerator as AsyncGenerator, Collection as Collection

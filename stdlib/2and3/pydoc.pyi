@@ -1,6 +1,6 @@
 import sys
 from _typeshed import SupportsWrite
-from types import FunctionType, MethodType, ModuleType, TracebackType
+from types import MethodType, ModuleType, TracebackType
 from typing import (
     IO,
     Any,

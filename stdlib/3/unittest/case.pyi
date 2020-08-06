@@ -2,7 +2,6 @@ import datetime
 import logging
 import sys
 import unittest.result
-import warnings
 from types import TracebackType
 from typing import (
     Any,
@@ -27,6 +26,7 @@ from typing import (
     Union,
     overload,
 )
+from warnings import WarningMessage
 
 _E = TypeVar("_E", bound=BaseException)
 _FT = TypeVar("_FT", bound=Callable[..., Any])
@@ -260,10 +260,10 @@ class _AssertRaisesContext(Generic[_E]):
     ) -> bool: ...
 
 class _AssertWarnsContext:
-    warning: warnings.WarningMessage
+    warning: WarningMessage
     filename: str
     lineno: int
-    warnings: List[warnings.WarningMessage]
+    warnings: List[WarningMessage]
     def __enter__(self) -> _AssertWarnsContext: ...
     def __exit__(
         self, exc_type: Optional[Type[BaseException]], exc_val: Optional[BaseException], exc_tb: Optional[TracebackType]
