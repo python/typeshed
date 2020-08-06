@@ -1,4 +1,4 @@
-from typing import ContextManager, Generic, Iterator, Optional, TypeVar
+from typing import Generic, Optional, TypeVar
 
 _T = TypeVar("_T")
 
