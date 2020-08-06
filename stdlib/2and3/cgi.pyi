@@ -1,6 +1,6 @@
 import sys
-from builtins import type as _type
 from _typeshed import SupportsGetItem, SupportsItemAccess
+from builtins import type as _type
 from typing import IO, Any, AnyStr, Dict, Iterable, Iterator, List, Mapping, Optional, Protocol, Tuple, TypeVar, Union
 
 _T = TypeVar("_T", bound=FieldStorage)
