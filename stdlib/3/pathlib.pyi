@@ -1,8 +1,10 @@
 import os
 import sys
-from _typeshed import OpenBinaryMode, OpenTextMode
+from _typeshed import OpenBinaryMode, OpenBinaryModeReading, OpenBinaryModeUpdating, OpenBinaryModeWriting, OpenTextMode
+from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
 from types import TracebackType
 from typing import IO, Any, BinaryIO, Generator, List, Optional, Sequence, TextIO, Tuple, Type, TypeVar, Union, overload
+from typing_extensions import Literal
 
 _P = TypeVar("_P", bound=PurePath)
 
@@ -83,6 +85,8 @@ class Path(PurePath):
         def mkdir(self, mode: int = ..., parents: bool = ...) -> None: ...
     else:
         def mkdir(self, mode: int = ..., parents: bool = ..., exist_ok: bool = ...) -> None: ...
+    # Adapted from builtins.open
+    # Text mode: always returns a TextIOWrapper
     @overload
     def open(
         self,
@@ -91,11 +95,46 @@ class Path(PurePath):
         encoding: Optional[str] = ...,
         errors: Optional[str] = ...,
         newline: Optional[str] = ...,
-    ) -> TextIO: ...
+    ) -> TextIOWrapper: ...
+    # Unbuffered binary mode: returns a FileIO
     @overload
     def open(
-        self, mode: OpenBinaryMode, buffering: int = ..., encoding: None = ..., errors: None = ..., newline: None = ...
+        self, mode: OpenBinaryMode, buffering: Literal[0], encoding: None = ..., errors: None = ..., newline: None = ...,
+    ) -> FileIO: ...
+    # Buffering is on: return BufferedRandom, BufferedReader, or BufferedWriter
+    @overload
+    def open(
+        self,
+        mode: OpenBinaryModeUpdating,
+        buffering: Literal[-1, 1] = ...,
+        encoding: None = ...,
+        errors: None = ...,
+        newline: None = ...,
+    ) -> BufferedRandom: ...
+    @overload
+    def open(
+        self,
+        mode: OpenBinaryModeWriting,
+        buffering: Literal[-1, 1] = ...,
+        encoding: None = ...,
+        errors: None = ...,
+        newline: None = ...,
+    ) -> BufferedWriter: ...
+    @overload
+    def open(
+        self,
+        mode: OpenBinaryModeReading,
+        buffering: Literal[-1, 1] = ...,
+        encoding: None = ...,
+        errors: None = ...,
+        newline: None = ...,
+    ) -> BufferedReader: ...
+    # Buffering cannot be determined: fall back to BinaryIO
+    @overload
+    def open(
+        self, mode: OpenBinaryMode, buffering: int, encoding: None = ..., errors: None = ..., newline: None = ...,
     ) -> BinaryIO: ...
+    # Fallback if mode is not specified
     @overload
     def open(
         self,
