@@ -5,6 +5,7 @@ from urllib import (
     splitquery as splitquery,
     splittag as splittag,
     splituser as splituser,
+    unquote as unquote,
     unquote as unquote_to_bytes,
     unquote_plus as unquote_plus,
     urlencode as urlencode,
