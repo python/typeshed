@@ -1,10 +1,10 @@
 import gzip
 import http.client
-import io
 import sys
 import time
 from _typeshed import SupportsRead, SupportsWrite
 from datetime import datetime
+from io import BytesIO
 from types import TracebackType
 from typing import Any, Callable, Dict, Iterable, List, Mapping, Optional, Protocol, Tuple, Type, Union, overload
 from typing_extensions import Literal
@@ -198,7 +198,7 @@ def gzip_decode(data: bytes, max_decode: int = ...) -> bytes: ...  # undocumente
 
 class GzipDecodedResponse(gzip.GzipFile):  # undocumented
 
-    io: io.BytesIO
+    io: BytesIO
     def __init__(self, response: SupportsRead[bytes]) -> None: ...
     def close(self) -> None: ...
 
