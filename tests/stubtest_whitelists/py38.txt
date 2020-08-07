@@ -70,6 +70,7 @@ pickle.Pickler.reducer_override
 platform.DEV_NULL
 queue.SimpleQueue.__init__
 secrets.SystemRandom.getstate
+select.epoll.register
 smtplib.SMTP.sendmail
 sre_constants.RANGE_IGNORE
 ssl.PROTOCOL_SSLv3

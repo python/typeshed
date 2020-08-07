@@ -210,6 +210,11 @@ importlib.machinery.WindowsRegistryFinder.find_spec
 importlib.util.spec_from_file_location
 importlib.util.spec_from_loader
 inspect.BoundArguments.__init__
+inspect.Parameter.KEYWORD_ONLY
+inspect.Parameter.POSITIONAL_ONLY
+inspect.Parameter.POSITIONAL_OR_KEYWORD
+inspect.Parameter.VAR_KEYWORD
+inspect.Parameter.VAR_POSITIONAL
 inspect.Parameter.replace
 inspect.Signature.replace
 inspect.getabsfile
@@ -383,6 +388,8 @@ threading.Semaphore.__enter__
 threading.Semaphore.acquire
 threading.Thread.__init__
 timeit.main
+tkinter.Misc.grid_propagate
+tkinter.Misc.pack_propagate
 trace.CoverageResults.__init__
 traceback.FrameSummary.__init__
 traceback.TracebackException.__init__
