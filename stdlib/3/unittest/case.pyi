@@ -1,6 +1,7 @@
 import datetime
 import logging
 import sys
+import unittest.case
 import unittest.result
 from types import TracebackType
 from typing import (
