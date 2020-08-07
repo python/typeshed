@@ -1,7 +1,7 @@
 import _tkinter
 import sys
 import tkinter
-from typing import Any, Callable, Dict, List, Optional, Tuple, Type, TypeVar, Union, overload
+from typing import Any, Callable, List, Optional, overload
 from typing_extensions import Literal
 
 def tclobjs_to_py(adict): ...
