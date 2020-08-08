@@ -14,86 +14,14 @@ READABLE: Any
 WRITABLE: Any
 EXCEPTION: Any
 
-# ***************************************************************
-# ** Quick guide for figuring out which widget class to choose **
-# ***************************************************************
-# - Misc: any widget (don't use BaseWidget because Tk doesn't inherit from BaseWidget)
-# - Widget: anything that is meant to be put into another widget with e.g. pack or grid
-# - Wm: a toplevel window, Tk or Toplevel
+# Quick guide for figuring out which widget class to choose:
+#   - Misc: any widget (don't use BaseWidget because Tk doesn't inherit from BaseWidget)
+#   - Widget: anything that is meant to be put into another widget with e.g. pack or grid
+#   - Wm: a toplevel window, Tk or Toplevel
 #
+# Instructions for figuring out the correct type of each widget option:
+#  - See discussion on #4363.
 #
-# ********************
-# ** Widget options **
-# ********************
-# These are the things passed to configure(), e.g. the text of a label.
-# Currently widget options work like this:
-#   - configure and config are identical (tkinter classes do config = configure)
-#   - configure keyword-only arguments are specified exactly with type hints
-#   - cget takes Literal[...] as the string argument and returns Any
-#   - __setitem__ and __getitem__ use string arguments and Any
-#
-# The idea is that configure() and cget() are more strictly typed than
-# __setitem__ and __getitem__. This way the tkinter user gets to choose what
-# kind of typing to use with widget options. So, if your code does
-#
-#    widget[some_string_variable] = some_value
-#
-# then you don't need to change anything to make it type check with these
-# stubs. However, if you instead have the less readable
-#
-#    widget.config(**{some_string_variable: some_value}),
-#
-# then you might get mypy warnings from doing that. Doing it this way also
-# decreases the amount of required copy/pasta a lot.
-#
-# Getting the value of an option gives Any. See this to get an idea of why I
-# ended up doing it that way:
-#
-#    >>> l = tkinter.ttk.Label()
-#    >>> l.cget('wraplength')
-#    ''
-#    >>> l.config(wraplength='2c')
-#    >>> l.cget('wraplength')
-#    <pixel object: '2c'>
-#    >>> l.config(wraplength=0)
-#    >>> l.cget('wraplength')
-#    0
-#
-# Here getting the same option returns 3 different types: string,
-# _tkinter.Tcl_Obj and int. There's no documentation about this and I don't
-# have a good way to know whether these types found by trying out things on the
-# prompt are really all the possible types that could be returned. Also,
-# returning Union is considered bad in general.
-#
-# Any-typing the values of options is still not perfect. For example, this
-# works at runtime and type checks:
-#
-#    label1 = tkinter.ttk.Label()
-#    label2 = tkinter.ttk.Label()
-#    label1.config(wraplength=label2.cget('wraplength'))     # right side has type Any
-#
-# This works at runtime but does NOT type check (although it really seems to
-# require deliberately doing something funny for this to be a problem):
-#
-#    label1 = tkinter.ttk.Label()
-#    label2 = tkinter.ttk.Label()
-#    label2['wraplength'] = '2c'
-#    obj = label2.cget('wraplength')
-#    assert isinstance(obj, _tkinter.Tcl_Obj)
-#    label1.config(wraplength=obj)  # mypy error because Tcl_Obj is not valid wraplength
-#
-# Here obj is Tcl_Obj, which is not one of the things that can be assigned to a
-# wraplength. Tcl_Obj in general is not something that comes up frequently in
-# tkinter, and when it does come up, the right thing to do is usually str()ing
-# it or passing it back to tkinter. I tend to mostly ignore Tcl_Obj because I
-# don't want to clutter all option type hints with Union[..., Tcl_Obj].
-#
-# If you want to write code like the above, you still don't need to resort to
-# type ignore comments, because __setitem__ is less strictly typed:
-#
-#    label1['wraplength'] = obj
-#
-# Instructions for figuring out the correct type of each option:
 #  - Find the option from the manual page of the widget. Usually the manual
 #    page of a non-ttk widget has the same name as the tkinter class, in the
 #    3tk section:
@@ -151,49 +79,17 @@ EXCEPTION: Any
 _T = TypeVar("_T")
 _TkinterSequence = Union[List[_T], Tuple[_T, ...]]
 
-# If a manual page mentions Tk_GetAnchor or refers to another manual page named
-# 'options', then it means this. Note that some ttk widgets have other things
-# named 'anchor' with a different set of allowed values.
-_Anchor = Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"]
-
-# if manual page mentions Tk_GetBitmap, then it means this. Bitmap names can be
-# arbitrary strings. You can also specify a path, but you need to put '@' in
-# front of it and tkinter doesn't do that automatically if you e.g. pass in a
-# pathlib.Path object.
-_Bitmap = str
-
-# Return value of the function will be returned by Button.invoke(), possibly
-# somehow ruined by Python -> Tcl -> Python conversions. This works the same
-# way for tkinter.ttk.Button even though its manual page says nothing about
-# the return value.
-_ButtonCommand = Union[str, Callable[[], Any]]
-
-# Color strings are typically '#rrggbb', '#rgb' or color names.
-_Color = str
-
-# This is the type of -compound from manual page named 'options'. Note that
-# sometimes there is an option named -compound that takes something else than
-# one of these.
-_Compound = Literal["top", "left", "center", "right", "bottom", "none"]
-
-# Tk_GetCursor documents many possibilities, but they're all just Tcl lists of
-# strings (corresponding to Python tuples of strings), at least 1 string and at
-# most 4 strings.
-_Cursor = Union[str, Tuple[str], Tuple[str, str], Tuple[str, str, str], Tuple[str, str, str, str]]
-
-# This is for Entry. Currently there seems to be no way to make use of the
-# substitutions described in entry manual page unless your validatecommand is a
-# Tcl command, e.g.:
-#
-#    tcl_print = e.register(print)
-#    e['invalidcommand'] = [tcl_print, '%P']
-#
-# Specifying a sequence does the correct kind of escaping for Tcl.
-_EntryValidateCommand = Union[Callable[[], bool], str, _TkinterSequence[str]]
-
-# See 'FONT DESCRIPTIONS' in font man page. This uses str because Literal
-# inside Tuple doesn't work.
-#
+# Some widgets have an option named -compound that accepts different values
+# than the _Compound defined here. Manu other options have similar things.
+_Anchor = Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"]  # manual page: Tk_GetAnchor
+_Bitmap = str  # manual page: Tk_GetBitmap
+_ButtonCommand = Union[str, Callable[[], Any]]  # return value is returned from Button.invoke()
+_Color = str  # typically '#rrggbb', '#rgb' or color names.
+_Compound = Literal["top", "left", "center", "right", "bottom", "none"]  # -compound in manual page named 'options'
+_Cursor = Union[str, Tuple[str], Tuple[str, str], Tuple[str, str, str], Tuple[str, str, str, str]]  # manual page: Tk_GetCursor
+_EntryValidateCommand = Union[
+    Callable[[], bool], str, _TkinterSequence[str]
+]  # example when it's sequence:  entry['invalidcommand'] = [entry.register(print), '%P']
 # Putting this to font.pyi breaks pytype: https://github.com/google/pytype/issues/626
 #
 # Using anything from tkinter.font in this file means that 'import tkinter'
@@ -201,17 +97,8 @@ _EntryValidateCommand = Union[Callable[[], bool], str, _TkinterSequence[str]]
 # unfortunately not much can be done about it. https://github.com/python/typeshed/pull/4346
 _FontDescription = Union[
     str, font.Font, Tuple[str, int], Tuple[str, int, _TkinterSequence[str]],
-]
-
-# str could be e.g. from tkinter.image_names()
-_ImageSpec = Union[Image, str]
-
-# Padding should be set to 1, 2, 3 or 4 screen distances in tuple or list.
-# If just 1, then no need to wrap in tuple or list.
-#
-# When getting the padding, it can be empty string. Again, we cheat by not
-# creating a Union return so that looping over the return value and
-# treating the items as tkinter._ScreenUnits actually works.
+]  # 'FONT DESCRIPTIONS' in 'font' manual page
+_ImageSpec = Union[Image, str]  # str can be from e.g. tkinter.image_names()
 _Padding = Union[
     _ScreenUnits,
     Tuple[_ScreenUnits],
@@ -219,22 +106,10 @@ _Padding = Union[
     Tuple[_ScreenUnits, _ScreenUnits, _ScreenUnits],
     Tuple[_ScreenUnits, _ScreenUnits, _ScreenUnits, _ScreenUnits],
 ]
-
-# If manual page says Tk_GetRelief then it means this.
-_Relief = Literal["raised", "sunken", "flat", "ridge", "solid", "groove"]
-
-# string must be e.g. '12.34', '12.34c', '12.34i', '12.34m', '12.34p'
-# see Tk_GetPixels man page for what each suffix means
-# Some ttk widgets also use empty string.
-_ScreenUnits = Union[str, float]
-
-# -xscrollcommand and -yscrollcommand in 'options' manual page
-_XYScrollCommand = Union[str, Callable[[float, float], None]]
-
-# Returning None from a takefocus callback seems to work (man page says to
-# return empty string instead). But setting options to None doesn't work
-# in general. Use nametowidget() to handle the argument of the callback.
-_TakeFocusValue = Union[bool, Literal[""], Callable[[str], Optional[bool]]]
+_Relief = Literal["raised", "sunken", "flat", "ridge", "solid", "groove"]  # manual page: Tk_GetRelief
+_ScreenUnits = Union[str, float]  # manual page: Tk_GetPixels
+_XYScrollCommand = Union[str, Callable[[float, float], None]]  # -xscrollcommand and -yscrollcommand in 'options' manual page
+_TakeFocusValue = Union[bool, Literal[""], Callable[[str], Optional[bool]]]  # -takefocus in manual page named 'options'
 
 if sys.version_info >= (3, 6):
     class EventType(str, Enum):
@@ -352,8 +227,6 @@ getdouble: Any
 
 def getboolean(s): ...
 
-# This class is the base class of all widgets. Don't use BaseWidget or Widget
-# for that because Tk doesn't inherit from Widget or BaseWidget.
 class Misc:
     def destroy(self): ...
     def deletecommand(self, name): ...
@@ -2800,24 +2673,12 @@ class _setit:
     def __init__(self, var, value, callback: Optional[Any] = ...): ...
     def __call__(self, *args): ...
 
-# This widget is weird:
-#   - Manual page is named tk_optionMenu instead of menu.
-#   - It's not actually a Tk widget but a Tcl procedure that creates two
-#     associated widgets.
-#   - Its __init__ takes in arguments differently from all other widgets
-#     (self + required positional arguments + special keyword-only arguments).
-#   - Tkinter uses the exact same options as Menubutton except that __getitem__
-#     is overrided to give a tkinter widget when you request its 'menu' option.
-#     However, querying it with 'cget' gives you a string instead of a widget
-#     object.
-#
-# This doesn't support any other variables than StringVar, which could be
-# useful for an OptionMenu with a dropdown of integers to choose from. Add
-# overrides to __init__ if this is a problem in practice.
+# manual page: tk_optionMenu
 class OptionMenu(Menubutton):
     widgetName: Any
     menuname: Any
     def __init__(
+        # differs from other widgets
         self,
         master: Optional[Misc],
         variable: StringVar,
@@ -2827,7 +2688,7 @@ class OptionMenu(Menubutton):
         command: Optional[Callable[[StringVar], None]] = ...,
     ) -> None: ...
     # configure, config, cget are inherited from Menubutton
-    # destroy and __setitem__ are overrided, signature does not change
+    # destroy and __getitem__ are overrided, signature does not change
 
 class Image:
     name: Any
