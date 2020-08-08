@@ -1,6 +1,5 @@
 from types import CodeType, FrameType, TracebackType, coroutine
-from collections.abc import Coroutine
-from typing import Any, Iterator, Optional, Type, TypeVar, Union
+from typing import Any, Coroutine, Iterator, Optional, Type, TypeVar, Union
 
 _T_co = TypeVar("_T_co", covariant=True)
 _V_co = TypeVar("_V_co", covariant=True)
