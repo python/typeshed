@@ -26,6 +26,7 @@ from .context import BaseContext
 
 if sys.version_info >= (3, 8):
     from .shared_memory import _SLT, ShareableList, SharedMemory
+
     _SharedMemory = SharedMemory
     _ShareableList = ShareableList
 
