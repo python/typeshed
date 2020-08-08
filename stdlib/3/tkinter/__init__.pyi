@@ -80,7 +80,7 @@ _T = TypeVar("_T")
 _TkinterSequence = Union[List[_T], Tuple[_T, ...]]
 
 # Some widgets have an option named -compound that accepts different values
-# than the _Compound defined here. Manu other options have similar things.
+# than the _Compound defined here. Many other options have similar things.
 _Anchor = Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"]  # manual page: Tk_GetAnchor
 _Bitmap = str  # manual page: Tk_GetBitmap
 _ButtonCommand = Union[str, Callable[[], Any]]  # return value is returned from Button.invoke()
