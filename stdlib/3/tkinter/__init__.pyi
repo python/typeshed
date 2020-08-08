@@ -1,3 +1,4 @@
+import _tkinter
 import sys
 from enum import Enum
 from tkinter import font
@@ -6,13 +7,13 @@ from types import TracebackType
 from typing import Any, Callable, Dict, Generic, List, Optional, Tuple, Type, TypeVar, Union, overload
 from typing_extensions import Literal, TypedDict
 
-TclError: Any
+TclError = _tkinter.TclError
 wantobjects: Any
 TkVersion: Any
 TclVersion: Any
-READABLE: Any
-WRITABLE: Any
-EXCEPTION: Any
+READABLE = _tkinter.READABLE
+WRITABLE = _tkinter.WRITABLE
+EXCEPTION = _tkinter.EXCEPTION
 
 # Quick guide for figuring out which widget class to choose:
 #   - Misc: any widget (don't use BaseWidget because Tk doesn't inherit from BaseWidget)
@@ -228,6 +229,7 @@ getdouble: Any
 def getboolean(s): ...
 
 class Misc:
+    tk: _tkinter.TkappType
     def destroy(self): ...
     def deletecommand(self, name): ...
     def tk_strictMotif(self, boolean: Optional[Any] = ...): ...
@@ -538,7 +540,6 @@ _TkOptionName = Literal[
 class Tk(Misc, Wm):
     master: Optional[Any]
     children: Dict[str, Any]
-    tk: Any
     def __init__(
         self,
         screenName: Optional[str] = ...,
@@ -573,11 +574,43 @@ class Tk(Misc, Wm):
     def configure(self, cnf: _TkOptionName) -> Tuple[str, str, str, Any, Any]: ...
     config = configure
     def cget(self, key: _TkOptionName) -> Any: ...
-    def loadtk(self) -> None: ...
+    def loadtk(self) -> None: ...  # differs from _tkinter.TkappType.loadtk
     def destroy(self) -> None: ...
     def readprofile(self, baseName: str, className: str) -> None: ...
     report_callback_exception: Callable[[Type[BaseException], BaseException, TracebackType], Any]
-    def __getattr__(self, attr: str) -> Any: ...
+    # Tk has __getattr__ so that tk_instance.foo falls back to tk_instance.tk.foo
+    # Please keep in sync with _tkinter.TkappType
+    call: Callable[..., str]
+    eval: Callable[[str], Any]
+    adderrorinfo: Any
+    createcommand: Any
+    createfilehandler: Any
+    createtimerhandler: Any
+    deletecommand: Any
+    deletefilehandler: Any
+    dooneevent: Any
+    evalfile: Any
+    exprboolean: Any
+    exprdouble: Any
+    exprlong: Any
+    exprstring: Any
+    getboolean: Any
+    getdouble: Any
+    getint: Any
+    getvar: Any
+    globalgetvar: Any
+    globalsetvar: Any
+    globalunsetvar: Any
+    interpaddr: Any
+    mainloop: Any
+    quit: Any
+    record: Any
+    setvar: Any
+    split: Any
+    splitlist: Any
+    unsetvar: Any
+    wantobjects: Any
+    willdispatch: Any
 
 def Tcl(screenName: Optional[Any] = ..., baseName: Optional[Any] = ..., className: str = ..., useTk: bool = ...): ...
 
@@ -2692,8 +2725,10 @@ class OptionMenu(Menubutton):
 
 class Image:
     name: Any
-    tk: Any
-    def __init__(self, imgtype, name: Optional[Any] = ..., cnf=..., master: Optional[Misc] = ..., **kw): ...
+    tk: _tkinter.TkappType
+    def __init__(
+        self, imgtype, name: Optional[Any] = ..., cnf=..., master: Optional[Union[Misc, _tkinter.TkappType]] = ..., **kw
+    ): ...
     def __del__(self): ...
     def __setitem__(self, key, value): ...
     def __getitem__(self, key): ...

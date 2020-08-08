@@ -1,6 +1,6 @@
+import _tkinter
 import sys
 import tkinter
-from tkinter import Event
 from typing import Any, Callable, Dict, List, Optional, Tuple, Union, overload
 from typing_extensions import Literal
 
@@ -12,7 +12,7 @@ _TtkCompound = Literal["text", "image", tkinter._Compound]
 
 class Style:
     master: tkinter.Misc
-    tk: Any
+    tk: _tkinter.TkappType
     def __init__(self, master: Optional[tkinter.Misc] = ...): ...
     def configure(self, style, query_opt: Optional[Any] = ..., **kw): ...
     def map(self, style, query_opt: Optional[Any] = ..., **kw): ...
@@ -1072,7 +1072,7 @@ class Treeview(Widget, tkinter.XView, tkinter.YView):
         self,
         tagname: str,
         sequence: Optional[str] = ...,
-        callback: Optional[Callable[[Event[Treeview]], Optional[Literal["break"]]]] = ...,
+        callback: Optional[Callable[[tkinter.Event[Treeview]], Optional[Literal["break"]]]] = ...,
     ) -> str: ...
     @overload
     def tag_bind(self, tagname: str, sequence: Optional[str], callback: str) -> None: ...
