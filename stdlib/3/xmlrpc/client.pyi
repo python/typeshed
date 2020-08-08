@@ -60,7 +60,7 @@ def _strftime(value: _XMLDate) -> str: ...  # undocumented
 class DateTime:
 
     value: str  # undocumented
-    def __init__(self, value: Union[int, str, datetime, time.struct_time, Tuple[int, ...]] = ...): ...
+    def __init__(self, value: Union[int, str, datetime, time.struct_time, Tuple[int, ...]] = ...) -> None: ...
     def __lt__(self, other: _DateTimeComparable) -> bool: ...
     def __le__(self, other: _DateTimeComparable) -> bool: ...
     def __gt__(self, other: _DateTimeComparable) -> bool: ...
@@ -268,7 +268,7 @@ class ServerProxy:
     if sys.version_info >= (3, 8):
         def __init__(
             self,
-            uri,
+            uri: str,
             transport: Optional[Transport] = ...,
             encoding: Optional[str] = ...,
             verbose: bool = ...,
@@ -282,7 +282,7 @@ class ServerProxy:
     else:
         def __init__(
             self,
-            uri,
+            uri: str,
             transport: Optional[Transport] = ...,
             encoding: Optional[str] = ...,
             verbose: bool = ...,
