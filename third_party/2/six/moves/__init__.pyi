@@ -3,7 +3,14 @@
 # Note: Commented out items means they weren't implemented at the time.
 # Uncomment them when the modules have been added to the typeshed.
 import __builtin__ as builtins
-from __builtin__ import intern as intern, raw_input as input, reduce as reduce, reload as reload_module, xrange as xrange
+from __builtin__ import (
+    intern as intern,
+    raw_input as input,
+    reduce as reduce,
+    reload as reload_module,
+    xrange as range,
+    xrange as xrange,
+)
 from cStringIO import StringIO as cStringIO
 from itertools import ifilter as filter, ifilterfalse as filterfalse, imap as map, izip as zip, izip_longest as zip_longest
 from os import getcwd as getcwdb, getcwdu as getcwd

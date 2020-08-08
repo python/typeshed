@@ -5,7 +5,7 @@ import typing
 import unittest
 from __builtin__ import unichr as unichr
 from functools import wraps as wraps
-from StringIO import StringIO as BytesIO
+from StringIO import StringIO as BytesIO, StringIO as StringIO
 from typing import (
     Any,
     AnyStr,
