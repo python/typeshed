@@ -1,7 +1,7 @@
 from typing import BinaryIO, Mapping, Optional, Sequence, Text, TextIO, Union
-from .extensions import Extension
-
 from typing_extensions import Literal
+
+from .extensions import Extension
 
 class Markdown:
     def __init__(
