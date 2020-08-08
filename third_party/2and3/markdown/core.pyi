@@ -1,11 +1,12 @@
-from .extensions import Extension
 from typing import BinaryIO, Mapping, Optional, Sequence, Text, TextIO, Union
+from .extensions import Extension
 
 from typing_extensions import Literal
 
 class Markdown:
     def __init__(
         self,
+        *,
         extensions: Optional[Sequence[Union[str, Extension]]] = ...,
         extension_configs: Optional[Mapping[str, Mapping[str, str]]] = ...,
         output_format: Optional[Literal["xhtml", "html"]] = ...,
@@ -30,12 +31,14 @@ class Markdown:
 
 def markdown(
     text: Text,
+    *,
     extensions: Optional[Sequence[Union[str, Extension]]] = ...,
     extension_configs: Optional[Mapping[str, Mapping[str, str]]] = ...,
     output_format: Optional[Literal["xhtml", "html"]] = ...,
     tab_length: Optional[int] = ...,
 ) -> Text: ...
 def markdownFromFile(
+    *,
     input: Optional[Union[str, TextIO, BinaryIO]] = ...,
     output: Optional[Union[str, TextIO, BinaryIO]] = ...,
     encoding: Optional[str] = ...,
