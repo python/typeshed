@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Tuple, Union
 
 # _tkinter is meant to be only used internally by tkinter, but some tkinter
 # functions e.g. return _tkinter.Tcl_Obj objects.
@@ -56,7 +56,8 @@ class TclError(Exception): ...
 #
 # call args can be pretty much anything, usually they get str()ed but not
 # always. For example, in the above example, (1,2,3) gets turned into the Tcl
-# list "1 2 3" rather than the string "(1, 2, 3)".
+# list "1 2 3" rather than the string "(1, 2, 3)". Also, call(some_tuple) is
+# same as call(*some_tuple).
 #
 # eval always returns str because _tkinter_tkapp_eval_impl in _tkinter.c calls
 # Tkapp_UnicodeResult, and it returns a string when it succeeds. However, call
@@ -65,7 +66,7 @@ class TclError(Exception): ...
 # Also try dir(tkapp)
 class TkappType:
     # Please keep in sync with tkinter.Tk
-    def call(self, __command: str, *args: Any) -> str: ...
+    def call(self, __command: Union[str, Tuple[Any, ...]], *args: Any) -> str: ...
     def eval(self, __script: str) -> Any: ...
     adderrorinfo: Any
     createcommand: Any
