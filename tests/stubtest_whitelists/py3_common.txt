@@ -142,8 +142,6 @@ distutils.text_file.TextFile.warn
 distutils.version.Version._cmp
 distutils.version.Version.parse
 email.errors.MessageDefect.__init__
-email.feedparser.BytesFeedParser.__init__
-email.feedparser.FeedParser.__init__
 email.generator.BytesGenerator.__init__
 email.generator.DecodedGenerator.__init__
 email.generator.Generator.__init__
@@ -348,9 +346,7 @@ socketserver.BaseServer.get_request
 socketserver.BaseServer.server_bind
 sqlite3.Row.__len__
 sqlite3.dbapi2.Row.__len__
-sqlite3.dbapi2.register_adapters_and_converters
 sqlite3.dbapi2.version_info
-sqlite3.register_adapters_and_converters
 sqlite3.version_info
 sre_constants.error.__init__
 ssl.PROTOCOL_SSLv2
