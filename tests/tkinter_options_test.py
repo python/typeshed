@@ -260,14 +260,9 @@ def get_import_mapping(parsed: ast.Module) -> Dict[str, str]:
 
 
 def find_all_classdefs(parsed: ast.Module) -> Iterable[ast.ClassDef]:
-    for stmt in parsed.body:
-        if isinstance(stmt, ast.ClassDef):
-            yield stmt
-        elif isinstance(stmt, ast.If):
-            # handle classes e.g. under 'if sys.version_info >= bla'
-            for inner in stmt.body:
-                if isinstance(inner, ast.ClassDef):
-                    yield inner
+    for node in ast.walk(parsed):  # handle classes e.g. under 'if sys.version_info >= bla'
+        if isinstance(node, ast.ClassDef):
+            yield node
 
 
 def is_configure_method_with_options_as_kwargs(node: ast.stmt) -> bool:
