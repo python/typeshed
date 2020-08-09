@@ -1,4 +1,4 @@
-from typing import Callable, Generic, Iterator, TypeVar
+from typing import Callable, Generic, Iterator, Optional, TypeVar
 
 from .abc import DefaultMapping as DefaultMapping
 
@@ -6,6 +6,7 @@ _KT = TypeVar("_KT")
 _VT = TypeVar("_VT")
 
 class Cache(DefaultMapping[_KT, _VT], Generic[_KT, _VT]):
+    def __init__(self, maxsize: int, getsizeof: Optional[Callable[[_VT], int]] = ...) -> None: ...
     def __getitem__(self, key: _KT) -> _VT: ...
     def __setitem__(self, key: _KT, value: _VT) -> None: ...
     def __delitem__(self, key: _KT) -> None: ...
