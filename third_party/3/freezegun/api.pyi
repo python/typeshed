@@ -47,7 +47,7 @@ class _freeze_time:
     def decorate_callable(self, func: Callable[..., _T],) -> Callable[..., _T]: ...
 
 def freeze_time(
-    time_to_freeze: Optional[Union[_Freezable, Callable[..., _Freezable], Iterator[_Freezable],]] = ...,
+    time_to_freeze: Optional[Union[_Freezable, Callable[..., _Freezable], Iterator[_Freezable]]] = ...,
     tz_offset: Optional[float] = ...,
     ignore: Optional[Sequence[str]] = ...,
     tick: Optional[bool] = ...,
