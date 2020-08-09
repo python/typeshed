@@ -1,4 +1,5 @@
 from logging import Logger
+import sys
 from types import TracebackType
 from typing import Optional, Type, Union
 
@@ -8,14 +9,14 @@ class Timeout(TimeoutError):
     def __init__(self, lock_file: str) -> None: ...
     def __str__(self) -> str: ...
 
-class _Acquire_ReturnProxy(object):
+class _Acquire_ReturnProxy:
     def __init__(self, lock: str) -> None: ...
     def __enter__(self) -> str: ...
     def __exit__(
         self, exc_type: Optional[Type[BaseException]], exc_val: Optional[BaseException], traceback: Optional[TracebackType]
     ) -> None: ...
 
-class BaseFileLock(object):
+class BaseFileLock:
     def __init__(self, lock_file: str, timeout: Union[float, int, str] = ...) -> None: ...
     @property
     def lock_file(self) -> str: ...
@@ -44,3 +45,10 @@ class UnixFileLock(BaseFileLock):
 class SoftFileLock(BaseFileLock):
     def _acquire(self) -> None: ...
     def _release(self) -> None: ...
+
+if sys.platform == "win32":
+    FileLock = WindowsFileLock
+elif sys.platform == "linux" or sys.platform == "darwin":
+    FileLock = UnixFileLock
+else:
+    FileLock = SoftFileLock
