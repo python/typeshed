@@ -2563,7 +2563,7 @@ class Text(Widget, XView, YView):
         startline: Union[int, Literal[""]] = ...,
         state: Literal["normal", "disabled"] = ...,
         # Literal inside Tuple doesn't actually work
-        tabs: Tuple[Union[_ScreenUnits, str], ...] = ...,
+        tabs: Union[_ScreenUnits, str, Tuple[Union[_ScreenUnits, str], ...]] = ...,
         tabstyle: Literal["tabular", "wordprocessor"] = ...,
         takefocus: _TakeFocusValue = ...,
         undo: bool = ...,
@@ -2613,7 +2613,7 @@ class Text(Widget, XView, YView):
         spacing3: _ScreenUnits = ...,
         startline: Union[int, Literal[""]] = ...,
         state: Literal["normal", "disabled"] = ...,
-        tabs: Tuple[Union[_ScreenUnits, str], ...] = ...,
+        tabs: Union[_ScreenUnits, str, Tuple[Union[_ScreenUnits, str], ...]] = ...,
         tabstyle: Literal["tabular", "wordprocessor"] = ...,
         takefocus: _TakeFocusValue = ...,
         undo: bool = ...,
