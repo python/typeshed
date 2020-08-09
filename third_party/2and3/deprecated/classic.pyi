@@ -1,10 +1,4 @@
-from typing import (
-    Any,
-    Callable,
-    Optional,
-    Type,
-    TypeVar,
-)
+from typing import Any, Callable, Optional, Type, TypeVar
 
 _T = TypeVar("_T", bound=Callable[..., Any])
 

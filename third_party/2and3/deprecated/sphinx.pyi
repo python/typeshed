@@ -1,10 +1,5 @@
-from typing import (
-    Any,
-    Callable,
-    Optional,
-    Type,
-    TypeVar,
-)
+from typing import Any, Callable, Optional, Type, TypeVar
+
 from typing_extensions import Literal
 
 from .classic import ClassicAdapter
