@@ -1,14 +1,8 @@
+from _typeshed import OpenBinaryMode, OpenBinaryModeReading, OpenBinaryModeWriting, OpenTextMode
 from os import PathLike
 from typing import Any, Callable, Optional, Union, overload
-
 from typing_extensions import Literal
 
-from _typeshed import (
-    OpenBinaryMode,
-    OpenBinaryModeReading,
-    OpenBinaryModeWriting,
-    OpenTextMode,
-)
 from .binary import AsyncBufferedReader, AsyncFileIO
 from .text import AsyncTextIOWrapper
 
