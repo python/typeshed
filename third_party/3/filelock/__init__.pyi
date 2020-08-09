@@ -1,8 +1,8 @@
-import logging
-from typing import Optional, Type, Union
+from logging import Logger
 from types import TracebackType
+from typing import Optional, Type, Union
 
-def logger() -> logging.Logger: ...
+def logger() -> Logger: ...
 
 class Timeout(TimeoutError):
     def __init__(self, lock_file: str) -> None: ...
