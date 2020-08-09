@@ -22,7 +22,7 @@ class SphinxAdapter(ClassicAdapter):
         directive: Literal["versionadded", "versionchanged", "deprecated"],
         reason: str = ...,
         version: str = ...,
-        action: Optional[str] = None,
+        action: Optional[str] = ...,
         category: Type[DeprecationWarning] = ...,
     ) -> None: ...
     def __call__(self, wrapped: _T) -> Callable[[_T], _T]: ...
