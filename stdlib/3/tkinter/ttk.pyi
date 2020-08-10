@@ -176,7 +176,7 @@ _EntryOptionName = Literal[
     "xscrollcommand",
 ]
 
-class Entry(tkinter.Entry):
+class Entry(Widget, tkinter.Entry):
     def __init__(
         self,
         master: Optional[tkinter.Misc] = ...,
