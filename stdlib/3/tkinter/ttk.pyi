@@ -537,7 +537,7 @@ class Notebook(Widget):
     def tabs(self): ...
     def enable_traversal(self): ...
 
-class Panedwindow(Widget):  # actally inherits from tkinter.PanedWindow
+class Panedwindow(Widget, tkinter.PanedWindow):
     def __init__(
         self,
         master: Optional[tkinter.Misc] = ...,
@@ -568,25 +568,10 @@ class Panedwindow(Widget):  # actally inherits from tkinter.PanedWindow
     ) -> Tuple[str, str, str, Any, Any]: ...
     config = configure
     def cget(self, key: Literal["class", "cursor", "height", "orient", "style", "takefocus", "width"]) -> Any: ...
+    forget: Any
     def insert(self, pos, child, **kw): ...
     def pane(self, pane, option: Optional[Any] = ..., **kw): ...
     def sashpos(self, index, newpos: Optional[Any] = ...): ...
-    add = tkinter.PanedWindow.add
-    remove = tkinter.PanedWindow.remove
-    forget = tkinter.PanedWindow.forget
-    identify = tkinter.PanedWindow.identify
-    proxy = tkinter.PanedWindow.proxy
-    proxy_coord = tkinter.PanedWindow.proxy_coord
-    proxy_forget = tkinter.PanedWindow.proxy_forget
-    proxy_place = tkinter.PanedWindow.proxy_place
-    sash = tkinter.PanedWindow.sash
-    sash_coord = tkinter.PanedWindow.sash_coord
-    sash_mark = tkinter.PanedWindow.sash_mark
-    sash_place = tkinter.PanedWindow.sash_place
-    panecget = tkinter.PanedWindow.panecget
-    paneconfigure = tkinter.PanedWindow.paneconfigure
-    paneconfig = tkinter.PanedWindow.paneconfig
-    panes = tkinter.PanedWindow.panes
 
 PanedWindow = Panedwindow
 
