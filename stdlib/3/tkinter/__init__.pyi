@@ -1979,49 +1979,7 @@ class Menubutton(Widget):
     ) -> Optional[Dict[str, Tuple[str, str, str, Any, Any]]]: ...
     @overload
     def configure(self, cnf: _MenubuttonOptionName) -> Tuple[str, str, str, Any, Any]: ...
-    # config is just like configure, but copy/pasta, because assigning
-    # 'config = configure' creates mypy errors here for some reason
-    @overload
-    def config(
-        self,
-        cnf: Optional[Dict[str, Any]] = ...,
-        *,
-        activebackground: _Color = ...,
-        activeforeground: _Color = ...,
-        anchor: _Anchor = ...,
-        background: _Color = ...,
-        bd: _ScreenUnits = ...,
-        bg: _Color = ...,
-        bitmap: _Bitmap = ...,
-        borderwidth: _ScreenUnits = ...,
-        compound: _Compound = ...,
-        cursor: _Cursor = ...,
-        direction: Literal["above", "below", "left", "right", "flush"] = ...,
-        disabledforeground: _Color = ...,
-        fg: _Color = ...,
-        font: _FontDescription = ...,
-        foreground: _Color = ...,
-        height: _ScreenUnits = ...,
-        highlightbackground: _Color = ...,
-        highlightcolor: _Color = ...,
-        highlightthickness: _ScreenUnits = ...,
-        image: _ImageSpec = ...,
-        indicatoron: bool = ...,
-        justify: Literal["left", "center", "right"] = ...,
-        menu: Menu = ...,
-        padx: _ScreenUnits = ...,
-        pady: _ScreenUnits = ...,
-        relief: _Relief = ...,
-        state: Literal["normal", "active", "disabled"] = ...,
-        takefocus: _TakeFocusValue = ...,
-        text: str = ...,
-        textvariable: Variable = ...,
-        underline: int = ...,
-        width: _ScreenUnits = ...,
-        wraplength: _ScreenUnits = ...,
-    ) -> Optional[Dict[str, Tuple[str, str, str, Any, Any]]]: ...
-    @overload
-    def config(self, cnf: _MenubuttonOptionName) -> Tuple[str, str, str, Any, Any]: ...
+    config = configure
     def cget(self, key: _MenubuttonOptionName) -> Any: ...
 
 _MessageOptionName = Literal[

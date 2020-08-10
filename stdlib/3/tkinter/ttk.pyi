@@ -492,28 +492,7 @@ class Menubutton(Widget):
     ) -> Optional[Dict[str, Tuple[str, str, str, Any, Any]]]: ...
     @overload
     def configure(self, cnf: _MenubuttonOptionName) -> Tuple[str, str, str, Any, Any]: ...
-    # config is just like configure, but copy/pasta, because assigning
-    # 'config = configure' creates mypy errors here for some reason
-    @overload
-    def config(
-        self,
-        cnf: Optional[Dict[str, Any]] = ...,
-        *,
-        compound: _TtkCompound = ...,
-        cursor: tkinter._Cursor = ...,
-        direction: Literal["above", "below", "left", "right", "flush"] = ...,
-        image: tkinter._ImageSpec = ...,
-        menu: tkinter.Menu = ...,
-        state: Literal["normal", "disabled"] = ...,
-        style: str = ...,
-        takefocus: tkinter._TakeFocusValue = ...,
-        text: str = ...,
-        textvariable: tkinter.Variable = ...,
-        underline: int = ...,
-        width: Union[int, Literal[""]] = ...,
-    ) -> Optional[Dict[str, Tuple[str, str, str, Any, Any]]]: ...
-    @overload
-    def config(self, cnf: _MenubuttonOptionName) -> Tuple[str, str, str, Any, Any]: ...
+    config = configure
     def cget(self, key: _MenubuttonOptionName) -> Any: ...
 
 class Notebook(Widget):
