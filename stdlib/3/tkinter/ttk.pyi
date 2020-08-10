@@ -551,7 +551,7 @@ class Panedwindow(Widget, tkinter.PanedWindow):
         takefocus: tkinter._TakeFocusValue = ...,
         width: int = ...,
     ) -> None: ...
-    @overload
+    @overload  # type: ignore
     def configure(
         self,
         cnf: Optional[Dict[str, Any]] = ...,
@@ -566,8 +566,8 @@ class Panedwindow(Widget, tkinter.PanedWindow):
     def configure(
         self, cnf: Literal["class", "cursor", "height", "orient", "style", "takefocus", "width"]
     ) -> Tuple[str, str, str, Any, Any]: ...
-    config = configure
-    def cget(self, key: Literal["class", "cursor", "height", "orient", "style", "takefocus", "width"]) -> Any: ...
+    config = configure  # type: ignore
+    def cget(self, key: Literal["class", "cursor", "height", "orient", "style", "takefocus", "width"]) -> Any: ...  # type: ignore
     forget: Any
     def insert(self, pos, child, **kw): ...
     def pane(self, pane, option: Optional[Any] = ..., **kw): ...
