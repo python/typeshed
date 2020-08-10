@@ -176,10 +176,7 @@ _EntryOptionName = Literal[
     "xscrollcommand",
 ]
 
-# This actually inherits from tkinter.Entry, but it doesn't have all
-# options of tkinter.Entry so we can't make the stubs look like it inherits
-# from tkinter.Entry.
-class Entry(Widget):  # actually inherits from tkinter.Entry
+class Entry(tkinter.Entry):
     def __init__(
         self,
         master: Optional[tkinter.Misc] = ...,
@@ -200,7 +197,7 @@ class Entry(Widget):  # actually inherits from tkinter.Entry
         width: int = ...,
         xscrollcommand: tkinter._XYScrollCommand = ...,
     ) -> None: ...
-    @overload
+    @overload  # type: ignore
     def configure(
         self,
         cnf: Optional[Dict[str, Any]] = ...,
@@ -221,30 +218,11 @@ class Entry(Widget):  # actually inherits from tkinter.Entry
     ) -> Optional[Dict[str, Tuple[str, str, str, Any, Any]]]: ...
     @overload
     def configure(self, cnf: _EntryOptionName) -> Tuple[str, str, str, Any, Any]: ...
-    config = configure
-    def cget(self, key: _EntryOptionName) -> Any: ...
+    config = configure  # type: ignore
+    def cget(self, key: _EntryOptionName) -> Any: ...  # type: ignore
     def bbox(self, index): ...
     def identify(self, x, y): ...
     def validate(self): ...
-    delete = tkinter.Entry.delete
-    get = tkinter.Entry.get
-    icursor = tkinter.Entry.icursor
-    index = tkinter.Entry.index
-    insert = tkinter.Entry.insert
-    scan_mark = tkinter.Entry.scan_mark
-    scan_dragto = tkinter.Entry.scan_dragto
-    selection_adjust = tkinter.Entry.selection_adjust
-    select_adjust = tkinter.Entry.select_adjust
-    selection_clear = tkinter.Entry.selection_clear
-    select_clear = tkinter.Entry.select_clear
-    selection_from = tkinter.Entry.selection_from
-    select_from = tkinter.Entry.select_from
-    selection_present = tkinter.Entry.selection_present
-    select_present = tkinter.Entry.select_present
-    selection_range = tkinter.Entry.selection_range
-    select_range = tkinter.Entry.select_range
-    selection_to = tkinter.Entry.selection_to
-    select_to = tkinter.Entry.select_to
 
 _ComboboxOptionName = Literal[
     "class",
@@ -261,7 +239,7 @@ _ComboboxOptionName = Literal[
     "width",
 ]
 
-class Combobox(Widget):  # actually inherits from Entry
+class Combobox(Entry):
     def __init__(
         self,
         master: Optional[tkinter.Misc] = ...,
@@ -279,7 +257,7 @@ class Combobox(Widget):  # actually inherits from Entry
         values: tkinter._TkinterSequence[str] = ...,
         width: int = ...,
     ) -> None: ...
-    @overload
+    @overload  # type: ignore
     def configure(
         self,
         cnf: Optional[Dict[str, Any]] = ...,
@@ -298,32 +276,10 @@ class Combobox(Widget):  # actually inherits from Entry
     ) -> Optional[Dict[str, Tuple[str, str, str, Any, Any]]]: ...
     @overload
     def configure(self, cnf: _ComboboxOptionName) -> Tuple[str, str, str, Any, Any]: ...
-    config = configure
-    def cget(self, key: _ComboboxOptionName) -> Any: ...
+    config = configure  # type: ignore
+    def cget(self, key: _ComboboxOptionName) -> Any: ...  # type: ignore
     def current(self, newindex: Optional[Any] = ...): ...
     def set(self, value): ...
-    bbox = Entry.bbox
-    identify = Entry.identify
-    validate = Entry.validate
-    delete = Entry.delete
-    get = Entry.get
-    icursor = Entry.icursor
-    index = Entry.index
-    insert = Entry.insert
-    scan_mark = Entry.scan_mark
-    scan_dragto = Entry.scan_dragto
-    selection_adjust = Entry.selection_adjust
-    select_adjust = Entry.select_adjust
-    selection_clear = Entry.selection_clear
-    select_clear = Entry.select_clear
-    selection_from = Entry.selection_from
-    select_from = Entry.select_from
-    selection_present = Entry.selection_present
-    select_present = Entry.select_present
-    selection_range = Entry.selection_range
-    select_range = Entry.select_range
-    selection_to = Entry.selection_to
-    select_to = Entry.select_to
 
 _FrameOptionName = Literal["borderwidth", "class", "cursor", "height", "padding", "relief", "style", "takefocus", "width"]
 
@@ -766,7 +722,7 @@ _ScaleOptionName = Literal[
     "class", "command", "cursor", "from", "length", "orient", "style", "takefocus", "to", "value", "variable"
 ]
 
-class Scale(Widget):  # actually inherits from tkinter.Scale
+class Scale(Widget, tkinter.Scale):
     def __init__(
         self,
         master: Optional[tkinter.Misc] = ...,
@@ -783,7 +739,7 @@ class Scale(Widget):  # actually inherits from tkinter.Scale
         value: float = ...,
         variable: tkinter.DoubleVar = ...,
     ) -> None: ...
-    @overload
+    @overload  # type: ignore
     def configure(
         self,
         cnf: Optional[Dict[str, Any]] = ...,
@@ -801,14 +757,11 @@ class Scale(Widget):  # actually inherits from tkinter.Scale
     ) -> Optional[Dict[str, Tuple[str, str, str, Any, Any]]]: ...
     @overload
     def configure(self, cnf: _ScaleOptionName) -> Tuple[str, str, str, Any, Any]: ...
-    config = configure
-    def cget(self, key: _ScaleOptionName) -> Any: ...
+    config = configure  # type: ignore
+    def cget(self, key: _ScaleOptionName) -> Any: ...  # type: ignore
     def get(self, x: Optional[Any] = ..., y: Optional[Any] = ...): ...
-    set = tkinter.Scale.set
-    coords = tkinter.Scale.coords
-    identify = tkinter.Scale.identify
 
-class Scrollbar(Widget):  # actually inherits from tkinter.Scrollbar
+class Scrollbar(Widget, tkinter.Scrollbar):
     def __init__(
         self,
         master: Optional[tkinter.Misc] = ...,
@@ -820,7 +773,7 @@ class Scrollbar(Widget):  # actually inherits from tkinter.Scrollbar
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
     ) -> None: ...
-    @overload
+    @overload  # type: ignore
     def configure(
         self,
         cnf: Optional[Dict[str, Any]] = ...,
@@ -835,14 +788,8 @@ class Scrollbar(Widget):  # actually inherits from tkinter.Scrollbar
     def configure(
         self, cnf: Literal["class", "command", "cursor", "orient", "style", "takefocus"]
     ) -> Tuple[str, str, str, Any, Any]: ...
-    config = configure
-    def cget(self, key: Literal["class", "command", "cursor", "orient", "style", "takefocus"]) -> Any: ...
-    activate = tkinter.Scrollbar.activate
-    delta = tkinter.Scrollbar.delta
-    fraction = tkinter.Scrollbar.fraction
-    identify = tkinter.Scrollbar.identify
-    get = tkinter.Scrollbar.get
-    set = tkinter.Scrollbar.set
+    config = configure  # type: ignore
+    def cget(self, key: Literal["class", "command", "cursor", "orient", "style", "takefocus"]) -> Any: ...  # type: ignore
 
 class Separator(Widget):
     def __init__(
@@ -910,7 +857,7 @@ if sys.version_info >= (3, 7):
         "wrap",
         "xscrollcommand",
     ]
-    class Spinbox(Widget):  # actually inherits from Entry
+    class Spinbox(Entry):
         def __init__(
             self,
             master: Optional[tkinter.Misc] = ...,
@@ -929,7 +876,7 @@ if sys.version_info >= (3, 7):
             wrap: bool = ...,
             xscrollcommand: tkinter._XYScrollCommand = ...,
         ) -> None: ...
-        @overload
+        @overload  # type: ignore
         def configure(
             self,
             cnf: Optional[Dict[str, Any]] = ...,
@@ -949,31 +896,9 @@ if sys.version_info >= (3, 7):
         ) -> Optional[Dict[str, Tuple[str, str, str, Any, Any]]]: ...
         @overload
         def configure(self, cnf: _SpinboxOptionName) -> Tuple[str, str, str, Any, Any]: ...
-        config = configure
-        def cget(self, key: _SpinboxOptionName) -> Any: ...
+        config = configure  # type: ignore
+        def cget(self, key: _SpinboxOptionName) -> Any: ...  # type: ignore
         def set(self, value: Any) -> None: ...
-        bbox = Entry.bbox
-        identify = Entry.identify
-        validate = Entry.validate
-        delete = Entry.delete
-        get = Entry.get
-        icursor = Entry.icursor
-        index = Entry.index
-        insert = Entry.insert
-        scan_mark = Entry.scan_mark
-        scan_dragto = Entry.scan_dragto
-        selection_adjust = Entry.selection_adjust
-        select_adjust = Entry.select_adjust
-        selection_clear = Entry.selection_clear
-        select_clear = Entry.select_clear
-        selection_from = Entry.selection_from
-        select_from = Entry.select_from
-        selection_present = Entry.selection_present
-        select_present = Entry.select_present
-        selection_range = Entry.selection_range
-        select_range = Entry.select_range
-        selection_to = Entry.selection_to
-        select_to = Entry.select_to
 
 _TreeviewOptionName = Literal[
     "class",
