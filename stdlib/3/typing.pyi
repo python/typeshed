@@ -196,6 +196,8 @@ class Awaitable(Protocol[_T_co]):
     def __await__(self) -> Generator[Any, None, _T_co]: ...
 
 class Coroutine(Awaitable[_V_co], Generic[_T_co, _T_contra, _V_co]):
+    __name__: str
+    __qualname__: str
     @property
     def cr_await(self) -> Optional[Any]: ...
     @property
