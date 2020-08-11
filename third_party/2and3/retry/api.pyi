@@ -1,5 +1,5 @@
 from logging import Logger
-from typing import Any, Callable, Dict, Optional, Sequence, Type, TypeVar, Union
+from typing import Any, Callable, Dict, Optional, Sequence, Tuple, Type, TypeVar, Union
 
 _T = TypeVar("_T", bound=Callable[..., Any])
 _Decorator = Callable[[_T], _T]
@@ -9,7 +9,7 @@ def retry_call(
     f: Callable[..., _R],
     fargs: Optional[Sequence[Any]] = ...,
     fkwargs: Optional[Dict[str, Any]] = ...,
-    exceptions: Union[Type[Exception], Sequence[Type[Exception]]] = ...,
+    exceptions: Union[Type[Exception], Tuple[Type[Exception], ...]] = ...,
     tries: int = ...,
     delay: int = ...,
     max_delay: Optional[int] = ...,
@@ -18,7 +18,7 @@ def retry_call(
     logger: Optional[Logger] = ...,
 ) -> _R: ...
 def retry(
-    exceptions: Union[Type[Exception], Sequence[Type[Exception]]] = ...,
+    exceptions: Union[Type[Exception], Tuple[Type[Exception], ...]] = ...,
     tries: int = ...,
     delay: int = ...,
     max_delay: Optional[int] = ...,
