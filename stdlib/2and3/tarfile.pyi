@@ -1,3 +1,4 @@
+import io
 import sys
 from _typeshed import AnyPath, StrPath
 from types import TracebackType
@@ -146,7 +147,7 @@ class TarFile(Iterable[TarInfo]):
         ) -> None: ...
     else:
         def extract(self, member: Union[str, TarInfo], path: AnyPath = ...) -> None: ...
-    def extractfile(self, member: Union[str, TarInfo]) -> Optional[IO[bytes]]: ...
+    def extractfile(self, member: Union[str, TarInfo]) -> Optional[io.BufferedReader]: ...
     def makedir(self, tarinfo: TarInfo, targetpath: AnyPath) -> None: ...  # undocumented
     def makefile(self, tarinfo: TarInfo, targetpath: AnyPath) -> None: ...  # undocumented
     def makeunknown(self, tarinfo: TarInfo, targetpath: AnyPath) -> None: ...  # undocumented
