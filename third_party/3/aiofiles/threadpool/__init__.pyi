@@ -68,7 +68,7 @@ def open(
 @overload
 def open(
     file: _OpenFile,
-    mode: OpenBinaryMode,
+    mode: str,
     buffering: int,
     encoding: None = ...,
     errors: None = ...,
