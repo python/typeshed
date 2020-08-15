@@ -1,5 +1,5 @@
-from os import PathLike, stat_result
 import sys
+from os import PathLike, stat_result
 from typing import Optional, Sequence, Union, overload
 
 _AnyPath = Union[str, bytes, PathLike[str], PathLike[bytes]]

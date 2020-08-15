@@ -1,16 +1,14 @@
-from _typeshed import OpenBinaryMode, OpenBinaryModeReading, OpenBinaryModeWriting, OpenTextMode
+from _typeshed import OpenBinaryMode, OpenBinaryModeReading, OpenBinaryModeUpdating, OpenBinaryModeWriting, OpenTextMode
 from os import PathLike
 from typing import Any, Callable, Optional, Union, overload
 from typing_extensions import Literal
 
-from .binary import AsyncBufferedReader, AsyncFileIO
+from .binary import AsyncBufferedIOBase, AsyncBufferedReader, AsyncFileIO
 from .text import AsyncTextIOWrapper
 
 _AnyPath = Union[str, bytes, PathLike[str], PathLike[bytes]]
 _OpenFile = Union[_AnyPath, int]
 _Opener = Callable[[str, int], int]
-
-# Text mode: always returns a TextIOWrapper
 @overload
 def open(
     file: _OpenFile,
@@ -25,8 +23,6 @@ def open(
     loop: Optional[Any] = ...,
     executor: Optional[Any] = ...,
 ) -> AsyncTextIOWrapper: ...
-
-# Unbuffered binary mode: returns a FileIO
 @overload
 def open(
     file: _OpenFile,
@@ -41,8 +37,6 @@ def open(
     loop: Optional[Any] = ...,
     executor: Optional[Any] = ...,
 ) -> AsyncFileIO: ...
-
-# Buffering is on: return BufferedRandom, BufferedReader, or BufferedWriter
 @overload
 def open(
     file: _OpenFile,
@@ -56,11 +50,11 @@ def open(
     *,
     loop: Optional[Any] = ...,
     executor: Optional[Any] = ...,
-) -> AsyncBufferedReader: ...
+) -> AsyncBufferedIOBase: ...
 @overload
 def open(
     file: _OpenFile,
-    mode: OpenBinaryModeReading,
+    mode: Union[OpenBinaryModeReading, OpenBinaryModeUpdating],
     buffering: Literal[-1, 1] = ...,
     encoding: None = ...,
     errors: None = ...,
@@ -71,8 +65,6 @@ def open(
     loop: Optional[Any] = ...,
     executor: Optional[Any] = ...,
 ) -> AsyncBufferedReader: ...
-
-# Buffering cannot be determined: fall back to BinaryIO
 @overload
 def open(
     file: _OpenFile,
