@@ -40,19 +40,12 @@ def main() -> None:
         python36_exe=args.python36_exe,
         print_stderr=args.print_stderr,
         dry_run=args.dry_run,
-        verbose=args.verbose,
     )
 
 
 def create_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Pytype/typeshed tests.")
     parser.add_argument("-n", "--dry-run", action="store_true", default=False, help="Don't actually run tests")
-    parser.add_argument(
-        "--verbose",
-        action="store_true",
-        default=False,
-        help="Print all filenames being tested (helps to find code that causes pytype to hang)",
-    )
     # Default to '' so that symlinking typeshed subdirs in cwd will work.
     parser.add_argument("--typeshed-location", type=str, default="", help="Path to typeshed installation.")
     # Set to true to print a stack trace every time an exception is thrown.
@@ -206,17 +199,13 @@ def run_all_tests(
     python27_exe: str,
     python36_exe: str,
     print_stderr: bool,
-    dry_run: bool,
-    verbose: bool,
+    dry_run: bool
 ) -> None:
     bad = []
     errors = 0
     total_tests = len(files_to_test)
     print("Testing files with pytype...")
     for i, (f, version) in enumerate(files_to_test):
-        if verbose:
-            print(f"{f} with Python {version}")
-
         stderr = (
             run_pytype(
                 filename=f,
@@ -235,7 +224,7 @@ def run_all_tests(
             bad.append((_get_relative(f), stacktrace_final_line))
 
         runs = i + 1
-        if runs % 25 == 0 and not verbose:
+        if runs % 25 == 0:
             print("  {:3d}/{:d} with {:3d} errors".format(runs, total_tests, errors))
 
     print("Ran pytype with {:d} pyis, got {:d} errors.".format(total_tests, errors))
