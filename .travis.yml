@@ -16,13 +16,6 @@ jobs:
       python: 3.8
       install: pip install -U git+git://github.com/python/mypy
       script: ./tests/mypy_test.py --platform=linux
-    - name: "tkinter options test"
-      # Run this with latest python supported by typeshed
-      python: 3.8
-      install: pip install -U typing-inspect
-      script: ./tests/tkinter_options_test.py
-      services:
-        - xvfb  # needed to run tkinter
     - name: "mypy (Windows)"
       install: pip install -U git+git://github.com/python/mypy
       script: ./tests/mypy_test.py --platform=win32
