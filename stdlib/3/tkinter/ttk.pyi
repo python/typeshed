@@ -281,13 +281,16 @@ class Combobox(Entry):
     def current(self, newindex: Optional[Any] = ...): ...
     def set(self, value): ...
 
-_FrameOptionName = Literal["borderwidth", "class", "cursor", "height", "padding", "relief", "style", "takefocus", "width"]
+_FrameOptionName = Literal[
+    "border", "borderwidth", "class", "cursor", "height", "padding", "relief", "style", "takefocus", "width"
+]
 
 class Frame(Widget):
     def __init__(
         self,
         master: Optional[tkinter.Misc] = ...,
         *,
+        border: tkinter._ScreenUnits = ...,
         borderwidth: tkinter._ScreenUnits = ...,
         class_: str = ...,
         cursor: tkinter._Cursor = ...,
@@ -303,6 +306,7 @@ class Frame(Widget):
         self,
         cnf: Optional[Dict[str, Any]] = ...,
         *,
+        border: tkinter._ScreenUnits = ...,
         borderwidth: tkinter._ScreenUnits = ...,
         cursor: tkinter._Cursor = ...,
         height: tkinter._ScreenUnits = ...,
