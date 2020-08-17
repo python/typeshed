@@ -532,6 +532,7 @@ _TkOptionName = Literal[
     "padx",
     "pady",
     "relief",
+    "screen",  # can't be changed after creating widget
     "takefocus",
     "use",
     "visual",
@@ -805,6 +806,7 @@ class Toplevel(BaseWidget, Wm):
         padx: _ScreenUnits = ...,
         pady: _ScreenUnits = ...,
         relief: _Relief = ...,
+        screen: str = ...,
         takefocus: _TakeFocusValue = ...,
         use: int = ...,
         visual: Union[str, Tuple[str, int]] = ...,
