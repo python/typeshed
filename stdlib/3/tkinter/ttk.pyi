@@ -948,7 +948,7 @@ if sys.version_info >= (3, 7):
             self,
             cnf: Optional[Dict[str, Any]] = ...,
             *,
-            background: tkinter.Color = ...,
+            background: tkinter._Color = ...,
             command: Union[Callable[[], None], str, tkinter._TkinterSequence[str]] = ...,
             cursor: tkinter._Cursor = ...,
             exportselection: bool = ...,
