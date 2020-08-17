@@ -348,6 +348,8 @@ class Frame(Widget):
 _LabelOptionName = Literal[
     "anchor",
     "background",
+    "border",
+    "borderwidth",
     "class",
     "compound",
     "cursor",
@@ -374,6 +376,8 @@ class Label(Widget):
         *,
         anchor: tkinter._Anchor = ...,
         background: tkinter._Color = ...,
+        border: tkinter._ScreenUnits = ...,  # alias for borderwidth
+        borderwidth: tkinter._ScreenUnits = ...,  # undocumented
         class_: str = ...,
         compound: _TtkCompound = ...,
         cursor: tkinter._Cursor = ...,
@@ -399,6 +403,8 @@ class Label(Widget):
         *,
         anchor: tkinter._Anchor = ...,
         background: tkinter._Color = ...,
+        border: tkinter._ScreenUnits = ...,
+        borderwidth: tkinter._ScreenUnits = ...,
         compound: _TtkCompound = ...,
         cursor: tkinter._Cursor = ...,
         font: tkinter._FontDescription = ...,
@@ -422,7 +428,19 @@ class Label(Widget):
     def cget(self, key: _LabelOptionName) -> Any: ...
 
 _LabelframeOptionName = Literal[
-    "class", "cursor", "height", "labelanchor", "labelwidget", "padding", "style", "takefocus", "text", "underline", "width",
+    "border",
+    "borderwidth",
+    "class",
+    "cursor",
+    "height",
+    "labelanchor",
+    "labelwidget",
+    "padding",
+    "style",
+    "takefocus",
+    "text",
+    "underline",
+    "width",
 ]
 
 class Labelframe(Widget):
@@ -430,6 +448,8 @@ class Labelframe(Widget):
         self,
         master: Optional[tkinter.Misc] = ...,
         *,
+        border: tkinter._ScreenUnits = ...,
+        borderwidth: tkinter._ScreenUnits = ...,  # undocumented
         class_: str = ...,
         cursor: tkinter._Cursor = ...,
         height: tkinter._ScreenUnits = ...,
@@ -447,6 +467,8 @@ class Labelframe(Widget):
         self,
         cnf: Optional[Dict[str, Any]] = ...,
         *,
+        border: tkinter._ScreenUnits = ...,
+        borderwidth: tkinter._ScreenUnits = ...,
         cursor: tkinter._Cursor = ...,
         height: tkinter._ScreenUnits = ...,
         labelanchor: Literal["nw", "n", "ne", "en", "e", "es", "se", "s", "sw", "ws", "w", "wn"] = ...,
