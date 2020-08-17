@@ -9,6 +9,7 @@ We pin the version of mypy / stubtest we use in .travis.yml so changes to those 
 typeshed CI.
 
 """
+print("run stubtest_test.py", __name__)
 
 from pathlib import Path
 import subprocess
@@ -16,6 +17,7 @@ import sys
 
 
 def run_stubtest(typeshed_dir: Path) -> int:
+    print("enter run_stubtest()")
     whitelist_dir = typeshed_dir / "tests" / "stubtest_whitelists"
     version_whitelist = "py{}{}.txt".format(sys.version_info.major, sys.version_info.minor)
     platform_whitelist = "{}.txt".format(sys.platform)
@@ -55,6 +57,7 @@ def run_stubtest(typeshed_dir: Path) -> int:
         # As discussed in https://github.com/python/typeshed/issues/3693, we only aim for
         # positional-only arg accuracy for the latest Python version.
         cmd += ["--ignore-positional-only"]
+    print("cmd", cmd)
     try:
         print(" ".join(cmd), file=sys.stderr)
         subprocess.run(cmd, check=True)
@@ -74,4 +77,5 @@ def run_stubtest(typeshed_dir: Path) -> int:
 
 
 if __name__ == "__main__":
+    print("if __main__ block")
     sys.exit(run_stubtest(typeshed_dir=Path(".")))
