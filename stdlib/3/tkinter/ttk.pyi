@@ -451,6 +451,7 @@ _LabelframeOptionName = Literal[
     "labelanchor",
     "labelwidget",
     "padding",
+    "relief",
     "style",
     "takefocus",
     "text",
@@ -471,6 +472,7 @@ class Labelframe(Widget):
         labelanchor: Literal["nw", "n", "ne", "en", "e", "es", "se", "s", "sw", "ws", "w", "wn"] = ...,
         labelwidget: tkinter.Misc = ...,
         padding: tkinter._Padding = ...,
+        relief: tkinter._Relief = ...,  # undocumented
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
         text: str = ...,
@@ -489,6 +491,7 @@ class Labelframe(Widget):
         labelanchor: Literal["nw", "n", "ne", "en", "e", "es", "se", "s", "sw", "ws", "w", "wn"] = ...,
         labelwidget: tkinter.Misc = ...,
         padding: tkinter._Padding = ...,
+        relief: tkinter._Relief = ...,
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
         text: str = ...,
