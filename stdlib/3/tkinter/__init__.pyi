@@ -97,7 +97,7 @@ _EntryValidateCommand = Union[
 # seems to also load tkinter.font. That's not how it actually works, but
 # unfortunately not much can be done about it. https://github.com/python/typeshed/pull/4346
 _FontDescription = Union[
-    str, font.Font, Tuple[str, int], Tuple[str, int, _TkinterSequence[str]],
+    str, font.Font, Tuple[str, int], Tuple[str, int, str], Tuple[str, int, _TkinterSequence[str]],
 ]  # 'FONT DESCRIPTIONS' in 'font' manual page
 _ImageSpec = Union[Image, str]  # str can be from e.g. tkinter.image_names()
 _Padding = Union[
