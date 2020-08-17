@@ -755,7 +755,7 @@ class Radiobutton(Widget):
     def invoke(self): ...
 
 _ScaleOptionName = Literal[
-    "class", "command", "cursor", "from", "length", "orient", "style", "takefocus", "to", "value", "variable"
+    "class", "command", "cursor", "from", "length", "orient", "state", "style", "takefocus", "to", "value", "variable"
 ]
 
 class Scale(Widget, tkinter.Scale):
@@ -769,6 +769,7 @@ class Scale(Widget, tkinter.Scale):
         from_: float = ...,
         length: tkinter._ScreenUnits = ...,
         orient: Literal["horizontal", "vertical"] = ...,
+        state: Any = ...,  # undocumented
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
         to: float = ...,
@@ -785,6 +786,7 @@ class Scale(Widget, tkinter.Scale):
         from_: float = ...,
         length: tkinter._ScreenUnits = ...,
         orient: Literal["horizontal", "vertical"] = ...,
+        state: Any = ...,
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
         to: float = ...,
