@@ -250,6 +250,7 @@ _ComboboxOptionName = Literal[
     "invalidcommand",
     "justify",
     "postcommand",
+    "show",
     "state",
     "style",
     "takefocus",
@@ -275,6 +276,7 @@ class Combobox(Entry):
         invalidcommand: tkinter._EntryValidateCommand = ...,  # undocumented
         justify: Literal["left", "center", "right"] = ...,
         postcommand: Union[Callable[[], None], str] = ...,
+        show: Any = ...,  # undocumented
         state: Literal["normal", "readonly", "disabled"] = ...,
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
@@ -298,6 +300,7 @@ class Combobox(Entry):
         invalidcommand: tkinter._EntryValidateCommand = ...,
         justify: Literal["left", "center", "right"] = ...,
         postcommand: Union[Callable[[], None], str] = ...,
+        show: Any = ...,
         state: Literal["normal", "readonly", "disabled"] = ...,
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
@@ -887,6 +890,7 @@ if sys.version_info >= (3, 7):
         "from",
         "increment",
         "invalidcommand",
+        "show",
         "state",
         "style",
         "takefocus",
@@ -912,6 +916,7 @@ if sys.version_info >= (3, 7):
             from_: float = ...,
             increment: float = ...,
             invalidcommand: tkinter._EntryValidateCommand = ...,  # undocumented
+            show: Any = ...,  # undocumented
             state: Literal["normal", "disabled"] = ...,
             style: str = ...,
             takefocus: tkinter._TakeFocusValue = ...,
@@ -936,6 +941,7 @@ if sys.version_info >= (3, 7):
             from_: float = ...,
             increment: float = ...,
             invalidcommand: tkinter._EntryValidateCommand = ...,
+            show: Any = ...,
             state: Literal["normal", "disabled"] = ...,
             style: str = ...,
             takefocus: tkinter._TakeFocusValue = ...,
