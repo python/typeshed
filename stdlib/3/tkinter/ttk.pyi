@@ -166,9 +166,12 @@ class Checkbutton(Widget):
     def invoke(self): ...
 
 _EntryOptionName = Literal[
+    "background",
     "class",
     "cursor",
     "exportselection",
+    "font",
+    "foreground",
     "invalidcommand",
     "justify",
     "show",
@@ -188,9 +191,12 @@ class Entry(Widget, tkinter.Entry):
         master: Optional[tkinter.Misc] = ...,
         widget: Optional[str] = ...,
         *,
+        background: tkinter._Color = ...,  # undocumented
         class_: str = ...,
         cursor: tkinter._Cursor = ...,
         exportselection: bool = ...,
+        font: tkinter._FontDescription = ...,
+        foreground: tkinter._Color = ...,
         invalidcommand: tkinter._EntryValidateCommand = ...,
         justify: Literal["left", "center", "right"] = ...,
         show: str = ...,
@@ -208,8 +214,11 @@ class Entry(Widget, tkinter.Entry):
         self,
         cnf: Optional[Dict[str, Any]] = ...,
         *,
+        background: tkinter._Color = ...,
         cursor: tkinter._Cursor = ...,
         exportselection: bool = ...,
+        font: tkinter._FontDescription = ...,
+        foreground: tkinter._Color = ...,
         invalidcommand: tkinter._EntryValidateCommand = ...,
         justify: Literal["left", "center", "right"] = ...,
         show: str = ...,
@@ -231,9 +240,12 @@ class Entry(Widget, tkinter.Entry):
     def validate(self): ...
 
 _ComboboxOptionName = Literal[
+    "background",
     "class",
     "cursor",
     "exportselection",
+    "font",
+    "foreground",
     "height",
     "justify",
     "postcommand",
@@ -250,9 +262,12 @@ class Combobox(Entry):
         self,
         master: Optional[tkinter.Misc] = ...,
         *,
+        background: tkinter._Color = ...,  # undocumented
         class_: str = ...,
         cursor: tkinter._Cursor = ...,
         exportselection: bool = ...,
+        font: tkinter._FontDescription = ...,  # undocumented
+        foreground: tkinter._Color = ...,  # undocumented
         height: int = ...,
         justify: Literal["left", "center", "right"] = ...,
         postcommand: Union[Callable[[], None], str] = ...,
@@ -268,8 +283,11 @@ class Combobox(Entry):
         self,
         cnf: Optional[Dict[str, Any]] = ...,
         *,
+        background: tkinter._Color = ...,
         cursor: tkinter._Cursor = ...,
         exportselection: bool = ...,
+        font: tkinter._FontDescription = ...,
+        foreground: tkinter._Color = ...,
         height: int = ...,
         justify: Literal["left", "center", "right"] = ...,
         postcommand: Union[Callable[[], None], str] = ...,
@@ -827,9 +845,12 @@ class Sizegrip(Widget):
 
 if sys.version_info >= (3, 7):
     _SpinboxOptionName = Literal[
+        "background",
         "class",
         "command",
         "cursor",
+        "font",
+        "foreground",
         "format",
         "from",
         "increment",
@@ -846,9 +867,12 @@ if sys.version_info >= (3, 7):
             self,
             master: Optional[tkinter.Misc] = ...,
             *,
+            background: tkinter._Color = ...,  # undocumented
             class_: str = ...,
             command: Union[Callable[[], None], str, tkinter._TkinterSequence[str]] = ...,
             cursor: tkinter._Cursor = ...,
+            font: tkinter._FontDescription = ...,  # undocumented
+            foreground: tkinter._Color = ...,  # undocumented
             format: str = ...,
             from_: float = ...,
             increment: float = ...,
@@ -865,8 +889,11 @@ if sys.version_info >= (3, 7):
             self,
             cnf: Optional[Dict[str, Any]] = ...,
             *,
+            background: tkinter.Color = ...,
             command: Union[Callable[[], None], str, tkinter._TkinterSequence[str]] = ...,
             cursor: tkinter._Cursor = ...,
+            font: tkinter._FontDescription = ...,
+            foreground: tkinter._Color = ...,
             format: str = ...,
             from_: float = ...,
             increment: float = ...,
