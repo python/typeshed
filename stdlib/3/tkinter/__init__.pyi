@@ -2973,6 +2973,7 @@ _LabelFrameOptionName = Literal[
     "borderwidth",
     "class",
     "colormap",
+    "container",
     "cursor",
     "fg",
     "font",
@@ -3005,6 +3006,7 @@ class LabelFrame(Widget):
         borderwidth: _ScreenUnits = ...,
         class_: str = ...,
         colormap: Union[Literal["new", ""], Misc] = ...,
+        container: bool = ...,  # undocumented
         cursor: _Cursor = ...,
         fg: _Color = ...,
         font: _FontDescription = ...,
