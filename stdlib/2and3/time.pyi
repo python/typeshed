@@ -69,7 +69,7 @@ if sys.version_info >= (3, 3):
             ],
             _arg: Any = ...,
         ) -> struct_time: ...
-        if sys.version_info >= (3, 6):
+        if sys.version_info >= (3, 6) or sys.platform != "win32":
             @property
             def tm_zone(self) -> str: ...
             @property
