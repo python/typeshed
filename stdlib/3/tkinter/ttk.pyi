@@ -631,7 +631,6 @@ class Panedwindow(Widget, tkinter.PanedWindow):
         *,
         cursor: tkinter._Cursor = ...,
         height: int = ...,
-        orient: Literal["vertical", "horizontal"] = ...,
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
         width: int = ...,
