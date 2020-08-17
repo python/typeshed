@@ -259,6 +259,7 @@ _ComboboxOptionName = Literal[
     "validatecommand",
     "values",
     "width",
+    "xscrollcommand",
 ]
 
 class Combobox(Entry):
@@ -285,6 +286,7 @@ class Combobox(Entry):
         validatecommand: tkinter._EntryValidateCommand = ...,  # undocumented
         values: tkinter._TkinterSequence[str] = ...,
         width: int = ...,
+        xscrollcommand: tkinter._XYScrollCommand = ...,  # undocumented
     ) -> None: ...
     @overload  # type: ignore
     def configure(
@@ -309,6 +311,7 @@ class Combobox(Entry):
         validatecommand: tkinter._EntryValidateCommand = ...,
         values: tkinter._TkinterSequence[str] = ...,
         width: int = ...,
+        xscrollcommand: tkinter._XYScrollCommand = ...,
     ) -> Optional[Dict[str, Tuple[str, str, str, Any, Any]]]: ...
     @overload
     def configure(self, cnf: _ComboboxOptionName) -> Tuple[str, str, str, Any, Any]: ...
