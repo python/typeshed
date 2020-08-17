@@ -1,11 +1,15 @@
 import _tkinter
 import sys
 from enum import Enum
-from tkinter import font
 from tkinter.constants import *  # comment this out to find undefined identifier names with flake8
+from tkinter.font import _FontDescription
 from types import TracebackType
 from typing import Any, Callable, Dict, Generic, List, Optional, Tuple, Type, TypeVar, Union, overload
 from typing_extensions import Literal, TypedDict
+
+# Using anything from tkinter.font in this file means that 'import tkinter'
+# seems to also load tkinter.font. That's not how it actually works, but
+# unfortunately not much can be done about it. https://github.com/python/typeshed/pull/4346
 
 TclError = _tkinter.TclError
 wantobjects: Any
@@ -91,14 +95,6 @@ _Cursor = Union[str, Tuple[str], Tuple[str, str], Tuple[str, str, str], Tuple[st
 _EntryValidateCommand = Union[
     Callable[[], bool], str, _TkinterSequence[str]
 ]  # example when it's sequence:  entry['invalidcommand'] = [entry.register(print), '%P']
-# Putting this to font.pyi breaks pytype: https://github.com/google/pytype/issues/626
-#
-# Using anything from tkinter.font in this file means that 'import tkinter'
-# seems to also load tkinter.font. That's not how it actually works, but
-# unfortunately not much can be done about it. https://github.com/python/typeshed/pull/4346
-_FontDescription = Union[
-    str, font.Font, Tuple[str, int], Tuple[str, int, str], Tuple[str, int, _TkinterSequence[str]],
-]  # 'FONT DESCRIPTIONS' in 'font' manual page
 _ImageSpec = Union[Image, str]  # str can be from e.g. tkinter.image_names()
 _Padding = Union[
     _ScreenUnits,

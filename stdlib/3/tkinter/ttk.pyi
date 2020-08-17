@@ -1,6 +1,7 @@
 import _tkinter
 import sys
 import tkinter
+from tkinter.font import _FontDescription
 from typing import Any, Callable, Dict, List, Optional, Tuple, Union, overload
 from typing_extensions import Literal
 
@@ -195,7 +196,7 @@ class Entry(Widget, tkinter.Entry):
         class_: str = ...,
         cursor: tkinter._Cursor = ...,
         exportselection: bool = ...,
-        font: tkinter._FontDescription = ...,
+        font: _FontDescription = ...,
         foreground: tkinter._Color = ...,
         invalidcommand: tkinter._EntryValidateCommand = ...,
         justify: Literal["left", "center", "right"] = ...,
@@ -217,7 +218,7 @@ class Entry(Widget, tkinter.Entry):
         background: tkinter._Color = ...,
         cursor: tkinter._Cursor = ...,
         exportselection: bool = ...,
-        font: tkinter._FontDescription = ...,
+        font: _FontDescription = ...,
         foreground: tkinter._Color = ...,
         invalidcommand: tkinter._EntryValidateCommand = ...,
         justify: Literal["left", "center", "right"] = ...,
@@ -271,7 +272,7 @@ class Combobox(Entry):
         class_: str = ...,
         cursor: tkinter._Cursor = ...,
         exportselection: bool = ...,
-        font: tkinter._FontDescription = ...,  # undocumented
+        font: _FontDescription = ...,  # undocumented
         foreground: tkinter._Color = ...,  # undocumented
         height: int = ...,
         invalidcommand: tkinter._EntryValidateCommand = ...,  # undocumented
@@ -296,7 +297,7 @@ class Combobox(Entry):
         background: tkinter._Color = ...,
         cursor: tkinter._Cursor = ...,
         exportselection: bool = ...,
-        font: tkinter._FontDescription = ...,
+        font: _FontDescription = ...,
         foreground: tkinter._Color = ...,
         height: int = ...,
         invalidcommand: tkinter._EntryValidateCommand = ...,
@@ -396,7 +397,7 @@ class Label(Widget):
         class_: str = ...,
         compound: _TtkCompound = ...,
         cursor: tkinter._Cursor = ...,
-        font: tkinter._FontDescription = ...,
+        font: _FontDescription = ...,
         foreground: tkinter._Color = ...,
         image: tkinter._ImageSpec = ...,
         justify: Literal["left", "center", "right"] = ...,
@@ -422,7 +423,7 @@ class Label(Widget):
         borderwidth: tkinter._ScreenUnits = ...,
         compound: _TtkCompound = ...,
         cursor: tkinter._Cursor = ...,
-        font: tkinter._FontDescription = ...,
+        font: _FontDescription = ...,
         foreground: tkinter._Color = ...,
         image: tkinter._ImageSpec = ...,
         justify: Literal["left", "center", "right"] = ...,
@@ -922,7 +923,7 @@ if sys.version_info >= (3, 7):
             command: Union[Callable[[], None], str, tkinter._TkinterSequence[str]] = ...,
             cursor: tkinter._Cursor = ...,
             exportselection: bool = ...,  # undocumented
-            font: tkinter._FontDescription = ...,  # undocumented
+            font: _FontDescription = ...,  # undocumented
             foreground: tkinter._Color = ...,  # undocumented
             format: str = ...,
             from_: float = ...,
@@ -951,7 +952,7 @@ if sys.version_info >= (3, 7):
             command: Union[Callable[[], None], str, tkinter._TkinterSequence[str]] = ...,
             cursor: tkinter._Cursor = ...,
             exportselection: bool = ...,
-            font: tkinter._FontDescription = ...,
+            font: _FontDescription = ...,
             foreground: tkinter._Color = ...,
             format: str = ...,
             from_: float = ...,
