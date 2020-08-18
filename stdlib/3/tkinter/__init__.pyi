@@ -2664,9 +2664,23 @@ class Text(Widget, XView, YView):
     def dump(
         self,
         index1: _TextIndex,
-        index2: Optional[_TextIndex] = ...,
-        command: Union[Callable[[str, str, str], None], str] = ...,
+        index2: Optional[_TextIndex],
+        command: Union[Callable[[str, str, str], None], str],
         *,
+        all: bool = ...,
+        image: bool = ...,
+        mark: bool = ...,
+        tag: bool = ...,
+        text: bool = ...,
+        window: bool = ...,
+    ) -> None: ...
+    @overload
+    def dump(
+        self,
+        index1: _TextIndex,
+        index2: Optional[_TextIndex] = ...,
+        *,
+        command: Union[Callable[[str, str, str], None], str],
         all: bool = ...,
         image: bool = ...,
         mark: bool = ...,
