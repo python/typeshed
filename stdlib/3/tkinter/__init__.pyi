@@ -549,7 +549,7 @@ class Tk(Misc, Wm):
     ) -> None: ...
     @overload
     def configure(
-        self,
+        self: Union[Tk, Toplevel],
         cnf: Optional[Dict[str, Any]] = ...,
         *,
         background: _Color = ...,
