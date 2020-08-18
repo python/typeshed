@@ -1008,7 +1008,7 @@ class Canvas(Widget, XView, YView):
         insertofftime: int = ...,
         insertontime: int = ...,
         insertwidth: _ScreenUnits = ...,
-        offset: Any,  # undocumented
+        offset: Any = ...,  # undocumented
         relief: _Relief = ...,
         # Setting scrollregion to None doesn't reset it back to empty,
         # but setting it to () does.
@@ -1047,7 +1047,7 @@ class Canvas(Widget, XView, YView):
         insertofftime: int = ...,
         insertontime: int = ...,
         insertwidth: _ScreenUnits = ...,
-        offset: Any,  # undocumented
+        offset: Any = ...,  # undocumented
         relief: _Relief = ...,
         scrollregion: Union[Tuple[_ScreenUnits, _ScreenUnits, _ScreenUnits, _ScreenUnits], Tuple[()]] = ...,
         selectbackground: _Color = ...,
