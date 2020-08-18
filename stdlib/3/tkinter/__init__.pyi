@@ -664,7 +664,7 @@ class Pack:
     # slaves = Misc.pack_slaves
     # pack_slaves = Misc.pack_slaves
 
-class _PlaceInfo(_InMiscNonTotal, total=False):  # empty dict if widget hasn't been placed
+class _PlaceInfo(_InMiscNonTotal):  # empty dict if widget hasn't been placed
     anchor: _Anchor
     bordermode: Literal["inside", "outside", "ignore"]
     width: str  # can be int()ed (even after e.g. widget.place(height='2.3c') or similar)
@@ -705,7 +705,7 @@ class Place:
     # slaves = Misc.place_slaves
     # place_slaves = Misc.place_slaves
 
-class _GridInfo(_InMiscNonTotal, total=False):  # empty dict if widget hasn't been gridded
+class _GridInfo(_InMiscNonTotal):  # empty dict if widget hasn't been gridded
     column: int
     columnspan: int
     row: int
