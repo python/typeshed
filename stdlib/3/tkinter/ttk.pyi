@@ -691,7 +691,7 @@ class Panedwindow(Widget, tkinter.PanedWindow):
     def configure(self, cnf: _PanedwindowOptionName) -> Tuple[str, str, str, Any, Any]: ...
     # config must be copy/pasted, otherwise ttk.Panedwindow().config is mypy error (don't know why)
     @overload  # type: ignore
-    def configure(
+    def config(
         self,
         cnf: Optional[Dict[str, Any]] = ...,
         *,
@@ -702,7 +702,7 @@ class Panedwindow(Widget, tkinter.PanedWindow):
         width: int = ...,
     ) -> Optional[Dict[str, Tuple[str, str, str, Any, Any]]]: ...
     @overload
-    def configure(self, cnf: _PanedwindowOptionName) -> Tuple[str, str, str, Any, Any]: ...
+    def config(self, cnf: _PanedwindowOptionName) -> Tuple[str, str, str, Any, Any]: ...
     def cget(self, key: _PanedwindowOptionName) -> Any: ...  # type: ignore
     forget: Any
     def insert(self, pos, child, **kw): ...
