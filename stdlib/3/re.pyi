@@ -76,7 +76,16 @@ if sys.version_info < (3, 7):
     # undocumented
     _pattern_type: type
 
-class error(Exception): ...
+if sys.version_info < (3, 5):
+    class error(Exception): ...
+
+else:
+    class error(Exception):
+        msg: str
+        pattern: str
+        pos: Optional[int]
+        lineno: Optional[int]
+        colno: Optional[int]
 
 @overload
 def compile(pattern: AnyStr, flags: _FlagsType = ...) -> Pattern[AnyStr]: ...
