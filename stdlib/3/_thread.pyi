@@ -36,5 +36,5 @@ if sys.version_info >= (3, 8):
         exc_value: Optional[BaseException]
         exc_traceback: Optional[TracebackType]
         thread: Optional[Thread]
-    def _ExceptHookArgs(args) -> ExceptHookArgs: ...
+    def _ExceptHookArgs(args: Any) -> ExceptHookArgs: ...
     _excepthook: Callable[[ExceptHookArgs], Any]
