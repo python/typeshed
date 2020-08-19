@@ -1,16 +1,12 @@
-from os import PathLike
+from _typeshed import AnyPath, OpenBinaryMode, OpenBinaryModeReading, OpenBinaryModeUpdating, OpenBinaryModeWriting, OpenTextMode
 from typing import Any, Callable, Optional, Union, overload
-
 from typing_extensions import Literal
-
-from _typeshed import OpenBinaryMode, OpenBinaryModeReading, OpenBinaryModeUpdating, OpenBinaryModeWriting, OpenTextMode
 
 from ..base import AsyncBase
 from .binary import AsyncBufferedIOBase, AsyncBufferedReader, AsyncFileIO
 from .text import AsyncTextIOWrapper
 
-_AnyPath = Union[str, bytes, PathLike[str], PathLike[bytes]]
-_OpenFile = Union[_AnyPath, int]
+_OpenFile = Union[AnyPath, int]
 _Opener = Callable[[str, int], int]
 @overload
 def open(
