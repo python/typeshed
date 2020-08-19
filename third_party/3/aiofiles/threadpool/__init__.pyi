@@ -1,8 +1,11 @@
-from _typeshed import OpenBinaryMode, OpenBinaryModeReading, OpenBinaryModeUpdating, OpenBinaryModeWriting, OpenTextMode
 from os import PathLike
 from typing import Any, Callable, Optional, Union, overload
+
 from typing_extensions import Literal
 
+from _typeshed import OpenBinaryMode, OpenBinaryModeReading, OpenBinaryModeUpdating, OpenBinaryModeWriting, OpenTextMode
+
+from ..base import AsyncBase
 from .binary import AsyncBufferedIOBase, AsyncBufferedReader, AsyncFileIO
 from .text import AsyncTextIOWrapper
 
@@ -78,4 +81,4 @@ def open(
     *,
     loop: Optional[Any] = ...,
     executor: Optional[Any] = ...,
-) -> AsyncFileIO: ...
+) -> AsyncBase: ...
