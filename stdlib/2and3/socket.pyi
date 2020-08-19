@@ -15,7 +15,7 @@ CPython C source: https://github.com/python/cpython/blob/master/Modules/socketmo
 #   Ron Murawski <ron@horizonchess.com>
 #   adapted for Python 2.7 by Michal Pokorny
 import sys
-from typing import Any, BinaryIO, Iterable, List, Optional, Text, TextIO, Tuple, TypeVar, Union, overload
+from typing import Any, BinaryIO, Iterable, List, Optional, Sequence, Text, TextIO, Tuple, TypeVar, Union, overload
 from typing_extensions import Literal
 
 # ----- Constants -----
