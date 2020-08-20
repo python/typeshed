@@ -18,7 +18,7 @@ import sys
 from typing import AbstractSet, Container, Iterable, Protocol, Text, Tuple, TypeVar, Union
 from typing_extensions import Literal
 
-_KT = TypeVar("_KT", covariant=True)
+_KT = TypeVar("_KT")
 _KT_co = TypeVar("_KT_co", covariant=True)
 _KT_contra = TypeVar("_KT_contra", contravariant=True)
 _VT = TypeVar("_VT")
