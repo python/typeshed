@@ -2479,7 +2479,7 @@ class Scrollbar(Widget):
     def get(self): ...
     def set(self, first, last): ...
 
-_TextIndex = Union[_tkinter.Tcl_Obj, str]
+_TextIndex = Union[_tkinter.Tcl_Obj, str, float]
 _TextOptionName = Literal[
     "autoseparators",
     "background",
