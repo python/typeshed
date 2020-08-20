@@ -10,6 +10,7 @@ from _typeshed import (
     OpenBinaryModeWriting,
     OpenTextMode,
     ReadableBuffer,
+    SupportsKeysAndGetItem,
     SupportsWrite,
 )
 from abc import ABCMeta
@@ -1001,7 +1002,7 @@ class dict(MutableMapping[_KT, _VT], Generic[_KT, _VT]):
     @overload
     def __init__(self, **kwargs: _VT) -> None: ...
     @overload
-    def __init__(self, map: Mapping[_KT, _VT], **kwargs: _VT) -> None: ...
+    def __init__(self, map: SupportsKeysAndGetItem[_KT, _VT], **kwargs: _VT) -> None: ...
     @overload
     def __init__(self, iterable: Iterable[Tuple[_KT, _VT]], **kwargs: _VT) -> None: ...
     def __new__(cls: Type[_T1], *args: Any, **kwargs: Any) -> _T1: ...
