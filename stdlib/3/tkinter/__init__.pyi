@@ -225,6 +225,7 @@ getdouble: Any
 def getboolean(s): ...
 
 class Misc:
+    master: Optional[Misc]
     tk: _tkinter.TkappType
     def destroy(self): ...
     def deletecommand(self, name): ...
@@ -536,7 +537,7 @@ _TkOptionName = Literal[
 ]
 
 class Tk(Misc, Wm):
-    master: Optional[Any]
+    master: None
     children: Dict[str, Any]
     def __init__(
         self,
@@ -758,6 +759,7 @@ class Grid:
     # grid_slaves = Misc.grid_slaves
 
 class BaseWidget(Misc):
+    master: Misc
     widgetName: Any
     def __init__(self, master, widgetName, cnf=..., kw=..., extra=...): ...
     def destroy(self): ...
