@@ -2,7 +2,7 @@
 #
 # Note: Commented out items means they weren't implemented at the time.
 # Uncomment them when the modules have been added to the typeshed.
-from builtins import filter as filter, input as input, map as map, range as xrange, zip as zip
+from builtins import filter as filter, input as input, map as map, range as range, range as xrange, zip as zip
 from collections import UserDict as UserDict, UserList as UserList, UserString as UserString
 from functools import reduce as reduce
 from importlib import reload as reload_module
