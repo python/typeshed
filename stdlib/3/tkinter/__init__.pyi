@@ -581,7 +581,8 @@ class Tk(Misc, Wm):
     def loadtk(self) -> None: ...  # differs from _tkinter.TkappType.loadtk
     def destroy(self) -> None: ...
     def readprofile(self, baseName: str, className: str) -> None: ...
-    report_callback_exception: Callable[[Type[BaseException], BaseException, TracebackType], Any]
+    # This really shouldn't be Optional. It's a hack to make assigning to Tk().report_callback_exception work.
+    report_callback_exception: Optional[Callable[[Type[BaseException], BaseException, TracebackType], Any]]
     # Tk has __getattr__ so that tk_instance.foo falls back to tk_instance.tk.foo
     # Please keep in sync with _tkinter.TkappType
     call: Callable[..., Any]
