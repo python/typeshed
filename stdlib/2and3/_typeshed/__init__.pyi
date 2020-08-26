@@ -136,12 +136,8 @@ OpenBinaryModeUpdating = Literal[
     "b+x",
     "+bx",
 ]
-OpenBinaryModeWriting = Literal[
-    "wb", "bw", "ab", "ba", "xb", "bx",
-]
-OpenBinaryModeReading = Literal[
-    "rb", "br", "rbU", "rUb", "Urb", "brU", "bUr", "Ubr",
-]
+OpenBinaryModeWriting = Literal["wb", "bw", "ab", "ba", "xb", "bx"]
+OpenBinaryModeReading = Literal["rb", "br", "rbU", "rUb", "Urb", "brU", "bUr", "Ubr"]
 OpenBinaryMode = Union[OpenBinaryModeUpdating, OpenBinaryModeReading, OpenBinaryModeWriting]
 
 class HasFileno(Protocol):

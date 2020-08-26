@@ -100,7 +100,7 @@ class Path(PurePath):
         # Unbuffered binary mode: returns a FileIO
         @overload
         def open(
-            self, mode: OpenBinaryMode, buffering: Literal[0], encoding: None = ..., errors: None = ..., newline: None = ...,
+            self, mode: OpenBinaryMode, buffering: Literal[0], encoding: None = ..., errors: None = ..., newline: None = ...
         ) -> FileIO: ...
         # Buffering is on: return BufferedRandom, BufferedReader, or BufferedWriter
         @overload
@@ -133,7 +133,7 @@ class Path(PurePath):
         # Buffering cannot be determined: fall back to BinaryIO
         @overload
         def open(
-            self, mode: OpenBinaryMode, buffering: int, encoding: None = ..., errors: None = ..., newline: None = ...,
+            self, mode: OpenBinaryMode, buffering: int, encoding: None = ..., errors: None = ..., newline: None = ...
         ) -> BinaryIO: ...
         # Fallback if mode is not specified
         @overload
