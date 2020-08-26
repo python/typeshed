@@ -11,9 +11,7 @@ def nametofont(name: str) -> Font: ...
 
 # See 'FONT DESCRIPTIONS' in font man page. This uses str because Literal
 # inside Tuple doesn't work.
-_FontDescription = Union[
-    str, Font, Tuple[str, int], Tuple[str, int, str], Tuple[str, int, tkinter._TkinterSequence[str]],
-]
+_FontDescription = Union[str, Font, Tuple[str, int], Tuple[str, int, str], Tuple[str, int, tkinter._TkinterSequence[str]]]
 
 class _FontDict(TypedDict):
     family: str
