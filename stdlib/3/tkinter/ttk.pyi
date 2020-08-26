@@ -301,7 +301,7 @@ class Combobox(Entry):
         height: int = ...,
         invalidcommand: tkinter._EntryValidateCommand = ...,  # undocumented
         justify: Literal["left", "center", "right"] = ...,
-        postcommand: Union[Callable[[], None], str] = ...,
+        postcommand: Union[Callable[[], Any], str] = ...,
         show: Any = ...,  # undocumented
         state: Literal["normal", "readonly", "disabled"] = ...,
         style: str = ...,
@@ -326,7 +326,7 @@ class Combobox(Entry):
         height: int = ...,
         invalidcommand: tkinter._EntryValidateCommand = ...,
         justify: Literal["left", "center", "right"] = ...,
-        postcommand: Union[Callable[[], None], str] = ...,
+        postcommand: Union[Callable[[], Any], str] = ...,
         show: Any = ...,
         state: Literal["normal", "readonly", "disabled"] = ...,
         style: str = ...,
@@ -354,7 +354,7 @@ class Combobox(Entry):
         height: int = ...,
         invalidcommand: tkinter._EntryValidateCommand = ...,
         justify: Literal["left", "center", "right"] = ...,
-        postcommand: Union[Callable[[], None], str] = ...,
+        postcommand: Union[Callable[[], Any], str] = ...,
         show: Any = ...,
         state: Literal["normal", "readonly", "disabled"] = ...,
         style: str = ...,
@@ -831,7 +831,7 @@ class Scale(Widget, tkinter.Scale):
         master: Optional[tkinter.Misc] = ...,
         *,
         class_: str = ...,
-        command: Union[str, Callable[[str], None]] = ...,
+        command: Union[str, Callable[[str], Any]] = ...,
         cursor: tkinter._Cursor = ...,
         from_: float = ...,
         length: tkinter._ScreenUnits = ...,
@@ -848,7 +848,7 @@ class Scale(Widget, tkinter.Scale):
         self,
         cnf: Optional[Dict[str, Any]] = ...,
         *,
-        command: Union[str, Callable[[str], None]] = ...,
+        command: Union[str, Callable[[str], Any]] = ...,
         cursor: tkinter._Cursor = ...,
         from_: float = ...,
         length: tkinter._ScreenUnits = ...,
@@ -868,7 +868,7 @@ class Scale(Widget, tkinter.Scale):
         self,
         cnf: Optional[Dict[str, Any]] = ...,
         *,
-        command: Union[str, Callable[[str], None]] = ...,
+        command: Union[str, Callable[[str], Any]] = ...,
         cursor: tkinter._Cursor = ...,
         from_: float = ...,
         length: tkinter._ScreenUnits = ...,
@@ -1016,7 +1016,7 @@ if sys.version_info >= (3, 7):
             *,
             background: tkinter._Color = ...,  # undocumented
             class_: str = ...,
-            command: Union[Callable[[], None], str, tkinter._TkinterSequence[str]] = ...,
+            command: Union[Callable[[], Any], str, tkinter._TkinterSequence[str]] = ...,
             cursor: tkinter._Cursor = ...,
             exportselection: bool = ...,  # undocumented
             font: _FontDescription = ...,  # undocumented
@@ -1045,7 +1045,7 @@ if sys.version_info >= (3, 7):
             cnf: Optional[Dict[str, Any]] = ...,
             *,
             background: tkinter._Color = ...,
-            command: Union[Callable[[], None], str, tkinter._TkinterSequence[str]] = ...,
+            command: Union[Callable[[], Any], str, tkinter._TkinterSequence[str]] = ...,
             cursor: tkinter._Cursor = ...,
             exportselection: bool = ...,
             font: _FontDescription = ...,
@@ -1207,7 +1207,7 @@ class OptionMenu(Menubutton):
         # rest of these are keyword-only because *args syntax used above
         style: str = ...,
         direction: Union[Literal["above"], Literal["below"], Literal["left"], Literal["right"], Literal["flush"]] = ...,
-        command: Optional[Callable[[tkinter.StringVar], None]] = ...,
+        command: Optional[Callable[[tkinter.StringVar], Any]] = ...,
     ) -> None: ...
     # configure, config, cget, destroy are inherited from Menubutton
     # destroy and __setitem__ are overrided, signature does not change

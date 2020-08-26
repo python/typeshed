@@ -105,7 +105,7 @@ _Padding = Union[
 ]
 _Relief = Literal["raised", "sunken", "flat", "ridge", "solid", "groove"]  # manual page: Tk_GetRelief
 _ScreenUnits = Union[str, float]  # manual page: Tk_GetPixels
-_XYScrollCommand = Union[str, Callable[[float, float], None]]  # -xscrollcommand and -yscrollcommand in 'options' manual page
+_XYScrollCommand = Union[str, Callable[[float, float], Any]]  # -xscrollcommand and -yscrollcommand in 'options' manual page
 _TakeFocusValue = Union[bool, Literal[""], Callable[[str], Optional[bool]]]  # -takefocus in manual page named 'options'
 
 if sys.version_info >= (3, 6):
@@ -185,7 +185,7 @@ class Variable:
     initialize = set
     def get(self) -> Any: ...
     if sys.version_info >= (3, 6):
-        def trace_add(self, mode: _TraceMode, callback: Callable[[str, str, str], None]) -> str: ...
+        def trace_add(self, mode: _TraceMode, callback: Callable[[str, str, str], Any]) -> str: ...
         def trace_remove(self, mode: _TraceMode, cbname: str) -> None: ...
         def trace_info(self) -> List[Tuple[Tuple[_TraceMode, ...], str]]: ...
     def trace_variable(self, mode, callback): ...  # deprecated
@@ -1831,7 +1831,7 @@ class Menu(Widget):
         fg: _Color = ...,
         font: _FontDescription = ...,
         foreground: _Color = ...,
-        postcommand: Union[Callable[[], None], str] = ...,
+        postcommand: Union[Callable[[], Any], str] = ...,
         relief: _Relief = ...,
         selectcolor: _Color = ...,
         takefocus: _TakeFocusValue = ...,
@@ -1839,7 +1839,7 @@ class Menu(Widget):
         # I guess tearoffcommand arguments are supposed to be widget objects,
         # but they are widget name strings. Use nametowidget() to handle the
         # arguments of tearoffcommand.
-        tearoffcommand: Union[Callable[[str, str], None], str] = ...,
+        tearoffcommand: Union[Callable[[str, str], Any], str] = ...,
         title: str = ...,
         type: Literal["menubar", "tearoff", "normal"] = ...,
     ) -> None: ...
@@ -1861,12 +1861,12 @@ class Menu(Widget):
         fg: _Color = ...,
         font: _FontDescription = ...,
         foreground: _Color = ...,
-        postcommand: Union[Callable[[], None], str] = ...,
+        postcommand: Union[Callable[[], Any], str] = ...,
         relief: _Relief = ...,
         selectcolor: _Color = ...,
         takefocus: _TakeFocusValue = ...,
         tearoff: bool = ...,
-        tearoffcommand: Union[Callable[[str, str], None], str] = ...,
+        tearoffcommand: Union[Callable[[str, str], Any], str] = ...,
         title: str = ...,
         type: Literal["menubar", "tearoff", "normal"] = ...,
     ) -> Optional[Dict[str, Tuple[str, str, str, Any, Any]]]: ...
@@ -2312,7 +2312,7 @@ class Scale(Widget):
         border: _ScreenUnits = ...,
         borderwidth: _ScreenUnits = ...,
         # don't know why the callback gets string instead of float
-        command: Union[str, Callable[[str], None]] = ...,
+        command: Union[str, Callable[[str], Any]] = ...,
         cursor: _Cursor = ...,
         digits: int = ...,
         fg: _Color = ...,
@@ -2352,7 +2352,7 @@ class Scale(Widget):
         bigincrement: float = ...,
         border: _ScreenUnits = ...,
         borderwidth: _ScreenUnits = ...,
-        command: Union[str, Callable[[str], None]] = ...,
+        command: Union[str, Callable[[str], Any]] = ...,
         cursor: _Cursor = ...,
         digits: int = ...,
         fg: _Color = ...,
@@ -2671,7 +2671,7 @@ class Text(Widget, XView, YView):
         self,
         index1: _TextIndex,
         index2: Optional[_TextIndex],
-        command: Union[Callable[[str, str, str], None], str],
+        command: Union[Callable[[str, str, str], Any], str],
         *,
         all: bool = ...,
         image: bool = ...,
@@ -2686,7 +2686,7 @@ class Text(Widget, XView, YView):
         index1: _TextIndex,
         index2: Optional[_TextIndex] = ...,
         *,
-        command: Union[Callable[[str, str, str], None], str],
+        command: Union[Callable[[str, str, str], Any], str],
         all: bool = ...,
         image: bool = ...,
         mark: bool = ...,
@@ -2832,7 +2832,7 @@ class OptionMenu(Menubutton):
         value: str,
         *values: str,
         # kwarg only from now on
-        command: Optional[Callable[[StringVar], None]] = ...,
+        command: Optional[Callable[[StringVar], Any]] = ...,
     ) -> None: ...
     # configure, config, cget are inherited from Menubutton
     # destroy and __getitem__ are overrided, signature does not change
@@ -2943,7 +2943,7 @@ class Spinbox(Widget, XView):
         buttondownrelief: _Relief = ...,
         buttonuprelief: _Relief = ...,
         # percent substitutions don't seem to be supported, it's similar to Entry's validion stuff
-        command: Union[Callable[[], None], str, _TkinterSequence[str]] = ...,
+        command: Union[Callable[[], Any], str, _TkinterSequence[str]] = ...,
         cursor: _Cursor = ...,
         disabledbackground: _Color = ...,
         disabledforeground: _Color = ...,
@@ -2999,7 +2999,7 @@ class Spinbox(Widget, XView):
         buttoncursor: _Cursor = ...,
         buttondownrelief: _Relief = ...,
         buttonuprelief: _Relief = ...,
-        command: Union[Callable[[], None], str, _TkinterSequence[str]] = ...,
+        command: Union[Callable[[], Any], str, _TkinterSequence[str]] = ...,
         cursor: _Cursor = ...,
         disabledbackground: _Color = ...,
         disabledforeground: _Color = ...,
