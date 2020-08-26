@@ -4,7 +4,7 @@ from enum import Enum
 from tkinter.constants import *  # comment this out to find undefined identifier names with flake8
 from tkinter.font import _FontDescription
 from types import TracebackType
-from typing import Any, Callable, Dict, Generic, List, Optional, Tuple, Type, TypeVar, Union, overload
+from typing import Any, Callable, Dict, Generic, List, Optional, Protocol, Tuple, Type, TypeVar, Union, overload
 from typing_extensions import Literal, TypedDict
 
 # Using anything from tkinter.font in this file means that 'import tkinter'
@@ -540,6 +540,9 @@ _TkOptionName = Literal[
     "width",
 ]
 
+class _ExceptionReportingCallback(Protocol):
+    def __call__(self, __exc: Type[BaseException], __val: BaseException, __tb: TracebackType) -> Any: ...
+
 class Tk(Misc, Wm):
     master: None
     children: Dict[str, Any]
@@ -581,7 +584,7 @@ class Tk(Misc, Wm):
     def loadtk(self) -> None: ...  # differs from _tkinter.TkappType.loadtk
     def destroy(self) -> None: ...
     def readprofile(self, baseName: str, className: str) -> None: ...
-    report_callback_exception: Callable[[Type[BaseException], BaseException, TracebackType], Any]
+    report_callback_exception: _ExceptionReportingCallback
     # Tk has __getattr__ so that tk_instance.foo falls back to tk_instance.tk.foo
     # Please keep in sync with _tkinter.TkappType
     call: Callable[..., Any]
