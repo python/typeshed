@@ -197,7 +197,7 @@ class Redis(object):
         desc: bool = ...,
         alpha: bool = ...,
         store: Optional[_Key] = ...,
-        groups: Optional[bool] = ...,
+        groups: bool = ...,
     ) -> Union[List[bytes], int]: ...
     def scan(
         self, cursor: int = ..., match: Optional[_Key] = ..., count: Optional[int] = ...
