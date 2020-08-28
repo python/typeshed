@@ -6,7 +6,7 @@ from builtins import filter as filter, input as input, map as map, range as rang
 from collections import UserDict as UserDict, UserList as UserList, UserString as UserString
 from functools import reduce as reduce
 from importlib import reload as reload_module
-from io import StringIO as StringIO
+from io import StringIO as StringIO, StringIO as cStringIO
 from itertools import filterfalse as filterfalse, zip_longest as zip_longest
 from os import getcwd as getcwd, getcwdb as getcwdb
 from shlex import quote as shlex_quote
