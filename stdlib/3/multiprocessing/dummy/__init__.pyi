@@ -21,7 +21,7 @@ class DummyProcess(threading.Thread):
     exitcode: Optional[int]
     def __init__(
         self,
-        group: None = ...,
+        group: Any = ...,
         target: Optional[Callable[..., Any]] = ...,
         name: Optional[str] = ...,
         args: Iterable[Any] = ...,
