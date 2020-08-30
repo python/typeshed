@@ -85,7 +85,7 @@ os.MFD_HUGE_512MB
 os.getgrouplist
 os.sendfile
 pickle.Pickler.reducer_override
-platform.DEV_NULL
+# platform.uname_result's processor field is now dynamically made to exist
 platform.uname_result.__new__
 platform.uname_result._fields
 platform.uname_result.processor
