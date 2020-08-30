@@ -96,13 +96,10 @@ typing._SpecialForm.__init__
 typing._SpecialForm.__new__
 unittest.doModuleCleanups
 uuid.getnode  # undocumented, unused parameter getters that was later removed
-weakref.WeakValueDictionary.__init__
 weakref.WeakValueDictionary.update
 webbrowser.Opera.raise_opts
 xml.etree.ElementTree.TreeBuilder.start  # Discrepancy between Python and C modules, fixed in bpo-39495
 xml.etree.ElementTree.XMLParser.__init__
-xml.etree.cElementTree.Element.__bool__
-xml.etree.cElementTree.Element.copy
 xml.etree.cElementTree.TreeBuilder.start  # bpo-39495
 xml.etree.cElementTree.XMLParser.__init__
 zipfile.Path.open

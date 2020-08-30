@@ -410,10 +410,8 @@ urllib.request.HTTPPasswordMgrWithPriorAuth.__init__
 urllib.robotparser.RobotFileParser.can_fetch
 warnings.catch_warnings.__init__
 weakref.CallableProxyType.__getattr__
-weakref.KeyedRef.__new__
 weakref.ProxyType.__getattr__
 weakref.ReferenceType.__call__
-weakref.WeakKeyDictionary.__init__
 weakref.WeakKeyDictionary.get
 weakref.WeakKeyDictionary.update
 weakref.WeakValueDictionary.get
@@ -424,8 +422,6 @@ webbrowser.UnixBrowser.remote_action_newtab
 webbrowser.UnixBrowser.remote_action_newwin
 wsgiref.types  # Doesn't exist, see comments in file
 xml.etree.ElementPath._SelectorContext.parent_map
-xml.etree.ElementTree.Element.__bool__
-xml.etree.ElementTree.Element.copy
 xml.sax.xmlreader.AttributesImpl.has_key
 zipfile.ZipExtFile.read
 zipfile.ZipExtFile.readline
