@@ -70,8 +70,6 @@ typing.runtime_checkable
 unittest.async_case  # Added in Python 3.8
 uuid.UUID.int
 xml.etree.ElementTree.TreeBuilder.start  # Discrepancy between Python and C modules, fixed in bpo-39495
-xml.etree.cElementTree.Element.__bool__
-xml.etree.cElementTree.Element.copy
 xml.etree.cElementTree.TreeBuilder.start  # bpo-39495
 xml.etree.cElementTree.XMLPullParser
 xml.parsers.expat.XMLParserType.ExternalEntityParserCreate
