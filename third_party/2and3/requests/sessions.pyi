@@ -76,7 +76,7 @@ class Session(SessionRedirectMixin):
         url: Union[str, bytes, Text],
         params: Union[None, bytes, MutableMapping[Text, Text]] = ...,
         data: _Data = ...,
-        headers: Union[None, Mapping[Text, Text], CaseInsensitiveDict[Text]] = ...,
+        headers: Optional[MutableMapping[Text, Text]] = ...,
         cookies: Union[None, RequestsCookieJar, MutableMapping[Text, Text]] = ...,
         files: Optional[MutableMapping[Text, IO[Any]]] = ...,
         auth: Union[None, Tuple[Text, Text], _auth.AuthBase, Callable[[Request], Request]] = ...,
