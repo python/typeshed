@@ -50,9 +50,6 @@ http.cookiejar.DefaultCookiePolicy.__init__
 http.server.SimpleHTTPRequestHandler.__init__
 importlib.metadata.DistributionFinder.Context.pattern
 importlib.metadata.EntryPointBase
-inspect.isasyncgenfunction
-inspect.iscoroutinefunction
-inspect.isgeneratorfunction
 ipaddress.IPv4Interface.hostmask
 ipaddress.IPv6Interface.hostmask
 ipaddress._BaseNetwork.broadcast_address
