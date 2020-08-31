@@ -46,7 +46,6 @@ class SessionRedirectMixin:
     def rebuild_proxies(self, prepared_request, proxies): ...
 
 _Data = Union[None, Text, bytes, Mapping[str, Any], Mapping[Text, Any], Iterable[Tuple[Text, Optional[Text]]], IO]
-_Headers = Union[Mapping[Text, Text], CaseInsensitiveDict[Text]]
 
 _Hook = Callable[[Response], Any]
 _Hooks = MutableMapping[Text, List[_Hook]]
@@ -54,7 +53,7 @@ _HooksInput = MutableMapping[Text, Union[Iterable[_Hook], _Hook]]
 
 class Session(SessionRedirectMixin):
     __attrs__: Any
-    headers: _Headers
+    headers: Union[Mapping[Text, Text], CaseInsensitiveDict[Text]]
     auth: Union[None, Tuple[Text, Text], _auth.AuthBase, Callable[[Request], Request]]
     proxies: MutableMapping[Text, Text]
     hooks: _Hooks
@@ -77,7 +76,7 @@ class Session(SessionRedirectMixin):
         url: Union[str, bytes, Text],
         params: Union[None, bytes, MutableMapping[Text, Text]] = ...,
         data: _Data = ...,
-        headers: _Headers = ...,
+        headers: Union[None, Mapping[Text, Text], CaseInsensitiveDict[Text]] = ...,
         cookies: Union[None, RequestsCookieJar, MutableMapping[Text, Text]] = ...,
         files: Optional[MutableMapping[Text, IO[Any]]] = ...,
         auth: Union[None, Tuple[Text, Text], _auth.AuthBase, Callable[[Request], Request]] = ...,
