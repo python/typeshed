@@ -35,10 +35,9 @@ collections.abc.AsyncGenerator.ag_running
 collections.abc.ItemsView.__reversed__
 collections.abc.KeysView.__reversed__
 collections.abc.ValuesView.__reversed__
-concurrent.futures.ProcessPoolExecutor.shutdown
-concurrent.futures.ThreadPoolExecutor.shutdown
-concurrent.futures.process.ProcessPoolExecutor.shutdown
-concurrent.futures.thread.ThreadPoolExecutor.shutdown
+# pending merge of https://github.com/python/cpython/pull/22023
+concurrent.futures.Executor.shutdown
+concurrent.futures._base.Executor.shutdown
 contextvars.Context.__init__
 contextvars.Context.get
 copy.PyStringMap
