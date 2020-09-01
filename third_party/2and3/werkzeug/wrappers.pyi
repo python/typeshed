@@ -146,16 +146,16 @@ class BaseResponse:
     def iter_encoded(self) -> Iterator[bytes]: ...
     def set_cookie(
         self,
-        key,
-        value: str = ...,
-        max_age: Optional[Any] = ...,
-        expires: Optional[Any] = ...,
+        key: str,
+        value: Union[str, bytes] = ...,
+        max_age: Optional[int] = ...,
+        expires: Optional[int] = ...,
         path: str = ...,
-        domain: Optional[Any] = ...,
+        domain: Optional[str] = ...,
         secure: bool = ...,
         httponly: bool = ...,
         samesite: Optional[str] = ...,
-    ): ...
+    ) -> None: ...
     def delete_cookie(self, key, path: str = ..., domain: Optional[Any] = ...): ...
     @property
     def is_streamed(self) -> bool: ...
