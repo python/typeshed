@@ -147,14 +147,14 @@ class BaseResponse:
     def set_cookie(
         self,
         key: str,
-        value: Union[str, bytes] = "",
-        max_age: Optional[int] = None,
-        expires: Optional[int] = None,
-        path: str = "/",
-        domain: Optional[str] = None,
-        secure: bool = False,
-        httponly: bool = False,
-        samesite: Optional[str] = None,
+        value: Union[str, bytes] = ...,
+        max_age: Optional[int] = ...,
+        expires: Optional[int] = ...,
+        path: str = ...,
+        domain: Optional[str] = ...,
+        secure: bool = ...,
+        httponly: bool = ...,
+        samesite: Optional[str] = ...,
     ) -> None:
     def delete_cookie(self, key, path: str = ..., domain: Optional[Any] = ...): ...
     @property
