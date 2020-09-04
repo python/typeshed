@@ -93,5 +93,5 @@ class SafeConfigParser(ConfigParser):
     _interpvar_re: Any
     def _interpolate(self, section: str, option: str, rawval: Any, vars: Any) -> str: ...
     def _interpolate_some(
-        self, option: str, accum: List[Any], rest: str, section: str, map: Dict[Any, Any], depth: int,
+        self, option: str, accum: List[Any], rest: str, section: str, map: Dict[Any, Any], depth: int
     ) -> None: ...

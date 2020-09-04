@@ -121,7 +121,7 @@ class Marshaller:
                     Mapping[Any, Any],
                     datetime,
                     InstanceType,
-                ],
+                ]
             ],
             Fault,
         ],

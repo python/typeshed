@@ -34,9 +34,7 @@ _FT = TypeVar("_FT")
 _ExceptionType = Union[Type[BaseException], Tuple[Type[BaseException], ...]]
 _Regexp = Union[Text, Pattern[Text]]
 
-_SysExcInfoType = Union[
-    Tuple[Type[BaseException], BaseException, types.TracebackType], Tuple[None, None, None],
-]
+_SysExcInfoType = Union[Tuple[Type[BaseException], BaseException, types.TracebackType], Tuple[None, None, None]]
 
 class Testable(metaclass=ABCMeta):
     @abstractmethod
