@@ -28,6 +28,7 @@ collections.UserString.maketrans
 contextlib._GeneratorContextManager.__init__
 ctypes.CDLL.__init__
 fractions.Fraction.__new__  # private _normalize param was made keyword-only in Python 3.6
+hmac.HMAC.__init__
 importlib.metadata
 importlib.resources
 io.StringIO.readline
@@ -44,6 +45,8 @@ os.DirEntry
 os.utime
 plistlib.Dict.__init__
 pyexpat.XMLParserType.ExternalEntityParserCreate
+random.Random.randrange  # missing undocumented arg _int
+random.randrange  # missing undocumented arg _int
 smtpd.SMTPChannel.__init__
 smtpd.SMTPServer.__init__
 sre_compile.dis

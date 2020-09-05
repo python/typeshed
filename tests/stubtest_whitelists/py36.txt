@@ -24,6 +24,7 @@ copy.PyStringMap
 ctypes.CDLL.__init__
 email.message.MIMEPart.as_string
 enum.Enum._generate_next_value_
+hmac.HMAC.__init__
 importlib.metadata
 importlib.resources
 io.StringIO.readline
@@ -35,6 +36,8 @@ nntplib._NNTPBase.starttls
 os.utime
 plistlib.Dict.__init__
 pyexpat.XMLParserType.ExternalEntityParserCreate
+random.Random.randrange  # missing undocumented arg _int
+random.randrange  # missing undocumented arg _int
 secrets.SystemRandom.getstate
 smtplib.SMTP.sendmail
 sre_compile.dis

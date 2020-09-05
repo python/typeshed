@@ -65,6 +65,8 @@ nntplib._NNTPBase.starttls
 pickle.Pickler.reducer_override
 platform.DEV_NULL
 queue.SimpleQueue.__init__
+random.Random.randrange  # missing undocumented arg _int
+random.randrange  # missing undocumented arg _int
 secrets.SystemRandom.getstate
 select.epoll.register
 smtplib.SMTP.sendmail
