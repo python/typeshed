@@ -102,10 +102,6 @@ collections.abc.Generator.gi_yieldfrom
 collections.abc.Mapping.get
 collections.abc.Sequence.index
 collections.deque.__hash__
-concurrent.futures.Executor.map
-concurrent.futures._base.Executor.map
-concurrent.futures.ProcessPoolExecutor.map
-concurrent.futures.process.ProcessPoolExecutor.map
 configparser.LegacyInterpolation.before_get
 configparser.SectionProxy.__getattr__
 configparser.SectionProxy.getboolean
@@ -172,7 +168,6 @@ encodings.utf_8.encode
 enum.EnumMeta.__call__
 enum.EnumMeta.__new__
 getopt.GetoptError.__init__
-hmac.HMAC.__init__
 html.parser.HTMLParser.feed
 http.HTTPStatus.description
 http.HTTPStatus.phrase
@@ -207,7 +202,6 @@ importlib.machinery.WindowsRegistryFinder.find_module
 importlib.machinery.WindowsRegistryFinder.find_spec
 importlib.util.spec_from_file_location
 importlib.util.spec_from_loader
-inspect.BoundArguments.__init__
 inspect.Parameter.KEYWORD_ONLY
 inspect.Parameter.POSITIONAL_ONLY
 inspect.Parameter.POSITIONAL_OR_KEYWORD
@@ -215,8 +209,6 @@ inspect.Parameter.VAR_KEYWORD
 inspect.Parameter.VAR_POSITIONAL
 inspect.Parameter.replace
 inspect.Signature.replace
-inspect.getabsfile
-inspect.getmodule
 io.BufferedRandom.truncate
 io.BufferedReader.seek
 io.BufferedReader.truncate
@@ -323,9 +315,7 @@ pydoc.TextDoc.docmodule
 pydoc.TextDoc.docother
 pydoc.TextDoc.docproperty
 pydoc.TextDoc.docroutine
-random.Random.randrange
 random.SystemRandom.getstate
-random.randrange
 re.error.__init__
 runpy.run_path
 sched.Event.__doc__
