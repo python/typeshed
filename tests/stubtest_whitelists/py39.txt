@@ -59,9 +59,6 @@ http.cookiejar.DefaultCookiePolicy.__init__
 http.server.SimpleHTTPRequestHandler.__init__
 importlib.metadata.DistributionFinder.Context.pattern
 importlib.metadata.EntryPointBase
-inspect.isasyncgenfunction
-inspect.iscoroutinefunction
-inspect.isgeneratorfunction
 ipaddress.IPv4Interface.hostmask
 ipaddress.IPv6Interface.hostmask
 ipaddress._BaseNetwork.broadcast_address
@@ -158,12 +155,6 @@ collections.abc.Coroutine.send
 collections.abc.Coroutine.throw
 collections.abc.Generator.send
 collections.abc.Generator.throw
-concurrent.futures.Executor.submit
-concurrent.futures.ProcessPoolExecutor.submit
-concurrent.futures.ThreadPoolExecutor.submit
-concurrent.futures._base.Executor.submit
-concurrent.futures.process.ProcessPoolExecutor.submit
-concurrent.futures.thread.ThreadPoolExecutor.submit
 contextlib.AbstractContextManager.__exit__
 contextlib.AsyncExitStack.callback
 contextlib.AsyncExitStack.push_async_callback
@@ -172,7 +163,6 @@ contextvars.ContextVar.reset
 contextvars.ContextVar.set
 dataclasses.dataclass
 dataclasses.replace
-hmac.compare_digest
 io.IncrementalNewlineDecoder.setstate
 itertools.tee
 lzma.LZMACompressor.compress
@@ -195,7 +185,6 @@ pwd.getpwnam
 pwd.getpwuid
 random.SystemRandom.getrandbits
 secrets.SystemRandom.getrandbits
-secrets.compare_digest
 signal.sigtimedwait
 signal.sigwaitinfo
 trace.Trace.runfunc
