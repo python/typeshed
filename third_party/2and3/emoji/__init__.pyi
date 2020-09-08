@@ -1,13 +1,13 @@
 from .core import (
-    emojize as emojize,
     demojize as demojize,
-    get_emoji_regexp as get_emoji_regexp,
-    emoji_lis as emoji_lis,
     emoji_count as emoji_count,
+    emoji_lis as emoji_lis,
+    emojize as emojize,
+    get_emoji_regexp as get_emoji_regexp,
 )
 from .unicode_codes import (
+    EMOJI_ALIAS_UNICODE as EMOJI_ALIAS_UNICODE,
     EMOJI_UNICODE as EMOJI_UNICODE,
-    EMOJI_UNICODE_ALIAS as EMOJI_UNICODE_ALIAS,
     UNICODE_EMOJI as UNICODE_EMOJI,
     UNICODE_EMOJI_ALIAS as UNICODE_EMOJI_ALIAS,
 )
