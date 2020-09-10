@@ -1,3 +1,4 @@
+import sys
 from _typeshed import AnyPath
 from cProfile import Profile as _cProfile
 from profile import Profile
