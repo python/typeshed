@@ -6,6 +6,18 @@ from typing import IO, Any, Dict, Iterable, List, Optional, Text, Tuple, TypeVar
 _Selector = Union[str, float, int]
 _T = TypeVar("_T", bound=Stats)
 
+if sys.version_info >= (3, 7):
+    class SortKey:
+        CALLS: str
+        CUMULATIVE: str
+        FILENAME: str
+        LINE: str
+        NAME: str
+        NFL: str
+        PCALLS: str
+        STDNAME: str
+        TIME: str
+
 class Stats:
     sort_arg_dict_default: Dict[str, Tuple[Any, str]]
     def __init__(
