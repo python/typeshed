@@ -19,9 +19,7 @@ if sys.version_info >= (3, 7):
         PCALLS: str
         STDNAME: str
         TIME: str
-
     def __new__(cls, *values: Tuple[str]) -> SortKey: ...
-
 
 class Stats:
     sort_arg_dict_default: Dict[str, Tuple[Any, str]]
