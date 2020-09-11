@@ -1,5 +1,3 @@
-name: Check stubs with stubtest
-
 on:
   push:
   pull_request:
@@ -52,7 +50,7 @@ jobs:
           isort --check-only --diff stdlib third_party
 
   stubtest:
-    name: Compare stubs against implementation
+    name: Check stubs with stubtest
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
