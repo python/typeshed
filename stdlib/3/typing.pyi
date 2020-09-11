@@ -421,7 +421,7 @@ class AsyncContextManager(Protocol[_T_co]):
 
 class Mapping(_Collection[_KT], Generic[_KT, _VT_co]):
     # TODO: We wish the key type could also be covariant, but that doesn't work,
-    # see discussion in https: //github.com/python/typing/pull/273.
+    # see discussion in https://github.com/python/typing/pull/273.
     @abstractmethod
     def __getitem__(self, k: _KT) -> _VT_co: ...
     # Mixin methods
