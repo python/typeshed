@@ -1,0 +1,74 @@
+name: Check stubs
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  file-consistency:
+    name: Check file consistency
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - run: ./tests/check_consistent.py
+
+  flake8:
+    name: Lint with flake8
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - run: |
+          pip install $(grep flake8 requirements-tests-py3.txt)
+          flake8
+
+  black:
+    name: Check formatting with black
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - run: |
+          pip install $(grep black requirements-tests-py3.txt)
+          black --check --diff stdlib third_party
+
+  isort:
+    name: Check imports with isort
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - run: |
+          pip install $(grep isort requirements-tests-py3.txt)
+          isort --check-only --diff stdlib third_party
+
+  stubtest:
+    name: Check stubs with stubtest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: ["ubuntu-latest", "windows-latest"]
+        python-version: [3.5, 3.6, 3.7, 3.8, 3.9-dev]
+      fail-fast: false
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }} on ${{ matrix.os }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install -U pip
+          pip install -U mypy==0.780
+      - name: Run stubtest
+        run: python tests/stubtest_test.py --ignore-unused-whitelist
