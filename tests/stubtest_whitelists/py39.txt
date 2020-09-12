@@ -136,9 +136,6 @@ bz2.BZ2File.read
 bz2.BZ2File.read1
 bz2.BZ2File.readline
 bz2.BZ2File.seek
-codecs.lookup
-codecs.lookup_error
-codecs.register
 collections.AsyncGenerator.asend
 collections.AsyncGenerator.athrow
 collections.Container.__contains__
