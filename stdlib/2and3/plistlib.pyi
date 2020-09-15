@@ -9,20 +9,26 @@ if sys.version_info >= (3,):
     FMT_XML = PlistFormat.FMT_XML
     FMT_BINARY = PlistFormat.FMT_BINARY
 
-mm = MutableMapping[str, Any]
-_D = TypeVar("_D", bound=mm)
 _Path = Union[str, Text]
 
 if sys.version_info >= (3, 9):
-    def load(fp: IO[bytes], *, fmt: Optional[PlistFormat] = ..., dict_type: Type[_D] = ...) -> Any: ...
-    def loads(value: bytes, *, fmt: Optional[PlistFormat] = ..., dict_type: Type[_D] = ...) -> Any: ...
+    def load(fp: IO[bytes], *, fmt: Optional[PlistFormat] = ..., dict_type: Type[MutableMapping[str, Any]] = ...) -> Any: ...
+    def loads(value: bytes, *, fmt: Optional[PlistFormat] = ..., dict_type: Type[MutableMapping[str, Any]] = ...) -> Any: ...
 
 elif sys.version_info >= (3, 4):
     def load(
-        fp: IO[bytes], *, fmt: Optional[PlistFormat] = ..., use_builtin_types: bool = ..., dict_type: Type[_D] = ...
+        fp: IO[bytes],
+        *,
+        fmt: Optional[PlistFormat] = ...,
+        use_builtin_types: bool = ...,
+        dict_type: Type[MutableMapping[str, Any]] = ...,
     ) -> Any: ...
     def loads(
-        value: bytes, *, fmt: Optional[PlistFormat] = ..., use_builtin_types: bool = ..., dict_type: Type[_D] = ...
+        value: bytes,
+        *,
+        fmt: Optional[PlistFormat] = ...,
+        use_builtin_types: bool = ...,
+        dict_type: Type[MutableMapping[str, Any]] = ...,
     ) -> Any: ...
 
 if sys.version_info >= (3, 4):
