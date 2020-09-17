@@ -419,6 +419,7 @@ enum.IntEnum.__new__
 enum.IntFlag.__new__
 http.HTTPStatus.__new__
 inspect._ParameterKind.__new__
+pstats.SortKey.__new__
 re.RegexFlag.__new__
 signal.Handlers.__new__
 signal.Sigmasks.__new__
@@ -428,6 +429,7 @@ socket.AddressInfo.__new__
 socket.MsgFlag.__new__
 socket.SocketKind.__new__
 ssl.Options.__new__
+ssl.TLSVersion.__new__
 ssl.VerifyFlags.__new__
 ssl.VerifyMode.__new__
 tkinter.EventType.__new__
