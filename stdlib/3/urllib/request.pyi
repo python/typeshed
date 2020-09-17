@@ -1,5 +1,3 @@
-# Stubs for urllib.request (Python 3.4)
-
 import os
 import ssl
 import sys
@@ -7,6 +5,7 @@ from email.message import Message
 from http.client import HTTPMessage, HTTPResponse, _HTTPConnectionProtocol
 from http.cookiejar import CookieJar
 from typing import IO, Any, Callable, ClassVar, Dict, List, Mapping, NoReturn, Optional, Sequence, Tuple, TypeVar, Union, overload
+from urllib.error import HTTPError as HTTPError
 from urllib.response import addinfourl
 
 _T = TypeVar("_T")
