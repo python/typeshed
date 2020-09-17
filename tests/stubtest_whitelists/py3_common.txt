@@ -417,6 +417,13 @@ zlib.compressobj
 # str.__new__ as the mro would dictate, which is why stubtest balks.
 enum.IntEnum.__new__
 enum.IntFlag.__new__
+http.HTTPStatus.__new__
+inspect._ParameterKind.__new__
+signal.Handlers.__new__
+signal.Sigmasks.__new__
+signal.Signals.__new__
+socket.AddressFamily.__new__
+socket.SocketKind.__new__
 tkinter.EventType.__new__
 
 # ==========
