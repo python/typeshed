@@ -412,6 +412,13 @@ zipfile.ZipExtFile.read
 zipfile.ZipExtFile.readline
 zlib.compressobj
 
+# These enums derive from (int, IntEnum) or (str, Enum). Strangely,
+# at runtime, they inherit Enum.__new__, not int.__new__ or
+# str.__new__ as the mro would dictate, which is why stubtest balks.
+enum.IntEnum.__new__
+enum.IntFlag.__new__
+tkinter.EventType.__new__
+
 # ==========
 # Whitelist entries that cannot or should not be fixed
 # ==========
