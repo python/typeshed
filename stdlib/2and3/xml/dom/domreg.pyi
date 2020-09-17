@@ -1,6 +1,5 @@
+from _typeshed.xml import DOMImplementation
 from typing import Any, Callable, Dict, Iterable, Optional, Tuple, Union
-
-from ._types import DOMImplementation
 
 well_known_implementations: Dict[str, str]
 registered: Dict[str, Callable[[], DOMImplementation]]
