@@ -8,24 +8,24 @@ missing: Any
 internal_code: Any
 concat: Any
 
-_CallableT = TypeVar("_CallableT", bound=Callable[..., Any])
+_CT = TypeVar("_CT", bound=Callable[..., Any])
 
-class _ContextFunction(Protocol[_CallableT]):
+class _ContextFunction(Protocol[_CT]):
     contextfunction: Literal[True]
-    __call__: _CallableT
+    __call__: _CT
 
-class _EvalContextFunction(Protocol[_CallableT]):
+class _EvalContextFunction(Protocol[_CT]):
     evalcontextfunction: Literal[True]
-    __call__: _CallableT
+    __call__: _CT
 
-class _EnvironmentFunction(Protocol[_CallableT]):
+class _EnvironmentFunction(Protocol[_CT]):
     environmentfunction: Literal[True]
-    __call__: _CallableT
+    __call__: _CT
 
-def contextfunction(f: _CallableT) -> _ContextFunction[_CallableT]: ...
-def evalcontextfunction(f: _CallableT) -> _EvalContextFunction[_CallableT]: ...
-def environmentfunction(f: _CallableT) -> _EnvironmentFunction[_CallableT]: ...
-def internalcode(f: _CallableT) -> _CallableT: ...
+def contextfunction(f: _CT) -> _ContextFunction[_CT]: ...
+def evalcontextfunction(f: _CT) -> _EvalContextFunction[_CT]: ...
+def environmentfunction(f: _CT) -> _EnvironmentFunction[_CT]: ...
+def internalcode(f: _CT) -> _CT: ...
 def is_undefined(obj: object) -> bool: ...
 def select_autoescape(
     enabled_extensions: Iterable[str] = ...,

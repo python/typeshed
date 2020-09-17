@@ -104,7 +104,7 @@ class BaseRequest:
     is_multiprocess: bool
     is_run_once: bool
 
-_OnCloseT = TypeVar("_OnCloseT", bound=Callable[[], Any])
+_OCT = TypeVar("_OCT", bound=Callable[[], Any])
 _SelfT = TypeVar("_SelfT", bound=BaseResponse)
 
 class BaseResponse:
@@ -128,7 +128,7 @@ class BaseResponse:
         content_type: Optional[Text] = ...,
         direct_passthrough: bool = ...,
     ) -> None: ...
-    def call_on_close(self, func: _OnCloseT) -> _OnCloseT: ...
+    def call_on_close(self, func: _OCT) -> _OCT: ...
     @classmethod
     def force_type(cls: Type[_SelfT], response: object, environ: Optional[WSGIEnvironment] = ...) -> _SelfT: ...
     @classmethod

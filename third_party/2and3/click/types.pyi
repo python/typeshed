@@ -55,7 +55,7 @@ class IntParamType(ParamType):
 class IntRange(IntParamType):
     def __init__(self, min: Optional[int] = ..., max: Optional[int] = ..., clamp: bool = ...) -> None: ...
 
-_PathType = TypeVar("_PathType", str, bytes)
+_PathType = Any
 
 class Path(ParamType):
     def __init__(
