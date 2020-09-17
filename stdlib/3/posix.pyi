@@ -1,6 +1,6 @@
 import sys
 from os import stat_result as stat_result
-from typing import Dict, List, NamedTuple, Optional, overload
+from typing import Any, Dict, List, NamedTuple, Optional, overload
 
 if sys.version_info >= (3, 6):
     from builtins import _PathLike  # See comment in builtins
