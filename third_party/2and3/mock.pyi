@@ -152,8 +152,8 @@ class Mock(CallableMixin, NonCallableMock): ...
 
 class _patch(Generic[_T]):
     attribute_name: Any
-    getter: Any
-    attribute: Any
+    getter: Callable[[], Any]
+    attribute: str
     new: _T
     new_callable: Any
     spec: Any
@@ -166,8 +166,8 @@ class _patch(Generic[_T]):
     @overload
     def __init__(
         self: _patch[MagicMock],
-        getter,
-        attribute,
+        getter: Callable[[], Any],
+        attribute: str,
         *,
         spec: Optional[Any],
         create: bool,
@@ -182,8 +182,8 @@ class _patch(Generic[_T]):
     @overload
     def __init__(
         self: _patch[_T],
-        getter,
-        attribute,
+        getter: Callable[[], Any],
+        attribute: str,
         new: _T,
         spec: Optional[Any],
         create: bool,
