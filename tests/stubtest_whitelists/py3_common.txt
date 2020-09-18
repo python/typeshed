@@ -427,6 +427,8 @@ builtins.quit
 # Builtins that mypy pretends exist
 builtins.reveal_locals
 builtins.reveal_type
+# Dynamically specified by __getattr__, and thus don't exist on the class
+tempfile._TemporaryFileWrapper.[\w_]+
 # Various classes in typing aren't types at runtime. In addition, mypy thinks some special forms are tautologically defined.
 typing.[A-Z]\w+
 # We can't distinguish not having a default value from having a default value of inspect.Parameter.empty
