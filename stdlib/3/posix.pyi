@@ -5,8 +5,6 @@ from typing import Any, Dict, List, NamedTuple, Optional, overload
 if sys.version_info >= (3, 6):
     from builtins import _PathLike  # See comment in builtins
 
-def __getattr__(name: str) -> Any: ...  # incomplete
-
 class uname_result(NamedTuple):
     sysname: str
     nodename: str
