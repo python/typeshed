@@ -1,5 +1,5 @@
 from tkinter import Button, Entry, Frame, Listbox, Scrollbar, Toplevel, commondialog
-from typing import Any, Dict, Optional, Tuple, ClassVar
+from typing import Any, ClassVar, Dict, Optional, Tuple
 
 dialogstates: Dict[Any, Tuple[Any, Any]]
 

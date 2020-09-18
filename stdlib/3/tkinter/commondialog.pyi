@@ -1,4 +1,4 @@
-from typing import Any, Mapping, Optional, ClassVar
+from typing import Any, ClassVar, Mapping, Optional
 
 class Dialog:
     command: ClassVar[Optional[str]] = ...

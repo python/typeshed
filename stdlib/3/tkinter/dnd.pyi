@@ -1,5 +1,5 @@
 from _typeshed.tkinter import DndSource
-from tkinter import Event, Tk, Misc
+from tkinter import Event, Misc, Tk
 from typing import ClassVar, Optional
 
 class DndHandler:

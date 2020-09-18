@@ -1,5 +1,5 @@
 from tkinter.commondialog import Dialog
-from typing import Any, Optional, ClassVar
+from typing import Any, ClassVar, Optional
 
 ERROR: str
 INFO: str

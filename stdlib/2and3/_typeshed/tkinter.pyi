@@ -1,4 +1,4 @@
-from tkinter import Event, Widget, Misc
+from tkinter import Event, Misc, Widget
 from typing import Optional, Protocol
 
 class DndSource(Protocol):
