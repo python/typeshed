@@ -16,7 +16,7 @@ import array
 import mmap
 import sys
 from typing import AbstractSet, Container, Iterable, Protocol, Text, Tuple, TypeVar, Union
-from typing_extensions import final, Literal
+from typing_extensions import Literal, final
 
 _KT = TypeVar("_KT")
 _KT_co = TypeVar("_KT_co", covariant=True)
