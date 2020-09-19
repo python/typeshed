@@ -10,7 +10,6 @@ asyncio.staggered  # Added in Python 3.8
 asyncio.threads  # Added in Python 3.9
 asyncio.trsock  # Added in Python 3.8
 builtins.dict.get
-builtins.reversed
 builtins.str.maketrans
 cmath.log
 collections.AsyncGenerator.ag_await
