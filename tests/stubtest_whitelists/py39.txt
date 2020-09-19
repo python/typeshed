@@ -18,9 +18,7 @@ asyncio.events.AbstractEventLoop.sock_sendfile
 asyncio.futures.Future.__init__
 asyncio.futures.Future._callbacks
 asyncio.proactor_events._ProactorBasePipeTransport.__del__
-builtins.compile
 builtins.dict.get
-builtins.reversed
 collections.AsyncGenerator.ag_await
 collections.AsyncGenerator.ag_code
 collections.AsyncGenerator.ag_frame
