@@ -72,6 +72,7 @@ class TkappType:
     wantobjects: Any
     willdispatch: Any
 
+# These should be kept in sync with tkinter.tix constants, except ALL_EVENTS which doesn't match TCL_ALL_EVENTS
 ALL_EVENTS: Literal[-3]
 FILE_EVENTS: Literal[8]
 IDLE_EVENTS: Literal[32]
