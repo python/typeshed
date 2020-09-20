@@ -167,5 +167,5 @@ else:
 
 # Used by type checkers for checks involving None (does not exist at runtime)
 @final
-class _NoneType:
+class NoneType:
     def __bool__(self) -> Literal[False]: ...
