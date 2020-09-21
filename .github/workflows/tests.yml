@@ -60,8 +60,8 @@ jobs:
         with:
           python-version: 3.6
       - run: |
-        pip install -r requirements-tests-py3.txt
-        ./tests/pytype_test.py
+          pip install -r requirements-tests-py3.txt
+          ./tests/pytype_test.py
 
   mypy-self-test:
     name: Test mypy source with itself
