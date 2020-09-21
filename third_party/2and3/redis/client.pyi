@@ -187,6 +187,7 @@ class Redis(object):
     def rpoplpush(self, src, dst): ...
     def rpush(self, name: _Value, *values: _Value) -> int: ...
     def rpushx(self, name, value): ...
+    @overload
     def sort(
         self,
         name: _Key,
@@ -196,9 +197,36 @@ class Redis(object):
         get: Optional[Union[_Key, Sequence[_Key]]] = ...,
         desc: bool = ...,
         alpha: bool = ...,
-        store: Optional[_Key] = ...,
+        store: None = ...,
         groups: bool = ...,
-    ) -> Union[List[bytes], int]: ...
+    ) -> List[bytes]: ...
+    @overload
+    def sort(
+        self,
+        name: _Key,
+        start: Optional[int] = ...,
+        num: Optional[int] = ...,
+        by: Optional[_Key] = ...,
+        get: Optional[Union[_Key, Sequence[_Key]]] = ...,
+        desc: bool = ...,
+        alpha: bool = ...,
+        *,
+        store: _Key,
+        groups: bool = ...,
+    ) -> int: ...
+    @overload
+    def sort(
+        self,
+        name: _Key,
+        start: Optional[int],
+        num: Optional[int],
+        by: Optional[_Key],
+        get: Optional[Union[_Key, Sequence[_Key]]],
+        desc: bool,
+        alpha: bool,
+        store: _Key,
+        groups: bool = ...,
+    ) -> int: ...
     def scan(
         self, cursor: int = ..., match: Optional[_Key] = ..., count: Optional[int] = ...
     ) -> Tuple[int, List[Any]]: ...  # Tuple[int, List[_Key]] depending on decode_responses
