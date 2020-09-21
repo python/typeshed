@@ -51,6 +51,28 @@ jobs:
           pip install $(grep isort requirements-tests-py3.txt)
           isort --check-only --diff stdlib third_party
 
+  pytype:
+    name: Run pytype against the stubs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.6
+      - run: |
+        pip install -r requirements-tests-py3.txt
+        ./tests/pytype_test.py
+
+  mypy-self-test:
+    name: Test mypy source with itself
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - run: ./tests/mypy_selftest.py
+
   stubtest:
     name: Check stubs with stubtest
     runs-on: ${{ matrix.os }}
