@@ -13,6 +13,8 @@ asyncio.events.AbstractEventLoop.sock_sendfile
 asyncio.futures.Future.__init__
 asyncio.futures.Future._callbacks
 asyncio.proactor_events._ProactorBasePipeTransport.__del__
+asyncio.run  # Bugfix involving this was backported to 3.8
+asyncio.runners.run  # It just hasn't been released yet
 asyncio.threads  # Added in Python 3.9
 builtins.dict.get
 collections.AsyncGenerator.ag_await
