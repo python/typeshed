@@ -66,3 +66,6 @@ analyze.py
 
 # Mypy cache
 .mypy_cache/
+
+#A helper script
+run_tests.sh
