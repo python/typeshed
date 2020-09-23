@@ -2,6 +2,7 @@ import os
 import ssl
 import sys
 from email.message import Message
+from re import Pattern
 from http.client import HTTPMessage, HTTPResponse, _HTTPConnectionProtocol
 from http.cookiejar import CookieJar
 from typing import IO, Any, Callable, ClassVar, Dict, List, Mapping, NoReturn, Optional, Sequence, Tuple, TypeVar, Union, overload
@@ -122,8 +123,14 @@ class HTTPPasswordMgrWithPriorAuth(HTTPPasswordMgrWithDefaultRealm):
     def is_authenticated(self, authuri: str) -> bool: ...
 
 class AbstractBasicAuthHandler:
+    rx: ClassVar[Pattern] # undocumented 
     def __init__(self, password_mgr: Optional[HTTPPasswordMgr] = ...) -> None: ...
     def http_error_auth_reqed(self, authreq: str, host: str, req: Request, headers: Mapping[str, str]) -> None: ...
+    def http_request(self, req: Request) -> Request: ... # undocumented
+    def http_response(self, req: Request, response: HTTPResponse) -> HTTPResponse: ... # undocumented
+    def https_request(self, req: Request) -> Request: ... # undocumented
+    def https_response(self, req: Request, response: HTTPResponse) -> HTTPResponse: ... # undocumented
+    def retry_http_basic_auth(self, host: str, req: Request, realm: str) -> Optional[ _UrlopenRet]: ... # undocumented 
 
 class HTTPBasicAuthHandler(AbstractBasicAuthHandler, BaseHandler):
     def http_error_401(
