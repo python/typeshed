@@ -178,7 +178,10 @@ class HTTPSHandler(AbstractHTTPHandler):
     def https_request(self, request: Request) -> Request: ...  # undocumented
 
 class FileHandler(BaseHandler):
+    names: ClassVar[Optional[Tuple[str, ...]]]
     def file_open(self, req: Request) -> addinfourl: ...
+    def get_names(self) -> Tuple[str, ...]: ...  # undocumented
+    def open_local_file(self, req: Request) -> Optional[addinfourl]: ...  # undocumented
 
 class DataHandler(BaseHandler):
     def data_open(self, req: Request) -> addinfourl: ...
