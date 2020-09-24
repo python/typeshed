@@ -261,6 +261,22 @@ class URLopener:
         reporthook: Optional[Callable[[int, int, int], None]] = ...,
         data: Optional[bytes] = ...,
     ) -> Tuple[str, Optional[Message]]: ...
+    def addheader(self, *args: Tuple[str, str]) -> None: ...  # undocumented
+    def cleanup(self) -> None: ...  # undocumented
+    def close(self) -> None: ...  # undocumented
+    def http_error(
+        self, url: str, fp: IO[str], errcode: int, errmsg: str, headers: Mapping[str, str], data: Optional[bytes] = ...
+    ) -> Optional[Union[_UrlopenRet, addinfourl]]: ...  # undocumented
+    def http_error_default(
+        self, url: str, fp: IO[str], errcode: int, errmsg: str, headers: Mapping[str, str]
+    ) -> Optional[Union[_UrlopenRet, addinfourl]]: ...  # undocumented
+    def open_data(self, url: str, data: Optional[bytes] = ...) -> addinfourl: ...  # undocumented
+    def open_file(self, url: str) -> addinfourl: ...  # undocumented
+    def open_ftp(self, url: str) -> addinfourl: ...  # undocumented
+    def open_http(self, url: str, data: Optional[bytes] = ...) -> Optional[Union[_UrlopenRet, addinfourl]]: ...  # undocumented
+    def open_https(self, url: str, data: Optional[bytes] = ...) -> Optional[Union[_UrlopenRet, addinfourl]]: ...  # undocumented
+    def open_local_file(self, url: str) -> addinfourl: ...  # undocumented
+    def open_unknown_proxy(self, proxy: str, fullurl: str, data: Optional[bytes] = ...) -> None: ...  # undocumented
 
 class FancyURLopener(URLopener):
     def prompt_user_passwd(self, host: str, realm: str) -> Tuple[str, str]: ...
