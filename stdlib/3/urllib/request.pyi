@@ -183,7 +183,7 @@ class FileHandler(BaseHandler):
 class DataHandler(BaseHandler):
     def data_open(self, req: Request) -> addinfourl: ...
 
-class ftpwrapper: #  undocumented
+class ftpwrapper:  # undocumented
     def __init__(
         self, user: str, passwd: str, host: str, port: int, dirs: str, timeout: Optional[float] = ..., persistent: bool = ...
     ) -> None: ...
@@ -239,3 +239,44 @@ class URLopener:
 
 class FancyURLopener(URLopener):
     def prompt_user_passwd(self, host: str, realm: str) -> Tuple[str, str]: ...
+    def get_user_passwd(self, host: str, realm: str, clear_cache: int = ...) -> Tuple[str, str]: ...  # undocumented
+    def http_error_301(
+        self, url: str, fp: IO[str], errcode: int, errmsg: str, headers: Mapping[str, str], data: Optional[bytes] = ...
+    ) -> Optional[Union[_UrlopenRet, addinfourl]]: ...  # undocumented
+    def http_error_302(
+        self, url: str, fp: IO[str], errcode: int, errmsg: str, headers: Mapping[str, str], data: Optional[bytes] = ...
+    ) -> Optional[Union[_UrlopenRet, addinfourl]]: ...  # undocumented
+    def http_error_303(
+        self, url: str, fp: IO[str], errcode: int, errmsg: str, headers: Mapping[str, str], data: Optional[bytes] = ...
+    ) -> Optional[Union[_UrlopenRet, addinfourl]]: ...  # undocumented
+    def http_error_307(
+        self, url: str, fp: IO[str], errcode: int, errmsg: str, headers: Mapping[str, str], data: Optional[bytes] = ...
+    ) -> Optional[Union[_UrlopenRet, addinfourl]]: ...  # undocumented
+    def http_error_401(
+        self, url: str,
+        fp: IO[str],
+        errcode: int,
+        errmsg: str,
+        headers: Mapping[str, str],
+        data: Optional[bytes] = ...,
+        retry: bool = ...
+    ) -> Optional[_UrlopenRet]: ...  # undocumented
+    def http_error_407(
+        self, url: str,
+        fp: IO[str],
+        errcode: int,
+        errmsg: str,
+        headers: Mapping[str, str],
+        data: Optional[bytes] = ...,
+        retry: bool = ...
+    ) -> Optional[_UrlopenRet]: ...  # undocumented
+    def http_error_default(
+        self, url: str, fp: IO[str], errcode: int, errmsg: str, headers: Mapping[str, str]
+    ) -> addinfourl: ...  # undocumented
+    def redirect_internal(
+        self, url: str, fp: IO[str], errcode: int, errmsg: str, headers: Mapping[str, str], data: Optional[bytes]
+    ) -> Optional[_UrlopenRet]: ...  # undocumented
+    def retry_http_basic_auth(self, url: str, realm: str, data: Optional[bytes] = ...) -> Optional[_UrlopenRet]: ...  # undocumented
+    def retry_https_basic_auth(self, url: str, realm: str, data: Optional[bytes] = ...) -> Optional[_UrlopenRet]: ...  # undocumented
+    def retry_proxy_http_basic_auth(self, url: str, realm: str, data: Optional[bytes] = ...) -> Optional[_UrlopenRet]: ...  # undocumented
+    def retry_proxy_https_basic_auth(self, url: str, realm: str, data: Optional[bytes] = ...) -> Optional[_UrlopenRet]: ...  # undocumented
