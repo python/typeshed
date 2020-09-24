@@ -70,5 +70,3 @@ analyze.py
 #Files i messed with locally
 run_tests.sh
 .travis.yml
-tests/mypy_selftest.py
-
