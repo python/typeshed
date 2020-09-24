@@ -11,7 +11,7 @@ import tempfile
 if __name__ == '__main__':
     with tempfile.TemporaryDirectory() as tempdir:
         dirpath = Path(tempdir)
-        subprocess.run(['python2.7', '-m', 'pip', 'install', '--user', 'typing'], check=True)
+        subprocess.run(['python3', '-m', 'pip', 'install','typing'], check=True)
         subprocess.run(['git', 'clone', '--depth', '1', 'git://github.com/python/mypy',
                         str(dirpath / 'mypy')], check=True)
         subprocess.run([sys.executable, '-m', 'pip', 'install', '-U', '-r',
