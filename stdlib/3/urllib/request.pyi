@@ -115,6 +115,7 @@ class HTTPCookieProcessor(BaseHandler):
 
 class ProxyHandler(BaseHandler):
     def __init__(self, proxies: Optional[Dict[str, str]] = ...) -> None: ...
+    def proxy_open(self, req: Request, proxy: str, type: str) -> Optional[_UrlopenRet]: ...  # undocumented
     # TODO add a method for every (common) proxy protocol
 
 class HTTPPasswordMgr:
@@ -153,6 +154,7 @@ class HTTPBasicAuthHandler(AbstractBasicAuthHandler, BaseHandler):
     ) -> Optional[_UrlopenRet]: ...
 
 class ProxyBasicAuthHandler(AbstractBasicAuthHandler, BaseHandler):
+    auth_header: ClassVar[str]
     def http_error_407(
         self, req: Request, fp: IO[str], code: int, msg: int, headers: Mapping[str, str]
     ) -> Optional[_UrlopenRet]: ...
@@ -174,6 +176,7 @@ class HTTPDigestAuthHandler(BaseHandler, AbstractDigestAuthHandler):
     ) -> Optional[_UrlopenRet]: ...
 
 class ProxyDigestAuthHandler(BaseHandler, AbstractDigestAuthHandler):
+    auth_header: ClassVar[str]  # undocumented
     def http_error_407(
         self, req: Request, fp: IO[str], code: int, msg: int, headers: Mapping[str, str]
     ) -> Optional[_UrlopenRet]: ...
