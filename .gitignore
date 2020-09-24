@@ -67,5 +67,8 @@ analyze.py
 # Mypy cache
 .mypy_cache/
 
-#A helper script
+#Files i messed with locally
 run_tests.sh
+.travis.yml
+tests/mypy_selftest.py
+
