@@ -5,7 +5,7 @@ python: 3.8
 jobs:
   include:
     - name: "mypy-selftest"
-      python: 2.7
+      python: 3.6
       install: 
         - pip install -r requirements-tests-py3.txt 
       script: 
@@ -15,7 +15,6 @@ jobs:
       install: 
         - pip install -r requirements-tests-py3.txt 
       script: 
-        - ./tests/mypy_test.py --platform=linux
         - ./tests/pytype_test.py
         - ./tests/stubtest_test.py
         - ./tests/check_consistent.py
