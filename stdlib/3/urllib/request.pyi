@@ -86,6 +86,9 @@ class HTTPDefaultErrorHandler(BaseHandler):
     ) -> HTTPError: ...  # undocumented
 
 class HTTPRedirectHandler(BaseHandler):
+    max_redirections: ClassVar[int]  # undocumented
+    max_repeats: ClassVar[int]  # undocumented
+    inf_msg: ClassVar[str]  # undocumented
     def redirect_request(
         self, req: Request, fp: IO[str], code: int, msg: str, headers: Mapping[str, str], newurl: str
     ) -> Optional[Request]: ...
