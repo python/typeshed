@@ -4,6 +4,22 @@ python: 3.8
 
 jobs:
   include:
+    - name: "mypy-selftest"
+      python: 2.7
+      install: 
+        - pip install -r requirements-tests-py3.txt 
+      script: 
+        - ./tests/mypy_selftest.py --platform=linux
+    - name: "py3-tests"
+      python: 3.6
+      install: 
+        - pip install -r requirements-tests-py3.txt 
+      script: 
+        - ./tests/mypy_test.py --platform=linux
+        - ./tests/pytype_test.py
+        - ./tests/stubtest_test.py
+        - ./tests/check_consistent.py
+        - flake8
     - name: "mypy (typed-ast)"
       python: 3.7
       install: pip install -U git+git://github.com/python/mypy git+git://github.com/python/typed_ast
