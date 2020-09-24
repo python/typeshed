@@ -100,6 +100,10 @@ class HTTPRedirectHandler(BaseHandler):
 class HTTPCookieProcessor(BaseHandler):
     cookiejar: CookieJar
     def __init__(self, cookiejar: Optional[CookieJar] = ...) -> None: ...
+    def http_request(self, request: Request) -> Request: ...  # undocumented
+    def http_response(self, request: Request, response: HTTPResponse) -> HTTPResponse: ...  # undocumented
+    def https_request(self, request: Request) -> Request: ...  # undocumented
+    def https_response(self, request: Request, response: HTTPResponse) -> HTTPResponse: ...  # undocumented
 
 class ProxyHandler(BaseHandler):
     def __init__(self, proxies: Optional[Dict[str, str]] = ...) -> None: ...
@@ -131,6 +135,7 @@ class AbstractBasicAuthHandler:
     def retry_http_basic_auth(self, host: str, req: Request, realm: str) -> Optional[_UrlopenRet]: ...  # undocumented
 
 class HTTPBasicAuthHandler(AbstractBasicAuthHandler, BaseHandler):
+    auth_header: str  # undocumented
     def http_error_401(
         self, req: Request, fp: IO[str], code: int, msg: int, headers: Mapping[str, str]
     ) -> Optional[_UrlopenRet]: ...
@@ -178,7 +183,7 @@ class HTTPSHandler(AbstractHTTPHandler):
     def https_request(self, request: Request) -> Request: ...  # undocumented
 
 class FileHandler(BaseHandler):
-    names: ClassVar[Optional[Tuple[str, ...]]]
+    names: ClassVar[Optional[Tuple[str, ...]]]  # undocumented
     def file_open(self, req: Request) -> addinfourl: ...
     def get_names(self) -> Tuple[str, ...]: ...  # undocumented
     def open_local_file(self, req: Request) -> Optional[addinfourl]: ...  # undocumented
