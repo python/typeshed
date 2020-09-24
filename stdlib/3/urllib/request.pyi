@@ -6,6 +6,7 @@ from http.client import HTTPMessage, HTTPResponse, _HTTPConnectionProtocol
 from http.cookiejar import CookieJar
 from typing import IO, Any, Callable, ClassVar, Dict, List, Mapping, NoReturn, Optional, Sequence, Tuple, TypeVar, Union, overload, Pattern
 from urllib.response import addinfourl
+from urllib.error import HTTPError
 
 _T = TypeVar("_T")
 _UrlopenRet = Any
@@ -79,7 +80,10 @@ class BaseHandler:
     def close(self) -> None: ...
     def http_error_nnn(self, req: Request, fp: IO[str], code: int, msg: int, headers: Mapping[str, str]) -> _UrlopenRet: ...
 
-class HTTPDefaultErrorHandler(BaseHandler): ...
+class HTTPDefaultErrorHandler(BaseHandler):
+    def http_error_default(
+        self, req: Request, fp: IO[str], code: int, msg: str, hdrs: Mapping[str, str]
+    ) -> HTTPError: ...  # undocumented
 
 class HTTPRedirectHandler(BaseHandler):
     def redirect_request(
@@ -135,7 +139,7 @@ class AbstractBasicAuthHandler:
     def retry_http_basic_auth(self, host: str, req: Request, realm: str) -> Optional[_UrlopenRet]: ...  # undocumented
 
 class HTTPBasicAuthHandler(AbstractBasicAuthHandler, BaseHandler):
-    auth_header: str  # undocumented
+    auth_header: ClassVar[str]  # undocumented
     def http_error_401(
         self, req: Request, fp: IO[str], code: int, msg: int, headers: Mapping[str, str]
     ) -> Optional[_UrlopenRet]: ...
@@ -156,6 +160,7 @@ class AbstractDigestAuthHandler:
     def get_entity_digest(self, data: Optional[bytes], chal: Mapping[str, str]) -> Optional[str]: ...
 
 class HTTPDigestAuthHandler(BaseHandler, AbstractDigestAuthHandler):
+    auth_header: ClassVar[str]  # undocumented
     def http_error_401(
         self, req: Request, fp: IO[str], code: int, msg: int, headers: Mapping[str, str]
     ) -> Optional[_UrlopenRet]: ...
