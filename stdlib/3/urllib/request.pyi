@@ -4,9 +4,25 @@ import sys
 from email.message import Message
 from http.client import HTTPMessage, HTTPResponse, _HTTPConnectionProtocol
 from http.cookiejar import CookieJar
-from typing import IO, Any, Callable, ClassVar, Dict, List, Mapping, NoReturn, Optional, Sequence, Tuple, TypeVar, Union, overload, Pattern
-from urllib.response import addinfourl
+from typing import (
+    IO,
+    Any,
+    Callable,
+    ClassVar,
+    Dict,
+    List,
+    Mapping,
+    NoReturn,
+    Optional,
+    Pattern,
+    Sequence,
+    Tuple,
+    TypeVar,
+    Union,
+    overload,
+)
 from urllib.error import HTTPError
+from urllib.response import addinfourl
 
 _T = TypeVar("_T")
 _UrlopenRet = Any
@@ -101,7 +117,8 @@ class HTTPRedirectHandler(BaseHandler):
         self, req: Request, fp: IO[str], code: int, msg: int, headers: Mapping[str, str]
     ) -> Optional[_UrlopenRet]: ...
     def http_error_303(
-        self, req: Request, fp: IO[str], code: int, msg: int, headers: Mapping[str, str]) -> Optional[_UrlopenRet]: ...
+        self, req: Request, fp: IO[str], code: int, msg: int, headers: Mapping[str, str]
+    ) -> Optional[_UrlopenRet]: ...
     def http_error_307(
         self, req: Request, fp: IO[str], code: int, msg: int, headers: Mapping[str, str]
     ) -> Optional[_UrlopenRet]: ...
@@ -215,14 +232,18 @@ class ftpwrapper:  # undocumented
 
 class FTPHandler(BaseHandler):
     def ftp_open(self, req: Request) -> addinfourl: ...
-    def connect_ftp(self, user: str, passwd: str, host: str, port: int, dirs: str, timeout: float) -> ftpwrapper: ...  # undocumented
+    def connect_ftp(
+        self, user: str, passwd: str, host: str, port: int, dirs: str, timeout: float
+    ) -> ftpwrapper: ...  # undocumented
 
 class CacheFTPHandler(FTPHandler):
     def setTimeout(self, t: float) -> None: ...
     def setMaxConns(self, m: int) -> None: ...
     def check_cache(self) -> None: ...  # undocumented
     def clear_cache(self) -> None: ...  # undocumented
-    def connect_ftp(self, user: str, passwd: str, host: str, port: int, dirs: str, timeout: float) -> ftpwrapper: ...  # undocumented
+    def connect_ftp(
+        self, user: str, passwd: str, host: str, port: int, dirs: str, timeout: float
+    ) -> ftpwrapper: ...  # undocumented
 
 class UnknownHandler(BaseHandler):
     def unknown_open(self, req: Request) -> NoReturn: ...
@@ -294,22 +315,24 @@ class FancyURLopener(URLopener):
         self, url: str, fp: IO[str], errcode: int, errmsg: str, headers: Mapping[str, str], data: Optional[bytes] = ...
     ) -> Optional[Union[_UrlopenRet, addinfourl]]: ...  # undocumented
     def http_error_401(
-        self, url: str,
+        self,
+        url: str,
         fp: IO[str],
         errcode: int,
         errmsg: str,
         headers: Mapping[str, str],
         data: Optional[bytes] = ...,
-        retry: bool = ...
+        retry: bool = ...,
     ) -> Optional[_UrlopenRet]: ...  # undocumented
     def http_error_407(
-        self, url: str,
+        self,
+        url: str,
         fp: IO[str],
         errcode: int,
         errmsg: str,
         headers: Mapping[str, str],
         data: Optional[bytes] = ...,
-        retry: bool = ...
+        retry: bool = ...,
     ) -> Optional[_UrlopenRet]: ...  # undocumented
     def http_error_default(
         self, url: str, fp: IO[str], errcode: int, errmsg: str, headers: Mapping[str, str]
@@ -317,7 +340,15 @@ class FancyURLopener(URLopener):
     def redirect_internal(
         self, url: str, fp: IO[str], errcode: int, errmsg: str, headers: Mapping[str, str], data: Optional[bytes]
     ) -> Optional[_UrlopenRet]: ...  # undocumented
-    def retry_http_basic_auth(self, url: str, realm: str, data: Optional[bytes] = ...) -> Optional[_UrlopenRet]: ...  # undocumented
-    def retry_https_basic_auth(self, url: str, realm: str, data: Optional[bytes] = ...) -> Optional[_UrlopenRet]: ...  # undocumented
-    def retry_proxy_http_basic_auth(self, url: str, realm: str, data: Optional[bytes] = ...) -> Optional[_UrlopenRet]: ...  # undocumented
-    def retry_proxy_https_basic_auth(self, url: str, realm: str, data: Optional[bytes] = ...) -> Optional[_UrlopenRet]: ...  # undocumented
+    def retry_http_basic_auth(
+        self, url: str, realm: str, data: Optional[bytes] = ...
+    ) -> Optional[_UrlopenRet]: ...  # undocumented
+    def retry_https_basic_auth(
+        self, url: str, realm: str, data: Optional[bytes] = ...
+    ) -> Optional[_UrlopenRet]: ...  # undocumented
+    def retry_proxy_http_basic_auth(
+        self, url: str, realm: str, data: Optional[bytes] = ...
+    ) -> Optional[_UrlopenRet]: ...  # undocumented
+    def retry_proxy_https_basic_auth(
+        self, url: str, realm: str, data: Optional[bytes] = ...
+    ) -> Optional[_UrlopenRet]: ...  # undocumented
