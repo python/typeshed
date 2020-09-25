@@ -1,7 +1,7 @@
 from typing import Any
 
-from ..inlinepatterns import InlineProcessor
-from . import Extension
+from markdown.extensions import Extension
+from markdown.inlinepatterns import InlineProcessor
 
 def build_url(label, base, end): ...
 

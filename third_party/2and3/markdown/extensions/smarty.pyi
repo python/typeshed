@@ -1,7 +1,7 @@
 from typing import Any
 
-from ..inlinepatterns import HtmlInlineProcessor
-from . import Extension
+from markdown.extensions import Extension
+from markdown.inlinepatterns import HtmlInlineProcessor
 
 punctClass: str
 endOfWordClass: str

@@ -1,7 +1,7 @@
 from typing import Any
 
-from ..blockprocessors import BlockProcessor
-from . import Extension
+from markdown.blockprocessors import BlockProcessor
+from markdown.extensions import Extension
 
 PIPE_NONE: int
 PIPE_LEFT: int

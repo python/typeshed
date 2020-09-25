@@ -1,6 +1,6 @@
 from typing import Any
 
-from . import Extension
+from markdown.extensions import Extension
 
 extensions: Any
 

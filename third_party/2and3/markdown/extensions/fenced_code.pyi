@@ -1,7 +1,7 @@
 from typing import Any
 
-from ..preprocessors import Preprocessor
-from . import Extension
+from markdown.extensions import Extension
+from markdown.preprocessors import Preprocessor
 
 class FencedCodeExtension(Extension):
     def extendMarkdown(self, md) -> None: ...

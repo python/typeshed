@@ -1,7 +1,7 @@
 from typing import Any
 
-from ..inlinepatterns import UnderscoreProcessor
-from . import Extension
+from markdown.extensions import Extension
+from markdown.inlinepatterns import UnderscoreProcessor
 
 EMPHASIS_RE: str
 STRONG_RE: str

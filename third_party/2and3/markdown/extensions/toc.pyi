@@ -1,7 +1,7 @@
 from typing import Any
 
-from ..treeprocessors import Treeprocessor
-from . import Extension
+from markdown.extensions import Extension
+from markdown.treeprocessors import Treeprocessor
 
 def slugify(value, separator): ...
 

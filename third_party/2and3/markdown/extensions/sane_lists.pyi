@@ -1,7 +1,7 @@
 from typing import Any
 
-from ..blockprocessors import OListProcessor, UListProcessor
-from . import Extension
+from markdown.blockprocessors import OListProcessor, UListProcessor
+from markdown.extensions import Extension
 
 class SaneOListProcessor(OListProcessor):
     SIBLING_TAGS: Any

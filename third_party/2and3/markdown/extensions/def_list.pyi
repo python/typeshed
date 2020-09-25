@@ -1,7 +1,7 @@
 from typing import Any
 
-from ..blockprocessors import BlockProcessor, ListIndentProcessor
-from . import Extension
+from markdown.blockprocessors import BlockProcessor, ListIndentProcessor
+from markdown.extensions import Extension
 
 class DefListProcessor(BlockProcessor):
     RE: Any

@@ -1,8 +1,8 @@
 from typing import Any
 
-from ..inlinepatterns import InlineProcessor
-from ..preprocessors import Preprocessor
-from . import Extension
+from markdown.extensions import Extension
+from markdown.inlinepatterns import InlineProcessor
+from markdown.preprocessors import Preprocessor
 
 ABBR_REF_RE: Any
 

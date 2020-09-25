@@ -1,10 +1,10 @@
 from typing import Any
 
-from ..inlinepatterns import InlineProcessor
-from ..postprocessors import Postprocessor
-from ..preprocessors import Preprocessor
-from ..treeprocessors import Treeprocessor
-from . import Extension
+from markdown.extensions import Extension
+from markdown.inlinepatterns import InlineProcessor
+from markdown.postprocessors import Postprocessor
+from markdown.preprocessors import Preprocessor
+from markdown.treeprocessors import Treeprocessor
 
 FN_BACKLINK_TEXT: Any
 NBSP_PLACEHOLDER: Any
