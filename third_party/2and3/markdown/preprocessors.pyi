@@ -1,0 +1,26 @@
+from typing import Any, Pattern
+
+from . import util
+
+def build_preprocessors(md, **kwargs): ...
+
+class Preprocessor(util.Processor):
+    def run(self, lines) -> None: ...
+
+class NormalizeWhitespace(Preprocessor):
+    def run(self, lines): ...
+
+class HtmlBlockPreprocessor(Preprocessor):
+    right_tag_patterns: Any
+    attrs_pattern: str = ...
+    left_tag_pattern: Any
+    attrs_re: Any
+    left_tag_re: Any
+    markdown_in_raw: bool = ...
+    def run(self, lines): ...
+
+class ReferencePreprocessor(Preprocessor):
+    TITLE: str = ...
+    RE: Pattern
+    TITLE_RE: Pattern
+    def run(self, lines): ...
