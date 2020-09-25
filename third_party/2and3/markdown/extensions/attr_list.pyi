@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Pattern
 
 from markdown.extensions import Extension
 from markdown.treeprocessors import Treeprocessor
@@ -8,10 +8,10 @@ def isheader(elem): ...
 
 class AttrListTreeprocessor(Treeprocessor):
     BASE_RE: str = ...
-    HEADER_RE: Any
-    BLOCK_RE: Any
-    INLINE_RE: Any
-    NAME_RE: Any
+    HEADER_RE: Pattern
+    BLOCK_RE: Pattern
+    INLINE_RE: Pattern
+    NAME_RE: Pattern
     def run(self, doc) -> None: ...
     def assign_attrs(self, elem, attrs) -> None: ...
     def sanitize_name(self, name): ...

@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Pattern
 
 from markdown.extensions import Extension
 from markdown.inlinepatterns import HtmlInlineProcessor
@@ -21,7 +21,7 @@ closingSingleQuotesRegex: Any
 closingSingleQuotesRegex2: Any
 remainingSingleQuotesRegex: str
 remainingDoubleQuotesRegex: str
-HTML_STRICT_RE: Any
+HTML_STRICT_RE: str
 
 class SubstituteTextPattern(HtmlInlineProcessor):
     replace: Any

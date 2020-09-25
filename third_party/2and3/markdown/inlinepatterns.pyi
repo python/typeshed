@@ -15,9 +15,9 @@ EM_STRONG2_RE: str
 STRONG_EM_RE: str
 STRONG_EM2_RE: str
 STRONG_EM3_RE: str
-LINK_RE: Any
+LINK_RE: str
 IMAGE_LINK_RE: str
-REFERENCE_RE: Any
+REFERENCE_RE: str
 IMAGE_REFERENCE_RE: str
 NOT_STRONG_RE: str
 AUTOLINK_RE: str
@@ -115,7 +115,7 @@ class ImageInlineProcessor(LinkInlineProcessor):
     def handleMatch(self, m, data): ...  # type: ignore
 
 class ReferenceInlineProcessor(LinkInlineProcessor):
-    NEWLINE_CLEANUP_RE: Any
+    NEWLINE_CLEANUP_RE: Pattern
     RE_LINK: Any
     def handleMatch(self, m, data): ...  # type: ignore
     def evalId(self, data, index, text): ...

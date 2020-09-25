@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Pattern
 
 from markdown.blockprocessors import BlockProcessor
 from markdown.extensions import Extension
@@ -9,7 +9,7 @@ class AdmonitionExtension(Extension):
 class AdmonitionProcessor(BlockProcessor):
     CLASSNAME: str = ...
     CLASSNAME_TITLE: str = ...
-    RE: Any
+    RE: Pattern
     RE_SPACES: Any
     def test(self, parent, block): ...
     def run(self, parent, blocks) -> None: ...

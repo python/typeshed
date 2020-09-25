@@ -1,11 +1,11 @@
-from typing import Any
+from typing import Any, Pattern
 
 from markdown.extensions import Extension
 from markdown.treeprocessors import Treeprocessor
 
 def slugify(value, separator): ...
 
-IDCOUNT_RE: Any
+IDCOUNT_RE: Pattern
 
 def unique(id, ids): ...
 def get_name(el): ...

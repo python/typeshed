@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Pattern
 
 from . import util
 
@@ -15,6 +15,6 @@ class AndSubstitutePostprocessor(Postprocessor):
     def run(self, text): ...
 
 class UnescapePostprocessor(Postprocessor):
-    RE: Any
+    RE: Pattern
     def unescape(self, m): ...
     def run(self, text): ...

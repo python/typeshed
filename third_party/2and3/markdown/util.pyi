@@ -1,5 +1,5 @@
 from collections import namedtuple
-from typing import Any, Optional
+from typing import Any, Optional, Pattern
 
 PY37: Any
 __deprecated__: Any
@@ -8,10 +8,10 @@ STX: str
 ETX: str
 INLINE_PLACEHOLDER_PREFIX: Any
 INLINE_PLACEHOLDER: Any
-INLINE_PLACEHOLDER_RE: Any
+INLINE_PLACEHOLDER_RE: Pattern
 AMP_SUBSTITUTE: Any
 HTML_PLACEHOLDER: Any
-HTML_PLACEHOLDER_RE: Any
+HTML_PLACEHOLDER_RE: Pattern
 TAG_PLACEHOLDER: Any
 INSTALLED_EXTENSIONS: Any
 RTL_BIDI_RANGES: Any

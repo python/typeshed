@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Pattern
 
 from . import util
 
@@ -21,6 +21,6 @@ class HtmlBlockPreprocessor(Preprocessor):
 
 class ReferencePreprocessor(Preprocessor):
     TITLE: str = ...
-    RE: Any
-    TITLE_RE: Any
+    RE: Pattern
+    TITLE_RE: Pattern
     def run(self, lines): ...
