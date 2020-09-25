@@ -1,9 +1,10 @@
-from . import Extension
+from typing import Any
+
 from ..inlinepatterns import InlineProcessor
 from ..postprocessors import Postprocessor
 from ..preprocessors import Preprocessor
 from ..treeprocessors import Treeprocessor
-from typing import Any
+from . import Extension
 
 FN_BACKLINK_TEXT: Any
 NBSP_PLACEHOLDER: Any

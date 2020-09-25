@@ -1,6 +1,7 @@
-from . import Extension
-from ..blockprocessors import BlockProcessor
 from typing import Any
+
+from ..blockprocessors import BlockProcessor
+from . import Extension
 
 PIPE_NONE: int
 PIPE_LEFT: int

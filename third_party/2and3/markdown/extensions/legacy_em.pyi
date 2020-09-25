@@ -1,6 +1,7 @@
-from . import Extension
-from ..inlinepatterns import UnderscoreProcessor
 from typing import Any
+
+from ..inlinepatterns import UnderscoreProcessor
+from . import Extension
 
 EMPHASIS_RE: str
 STRONG_RE: str

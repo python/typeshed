@@ -1,6 +1,7 @@
-from . import Extension
-from ..blockprocessors import BlockProcessor
 from typing import Any
+
+from ..blockprocessors import BlockProcessor
+from . import Extension
 
 class AdmonitionExtension(Extension):
     def extendMarkdown(self, md) -> None: ...

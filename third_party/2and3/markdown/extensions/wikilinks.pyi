@@ -1,6 +1,7 @@
-from . import Extension
-from ..inlinepatterns import InlineProcessor
 from typing import Any
+
+from ..inlinepatterns import InlineProcessor
+from . import Extension
 
 def build_url(label, base, end): ...
 

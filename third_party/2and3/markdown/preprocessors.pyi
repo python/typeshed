@@ -1,5 +1,6 @@
-from . import util
 from typing import Any
+
+from . import util
 
 def build_preprocessors(md, **kwargs): ...
 

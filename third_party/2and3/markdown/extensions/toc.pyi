@@ -1,6 +1,7 @@
-from . import Extension
-from ..treeprocessors import Treeprocessor
 from typing import Any
+
+from ..treeprocessors import Treeprocessor
+from . import Extension
 
 def slugify(value, separator): ...
 

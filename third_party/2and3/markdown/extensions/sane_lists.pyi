@@ -1,6 +1,7 @@
-from . import Extension
-from ..blockprocessors import OListProcessor, UListProcessor
 from typing import Any
+
+from ..blockprocessors import OListProcessor, UListProcessor
+from . import Extension
 
 class SaneOListProcessor(OListProcessor):
     SIBLING_TAGS: Any

@@ -1,6 +1,7 @@
-from . import Extension
-from ..blockprocessors import BlockProcessor, ListIndentProcessor
 from typing import Any
+
+from ..blockprocessors import BlockProcessor, ListIndentProcessor
+from . import Extension
 
 class DefListProcessor(BlockProcessor):
     RE: Any

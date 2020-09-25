@@ -1,5 +1,6 @@
-from . import Extension
 from typing import Any
+
+from . import Extension
 
 extensions: Any
 

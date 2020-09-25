@@ -1,6 +1,7 @@
-from . import Extension
-from ..blockprocessors import BlockProcessor
 from typing import Any, Optional
+
+from ..blockprocessors import BlockProcessor
+from . import Extension
 
 class MarkdownInHtmlProcessor(BlockProcessor):
     def test(self, parent, block): ...

@@ -1,7 +1,8 @@
-from . import Extension
+from typing import Any
+
 from ..inlinepatterns import InlineProcessor
 from ..preprocessors import Preprocessor
-from typing import Any
+from . import Extension
 
 ABBR_REF_RE: Any
 

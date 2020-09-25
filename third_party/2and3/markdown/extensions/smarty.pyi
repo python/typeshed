@@ -1,6 +1,7 @@
-from . import Extension
-from ..inlinepatterns import HtmlInlineProcessor
 from typing import Any
+
+from ..inlinepatterns import HtmlInlineProcessor
+from . import Extension
 
 punctClass: str
 endOfWordClass: str

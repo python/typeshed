@@ -1,6 +1,7 @@
-from . import Extension
-from ..treeprocessors import Treeprocessor
 from typing import Any, Optional
+
+from ..treeprocessors import Treeprocessor
+from . import Extension
 
 pygments: bool
 
@@ -17,7 +18,19 @@ class CodeHilite:
     tab_length: Any
     hl_lines: Any
     use_pygments: Any
-    def __init__(self, src: Optional[Any] = ..., linenums: Optional[Any] = ..., guess_lang: bool = ..., css_class: str = ..., lang: Optional[Any] = ..., style: str = ..., noclasses: bool = ..., tab_length: int = ..., hl_lines: Optional[Any] = ..., use_pygments: bool = ...) -> None: ...
+    def __init__(
+        self,
+        src: Optional[Any] = ...,
+        linenums: Optional[Any] = ...,
+        guess_lang: bool = ...,
+        css_class: str = ...,
+        lang: Optional[Any] = ...,
+        style: str = ...,
+        noclasses: bool = ...,
+        tab_length: int = ...,
+        hl_lines: Optional[Any] = ...,
+        use_pygments: bool = ...,
+    ) -> None: ...
     def hilite(self): ...
 
 class HiliteTreeprocessor(Treeprocessor):

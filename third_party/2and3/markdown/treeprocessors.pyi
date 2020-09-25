@@ -1,5 +1,6 @@
-from . import util
 from typing import Any, Optional
+
+from . import util
 
 def build_treeprocessors(md, **kwargs): ...
 def isString(s): ...

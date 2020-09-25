@@ -1,6 +1,7 @@
+from typing import Any
+
 from markdown.extensions import Extension
 from markdown.treeprocessors import Treeprocessor
-from typing import Any
 
 ATTR_RE: Any
 

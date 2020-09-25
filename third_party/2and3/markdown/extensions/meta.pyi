@@ -1,6 +1,7 @@
-from . import Extension
-from ..preprocessors import Preprocessor
 from typing import Any
+
+from ..preprocessors import Preprocessor
+from . import Extension
 
 log: Any
 META_RE: Any
