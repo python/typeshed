@@ -100,7 +100,7 @@ class BaseHandler:
 
 class HTTPDefaultErrorHandler(BaseHandler):
     def http_error_default(
-        self, req: Request, fp: IO[str], code: int, msg: str, hdrs: Mapping[str, str]
+        self, req: Request, fp: IO[bytes], code: int, msg: str, hdrs: Mapping[str, str]
     ) -> HTTPError: ...  # undocumented
 
 class HTTPRedirectHandler(BaseHandler):
@@ -141,8 +141,8 @@ class HTTPPasswordMgr:
     def find_user_password(self, realm: str, authuri: str) -> Tuple[Optional[str], Optional[str]]: ...
     def is_suburi(self, base: str, test: str) -> bool: ...  # undocumented
     def reduce_uri(
-        self, uri: Union[str, Sequence[str]], default_port: bool = ...
-    ) -> Tuple[Union[str, Sequence[str]], str]: ...  # undocumented
+        self, uri: str, default_port: bool = ...
+    ) -> str: ...  # undocumented
 
 class HTTPPasswordMgrWithDefaultRealm(HTTPPasswordMgr):
     def add_password(self, realm: Optional[str], uri: Union[str, Sequence[str]], user: str, passwd: str) -> None: ...
@@ -220,7 +220,7 @@ class FileHandler(BaseHandler):
     names: ClassVar[Optional[Tuple[str, ...]]]  # undocumented
     def file_open(self, req: Request) -> addinfourl: ...
     def get_names(self) -> Tuple[str, ...]: ...  # undocumented
-    def open_local_file(self, req: Request) -> Optional[addinfourl]: ...  # undocumented
+    def open_local_file(self, req: Request) -> addinfourl: ...  # undocumented
 
 class DataHandler(BaseHandler):
     def data_open(self, req: Request) -> addinfourl: ...
@@ -286,16 +286,16 @@ class URLopener:
     def cleanup(self) -> None: ...  # undocumented
     def close(self) -> None: ...  # undocumented
     def http_error(
-        self, url: str, fp: IO[str], errcode: int, errmsg: str, headers: Mapping[str, str], data: Optional[bytes] = ...
-    ) -> Optional[Union[_UrlopenRet, addinfourl]]: ...  # undocumented
+        self, url: str, fp: IO[bytes], errcode: int, errmsg: str, headers: Mapping[str, str], data: Optional[bytes] = ...
+    ) -> _UrlopenRet: ...  # undocumented
     def http_error_default(
-        self, url: str, fp: IO[str], errcode: int, errmsg: str, headers: Mapping[str, str]
-    ) -> Optional[Union[_UrlopenRet, addinfourl]]: ...  # undocumented
+        self, url: str, fp: IO[bytes], errcode: int, errmsg: str, headers: Mapping[str, str]
+    ) -> _UrlopenRet: ...  # undocumented
     def open_data(self, url: str, data: Optional[bytes] = ...) -> addinfourl: ...  # undocumented
     def open_file(self, url: str) -> addinfourl: ...  # undocumented
     def open_ftp(self, url: str) -> addinfourl: ...  # undocumented
-    def open_http(self, url: str, data: Optional[bytes] = ...) -> Optional[Union[_UrlopenRet, addinfourl]]: ...  # undocumented
-    def open_https(self, url: str, data: Optional[bytes] = ...) -> Optional[Union[_UrlopenRet, addinfourl]]: ...  # undocumented
+    def open_http(self, url: str, data: Optional[bytes] = ...) -> _UrlopenRet: ...  # undocumented
+    def open_https(self, url: str, data: Optional[bytes] = ...) -> _UrlopenRet: ...  # undocumented
     def open_local_file(self, url: str) -> addinfourl: ...  # undocumented
     def open_unknown_proxy(self, proxy: str, fullurl: str, data: Optional[bytes] = ...) -> None: ...  # undocumented
 
@@ -335,7 +335,7 @@ class FancyURLopener(URLopener):
         retry: bool = ...,
     ) -> Optional[_UrlopenRet]: ...  # undocumented
     def http_error_default(
-        self, url: str, fp: IO[str], errcode: int, errmsg: str, headers: Mapping[str, str]
+        self, url: str, fp: IO[bytes], errcode: int, errmsg: str, headers: Mapping[str, str]
     ) -> addinfourl: ...  # undocumented
     def redirect_internal(
         self, url: str, fp: IO[str], errcode: int, errmsg: str, headers: Mapping[str, str], data: Optional[bytes]
