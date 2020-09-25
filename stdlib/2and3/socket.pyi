@@ -28,7 +28,7 @@ from typing_extensions import Literal
 
 # Constants defined by Python (i.e. not OS constants re-exported from C)
 has_ipv6: bool
-SocketType: Any
+SocketType = socket
 if sys.version_info >= (3,):
     SocketIO: Any
 
