@@ -33,7 +33,8 @@ def parse_input_file(input_file: str) -> Dict[str, Set[str]]:
 # Returns a (filename, entry) tuple.
 def parse_input_line(line: str) -> Tuple[str, str]:
     line = line.strip()
-    return line.split(":", maxsplit=1)
+    filename, entry = line.split(":", maxsplit=1)
+    return filename, entry
 
 
 def remove_entries_from_whitelist(filename: str, entries: Set[str]) -> None:
@@ -46,7 +47,7 @@ def remove_entries_from_whitelist(filename: str, entries: Set[str]) -> None:
             else:
                 new_lines.append(line)
     if entries:
-        print(f"WARNING: The following entries were not found in '{filename}':", filename=sys.stderr)
+        print(f"WARNING: The following entries were not found in '{filename}':", file=sys.stderr)
         for entry in entries:
             print(f"  * {entry}")
     with open(filename, "w") as f:
