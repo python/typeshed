@@ -6,8 +6,6 @@ import unittest
 from __builtin__ import unichr as unichr
 from functools import wraps as wraps
 from StringIO import StringIO as StringIO
-
-BytesIO = StringIO
 from typing import (
     Any,
     AnyStr,
@@ -30,6 +28,8 @@ from typing import (
 )
 
 from . import moves
+
+BytesIO = StringIO
 
 _T = TypeVar("_T")
 _K = TypeVar("_K")

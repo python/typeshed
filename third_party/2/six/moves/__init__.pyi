@@ -13,24 +13,6 @@ from UserDict import UserDict as UserDict
 from UserList import UserList as UserList
 from UserString import UserString as UserString
 
-builtins = __builtin__
-input = __builtin__.raw_input
-reload_module = __builtin__.reload
-range = __builtin__.xrange
-
-cStringIO = _cStringIO
-
-filter = itertools.ifilter
-filterfalse = itertools.ifilterfalse
-map = itertools.imap
-zip = itertools.izip
-zip_longest = itertools.izip_longest
-
-getcwdb = os.getcwd
-getcwd = os.getcwdu
-
-shlex_quote = pipes.quote
-
 # import Tkinter as tkinter
 # import Dialog as tkinter_dialog
 # import FileDialog as tkinter_filedialog
@@ -76,3 +58,21 @@ from . import (
 )
 
 # import SimpleXMLRPCServer as xmlrpc_server
+
+builtins = __builtin__
+input = __builtin__.raw_input
+reload_module = __builtin__.reload
+range = __builtin__.xrange
+
+cStringIO = _cStringIO
+
+filter = itertools.ifilter
+filterfalse = itertools.ifilterfalse
+map = itertools.imap
+zip = itertools.izip
+zip_longest = itertools.izip_longest
+
+getcwdb = os.getcwd
+getcwd = os.getcwdu
+
+shlex_quote = pipes.quote

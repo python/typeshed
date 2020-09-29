@@ -2,7 +2,6 @@
 #
 # Note: Commented out items means they weren't implemented at the time.
 # Uncomment them when the modules have been added to the typeshed.
-import builtins
 import importlib
 import shlex
 from builtins import filter as filter, input as input, map as map, range as range, zip as zip
@@ -12,11 +11,6 @@ from io import StringIO as StringIO
 from itertools import filterfalse as filterfalse, zip_longest as zip_longest
 from os import getcwd as getcwd, getcwdb as getcwdb
 from sys import intern as intern
-
-xrange = builtins.range
-reload_module = importlib.reload
-cStringIO = StringIO
-shlex_quote = shlex.quote
 
 # import tkinter.font as tkinter_font
 # import tkinter.messagebox as tkinter_messagebox
@@ -64,3 +58,8 @@ from . import (
 
 # import xmlrpc.client as xmlrpc_client
 # import xmlrpc.server as xmlrpc_server
+
+xrange = range
+reload_module = importlib.reload
+cStringIO = StringIO
+shlex_quote = shlex.quote
