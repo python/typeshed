@@ -1,6 +1,6 @@
 import sys
 from _typeshed import AnyPath, FileDescriptorLike
-from builtins import OSError as error
+from builtins import OSError
 from io import TextIOWrapper as _TextIOWrapper
 from posix import listdir as listdir, stat_result as stat_result  # TODO: use this, see https://github.com/python/mypy/issues/3078
 from typing import (
@@ -34,6 +34,8 @@ _supports_unicode_filenames = path.supports_unicode_filenames
 _T = TypeVar("_T")
 
 # ----- os variables -----
+
+error = OSError
 
 if sys.version_info >= (3, 2):
     supports_bytes_environ: bool
@@ -152,7 +154,9 @@ TMP_MAX: int  # Undocumented, but used by tempfile
 
 # ----- os classes (structures) -----
 if sys.version_info >= (3, 6):
-    from builtins import _PathLike as PathLike  # See comment in builtins
+    from builtins import _PathLike
+
+    PathLike = _PathLike  # See comment in builtins
 
 class _StatVFS(NamedTuple):
     f_bsize: int
