@@ -1,4 +1,4 @@
-from typing import Any, List, Pattern
+from typing import Any, Iterable, List, Pattern
 
 from . import util
 
@@ -8,7 +8,7 @@ class Preprocessor(util.Processor):
     def run(self, lines: List[str]) -> List[str]: ...
 
 class NormalizeWhitespace(Preprocessor):
-    def run(self, lines: List[str]) -> List[str]: ...
+    def run(self, lines: Iterable[str]) -> List[str]: ...
 
 class HtmlBlockPreprocessor(Preprocessor):
     right_tag_patterns: Any
@@ -17,7 +17,7 @@ class HtmlBlockPreprocessor(Preprocessor):
     attrs_re: Any
     left_tag_re: Any
     markdown_in_raw: bool = ...
-    def run(self, lines: List[str]) -> List[str]: ...
+    def run(self, lines: Iterable[str]) -> List[str]: ...
 
 class ReferencePreprocessor(Preprocessor):
     TITLE: str = ...
