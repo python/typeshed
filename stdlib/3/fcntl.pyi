@@ -34,7 +34,7 @@ F_SETLK: int
 F_SETLK64: int
 F_SETLKW: int
 F_SETLKW64: int
-if sys.version_info >= (3, 9):
+if sys.version_info >= (3, 9) and sys.platform == "linux":
     F_OFD_GETLK: int
     F_OFD_SETLK: int
     F_OFD_SETLKW: int
