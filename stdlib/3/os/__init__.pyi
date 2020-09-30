@@ -8,7 +8,7 @@ from _typeshed import (
     OpenBinaryModeWriting,
     OpenTextMode,
 )
-from builtins import OSError as error
+from builtins import OSError
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper as _TextIOWrapper
 from posix import listdir as listdir, times_result
 from typing import (
@@ -45,6 +45,8 @@ _supports_unicode_filenames = path.supports_unicode_filenames
 _T = TypeVar("_T")
 
 # ----- os variables -----
+
+error = OSError
 
 supports_bytes_environ: bool
 
@@ -268,7 +270,9 @@ class stat_result:
     st_type: int
 
 if sys.version_info >= (3, 6):
-    from builtins import _PathLike as PathLike  # See comment in builtins
+    from builtins import _PathLike
+
+    PathLike = _PathLike  # See comment in builtins
 
 _FdOrAnyPath = Union[int, AnyPath]
 
