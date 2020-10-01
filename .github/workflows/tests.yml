@@ -64,13 +64,10 @@ jobs:
 
   mypy:
     name: Run mypy against the stubs
-    runs-on: ${{ matrix.os }}
-    defaults:
-      run:
-        shell: bash
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: ["ubuntu-latest", "windows-latest", "macos-latest"]
+        platform: ["linux", "win32", "darwin"]
       fail-fast: false
     steps:
       - uses: actions/checkout@v2
@@ -78,7 +75,7 @@ jobs:
         with:
           python-version: 3.8
       - run: pip install -U git+git://github.com/python/mypy
-      - run: ./tests/mypy_test.py
+      - run: ./tests/mypy_test.py --platform=${{ matrix.platform }}
 
   mypy-self-test:
     name: Test mypy source with itself
