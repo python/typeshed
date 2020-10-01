@@ -65,6 +65,9 @@ jobs:
   mypy:
     name: Run mypy against the stubs
     runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
     strategy:
       matrix:
         os: ["ubuntu-latest", "windows-latest", "macos-latest"]
