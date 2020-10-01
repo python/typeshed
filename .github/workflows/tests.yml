@@ -62,6 +62,21 @@ jobs:
       - run: pip install -r requirements-tests-py3.txt
       - run: ./tests/pytype_test.py
 
+  mypy:
+    name: Run mypy against the stubs
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        platform: ["linux", "win32", "darwin"]
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - run: pip install -U git+git://github.com/python/mypy
+      - run: ./tests/mypy_test.py --platform=${{ matrix.platform }}
+
   mypy-self-test:
     name: Test mypy source with itself
     runs-on: ubuntu-latest
