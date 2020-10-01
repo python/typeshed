@@ -68,13 +68,12 @@ jobs:
     strategy:
       matrix:
         os: ["ubuntu-latest", "windows-latest", "macos-latest"]
-        python-version: [3.7, 3.8]
       fail-fast: false
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: 3.8
       - run: pip install -U git+git://github.com/python/mypy
       - run: ./tests/mypy_test.py
 
