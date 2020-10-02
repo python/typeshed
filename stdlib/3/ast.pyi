@@ -192,7 +192,7 @@ else:
 
 def fix_missing_locations(node: _T) -> _T: ...
 
-if sys.version_info >= (3, 6):
+if sys.version_info >= (3, 5):
     def get_docstring(node: AST, clean: bool = ...) -> Optional[str]: ...
 
 else:
