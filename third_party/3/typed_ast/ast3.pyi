@@ -1,4 +1,3 @@
-import sys
 import typing
 from typing import Any, Iterator, Optional, Union
 
