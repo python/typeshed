@@ -100,3 +100,14 @@ xml.etree.ElementTree.XMLParser.__init__
 xml.etree.cElementTree.TreeBuilder.start  # bpo-39495
 xml.etree.cElementTree.XMLParser.__init__
 zipfile.Path.open
+# These enums derive from (int, IntEnum) or (str, Enum). See comment in py3_common.txt
+enum.IntFlag.__new__
+pstats.SortKey.__new__
+re.RegexFlag.__new__
+socket.AddressInfo.__new__
+socket.MsgFlag.__new__
+ssl.Options.__new__
+ssl.TLSVersion.__new__
+ssl.VerifyFlags.__new__
+ssl.VerifyMode.__new__
+tkinter.EventType.__new__
