@@ -74,7 +74,6 @@ sre_constants.RANGE_IGNORE
 ssl.PROTOCOL_SSLv3
 ssl.RAND_egd
 sys.UnraisableHookArgs
-threading.ExceptHookArgs
 types.ClassMethodDescriptorType.__get__
 types.CodeType.replace
 types.MethodDescriptorType.__get__
