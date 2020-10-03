@@ -2,7 +2,7 @@ import sys
 import threading
 from logging import Logger
 from types import TracebackType
-from typing import Any, Callable, Generic, Iterable, Iterator, List, Optional, Set, Tuple, TypeVar
+from typing import Any, Callable, Generic, Iterable, Iterator, List, Optional, Sequence, Set, Tuple, TypeVar
 
 FIRST_COMPLETED: str
 FIRST_EXCEPTION: str
@@ -65,7 +65,7 @@ class Executor:
 
 def as_completed(fs: Iterable[Future[_T]], timeout: Optional[float] = ...) -> Iterator[Future[_T]]: ...
 def wait(
-    fs: Iterable[Future[_T]], timeout: Optional[float] = ..., return_when: str = ...
+    fs: Sequence[Future[_T]], timeout: Optional[float] = ..., return_when: str = ...
 ) -> Tuple[Set[Future[_T]], Set[Future[_T]]]: ...
 
 class _Waiter:
