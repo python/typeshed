@@ -416,23 +416,13 @@ zlib.compressobj
 # at runtime, they inherit Enum.__new__, not int.__new__ or
 # str.__new__ as the mro would dictate, which is why stubtest balks.
 enum.IntEnum.__new__
-enum.IntFlag.__new__
 http.HTTPStatus.__new__
 inspect._ParameterKind.__new__
-pstats.SortKey.__new__
-re.RegexFlag.__new__
 signal.Handlers.__new__
 signal.Sigmasks.__new__
 signal.Signals.__new__
 socket.AddressFamily.__new__
-socket.AddressInfo.__new__
-socket.MsgFlag.__new__
 socket.SocketKind.__new__
-ssl.Options.__new__
-ssl.TLSVersion.__new__
-ssl.VerifyFlags.__new__
-ssl.VerifyMode.__new__
-tkinter.EventType.__new__
 
 # ==========
 # Whitelist entries that cannot or should not be fixed
