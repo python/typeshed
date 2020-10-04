@@ -36,7 +36,7 @@ class FlaskCliRunner(CliRunner):
     ) -> Result: ...
 
 class EnvironBuilder(WerkzeugEnvironBuilder):
-    app: Any = ...
+    app: Any
     def __init__(
         self,
         app: Any,
@@ -48,3 +48,13 @@ class EnvironBuilder(WerkzeugEnvironBuilder):
         **kwargs: Any,
     ) -> None: ...
     def json_dumps(self, obj: Any, **kwargs: Any) -> str: ...
+
+def make_test_environ_builder(
+    app: Any,
+    path: str = ...,
+    base_url: Optional[Any] = ...,
+    subdomain: Optional[Any] = ...,
+    url_scheme: Optional[Any] = ...,
+    *args: Any,
+    **kwargs: Any,
+): ...
