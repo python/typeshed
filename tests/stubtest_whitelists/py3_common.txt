@@ -102,7 +102,6 @@ configparser.SectionProxy.__getattr__
 configparser.SectionProxy.getboolean
 configparser.SectionProxy.getfloat
 configparser.SectionProxy.getint
-contextlib.ContextManager
 csv.Dialect.delimiter
 csv.Dialect.doublequote
 csv.Dialect.lineterminator
