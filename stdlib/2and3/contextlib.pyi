@@ -6,9 +6,9 @@ if sys.version_info >= (3, 5):
     from typing import AsyncContextManager, AsyncIterator
 
 if sys.version_info >= (3, 6):
-    from typing import ContextManager as AbstractContextManager
+    AbstractContextManager = ContextManager
 if sys.version_info >= (3, 7):
-    from typing import AsyncContextManager as AbstractAsyncContextManager
+    AbstractAsyncContextManager = AsyncContextManager
 
 _T = TypeVar("_T")
 _T_io = TypeVar("_T_io", bound=Optional[IO[str]])
