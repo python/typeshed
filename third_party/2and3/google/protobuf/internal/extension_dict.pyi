@@ -3,8 +3,8 @@ from typing import Any, Generic, Iterator, TypeVar
 from google.protobuf.descriptor import FieldDescriptor
 from google.protobuf.message import Message
 
-_ContainerMessageT = TypeVar('_ContainerMessageT', bound=Message)
-_ExtenderMessageT = TypeVar('_ExtenderMessageT', bound=Message)
+_ContainerMessageT = TypeVar("_ContainerMessageT", bound=Message)
+_ExtenderMessageT = TypeVar("_ExtenderMessageT", bound=Message)
 
 class _ExtensionFieldDescriptor(FieldDescriptor, Generic[_ContainerMessageT, _ExtenderMessageT]): ...
 
