@@ -2,7 +2,7 @@ import sys
 import threading
 from logging import Logger
 from types import TracebackType
-from typing import Any, Callable, Generic, Iterable, Iterator, List, Optional, Sequence, Set, Tuple, TypeVar
+from typing import Any, Callable, Container, Generic, Iterable, Iterator, List, Optional, Set, Tuple, TypeVar
 
 FIRST_COMPLETED: str
 FIRST_EXCEPTION: str
@@ -64,9 +64,17 @@ class Executor:
     def __exit__(self, exc_type: Any, exc_val: Any, exc_tb: Any) -> Optional[bool]: ...
 
 def as_completed(fs: Iterable[Future[_T]], timeout: Optional[float] = ...) -> Iterator[Future[_T]]: ...
-def wait(
-    fs: Sequence[Future[_T]], timeout: Optional[float] = ..., return_when: str = ...
-) -> Tuple[Set[Future[_T]], Set[Future[_T]]]: ...
+
+if sys.version_info >= (3,):
+    from typing import _Collection
+    def wait(
+        fs: _Collection[Future[_T]], timeout: Optional[float] = ..., return_when: str = ...
+    ) -> Tuple[Set[Future[_T]], Set[Future[_T]]]: ...
+
+else:
+    def wait(
+        fs: Container[Future[_T]], timeout: Optional[float] = ..., return_when: str = ...
+    ) -> Tuple[Set[Future[_T]], Set[Future[_T]]]: ...
 
 class _Waiter:
     event: threading.Event
