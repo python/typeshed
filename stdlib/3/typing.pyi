@@ -146,11 +146,6 @@ class SupportsRound(Protocol[_T_co]):
     def __round__(self, ndigits: int) -> _T_co: ...
 
 @runtime_checkable
-class Reversible(Protocol[_T_co]):
-    @abstractmethod
-    def __reversed__(self) -> Iterator[_T_co]: ...
-
-@runtime_checkable
 class Sized(Protocol, metaclass=ABCMeta):
     @abstractmethod
     def __len__(self) -> int: ...
@@ -173,6 +168,11 @@ class Iterator(Iterable[_T_co], Protocol[_T_co]):
     @abstractmethod
     def __next__(self) -> _T_co: ...
     def __iter__(self) -> Iterator[_T_co]: ...
+
+@runtime_checkable
+class Reversible(Iterable[_T_co], Protocol[_T_co]):
+    @abstractmethod
+    def __reversed__(self) -> Iterator[_T_co]: ...
 
 class Generator(Iterator[_T_co], Generic[_T_co, _T_contra, _V_co]):
     def __next__(self) -> _T_co: ...
