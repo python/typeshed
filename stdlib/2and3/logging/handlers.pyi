@@ -4,7 +4,7 @@ import sys
 from _typeshed import StrPath
 from logging import FileHandler, Handler, LogRecord
 from socket import SocketKind, SocketType
-from typing import Any, Callable, Dict, List, Optional, Tuple, Union
+from typing import Any, Callable, ClassVar, Dict, List, Optional, Tuple, Union
 
 if sys.version_info >= (3, 7):
     from queue import Queue, SimpleQueue
@@ -160,9 +160,9 @@ class SysLogHandler(Handler):
     if sys.version_info >= (3,):
         ident: str  # undocumented
     facility: int  # undocumented
-    priority_names: Dict[str, int]  # undocumented
-    facility_names: Dict[str, int]  # undocumented
-    priority_map: Dict[str, str]  # undocumented
+    priority_names: ClassVar[Dict[str, int]]  # undocumented
+    facility_names: ClassVar[Dict[str, int]]  # undocumented
+    priority_map: ClassVar[Dict[str, str]]  # undocumented
     def __init__(
         self, address: Union[Tuple[str, int], str] = ..., facility: int = ..., socktype: Optional[SocketKind] = ...
     ) -> None: ...
