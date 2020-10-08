@@ -3,7 +3,23 @@ from _typeshed import SupportsRead, SupportsReadline
 from socket import socket
 from ssl import SSLContext
 from types import TracebackType
-from typing import Any, BinaryIO, Callable, Dict, Iterable, Iterator, List, Optional, Text, TextIO, Tuple, Type, TypeVar, Union
+from typing import (
+    Any,
+    BinaryIO,
+    Callable,
+    Dict,
+    Iterable,
+    Iterator,
+    List,
+    Literal,
+    Optional,
+    Text,
+    TextIO,
+    Tuple,
+    Type,
+    TypeVar,
+    Union,
+)
 
 _T = TypeVar("_T")
 _IntOrStr = Union[int, Text]
@@ -155,4 +171,10 @@ def parse150(resp: str) -> Optional[int]: ...  # undocumented
 def parse227(resp: str) -> Tuple[str, int]: ...  # undocumented
 def parse229(resp: str, peer: Tuple[str]) -> Tuple[str, int]: ...  # undocumented
 def parse257(resp: str) -> str: ...  # undocumented
-def ftpcp(source: FTP, sourcename: str, target: FTP, targetname: str = ..., type: str = ...) -> None: ...  # undocumented
+def ftpcp(
+    source: FTP,
+    sourcename: str,
+    target: FTP,
+    targetname: str = ...,
+    type: Literal["A", "I"] = ...,
+) -> None: ...  # undocumented
