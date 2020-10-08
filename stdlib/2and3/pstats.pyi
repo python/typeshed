@@ -4,13 +4,11 @@ from cProfile import Profile as _cProfile
 from profile import Profile
 from typing import IO, Any, Dict, Iterable, List, Optional, Text, Tuple, TypeVar, Union, overload
 
-if sys.version_info >= (3, 4):
-    from enum import Enum
-
 _Selector = Union[str, float, int]
 _T = TypeVar("_T", bound=Stats)
 
 if sys.version_info >= (3, 7):
+    from enum import Enum
     class SortKey(str, Enum):
         CALLS: str
         CUMULATIVE: str
