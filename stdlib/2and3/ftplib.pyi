@@ -150,3 +150,9 @@ if sys.version_info < (3,):
         def get_account(self, host: Text) -> Tuple[Optional[str], Optional[str], Optional[str]]: ...
         def get_macros(self) -> List[str]: ...
         def get_macro(self, macro: Text) -> Tuple[str, ...]: ...
+
+def parse150(resp: str) -> Tuple[str, int]: ...  # undocumented
+def parse227(resp: str) -> Tuple[str, int]: ...  # undocumented
+def parse229(resp: str, peer: Tuple[str]) -> Tuple[str, int]: ...  # undocumented
+def parse257(resp: str) -> Tuple[str, int]: ...  # undocumented
+def ftpcp(source: FTP, sourcename: str, target: FTP, targetname: str = ..., type: str = ...) -> None: ...  # undocumented
