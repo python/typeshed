@@ -169,7 +169,7 @@ if sys.version_info < (3,):
 
 def parse150(resp: str) -> Optional[int]: ...  # undocumented
 def parse227(resp: str) -> Tuple[str, int]: ...  # undocumented
-def parse229(resp: str, peer: Tuple[str]) -> Tuple[str, int]: ...  # undocumented
+def parse229(resp: str, peer: Any) -> Tuple[str, int]: ...  # undocumented
 def parse257(resp: str) -> str: ...  # undocumented
 def ftpcp(
     source: FTP,
