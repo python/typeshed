@@ -5,6 +5,7 @@ from typing import Iterable, Mapping, Optional, Text, Tuple, Union
 from .models import Response
 from .sessions import _Data
 
+_ParamsMappingKeyType = Union[Text, bytes, int, float]
 _ParamsMappingValueType = Union[Text, bytes, int, float, Iterable[Union[Text, bytes, int, float]], None]
 
 def request(method: str, url: str, **kwargs) -> Response: ...
@@ -12,13 +13,15 @@ def get(
     url: Union[Text, bytes],
     params: Optional[
         Union[
-            Mapping[Union[Text, bytes, int, float], _ParamsMappingValueType],
-            Union[Text, bytes],
-            Tuple[Union[Text, bytes, int, float], _ParamsMappingValueType],
+            # Mapping type keys are invariant
+            Mapping[_ParamsMappingKeyType, _ParamsMappingValueType],
             Mapping[Text, _ParamsMappingValueType],
             Mapping[bytes, _ParamsMappingValueType],
             Mapping[int, _ParamsMappingValueType],
             Mapping[float, _ParamsMappingValueType],
+            Tuple[_ParamsMappingKeyType, _ParamsMappingValueType],
+            Iterable[Tuple[_ParamsMappingKeyType, _ParamsMappingValueType],
+            Union[Text, bytes],
         ]
     ] = ...,
     **kwargs,
