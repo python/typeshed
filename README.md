@@ -78,6 +78,13 @@ For more information on directory structure and stub versioning, see
 [the relevant section of CONTRIBUTING.md](
 https://github.com/python/typeshed/blob/master/CONTRIBUTING.md#stub-versioning).
 
+Third-party packages are generally removed from typeshed when one of the
+following criteria is met:
+
+* The upstream package ships a py.typed file for at least 6-12 months, or
+* the package does not support any of the Python versions supported by
+  typeshed.
+
 ## Contributing
 
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting pull
