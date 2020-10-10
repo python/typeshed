@@ -663,3 +663,13 @@ if sys.version_info >= (3, 7):
         def __eq__(self, other: Any) -> bool: ...
         def __hash__(self) -> int: ...
         def __repr__(self) -> str: ...
+
+class io:  # deprecated, use typing.IO, typing.TextIO, typing.BinaryIO
+    """Wrapper namespace for IO generic classes."""
+
+    __all__ = ['IO', 'TextIO', 'BinaryIO']
+    # Union is a workaround to create type aliases in classes
+    # can be replaced with TypeAlias for Python > 3.10
+    IO = Union[IO]
+    TextIO = Union[TextIO]
+    BinaryIO = Union[BinaryIO]
