@@ -146,7 +146,6 @@ collections.abc.Coroutine.send
 collections.abc.Coroutine.throw
 collections.abc.Generator.send
 collections.abc.Generator.throw
-contextlib.AbstractContextManager.__exit__
 contextlib.AsyncExitStack.callback
 contextlib.AsyncExitStack.push_async_callback
 contextlib.ExitStack.callback
