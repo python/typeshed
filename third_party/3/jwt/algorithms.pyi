@@ -11,6 +11,7 @@ from cryptography.hazmat.primitives.asymmetric.ec import (
     EllipticCurvePublicKeyWithSerialization,
     EllipticCurvePublicNumbers,
 )
+from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey, Ed25519PublicKey
 from cryptography.hazmat.primitives.asymmetric.rsa import (
     RSAPrivateKey,
     RSAPrivateKeyWithSerialization,
@@ -60,9 +61,7 @@ class HMACAlgorithm(Algorithm[bytes]):
     @staticmethod
     def from_jwk(jwk: _LoadsString) -> bytes: ...
 
-# Only defined if cryptography is installed. Types should be tightened when
-# cryptography gets type hints.
-# See https://github.com/python/typeshed/issues/2542
+# Only defined if cryptography is installed.
 class RSAAlgorithm(Algorithm[Any]):
     SHA256: ClassVar[hashes.SHA256]
     SHA384: ClassVar[hashes.SHA384]
@@ -75,9 +74,7 @@ class RSAAlgorithm(Algorithm[Any]):
     def sign(self, msg: bytes, key: RSAPrivateKey) -> bytes: ...
     def verify(self, msg: bytes, key: RSAPublicKey, sig: bytes) -> bool: ...
 
-# Only defined if cryptography is installed. Types should be tightened when
-# cryptography gets type hints.
-# See https://github.com/python/typeshed/issues/2542
+# Only defined if cryptography is installed.
 class ECAlgorithm(Algorithm[Any]):
     SHA256: ClassVar[hashes.SHA256]
     SHA384: ClassVar[hashes.SHA384]
@@ -100,3 +97,10 @@ class ECAlgorithm(Algorithm[Any]):
 class RSAPSSAlgorithm(RSAAlgorithm):
     def sign(self, msg: bytes, key: Any) -> bytes: ...
     def verify(self, msg: bytes, key: Any, sig: bytes) -> bool: ...
+
+# Only defined if cryptography is installed.
+class Ed25519Algorithm(Algorithm[Any]):
+    def __init__(self, **kwargs: Any) -> None: ...
+    def prepare_key(self, key: Union[str, bytes, Ed25519PrivateKey, Ed25519PublicKey]) -> Any: ...
+    def sign(self, msg: Union[str, bytes], key: Ed25519PrivateKey) -> bytes: ...
+    def verify(self, msg: Union[str, bytes], key: Ed25519PublicKey, sig: Union[str, bytes]) -> bool: ...
