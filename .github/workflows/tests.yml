@@ -11,8 +11,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
       - run: ./tests/check_consistent.py
 
   flake8:
@@ -21,8 +19,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
       - run: |
           pip install $(grep flake8 requirements-tests-py3.txt)
           flake8
@@ -33,8 +29,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
       - run: |
           pip install $(grep black requirements-tests-py3.txt)
           black --check --diff stdlib third_party
@@ -45,8 +39,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
       - run: |
           pip install $(grep isort requirements-tests-py3.txt)
           isort --check-only --diff stdlib third_party
@@ -72,8 +64,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
       - run: pip install -U git+git://github.com/python/mypy
       - run: ./tests/mypy_test.py --platform=${{ matrix.platform }}
 
@@ -83,8 +73,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
       - run: ./tests/mypy_selftest.py
 
   stubtest:
@@ -93,7 +81,7 @@ jobs:
     strategy:
       matrix:
         os: ["ubuntu-latest", "windows-latest"]
-        python-version: [3.5, 3.6, 3.7, 3.8, 3.9-dev]
+        python-version: [3.5, 3.6, 3.7, 3.8, 3.9]
       fail-fast: false
 
     steps:
@@ -105,6 +93,6 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install -U pip
-          pip install -U mypy==0.780
+          pip install -U mypy==0.790
       - name: Run stubtest
         run: python tests/stubtest_test.py --ignore-unused-whitelist
