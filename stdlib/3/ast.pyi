@@ -16,17 +16,12 @@ from _ast import *  # type: ignore
 if sys.version_info >= (3, 8):
     class Num(Constant):
         value: complex
-        kind: Optional[str]
-        # Aliases for value, for backwards compatibility
-        s: Any
     class Str(Constant):
         value: str
-        kind: Optional[str]
         # Aliases for value, for backwards compatibility
         s: str
     class Bytes(Constant):
         value: bytes
-        kind: Optional[str]
         # Aliases for value, for backwards compatibility
         s: bytes
     class NameConstant(Constant): ...
