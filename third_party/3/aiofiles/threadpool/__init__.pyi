@@ -2,7 +2,7 @@ from _typeshed import AnyPath, OpenBinaryMode, OpenBinaryModeReading, OpenBinary
 from typing import Any, Callable, Optional, Union, overload
 from typing_extensions import Literal
 
-from ..base import AsyncBase
+from ..base import AiofilesContextManager, AsyncBase
 from .binary import AsyncBufferedIOBase, AsyncBufferedReader, AsyncFileIO
 from .text import AsyncTextIOWrapper
 
@@ -21,7 +21,7 @@ def open(
     *,
     loop: Optional[Any] = ...,
     executor: Optional[Any] = ...,
-) -> AsyncTextIOWrapper: ...
+) -> AiofilesContextManager[None, None, AsyncTextIOWrapper]: ...
 @overload
 def open(
     file: _OpenFile,
@@ -35,7 +35,7 @@ def open(
     *,
     loop: Optional[Any] = ...,
     executor: Optional[Any] = ...,
-) -> AsyncFileIO: ...
+) -> AiofilesContextManager[None, None, AsyncFileIO]: ...
 @overload
 def open(
     file: _OpenFile,
@@ -49,7 +49,7 @@ def open(
     *,
     loop: Optional[Any] = ...,
     executor: Optional[Any] = ...,
-) -> AsyncBufferedIOBase: ...
+) -> AiofilesContextManager[None, None, AsyncBufferedIOBase]: ...
 @overload
 def open(
     file: _OpenFile,
@@ -63,7 +63,7 @@ def open(
     *,
     loop: Optional[Any] = ...,
     executor: Optional[Any] = ...,
-) -> AsyncBufferedReader: ...
+) -> AiofilesContextManager[None, None, AsyncBufferedReader]: ...
 @overload
 def open(
     file: _OpenFile,
@@ -77,4 +77,4 @@ def open(
     *,
     loop: Optional[Any] = ...,
     executor: Optional[Any] = ...,
-) -> AsyncBase: ...
+) -> AiofilesContextManager[None, None, AsyncBase[bytes]]: ...
