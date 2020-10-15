@@ -3,11 +3,13 @@ import typing
 from typing import (
     AbstractSet,
     Any,
+    AsyncGenerator as AsyncGenerator,
     AsyncIterable as AsyncIterable,
     AsyncIterator as AsyncIterator,
     Awaitable as Awaitable,
     ByteString as ByteString,
     Callable as Callable,
+    Collection as Collection,
     Container as Container,
     Coroutine as Coroutine,
     Dict,
@@ -38,9 +40,6 @@ from typing import (
 
 Set = AbstractSet
 
-if sys.version_info >= (3, 6):
-    from typing import AsyncGenerator as AsyncGenerator, Collection as Collection
-
 _S = TypeVar("_S")
 _T = TypeVar("_T")
 _KT = TypeVar("_KT")
@@ -57,7 +56,7 @@ if sys.version_info >= (3, 7):
         defaults: Optional[Iterable[Any]] = ...,
     ) -> Type[Tuple[Any, ...]]: ...
 
-elif sys.version_info >= (3, 6):
+else:
     def namedtuple(
         typename: str,
         field_names: Union[str, Iterable[str]],
@@ -65,11 +64,6 @@ elif sys.version_info >= (3, 6):
         verbose: bool = ...,
         rename: bool = ...,
         module: Optional[str] = ...,
-    ) -> Type[Tuple[Any, ...]]: ...
-
-else:
-    def namedtuple(
-        typename: str, field_names: Union[str, Iterable[str]], verbose: bool = ..., rename: bool = ...
     ) -> Type[Tuple[Any, ...]]: ...
 
 class UserDict(MutableMapping[_KT, _VT]):
@@ -194,9 +188,6 @@ class UserString(Sequence[str]):
     def upper(self: _UserStringT) -> _UserStringT: ...
     def zfill(self: _UserStringT, width: int) -> _UserStringT: ...
 
-# Technically, deque only derives from MutableSequence in 3.5 (before then, the insert and index
-# methods did not exist).
-# But in practice it's not worth losing sleep over.
 class deque(MutableSequence[_T], Generic[_T]):
     @property
     def maxlen(self) -> Optional[int]: ...

@@ -14,10 +14,7 @@ template: str
 
 _S = TypeVar("_S")
 _T = TypeVar("_T")  # for pytype, define typevar in same file as alias
-if sys.version_info >= (3, 6):
-    _DirT = Union[_T, os.PathLike[_T]]
-else:
-    _DirT = Union[_T]
+_DirT = Union[_T, os.PathLike[_T]]
 
 if sys.version_info >= (3, 8):
     @overload

@@ -44,11 +44,6 @@ class NoneAlgorithm(Algorithm[None]):
 class _HashAlg:
     def __call__(self, arg: Union[bytes, bytearray, memoryview] = ...) -> _Hash: ...
 
-if sys.version_info >= (3, 6):
-    _LoadsString = Union[str, bytes, bytearray]
-else:
-    _LoadsString = str
-
 class HMACAlgorithm(Algorithm[bytes]):
     SHA256: ClassVar[_HashAlg]
     SHA384: ClassVar[_HashAlg]
@@ -59,7 +54,7 @@ class HMACAlgorithm(Algorithm[bytes]):
     @staticmethod
     def to_jwk(key_obj: Union[str, bytes]) -> str: ...
     @staticmethod
-    def from_jwk(jwk: _LoadsString) -> bytes: ...
+    def from_jwk(jwk: Union[str, bytes]) -> bytes: ...
 
 # Only defined if cryptography is installed.
 class RSAAlgorithm(Algorithm[Any]):
@@ -87,9 +82,15 @@ class ECAlgorithm(Algorithm[Any]):
     @staticmethod
     def to_jwk(key_obj: Union[EllipticCurvePrivateKeyWithSerialization, EllipticCurvePublicKeyWithSerialization]) -> str: ...
     @staticmethod
+<<<<<<< HEAD
     def from_jwk(jwk: _LoadsString) -> Union[EllipticCurvePrivateKey, EllipticCurvePublicKey]: ...
     def sign(self, msg: bytes, key: EllipticCurvePrivateKey) -> bytes: ...
     def verify(self, msg: bytes, key: EllipticCurvePublicKey, sig: bytes) -> bool: ...
+=======
+    def from_jwk(jwk: Union[str, bytes]) -> Any: ...
+    def sign(self, msg: bytes, key: Any) -> bytes: ...
+    def verify(self, msg: bytes, key: Any, sig: bytes) -> bool: ...
+>>>>>>> Drop support for Python 3.5
 
 # Only defined if cryptography is installed. Types should be tightened when
 # cryptography gets type hints.

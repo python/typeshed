@@ -15,15 +15,14 @@ class Random(_random.Random):
     if sys.version_info >= (3, 9):
         def randbytes(self, n: int) -> bytes: ...
     def choice(self, seq: Sequence[_T]) -> _T: ...
-    if sys.version_info >= (3, 6):
-        def choices(
-            self,
-            population: Sequence[_T],
-            weights: Optional[Sequence[float]] = ...,
-            *,
-            cum_weights: Optional[Sequence[float]] = ...,
-            k: int = ...,
-        ) -> List[_T]: ...
+    def choices(
+        self,
+        population: Sequence[_T],
+        weights: Optional[Sequence[float]] = ...,
+        *,
+        cum_weights: Optional[Sequence[float]] = ...,
+        k: int = ...,
+    ) -> List[_T]: ...
     def shuffle(self, x: MutableSequence[Any], random: Optional[Callable[[], float]] = ...) -> None: ...
     if sys.version_info >= (3, 9):
         def sample(
@@ -59,16 +58,13 @@ if sys.version_info >= (3, 9):
     def randbytes(n: int) -> bytes: ...
 
 def choice(seq: Sequence[_T]) -> _T: ...
-
-if sys.version_info >= (3, 6):
-    def choices(
-        population: Sequence[_T],
-        weights: Optional[Sequence[float]] = ...,
-        *,
-        cum_weights: Optional[Sequence[float]] = ...,
-        k: int = ...,
-    ) -> List[_T]: ...
-
+def choices(
+    population: Sequence[_T],
+    weights: Optional[Sequence[float]] = ...,
+    *,
+    cum_weights: Optional[Sequence[float]] = ...,
+    k: int = ...,
+) -> List[_T]: ...
 def shuffle(x: MutableSequence[Any], random: Optional[Callable[[], float]] = ...) -> None: ...
 
 if sys.version_info >= (3, 9):

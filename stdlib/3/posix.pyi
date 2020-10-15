@@ -1,9 +1,7 @@
+from builtins import _PathLike  # See comment in builtins
 import sys
 from os import stat_result as stat_result
 from typing import Dict, List, NamedTuple, Optional, overload
-
-if sys.version_info >= (3, 6):
-    from builtins import _PathLike  # See comment in builtins
 
 class uname_result(NamedTuple):
     sysname: str
@@ -62,9 +60,8 @@ F_TEST: int
 F_TLOCK: int
 F_ULOCK: int
 
-if sys.version_info >= (3, 6):
-    GRND_NONBLOCK: int
-    GRND_RANDOM: int
+GRND_NONBLOCK: int
+GRND_RANDOM: int
 NGROUPS_MAX: int
 
 O_APPEND: int
@@ -153,24 +150,14 @@ WUNTRACED: int
 XATTR_CREATE: int
 XATTR_REPLACE: int
 XATTR_SIZE_MAX: int
-
-if sys.version_info >= (3, 6):
-    @overload
-    def listdir(path: Optional[str] = ...) -> List[str]: ...
-    @overload
-    def listdir(path: bytes) -> List[bytes]: ...
-    @overload
-    def listdir(path: int) -> List[str]: ...
-    @overload
-    def listdir(path: _PathLike[str]) -> List[str]: ...
-
-else:
-    @overload
-    def listdir(path: Optional[str] = ...) -> List[str]: ...
-    @overload
-    def listdir(path: bytes) -> List[bytes]: ...
-    @overload
-    def listdir(path: int) -> List[str]: ...
+@overload
+def listdir(path: Optional[str] = ...) -> List[str]: ...
+@overload
+def listdir(path: bytes) -> List[bytes]: ...
+@overload
+def listdir(path: int) -> List[str]: ...
+@overload
+def listdir(path: _PathLike[str]) -> List[str]: ...
 
 if sys.platform == "win32":
     environ: Dict[str, str]

@@ -1,11 +1,11 @@
-import sys
-
 from . import (
+    AsyncGenerator as AsyncGenerator,
     AsyncIterable as AsyncIterable,
     AsyncIterator as AsyncIterator,
     Awaitable as Awaitable,
     ByteString as ByteString,
     Callable as Callable,
+    Collection as Collection,
     Container as Container,
     Coroutine as Coroutine,
     Generator as Generator,
@@ -19,11 +19,9 @@ from . import (
     MutableMapping as MutableMapping,
     MutableSequence as MutableSequence,
     MutableSet as MutableSet,
+    Reversible as Reversible,
     Sequence as Sequence,
     Set as Set,
     Sized as Sized,
     ValuesView as ValuesView,
 )
-
-if sys.version_info >= (3, 6):
-    from . import AsyncGenerator as AsyncGenerator, Collection as Collection, Reversible as Reversible
