@@ -1,4 +1,4 @@
-from typing import Any, Optional, Text
+from typing import Any, Mapping, Optional, Text, Union
 
 ssl_available: Any
 hiredis_version: Any
@@ -70,20 +70,24 @@ class Connection:
     decode_responses: Any
     def __init__(
         self,
-        host=...,
-        port=...,
-        db=...,
-        password=...,
-        socket_timeout=...,
-        socket_connect_timeout=...,
-        socket_keepalive=...,
-        socket_keepalive_options=...,
-        retry_on_timeout=...,
-        encoding=...,
-        encoding_errors=...,
-        decode_responses=...,
-        parser_class=...,
-        socket_read_size=...,
+        host: Text = ...,
+        port: int = ...,
+        db: int = ...,
+        password: Optional[Text] = ...,
+        socket_timeout: Optional[float] = ...,
+        socket_connect_timeout: Optional[float] = ...,
+        socket_keepalive: bool = ...,
+        socket_keepalive_options: Optional[Mapping[str, Union[int, str]]] = ...,
+        socket_type: int = ...,
+        retry_on_timeout: bool = ...,
+        encoding: Text = ...,
+        encoding_errors: Text = ...,
+        decode_responses: bool = ...,
+        parser_class: Optional[BaseParser] = ...,
+        socket_read_size: int = ...,
+        health_check_interval: int = ...,
+        client_name: Optional[Text] = ...,
+        username: Optional[Text] = ...,
     ) -> None: ...
     def __del__(self): ...
     def register_connect_callback(self, callback): ...
