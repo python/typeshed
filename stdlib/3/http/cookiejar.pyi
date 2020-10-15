@@ -1,6 +1,6 @@
-from os import PathLike
 import sys
 from http.client import HTTPResponse
+from os import PathLike
 from typing import Dict, Iterable, Iterator, Optional, Sequence, Tuple, TypeVar, Union, overload
 from urllib.request import Request
 

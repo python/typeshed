@@ -1,5 +1,5 @@
-from builtins import _PathLike  # See comment in builtins
 import sys
+from builtins import _PathLike  # See comment in builtins
 from os import stat_result as stat_result
 from typing import Dict, List, NamedTuple, Optional, overload
 
