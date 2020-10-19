@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # For various reasons we need the contents of certain files to be
-# duplicated in two places, for example stdlib/2and3/builtins.pyi and
+# duplicated in two places, for example stdlib/2/builtins.pyi and
 # stdlib/2/__builtin__.pyi must be identical.  In the past we used
 # symlinks but that doesn't always work on Windows, so now you must
 # manually update both files, and this test verifies that they are
@@ -11,25 +11,8 @@ import os
 import filecmp
 
 consistent_files = [
-    {'stdlib/2and3/builtins.pyi', 'stdlib/2/__builtin__.pyi'},
-    {'stdlib/2/SocketServer.pyi', 'stdlib/3/socketserver.pyi'},
-    {'stdlib/2/os2emxpath.pyi', 'stdlib/2and3/posixpath.pyi',
-     'stdlib/2and3/ntpath.pyi',
-     'stdlib/2/os/path.pyi', 'stdlib/3/os/path.pyi'},
-    {'stdlib/3/enum.pyi', 'third_party/2/enum.pyi'},
-    {'stdlib/3/unittest/mock.pyi', 'third_party/2and3/mock.pyi'},
-    {'stdlib/3/concurrent/__init__.pyi', 'third_party/2/concurrent/__init__.pyi'},
-    {'stdlib/3/concurrent/futures/__init__.pyi', 'third_party/2/concurrent/futures/__init__.pyi'},
-    {'stdlib/3/concurrent/futures/_base.pyi', 'third_party/2/concurrent/futures/_base.pyi'},
-    {'stdlib/3/concurrent/futures/thread.pyi', 'third_party/2/concurrent/futures/thread.pyi'},
-    {'stdlib/3/concurrent/futures/process.pyi', 'third_party/2/concurrent/futures/process.pyi'},
-    {'stdlib/3.7/dataclasses.pyi', 'third_party/3/dataclasses.pyi'},
-    {'stdlib/3/pathlib.pyi', 'third_party/2/pathlib2.pyi'},
-    {'stdlib/3.7/contextvars.pyi', 'third_party/3/contextvars.pyi'},
-    {'stdlib/3/ipaddress.pyi', 'third_party/2/ipaddress.pyi'},
-    {'stdlib/2/copy_reg.pyi', 'stdlib/3/copyreg.pyi'},
+    {'stdlib/2/builtins.pyi', 'stdlib/2/__builtin__.pyi'},
     {'stdlib/2and3/threading.pyi', 'stdlib/2and3/_dummy_threading.pyi'},
-    {'stdlib/3/winreg.pyi', 'stdlib/2/_winreg.pyi'}
 ]
 
 
