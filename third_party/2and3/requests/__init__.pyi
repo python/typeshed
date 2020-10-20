@@ -1,7 +1,7 @@
 # Stubs for requests (based on version 2.6.0, Python 3)
 
 import logging
-from typing import Any
+from typing import Any, AnyStr
 
 from .api import (
     delete as delete,
@@ -33,3 +33,5 @@ __version__: Any
 
 class NullHandler(logging.Handler):
     def emit(self, record): ...
+
+def check_compatibility(urllib3_version: AnyStr, chardet_version: AnyStr) -> None: ...
