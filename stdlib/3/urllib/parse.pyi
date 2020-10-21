@@ -2,6 +2,9 @@
 import sys
 from typing import Any, AnyStr, Callable, Dict, Generic, List, Mapping, NamedTuple, Optional, Sequence, Tuple, Union, overload
 
+if sys.version_info >= (3, 9):
+    from types import GenericAlias
+
 _Str = Union[bytes, str]
 
 uses_relative: List[str]
@@ -27,6 +30,8 @@ class _NetlocResultMixinBase(Generic[AnyStr]):
     password: Optional[AnyStr]
     hostname: Optional[AnyStr]
     port: Optional[int]
+    if sys.version_info >= (3, 9):
+        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 class _NetlocResultMixinStr(_NetlocResultMixinBase[str], _ResultMixinStr): ...
 class _NetlocResultMixinBytes(_NetlocResultMixinBase[bytes], _ResultMixinBytes): ...
