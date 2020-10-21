@@ -27,6 +27,9 @@ from .context import BaseContext
 if sys.version_info >= (3, 8):
     from .shared_memory import _SLT, ShareableList, SharedMemory
 
+if sys.version_info >= (3, 9):
+    from types import GenericAlias
+
     _SharedMemory = SharedMemory
     _ShareableList = ShareableList
 
@@ -89,6 +92,8 @@ class ValueProxy(BaseProxy, Generic[_T]):
     def get(self) -> _T: ...
     def set(self, value: _T) -> None: ...
     value: _T
+    if sys.version_info >= (3, 9):
+        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 # Returned by BaseManager.get_server()
 class Server:

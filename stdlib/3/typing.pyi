@@ -581,6 +581,8 @@ class Match(Generic[AnyStr]):
     def regs(self) -> Tuple[Tuple[int, int], ...]: ...  # undocumented
     if sys.version_info >= (3, 6):
         def __getitem__(self, g: Union[int, str]) -> AnyStr: ...
+    if sys.version_info >= (3, 9):
+        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 class Pattern(Generic[AnyStr]):
     flags: int
@@ -602,6 +604,8 @@ class Pattern(Generic[AnyStr]):
     def subn(self, repl: AnyStr, string: AnyStr, count: int = ...) -> Tuple[AnyStr, int]: ...
     @overload
     def subn(self, repl: Callable[[Match[AnyStr]], AnyStr], string: AnyStr, count: int = ...) -> Tuple[AnyStr, int]: ...
+    if sys.version_info >= (3, 9):
+        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 # Functions
 
