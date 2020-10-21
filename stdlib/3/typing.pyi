@@ -3,6 +3,9 @@ import sys
 from abc import ABCMeta, abstractmethod
 from types import CodeType, FrameType, TracebackType
 
+if sys.version_info >= (3, 9):
+    from types import GenericAlias
+
 # Definitions of special type checking related constructs.  Their definitions
 # are not used, so their value does not matter.
 
@@ -167,6 +170,8 @@ class Hashable(Protocol, metaclass=ABCMeta):
 class Iterable(Protocol[_T_co]):
     @abstractmethod
     def __iter__(self) -> Iterator[_T_co]: ...
+    if sys.version_info >= (3, 9):
+        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 @runtime_checkable
 class Iterator(Iterable[_T_co], Protocol[_T_co]):
@@ -201,6 +206,8 @@ class Generator(Iterator[_T_co], Generic[_T_co, _T_contra, _V_co]):
 class Awaitable(Protocol[_T_co]):
     @abstractmethod
     def __await__(self) -> Generator[Any, None, _T_co]: ...
+    if sys.version_info >= (3, 9):
+        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 class Coroutine(Awaitable[_V_co], Generic[_T_co, _T_contra, _V_co]):
     __name__: str
@@ -236,6 +243,8 @@ class AwaitableGenerator(
 class AsyncIterable(Protocol[_T_co]):
     @abstractmethod
     def __aiter__(self) -> AsyncIterator[_T_co]: ...
+    if sys.version_info >= (3, 9):
+        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 @runtime_checkable
 class AsyncIterator(AsyncIterable[_T_co], Protocol[_T_co]):
@@ -274,6 +283,8 @@ if sys.version_info >= (3, 6):
 class Container(Protocol[_T_co]):
     @abstractmethod
     def __contains__(self, __x: object) -> bool: ...
+    if sys.version_info >= (3, 9):
+        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 if sys.version_info >= (3, 6):
     @runtime_checkable
@@ -364,6 +375,8 @@ class MutableSet(AbstractSet[_T], Generic[_T]):
 class MappingView(Sized):
     def __init__(self, mapping: Mapping[_KT_co, _VT_co]) -> None: ...  # undocumented
     def __len__(self) -> int: ...
+    if sys.version_info >= (3, 9):
+        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 class ItemsView(MappingView, AbstractSet[Tuple[_KT_co, _VT_co]], Generic[_KT_co, _VT_co]):
     def __init__(self, mapping: Mapping[_KT_co, _VT_co]) -> None: ...  # undocumented
