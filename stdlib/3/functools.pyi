@@ -18,6 +18,9 @@ from typing import (
     overload,
 )
 
+if sys.version_info >= (3, 9):
+    from types import GenericAlias
+
 _AnyCallable = Callable[..., Any]
 
 _T = TypeVar("_T")
@@ -68,6 +71,8 @@ class partial(Generic[_T]):
     keywords: Dict[str, Any]
     def __init__(self, func: Callable[..., _T], *args: Any, **kwargs: Any) -> None: ...
     def __call__(self, *args: Any, **kwargs: Any) -> _T: ...
+    if sys.version_info >= (3, 9):
+        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 # With protocols, this could change into a generic protocol that defines __get__ and returns _T
 _Descriptor = Any
@@ -83,6 +88,8 @@ class partialmethod(Generic[_T]):
     def __get__(self, obj: Any, cls: Type[Any]) -> Callable[..., _T]: ...
     @property
     def __isabstractmethod__(self) -> bool: ...
+    if sys.version_info >= (3, 9):
+        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 class _SingleDispatchCallable(Generic[_T]):
     registry: Mapping[Any, Callable[..., _T]]
@@ -115,6 +122,8 @@ if sys.version_info >= (3, 8):
         @overload
         def __get__(self, instance: _S, owner: Optional[Type[Any]] = ...) -> _T: ...
         def __set_name__(self, owner: Type[Any], name: str) -> None: ...
+        if sys.version_info >= (3, 9):
+            def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 if sys.version_info >= (3, 9):
     def cache(__user_function: Callable[..., _T]) -> _lru_cache_wrapper[_T]: ...
