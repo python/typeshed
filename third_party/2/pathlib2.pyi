@@ -6,6 +6,9 @@ from types import TracebackType
 from typing import IO, Any, BinaryIO, Generator, List, Optional, Sequence, Text, TextIO, Tuple, Type, TypeVar, Union, overload
 from typing_extensions import Literal
 
+if sys.version_info >= (3, 9):
+    from types import GenericAlias
+
 _P = TypeVar("_P", bound=PurePath)
 
 if sys.version_info >= (3, 6):
@@ -52,6 +55,8 @@ class PurePath(_PurePathBase):
     def parents(self: _P) -> Sequence[_P]: ...
     @property
     def parent(self: _P) -> _P: ...
+    if sys.version_info >= (3, 9):
+        def __class_getitem__(cls) -> GenericAlias: ...
 
 class PurePosixPath(PurePath): ...
 class PureWindowsPath(PurePath): ...
