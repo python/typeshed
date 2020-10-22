@@ -1,4 +1,5 @@
-import sys, queue
+import sys
+import queue
 from typing import Any, Generic, Optional, TypeVar
 
 if sys.version_info >= (3, 9):
