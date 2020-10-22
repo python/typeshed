@@ -1,6 +1,6 @@
 # Stubs for requests.utils (Python 3)
 
-from typing import Any, AnyStr, Iterable, Dict, Tuple
+from typing import Any, AnyStr, Dict, Iterable, Tuple
 
 from . import compat, cookies, exceptions, structures
 
