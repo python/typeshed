@@ -16,7 +16,6 @@ class ContextVar(Generic[_T]):
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
-
 class Token(Generic[_T]):
     @property
     def var(self) -> ContextVar[_T]: ...
