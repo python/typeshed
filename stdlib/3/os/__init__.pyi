@@ -38,6 +38,9 @@ from typing_extensions import Literal
 
 from . import path as path
 
+if sys.version_info >= (3, 9):
+    from types import GenericAlias
+
 # We need to use something from path, or flake8 and pytype get unhappy
 _supports_unicode_filenames = path.supports_unicode_filenames
 
@@ -288,6 +291,8 @@ if sys.version_info >= (3, 6):
         def is_symlink(self) -> bool: ...
         def stat(self, *, follow_symlinks: bool = ...) -> stat_result: ...
         def __fspath__(self) -> AnyStr: ...
+        if sys.version_info >= (3, 9):
+            def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 else:
     class DirEntry(Generic[AnyStr]):

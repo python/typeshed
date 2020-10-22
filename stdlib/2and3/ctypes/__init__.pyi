@@ -21,6 +21,9 @@ from typing import (
     overload,
 )
 
+if sys.version_info >= (3, 9):
+    from types import GenericAlias
+
 _T = TypeVar("_T")
 _DLLT = TypeVar("_DLLT", bound=CDLL)
 _CT = TypeVar("_CT", bound=_CData)
@@ -58,6 +61,8 @@ class LibraryLoader(Generic[_DLLT]):
     def __getattr__(self, name: str) -> _DLLT: ...
     def __getitem__(self, name: str) -> _DLLT: ...
     def LoadLibrary(self, name: str) -> _DLLT: ...
+    if sys.version_info >= (3, 9):
+        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 cdll: LibraryLoader[CDLL] = ...
 if sys.platform == "win32":
@@ -302,3 +307,5 @@ class Array(Generic[_CT], _CData):
     # Can't inherit from Sized because the metaclass conflict between
     # Sized and _CData prevents using _CDataMeta.
     def __len__(self) -> int: ...
+    if sys.version_info >= (3, 9):
+        def __class_getitem__(cls, item: Any) -> GenericAlias: ...

@@ -19,6 +19,9 @@ from typing import (
     overload,
 )
 
+if sys.version_info >= (3, 9):
+    from types import GenericAlias
+
 _T = TypeVar("_T")
 
 if sys.version_info >= (3,):
@@ -53,6 +56,8 @@ class SequenceMatcher(Generic[_T]):
     def ratio(self) -> float: ...
     def quick_ratio(self) -> float: ...
     def real_quick_ratio(self) -> float: ...
+    if sys.version_info >= (3, 9):
+        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 # mypy thinks the signatures of the overloads overlap, but the types still work fine
 @overload

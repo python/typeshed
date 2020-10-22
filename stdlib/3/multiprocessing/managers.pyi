@@ -30,6 +30,9 @@ if sys.version_info >= (3, 8):
     _SharedMemory = SharedMemory
     _ShareableList = ShareableList
 
+if sys.version_info >= (3, 9):
+    from types import GenericAlias
+
 _T = TypeVar("_T")
 _KT = TypeVar("_KT")
 _VT = TypeVar("_VT")
@@ -89,6 +92,8 @@ class ValueProxy(BaseProxy, Generic[_T]):
     def get(self) -> _T: ...
     def set(self, value: _T) -> None: ...
     value: _T
+    if sys.version_info >= (3, 9):
+        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 # Returned by BaseManager.get_server()
 class Server:
