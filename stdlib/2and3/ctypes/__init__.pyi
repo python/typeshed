@@ -1,5 +1,3 @@
-# Stubs for ctypes
-
 import sys
 from array import array
 from typing import (

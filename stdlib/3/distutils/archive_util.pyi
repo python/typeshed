@@ -1,5 +1,3 @@
-# Stubs for distutils.archive_util
-
 from typing import Optional
 
 def make_archive(

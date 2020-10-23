@@ -1,7 +1,3 @@
-# Stubs for queue
-
-# NOTE: These are incomplete!
-
 import sys
 from threading import Condition, Lock
 from typing import Any, Generic, Optional, TypeVar

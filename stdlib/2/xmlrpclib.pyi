@@ -1,5 +1,3 @@
-# Stubs for xmlrpclib (Python 2)
-
 from datetime import datetime
 from gzip import GzipFile
 from httplib import HTTPConnection, HTTPResponse, HTTPSConnection

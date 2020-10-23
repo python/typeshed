@@ -1,5 +1,3 @@
-# Based on https://docs.python.org/2.7/library/difflib.html and https://docs.python.org/3.2/library/difflib.html
-
 import sys
 from typing import (
     Any,

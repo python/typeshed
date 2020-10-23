@@ -1,9 +1,3 @@
-# Stubs for fractions
-# See https://docs.python.org/3/library/fractions.html
-#
-# Note: these stubs are incomplete. The more complex type
-# signatures are currently omitted. Also see numbers.pyi.
-
 import sys
 from decimal import Decimal
 from numbers import Integral, Rational, Real

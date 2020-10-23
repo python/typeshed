@@ -1,8 +1,3 @@
-# Stubs for sys
-# Ron Murawski <ron@horizonchess.com>
-
-# based on http://docs.python.org/3.2/library/sys.html
-
 import sys
 from builtins import object as _object
 from importlib.abc import MetaPathFinder, PathEntryFinder

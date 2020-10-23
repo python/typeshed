@@ -1,4 +1,3 @@
-# Stubs for sets (Python 2)
 from typing import Any, Callable, Hashable, Iterable, Iterator, MutableMapping, Optional, TypeVar, Union
 
 _T = TypeVar("_T")

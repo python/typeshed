@@ -1,10 +1,3 @@
-# Stubs for re
-# Ron Murawski <ron@horizonchess.com>
-# 'bytes' support added by Jukka Lehtosalo
-
-# based on: http://docs.python.org/3.2/library/re.html
-# and http://hg.python.org/cpython/file/618ea5612e83/Lib/re.py
-
 import sys
 from typing import Any, AnyStr, Callable, Iterator, List, Optional, Tuple, Union, overload
 

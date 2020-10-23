@@ -1,5 +1,3 @@
-# Stubs for distutils.cmd
-
 from abc import abstractmethod
 from distutils.dist import Distribution
 from typing import Any, Callable, Iterable, List, Optional, Text, Tuple, Union

@@ -1,5 +1,3 @@
-"""Stubs for the 'imp' module."""
-
 import types
 from typing import IO, Any, Iterable, List, Optional, Tuple
 

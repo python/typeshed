@@ -1,7 +1,3 @@
-# Stubs for numbers (Python 3.5)
-# See https://docs.python.org/2.7/library/numbers.html
-# and https://docs.python.org/3/library/numbers.html
-#
 # Note: these stubs are incomplete. The more complex type
 # signatures are currently omitted.
 

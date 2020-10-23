@@ -1,5 +1,3 @@
-# Stubs for requests (based on version 2.6.0, Python 3)
-
 import logging
 from typing import Any
 

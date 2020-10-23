@@ -1,6 +1,3 @@
-# NB: SocketServer.pyi and socketserver.pyi must remain consistent!
-# Stubs for socketserver
-
 import sys
 import types
 from socket import SocketType

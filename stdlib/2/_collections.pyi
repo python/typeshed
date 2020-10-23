@@ -1,5 +1,3 @@
-"""Stub file for the '_collections' module."""
-
 from typing import Any, Callable, Dict, Generic, Iterator, Optional, TypeVar, Union
 
 _K = TypeVar("_K")

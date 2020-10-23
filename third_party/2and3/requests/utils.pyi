@@ -1,5 +1,3 @@
-# Stubs for requests.utils (Python 3)
-
 from typing import Any
 
 from . import compat, cookies, exceptions, structures

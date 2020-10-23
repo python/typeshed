@@ -1,5 +1,3 @@
-# Stubs for distutils.cygwinccompiler
-
 from distutils.unixccompiler import UnixCCompiler
 
 class CygwinCCompiler(UnixCCompiler): ...

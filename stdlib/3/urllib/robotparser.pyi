@@ -1,5 +1,3 @@
-# Stubs for urllib.robotparser (Python 3.4)
-
 import sys
 from typing import Iterable, List, NamedTuple, Optional
 

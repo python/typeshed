@@ -1,5 +1,3 @@
-# Stubs for readline
-
 import sys
 from typing import Callable, Optional, Sequence
 

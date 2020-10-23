@@ -1,5 +1,3 @@
-# Stubs for requests.auth (Python 3)
-
 from typing import Any, Text, Union
 
 from . import cookies, models, status_codes, utils
