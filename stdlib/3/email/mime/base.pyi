@@ -1,5 +1,3 @@
-# Stubs for email.mime.base (Python 3.4)
-
 import email.message
 import sys
 from email.policy import Policy

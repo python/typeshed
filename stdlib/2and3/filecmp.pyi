@@ -1,4 +1,3 @@
-# Stubs for filecmp (Python 2/3)
 import sys
 from typing import Any, AnyStr, Callable, Dict, Generic, Iterable, List, Optional, Sequence, Text, Tuple, Union
 

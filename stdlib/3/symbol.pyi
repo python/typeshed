@@ -1,5 +1,3 @@
-# Stubs for symbol (Python 3)
-
 import sys
 from typing import Dict
 

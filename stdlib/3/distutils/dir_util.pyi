@@ -1,5 +1,3 @@
-# Stubs for distutils.dir_util
-
 from typing import List
 
 def mkpath(name: str, mode: int = ..., verbose: int = ..., dry_run: int = ...) -> List[str]: ...

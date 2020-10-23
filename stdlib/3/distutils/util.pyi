@@ -1,5 +1,3 @@
-# Stubs for distutils.util
-
 from typing import Any, Callable, List, Mapping, Optional, Tuple
 
 def get_platform() -> str: ...

@@ -1,5 +1,3 @@
-# Stubs for distutils.fancy_getopt
-
 from typing import Any, List, Mapping, Optional, Tuple, Union, overload
 
 _Option = Tuple[str, Optional[str], str]

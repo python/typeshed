@@ -1,5 +1,3 @@
-# Source: https://github.com/python/cpython/blob/master/Lib/sre_parse.py
-
 import sys
 from sre_constants import _NamedIntConstant as _NIC, error as _Error
 from typing import Any, Dict, FrozenSet, Iterable, List, Match, Optional, Pattern as _Pattern, Tuple, Union, overload

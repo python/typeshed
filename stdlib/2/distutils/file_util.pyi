@@ -1,5 +1,3 @@
-# Stubs for distutils.file_util
-
 from typing import Optional, Sequence, Tuple
 
 def copy_file(

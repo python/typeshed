@@ -1,5 +1,3 @@
-# Stubs for email.utils (Python 3.4)
-
 import datetime
 from email.charset import Charset
 from typing import List, Optional, Tuple, Union

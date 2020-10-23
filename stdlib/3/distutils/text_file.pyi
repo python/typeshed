@@ -1,5 +1,3 @@
-# Stubs for distutils.text_file
-
 from typing import IO, List, Optional, Tuple, Union
 
 class TextFile:

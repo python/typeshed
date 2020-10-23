@@ -1,6 +1,3 @@
-# True and False are deliberately omitted because they are keywords in
-# Python 3, and stub files conform to Python 3 syntax.
-
 import sys
 from _typeshed import (
     AnyPath,

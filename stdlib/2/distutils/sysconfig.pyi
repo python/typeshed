@@ -1,5 +1,3 @@
-# Stubs for distutils.sysconfig
-
 from distutils.ccompiler import CCompiler
 from typing import Mapping, Optional, Union
 

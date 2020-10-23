@@ -1,5 +1,3 @@
-# Stubs for distutils.spawn
-
 from typing import List, Optional
 
 def spawn(cmd: List[str], search_path: bool = ..., verbose: bool = ..., dry_run: bool = ...) -> None: ...

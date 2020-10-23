@@ -1,4 +1,3 @@
-# Stubs for urllib.parse
 import sys
 from typing import Any, AnyStr, Callable, Dict, Generic, List, Mapping, NamedTuple, Optional, Sequence, Tuple, Union, overload
 

@@ -1,6 +1,3 @@
-# Stubs for math
-# See: http://docs.python.org/2/library/math.html
-
 import sys
 from typing import Iterable, SupportsFloat, SupportsInt, Tuple, overload
 

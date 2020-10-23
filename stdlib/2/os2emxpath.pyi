@@ -1,4 +1,3 @@
-# NB: path.pyi and stdlib/2 and stdlib/3 must remain consistent!
 import os
 import sys
 from _typeshed import AnyPath, BytesPath, StrPath

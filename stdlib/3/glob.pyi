@@ -1,6 +1,3 @@
-# Stubs for glob
-# Based on http://docs.python.org/3/library/glob.html
-
 import sys
 from typing import AnyStr, Iterator, List, Union
 

@@ -1,4 +1,3 @@
-"""Stubs for the "thread" module."""
 from typing import Any, Callable
 
 def _count() -> int: ...

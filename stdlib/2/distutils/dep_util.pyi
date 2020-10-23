@@ -1,5 +1,3 @@
-# Stubs for distutils.dep_util
-
 from typing import List, Tuple
 
 def newer(source: str, target: str) -> bool: ...

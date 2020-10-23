@@ -1,5 +1,3 @@
-# Stubs for email.mime.multipart (Python 3.4)
-
 import sys
 from email.message import Message
 from email.mime.base import MIMEBase

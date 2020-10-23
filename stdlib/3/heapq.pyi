@@ -1,7 +1,3 @@
-# Stubs for heapq
-
-# Based on http://docs.python.org/3.2/library/heapq.html
-
 from typing import Any, Callable, Iterable, List, Optional, TypeVar
 
 _T = TypeVar("_T")
