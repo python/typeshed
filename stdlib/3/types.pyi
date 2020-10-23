@@ -1,8 +1,3 @@
-# Stubs for types
-# Note, all classes "defined" here require special handling.
-
-# TODO parts of this should be conditional on version
-
 import sys
 from typing import (
     Any,
@@ -24,6 +19,8 @@ from typing import (
 # ModuleType is exported from this module, but for circular import
 # reasons exists in its own stub file (with ModuleSpec and Loader).
 from _importlib_modulespec import ModuleType as ModuleType  # Exported
+
+# Note, all classes "defined" here require special handling.
 
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)

@@ -1,11 +1,3 @@
-# Stubs for random
-# Ron Murawski <ron@horizonchess.com>
-# Updated by Jukka Lehtosalo
-
-# based on http://docs.python.org/3.2/library/random.html
-
-# ----- random classes -----
-
 import _random
 import sys
 from typing import AbstractSet, Any, Callable, Iterable, List, MutableSequence, Optional, Sequence, Tuple, TypeVar, Union

@@ -1,5 +1,3 @@
-# Stubs for tracemalloc (Python 3.4+)
-
 import sys
 from typing import List, Optional, Sequence, Tuple, Union, overload
 

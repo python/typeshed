@@ -1,5 +1,3 @@
-# Stubs for requests.models (Python 3)
-
 import datetime
 from typing import Any, Dict, Iterator, List, Optional, Text, Union
 

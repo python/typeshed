@@ -1,5 +1,3 @@
-# Stubs for requests.cookies (Python 3)
-
 import sys
 from typing import Any, MutableMapping
 

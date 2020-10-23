@@ -1,5 +1,3 @@
-# Stubs for getpass (Python 2)
-
 from typing import IO, Any
 
 class GetPassWarning(UserWarning): ...

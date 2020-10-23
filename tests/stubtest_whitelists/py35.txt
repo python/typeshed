@@ -20,6 +20,7 @@ asyncio.tasks.Task._wakeup
 asyncio.threads  # Added in Python 3.9
 asyncio.trsock  # Added in Python 3.8
 bdb.GENERATOR_AND_COROUTINE_FLAGS
+builtins.ModuleNotFoundError
 builtins.str.maketrans
 cmath.log
 codecs.StreamRecoder.seek

@@ -5,6 +5,9 @@ from logging import Logger
 from types import TracebackType
 from typing import Any, Callable, Container, Generic, Iterable, Iterator, List, Optional, Protocol, Set, Tuple, TypeVar
 
+if sys.version_info >= (3, 9):
+    from types import GenericAlias
+
 FIRST_COMPLETED: str
 FIRST_EXCEPTION: str
 ALL_COMPLETED: str
@@ -54,6 +57,8 @@ class Future(Generic[_T]):
         def exception_info(self, timeout: Optional[float] = ...) -> Tuple[Any, Optional[TracebackType]]: ...
         def set_exception(self, exception: Any) -> None: ...
         def set_exception_info(self, exception: Any, traceback: Optional[TracebackType]) -> None: ...
+    if sys.version_info >= (3, 9):
+        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 class Executor:
     if sys.version_info >= (3, 9):

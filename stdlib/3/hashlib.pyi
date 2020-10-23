@@ -1,5 +1,3 @@
-# Stubs for hashlib
-
 import sys
 from _typeshed import ReadableBuffer
 from typing import AbstractSet, Optional

@@ -1,4 +1,8 @@
+import sys
 from typing import Any, Callable, ContextManager, Generic, Iterable, Iterator, List, Mapping, Optional, TypeVar
+
+if sys.version_info >= (3, 9):
+    from types import GenericAlias
 
 _PT = TypeVar("_PT", bound=Pool)
 _S = TypeVar("_S")
@@ -9,6 +13,8 @@ class ApplyResult(Generic[_T]):
     def wait(self, timeout: Optional[float] = ...) -> None: ...
     def ready(self) -> bool: ...
     def successful(self) -> bool: ...
+    if sys.version_info >= (3, 9):
+        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 # alias created during issue #17805
 AsyncResult = ApplyResult
