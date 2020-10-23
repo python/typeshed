@@ -92,7 +92,7 @@ class Redis(object):
         username: Text = ...,
         enabled: bool = ...,
         nopass: bool = ...,
-        passwords: bool = ...,
+        passwords: Optional[Sequence[Text]] = ...,
         hashed_passwords: Optional[Sequence[Text]] = ...,
         categories: Optional[Sequence[Text]] = ...,
         commands: Optional[Sequence[Text]] = ...,
