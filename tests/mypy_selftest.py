@@ -6,7 +6,7 @@ import subprocess
 import sys
 import tempfile
 
-MYPY_VERSION = "0.782"
+MYPY_VERSION = "0.790"
 
 
 if __name__ == "__main__":
