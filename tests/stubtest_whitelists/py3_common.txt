@@ -265,12 +265,6 @@ multiprocessing.managers.SyncManager.RLock
 multiprocessing.pool.ApplyResult.__init__
 multiprocessing.pool.IMapIterator.__init__
 multiprocessing.pool.MapResult.__init__
-multiprocessing.pool.Pool.imap
-multiprocessing.pool.Pool.imap_unordered
-multiprocessing.pool.Pool.map
-multiprocessing.pool.Pool.map_async
-multiprocessing.pool.Pool.starmap
-multiprocessing.pool.Pool.starmap_async
 multiprocessing.queues.JoinableQueue.__init__
 multiprocessing.queues.Queue.__init__
 multiprocessing.queues.Queue.put_nowait
