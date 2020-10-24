@@ -52,9 +52,9 @@ class HiredisParser(BaseParser):
 DefaultParser: Any
 
 class Encoder:
-    def __init__(self, encoding, encoding_errors, decode_responses) -> None: ...
-    def encode(self, value: Text) -> bytes: ...
-    def decode(self, value: Text, force: bool = ...) -> Text: ...
+    def __init__(self, encoding, encoding_errors, decode_responses: bool) -> None: ...
+    def encode(self, value: Union[Text, bytes, memoryview, bool, float]) -> bytes: ...
+    def decode(self, value: Union[Text, bytes, memoryview], force: bool = ...) -> Text: ...
 
 class Connection:
     description_format: Any
@@ -86,7 +86,7 @@ class Connection:
         encoding: Text = ...,
         encoding_errors: Text = ...,
         decode_responses: bool = ...,
-        parser_class: Optional[Type[BaseParser]] = ...,
+        parser_class: Type[BaseParser] = ...,
         socket_read_size: int = ...,
         health_check_interval: int = ...,
         client_name: Optional[Text] = ...,
