@@ -1,5 +1,5 @@
 import logging
-from typing import Any
+from typing import Any, Text
 
 from .api import (
     delete as delete,
@@ -31,3 +31,5 @@ __version__: Any
 
 class NullHandler(logging.Handler):
     def emit(self, record): ...
+
+def check_compatibility(urllib3_version: Text, chardet_version: Text) -> None: ...
