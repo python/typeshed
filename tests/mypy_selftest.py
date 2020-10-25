@@ -13,7 +13,7 @@ if __name__ == "__main__":
     with tempfile.TemporaryDirectory() as tempdir:
         dirpath = Path(tempdir)
         subprocess.run(
-            ["git", "clone", "--depth", "1", "--branch", f"v{MYPY_VERSION}", "git://github.com/python/mypy", str(dirpath)],
+            ["git", "clone", "--depth", "1", "git://github.com/python/mypy", str(dirpath)],
             check=True,
         )
         try:
