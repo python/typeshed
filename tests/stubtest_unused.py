@@ -7,7 +7,7 @@ import os.path
 import subprocess
 import sys
 
-_UNUSED_NOTE = "note: unused whitelist entry "
+_UNUSED_NOTE = "note: unused allowlist entry "
 _WHITELIST_PATH = os.path.join("tests", "stubtest_whitelists")
 
 
