@@ -65,9 +65,6 @@ class _SupportsIndex(Protocol):
 class _SupportsTrunc(Protocol):
     def __trunc__(self) -> int: ...
 
-class _SupportsLessThan(Protocol):
-    def __lt__(self, __other: Any) -> bool: ...
-
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
 _KT = TypeVar("_KT")
@@ -79,7 +76,6 @@ _T3 = TypeVar("_T3")
 _T4 = TypeVar("_T4")
 _T5 = TypeVar("_T5")
 _TT = TypeVar("_TT", bound="type")
-_SupportsLessThanT = TypeVar("_SupportsLessThanT", bound=_SupportsLessThan)
 _TBE = TypeVar("_TBE", bound="BaseException")
 
 class object:
