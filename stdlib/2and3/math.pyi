@@ -1,5 +1,5 @@
 import sys
-from typing import Iterable, SupportsFloat, SupportsInt, Tuple, overload
+from typing import Iterable, Optional, SupportsFloat, SupportsInt, Tuple, overload
 
 e: float
 pi: float
@@ -93,6 +93,9 @@ def modf(__x: SupportsFloat) -> Tuple[float, float]: ...
 
 if sys.version_info >= (3, 9):
     def nextafter(__x: SupportsFloat, __y: SupportsFloat) -> float: ...
+
+if sys.version_info >= (3, 8):
+    def perm(__n: int, __k: Optional[int] = ...) -> int: ...
 
 def pow(__x: SupportsFloat, __y: SupportsFloat) -> float: ...
 
