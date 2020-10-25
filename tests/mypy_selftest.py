@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Script to run mypy against its own code base."""
 
-from pathlib import Path
 import subprocess
 import sys
 import tempfile
+from pathlib import Path
 
 MYPY_VERSION = "0.790"
 
