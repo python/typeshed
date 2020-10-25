@@ -75,6 +75,14 @@ jobs:
       - uses: actions/setup-python@v2
       - run: ./tests/mypy_selftest.py
 
+  mypy-test-suite:
+    name: Run the mypy test suite
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+      - run: ./tests/mypy_test_suite.py
+
   stubtest:
     name: Check stubs with stubtest
     runs-on: ${{ matrix.os }}

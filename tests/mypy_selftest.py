@@ -1,28 +1,39 @@
 #!/usr/bin/env python3
-"""Script to run mypy's test suite against this version of typeshed."""
+"""Script to run mypy against its own code base."""
 
 from pathlib import Path
-import shutil
 import subprocess
 import sys
 import tempfile
 
+MYPY_VERSION = "0.790"
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     with tempfile.TemporaryDirectory() as tempdir:
         dirpath = Path(tempdir)
-        subprocess.run(['python2.7', '-m', 'pip', 'install', '--user', 'typing'], check=True)
-        subprocess.run(['git', 'clone', '--depth', '1', 'git://github.com/python/mypy',
-                        str(dirpath / 'mypy')], check=True)
-        subprocess.run([sys.executable, '-m', 'pip', 'install', '-U', '-r',
-                        str(dirpath / 'mypy/test-requirements.txt')], check=True)
-        shutil.copytree('stdlib', str(dirpath / 'mypy/mypy/typeshed/stdlib'))
-        shutil.copytree('third_party', str(dirpath / 'mypy/mypy/typeshed/third_party'))
+        subprocess.run(
+            ["git", "clone", "--depth", "1", "git://github.com/python/mypy", str(dirpath)],
+            check=True,
+        )
         try:
-            subprocess.run(['pytest', '-n12'], cwd=str(dirpath / 'mypy'), check=True)
+            subprocess.run([sys.executable, "-m", "pip", "install", f"mypy=={MYPY_VERSION}"], check=True)
+            subprocess.run([sys.executable, "-m", "pip", "install", "-r", dirpath / "test-requirements.txt"], check=True)
+            subprocess.run(
+                [
+                    "mypy",
+                    "--config-file",
+                    dirpath / "mypy_self_check.ini",
+                    "--custom-typeshed-dir",
+                    ".",
+                    dirpath / "mypy",
+                    dirpath / "mypyc",
+                ],
+                check=True,
+            )
         except subprocess.CalledProcessError as e:
-            print('mypy tests failed', file=sys.stderr)
+            print("mypy self test failed", file=sys.stderr)
             sys.exit(e.returncode)
         else:
-            print('mypy tests succeeded', file=sys.stderr)
+            print("mypy self test succeeded", file=sys.stderr)
             sys.exit(0)

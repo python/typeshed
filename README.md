@@ -101,7 +101,9 @@ There are several tests:
 runs tests against [mypy](https://github.com/python/mypy/)
 - `tests/pytype_test.py` runs tests against
 [pytype](https://github.com/google/pytype/).
-- `tests/mypy_selftest.py` runs mypy's test suite using this version of
+- `tests/mypy_selftest.py` checks mypy's code base using this version of
+typeshed.
+- `tests/mypy_test_suite.py` runs mypy's test suite using this version of
 typeshed.
 - `tests/check_consistent.py` checks certain files in typeshed remain
 consistent with each other.
@@ -155,6 +157,13 @@ This test works similarly to `mypy_test.py`, except it uses `pytype`.
 
 This test requires Python 3.5 or higher; Python 3.6.1 or higher is recommended.
 Run using: `(.venv3)$ python3 tests/mypy_selftest.py`
+
+This test checks mypy's code base using mypy and typeshed code in this repo.
+
+### mypy_test_suite.py
+
+This test requires Python 3.5 or higher; Python 3.6.1 or higher is recommended.
+Run using: `(.venv3)$ python3 tests/mypy_test_suite.py`
 
 This test runs mypy's own test suite using the typeshed code in your repo. This
 will sometimes catch issues with incorrectly typed stubs, but is much slower
