@@ -18,6 +18,7 @@ if __name__ == "__main__":
         )
         try:
             subprocess.run([sys.executable, "-m", "pip", "install", f"mypy=={MYPY_VERSION}"], check=True)
+            subprocess.run([sys.executable, "-m", "pip", "install", "-r", dirpath / "test-requirements.txt"], check=True)
             subprocess.run(
                 [
                     "mypy",
