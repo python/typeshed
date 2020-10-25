@@ -10,9 +10,9 @@ typeshed CI.
 
 """
 
-from pathlib import Path
 import subprocess
 import sys
+from pathlib import Path
 
 
 def run_stubtest(typeshed_dir: Path) -> int:

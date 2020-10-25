@@ -7,21 +7,21 @@
 # manually update both files, and this test verifies that they are
 # identical.  The list below indicates which sets of files must match.
 
-import os
 import filecmp
+import os
 
 consistent_files = [
-    {'stdlib/2/builtins.pyi', 'stdlib/2/__builtin__.pyi'},
-    {'stdlib/2and3/threading.pyi', 'stdlib/2and3/_dummy_threading.pyi'},
+    {"stdlib/2/builtins.pyi", "stdlib/2/__builtin__.pyi"},
+    {"stdlib/2and3/threading.pyi", "stdlib/2and3/_dummy_threading.pyi"},
 ]
 
 
 def main():
-    files = [os.path.join(root, file) for root, dir, files in os.walk('.') for file in files]
-    no_symlink = 'You cannot use symlinks in typeshed, please copy {} to its link.'
+    files = [os.path.join(root, file) for root, dir, files in os.walk(".") for file in files]
+    no_symlink = "You cannot use symlinks in typeshed, please copy {} to its link."
     for file in files:
         _, ext = os.path.splitext(file)
-        if ext == '.pyi' and os.path.islink(file):
+        if ext == ".pyi" and os.path.islink(file):
             raise ValueError(no_symlink.format(file))
     for file1, *others in consistent_files:
         f1 = os.path.join(os.getcwd(), file1)
@@ -34,5 +34,5 @@ def main():
                 )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
