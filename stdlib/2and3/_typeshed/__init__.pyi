@@ -29,7 +29,7 @@ _T_contra = TypeVar("_T_contra", contravariant=True)
 class SupportsLessThan(Protocol):
     def __lt__(self, __other: Any) -> bool: ...
 
-SupportsLessThanT = TypeVar("SupportsLessThanT", bound=SupportsLessThan)
+SupportsLessThanT = TypeVar("SupportsLessThanT", bound=SupportsLessThan)  # noqa: Y001
 
 # Mapping-like protocols
 
