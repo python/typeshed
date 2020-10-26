@@ -2,7 +2,8 @@ name: Run mypy_primer
 
 on:
   # Only run on PR, since we diff against master
-  pull_request:
+  # pull_request_target gives us access to a write token
+  pull_request_target:
 
 jobs:
   mypy_primer:
@@ -13,6 +14,8 @@ jobs:
         with:
           path: typeshed_to_test
           fetch-depth: 0
+          # pull_request_target checks out the PR base branch by default
+          ref: refs/pull/${{ github.event.pull_request.number }}/merge
       - uses: actions/setup-python@v2
         with:
           python-version: 3.8
@@ -25,13 +28,14 @@ jobs:
         run: |
           cd typeshed_to_test
           echo "new commit"
-          git rev-list --format=%s --max-count=1 $GITHUB_SHA
+          COMMIT=$(git rev-parse HEAD)
+          git rev-list --format=%s --max-count=1 $COMMIT
           git checkout -b upstream_master origin/master
           echo "base commit"
           git rev-list --format=%s --max-count=1 upstream_master
           echo ''
           cd ..
-          ( mypy_primer --new v0.790 --old v0.790 --custom-typeshed-repo typeshed_to_test --new-typeshed $GITHUB_SHA --old-typeshed upstream_master -o concise > diff.txt && rm diff.txt ) || true
+          ( mypy_primer --new v0.790 --old v0.790 --custom-typeshed-repo typeshed_to_test --new-typeshed $COMMIT --old-typeshed upstream_master -o concise > diff.txt && rm diff.txt ) || true
           cat diff.txt || true
       - name: Post comment
         uses: actions/github-script@v3
