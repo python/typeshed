@@ -1,23 +1,11 @@
 # True and False are deliberately omitted because they are keywords in
 # Python 3, and stub files conform to Python 3 syntax.
 
-from _typeshed import (
-    AnyPath,
-    OpenBinaryMode,
-    OpenBinaryModeReading,
-    OpenBinaryModeUpdating,
-    OpenBinaryModeWriting,
-    OpenTextMode,
-    ReadableBuffer,
-    SupportsKeysAndGetItem,
-    SupportsWrite,
-)
+from _typeshed import ReadableBuffer, SupportsKeysAndGetItem, SupportsWrite
 from abc import ABCMeta
-from ast import AST, mod
-from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
-from types import CodeType, TracebackType
+from ast import mod
+from types import CodeType
 from typing import (
-    IO,
     AbstractSet,
     Any,
     AnyStr,
