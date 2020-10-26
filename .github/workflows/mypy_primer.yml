@@ -21,6 +21,7 @@ jobs:
           python -m pip install -U pip
           pip install git+https://github.com/hauntsaninja/mypy_primer.git
       - name: Run mypy_primer
+        shell: bash
         run: |
           cd typeshed_to_test
           echo "new commit"
@@ -28,7 +29,24 @@ jobs:
           git checkout -b upstream_master origin/master
           echo "base commit"
           git rev-list --format=%s --max-count=1 upstream_master
+          echo ''
           cd ..
-          echo "ATTENTION: failures here shouldn't be treated as blocking; use your judgement"
-          echo "(Unfortunately, Github doesn't seem to have an \"allowed_failures\" equivalent)"
-          mypy_primer --new v0.790 --old v0.790 --custom-typeshed-repo typeshed_to_test --new-typeshed $GITHUB_SHA --old-typeshed upstream_master -o concise
+          ( mypy_primer --new v0.790 --old v0.790 --custom-typeshed-repo typeshed_to_test --new-typeshed $GITHUB_SHA --old-typeshed upstream_master -o concise > diff.txt && rm diff.txt ) || true
+          cat diff.txt || true
+      - name: Post comment
+        uses: actions/github-script@v3
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            const fs = require('fs').promises;
+            try {
+              data = await fs.readFile('diff.txt', 'utf-8')
+              await github.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: 'Diff from mypy_primer:\n```\n' + data + '\n```'
+              })
+            } catch (error) {
+              console.log(error)
+            }
