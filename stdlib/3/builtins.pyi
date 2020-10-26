@@ -10,7 +10,6 @@ from _typeshed import (
     SupportsKeysAndGetItem,
     SupportsWrite,
 )
-from abc import ABCMeta
 from ast import AST, mod
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
 from types import CodeType, TracebackType
@@ -18,7 +17,6 @@ from typing import (
     IO,
     AbstractSet,
     Any,
-    AnyStr,
     BinaryIO,
     ByteString,
     Callable,
