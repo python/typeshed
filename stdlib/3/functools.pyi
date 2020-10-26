@@ -26,10 +26,6 @@ _AnyCallable = Callable[..., Any]
 
 _T = TypeVar("_T")
 _S = TypeVar("_S")
-@overload
-def reduce(function: Callable[[_T, _S], _T], sequence: Iterable[_S], initial: _T) -> _T: ...
-@overload
-def reduce(function: Callable[[_T, _T], _T], sequence: Iterable[_T]) -> _T: ...
 
 class _CacheInfo(NamedTuple):
     hits: int
