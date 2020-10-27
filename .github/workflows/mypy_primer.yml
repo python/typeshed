@@ -49,7 +49,7 @@ jobs:
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                body: 'Diff from mypy_primer:\n```\n' + data + '\n```'
+                body: 'Diff from [mypy_primer](https://github.com/hauntsaninja/mypy_primer), showing the effect of this PR on open source code:\n```diff\n' + data + '```'
               })
             } catch (error) {
               console.log(error)
