@@ -1,11 +1,10 @@
-# Stubs for six.moves.urllib.parse
 from urllib import (
     quote as quote,
     quote_plus as quote_plus,
     splitquery as splitquery,
     splittag as splittag,
     splituser as splituser,
-    unquote as unquote_to_bytes,
+    unquote as unquote,
     unquote_plus as unquote_plus,
     urlencode as urlencode,
 )
@@ -26,3 +25,5 @@ from urlparse import (
     uses_query as uses_query,
     uses_relative as uses_relative,
 )
+
+unquote_to_bytes = unquote

@@ -1,10 +1,7 @@
-# Stubs for requests.models (Python 3)
-
 import datetime
-import types
-from typing import Any, Dict, Iterator, List, MutableMapping, Optional, Text, Union
+from typing import Any, Dict, Iterator, List, Optional, Text, Union
 
-from . import auth, compat, cookies, exceptions, hooks, status_codes, structures, utils
+from . import auth, cookies, exceptions, hooks, status_codes, structures, utils
 from .cookies import RequestsCookieJar
 from .packages.urllib3 import exceptions as urllib3_exceptions, fields, filepost, util
 
@@ -43,7 +40,6 @@ REDIRECT_STATI: Any
 DEFAULT_REDIRECT_LIMIT: Any
 CONTENT_CHUNK_SIZE: Any
 ITER_CHUNK_SIZE: Any
-json_dumps: Any
 
 class RequestEncodingMixin:
     @property
@@ -120,7 +116,7 @@ class Response:
     def apparent_encoding(self) -> str: ...
     def iter_content(self, chunk_size: Optional[int] = ..., decode_unicode: bool = ...) -> Iterator[Any]: ...
     def iter_lines(
-        self, chunk_size: Optional[int] = ..., decode_unicode: bool = ..., delimiter: Union[Text, bytes] = ...
+        self, chunk_size: Optional[int] = ..., decode_unicode: bool = ..., delimiter: Optional[Union[Text, bytes]] = ...
     ) -> Iterator[Any]: ...
     @property
     def content(self) -> bytes: ...

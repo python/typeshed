@@ -1,10 +1,6 @@
-# Stubs for sys
-# Ron Murawski <ron@horizonchess.com>
-
-# based on http://docs.python.org/3.2/library/sys.html
-
 import sys
-from importlib.abc import MetaPathFinder
+from builtins import object as _object
+from importlib.abc import MetaPathFinder, PathEntryFinder
 from types import FrameType, ModuleType, TracebackType
 from typing import Any, Callable, Dict, List, NoReturn, Optional, Sequence, TextIO, Tuple, Type, TypeVar, Union, overload
 
@@ -41,7 +37,7 @@ meta_path: List[MetaPathFinder]
 modules: Dict[str, ModuleType]
 path: List[str]
 path_hooks: List[Any]  # TODO precise type; function, path to finder
-path_importer_cache: Dict[str, Any]  # TODO precise type
+path_importer_cache: Dict[str, Optional[PathEntryFinder]]
 platform: str
 if sys.version_info >= (3, 9):
     platlibdir: str
@@ -208,7 +204,7 @@ if sys.version_info >= (3, 8):
         exc_value: Optional[BaseException]
         exc_traceback: Optional[TracebackType]
         err_msg: Optional[str]
-        object: Optional[object]
+        object: Optional[_object]
     unraisablehook: Callable[[UnraisableHookArgs], Any]
     def addaudithook(hook: Callable[[str, Tuple[Any, ...]], Any]) -> None: ...
     def audit(__event: str, *args: Any) -> None: ...

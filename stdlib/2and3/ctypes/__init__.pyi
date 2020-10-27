@@ -1,5 +1,3 @@
-# Stubs for ctypes
-
 import sys
 from array import array
 from typing import (
@@ -13,7 +11,6 @@ from typing import (
     Mapping,
     Optional,
     Sequence,
-    Sized,
     Text,
     Tuple,
     Type,
@@ -21,6 +18,9 @@ from typing import (
     Union as _UnionT,
     overload,
 )
+
+if sys.version_info >= (3, 9):
+    from types import GenericAlias
 
 _T = TypeVar("_T")
 _DLLT = TypeVar("_DLLT", bound=CDLL)
@@ -45,8 +45,8 @@ class CDLL(object):
         use_last_error: bool = ...,
         winmode: Optional[int] = ...,
     ) -> None: ...
-    def __getattr__(self, name: str) -> _FuncPointer: ...
-    def __getitem__(self, name: str) -> _FuncPointer: ...
+    def __getattr__(self, name: str) -> _NamedFuncPointer: ...
+    def __getitem__(self, name: str) -> _NamedFuncPointer: ...
 
 if sys.platform == "win32":
     class OleDLL(CDLL): ...
@@ -59,6 +59,8 @@ class LibraryLoader(Generic[_DLLT]):
     def __getattr__(self, name: str) -> _DLLT: ...
     def __getitem__(self, name: str) -> _DLLT: ...
     def LoadLibrary(self, name: str) -> _DLLT: ...
+    if sys.version_info >= (3, 9):
+        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 cdll: LibraryLoader[CDLL] = ...
 if sys.platform == "win32":
@@ -115,6 +117,9 @@ class _FuncPointer(_PointerLike, _CData):
     @overload
     def __init__(self, vtlb_index: int, name: str, paramflags: Tuple[_PF, ...] = ..., iid: pointer[c_int] = ...) -> None: ...
     def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
+
+class _NamedFuncPointer(_FuncPointer):
+    __name__: str
 
 class ArgumentError(Exception): ...
 
@@ -300,3 +305,5 @@ class Array(Generic[_CT], _CData):
     # Can't inherit from Sized because the metaclass conflict between
     # Sized and _CData prevents using _CDataMeta.
     def __len__(self) -> int: ...
+    if sys.version_info >= (3, 9):
+        def __class_getitem__(cls, item: Any) -> GenericAlias: ...

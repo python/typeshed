@@ -1,6 +1,6 @@
 import sys
 from types import FrameType, TracebackType
-from typing import Any, Callable, Iterable, List, Mapping, Optional, Text, Tuple, Type, TypeVar, Union
+from typing import Any, Callable, Iterable, List, Mapping, Optional, Text, Type, TypeVar, Union
 
 # TODO recursive type
 _TF = Callable[[FrameType, str, Any], Optional[Callable[..., Any]]]
@@ -155,7 +155,11 @@ class Event:
     def wait(self, timeout: Optional[float] = ...) -> bool: ...
 
 if sys.version_info >= (3, 8):
-    from _thread import ExceptHookArgs as _ExceptHookArgs, _ExceptHookArgs as ExceptHookArgs  # don't ask
+    import _thread
+
+    # don't ask...
+    _ExceptHookArgs = _thread.ExceptHookArgs
+    ExceptHookArgs = _thread._ExceptHookArgs
 
     excepthook: Callable[[_ExceptHookArgs], Any]
 

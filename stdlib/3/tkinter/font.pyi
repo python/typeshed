@@ -1,5 +1,5 @@
 import tkinter
-from typing import List, Optional, Tuple, TypeVar, Union, overload
+from typing import Any, List, Optional, Tuple, TypeVar, Union, overload
 from typing_extensions import Literal, TypedDict
 
 NORMAL: Literal["normal"]
@@ -9,22 +9,9 @@ ITALIC: Literal["italic"]
 
 def nametofont(name: str) -> Font: ...
 
-# _TkinterSequence[T] represents a sequence that tkinter understands. It
-# differs from typing.Sequence[T]. For example, collections.deque a valid
-# Sequence but not a valid _TkinterSequence:
-#
-#    >>> tkinter.Label(font=('Helvetica', 12, collections.deque(['bold'])))
-#    Traceback (most recent call last):
-#      ...
-#    _tkinter.TclError: unknown font style "deque(['bold'])"
-_T = TypeVar("_T")
-_TkinterSequence = Union[List[_T], Tuple[_T, ...]]
-
 # See 'FONT DESCRIPTIONS' in font man page. This uses str because Literal
 # inside Tuple doesn't work.
-_FontDescription = Union[
-    str, Font, Tuple[str, int], Tuple[str, int, _TkinterSequence[str]],
-]
+_FontDescription = Union[str, Font, Tuple[str, int], Tuple[str, int, str], Tuple[str, int, tkinter._TkinterSequence[str]]]
 
 class _FontDict(TypedDict):
     family: str
@@ -59,6 +46,8 @@ class Font:
         underline: bool = ...,
         overstrike: bool = ...,
     ) -> None: ...
+    def __getitem__(self, key: str) -> Any: ...
+    def __setitem__(self, key: str, value: Any) -> None: ...
     @overload
     def cget(self, option: Literal["family"]) -> str: ...
     @overload
@@ -69,7 +58,6 @@ class Font:
     def cget(self, option: Literal["slant"]) -> Literal["roman", "italic"]: ...
     @overload
     def cget(self, option: Literal["underline", "overstrike"]) -> Literal[0, 1]: ...
-    __getitem__ = cget
     @overload
     def actual(self, option: Literal["family"], displayof: Optional[tkinter.Misc] = ...) -> str: ...
     @overload
@@ -84,18 +72,6 @@ class Font:
     def actual(self, option: None, displayof: Optional[tkinter.Misc] = ...) -> _FontDict: ...
     @overload
     def actual(self, *, displayof: Optional[tkinter.Misc] = ...) -> _FontDict: ...
-    @overload
-    def __setitem__(self, key: Literal["family"], value: str) -> None: ...
-    @overload
-    def __setitem__(self, key: Literal["size"], value: int) -> None: ...
-    @overload
-    def __setitem__(self, key: Literal["weight"], value: Literal["normal", "bold"]) -> None: ...
-    @overload
-    def __setitem__(self, key: Literal["slant"], value: Literal["roman", "italic"]) -> None: ...
-    @overload
-    def __setitem__(self, key: Literal["underline"], value: bool) -> None: ...
-    @overload
-    def __setitem__(self, key: Literal["overstrike"], value: bool) -> None: ...
     def config(
         self,
         *,

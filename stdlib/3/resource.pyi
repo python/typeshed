@@ -1,5 +1,3 @@
-# Stubs for resource
-
 import sys
 from typing import NamedTuple, Optional, Tuple
 

@@ -1,5 +1,3 @@
-# Stubs for email.mime.application (Python 3.4)
-
 import sys
 from email.mime.nonmultipart import MIMENonMultipart
 from email.policy import Policy

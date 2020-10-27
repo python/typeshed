@@ -2,7 +2,6 @@ import builtins
 import codecs
 import sys
 from _typeshed import ReadableBuffer, WriteableBuffer
-from mmap import mmap
 from types import TracebackType
 from typing import IO, Any, BinaryIO, Callable, Iterable, Iterator, List, Optional, TextIO, Tuple, Type, TypeVar, Union
 
@@ -74,6 +73,8 @@ class FileIO(RawIOBase, BinaryIO):
         closefd: bool = ...,
         opener: Optional[Callable[[Union[int, str], str], int]] = ...,
     ) -> None: ...
+    @property
+    def closefd(self) -> bool: ...
     def write(self, __b: ReadableBuffer) -> int: ...
     def read(self, __size: int = ...) -> bytes: ...
     def __enter__(self: _T) -> _T: ...
@@ -117,6 +118,7 @@ class BufferedRandom(BufferedReader, BufferedWriter):
 
 class BufferedRWPair(BufferedIOBase):
     def __init__(self, reader: RawIOBase, writer: RawIOBase, buffer_size: int = ...) -> None: ...
+    def peek(self, __size: int = ...) -> bytes: ...
 
 class TextIOBase(IOBase):
     encoding: str
@@ -126,14 +128,13 @@ class TextIOBase(IOBase):
     def __next__(self) -> str: ...  # type: ignore
     def detach(self) -> BinaryIO: ...
     def write(self, __s: str) -> int: ...
-    def writelines(self, __lines: List[str]) -> None: ...  # type: ignore
+    def writelines(self, __lines: Iterable[str]) -> None: ...  # type: ignore
     def readline(self, __size: int = ...) -> str: ...  # type: ignore
     def readlines(self, __hint: int = ...) -> List[str]: ...  # type: ignore
     def read(self, __size: Optional[int] = ...) -> str: ...
     def tell(self) -> int: ...
 
 class TextIOWrapper(TextIOBase, TextIO):
-    line_buffering: bool
     def __init__(
         self,
         buffer: IO[bytes],
@@ -145,7 +146,13 @@ class TextIOWrapper(TextIOBase, TextIO):
     ) -> None: ...
     @property
     def buffer(self) -> BinaryIO: ...
+    @property
+    def closed(self) -> bool: ...
+    @property
+    def line_buffering(self) -> bool: ...
     if sys.version_info >= (3, 7):
+        @property
+        def write_through(self) -> bool: ...
         def reconfigure(
             self,
             *,
@@ -155,12 +162,11 @@ class TextIOWrapper(TextIOBase, TextIO):
             line_buffering: Optional[bool] = ...,
             write_through: Optional[bool] = ...,
         ) -> None: ...
-    closed: bool
     # These are inherited from TextIOBase, but must exist in the stub to satisfy mypy.
     def __enter__(self: _T) -> _T: ...
     def __iter__(self) -> Iterator[str]: ...  # type: ignore
     def __next__(self) -> str: ...  # type: ignore
-    def writelines(self, __lines: List[str]) -> None: ...  # type: ignore
+    def writelines(self, __lines: Iterable[str]) -> None: ...  # type: ignore
     def readline(self, __size: int = ...) -> str: ...  # type: ignore
     def readlines(self, __hint: int = ...) -> List[str]: ...  # type: ignore
     def seek(self, __cookie: int, __whence: int = ...) -> int: ...
@@ -176,3 +182,5 @@ class StringIO(TextIOWrapper):
 class IncrementalNewlineDecoder(codecs.IncrementalDecoder):
     def __init__(self, decoder: Optional[codecs.IncrementalDecoder], translate: bool, errors: str = ...) -> None: ...
     def decode(self, input: Union[bytes, str], final: bool = ...) -> str: ...
+    @property
+    def newlines(self) -> Optional[Union[str, Tuple[str, ...]]]: ...

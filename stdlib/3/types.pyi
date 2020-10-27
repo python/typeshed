@@ -1,8 +1,3 @@
-# Stubs for types
-# Note, all classes "defined" here require special handling.
-
-# TODO parts of this should be conditional on version
-
 import sys
 from typing import (
     Any,
@@ -24,6 +19,8 @@ from typing import (
 # ModuleType is exported from this module, but for circular import
 # reasons exists in its own stub file (with ModuleSpec and Loader).
 from _importlib_modulespec import ModuleType as ModuleType  # Exported
+
+# Note, all classes "defined" here require special handling.
 
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
@@ -281,7 +278,7 @@ class FrameType:
     f_lasti: int
     f_lineno: int
     f_locals: Dict[str, Any]
-    f_trace: Callable[[], None]
+    f_trace: Optional[Callable[[FrameType, str, Any], Any]]
     if sys.version_info >= (3, 7):
         f_trace_lines: bool
         f_trace_opcodes: bool
@@ -326,5 +323,5 @@ if sys.version_info >= (3, 9):
         __origin__: type
         __args__: Tuple[Any, ...]
         __parameters__: Tuple[Any, ...]
-        def __init__(self, origin: type, args: Any): ...
+        def __init__(self, origin: type, args: Any) -> None: ...
         def __getattr__(self, name: str) -> Any: ...  # incomplete

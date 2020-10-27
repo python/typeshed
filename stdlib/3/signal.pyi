@@ -1,5 +1,3 @@
-"""Stub file for the 'signal' module."""
-
 import sys
 from enum import IntEnum
 from types import FrameType
@@ -82,7 +80,7 @@ if sys.platform != "win32":
     SIG_SETMASK = Sigmasks.SIG_SETMASK
 
 _SIGNUM = Union[int, Signals]
-_HANDLER = Union[Callable[[Signals, FrameType], None], int, Handlers, None]
+_HANDLER = Union[Callable[[Signals, FrameType], Any], int, Handlers, None]
 
 SIGABRT: Signals
 if sys.platform != "win32":

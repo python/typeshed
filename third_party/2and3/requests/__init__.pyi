@@ -1,9 +1,6 @@
-# Stubs for requests (based on version 2.6.0, Python 3)
-
 import logging
-from typing import Any
+from typing import Any, Text
 
-from . import api, exceptions, models, packages, sessions, status_codes, utils
 from .api import (
     delete as delete,
     get as get,
@@ -34,3 +31,5 @@ __version__: Any
 
 class NullHandler(logging.Handler):
     def emit(self, record): ...
+
+def check_compatibility(urllib3_version: Text, chardet_version: Text) -> None: ...

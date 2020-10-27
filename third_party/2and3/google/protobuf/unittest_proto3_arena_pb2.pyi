@@ -1,4 +1,4 @@
-from typing import Iterable, List, Optional, Text, Tuple, cast
+from typing import Iterable, List, Optional, Text, Tuple
 
 from google.protobuf.internal.containers import RepeatedCompositeFieldContainer, RepeatedScalarFieldContainer
 from google.protobuf.message import Message
@@ -246,4 +246,4 @@ class ForeignMessage(Message):
     def __init__(self, c: Optional[int] = ...) -> None: ...
 
 class TestEmptyMessage(Message):
-    def __init__(self,) -> None: ...
+    def __init__(self) -> None: ...

@@ -1,7 +1,5 @@
-# These are not exported.
-# These are exported.
 from typing import (
-    AbstractSet as Set,
+    AbstractSet,
     Any,
     Callable as Callable,
     Container as Container,
@@ -30,6 +28,8 @@ from typing import (
     overload,
 )
 
+Set = AbstractSet
+
 _S = TypeVar("_S")
 _T = TypeVar("_T")
 _KT = TypeVar("_KT")
@@ -57,7 +57,7 @@ class deque(Sized, Iterable[_T], Reversible[_T], Generic[_T]):
     def popleft(self) -> _T: ...
     def remove(self, value: _T) -> None: ...
     def reverse(self) -> None: ...
-    def rotate(self, n: int) -> None: ...
+    def rotate(self, n: int = ...) -> None: ...
     def __len__(self) -> int: ...
     def __iter__(self) -> Iterator[_T]: ...
     def __str__(self) -> str: ...

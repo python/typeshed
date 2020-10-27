@@ -2,15 +2,14 @@
 #
 # Note: Commented out items means they weren't implemented at the time.
 # Uncomment them when the modules have been added to the typeshed.
-import sys
-from builtins import filter as filter, input as input, map as map, range as xrange, zip as zip
+import importlib
+import shlex
+from builtins import filter as filter, input as input, map as map, range as range, zip as zip
 from collections import UserDict as UserDict, UserList as UserList, UserString as UserString
 from functools import reduce as reduce
-from importlib import reload as reload_module
 from io import StringIO as StringIO
 from itertools import filterfalse as filterfalse, zip_longest as zip_longest
 from os import getcwd as getcwd, getcwdb as getcwdb
-from shlex import quote as shlex_quote
 from sys import intern as intern
 
 # import tkinter.font as tkinter_font
@@ -24,38 +23,43 @@ from sys import intern as intern
 # import copyreg as copyreg
 # import dbm.gnu as dbm_gnu
 from . import (
-    BaseHTTPServer,
-    CGIHTTPServer,
-    SimpleHTTPServer,
-    _dummy_thread,
-    _thread,
-    builtins,
-    configparser,
-    cPickle,
-    email_mime_base,
-    email_mime_multipart,
-    email_mime_nonmultipart,
-    email_mime_text,
-    html_entities,
-    html_parser,
-    http_client,
-    http_cookiejar,
-    http_cookies,
-    queue,
-    reprlib,
-    socketserver,
-    tkinter,
-    tkinter_commondialog,
-    tkinter_constants,
-    tkinter_dialog,
-    tkinter_filedialog,
-    tkinter_tkfiledialog,
-    tkinter_ttk,
-    urllib,
-    urllib_error,
-    urllib_parse,
-    urllib_robotparser,
+    BaseHTTPServer as BaseHTTPServer,
+    CGIHTTPServer as CGIHTTPServer,
+    SimpleHTTPServer as SimpleHTTPServer,
+    _dummy_thread as _dummy_thread,
+    _thread as _thread,
+    builtins as builtins,
+    configparser as configparser,
+    cPickle as cPickle,
+    email_mime_base as email_mime_base,
+    email_mime_multipart as email_mime_multipart,
+    email_mime_nonmultipart as email_mime_nonmultipart,
+    email_mime_text as email_mime_text,
+    html_entities as html_entities,
+    html_parser as html_parser,
+    http_client as http_client,
+    http_cookiejar as http_cookiejar,
+    http_cookies as http_cookies,
+    queue as queue,
+    reprlib as reprlib,
+    socketserver as socketserver,
+    tkinter as tkinter,
+    tkinter_commondialog as tkinter_commondialog,
+    tkinter_constants as tkinter_constants,
+    tkinter_dialog as tkinter_dialog,
+    tkinter_filedialog as tkinter_filedialog,
+    tkinter_tkfiledialog as tkinter_tkfiledialog,
+    tkinter_ttk as tkinter_ttk,
+    urllib as urllib,
+    urllib_error as urllib_error,
+    urllib_parse as urllib_parse,
+    urllib_robotparser as urllib_robotparser,
 )
 
 # import xmlrpc.client as xmlrpc_client
 # import xmlrpc.server as xmlrpc_server
+
+xrange = range
+reload_module = importlib.reload
+cStringIO = StringIO
+shlex_quote = shlex.quote

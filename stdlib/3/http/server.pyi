@@ -1,9 +1,7 @@
-# Stubs for http.server (Python 3.4)
-
 import email.message
 import socketserver
 import sys
-from typing import Any, BinaryIO, Callable, ClassVar, Dict, List, Mapping, Optional, Sequence, Tuple, Union
+from typing import Any, Callable, ClassVar, Dict, List, Mapping, Optional, Sequence, Tuple, Union
 
 if sys.version_info >= (3, 7):
     from builtins import _PathLike
@@ -62,7 +60,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
             request: bytes,
             client_address: Tuple[str, int],
             server: socketserver.BaseServer,
-            directory: Optional[Union[str, _PathLike[str]]],
+            directory: Optional[Union[str, _PathLike[str]]] = ...,
         ) -> None: ...
     else:
         def __init__(self, request: bytes, client_address: Tuple[str, int], server: socketserver.BaseServer) -> None: ...

@@ -20,6 +20,7 @@ asyncio.tasks.Task._wakeup
 asyncio.threads  # Added in Python 3.9
 asyncio.trsock  # Added in Python 3.8
 bdb.GENERATOR_AND_COROUTINE_FLAGS
+builtins.ModuleNotFoundError
 builtins.str.maketrans
 cmath.log
 codecs.StreamRecoder.seek
@@ -28,6 +29,7 @@ collections.UserString.maketrans
 contextlib._GeneratorContextManager.__init__
 ctypes.CDLL.__init__
 fractions.Fraction.__new__  # private _normalize param was made keyword-only in Python 3.6
+hmac.HMAC.__init__
 importlib.metadata
 importlib.resources
 io.StringIO.readline
@@ -44,6 +46,8 @@ os.DirEntry
 os.utime
 plistlib.Dict.__init__
 pyexpat.XMLParserType.ExternalEntityParserCreate
+random.Random.randrange  # missing undocumented arg _int
+random.randrange  # missing undocumented arg _int
 smtpd.SMTPChannel.__init__
 smtpd.SMTPServer.__init__
 sre_compile.dis
@@ -70,8 +74,6 @@ typing.runtime_checkable
 unittest.async_case  # Added in Python 3.8
 uuid.UUID.int
 xml.etree.ElementTree.TreeBuilder.start  # Discrepancy between Python and C modules, fixed in bpo-39495
-xml.etree.cElementTree.Element.__bool__
-xml.etree.cElementTree.Element.copy
 xml.etree.cElementTree.TreeBuilder.start  # bpo-39495
 xml.etree.cElementTree.XMLPullParser
 xml.parsers.expat.XMLParserType.ExternalEntityParserCreate

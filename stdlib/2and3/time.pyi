@@ -1,6 +1,3 @@
-"""Stub file for the 'time' module."""
-# See https://docs.python.org/3/library/time.html
-
 import sys
 from typing import Any, NamedTuple, Optional, Tuple, Union
 
@@ -69,10 +66,11 @@ if sys.version_info >= (3, 3):
             ],
             _arg: Any = ...,
         ) -> struct_time: ...
-        @property
-        def tm_zone(self) -> str: ...
-        @property
-        def tm_gmtoff(self) -> int: ...
+        if sys.version_info >= (3, 6) or sys.platform != "win32":
+            @property
+            def tm_zone(self) -> str: ...
+            @property
+            def tm_gmtoff(self) -> int: ...
 
 else:
     class struct_time(_struct_time):

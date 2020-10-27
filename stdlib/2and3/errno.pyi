@@ -1,6 +1,3 @@
-# Stubs for errno
-
-import sys
 from typing import Mapping
 
 errorcode: Mapping[int, str]

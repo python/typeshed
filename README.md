@@ -1,6 +1,6 @@
 # typeshed
 
-[![Build Status](https://travis-ci.org/python/typeshed.svg?branch=master)](https://travis-ci.org/python/typeshed)
+[![Build status](https://github.com/python/typeshed/workflows/Check%20stubs/badge.svg)](https://github.com/python/typeshed/actions?query=workflow%3A%22Check+stubs%22)
 [![Chat at https://gitter.im/python/typing](https://badges.gitter.im/python/typing.svg)](https://gitter.im/python/typing?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Pull Requests Welcome](https://img.shields.io/badge/pull%20requests-welcome-brightgreen.svg)](https://github.com/python/typeshed/blob/master/CONTRIBUTING.md)
 
@@ -78,6 +78,13 @@ For more information on directory structure and stub versioning, see
 [the relevant section of CONTRIBUTING.md](
 https://github.com/python/typeshed/blob/master/CONTRIBUTING.md#stub-versioning).
 
+Third-party packages are generally removed from typeshed when one of the
+following criteria is met:
+
+* The upstream package ships a py.typed file for at least 6-12 months, or
+* the package does not support any of the Python versions supported by
+  typeshed.
+
 ## Contributing
 
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting pull
@@ -94,7 +101,9 @@ There are several tests:
 runs tests against [mypy](https://github.com/python/mypy/)
 - `tests/pytype_test.py` runs tests against
 [pytype](https://github.com/google/pytype/).
-- `tests/mypy_selftest.py` runs mypy's test suite using this version of
+- `tests/mypy_selftest.py` checks mypy's code base using this version of
+typeshed.
+- `tests/mypy_test_suite.py` runs mypy's test suite using this version of
 typeshed.
 - `tests/check_consistent.py` checks certain files in typeshed remain
 consistent with each other.
@@ -148,6 +157,13 @@ This test works similarly to `mypy_test.py`, except it uses `pytype`.
 
 This test requires Python 3.5 or higher; Python 3.6.1 or higher is recommended.
 Run using: `(.venv3)$ python3 tests/mypy_selftest.py`
+
+This test checks mypy's code base using mypy and typeshed code in this repo.
+
+### mypy_test_suite.py
+
+This test requires Python 3.5 or higher; Python 3.6.1 or higher is recommended.
+Run using: `(.venv3)$ python3 tests/mypy_test_suite.py`
 
 This test runs mypy's own test suite using the typeshed code in your repo. This
 will sometimes catch issues with incorrectly typed stubs, but is much slower

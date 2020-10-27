@@ -1,6 +1,8 @@
-# Stubs for urllib.parse
 import sys
 from typing import Any, AnyStr, Callable, Dict, Generic, List, Mapping, NamedTuple, Optional, Sequence, Tuple, Union, overload
+
+if sys.version_info >= (3, 9):
+    from types import GenericAlias
 
 _Str = Union[bytes, str]
 
@@ -27,6 +29,8 @@ class _NetlocResultMixinBase(Generic[AnyStr]):
     password: Optional[AnyStr]
     hostname: Optional[AnyStr]
     port: Optional[int]
+    if sys.version_info >= (3, 9):
+        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 class _NetlocResultMixinStr(_NetlocResultMixinBase[str], _ResultMixinStr): ...
 class _NetlocResultMixinBytes(_NetlocResultMixinBase[bytes], _ResultMixinBytes): ...
@@ -95,10 +99,10 @@ if sys.version_info >= (3, 8):
 
 else:
     def parse_qs(
-        qs: Optional[AnyStr], keep_blank_values: bool = ..., strict_parsing: bool = ..., encoding: str = ..., errors: str = ...,
+        qs: Optional[AnyStr], keep_blank_values: bool = ..., strict_parsing: bool = ..., encoding: str = ..., errors: str = ...
     ) -> Dict[AnyStr, List[AnyStr]]: ...
     def parse_qsl(
-        qs: Optional[AnyStr], keep_blank_values: bool = ..., strict_parsing: bool = ..., encoding: str = ..., errors: str = ...,
+        qs: Optional[AnyStr], keep_blank_values: bool = ..., strict_parsing: bool = ..., encoding: str = ..., errors: str = ...
     ) -> List[Tuple[AnyStr, AnyStr]]: ...
 
 @overload

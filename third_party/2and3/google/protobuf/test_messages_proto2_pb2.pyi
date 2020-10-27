@@ -1,5 +1,4 @@
-import builtins
-from typing import Iterable, List, Mapping, MutableMapping, Optional, Text, Tuple, cast
+from typing import Iterable, List, Mapping, MutableMapping, Optional, Text, Tuple
 
 from google.protobuf.internal.containers import RepeatedCompositeFieldContainer, RepeatedScalarFieldContainer
 from google.protobuf.message import Message
@@ -124,7 +123,7 @@ class TestAllTypesProto2(Message):
         group_uint32: int
         def __init__(self, group_int32: Optional[int] = ..., group_uint32: Optional[int] = ...) -> None: ...
     class MessageSetCorrect(Message):
-        def __init__(self,) -> None: ...
+        def __init__(self) -> None: ...
     class MessageSetCorrectExtension1(Message):
         bytes: Text
         def __init__(self, bytes: Optional[Text] = ...) -> None: ...

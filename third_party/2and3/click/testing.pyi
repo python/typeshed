@@ -1,4 +1,4 @@
-from typing import IO, Any, BinaryIO, ContextManager, Dict, Iterable, List, Mapping, Optional, Text, Tuple, Union
+from typing import IO, Any, BinaryIO, ContextManager, Dict, Iterable, List, Mapping, Optional, Text, Union
 
 from .core import BaseCommand
 
@@ -52,7 +52,7 @@ class CliRunner:
     def get_default_prog_name(self, cli: BaseCommand) -> str: ...
     def make_env(self, overrides: Optional[Mapping[str, str]] = ...) -> Dict[str, str]: ...
     def isolation(
-        self, input: Optional[Union[bytes, Text, IO[Any]]] = ..., env: Optional[Mapping[str, str]] = ..., color: bool = ...,
+        self, input: Optional[Union[bytes, Text, IO[Any]]] = ..., env: Optional[Mapping[str, str]] = ..., color: bool = ...
     ) -> ContextManager[BinaryIO]: ...
     def invoke(
         self,

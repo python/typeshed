@@ -1,10 +1,8 @@
-# Stubs for requests.packages.urllib3.connection (Python 3.4)
-
 import ssl
 import sys
 from typing import Any
 
-from . import exceptions, packages, util
+from . import exceptions, util
 from .packages import ssl_match_hostname
 from .util import ssl_
 

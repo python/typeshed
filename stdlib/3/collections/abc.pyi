@@ -1,6 +1,3 @@
-# Stubs for collections.abc (introduced from Python 3.3)
-#
-# https://docs.python.org/3.3/whatsnew/3.3.html#collections
 import sys
 
 from . import (

@@ -1,6 +1,14 @@
 import sys
-from _typeshed import AnyPath, OpenBinaryMode, OpenBinaryModeReading, OpenBinaryModeUpdating, OpenBinaryModeWriting, OpenTextMode
-from builtins import OSError as error
+from _typeshed import (
+    AnyPath,
+    FileDescriptorLike,
+    OpenBinaryMode,
+    OpenBinaryModeReading,
+    OpenBinaryModeUpdating,
+    OpenBinaryModeWriting,
+    OpenTextMode,
+)
+from builtins import OSError
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper as _TextIOWrapper
 from posix import listdir as listdir, times_result
 from typing import (
@@ -17,7 +25,6 @@ from typing import (
     List,
     Mapping,
     MutableMapping,
-    NamedTuple,
     NoReturn,
     Optional,
     Sequence,
@@ -31,12 +38,17 @@ from typing_extensions import Literal
 
 from . import path as path
 
+if sys.version_info >= (3, 9):
+    from types import GenericAlias
+
 # We need to use something from path, or flake8 and pytype get unhappy
 _supports_unicode_filenames = path.supports_unicode_filenames
 
 _T = TypeVar("_T")
 
 # ----- os variables -----
+
+error = OSError
 
 supports_bytes_environ: bool
 
@@ -260,12 +272,14 @@ class stat_result:
     st_type: int
 
 if sys.version_info >= (3, 6):
-    from builtins import _PathLike as PathLike  # See comment in builtins
+    from builtins import _PathLike
+
+    PathLike = _PathLike  # See comment in builtins
 
 _FdOrAnyPath = Union[int, AnyPath]
 
 if sys.version_info >= (3, 6):
-    class DirEntry(PathLike[AnyStr]):
+    class DirEntry(Generic[AnyStr]):
         # This is what the scandir interator yields
         # The constructor is hidden
 
@@ -277,6 +291,8 @@ if sys.version_info >= (3, 6):
         def is_symlink(self) -> bool: ...
         def stat(self, *, follow_symlinks: bool = ...) -> stat_result: ...
         def __fspath__(self) -> AnyStr: ...
+        if sys.version_info >= (3, 9):
+            def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 else:
     class DirEntry(Generic[AnyStr]):
@@ -292,9 +308,16 @@ else:
         def stat(self, *, follow_symlinks: bool = ...) -> stat_result: ...
 
 if sys.platform != "win32":
+    _Tuple10Int = Tuple[int, int, int, int, int, int, int, int, int, int]
+    _Tuple11Int = Tuple[int, int, int, int, int, int, int, int, int, int, int]
     if sys.version_info >= (3, 7):
         # f_fsid was added in https://github.com/python/cpython/pull/4571
-        class statvfs_result(NamedTuple):  # Unix only
+        class statvfs_result(_Tuple10Int):  # Unix only
+            def __new__(cls, seq: Union[_Tuple10Int, _Tuple11Int], dict: Dict[str, int] = ...) -> statvfs_result: ...
+            n_fields: int
+            n_sequence_fields: int
+            n_unnamed_fields: int
+
             f_bsize: int
             f_frsize: int
             f_blocks: int
@@ -305,9 +328,13 @@ if sys.platform != "win32":
             f_favail: int
             f_flag: int
             f_namemax: int
-            f_fsid: int
+            f_fsid: int = ...
     else:
-        class statvfs_result(NamedTuple):  # Unix only
+        class statvfs_result(_Tuple10Int):  # Unix only
+            n_fields: int
+            n_sequence_fields: int
+            n_unnamed_fields: int
+
             f_bsize: int
             f_frsize: int
             f_blocks: int
@@ -489,7 +516,7 @@ else:
     def dup2(fd: int, fd2: int, inheritable: bool = ...) -> None: ...
 
 def fstat(fd: int) -> stat_result: ...
-def fsync(fd: int) -> None: ...
+def fsync(fd: FileDescriptorLike) -> None: ...
 def lseek(__fd: int, __position: int, __how: int) -> int: ...
 def open(path: AnyPath, flags: int, mode: int = ..., *, dir_fd: Optional[int] = ...) -> int: ...
 def pipe() -> Tuple[int, int]: ...
@@ -500,7 +527,7 @@ if sys.platform != "win32":
     def fchmod(fd: int, mode: int) -> None: ...
     def fchown(fd: int, uid: int, gid: int) -> None: ...
     if sys.platform != "darwin":
-        def fdatasync(fd: int) -> None: ...  # Unix only, not Mac
+        def fdatasync(fd: FileDescriptorLike) -> None: ...  # Unix only, not Mac
     def fpathconf(__fd: int, __name: Union[str, int]) -> int: ...
     def fstatvfs(__fd: int) -> statvfs_result: ...
     def ftruncate(__fd: int, __length: int) -> None: ...
@@ -546,12 +573,12 @@ if sys.platform != "win32":
 
 def write(__fd: int, __data: bytes) -> int: ...
 def access(
-    path: _FdOrAnyPath, mode: int, *, dir_fd: Optional[int] = ..., effective_ids: bool = ..., follow_symlinks: bool = ...,
+    path: _FdOrAnyPath, mode: int, *, dir_fd: Optional[int] = ..., effective_ids: bool = ..., follow_symlinks: bool = ...
 ) -> bool: ...
 def chdir(path: _FdOrAnyPath) -> None: ...
 
 if sys.platform != "win32":
-    def fchdir(fd: int) -> None: ...
+    def fchdir(fd: FileDescriptorLike) -> None: ...
 
 def getcwd() -> str: ...
 def getcwdb() -> bytes: ...
@@ -571,7 +598,7 @@ if sys.platform != "win32":
     def lchown(path: AnyPath, uid: int, gid: int) -> None: ...
 
 def link(
-    src: AnyPath, dst: AnyPath, *, src_dir_fd: Optional[int] = ..., dst_dir_fd: Optional[int] = ..., follow_symlinks: bool = ...,
+    src: AnyPath, dst: AnyPath, *, src_dir_fd: Optional[int] = ..., dst_dir_fd: Optional[int] = ..., follow_symlinks: bool = ...
 ) -> None: ...
 def lstat(path: AnyPath, *, dir_fd: Optional[int] = ...) -> stat_result: ...
 def mkdir(path: AnyPath, mode: int = ..., *, dir_fd: Optional[int] = ...) -> None: ...
@@ -638,7 +665,7 @@ if sys.version_info < (3, 7):
 if sys.platform != "win32":
     def statvfs(path: _FdOrAnyPath) -> statvfs_result: ...  # Unix only
 
-def symlink(src: AnyPath, dst: AnyPath, target_is_directory: bool = ..., *, dir_fd: Optional[int] = ...,) -> None: ...
+def symlink(src: AnyPath, dst: AnyPath, target_is_directory: bool = ..., *, dir_fd: Optional[int] = ...) -> None: ...
 
 if sys.platform != "win32":
     def sync() -> None: ...  # Unix only
@@ -840,6 +867,7 @@ if sys.version_info >= (3, 8):
     if sys.platform == "win32":
         class _AddedDllDirectory:
             path: Optional[str]
+            def __init__(self, path: Optional[str], cookie: _T, remove_dll_directory: Callable[[_T], Any]) -> None: ...
             def close(self) -> None: ...
             def __enter__(self: _T) -> _T: ...
             def __exit__(self, *args: Any) -> None: ...

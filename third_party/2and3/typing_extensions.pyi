@@ -17,6 +17,7 @@ from typing import (
     NoReturn as NoReturn,
     Optional,
     Text as Text,
+    Tuple,
     Type as Type,
     TypeVar,
     ValuesView,
@@ -88,8 +89,17 @@ def get_type_hints(
     include_extras: bool = ...,
 ) -> Dict[str, Any]: ...
 
+if sys.version_info >= (3, 7):
+    def get_args(tp: Any) -> Tuple[Any, ...]: ...
+    def get_origin(tp: Any) -> Optional[Any]: ...
+
 Annotated: _SpecialForm = ...
 _AnnotatedAlias: Any = ...  # undocumented
 
 # TypeAlias is a (non-subscriptable) special form.
 class TypeAlias: ...
+
+@runtime_checkable
+class SupportsIndex(Protocol, metaclass=abc.ABCMeta):
+    @abc.abstractmethod
+    def __index__(self) -> int: ...

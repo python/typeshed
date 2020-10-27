@@ -1,5 +1,6 @@
 import sys
 from _typeshed import SupportsGetItem, SupportsItemAccess
+from builtins import type as _type
 from typing import IO, Any, AnyStr, Dict, Iterable, Iterator, List, Mapping, Optional, Protocol, Tuple, TypeVar, Union
 
 _T = TypeVar("_T", bound=FieldStorage)
@@ -13,7 +14,7 @@ def parse(
 
 if sys.version_info < (3, 8):
     def parse_qs(qs: str, keep_blank_values: bool = ..., strict_parsing: bool = ...) -> Dict[str, List[str]]: ...
-    def parse_qsl(qs: str, keep_blank_values: bool = ..., strict_parsing: bool = ...) -> Dict[str, List[str]]: ...
+    def parse_qsl(qs: str, keep_blank_values: bool = ..., strict_parsing: bool = ...) -> List[Tuple[str, str]]: ...
 
 if sys.version_info >= (3, 7):
     def parse_multipart(
@@ -56,7 +57,7 @@ class MiniFieldStorage:
     def __repr__(self) -> str: ...
 
 class FieldStorage(object):
-    FieldStorageClass: Optional[type]
+    FieldStorageClass: Optional[_type]
     keep_blank_values: int
     strict_parsing: int
     qs_on_post: Optional[str]

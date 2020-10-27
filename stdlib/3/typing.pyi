@@ -1,9 +1,10 @@
-# Stubs for typing
-
 import collections  # Needed by aliases like DefaultDict, see mypy issue 2986
 import sys
 from abc import ABCMeta, abstractmethod
 from types import CodeType, FrameType, TracebackType
+
+if sys.version_info >= (3, 9):
+    from types import GenericAlias
 
 # Definitions of special type checking related constructs.  Their definitions
 # are not used, so their value does not matter.
@@ -21,7 +22,7 @@ class TypeVar:
         self,
         name: str,
         *constraints: Type[Any],
-        bound: Optional[Type[Any]] = ...,
+        bound: Union[None, Type[Any], str] = ...,
         covariant: bool = ...,
         contravariant: bool = ...,
     ) -> None: ...
@@ -50,6 +51,13 @@ if sys.version_info >= (3, 8):
 
 if sys.version_info < (3, 7):
     class GenericMeta(type): ...
+
+if sys.version_info >= (3, 10):
+    class ParamSpec:
+        __name__: str
+        def __init__(self, name: str) -> None: ...
+    Concatenate: _SpecialForm = ...
+    TypeAlias: _SpecialForm = ...
 
 # Return type that indicates a function does not return.
 # This type is equivalent to the None type, but the no-op Union is necessary to
@@ -162,6 +170,8 @@ class Hashable(Protocol, metaclass=ABCMeta):
 class Iterable(Protocol[_T_co]):
     @abstractmethod
     def __iter__(self) -> Iterator[_T_co]: ...
+    if sys.version_info >= (3, 9):
+        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 @runtime_checkable
 class Iterator(Iterable[_T_co], Protocol[_T_co]):
@@ -170,7 +180,6 @@ class Iterator(Iterable[_T_co], Protocol[_T_co]):
     def __iter__(self) -> Iterator[_T_co]: ...
 
 class Generator(Iterator[_T_co], Generic[_T_co, _T_contra, _V_co]):
-    @abstractmethod
     def __next__(self) -> _T_co: ...
     @abstractmethod
     def send(self, __value: _T_contra) -> _T_co: ...
@@ -182,9 +191,7 @@ class Generator(Iterator[_T_co], Generic[_T_co, _T_contra, _V_co]):
     @overload
     @abstractmethod
     def throw(self, __typ: BaseException, __val: None = ..., __tb: Optional[TracebackType] = ...) -> _T_co: ...
-    @abstractmethod
     def close(self) -> None: ...
-    @abstractmethod
     def __iter__(self) -> Generator[_T_co, _T_contra, _V_co]: ...
     @property
     def gi_code(self) -> CodeType: ...
@@ -199,8 +206,12 @@ class Generator(Iterator[_T_co], Generic[_T_co, _T_contra, _V_co]):
 class Awaitable(Protocol[_T_co]):
     @abstractmethod
     def __await__(self) -> Generator[Any, None, _T_co]: ...
+    if sys.version_info >= (3, 9):
+        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 class Coroutine(Awaitable[_V_co], Generic[_T_co, _T_contra, _V_co]):
+    __name__: str
+    __qualname__: str
     @property
     def cr_await(self) -> Optional[Any]: ...
     @property
@@ -232,6 +243,8 @@ class AwaitableGenerator(
 class AsyncIterable(Protocol[_T_co]):
     @abstractmethod
     def __aiter__(self) -> AsyncIterator[_T_co]: ...
+    if sys.version_info >= (3, 9):
+        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 @runtime_checkable
 class AsyncIterator(AsyncIterable[_T_co], Protocol[_T_co]):
@@ -270,6 +283,8 @@ if sys.version_info >= (3, 6):
 class Container(Protocol[_T_co]):
     @abstractmethod
     def __contains__(self, __x: object) -> bool: ...
+    if sys.version_info >= (3, 9):
+        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 if sys.version_info >= (3, 6):
     @runtime_checkable
@@ -277,7 +292,7 @@ if sys.version_info >= (3, 6):
         # Implement Sized (but don't have it as a base class).
         @abstractmethod
         def __len__(self) -> int: ...
-    _Collection = Collection
+    _Collection = Collection[_T_co]
 else:
     @runtime_checkable
     class _Collection(Iterable[_T_co], Container[_T_co], Protocol[_T_co]):
@@ -360,6 +375,8 @@ class MutableSet(AbstractSet[_T], Generic[_T]):
 class MappingView(Sized):
     def __init__(self, mapping: Mapping[_KT_co, _VT_co]) -> None: ...  # undocumented
     def __len__(self) -> int: ...
+    if sys.version_info >= (3, 9):
+        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 class ItemsView(MappingView, AbstractSet[Tuple[_KT_co, _VT_co]], Generic[_KT_co, _VT_co]):
     def __init__(self, mapping: Mapping[_KT_co, _VT_co]) -> None: ...  # undocumented
@@ -412,7 +429,7 @@ class ContextManager(Protocol[_T_co]):
 class AsyncContextManager(Protocol[_T_co]):
     def __aenter__(self) -> Awaitable[_T_co]: ...
     def __aexit__(
-        self, exc_type: Optional[Type[BaseException]], exc_value: Optional[BaseException], traceback: Optional[TracebackType],
+        self, exc_type: Optional[Type[BaseException]], exc_value: Optional[BaseException], traceback: Optional[TracebackType]
     ) -> Awaitable[Optional[bool]]: ...
 
 class Mapping(_Collection[_KT], Generic[_KT, _VT_co]):
@@ -554,7 +571,7 @@ class Match(Generic[AnyStr]):
     @overload
     def group(self, __group: Union[str, int] = ...) -> AnyStr: ...
     @overload
-    def group(self, __group1: Union[str, int], __group2: Union[str, int], *groups: Union[str, int],) -> Tuple[AnyStr, ...]: ...
+    def group(self, __group1: Union[str, int], __group2: Union[str, int], *groups: Union[str, int]) -> Tuple[AnyStr, ...]: ...
     def groups(self, default: AnyStr = ...) -> Sequence[AnyStr]: ...
     def groupdict(self, default: AnyStr = ...) -> dict[str, AnyStr]: ...
     def start(self, __group: Union[int, str] = ...) -> int: ...
@@ -564,6 +581,8 @@ class Match(Generic[AnyStr]):
     def regs(self) -> Tuple[Tuple[int, int], ...]: ...  # undocumented
     if sys.version_info >= (3, 6):
         def __getitem__(self, g: Union[int, str]) -> AnyStr: ...
+    if sys.version_info >= (3, 9):
+        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 class Pattern(Generic[AnyStr]):
     flags: int
@@ -585,6 +604,8 @@ class Pattern(Generic[AnyStr]):
     def subn(self, repl: AnyStr, string: AnyStr, count: int = ...) -> Tuple[AnyStr, int]: ...
     @overload
     def subn(self, repl: Callable[[Match[AnyStr]], AnyStr], string: AnyStr, count: int = ...) -> Tuple[AnyStr, int]: ...
+    if sys.version_info >= (3, 9):
+        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 # Functions
 
@@ -598,7 +619,7 @@ if sys.version_info >= (3, 9):
 
 else:
     def get_type_hints(
-        obj: Callable[..., Any], globalns: Optional[Dict[str, Any]] = ..., localns: Optional[Dict[str, Any]] = ...,
+        obj: Callable[..., Any], globalns: Optional[Dict[str, Any]] = ..., localns: Optional[Dict[str, Any]] = ...
     ) -> Dict[str, Any]: ...
 
 if sys.version_info >= (3, 8):

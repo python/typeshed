@@ -4,6 +4,9 @@ from types import TracebackType
 from typing import IO, Any, AnyStr, Callable, Generic, Mapping, Optional, Sequence, Tuple, Type, TypeVar, Union, overload
 from typing_extensions import Literal
 
+if sys.version_info >= (3, 9):
+    from types import GenericAlias
+
 # We prefer to annotate inputs to methods (eg subprocess.check_call) with these
 # union types.
 # For outputs we use laborious literal based overloads to try to determine
@@ -38,6 +41,8 @@ class CompletedProcess(Generic[_T]):
     stderr: _T
     def __init__(self, args: _CMD, returncode: int, stdout: Optional[_T] = ..., stderr: Optional[_T] = ...) -> None: ...
     def check_returncode(self) -> None: ...
+    if sys.version_info >= (3, 9):
+        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 if sys.version_info >= (3, 7):
     # Nearly the same args as for 3.6, except for capture_output and text
@@ -1211,6 +1216,8 @@ class Popen(Generic[AnyStr]):
     def __exit__(
         self, type: Optional[Type[BaseException]], value: Optional[BaseException], traceback: Optional[TracebackType]
     ) -> None: ...
+    if sys.version_info >= (3, 9):
+        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 # The result really is always a str.
 def getstatusoutput(cmd: _TXT) -> Tuple[int, str]: ...

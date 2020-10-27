@@ -1,5 +1,3 @@
-"""Stub file for the '_struct' module."""
-
 from typing import Any, AnyStr, Tuple
 
 class error(Exception): ...

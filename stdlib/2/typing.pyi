@@ -1,5 +1,3 @@
-# Stubs for typing (Python 2.7)
-
 import collections  # Needed by aliases like DefaultDict, see mypy issue 2986
 from abc import ABCMeta, abstractmethod
 from types import CodeType, FrameType, TracebackType
@@ -456,7 +454,7 @@ class Pattern(Generic[AnyStr]):
 # Functions
 
 def get_type_hints(
-    obj: Callable[..., Any], globalns: Optional[Dict[Text, Any]] = ..., localns: Optional[Dict[Text, Any]] = ...,
+    obj: Callable[..., Any], globalns: Optional[Dict[Text, Any]] = ..., localns: Optional[Dict[Text, Any]] = ...
 ) -> None: ...
 @overload
 def cast(tp: Type[_T], obj: Any) -> _T: ...

@@ -1,7 +1,3 @@
-# Stubs for unittest
-
-# Based on http://docs.python.org/2.7/library/unittest.html
-
 import datetime
 import types
 from abc import ABCMeta, abstractmethod
@@ -34,9 +30,7 @@ _FT = TypeVar("_FT")
 _ExceptionType = Union[Type[BaseException], Tuple[Type[BaseException], ...]]
 _Regexp = Union[Text, Pattern[Text]]
 
-_SysExcInfoType = Union[
-    Tuple[Type[BaseException], BaseException, types.TracebackType], Tuple[None, None, None],
-]
+_SysExcInfoType = Union[Tuple[Type[BaseException], BaseException, types.TracebackType], Tuple[None, None, None]]
 
 class Testable(metaclass=ABCMeta):
     @abstractmethod
