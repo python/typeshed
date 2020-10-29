@@ -609,9 +609,12 @@ class Pattern(Generic[AnyStr]):
 
 # Functions
 
+class SupportsAnnotations(Protocol):
+    __annotations__: Dict[str, Any]
+
 if sys.version_info >= (3, 9):
     def get_type_hints(
-        obj: Callable[..., Any],
+        obj: SupportsAnnotations,
         globalns: Optional[Dict[str, Any]] = ...,
         localns: Optional[Dict[str, Any]] = ...,
         include_extras: bool = ...,
@@ -619,7 +622,7 @@ if sys.version_info >= (3, 9):
 
 else:
     def get_type_hints(
-        obj: Callable[..., Any], globalns: Optional[Dict[str, Any]] = ..., localns: Optional[Dict[str, Any]] = ...
+        obj: SupportsAnnotations, globalns: Optional[Dict[str, Any]] = ..., localns: Optional[Dict[str, Any]] = ...
     ) -> Dict[str, Any]: ...
 
 if sys.version_info >= (3, 8):

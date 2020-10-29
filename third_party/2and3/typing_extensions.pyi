@@ -16,6 +16,7 @@ from typing import (
     NewType as NewType,
     NoReturn as NoReturn,
     Optional,
+    SupportsAnnotations,
     Text as Text,
     Tuple,
     Type as Type,
@@ -83,7 +84,7 @@ if sys.version_info >= (3, 6):
     from typing import AsyncGenerator as AsyncGenerator
 
 def get_type_hints(
-    obj: Callable[..., Any],
+    obj: SupportsAnnotations,
     globalns: Optional[Dict[str, Any]] = ...,
     localns: Optional[Dict[str, Any]] = ...,
     include_extras: bool = ...,
