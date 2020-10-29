@@ -3,7 +3,21 @@ import threading
 from abc import abstractmethod
 from logging import Logger
 from types import TracebackType
-from typing import Any, Callable, Container, Generic, Iterable, Iterator, List, Optional, Protocol, Set, Tuple, TypeVar
+from typing import (
+    Any,
+    Callable,
+    Container,
+    Generic,
+    Iterable,
+    Iterator,
+    List,
+    Optional,
+    Protocol,
+    Sequence,
+    Set,
+    TypeVar,
+    overload,
+)
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
@@ -70,9 +84,18 @@ class Executor:
     def __exit__(self, exc_type: Any, exc_val: Any, exc_tb: Any) -> Optional[bool]: ...
 
 def as_completed(fs: Iterable[Future[_T]], timeout: Optional[float] = ...) -> Iterator[Future[_T]]: ...
-def wait(
-    fs: _Collection[Future[_T]], timeout: Optional[float] = ..., return_when: str = ...
-) -> Tuple[Set[Future[_T]], Set[Future[_T]]]: ...
+
+# Ideally this would be a namedtuple, but mypy doesn't support generic tuple types. See #1976
+class DoneAndNotDoneFutures(Sequence[_T]):
+    done: Set[Future[_T]]
+    not_done: Set[Future[_T]]
+    def __len__(self) -> int: ...
+    @overload
+    def __getitem__(self, i: int) -> _T: ...
+    @overload
+    def __getitem__(self, s: slice) -> DoneAndNotDoneFutures[_T]: ...
+
+def wait(fs: Iterable[Future[_T]], timeout: Optional[float] = ..., return_when: str = ...) -> DoneAndNotDoneFutures[_T]: ...
 
 class _Waiter:
     event: threading.Event
