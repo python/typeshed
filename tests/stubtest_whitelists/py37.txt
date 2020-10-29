@@ -23,6 +23,7 @@ collections.abc.AsyncGenerator.ag_frame
 collections.abc.AsyncGenerator.ag_running
 contextvars.Context.__init__
 contextvars.Context.get
+contextvars.ContextVar.get
 copy.PyStringMap
 ctypes.CDLL.__init__
 dataclasses.Field.__init__
