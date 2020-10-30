@@ -1,6 +1,5 @@
 from _typeshed import AnyPath
-from io import BinaryIO
-from typing import Generic, Iterable, List, Optional, Tuple, TypeVar, Union
+from typing import BinaryIO, Generic, Iterable, List, Optional, Tuple, TypeVar, Union
 
 from ..base import AsyncBase
 
