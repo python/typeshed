@@ -1,10 +1,10 @@
 from _typeshed import AnyPath, ReadableBuffer, WriteableBuffer
 from io import FileIO
-from typing import Generic, Iterable, List, Optional, TypeVar
+from typing import Generic, Iterable, List, Optional, TypeVar, Union
 
 from ..base import AsyncBase
 
-_FileName = TypeVar("_FileName", AnyPath, int)
+_FileName = TypeVar("_FileName", bound=Union[AnyPath, int])
 
 class _UnknownAsyncBinaryIO(AsyncBase[bytes], Generic[_FileName]):
     async def close(self) -> None: ...

@@ -3,7 +3,7 @@ from typing import BinaryIO, Generic, Iterable, List, Optional, Tuple, TypeVar, 
 
 from ..base import AsyncBase
 
-_FileName = TypeVar("_FileName", AnyPath, int)
+_FileName = TypeVar("_FileName", bound=Union[AnyPath, int])
 
 class AsyncTextIOWrapper(AsyncBase[str], Generic[_FileName]):
     async def close(self) -> None: ...
