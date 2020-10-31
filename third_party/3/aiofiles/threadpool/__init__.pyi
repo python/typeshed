@@ -4,7 +4,7 @@ from typing import Any, Callable, Optional, TypeVar, Union, overload
 from typing_extensions import Literal
 
 from ..base import AiofilesContextManager
-from .binary import AsyncBufferedIOBase, AsyncBufferedReader, AsyncFileIO
+from .binary import _UnknownAsyncBinaryIO, AsyncBufferedIOBase, AsyncBufferedReader, AsyncFileIO
 from .text import AsyncTextIOWrapper
 
 _OpenFile = TypeVar("_OpenFile", AnyPath, int)
@@ -46,16 +46,13 @@ def open(
 @overload
 def open(
     file: _OpenFile,
-    mode: Union[OpenBinaryModeUpdating, OpenBinaryModeReading],
-    buffering: int = ...,
+    mode: Union[OpenBinaryModeReading, OpenBinaryModeUpdating],
+    buffering: Literal[-1, 1] = ...,
     encoding: None = ...,
     errors: None = ...,
     newline: None = ...,
     closefd: bool = ...,
     opener: Optional[_Opener] = ...,
-    *,
-    loop: Optional[AbstractEventLoop] = ...,
-    executor: Optional[Any] = ...,
 ) -> AiofilesContextManager[None, None, AsyncBufferedReader[_OpenFile]]: ...
 
 # Buffered binary writing: AsyncBufferedIOBase
@@ -63,13 +60,23 @@ def open(
 def open(
     file: _OpenFile,
     mode: OpenBinaryModeWriting,
-    buffering: int = ...,
+    buffering: Literal[-1, 1] = ...,
     encoding: None = ...,
     errors: None = ...,
     newline: None = ...,
     closefd: bool = ...,
     opener: Optional[_Opener] = ...,
-    *,
-    loop: Optional[AbstractEventLoop] = ...,
-    executor: Optional[Any] = ...,
 ) -> AiofilesContextManager[None, None, AsyncBufferedIOBase[_OpenFile]]: ...
+
+# Buffering cannot be determined: fall back to _UnknownAsyncBinaryIO
+@overload
+def open(
+    file: _OpenFile,
+    mode: OpenBinaryMode,
+    buffering: int,
+    encoding: None = ...,
+    errors: None = ...,
+    newline: None = ...,
+    closefd: bool = ...,
+    opener: Optional[_Opener] = ...,
+) -> AiofilesContextManager[None, None, _UnknownAsyncBinaryIO[_OpenFile]]: ...
