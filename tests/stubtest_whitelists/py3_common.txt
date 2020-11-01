@@ -41,6 +41,7 @@ builtins.classmethod.__get__
 builtins.complex.__complex__
 builtins.ellipsis
 builtins.function
+builtins.list.__radd__
 builtins.memoryview.__contains__
 builtins.memoryview.__iter__
 builtins.memoryview.cast
