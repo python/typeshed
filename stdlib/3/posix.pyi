@@ -1,6 +1,6 @@
 import sys
 from os import stat_result as stat_result
-from typing import Any, Dict, List, NamedTuple, Optional, overload
+from typing import Dict, List, NamedTuple, Optional, overload
 
 if sys.version_info >= (3, 6):
     from builtins import _PathLike  # See comment in builtins
@@ -135,15 +135,19 @@ ST_WRITE: int
 
 TMP_MAX: int
 WCONTINUED: int
-WCOREDUMP: int
-WEXITSTATUS: int
-WIFCONTINUED: int
-WIFEXITED: int
-WIFSIGNALED: int
-WIFSTOPPED: int
+
+def WCOREDUMP(__status: int) -> bool: ...
+def WEXITSTATUS(status: int) -> int: ...
+def WIFCONTINUED(status: int) -> bool: ...
+def WIFEXITED(status: int) -> bool: ...
+def WIFSIGNALED(status: int) -> bool: ...
+def WIFSTOPPED(status: int) -> bool: ...
+
 WNOHANG: int
-WSTOPSIG: int
-WTERMSIG: int
+
+def WSTOPSIG(status: int) -> int: ...
+def WTERMSIG(status: int) -> int: ...
+
 WUNTRACED: int
 
 XATTR_CREATE: int
