@@ -364,6 +364,7 @@ threading.Thread.__init__
 timeit.main
 tkinter.Misc.grid_propagate
 tkinter.Misc.pack_propagate
+tkinter.Tk.report_callback_exception  # A bit of a lie, since it's actually a method, but typing it as an attribute allows it to be assigned to
 trace.CoverageResults.__init__
 traceback.FrameSummary.__init__
 traceback.TracebackException.__init__
@@ -380,6 +381,7 @@ typing.AwaitableGenerator
 typing.IO.__iter__
 typing.IO.__next__
 typing.type_check_only
+unittest.mock.patch  # It's a complicated overload and I haven't been able to figure out why stubtest doesn't like it
 urllib.error.ContentTooShortError.__init__
 urllib.error.URLError.__init__
 urllib.parse._DefragResultBase.__new__
