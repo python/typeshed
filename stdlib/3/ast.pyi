@@ -14,9 +14,16 @@ from typing_extensions import Literal
 from _ast import *  # type: ignore
 
 if sys.version_info >= (3, 8):
-    class Num(Constant): ...
-    class Str(Constant): ...
-    class Bytes(Constant): ...
+    class Num(Constant):
+        value: complex
+    class Str(Constant):
+        value: str
+        # Aliases for value, for backwards compatibility
+        s: str
+    class Bytes(Constant):
+        value: bytes
+        # Aliases for value, for backwards compatibility
+        s: bytes
     class NameConstant(Constant): ...
     class Ellipsis(Constant): ...
 
