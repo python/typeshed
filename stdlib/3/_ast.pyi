@@ -366,7 +366,7 @@ class arguments(AST):
     args: typing.List[arg]
     vararg: Optional[arg]
     kwonlyargs: typing.List[arg]
-    kw_defaults: typing.List[expr]
+    kw_defaults: typing.List[Optional[expr]] 
     kwarg: Optional[arg]
     defaults: typing.List[expr]
 
