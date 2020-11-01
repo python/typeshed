@@ -24,7 +24,7 @@ def open(
     *,
     loop: Optional[AbstractEventLoop] = ...,
     executor: Optional[Any] = ...,
-) -> AiofilesContextManager[None, None, AsyncTextIOWrapper[_OpenFile]]: ...
+) -> AiofilesContextManager[None, None, AsyncTextIOWrapper]: ...
 
 # Unbuffered binary: returns a FileIO
 @overload
@@ -40,7 +40,7 @@ def open(
     *,
     loop: Optional[AbstractEventLoop] = ...,
     executor: Optional[Any] = ...,
-) -> AiofilesContextManager[None, None, AsyncFileIO[_OpenFile]]: ...
+) -> AiofilesContextManager[None, None, AsyncFileIO]: ...
 
 # Buffered binary reading/updating: AsyncBufferedReader
 @overload
@@ -56,7 +56,7 @@ def open(
     *,
     loop: Optional[AbstractEventLoop] = ...,
     executor: Optional[Any] = ...,
-) -> AiofilesContextManager[None, None, AsyncBufferedReader[_OpenFile]]: ...
+) -> AiofilesContextManager[None, None, AsyncBufferedReader]: ...
 
 # Buffered binary writing: AsyncBufferedIOBase
 @overload
@@ -72,7 +72,7 @@ def open(
     *,
     loop: Optional[AbstractEventLoop] = ...,
     executor: Optional[Any] = ...,
-) -> AiofilesContextManager[None, None, AsyncBufferedIOBase[_OpenFile]]: ...
+) -> AiofilesContextManager[None, None, AsyncBufferedIOBase]: ...
 
 # Buffering cannot be determined: fall back to _UnknownAsyncBinaryIO
 @overload
@@ -88,4 +88,4 @@ def open(
     *,
     loop: Optional[AbstractEventLoop] = ...,
     executor: Optional[Any] = ...,
-) -> AiofilesContextManager[None, None, _UnknownAsyncBinaryIO[_OpenFile]]: ...
+) -> AiofilesContextManager[None, None, _UnknownAsyncBinaryIO]: ...
