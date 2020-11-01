@@ -53,6 +53,9 @@ def open(
     newline: None = ...,
     closefd: bool = ...,
     opener: Optional[_Opener] = ...,
+    *,
+    loop: Optional[AbstractEventLoop] = ...,
+    executor: Optional[Any] = ...,
 ) -> AiofilesContextManager[None, None, AsyncBufferedReader[_OpenFile]]: ...
 
 # Buffered binary writing: AsyncBufferedIOBase
@@ -66,6 +69,9 @@ def open(
     newline: None = ...,
     closefd: bool = ...,
     opener: Optional[_Opener] = ...,
+    *,
+    loop: Optional[AbstractEventLoop] = ...,
+    executor: Optional[Any] = ...,
 ) -> AiofilesContextManager[None, None, AsyncBufferedIOBase[_OpenFile]]: ...
 
 # Buffering cannot be determined: fall back to _UnknownAsyncBinaryIO
@@ -79,4 +85,7 @@ def open(
     newline: None = ...,
     closefd: bool = ...,
     opener: Optional[_Opener] = ...,
+    *,
+    loop: Optional[AbstractEventLoop] = ...,
+    executor: Optional[Any] = ...,
 ) -> AiofilesContextManager[None, None, _UnknownAsyncBinaryIO[_OpenFile]]: ...
