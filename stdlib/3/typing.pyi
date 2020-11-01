@@ -481,7 +481,6 @@ Text = str
 TYPE_CHECKING = True
 
 class IO(Iterator[AnyStr], Generic[AnyStr]):
-    # TODO detach
     # TODO use abstract properties
     @property
     def mode(self) -> str: ...
@@ -497,7 +496,6 @@ class IO(Iterator[AnyStr], Generic[AnyStr]):
     def flush(self) -> None: ...
     @abstractmethod
     def isatty(self) -> bool: ...
-    # TODO what if n is None?
     @abstractmethod
     def read(self, n: int = ...) -> AnyStr: ...
     @abstractmethod
@@ -516,7 +514,6 @@ class IO(Iterator[AnyStr], Generic[AnyStr]):
     def truncate(self, size: Optional[int] = ...) -> int: ...
     @abstractmethod
     def writable(self) -> bool: ...
-    # TODO buffer objects
     @abstractmethod
     def write(self, s: AnyStr) -> int: ...
     @abstractmethod
@@ -533,9 +530,6 @@ class IO(Iterator[AnyStr], Generic[AnyStr]):
     ) -> Optional[bool]: ...
 
 class BinaryIO(IO[bytes]):
-    # TODO readinto
-    # TODO read1?
-    # TODO peek?
     @abstractmethod
     def __enter__(self) -> BinaryIO: ...
 
