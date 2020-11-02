@@ -17,7 +17,7 @@ contributors can be found in [CONTRIBUTING.md](CONTRIBUTING.md).  **Please read
 it before submitting pull requests; do not report issues with annotations to
 the project the stubs are for, but instead report them here to typeshed.**
 
-Typeshed supports Python versions 2.7 and 3.5 and up.
+Typeshed supports Python versions 2.7 and 3.6 and up.
 
 ## Using
 
@@ -124,7 +124,7 @@ typed-ast, flake8 (and plugins), pytype, black and isort.
 
 ### mypy_test.py
 
-This test requires Python 3.5 or higher; Python 3.6.1 or higher is recommended.
+This test requires Python 3.6 or higher; Python 3.6.1 or higher is recommended.
 Run using:`(.venv3)$ python3 tests/mypy_test.py`
 
 This test is shallow — it verifies that all stubs can be
@@ -138,10 +138,10 @@ the mypy tests that avoids installing mypy:
 ```bash
 $ PYTHONPATH=../.. python3 tests/mypy_test.py
 ```
-You can restrict mypy tests to a single version by passing `-p2` or `-p3.5`:
+You can restrict mypy tests to a single version by passing `-p2` or `-p3.9`:
 ```bash
-$ PYTHONPATH=../.. python3 tests/mypy_test.py -p3.5
-running mypy --python-version 3.5 --strict-optional # with 342 files
+$ PYTHONPATH=../.. python3 tests/mypy_test.py -p3.9
+running mypy --python-version 3.9 --strict-optional # with 342 files
 ```
 
 ### pytype_test.py
@@ -155,7 +155,7 @@ This test works similarly to `mypy_test.py`, except it uses `pytype`.
 
 ### mypy_selftest.py
 
-This test requires Python 3.5 or higher; Python 3.6.1 or higher is recommended.
+This test requires Python 3.6 or higher; Python 3.6.1 or higher is recommended.
 Run using: `(.venv3)$ python3 tests/mypy_selftest.py`
 
 This test checks mypy's code base using mypy and typeshed code in this repo.
@@ -175,7 +175,7 @@ Run using: `python3 tests/check_consistent.py`
 
 ### stubtest_test.py
 
-This test requires Python 3.5 or higher.
+This test requires Python 3.6 or higher.
 Run using `(.venv3)$ python3 tests/stubtest_test.py`
 
 This test compares the stdlib stubs against the objects at runtime. Because of

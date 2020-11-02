@@ -14,7 +14,7 @@ from typing import List, Optional, Set, Tuple
 STDLIB_NAMESPACE = "stdlib"
 THIRD_PARTY_NAMESPACE = "stubs"
 DEFAULT_VERSION = "0.1"
-DEFAULT_PY3_VERSION = "3.5"
+DEFAULT_PY3_VERSION = "3.6"
 PY2_NAMESPACE = "python2"
 OUTPUT_DIR = "out"
 
@@ -113,7 +113,7 @@ def collect_stdlib_packages() -> Tuple[List[StdLibPackage], List[StdLibPackage]]
     add_stdlib_packages_from("stdlib/2and3", stdlib, "2.7")
     # Use oldest currently supported version for Python 3 packages/modules.
     add_stdlib_packages_from("stdlib/3", stdlib, DEFAULT_PY3_VERSION)
-    for version in ("3.6", "3.7", "3.8", "3.9"):
+    for version in ("3.7", "3.8", "3.9"):
         subdir = os.path.join("stdlib", version)
         if os.path.isdir(subdir):
             add_stdlib_packages_from(subdir, stdlib, version)
