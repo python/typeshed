@@ -1,45 +1,45 @@
 import sys
 from _typeshed import (
-AnyPath,
-FileDescriptorLike,
-OpenBinaryMode,
-OpenBinaryModeReading,
-OpenBinaryModeUpdating,
-OpenBinaryModeWriting,
-OpenTextMode,
+    AnyPath,
+    FileDescriptorLike,
+    OpenBinaryMode,
+    OpenBinaryModeReading,
+    OpenBinaryModeUpdating,
+    OpenBinaryModeWriting,
+    OpenTextMode,
 )
 from builtins import OSError, _PathLike
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper as _TextIOWrapper
 from posix import listdir as listdir, times_result
 from typing import (
-IO,
-Any,
-AnyStr,
-BinaryIO,
-Callable,
-ContextManager,
-Dict,
-Generic,
-Iterable,
-Iterator,
-List,
-Mapping,
-MutableMapping,
-NoReturn,
-Optional,
-Sequence,
-Set,
-Tuple,
-TypeVar,
-Union,
-overload,
+    IO,
+    Any,
+    AnyStr,
+    BinaryIO,
+    Callable,
+    ContextManager,
+    Dict,
+    Generic,
+    Iterable,
+    Iterator,
+    List,
+    Mapping,
+    MutableMapping,
+    NoReturn,
+    Optional,
+    Sequence,
+    Set,
+    Tuple,
+    TypeVar,
+    Union,
+    overload,
 )
 from typing_extensions import Literal
 
 from . import path as path
 
 if sys.version_info >= (3, 9):
-from types import GenericAlias
+    from types import GenericAlias
 
 # We need to use something from path, or flake8 and pytype get unhappy
 _supports_unicode_filenames = path.supports_unicode_filenames
@@ -58,69 +58,69 @@ supports_effective_ids: Set[Callable[..., Any]]
 supports_follow_symlinks: Set[Callable[..., Any]]
 
 if sys.platform != "win32":
-# Unix only
-PRIO_PROCESS: int
-PRIO_PGRP: int
-PRIO_USER: int
+    # Unix only
+    PRIO_PROCESS: int
+    PRIO_PGRP: int
+    PRIO_USER: int
 
-F_LOCK: int
-F_TLOCK: int
-F_ULOCK: int
-F_TEST: int
+    F_LOCK: int
+    F_TLOCK: int
+    F_ULOCK: int
+    F_TEST: int
 
-if sys.platform != "darwin":
-    POSIX_FADV_NORMAL: int
-    POSIX_FADV_SEQUENTIAL: int
-    POSIX_FADV_RANDOM: int
-    POSIX_FADV_NOREUSE: int
-    POSIX_FADV_WILLNEED: int
-    POSIX_FADV_DONTNEED: int
+    if sys.platform != "darwin":
+        POSIX_FADV_NORMAL: int
+        POSIX_FADV_SEQUENTIAL: int
+        POSIX_FADV_RANDOM: int
+        POSIX_FADV_NOREUSE: int
+        POSIX_FADV_WILLNEED: int
+        POSIX_FADV_DONTNEED: int
 
-SF_NODISKIO: int
-SF_MNOWAIT: int
-SF_SYNC: int
+    SF_NODISKIO: int
+    SF_MNOWAIT: int
+    SF_SYNC: int
 
-if sys.platform == "linux":
-    XATTR_SIZE_MAX: int
-    XATTR_CREATE: int
-    XATTR_REPLACE: int
+    if sys.platform == "linux":
+        XATTR_SIZE_MAX: int
+        XATTR_CREATE: int
+        XATTR_REPLACE: int
 
-P_PID: int
-P_PGID: int
-P_ALL: int
+    P_PID: int
+    P_PGID: int
+    P_ALL: int
 
-WEXITED: int
-WSTOPPED: int
-WNOWAIT: int
+    WEXITED: int
+    WSTOPPED: int
+    WNOWAIT: int
 
-CLD_EXITED: int
-CLD_DUMPED: int
-CLD_TRAPPED: int
-CLD_CONTINUED: int
+    CLD_EXITED: int
+    CLD_DUMPED: int
+    CLD_TRAPPED: int
+    CLD_CONTINUED: int
 
-SCHED_OTHER: int  # some flavors of Unix
-SCHED_BATCH: int  # some flavors of Unix
-SCHED_IDLE: int  # some flavors of Unix
-SCHED_SPORADIC: int  # some flavors of Unix
-SCHED_FIFO: int  # some flavors of Unix
-SCHED_RR: int  # some flavors of Unix
-SCHED_RESET_ON_FORK: int  # some flavors of Unix
+    SCHED_OTHER: int  # some flavors of Unix
+    SCHED_BATCH: int  # some flavors of Unix
+    SCHED_IDLE: int  # some flavors of Unix
+    SCHED_SPORADIC: int  # some flavors of Unix
+    SCHED_FIFO: int  # some flavors of Unix
+    SCHED_RR: int  # some flavors of Unix
+    SCHED_RESET_ON_FORK: int  # some flavors of Unix
 
 if sys.platform != "win32":
-RTLD_LAZY: int
-RTLD_NOW: int
-RTLD_GLOBAL: int
-RTLD_LOCAL: int
-RTLD_NODELETE: int
-RTLD_NOLOAD: int
-RTLD_DEEPBIND: int
+    RTLD_LAZY: int
+    RTLD_NOW: int
+    RTLD_GLOBAL: int
+    RTLD_LOCAL: int
+    RTLD_NODELETE: int
+    RTLD_NOLOAD: int
+    RTLD_DEEPBIND: int
 
 SEEK_SET: int
 SEEK_CUR: int
 SEEK_END: int
 if sys.platform != "win32":
-SEEK_DATA: int  # some flavors of Unix
-SEEK_HOLE: int  # some flavors of Unix
+    SEEK_DATA: int  # some flavors of Unix
+    SEEK_HOLE: int  # some flavors of Unix
 
 O_RDONLY: int
 O_WRONLY: int
@@ -161,9 +161,9 @@ curdir: str
 pardir: str
 sep: str
 if sys.platform == "win32":
-altsep: str
+    altsep: str
 else:
-altsep: Optional[str]
+    altsep: Optional[str]
 extsep: str
 pathsep: str
 defpath: str
@@ -177,99 +177,99 @@ W_OK: int
 X_OK: int
 
 class _Environ(MutableMapping[AnyStr, AnyStr], Generic[AnyStr]):
-def copy(self) -> Dict[AnyStr, AnyStr]: ...
-def __delitem__(self, key: AnyStr) -> None: ...
-def __getitem__(self, key: AnyStr) -> AnyStr: ...
-def __setitem__(self, key: AnyStr, value: AnyStr) -> None: ...
-def __iter__(self) -> Iterator[AnyStr]: ...
-def __len__(self) -> int: ...
+    def copy(self) -> Dict[AnyStr, AnyStr]: ...
+    def __delitem__(self, key: AnyStr) -> None: ...
+    def __getitem__(self, key: AnyStr) -> AnyStr: ...
+    def __setitem__(self, key: AnyStr, value: AnyStr) -> None: ...
+    def __iter__(self) -> Iterator[AnyStr]: ...
+    def __len__(self) -> int: ...
 
 environ: _Environ[str]
 if sys.platform != "win32":
-environb: _Environ[bytes]
+    environb: _Environ[bytes]
 
 if sys.platform != "win32":
-confstr_names: Dict[str, int]
-pathconf_names: Dict[str, int]
-sysconf_names: Dict[str, int]
+    confstr_names: Dict[str, int]
+    pathconf_names: Dict[str, int]
+    sysconf_names: Dict[str, int]
 
-EX_OK: int
-EX_USAGE: int
-EX_DATAERR: int
-EX_NOINPUT: int
-EX_NOUSER: int
-EX_NOHOST: int
-EX_UNAVAILABLE: int
-EX_SOFTWARE: int
-EX_OSERR: int
-EX_OSFILE: int
-EX_CANTCREAT: int
-EX_IOERR: int
-EX_TEMPFAIL: int
-EX_PROTOCOL: int
-EX_NOPERM: int
-EX_CONFIG: int
-EX_NOTFOUND: int
+    EX_OK: int
+    EX_USAGE: int
+    EX_DATAERR: int
+    EX_NOINPUT: int
+    EX_NOUSER: int
+    EX_NOHOST: int
+    EX_UNAVAILABLE: int
+    EX_SOFTWARE: int
+    EX_OSERR: int
+    EX_OSFILE: int
+    EX_CANTCREAT: int
+    EX_IOERR: int
+    EX_TEMPFAIL: int
+    EX_PROTOCOL: int
+    EX_NOPERM: int
+    EX_CONFIG: int
+    EX_NOTFOUND: int
 
 P_NOWAIT: int
 P_NOWAITO: int
 P_WAIT: int
 if sys.platform == "win32":
-P_DETACH: int
-P_OVERLAY: int
+    P_DETACH: int
+    P_OVERLAY: int
 
 # wait()/waitpid() options
 if sys.platform != "win32":
-WNOHANG: int  # Unix only
-WCONTINUED: int  # some Unix systems
-WUNTRACED: int  # Unix only
+    WNOHANG: int  # Unix only
+    WCONTINUED: int  # some Unix systems
+    WUNTRACED: int  # Unix only
 
 TMP_MAX: int  # Undocumented, but used by tempfile
 
 # ----- os classes (structures) -----
 class stat_result:
-# For backward compatibility, the return value of stat() is also
-# accessible as a tuple of at least 10 integers giving the most important
-# (and portable) members of the stat structure, in the order st_mode,
-# st_ino, st_dev, st_nlink, st_uid, st_gid, st_size, st_atime, st_mtime,
-# st_ctime. More items may be added at the end by some implementations.
+    # For backward compatibility, the return value of stat() is also
+    # accessible as a tuple of at least 10 integers giving the most important
+    # (and portable) members of the stat structure, in the order st_mode,
+    # st_ino, st_dev, st_nlink, st_uid, st_gid, st_size, st_atime, st_mtime,
+    # st_ctime. More items may be added at the end by some implementations.
 
-st_mode: int  # protection bits,
-st_ino: int  # inode number,
-st_dev: int  # device,
-st_nlink: int  # number of hard links,
-st_uid: int  # user id of owner,
-st_gid: int  # group id of owner,
-st_size: int  # size of file, in bytes,
-st_atime: float  # time of most recent access,
-st_mtime: float  # time of most recent content modification,
-st_ctime: float  # platform dependent (time of most recent metadata change on Unix, or the time of creation on Windows)
-st_atime_ns: int  # time of most recent access, in nanoseconds
-st_mtime_ns: int  # time of most recent content modification in nanoseconds
-st_ctime_ns: int  # platform dependent (time of most recent metadata change on Unix, or the time of creation on Windows) in nanoseconds
-if sys.version_info >= (3, 8) and sys.platform == "win32":
-    st_reparse_tag: int
-if sys.platform == "win32":
-    st_file_attributes: int
-def __getitem__(self, i: int) -> int: ...
-# not documented
-def __init__(self, tuple: Tuple[int, ...]) -> None: ...
-# On some Unix systems (such as Linux), the following attributes may also
-# be available:
-st_blocks: int  # number of blocks allocated for file
-st_blksize: int  # filesystem blocksize
-st_rdev: int  # type of device if an inode device
-st_flags: int  # user defined flags for file
+    st_mode: int  # protection bits,
+    st_ino: int  # inode number,
+    st_dev: int  # device,
+    st_nlink: int  # number of hard links,
+    st_uid: int  # user id of owner,
+    st_gid: int  # group id of owner,
+    st_size: int  # size of file, in bytes,
+    st_atime: float  # time of most recent access,
+    st_mtime: float  # time of most recent content modification,
+    st_ctime: float  # platform dependent (time of most recent metadata change on Unix, or the time of creation on Windows)
+    st_atime_ns: int  # time of most recent access, in nanoseconds
+    st_mtime_ns: int  # time of most recent content modification in nanoseconds
+    st_ctime_ns: int  # platform dependent (time of most recent metadata change on Unix, or the time of creation on Windows) in nanoseconds
+    if sys.version_info >= (3, 8) and sys.platform == "win32":
+        st_reparse_tag: int
+    if sys.platform == "win32":
+        st_file_attributes: int
+    def __getitem__(self, i: int) -> int: ...
+    # not documented
+    def __init__(self, tuple: Tuple[int, ...]) -> None: ...
+    # On some Unix systems (such as Linux), the following attributes may also
+    # be available:
+    st_blocks: int  # number of blocks allocated for file
+    st_blksize: int  # filesystem blocksize
+    st_rdev: int  # type of device if an inode device
+    st_flags: int  # user defined flags for file
 
-# On other Unix systems (such as FreeBSD), the following attributes may be
-# available (but may be only filled out if root tries to use them):
-st_gen: int  # file generation number
-st_birthtime: int  # time of file creation
+    # On other Unix systems (such as FreeBSD), the following attributes may be
+    # available (but may be only filled out if root tries to use them):
+    st_gen: int  # file generation number
+    st_birthtime: int  # time of file creation
 
-# On Mac OS systems, the following attributes may also be available:
-st_rsize: int
-st_creator: int
-st_type: int
+    # On Mac OS systems, the following attributes may also be available:
+    st_rsize: int
+    st_creator: int
+    st_type: int
 
 PathLike = _PathLike  # See comment in builtins
 

@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-=======
-# Originally by Ron Murawski <ron@horizonchess.com>, 'bytes' support added by Jukka Lehtosalo
-
 import enum
->>>>>>> Drop support for Python 3.5
 import sys
 from typing import Any, AnyStr, Callable, Iterator, List, Optional, Tuple, Union, overload
 

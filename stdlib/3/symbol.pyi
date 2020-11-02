@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-import sys
-=======
->>>>>>> Drop support for Python 3.5
 from typing import Dict
 
 single_input: int
