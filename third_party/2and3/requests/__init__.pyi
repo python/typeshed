@@ -14,6 +14,7 @@ from .api import (
 from .exceptions import (
     ConnectionError as ConnectionError,
     HTTPError as HTTPError,
+    ReadTimeout as ReadTimeout,
     RequestException as RequestException,
     Timeout as Timeout,
     TooManyRedirects as TooManyRedirects,
