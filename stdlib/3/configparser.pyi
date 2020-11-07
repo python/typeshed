@@ -1,156 +1,142 @@
-# Based on http://docs.python.org/3.5/library/configparser.html and on
-# reading configparser.py.
-
 import sys
-from typing import (AbstractSet, MutableMapping, Mapping, Dict, Sequence, List,
-                    Union, Iterable, Iterator, Callable, Any, IO, overload,
-                    Optional, Pattern, Type, TypeVar, ClassVar)
-# Types only used in type comments only
-from typing import Optional, Tuple  # noqa
-
-if sys.version_info >= (3, 6):
-    from os import PathLike
+from _typeshed import AnyPath, StrPath, SupportsWrite
+from typing import (
+    AbstractSet,
+    Any,
+    Callable,
+    ClassVar,
+    Dict,
+    Iterable,
+    Iterator,
+    List,
+    Mapping,
+    MutableMapping,
+    Optional,
+    Pattern,
+    Sequence,
+    Tuple,
+    Type,
+    TypeVar,
+    Union,
+    overload,
+)
 
 # Internal type aliases
 _section = Mapping[str, str]
 _parser = MutableMapping[str, _section]
 _converter = Callable[[str], Any]
 _converters = Dict[str, _converter]
-_T = TypeVar('_T')
+_T = TypeVar("_T")
 
 if sys.version_info >= (3, 7):
-    _Path = Union[str, bytes, PathLike[str]]
-elif sys.version_info >= (3, 6):
-    _Path = Union[str, PathLike[str]]
+    _Path = AnyPath
 else:
-    _Path = str
+    _Path = StrPath
 
 DEFAULTSECT: str
 MAX_INTERPOLATION_DEPTH: int
 
 class Interpolation:
-    def before_get(self, parser: _parser,
-                   section: str,
-                   option: str,
-                   value: str,
-                   defaults: _section) -> str: ...
-
-    def before_set(self, parser: _parser,
-                   section: str,
-                   option: str,
-                   value: str) -> str: ...
-
-    def before_read(self, parser: _parser,
-                    section: str,
-                    option: str,
-                    value: str) -> str: ...
-
-    def before_write(self, parser: _parser,
-                     section: str,
-                     option: str,
-                     value: str) -> str: ...
-
+    def before_get(self, parser: _parser, section: str, option: str, value: str, defaults: _section) -> str: ...
+    def before_set(self, parser: _parser, section: str, option: str, value: str) -> str: ...
+    def before_read(self, parser: _parser, section: str, option: str, value: str) -> str: ...
+    def before_write(self, parser: _parser, section: str, option: str, value: str) -> str: ...
 
 class BasicInterpolation(Interpolation): ...
 class ExtendedInterpolation(Interpolation): ...
 class LegacyInterpolation(Interpolation): ...
 
-
 class RawConfigParser(_parser):
+    _SECT_TMPL: ClassVar[str] = ...  # Undocumented
+    _OPT_TMPL: ClassVar[str] = ...  # Undocumented
+    _OPT_NV_TMPL: ClassVar[str] = ...  # Undocumented
+
+    SECTCRE: Pattern[str] = ...
+    OPTCRE: ClassVar[Pattern[str]] = ...
+    OPTCRE_NV: ClassVar[Pattern[str]] = ...  # Undocumented
+    NONSPACECRE: ClassVar[Pattern[str]] = ...  # Undocumented
+
     BOOLEAN_STATES: ClassVar[Mapping[str, bool]] = ...  # Undocumented
-    def __init__(self,
-                 defaults: Optional[_section] = ...,
-                 dict_type: Type[Mapping[str, str]] = ...,
-                 allow_no_value: bool = ...,
-                 *,
-                 delimiters: Sequence[str] = ...,
-                 comment_prefixes: Sequence[str] = ...,
-                 inline_comment_prefixes: Optional[Sequence[str]] = ...,
-                 strict: bool = ...,
-                 empty_lines_in_values: bool = ...,
-                 default_section: str = ...,
-                 interpolation: Optional[Interpolation] = ...) -> None: ...
-
+    default_section: str
+    def __init__(
+        self,
+        defaults: Optional[_section] = ...,
+        dict_type: Type[Mapping[str, str]] = ...,
+        allow_no_value: bool = ...,
+        *,
+        delimiters: Sequence[str] = ...,
+        comment_prefixes: Sequence[str] = ...,
+        inline_comment_prefixes: Optional[Sequence[str]] = ...,
+        strict: bool = ...,
+        empty_lines_in_values: bool = ...,
+        default_section: str = ...,
+        interpolation: Optional[Interpolation] = ...,
+        converters: _converters = ...,
+    ) -> None: ...
     def __len__(self) -> int: ...
-
     def __getitem__(self, section: str) -> SectionProxy: ...
-
     def __setitem__(self, section: str, options: _section) -> None: ...
-
     def __delitem__(self, section: str) -> None: ...
-
     def __iter__(self) -> Iterator[str]: ...
-
     def defaults(self) -> _section: ...
-
     def sections(self) -> List[str]: ...
-
     def add_section(self, section: str) -> None: ...
-
     def has_section(self, section: str) -> bool: ...
-
     def options(self, section: str) -> List[str]: ...
-
     def has_option(self, section: str, option: str) -> bool: ...
-
-    def read(self, filenames: Union[_Path, Iterable[_Path]],
-             encoding: Optional[str] = ...) -> List[str]: ...
+    def read(self, filenames: Union[_Path, Iterable[_Path]], encoding: Optional[str] = ...) -> List[str]: ...
     def read_file(self, f: Iterable[str], source: Optional[str] = ...) -> None: ...
     def read_string(self, string: str, source: str = ...) -> None: ...
-    def read_dict(self, dictionary: Mapping[str, Mapping[str, Any]],
-                  source: str = ...) -> None: ...
+    def read_dict(self, dictionary: Mapping[str, Mapping[str, Any]], source: str = ...) -> None: ...
     def readfp(self, fp: Iterable[str], filename: Optional[str] = ...) -> None: ...
-
     # These get* methods are partially applied (with the same names) in
     # SectionProxy; the stubs should be kept updated together
-    def getint(self, section: str, option: str, *, raw: bool = ..., vars: Optional[_section] = ..., fallback: int = ...) -> int: ...
-
-    def getfloat(self, section: str, option: str, *, raw: bool = ..., vars: Optional[_section] = ..., fallback: float = ...) -> float: ...
-
-    def getboolean(self, section: str, option: str, *, raw: bool = ..., vars: Optional[_section] = ..., fallback: bool = ...) -> bool: ...
-
-    def _get_conv(self, section: str, option: str, conv: Callable[[str], _T], *, raw: bool = ..., vars: Optional[_section] = ..., fallback: _T = ...) -> _T: ...
-
+    @overload
+    def getint(self, section: str, option: str, *, raw: bool = ..., vars: Optional[_section] = ...) -> int: ...
+    @overload
+    def getint(
+        self, section: str, option: str, *, raw: bool = ..., vars: Optional[_section] = ..., fallback: _T = ...
+    ) -> Union[int, _T]: ...
+    @overload
+    def getfloat(self, section: str, option: str, *, raw: bool = ..., vars: Optional[_section] = ...) -> float: ...
+    @overload
+    def getfloat(
+        self, section: str, option: str, *, raw: bool = ..., vars: Optional[_section] = ..., fallback: _T = ...
+    ) -> Union[float, _T]: ...
+    @overload
+    def getboolean(self, section: str, option: str, *, raw: bool = ..., vars: Optional[_section] = ...) -> bool: ...
+    @overload
+    def getboolean(
+        self, section: str, option: str, *, raw: bool = ..., vars: Optional[_section] = ..., fallback: _T = ...
+    ) -> Union[bool, _T]: ...
+    def _get_conv(
+        self,
+        section: str,
+        option: str,
+        conv: Callable[[str], _T],
+        *,
+        raw: bool = ...,
+        vars: Optional[_section] = ...,
+        fallback: _T = ...,
+    ) -> _T: ...
     # This is incompatible with MutableMapping so we ignore the type
     @overload  # type: ignore
     def get(self, section: str, option: str, *, raw: bool = ..., vars: Optional[_section] = ...) -> str: ...
-
     @overload
-    def get(self, section: str, option: str, *, raw: bool = ..., vars: Optional[_section] = ..., fallback: _T) -> Union[str, _T]: ...
-
+    def get(
+        self, section: str, option: str, *, raw: bool = ..., vars: Optional[_section] = ..., fallback: _T
+    ) -> Union[str, _T]: ...
     @overload
     def items(self, *, raw: bool = ..., vars: Optional[_section] = ...) -> AbstractSet[Tuple[str, SectionProxy]]: ...
-
     @overload
     def items(self, section: str, raw: bool = ..., vars: Optional[_section] = ...) -> List[Tuple[str, str]]: ...
-
-    def set(self, section: str, option: str, value: str) -> None: ...
-
-    def write(self,
-              fileobject: IO[str],
-              space_around_delimiters: bool = ...) -> None: ...
-
+    def set(self, section: str, option: str, value: Optional[str] = ...) -> None: ...
+    def write(self, fp: SupportsWrite[str], space_around_delimiters: bool = ...) -> None: ...
     def remove_option(self, section: str, option: str) -> bool: ...
-
     def remove_section(self, section: str) -> bool: ...
+    def optionxform(self, optionstr: str) -> str: ...
 
-    def optionxform(self, option: str) -> str: ...
-
-
-class ConfigParser(RawConfigParser):
-    def __init__(self,
-                 defaults: Optional[_section] = ...,
-                 dict_type: Type[Mapping[str, str]] = ...,
-                 allow_no_value: bool = ...,
-                 delimiters: Sequence[str] = ...,
-                 comment_prefixes: Sequence[str] = ...,
-                 inline_comment_prefixes: Optional[Sequence[str]] = ...,
-                 strict: bool = ...,
-                 empty_lines_in_values: bool = ...,
-                 default_section: str = ...,
-                 interpolation: Optional[Interpolation] = ...,
-                 converters: _converters = ...) -> None: ...
-
+class ConfigParser(RawConfigParser): ...
 class SafeConfigParser(ConfigParser): ...
 
 class SectionProxy(MutableMapping[str, str]):
@@ -165,14 +151,25 @@ class SectionProxy(MutableMapping[str, str]):
     def parser(self) -> RawConfigParser: ...
     @property
     def name(self) -> str: ...
-    def get(self, option: str, fallback: Optional[str] = ..., *, raw: bool = ..., vars: Optional[_section] = ..., **kwargs: Any) -> str: ...  # type: ignore
-
+    def get(self, option: str, fallback: Optional[str] = ..., *, raw: bool = ..., vars: Optional[_section] = ..., _impl: Optional[Any] = ..., **kwargs: Any) -> str: ...  # type: ignore
     # These are partially-applied version of the methods with the same names in
     # RawConfigParser; the stubs should be kept updated together
-    def getint(self, option: str, *, raw: bool = ..., vars: Optional[_section] = ..., fallback: int = ...) -> int: ...
-    def getfloat(self, option: str, *, raw: bool = ..., vars: Optional[_section] = ..., fallback: float = ...) -> float: ...
-    def getboolean(self, option: str, *, raw: bool = ..., vars: Optional[_section] = ..., fallback: bool = ...) -> bool: ...
-
+    @overload
+    def getint(self, option: str, *, raw: bool = ..., vars: Optional[_section] = ...) -> int: ...
+    @overload
+    def getint(self, option: str, *, raw: bool = ..., vars: Optional[_section] = ..., fallback: _T = ...) -> Union[int, _T]: ...
+    @overload
+    def getfloat(self, option: str, *, raw: bool = ..., vars: Optional[_section] = ...) -> float: ...
+    @overload
+    def getfloat(
+        self, option: str, *, raw: bool = ..., vars: Optional[_section] = ..., fallback: _T = ...
+    ) -> Union[float, _T]: ...
+    @overload
+    def getboolean(self, option: str, *, raw: bool = ..., vars: Optional[_section] = ...) -> bool: ...
+    @overload
+    def getboolean(
+        self, option: str, *, raw: bool = ..., vars: Optional[_section] = ..., fallback: _T = ...
+    ) -> Union[bool, _T]: ...
     # SectionProxy can have arbitrary attributes when custon converters are used
     def __getattr__(self, key: str) -> Callable[..., Any]: ...
 
@@ -185,51 +182,53 @@ class ConverterMapping(MutableMapping[str, Optional[_converter]]):
     def __iter__(self) -> Iterator[str]: ...
     def __len__(self) -> int: ...
 
+class Error(Exception):
+    message: str
+    def __init__(self, msg: str = ...) -> None: ...
 
-class Error(Exception): ...
-
-
-class NoSectionError(Error): ...
-
+class NoSectionError(Error):
+    section: str
+    def __init__(self, section: str) -> None: ...
 
 class DuplicateSectionError(Error):
     section: str
     source: Optional[str]
     lineno: Optional[int]
-
+    def __init__(self, section: str, source: Optional[str] = ..., lineno: Optional[int] = ...) -> None: ...
 
 class DuplicateOptionError(Error):
     section: str
     option: str
     source: Optional[str]
     lineno: Optional[int]
-
+    def __init__(self, section: str, option: str, source: Optional[str] = ..., lineno: Optional[str] = ...) -> None: ...
 
 class NoOptionError(Error):
     section: str
     option: str
-
+    def __init__(self, option: str, section: str) -> None: ...
 
 class InterpolationError(Error):
     section: str
     option: str
+    def __init__(self, option: str, section: str, msg: str) -> None: ...
 
-
-class InterpolationDepthError(InterpolationError): ...
-
+class InterpolationDepthError(InterpolationError):
+    def __init__(self, option: str, section: str, rawval: object) -> None: ...
 
 class InterpolationMissingOptionError(InterpolationError):
     reference: str
-
+    def __init__(self, option: str, section: str, rawval: object, reference: str) -> None: ...
 
 class InterpolationSyntaxError(InterpolationError): ...
 
-
 class ParsingError(Error):
     source: str
-    errors: Sequence[Tuple[int, str]]
-
+    errors: List[Tuple[int, str]]
+    def __init__(self, source: Optional[str] = ..., filename: Optional[str] = ...) -> None: ...
+    def append(self, lineno: int, line: str) -> None: ...
 
 class MissingSectionHeaderError(ParsingError):
     lineno: int
     line: str
+    def __init__(self, filename: str, lineno: int, line: str) -> None: ...

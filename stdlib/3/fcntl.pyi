@@ -1,6 +1,8 @@
-# Stubs for fcntl
-from io import IOBase
-from typing import Any, IO, Union
+import sys
+from _typeshed import FileDescriptorLike
+from array import array
+from typing import Any, Union, overload
+from typing_extensions import Literal
 
 FASYNC: int
 FD_CLOEXEC: int
@@ -32,6 +34,10 @@ F_SETLK: int
 F_SETLK64: int
 F_SETLKW: int
 F_SETLKW64: int
+if sys.version_info >= (3, 9) and sys.platform == "linux":
+    F_OFD_GETLK: int
+    F_OFD_SETLK: int
+    F_OFD_SETLKW: int
 F_SETOWN: int
 F_SETSIG: int
 F_SHLCK: int
@@ -74,23 +80,20 @@ LOCK_RW: int
 LOCK_SH: int
 LOCK_UN: int
 LOCK_WRITE: int
+@overload
+def fcntl(__fd: FileDescriptorLike, __cmd: int, __arg: int = ...) -> int: ...
+@overload
+def fcntl(__fd: FileDescriptorLike, __cmd: int, __arg: bytes) -> bytes: ...
 
-_AnyFile = Union[int, IO[Any], IOBase]
-
-# TODO All these return either int or bytes depending on the value of
-# cmd (not on the type of arg).
-def fcntl(fd: _AnyFile,
-          cmd: int,
-          arg: Union[int, bytes] = ...) -> Any: ...
-# TODO This function accepts any object supporting a buffer interface,
-# as arg, is there a better way to express this than bytes?
-def ioctl(fd: _AnyFile,
-          request: int,
-          arg: Union[int, bytes] = ...,
-          mutate_flag: bool = ...) -> Any: ...
-def flock(fd: _AnyFile, operation: int) -> None: ...
-def lockf(fd: _AnyFile,
-          cmd: int,
-          len: int = ...,
-          start: int = ...,
-          whence: int = ...) -> Any: ...
+_ReadOnlyBuffer = bytes
+_WritableBuffer = Union[bytearray, memoryview, array]
+@overload
+def ioctl(__fd: FileDescriptorLike, __request: int, __arg: int = ..., __mutate_flag: bool = ...) -> int: ...
+@overload
+def ioctl(__fd: FileDescriptorLike, __request: int, __arg: _WritableBuffer, __mutate_flag: Literal[True] = ...) -> int: ...
+@overload
+def ioctl(__fd: FileDescriptorLike, __request: int, __arg: _WritableBuffer, __mutate_flag: Literal[False]) -> bytes: ...
+@overload
+def ioctl(__fd: FileDescriptorLike, __request: int, __arg: _ReadOnlyBuffer, __mutate_flag: bool = ...) -> bytes: ...
+def flock(__fd: FileDescriptorLike, __operation: int) -> None: ...
+def lockf(__fd: FileDescriptorLike, __cmd: int, __len: int = ..., __start: int = ..., __whence: int = ...) -> Any: ...

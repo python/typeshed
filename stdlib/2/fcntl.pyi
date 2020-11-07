@@ -1,5 +1,5 @@
-from typing import Any, Union, IO
-import io
+from _typeshed import FileDescriptorLike
+from typing import Any, Union
 
 FASYNC: int
 FD_CLOEXEC: int
@@ -72,16 +72,11 @@ LOCK_SH: int
 LOCK_UN: int
 LOCK_WRITE: int
 
-_ANYFILE = Union[int, IO]
-
 # TODO All these return either int or bytes depending on the value of
 # cmd (not on the type of arg).
-def fcntl(fd: _ANYFILE, op: int, arg: Union[int, bytes] = ...) -> Any: ...
+def fcntl(fd: FileDescriptorLike, op: int, arg: Union[int, bytes] = ...) -> Any: ...
 
 # TODO: arg: int or read-only buffer interface or read-write buffer interface
-def ioctl(fd: _ANYFILE, op: int, arg: Union[int, bytes] = ...,
-          mutate_flag: bool = ...) -> Any: ...
-
-def flock(fd: _ANYFILE, op: int) -> None: ...
-def lockf(fd: _ANYFILE, op: int, length: int = ..., start: int = ...,
-          whence: int = ...) -> Any: ...
+def ioctl(fd: FileDescriptorLike, op: int, arg: Union[int, bytes] = ..., mutate_flag: bool = ...) -> Any: ...
+def flock(fd: FileDescriptorLike, op: int) -> None: ...
+def lockf(fd: FileDescriptorLike, op: int, length: int = ..., start: int = ..., whence: int = ...) -> Any: ...

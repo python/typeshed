@@ -1,6 +1,6 @@
 # TODO(MichalPokorny): more precise types
 
-from typing import Any, List, Tuple
+from typing import Any, List, Text, Tuple
 
 GLOBAL_ACK_EINTR: int
 GLOBAL_ALL: int
@@ -21,13 +21,16 @@ class error(Exception): ...
 class Curl(object):
     def close(self) -> None: ...
     def setopt(self, option: int, value: Any) -> None: ...
+    def setopt_string(self, option: int, value: str) -> None: ...
     def perform(self) -> None: ...
+    def perform_rb(self) -> bytes: ...
+    def perform_rs(self) -> Text: ...
     def getinfo(self, info: Any) -> Any: ...
+    def getinfo_raw(self, info: Any) -> Any: ...
     def reset(self) -> None: ...
     def unsetopt(self, option: int) -> Any: ...
     def pause(self, bitmask: Any) -> Any: ...
     def errstr(self) -> str: ...
-
     # TODO(MichalPokorny): wat?
     USERPWD: int
 
@@ -39,6 +42,7 @@ class CurlMulti(object):
     def fdset(self) -> Tuple[List[Any], List[Any], List[Any]]: ...
     def select(self, timeout: float = ...) -> int: ...
     def info_read(self, max_objects: int = ...) -> Tuple[int, List[Any], List[Any]]: ...
+    def socket_action(self, sockfd: int, ev_bitmask: int) -> Tuple[int, int]: ...
 
 class CurlShare(object):
     def close(self) -> None: ...
@@ -54,7 +58,6 @@ BUFFERSIZE: int
 CAINFO: int
 CAPATH: int
 CLOSESOCKETFUNCTION: int
-COMPILE_DATE: str
 COMPILE_LIBCURL_VERSION_NUM: int
 COMPILE_PY_VERSION_HEX: int
 CONDITION_UNMET: int
@@ -62,6 +65,7 @@ CONNECTTIMEOUT: int
 CONNECTTIMEOUT_MS: int
 CONNECT_ONLY: int
 CONNECT_TIME: int
+CONNECT_TO: int
 CONTENT_LENGTH_DOWNLOAD: int
 CONTENT_LENGTH_UPLOAD: int
 CONTENT_TYPE: int
@@ -84,6 +88,7 @@ CURL_HTTP_VERSION_LAST: int
 CURL_HTTP_VERSION_NONE: int
 CUSTOMREQUEST: int
 DEBUGFUNCTION: int
+DEFAULT_PROTOCOL: int
 DIRLISTONLY: int
 DNS_CACHE_TIMEOUT: int
 DNS_SERVERS: int
@@ -177,6 +182,7 @@ INFOTYPE_TEXT: int
 INFO_CERTINFO: int
 INFO_COOKIELIST: int
 INFO_FILETIME: int
+INFO_HTTP_VERSION: int
 INFO_RTSP_CLIENT_CSEQ: int
 INFO_RTSP_CSEQ_RECV: int
 INFO_RTSP_SERVER_CSEQ: int
@@ -184,7 +190,6 @@ INFO_RTSP_SESSION_ID: int
 INTERFACE: int
 IOCMD_NOP: int
 IOCMD_RESTARTREAD: int
-IOCTLDATA: int
 IOCTLFUNCTION: int
 IOE_FAILRESTART: int
 IOE_OK: int
@@ -254,7 +259,14 @@ NOSIGNAL: int
 NUM_CONNECTS: int
 OPENSOCKETFUNCTION: int
 OPT_CERTINFO: int
+OPT_COOKIELIST: int
 OPT_FILETIME: int
+OPT_RTSP_CLIENT_CSEQ: int
+OPT_RTSP_REQUEST: int
+OPT_RTSP_SERVER_CSEQ: int
+OPT_RTSP_SESSION_ID: int
+OPT_RTSP_STREAM_URI: int
+OPT_RTSP_TRANSPORT: int
 OS_ERRNO: int
 PASSWORD: int
 PATH_AS_IS: int
@@ -264,7 +276,6 @@ PAUSE_RECV: int
 PAUSE_SEND: int
 PINNEDPUBLICKEY: int
 PIPEWAIT: int
-PIPE_HTTP1: int
 PIPE_MULTIPLEX: int
 PIPE_NOTHING: int
 POLL_IN: int
@@ -282,6 +293,7 @@ POSTQUOTE: int
 POSTREDIR: int
 PREQUOTE: int
 PRETRANSFER_TIME: int
+PRE_PROXY: int
 PRIMARY_IP: int
 PRIMARY_PORT: int
 PROGRESSFUNCTION: int
@@ -330,7 +342,15 @@ PROXYTYPE_SOCKS5: int
 PROXYTYPE_SOCKS5_HOSTNAME: int
 PROXYUSERNAME: int
 PROXYUSERPWD: int
+PROXY_CAINFO: int
+PROXY_CAPATH: int
 PROXY_SERVICE_NAME: int
+PROXY_SSLCERT: int
+PROXY_SSLCERTTYPE: int
+PROXY_SSLKEY: int
+PROXY_SSLKEYTYPE: int
+PROXY_SSL_VERIFYHOST: int
+PROXY_SSL_VERIFYPEER: int
 PROXY_TRANSFER_MODE: int
 PUT: int
 QUOTE: int
@@ -354,6 +374,19 @@ RESOLVE: int
 RESPONSE_CODE: int
 RESUME_FROM: int
 RESUME_FROM_LARGE: int
+RTSPREQ_ANNOUNCE: int
+RTSPREQ_DESCRIBE: int
+RTSPREQ_GET_PARAMETER: int
+RTSPREQ_LAST: int
+RTSPREQ_NONE: int
+RTSPREQ_OPTIONS: int
+RTSPREQ_PAUSE: int
+RTSPREQ_PLAY: int
+RTSPREQ_RECEIVE: int
+RTSPREQ_RECORD: int
+RTSPREQ_SETUP: int
+RTSPREQ_SET_PARAMETER: int
+RTSPREQ_TEARDOWN: int
 SASL_IR: int
 SEEKFUNCTION: int
 SEEKFUNC_CANTSEEK: int
@@ -365,6 +398,7 @@ SH_SHARE: int
 SH_UNSHARE: int
 SIZE_DOWNLOAD: int
 SIZE_UPLOAD: int
+SOCKET_BAD: int
 SOCKET_TIMEOUT: int
 SOCKOPTFUNCTION: int
 SOCKOPT_ALREADY_CONNECTED: int
@@ -376,6 +410,7 @@ SOCKTYPE_ACCEPT: int
 SOCKTYPE_IPCXN: int
 SPEED_DOWNLOAD: int
 SPEED_UPLOAD: int
+SSH_AUTH_AGENT: int
 SSH_AUTH_ANY: int
 SSH_AUTH_DEFAULT: int
 SSH_AUTH_HOST: int
@@ -398,6 +433,7 @@ SSLKEY: int
 SSLKEYPASSWD: int
 SSLKEYTYPE: int
 SSLOPT_ALLOW_BEAST: int
+SSLOPT_NO_REVOKE: int
 SSLVERSION: int
 SSLVERSION_DEFAULT: int
 SSLVERSION_SSLv2: int
@@ -406,6 +442,7 @@ SSLVERSION_TLSv1: int
 SSLVERSION_TLSv1_0: int
 SSLVERSION_TLSv1_1: int
 SSLVERSION_TLSv1_2: int
+SSLVERSION_MAX_DEFAULT: int
 SSL_CIPHER_LIST: int
 SSL_ENABLE_ALPN: int
 SSL_ENABLE_NPN: int
@@ -419,6 +456,7 @@ SSL_VERIFYRESULT: int
 SSL_VERIFYSTATUS: int
 STARTTRANSFER_TIME: int
 STDERR: int
+TCP_FASTOPEN: int
 TCP_KEEPALIVE: int
 TCP_KEEPIDLE: int
 TCP_KEEPINTVL: int
@@ -456,6 +494,7 @@ VERSION_ASYNCHDNS: int
 VERSION_CONV: int
 VERSION_CURLDEBUG: int
 VERSION_DEBUG: int
+VERSION_FIRST: int
 VERSION_GSSAPI: int
 VERSION_GSSNEGOTIATE: int
 VERSION_HTTP2: int
@@ -467,6 +506,7 @@ VERSION_LARGEFILE: int
 VERSION_LIBZ: int
 VERSION_NTLM: int
 VERSION_NTLM_WB: int
+VERSION_PSL: int
 VERSION_SPNEGO: int
 VERSION_SSL: int
 VERSION_SSPI: int

@@ -1,3 +1,4 @@
+import typing
 from typing import Any, Optional
 
 class Impossible(Exception): ...
@@ -54,6 +55,10 @@ class If(Stmt):
 
 class Macro(Stmt):
     fields: Any
+    name: str
+    args: typing.List[Any]
+    defaults: typing.List[Any]
+    body: typing.List[Any]
 
 class CallBlock(Stmt):
     fields: Any

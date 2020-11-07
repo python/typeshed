@@ -1,4 +1,6 @@
-from typing import Any
+import sys
+from typing import Any, Callable, Dict, List, Optional
+
 from tornado import httputil
 
 MIN_SUPPORTED_SIGNED_VALUE_VERSION: Any
@@ -6,24 +8,31 @@ MAX_SUPPORTED_SIGNED_VALUE_VERSION: Any
 DEFAULT_SIGNED_VALUE_VERSION: Any
 DEFAULT_SIGNED_VALUE_MIN_VERSION: Any
 
+if sys.version_info >= (3, 5):
+    from typing import Awaitable
+
+    _MethodType = Callable[..., Optional[Awaitable[None]]]
+else:
+    _MethodType = Callable[..., Any]
+
 class RequestHandler:
     SUPPORTED_METHODS: Any
-    application: Any
-    request: Any
-    path_args: Any
-    path_kwargs: Any
+    application: Application
+    request: httputil.HTTPServerRequest
+    path_args: List[str]
+    path_kwargs: Dict[str, str]
     ui: Any
     def __init__(self, application, request, **kwargs) -> None: ...
-    def initialize(self): ...
+    initialize: Callable[..., None] = ...
     @property
     def settings(self): ...
-    def head(self, *args, **kwargs): ...
-    def get(self, *args, **kwargs): ...
-    def post(self, *args, **kwargs): ...
-    def delete(self, *args, **kwargs): ...
-    def patch(self, *args, **kwargs): ...
-    def put(self, *args, **kwargs): ...
-    def options(self, *args, **kwargs): ...
+    head: _MethodType
+    get: _MethodType
+    post: _MethodType
+    delete: _MethodType
+    patch: _MethodType
+    put: _MethodType
+    options: _MethodType
     def prepare(self): ...
     def on_finish(self): ...
     def on_connection_close(self): ...

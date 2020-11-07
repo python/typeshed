@@ -1,8 +1,8 @@
-from google.protobuf.internal.containers import RepeatedCompositeFieldContainer
-from google.protobuf.internal import well_known_types
+from typing import Iterable, List, Mapping, MutableMapping, Optional, Text, Tuple
 
+from google.protobuf.internal import well_known_types
+from google.protobuf.internal.containers import RepeatedCompositeFieldContainer
 from google.protobuf.message import Message
-from typing import Iterable, List, Mapping, MutableMapping, Optional, Text, Tuple, cast
 
 class NullValue(int):
     @classmethod

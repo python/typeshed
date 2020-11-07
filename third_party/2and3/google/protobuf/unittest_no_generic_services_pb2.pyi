@@ -1,5 +1,6 @@
+from typing import List, Optional, Tuple
+
 from google.protobuf.message import Message
-from typing import List, Optional, Tuple, cast
 
 class TestEnum(int):
     @classmethod

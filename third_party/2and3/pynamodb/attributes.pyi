@@ -1,11 +1,10 @@
-from typing import Any, Callable, Dict, Generic, Iterable, List, Mapping, Optional, Text, Type, TypeVar, Union, Set
-
 from datetime import datetime
+from typing import Any, Callable, Dict, Generic, Iterable, List, Mapping, Optional, Set, Text, Type, TypeVar, Union
 
-_T = TypeVar('_T')
-_KT = TypeVar('_KT')
-_VT = TypeVar('_VT')
-_MT = TypeVar('_MT', bound=MapAttribute[Any, Any])
+_T = TypeVar("_T")
+_KT = TypeVar("_KT")
+_VT = TypeVar("_VT")
+_MT = TypeVar("_MT", bound=MapAttribute[Any, Any])
 
 class Attribute(Generic[_T]):
     attr_name: Optional[Text]
@@ -14,7 +13,14 @@ class Attribute(Generic[_T]):
     default: Any
     is_hash_key: bool
     is_range_key: bool
-    def __init__(self, hash_key: bool = ..., range_key: bool = ..., null: Optional[bool] = ..., default: Optional[Union[_T, Callable[..., _T]]] = ..., attr_name: Optional[Text] = ...) -> None: ...
+    def __init__(
+        self,
+        hash_key: bool = ...,
+        range_key: bool = ...,
+        null: Optional[bool] = ...,
+        default: Optional[Union[_T, Callable[..., _T]]] = ...,
+        attr_name: Optional[Text] = ...,
+    ) -> None: ...
     def __set__(self, instance: Any, value: Optional[_T]) -> None: ...
     def serialize(self, value: Any) -> Any: ...
     def deserialize(self, value: Any) -> Any: ...
@@ -75,9 +81,17 @@ class NullAttribute(Attribute[None]):
 class MapAttributeMeta(type):
     def __init__(self, name, bases, attrs) -> None: ...
 
-class MapAttribute(Generic[_KT, _VT], Attribute[Mapping[_KT, _VT]], metaclass=MapAttributeMeta):
+class MapAttribute(Attribute[Mapping[_KT, _VT]], metaclass=MapAttributeMeta):
     attribute_values: Any
-    def __init__(self, hash_key: bool = ..., range_key: bool = ..., null: Optional[bool] = ..., default: Optional[Union[Any, Callable[..., Any]]] = ..., attr_name: Optional[Text] = ..., **attrs) -> None: ...
+    def __init__(
+        self,
+        hash_key: bool = ...,
+        range_key: bool = ...,
+        null: Optional[bool] = ...,
+        default: Optional[Union[Any, Callable[..., Any]]] = ...,
+        attr_name: Optional[Text] = ...,
+        **attrs,
+    ) -> None: ...
     def __iter__(self) -> Iterable[_VT]: ...
     def __getattr__(self, attr: str) -> _VT: ...
     def __getitem__(self, item: _KT) -> _VT: ...
@@ -86,9 +100,17 @@ class MapAttribute(Generic[_KT, _VT], Attribute[Mapping[_KT, _VT]], metaclass=Ma
     def is_type_safe(self, key: Any, value: Any) -> bool: ...
     def validate(self) -> bool: ...
 
-class ListAttribute(Generic[_T], Attribute[List[_T]]):
+class ListAttribute(Attribute[List[_T]]):
     element_type: Any
-    def __init__(self, hash_key: bool = ..., range_key: bool = ..., null: Optional[bool] = ..., default: Optional[Union[Any, Callable[..., Any]]] = ..., attr_name: Optional[Text] = ..., of: Optional[Type[_T]] = ...) -> None: ...
+    def __init__(
+        self,
+        hash_key: bool = ...,
+        range_key: bool = ...,
+        null: Optional[bool] = ...,
+        default: Optional[Union[Any, Callable[..., Any]]] = ...,
+        attr_name: Optional[Text] = ...,
+        of: Optional[Type[_T]] = ...,
+    ) -> None: ...
     def __get__(self, instance: Any, owner: Any) -> List[_T]: ...
 
 DESERIALIZE_CLASS_MAP: Dict[Text, Attribute[Any]]

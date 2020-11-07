@@ -1,4 +1,4 @@
-from typing import List, Dict
+from typing import Dict, List
 
 CELL: int
 DEF_BOUND: int
@@ -22,8 +22,7 @@ TYPE_FUNCTION: int
 TYPE_MODULE: int
 USE: int
 
-class _symtable_entry(object):
-    ...
+class _symtable_entry(object): ...
 
 class symtable(object):
     children: List[_symtable_entry]
@@ -35,5 +34,4 @@ class symtable(object):
     symbols: Dict[str, int]
     type: int
     varnames: List[str]
-
     def __init__(self, src: str, filename: str, startstr: str) -> None: ...

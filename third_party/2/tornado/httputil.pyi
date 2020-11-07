@@ -1,4 +1,4 @@
-from typing import Any, Dict, NamedTuple
+from typing import Any, Dict, List, NamedTuple, Optional
 
 from tornado.util import ObjectDict
 
@@ -29,21 +29,24 @@ class HTTPHeaders(Dict[Any, Any]):
     def __deepcopy__(self, memo_dict): ...
 
 class HTTPServerRequest:
-    method: Any
-    uri: Any
-    version: Any
-    headers: Any
-    body: Any
+    path: str
+    query: str
+    method: Optional[str]
+    uri: Optional[str]
+    version: str
+    headers: HTTPHeaders
+    body: bytes
     remote_ip: Any
     protocol: Any
-    host: Any
-    files: Any
-    connection: Any
-    arguments: Any
-    query_arguments: Any
-    body_arguments: Any
-    def __init__(self, method=..., uri=..., version=..., headers=..., body=..., host=..., files=..., connection=...,
-                 start_line=...) -> None: ...
+    host: str
+    files: Dict[str, List[HTTPFile]]
+    connection: Optional[HTTPConnection]
+    arguments: Dict[str, List[bytes]]
+    query_arguments: Dict[str, List[bytes]]
+    body_arguments: Dict[str, List[bytes]]
+    def __init__(
+        self, method=..., uri=..., version=..., headers=..., body=..., host=..., files=..., connection=..., start_line=...
+    ) -> None: ...
     def supports_http_1_1(self): ...
     @property
     def cookies(self): ...

@@ -1,25 +1,38 @@
-from profile import Profile
-from cProfile import Profile as _cProfile
-import os
 import sys
-from typing import Any, Dict, IO, Iterable, List, Text, Tuple, TypeVar, Union, overload
+from _typeshed import AnyPath
+from cProfile import Profile as _cProfile
+from profile import Profile
+from typing import IO, Any, Dict, Iterable, List, Optional, Text, Tuple, TypeVar, Union, overload
 
 _Selector = Union[str, float, int]
-_T = TypeVar('_T', bound=Stats)
-if sys.version_info >= (3, 6):
-    _Path = Union[bytes, Text, os.PathLike[Any]]
-else:
-    _Path = Union[bytes, Text]
+_T = TypeVar("_T", bound=Stats)
+
+if sys.version_info >= (3, 7):
+    from enum import Enum
+    class SortKey(str, Enum):
+        CALLS: str
+        CUMULATIVE: str
+        FILENAME: str
+        LINE: str
+        NAME: str
+        NFL: str
+        PCALLS: str
+        STDNAME: str
+        TIME: str
 
 class Stats:
-    def __init__(self: _T, __arg: Union[None, str, Text, Profile, _cProfile] = ...,
-                 *args: Union[None, str, Text, Profile, _cProfile, _T],
-                 stream: IO[Any] = ...) -> None: ...
+    sort_arg_dict_default: Dict[str, Tuple[Any, str]]
+    def __init__(
+        self: _T,
+        __arg: Union[None, str, Text, Profile, _cProfile] = ...,
+        *args: Union[None, str, Text, Profile, _cProfile, _T],
+        stream: Optional[IO[Any]] = ...,
+    ) -> None: ...
     def init(self, arg: Union[None, str, Text, Profile, _cProfile]) -> None: ...
     def load_stats(self, arg: Union[None, str, Text, Profile, _cProfile]) -> None: ...
     def get_top_level_stats(self) -> None: ...
     def add(self: _T, *arg_list: Union[None, str, Text, Profile, _cProfile, _T]) -> _T: ...
-    def dump_stats(self, filename: _Path) -> None: ...
+    def dump_stats(self, filename: AnyPath) -> None: ...
     def get_sort_arg_defs(self) -> Dict[str, Tuple[Tuple[Tuple[int, int], ...], str]]: ...
     @overload
     def sort_stats(self: _T, field: int) -> _T: ...

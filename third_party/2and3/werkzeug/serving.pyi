@@ -2,11 +2,20 @@ import sys
 from typing import Any, Optional
 
 if sys.version_info < (3,):
-    from SocketServer import ThreadingMixIn, ForkingMixIn
-    from BaseHTTPServer import HTTPServer, BaseHTTPRequestHandler
+    from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
+    from SocketServer import ThreadingMixIn
 else:
-    from socketserver import ThreadingMixIn, ForkingMixIn
-    from http.server import HTTPServer, BaseHTTPRequestHandler
+    from http.server import BaseHTTPRequestHandler, HTTPServer
+    from socketserver import ThreadingMixIn
+
+if sys.platform == "win32":
+    class ForkingMixIn(object): ...
+
+else:
+    if sys.version_info < (3,):
+        from SocketServer import ForkingMixIn as ForkingMixIn
+    else:
+        from socketserver import ForkingMixIn as ForkingMixIn
 
 class _SslDummy:
     def __getattr__(self, name): ...
@@ -64,8 +73,16 @@ class BaseWSGIServer(HTTPServer):
     socket: Any
     server_address: Any
     ssl_context: Any
-    def __init__(self, host, port, app, handler: Optional[Any] = ..., passthrough_errors: bool = ...,
-                 ssl_context: Optional[Any] = ..., fd: Optional[Any] = ...): ...
+    def __init__(
+        self,
+        host,
+        port,
+        app,
+        handler: Optional[Any] = ...,
+        passthrough_errors: bool = ...,
+        ssl_context: Optional[Any] = ...,
+        fd: Optional[Any] = ...,
+    ): ...
     def log(self, type, message, *args): ...
     def serve_forever(self): ...
     def handle_error(self, request, client_address): ...
@@ -78,16 +95,46 @@ class ThreadedWSGIServer(ThreadingMixIn, BaseWSGIServer):
 class ForkingWSGIServer(ForkingMixIn, BaseWSGIServer):
     multiprocess: Any
     max_children: Any
-    def __init__(self, host, port, app, processes: int = ..., handler: Optional[Any] = ..., passthrough_errors: bool = ...,
-                 ssl_context: Optional[Any] = ..., fd: Optional[Any] = ...): ...
+    def __init__(
+        self,
+        host,
+        port,
+        app,
+        processes: int = ...,
+        handler: Optional[Any] = ...,
+        passthrough_errors: bool = ...,
+        ssl_context: Optional[Any] = ...,
+        fd: Optional[Any] = ...,
+    ): ...
 
-def make_server(host: Optional[Any] = ..., port: Optional[Any] = ..., app: Optional[Any] = ..., threaded: bool = ...,
-                processes: int = ..., request_handler: Optional[Any] = ..., passthrough_errors: bool = ...,
-                ssl_context: Optional[Any] = ..., fd: Optional[Any] = ...): ...
+def make_server(
+    host: Optional[Any] = ...,
+    port: Optional[Any] = ...,
+    app: Optional[Any] = ...,
+    threaded: bool = ...,
+    processes: int = ...,
+    request_handler: Optional[Any] = ...,
+    passthrough_errors: bool = ...,
+    ssl_context: Optional[Any] = ...,
+    fd: Optional[Any] = ...,
+): ...
 def is_running_from_reloader(): ...
-def run_simple(hostname, port, application, use_reloader: bool = ..., use_debugger: bool = ..., use_evalex: bool = ...,
-               extra_files: Optional[Any] = ..., reloader_interval: int = ..., reloader_type: str = ..., threaded: bool = ...,
-               processes: int = ..., request_handler: Optional[Any] = ..., static_files: Optional[Any] = ...,
-               passthrough_errors: bool = ..., ssl_context: Optional[Any] = ...): ...
+def run_simple(
+    hostname,
+    port,
+    application,
+    use_reloader: bool = ...,
+    use_debugger: bool = ...,
+    use_evalex: bool = ...,
+    extra_files: Optional[Any] = ...,
+    reloader_interval: int = ...,
+    reloader_type: str = ...,
+    threaded: bool = ...,
+    processes: int = ...,
+    request_handler: Optional[Any] = ...,
+    static_files: Optional[Any] = ...,
+    passthrough_errors: bool = ...,
+    ssl_context: Optional[Any] = ...,
+): ...
 def run_with_reloader(*args, **kwargs): ...
 def main(): ...

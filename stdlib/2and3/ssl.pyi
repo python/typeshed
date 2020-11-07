@@ -1,12 +1,9 @@
-# Stubs for ssl
-
-from typing import (
-    Any, Callable, ClassVar, Dict, List, NamedTuple, Optional, Set, Text, Type, Tuple, Union,
-)
 import enum
 import socket
 import sys
-import os
+from _typeshed import StrPath
+from typing import Any, Callable, ClassVar, Dict, Iterable, List, NamedTuple, Optional, Set, Text, Tuple, Type, Union, overload
+from typing_extensions import Literal
 
 _PCTRTT = Tuple[Tuple[str, str], ...]
 _PCTRTTT = Tuple[_PCTRTT, ...]
@@ -14,11 +11,6 @@ _PeerCertRetDictType = Dict[str, Union[str, _PCTRTTT, _PCTRTT]]
 _PeerCertRetType = Union[_PeerCertRetDictType, bytes, None]
 _EnumRetType = List[Tuple[bytes, str, Union[Set[str], bool]]]
 _PasswordType = Union[Callable[[], Union[str, bytes]], str, bytes]
-
-if sys.version_info < (3, 6):
-    _Path = Text
-else:
-    _Path = Union[str, os.PathLike[Any]]
 
 if sys.version_info >= (3, 5):
     _SC1ArgT = Union[SSLSocket, SSLObject]
@@ -29,6 +21,7 @@ _SrvnmeCbType = Callable[[_SC1ArgT, Optional[str], SSLSocket], Optional[int]]
 class SSLError(OSError):
     library: str
     reason: str
+
 class SSLZeroReturnError(SSLError): ...
 class SSLWantReadError(SSLError): ...
 class SSLWantWriteError(SSLError): ...
@@ -39,54 +32,69 @@ if sys.version_info >= (3, 7):
     class SSLCertVerificationError(SSLError, ValueError):
         verify_code: int
         verify_message: str
-
     CertificateError = SSLCertVerificationError
 else:
     class CertificateError(ValueError): ...
 
-
-def wrap_socket(sock: socket.socket, keyfile: Optional[str] = ...,
-                certfile: Optional[str] = ..., server_side: bool = ...,
-                cert_reqs: int = ..., ssl_version: int = ...,
-                ca_certs: Optional[str] = ...,
-                do_handshake_on_connect: bool = ...,
-                suppress_ragged_eofs: bool = ...,
-                ciphers: Optional[str] = ...) -> SSLSocket: ...
-
-
+def wrap_socket(
+    sock: socket.socket,
+    keyfile: Optional[str] = ...,
+    certfile: Optional[str] = ...,
+    server_side: bool = ...,
+    cert_reqs: int = ...,
+    ssl_version: int = ...,
+    ca_certs: Optional[str] = ...,
+    do_handshake_on_connect: bool = ...,
+    suppress_ragged_eofs: bool = ...,
+    ciphers: Optional[str] = ...,
+) -> SSLSocket: ...
 def create_default_context(
-    purpose: Any = ...,
-    *,
-    cafile: Optional[str] = ...,
-    capath: Optional[str] = ...,
-    cadata: Union[Text, bytes, None] = ...,
+    purpose: Any = ..., *, cafile: Optional[str] = ..., capath: Optional[str] = ..., cadata: Union[Text, bytes, None] = ...
 ) -> SSLContext: ...
 
-def _create_unverified_context(protocol: int = ..., *,
-                               cert_reqs: int = ...,
-                               check_hostname: bool = ...,
-                               purpose: Any = ...,
-                               certfile: Optional[str] = ...,
-                               keyfile: Optional[str] = ...,
-                               cafile: Optional[str] = ...,
-                               capath: Optional[str] = ...,
-                               cadata: Union[Text, bytes, None] = ...) -> SSLContext: ...
+if sys.version_info >= (3, 7):
+    def _create_unverified_context(
+        protocol: int = ...,
+        *,
+        cert_reqs: int = ...,
+        check_hostname: bool = ...,
+        purpose: Any = ...,
+        certfile: Optional[str] = ...,
+        keyfile: Optional[str] = ...,
+        cafile: Optional[str] = ...,
+        capath: Optional[str] = ...,
+        cadata: Union[Text, bytes, None] = ...,
+    ) -> SSLContext: ...
+
+else:
+    def _create_unverified_context(
+        protocol: int = ...,
+        *,
+        cert_reqs: Optional[int] = ...,
+        check_hostname: bool = ...,
+        purpose: Any = ...,
+        certfile: Optional[str] = ...,
+        keyfile: Optional[str] = ...,
+        cafile: Optional[str] = ...,
+        capath: Optional[str] = ...,
+        cadata: Union[Text, bytes, None] = ...,
+    ) -> SSLContext: ...
+
 _create_default_https_context: Callable[..., SSLContext]
 
 if sys.version_info >= (3, 3):
-    def RAND_bytes(num: int) -> bytes: ...
-    def RAND_pseudo_bytes(num: int) -> Tuple[bytes, bool]: ...
+    def RAND_bytes(__num: int) -> bytes: ...
+    def RAND_pseudo_bytes(__num: int) -> Tuple[bytes, bool]: ...
+
 def RAND_status() -> bool: ...
 def RAND_egd(path: str) -> None: ...
-def RAND_add(bytes: bytes, entropy: float) -> None: ...
-
-
+def RAND_add(__s: bytes, __entropy: float) -> None: ...
 def match_hostname(cert: _PeerCertRetType, hostname: str) -> None: ...
 def cert_time_to_seconds(cert_time: str) -> int: ...
-def get_server_certificate(addr: Tuple[str, int], ssl_version: int = ...,
-                           ca_certs: Optional[str] = ...) -> str: ...
+def get_server_certificate(addr: Tuple[str, int], ssl_version: int = ..., ca_certs: Optional[str] = ...) -> str: ...
 def DER_cert_to_PEM_cert(der_cert_bytes: bytes) -> str: ...
 def PEM_cert_to_DER_cert(pem_cert_string: str) -> bytes: ...
+
 class DefaultVerifyPaths(NamedTuple):
     cafile: str
     capath: str
@@ -94,12 +102,12 @@ class DefaultVerifyPaths(NamedTuple):
     openssl_cafile: str
     openssl_capath_env: str
     openssl_capath: str
+
 def get_default_verify_paths() -> DefaultVerifyPaths: ...
 
-if sys.platform == 'win32':
+if sys.platform == "win32":
     def enum_certificates(store_name: str) -> _EnumRetType: ...
     def enum_crls(store_name: str) -> _EnumRetType: ...
-
 
 CERT_NONE: int
 CERT_OPTIONAL: int
@@ -117,26 +125,66 @@ PROTOCOL_SSLv3: int
 PROTOCOL_TLSv1: int
 PROTOCOL_TLSv1_1: int
 PROTOCOL_TLSv1_2: int
-if sys.version_info >= (3, 5):
-    PROTOCOL_TLS: int
+PROTOCOL_TLS: int
 if sys.version_info >= (3, 6):
     PROTOCOL_TLS_CLIENT: int
     PROTOCOL_TLS_SERVER: int
 
-OP_ALL: int
-OP_NO_SSLv2: int
-OP_NO_SSLv3: int
-OP_NO_TLSv1: int
-OP_NO_TLSv1_1: int
-OP_NO_TLSv1_2: int
-OP_CIPHER_SERVER_PREFERENCE: int
-OP_SINGLE_DH_USE: int
-OP_SINGLE_ECDH_USE: int
-OP_NO_COMPRESSION: int
 if sys.version_info >= (3, 6):
-    OP_NO_TICKET: int
+    class Options(enum.IntFlag):
+        OP_ALL: int
+        OP_NO_SSLv2: int
+        OP_NO_SSLv3: int
+        OP_NO_TLSv1: int
+        OP_NO_TLSv1_1: int
+        OP_NO_TLSv1_2: int
+        OP_CIPHER_SERVER_PREFERENCE: int
+        OP_SINGLE_DH_USE: int
+        OP_SINGLE_ECDH_USE: int
+        OP_NO_COMPRESSION: int
+        OP_NO_TICKET: int
+        if sys.version_info >= (3, 7):
+            OP_NO_RENEGOTIATION: int
+            OP_NO_TLSv1_3: int
+        if sys.version_info >= (3, 8):
+            OP_ENABLE_MIDDLEBOX_COMPAT: int
+    OP_ALL: Options
+    OP_NO_SSLv2: Options
+    OP_NO_SSLv3: Options
+    OP_NO_TLSv1: Options
+    OP_NO_TLSv1_1: Options
+    OP_NO_TLSv1_2: Options
+    OP_CIPHER_SERVER_PREFERENCE: Options
+    OP_SINGLE_DH_USE: Options
+    OP_SINGLE_ECDH_USE: Options
+    OP_NO_COMPRESSION: Options
+    OP_NO_TICKET: Options
+    if sys.version_info >= (3, 7):
+        OP_NO_RENEGOTIATION: Options
+        OP_NO_TLSv1_3: Options
+    if sys.version_info >= (3, 8):
+        OP_ENABLE_MIDDLEBOX_COMPAT: Options
+else:
+    OP_ALL: int
+    OP_NO_SSLv2: int
+    OP_NO_SSLv3: int
+    OP_NO_TLSv1: int
+    OP_NO_TLSv1_1: int
+    OP_NO_TLSv1_2: int
+    OP_CIPHER_SERVER_PREFERENCE: int
+    OP_SINGLE_DH_USE: int
+    OP_SINGLE_ECDH_USE: int
+    OP_NO_COMPRESSION: int
 
-HAS_ALPN: int
+if sys.version_info >= (3, 7):
+    HAS_NEVER_CHECK_COMMON_NAME: bool
+    HAS_SSLv2: bool
+    HAS_SSLv3: bool
+    HAS_TLSv1: bool
+    HAS_TLSv1_1: bool
+    HAS_TLSv1_2: bool
+    HAS_TLSv1_3: bool
+HAS_ALPN: bool
 HAS_ECDH: bool
 HAS_SNI: bool
 HAS_NPN: bool
@@ -179,10 +227,12 @@ class _ASN1Object(NamedTuple):
     shortname: str
     longname: str
     oid: str
+
 if sys.version_info < (3,):
     class Purpose(_ASN1Object):
         SERVER_AUTH: ClassVar[Purpose]
         CLIENT_AUTH: ClassVar[Purpose]
+
 else:
     class Purpose(_ASN1Object, enum.Enum):
         SERVER_AUTH: _ASN1Object
@@ -195,19 +245,23 @@ class SSLSocket(socket.socket):
     if sys.version_info >= (3, 6):
         session: Optional[SSLSession]
         session_reused: Optional[bool]
-
-    def read(self, len: int = ...,
-             buffer: Optional[bytearray] = ...) -> bytes: ...
-    def write(self, buf: bytes) -> int: ...
-    def do_handshake(self) -> None: ...
-    def getpeercert(self, binary_form: bool = ...) -> _PeerCertRetType: ...
-    def cipher(self) -> Tuple[str, int, int]: ...
+    def read(self, len: int = ..., buffer: Optional[bytearray] = ...) -> bytes: ...
+    def write(self, data: bytes) -> int: ...
+    def do_handshake(self, block: bool = ...) -> None: ...  # block is undocumented
+    @overload
+    def getpeercert(self, binary_form: Literal[False] = ...) -> Optional[_PeerCertRetDictType]: ...
+    @overload
+    def getpeercert(self, binary_form: Literal[True]) -> Optional[bytes]: ...
+    @overload
+    def getpeercert(self, binary_form: bool) -> _PeerCertRetType: ...
+    def cipher(self) -> Optional[Tuple[str, str, int]]: ...
     if sys.version_info >= (3, 5):
-        def shared_cipher(self) -> Optional[List[Tuple[str, int, int]]]: ...
+        def shared_ciphers(self) -> Optional[List[Tuple[str, str, int]]]: ...
     def compression(self) -> Optional[str]: ...
     def get_channel_binding(self, cb_type: str = ...) -> Optional[bytes]: ...
     def selected_alpn_protocol(self) -> Optional[str]: ...
     def selected_npn_protocol(self) -> Optional[str]: ...
+    def accept(self) -> Tuple[SSLSocket, socket._RetAddress]: ...
     def unwrap(self) -> socket.socket: ...
     def version(self) -> Optional[str]: ...
     def pending(self) -> int: ...
@@ -226,7 +280,10 @@ if sys.version_info >= (3, 7):
 
 class SSLContext:
     check_hostname: bool
-    options: int
+    if sys.version_info >= (3, 6):
+        options: Options
+    else:
+        options: int
     if sys.version_info >= (3, 8):
         post_handshake_auth: bool
     @property
@@ -238,40 +295,64 @@ class SSLContext:
     else:
         def __init__(self, protocol: int) -> None: ...
     def cert_store_stats(self) -> Dict[str, int]: ...
-    def load_cert_chain(self, certfile: _Path, keyfile: Optional[_Path] = ...,
-                        password: _PasswordType = ...) -> None: ...
+    def load_cert_chain(
+        self, certfile: StrPath, keyfile: Optional[StrPath] = ..., password: Optional[_PasswordType] = ...
+    ) -> None: ...
     def load_default_certs(self, purpose: Purpose = ...) -> None: ...
     def load_verify_locations(
-        self,
-        cafile: Optional[str] = ...,
-        capath: Optional[str] = ...,
-        cadata: Union[Text, bytes, None] = ...,
+        self, cafile: Optional[StrPath] = ..., capath: Optional[StrPath] = ..., cadata: Union[Text, bytes, None] = ...
     ) -> None: ...
     def get_ca_certs(self, binary_form: bool = ...) -> Union[List[_PeerCertRetDictType], List[bytes]]: ...
     def set_default_verify_paths(self) -> None: ...
-    def set_ciphers(self, ciphers: str) -> None: ...
-    def set_alpn_protocols(self, protocols: List[str]) -> None: ...
+    def set_ciphers(self, __cipherlist: str) -> None: ...
+    def set_alpn_protocols(self, alpn_protocols: Iterable[str]) -> None: ...
     if sys.version_info >= (3, 7):
         sni_callback: Optional[Callable[[SSLObject, str, SSLContext], Union[None, int]]]
         sslobject_class: Type[SSLObject]
-    def set_npn_protocols(self, protocols: List[str]) -> None: ...
-    def set_servername_callback(self,
-                                server_name_callback: Optional[_SrvnmeCbType]) -> None: ...
-    def load_dh_params(self, dhfile: str) -> None: ...
-    def set_ecdh_curve(self, curve_name: str) -> None: ...
-    def wrap_socket(self, sock: socket.socket, server_side: bool = ...,
-                    do_handshake_on_connect: bool = ...,
-                    suppress_ragged_eofs: bool = ...,
-                    server_hostname: Optional[str] = ...) -> SSLSocket: ...
-    if sys.version_info >= (3, 5):
-        def wrap_bio(self, incoming: MemoryBIO, outgoing: MemoryBIO,
-                     server_side: bool = ...,
-                     server_hostname: Optional[str] = ...) -> SSLObject: ...
+    def set_npn_protocols(self, npn_protocols: Iterable[str]) -> None: ...
+    if sys.version_info >= (3, 7):
+        def set_servername_callback(self, server_name_callback: Optional[_SrvnmeCbType]) -> None: ...
+    else:
+        def set_servername_callback(self, __method: Optional[_SrvnmeCbType]) -> None: ...
+    def load_dh_params(self, __path: str) -> None: ...
+    def set_ecdh_curve(self, __name: str) -> None: ...
+    if sys.version_info >= (3, 6):
+        def wrap_socket(
+            self,
+            sock: socket.socket,
+            server_side: bool = ...,
+            do_handshake_on_connect: bool = ...,
+            suppress_ragged_eofs: bool = ...,
+            server_hostname: Optional[str] = ...,
+            session: Optional[SSLSession] = ...,
+        ) -> SSLSocket: ...
+    else:
+        def wrap_socket(
+            self,
+            sock: socket.socket,
+            server_side: bool = ...,
+            do_handshake_on_connect: bool = ...,
+            suppress_ragged_eofs: bool = ...,
+            server_hostname: Optional[str] = ...,
+        ) -> SSLSocket: ...
+    if sys.version_info >= (3, 6):
+        def wrap_bio(
+            self,
+            incoming: MemoryBIO,
+            outgoing: MemoryBIO,
+            server_side: bool = ...,
+            server_hostname: Optional[str] = ...,
+            session: Optional[SSLSession] = ...,
+        ) -> SSLObject: ...
+    elif sys.version_info >= (3, 5):
+        def wrap_bio(
+            self, incoming: MemoryBIO, outgoing: MemoryBIO, server_side: bool = ..., server_hostname: Optional[str] = ...
+        ) -> SSLObject: ...
     def session_stats(self) -> Dict[str, int]: ...
     if sys.version_info >= (3, 7):
+        hostname_checks_common_name: bool
         maximum_version: TLSVersion
         minimum_version: TLSVersion
-
 
 if sys.version_info >= (3, 5):
     class SSLObject:
@@ -281,26 +362,31 @@ if sys.version_info >= (3, 5):
         if sys.version_info >= (3, 6):
             session: Optional[SSLSession]
             session_reused: bool
-        def read(self, len: int = ...,
-                 buffer: Optional[bytearray] = ...) -> bytes: ...
-        def write(self, buf: bytes) -> int: ...
-        def getpeercert(self, binary_form: bool = ...) -> _PeerCertRetType: ...
+        def read(self, len: int = ..., buffer: Optional[bytearray] = ...) -> bytes: ...
+        def write(self, data: bytes) -> int: ...
+        @overload
+        def getpeercert(self, binary_form: Literal[False] = ...) -> Optional[_PeerCertRetDictType]: ...
+        @overload
+        def getpeercert(self, binary_form: Literal[True]) -> Optional[bytes]: ...
+        @overload
+        def getpeercert(self, binary_form: bool) -> _PeerCertRetType: ...
+        def selected_alpn_protocol(self) -> Optional[str]: ...
         def selected_npn_protocol(self) -> Optional[str]: ...
-        def cipher(self) -> Tuple[str, int, int]: ...
-        def shared_cipher(self) -> Optional[List[Tuple[str, int, int]]]: ...
+        def cipher(self) -> Optional[Tuple[str, str, int]]: ...
+        def shared_ciphers(self) -> Optional[List[Tuple[str, str, int]]]: ...
         def compression(self) -> Optional[str]: ...
         def pending(self) -> int: ...
         def do_handshake(self) -> None: ...
         def unwrap(self) -> None: ...
+        def version(self) -> Optional[str]: ...
         def get_channel_binding(self, cb_type: str = ...) -> Optional[bytes]: ...
         if sys.version_info >= (3, 8):
             def verify_client_post_handshake(self) -> None: ...
-
     class MemoryBIO:
         pending: int
         eof: bool
-        def read(self, n: int = ...) -> bytes: ...
-        def write(self, buf: bytes) -> int: ...
+        def read(self, __size: int = ...) -> bytes: ...
+        def write(self, __buf: bytes) -> int: ...
         def write_eof(self) -> None: ...
 
 if sys.version_info >= (3, 6):
@@ -310,14 +396,12 @@ if sys.version_info >= (3, 6):
         timeout: int
         ticket_lifetime_hint: int
         has_ticket: bool
-
     class VerifyFlags(enum.IntFlag):
         VERIFY_DEFAULT: int
         VERIFY_CRL_CHECK_LEAF: int
         VERIFY_CRL_CHECK_CHAIN: int
         VERIFY_X509_STRICT: int
         VERIFY_X509_TRUSTED_FIRST: int
-
     class VerifyMode(enum.IntEnum):
         CERT_NONE: int
         CERT_OPTIONAL: int

@@ -1,6 +1,7 @@
-from typing import Any, Dict, Tuple, List, Text, NoReturn, Optional, Protocol, Type, Union, Iterable
+import datetime
+from _typeshed.wsgi import StartResponse, WSGIEnvironment
+from typing import Any, Dict, Iterable, List, NoReturn, Optional, Protocol, Text, Tuple, Type, Union
 
-from wsgiref.types import WSGIEnvironment, StartResponse
 from werkzeug.wrappers import Response
 
 class _EnvironContainer(Protocol):
@@ -116,11 +117,24 @@ class Locked(HTTPException):
     code: int
     description: Text
 
+class FailedDependency(HTTPException):
+    code: int
+    description: Text
+
 class PreconditionRequired(HTTPException):
     code: int
     description: Text
 
-class TooManyRequests(HTTPException):
+class _RetryAfter(HTTPException):
+    retry_after: Union[None, int, datetime.datetime]
+    def __init__(
+        self,
+        description: Optional[Text] = ...,
+        response: Optional[Response] = ...,
+        retry_after: Union[None, int, datetime.datetime] = ...,
+    ) -> None: ...
+
+class TooManyRequests(_RetryAfter):
     code: int
     description: Text
 
@@ -133,6 +147,9 @@ class UnavailableForLegalReasons(HTTPException):
     description: Text
 
 class InternalServerError(HTTPException):
+    def __init__(
+        self, description: Optional[Text] = ..., response: Optional[Response] = ..., original_exception: Optional[Exception] = ...
+    ) -> None: ...
     code: int
     description: Text
 
@@ -144,7 +161,7 @@ class BadGateway(HTTPException):
     code: int
     description: Text
 
-class ServiceUnavailable(HTTPException):
+class ServiceUnavailable(_RetryAfter):
     code: int
     description: Text
 

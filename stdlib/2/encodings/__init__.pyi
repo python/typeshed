@@ -1,6 +1,7 @@
 import codecs
+from typing import Any
 
-import typing
+def search_function(encoding: str) -> codecs.CodecInfo: ...
 
-def search_function(encoding: str) -> codecs.CodecInfo:
-    ...
+# Explicitly mark this package as incomplete.
+def __getattr__(name: str) -> Any: ...

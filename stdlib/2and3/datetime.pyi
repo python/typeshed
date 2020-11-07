@@ -1,6 +1,6 @@
 import sys
 from time import struct_time
-from typing import AnyStr, Optional, SupportsAbs, Tuple, Union, overload, ClassVar, Type, TypeVar
+from typing import AnyStr, ClassVar, Optional, SupportsAbs, Tuple, Type, TypeVar, Union, overload
 
 _S = TypeVar("_S")
 
@@ -23,7 +23,6 @@ if sys.version_info >= (3, 2):
         utc: ClassVar[timezone]
         min: ClassVar[timezone]
         max: ClassVar[timezone]
-
         def __init__(self, offset: timedelta, name: str = ...) -> None: ...
         def __hash__(self) -> int: ...
 
@@ -33,11 +32,9 @@ class date:
     min: ClassVar[date]
     max: ClassVar[date]
     resolution: ClassVar[timedelta]
-
-    def __init__(self, year: int, month: int, day: int) -> None: ...
-
+    def __new__(cls: Type[_S], year: int, month: int, day: int) -> _S: ...
     @classmethod
-    def fromtimestamp(cls: Type[_S], t: float) -> _S: ...
+    def fromtimestamp(cls: Type[_S], __timestamp: float) -> _S: ...
     @classmethod
     def today(cls: Type[_S]) -> _S: ...
     @classmethod
@@ -48,14 +45,12 @@ class date:
     if sys.version_info >= (3, 8):
         @classmethod
         def fromisocalendar(cls: Type[_S], year: int, week: int, day: int) -> _S: ...
-
     @property
     def year(self) -> int: ...
     @property
     def month(self) -> int: ...
     @property
     def day(self) -> int: ...
-
     def ctime(self) -> str: ...
     def strftime(self, fmt: _Text) -> str: ...
     if sys.version_info >= (3,):
@@ -72,8 +67,10 @@ class date:
     def __gt__(self, other: date) -> bool: ...
     if sys.version_info >= (3, 8):
         def __add__(self: _S, other: timedelta) -> _S: ...
+        def __radd__(self: _S, other: timedelta) -> _S: ...
     else:
         def __add__(self, other: timedelta) -> date: ...
+        def __radd__(self, other: timedelta) -> date: ...
     @overload
     def __sub__(self, other: timedelta) -> date: ...
     @overload
@@ -89,12 +86,20 @@ class time:
     resolution: ClassVar[timedelta]
 
     if sys.version_info >= (3, 6):
-        def __init__(self, hour: int = ..., minute: int = ..., second: int = ..., microsecond: int = ...,
-                     tzinfo: Optional[_tzinfo] = ..., *, fold: int = ...) -> None: ...
+        def __init__(
+            self,
+            hour: int = ...,
+            minute: int = ...,
+            second: int = ...,
+            microsecond: int = ...,
+            tzinfo: Optional[_tzinfo] = ...,
+            *,
+            fold: int = ...,
+        ) -> None: ...
     else:
-        def __init__(self, hour: int = ..., minute: int = ..., second: int = ..., microsecond: int = ...,
-                     tzinfo: Optional[_tzinfo] = ...) -> None: ...
-
+        def __init__(
+            self, hour: int = ..., minute: int = ..., second: int = ..., microsecond: int = ..., tzinfo: Optional[_tzinfo] = ...
+        ) -> None: ...
     @property
     def hour(self) -> int: ...
     @property
@@ -108,13 +113,15 @@ class time:
     if sys.version_info >= (3, 6):
         @property
         def fold(self) -> int: ...
-
     def __le__(self, other: time) -> bool: ...
     def __lt__(self, other: time) -> bool: ...
     def __ge__(self, other: time) -> bool: ...
     def __gt__(self, other: time) -> bool: ...
     def __hash__(self) -> int: ...
-    def isoformat(self) -> str: ...
+    if sys.version_info >= (3, 6):
+        def isoformat(self, timespec: str = ...) -> str: ...
+    else:
+        def isoformat(self) -> str: ...
     if sys.version_info >= (3, 7):
         @classmethod
         def fromisoformat(cls: Type[_S], time_string: str) -> _S: ...
@@ -125,14 +132,22 @@ class time:
         def __format__(self, fmt: AnyStr) -> AnyStr: ...
     def utcoffset(self) -> Optional[timedelta]: ...
     def tzname(self) -> Optional[str]: ...
-    def dst(self) -> Optional[int]: ...
+    def dst(self) -> Optional[timedelta]: ...
     if sys.version_info >= (3, 6):
-        def replace(self, hour: int = ..., minute: int = ..., second: int = ...,
-                    microsecond: int = ..., tzinfo: Optional[_tzinfo] = ...,
-                    *, fold: int = ...) -> time: ...
+        def replace(
+            self,
+            hour: int = ...,
+            minute: int = ...,
+            second: int = ...,
+            microsecond: int = ...,
+            tzinfo: Optional[_tzinfo] = ...,
+            *,
+            fold: int = ...,
+        ) -> time: ...
     else:
-        def replace(self, hour: int = ..., minute: int = ..., second: int = ...,
-                    microsecond: int = ..., tzinfo: Optional[_tzinfo] = ...) -> time: ...
+        def replace(
+            self, hour: int = ..., minute: int = ..., second: int = ..., microsecond: int = ..., tzinfo: Optional[_tzinfo] = ...
+        ) -> time: ...
 
 _date = date
 _time = time
@@ -143,21 +158,35 @@ class timedelta(SupportsAbs[timedelta]):
     resolution: ClassVar[timedelta]
 
     if sys.version_info >= (3, 6):
-        def __init__(self, days: float = ..., seconds: float = ..., microseconds: float = ...,
-                     milliseconds: float = ..., minutes: float = ..., hours: float = ...,
-                     weeks: float = ..., *, fold: int = ...) -> None: ...
+        def __init__(
+            self,
+            days: float = ...,
+            seconds: float = ...,
+            microseconds: float = ...,
+            milliseconds: float = ...,
+            minutes: float = ...,
+            hours: float = ...,
+            weeks: float = ...,
+            *,
+            fold: int = ...,
+        ) -> None: ...
     else:
-        def __init__(self, days: float = ..., seconds: float = ..., microseconds: float = ...,
-                     milliseconds: float = ..., minutes: float = ..., hours: float = ...,
-                     weeks: float = ...) -> None: ...
-
+        def __init__(
+            self,
+            days: float = ...,
+            seconds: float = ...,
+            microseconds: float = ...,
+            milliseconds: float = ...,
+            minutes: float = ...,
+            hours: float = ...,
+            weeks: float = ...,
+        ) -> None: ...
     @property
     def days(self) -> int: ...
     @property
     def seconds(self) -> int: ...
     @property
     def microseconds(self) -> int: ...
-
     def total_seconds(self) -> float: ...
     def __add__(self, other: timedelta) -> timedelta: ...
     def __radd__(self, other: timedelta) -> timedelta: ...
@@ -196,14 +225,31 @@ class datetime(date):
     resolution: ClassVar[timedelta]
 
     if sys.version_info >= (3, 6):
-        def __init__(self, year: int, month: int, day: int, hour: int = ...,
-                     minute: int = ..., second: int = ..., microsecond: int = ...,
-                     tzinfo: Optional[_tzinfo] = ..., *, fold: int = ...) -> None: ...
+        def __new__(
+            cls: Type[_S],
+            year: int,
+            month: int,
+            day: int,
+            hour: int = ...,
+            minute: int = ...,
+            second: int = ...,
+            microsecond: int = ...,
+            tzinfo: Optional[_tzinfo] = ...,
+            *,
+            fold: int = ...,
+        ) -> _S: ...
     else:
-        def __init__(self, year: int, month: int, day: int, hour: int = ...,
-                     minute: int = ..., second: int = ..., microsecond: int = ...,
-                     tzinfo: Optional[_tzinfo] = ...) -> None: ...
-
+        def __new__(
+            cls: Type[_S],
+            year: int,
+            month: int,
+            day: int,
+            hour: int = ...,
+            minute: int = ...,
+            second: int = ...,
+            microsecond: int = ...,
+            tzinfo: Optional[_tzinfo] = ...,
+        ) -> _S: ...
     @property
     def year(self) -> int: ...
     @property
@@ -223,7 +269,6 @@ class datetime(date):
     if sys.version_info >= (3, 6):
         @property
         def fold(self) -> int: ...
-
     @classmethod
     def fromtimestamp(cls: Type[_S], t: float, tz: Optional[_tzinfo] = ...) -> _S: ...
     @classmethod
@@ -267,13 +312,31 @@ class datetime(date):
     def time(self) -> _time: ...
     def timetz(self) -> _time: ...
     if sys.version_info >= (3, 6):
-        def replace(self, year: int = ..., month: int = ..., day: int = ..., hour: int = ...,
-                    minute: int = ..., second: int = ..., microsecond: int = ..., tzinfo:
-                    Optional[_tzinfo] = ..., *, fold: int = ...) -> datetime: ...
+        def replace(
+            self,
+            year: int = ...,
+            month: int = ...,
+            day: int = ...,
+            hour: int = ...,
+            minute: int = ...,
+            second: int = ...,
+            microsecond: int = ...,
+            tzinfo: Optional[_tzinfo] = ...,
+            *,
+            fold: int = ...,
+        ) -> datetime: ...
     else:
-        def replace(self, year: int = ..., month: int = ..., day: int = ..., hour: int = ...,
-                    minute: int = ..., second: int = ..., microsecond: int = ..., tzinfo:
-                    Optional[_tzinfo] = ...) -> datetime: ...
+        def replace(
+            self,
+            year: int = ...,
+            month: int = ...,
+            day: int = ...,
+            hour: int = ...,
+            minute: int = ...,
+            second: int = ...,
+            microsecond: int = ...,
+            tzinfo: Optional[_tzinfo] = ...,
+        ) -> datetime: ...
     if sys.version_info >= (3, 8):
         def astimezone(self: _S, tz: Optional[_tzinfo] = ...) -> _S: ...
     elif sys.version_info >= (3, 3):
@@ -296,8 +359,10 @@ class datetime(date):
     def __gt__(self, other: datetime) -> bool: ...  # type: ignore
     if sys.version_info >= (3, 8):
         def __add__(self: _S, other: timedelta) -> _S: ...
+        def __radd__(self: _S, other: timedelta) -> _S: ...
     else:
         def __add__(self, other: timedelta) -> datetime: ...
+        def __radd__(self, other: timedelta) -> datetime: ...
     @overload  # type: ignore
     def __sub__(self, other: datetime) -> timedelta: ...
     @overload

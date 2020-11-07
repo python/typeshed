@@ -1,65 +1,60 @@
-from asyncio import events
-from asyncio import protocols
-from asyncio import streams
-from asyncio import transports
-from asyncio.coroutines import coroutine
-from typing import Any, Generator, Optional, Text, Tuple, Union, IO
+import sys
+from asyncio import events, protocols, streams, transports
+from typing import IO, Any, Optional, Tuple, Union
+
+if sys.version_info >= (3, 8):
+    from os import PathLike
+
+    _ExecArg = Union[str, bytes, PathLike[str], PathLike[bytes]]
+else:
+    _ExecArg = Union[str, bytes]  # Union used instead of AnyStr due to mypy issue  #1236
 
 PIPE: int
 STDOUT: int
 DEVNULL: int
 
-class SubprocessStreamProtocol(streams.FlowControlMixin,
-                               protocols.SubprocessProtocol):
+class SubprocessStreamProtocol(streams.FlowControlMixin, protocols.SubprocessProtocol):
     stdin: Optional[streams.StreamWriter]
     stdout: Optional[streams.StreamReader]
     stderr: Optional[streams.StreamReader]
     def __init__(self, limit: int, loop: events.AbstractEventLoop) -> None: ...
     def connection_made(self, transport: transports.BaseTransport) -> None: ...
-    def pipe_data_received(self, fd: int, data: Union[bytes, Text]) -> None: ...
+    def pipe_data_received(self, fd: int, data: Union[bytes, str]) -> None: ...
     def pipe_connection_lost(self, fd: int, exc: Optional[Exception]) -> None: ...
     def process_exited(self) -> None: ...
-
 
 class Process:
     stdin: Optional[streams.StreamWriter]
     stdout: Optional[streams.StreamReader]
     stderr: Optional[streams.StreamReader]
     pid: int
-    def __init__(self,
-                 transport: transports.BaseTransport,
-                 protocol: protocols.BaseProtocol,
-                 loop: events.AbstractEventLoop) -> None: ...
+    def __init__(
+        self, transport: transports.BaseTransport, protocol: protocols.BaseProtocol, loop: events.AbstractEventLoop
+    ) -> None: ...
     @property
-    def returncode(self) -> int: ...
-    @coroutine
-    def wait(self) -> Generator[Any, None, int]: ...
+    def returncode(self) -> Optional[int]: ...
+    async def wait(self) -> int: ...
     def send_signal(self, signal: int) -> None: ...
     def terminate(self) -> None: ...
     def kill(self) -> None: ...
-    @coroutine
-    def communicate(self, input: Optional[bytes] = ...) -> Generator[Any, None, Tuple[bytes, bytes]]: ...
+    async def communicate(self, input: Optional[bytes] = ...) -> Tuple[bytes, bytes]: ...
 
-
-@coroutine
-def create_subprocess_shell(
-    *Args: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue  #1236
+async def create_subprocess_shell(
+    cmd: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue  #1236
     stdin: Union[int, IO[Any], None] = ...,
     stdout: Union[int, IO[Any], None] = ...,
     stderr: Union[int, IO[Any], None] = ...,
-    loop: events.AbstractEventLoop = ...,
+    loop: Optional[events.AbstractEventLoop] = ...,
     limit: int = ...,
-    **kwds: Any
-) -> Generator[Any, None, Process]: ...
-
-@coroutine
-def create_subprocess_exec(
-    program: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue  #1236
-    *args: Any,
+    **kwds: Any,
+) -> Process: ...
+async def create_subprocess_exec(
+    program: _ExecArg,
+    *args: _ExecArg,
     stdin: Union[int, IO[Any], None] = ...,
     stdout: Union[int, IO[Any], None] = ...,
     stderr: Union[int, IO[Any], None] = ...,
-    loop: events.AbstractEventLoop = ...,
+    loop: Optional[events.AbstractEventLoop] = ...,
     limit: int = ...,
-    **kwds: Any
-) -> Generator[Any, None, Process]: ...
+    **kwds: Any,
+) -> Process: ...

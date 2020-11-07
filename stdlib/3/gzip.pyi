@@ -1,10 +1,39 @@
-from typing import Any, IO, Optional
-from os.path import _PathType
 import _compression
 import sys
 import zlib
+from _typeshed import AnyPath, ReadableBuffer
+from typing import IO, Optional, TextIO, Union, overload
+from typing_extensions import Literal
 
-def open(filename, mode: str = ..., compresslevel: int = ..., encoding: Optional[str] = ..., errors: Optional[str] = ..., newline: Optional[str] = ...) -> IO[Any]: ...
+_OpenBinaryMode = Literal["r", "rb", "a", "ab", "w", "wb", "x", "xb"]
+_OpenTextMode = Literal["rt", "at", "wt", "xt"]
+@overload
+def open(
+    filename: Union[AnyPath, IO[bytes]],
+    mode: _OpenBinaryMode = ...,
+    compresslevel: int = ...,
+    encoding: None = ...,
+    errors: None = ...,
+    newline: None = ...,
+) -> GzipFile: ...
+@overload
+def open(
+    filename: AnyPath,
+    mode: _OpenTextMode,
+    compresslevel: int = ...,
+    encoding: Optional[str] = ...,
+    errors: Optional[str] = ...,
+    newline: Optional[str] = ...,
+) -> TextIO: ...
+@overload
+def open(
+    filename: Union[AnyPath, IO[bytes]],
+    mode: str,
+    compresslevel: int = ...,
+    encoding: Optional[str] = ...,
+    errors: Optional[str] = ...,
+    newline: Optional[str] = ...,
+) -> Union[GzipFile, TextIO]: ...
 
 class _PaddedFile:
     file: IO[bytes]
@@ -14,19 +43,29 @@ class _PaddedFile:
     def seek(self, off: int) -> int: ...
     def seekable(self) -> bool: ...
 
+if sys.version_info >= (3, 8):
+    class BadGzipFile(OSError): ...
+
 class GzipFile(_compression.BaseStream):
     myfileobj: Optional[IO[bytes]]
     mode: str
     name: str
     compress: zlib._Compress
     fileobj: IO[bytes]
-    def __init__(self, filename: Optional[_PathType] = ..., mode: Optional[str] = ..., compresslevel: int = ..., fileobj: Optional[IO[bytes]] = ..., mtime: Optional[float] = ...) -> None: ...
+    def __init__(
+        self,
+        filename: Optional[AnyPath] = ...,
+        mode: Optional[str] = ...,
+        compresslevel: int = ...,
+        fileobj: Optional[IO[bytes]] = ...,
+        mtime: Optional[float] = ...,
+    ) -> None: ...
     @property
     def filename(self) -> str: ...
     @property
     def mtime(self) -> Optional[int]: ...
     crc: int
-    def write(self, data: bytes) -> int: ...
+    def write(self, data: ReadableBuffer) -> int: ...
     def read(self, size: Optional[int] = ...) -> bytes: ...
     def read1(self, size: int = ...) -> bytes: ...
     def peek(self, n: int) -> bytes: ...
@@ -40,14 +79,16 @@ class GzipFile(_compression.BaseStream):
     def writable(self) -> bool: ...
     def seekable(self) -> bool: ...
     def seek(self, offset: int, whence: int = ...) -> int: ...
-    def readline(self, size: int = ...) -> bytes: ...
+    def readline(self, size: Optional[int] = ...) -> bytes: ...
 
 class _GzipReader(_compression.DecompressReader):
     def __init__(self, fp: IO[bytes]) -> None: ...
     def read(self, size: int = ...) -> bytes: ...
 
 if sys.version_info >= (3, 8):
-    def compress(data, compresslevel: int = ..., *, mtime: Optional[float] = ...) -> bytes: ...
+    def compress(data: bytes, compresslevel: int = ..., *, mtime: Optional[float] = ...) -> bytes: ...
+
 else:
-    def compress(data, compresslevel: int = ...) -> bytes: ...
+    def compress(data: bytes, compresslevel: int = ...) -> bytes: ...
+
 def decompress(data: bytes) -> bytes: ...

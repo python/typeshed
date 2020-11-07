@@ -1,8 +1,8 @@
 from _curses import *  # noqa: F403
 from _curses import _CursesWindow as _CursesWindow
-from typing import TypeVar, Callable, Any
+from typing import Any, Callable, TypeVar
 
-_T = TypeVar('_T')
+_T = TypeVar("_T")
 
 # available after calling `curses.initscr()`
 LINES: int
@@ -12,4 +12,4 @@ COLS: int
 COLORS: int
 COLOR_PAIRS: int
 
-def wrapper(func: Callable[..., _T], *arg: Any, **kwds: Any) -> _T: ...
+def wrapper(__func: Callable[..., _T], *arg: Any, **kwds: Any) -> _T: ...

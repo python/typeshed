@@ -1,5 +1,3 @@
-# Stubs for Python 2.7 sha stdlib module
-
 class sha(object):
     def update(self, arg: str) -> None: ...
     def digest(self) -> str: ...
@@ -7,5 +5,6 @@ class sha(object):
     def copy(self) -> sha: ...
 
 def new(string: str = ...) -> sha: ...
-blocksize = 0
-digest_size = 0
+
+blocksize: int
+digest_size: int
