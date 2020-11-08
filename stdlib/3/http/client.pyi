@@ -8,6 +8,7 @@ from typing import (
     IO,
     Any,
     BinaryIO,
+    Callable,
     Dict,
     Iterable,
     Iterator,
@@ -89,6 +90,8 @@ NETWORK_AUTHENTICATION_REQUIRED: int
 responses: Dict[int, str]
 
 class HTTPMessage(email.message.Message): ...
+
+def parse_headers(fp: io.BufferedIOBase, _class: Callable[[], email.message.Message] = ...) -> HTTPMessage: ...
 
 class HTTPResponse(io.BufferedIOBase, BinaryIO):
     msg: HTTPMessage
