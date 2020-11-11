@@ -289,12 +289,10 @@ class Extensions(object):
 class DuplicateExtension(Exception):
     oid: ObjectIdentifier
     def __init__(self, msg: str, oid: ObjectIdentifier) -> None: ...
-        self.oid = oid
 
 class ExtensionNotFound(Exception):
     oid: ObjectIdentifier
     def __init__(self, msg: str, oid: ObjectIdentifier) -> None: ...
-        self.oid = oid
 
 class IssuerAlternativeName(ExtensionType):
     def __init__(self, general_names: List[GeneralName]) -> None: ...
