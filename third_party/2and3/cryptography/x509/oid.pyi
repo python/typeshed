@@ -1,14 +1,7 @@
-from typing import Optional
+from typing import Dict, Optional
 
-from cryptography.x509 import ObjectIdentifier
 from cryptography.hazmat.primitives.hashes import HashAlgorithm
-
-class ExtensionOID:
-    AUTHORITY_INFORMATION_ACCESS: ObjectIdentifier = ...
-    CRL_DISTRIBUTION_POINTS: ObjectIdentifier = ...
-
-class AuthorityInformationAccessOID:
-    CA_ISSUERS: ObjectIdentifier = ...
+from cryptography.x509 import ObjectIdentifier
 
 class ExtensionOID:
     SUBJECT_DIRECTORY_ATTRIBUTES: ObjectIdentifier = ...
