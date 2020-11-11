@@ -1,0 +1,23 @@
+from abc import ABC
+
+from cryptography.x509.extensions import Extension
+
+class ObjectIdentifier:
+    dotted_string: str = ...
+
+class GeneralName(ABC):
+    value: str = ...
+
+class Extensions:
+    def get_extension_for_oid(self, oid: ObjectIdentifier) -> Extension: ...
+
+class ExtensionNotFound(Exception): ...
+
+class Certificate(ABC):
+    extensions: Extensions = ...
+
+class CertificateSigningRequest(ABC):
+    ...
+
+class CertificateRevocationList(ABC):
+    ...
