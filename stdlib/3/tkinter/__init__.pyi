@@ -106,7 +106,7 @@ _Padding = Union[
 _Relief = Literal["raised", "sunken", "flat", "ridge", "solid", "groove"]  # manual page: Tk_GetRelief
 _ScreenUnits = Union[str, float]  # manual page: Tk_GetPixels
 _XYScrollCommand = Union[str, Callable[[float, float], Any]]  # -xscrollcommand and -yscrollcommand in 'options' manual page
-_TakeFocusValue = Union[bool, Literal[""], Callable[[str], Optional[bool]]]  # -takefocus in manual page named 'options'
+_TakeFocusValue = Union[Literal[""], Callable[[str], Optional[int]]]  # -takefocus in manual page named 'options'
 
 class EventType(str, Enum):
     Activate: str = ...
@@ -642,7 +642,7 @@ class Pack:
         after: Misc = ...,
         anchor: _Anchor = ...,
         before: Misc = ...,
-        expand: bool = ...,
+        expand: int = ...,
         fill: Literal["none", "x", "y", "both"] = ...,
         side: Literal["left", "right", "top", "bottom"] = ...,
         ipadx: Union[_ScreenUnits, Tuple[_ScreenUnits, _ScreenUnits]] = ...,
@@ -1685,7 +1685,7 @@ class Listbox(Widget, XView, YView):
         borderwidth: _ScreenUnits = ...,
         cursor: _Cursor = ...,
         disabledforeground: _Color = ...,
-        exportselection: bool = ...,
+        exportselection: int = ...,
         fg: _Color = ...,
         font: _FontDescription = ...,
         foreground: _Color = ...,
@@ -1831,7 +1831,7 @@ class Menu(Widget):
         relief: _Relief = ...,
         selectcolor: _Color = ...,
         takefocus: _TakeFocusValue = ...,
-        tearoff: bool = ...,
+        tearoff: int = ...,
         # I guess tearoffcommand arguments are supposed to be widget objects,
         # but they are widget name strings. Use nametowidget() to handle the
         # arguments of tearoffcommand.
