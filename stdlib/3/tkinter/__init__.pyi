@@ -95,7 +95,7 @@ _Cursor = Union[str, Tuple[str], Tuple[str, str], Tuple[str, str, str], Tuple[st
 _EntryValidateCommand = Union[
     Callable[[], bool], str, _TkinterSequence[str]
 ]  # example when it's sequence:  entry['invalidcommand'] = [entry.register(print), '%P']
-_ImageSpec = Union[Image, str]  # str can be from e.g. tkinter.image_names()
+_ImageSpec = Union[_Image, str]  # str can be from e.g. tkinter.image_names()
 _Padding = Union[
     _ScreenUnits,
     Tuple[_ScreenUnits],
@@ -2830,6 +2830,12 @@ class OptionMenu(Menubutton):
     ) -> None: ...
     # configure, config, cget are inherited from Menubutton
     # destroy and __getitem__ are overrided, signature does not change
+
+class _Image(Protocol):
+    tk: _tkinter.TkappType
+    def __del__(self): ...
+    def height(self): ...
+    def width(self): ...
 
 class Image:
     name: Any
