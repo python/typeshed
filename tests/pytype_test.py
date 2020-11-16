@@ -13,6 +13,7 @@ will also discover incorrect usage of imported modules.
 import argparse
 import os
 import re
+import sys
 import traceback
 from typing import List, Match, Optional, Sequence, Tuple
 
@@ -173,7 +174,7 @@ def run_all_tests(*, files_to_test: Sequence[Tuple[str, int]], typeshed_location
         stderr = (
             run_pytype(
                 filename=f,
-                python_version="2.7" if version == 2 else "3.6",
+                python_version="2.7" if version == 2 else "{0.major}.{0.minor}".format(sys.version_info),
                 typeshed_location=typeshed_location,
             )
             if not dry_run
