@@ -75,6 +75,7 @@ class RawConfigParser(_parser):
         interpolation: Optional[Interpolation] = ...,
         converters: _converters = ...,
     ) -> None: ...
+    @overload
     def __init__(
         self,
         defaults: Optional[_section] = ...,
