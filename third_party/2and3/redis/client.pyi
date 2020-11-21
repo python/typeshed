@@ -56,7 +56,7 @@ _Value = Union[bytes, float, int, Text]
 _Key = Union[Text, bytes]
 
 # Lib returns str or bytes depending on Python version and value of decode_responses
-_StrType = TypeVar('_StrType', bound=Union[Text, bytes])
+_StrType = TypeVar("_StrType", bound=Union[Text, bytes])
 
 class Redis(Generic[_StrType]):
     RESPONSE_CALLBACKS: Any
@@ -127,7 +127,6 @@ class Redis(Generic[_StrType]):
     ) -> Redis[str]: ...
     connection_pool: Any
     response_callbacks: Any
-
     @overload
     def __new__(
         cls,
@@ -157,7 +156,7 @@ class Redis(Generic[_StrType]):
         health_check_interval: float = ...,
         client_name: Optional[Text] = ...,
         username: Optional[Text] = ...,
-    ) -> 'Redis[bytes]': ...
+    ) -> "Redis[bytes]": ...
     @overload
     def __new__(
         cls,
@@ -188,11 +187,10 @@ class Redis(Generic[_StrType]):
         health_check_interval: float = ...,
         client_name: Optional[Text] = ...,
         username: Optional[Text] = ...,
-    ) -> 'Redis[str]': ...
-
+    ) -> "Redis[str]": ...
     @overload
     def __init__(
-        self: 'Redis[bytes]',
+        self: "Redis[bytes]",
         host: Text = ...,
         port: int = ...,
         db: int = ...,
@@ -223,7 +221,7 @@ class Redis(Generic[_StrType]):
     ) -> None: ...
     @overload
     def __init__(
-        self: 'Redis[str]',
+        self: "Redis[str]",
         host: Text = ...,
         port: int = ...,
         db: int = ...,
@@ -433,15 +431,13 @@ class Redis(Generic[_StrType]):
         store: _Key,
         groups: bool = ...,
     ) -> int: ...
-    def scan(
-        self, cursor: int = ..., match: Optional[_Key] = ..., count: Optional[int] = ...
-    ) -> Tuple[int, List[_StrType]]: ...
-    def scan_iter(
-        self, match: Optional[Text] = ..., count: Optional[int] = ...
-    ) -> Iterator[_StrType]: ...
+    def scan(self, cursor: int = ..., match: Optional[_Key] = ..., count: Optional[int] = ...) -> Tuple[int, List[_StrType]]: ...
+    def scan_iter(self, match: Optional[Text] = ..., count: Optional[int] = ...) -> Iterator[_StrType]: ...
     def sscan(self, name: _Key, cursor: int = ..., match: Text = ..., count: int = ...) -> Tuple[int, List[_StrType]]: ...
     def sscan_iter(self, name, match=..., count=...): ...
-    def hscan(self, name: _Key, cursor: int = ..., match: Text = ..., count: int = ...) -> Tuple[int, Dict[_StrType, _StrType]]: ...
+    def hscan(
+        self, name: _Key, cursor: int = ..., match: Text = ..., count: int = ...
+    ) -> Tuple[int, Dict[_StrType, _StrType]]: ...
     def hscan_iter(self, name, match=..., count=...): ...
     def zscan(self, name, cursor=..., match=..., count=..., score_cast_func=...): ...
     def zscan_iter(self, name, match=..., count=..., score_cast_func=...): ...
