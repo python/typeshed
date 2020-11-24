@@ -157,7 +157,7 @@ class Redis(Generic[_StrType]):
         health_check_interval: float = ...,
         client_name: Optional[Text] = ...,
         username: Optional[Text] = ...,
-    ) -> "Redis[bytes]": ...
+    ) -> Redis[bytes]: ...
     @overload
     def __new__(
         cls,
@@ -188,10 +188,10 @@ class Redis(Generic[_StrType]):
         health_check_interval: float = ...,
         client_name: Optional[Text] = ...,
         username: Optional[Text] = ...,
-    ) -> "Redis[str]": ...
+    ) -> Redis[str]: ...
     @overload
     def __init__(
-        self: "Redis[bytes]",
+        self: Redis[bytes],
         host: Text = ...,
         port: int = ...,
         db: int = ...,
@@ -222,7 +222,7 @@ class Redis(Generic[_StrType]):
     ) -> None: ...
     @overload
     def __init__(
-        self: "Redis[str]",
+        self: Redis[str],
         host: Text = ...,
         port: int = ...,
         db: int = ...,
