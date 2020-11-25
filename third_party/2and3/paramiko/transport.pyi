@@ -2,7 +2,7 @@ from logging import Logger
 from socket import socket
 from threading import Condition, Event, Lock, Thread
 from types import ModuleType
-from typing import Any, Callable, Dict, Iterable, List, Optional, Sequence, Tuple
+from typing import Any, Callable, Dict, Iterable, List, Optional, Sequence, Tuple, Type
 from typing_extensions import Protocol
 
 from paramiko.auth_handler import AuthHandler, _InteractiveCallback
@@ -25,7 +25,7 @@ class _KexEngine(Protocol):
 
 class Transport(Thread, ClosingContextManager):
     active: bool
-    hostname: str
+    hostname: Optional[str]
     sock: socket
     packetizer: Packetizer
     local_version: str
@@ -61,15 +61,15 @@ class Transport(Thread, ClosingContextManager):
     auth_handler: Optional[AuthHandler]
     global_response: Optional[Message]
     completion_event: Optional[Event]
-    banner_timeout: int
-    handshake_timeout: int
-    auth_timeout: int
+    banner_timeout: float
+    handshake_timeout: float
+    auth_timeout: float
     server_mode: bool
     server_object: Optional[ServerInterface]
     server_key_dict: Dict[str, PKey]
     server_accepts: List[Channel]
     server_accept_cv: Condition
-    subsystem_table: Dict[str, Tuple[SubsystemHandler, Any, Any]]
+    subsystem_table: Dict[str, Tuple[Type[SubsystemHandler], Tuple[Any, ...], Dict[str, Any]]]
     sys: ModuleType
     def __init__(
         self,
@@ -125,7 +125,7 @@ class Transport(Thread, ClosingContextManager):
     def send_ignore(self, byte_count: Optional[int] = ...) -> None: ...
     def renegotiate_keys(self) -> None: ...
     def set_keepalive(self, interval: int) -> None: ...
-    def global_request(self, kind: str, data: Optional[Any] = ..., wait: bool = ...) -> Message: ...
+    def global_request(self, kind: str, data: Optional[Any] = ..., wait: bool = ...) -> Optional[Message]: ...
     def accept(self, timeout: Optional[float] = ...) -> Channel: ...
     def connect(
         self,
@@ -158,7 +158,7 @@ class Transport(Thread, ClosingContextManager):
     def set_hexdump(self, hexdump: bool) -> None: ...
     def get_hexdump(self) -> bool: ...
     def use_compression(self, compress: bool = ...) -> None: ...
-    def getpeername(self) -> str: ...
+    def getpeername(self) -> Tuple[str, int]: ...
     def stop_thread(self) -> None: ...
     def run(self) -> None: ...
 

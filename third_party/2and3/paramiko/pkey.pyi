@@ -1,9 +1,15 @@
-from typing import IO, Any, Optional, Text, Union
+from typing import IO, Any, Optional, Pattern, Text, Union
 
 from paramiko.message import Message
 
+OPENSSH_AUTH_MAGIC: bytes = ...
+
+def _unpad_openssh(data: bytes) -> bytes: ...
+
 class PKey:
     public_blob: Optional[PublicBlob]
+    BEGIN_TAG: Pattern[str]
+    END_TAG: Pattern[str]
     def __init__(self, msg: Optional[Message] = ..., data: Optional[bytes] = ...) -> None: ...
     def asbytes(self) -> bytes: ...
     def __cmp__(self, other: Any) -> int: ...

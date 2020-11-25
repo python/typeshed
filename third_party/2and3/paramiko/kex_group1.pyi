@@ -11,8 +11,8 @@ else:
 
 c_MSG_KEXDH_INIT: bytes
 c_MSG_KEXDH_REPLY: bytes
-b7fffffffffffffff: int
-b0000000000000000: int
+b7fffffffffffffff: bytes
+b0000000000000000: bytes
 
 class KexGroup1:
     P: int

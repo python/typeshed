@@ -10,6 +10,8 @@ from paramiko.client import (
 from paramiko.common import io_sleep as io_sleep
 from paramiko.config import SSHConfig as SSHConfig
 from paramiko.dsskey import DSSKey as DSSKey
+from paramiko.ecdsakey import ECDSAKey as ECDSAKey
+from paramiko.ed25519key import Ed25519Key as Ed25519Key
 from paramiko.file import BufferedFile as BufferedFile
 from paramiko.hostkeys import HostKeys as HostKeys
 from paramiko.message import Message as Message

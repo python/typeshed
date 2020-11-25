@@ -1,5 +1,7 @@
 from typing import IO, Any, Dict, Iterable, Optional, Pattern, Set
 
+from paramiko.ssh_exception import ConfigParseError as ConfigParseError, CouldNotCanonicalize as CouldNotCanonicalize
+
 SSH_PORT: int
 
 class SSHConfig:

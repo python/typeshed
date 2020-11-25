@@ -1,6 +1,8 @@
 import ctypes.wintypes
 import sys
 
+assert sys.platform == "win32"
+
 win32con_WM_COPYDATA: int
 
 def can_talk_to_agent(): ...

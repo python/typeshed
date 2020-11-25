@@ -1,5 +1,5 @@
 import sys
-from typing import Any, Dict
+from typing import Any, Dict, Protocol, Text, Union
 
 MSG_DISCONNECT: int
 MSG_IGNORE: int
@@ -106,7 +106,12 @@ else:
     cr_byte_value: int
     linefeed_byte_value: int
 
-def asbytes(s: Any) -> Any: ...
+class _SupportsAsBytes(Protocol):
+    def asbytes(self) -> bytes: ...
+
+_LikeBytes = Union[bytes, Text, _SupportsAsBytes]
+
+def asbytes(s: _LikeBytes) -> bytes: ...
 
 xffffffff: int
 x80000000: int

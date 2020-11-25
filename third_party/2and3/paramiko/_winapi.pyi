@@ -4,6 +4,8 @@ import sys
 from types import TracebackType
 from typing import Any, Optional, Type, TypeVar
 
+assert sys.platform == "win32"
+
 _T = TypeVar("_T")
 
 def format_system_message(errno: int) -> str: ...

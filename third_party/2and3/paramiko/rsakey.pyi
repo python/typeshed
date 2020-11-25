@@ -1,11 +1,11 @@
-from typing import IO, Any, Callable, Optional
+from typing import IO, Any, Callable, Optional, Union
 
-from cryptography.hazmat.primitives.asymmetric.rsa import RSAPublicKey
+from cryptography.hazmat.primitives.asymmetric.rsa import RSAPrivateKey, RSAPublicKey, RSAPublicNumbers
 from paramiko.message import Message
 from paramiko.pkey import PKey
 
 class RSAKey(PKey):
-    key: RSAPublicKey
+    key: Union[None, RSAPublicKey, RSAPrivateKey]
     public_blob: None
     def __init__(
         self,
@@ -13,13 +13,13 @@ class RSAKey(PKey):
         data: Optional[bytes] = ...,
         filename: Optional[str] = ...,
         password: Optional[str] = ...,
-        key: Optional[RSAPublicKey] = ...,
+        key: Union[None, RSAPublicKey, RSAPrivateKey] = ...,
         file_obj: Optional[IO[bytes]] = ...,
     ) -> None: ...
     @property
     def size(self): ...
     @property
-    def public_numbers(self): ...
+    def public_numbers(self) -> RSAPublicNumbers: ...
     def asbytes(self) -> bytes: ...
     def __hash__(self) -> int: ...
     def get_name(self) -> str: ...

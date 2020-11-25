@@ -1,6 +1,6 @@
 from socket import _RetAddress, socket
 from threading import Thread
-from typing import Mapping, Tuple
+from typing import Dict, Tuple
 
 from paramiko.channel import Channel
 from paramiko.message import Message
@@ -38,7 +38,7 @@ class AgentClientProxy(_AgentProxy):
 
 class AgentServerProxy(AgentSSH, _AgentProxy):
     def __init__(self, t: Thread) -> None: ...
-    def get_env(self) -> Mapping[str, str]: ...
+    def get_env(self) -> Dict[str, str]: ...
 
 class AgentRequestHandler:
     def __init__(self, chanClient: Channel) -> None: ...

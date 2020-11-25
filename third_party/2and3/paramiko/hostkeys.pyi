@@ -1,10 +1,12 @@
+import collections
+import typing
 from binascii import Error
-from collections import MutableMapping
-from typing import Dict, Iterator, List, Mapping, MutableMapping as MM, Optional
+from typing import Dict, Iterator, List, Mapping, Optional
 
 from paramiko.pkey import PKey
 
-class _SubDict(MM[str, PKey]):
+class _SubDict(typing.MutableMapping[str, PKey]):
+    # Internal to HostKeys.lookup()
     def __init__(self, hostname: str, entries: List[HostKeyEntry], hostkeys: HostKeys) -> None: ...
     def __iter__(self) -> Iterator[str]: ...
     def __len__(self) -> int: ...
@@ -13,7 +15,7 @@ class _SubDict(MM[str, PKey]):
     def __setitem__(self, key: str, val: PKey) -> None: ...
     def keys(self) -> List[str]: ...  # type: ignore
 
-class HostKeys(MutableMapping):
+class HostKeys(collections.MutableMapping):
     def __init__(self, filename: Optional[str] = ...) -> None: ...
     def add(self, hostname: str, keytype: str, key: PKey) -> None: ...
     def load(self, filename: str) -> None: ...
