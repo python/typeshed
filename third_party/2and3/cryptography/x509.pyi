@@ -271,13 +271,13 @@ class UniformResourceIdentifier(GeneralName):
 # X.509 Extensions
 
 class ExtensionType(metaclass=ABCMeta):
-    oid: ExtensionOID
+    oid: ObjectIdentifier
 
 _T = TypeVar("_T", bound="ExtensionType")
 
 class Extension(Generic[_T]):
     critical: bool
-    oid: ExtensionOID
+    oid: ObjectIdentifier
     value: _T
 
 class Extensions(object):
