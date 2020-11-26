@@ -11,27 +11,27 @@ def load_der_public_key(data: bytes, backend: Optional[DERSerializationBackend] 
 def load_ssh_public_key(data: bytes, backend): ...
 
 class Encoding(Enum):
-    PEM: str
-    DER: str
-    OpenSSH: str
-    Raw: str
-    X962: str
+    PEM: Encoding
+    DER: Encoding
+    OpenSSH: Encoding
+    Raw: Encoding
+    X962: Encoding
 
 class PrivateFormat(Enum):
-    PKCS8: str
-    TraditionalOpenSSL: str
-    Raw: str
+    PKCS8: PrivateFormat
+    TraditionalOpenSSL: PrivateFormat
+    Raw: PrivateFormat
 
 class PublicFormat(Enum):
-    SubjectPublicKeyInfo: str
-    PKCS1: str
-    OpenSSH: str
-    Raw: str
-    CompressedPoint: str
-    UncompressedPoint: str
+    SubjectPublicKeyInfo: PublicFormat
+    PKCS1: PublicFormat
+    OpenSSH: PublicFormat
+    Raw: PublicFormat
+    CompressedPoint: PublicFormat
+    UncompressedPoint: PublicFormat
 
 class ParameterFormat(Enum):
-    PKCS3: str
+    PKCS3: ParameterFormat
 
 class KeySerializationEncryption(metaclass=ABCMeta): ...
 
