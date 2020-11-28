@@ -9,12 +9,8 @@ if sys.version_info < (3, 0):
 else:
     from hashlib import _Hash
 
-class KexGroup14(KexGroup1):
+class KexGroup16SHA512(KexGroup1):
+    name: str
     P: int
     G: int
-    name: str
-    hash_algo: Callable[[ReadableBuffer], _Hash]
-
-class KexGroup14SHA256(KexGroup14):
-    name: str
     hash_algo: Callable[[ReadableBuffer], _Hash]

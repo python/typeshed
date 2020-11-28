@@ -2,7 +2,7 @@ from logging import Logger
 from typing import Any, Dict, Optional, Type
 
 from paramiko.channel import Channel
-from paramiko.server import SubsystemHandler
+from paramiko.server import ServerInterface, SubsystemHandler
 from paramiko.sftp import BaseSFTP
 from paramiko.sftp_attr import SFTPAttributes
 from paramiko.sftp_handle import SFTPHandle
@@ -18,13 +18,7 @@ class SFTPServer(BaseSFTP, SubsystemHandler):
     server: SFTPServerInterface
     sock: Optional[Channel]
     def __init__(
-        self,
-        channel: Channel,
-        name: str,
-        server: SFTPServerInterface,
-        sftp_si: Type[SFTPServerInterface],
-        *largs: Any,
-        **kwargs: Any,
+        self, channel: Channel, name: str, server: ServerInterface, sftp_si: Type[SFTPServerInterface], *largs: Any, **kwargs: Any
     ) -> None: ...
     def start_subsystem(self, name: str, transport: Transport, channel: Channel) -> None: ...
     def finish_subsystem(self) -> None: ...

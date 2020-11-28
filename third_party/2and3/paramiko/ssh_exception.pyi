@@ -1,5 +1,5 @@
 import socket
-from typing import List, Mapping, Tuple
+from typing import List, Mapping, Tuple, Union
 
 from paramiko.pkey import PKey
 
@@ -8,8 +8,8 @@ class AuthenticationException(SSHException): ...
 class PasswordRequiredException(AuthenticationException): ...
 
 class BadAuthenticationType(AuthenticationException):
-    explanation: str
     allowed_types: List[str]
+    explanation: str
     def __init__(self, explanation: str, types: List[str]) -> None: ...
 
 class PartialAuthentication(AuthenticationException):
@@ -18,8 +18,8 @@ class PartialAuthentication(AuthenticationException):
 
 class ChannelException(SSHException):
     code: int
-    text: int
-    def __init__(self, code: int, text: int) -> None: ...
+    text: str
+    def __init__(self, code: int, text: str) -> None: ...
 
 class BadHostKeyException(SSHException):
     hostname: str
@@ -33,9 +33,9 @@ class ProxyCommandFailure(SSHException):
     def __init__(self, command: str, error: str) -> None: ...
 
 class NoValidConnectionsError(socket.error):
-    errors: Mapping[Tuple[str, int], Exception]
-    def __init__(self, errors: Mapping[Tuple[str, int], Exception]) -> None: ...
-    def __reduce__(self): ...
+    errors: Mapping[Union[Tuple[str, int], Tuple[str, int, int, int]], Exception]
+    def __init__(self, errors: Mapping[Union[Tuple[str, int], Tuple[str, int, int, int]], Exception]) -> None: ...
+    def __reduce__(self) -> Tuple[type, Tuple[Mapping[Union[Tuple[str, int], Tuple[str, int, int, int]], Exception]]]: ...
 
 class CouldNotCanonicalize(SSHException): ...
 class ConfigParseError(SSHException): ...

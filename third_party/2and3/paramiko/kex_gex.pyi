@@ -1,5 +1,6 @@
 import sys
-from typing import Optional
+from _typeshed import ReadableBuffer
+from typing import Callable, Optional
 
 from paramiko.message import Message
 from paramiko.transport import Transport
@@ -20,7 +21,7 @@ class KexGex:
     min_bits: int
     max_bits: int
     preferred_bits: int
-    hash_algo: _Hash
+    hash_algo: Callable[[ReadableBuffer], _Hash] = ...
     transport: Transport
     p: Optional[int]
     q: Optional[int]
@@ -35,4 +36,4 @@ class KexGex:
 
 class KexGexSHA256(KexGex):
     name: str
-    hash_algo: _Hash
+    hash_algo: Callable[[ReadableBuffer], _Hash] = ...

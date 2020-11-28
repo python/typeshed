@@ -1,4 +1,4 @@
-from typing import AnyStr, Generic, Iterable, List, Optional, Text, Tuple, TypeVar, Union
+from typing import AnyStr, Generic, Iterable, List, Optional, Tuple, Union
 
 from paramiko.util import ClosingContextManager
 

@@ -1,5 +1,6 @@
 import sys
-from typing import Optional, Union
+from _typeshed import ReadableBuffer
+from typing import Callable, Optional, Union
 
 from cryptography.hazmat.primitives.asymmetric.ec2 import EllipticCurve, EllipticCurvePrivateKey, EllipticCurvePublicKey
 from paramiko.message import Message
@@ -15,7 +16,7 @@ c_MSG_KEXECDH_REPLY: bytes
 
 class KexNistp256:
     name: str
-    hash_algo: _Hash
+    hash_algo: Callable[[ReadableBuffer], _Hash]
     curve: EllipticCurve
     transport: Transport
     P: Union[int, EllipticCurvePrivateKey]
@@ -27,10 +28,10 @@ class KexNistp256:
 
 class KexNistp384(KexNistp256):
     name: str
-    hash_algo: _Hash
+    hash_algo: Callable[[ReadableBuffer], _Hash]
     curve: EllipticCurve
 
 class KexNistp521(KexNistp256):
     name: str
-    hash_algo: _Hash
+    hash_algo: Callable[[ReadableBuffer], _Hash]
     curve: EllipticCurve
