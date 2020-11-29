@@ -1,6 +1,6 @@
 from typing import IO, Any, Callable, List, Optional, Sequence, Tuple, Type
 
-from cryptography.hazmat.primitives.asymmetric.ec2 import EllipticCurve, _EllipticCurvePrivateKey, _EllipticCurvePublicKey
+from cryptography.hazmat.primitives.asymmetric.ec2 import EllipticCurve, EllipticCurvePrivateKey, EllipticCurvePublicKey
 from cryptography.hazmat.primitives.hashes import HashAlgorithm
 from paramiko.message import Message
 from paramiko.pkey import PKey
@@ -22,8 +22,8 @@ class _ECDSACurveSet:
     def get_by_key_length(self, key_length: int) -> Optional[_ECDSACurve]: ...
 
 class ECDSAKey(PKey):
-    verifying_key: _EllipticCurvePublicKey
-    signing_key: _EllipticCurvePrivateKey
+    verifying_key: EllipticCurvePublicKey
+    signing_key: EllipticCurvePrivateKey
     public_blob: None
     ecdsa_curve: Optional[_ECDSACurve]
     def __init__(
@@ -32,7 +32,7 @@ class ECDSAKey(PKey):
         data: Optional[bytes] = ...,
         filename: Optional[str] = ...,
         password: Optional[str] = ...,
-        vals: Optional[Tuple[_EllipticCurvePrivateKey, _EllipticCurvePublicKey]] = ...,
+        vals: Optional[Tuple[EllipticCurvePrivateKey, EllipticCurvePublicKey]] = ...,
         file_obj: Optional[IO[str]] = ...,
         validate_point: bool = ...,
     ) -> None: ...
