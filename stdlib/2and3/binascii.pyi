@@ -1,5 +1,5 @@
 import sys
-from typing import Text, Union
+from typing import Text, Union, overload
 
 if sys.version_info < (3,):
     # Python 2 accepts unicode ascii pretty much everywhere.
@@ -38,7 +38,12 @@ def crc32(__data: _Bytes, __crc: int = ...) -> int: ...
 def b2a_hex(__data: _Bytes) -> bytes: ...
 
 if sys.version_info >= (3, 8):
+    @overload
     def hexlify(data: bytes, sep: Union[str, bytes] = ..., bytes_per_sep: int = ...) -> bytes: ...
+    @overload
+    def hexlify(data: bytes, sep: Union[str, bytes] = ...) -> bytes: ...
+    @overload
+    def hexlify(data: bytes) -> bytes: ...
 
 else:
     def hexlify(__data: _Bytes) -> bytes: ...
