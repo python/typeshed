@@ -15,6 +15,8 @@ third_party/2and3/attr/__init__.pyi
 third_party/2and3/attr/converters.pyi
 third_party/2and3/attr/filters.pyi
 third_party/2and3/attr/validators.pyi
+third_party/2and3/paramiko/_winapi.pyi
+third_party/2and3/paramiko/win_pageant.pyi
 third_party/2and3/pynamodb/models.pyi
 
 # _pb2.pyi have some constructs that break pytype
