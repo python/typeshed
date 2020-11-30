@@ -1,5 +1,3 @@
-_thread.ExceptHookArgs
-_thread._ExceptHookArgs
 ast.Bytes.__new__
 ast.Ellipsis.__new__
 ast.NameConstant.__new__

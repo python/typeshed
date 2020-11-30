@@ -1,7 +1,5 @@
 _ast.ImportFrom.level
 _dummy_thread
-_thread.ExceptHookArgs
-_thread._ExceptHookArgs
 ast.Bytes.__new__
 ast.Ellipsis.__new__
 ast.ExtSlice.__new__
