@@ -10,7 +10,7 @@ from paramiko.util import ClosingContextManager
 
 _F = TypeVar("_F", bound=Callable[..., Any])
 
-def open_only(func: _F) -> _F: ...
+def open_only(func: _F) -> Callable[[_F], _F]: ...
 
 class Channel(ClosingContextManager):
     chanid: int
