@@ -32,27 +32,27 @@ def load_ssh_public_key(
 ) -> Union[RSAPublicKey, DSAPublicKey, DHPublicKey, EllipticCurvePublicKey, Ed25519PublicKey]: ...
 
 class Encoding(Enum):
-    PEM: Encoding
-    DER: Encoding
-    OpenSSH: Encoding
-    Raw: Encoding
-    X962: Encoding
+    PEM: str
+    DER: str
+    OpenSSH: str
+    Raw: str
+    X962: str
 
 class PrivateFormat(Enum):
-    PKCS8: PrivateFormat
-    TraditionalOpenSSL: PrivateFormat
-    Raw: PrivateFormat
+    PKCS8: str
+    TraditionalOpenSSL: str
+    Raw: str
 
 class PublicFormat(Enum):
-    SubjectPublicKeyInfo: PublicFormat
-    PKCS1: PublicFormat
-    OpenSSH: PublicFormat
-    Raw: PublicFormat
-    CompressedPoint: PublicFormat
-    UncompressedPoint: PublicFormat
+    SubjectPublicKeyInfo: str
+    PKCS1: str
+    OpenSSH: str
+    Raw: str
+    CompressedPoint: str
+    UncompressedPoint: str
 
 class ParameterFormat(Enum):
-    PKCS3: ParameterFormat
+    PKCS3: str
 
 class KeySerializationEncryption(metaclass=ABCMeta): ...
 
