@@ -1,8 +1,8 @@
 import sys
 from typing import Any, Text, Union
 
-from yaml import ScalarNode
 from yaml.error import MarkedYAMLError
+from yaml.nodes import ScalarNode
 
 Scalar = Union[Text, int, float, bool, None]
 
