@@ -1,5 +1,5 @@
 import sys
-from typing import Any, Union, Text
+from typing import Any, Text, Union
 
 from yaml import ScalarNode
 from yaml.error import MarkedYAMLError
