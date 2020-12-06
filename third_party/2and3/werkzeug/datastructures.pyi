@@ -21,6 +21,7 @@ from typing import (
     Union,
     overload,
 )
+
 if sys.version_info >= (3, 8):
     from typing import SupportsIndex
 else:
