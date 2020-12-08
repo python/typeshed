@@ -18,5 +18,5 @@ if sys.version_info >= (3, 7):
     def contents(package: Package) -> Iterator[str]: ...
 
 if sys.version_info >= (3, 9):
-    from ..abc import Traversable
+    from ..abc import Traversable as Traversable
     def files(package: Package) -> Traversable: ...
