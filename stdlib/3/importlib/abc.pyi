@@ -3,6 +3,7 @@ import sys
 import types
 from abc import ABCMeta, abstractmethod
 from typing import IO, Any, Iterator, Mapping, Optional, Sequence, Tuple, Union
+from typing_extensions import Literal
 
 # Loader is exported from this module, but for circular import reasons
 # exists in its own stub file (with ModuleSpec and ModuleType).
@@ -72,7 +73,7 @@ if sys.version_info >= (3, 7):
         def contents(self) -> Iterator[str]: ...
 
 if sys.version_info >= (3, 9):
-    from typing import Literal, Protocol, runtime_checkable
+    from typing import Protocol, runtime_checkable
     @runtime_checkable
     class Traversable(Protocol):
         @abstractmethod
