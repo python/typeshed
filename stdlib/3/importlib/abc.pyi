@@ -72,7 +72,7 @@ if sys.version_info >= (3, 7):
         def contents(self) -> Iterator[str]: ...
 
 if sys.version_info >= (3, 9):
-    from typing import Protocol, runtime_checkable
+    from typing import Literal, Protocol, runtime_checkable
     @runtime_checkable
     class Traversable(Protocol):
         @abstractmethod
@@ -90,7 +90,7 @@ if sys.version_info >= (3, 9):
         @abstractmethod
         def __truediv__(self, child: Traversable) -> Traversable: ...
         @abstractmethod
-        def open(self, mode: str = ..., *args, **kwargs) -> IO: ...
+        def open(self, mode: Literal["r", "rb"] = ..., *args: Any, **kwargs: Any) -> IO: ...
         @property
         @abstractmethod
         def name(self) -> str: ...
