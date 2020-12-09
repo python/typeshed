@@ -75,28 +75,28 @@ if sys.version_info >= (3, 9):
     from typing import Protocol, runtime_checkable
     @runtime_checkable
     class Traversable(Protocol):
-        @abc.abstractmethod
+        @abstractmethod
         def iterdir(self) -> Iterator[Traversable]: ...
 
-        @abc.abstractmethod
+        @abstractmethod
         def read_bytes(self) -> bytes: ...
 
-        @abc.abstractmethod
+        @abstractmethod
         def read_text(self, encoding: Optional[str] = None) -> str: ...
 
-        @abc.abstractmethod
+        @abstractmethod
         def is_dir(self) -> bool: ...
 
-        @abc.abstractmethod
+        @abstractmethod
         def is_file(self) -> bool: ...
 
-        @abc.abstractmethod
+        @abstractmethod
         def joinpath(self, child: Traversable) -> Traversable: ...
 
-        @abc.abstractmethod
+        @abstractmethod
         def __truediv__(self, child: Traversable) -> Traversable: ...
 
-        @abc.abstractmethod
+        @abstractmethod
         def open(self, mode: str = 'r', *args, **kwargs) -> IO: ...
 
         @abc.abstractproperty
