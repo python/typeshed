@@ -1,7 +1,7 @@
 import os
 import sys
 import types
-from abc import ABCMeta, abstractmethod, abstractproperty
+from abc import ABCMeta, abstractmethod
 from typing import IO, Any, Iterator, Mapping, Optional, Sequence, Tuple, Union
 
 # Loader is exported from this module, but for circular import reasons
@@ -91,5 +91,6 @@ if sys.version_info >= (3, 9):
         def __truediv__(self, child: Traversable) -> Traversable: ...
         @abstractmethod
         def open(self, mode: str = ..., *args, **kwargs) -> IO: ...
-        @abstractproperty
+        @property
+        @abstractmethod
         def name(self) -> str: ...
