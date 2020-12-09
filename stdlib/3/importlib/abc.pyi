@@ -1,7 +1,7 @@
 import os
 import sys
 import types
-from abc import ABCMeta, abstractmethod
+from abc import ABCMeta, abstractmethod, abstractproperty
 from typing import IO, Any, Iterator, Mapping, Optional, Sequence, Tuple, Union
 
 # Loader is exported from this module, but for circular import reasons
@@ -70,7 +70,7 @@ if sys.version_info >= (3, 7):
         def is_resource(self, name: str) -> bool: ...
         @abstractmethod
         def contents(self) -> Iterator[str]: ...
- 
+
 if sys.version_info >= (3, 9):
     from typing import Protocol, runtime_checkable
     @runtime_checkable
@@ -82,7 +82,7 @@ if sys.version_info >= (3, 9):
         def read_bytes(self) -> bytes: ...
 
         @abstractmethod
-        def read_text(self, encoding: Optional[str] = None) -> str: ...
+        def read_text(self, encoding: Optional[str] = ...) -> str: ...
 
         @abstractmethod
         def is_dir(self) -> bool: ...
@@ -97,7 +97,7 @@ if sys.version_info >= (3, 9):
         def __truediv__(self, child: Traversable) -> Traversable: ...
 
         @abstractmethod
-        def open(self, mode: str = 'r', *args, **kwargs) -> IO: ...
+        def open(self, mode: str = ..., *args, **kwargs) -> IO: ...
 
-        @abc.abstractproperty
+        @abstractproperty
         def name(self) -> str: ...
