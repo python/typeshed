@@ -1,6 +1,6 @@
+import queue
 import sys
 from typing import Any, Callable, Generic, Iterable, Mapping, Optional, Tuple, TypeVar
-import queue
 
 from ._base import Executor, Future
 
