@@ -1,5 +1,6 @@
 import sys
 from typing import Any, Callable, Generic, Iterable, Mapping, Optional, Tuple, TypeVar
+import queue
 
 from ._base import Executor, Future
 
@@ -13,7 +14,10 @@ if sys.version_info >= (3, 9):
 _S = TypeVar("_S")
 
 class ThreadPoolExecutor(Executor):
-    _work_queue: Any
+    if sys.version_info >= (3, 7):
+        _work_queue: queue.SimpleQueue
+    else:
+        _work_queue: queue.Queue
     if sys.version_info >= (3, 7):
         def __init__(
             self,
