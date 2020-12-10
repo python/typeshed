@@ -13,6 +13,7 @@ if sys.version_info >= (3, 9):
 _S = TypeVar("_S")
 
 class ThreadPoolExecutor(Executor):
+    _work_queue: Any
     if sys.version_info >= (3, 7):
         def __init__(
             self,
