@@ -37,10 +37,10 @@ class WorkingSet:
 
 working_set: WorkingSet
 
-def require(*requirements: Union[str, Sequence[str]]) -> Sequence[Distribution]: ...
-def run_script(requires: str, script_name: str) -> None: ...
-def iter_entry_points(group: str, name: Optional[str] = ...) -> Generator[EntryPoint, None, None]: ...
-def add_activation_listener(callback: Callable[[Distribution], None]) -> None: ...
+require = working_set.require
+run_script = working_set.run_script
+iter_entry_points = working_set.iter_entry_points
+add_activation_listener = working_set.subscribe
 
 class Environment:
     def __init__(
