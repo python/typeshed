@@ -13,6 +13,7 @@ from typing import (
     Type,
     TypeVar,
     Union,
+    final,
     overload,
 )
 
@@ -324,3 +325,11 @@ if sys.version_info >= (3, 9):
         __parameters__: Tuple[Any, ...]
         def __init__(self, origin: type, args: Any) -> None: ...
         def __getattr__(self, name: str) -> Any: ...  # incomplete
+
+if sys.version_info >= (3, 10):
+    @final
+    class NoneType:
+        def __bool__(self) -> Literal[False]: ...
+
+    EllipsisType = ellipsis  # from builtins
+    NotImplementedType = _NotImplementedType  # from builtins
