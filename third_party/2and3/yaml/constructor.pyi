@@ -4,7 +4,7 @@ from typing import Any, Text, Union
 from yaml.error import MarkedYAMLError
 from yaml.nodes import ScalarNode
 
-Scalar = Union[Text, int, float, bool, None]
+_Scalar = Union[Text, int, float, bool, None]
 
 class ConstructorError(MarkedYAMLError): ...
 
