@@ -671,15 +671,9 @@ else:
         errors: Optional[str] = ...,
     ) -> Any: ...  # morally: -> _TXT
 
-if sys.version_info >= (3, 8):
-    from typing import Literal
-    PIPE: Literal[-1]
-    STDOUT: Literal[-2]
-    DEVNULL: Literal[-3]
-else:
-    PIPE: int
-    STDOUT: int
-    DEVNULL: int
+PIPE: Literal[-1]
+STDOUT: Literal[-2]
+DEVNULL: Literal[-3]
 
 class SubprocessError(Exception): ...
 
