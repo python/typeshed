@@ -671,9 +671,12 @@ else:
         errors: Optional[str] = ...,
     ) -> Any: ...  # morally: -> _TXT
 
-PIPE: Literal[-1]
-STDOUT: Literal[-2]
-DEVNULL: Literal[-3]
+_PIPE = Literal[-1]
+PIPE: T_PIPE
+_STDOUT = Literal[-2]
+STDOUT: T_STDOUT
+_DEVNULL = Literal[-3]
+DEVNULL: T_DEVNULL
 
 class SubprocessError(Exception): ...
 
