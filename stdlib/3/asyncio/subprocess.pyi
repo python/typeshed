@@ -3,6 +3,8 @@ from asyncio import events, protocols, streams, transports
 from subprocess import DEVNULL, PIPE, STDOUT
 from typing import IO, Any, Generic, Optional, Tuple, TypeVar, Union, overload
 
+reveal_type(DEVNULL)
+
 if sys.version_info >= (3, 8):
     from os import PathLike
 
