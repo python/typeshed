@@ -1,6 +1,6 @@
 import sys
 from asyncio import events, protocols, streams, transports
-from subprocess import DEVNULL as DEVNULL, PIPE as PIPE, STDOUT as STDOUT, _DEVNULL, _PIPE, _STDOUT
+from subprocess import _DEVNULL, _PIPE, _STDOUT, DEVNULL as DEVNULL, PIPE as PIPE, STDOUT as STDOUT
 from typing import IO, Any, Generic, Optional, Tuple, TypeVar, Union, overload
 
 if sys.version_info >= (3, 8):
