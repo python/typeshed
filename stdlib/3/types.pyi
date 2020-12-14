@@ -16,6 +16,7 @@ from typing import (
     final,
     overload,
 )
+from typing_extensions import Literal
 
 # ModuleType is exported from this module, but for circular import
 # reasons exists in its own stub file (with ModuleSpec and Loader).
@@ -330,5 +331,5 @@ if sys.version_info >= (3, 10):
     @final
     class NoneType:
         def __bool__(self) -> Literal[False]: ...
-    EllipsisType = ellipsis  # from builtins
-    NotImplementedType = _NotImplementedType  # from builtins
+    EllipsisType = ellipsis  # noqa F811 from builtins
+    NotImplementedType = _NotImplementedType  # noqa F811 from builtins
