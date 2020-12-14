@@ -1,7 +1,7 @@
 import sys
 from asyncio import events, protocols, streams, transports
 from subprocess import DEVNULL, PIPE, STDOUT
-from typing import IO, Any, Generic, Literal, Optional, Tuple, TypeVar, Union, overload
+from typing import IO, Any, Generic, Optional, Tuple, TypeVar, Union, overload
 
 if sys.version_info >= (3, 8):
     from os import PathLike
@@ -49,7 +49,7 @@ if sys.version_info < (3, 8):
         loop: Optional[events.AbstractEventLoop] = ...,
         limit: int = ...,
         **kwds: Any,
-    ) -> Process: ...
+    ) -> Process[Optional[streams.StreamWriter], Optional[streams.StreamReader], Optional[streams.StreamReader]]: ...
     async def create_subprocess_exec(
         program: _ExecArg,
         *args: _ExecArg,
@@ -59,7 +59,7 @@ if sys.version_info < (3, 8):
         loop: Optional[events.AbstractEventLoop] = ...,
         limit: int = ...,
         **kwds: Any,
-    ) -> Process: ...
+    ) -> Process[Optional[streams.StreamWriter], Optional[streams.StreamReader], Optional[streams.StreamReader]]: ...
 else:
     @overload
     async def create_subprocess_shell(
