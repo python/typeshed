@@ -1,9 +1,7 @@
 import sys
 from asyncio import events, protocols, streams, transports
-from subprocess import DEVNULL, PIPE, STDOUT
+from subprocess import DEVNULL as DEVNULL, PIPE as PIPE, STDOUT as STDOUT
 from typing import IO, Any, Generic, Optional, Tuple, TypeVar, Union, overload
-
-reveal_type(DEVNULL)
 
 if sys.version_info >= (3, 8):
     from os import PathLike
