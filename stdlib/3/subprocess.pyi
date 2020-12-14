@@ -672,11 +672,11 @@ else:
     ) -> Any: ...  # morally: -> _TXT
 
 _PIPE = Literal[-1]
-PIPE: T_PIPE
+PIPE: _PIPE
 _STDOUT = Literal[-2]
-STDOUT: T_STDOUT
+STDOUT: _STDOUT
 _DEVNULL = Literal[-3]
-DEVNULL: T_DEVNULL
+DEVNULL: _DEVNULL
 
 class SubprocessError(Exception): ...
 
