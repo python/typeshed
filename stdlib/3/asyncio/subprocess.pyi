@@ -40,197 +40,176 @@ class Process(Generic[_S, _T, _U]):
     def kill(self) -> None: ...
     async def communicate(self, input: Optional[bytes] = ...) -> Tuple[bytes, bytes]: ...
 
-if sys.version_info < (3, 8):
-    async def create_subprocess_shell(
-        cmd: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue  #1236
-        stdin: Union[int, IO[Any], None] = ...,
-        stdout: Union[int, IO[Any], None] = ...,
-        stderr: Union[int, IO[Any], None] = ...,
-        loop: Optional[events.AbstractEventLoop] = ...,
-        limit: int = ...,
-        **kwds: Any,
-    ) -> Process[Optional[streams.StreamWriter], Optional[streams.StreamReader], Optional[streams.StreamReader]]: ...
-    async def create_subprocess_exec(
-        program: _ExecArg,
-        *args: _ExecArg,
-        stdin: Union[int, IO[Any], None] = ...,
-        stdout: Union[int, IO[Any], None] = ...,
-        stderr: Union[int, IO[Any], None] = ...,
-        loop: Optional[events.AbstractEventLoop] = ...,
-        limit: int = ...,
-        **kwds: Any,
-    ) -> Process[Optional[streams.StreamWriter], Optional[streams.StreamReader], Optional[streams.StreamReader]]: ...
-else:
-    @overload
-    async def create_subprocess_shell(
-        cmd: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue  #1236
-        stdin: PIPE,
-        stdout: Union[DEVNULL, IO[Any], None] = ...,
-        stderr: Union[DEVNULL, STDOUT, IO[Any], None] = ...,
-        loop: Optional[events.AbstractEventLoop] = ...,
-        limit: int = ...,
-        **kwds: Any,
-    ) -> Process[streams.StreamWriter, None, None]: ...
-    @overload
-    async def create_subprocess_shell(
-        cmd: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue  #1236
-        stdin: Union[DEVNULL, IO[Any], None] = ...,
-        *,
-        stdout: PIPE,
-        stderr: Union[DEVNULL, STDOUT, IO[Any], None] = ...,
-        loop: Optional[events.AbstractEventLoop] = ...,
-        limit: int = ...,
-        **kwds: Any,
-    ) -> Process[None, streams.StreamReader, None]: ...
-    @overload
-    async def create_subprocess_shell(
-        cmd: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue  #1236
-        stdin: Union[DEVNULL, IO[Any], None] = ...,
-        stdout: Union[DEVNULL, IO[Any], None] = ...,
-        *,
-        stderr: PIPE,
-        loop: Optional[events.AbstractEventLoop] = ...,
-        limit: int = ...,
-        **kwds: Any,
-    ) -> Process[None, None, streams.StreamReader]: ...
-    @overload
-    async def create_subprocess_shell(
-        cmd: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue  #1236
-        stdin: PIPE,
-        stdout: PIPE,
-        stderr: Union[DEVNULL, STDOUT, IO[Any], None] = ...,
-        loop: Optional[events.AbstractEventLoop] = ...,
-        limit: int = ...,
-        **kwds: Any,
-    ) -> Process[streams.StreamWriter, streams.StreamReader, None]: ...
-    @overload
-    async def create_subprocess_shell(
-        cmd: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue  #1236
-        stdin: PIPE,
-        stdout: Union[DEVNULL, IO[Any], None] = ...,
-        *,
-        stderr: PIPE,
-        loop: Optional[events.AbstractEventLoop] = ...,
-        limit: int = ...,
-        **kwds: Any,
-    ) -> Process[streams.StreamWriter, None, streams.StreamReader]: ...
-    @overload
-    async def create_subprocess_shell(
-        cmd: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue  #1236
-        stdin: Union[DEVNULL, IO[Any], None] = ...,
-        *,
-        stdout: PIPE,
-        stderr: PIPE,
-        loop: Optional[events.AbstractEventLoop] = ...,
-        limit: int = ...,
-        **kwds: Any,
-    ) -> Process[None, streams.StreamReader, streams.StreamReader]: ...
-    @overload
-    async def create_subprocess_shell(
-        cmd: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue  #1236
-        stdin: PIPE,
-        stdout: PIPE,
-        stderr: PIPE,
-        loop: Optional[events.AbstractEventLoop] = ...,
-        limit: int = ...,
-        **kwds: Any,
-    ) -> Process[streams.StreamWriter, streams.StreamReader, streams.StreamReader]: ...
-    @overload
-    async def create_subprocess_shell(
-        cmd: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue  #1236
-        stdin: Union[DEVNULL, IO[Any], None] = ...,
-        stdout: Union[DEVNULL, IO[Any], None] = ...,
-        stderr: Union[DEVNULL, STDOUT, IO[Any], None] = ...,
-        loop: Optional[events.AbstractEventLoop] = ...,
-        limit: int = ...,
-        **kwds: Any,
-    ) -> Process[None, None, None]: ...
+@overload
+async def create_subprocess_shell(
+    cmd: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue  #1236
+    stdin: PIPE,
+    stdout: Union[DEVNULL, IO[Any], None] = ...,
+    stderr: Union[DEVNULL, STDOUT, IO[Any], None] = ...,
+    loop: Optional[events.AbstractEventLoop] = ...,
+    limit: int = ...,
+    **kwds: Any,
+) -> Process[streams.StreamWriter, None, None]: ...
+@overload
+async def create_subprocess_shell(
+    cmd: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue  #1236
+    stdin: Union[DEVNULL, IO[Any], None] = ...,
+    *,
+    stdout: PIPE,
+    stderr: Union[DEVNULL, STDOUT, IO[Any], None] = ...,
+    loop: Optional[events.AbstractEventLoop] = ...,
+    limit: int = ...,
+    **kwds: Any,
+) -> Process[None, streams.StreamReader, None]: ...
+@overload
+async def create_subprocess_shell(
+    cmd: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue  #1236
+    stdin: Union[DEVNULL, IO[Any], None] = ...,
+    stdout: Union[DEVNULL, IO[Any], None] = ...,
+    *,
+    stderr: PIPE,
+    loop: Optional[events.AbstractEventLoop] = ...,
+    limit: int = ...,
+    **kwds: Any,
+) -> Process[None, None, streams.StreamReader]: ...
+@overload
+async def create_subprocess_shell(
+    cmd: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue  #1236
+    stdin: PIPE,
+    stdout: PIPE,
+    stderr: Union[DEVNULL, STDOUT, IO[Any], None] = ...,
+    loop: Optional[events.AbstractEventLoop] = ...,
+    limit: int = ...,
+    **kwds: Any,
+) -> Process[streams.StreamWriter, streams.StreamReader, None]: ...
+@overload
+async def create_subprocess_shell(
+    cmd: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue  #1236
+    stdin: PIPE,
+    stdout: Union[DEVNULL, IO[Any], None] = ...,
+    *,
+    stderr: PIPE,
+    loop: Optional[events.AbstractEventLoop] = ...,
+    limit: int = ...,
+    **kwds: Any,
+) -> Process[streams.StreamWriter, None, streams.StreamReader]: ...
+@overload
+async def create_subprocess_shell(
+    cmd: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue  #1236
+    stdin: Union[DEVNULL, IO[Any], None] = ...,
+    *,
+    stdout: PIPE,
+    stderr: PIPE,
+    loop: Optional[events.AbstractEventLoop] = ...,
+    limit: int = ...,
+    **kwds: Any,
+) -> Process[None, streams.StreamReader, streams.StreamReader]: ...
+@overload
+async def create_subprocess_shell(
+    cmd: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue  #1236
+    stdin: PIPE,
+    stdout: PIPE,
+    stderr: PIPE,
+    loop: Optional[events.AbstractEventLoop] = ...,
+    limit: int = ...,
+    **kwds: Any,
+) -> Process[streams.StreamWriter, streams.StreamReader, streams.StreamReader]: ...
+@overload
+async def create_subprocess_shell(
+    cmd: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue  #1236
+    stdin: Union[DEVNULL, IO[Any], None] = ...,
+    stdout: Union[DEVNULL, IO[Any], None] = ...,
+    stderr: Union[DEVNULL, STDOUT, IO[Any], None] = ...,
+    loop: Optional[events.AbstractEventLoop] = ...,
+    limit: int = ...,
+    **kwds: Any,
+) -> Process[None, None, None]: ...
 
-    @overload
-    async def create_subprocess_exec(
-        program: _ExecArg,
-        *args: _ExecArg,
-        stdin: PIPE,
-        stdout: Union[DEVNULL, IO[Any], None] = ...,
-        stderr: Union[DEVNULL, STDOUT, IO[Any], None] = ...,
-        loop: Optional[events.AbstractEventLoop] = ...,
-        limit: int = ...,
-        **kwds: Any,
-    ) -> Process[streams.StreamWriter, None, None]: ...
-    @overload
-    async def create_subprocess_exec(
-        program: _ExecArg,
-        *args: _ExecArg,
-        stdin: Union[DEVNULL, IO[Any], None] = ...,
-        stdout: PIPE,
-        stderr: Union[DEVNULL, STDOUT, IO[Any], None] = ...,
-        loop: Optional[events.AbstractEventLoop] = ...,
-        limit: int = ...,
-        **kwds: Any,
-    ) -> Process[None, streams.StreamReader, None]: ...
-    @overload
-    async def create_subprocess_exec(
-        program: _ExecArg,
-        *args: _ExecArg,
-        stdin: Union[DEVNULL, IO[Any], None] = ...,
-        stdout: Union[DEVNULL, IO[Any], None] = ...,
-        stderr: PIPE,
-        loop: Optional[events.AbstractEventLoop] = ...,
-        limit: int = ...,
-        **kwds: Any,
-    ) -> Process[None, None, streams.StreamReader]: ...
-    @overload
-    async def create_subprocess_exec(
-        program: _ExecArg,
-        *args: _ExecArg,
-        stdin: PIPE,
-        stdout: PIPE,
-        stderr: Union[DEVNULL, STDOUT, IO[Any], None] = ...,
-        loop: Optional[events.AbstractEventLoop] = ...,
-        limit: int = ...,
-        **kwds: Any,
-    ) -> Process[streams.StreamWriter, streams.StreamReader, None]: ...
-    @overload
-    async def create_subprocess_exec(
-        program: _ExecArg,
-        *args: _ExecArg,
-        stdin: PIPE,
-        stdout: Union[DEVNULL, IO[Any], None] = ...,
-        stderr: PIPE,
-        loop: Optional[events.AbstractEventLoop] = ...,
-        limit: int = ...,
-        **kwds: Any,
-    ) -> Process[streams.StreamWriter, None, streams.StreamReader]: ...
-    @overload
-    async def create_subprocess_exec(
-        program: _ExecArg,
-        *args: _ExecArg,
-        stdin: Union[DEVNULL, IO[Any], None] = ...,
-        stdout: PIPE,
-        stderr: PIPE,
-        loop: Optional[events.AbstractEventLoop] = ...,
-        limit: int = ...,
-        **kwds: Any,
-    ) -> Process[None, streams.StreamReader, streams.StreamReader]: ...
-    @overload
-    async def create_subprocess_exec(
-        program: _ExecArg,
-        *args: _ExecArg,
-        stdin: PIPE,
-        stdout: PIPE,
-        stderr: PIPE,
-        loop: Optional[events.AbstractEventLoop] = ...,
-        limit: int = ...,
-        **kwds: Any,
-    ) -> Process[streams.StreamWriter, streams.StreamReader, streams.StreamReader]: ...
-    @overload
-    async def create_subprocess_exec(
-        program: _ExecArg,
-        *args: _ExecArg,
-        stdin: Union[DEVNULL, IO[Any], None] = ...,
-        stdout: Union[DEVNULL, IO[Any], None] = ...,
-        stderr: Union[DEVNULL, STDOUT, IO[Any], None] = ...,
-        loop: Optional[events.AbstractEventLoop] = ...,
-        limit: int = ...,
-        **kwds: Any,
-    ) -> Process[None, None, None]: ...
+@overload
+async def create_subprocess_exec(
+    program: _ExecArg,
+    *args: _ExecArg,
+    stdin: PIPE,
+    stdout: Union[DEVNULL, IO[Any], None] = ...,
+    stderr: Union[DEVNULL, STDOUT, IO[Any], None] = ...,
+    loop: Optional[events.AbstractEventLoop] = ...,
+    limit: int = ...,
+    **kwds: Any,
+) -> Process[streams.StreamWriter, None, None]: ...
+@overload
+async def create_subprocess_exec(
+    program: _ExecArg,
+    *args: _ExecArg,
+    stdin: Union[DEVNULL, IO[Any], None] = ...,
+    stdout: PIPE,
+    stderr: Union[DEVNULL, STDOUT, IO[Any], None] = ...,
+    loop: Optional[events.AbstractEventLoop] = ...,
+    limit: int = ...,
+    **kwds: Any,
+) -> Process[None, streams.StreamReader, None]: ...
+@overload
+async def create_subprocess_exec(
+    program: _ExecArg,
+    *args: _ExecArg,
+    stdin: Union[DEVNULL, IO[Any], None] = ...,
+    stdout: Union[DEVNULL, IO[Any], None] = ...,
+    stderr: PIPE,
+    loop: Optional[events.AbstractEventLoop] = ...,
+    limit: int = ...,
+    **kwds: Any,
+) -> Process[None, None, streams.StreamReader]: ...
+@overload
+async def create_subprocess_exec(
+    program: _ExecArg,
+    *args: _ExecArg,
+    stdin: PIPE,
+    stdout: PIPE,
+    stderr: Union[DEVNULL, STDOUT, IO[Any], None] = ...,
+    loop: Optional[events.AbstractEventLoop] = ...,
+    limit: int = ...,
+    **kwds: Any,
+) -> Process[streams.StreamWriter, streams.StreamReader, None]: ...
+@overload
+async def create_subprocess_exec(
+    program: _ExecArg,
+    *args: _ExecArg,
+    stdin: PIPE,
+    stdout: Union[DEVNULL, IO[Any], None] = ...,
+    stderr: PIPE,
+    loop: Optional[events.AbstractEventLoop] = ...,
+    limit: int = ...,
+    **kwds: Any,
+) -> Process[streams.StreamWriter, None, streams.StreamReader]: ...
+@overload
+async def create_subprocess_exec(
+    program: _ExecArg,
+    *args: _ExecArg,
+    stdin: Union[DEVNULL, IO[Any], None] = ...,
+    stdout: PIPE,
+    stderr: PIPE,
+    loop: Optional[events.AbstractEventLoop] = ...,
+    limit: int = ...,
+    **kwds: Any,
+) -> Process[None, streams.StreamReader, streams.StreamReader]: ...
+@overload
+async def create_subprocess_exec(
+    program: _ExecArg,
+    *args: _ExecArg,
+    stdin: PIPE,
+    stdout: PIPE,
+    stderr: PIPE,
+    loop: Optional[events.AbstractEventLoop] = ...,
+    limit: int = ...,
+    **kwds: Any,
+) -> Process[streams.StreamWriter, streams.StreamReader, streams.StreamReader]: ...
+@overload
+async def create_subprocess_exec(
+    program: _ExecArg,
+    *args: _ExecArg,
+    stdin: Union[DEVNULL, IO[Any], None] = ...,
+    stdout: Union[DEVNULL, IO[Any], None] = ...,
+    stderr: Union[DEVNULL, STDOUT, IO[Any], None] = ...,
+    loop: Optional[events.AbstractEventLoop] = ...,
+    limit: int = ...,
+    **kwds: Any,
+) -> Process[None, None, None]: ...
