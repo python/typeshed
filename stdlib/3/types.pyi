@@ -13,10 +13,9 @@ from typing import (
     Type,
     TypeVar,
     Union,
-    final,
     overload,
 )
-from typing_extensions import Literal
+from typing_extensions import Literal, final
 
 # ModuleType is exported from this module, but for circular import
 # reasons exists in its own stub file (with ModuleSpec and Loader).
