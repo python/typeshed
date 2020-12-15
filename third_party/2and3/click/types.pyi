@@ -1,6 +1,6 @@
 import datetime
 import uuid
-from typing import IO, Any, Callable, Generic, Iterable, List, Optional, Tuple as _PyTuple, Type, TypeVar, Union
+from typing import IO, Any, Callable, Generic, Iterable, List, Optional, Text, Tuple as _PyTuple, Type, TypeVar, Union
 
 from click.core import Context, Parameter, _ConvertibleType, _ParamType
 
@@ -31,7 +31,7 @@ class FloatRange(FloatParamType):
 class File(ParamType):
     def __init__(
         self,
-        mode: str = ...,
+        mode: Text = ...,
         encoding: Optional[str] = ...,
         errors: Optional[str] = ...,
         lazy: Optional[bool] = ...,
