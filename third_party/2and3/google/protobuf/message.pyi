@@ -1,5 +1,5 @@
 import sys
-from typing import Any, ByteString, overload, Sequence, Tuple, Type, TypeVar, Union
+from typing import Any, ByteString, Sequence, Tuple, Type, TypeVar, Union, overload
 
 from .descriptor import Descriptor, FieldDescriptor
 from .internal.extension_dict import _ExtensionDict, _ExtensionFieldDescriptor

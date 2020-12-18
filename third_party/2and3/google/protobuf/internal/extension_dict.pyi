@@ -1,4 +1,4 @@
-from typing import Any, Generic, Iterator, overload, TypeVar
+from typing import Any, Generic, Iterator, TypeVar, overload
 
 from google.protobuf.descriptor import FieldDescriptor
 from google.protobuf.message import Message
@@ -20,8 +20,7 @@ class _ExtensionDict(Generic[_ContainerMessageT]):
     def __getitem__(self, extension_handle: FieldDescriptor) -> Any: ...
     @overload
     def __setitem__(
-        self, extension_handle: _ExtensionFieldDescriptor[_ContainerMessageT, _ExtenderMessageT],
-        value: _ExtenderMessageT
+        self, extension_handle: _ExtensionFieldDescriptor[_ContainerMessageT, _ExtenderMessageT], value: _ExtenderMessageT
     ) -> None: ...
     @overload
     def __setitem__(self, extension_handle: FieldDescriptor, value: Any) -> None: ...
