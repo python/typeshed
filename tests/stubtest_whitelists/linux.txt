@@ -38,6 +38,7 @@ _msi
 _winapi
 asyncio.windows_events
 asyncio.windows_utils
+ctypes.wintypes
 msilib(.[a-z]+)?
 msvcrt
 winreg
