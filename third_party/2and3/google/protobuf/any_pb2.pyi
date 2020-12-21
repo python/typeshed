@@ -9,6 +9,8 @@ from google.protobuf.message import (
     Message as google___protobuf___message___Message,
 )
 
+from google.protobuf.internal import well_known_types
+
 from typing import (
     Optional as typing___Optional,
     Text as typing___Text,
@@ -27,7 +29,7 @@ builtin___int = int
 
 DESCRIPTOR: google___protobuf___descriptor___FileDescriptor = ...
 
-class Any(google___protobuf___message___Message):
+class Any(google___protobuf___message___Message, well_known_types.Any_):
     DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...
     type_url: typing___Text = ...
     value: builtin___bytes = ...

@@ -9,6 +9,8 @@ from google.protobuf.message import (
     Message as google___protobuf___message___Message,
 )
 
+from google.protobuf.internal import well_known_types
+
 from typing import (
     Optional as typing___Optional,
 )
@@ -26,7 +28,7 @@ builtin___int = int
 
 DESCRIPTOR: google___protobuf___descriptor___FileDescriptor = ...
 
-class Duration(google___protobuf___message___Message):
+class Duration(google___protobuf___message___Message, well_known_types.Duration):
     DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...
     seconds: builtin___int = ...
     nanos: builtin___int = ...

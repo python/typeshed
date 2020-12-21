@@ -13,6 +13,8 @@ from google.protobuf.message import (
     Message as google___protobuf___message___Message,
 )
 
+from google.protobuf.internal import well_known_types
+
 from typing import (
     Iterable as typing___Iterable,
     Optional as typing___Optional,
@@ -32,7 +34,7 @@ builtin___int = int
 
 DESCRIPTOR: google___protobuf___descriptor___FileDescriptor = ...
 
-class FieldMask(google___protobuf___message___Message):
+class FieldMask(google___protobuf___message___Message, well_known_types.FieldMask):
     DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...
     paths: google___protobuf___internal___containers___RepeatedScalarFieldContainer[typing___Text] = ...
 

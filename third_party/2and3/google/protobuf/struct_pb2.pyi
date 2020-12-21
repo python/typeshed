@@ -18,6 +18,8 @@ from google.protobuf.message import (
     Message as google___protobuf___message___Message,
 )
 
+from google.protobuf.internal import well_known_types
+
 from typing import (
     Iterable as typing___Iterable,
     Mapping as typing___Mapping,
@@ -50,7 +52,7 @@ class _NullValue(google___protobuf___internal___enum_type_wrapper____EnumTypeWra
 NULL_VALUE = typing___cast(NullValueValue, 0)
 type___NullValue = NullValue
 
-class Struct(google___protobuf___message___Message):
+class Struct(google___protobuf___message___Message, well_known_types.Struct):
     DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...
     class FieldsEntry(google___protobuf___message___Message):
         DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...
@@ -106,7 +108,7 @@ class Value(google___protobuf___message___Message):
     def WhichOneof(self, oneof_group: typing_extensions___Literal[u"kind",b"kind"]) -> typing_extensions___Literal["null_value","number_value","string_value","bool_value","struct_value","list_value"]: ...
 type___Value = Value
 
-class ListValue(google___protobuf___message___Message):
+class ListValue(google___protobuf___message___Message, well_known_types.ListValue):
     DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...
 
     @property
