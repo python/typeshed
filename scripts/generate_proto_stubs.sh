@@ -10,7 +10,7 @@
 #
 # Update these two variables when rerunning script
 PROTOBUF_VERSION=3.14.0
-MYPY_PROTOBUF_VERSION=v1.23
+MYPY_PROTOBUF_VERSION=8639282dae3bb64b2e1db9928d72fc374f7fa831  # Update to 1.24 when it releases
 
 set -ex
 
@@ -58,6 +58,8 @@ PROTO_FILES=$(grep "generate_proto.*google" $PYTHON_PROTOBUF_DIR/python/setup.py
     grep -v "test" | \
     grep -v google/protobuf/internal/ | \
     grep -v google/protobuf/pyext/python.proto | \
+    grep -v src/google/protobuf/util/json_format.proto | \
+    grep -v src/google/protobuf/util/json_format_proto3.proto | \
     sed "s:^:$PYTHON_PROTOBUF_DIR/python/:" | \
     xargs -L1 realpath --relative-to=. \
 )
