@@ -2,6 +2,7 @@ import sys
 import unittest.case
 import unittest.result
 import unittest.suite
+from builtins import _PathLike
 from types import ModuleType
 from typing import Any, Callable, List, Optional, Sequence, Type
 
@@ -22,7 +23,7 @@ class TestLoader:
     def loadTestsFromName(self, name: str, module: Optional[ModuleType] = ...) -> unittest.suite.TestSuite: ...
     def loadTestsFromNames(self, names: Sequence[str], module: Optional[ModuleType] = ...) -> unittest.suite.TestSuite: ...
     def getTestCaseNames(self, testCaseClass: Type[unittest.case.TestCase]) -> Sequence[str]: ...
-    def discover(self, start_dir: str, pattern: str = ..., top_level_dir: Optional[str] = ...) -> unittest.suite.TestSuite: ...
+    def discover(self, start_dir: str, pattern: str = ..., top_level_dir: Optional[_PathLike] = ...) -> unittest.suite.TestSuite: ...
 
 defaultTestLoader: TestLoader
 
