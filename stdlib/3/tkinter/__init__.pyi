@@ -637,7 +637,7 @@ class Pack:
     # replaced by **kwargs.
     def pack_configure(
         self,
-        cnf: Optional[Dict[str, Any]] = ...,
+        cnf: Optional[Mapping[str, Any]] = ...,
         *,
         after: Misc = ...,
         anchor: _Anchor = ...,
@@ -680,7 +680,7 @@ class _PlaceInfo(_InMiscNonTotal):  # empty dict if widget hasn't been placed
 class Place:
     def place_configure(
         self,
-        cnf: Optional[Dict[str, Any]] = ...,
+        cnf: Optional[Mapping[str, Any]] = ...,
         *,
         anchor: _Anchor = ...,
         bordermode: Literal["inside", "outside", "ignore"] = ...,
@@ -720,7 +720,7 @@ class _GridInfo(_InMiscNonTotal):  # empty dict if widget hasn't been gridded
 class Grid:
     def grid_configure(
         self,
-        cnf: Optional[Dict[str, Any]] = ...,
+        cnf: Optional[Mapping[str, Any]] = ...,
         *,
         column: int = ...,
         columnspan: int = ...,
