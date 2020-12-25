@@ -1,6 +1,7 @@
 import os
 import sys
 from _typeshed import StrPath, SupportsRead, SupportsWrite
+from types import TracebackType
 from typing import (
     Any,
     AnyStr,
@@ -20,18 +21,19 @@ from typing import (
 
 if sys.version_info >= (3, 6):
     _AnyStr = str
-    _AnyPath = TypeVar("_AnyPath", str, os.PathLike[str])
+    _AnyPath = TypeVar("_AnyPath", bytes, str, os.PathLike[str])
     # Return value of some functions that may either return a path-like object that was passed in or
     # a string
     _PathReturn = Any
 elif sys.version_info >= (3,):
     _AnyStr = str
-    _AnyPath = str
+    _AnyPath = TypeVar("_AnyPath", bytes, str)
     _PathReturn = str
 else:
     _AnyStr = TypeVar("_AnyStr", str, unicode)
     _AnyPath = TypeVar("_AnyPath", str, unicode)
     _PathReturn = Type[None]
+_ExcInfo = Tuple[Type[BaseException], BaseException, TracebackType]
 
 if sys.version_info >= (3,):
     class Error(OSError): ...
@@ -93,15 +95,9 @@ else:
         ignore: Union[None, Callable[[AnyStr, List[AnyStr]], Iterable[AnyStr]]] = ...,
     ) -> _PathReturn: ...
 
-if sys.version_info >= (3,):
-    def rmtree(
-        path: Union[bytes, StrPath], ignore_errors: bool = ..., onerror: Optional[Callable[[Any, Any, Any], Any]] = ...
-    ) -> None: ...
-
-else:
-    def rmtree(
-        path: _AnyPath, ignore_errors: bool = ..., onerror: Optional[Callable[[Any, _AnyPath, Any], Any]] = ...
-    ) -> None: ...
+def rmtree(
+    path: _AnyPath, ignore_errors: bool = ..., onerror: Optional[Callable[[Callable, _AnyPath, _ExcInfo], None]] = ...
+) -> None: ...
 
 _CopyFn = Union[Callable[[str, str], None], Callable[[StrPath, StrPath], None]]
 
