@@ -713,8 +713,8 @@ class _GridInfo(_InMiscNonTotal):  # empty dict if widget hasn't been gridded
     rowspan: int
     ipadx: int
     ipady: int
-    padx: int
-    pady: int
+    padx: Union[int, Tuple[int, int]]
+    pady: Union[int, Tuple[int, int]]
     sticky: str  # consists of letters 'n', 's', 'w', 'e', no repeats, may be empty
 
 class Grid:
@@ -728,8 +728,8 @@ class Grid:
         rowspan: int = ...,
         ipadx: _ScreenUnits = ...,
         ipady: _ScreenUnits = ...,
-        padx: _ScreenUnits = ...,
-        pady: _ScreenUnits = ...,
+        padx: Union[_ScreenUnits, Tuple[_ScreenUnits, _ScreenUnits]] = ...,
+        pady: Union[_ScreenUnits, Tuple[_ScreenUnits, _ScreenUnits]] = ...,
         sticky: str = ...,  # consists of letters 'n', 's', 'w', 'e', may contain repeats, may be empty
         in_: Misc = ...,
     ) -> None: ...
