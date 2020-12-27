@@ -4,7 +4,7 @@ from enum import Enum
 from tkinter.constants import *  # comment this out to find undefined identifier names with flake8
 from tkinter.font import _FontDescription
 from types import TracebackType
-from typing import Any, Callable, Dict, Generic, List, Optional, Protocol, Tuple, Type, TypeVar, Union, overload
+from typing import Any, Callable, Dict, Generic, List, Mapping, Optional, Protocol, Tuple, Type, TypeVar, Union, overload
 from typing_extensions import Literal, TypedDict
 
 # Using anything from tkinter.font in this file means that 'import tkinter'
@@ -637,7 +637,7 @@ class Pack:
     # replaced by **kwargs.
     def pack_configure(
         self,
-        cnf: Optional[Dict[str, Any]] = ...,
+        cnf: Optional[Mapping[str, Any]] = ...,
         *,
         after: Misc = ...,
         anchor: _Anchor = ...,
@@ -680,7 +680,7 @@ class _PlaceInfo(_InMiscNonTotal):  # empty dict if widget hasn't been placed
 class Place:
     def place_configure(
         self,
-        cnf: Optional[Dict[str, Any]] = ...,
+        cnf: Optional[Mapping[str, Any]] = ...,
         *,
         anchor: _Anchor = ...,
         bordermode: Literal["inside", "outside", "ignore"] = ...,
@@ -720,7 +720,7 @@ class _GridInfo(_InMiscNonTotal):  # empty dict if widget hasn't been gridded
 class Grid:
     def grid_configure(
         self,
-        cnf: Optional[Dict[str, Any]] = ...,
+        cnf: Optional[Mapping[str, Any]] = ...,
         *,
         column: int = ...,
         columnspan: int = ...,
