@@ -222,6 +222,7 @@ def getboolean(s): ...
 class Misc:
     master: Optional[Misc]
     tk: _tkinter.TkappType
+    children: Dict[str, Widget]
     def destroy(self): ...
     def deletecommand(self, name): ...
     def tk_strictMotif(self, boolean: Optional[Any] = ...): ...
@@ -538,7 +539,6 @@ class _ExceptionReportingCallback(Protocol):
 
 class Tk(Misc, Wm):
     master: None
-    children: Dict[str, Any]
     def __init__(
         self,
         screenName: Optional[str] = ...,
