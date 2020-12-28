@@ -48,38 +48,45 @@ jobs:
               return undefined
             }
 
-            const end_time = Number(new Date()) + 60 * 60 * 1000;
-            let primer_run = await check_mypy_primer();
+            const end_time = Number(new Date()) + 60 * 60 * 1000
+            let primer_run = await check_mypy_primer()
             while (!primer_run || primer_run.status != "completed") {
               if (Number(new Date()) > end_time) {
-                throw Error("Timed out waiting for mypy_primer");
+                throw Error("Timed out waiting for mypy_primer")
               }
               console.log("Waiting for mypy_primer to complete...")
-              await new Promise(r => setTimeout(r, 10000));
-              primer_run = await check_mypy_primer();
+              await new Promise(r => setTimeout(r, 10000))
+              primer_run = await check_mypy_primer()
             }
             console.log("Found mypy_primer run!")
             console.log(primer_run)
 
-            // Download artifact from the run
+            // Download artifact(s) from the run
             const artifacts = await github.actions.listWorkflowRunArtifacts({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 run_id: primer_run.id,
             })
-            const artifact = artifacts.data.artifacts.find(a => a.name == "mypy_primer_diff")
-            console.log("Artifact from mypy_primer:")
-            console.log(artifact)
+            const filtered_artifacts = artifacts.data.artifacts.filter(
+              a => a.name.startsWith("mypy_primer_diff")
+            )
+            console.log("Artifacts from mypy_primer:")
+            console.log(filtered_artifacts)
 
-            const zip = await github.actions.downloadArtifact({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                artifact_id: artifact.id,
-                archive_format: "zip",
-            })
-            const adm = new AdmZip(Buffer.from(zip.data))
+            async function get_artifact_data(artifact) {
+              const zip = await github.actions.downloadArtifact({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  artifact_id: artifact.id,
+                  archive_format: "zip",
+              })
+              const adm = new AdmZip(Buffer.from(zip.data))
+              return adm.readAsText(adm.getEntry("diff.txt"))
+            }
 
-            const data = adm.readAsText(adm.getEntry("diff.txt"));
+            const all_data = await Promise.all(filtered_artifacts.map(get_artifact_data))
+            const data = all_data.join("\n")
+
             console.log("Diff from mypy_primer:")
             console.log(data)
             try {
