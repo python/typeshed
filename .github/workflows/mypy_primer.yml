@@ -42,7 +42,8 @@ jobs:
             --custom-typeshed-repo typeshed_to_test \
             --new-typeshed $GITHUB_SHA --old-typeshed upstream_master \
             --num-shards 2 --shard-index ${{ matrix.shard-index }} \
-            -o concise \
+            --debug \
+            --output concise \
             | tee diff.txt
           ) || [ $? -eq 1 ]
       - name: Upload mypy_primer diff
