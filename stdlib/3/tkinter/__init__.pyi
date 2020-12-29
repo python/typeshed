@@ -625,8 +625,8 @@ class _PackInfo(_InMiscTotal):
     side: Literal["left", "right", "top", "bottom"]
     # Paddings come out as int or tuple of int, even though any _ScreenUnits
     # can be specified in pack().
-    ipadx: Union[int, Tuple[int, int]]
-    ipady: Union[int, Tuple[int, int]]
+    ipadx: int
+    ipady: int
     padx: Union[int, Tuple[int, int]]
     pady: Union[int, Tuple[int, int]]
 
@@ -645,8 +645,8 @@ class Pack:
         expand: int = ...,
         fill: Literal["none", "x", "y", "both"] = ...,
         side: Literal["left", "right", "top", "bottom"] = ...,
-        ipadx: Union[_ScreenUnits, Tuple[_ScreenUnits, _ScreenUnits]] = ...,
-        ipady: Union[_ScreenUnits, Tuple[_ScreenUnits, _ScreenUnits]] = ...,
+        ipadx: _ScreenUnits = ...,
+        ipady: _ScreenUnits = ...,
         padx: Union[_ScreenUnits, Tuple[_ScreenUnits, _ScreenUnits]] = ...,
         pady: Union[_ScreenUnits, Tuple[_ScreenUnits, _ScreenUnits]] = ...,
         in_: Misc = ...,
