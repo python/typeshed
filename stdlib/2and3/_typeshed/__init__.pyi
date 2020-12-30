@@ -34,7 +34,11 @@ SupportsLessThanT = TypeVar("SupportsLessThanT", bound=SupportsLessThan)  # noqa
 # Mapping-like protocols
 
 class SupportsItems(Protocol[_KT_co, _VT_co]):
-    def items(self) -> AbstractSet[Tuple[_KT_co, _VT_co]]: ...
+    if sys.version_info >= (3,):
+        def items(self) -> AbstractSet[Tuple[_KT_co, _VT_co]]: ...
+    else:
+        # We want dictionaries to support this on Python 2.
+        def items(self) -> Iterable[Tuple[_KT_co, _VT_co]]: ...
 
 class SupportsKeysAndGetItem(Protocol[_KT, _VT_co]):
     def keys(self) -> Iterable[_KT]: ...
@@ -170,7 +174,10 @@ else:
     ReadableBuffer = Union[bytes, bytearray, memoryview, array.array, mmap.mmap, buffer]
     WriteableBuffer = Union[bytearray, memoryview, array.array, mmap.mmap, buffer]
 
-# Used by type checkers for checks involving None (does not exist at runtime)
-@final
-class NoneType:
-    def __bool__(self) -> Literal[False]: ...
+if sys.version_info >= (3, 10):
+    from types import NoneType as NoneType
+else:
+    # Used by type checkers for checks involving None (does not exist at runtime)
+    @final
+    class NoneType:
+        def __bool__(self) -> Literal[False]: ...
