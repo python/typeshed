@@ -2,7 +2,7 @@ import os
 import sys
 import types
 from abc import ABCMeta, abstractmethod
-from typing import AnyStr, IO, Any, Iterator, Mapping, Optional, Sequence, Tuple, Union
+from typing import IO, Any, AnyStr, Iterator, Mapping, Optional, Sequence, Tuple, Union
 from typing_extensions import Literal
 
 # Loader is exported from this module, but for circular import reasons
