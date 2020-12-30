@@ -1,4 +1,4 @@
-from typing import Any, Optional, Text
+from typing import Any, Optional, Text, Union
 from xml.sax.xmlreader import XMLReader
 
 def parse(file: str, parser: Optional[XMLReader] = ..., bufsize: Optional[int] = ...): ...
