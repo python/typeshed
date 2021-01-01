@@ -1,7 +1,9 @@
 import sys
 import types
 from socket import SocketType
-from typing import Any, BinaryIO, Callable, ClassVar, List, Optional, Tuple, Type, Union
+from typing import Any, BinaryIO, Callable, ClassVar, List, Optional, Tuple, Type, TypeVar, Union
+
+_T = TypeVar("_T")
 
 class BaseServer:
     address_family: int
@@ -26,7 +28,7 @@ class BaseServer:
     def server_activate(self) -> None: ...
     def server_bind(self) -> None: ...
     def verify_request(self, request: bytes, client_address: Tuple[str, int]) -> bool: ...
-    def __enter__(self) -> BaseServer: ...
+    def __enter__(self: _T) -> _T: ...
     def __exit__(
         self, exc_type: Optional[Type[BaseException]], exc_val: Optional[BaseException], exc_tb: Optional[types.TracebackType]
     ) -> None: ...
