@@ -388,8 +388,7 @@ class Misc:
     def grid_bbox(self, column: int, row: int, col2: None = ..., row2: None = ...) -> Optional[Tuple[int, int, int, int]]: ...
     @overload
     def grid_bbox(self, column: int, row: int, col2: int, row2: int) -> Optional[Tuple[int, int, int, int]]: ...
-    # commented out to avoid conflicting with other bbox methods
-    # bbox = grid_bbox
+    bbox = grid_bbox
     def grid_columnconfigure(self, index, cnf=..., **kw): ...  # TODO
     def grid_rowconfigure(self, index, cnf=..., **kw): ...  # TODO
     columnconfigure = grid_columnconfigure
