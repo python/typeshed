@@ -416,6 +416,8 @@ class Misc:
     def __setitem__(self, key: str, value: Any) -> None: ...
     def __getitem__(self, key: str) -> Any: ...
     def cget(self, key: str) -> Any: ...
+    def configure(self, key: str) -> Any: ...
+    # TODO: config is an alias of configure, but adding that here creates lots of mypy errors
 
 class CallWrapper:
     func: Any
@@ -526,7 +528,7 @@ class Tk(Misc, Wm):
     ) -> None: ...
     @overload
     def configure(
-        self: Union[Tk, Toplevel],
+        self,
         cnf: Optional[Dict[str, Any]] = ...,
         *,
         background: _Color = ...,
@@ -757,6 +759,9 @@ class Widget(BaseWidget, Pack, Place, Grid):
     def bind(self, *, func: str, add: Optional[bool] = ...) -> None: ...
 
 class Toplevel(BaseWidget, Wm):
+    # Toplevel and Tk have the same options because they correspond to the same
+    # Tcl/Tk toplevel widget. For some reason, config and configure must be
+    # copy/pasted here instead of aliasing as 'config = Tk.config'.
     def __init__(
         self,
         master: Optional[Misc] = ...,
@@ -785,10 +790,31 @@ class Toplevel(BaseWidget, Wm):
         visual: Union[str, Tuple[str, int]] = ...,
         width: _ScreenUnits = ...,
     ) -> None: ...
-    # Toplevel and Tk have the same options because they correspond to the same
-    # Tcl/Tk toplevel widget.
-    configure = Tk.configure
-    config = Tk.config
+    @overload
+    def configure(
+        self,
+        cnf: Optional[Dict[str, Any]] = ...,
+        *,
+        background: _Color = ...,
+        bd: _ScreenUnits = ...,
+        bg: _Color = ...,
+        border: _ScreenUnits = ...,
+        borderwidth: _ScreenUnits = ...,
+        cursor: _Cursor = ...,
+        height: _ScreenUnits = ...,
+        highlightbackground: _Color = ...,
+        highlightcolor: _Color = ...,
+        highlightthickness: _ScreenUnits = ...,
+        menu: Menu = ...,
+        padx: _ScreenUnits = ...,
+        pady: _ScreenUnits = ...,
+        relief: _Relief = ...,
+        takefocus: _TakeFocusValue = ...,
+        width: _ScreenUnits = ...,
+    ) -> Optional[Dict[str, Tuple[str, str, str, Any, Any]]]: ...
+    @overload
+    def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
+    config = configure
 
 class Button(Widget):
     def __init__(
