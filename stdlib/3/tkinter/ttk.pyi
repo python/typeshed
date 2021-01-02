@@ -33,23 +33,6 @@ class Widget(tkinter.Widget):
     def instate(self, statespec, callback: Optional[Any] = ..., *args, **kw): ...
     def state(self, statespec: Optional[Any] = ...): ...
 
-_ButtonOptionName = Literal[
-    "class",
-    "command",
-    "compound",
-    "cursor",
-    "default",
-    "image",
-    "padding",
-    "state",
-    "style",
-    "takefocus",
-    "text",
-    "textvariable",
-    "underline",
-    "width",
-]
-
 class Button(Widget):
     def __init__(
         self,
@@ -94,25 +77,6 @@ class Button(Widget):
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     config = configure
     def invoke(self): ...
-
-_CheckbuttonOptionName = Literal[
-    "class",
-    "command",
-    "compound",
-    "cursor",
-    "image",
-    "offvalue",
-    "onvalue",
-    "padding",
-    "state",
-    "style",
-    "takefocus",
-    "text",
-    "textvariable",
-    "underline",
-    "variable",
-    "width",
-]
 
 class Checkbutton(Widget):
     def __init__(
@@ -165,26 +129,6 @@ class Checkbutton(Widget):
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     config = configure
     def invoke(self): ...
-
-_EntryOptionName = Literal[
-    "background",
-    "class",
-    "cursor",
-    "exportselection",
-    "font",
-    "foreground",
-    "invalidcommand",
-    "justify",
-    "show",
-    "state",
-    "style",
-    "takefocus",
-    "textvariable",
-    "validate",
-    "validatecommand",
-    "width",
-    "xscrollcommand",
-]
 
 class Entry(Widget, tkinter.Entry):
     def __init__(
@@ -263,29 +207,6 @@ class Entry(Widget, tkinter.Entry):
     def bbox(self, index): ...
     def identify(self, x, y): ...
     def validate(self): ...
-
-_ComboboxOptionName = Literal[
-    "background",
-    "class",
-    "cursor",
-    "exportselection",
-    "font",
-    "foreground",
-    "height",
-    "invalidcommand",
-    "justify",
-    "postcommand",
-    "show",
-    "state",
-    "style",
-    "takefocus",
-    "textvariable",
-    "validate",
-    "validatecommand",
-    "values",
-    "width",
-    "xscrollcommand",
-]
 
 class Combobox(Entry):
     def __init__(
@@ -372,10 +293,6 @@ class Combobox(Entry):
     def current(self, newindex: Optional[Any] = ...): ...
     def set(self, value): ...
 
-_FrameOptionName = Literal[
-    "border", "borderwidth", "class", "cursor", "height", "padding", "relief", "style", "takefocus", "width"
-]
-
 class Frame(Widget):
     def __init__(
         self,
@@ -411,30 +328,6 @@ class Frame(Widget):
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     config = configure
-
-_LabelOptionName = Literal[
-    "anchor",
-    "background",
-    "border",
-    "borderwidth",
-    "class",
-    "compound",
-    "cursor",
-    "font",
-    "foreground",
-    "image",
-    "justify",
-    "padding",
-    "relief",
-    "state",
-    "style",
-    "takefocus",
-    "text",
-    "textvariable",
-    "underline",
-    "width",
-    "wraplength",
-]
 
 class Label(Widget):
     def __init__(
@@ -494,23 +387,6 @@ class Label(Widget):
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     config = configure
 
-_LabelframeOptionName = Literal[
-    "border",
-    "borderwidth",
-    "class",
-    "cursor",
-    "height",
-    "labelanchor",
-    "labelwidget",
-    "padding",
-    "relief",
-    "style",
-    "takefocus",
-    "text",
-    "underline",
-    "width",
-]
-
 class Labelframe(Widget):
     def __init__(
         self,
@@ -557,23 +433,6 @@ class Labelframe(Widget):
 
 LabelFrame = Labelframe
 
-_MenubuttonOptionName = Literal[
-    "class",
-    "compound",
-    "cursor",
-    "direction",
-    "image",
-    "menu",
-    "padding",
-    "state",
-    "style",
-    "takefocus",
-    "text",
-    "textvariable",
-    "underline",
-    "width",
-]
-
 class Menubutton(Widget):
     def __init__(
         self,
@@ -618,8 +477,6 @@ class Menubutton(Widget):
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     config = configure
 
-_NotebookOptionName = Literal["class", "cursor", "height", "padding", "style", "takefocus", "width"]
-
 class Notebook(Widget):
     def __init__(
         self,
@@ -659,8 +516,6 @@ class Notebook(Widget):
     def tab(self, tab_id, option: Optional[Any] = ..., **kw): ...
     def tabs(self): ...
     def enable_traversal(self): ...
-
-_PanedwindowOptionName = Literal["class", "cursor", "height", "orient", "style", "takefocus", "width"]
 
 class Panedwindow(Widget, tkinter.PanedWindow):
     def __init__(
@@ -711,10 +566,6 @@ class Panedwindow(Widget, tkinter.PanedWindow):
 
 PanedWindow = Panedwindow
 
-_ProgressbarOptionName = Literal[
-    "class", "cursor", "length", "maximum", "mode", "orient", "phase", "style", "takefocus", "value", "variable"
-]
-
 class Progressbar(Widget):
     def __init__(
         self,
@@ -755,24 +606,6 @@ class Progressbar(Widget):
     def start(self, interval: Optional[Any] = ...): ...
     def step(self, amount: Optional[Any] = ...): ...
     def stop(self): ...
-
-_RadiobuttonOptionName = Literal[
-    "class",
-    "command",
-    "compound",
-    "cursor",
-    "image",
-    "padding",
-    "state",
-    "style",
-    "takefocus",
-    "text",
-    "textvariable",
-    "underline",
-    "value",
-    "variable",
-    "width",
-]
 
 class Radiobutton(Widget):
     def __init__(
@@ -820,10 +653,6 @@ class Radiobutton(Widget):
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     config = configure
     def invoke(self): ...
-
-_ScaleOptionName = Literal[
-    "class", "command", "cursor", "from", "length", "orient", "state", "style", "takefocus", "to", "value", "variable"
-]
 
 class Scale(Widget, tkinter.Scale):
     def __init__(
@@ -885,8 +714,6 @@ class Scale(Widget, tkinter.Scale):
     def config(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     def get(self, x: Optional[Any] = ..., y: Optional[Any] = ...): ...
 
-_ScrollbarOptionName = Literal["class", "command", "cursor", "orient", "style", "takefocus"]
-
 class Scrollbar(Widget, tkinter.Scrollbar):
     def __init__(
         self,
@@ -928,8 +755,6 @@ class Scrollbar(Widget, tkinter.Scrollbar):
     @overload
     def config(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
 
-_SeparatorOptionName = Literal["class", "cursor", "orient", "style", "takefocus"]
-
 class Separator(Widget):
     def __init__(
         self,
@@ -956,8 +781,6 @@ class Separator(Widget):
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     config = configure
 
-_SizegripOptionName = Literal["class", "cursor", "style", "takefocus"]
-
 class Sizegrip(Widget):
     def __init__(
         self,
@@ -983,32 +806,6 @@ class Sizegrip(Widget):
     config = configure
 
 if sys.version_info >= (3, 7):
-    _SpinboxOptionName = Literal[
-        "background",
-        "class",
-        "command",
-        "cursor",
-        "exportselection",
-        "font",
-        "foreground",
-        "format",
-        "from",
-        "increment",
-        "invalidcommand",
-        "justify",
-        "show",
-        "state",
-        "style",
-        "takefocus",
-        "textvariable",
-        "to",
-        "validate",
-        "validatecommand",
-        "values",
-        "width",
-        "wrap",
-        "xscrollcommand",
-    ]
     class Spinbox(Entry):
         def __init__(
             self,
@@ -1073,21 +870,6 @@ if sys.version_info >= (3, 7):
         def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
         config = configure  # type: ignore
         def set(self, value: Any) -> None: ...
-
-_TreeviewOptionName = Literal[
-    "class",
-    "columns",
-    "cursor",
-    "displaycolumns",
-    "height",
-    "padding",
-    "selectmode",
-    "show",
-    "style",
-    "takefocus",
-    "xscrollcommand",
-    "yscrollcommand",
-]
 
 class Treeview(Widget, tkinter.XView, tkinter.YView):
     def __init__(
