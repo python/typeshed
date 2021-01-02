@@ -826,17 +826,17 @@ class Button(Widget):
         activeforeground: _Color = ...,
         anchor: _Anchor = ...,
         background: _Color = ...,
-        bd: _ScreenUnits = ...,
-        bg: _Color = ...,
+        bd: _ScreenUnits = ...,  # same as borderwidth
+        bg: _Color = ...,  # same as background
         bitmap: _Bitmap = ...,
-        border: _ScreenUnits = ...,
+        border: _ScreenUnits = ...,  # same as borderwidth
         borderwidth: _ScreenUnits = ...,
         command: _ButtonCommand = ...,
         compound: _Compound = ...,
         cursor: _Cursor = ...,
         default: Literal["normal", "active", "disabled"] = ...,
         disabledforeground: _Color = ...,
-        fg: _Color = ...,
+        fg: _Color = ...,  # same as foreground
         font: _FontDescription = ...,
         foreground: _Color = ...,
         # width and height must be int for buttons containing just text, but
@@ -1210,7 +1210,7 @@ class Entry(Widget, XView):
         insertontime: int = ...,
         insertwidth: _ScreenUnits = ...,
         invalidcommand: _EntryValidateCommand = ...,
-        invcmd: _EntryValidateCommand = ...,
+        invcmd: _EntryValidateCommand = ...,  # same as invalidcommand
         justify: Literal["left", "center", "right"] = ...,
         name: str = ...,
         readonlybackground: _Color = ...,
@@ -1224,7 +1224,7 @@ class Entry(Widget, XView):
         textvariable: Variable = ...,
         validate: Literal["none", "focus", "focusin", "focusout", "key", "all"] = ...,
         validatecommand: _EntryValidateCommand = ...,
-        vcmd: _EntryValidateCommand = ...,
+        vcmd: _EntryValidateCommand = ...,  # same as validatecommand
         width: int = ...,
         xscrollcommand: _XYScrollCommand = ...,
     ) -> None: ...
