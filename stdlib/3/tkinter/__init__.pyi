@@ -388,8 +388,7 @@ class Misc:
     def grid_bbox(self, column: int, row: int, col2: None = ..., row2: None = ...) -> Optional[Tuple[int, int, int, int]]: ...
     @overload
     def grid_bbox(self, column: int, row: int, col2: int, row2: int) -> Optional[Tuple[int, int, int, int]]: ...
-    # commented out to avoid conflicting with other bbox methods
-    # bbox = grid_bbox
+    bbox = grid_bbox
     def grid_columnconfigure(self, index, cnf=..., **kw): ...  # TODO
     def grid_rowconfigure(self, index, cnf=..., **kw): ...  # TODO
     columnconfigure = grid_columnconfigure
@@ -627,6 +626,7 @@ class Pack:
         padx: Union[_ScreenUnits, Tuple[_ScreenUnits, _ScreenUnits]] = ...,
         pady: Union[_ScreenUnits, Tuple[_ScreenUnits, _ScreenUnits]] = ...,
         in_: Misc = ...,
+        **kw: Any,  # allow keyword argument named 'in', see #4836
     ) -> None: ...
     def pack_forget(self) -> None: ...
     def pack_info(self) -> _PackInfo: ...  # errors if widget hasn't been packed
@@ -651,8 +651,8 @@ class _PlaceInfo(_InMiscNonTotal):  # empty dict if widget hasn't been placed
     y: str  # can be int()ed
     relheight: str  # can be float()ed if not empty string
     relwidth: str  # can be float()ed if not empty string
-    relx: float  # can be float()ed if not empty string
-    rely: float  # can be float()ed if not empty string
+    relx: str  # can be float()ed if not empty string
+    rely: str  # can be float()ed if not empty string
 
 class Place:
     def place_configure(
@@ -665,11 +665,13 @@ class Place:
         height: _ScreenUnits = ...,
         x: _ScreenUnits = ...,
         y: _ScreenUnits = ...,
-        relheight: float = ...,
-        relwidth: float = ...,
-        relx: float = ...,
-        rely: float = ...,
+        # str allowed for compatibility with place_info()
+        relheight: Union[str, float] = ...,
+        relwidth: Union[str, float] = ...,
+        relx: Union[str, float] = ...,
+        rely: Union[str, float] = ...,
         in_: Misc = ...,
+        **kw: Any,  # allow keyword argument named 'in', see #4836
     ) -> None: ...
     def place_forget(self) -> None: ...
     def place_info(self) -> _PlaceInfo: ...
@@ -709,6 +711,7 @@ class Grid:
         pady: Union[_ScreenUnits, Tuple[_ScreenUnits, _ScreenUnits]] = ...,
         sticky: str = ...,  # consists of letters 'n', 's', 'w', 'e', may contain repeats, may be empty
         in_: Misc = ...,
+        **kw: Any,  # allow keyword argument named 'in', see #4836
     ) -> None: ...
     def grid_forget(self) -> None: ...
     def grid_remove(self) -> None: ...
@@ -2154,7 +2157,7 @@ class Text(Widget, XView, YView):
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     config = configure
-    def bbox(self, index: _TextIndex) -> Optional[Tuple[int, int, int, int]]: ...
+    def bbox(self, index: _TextIndex) -> Optional[Tuple[int, int, int, int]]: ...  # type: ignore
     def compare(self, index1: _TextIndex, op: Literal["<", "<=", "==", ">=", ">", "!="], index2: _TextIndex) -> bool: ...
     def count(self, index1, index2, *args): ...  # TODO
     @overload
