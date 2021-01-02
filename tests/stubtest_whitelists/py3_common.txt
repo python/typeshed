@@ -255,7 +255,6 @@ multiprocessing.JoinableQueue
 multiprocessing.Queue
 multiprocessing.SimpleQueue
 multiprocessing.managers.BaseManager.shutdown
-multiprocessing.managers.Server.__init__
 multiprocessing.managers.SyncManager.Event
 multiprocessing.managers.SyncManager.Lock
 multiprocessing.managers.SyncManager.Namespace
