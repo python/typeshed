@@ -789,7 +789,6 @@ class Toplevel(BaseWidget, Wm):
     # Tcl/Tk toplevel widget.
     configure = Tk.configure
     config = Tk.config
-    cget = Tk.cget
 
 class Button(Widget):
     def __init__(
