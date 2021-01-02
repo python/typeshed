@@ -650,7 +650,7 @@ class Pack:
         padx: Union[_ScreenUnits, Tuple[_ScreenUnits, _ScreenUnits]] = ...,
         pady: Union[_ScreenUnits, Tuple[_ScreenUnits, _ScreenUnits]] = ...,
         in_: Misc = ...,
-        **kw: Any,
+        **kw: Any,  # allow keyword argument named 'in', see #4836
     ) -> None: ...
     def pack_forget(self) -> None: ...
     def pack_info(self) -> _PackInfo: ...  # errors if widget hasn't been packed
@@ -694,7 +694,7 @@ class Place:
         relx: float = ...,
         rely: float = ...,
         in_: Misc = ...,
-        **kw: Any,
+        **kw: Any,  # allow keyword argument named 'in', see #4836
     ) -> None: ...
     def place_forget(self) -> None: ...
     def place_info(self) -> _PlaceInfo: ...
@@ -734,7 +734,7 @@ class Grid:
         pady: Union[_ScreenUnits, Tuple[_ScreenUnits, _ScreenUnits]] = ...,
         sticky: str = ...,  # consists of letters 'n', 's', 'w', 'e', may contain repeats, may be empty
         in_: Misc = ...,
-        **kw: Any,
+        **kw: Any,  # allow keyword argument named 'in', see #4836
     ) -> None: ...
     def grid_forget(self) -> None: ...
     def grid_remove(self) -> None: ...
