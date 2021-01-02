@@ -688,10 +688,11 @@ class Place:
         height: _ScreenUnits = ...,
         x: _ScreenUnits = ...,
         y: _ScreenUnits = ...,
-        relheight: _ScreenUnits = ...,
-        relwidth: _ScreenUnits = ...,
-        relx: _ScreenUnits = ...,
-        rely: _ScreenUnits = ...,
+        # str allowed for compatibility with place_info()
+        relheight: Union[str, float] = ...,
+        relwidth: Union[str, float] = ...,
+        relx: Union[str, float] = ...,
+        rely: Union[str, float] = ...,
         in_: Misc = ...,
     ) -> None: ...
     def place_forget(self) -> None: ...
