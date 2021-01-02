@@ -675,8 +675,8 @@ class _PlaceInfo(_InMiscNonTotal):  # empty dict if widget hasn't been placed
     y: str  # can be int()ed
     relheight: str  # can be float()ed if not empty string
     relwidth: str  # can be float()ed if not empty string
-    relx: float  # can be float()ed if not empty string
-    rely: float  # can be float()ed if not empty string
+    relx: str  # can be float()ed if not empty string
+    rely: str  # can be float()ed if not empty string
 
 class Place:
     def place_configure(
@@ -689,10 +689,11 @@ class Place:
         height: _ScreenUnits = ...,
         x: _ScreenUnits = ...,
         y: _ScreenUnits = ...,
-        relheight: float = ...,
-        relwidth: float = ...,
-        relx: float = ...,
-        rely: float = ...,
+        # str allowed for compatibility with place_info()
+        relheight: Union[str, float] = ...,
+        relwidth: Union[str, float] = ...,
+        relx: Union[str, float] = ...,
+        rely: Union[str, float] = ...,
         in_: Misc = ...,
         **kw: Any,  # allow keyword argument named 'in', see #4836
     ) -> None: ...
