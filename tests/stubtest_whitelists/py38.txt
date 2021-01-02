@@ -55,7 +55,6 @@ ipaddress._BaseNetwork.hostmask
 macpath
 macurl2path  # removed in 3.7
 mmap.MADV_[A-Z_]+
-multiprocessing.managers.SharedMemoryServer.__init__
 multiprocessing.pool.CLOSE
 multiprocessing.pool.RUN
 multiprocessing.pool.TERMINATE
