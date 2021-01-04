@@ -362,6 +362,7 @@ timeit.main
 tkinter.Misc.grid_propagate
 tkinter.Misc.pack_propagate
 tkinter.Tk.report_callback_exception  # A bit of a lie, since it's actually a method, but typing it as an attribute allows it to be assigned to
+tkinter.font.Font.__getitem__  # Argument name differs (doesn't matter for __dunder__ methods)
 trace.CoverageResults.__init__
 traceback.FrameSummary.__init__
 traceback.TracebackException.__init__
