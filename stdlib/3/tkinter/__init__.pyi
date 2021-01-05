@@ -405,10 +405,41 @@ class Misc:
     def grid_slaves(self, row: Optional[int] = ..., column: Optional[int] = ...) -> List[Widget]: ...
     def place_slaves(self) -> List[Widget]: ...
     slaves = pack_slaves
-    def event_add(self, virtual, *sequences): ...
-    def event_delete(self, virtual, *sequences): ...
-    def event_generate(self, sequence, **kw): ...
-    def event_info(self, virtual: Optional[Any] = ...): ...
+    def event_add(self, virtual: str, *sequences: str) -> None: ...
+    def event_delete(self, virtual: str, *sequences: str) -> None: ...
+    def event_generate(
+        self,
+        sequence: str,
+        *,
+        above: Union[Misc, int] = ...,
+        borderwidth: _ScreenUnits = ...,
+        button: int = ...,
+        count: int = ...,
+        data: Any = ...,  # anything with usable str() value
+        delta: int = ...,
+        detail: str = ...,
+        focus: bool = ...,
+        height: _ScreenUnits = ...,
+        keycode: int = ...,
+        keysym: str = ...,
+        mode: str = ...,
+        override: bool = ...,
+        place: Literal['PlaceOnTop', 'PlaceOnBottom'] = ...,
+        root: Union[Misc, int] = ...,
+        rootx: _ScreenUnits = ...,
+        rooty: _ScreenUnits = ...,
+        sendevent: bool = ...,
+        serial: int = ...,
+        state: Union[int, str] = ...,
+        subwindow: Union[Misc, int] = ...,
+        time: int = ...,
+        warp: bool = ...,
+        width: _ScreenUnits = ...,
+        when: Literal["now", "tail", "head", "mark"] = ...,
+        x: _ScreenUnits = ...,
+        y: _ScreenUnits = ...,
+    ) -> None: ...
+    def event_info(self, virtual: Optional[str] = ...) -> Tuple[str, ...]: ...
     def image_names(self): ...
     def image_types(self): ...
     # See #4363 and #4891
