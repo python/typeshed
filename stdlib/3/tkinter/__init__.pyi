@@ -627,7 +627,7 @@ _InMiscNonTotal = TypedDict("_InMiscNonTotal", {"in": Misc}, total=False)
 class _PackInfo(_InMiscTotal):
     # 'before' and 'after' never appear in _PackInfo
     anchor: _Anchor
-    expand: Literal[0, 1]
+    expand: bool
     fill: Literal["none", "x", "y", "both"]
     side: Literal["left", "right", "top", "bottom"]
     # Paddings come out as int or tuple of int, even though any _ScreenUnits
