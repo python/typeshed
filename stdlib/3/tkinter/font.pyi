@@ -18,14 +18,14 @@ class _FontDict(TypedDict):
     size: int
     weight: Literal["normal", "bold"]
     slant: Literal["roman", "italic"]
-    underline: Literal[0, 1]
-    overstrike: Literal[0, 1]
+    underline: bool
+    overstrike: bool
 
 class _MetricsDict(TypedDict):
     ascent: int
     descent: int
     linespace: int
-    fixed: Literal[0, 1]
+    fixed: bool
 
 class Font:
     name: str
@@ -56,7 +56,7 @@ class Font:
     @overload
     def cget(self, option: Literal["slant"]) -> Literal["roman", "italic"]: ...
     @overload
-    def cget(self, option: Literal["underline", "overstrike"]) -> Literal[0, 1]: ...
+    def cget(self, option: Literal["underline", "overstrike"]) -> bool: ...
     @overload
     def cget(self, option: str) -> Any: ...
     __getitem__ = cget
@@ -69,7 +69,7 @@ class Font:
     @overload
     def actual(self, option: Literal["slant"], displayof: Optional[tkinter.Misc] = ...) -> Literal["roman", "italic"]: ...
     @overload
-    def actual(self, option: Literal["underline", "overstrike"], displayof: Optional[tkinter.Misc] = ...) -> Literal[0, 1]: ...
+    def actual(self, option: Literal["underline", "overstrike"], displayof: Optional[tkinter.Misc] = ...) -> bool: ...
     @overload
     def actual(self, option: None, displayof: Optional[tkinter.Misc] = ...) -> _FontDict: ...
     @overload
@@ -89,7 +89,7 @@ class Font:
     @overload
     def metrics(self, __option: Literal["ascent", "descent", "linespace"], *, displayof: Optional[tkinter.Misc] = ...) -> int: ...
     @overload
-    def metrics(self, __option: Literal["fixed"], *, displayof: Optional[tkinter.Misc] = ...) -> Literal[0, 1]: ...
+    def metrics(self, __option: Literal["fixed"], *, displayof: Optional[tkinter.Misc] = ...) -> bool: ...
     @overload
     def metrics(self, *, displayof: Optional[tkinter.Misc] = ...) -> _MetricsDict: ...
     def measure(self, text: str, displayof: Optional[tkinter.Misc] = ...) -> int: ...
