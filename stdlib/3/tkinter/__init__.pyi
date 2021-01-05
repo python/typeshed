@@ -424,7 +424,7 @@ class Misc:
         keysym: str = ...,
         mode: str = ...,
         override: bool = ...,
-        place: Literal['PlaceOnTop', 'PlaceOnBottom'] = ...,
+        place: Literal["PlaceOnTop", "PlaceOnBottom"] = ...,
         root: Union[Misc, int] = ...,
         rootx: _ScreenUnits = ...,
         rooty: _ScreenUnits = ...,
