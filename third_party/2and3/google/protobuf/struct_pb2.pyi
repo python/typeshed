@@ -27,6 +27,7 @@ from google.protobuf.message import (
 )
 
 from typing import (
+    Any,
     Iterable as typing___Iterable,
     Mapping as typing___Mapping,
     NewType as typing___NewType,
