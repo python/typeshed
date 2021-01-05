@@ -44,8 +44,8 @@ class Process(Generic[_S, _T, _U]):
 async def create_subprocess_shell(
     cmd: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue  #1236
     stdin: _PIPE,
-    stdout: Union[_DEVNULL, IO[Any], None] = ...,
-    stderr: Union[_DEVNULL, _STDOUT, IO[Any], None] = ...,
+    stdout: Union[_DEVNULL, int, IO[Any], None] = ...,
+    stderr: Union[_DEVNULL, _STDOUT, int, IO[Any], None] = ...,
     loop: Optional[events.AbstractEventLoop] = ...,
     limit: int = ...,
     **kwds: Any,
@@ -53,10 +53,10 @@ async def create_subprocess_shell(
 @overload
 async def create_subprocess_shell(
     cmd: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue  #1236
-    stdin: Union[_DEVNULL, IO[Any], None] = ...,
+    stdin: Union[_DEVNULL, int, IO[Any], None] = ...,
     *,
     stdout: _PIPE,
-    stderr: Union[_DEVNULL, _STDOUT, IO[Any], None] = ...,
+    stderr: Union[_DEVNULL, _STDOUT, int, IO[Any], None] = ...,
     loop: Optional[events.AbstractEventLoop] = ...,
     limit: int = ...,
     **kwds: Any,
@@ -64,8 +64,8 @@ async def create_subprocess_shell(
 @overload
 async def create_subprocess_shell(
     cmd: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue  #1236
-    stdin: Union[_DEVNULL, IO[Any], None] = ...,
-    stdout: Union[_DEVNULL, IO[Any], None] = ...,
+    stdin: Union[_DEVNULL, int, IO[Any], None] = ...,
+    stdout: Union[_DEVNULL, int, IO[Any], None] = ...,
     *,
     stderr: _PIPE,
     loop: Optional[events.AbstractEventLoop] = ...,
@@ -77,7 +77,7 @@ async def create_subprocess_shell(
     cmd: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue  #1236
     stdin: _PIPE,
     stdout: _PIPE,
-    stderr: Union[_DEVNULL, _STDOUT, IO[Any], None] = ...,
+    stderr: Union[_DEVNULL, _STDOUT, int, IO[Any], None] = ...,
     loop: Optional[events.AbstractEventLoop] = ...,
     limit: int = ...,
     **kwds: Any,
@@ -86,7 +86,7 @@ async def create_subprocess_shell(
 async def create_subprocess_shell(
     cmd: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue  #1236
     stdin: _PIPE,
-    stdout: Union[_DEVNULL, IO[Any], None] = ...,
+    stdout: Union[_DEVNULL, int, IO[Any], None] = ...,
     *,
     stderr: _PIPE,
     loop: Optional[events.AbstractEventLoop] = ...,
@@ -96,7 +96,7 @@ async def create_subprocess_shell(
 @overload
 async def create_subprocess_shell(
     cmd: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue  #1236
-    stdin: Union[_DEVNULL, IO[Any], None] = ...,
+    stdin: Union[_DEVNULL, int, IO[Any], None] = ...,
     *,
     stdout: _PIPE,
     stderr: _PIPE,
@@ -117,9 +117,9 @@ async def create_subprocess_shell(
 @overload
 async def create_subprocess_shell(
     cmd: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue  #1236
-    stdin: Union[_DEVNULL, IO[Any], None] = ...,
-    stdout: Union[_DEVNULL, IO[Any], None] = ...,
-    stderr: Union[_DEVNULL, _STDOUT, IO[Any], None] = ...,
+    stdin: Union[_DEVNULL, int, IO[Any], None] = ...,
+    stdout: Union[_DEVNULL, int, IO[Any], None] = ...,
+    stderr: Union[_DEVNULL, _STDOUT, int, IO[Any], None] = ...,
     loop: Optional[events.AbstractEventLoop] = ...,
     limit: int = ...,
     **kwds: Any,
@@ -129,8 +129,8 @@ async def create_subprocess_exec(
     program: _ExecArg,
     *args: _ExecArg,
     stdin: _PIPE,
-    stdout: Union[_DEVNULL, IO[Any], None] = ...,
-    stderr: Union[_DEVNULL, _STDOUT, IO[Any], None] = ...,
+    stdout: Union[_DEVNULL, int, IO[Any], None] = ...,
+    stderr: Union[_DEVNULL, _STDOUT, int, IO[Any], None] = ...,
     loop: Optional[events.AbstractEventLoop] = ...,
     limit: int = ...,
     **kwds: Any,
@@ -139,9 +139,9 @@ async def create_subprocess_exec(
 async def create_subprocess_exec(
     program: _ExecArg,
     *args: _ExecArg,
-    stdin: Union[_DEVNULL, IO[Any], None] = ...,
+    stdin: Union[_DEVNULL, int, IO[Any], None] = ...,
     stdout: _PIPE,
-    stderr: Union[_DEVNULL, _STDOUT, IO[Any], None] = ...,
+    stderr: Union[_DEVNULL, _STDOUT, int, IO[Any], None] = ...,
     loop: Optional[events.AbstractEventLoop] = ...,
     limit: int = ...,
     **kwds: Any,
@@ -150,8 +150,8 @@ async def create_subprocess_exec(
 async def create_subprocess_exec(
     program: _ExecArg,
     *args: _ExecArg,
-    stdin: Union[_DEVNULL, IO[Any], None] = ...,
-    stdout: Union[_DEVNULL, IO[Any], None] = ...,
+    stdin: Union[_DEVNULL, int, IO[Any], None] = ...,
+    stdout: Union[_DEVNULL, int, IO[Any], None] = ...,
     stderr: _PIPE,
     loop: Optional[events.AbstractEventLoop] = ...,
     limit: int = ...,
@@ -163,7 +163,7 @@ async def create_subprocess_exec(
     *args: _ExecArg,
     stdin: _PIPE,
     stdout: _PIPE,
-    stderr: Union[_DEVNULL, _STDOUT, IO[Any], None] = ...,
+    stderr: Union[_DEVNULL, _STDOUT, int, IO[Any], None] = ...,
     loop: Optional[events.AbstractEventLoop] = ...,
     limit: int = ...,
     **kwds: Any,
@@ -173,7 +173,7 @@ async def create_subprocess_exec(
     program: _ExecArg,
     *args: _ExecArg,
     stdin: _PIPE,
-    stdout: Union[_DEVNULL, IO[Any], None] = ...,
+    stdout: Union[_DEVNULL, int, IO[Any], None] = ...,
     stderr: _PIPE,
     loop: Optional[events.AbstractEventLoop] = ...,
     limit: int = ...,
@@ -183,7 +183,7 @@ async def create_subprocess_exec(
 async def create_subprocess_exec(
     program: _ExecArg,
     *args: _ExecArg,
-    stdin: Union[_DEVNULL, IO[Any], None] = ...,
+    stdin: Union[_DEVNULL, int, IO[Any], None] = ...,
     stdout: _PIPE,
     stderr: _PIPE,
     loop: Optional[events.AbstractEventLoop] = ...,
@@ -205,9 +205,9 @@ async def create_subprocess_exec(
 async def create_subprocess_exec(
     program: _ExecArg,
     *args: _ExecArg,
-    stdin: Union[_DEVNULL, IO[Any], None] = ...,
-    stdout: Union[_DEVNULL, IO[Any], None] = ...,
-    stderr: Union[_DEVNULL, _STDOUT, IO[Any], None] = ...,
+    stdin: Union[_DEVNULL, int, IO[Any], None] = ...,
+    stdout: Union[_DEVNULL, int, IO[Any], None] = ...,
+    stderr: Union[_DEVNULL, _STDOUT, int, IO[Any], None] = ...,
     loop: Optional[events.AbstractEventLoop] = ...,
     limit: int = ...,
     **kwds: Any,
