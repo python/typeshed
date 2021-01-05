@@ -3,6 +3,8 @@ from types import TracebackType
 from typing import IO, Iterator, Optional, Type
 from typing_extensions import Literal
 
+__version__: str
+
 class Spinner:
     spinner_cycle: Iterator[str] = ...
     disable: bool = ...
