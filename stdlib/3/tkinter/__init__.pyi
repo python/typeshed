@@ -618,7 +618,7 @@ class Pack:
         after: Misc = ...,
         anchor: _Anchor = ...,
         before: Misc = ...,
-        expand: bool = ...,
+        expand: int = ...,
         fill: Literal["none", "x", "y", "both"] = ...,
         side: Literal["left", "right", "top", "bottom"] = ...,
         ipadx: _ScreenUnits = ...,
