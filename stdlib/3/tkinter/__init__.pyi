@@ -1572,6 +1572,8 @@ class Listbox(Widget, XView, YView):
     def itemconfigure(self, index, cnf: Optional[Any] = ..., **kw): ...
     itemconfig: Any
 
+_MenuIndex = Union[str, int]
+
 class Menu(Widget):
     def __init__(
         self,
@@ -1634,20 +1636,200 @@ class Menu(Widget):
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     config = configure
-    def tk_popup(self, x: int, y: int, entry: Union[str, int] = ...): ...
+    def tk_popup(self, x: int, y: int, entry: _MenuIndex = ...): ...
     def activate(self, index): ...
     def add(self, itemType, cnf=..., **kw): ...
-    def add_cascade(self, cnf=..., **kw): ...
-    def add_checkbutton(self, cnf=..., **kw): ...
-    def add_command(self, cnf=..., **kw): ...
-    def add_radiobutton(self, cnf=..., **kw): ...
-    def add_separator(self, cnf=..., **kw): ...
     def insert(self, index, itemType, cnf=..., **kw): ...
-    def insert_cascade(self, index, cnf=..., **kw): ...
-    def insert_checkbutton(self, index, cnf=..., **kw): ...
-    def insert_command(self, index, cnf=..., **kw): ...
-    def insert_radiobutton(self, index, cnf=..., **kw): ...
-    def insert_separator(self, index, cnf=..., **kw): ...
+    def add_cascade(
+        self,
+        cnf: Optional[Dict[str, Any]] = ...,
+        *,
+        accelerator: str = ...,
+        activebackground: _Color = ...,
+        activeforeground: _Color = ...,
+        background: _Color = ...,
+        bitmap: _Bitmap = ...,
+        columnbreak: int = ...,
+        command: Union[Callable[[], Any], str] = ...,
+        compound: _Compound = ...,
+        font: _FontDescription = ...,
+        foreground: _Color = ...,
+        hidemargin: bool = ...,
+        image: _ImageSpec = ...,
+        label: str = ...,
+        menu: Menu = ...,
+        state: Literal["normal", "active", "disabled"] = ...,
+        underline: int = ...,
+    ) -> None: ...
+    def add_checkbutton(
+        self,
+        cnf: Optional[Dict[str, Any]] = ...,
+        *,
+        accelerator: str = ...,
+        activebackground: _Color = ...,
+        activeforeground: _Color = ...,
+        background: _Color = ...,
+        bitmap: _Bitmap = ...,
+        columnbreak: int = ...,
+        command: Union[Callable[[], Any], str] = ...,
+        compound: _Compound = ...,
+        font: _FontDescription = ...,
+        foreground: _Color = ...,
+        hidemargin: bool = ...,
+        image: _ImageSpec = ...,
+        indicatoron: bool = ...,
+        label: str = ...,
+        offvalue: Any = ...,
+        onvalue: Any = ...,
+        selectcolor: _Color = ...,
+        selectimage: _ImageSpec = ...,
+        state: Literal["normal", "active", "disabled"] = ...,
+        underline: int = ...,
+        variable: Variable = ...,
+    ) -> None: ...
+    def add_command(
+        self,
+        cnf: Optional[Dict[str, Any]] = ...,
+        *,
+        accelerator: str = ...,
+        activebackground: _Color = ...,
+        activeforeground: _Color = ...,
+        background: _Color = ...,
+        bitmap: _Bitmap = ...,
+        columnbreak: int = ...,
+        command: Union[Callable[[], Any], str] = ...,
+        compound: _Compound = ...,
+        font: _FontDescription = ...,
+        foreground: _Color = ...,
+        hidemargin: bool = ...,
+        image: _ImageSpec = ...,
+        label: str = ...,
+        state: Literal["normal", "active", "disabled"] = ...,
+        underline: int = ...,
+    ) -> None: ...
+    def add_radiobutton(
+        self,
+        cnf: Optional[Dict[str, Any]] = ...,
+        *,
+        accelerator: str = ...,
+        activebackground: _Color = ...,
+        activeforeground: _Color = ...,
+        background: _Color = ...,
+        bitmap: _Bitmap = ...,
+        columnbreak: int = ...,
+        command: Union[Callable[[], Any], str] = ...,
+        compound: _Compound = ...,
+        font: _FontDescription = ...,
+        foreground: _Color = ...,
+        hidemargin: bool = ...,
+        image: _ImageSpec = ...,
+        indicatoron: bool = ...,
+        label: str = ...,
+        selectcolor: _Color = ...,
+        selectimage: _ImageSpec = ...,
+        state: Literal["normal", "active", "disabled"] = ...,
+        underline: int = ...,
+        value: Any = ...,
+        variable: Variable = ...,
+    ) -> None: ...
+    def add_separator(self, cnf: Optional[Dict[str, Any]] = ..., *, background: _Color = ...) -> None: ...
+    def insert_cascade(
+        self,
+        index: _MenuIndex,
+        cnf: Optional[Dict[str, Any]] = ...,
+        *,
+        accelerator: str = ...,
+        activebackground: _Color = ...,
+        activeforeground: _Color = ...,
+        background: _Color = ...,
+        bitmap: _Bitmap = ...,
+        columnbreak: int = ...,
+        command: Union[Callable[[], Any], str] = ...,
+        compound: _Compound = ...,
+        font: _FontDescription = ...,
+        foreground: _Color = ...,
+        hidemargin: bool = ...,
+        image: _ImageSpec = ...,
+        label: str = ...,
+        menu: Menu = ...,
+        state: Literal["normal", "active", "disabled"] = ...,
+        underline: int = ...,
+    ) -> None: ...
+    def insert_checkbutton(
+        self,
+        index: _MenuIndex,
+        cnf: Optional[Dict[str, Any]] = ...,
+        *,
+        accelerator: str = ...,
+        activebackground: _Color = ...,
+        activeforeground: _Color = ...,
+        background: _Color = ...,
+        bitmap: _Bitmap = ...,
+        columnbreak: int = ...,
+        command: Union[Callable[[], Any], str] = ...,
+        compound: _Compound = ...,
+        font: _FontDescription = ...,
+        foreground: _Color = ...,
+        hidemargin: bool = ...,
+        image: _ImageSpec = ...,
+        indicatoron: bool = ...,
+        label: str = ...,
+        offvalue: Any = ...,
+        onvalue: Any = ...,
+        selectcolor: _Color = ...,
+        selectimage: _ImageSpec = ...,
+        state: Literal["normal", "active", "disabled"] = ...,
+        underline: int = ...,
+        variable: Variable = ...,
+    ) -> None: ...
+    def insert_command(
+        self,
+        index: _MenuIndex,
+        cnf: Optional[Dict[str, Any]] = ...,
+        *,
+        accelerator: str = ...,
+        activebackground: _Color = ...,
+        activeforeground: _Color = ...,
+        background: _Color = ...,
+        bitmap: _Bitmap = ...,
+        columnbreak: int = ...,
+        command: Union[Callable[[], Any], str] = ...,
+        compound: _Compound = ...,
+        font: _FontDescription = ...,
+        foreground: _Color = ...,
+        hidemargin: bool = ...,
+        image: _ImageSpec = ...,
+        label: str = ...,
+        state: Literal["normal", "active", "disabled"] = ...,
+        underline: int = ...,
+    ) -> None: ...
+    def insert_radiobutton(
+        self,
+        index: _MenuIndex,
+        cnf: Optional[Dict[str, Any]] = ...,
+        *,
+        accelerator: str = ...,
+        activebackground: _Color = ...,
+        activeforeground: _Color = ...,
+        background: _Color = ...,
+        bitmap: _Bitmap = ...,
+        columnbreak: int = ...,
+        command: Union[Callable[[], Any], str] = ...,
+        compound: _Compound = ...,
+        font: _FontDescription = ...,
+        foreground: _Color = ...,
+        hidemargin: bool = ...,
+        image: _ImageSpec = ...,
+        indicatoron: bool = ...,
+        label: str = ...,
+        selectcolor: _Color = ...,
+        selectimage: _ImageSpec = ...,
+        state: Literal["normal", "active", "disabled"] = ...,
+        underline: int = ...,
+        value: Any = ...,
+        variable: Variable = ...,
+    ) -> None: ...
+    def insert_separator(self, index: _MenuIndex, cnf: Optional[Dict[str, Any]] = ..., *, background: _Color = ...) -> None: ...
     def delete(self, index1, index2: Optional[Any] = ...): ...
     def entrycget(self, index, option): ...
     def entryconfigure(self, index, cnf: Optional[Any] = ..., **kw): ...
