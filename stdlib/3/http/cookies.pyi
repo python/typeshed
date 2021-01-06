@@ -1,9 +1,8 @@
 import sys
-from typing import Any, Dict, Generic, List, Mapping, Optional, TypeVar, Union
+from typing import Any, Dict, Generic, List, Mapping, Optional, TypeVar, Union, overload
 
 _DataType = Union[str, Mapping[str, Union[str, Morsel[Any]]]]
 _T = TypeVar("_T")
-
 @overload
 def _quote(str: None) -> None: ...
 @overload
