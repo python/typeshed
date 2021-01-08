@@ -4,6 +4,9 @@ from typing import Any, Dict, Generic, List, Mapping, Optional, TypeVar, Union
 _DataType = Union[str, Mapping[str, Union[str, Morsel[Any]]]]
 _T = TypeVar("_T")
 
+def _quote(str: str) -> str: ...
+def _unquote(str: str) -> str: ...
+
 class CookieError(Exception): ...
 
 class Morsel(Dict[str, Any], Generic[_T]):
