@@ -4,7 +4,22 @@ from enum import Enum
 from tkinter.constants import *  # comment this out to find undefined identifier names with flake8
 from tkinter.font import _FontDescription
 from types import TracebackType
-from typing import Any, Callable, Dict, Generic, List, Mapping, Optional, Protocol, Tuple, Type, TypeVar, Union, overload
+from typing import (
+    Any,
+    Callable,
+    Dict,
+    Generic,
+    List,
+    Mapping,
+    Optional,
+    Protocol,
+    Sequence,
+    Tuple,
+    Type,
+    TypeVar,
+    Union,
+    overload,
+)
 from typing_extensions import Literal, TypedDict
 
 # Using anything from tkinter.font in this file means that 'import tkinter'
@@ -223,7 +238,7 @@ class Misc:
     tk: _tkinter.TkappType
     children: Dict[str, Widget]
     def destroy(self) -> None: ...
-    def deletecommand(self, name): ...
+    def deletecommand(self, name: str) -> None: ...
     def tk_strictMotif(self, boolean: Optional[Any] = ...): ...
     def tk_bisque(self): ...
     def tk_setPalette(self, *args, **kw): ...
@@ -370,7 +385,9 @@ class Misc:
     def mainloop(self, n: int = ...) -> None: ...
     def quit(self): ...
     def nametowidget(self, name: Union[str, Misc, _tkinter.Tcl_Obj]) -> Any: ...
-    register: Any
+    def register(
+        self, func: Callable[..., Any], subst: Optional[Callable[..., Sequence[Any]]] = ..., needcleanup: int = ...
+    ) -> str: ...
     def keys(self) -> List[str]: ...
     @overload
     def pack_propagate(self, flag: bool) -> Optional[bool]: ...
