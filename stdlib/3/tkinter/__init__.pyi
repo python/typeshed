@@ -2690,12 +2690,12 @@ class BitmapImage(Image):
         cnf: Dict[str, Any] = ...,
         master: Optional[Union[Misc, _tkinter.TkappType]] = ...,
         *,
-        background: _Color,
-        data: str,
-        file: AnyPath,
-        foreground: _Color,
-        maskdata: str,
-        maskfile: AnyPath,
+        background: _Color = ...,
+        data: str = ...,
+        file: AnyPath = ...,
+        foreground: _Color = ...,
+        maskdata: str = ...,
+        maskfile: AnyPath = ...,
     ) -> None: ...
 
 def image_names() -> Tuple[str, ...]: ...
