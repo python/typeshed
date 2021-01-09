@@ -467,16 +467,9 @@ class YView:
 
 class Wm:
     @overload
-    def wm_aspect(
-        self,
-        minNumer: int = ...,
-        minDenom: int = ...,
-        maxNumer: int = ...,
-        maxDenom: int = ...,
-    ) -> None: ...
+    def wm_aspect(self, minNumer: int = ..., minDenom: int = ..., maxNumer: int = ..., maxDenom: int = ...) -> None: ...
     @overload
-    def wm_aspect(
-        self) -> Optional[Tuple[int, int, int, int]]: ...
+    def wm_aspect(self) -> Optional[Tuple[int, int, int, int]]: ...
     aspect = wm_aspect
     @overload
     def wm_attributes(self) -> Tuple[Any, ...]: ...
