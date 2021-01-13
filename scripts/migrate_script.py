@@ -15,7 +15,7 @@ STDLIB_NAMESPACE = "stdlib"
 THIRD_PARTY_NAMESPACE = "stubs"
 DEFAULT_VERSION = "0.1"
 DEFAULT_PY3_VERSION = "3.6"
-PY2_NAMESPACE = "python2"
+PY2_NAMESPACE = "@python2"
 OUTPUT_DIR = "out"
 
 # Third party imports (type ignored) of missing stubs.
