@@ -43,9 +43,11 @@ def groupby(iterable: Iterable[_T], key: None = ...) -> Iterator[Tuple[_T, Itera
 @overload
 def groupby(iterable: Iterable[_T], key: Callable[[_T], _S]) -> Iterator[Tuple[_S, Iterator[_T]]]: ...
 @overload
-def islice(iterable: Iterable[_T], stop: Optional[int]) -> Iterator[_T]: ...
+def islice(__iterable: Iterable[_T], __stop: Optional[int]) -> Iterator[_T]: ...
 @overload
-def islice(iterable: Iterable[_T], start: Optional[int], stop: Optional[int], step: Optional[int] = ...) -> Iterator[_T]: ...
+def islice(
+    __iterable: Iterable[_T], __start: Optional[int], __stop: Optional[int], __step: Optional[int] = ...
+) -> Iterator[_T]: ...
 def starmap(__function: Callable[..., _S], __iterable: Iterable[Iterable[Any]]) -> Iterator[_S]: ...
 def takewhile(__predicate: Predicate[_T], __iterable: Iterable[_T]) -> Iterator[_T]: ...
 def tee(__iterable: Iterable[_T], __n: int = ...) -> Tuple[Iterator[_T], ...]: ...
@@ -58,37 +60,37 @@ _T4 = TypeVar("_T4")
 _T5 = TypeVar("_T5")
 _T6 = TypeVar("_T6")
 @overload
-def product(iter1: Iterable[_T1]) -> Iterator[Tuple[_T1]]: ...
+def product(__iter1: Iterable[_T1]) -> Iterator[Tuple[_T1]]: ...
 @overload
-def product(iter1: Iterable[_T1], iter2: Iterable[_T2]) -> Iterator[Tuple[_T1, _T2]]: ...
+def product(__iter1: Iterable[_T1], __iter2: Iterable[_T2]) -> Iterator[Tuple[_T1, _T2]]: ...
 @overload
-def product(iter1: Iterable[_T1], iter2: Iterable[_T2], iter3: Iterable[_T3]) -> Iterator[Tuple[_T1, _T2, _T3]]: ...
+def product(__iter1: Iterable[_T1], __iter2: Iterable[_T2], __iter3: Iterable[_T3]) -> Iterator[Tuple[_T1, _T2, _T3]]: ...
 @overload
 def product(
-    iter1: Iterable[_T1], iter2: Iterable[_T2], iter3: Iterable[_T3], iter4: Iterable[_T4]
+    __iter1: Iterable[_T1], __iter2: Iterable[_T2], __iter3: Iterable[_T3], __iter4: Iterable[_T4]
 ) -> Iterator[Tuple[_T1, _T2, _T3, _T4]]: ...
 @overload
 def product(
-    iter1: Iterable[_T1], iter2: Iterable[_T2], iter3: Iterable[_T3], iter4: Iterable[_T4], iter5: Iterable[_T5]
+    __iter1: Iterable[_T1], __iter2: Iterable[_T2], __iter3: Iterable[_T3], __iter4: Iterable[_T4], __iter5: Iterable[_T5]
 ) -> Iterator[Tuple[_T1, _T2, _T3, _T4, _T5]]: ...
 @overload
 def product(
-    iter1: Iterable[_T1],
-    iter2: Iterable[_T2],
-    iter3: Iterable[_T3],
-    iter4: Iterable[_T4],
-    iter5: Iterable[_T5],
-    iter6: Iterable[_T6],
+    __iter1: Iterable[_T1],
+    __iter2: Iterable[_T2],
+    __iter3: Iterable[_T3],
+    __iter4: Iterable[_T4],
+    __iter5: Iterable[_T5],
+    __iter6: Iterable[_T6],
 ) -> Iterator[Tuple[_T1, _T2, _T3, _T4, _T5, _T6]]: ...
 @overload
 def product(
-    iter1: Iterable[Any],
-    iter2: Iterable[Any],
-    iter3: Iterable[Any],
-    iter4: Iterable[Any],
-    iter5: Iterable[Any],
-    iter6: Iterable[Any],
-    iter7: Iterable[Any],
+    __iter1: Iterable[Any],
+    __iter2: Iterable[Any],
+    __iter3: Iterable[Any],
+    __iter4: Iterable[Any],
+    __iter5: Iterable[Any],
+    __iter6: Iterable[Any],
+    __iter7: Iterable[Any],
     *iterables: Iterable[Any],
 ) -> Iterator[Tuple[Any, ...]]: ...
 @overload
