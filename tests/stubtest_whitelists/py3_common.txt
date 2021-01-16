@@ -222,7 +222,6 @@ ipaddress._BaseAddress.is_unspecified
 ipaddress._BaseAddress.max_prefixlen
 ipaddress._BaseAddress.packed
 ipaddress._BaseNetwork.max_prefixlen
-itertools.accumulate
 itertools.chain.from_iterable
 itertools.combinations_with_replacement
 itertools.compress
