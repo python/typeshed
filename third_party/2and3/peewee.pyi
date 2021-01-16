@@ -1,12 +1,9 @@
 import datetime
 import decimal
 import enum
-import operator
 import re
 import threading
 import uuid
-from bisect import bisect_left, bisect_right
-from contextlib import contextmanager
 from typing import (
     Any,
     AnyStr,
@@ -16,6 +13,7 @@ from typing import (
     ContextManager,
     Dict,
     Generic,
+    Hashable,
     Iterable,
     Iterator,
     List,
@@ -302,8 +300,8 @@ class Table(_HashableSource, BaseTable):
     def __sql__(self, ctx: Context) -> Context: ...
 
 class Join(BaseTable):
-    lhs: Any  # TODO
-    rhs: Any  # TODO
+    lhs: Any  # TODO (dargueta)
+    rhs: Any  # TODO (dargueta)
     join_type: int
     def __init__(self, lhs, rhs, join_type: int = ..., on: Optional[Expression] = ..., alias: Optional[str] = ...): ...
     def on(self, predicate: Expression) -> Join: ...
@@ -1595,43 +1593,17 @@ class ForeignKeyField(Field):
     def db_value(self, value: object) -> Any: ...
     def python_value(self, value: object) -> Any: ...
     def bind(self, model: Type[Model], name: str, set_attribute: bool = ...) -> None: ...
-    def foreign_key_constraint(self) -> NodeList:
-        parts = [
-            SQL("FOREIGN KEY"),
-            EnclosedNodeList((self,)),
-            SQL("REFERENCES"),
-            self.rel_model,
-            EnclosedNodeList((self.rel_field,)),
-        ]
-        if self.on_delete:
-            parts.append(SQL("ON DELETE %s" % self.on_delete))
-        if self.on_update:
-            parts.append(SQL("ON UPDATE %s" % self.on_update))
-        if self.deferrable:
-            parts.append(SQL("DEFERRABLE %s" % self.deferrable))
-        return NodeList(parts)
+    def foreign_key_constraint(self) -> NodeList: ...
     def __getattr__(self, attr: str) -> Field: ...
 
 class DeferredForeignKey(Field):
-    _unresolved = set()
-    def __init__(self, rel_model_name, **kwargs):
-        self.field_kwargs = kwargs
-        self.rel_model_name = rel_model_name.lower()
-        DeferredForeignKey._unresolved.add(self)
-        super(DeferredForeignKey, self).__init__(column_name=kwargs.get("column_name"), null=kwargs.get("null"))
-    __hash__ = object.__hash__
-    def __deepcopy__(self, memo=None):
-        return DeferredForeignKey(self.rel_model_name, **self.field_kwargs)
-    def set_model(self, rel_model):
-        field = ForeignKeyField(rel_model, _deferred=True, **self.field_kwargs)
-        self.model._meta.add_field(self.name, field)
+    field_kwargs: Dict[str, object]
+    rel_model_name: str
+    def __init__(self, rel_model_name: str, *, column_name: Optional[str] = ..., null: Optional[str] = ..., **kwargs: object): ...
+    def set_model(self, rel_model: Type[Model]) -> None: ...
     @staticmethod
-    def resolve(model_cls):
-        unresolved = sorted(DeferredForeignKey._unresolved, key=operator.attrgetter("_order"))
-        for dr in unresolved:
-            if dr.rel_model_name == model_cls.__name__.lower():
-                dr.set_model(model_cls)
-                DeferredForeignKey._unresolved.discard(dr)
+    def resolve(model_cls: Type[Model]) -> None: ...
+    def __hash__(self) -> int: ...
 
 class DeferredThroughModel:
     def set_field(self, model: Type[Model], field: Type[Field], name: str) -> None: ...
@@ -1659,9 +1631,7 @@ class ManyToManyFieldAccessor(FieldAccessor):
     def __get__(
         self, instance: T, instance_type: Type[T] = ..., force_query: bool = ...
     ) -> Union[List[str], ManyToManyQuery]: ...
-    def __set__(self, instance: T, value) -> None:
-        query = self.__get__(instance, force_query=True)
-        query.add(value, clear_existing=True)
+    def __set__(self, instance: T, value) -> None: ...
 
 class ManyToManyField(MetaField):
     accessor_class: ClassVar[Type[ManyToManyFieldAccessor]]
@@ -1684,24 +1654,20 @@ class ManyToManyField(MetaField):
 
 class VirtualField(MetaField, Generic[_TField]):
     field_class: Type[_TField]
-    field_instance: _TField
+    field_instance: Optional[_TField]
     def __init__(self, field_class: Optional[Type[_TField]] = ..., *args: object, **kwargs: object): ...
-    def db_value(self, value):
-        if self.field_instance is not None:
-            return self.field_instance.db_value(value)
-        return value
-    def python_value(self, value):
-        if self.field_instance is not None:
-            return self.field_instance.python_value(value)
-        return value
+    def db_value(self, value: object) -> Any: ...
+    def python_value(self, value: object) -> Any: ...
     def bind(self, model: Type[Model], name: str, set_attribute: bool = ...) -> None: ...
 
 class CompositeKey(MetaField):
     sequence = None
     field_names: Tuple[str, ...]
-    def __init__(self, *field_names: str):
-        self.field_names = field_names
-        self._safe_field_names = None
+    # The following attributes are not set in the constructor an so may not always be
+    # present.
+    model: Type["Model"]
+    column_name: str
+    def __init__(self, *field_names: str): ...
     @property
     def safe_field_names(self) -> Union[List[str], Tuple[str, ...]]: ...
     @overload
@@ -1709,48 +1675,11 @@ class CompositeKey(MetaField):
     @overload
     def __get__(self, instance: T, instance_type: Type[T]) -> tuple: ...
     def __set__(self, instance: Model, value: Union[list, tuple]) -> None: ...
-    def __eq__(self, other):
-        expressions = [(self.model._meta.fields[field] == value) for field, value in zip(self.field_names, other)]
-        return reduce(operator.and_, expressions)
-    def __ne__(self, other):
-        return ~(self == other)
+    def __eq__(self, other: Expression) -> Expression: ...
+    def __ne__(self, other: Expression) -> Expression: ...
     def __hash__(self) -> int: ...
-    def __sql__(self, ctx: Context) -> Context:
-        # If the composite PK is being selected, do not use parens. Elsewhere,
-        # such as in an expression, we want to use parentheses and treat it as
-        # a row value.
-        parens = ctx.scope != SCOPE_SOURCE
-        return ctx.sql(NodeList([self.model._meta.fields[field] for field in self.field_names], ", ", parens))
-    def bind(self, model, name, set_attribute=True):
-        self.model = model
-        self.column_name = self.name = self.safe_name = name
-        setattr(model, self.name, self)
-
-class _SortedFieldList:
-    __slots__ = ("_keys", "_items")
-    def __init__(self):
-        self._keys = []
-        self._items = []
-    def __getitem__(self, i):
-        return self._items[i]
-    def __iter__(self):
-        return iter(self._items)
-    def __contains__(self, item):
-        k = item._sort_key
-        i = bisect_left(self._keys, k)
-        j = bisect_right(self._keys, k)
-        return item in self._items[i:j]
-    def index(self, field):
-        return self._keys.index(field._sort_key)
-    def insert(self, item):
-        k = item._sort_key
-        i = bisect_left(self._keys, k)
-        self._keys.insert(i, k)
-        self._items.insert(i, item)
-    def remove(self, item):
-        idx = self.index(item)
-        del self._items[idx]
-        del self._keys[idx]
+    def __sql__(self, ctx: Context) -> Context: ...
+    def bind(self, model: Type["Model"], name: str, set_attribute: bool = ...) -> None: ...
 
 # MODELS
 
@@ -1900,14 +1829,11 @@ class Model(Node, metaclass=ModelBase):
     @classmethod
     def insert_from(cls, query: SelectQuery, fields: Iterable[Union[Field, Text]]) -> ModelInsert: ...
     @classmethod
-    def replace(cls, __data=None, **insert):
-        return cls.insert(__data, **insert).on_conflict("REPLACE")
+    def replace(cls, __data: Optional[Iterable[Union[str, Field]]] = ..., **insert: object) -> OnConflict: ...
     @classmethod
-    def replace_many(cls, rows, fields=None):
-        return cls.insert_many(rows=rows, fields=fields).on_conflict("REPLACE")
+    def replace_many(cls, rows: Iterable[tuple], fields: Optional[Sequence[Field]] = ...) -> OnConflict: ...
     @classmethod
-    def raw(cls, sql, *params):
-        return ModelRaw(cls, sql, params)
+    def raw(cls, sql: str, *params: object) -> ModelRaw: ...
     @classmethod
     def delete(cls) -> ModelDelete: ...
     @classmethod
@@ -1921,33 +1847,17 @@ class Model(Node, metaclass=ModelBase):
     @classmethod
     def noop(cls) -> NoopModelSelect: ...
     @classmethod
-    def get(cls, *query, **filters):
-        sq = cls.select()
-        if query:
-            # Handle simple lookup using just the primary key.
-            if len(query) == 1 and isinstance(query[0], int):
-                sq = sq.where(cls._meta.primary_key == query[0])
-            else:
-                sq = sq.where(*query)
-        if filters:
-            sq = sq.filter(**filters)
-        return sq.get()
+    def get(cls, *query: object, **filters: object) -> ModelSelect: ...
     @classmethod
-    def get_or_none(cls, *query, **filters):
-        try:
-            return cls.get(*query, **filters)
-        except DoesNotExist: ...
+    def get_or_none(cls, *query: object, **filters: object) -> Optional[ModelSelect]: ...
     @classmethod
-    def get_by_id(cls, pk):
-        return cls.get(cls._meta.primary_key == pk)
+    def get_by_id(cls, pk: object) -> ModelSelect: ...
+    # TODO (dargueta) I'm 99% sure of return value for this one
     @classmethod
-    def set_by_id(cls, key, value) -> Any:  # TODO (dargueta): Verify return type of .execute()
-        if key is None:
-            return cls.insert(value).execute()
-        else:
-            return cls.update(value).where(cls._meta.primary_key == key).execute()
+    def set_by_id(cls, key, value) -> CursorWrapper: ...
+    # TODO (dargueta) I'm also not 100% about this one's return value.
     @classmethod
-    def delete_by_id(cls, pk: object) -> Any: ...  # TODO (dargueta): Verify return type of .execute()
+    def delete_by_id(cls, pk: object) -> CursorWrapper: ...
     @classmethod
     def get_or_create(cls, *, defaults: Mapping[str, object] = ..., **kwargs: object) -> Tuple[Any, bool]: ...
     @classmethod
@@ -1960,8 +1870,8 @@ class Model(Node, metaclass=ModelBase):
     def dependencies(self, search_nullable: bool = ...) -> Iterator[Tuple[Union[bool, Node], ForeignKeyField]]: ...
     def delete_instance(self: T, recursive: bool = ..., delete_nullable: bool = ...) -> T: ...
     def __hash__(self) -> int: ...
-    def __eq__(self, other: Any) -> bool: ...
-    def __ne__(self, other: Any) -> bool: ...
+    def __eq__(self, other: object) -> bool: ...
+    def __ne__(self, other: object) -> bool: ...
     def __sql__(self, ctx: Context) -> Context: ...
     @classmethod
     def bind(
@@ -2095,8 +2005,7 @@ class ModelUpdate(_ModelWriteQueryHelper, Update): ...
 class ModelInsert(_ModelWriteQueryHelper, Insert):
     default_row_type: ClassVar[int]
     def returning(self, *returning: Union[Type[Model], Field]) -> ModelInsert: ...
-    def get_default_data(self):
-        return self.model._meta.defaults
+    def get_default_data(self) -> Mapping[str, object]: ...
     def get_default_columns(self) -> Sequence[Field]: ...
 
 class ModelDelete(_ModelWriteQueryHelper, Delete): ...
@@ -2142,16 +2051,21 @@ class ModelObjectCursorWrapper(ModelDictCursorWrapper[_TModel]):
     def process_row(self, row: tuple) -> _TModel: ...
 
 class ModelCursorWrapper(BaseModelCursorWrapper[_TModel]):
-    from_list: Any  # TODO (dargueta) -- Iterable[Union[Join, ...]]
-    joins: Any  # TODO (dargueta) -- Mapping[<from list type>, Tuple[?, ?, Callable[..., _TModel], int?]]
+    from_list: Iterable[Any]  # TODO (dargueta) -- Iterable[Union[Join, ...]]
+    # TODO (dargueta) -- Mapping[<from list type>, Tuple[?, ?, Callable[..., _TModel], int?]]
+    joins: Mapping[Hashable, Tuple[object, object, Callable[..., _TModel], int]]
     key_to_constructor: Dict[Type[_TModel], Callable[..., _TModel]]
     src_is_dest: Dict[Type[Model], bool]
     src_to_dest: List[tuple]  # TODO -- Tuple[<frmo list type>, join_type[1], join_type[0], bool, join_type[3]]
     column_keys: List  # TODO
-    def __init__(self, cursor: __ICursor, model: Type[_TModel], select, from_list, joins):
-        super(ModelCursorWrapper, self).__init__(cursor, model, select)
-        self.from_list = from_list
-        self.joins = joins
+    def __init__(
+        self,
+        cursor: __ICursor,
+        model: Type[_TModel],
+        select,
+        from_list: Iterable[object],
+        joins: Mapping[Hashable, Tuple[object, object, Callable[..., _TModel], int]],
+    ): ...
     def initialize(self) -> None: ...
     def process_row(self, row: tuple) -> _TModel: ...
 
@@ -2164,8 +2078,8 @@ class __PrefetchQuery(NamedTuple):
     model: Type[Model]
 
 class PrefetchQuery(__PrefetchQuery):
-    def populate_instance(self, instance: Model, id_map: Mapping[Tuple[Any, Any], object]): ...
-    def store_instance(self, instance: Model, id_map: MutableMapping[Tuple[Any, Any], List[Model]]) -> None: ...
+    def populate_instance(self, instance: Model, id_map: Mapping[Tuple[object, object], object]): ...
+    def store_instance(self, instance: Model, id_map: MutableMapping[Tuple[object, object], List[Model]]) -> None: ...
 
 def prefetch_add_subquery(sq: Query, subqueries: Iterable[_TSubquery]) -> List[PrefetchQuery]: ...
-def prefetch(sq: Query, *subqueries: _TSubquery) -> List[Any]: ...
+def prefetch(sq: Query, *subqueries: _TSubquery) -> List[object]: ...
