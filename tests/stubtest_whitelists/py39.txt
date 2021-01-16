@@ -153,7 +153,6 @@ contextvars.ContextVar.set
 dataclasses.dataclass
 dataclasses.replace
 io.IncrementalNewlineDecoder.setstate
-itertools.tee
 lzma.LZMACompressor.compress
 lzma.is_check_supported
 os.initgroups
