@@ -37,6 +37,7 @@ copy.PyStringMap
 dataclasses.Field.__init__
 dataclasses.InitVar.__init__
 dataclasses.field
+dataclasses.InitVar.__class_getitem__  # stubtest bug. doesn't do the right thing with overload + implicit classmethod __class_getitem__
 dummy_threading
 email.message.MIMEPart.as_string
 enum.Enum._generate_next_value_
