@@ -1,4 +1,5 @@
 from typing import Any, List, overload
+from typing_extensions import Literal
 
 AFMT_AC3: int
 AFMT_A_LAW: int
@@ -118,9 +119,9 @@ control_names: List[str]
 
 # TODO: oss_audio_device return type
 @overload
-def open(mode: str) -> Any: ...
+def open(mode: Literal["r", "w", "rw"]) -> Any: ...
 @overload
-def open(device: str, mode: str) -> Any: ...
+def open(device: str, mode: Literal["r", "w", "rw"]) -> Any: ...
 
 # TODO: oss_mixer_device return type
 def openmixer(device: str = ...) -> Any: ...
