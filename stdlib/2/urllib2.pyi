@@ -22,6 +22,7 @@ class Request(object):
     type: Optional[str]
     origin_req_host = ...
     unredirected_hdrs: Dict[str, str]
+    timeout: Optional[float]  # Undocumented
     def __init__(
         self,
         url: str,
