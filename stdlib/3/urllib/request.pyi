@@ -61,7 +61,7 @@ class Request:
     unredirected_hdrs: Dict[str, str]
     unverifiable: bool
     method: Optional[str]
-    timeout: Optional[float]  # Undocumented
+    timeout: Optional[float]  # Undocumented, only set after __init__() by OpenerDirector.open()
     def __init__(
         self,
         url: str,
