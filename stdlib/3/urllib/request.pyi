@@ -58,8 +58,10 @@ class Request:
     selector: str
     data: Optional[bytes]
     headers: Dict[str, str]
+    unredirected_hdrs: Dict[str, str]
     unverifiable: bool
     method: Optional[str]
+    timeout: Optional[float]  # Undocumented, only set after __init__() by OpenerDirector.open()
     def __init__(
         self,
         url: str,
