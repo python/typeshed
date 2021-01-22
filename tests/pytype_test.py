@@ -17,13 +17,15 @@ import sys
 import traceback
 from typing import List, Match, Optional, Sequence, Tuple
 
-from pytype import config as pytype_config, io as pytype_io
+from pytype import config as pytype_config, load_pytd
 
 TYPESHED_SUBDIRS = ["stdlib", "third_party"]
 
 
 TYPESHED_HOME = "TYPESHED_HOME"
 UNSET = object()  # marker for tracking the TYPESHED_HOME environment variable
+
+_LOADERS = {}
 
 
 def main() -> None:
@@ -86,13 +88,18 @@ def load_exclude_list(typeshed_location: str) -> List[str]:
 
 def run_pytype(*, filename: str, python_version: str, typeshed_location: str) -> Optional[str]:
     """Runs pytype, returning the stderr if any."""
-    options = pytype_config.Options.create(
-        filename, module_name=_get_module_name(filename), parse_pyi=True, python_version=python_version
-    )
+    if python_version not in _LOADERS:
+        options = pytype_config.Options.create(
+            "", parse_pyi=True, python_version=python_version)
+        loader = load_pytd.create_loader(options)
+        _LOADERS[python_version] = (options, loader)
+    options, loader = _LOADERS[python_version]
     old_typeshed_home = os.environ.get(TYPESHED_HOME, UNSET)
     os.environ[TYPESHED_HOME] = typeshed_location
     try:
-        pytype_io.parse_pyi(options)
+        with pytype_config.verbosity_from(options):
+            ast = loader.load_file(_get_module_name(filename), filename)
+            loader.finish_and_verify_ast(ast)
     except Exception:
         stderr = traceback.format_exc()
     else:
