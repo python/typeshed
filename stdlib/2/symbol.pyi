@@ -1,5 +1,3 @@
-# Stubs for symbol (Python 2)
-
 from typing import Dict
 
 single_input: int

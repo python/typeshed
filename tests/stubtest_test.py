@@ -3,16 +3,16 @@
 
 stubtest is a script in the mypy project that compares stubs to the actual objects at runtime.
 Note that therefore the output of stubtest depends on which Python version it is run with.
-In typeshed CI, we run stubtest with each Python minor version from 3.5 through 3.9 inclusive.
+In typeshed CI, we run stubtest with each currently supported Python minor version, except 2.7.
 
 We pin the version of mypy / stubtest we use in .travis.yml so changes to those don't break
 typeshed CI.
 
 """
 
-from pathlib import Path
 import subprocess
 import sys
+from pathlib import Path
 
 
 def run_stubtest(typeshed_dir: Path) -> int:
@@ -20,6 +20,8 @@ def run_stubtest(typeshed_dir: Path) -> int:
     version_whitelist = "py{}{}.txt".format(sys.version_info.major, sys.version_info.minor)
     platform_whitelist = "{}.txt".format(sys.platform)
     combined_whitelist = "{}-py{}{}.txt".format(sys.platform, sys.version_info.major, sys.version_info.minor)
+
+    ignore_unused_whitelist = "--ignore-unused-whitelist" in sys.argv[1:]
 
     cmd = [
         sys.executable,
@@ -37,6 +39,8 @@ def run_stubtest(typeshed_dir: Path) -> int:
         "--whitelist",
         str(whitelist_dir / version_whitelist),
     ]
+    if ignore_unused_whitelist:
+        cmd += ["--ignore-unused-whitelist"]
     if (whitelist_dir / platform_whitelist).exists():
         cmd += [
             "--whitelist",
@@ -59,9 +63,6 @@ def run_stubtest(typeshed_dir: Path) -> int:
             "\nNB: stubtest output depends on the Python version (and system) it is run with. "
             "See README.md for more details.\n"
             "NB: We only check positional-only arg accuracy for Python 3.9.\n"
-            "If stubtest is complaining about 'unused whitelist entry' after your fix, please "
-            "remove the entry from the whitelist file. Note you may have to do this for other "
-            "version-specific whitelists as well. Thanks for helping burn the backlog of errors!\n"
             "\nCommand run was: {}\n".format(" ".join(cmd)),
             file=sys.stderr,
         )

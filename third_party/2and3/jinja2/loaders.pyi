@@ -1,12 +1,12 @@
 import sys
-
-from typing import Any, Callable, Iterable, List, Optional, Text, Tuple, Union
 from types import ModuleType
+from typing import Any, Callable, Iterable, List, Optional, Text, Tuple, Union
 
 from .environment import Environment
 
 if sys.version_info >= (3, 7):
     from os import PathLike
+
     _SearchPath = Union[Text, PathLike[str], Iterable[Union[Text, PathLike[str]]]]
 else:
     _SearchPath = Union[Text, Iterable[Text]]
@@ -47,7 +47,7 @@ class FunctionLoader(BaseLoader):
     load_func: Any
     def __init__(self, load_func) -> None: ...
     def get_source(
-        self, environment: Environment, template: Text,
+        self, environment: Environment, template: Text
     ) -> Tuple[Text, Optional[Text], Optional[Callable[..., Any]]]: ...
 
 class PrefixLoader(BaseLoader):

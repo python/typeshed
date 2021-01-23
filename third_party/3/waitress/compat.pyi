@@ -1,26 +1,27 @@
-from io import TextIOWrapper
 import sys
-from typing import Any, Optional, Text, Tuple
-
-if sys.version_info[0] == 3:
-    from urllib import parse as urlparse
-else:
-    import urlparse
+from io import TextIOWrapper
+from typing import Any, Optional, Tuple
 
 PY2: bool
 PY3: bool
 WIN: bool
-string_types: Tuple[str, ]
-integer_types: Tuple[int, ]
-class_types: Tuple[type, ]
+string_types: Tuple[
+    str,
+]
+integer_types: Tuple[
+    int,
+]
+class_types: Tuple[
+    type,
+]
 text_type = str
 binary_type = bytes
 long = int
 
 def unquote_bytes_to_wsgi(bytestring: bytes) -> str: ...
-def text_(s: Text, encoding: str = ..., errors: str = ...) -> str: ...
-def tostr(s: Text) -> str: ...
-def tobytes(s: Text) -> bytes: ...
+def text_(s: str, encoding: str = ..., errors: str = ...) -> str: ...
+def tostr(s: str) -> str: ...
+def tobytes(s: str) -> bytes: ...
 
 exec_: Any
 

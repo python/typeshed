@@ -8,8 +8,7 @@ _T = TypeVar("_T")
 def get_init(cls): ...
 
 if sys.version_info >= (3,):
-    from inspect import iscoroutinefunction as iscoroutinefunction
-    from inspect import getfullargspec as getfullargspec
+    from inspect import getfullargspec as getfullargspec, iscoroutinefunction as iscoroutinefunction
 else:
     class FullArgSpec(NamedTuple):
         args: List[str]
@@ -51,15 +50,11 @@ class FunctionMaker(object):
         defaults: Optional[Tuple[Any, ...]] = ...,
         doc: Optional[Text] = ...,
         module: Optional[Text] = ...,
-        funcdict: Optional[Dict[Text, Any]] = ...
+        funcdict: Optional[Dict[Text, Any]] = ...,
     ) -> None: ...
     def update(self, func: Any, **kw: Any) -> None: ...
     def make(
-        self,
-        src_templ: Text,
-        evaldict: Optional[Dict[Text, Any]] = ...,
-        addsource: bool = ...,
-        **attrs: Any
+        self, src_templ: Text, evaldict: Optional[Dict[Text, Any]] = ..., addsource: bool = ..., **attrs: Any
     ) -> Callable[..., Any]: ...
     @classmethod
     def create(
@@ -71,11 +66,13 @@ class FunctionMaker(object):
         doc: Optional[Text] = ...,
         module: Optional[Text] = ...,
         addsource: bool = ...,
-        **attrs: Any
+        **attrs: Any,
     ) -> Callable[..., Any]: ...
 
 def decorate(func: _Func, caller: Callable[..., Any], extras: Any = ...) -> _Func: ...
-def decorator(caller: Callable[..., Any], _func: Optional[Callable[..., Any]] = ...) -> Callable[[Callable[..., Any]], Callable[..., Any]]: ...
+def decorator(
+    caller: Callable[..., Any], _func: Optional[Callable[..., Any]] = ...
+) -> Callable[[Callable[..., Any]], Callable[..., Any]]: ...
 
 class ContextManager(_GeneratorContextManager[_T]):
     def __call__(self, func: _C) -> _C: ...

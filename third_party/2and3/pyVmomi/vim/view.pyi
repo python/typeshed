@@ -1,6 +1,8 @@
-from typing import List, Type
+from typing import Any, List, Type
 
 from pyVmomi.vim import ManagedEntity
+
+def __getattr__(name: str) -> Any: ...  # incomplete
 
 class ContainerView:
     def Destroy(self) -> None: ...
@@ -10,6 +12,4 @@ class ViewManager:
     # but in practice it seems to be `List[Type[ManagedEntity]]`
     # Source: https://pubs.vmware.com/vi-sdk/visdk250/ReferenceGuide/vim.view.ViewManager.html
     @staticmethod
-    def CreateContainerView(
-        container: ManagedEntity, type: List[Type[ManagedEntity]], recursive: bool
-    ) -> ContainerView: ...
+    def CreateContainerView(container: ManagedEntity, type: List[Type[ManagedEntity]], recursive: bool) -> ContainerView: ...

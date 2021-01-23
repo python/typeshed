@@ -1,9 +1,7 @@
-# Stubs for termios
+from _typeshed import FileDescriptorLike
+from typing import Any, List, Union
 
-from typing import IO, List, Union
-from _types import FileDescriptorLike
-
-_Attr = List[Union[int, List[bytes]]]
+_Attr = List[Union[int, List[Union[bytes, int]]]]
 
 # TODO constants not really documented
 B0: int
@@ -238,7 +236,7 @@ VWERASE: int
 XCASE: int
 XTABS: int
 
-def tcgetattr(fd: FileDescriptorLike) -> _Attr: ...
+def tcgetattr(fd: FileDescriptorLike) -> List[Any]: ...
 def tcsetattr(fd: FileDescriptorLike, when: int, attributes: _Attr) -> None: ...
 def tcsendbreak(fd: FileDescriptorLike, duration: int) -> None: ...
 def tcdrain(fd: FileDescriptorLike) -> None: ...

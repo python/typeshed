@@ -1,5 +1,3 @@
-# Source: https://hg.python.org/cpython/file/2.7/Lib/sre_constants.py
-
 from typing import Dict, List, TypeVar
 
 MAGIC: int
@@ -72,7 +70,8 @@ CATEGORY_UNI_NOT_WORD: str
 CATEGORY_UNI_LINEBREAK: str
 CATEGORY_UNI_NOT_LINEBREAK: str
 
-_T = TypeVar('_T')
+_T = TypeVar("_T")
+
 def makedict(list: List[_T]) -> Dict[_T, int]: ...
 
 OP_IGNORE: Dict[str, str]

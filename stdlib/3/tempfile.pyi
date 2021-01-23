@@ -1,17 +1,11 @@
-# Stubs for tempfile
-# Ron Murawski <ron@horizonchess.com>
-
-# based on http://docs.python.org/3.3/library/tempfile.html
-
 import os
 import sys
 from types import TracebackType
-from typing import Any, AnyStr, Generic, IO, Iterable, Iterator, List, Optional, overload, Tuple, Type, TypeVar, Union
+from typing import IO, Any, AnyStr, Generic, Iterable, Iterator, List, Optional, Tuple, Type, TypeVar, Union, overload
+from typing_extensions import Literal
 
-if sys.version_info >= (3, 8):
-    from typing import Literal
-else:
-    from typing_extensions import Literal
+if sys.version_info >= (3, 9):
+    from types import GenericAlias
 
 # global variables
 TMP_MAX: int
@@ -20,10 +14,7 @@ template: str
 
 _S = TypeVar("_S")
 _T = TypeVar("_T")  # for pytype, define typevar in same file as alias
-if sys.version_info >= (3, 6):
-    _DirT = Union[_T, os.PathLike[_T]]
-else:
-    _DirT = Union[_T]
+_DirT = Union[_T, os.PathLike[_T]]
 
 if sys.version_info >= (3, 8):
     @overload
@@ -37,7 +28,7 @@ if sys.version_info >= (3, 8):
         dir: Optional[_DirT[AnyStr]] = ...,
         delete: bool = ...,
         *,
-        errors: Optional[str] = ...
+        errors: Optional[str] = ...,
     ) -> IO[str]: ...
     @overload
     def NamedTemporaryFile(
@@ -50,7 +41,7 @@ if sys.version_info >= (3, 8):
         dir: Optional[_DirT[AnyStr]] = ...,
         delete: bool = ...,
         *,
-        errors: Optional[str] = ...
+        errors: Optional[str] = ...,
     ) -> IO[bytes]: ...
     @overload
     def NamedTemporaryFile(
@@ -63,8 +54,9 @@ if sys.version_info >= (3, 8):
         dir: Optional[_DirT[AnyStr]] = ...,
         delete: bool = ...,
         *,
-        errors: Optional[str] = ...
+        errors: Optional[str] = ...,
     ) -> IO[Any]: ...
+
 else:
     @overload
     def NamedTemporaryFile(
@@ -114,7 +106,7 @@ else:
             prefix: Optional[AnyStr] = ...,
             dir: Optional[_DirT[AnyStr]] = ...,
             *,
-            errors: Optional[str] = ...
+            errors: Optional[str] = ...,
         ) -> IO[str]: ...
         @overload
         def TemporaryFile(
@@ -126,7 +118,7 @@ else:
             prefix: Optional[AnyStr] = ...,
             dir: Optional[_DirT[AnyStr]] = ...,
             *,
-            errors: Optional[str] = ...
+            errors: Optional[str] = ...,
         ) -> IO[bytes]: ...
         @overload
         def TemporaryFile(
@@ -138,7 +130,7 @@ else:
             prefix: Optional[AnyStr] = ...,
             dir: Optional[_DirT[AnyStr]] = ...,
             *,
-            errors: Optional[str] = ...
+            errors: Optional[str] = ...,
         ) -> IO[Any]: ...
     else:
         @overload
@@ -189,7 +181,7 @@ class SpooledTemporaryFile(IO[AnyStr]):
             prefix: Optional[str] = ...,
             dir: Optional[str] = ...,
             *,
-            errors: Optional[str] = ...
+            errors: Optional[str] = ...,
         ) -> None: ...
         @overload
         def __init__(
@@ -203,7 +195,7 @@ class SpooledTemporaryFile(IO[AnyStr]):
             prefix: Optional[str] = ...,
             dir: Optional[str] = ...,
             *,
-            errors: Optional[str] = ...
+            errors: Optional[str] = ...,
         ) -> None: ...
         @overload
         def __init__(
@@ -217,9 +209,8 @@ class SpooledTemporaryFile(IO[AnyStr]):
             prefix: Optional[str] = ...,
             dir: Optional[str] = ...,
             *,
-            errors: Optional[str] = ...
+            errors: Optional[str] = ...,
         ) -> None: ...
-
         @property
         def errors(self) -> Optional[str]: ...
     else:
@@ -296,6 +287,8 @@ class TemporaryDirectory(Generic[AnyStr]):
     def __exit__(
         self, exc_type: Optional[Type[BaseException]], exc_val: Optional[BaseException], exc_tb: Optional[TracebackType]
     ) -> None: ...
+    if sys.version_info >= (3, 9):
+        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 def mkstemp(
     suffix: Optional[AnyStr] = ..., prefix: Optional[AnyStr] = ..., dir: Optional[_DirT[AnyStr]] = ..., text: bool = ...
