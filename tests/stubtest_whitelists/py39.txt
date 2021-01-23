@@ -37,6 +37,7 @@ copy.PyStringMap
 dataclasses.Field.__init__
 dataclasses.InitVar.__init__
 dataclasses.field
+dataclasses.InitVar.__class_getitem__  # stubtest bug. doesn't do the right thing with overload + implicit classmethod __class_getitem__
 dummy_threading
 email.message.MIMEPart.as_string
 enum.Enum._generate_next_value_
@@ -51,6 +52,7 @@ hmac.new  # Stub is a white lie; see comments in the stub
 http.client.HTTPSConnection.__init__
 http.cookiejar.DefaultCookiePolicy.__init__
 http.server.SimpleHTTPRequestHandler.__init__
+importlib.abc.Traversable.__init__  # Inherits __init__ from typing.Protocol
 importlib.metadata.DistributionFinder.Context.pattern
 importlib.metadata.EntryPointBase
 ipaddress.IPv4Interface.hostmask
@@ -65,7 +67,6 @@ logging.handlers.WatchedFileHandler.__init__
 macpath  # module removed in 3.8
 macurl2path  # module removed in 3.7
 mmap.MADV_[A-Z_]+  # platform dependent constants
-multiprocessing.managers.SharedMemoryServer.__init__
 multiprocessing.pool.CLOSE
 multiprocessing.pool.RUN
 multiprocessing.pool.TERMINATE
@@ -153,7 +154,6 @@ contextvars.ContextVar.set
 dataclasses.dataclass
 dataclasses.replace
 io.IncrementalNewlineDecoder.setstate
-itertools.tee
 lzma.LZMACompressor.compress
 lzma.is_check_supported
 os.initgroups

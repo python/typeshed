@@ -222,7 +222,6 @@ ipaddress._BaseAddress.is_unspecified
 ipaddress._BaseAddress.max_prefixlen
 ipaddress._BaseAddress.packed
 ipaddress._BaseNetwork.max_prefixlen
-itertools.accumulate
 itertools.chain.from_iterable
 itertools.combinations_with_replacement
 itertools.compress
@@ -255,7 +254,6 @@ multiprocessing.JoinableQueue
 multiprocessing.Queue
 multiprocessing.SimpleQueue
 multiprocessing.managers.BaseManager.shutdown
-multiprocessing.managers.Server.__init__
 multiprocessing.managers.SyncManager.Event
 multiprocessing.managers.SyncManager.Lock
 multiprocessing.managers.SyncManager.Namespace
@@ -363,6 +361,8 @@ timeit.main
 tkinter.Misc.grid_propagate
 tkinter.Misc.pack_propagate
 tkinter.Tk.report_callback_exception  # A bit of a lie, since it's actually a method, but typing it as an attribute allows it to be assigned to
+tkinter.Wm.wm_iconphoto  # Default value of argument can't be used without runtime error
+tkinter.font.Font.__getitem__  # Argument name differs (doesn't matter for __dunder__ methods)
 trace.CoverageResults.__init__
 traceback.FrameSummary.__init__
 traceback.TracebackException.__init__

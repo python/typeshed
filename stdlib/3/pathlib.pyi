@@ -3,7 +3,7 @@ import sys
 from _typeshed import OpenBinaryMode, OpenBinaryModeReading, OpenBinaryModeUpdating, OpenBinaryModeWriting, OpenTextMode
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
 from types import TracebackType
-from typing import IO, Any, BinaryIO, Generator, List, Optional, Sequence, TextIO, Tuple, Type, TypeVar, Union, overload
+from typing import IO, Any, BinaryIO, Generator, List, Optional, Sequence, Tuple, Type, TypeVar, Union, overload
 from typing_extensions import Literal
 
 if sys.version_info >= (3, 9):
@@ -11,12 +11,8 @@ if sys.version_info >= (3, 9):
 
 _P = TypeVar("_P", bound=PurePath)
 
-if sys.version_info >= (3, 6):
-    _PurePathBase = os.PathLike[str]
-    _PathLike = os.PathLike[str]
-else:
-    _PurePathBase = object
-    _PathLike = PurePath
+_PurePathBase = os.PathLike[str]
+_PathLike = os.PathLike[str]
 
 class PurePath(_PurePathBase):
     parts: Tuple[str, ...]
