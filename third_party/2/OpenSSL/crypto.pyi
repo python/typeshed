@@ -1,5 +1,3 @@
-# Stubs for OpenSSL.crypto (Python 2)
-
 from datetime import datetime
 from typing import Any, Callable, Iterable, List, Optional, Set, Text, Tuple, Union
 

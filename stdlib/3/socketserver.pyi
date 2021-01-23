@@ -1,10 +1,9 @@
-# NB: SocketServer.pyi and socketserver.pyi must remain consistent!
-# Stubs for socketserver
-
 import sys
 import types
 from socket import SocketType
-from typing import Any, BinaryIO, Callable, ClassVar, List, Optional, Text, Tuple, Type, Union
+from typing import Any, BinaryIO, Callable, ClassVar, List, Optional, Tuple, Type, TypeVar, Union
+
+_T = TypeVar("_T")
 
 class BaseServer:
     address_family: int
@@ -22,20 +21,18 @@ class BaseServer:
     def shutdown(self) -> None: ...
     def server_close(self) -> None: ...
     def finish_request(self, request: bytes, client_address: Tuple[str, int]) -> None: ...
-    def get_request(self) -> None: ...
+    def get_request(self) -> Tuple[SocketType, Tuple[str, int]]: ...
     def handle_error(self, request: bytes, client_address: Tuple[str, int]) -> None: ...
     def handle_timeout(self) -> None: ...
     def process_request(self, request: bytes, client_address: Tuple[str, int]) -> None: ...
     def server_activate(self) -> None: ...
     def server_bind(self) -> None: ...
     def verify_request(self, request: bytes, client_address: Tuple[str, int]) -> bool: ...
-    if sys.version_info >= (3, 6):
-        def __enter__(self) -> BaseServer: ...
-        def __exit__(
-            self, exc_type: Optional[Type[BaseException]], exc_val: Optional[BaseException], exc_tb: Optional[types.TracebackType]
-        ) -> None: ...
-    if sys.version_info >= (3, 3):
-        def service_actions(self) -> None: ...
+    def __enter__(self: _T) -> _T: ...
+    def __exit__(
+        self, exc_type: Optional[Type[BaseException]], exc_val: Optional[BaseException], exc_tb: Optional[types.TracebackType]
+    ) -> None: ...
+    def service_actions(self) -> None: ...
 
 class TCPServer(BaseServer):
     def __init__(
@@ -57,14 +54,14 @@ if sys.platform != "win32":
     class UnixStreamServer(BaseServer):
         def __init__(
             self,
-            server_address: Union[Text, bytes],
+            server_address: Union[str, bytes],
             RequestHandlerClass: Callable[..., BaseRequestHandler],
             bind_and_activate: bool = ...,
         ) -> None: ...
     class UnixDatagramServer(BaseServer):
         def __init__(
             self,
-            server_address: Union[Text, bytes],
+            server_address: Union[str, bytes],
             RequestHandlerClass: Callable[..., BaseRequestHandler],
             bind_and_activate: bool = ...,
         ) -> None: ...
@@ -76,16 +73,11 @@ if sys.platform != "win32":
         max_children: int  # undocumented
         if sys.version_info >= (3, 7):
             block_on_close: bool
-        if sys.version_info >= (3, 6):
-            def collect_children(self, *, blocking: bool = ...) -> None: ...  # undocumented
-        else:
-            def collect_children(self) -> None: ...  # undocumented
+        def collect_children(self, *, blocking: bool = ...) -> None: ...  # undocumented
         def handle_timeout(self) -> None: ...  # undocumented
-        if sys.version_info >= (3, 3):
-            def service_actions(self) -> None: ...  # undocumented
+        def service_actions(self) -> None: ...  # undocumented
         def process_request(self, request: bytes, client_address: Tuple[str, int]) -> None: ...
-        if sys.version_info >= (3, 6):
-            def server_close(self) -> None: ...
+        def server_close(self) -> None: ...
 
 class ThreadingMixIn:
     daemon_threads: bool
@@ -93,8 +85,7 @@ class ThreadingMixIn:
         block_on_close: bool
     def process_request_thread(self, request: bytes, client_address: Tuple[str, int]) -> None: ...  # undocumented
     def process_request(self, request: bytes, client_address: Tuple[str, int]) -> None: ...
-    if sys.version_info >= (3, 6):
-        def server_close(self) -> None: ...
+    def server_close(self) -> None: ...
 
 if sys.platform != "win32":
     class ForkingTCPServer(ForkingMixIn, TCPServer): ...

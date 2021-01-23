@@ -32,8 +32,6 @@ if sys.version_info >= (3, 8):
 
 class Module(mod):
     body: typing.List[stmt]
-    if sys.version_info >= (3, 7):
-        docstring: Optional[str]
     if sys.version_info >= (3, 8):
         type_ignores: typing.List[TypeIgnore]
 
@@ -51,8 +49,6 @@ class FunctionDef(stmt):
     body: typing.List[stmt]
     decorator_list: typing.List[expr]
     returns: Optional[expr]
-    if sys.version_info >= (3, 7):
-        docstring: Optional[str]
 
 class AsyncFunctionDef(stmt):
     name: _identifier
@@ -60,8 +56,6 @@ class AsyncFunctionDef(stmt):
     body: typing.List[stmt]
     decorator_list: typing.List[expr]
     returns: Optional[expr]
-    if sys.version_info >= (3, 7):
-        docstring: Optional[str]
 
 class ClassDef(stmt):
     name: _identifier
@@ -69,8 +63,6 @@ class ClassDef(stmt):
     keywords: typing.List[keyword]
     body: typing.List[stmt]
     decorator_list: typing.List[expr]
-    if sys.version_info >= (3, 7):
-        docstring: Optional[str]
 
 class Return(stmt):
     value: Optional[expr]
@@ -87,12 +79,11 @@ class AugAssign(stmt):
     op: operator
     value: expr
 
-if sys.version_info >= (3, 6):
-    class AnnAssign(stmt):
-        target: expr
-        annotation: expr
-        value: Optional[expr]
-        simple: int
+class AnnAssign(stmt):
+    target: expr
+    annotation: expr
+    value: Optional[expr]
+    simple: int
 
 class For(stmt):
     target: expr
@@ -225,13 +216,13 @@ class Call(expr):
     args: typing.List[expr]
     keywords: typing.List[keyword]
 
-if sys.version_info >= (3, 6):
-    class FormattedValue(expr):
-        value: expr
-        conversion: Optional[int]
-        format_spec: Optional[expr]
-    class JoinedStr(expr):
-        values: typing.List[expr]
+class FormattedValue(expr):
+    value: expr
+    conversion: Optional[int]
+    format_spec: Optional[expr]
+
+class JoinedStr(expr):
+    values: typing.List[expr]
 
 if sys.version_info < (3, 8):
     class Num(expr):  # Deprecated in 3.8; use Constant
@@ -244,13 +235,12 @@ if sys.version_info < (3, 8):
         value: Any
     class Ellipsis(expr): ...  # Deprecated in 3.8; use Constant
 
-if sys.version_info >= (3, 6):
-    class Constant(expr):
-        value: Any  # None, str, bytes, bool, int, float, complex, Ellipsis
-        kind: Optional[str]
-        # Aliases for value, for backwards compatibility
-        s: Any
-        n: complex
+class Constant(expr):
+    value: Any  # None, str, bytes, bool, int, float, complex, Ellipsis
+    kind: Optional[str]
+    # Aliases for value, for backwards compatibility
+    s: Any
+    n: complex
 
 if sys.version_info >= (3, 8):
     class NamedExpr(expr):
@@ -350,8 +340,7 @@ class comprehension(AST):
     target: expr
     iter: expr
     ifs: typing.List[expr]
-    if sys.version_info >= (3, 6):
-        is_async: int
+    is_async: int
 
 class excepthandler(AST): ...
 
@@ -366,7 +355,7 @@ class arguments(AST):
     args: typing.List[arg]
     vararg: Optional[arg]
     kwonlyargs: typing.List[arg]
-    kw_defaults: typing.List[expr]
+    kw_defaults: typing.List[Optional[expr]]
     kwarg: Optional[arg]
     defaults: typing.List[expr]
 

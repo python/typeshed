@@ -1,3 +1,7 @@
+_collections_abc.AsyncGenerator.ag_await
+_collections_abc.AsyncGenerator.ag_code
+_collections_abc.AsyncGenerator.ag_frame
+_collections_abc.AsyncGenerator.ag_running
 asyncio.Future.__init__
 asyncio.exceptions  # Added in Python 3.8
 asyncio.format_helpers  # Added in Python 3.7
@@ -15,20 +19,18 @@ collections.AsyncGenerator.ag_code
 collections.AsyncGenerator.ag_frame
 collections.AsyncGenerator.ag_running
 collections.UserString.maketrans
-collections.abc.AsyncGenerator.ag_await
-collections.abc.AsyncGenerator.ag_code
-collections.abc.AsyncGenerator.ag_frame
-collections.abc.AsyncGenerator.ag_running
 contextlib._GeneratorContextManager.__init__
 copy.PyStringMap
 ctypes.CDLL.__init__
 email.message.MIMEPart.as_string
 enum.Enum._generate_next_value_
+fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 hmac.HMAC.__init__
 importlib.metadata
 importlib.resources
 io.StringIO.readline
 ipaddress._BaseNetwork.__init__
+itertools.accumulate
 json.loads
 mmap.ACCESS_DEFAULT
 multiprocessing.shared_memory
@@ -72,3 +74,12 @@ webbrowser.Opera.raise_opts
 xml.etree.ElementTree.TreeBuilder.start  # Discrepancy between Python and C modules, fixed in bpo-39495
 xml.etree.cElementTree.TreeBuilder.start  # bpo-39495
 xml.parsers.expat.XMLParserType.ExternalEntityParserCreate
+# These enums derive from (int, IntEnum) or (str, Enum). See comment in py3_common.txt
+enum.IntFlag.__new__
+re.RegexFlag.__new__
+socket.AddressInfo.__new__
+socket.MsgFlag.__new__
+ssl.Options.__new__
+ssl.VerifyFlags.__new__
+ssl.VerifyMode.__new__
+tkinter.EventType.__new__

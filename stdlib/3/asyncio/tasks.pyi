@@ -22,6 +22,9 @@ from typing_extensions import Literal
 from .events import AbstractEventLoop
 from .futures import Future
 
+if sys.version_info >= (3, 9):
+    from types import GenericAlias
+
 _T = TypeVar("_T")
 _T1 = TypeVar("_T1")
 _T2 = TypeVar("_T2")
@@ -29,6 +32,7 @@ _T3 = TypeVar("_T3")
 _T4 = TypeVar("_T4")
 _T5 = TypeVar("_T5")
 _FutureT = Union[Future[_T], Generator[Any, None, _T], Awaitable[_T]]
+_TaskYieldType = Optional[Future[object]]
 
 FIRST_EXCEPTION: str
 FIRST_COMPLETED: str
@@ -164,13 +168,15 @@ class Task(Future[_T], Generic[_T]):
     if sys.version_info >= (3, 8):
         def __init__(
             self,
-            coro: Union[Generator[Any, None, _T], Awaitable[_T]],
+            coro: Union[Generator[_TaskYieldType, None, _T], Awaitable[_T]],
             *,
             loop: AbstractEventLoop = ...,
             name: Optional[str] = ...,
         ) -> None: ...
     else:
-        def __init__(self, coro: Union[Generator[Any, None, _T], Awaitable[_T]], *, loop: AbstractEventLoop = ...) -> None: ...
+        def __init__(
+            self, coro: Union[Generator[_TaskYieldType, None, _T], Awaitable[_T]], *, loop: AbstractEventLoop = ...
+        ) -> None: ...
     def __repr__(self) -> str: ...
     if sys.version_info >= (3, 8):
         def get_coro(self) -> Any: ...
@@ -189,11 +195,15 @@ class Task(Future[_T], Generic[_T]):
         def all_tasks(cls, loop: Optional[AbstractEventLoop] = ...) -> Set[Task[Any]]: ...
     if sys.version_info < (3, 7):
         def _wakeup(self, fut: Future[Any]) -> None: ...
+    if sys.version_info >= (3, 9):
+        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 if sys.version_info >= (3, 7):
     def all_tasks(loop: Optional[AbstractEventLoop] = ...) -> Set[Task[Any]]: ...
     if sys.version_info >= (3, 8):
-        def create_task(coro: Union[Generator[Any, None, _T], Awaitable[_T]], *, name: Optional[str] = ...) -> Task[_T]: ...
+        def create_task(
+            coro: Union[Generator[_TaskYieldType, None, _T], Awaitable[_T]], *, name: Optional[str] = ...
+        ) -> Task[_T]: ...
     else:
-        def create_task(coro: Union[Generator[Any, None, _T], Awaitable[_T]]) -> Task[_T]: ...
+        def create_task(coro: Union[Generator[_TaskYieldType, None, _T], Awaitable[_T]]) -> Task[_T]: ...
     def current_task(loop: Optional[AbstractEventLoop] = ...) -> Optional[Task[Any]]: ...

@@ -1,5 +1,3 @@
-# Stubs for typing (Python 2.7)
-
 import collections  # Needed by aliases like DefaultDict, see mypy issue 2986
 from abc import ABCMeta, abstractmethod
 from types import CodeType, FrameType, TracebackType
@@ -462,6 +460,8 @@ def get_type_hints(
 def cast(tp: Type[_T], obj: Any) -> _T: ...
 @overload
 def cast(tp: str, obj: Any) -> Any: ...
+@overload
+def cast(tp: object, obj: Any) -> Any: ...
 
 # Type constructors
 

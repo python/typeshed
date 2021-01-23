@@ -15,8 +15,8 @@
 import array
 import mmap
 import sys
-from typing import AbstractSet, Container, Iterable, Protocol, Text, Tuple, TypeVar, Union
-from typing_extensions import Literal
+from typing import AbstractSet, Any, Container, Iterable, Protocol, Text, Tuple, TypeVar, Union
+from typing_extensions import Literal, final
 
 _KT = TypeVar("_KT")
 _KT_co = TypeVar("_KT_co", covariant=True)
@@ -26,10 +26,19 @@ _VT_co = TypeVar("_VT_co", covariant=True)
 _T_co = TypeVar("_T_co", covariant=True)
 _T_contra = TypeVar("_T_contra", contravariant=True)
 
+class SupportsLessThan(Protocol):
+    def __lt__(self, __other: Any) -> bool: ...
+
+SupportsLessThanT = TypeVar("SupportsLessThanT", bound=SupportsLessThan)  # noqa: Y001
+
 # Mapping-like protocols
 
 class SupportsItems(Protocol[_KT_co, _VT_co]):
-    def items(self) -> AbstractSet[Tuple[_KT_co, _VT_co]]: ...
+    if sys.version_info >= (3,):
+        def items(self) -> AbstractSet[Tuple[_KT_co, _VT_co]]: ...
+    else:
+        # We want dictionaries to support this on Python 2.
+        def items(self) -> Iterable[Tuple[_KT_co, _VT_co]]: ...
 
 class SupportsKeysAndGetItem(Protocol[_KT, _VT_co]):
     def keys(self) -> Iterable[_KT]: ...
@@ -156,7 +165,7 @@ class SupportsNoArgReadline(Protocol[_T_co]):
     def readline(self) -> _T_co: ...
 
 class SupportsWrite(Protocol[_T_contra]):
-    def write(self, __s: _T_contra) -> int: ...
+    def write(self, __s: _T_contra) -> Any: ...
 
 if sys.version_info >= (3,):
     ReadableBuffer = Union[bytes, bytearray, memoryview, array.array, mmap.mmap]
@@ -164,3 +173,11 @@ if sys.version_info >= (3,):
 else:
     ReadableBuffer = Union[bytes, bytearray, memoryview, array.array, mmap.mmap, buffer]
     WriteableBuffer = Union[bytearray, memoryview, array.array, mmap.mmap, buffer]
+
+if sys.version_info >= (3, 10):
+    from types import NoneType as NoneType
+else:
+    # Used by type checkers for checks involving None (does not exist at runtime)
+    @final
+    class NoneType:
+        def __bool__(self) -> Literal[False]: ...

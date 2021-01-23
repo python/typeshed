@@ -1,9 +1,9 @@
-# Stubs for platform (Python 3.5)
-
 import sys
 
 if sys.version_info < (3, 9):
-    from os import devnull as DEV_NULL
+    import os
+
+    DEV_NULL = os.devnull
 from typing import NamedTuple, Optional, Tuple
 
 if sys.version_info >= (3, 8):

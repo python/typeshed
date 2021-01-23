@@ -14,6 +14,7 @@
 
 [flake8]
 per-file-ignores =
+  *.py: E203, W503
   *.pyi: E301, E302, E305, E501, E701, E741, F401, F403, F405, F822
   # Since typing.pyi defines "overload" this is not recognized by flake8 as typing.overload.
   # Unfortunately, flake8 does not allow to "noqa" just a specific error inside the file itself.
@@ -21,5 +22,5 @@ per-file-ignores =
 
 # We are checking with Python 3 but many of the stubs are Python 2 stubs.
 builtins = StandardError,apply,basestring,buffer,cmp,coerce,execfile,file,intern,long,raw_input,reduce,reload,unichr,unicode,xrange
-exclude = .venv*,@*,.git
+exclude = .venv*,@*,.git,*_pb2.pyi
 max-line-length = 130

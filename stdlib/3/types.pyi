@@ -1,8 +1,3 @@
-# Stubs for types
-# Note, all classes "defined" here require special handling.
-
-# TODO parts of this should be conditional on version
-
 import sys
 from typing import (
     Any,
@@ -20,10 +15,13 @@ from typing import (
     Union,
     overload,
 )
+from typing_extensions import Literal, final
 
 # ModuleType is exported from this module, but for circular import
 # reasons exists in its own stub file (with ModuleSpec and Loader).
 from _importlib_modulespec import ModuleType as ModuleType  # Exported
+
+# Note, all classes "defined" here require special handling.
 
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
@@ -143,7 +141,7 @@ class MappingProxyType(Mapping[_KT, _VT], Generic[_KT, _VT]):
     def __getitem__(self, k: _KT) -> _VT: ...
     def __iter__(self) -> Iterator[_KT]: ...
     def __len__(self) -> int: ...
-    def copy(self) -> Mapping[_KT, _VT]: ...
+    def copy(self) -> Dict[_KT, _VT]: ...
 
 class SimpleNamespace:
     def __init__(self, **kwargs: Any) -> None: ...
@@ -167,22 +165,21 @@ class GeneratorType:
     @overload
     def throw(self, __typ: BaseException, __val: None = ..., __tb: Optional[TracebackType] = ...) -> Any: ...
 
-if sys.version_info >= (3, 6):
-    class AsyncGeneratorType(Generic[_T_co, _T_contra]):
-        ag_await: Optional[Awaitable[Any]]
-        ag_frame: FrameType
-        ag_running: bool
-        ag_code: CodeType
-        def __aiter__(self) -> Awaitable[AsyncGeneratorType[_T_co, _T_contra]]: ...
-        def __anext__(self) -> Awaitable[_T_co]: ...
-        def asend(self, __val: _T_contra) -> Awaitable[_T_co]: ...
-        @overload
-        def athrow(
-            self, __typ: Type[BaseException], __val: Union[BaseException, object] = ..., __tb: Optional[TracebackType] = ...
-        ) -> Awaitable[_T_co]: ...
-        @overload
-        def athrow(self, __typ: BaseException, __val: None = ..., __tb: Optional[TracebackType] = ...) -> Awaitable[_T_co]: ...
-        def aclose(self) -> Awaitable[None]: ...
+class AsyncGeneratorType(Generic[_T_co, _T_contra]):
+    ag_await: Optional[Awaitable[Any]]
+    ag_frame: FrameType
+    ag_running: bool
+    ag_code: CodeType
+    def __aiter__(self) -> Awaitable[AsyncGeneratorType[_T_co, _T_contra]]: ...
+    def __anext__(self) -> Awaitable[_T_co]: ...
+    def asend(self, __val: _T_contra) -> Awaitable[_T_co]: ...
+    @overload
+    def athrow(
+        self, __typ: Type[BaseException], __val: Union[BaseException, object] = ..., __tb: Optional[TracebackType] = ...
+    ) -> Awaitable[_T_co]: ...
+    @overload
+    def athrow(self, __typ: BaseException, __val: None = ..., __tb: Optional[TracebackType] = ...) -> Awaitable[_T_co]: ...
+    def aclose(self) -> Awaitable[None]: ...
 
 class CoroutineType:
     cr_await: Optional[Any]
@@ -281,7 +278,7 @@ class FrameType:
     f_lasti: int
     f_lineno: int
     f_locals: Dict[str, Any]
-    f_trace: Callable[[], None]
+    f_trace: Optional[Callable[[FrameType, str, Any], Any]]
     if sys.version_info >= (3, 7):
         f_trace_lines: bool
         f_trace_opcodes: bool
@@ -328,3 +325,10 @@ if sys.version_info >= (3, 9):
         __parameters__: Tuple[Any, ...]
         def __init__(self, origin: type, args: Any) -> None: ...
         def __getattr__(self, name: str) -> Any: ...  # incomplete
+
+if sys.version_info >= (3, 10):
+    @final
+    class NoneType:
+        def __bool__(self) -> Literal[False]: ...
+    EllipsisType = ellipsis  # noqa F811 from builtins
+    NotImplementedType = _NotImplementedType  # noqa F811 from builtins

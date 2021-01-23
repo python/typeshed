@@ -13,16 +13,19 @@ will also discover incorrect usage of imported modules.
 import argparse
 import os
 import re
+import sys
 import traceback
 from typing import List, Match, Optional, Sequence, Tuple
 
-from pytype import config as pytype_config, io as pytype_io
+from pytype import config as pytype_config, load_pytd
 
 TYPESHED_SUBDIRS = ["stdlib", "third_party"]
 
 
 TYPESHED_HOME = "TYPESHED_HOME"
 UNSET = object()  # marker for tracking the TYPESHED_HOME environment variable
+
+_LOADERS = {}
 
 
 def main() -> None:
@@ -49,7 +52,11 @@ def create_parser() -> argparse.ArgumentParser:
         "--print-stderr", action="store_true", default=False, help="Print stderr every time an error is encountered."
     )
     parser.add_argument(
-        "files", metavar="FILE", type=str, nargs="*", help="Files or directories to check. (Default: Check all files.)",
+        "files",
+        metavar="FILE",
+        type=str,
+        nargs="*",
+        help="Files or directories to check. (Default: Check all files.)",
     )
     return parser
 
@@ -81,15 +88,18 @@ def load_exclude_list(typeshed_location: str) -> List[str]:
 
 def run_pytype(*, filename: str, python_version: str, typeshed_location: str) -> Optional[str]:
     """Runs pytype, returning the stderr if any."""
-    options = pytype_config.Options.create(
-        filename,
-        module_name=_get_module_name(filename),
-        parse_pyi=True,
-        python_version=python_version)
+    if python_version not in _LOADERS:
+        options = pytype_config.Options.create(
+            "", parse_pyi=True, python_version=python_version)
+        loader = load_pytd.create_loader(options)
+        _LOADERS[python_version] = (options, loader)
+    options, loader = _LOADERS[python_version]
     old_typeshed_home = os.environ.get(TYPESHED_HOME, UNSET)
     os.environ[TYPESHED_HOME] = typeshed_location
     try:
-        pytype_io.parse_pyi(options)
+        with pytype_config.verbosity_from(options):
+            ast = loader.load_file(_get_module_name(filename), filename)
+            loader.finish_and_verify_ast(ast)
     except Exception:
         stderr = traceback.format_exc()
     else:
@@ -162,13 +172,7 @@ def find_stubs_in_paths(paths: Sequence[str]) -> List[str]:
     return filenames
 
 
-def run_all_tests(
-    *,
-    files_to_test: Sequence[Tuple[str, int]],
-    typeshed_location: str,
-    print_stderr: bool,
-    dry_run: bool
-) -> None:
+def run_all_tests(*, files_to_test: Sequence[Tuple[str, int]], typeshed_location: str, print_stderr: bool, dry_run: bool) -> None:
     bad = []
     errors = 0
     total_tests = len(files_to_test)
@@ -177,7 +181,7 @@ def run_all_tests(
         stderr = (
             run_pytype(
                 filename=f,
-                python_version="2.7" if version == 2 else "3.6",
+                python_version="2.7" if version == 2 else "{0.major}.{0.minor}".format(sys.version_info),
                 typeshed_location=typeshed_location,
             )
             if not dry_run

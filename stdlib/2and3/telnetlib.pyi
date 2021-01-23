@@ -1,5 +1,3 @@
-# Stubs for telnetlib (Python 2 and 3)
-
 import socket
 import sys
 from typing import Any, Callable, Match, Optional, Pattern, Sequence, Tuple, Union
@@ -84,6 +82,7 @@ EXOPL: bytes
 NOOPT: bytes
 
 class Telnet:
+    host: Optional[str]  # undocumented
     def __init__(self, host: Optional[str] = ..., port: int = ..., timeout: int = ...) -> None: ...
     def open(self, host: str, port: int = ..., timeout: int = ...) -> None: ...
     def msg(self, msg: str, *args: Any) -> None: ...

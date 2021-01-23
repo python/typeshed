@@ -1,5 +1,9 @@
-from itertools import ifilter as filter, imap as map, izip as zip
+from itertools import ifilter, imap, izip
 from typing import Any
+
+filter = ifilter
+map = imap
+zip = izip
 
 def ascii(obj: Any) -> str: ...
 def hex(x: int) -> str: ...

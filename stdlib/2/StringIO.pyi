@@ -1,5 +1,3 @@
-# Stubs for StringIO (Python 2)
-
 from typing import IO, Any, AnyStr, Generic, Iterable, Iterator, List, Optional
 
 class StringIO(IO[AnyStr], Generic[AnyStr]):

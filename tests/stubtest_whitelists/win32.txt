@@ -21,6 +21,7 @@ dbm.ndbm
 fcntl
 grp
 nis
+ossaudiodev
 posix
 pwd
 readline
@@ -28,6 +29,7 @@ resource
 spwd
 syslog
 termios
+xxlimited
 
 # Modules that rely on _curses
 curses

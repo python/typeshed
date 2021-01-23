@@ -1,5 +1,3 @@
-"""Stub file for the '_sre' module."""
-
 from typing import Any, Dict, Iterable, List, Mapping, Optional, Sequence, Tuple, Union, overload
 
 CODESIZE: int

@@ -1,10 +1,8 @@
 import sys
 from http.client import HTTPResponse
+from os import PathLike
 from typing import Dict, Iterable, Iterator, Optional, Sequence, Tuple, TypeVar, Union, overload
 from urllib.request import Request
-
-if sys.version_info >= (3, 6):
-    from os import PathLike
 
 _T = TypeVar("_T")
 
@@ -126,6 +124,6 @@ class Cookie:
     @overload
     def get_nonstandard_attr(self, name: str) -> Optional[str]: ...
     @overload
-    def get_nonstandard_attr(self, name: str, default: _T = ...) -> Union[str, _T]: ...
+    def get_nonstandard_attr(self, name: str, default: _T) -> Union[str, _T]: ...
     def set_nonstandard_attr(self, name: str, value: str) -> None: ...
     def is_expired(self, now: int = ...) -> bool: ...
