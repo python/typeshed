@@ -38,7 +38,6 @@ builtins.bytes.__float__
 builtins.bytes.__int__
 builtins.bytes.maketrans
 builtins.classmethod.__get__
-builtins.complex.__complex__
 builtins.ellipsis
 builtins.function
 builtins.memoryview.__contains__
