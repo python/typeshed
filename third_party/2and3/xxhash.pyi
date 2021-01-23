@@ -1,5 +1,11 @@
+import sys
+
 from _typeshed import ReadableBuffer
-from hashlib import _Hash
+
+if sys.version_info < (3,):
+    from hashlib import _hash as _Hash
+else:
+    from hashlib import _Hash
 
 VERSION: str
 XXHASH_VERSION: str
