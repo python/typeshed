@@ -582,7 +582,7 @@ class Progressbar(Widget):
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
         value: float = ...,
-        variable: tkinter.DoubleVar = ...,
+        variable: Union[tkinter.IntVar, tkinter.DoubleVar] = ...,
     ) -> None: ...
     @overload
     def configure(
@@ -598,7 +598,7 @@ class Progressbar(Widget):
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
         value: float = ...,
-        variable: tkinter.DoubleVar = ...,
+        variable: Union[tkinter.IntVar, tkinter.DoubleVar] = ...,
     ) -> Optional[Dict[str, Tuple[str, str, str, Any, Any]]]: ...
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
@@ -671,7 +671,7 @@ class Scale(Widget, tkinter.Scale):
         takefocus: tkinter._TakeFocusValue = ...,
         to: float = ...,
         value: float = ...,
-        variable: tkinter.DoubleVar = ...,
+        variable: Union[tkinter.IntVar, tkinter.DoubleVar] = ...,
     ) -> None: ...
     @overload  # type: ignore
     def configure(
@@ -688,7 +688,7 @@ class Scale(Widget, tkinter.Scale):
         takefocus: tkinter._TakeFocusValue = ...,
         to: float = ...,
         value: float = ...,
-        variable: tkinter.DoubleVar = ...,
+        variable: Union[tkinter.IntVar, tkinter.DoubleVar] = ...,
     ) -> Optional[Dict[str, Tuple[str, str, str, Any, Any]]]: ...
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
@@ -708,7 +708,7 @@ class Scale(Widget, tkinter.Scale):
         takefocus: tkinter._TakeFocusValue = ...,
         to: float = ...,
         value: float = ...,
-        variable: tkinter.DoubleVar = ...,
+        variable: Union[tkinter.IntVar, tkinter.DoubleVar] = ...,
     ) -> Optional[Dict[str, Tuple[str, str, str, Any, Any]]]: ...
     @overload
     def config(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
