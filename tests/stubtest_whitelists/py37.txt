@@ -1,3 +1,7 @@
+_collections_abc.AsyncGenerator.ag_await
+_collections_abc.AsyncGenerator.ag_code
+_collections_abc.AsyncGenerator.ag_frame
+_collections_abc.AsyncGenerator.ag_running
 asyncio.AbstractEventLoop.sock_sendfile
 asyncio.compat  # Removed in 3.7
 asyncio.Future.__init__
@@ -21,6 +25,7 @@ collections.abc.AsyncGenerator.ag_await
 collections.abc.AsyncGenerator.ag_code
 collections.abc.AsyncGenerator.ag_frame
 collections.abc.AsyncGenerator.ag_running
+concurrent.futures.ProcessPoolExecutor.map
 contextvars.Context.__init__
 contextvars.Context.get
 contextvars.ContextVar.get
