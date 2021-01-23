@@ -1,5 +1,4 @@
 import sys
-
 from _typeshed import ReadableBuffer
 
 if sys.version_info < (3,):
