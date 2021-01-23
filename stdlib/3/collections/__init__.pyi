@@ -5,8 +5,6 @@ from typing import Any, Dict, Generic, List, Optional, Tuple, Type, TypeVar, Uni
 if sys.version_info < (3, 10):
     from _collections_abc import *
 
-Set = AbstractSet
-
 _S = TypeVar("_S")
 _T = TypeVar("_T")
 _KT = TypeVar("_KT")
