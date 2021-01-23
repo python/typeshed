@@ -34,8 +34,6 @@ collections.abc.ValuesView.__reversed__
 contextvars.Context.__init__
 contextvars.Context.get
 copy.PyStringMap
-dataclasses.Field.__init__
-dataclasses.InitVar.__init__
 dataclasses.field
 dataclasses.InitVar.__class_getitem__  # stubtest bug. doesn't do the right thing with overload + implicit classmethod __class_getitem__
 dummy_threading
@@ -67,9 +65,6 @@ logging.handlers.WatchedFileHandler.__init__
 macpath  # module removed in 3.8
 macurl2path  # module removed in 3.7
 mmap.MADV_[A-Z_]+  # platform dependent constants
-multiprocessing.pool.CLOSE
-multiprocessing.pool.RUN
-multiprocessing.pool.TERMINATE
 multiprocessing.spawn._main
 nntplib.NNTP.starttls
 os.MFD_HUGE_32MB
@@ -151,8 +146,6 @@ contextlib.AsyncExitStack.push_async_callback
 contextlib.ExitStack.callback
 contextvars.ContextVar.reset
 contextvars.ContextVar.set
-dataclasses.dataclass
-dataclasses.replace
 io.IncrementalNewlineDecoder.setstate
 lzma.LZMACompressor.compress
 lzma.is_check_supported

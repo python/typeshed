@@ -26,7 +26,6 @@ contextvars.Context.get
 contextvars.ContextVar.get
 copy.PyStringMap
 ctypes.CDLL.__init__
-dataclasses.Field.__init__
 dataclasses.field
 email.message.MIMEPart.as_string
 enum.Enum._generate_next_value_
