@@ -65,21 +65,21 @@ class Redis(Generic[_StrType]):
     def from_url(
         cls,
         url: Text,
-        host: Optional[Text] = ...,
-        port: Optional[int] = ...,
-        db: Optional[int] = ...,
-        password: Optional[Text] = ...,
-        socket_timeout: Optional[float] = ...,
-        socket_connect_timeout: Optional[float] = ...,
-        socket_keepalive: Optional[bool] = ...,
-        socket_keepalive_options: Optional[Mapping[str, Union[int, str]]] = ...,
-        connection_pool: Optional[ConnectionPool] = ...,
-        unix_socket_path: Optional[Text] = ...,
-        encoding: Text = ...,
-        encoding_errors: Text = ...,
-        charset: Optional[Text] = ...,
-        errors: Optional[Text] = ...,
-        decode_responses: Optional[bool] = ...,
+        host: Optional[Text],
+        port: Optional[int],
+        db: Optional[int],
+        password: Optional[Text],
+        socket_timeout: Optional[float],
+        socket_connect_timeout: Optional[float],
+        socket_keepalive: Optional[bool],
+        socket_keepalive_options: Optional[Mapping[str, Union[int, str]]],
+        connection_pool: Optional[ConnectionPool],
+        unix_socket_path: Optional[Text],
+        encoding: Text,
+        encoding_errors: Text,
+        charset: Optional[Text],
+        errors: Optional[Text],
+        decode_responses: Literal[True],
         retry_on_timeout: bool = ...,
         ssl: bool = ...,
         ssl_keyfile: Optional[Text] = ...,
@@ -92,7 +92,7 @@ class Redis(Generic[_StrType]):
         health_check_interval: float = ...,
         client_name: Optional[Text] = ...,
         username: Optional[Text] = ...,
-    ) -> Redis[bytes]: ...
+    ) -> Redis[str]: ...
     @overload
     @classmethod
     def from_url(
@@ -111,8 +111,9 @@ class Redis(Generic[_StrType]):
         encoding: Text = ...,
         encoding_errors: Text = ...,
         charset: Optional[Text] = ...,
-        decode_responses: Literal[True] = ...,
         errors: Optional[Text] = ...,
+        *,
+        decode_responses: Literal[True],
         retry_on_timeout: bool = ...,
         ssl: bool = ...,
         ssl_keyfile: Optional[Text] = ...,
@@ -126,14 +127,14 @@ class Redis(Generic[_StrType]):
         client_name: Optional[Text] = ...,
         username: Optional[Text] = ...,
     ) -> Redis[str]: ...
-    connection_pool: Any
-    response_callbacks: Any
     @overload
-    def __new__(
+    @classmethod
+    def from_url(
         cls,
-        host: Text = ...,
-        port: int = ...,
-        db: int = ...,
+        url: Text,
+        host: Optional[Text] = ...,
+        port: Optional[int] = ...,
+        db: Optional[int] = ...,
         password: Optional[Text] = ...,
         socket_timeout: Optional[float] = ...,
         socket_connect_timeout: Optional[float] = ...,
@@ -144,6 +145,7 @@ class Redis(Generic[_StrType]):
         encoding: Text = ...,
         encoding_errors: Text = ...,
         charset: Optional[Text] = ...,
+        decode_responses: Literal[False] = ...,
         errors: Optional[Text] = ...,
         retry_on_timeout: bool = ...,
         ssl: bool = ...,
@@ -158,6 +160,71 @@ class Redis(Generic[_StrType]):
         client_name: Optional[Text] = ...,
         username: Optional[Text] = ...,
     ) -> Redis[bytes]: ...
+    connection_pool: Any
+    response_callbacks: Any
+    @overload
+    def __new__(
+        cls,
+        host: Text,
+        port: int,
+        db: int,
+        password: Optional[Text],
+        socket_timeout: Optional[float],
+        socket_connect_timeout: Optional[float],
+        socket_keepalive: Optional[bool],
+        socket_keepalive_options: Optional[Mapping[str, Union[int, str]]],
+        connection_pool: Optional[ConnectionPool],
+        unix_socket_path: Optional[Text],
+        encoding: Text,
+        encoding_errors: Text,
+        charset: Optional[Text],
+        decode_responses: Literal[True],
+        errors: Optional[Text] = ...,
+        retry_on_timeout: bool = ...,
+        ssl: bool = ...,
+        ssl_keyfile: Optional[Text] = ...,
+        ssl_certfile: Optional[Text] = ...,
+        ssl_cert_reqs: Optional[Union[str, int]] = ...,
+        ssl_ca_certs: Optional[Text] = ...,
+        ssl_check_hostname: bool = ...,
+        max_connections: Optional[int] = ...,
+        single_connection_client: bool = ...,
+        health_check_interval: float = ...,
+        client_name: Optional[Text] = ...,
+        username: Optional[Text] = ...,
+    ) -> Redis[str]: ...
+    @overload
+    def __new__(
+        cls,
+        host: Text = ...,
+        port: int = ...,
+        db: int = ...,
+        password: Optional[Text] = ...,
+        socket_timeout: Optional[float] = ...,
+        socket_connect_timeout: Optional[float] = ...,
+        socket_keepalive: Optional[bool] = ...,
+        socket_keepalive_options: Optional[Mapping[str, Union[int, str]]] = ...,
+        connection_pool: Optional[ConnectionPool] = ...,
+        unix_socket_path: Optional[Text] = ...,
+        encoding: Text = ...,
+        encoding_errors: Text = ...,
+        charset: Optional[Text] = ...,
+        *,
+        decode_responses: Literal[True],
+        errors: Optional[Text] = ...,
+        retry_on_timeout: bool = ...,
+        ssl: bool = ...,
+        ssl_keyfile: Optional[Text] = ...,
+        ssl_certfile: Optional[Text] = ...,
+        ssl_cert_reqs: Optional[Union[str, int]] = ...,
+        ssl_ca_certs: Optional[Text] = ...,
+        ssl_check_hostname: bool = ...,
+        max_connections: Optional[int] = ...,
+        single_connection_client: bool = ...,
+        health_check_interval: float = ...,
+        client_name: Optional[Text] = ...,
+        username: Optional[Text] = ...,
+    ) -> Redis[str]: ...
     @overload
     def __new__(
         cls,
@@ -175,7 +242,7 @@ class Redis(Generic[_StrType]):
         encoding_errors: Text = ...,
         charset: Optional[Text] = ...,
         errors: Optional[Text] = ...,
-        decode_responses: Literal[True] = ...,
+        decode_responses: Literal[False] = ...,
         retry_on_timeout: bool = ...,
         ssl: bool = ...,
         ssl_keyfile: Optional[Text] = ...,
@@ -188,7 +255,38 @@ class Redis(Generic[_StrType]):
         health_check_interval: float = ...,
         client_name: Optional[Text] = ...,
         username: Optional[Text] = ...,
-    ) -> Redis[str]: ...
+    ) -> Redis[bytes]: ...
+    @overload
+    def __init__(
+        self: Redis[str],
+        host: Text,
+        port: int,
+        db: int,
+        password: Optional[Text],
+        socket_timeout: Optional[float],
+        socket_connect_timeout: Optional[float],
+        socket_keepalive: Optional[bool],
+        socket_keepalive_options: Optional[Mapping[str, Union[int, str]]],
+        connection_pool: Optional[ConnectionPool],
+        unix_socket_path: Optional[Text],
+        encoding: Text,
+        encoding_errors: Text,
+        charset: Optional[Text],
+        errors: Optional[Text],
+        decode_responses: Literal[True],
+        retry_on_timeout: bool = ...,
+        ssl: bool = ...,
+        ssl_keyfile: Optional[Text] = ...,
+        ssl_certfile: Optional[Text] = ...,
+        ssl_cert_reqs: Optional[Union[str, int]] = ...,
+        ssl_ca_certs: Optional[Text] = ...,
+        ssl_check_hostname: bool = ...,
+        max_connections: Optional[int] = ...,
+        single_connection_client: bool = ...,
+        health_check_interval: float = ...,
+        client_name: Optional[Text] = ...,
+        username: Optional[Text] = ...,
+    ) -> None: ...
     @overload
     def __init__(
         self: Redis[str],
@@ -206,7 +304,8 @@ class Redis(Generic[_StrType]):
         encoding_errors: Text = ...,
         charset: Optional[Text] = ...,
         errors: Optional[Text] = ...,
-        decode_responses: Literal[True] = ...,
+        *,
+        decode_responses: Literal[True],
         retry_on_timeout: bool = ...,
         ssl: bool = ...,
         ssl_keyfile: Optional[Text] = ...,
@@ -237,7 +336,7 @@ class Redis(Generic[_StrType]):
         encoding_errors: Text = ...,
         charset: Optional[Text] = ...,
         errors: Optional[Text] = ...,
-        decode_responses: Optional[bool] = ...,
+        decode_responses: Literal[False] = ...,
         retry_on_timeout: bool = ...,
         ssl: bool = ...,
         ssl_keyfile: Optional[Text] = ...,
@@ -450,7 +549,7 @@ class Redis(Generic[_StrType]):
     def sinter(self, keys: _Key, *args: _Key) -> Set[_Value]: ...
     def sinterstore(self, dest, keys, *args): ...
     def sismember(self, name: _Key, value: _Value) -> bool: ...
-    def smembers(self, name: _Key) -> Set[_Value]: ...
+    def smembers(self, name: _Key) -> Set[_StrType]: ...
     def smove(self, src, dst, value): ...
     def spop(self, name, count: Optional[int] = ...): ...
     @overload
