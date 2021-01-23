@@ -2193,7 +2193,7 @@ class Scale(Widget):
         tickinterval: float = ...,
         to: float = ...,
         troughcolor: _Color = ...,
-        variable: DoubleVar = ...,
+        variable: Union[IntVar, DoubleVar] = ...,
         width: _ScreenUnits = ...,
     ) -> None: ...
     @overload
@@ -2233,7 +2233,7 @@ class Scale(Widget):
         tickinterval: float = ...,
         to: float = ...,
         troughcolor: _Color = ...,
-        variable: DoubleVar = ...,
+        variable: Union[IntVar, DoubleVar] = ...,
         width: _ScreenUnits = ...,
     ) -> Optional[Dict[str, Tuple[str, str, str, Any, Any]]]: ...
     @overload
