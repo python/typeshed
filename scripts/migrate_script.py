@@ -42,6 +42,7 @@ package_to_distribution = {
     "flask": "Flask",
     "gflags": "python-gflags",
     "google": "protobuf",
+    "jack": "JACK-Client",
     "jinja2": "Jinja2",
     "markdown": "Markdown",
     "markupsafe": "MarkupSafe",
