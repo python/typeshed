@@ -145,6 +145,9 @@ def main():
         if major == 2:
             root = os.path.join("stdlib", PY2_NAMESPACE)
             for name in os.listdir(root):
+                mod, _ = os.path.splitext(name)
+                if mod in seen or mod.startswith("."):
+                    continue
                 add_files(files, seen, root, name, args, exclude_list)
         else:
             supported_versions = parse_versions(os.path.join("stdlib", "VERSIONS"))
