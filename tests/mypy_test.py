@@ -74,6 +74,9 @@ def parse_versions(fname):
         data = f.read().splitlines()
     result = {}
     for line in data:
+        # Allow having some comments or empty lines.
+        if not line.strip() or line.startswith("#"):
+            continue
         mod, ver_str = line.split(": ")
         assert ver_str.count(".") == 1
         major, minor = ver_str.split(".")
@@ -86,10 +89,9 @@ def is_supported(distribution, major):
         data = dict(toml.loads(f.read()))
     if major == 2:
         # Python 2 is not supported by default.
-        return bool(data.get("python2"))
-    supported = data.get("python3")
+        return bool(data.get("python2", False))
     # Python 3 is supported by default.
-    return supported is None or supported
+    return bool(data.get("python3", True))
 
 
 def add_files(files, seen, root, name, args, exclude_list):
