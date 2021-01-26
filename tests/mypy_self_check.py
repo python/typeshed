@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """Script to run mypy against its own code base."""
 
-import shutil
 import subprocess
 import sys
 import tempfile
@@ -19,8 +18,6 @@ if __name__ == "__main__":
             ["git", "clone", "--depth", "1", "git://github.com/python/mypy", dirpath],
             check=True,
         )
-        # Remove the copied typeshed, otherwise this will cause duplicate module errors.
-        shutil.rmtree(dirpath / "mypy" / "typeshed")
         try:
             subprocess.run([sys.executable, "-m", "pip", "install", "-U", MYPY_VERSION], check=True)
             subprocess.run([sys.executable, "-m", "pip", "install", "-r", dirpath / "test-requirements.txt"], check=True)
@@ -31,8 +28,9 @@ if __name__ == "__main__":
                     dirpath / "mypy_self_check.ini",
                     "--custom-typeshed-dir",
                     ".",
-                    dirpath / "mypy",
-                    dirpath / "mypyc",
+                    "-p", "mypy",
+                    "-p", "mypyc",
+                    "--mypy-path", dirpath,
                 ],
                 check=True,
             )
