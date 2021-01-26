@@ -6,7 +6,9 @@ import sys
 import tempfile
 from pathlib import Path
 
-MYPY_VERSION = "0.790"
+# Use the current mypy version until a version that supports modular
+# typeshed is released on PyPI.
+MYPY_VERSION = "git+git://github.com/python/mypy"
 
 
 if __name__ == "__main__":
@@ -17,7 +19,7 @@ if __name__ == "__main__":
             check=True,
         )
         try:
-            subprocess.run([sys.executable, "-m", "pip", "install", f"mypy=={MYPY_VERSION}"], check=True)
+            subprocess.run([sys.executable, "-m", "pip", "install", "-U", MYPY_VERSION], check=True)
             subprocess.run([sys.executable, "-m", "pip", "install", "-r", dirpath / "test-requirements.txt"], check=True)
             subprocess.run(
                 [
