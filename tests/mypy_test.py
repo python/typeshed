@@ -153,7 +153,7 @@ def main():
                 if name == PY2_NAMESPACE:
                     continue
                 mod, _ = os.path.splitext(name)
-                if supported_versions[mod] > (major, minor):
+                if mod not in supported_versions or supported_versions[mod] > (major, minor):
                     continue
                 add_files(files, seen, root, name, args, exclude_list)
 
