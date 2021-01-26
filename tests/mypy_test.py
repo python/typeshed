@@ -132,6 +132,7 @@ def main():
             flags.append("--no-implicit-optional")
             flags.append("--disallow-any-generics")
             flags.append("--disallow-subclassing-any")
+            flags.append("--show-error-codes")
             if args.warn_unused_ignores:
                 flags.append("--warn-unused-ignores")
             if args.platform:
