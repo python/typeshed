@@ -33,6 +33,8 @@ def main() -> None:
     typeshed_location = args.typeshed_location or os.getcwd()
     subdir_paths = [os.path.join(typeshed_location, d) for d in TYPESHED_SUBDIRS]
     check_subdirs_discoverable(subdir_paths)
+    old_typeshed_home = os.environ.get(TYPESHED_HOME, UNSET)
+    os.environ[TYPESHED_HOME] = typeshed_location
     files_to_test = determine_files_to_test(typeshed_location=typeshed_location, paths=args.files or subdir_paths)
     run_all_tests(
         files_to_test=files_to_test,
@@ -40,6 +42,10 @@ def main() -> None:
         print_stderr=args.print_stderr,
         dry_run=args.dry_run,
     )
+    if old_typeshed_home is UNSET:
+        del os.environ[TYPESHED_HOME]
+    else:
+        os.environ[TYPESHED_HOME] = old_typeshed_home
 
 
 def create_parser() -> argparse.ArgumentParser:
@@ -69,8 +75,6 @@ def run_pytype(*, filename: str, python_version: str, typeshed_location: str) ->
         loader = load_pytd.create_loader(options)
         _LOADERS[python_version] = (options, loader)
     options, loader = _LOADERS[python_version]
-    old_typeshed_home = os.environ.get(TYPESHED_HOME, UNSET)
-    os.environ[TYPESHED_HOME] = typeshed_location
     try:
         with pytype_config.verbosity_from(options):
             ast = loader.load_file(_get_module_name(filename), filename)
@@ -79,10 +83,6 @@ def run_pytype(*, filename: str, python_version: str, typeshed_location: str) ->
         stderr = traceback.format_exc()
     else:
         stderr = None
-    if old_typeshed_home is UNSET:
-        del os.environ[TYPESHED_HOME]
-    else:
-        os.environ[TYPESHED_HOME] = old_typeshed_home
     return stderr
 
 
