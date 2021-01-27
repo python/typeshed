@@ -53,8 +53,6 @@ jobs:
           python-version: 3.6
       - run: pip install -r requirements-tests-py3.txt
       - run: ./tests/pytype_test.py
-        # TODO: re-enable when pytype supports new directory structure.
-        continue-on-error: true
 
   mypy:
     name: Run mypy against the stubs
