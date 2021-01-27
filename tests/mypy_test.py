@@ -155,10 +155,10 @@ def main():
             supported_versions = parse_versions(os.path.join("stdlib", "VERSIONS"))
             root = "stdlib"
             for name in os.listdir(root):
-                if name == PY2_NAMESPACE:
+                if name == PY2_NAMESPACE or name == "VERSIONS":
                     continue
                 mod, _ = os.path.splitext(name)
-                if mod not in supported_versions or supported_versions[mod] > (major, minor):
+                if supported_versions[mod] > (major, minor):
                     continue
                 add_files(files, seen, root, name, args, exclude_list)
 
