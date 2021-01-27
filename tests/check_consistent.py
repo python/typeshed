@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 # For various reasons we need the contents of certain files to be
-# duplicated in two places, for example stdlib/2/builtins.pyi and
-# stdlib/2/__builtin__.pyi must be identical.  In the past we used
+# duplicated in two places, for example stdlib/@python2/builtins.pyi and
+# stdlib/@python2/__builtin__.pyi must be identical.  In the past we used
 # symlinks but that doesn't always work on Windows, so now you must
 # manually update both files, and this test verifies that they are
 # identical.  The list below indicates which sets of files must match.
@@ -11,8 +11,8 @@ import filecmp
 import os
 
 consistent_files = [
-    {"stdlib/2/builtins.pyi", "stdlib/2/__builtin__.pyi"},
-    {"stdlib/2and3/threading.pyi", "stdlib/2and3/_dummy_threading.pyi"},
+    {"stdlib/@python2/builtins.pyi", "stdlib/@python2/__builtin__.pyi"},
+    {"stdlib/threading.pyi", "stdlib/_dummy_threading.pyi"},
 ]
 
 
