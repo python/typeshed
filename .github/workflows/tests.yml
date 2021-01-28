@@ -84,7 +84,7 @@ jobs:
       - run: ./tests/mypy_test_suite.py
 
   stubtest:
-    name: Check stubs with stubtest
+    name: Check stdlib with stubtest
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
