@@ -308,30 +308,19 @@ contributors.
 
 ### Stub versioning
 
-There are separate directories for `stdlib` and `third_party` stubs.
-Within those, there are separate directories for different versions of
-Python the stubs target.
+There are separate directories for `stdlib` (standard library) and `stubs`
+(all other stubs). For standard library stubs Python version support is
+given in `VERSIONS` file. Each line in this file is a module or package name
+followed by `: `, followed by the oldest *supported* Python version where
+the module is available. For third party packages, the Python version support
+(2 and/or 3 only, no finer grained version is supported) is indicated in the
+corresponding `METADATA.toml` file as `python2 = (True|False)` (defaults to
+`False`) and `python3 = (True|False)` (defaults to `True`).
 
-The directory name indicates the major version of Python that a stub targets
-and optionally the lowest minor version, with the exception of the `2and3`
-directory which applies to both Python 2 and 3.
-
-For example, stubs in the `3` directory will be applied to all versions of
-Python 3, though stubs in the `3.7` directory will only be applied to versions
-3.7 and above. However, stubs in the `2` directory will not be applied to
-Python 3.
-
-It is preferred to use a single stub in the more generic directory that
-conditionally targets specific versions when needed, as opposed
-to maintaining multiple stub files within more specific directories. Similarly,
-if the given library works on both Python 2 and Python 3, prefer to put your
-stubs in the `2and3` directory, unless the types are so different that the stubs
-become unreadable that way.
-
-You can use checks like `if sys.version_info >= (3, 8):` to denote new
-functionality introduced in a given Python version or solve type
-differences.  When doing so, only use one-tuples or two-tuples.  This is
-because:
+It is preferred to use a single stub for every module. You can use checks
+like `if sys.version_info >= (3, 8):` to denote new functionality introduced
+in a given Python version or solve type differences.  When doing so, only use
+one-tuples or two-tuples.  This is because:
 
 * mypy doesn't support more fine-grained version checks; and more
   importantly
@@ -353,10 +342,28 @@ harmless.  This is a strictly better compromise than using the latter
 two forms, which would generate false positive errors for correct use
 under Python 3.7.4.
 
+If it is not possible to generate combined stubs for all Python versions
+in a single file, you can split Python 2 and Python 3 stubs and place Python 2
+stubs into `@python2` subdirectory for corresponding distribution. Note that
+you don't need `@python2` in most cases, if your package supports Python 2,
+just put the stubs at root of the distribution directory, and put
+`python2 = True` in `METADATA.toml`.
+
 Note: in its current implementation, typeshed cannot contain stubs for
 multiple versions of the same third-party library.  Prefer to generate
 stubs for the latest version released on PyPI at the time of your
-stubbing.
+stubbing. The oldest version of the library for which the stubs are still
+applicable (i.e. reflect the actual runtime behaviour) can be indicated
+in `METADATA.toml` as `version = "x.y"`. Note that only two most significant
+version levels are supported (i.e. only single dot). When a significant change
+is made in the library, the version of the stub should be bumped (note that
+previous versions are still available on PyPI).
+
+Internal typeshed machinery will periodically build and upload modified
+third party packages to PyPI, each time this happens the least significant
+version level is incremented. For example, if `stubs/foo/METADATA.toml` has
+`version = "x.y"` the package on PyPI will be updated from `types-foo-x.y.n`
+to `types-foo-x.y.n+1`.
 
 ### What to do when a project's documentation and implementation disagree
 
