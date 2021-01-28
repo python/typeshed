@@ -24,7 +24,7 @@ def assert_stubs_only(directory):
     """Check that given directory contains only valid stub files."""
     top = directory.split(os.sep)[-1]
     assert top.isidentifier(), "Bad directory name: {}".format(top)
-    for root, dirs, files in os.walk(directory):
+    for _, dirs, files in os.walk(directory):
         for file in files:
             name, ext = os.path.splitext(file)
             assert name.isidentifier(), "Files must be valid modules"
