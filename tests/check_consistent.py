@@ -22,57 +22,59 @@ consistent_files = [
 
 def assert_stubs_only(directory):
     """Check that given directory contains only valid stub files."""
-    assert directory.split(os.sep)[-1].isidentifier()
+    top = directory.split(os.sep)[-1]
+    assert top.isidentifier(), "Bad directory name: {}".format(top)
     for root, dirs, files in os.walk(directory):
         for file in files:
             name, ext = os.path.splitext(file)
             assert name.isidentifier(), "Files must be valid modules"
-            assert ext == "pyi", "Only stub flies allowed"
+            assert ext == ".pyi", "Only stub flies allowed. Got: {} in {}".format(file, directory)
         for subdir in dirs:
             assert subdir.isidentifier(), "Directories must be valid packages"
 
 
 def check_stdlib():
-    for entry in os.listdir("stubs"):
-        if os.path.isfile(entry):
+    for entry in os.listdir("stdlib"):
+        if os.path.isfile(os.path.join("stdlib", entry)):
             name, ext = os.path.splitext(entry)
-            if ext != "pyi":
-                assert entry == "VERSIONS", "Unexpected file in stdlib root"
+            if ext != ".pyi":
+                assert entry == "VERSIONS", "Unexpected file in stdlib root: {}".format(entry)
             assert name.isidentifier(), "Bad file name in stdlib"
         else:
             if entry == "@python2":
                 continue
-            assert_stubs_only(entry)
-    for entry in os.listdir("stubs/@python2"):
-        if os.path.isfile(entry):
+            assert_stubs_only(os.path.join("stdlib", entry))
+    for entry in os.listdir("stdlib/@python2"):
+        if os.path.isfile(os.path.join("stdlib/@python2", entry)):
             name, ext = os.path.splitext(entry)
             assert name.isidentifier(), "Bad file name in stdlib"
-            assert ext == "pyi", "Unexpected file in stdlib/@python2 root"
+            assert ext == ".pyi", "Unexpected file in stdlib/@python2 root"
         else:
-            assert_stubs_only(entry)
+            assert_stubs_only(os.path.join("stdlib/@python2", entry))
 
 
 def check_stubs():
     for distribution in os.listdir("stubs"):
         assert not os.path.isfile(distribution), "Only directories allowed in stubs"
         for entry in os.listdir(os.path.join("stubs", distribution)):
-            if os.path.isfile(entry):
+            if os.path.isfile(os.path.join("stubs", distribution, entry)):
                 name, ext = os.path.splitext(entry)
-                if ext != "pyi":
-                    assert entry in {"METADATA.toml", "README", "README.md", "README.rst"}
+                if ext != ".pyi":
+                    assert entry in {"METADATA.toml", "README", "README.md", "README.rst"}, entry
                 else:
                     assert name.isidentifier(), "Bad file name in stubs"
             else:
                 if entry == "@python2":
                     continue
-                assert_stubs_only(entry)
-        for entry in os.listdir(os.path.join("stubs", distribution)):
-            if os.path.isfile(entry):
-                name, ext = os.path.splitext(entry)
-                assert name.isidentifier(), "Bad file name in stubs"
-                assert ext == "pyi", "Unexpected file in @python2 stubs"
-            else:
-                assert_stubs_only(entry)
+                assert_stubs_only(os.path.join("stubs", distribution, entry))
+        if os.path.isdir(os.path.join("stubs", distribution, "@python2")):
+            for entry in os.listdir(os.path.join("stubs", distribution, "@python2")):
+                if os.path.isfile(os.path.join("stubs", distribution, "@python2", entry)):
+                    name, ext = os.path.splitext(entry)
+                    assert name.isidentifier(), "Bad file name in stubs"
+                    assert ext == ".pyi", "Unexpected file in @python2 stubs"
+                else:
+                    assert_stubs_only(os.path.join("stubs", distribution, "@python2", entry))
 
 
 def check_same_files():
