@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 
-# For various reasons we need the contents of certain files to be
+# For security (and simplicity) reasons, only a limited kind of files can be
+# present in /stdlib and /stubs directories, see README for detail. Here we
+# verify these constraints.
+
+# In addition, for various reasons we need the contents of certain files to be
 # duplicated in two places, for example stdlib/@python2/builtins.pyi and
 # stdlib/@python2/__builtin__.pyi must be identical.  In the past we used
 # symlinks but that doesn't always work on Windows, so now you must
@@ -16,7 +20,62 @@ consistent_files = [
 ]
 
 
-def main():
+def assert_stubs_only(directory):
+    """Check that given directory contains only valid stub files."""
+    assert directory.split(os.sep)[-1].isidentifier()
+    for root, dirs, files in os.walk(directory):
+        for file in files:
+            name, ext = os.path.splitext(file)
+            assert name.isidentifier(), "Files must be valid modules"
+            assert ext == "pyi", "Only stub flies allowed"
+        for subdir in dirs:
+            assert subdir.isidentifier(), "Directories must be valid packages"
+
+
+def check_stdlib():
+    for entry in os.listdir("stubs"):
+        if os.path.isfile(entry):
+            name, ext = os.path.splitext(entry)
+            if ext != "pyi":
+                assert entry == "VERSIONS", "Unexpected file in stdlib root"
+            assert name.isidentifier(), "Bad file name in stdlib"
+        else:
+            if entry == "@python2":
+                continue
+            assert_stubs_only(entry)
+    for entry in os.listdir("stubs/@python2"):
+        if os.path.isfile(entry):
+            name, ext = os.path.splitext(entry)
+            assert name.isidentifier(), "Bad file name in stdlib"
+            assert ext == "pyi", "Unexpected file in stdlib/@python2 root"
+        else:
+            assert_stubs_only(entry)
+
+
+def check_stubs():
+    for distribution in os.listdir("stubs"):
+        assert not os.path.isfile(distribution), "Only directories allowed in stubs"
+        for entry in os.listdir(os.path.join("stubs", distribution)):
+            if os.path.isfile(entry):
+                name, ext = os.path.splitext(entry)
+                if ext != "pyi":
+                    assert entry in {"METADATA.toml", "README", "README.md", "README.rst"}
+                else:
+                    assert name.isidentifier(), "Bad file name in stubs"
+            else:
+                if entry == "@python2":
+                    continue
+                assert_stubs_only(entry)
+        for entry in os.listdir(os.path.join("stubs", distribution)):
+            if os.path.isfile(entry):
+                name, ext = os.path.splitext(entry)
+                assert name.isidentifier(), "Bad file name in stubs"
+                assert ext == "pyi", "Unexpected file in @python2 stubs"
+            else:
+                assert_stubs_only(entry)
+
+
+def check_same_files():
     files = [os.path.join(root, file) for root, dir, files in os.walk(".") for file in files]
     no_symlink = "You cannot use symlinks in typeshed, please copy {} to its link."
     for file in files:
@@ -35,4 +94,6 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    check_stdlib()
+    check_stubs()
+    check_same_files()
