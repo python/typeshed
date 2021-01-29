@@ -155,4 +155,5 @@ if __name__ == "__main__":
     check_stdlib()
     check_versions()
     check_stubs()
+    check_metadata()
     check_same_files()
