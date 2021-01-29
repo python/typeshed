@@ -122,15 +122,8 @@ def check_versions():
             modules.add(mod)
         else:
             modules.add(entry)
-    for entry in os.listdir("stdlib/@python2"):
-        if os.path.isfile(os.path.join("stdlib/@python2", entry)):
-            mod, _ = os.path.splitext(entry)
-            modules.add(mod)
-        else:
-            modules.add(entry)
-    # TODO: fix and re-enable.
-    # extra = modules - set(versions)
-    # assert not extra, f"Modules not in versions: {extra}"
+    extra = modules - set(versions)
+    assert not extra, f"Modules not in versions: {extra}"
     extra = set(versions) - modules
     assert not extra, f"Versions not in modules: {extra}"
 
