@@ -25,12 +25,12 @@ consistent_files = [
 def assert_stubs_only(directory):
     """Check that given directory contains only valid stub files."""
     top = directory.split(os.sep)[-1]
-    assert top.isidentifier(), "Bad directory name: {}".format(top)
+    assert top.isidentifier(), f"Bad directory name: {top}"
     for _, dirs, files in os.walk(directory):
         for file in files:
             name, ext = os.path.splitext(file)
             assert name.isidentifier(), "Files must be valid modules"
-            assert ext == ".pyi", "Only stub flies allowed. Got: {} in {}".format(file, directory)
+            assert ext == ".pyi", f"Only stub flies allowed. Got: {file} in {directory}"
         for subdir in dirs:
             assert subdir.isidentifier(), "Directories must be valid packages"
 
@@ -40,7 +40,7 @@ def check_stdlib():
         if os.path.isfile(os.path.join("stdlib", entry)):
             name, ext = os.path.splitext(entry)
             if ext != ".pyi":
-                assert entry == "VERSIONS", "Unexpected file in stdlib root: {}".format(entry)
+                assert entry == "VERSIONS", f"Unexpected file in stdlib root: {entry}"
             assert name.isidentifier(), "Bad file name in stdlib"
         else:
             if entry == "@python2":
