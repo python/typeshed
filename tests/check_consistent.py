@@ -14,6 +14,8 @@
 import filecmp
 import os
 
+import toml
+
 consistent_files = [
     {"stdlib/@python2/builtins.pyi", "stdlib/@python2/__builtin__.pyi"},
     {"stdlib/threading.pyi", "stdlib/_dummy_threading.pyi"},
@@ -129,6 +131,29 @@ def check_versions():
     assert not extra, f"Modules not in versions: {extra}"
     extra = set(versions) - modules
     assert not extra, f"Versions not in modules: {extra}"
+
+
+def check_metadata():
+    for distribution in os.listdir("stubs"):
+        with open(os.path.join("stubs", distribution, "METADATA.toml")) as f:
+            data = toml.loads(f.read())
+        assert "version" in data, f"Missing version for {distribution}"
+        version = data["version"]
+        msg = f"Unsupported Python version{version}"
+        assert version.count(".") == 1, msg
+        major, minor = version.split(".")
+        assert major.isdigit() and minor.isdigit(), msg
+        for key in data:
+            assert key in {
+                "version", "python2", "python3", "requires"
+            }, f"Unexpected key {key} for {distribution}"
+        assert isinstance(data.get("python2", False), bool), f"Invalid python2 value for {distribution}"
+        assert isinstance(data.get("python3", True), bool), f"Invalid python3 value for {distribution}"
+        assert isinstance(data.get("requires", []), list), f"Invalid requires value for {distribution}"
+        for dep in data.get("requires", []):
+            # TODO: add more validation here.
+            assert isinstance(dep, str), f"Invalid dependency {dep} for {distribution}"
+            assert dep.startswith("types-"), f"Only stub dependencies supported, got {dep}"
 
 
 if __name__ == "__main__":
