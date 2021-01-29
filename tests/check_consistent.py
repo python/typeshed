@@ -134,7 +134,7 @@ def check_metadata():
             data = toml.loads(f.read())
         assert "version" in data, f"Missing version for {distribution}"
         version = data["version"]
-        msg = f"Unsupported Python version{version}"
+        msg = f"Unsupported Python version {version}"
         assert version.count(".") == 1, msg
         major, minor = version.split(".")
         assert major.isdigit() and minor.isdigit(), msg
