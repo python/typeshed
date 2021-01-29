@@ -29,10 +29,10 @@ def assert_stubs_only(directory):
     for _, dirs, files in os.walk(directory):
         for file in files:
             name, ext = os.path.splitext(file)
-            assert name.isidentifier(), "Files must be valid modules"
+            assert name.isidentifier(), f"Files must be valid modules, got: {name}"
             assert ext == ".pyi", f"Only stub flies allowed. Got: {file} in {directory}"
         for subdir in dirs:
-            assert subdir.isidentifier(), "Directories must be valid packages"
+            assert subdir.isidentifier(), f"Directories must be valid packages, got: {subdir}"
 
 
 def check_stdlib():
@@ -57,14 +57,14 @@ def check_stdlib():
 
 def check_stubs():
     for distribution in os.listdir("stubs"):
-        assert not os.path.isfile(distribution), "Only directories allowed in stubs"
+        assert not os.path.isfile(distribution), f"Only directories allowed in stubs, got {distribution}"
         for entry in os.listdir(os.path.join("stubs", distribution)):
             if os.path.isfile(os.path.join("stubs", distribution, entry)):
                 name, ext = os.path.splitext(entry)
                 if ext != ".pyi":
                     assert entry in {"METADATA.toml", "README", "README.md", "README.rst"}, entry
                 else:
-                    assert name.isidentifier(), "Bad file name in stubs"
+                    assert name.isidentifier(), f"Bad file name '{entry}' in stubs"
             else:
                 if entry == "@python2":
                     continue
@@ -73,8 +73,8 @@ def check_stubs():
             for entry in os.listdir(os.path.join("stubs", distribution, "@python2")):
                 if os.path.isfile(os.path.join("stubs", distribution, "@python2", entry)):
                     name, ext = os.path.splitext(entry)
-                    assert name.isidentifier(), "Bad file name in stubs"
-                    assert ext == ".pyi", "Unexpected file in @python2 stubs"
+                    assert name.isidentifier(), f"Bad file name '{entry}' in stubs"
+                    assert ext == ".pyi", f"Unexpected file {entry} in @python2 stubs"
                 else:
                     assert_stubs_only(os.path.join("stubs", distribution, "@python2", entry))
 
