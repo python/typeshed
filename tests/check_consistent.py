@@ -95,7 +95,44 @@ def check_same_files():
                 )
 
 
+def check_versions():
+    versions = {}
+    with open("stdlib/VERSIONS") as f:
+        data = f.read().splitlines()
+    for line in data:
+        if not line or line.lstrip().startswith("#"):
+            continue
+        assert ": " in line, f"Bad line in VERSIONS: {line}"
+        module, version = line.split(": ")
+        msg = f"Unsupported Python version{version}"
+        assert version.count(".") == 1, msg
+        major, minor = version.split(".")
+        assert major in {"2", "3"}, msg
+        assert minor.isdigit(), msg
+        assert module not in versions, f"Duplicate module {module} in VERSIONS"
+    modules = set()
+    for entry in os.listdir("stdlib"):
+        if entry == "@python2":
+            continue
+        if os.path.isfile(os.path.join("stdlib", entry)):
+            mod, _ = os.path.splitext(entry)
+            modules.add(mod)
+        else:
+            modules.add(entry)
+    for entry in os.listdir("stdlib/@python2"):
+        if os.path.isfile(os.path.join("stdlib/@python2", entry)):
+            mod, _ = os.path.splitext(entry)
+            modules.add(mod)
+        else:
+            modules.add(entry)
+    extra = modules - set(versions)
+    assert not extra, f"Modules not in versions: {extra}"
+    extra = set(versions) - modules
+    assert not extra, f"Versions not in modules: {extra}"
+
+
 if __name__ == "__main__":
     check_stdlib()
+    check_versions()
     check_stubs()
     check_same_files()
