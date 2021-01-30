@@ -128,7 +128,28 @@ def check_versions():
     assert not extra, f"Versions not in modules: {extra}"
 
 
+def _strip_dep_version(dependency):
+    dep_version_pos = len(dependency)
+    for pos, c in enumerate(dependency):
+        if c in "=<>":
+            dep_version_pos = pos
+            break
+    stripped = dependency[:dep_version_pos]
+    rest = dependency[dep_version_pos:]
+    if not rest:
+        return stripped, "", ""
+    number_pos = 0
+    for pos, c in enumerate(rest):
+        if c not in "=<>":
+            number_pos = pos
+            break
+    relation = rest[:number_pos]
+    version = rest[number_pos:]
+    return stripped, relation, version
+
+
 def check_metadata():
+    known_distributions = set(os.listdir("stubs"))
     for distribution in os.listdir("stubs"):
         with open(os.path.join("stubs", distribution, "METADATA.toml")) as f:
             data = toml.loads(f.read())
@@ -146,9 +167,19 @@ def check_metadata():
         assert isinstance(data.get("python3", True), bool), f"Invalid python3 value for {distribution}"
         assert isinstance(data.get("requires", []), list), f"Invalid requires value for {distribution}"
         for dep in data.get("requires", []):
-            # TODO: add more validation here.
             assert isinstance(dep, str), f"Invalid dependency {dep} for {distribution}"
             assert dep.startswith("types-"), f"Only stub dependencies supported, got {dep}"
+            dep = dep[len("types-"):]
+            for space in " \t\n":
+                assert space not in dep, f"For consistency dependency should not have whitespace: {dep}"
+            stripped, relation, dep_version = _strip_dep_version(dep)
+            assert stripped in known_distributions, f"Only known dependencies are supported, got {stripped}"
+            msg = f"Bad version in dependency {dep}"
+            if relation:
+                assert relation in {"==", ">", ">=", "<", "<="}, msg
+                assert version.count(".") <= 2, msg
+                for part in version.split("."):
+                    assert part.isnumeric(), msg
 
 
 if __name__ == "__main__":
