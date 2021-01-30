@@ -174,8 +174,8 @@ def check_metadata():
                 assert space not in dep, f"For consistency dependency should not have whitespace: {dep}"
             stripped, relation, dep_version = _strip_dep_version(dep)
             assert stripped in known_distributions, f"Only known dependencies are supported, got {stripped}"
-            msg = f"Bad version in dependency {dep}"
             if relation:
+                msg = f"Bad version in dependency {dep}"
                 assert relation in {"==", ">", ">=", "<", "<="}, msg
                 assert version.count(".") <= 2, msg
                 for part in version.split("."):
