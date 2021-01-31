@@ -33,6 +33,8 @@ class BaseServer:
         self, exc_type: Optional[Type[BaseException]], exc_val: Optional[BaseException], exc_tb: Optional[types.TracebackType]
     ) -> None: ...
     def service_actions(self) -> None: ...
+    def shutdown_request(self, request: Any) -> None: ...  # undocumented
+    def close_request(self, request: Any) -> None: ...  # undocumented
 
 class TCPServer(BaseServer):
     def __init__(
