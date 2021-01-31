@@ -1,7 +1,7 @@
 import sys
 import types
 from socket import SocketType
-from typing import Any, BinaryIO, Callable, ClassVar, List, Optional, Tuple, Type, TypeVar, Union
+from typing import Any, BinaryIO, Callable, ClassVar, Optional, Set, Tuple, Type, TypeVar, Union
 
 _T = TypeVar("_T")
 
@@ -69,7 +69,7 @@ if sys.platform != "win32":
 if sys.platform != "win32":
     class ForkingMixIn:
         timeout: Optional[float]  # undocumented
-        active_children: Optional[List[int]]  # undocumented
+        active_children: Optional[Set[int]]  # undocumented
         max_children: int  # undocumented
         if sys.version_info >= (3, 7):
             block_on_close: bool
