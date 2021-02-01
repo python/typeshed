@@ -32,6 +32,7 @@ _T = TypeVar("_T")
 _K = TypeVar("_K")
 _V = TypeVar("_V")
 
+# A temporary change for integration testing. Will be removed soon: v1.
 __version__: str
 
 # TODO make constant, then move this stub to 2and3
