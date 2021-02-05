@@ -1,7 +1,7 @@
 from typing import IO, Any, Callable, Iterable, List, Mapping, MutableMapping, Optional, Text, Tuple, Union
 
 from . import adapters, auth as _auth, compat, cookies, exceptions, hooks, models, status_codes, structures, utils
-from .models import Response
+from .models import Response, PreparedRequest
 from .packages.urllib3 import _collections
 
 BaseAdapter = adapters.BaseAdapter
@@ -50,7 +50,7 @@ _HooksInput = MutableMapping[Text, Union[Iterable[_Hook], _Hook]]
 class Session(SessionRedirectMixin):
     __attrs__: Any
     headers: CaseInsensitiveDict[Text]
-    auth: Union[None, Tuple[Text, Text], _auth.AuthBase, Callable[[Request], Request]]
+    auth: Union[None, Tuple[Text, Text], _auth.AuthBase, Callable[[PreparedRequest], PreparedRequest]]
     proxies: MutableMapping[Text, Text]
     hooks: _Hooks
     params: Union[bytes, MutableMapping[Text, Text]]
@@ -75,7 +75,7 @@ class Session(SessionRedirectMixin):
         headers: Optional[MutableMapping[Text, Text]] = ...,
         cookies: Union[None, RequestsCookieJar, MutableMapping[Text, Text]] = ...,
         files: Optional[MutableMapping[Text, IO[Any]]] = ...,
-        auth: Union[None, Tuple[Text, Text], _auth.AuthBase, Callable[[Request], Request]] = ...,
+        auth: Union[None, Tuple[Text, Text], _auth.AuthBase, Callable[[PreparedRequest], PreparedRequest]] = ...,
         timeout: Union[None, float, Tuple[float, float], Tuple[float, None]] = ...,
         allow_redirects: Optional[bool] = ...,
         proxies: Optional[MutableMapping[Text, Text]] = ...,
