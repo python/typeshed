@@ -1,7 +1,7 @@
 from typing import IO, Any, Callable, Iterable, List, Mapping, MutableMapping, Optional, Text, Tuple, Union
 
 from . import adapters, auth as _auth, compat, cookies, exceptions, hooks, models, status_codes, structures, utils
-from .models import Response, PreparedRequest
+from .models import Response
 from .packages.urllib3 import _collections
 
 BaseAdapter = adapters.BaseAdapter
