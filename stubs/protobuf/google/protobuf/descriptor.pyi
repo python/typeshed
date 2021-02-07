@@ -346,7 +346,7 @@ class MethodDescriptor(DescriptorBase):
         options=...,
         serialized_options=...,
         create_key=...,
-    ) -> None: ...
+    ): ...
     name: Any
     full_name: Any
     index: Any
