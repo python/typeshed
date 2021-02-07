@@ -1,4 +1,5 @@
-from typing import Dict, List, Literal, Optional, Pattern, Text, Tuple, Union
+from typing import Dict, List, Optional, Pattern, Text, Tuple, Union
+from typing_extensions import Literal
 
 _DEFAULT_DELIMITER: str
 
