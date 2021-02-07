@@ -1,4 +1,4 @@
-from typing import Dict, Literal, List, Optional, Pattern, Text, Tuple, Union
+from typing import Dict, List, Literal, Optional, Pattern, Text, Tuple, Union
 
 _DEFAULT_DELIMITER: str
 
@@ -7,7 +7,7 @@ def emojize(
     use_aliases: bool = ...,
     delimiters: Tuple[str, str] = ...,
     variant: Literal["text_type", "emoji_type", None] = ...,
-    language: str = ...
+    language: str = ...,
 ) -> str: ...
 def demojize(string: str, use_aliases: bool = ..., delimiters: Tuple[str, str] = ..., language: str = ...) -> str: ...
 def get_emoji_regexp(language: str = ...) -> Pattern[Text]: ...
