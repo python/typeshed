@@ -18,6 +18,8 @@ class TypeTransformationError(Error): ...
 class DescriptorMetaclass(type):
     def __instancecheck__(self, obj): ...
 
+_internal_create_key: object
+
 class DescriptorBase(metaclass=DescriptorMetaclass):
     has_options: Any
     def __init__(self, options, serialized_options, options_class_name) -> None: ...
@@ -242,22 +244,60 @@ class EnumDescriptor(_NestedDescriptorBase):
     def GetOptions(self) -> EnumOptions: ...
 
 class EnumValueDescriptor(DescriptorBase):
-    def __new__(cls, name, index, number, type=..., options=..., serialized_options=..., create_key=...): ...
+    def __new__(
+        cls,
+        name,
+        index,
+        number,
+        type=...,
+        options=...,
+        serialized_options=...,
+        create_key=...,
+    ): ...
     name: Any
     index: Any
     number: Any
     type: Any
-    def __init__(self, name, index, number, type=..., options=..., serialized_options=..., create_key=...) -> None: ...
+    def __init__(
+        self,
+        name,
+        index,
+        number,
+        type=...,
+        options=...,
+        serialized_options=...,
+        create_key=...,
+    ) -> None: ...
     def GetOptions(self) -> EnumValueOptions: ...
 
 class OneofDescriptor:
-    def __new__(cls, name, full_name, index, containing_type, fields, options=..., serialized_options=..., create_key=...): ...
+    def __new__(
+        cls,
+        name,
+        full_name,
+        index,
+        containing_type,
+        fields,
+        options=...,
+        serialized_options=...,
+        create_key=...,
+    ): ...
     name: Any
     full_name: Any
     index: Any
     containing_type: Any
     fields: Any
-    def __init__(self, name, full_name, index, containing_type, fields, options=..., serialized_options=..., create_key=...) -> None: ...
+    def __init__(
+        self,
+        name,
+        full_name,
+        index,
+        containing_type,
+        fields,
+        options=...,
+        serialized_options=...,
+        create_key=...,
+    ) -> None: ...
     def GetOptions(self) -> OneofOptions: ...
 
 class ServiceDescriptor(_NestedDescriptorBase):
@@ -296,7 +336,16 @@ class ServiceDescriptor(_NestedDescriptorBase):
 
 class MethodDescriptor(DescriptorBase):
     def __new__(
-        cls, name, full_name, index, containing_service, input_type, output_type, options=..., serialized_options=..., create_key=...
+        cls,
+        name,
+        full_name,
+        index,
+        containing_service,
+        input_type,
+        output_type,
+        options=...,
+        serialized_options=...,
+        create_key=...,
     ) -> None: ...
     name: Any
     full_name: Any
@@ -305,7 +354,16 @@ class MethodDescriptor(DescriptorBase):
     input_type: Any
     output_type: Any
     def __init__(
-        self, name, full_name, index, containing_service, input_type, output_type, options=..., serialized_options=..., create_key=...
+        self,
+        name,
+        full_name,
+        index,
+        containing_service,
+        input_type,
+        output_type,
+        options=...,
+        serialized_options=...,
+        create_key=...,
     ) -> None: ...
     def GetOptions(self) -> MethodOptions: ...
 
