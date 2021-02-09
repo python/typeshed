@@ -145,6 +145,7 @@ if sys.version_info >= (3, 6):
         OP_NO_TICKET: int
         if sys.version_info >= (3, 7):
             OP_NO_RENEGOTIATION: int
+        if sys.version_info >= (3, 6):
             OP_NO_TLSv1_3: int
         if sys.version_info >= (3, 8):
             OP_ENABLE_MIDDLEBOX_COMPAT: int
@@ -161,6 +162,7 @@ if sys.version_info >= (3, 6):
     OP_NO_TICKET: Options
     if sys.version_info >= (3, 7):
         OP_NO_RENEGOTIATION: Options
+    if sys.version_info >= (3, 6):
         OP_NO_TLSv1_3: Options
     if sys.version_info >= (3, 8):
         OP_ENABLE_MIDDLEBOX_COMPAT: Options
