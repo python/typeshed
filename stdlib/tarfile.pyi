@@ -1,5 +1,5 @@
-import sys
 import io
+import sys
 from _typeshed import AnyPath, StrPath
 from types import TracebackType
 from typing import IO, Callable, Dict, Iterable, Iterator, List, Mapping, Optional, Set, Tuple, Type, Union
@@ -77,7 +77,7 @@ class ExFileObject(io.BufferedReader):
     def __init__(self, tarfile: TarFile, tarinfo: TarInfo) -> None: ...
 
 class TarFile(Iterable[TarInfo]):
-    OPEN_METH: Mapping [str, str]
+    OPEN_METH: Mapping[str, str]
     name: Optional[AnyPath]
     mode: str
     fileobj: Optional[IO[bytes]]
@@ -322,20 +322,9 @@ class TarInfo:
     def linkpath(self, linkname: str) -> None: ...
     def get_info(self) -> Mapping[str, Union[str, int, bytes, Mapping[str, str]]]: ...
     def tobuf(self, format: Optional[int] = ..., encoding: Optional[str] = ..., errors: str = ...) -> bytes: ...
-    def create_ustar_header(
-        self, 
-        info: Mapping[str, Union[str, int, bytes, Mapping[str, str]]], 
-        encoding: str, 
-        errors: str): ...
-    def create_gnu_header(
-        self, 
-        info: Mapping[str, Union[str, int, bytes, Mapping[str, str]]], 
-        encoding: str, 
-        errors: str): ...
-    def create_pax_header(
-        self, 
-        info: Mapping[str, Union[str, int, bytes, Mapping[str, str]]], 
-        encoding: str): ...
+    def create_ustar_header(self, info: Mapping[str, Union[str, int, bytes, Mapping[str, str]]], encoding: str, errors: str): ...
+    def create_gnu_header(self, info: Mapping[str, Union[str, int, bytes, Mapping[str, str]]], encoding: str, errors: str): ...
+    def create_pax_header(self, info: Mapping[str, Union[str, int, bytes, Mapping[str, str]]], encoding: str): ...
     @classmethod
     def create_pax_global_header(cls, pax_headers: Mapping[str, str]) -> bytes: ...
     def isfile(self) -> bool: ...
