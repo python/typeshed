@@ -349,7 +349,7 @@ class Misc:
     def bind(
         self,
         sequence: Optional[str] = ...,
-        func: Optional[Callable[[Event[Misc]], Optional[Literal["break"]]]] = ...,
+        func: Optional[Callable[[Event[Misc]], Any]] = ...,
         add: Optional[bool] = ...,
     ) -> str: ...
     @overload
@@ -362,7 +362,7 @@ class Misc:
     def bind_all(
         self,
         sequence: Optional[str] = ...,
-        func: Optional[Callable[[Event[Misc]], Optional[Literal["break"]]]] = ...,
+        func: Optional[Callable[[Event[Misc]], Any]] = ...,
         add: Optional[bool] = ...,
     ) -> str: ...
     @overload
@@ -374,7 +374,7 @@ class Misc:
         self,
         className: str,
         sequence: Optional[str] = ...,
-        func: Optional[Callable[[Event[Misc]], Optional[Literal["break"]]]] = ...,
+        func: Optional[Callable[[Event[Misc]], Any]] = ...,
         add: Optional[bool] = ...,
     ) -> str: ...
     @overload
@@ -841,7 +841,7 @@ class Widget(BaseWidget, Pack, Place, Grid):
     def bind(
         self: _W,
         sequence: Optional[str] = ...,
-        func: Optional[Callable[[Event[_W]], Optional[Literal["break"]]]] = ...,
+        func: Optional[Callable[[Event[_W]], Any]] = ...,
         add: Optional[bool] = ...,
     ) -> str: ...
     @overload
@@ -1100,7 +1100,7 @@ class Canvas(Widget, XView, YView):
         self,
         tagOrId: Union[str, int],
         sequence: Optional[str] = ...,
-        func: Optional[Callable[[Event[Canvas]], Optional[Literal["break"]]]] = ...,
+        func: Optional[Callable[[Event[Canvas]], Any]] = ...,
         add: Optional[bool] = ...,
     ) -> str: ...
     @overload
@@ -2531,7 +2531,7 @@ class Text(Widget, XView, YView):
         self,
         tagName: str,
         sequence: Optional[str],
-        func: Optional[Callable[[Event[Text]], Optional[Literal["break"]]]],
+        func: Optional[Callable[[Event[Text]], Any]],
         add: Optional[bool] = ...,
     ) -> str: ...
     @overload
