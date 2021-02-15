@@ -86,7 +86,7 @@ class TarFile(Iterable[TarInfo]):
     dereference: Optional[bool]
     ignore_zeros: Optional[bool]
     encoding: Optional[str]
-    errors: Optional[str]
+    errors: str
     fileobject: Type[ExFileObject]
     pax_headers: Optional[Mapping[str, str]]
     debug: Optional[int]
