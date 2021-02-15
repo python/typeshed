@@ -953,7 +953,7 @@ class Treeview(Widget, tkinter.XView, tkinter.YView):
         self,
         tagname: str,
         sequence: Optional[str] = ...,
-        callback: Optional[Callable[[tkinter.Event[Treeview]], Optional[Literal["break"]]]] = ...,
+        callback: Optional[Callable[[tkinter.Event[Treeview]], Optional[str]]] = ...,
     ) -> str: ...
     @overload
     def tag_bind(self, tagname: str, sequence: Optional[str], callback: str) -> None: ...
