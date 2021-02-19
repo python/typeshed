@@ -1295,7 +1295,6 @@ class OSError(Exception):
     if sys.platform == "win32":
         winerror: int
 
-
 EnvironmentError = OSError
 IOError = OSError
 WindowsError = OSError
