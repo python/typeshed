@@ -1297,8 +1297,7 @@ class OSError(Exception):
 
 EnvironmentError = OSError
 IOError = OSError
-if sys.platform == "win32":
-    WindowsError = OSError
+WindowsError = OSError
 
 class ArithmeticError(_StandardError): ...
 class AssertionError(_StandardError): ...
