@@ -1,5 +1,5 @@
-from datetime import datetime
 import sys
+from datetime import datetime
 from typing import Callable, Iterable, List, Optional, Set, Text, Tuple, Union
 
 from cryptography.hazmat.primitives.asymmetric import dsa, rsa
