@@ -1,27 +1,22 @@
 import sys
-from typing import (
-    Any,
-    Callable,
-    Dict,
-    Generic,
-    ItemsView,
-    Iterable,
-    Iterator,
-    KeysView,
-    List,
-    Mapping,
-    MutableMapping,
-    MutableSequence,
-    Optional,
-    Reversible,
-    Sequence,
-    Tuple,
-    Type,
-    TypeVar,
-    Union,
-    ValuesView,
-    overload,
-)
+from typing import Any, Dict, Generic, List, Optional, Tuple, Type, TypeVar, Union, overload
+
+if sys.version_info < (3, 10):
+    from _collections_abc import *
+else:
+    from typing import (
+        Callable,
+        ItemsView,
+        Iterable,
+        Iterator,
+        KeysView,
+        Mapping,
+        MutableMapping,
+        MutableSequence,
+        Reversible,
+        Sequence,
+        ValuesView,
+    )
 
 _S = TypeVar("_S")
 _T = TypeVar("_T")
