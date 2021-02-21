@@ -1,8 +1,27 @@
 import sys
-import typing
-from typing import Any, Dict, Generic, List, Optional, Tuple, Type, TypeVar, Union, overload
-
-from _collections_abc import *
+from typing import (
+    Any,
+    Callable,
+    Dict,
+    Generic,
+    ItemsView,
+    Iterable,
+    Iterator,
+    KeysView,
+    List,
+    Mapping,
+    MutableMapping,
+    MutableSequence,
+    Optional,
+    Reversible,
+    Sequence,
+    Tuple,
+    Type,
+    TypeVar,
+    Union,
+    ValuesView,
+    overload,
+)
 
 _S = TypeVar("_S")
 _T = TypeVar("_T")
@@ -280,9 +299,9 @@ class ChainMap(MutableMapping[_KT, _VT], Generic[_KT, _VT]):
     def __init__(self, *maps: Mapping[_KT, _VT]) -> None: ...
     @property
     def maps(self) -> List[Mapping[_KT, _VT]]: ...
-    def new_child(self, m: Mapping[_KT, _VT] = ...) -> typing.ChainMap[_KT, _VT]: ...
+    def new_child(self, m: Mapping[_KT, _VT] = ...) -> ChainMap[_KT, _VT]: ...
     @property
-    def parents(self) -> typing.ChainMap[_KT, _VT]: ...
+    def parents(self) -> ChainMap[_KT, _VT]: ...
     def __setitem__(self, k: _KT, v: _VT) -> None: ...
     def __delitem__(self, v: _KT) -> None: ...
     def __getitem__(self, k: _KT) -> _VT: ...
