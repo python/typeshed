@@ -5,6 +5,7 @@ import sys
 import threading
 from typing import (
     Any,
+    AnyStr,
     Callable,
     ContextManager,
     Dict,
@@ -65,7 +66,7 @@ class BaseProxy(object):
         token: Any,
         serializer: str,
         manager: Any = ...,
-        authkey: Optional[Union[bytes, str]] = ...,
+        authkey: Optional[AnyStr] = ...,
         exposed: Any = ...,
         incref: bool = ...,
         manager_owned: bool = ...,
