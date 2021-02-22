@@ -85,6 +85,14 @@ jobs:
       - uses: actions/setup-python@v2
       - run: ./tests/mypy_test_suite.py
 
+  pyright:
+    name: Run the pyright test suite
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+      - run: ./tests/pyright_test.py
+
   stubtest:
     name: Check stdlib with stubtest
     runs-on: ${{ matrix.os }}
