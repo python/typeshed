@@ -239,7 +239,8 @@ checker, and leave out unnecessary detail:
 Some further tips for good type hints:
 * use built-in generics (`list`, `dict`, `tuple`, `set`), instead
   of importing them from `typing`, **except** for arbitrary length tuples
-  (`Tuple[int, ...]`);
+  (`Tuple[int, ...]`) (see
+  [python/mypy#9980](https://github.com/python/mypy/issues/9980));
 * in Python 3 stubs, import collections (`Mapping`, `Iterable`, etc.)
   from `collections.abc` instead of `typing`;
 * avoid invariant collection types (`list`, `dict`) in argument
