@@ -3,7 +3,7 @@
         "stdlib",
         "stubs"
     ],
-    "ignore": [
-        "**/@python2"
+    "exclude": [
+        "**/@python2/**"
     ]
 }
