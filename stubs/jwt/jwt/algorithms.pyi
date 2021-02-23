@@ -1,4 +1,3 @@
-import sys
 from hashlib import _Hash
 from typing import Any, ClassVar, Dict, Generic, Optional, Set, TypeVar, Union
 
@@ -6,19 +5,13 @@ from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.asymmetric.ec import (
     EllipticCurvePrivateKey,
     EllipticCurvePrivateKeyWithSerialization,
-    EllipticCurvePrivateNumbers,
     EllipticCurvePublicKey,
     EllipticCurvePublicKeyWithSerialization,
-    EllipticCurvePublicNumbers,
 )
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey, Ed25519PublicKey
 from cryptography.hazmat.primitives.asymmetric.rsa import (
     RSAPrivateKey,
-    RSAPrivateKeyWithSerialization,
-    RSAPrivateNumbers,
     RSAPublicKey,
-    RSAPublicKeyWithSerialization,
-    RSAPublicNumbers,
 )
 from cryptography.hazmat.primitives.asymmetric.utils import Prehashed
 from cryptography.hazmat.primitives.hashes import HashAlgorithm
