@@ -1,0 +1,1 @@
+# See pyrightconfig.json at the repo root.

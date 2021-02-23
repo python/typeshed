@@ -1,0 +1,9 @@
+{
+    "include": [
+        "stdlib",
+        "stubs"
+    ],
+    "ignore": [
+        "**/@python2"
+    ]
+}

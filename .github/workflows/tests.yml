@@ -86,11 +86,14 @@ jobs:
       - run: ./tests/mypy_test_suite.py
 
   pyright:
-    name: Run the pyright test suite
+    name: Run pyright against the stubs
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
       - run: ./tests/pyright_test.py
 
   stubtest:
