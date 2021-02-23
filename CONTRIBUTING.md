@@ -237,6 +237,11 @@ checker, and leave out unnecessary detail:
 * use `float` instead of `Union[int, float]`.
 
 Some further tips for good type hints:
+* use built-in generics (`list`, `dict`, `tuple`, `set`), instead
+  of importing them from `typing`, **except** for arbitrary length tuples
+  (`Tuple[int, ...]`);
+* in Python 3 stubs, import collections (`Mapping`, `Iterable`, etc.)
+  from `collections.abc` instead of `typing`;
 * avoid invariant collection types (`list`, `dict`) in argument
   positions, in favor of covariant types like `Mapping` or `Sequence`;
 * avoid Union return types: https://github.com/python/mypy/issues/1693;
