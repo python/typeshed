@@ -51,6 +51,7 @@
         "stubs/Werkzeug"
     ],
     "pythonVersion": "3.9",
+    "typeCheckingMode": "basic",
     "strictListInference": true,
     "strictDictionaryInference": true,
     "strictParameterNoneValue": true,
