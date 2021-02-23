@@ -6,7 +6,7 @@ from pathlib import Path
 
 
 _WELL_KNOWN_FILE = Path("tests", "pyright_test.py")
-_PYRIGHT_COMMAND = ["npx", "-p", "pyright@1.1.113", "pyright"]
+_PYRIGHT_COMMAND = ["npx", "-p", "pyright@1.1.114", "pyright"]
 
 
 def main() -> None:
