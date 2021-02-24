@@ -2,9 +2,10 @@ import datetime
 import ssl
 import sys
 from _typeshed import StrPath
+from collections.abc import Callable
 from logging import FileHandler, Handler, LogRecord
 from socket import SocketKind, SocketType
-from typing import Any, Callable, ClassVar, Dict, List, Optional, Tuple, Union
+from typing import Any, ClassVar, Optional, Union
 
 if sys.version_info >= (3, 7):
     from queue import Queue, SimpleQueue
@@ -112,11 +113,11 @@ class SysLogHandler(Handler):
     socktype: SocketKind  # undocumented
     ident: str  # undocumented
     facility: int  # undocumented
-    priority_names: ClassVar[Dict[str, int]]  # undocumented
-    facility_names: ClassVar[Dict[str, int]]  # undocumented
-    priority_map: ClassVar[Dict[str, str]]  # undocumented
+    priority_names: ClassVar[dict[str, int]]  # undocumented
+    facility_names: ClassVar[dict[str, int]]  # undocumented
+    priority_map: ClassVar[dict[str, str]]  # undocumented
     def __init__(
-        self, address: Union[Tuple[str, int], str] = ..., facility: int = ..., socktype: Optional[SocketKind] = ...
+        self, address: Union[tuple[str, int], str] = ..., facility: int = ..., socktype: Optional[SocketKind] = ...
     ) -> None: ...
     def encodePriority(self, facility: Union[int, str], priority: Union[int, str]) -> int: ...
     def mapPriority(self, levelName: str) -> str: ...
@@ -132,18 +133,18 @@ class SMTPHandler(Handler):
     # TODO `secure` can also be an empty tuple
     def __init__(
         self,
-        mailhost: Union[str, Tuple[str, int]],
+        mailhost: Union[str, tuple[str, int]],
         fromaddr: str,
-        toaddrs: List[str],
+        toaddrs: list[str],
         subject: str,
-        credentials: Optional[Tuple[str, str]] = ...,
-        secure: Union[Tuple[str], Tuple[str, str], None] = ...,
+        credentials: Optional[tuple[str, str]] = ...,
+        secure: Union[tuple[str], tuple[str, str], None] = ...,
         timeout: float = ...,
     ) -> None: ...
     def getSubject(self, record: LogRecord) -> str: ...
 
 class BufferingHandler(Handler):
-    buffer: List[LogRecord]
+    buffer: list[LogRecord]
     def __init__(self, capacity: int) -> None: ...
     def shouldFlush(self, record: LogRecord) -> bool: ...
 
@@ -160,10 +161,10 @@ class HTTPHandler(Handler):
         url: str,
         method: str = ...,
         secure: bool = ...,
-        credentials: Optional[Tuple[str, str]] = ...,
+        credentials: Optional[tuple[str, str]] = ...,
         context: Optional[ssl.SSLContext] = ...,
     ) -> None: ...
-    def mapLogRecord(self, record: LogRecord) -> Dict[str, Any]: ...
+    def mapLogRecord(self, record: LogRecord) -> dict[str, Any]: ...
 
 class QueueHandler(Handler):
     if sys.version_info >= (3, 7):
