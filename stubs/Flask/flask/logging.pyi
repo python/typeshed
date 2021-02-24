@@ -1,9 +1,9 @@
+from _typeshed.wsgi import ErrorStream
 from logging import Handler, Logger
-from typing import IO
 
 from .app import Flask
 
-wsgi_errors_stream: IO[str]
+wsgi_errors_stream: ErrorStream
 
 def has_level_handler(logger: Logger) -> bool: ...
 
