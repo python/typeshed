@@ -1,8 +1,13 @@
-from typing import Any
+from typing import IO
 
-def wsgi_errors_stream(): ...
-def has_level_handler(logger: Any): ...
+from logging import Handler, Logger
 
-default_handler: Any
+from .app import Flask
 
-def create_logger(app: Any): ...
+wsgi_errors_stream: IO[str]
+
+def has_level_handler(logger: Logger) -> bool: ...
+
+default_handler: Handler
+
+def create_logger(app: Flask) -> Logger: ...
