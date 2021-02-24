@@ -10,7 +10,6 @@ def parse(
     environ: SupportsItemAccess[str, str] = ...,
     keep_blank_values: bool = ...,
     strict_parsing: bool = ...,
-    separator: str = ...,
 ) -> dict[str, list[str]]: ...
 
 if sys.version_info < (3, 8):
@@ -19,7 +18,7 @@ if sys.version_info < (3, 8):
 
 if sys.version_info >= (3, 7):
     def parse_multipart(
-        fp: IO[Any], pdict: SupportsGetItem[str, bytes], encoding: str = ..., errors: str = ..., separator: str = ...
+        fp: IO[Any], pdict: SupportsGetItem[str, bytes], encoding: str = ..., errors: str = ...
     ) -> dict[str, list[Any]]: ...
 
 else:
@@ -96,7 +95,6 @@ class FieldStorage(object):
             encoding: str = ...,
             errors: str = ...,
             max_num_fields: Optional[int] = ...,
-            separator: str = ...,
         ) -> None: ...
     elif sys.version_info >= (3, 0):
         def __init__(
