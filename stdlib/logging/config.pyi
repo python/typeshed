@@ -1,6 +1,6 @@
 import sys
 from _typeshed import AnyPath, StrPath
-from collections.anc import Callable
+from collections.abc import Callable
 from configparser import RawConfigParser
 from threading import Thread
 from typing import IO, Any, Optional, Union

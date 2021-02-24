@@ -1,11 +1,11 @@
 import sys
 import threading
 from _typeshed import StrPath
-from collections.abc import Callable, Iterable, Mapping, MutableMapping, Sequence, Tuple
+from collections.abc import Callable, Iterable, Mapping, MutableMapping, Sequence
 from string import Template
 from time import struct_time
 from types import FrameType, TracebackType
-from typing import IO, Any, Optional, Union, overload
+from typing import IO, Any, Optional, Tuple, Union, overload
 
 _SysExcInfoType = Union[tuple[type, BaseException, Optional[TracebackType]], tuple[None, None, None]]
 _ExcInfoType = Union[None, bool, _SysExcInfoType, BaseException]
