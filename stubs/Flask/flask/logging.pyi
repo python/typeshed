@@ -1,6 +1,5 @@
-from typing import IO
-
 from logging import Handler, Logger
+from typing import IO
 
 from .app import Flask
 
