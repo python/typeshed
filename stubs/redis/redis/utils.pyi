@@ -1,8 +1,7 @@
 from typing import Any, ContextManager, Optional, Text, overload
 from typing_extensions import Literal
 
-from . import Redis
-from .client import Pipeline
+from .client import Pipeline, Redis
 
 HIREDIS_AVAILABLE: Any
 @overload
