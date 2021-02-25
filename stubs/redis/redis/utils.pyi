@@ -3,7 +3,7 @@ from typing_extensions import Literal
 
 from .client import Pipeline, Redis
 
-HIREDIS_AVAILABLE: Any
+HIREDIS_AVAILABLE: bool
 @overload
 def from_url(url: Text, db: Optional[int] = ..., *, decode_responses: Literal[True], **kwargs) -> Redis[str]: ...
 @overload
