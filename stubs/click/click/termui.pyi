@@ -89,7 +89,7 @@ def secho(
     blink: Optional[bool] = ...,
     reverse: Optional[bool] = ...,
     reset: bool = ...,
-): ...
+) -> None: ...
 def edit(
     text: Optional[str] = ...,
     editor: Optional[str] = ...,
