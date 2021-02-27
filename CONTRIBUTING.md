@@ -209,9 +209,6 @@ you should know about.
 
 Style conventions for stub files are different from PEP 8. The general
 rule is that they should be as concise as possible.  Specifically:
-* lines can be up to 130 characters long;
-* functions and methods that don't fit in one line should be split up
-  with one argument per line;
 * all function bodies should be empty;
 * prefer ``...`` over ``pass``;
 * prefer ``...`` on the same line as the class/function signature;
@@ -221,8 +218,7 @@ rule is that they should be as concise as possible.  Specifically:
   if the classes are very small;
 * do not use docstrings;
 * use variable annotations instead of type comments, even for stubs
-  that target older versions of Python;
-* for arguments with a type and a default, use spaces around the `=`.
+  that target older versions of Python.
 
 Stubs should be reformatted with the formatters
 [black](https://github.com/psf/black) and
@@ -241,7 +237,13 @@ checker, and leave out unnecessary detail:
 * use `float` instead of `Union[int, float]`.
 
 Some further tips for good type hints:
-* avoid invariant collection types (`List`, `Dict`) in argument
+* use built-in generics (`list`, `dict`, `tuple`, `set`), instead
+  of importing them from `typing`, **except** for arbitrary length tuples
+  (`Tuple[int, ...]`) (see
+  [python/mypy#9980](https://github.com/python/mypy/issues/9980));
+* in Python 3 stubs, import collections (`Mapping`, `Iterable`, etc.)
+  from `collections.abc` instead of `typing`;
+* avoid invariant collection types (`list`, `dict`) in argument
   positions, in favor of covariant types like `Mapping` or `Sequence`;
 * avoid Union return types: https://github.com/python/mypy/issues/1693;
 * in Python 2, whenever possible, use `unicode` if that's the only
@@ -264,14 +266,6 @@ the use of `Any` for when:
 Note that `Any` is not the correct type to use if you want to indicate
 that some function can accept literally anything: in those cases use
 `object` instead.
-
-For arguments with type and a default value of `None`, PEP 484
-prescribes that the type automatically becomes `Optional`.  However we
-prefer explicit over implicit in this case, and require the explicit
-`Optional[]` around the type.  The mypy tests enforce this (through
-the use of --no-implicit-optional) and the error looks like
-`Incompatible types in assignment (expression has type None, variable
-has type "Blah") `.
 
 Stub files support forward references natively.  In other words, the
 order of class declarations and type aliases does not matter in
