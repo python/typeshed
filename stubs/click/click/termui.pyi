@@ -51,7 +51,7 @@ def progressbar(
     show_eta: bool = ...,
     show_percent: Optional[bool] = ...,
     show_pos: bool = ...,
-    item_show_func: Optional[Callable[[_T], str]] = ...,
+    item_show_func: Optional[Callable[[Any], str]] = ...,
     fill_char: str = ...,
     empty_char: str = ...,
     bar_template: str = ...,
