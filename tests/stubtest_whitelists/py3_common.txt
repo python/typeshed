@@ -1,4 +1,26 @@
 __future__._Feature.__init__
+_collections_abc.Callable
+_collections_abc.Coroutine.cr_await
+_collections_abc.Coroutine.cr_code
+_collections_abc.Coroutine.cr_frame
+_collections_abc.Coroutine.cr_running
+_collections_abc.Generator.gi_code
+_collections_abc.Generator.gi_frame
+_collections_abc.Generator.gi_running
+_collections_abc.Generator.gi_yieldfrom
+_collections_abc.Mapping.get
+_collections_abc.MutableMapping.pop
+_collections_abc.MutableMapping.setdefault
+_collections_abc.MutableSequence.append
+_collections_abc.MutableSequence.extend
+_collections_abc.MutableSequence.insert
+_collections_abc.MutableSequence.remove
+_collections_abc.MutableSet.add
+_collections_abc.MutableSet.discard
+_collections_abc.MutableSet.remove
+_collections_abc.Sequence.count
+_collections_abc.Sequence.index
+_collections_abc.Set.isdisjoint
 _csv.Dialect.__init__
 _dummy_threading
 _importlib_modulespec
@@ -38,7 +60,6 @@ builtins.bytes.__float__
 builtins.bytes.__int__
 builtins.bytes.maketrans
 builtins.classmethod.__get__
-builtins.complex.__complex__
 builtins.ellipsis
 builtins.function
 builtins.memoryview.__contains__
@@ -55,6 +76,13 @@ bz2.BZ2File.readinto
 bz2.BZ2File.readlines
 bz2.BZ2File.write
 bz2.BZ2File.writelines
+# The following methods were changed in point releases from Python 3.6 to 3.9
+# as part of a security fix. These excludes can be removed when the GitHub
+# action workflow uses Python versions that include the fix (adding a
+# separator argument).
+cgi.FieldStorage.__init__
+cgi.parse
+cgi.parse_multipart
 codecs.BufferedIncrementalDecoder.decode
 codecs.CodecInfo.decode
 codecs.CodecInfo.encode
@@ -85,6 +113,7 @@ collections.Generator.gi_running
 collections.Generator.gi_yieldfrom
 collections.Mapping.get
 collections.Sequence.index
+collections.Set.isdisjoint
 collections.abc.Callable
 collections.abc.Coroutine.cr_await
 collections.abc.Coroutine.cr_code
@@ -360,6 +389,7 @@ threading.Thread.__init__
 timeit.main
 tkinter.Misc.grid_propagate
 tkinter.Misc.pack_propagate
+tkinter.Tk.eval  # from __getattr__
 tkinter.Tk.report_callback_exception  # A bit of a lie, since it's actually a method, but typing it as an attribute allows it to be assigned to
 tkinter.Wm.wm_iconphoto  # Default value of argument can't be used without runtime error
 tkinter.font.Font.__getitem__  # Argument name differs (doesn't matter for __dunder__ methods)
@@ -383,6 +413,12 @@ unittest.mock.patch  # It's a complicated overload and I haven't been able to fi
 urllib.error.ContentTooShortError.__init__
 urllib.error.URLError.__init__
 urllib.parse._DefragResultBase.__new__
+# The following methods were changed in point releases from Python 3.6 to 3.9
+# as part of a security fix. These excludes can be removed when the GitHub
+# action workflow uses Python versions that include the fix (adding a
+# separator argument).
+urllib.parse.parse_qs
+urllib.parse.parse_qsl
 urllib.request.BaseHandler.http_error_nnn
 urllib.request.HTTPPasswordMgrWithPriorAuth.__init__
 urllib.robotparser.RobotFileParser.can_fetch
@@ -432,6 +468,9 @@ builtins.quit
 # Builtins that mypy pretends exist
 builtins.reveal_locals
 builtins.reveal_type
+collections.abc.*  # Types are re-exported from _collections_abc, so errors should be fixed there
+# Dynamically specified by __getattr__, and thus don't exist on the class
+tempfile._TemporaryFileWrapper.[\w_]+
 # Various classes in typing aren't types at runtime. In addition, mypy thinks some special forms are tautologically defined.
 typing.[A-Z]\w+
 # We can't distinguish not having a default value from having a default value of inspect.Parameter.empty
