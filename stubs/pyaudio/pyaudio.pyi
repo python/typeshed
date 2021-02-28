@@ -1,4 +1,5 @@
-from typing import Callable, ClassVar, Final, Literal, Mapping, Optional, Sequence, Tuple, Union
+from typing import Callable, ClassVar, Mapping, Optional, Sequence, Tuple, Union
+from typing_extensions import Final, Literal
 
 paFloat32: Final[int] = ...
 paInt32: Final[int] = ...
