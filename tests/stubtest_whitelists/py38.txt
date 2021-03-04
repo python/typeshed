@@ -5,6 +5,8 @@ _collections_abc.AsyncGenerator.ag_running
 _collections_abc.ItemsView.__reversed__
 _collections_abc.KeysView.__reversed__
 _collections_abc.ValuesView.__reversed__
+# This was changed in Python 3.8.8.
+_curses.color_pair
 _thread.ExceptHookArgs
 _thread._ExceptHookArgs
 ast.Bytes.__new__
@@ -42,6 +44,8 @@ concurrent.futures.ProcessPoolExecutor.map
 contextvars.Context.__init__
 contextvars.Context.get
 copy.PyStringMap
+# This was changed in Python 3.8.8.
+curses.color_pair
 dataclasses.field
 email.message.MIMEPart.as_string
 enum.Enum._generate_next_value_
