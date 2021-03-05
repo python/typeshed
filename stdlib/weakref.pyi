@@ -76,6 +76,7 @@ class WeakValueDictionary(MutableMapping[_KT, _VT]):
 
 class KeyedRef(ref[_T], Generic[_KT, _T]):
     key: _KT
+    # This __new__ method uses a non-standard name for the "cls" parameter
     def __new__(type, ob: _T, callback: Callable[[_T], Any], key: _KT) -> KeyedRef[_KT, _T]: ...  # type: ignore
     def __init__(self, ob: _T, callback: Callable[[_T], Any], key: _KT) -> None: ...
 

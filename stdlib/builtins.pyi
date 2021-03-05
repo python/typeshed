@@ -88,6 +88,7 @@ class object:
     __annotations__: Dict[str, Any]
     @property
     def __class__(self: _T) -> Type[_T]: ...
+    # Ignore errors about type mismatch between property getter and setter
     @__class__.setter
     def __class__(self, __type: Type[object]) -> None: ...  # type: ignore # noqa: F811
     def __init__(self) -> None: ...
