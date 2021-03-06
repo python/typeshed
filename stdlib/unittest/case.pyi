@@ -2,6 +2,7 @@ import datetime
 import logging
 import sys
 import unittest.result
+from collections.abc import Set
 from types import TracebackType
 from typing import (
     Any,
@@ -9,7 +10,6 @@ from typing import (
     Callable,
     Container,
     ContextManager,
-    FrozenSet,
     Generic,
     Iterable,
     List,
@@ -18,7 +18,6 @@ from typing import (
     Optional,
     Pattern,
     Sequence,
-    Set,
     Tuple,
     Type,
     TypeVar,
@@ -179,9 +178,7 @@ class TestCase:
     ) -> None: ...
     def assertListEqual(self, list1: List[Any], list2: List[Any], msg: Any = ...) -> None: ...
     def assertTupleEqual(self, tuple1: Tuple[Any, ...], tuple2: Tuple[Any, ...], msg: Any = ...) -> None: ...
-    def assertSetEqual(
-        self, set1: Union[Set[Any], FrozenSet[Any]], set2: Union[Set[Any], FrozenSet[Any]], msg: Any = ...
-    ) -> None: ...
+    def assertSetEqual(self, set1: Set[object], set2: Set[object], msg: Any = ...) -> None: ...
     def assertDictEqual(self, d1: Mapping[Any, object], d2: Mapping[Any, object], msg: Any = ...) -> None: ...
     def fail(self, msg: Any = ...) -> NoReturn: ...
     def countTestCases(self) -> int: ...
