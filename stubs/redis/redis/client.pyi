@@ -631,7 +631,28 @@ class Redis(Generic[_StrType]):
         score_cast_func: Callable[[Any], Any] = ...,
     ) -> List[_StrType]: ...
     def zrangebylex(self, name: _Key, min: _Key, max: _Key, start: Optional[int] = ..., num: int = ...) -> List[_StrType]: ...
-    def zrangebyscore(self, name, min, max, start=..., num=..., withscores=..., score_cast_func=...): ...
+    @overload
+    def zrangebyscore(
+        self,
+        name: _Key,
+        min: float,
+        max: float,
+        withscores: Literal[True],
+        start: Optional[int] = ...,
+        num: Optional[int] = ...,
+        score_cast_func: Callable[[float], _ScoreCastFuncReturn] = ...,
+    ) -> List[Tuple[_StrType, _ScoreCastFuncReturn]]: ...
+    @overload
+    def zrangebyscore(
+        self,
+        name: _Key,
+        min: float,
+        max: float,
+        start: Optional[int] = ...,
+        num: Optional[int] = ...,
+        withscores: bool = ...,
+        score_cast_func: Callable[[Any], Any] = ...,
+    ) -> List[_StrType]: ...
     def zrank(self, name: _Key, value: _Key) -> Optional[int]: ...
     def zrem(self, name, *values): ...
     def zremrangebylex(self, name, min, max): ...
