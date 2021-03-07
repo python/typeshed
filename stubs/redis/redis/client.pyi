@@ -622,8 +622,9 @@ class Redis(Generic[_StrType]):
         name: _Key,
         start: int,
         end: int,
-        withscores: Literal[True],
         desc: bool = ...,
+        *,
+        withscores: Literal[True],
         score_cast_func: Callable[[float], _ScoreCastFuncReturn] = ...,
     ) -> List[Tuple[_StrType, _ScoreCastFuncReturn]]: ...
     @overload
@@ -643,9 +644,10 @@ class Redis(Generic[_StrType]):
         name: _Key,
         min: _Value,
         max: _Value,
-        withscores: Literal[True],
         start: Optional[int] = ...,
         num: Optional[int] = ...,
+        *,
+        withscores: Literal[True],
         score_cast_func: Callable[[float], _ScoreCastFuncReturn] = ...,
     ) -> List[Tuple[_StrType, _ScoreCastFuncReturn]]: ...
     @overload
@@ -670,8 +672,9 @@ class Redis(Generic[_StrType]):
         name: _Key,
         start: int,
         end: int,
-        withscores: Literal[True],
         desc: bool = ...,
+        *,
+        withscores: Literal[True],
         score_cast_func: Callable[[float], _ScoreCastFuncReturn] = ...,
     ) -> List[Tuple[_StrType, _ScoreCastFuncReturn]]: ...
     @overload
@@ -690,9 +693,10 @@ class Redis(Generic[_StrType]):
         name: _Key,
         min: _Value,
         max: _Value,
-        withscores: Literal[True],
         start: Optional[int] = ...,
         num: Optional[int] = ...,
+        *,
+        withscores: Literal[True],
         score_cast_func: Callable[[float], _ScoreCastFuncReturn] = ...,
     ) -> List[Tuple[_StrType, _ScoreCastFuncReturn]]: ...
     @overload
