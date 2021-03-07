@@ -614,8 +614,8 @@ class Redis(Generic[_StrType]):
     def zrange(
         self,
         name: _Key,
-        start: float,
-        end: float,
+        start: int,
+        end: int,
         withscores: Literal[True],
         desc: bool = ...,
         score_cast_func: Callable[[float], _ScoreCastFuncReturn] = ...,
@@ -624,8 +624,8 @@ class Redis(Generic[_StrType]):
     def zrange(
         self,
         name: _Key,
-        start: float,
-        end: float,
+        start: int,
+        end: int,
         desc: bool = ...,
         withscores: bool = ...,
         score_cast_func: Callable[[Any], Any] = ...,
@@ -653,16 +653,57 @@ class Redis(Generic[_StrType]):
         withscores: bool = ...,
         score_cast_func: Callable[[Any], Any] = ...,
     ) -> List[_StrType]: ...
-    def zrank(self, name: _Key, value: _Key) -> Optional[int]: ...
-    def zrem(self, name, *values): ...
-    def zremrangebylex(self, name, min, max): ...
-    def zremrangebyrank(self, name, min, max): ...
+    def zrank(self, name: _Key, value: _Value) -> Optional[int]: ...
+    def zrem(self, name: _Key, *values: _Value) -> int: ...
+    def zremrangebylex(self, name: _Key, min: _Value, max: _Value) -> int: ...
+    def zremrangebyrank(self, name: _Key, min: int, max: int) -> int: ...
     def zremrangebyscore(self, name: _Key, min: _Value, max: _Value) -> int: ...
-    def zrevrange(self, name, start, end, withscores=..., score_cast_func=...): ...
-    def zrevrangebyscore(self, name, max, min, start=..., num=..., withscores=..., score_cast_func=...): ...
-    def zrevrank(self, name, value): ...
-    def zscore(self, name, value): ...
-    def zunionstore(self, dest, keys, aggregate=...): ...
+    @overload
+    def zrevrange(
+        self,
+        name: _Key,
+        start: int,
+        end: int,
+        withscores: Literal[True],
+        desc: bool = ...,
+        score_cast_func: Callable[[float], _ScoreCastFuncReturn] = ...,
+    ) -> List[Tuple[_StrType, _ScoreCastFuncReturn]]: ...
+    @overload
+    def zrevrange(
+        self,
+        name: _Key,
+        start: int,
+        end: int,
+        desc: bool = ...,
+        withscores: bool = ...,
+        score_cast_func: Callable[[Any], Any] = ...,
+    ) -> List[_StrType]: ...
+    @overload
+    def zrevrangebyscore(
+        self,
+        name: _Key,
+        min: float,
+        max: float,
+        withscores: Literal[True],
+        start: Optional[int] = ...,
+        num: Optional[int] = ...,
+        score_cast_func: Callable[[float], _ScoreCastFuncReturn] = ...,
+    ) -> List[Tuple[_StrType, _ScoreCastFuncReturn]]: ...
+    @overload
+    def zrevrangebyscore(
+        self,
+        name: _Key,
+        min: float,
+        max: float,
+        start: Optional[int] = ...,
+        num: Optional[int] = ...,
+        withscores: bool = ...,
+        score_cast_func: Callable[[Any], Any] = ...,
+    ) -> List[_StrType]: ...
+    def zrevrangebylex(self, name: _Key, min: _Key, max: _Key, start: Optional[int] = ..., num: int = ...) -> List[_StrType]: ...
+    def zrevrank(self, name: _Key, value: _Value) -> Optional[int]: ...
+    def zscore(self, name: _Key, value: _Value) -> Optional[float]: ...
+    def zunionstore(self, dest: _Key, keys: Iterable[_Key], aggregate: Literal["SUM", "MIN", "MAX"] = ...) -> int: ...
     def pfadd(self, name: _Key, *values: _Value) -> int: ...
     def pfcount(self, name: _Key) -> int: ...
     def pfmerge(self, dest: _Key, *sources: _Key) -> bool: ...
