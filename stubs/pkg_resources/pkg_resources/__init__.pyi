@@ -4,7 +4,8 @@ import zipimport
 from abc import ABCMeta
 from typing import IO, Any, Callable, Dict, Generator, Iterable, List, Optional, Sequence, Set, Tuple, TypeVar, Union, overload
 
-from packaging.version import LegacyVersion, Version
+LegacyVersion = Any  # from packaging.version
+Version = Any  # from packaging.version
 
 _T = TypeVar("_T")
 _NestedStr = Union[str, Iterable[Union[str, Iterable[Any]]]]
