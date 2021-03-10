@@ -10,11 +10,9 @@ class Lock:
         self,
         redis: Redis,
         name: str,
-        # could be Union[int, float]
         timeout: Union[None, int, float] = ...,
         sleep: float = ...,
         blocking: bool = ...,
-        # could be bool
         blocking_timeout: Optional[bool] = ...,
         thread_local: bool = ...,
     ) -> None: ...
@@ -28,9 +26,7 @@ class Lock:
     ) -> Optional[bool]: ...
     def acquire(
         self,
-        # could be bool
         blocking: Optional[bool] = ...,
-        # could be Union[int, float]
         blocking_timeout: Union[None, int, float] = ...,
         token: Optional[_TokenValue] = ...,
     ) -> bool: ...
@@ -39,11 +35,7 @@ class Lock:
     def owned(self) -> bool: ...
     def release(self) -> None: ...
     def do_release(self, expected_token: _TokenValue) -> None: ...
-    # could be Literal[True]
     def extend(self, additional_time: Union[int, float], replace_ttl: bool = ...) -> bool: ...
-    # could be Literal[True]
     def do_extend(self, additional_time: Union[int, float], replace_ttl: bool) -> bool: ...
-    # could be Literal[True]
     def reacquire(self) -> bool: ...
-    # could be Literal[True]
     def do_reacquire(self) -> bool: ...
