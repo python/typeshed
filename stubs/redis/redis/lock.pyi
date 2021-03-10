@@ -23,6 +23,7 @@ class Lock:
 
     def register_scripts(self) -> None: ...
     def __enter__(self) -> Lock: ...
+
     def __exit__(
         self,
         exc_type: Optional[Type[BaseException]],
