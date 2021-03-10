@@ -1,7 +1,8 @@
-import codecs
-from typing import Any
+from codecs import CodecInfo
 
-def search_function(encoding: str) -> codecs.CodecInfo: ...
+class CodecRegistryError(LookupError, SystemError):
+    pass
 
-# Explicitly mark this package as incomplete.
-def __getattr__(name: str) -> Any: ...
+def normalize_encoding(encoding: str) -> str: ...
+def search_function(encoding: str) -> CodecInfo: ...
+
