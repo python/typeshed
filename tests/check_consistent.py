@@ -21,6 +21,12 @@ consistent_files = [
     {"stdlib/threading.pyi", "stdlib/_dummy_threading.pyi"},
 ]
 
+ALLOWED_PACKAGES = {
+    # mypy does not support stubs for typing-extensions, so we depend on
+    # `typing-extensions` instead of `types-typing-extensions`.
+    "typing-extensions"
+}
+
 
 def assert_stubs_only(directory):
     """Check that given directory contains only valid stub files."""
@@ -167,6 +173,8 @@ def check_metadata():
         assert isinstance(data.get("python3", True), bool), f"Invalid python3 value for {distribution}"
         assert isinstance(data.get("requires", []), list), f"Invalid requires value for {distribution}"
         for dep in data.get("requires", []):
+            if dep in ALLOWED_PACKAGES:
+                continue
             assert isinstance(dep, str), f"Invalid dependency {dep} for {distribution}"
             assert dep.startswith("types-"), f"Only stub dependencies supported, got {dep}"
             dep = dep[len("types-"):]
