@@ -25,19 +25,17 @@ _VT = TypeVar("_VT")
 _VT_co = TypeVar("_VT_co", covariant=True)
 _T_co = TypeVar("_T_co", covariant=True)
 _T_contra = TypeVar("_T_contra", contravariant=True)
-_T1 = TypeVar("_T1")
-_T2 = TypeVar("_T2")
 
 class SupportsLessThan(Protocol):
     def __lt__(self, __other: Any) -> bool: ...
 
 SupportsLessThanT = TypeVar("SupportsLessThanT", bound=SupportsLessThan)  # noqa: Y001
 
-class SupportsDivMod(Protocol[_T1, _T2]):
-    def __divmod__(self, __other: _T1) -> _T2: ...
+class SupportsDivMod(Protocol[_T_contra, _T_co]):
+    def __divmod__(self, __other: _T_contra) -> _T_co: ...
 
-class SupportsRDivMod(Protocol[_T1, _T2]):
-    def __rdivmod__(self, __other: _T1) -> _T2: ...
+class SupportsRDivMod(Protocol[_T_contra, _T_co]):
+    def __rdivmod__(self, __other: _T_contra) -> _T_co: ...
 
 # Mapping-like protocols
 
