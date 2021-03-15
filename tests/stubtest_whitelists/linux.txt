@@ -1,5 +1,6 @@
 _posixsubprocess.cloexec_pipe
 builtins.WindowsError
+curses.ACS_.*
 curses.COLORS
 curses.COLOR_PAIRS
 curses.COLS
