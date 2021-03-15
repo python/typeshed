@@ -3,6 +3,7 @@ from typing import IO, Any, BinaryIO, NamedTuple, Optional, Tuple, Union, overlo
 
 _chtype = Union[str, bytes, int]
 
+# ACS codes are only initialized after initscr is called
 ACS_BBSS: int
 ACS_BLOCK: int
 ACS_BOARD: int
