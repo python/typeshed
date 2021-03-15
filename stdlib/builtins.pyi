@@ -7,9 +7,11 @@ from _typeshed import (
     OpenBinaryModeWriting,
     OpenTextMode,
     ReadableBuffer,
+    SupportsDivMod,
     SupportsKeysAndGetItem,
     SupportsLessThan,
     SupportsLessThanT,
+    SupportsRDivMod,
     SupportsWrite,
 )
 from ast import AST, mod
@@ -69,6 +71,7 @@ class _SupportsTrunc(Protocol):
 
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
+_T_contra = TypeVar("_T_contra", contravariant=True)
 _KT = TypeVar("_KT")
 _VT = TypeVar("_VT")
 _S = TypeVar("_S")
@@ -954,10 +957,10 @@ def copyright() -> None: ...
 def credits() -> None: ...
 def delattr(__obj: Any, __name: str) -> None: ...
 def dir(__o: object = ...) -> List[str]: ...
-
-_N2 = TypeVar("_N2", int, float)
-
-def divmod(__x: _N2, __y: _N2) -> Tuple[_N2, _N2]: ...
+@overload
+def divmod(__x: SupportsDivMod[_T_contra, _T_co], __y: _T_contra) -> _T_co: ...
+@overload
+def divmod(__x: _T_contra, __y: SupportsRDivMod[_T_contra, _T_co]) -> _T_co: ...
 def eval(
     __source: Union[str, bytes, CodeType], __globals: Optional[Dict[str, Any]] = ..., __locals: Optional[Mapping[str, Any]] = ...
 ) -> Any: ...
