@@ -311,6 +311,9 @@ class SpooledTemporaryFile(IO[AnyStr]):
 
 class TemporaryDirectory(Generic[AnyStr]):
     name: AnyStr
+    @overload
+    def __init__(self: TemporaryDirectory[str], suffix: None = ..., prefix: None = ..., dir: None = ...) -> None: ...
+    @overload
     def __init__(
         self, suffix: Optional[AnyStr] = ..., prefix: Optional[AnyStr] = ..., dir: Optional[_DirT[AnyStr]] = ...
     ) -> None: ...
