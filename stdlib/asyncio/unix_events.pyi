@@ -36,7 +36,7 @@ class _UnixSelectorEventLoop(BaseSelectorEventLoop):
         async def create_unix_server(
             self,
             protocol_factory: _ProtocolFactory,
-            path: str = ...,
+            path: Optional[str] = ...,
             *,
             sock: Optional[socket] = ...,
             backlog: int = ...,
