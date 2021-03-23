@@ -6,7 +6,6 @@
     ],
     "exclude": [
         "**/@python2",
-        "stdlib/encodings/__init__.pyi",
         "stdlib/sqlite3/dbapi2.pyi",
         "stdlib/tkinter",
         "stdlib/xml/dom",
@@ -14,25 +13,15 @@
         "stubs/backports",
         "stubs/backports_abc",
         "stubs/boto",
-        "stubs/cachetools",
         "stubs/chardet",
-        "stubs/click",
         "stubs/cryptography",
         "stubs/dateparser",
-        "stubs/DateTimeRange",
-        "stubs/decorator",
         "stubs/docutils",
         "stubs/fb303",
         "stubs/Flask",
-        "stubs/frozendict",
         "stubs/Jinja2",
         "stubs/kazoo",
         "stubs/Markdown",
-        "stubs/MarkupSafe",
-        "stubs/mock",
-        "stubs/nmap",
-        "stubs/openssl-python",
-        "stubs/polib",
         "stubs/paramiko",
         "stubs/protobuf",
         "stubs/pymssql",
@@ -49,7 +38,6 @@
         "stubs/waitress",
         "stubs/Werkzeug"
     ],
-    "pythonVersion": "3.9",
     "typeCheckingMode": "basic",
     "strictListInference": true,
     "strictDictionaryInference": true,
@@ -87,8 +75,12 @@
     "reportUnboundVariable": "error",
     "reportInvalidStubStatement": "error",
     "reportUnsupportedDunderAll": "error",
-    "reportInvalidTypeVarUse": "none",
-    "reportOverlappingOverload": "none",
-    "reportPropertyTypeMismatch": "none",
-    "reportSelfClsParameterName": "none"
+    "reportInvalidTypeVarUse": "error",
+    "reportPropertyTypeMismatch": "error",
+    "reportSelfClsParameterName": "error",
+    // Overloapping overloads cannot be enabled at this time because
+    // of the "factions.Fraction.__pow__" method and "tasks.gather" function.
+    // Mypy's overlapping overload logic misses these issues (see mypy
+    // issue #10143 and #10157).
+    "reportOverlappingOverload": "none"
 }

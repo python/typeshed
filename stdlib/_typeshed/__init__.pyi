@@ -31,6 +31,12 @@ class SupportsLessThan(Protocol):
 
 SupportsLessThanT = TypeVar("SupportsLessThanT", bound=SupportsLessThan)  # noqa: Y001
 
+class SupportsDivMod(Protocol[_T_contra, _T_co]):
+    def __divmod__(self, __other: _T_contra) -> _T_co: ...
+
+class SupportsRDivMod(Protocol[_T_contra, _T_co]):
+    def __rdivmod__(self, __other: _T_contra) -> _T_co: ...
+
 # Mapping-like protocols
 
 class SupportsItems(Protocol[_KT_co, _VT_co]):
@@ -168,11 +174,11 @@ class SupportsWrite(Protocol[_T_contra]):
     def write(self, __s: _T_contra) -> Any: ...
 
 if sys.version_info >= (3,):
-    ReadableBuffer = Union[bytes, bytearray, memoryview, array.array, mmap.mmap]
-    WriteableBuffer = Union[bytearray, memoryview, array.array, mmap.mmap]
+    ReadableBuffer = Union[bytes, bytearray, memoryview, array.array[Any], mmap.mmap]
+    WriteableBuffer = Union[bytearray, memoryview, array.array[Any], mmap.mmap]
 else:
-    ReadableBuffer = Union[bytes, bytearray, memoryview, array.array, mmap.mmap, buffer]
-    WriteableBuffer = Union[bytearray, memoryview, array.array, mmap.mmap, buffer]
+    ReadableBuffer = Union[bytes, bytearray, memoryview, array.array[Any], mmap.mmap, buffer]
+    WriteableBuffer = Union[bytearray, memoryview, array.array[Any], mmap.mmap, buffer]
 
 if sys.version_info >= (3, 10):
     from types import NoneType as NoneType

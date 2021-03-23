@@ -1,5 +1,6 @@
 _posixsubprocess.cloexec_pipe
 builtins.WindowsError
+_?curses.ACS_.* # ACS codes are initialized only after initscr call. 
 curses.COLORS
 curses.COLOR_PAIRS
 curses.COLS

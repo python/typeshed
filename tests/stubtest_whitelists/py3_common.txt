@@ -64,7 +64,7 @@ builtins.ellipsis
 builtins.function
 builtins.memoryview.__contains__
 builtins.memoryview.__iter__
-builtins.memoryview.cast
+builtins.memoryview.cast  # inspect.signature is incorrect about shape being kw-only
 builtins.object.__init__
 builtins.property.__get__
 builtins.property.fdel

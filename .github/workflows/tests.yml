@@ -79,7 +79,8 @@ jobs:
 
   mypy-test-suite:
     name: Run the mypy test suite
-    runs-on: ubuntu-latest
+    # Ubuntu 20.04 doesn't have the Python 2 venv module.
+    runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
@@ -88,13 +89,18 @@ jobs:
   pyright:
     name: Run pyright against the stubs
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-platform: ["Linux", "Windows", "Darwin"]
+        python-version: [3.6, 3.7, 3.8, 3.9]
+      fail-fast: false
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
-      - run: ./tests/pyright_test.py
+      - run: ./tests/pyright_test.py --pythonplatform ${{ matrix.python-platform }} --pythonversion ${{ matrix.python-version }}
 
   stubtest:
     name: Check stdlib with stubtest
