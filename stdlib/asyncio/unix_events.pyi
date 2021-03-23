@@ -30,7 +30,17 @@ class SafeChildWatcher(BaseChildWatcher):
 class FastChildWatcher(BaseChildWatcher):
     def __enter__(self: _T3) -> _T3: ...
 
-class _UnixSelectorEventLoop(BaseSelectorEventLoop): ...
+class _UnixSelectorEventLoop(BaseSelectorEventLoop):
+    if sys.version_info < (3, 7):
+        async def create_unix_server(
+            self,
+            protocol_factory: _ProtocolFactory,
+            path: str = ...,
+            *,
+            sock: Optional[socket] = ...,
+            backlog: int = ...,
+            ssl: _SSLContext = ...,
+        ) -> AbstractServer: ...
 
 class _UnixDefaultEventLoopPolicy(BaseDefaultEventLoopPolicy):
     def get_child_watcher(self) -> AbstractChildWatcher: ...
