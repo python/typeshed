@@ -24,11 +24,9 @@ ast.Index.__new__
 ast.NameConstant.__new__
 ast.Num.__new__
 ast.Str.__new__
-asyncio.AbstractEventLoop.sock_sendfile
 asyncio.compat  # module removed in 3.7
 asyncio.Future.__init__
 asyncio.Future._callbacks
-asyncio.events.AbstractEventLoop.sock_sendfile
 asyncio.futures.Future.__init__
 asyncio.futures.Future._callbacks
 asyncio.proactor_events._ProactorBasePipeTransport.__del__
