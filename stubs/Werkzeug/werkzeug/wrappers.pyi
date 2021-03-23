@@ -148,7 +148,7 @@ class BaseResponse:
         self,
         key: str,
         value: Union[str, bytes] = ...,
-        max_age: Union[int, timedelta, None] = ...,
+        max_age: Union[float, timedelta, None] = ...,
         expires: Optional[Union[int, datetime]] = ...,
         path: str = ...,
         domain: Optional[str] = ...,
