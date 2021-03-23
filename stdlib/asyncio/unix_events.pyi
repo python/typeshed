@@ -1,8 +1,9 @@
 import sys
 import types
+from socket import socket
 from typing import Any, Callable, Optional, Type, TypeVar
 
-from .events import AbstractEventLoop, BaseDefaultEventLoopPolicy
+from .events import AbstractEventLoop, AbstractServer, BaseDefaultEventLoopPolicy, _ProtocolFactory, _SSLContext
 from .selector_events import BaseSelectorEventLoop
 
 _T1 = TypeVar("_T1", bound=AbstractChildWatcher)
