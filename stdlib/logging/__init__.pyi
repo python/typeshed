@@ -1,6 +1,6 @@
 import sys
 import threading
-from _typeshed import StrPath
+from _typeshed import StrPath, SupportsWrite
 from collections.abc import Callable, Iterable, Mapping, MutableMapping, Sequence
 from string import Template
 from time import struct_time
@@ -673,7 +673,7 @@ if sys.version_info >= (3, 8):
         datefmt: Optional[str] = ...,
         style: str = ...,
         level: Optional[_Level] = ...,
-        stream: Optional[IO[str]] = ...,
+        stream: Optional[SupportsWrite[str]] = ...,
         handlers: Optional[Iterable[Handler]] = ...,
         force: bool = ...,
     ) -> None: ...
@@ -687,7 +687,7 @@ else:
         datefmt: Optional[str] = ...,
         style: str = ...,
         level: Optional[_Level] = ...,
-        stream: Optional[IO[str]] = ...,
+        stream: Optional[SupportsWrite[str]] = ...,
         handlers: Optional[Iterable[Handler]] = ...,
     ) -> None: ...
 
@@ -699,11 +699,11 @@ def setLogRecordFactory(factory: Callable[..., LogRecord]) -> None: ...
 lastResort: Optional[StreamHandler]
 
 class StreamHandler(Handler):
-    stream: IO[str]  # undocumented
+    stream: SupportsWrite[str]  # undocumented
     terminator: str
-    def __init__(self, stream: Optional[IO[str]] = ...) -> None: ...
+    def __init__(self, stream: Optional[SupportsWrite[str]] = ...) -> None: ...
     if sys.version_info >= (3, 7):
-        def setStream(self, stream: IO[str]) -> Optional[IO[str]]: ...
+        def setStream(self, stream: SupportsWrite[str]) -> Optional[SupportsWrite[str]]: ...
 
 class FileHandler(StreamHandler):
     baseFilename: str  # undocumented
