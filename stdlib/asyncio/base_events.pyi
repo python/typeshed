@@ -21,7 +21,16 @@ _ProtocolFactory = Callable[[], BaseProtocol]
 _SSLContext = Union[bool, None, ssl.SSLContext]
 _TransProtPair = Tuple[BaseTransport, BaseProtocol]
 
-class Server(AbstractServer): ...
+class Server(AbstractServer):
+    def __init__(
+        self,
+        loop: AbstractEventLoop,
+        sockets: List[socket],
+        protocol_factory: _ProtocolFactory,
+        ssl_context: _SSLContext,
+        backlog: int,
+        ssl_handshake_timeout: Optional[float],
+    ): ...
 
 class BaseEventLoop(AbstractEventLoop, metaclass=ABCMeta):
     def run_forever(self) -> None: ...
