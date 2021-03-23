@@ -22,15 +22,22 @@ _SSLContext = Union[bool, None, ssl.SSLContext]
 _TransProtPair = Tuple[BaseTransport, BaseProtocol]
 
 class Server(AbstractServer):
-    def __init__(
-        self,
-        loop: AbstractEventLoop,
-        sockets: List[socket],
-        protocol_factory: _ProtocolFactory,
-        ssl_context: _SSLContext,
-        backlog: int,
-        ssl_handshake_timeout: Optional[float],
-    ): ...
+    if sys.version_info >= (3, 7):
+        def __init__(
+            self,
+            loop: AbstractEventLoop,
+            sockets: List[socket],
+            protocol_factory: _ProtocolFactory,
+            ssl_context: _SSLContext,
+            backlog: int,
+            ssl_handshake_timeout: Optional[float],
+        ) -> None: ...
+    else:
+        def __init__(
+            self,
+            loop: AbstractEventLoop,
+            sockets: List[socket],
+        ) -> None: ...
 
 class BaseEventLoop(AbstractEventLoop, metaclass=ABCMeta):
     def run_forever(self) -> None: ...
