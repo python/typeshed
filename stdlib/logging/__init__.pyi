@@ -7,6 +7,8 @@ from time import struct_time
 from types import FrameType, TracebackType
 from typing import IO, Any, Optional, Tuple, Union
 
+from typing_extensions import Literal
+
 _SysExcInfoType = Union[Tuple[type, BaseException, Optional[TracebackType]], Tuple[None, None, None]]
 _ExcInfoType = Union[None, bool, _SysExcInfoType, BaseException]
 _ArgsType = Union[Tuple[Any, ...], Mapping[str, Any]]
@@ -242,14 +244,14 @@ class Logger(Filterer):
     ) -> LogRecord: ...
     def hasHandlers(self) -> bool: ...
 
-CRITICAL: int
-FATAL: int
-ERROR: int
-WARNING: int
-WARN: int
-INFO: int
-DEBUG: int
-NOTSET: int
+CRITICAL: Literal[50]
+FATAL = CRITICAL
+ERROR: Literal[40]
+WARNING: Literal[30]
+WARN = WARNING
+INFO: Literal[20]
+DEBUG: Literal[10]
+NOTSET: Literal[0]
 
 class Handler(Filterer):
     level: int  # undocumented
