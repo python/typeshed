@@ -352,18 +352,15 @@ sqlite3.dbapi2.Row.__len__
 sqlite3.dbapi2.version_info
 sqlite3.version_info
 sre_constants.error.__init__
-ssl.PROTOCOL_SSLv2
-ssl.Purpose.__new__
-ssl.SSLContext.__new__
-ssl.SSLObject.__init__
-ssl.SSLSocket.connect
-ssl.SSLSocket.connect_ex
-ssl.SSLSocket.recv
-ssl.SSLSocket.recv_into
-ssl.SSLSocket.recvfrom
-ssl.SSLSocket.recvfrom_into
-ssl.SSLSocket.sendto
-ssl._ASN1Object.__new__
+ssl.PROTOCOL_SSLv2  # Defined only if compiled with ssl v2
+ssl.Purpose.__new__  # You cannot override __new__ in NamedTuple and runtime uses namedtuple.
+ssl.SSLSocket.connect_ex  # SSLSocket addr differs from socket argument name address
+ssl.SSLSocket.recv  # SSLSocket buflen differs from socket argument name bufsize
+ssl.SSLSocket.recv_into  # SSLSocket signature differs from socket
+ssl.SSLSocket.recvfrom  # SSLSocket buflen differs from socket argument name bufsize
+ssl.SSLSocket.recvfrom_into  # SSLSocket signature differs from socket
+ssl.SSLSocket.sendto  # SSLSocket flags_or_addr differs from socket argument name flags
+ssl._ASN1Object.__new__  # You cannot override __new__ in NamedTuple and runtime uses namedtuple.
 subprocess.Popen.__init__
 sunau.Au_write.getmark
 sunau.Au_write.getmarkers
