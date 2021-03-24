@@ -245,10 +245,10 @@ class Logger(Filterer):
     def hasHandlers(self) -> bool: ...
 
 CRITICAL: Literal[50]
-FATAL = CRITICAL
+FATAL: Literal[50]
 ERROR: Literal[40]
 WARNING: Literal[30]
-WARN = WARNING
+WARN: Literal[30]
 INFO: Literal[20]
 DEBUG: Literal[10]
 NOTSET: Literal[0]
