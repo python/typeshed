@@ -53,8 +53,8 @@ random.randrange  # missing undocumented arg _int
 secrets.SystemRandom.getstate
 smtplib.SMTP.sendmail
 sre_constants.RANGE_IGNORE
-ssl.PROTOCOL_SSLv3
-ssl.RAND_egd
+ssl.PROTOCOL_SSLv3  # Depends on ssl compilation
+ssl.RAND_egd  # Depends on openssl compilation
 types.ClassMethodDescriptorType.__get__
 types.MethodDescriptorType.__get__
 types.WrapperDescriptorType.__get__
