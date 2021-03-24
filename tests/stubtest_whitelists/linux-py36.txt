@@ -1,4 +1,3 @@
-asyncio.unix_events._UnixSelectorEventLoop.create_unix_server
 ctypes.wintypes
 pwd.getpwnam
 ssl.PROTOCOL_SSLv3

@@ -2,12 +2,12 @@ _collections_abc.AsyncGenerator.ag_await
 _collections_abc.AsyncGenerator.ag_code
 _collections_abc.AsyncGenerator.ag_frame
 _collections_abc.AsyncGenerator.ag_running
-asyncio.Future.__init__
+asyncio.Future.__init__  # Usually initialized from c object
 asyncio.exceptions  # Added in Python 3.8
 asyncio.format_helpers  # Added in Python 3.7
-asyncio.futures.Future.__init__
+asyncio.futures.Future.__init__  # Usually initialized from c object
 asyncio.futures._TracebackLogger.__init__
-asyncio.runners
+asyncio.runners  # Added in Python 3.7
 asyncio.staggered  # Added in Python 3.8
 asyncio.threads  # Added in Python 3.9
 asyncio.trsock  # Added in Python 3.8
