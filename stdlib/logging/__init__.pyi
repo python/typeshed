@@ -6,7 +6,6 @@ from string import Template
 from time import struct_time
 from types import FrameType, TracebackType
 from typing import IO, Any, Optional, Tuple, Union
-
 from typing_extensions import Literal
 
 _SysExcInfoType = Union[Tuple[type, BaseException, Optional[TracebackType]], Tuple[None, None, None]]
