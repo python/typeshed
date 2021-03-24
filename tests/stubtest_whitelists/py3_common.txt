@@ -331,9 +331,6 @@ sched.Event.__doc__
 select.poll
 selectors.DevpollSelector
 selectors.KqueueSelector
-shlex.shlex.__init__
-shlex.shlex.error_leader
-shlex.shlex.sourcehook
 shutil.register_unpack_format
 signal.SIGEMT
 signal.SIGINFO
