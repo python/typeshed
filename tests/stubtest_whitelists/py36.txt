@@ -43,7 +43,6 @@ random.randrange  # missing undocumented arg _int
 secrets.SystemRandom.getstate
 smtplib.SMTP.sendmail
 sre_compile.dis
-#ssl.SSLSocket.__init__
 typing.AsyncGenerator.ag_await
 typing.AsyncGenerator.ag_code
 typing.AsyncGenerator.ag_frame

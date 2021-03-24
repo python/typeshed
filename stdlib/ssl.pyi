@@ -245,6 +245,28 @@ class SSLSocket(socket.socket):
     if sys.version_info >= (3, 6):
         session: Optional[SSLSession]
         session_reused: Optional[bool]
+    if sys.version_info < (3, 7):
+        def __init__(
+            self,
+            sock: Optional[socket.socket] = ...,
+            keyfile: Optional[str] = ...,
+            certfile: Optional[str] = ...,
+            server_side: bool = ...,
+            cert_reqs: int = ...,
+            ssl_version: int = ...,
+            ca_certs: Optional[str] = ...,
+            do_handshake_on_connect: bool = ...,
+            family: int = ...,
+            type: int = ...,
+            proto: int = ...,
+            fileno: Optional[int] = ...,
+            suppress_ragged_eofs: bool = ...,
+            npn_protocols: Optional[Iterable[str]] = ...,
+            ciphers: Optional[str] = ...,
+            server_hostname: Optional[str] = ...,
+            _context: Optional[SSLContext] = ...,
+            _session: Optional[Any] = ...,
+        ): ...
     def connect(self, addr: Union[socket._Address, bytes]) -> None: ...
     def connect_ex(self, addr: Union[socket._Address, bytes]) -> int: ...
     def recv(self, buflen: int = ..., flags: int = ...) -> bytes: ...
