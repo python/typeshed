@@ -102,7 +102,7 @@ ssl.AF_INET
 ssl.PROTOCOL_SSLv3
 ssl.RAND_egd
 symtable.SymbolTable.has_exec
-sys.UnraisableHookArgs
+sys.UnraisableHookArgs  # Not exported from sys
 time.CLOCK_PROF
 time.CLOCK_UPTIME
 types.ClassMethodDescriptorType.__get__
