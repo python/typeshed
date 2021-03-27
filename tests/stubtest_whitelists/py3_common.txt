@@ -362,13 +362,11 @@ sunau.Au_write.getmark
 sunau.Au_write.getmarkers
 sunau.Au_write.setcomptype
 sunau.Au_write.setmark
-symtable.Symbol.__init__
-symtable.SymbolTable.__init__
-sys.gettotalrefcount
-sys.implementation
-sysconfig.is_python_build
-sysconfig.parse_config_h
-tarfile.TarFile.errors
+sys.gettotalrefcount  # Available on python debug builds
+sys.implementation  # Actually SimpleNamespace but then you wouldn't have convenient attributes
+tarfile.TarFile.errors  # errors is initialized for some reason as None even though it really only accepts str
+# SpooledTemporaryFile implements IO except these methods
+# See also https://github.com/python/typeshed/pull/2452#issuecomment-420657918
 tempfile.SpooledTemporaryFile.__next__
 tempfile.SpooledTemporaryFile.readable
 tempfile.SpooledTemporaryFile.seekable
