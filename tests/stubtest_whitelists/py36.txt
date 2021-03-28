@@ -30,7 +30,6 @@ importlib.metadata
 importlib.resources
 io.StringIO.readline
 ipaddress._BaseNetwork.__init__
-itertools.accumulate
 json.loads
 mmap.ACCESS_DEFAULT
 multiprocessing.shared_memory

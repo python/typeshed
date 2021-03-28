@@ -247,16 +247,6 @@ ipaddress._BaseAddress.is_unspecified
 ipaddress._BaseAddress.max_prefixlen
 ipaddress._BaseAddress.packed
 ipaddress._BaseNetwork.max_prefixlen
-itertools.chain.from_iterable
-itertools.combinations_with_replacement
-itertools.compress
-itertools.count
-itertools.dropwhile
-itertools.filterfalse
-itertools.permutations
-itertools.starmap
-itertools.takewhile
-itertools.zip_longest
 lib2to3.pygram.pattern_symbols
 lib2to3.pygram.python_symbols
 lib2to3.pytree.Base.__new__

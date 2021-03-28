@@ -38,7 +38,6 @@ http.client.HTTPSConnection.__init__
 http.server.SimpleHTTPRequestHandler.__init__
 importlib.metadata
 ipaddress._BaseNetwork.__init__
-itertools.accumulate
 json.loads
 macurl2path  # removed in 3.7
 multiprocessing.shared_memory
