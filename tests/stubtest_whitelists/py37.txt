@@ -36,7 +36,6 @@ fractions.Fraction.__new__  # overload is too complicated for stubtest to resolv
 hmac.HMAC.__init__
 http.client.HTTPSConnection.__init__
 http.server.SimpleHTTPRequestHandler.__init__
-importlib.metadata
 ipaddress._BaseNetwork.__init__
 itertools.accumulate
 json.loads
