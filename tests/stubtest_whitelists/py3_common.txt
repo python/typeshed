@@ -35,22 +35,18 @@ abc.abstractclassmethod
 abc.abstractmethod
 abc.abstractstaticmethod
 argparse.Namespace.__getattr__  # The whole point of this class is its attributes are dynamic
-asyncio.BaseEventLoop.subprocess_exec
+asyncio.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
+# Condition functions are exported in __init__
 asyncio.Condition.acquire
 asyncio.Condition.locked
 asyncio.Condition.release
-asyncio.Task.get_stack
-asyncio.Task.print_stack
-asyncio.base_events.BaseEventLoop.subprocess_exec
-asyncio.base_events.Server.__init__
+asyncio.base_events.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
+# Condition functions are exported in __init__
 asyncio.locks.Condition.acquire
 asyncio.locks.Condition.locked
 asyncio.locks.Condition.release
-asyncio.proactor_events.BaseProactorEventLoop.sock_recv
-asyncio.selector_events.BaseSelectorEventLoop.sock_recv
-asyncio.streams.FlowControlMixin.__init__
-asyncio.tasks.Task.get_stack
-asyncio.tasks.Task.print_stack
+asyncio.proactor_events.BaseProactorEventLoop.sock_recv # nbytes parameter has different name 'n' in implementation
+asyncio.selector_events.BaseSelectorEventLoop.sock_recv # nbytes parameter has different name 'n' in implementation
 builtins.bytearray.__float__
 builtins.bytearray.__int__
 builtins.bytearray.append
@@ -335,9 +331,6 @@ sched.Event.__doc__
 select.poll
 selectors.DevpollSelector
 selectors.KqueueSelector
-shlex.shlex.__init__
-shlex.shlex.error_leader
-shlex.shlex.sourcehook
 shutil.register_unpack_format
 signal.SIGEMT
 signal.SIGINFO
@@ -360,13 +353,11 @@ sunau.Au_write.getmark
 sunau.Au_write.getmarkers
 sunau.Au_write.setcomptype
 sunau.Au_write.setmark
-symtable.Symbol.__init__
-symtable.SymbolTable.__init__
-sys.gettotalrefcount
-sys.implementation
-sysconfig.is_python_build
-sysconfig.parse_config_h
-tarfile.TarFile.errors
+sys.gettotalrefcount  # Available on python debug builds
+sys.implementation  # Actually SimpleNamespace but then you wouldn't have convenient attributes
+tarfile.TarFile.errors  # errors is initialized for some reason as None even though it really only accepts str
+# SpooledTemporaryFile implements IO except these methods
+# See also https://github.com/python/typeshed/pull/2452#issuecomment-420657918
 tempfile.SpooledTemporaryFile.__next__
 tempfile.SpooledTemporaryFile.readable
 tempfile.SpooledTemporaryFile.seekable

@@ -24,13 +24,11 @@ ast.Index.__new__
 ast.NameConstant.__new__
 ast.Num.__new__
 ast.Str.__new__
-asyncio.AbstractEventLoop.sock_sendfile
 asyncio.compat  # module removed in 3.7
-asyncio.Future.__init__
-asyncio.Future._callbacks
-asyncio.events.AbstractEventLoop.sock_sendfile
-asyncio.futures.Future.__init__
-asyncio.futures.Future._callbacks
+asyncio.Future.__init__  # Usually initialized from c object
+asyncio.Future._callbacks  # Usually initialized from c object
+asyncio.futures.Future.__init__  # Usually initialized from c object
+asyncio.futures.Future._callbacks  # Usually initialized from c object
 asyncio.proactor_events._ProactorBasePipeTransport.__del__
 builtins.dict.get
 collections.AsyncGenerator.ag_await
@@ -103,7 +101,7 @@ sre_constants.RANGE_IGNORE
 ssl.PROTOCOL_SSLv3  # Depends on ssl compilation
 ssl.RAND_egd  # Depends on openssl compilation
 symtable.SymbolTable.has_exec
-sys.UnraisableHookArgs
+sys.UnraisableHookArgs  # Not exported from sys
 time.CLOCK_PROF
 time.CLOCK_UPTIME
 types.ClassMethodDescriptorType.__get__
