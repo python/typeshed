@@ -872,6 +872,7 @@ class Toplevel(BaseWidget, Wm):
         highlightcolor: _Color = ...,
         highlightthickness: _ScreenUnits = ...,
         menu: Menu = ...,
+        name: str = ...,
         padx: _ScreenUnits = ...,
         pady: _ScreenUnits = ...,
         relief: _Relief = ...,
