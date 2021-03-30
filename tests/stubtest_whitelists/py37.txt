@@ -29,6 +29,7 @@ concurrent.futures.ProcessPoolExecutor.map
 contextvars.Context.__init__
 contextvars.Context.get
 contextvars.ContextVar.get
+contextlib.nullcontext  # not a function at runtime
 copy.PyStringMap
 ctypes.CDLL.__init__
 dataclasses.field

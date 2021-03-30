@@ -24,6 +24,8 @@ _collections_abc.Set.isdisjoint
 _csv.Dialect.__init__
 _dummy_threading
 _importlib_modulespec
+_operator.attrgetter  # not a function at runtime
+_operator.itemgetter  # not a function at runtime
 _operator.methodcaller
 _threading_local.local.__new__
 _typeshed.*  # Utility types for typeshed, doesn't exist at runtime
@@ -61,7 +63,9 @@ builtins.bytes.__int__
 builtins.bytes.maketrans
 builtins.classmethod.__get__
 builtins.ellipsis
+builtins.filter  # not a function at runtime
 builtins.function
+builtins.map  # not a function at runtime
 builtins.memoryview.__contains__
 builtins.memoryview.__iter__
 builtins.memoryview.cast
@@ -70,7 +74,9 @@ builtins.property.__get__
 builtins.property.fdel
 builtins.property.fget
 builtins.property.fset
+builtins.reversed  # not a function at runtime
 builtins.staticmethod.__get__
+builtins.zip  # not a function at runtime
 bz2.BZ2Decompressor.__init__
 bz2.BZ2File.readinto
 bz2.BZ2File.readlines
@@ -251,13 +257,19 @@ ipaddress._BaseAddress.is_unspecified
 ipaddress._BaseAddress.max_prefixlen
 ipaddress._BaseAddress.packed
 ipaddress._BaseNetwork.max_prefixlen
+itertools.accumulate  # not a function at runtime
 itertools.chain.from_iterable
+itertools.combinations  # not a function at runtime
 itertools.combinations_with_replacement
 itertools.compress
 itertools.count
 itertools.dropwhile
 itertools.filterfalse
+itertools.groupby  # not a function at runtime
+itertools.islice  # not a function at runtime
 itertools.permutations
+itertools.product  # not a function at runtime
+itertools.repeat  # not a function at runtime
 itertools.starmap
 itertools.takewhile
 itertools.zip_longest
@@ -306,6 +318,8 @@ netrc.NetrcParseError.__init__
 netrc.netrc.__init__
 ntpath.join
 numbers.Number.__hash__
+operator.attrgetter  # not a function at runtime
+operator.itemgetter  # not a function at runtime
 operator.methodcaller
 optparse.HelpFormatter._format__Text
 optparse.OptionParser.__init__
