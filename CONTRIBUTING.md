@@ -62,8 +62,8 @@ you if you've contributed to other projects on GitHub.  For the
 mechanics, see [Mypy's git and GitHub workflow help page](https://github.com/python/mypy/wiki/Using-Git-And-GitHub),
 or [GitHub's own documentation](https://help.github.com/articles/using-pull-requests/).
 
-Anyone interested in type stubs may review your code.  One of the core
-developers will merge your pull request when they think it's ready.
+Anyone interested in type stubs may review your code.  One of the
+maintainers will merge your pull request when they think it's ready.
 For every pull request, we aim to promptly either merge it or say why
 it's not yet ready; if you go a few days without a reply, please feel
 free to ping the thread by adding a new comment.
@@ -77,7 +77,7 @@ you are changing.
 Also, do not squash your commits after you have submitted a pull request, as this
 erases context during review. We will squash commits when the pull request is merged.
 
-At present the core developers are (alphabetically):
+At present the maintainers are (alphabetically):
 * Aku Viljanen (@Akuli)
 * David Fisher (@ddfisher)
 * Łukasz Langa (@ambv)
@@ -92,7 +92,7 @@ At present the core developers are (alphabetically):
 * Jelle Zijlstra (@JelleZijlstra)
 
 NOTE: the process for preparing and submitting changes also applies to
-core developers.  This ensures high quality contributions and keeps
+maintainers.  This ensures high quality contributions and keeps
 everybody on the same page.  Avoid direct pushes to the repository.
 
 
