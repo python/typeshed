@@ -34,7 +34,7 @@ class Filterer(object):
 class Manager(object):
     root: RootLogger
     disable: int
-    loggerDict: dict
+    loggerDict: dict[str, Logger]
     def __init__(self, rootnode: RootLogger) -> None: ...
     def getLogger(self, name: str) -> None: ...
 
