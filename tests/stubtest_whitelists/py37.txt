@@ -45,7 +45,6 @@ macurl2path  # removed in 3.7
 multiprocessing.shared_memory
 nntplib._NNTPBase.starttls
 os.utime
-pyexpat.XMLParserType.ExternalEntityParserCreate
 queue.SimpleQueue.__init__
 random.Random.randrange  # missing undocumented arg _int
 random.randrange  # missing undocumented arg _int
