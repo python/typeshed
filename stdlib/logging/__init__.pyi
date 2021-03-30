@@ -45,8 +45,8 @@ class Logger(Filterer):
     propagate: bool
     handlers: list[Handler]
     disabled: int
-    root: RootLogger  # undocumented
-    manager: Manager  # undocumented
+    root: ClassVar[RootLogger]  # undocumented
+    manager: ClassVar[Manager]  # undocumented
     def __init__(self, name: str, level: _Level = ...) -> None: ...
     def setLevel(self, level: _Level) -> None: ...
     def isEnabledFor(self, level: int) -> bool: ...
