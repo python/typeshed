@@ -78,7 +78,7 @@ Also, do not squash your commits after you have submitted a pull request, as thi
 erases context during review. We will squash commits when the pull request is merged.
 
 At present the core developers are (alphabetically):
-* Akuli (@Akuli)
+* Aku Viljanen (@Akuli)
 * David Fisher (@ddfisher)
 * Łukasz Langa (@ambv)
 * Jukka Lehtosalo (@JukkaL)
