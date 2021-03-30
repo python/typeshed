@@ -78,7 +78,6 @@ Also, do not squash your commits after you have submitted a pull request, as thi
 erases context during review. We will squash commits when the pull request is merged.
 
 At present the maintainers are (alphabetically):
-* Aku Viljanen (@Akuli)
 * David Fisher (@ddfisher)
 * Łukasz Langa (@ambv)
 * Jukka Lehtosalo (@JukkaL)
@@ -89,6 +88,7 @@ At present the maintainers are (alphabetically):
 * Guido van Rossum (@gvanrossum)
 * Shantanu (@hauntsaninja)
 * Rune Tynan (@CraftSpider)
+* Aku Viljanen (@Akuli)
 * Jelle Zijlstra (@JelleZijlstra)
 
 NOTE: the process for preparing and submitting changes also applies to
