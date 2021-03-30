@@ -384,13 +384,13 @@ addressed.  We indicate this by editing the subject to add a ``[WIP]``
 prefix.  (This should be removed before committing the issue once
 unblocked!)
 
-### Core developer guidelines
+### Maintainer guidelines
 
-Core developers should follow these rules when processing pull requests:
+Maintainers should follow these rules when processing pull requests:
 
 * Always wait for tests to pass before merging PRs.
 * Use "[Squash and merge](https://github.com/blog/2141-squash-your-commits)" to merge PRs.
-* Delete branches for merged PRs (by core devs pushing to the main repo).
+* Delete branches for merged PRs (by maintainers pushing to the main repo).
 * Make sure commit messages to master are meaningful. For example, remove irrelevant
   intermediate commit messages.
 * If stubs for a new library are submitted, notify the library's maintainers.
