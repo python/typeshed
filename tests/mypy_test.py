@@ -16,7 +16,6 @@ import argparse
 import os
 import re
 import sys
-
 import toml
 
 PY2_NAMESPACE = "@python2"
