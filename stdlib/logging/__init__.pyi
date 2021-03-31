@@ -34,9 +34,14 @@ class Filterer(object):
 class Manager(object):
     root: RootLogger
     disable: int
+    emittedNoHandlerWarning: bool
     loggerDict: dict[str, Logger]
+    loggerClass: Optional[Logger]
+    logRecordFactory: Optional[LogRecord]
     def __init__(self, rootnode: RootLogger) -> None: ...
     def getLogger(self, name: str) -> None: ...
+    def setLoggerClass(self, klass: Logger) -> None: ...
+    def setLogRecordFactory(self, factory: LogRecord) -> None: ...
 
 class Logger(Filterer):
     name: str
