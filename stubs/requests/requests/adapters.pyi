@@ -2,7 +2,7 @@ from typing import Any, Container, Mapping, Optional, Text, Tuple, Union
 
 from . import cookies, exceptions, models, structures, utils
 from .packages.urllib3 import exceptions as urllib3_exceptions, poolmanager, response
-from .packages.urllib3.util import retry, Timeout as TimeoutSauce
+from .packages.urllib3.util import retry
 
 PreparedRequest = models.PreparedRequest
 Response = models.Response
@@ -32,7 +32,7 @@ RetryError = exceptions.RetryError
 DEFAULT_POOLBLOCK: bool
 DEFAULT_POOLSIZE: int
 DEFAULT_RETRIES: int
-DEFAULT_POOL_TIMEOUT: Optional[TimeoutSauce]
+DEFAULT_POOL_TIMEOUT: Optional[float]
 
 class BaseAdapter:
     def __init__(self) -> None: ...
