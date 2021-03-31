@@ -2,9 +2,9 @@ import sys
 from _typeshed import SupportsWrite
 from typing import Any, Callable, Iterable, Optional, Text, Tuple, TypeVar, Union
 
-from google.protobuf.descriptor import FieldDescriptor
-from google.protobuf.descriptor_pool import DescriptorPool
-from google.protobuf.message import Message
+from .descriptor import FieldDescriptor
+from .descriptor_pool import DescriptorPool
+from .message import Message
 
 if sys.version_info < (3, 0):
     long = int
