@@ -5,7 +5,7 @@ from collections.abc import Callable, Iterable, Mapping, MutableMapping, Sequenc
 from string import Template
 from time import struct_time
 from types import FrameType, TracebackType
-from typing import IO, Any, ClassVar, Optional, Type, Tuple, Union
+from typing import IO, Any, ClassVar, Optional, Tuple, Type, Union
 
 _SysExcInfoType = Union[Tuple[type, BaseException, Optional[TracebackType]], Tuple[None, None, None]]
 _ExcInfoType = Union[None, bool, _SysExcInfoType, BaseException]
