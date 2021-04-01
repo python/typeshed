@@ -125,7 +125,7 @@ class GzipFile(_compression.BaseStream):
         filename: Optional[AnyPath] = ...,
         mode: Union[_ReadBinaryMode, _WriteBinaryMode, None] = ...,
         compresslevel: int = ...,
-        fileobj: Optional[_Fileobj] = ...,
+        fileobj: Union[_ReadableFileobj, _WritableFileobj, None] = ...,
         mtime: Optional[float] = ...,
     ) -> None: ...
     @property
