@@ -1,15 +1,15 @@
 import sys
-from _typeshed import AnyPath
+from _typeshed import AnyPath, _T_contra
 from typing import Any, AnyStr, Optional, TypeVar
 from typing_extensions import Protocol
 
 if sys.version_info >= (3, 7):
     from py_compile import PycInvalidationMode
 
-_AnyStr_contra = TypeVar("_AnyStr_contra", str, bytes, contravariant=True)
+#_AnyStr_contra = TypeVar("_AnyStr_contra", str, bytes, contravariant=True)
 
-class _SupportsSearch(Protocol[_AnyStr_contra]):
-    def search(self, string: _AnyStr_contra) -> Any: ...
+class _SupportsSearch(Protocol[_T_contra]):
+    def search(self, string: _T_contra) -> Any: ...
 
 if sys.version_info >= (3, 9):
     def compile_dir(
