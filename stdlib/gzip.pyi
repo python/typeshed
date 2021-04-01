@@ -123,7 +123,7 @@ class GzipFile(_compression.BaseStream):
     def __init__(
         self,
         filename: Optional[AnyPath] = ...,
-        mode: Union[_ReadBinaryMode, _WriteBinaryMode, None] = ...,
+        mode: Optional[str] = ...,
         compresslevel: int = ...,
         fileobj: Union[_ReadableFileobj, _WritableFileobj, None] = ...,
         mtime: Optional[float] = ...,
