@@ -1,20 +1,6 @@
 import sys
 import typing
-from typing import (
-    Any,
-    Awaitable,
-    Callable,
-    Dict,
-    Generic,
-    Iterable,
-    Iterator,
-    Mapping,
-    Optional,
-    Tuple,
-    Type,
-    TypeVar,
-    overload,
-)
+from typing import Any, Awaitable, Callable, Dict, Generic, Iterable, Iterator, Mapping, Optional, Tuple, Type, TypeVar, overload
 from typing_extensions import Literal, final
 
 # ModuleType is exported from this module, but for circular import
