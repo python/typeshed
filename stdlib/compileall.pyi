@@ -1,15 +1,10 @@
 import sys
-from _typeshed import AnyPath, _T_contra
-from typing import Any, AnyStr, Optional, TypeVar
+from _typeshed import AnyPath, SupportsSearch
+from typing import Any, AnyStr, Optional
 from typing_extensions import Protocol
 
 if sys.version_info >= (3, 7):
     from py_compile import PycInvalidationMode
-
-#_AnyStr_contra = TypeVar("_AnyStr_contra", str, bytes, contravariant=True)
-
-class _SupportsSearch(Protocol[_T_contra]):
-    def search(self, string: _T_contra) -> Any: ...
 
 if sys.version_info >= (3, 9):
     def compile_dir(
@@ -17,7 +12,7 @@ if sys.version_info >= (3, 9):
         maxlevels: Optional[int] = ...,
         ddir: Optional[AnyPath] = ...,
         force: bool = ...,
-        rx: Optional[_SupportsSearch[AnyStr]] = ...,
+        rx: Optional[SupportsSearch[AnyStr]] = ...,
         quiet: int = ...,
         legacy: bool = ...,
         optimize: int = ...,
@@ -33,7 +28,7 @@ if sys.version_info >= (3, 9):
         fullname: AnyPath,
         ddir: Optional[AnyPath] = ...,
         force: bool = ...,
-        rx: Optional[_SupportsSearch[AnyStr]] = ...,
+        rx: Optional[SupportsSearch[AnyStr]] = ...,
         quiet: int = ...,
         legacy: bool = ...,
         optimize: int = ...,
@@ -51,7 +46,7 @@ elif sys.version_info >= (3, 7):
         maxlevels: int = ...,
         ddir: Optional[AnyPath] = ...,
         force: bool = ...,
-        rx: Optional[_SupportsSearch[AnyStr]] = ...,
+        rx: Optional[SupportsSearch[AnyStr]] = ...,
         quiet: int = ...,
         legacy: bool = ...,
         optimize: int = ...,
@@ -62,7 +57,7 @@ elif sys.version_info >= (3, 7):
         fullname: AnyPath,
         ddir: Optional[AnyPath] = ...,
         force: bool = ...,
-        rx: Optional[_SupportsSearch[AnyStr]] = ...,
+        rx: Optional[SupportsSearch[AnyStr]] = ...,
         quiet: int = ...,
         legacy: bool = ...,
         optimize: int = ...,
@@ -75,7 +70,7 @@ else:
         maxlevels: int = ...,
         ddir: Optional[AnyPath] = ...,
         force: bool = ...,
-        rx: Optional[_SupportsSearch[AnyStr]] = ...,
+        rx: Optional[SupportsSearch[AnyStr]] = ...,
         quiet: int = ...,
         legacy: bool = ...,
         optimize: int = ...,
@@ -85,7 +80,7 @@ else:
         fullname: AnyPath,
         ddir: Optional[AnyPath] = ...,
         force: bool = ...,
-        rx: Optional[_SupportsSearch[AnyStr]] = ...,
+        rx: Optional[SupportsSearch[AnyStr]] = ...,
         quiet: int = ...,
         legacy: bool = ...,
         optimize: int = ...,

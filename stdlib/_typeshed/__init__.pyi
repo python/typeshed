@@ -57,6 +57,9 @@ class SupportsItemAccess(SupportsGetItem[_KT_contra, _VT], Protocol[_KT_contra, 
     def __setitem__(self, __k: _KT_contra, __v: _VT) -> None: ...
     def __delitem__(self, __v: _KT_contra) -> None: ...
 
+class SupportsSearch(Protocol[_T_contra]):
+    def search(self, string: _T_contra) -> Any: ...
+
 # StrPath and AnyPath can be used in places where a
 # path can be used instead of a string, starting with Python 3.6.
 if sys.version_info >= (3, 6):
