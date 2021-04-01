@@ -334,6 +334,5 @@ if sys.version_info >= (3, 10):
     from builtins import _NotImplementedType
 
     NotImplementedType = _NotImplementedType  # noqa F811 from builtins
-
     class Union:
         __args__: Tuple[Any, ...]

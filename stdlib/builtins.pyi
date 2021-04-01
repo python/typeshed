@@ -1,6 +1,5 @@
-import types
-
 import sys
+import types
 from _typeshed import (
     AnyPath,
     OpenBinaryMode,
