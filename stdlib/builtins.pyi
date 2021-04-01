@@ -1,3 +1,5 @@
+import types
+
 import sys
 from _typeshed import (
     AnyPath,
@@ -157,7 +159,7 @@ class type(object):
     @classmethod
     def __prepare__(metacls, __name: str, __bases: Tuple[type, ...], **kwds: Any) -> Mapping[str, Any]: ...
     if sys.version_info >= (3, 10):
-        def __or__(self, t: Any) -> Any: ...
+        def __or__(self, t: Any) -> types.Union: ...
 
 class super(object):
     @overload
