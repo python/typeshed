@@ -1,6 +1,6 @@
 import sys
 from _typeshed import AnyPath, SupportsSearch
-from typing import Any, AnyStr, Optional
+from typing import AnyStr, Optional
 from typing_extensions import Protocol
 
 if sys.version_info >= (3, 7):
