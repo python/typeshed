@@ -119,11 +119,12 @@ def add_files(files, seen, root, name, args, exclude_list):
                         seen.add(mod)
                         files.append(fn)
 
+
 class MypyDistConf(NamedTuple):
     module_name: str
     values: Dict
 
-# The configuration section in the metadata file looks like the following, with multiple modules possible
+# The configuration section in the metadata file looks like the following, with multiple module sections possible
 # [mypy-tests]
 # [mypy-tests.yaml]
 # module_name = "yaml"
@@ -131,10 +132,11 @@ class MypyDistConf(NamedTuple):
 # disallow_incomplete_defs = true
 # disallow_untyped_defs = true
 
+
 def add_configuration(configurations, seen_dist_configs, distribution):
     if distribution in seen_dist_configs:
         return
-    
+
     with open(os.path.join(THIRD_PARTY_NAMESPACE, distribution, "METADATA.toml")) as f:
         data = dict(toml.loads(f.read()))
 
@@ -227,7 +229,7 @@ def main():
 
                 for dist_conf in configurations:
                     temp.write("[mypy-%s]\n" % dist_conf.module_name)
-                    for k,v in dist_conf.values.items():
+                    for k, v in dist_conf.values.items():
                         temp.write("{} = {}\n".format(k, v))
 
                 config_file_name = temp.name
