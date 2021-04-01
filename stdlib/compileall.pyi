@@ -1,6 +1,6 @@
 import sys
 from _typeshed import AnyPath
-from typing import Any, AnyStr, Optional, Pattern, TypeVar
+from typing import Any, AnyStr, Optional, TypeVar
 from typing_extensions import Protocol
 
 if sys.version_info >= (3, 7):
