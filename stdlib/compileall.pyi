@@ -1,6 +1,6 @@
 import sys
 from _typeshed import AnyPath, _T_contra
-from typing import Any, AnyStr, Generic, Optional, Protocol
+from typing import Any, AnyStr, Optional, Protocol
 
 if sys.version_info >= (3, 7):
     from py_compile import PycInvalidationMode
