@@ -13,7 +13,6 @@ asyncio.threads  # Added in Python 3.9
 asyncio.trsock  # Added in Python 3.8
 builtins.str.maketrans
 cmath.log
-codecs.StreamRecoder.seek
 collections.AsyncGenerator.ag_await
 collections.AsyncGenerator.ag_code
 collections.AsyncGenerator.ag_frame

@@ -85,21 +85,13 @@ bz2.BZ2File.writelines
 cgi.FieldStorage.__init__
 cgi.parse
 cgi.parse_multipart
-codecs.BufferedIncrementalDecoder.decode
+# The following CodecInfo properties are added in __new__
 codecs.CodecInfo.decode
 codecs.CodecInfo.encode
 codecs.CodecInfo.incrementaldecoder
 codecs.CodecInfo.incrementalencoder
 codecs.CodecInfo.streamreader
 codecs.CodecInfo.streamwriter
-codecs.IncrementalEncoder.encode
-codecs.StreamReader.__getattr__
-codecs.StreamReader.readline
-codecs.StreamReader.readlines
-codecs.StreamWriter.__getattr__
-codecs.StreamWriter.write
-codecs.utf_16_be_decode
-codecs.utf_16_be_encode
 collections.Callable
 collections.ChainMap.get
 collections.ChainMap.maps
