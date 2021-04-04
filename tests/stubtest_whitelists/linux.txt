@@ -5,6 +5,7 @@ curses.COLORS
 curses.COLOR_PAIRS
 curses.COLS
 curses.LINES
+distutils.command.bdist_msi
 grp.getgrgid
 grp.struct_group._asdict
 grp.struct_group._make

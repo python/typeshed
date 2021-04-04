@@ -1,7 +1,7 @@
 from typing import Any, Callable, Iterable, List, Optional, Pattern, Union, overload
 from typing_extensions import Literal
 
-## class is entirely undocumented
+# class is entirely undocumented
 class FileList:
     allfiles: Optional[Iterable[str]] = ...
     files: List[str] = ...
@@ -45,7 +45,7 @@ class FileList:
         pattern: str,
         anchor: Union[int, bool] = ...,
         prefix: Optional[str] = ...,
-    ): ...
+    ) -> bool: ...
     @overload
     def exclude_pattern(
         self,
@@ -53,7 +53,7 @@ class FileList:
         anchor: Union[int, bool] = ...,
         prefix: Optional[str] = ...,
         is_regex: Literal[0, False] = ...,
-    ): ...
+    ) -> bool: ...
     @overload
     def exclude_pattern(
         self,
@@ -61,7 +61,7 @@ class FileList:
         anchor: Union[int, bool] = ...,
         prefix: Optional[str] = ...,
         is_regex: Union[int, bool] = ...,
-    ): ...
+    ) -> bool: ...
 
 def findall(dir: str = ...) -> List[str]: ...
 def glob_to_re(pattern: str) -> str: ...
