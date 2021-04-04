@@ -20,13 +20,6 @@ class FileList:
         pattern: str,
         anchor: Union[int, bool] = ...,
         prefix: Optional[str] = ...,
-    ) -> bool: ...
-    @overload
-    def include_pattern(
-        self,
-        pattern: str,
-        anchor: Union[int, bool] = ...,
-        prefix: Optional[str] = ...,
         is_regex: Literal[0, False] = ...,
     ) -> bool: ...
     @overload
@@ -38,13 +31,6 @@ class FileList:
         anchor: Union[int, bool] = ...,
         prefix: Optional[str] = ...,
         is_regex: Union[int, bool] = ...,
-    ) -> bool: ...
-    @overload
-    def exclude_pattern(
-        self,
-        pattern: str,
-        anchor: Union[int, bool] = ...,
-        prefix: Optional[str] = ...,
     ) -> bool: ...
     @overload
     def exclude_pattern(
@@ -67,8 +53,6 @@ class FileList:
 
 def findall(dir: str = ...) -> List[str]: ...
 def glob_to_re(pattern: str) -> str: ...
-@overload
-def translate_pattern(pattern: str, anchor: Union[int, bool] = ..., prefix: Optional[str] = ...) -> Pattern[str]: ...
 @overload
 def translate_pattern(
     pattern: str, anchor: Union[int, bool] = ..., prefix: Optional[str] = ..., is_regex: Literal[False, 0] = ...
