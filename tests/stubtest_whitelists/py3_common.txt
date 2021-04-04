@@ -204,6 +204,7 @@ http.cookies.Morsel.update
 http.server.HTTPServer.__init__
 imaplib.IMAP4_SSL.ssl
 importlib.abc.FileLoader.get_filename  # Wrapped with _check_name decorator which changes runtime signature
+importlib.abc.FileLoader.load_module  # Wrapped with _check_name decorator which changes runtime signature
 importlib.abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatability
 importlib.abc.MetaPathFinder.find_spec  # Not defined on the actual class, but expected to exist.
 importlib.abc.PathEntryFinder.find_spec  # Not defined on the actual class, but expected to exist.
