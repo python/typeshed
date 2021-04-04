@@ -1,4 +1,4 @@
-from typing import Any, Callable, Iterable, List, Optional, Pattern, Union, overload
+from typing import Callable, Iterable, List, Optional, Pattern, Union, overload
 from typing_extensions import Literal
 
 # class is entirely undocumented
