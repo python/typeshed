@@ -139,19 +139,10 @@ ctypes.pointer
 ctypes.string_at
 ctypes.wstring_at
 dbm.error
-difflib.SequenceMatcher.__init__
-distutils.archive_util.make_archive
-distutils.archive_util.make_tarball
-distutils.command.bdist_packager
-distutils.core.Extension.__init__
-distutils.debug.DEBUG
-distutils.extension.Extension.__init__
-distutils.fancy_getopt.OptionDummy.__init__
-distutils.filelist.FileList.__init__
-distutils.sysconfig.set_python_build
-distutils.text_file.TextFile.warn
-distutils.version.Version._cmp
-distutils.version.Version.parse
+difflib.SequenceMatcher.__init__  # mypy default value for generic parameter issues. See https://github.com/python/mypy/issues/3737
+distutils.command.bdist_packager  # It exists in docs as package name but not in code except as a mention in a comment.
+distutils.version.Version._cmp  # class should have declared this
+distutils.version.Version.parse  # class should have declared this
 email.errors.MessageDefect.__init__
 email.generator.BytesGenerator.__init__
 email.generator.DecodedGenerator.__init__
