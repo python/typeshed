@@ -192,22 +192,12 @@ http.cookies.Morsel.setdefault
 http.cookies.Morsel.update
 http.server.HTTPServer.__init__
 imaplib.IMAP4_SSL.ssl
-importlib.abc.FileLoader.get_filename
-importlib.abc.Loader.exec_module
-importlib.abc.MetaPathFinder.find_spec
-importlib.abc.PathEntryFinder.find_spec
-importlib.machinery.BuiltinImporter.find_module
-importlib.machinery.BuiltinImporter.find_spec
-importlib.machinery.ExtensionFileLoader.__init__
-importlib.machinery.ExtensionFileLoader.get_filename
-importlib.machinery.FrozenImporter.find_module
-importlib.machinery.FrozenImporter.find_spec
-importlib.machinery.FrozenImporter.module_repr
-importlib.machinery.SourceFileLoader.set_data
-importlib.machinery.WindowsRegistryFinder.find_module
-importlib.machinery.WindowsRegistryFinder.find_spec
-importlib.util.spec_from_file_location
-importlib.util.spec_from_loader
+importlib.abc.FileLoader.get_filename  # Wrapped with _check_name decorator which changes runtime signature
+importlib.abc.FileLoader.load_module  # Wrapped with _check_name decorator which changes runtime signature
+importlib.abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatability
+importlib.abc.MetaPathFinder.find_spec  # Not defined on the actual class, but expected to exist.
+importlib.abc.PathEntryFinder.find_spec  # Not defined on the actual class, but expected to exist.
+importlib.machinery.ExtensionFileLoader.get_filename  # Wrapped with _check_name decorator which changes runtime signature
 inspect.Parameter.KEYWORD_ONLY
 inspect.Parameter.POSITIONAL_ONLY
 inspect.Parameter.POSITIONAL_OR_KEYWORD
