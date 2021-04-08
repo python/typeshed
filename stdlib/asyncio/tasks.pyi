@@ -1,22 +1,8 @@
 import concurrent.futures
 import sys
+from collections.abc import Awaitable, Coroutine, Generator, Iterable, Iterator
 from types import FrameType
-from typing import (
-    Any,
-    Awaitable,
-    Generator,
-    Generic,
-    Iterable,
-    Iterator,
-    List,
-    Optional,
-    Set,
-    TextIO,
-    Tuple,
-    TypeVar,
-    Union,
-    overload,
-)
+from typing import Any, Generic, List, Optional, Set, TextIO, Tuple, TypeVar, Union, overload
 from typing_extensions import Literal
 
 from .events import AbstractEventLoop
@@ -31,6 +17,7 @@ _T2 = TypeVar("_T2")
 _T3 = TypeVar("_T3")
 _T4 = TypeVar("_T4")
 _T5 = TypeVar("_T5")
+_FT = TypeVar("_FT", bound=Future[Any])
 _FutureT = Union[Future[_T], Generator[Any, None, _T], Awaitable[_T]]
 _TaskYieldType = Optional[Future[object]]
 
@@ -41,7 +28,12 @@ ALL_COMPLETED: str
 def as_completed(
     fs: Iterable[_FutureT[_T]], *, loop: Optional[AbstractEventLoop] = ..., timeout: Optional[float] = ...
 ) -> Iterator[Future[_T]]: ...
-def ensure_future(coro_or_future: _FutureT[_T], *, loop: Optional[AbstractEventLoop] = ...) -> Future[_T]: ...
+@overload
+def ensure_future(coro_or_future: _FT, *, loop: Optional[AbstractEventLoop] = ...) -> _FT: ...  # type: ignore
+@overload
+def ensure_future(coro_or_future: Coroutine[Any, Any, _T], *, loop: Optional[AbstractEventLoop] = ...) -> Task[_T]: ...
+@overload
+def ensure_future(coro_or_future: Awaitable[_T], *, loop: Optional[AbstractEventLoop] = ...) -> Task[_T]: ...
 
 # Prior to Python 3.7 'async' was an alias for 'ensure_future'.
 # It became a keyword in 3.7.
