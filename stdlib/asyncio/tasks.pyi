@@ -1,6 +1,6 @@
 import concurrent.futures
 import sys
-from collections.abc import Awaitable, Coroutine, Generator, Iterable, Iterator
+from collections.abc import Awaitable, Generator, Iterable, Iterator
 from types import FrameType
 from typing import Any, Generic, List, Optional, Set, TextIO, Tuple, TypeVar, Union, overload
 from typing_extensions import Literal
