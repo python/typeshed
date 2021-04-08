@@ -21,7 +21,8 @@ from typing import (
     Union,
     overload,
 )
-from typing_extensions import Literal, TypedDict
+
+from typing_extensions import Literal, TypedDict, NewType
 
 # Using anything from tkinter.font in this file means that 'import tkinter'
 # seems to also load tkinter.font. That's not how it actually works, but
@@ -123,6 +124,8 @@ _Relief = Literal["raised", "sunken", "flat", "ridge", "solid", "groove"]  # man
 _ScreenUnits = Union[str, float]  # manual page: Tk_GetPixels
 _XYScrollCommand = Union[str, Callable[[float, float], Any]]  # -xscrollcommand and -yscrollcommand in 'options' manual page
 _TakeFocusValue = Union[int, Literal[""], Callable[[str], Optional[bool]]]  # -takefocus in manual page named 'options'
+
+_ObjectId = NewType("ObjectId", int)
 
 class EventType(str, Enum):
     Activate: str = ...
@@ -1112,17 +1115,137 @@ class Canvas(Widget, XView, YView):
     def canvasx(self, screenx, gridspacing: Optional[Any] = ...): ...
     def canvasy(self, screeny, gridspacing: Optional[Any] = ...): ...
     def coords(self, *args): ...
-    def create_arc(self, *args, **kw): ...
-    def create_bitmap(self, *args, **kw): ...
-    def create_image(self, *args, **kw): ...
-    def create_line(self, *args, **kw): ...
-    def create_oval(self, *args, **kw): ...
-    def create_polygon(self, *args, **kw): ...
-    def create_rectangle(self, *args, **kw): ...
-    def create_text(self, *args, **kw): ...
-    def create_window(self, *args, **kw): ...
+    def create_arc(self, *args, **kw) -> _ObjectId: ...
+    def create_bitmap(self, *args, **kw) -> _ObjectId: ...
+    def create_image(self, *args, **kw) -> _ObjectId: ...
+    def create_line(self, x0: int, y0: int, x1: int, y1: int, /,
+        activedash: _Color = ...,
+        activefill: _Color = ...,
+        activestipple: str = ...,
+        activewidth: Union[int, str] = ...,
+        arrow: Literal["first", "last", "both"] = ...,
+        arrowshape: Tuple[int, int, int] = ...,
+        capstyle: Literal["round", "projecting", "butt"] = ...,
+        dash: Union[Tuple[int], Tuple[int, int], Tuple[int, int, int, int]] = ...,
+        dashoffset: Union[int, str] = ...,
+        disableddash: _Color = ...,
+        disabledfill: _Color = ...,
+        disabledstipple: _Bitmap = ...,
+        disabledwidth: Union[int, str]  = ...,
+        fill: _Color = ...,
+        joinstyle: Literal["round", "bevel", "miter"] = ...,
+        offset: Union[int, str]  = ...,
+        smooth: Literal[0, 1] = ...,
+        splinesteps: int = ...,
+        state: Literal["normal", "active", "disabled"] = ...,
+        stipple: _Bitmap = ...,
+        tags: Union[str, Tuple[str, ...]] = ...,
+        width: Union[int, str]  = ...,
+    ) -> _ObjectId: ...
+    def create_oval(self, x0: int, y0: int, x1: int, y1: int, /,
+        activedash: _Color = ...,
+        activefill: _Color = ...,
+        activeoutline: _Color = ...,
+        activeoutlinestipple: _Color = ...,
+        activestipple: str = ...,
+        activewidth: Union[int, str] = ...,
+        dash: Union[Tuple[int], Tuple[int, int], Tuple[int, int, int, int]] = ...,
+        dashoffset: Union[int, str] = ...,
+        disableddash: _Color = ...,
+        disabledfill: _Color = ...,
+        disabledoutline: _Color = ...,
+        disabledoutlinestipple: _Color = ...,
+        disabledstipple: _Bitmap = ...,
+        disabledwidth: Union[int, str]  = ...,
+        fill: _Color = ...,
+        offset: Union[int, str]  = ...,
+        outline: _Color = ...,
+        outlineoffset: Union[int, str]  = ...,
+        outlinestipple: _Bitmap = ...,
+        state: Literal["normal", "active", "disabled"] = ...,
+        stipple: _Bitmap = ...,
+        tags: Union[str, Tuple[str, ...]] = ...,
+        width: Union[int, str]  = ...,
+    ) -> _ObjectId: ...
+    def create_polygon(self, x0: int, y0: int, x1: int, y1: int, *args: int, /,
+        activedash: _Color = ...,
+        activefill: _Color = ...,
+        activeoutline: _Color = ...,
+        activeoutlinestipple: _Color = ...,
+        activestipple: str = ...,
+        activewidth: Union[int, str] = ...,
+        dash: Union[Tuple[int], Tuple[int, int], Tuple[int, int, int, int]] = ...,
+        dashoffset: Union[int, str] = ...,
+        disableddash: _Color = ...,
+        disabledfill: _Color = ...,
+        disabledoutline: _Color = ...,
+        disabledoutlinestipple: _Color = ...,
+        disabledstipple: _Bitmap = ...,
+        disabledwidth: Union[int, str]  = ...,
+        fill: _Color = ...,
+        joinstyle: Literal["round", "bevel", "miter"] = ...,
+        offset: Union[int, str]  = ...,
+        outline: _Color = ...,
+        outlineoffset: Union[int, str]  = ...,
+        outlinestipple: _Bitmap = ...,
+        smooth: Literal[0, 1] = ...,
+        splinesteps: int = ...,
+        state: Literal["normal", "active", "disabled"] = ...,
+        stipple: _Bitmap = ...,
+        tags: Union[str, Tuple[str, ...]] = ...,
+        width: Union[int, str]  = ...,
+    ) -> _ObjectId: ...
+    def create_rectangle(self, x0: int, y0: int, x1: int, y1: int, /,
+        activedash: _Color = ...,
+        activefill: _Color = ...,
+        activeoutline: _Color = ...,
+        activeoutlinestipple: _Color = ...,
+        activestipple: str = ...,
+        activewidth: Union[int, str] = ...,
+        dash: Union[Tuple[int], Tuple[int, int], Tuple[int, int, int, int]] = ...,
+        dashoffset: Union[int, str] = ...,
+        disableddash: _Color = ...,
+        disabledfill: _Color = ...,
+        disabledoutline: _Color = ...,
+        disabledoutlinestipple: _Color = ...,
+        disabledstipple: _Bitmap = ...,
+        disabledwidth: Union[int, str]  = ...,
+        fill: _Color = ...,
+        offset: Union[int, str]  = ...,
+        outline: _Color = ...,
+        outlineoffset: Union[int, str]  = ...,
+        outlinestipple: _Bitmap = ...,
+        state: Literal["normal", "active", "disabled"] = ...,
+        stipple: _Bitmap = ...,
+        tags: Union[str, Tuple[str, ...]] = ...,
+        width: Union[int, str]  = ...,
+    ) -> _ObjectId: ...
+    def create_text(self, x: int, y: int, /
+        activefill: _Color = ...,
+        activestipple: str = ...,
+        anchor: _Anchor = ...,
+        disabledfill: _Color = ...,
+        disabledstipple: _Bitmap = ...,
+        fill: _Color = ...,
+        font: _FontDescription = ...,
+        justify: Literal["left", "center", "right"] = ...,
+        offset: Union[int, str]  = ...,
+        state: Literal["normal", "active", "disabled"] = ...,
+        stipple: _Bitmap = ...,
+        tags: Union[str, Tuple[str, ...]] = ...,
+        text: str = ...,
+        width: Union[int, str]  = ...,
+    ) -> _ObjectId: ...
+    def create_window(self, x: int, y: int, /,
+        anchor: _Anchor = ...,
+        height: Union[int, str] = ...,
+        state: Literal["normal", "active", "disabled"] = ...,
+        tags: Union[str, Tuple[str, ...]] = ...,
+        width: Union[int, str]  = ...,
+        window: Widget = ...,
+    ) -> _ObjectId: ...
     def dchars(self, *args): ...
-    def delete(self, *args): ...
+    def delete(self, *args: Union[_ObjectId, typing.Iterable[_ObjectId]]) -> None: ...
     def dtag(self, *args): ...
     def find(self, *args): ...
     def find_above(self, tagOrId): ...
