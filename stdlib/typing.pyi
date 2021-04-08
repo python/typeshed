@@ -207,7 +207,7 @@ class Generator(Iterator[_T_co], Generic[_T_co, _T_contra, _V_co]):
 @runtime_checkable
 class Awaitable(Protocol[_T_co]):
     @abstractmethod
-    def __await__(self) -> Generator[Any, None, _T_co]: ...
+    def __await__(self) -> Iterator[Any, None, _T_co]: ...
 
 class Coroutine(Awaitable[_V_co], Generic[_T_co, _T_contra, _V_co]):
     __name__: str
