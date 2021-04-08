@@ -31,8 +31,6 @@ def as_completed(
 @overload
 def ensure_future(coro_or_future: _FT, *, loop: Optional[AbstractEventLoop] = ...) -> _FT: ...  # type: ignore
 @overload
-def ensure_future(coro_or_future: Coroutine[Any, Any, _T], *, loop: Optional[AbstractEventLoop] = ...) -> Task[_T]: ...
-@overload
 def ensure_future(coro_or_future: Awaitable[_T], *, loop: Optional[AbstractEventLoop] = ...) -> Task[_T]: ...
 
 # Prior to Python 3.7 'async' was an alias for 'ensure_future'.
