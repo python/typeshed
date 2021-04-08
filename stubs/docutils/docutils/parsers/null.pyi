@@ -1,3 +1,6 @@
-from typing import Any
+from typing import ClassVar
 
-def __getattr__(name: str) -> Any: ...  # incomplete
+from .. import parsers
+
+class Parser(parsers.Parser):
+    config_section_dependencies: ClassVar[tuple[str, ...]]

@@ -29,7 +29,7 @@ class SettingsSpec:
     settings_default_overrides: ClassVar[Optional[dict[Any, Any]]]
     relative_path_settings: ClassVar[tuple[Any, ...]]
     config_section: ClassVar[Optional[str]]
-    config_section_dependencies: ClassVar[Optional[list[str]]]
+    config_section_dependencies: ClassVar[Optional[tuple[str, ...]]]
 
 class TransformSpec:
     def get_transforms(self) -> list[Any]: ...
