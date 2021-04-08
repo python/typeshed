@@ -63,7 +63,7 @@ class Session(SessionRedirectMixin):
     auth: Union[None, Tuple[Text, Text], _auth.AuthBase, Callable[[PreparedRequest], PreparedRequest]]
     proxies: MutableMapping[Text, Text]
     hooks: _Hooks
-    params: Union[bytes, MutableMapping[Text, Text]]
+    params: _Params
     stream: bool
     verify: Union[None, bool, Text]
     cert: Union[None, Text, Tuple[Text, Text]]

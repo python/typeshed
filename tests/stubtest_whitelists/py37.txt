@@ -27,6 +27,7 @@ concurrent.futures.ProcessPoolExecutor.map
 contextvars.Context.__init__
 contextvars.Context.get
 contextvars.ContextVar.get
+contextlib.nullcontext  # not a function at runtime
 copy.PyStringMap
 ctypes.CDLL.__init__
 dataclasses.field
@@ -36,7 +37,7 @@ fractions.Fraction.__new__  # overload is too complicated for stubtest to resolv
 hmac.HMAC.__init__
 http.client.HTTPSConnection.__init__
 http.server.SimpleHTTPRequestHandler.__init__
-importlib.metadata
+importlib.metadata  # Added in 3.8
 ipaddress._BaseNetwork.__init__
 itertools.accumulate
 json.loads
