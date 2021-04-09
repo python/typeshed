@@ -67,8 +67,6 @@ http.client.HTTPSConnection.__init__
 http.cookiejar.DefaultCookiePolicy.__init__
 http.server.SimpleHTTPRequestHandler.__init__
 importlib.abc.Traversable.__init__  # Inherits __init__ from typing.Protocol
-importlib.metadata.DistributionFinder.Context.pattern
-importlib.metadata.EntryPointBase
 ipaddress.IPv4Interface.hostmask
 ipaddress.IPv6Interface.hostmask
 ipaddress._BaseNetwork.broadcast_address

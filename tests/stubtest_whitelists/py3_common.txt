@@ -85,21 +85,13 @@ bz2.BZ2File.writelines
 cgi.FieldStorage.__init__
 cgi.parse
 cgi.parse_multipart
-codecs.BufferedIncrementalDecoder.decode
+# The following CodecInfo properties are added in __new__
 codecs.CodecInfo.decode
 codecs.CodecInfo.encode
 codecs.CodecInfo.incrementaldecoder
 codecs.CodecInfo.incrementalencoder
 codecs.CodecInfo.streamreader
 codecs.CodecInfo.streamwriter
-codecs.IncrementalEncoder.encode
-codecs.StreamReader.__getattr__
-codecs.StreamReader.readline
-codecs.StreamReader.readlines
-codecs.StreamWriter.__getattr__
-codecs.StreamWriter.write
-codecs.utf_16_be_decode
-codecs.utf_16_be_encode
 collections.Callable
 collections.ChainMap.get
 collections.ChainMap.maps
@@ -147,19 +139,10 @@ ctypes.pointer
 ctypes.string_at
 ctypes.wstring_at
 dbm.error
-difflib.SequenceMatcher.__init__
-distutils.archive_util.make_archive
-distutils.archive_util.make_tarball
-distutils.command.bdist_packager
-distutils.core.Extension.__init__
-distutils.debug.DEBUG
-distutils.extension.Extension.__init__
-distutils.fancy_getopt.OptionDummy.__init__
-distutils.filelist.FileList.__init__
-distutils.sysconfig.set_python_build
-distutils.text_file.TextFile.warn
-distutils.version.Version._cmp
-distutils.version.Version.parse
+difflib.SequenceMatcher.__init__  # mypy default value for generic parameter issues. See https://github.com/python/mypy/issues/3737
+distutils.command.bdist_packager  # It exists in docs as package name but not in code except as a mention in a comment.
+distutils.version.Version._cmp  # class should have declared this
+distutils.version.Version.parse  # class should have declared this
 email.errors.MessageDefect.__init__
 email.generator.BytesGenerator.__init__
 email.generator.DecodedGenerator.__init__
@@ -209,22 +192,12 @@ http.cookies.Morsel.setdefault
 http.cookies.Morsel.update
 http.server.HTTPServer.__init__
 imaplib.IMAP4_SSL.ssl
-importlib.abc.FileLoader.get_filename
-importlib.abc.Loader.exec_module
-importlib.abc.MetaPathFinder.find_spec
-importlib.abc.PathEntryFinder.find_spec
-importlib.machinery.BuiltinImporter.find_module
-importlib.machinery.BuiltinImporter.find_spec
-importlib.machinery.ExtensionFileLoader.__init__
-importlib.machinery.ExtensionFileLoader.get_filename
-importlib.machinery.FrozenImporter.find_module
-importlib.machinery.FrozenImporter.find_spec
-importlib.machinery.FrozenImporter.module_repr
-importlib.machinery.SourceFileLoader.set_data
-importlib.machinery.WindowsRegistryFinder.find_module
-importlib.machinery.WindowsRegistryFinder.find_spec
-importlib.util.spec_from_file_location
-importlib.util.spec_from_loader
+importlib.abc.FileLoader.get_filename  # Wrapped with _check_name decorator which changes runtime signature
+importlib.abc.FileLoader.load_module  # Wrapped with _check_name decorator which changes runtime signature
+importlib.abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatability
+importlib.abc.MetaPathFinder.find_spec  # Not defined on the actual class, but expected to exist.
+importlib.abc.PathEntryFinder.find_spec  # Not defined on the actual class, but expected to exist.
+importlib.machinery.ExtensionFileLoader.get_filename  # Wrapped with _check_name decorator which changes runtime signature
 inspect.Parameter.KEYWORD_ONLY
 inspect.Parameter.POSITIONAL_ONLY
 inspect.Parameter.POSITIONAL_OR_KEYWORD
