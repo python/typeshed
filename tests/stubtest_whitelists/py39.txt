@@ -130,8 +130,8 @@ typing._TypedDict.values
 unittest.doModuleCleanups
 weakref.WeakValueDictionary.update
 webbrowser.Opera.raise_opts
-xml.etree.ElementTree.XMLParser.__init__
-xml.etree.cElementTree.XMLParser.__init__
+xml.etree.ElementTree.XMLParser.__init__  # Defined in C so has general signature
+xml.etree.cElementTree.XMLParser.__init__  # Defined in C so has general signature
 
 # positional-only complaints
 builtins.bytearray.pop
