@@ -53,7 +53,7 @@ class Session(SessionRedirectMixin):
     auth: Union[None, Tuple[Text, Text], _auth.AuthBase, Callable[[PreparedRequest], PreparedRequest]]
     proxies: MutableMapping[Text, Text]
     hooks: _Hooks
-    params: Union[bytes, MutableMapping[Text, Text]]
+    params: Union[bytes, MutableMapping[Text, Union[Text, List[Text]]]]
     stream: bool
     verify: Union[None, bool, Text]
     cert: Union[None, Text, Tuple[Text, Text]]
@@ -70,7 +70,7 @@ class Session(SessionRedirectMixin):
         self,
         method: str,
         url: Union[str, bytes, Text],
-        params: Union[None, bytes, MutableMapping[Text, Text]] = ...,
+        params: Union[None, bytes, MutableMapping[Text, Union[Text, List[Text]]]] = ...,
         data: _Data = ...,
         headers: Optional[MutableMapping[Text, Text]] = ...,
         cookies: Union[None, RequestsCookieJar, MutableMapping[Text, Text]] = ...,

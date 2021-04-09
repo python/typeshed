@@ -13,7 +13,6 @@ asyncio.threads  # Added in Python 3.9
 asyncio.trsock  # Added in Python 3.8
 builtins.str.maketrans
 cmath.log
-codecs.StreamRecoder.seek
 collections.AsyncGenerator.ag_await
 collections.AsyncGenerator.ag_code
 collections.AsyncGenerator.ag_frame
@@ -26,8 +25,8 @@ email.message.MIMEPart.as_string
 enum.Enum._generate_next_value_
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 hmac.HMAC.__init__
-importlib.metadata
-importlib.resources
+importlib.metadata  # Added in 3.8
+importlib.resources  # Added in 3.7
 io.StringIO.readline
 ipaddress._BaseNetwork.__init__
 itertools.accumulate

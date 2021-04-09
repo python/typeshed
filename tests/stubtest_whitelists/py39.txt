@@ -45,10 +45,10 @@ collections.abc.AsyncGenerator.ag_running
 collections.abc.ItemsView.__reversed__
 collections.abc.KeysView.__reversed__
 collections.abc.ValuesView.__reversed__
+contextlib.nullcontext  # not a function at runtime
 contextvars.Context.__init__
 contextvars.Context.get
 copy.PyStringMap
-# This was changed in Python 3.9.2.
 curses.color_pair
 dataclasses.field
 dataclasses.InitVar.__class_getitem__  # stubtest bug. doesn't do the right thing with overload + implicit classmethod __class_getitem__
@@ -67,8 +67,6 @@ http.client.HTTPSConnection.__init__
 http.cookiejar.DefaultCookiePolicy.__init__
 http.server.SimpleHTTPRequestHandler.__init__
 importlib.abc.Traversable.__init__  # Inherits __init__ from typing.Protocol
-importlib.metadata.DistributionFinder.Context.pattern
-importlib.metadata.EntryPointBase
 ipaddress.IPv4Interface.hostmask
 ipaddress.IPv6Interface.hostmask
 ipaddress._BaseNetwork.broadcast_address
