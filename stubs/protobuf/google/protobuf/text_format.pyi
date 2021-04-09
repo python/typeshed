@@ -1,6 +1,6 @@
 import sys
 from _typeshed import SupportsWrite
-from typing import Any, Callable, Iterable, Optional, Text, Tuple, TypeVar, Union
+from typing import Any, Callable, Iterable, Optional, Text, Tuple, TypeVar
 
 from .descriptor import FieldDescriptor
 from .descriptor_pool import DescriptorPool
@@ -20,10 +20,7 @@ class ParseError(Error):
 
 class TextWriter:
     def __init__(self, as_utf8: bool) -> None: ...
-    if sys.version_info < (3, 0):
-        def write(self, val: Union[Text, bytes]) -> int: ...
-    else:
-        def write(self, val: str) -> int: ...
+    def write(self, val: Text) -> int: ...
     def getvalue(self) -> str: ...
     def close(self) -> None: ...
 
@@ -45,7 +42,22 @@ def MessageToString(
     print_unknown_fields: bool = ...,
     force_colon: bool = ...,
 ) -> str: ...
-def MessageToBytes(message: Message, **kwargs: Any) -> bytes: ...
+def MessageToBytes(
+    message: Message,
+    as_utf8: bool = ...,
+    as_one_line: bool = ...,
+    use_short_repeated_primitives: bool = ...,
+    pointy_brackets: bool = ...,
+    use_index_order: bool = ...,
+    float_format: Optional[str] = ...,
+    double_format: Optional[str] = ...,
+    use_field_number: bool = ...,
+    descriptor_pool: Optional[DescriptorPool] = ...,
+    indent: int = ...,
+    message_formatter: _MessageFormatter = ...,
+    print_unknown_fields: bool = ...,
+    force_colon: bool = ...,
+) -> bytes: ...
 def PrintMessage(
     message: Message,
     out: SupportsWrite[str],
