@@ -1,10 +1,10 @@
-from typing import Any, ClassVar, Optional
+from typing import Any, ClassVar, Optional, Tuple
 from typing_extensions import Literal
 
 from docutils import parsers
 
 class Parser(parsers.Parser):
-    config_section_dependencies: ClassVar[tuple[str, ...]]
+    config_section_dependencies: ClassVar[Tuple[str, ...]]
     initial_state: Literal["Body", "RFC2822Body"]
     state_classes: Any
     inliner: Any
