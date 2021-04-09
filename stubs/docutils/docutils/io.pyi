@@ -1,7 +1,7 @@
 from typing import Any, ClassVar, Optional, Union
 from typing_extensions import Literal
 
-from . import TransformSpec
+from docutils import TransformSpec
 
 __docformat__: str
 
