@@ -366,6 +366,16 @@ class Redis(Generic[_StrType]):
         timeout: Optional[float] = ...,
         sleep: float = ...,
         blocking_timeout: Optional[float] = ...,
+        lock_class: None = ...,
+        thread_local: bool = ...,
+    ) -> Lock: ...
+    @overload
+    def lock(
+        self,
+        name: _Key,
+        timeout: Optional[float] = ...,
+        sleep: float = ...,
+        blocking_timeout: Optional[float] = ...,
         lock_class: Type[Lock] = ...,
         thread_local: bool = ...,
     ) -> Lock: ...
