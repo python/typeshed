@@ -38,7 +38,7 @@ def MessageToString(
     use_field_number: bool = ...,
     descriptor_pool: Optional[DescriptorPool] = ...,
     indent: int = ...,
-    message_formatter: _MessageFormatter = ...,
+    message_formatter: Optional[_MessageFormatter] = ...,
     print_unknown_fields: bool = ...,
     force_colon: bool = ...,
 ) -> str: ...
