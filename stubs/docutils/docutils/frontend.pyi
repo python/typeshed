@@ -2,8 +2,8 @@ import optparse
 from configparser import RawConfigParser
 from typing import Any, ClassVar, Optional
 
-from . import SettingsSpec
-from .utils import DependencyList
+from docutils import SettingsSpec
+from docutils.utils import DependencyList
 
 __docformat__: str
 

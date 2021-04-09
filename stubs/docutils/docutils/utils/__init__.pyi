@@ -1,7 +1,7 @@
 from collections.abc import Iterable
 from typing import Any, Optional
 
-from ..io import FileOutput
+from docutils.io import FileOutput
 
 class DependencyList:
     list: list[str]

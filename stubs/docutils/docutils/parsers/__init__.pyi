@@ -1,6 +1,6 @@
 from typing import Any, ClassVar
 
-from .. import Component
+from docutils import Component
 
 class Parser(Component):
     component_type: ClassVar[str]

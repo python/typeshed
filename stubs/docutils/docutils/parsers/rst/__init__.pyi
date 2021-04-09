@@ -1,7 +1,7 @@
 from typing import Any, ClassVar, Optional
 from typing_extensions import Literal
 
-from ... import parsers
+from docutils import parsers
 
 class Parser(parsers.Parser):
     config_section_dependencies: ClassVar[tuple[str, ...]]
