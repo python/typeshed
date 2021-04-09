@@ -366,7 +366,7 @@ class Redis(Generic[_StrType]):
         timeout: Optional[float] = ...,
         sleep: float = ...,
         blocking_timeout: Optional[float] = ...,
-        lock_class: Optional[Type[Lock]] = ...,
+        lock_class: Type[Lock] = ...,
         thread_local: bool = ...,
     ) -> Lock: ...
     @overload
@@ -376,7 +376,7 @@ class Redis(Generic[_StrType]):
         timeout: Optional[float] = ...,
         sleep: float = ...,
         blocking_timeout: Optional[float] = ...,
-        lock_class: Optional[Type[_LockType]] = ...,
+        lock_class: Type[_LockType] = ...,
         thread_local: bool = ...,
     ) -> _LockType: ...
     def pubsub(self, shard_hint: Any = ..., ignore_subscribe_messages: bool = ...) -> PubSub: ...
