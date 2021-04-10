@@ -13,7 +13,6 @@ asyncio.threads  # Added in Python 3.9
 asyncio.trsock  # Added in Python 3.8
 builtins.str.maketrans
 cmath.log
-codecs.StreamRecoder.seek
 collections.AsyncGenerator.ag_await
 collections.AsyncGenerator.ag_code
 collections.AsyncGenerator.ag_frame
@@ -26,8 +25,8 @@ email.message.MIMEPart.as_string
 enum.Enum._generate_next_value_
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 hmac.HMAC.__init__
-importlib.metadata
-importlib.resources
+importlib.metadata  # Added in 3.8
+importlib.resources  # Added in 3.7
 io.StringIO.readline
 ipaddress._BaseNetwork.__init__
 itertools.accumulate
@@ -37,7 +36,7 @@ multiprocessing.shared_memory
 nntplib._NNTPBase.starttls
 os.utime
 plistlib.Dict.__init__
-pyexpat.XMLParserType.ExternalEntityParserCreate
+pyexpat.XMLParserType.ExternalEntityParserCreate  # C signature is wrong - function gets only positional args
 random.Random.randrange  # missing undocumented arg _int
 random.randrange  # missing undocumented arg _int
 secrets.SystemRandom.getstate
@@ -73,7 +72,7 @@ uuid.UUID.int
 webbrowser.Opera.raise_opts
 xml.etree.ElementTree.TreeBuilder.start  # Discrepancy between Python and C modules, fixed in bpo-39495
 xml.etree.cElementTree.TreeBuilder.start  # bpo-39495
-xml.parsers.expat.XMLParserType.ExternalEntityParserCreate
+xml.parsers.expat.XMLParserType.ExternalEntityParserCreate  # C signature is wrong - function gets only positional args
 # These enums derive from (int, IntEnum) or (str, Enum). See comment in py3_common.txt
 enum.IntFlag.__new__
 re.RegexFlag.__new__

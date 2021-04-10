@@ -307,12 +307,14 @@ There are separate directories for `stdlib` (standard library) and `stubs`
 (all other stubs). For standard library stubs Python version support is
 given in `VERSIONS` file. Each line in this file is a module or package name
 followed by `: `, followed by the oldest *supported* Python version where
-the module is available. For third party packages, the Python version support
-(2 and/or 3 only, no finer grained version is supported) is indicated in the
-corresponding `METADATA.toml` file as `python2 = (True|False)` (defaults to
-`False`) and `python3 = (True|False)` (defaults to `True`).
+the module is available.
 
-It is preferred to use a single stub for every module. You can use checks
+Third-party stubs only support Python 3 by default. You can optionally supply
+Python 2 stubs for a package by placing them into a `@python2` subdirectory
+for the corresponding distribution. Some older stubs also indicate Python 2
+support by setting `python2 = True` in the corresponding `METADATA.toml` file.
+
+You can use checks
 like `if sys.version_info >= (3, 8):` to denote new functionality introduced
 in a given Python version or solve type differences.  When doing so, only use
 one-tuples or two-tuples.  This is because:
@@ -336,13 +338,6 @@ in 3.7.0 - 3.7.3, which while *technically* incorrect is relatively
 harmless.  This is a strictly better compromise than using the latter
 two forms, which would generate false positive errors for correct use
 under Python 3.7.4.
-
-If it is not possible to generate combined stubs for all Python versions
-in a single file, you can split Python 2 and Python 3 stubs and place Python 2
-stubs into `@python2` subdirectory for corresponding distribution. Note that
-you don't need `@python2` in most cases, if your package supports Python 2,
-just put the stubs at root of the distribution directory, and put
-`python2 = True` in `METADATA.toml`.
 
 Note: in its current implementation, typeshed cannot contain stubs for
 multiple versions of the same third-party library.  Prefer to generate

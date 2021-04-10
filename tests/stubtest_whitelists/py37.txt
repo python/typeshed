@@ -37,7 +37,7 @@ fractions.Fraction.__new__  # overload is too complicated for stubtest to resolv
 hmac.HMAC.__init__
 http.client.HTTPSConnection.__init__
 http.server.SimpleHTTPRequestHandler.__init__
-importlib.metadata
+importlib.metadata  # Added in 3.8
 ipaddress._BaseNetwork.__init__
 itertools.accumulate
 json.loads
@@ -45,7 +45,7 @@ macurl2path  # removed in 3.7
 multiprocessing.shared_memory
 nntplib._NNTPBase.starttls
 os.utime
-pyexpat.XMLParserType.ExternalEntityParserCreate
+pyexpat.XMLParserType.ExternalEntityParserCreate  # C signature is wrong - function gets only positional args
 queue.SimpleQueue.__init__
 random.Random.randrange  # missing undocumented arg _int
 random.randrange  # missing undocumented arg _int
@@ -72,7 +72,7 @@ uuid.getnode  # undocumented, unused parameter getters that was later removed
 webbrowser.Opera.raise_opts
 xml.etree.ElementTree.TreeBuilder.start  # Discrepancy between Python and C modules, fixed in bpo-39495
 xml.etree.cElementTree.TreeBuilder.start  # bpo-39495
-xml.parsers.expat.XMLParserType.ExternalEntityParserCreate
+xml.parsers.expat.XMLParserType.ExternalEntityParserCreate  # C signature is wrong - function gets only positional args
 # These enums derive from (int, IntEnum) or (str, Enum). See comment in py3_common.txt
 enum.IntFlag.__new__
 pstats.SortKey.__new__
