@@ -10,6 +10,7 @@ from typing import (
     Callable,
     Dict,
     Generic,
+    Iterable,
     List,
     Mapping,
     Optional,
@@ -125,7 +126,7 @@ _ScreenUnits = Union[str, float]  # manual page: Tk_GetPixels
 _XYScrollCommand = Union[str, Callable[[float, float], Any]]  # -xscrollcommand and -yscrollcommand in 'options' manual page
 _TakeFocusValue = Union[int, Literal[""], Callable[[str], Optional[bool]]]  # -takefocus in manual page named 'options'
 
-_ObjectId = NewType("ObjectId", int)
+_CanvasObjectId = NewType("_CanvasObjectId", int)
 
 class EventType(str, Enum):
     Activate: str = ...
@@ -1115,10 +1116,10 @@ class Canvas(Widget, XView, YView):
     def canvasx(self, screenx, gridspacing: Optional[Any] = ...): ...
     def canvasy(self, screeny, gridspacing: Optional[Any] = ...): ...
     def coords(self, *args): ...
-    def create_arc(self, *args, **kw) -> _ObjectId: ...
-    def create_bitmap(self, *args, **kw) -> _ObjectId: ...
-    def create_image(self, *args, **kw) -> _ObjectId: ...
-    def create_line(self, x0: int, y0: int, x1: int, y1: int, /,
+    def create_arc(self, *args, **kw) -> _CanvasObjectId: ...
+    def create_bitmap(self, *args, **kw) -> _CanvasObjectId: ...
+    def create_image(self, *args, **kw) -> _CanvasObjectId: ...
+    def create_line(self, __x0: int, __y0: int, __x1: int, __y1: int,
         activedash: _Color = ...,
         activefill: _Color = ...,
         activestipple: str = ...,
@@ -1141,8 +1142,8 @@ class Canvas(Widget, XView, YView):
         stipple: _Bitmap = ...,
         tags: Union[str, Tuple[str, ...]] = ...,
         width: Union[int, str]  = ...,
-    ) -> _ObjectId: ...
-    def create_oval(self, x0: int, y0: int, x1: int, y1: int, /,
+    ) -> _CanvasObjectId: ...
+    def create_oval(self, __x0: int, __y0: int, __x1: int, __y1: int,
         activedash: _Color = ...,
         activefill: _Color = ...,
         activeoutline: _Color = ...,
@@ -1166,8 +1167,8 @@ class Canvas(Widget, XView, YView):
         stipple: _Bitmap = ...,
         tags: Union[str, Tuple[str, ...]] = ...,
         width: Union[int, str]  = ...,
-    ) -> _ObjectId: ...
-    def create_polygon(self, x0: int, y0: int, x1: int, y1: int, *args: int, /,
+    ) -> _CanvasObjectId: ...
+    def create_polygon(self, __x0: int, __y0: int, __x1: int, __y1: int, *args: int,
         activedash: _Color = ...,
         activefill: _Color = ...,
         activeoutline: _Color = ...,
@@ -1194,8 +1195,8 @@ class Canvas(Widget, XView, YView):
         stipple: _Bitmap = ...,
         tags: Union[str, Tuple[str, ...]] = ...,
         width: Union[int, str]  = ...,
-    ) -> _ObjectId: ...
-    def create_rectangle(self, x0: int, y0: int, x1: int, y1: int, /,
+    ) -> _CanvasObjectId: ...
+    def create_rectangle(self, __x0: int, __y0: int, __x1: int, __y1: int,
         activedash: _Color = ...,
         activefill: _Color = ...,
         activeoutline: _Color = ...,
@@ -1219,8 +1220,8 @@ class Canvas(Widget, XView, YView):
         stipple: _Bitmap = ...,
         tags: Union[str, Tuple[str, ...]] = ...,
         width: Union[int, str]  = ...,
-    ) -> _ObjectId: ...
-    def create_text(self, x: int, y: int, /
+    ) -> _CanvasObjectId: ...
+    def create_text(self, __x: int, __y: int,
         activefill: _Color = ...,
         activestipple: str = ...,
         anchor: _Anchor = ...,
@@ -1235,17 +1236,17 @@ class Canvas(Widget, XView, YView):
         tags: Union[str, Tuple[str, ...]] = ...,
         text: str = ...,
         width: Union[int, str]  = ...,
-    ) -> _ObjectId: ...
-    def create_window(self, x: int, y: int, /,
+    ) -> _CanvasObjectId: ...
+    def create_window(self, __x: int, __y: int,
         anchor: _Anchor = ...,
         height: Union[int, str] = ...,
         state: Literal["normal", "active", "disabled"] = ...,
         tags: Union[str, Tuple[str, ...]] = ...,
         width: Union[int, str]  = ...,
         window: Widget = ...,
-    ) -> _ObjectId: ...
+    ) -> _CanvasObjectId: ...
     def dchars(self, *args): ...
-    def delete(self, *args: Union[_ObjectId, typing.Iterable[_ObjectId]]) -> None: ...
+    def delete(self, *args: Union[_CanvasObjectId, Iterable[_CanvasObjectId]]) -> None: ...
     def dtag(self, *args): ...
     def find(self, *args): ...
     def find_above(self, tagOrId): ...
