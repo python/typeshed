@@ -12,6 +12,7 @@ asyncio.staggered  # Added in Python 3.8
 asyncio.threads  # Added in Python 3.9
 asyncio.trsock  # Added in Python 3.8
 builtins.str.maketrans
+bz2.BZ2Compressor.compress  # does not accept keyword arguments even though signature says it does
 cmath.log
 collections.AsyncGenerator.ag_await
 collections.AsyncGenerator.ag_code
