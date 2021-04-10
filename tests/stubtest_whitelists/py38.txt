@@ -74,8 +74,8 @@ secrets.SystemRandom.getstate
 select.epoll.register
 smtplib.SMTP.sendmail
 sre_constants.RANGE_IGNORE
-ssl.PROTOCOL_SSLv3
-ssl.RAND_egd
+ssl.PROTOCOL_SSLv3  # Depends on ssl compilation
+ssl.RAND_egd  # Depends on openssl compilation
 sys.UnraisableHookArgs  # Not exported from sys
 types.ClassMethodDescriptorType.__get__
 types.CodeType.replace

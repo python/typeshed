@@ -96,9 +96,8 @@ select.epoll.register
 smtplib.LMTP.__init__
 smtplib.SMTP.sendmail
 sre_constants.RANGE_IGNORE
-ssl.AF_INET
-ssl.PROTOCOL_SSLv3
-ssl.RAND_egd
+ssl.PROTOCOL_SSLv3  # Depends on ssl compilation
+ssl.RAND_egd  # Depends on openssl compilation
 symtable.SymbolTable.has_exec
 sys.UnraisableHookArgs  # Not exported from sys
 time.CLOCK_PROF
