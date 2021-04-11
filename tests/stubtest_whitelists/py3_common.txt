@@ -147,23 +147,8 @@ encodings.utf_8.encode
 enum.EnumMeta.__call__
 enum.EnumMeta.__new__
 getopt.GetoptError.__init__
-html.parser.HTMLParser.feed
-http.HTTPStatus.description
-http.HTTPStatus.phrase
-http.client.BadStatusLine.__init__
-http.client.HTTPResponse.read1
-http.client.HTTPResponse.readinto
-http.client.HTTPResponse.readline
-http.client.IncompleteRead.__init__
-http.client.LineTooLong.__init__
-http.client.UnknownProtocol.__init__
-http.cookiejar.Cookie.is_expired
-http.cookiejar.CookieJar.clear
-http.cookiejar.FileCookieJar.__init__
-http.cookies.Morsel.__init__
-http.cookies.Morsel.setdefault
-http.cookies.Morsel.update
-http.server.HTTPServer.__init__
+http.HTTPStatus.description  # set in __new__
+http.HTTPStatus.phrase  # set in __new__
 imaplib.IMAP4_SSL.ssl
 importlib.abc.FileLoader.get_filename  # Wrapped with _check_name decorator which changes runtime signature
 importlib.abc.FileLoader.load_module  # Wrapped with _check_name decorator which changes runtime signature

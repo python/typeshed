@@ -9,7 +9,6 @@ if sys.version_info >= (3, 7):
 class HTTPServer(socketserver.TCPServer):
     server_name: str
     server_port: int
-    def __init__(self, server_address: Tuple[str, int], RequestHandlerClass: Callable[..., BaseHTTPRequestHandler]) -> None: ...
 
 if sys.version_info >= (3, 7):
     class ThreadingHTTPServer(socketserver.ThreadingMixIn, HTTPServer):
