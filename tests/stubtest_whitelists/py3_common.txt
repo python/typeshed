@@ -73,11 +73,7 @@ builtins.property.fset
 builtins.reversed  # not a function at runtime
 builtins.staticmethod.__get__
 builtins.zip  # not a function at runtime
-bz2.BZ2Decompressor.__init__
-bz2.BZ2File.readinto
-bz2.BZ2File.readlines
-bz2.BZ2File.write
-bz2.BZ2File.writelines
+bz2.BZ2Decompressor.__init__  # function does not accept parameters but C signature is set
 # The following methods were changed in point releases from Python 3.6 to 3.9
 # as part of a security fix. These excludes can be removed when the GitHub
 # action workflow uses Python versions that include the fix (adding a

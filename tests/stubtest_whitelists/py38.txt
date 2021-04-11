@@ -23,6 +23,7 @@ asyncio.run  # Bugfix involving this was backported to 3.8
 asyncio.runners.run  # It just hasn't been released yet
 asyncio.threads  # Added in Python 3.9
 builtins.dict.get
+bz2.BZ2Compressor.compress  # does not accept keyword arguments even though signature says it does
 collections.AsyncGenerator.ag_await
 collections.AsyncGenerator.ag_code
 collections.AsyncGenerator.ag_frame

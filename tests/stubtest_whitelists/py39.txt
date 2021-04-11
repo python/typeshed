@@ -135,11 +135,6 @@ xml.etree.cElementTree.XMLParser.__init__  # Defined in C so has general signatu
 # positional-only complaints
 builtins.bytearray.pop
 builtins.bytearray.remove
-bz2.BZ2Compressor.compress
-bz2.BZ2File.read
-bz2.BZ2File.read1
-bz2.BZ2File.readline
-bz2.BZ2File.seek
 collections.AsyncGenerator.asend
 collections.AsyncGenerator.athrow
 collections.Container.__contains__
