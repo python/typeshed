@@ -228,15 +228,15 @@ class _ASN1Object(NamedTuple):
     longname: str
     oid: str
 
-if sys.version_info < (3,):
-    class Purpose(_ASN1Object):
-        SERVER_AUTH: ClassVar[Purpose]
-        CLIENT_AUTH: ClassVar[Purpose]
-
-else:
+if sys.version_info >= (3, 0):
     class Purpose(_ASN1Object, enum.Enum):
         SERVER_AUTH: _ASN1Object
         CLIENT_AUTH: _ASN1Object
+
+else:
+    class Purpose(_ASN1Object):
+        SERVER_AUTH: ClassVar[Purpose]
+        CLIENT_AUTH: ClassVar[Purpose]
 
 class SSLSocket(socket.socket):
     context: SSLContext
