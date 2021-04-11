@@ -5,7 +5,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-_PYRIGHT_VERSION = "1.1.118"
+_PYRIGHT_VERSION = "1.1.126"
 _WELL_KNOWN_FILE = Path("tests", "pyright_test.py")
 
 

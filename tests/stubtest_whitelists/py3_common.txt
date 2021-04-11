@@ -24,6 +24,8 @@ _collections_abc.Set.isdisjoint
 _csv.Dialect.__init__
 _dummy_threading
 _importlib_modulespec
+_operator.attrgetter  # not a function at runtime
+_operator.itemgetter  # not a function at runtime
 _operator.methodcaller
 _threading_local.local.__new__
 _typeshed.*  # Utility types for typeshed, doesn't exist at runtime
@@ -57,7 +59,9 @@ builtins.bytes.__int__
 builtins.bytes.maketrans
 builtins.classmethod.__get__
 builtins.ellipsis
+builtins.filter  # not a function at runtime
 builtins.function
+builtins.map  # not a function at runtime
 builtins.memoryview.__contains__
 builtins.memoryview.__iter__
 builtins.memoryview.cast  # inspect.signature is incorrect about shape being kw-only
@@ -66,12 +70,10 @@ builtins.property.__get__
 builtins.property.fdel
 builtins.property.fget
 builtins.property.fset
+builtins.reversed  # not a function at runtime
 builtins.staticmethod.__get__
-bz2.BZ2Decompressor.__init__
-bz2.BZ2File.readinto
-bz2.BZ2File.readlines
-bz2.BZ2File.write
-bz2.BZ2File.writelines
+builtins.zip  # not a function at runtime
+bz2.BZ2Decompressor.__init__  # function does not accept parameters but C signature is set
 # The following methods were changed in point releases from Python 3.6 to 3.9
 # as part of a security fix. These excludes can be removed when the GitHub
 # action workflow uses Python versions that include the fix (adding a
@@ -79,21 +81,13 @@ bz2.BZ2File.writelines
 cgi.FieldStorage.__init__
 cgi.parse
 cgi.parse_multipart
-codecs.BufferedIncrementalDecoder.decode
+# The following CodecInfo properties are added in __new__
 codecs.CodecInfo.decode
 codecs.CodecInfo.encode
 codecs.CodecInfo.incrementaldecoder
 codecs.CodecInfo.incrementalencoder
 codecs.CodecInfo.streamreader
 codecs.CodecInfo.streamwriter
-codecs.IncrementalEncoder.encode
-codecs.StreamReader.__getattr__
-codecs.StreamReader.readline
-codecs.StreamReader.readlines
-codecs.StreamWriter.__getattr__
-codecs.StreamWriter.write
-codecs.utf_16_be_decode
-codecs.utf_16_be_encode
 collections.Callable
 collections.ChainMap.get
 collections.ChainMap.maps
@@ -122,62 +116,30 @@ collections.abc.Generator.gi_yieldfrom
 collections.abc.Mapping.get
 collections.abc.Sequence.index
 collections.deque.__hash__
-configparser.LegacyInterpolation.before_get
-configparser.SectionProxy.__getattr__
+configparser.SectionProxy.__getattr__  # SectionProxy can have arbitrary attributes when custom converters are used
+# SectionProxy get functions are set in __init__
 configparser.SectionProxy.getboolean
 configparser.SectionProxy.getfloat
 configparser.SectionProxy.getint
+# The Dialect properties are initialized as None in Dialect but their values are enforced in _Dialect
 csv.Dialect.delimiter
 csv.Dialect.doublequote
 csv.Dialect.lineterminator
 csv.Dialect.quoting
 csv.Dialect.skipinitialspace
-ctypes.Array.__iter__
-ctypes.CDLL._FuncPtr
-ctypes.cast
-ctypes.memmove
-ctypes.memset
-ctypes.pointer
-ctypes.string_at
-ctypes.wstring_at
+ctypes.Array.__iter__  # mypy doesn't support using __getitem__ instead of __iter__ so this is here https://github.com/python/mypy/issues/2220
+ctypes.CDLL._FuncPtr  # None at class level but initialized in __init__ to this value
+ctypes.memmove  # CFunctionType
+ctypes.memset  # CFunctionType
+ctypes.pointer  # imported C function
+ctypes.string_at  # docstring argument name is wrong
+ctypes.wstring_at  # docstring argument name is wrong
 dbm.error
-difflib.SequenceMatcher.__init__
-distutils.archive_util.make_archive
-distutils.archive_util.make_tarball
-distutils.command.bdist_packager
-distutils.core.Extension.__init__
-distutils.debug.DEBUG
-distutils.extension.Extension.__init__
-distutils.fancy_getopt.OptionDummy.__init__
-distutils.filelist.FileList.__init__
-distutils.sysconfig.set_python_build
-distutils.text_file.TextFile.warn
-distutils.version.Version._cmp
-distutils.version.Version.parse
-email.errors.MessageDefect.__init__
-email.generator.BytesGenerator.__init__
-email.generator.DecodedGenerator.__init__
-email.generator.Generator.__init__
-email.headerregistry.AddressHeader.parse
-email.headerregistry.BaseHeader.init
-email.headerregistry.BaseHeader.max_count
-email.headerregistry.ContentTransferEncodingHeader.parse
-email.headerregistry.DateHeader.parse
-email.headerregistry.HeaderRegistry.__init__
-email.headerregistry.MIMEVersionHeader.parse
-email.headerregistry.ParameterizedMIMEHeader.parse
-email.headerregistry.UnstructuredHeader.parse
-email.message.MIMEPart.__init__
-email.message.Message.get_payload
-email.message.Message.set_param
-email.parser.HeaderParser.__init__
-email.parser.Parser.__init__
-email.utils.localtime
-email.utils.mktime_tz
-email.utils.parseaddr
-email.utils.parsedate
-email.utils.parsedate_to_datetime
-email.utils.parsedate_tz
+difflib.SequenceMatcher.__init__  # mypy default value for generic parameter issues. See https://github.com/python/mypy/issues/3737
+distutils.command.bdist_packager  # It exists in docs as package name but not in code except as a mention in a comment.
+distutils.version.Version._cmp  # class should have declared this
+distutils.version.Version.parse  # class should have declared this
+email.headerregistry.BaseHeader.max_count  # docs say subclasses should have this property
 encodings.utf_8.IncrementalDecoder._buffer_decode
 encodings.utf_8.StreamReader.decode
 encodings.utf_8.StreamWriter.encode
@@ -203,22 +165,12 @@ http.cookies.Morsel.setdefault
 http.cookies.Morsel.update
 http.server.HTTPServer.__init__
 imaplib.IMAP4_SSL.ssl
-importlib.abc.FileLoader.get_filename
-importlib.abc.Loader.exec_module
-importlib.abc.MetaPathFinder.find_spec
-importlib.abc.PathEntryFinder.find_spec
-importlib.machinery.BuiltinImporter.find_module
-importlib.machinery.BuiltinImporter.find_spec
-importlib.machinery.ExtensionFileLoader.__init__
-importlib.machinery.ExtensionFileLoader.get_filename
-importlib.machinery.FrozenImporter.find_module
-importlib.machinery.FrozenImporter.find_spec
-importlib.machinery.FrozenImporter.module_repr
-importlib.machinery.SourceFileLoader.set_data
-importlib.machinery.WindowsRegistryFinder.find_module
-importlib.machinery.WindowsRegistryFinder.find_spec
-importlib.util.spec_from_file_location
-importlib.util.spec_from_loader
+importlib.abc.FileLoader.get_filename  # Wrapped with _check_name decorator which changes runtime signature
+importlib.abc.FileLoader.load_module  # Wrapped with _check_name decorator which changes runtime signature
+importlib.abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatability
+importlib.abc.MetaPathFinder.find_spec  # Not defined on the actual class, but expected to exist.
+importlib.abc.PathEntryFinder.find_spec  # Not defined on the actual class, but expected to exist.
+importlib.machinery.ExtensionFileLoader.get_filename  # Wrapped with _check_name decorator which changes runtime signature
 inspect.Parameter.KEYWORD_ONLY
 inspect.Parameter.POSITIONAL_ONLY
 inspect.Parameter.POSITIONAL_OR_KEYWORD
@@ -247,6 +199,12 @@ ipaddress._BaseAddress.is_unspecified
 ipaddress._BaseAddress.max_prefixlen
 ipaddress._BaseAddress.packed
 ipaddress._BaseNetwork.max_prefixlen
+itertools.accumulate  # not a function at runtime
+itertools.combinations  # not a function at runtime
+itertools.groupby  # not a function at runtime
+itertools.islice  # not a function at runtime
+itertools.product  # not a function at runtime
+itertools.repeat  # not a function at runtime
 lib2to3.pygram.pattern_symbols
 lib2to3.pygram.python_symbols
 lib2to3.pytree.Base.__new__
@@ -292,6 +250,8 @@ netrc.NetrcParseError.__init__
 netrc.netrc.__init__
 ntpath.join
 numbers.Number.__hash__
+operator.attrgetter  # not a function at runtime
+operator.itemgetter  # not a function at runtime
 operator.methodcaller
 optparse.HelpFormatter._format__Text
 optparse.OptionParser.__init__
@@ -335,18 +295,9 @@ sqlite3.dbapi2.Row.__len__
 sqlite3.dbapi2.version_info
 sqlite3.version_info
 sre_constants.error.__init__
-ssl.PROTOCOL_SSLv2
-ssl.Purpose.__new__
-ssl.SSLContext.__new__
-ssl.SSLObject.__init__
-ssl.SSLSocket.connect
-ssl.SSLSocket.connect_ex
-ssl.SSLSocket.recv
-ssl.SSLSocket.recv_into
-ssl.SSLSocket.recvfrom
-ssl.SSLSocket.recvfrom_into
-ssl.SSLSocket.sendto
-ssl._ASN1Object.__new__
+ssl.PROTOCOL_SSLv2  # Defined only if compiled with ssl v2
+ssl.Purpose.__new__  # You cannot override __new__ in NamedTuple and runtime uses namedtuple.
+ssl._ASN1Object.__new__  # You cannot override __new__ in NamedTuple and runtime uses namedtuple.
 subprocess.Popen.__init__
 sunau.Au_write.getmark
 sunau.Au_write.getmarkers
@@ -416,8 +367,6 @@ webbrowser.UnixBrowser.remote_action
 webbrowser.UnixBrowser.remote_action_newtab
 webbrowser.UnixBrowser.remote_action_newwin
 wsgiref.types  # Doesn't exist, see comments in file
-xml.etree.ElementPath._SelectorContext.parent_map
-xml.sax.xmlreader.AttributesImpl.has_key
 zipfile.ZipExtFile.read
 zipfile.ZipExtFile.readline
 zlib.compressobj
