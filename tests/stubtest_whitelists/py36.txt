@@ -21,7 +21,6 @@ collections.AsyncGenerator.ag_running
 collections.UserString.maketrans
 contextlib._GeneratorContextManager.__init__
 copy.PyStringMap
-email.message.MIMEPart.as_string
 enum.Enum._generate_next_value_
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 hmac.HMAC.__init__
