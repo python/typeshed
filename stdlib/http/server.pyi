@@ -1,7 +1,7 @@
 import email.message
 import socketserver
 import sys
-from typing import Any, Callable, ClassVar, Dict, List, Mapping, Optional, Sequence, Tuple, Union
+from typing import Any, ClassVar, Dict, List, Mapping, Optional, Sequence, Tuple, Union
 
 if sys.version_info >= (3, 7):
     from builtins import _PathLike
