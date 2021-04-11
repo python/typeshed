@@ -339,6 +339,9 @@ harmless.  This is a strictly better compromise than using the latter
 two forms, which would generate false positive errors for correct use
 under Python 3.7.4.
 
+When your stub contains if statements for different Python versions,
+always put the code for the most recent Python version first.
+
 Note: in its current implementation, typeshed cannot contain stubs for
 multiple versions of the same third-party library.  Prefer to generate
 stubs for the latest version released on PyPI at the time of your
