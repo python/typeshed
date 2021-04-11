@@ -1,6 +1,6 @@
 from email.errors import HeaderParseError, MessageDefect
 from email.policy import Policy
-from typing import Any, Iterable, Iterator, List, Optional, Pattern, Set, Tuple, TypeVar, Union
+from typing import Any, Iterable, Iterator, List, Optional, Pattern, Set, Tuple, Type, TypeVar, Union
 from typing_extensions import Final
 
 _T = TypeVar("_T")
