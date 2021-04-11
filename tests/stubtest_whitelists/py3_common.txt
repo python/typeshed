@@ -120,24 +120,24 @@ collections.abc.Generator.gi_yieldfrom
 collections.abc.Mapping.get
 collections.abc.Sequence.index
 collections.deque.__hash__
-configparser.LegacyInterpolation.before_get
-configparser.SectionProxy.__getattr__
+configparser.SectionProxy.__getattr__  # SectionProxy can have arbitrary attributes when custom converters are used
+# SectionProxy get functions are set in __init__
 configparser.SectionProxy.getboolean
 configparser.SectionProxy.getfloat
 configparser.SectionProxy.getint
+# The Dialect properties are initialized as None in Dialect but their values are enforced in _Dialect
 csv.Dialect.delimiter
 csv.Dialect.doublequote
 csv.Dialect.lineterminator
 csv.Dialect.quoting
 csv.Dialect.skipinitialspace
-ctypes.Array.__iter__
-ctypes.CDLL._FuncPtr
-ctypes.cast
-ctypes.memmove
-ctypes.memset
-ctypes.pointer
-ctypes.string_at
-ctypes.wstring_at
+ctypes.Array.__iter__  # mypy doesn't support using __getitem__ instead of __iter__ so this is here https://github.com/python/mypy/issues/2220
+ctypes.CDLL._FuncPtr  # None at class level but initialized in __init__ to this value
+ctypes.memmove  # CFunctionType
+ctypes.memset  # CFunctionType
+ctypes.pointer  # imported C function
+ctypes.string_at  # docstring argument name is wrong
+ctypes.wstring_at  # docstring argument name is wrong
 dbm.error
 difflib.SequenceMatcher.__init__  # mypy default value for generic parameter issues. See https://github.com/python/mypy/issues/3737
 distutils.command.bdist_packager  # It exists in docs as package name but not in code except as a mention in a comment.
