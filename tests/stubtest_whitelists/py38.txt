@@ -46,7 +46,6 @@ copy.PyStringMap
 # This was changed in Python 3.8.8.
 curses.color_pair
 dataclasses.field
-email.message.MIMEPart.as_string
 enum.Enum._generate_next_value_
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 functools.partialmethod.__get__

@@ -139,30 +139,7 @@ difflib.SequenceMatcher.__init__  # mypy default value for generic parameter iss
 distutils.command.bdist_packager  # It exists in docs as package name but not in code except as a mention in a comment.
 distutils.version.Version._cmp  # class should have declared this
 distutils.version.Version.parse  # class should have declared this
-email.errors.MessageDefect.__init__
-email.generator.BytesGenerator.__init__
-email.generator.DecodedGenerator.__init__
-email.generator.Generator.__init__
-email.headerregistry.AddressHeader.parse
-email.headerregistry.BaseHeader.init
-email.headerregistry.BaseHeader.max_count
-email.headerregistry.ContentTransferEncodingHeader.parse
-email.headerregistry.DateHeader.parse
-email.headerregistry.HeaderRegistry.__init__
-email.headerregistry.MIMEVersionHeader.parse
-email.headerregistry.ParameterizedMIMEHeader.parse
-email.headerregistry.UnstructuredHeader.parse
-email.message.MIMEPart.__init__
-email.message.Message.get_payload
-email.message.Message.set_param
-email.parser.HeaderParser.__init__
-email.parser.Parser.__init__
-email.utils.localtime
-email.utils.mktime_tz
-email.utils.parseaddr
-email.utils.parsedate
-email.utils.parsedate_to_datetime
-email.utils.parsedate_tz
+email.headerregistry.BaseHeader.max_count  # docs say subclasses should have this property
 encodings.utf_8.IncrementalDecoder._buffer_decode
 encodings.utf_8.StreamReader.decode
 encodings.utf_8.StreamWriter.encode
