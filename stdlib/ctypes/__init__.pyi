@@ -36,7 +36,7 @@ class CDLL(object):
     _name: str = ...
     _handle: int = ...
     _FuncPtr: Type[_FuncPointer] = ...
-    if sys.version_info < (3, 8):
+    if sys.version_info >= (3, 8):
         def __init__(
             self,
             name: Optional[str],
@@ -44,6 +44,7 @@ class CDLL(object):
             handle: Optional[int] = ...,
             use_errno: bool = ...,
             use_last_error: bool = ...,
+            winmode: Optional[int] = ...,
         ) -> None: ...
     else:
         def __init__(
@@ -53,7 +54,6 @@ class CDLL(object):
             handle: Optional[int] = ...,
             use_errno: bool = ...,
             use_last_error: bool = ...,
-            winmode: Optional[int] = ...,
         ) -> None: ...
     def __getattr__(self, name: str) -> _NamedFuncPointer: ...
     def __getitem__(self, name: str) -> _NamedFuncPointer: ...
