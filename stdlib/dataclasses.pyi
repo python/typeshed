@@ -26,7 +26,14 @@ if sys.version_info >= (3, 10):
     def dataclass(__cls: None) -> Callable[[Type[_T]], Type[_T]]: ...
     @overload
     def dataclass(
-        *, init: bool = ..., repr: bool = ..., eq: bool = ..., order: bool = ..., unsafe_hash: bool = ..., frozen: bool = ..., match_args: bool = ...
+        *,
+        init: bool = ...,
+        repr: bool = ...,
+        eq: bool = ...,
+        order: bool = ...,
+        unsafe_hash: bool = ...,
+        frozen: bool = ...,
+        match_args: bool = ...,
     ) -> Callable[[Type[_T]], Type[_T]]: ...
 
 elif sys.version_info >= (3, 8):
