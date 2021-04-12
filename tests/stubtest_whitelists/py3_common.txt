@@ -199,22 +199,8 @@ ipaddress._BaseAddress.is_unspecified
 ipaddress._BaseAddress.max_prefixlen
 ipaddress._BaseAddress.packed
 ipaddress._BaseNetwork.max_prefixlen
-itertools.accumulate  # not a function at runtime
-itertools.chain.from_iterable
-itertools.combinations  # not a function at runtime
-itertools.combinations_with_replacement
-itertools.compress
-itertools.count
-itertools.dropwhile
-itertools.filterfalse
-itertools.groupby  # not a function at runtime
-itertools.islice  # not a function at runtime
-itertools.permutations
-itertools.product  # not a function at runtime
-itertools.repeat  # not a function at runtime
-itertools.starmap
-itertools.takewhile
-itertools.zip_longest
+itertools.combinations  # not a function at runtime, cannot represent with __init__ or __new__
+itertools.product  # not a function at runtime, cannot represent with __init__ or __new__
 lib2to3.pygram.pattern_symbols
 lib2to3.pygram.python_symbols
 lib2to3.pytree.Base.__new__
