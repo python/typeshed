@@ -200,7 +200,6 @@ ipaddress._BaseAddress.max_prefixlen
 ipaddress._BaseAddress.packed
 ipaddress._BaseNetwork.max_prefixlen
 itertools.combinations  # not a function at runtime, cannot represent with __init__ or __new__
-itertools.groupby  # not a function at runtime, cannot represent with __init__ or __new__
 itertools.product  # not a function at runtime, cannot represent with __init__ or __new__
 lib2to3.pygram.pattern_symbols
 lib2to3.pygram.python_symbols
