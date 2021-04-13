@@ -1,4 +1,5 @@
 import sys
+from _typeshed import _T_co
 from typing import (
     Any,
     Callable,
@@ -122,60 +123,74 @@ _T3 = TypeVar("_T3")
 _T4 = TypeVar("_T4")
 _T5 = TypeVar("_T5")
 _T6 = TypeVar("_T6")
-@overload
-def product(__iter1: Iterable[_T1]) -> Iterator[Tuple[_T1]]: ...
-@overload
-def product(__iter1: Iterable[_T1], __iter2: Iterable[_T2]) -> Iterator[Tuple[_T1, _T2]]: ...
-@overload
-def product(__iter1: Iterable[_T1], __iter2: Iterable[_T2], __iter3: Iterable[_T3]) -> Iterator[Tuple[_T1, _T2, _T3]]: ...
-@overload
-def product(
-    __iter1: Iterable[_T1], __iter2: Iterable[_T2], __iter3: Iterable[_T3], __iter4: Iterable[_T4]
-) -> Iterator[Tuple[_T1, _T2, _T3, _T4]]: ...
-@overload
-def product(
-    __iter1: Iterable[_T1], __iter2: Iterable[_T2], __iter3: Iterable[_T3], __iter4: Iterable[_T4], __iter5: Iterable[_T5]
-) -> Iterator[Tuple[_T1, _T2, _T3, _T4, _T5]]: ...
-@overload
-def product(
-    __iter1: Iterable[_T1],
-    __iter2: Iterable[_T2],
-    __iter3: Iterable[_T3],
-    __iter4: Iterable[_T4],
-    __iter5: Iterable[_T5],
-    __iter6: Iterable[_T6],
-) -> Iterator[Tuple[_T1, _T2, _T3, _T4, _T5, _T6]]: ...
-@overload
-def product(
-    __iter1: Iterable[Any],
-    __iter2: Iterable[Any],
-    __iter3: Iterable[Any],
-    __iter4: Iterable[Any],
-    __iter5: Iterable[Any],
-    __iter6: Iterable[Any],
-    __iter7: Iterable[Any],
-    *iterables: Iterable[Any],
-) -> Iterator[Tuple[Any, ...]]: ...
-@overload
-def product(*iterables: Iterable[_T1], repeat: int) -> Iterator[Tuple[_T1, ...]]: ...
-@overload
-def product(*iterables: Iterable[Any], repeat: int = ...) -> Iterator[Tuple[Any, ...]]: ...
+
+class product(Iterator[_T_co], Generic[_T_co]):
+    @overload
+    def __new__(cls, __iter1: Iterable[_T1]) -> product[Tuple[_T1]]: ...
+    @overload
+    def __new__(cls, __iter1: Iterable[_T1], __iter2: Iterable[_T2]) -> product[Tuple[_T1, _T2]]: ...
+    @overload
+    def __new__(cls, __iter1: Iterable[_T1], __iter2: Iterable[_T2], __iter3: Iterable[_T3]) -> product[Tuple[_T1, _T2, _T3]]: ...
+    @overload
+    def __new__(
+        cls, __iter1: Iterable[_T1], __iter2: Iterable[_T2], __iter3: Iterable[_T3], __iter4: Iterable[_T4]
+    ) -> product[Tuple[_T1, _T2, _T3, _T4]]: ...
+    @overload
+    def __new__(
+        cls,
+        __iter1: Iterable[_T1],
+        __iter2: Iterable[_T2],
+        __iter3: Iterable[_T3],
+        __iter4: Iterable[_T4],
+        __iter5: Iterable[_T5],
+    ) -> product[Tuple[_T1, _T2, _T3, _T4, _T5]]: ...
+    @overload
+    def __new__(
+        cls,
+        __iter1: Iterable[_T1],
+        __iter2: Iterable[_T2],
+        __iter3: Iterable[_T3],
+        __iter4: Iterable[_T4],
+        __iter5: Iterable[_T5],
+        __iter6: Iterable[_T6],
+    ) -> product[Tuple[_T1, _T2, _T3, _T4, _T5, _T6]]: ...
+    @overload
+    def __new__(
+        cls,
+        __iter1: Iterable[Any],
+        __iter2: Iterable[Any],
+        __iter3: Iterable[Any],
+        __iter4: Iterable[Any],
+        __iter5: Iterable[Any],
+        __iter6: Iterable[Any],
+        __iter7: Iterable[Any],
+        *iterables: Iterable[Any],
+    ) -> product[Tuple[Any, ...]]: ...
+    @overload
+    def __new__(cls, *iterables: Iterable[_T1], repeat: int) -> product[Tuple[_T1, ...]]: ...
+    @overload
+    def __new__(cls, *iterables: Iterable[Any], repeat: int = ...) -> product[Tuple[Any, ...]]: ...
+    def __iter__(self) -> Iterator[_T_co]: ...
+    def __next__(self) -> _T_co: ...
 
 class permutations(Iterator[Tuple[_T, ...]], Generic[_T]):
     def __init__(self, iterable: Iterable[_T], r: Optional[int] = ...) -> None: ...
     def __iter__(self) -> Iterator[Tuple[_T, ...]]: ...
     def __next__(self) -> Tuple[_T, ...]: ...
 
-@overload
-def combinations(iterable: Iterable[_T], r: Literal[2]) -> Iterator[Tuple[_T, _T]]: ...
-@overload
-def combinations(iterable: Iterable[_T], r: Literal[3]) -> Iterator[Tuple[_T, _T, _T]]: ...
-@overload
-def combinations(iterable: Iterable[_T], r: Literal[4]) -> Iterator[Tuple[_T, _T, _T, _T]]: ...
-@overload
-def combinations(iterable: Iterable[_T], r: Literal[5]) -> Iterator[Tuple[_T, _T, _T, _T, _T]]: ...
-@overload
-def combinations(iterable: Iterable[_T], r: int) -> Iterator[Tuple[_T, ...]]: ...
+class combinations(Iterator[_T_co], Generic[_T_co]):
+    @overload
+    def __new__(cls, iterable: Iterable[_T], r: Literal[2]) -> combinations[Tuple[_T, _T]]: ...
+    @overload
+    def __new__(cls, iterable: Iterable[_T], r: Literal[3]) -> combinations[Tuple[_T, _T, _T]]: ...
+    @overload
+    def __new__(cls, iterable: Iterable[_T], r: Literal[4]) -> combinations[Tuple[_T, _T, _T, _T]]: ...
+    @overload
+    def __new__(cls, iterable: Iterable[_T], r: Literal[5]) -> combinations[Tuple[_T, _T, _T, _T, _T]]: ...
+    @overload
+    def __new__(cls, iterable: Iterable[_T], r: int) -> combinations[Tuple[_T, ...]]: ...
+    def __iter__(self) -> Iterator[_T_co]: ...
+    def __next__(self) -> _T_co: ...
 
 class combinations_with_replacement(Iterator[Tuple[_T, ...]], Generic[_T]):
     def __init__(self, iterable: Iterable[_T], r: int) -> None: ...
