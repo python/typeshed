@@ -1,6 +1,7 @@
 import sys
 from typing import Any
 
+
 # This is a >=3.7 module, so we conditionally include its source.
 if sys.version_info >= (3, 7):
     import os
@@ -19,5 +20,8 @@ if sys.version_info >= (3, 7):
     def contents(package: Package) -> Iterator[str]: ...
 
 if sys.version_info >= (3, 9):
+    from contextlib import AbstractContextManager
+
     from importlib.abc import Traversable
     def files(package: Package) -> Traversable: ...
+    def as_file(traversable: Traversable) -> AbstractContextManager[Path]: ...
