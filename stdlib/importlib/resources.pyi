@@ -21,6 +21,5 @@ if sys.version_info >= (3, 7):
 if sys.version_info >= (3, 9):
     from contextlib import AbstractContextManager
     from importlib.abc import Traversable
-
     def files(package: Package) -> Traversable: ...
     def as_file(traversable: Traversable) -> AbstractContextManager[Path]: ...
