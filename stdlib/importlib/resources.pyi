@@ -1,7 +1,6 @@
 import sys
 from typing import Any
 
-
 # This is a >=3.7 module, so we conditionally include its source.
 if sys.version_info >= (3, 7):
     import os
