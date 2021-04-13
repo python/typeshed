@@ -180,18 +180,18 @@ X_OK: int
 _EnvironCodeFunc = Callable[[AnyStr], AnyStr]
 
 class _Environ(MutableMapping[AnyStr, AnyStr], Generic[AnyStr]):
-    encodekey: _EnvironCodeFunc
-    decodekey: _EnvironCodeFunc
-    encodevalue: _EnvironCodeFunc
-    decodevalue: _EnvironCodeFunc
+    encodekey: _EnvironCodeFunc[AnyStr]
+    decodekey: _EnvironCodeFunc[AnyStr]
+    encodevalue: _EnvironCodeFunc[AnyStr]
+    decodevalue: _EnvironCodeFunc[AnyStr]
     if sys.version_info >= (3, 9):
         def __init__(
             self,
             data: MutableMapping[AnyStr, AnyStr],
-            encodekey: _EnvironCodeFunc,
-            decodekey: _EnvironCodeFunc,
-            encodevalue: _EnvironCodeFunc,
-            decodevalue: _EnvironCodeFunc,
+            encodekey: _EnvironCodeFunc[AnyStr],
+            decodekey: _EnvironCodeFunc[AnyStr],
+            encodevalue: _EnvironCodeFunc[AnyStr],
+            decodevalue: _EnvironCodeFunc[AnyStr],
         ) -> None: ...
     else:
         putenv: Callable[[AnyStr, AnyStr], None]
@@ -199,10 +199,10 @@ class _Environ(MutableMapping[AnyStr, AnyStr], Generic[AnyStr]):
         def __init__(
             self,
             data: MutableMapping[AnyStr, AnyStr],
-            encodekey: _EnvironCodeFunc,
-            decodekey: _EnvironCodeFunc,
-            encodevalue: _EnvironCodeFunc,
-            decodevalue: _EnvironCodeFunc,
+            encodekey: _EnvironCodeFunc[AnyStr],
+            decodekey: _EnvironCodeFunc[AnyStr],
+            encodevalue: _EnvironCodeFunc[AnyStr],
+            decodevalue: _EnvironCodeFunc[AnyStr],
             putenv: Callable[[AnyStr, AnyStr], None],
             unsetenv: Callable[[AnyStr, AnyStr], None],
         ) -> None: ...

@@ -2,7 +2,6 @@ import sys
 from _typeshed import _T_co
 from typing import (
     Any,
-    Callable,
     Container,
     Generic,
     Mapping,
