@@ -1,10 +1,11 @@
 _posixsubprocess.cloexec_pipe
 builtins.WindowsError
+_?curses.ACS_.* # ACS codes are initialized only after initscr call. 
 curses.COLORS
 curses.COLOR_PAIRS
 curses.COLS
 curses.LINES
-distutils.command.bdist_msi
+distutils.command.bdist_msi  # msi is only available on windows
 grp.getgrgid
 grp.struct_group._asdict
 grp.struct_group._make
@@ -38,7 +39,6 @@ _msi
 _winapi
 asyncio.windows_events
 asyncio.windows_utils
-ctypes.wintypes
 msilib(.[a-z]+)?
 msvcrt
 winreg

@@ -1,4 +1,20 @@
 _ast.ImportFrom.level
+_collections_abc.AsyncGenerator.ag_await
+_collections_abc.AsyncGenerator.ag_code
+_collections_abc.AsyncGenerator.ag_frame
+_collections_abc.AsyncGenerator.ag_running
+_collections_abc.AsyncGenerator.asend
+_collections_abc.AsyncGenerator.athrow
+_collections_abc.Container.__contains__
+_collections_abc.Coroutine.send
+_collections_abc.Coroutine.throw
+_collections_abc.Generator.send
+_collections_abc.Generator.throw
+_collections_abc.ItemsView.__reversed__
+_collections_abc.KeysView.__reversed__
+_collections_abc.ValuesView.__reversed__
+# This was changed in Python 3.9.2.
+_curses.color_pair
 _dummy_thread
 ast.Bytes.__new__
 ast.Ellipsis.__new__
@@ -8,13 +24,11 @@ ast.Index.__new__
 ast.NameConstant.__new__
 ast.Num.__new__
 ast.Str.__new__
-asyncio.AbstractEventLoop.sock_sendfile
 asyncio.compat  # module removed in 3.7
-asyncio.Future.__init__
-asyncio.Future._callbacks
-asyncio.events.AbstractEventLoop.sock_sendfile
-asyncio.futures.Future.__init__
-asyncio.futures.Future._callbacks
+asyncio.Future.__init__  # Usually initialized from c object
+asyncio.Future._callbacks  # Usually initialized from c object
+asyncio.futures.Future.__init__  # Usually initialized from c object
+asyncio.futures.Future._callbacks  # Usually initialized from c object
 asyncio.proactor_events._ProactorBasePipeTransport.__del__
 builtins.dict.get
 collections.AsyncGenerator.ag_await
@@ -31,14 +45,14 @@ collections.abc.AsyncGenerator.ag_running
 collections.abc.ItemsView.__reversed__
 collections.abc.KeysView.__reversed__
 collections.abc.ValuesView.__reversed__
+contextlib.nullcontext  # not a function at runtime
 contextvars.Context.__init__
 contextvars.Context.get
 copy.PyStringMap
-dataclasses.Field.__init__
-dataclasses.InitVar.__init__
+curses.color_pair
 dataclasses.field
+dataclasses.InitVar.__class_getitem__  # stubtest bug. doesn't do the right thing with overload + implicit classmethod __class_getitem__
 dummy_threading
-email.message.MIMEPart.as_string
 enum.Enum._generate_next_value_
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 ftplib.FTP.__init__
@@ -51,8 +65,7 @@ hmac.new  # Stub is a white lie; see comments in the stub
 http.client.HTTPSConnection.__init__
 http.cookiejar.DefaultCookiePolicy.__init__
 http.server.SimpleHTTPRequestHandler.__init__
-importlib.metadata.DistributionFinder.Context.pattern
-importlib.metadata.EntryPointBase
+importlib.abc.Traversable.__init__  # Inherits __init__ from typing.Protocol
 ipaddress.IPv4Interface.hostmask
 ipaddress.IPv6Interface.hostmask
 ipaddress._BaseNetwork.broadcast_address
@@ -65,10 +78,6 @@ logging.handlers.WatchedFileHandler.__init__
 macpath  # module removed in 3.8
 macurl2path  # module removed in 3.7
 mmap.MADV_[A-Z_]+  # platform dependent constants
-multiprocessing.managers.SharedMemoryServer.__init__
-multiprocessing.pool.CLOSE
-multiprocessing.pool.RUN
-multiprocessing.pool.TERMINATE
 multiprocessing.spawn._main
 nntplib.NNTP.starttls
 os.MFD_HUGE_32MB
@@ -86,11 +95,10 @@ select.epoll.register
 smtplib.LMTP.__init__
 smtplib.SMTP.sendmail
 sre_constants.RANGE_IGNORE
-ssl.AF_INET
-ssl.PROTOCOL_SSLv3
-ssl.RAND_egd
+ssl.PROTOCOL_SSLv3  # Depends on ssl compilation
+ssl.RAND_egd  # Depends on openssl compilation
 symtable.SymbolTable.has_exec
-sys.UnraisableHookArgs
+sys.UnraisableHookArgs  # Not exported from sys
 time.CLOCK_PROF
 time.CLOCK_UPTIME
 types.ClassMethodDescriptorType.__get__
@@ -108,6 +116,8 @@ typing.SupportsInt.__init__
 typing.SupportsRound.__init__
 typing._SpecialForm.__init__
 typing._TypedDict.__delitem__
+typing._TypedDict.__ior__
+typing._TypedDict.__or__
 typing._TypedDict.copy
 typing._TypedDict.items
 typing._TypedDict.keys
@@ -118,17 +128,12 @@ typing._TypedDict.values
 unittest.doModuleCleanups
 weakref.WeakValueDictionary.update
 webbrowser.Opera.raise_opts
-xml.etree.ElementTree.XMLParser.__init__
-xml.etree.cElementTree.XMLParser.__init__
+xml.etree.ElementTree.XMLParser.__init__  # Defined in C so has general signature
+xml.etree.cElementTree.XMLParser.__init__  # Defined in C so has general signature
 
 # positional-only complaints
 builtins.bytearray.pop
 builtins.bytearray.remove
-bz2.BZ2Compressor.compress
-bz2.BZ2File.read
-bz2.BZ2File.read1
-bz2.BZ2File.readline
-bz2.BZ2File.seek
 collections.AsyncGenerator.asend
 collections.AsyncGenerator.athrow
 collections.Container.__contains__
@@ -150,10 +155,7 @@ contextlib.AsyncExitStack.push_async_callback
 contextlib.ExitStack.callback
 contextvars.ContextVar.reset
 contextvars.ContextVar.set
-dataclasses.dataclass
-dataclasses.replace
 io.IncrementalNewlineDecoder.setstate
-itertools.tee
 lzma.LZMACompressor.compress
 lzma.is_check_supported
 os.initgroups

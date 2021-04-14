@@ -1,20 +1,29 @@
+_collections_abc.AsyncGenerator.ag_await
+_collections_abc.AsyncGenerator.ag_code
+_collections_abc.AsyncGenerator.ag_frame
+_collections_abc.AsyncGenerator.ag_running
+_collections_abc.ItemsView.__reversed__
+_collections_abc.KeysView.__reversed__
+_collections_abc.ValuesView.__reversed__
+# This was changed in Python 3.8.8.
+_curses.color_pair
+_thread.ExceptHookArgs
+_thread._ExceptHookArgs
 ast.Bytes.__new__
 ast.Ellipsis.__new__
 ast.NameConstant.__new__
 ast.Num.__new__
 ast.Str.__new__
-asyncio.AbstractEventLoop.sock_sendfile
 asyncio.compat  # removed in 3.7
-asyncio.Future.__init__
-asyncio.Future._callbacks
-asyncio.events.AbstractEventLoop.sock_sendfile
-asyncio.futures.Future.__init__
-asyncio.futures.Future._callbacks
-asyncio.proactor_events._ProactorBasePipeTransport.__del__
+asyncio.Future.__init__  # Usually initialized from c object
+asyncio.Future._callbacks  # Usually initialized from c object
+asyncio.futures.Future.__init__  # Usually initialized from c object
+asyncio.futures.Future._callbacks  # Usually initialized from c object
 asyncio.run  # Bugfix involving this was backported to 3.8
 asyncio.runners.run  # It just hasn't been released yet
 asyncio.threads  # Added in Python 3.9
 builtins.dict.get
+bz2.BZ2Compressor.compress  # does not accept keyword arguments even though signature says it does
 collections.AsyncGenerator.ag_await
 collections.AsyncGenerator.ag_code
 collections.AsyncGenerator.ag_frame
@@ -29,13 +38,14 @@ collections.abc.AsyncGenerator.ag_running
 collections.abc.ItemsView.__reversed__
 collections.abc.KeysView.__reversed__
 collections.abc.ValuesView.__reversed__
+concurrent.futures.ProcessPoolExecutor.map
+contextlib.nullcontext  # not a function at runtime
 contextvars.Context.__init__
 contextvars.Context.get
 copy.PyStringMap
-dataclasses.Field.__init__
-dataclasses.InitVar.__init__
+# This was changed in Python 3.8.8.
+curses.color_pair
 dataclasses.field
-email.message.MIMEPart.as_string
 enum.Enum._generate_next_value_
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 functools.partialmethod.__get__
@@ -46,8 +56,6 @@ hmac.new  # Stub is a white lie; see comments in the stub
 http.client.HTTPSConnection.__init__
 http.cookiejar.DefaultCookiePolicy.__init__
 http.server.SimpleHTTPRequestHandler.__init__
-importlib.metadata.DistributionFinder.Context.pattern
-importlib.metadata.EntryPointBase
 ipaddress.IPv4Interface.hostmask
 ipaddress.IPv6Interface.hostmask
 ipaddress._BaseNetwork.broadcast_address
@@ -55,10 +63,6 @@ ipaddress._BaseNetwork.hostmask
 macpath
 macurl2path  # removed in 3.7
 mmap.MADV_[A-Z_]+
-multiprocessing.managers.SharedMemoryServer.__init__
-multiprocessing.pool.CLOSE
-multiprocessing.pool.RUN
-multiprocessing.pool.TERMINATE
 multiprocessing.spawn._main
 nntplib._NNTPBase.starttls
 pickle.Pickler.reducer_override
@@ -70,9 +74,9 @@ secrets.SystemRandom.getstate
 select.epoll.register
 smtplib.SMTP.sendmail
 sre_constants.RANGE_IGNORE
-ssl.PROTOCOL_SSLv3
-ssl.RAND_egd
-sys.UnraisableHookArgs
+ssl.PROTOCOL_SSLv3  # Depends on ssl compilation
+ssl.RAND_egd  # Depends on openssl compilation
+sys.UnraisableHookArgs  # Not exported from sys
 types.ClassMethodDescriptorType.__get__
 types.CodeType.replace
 types.MethodDescriptorType.__get__
@@ -95,9 +99,9 @@ uuid.getnode  # undocumented, unused parameter getters that was later removed
 weakref.WeakValueDictionary.update
 webbrowser.Opera.raise_opts
 xml.etree.ElementTree.TreeBuilder.start  # Discrepancy between Python and C modules, fixed in bpo-39495
-xml.etree.ElementTree.XMLParser.__init__
+xml.etree.ElementTree.XMLParser.__init__  # Defined in C so has general signature
 xml.etree.cElementTree.TreeBuilder.start  # bpo-39495
-xml.etree.cElementTree.XMLParser.__init__
+xml.etree.cElementTree.XMLParser.__init__  # Defined in C so has general signature
 zipfile.Path.open
 # These enums derive from (int, IntEnum) or (str, Enum). See comment in py3_common.txt
 enum.IntFlag.__new__

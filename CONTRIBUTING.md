@@ -62,8 +62,8 @@ you if you've contributed to other projects on GitHub.  For the
 mechanics, see [Mypy's git and GitHub workflow help page](https://github.com/python/mypy/wiki/Using-Git-And-GitHub),
 or [GitHub's own documentation](https://help.github.com/articles/using-pull-requests/).
 
-Anyone interested in type stubs may review your code.  One of the core
-developers will merge your pull request when they think it's ready.
+Anyone interested in type stubs may review your code.  One of the
+maintainers will merge your pull request when they think it's ready.
 For every pull request, we aim to promptly either merge it or say why
 it's not yet ready; if you go a few days without a reply, please feel
 free to ping the thread by adding a new comment.
@@ -77,7 +77,7 @@ you are changing.
 Also, do not squash your commits after you have submitted a pull request, as this
 erases context during review. We will squash commits when the pull request is merged.
 
-At present the core developers are (alphabetically):
+At present the maintainers are (alphabetically):
 * David Fisher (@ddfisher)
 * Łukasz Langa (@ambv)
 * Jukka Lehtosalo (@JukkaL)
@@ -88,10 +88,11 @@ At present the core developers are (alphabetically):
 * Guido van Rossum (@gvanrossum)
 * Shantanu (@hauntsaninja)
 * Rune Tynan (@CraftSpider)
+* Aku Viljanen (@Akuli)
 * Jelle Zijlstra (@JelleZijlstra)
 
 NOTE: the process for preparing and submitting changes also applies to
-core developers.  This ensures high quality contributions and keeps
+maintainers.  This ensures high quality contributions and keeps
 everybody on the same page.  Avoid direct pushes to the repository.
 
 
@@ -209,9 +210,6 @@ you should know about.
 
 Style conventions for stub files are different from PEP 8. The general
 rule is that they should be as concise as possible.  Specifically:
-* lines can be up to 130 characters long;
-* functions and methods that don't fit in one line should be split up
-  with one argument per line;
 * all function bodies should be empty;
 * prefer ``...`` over ``pass``;
 * prefer ``...`` on the same line as the class/function signature;
@@ -221,12 +219,11 @@ rule is that they should be as concise as possible.  Specifically:
   if the classes are very small;
 * do not use docstrings;
 * use variable annotations instead of type comments, even for stubs
-  that target older versions of Python;
-* for arguments with a type and a default, use spaces around the `=`.
+  that target older versions of Python.
 
 Stubs should be reformatted with the formatters
 [black](https://github.com/psf/black) and
-[isort](https://github.com/timothycrosley/isort) before submission.
+[isort](https://github.com/PyCQA/isort) before submission.
 These formatters are included in typeshed's `requirements-tests-py3.txt` file.
 A sample `pre-commit` file is included in the typeshed repository.  Copy it
 to `.git/hooks` and adjust the path to your virtual environment's `bin`
@@ -241,7 +238,13 @@ checker, and leave out unnecessary detail:
 * use `float` instead of `Union[int, float]`.
 
 Some further tips for good type hints:
-* avoid invariant collection types (`List`, `Dict`) in argument
+* use built-in generics (`list`, `dict`, `tuple`, `set`), instead
+  of importing them from `typing`, **except** for arbitrary length tuples
+  (`Tuple[int, ...]`) (see
+  [python/mypy#9980](https://github.com/python/mypy/issues/9980));
+* in Python 3 stubs, import collections (`Mapping`, `Iterable`, etc.)
+  from `collections.abc` instead of `typing`;
+* avoid invariant collection types (`list`, `dict`) in argument
   positions, in favor of covariant types like `Mapping` or `Sequence`;
 * avoid Union return types: https://github.com/python/mypy/issues/1693;
 * in Python 2, whenever possible, use `unicode` if that's the only
@@ -264,14 +267,6 @@ the use of `Any` for when:
 Note that `Any` is not the correct type to use if you want to indicate
 that some function can accept literally anything: in those cases use
 `object` instead.
-
-For arguments with type and a default value of `None`, PEP 484
-prescribes that the type automatically becomes `Optional`.  However we
-prefer explicit over implicit in this case, and require the explicit
-`Optional[]` around the type.  The mypy tests enforce this (through
-the use of --no-implicit-optional) and the error looks like
-`Incompatible types in assignment (expression has type None, variable
-has type "Blah") `.
 
 Stub files support forward references natively.  In other words, the
 order of class declarations and type aliases does not matter in
@@ -308,30 +303,21 @@ contributors.
 
 ### Stub versioning
 
-There are separate directories for `stdlib` and `third_party` stubs.
-Within those, there are separate directories for different versions of
-Python the stubs target.
+There are separate directories for `stdlib` (standard library) and `stubs`
+(all other stubs). For standard library stubs Python version support is
+given in `VERSIONS` file. Each line in this file is a module or package name
+followed by `: `, followed by the oldest *supported* Python version where
+the module is available.
 
-The directory name indicates the major version of Python that a stub targets
-and optionally the lowest minor version, with the exception of the `2and3`
-directory which applies to both Python 2 and 3.
+Third-party stubs only support Python 3 by default. You can optionally supply
+Python 2 stubs for a package by placing them into a `@python2` subdirectory
+for the corresponding distribution. Some older stubs also indicate Python 2
+support by setting `python2 = True` in the corresponding `METADATA.toml` file.
 
-For example, stubs in the `3` directory will be applied to all versions of
-Python 3, though stubs in the `3.7` directory will only be applied to versions
-3.7 and above. However, stubs in the `2` directory will not be applied to
-Python 3.
-
-It is preferred to use a single stub in the more generic directory that
-conditionally targets specific versions when needed, as opposed
-to maintaining multiple stub files within more specific directories. Similarly,
-if the given library works on both Python 2 and Python 3, prefer to put your
-stubs in the `2and3` directory, unless the types are so different that the stubs
-become unreadable that way.
-
-You can use checks like `if sys.version_info >= (3, 8):` to denote new
-functionality introduced in a given Python version or solve type
-differences.  When doing so, only use one-tuples or two-tuples.  This is
-because:
+You can use checks
+like `if sys.version_info >= (3, 8):` to denote new functionality introduced
+in a given Python version or solve type differences.  When doing so, only use
+one-tuples or two-tuples.  This is because:
 
 * mypy doesn't support more fine-grained version checks; and more
   importantly
@@ -353,10 +339,24 @@ harmless.  This is a strictly better compromise than using the latter
 two forms, which would generate false positive errors for correct use
 under Python 3.7.4.
 
+When your stub contains if statements for different Python versions,
+always put the code for the most recent Python version first.
+
 Note: in its current implementation, typeshed cannot contain stubs for
 multiple versions of the same third-party library.  Prefer to generate
 stubs for the latest version released on PyPI at the time of your
-stubbing.
+stubbing. The oldest version of the library for which the stubs are still
+applicable (i.e. reflect the actual runtime behaviour) can be indicated
+in `METADATA.toml` as `version = "x.y"`. Note that only two most significant
+version levels are supported (i.e. only single dot). When a significant change
+is made in the library, the version of the stub should be bumped (note that
+previous versions are still available on PyPI).
+
+Internal typeshed machinery will periodically build and upload modified
+third party packages to PyPI, each time this happens the least significant
+version level is incremented. For example, if `stubs/foo/METADATA.toml` has
+`version = "x.y"` the package on PyPI will be updated from `types-foo-x.y.n`
+to `types-foo-x.y.n+1`.
 
 ### What to do when a project's documentation and implementation disagree
 
@@ -382,13 +382,13 @@ addressed.  We indicate this by editing the subject to add a ``[WIP]``
 prefix.  (This should be removed before committing the issue once
 unblocked!)
 
-### Core developer guidelines
+### Maintainer guidelines
 
-Core developers should follow these rules when processing pull requests:
+Maintainers should follow these rules when processing pull requests:
 
 * Always wait for tests to pass before merging PRs.
 * Use "[Squash and merge](https://github.com/blog/2141-squash-your-commits)" to merge PRs.
-* Delete branches for merged PRs (by core devs pushing to the main repo).
+* Delete branches for merged PRs (by maintainers pushing to the main repo).
 * Make sure commit messages to master are meaningful. For example, remove irrelevant
   intermediate commit messages.
 * If stubs for a new library are submitted, notify the library's maintainers.
