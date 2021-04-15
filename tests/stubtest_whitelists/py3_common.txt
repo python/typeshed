@@ -49,7 +49,7 @@ asyncio.locks.Condition.locked
 asyncio.locks.Condition.release
 asyncio.proactor_events.BaseProactorEventLoop.sock_recv # nbytes parameter has different name 'n' in implementation
 asyncio.selector_events.BaseSelectorEventLoop.sock_recv # nbytes parameter has different name 'n' in implementation
-builtins.classmethod.__get__  # this function can accpet no value for the type parameter.
+builtins.classmethod.__get__  # this function can accept no value for the type parameter.
 builtins.ellipsis  # type is not exposed anywhere
 builtins.function
 builtins.memoryview.__contains__  # C type that implements __getitem__
