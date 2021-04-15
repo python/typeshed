@@ -1,5 +1,4 @@
 import sys
-from _typeshed import _T_co
 from typing import (
     Any,
     Container,
@@ -15,6 +14,7 @@ from typing import (
 )
 
 _T = TypeVar("_T")
+_T_co = TypeVar("_T_co", covariant=True)
 _K = TypeVar("_K")
 _V = TypeVar("_V")
 
