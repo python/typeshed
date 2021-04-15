@@ -24,9 +24,6 @@ _collections_abc.Set.isdisjoint
 _csv.Dialect.__init__
 _dummy_threading
 _importlib_modulespec
-_operator.attrgetter  # not a function at runtime
-_operator.itemgetter  # not a function at runtime
-_operator.methodcaller
 _threading_local.local.__new__
 _typeshed.*  # Utility types for typeshed, doesn't exist at runtime
 _weakref.CallableProxyType.__getattr__
@@ -225,26 +222,11 @@ multiprocessing.synchronize.Event.__init__
 multiprocessing.synchronize.SemLock.__init__
 multiprocessing.synchronize.SemLock.acquire
 multiprocessing.synchronize.SemLock.release
-netrc.NetrcParseError.__init__
-netrc.netrc.__init__
-ntpath.join
-numbers.Number.__hash__
-operator.attrgetter  # not a function at runtime
-operator.itemgetter  # not a function at runtime
-operator.methodcaller
-optparse.HelpFormatter._format__Text
-optparse.OptionParser.__init__
-optparse.Values.__getattr__
-optparse.Values.read_file
-optparse.Values.read_module
-os._Environ.__init__
-os._Environ.setdefault
-os._wrap_close.__init__
-pickle.Pickler.persistent_id
-pickle.Unpickler.persistent_load
-pipes.Template.copy
-pkgutil.ImpImporter.__init__
-poplib.POP3_SSL.stls
+numbers.Number.__hash__  # typeshed marks this as abstract but code just sets this as None
+optparse.Values.__getattr__  # Some attributes are set in __init__ using setattr
+pickle.Pickler.persistent_id  # C pickler persistent_id is an attribute
+pickle.Unpickler.persistent_load  # C unpickler persistent_load is an attribute
+poplib.POP3_SSL.stls  # bad declaration of inherited function. See poplib.pyi
 pydoc.HTMLDoc.docdata
 pydoc.HTMLDoc.docproperty
 pydoc.HTMLDoc.docroutine
