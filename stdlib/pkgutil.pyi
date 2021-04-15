@@ -1,6 +1,6 @@
 import sys
 from _typeshed import SupportsRead
-from typing import IO, Any, Callable, Iterable, Iterator, NamedTuple, Optional, Tuple, Union
+from typing import IO, Any, Callable, Iterable, Iterator, List, NamedTuple, Optional, Tuple, Union
 
 if sys.version_info >= (3,):
     from importlib.abc import Loader, MetaPathFinder, PathEntryFinder
