@@ -56,8 +56,8 @@ builtins.memoryview.__contains__  # C type that implements __getitem__
 builtins.memoryview.__iter__  # C type that implements __getitem__
 builtins.memoryview.cast  # inspect.signature is incorrect about shape being kw-only
 builtins.object.__init__  # default C signature is incorrect
-builtins.property.__get__  # this function can accpet no value for the type parameter.
-builtins.staticmethod.__get__  # this function can accpet no value for the type parameter.
+builtins.property.__get__  # this function can accept no value for the type parameter.
+builtins.staticmethod.__get__  # this function can accept no value for the type parameter.
 bz2.BZ2Decompressor.__init__  # function does not accept parameters but C signature is set
 # The following methods were changed in point releases from Python 3.6 to 3.9
 # as part of a security fix. These excludes can be removed when the GitHub
