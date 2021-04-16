@@ -1,5 +1,5 @@
+from _typeshed import OpenBinaryModeReading, OpenBinaryModeWriting, OpenTextModeReading, OpenTextModeWriting
 from typing import Any, ClassVar, Optional, Union
-from typing_extensions import Literal
 
 from docutils import TransformSpec
 
@@ -37,13 +37,13 @@ class FileInput(Input):
         encoding: Optional[str] = ...,
         error_handler: str = ...,
         autoclose: bool = ...,
-        mode: Literal["r", "rb"] = ...,
+        mode: Union[OpenTextModeReading, OpenBinaryModeReading] = ...,
     ) -> None: ...
     def readlines(self) -> list[str]: ...
     def close(self) -> None: ...
 
 class FileOutput(Output):
-    mode: ClassVar[Literal["w", "wb"]]
+    mode: ClassVar[Union[OpenTextModeWriting, OpenBinaryModeWriting]]
     def __getattr__(self, name: str) -> Any: ...  # incomplete
 
 class BinaryFileOutput(FileOutput): ...
