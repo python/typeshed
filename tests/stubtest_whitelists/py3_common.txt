@@ -45,30 +45,15 @@ asyncio.locks.Condition.locked
 asyncio.locks.Condition.release
 asyncio.proactor_events.BaseProactorEventLoop.sock_recv # nbytes parameter has different name 'n' in implementation
 asyncio.selector_events.BaseSelectorEventLoop.sock_recv # nbytes parameter has different name 'n' in implementation
-builtins.bytearray.__float__
-builtins.bytearray.__int__
-builtins.bytearray.append
-builtins.bytearray.extend
-builtins.bytearray.maketrans
-builtins.bytes.__float__
-builtins.bytes.__int__
-builtins.bytes.maketrans
-builtins.classmethod.__get__
-builtins.ellipsis
-builtins.filter  # not a function at runtime
+builtins.classmethod.__get__  # this function can accept no value for the type parameter.
+builtins.ellipsis  # type is not exposed anywhere
 builtins.function
-builtins.map  # not a function at runtime
-builtins.memoryview.__contains__
-builtins.memoryview.__iter__
+builtins.memoryview.__contains__  # C type that implements __getitem__
+builtins.memoryview.__iter__  # C type that implements __getitem__
 builtins.memoryview.cast  # inspect.signature is incorrect about shape being kw-only
-builtins.object.__init__
-builtins.property.__get__
-builtins.property.fdel
-builtins.property.fget
-builtins.property.fset
-builtins.reversed  # not a function at runtime
-builtins.staticmethod.__get__
-builtins.zip  # not a function at runtime
+builtins.object.__init__  # default C signature is incorrect
+builtins.property.__get__  # this function can accept no value for the type parameter.
+builtins.staticmethod.__get__  # this function can accept no value for the type parameter.
 bz2.BZ2Decompressor.__init__  # function does not accept parameters but C signature is set
 # The following methods were changed in point releases from Python 3.6 to 3.9
 # as part of a security fix. These excludes can be removed when the GitHub
