@@ -1,4 +1,3 @@
-__future__._Feature.__init__
 _collections_abc.Callable
 _collections_abc.Coroutine.cr_await
 _collections_abc.Coroutine.cr_code
@@ -21,7 +20,7 @@ _collections_abc.MutableSet.remove
 _collections_abc.Sequence.count
 _collections_abc.Sequence.index
 _collections_abc.Set.isdisjoint
-_csv.Dialect.__init__
+_csv.Dialect.__init__  # C __init__ signature is inaccurate
 _dummy_threading
 _importlib_modulespec
 _threading_local.local.__new__
@@ -131,22 +130,16 @@ ctypes.memset  # CFunctionType
 ctypes.pointer  # imported C function
 ctypes.string_at  # docstring argument name is wrong
 ctypes.wstring_at  # docstring argument name is wrong
-dbm.error
 difflib.SequenceMatcher.__init__  # mypy default value for generic parameter issues. See https://github.com/python/mypy/issues/3737
 distutils.command.bdist_packager  # It exists in docs as package name but not in code except as a mention in a comment.
 distutils.version.Version._cmp  # class should have declared this
 distutils.version.Version.parse  # class should have declared this
 email.headerregistry.BaseHeader.max_count  # docs say subclasses should have this property
-encodings.utf_8.IncrementalDecoder._buffer_decode
-encodings.utf_8.StreamReader.decode
-encodings.utf_8.StreamWriter.encode
-encodings.utf_8.encode
 enum.EnumMeta.__call__
 enum.EnumMeta.__new__
-getopt.GetoptError.__init__
 http.HTTPStatus.description  # set in __new__
 http.HTTPStatus.phrase  # set in __new__
-imaplib.IMAP4_SSL.ssl
+imaplib.IMAP4_SSL.ssl  # Dependent on SSL existence
 importlib.abc.FileLoader.get_filename  # Wrapped with _check_name decorator which changes runtime signature
 importlib.abc.FileLoader.load_module  # Wrapped with _check_name decorator which changes runtime signature
 importlib.abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatability
