@@ -251,39 +251,24 @@ tempfile.SpooledTemporaryFile.__next__
 tempfile.SpooledTemporaryFile.readable
 tempfile.SpooledTemporaryFile.seekable
 tempfile.SpooledTemporaryFile.writable
-threading.Condition.acquire
-threading.Condition.release
-threading.Lock
-threading.Semaphore.__enter__
-threading.Semaphore.acquire
-threading.Thread.__init__
-timeit.main
-tkinter.Misc.grid_propagate
-tkinter.Misc.pack_propagate
+threading.Condition.acquire  # Condition functions are exported in __init__
+threading.Condition.release  # Condition functions are exported in __init__
+threading.Lock  # A factory function that returns 'most efficient lock'. Marking it as a function will make it harder for users to mark the Lock type.
+tkinter.Misc.grid_propagate  # The noarg placeholder is a set value list
+tkinter.Misc.pack_propagate  # The noarg placeholder is a set value list
 tkinter.Tk.eval  # from __getattr__
 tkinter.Tk.report_callback_exception  # A bit of a lie, since it's actually a method, but typing it as an attribute allows it to be assigned to
 tkinter.Wm.wm_iconphoto  # Default value of argument can't be used without runtime error
 tkinter.font.Font.__getitem__  # Argument name differs (doesn't matter for __dunder__ methods)
-trace.CoverageResults.__init__
-traceback.FrameSummary.__init__
-traceback.TracebackException.__init__
-traceback.TracebackException.from_exception
-types.GetSetDescriptorType.__get__
-types.GetSetDescriptorType.__set__
-types.MemberDescriptorType.__get__
-types.MemberDescriptorType.__set__
-types.SimpleNamespace.__init__
-types.coroutine
-types.new_class
-types.prepare_class
-typing.AwaitableGenerator
-typing.IO.__iter__
-typing.IO.__next__
-typing.type_check_only
+traceback.TracebackException.from_exception  # explicitly expanding arguemnts going into TracebackException __init__
+types.GetSetDescriptorType.__get__  # this function can accept no value for the type parameter.
+types.MemberDescriptorType.__get__  # this function can accept no value for the type parameter.
+types.SimpleNamespace.__init__  # class doesn't accept positional arguments but has default C signature
+typing.IO.__iter__  # Added because IO streams are iterable. See https://github.com/python/typeshed/commit/97bc450acd60c1bcdafef3ce8fbe3b95a9c0cac3  
+typing.IO.__next__  # Added because IO streams are iterable. See https://github.com/python/typeshed/commit/97bc450acd60c1bcdafef3ce8fbe3b95a9c0cac3
+typing.type_check_only  # typing decorator that is not available at runtime
 unittest.mock.patch  # It's a complicated overload and I haven't been able to figure out why stubtest doesn't like it
-urllib.error.ContentTooShortError.__init__
-urllib.error.URLError.__init__
-urllib.parse._DefragResultBase.__new__
+urllib.parse._DefragResultBase.__new__  # Generic NamedTuple is problematic in mypy, so regular tuple was used. See https://github.com/python/mypy/issues/685
 # The following methods were changed in point releases from Python 3.6 to 3.9
 # as part of a security fix. These excludes can be removed when the GitHub
 # action workflow uses Python versions that include the fix (adding a
@@ -293,7 +278,6 @@ urllib.parse.parse_qsl
 urllib.request.BaseHandler.http_error_nnn
 urllib.request.HTTPPasswordMgrWithPriorAuth.__init__
 urllib.robotparser.RobotFileParser.can_fetch
-warnings.catch_warnings.__init__
 weakref.CallableProxyType.__getattr__
 weakref.ProxyType.__getattr__
 weakref.ReferenceType.__call__
@@ -306,9 +290,6 @@ webbrowser.UnixBrowser.remote_action
 webbrowser.UnixBrowser.remote_action_newtab
 webbrowser.UnixBrowser.remote_action_newwin
 wsgiref.types  # Doesn't exist, see comments in file
-zipfile.ZipExtFile.read
-zipfile.ZipExtFile.readline
-zlib.compressobj
 
 # These enums derive from (int, IntEnum) or (str, Enum). Strangely,
 # at runtime, they inherit Enum.__new__, not int.__new__ or
