@@ -47,6 +47,7 @@ pyexpat.XMLParserType.ExternalEntityParserCreate  # C signature is wrong - funct
 queue.SimpleQueue.__init__
 random.Random.randrange  # missing undocumented arg _int
 random.randrange  # missing undocumented arg _int
+sched.Event.__doc__  # __slots__ is overridden
 secrets.SystemRandom.getstate
 smtplib.SMTP.sendmail
 sre_constants.RANGE_IGNORE

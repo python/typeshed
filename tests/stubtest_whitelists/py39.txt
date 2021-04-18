@@ -90,6 +90,7 @@ platform.uname_result.__new__
 platform.uname_result._fields
 platform.uname_result.processor
 queue.SimpleQueue.__init__
+sched.Event.__doc__  # __slots__ is overridden
 secrets.SystemRandom.getstate
 select.epoll.register
 smtplib.LMTP.__init__
