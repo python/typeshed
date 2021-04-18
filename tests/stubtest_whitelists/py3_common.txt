@@ -213,35 +213,18 @@ pydoc.TextDoc.docmodule
 pydoc.TextDoc.docother
 pydoc.TextDoc.docproperty
 pydoc.TextDoc.docroutine
-random.SystemRandom.getstate
-re.error.__init__
-runpy.run_path
-sched.Event.__doc__
-select.poll
-selectors.DevpollSelector
-selectors.KqueueSelector
-shutil.register_unpack_format
-signal.SIGEMT
-signal.SIGINFO
-smtpd.MailmanProxy.process_message
-smtpd.PureProxy.process_message
-smtplib.SMTP.send_message
-socketserver.BaseServer.fileno
-socketserver.BaseServer.get_request
-socketserver.BaseServer.server_bind
-sqlite3.Row.__len__
-sqlite3.dbapi2.Row.__len__
-sqlite3.dbapi2.version_info
-sqlite3.version_info
-sre_constants.error.__init__
+select.poll  # Depends on configuration
+selectors.DevpollSelector  # Depends on configuration
+selectors.KqueueSelector  # Depends on system
+signal.SIGEMT  # Depends on system
+signal.SIGINFO  # Depends on system
+socketserver.BaseServer.fileno  # implemented in derived classes
+socketserver.BaseServer.get_request  # implemented in derived classes
+socketserver.BaseServer.server_bind  # implemented in derived classes
 ssl.PROTOCOL_SSLv2  # Defined only if compiled with ssl v2
 ssl.Purpose.__new__  # You cannot override __new__ in NamedTuple and runtime uses namedtuple.
 ssl._ASN1Object.__new__  # You cannot override __new__ in NamedTuple and runtime uses namedtuple.
 subprocess.Popen.__init__
-sunau.Au_write.getmark
-sunau.Au_write.getmarkers
-sunau.Au_write.setcomptype
-sunau.Au_write.setmark
 sys.gettotalrefcount  # Available on python debug builds
 sys.implementation  # Actually SimpleNamespace but then you wouldn't have convenient attributes
 tarfile.TarFile.errors  # errors is initialized for some reason as None even though it really only accepts str
