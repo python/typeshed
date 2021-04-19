@@ -12,7 +12,6 @@ from multiprocessing.context import (
     ProcessError as ProcessError,
     SpawnContext,
     TimeoutError as TimeoutError,
-    _default_context,
 )
 from multiprocessing.managers import SyncManager
 from multiprocessing.process import active_children as active_children, current_process as current_process
