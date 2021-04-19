@@ -10,6 +10,7 @@ from multiprocessing.context import (
     ProcessError as ProcessError,
     SpawnContext,
     TimeoutError as TimeoutError,
+    _default_context,
 )
 from multiprocessing.managers import SyncManager
 from multiprocessing.process import active_children as active_children, current_process as current_process
@@ -33,6 +34,11 @@ if sys.platform != "win32":
 # Sychronization primitives
 _LockLike = Union[synchronize.Lock, synchronize.RLock]
 
+Value = _default_context.Value
+RawValue = _default_context.RawValue
+Array = _default_context.Array
+RawArray = _default_context.RawArray
+
 def Barrier(parties: int, action: Optional[Callable[..., Any]] = ..., timeout: Optional[float] = ...) -> synchronize.Barrier: ...
 def BoundedSemaphore(value: int = ...) -> synchronize.BoundedSemaphore: ...
 def Condition(lock: Optional[_LockLike] = ...) -> synchronize.Condition: ...
@@ -47,12 +53,6 @@ def Pool(
     initargs: Iterable[Any] = ...,
     maxtasksperchild: Optional[int] = ...,
 ) -> pool.Pool: ...
-
-# Functions Array and Value are copied from context.pyi.
-# See https://github.com/python/typeshed/blob/ac234f25927634e06d9c96df98d72d54dd80dfc4/stdlib/2and3/turtle.pyi#L284-L291
-# for rationale
-def Array(typecode_or_type: Any, size_or_initializer: Union[int, Sequence[Any]], *, lock: bool = ...) -> sharedctypes._Array: ...
-def Value(typecode_or_type: Any, *args: Any, lock: bool = ...) -> sharedctypes._Value: ...
 
 # ----- multiprocessing function stubs -----
 def allow_connection_pickling() -> None: ...
