@@ -3,7 +3,7 @@ import multiprocessing
 import sys
 from ctypes import _CData
 from logging import Logger
-from multiprocessing import queues, sharedctypes, synchronize
+from multiprocessing import queues, synchronize
 from multiprocessing.process import BaseProcess
 from multiprocessing.sharedctypes import SynchronizedArray, SynchronizedBase
 from typing import Any, Callable, Iterable, List, Optional, Sequence, Type, TypeVar, Union, overload
