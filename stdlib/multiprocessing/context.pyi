@@ -73,7 +73,7 @@ class BaseContext(object):
         typecode_or_type: Union[str, Type[_CData]],
         *args: Any,
         lock: Union[Literal[True], _LockLike],
-    ) -> SynchronizedBase: ...
+    ) -> SynchronizedBase[Any]: ...
     @overload
     def Value(
         self,
@@ -104,7 +104,7 @@ class BaseContext(object):
         size_or_initializer: Union[int, Sequence[Any]],
         *,
         lock: Union[Literal[True], _LockLike],
-    ) -> SynchronizedArray: ...
+    ) -> SynchronizedArray[Any]: ...
     @overload
     def Array(
         self,
