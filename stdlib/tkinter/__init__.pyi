@@ -106,6 +106,7 @@ _TkinterSequence2D = Union[List[List[_T]], List[Tuple[_T, ...]], Tuple[List[_T],
 _Anchor = Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"]  # manual page: Tk_GetAnchor
 _Bitmap = str  # manual page: Tk_GetBitmap
 _ButtonCommand = Union[str, Callable[[], Any]]  # return value is returned from Button.invoke()
+_CanvasItemId = int # handles for items created on a canvas - can be passed to Canvas.delete()
 _Color = str  # typically '#rrggbb', '#rgb' or color names.
 _Compound = Literal["top", "left", "center", "right", "bottom", "none"]  # -compound in manual page named 'options'
 _Cursor = Union[str, Tuple[str], Tuple[str, str], Tuple[str, str, str], Tuple[str, str, str, str]]  # manual page: Tk_GetCursor
@@ -124,8 +125,6 @@ _Relief = Literal["raised", "sunken", "flat", "ridge", "solid", "groove"]  # man
 _ScreenUnits = Union[str, float]  # manual page: Tk_GetPixels
 _XYScrollCommand = Union[str, Callable[[float, float], Any]]  # -xscrollcommand and -yscrollcommand in 'options' manual page
 _TakeFocusValue = Union[int, Literal[""], Callable[[str], Optional[bool]]]  # -takefocus in manual page named 'options'
-
-_CanvasItemId = NewType("_CanvasItemId", int)
 
 class EventType(str, Enum):
     Activate: str = ...
