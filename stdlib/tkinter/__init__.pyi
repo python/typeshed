@@ -22,7 +22,7 @@ from typing import (
     Union,
     overload,
 )
-from typing_extensions import Literal, NewType, TypedDict
+from typing_extensions import Literal, TypedDict
 
 # Using anything from tkinter.font in this file means that 'import tkinter'
 # seems to also load tkinter.font. That's not how it actually works, but
