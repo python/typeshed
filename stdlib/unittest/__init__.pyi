@@ -8,11 +8,12 @@ from .case import (
     TestCase as TestCase,
     expectedFailure as expectedFailure,
     skip as skip,
+    skipIf as skipIf,
     skipUnless as skipUnless,
 )
 
 if sys.version_info >= (3, 8):
-    from .case import addModuleCleanup as addModuleCleanup, skipIf as skipIf
+    from .case import addModuleCleanup as addModuleCleanup
 
 from unittest.loader import *
 from unittest.main import *
