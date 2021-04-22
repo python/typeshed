@@ -1,6 +1,19 @@
+import sys
 from typing import Optional
 from unittest.async_case import *
-from unittest.case import *
+
+from .case import (
+    FunctionTestCase as FunctionTestCase,
+    SkipTest as SkipTest,
+    TestCase as TestCase,
+    expectedFailure as expectedFailure,
+    skip as skip,
+    skipUnless as skipUnless,
+)
+
+if sys.version_info >= (3, 8):
+    from .case import addModuleCleanup as addModuleCleanup, skipIf as skipIf
+
 from unittest.loader import *
 from unittest.main import *
 from unittest.result import TestResult as TestResult

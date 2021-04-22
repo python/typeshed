@@ -95,7 +95,6 @@ typing.SupportsInt.__init__
 typing.SupportsRound.__init__
 typing._SpecialForm.__init__
 typing._SpecialForm.__new__
-unittest.doModuleCleanups
 uuid.getnode  # undocumented, unused parameter getters that was later removed
 weakref.WeakValueDictionary.update
 webbrowser.Opera.raise_opts
@@ -103,7 +102,6 @@ xml.etree.ElementTree.TreeBuilder.start  # Discrepancy between Python and C modu
 xml.etree.ElementTree.XMLParser.__init__  # Defined in C so has general signature
 xml.etree.cElementTree.TreeBuilder.start  # bpo-39495
 xml.etree.cElementTree.XMLParser.__init__  # Defined in C so has general signature
-zipfile.Path.open
 # These enums derive from (int, IntEnum) or (str, Enum). See comment in py3_common.txt
 enum.IntFlag.__new__
 pstats.SortKey.__new__

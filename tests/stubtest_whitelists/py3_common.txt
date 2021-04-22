@@ -168,15 +168,7 @@ lib2to3.pytree.BasePattern.__new__
 lib2to3.pytree.BasePattern.type
 lib2to3.pytree.NegatedPattern.match
 lib2to3.pytree.NegatedPattern.match_seq
-mailbox.Babyl.__init__
-mailbox.MH.__init__
-mailbox.MMDF.__init__
-mailbox._mboxMMDF.get_bytes
-mailbox._mboxMMDF.get_file
-mailbox._mboxMMDF.get_string
-mailbox.mbox.__init__
-mimetypes.read_mime_types
-mmap.mmap.__iter__
+mmap.mmap.__iter__  # has __getitem__ but mypy doesn't derive __iter__ from it: https://github.com/python/mypy/issues/2220
 multiprocessing.JoinableQueue
 multiprocessing.Queue
 multiprocessing.SimpleQueue
