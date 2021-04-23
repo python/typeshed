@@ -959,8 +959,7 @@ if sys.version_info >= (3, 7):
 def callable(__obj: object) -> bool: ...
 def chr(__i: int) -> str: ...
 
-# This class is to be exported as PathLike from os,
-# but we define it here as _PathLike to avoid import cycle issues.
+# We define this here instead of using os.PathLike to avoid import cycle issues.
 # See https://github.com/python/typeshed/pull/991#issuecomment-288160993
 _AnyStr_co = TypeVar("_AnyStr_co", str, bytes, covariant=True)
 @runtime_checkable
