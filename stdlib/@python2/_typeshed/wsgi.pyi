@@ -1,14 +1,14 @@
 # Types to support PEP 3333 (WSGI)
 
 from sys import _OptExcInfo
-from typing import Any, Callable, Iterable, Optional, Protocol, Text
+from typing import Any, Callable, Dict, Iterable, Optional, Protocol, Text
 
 class StartResponse(Protocol):
     def __call__(
         self, status: str, headers: list[tuple[str, str]], exc_info: Optional[_OptExcInfo] = ...
     ) -> Callable[[str], Any]: ...
 
-WSGIEnvironment = dict[Text, Any]
+WSGIEnvironment = Dict[Text, Any]
 WSGIApplication = Callable[[WSGIEnvironment, StartResponse], Iterable[str]]
 
 # WSGI input streams per PEP 3333

@@ -2,14 +2,14 @@
 
 from collections.abc import Callable, Iterable
 from sys import _OptExcInfo
-from typing import Any, Optional, Protocol
+from typing import Any, Dict, Optional, Protocol
 
 class StartResponse(Protocol):
     def __call__(
         self, status: str, headers: list[tuple[str, str]], exc_info: Optional[_OptExcInfo] = ...
     ) -> Callable[[bytes], Any]: ...
 
-WSGIEnvironment = dict[str, Any]
+WSGIEnvironment = Dict[str, Any]
 WSGIApplication = Callable[[WSGIEnvironment, StartResponse], Iterable[bytes]]
 
 # WSGI input streams per PEP 3333
