@@ -11,7 +11,6 @@
 
 import array
 import mmap
-import sys
 from typing import AbstractSet, Any, Container, Iterable, Protocol, Text, Tuple, TypeVar, Union
 from typing_extensions import Literal, final
 
