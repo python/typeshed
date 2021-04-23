@@ -29,7 +29,7 @@ _thread: 3.6
 _threading_local: 3.6
 _tkinter: 3.6
 _tracemalloc: 3.6
-_typeshed: 2.7
+_typeshed: 3.6
 _warnings: 2.7
 _weakref: 2.7
 _weakrefset: 2.7

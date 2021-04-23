@@ -8,16 +8,11 @@
 #     from typing import TYPE_CHECKING
 #     if TYPE_CHECKING:
 #         from _typeshed import ...
-#
-# If "from __future__ import annotations" is not used, types from this
-# module must be quoted.
 
 import array
 import mmap
 import sys
-from collections.abc import Container, Iterable, Set
-from os import PathLike
-from typing import Any, Protocol, TypeVar, Union
+from typing import AbstractSet, Any, Container, Iterable, Protocol, Text, Tuple, TypeVar, Union
 from typing_extensions import Literal, final
 
 _KT = TypeVar("_KT")
@@ -42,7 +37,7 @@ class SupportsRDivMod(Protocol[_T_contra, _T_co]):
 # Mapping-like protocols
 
 class SupportsItems(Protocol[_KT_co, _VT_co]):
-    def items(self) -> Set[tuple[_KT_co, _VT_co]]: ...
+    def items(self) -> Iterable[Tuple[_KT_co, _VT_co]]: ...
 
 class SupportsKeysAndGetItem(Protocol[_KT, _VT_co]):
     def keys(self) -> Iterable[_KT]: ...
@@ -57,9 +52,9 @@ class SupportsItemAccess(SupportsGetItem[_KT_contra, _VT], Protocol[_KT_contra, 
 
 # StrPath and AnyPath can be used in places where a
 # path can be used instead of a string, starting with Python 3.6.
-StrPath = Union[str, PathLike[str]]
-BytesPath = Union[bytes, PathLike[bytes]]
-AnyPath = Union[str, bytes, PathLike[str], PathLike[bytes]]
+StrPath = Text
+BytesPath = str
+AnyPath = Union[unicode, str]
 
 OpenTextModeUpdating = Literal[
     "r+",
@@ -156,13 +151,10 @@ class SupportsNoArgReadline(Protocol[_T_co]):
 class SupportsWrite(Protocol[_T_contra]):
     def write(self, __s: _T_contra) -> Any: ...
 
-ReadableBuffer = Union[bytes, bytearray, memoryview, array.array[Any], mmap.mmap]
-WriteableBuffer = Union[bytearray, memoryview, array.array[Any], mmap.mmap]
+ReadableBuffer = Union[str, bytearray, memoryview, array.array[Any], mmap.mmap, buffer]
+WriteableBuffer = Union[bytearray, memoryview, array.array[Any], mmap.mmap, buffer]
 
-if sys.version_info >= (3, 10):
-    from types import NoneType as NoneType
-else:
-    # Used by type checkers for checks involving None (does not exist at runtime)
-    @final
-    class NoneType:
-        def __bool__(self) -> Literal[False]: ...
+# Used by type checkers for checks involving None (does not exist at runtime)
+@final
+class NoneType:
+    def __bool__(self) -> Literal[False]: ...
