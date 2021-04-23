@@ -8,13 +8,10 @@ import sys
 import tempfile
 from pathlib import Path
 
-# Use the current mypy version until a version that supports modular
-# typeshed is released on PyPI.
-MYPY_VERSION = "git+git://github.com/python/mypy"
 REQUIREMENTS_FILE = "requirements-tests-py3.txt"
-
-
 MYPY_REQUIREMENTS_REGEXPS = [r"^mypy[ =>]", r"^git\+.*/mypy.git\W"]
+
+
 def determine_mypy_version() -> str:
     with open(REQUIREMENTS_FILE) as f:
         for line in f:
