@@ -1,9 +1,9 @@
 import sys
 import types
+from _typeshed import AnyPath
 from abc import ABCMeta, abstractmethod
 from typing import IO, Any, Iterator, Mapping, Optional, Sequence, Tuple, Union
 from typing_extensions import Literal
-from _typeshed import AnyPath
 
 # Loader is exported from this module, but for circular import reasons
 # exists in its own stub file (with ModuleSpec and ModuleType).

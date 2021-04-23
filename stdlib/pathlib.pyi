@@ -1,12 +1,11 @@
 import os
 import sys
-from _typeshed import OpenBinaryMode, OpenBinaryModeReading, OpenBinaryModeUpdating, OpenBinaryModeWriting, OpenTextMode
+from _typeshed import OpenBinaryMode, OpenBinaryModeReading, OpenBinaryModeUpdating, OpenBinaryModeWriting, OpenTextMode, StrPath
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
 from os import PathLike
 from types import TracebackType
 from typing import IO, Any, BinaryIO, Generator, List, Optional, Sequence, Tuple, Type, TypeVar, Union, overload
 from typing_extensions import Literal
-from _typeshed import StrPath
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
