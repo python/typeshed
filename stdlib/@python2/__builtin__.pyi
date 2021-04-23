@@ -43,7 +43,6 @@ from typing import (
     Union,
     ValuesView,
     overload,
-    runtime_checkable,
 )
 from typing_extensions import Literal
 
