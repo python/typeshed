@@ -1,10 +1,12 @@
-from typing import Any, Iterable, Optional
+from typing import Any, Iterable, Optional, Union
 
 __version__: str
 
+_Argv = Union[Iterable[str], str]
+
 def docopt(
     doc: str,
-    argv: Optional[Iterable[str]] = ...,
+    argv: Optional[_Argv] = ...,
     help: bool = ...,
     version: Optional[Any] = ...,
     options_first: bool = ...,
