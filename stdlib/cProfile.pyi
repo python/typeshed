@@ -1,7 +1,7 @@
 import sys
 from _typeshed import AnyPath
 from types import CodeType
-from typing import Any, Callable, Dict, Optional, TypeVar, Union, Tuple
+from typing import Any, Callable, Dict, Optional, Tuple, TypeVar, Union
 
 def run(statement: str, filename: Optional[str] = ..., sort: Union[str, int] = ...) -> None: ...
 def runctx(
