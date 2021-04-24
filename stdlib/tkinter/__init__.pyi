@@ -949,7 +949,7 @@ class Button(Widget):
         repeatinterval: int = ...,
         state: Literal["normal", "active", "disabled"] = ...,
         takefocus: _TakeFocusValue = ...,
-        text: str = ...,
+        text: Union[float, int, str] = ...,
         # We allow the textvariable to be any Variable, not necessarly
         # StringVar. This is useful for e.g. a button that displays the value
         # of an IntVar.
@@ -1624,7 +1624,7 @@ class Label(Widget):
         relief: _Relief = ...,
         state: Literal["normal", "active", "disabled"] = ...,
         takefocus: _TakeFocusValue = ...,
-        text: str = ...,
+        text: Union[float, int, str] = ...,
         textvariable: Variable = ...,
         underline: int = ...,
         width: _ScreenUnits = ...,
