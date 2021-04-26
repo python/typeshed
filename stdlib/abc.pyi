@@ -1,4 +1,4 @@
-from typing import Any, Callable, Dict, Tuple, Type, TypeVar
+from typing import Any, Callable, Type, TypeVar
 
 _T = TypeVar("_T")
 _FuncT = TypeVar("_FuncT", bound=Callable[..., Any])
