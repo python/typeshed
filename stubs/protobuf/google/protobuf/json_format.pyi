@@ -34,8 +34,5 @@ def Parse(
     descriptor_pool: Optional[DescriptorPool] = ...,
 ) -> _MessageT: ...
 def ParseDict(
-    js_dict: Any,
-    message: _MessageT,
-    ignore_unknown_fields: bool = ...,
-    descriptor_pool: Optional[DescriptorPool] = ...,
+    js_dict: Any, message: _MessageT, ignore_unknown_fields: bool = ..., descriptor_pool: Optional[DescriptorPool] = ...
 ) -> _MessageT: ...

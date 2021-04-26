@@ -570,17 +570,7 @@ class Redis(Generic[_StrType]):
     def xack(self, name, groupname, *ids): ...
     def xadd(self, name, fields, id=..., maxlen=..., approximate=...): ...
     def xclaim(
-        self,
-        name,
-        groupname,
-        consumername,
-        min_idle_time,
-        message_ids,
-        idle=...,
-        time=...,
-        retrycount=...,
-        force=...,
-        justid=...,
+        self, name, groupname, consumername, min_idle_time, message_ids, idle=..., time=..., retrycount=..., force=..., justid=...
     ): ...
     def xdel(self, name, *ids): ...
     def xgroup_create(self, name, groupname, id=..., mkstream=...): ...
@@ -995,17 +985,7 @@ class Pipeline(Redis):
     def xack(self, name, groupname, *ids) -> Pipeline: ...  # type: ignore [override]
     def xadd(self, name, fields, id=..., maxlen=..., approximate=...) -> Pipeline: ...  # type: ignore [override]
     def xclaim(
-        self,
-        name,
-        groupname,
-        consumername,
-        min_idle_time,
-        message_ids,
-        idle=...,
-        time=...,
-        retrycount=...,
-        force=...,
-        justid=...,
+        self, name, groupname, consumername, min_idle_time, message_ids, idle=..., time=..., retrycount=..., force=..., justid=...
     ) -> Pipeline: ...  # type: ignore [override]
     def xdel(self, name, *ids) -> Pipeline: ...  # type: ignore [override]
     def xgroup_create(self, name, groupname, id=..., mkstream=...) -> Pipeline: ...  # type: ignore [override]
