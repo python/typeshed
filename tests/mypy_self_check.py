@@ -2,7 +2,6 @@
 """Script to run mypy against its own code base."""
 
 import os
-import re
 import subprocess
 import sys
 import tempfile
@@ -26,8 +25,10 @@ if __name__ == "__main__":
                     dirpath / "mypy_self_check.ini",
                     "--custom-typeshed-dir",
                     ".",
-                    "-p", "mypy",
-                    "-p", "mypyc",
+                    "-p",
+                    "mypy",
+                    "-p",
+                    "mypyc",
                 ],
                 check=True,
             )
