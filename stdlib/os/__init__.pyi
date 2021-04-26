@@ -433,6 +433,7 @@ if sys.platform != "win32":
     def unsetenv(__name: Union[bytes, str]) -> None: ...
 
 _Opener = Callable[[str, int], int]
+
 @overload
 def fdopen(
     fd: int,
