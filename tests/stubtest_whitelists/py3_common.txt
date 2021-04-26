@@ -14,6 +14,7 @@ _dummy_threading
 _importlib_modulespec
 _threading_local.local.__new__
 _typeshed.*  # Utility types for typeshed, doesn't exist at runtime
+abc.ABCMeta.__new__  # mypy did not like this in the stub
 _weakref.CallableProxyType.__getattr__  # Should have all attributes of proxy
 _weakref.ProxyType.__getattr__  # Should have all attributes of proxy
 _weakref.ReferenceType.__call__  # C function default annotation is wrong
