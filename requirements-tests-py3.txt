@@ -1,3 +1,5 @@
+# Use the current mypy version until a version that supports modular
+# typeshed is released on PyPI.
 git+https://github.com/python/mypy.git@master
 typed-ast>=1.0.4
 black==20.8b1
