@@ -8,13 +8,14 @@ _collections_abc.Generator.gi_code
 _collections_abc.Generator.gi_frame
 _collections_abc.Generator.gi_running
 _collections_abc.Generator.gi_yieldfrom
+_collections_abc.Mapping.get  # Adding None to the Union messed up mypy
 _collections_abc.Sequence.index  # Supporting None in end is not mandatory
 _csv.Dialect.__init__  # C __init__ signature is inaccurate
 _dummy_threading
 _importlib_modulespec
 _threading_local.local.__new__
 _typeshed.*  # Utility types for typeshed, doesn't exist at runtime
-abc.ABCMeta.__new__  # mypy did not like this in the stub
+abc.ABCMeta.__new__  # pytype wants the parameter named cls and not mcls
 _weakref.CallableProxyType.__getattr__  # Should have all attributes of proxy
 _weakref.ProxyType.__getattr__  # Should have all attributes of proxy
 _weakref.ReferenceType.__call__  # C function default annotation is wrong
@@ -57,6 +58,7 @@ codecs.CodecInfo.streamreader
 codecs.CodecInfo.streamwriter
 collections.Callable  # Some typecheckers need this as specialform
 # Coroutine and Generator properties are added programmatically
+collections.ChainMap.get  # Adding None to the underlying Mapping Union messed up mypy
 collections.Coroutine.cr_await
 collections.Coroutine.cr_code
 collections.Coroutine.cr_frame
@@ -65,6 +67,7 @@ collections.Generator.gi_code
 collections.Generator.gi_frame
 collections.Generator.gi_running
 collections.Generator.gi_yieldfrom
+collections.Mapping.get  # Adding None to the Union messed up mypy
 collections.Sequence.index  # Supporting None in end is not mandatory
 # Coroutine and Generator properties are added programmatically
 collections.abc.Coroutine.cr_await
