@@ -950,10 +950,7 @@ class Treeview(Widget, tkinter.XView, tkinter.YView):
     # Also, it's 'callback' instead of 'func' here.
     @overload
     def tag_bind(
-        self,
-        tagname: str,
-        sequence: Optional[str] = ...,
-        callback: Optional[Callable[[tkinter.Event[Treeview]], Any]] = ...,
+        self, tagname: str, sequence: Optional[str] = ..., callback: Optional[Callable[[tkinter.Event[Treeview]], Any]] = ...
     ) -> str: ...
     @overload
     def tag_bind(self, tagname: str, sequence: Optional[str], callback: str) -> None: ...
