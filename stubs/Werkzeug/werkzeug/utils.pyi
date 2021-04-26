@@ -36,6 +36,7 @@ def unescape(s): ...
 # 'redirect' returns a werkzeug Response, unless you give it
 # another Response type to use instead.
 _RC = TypeVar("_RC", bound=Response)
+
 @overload
 def redirect(location: str, code: int = ..., Response: None = ...) -> Response: ...
 @overload

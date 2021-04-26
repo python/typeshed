@@ -149,6 +149,7 @@ WUNTRACED: int
 XATTR_CREATE: int
 XATTR_REPLACE: int
 XATTR_SIZE_MAX: int
+
 @overload
 def listdir(path: Optional[str] = ...) -> List[str]: ...
 @overload
