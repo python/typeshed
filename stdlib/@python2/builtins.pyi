@@ -43,7 +43,6 @@ from typing import (
     Union,
     ValuesView,
     overload,
-    runtime_checkable,
 )
 from typing_extensions import Literal
 
@@ -838,15 +837,6 @@ def cmp(__x: Any, __y: Any) -> int: ...
 _N1 = TypeVar("_N1", bool, int, float, complex)
 
 def coerce(__x: _N1, __y: _N1) -> Tuple[_N1, _N1]: ...
-
-# This class is to be exported as PathLike from os,
-# but we define it here as _PathLike to avoid import cycle issues.
-# See https://github.com/python/typeshed/pull/991#issuecomment-288160993
-_AnyStr_co = TypeVar("_AnyStr_co", str, bytes, covariant=True)
-@runtime_checkable
-class _PathLike(Protocol[_AnyStr_co]):
-    def __fspath__(self) -> _AnyStr_co: ...
-
 def compile(source: Union[Text, mod], filename: Text, mode: Text, flags: int = ..., dont_inherit: int = ...) -> Any: ...
 def delattr(__obj: Any, __name: Text) -> None: ...
 def dir(__o: object = ...) -> List[str]: ...

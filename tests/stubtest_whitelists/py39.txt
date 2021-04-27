@@ -53,7 +53,6 @@ curses.color_pair
 dataclasses.field
 dataclasses.InitVar.__class_getitem__  # stubtest bug. doesn't do the right thing with overload + implicit classmethod __class_getitem__
 dummy_threading
-email.message.MIMEPart.as_string
 enum.Enum._generate_next_value_
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 ftplib.FTP.__init__
@@ -91,14 +90,14 @@ platform.uname_result.__new__
 platform.uname_result._fields
 platform.uname_result.processor
 queue.SimpleQueue.__init__
+sched.Event.__doc__  # __slots__ is overridden
 secrets.SystemRandom.getstate
 select.epoll.register
 smtplib.LMTP.__init__
 smtplib.SMTP.sendmail
 sre_constants.RANGE_IGNORE
-ssl.AF_INET
-ssl.PROTOCOL_SSLv3
-ssl.RAND_egd
+ssl.PROTOCOL_SSLv3  # Depends on ssl compilation
+ssl.RAND_egd  # Depends on openssl compilation
 symtable.SymbolTable.has_exec
 sys.UnraisableHookArgs  # Not exported from sys
 time.CLOCK_PROF
@@ -130,17 +129,12 @@ typing._TypedDict.values
 unittest.doModuleCleanups
 weakref.WeakValueDictionary.update
 webbrowser.Opera.raise_opts
-xml.etree.ElementTree.XMLParser.__init__
-xml.etree.cElementTree.XMLParser.__init__
+xml.etree.ElementTree.XMLParser.__init__  # Defined in C so has general signature
+xml.etree.cElementTree.XMLParser.__init__  # Defined in C so has general signature
 
 # positional-only complaints
 builtins.bytearray.pop
 builtins.bytearray.remove
-bz2.BZ2Compressor.compress
-bz2.BZ2File.read
-bz2.BZ2File.read1
-bz2.BZ2File.readline
-bz2.BZ2File.seek
 collections.AsyncGenerator.asend
 collections.AsyncGenerator.athrow
 collections.Container.__contains__
