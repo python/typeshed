@@ -22,6 +22,7 @@ from typing_extensions import Literal
 
 _T = TypeVar("_T")
 _CT = TypeVar("_CT", bound=_CData)
+
 @overload
 def RawValue(typecode_or_type: Type[_CT], *args: Any) -> _CT: ...
 @overload
@@ -34,10 +35,7 @@ def RawArray(typecode_or_type: Union[str, Type[_CData]], size_or_initializer: Un
 def Value(typecode_or_type: Type[_CT], *args: Any, lock: Literal[False], ctx: Optional[BaseContext] = ...) -> _CT: ...
 @overload
 def Value(
-    typecode_or_type: Type[_CT],
-    *args: Any,
-    lock: Union[Literal[True], _LockLike],
-    ctx: Optional[BaseContext] = ...,
+    typecode_or_type: Type[_CT], *args: Any, lock: Union[Literal[True], _LockLike], ctx: Optional[BaseContext] = ...
 ) -> SynchronizedBase[_CT]: ...
 @overload
 def Value(

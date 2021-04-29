@@ -2,7 +2,7 @@ import ctypes
 import sys
 from ctypes import _CData
 from logging import Logger
-from multiprocessing import connection, pool, synchronize
+from multiprocessing import connection, context, pool, synchronize
 from multiprocessing.context import (
     AuthenticationError as AuthenticationError,
     BaseContext,
@@ -36,56 +36,11 @@ if sys.platform != "win32":
 # Sychronization primitives
 _LockLike = Union[synchronize.Lock, synchronize.RLock]
 _CT = TypeVar("_CT", bound=_CData)
-@overload
-def RawValue(typecode_or_type: Type[_CT], *args: Any) -> _CT: ...
-@overload
-def RawValue(typecode_or_type: Union[str, Type[_CData]], *args: Any) -> Any: ...
-@overload
-def RawArray(typecode_or_type: Type[_CT], size_or_initializer: Union[int, Sequence[Any]]) -> ctypes.Array[_CT]: ...
-@overload
-def RawArray(typecode_or_type: Union[str, Type[_CData]], size_or_initializer: Union[int, Sequence[Any]]) -> Any: ...
-@overload
-def Value(typecode_or_type: Type[_CT], *args: Any, lock: Literal[False]) -> _CT: ...
-@overload
-def Value(
-    typecode_or_type: Union[str, Type[_CData]],
-    *args: Any,
-    lock: Union[Literal[True], _LockLike],
-) -> SynchronizedBase[Any]: ...
-@overload
-def Value(
-    typecode_or_type: Union[str, Type[_CData]],
-    *args: Any,
-    lock: Union[bool, _LockLike] = ...,
-) -> Any: ...
-@overload
-def Array(
-    typecode_or_type: Type[_CT],
-    size_or_initializer: Union[int, Sequence[Any]],
-    *,
-    lock: Literal[False],
-) -> _CT: ...
-@overload
-def Array(
-    typecode_or_type: Type[_CT],
-    size_or_initializer: Union[int, Sequence[Any]],
-    *,
-    lock: Union[Literal[True], _LockLike],
-) -> SynchronizedArray[_CT]: ...
-@overload
-def Array(
-    typecode_or_type: Union[str, Type[_CData]],
-    size_or_initializer: Union[int, Sequence[Any]],
-    *,
-    lock: Union[Literal[True], _LockLike],
-) -> SynchronizedArray[Any]: ...
-@overload
-def Array(
-    typecode_or_type: Union[str, Type[_CData]],
-    size_or_initializer: Union[int, Sequence[Any]],
-    *,
-    lock: Union[bool, _LockLike] = ...,
-) -> Any: ...
+RawValue = context._default_context.RawValue
+RawArray = context._default_context.RawArray
+Value = context._default_context.Value
+Array = context._default_context.Array
+
 def Barrier(parties: int, action: Optional[Callable[..., Any]] = ..., timeout: Optional[float] = ...) -> synchronize.Barrier: ...
 def BoundedSemaphore(value: int = ...) -> synchronize.BoundedSemaphore: ...
 def Condition(lock: Optional[_LockLike] = ...) -> synchronize.Condition: ...
