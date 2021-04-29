@@ -69,25 +69,13 @@ class BaseContext(object):
     def Value(self, typecode_or_type: Type[_CT], *args: Any, lock: Literal[False]) -> _CT: ...
     @overload
     def Value(
-        self,
-        typecode_or_type: Union[str, Type[_CData]],
-        *args: Any,
-        lock: Union[Literal[True], _LockLike],
+        self, typecode_or_type: Union[str, Type[_CData]], *args: Any, lock: Union[Literal[True], _LockLike]
     ) -> SynchronizedBase[Any]: ...
     @overload
-    def Value(
-        self,
-        typecode_or_type: Union[str, Type[_CData]],
-        *args: Any,
-        lock: Union[bool, _LockLike] = ...,
-    ) -> Any: ...
+    def Value(self, typecode_or_type: Union[str, Type[_CData]], *args: Any, lock: Union[bool, _LockLike] = ...) -> Any: ...
     @overload
     def Array(
-        self,
-        typecode_or_type: Type[_CT],
-        size_or_initializer: Union[int, Sequence[Any]],
-        *,
-        lock: Literal[False],
+        self, typecode_or_type: Type[_CT], size_or_initializer: Union[int, Sequence[Any]], *, lock: Literal[False]
     ) -> _CT: ...
     @overload
     def Array(
