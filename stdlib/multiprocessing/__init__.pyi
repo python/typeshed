@@ -1,6 +1,4 @@
-import ctypes
 import sys
-from ctypes import _CData
 from logging import Logger
 from multiprocessing import connection, context, pool, synchronize
 from multiprocessing.context import (
@@ -18,9 +16,8 @@ from multiprocessing.process import active_children as active_children, current_
 
 # These are technically functions that return instances of these Queue classes. See #4313 for discussion
 from multiprocessing.queues import JoinableQueue as JoinableQueue, Queue as Queue, SimpleQueue as SimpleQueue
-from multiprocessing.sharedctypes import SynchronizedArray, SynchronizedBase
 from multiprocessing.spawn import freeze_support as freeze_support
-from typing import Any, Callable, Iterable, List, Optional, Sequence, Tuple, Type, TypeVar, Union, overload
+from typing import Any, Callable, Iterable, List, Optional, Tuple, Union, overload
 from typing_extensions import Literal
 
 if sys.version_info >= (3, 8):
@@ -35,7 +32,6 @@ if sys.platform != "win32":
 
 # Sychronization primitives
 _LockLike = Union[synchronize.Lock, synchronize.RLock]
-_CT = TypeVar("_CT", bound=_CData)
 RawValue = context._default_context.RawValue
 RawArray = context._default_context.RawArray
 Value = context._default_context.Value
