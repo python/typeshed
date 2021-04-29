@@ -8,6 +8,10 @@ on:
   # commit, wait till it's completed, and download and post the diff.
   pull_request_target:
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   mypy_primer:
     name: Comment

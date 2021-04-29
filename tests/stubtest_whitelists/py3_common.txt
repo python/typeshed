@@ -1,4 +1,5 @@
-_collections_abc.Callable
+_collections_abc.Callable  # Some typecheckers need this as specialform
+# Coroutine and Generator properties are added programmatically
 _collections_abc.Coroutine.cr_await
 _collections_abc.Coroutine.cr_code
 _collections_abc.Coroutine.cr_frame
@@ -7,31 +8,19 @@ _collections_abc.Generator.gi_code
 _collections_abc.Generator.gi_frame
 _collections_abc.Generator.gi_running
 _collections_abc.Generator.gi_yieldfrom
-_collections_abc.Mapping.get
-_collections_abc.MutableMapping.pop
-_collections_abc.MutableMapping.setdefault
-_collections_abc.MutableSequence.append
-_collections_abc.MutableSequence.extend
-_collections_abc.MutableSequence.insert
-_collections_abc.MutableSequence.remove
-_collections_abc.MutableSet.add
-_collections_abc.MutableSet.discard
-_collections_abc.MutableSet.remove
-_collections_abc.Sequence.count
-_collections_abc.Sequence.index
-_collections_abc.Set.isdisjoint
+_collections_abc.Mapping.get  # Adding None to the Union messed up mypy
+_collections_abc.Sequence.index  # Supporting None in end is not mandatory
 _csv.Dialect.__init__  # C __init__ signature is inaccurate
 _dummy_threading
 _importlib_modulespec
 _threading_local.local.__new__
 _typeshed.*  # Utility types for typeshed, doesn't exist at runtime
-_weakref.CallableProxyType.__getattr__
-_weakref.ProxyType.__getattr__
-_weakref.ReferenceType.__call__
-abc.ABCMeta.__new__
 abc.abstractclassmethod
-abc.abstractmethod
 abc.abstractstaticmethod
+abc.ABCMeta.__new__  # pytype wants the parameter named cls and not mcls
+_weakref.CallableProxyType.__getattr__  # Should have all attributes of proxy
+_weakref.ProxyType.__getattr__  # Should have all attributes of proxy
+_weakref.ReferenceType.__call__  # C function default annotation is wrong
 argparse.Namespace.__getattr__  # The whole point of this class is its attributes are dynamic
 asyncio.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
 # Condition functions are exported in __init__
@@ -69,23 +58,20 @@ codecs.CodecInfo.incrementaldecoder
 codecs.CodecInfo.incrementalencoder
 codecs.CodecInfo.streamreader
 codecs.CodecInfo.streamwriter
-collections.Callable
-collections.ChainMap.get
-collections.ChainMap.maps
-collections.ChainMap.new_child
+collections.Callable  # Some typecheckers need this as specialform
+# Coroutine and Generator properties are added programmatically
+collections.ChainMap.get  # Adding None to the underlying Mapping Union messed up mypy
 collections.Coroutine.cr_await
 collections.Coroutine.cr_code
 collections.Coroutine.cr_frame
 collections.Coroutine.cr_running
-collections.Counter.fromkeys
 collections.Generator.gi_code
 collections.Generator.gi_frame
 collections.Generator.gi_running
 collections.Generator.gi_yieldfrom
-collections.Mapping.get
-collections.Sequence.index
-collections.Set.isdisjoint
-collections.abc.Callable
+collections.Mapping.get  # Adding None to the Union messed up mypy
+collections.Sequence.index  # Supporting None in end is not mandatory
+# Coroutine and Generator properties are added programmatically
 collections.abc.Coroutine.cr_await
 collections.abc.Coroutine.cr_code
 collections.abc.Coroutine.cr_frame
@@ -94,9 +80,6 @@ collections.abc.Generator.gi_code
 collections.abc.Generator.gi_frame
 collections.abc.Generator.gi_running
 collections.abc.Generator.gi_yieldfrom
-collections.abc.Mapping.get
-collections.abc.Sequence.index
-collections.deque.__hash__
 configparser.SectionProxy.__getattr__  # SectionProxy can have arbitrary attributes when custom converters are used
 # SectionProxy get functions are set in __init__
 configparser.SectionProxy.getboolean
@@ -168,15 +151,7 @@ lib2to3.pytree.BasePattern.__new__
 lib2to3.pytree.BasePattern.type
 lib2to3.pytree.NegatedPattern.match
 lib2to3.pytree.NegatedPattern.match_seq
-mailbox.Babyl.__init__
-mailbox.MH.__init__
-mailbox.MMDF.__init__
-mailbox._mboxMMDF.get_bytes
-mailbox._mboxMMDF.get_file
-mailbox._mboxMMDF.get_string
-mailbox.mbox.__init__
-mimetypes.read_mime_types
-mmap.mmap.__iter__
+mmap.mmap.__iter__  # has __getitem__ but mypy doesn't derive __iter__ from it: https://github.com/python/mypy/issues/2220
 multiprocessing.JoinableQueue
 multiprocessing.Queue
 multiprocessing.SimpleQueue
@@ -262,9 +237,9 @@ urllib.request.BaseHandler.http_error_nnn
 urllib.request.HTTPPasswordMgrWithPriorAuth.__init__
 urllib.robotparser.RobotFileParser.can_fetch
 warnings.catch_warnings.__init__  # Defining this ruins the __new__ overrides
-weakref.CallableProxyType.__getattr__
-weakref.ProxyType.__getattr__
-weakref.ReferenceType.__call__
+weakref.CallableProxyType.__getattr__  # Should have all attributes of proxy
+weakref.ProxyType.__getattr__  # Should have all attributes of proxy
+weakref.ReferenceType.__call__  # C function default annotation is wrong
 weakref.WeakKeyDictionary.get
 weakref.WeakKeyDictionary.update
 weakref.WeakValueDictionary.get
@@ -307,6 +282,7 @@ collections.abc.*  # Types are re-exported from _collections_abc, so errors shou
 tempfile._TemporaryFileWrapper.[\w_]+
 # Various classes in typing aren't types at runtime. In addition, mypy thinks some special forms are tautologically defined.
 typing.[A-Z]\w+
+typing_extensions\..*
 # We can't distinguish not having a default value from having a default value of inspect.Parameter.empty
 inspect.Parameter.__init__
 inspect.Signature.__init__
