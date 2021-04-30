@@ -49,7 +49,7 @@ class BaseAdapter:
 
 class HTTPAdapter(BaseAdapter):
     __attrs__: Any
-    max_retries: int
+    max_retries: Retry
     config: Any
     proxy_manager: Any
     def __init__(
