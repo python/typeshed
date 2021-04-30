@@ -1,5 +1,5 @@
 from distutils.version import Version
-from typing import Any, Callable, Dict, List, Optional, Protocol, Text, Tuple, Type, TypeVar, Union, overload
+from typing import Any, Callable, Dict, Iterable, List, Optional, Protocol, Text, Tuple, Type, TypeVar, Union, overload
 
 from click.core import Argument, Command, Context, Group, Option, Parameter, _ConvertibleType
 
