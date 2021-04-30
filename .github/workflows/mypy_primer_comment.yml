@@ -50,7 +50,7 @@ jobs:
 
             const end_time = Number(new Date()) + 60 * 60 * 1000
             let primer_run = await check_mypy_primer()
-            while (!primer_run || primer_run.status != "completed") {
+            while (!primer_run || primer_run.status != "completed" || primer_run.conclusion != "success") {
               if (Number(new Date()) > end_time) {
                 throw Error("Timed out waiting for mypy_primer")
               }
