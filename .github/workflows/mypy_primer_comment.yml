@@ -43,7 +43,10 @@ jobs:
                 workflow_id: "mypy_primer.yml",
               })
               if (response) {
-                return response.data.workflow_runs.find(run => run.head_sha == pr_commit_sha)
+                workflow_runs = response.data.workflow_runs
+                // Sort by reverse updated_at
+                workflow_runs.sort((a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime())
+                return workflow_runs.find(run => run.head_sha == pr_commit_sha)
               }
               return undefined
             }
