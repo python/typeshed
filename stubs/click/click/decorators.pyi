@@ -71,7 +71,7 @@ def argument(
     expose_value: bool = ...,
     is_eager: bool = ...,
     envvar: Optional[Union[str, List[str]]] = ...,
-    autocompletion: Optional[Callable[[Any, List[str], str], List[Union[str, Tuple[str, str]]]]] = ...,
+    autocompletion: Optional[Callable[[Context, List[str], str], Iterable[Union[str, Tuple[str, str]]]]] = ...,
 ) -> _IdentityFunction: ...
 @overload
 def option(
