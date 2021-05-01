@@ -99,7 +99,7 @@ jobs:
       fail-fast: false
     steps:
       - uses: actions/checkout@v2
-      - uses: jakebailey/pyright-action@main
+      - uses: jakebailey/pyright-action@v1
         with:
           version: 1.1.136  # Must match pyright_test.py.
           python-platform: ${{ matrix.python-platform }}
