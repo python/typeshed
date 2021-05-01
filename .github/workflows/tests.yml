@@ -99,11 +99,11 @@ jobs:
       fail-fast: false
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-      - uses: actions/setup-node@v2
+      - uses: jakebailey/pyright-action@main
         with:
-          node-version: '14'
-      - run: ./tests/pyright_test.py --pythonplatform ${{ matrix.python-platform }} --pythonversion ${{ matrix.python-version }}
+          version: 1.1.136  # Must match pyright_test.py.
+          python-platform: ${{ matrix.python-platform }}
+          python-version: ${{ matrix.python-version }}
 
   stubtest:
     name: Check stdlib with stubtest
