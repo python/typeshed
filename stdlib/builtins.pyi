@@ -22,6 +22,8 @@ from typing import (
     IO,
     AbstractSet,
     Any,
+    AsyncIterable,
+    AsyncIterator,
     BinaryIO,
     ByteString,
     Callable,
@@ -958,6 +960,13 @@ _AnyStr_co = TypeVar("_AnyStr_co", str, bytes, covariant=True)
 
 class _PathLike(Protocol[_AnyStr_co]):
     def __fspath__(self) -> _AnyStr_co: ...
+
+if sys.version_info >= (3, 10):
+    def aiter(__iterable: AsyncIterable[_T]) -> AsyncIterator[_T]: ...
+    @overload
+    async def anext(__i: AsyncIterator[_T]) -> _T: ...
+    @overload
+    async def anext(__i: AsyncIterator[_T], default: _VT) -> Union[_T, _VT]: ...
 
 if sys.version_info >= (3, 8):
     def compile(
