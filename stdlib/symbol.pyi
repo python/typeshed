@@ -1,5 +1,5 @@
-from typing import Dict
 import sys
+from typing import Dict
 
 if sys.version_info < (3, 10):
     single_input: int
