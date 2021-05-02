@@ -39,22 +39,41 @@ class Process:
     def kill(self) -> None: ...
     async def communicate(self, input: Optional[bytes] = ...) -> Tuple[bytes, bytes]: ...
 
-async def create_subprocess_shell(
-    cmd: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue  #1236
-    stdin: Union[int, IO[Any], None] = ...,
-    stdout: Union[int, IO[Any], None] = ...,
-    stderr: Union[int, IO[Any], None] = ...,
-    loop: Optional[events.AbstractEventLoop] = ...,
-    limit: int = ...,
-    **kwds: Any,
-) -> Process: ...
-async def create_subprocess_exec(
-    program: _ExecArg,
-    *args: _ExecArg,
-    stdin: Union[int, IO[Any], None] = ...,
-    stdout: Union[int, IO[Any], None] = ...,
-    stderr: Union[int, IO[Any], None] = ...,
-    loop: Optional[events.AbstractEventLoop] = ...,
-    limit: int = ...,
-    **kwds: Any,
-) -> Process: ...
+if sys.version_info >= (3, 10):
+    async def create_subprocess_shell(
+        cmd: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue  #1236
+        stdin: Union[int, IO[Any], None] = ...,
+        stdout: Union[int, IO[Any], None] = ...,
+        stderr: Union[int, IO[Any], None] = ...,
+        limit: int = ...,
+        **kwds: Any,
+    ) -> Process: ...
+    async def create_subprocess_exec(
+        program: _ExecArg,
+        *args: _ExecArg,
+        stdin: Union[int, IO[Any], None] = ...,
+        stdout: Union[int, IO[Any], None] = ...,
+        stderr: Union[int, IO[Any], None] = ...,
+        limit: int = ...,
+        **kwds: Any,
+    ) -> Process: ...
+else:
+    async def create_subprocess_shell(
+        cmd: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue  #1236
+        stdin: Union[int, IO[Any], None] = ...,
+        stdout: Union[int, IO[Any], None] = ...,
+        stderr: Union[int, IO[Any], None] = ...,
+        loop: Optional[events.AbstractEventLoop] = ...,
+        limit: int = ...,
+        **kwds: Any,
+    ) -> Process: ...
+    async def create_subprocess_exec(
+        program: _ExecArg,
+        *args: _ExecArg,
+        stdin: Union[int, IO[Any], None] = ...,
+        stdout: Union[int, IO[Any], None] = ...,
+        stderr: Union[int, IO[Any], None] = ...,
+        loop: Optional[events.AbstractEventLoop] = ...,
+        limit: int = ...,
+        **kwds: Any,
+    ) -> Process: ...
