@@ -29,15 +29,7 @@ asyncio.Future.__init__  # Usually initialized from c object
 asyncio.Future._callbacks  # Usually initialized from c object
 asyncio.futures.Future.__init__  # Usually initialized from c object
 asyncio.futures.Future._callbacks  # Usually initialized from c object
-asyncio.proactor_events._ProactorBasePipeTransport.__del__
 builtins.dict.get
-collections.AsyncGenerator.ag_await
-collections.AsyncGenerator.ag_code
-collections.AsyncGenerator.ag_frame
-collections.AsyncGenerator.ag_running
-collections.ItemsView.__reversed__
-collections.KeysView.__reversed__
-collections.ValuesView.__reversed__
 collections.abc.AsyncGenerator.ag_await
 collections.abc.AsyncGenerator.ag_code
 collections.abc.AsyncGenerator.ag_frame
@@ -51,7 +43,6 @@ contextvars.Context.get
 copy.PyStringMap
 curses.color_pair
 dataclasses.field
-dataclasses.InitVar.__class_getitem__  # stubtest bug. doesn't do the right thing with overload + implicit classmethod __class_getitem__
 dummy_threading
 enum.Enum._generate_next_value_
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
@@ -80,8 +71,6 @@ macurl2path  # module removed in 3.7
 mmap.MADV_[A-Z_]+  # platform dependent constants
 multiprocessing.spawn._main
 nntplib.NNTP.starttls
-os.MFD_HUGE_32MB
-os.MFD_HUGE_512MB
 os.getgrouplist
 os.sendfile
 pickle.Pickler.reducer_override
@@ -90,8 +79,6 @@ platform.uname_result.__new__
 platform.uname_result._fields
 platform.uname_result.processor
 queue.SimpleQueue.__init__
-sched.Event.__doc__  # __slots__ is overridden
-secrets.SystemRandom.getstate
 select.epoll.register
 smtplib.LMTP.__init__
 smtplib.SMTP.sendmail
@@ -126,7 +113,6 @@ typing._TypedDict.pop
 typing._TypedDict.setdefault
 typing._TypedDict.update
 typing._TypedDict.values
-unittest.doModuleCleanups
 weakref.WeakValueDictionary.update
 webbrowser.Opera.raise_opts
 xml.etree.ElementTree.XMLParser.__init__  # Defined in C so has general signature
@@ -135,13 +121,6 @@ xml.etree.cElementTree.XMLParser.__init__  # Defined in C so has general signatu
 # positional-only complaints
 builtins.bytearray.pop
 builtins.bytearray.remove
-collections.AsyncGenerator.asend
-collections.AsyncGenerator.athrow
-collections.Container.__contains__
-collections.Coroutine.send
-collections.Coroutine.throw
-collections.Generator.send
-collections.Generator.throw
 collections.OrderedDict.fromkeys
 collections.OrderedDict.setdefault
 collections.abc.AsyncGenerator.asend
@@ -181,16 +160,8 @@ signal.sigtimedwait
 signal.sigwaitinfo
 trace.Trace.runfunc
 zipfile.ZipExtFile.seek
-# These enums derive from (int, IntEnum) or (str, Enum). See comment in py3_common.txt
-enum.IntFlag.__new__
+# These enums derive from (str, Enum). See comment in py3_common.txt
 pstats.SortKey.__new__
-re.RegexFlag.__new__
-socket.AddressInfo.__new__
-socket.MsgFlag.__new__
-ssl.Options.__new__
-ssl.TLSVersion.__new__
-ssl.VerifyFlags.__new__
-ssl.VerifyMode.__new__
 tkinter.EventType.__new__
 
 # New in Python 3.10
