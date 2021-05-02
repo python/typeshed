@@ -6,21 +6,11 @@ _Vector_Int = Sequence[int]
 
 class AnnoyIndex:
     f: int
-    def __init__(
-        self,
-        f: int,
-        metric: Literal["angular", "euclidean", "manhattan", "hamming", "dot"],
-    ) -> None: ...
+    def __init__(self, f: int, metric: Literal["angular", "euclidean", "manhattan", "hamming", "dot"]) -> None: ...
     def load(self, fn: str, prefault: bool = ...) -> Literal[True]: ...
     def save(self, fn: str, prefault: bool = ...) -> Literal[True]: ...
     @overload
-    def get_nns_by_item(
-        self,
-        i: int,
-        n: int,
-        search_k: int = ...,
-        include_distances: Literal[False] = ...,
-    ) -> _Vector_Int: ...
+    def get_nns_by_item(self, i: int, n: int, search_k: int = ..., include_distances: Literal[False] = ...) -> _Vector_Int: ...
     @overload
     def get_nns_by_item(
         self, i: int, n: int, search_k: int, include_distances: Literal[True]
@@ -31,11 +21,7 @@ class AnnoyIndex:
     ) -> Tuple[_Vector_Int, _Vector_Float]: ...
     @overload
     def get_nns_by_vector(
-        self,
-        vector: _Vector_Float,
-        n: int,
-        search_k: int = ...,
-        include_distances: Literal[False] = ...,
+        self, vector: _Vector_Float, n: int, search_k: int = ..., include_distances: Literal[False] = ...
     ) -> _Vector_Int: ...
     @overload
     def get_nns_by_vector(
