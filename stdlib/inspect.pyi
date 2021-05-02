@@ -144,10 +144,6 @@ class Signature:
     else:
         @classmethod
         def from_callable(cls, obj: Callable[..., Any], *, follow_wrapped: bool = ...) -> Signature: ...
-    @classmethod
-    def from_builtin(cls, func: Callable[..., Any]) -> Signature: ...
-    @classmethod
-    def from_function(cls, func: Callable[..., Any]) -> Signature: ...
 
 if sys.version_info >= (3, 10):
     def get_annotations(
