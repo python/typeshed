@@ -42,6 +42,7 @@ from typing import (
     TypeVar,
     Union,
     ValuesView,
+    final,
     overload,
 )
 from typing_extensions import Literal
@@ -568,6 +569,7 @@ class memoryview(Sized, Container[str]):
     def tobytes(self) -> bytes: ...
     def tolist(self) -> List[int]: ...
 
+@final
 class bool(int):
     def __new__(cls: Type[_T], __o: object = ...) -> _T: ...
     @overload
