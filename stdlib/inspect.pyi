@@ -144,6 +144,10 @@ class Signature:
     else:
         @classmethod
         def from_callable(cls, obj: Callable[..., Any], *, follow_wrapped: bool = ...) -> Signature: ...
+    @classmethod
+    def from_builtin(cls, func: Callable[..., Any]) -> Signature: ...
+    @classmethod
+    def from_function(cls, func: Callable[..., Any]) -> Signature: ...
 
 if sys.version_info >= (3, 10):
     def get_annotations(
@@ -198,6 +202,7 @@ class BoundArguments:
 # seem to be supporting this at the moment:
 # _ClassTreeItem = Union[List[_ClassTreeItem], Tuple[type, Tuple[type, ...]]]
 def getclasstree(classes: List[type], unique: bool = ...) -> Any: ...
+def walktree(classes: List[type], children: Dict[Type[Any], List[type]], parent: Optional[Type[Any]]) -> Any: ...
 
 class ArgSpec(NamedTuple):
     args: List[str]
@@ -339,3 +344,5 @@ class Attribute(NamedTuple):
     object: _Object
 
 def classify_class_attrs(cls: type) -> List[Attribute]: ...
+
+class ClassFoundException(Exception): ...
