@@ -381,8 +381,10 @@ if sys.version_info >= (3, 10):
         subject: expr
         cases: typing.List[match_case]
     class pattern(AST): ...
+    # Without the alias, Pyright complains variables named pattern are recursively defined
+    _pattern = pattern
     class match_case(AST):
-        pattern: pattern
+        pattern: _pattern
         guard: Optional[expr]
         body: typing.List[stmt]
     class MatchValue(pattern):
@@ -403,7 +405,7 @@ if sys.version_info >= (3, 10):
         kwd_attrs: typing.List[_identifier]
         kwd_patterns: typing.List[pattern]
     class MatchAs(pattern):
-        pattern: Optional[pattern]
+        pattern: Optional[_pattern]
         name: Optional[_identifier]
     class MatchOr(pattern):
         patterns: typing.List[pattern]
