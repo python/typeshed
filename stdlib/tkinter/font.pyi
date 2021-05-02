@@ -1,3 +1,4 @@
+import sys
 import tkinter
 from typing import Any, List, Optional, Tuple, TypeVar, Union, overload
 from typing_extensions import Literal, TypedDict
@@ -96,5 +97,6 @@ def names(root: Optional[tkinter.Misc] = ...) -> Tuple[str, ...]: ...
 
 if sys.version_info >= (3, 10):
     def nametofont(name: str, root: Optional[tkinter.Misc] = ...) -> Font: ...
+
 else:
     def nametofont(name: str) -> Font: ...
