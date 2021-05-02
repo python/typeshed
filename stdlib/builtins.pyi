@@ -58,7 +58,7 @@ from typing import (
     ValuesView,
     overload,
 )
-from typing_extensions import final, Literal, SupportsIndex
+from typing_extensions import Literal, SupportsIndex, final
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias

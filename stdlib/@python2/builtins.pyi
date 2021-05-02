@@ -44,7 +44,7 @@ from typing import (
     ValuesView,
     overload,
 )
-from typing_extensions import final, Literal
+from typing_extensions import Literal, final
 
 class _SupportsIndex(Protocol):
     def __index__(self) -> int: ...
