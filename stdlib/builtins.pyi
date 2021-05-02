@@ -60,7 +60,7 @@ from typing import (
     ValuesView,
     overload,
 )
-from typing_extensions import Literal, SupportsIndex
+from typing_extensions import Literal, SupportsIndex, final
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
@@ -666,6 +666,7 @@ class memoryview(Sized, Container[int]):
     else:
         def hex(self) -> str: ...
 
+@final
 class bool(int):
     def __new__(cls: Type[_T], __o: object = ...) -> _T: ...
     @overload
