@@ -37,6 +37,10 @@ if sys.version_info < (3,):
 class closing(ContextManager[_T]):
     def __init__(self, thing: _T) -> None: ...
 
+if sys.version_info >= (3, 10):
+    class aclosing(AsyncContextManager[_T]):
+        def __init__(self, thing: _T) -> None: ...
+
 if sys.version_info >= (3, 4):
     class suppress(ContextManager[None]):
         def __init__(self, *exceptions: Type[BaseException]) -> None: ...
