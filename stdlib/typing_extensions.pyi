@@ -19,8 +19,8 @@ from typing import (
     Text as Text,
     Tuple,
     Type as Type,
-    Union,
     TypeVar,
+    Union,
     ValuesView,
     overload as overload,
 )
