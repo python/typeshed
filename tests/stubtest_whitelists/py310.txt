@@ -164,7 +164,7 @@ zipfile.ZipExtFile.seek
 pstats.SortKey.__new__
 tkinter.EventType.__new__
 
-# New in Python 3.10
+# Rest of these errors are new in Python 3.10:
 _bootlocale
 _markupbase.ParserBase.error
 array.array.index
