@@ -57,6 +57,7 @@ if sys.version_info >= (3, 10):
         limit: int = ...,
         **kwds: Any,
     ) -> Process: ...
+
 else:
     async def create_subprocess_shell(
         cmd: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue  #1236
