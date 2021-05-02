@@ -111,7 +111,7 @@ jobs:
     strategy:
       matrix:
         os: ["ubuntu-latest", "windows-latest"]
-        python-version: ['3.10.0-alpha.7']   # TODO: add other versions back when done
+        python-version: ['3.10-dev']   # TODO: add other versions back when done
       fail-fast: false
 
     steps:
