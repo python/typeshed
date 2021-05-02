@@ -42,10 +42,9 @@ from typing import (
     TypeVar,
     Union,
     ValuesView,
-    final,
     overload,
 )
-from typing_extensions import Literal
+from typing_extensions import final, Literal
 
 class _SupportsIndex(Protocol):
     def __index__(self) -> int: ...
