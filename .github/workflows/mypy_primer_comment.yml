@@ -62,7 +62,7 @@ jobs:
                 throw Error("Timed out waiting for mypy_primer")
               }
               console.log("Waiting for mypy_primer to complete...")
-              await new Promise(r => setTimeout(r, 10000))
+              await new Promise(r => setTimeout(r, 30000))
               primer_run = await check_mypy_primer()
             }
             console.log("Found mypy_primer run!")
