@@ -390,7 +390,7 @@ if sys.version_info >= (3, 10):
     class MatchValue(pattern):
         value: expr
     class MatchSingleton(pattern):
-        value: expr
+        value: Optional[bool]
     class MatchSequence(pattern):
         patterns: typing.List[pattern]
     class MatchStar(pattern):
