@@ -197,7 +197,8 @@ class BoundArguments:
 # TODO: The actual return type should be List[_ClassTreeItem] but mypy doesn't
 # seem to be supporting this at the moment:
 # _ClassTreeItem = Union[List[_ClassTreeItem], Tuple[type, Tuple[type, ...]]]
-def getclasstree(classes: List[type], unique: bool = ...) -> Any: ...
+def getclasstree(classes: List[type], unique: bool = ...) -> List[Any]: ...
+def walktree(classes: List[type], children: Dict[Type[Any], List[type]], parent: Optional[Type[Any]]) -> List[Any]: ...
 
 class ArgSpec(NamedTuple):
     args: List[str]
@@ -339,3 +340,6 @@ class Attribute(NamedTuple):
     object: _Object
 
 def classify_class_attrs(cls: type) -> List[Attribute]: ...
+
+if sys.version_info >= (3, 9):
+    class ClassFoundException(Exception): ...
