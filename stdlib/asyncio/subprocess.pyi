@@ -1,6 +1,8 @@
 import sys
 from asyncio import events, protocols, streams, transports
-from typing import IO, Any, Optional, Tuple, Union
+import subprocess
+from typing import IO, Callable, Any, Optional, Tuple, Union
+from typing_extensions import Literal
 from _typeshed import AnyPath
 
 if sys.version_info >= (3, 8):
@@ -45,7 +47,25 @@ if sys.version_info >= (3, 10):
         stdout: Union[int, IO[Any], None] = ...,
         stderr: Union[int, IO[Any], None] = ...,
         limit: int = ...,
-        **kwds: Any,
+        *,
+        # These parameters are forced to these values by BaseEventLoop.subprocess_shell
+        universal_newlines: Literal[False] = ...,
+        shell: Literal[True] = ...,
+        bufsize: Literal[0] = ...,
+        encoding: None = ...,
+        errors: None = ...,
+        text: Literal[False, None] = ...,
+        # These parameters are taken by subprocess.Popen, which this ultimately delegates to
+        executable: Optional[AnyPath] = ...,
+        preexec_fn: Optional[Callable[[], Any]] = ...,
+        close_fds: bool = ...,
+        cwd: Optional[AnyPath] = ...,
+        env: Optional[subprocess._ENV] = ...,
+        startupinfo: Optional[Any] = ...,
+        creationflags: int = ...,
+        restore_signals: bool = ...,
+        start_new_session: bool = ...,
+        pass_fds: Any = ...,
     ) -> Process: ...
     async def create_subprocess_exec(
         program: _ExecArg,
@@ -54,7 +74,25 @@ if sys.version_info >= (3, 10):
         stdout: Union[int, IO[Any], None] = ...,
         stderr: Union[int, IO[Any], None] = ...,
         limit: int = ...,
-        **kwds: Any,
+        *,
+        # These parameters are forced to these values by BaseEventLoop.subprocess_shell
+        universal_newlines: Literal[False] = ...,
+        shell: Literal[True] = ...,
+        bufsize: Literal[0] = ...,
+        encoding: None = ...,
+        errors: None = ...,
+        # These parameters are taken by subprocess.Popen, which this ultimately delegates to
+        text: Optional[bool] = ...,
+        executable: Optional[AnyPath] = ...,
+        preexec_fn: Optional[Callable[[], Any]] = ...,
+        close_fds: bool = ...,
+        cwd: Optional[AnyPath] = ...,
+        env: Optional[subprocess._ENV] = ...,
+        startupinfo: Optional[Any] = ...,
+        creationflags: int = ...,
+        restore_signals: bool = ...,
+        start_new_session: bool = ...,
+        pass_fds: Any = ...,
     ) -> Process: ...
 
 else:
@@ -65,7 +103,25 @@ else:
         stderr: Union[int, IO[Any], None] = ...,
         loop: Optional[events.AbstractEventLoop] = ...,
         limit: int = ...,
-        **kwds: Any,
+        *,
+        # These parameters are forced to these values by BaseEventLoop.subprocess_shell
+        universal_newlines: Literal[False] = ...,
+        shell: Literal[True] = ...,
+        bufsize: Literal[0] = ...,
+        encoding: None = ...,
+        errors: None = ...,
+        text: Literal[False, None] = ...,
+        # These parameters are taken by subprocess.Popen, which this ultimately delegates to
+        executable: Optional[AnyPath] = ...,
+        preexec_fn: Optional[Callable[[], Any]] = ...,
+        close_fds: bool = ...,
+        cwd: Optional[AnyPath] = ...,
+        env: Optional[subprocess._ENV] = ...,
+        startupinfo: Optional[Any] = ...,
+        creationflags: int = ...,
+        restore_signals: bool = ...,
+        start_new_session: bool = ...,
+        pass_fds: Any = ...,
     ) -> Process: ...
     async def create_subprocess_exec(
         program: _ExecArg,
@@ -75,5 +131,23 @@ else:
         stderr: Union[int, IO[Any], None] = ...,
         loop: Optional[events.AbstractEventLoop] = ...,
         limit: int = ...,
-        **kwds: Any,
+        *,
+        # These parameters are forced to these values by BaseEventLoop.subprocess_shell
+        universal_newlines: Literal[False] = ...,
+        shell: Literal[True] = ...,
+        bufsize: Literal[0] = ...,
+        encoding: None = ...,
+        errors: None = ...,
+        # These parameters are taken by subprocess.Popen, which this ultimately delegates to
+        text: Optional[bool] = ...,
+        executable: Optional[AnyPath] = ...,
+        preexec_fn: Optional[Callable[[], Any]] = ...,
+        close_fds: bool = ...,
+        cwd: Optional[AnyPath] = ...,
+        env: Optional[subprocess._ENV] = ...,
+        startupinfo: Optional[Any] = ...,
+        creationflags: int = ...,
+        restore_signals: bool = ...,
+        start_new_session: bool = ...,
+        pass_fds: Any = ...,
     ) -> Process: ...
