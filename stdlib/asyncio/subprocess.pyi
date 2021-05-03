@@ -1,13 +1,12 @@
 import sys
 from asyncio import events, protocols, streams, transports
 from typing import IO, Any, Optional, Tuple, Union
+from _typeshed import AnyPath
 
 if sys.version_info >= (3, 8):
-    from os import PathLike
-
-    _ExecArg = Union[str, bytes, PathLike[str], PathLike[bytes]]
+    _ExecArg = AnyPath
 else:
-    _ExecArg = Union[str, bytes]  # Union used instead of AnyStr due to mypy issue  #1236
+    _ExecArg = Union[str, bytes]
 
 PIPE: int
 STDOUT: int
@@ -41,7 +40,7 @@ class Process:
 
 if sys.version_info >= (3, 10):
     async def create_subprocess_shell(
-        cmd: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue  #1236
+        cmd: Union[str, bytes],
         stdin: Union[int, IO[Any], None] = ...,
         stdout: Union[int, IO[Any], None] = ...,
         stderr: Union[int, IO[Any], None] = ...,
@@ -60,7 +59,7 @@ if sys.version_info >= (3, 10):
 
 else:
     async def create_subprocess_shell(
-        cmd: Union[str, bytes],  # Union used instead of AnyStr due to mypy issue  #1236
+        cmd: Union[str, bytes],
         stdin: Union[int, IO[Any], None] = ...,
         stdout: Union[int, IO[Any], None] = ...,
         stderr: Union[int, IO[Any], None] = ...,
