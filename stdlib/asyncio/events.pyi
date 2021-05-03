@@ -8,8 +8,8 @@ from asyncio.tasks import Task
 from asyncio.transports import BaseTransport
 from asyncio.unix_events import AbstractChildWatcher
 from socket import AddressFamily, SocketKind, _Address, _RetAddress, socket
-from typing_extensions import Literal
 from typing import IO, Any, Awaitable, Callable, Dict, Generator, List, Optional, Sequence, Tuple, TypeVar, Union, overload
+from typing_extensions import Literal
 
 if sys.version_info >= (3, 7):
     from contextvars import Context
