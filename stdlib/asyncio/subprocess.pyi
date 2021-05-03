@@ -1,9 +1,9 @@
-import sys
-from asyncio import events, protocols, streams, transports
 import subprocess
-from typing import IO, Callable, Any, Optional, Tuple, Union
-from typing_extensions import Literal
+import sys
 from _typeshed import AnyPath
+from asyncio import events, protocols, streams, transports
+from typing import IO, Any, Callable, Optional, Tuple, Union
+from typing_extensions import Literal
 
 if sys.version_info >= (3, 8):
     _ExecArg = AnyPath
@@ -74,7 +74,6 @@ if sys.version_info >= (3, 10):
         stdout: Union[int, IO[Any], None] = ...,
         stderr: Union[int, IO[Any], None] = ...,
         limit: int = ...,
-        *,
         # These parameters are forced to these values by BaseEventLoop.subprocess_shell
         universal_newlines: Literal[False] = ...,
         shell: Literal[True] = ...,
@@ -131,7 +130,6 @@ else:
         stderr: Union[int, IO[Any], None] = ...,
         loop: Optional[events.AbstractEventLoop] = ...,
         limit: int = ...,
-        *,
         # These parameters are forced to these values by BaseEventLoop.subprocess_shell
         universal_newlines: Literal[False] = ...,
         shell: Literal[True] = ...,
