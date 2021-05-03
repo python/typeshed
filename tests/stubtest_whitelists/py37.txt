@@ -83,3 +83,38 @@ ssl.TLSVersion.__new__
 ssl.VerifyFlags.__new__
 ssl.VerifyMode.__new__
 tkinter.EventType.__new__
+
+builtins.memoryview.__iter__  # C type that implements __getitem__
+builtins.memoryview.cast  # inspect.signature is incorrect about shape being kw-only
+collections.Coroutine.cr_await
+collections.Coroutine.cr_code
+collections.Coroutine.cr_frame
+collections.Coroutine.cr_running
+collections.Generator.gi_code
+collections.Generator.gi_frame
+collections.Generator.gi_running
+collections.Generator.gi_yieldfrom
+collections.Mapping.get  # Adding None to the Union messed up mypy
+collections.Sequence.index  # Supporting None in end is not mandatory
+
+# The following methods were changed in point releases from Python 3.6 to 3.9
+# as part of a security fix. These excludes can be removed when the GitHub
+# action workflow uses Python versions that include the fix (adding a
+# separator argument).
+cgi.FieldStorage.__init__
+cgi.parse
+cgi.parse_multipart
+urllib.parse.parse_qs
+urllib.parse.parse_qsl
+
+# These enums derive from (int, IntEnum) or (str, Enum). Strangely,
+# at runtime, they inherit Enum.__new__, not int.__new__ or
+# str.__new__ as the mro would dictate, which is why stubtest balks.
+enum.IntEnum.__new__
+http.HTTPStatus.__new__
+inspect._ParameterKind.__new__
+signal.Handlers.__new__
+signal.Sigmasks.__new__
+signal.Signals.__new__
+socket.AddressFamily.__new__
+socket.SocketKind.__new__
