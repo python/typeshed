@@ -1,6 +1,6 @@
 import string
 import sys
-from collections import Mapping
+from collections.abc import Mapping
 from typing import Any, Callable, Iterable, List, Optional, Sequence, Text, Tuple, Union
 
 from markupsafe._compat import text_type
