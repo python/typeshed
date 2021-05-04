@@ -111,7 +111,7 @@ hashlib: 2.7
 heapq: 2.7
 hmac: 2.7
 html: 2.7
-http: 2.7
+http: 3.0
 imaplib: 2.7
 imghdr: 2.7
 imp: 2.7
