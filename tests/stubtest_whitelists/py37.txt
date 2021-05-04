@@ -25,32 +25,26 @@ collections.abc.AsyncGenerator.ag_code
 collections.abc.AsyncGenerator.ag_frame
 collections.abc.AsyncGenerator.ag_running
 concurrent.futures.ProcessPoolExecutor.map
-contextvars.Context.__init__
-contextvars.Context.get
+contextvars.Context.__init__  # Default C __init__ signature is wrong
 contextvars.ContextVar.get
 contextlib.nullcontext  # not a function at runtime
-copy.PyStringMap
 dataclasses.field
 enum.Enum._generate_next_value_
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 hmac.HMAC.__init__
-http.client.HTTPSConnection.__init__
-http.server.SimpleHTTPRequestHandler.__init__
+http.server.SimpleHTTPRequestHandler.__init__  # *args is expanded
 importlib.metadata  # Added in 3.8
 ipaddress._BaseNetwork.__init__
 json.loads
 macurl2path  # removed in 3.7
 multiprocessing.shared_memory
-nntplib._NNTPBase.starttls
 os.utime
 pyexpat.XMLParserType.ExternalEntityParserCreate  # C signature is wrong - function gets only positional args
-queue.SimpleQueue.__init__
+queue.SimpleQueue.__init__  # Default C __init__ signature is wrong
 random.Random.randrange  # missing undocumented arg _int
 random.randrange  # missing undocumented arg _int
 sched.Event.__doc__  # __slots__ is overridden
 secrets.SystemRandom.getstate
-smtplib.SMTP.sendmail
-sre_constants.RANGE_IGNORE
 ssl.PROTOCOL_SSLv3  # Depends on ssl compilation
 ssl.RAND_egd  # Depends on openssl compilation
 types.ClassMethodDescriptorType.__get__
@@ -68,7 +62,6 @@ urllib.parse.parse_qsl
 uuid.UUID.int
 uuid.UUID.is_safe
 uuid.getnode  # undocumented, unused parameter getters that was later removed
-webbrowser.Opera.raise_opts
 xml.etree.ElementTree.TreeBuilder.start  # Discrepancy between Python and C modules, fixed in bpo-39495
 xml.etree.cElementTree.TreeBuilder.start  # bpo-39495
 xml.parsers.expat.XMLParserType.ExternalEntityParserCreate  # C signature is wrong - function gets only positional args

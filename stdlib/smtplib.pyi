@@ -117,7 +117,7 @@ class SMTP:
         to_addrs: Union[str, Sequence[str]],
         msg: Union[bytes, str],
         mail_options: Sequence[str] = ...,
-        rcpt_options: List[str] = ...,
+        rcpt_options: Sequence[str] = ...,
     ) -> _SendErrs: ...
     def send_message(
         self,
