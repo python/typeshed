@@ -27,7 +27,7 @@ _sitebuiltins: 3.6
 _stat: 3.6
 _thread: 2.7
 _threading_local: 3.6
-_tkinter: 2.7
+_tkinter: 3.0
 _tracemalloc: 3.6
 _typeshed: 2.7
 _warnings: 2.7
