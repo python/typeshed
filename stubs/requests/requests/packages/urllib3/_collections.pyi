@@ -1,4 +1,3 @@
-import sys
 from typing import Any, MutableMapping, NoReturn, TypeVar
 
 _KT = TypeVar("_KT")

@@ -1,4 +1,3 @@
-import sys
 from typing import Any, Dict, Iterator, List, MutableMapping, Optional
 
 from paramiko.pkey import PKey
