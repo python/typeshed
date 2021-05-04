@@ -1,7 +1,6 @@
 dbm.ndbm
 locale.nl_langinfo
 
-# TODO: figure out which of these belong to py130.txt
 asyncio.AbstractEventLoop.create_connection
 asyncio.AbstractEventLoop.create_server
 asyncio.AbstractEventLoop.create_unix_connection
@@ -28,16 +27,4 @@ asyncio.sslproto.SSLProtocol._write_appdata
 asyncio.sslproto.SSLProtocol.data_received
 asyncio.unix_events._UnixSelectorEventLoop.create_unix_connection
 asyncio.unix_events._UnixSelectorEventLoop.create_unix_server
-dataclasses.Field.__init__
-dataclasses.make_dataclass
-fileinput.FileInput.__init__
-fileinput.hook_compressed
-fileinput.input
-importlib.metadata.MetadataPathFinder.invalidate_caches
-logging.config.fileConfig
-pathlib.Path.chmod
-pathlib.Path.stat
 posixpath.realpath
-ssl.SSLContext.__new__
-ssl._create_unverified_context
-ssl.get_server_certificate
