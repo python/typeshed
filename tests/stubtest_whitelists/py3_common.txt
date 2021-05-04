@@ -1,4 +1,3 @@
-_collections_abc.Callable  # Some typecheckers need this as specialform
 # Coroutine and Generator properties are added programmatically
 _collections_abc.Coroutine.cr_await
 _collections_abc.Coroutine.cr_code
@@ -49,7 +48,6 @@ codecs.CodecInfo.incrementaldecoder
 codecs.CodecInfo.incrementalencoder
 codecs.CodecInfo.streamreader
 codecs.CodecInfo.streamwriter
-collections.Callable  # Some typecheckers need this as specialform
 # Coroutine and Generator properties are added programmatically
 collections.ChainMap.get  # Adding None to the underlying Mapping Union messed up mypy
 # Coroutine and Generator properties are added programmatically
