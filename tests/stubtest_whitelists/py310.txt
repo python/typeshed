@@ -29,15 +29,7 @@ asyncio.Future.__init__  # Usually initialized from c object
 asyncio.Future._callbacks  # Usually initialized from c object
 asyncio.futures.Future.__init__  # Usually initialized from c object
 asyncio.futures.Future._callbacks  # Usually initialized from c object
-asyncio.proactor_events._ProactorBasePipeTransport.__del__
 builtins.dict.get
-collections.AsyncGenerator.ag_await
-collections.AsyncGenerator.ag_code
-collections.AsyncGenerator.ag_frame
-collections.AsyncGenerator.ag_running
-collections.ItemsView.__reversed__
-collections.KeysView.__reversed__
-collections.ValuesView.__reversed__
 collections.abc.AsyncGenerator.ag_await
 collections.abc.AsyncGenerator.ag_code
 collections.abc.AsyncGenerator.ag_frame
@@ -51,7 +43,6 @@ contextvars.Context.get
 copy.PyStringMap
 curses.color_pair
 dataclasses.field
-dataclasses.InitVar.__class_getitem__  # stubtest bug. doesn't do the right thing with overload + implicit classmethod __class_getitem__
 dummy_threading
 enum.Enum._generate_next_value_
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
@@ -80,8 +71,6 @@ macurl2path  # module removed in 3.7
 mmap.MADV_[A-Z_]+  # platform dependent constants
 multiprocessing.spawn._main
 nntplib.NNTP.starttls
-os.MFD_HUGE_32MB
-os.MFD_HUGE_512MB
 os.getgrouplist
 os.sendfile
 pickle.Pickler.reducer_override
@@ -90,8 +79,6 @@ platform.uname_result.__new__
 platform.uname_result._fields
 platform.uname_result.processor
 queue.SimpleQueue.__init__
-sched.Event.__doc__  # __slots__ is overridden
-secrets.SystemRandom.getstate
 select.epoll.register
 smtplib.LMTP.__init__
 smtplib.SMTP.sendmail
@@ -126,7 +113,6 @@ typing._TypedDict.pop
 typing._TypedDict.setdefault
 typing._TypedDict.update
 typing._TypedDict.values
-unittest.doModuleCleanups
 weakref.WeakValueDictionary.update
 webbrowser.Opera.raise_opts
 xml.etree.ElementTree.XMLParser.__init__  # Defined in C so has general signature
@@ -135,13 +121,6 @@ xml.etree.cElementTree.XMLParser.__init__  # Defined in C so has general signatu
 # positional-only complaints
 builtins.bytearray.pop
 builtins.bytearray.remove
-collections.AsyncGenerator.asend
-collections.AsyncGenerator.athrow
-collections.Container.__contains__
-collections.Coroutine.send
-collections.Coroutine.throw
-collections.Generator.send
-collections.Generator.throw
 collections.OrderedDict.fromkeys
 collections.OrderedDict.setdefault
 collections.abc.AsyncGenerator.asend
@@ -157,8 +136,6 @@ contextlib.ExitStack.callback
 contextvars.ContextVar.reset
 contextvars.ContextVar.set
 io.IncrementalNewlineDecoder.setstate
-lzma.LZMACompressor.compress
-lzma.is_check_supported
 os.initgroups
 os.pipe2
 os.posix_fadvise
@@ -181,49 +158,73 @@ signal.sigtimedwait
 signal.sigwaitinfo
 trace.Trace.runfunc
 zipfile.ZipExtFile.seek
-# These enums derive from (int, IntEnum) or (str, Enum). See comment in py3_common.txt
-enum.IntFlag.__new__
+# These enums derive from (str, Enum). See comment in py3_common.txt
 pstats.SortKey.__new__
-re.RegexFlag.__new__
-socket.AddressInfo.__new__
-socket.MsgFlag.__new__
-ssl.Options.__new__
-ssl.TLSVersion.__new__
-ssl.VerifyFlags.__new__
-ssl.VerifyMode.__new__
 tkinter.EventType.__new__
 
-builtins.memoryview.__iter__  # C type that implements __getitem__
-builtins.memoryview.cast  # inspect.signature is incorrect about shape being kw-only
-collections.Coroutine.cr_await
-collections.Coroutine.cr_code
-collections.Coroutine.cr_frame
-collections.Coroutine.cr_running
-collections.Generator.gi_code
-collections.Generator.gi_frame
-collections.Generator.gi_running
-collections.Generator.gi_yieldfrom
-collections.Mapping.get  # Adding None to the Union messed up mypy
-collections.Sequence.index  # Supporting None in end is not mandatory
-
-# The following methods were changed in point releases from Python 3.6 to 3.9
-# as part of a security fix. These excludes can be removed when the GitHub
-# action workflow uses Python versions that include the fix (adding a
-# separator argument).
-cgi.FieldStorage.__init__
-cgi.parse
-cgi.parse_multipart
-urllib.parse.parse_qs
-urllib.parse.parse_qsl
-
-# These enums derive from (int, IntEnum) or (str, Enum). Strangely,
-# at runtime, they inherit Enum.__new__, not int.__new__ or
-# str.__new__ as the mro would dictate, which is why stubtest balks.
-enum.IntEnum.__new__
-http.HTTPStatus.__new__
-inspect._ParameterKind.__new__
-signal.Handlers.__new__
-signal.Sigmasks.__new__
-signal.Signals.__new__
-socket.AddressFamily.__new__
-socket.SocketKind.__new__
+# Rest of these errors are new in Python 3.10:
+_bootlocale
+_markupbase.ParserBase.error
+asyncio.proactor_events._ProactorReadPipeTransport.__init__
+builtins.aiter
+dataclasses.Field.__init__
+dataclasses.dataclass
+dataclasses.make_dataclass
+distutils.command.bdist_wininst
+fileinput.FileInput.__init__
+fileinput.hook_compressed
+fileinput.input
+formatter
+importlib.abc.ResourceReader.is_resource
+importlib.machinery.BuiltinImporter.create_module
+importlib.machinery.BuiltinImporter.exec_module
+importlib.machinery.FrozenImporter.create_module
+importlib.machinery.PathFinder.invalidate_caches
+importlib.metadata.MetadataPathFinder.invalidate_caches
+locale.strcoll
+locale.strxfrm
+logging.Formatter.__init__
+logging.LoggerAdapter.__init__
+logging.PercentStyle.__init__
+logging.config.fileConfig
+parser
+pathlib.Path.chmod
+pathlib.Path.stat
+pathlib.Path.write_text
+py_compile.main
+pyclbr.Class.__init__
+pyclbr.Function.__init__
+sched.Event.__new__
+sched.Event._fields
+signal.default_int_handler
+sqlite3.Connection.interrupt
+sqlite3.Connection.iterdump
+sqlite3.Connection.rollback
+sqlite3.Connection.set_authorizer
+sqlite3.Connection.set_progress_handler
+sqlite3.Connection.set_trace_callback
+sqlite3.Cursor.close
+sqlite3.Cursor.setinputsizes
+sqlite3.Cursor.setoutputsize
+sqlite3.Row.keys
+sqlite3.complete_statement
+sqlite3.dbapi2.Connection.interrupt
+sqlite3.dbapi2.Connection.iterdump
+sqlite3.dbapi2.Connection.rollback
+sqlite3.dbapi2.Connection.set_authorizer
+sqlite3.dbapi2.Connection.set_progress_handler
+sqlite3.dbapi2.Connection.set_trace_callback
+sqlite3.dbapi2.Cursor.close
+sqlite3.dbapi2.Cursor.setinputsizes
+sqlite3.dbapi2.Cursor.setoutputsize
+sqlite3.dbapi2.Row.keys
+sqlite3.dbapi2.complete_statement
+ssl.SSLContext.__new__
+ssl._create_unverified_context
+ssl.get_server_certificate
+statistics.harmonic_mean
+symbol
+tempfile.TemporaryDirectory.__init__
+unicodedata.ucnhash_CAPI
+unittest.mock.create_autospec
+zipfile.Path.open
