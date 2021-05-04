@@ -26,7 +26,7 @@ from typing import (
     ValuesView as ValuesView,
 )
 
-# Without the real definition, mypy and pytype both think that __all__ is empty, so re-exports nothing
+# Can't import __all__ because typing has AbstractSet but this module has Set
 __all__ = [
     "Awaitable",
     "Coroutine",
