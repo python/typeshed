@@ -249,7 +249,7 @@ winsound: 2.7
 wsgiref: 2.7
 xdrlib: 2.7
 xml: 2.7
-xmlrpc: 2.7
+xmlrpc: 3.0
 xxlimited: 3.6
 zipapp: 3.5
 zipfile: 2.7
