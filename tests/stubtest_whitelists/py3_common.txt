@@ -38,19 +38,10 @@ builtins.classmethod.__get__  # this function can accept no value for the type p
 builtins.ellipsis  # type is not exposed anywhere
 builtins.function
 builtins.memoryview.__contains__  # C type that implements __getitem__
-builtins.memoryview.__iter__  # C type that implements __getitem__
-builtins.memoryview.cast  # inspect.signature is incorrect about shape being kw-only
 builtins.object.__init__  # default C signature is incorrect
 builtins.property.__get__  # this function can accept no value for the type parameter.
 builtins.staticmethod.__get__  # this function can accept no value for the type parameter.
 bz2.BZ2Decompressor.__init__  # function does not accept parameters but C signature is set
-# The following methods were changed in point releases from Python 3.6 to 3.9
-# as part of a security fix. These excludes can be removed when the GitHub
-# action workflow uses Python versions that include the fix (adding a
-# separator argument).
-cgi.FieldStorage.__init__
-cgi.parse
-cgi.parse_multipart
 # The following CodecInfo properties are added in __new__
 codecs.CodecInfo.decode
 codecs.CodecInfo.encode
@@ -61,16 +52,6 @@ codecs.CodecInfo.streamwriter
 collections.Callable  # Some typecheckers need this as specialform
 # Coroutine and Generator properties are added programmatically
 collections.ChainMap.get  # Adding None to the underlying Mapping Union messed up mypy
-collections.Coroutine.cr_await
-collections.Coroutine.cr_code
-collections.Coroutine.cr_frame
-collections.Coroutine.cr_running
-collections.Generator.gi_code
-collections.Generator.gi_frame
-collections.Generator.gi_running
-collections.Generator.gi_yieldfrom
-collections.Mapping.get  # Adding None to the Union messed up mypy
-collections.Sequence.index  # Supporting None in end is not mandatory
 # Coroutine and Generator properties are added programmatically
 collections.abc.Coroutine.cr_await
 collections.abc.Coroutine.cr_code
@@ -228,12 +209,6 @@ typing.IO.__next__  # Added because IO streams are iterable. See https://github.
 typing.type_check_only  # typing decorator that is not available at runtime
 unittest.mock.patch  # It's a complicated overload and I haven't been able to figure out why stubtest doesn't like it
 urllib.parse._DefragResultBase.__new__  # Generic NamedTuple is problematic in mypy, so regular tuple was used. See https://github.com/python/mypy/issues/685
-# The following methods were changed in point releases from Python 3.6 to 3.9
-# as part of a security fix. These excludes can be removed when the GitHub
-# action workflow uses Python versions that include the fix (adding a
-# separator argument).
-urllib.parse.parse_qs
-urllib.parse.parse_qsl
 urllib.request.BaseHandler.http_error_nnn
 urllib.request.HTTPPasswordMgrWithPriorAuth.__init__
 urllib.robotparser.RobotFileParser.can_fetch
@@ -250,18 +225,6 @@ webbrowser.UnixBrowser.remote_action
 webbrowser.UnixBrowser.remote_action_newtab
 webbrowser.UnixBrowser.remote_action_newwin
 wsgiref.types  # Doesn't exist, see comments in file
-
-# These enums derive from (int, IntEnum) or (str, Enum). Strangely,
-# at runtime, they inherit Enum.__new__, not int.__new__ or
-# str.__new__ as the mro would dictate, which is why stubtest balks.
-enum.IntEnum.__new__
-http.HTTPStatus.__new__
-inspect._ParameterKind.__new__
-signal.Handlers.__new__
-signal.Sigmasks.__new__
-signal.Signals.__new__
-socket.AddressFamily.__new__
-socket.SocketKind.__new__
 
 # ==========
 # Whitelist entries that cannot or should not be fixed
