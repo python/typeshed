@@ -26,7 +26,6 @@ from typing import (
     ValuesView as ValuesView,
 )
 
-# Can't import typing.__all__: typing contains more things than collections.abc, and sometimes with different names
 __all__ = [
     "Awaitable",
     "Coroutine",
