@@ -1,5 +1,9 @@
-from collections.abc import MutableMapping
-from typing import Dict, Iterator, List, Optional
+if sys.version_info >= (3,):
+    from collections.abc import MutableMapping
+else:
+    from collections import MutableMapping
+
+from typing import Any, Dict, Iterator, List, Optional
 
 from paramiko.pkey import PKey
 

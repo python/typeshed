@@ -1,6 +1,10 @@
+if sys.version_info >= (3,):
+    from collections.abc import Mapping
+else:
+    from collections import Mapping
+
 import string
 import sys
-from collections.abc import Mapping
 from typing import Any, Callable, Iterable, List, Optional, Sequence, Text, Tuple, Union
 
 from markupsafe._compat import text_type
