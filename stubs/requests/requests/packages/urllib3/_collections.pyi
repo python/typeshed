@@ -1,10 +1,5 @@
 import sys
-from typing import Any, NoReturn, TypeVar
-
-if sys.version_info >= (3,):
-    from collections.abc import MutableMapping
-else:
-    from collections import MutableMapping
+from typing import Any, MutableMapping, NoReturn, TypeVar
 
 _KT = TypeVar("_KT")
 _VT = TypeVar("_VT")

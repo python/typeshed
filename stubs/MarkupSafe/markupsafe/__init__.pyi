@@ -1,11 +1,6 @@
 import string
 import sys
-from typing import Any, Callable, Iterable, List, Optional, Sequence, Text, Tuple, Union
-
-if sys.version_info >= (3,):
-    from collections.abc import Mapping
-else:
-    from collections import Mapping
+from typing import Any, Callable, Iterable, List, Mapping, Optional, Sequence, Text, Tuple, Union
 
 from markupsafe._compat import text_type
 from markupsafe._native import escape as escape, escape_silent as escape_silent, soft_unicode as soft_unicode
