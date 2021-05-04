@@ -26,7 +26,7 @@ from typing import (
     ValuesView as ValuesView,
 )
 
-# Can't import __all__ because typing has AbstractSet but this module has Set
+# Can't import typing.__all__: typing contains more things than collections.abc, and sometimes with different names
 __all__ = [
     "Awaitable",
     "Coroutine",
