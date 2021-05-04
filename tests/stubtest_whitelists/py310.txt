@@ -68,7 +68,7 @@ mmap.MADV_[A-Z_]+  # platform dependent constants
 multiprocessing.spawn._main
 os.getgrouplist
 os.sendfile
-pickle.Pickler.reducer_overridee  # implemented in C pickler
+pickle.Pickler.reducer_override  # implemented in C pickler
 # platform.uname_result's processor field is now dynamically made to exist
 platform.uname_result.__new__
 platform.uname_result._fields
