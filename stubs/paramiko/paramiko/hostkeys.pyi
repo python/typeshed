@@ -1,10 +1,8 @@
-import collections
-import typing
-from typing import Dict, Iterator, List, Optional
+from typing import Any, Dict, Iterator, List, MutableMapping, Optional
 
 from paramiko.pkey import PKey
 
-class _SubDict(typing.MutableMapping[str, PKey]):
+class _SubDict(MutableMapping[str, PKey]):
     # Internal to HostKeys.lookup()
     def __init__(self, hostname: str, entries: List[HostKeyEntry], hostkeys: HostKeys) -> None: ...
     def __iter__(self) -> Iterator[str]: ...
@@ -14,7 +12,7 @@ class _SubDict(typing.MutableMapping[str, PKey]):
     def __setitem__(self, key: str, val: PKey) -> None: ...
     def keys(self) -> List[str]: ...  # type: ignore
 
-class HostKeys(collections.MutableMapping):
+class HostKeys(MutableMapping[Any, Any]):
     def __init__(self, filename: Optional[str] = ...) -> None: ...
     def add(self, hostname: str, keytype: str, key: PKey) -> None: ...
     def load(self, filename: str) -> None: ...
