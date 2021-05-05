@@ -104,7 +104,7 @@ jobs:
           version: 1.1.137  # Must match pyright_test.py.
           python-platform: ${{ matrix.python-platform }}
           python-version: ${{ matrix.python-version }}
-          no-comments: ${{ matrix.python-version != '3.9' }}  # Having each job create the same comment is too noisy.
+          no-comments: ${{ matrix.python-version != '3.9' || matrix.python-platform != 'Linux' }}  # Having each job create the same comment is too noisy.
 
   stubtest:
     name: Check stdlib with stubtest
