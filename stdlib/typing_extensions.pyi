@@ -22,6 +22,7 @@ from typing import (
     TypeVar,
     Union,
     ValuesView,
+    _Alias,
     overload as overload,
 )
 
@@ -67,6 +68,8 @@ class _TypedDict(Mapping[str, object], metaclass=abc.ABCMeta):
 
 # TypedDict is a (non-subscriptable) special form.
 TypedDict: object = ...
+
+OrderedDict = _Alias()
 
 if sys.version_info >= (3, 3):
     from typing import ChainMap as ChainMap
