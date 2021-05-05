@@ -40,7 +40,7 @@ if sys.platform != "win32":
 
 _QueueType = Queue
 _SimpleQueueType = SimpleQueue
-_JoinableQueueType = JoinableQueueType
+_JoinableQueueType = JoinableQueue
 _BarrierType = synchronize.Barrier
 _BoundedSemaphoreType = synchronize.BoundedSemaphore
 _ConditionType = synchronize.Condition
