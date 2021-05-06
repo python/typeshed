@@ -102,7 +102,7 @@ If you have questions related to contributing, drop by the [typing Gitter](https
 
 The tests are automatically run on every PR and push to the repo.
 Therefore you don't need to run them locally, unless you want to run
-them before making a pull request or debug some problem without
+them before making a pull request or you want to debug some problem without
 creating several small commits.
 
 There are several tests:
