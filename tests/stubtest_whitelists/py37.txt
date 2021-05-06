@@ -26,6 +26,7 @@ collections.abc.AsyncGenerator.ag_frame
 collections.abc.AsyncGenerator.ag_running
 concurrent.futures.ProcessPoolExecutor.map
 contextvars.Context.__init__  # Default C __init__ signature is wrong
+contextvars.ContextVar.get
 contextlib.nullcontext  # not a function at runtime
 dataclasses.field
 enum.Enum._generate_next_value_

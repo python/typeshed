@@ -1,4 +1,1 @@
-dbm.ndbm
-locale.nl_langinfo
 mmap.MADV_SOFT_OFFLINE  # Not defined in some linuxes
-posixpath.realpath

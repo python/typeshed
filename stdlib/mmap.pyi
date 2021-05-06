@@ -102,7 +102,8 @@ if sys.version_info >= (3, 8) and sys.platform != "win32":
         MADV_DONTDUMP: int
         MADV_DODUMP: int
         MADV_FREE: int
-    
+
+    # This Values are defined for FreeBSD but type checkers do not support conditions for these
     if sys.platform != "linux" and sys.platform != "darwin":
         MADV_NOSYNC: int
         MADV_AUTOSYNC: int
