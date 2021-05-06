@@ -2,12 +2,9 @@ import sys
 import types
 from _typeshed import AnyPath
 from abc import ABCMeta, abstractmethod
-from typing import IO, Any, Iterator, Mapping, Optional, Sequence, Tuple, Union
+from typing import IO, Any, Iterator, List, Mapping, Optional, Sequence, Tuple, Union
 from typing_extensions import Literal
-
-# Loader is exported from this module, but for circular import reasons
-# exists in its own stub file (with ModuleSpec and ModuleType).
-from _importlib_modulespec import Loader as Loader, ModuleSpec  # Exported
+from importlib.machinery import ModuleSpec
 
 _Path = Union[bytes, str]
 
@@ -52,6 +49,17 @@ class PathEntryFinder(Finder):
     def invalidate_caches(self) -> None: ...
     # Not defined on the actual class, but expected to exist.
     def find_spec(self, fullname: str, target: Optional[types.ModuleType] = ...) -> Optional[ModuleSpec]: ...
+
+class Loader(metaclass=ABCMeta):
+    def load_module(self, fullname: str) -> types.ModuleType: ...
+    def module_repr(self, module: types.ModuleType) -> str: ...
+    def create_module(self, spec: ModuleSpec) -> Optional[types.ModuleType]: ...
+    # Not defined on the actual class for backwards-compatibility reasons,
+    # but expected in new code.
+    def exec_module(self, module: types.ModuleType) -> None: ...
+
+class _LoaderProtocol(Protocol):
+    def load_module(self, fullname: str) -> types.ModuleType: ...
 
 class FileLoader(ResourceLoader, ExecutionLoader, metaclass=ABCMeta):
     name: str

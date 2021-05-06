@@ -13,7 +13,6 @@ _dummy_thread: 3.6
 _dummy_threading: 2.7
 _heapq: 2.7
 _imp: 3.6
-_importlib_modulespec: 3.6
 _json: 3.6
 _markupbase: 3.6
 _msi: 2.7
