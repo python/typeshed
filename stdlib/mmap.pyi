@@ -82,26 +82,34 @@ else:
         def __delitem__(self, index: Union[int, slice]) -> None: ...
         def __setitem__(self, index: Union[int, slice], object: bytes) -> None: ...
 
-if sys.version_info >= (3, 8):
+if sys.version_info >= (3, 8) and sys.platform != "win32":
     MADV_NORMAL: int
     MADV_RANDOM: int
     MADV_SEQUENTIAL: int
     MADV_WILLNEED: int
     MADV_DONTNEED: int
-    MADV_REMOVE: int
-    MADV_DONTFORK: int
-    MADV_DOFORK: int
-    MADV_HWPOISON: int
-    MADV_MERGEABLE: int
-    MADV_UNMERGEABLE: int
-    MADV_SOFT_OFFLINE: int
-    MADV_HUGEPAGE: int
-    MADV_NOHUGEPAGE: int
-    MADV_DONTDUMP: int
-    MADV_DODUMP: int
-    MADV_FREE: int
-    MADV_NOSYNC: int
-    MADV_AUTOSYNC: int
-    MADV_NOCORE: int
-    MADV_CORE: int
-    MADV_PROTECT: int
+
+    if sys.platform == "linux":
+        MADV_REMOVE: int
+        MADV_DONTFORK: int
+        MADV_DOFORK: int
+        MADV_HWPOISON: int
+        MADV_MERGEABLE: int
+        MADV_UNMERGEABLE: int
+        MADV_SOFT_OFFLINE: int
+        MADV_HUGEPAGE: int
+        MADV_NOHUGEPAGE: int
+        MADV_DONTDUMP: int
+        MADV_DODUMP: int
+        MADV_FREE: int
+    
+    if sys.platform != "linux" and sys.platform != "darwin":
+        MADV_NOSYNC: int
+        MADV_AUTOSYNC: int
+        MADV_NOCORE: int
+        MADV_CORE: int
+        MADV_PROTECT: int
+
+    if sys.version_info >= (3, 10) and sys.platform == "darwin":
+        MADV_FREE_REUSABLE: int
+        MADV_FREE_REUSE: int
