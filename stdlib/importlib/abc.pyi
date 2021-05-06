@@ -4,7 +4,7 @@ from _typeshed import AnyPath
 from abc import ABCMeta, abstractmethod
 from importlib.machinery import ModuleSpec
 from typing import IO, Any, Iterator, Mapping, Optional, Protocol, Sequence, Tuple, Union
-from typing_extensions import Literal
+from typing_extensions import Literal, runtime_checkable
 
 _Path = Union[bytes, str]
 
@@ -81,7 +81,6 @@ if sys.version_info >= (3, 7):
         def contents(self) -> Iterator[str]: ...
 
 if sys.version_info >= (3, 9):
-    from typing import runtime_checkable
     @runtime_checkable
     class Traversable(Protocol):
         @abstractmethod
