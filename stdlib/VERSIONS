@@ -1,4 +1,5 @@
 __future__: 2.7
+__main__: 2.7
 _ast: 3.6
 _bisect: 2.7
 _bootlocale: 3.6
