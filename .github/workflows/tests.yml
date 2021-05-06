@@ -72,14 +72,6 @@ jobs:
       - run: pip install -U git+git://github.com/python/mypy
       - run: ./tests/mypy_test.py --platform=${{ matrix.platform }}
 
-  mypy-self-check:
-    name: Check mypy source with itself
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-      - run: ./tests/mypy_self_check.py
-
   mypy-test-suite:
     name: Run the mypy test suite
     # Ubuntu 20.04 doesn't have the Python 2 venv module.

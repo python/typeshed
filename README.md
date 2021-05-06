@@ -110,8 +110,6 @@ tests typeshed with [mypy](https://github.com/python/mypy/)
 [pytype](https://github.com/google/pytype/).
 - `tests/pyright_test.py` tests typeshed with
 [pyright](https://github.com/microsoft/pyright).
-- `tests/mypy_self_check.py` checks mypy's code base using this version of
-typeshed.
 - `tests/mypy_test_suite.py` runs a subset of mypy's test suite using this version of
 typeshed.
 - `tests/check_consistent.py` checks certain files in typeshed remain
@@ -175,17 +173,7 @@ This test works similarly to `mypy_test.py`, except it uses `pytype`.
 
 This test requires Node.js to be installed.
 
-### mypy_self_check.py
-
-This test requires Python 3.6 or higher; Python 3.6.1 or higher is recommended.
-Run using:
-```
-(.venv3)$ python3 tests/mypy_self_check.py
-```
-
-This test checks mypy's code base using mypy and typeshed code in this repo.
-
-### mypy_test_suite.py
+### mypy\_test\_suite.py
 
 This test requires Python 3.5 or higher; Python 3.6.1 or higher is recommended.
 Run using:
