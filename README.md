@@ -100,8 +100,10 @@ If you have questions related to contributing, drop by the [typing Gitter](https
 
 ## Running the tests
 
-The tests are automatically run on every PR and push to
-the repo.
+The tests are automatically run on every PR and push to the repo.
+Therefore you don't need to run them locally, unless you want to run
+them before making a pull request or you want to debug some problem without
+creating several small commits.
 
 There are several tests:
 - `tests/mypy_test.py`
