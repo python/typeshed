@@ -6,6 +6,7 @@
     ],
     "exclude": [
         "**/@python2",
+        "stdlib/__main__.pyi",
         "stdlib/encodings",
         "stdlib/sqlite3/dbapi2.pyi",
         "stdlib/tkinter",
