@@ -1,8 +1,8 @@
 import sys
 import typing
+from importlib.abc import ModuleSpec, _LoaderProtocol
 from typing import Any, Awaitable, Callable, Dict, Generic, Iterable, Iterator, Mapping, Optional, Tuple, Type, TypeVar, overload
 from typing_extensions import Literal, final
-from importlib.abc import _LoaderProtocol, ModuleSpec
 
 # Note, all classes "defined" here require special handling.
 

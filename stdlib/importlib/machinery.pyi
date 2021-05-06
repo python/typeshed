@@ -1,6 +1,6 @@
 import importlib.abc
 import types
-from typing import Callable, List, Optional, Sequence, Tuple, Union, Any
+from typing import Any, Callable, List, Optional, Sequence, Tuple, Union
 
 # TODO: the loaders seem a bit backwards, attribute is protocol but __init__ arg isn't?
 class ModuleSpec:
@@ -94,7 +94,7 @@ class PathFinder:
         cls, fullname: str, path: Optional[Sequence[Union[bytes, str]]] = ..., target: Optional[types.ModuleType] = ...
     ) -> Optional[ModuleSpec]: ...
     @classmethod
-    def find_module(cls, fullname: str, path: Optional[Sequence[Union[bytes, str]]] = ...) -> Optional[Loader]: ...
+    def find_module(cls, fullname: str, path: Optional[Sequence[Union[bytes, str]]] = ...) -> Optional[importlib.abc.Loader]: ...
 
 SOURCE_SUFFIXES: List[str]
 DEBUG_BYTECODE_SUFFIXES: List[str]
