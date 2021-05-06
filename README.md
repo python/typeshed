@@ -100,8 +100,10 @@ If you have questions related to contributing, drop by the [typing Gitter](https
 
 ## Running the tests
 
-The tests are automatically run on every PR and push to
-the repo.
+The tests are automatically run on every PR and push to the repo.
+Therefore you don't need to run them locally, unless you want to run
+them before making a pull request or you want to debug some problem without
+creating several small commits.
 
 There are several tests:
 - `tests/mypy_test.py`
@@ -110,8 +112,6 @@ tests typeshed with [mypy](https://github.com/python/mypy/)
 [pytype](https://github.com/google/pytype/).
 - `tests/pyright_test.py` tests typeshed with
 [pyright](https://github.com/microsoft/pyright).
-- `tests/mypy_self_check.py` checks mypy's code base using this version of
-typeshed.
 - `tests/mypy_test_suite.py` runs a subset of mypy's test suite using this version of
 typeshed.
 - `tests/check_consistent.py` checks certain files in typeshed remain
@@ -175,17 +175,7 @@ This test works similarly to `mypy_test.py`, except it uses `pytype`.
 
 This test requires Node.js to be installed.
 
-### mypy_self_check.py
-
-This test requires Python 3.6 or higher; Python 3.6.1 or higher is recommended.
-Run using:
-```
-(.venv3)$ python3 tests/mypy_self_check.py
-```
-
-This test checks mypy's code base using mypy and typeshed code in this repo.
-
-### mypy_test_suite.py
+### mypy\_test\_suite.py
 
 This test requires Python 3.5 or higher; Python 3.6.1 or higher is recommended.
 Run using:
