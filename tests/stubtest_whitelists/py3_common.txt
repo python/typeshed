@@ -12,7 +12,6 @@ _collections_abc.Mapping.get  # Adding None to the Union messed up mypy
 _collections_abc.Sequence.index  # Supporting None in end is not mandatory
 _csv.Dialect.__init__  # C __init__ signature is inaccurate
 _dummy_threading
-_importlib_modulespec
 _threading_local.local.__new__
 _typeshed.*  # Utility types for typeshed, doesn't exist at runtime
 abc.abstractclassmethod
