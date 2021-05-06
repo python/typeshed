@@ -10,8 +10,9 @@ are important to the project's success.
 
 1. Read the [README.md file](README.md).
 2. If you want, set up your environment to be able to [run tests](README.md#running-the-tests).
-    This can be useful, but usually not needed, because the tests run
-    automatically on GitHub Actions for all pull requests.
+    This can be useful for big pull requests or fixing specific errors, but
+    usually not needed, because the tests run automatically on GitHub Actions
+    for all pull requests.
 3. [Prepare your changes](#preparing-changes):
     * Small fixes and additions can be submitted directly as pull requests,
       but [contact us](#discussion) before starting significant work.
