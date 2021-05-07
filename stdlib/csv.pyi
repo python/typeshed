@@ -17,8 +17,12 @@ from _csv import (
     unregister_dialect as unregister_dialect,
     writer as writer,
 )
-from collections import OrderedDict
-from typing import Any, Dict, Generic, Iterable, Iterator, List, Mapping, Optional, Sequence, Text, Type, TypeVar
+from typing import Any, Dict, Generic, Iterable, Iterator, List, Mapping, Optional, Sequence, Text, Type, TypeVar, overload
+
+if sys.version_info >= (3, 8) or sys.version_info < (3, 6):
+    from typing import Dict as _DictReadMapping
+else:
+    from collections import OrderedDict as _DictReadMapping
 
 _T = TypeVar("_T")
 
@@ -42,21 +46,27 @@ if sys.version_info >= (3,):
         lineterminator: str
         quoting: int
 
-if sys.version_info >= (3, 8) or sys.version_info < (3, 6):
-    _DRMapping = Dict[str, str]
-else:
-    _DRMapping = OrderedDict[str, str]
-
-# TODO: make keys generic, defaulting to string if no fieldnames are given (#4800)
-class DictReader(Iterator[_DRMapping]):
+class DictReader(Generic[_T], Iterator[_DictReadMapping[_T, str]]):
+    fieldnames: Optional[Sequence[_T]]
     restkey: Optional[str]
     restval: Optional[str]
     reader: _reader
     dialect: _DialectLike
     line_num: int
-    fieldnames: Optional[Sequence[str]]
+    @overload
     def __init__(
         self,
+        f: Iterable[Text],
+        fieldnames: Sequence[_T],
+        restkey: Optional[str] = ...,
+        restval: Optional[str] = ...,
+        dialect: _DialectLike = ...,
+        *args: Any,
+        **kwds: Any,
+    ) -> None: ...
+    @overload
+    def __init__(
+        self: DictReader[str],
         f: Iterable[Text],
         fieldnames: Optional[Sequence[str]] = ...,
         restkey: Optional[str] = ...,
@@ -67,9 +77,9 @@ class DictReader(Iterator[_DRMapping]):
     ) -> None: ...
     def __iter__(self) -> DictReader: ...
     if sys.version_info >= (3,):
-        def __next__(self) -> _DRMapping: ...
+        def __next__(self) -> _DictReadMapping[_T, str]: ...
     else:
-        def next(self) -> _DRMapping: ...
+        def next(self) -> _DictReadMapping[_T, str]: ...
 
 class DictWriter(Generic[_T]):
     fieldnames: Sequence[_T]
