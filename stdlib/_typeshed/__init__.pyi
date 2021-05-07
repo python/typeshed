@@ -15,7 +15,7 @@
 import array
 import mmap
 import sys
-from typing import AbstractSet, Any, Container, Iterable, Protocol, Text, Tuple, TypeVar, Union
+from typing import AbstractSet, Any, Container, Iterable, Protocol, Text, Tuple, Union
 from typing_extensions import Literal, final
 
 _KT = TypeVar("_KT")
