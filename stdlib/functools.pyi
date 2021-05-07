@@ -1,8 +1,5 @@
 import sys
-from _typeshed import (
-    SupportsLessThan,
-    SupportsItems,
-)
+from _typeshed import SupportsLessThan, SupportsItems
 from typing import (
     Any,
     Callable,
