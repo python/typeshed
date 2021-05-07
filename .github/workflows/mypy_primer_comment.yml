@@ -112,3 +112,9 @@ jobs:
               repo: context.repo.repo,
               body,
             })
+
+      - uses: kanga333/comment-hider@v0.2.1
+        name: Hide old comments
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          leave_visible: 1
