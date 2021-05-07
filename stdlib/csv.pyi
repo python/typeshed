@@ -89,7 +89,7 @@ class DictWriter(Generic[_T]):
     def __init__(
         self,
         f: Any,
-        fieldnames: Iterable[_T],
+        fieldnames: Sequence[_T],
         restval: Optional[Any] = ...,
         extrasaction: str = ...,
         dialect: _DialectLike = ...,
