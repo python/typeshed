@@ -3,7 +3,7 @@ import sys
 from _typeshed import AnyPath, BytesPath, StrPath
 from genericpath import exists as exists
 from os import PathLike
-from typing import Any, AnyStr, Optional, Sequence, Tuple, TypeVar, overload
+from typing import AnyStr, Optional, Sequence, Tuple, TypeVar, overload
 
 _T = TypeVar("_T")
 
