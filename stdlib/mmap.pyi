@@ -111,6 +111,6 @@ if sys.version_info >= (3, 8) and sys.platform != "win32":
         MADV_CORE: int
         MADV_PROTECT: int
 
-    if sys.version_info >= (3, 10) and sys.platform == "darwin":
-        MADV_FREE_REUSABLE: int
-        MADV_FREE_REUSE: int
+if sys.version_info >= (3, 10) and sys.platform == "darwin":
+    MADV_FREE_REUSABLE: int
+    MADV_FREE_REUSE: int
