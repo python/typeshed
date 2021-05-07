@@ -7,10 +7,12 @@ from typing import (
     Generic,
     Hashable,
     Iterable,
+    List,
     Mapping,
     NamedTuple,
     Optional,
     Sequence,
+    Set,
     Sized,
     Tuple,
     Type,
@@ -133,7 +135,7 @@ if sys.version_info >= (3, 8):
 if sys.version_info >= (3, 9):
     def cache(__user_function: Callable[..., _T]) -> _lru_cache_wrapper[_T]: ...
 
-class _HashedSeq(Generic[_T], list[_T]):
+class _HashedSeq(Generic[_T], List[_T]):
     __slots__: str
     def __init__(self, tup: Tuple[Any, ...], hash: Callable[[object], int] = ...) -> None: ...
     def __hash__(self) -> int: ...
@@ -143,7 +145,7 @@ def _make_key(
     kwds: SupportsItems[Any, Any],
     typed: bool,
     kwd_mark: Tuple[object, ...] = ...,
-    fasttypes: set[type] = ...,
+    fasttypes: Set[type] = ...,
     tuple: type = ...,
     type: Any = ...,
     len: Callable[[Sized], int] = ...,
