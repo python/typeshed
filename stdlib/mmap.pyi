@@ -96,7 +96,9 @@ if sys.version_info >= (3, 8) and sys.platform != "win32":
         MADV_HWPOISON: int
         MADV_MERGEABLE: int
         MADV_UNMERGEABLE: int
-        MADV_SOFT_OFFLINE: int
+        # Seems like this constant is not defined in glibc.
+        # See https://github.com/python/typeshed/pull/5360 for details
+        # MADV_SOFT_OFFLINE: int
         MADV_HUGEPAGE: int
         MADV_NOHUGEPAGE: int
         MADV_DONTDUMP: int
