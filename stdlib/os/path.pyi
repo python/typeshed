@@ -3,7 +3,7 @@ import sys
 from _typeshed import AnyPath, BytesPath, StrPath, SupportsLessThanT
 from genericpath import exists as exists
 from os import PathLike
-from typing import AnyStr, List, Optional, Sequence, Tuple, TypeVar, Union, overload
+from typing import AnyStr, List, Optional, Sequence, Tuple, Union, overload
 from typing_extensions import Literal
 
 # ----- os.path variables -----
