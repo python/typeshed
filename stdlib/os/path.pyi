@@ -77,14 +77,19 @@ else:
         @overload
         def realpath(filename: AnyStr) -> AnyStr: ...
 
-# In reality it returns str for sequences of StrPath and bytes for sequences
-# of BytesPath, but mypy does not accept such a signature.
-def commonpath(paths: Sequence[AnyPath]) -> Any: ...
-
-# NOTE: Empty lists results in '' (str) regardless of contained type.
-# So, fall back to Any
-def commonprefix(m: Sequence[AnyPath]) -> Any: ...
 def lexists(path: AnyPath) -> bool: ...
+@overload
+def commonpath(paths: Sequence[StrPath]) -> str: ...
+@overload
+def commonpath(paths: Sequence[BytesPath]) -> bytes: ...
+
+# Using Sequence because it returns empty string '' for empty inputs
+@overload
+def commonprefix(m: Sequence[StrPath]) -> str: ...
+@overload
+def commonprefix(m: Sequence[BytesPath]) -> bytes: ...
+@overload
+def commonprefix(m: Sequence[Sequence[_T]]) -> Sequence[_T]: ...  # see #5009
 
 # These return float if os.stat_float_times() == True,
 # but int is a subclass of float.
