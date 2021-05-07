@@ -18,9 +18,9 @@ from _csv import (
     writer as writer,
 )
 from collections import OrderedDict
-from typing import Any, Dict, Iterable, Iterator, List, Mapping, Optional, Sequence, Text, Type
+from typing import Any, Dict, Generic, Iterable, Iterator, List, Mapping, Optional, Sequence, Text, Type, TypeVar
 
-_DictRow = Mapping[str, Any]
+_T = TypeVar("_T")
 
 class excel(Dialect):
     delimiter: str
@@ -42,13 +42,12 @@ if sys.version_info >= (3,):
         lineterminator: str
         quoting: int
 
-if sys.version_info >= (3, 8):
+if sys.version_info >= (3, 8) or sys.version_info < (3, 6):
     _DRMapping = Dict[str, str]
-elif sys.version_info >= (3, 6):
-    _DRMapping = OrderedDict[str, str]
 else:
-    _DRMapping = Dict[str, str]
+    _DRMapping = OrderedDict[str, str]
 
+# TODO: make keys generic, defaulting to string if no fieldnames are given (#4800)
 class DictReader(Iterator[_DRMapping]):
     restkey: Optional[str]
     restval: Optional[str]
@@ -72,15 +71,15 @@ class DictReader(Iterator[_DRMapping]):
     else:
         def next(self) -> _DRMapping: ...
 
-class DictWriter(object):
-    fieldnames: Sequence[str]
+class DictWriter(Generic[_T]):
+    fieldnames: Sequence[_T]
     restval: Optional[Any]
     extrasaction: str
     writer: _writer
     def __init__(
         self,
         f: Any,
-        fieldnames: Iterable[str],
+        fieldnames: Iterable[_T],
         restval: Optional[Any] = ...,
         extrasaction: str = ...,
         dialect: _DialectLike = ...,
@@ -91,8 +90,8 @@ class DictWriter(object):
         def writeheader(self) -> Any: ...
     else:
         def writeheader(self) -> None: ...
-    def writerow(self, rowdict: _DictRow) -> Any: ...
-    def writerows(self, rowdicts: Iterable[_DictRow]) -> None: ...
+    def writerow(self, rowdict: Mapping[_T, Any]) -> Any: ...
+    def writerows(self, rowdicts: Iterable[Mapping[_T, Any]]) -> None: ...
 
 class Sniffer(object):
     preferred: List[str]
