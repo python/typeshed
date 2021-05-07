@@ -10,6 +10,7 @@ grp.getgrgid
 grp.struct_group._asdict
 grp.struct_group._make
 grp.struct_group._replace
+mmap.MADV_SOFT_OFFLINE  # Not defined in some linuxes
 ntpath.realpath
 os.EX_NOTFOUND
 os.SF_MNOWAIT
