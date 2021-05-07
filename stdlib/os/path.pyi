@@ -3,7 +3,7 @@ import sys
 from _typeshed import AnyPath, BytesPath, StrPath
 from genericpath import exists as exists
 from os import PathLike
-from typing import AnyStr, Optional, Sequence, Tuple, TypeVar, overload
+from typing import AnyStr, List, Optional, Sequence, Tuple, TypeVar, Union, overload
 from typing_extensions import Literal
 
 _T = TypeVar("_T")
@@ -84,14 +84,17 @@ def commonpath(paths: Sequence[StrPath]) -> str: ...
 @overload
 def commonpath(paths: Sequence[BytesPath]) -> bytes: ...
 
+# All overloads can return empty string. Ideally, Literal[""] would be a valid
+# Iterable[_T], so that Union[List[_T], Literal[""]] could be used as a return
+# type. But because _T is not necessarily str, we need Sequence[_T] instead.
 @overload
 def commonprefix(m: Sequence[StrPath]) -> str: ...
 @overload
-def commonprefix(m: Sequence[BytesPath]) -> bytes: ...
+def commonprefix(m: Sequence[BytesPath]) -> Union[bytes, Literal[""]]: ...
 @overload
-def commonprefix(m: Sequence[List[_T]]) -> Union[List[_T], Literal[""]]: ...
+def commonprefix(m: Sequence[List[_T]]) -> Sequence[_T]: ...
 @overload
-def commonprefix(m: Sequence[Tuple[_T]]) -> Union[Tuple[_T], Literal[""]]: ...
+def commonprefix(m: Sequence[Tuple[_T]]) -> Sequence[_T]: ...
 
 # These return float if os.stat_float_times() == True,
 # but int is a subclass of float.
