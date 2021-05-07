@@ -1,12 +1,7 @@
 name: Comment with mypy_primer diff
 
 on:
-  # pull_request_target gives us access to a write token which we need to post a comment
-  # The presence of a write token means that we can't run any untrusted code (i.e. malicious PRs),
-  # which is why this its own workflow. Github Actions doesn't make it easy for workflows to talk to
-  # each other, so the approach here is to poll for workflow runs, find the mypy_primer run for our
-  # commit, wait till it's completed, and download and post the diff.
-  pull_request_target:
+  - pull_request
 
 permissions:
   contents: read
