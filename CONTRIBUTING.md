@@ -79,6 +79,8 @@ you are changing.
 
 Also, do not squash your commits or use `git commit --amend` after you have submitted a pull request, as this
 erases context during review. We will squash commits when the pull request is merged.
+This way, your pull request will appear as a single commit in our git history, even
+if it consisted of several smaller commits.
 
 At present the maintainers are (alphabetically):
 * David Fisher (@ddfisher)
