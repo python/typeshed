@@ -77,7 +77,7 @@ processed incorrectly by a type checker. It is also helpful to add
 links to online documentation or to the implementation of the code
 you are changing.
 
-Also, do not squash your commits after you have submitted a pull request, as this
+Also, do not squash your commits or use `git commit --amend` after you have submitted a pull request, as this
 erases context during review. We will squash commits when the pull request is merged.
 
 At present the maintainers are (alphabetically):
