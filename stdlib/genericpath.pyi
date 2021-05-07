@@ -1,7 +1,7 @@
 import sys
 from _typeshed import AnyPath
 from os.path import commonprefix as commonprefix
-from typing import AnyStr, Sequence, Text
+from typing import Text
 
 def exists(path: AnyPath) -> bool: ...
 def isfile(path: Text) -> bool: ...

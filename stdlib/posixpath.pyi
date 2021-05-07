@@ -4,7 +4,7 @@ from _typeshed import AnyPath, BytesPath, StrPath
 from genericpath import exists as exists
 from os import PathLike
 from os.path import commonpath as commonpath, commonprefix as commonprefix, lexists as lexists
-from typing import Any, AnyStr, Optional, Sequence, Tuple, TypeVar, overload
+from typing import AnyStr, Optional, Tuple, TypeVar, overload
 
 _T = TypeVar("_T")
 
