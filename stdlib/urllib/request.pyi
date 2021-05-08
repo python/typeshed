@@ -155,6 +155,8 @@ class HTTPPasswordMgrWithPriorAuth(HTTPPasswordMgrWithDefaultRealm):
 
 class AbstractBasicAuthHandler:
     rx: ClassVar[Pattern[str]]  # undocumented
+    passwd: Union[HTTPPasswordMgr, None]
+    add_password: Callable[[], Any]
     def __init__(self, password_mgr: Optional[HTTPPasswordMgr] = ...) -> None: ...
     def http_error_auth_reqed(self, authreq: str, host: str, req: Request, headers: Mapping[str, str]) -> None: ...
     def http_request(self, req: Request) -> Request: ...  # undocumented
