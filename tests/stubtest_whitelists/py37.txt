@@ -18,6 +18,7 @@ collections.AsyncGenerator.ag_await
 collections.AsyncGenerator.ag_code
 collections.AsyncGenerator.ag_frame
 collections.AsyncGenerator.ag_running
+collections.Callable
 collections.UserString.maketrans
 collections.abc.AsyncGenerator.ag_await
 collections.abc.AsyncGenerator.ag_code

@@ -17,6 +17,7 @@ collections.AsyncGenerator.ag_await
 collections.AsyncGenerator.ag_code
 collections.AsyncGenerator.ag_frame
 collections.AsyncGenerator.ag_running
+collections.Callable
 collections.UserString.maketrans
 contextlib._GeneratorContextManager.__init__
 enum.Enum._generate_next_value_
