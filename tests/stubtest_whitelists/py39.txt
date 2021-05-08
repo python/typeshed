@@ -6,7 +6,6 @@ _collections_abc.AsyncGenerator.ag_running
 _collections_abc.ItemsView.__reversed__
 _collections_abc.KeysView.__reversed__
 _collections_abc.ValuesView.__reversed__
-# This was changed in Python 3.9.2.
 _dummy_thread
 ast.Bytes.__new__
 ast.Ellipsis.__new__
