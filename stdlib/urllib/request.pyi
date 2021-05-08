@@ -21,7 +21,7 @@ from typing import (
     overload,
 )
 from urllib.error import HTTPError
-from urllib.response import addinfourl
+from urllib.response import addclosehook, addinfourl
 
 _T = TypeVar("_T")
 _UrlopenRet = Any
@@ -155,8 +155,8 @@ class HTTPPasswordMgrWithPriorAuth(HTTPPasswordMgrWithDefaultRealm):
 
 class AbstractBasicAuthHandler:
     rx: ClassVar[Pattern[str]]  # undocumented
-    passwd: Union[HTTPPasswordMgr, None]
-    add_password: Callable[[], Any]
+    passwd: HTTPPasswordMgr
+    add_password: Callable[[str, Union[str, Sequence[str]], str, str], None]
     def __init__(self, password_mgr: Optional[HTTPPasswordMgr] = ...) -> None: ...
     def http_error_auth_reqed(self, authreq: str, host: str, req: Request, headers: Mapping[str, str]) -> None: ...
     def http_request(self, req: Request) -> Request: ...  # undocumented
@@ -234,7 +234,7 @@ class ftpwrapper:  # undocumented
     def file_close(self) -> None: ...
     def init(self) -> None: ...
     def real_close(self) -> None: ...
-    def retrfile(self, file: str, type: str) -> None: ...
+    def retrfile(self, file: str, type: str) -> Tuple[addclosehook, int]: ...
 
 class FTPHandler(BaseHandler):
     def ftp_open(self, req: Request) -> addinfourl: ...
