@@ -13,7 +13,6 @@ _collections_abc.Generator.throw
 _collections_abc.ItemsView.__reversed__
 _collections_abc.KeysView.__reversed__
 _collections_abc.ValuesView.__reversed__
-# This was changed in Python 3.9.2.
 _curses.color_pair
 _dummy_thread
 ast.Bytes.__new__
