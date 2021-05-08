@@ -113,6 +113,7 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
+      # Keep the mypy version in sync with what we use for stubtest in stubtest-unused-whitelist.yml
       - name: Install dependencies
         run: |
           python -m pip install -U pip
