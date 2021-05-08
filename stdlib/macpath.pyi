@@ -1,12 +1,11 @@
 import sys
 from _typeshed import AnyPath, BytesPath, StrPath
-from typing import AnyStr, Text, Tuple, overload
+from typing import AnyStr, Optional, Text, Tuple, overload
 
 if sys.version_info < (3, 8):
     from genericpath import *
     from os.path import (
         abspath as abspath,
-        altsep as altsep,
         curdir as curdir,
         defpath as defpath,
         devnull as devnull,
@@ -22,6 +21,8 @@ if sys.version_info < (3, 8):
         splitext as splitext,
         supports_unicode_filenames as supports_unicode_filenames,
     )
+
+    altsep: Optional[str]
 
     if sys.version_info >= (3, 6):
         from os import PathLike
