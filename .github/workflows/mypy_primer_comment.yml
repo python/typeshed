@@ -113,7 +113,7 @@ jobs:
               body,
             })
 
-      - uses: kanga333/comment-hider@v0.2.1
+      - uses: kanga333/comment-hider@9141763feccc8da
         name: Hide old comments
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
