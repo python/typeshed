@@ -13,7 +13,6 @@ _collections_abc.Generator.throw
 _collections_abc.ItemsView.__reversed__
 _collections_abc.KeysView.__reversed__
 _collections_abc.ValuesView.__reversed__
-# This was changed in Python 3.9.2.
 _curses.color_pair
 _dummy_thread
 ast.Bytes.__new__
@@ -64,7 +63,6 @@ logging.handlers.TimedRotatingFileHandler.__init__
 logging.handlers.WatchedFileHandler.__init__
 macpath  # module removed in 3.8
 macurl2path  # module removed in 3.7
-mmap.MADV_[A-Z_]+  # platform dependent constants
 multiprocessing.spawn._main
 os.getgrouplist
 os.sendfile
