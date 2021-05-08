@@ -109,7 +109,6 @@ weakref.WeakValueDictionary.update
 xml.etree.ElementTree.XMLParser.__init__  # Defined in C so has general signature
 xml.etree.cElementTree.XMLParser.__init__  # Defined in C so has general signature
 
-# positional-only complaints
 # These enums derive from (int, IntEnum) or (str, Enum). See comment in py3_common.txt
 pstats.SortKey.__new__
 tkinter.EventType.__new__
@@ -126,12 +125,3 @@ collections.Generator.gi_running
 collections.Generator.gi_yieldfrom
 collections.Mapping.get  # Adding None to the Union messed up mypy
 collections.Sequence.index  # Supporting None in end is not mandatory
-
-# The following methods were changed in point releases from Python 3.6 to 3.9
-# as part of a security fix. These excludes can be removed when the GitHub
-# action workflow uses Python versions that include the fix (adding a
-# separator argument).
-
-# These enums derive from (int, IntEnum) or (str, Enum). Strangely,
-# at runtime, they inherit Enum.__new__, not int.__new__ or
-# str.__new__ as the mro would dictate, which is why stubtest balks.

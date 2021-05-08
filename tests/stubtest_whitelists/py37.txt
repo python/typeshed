@@ -84,7 +84,3 @@ collections.Sequence.index  # Supporting None in end is not mandatory
 # separator argument).
 urllib.parse.parse_qs
 urllib.parse.parse_qsl
-
-# These enums derive from (int, IntEnum) or (str, Enum). Strangely,
-# at runtime, they inherit Enum.__new__, not int.__new__ or
-# str.__new__ as the mro would dictate, which is why stubtest balks.
