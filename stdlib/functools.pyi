@@ -137,6 +137,7 @@ if sys.version_info >= (3, 9):
 
 class _HashedSeq(Generic[_T], List[_T]):
     __slots__: str
+    hashvalue: int
     def __init__(self, tup: Tuple[Any, ...], hash: Callable[[object], int] = ...) -> None: ...
     def __hash__(self) -> int: ...  # type: ignore
 
