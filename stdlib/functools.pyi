@@ -7,7 +7,6 @@ from typing import (
     Generic,
     Hashable,
     Iterable,
-    List,
     Mapping,
     NamedTuple,
     Optional,
@@ -135,12 +134,6 @@ if sys.version_info >= (3, 8):
 if sys.version_info >= (3, 9):
     def cache(__user_function: Callable[..., _T]) -> _lru_cache_wrapper[_T]: ...
 
-class _HashedSeq(Generic[_T], List[_T]):
-    __slots__: str
-    hashvalue: int
-    def __init__(self, tup: Tuple[Any, ...], hash: Callable[[object], int] = ...) -> None: ...
-    def __hash__(self) -> int: ...  # type: ignore
-
 def _make_key(
     args: Tuple[Hashable, ...],
     kwds: SupportsItems[Any, Any],
@@ -150,4 +143,4 @@ def _make_key(
     tuple: type = ...,
     type: Any = ...,
     len: Callable[[Sized], int] = ...,
-) -> Union[Hashable, _HashedSeq[Any]]: ...
+) -> Hashable: ...
