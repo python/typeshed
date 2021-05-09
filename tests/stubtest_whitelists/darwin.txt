@@ -1,5 +1,6 @@
 _posixsubprocess.cloexec_pipe
 _?curses.ACS_.* # ACS codes are initialized only after initscr call. 
+_?curses.A_ITALIC  # System dependent
 curses.COLORS  # Initialized after start_color
 curses.COLOR_PAIRS  # Initialized after start_color
 curses.COLS  # Initialized only after initscr call. 
@@ -9,12 +10,17 @@ grp.getgrgid
 grp.struct_group._asdict
 grp.struct_group._make
 grp.struct_group._replace
-ntpath.realpath
 os.EX_NOTFOUND
 os.SF_MNOWAIT
 os.SF_NODISKIO
 os.SF_SYNC
+posix.sched_param  # system dependent. Unclear if macos has it.
 posix.EX_NOTFOUND
+posix.XATTR.*  # Value seems to be in docs but not defined in github macos
+readline.append_history_file  # not defined in macos
+select.kqueue.__init__  # default C signature is wrong
+select.KQ_FILTER_NETDEV  # system dependent
+select.POLLMSG   # system dependent
 socket.socketpair
 time.CLOCK_HIGHRES
 
@@ -22,7 +28,7 @@ time.CLOCK_HIGHRES
 # Whitelist entries that cannot or should not be fixed
 # ==========
 
-# Modules that do not exist on Linux systems
+# Modules that do not exist on macos systems
 _msi
 _winapi
 asyncio.windows_events
@@ -31,6 +37,8 @@ msilib(.[a-z]+)?
 msvcrt
 winreg
 winsound
+ossaudiodev
+spwd
 
 # NamedTuple like, but not actually NamedTuples
 posix.[a-z]+_(param|result)._(asdict|make|replace)

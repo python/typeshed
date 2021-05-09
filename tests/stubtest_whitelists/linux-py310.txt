@@ -1,2 +1,2 @@
-locale.nl_langinfo
+dbm.ndbm
 posixpath.realpath
