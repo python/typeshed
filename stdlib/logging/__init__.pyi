@@ -365,7 +365,12 @@ class LoggerAdapter:
     logger: Logger
     extra: Optional[Mapping[str, Any]]
     manager: Manager  # undocumented
-    def __init__(self, logger: Logger, extra: Mapping[str, Any]) -> None: ...
+    if sys.version_info >= (3, 10):
+        extra: Optional[Mapping[str, Any]]
+        def __init__(self, logger: Logger, extra: Optional[Mapping[str, Any]]) -> None: ...
+    else:
+        extra: Mapping[str, Any]
+        def __init__(self, logger: Logger, extra: Mapping[str, Any]) -> None: ...
     def process(self, msg: Any, kwargs: MutableMapping[str, Any]) -> tuple[Any, MutableMapping[str, Any]]: ...
     if sys.version_info >= (3, 8):
         def debug(
