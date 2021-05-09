@@ -812,7 +812,6 @@ if sys.platform != "win32":
     def sched_get_priority_min(policy: int) -> int: ...  # some flavors of Unix
     def sched_get_priority_max(policy: int) -> int: ...  # some flavors of Unix
     def sched_yield() -> None: ...  # some flavors of Unix
-
     if sys.platform != "darwin":
         def sched_setscheduler(pid: int, policy: int, param: sched_param) -> None: ...  # some flavors of Unix
         def sched_getscheduler(pid: int) -> int: ...  # some flavors of Unix
