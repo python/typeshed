@@ -60,7 +60,7 @@ F_TEST: int
 F_TLOCK: int
 F_ULOCK: int
 
-if sys.platform != "darwin":
+if sys.platform == "linux":
     GRND_NONBLOCK: int
     GRND_RANDOM: int
 NGROUPS_MAX: int
@@ -102,7 +102,7 @@ P_ALL: int
 P_PGID: int
 P_PID: int
 
-if sys.platform != "darwin":
+if sys.platform == "linux":
     RTLD_DEEPBIND: int
 RTLD_GLOBAL: int
 RTLD_LAZY: int
@@ -115,9 +115,10 @@ SCHED_FIFO: int
 SCHED_OTHER: int
 SCHED_RR: int
 
-if sys.platform != "darwin":
+if sys.platform == "linux":
     SCHED_BATCH: int
     SCHED_IDLE: int
+if sys.platform != "darwin":
     SCHED_RESET_ON_FORK: int
 
 SEEK_DATA: int

@@ -9,16 +9,15 @@ ACCESS_COPY: int
 
 ALLOCATIONGRANULARITY: int
 
+if sys.platform == "linux":
+    MAP_DENYWRITE: int
+    MAP_EXECUTABLE: int
+
 if sys.platform != "win32":
     MAP_ANON: int
     MAP_ANONYMOUS: int
     MAP_PRIVATE: int
     MAP_SHARED: int
-
-    if sys.platform != "darwin":
-        MAP_DENYWRITE: int
-        MAP_EXECUTABLE: int
-
     PROT_EXEC: int
     PROT_READ: int
     PROT_WRITE: int

@@ -118,8 +118,8 @@ if sys.platform != "win32":
     RTLD_NODELETE: int
     RTLD_NOLOAD: int
 
-    if sys.platform != "darwin":
-        RTLD_DEEPBIND: int
+if sys.platform == "linux":
+    RTLD_DEEPBIND: int
 
 SEEK_SET: int
 SEEK_CUR: int
