@@ -1,2 +1,0 @@
-locale.nl_langinfo
-posixpath.realpath

@@ -9,11 +9,13 @@ ACCESS_COPY: int
 
 ALLOCATIONGRANULARITY: int
 
+if sys.platform == "linux":
+    MAP_DENYWRITE: int
+    MAP_EXECUTABLE: int
+
 if sys.platform != "win32":
     MAP_ANON: int
     MAP_ANONYMOUS: int
-    MAP_DENYWRITE: int
-    MAP_EXECUTABLE: int
     MAP_PRIVATE: int
     MAP_SHARED: int
     PROT_EXEC: int
