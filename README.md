@@ -64,12 +64,12 @@ the versions of Python where the module is available.
 The structure of the `VERSIONS` file is as follows:
 - Blank lines and lines starting with `#` are ignored.
 - Lines contain the name of a top-level module, followed by a colon,
-  a space, and a version range.
+  a space, and a version range (for example: `symbol: 2.7-3.9`).
 
 Version ranges may be of the form "X.Y-A.B", "X.Y-", or "X.Y". The
 first form means that a module was introduced in version X.Y and last
 available in version A.B. The second and third forms are synonymous
-and mean that the module was introduced in version X.Y and still available
+and mean that the module was introduced in version X.Y and is still available
 in the latest version of Python.
 
 Python versions before 2.7 are ignored, so any module that was already
