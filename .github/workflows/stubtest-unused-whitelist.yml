@@ -3,7 +3,7 @@ name: Remove unused stubtest whitelist entries
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 4 * * SAT'
+    - cron: '35 * * * *'
 
 permissions:
   contents: read
