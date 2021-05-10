@@ -1,34 +1,87 @@
 import sys
+from _typeshed import AnyPath, BytesPath, StrPath
 from genericpath import *
-from os.path import (
-    abspath as abspath,
-    altsep as altsep,
-    basename as basename,
-    commonpath as commonpath,
-    curdir as curdir,
-    defpath as defpath,
-    devnull as devnull,
-    dirname as dirname,
-    expanduser as expanduser,
-    expandvars as expandvars,
-    extsep as extsep,
-    isabs as isabs,
-    islink as islink,
-    ismount as ismount,
-    join as join,
-    lexists as lexists,
-    normcase as normcase,
-    normpath as normpath,
-    pardir as pardir,
-    pathsep as pathsep,
-    realpath as realpath,
-    relpath as relpath,
-    sep as sep,
-    split as split,
-    splitdrive as splitdrive,
-    splitext as splitext,
-    supports_unicode_filenames as supports_unicode_filenames,
-)
+from os import PathLike
+from typing import AnyStr, Optional, Sequence, Tuple, overload
 
-if sys.version_info < (3, 7) and sys.platform == "win32":
-    from os.path import splitunc as splitunc
+supports_unicode_filenames: bool
+# aliases (also in os)
+curdir: str
+pardir: str
+sep: str
+altsep: Optional[str]
+extsep: str
+pathsep: str
+defpath: str
+devnull: str
+
+# Overloads are necessary to work around python/mypy#3644.
+@overload
+def abspath(path: PathLike[AnyStr]) -> AnyStr: ...
+@overload
+def abspath(path: AnyStr) -> AnyStr: ...
+@overload
+def basename(p: PathLike[AnyStr]) -> AnyStr: ...
+@overload
+def basename(p: AnyStr) -> AnyStr: ...
+@overload
+def dirname(p: PathLike[AnyStr]) -> AnyStr: ...
+@overload
+def dirname(p: AnyStr) -> AnyStr: ...
+@overload
+def expanduser(path: PathLike[AnyStr]) -> AnyStr: ...
+@overload
+def expanduser(path: AnyStr) -> AnyStr: ...
+@overload
+def expandvars(path: PathLike[AnyStr]) -> AnyStr: ...
+@overload
+def expandvars(path: AnyStr) -> AnyStr: ...
+@overload
+def normcase(s: PathLike[AnyStr]) -> AnyStr: ...
+@overload
+def normcase(s: AnyStr) -> AnyStr: ...
+@overload
+def normpath(path: PathLike[AnyStr]) -> AnyStr: ...
+@overload
+def normpath(path: AnyStr) -> AnyStr: ...
+@overload
+def commonpath(paths: Sequence[StrPath]) -> str: ...
+@overload
+def commonpath(paths: Sequence[BytesPath]) -> bytes: ...
+@overload
+def join(a: StrPath, *paths: StrPath) -> str: ...
+@overload
+def join(a: BytesPath, *paths: BytesPath) -> bytes: ...
+
+if sys.version_info >= (3, 10):
+    @overload
+    def realpath(filename: PathLike[AnyStr], *, strict: bool = ...) -> AnyStr: ...
+    @overload
+    def realpath(filename: AnyStr, *, strict: bool = ...) -> AnyStr: ...
+
+else:
+    @overload
+    def realpath(filename: PathLike[AnyStr]) -> AnyStr: ...
+    @overload
+    def realpath(filename: AnyStr) -> AnyStr: ...
+
+@overload
+def relpath(path: BytesPath, start: Optional[BytesPath] = ...) -> bytes: ...
+@overload
+def relpath(path: StrPath, start: Optional[StrPath] = ...) -> str: ...
+@overload
+def split(p: PathLike[AnyStr]) -> Tuple[AnyStr, AnyStr]: ...
+@overload
+def split(p: AnyStr) -> Tuple[AnyStr, AnyStr]: ...
+@overload
+def splitdrive(p: PathLike[AnyStr]) -> Tuple[AnyStr, AnyStr]: ...
+@overload
+def splitdrive(p: AnyStr) -> Tuple[AnyStr, AnyStr]: ...
+@overload
+def splitext(p: PathLike[AnyStr]) -> Tuple[AnyStr, AnyStr]: ...
+@overload
+def splitext(p: AnyStr) -> Tuple[AnyStr, AnyStr]: ...
+def isabs(s: AnyPath) -> bool: ...
+def islink(path: AnyPath) -> bool: ...
+def ismount(path: AnyPath) -> bool: ...
+def lexists(path: AnyPath) -> bool: ...
