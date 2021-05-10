@@ -21,7 +21,7 @@ def main():
 
 
 def run_stubtest() -> List[str]:
-    proc = subprocess.run(["./tests/stubtest_test.py"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    proc = subprocess.run([sys.executable, "tests/stubtest_test.py"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     output = proc.stdout.decode("utf-8").splitlines()
     return [line[len(_UNUSED_NOTE) :].strip() for line in output if line.startswith(_UNUSED_NOTE)]
 
