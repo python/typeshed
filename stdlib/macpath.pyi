@@ -1,7 +1,5 @@
 import sys
 from _typeshed import AnyPath, BytesPath, StrPath
-from typing import AnyStr, Optional, Text, Tuple, overload
-
 from genericpath import *
 from os.path import (
     abspath as abspath,
@@ -20,6 +18,7 @@ from os.path import (
     splitext as splitext,
     supports_unicode_filenames as supports_unicode_filenames,
 )
+from typing import AnyStr, Optional, Text, Tuple, overload
 
 altsep: Optional[str]
 
@@ -45,21 +44,26 @@ if sys.version_info >= (3, 6):
     def realpath(path: PathLike[AnyStr]) -> AnyStr: ...
     @overload
     def realpath(path: AnyStr) -> AnyStr: ...
+
 else:
     def basename(s: AnyStr) -> AnyStr: ...
     def dirname(s: AnyStr) -> AnyStr: ...
     def normcase(path: AnyStr) -> AnyStr: ...
     def normpath(s: AnyStr) -> AnyStr: ...
     def realpath(path: AnyStr) -> AnyStr: ...
+
 def islink(s: AnyPath) -> bool: ...
+
 if sys.version_info >= (3, 6):
     # Mypy complains that the signatures overlap, but things seem to behave correctly anyway.
     @overload
     def join(s: StrPath, *paths: StrPath) -> Text: ...
     @overload
     def join(s: BytesPath, *paths: BytesPath) -> bytes: ...
+
 elif sys.version_info >= (3, 0):
     def join(s: AnyStr, *paths: AnyStr) -> AnyStr: ...
+
 elif sys.version_info < (3, 0):
     # Make sure signatures are disjunct, and allow combinations of bytes and unicode.
     # (Since Python 2 allows that, too)
@@ -75,10 +79,12 @@ elif sys.version_info < (3, 0):
     def join(__p1: bytes, __p2: Text, *p: AnyPath) -> Text: ...
     @overload
     def join(__p1: Text, *p: AnyPath) -> Text: ...
+
 if sys.version_info >= (3, 6):
     @overload
     def split(s: PathLike[AnyStr]) -> Tuple[AnyStr, AnyStr]: ...
     @overload
     def split(s: AnyStr) -> Tuple[AnyStr, AnyStr]: ...
+
 else:
     def split(s: AnyStr) -> Tuple[AnyStr, AnyStr]: ...
