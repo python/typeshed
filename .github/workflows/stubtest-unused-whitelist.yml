@@ -61,3 +61,4 @@ jobs:
         with:
           commit-message: Remove unused stubtest whitelist entries
           title: "[gh-action] Remove unused stubtest whitelist entries"
+          base: master
