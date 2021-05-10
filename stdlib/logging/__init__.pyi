@@ -363,7 +363,6 @@ class LogRecord:
 
 class LoggerAdapter:
     logger: Logger
-    extra: Optional[Mapping[str, Any]]
     manager: Manager  # undocumented
     if sys.version_info >= (3, 10):
         extra: Optional[Mapping[str, Any]]
