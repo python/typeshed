@@ -66,7 +66,7 @@ if sys.version_info >= (3, 6):
 elif sys.version_info >= (3, 0):
     def join(s: AnyStr, *paths: AnyStr) -> AnyStr: ...
 
-elif sys.version_info < (3, 0):
+else:
     # Make sure signatures are disjunct, and allow combinations of bytes and unicode.
     # (Since Python 2 allows that, too)
     # Note that e.g. os.path.join("a", "b", "c", "d", u"e") will still result in
