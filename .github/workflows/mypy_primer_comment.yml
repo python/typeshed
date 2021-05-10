@@ -110,7 +110,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body.substr(0, 60000),
+              body: body.substr(0, 60000),
             })
 
       - uses: kanga333/comment-hider@9141763feccc8da773595675adc567d6616b6e6f
