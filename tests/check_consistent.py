@@ -13,6 +13,7 @@
 
 import filecmp
 import os
+import re
 
 import toml
 
@@ -97,22 +98,21 @@ def check_same_files():
                 )
 
 
+_VERSIONS_RE = re.compile(r"^([a-zA-Z_][a-zA-Z0-9_]*): ([23]\.\d{1,2})(-([23]\.\d{1,2}))?$")
+
 def check_versions():
-    versions = {}
+    versions = set()
     with open("stdlib/VERSIONS") as f:
         data = f.read().splitlines()
     for line in data:
         if not line or line.lstrip().startswith("#"):
             continue
-        assert ": " in line, f"Bad line in VERSIONS: {line}"
-        module, version = line.split(": ")
-        msg = f"Unsupported Python version{version}"
-        assert version.count(".") == 1, msg
-        major, minor = version.split(".")
-        assert major in {"2", "3"}, msg
-        assert minor.isdigit(), msg
+        m = _VERSIONS_RE.match(line)
+        if not m:
+            raise AssertionError(f"Bad line in VERSIONS: {line}")
+        module = m.group(1)
         assert module not in versions, f"Duplicate module {module} in VERSIONS"
-        versions[module] = (int(major), int(minor))
+        versions.add(module)
     modules = set()
     for entry in os.listdir("stdlib"):
         if entry == "@python2" or entry == "VERSIONS":
@@ -122,9 +122,9 @@ def check_versions():
             modules.add(mod)
         else:
             modules.add(entry)
-    extra = modules - set(versions)
+    extra = modules - versions
     assert not extra, f"Modules not in versions: {extra}"
-    extra = set(versions) - modules
+    extra = versions - modules
     assert not extra, f"Versions not in modules: {extra}"
 
 
