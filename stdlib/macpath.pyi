@@ -3,19 +3,16 @@ from _typeshed import AnyPath, BytesPath, StrPath
 from genericpath import (
     commonprefix as commonprefix,
     exists as exists,
-    getsize as getsize,
-    isfile as isfile,
-    isdir as isdir,
     getatime as getatime,
-    getmtime as getmtime,
     getctime as getctime,
+    getmtime as getmtime,
+    getsize as getsize,
+    isdir as isdir,
+    isfile as isfile,
 )
+
 if sys.version_info >= (3, 4):
-    from genericpath import (
-        samefile as samefile,
-        sameopenfile as sameopenfile,
-        samestat as samestat,
-    )
+    from genericpath import samefile as samefile, sameopenfile as sameopenfile, samestat as samestat
 
 # Re-export common definitions from posixpath to reduce duplication
 from posixpath import (
