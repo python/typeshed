@@ -5,6 +5,10 @@ on:
   schedule:
     - cron: '0 4 * * *'
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   stubtest:
     if: github.repository == 'python/typeshed'
