@@ -1,8 +1,16 @@
 import sys
 from _typeshed import BytesPath, StrPath
-from genericpath import *
 from os import PathLike
-from os.path import (
+from typing import AnyStr, overload
+
+altsep: str
+if sys.version_info < (3, 7) and sys.platform == "win32":
+    def splitunc(p: AnyStr) -> Tuple[AnyStr, AnyStr]: ...  # deprecated
+
+from genericpath import *
+
+# Re-export common definitions from posixpath to reduce duplication
+from posixpath import (
     abspath as abspath,
     basename as basename,
     commonpath as commonpath,
@@ -28,19 +36,21 @@ from os.path import (
     splitext as splitext,
     supports_unicode_filenames as supports_unicode_filenames,
 )
-from typing import AnyStr, overload
 
-if sys.version_info < (3, 7) and sys.platform == "win32":
-    from os.path import splitunc as splitunc
-
-altsep: str
-
-# Has different argument names from the os.path versions
+# Similar to posixpath, but have slightly different argument names
 @overload
 def join(path: StrPath, *paths: StrPath) -> str: ...
 @overload
 def join(path: BytesPath, *paths: BytesPath) -> bytes: ...
-@overload
-def realpath(path: PathLike[AnyStr]) -> AnyStr: ...
-@overload
-def realpath(path: AnyStr) -> AnyStr: ...
+
+if sys.version_info >= (3, 10):
+    @overload
+    def realpath(path: PathLike[AnyStr], *, strict: bool = ...) -> AnyStr: ...
+    @overload
+    def realpath(path: AnyStr, *, strict: bool = ...) -> AnyStr: ...
+
+else:
+    @overload
+    def realpath(path: PathLike[AnyStr]) -> AnyStr: ...
+    @overload
+    def realpath(path: AnyStr) -> AnyStr: ...
