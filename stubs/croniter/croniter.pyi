@@ -23,7 +23,14 @@ class croniter(Iterator[Any]):
     dst_start_time: float
     nth_weekday_of_month: Dict[str, Any]
     def __init__(
-        self, expr_format: Text, start_time: float | datetime.datetime | None = ..., ret_type: _RetType | None = ...
+        self,
+        expr_format: Text,
+        start_time: float | datetime.datetime | None = ...,
+        ret_type: _RetType | None = ...,
+        day_or: bool = ...,
+        max_years_between_matches: Optional[int] = ...,
+        is_prev: bool = ...,
+        hash_id: Optional[Union[bytes, str]] = ...,
     ) -> None: ...
     # Most return value depend on ret_type, which can be passed in both as a method argument and as
     # a constructor argument.
