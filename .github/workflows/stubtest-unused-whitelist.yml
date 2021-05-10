@@ -48,8 +48,9 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: stubtest-output
-      - name: Debug print
-        run: head stubtest-output-*
+      # TODO: maybe mypy_primer should always output forward slashes
+      - name: Fix slashes
+        run: sed -i 's:\\:/:g' stubtest-output-windows-*
       - name: Collate duplicates
         run: cat stubtest-output-* | sort -u | tee stubtest-output
       - name: Remove entries from whitelists
