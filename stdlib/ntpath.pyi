@@ -4,7 +4,6 @@ from genericpath import *
 from os import PathLike
 from os.path import (
     abspath as abspath,
-    altsep as altsep,
     basename as basename,
     commonpath as commonpath,
     curdir as curdir,
@@ -33,6 +32,8 @@ from typing import AnyStr, overload
 
 if sys.version_info < (3, 7) and sys.platform == "win32":
     from os.path import splitunc as splitunc
+
+altsep: str
 
 # Has different argument names from the os.path versions
 @overload
