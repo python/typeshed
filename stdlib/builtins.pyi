@@ -25,7 +25,6 @@ from typing import (
     BinaryIO,
     ByteString,
     Callable,
-    Container,
     Dict,
     FrozenSet,
     Generic,
