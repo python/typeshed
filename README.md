@@ -176,8 +176,8 @@ This test works similarly to `mypy_test.py`, except it uses `pytype`.
 This test requires Node.js to be installed. It is currently not part of the CI,
 but it uses the same pyright version and configuration as the CI.
 ```
-(.venv3)$ python3 tests/pytype_test.py                 # Check all files
-(.venv3)$ python3 tests/pytype_test.py stdlib/sys.pyi  # Check one file
+(.venv3)$ python3 tests/pyright_test.py                 # Check all files
+(.venv3)$ python3 tests/pyright_test.py stdlib/sys.pyi  # Check one file
 ```
 
 ### mypy\_test\_suite.py
