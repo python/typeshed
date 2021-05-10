@@ -27,7 +27,6 @@ from typing import (
     BinaryIO,
     ByteString,
     Callable,
-    Container,
     Dict,
     FrozenSet,
     Generic,
@@ -624,7 +623,7 @@ class bytearray(MutableSequence[int], ByteString):
     def __gt__(self, x: bytes) -> bool: ...
     def __ge__(self, x: bytes) -> bool: ...
 
-class memoryview(Sized, Container[int]):
+class memoryview(Sized, Sequence[int]):
     format: str
     itemsize: int
     shape: Optional[Tuple[int, ...]]
