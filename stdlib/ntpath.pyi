@@ -1,6 +1,18 @@
 import sys
 from _typeshed import BytesPath, StrPath
-from genericpath import *
+from genericpath import (
+    commonprefix as commonprefix,
+    exists as exists,
+    getsize as getsize,
+    isfile as isfile,
+    isdir as isdir,
+    getatime as getatime,
+    getmtime as getmtime,
+    getctime as getctime,
+    samefile as samefile,
+    sameopenfile as sameopenfile,
+    samestat as samestat,
+)
 from os import PathLike
 
 # Re-export common definitions from posixpath to reduce duplication

@@ -1,6 +1,18 @@
 import sys
 from _typeshed import AnyPath, BytesPath, StrPath
-from genericpath import *
+from genericpath import (
+    commonprefix as commonprefix,
+    exists as exists,
+    getsize as getsize,
+    isfile as isfile,
+    isdir as isdir,
+    getatime as getatime,
+    getmtime as getmtime,
+    getctime as getctime,
+    samefile as samefile,
+    sameopenfile as sameopenfile,
+    samestat as samestat,
+)
 from os import PathLike
 from typing import AnyStr, Optional, Sequence, Tuple, overload
 
