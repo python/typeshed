@@ -11,18 +11,17 @@ _UNUSED_NOTE = "note: unused allowlist entry "
 _WHITELIST_PATH = os.path.join("tests", "stubtest_whitelists")
 
 
-def main() -> int:
+def main() -> None:
     unused = run_stubtest()
     with_filenames = []
     for uu in unused:
         with_filenames.extend(unused_files(uu))
     for file, uu in with_filenames:
         print(file + ":" + uu)
-    return 1 if with_filenames else 0
 
 
 def run_stubtest() -> List[str]:
-    proc = subprocess.run(["./tests/stubtest_test.py"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    proc = subprocess.run([sys.executable, "tests/stubtest_test.py"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     output = proc.stdout.decode("utf-8").splitlines()
     return [line[len(_UNUSED_NOTE) :].strip() for line in output if line.startswith(_UNUSED_NOTE)]
 
@@ -49,4 +48,4 @@ def find_unused_in_file(unused: str, path: str) -> bool:
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    main()

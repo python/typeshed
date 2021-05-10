@@ -3,7 +3,7 @@ name: Remove unused stubtest whitelist entries
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 4 * * SAT'
+    - cron: '0 4 * * *'
 
 permissions:
   contents: read
@@ -32,7 +32,7 @@ jobs:
           pip install -U git+git://github.com/python/mypy@master
       - name: Run stubtest
         shell: bash
-        run: ./tests/stubtest_unused.py | tee stubtest-output-${{ matrix.os }}-${{ matrix.python-version }} || true
+        run: ./tests/stubtest_unused.py | tee stubtest-output-${{ matrix.os }}-${{ matrix.python-version }}
       - name: Store output
         uses: actions/upload-artifact@v2
         with:
@@ -50,6 +50,9 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: stubtest-output
+      # TODO: maybe mypy_primer should always output forward slashes
+      - name: Fix slashes
+        run: sed -i 's:\\:/:g' stubtest-output-windows-*
       - name: Collate duplicates
         run: cat stubtest-output-* | sort -u | tee stubtest-output
       - name: Remove entries from whitelists
@@ -61,3 +64,4 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: Remove unused stubtest whitelist entries
           title: "[gh-action] Remove unused stubtest whitelist entries"
+          base: master
