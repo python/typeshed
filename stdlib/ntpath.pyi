@@ -30,7 +30,7 @@ from posixpath import (
     splitext as splitext,
     supports_unicode_filenames as supports_unicode_filenames,
 )
-from typing import AnyStr, overload
+from typing import AnyStr, Tuple, overload
 
 altsep: str
 if sys.version_info < (3, 7) and sys.platform == "win32":
@@ -48,11 +48,11 @@ if sys.platform == "win32":
         def realpath(path: PathLike[AnyStr], *, strict: bool = ...) -> AnyStr: ...
         @overload
         def realpath(path: AnyStr, *, strict: bool = ...) -> AnyStr: ...
-
     else:
         @overload
         def realpath(path: PathLike[AnyStr]) -> AnyStr: ...
         @overload
         def realpath(path: AnyStr) -> AnyStr: ...
+
 else:
     realpath = abspath
