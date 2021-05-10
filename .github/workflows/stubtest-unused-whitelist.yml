@@ -32,7 +32,7 @@ jobs:
           pip install -U git+git://github.com/python/mypy@master
       - name: Run stubtest
         shell: bash
-        run: ./tests/stubtest_unused.py | tee stubtest-output-${{ matrix.os }}-${{ matrix.python-version }} || true
+        run: ./tests/stubtest_unused.py | tee stubtest-output-${{ matrix.os }}-${{ matrix.python-version }}
       - name: Store output
         uses: actions/upload-artifact@v2
         with:
