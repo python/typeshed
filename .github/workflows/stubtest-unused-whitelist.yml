@@ -59,6 +59,5 @@ jobs:
         # v3.8.2
         uses: peter-evans/create-pull-request@052fc72b4198ba9fbc81b818c6e1859f747d49a8
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: Remove unused stubtest whitelist entries
           title: "[gh-action] Remove unused stubtest whitelist entries"
