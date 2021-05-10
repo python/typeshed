@@ -1,7 +1,9 @@
 name: Remove unused stubtest whitelist entries
 
 on:
-  - pull_request
+  workflow_dispatch:
+  schedule:
+    - cron: '0 4 * * SAT'
 
 permissions:
   contents: read
