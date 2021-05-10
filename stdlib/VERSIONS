@@ -127,8 +127,8 @@ linecache: 2.7
 locale: 2.7
 logging: 2.7
 lzma: 3.3
-macpath: 2.7
-macurl2path: 2.7
+macpath: 2.7-3.7
+macurl2path: 2.7-3.6
 mailbox: 2.7
 mailcap: 2.7
 marshal: 2.7
@@ -150,7 +150,7 @@ operator: 2.7
 optparse: 2.7
 os: 2.7
 ossaudiodev: 2.7
-parser: 2.7
+parser: 2.7-3.9
 pathlib: 3.4
 pdb: 2.7
 pickle: 2.7
@@ -208,7 +208,7 @@ stringprep: 2.7
 struct: 2.7
 subprocess: 2.7
 sunau: 2.7
-symbol: 2.7
+symbol: 2.7-3.9
 symtable: 2.7
 sys: 2.7
 sysconfig: 2.7
