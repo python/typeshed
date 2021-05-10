@@ -147,16 +147,9 @@ imported but doesn't check whether stubs match their implementation
 (in the Python standard library or a third-party package). It has an exclude list of
 modules that are not tested at all, which also lives in the tests directory.
 
-If you are in the typeshed repo that is submodule of the
-mypy repo (so `..` refers to the mypy repo), there's a shortcut to run
-the mypy tests that avoids installing mypy:
-```bash
-$ PYTHONPATH=../.. python3 tests/mypy_test.py
-```
 You can restrict mypy tests to a single version by passing `-p2` or `-p3.9`:
 ```bash
-$ PYTHONPATH=../.. python3 tests/mypy_test.py -p3.9
-running mypy --python-version 3.9 --strict-optional # with 342 files
+(.venv3)$ python3 tests/mypy_test.py -p3.9
 ```
 
 ### pytype_test.py
