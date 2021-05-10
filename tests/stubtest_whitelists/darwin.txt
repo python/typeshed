@@ -6,10 +6,9 @@ curses.COLOR_PAIRS  # Initialized after start_color
 curses.COLS  # Initialized only after initscr call. 
 curses.LINES  # Initialized only after initscr call. 
 distutils.command.bdist_msi  # msi is only available on windows
-grp.getgrgid
-grp.struct_group._asdict
-grp.struct_group._make
-grp.struct_group._replace
+grp.struct_group._asdict  # PyStructSequence
+grp.struct_group._make  # PyStructSequence
+grp.struct_group._replace  # PyStructSequence
 os.EX_NOTFOUND
 os.SF_MNOWAIT
 os.SF_NODISKIO
@@ -21,7 +20,6 @@ readline.append_history_file  # not defined in macos
 select.kqueue.__init__  # default C signature is wrong
 select.KQ_FILTER_NETDEV  # system dependent
 select.POLLMSG   # system dependent
-socket.socketpair
 time.CLOCK_HIGHRES
 
 # ==========
@@ -40,7 +38,7 @@ winsound
 ossaudiodev
 spwd
 
-# NamedTuple like, but not actually NamedTuples
+# NamedTuple like, but not actually NamedTuples (PyStructSequence)
 posix.[a-z]+_(param|result)._(asdict|make|replace)
 
 # Platform differences that cannot be captured by the type system
