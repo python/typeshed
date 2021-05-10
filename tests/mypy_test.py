@@ -71,7 +71,7 @@ def match(fn, args, exclude_list):
     return True
 
 
-_VERSION_LINE_RE = re.compile(r"^([a-zA-Z_][a-zA-Z0-9_]*): ([23]\.\d{1,2})(?:-([23]\.\d{1,2}))?$")
+_VERSION_LINE_RE = re.compile(r"^([a-zA-Z_][a-zA-Z0-9_]*): ([23]\.\d{1,2})-([23]\.\d{1,2})?$")
 
 
 def parse_versions(fname):
