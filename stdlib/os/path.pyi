@@ -107,9 +107,9 @@ def islink(path: AnyPath) -> bool: ...
 def ismount(path: AnyPath) -> bool: ...
 
 if sys.platform == "win32":
-    from ntpath import join
+    from ntpath import join as join
 else:
-    from posixpath import join
+    from posixpath import join as join
 
 @overload
 def relpath(path: BytesPath, start: Optional[BytesPath] = ...) -> bytes: ...
