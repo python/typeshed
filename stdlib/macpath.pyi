@@ -1,7 +1,9 @@
 import sys
 from _typeshed import AnyPath, BytesPath, StrPath
 from genericpath import *
-from os.path import (
+
+# Re-export common definitions from posixpath to reduce duplication
+from posixpath import (
     abspath as abspath,
     curdir as curdir,
     defpath as defpath,
