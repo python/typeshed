@@ -2,7 +2,7 @@ __future__: 2.7
 __main__: 2.7
 _ast: 2.7
 _bisect: 2.7
-_bootlocale: 3.6
+_bootlocale: 3.6-3.9
 _codecs: 2.7
 _collections_abc: 3.6
 _compat_pickle: 3.6
@@ -94,7 +94,7 @@ fcntl: 2.7
 filecmp: 2.7
 fileinput: 2.7
 fnmatch: 2.7
-formatter: 2.7
+formatter: 2.7-3.9
 fractions: 2.7
 ftplib: 2.7
 functools: 2.7
