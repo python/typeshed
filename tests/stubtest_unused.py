@@ -11,7 +11,7 @@ _UNUSED_NOTE = "note: unused allowlist entry "
 _WHITELIST_PATH = os.path.join("tests", "stubtest_whitelists")
 
 
-def main():
+def main() -> None:
     unused = run_stubtest()
     with_filenames = []
     for uu in unused:
