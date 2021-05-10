@@ -1,13 +1,7 @@
 import sys
 from _typeshed import BytesPath, StrPath
-from os import PathLike
-from typing import AnyStr, overload
-
-altsep: str
-if sys.version_info < (3, 7) and sys.platform == "win32":
-    def splitunc(p: AnyStr) -> Tuple[AnyStr, AnyStr]: ...  # deprecated
-
 from genericpath import *
+from os import PathLike
 
 # Re-export common definitions from posixpath to reduce duplication
 from posixpath import (
@@ -36,6 +30,11 @@ from posixpath import (
     splitext as splitext,
     supports_unicode_filenames as supports_unicode_filenames,
 )
+from typing import AnyStr, overload
+
+altsep: str
+if sys.version_info < (3, 7) and sys.platform == "win32":
+    def splitunc(p: AnyStr) -> Tuple[AnyStr, AnyStr]: ...  # deprecated
 
 # Similar to posixpath, but have slightly different argument names
 @overload
