@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
 
 # Runs stubtest and prints each unused whitelist entry with filename.
-
-import os.path
 import subprocess
 import sys
+from pathlib import Path
 from typing import List, Tuple
 
 _UNUSED_NOTE = "note: unused allowlist entry "
-_WHITELIST_PATH = os.path.join("tests", "stubtest_whitelists")
+_WHITELIST_PATH = Path("tests") / "stubtest_whitelists"
 
 
 def main() -> None:
@@ -31,15 +30,15 @@ def unused_files(unused: str) -> List[Tuple[str, str]]:
     files = ["py3_common.txt", version + ".txt", sys.platform + ".txt", sys.platform + "-" + version + ".txt"]
     found = []
     for file in files:
-        path = os.path.join(_WHITELIST_PATH, file)
+        path = _WHITELIST_PATH / file
         if find_unused_in_file(unused, path):
-            found.append((path, unused))
+            found.append((path.as_posix(), unused))
     if not found:
         raise ValueError("unused item {} not found in any whitelist file".format(unused))
     return found
 
 
-def find_unused_in_file(unused: str, path: str) -> bool:
+def find_unused_in_file(unused: str, path: Path) -> bool:
     try:
         with open(path) as f:
             return any(line.strip().split(" ")[0] == unused for line in f)
