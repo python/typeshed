@@ -39,13 +39,13 @@ from typing import (
 )
 from typing_extensions import Literal
 
-from . import path as path
+from . import path as _path
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
 
-# We need to use something from path, or flake8 and pytype get unhappy
-_supports_unicode_filenames = path.supports_unicode_filenames
+# This unnecessary alias is to work around various errors
+path = _path
 
 _T = TypeVar("_T")
 _AnyStr_co = TypeVar("_AnyStr_co", str, bytes, covariant=True)
