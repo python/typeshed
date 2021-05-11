@@ -84,5 +84,3 @@ collections.Sequence.index  # Supporting None in end is not mandatory
 # as part of a security fix. These excludes can be removed when the GitHub
 # action workflow uses Python versions that include the fix (adding a
 # separator argument).
-urllib.parse.parse_qs
-urllib.parse.parse_qsl

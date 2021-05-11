@@ -35,7 +35,6 @@ http.server.SimpleHTTPRequestHandler.__init__  # *args is expanded
 importlib.metadata  # Added in 3.8
 ipaddress._BaseNetwork.__init__
 json.loads
-macurl2path  # removed in 3.7
 multiprocessing.shared_memory
 os.utime
 pyexpat.XMLParserType.ExternalEntityParserCreate  # C signature is wrong - function gets only positional args
@@ -82,5 +81,3 @@ collections.Sequence.index  # Supporting None in end is not mandatory
 # as part of a security fix. These excludes can be removed when the GitHub
 # action workflow uses Python versions that include the fix (adding a
 # separator argument).
-urllib.parse.parse_qs
-urllib.parse.parse_qsl
