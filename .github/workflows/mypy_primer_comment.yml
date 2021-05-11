@@ -7,6 +7,10 @@ on:
   # each other, so the approach here is to poll for workflow runs, find the mypy_primer run for our
   # commit, wait till it's completed, and download and post the diff.
   pull_request_target:
+    # Since modular typeshed, mypy primer doesn't check third party stubs. Till that is changed,
+    # only run it on stdlib changes to avoid false confidence and wasted CI minutes.
+    paths:
+    - stdlib
 
 permissions:
   contents: read
