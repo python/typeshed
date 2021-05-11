@@ -4,6 +4,8 @@
  # separator argument).
 cgi.FieldStorage.__init__
 cgi.parse
+urllib.parse.parse_qs
+urllib.parse.parse_qsl
 
 hashlib.scrypt
 os.startfile

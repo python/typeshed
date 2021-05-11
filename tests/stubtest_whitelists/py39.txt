@@ -60,8 +60,6 @@ logging.handlers.BaseRotatingHandler.__init__
 logging.handlers.RotatingFileHandler.__init__
 logging.handlers.TimedRotatingFileHandler.__init__
 logging.handlers.WatchedFileHandler.__init__
-macpath  # module removed in 3.8
-macurl2path  # module removed in 3.7
 multiprocessing.spawn._main
 os.getgrouplist
 os.sendfile
@@ -71,8 +69,8 @@ platform.uname_result.__new__
 platform.uname_result._fields
 platform.uname_result.processor
 queue.SimpleQueue.__init__  # Default C __init__ signature is wrong
-sched.Event.__doc__  # __slots__ is overridden
 select.epoll.register
+sched.Event.__doc__  # __slots__ is overridden
 smtplib.LMTP.__init__
 ssl.PROTOCOL_SSLv3  # Depends on ssl compilation
 ssl.RAND_egd  # Depends on openssl compilation

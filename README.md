@@ -58,11 +58,37 @@ coding style used in typeshed.
 
 This contains stubs for modules in the Python standard library -- which
 includes pure Python modules, dynamically loaded extension modules,
-hard-linked extension modules, and the builtins. `VERSIONS` file lists
-the oldest *supported* Python version where the module is available.
-In the `stdlib/@python2` subdirectory you can find Python 2 versions of
-the stub files that must be kept different for Python 2 and 3, like
-`builtins.pyi`.
+hard-linked extension modules, and the builtins. The `VERSIONS` file lists
+the versions of Python where the module is available.
+
+The structure of the `VERSIONS` file is as follows:
+- Blank lines and lines starting with `#` are ignored.
+- Lines contain the name of a top-level module, followed by a colon,
+  a space, and a version range (for example: `symbol: 2.7-3.9`).
+
+Version ranges may be of the form "X.Y-A.B" or "X.Y-". The
+first form means that a module was introduced in version X.Y and last
+available in version A.B. The second form means that the module was
+introduced in version X.Y and is still available in the latest
+version of Python.
+
+Python versions before 2.7 are ignored, so any module that was already
+present in 2.7 will have "2.7" as its minimum version. Version ranges
+for unsupported versions of Python 3 (currently 3.5 and lower) are
+generally accurate but we do not guarantee their correctness.
+
+The `stdlib/@python2` subdirectory contains Python 2-only stubs,
+both for modules that must be kept different for Python 2 and 3, like
+`builtins.pyi`, and for modules that only existed in Python 2, like
+`ConfigParser.pyi`. The latter group of modules are not listed in
+`VERSIONS`.
+
+Note that if a package is present in `@python2`, any stub in the main
+`stdlib` directory should be ignored when looking for Python 2 stubs. For
+example, typeshed contains files `stdlib/@python2/collections.pyi` and
+`stdlib/collections/abc.pyi`. A client looking for stubs for
+`collections.abc` in Python 2 should not pick up the latter file, but
+instead report that the module does not exist.
 
 ### stubs
 
@@ -147,16 +173,9 @@ imported but doesn't check whether stubs match their implementation
 (in the Python standard library or a third-party package). It has an exclude list of
 modules that are not tested at all, which also lives in the tests directory.
 
-If you are in the typeshed repo that is submodule of the
-mypy repo (so `..` refers to the mypy repo), there's a shortcut to run
-the mypy tests that avoids installing mypy:
-```bash
-$ PYTHONPATH=../.. python3 tests/mypy_test.py
-```
 You can restrict mypy tests to a single version by passing `-p2` or `-p3.9`:
 ```bash
-$ PYTHONPATH=../.. python3 tests/mypy_test.py -p3.9
-running mypy --python-version 3.9 --strict-optional # with 342 files
+(.venv3)$ python3 tests/mypy_test.py -p3.9
 ```
 
 ### pytype_test.py
@@ -176,8 +195,8 @@ This test works similarly to `mypy_test.py`, except it uses `pytype`.
 This test requires Node.js to be installed. It is currently not part of the CI,
 but it uses the same pyright version and configuration as the CI.
 ```
-(.venv3)$ python3 tests/pytype_test.py                 # Check all files
-(.venv3)$ python3 tests/pytype_test.py stdlib/sys.pyi  # Check one file
+(.venv3)$ python3 tests/pyright_test.py                 # Check all files
+(.venv3)$ python3 tests/pyright_test.py stdlib/sys.pyi  # Check one file
 ```
 
 ### mypy\_test\_suite.py

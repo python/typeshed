@@ -3,10 +3,10 @@ name: Remove unused stubtest whitelist entries
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 4 * * SAT'
+    - cron: '0 4 * * *'
 
 permissions:
-  contents: read
+  contents: write
   pull-requests: write
 
 jobs:
@@ -15,7 +15,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: ["ubuntu-latest", "windows-latest"]
+        os: ["ubuntu-latest", "windows-latest", "macos-latest"]
         python-version: [3.6, 3.7, 3.8, 3.9, '3.10.0-beta.1']
       fail-fast: false
 
@@ -32,7 +32,7 @@ jobs:
           pip install -U git+git://github.com/python/mypy@master
       - name: Run stubtest
         shell: bash
-        run: ./tests/stubtest_unused.py | tee stubtest-output-${{ matrix.os }}-${{ matrix.python-version }} || true
+        run: ./tests/stubtest_unused.py | tee stubtest-output-${{ matrix.os }}-${{ matrix.python-version }}
       - name: Store output
         uses: actions/upload-artifact@v2
         with:
@@ -61,3 +61,4 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: Remove unused stubtest whitelist entries
           title: "[gh-action] Remove unused stubtest whitelist entries"
+          base: master
