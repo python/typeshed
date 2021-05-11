@@ -1,4 +1,3 @@
-import re
 import sys
 import threading
 from _typeshed import StrPath, SupportsWrite
@@ -6,7 +5,7 @@ from collections.abc import Callable, Iterable, Mapping, MutableMapping, Sequenc
 from string import Template
 from time import struct_time
 from types import FrameType, TracebackType
-from typing import IO, Any, ClassVar, Optional, Tuple, Type, Union
+from typing import IO, Any, ClassVar, Optional, Pattern, Tuple, Type, Union
 
 _SysExcInfoType = Union[Tuple[Type[BaseException], BaseException, Optional[TracebackType]], Tuple[None, None, None]]
 _ExcInfoType = Union[None, bool, _SysExcInfoType, BaseException]
@@ -781,7 +780,7 @@ class PercentStyle(object):  # undocumented
     asctime_format: str
     asctime_search: str
     if sys.version_info >= (3, 8):
-        validation_pattern: re.Pattern[str]
+        validation_pattern: Pattern[str]
     _fmt: str
     def __init__(self, fmt: str) -> None: ...
     def usesTime(self) -> bool: ...

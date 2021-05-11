@@ -3,7 +3,7 @@ from _typeshed import AnyPath, StrPath
 from collections.abc import Callable
 from configparser import RawConfigParser
 from threading import Thread
-from typing import IO, Any, Optional, Union
+from typing import IO, Any, Optional, Pattern, Union
 
 if sys.version_info >= (3, 8):
     from typing import Literal
@@ -17,7 +17,7 @@ else:
 
 DEFAULT_LOGGING_CONFIG_PORT: int
 RESET_ERROR: int  # undocumented
-IDENTIFIER: Any  # undocumented
+IDENTIFIER: Pattern[str]  # undocumented
 
 def dictConfig(config: dict[str, Any]) -> None: ...
 

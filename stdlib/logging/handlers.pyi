@@ -6,7 +6,7 @@ from _typeshed import StrPath
 from collections.abc import Callable
 from logging import FileHandler, Handler, LogRecord
 from socket import SocketKind, SocketType
-from typing import Any, ClassVar, Optional, Union
+from typing import Any, ClassVar, Optional, Pattern, Union
 
 if sys.version_info >= (3, 7):
     from queue import Queue, SimpleQueue
@@ -85,7 +85,7 @@ class TimedRotatingFileHandler(BaseRotatingHandler):
     suffix: str  # undocumented
     dayOfWeek: int  # undocumented
     rolloverAt: int  # undocumented
-    extMatch: Any  # undocumented
+    extMatch: Pattern[str]  # undocumented
     if sys.version_info >= (3, 9):
         def __init__(
             self,
