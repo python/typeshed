@@ -197,6 +197,7 @@ class SMTPHandler(Handler):
     mailhost: str  # undocumented
     mailport: Optional[int]  # undocumented
     username: Optional[str]  # undocumented
+    # password only exists as an attribute if passed credentials is a tuple or list
     password: str  # undocumented
     fromaddr: str  # undocumented
     toaddrs: list[str]  # undocumented
