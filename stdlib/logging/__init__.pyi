@@ -1,3 +1,4 @@
+import re
 import sys
 import threading
 from _typeshed import StrPath, SupportsWrite
@@ -779,7 +780,8 @@ class PercentStyle(object):  # undocumented
     default_format: str
     asctime_format: str
     asctime_search: str
-    validation_pattern: Any
+    if sys.version_info >= (3, 8):
+        validation_pattern: re.Pattern[str]
     _fmt: str
     def __init__(self, fmt: str) -> None: ...
     def usesTime(self) -> bool: ...
