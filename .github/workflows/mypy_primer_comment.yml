@@ -10,7 +10,7 @@ on:
     # Since modular typeshed, mypy primer doesn't check third party stubs. Till that is changed,
     # only run it on stdlib changes to avoid false confidence and wasted CI minutes.
     paths:
-    - stdlib
+    - 'stdlib/**'
 
 permissions:
   contents: read
