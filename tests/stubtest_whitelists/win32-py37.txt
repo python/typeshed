@@ -5,5 +5,7 @@
 cgi.FieldStorage.__init__
 cgi.parse
 cgi.parse_multipart
+urllib.parse.parse_qs
+urllib.parse.parse_qsl
 
 os.startfile
