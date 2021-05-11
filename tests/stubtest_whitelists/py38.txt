@@ -47,15 +47,13 @@ ipaddress.IPv4Interface.hostmask
 ipaddress.IPv6Interface.hostmask
 ipaddress._BaseNetwork.broadcast_address
 ipaddress._BaseNetwork.hostmask
-macpath  # removed in 3.8
-macurl2path  # removed in 3.7
 multiprocessing.spawn._main
 pickle.Pickler.reducer_override  # implemented in C pickler
 queue.SimpleQueue.__init__  # Default C __init__ signature is wrong
+select.epoll.register
 random.Random.randrange  # missing undocumented arg _int
 random.randrange  # missing undocumented arg _int
 sched.Event.__doc__  # __slots__ is overridden
-select.epoll.register
 ssl.PROTOCOL_SSLv3  # Depends on ssl compilation
 ssl.RAND_egd  # Depends on openssl compilation
 sys.UnraisableHookArgs  # Not exported from sys
