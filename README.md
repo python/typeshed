@@ -70,3 +70,10 @@ addressed.  We indicate this by editing the subject to add a ``[WIP]``
 prefix.  (This should be removed before committing the issue once
 unblocked!)
 
+## Code of Conduct
+
+Everyone participating in the typeshed community, and in particular in
+our issue tracker, pull requests, and IRC channel, is expected to treat
+other people with respect and more generally to follow the guidelines
+articulated in the [Python Community Code of
+Conduct](https://www.python.org/psf/codeofconduct/).

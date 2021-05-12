@@ -27,15 +27,6 @@ are important to the project's success.
 For more details, read below.
 
 
-## Code of Conduct
-
-Everyone participating in the typeshed community, and in particular in
-our issue tracker, pull requests, and IRC channel, is expected to treat
-other people with respect and more generally to follow the guidelines
-articulated in the [Python Community Code of
-Conduct](https://www.python.org/psf/codeofconduct/).
-
-
 ## Submitting Changes
 
 Even more excellent than a good bug report is a fix for a bug, or the
