@@ -70,11 +70,6 @@ addressed.  We indicate this by editing the subject to add a ``[WIP]``
 prefix.  (This should be removed before committing the issue once
 unblocked!)
 
-## Contributing
-
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting pull requests.
-If you have questions related to contributing, drop by the [typing Gitter](https://gitter.im/python/typing).
-
 ## Running the tests
 
 The tests are automatically run on every PR and push to the repo.
