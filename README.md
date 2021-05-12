@@ -55,21 +55,6 @@ are almost always present; feel free to find us there and we're happy
 to chat.  Substantive technical discussion will be directed to the
 issue tracker.
 
-## Issue-tracker conventions
-
-We aim to reply to all new issues promptly.  We'll assign one or more
-labels to indicate we've triaged an issue, but most typeshed issues
-are relatively simple (stubs for a given module or package are
-missing, incomplete or incorrect) and we won't add noise to the
-tracker by labeling all of them.  Please see the
-[list of all labels](https://github.com/python/typeshed/issues/labels)
-for a detailed description of the labels we use.
-
-Sometimes a PR can't make progress until some external issue is
-addressed.  We indicate this by editing the subject to add a ``[WIP]``
-prefix.  (This should be removed before committing the issue once
-unblocked!)
-
 ## Code of Conduct
 
 Everyone participating in the typeshed community, and in particular in
