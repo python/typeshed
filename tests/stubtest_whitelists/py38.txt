@@ -50,7 +50,6 @@ ipaddress._BaseNetwork.hostmask
 multiprocessing.spawn._main
 pickle.Pickler.reducer_override  # implemented in C pickler
 queue.SimpleQueue.__init__  # Default C __init__ signature is wrong
-select.epoll.register
 random.Random.randrange  # missing undocumented arg _int
 random.randrange  # missing undocumented arg _int
 sched.Event.__doc__  # __slots__ is overridden

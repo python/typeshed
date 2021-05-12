@@ -170,9 +170,6 @@ pydoc.TextDoc.docproperty
 pydoc.TextDoc.docroutine
 select.poll  # Depends on configuration
 selectors.DevpollSelector  # Depends on configuration
-selectors.KqueueSelector  # Depends on system
-signal.SIGEMT  # Depends on system
-signal.SIGINFO  # Depends on system
 socketserver.BaseServer.fileno  # implemented in derived classes
 socketserver.BaseServer.get_request  # implemented in derived classes
 socketserver.BaseServer.server_bind  # implemented in derived classes

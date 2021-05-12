@@ -1,6 +1,5 @@
 _posixsubprocess.cloexec_pipe
 _?curses.ACS_.* # ACS codes are initialized only after initscr call. 
-_?curses.A_ITALIC  # System dependent
 curses.COLORS  # Initialized after start_color
 curses.COLOR_PAIRS  # Initialized after start_color
 curses.COLS  # Initialized only after initscr call. 
