@@ -1,3 +1,4 @@
+os.sendfile
+select.epoll.register
 time.CLOCK_PROF
 time.CLOCK_UPTIME
-select.epoll.register

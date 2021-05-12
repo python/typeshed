@@ -1,2 +1,4 @@
 _curses.color_pair
 curses.color_pair
+time.CLOCK_PROF
+time.CLOCK_UPTIME
