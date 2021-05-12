@@ -1,6 +1,5 @@
 _curses.color_pair
 curses.color_pair
-os.initgroups
 os.pipe2
 os.posix_fadvise
 os.posix_fallocate
