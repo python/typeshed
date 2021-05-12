@@ -1,9 +1,9 @@
 _posixsubprocess.cloexec_pipe
-_?curses.ACS_.* # ACS codes are initialized only after initscr call. 
+_?curses.ACS_.* # ACS codes are initialized only after initscr call.
 curses.COLORS  # Initialized after start_color
 curses.COLOR_PAIRS  # Initialized after start_color
-curses.COLS  # Initialized only after initscr call. 
-curses.LINES  # Initialized only after initscr call. 
+curses.COLS  # Initialized only after initscr call.
+curses.LINES  # Initialized only after initscr call.
 distutils.command.bdist_msi  # msi is only available on windows
 grp.getgrgid
 grp.struct_group._asdict
@@ -19,6 +19,9 @@ os.lchmod
 os.plock
 posix.EX_NOTFOUND
 select.EPOLL_RDHUP
+selectors.KqueueSelector
+signal.SIGEMT
+signal.SIGINFO
 socket.socketpair
 spwd.getspnam
 spwd.struct_spwd._asdict
