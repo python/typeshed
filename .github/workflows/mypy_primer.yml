@@ -19,8 +19,6 @@ jobs:
       matrix:
         shard-index: [0, 1]
       fail-fast: false
-    env:
-      SHARD: ${{ matrix.shard-index }}
     steps:
       - uses: actions/checkout@v2
         with:
@@ -53,7 +51,7 @@ jobs:
             --num-shards 2 --shard-index ${{ matrix.shard-index }} \
             --debug \
             --output concise \
-            | tee diff_$SHARD.txt
+            | tee diff_${{ matrix.shard-index }}.txt
           ) || [ $? -eq 1 ]
       - name: Upload mypy_primer diff
         uses: actions/upload-artifact@v2
@@ -80,9 +78,9 @@ jobs:
           script: |
             const fs = require('fs')
             const data = (
-              ["diff_0.txt", "diff_1.txt"]
+              ['diff_0.txt', 'diff_1.txt']
               .map(fileName => fs.readFileSync(fileName, { encoding: 'utf8' }))
-              .join("\n")
+              .join('\n')
               .substr(0, 30000)  // About 300 lines
             )
 
