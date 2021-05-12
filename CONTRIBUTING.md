@@ -22,8 +22,8 @@ are important to the project's success.
 4. [Submit your changes](#submitting-changes) by opening a pull request.
 5. You can expect a reply within a few days:
     * Diffs are merged when considered ready by the core team.
-    * Feel free to ping the core team if your pull request goes without
-      a reply for more than a few days.
+    * Feel free to ping the [core team](MAINTAINERS.md) if your pull request
+      goes without a reply for more than a few days.
 
 For more details, read below.
 
@@ -504,20 +504,6 @@ Also, do not squash your commits or use `git commit --amend` after you have subm
 erases context during review. We will squash commits when the pull request is merged.
 This way, your pull request will appear as a single commit in our git history, even
 if it consisted of several smaller commits.
-
-At present the maintainers are (alphabetically):
-* David Fisher (@ddfisher)
-* Łukasz Langa (@ambv)
-* Jukka Lehtosalo (@JukkaL)
-* Ivan Levkivskyi (@ilevkivskyi)
-* Matthias Kramm (@matthiaskramm)
-* Greg Price (@gnprice)
-* Sebastian Rittau (@srittau)
-* Guido van Rossum (@gvanrossum)
-* Shantanu (@hauntsaninja)
-* Rune Tynan (@CraftSpider)
-* Aku Viljanen (@Akuli)
-* Jelle Zijlstra (@JelleZijlstra)
 
 NOTE: the process for preparing and submitting changes also applies to
 maintainers.  This ensures high quality contributions and keeps
