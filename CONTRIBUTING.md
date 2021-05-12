@@ -119,7 +119,7 @@ Python function annotations ([PEP 3107](https://www.python.org/dev/peps/pep-3107
 are used to describe the signature of each function or method.
 
 See [PEP 484](http://www.python.org/dev/peps/pep-0484/) for the exact
-syntax of the stub files and [CONTRIBUTING.md](CONTRIBUTING.md) for the
+syntax of the stub files and [below](#stub-file-coding-style) for the
 coding style used in typeshed.
 
 ### What to include
