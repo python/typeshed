@@ -393,8 +393,7 @@ You can restrict mypy tests to a single version by passing `-p2` or `-p3.9`:
 ### pytype\_test.py
 
 This test requires Python 2.7 and Python 3.6. Pytype will
-find these automatically if they're in `PATH`, but otherwise you must point to
-them with the `--python27-exe` and `--python36-exe` arguments, respectively.
+find these automatically if they're in `PATH`.
 Run using:
 ```
 (.venv3)$ python3 tests/pytype_test.py
