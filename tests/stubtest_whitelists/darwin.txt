@@ -1,6 +1,5 @@
 _posixsubprocess.cloexec_pipe
 _?curses.ACS_.* # ACS codes are initialized only after initscr call.
-_?curses.A_ITALIC  # System dependent
 curses.COLORS  # Initialized after start_color
 curses.COLOR_PAIRS  # Initialized after start_color
 curses.COLS  # Initialized only after initscr call.
@@ -21,9 +20,6 @@ readline.append_history_file  # not defined in macos
 select.KQ_FILTER_NETDEV  # system dependent
 select.kqueue.__init__  # default C signature is wrong
 select.POLLMSG   # system dependent
-selectors.KqueueSelector  # Depends on system
-signal.SIGEMT  # Depends on system
-signal.SIGINFO  # Depends on system
 socket.socketpair
 time.CLOCK_HIGHRES
 
