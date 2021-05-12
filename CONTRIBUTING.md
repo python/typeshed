@@ -28,24 +28,7 @@ are important to the project's success.
 For more details, read below.
 
 
-## Discussion
-
-If you've run into behavior in the type checker that suggests the type
-stubs for a given library are incorrect or incomplete,
-we want to hear from you!
-
-Our main forum for discussion is the project's [GitHub issue
-tracker](https://github.com/python/typeshed/issues).  This is the right
-place to start a discussion of any of the above or most any other
-topic concerning the project.
-
-For less formal discussion, try the typing chat room on
-[gitter.im](https://gitter.im/python/typing).  Some Mypy core developers
-are almost always present; feel free to find us there and we're happy
-to chat.  Substantive technical discussion will be directed to the
-issue tracker.
-
-### Code of Conduct
+## Code of Conduct
 
 Everyone participating in the typeshed community, and in particular in
 our issue tracker, pull requests, and IRC channel, is expected to treat
@@ -100,6 +83,20 @@ NOTE: the process for preparing and submitting changes also applies to
 maintainers.  This ensures high quality contributions and keeps
 everybody on the same page.  Avoid direct pushes to the repository.
 
+
+## Format
+
+Each Python module is represented by a `.pyi` "stub file".  This is a
+syntactically valid Python file, although it usually cannot be run by
+Python 3 (since forward references don't require string quotes).  All
+the methods are empty.
+
+Python function annotations ([PEP 3107](https://www.python.org/dev/peps/pep-3107/))
+are used to describe the signature of each function or method.
+
+See [PEP 484](http://www.python.org/dev/peps/pep-0484/) for the exact
+syntax of the stub files and [CONTRIBUTING.md](CONTRIBUTING.md) for the
+coding style used in typeshed.
 
 ## Preparing Changes
 
@@ -181,9 +178,87 @@ point for your stubs.  Note that this generator is currently unable to
 determine most argument and return types and omits them or uses ``Any`` in
 their place.  Fill out manually the types that you know.
 
-### Stub file coding style
+## Standard library stubs
 
-#### Syntax example
+The `stdlib` directory contains stubs for modules in the
+Python standard library -- which
+includes pure Python modules, dynamically loaded extension modules,
+hard-linked extension modules, and the builtins. The `VERSIONS` file lists
+the versions of Python where the module is available.
+
+The structure of the `VERSIONS` file is as follows:
+- Blank lines and lines starting with `#` are ignored.
+- Lines contain the name of a top-level module, followed by a colon,
+  a space, and a version range (for example: `symbol: 2.7-3.9`).
+
+Version ranges may be of the form "X.Y-A.B" or "X.Y-". The
+first form means that a module was introduced in version X.Y and last
+available in version A.B. The second form means that the module was
+introduced in version X.Y and is still available in the latest
+version of Python.
+
+Python versions before 2.7 are ignored, so any module that was already
+present in 2.7 will have "2.7" as its minimum version. Version ranges
+for unsupported versions of Python 3 (currently 3.5 and lower) are
+generally accurate but we do not guarantee their correctness.
+
+The `stdlib/@python2` subdirectory contains Python 2-only stubs,
+both for modules that must be kept different for Python 2 and 3, like
+`builtins.pyi`, and for modules that only existed in Python 2, like
+`ConfigParser.pyi`. The latter group of modules are not listed in
+`VERSIONS`.
+
+Note that if a package is present in `@python2`, any stub in the main
+`stdlib` directory should be ignored when looking for Python 2 stubs. For
+example, typeshed contains files `stdlib/@python2/collections.pyi` and
+`stdlib/collections/abc.pyi`. A client looking for stubs for
+`collections.abc` in Python 2 should not pick up the latter file, but
+instead report that the module does not exist.
+
+## Third-party library stubs
+
+Modules that are not shipped with Python but have a type description in Python
+go into `stubs`. Each subdirectory there represents a PyPI distribution, and
+contains the following:
+* `METADATA.toml` that specifies oldest version of the source library for
+  which the stubs are applicable, supported Python versions (Python 3 defaults
+  to `True`, Python 2 defaults to `False`), and dependency on other type stub
+  packages.
+* Stubs (i.e. `*.pyi` files) for packages and modules that are shipped in the
+  source distribution. Similar to standard library, if the Python 2 version of
+  the stubs must be kept *separate*, it can be put in a `@python` subdirectory.
+* (Rarely) some docs specific to a given type stub package in `README` file.
+
+When a third party stub is
+modified, an updated version of the corresponding distribution will be
+automatically uploaded to PyPI within a few hours.
+Each time this happens the least significant
+version level is incremented. For example, if `stubs/foo/METADATA.toml` has
+`version = "x.y"` the package on PyPI will be updated from `types-foo-x.y.n`
+to `types-foo-x.y.n+1`.
+
+*Note:* In its current implementation, typeshed cannot contain stubs for
+multiple versions of the same third-party library.  Prefer to generate
+stubs for the latest version released on PyPI at the time of your
+stubbing. The oldest version of the library for which the stubs are still
+applicable (i.e. reflect the actual runtime behaviour) can be indicated
+in `METADATA.toml` as `version = "x.y"`. Note that only two most significant
+version levels are supported (i.e. only single dot). When a significant change
+is made in the library, the version of the stub should be bumped (note that
+previous versions are still available on PyPI).
+
+### Removal policy
+
+Third-party packages are generally removed from typeshed when one of the
+following criteria is met:
+
+* The upstream package ships a py.typed file for at least 6-12 months, or
+* the package does not support any of the Python versions supported by
+  typeshed.
+
+## Stub file coding style
+
+### Syntax example
 
 The below is an excerpt from the types for the `datetime` module.
 
@@ -206,7 +281,7 @@ class date:
     def weekday(self) -> int: ...
 ```
 
-#### Conventions
+### Conventions
 
 Stub files are *like* Python files and you should generally expect them
 to look the same.  Your tools should be able to successfully treat them
@@ -308,62 +383,20 @@ contributors.
 
 ### Stub versioning
 
-There are separate directories for `stdlib` (standard library) and `stubs`
-(all other stubs). For standard library stubs Python version support is
-given in `VERSIONS` file. Each line in this file is a module or package name
-followed by `: `, followed by the oldest *supported* Python version where
-the module is available.
-
-Third-party stubs only support Python 3 by default. You can optionally supply
-Python 2 stubs for a package by placing them into a `@python2` subdirectory
-for the corresponding distribution. Some older stubs also indicate Python 2
-support by setting `python2 = True` in the corresponding `METADATA.toml` file.
-
 You can use checks
 like `if sys.version_info >= (3, 8):` to denote new functionality introduced
 in a given Python version or solve type differences.  When doing so, only use
-one-tuples or two-tuples.  This is because:
-
-* mypy doesn't support more fine-grained version checks; and more
-  importantly
-
-* the micro versions of a Python release will change over time in your
-  checking environment and the checker should return consistent results
-  regardless of the micro version used.
-
-Because of this, if a given functionality was introduced in, say, Python
-3.7.4, your check:
+one-tuples or two-tuples. Because of this, if a given functionality was
+introduced in, say, Python 3.7.4, your check:
 
 * should be expressed as `if sys.version_info >= (3, 7):`
 * should NOT be expressed as `if sys.version_info >= (3, 7, 4):`
 * should NOT be expressed as `if sys.version_info >= (3, 8):`
 
-This makes the type checker assume the functionality was also available
-in 3.7.0 - 3.7.3, which while *technically* incorrect is relatively
-harmless.  This is a strictly better compromise than using the latter
-two forms, which would generate false positive errors for correct use
-under Python 3.7.4.
-
 When your stub contains if statements for different Python versions,
 always put the code for the most recent Python version first.
 
-Note: in its current implementation, typeshed cannot contain stubs for
-multiple versions of the same third-party library.  Prefer to generate
-stubs for the latest version released on PyPI at the time of your
-stubbing. The oldest version of the library for which the stubs are still
-applicable (i.e. reflect the actual runtime behaviour) can be indicated
-in `METADATA.toml` as `version = "x.y"`. Note that only two most significant
-version levels are supported (i.e. only single dot). When a significant change
-is made in the library, the version of the stub should be bumped (note that
-previous versions are still available on PyPI).
-
-Internal typeshed machinery will periodically build and upload modified
-third party packages to PyPI, each time this happens the least significant
-version level is incremented. For example, if `stubs/foo/METADATA.toml` has
-`version = "x.y"` the package on PyPI will be updated from `types-foo-x.y.n`
-to `types-foo-x.y.n+1`.
-
-### What to do when a project's documentation and implementation disagree
+## What to do when a project's documentation and implementation disagree
 
 Type stubs are meant to be external type annotations for a given
 library.  While they are useful documentation in its own merit, they
@@ -372,22 +405,7 @@ documentation.  Whenever you find them disagreeing, model the type
 information after the actual implementation and file an issue on the
 project's tracker to fix their documentation.
 
-## Issue-tracker conventions
-
-We aim to reply to all new issues promptly.  We'll assign one or more
-labels to indicate we've triaged an issue, but most typeshed issues
-are relatively simple (stubs for a given module or package are
-missing, incomplete or incorrect) and we won't add noise to the
-tracker by labeling all of them.  Please see the
-[list of all labels](https://github.com/python/typeshed/issues/labels)
-for a detailed description of the labels we use.
-
-Sometimes a PR can't make progress until some external issue is
-addressed.  We indicate this by editing the subject to add a ``[WIP]``
-prefix.  (This should be removed before committing the issue once
-unblocked!)
-
-### Maintainer guidelines
+## Maintainer guidelines
 
 Maintainers should follow these rules when processing pull requests:
 

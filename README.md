@@ -38,86 +38,37 @@ type stub packages (if found on PyPI).
 PyCharm, pytype etc. work in a similar way, for more details see documentation
 for the type-checking tool you are using.
 
-## Format
+## Discussion
 
-Each Python module is represented by a `.pyi` "stub file".  This is a
-syntactically valid Python file, although it usually cannot be run by
-Python 3 (since forward references don't require string quotes).  All
-the methods are empty.
+If you've run into behavior in the type checker that suggests the type
+stubs for a given library are incorrect or incomplete,
+we want to hear from you!
 
-Python function annotations ([PEP 3107](https://www.python.org/dev/peps/pep-3107/))
-are used to describe the signature of each function or method.
+Our main forum for discussion is the project's [GitHub issue
+tracker](https://github.com/python/typeshed/issues).  This is the right
+place to start a discussion of any of the above or most any other
+topic concerning the project.
 
-See [PEP 484](http://www.python.org/dev/peps/pep-0484/) for the exact
-syntax of the stub files and [CONTRIBUTING.md](CONTRIBUTING.md) for the
-coding style used in typeshed.
+For less formal discussion, try the typing chat room on
+[gitter.im](https://gitter.im/python/typing).  Some Mypy core developers
+are almost always present; feel free to find us there and we're happy
+to chat.  Substantive technical discussion will be directed to the
+issue tracker.
 
-## Directory structure
+## Issue-tracker conventions
 
-### stdlib
+We aim to reply to all new issues promptly.  We'll assign one or more
+labels to indicate we've triaged an issue, but most typeshed issues
+are relatively simple (stubs for a given module or package are
+missing, incomplete or incorrect) and we won't add noise to the
+tracker by labeling all of them.  Please see the
+[list of all labels](https://github.com/python/typeshed/issues/labels)
+for a detailed description of the labels we use.
 
-This contains stubs for modules in the Python standard library -- which
-includes pure Python modules, dynamically loaded extension modules,
-hard-linked extension modules, and the builtins. The `VERSIONS` file lists
-the versions of Python where the module is available.
-
-The structure of the `VERSIONS` file is as follows:
-- Blank lines and lines starting with `#` are ignored.
-- Lines contain the name of a top-level module, followed by a colon,
-  a space, and a version range (for example: `symbol: 2.7-3.9`).
-
-Version ranges may be of the form "X.Y-A.B" or "X.Y-". The
-first form means that a module was introduced in version X.Y and last
-available in version A.B. The second form means that the module was
-introduced in version X.Y and is still available in the latest
-version of Python.
-
-Python versions before 2.7 are ignored, so any module that was already
-present in 2.7 will have "2.7" as its minimum version. Version ranges
-for unsupported versions of Python 3 (currently 3.5 and lower) are
-generally accurate but we do not guarantee their correctness.
-
-The `stdlib/@python2` subdirectory contains Python 2-only stubs,
-both for modules that must be kept different for Python 2 and 3, like
-`builtins.pyi`, and for modules that only existed in Python 2, like
-`ConfigParser.pyi`. The latter group of modules are not listed in
-`VERSIONS`.
-
-Note that if a package is present in `@python2`, any stub in the main
-`stdlib` directory should be ignored when looking for Python 2 stubs. For
-example, typeshed contains files `stdlib/@python2/collections.pyi` and
-`stdlib/collections/abc.pyi`. A client looking for stubs for
-`collections.abc` in Python 2 should not pick up the latter file, but
-instead report that the module does not exist.
-
-### stubs
-
-Modules that are not shipped with Python but have a type description in Python
-go into `stubs`. Each subdirectory there represents a PyPI distribution, and
-contains the following:
-* `METADATA.toml` that specifies oldest version of the source library for
-  which the stubs are applicable, supported Python versions (Python 3 defaults
-  to `True`, Python 2 defaults to `False`), and dependency on other type stub
-  packages.
-* Stubs (i.e. `*.pyi` files) for packages and modules that are shipped in the
-  source distribution. Similar to standard library, if the Python 2 version of
-  the stubs must be kept *separate*, it can be put in a `@python` subdirectory.
-* (Rarely) some docs specific to a given type stub package in `README` file.
-
-No other files are allowed in `stdlib` and `stubs`. When a third party stub is
-modified, an updated version of the corresponding distribution will be
-automatically uploaded to PyPI shortly (within few hours).
-
-For more information on directory structure and stub versioning, see
-[the relevant section of CONTRIBUTING.md](
-https://github.com/python/typeshed/blob/master/CONTRIBUTING.md#stub-versioning).
-
-Third-party packages are generally removed from typeshed when one of the
-following criteria is met:
-
-* The upstream package ships a py.typed file for at least 6-12 months, or
-* the package does not support any of the Python versions supported by
-  typeshed.
+Sometimes a PR can't make progress until some external issue is
+addressed.  We indicate this by editing the subject to add a ``[WIP]``
+prefix.  (This should be removed before committing the issue once
+unblocked!)
 
 ## Contributing
 
