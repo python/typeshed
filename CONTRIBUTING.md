@@ -338,7 +338,7 @@ into any of those categories, use your best judgement.
 * Use `HasX` for protocols that have readable and/or writable attributes
   or getter/setter methods (e.g. `HasItems`, `HasFileno`).
 
-NOTE: there are stubs in this repository that don't conform to the
+*Note:* There are stubs in this repository that don't conform to the
 style described above.  Fixing them is a great starting point for new
 contributors.
 
@@ -505,10 +505,6 @@ erases context during review. We will squash commits when the pull request is me
 This way, your pull request will appear as a single commit in our git history, even
 if it consisted of several smaller commits.
 
-NOTE: the process for preparing and submitting changes also applies to
-maintainers.  This ensures high quality contributions and keeps
-everybody on the same page.  Avoid direct pushes to the repository.
-
 ## Third-party library removal policy
 
 Third-party packages are generally removed from typeshed when one of the
@@ -520,6 +516,10 @@ following criteria is met:
 
 ## Maintainer guidelines
 
+The process for preparing and submitting changes also applies to
+maintainers.  This ensures high quality contributions and keeps
+everybody on the same page.  Avoid direct pushes to the repository.
+
 Maintainers should follow these rules when processing pull requests:
 
 * Always wait for tests to pass before merging PRs.
@@ -529,7 +529,7 @@ Maintainers should follow these rules when processing pull requests:
   intermediate commit messages.
 * If stubs for a new library are submitted, notify the library's maintainers.
 
-When reviewing PRs, follow these guidelines:
+When reviewing pull requests, follow these guidelines:
 
 * Typing is hard. Try to be helpful and explain issues with the PR,
   especially to new contributors.
