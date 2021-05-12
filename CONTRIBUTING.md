@@ -9,7 +9,7 @@ are important to the project's success.
 ## The contribution process at a glance
 
 1. Read this document.
-2. If you want, set up your environment to be able to [run tests](README.md#running-the-tests).
+2. If you want, set up your environment to be able to [run tests](#running-the-tests).
     This can be useful for big pull requests or fixing specific errors, but
     usually is not needed, because the tests run automatically on GitHub Actions
     for all pull requests.
