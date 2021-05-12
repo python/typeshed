@@ -65,7 +65,7 @@ jobs:
               ["diff_0.txt", "diff_1.txt"]
               .map(fileName => fs.readFileSync(fileName, { encoding: 'utf8' }))
               .join("\n")
-              .substr(0, 30000),  // About 300 lines
+              .substr(0, 30000)  // About 300 lines
             )
 
             console.log("Diff from mypy_primer:")
