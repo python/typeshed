@@ -338,10 +338,6 @@ into any of those categories, use your best judgement.
 * Use `HasX` for protocols that have readable and/or writable attributes
   or getter/setter methods (e.g. `HasItems`, `HasFileno`).
 
-*Note:* There are stubs in this repository that don't conform to the
-style described above.  Fixing them is a great starting point for new
-contributors.
-
 ## Running the tests
 
 The tests are automatically run on every PR and push to the repo.
