@@ -21,8 +21,8 @@ are important to the project's success.
     for all pull requests.
 4. [Submit your changes](#submitting-changes) by opening a pull request.
 5. You can expect a reply within a few days:
-    * Diffs are merged when considered ready by the core team.
-    * Feel free to ping the [core team](MAINTAINERS.md) if your pull request
+    * Diffs are merged when considered ready by a maintainer.
+    * Feel free to ping the [maintainers](MAINTAINERS.md) if your pull request
       goes without a reply for more than a few days.
 
 For more details, read below.

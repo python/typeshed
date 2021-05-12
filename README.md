@@ -50,7 +50,7 @@ place to start a discussion of any of the above or most any other
 topic concerning the project.
 
 For less formal discussion, try the typing chat room on
-[gitter.im](https://gitter.im/python/typing).  Some Mypy core developers
+[gitter.im](https://gitter.im/python/typing).  Some typeshed maintainers
 are almost always present; feel free to find us there and we're happy
 to chat.  Substantive technical discussion will be directed to the
 issue tracker.
