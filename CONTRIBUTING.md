@@ -8,19 +8,18 @@ are important to the project's success.
 
 ## The contribution process at a glance
 
-1. Read this document.
-2. [Prepare your changes](#preparing-changes):
+1. [Prepare your changes](#preparing-changes):
     * Small fixes and additions can be submitted directly as pull requests,
       but [contact us](README.md#discussion) before starting significant work.
     * Create your stubs [conforming to the coding style](#stub-file-coding-style).
     * Make sure your tests pass cleanly on `mypy`, `pytype`, and `flake8`.
     * Reformat your stubs with `black` and `isort`.
-3. If you want, set up your environment to be able to [run tests](#running-the-tests).
+2. If you want, set up your environment to be able to [run tests](#running-the-tests).
     This can be useful for big pull requests or fixing specific errors, but
     usually is not needed, because the tests run automatically on GitHub Actions
     for all pull requests.
-4. [Submit your changes](#submitting-changes) by opening a pull request.
-5. You can expect a reply within a few days:
+3. [Submit your changes](#submitting-changes) by opening a pull request.
+4. You can expect a reply within a few days:
     * Diffs are merged when considered ready by the core team.
     * Feel free to ping the core team if your pull request goes without
       a reply for more than a few days.
