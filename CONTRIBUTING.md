@@ -8,7 +8,7 @@ are important to the project's success.
 
 ## The contribution process at a glance
 
-1. [Prepare you environment](#preparing-the-environment).
+1. [Prepare your environment](#preparing-the-environment).
 2. Find out [where to make your changes](#where-to-make-changes).
 3. [Prepare your changes](#preparing-changes):
     * Small fixes and additions can be submitted directly as pull requests,
