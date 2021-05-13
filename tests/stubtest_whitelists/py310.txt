@@ -54,28 +54,18 @@ ipaddress.IPv4Interface.hostmask
 ipaddress.IPv6Interface.hostmask
 ipaddress._BaseNetwork.broadcast_address
 ipaddress._BaseNetwork.hostmask
-logging.FileHandler.__init__
-logging.handlers.BaseRotatingHandler.__init__
-logging.handlers.RotatingFileHandler.__init__
-logging.handlers.TimedRotatingFileHandler.__init__
-logging.handlers.WatchedFileHandler.__init__
 multiprocessing.spawn._main
-os.getgrouplist
-os.sendfile
 pickle.Pickler.reducer_override  # implemented in C pickler
 # platform.uname_result's processor field is now dynamically made to exist
 platform.uname_result.__new__
 platform.uname_result._fields
 platform.uname_result.processor
 queue.SimpleQueue.__init__  # Default C __init__ signature is wrong
-select.epoll.register
 smtplib.LMTP.__init__
 ssl.PROTOCOL_SSLv3  # Depends on ssl compilation
 ssl.RAND_egd  # Depends on openssl compilation
 symtable.SymbolTable.has_exec
 sys.UnraisableHookArgs  # Not exported from sys
-time.CLOCK_PROF
-time.CLOCK_UPTIME
 types.ClassMethodDescriptorType.__get__
 types.CodeType.replace
 types.GenericAlias.__getattr__
@@ -122,26 +112,8 @@ contextlib.ExitStack.callback
 contextvars.ContextVar.reset
 contextvars.ContextVar.set
 io.IncrementalNewlineDecoder.setstate
-os.initgroups
-os.pipe2
-os.posix_fadvise
-os.posix_fallocate
-os.sched_getaffinity
-os.sched_getparam
-os.sched_getscheduler
-os.sched_rr_get_interval
-os.sched_setaffinity
-os.sched_setparam
-os.sched_setscheduler
-os.setresgid
-os.setresuid
-os.waitid
-pwd.getpwnam
-pwd.getpwuid
 random.SystemRandom.getrandbits
 secrets.SystemRandom.getrandbits
-signal.sigtimedwait
-signal.sigwaitinfo
 trace.Trace.runfunc
 zipfile.ZipExtFile.seek
 # These enums derive from (str, Enum). See comment in py3_common.txt
@@ -170,7 +142,6 @@ locale.strxfrm
 logging.Formatter.__init__
 logging.LoggerAdapter.__init__
 logging.PercentStyle.__init__
-logging.config.fileConfig
 pathlib.Path.chmod
 pathlib.Path.stat
 pathlib.Path.write_text

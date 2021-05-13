@@ -170,9 +170,6 @@ pydoc.TextDoc.docproperty
 pydoc.TextDoc.docroutine
 select.poll  # Depends on configuration
 selectors.DevpollSelector  # Depends on configuration
-selectors.KqueueSelector  # Depends on system
-signal.SIGEMT  # Depends on system
-signal.SIGINFO  # Depends on system
 socketserver.BaseServer.fileno  # implemented in derived classes
 socketserver.BaseServer.get_request  # implemented in derived classes
 socketserver.BaseServer.server_bind  # implemented in derived classes
@@ -202,7 +199,7 @@ traceback.TracebackException.from_exception  # explicitly expanding arguemnts go
 types.GetSetDescriptorType.__get__  # this function can accept no value for the type parameter.
 types.MemberDescriptorType.__get__  # this function can accept no value for the type parameter.
 types.SimpleNamespace.__init__  # class doesn't accept positional arguments but has default C signature
-typing.IO.__iter__  # Added because IO streams are iterable. See https://github.com/python/typeshed/commit/97bc450acd60c1bcdafef3ce8fbe3b95a9c0cac3  
+typing.IO.__iter__  # Added because IO streams are iterable. See https://github.com/python/typeshed/commit/97bc450acd60c1bcdafef3ce8fbe3b95a9c0cac3
 typing.IO.__next__  # Added because IO streams are iterable. See https://github.com/python/typeshed/commit/97bc450acd60c1bcdafef3ce8fbe3b95a9c0cac3
 typing.type_check_only  # typing decorator that is not available at runtime
 unittest.mock.patch  # It's a complicated overload and I haven't been able to figure out why stubtest doesn't like it
