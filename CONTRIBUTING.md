@@ -31,7 +31,7 @@ For more details, read below.
 ### Standard library stubs
 
 The `stdlib` directory contains stubs for modules in the
-Python standard library -- which
+Python standard library — which
 includes pure Python modules, dynamically loaded extension modules,
 hard-linked extension modules, and the builtins. The `VERSIONS` file lists
 the versions of Python where the module is available.
