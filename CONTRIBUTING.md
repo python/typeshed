@@ -8,23 +8,36 @@ are important to the project's success.
 
 ## The contribution process at a glance
 
-1. Find out [where to make your changes](#where-to-make-changes).
-2. [Prepare your changes](#preparing-changes):
+1. [Prepare your environment](#preparing-the-environment).
+2. Find out [where to make your changes](#where-to-make-changes).
+3. [Prepare your changes](#preparing-changes):
     * Small fixes and additions can be submitted directly as pull requests,
       but [contact us](README.md#discussion) before starting significant work.
     * Create your stubs, considering [what to include](#what-to-include) and
       conforming to the [coding style](#stub-file-coding-style).
-    * Reformat your stubs with `black` and `isort`.
-3. If you want, set up your environment to be able to [run tests](#running-the-tests).
-    This can be useful for big pull requests or fixing specific errors, but
-    usually is not needed, because the tests run automatically on GitHub Actions
-    for all pull requests.
-4. [Submit your changes](#submitting-changes) by opening a pull request.
-5. You can expect a reply within a few days, but please be patient when
-   it takes a bit longer.
+4. [Format and check your stubs](#formatting-stubs).
+5. Optionally [run the tests](#running-the-tests).
+6. [Submit your changes](#submitting-changes) by opening a pull request.
 
-For more details, read below.
+You can expect a reply within a few days, but please be patient when
+it takes a bit longer. For more details, read below.
 
+## Preparing the environment
+
+To reformat the code, check for common problems, and
+run the tests, you need to prepare a
+[virtual environment](https://docs.python.org/3/tutorial/venv.html)
+with the necessary libraries installed. To do this, run:
+
+```
+$ python3 -m venv .venv3
+$ source .venv3/bin/activate
+(.venv3)$ pip install -U pip
+(.venv3)$ pip install -r requirements-tests-py3.txt
+```
+
+To automatically check your code before committing, copy the file
+`pre-commit` to `.git/hooks/pre-commit`.
 
 ## Where to make changes
 
@@ -244,14 +257,6 @@ rule is that they should be as concise as possible.  Specifically:
 * use variable annotations instead of type comments, even for stubs
   that target older versions of Python.
 
-Stubs should be reformatted with the formatters
-[black](https://github.com/psf/black) and
-[isort](https://github.com/PyCQA/isort) before submission.
-These formatters are included in typeshed's `requirements-tests-py3.txt` file.
-A sample `pre-commit` file is included in the typeshed repository.  Copy it
-to `.git/hooks` and adjust the path to your virtual environment's `bin`
-directory to automatically reformat stubs before commit.
-
 Stub files should only contain information necessary for the type
 checker, and leave out unnecessary detail:
 * for arguments with a default, use `...` instead of the actual
@@ -320,6 +325,27 @@ into any of those categories, use your best judgement.
 * Use `HasX` for protocols that have readable and/or writable attributes
   or getter/setter methods (e.g. `HasItems`, `HasFileno`).
 
+## Formatting stubs
+
+Stubs should be reformatted with the formatters
+[black](https://github.com/psf/black) and
+[isort](https://github.com/PyCQA/isort) before submission. They
+should also be checked for common problems by using
+[flake8](https://flake8.pycqa.org/en/latest/) and the flake8 plugins
+[flake8-pyi](https://github.com/ambv/flake8-pyi) and
+[flake8-bugbear](https://github.com/PyCQA/flake8-bugbear).
+All of these packages have been installed if you followed the
+[setup instructions above](#preparing-the-environment).
+
+To format and check your stubs, run the following commands:
+
+```
+(.venv3)$ black stdlib stubs
+(.venv3)$ isort stdlib stubs
+(.venv3)$ flake8
+```
+
+
 ## Running the tests
 
 The tests are automatically run on every PR and push to the repo.
@@ -327,132 +353,9 @@ Therefore you don't need to run them locally, unless you want to run
 them before making a pull request or you want to debug some problem without
 creating several small commits.
 
-There are several tests:
-- `tests/mypy_test.py`
-tests typeshed with [mypy](https://github.com/python/mypy/)
-- `tests/pytype_test.py` tests typeshed with
-[pytype](https://github.com/google/pytype/).
-- `tests/pyright_test.py` tests typeshed with
-[pyright](https://github.com/microsoft/pyright).
-- `tests/mypy_test_suite.py` runs a subset of mypy's test suite using this version of
-typeshed.
-- `tests/check_consistent.py` checks certain files in typeshed remain
-consistent with each other.
-- `tests/stubtest_test.py` checks stubs against the objects at runtime.
-- `flake8` enforces a style guide.
+For more information about our available tests, see
+[tests/README.md](tests/README.md).
 
-### Setup
-
-Run:
-```
-$ python3 -m venv .venv3
-$ source .venv3/bin/activate
-(.venv3)$ pip install -U pip
-(.venv3)$ pip install -r requirements-tests-py3.txt
-```
-This will install mypy (you need the latest master branch from GitHub),
-typed-ast, flake8 (and plugins), pytype, black and isort.
-
-If you want to run the pyright tests, you need to have
-[Node.js](https://nodejs.org/) installed.
-
-### mypy\_test.py
-
-This test requires Python 3.6 or higher; Python 3.6.1 or higher is recommended.
-Run using:
-```
-(.venv3)$ python3 tests/mypy_test.py
-```
-
-This test is shallow — it verifies that all stubs can be
-imported but doesn't check whether stubs match their implementation
-(in the Python standard library or a third-party package). It has an exclude list of
-modules that are not tested at all, which also lives in the tests directory.
-
-You can restrict mypy tests to a single version by passing `-p2` or `-p3.9`:
-```bash
-(.venv3)$ python3 tests/mypy_test.py -p3.9
-```
-
-### pytype\_test.py
-
-This test requires Python 2.7 and Python 3.6. Pytype will
-find these automatically if they're in `PATH`.
-Run using:
-```
-(.venv3)$ python3 tests/pytype_test.py
-```
-
-This test works similarly to `mypy_test.py`, except it uses `pytype`.
-
-### pyright\_test.py
-
-This test requires Node.js to be installed. It is currently not part of the CI,
-but it uses the same pyright version and configuration as the CI.
-```
-(.venv3)$ python3 tests/pyright_test.py                 # Check all files
-(.venv3)$ python3 tests/pyright_test.py stdlib/sys.pyi  # Check one file
-```
-
-### mypy\_test\_suite.py
-
-This test requires Python 3.5 or higher; Python 3.6.1 or higher is recommended.
-Run using:
-```
-(.venv3)$ python3 tests/mypy_test_suite.py
-```
-
-This test runs mypy's own test suite using the typeshed code in your repo. This
-will sometimes catch issues with incorrectly typed stubs, but is much slower
-than the other tests.
-
-### check\_consistent.py
-
-Run using:
-```
-python3 tests/check_consistent.py
-```
-
-### stubtest\_test.py
-
-This test requires Python 3.6 or higher.
-Run using
-```
-(.venv3)$ python3 tests/stubtest_test.py
-```
-
-This test compares the stdlib stubs against the objects at runtime. Because of
-this, the output depends on which version of Python and on what kind of system
-it is run.
-Thus the easiest way to run this test is via Github Actions on your fork;
-if you run it locally, it'll likely complain about system-specific
-differences (in e.g, `socket`) that the type system cannot capture.
-If you need a specific version of Python to repro a CI failure,
-[pyenv](https://github.com/pyenv/pyenv) can help.
-
-Due to its dynamic nature, you may run into false positives. In this case, you
-can add to the whitelists for each affected Python version in
-`tests/stubtest_whitelists`. Please file issues for stubtest false positives
-at [mypy](https://github.com/python/mypy/issues).
-
-To run stubtest against third party stubs, it's easiest to use stubtest
-directly, with
-```
-(.venv3)$ python3 -m mypy.stubtest \
-  --custom-typeshed-dir <path-to-typeshed> \
-  <third-party-module>
-```
-stubtest can also help you find things missing from the stubs.
-
-
-### flake8
-
-flake8 requires Python 3.6 or higher. Run using:
-```
-(.venv3)$ flake8
-```
-
-Note typeshed uses the `flake8-pyi` and `flake8-bugbear` plugins.
 
 ## Submitting Changes
 
