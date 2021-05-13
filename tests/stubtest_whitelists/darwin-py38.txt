@@ -1,3 +1,1 @@
 _?curses.A_ITALIC
-time.CLOCK_PROF
-time.CLOCK_UPTIME

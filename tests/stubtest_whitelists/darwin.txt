@@ -21,7 +21,6 @@ select.KQ_FILTER_NETDEV  # system dependent
 select.kqueue.__init__  # default C signature is wrong
 select.POLLMSG   # system dependent
 socket.socketpair
-time.CLOCK_HIGHRES
 
 # ==========
 # Whitelist entries that cannot or should not be fixed

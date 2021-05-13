@@ -17,5 +17,3 @@ os.sendfile
 signal.sigtimedwait
 signal.sigwaitinfo
 select.epoll.register
-time.CLOCK_PROF
-time.CLOCK_UPTIME
