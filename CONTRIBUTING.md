@@ -351,7 +351,7 @@ should also be checked for common problems by using
 [flake8-pyi](https://github.com/ambv/flake8-pyi) and
 [flake8-bugbear](https://github.com/PyCQA/flake8-bugbear).
 All of these packages are automatically installed if you follow the
-[setup instructions above](#preparing-your-environment).
+[setup instructions above](#preparing-the-environment).
 
 To automatically format and check your stubs, run the following commands:
 
