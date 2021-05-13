@@ -503,9 +503,17 @@ if it consisted of several smaller commits.
 Third-party packages are generally removed from typeshed when one of the
 following criteria is met:
 
-* The upstream package ships a py.typed file for at least 6-12 months, or
+* The upstream package ships a `py.typed` file for at least 6-12 months, or
 * the package does not support any of the Python versions supported by
   typeshed.
+
+If a package ships its own `py.typed` file, please follow these steps:
+
+1. Open an issue with the earliest month of removal in the subject.
+2. A maintainer will add the
+   ["removal" label](https://github.com/python/typeshed/labels/removal).
+3. Open a PR that sets the `obsolete_since` field in the `METADATA.toml`
+   file to the first version of the package that shipped `py.typed`.
 
 ## Maintainer guidelines
 
