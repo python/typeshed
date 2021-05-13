@@ -27,7 +27,6 @@ spwd.getspnam
 spwd.struct_spwd._asdict
 spwd.struct_spwd._make
 spwd.struct_spwd._replace
-time.CLOCK_HIGHRES
 urllib.request.proxy_bypass
 
 # ==========

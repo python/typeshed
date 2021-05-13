@@ -1,3 +1,1 @@
-time.CLOCK_PROF
-time.CLOCK_UPTIME
 select.epoll.register
