@@ -21,8 +21,6 @@ select.EPOLL_RDHUP
 selectors.KqueueSelector
 signal.SIGEMT
 signal.SIGINFO
-socket.socketpair
-spwd.getspnam
 spwd.struct_spwd._asdict  # PyStructSequence
 spwd.struct_spwd._make  # PyStructSequence
 spwd.struct_spwd._replace  # PyStructSequence
