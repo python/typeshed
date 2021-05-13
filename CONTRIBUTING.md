@@ -103,7 +103,7 @@ supported:
   on PyPI).
 * `python2` (default: `False`) and `python3` (default: `True`): These fields
   indicate whether a package supports Python 2, Python 3, or both.
-* `requires`: A list of other stub packages that this package uses.
+* `requires` (optional): A list of other stub packages that this package uses.
 * `extra_description` (optional): Can be used to add a custom description to
   the package's long description. It should be a multi-line string in
   Markdown format.
