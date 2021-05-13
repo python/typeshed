@@ -24,7 +24,7 @@ it takes a bit longer. For more details, read below.
 
 ## Preparing the environment
 
-To automatically reformat the code, check for common problems, and
+To reformat the code, check for common problems, and
 run the tests, you need to prepare a
 [virtual environment](https://docs.python.org/3/tutorial/venv.html)
 with the necessary libraries installed. To do this, run:
@@ -350,10 +350,10 @@ should also be checked for common problems by using
 [flake8](https://flake8.pycqa.org/en/latest/) and the flake8 plugins
 [flake8-pyi](https://github.com/ambv/flake8-pyi) and
 [flake8-bugbear](https://github.com/PyCQA/flake8-bugbear).
-All of these packages are automatically installed if you follow the
+All of these packages have been installed if you followed the
 [setup instructions above](#preparing-the-environment).
 
-To automatically format and check your stubs, run the following commands:
+To format and check your stubs, run the following commands:
 
 ```
 (.venv3)$ black stdlib stubs
