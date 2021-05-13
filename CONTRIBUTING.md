@@ -509,7 +509,7 @@ following criteria is met:
 
 If a package ships its own `py.typed` file, please open an issue, with the
 earliest month of removal in the subject. A maintainer will add the
-[removal label](https://github.com/python/typeshed/labels/removal).
+[removal label](./labels/removal).
 
 ## Maintainer guidelines
 
