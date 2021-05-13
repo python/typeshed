@@ -56,7 +56,7 @@ jobs:
       - name: Upload mypy_primer diff
         uses: actions/upload-artifact@v2
         with:
-          name: mypy_primer_diff
+          name: mypy_primer_diffs
           path: diff_${{ matrix.shard-index }}.txt
 
   comment:
@@ -69,7 +69,7 @@ jobs:
       - name: Download diffs
         uses: actions/download-artifact@v2
         with:
-          name: mypy_primer_diff
+          name: mypy_primer_diffs
 
       - name: Post comment
         uses: actions/github-script@v3
