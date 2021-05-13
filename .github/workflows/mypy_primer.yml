@@ -80,7 +80,7 @@ jobs:
             const data = (
               ['diff_0.txt', 'diff_1.txt']
               .map(fileName => fs.readFileSync(fileName, { encoding: 'utf8' }))
-              .join('\n')
+              .join('')
               .substr(0, 30000)  // About 300 lines
             )
 
