@@ -188,7 +188,7 @@ pyclbr: 2.7-
 pydoc: 2.7-
 pydoc_data: 2.7-
 pyexpat: 2.7-
-queue: 2.7-
+queue: 3.0-
 quopri: 2.7-
 random: 2.7-
 re: 2.7-
@@ -210,7 +210,7 @@ smtpd: 2.7-
 smtplib: 2.7-
 sndhdr: 2.7-
 socket: 2.7-
-socketserver: 2.7-
+socketserver: 3.0-
 spwd: 2.7-
 sqlite3: 2.7-
 sre_compile: 2.7-
