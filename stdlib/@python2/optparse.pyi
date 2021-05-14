@@ -2,7 +2,10 @@ import sys
 from typing import IO, Any, AnyStr, Callable, Dict, Iterable, List, Mapping, Optional, Sequence, Tuple, Type, Union, overload
 
 # See https://groups.google.com/forum/#!topic/python-ideas/gA1gdj3RZ5g
-_Text = Union[str, unicode]
+if sys.version_info >= (3,):
+    _Text = str
+else:
+    _Text = Union[str, unicode]
 
 NO_DEFAULT: Tuple[_Text, ...]
 SUPPRESS_HELP: _Text
@@ -11,7 +14,8 @@ SUPPRESS_USAGE: _Text
 def check_builtin(option: Option, opt: Any, value: _Text) -> Any: ...
 def check_choice(option: Option, opt: Any, value: _Text) -> Any: ...
 
-def isbasestring(x: Any) -> bool: ...
+if sys.version_info < (3,):
+    def isbasestring(x: Any) -> bool: ...
 
 class OptParseError(Exception):
     msg: _Text

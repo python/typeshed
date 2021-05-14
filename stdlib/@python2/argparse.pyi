@@ -24,7 +24,10 @@ _T = TypeVar("_T")
 _ActionT = TypeVar("_ActionT", bound=Action)
 _N = TypeVar("_N")
 
-_Text = Union[str, unicode]
+if sys.version_info >= (3,):
+    _Text = str
+else:
+    _Text = Union[str, unicode]
 
 ONE_OR_MORE: str
 OPTIONAL: str
@@ -106,11 +109,31 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
     fromfile_prefix_chars: Optional[_Text]
     add_help: bool
 
+    if sys.version_info >= (3, 5):
+        allow_abbrev: bool
+
     # undocumented
     _positionals: _ArgumentGroup
     _optionals: _ArgumentGroup
     _subparsers: Optional[_ArgumentGroup]
 
+    if sys.version_info >= (3, 9):
+        def __init__(
+            self,
+            prog: Optional[str] = ...,
+            usage: Optional[str] = ...,
+            description: Optional[str] = ...,
+            epilog: Optional[str] = ...,
+            parents: Sequence[ArgumentParser] = ...,
+            formatter_class: _FormatterClass = ...,
+            prefix_chars: str = ...,
+            fromfile_prefix_chars: Optional[str] = ...,
+            argument_default: Any = ...,
+            conflict_handler: str = ...,
+            add_help: bool = ...,
+            allow_abbrev: bool = ...,
+            exit_on_error: bool = ...,
+        ) -> None: ...
     elif sys.version_info >= (3, 5):
         def __init__(
             self,
@@ -154,19 +177,35 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
     def parse_args(self, *, namespace: None) -> Namespace: ...  # type: ignore
     @overload
     def parse_args(self, *, namespace: _N) -> _N: ...
-    def add_subparsers(
-        self,
-        *,
-        title: Text = ...,
-        description: Optional[Text] = ...,
-        prog: Text = ...,
-        parser_class: Type[ArgumentParser] = ...,
-        action: Type[Action] = ...,
-        option_string: Text = ...,
-        dest: Optional[Text] = ...,
-        help: Optional[Text] = ...,
-        metavar: Optional[Text] = ...,
-    ) -> _SubParsersAction: ...
+    if sys.version_info >= (3, 7):
+        def add_subparsers(
+            self,
+            *,
+            title: str = ...,
+            description: Optional[str] = ...,
+            prog: str = ...,
+            parser_class: Type[ArgumentParser] = ...,
+            action: Type[Action] = ...,
+            option_string: str = ...,
+            dest: Optional[str] = ...,
+            required: bool = ...,
+            help: Optional[str] = ...,
+            metavar: Optional[str] = ...,
+        ) -> _SubParsersAction: ...
+    else:
+        def add_subparsers(
+            self,
+            *,
+            title: Text = ...,
+            description: Optional[Text] = ...,
+            prog: Text = ...,
+            parser_class: Type[ArgumentParser] = ...,
+            action: Type[Action] = ...,
+            option_string: Text = ...,
+            dest: Optional[Text] = ...,
+            help: Optional[Text] = ...,
+            metavar: Optional[Text] = ...,
+        ) -> _SubParsersAction: ...
     def print_usage(self, file: Optional[IO[str]] = ...) -> None: ...
     def print_help(self, file: Optional[IO[str]] = ...) -> None: ...
     def format_usage(self) -> str: ...
@@ -177,6 +216,13 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
     def convert_arg_line_to_args(self, arg_line: Text) -> List[str]: ...
     def exit(self, status: int = ..., message: Optional[Text] = ...) -> NoReturn: ...
     def error(self, message: Text) -> NoReturn: ...
+    if sys.version_info >= (3, 7):
+        def parse_intermixed_args(
+            self, args: Optional[Sequence[str]] = ..., namespace: Optional[Namespace] = ...
+        ) -> Namespace: ...
+        def parse_known_intermixed_args(
+            self, args: Optional[Sequence[str]] = ..., namespace: Optional[Namespace] = ...
+        ) -> Tuple[Namespace, List[str]]: ...
     # undocumented
     def _get_optional_actions(self) -> List[Action]: ...
     def _get_positional_actions(self) -> List[Action]: ...
@@ -244,6 +290,9 @@ class RawDescriptionHelpFormatter(HelpFormatter): ...
 class RawTextHelpFormatter(RawDescriptionHelpFormatter): ...
 class ArgumentDefaultsHelpFormatter(HelpFormatter): ...
 
+if sys.version_info >= (3,):
+    class MetavarTypeHelpFormatter(HelpFormatter): ...
+
 class Action(_AttributeHolder):
     option_strings: Sequence[_Text]
     dest: _Text
@@ -275,6 +324,23 @@ class Action(_AttributeHolder):
         values: Union[Text, Sequence[Any], None],
         option_string: Optional[Text] = ...,
     ) -> None: ...
+    if sys.version_info >= (3, 9):
+        def format_usage(self) -> str: ...
+
+if sys.version_info >= (3, 9):
+    class BooleanOptionalAction(Action):
+        def __init__(
+            self,
+            option_strings: Sequence[str],
+            dest: str,
+            default: Union[_T, str, None] = ...,
+            type: Optional[Union[Callable[[Text], _T], Callable[[str], _T], FileType]] = ...,
+            choices: Optional[Iterable[_T]] = ...,
+            required: bool = ...,
+            help: Optional[Text] = ...,
+            metavar: Optional[Union[Text, Tuple[Text, ...]]] = ...,
+        ) -> None: ...
+
 class Namespace(_AttributeHolder):
     def __init__(self, **kwargs: Any) -> None: ...
     def __getattr__(self, name: Text) -> Any: ...
@@ -285,7 +351,14 @@ class FileType:
     # undocumented
     _mode: _Text
     _bufsize: int
-    def __init__(self, mode: Text = ..., bufsize: Optional[int] = ...) -> None: ...
+    if sys.version_info >= (3,):
+        _encoding: Optional[str]
+        _errors: Optional[str]
+        def __init__(
+            self, mode: str = ..., bufsize: int = ..., encoding: Optional[str] = ..., errors: Optional[str] = ...
+        ) -> None: ...
+    else:
+        def __init__(self, mode: Text = ..., bufsize: Optional[int] = ...) -> None: ...
     def __call__(self, string: Text) -> IO[Any]: ...
 
 # undocumented
@@ -378,15 +451,27 @@ class _SubParsersAction(Action):
     _name_parser_map: Dict[_Text, ArgumentParser]
     choices: Dict[_Text, ArgumentParser]
     _choices_actions: List[Action]
-    def __init__(
-        self,
-        option_strings: Sequence[Text],
-        prog: Text,
-        parser_class: Type[ArgumentParser],
-        dest: Text = ...,
-        help: Optional[Text] = ...,
-        metavar: Optional[Union[Text, Tuple[Text, ...]]] = ...,
-    ) -> None: ...
+    if sys.version_info >= (3, 7):
+        def __init__(
+            self,
+            option_strings: Sequence[Text],
+            prog: Text,
+            parser_class: Type[ArgumentParser],
+            dest: Text = ...,
+            required: bool = ...,
+            help: Optional[Text] = ...,
+            metavar: Optional[Union[Text, Tuple[Text, ...]]] = ...,
+        ) -> None: ...
+    else:
+        def __init__(
+            self,
+            option_strings: Sequence[Text],
+            prog: Text,
+            parser_class: Type[ArgumentParser],
+            dest: Text = ...,
+            help: Optional[Text] = ...,
+            metavar: Optional[Union[Text, Tuple[Text, ...]]] = ...,
+        ) -> None: ...
     # TODO: Type keyword args properly.
     def add_parser(self, name: Text, **kwargs: Any) -> ArgumentParser: ...
     def _get_subactions(self) -> List[Action]: ...
@@ -394,8 +479,9 @@ class _SubParsersAction(Action):
 # undocumented
 class ArgumentTypeError(Exception): ...
 
-# undocumented
-def _ensure_value(namespace: Namespace, name: Text, value: Any) -> Any: ...
+if sys.version_info < (3, 7):
+    # undocumented
+    def _ensure_value(namespace: Namespace, name: Text, value: Any) -> Any: ...
 
 # undocumented
 def _get_action_name(argument: Optional[Action]) -> Optional[str]: ...

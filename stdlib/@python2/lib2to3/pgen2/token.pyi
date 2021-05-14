@@ -54,6 +54,13 @@ DOUBLESLASHEQUAL: int
 OP: int
 COMMENT: int
 NL: int
+if sys.version_info >= (3,):
+    RARROW: int
+if sys.version_info >= (3, 5):
+    AT: int
+    ATEQUAL: int
+    AWAIT: int
+    ASYNC: int
 ERRORTOKEN: int
 N_TOKENS: int
 NT_OFFSET: int

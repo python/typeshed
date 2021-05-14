@@ -1,6 +1,9 @@
 import sys
 from typing import Any, Generic, Iterable, Iterator, MutableSet, Optional, TypeVar, Union
 
+if sys.version_info >= (3, 9):
+    from types import GenericAlias
+
 _S = TypeVar("_S")
 _T = TypeVar("_T")
 _SelfT = TypeVar("_SelfT", bound=WeakSet[Any])
@@ -40,3 +43,5 @@ class WeakSet(MutableSet[_T], Generic[_T]):
     def union(self, other: Iterable[_S]) -> WeakSet[Union[_S, _T]]: ...
     def __or__(self, other: Iterable[_S]) -> WeakSet[Union[_S, _T]]: ...
     def isdisjoint(self, other: Iterable[_T]) -> bool: ...
+    if sys.version_info >= (3, 9):
+        def __class_getitem__(cls, item: Any) -> GenericAlias: ...

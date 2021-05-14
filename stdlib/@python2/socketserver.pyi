@@ -71,6 +71,8 @@ if sys.platform != "win32":
         timeout: Optional[float]  # undocumented
         active_children: Optional[List[int]]  # undocumented
         max_children: int  # undocumented
+        if sys.version_info >= (3, 7):
+            block_on_close: bool
         def collect_children(self, *, blocking: bool = ...) -> None: ...  # undocumented
         def handle_timeout(self) -> None: ...  # undocumented
         def service_actions(self) -> None: ...  # undocumented
@@ -79,6 +81,8 @@ if sys.platform != "win32":
 
 class ThreadingMixIn:
     daemon_threads: bool
+    if sys.version_info >= (3, 7):
+        block_on_close: bool
     def process_request_thread(self, request: bytes, client_address: Tuple[str, int]) -> None: ...  # undocumented
     def process_request(self, request: bytes, client_address: Tuple[str, int]) -> None: ...
     def server_close(self) -> None: ...
