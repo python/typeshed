@@ -82,7 +82,7 @@ collections: 2.7-
 colorsys: 2.7-
 compileall: 2.7-
 concurrent: 3.2-
-configparser: 2.7-
+configparser: 3.0-
 contextlib: 2.7-
 contextvars: 3.7-
 copy: 2.7-
