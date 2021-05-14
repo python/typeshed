@@ -1,5 +1,4 @@
 import io
-import sys
 from _typeshed import StrPath
 from types import TracebackType
 from typing import (
@@ -8,7 +7,6 @@ from typing import (
     Callable,
     Dict,
     Iterable,
-    Iterator,
     List,
     Optional,
     Pattern,

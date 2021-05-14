@@ -1,4 +1,3 @@
-import sys
 from lib2to3.pgen2.grammar import Grammar
 from typing import Any, Callable, Dict, Iterator, List, Optional, Text, Tuple, TypeVar, Union
 

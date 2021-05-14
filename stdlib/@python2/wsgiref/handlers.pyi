@@ -1,7 +1,6 @@
-import sys
 from abc import abstractmethod
 from types import TracebackType
-from typing import IO, Callable, Dict, List, MutableMapping, Optional, Text, Tuple, Type
+from typing import IO, Callable, List, MutableMapping, Optional, Text, Tuple, Type
 
 from .headers import Headers
 from .types import ErrorStream, InputStream, StartResponse, WSGIApplication, WSGIEnvironment

@@ -1,5 +1,4 @@
 import socket
-import sys
 from typing import Any, Callable, Match, Optional, Pattern, Sequence, Tuple, Union
 
 DEBUGLEVEL: int

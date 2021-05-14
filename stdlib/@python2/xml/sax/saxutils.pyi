@@ -1,4 +1,3 @@
-import sys
 from _typeshed import SupportsWrite
 from codecs import StreamReaderWriter, StreamWriter
 from io import RawIOBase, TextIOBase

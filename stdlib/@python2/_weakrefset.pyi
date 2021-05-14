@@ -1,4 +1,3 @@
-import sys
 from typing import Any, Generic, Iterable, Iterator, MutableSet, Optional, TypeVar, Union
 
 _S = TypeVar("_S")

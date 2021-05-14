@@ -1,4 +1,3 @@
-import sys
 from decimal import Decimal
 from numbers import Integral, Rational, Real
 from typing import Optional, Tuple, Type, TypeVar, Union, overload

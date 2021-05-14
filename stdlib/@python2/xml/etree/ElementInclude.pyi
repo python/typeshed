@@ -1,4 +1,3 @@
-import sys
 from typing import Callable, Optional, Union
 from xml.etree.ElementTree import Element
 

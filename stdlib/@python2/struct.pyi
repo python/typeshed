@@ -1,7 +1,6 @@
-import sys
 from array import array
 from mmap import mmap
-from typing import Any, Iterator, Text, Tuple, Union
+from typing import Any, Text, Tuple, Union
 
 class error(Exception): ...
 

@@ -1,4 +1,3 @@
-import sys
 from typing import Any, Text, TypeVar, Union
 
 ucd_3_2_0: UCD

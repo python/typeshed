@@ -1,5 +1,4 @@
-import sys
-from typing import IO, Any, Dict as DictT, Mapping, MutableMapping, Optional, Text, Type, Union
+from typing import IO, Any, Dict as DictT, Mapping, Text, Union
 
 _Path = Union[str, Text]
 

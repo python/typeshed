@@ -1,4 +1,3 @@
-import sys
 from _typeshed import AnyPath
 from typing import Callable, Optional, Sequence
 

@@ -1,4 +1,3 @@
-import sys
 from sre_constants import (
     SRE_FLAG_DEBUG as SRE_FLAG_DEBUG,
     SRE_FLAG_DOTALL as SRE_FLAG_DOTALL,

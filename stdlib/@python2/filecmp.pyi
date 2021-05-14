@@ -1,5 +1,4 @@
-import sys
-from typing import Any, AnyStr, Callable, Dict, Generic, Iterable, List, Optional, Sequence, Text, Tuple, Union
+from typing import AnyStr, Callable, Dict, Generic, Iterable, List, Optional, Sequence, Text, Tuple, Union
 
 DEFAULT_IGNORES: List[str]
 

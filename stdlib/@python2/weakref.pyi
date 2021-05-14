@@ -1,17 +1,13 @@
-import sys
-import types
 from _weakrefset import WeakSet as WeakSet
 from typing import (
     Any,
     Callable,
-    Dict,
     Generic,
     Iterable,
     Iterator,
     List,
     Mapping,
     MutableMapping,
-    Optional,
     Tuple,
     Type,
     TypeVar,

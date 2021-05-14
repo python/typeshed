@@ -1,4 +1,3 @@
-import sys
 import xml.dom
 from typing import IO, Any, Optional, Text as _Text, TypeVar, Union
 from xml.dom.xmlbuilder import DocumentLS, DOMImplementationLS

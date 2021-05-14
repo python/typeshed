@@ -1,4 +1,3 @@
-import sys
 import types
 from abc import abstractmethod
 from typing import (

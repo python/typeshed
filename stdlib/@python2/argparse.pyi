@@ -1,4 +1,3 @@
-import sys
 from typing import (
     IO,
     Any,

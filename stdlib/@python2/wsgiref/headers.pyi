@@ -1,4 +1,3 @@
-import sys
 from typing import List, Optional, Pattern, Tuple, overload
 
 _HeaderList = List[Tuple[str, str]]

@@ -1,4 +1,3 @@
-import sys
 from _typeshed import AnyPath
 from types import CodeType
 from typing import Any, Callable, Dict, Optional, Tuple, TypeVar, Union

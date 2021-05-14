@@ -1,5 +1,4 @@
-import sys
-from typing import Any, Callable, Dict, List, NamedTuple, Optional, Text, Tuple
+from typing import Any, Callable, Dict, List, NamedTuple, Text, Tuple
 
 class Event(NamedTuple):
     time: float

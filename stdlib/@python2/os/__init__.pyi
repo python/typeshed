@@ -1,7 +1,6 @@
 import sys
 from _typeshed import AnyPath, FileDescriptorLike
 from builtins import OSError
-from io import TextIOWrapper as _TextIOWrapper
 from posix import listdir as listdir, stat_result as stat_result  # TODO: use this, see https://github.com/python/mypy/issues/3078
 from typing import (
     IO,
@@ -18,7 +17,6 @@ from typing import (
     NoReturn,
     Optional,
     Sequence,
-    Set,
     Text,
     Tuple,
     TypeVar,

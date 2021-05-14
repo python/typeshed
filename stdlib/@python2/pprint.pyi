@@ -1,4 +1,3 @@
-import sys
 from typing import IO, Any, Dict, Optional, Tuple
 
 def pformat(object: object, indent: int = ..., width: int = ..., depth: Optional[int] = ...) -> str: ...

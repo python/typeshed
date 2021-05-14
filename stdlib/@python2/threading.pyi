@@ -1,4 +1,3 @@
-import sys
 from types import FrameType, TracebackType
 from typing import Any, Callable, Iterable, List, Mapping, Optional, Text, Type, TypeVar, Union
 

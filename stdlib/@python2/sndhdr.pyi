@@ -1,6 +1,5 @@
-import sys
 from _typeshed import AnyPath
-from typing import NamedTuple, Optional, Tuple, Union
+from typing import Optional, Tuple, Union
 
 _SndHeaders = Tuple[str, int, int, int, Union[int, str]]
 

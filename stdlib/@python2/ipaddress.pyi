@@ -1,4 +1,3 @@
-import sys
 from typing import Any, Container, Generic, Iterable, Iterator, Optional, SupportsInt, Tuple, TypeVar, overload
 
 # Undocumented length constants

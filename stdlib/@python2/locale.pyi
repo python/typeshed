@@ -1,5 +1,3 @@
-import sys
-
 # workaround for mypy#2010
 from __builtin__ import str as _str
 from decimal import Decimal

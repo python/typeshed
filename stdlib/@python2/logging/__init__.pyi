@@ -1,6 +1,5 @@
 import threading
 from _typeshed import StrPath
-from string import Template
 from time import struct_time
 from types import FrameType, TracebackType
 from typing import (
@@ -8,7 +7,6 @@ from typing import (
     Any,
     Callable,
     Dict,
-    Iterable,
     List,
     Mapping,
     MutableMapping,

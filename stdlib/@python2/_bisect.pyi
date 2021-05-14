@@ -1,6 +1,4 @@
-import sys
-from _typeshed import SupportsLessThan
-from typing import Callable, MutableSequence, Optional, Sequence, TypeVar
+from typing import MutableSequence, Optional, Sequence, TypeVar
 
 _T = TypeVar("_T")
 

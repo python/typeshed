@@ -1,5 +1,3 @@
-import os
-import sys
 from _typeshed import StrPath, SupportsRead, SupportsWrite
 from typing import (
     Any,
@@ -7,7 +5,6 @@ from typing import (
     Callable,
     Iterable,
     List,
-    NamedTuple,
     Optional,
     Sequence,
     Set,
@@ -15,7 +12,6 @@ from typing import (
     Type,
     TypeVar,
     Union,
-    overload,
 )
 
 _AnyStr = TypeVar("_AnyStr", str, unicode)

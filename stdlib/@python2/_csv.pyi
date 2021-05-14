@@ -1,4 +1,3 @@
-import sys
 from typing import Any, Iterable, Iterator, List, Optional, Protocol, Sequence, Text, Type, Union
 
 QUOTE_ALL: int

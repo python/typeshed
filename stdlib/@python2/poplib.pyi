@@ -1,7 +1,5 @@
 import socket
-import ssl
-import sys
-from typing import Any, BinaryIO, Dict, List, Optional, Pattern, Text, Tuple, overload
+from typing import Any, BinaryIO, List, Optional, Pattern, Text, Tuple, overload
 
 _LongResp = Tuple[bytes, List[bytes], int]
 

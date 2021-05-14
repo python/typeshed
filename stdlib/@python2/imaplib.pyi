@@ -1,9 +1,7 @@
 import subprocess
-import sys
 import time
 from socket import socket as _socket
-from ssl import SSLContext, SSLSocket
-from types import TracebackType
+from ssl import SSLSocket
 from typing import IO, Any, Callable, Dict, List, Optional, Pattern, Text, Tuple, Type, Union
 from typing_extensions import Literal
 
