@@ -1,16 +1,4 @@
-from typing import (
-    Any,
-    AnyStr,
-    Callable,
-    Iterator,
-    List,
-    Match,
-    Optional,
-    Pattern,
-    Tuple,
-    Union,
-    overload,
-)
+from typing import Any, AnyStr, Callable, Iterator, List, Match, Optional, Pattern, Tuple, Union, overload
 
 # ----- re variables and constants -----
 DEBUG: int
