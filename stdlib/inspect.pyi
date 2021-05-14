@@ -154,16 +154,22 @@ if sys.version_info >= (3, 10):
         eval_str: bool = ...,
     ) -> Dict[str, Any]: ...
 
-# The name is the same as the enum's name in CPython
-class _ParameterKind(enum.IntEnum):
-    POSITIONAL_ONLY: int
-    POSITIONAL_OR_KEYWORD: int
-    VAR_POSITIONAL: int
-    KEYWORD_ONLY: int
-    VAR_KEYWORD: int
+if sys.version_info >= (3, 0):
+    import enum
 
-    if sys.version_info >= (3, 8):
-        description: str
+    # The name is the same as the enum's name in CPython
+    class _ParameterKind(enum.IntEnum):
+        POSITIONAL_ONLY: int
+        POSITIONAL_OR_KEYWORD: int
+        VAR_POSITIONAL: int
+        KEYWORD_ONLY: int
+        VAR_KEYWORD: int
+
+        if sys.version_info >= (3, 8):
+            description: str
+else:
+    # TODO: This actually doesn't exist on Python 2
+    _ParameterKind = int
 
 class Parameter:
     def __init__(self, name: str, kind: _ParameterKind, *, default: Any = ..., annotation: Any = ...) -> None: ...
