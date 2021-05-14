@@ -25,9 +25,6 @@ from typing import (
 )
 from typing_extensions import Literal
 
-if sys.version_info >= (3, 9):
-    from types import GenericAlias
-
 _T = TypeVar("_T")
 _MessageT = TypeVar("_MessageT", bound=Message)
 _MessageData = Union[email.message.Message, bytes, str, IO[str], IO[bytes]]
@@ -80,8 +77,6 @@ class Mailbox(Generic[_MessageT]):
     def lock(self) -> None: ...
     def unlock(self) -> None: ...
     def close(self) -> None: ...
-    if sys.version_info >= (3, 9):
-        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 class Maildir(Mailbox[MaildirMessage]):
 
@@ -190,8 +185,6 @@ class _ProxyFile(Generic[AnyStr]):
     def flush(self) -> None: ...
     @property
     def closed(self) -> bool: ...
-    if sys.version_info >= (3, 9):
-        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 class _PartialFile(_ProxyFile[AnyStr]):
     def __init__(self, f: IO[AnyStr], start: Optional[int] = ..., stop: Optional[int] = ...) -> None: ...
