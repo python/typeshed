@@ -124,4 +124,3 @@ if sys.platform == "linux":
     EPOLLWRNORM: int
     EPOLL_RDHUP: int
 
-if sys.platform != "linux" and sys.platform != "darwin" and sys.platform != "win32":
