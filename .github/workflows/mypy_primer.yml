@@ -8,13 +8,12 @@ on:
     paths:
     - 'stdlib/**'
 
-permissions:
-  contents: read
-
 jobs:
   mypy_primer:
     name: Run
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     strategy:
       matrix:
         shard-index: [0, 1]
