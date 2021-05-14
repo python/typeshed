@@ -28,7 +28,6 @@ from _weakref import (
     proxy as proxy,
     ref as ref,
 )
-
 from exceptions import ReferenceError as ReferenceError
 
 _S = TypeVar("_S")

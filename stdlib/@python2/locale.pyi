@@ -1,9 +1,9 @@
 import sys
-from decimal import Decimal
-from typing import Any, Callable, Dict, Iterable, List, Mapping, Optional, Sequence, Tuple, Union
 
 # workaround for mypy#2010
 from __builtin__ import str as _str
+from decimal import Decimal
+from typing import Any, Callable, Dict, Iterable, List, Mapping, Optional, Sequence, Tuple, Union
 
 CODESET: int
 D_T_FMT: int

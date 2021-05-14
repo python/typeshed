@@ -17,9 +17,21 @@ from _csv import (
     unregister_dialect as unregister_dialect,
     writer as writer,
 )
-from typing import Any, Generic, Iterable, Iterator, List, Mapping, Optional, Sequence, Text, Type, TypeVar, overload
-
-from typing import Dict as _DictReadMapping
+from typing import (
+    Any,
+    Dict as _DictReadMapping,
+    Generic,
+    Iterable,
+    Iterator,
+    List,
+    Mapping,
+    Optional,
+    Sequence,
+    Text,
+    Type,
+    TypeVar,
+    overload,
+)
 
 _T = TypeVar("_T")
 
