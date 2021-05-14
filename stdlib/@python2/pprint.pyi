@@ -1,18 +1,6 @@
 import sys
 from typing import IO, Any, Dict, Optional, Tuple
 
-if sys.version_info >= (3, 10):
-    def pformat(
-        object: object,
-        indent: int = ...,
-        width: int = ...,
-        depth: Optional[int] = ...,
-        *,
-        compact: bool = ...,
-        sort_dicts: bool = ...,
-        underscore_numbers: bool = ...,
-    ) -> str: ...
-
 elif sys.version_info >= (3, 8):
     def pformat(
         object: object,
@@ -32,19 +20,6 @@ elif sys.version_info >= (3, 4):
 else:
     def pformat(object: object, indent: int = ..., width: int = ..., depth: Optional[int] = ...) -> str: ...
 
-if sys.version_info >= (3, 10):
-    def pp(
-        object: object,
-        stream: Optional[IO[str]] = ...,
-        indent: int = ...,
-        width: int = ...,
-        depth: Optional[int] = ...,
-        *,
-        compact: bool = ...,
-        sort_dicts: bool = ...,
-        underscore_numbers: bool = ...,
-    ) -> None: ...
-
 elif sys.version_info >= (3, 8):
     def pp(
         object: object,
@@ -55,19 +30,6 @@ elif sys.version_info >= (3, 8):
         *,
         compact: bool = ...,
         sort_dicts: bool = ...,
-    ) -> None: ...
-
-if sys.version_info >= (3, 10):
-    def pprint(
-        object: object,
-        stream: Optional[IO[str]] = ...,
-        indent: int = ...,
-        width: int = ...,
-        depth: Optional[int] = ...,
-        *,
-        compact: bool = ...,
-        sort_dicts: bool = ...,
-        underscore_numbers: bool = ...,
     ) -> None: ...
 
 elif sys.version_info >= (3, 8):
@@ -103,18 +65,6 @@ def isrecursive(object: object) -> bool: ...
 def saferepr(object: object) -> str: ...
 
 class PrettyPrinter:
-    if sys.version_info >= (3, 10):
-        def __init__(
-            self,
-            indent: int = ...,
-            width: int = ...,
-            depth: Optional[int] = ...,
-            stream: Optional[IO[str]] = ...,
-            *,
-            compact: bool = ...,
-            sort_dicts: bool = ...,
-            underscore_numbers: bool = ...,
-        ) -> None: ...
     elif sys.version_info >= (3, 8):
         def __init__(
             self,

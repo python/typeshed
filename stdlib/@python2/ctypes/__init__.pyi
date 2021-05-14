@@ -19,9 +19,6 @@ from typing import (
     overload,
 )
 
-if sys.version_info >= (3, 9):
-    from types import GenericAlias
-
 _T = TypeVar("_T")
 _DLLT = TypeVar("_DLLT", bound=CDLL)
 _CT = TypeVar("_CT", bound=_CData)
@@ -36,25 +33,14 @@ class CDLL(object):
     _name: str = ...
     _handle: int = ...
     _FuncPtr: Type[_FuncPointer] = ...
-    if sys.version_info >= (3, 8):
-        def __init__(
-            self,
-            name: Optional[str],
-            mode: int = ...,
-            handle: Optional[int] = ...,
-            use_errno: bool = ...,
-            use_last_error: bool = ...,
-            winmode: Optional[int] = ...,
-        ) -> None: ...
-    else:
-        def __init__(
-            self,
-            name: Optional[str],
-            mode: int = ...,
-            handle: Optional[int] = ...,
-            use_errno: bool = ...,
-            use_last_error: bool = ...,
-        ) -> None: ...
+    def __init__(
+        self,
+        name: Optional[str],
+        mode: int = ...,
+        handle: Optional[int] = ...,
+        use_errno: bool = ...,
+        use_last_error: bool = ...,
+    ) -> None: ...
     def __getattr__(self, name: str) -> _NamedFuncPointer: ...
     def __getitem__(self, name: str) -> _NamedFuncPointer: ...
 
@@ -69,9 +55,6 @@ class LibraryLoader(Generic[_DLLT]):
     def __getattr__(self, name: str) -> _DLLT: ...
     def __getitem__(self, name: str) -> _DLLT: ...
     def LoadLibrary(self, name: str) -> _DLLT: ...
-    if sys.version_info >= (3, 9):
-        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
-
 cdll: LibraryLoader[CDLL] = ...
 if sys.platform == "win32":
     windll: LibraryLoader[WinDLL] = ...
@@ -201,8 +184,7 @@ class pointer(Generic[_CT], _PointerLike, _CData):
 
 def resize(obj: _CData, size: int) -> None: ...
 
-if sys.version_info < (3,):
-    def set_conversion_mode(encoding: str, errors: str) -> Tuple[str, str]: ...
+def set_conversion_mode(encoding: str, errors: str) -> Tuple[str, str]: ...
 
 def set_errno(value: int) -> int: ...
 
@@ -315,5 +297,3 @@ class Array(Generic[_CT], _CData):
     # Can't inherit from Sized because the metaclass conflict between
     # Sized and _CData prevents using _CDataMeta.
     def __len__(self) -> int: ...
-    if sys.version_info >= (3, 9):
-        def __class_getitem__(cls, item: Any) -> GenericAlias: ...

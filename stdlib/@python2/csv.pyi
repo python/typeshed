@@ -19,11 +19,7 @@ from _csv import (
 )
 from typing import Any, Generic, Iterable, Iterator, List, Mapping, Optional, Sequence, Text, Type, TypeVar, overload
 
-if sys.version_info >= (3, 8) or sys.version_info < (3, 6):
-    from typing import Dict as _DictReadMapping
-else:
-    from collections import OrderedDict as _DictReadMapping
-
+from typing import Dict as _DictReadMapping
 _T = TypeVar("_T")
 
 class excel(Dialect):
@@ -36,15 +32,6 @@ class excel(Dialect):
 
 class excel_tab(excel):
     delimiter: str
-
-if sys.version_info >= (3,):
-    class unix_dialect(Dialect):
-        delimiter: str
-        quotechar: str
-        doublequote: bool
-        skipinitialspace: bool
-        lineterminator: str
-        quoting: int
 
 class DictReader(Generic[_T], Iterator[_DictReadMapping[_T, str]]):
     fieldnames: Optional[Sequence[_T]]
@@ -76,10 +63,7 @@ class DictReader(Generic[_T], Iterator[_DictReadMapping[_T, str]]):
         **kwds: Any,
     ) -> None: ...
     def __iter__(self) -> DictReader[_T]: ...
-    if sys.version_info >= (3,):
-        def __next__(self) -> _DictReadMapping[_T, str]: ...
-    else:
-        def next(self) -> _DictReadMapping[_T, str]: ...
+    def next(self) -> _DictReadMapping[_T, str]: ...
 
 class DictWriter(Generic[_T]):
     fieldnames: Sequence[_T]
@@ -96,10 +80,7 @@ class DictWriter(Generic[_T]):
         *args: Any,
         **kwds: Any,
     ) -> None: ...
-    if sys.version_info >= (3, 8):
-        def writeheader(self) -> Any: ...
-    else:
-        def writeheader(self) -> None: ...
+    def writeheader(self) -> None: ...
     def writerow(self, rowdict: Mapping[_T, Any]) -> Any: ...
     def writerows(self, rowdicts: Iterable[Mapping[_T, Any]]) -> None: ...
 

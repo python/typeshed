@@ -11,9 +11,6 @@ _exc_info = Tuple[Optional[Type[BaseException]], Optional[BaseException], Option
 
 def format_date_time(timestamp: Optional[float]) -> str: ...  # undocumented
 
-if sys.version_info >= (3, 2):
-    def read_environ() -> Dict[str, str]: ...
-
 class BaseHandler:
     wsgi_version: Tuple[int, int]  # undocumented
     wsgi_multithread: bool

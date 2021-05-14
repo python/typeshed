@@ -2,21 +2,11 @@ import sys
 from _typeshed import SupportsRead
 from typing import IO, Any, Callable, Iterable, Iterator, List, NamedTuple, Optional, Tuple, Union
 
-if sys.version_info >= (3,):
-    from importlib.abc import Loader, MetaPathFinder, PathEntryFinder
-else:
-    Loader = Any
-    MetaPathFinder = Any
-    PathEntryFinder = Any
+Loader = Any
+MetaPathFinder = Any
+PathEntryFinder = Any
 
-if sys.version_info >= (3, 6):
-    class ModuleInfo(NamedTuple):
-        module_finder: Union[MetaPathFinder, PathEntryFinder]
-        name: str
-        ispkg: bool
-    _ModuleInfoLike = ModuleInfo
-else:
-    _ModuleInfoLike = Tuple[Union[MetaPathFinder, PathEntryFinder], str, bool]
+_ModuleInfoLike = Tuple[Union[MetaPathFinder, PathEntryFinder], str, bool]
 
 def extend_path(path: List[str], name: str) -> List[str]: ...
 
@@ -37,5 +27,3 @@ def walk_packages(
 ) -> Iterator[_ModuleInfoLike]: ...
 def get_data(package: str, resource: str) -> Optional[bytes]: ...
 
-if sys.version_info >= (3, 9):
-    def resolve_name(name: str) -> Any: ...

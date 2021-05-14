@@ -47,46 +47,12 @@ _parser_input_type = Union[bytes, Text]
 _str_argument_type = Union[str, Text]
 
 # Type for return values from individual tag/attr/text values
-if sys.version_info >= (3,):
-    # note: in python3, everything comes out as str, yay:
-    _str_result_type = str
-else:
-    # in python2, if the tag/attribute/text wasn't decode-able as ascii, it
-    # comes out as a unicode string; otherwise it comes out as str. (see
-    # _fixtext function in the source). Client code knows best:
-    _str_result_type = Any
+# in python2, if the tag/attribute/text wasn't decode-able as ascii, it
+# comes out as a unicode string; otherwise it comes out as str. (see
+# _fixtext function in the source). Client code knows best:
+_str_result_type = Any
 
 _file_or_filename = Union[AnyPath, FileDescriptor, IO[Any]]
-
-if sys.version_info >= (3, 8):
-    @overload
-    def canonicalize(
-        xml_data: Optional[_parser_input_type] = ...,
-        *,
-        out: None = ...,
-        from_file: Optional[_file_or_filename] = ...,
-        with_comments: bool = ...,
-        strip_text: bool = ...,
-        rewrite_prefixes: bool = ...,
-        qname_aware_tags: Optional[Iterable[str]] = ...,
-        qname_aware_attrs: Optional[Iterable[str]] = ...,
-        exclude_attrs: Optional[Iterable[str]] = ...,
-        exclude_tags: Optional[Iterable[str]] = ...,
-    ) -> str: ...
-    @overload
-    def canonicalize(
-        xml_data: Optional[_parser_input_type] = ...,
-        *,
-        out: SupportsWrite[str],
-        from_file: Optional[_file_or_filename] = ...,
-        with_comments: bool = ...,
-        strip_text: bool = ...,
-        rewrite_prefixes: bool = ...,
-        qname_aware_tags: Optional[Iterable[str]] = ...,
-        qname_aware_attrs: Optional[Iterable[str]] = ...,
-        exclude_attrs: Optional[Iterable[str]] = ...,
-        exclude_tags: Optional[Iterable[str]] = ...,
-    ) -> None: ...
 
 class Element(MutableSequence[Element]):
     tag: _str_result_type
@@ -123,10 +89,7 @@ class Element(MutableSequence[Element]):
     def get(self, key: _str_argument_type, default: None = ...) -> Optional[_str_result_type]: ...
     @overload
     def get(self, key: _str_argument_type, default: _T) -> Union[_str_result_type, _T]: ...
-    if sys.version_info >= (3, 2):
-        def insert(self, __index: int, __subelement: Element) -> None: ...
-    else:
-        def insert(self, __index: int, __element: Element) -> None: ...
+    def insert(self, __index: int, __element: Element) -> None: ...
     def items(self) -> ItemsView[_str_result_type, _str_result_type]: ...
     def iter(self, tag: Optional[_str_argument_type] = ...) -> Generator[Element, None, None]: ...
     def iterfind(
@@ -147,9 +110,8 @@ class Element(MutableSequence[Element]):
     def __setitem__(self, i: int, o: Element) -> None: ...
     @overload
     def __setitem__(self, s: slice, o: Iterable[Element]) -> None: ...
-    if sys.version_info < (3, 9):
-        def getchildren(self) -> List[Element]: ...
-        def getiterator(self, tag: Optional[_str_argument_type] = ...) -> List[Element]: ...
+    def getchildren(self) -> List[Element]: ...
+    def getiterator(self, tag: Optional[_str_argument_type] = ...) -> List[Element]: ...
 
 def SubElement(
     parent: Element,
@@ -171,8 +133,7 @@ class ElementTree:
     def getroot(self) -> Element: ...
     def parse(self, source: _file_or_filename, parser: Optional[XMLParser] = ...) -> Element: ...
     def iter(self, tag: Optional[_str_argument_type] = ...) -> Generator[Element, None, None]: ...
-    if sys.version_info < (3, 9):
-        def getiterator(self, tag: Optional[_str_argument_type] = ...) -> List[Element]: ...
+    def getiterator(self, tag: Optional[_str_argument_type] = ...) -> List[Element]: ...
     def find(
         self, path: _str_argument_type, namespaces: Optional[Dict[_str_argument_type, _str_argument_type]] = ...
     ) -> Optional[Element]: ...
@@ -193,91 +154,17 @@ class ElementTree:
     def iterfind(
         self, path: _str_argument_type, namespaces: Optional[Dict[_str_argument_type, _str_argument_type]] = ...
     ) -> Generator[Element, None, None]: ...
-    if sys.version_info >= (3, 4):
-        def write(
-            self,
-            file_or_filename: _file_or_filename,
-            encoding: Optional[str] = ...,
-            xml_declaration: Optional[bool] = ...,
-            default_namespace: Optional[_str_argument_type] = ...,
-            method: Optional[str] = ...,
-            *,
-            short_empty_elements: bool = ...,
-        ) -> None: ...
-    else:
-        def write(
-            self,
-            file_or_filename: _file_or_filename,
-            encoding: Optional[str] = ...,
-            xml_declaration: Optional[bool] = ...,
-            default_namespace: Optional[_str_argument_type] = ...,
-            method: Optional[str] = ...,
-        ) -> None: ...
+    def write(
+        self,
+        file_or_filename: _file_or_filename,
+        encoding: Optional[str] = ...,
+        xml_declaration: Optional[bool] = ...,
+        default_namespace: Optional[_str_argument_type] = ...,
+        method: Optional[str] = ...,
+    ) -> None: ...
     def write_c14n(self, file: _file_or_filename) -> None: ...
 
 def register_namespace(prefix: _str_argument_type, uri: _str_argument_type) -> None: ...
-
-if sys.version_info >= (3, 8):
-    @overload
-    def tostring(
-        element: Element,
-        encoding: None = ...,
-        method: Optional[str] = ...,
-        *,
-        xml_declaration: Optional[bool] = ...,
-        default_namespace: Optional[_str_argument_type] = ...,
-        short_empty_elements: bool = ...,
-    ) -> bytes: ...
-    @overload
-    def tostring(
-        element: Element,
-        encoding: Literal["unicode"],
-        method: Optional[str] = ...,
-        *,
-        xml_declaration: Optional[bool] = ...,
-        default_namespace: Optional[_str_argument_type] = ...,
-        short_empty_elements: bool = ...,
-    ) -> str: ...
-    @overload
-    def tostring(
-        element: Element,
-        encoding: str,
-        method: Optional[str] = ...,
-        *,
-        xml_declaration: Optional[bool] = ...,
-        default_namespace: Optional[_str_argument_type] = ...,
-        short_empty_elements: bool = ...,
-    ) -> Any: ...
-    @overload
-    def tostringlist(
-        element: Element,
-        encoding: None = ...,
-        method: Optional[str] = ...,
-        *,
-        xml_declaration: Optional[bool] = ...,
-        default_namespace: Optional[_str_argument_type] = ...,
-        short_empty_elements: bool = ...,
-    ) -> List[bytes]: ...
-    @overload
-    def tostringlist(
-        element: Element,
-        encoding: Literal["unicode"],
-        method: Optional[str] = ...,
-        *,
-        xml_declaration: Optional[bool] = ...,
-        default_namespace: Optional[_str_argument_type] = ...,
-        short_empty_elements: bool = ...,
-    ) -> List[str]: ...
-    @overload
-    def tostringlist(
-        element: Element,
-        encoding: str,
-        method: Optional[str] = ...,
-        *,
-        xml_declaration: Optional[bool] = ...,
-        default_namespace: Optional[_str_argument_type] = ...,
-        short_empty_elements: bool = ...,
-    ) -> List[Any]: ...
 
 elif sys.version_info >= (3,):
     @overload
@@ -309,20 +196,10 @@ else:
 
 def dump(elem: Element) -> None: ...
 
-if sys.version_info >= (3, 9):
-    def indent(tree: Union[Element, ElementTree], space: str = ..., level: int = ...) -> None: ...
-
 def parse(source: _file_or_filename, parser: Optional[XMLParser] = ...) -> ElementTree: ...
 def iterparse(
     source: _file_or_filename, events: Optional[Sequence[str]] = ..., parser: Optional[XMLParser] = ...
 ) -> Iterator[Tuple[str, Any]]: ...
-
-if sys.version_info >= (3, 4):
-    class XMLPullParser:
-        def __init__(self, events: Optional[Sequence[str]] = ..., *, _parser: Optional[XMLParser] = ...) -> None: ...
-        def feed(self, data: bytes) -> None: ...
-        def close(self) -> None: ...
-        def read_events(self) -> Iterator[Tuple[str, Element]]: ...
 
 def XML(text: _parser_input_type, parser: Optional[XMLParser] = ...) -> Element: ...
 def XMLID(text: _parser_input_type, parser: Optional[XMLParser] = ...) -> Tuple[Element, Dict[_str_result_type, Element]]: ...
@@ -350,31 +227,13 @@ class TreeBuilder:
     def start(self, __tag: _parser_input_type, __attrs: Dict[_parser_input_type, _parser_input_type]) -> Element: ...
     def end(self, __tag: _parser_input_type) -> Element: ...
 
-if sys.version_info >= (3, 8):
-    class C14NWriterTarget:
-        def __init__(
-            self,
-            write: Callable[[str], Any],
-            *,
-            with_comments: bool = ...,
-            strip_text: bool = ...,
-            rewrite_prefixes: bool = ...,
-            qname_aware_tags: Optional[Iterable[str]] = ...,
-            qname_aware_attrs: Optional[Iterable[str]] = ...,
-            exclude_attrs: Optional[Iterable[str]] = ...,
-            exclude_tags: Optional[Iterable[str]] = ...,
-        ) -> None: ...
-
 class XMLParser:
     parser: Any
     target: Any
     # TODO-what is entity used for???
     entity: Any
     version: str
-    if sys.version_info >= (3, 8):
-        def __init__(self, *, target: Any = ..., encoding: Optional[str] = ...) -> None: ...
-    else:
-        def __init__(self, html: int = ..., target: Any = ..., encoding: Optional[str] = ...) -> None: ...
-        def doctype(self, __name: str, __pubid: str, __system: str) -> None: ...
+    def __init__(self, html: int = ..., target: Any = ..., encoding: Optional[str] = ...) -> None: ...
+    def doctype(self, __name: str, __pubid: str, __system: str) -> None: ...
     def close(self) -> Any: ...
     def feed(self, __data: _parser_input_type) -> None: ...
