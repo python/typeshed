@@ -1,16 +1,16 @@
 import os
 import sys
-from _typeshed import AnyPath, SupportsLessThanT
-from typing import List, Sequence, Text, Tuple, Union, overload
+from _typeshed import AnyPath, BytesPath, StrPath, SupportsLessThanT
+from typing import List, Sequence, Tuple, Union, overload
 from typing_extensions import Literal
 
 # All overloads can return empty string. Ideally, Literal[""] would be a valid
 # Iterable[T], so that Union[List[T], Literal[""]] could be used as a return
 # type. But because this only works when T is str, we need Sequence[T] instead.
 @overload
-def commonprefix(m: Sequence[str]) -> str: ...
+def commonprefix(m: Sequence[StrPath]) -> str: ...  # type: ignore
 @overload
-def commonprefix(m: Sequence[Text]) -> Union[unicode, Literal[""]]: ...
+def commonprefix(m: Sequence[BytesPath]) -> Union[bytes, Literal[""]]: ...
 @overload
 def commonprefix(m: Sequence[List[SupportsLessThanT]]) -> Sequence[SupportsLessThanT]: ...
 @overload
