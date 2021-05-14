@@ -105,16 +105,16 @@ _VERSIONS_RE = re.compile(r"^([a-zA-Z_][a-zA-Z0-9_]*): [23]\.\d{1,2}-(?:[23]\.\d
 def check_versions():
     versions = set()
     with open("stdlib/VERSIONS") as f:
-        data = f.read().splitlines()
-    for line in data:
-        if not line or line.lstrip().startswith("#"):
-            continue
-        m = _VERSIONS_RE.match(line)
-        if not m:
-            raise AssertionError(f"Bad line in VERSIONS: {line}")
-        module = m.group(1)
-        assert module not in versions, f"Duplicate module {module} in VERSIONS"
-        versions.add(module)
+        for line in f:
+            line = line.split("#")[0].strip()
+            if line == "":
+                continue
+            m = _VERSIONS_RE.match(line)
+            if not m:
+                raise AssertionError(f"Bad line in VERSIONS: {line}")
+            module = m.group(1)
+            assert module not in versions, f"Duplicate module {module} in VERSIONS"
+            versions.add(module)
     modules = set()
     for entry in os.listdir("stdlib"):
         if entry == "@python2" or entry == "VERSIONS":

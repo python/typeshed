@@ -75,19 +75,19 @@ _VERSION_LINE_RE = re.compile(r"^([a-zA-Z_][a-zA-Z0-9_]*): ([23]\.\d{1,2})-([23]
 
 
 def parse_versions(fname):
-    with open(fname) as f:
-        data = f.read().splitlines()
     result = {}
-    for line in data:
-        # Allow having some comments or empty lines.
-        if not line.strip() or line.startswith("#"):
-            continue
-        m = _VERSION_LINE_RE.match(line)
-        assert m, "invalid VERSIONS line :" + line
-        mod = m.group(1)
-        min_version = parse_version(m.group(2))
-        max_version = parse_version(m.group(3)) if m.group(3) else (99, 99)
-        result[mod] = min_version, max_version
+    with open(fname) as f:
+        for line in f:
+            # Allow having some comments or empty lines.
+            line = line.split("#")[0].strip()
+            if line == "":
+                continue
+            m = _VERSION_LINE_RE.match(line)
+            assert m, "invalid VERSIONS line :" + line
+            mod = m.group(1)
+            min_version = parse_version(m.group(2))
+            max_version = parse_version(m.group(3)) if m.group(3) else (99, 99)
+            result[mod] = min_version, max_version
     return result
 
 

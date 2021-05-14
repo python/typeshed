@@ -45,7 +45,7 @@ _thread: 2.7-
 _threading_local: 3.6-
 _tkinter: 2.7-
 _tracemalloc: 3.6-
-_typeshed: 2.7-
+_typeshed: 2.7-  # not present at runtime, only for type checking
 _warnings: 2.7-
 _weakref: 2.7-
 _weakrefset: 2.7-
