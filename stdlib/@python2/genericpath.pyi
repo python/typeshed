@@ -10,7 +10,7 @@ from typing_extensions import Literal
 @overload
 def commonprefix(m: Sequence[StrPath]) -> str: ...  # type: ignore
 @overload
-def commonprefix(m: Sequence[BytesPath]) -> Union[bytes, Literal[""]]: ...
+def commonprefix(m: Sequence[BytesPath]) -> Union[bytes, Literal[""]]: ...  # type: ignore
 @overload
 def commonprefix(m: Sequence[List[SupportsLessThanT]]) -> Sequence[SupportsLessThanT]: ...
 @overload
