@@ -12,7 +12,6 @@ class PyCompileError(Exception):
 
 if sys.version_info >= (3, 7):
     import enum
-
     class PycInvalidationMode(enum.Enum):
         TIMESTAMP: int = ...
         CHECKED_HASH: int = ...

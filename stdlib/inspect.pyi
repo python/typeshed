@@ -167,6 +167,7 @@ if sys.version_info >= (3, 0):
 
         if sys.version_info >= (3, 8):
             description: str
+
 else:
     # TODO: This actually doesn't exist on Python 2
     _ParameterKind = int
