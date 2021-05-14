@@ -1,6 +1,5 @@
-import sys
 from array import array
-from typing import Any, Optional, Union
+from typing import Any, Union
 
 DEFLATED: int
 DEF_MEM_LEVEL: int

@@ -1,6 +1,5 @@
-import sys
 from _typeshed import SupportsRead
-from typing import IO, Any, Callable, Iterable, Iterator, List, NamedTuple, Optional, Tuple, Union
+from typing import IO, Any, Callable, Iterable, Iterator, List, Optional, Tuple, Union
 
 Loader = Any
 MetaPathFinder = Any

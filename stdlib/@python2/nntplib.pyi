@@ -1,7 +1,6 @@
 import datetime
 import socket
 import ssl
-import sys
 from typing import IO, Any, Dict, Iterable, List, NamedTuple, Optional, Tuple, TypeVar, Union
 
 _SelfT = TypeVar("_SelfT", bound=_NNTPBase)

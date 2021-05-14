@@ -1,6 +1,5 @@
-import sys
 from time import struct_time
-from typing import AnyStr, ClassVar, NamedTuple, Optional, SupportsAbs, Tuple, Type, TypeVar, Union, overload
+from typing import AnyStr, ClassVar, Optional, SupportsAbs, Tuple, Type, TypeVar, Union, overload
 
 _S = TypeVar("_S")
 

@@ -1,4 +1,3 @@
-import sys
 from typing import Dict, List, Optional, Sequence, Union
 
 class Class:

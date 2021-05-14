@@ -1,7 +1,5 @@
-import os
-import sys
 from types import CodeType, ModuleType
-from typing import Any, List, Optional, Tuple, Union
+from typing import Optional, Union
 
 class ZipImportError(ImportError): ...
 

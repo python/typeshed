@@ -1,6 +1,5 @@
 import asyncore
 import socket
-import sys
 from abc import abstractmethod
 from typing import Optional, Sequence, Tuple, Union
 

@@ -1,6 +1,3 @@
-import sys
-from typing import Dict
-
 XML_ERROR_ABORTED: str
 XML_ERROR_ASYNC_ENTITY: str
 XML_ERROR_ATTRIBUTE_EXTERNAL_ENTITY_REF: str

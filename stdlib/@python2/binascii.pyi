@@ -1,5 +1,4 @@
-import sys
-from typing import Text, Union
+from typing import Text
 
 # Python 2 accepts unicode ascii pretty much everywhere.
 _Bytes = Text

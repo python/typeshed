@@ -1,4 +1,3 @@
-import sys
 from typing import Any, Dict, List, Optional, Text
 
 _ModuleGlobals = Dict[str, Any]

@@ -1,4 +1,3 @@
-import sys
 from typing import Any, Optional, Text, Tuple
 
 # Because UUID has properties called int and bytes we need to rename these temporarily.

@@ -1,6 +1,5 @@
-import sys
 from _typeshed import AnyPath
-from typing import IO, Any, AnyStr, Callable, Generic, Iterable, Iterator, Optional, Union
+from typing import IO, Any, AnyStr, Callable, Generic, Iterable, Iterator, Union
 
 def input(
     files: Union[AnyPath, Iterable[AnyPath], None] = ...,

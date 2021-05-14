@@ -1,4 +1,3 @@
-import sys
 from typing import BinaryIO, Optional, Text, Union
 
 _File = Union[Text, BinaryIO]

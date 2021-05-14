@@ -1,5 +1,4 @@
 import email.message
-import sys
 from _typeshed import AnyPath
 from types import TracebackType
 from typing import (

@@ -1,6 +1,5 @@
-import sys
 from types import TracebackType
-from typing import IO, Any, Callable, ContextManager, Iterable, Iterator, Optional, Type, TypeVar, overload
+from typing import IO, Any, Callable, ContextManager, Iterable, Iterator, Optional, Type, TypeVar
 from typing_extensions import Protocol
 
 _T = TypeVar("_T")

@@ -14,7 +14,7 @@ from opcode import (
     opmap as opmap,
     opname as opname,
 )
-from typing import IO, Any, Callable, Dict, Iterator, List, NamedTuple, Optional, Tuple, Union
+from typing import Any, Callable, Dict, Iterator, List, Tuple, Union
 
 # Strictly this should not have to include Callable, but mypy doesn't use FunctionType
 # for functions (python/mypy#3171)

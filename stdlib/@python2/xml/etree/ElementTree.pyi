@@ -1,5 +1,4 @@
-import sys
-from _typeshed import AnyPath, FileDescriptor, SupportsWrite
+from _typeshed import AnyPath, FileDescriptor
 from typing import (
     IO,
     Any,
@@ -20,7 +19,6 @@ from typing import (
     Union,
     overload,
 )
-from typing_extensions import Literal
 
 VERSION: str
 

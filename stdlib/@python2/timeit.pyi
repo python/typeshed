@@ -1,5 +1,4 @@
-import sys
-from typing import IO, Any, Callable, Dict, List, Optional, Sequence, Text, Tuple, Union
+from typing import IO, Any, Callable, List, Optional, Sequence, Text, Union
 
 _str = Union[str, Text]
 _Timer = Callable[[], float]

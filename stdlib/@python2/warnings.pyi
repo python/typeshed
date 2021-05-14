@@ -1,6 +1,5 @@
-import sys
 from types import ModuleType, TracebackType
-from typing import Any, List, Optional, TextIO, Type, Union, overload
+from typing import List, Optional, TextIO, Type, Union, overload
 from typing_extensions import Literal
 
 from _warnings import warn as warn, warn_explicit as warn_explicit

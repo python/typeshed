@@ -1,4 +1,3 @@
-import sys
 from typing import Any, BinaryIO, Generic, Iterable, List, MutableSequence, Text, Tuple, TypeVar, Union, overload
 from typing_extensions import Literal
 

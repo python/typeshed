@@ -1,4 +1,3 @@
-import sys
 from typing import IO, Optional, Union
 
 _encodable = Union[bytes, unicode]

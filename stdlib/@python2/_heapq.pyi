@@ -1,4 +1,3 @@
-import sys
 from typing import Any, Callable, Iterable, List, Optional, TypeVar
 
 _T = TypeVar("_T")

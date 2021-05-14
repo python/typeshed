@@ -1,8 +1,7 @@
 import io
-import sys
 from _typeshed import AnyPath, ReadableBuffer, WriteableBuffer
-from typing import IO, Any, Iterable, List, Optional, TextIO, TypeVar, Union, overload
-from typing_extensions import Literal, SupportsIndex
+from typing import IO, Any, Iterable, List, Optional, TypeVar, Union
+from typing_extensions import SupportsIndex
 
 _PathOrFile = Union[AnyPath, IO[bytes]]
 _T = TypeVar("_T")

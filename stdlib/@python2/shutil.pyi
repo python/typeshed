@@ -1,22 +1,5 @@
-import os
-import sys
 from _typeshed import StrPath, SupportsRead, SupportsWrite
-from typing import (
-    Any,
-    AnyStr,
-    Callable,
-    Iterable,
-    List,
-    NamedTuple,
-    Optional,
-    Sequence,
-    Set,
-    Tuple,
-    Type,
-    TypeVar,
-    Union,
-    overload,
-)
+from typing import Any, AnyStr, Callable, Iterable, List, Optional, Sequence, Set, Tuple, Type, TypeVar, Union
 
 _AnyStr = TypeVar("_AnyStr", str, unicode)
 _AnyPath = TypeVar("_AnyPath", str, unicode)

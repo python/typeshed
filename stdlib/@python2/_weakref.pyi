@@ -1,4 +1,3 @@
-import sys
 from typing import Any, Callable, Generic, List, Optional, TypeVar, overload
 
 _C = TypeVar("_C", bound=Callable[..., Any])

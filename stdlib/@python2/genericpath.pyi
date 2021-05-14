@@ -1,5 +1,3 @@
-import os
-import sys
 from _typeshed import AnyPath, BytesPath, StrPath, SupportsLessThanT
 from typing import List, Sequence, Tuple, Union, overload
 from typing_extensions import Literal
