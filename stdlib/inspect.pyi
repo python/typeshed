@@ -1,4 +1,3 @@
-import enum
 import sys
 from collections import OrderedDict
 from types import CodeType, FrameType, FunctionType, MethodType, ModuleType, TracebackType
@@ -154,7 +153,7 @@ if sys.version_info >= (3, 10):
         eval_str: bool = ...,
     ) -> Dict[str, Any]: ...
 
-if sys.version_info >= (3, 0):
+if sys.version_info >= (3, 4):
     import enum
 
     # The name is the same as the enum's name in CPython
