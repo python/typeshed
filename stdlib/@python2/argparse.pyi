@@ -110,7 +110,6 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
     _positionals: _ArgumentGroup
     _optionals: _ArgumentGroup
     _subparsers: Optional[_ArgumentGroup]
-
     def __init__(
         self,
         prog: Optional[Text] = ...,
@@ -258,6 +257,7 @@ class Action(_AttributeHolder):
         values: Union[Text, Sequence[Any], None],
         option_string: Optional[Text] = ...,
     ) -> None: ...
+
 class Namespace(_AttributeHolder):
     def __init__(self, **kwargs: Any) -> None: ...
     def __getattr__(self, name: Text) -> Any: ...

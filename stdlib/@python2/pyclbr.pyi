@@ -8,7 +8,6 @@ class Class:
     methods: Dict[str, int]
     file: int
     lineno: int
-
     def __init__(self, module: str, name: str, super: Optional[List[Union[Class, str]]], file: str, lineno: int) -> None: ...
 
 class Function:
@@ -16,7 +15,6 @@ class Function:
     name: str
     file: int
     lineno: int
-
     def __init__(self, module: str, name: str, file: str, lineno: int) -> None: ...
 
 def readmodule(module: str, path: Optional[Sequence[str]] = ...) -> Dict[str, Class]: ...

@@ -28,7 +28,6 @@ class _reader(Iterator[List[str]]):
 
 class _writer:
     dialect: Dialect
-
     def writerow(self, row: Sequence[Any]) -> Any: ...
     def writerows(self, rows: Iterable[Sequence[Any]]) -> None: ...
 

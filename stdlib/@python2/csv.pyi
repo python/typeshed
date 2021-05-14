@@ -20,6 +20,7 @@ from _csv import (
 from typing import Any, Generic, Iterable, Iterator, List, Mapping, Optional, Sequence, Text, Type, TypeVar, overload
 
 from typing import Dict as _DictReadMapping
+
 _T = TypeVar("_T")
 
 class excel(Dialect):

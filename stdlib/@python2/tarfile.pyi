@@ -228,7 +228,6 @@ class TarFile(Iterable[TarInfo]):
     def close(self) -> None: ...
 
 def is_tarfile(name: AnyPath) -> bool: ...
-
 def filemode(mode: int) -> str: ...  # undocumented
 
 class TarFileCompat:

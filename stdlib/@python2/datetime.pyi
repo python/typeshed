@@ -60,7 +60,6 @@ class time:
     min: ClassVar[time]
     max: ClassVar[time]
     resolution: ClassVar[timedelta]
-
     def __init__(
         self, hour: int = ..., minute: int = ..., second: int = ..., microsecond: int = ..., tzinfo: Optional[_tzinfo] = ...
     ) -> None: ...
@@ -96,7 +95,6 @@ class timedelta(SupportsAbs[timedelta]):
     min: ClassVar[timedelta]
     max: ClassVar[timedelta]
     resolution: ClassVar[timedelta]
-
     def __init__(
         self,
         days: float = ...,
@@ -141,7 +139,6 @@ class datetime(date):
     min: ClassVar[datetime]
     max: ClassVar[datetime]
     resolution: ClassVar[timedelta]
-
     def __new__(
         cls: Type[_S],
         year: int,

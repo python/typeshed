@@ -30,7 +30,6 @@ class ModuleFinder:
     indent: int  # undocumented
     excludes: Container[str]  # undocumented
     replace_paths: Sequence[Tuple[str, str]]  # undocumented
-
     def __init__(
         self,
         path: Optional[List[str]] = ...,

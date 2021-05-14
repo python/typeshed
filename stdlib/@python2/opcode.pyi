@@ -14,4 +14,3 @@ opname: List[str]
 opmap: Dict[str, int]
 HAVE_ARGUMENT: int
 EXTENDED_ARG: int
-

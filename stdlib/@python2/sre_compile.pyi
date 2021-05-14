@@ -18,5 +18,6 @@ from typing import Any, List, Pattern, Tuple, Type, Union
 MAXCODE: int
 STRING_TYPES: Tuple[Type[str], Type[unicode]]
 _IsStringType = int
+
 def isstring(obj: Any) -> _IsStringType: ...
 def compile(p: Union[str, bytes, SubPattern], flags: int = ...) -> Pattern[Any]: ...

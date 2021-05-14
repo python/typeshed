@@ -123,4 +123,3 @@ if sys.platform == "linux":
     EPOLLWRBAND: int
     EPOLLWRNORM: int
     EPOLL_RDHUP: int
-

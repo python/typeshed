@@ -2,7 +2,6 @@ import sys
 from typing import Optional
 
 def version() -> str: ...
-
 def bootstrap(
     root: Optional[str] = ...,
     upgrade: bool = ...,

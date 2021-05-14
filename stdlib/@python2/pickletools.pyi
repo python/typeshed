@@ -6,6 +6,7 @@ _Reader = Callable[[IO[bytes]], Any]
 UP_TO_NEWLINE: int
 TAKEN_FROM_ARGUMENT1: int
 TAKEN_FROM_ARGUMENT4: int
+
 class ArgumentDescriptor(object):
     name: str
     n: int
@@ -119,7 +120,6 @@ opcodes: List[OpcodeInfo]
 
 def genops(pickle: Union[bytes, IO[bytes]]) -> Iterator[Tuple[OpcodeInfo, Optional[Any], Optional[int]]]: ...
 def optimize(p: Union[bytes, IO[bytes]]) -> bytes: ...
-
 def dis(
     pickle: Union[bytes, IO[bytes]],
     out: Optional[IO[str]] = ...,
