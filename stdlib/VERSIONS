@@ -1,5 +1,5 @@
 # The structure of this file is as follows:
-# - Blank lines and lines starting with `#` are ignored.
+# - Blank lines and comments starting with `#` are ignored.
 # - Lines contain the name of a top-level module, followed by a colon,
 #   a space, and a version range (for example: `symbol: 2.7-3.9`).
 #
