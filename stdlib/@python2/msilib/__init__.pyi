@@ -7,8 +7,7 @@ if sys.platform == "win32":
     from _msi import _Database
 
     AMD64: bool
-    if sys.version_info < (3, 7):
-        Itanium: bool
+    Itanium: bool
     Win64: bool
 
     datasizemask: Literal[0x00FF]
