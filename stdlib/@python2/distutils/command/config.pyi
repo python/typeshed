@@ -3,7 +3,7 @@ from distutils.ccompiler import CCompiler
 from distutils.core import Command as Command
 from distutils.errors import DistutilsExecError as DistutilsExecError
 from distutils.sysconfig import customize_compiler as customize_compiler
-from typing import Dict, List, Pattern, Sequence, Union
+from typing import Dict, List, Pattern, Sequence, Union, Tuple, Optional
 
 LANG_EXT: Dict[str, str]
 
