@@ -116,6 +116,8 @@ if sys.version_info >= (3, 10):
 
 elif sys.version_info >= (3, 4):
     def signature(obj: Callable[..., Any], *, follow_wrapped: bool = ...) -> Signature: ...
+
+if sys.version_info >= (3, 4):
     class Signature:
         def __init__(self, parameters: Optional[Sequence[Parameter]] = ..., *, return_annotation: Any = ...) -> None: ...
         # TODO: can we be more specific here?
