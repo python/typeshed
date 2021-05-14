@@ -114,35 +114,34 @@ if sys.version_info >= (3, 10):
         eval_str: bool = ...,
     ) -> Signature: ...
 
-else:
+elif sys.version_info >= (3, 4):
     def signature(obj: Callable[..., Any], *, follow_wrapped: bool = ...) -> Signature: ...
+    class Signature:
+        def __init__(self, parameters: Optional[Sequence[Parameter]] = ..., *, return_annotation: Any = ...) -> None: ...
+        # TODO: can we be more specific here?
+        empty: object = ...
 
-class Signature:
-    def __init__(self, parameters: Optional[Sequence[Parameter]] = ..., *, return_annotation: Any = ...) -> None: ...
-    # TODO: can we be more specific here?
-    empty: object = ...
+        parameters: Mapping[str, Parameter]
 
-    parameters: Mapping[str, Parameter]
-
-    # TODO: can we be more specific here?
-    return_annotation: Any
-    def bind(self, *args: Any, **kwargs: Any) -> BoundArguments: ...
-    def bind_partial(self, *args: Any, **kwargs: Any) -> BoundArguments: ...
-    def replace(self, *, parameters: Optional[Sequence[Parameter]] = ..., return_annotation: Any = ...) -> Signature: ...
-    if sys.version_info >= (3, 10):
-        @classmethod
-        def from_callable(
-            cls,
-            obj: Callable[..., Any],
-            *,
-            follow_wrapped: bool = ...,
-            globals: Optional[Mapping[str, Any]] = ...,
-            locals: Optional[Mapping[str, Any]] = ...,
-            eval_str: bool = ...,
-        ) -> Signature: ...
-    else:
-        @classmethod
-        def from_callable(cls, obj: Callable[..., Any], *, follow_wrapped: bool = ...) -> Signature: ...
+        # TODO: can we be more specific here?
+        return_annotation: Any
+        def bind(self, *args: Any, **kwargs: Any) -> BoundArguments: ...
+        def bind_partial(self, *args: Any, **kwargs: Any) -> BoundArguments: ...
+        def replace(self, *, parameters: Optional[Sequence[Parameter]] = ..., return_annotation: Any = ...) -> Signature: ...
+        if sys.version_info >= (3, 10):
+            @classmethod
+            def from_callable(
+                cls,
+                obj: Callable[..., Any],
+                *,
+                follow_wrapped: bool = ...,
+                globals: Optional[Mapping[str, Any]] = ...,
+                locals: Optional[Mapping[str, Any]] = ...,
+                eval_str: bool = ...,
+            ) -> Signature: ...
+        else:
+            @classmethod
+            def from_callable(cls, obj: Callable[..., Any], *, follow_wrapped: bool = ...) -> Signature: ...
 
 if sys.version_info >= (3, 10):
     def get_annotations(
@@ -166,35 +165,29 @@ if sys.version_info >= (3, 4):
 
         if sys.version_info >= (3, 8):
             description: str
+    class Parameter:
+        def __init__(self, name: str, kind: _ParameterKind, *, default: Any = ..., annotation: Any = ...) -> None: ...
+        empty: Any = ...
+        name: str
+        default: Any
+        annotation: Any
 
-else:
-    # TODO: This actually doesn't exist on Python 2
-    _ParameterKind = int
-
-class Parameter:
-    def __init__(self, name: str, kind: _ParameterKind, *, default: Any = ..., annotation: Any = ...) -> None: ...
-    empty: Any = ...
-    name: str
-    default: Any
-    annotation: Any
-
-    kind: _ParameterKind
-    POSITIONAL_ONLY: ClassVar[Literal[_ParameterKind.POSITIONAL_ONLY]]
-    POSITIONAL_OR_KEYWORD: ClassVar[Literal[_ParameterKind.POSITIONAL_OR_KEYWORD]]
-    VAR_POSITIONAL: ClassVar[Literal[_ParameterKind.VAR_POSITIONAL]]
-    KEYWORD_ONLY: ClassVar[Literal[_ParameterKind.KEYWORD_ONLY]]
-    VAR_KEYWORD: ClassVar[Literal[_ParameterKind.VAR_KEYWORD]]
-    def replace(
-        self, *, name: Optional[str] = ..., kind: Optional[_ParameterKind] = ..., default: Any = ..., annotation: Any = ...
-    ) -> Parameter: ...
-
-class BoundArguments:
-    arguments: OrderedDict[str, Any]
-    args: Tuple[Any, ...]
-    kwargs: Dict[str, Any]
-    signature: Signature
-    def __init__(self, signature: Signature, arguments: OrderedDict[str, Any]) -> None: ...
-    def apply_defaults(self) -> None: ...
+        kind: _ParameterKind
+        POSITIONAL_ONLY: ClassVar[Literal[_ParameterKind.POSITIONAL_ONLY]]
+        POSITIONAL_OR_KEYWORD: ClassVar[Literal[_ParameterKind.POSITIONAL_OR_KEYWORD]]
+        VAR_POSITIONAL: ClassVar[Literal[_ParameterKind.VAR_POSITIONAL]]
+        KEYWORD_ONLY: ClassVar[Literal[_ParameterKind.KEYWORD_ONLY]]
+        VAR_KEYWORD: ClassVar[Literal[_ParameterKind.VAR_KEYWORD]]
+        def replace(
+            self, *, name: Optional[str] = ..., kind: Optional[_ParameterKind] = ..., default: Any = ..., annotation: Any = ...
+        ) -> Parameter: ...
+    class BoundArguments:
+        arguments: OrderedDict[str, Any]
+        args: Tuple[Any, ...]
+        kwargs: Dict[str, Any]
+        signature: Signature
+        def __init__(self, signature: Signature, arguments: OrderedDict[str, Any]) -> None: ...
+        def apply_defaults(self) -> None: ...
 
 #
 # Classes and functions
