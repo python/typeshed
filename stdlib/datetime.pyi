@@ -1,11 +1,10 @@
 import sys
 from time import struct_time
-from typing import AnyStr, ClassVar, NamedTuple, Optional, SupportsAbs, Tuple, Type, TypeVar, Union, overload
+from typing import ClassVar, NamedTuple, Optional, SupportsAbs, Tuple, Type, TypeVar, overload
 
 _S = TypeVar("_S")
 
 _Text = str
-
 MINYEAR: int
 MAXYEAR: int
 

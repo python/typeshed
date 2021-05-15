@@ -1,5 +1,5 @@
 from _typeshed import AnyPath
-from typing import NamedTuple, Optional, Tuple, Union
+from typing import NamedTuple, Optional, Union
 
 class SndHeaders(NamedTuple):
     filetype: str

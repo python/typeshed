@@ -37,6 +37,14 @@ class excel(Dialect):
 class excel_tab(excel):
     delimiter: str
 
+class unix_dialect(Dialect):
+    delimiter: str
+    quotechar: str
+    doublequote: bool
+    skipinitialspace: bool
+    lineterminator: str
+    quoting: int
+
 class DictReader(Generic[_T], Iterator[_DictReadMapping[_T, str]]):
     fieldnames: Optional[Sequence[_T]]
     restkey: Optional[str]

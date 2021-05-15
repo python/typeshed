@@ -1,5 +1,5 @@
 import sys
-from typing import IO, Any, NamedTuple, NoReturn, Optional, Text, Tuple, Union
+from typing import IO, Any, NamedTuple, NoReturn, Optional, Text, Union
 
 _File = Union[Text, IO[bytes]]
 

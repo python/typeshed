@@ -16,7 +16,7 @@ import array
 import mmap
 import sys
 from os import PathLike
-from typing import AbstractSet, Any, Container, Iterable, Protocol, Text, Tuple, TypeVar, Union
+from typing import AbstractSet, Any, Container, Iterable, Protocol, Tuple, TypeVar, Union
 from typing_extensions import Literal, final
 
 _KT = TypeVar("_KT")

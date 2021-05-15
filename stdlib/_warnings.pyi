@@ -2,7 +2,6 @@ from typing import Any, Dict, List, Optional, Tuple, Type, Union, overload
 
 _defaultaction: str
 _onceregistry: Dict[Any, Any]
-
 filters: List[Tuple[Any, ...]]
 
 @overload

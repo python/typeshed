@@ -1,4 +1,3 @@
-import sys
 from _typeshed import SupportsWrite
 from reprlib import Repr
 from types import MethodType, ModuleType, TracebackType

@@ -7,7 +7,6 @@ from typing import (
     AsyncIterator,
     Callable,
     ContextManager,
-    Iterable,
     Iterator,
     Optional,
     Type,

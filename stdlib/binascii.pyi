@@ -1,5 +1,5 @@
 import sys
-from typing import Text, Union
+from typing import Union
 
 # Since Python 3.3 ASCII-only unicode strings are accepted by the
 # a2b_* functions.
