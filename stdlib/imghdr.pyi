@@ -7,11 +7,7 @@ class _ReadableBinary(Protocol):
     def read(self, size: int) -> bytes: ...
     def seek(self, offset: int) -> Any: ...
 
-if sys.version_info >= (3, 6):
-    _File = Union[Text, os.PathLike[Text], _ReadableBinary]
-else:
-    _File = Union[Text, _ReadableBinary]
-
+_File = Union[Text, os.PathLike[Text], _ReadableBinary]
 @overload
 def what(file: _File, h: None = ...) -> Optional[str]: ...
 @overload

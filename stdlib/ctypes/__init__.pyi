@@ -201,9 +201,6 @@ class pointer(Generic[_CT], _PointerLike, _CData):
 
 def resize(obj: _CData, size: int) -> None: ...
 
-if sys.version_info < (3,):
-    def set_conversion_mode(encoding: str, errors: str) -> Tuple[str, str]: ...
-
 def set_errno(value: int) -> int: ...
 
 if sys.platform == "win32":

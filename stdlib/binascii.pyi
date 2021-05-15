@@ -1,16 +1,10 @@
 import sys
 from typing import Text, Union
 
-if sys.version_info >= (3, 0):
-    # But since Python 3.3 ASCII-only unicode strings are accepted by the
-    # a2b_* functions.
-    _Bytes = bytes
-    _Ascii = Union[bytes, str]
-else:
-    # Python 2 accepts unicode ascii pretty much everywhere.
-    _Bytes = Text
-    _Ascii = Text
-
+# But since Python 3.3 ASCII-only unicode strings are accepted by the
+# a2b_* functions.
+_Bytes = bytes
+_Ascii = Union[bytes, str]
 def a2b_uu(__data: _Ascii) -> bytes: ...
 
 if sys.version_info >= (3, 7):
@@ -21,11 +15,7 @@ else:
 
 def a2b_base64(__data: _Ascii) -> bytes: ...
 
-if sys.version_info >= (3, 6):
-    def b2a_base64(__data: _Bytes, *, newline: bool = ...) -> bytes: ...
-
-else:
-    def b2a_base64(__data: _Bytes) -> bytes: ...
+def b2a_base64(__data: _Bytes, *, newline: bool = ...) -> bytes: ...
 
 def a2b_qp(data: _Ascii, header: bool = ...) -> bytes: ...
 def b2a_qp(data: _Bytes, quotetabs: bool = ..., istext: bool = ..., header: bool = ...) -> bytes: ...

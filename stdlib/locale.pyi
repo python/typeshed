@@ -3,11 +3,7 @@ from decimal import Decimal
 from typing import Any, Callable, Dict, Iterable, List, Mapping, Optional, Sequence, Tuple, Union
 
 # workaround for mypy#2010
-if sys.version_info >= (3, 0):
-    from builtins import str as _str
-else:
-    from __builtin__ import str as _str
-
+from builtins import str as _str
 CODESET: int
 D_T_FMT: int
 D_FMT: int
@@ -99,8 +95,7 @@ else:
 
 def currency(val: Union[int, float, Decimal], symbol: bool = ..., grouping: bool = ..., international: bool = ...) -> _str: ...
 
-if sys.version_info >= (3, 5):
-    def delocalize(string: _str) -> _str: ...
+def delocalize(string: _str) -> _str: ...
 
 def atof(string: _str, func: Callable[[_str], float] = ...) -> float: ...
 def atoi(string: _str) -> int: ...

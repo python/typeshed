@@ -24,11 +24,7 @@ _T = TypeVar("_T")
 _ActionT = TypeVar("_ActionT", bound=Action)
 _N = TypeVar("_N")
 
-if sys.version_info >= (3,):
-    _Text = str
-else:
-    _Text = Union[str, unicode]
-
+_Text = str
 ONE_OR_MORE: str
 OPTIONAL: str
 PARSER: str
@@ -109,8 +105,7 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
     fromfile_prefix_chars: Optional[_Text]
     add_help: bool
 
-    if sys.version_info >= (3, 5):
-        allow_abbrev: bool
+    allow_abbrev: bool
 
     # undocumented
     _positionals: _ArgumentGroup
@@ -134,7 +129,7 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
             allow_abbrev: bool = ...,
             exit_on_error: bool = ...,
         ) -> None: ...
-    elif sys.version_info >= (3, 5):
+    else:
         def __init__(
             self,
             prog: Optional[str] = ...,
@@ -149,21 +144,6 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
             conflict_handler: str = ...,
             add_help: bool = ...,
             allow_abbrev: bool = ...,
-        ) -> None: ...
-    else:
-        def __init__(
-            self,
-            prog: Optional[Text] = ...,
-            usage: Optional[Text] = ...,
-            description: Optional[Text] = ...,
-            epilog: Optional[Text] = ...,
-            parents: Sequence[ArgumentParser] = ...,
-            formatter_class: _FormatterClass = ...,
-            prefix_chars: Text = ...,
-            fromfile_prefix_chars: Optional[Text] = ...,
-            argument_default: Any = ...,
-            conflict_handler: Text = ...,
-            add_help: bool = ...,
         ) -> None: ...
     # The type-ignores in these overloads should be temporary.  See:
     # https://github.com/python/typeshed/pull/2643#issuecomment-442280277
@@ -290,8 +270,7 @@ class RawDescriptionHelpFormatter(HelpFormatter): ...
 class RawTextHelpFormatter(RawDescriptionHelpFormatter): ...
 class ArgumentDefaultsHelpFormatter(HelpFormatter): ...
 
-if sys.version_info >= (3,):
-    class MetavarTypeHelpFormatter(HelpFormatter): ...
+class MetavarTypeHelpFormatter(HelpFormatter): ...
 
 class Action(_AttributeHolder):
     option_strings: Sequence[_Text]
@@ -351,14 +330,11 @@ class FileType:
     # undocumented
     _mode: _Text
     _bufsize: int
-    if sys.version_info >= (3,):
-        _encoding: Optional[str]
-        _errors: Optional[str]
-        def __init__(
-            self, mode: str = ..., bufsize: int = ..., encoding: Optional[str] = ..., errors: Optional[str] = ...
-        ) -> None: ...
-    else:
-        def __init__(self, mode: Text = ..., bufsize: Optional[int] = ...) -> None: ...
+    _encoding: Optional[str]
+    _errors: Optional[str]
+    def __init__(
+        self, mode: str = ..., bufsize: int = ..., encoding: Optional[str] = ..., errors: Optional[str] = ...
+    ) -> None: ...
     def __call__(self, string: Text) -> IO[Any]: ...
 
 # undocumented

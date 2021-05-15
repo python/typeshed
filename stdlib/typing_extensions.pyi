@@ -55,15 +55,9 @@ class _TypedDict(Mapping[str, object], metaclass=abc.ABCMeta):
     # Mypy plugin hook for 'pop' expects that 'default' has a type variable type.
     def pop(self, k: NoReturn, default: _T = ...) -> object: ...  # type: ignore
     def update(self: _T, __m: _T) -> None: ...
-    if sys.version_info >= (3, 0):
-        def items(self) -> ItemsView[str, object]: ...
-        def keys(self) -> KeysView[str]: ...
-        def values(self) -> ValuesView[object]: ...
-    else:
-        def has_key(self, k: str) -> bool: ...
-        def viewitems(self) -> ItemsView[str, object]: ...
-        def viewkeys(self) -> KeysView[str]: ...
-        def viewvalues(self) -> ValuesView[object]: ...
+    def items(self) -> ItemsView[str, object]: ...
+    def keys(self) -> KeysView[str]: ...
+    def values(self) -> ValuesView[object]: ...
     def __delitem__(self, k: NoReturn) -> None: ...
 
 # TypedDict is a (non-subscriptable) special form.
@@ -71,20 +65,17 @@ TypedDict: object = ...
 
 OrderedDict = _Alias()
 
-if sys.version_info >= (3, 3):
-    from typing import ChainMap as ChainMap
+from typing import ChainMap as ChainMap
 
-if sys.version_info >= (3, 5):
-    from typing import (
-        AsyncContextManager as AsyncContextManager,
-        AsyncIterable as AsyncIterable,
-        AsyncIterator as AsyncIterator,
-        Awaitable as Awaitable,
-        Coroutine as Coroutine,
-    )
+from typing import (
+    AsyncContextManager as AsyncContextManager,
+    AsyncIterable as AsyncIterable,
+    AsyncIterator as AsyncIterator,
+    Awaitable as Awaitable,
+    Coroutine as Coroutine,
+)
 
-if sys.version_info >= (3, 6):
-    from typing import AsyncGenerator as AsyncGenerator
+from typing import AsyncGenerator as AsyncGenerator
 
 def get_type_hints(
     obj: Callable[..., Any],
