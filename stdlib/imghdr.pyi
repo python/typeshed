@@ -1,4 +1,3 @@
-import os
 from _typeshed import StrPath
 from typing import Any, BinaryIO, Callable, List, Optional, Protocol, Union, overload
 
