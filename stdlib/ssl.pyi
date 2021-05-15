@@ -12,8 +12,7 @@ _PeerCertRetType = Union[_PeerCertRetDictType, bytes, None]
 _EnumRetType = List[Tuple[bytes, str, Union[Set[str], bool]]]
 _PasswordType = Union[Callable[[], Union[str, bytes]], str, bytes]
 
-_SC1ArgT = Union[SSLSocket, SSLObject]
-_SrvnmeCbType = Callable[[_SC1ArgT, Optional[str], SSLSocket], Optional[int]]
+_SrvnmeCbType = Callable[[Union[SSLSocket, SSLObject], Optional[str], SSLSocket], Optional[int]]
 
 class SSLError(OSError):
     library: str

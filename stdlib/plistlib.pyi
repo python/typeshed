@@ -1,6 +1,6 @@
 import sys
 from enum import Enum
-from typing import IO, Any, Dict as DictT, Mapping, MutableMapping, Optional, Text, Type, Union
+from typing import IO, Any, Dict as DictT, Mapping, MutableMapping, Optional, Type, Union
 
 class PlistFormat(Enum):
     FMT_XML: int
@@ -8,8 +8,6 @@ class PlistFormat(Enum):
 
 FMT_XML = PlistFormat.FMT_XML
 FMT_BINARY = PlistFormat.FMT_BINARY
-
-_Path = Union[str, Text]
 
 if sys.version_info >= (3, 9):
     def load(fp: IO[bytes], *, fmt: Optional[PlistFormat] = ..., dict_type: Type[MutableMapping[str, Any]] = ...) -> Any: ...
@@ -37,8 +35,8 @@ def dump(
 def dumps(value: Mapping[str, Any], *, fmt: PlistFormat = ..., skipkeys: bool = ..., sort_keys: bool = ...) -> bytes: ...
 
 if sys.version_info < (3, 9):
-    def readPlist(pathOrFile: Union[_Path, IO[bytes]]) -> Any: ...
-    def writePlist(value: Mapping[str, Any], pathOrFile: Union[_Path, IO[bytes]]) -> None: ...
+    def readPlist(pathOrFile: Union[str, IO[bytes]]) -> Any: ...
+    def writePlist(value: Mapping[str, Any], pathOrFile: Union[str, IO[bytes]]) -> None: ...
     def readPlistFromBytes(data: bytes) -> Any: ...
     def writePlistToBytes(value: Mapping[str, Any]) -> bytes: ...
 

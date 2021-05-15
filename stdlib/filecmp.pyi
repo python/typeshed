@@ -1,15 +1,14 @@
 import sys
+from _typeshed import AnyPath
 from os import PathLike
-from typing import Any, AnyStr, Callable, Dict, Generic, Iterable, List, Optional, Sequence, Text, Tuple, Union
+from typing import Any, AnyStr, Callable, Dict, Generic, Iterable, List, Optional, Sequence, Tuple, Union
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
 
 DEFAULT_IGNORES: List[str]
 
-def cmp(
-    f1: Union[bytes, Text, PathLike[AnyStr]], f2: Union[bytes, Text, PathLike[AnyStr]], shallow: Union[int, bool] = ...
-) -> bool: ...
+def cmp(f1: AnyPath, f2: AnyPath, shallow: Union[int, bool] = ...) -> bool: ...
 def cmpfiles(
     a: Union[AnyStr, PathLike[AnyStr]],
     b: Union[AnyStr, PathLike[AnyStr]],
