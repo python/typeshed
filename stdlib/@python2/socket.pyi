@@ -31,10 +31,6 @@ SOCK_RAW: SocketKind
 SOCK_RDM: SocketKind
 SOCK_SEQPACKET: SocketKind
 
-if sys.platform == "linux" and sys.version_info >= (3,):
-    SOCK_CLOEXEC: SocketKind
-    SOCK_NONBLOCK: SocketKind
-
 # Address families not mentioned in the docs
 AF_AAL5: AddressFamily
 AF_APPLETALK: AddressFamily
@@ -261,88 +257,6 @@ TCP_SYNCNT: int
 TCP_WINDOW_CLAMP: int
 # Specifically-documented constants
 
-if sys.platform == "linux" and sys.version_info >= (3,):
-    AF_CAN: AddressFamily
-    PF_CAN: int
-    SOL_CAN_BASE: int
-    SOL_CAN_RAW: int
-    CAN_EFF_FLAG: int
-    CAN_EFF_MASK: int
-    CAN_ERR_FLAG: int
-    CAN_ERR_MASK: int
-    CAN_RAW: int
-    CAN_RAW_ERR_FILTER: int
-    CAN_RAW_FILTER: int
-    CAN_RAW_LOOPBACK: int
-    CAN_RAW_RECV_OWN_MSGS: int
-    CAN_RTR_FLAG: int
-    CAN_SFF_MASK: int
-
-    CAN_BCM: int
-    CAN_BCM_TX_SETUP: int
-    CAN_BCM_TX_DELETE: int
-    CAN_BCM_TX_READ: int
-    CAN_BCM_TX_SEND: int
-    CAN_BCM_RX_SETUP: int
-    CAN_BCM_RX_DELETE: int
-    CAN_BCM_RX_READ: int
-    CAN_BCM_TX_STATUS: int
-    CAN_BCM_TX_EXPIRED: int
-    CAN_BCM_RX_STATUS: int
-    CAN_BCM_RX_TIMEOUT: int
-    CAN_BCM_RX_CHANGED: int
-
-    CAN_RAW_FD_FRAMES: int
-
-if sys.platform == "linux" and sys.version_info >= (3, 8):
-    CAN_BCM_SETTIMER: int
-    CAN_BCM_STARTTIMER: int
-    CAN_BCM_TX_COUNTEVT: int
-    CAN_BCM_TX_ANNOUNCE: int
-    CAN_BCM_TX_CP_CAN_ID: int
-    CAN_BCM_RX_FILTER_ID: int
-    CAN_BCM_RX_CHECK_DLC: int
-    CAN_BCM_RX_NO_AUTOTIMER: int
-    CAN_BCM_RX_ANNOUNCE_RESUME: int
-    CAN_BCM_TX_RESET_MULTI_IDX: int
-    CAN_BCM_RX_RTR_FRAME: int
-    CAN_BCM_CAN_FD_FRAME: int
-
-if sys.platform == "linux" and sys.version_info >= (3, 7):
-    CAN_ISOTP: int
-
-if sys.platform == "linux" and sys.version_info >= (3, 9):
-    CAN_J1939: int
-
-    J1939_MAX_UNICAST_ADDR: int
-    J1939_IDLE_ADDR: int
-    J1939_NO_ADDR: int
-    J1939_NO_NAME: int
-    J1939_PGN_REQUEST: int
-    J1939_PGN_ADDRESS_CLAIMED: int
-    J1939_PGN_ADDRESS_COMMANDED: int
-    J1939_PGN_PDU1_MAX: int
-    J1939_PGN_MAX: int
-    J1939_NO_PGN: int
-
-    SO_J1939_FILTER: int
-    SO_J1939_PROMISC: int
-    SO_J1939_SEND_PRIO: int
-    SO_J1939_ERRQUEUE: int
-
-    SCM_J1939_DEST_ADDR: int
-    SCM_J1939_DEST_NAME: int
-    SCM_J1939_PRIO: int
-    SCM_J1939_ERRQUEUE: int
-
-    J1939_NLA_PAD: int
-    J1939_NLA_BYTES_ACKED: int
-
-    J1939_EE_INFO_NONE: int
-    J1939_EE_INFO_TX_ABORT: int
-
-    J1939_FILTER_MAX: int
-
 if sys.platform == "linux":
     AF_PACKET: AddressFamily
     PF_PACKET: int
@@ -353,29 +267,6 @@ if sys.platform == "linux":
     PACKET_MULTICAST: int
     PACKET_OTHERHOST: int
     PACKET_OUTGOING: int
-
-if sys.platform == "linux" and sys.version_info >= (3,):
-    AF_RDS: AddressFamily
-    PF_RDS: int
-    SOL_RDS: int
-    RDS_CANCEL_SENT_TO: int
-    RDS_CMSG_RDMA_ARGS: int
-    RDS_CMSG_RDMA_DEST: int
-    RDS_CMSG_RDMA_MAP: int
-    RDS_CMSG_RDMA_STATUS: int
-    RDS_CMSG_RDMA_UPDATE: int
-    RDS_CONG_MONITOR: int
-    RDS_FREE_MR: int
-    RDS_GET_MR: int
-    RDS_GET_MR_FOR_DEST: int
-    RDS_RDMA_DONTWAIT: int
-    RDS_RDMA_FENCE: int
-    RDS_RDMA_INVALIDATE: int
-    RDS_RDMA_NOTIFY_ME: int
-    RDS_RDMA_READWRITE: int
-    RDS_RDMA_SILENT: int
-    RDS_RDMA_USE_ONCE: int
-    RDS_RECVERR: int
 
 if sys.platform == "win32":
     SIO_RCVALL: int
@@ -413,37 +304,7 @@ if sys.platform == "linux":
     TIPC_WITHDRAWN: int
     TIPC_ZONE_SCOPE: int
 
-if sys.platform == "linux" and sys.version_info >= (3, 6):
-    AF_ALG: AddressFamily
-    SOL_ALG: int
-    ALG_OP_DECRYPT: int
-    ALG_OP_ENCRYPT: int
-    ALG_OP_SIGN: int
-    ALG_OP_VERIFY: int
-    ALG_SET_AEAD_ASSOCLEN: int
-    ALG_SET_AEAD_AUTHSIZE: int
-    ALG_SET_IV: int
-    ALG_SET_KEY: int
-    ALG_SET_OP: int
-    ALG_SET_PUBKEY: int
-
-if sys.platform == "linux" and sys.version_info >= (3, 7):
-    AF_VSOCK: AddressFamily
-    IOCTL_VM_SOCKETS_GET_LOCAL_CID: int
-    VMADDR_CID_ANY: int
-    VMADDR_CID_HOST: int
-    VMADDR_PORT_ANY: int
-    SO_VM_SOCKETS_BUFFER_MAX_SIZE: int
-    SO_VM_SOCKETS_BUFFER_SIZE: int
-    SO_VM_SOCKETS_BUFFER_MIN_SIZE: int
-    VM_SOCKETS_INVALID_VERSION: int
-
 AF_LINK: AddressFamily  # Availability: BSD, macOS
-
-# BDADDR_* and HCI_* listed with other bluetooth constants below
-
-if sys.platform == "linux" and sys.version_info >= (3, 8):
-    AF_QIPCRTR: AddressFamily
 
 # Semi-documented constants
 # (Listed under "Socket families" in the docs, but not "Constants")
@@ -542,9 +403,7 @@ class socket:
     @overload
     def getsockopt(self, level: int, optname: int, buflen: int) -> bytes: ...
     def gettimeout(self) -> Optional[float]: ...
-    if sys.platform == "win32" and sys.version_info >= (3, 6):
-        def ioctl(self, control: int, option: Union[int, Tuple[int, int, int], bool]) -> None: ...
-    elif sys.platform == "win32":
+    if sys.platform == "win32":
         def ioctl(self, control: int, option: Union[int, Tuple[int, int, int]]) -> None: ...
     def listen(self, __backlog: int) -> None: ...
     # Note that the makefile's documented windows-specific behavior is not represented
@@ -559,10 +418,6 @@ class socket:
     def sendto(self, data: bytes, address: _Address) -> int: ...
     @overload
     def sendto(self, data: bytes, flags: int, address: _Address) -> int: ...
-    if sys.platform == "linux" and sys.version_info >= (3, 6):
-        def sendmsg_afalg(
-            self, msg: Iterable[bytes] = ..., *, op: int, iv: Any = ..., assoclen: int = ..., flags: int = ...
-        ) -> int: ...
     def setblocking(self, flag: bool) -> None: ...
     def settimeout(self, value: Optional[float]) -> None: ...
     def setsockopt(self, level: int, optname: int, value: Union[int, bytes]) -> None: ...
@@ -578,9 +433,6 @@ def create_connection(
     source_address: Optional[Tuple[Union[bytearray, bytes, Text], int]] = ...,
 ) -> socket: ...
 def fromfd(fd: int, family: int, type: int, proto: int = ...) -> socket: ...
-
-if sys.platform == "win32" and sys.version_info >= (3, 3):
-    def fromshare(info: bytes) -> socket: ...
 
 # the 5th tuple item is an address
 def getaddrinfo(
