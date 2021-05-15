@@ -1,3 +1,1 @@
-import sys
-
 def geohash(latitude: float, longitude: float, datedow: bytes) -> None: ...

@@ -1,4 +1,3 @@
-import sys
 from typing import Dict, Text
 
 ENDMARKER: int

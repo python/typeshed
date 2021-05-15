@@ -1,4 +1,3 @@
-import sys
 from abc import abstractmethod
 from types import TracebackType
 from typing import IO, Callable, Dict, List, MutableMapping, Optional, Text, Tuple, Type

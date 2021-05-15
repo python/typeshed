@@ -1,4 +1,3 @@
-import sys
 import types
 import unittest
 from typing import Any, Callable, Dict, List, NamedTuple, Optional, Tuple, Type, Union

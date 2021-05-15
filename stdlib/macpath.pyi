@@ -1,4 +1,3 @@
-import sys
 from _typeshed import AnyPath, BytesPath, StrPath
 from genericpath import (
     commonprefix as commonprefix,

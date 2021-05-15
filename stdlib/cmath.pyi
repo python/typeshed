@@ -1,4 +1,3 @@
-import sys
 from typing import SupportsComplex, SupportsFloat, Tuple, Union
 
 e: float

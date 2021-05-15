@@ -1,4 +1,3 @@
-import sys
 from typing import IO, Any, Callable, Dict, List, Optional, Sequence, Text, Tuple, Union
 
 _str = Union[str, Text]

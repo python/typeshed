@@ -1,4 +1,3 @@
-import sys
 from array import array
 from typing import Any, Optional, Union
 

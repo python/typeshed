@@ -1,5 +1,4 @@
 import os
-import sys
 from typing import Any, BinaryIO, Callable, List, Optional, Protocol, Text, Union, overload
 
 class _ReadableBinary(Protocol):

@@ -1,4 +1,3 @@
-import sys
 from typing import Tuple
 
 # Actually Tuple[(int,) * 625]

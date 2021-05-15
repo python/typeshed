@@ -1,4 +1,3 @@
-import sys
 from typing import Callable, Iterable, Tuple, Union
 
 _Reader = Callable[[int], bytes]

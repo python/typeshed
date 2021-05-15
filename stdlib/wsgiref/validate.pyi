@@ -1,4 +1,3 @@
-import sys
 from _typeshed.wsgi import ErrorStream, InputStream, WSGIApplication
 from typing import Any, Callable, Iterable, Iterator, NoReturn, Optional
 

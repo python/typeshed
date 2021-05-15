@@ -1,4 +1,3 @@
-import sys
 from tkinter import Canvas, PhotoImage
 from typing import Any, Callable, Dict, List, Optional, Sequence, Text, Tuple, TypeVar, Union, overload
 

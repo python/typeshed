@@ -1,4 +1,3 @@
-import sys
 from typing import Any, Callable, Dict, List, NamedTuple, Optional, Text, Tuple
 
 class Event(NamedTuple):

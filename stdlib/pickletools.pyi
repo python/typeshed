@@ -1,4 +1,3 @@
-import sys
 from typing import IO, Any, Callable, Iterator, List, MutableMapping, Optional, Text, Tuple, Type, Union
 
 _Reader = Callable[[IO[bytes]], Any]

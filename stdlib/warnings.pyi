@@ -1,4 +1,3 @@
-import sys
 from types import ModuleType, TracebackType
 from typing import Any, List, Optional, TextIO, Type, Union, overload
 from typing_extensions import Literal

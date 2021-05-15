@@ -1,5 +1,4 @@
-import sys
-from typing import IO, Any, AnyStr, Callable, Dict, Iterable, List, Mapping, Optional, Sequence, Tuple, Type, Union, overload
+from typing import IO, Any, AnyStr, Callable, Dict, Iterable, List, Mapping, Optional, Sequence, Tuple, Type, overload
 
 # See https://groups.google.com/forum/#!topic/python-ideas/gA1gdj3RZ5g
 _Text = str

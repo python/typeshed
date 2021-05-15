@@ -1,4 +1,3 @@
-import sys
 from tkinter import Event, Misc, Widget
 from typing import Optional, Protocol
 

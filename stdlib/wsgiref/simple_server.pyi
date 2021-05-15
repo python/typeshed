@@ -1,4 +1,3 @@
-import sys
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from typing import List, Optional, Type, TypeVar, overload
 

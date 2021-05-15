@@ -1,4 +1,3 @@
-import sys
 import types
 from _weakrefset import WeakSet as WeakSet
 from typing import (
