@@ -1,9 +1,7 @@
 import sys
+from builtins import str as _str
 from decimal import Decimal
 from typing import Any, Callable, Dict, Iterable, List, Mapping, Optional, Sequence, Tuple, Union
-
-# Alias required, since locale defines a function 'str'.
-_str = str
 
 CODESET: int
 D_T_FMT: int
