@@ -504,6 +504,7 @@ if sys.platform == "darwin":
 
 # enum versions of above flags
 from enum import IntEnum
+
 class AddressFamily(IntEnum):
     AF_UNIX: int
     AF_INET: int
@@ -542,6 +543,7 @@ class AddressFamily(IntEnum):
     AF_VSOCK: int
     AF_WANPIPE: int
     AF_X25: int
+
 class SocketKind(IntEnum):
     SOCK_STREAM: int
     SOCK_DGRAM: int
@@ -552,6 +554,7 @@ class SocketKind(IntEnum):
     SOCK_NONBLOCK: int
 
 from enum import IntFlag
+
 class AddressInfo(IntFlag):
     AI_ADDRCONFIG: int
     AI_ALL: int
@@ -560,6 +563,7 @@ class AddressInfo(IntFlag):
     AI_NUMERICSERV: int
     AI_PASSIVE: int
     AI_V4MAPPED: int
+
 class MsgFlag(IntFlag):
     MSG_CTRUNC: int
     MSG_DONTROUTE: int
@@ -600,7 +604,6 @@ class socket:
     family: int
     type: int
     proto: int
-
     def __init__(self, family: int = ..., type: int = ..., proto: int = ..., fileno: Optional[int] = ...) -> None: ...
     def __enter__(self: _SelfT) -> _SelfT: ...
     def __exit__(self, *args: Any) -> None: ...
@@ -716,7 +719,6 @@ def getaddrinfo(
     proto: int = ...,
     flags: int = ...,
 ) -> List[Tuple[AddressFamily, SocketKind, int, str, Union[Tuple[str, int], Tuple[str, int, int, int]]]]: ...
-
 def getfqdn(name: str = ...) -> str: ...
 def gethostbyname(hostname: str) -> str: ...
 def gethostbyname_ex(hostname: str) -> Tuple[str, List[str], List[str]]: ...
@@ -752,12 +754,12 @@ if sys.version_info >= (3, 9):
 
 def CMSG_LEN(length: int) -> int: ...
 def CMSG_SPACE(length: int) -> int: ...
-
 def getdefaulttimeout() -> Optional[float]: ...
 def setdefaulttimeout(timeout: Optional[float]) -> None: ...
 
 if sys.platform != "win32":
     def sethostname(name: str) -> None: ...
+
 # Windows added these in 3.8, but didn't have them before
 if sys.platform != "win32" or sys.version_info >= (3, 8):
     def if_nameindex() -> List[Tuple[int, str]]: ...

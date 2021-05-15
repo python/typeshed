@@ -1,9 +1,20 @@
 import sys
 from types import TracebackType
-from typing import IO, Any, Callable, ContextManager, Iterable, Iterator, Optional, Type, TypeVar, overload
+from typing import (
+    IO,
+    Any,
+    AsyncContextManager,
+    AsyncIterator,
+    Callable,
+    ContextManager,
+    Iterable,
+    Iterator,
+    Optional,
+    Type,
+    TypeVar,
+    overload,
+)
 from typing_extensions import Protocol
-
-from typing import AsyncContextManager, AsyncIterator
 
 AbstractContextManager = ContextManager
 if sys.version_info >= (3, 7):
@@ -19,6 +30,7 @@ _CM_EF = TypeVar("_CM_EF", ContextManager[Any], _ExitFunc)
 
 class _GeneratorContextManager(ContextManager[_T_co]):
     def __call__(self, func: _F) -> _F: ...
+
 def contextmanager(func: Callable[..., Iterator[_T]]) -> Callable[..., _GeneratorContextManager[_T]]: ...
 
 if sys.version_info >= (3, 7):
@@ -44,6 +56,7 @@ class suppress(ContextManager[None]):
     def __exit__(
         self, exctype: Optional[Type[BaseException]], excinst: Optional[BaseException], exctb: Optional[TracebackType]
     ) -> bool: ...
+
 class redirect_stdout(ContextManager[_T_io]):
     def __init__(self, new_target: _T_io) -> None: ...
 
@@ -52,7 +65,9 @@ class redirect_stderr(ContextManager[_T_io]):
 
 class ContextDecorator:
     def __call__(self, func: _F) -> _F: ...
+
 _U = TypeVar("_U", bound=ExitStack)
+
 class ExitStack(ContextManager[ExitStack]):
     def __init__(self) -> None: ...
     def enter_context(self, cm: ContextManager[_T]) -> _T: ...

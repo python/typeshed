@@ -1,5 +1,6 @@
 import sys
 from sre_constants import (
+    SRE_FLAG_ASCII as SRE_FLAG_ASCII,
     SRE_FLAG_DEBUG as SRE_FLAG_DEBUG,
     SRE_FLAG_DOTALL as SRE_FLAG_DOTALL,
     SRE_FLAG_IGNORECASE as SRE_FLAG_IGNORECASE,
@@ -15,11 +16,11 @@ from sre_constants import (
 from sre_parse import SubPattern
 from typing import Any, List, Pattern, Tuple, Type, Union
 
-from sre_constants import SRE_FLAG_ASCII as SRE_FLAG_ASCII
-
 MAXCODE: int
 from sre_constants import _NamedIntConstant
+
 def dis(code: List[_NamedIntConstant]) -> None: ...
+
 _IsStringType = bool
 
 def isstring(obj: Any) -> _IsStringType: ...

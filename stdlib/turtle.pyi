@@ -1,7 +1,7 @@
 import sys
+from tkinter import Canvas, PhotoImage
 from typing import Any, Callable, Dict, List, Optional, Sequence, Text, Tuple, TypeVar, Union, overload
 
-from tkinter import Canvas, PhotoImage
 # Note: '_Color' is the alias we use for arguments and _AnyColor is the
 # alias we use for return types. Really, these two aliases should be the
 # same, but as per the "no union returns" typeshed policy, we'll return
@@ -308,7 +308,6 @@ def write_docstringdict(filename: str = ...) -> None: ...
 # Note: mainloop() was always present in the global scope, but was added to
 # TurtleScreenBase in Python 3.0
 def mainloop() -> None: ...
-
 def textinput(title: str, prompt: str) -> Optional[str]: ...
 def numinput(
     title: str, prompt: str, default: Optional[float] = ..., minval: Optional[float] = ..., maxval: Optional[float] = ...
@@ -365,7 +364,9 @@ onscreenclick = onclick
 resetscreen = reset
 clearscreen = clear
 addshape = register_shape
+
 def onkeypress(fun: Callable[[], Any], key: Optional[str] = ...) -> None: ...
+
 onkeyrelease = onkey
 
 # Functions copied from _Screen:
@@ -497,11 +498,11 @@ def shape(name: str) -> None: ...
 def shapesize() -> Tuple[float, float, float]: ...  # type: ignore
 @overload
 def shapesize(stretch_wid: Optional[float] = ..., stretch_len: Optional[float] = ..., outline: Optional[float] = ...) -> None: ...
-
 @overload
 def shearfactor(shear: None = ...) -> float: ...
 @overload
 def shearfactor(shear: float) -> None: ...
+
 # Unsafely overlaps when no arguments are provided
 @overload
 def shapetransform() -> Tuple[float, float, float, float]: ...  # type: ignore
@@ -510,7 +511,6 @@ def shapetransform(
     t11: Optional[float] = ..., t12: Optional[float] = ..., t21: Optional[float] = ..., t22: Optional[float] = ...
 ) -> None: ...
 def get_shapepoly() -> Optional[_PolygonCoords]: ...
-
 def settiltangle(angle: float) -> None: ...
 @overload
 def tiltangle(angle: None = ...) -> float: ...

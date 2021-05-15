@@ -2,7 +2,6 @@ import sys
 from typing import Optional
 
 def version() -> str: ...
-
 def bootstrap(
     *,
     root: Optional[str] = ...,
@@ -12,4 +11,3 @@ def bootstrap(
     default_pip: bool = ...,
     verbosity: int = ...,
 ) -> None: ...
-

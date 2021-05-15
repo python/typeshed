@@ -60,7 +60,6 @@ class SMTPServer(asyncore.dispatcher):
 
     data_size_limit: int
     enable_SMTPUTF8: bool
-
     def __init__(
         self,
         localaddr: _Address,

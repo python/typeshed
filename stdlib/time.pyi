@@ -1,7 +1,6 @@
 import sys
-from typing import Any, NamedTuple, Optional, Tuple, Union
-
 from types import SimpleNamespace
+from typing import Any, NamedTuple, Optional, Tuple, Union
 
 _TimeTuple = Tuple[int, int, int, int, int, int, int, int, int]
 
@@ -94,6 +93,7 @@ def get_clock_info(name: str) -> SimpleNamespace: ...
 def monotonic() -> float: ...
 def perf_counter() -> float: ...
 def process_time() -> float: ...
+
 if sys.platform != "win32":
     def clock_getres(clk_id: int) -> float: ...  # Unix only
     def clock_gettime(clk_id: int) -> float: ...  # Unix only

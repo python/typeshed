@@ -65,17 +65,15 @@ TypedDict: object = ...
 
 OrderedDict = _Alias()
 
-from typing import ChainMap as ChainMap
-
 from typing import (
     AsyncContextManager as AsyncContextManager,
+    AsyncGenerator as AsyncGenerator,
     AsyncIterable as AsyncIterable,
     AsyncIterator as AsyncIterator,
     Awaitable as Awaitable,
+    ChainMap as ChainMap,
     Coroutine as Coroutine,
 )
-
-from typing import AsyncGenerator as AsyncGenerator
 
 def get_type_hints(
     obj: Callable[..., Any],

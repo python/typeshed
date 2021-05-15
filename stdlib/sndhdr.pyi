@@ -8,6 +8,8 @@ class SndHeaders(NamedTuple):
     nchannels: int
     nframes: int
     sampwidth: Union[int, str]
+
 _SndHeaders = SndHeaders
+
 def what(filename: AnyPath) -> Optional[_SndHeaders]: ...
 def whathdr(filename: AnyPath) -> Optional[_SndHeaders]: ...

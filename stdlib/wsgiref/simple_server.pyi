@@ -1,10 +1,10 @@
 import sys
+from http.server import BaseHTTPRequestHandler, HTTPServer
 from typing import List, Optional, Type, TypeVar, overload
 
 from .handlers import SimpleHandler
 from .types import ErrorStream, StartResponse, WSGIApplication, WSGIEnvironment
 
-from http.server import BaseHTTPRequestHandler, HTTPServer
 server_version: str  # undocumented
 sys_version: str  # undocumented
 software_version: str  # undocumented

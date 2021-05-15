@@ -25,11 +25,12 @@ class _reader(Iterator[List[str]]):
     dialect: Dialect
     line_num: int
     def __next__(self) -> List[str]: ...
+
 class _writer:
     dialect: Dialect
-
     def writerow(self, row: Iterable[Any]) -> Any: ...
     def writerows(self, rows: Iterable[Iterable[Any]]) -> None: ...
+
 class _Writer(Protocol):
     def write(self, s: str) -> Any: ...
 

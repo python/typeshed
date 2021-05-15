@@ -12,6 +12,7 @@ def decompress(data: bytes) -> bytes: ...
 
 _OpenBinaryMode = Literal["r", "rb", "w", "wb", "x", "xb", "a", "ab"]
 _OpenTextMode = Literal["rt", "wt", "xt", "at"]
+
 @overload
 def open(
     filename: _PathOrFile,

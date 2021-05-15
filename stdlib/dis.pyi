@@ -11,14 +11,12 @@ from opcode import (
     hasjrel as hasjrel,
     haslocal as haslocal,
     hasname as hasname,
+    hasnargs as hasnargs,
     opmap as opmap,
     opname as opname,
+    stack_effect as stack_effect,
 )
 from typing import IO, Any, Callable, Dict, Iterator, List, NamedTuple, Optional, Tuple, Union
-
-from opcode import stack_effect as stack_effect
-
-from opcode import hasnargs as hasnargs
 
 # Strictly this should not have to include Callable, but mypy doesn't use FunctionType
 # for functions (python/mypy#3171)
@@ -34,6 +32,7 @@ class Instruction(NamedTuple):
     offset: int
     starts_line: Optional[int]
     is_jump_target: bool
+
 class Bytecode:
     codeobj: types.CodeType
     first_line: int
@@ -51,7 +50,6 @@ COMPILER_FLAG_NAMES: Dict[int, str]
 
 def findlabels(code: _have_code) -> List[int]: ...
 def findlinestarts(code: _have_code) -> Iterator[Tuple[int, int]]: ...
-
 def pretty_flags(flags: int) -> str: ...
 def code_info(x: _have_code_or_string) -> str: ...
 
@@ -66,4 +64,3 @@ def disassemble(co: _have_code, lasti: int = ..., *, file: Optional[IO[str]] = .
 def disco(co: _have_code, lasti: int = ..., *, file: Optional[IO[str]] = ...) -> None: ...
 def show_code(co: _have_code, *, file: Optional[IO[str]] = ...) -> None: ...
 def get_instructions(x: _have_code, *, first_line: Optional[int] = ...) -> Iterator[Instruction]: ...
-

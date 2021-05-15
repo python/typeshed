@@ -24,6 +24,7 @@ _SZI = Union[Text, ZipInfo]
 _DT = Tuple[int, int, int, int, int, int]
 
 class BadZipFile(Exception): ...
+
 BadZipfile = BadZipFile
 error = BadZipfile
 
@@ -130,16 +131,13 @@ class ZipFile:
         ) -> None: ...
     else:
         def writestr(self, zinfo_or_arcname: _SZI, data: Union[bytes, str], compress_type: Optional[int] = ...) -> None: ...
+
 class PyZipFile(ZipFile):
     def __init__(
-        self,
-        file: Union[str, IO[bytes]],
-        mode: str = ...,
-        compression: int = ...,
-        allowZip64: bool = ...,
-        optimize: int = ...,
+        self, file: Union[str, IO[bytes]], mode: str = ..., compression: int = ..., allowZip64: bool = ..., optimize: int = ...
     ) -> None: ...
     def writepy(self, pathname: str, basename: str = ..., filterfunc: Optional[Callable[[str], bool]] = ...) -> None: ...
+
 class ZipInfo:
     filename: Text
     date_time: _DT

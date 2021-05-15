@@ -1,7 +1,6 @@
 import sys
-from typing import Any, AnyStr, Callable, Dict, Generic, Iterable, List, Optional, Sequence, Text, Tuple, Union
-
 from os import PathLike
+from typing import Any, AnyStr, Callable, Dict, Generic, Iterable, List, Optional, Sequence, Text, Tuple, Union
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias

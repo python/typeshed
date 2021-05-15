@@ -1,10 +1,9 @@
+import enum
 import socket
 import sys
 from _typeshed import StrPath
 from typing import Any, Callable, ClassVar, Dict, Iterable, List, NamedTuple, Optional, Set, Text, Tuple, Type, Union, overload
 from typing_extensions import Literal
-
-import enum
 
 _PCTRTT = Tuple[Tuple[str, str], ...]
 _PCTRTTT = Tuple[_PCTRTT, ...]
@@ -82,7 +81,6 @@ _create_default_https_context: Callable[..., SSLContext]
 
 def RAND_bytes(__num: int) -> bytes: ...
 def RAND_pseudo_bytes(__num: int) -> Tuple[bytes, bool]: ...
-
 def RAND_status() -> bool: ...
 def RAND_egd(path: str) -> None: ...
 def RAND_add(__s: bytes, __entropy: float) -> None: ...
@@ -143,6 +141,7 @@ class Options(enum.IntFlag):
         OP_NO_RENEGOTIATION: int
     if sys.version_info >= (3, 8):
         OP_ENABLE_MIDDLEBOX_COMPAT: int
+
 OP_ALL: Options
 OP_NO_SSLv2: Options
 OP_NO_SSLv3: Options
@@ -377,6 +376,7 @@ class SSLObject:
     def get_channel_binding(self, cb_type: str = ...) -> Optional[bytes]: ...
     if sys.version_info >= (3, 8):
         def verify_client_post_handshake(self) -> None: ...
+
 class MemoryBIO:
     pending: int
     eof: bool
@@ -390,12 +390,14 @@ class SSLSession:
     timeout: int
     ticket_lifetime_hint: int
     has_ticket: bool
+
 class VerifyFlags(enum.IntFlag):
     VERIFY_DEFAULT: int
     VERIFY_CRL_CHECK_LEAF: int
     VERIFY_CRL_CHECK_CHAIN: int
     VERIFY_X509_STRICT: int
     VERIFY_X509_TRUSTED_FIRST: int
+
 class VerifyMode(enum.IntEnum):
     CERT_NONE: int
     CERT_OPTIONAL: int

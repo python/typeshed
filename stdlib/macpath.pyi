@@ -9,9 +9,10 @@ from genericpath import (
     getsize as getsize,
     isdir as isdir,
     isfile as isfile,
+    samefile as samefile,
+    sameopenfile as sameopenfile,
+    samestat as samestat,
 )
-
-from genericpath import samefile as samefile, sameopenfile as sameopenfile, samestat as samestat
 
 # Re-export common definitions from posixpath to reduce duplication
 from posixpath import (
@@ -36,6 +37,7 @@ from typing import AnyStr, Optional, Text, Tuple, overload
 altsep: Optional[str]
 
 from os import PathLike
+
 @overload
 def basename(s: PathLike[AnyStr]) -> AnyStr: ...
 @overload
@@ -56,7 +58,6 @@ def normpath(s: AnyStr) -> AnyStr: ...
 def realpath(path: PathLike[AnyStr]) -> AnyStr: ...
 @overload
 def realpath(path: AnyStr) -> AnyStr: ...
-
 def islink(s: AnyPath) -> bool: ...
 
 # Mypy complains that the signatures overlap, but things seem to behave correctly anyway.
@@ -64,9 +65,7 @@ def islink(s: AnyPath) -> bool: ...
 def join(s: StrPath, *paths: StrPath) -> Text: ...
 @overload
 def join(s: BytesPath, *paths: BytesPath) -> bytes: ...
-
 @overload
 def split(s: PathLike[AnyStr]) -> Tuple[AnyStr, AnyStr]: ...
 @overload
 def split(s: AnyStr) -> Tuple[AnyStr, AnyStr]: ...
-

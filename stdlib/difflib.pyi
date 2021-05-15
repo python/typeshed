@@ -122,7 +122,6 @@ class HtmlDiff(object):
     ) -> _StrType: ...
 
 def restore(delta: Iterable[_StrType], which: int) -> Iterator[_StrType]: ...
-
 def diff_bytes(
     dfunc: Callable[[Sequence[str], Sequence[str], str, str, str, str, int, str], Iterator[str]],
     a: Sequence[bytes],

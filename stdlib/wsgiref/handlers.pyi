@@ -10,7 +10,6 @@ from .util import FileWrapper
 _exc_info = Tuple[Optional[Type[BaseException]], Optional[BaseException], Optional[TracebackType]]
 
 def format_date_time(timestamp: Optional[float]) -> str: ...  # undocumented
-
 def read_environ() -> Dict[str, str]: ...
 
 class BaseHandler:

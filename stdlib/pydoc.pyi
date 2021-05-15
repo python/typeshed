@@ -1,5 +1,6 @@
 import sys
 from _typeshed import SupportsWrite
+from reprlib import Repr
 from types import MethodType, ModuleType, TracebackType
 from typing import (
     IO,
@@ -19,7 +20,6 @@ from typing import (
     Union,
 )
 
-from reprlib import Repr
 # the return type of sys.exc_info(), used by ErrorDuringImport.__init__
 _Exc_Info = Tuple[Optional[Type[BaseException]], Optional[BaseException], Optional[TracebackType]]
 
@@ -261,4 +261,3 @@ class ModuleScanner:
 def apropos(key: str) -> None: ...
 def ispath(x: Any) -> bool: ...
 def cli() -> None: ...
-

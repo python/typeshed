@@ -42,6 +42,7 @@ class WarningMessage:
         line: Optional[str] = ...,
         source: Optional[Any] = ...,
     ) -> None: ...
+
 class catch_warnings:
     @overload
     def __new__(cls, *, record: Literal[False] = ..., module: Optional[ModuleType] = ...) -> _catch_warnings_without_records: ...

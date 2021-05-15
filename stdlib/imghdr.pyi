@@ -8,6 +8,7 @@ class _ReadableBinary(Protocol):
     def seek(self, offset: int) -> Any: ...
 
 _File = Union[Text, os.PathLike[Text], _ReadableBinary]
+
 @overload
 def what(file: _File, h: None = ...) -> Optional[str]: ...
 @overload
