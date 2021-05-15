@@ -3,9 +3,16 @@ import sys
 from typing import (
     TYPE_CHECKING as TYPE_CHECKING,
     Any,
+    AsyncContextManager as AsyncContextManager,
+    AsyncGenerator as AsyncGenerator,
+    AsyncIterable as AsyncIterable,
+    AsyncIterator as AsyncIterator,
+    Awaitable as Awaitable,
     Callable,
+    ChainMap as ChainMap,
     ClassVar as ClassVar,
     ContextManager as ContextManager,
+    Coroutine as Coroutine,
     Counter as Counter,
     DefaultDict as DefaultDict,
     Deque as Deque,
@@ -64,16 +71,6 @@ class _TypedDict(Mapping[str, object], metaclass=abc.ABCMeta):
 TypedDict: object = ...
 
 OrderedDict = _Alias()
-
-from typing import (
-    AsyncContextManager as AsyncContextManager,
-    AsyncGenerator as AsyncGenerator,
-    AsyncIterable as AsyncIterable,
-    AsyncIterator as AsyncIterator,
-    Awaitable as Awaitable,
-    ChainMap as ChainMap,
-    Coroutine as Coroutine,
-)
 
 def get_type_hints(
     obj: Callable[..., Any],

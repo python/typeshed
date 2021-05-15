@@ -1,4 +1,5 @@
 import sys
+from enum import IntEnum, IntFlag
 from typing import Any, BinaryIO, Iterable, List, Optional, Text, TextIO, Tuple, TypeVar, Union, overload
 from typing_extensions import Literal
 
@@ -503,8 +504,6 @@ if sys.platform == "darwin":
     SYSPROTO_CONTROL: int
 
 # enum versions of above flags
-from enum import IntEnum
-
 class AddressFamily(IntEnum):
     AF_UNIX: int
     AF_INET: int
@@ -552,8 +551,6 @@ class SocketKind(IntEnum):
     SOCK_SEQPACKET: int
     SOCK_CLOEXEC: int
     SOCK_NONBLOCK: int
-
-from enum import IntFlag
 
 class AddressInfo(IntFlag):
     AI_ADDRCONFIG: int

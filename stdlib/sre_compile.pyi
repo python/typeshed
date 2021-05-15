@@ -12,12 +12,12 @@ from sre_constants import (
     SRE_INFO_CHARSET as SRE_INFO_CHARSET,
     SRE_INFO_LITERAL as SRE_INFO_LITERAL,
     SRE_INFO_PREFIX as SRE_INFO_PREFIX,
+    _NamedIntConstant,
 )
 from sre_parse import SubPattern
 from typing import Any, List, Pattern, Tuple, Type, Union
 
 MAXCODE: int
-from sre_constants import _NamedIntConstant
 
 def dis(code: List[_NamedIntConstant]) -> None: ...
 

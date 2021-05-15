@@ -15,6 +15,7 @@
 import array
 import mmap
 import sys
+from os import PathLike
 from typing import AbstractSet, Any, Container, Iterable, Protocol, Text, Tuple, TypeVar, Union
 from typing_extensions import Literal, final
 
@@ -52,10 +53,6 @@ class SupportsGetItem(Container[_KT_contra], Protocol[_KT_contra, _VT_co]):
 class SupportsItemAccess(SupportsGetItem[_KT_contra, _VT], Protocol[_KT_contra, _VT]):
     def __setitem__(self, __k: _KT_contra, __v: _VT) -> None: ...
     def __delitem__(self, __v: _KT_contra) -> None: ...
-
-# StrPath and AnyPath can be used in places where a
-# path can be used instead of a string, starting with Python 3.6.
-from os import PathLike
 
 StrPath = Union[str, PathLike[str]]
 BytesPath = Union[bytes, PathLike[bytes]]

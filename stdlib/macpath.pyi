@@ -13,6 +13,7 @@ from genericpath import (
     sameopenfile as sameopenfile,
     samestat as samestat,
 )
+from os import PathLike
 
 # Re-export common definitions from posixpath to reduce duplication
 from posixpath import (
@@ -35,8 +36,6 @@ from posixpath import (
 from typing import AnyStr, Optional, Text, Tuple, overload
 
 altsep: Optional[str]
-
-from os import PathLike
 
 @overload
 def basename(s: PathLike[AnyStr]) -> AnyStr: ...
