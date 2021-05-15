@@ -1,7 +1,5 @@
 import sys
 from _typeshed import ReadableBuffer, WriteableBuffer
-from array import array
-from mmap import mmap
 from typing import Any, Iterator, Tuple, Union
 
 class error(Exception): ...
