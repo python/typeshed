@@ -1,14 +1,13 @@
-from typing import IO, Any, Callable, Dict, List, Optional, Sequence, Text, Tuple, Union
+from typing import IO, Any, Callable, Dict, List, Optional, Sequence, Tuple, Union
 
-_str = Union[str, Text]
 _Timer = Callable[[], float]
-_stmt = Union[_str, Callable[[], Any]]
+_Stmt = Union[str, Callable[[], Any]]
 
 default_timer: _Timer
 
 class Timer:
     def __init__(
-        self, stmt: _stmt = ..., setup: _stmt = ..., timer: _Timer = ..., globals: Optional[Dict[str, Any]] = ...
+        self, stmt: _Stmt = ..., setup: _Stmt = ..., timer: _Timer = ..., globals: Optional[Dict[str, Any]] = ...
     ) -> None: ...
     def print_exc(self, file: Optional[IO[str]] = ...) -> None: ...
     def timeit(self, number: int = ...) -> float: ...
@@ -16,11 +15,11 @@ class Timer:
     def autorange(self, callback: Optional[Callable[[int, float], Any]] = ...) -> Tuple[int, float]: ...
 
 def timeit(
-    stmt: _stmt = ..., setup: _stmt = ..., timer: _Timer = ..., number: int = ..., globals: Optional[Dict[str, Any]] = ...
+    stmt: _Stmt = ..., setup: _Stmt = ..., timer: _Timer = ..., number: int = ..., globals: Optional[Dict[str, Any]] = ...
 ) -> float: ...
 def repeat(
-    stmt: _stmt = ...,
-    setup: _stmt = ...,
+    stmt: _Stmt = ...,
+    setup: _Stmt = ...,
     timer: _Timer = ...,
     repeat: int = ...,
     number: int = ...,
