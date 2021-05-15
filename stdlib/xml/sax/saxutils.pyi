@@ -1,4 +1,3 @@
-import sys
 from _typeshed import SupportsWrite
 from codecs import StreamReaderWriter, StreamWriter
 from io import RawIOBase, TextIOBase
@@ -10,19 +9,12 @@ def unescape(data: Text, entities: Mapping[Text, Text] = ...) -> Text: ...
 def quoteattr(data: Text, entities: Mapping[Text, Text] = ...) -> Text: ...
 
 class XMLGenerator(handler.ContentHandler):
-    if sys.version_info >= (3, 0):
-        def __init__(
-            self,
-            out: Optional[Union[TextIOBase, RawIOBase, StreamWriter, StreamReaderWriter, SupportsWrite[str]]] = ...,
-            encoding: str = ...,
-            short_empty_elements: bool = ...,
-        ) -> None: ...
-    else:
-        def __init__(
-            self,
-            out: Optional[Union[TextIOBase, RawIOBase, StreamWriter, StreamReaderWriter, SupportsWrite[str]]] = ...,
-            encoding: Text = ...,
-        ) -> None: ...
+    def __init__(
+        self,
+        out: Optional[Union[TextIOBase, RawIOBase, StreamWriter, StreamReaderWriter, SupportsWrite[str]]] = ...,
+        encoding: str = ...,
+        short_empty_elements: bool = ...,
+    ) -> None: ...
     def startDocument(self): ...
     def endDocument(self): ...
     def startPrefixMapping(self, prefix, uri): ...

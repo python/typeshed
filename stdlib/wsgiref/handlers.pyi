@@ -1,4 +1,3 @@
-import sys
 from abc import abstractmethod
 from types import TracebackType
 from typing import IO, Callable, Dict, List, MutableMapping, Optional, Text, Tuple, Type
@@ -10,9 +9,7 @@ from .util import FileWrapper
 _exc_info = Tuple[Optional[Type[BaseException]], Optional[BaseException], Optional[TracebackType]]
 
 def format_date_time(timestamp: Optional[float]) -> str: ...  # undocumented
-
-if sys.version_info >= (3, 2):
-    def read_environ() -> Dict[str, str]: ...
+def read_environ() -> Dict[str, str]: ...
 
 class BaseHandler:
     wsgi_version: Tuple[int, int]  # undocumented

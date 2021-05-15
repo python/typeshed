@@ -21,13 +21,7 @@ if sys.version_info >= (3, 9):
     from types import GenericAlias
 
 _T = TypeVar("_T")
-
-if sys.version_info >= (3,):
-    _StrType = Text
-else:
-    # Aliases can't point to type vars, so we need to redeclare AnyStr
-    _StrType = TypeVar("_StrType", Text, bytes)
-
+_StrType = Text
 _JunkCallback = Union[Callable[[Text], bool], Callable[[str], bool]]
 
 class Match(NamedTuple):
@@ -105,28 +99,17 @@ class HtmlDiff(object):
         linejunk: Optional[_JunkCallback] = ...,
         charjunk: Optional[_JunkCallback] = ...,
     ) -> None: ...
-    if sys.version_info >= (3, 5):
-        def make_file(
-            self,
-            fromlines: Sequence[_StrType],
-            tolines: Sequence[_StrType],
-            fromdesc: _StrType = ...,
-            todesc: _StrType = ...,
-            context: bool = ...,
-            numlines: int = ...,
-            *,
-            charset: str = ...,
-        ) -> _StrType: ...
-    else:
-        def make_file(
-            self,
-            fromlines: Sequence[_StrType],
-            tolines: Sequence[_StrType],
-            fromdesc: _StrType = ...,
-            todesc: _StrType = ...,
-            context: bool = ...,
-            numlines: int = ...,
-        ) -> _StrType: ...
+    def make_file(
+        self,
+        fromlines: Sequence[_StrType],
+        tolines: Sequence[_StrType],
+        fromdesc: _StrType = ...,
+        todesc: _StrType = ...,
+        context: bool = ...,
+        numlines: int = ...,
+        *,
+        charset: str = ...,
+    ) -> _StrType: ...
     def make_table(
         self,
         fromlines: Sequence[_StrType],
@@ -138,16 +121,14 @@ class HtmlDiff(object):
     ) -> _StrType: ...
 
 def restore(delta: Iterable[_StrType], which: int) -> Iterator[_StrType]: ...
-
-if sys.version_info >= (3, 5):
-    def diff_bytes(
-        dfunc: Callable[[Sequence[str], Sequence[str], str, str, str, str, int, str], Iterator[str]],
-        a: Sequence[bytes],
-        b: Sequence[bytes],
-        fromfile: bytes = ...,
-        tofile: bytes = ...,
-        fromfiledate: bytes = ...,
-        tofiledate: bytes = ...,
-        n: int = ...,
-        lineterm: bytes = ...,
-    ) -> Iterator[bytes]: ...
+def diff_bytes(
+    dfunc: Callable[[Sequence[str], Sequence[str], str, str, str, str, int, str], Iterator[str]],
+    a: Sequence[bytes],
+    b: Sequence[bytes],
+    fromfile: bytes = ...,
+    tofile: bytes = ...,
+    fromfiledate: bytes = ...,
+    tofiledate: bytes = ...,
+    n: int = ...,
+    lineterm: bytes = ...,
+) -> Iterator[bytes]: ...
