@@ -83,7 +83,7 @@ def parse_versions(fname):
             if line == "":
                 continue
             m = _VERSION_LINE_RE.match(line)
-            assert m, "invalid VERSIONS line :" + line
+            assert m, "invalid VERSIONS line: " + line
             mod = m.group(1)
             min_version = parse_version(m.group(2))
             max_version = parse_version(m.group(3)) if m.group(3) else (99, 99)
@@ -96,7 +96,7 @@ _VERSION_RE = re.compile(r"^([23])\.(\d+)$")
 
 def parse_version(v_str):
     m = _VERSION_RE.match(v_str)
-    assert m, "invalid version :" + v_str
+    assert m, "invalid version: " + v_str
     return int(m.group(1)), int(m.group(2))
 
 
