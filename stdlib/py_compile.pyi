@@ -1,7 +1,5 @@
 import sys
-from typing import AnyStr, List, Optional, Text, Type, Union
-
-_EitherStr = Union[bytes, Text]
+from typing import AnyStr, List, Optional, Type
 
 class PyCompileError(Exception):
     exc_type_name: str
@@ -44,4 +42,4 @@ else:
         file: AnyStr, cfile: Optional[AnyStr] = ..., dfile: Optional[AnyStr] = ..., doraise: bool = ..., optimize: int = ...
     ) -> Optional[AnyStr]: ...
 
-def main(args: Optional[List[Text]] = ...) -> int: ...
+def main(args: Optional[List[str]] = ...) -> int: ...

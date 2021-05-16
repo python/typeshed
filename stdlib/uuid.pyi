@@ -1,5 +1,5 @@
 import sys
-from typing import Any, Optional, Text, Tuple
+from typing import Any, Optional, Tuple
 
 # Because UUID has properties called int and bytes we need to rename these temporarily.
 _Int = int
@@ -17,7 +17,7 @@ class UUID:
     if sys.version_info >= (3, 7):
         def __init__(
             self,
-            hex: Optional[Text] = ...,
+            hex: Optional[str] = ...,
             bytes: Optional[_Bytes] = ...,
             bytes_le: Optional[_Bytes] = ...,
             fields: Optional[_FieldsType] = ...,
@@ -31,7 +31,7 @@ class UUID:
     else:
         def __init__(
             self,
-            hex: Optional[Text] = ...,
+            hex: Optional[str] = ...,
             bytes: Optional[_Bytes] = ...,
             bytes_le: Optional[_Bytes] = ...,
             fields: Optional[_FieldsType] = ...,

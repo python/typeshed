@@ -1,7 +1,7 @@
 import sys
-from typing import IO, Any, NamedTuple, NoReturn, Optional, Text, Union
+from typing import IO, Any, NamedTuple, NoReturn, Optional, Union
 
-_File = Union[Text, IO[bytes]]
+_File = Union[str, IO[bytes]]
 
 class Error(Exception): ...
 

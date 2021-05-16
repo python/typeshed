@@ -2,7 +2,7 @@ import enum
 import socket
 import sys
 from _typeshed import StrPath
-from typing import Any, Callable, Dict, Iterable, List, NamedTuple, Optional, Set, Text, Tuple, Type, Union, overload
+from typing import Any, Callable, Dict, Iterable, List, NamedTuple, Optional, Set, Tuple, Type, Union, overload
 from typing_extensions import Literal
 
 _PCTRTT = Tuple[Tuple[str, str], ...]
@@ -45,7 +45,7 @@ def wrap_socket(
     ciphers: Optional[str] = ...,
 ) -> SSLSocket: ...
 def create_default_context(
-    purpose: Any = ..., *, cafile: Optional[str] = ..., capath: Optional[str] = ..., cadata: Union[Text, bytes, None] = ...
+    purpose: Any = ..., *, cafile: Optional[str] = ..., capath: Optional[str] = ..., cadata: Union[str, bytes, None] = ...
 ) -> SSLContext: ...
 
 if sys.version_info >= (3, 7):
@@ -59,7 +59,7 @@ if sys.version_info >= (3, 7):
         keyfile: Optional[str] = ...,
         cafile: Optional[str] = ...,
         capath: Optional[str] = ...,
-        cadata: Union[Text, bytes, None] = ...,
+        cadata: Union[str, bytes, None] = ...,
     ) -> SSLContext: ...
 
 else:
@@ -73,7 +73,7 @@ else:
         keyfile: Optional[str] = ...,
         cafile: Optional[str] = ...,
         capath: Optional[str] = ...,
-        cadata: Union[Text, bytes, None] = ...,
+        cadata: Union[str, bytes, None] = ...,
     ) -> SSLContext: ...
 
 _create_default_https_context: Callable[..., SSLContext]
@@ -305,7 +305,7 @@ class SSLContext:
     ) -> None: ...
     def load_default_certs(self, purpose: Purpose = ...) -> None: ...
     def load_verify_locations(
-        self, cafile: Optional[StrPath] = ..., capath: Optional[StrPath] = ..., cadata: Union[Text, bytes, None] = ...
+        self, cafile: Optional[StrPath] = ..., capath: Optional[StrPath] = ..., cadata: Union[str, bytes, None] = ...
     ) -> None: ...
     def get_ca_certs(self, binary_form: bool = ...) -> Union[List[_PeerCertRetDictType], List[bytes]]: ...
     def set_default_verify_paths(self) -> None: ...

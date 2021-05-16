@@ -1,5 +1,5 @@
 import sys
-from typing import Any, BinaryIO, Generic, Iterable, List, MutableSequence, Text, Tuple, TypeVar, Union, overload
+from typing import Any, BinaryIO, Generic, Iterable, List, MutableSequence, Tuple, TypeVar, Union, overload
 from typing_extensions import Literal
 
 _IntTypeCode = Literal["b", "B", "h", "H", "i", "I", "l", "L", "q", "Q"]
@@ -7,7 +7,7 @@ _FloatTypeCode = Literal["f", "d"]
 _UnicodeTypeCode = Literal["u"]
 _TypeCode = Union[_IntTypeCode, _FloatTypeCode, _UnicodeTypeCode]
 
-_T = TypeVar("_T", int, float, Text)
+_T = TypeVar("_T", int, float, str)
 
 typecodes: str
 
@@ -19,7 +19,7 @@ class array(MutableSequence[_T], Generic[_T]):
     @overload
     def __init__(self: array[float], typecode: _FloatTypeCode, __initializer: Union[bytes, Iterable[_T]] = ...) -> None: ...
     @overload
-    def __init__(self: array[Text], typecode: _UnicodeTypeCode, __initializer: Union[bytes, Iterable[_T]] = ...) -> None: ...
+    def __init__(self: array[str], typecode: _UnicodeTypeCode, __initializer: Union[bytes, Iterable[_T]] = ...) -> None: ...
     @overload
     def __init__(self, typecode: str, __initializer: Union[bytes, Iterable[_T]] = ...) -> None: ...
     def append(self, __v: _T) -> None: ...

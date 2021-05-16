@@ -1,6 +1,6 @@
 import sys
 from enum import IntEnum, IntFlag
-from typing import Any, BinaryIO, Iterable, List, Optional, Text, TextIO, Tuple, TypeVar, Union, overload
+from typing import Any, BinaryIO, Iterable, List, Optional, TextIO, Tuple, TypeVar, Union, overload
 from typing_extensions import Literal
 
 # ----- Constants -----
@@ -691,7 +691,7 @@ if sys.version_info >= (3, 7):
 def create_connection(
     address: Tuple[Optional[str], int],
     timeout: Optional[float] = ...,
-    source_address: Optional[Tuple[Union[bytearray, bytes, Text], int]] = ...,
+    source_address: Optional[Tuple[Union[bytearray, bytes, str], int]] = ...,
 ) -> socket: ...
 
 if sys.version_info >= (3, 8):
@@ -707,7 +707,7 @@ if sys.platform == "win32":
 
 # the 5th tuple item is an address
 def getaddrinfo(
-    host: Optional[Union[bytearray, bytes, Text]],
+    host: Optional[Union[bytearray, bytes, str]],
     port: Union[str, int, None],
     family: int = ...,
     type: int = ...,

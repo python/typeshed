@@ -1,6 +1,6 @@
 import sys
 from types import FrameType, TracebackType
-from typing import Any, Callable, Iterable, List, Mapping, Optional, Text, Type, TypeVar, Union
+from typing import Any, Callable, Iterable, List, Mapping, Optional, Type, TypeVar, Union
 
 # TODO recursive type
 _TF = Callable[[FrameType, str, Any], Optional[Callable[..., Any]]]
@@ -51,7 +51,7 @@ class Thread:
     def run(self) -> None: ...
     def join(self, timeout: Optional[float] = ...) -> None: ...
     def getName(self) -> str: ...
-    def setName(self, name: Text) -> None: ...
+    def setName(self, name: str) -> None: ...
     if sys.version_info >= (3, 8):
         @property
         def native_id(self) -> Optional[int]: ...  # only available on some platforms

@@ -1,7 +1,7 @@
 import sys
-from typing import Any, List, Optional, Sequence, Text, Tuple
+from typing import Any, List, Optional, Sequence, Tuple
 
-def symtable(code: Text, filename: Text, compile_type: Text) -> SymbolTable: ...
+def symtable(code: str, filename: str, compile_type: str) -> SymbolTable: ...
 
 class SymbolTable(object):
     def __init__(self, raw_table: Any, filename: str) -> None: ...
