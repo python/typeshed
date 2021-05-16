@@ -179,7 +179,15 @@ class _TemporaryFileWrapper(Generic[AnyStr], IO[AnyStr]):
     # are delegated to the underlying IO object through __getattr__.
     # We need to add them here so that this class is concrete.
     def __iter__(self) -> Iterator[AnyStr]: ...
-    # no __next__ method here, because obj.__next__() works but next(obj) doesn't
+    # FIXME: __next__ doesn't actually exist on this class and should be removed:
+    #        see also https://github.com/python/typeshed/pull/5456#discussion_r633068648
+    # >>> import tempfile
+    # >>> ntf=tempfile.NamedTemporaryFile()
+    # >>> next(ntf)
+    # Traceback (most recent call last):
+    #   File "<stdin>", line 1, in <module>
+    # TypeError: '_TemporaryFileWrapper' object is not an iterator
+    def __next__(self) -> AnyStr: ...
     def fileno(self) -> int: ...
     def flush(self) -> None: ...
     def isatty(self) -> bool: ...
