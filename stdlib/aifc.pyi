@@ -1,6 +1,6 @@
 import sys
 from types import TracebackType
-from typing import IO, Any, List, NamedTuple, Optional, Text, Tuple, Type, Union, overload
+from typing import IO, Any, List, NamedTuple, Optional, Tuple, Type, Union, overload
 from typing_extensions import Literal
 
 class Error(Exception): ...
@@ -13,7 +13,7 @@ class _aifc_params(NamedTuple):
     comptype: bytes
     compname: bytes
 
-_File = Union[Text, IO[bytes]]
+_File = Union[str, IO[bytes]]
 _Marker = Tuple[int, int, bytes]
 
 class Aifc_read:

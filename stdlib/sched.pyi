@@ -1,11 +1,11 @@
-from typing import Any, Callable, Dict, List, NamedTuple, Optional, Text, Tuple
+from typing import Any, Callable, Dict, List, NamedTuple, Optional, Tuple
 
 class Event(NamedTuple):
     time: float
     priority: Any
     action: Callable[..., Any]
     argument: Tuple[Any, ...]
-    kwargs: Dict[Text, Any]
+    kwargs: Dict[str, Any]
 
 class scheduler:
     def __init__(self, timefunc: Callable[[], float] = ..., delayfunc: Callable[[float], None] = ...) -> None: ...

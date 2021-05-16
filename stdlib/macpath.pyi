@@ -32,7 +32,7 @@ from posixpath import (
     splitext as splitext,
     supports_unicode_filenames as supports_unicode_filenames,
 )
-from typing import AnyStr, Optional, Text, Tuple, overload
+from typing import AnyStr, Optional, Tuple, overload
 
 altsep: Optional[str]
 
@@ -60,7 +60,7 @@ def islink(s: AnyPath) -> bool: ...
 
 # Mypy complains that the signatures overlap, but things seem to behave correctly anyway.
 @overload
-def join(s: StrPath, *paths: StrPath) -> Text: ...
+def join(s: StrPath, *paths: StrPath) -> str: ...
 @overload
 def join(s: BytesPath, *paths: BytesPath) -> bytes: ...
 @overload

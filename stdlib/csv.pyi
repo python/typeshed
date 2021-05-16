@@ -17,7 +17,7 @@ from _csv import (
     unregister_dialect as unregister_dialect,
     writer as writer,
 )
-from typing import Any, Generic, Iterable, Iterator, List, Mapping, Optional, Sequence, Text, Type, TypeVar, overload
+from typing import Any, Generic, Iterable, Iterator, List, Mapping, Optional, Sequence, Type, TypeVar, overload
 
 if sys.version_info >= (3, 8):
     from typing import Dict as _DictReadMapping
@@ -55,7 +55,7 @@ class DictReader(Generic[_T], Iterator[_DictReadMapping[_T, str]]):
     @overload
     def __init__(
         self,
-        f: Iterable[Text],
+        f: Iterable[str],
         fieldnames: Sequence[_T],
         restkey: Optional[str] = ...,
         restval: Optional[str] = ...,
@@ -66,7 +66,7 @@ class DictReader(Generic[_T], Iterator[_DictReadMapping[_T, str]]):
     @overload
     def __init__(
         self: DictReader[str],
-        f: Iterable[Text],
+        f: Iterable[str],
         fieldnames: Optional[Sequence[str]] = ...,
         restkey: Optional[str] = ...,
         restval: Optional[str] = ...,

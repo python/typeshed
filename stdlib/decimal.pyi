@@ -1,9 +1,9 @@
 import numbers
 from types import TracebackType
-from typing import Any, Container, Dict, List, NamedTuple, Optional, Sequence, Text, Tuple, Type, TypeVar, Union, overload
+from typing import Any, Container, Dict, List, NamedTuple, Optional, Sequence, Tuple, Type, TypeVar, Union, overload
 
 _Decimal = Union[Decimal, int]
-_DecimalNew = Union[Decimal, float, Text, Tuple[int, Sequence[int], int]]
+_DecimalNew = Union[Decimal, float, str, Tuple[int, Sequence[int], int]]
 _ComparableNum = Union[Decimal, float, numbers.Rational]
 _DecimalT = TypeVar("_DecimalT", bound=Decimal)
 
