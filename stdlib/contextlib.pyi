@@ -13,7 +13,7 @@ from typing import (
     TypeVar,
     overload,
 )
-from typing_extensions import Protocol
+from typing_extensions import ParamSpec, Protocol
 
 AbstractContextManager = ContextManager
 if sys.version_info >= (3, 7):
@@ -23,6 +23,7 @@ _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
 _T_io = TypeVar("_T_io", bound=Optional[IO[str]])
 _F = TypeVar("_F", bound=Callable[..., Any])
+_P = ParamSpec("_P")
 
 _ExitFunc = Callable[[Optional[Type[BaseException]], Optional[BaseException], Optional[TracebackType]], bool]
 _CM_EF = TypeVar("_CM_EF", ContextManager[Any], _ExitFunc)
@@ -30,10 +31,10 @@ _CM_EF = TypeVar("_CM_EF", ContextManager[Any], _ExitFunc)
 class _GeneratorContextManager(ContextManager[_T_co]):
     def __call__(self, func: _F) -> _F: ...
 
-def contextmanager(func: Callable[..., Iterator[_T]]) -> Callable[..., _GeneratorContextManager[_T]]: ...
+def contextmanager(func: Callable[_P, Iterator[_T]]) -> Callable[_P, _GeneratorContextManager[_T]]: ...
 
 if sys.version_info >= (3, 7):
-    def asynccontextmanager(func: Callable[..., AsyncIterator[_T]]) -> Callable[..., AsyncContextManager[_T]]: ...
+    def asynccontextmanager(func: Callable[_P, AsyncIterator[_T]]) -> Callable[_P, AsyncContextManager[_T]]: ...
 
 class _SupportsClose(Protocol):
     def close(self) -> None: ...
