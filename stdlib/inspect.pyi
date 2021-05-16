@@ -14,7 +14,7 @@ from types import (
     ModuleType,
     TracebackType,
 )
-from typing import Any, ClassVar, NamedTuple, Optional, Type, Union
+from typing import Any, ClassVar, NamedTuple, Optional, Tuple, Type, Union
 from typing_extensions import Literal, TypeGuard
 
 #
@@ -30,7 +30,7 @@ class BlockFinder:
     indecorator: bool
     decoratorhasargs: bool
     last: int
-    def tokeneater(self, type: int, token: str, srowcol: tuple[int, int], erowcol: tuple[int, int], line: str) -> None: ...
+    def tokeneater(self, type: int, token: str, srowcol: Tuple[int, int], erowcol: Tuple[int, int], line: str) -> None: ...
 
 CO_OPTIMIZED: int
 CO_NEWLOCALS: int
@@ -44,9 +44,10 @@ CO_ITERABLE_COROUTINE: int
 CO_ASYNC_GENERATOR: int
 TPFLAGS_IS_ABSTRACT: int
 
-def getmembers(object: object, predicate: Optional[Callable[[Any], bool]] = ...) -> list[tuple[str, Any]]: ...
+def getmembers(object: object, predicate: Optional[Callable[[Any], bool]] = ...) -> list[Tuple[str, Any]]: ...
 def getmodulename(path: str) -> Optional[str]: ...
 def ismodule(object: object) -> TypeGuard[ModuleType]: ...
+
 # TODO: use TypeGuard[Type[Any]] after python/mypy#10486 is resolved
 def isclass(object: object) -> bool: ...
 def ismethod(object: object) -> TypeGuard[MethodType]: ...
@@ -87,7 +88,7 @@ def ismemberdescriptor(object: object) -> bool: ...
 #
 _SourceObjectType = Union[ModuleType, Type[Any], MethodType, FunctionType, TracebackType, FrameType, CodeType, Callable[..., Any]]
 
-def findsource(object: _SourceObjectType) -> tuple[list[str], int]: ...
+def findsource(object: _SourceObjectType) -> Tuple[list[str], int]: ...
 def getabsfile(object: _SourceObjectType, _filename: Optional[str] = ...) -> str: ...
 def getblock(lines: Sequence[str]) -> Sequence[str]: ...
 def getdoc(object: object) -> Optional[str]: ...
@@ -95,7 +96,7 @@ def getcomments(object: object) -> Optional[str]: ...
 def getfile(object: _SourceObjectType) -> str: ...
 def getmodule(object: object, _filename: Optional[str] = ...) -> Optional[ModuleType]: ...
 def getsourcefile(object: _SourceObjectType) -> Optional[str]: ...
-def getsourcelines(object: _SourceObjectType) -> tuple[list[str], int]: ...
+def getsourcelines(object: _SourceObjectType) -> Tuple[list[str], int]: ...
 def getsource(object: _SourceObjectType) -> str: ...
 def cleandoc(doc: str) -> str: ...
 def indentsize(line: str) -> int: ...
@@ -182,7 +183,7 @@ class Parameter:
 
 class BoundArguments:
     arguments: OrderedDict[str, Any]
-    args: tuple[Any, ...]
+    args: Tuple[Any, ...]
     kwargs: dict[str, Any]
     signature: Signature
     def __init__(self, signature: Signature, arguments: OrderedDict[str, Any]) -> None: ...
@@ -194,7 +195,7 @@ class BoundArguments:
 
 # TODO: The actual return type should be list[_ClassTreeItem] but mypy doesn't
 # seem to be supporting this at the moment:
-# _ClassTreeItem = Union[list[_ClassTreeItem], tuple[type, tuple[type, ...]]]
+# _ClassTreeItem = Union[list[_ClassTreeItem], Tuple[type, Tuple[type, ...]]]
 def getclasstree(classes: list[type], unique: bool = ...) -> list[Any]: ...
 def walktree(classes: list[type], children: dict[Type[Any], list[type]], parent: Optional[Type[Any]]) -> list[Any]: ...
 
@@ -202,7 +203,7 @@ class ArgSpec(NamedTuple):
     args: list[str]
     varargs: Optional[str]
     keywords: Optional[str]
-    defaults: tuple[Any, ...]
+    defaults: Tuple[Any, ...]
 
 class Arguments(NamedTuple):
     args: list[str]
@@ -216,7 +217,7 @@ class FullArgSpec(NamedTuple):
     args: list[str]
     varargs: Optional[str]
     varkw: Optional[str]
-    defaults: Optional[tuple[Any, ...]]
+    defaults: Optional[Tuple[Any, ...]]
     kwonlyargs: list[str]
     kwonlydefaults: Optional[dict[str, Any]]
     annotations: dict[str, Any]
@@ -236,7 +237,7 @@ def formatargspec(
     args: list[str],
     varargs: Optional[str] = ...,
     varkw: Optional[str] = ...,
-    defaults: Optional[tuple[Any, ...]] = ...,
+    defaults: Optional[Tuple[Any, ...]] = ...,
     kwonlyargs: Optional[Sequence[str]] = ...,
     kwonlydefaults: Optional[dict[str, Any]] = ...,
     annotations: dict[str, Any] = ...,
@@ -257,7 +258,7 @@ def formatargvalues(
     formatvarkw: Optional[Callable[[str], str]] = ...,
     formatvalue: Optional[Callable[[Any], str]] = ...,
 ) -> str: ...
-def getmro(cls: type) -> tuple[type, ...]: ...
+def getmro(cls: type) -> Tuple[type, ...]: ...
 def getcallargs(__func: Callable[..., Any], *args: Any, **kwds: Any) -> dict[str, Any]: ...
 
 class ClosureVars(NamedTuple):
