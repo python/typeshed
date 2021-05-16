@@ -57,10 +57,7 @@ Modules that are only available for Python 2 are not listed in `VERSIONS`.
 Modules that are not shipped with Python but have a type description in Python
 go into `stubs`. Each subdirectory there represents a PyPI distribution, and
 contains the following:
-* `METADATA.toml` that specifies oldest version of the source library for
-  which the stubs are applicable, supported Python versions (Python 3 defaults
-  to `True`, Python 2 defaults to `False`), and dependency on other type stub
-  packages.
+* `METADATA.toml`, describing the package. See below for details.
 * Stubs (i.e. `*.pyi` files) for packages and modules that are shipped in the
   source distribution. If the Python 2 version of the stubs must be kept
   *separate*, they can be put in a `@python2` subdirectory.
@@ -77,12 +74,34 @@ to `types-foo-x.y.n+1`.
 *Note:* In its current implementation, typeshed cannot contain stubs for
 multiple versions of the same third-party library.  Prefer to generate
 stubs for the latest version released on PyPI at the time of your
-stubbing. The oldest version of the library for which the stubs are still
-applicable (i.e. reflect the actual runtime behaviour) can be indicated
-in `METADATA.toml` as `version = "x.y"`. Note that only two most significant
-version levels are supported (i.e. only single dot). When a significant change
-is made in the library, the version of the stub should be bumped (note that
-previous versions are still available on PyPI).
+stubbing.
+
+#### The `METADATA.toml` file
+
+The metadata file describes the stubs package using the
+[TOML file format](https://toml.io/en/). Currently, the following keys are
+supported:
+
+* `version`: The oldest version of the library for which the stubs are still
+  applicable (i.e. reflect the actual runtime behaviour). Note that only two
+  most significant version levels are supported (i.e. only single dot).
+  When a significant change is made in the library, the version of the
+  stub should be bumped (note that previous versions are still available
+  on PyPI).
+* `python2` (default: `False`) and `python3` (default: `True`): These fields
+  indicate whether a package supports Python 2, Python 3, or both.
+* `requires` (optional): A list of other stub packages that this package uses.
+* `extra_description` (optional): Can be used to add a custom description to
+  the package's long description. It should be a multi-line string in
+  Markdown format.
+* `obsolete_since` (optional): This field is part of our process for
+  [removing obsolete third-party libraries](#third-party-library-removal-policy).
+  It contains the first version of the corresponding library that ships
+  its own `py.typed` file.
+
+The format of all `METADATA.toml` files can be checked by running
+`python3 ./tests/check_consistent.py`.
+
 
 ## Preparing Changes
 

@@ -1,5 +1,5 @@
-import os
 import sys
+from _typeshed import AnyPath
 from datetime import date, datetime, time
 from typing import Any, Callable, Generator, Iterable, Iterator, List, Optional, Protocol, Tuple, Type, TypeVar, Union
 
@@ -66,7 +66,7 @@ def complete_statement(sql: str) -> bool: ...
 
 if sys.version_info >= (3, 7):
     def connect(
-        database: Union[bytes, str, os.PathLike[str]],
+        database: AnyPath,
         timeout: float = ...,
         detect_types: int = ...,
         isolation_level: Optional[str] = ...,
