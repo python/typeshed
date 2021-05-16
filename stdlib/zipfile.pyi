@@ -56,7 +56,7 @@ class ZipExtFile(io.BufferedIOBase):
             mode: str,
             zipinfo: ZipInfo,
             pwd: Optional[bytes] = ...,
-            close_fileobj: Literal[False] = ...,
+            close_fileobj: bool = ...,
         ) -> None: ...
     else:
         @overload
@@ -85,7 +85,7 @@ class ZipExtFile(io.BufferedIOBase):
             mode: str,
             zipinfo: ZipInfo,
             decrypter: Optional[Callable[[Sequence[int]], bytes]] = ...,
-            close_fileobj: Literal[False] = ...,
+            close_fileobj: bool = ...,
         ) -> None: ...
     def read(self, n: Optional[int] = ...) -> bytes: ...
     def readline(self, limit: int = ...) -> bytes: ...  # type: ignore
