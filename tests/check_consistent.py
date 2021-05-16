@@ -99,7 +99,7 @@ def check_same_files():
                 )
 
 
-_VERSIONS_RE = re.compile(r"^([a-zA-Z_][a-zA-Z0-9_]*): [23]\.\d{1,2}-(?:[23]\.\d{1,2})?$")
+_VERSIONS_RE = re.compile(r"^([a-zA-Z_][a-zA-Z0-9_.]*): [23]\.\d{1,2}-(?:[23]\.\d{1,2})?$")
 
 
 def check_versions():
