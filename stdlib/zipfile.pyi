@@ -2,7 +2,7 @@ import io
 import sys
 from _typeshed import StrPath
 from types import TracebackType
-from typing import IO, Any, Callable, Dict, Iterable, Iterator, List, Optional, Protocol, Sequence, Tuple, Type, Union, overload
+from typing import IO, Callable, Dict, Iterable, Iterator, List, Optional, Protocol, Sequence, Tuple, Type, Union, overload
 from typing_extensions import Literal
 
 _DateTuple = Tuple[int, int, int, int, int, int]
@@ -19,10 +19,10 @@ class _ZipStream(Protocol):
     # The following methods are optional:
     # def seekable(self) -> bool: ...
     # def tell(self) -> int: ...
-    # def seek(self, __n: int) -> Any: ...
+    # def seek(self, __n: int) -> object: ...
 
 class _ClosableZipStream(_ZipStream, Protocol):
-    def close(self) -> Any: ...
+    def close(self) -> object: ...
 
 class ZipExtFile(io.BufferedIOBase):
     MAX_N: int = ...
@@ -51,12 +51,7 @@ class ZipExtFile(io.BufferedIOBase):
         ) -> None: ...
         @overload
         def __init__(
-            self,
-            fileobj: _ZipStream,
-            mode: str,
-            zipinfo: ZipInfo,
-            pwd: Optional[bytes] = ...,
-            close_fileobj: bool = ...,
+            self, fileobj: _ZipStream, mode: str, zipinfo: ZipInfo, pwd: Optional[bytes] = ..., close_fileobj: bool = ...
         ) -> None: ...
     else:
         @overload
@@ -94,7 +89,7 @@ class ZipExtFile(io.BufferedIOBase):
     def read1(self, n: Optional[int]) -> bytes: ...  # type: ignore
 
 class _Writer(Protocol):
-    def write(self, __s: str) -> Any: ...
+    def write(self, __s: str) -> object: ...
 
 class ZipFile:
     filename: Optional[str]
