@@ -44,23 +44,13 @@ To automatically check your code before committing, copy the file
 ### Standard library stubs
 
 The `stdlib` directory contains stubs for modules in the
-Python standard library — which
+Python 3 standard library — which
 includes pure Python modules, dynamically loaded extension modules,
 hard-linked extension modules, and the builtins. The `VERSIONS` file lists
 the versions of Python where the module is available.
 
-The `stdlib/@python2` subdirectory contains Python 2-only stubs,
-both for modules that must be kept different for Python 2 and 3, like
-`builtins.pyi`, and for modules that only existed in Python 2, like
-`ConfigParser.pyi`. The latter group of modules are not listed in
-`VERSIONS`.
-
-Note that if a package is present in `@python2`, any stub in the main
-`stdlib` directory should be ignored when looking for Python 2 stubs. For
-example, typeshed contains files `stdlib/@python2/collections.pyi` and
-`stdlib/collections/abc.pyi`. A client looking for stubs for
-`collections.abc` in Python 2 should not pick up the latter file, but
-instead report that the module does not exist.
+Stubs for Python 2 are available in the `stdlib/@python2` subdirectory.
+Modules that are only available for Python 2 are not listed in `VERSIONS`.
 
 ### Third-party library stubs
 
@@ -72,8 +62,8 @@ contains the following:
   to `True`, Python 2 defaults to `False`), and dependency on other type stub
   packages.
 * Stubs (i.e. `*.pyi` files) for packages and modules that are shipped in the
-  source distribution. Similar to standard library, if the Python 2 version of
-  the stubs must be kept *separate*, it can be put in a `@python` subdirectory.
+  source distribution. If the Python 2 version of the stubs must be kept
+  *separate*, they can be put in a `@python2` subdirectory.
 * (Rarely) some docs specific to a given type stub package in `README` file.
 
 When a third party stub is

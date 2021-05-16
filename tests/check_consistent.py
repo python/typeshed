@@ -99,35 +99,44 @@ def check_same_files():
                 )
 
 
-_VERSIONS_RE = re.compile(r"^([a-zA-Z_][a-zA-Z0-9_]*): [23]\.\d{1,2}-(?:[23]\.\d{1,2})?$")
+_VERSIONS_RE = re.compile(r"^([a-zA-Z_][a-zA-Z0-9_.]*): [23]\.\d{1,2}-(?:[23]\.\d{1,2})?$")
 
 
 def check_versions():
     versions = set()
     with open("stdlib/VERSIONS") as f:
-        for line in f:
-            line = line.split("#")[0].strip()
-            if line == "":
-                continue
-            m = _VERSIONS_RE.match(line)
-            if not m:
-                raise AssertionError(f"Bad line in VERSIONS: {line}")
-            module = m.group(1)
-            assert module not in versions, f"Duplicate module {module} in VERSIONS"
-            versions.add(module)
-    modules = set()
-    for entry in os.listdir("stdlib"):
-        if entry == "@python2" or entry == "VERSIONS":
+        data = f.read().splitlines()
+    for line in data:
+        line = line.split("#")[0].strip()
+        if line == "":
             continue
-        if os.path.isfile(os.path.join("stdlib", entry)):
-            mod, _ = os.path.splitext(entry)
-            modules.add(mod)
-        else:
-            modules.add(entry)
-    extra = modules - versions
+        m = _VERSIONS_RE.match(line)
+        if not m:
+            raise AssertionError(f"Bad line in VERSIONS: {line}")
+        module = m.group(1)
+        assert module not in versions, f"Duplicate module {module} in VERSIONS"
+        versions.add(module)
+    modules = _find_stdlib_modules()
+    # Sub-modules don't need to be listed in VERSIONS.
+    extra = {m.split(".")[0] for m in modules} - versions
     assert not extra, f"Modules not in versions: {extra}"
     extra = versions - modules
     assert not extra, f"Versions not in modules: {extra}"
+
+
+def _find_stdlib_modules() -> set[str]:
+    modules = set()
+    for path, _, files in os.walk("stdlib"):
+        if "@python2" in path:
+            continue
+        for filename in files:
+            base_module = ".".join(os.path.normpath(path).split(os.sep)[1:])
+            if filename == "__init__.pyi":
+                modules.add(base_module)
+            elif filename.endswith(".pyi"):
+                mod, _ = os.path.splitext(filename)
+                modules.add(f"{base_module}.{mod}" if base_module else mod)
+    return modules
 
 
 def _strip_dep_version(dependency):
