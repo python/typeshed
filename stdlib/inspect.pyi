@@ -326,7 +326,7 @@ def getgeneratorlocals(generator: Generator[Any, Any, Any]) -> dict[str, Any]: .
 # TODO can we be more specific than "object"?
 def getcoroutinelocals(coroutine: object) -> dict[str, Any]: ...
 
-# Create private type alias to avoid confdict with symbol of same
+# Create private type alias to avoid conflict with symbol of same
 # name created in Attribute class.
 _Object = object
 
