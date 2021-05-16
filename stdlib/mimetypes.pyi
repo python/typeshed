@@ -1,9 +1,9 @@
 import sys
+from _typeshed import StrPath
 from typing import IO, Dict, List, Optional, Sequence, Tuple, Union
 
 if sys.version_info >= (3, 8):
-    from os import PathLike
-    def guess_type(url: Union[str, PathLike[str]], strict: bool = ...) -> Tuple[Optional[str], Optional[str]]: ...
+    def guess_type(url: StrPath, strict: bool = ...) -> Tuple[Optional[str], Optional[str]]: ...
 
 else:
     def guess_type(url: str, strict: bool = ...) -> Tuple[Optional[str], Optional[str]]: ...
