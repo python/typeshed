@@ -1,5 +1,6 @@
 import io
 from typing import IO, Any, BinaryIO, ContextManager, Dict, Iterable, List, Mapping, Optional, Text, Tuple, Union
+from typing_extensions import Literal
 
 from .core import BaseCommand
 
@@ -54,7 +55,7 @@ class CliRunner:
     def make_env(self, overrides: Optional[Mapping[str, str]] = ...) -> Dict[str, str]: ...
     def isolation(
         self, input: Optional[Union[bytes, Text, IO[Any]]] = ..., env: Optional[Mapping[str, str]] = ..., color: bool = ...
-    ) -> ContextManager[Tuple[io.BytesIO, io.BytesIO]]: ...
+    ) -> ContextManager[Tuple[io.BytesIO, Union[io.BytesIO, Literal[False]]]]: ...
     def invoke(
         self,
         cli: BaseCommand,
