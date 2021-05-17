@@ -1,6 +1,6 @@
 from typing import Callable, Iterator, Optional, Sequence, TypeVar
 
-from .cache import Cache as Cache, NumericType as NumericType
+from .cache import Cache as Cache
 
 _KT = TypeVar("_KT")
 _VT = TypeVar("_VT")
@@ -8,9 +8,9 @@ _VT = TypeVar("_VT")
 class RRCache(Cache[_KT, _VT]):
     def __init__(
         self,
-        maxsize: NumericType,
+        maxsize: float,
         choice: Optional[Callable[[Sequence[_KT]], _KT]] = ...,
-        getsizeof: Optional[Callable[[_VT], NumericType]] = ...,
+        getsizeof: Optional[Callable[[_VT], float]] = ...,
     ) -> None: ...
     def __getitem__(self, key: _KT) -> _VT: ...
     def __setitem__(self, key: _KT, value: _VT) -> None: ...
