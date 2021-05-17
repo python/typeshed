@@ -37,14 +37,17 @@ jobs:
             console.log(artifacts.data.artifacts.map(a => a.name));
             const matchArtifact = artifacts.data.artifacts.filter((artifact) =>
               artifact.name == "mypy_primer_diffs")[0];
-            console.log(matchArtifacts);
+            console.log(matchArtifact);
             const download = await github.actions.downloadArtifact({
                owner: context.repo.owner,
                repo: context.repo.repo,
                artifact_id: matchArtifact.id,
                archive_format: "zip",
             });
+            console.log("Got download");
+            console.log(download);
             fs.writeFileSync("${{github.workspace}}/diff.zip", Buffer.from(download.data));
+            console.log("Wrote file");
       - run: unzip diff.zip
 
       - name: Post comment
