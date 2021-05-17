@@ -126,6 +126,31 @@ See [PEP 484](http://www.python.org/dev/peps/pep-0484/) for the exact
 syntax of the stub files and [below](#stub-file-coding-style) for the
 coding style used in typeshed.
 
+### Supported type system features
+
+Since PEP 484 was accepted, there have been many other PEPs that added
+new features to the Python type system. In general, new features can
+be used in typeshed as soon as the PEP has been accepted and implemented
+and most type checkers support the new feature.
+
+Accepted features that cannot yet be used in typeshed include:
+- [PEP 570](https://www.python.org/dev/peps/pep-0570/) (positional-only
+  arguments): see [#4972](https://github.com/python/typeshed/issues/4972),
+  use argument names prefixed with `__` instead
+- [PEP 585](https://www.python.org/dev/peps/pep-0585/) (builtin
+  generics): see [#4820](https://github.com/python/typeshed/issues/4820),
+  mostly supported bug bugs remain for a few specific cases
+- [PEP 604](https://www.python.org/dev/peps/pep-0604/) (Union
+  pipe operator): see [#4819](https://github.com/python/typeshed/issues/4819)
+- [PEP 612](https://www.python.org/dev/peps/pep-0612/) (ParamSpec):
+  see [#4827](https://github.com/python/typeshed/issues/4827)
+- [PEP 613](https://www.python.org/dev/peps/pep-0613/) (TypeAlias):
+  see [#4913](https://github.com/python/typeshed/issues/4913)
+
+Features for which support was recently added include:
+- [PEP 647](https://www.python.org/dev/peps/pep-0647/) (TypeGuard):
+  see [#5406](https://github.com/python/typeshed/issues/5406)
+
 ### What to include
 
 Stubs should include the complete interface (classes, functions,
