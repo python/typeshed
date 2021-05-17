@@ -151,6 +151,19 @@ Features for which support was recently added include:
 - [PEP 647](https://www.python.org/dev/peps/pep-0647/) (TypeGuard):
   see [#5406](https://github.com/python/typeshed/issues/5406)
 
+Features from the `typing` module that are not present in all
+supported Python 3 versions must be imported from `typing_extensions`
+instead in typeshed stubs. This currently affects:
+
+- `Final` and `@final` (new in Python 3.8)
+- `Literal` (new in Python 3.8)
+- `SupportsIndex` (new in Python 3.8)
+- `TypedDict` (new in Python 3.8)
+- `TypeGuard` (new in Python 3.10)
+
+An exception is `Protocol`: although it was added in Python 3.8, it
+can be used in stubs regardless of Python version.
+
 ### What to include
 
 Stubs should include the complete interface (classes, functions,
