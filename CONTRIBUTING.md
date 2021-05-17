@@ -133,7 +133,7 @@ new features to the Python type system. In general, new features can
 be used in typeshed as soon as the PEP has been accepted and implemented
 and most type checkers support the new feature.
 
-Accepted features that cannot yet be used in typeshed include:
+Accepted features that *cannot* yet be used in typeshed include:
 - [PEP 570](https://www.python.org/dev/peps/pep-0570/) (positional-only
   arguments): see [#4972](https://github.com/python/typeshed/issues/4972),
   use argument names prefixed with `__` instead
