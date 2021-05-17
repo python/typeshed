@@ -57,10 +57,7 @@ Modules that are only available for Python 2 are not listed in `VERSIONS`.
 Modules that are not shipped with Python but have a type description in Python
 go into `stubs`. Each subdirectory there represents a PyPI distribution, and
 contains the following:
-* `METADATA.toml` that specifies oldest version of the source library for
-  which the stubs are applicable, supported Python versions (Python 3 defaults
-  to `True`, Python 2 defaults to `False`), and dependency on other type stub
-  packages.
+* `METADATA.toml`, describing the package. See below for details.
 * Stubs (i.e. `*.pyi` files) for packages and modules that are shipped in the
   source distribution. If the Python 2 version of the stubs must be kept
   *separate*, they can be put in a `@python2` subdirectory.
@@ -77,12 +74,34 @@ to `types-foo-x.y.n+1`.
 *Note:* In its current implementation, typeshed cannot contain stubs for
 multiple versions of the same third-party library.  Prefer to generate
 stubs for the latest version released on PyPI at the time of your
-stubbing. The oldest version of the library for which the stubs are still
-applicable (i.e. reflect the actual runtime behaviour) can be indicated
-in `METADATA.toml` as `version = "x.y"`. Note that only two most significant
-version levels are supported (i.e. only single dot). When a significant change
-is made in the library, the version of the stub should be bumped (note that
-previous versions are still available on PyPI).
+stubbing.
+
+#### The `METADATA.toml` file
+
+The metadata file describes the stubs package using the
+[TOML file format](https://toml.io/en/). Currently, the following keys are
+supported:
+
+* `version`: The oldest version of the library for which the stubs are still
+  applicable (i.e. reflect the actual runtime behaviour). Note that only two
+  most significant version levels are supported (i.e. only single dot).
+  When a significant change is made in the library, the version of the
+  stub should be bumped (note that previous versions are still available
+  on PyPI).
+* `python2` (default: `False`) and `python3` (default: `True`): These fields
+  indicate whether a package supports Python 2, Python 3, or both.
+* `requires` (optional): A list of other stub packages that this package uses.
+* `extra_description` (optional): Can be used to add a custom description to
+  the package's long description. It should be a multi-line string in
+  Markdown format.
+* `obsolete_since` (optional): This field is part of our process for
+  [removing obsolete third-party libraries](#third-party-library-removal-policy).
+  It contains the first version of the corresponding library that ships
+  its own `py.typed` file.
+
+The format of all `METADATA.toml` files can be checked by running
+`python3 ./tests/check_consistent.py`.
+
 
 ## Preparing Changes
 
@@ -106,6 +125,48 @@ are used to describe the signature of each function or method.
 See [PEP 484](http://www.python.org/dev/peps/pep-0484/) for the exact
 syntax of the stub files and [below](#stub-file-coding-style) for the
 coding style used in typeshed.
+
+### Supported type system features
+
+Since PEP 484 was accepted, there have been many other PEPs that added
+new features to the Python type system. In general, new features can
+be used in typeshed as soon as the PEP has been accepted and implemented
+and most type checkers support the new feature.
+
+Accepted features that *cannot* yet be used in typeshed include:
+- [PEP 570](https://www.python.org/dev/peps/pep-0570/) (positional-only
+  arguments): see [#4972](https://github.com/python/typeshed/issues/4972),
+  use argument names prefixed with `__` instead
+- [PEP 585](https://www.python.org/dev/peps/pep-0585/) (builtin
+  generics): see [#4820](https://github.com/python/typeshed/issues/4820),
+  mostly supported but bugs remain for a few specific cases
+- [PEP 604](https://www.python.org/dev/peps/pep-0604/) (Union
+  pipe operator): see [#4819](https://github.com/python/typeshed/issues/4819)
+- [PEP 612](https://www.python.org/dev/peps/pep-0612/) (ParamSpec):
+  see [#4827](https://github.com/python/typeshed/issues/4827)
+- [PEP 613](https://www.python.org/dev/peps/pep-0613/) (TypeAlias):
+  see [#4913](https://github.com/python/typeshed/issues/4913)
+
+Supported features include:
+- [PEP 544](https://www.python.org/dev/peps/pep-0544/) (Protocol)
+- [PEP 586](https://www.python.org/dev/peps/pep-0586/) (Literal)
+- [PEP 591](https://www.python.org/dev/peps/pep-0591/) (Final/@final)
+- [PEP 589](https://www.python.org/dev/peps/pep-0589/) (TypedDict)
+- [PEP 647](https://www.python.org/dev/peps/pep-0647/) (TypeGuard):
+  see [#5406](https://github.com/python/typeshed/issues/5406)
+
+Features from the `typing` module that are not present in all
+supported Python 3 versions must be imported from `typing_extensions`
+instead in typeshed stubs. This currently affects:
+
+- `Final` and `@final` (new in Python 3.8)
+- `Literal` (new in Python 3.8)
+- `SupportsIndex` (new in Python 3.8)
+- `TypedDict` (new in Python 3.8)
+- `TypeGuard` (new in Python 3.10)
+
+An exception is `Protocol`: although it was added in Python 3.8, it
+can be used in stubs regardless of Python version.
 
 ### What to include
 
