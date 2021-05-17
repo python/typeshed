@@ -1,9 +1,11 @@
 from logging import Logger
-from typing import Any, Callable, Dict, Optional, Sequence, Tuple, Type, TypeVar, Union
+from typing import Any, Callable, Dict, Optional, Protocol, Sequence, Tuple, Type, TypeVar, Union
 
-_T = TypeVar("_T", bound=Callable[..., Any])
-_Decorator = Callable[[_T], _T]
 _R = TypeVar("_R")
+_T = TypeVar("_T", bound=Callable[..., Any])
+
+class _Decorator(Protocol):
+    def __call__(self, __x: _T) -> _T: ...
 
 def retry_call(
     f: Callable[..., _R],
@@ -25,4 +27,4 @@ def retry(
     backoff: float = ...,
     jitter: Union[Tuple[float, float], float] = ...,
     logger: Optional[Logger] = ...,
-) -> _Decorator[_T]: ...
+) -> _Decorator: ...
