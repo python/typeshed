@@ -22,8 +22,12 @@ _KT_co = TypeVar("_KT_co", covariant=True)
 _KT_contra = TypeVar("_KT_contra", contravariant=True)
 _VT = TypeVar("_VT")
 _VT_co = TypeVar("_VT_co", covariant=True)
+_T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
 _T_contra = TypeVar("_T_contra", contravariant=True)
+
+class IdentityFunction(Protocol):
+    def __call__(self, __x: _T) -> _T: ...
 
 class SupportsLessThan(Protocol):
     def __lt__(self, __other: Any) -> bool: ...
