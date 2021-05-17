@@ -1,5 +1,5 @@
 import io
-from _typeshed import StrOrBytesPath, ReadableBuffer
+from _typeshed import ReadableBuffer, StrOrBytesPath
 from typing import IO, Any, Mapping, Optional, Sequence, TextIO, TypeVar, Union, overload
 from typing_extensions import Literal
 

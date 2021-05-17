@@ -1,4 +1,11 @@
-from _typeshed import StrOrBytesPath, OpenBinaryMode, OpenBinaryModeReading, OpenBinaryModeUpdating, OpenBinaryModeWriting, OpenTextMode
+from _typeshed import (
+    OpenBinaryMode,
+    OpenBinaryModeReading,
+    OpenBinaryModeUpdating,
+    OpenBinaryModeWriting,
+    OpenTextMode,
+    StrOrBytesPath,
+)
 from asyncio import AbstractEventLoop
 from typing import Any, Callable, Optional, Union, overload
 from typing_extensions import Literal

@@ -1,13 +1,13 @@
 import sys
 import types
 from _typeshed import (
-    StrOrBytesPath,
     OpenBinaryMode,
     OpenBinaryModeReading,
     OpenBinaryModeUpdating,
     OpenBinaryModeWriting,
     OpenTextMode,
     ReadableBuffer,
+    StrOrBytesPath,
     SupportsDivMod,
     SupportsKeysAndGetItem,
     SupportsLessThan,

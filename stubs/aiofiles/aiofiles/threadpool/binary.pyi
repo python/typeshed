@@ -1,4 +1,4 @@
-from _typeshed import StrOrBytesPath, ReadableBuffer, WriteableBuffer
+from _typeshed import ReadableBuffer, StrOrBytesPath, WriteableBuffer
 from io import FileIO
 from typing import Iterable, List, Optional, Union
 

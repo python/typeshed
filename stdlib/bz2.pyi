@@ -1,6 +1,6 @@
 import io
 import sys
-from _typeshed import StrOrBytesPath, ReadableBuffer, WriteableBuffer
+from _typeshed import ReadableBuffer, StrOrBytesPath, WriteableBuffer
 from typing import IO, Any, Iterable, List, Optional, TextIO, TypeVar, Union, overload
 from typing_extensions import Literal, SupportsIndex
 

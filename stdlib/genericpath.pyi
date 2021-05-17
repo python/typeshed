@@ -1,5 +1,5 @@
 import os
-from _typeshed import StrOrBytesPath, BytesPath, StrPath, SupportsLessThanT
+from _typeshed import BytesPath, StrOrBytesPath, StrPath, SupportsLessThanT
 from typing import List, Sequence, Tuple, Union, overload
 from typing_extensions import Literal
 

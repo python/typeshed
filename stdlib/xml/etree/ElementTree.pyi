@@ -1,5 +1,5 @@
 import sys
-from _typeshed import StrOrBytesPath, FileDescriptor, SupportsWrite
+from _typeshed import FileDescriptor, StrOrBytesPath, SupportsWrite
 from typing import (
     IO,
     Any,

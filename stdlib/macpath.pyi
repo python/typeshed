@@ -1,4 +1,4 @@
-from _typeshed import StrOrBytesPath, BytesPath, StrPath
+from _typeshed import BytesPath, StrOrBytesPath, StrPath
 from genericpath import (
     commonprefix as commonprefix,
     exists as exists,
