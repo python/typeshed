@@ -37,11 +37,11 @@ jobs:
             console.log(artifacts.data.artifacts);
             console.log(artifacts.data.artifacts.map(a => a.name));
             const [matchArtifact] = artifacts.data.artifacts.filter((artifact) =>
-              artifact.name.startsWith("mypy_primer_diffs_"));
+              artifact.name == "mypy_primer_diffs");
             console.log(matchArtifact);
-            const prNumber = matchArtifact.name.split("_").pop();
-            console.log("prNumber:")
-            console.log(prNumber);
+            //const prNumber = matchArtifact.name.split("_").pop();
+            //console.log("prNumber:")
+            //console.log(prNumber);
 
             const download = await github.actions.downloadArtifact({
                owner: context.repo.owner,
@@ -51,8 +51,8 @@ jobs:
             });
             console.log("Got download");
             console.log(download);
-            fs.writeFileSync("${{github.workspace}}/diff.zip", Buffer.from(download.data));
-            fs.writeFileSync("pr_number.txt", prNumber);
+            fs.writeFileSync("diff.zip", Buffer.from(download.data));
+            //fs.writeFileSync("pr_number.txt", prNumber);
             console.log("Wrote files");
             console.log("fs.readFileSync(pr_number.txt) gives:");
             console.log(fs.readFileSync("pr_number.txt"));
