@@ -1,4 +1,4 @@
-name: Run mypy_primer
+name: Post mypy_primer comment
 
 on:
   workflow_run:
