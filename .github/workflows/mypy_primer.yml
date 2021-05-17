@@ -37,5 +37,5 @@ jobs:
       - name: Upload mypy_primer diff
         uses: actions/upload-artifact@v2
         with:
-          name: mypy_primer_diffs
+          name: mypy_primer_diffs_${{ github.event.issue.number }}
           path: diff_${{ matrix.shard-index }}.txt

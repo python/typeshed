@@ -31,13 +31,16 @@ jobs:
                repo: context.repo.repo,
                run_id: ${{ github.event.workflow_run.id }},
             });
+
             console.log(artifacts);
             console.log(artifacts.data);
             console.log(artifacts.data.artifacts);
             console.log(artifacts.data.artifacts.map(a => a.name));
-            const matchArtifact = artifacts.data.artifacts.filter((artifact) =>
-              artifact.name == "mypy_primer_diffs")[0];
+            const [matchArtifact] = artifacts.data.artifacts.filter((artifact) =>
+              artifact.name.startsWith("mypy_primer_diffs_"));
             console.log(matchArtifact);
+            const prNumber = artifact.name.split("_").pop();
+
             const download = await github.actions.downloadArtifact({
                owner: context.repo.owner,
                repo: context.repo.repo,
@@ -47,7 +50,8 @@ jobs:
             console.log("Got download");
             console.log(download);
             fs.writeFileSync("${{github.workspace}}/diff.zip", Buffer.from(download.data));
-            console.log("Wrote file");
+            fs.writeFileSync("pr_number.txt", prNumber);
+            console.log("Wrote files");
       - run: unzip diff.zip
 
       - name: Post comment
@@ -74,7 +78,7 @@ jobs:
             }
 
             await github.issues.createComment({
-              issue_number: context.issue.number,
+              issue_number: fs.readFileSync("pr_number.txt"),
               owner: context.repo.owner,
               repo: context.repo.repo,
               body
