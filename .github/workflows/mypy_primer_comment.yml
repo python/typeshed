@@ -53,13 +53,12 @@ jobs:
             console.log(download);
             fs.writeFileSync("diff.zip", Buffer.from(download.data));
             //fs.writeFileSync("pr_number.txt", prNumber);
-            console.log("Wrote files");
-            console.log("fs.readFileSync(pr_number.txt) gives:");
-            console.log(fs.readFileSync("pr_number.txt"));
-            console.log("With utf8:")
-            console.log(fs.readFileSync("pr_number.txt", {encoding: 'utf8'}));
+            //console.log("Wrote files");
+            //console.log("fs.readFileSync(pr_number.txt) gives:");
+            //console.log(fs.readFileSync("pr_number.txt"));
+            //console.log("With utf8:")
+            //console.log(fs.readFileSync("pr_number.txt", {encoding: 'utf8'}));
       - run: unzip diff.zip
-
       - name: Post comment
         uses: actions/github-script@v3
         with:
