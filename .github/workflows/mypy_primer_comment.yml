@@ -39,7 +39,7 @@ jobs:
             const [matchArtifact] = artifacts.data.artifacts.filter((artifact) =>
               artifact.name.startsWith("mypy_primer_diffs_"));
             console.log(matchArtifact);
-            const prNumber = artifact.name.split("_").pop();
+            const prNumber = matchArtifact.name.split("_").pop();
 
             const download = await github.actions.downloadArtifact({
                owner: context.repo.owner,
