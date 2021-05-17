@@ -21,13 +21,23 @@ jobs:
         with:
           script: |
             const fs = require('fs');
+            console.log({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               run_id: ${{ github.event.workflow_run.id }},
+            });
             const artifacts = await github.actions.listWorkflowRunArtifacts({
                owner: context.repo.owner,
                repo: context.repo.repo,
                run_id: ${{ github.event.workflow_run.id }},
             });
+            console.log(artifacts);
+            console.log(artifacts.data);
+            console.log(artifacts.data.artifacts);
+            console.log(artifacts.data.artifacts.map(a => a.name));
             const matchArtifact = artifacts.data.artifacts.filter((artifact) =>
               artifact.name == "mypy_primer_diffs")[0];
+            console.log(matchArtifacts);
             const download = await github.actions.downloadArtifact({
                owner: context.repo.owner,
                repo: context.repo.repo,
