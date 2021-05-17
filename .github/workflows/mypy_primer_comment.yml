@@ -40,6 +40,8 @@ jobs:
               artifact.name.startsWith("mypy_primer_diffs_"));
             console.log(matchArtifact);
             const prNumber = matchArtifact.name.split("_").pop();
+            console.log("prNumber:")
+            console.log(prNumber);
 
             const download = await github.actions.downloadArtifact({
                owner: context.repo.owner,
@@ -52,6 +54,10 @@ jobs:
             fs.writeFileSync("${{github.workspace}}/diff.zip", Buffer.from(download.data));
             fs.writeFileSync("pr_number.txt", prNumber);
             console.log("Wrote files");
+            console.log("fs.readFileSync(pr_number.txt) gives:");
+            console.log(fs.readFileSync("pr_number.txt"));
+            console.log("With utf8:")
+            console.log(fs.readFileSync("pr_number.txt", {encoding: 'utf8'}));
       - run: unzip diff.zip
 
       - name: Post comment
@@ -77,8 +83,10 @@ jobs:
               body = 'According to [mypy_primer](https://github.com/hauntsaninja/mypy_primer), this change has no effect on the checked open source code. 🤖🎉'
             }
 
+            console.log(fs.readFileSync("pr_number.txt"));
+            console.log(fs.readFileSync("pr_number.txt", { encoding: 'utf8' }));
             await github.issues.createComment({
-              issue_number: fs.readFileSync("pr_number.txt"),
+              issue_number: fs.readFileSync("pr_number.txt", { encoding: 'utf8' }),
               owner: context.repo.owner,
               repo: context.repo.repo,
               body
