@@ -1,7 +1,6 @@
 import io
-from _typeshed import AnyPath
 from types import TracebackType
-from typing import IO, Callable, Dict, Iterable, Iterator, List, Mapping, Optional, Tuple, Type, Union
+from typing import IO, Callable, Dict, Iterable, Iterator, List, Mapping, Optional, Text, Tuple, Type, Union
 
 # tar constants
 NUL: bytes
@@ -51,7 +50,7 @@ TAR_PLAIN: int
 TAR_GZIPPED: int
 
 def open(
-    name: Optional[AnyPath] = ...,
+    name: Optional[Text] = ...,
     mode: str = ...,
     fileobj: Optional[IO[bytes]] = ...,
     bufsize: int = ...,
@@ -73,7 +72,7 @@ class ExFileObject(io.BufferedReader):
 
 class TarFile(Iterable[TarInfo]):
     OPEN_METH: Mapping[str, str]
-    name: Optional[AnyPath]
+    name: Optional[Text]
     mode: str
     fileobj: Optional[IO[bytes]]
     format: Optional[int]
@@ -90,7 +89,7 @@ class TarFile(Iterable[TarInfo]):
     posix: bool
     def __init__(
         self,
-        name: Optional[AnyPath] = ...,
+        name: Optional[Text] = ...,
         mode: str = ...,
         fileobj: Optional[IO[bytes]] = ...,
         format: Optional[int] = ...,
@@ -112,7 +111,7 @@ class TarFile(Iterable[TarInfo]):
     @classmethod
     def open(
         cls,
-        name: Optional[AnyPath] = ...,
+        name: Optional[Text] = ...,
         mode: str = ...,
         fileobj: Optional[IO[bytes]] = ...,
         bufsize: int = ...,
@@ -130,7 +129,7 @@ class TarFile(Iterable[TarInfo]):
     @classmethod
     def taropen(
         cls,
-        name: Optional[AnyPath],
+        name: Optional[Text],
         mode: str = ...,
         fileobj: Optional[IO[bytes]] = ...,
         *,
@@ -147,7 +146,7 @@ class TarFile(Iterable[TarInfo]):
     @classmethod
     def gzopen(
         cls,
-        name: Optional[AnyPath],
+        name: Optional[Text],
         mode: str = ...,
         fileobj: Optional[IO[bytes]] = ...,
         compresslevel: int = ...,
@@ -164,7 +163,7 @@ class TarFile(Iterable[TarInfo]):
     @classmethod
     def bz2open(
         cls,
-        name: Optional[AnyPath],
+        name: Optional[Text],
         mode: str = ...,
         fileobj: Optional[IO[bytes]] = ...,
         compresslevel: int = ...,
@@ -181,7 +180,7 @@ class TarFile(Iterable[TarInfo]):
     @classmethod
     def xzopen(
         cls,
-        name: Optional[AnyPath],
+        name: Optional[Text],
         mode: str = ...,
         fileobj: Optional[IO[bytes]] = ...,
         preset: Optional[int] = ...,
@@ -200,18 +199,18 @@ class TarFile(Iterable[TarInfo]):
     def getnames(self) -> List[str]: ...
     def list(self, verbose: bool = ...) -> None: ...
     def next(self) -> Optional[TarInfo]: ...
-    def extractall(self, path: AnyPath = ..., members: Optional[Iterable[TarInfo]] = ...) -> None: ...
-    def extract(self, member: Union[str, TarInfo], path: AnyPath = ...) -> None: ...
+    def extractall(self, path: Text = ..., members: Optional[Iterable[TarInfo]] = ...) -> None: ...
+    def extract(self, member: Union[str, TarInfo], path: Text = ...) -> None: ...
     def extractfile(self, member: Union[str, TarInfo]) -> Optional[IO[bytes]]: ...
-    def makedir(self, tarinfo: TarInfo, targetpath: AnyPath) -> None: ...  # undocumented
-    def makefile(self, tarinfo: TarInfo, targetpath: AnyPath) -> None: ...  # undocumented
-    def makeunknown(self, tarinfo: TarInfo, targetpath: AnyPath) -> None: ...  # undocumented
-    def makefifo(self, tarinfo: TarInfo, targetpath: AnyPath) -> None: ...  # undocumented
-    def makedev(self, tarinfo: TarInfo, targetpath: AnyPath) -> None: ...  # undocumented
-    def makelink(self, tarinfo: TarInfo, targetpath: AnyPath) -> None: ...  # undocumented
-    def chown(self, tarinfo: TarInfo, targetpath: AnyPath) -> None: ...  # undocumented
-    def chmod(self, tarinfo: TarInfo, targetpath: AnyPath) -> None: ...  # undocumented
-    def utime(self, tarinfo: TarInfo, targetpath: AnyPath) -> None: ...  # undocumented
+    def makedir(self, tarinfo: TarInfo, targetpath: Text) -> None: ...  # undocumented
+    def makefile(self, tarinfo: TarInfo, targetpath: Text) -> None: ...  # undocumented
+    def makeunknown(self, tarinfo: TarInfo, targetpath: Text) -> None: ...  # undocumented
+    def makefifo(self, tarinfo: TarInfo, targetpath: Text) -> None: ...  # undocumented
+    def makedev(self, tarinfo: TarInfo, targetpath: Text) -> None: ...  # undocumented
+    def makelink(self, tarinfo: TarInfo, targetpath: Text) -> None: ...  # undocumented
+    def chown(self, tarinfo: TarInfo, targetpath: Text) -> None: ...  # undocumented
+    def chmod(self, tarinfo: TarInfo, targetpath: Text) -> None: ...  # undocumented
+    def utime(self, tarinfo: TarInfo, targetpath: Text) -> None: ...  # undocumented
     def add(
         self,
         name: str,
@@ -226,7 +225,7 @@ class TarFile(Iterable[TarInfo]):
     ) -> TarInfo: ...
     def close(self) -> None: ...
 
-def is_tarfile(name: AnyPath) -> bool: ...
+def is_tarfile(name: Text) -> bool: ...
 def filemode(mode: int) -> str: ...  # undocumented
 
 class TarFileCompat:

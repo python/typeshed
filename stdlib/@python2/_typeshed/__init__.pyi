@@ -57,11 +57,12 @@ class SupportsItemAccess(SupportsGetItem[_KT_contra, _VT], Protocol[_KT_contra, 
     def __setitem__(self, __k: _KT_contra, __v: _VT) -> None: ...
     def __delitem__(self, __v: _KT_contra) -> None: ...
 
-# StrPath and AnyPath can be used in places where a
-# path can be used instead of a string, starting with Python 3.6.
+# These aliases can be used in places where a PathLike object can be used
+# instead of a string in Python 3.
 StrPath = Text
-BytesPath = bytes
-AnyPath = Union[Text, bytes]
+BytesPath = str
+StrOrBytesPath = Text
+AnyPath = StrOrBytesPath  # obsolete, will be removed soon
 
 OpenTextModeUpdating = Literal[
     "r+",
