@@ -147,7 +147,11 @@ Accepted features that *cannot* yet be used in typeshed include:
 - [PEP 613](https://www.python.org/dev/peps/pep-0613/) (TypeAlias):
   see [#4913](https://github.com/python/typeshed/issues/4913)
 
-Features for which support was recently added include:
+Supported features include:
+- [PEP 544](https://www.python.org/dev/peps/pep-0544/) (Protocol)
+- [PEP 586](https://www.python.org/dev/peps/pep-0586/) (Literal)
+- [PEP 591](https://www.python.org/dev/peps/pep-0591/) (Final/@final)
+- [PEP 589](https://www.python.org/dev/peps/pep-0589/) (TypedDict)
 - [PEP 647](https://www.python.org/dev/peps/pep-0647/) (TypeGuard):
   see [#5406](https://github.com/python/typeshed/issues/5406)
 
