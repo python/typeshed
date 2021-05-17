@@ -1,6 +1,5 @@
-from _typeshed import AnyPath
 from types import FrameType, TracebackType
-from typing import IO, Any, Callable, Dict, List, Optional, Tuple, Type
+from typing import IO, Any, Callable, Dict, List, Optional, Text, Tuple, Type
 
 _ExcInfo = Tuple[Optional[Type[BaseException]], Optional[BaseException], Optional[TracebackType]]
 
@@ -19,7 +18,7 @@ class Hook:  # undocumented
     def __init__(
         self,
         display: int = ...,
-        logdir: Optional[AnyPath] = ...,
+        logdir: Optional[Text] = ...,
         context: int = ...,
         file: Optional[IO[str]] = ...,
         format: str = ...,
@@ -30,4 +29,4 @@ class Hook:  # undocumented
     def handle(self, info: Optional[_ExcInfo] = ...) -> None: ...
 
 def handler(info: Optional[_ExcInfo] = ...) -> None: ...
-def enable(display: int = ..., logdir: Optional[AnyPath] = ..., context: int = ..., format: str = ...) -> None: ...
+def enable(display: int = ..., logdir: Optional[Text] = ..., context: int = ..., format: str = ...) -> None: ...

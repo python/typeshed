@@ -1,10 +1,10 @@
 import io
 import sys
-from _typeshed import AnyPath, ReadableBuffer, WriteableBuffer
+from _typeshed import StrOrBytesPath, ReadableBuffer, WriteableBuffer
 from typing import IO, Any, Iterable, List, Optional, TextIO, TypeVar, Union, overload
 from typing_extensions import Literal, SupportsIndex
 
-_PathOrFile = Union[AnyPath, IO[bytes]]
+_PathOrFile = Union[StrOrBytesPath, IO[bytes]]
 _T = TypeVar("_T")
 
 def compress(data: bytes, compresslevel: int = ...) -> bytes: ...
@@ -24,7 +24,7 @@ def open(
 ) -> BZ2File: ...
 @overload
 def open(
-    filename: AnyPath,
+    filename: StrOrBytesPath,
     mode: _OpenTextMode,
     compresslevel: int = ...,
     encoding: Optional[str] = ...,
