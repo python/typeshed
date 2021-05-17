@@ -139,7 +139,7 @@ Accepted features that *cannot* yet be used in typeshed include:
   use argument names prefixed with `__` instead
 - [PEP 585](https://www.python.org/dev/peps/pep-0585/) (builtin
   generics): see [#4820](https://github.com/python/typeshed/issues/4820),
-  mostly supported bug bugs remain for a few specific cases
+  mostly supported but bugs remain for a few specific cases
 - [PEP 604](https://www.python.org/dev/peps/pep-0604/) (Union
   pipe operator): see [#4819](https://github.com/python/typeshed/issues/4819)
 - [PEP 612](https://www.python.org/dev/peps/pep-0612/) (ParamSpec):
