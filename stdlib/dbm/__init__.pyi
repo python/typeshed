@@ -1,9 +1,13 @@
+from itertools import permutations
 from types import TracebackType
-from typing import Iterator, MutableMapping, Optional, Tuple, Type, Union
+from typing import Iterator, List, MutableMapping, Optional, Tuple, Type, TypeVar, Union
 from typing_extensions import Literal
 
 _KeyType = Union[str, bytes]
 _ValueType = Union[str, bytes]
+Flags: List[str] = [
+    head + "".join(tail) for tail in [perm for i in range(4) for perm in permutations("fsu", i)] for head in "rwcn"
+]
 
 class _Database(MutableMapping[_KeyType, bytes]):
     def close(self) -> None: ...
@@ -23,4 +27,4 @@ class _error(Exception): ...
 error = Tuple[Type[_error], Type[OSError]]
 
 def whichdb(filename: str) -> str: ...
-def open(file: str, flag: Literal["r", "w", "c", "n", "f", "s", "u"] = ..., mode: int = ...) -> _Database: ...
+def open(file: str, flag: Literal[tuple(Flags)] = ..., mode: int = ...) -> _Database: ...
