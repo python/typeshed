@@ -76,6 +76,8 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
+            const fs = require('fs')
+
             const response = await github.issues.listComments({
               issue_number: fs.readFileSync("pr_number.txt", { encoding: "utf8" }),
               owner: context.repo.owner,
