@@ -69,9 +69,36 @@ jobs:
               body
             })
 
-      # FIXME: comment hider doesn't work from this file
-#      - uses: kanga333/comment-hider@9141763feccc8da773595675adc567d6616b6e6f
-#        name: Hide old comments
-#        with:
-#          github_token: ${{ secrets.GITHUB_TOKEN }}
-#          leave_visible: 1
+      # Based on https://github.com/kanga333/comment-hider/blob/9141763feccc8da773595675adc567d6616b6e6f/src/client.ts
+      # Can't use kanga333/comment-hider because https://github.com/kanga333/comment-hider/issues/26
+      - name: Hide old comments
+        uses: actions/github-script@v3
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            const fs = require('fs')
+
+            const response = await github.issues.listComments({
+              issue_number: fs.readFileSync("pr_number.txt", { encoding: "utf8" }),
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            })
+            const botCommentIds = response.data
+              .filter(comment => comment.user.login === 'github-actions[bot]')
+              .map(comment => comment.node_id)
+              .slice(0, -1)  // skip last comment
+
+            for (const id of botCommentIds) {
+              const resp = await github.graphql(`
+                mutation {
+                  minimizeComment(input: {classifier: OUTDATED, subjectId: "${id}"}) {
+                    minimizedComment {
+                      isMinimized
+                    }
+                  }
+                }
+              `)
+              if (resp.errors) {
+                throw new Error(resp.errors)
+              }
+            }
