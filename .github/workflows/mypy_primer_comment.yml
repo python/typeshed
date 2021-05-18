@@ -83,11 +83,12 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
             })
-            console.log(response)
-            const botComments = response.data.filter(r => r.user.login === 'github-actions[bot]')
-            console.log(botComments)
+            const botCommentIds = response.data
+              .filter(comment => comment.user.login === 'github-actions[bot]')
+              .map(comment => comment.node_id)
+              .slice(0, -1)  // skip last comment
 
-            for (const id of botComments.map(comment => comment.node_id)) {
+            for (const id of botCommentIds) {
               const resp = await github.graphql(`
                 mutation {
                   minimizeComment(input: {classifier: OUTDATED, subjectId: "${id}"}) {
@@ -97,8 +98,6 @@ jobs:
                   }
                 }
               `)
-              console.log(resp)
-
               if (resp.errors) {
                 throw new Error(resp.errors)
               }
