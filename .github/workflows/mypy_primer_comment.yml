@@ -69,9 +69,38 @@ jobs:
               body
             })
 
-      # FIXME: comment hider doesn't work from this file
-#      - uses: kanga333/comment-hider@9141763feccc8da773595675adc567d6616b6e6f
-#        name: Hide old comments
-#        with:
-#          github_token: ${{ secrets.GITHUB_TOKEN }}
-#          leave_visible: 1
+      # Based on https://github.com/kanga333/comment-hider/blob/9141763feccc8da773595675adc567d6616b6e6f/src/client.ts
+      # kanga333/comment-hider errors if used from file with "on: workflow_run: ..."
+      - name: Hide old comments
+        uses: actions/github-script@v3
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            const response = await this.octokit.issues.listComments({
+              issue_number: fs.readFileSync("pr_number.txt", { encoding: "utf8" }),
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            })
+            console.log(response)
+            console.log(response.data.map(r => r.user))
+
+            const comments = response.data.filter(r => r.user !== null && r.user.login === 'github-actions')
+            console.log(comments)
+            console.log(comments.map(r => r.node_id))
+
+            for (const id of comments.map(r => r.node_id)) {
+              const resp: HideResponse = await this.octokit.graphql(`
+                mutation {
+                  minimizeComment(input: {classifier: OUTDATED, subjectId: "${id}"}) {
+                    minimizedComment {
+                      isMinimized
+                    }
+                  }
+                }
+              `)
+              console.log(resp)
+
+              if (resp.errors) {
+                throw new Error(resp.errors)
+              }
+            }
