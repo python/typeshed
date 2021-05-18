@@ -88,7 +88,7 @@ jobs:
             console.log(botComments)
 
             for (const id of botComments.map(comment => comment.node_id)) {
-              const resp = await this.octokit.graphql(`
+              const resp = await github.graphql(`
                 mutation {
                   minimizeComment(input: {classifier: OUTDATED, subjectId: "${id}"}) {
                     minimizedComment {
