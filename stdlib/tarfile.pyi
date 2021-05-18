@@ -3,6 +3,7 @@ import sys
 from _typeshed import StrOrBytesPath, StrPath
 from types import TracebackType
 from typing import IO, Callable, Dict, Iterable, Iterator, List, Mapping, Optional, Set, Tuple, Type, Union
+from typing_extensions import Literal
 
 # tar constants
 NUL: bytes
@@ -70,10 +71,10 @@ def open(
 class ExFileObject(io.BufferedReader):
     def __init__(self, tarfile: TarFile, tarinfo: TarInfo) -> None: ...
 
-class TarFile(Iterable[TarInfo]):
+class TarFile:
     OPEN_METH: Mapping[str, str]
     name: Optional[StrOrBytesPath]
-    mode: str
+    mode: Literal["r", "a", "w"]
     fileobj: Optional[IO[bytes]]
     format: Optional[int]
     tarinfo: Type[TarInfo]
@@ -89,7 +90,7 @@ class TarFile(Iterable[TarInfo]):
     def __init__(
         self,
         name: Optional[StrOrBytesPath] = ...,
-        mode: str = ...,
+        mode: Literal["r", "a", "w", "x"] = ...,
         fileobj: Optional[IO[bytes]] = ...,
         format: Optional[int] = ...,
         tarinfo: Optional[Type[TarInfo]] = ...,
@@ -129,7 +130,7 @@ class TarFile(Iterable[TarInfo]):
     def taropen(
         cls,
         name: Optional[StrOrBytesPath],
-        mode: str = ...,
+        mode: Literal["r", "a", "w", "x"] = ...,
         fileobj: Optional[IO[bytes]] = ...,
         *,
         compresslevel: int = ...,
@@ -146,7 +147,7 @@ class TarFile(Iterable[TarInfo]):
     def gzopen(
         cls,
         name: Optional[StrOrBytesPath],
-        mode: str = ...,
+        mode: Literal["r", "w", "x"] = ...,
         fileobj: Optional[IO[bytes]] = ...,
         compresslevel: int = ...,
         *,
@@ -163,7 +164,7 @@ class TarFile(Iterable[TarInfo]):
     def bz2open(
         cls,
         name: Optional[StrOrBytesPath],
-        mode: str = ...,
+        mode: Literal["r", "w", "x"] = ...,
         fileobj: Optional[IO[bytes]] = ...,
         compresslevel: int = ...,
         *,
@@ -180,7 +181,7 @@ class TarFile(Iterable[TarInfo]):
     def xzopen(
         cls,
         name: Optional[StrOrBytesPath],
-        mode: str = ...,
+        mode: Literal["r", "w", "x"] = ...,
         fileobj: Optional[IO[bytes]] = ...,
         preset: Optional[int] = ...,
         *,
