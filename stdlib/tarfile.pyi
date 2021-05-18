@@ -1,8 +1,9 @@
 import io
 import sys
+from collections.abc import Callable, Iterable, Iterator, Mapping
 from _typeshed import StrOrBytesPath, StrPath
 from types import TracebackType
-from typing import IO, Callable, Dict, Iterable, Iterator, List, Mapping, Optional, Set, Tuple, Type, Union
+from typing import IO, Dict, List, Optional, Set, Tuple, Type, Union
 from typing_extensions import Literal
 
 # tar constants
