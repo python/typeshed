@@ -89,7 +89,7 @@ jobs:
             console.log(comments.map(r => r.node_id))
 
             for (const id of comments.map(r => r.node_id)) {
-              const resp: HideResponse = await this.octokit.graphql(`
+              const resp = await this.octokit.graphql(`
                 mutation {
                   minimizeComment(input: {classifier: OUTDATED, subjectId: "${id}"}) {
                     minimizedComment {
