@@ -1,0 +1,104 @@
+name: Post mypy_primer comment
+
+on:
+  workflow_run:
+    workflows:
+      - Run mypy_primer
+    types:
+      - completed
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  comment:
+    name: Comment PR from mypy_primer
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download diffs
+        uses: actions/github-script@v3
+        with:
+          script: |
+            const fs = require('fs');
+            const artifacts = await github.actions.listWorkflowRunArtifacts({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               run_id: ${{ github.event.workflow_run.id }},
+            });
+            const [matchArtifact] = artifacts.data.artifacts.filter((artifact) =>
+              artifact.name == "mypy_primer_diffs");
+
+            const download = await github.actions.downloadArtifact({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               artifact_id: matchArtifact.id,
+               archive_format: "zip",
+            });
+            fs.writeFileSync("diff.zip", Buffer.from(download.data));
+
+      - run: unzip diff.zip
+
+      - name: Post comment
+        uses: actions/github-script@v3
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            const fs = require('fs')
+            const data = (
+              ['diff_0.txt', 'diff_1.txt']
+              .map(fileName => fs.readFileSync(fileName, { encoding: 'utf8' }))
+              .join('')
+              .substr(0, 30000)  // About 300 lines
+            )
+
+            console.log("Diff from mypy_primer:")
+            console.log(data)
+
+            let body
+            if (data.trim()) {
+              body = 'Diff from [mypy_primer](https://github.com/hauntsaninja/mypy_primer), showing the effect of this PR on open source code:\n```diff\n' + data + '```'
+            } else {
+              body = 'According to [mypy_primer](https://github.com/hauntsaninja/mypy_primer), this change has no effect on the checked open source code. 🤖🎉'
+            }
+
+            await github.issues.createComment({
+              issue_number: fs.readFileSync("pr_number.txt", { encoding: "utf8" }),
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body
+            })
+
+      # Based on https://github.com/kanga333/comment-hider/blob/9141763feccc8da773595675adc567d6616b6e6f/src/client.ts
+      # Can't use kanga333/comment-hider because https://github.com/kanga333/comment-hider/issues/26
+      - name: Hide old comments
+        uses: actions/github-script@v3
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            const fs = require('fs')
+
+            const response = await github.issues.listComments({
+              issue_number: fs.readFileSync("pr_number.txt", { encoding: "utf8" }),
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            })
+            const botCommentIds = response.data
+              .filter(comment => comment.user.login === 'github-actions[bot]')
+              .map(comment => comment.node_id)
+              .slice(0, -1)  // skip last comment
+
+            for (const id of botCommentIds) {
+              const resp = await github.graphql(`
+                mutation {
+                  minimizeComment(input: {classifier: OUTDATED, subjectId: "${id}"}) {
+                    minimizedComment {
+                      isMinimized
+                    }
+                  }
+                }
+              `)
+              if (resp.errors) {
+                throw new Error(resp.errors)
+              }
+            }

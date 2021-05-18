@@ -1,13 +1,13 @@
 import sys
 import types
 from _typeshed import (
-    AnyPath,
     OpenBinaryMode,
     OpenBinaryModeReading,
     OpenBinaryModeUpdating,
     OpenBinaryModeWriting,
     OpenTextMode,
     ReadableBuffer,
+    StrOrBytesPath,
     SupportsDivMod,
     SupportsKeysAndGetItem,
     SupportsLessThan,
@@ -1115,7 +1115,7 @@ def next(__i: Iterator[_T]) -> _T: ...
 def next(__i: Iterator[_T], default: _VT) -> Union[_T, _VT]: ...
 def oct(__number: Union[int, SupportsIndex]) -> str: ...
 
-_OpenFile = Union[AnyPath, int]
+_OpenFile = Union[StrOrBytesPath, int]
 _Opener = Callable[[str, int], int]
 
 # Text mode: always returns a TextIOWrapper
