@@ -173,6 +173,7 @@ class TarFile:
         debug: Optional[int] = ...,
         errorlevel: Optional[int] = ...,
     ) -> TarFile: ...
+    @overload
     @classmethod
     def gzopen(
         cls,
