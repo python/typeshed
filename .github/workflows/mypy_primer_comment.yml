@@ -70,7 +70,7 @@ jobs:
             })
 
       # Based on https://github.com/kanga333/comment-hider/blob/9141763feccc8da773595675adc567d6616b6e6f/src/client.ts
-      # kanga333/comment-hider errors if used from file with "on: workflow_run: ..."
+      # Can't use kanga333/comment-hider because https://github.com/kanga333/comment-hider/issues/26
       - name: Hide old comments
         uses: actions/github-script@v3
         with:
