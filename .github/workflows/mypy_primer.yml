@@ -33,7 +33,25 @@ jobs:
       - name: Run mypy_primer
         shell: bash
         run: |
-          echo lol > diff_${{ matrix.shard-index }}.txt
+          cd typeshed_to_test
+          echo "new commit"
+          git rev-list --format=%s --max-count=1 $GITHUB_SHA
+          git checkout -b upstream_master origin/master
+          echo "base commit"
+          git rev-list --format=%s --max-count=1 upstream_master
+          echo ''
+          cd ..
+          # fail action if exit code isn't zero or one
+          (
+            mypy_primer \
+            --new 551eea3697 --old 551eea3697 \
+            --custom-typeshed-repo typeshed_to_test \
+            --new-typeshed $GITHUB_SHA --old-typeshed upstream_master \
+            --num-shards 2 --shard-index ${{ matrix.shard-index }} \
+            --debug \
+            --output concise \
+            | tee diff_${{ matrix.shard-index }}.txt
+          ) || [ $? -eq 1 ]
       - name: Upload mypy_primer diff
         uses: actions/upload-artifact@v2
         with:
