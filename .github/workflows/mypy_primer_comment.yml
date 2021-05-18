@@ -84,13 +84,10 @@ jobs:
               repo: context.repo.repo,
             })
             console.log(response)
-            console.log(response.data.map(r => r.user))
+            const botComments = response.data.filter(r => r.user.login === 'github-actions[bot]')
+            console.log(botComments)
 
-            const comments = response.data.filter(r => r.user !== null && r.user.login === 'github-actions')
-            console.log(comments)
-            console.log(comments.map(r => r.node_id))
-
-            for (const id of comments.map(r => r.node_id)) {
+            for (const id of botComments.map(comment => comment.node_id)) {
               const resp = await this.octokit.graphql(`
                 mutation {
                   minimizeComment(input: {classifier: OUTDATED, subjectId: "${id}"}) {
