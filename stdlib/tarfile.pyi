@@ -1,8 +1,21 @@
 import io
 import sys
 from _typeshed import StrOrBytesPath, StrPath
+from collections.abc import Callable, Iterable, Iterator, Mapping
+from gzip import _ReadableFileobj as _GzipReadableFileobj, _WritableFileobj as _GzipWritableFileobj
 from types import TracebackType
-from typing import IO, Callable, Dict, Iterable, Iterator, List, Mapping, Optional, Set, Tuple, Type, Union
+from typing import IO, Dict, List, Optional, Protocol, Set, Tuple, Type, Union, overload
+from typing_extensions import Literal
+
+class _Fileobj(Protocol):
+    def read(self, __size: int) -> bytes: ...
+    def write(self, __b: bytes) -> object: ...
+    def tell(self) -> int: ...
+    def seek(self, __pos: int) -> object: ...
+    def close(self) -> object: ...
+    # Optional fields:
+    # name: str | bytes
+    # mode: Literal["rb", "r+b", "wb", "xb"]
 
 # tar constants
 NUL: bytes
@@ -52,7 +65,7 @@ ENCODING: str
 def open(
     name: Optional[StrOrBytesPath] = ...,
     mode: str = ...,
-    fileobj: Optional[IO[bytes]] = ...,
+    fileobj: Optional[IO[bytes]] = ...,  # depends on mode
     bufsize: int = ...,
     *,
     format: Optional[int] = ...,
@@ -70,11 +83,11 @@ def open(
 class ExFileObject(io.BufferedReader):
     def __init__(self, tarfile: TarFile, tarinfo: TarInfo) -> None: ...
 
-class TarFile(Iterable[TarInfo]):
+class TarFile:
     OPEN_METH: Mapping[str, str]
     name: Optional[StrOrBytesPath]
-    mode: str
-    fileobj: Optional[IO[bytes]]
+    mode: Literal["r", "a", "w", "x"]
+    fileobj: Optional[_Fileobj]
     format: Optional[int]
     tarinfo: Type[TarInfo]
     dereference: Optional[bool]
@@ -89,8 +102,8 @@ class TarFile(Iterable[TarInfo]):
     def __init__(
         self,
         name: Optional[StrOrBytesPath] = ...,
-        mode: str = ...,
-        fileobj: Optional[IO[bytes]] = ...,
+        mode: Literal["r", "a", "w", "x"] = ...,
+        fileobj: Optional[_Fileobj] = ...,
         format: Optional[int] = ...,
         tarinfo: Optional[Type[TarInfo]] = ...,
         dereference: Optional[bool] = ...,
@@ -112,7 +125,7 @@ class TarFile(Iterable[TarInfo]):
         cls,
         name: Optional[StrOrBytesPath] = ...,
         mode: str = ...,
-        fileobj: Optional[IO[bytes]] = ...,
+        fileobj: Optional[IO[bytes]] = ...,  # depends on mode
         bufsize: int = ...,
         *,
         format: Optional[int] = ...,
@@ -129,8 +142,8 @@ class TarFile(Iterable[TarInfo]):
     def taropen(
         cls,
         name: Optional[StrOrBytesPath],
-        mode: str = ...,
-        fileobj: Optional[IO[bytes]] = ...,
+        mode: Literal["r", "a", "w", "x"] = ...,
+        fileobj: Optional[_Fileobj] = ...,
         *,
         compresslevel: int = ...,
         format: Optional[int] = ...,
@@ -142,12 +155,31 @@ class TarFile(Iterable[TarInfo]):
         debug: Optional[int] = ...,
         errorlevel: Optional[int] = ...,
     ) -> TarFile: ...
+    @overload
     @classmethod
     def gzopen(
         cls,
         name: Optional[StrOrBytesPath],
-        mode: str = ...,
-        fileobj: Optional[IO[bytes]] = ...,
+        mode: Literal["r"] = ...,
+        fileobj: Optional[_GzipReadableFileobj] = ...,
+        compresslevel: int = ...,
+        *,
+        format: Optional[int] = ...,
+        tarinfo: Optional[Type[TarInfo]] = ...,
+        dereference: Optional[bool] = ...,
+        ignore_zeros: Optional[bool] = ...,
+        encoding: Optional[str] = ...,
+        pax_headers: Optional[Mapping[str, str]] = ...,
+        debug: Optional[int] = ...,
+        errorlevel: Optional[int] = ...,
+    ) -> TarFile: ...
+    @overload
+    @classmethod
+    def gzopen(
+        cls,
+        name: Optional[StrOrBytesPath],
+        mode: Literal["w", "x"],
+        fileobj: Optional[_GzipWritableFileobj] = ...,
         compresslevel: int = ...,
         *,
         format: Optional[int] = ...,
@@ -163,7 +195,7 @@ class TarFile(Iterable[TarInfo]):
     def bz2open(
         cls,
         name: Optional[StrOrBytesPath],
-        mode: str = ...,
+        mode: Literal["r", "w", "x"] = ...,
         fileobj: Optional[IO[bytes]] = ...,
         compresslevel: int = ...,
         *,
@@ -180,7 +212,7 @@ class TarFile(Iterable[TarInfo]):
     def xzopen(
         cls,
         name: Optional[StrOrBytesPath],
-        mode: str = ...,
+        mode: Literal["r", "w", "x"] = ...,
         fileobj: Optional[IO[bytes]] = ...,
         preset: Optional[int] = ...,
         *,
