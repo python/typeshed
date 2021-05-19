@@ -99,7 +99,11 @@ class BZ2File(BaseStream, IO[bytes]):
         ) -> None: ...
         @overload
         def __init__(
-            self, filename: _ReadableFileobj, mode: _ReadBinaryMode = ..., buffering: Optional[Any] = ..., compresslevel: int = ...
+            self,
+            filename: _ReadableFileobj,
+            mode: _ReadBinaryMode = ...,
+            buffering: Optional[Any] = ...,
+            compresslevel: int = ...,
         ) -> None: ...
         @overload
         def __init__(
