@@ -1,4 +1,6 @@
-# Stub-only types. This module does not exist at runtime.
+# Utility types for XML
+#
+# See the README.md file in this directory for more information.
 
 from typing import Any, Optional
 from typing_extensions import Protocol
