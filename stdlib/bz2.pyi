@@ -1,22 +1,73 @@
+import _compression
 import sys
 from _compression import BaseStream
 from _typeshed import ReadableBuffer, StrOrBytesPath, WriteableBuffer
-from typing import IO, Any, Iterable, List, Optional, TextIO, TypeVar, Union, overload
+from typing import IO, Any, Iterable, List, Optional, Protocol, TextIO, TypeVar, Union, overload
 from typing_extensions import Literal, SupportsIndex
 
-_PathOrFile = Union[StrOrBytesPath, IO[bytes]]
+# The following attributes and methods are optional:
+# def fileno(self) -> int: ...
+# def close(self) -> object: ...
+_ReadableFileobj = _compression.Reader
+
+class _WritableFileobj(Protocol):
+    def write(self, __b: bytes) -> object: ...
+    # The following attributes and methods are optional:
+    # def fileno(self) -> int: ...
+    # def close(self) -> object: ...
+
 _T = TypeVar("_T")
 
 def compress(data: bytes, compresslevel: int = ...) -> bytes: ...
 def decompress(data: bytes) -> bytes: ...
 
-_OpenBinaryMode = Literal["r", "rb", "w", "wb", "x", "xb", "a", "ab"]
-_OpenTextMode = Literal["rt", "wt", "xt", "at"]
+_ReadBinaryMode = Literal["", "r", "rb"]
+_WriteBinaryMode = Literal["w", "wb", "x", "xb", "a", "ab"]
+_ReadTextMode = Literal["rt"]
+_WriteTextMode = Literal["wt", "xt", "at"]
+_Bzip2ReadMode = Literal["", "r", "rb"]
+_Bzip2WriteMode = Literal["w", "wb", "x", "xb", "a", "ab"]
 
 @overload
 def open(
-    filename: _PathOrFile,
-    mode: _OpenBinaryMode = ...,
+    filename: _ReadableFileobj,
+    mode: _ReadBinaryMode = ...,
+    compresslevel: int = ...,
+    encoding: None = ...,
+    errors: None = ...,
+    newline: None = ...,
+) -> BZ2File: ...
+@overload
+def open(
+    filename: _ReadableFileobj,
+    mode: _ReadTextMode,
+    compresslevel: int = ...,
+    encoding: Optional[str] = ...,
+    errors: Optional[str] = ...,
+    newline: Optional[str] = ...,
+) -> TextIO: ...
+@overload
+def open(
+    filename: _WritableFileobj,
+    mode: _WriteBinaryMode,
+    compresslevel: int = ...,
+    encoding: None = ...,
+    errors: None = ...,
+    newline: None = ...,
+) -> BZ2File: ...
+@overload
+def open(
+    filename: _WritableFileobj,
+    mode: _WriteTextMode,
+    compresslevel: int = ...,
+    encoding: Optional[str] = ...,
+    errors: Optional[str] = ...,
+    newline: Optional[str] = ...,
+) -> TextIO: ...
+@overload
+def open(
+    filename: StrOrBytesPath,
+    mode: Union[_ReadBinaryMode, _WriteBinaryMode] = ...,
     compresslevel: int = ...,
     encoding: None = ...,
     errors: None = ...,
@@ -25,29 +76,40 @@ def open(
 @overload
 def open(
     filename: StrOrBytesPath,
-    mode: _OpenTextMode,
+    mode: Union[_ReadTextMode, _WriteTextMode],
     compresslevel: int = ...,
     encoding: Optional[str] = ...,
     errors: Optional[str] = ...,
     newline: Optional[str] = ...,
 ) -> TextIO: ...
-@overload
-def open(
-    filename: _PathOrFile,
-    mode: str,
-    compresslevel: int = ...,
-    encoding: Optional[str] = ...,
-    errors: Optional[str] = ...,
-    newline: Optional[str] = ...,
-) -> Union[BZ2File, TextIO]: ...
 
 class BZ2File(BaseStream, IO[bytes]):
     def __enter__(self: _T) -> _T: ...
     if sys.version_info >= (3, 9):
-        def __init__(self, filename: _PathOrFile, mode: str = ..., *, compresslevel: int = ...) -> None: ...
-    else:
+        @overload
+        def __init__(self, filename: _WritableFileobj, mode: _Bzip2WriteMode, *, compresslevel: int = ...) -> None: ...
+        @overload
+        def __init__(self, filename: _ReadableFileobj, mode: _Bzip2ReadMode = ..., *, compresslevel: int = ...) -> None: ...
+        @overload
         def __init__(
-            self, filename: _PathOrFile, mode: str = ..., buffering: Optional[Any] = ..., compresslevel: int = ...
+            self, filename: StrOrBytesPath, mode: Union[_Bzip2ReadMode, _Bzip2WriteMode] = ..., *, compresslevel: int = ...
+        ) -> None: ...
+    else:
+        @overload
+        def __init__(
+            self, filename: _WritableFileobj, mode: _Bzip2WriteMode, buffering: Optional[Any] = ..., compresslevel: int = ...
+        ) -> None: ...
+        @overload
+        def __init__(
+            self, filename: _ReadableFileobj, mode: _Bzip2ReadMode = ..., buffering: Optional[Any] = ..., compresslevel: int = ...
+        ) -> None: ...
+        @overload
+        def __init__(
+            self,
+            filename: StrOrBytesPath,
+            mode: Union[_Bzip2ReadMode, _Bzip2WriteMode] = ...,
+            buffering: Optional[Any] = ...,
+            compresslevel: int = ...,
         ) -> None: ...
     def read(self, size: Optional[int] = ...) -> bytes: ...
     def read1(self, size: int = ...) -> bytes: ...
