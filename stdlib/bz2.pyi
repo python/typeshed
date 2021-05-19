@@ -1,5 +1,5 @@
-import io
 import sys
+from _compression import BaseStream
 from _typeshed import ReadableBuffer, StrOrBytesPath, WriteableBuffer
 from typing import IO, Any, Iterable, List, Optional, TextIO, TypeVar, Union, overload
 from typing_extensions import Literal, SupportsIndex
@@ -41,7 +41,7 @@ def open(
     newline: Optional[str] = ...,
 ) -> Union[BZ2File, TextIO]: ...
 
-class BZ2File(io.BufferedIOBase, IO[bytes]):
+class BZ2File(BaseStream, IO[bytes]):
     def __enter__(self: _T) -> _T: ...
     if sys.version_info >= (3, 9):
         def __init__(self, filename: _PathOrFile, mode: str = ..., *, compresslevel: int = ...) -> None: ...
