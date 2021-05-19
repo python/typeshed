@@ -184,3 +184,6 @@ if sys.version_info >= (3, 4):
 
 def encode_long(x: int) -> bytes: ...  # undocumented
 def decode_long(data: bytes) -> int: ...  # undocumented
+
+_Pickler = Pickler  # undocumented
+_Unpickler = Unpickler  # undocumented
