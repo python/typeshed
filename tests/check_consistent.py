@@ -22,6 +22,7 @@ consistent_files = [
     {"stdlib/threading.pyi", "stdlib/_dummy_threading.pyi"},
 ]
 metadata_keys = {"version", "python2", "python3", "requires", "extra_description", "obsolete_since"}
+allowed_files = {"README.md"}
 
 
 def assert_stubs_only(directory):
@@ -30,6 +31,8 @@ def assert_stubs_only(directory):
     assert top.isidentifier(), f"Bad directory name: {top}"
     for _, dirs, files in os.walk(directory):
         for file in files:
+            if file in allowed_files:
+                continue
             name, ext = os.path.splitext(file)
             assert name.isidentifier(), f"Files must be valid modules, got: {name}"
             assert ext == ".pyi", f"Only stub flies allowed. Got: {file} in {directory}"
