@@ -86,7 +86,7 @@ class ExFileObject(io.BufferedReader):
 class TarFile:
     OPEN_METH: Mapping[str, str]
     name: Optional[StrOrBytesPath]
-    mode: Literal["r", "a", "w"]
+    mode: Literal["r", "a", "w", "x"]
     fileobj: Optional[_Fileobj]
     format: Optional[int]
     tarinfo: Type[TarInfo]
