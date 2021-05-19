@@ -107,7 +107,8 @@ def check_versions():
     with open("stdlib/VERSIONS") as f:
         data = f.read().splitlines()
     for line in data:
-        if not line or line.lstrip().startswith("#"):
+        line = line.split("#")[0].strip()
+        if line == "":
             continue
         m = _VERSIONS_RE.match(line)
         if not m:
