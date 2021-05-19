@@ -1,5 +1,3 @@
-# Utility types for XML
-#
 # See the README.md file in this directory for more information.
 
 from typing import Any, Optional
