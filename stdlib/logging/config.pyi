@@ -1,4 +1,5 @@
 import sys
+from _typeshed import AnyPath, StrPath
 from collections.abc import Callable
 from configparser import RawConfigParser
 from logging import Filter, Filterer, Formatter, Handler, Logger
@@ -21,8 +22,6 @@ from typing import (
     Union,
     overload,
 )
-
-from Typeshed import AnyPath, StrPath
 
 if sys.version_info >= (3, 7):
     _Path = AnyPath
