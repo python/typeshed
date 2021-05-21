@@ -16,7 +16,7 @@ if sys.version_info >= (3, 7):
 else:
     _Path = StrPath
 
-_TKey = TypeVar("_TKey", bound=str)
+_TKey = TypeVar("_TKey")
 _TValue = TypeVar("_TValue")
 
 DEFAULT_LOGGING_CONFIG_PORT: int
