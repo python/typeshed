@@ -1,13 +1,13 @@
 import sys
 import types
 from _typeshed import (
-    AnyPath,
     OpenBinaryMode,
     OpenBinaryModeReading,
     OpenBinaryModeUpdating,
     OpenBinaryModeWriting,
     OpenTextMode,
     ReadableBuffer,
+    StrOrBytesPath,
     SupportsDivMod,
     SupportsKeysAndGetItem,
     SupportsLessThan,
@@ -27,7 +27,6 @@ from typing import (
     BinaryIO,
     ByteString,
     Callable,
-    Container,
     Dict,
     FrozenSet,
     Generic,
@@ -624,7 +623,7 @@ class bytearray(MutableSequence[int], ByteString):
     def __gt__(self, x: bytes) -> bool: ...
     def __ge__(self, x: bytes) -> bool: ...
 
-class memoryview(Sized, Container[int]):
+class memoryview(Sized, Sequence[int]):
     format: str
     itemsize: int
     shape: Optional[Tuple[int, ...]]
@@ -811,10 +810,10 @@ class dict(MutableMapping[_KT, _VT], Generic[_KT, _VT]):
     def items(self) -> ItemsView[_KT, _VT]: ...
     @classmethod
     @overload
-    def fromkeys(cls, __iterable: Iterable[_T]) -> Dict[_T, Any]: ...
+    def fromkeys(cls, __iterable: Iterable[_T], __value: None = ...) -> dict[_T, Optional[Any]]: ...
     @classmethod
     @overload
-    def fromkeys(cls, __iterable: Iterable[_T], __value: _S) -> Dict[_T, _S]: ...
+    def fromkeys(cls, __iterable: Iterable[_T], __value: _S) -> dict[_T, _S]: ...
     def __len__(self) -> int: ...
     def __getitem__(self, k: _KT) -> _VT: ...
     def __setitem__(self, k: _KT, v: _VT) -> None: ...
@@ -827,6 +826,7 @@ class dict(MutableMapping[_KT, _VT], Generic[_KT, _VT]):
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, item: Any) -> GenericAlias: ...
         def __or__(self, __value: Mapping[_KT, _VT]) -> Dict[_KT, _VT]: ...
+        def __ror__(self, __value: Mapping[_KT, _VT]) -> Dict[_KT, _VT]: ...
         def __ior__(self, __value: Mapping[_KT, _VT]) -> Dict[_KT, _VT]: ...
 
 class set(MutableSet[_T], Generic[_T]):
@@ -1115,7 +1115,7 @@ def next(__i: Iterator[_T]) -> _T: ...
 def next(__i: Iterator[_T], default: _VT) -> Union[_T, _VT]: ...
 def oct(__number: Union[int, SupportsIndex]) -> str: ...
 
-_OpenFile = Union[AnyPath, int]
+_OpenFile = Union[StrOrBytesPath, int]
 _Opener = Callable[[str, int], int]
 
 # Text mode: always returns a TextIOWrapper
