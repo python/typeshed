@@ -93,7 +93,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: jakebailey/pyright-action@v1
         with:
-          version: 1.1.140  # Must match pyright_test.py.
+          version: 1.1.142  # Must match pyright_test.py.
           python-platform: ${{ matrix.python-platform }}
           python-version: ${{ matrix.python-version }}
           no-comments: ${{ matrix.python-version != '3.9' || matrix.python-platform != 'Linux' }}  # Having each job create the same comment is too noisy.
