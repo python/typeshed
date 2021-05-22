@@ -163,7 +163,7 @@ else:
             dir: Optional[_DirT[AnyStr]] = ...,
         ) -> IO[Any]: ...
 
-class _TemporaryFileWrapper(Generic[AnyStr], IO[AnyStr]):
+class _TemporaryFileWrapper(Generic[AnyStr]):
     file: IO[AnyStr]
     name: str
     delete: bool
@@ -175,19 +175,13 @@ class _TemporaryFileWrapper(Generic[AnyStr], IO[AnyStr]):
     def __getattr__(self, name: str) -> Any: ...
     def close(self) -> None: ...
     def unlink(self, path: str) -> None: ...
-    # These methods don't exist directly on this object, but
-    # are delegated to the underlying IO object through __getattr__.
-    # We need to add them here so that this class is concrete.
     def __iter__(self) -> Iterator[AnyStr]: ...
-    # FIXME: __next__ doesn't actually exist on this class and should be removed:
-    #        see also https://github.com/python/typeshed/pull/5456#discussion_r633068648
-    # >>> import tempfile
-    # >>> ntf=tempfile.NamedTemporaryFile()
-    # >>> next(ntf)
-    # Traceback (most recent call last):
-    #   File "<stdin>", line 1, in <module>
-    # TypeError: '_TemporaryFileWrapper' object is not an iterator
-    def __next__(self) -> AnyStr: ...
+    # Rest of these methods don't exist directly on this object, but
+    # are delegated to the underlying IO object through __getattr__.
+    #
+    # We don't have __next__ here, because next(wrapper_obj) doesn't see
+    # methods coming from __getattr__, so TemporaryFileWrappers are
+    # not iterators.
     def fileno(self) -> int: ...
     def flush(self) -> None: ...
     def isatty(self) -> bool: ...
