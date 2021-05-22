@@ -164,7 +164,7 @@ else:
         ) -> IO[Any]: ...
 
 class _TemporaryFileWrapper(Generic[AnyStr]):
-    file: IO[AnyStr]
+    file: IO[AnyStr]  # io.TextIOWrapper, io.BufferedReader or io.BufferedWriter
     name: str
     delete: bool
     def __init__(self, file: IO[AnyStr], name: str, delete: bool = ...) -> None: ...
