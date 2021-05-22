@@ -40,6 +40,7 @@ jobs:
       - run: unzip diff.zip
 
       - name: Post comment
+        id: post-comment
         uses: actions/github-script@v3
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
@@ -62,43 +63,19 @@ jobs:
               body = 'According to [mypy_primer](https://github.com/hauntsaninja/mypy_primer), this change has no effect on the checked open source code. 🤖🎉'
             }
 
+            const prNumber = parseInt(fs.readFileSync("pr_number.txt", { encoding: "utf8" }))
             await github.issues.createComment({
-              issue_number: fs.readFileSync("pr_number.txt", { encoding: "utf8" }),
+              issue_number: prNumber,
               owner: context.repo.owner,
               repo: context.repo.repo,
               body
             })
+            return prNumber
 
-      # Based on https://github.com/kanga333/comment-hider/blob/9141763feccc8da773595675adc567d6616b6e6f/src/client.ts
-      # Can't use kanga333/comment-hider because https://github.com/kanga333/comment-hider/issues/26
       - name: Hide old comments
-        uses: actions/github-script@v3
+        # v0.3.0
+        uses: kanga333/comment-hider@bbdf5b562fbec24e6f60572d8f712017428b92e0
         with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
-          script: |
-            const fs = require('fs')
-
-            const response = await github.issues.listComments({
-              issue_number: fs.readFileSync("pr_number.txt", { encoding: "utf8" }),
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-            })
-            const botCommentIds = response.data
-              .filter(comment => comment.user.login === 'github-actions[bot]')
-              .map(comment => comment.node_id)
-              .slice(0, -1)  // skip last comment
-
-            for (const id of botCommentIds) {
-              const resp = await github.graphql(`
-                mutation {
-                  minimizeComment(input: {classifier: OUTDATED, subjectId: "${id}"}) {
-                    minimizedComment {
-                      isMinimized
-                    }
-                  }
-                }
-              `)
-              if (resp.errors) {
-                throw new Error(resp.errors)
-              }
-            }
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          leave_visible: 1
+          issue_number: ${{ steps.post-comment.outputs.result }}
