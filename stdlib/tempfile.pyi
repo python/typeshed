@@ -163,7 +163,7 @@ else:
             dir: Optional[_DirT[AnyStr]] = ...,
         ) -> IO[Any]: ...
 
-class _TemporaryFileWrapper(Generic[AnyStr]):
+class _TemporaryFileWrapper(Generic[AnyStr], IO[AnyStr]):
     file: IO[AnyStr]  # io.TextIOWrapper, io.BufferedReader or io.BufferedWriter
     name: str
     delete: bool
@@ -173,14 +173,20 @@ class _TemporaryFileWrapper(Generic[AnyStr]):
         self, exc: Optional[Type[BaseException]], value: Optional[BaseException], tb: Optional[TracebackType]
     ) -> Optional[bool]: ...
     def __getattr__(self, name: str) -> Any: ...
-    def __iter__(self) -> Iterator[AnyStr]: ...
     def close(self) -> None: ...
-    # Rest of these methods don't exist directly on this object, but
+    # These methods don't exist directly on this object, but
     # are delegated to the underlying IO object through __getattr__.
-    #
-    # We don't have __next__ here, because next(wrapper_obj) doesn't see
-    # methods coming from __getattr__, so TemporaryFileWrappers are
-    # not iterators.
+    # We need to add them here so that this class is concrete.
+    def __iter__(self) -> Iterator[AnyStr]: ...
+    # FIXME: __next__ doesn't actually exist on this class and should be removed:
+    #        see also https://github.com/python/typeshed/pull/5456#discussion_r633068648
+    # >>> import tempfile
+    # >>> ntf=tempfile.NamedTemporaryFile()
+    # >>> next(ntf)
+    # Traceback (most recent call last):
+    #   File "<stdin>", line 1, in <module>
+    # TypeError: '_TemporaryFileWrapper' object is not an iterator
+    def __next__(self) -> AnyStr: ...
     def fileno(self) -> int: ...
     def flush(self) -> None: ...
     def isatty(self) -> bool: ...
