@@ -165,9 +165,9 @@ else:
 
 class _TemporaryFileWrapper(Generic[AnyStr], IO[AnyStr]):
     file: IO[AnyStr]
-    name: Any
+    name: str
     delete: bool
-    def __init__(self, file: IO[AnyStr], name: Any, delete: bool = ...) -> None: ...
+    def __init__(self, file: IO[AnyStr], name: str, delete: bool = ...) -> None: ...
     def __enter__(self) -> _TemporaryFileWrapper[AnyStr]: ...
     def __exit__(
         self, exc: Optional[Type[BaseException]], value: Optional[BaseException], tb: Optional[TracebackType]
