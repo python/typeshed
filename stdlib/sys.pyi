@@ -8,6 +8,7 @@ from typing import (
     AsyncGenerator,
     Callable,
     Dict,
+    FrozenSet,
     List,
     NoReturn,
     Optional,
@@ -74,6 +75,8 @@ ps2: str
 stdin: TextIO
 stdout: TextIO
 stderr: TextIO
+if sys.version_info >= (3, 10):
+    stdlib_module_names: FrozenSet[str]
 __stdin__: TextIO
 __stdout__: TextIO
 __stderr__: TextIO
