@@ -61,6 +61,8 @@ maxsize: int
 maxunicode: int
 meta_path: List[_MetaPathFinder]
 modules: Dict[str, ModuleType]
+if sys.version_info >= (3, 10):
+    orig_argv: List[str]
 path: List[str]
 path_hooks: List[Any]  # TODO precise type; function, path to finder
 path_importer_cache: Dict[str, Optional[PathEntryFinder]]
