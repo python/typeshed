@@ -59,9 +59,14 @@ class time:
     min: ClassVar[time]
     max: ClassVar[time]
     resolution: ClassVar[timedelta]
-    def __init__(
-        self, hour: int = ..., minute: int = ..., second: int = ..., microsecond: int = ..., tzinfo: Optional[_tzinfo] = ...
-    ) -> None: ...
+    def __new__(
+        cls: Type[_S],
+        hour: int = ...,
+        minute: int = ...,
+        second: int = ...,
+        microsecond: int = ...,
+        tzinfo: Optional[_tzinfo] = ...,
+    ) -> _S: ...
     @property
     def hour(self) -> int: ...
     @property
