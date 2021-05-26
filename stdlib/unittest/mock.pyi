@@ -204,18 +204,6 @@ class _patcher:
     TEST_PREFIX: str
     dict: Type[_patch_dict]
     if sys.version_info >= (3, 8):
-        @overload
-        def __call__(  # type: ignore
-            self,
-            target: Any,
-            *,
-            spec: Optional[Any] = ...,
-            create: bool = ...,
-            spec_set: Optional[Any] = ...,
-            autospec: Optional[Any] = ...,
-            new_callable: Optional[Any] = ...,
-            **kwargs: Any,
-        ) -> _patch[Union[MagicMock, AsyncMock]]: ...
         # This overload also covers the case, where new==DEFAULT. In this case, the return type is _patch[Any].
         # Ideally we'd be able to add an overload for it so that the return type is _patch[MagicMock],
         # but that's impossible with the current type system.
@@ -231,7 +219,6 @@ class _patcher:
             new_callable: Optional[Any] = ...,
             **kwargs: Any,
         ) -> _patch[_T]: ...
-    else:
         @overload
         def __call__(  # type: ignore
             self,
@@ -243,7 +230,8 @@ class _patcher:
             autospec: Optional[Any] = ...,
             new_callable: Optional[Any] = ...,
             **kwargs: Any,
-        ) -> _patch[MagicMock]: ...
+        ) -> _patch[Union[MagicMock, AsyncMock]]: ...
+    else:
         @overload
         def __call__(
             self,
@@ -256,7 +244,32 @@ class _patcher:
             new_callable: Optional[Any] = ...,
             **kwargs: Any,
         ) -> _patch[_T]: ...
+        @overload
+        def __call__(  # type: ignore
+            self,
+            target: Any,
+            *,
+            spec: Optional[Any] = ...,
+            create: bool = ...,
+            spec_set: Optional[Any] = ...,
+            autospec: Optional[Any] = ...,
+            new_callable: Optional[Any] = ...,
+            **kwargs: Any,
+        ) -> _patch[MagicMock]: ...
     if sys.version_info >= (3, 8):
+        @overload
+        def object(
+            self,
+            target: Any,
+            attribute: str,
+            new: _T,
+            spec: Optional[Any] = ...,
+            create: bool = ...,
+            spec_set: Optional[Any] = ...,
+            autospec: Optional[Any] = ...,
+            new_callable: Optional[Any] = ...,
+            **kwargs: Any,
+        ) -> _patch[_T]: ...
         @overload
         def object(  # type: ignore
             self,
@@ -270,12 +283,13 @@ class _patcher:
             new_callable: Optional[Any] = ...,
             **kwargs: Any,
         ) -> _patch[Union[MagicMock, AsyncMock]]: ...
+    else:
         @overload
         def object(
             self,
             target: Any,
             attribute: str,
-            new: _T = ...,
+            new: _T,
             spec: Optional[Any] = ...,
             create: bool = ...,
             spec_set: Optional[Any] = ...,
@@ -283,7 +297,6 @@ class _patcher:
             new_callable: Optional[Any] = ...,
             **kwargs: Any,
         ) -> _patch[_T]: ...
-    else:
         @overload
         def object(  # type: ignore
             self,
@@ -297,19 +310,6 @@ class _patcher:
             new_callable: Optional[Any] = ...,
             **kwargs: Any,
         ) -> _patch[MagicMock]: ...
-        @overload
-        def object(
-            self,
-            target: Any,
-            attribute: str,
-            new: _T = ...,
-            spec: Optional[Any] = ...,
-            create: bool = ...,
-            spec_set: Optional[Any] = ...,
-            autospec: Optional[Any] = ...,
-            new_callable: Optional[Any] = ...,
-            **kwargs: Any,
-        ) -> _patch[_T]: ...
     def multiple(
         self,
         target: Any,
