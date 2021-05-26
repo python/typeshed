@@ -208,7 +208,7 @@ class _patcher:
         # Ideally we'd be able to add an overload for it so that the return type is _patch[MagicMock],
         # but that's impossible with the current type system.
         @overload
-        def __call__(
+        def __call__(  # type: ignore
             self,
             target: Any,
             new: _T,
@@ -233,7 +233,7 @@ class _patcher:
         ) -> _patch[Union[MagicMock, AsyncMock]]: ...
     else:
         @overload
-        def __call__(
+        def __call__(  # type: ignore
             self,
             target: Any,
             new: _T,
@@ -258,7 +258,7 @@ class _patcher:
         ) -> _patch[MagicMock]: ...
     if sys.version_info >= (3, 8):
         @overload
-        def object(
+        def object(  # type: ignore
             self,
             target: Any,
             attribute: str,
@@ -285,7 +285,7 @@ class _patcher:
         ) -> _patch[Union[MagicMock, AsyncMock]]: ...
     else:
         @overload
-        def object(
+        def object(  # type: ignore
             self,
             target: Any,
             attribute: str,
