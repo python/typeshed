@@ -124,9 +124,6 @@ tkinter.EventType.__new__
 _markupbase.ParserBase.error
 asyncio.proactor_events._ProactorReadPipeTransport.__init__
 builtins.aiter
-dataclasses.Field.__init__
-dataclasses.dataclass
-dataclasses.make_dataclass
 distutils.command.bdist_wininst
 fileinput.FileInput.__init__
 fileinput.hook_compressed
