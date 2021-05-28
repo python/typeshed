@@ -93,7 +93,7 @@ if sys.platform == "linux":
         AF_VSOCK: AddressFamily  # type: ignore (redefined from _socket)
     if sys.version_info >= (3, 8):
         AF_QIPCRTR: AddressFamily  # type: ignore (redefined from _socket)
-AF_LINK: AddressFamily   # type: ignore (redefined from _socket), availability: BSD, macOS
+AF_LINK: AddressFamily  # type: ignore (redefined from _socket), availability: BSD, macOS
 if sys.platform != "win32" and sys.platform != "darwin":
     AF_BLUETOOTH: AddressFamily
 
