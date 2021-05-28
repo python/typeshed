@@ -95,7 +95,7 @@ if sys.platform == "linux":
         AF_QIPCRTR: AddressFamily  # type: ignore  # redefined from _socket
 AF_LINK: AddressFamily  # type: ignore  # redefined from _socket, availability: BSD, macOS
 if sys.platform != "win32" and sys.platform != "darwin":
-    AF_BLUETOOTH: AddressFamily
+    AF_BLUETOOTH: AddressFamily  # type: ignore  # redefined from _socket
 
 class SocketKind(IntEnum):
     SOCK_STREAM: int
@@ -169,7 +169,7 @@ AI_V4MAPPED_CFG: AddressInfo  # type: ignore  # redefined from _socket
 if sys.platform == "win32":
     errorTab: dict[int, str]  # undocumented
 
-class socket(_socket.socket):
+class socket(_socket.socket):  # type: ignore  # redefined from _socket
     def __init__(
         self,
         family: Union[AddressFamily, int] = ...,
