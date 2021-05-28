@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 import _socket
 from _socket import *
-from _socket import _Address, _RetAddress
+from _socket import _Address as _Address, _RetAddress as _RetAddress
 
 _T = TypeVar("_T")
 
