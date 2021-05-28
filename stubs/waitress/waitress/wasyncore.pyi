@@ -5,6 +5,8 @@ from typing import Any, Callable, Mapping, Optional, Tuple
 
 from . import compat as compat, utilities as utilities
 
+_socket = socket
+
 socket_map: Mapping[int, socket]
 map: Mapping[int, socket]
 
@@ -22,8 +24,6 @@ def loop(
     timeout: float = ..., use_poll: bool = ..., map: Optional[Mapping[int, socket]] = ..., count: Optional[int] = ...
 ) -> None: ...
 def compact_traceback() -> Tuple[Tuple[str, str, str], BaseException, BaseException, str]: ...
-
-_socket = socket
 
 class dispatcher:
     debug: bool = ...
@@ -88,8 +88,6 @@ class file_wrapper:
     write: Callable[..., bytes] = ...
     def close(self) -> None: ...
     def fileno(self) -> BytesIO: ...
-
-_socket = socket
 
 class file_dispatcher(dispatcher):
     connected: bool = ...
