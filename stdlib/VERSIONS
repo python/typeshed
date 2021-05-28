@@ -43,6 +43,7 @@ _py_abc: 3.7-
 _pydecimal: 3.6-
 _random: 2.7-
 _sitebuiltins: 3.6-
+_socket: 3.0-  # present in 2.7 at runtime, but not in typeshed
 _stat: 3.6-
 _thread: 2.7-
 _threading_local: 3.6-
