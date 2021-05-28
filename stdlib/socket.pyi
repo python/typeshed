@@ -3,6 +3,11 @@ from enum import IntEnum, IntFlag
 from typing import Any, BinaryIO, Iterable, List, Optional, TextIO, Tuple, TypeVar, Union, overload
 from typing_extensions import Literal
 
+# Re-exported from errno
+EBADF: int
+EAGAIN: int
+EWOULDBLOCK: int
+
 # ----- Constants -----
 # Some socket families are listed in the "Socket families" section of the docs,
 # but not the "Constants" section. These are listed at the end of the list of
@@ -15,12 +20,6 @@ from typing_extensions import Literal
 has_ipv6: bool
 SocketType: Any
 SocketIO: Any
-
-# Re-exported errno
-EAGAIN: int
-EBADF: int
-EINTR: int
-EWOULDBLOCK: int
 
 # Constants re-exported from C
 
