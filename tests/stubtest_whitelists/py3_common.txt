@@ -267,6 +267,6 @@ socket.AF_DECnet
 socket.[A-Z0-9_]+
 (termios.[A-Z0-9_]+)?
 
-# mypy pecularity, where redefined items are renamed
+# mypy peculiarity, where redefined items are renamed, mypy#10545
 socket.socketpair
-*-redefinition
+.*-redefinition
