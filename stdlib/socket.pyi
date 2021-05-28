@@ -1,5 +1,5 @@
 import sys
-from _typeshed import WriteableBuffer
+from _typeshed import ReadableBuffer, WriteableBuffer
 from collections.abc import Iterable
 from enum import IntEnum, IntFlag
 from io import RawIOBase
