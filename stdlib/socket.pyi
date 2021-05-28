@@ -207,7 +207,7 @@ from _socket import (
 )
 
 if sys.version_info >= (3, 7):
-    from _socket import VM_SOCKETS_INVALID_VERSION as VM_SOCKETS_INVALID_VERSION, close as close
+    from _socket import close as close
 if sys.platform != "win32":
     from _socket import sethostname as sethostname
 if sys.platform != "win32" or sys.version_info >= (3, 8):
@@ -314,6 +314,7 @@ if sys.platform == "linux" and sys.version_info >= (3, 7):
         SO_VM_SOCKETS_BUFFER_MIN_SIZE as SO_VM_SOCKETS_BUFFER_MIN_SIZE,
         SO_VM_SOCKETS_BUFFER_SIZE as SO_VM_SOCKETS_BUFFER_SIZE,
         TCP_NOTSENT_LOWAT as TCP_NOTSENT_LOWAT,
+        VM_SOCKETS_INVALID_VERSION as VM_SOCKETS_INVALID_VERSION,
         VMADDR_CID_ANY as VMADDR_CID_ANY,
         VMADDR_CID_HOST as VMADDR_CID_HOST,
         VMADDR_PORT_ANY as VMADDR_PORT_ANY,
