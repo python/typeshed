@@ -236,6 +236,7 @@ else:
 
 class SocketIO(RawIOBase):
     def __init__(self, sock: socket, mode: Literal["r", "w", "rw", "rb", "wb", "rwb"]) -> None: ...
+    def readinto(self, b: WriteableBuffer) -> Optional[int]: ...
     @property
     def name(self) -> int: ...  # return value is really "int"
     @property
