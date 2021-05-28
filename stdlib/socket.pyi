@@ -55,45 +55,45 @@ class AddressFamily(IntEnum):
     AF_WANPIPE: int
     AF_X25: int
 
-AF_UNIX: AddressFamily
-AF_INET: AddressFamily
-AF_INET6: AddressFamily
-AF_AAL5: AddressFamily
-AF_APPLETALK: AddressFamily
-AF_ASH: AddressFamily
-AF_ATMPVC: AddressFamily
-AF_ATMSVC: AddressFamily
-AF_AX25: AddressFamily
-AF_BRIDGE: AddressFamily
-AF_DECnet: AddressFamily
-AF_ECONET: AddressFamily
-AF_IPX: AddressFamily
-AF_IRDA: AddressFamily
-AF_KEY: AddressFamily
-AF_LLC: AddressFamily
-AF_NETBEUI: AddressFamily
-AF_NETROM: AddressFamily
-AF_PPPOX: AddressFamily
-AF_ROSE: AddressFamily
-AF_ROUTE: AddressFamily
-AF_SECURITY: AddressFamily
-AF_SNA: AddressFamily
-AF_SYSTEM: AddressFamily
-AF_UNSPEC: AddressFamily
-AF_WANPIPE: AddressFamily
-AF_X25: AddressFamily
+AF_UNIX: AddressFamily  # type: ignore (redefined from _socket)
+AF_INET: AddressFamily  # type: ignore (redefined from _socket)
+AF_INET6: AddressFamily  # type: ignore (redefined from _socket)
+AF_AAL5: AddressFamily  # type: ignore (redefined from _socket)
+AF_APPLETALK: AddressFamily  # type: ignore (redefined from _socket)
+AF_ASH: AddressFamily  # type: ignore (redefined from _socket)
+AF_ATMPVC: AddressFamily  # type: ignore (redefined from _socket)
+AF_ATMSVC: AddressFamily  # type: ignore (redefined from _socket)
+AF_AX25: AddressFamily  # type: ignore (redefined from _socket)
+AF_BRIDGE: AddressFamily  # type: ignore (redefined from _socket)
+AF_DECnet: AddressFamily  # type: ignore (redefined from _socket)
+AF_ECONET: AddressFamily  # type: ignore (redefined from _socket)
+AF_IPX: AddressFamily  # type: ignore (redefined from _socket)
+AF_IRDA: AddressFamily  # type: ignore (redefined from _socket)
+AF_KEY: AddressFamily  # type: ignore (redefined from _socket)
+AF_LLC: AddressFamily  # type: ignore (redefined from _socket)
+AF_NETBEUI: AddressFamily  # type: ignore (redefined from _socket)
+AF_NETROM: AddressFamily  # type: ignore (redefined from _socket)
+AF_PPPOX: AddressFamily  # type: ignore (redefined from _socket)
+AF_ROSE: AddressFamily  # type: ignore (redefined from _socket)
+AF_ROUTE: AddressFamily  # type: ignore (redefined from _socket)
+AF_SECURITY: AddressFamily  # type: ignore (redefined from _socket)
+AF_SNA: AddressFamily  # type: ignore (redefined from _socket)
+AF_SYSTEM: AddressFamily  # type: ignore (redefined from _socket)
+AF_UNSPEC: AddressFamily  # type: ignore (redefined from _socket)
+AF_WANPIPE: AddressFamily  # type: ignore (redefined from _socket)
+AF_X25: AddressFamily  # type: ignore (redefined from _socket)
 if sys.platform == "linux":
-    AF_CAN: AddressFamily
-    AF_PACKET: AddressFamily
-    AF_RDS: AddressFamily
-    AF_TIPC: AddressFamily
-    AF_ALG: AddressFamily
-    AF_NETLINK: AddressFamily
+    AF_CAN: AddressFamily  # type: ignore (redefined from _socket)
+    AF_PACKET: AddressFamily  # type: ignore (redefined from _socket)
+    AF_RDS: AddressFamily  # type: ignore (redefined from _socket)
+    AF_TIPC: AddressFamily  # type: ignore (redefined from _socket)
+    AF_ALG: AddressFamily  # type: ignore (redefined from _socket)
+    AF_NETLINK: AddressFamily  # type: ignore (redefined from _socket)
     if sys.version_info >= (3, 7):
-        AF_VSOCK: AddressFamily
+        AF_VSOCK: AddressFamily  # type: ignore (redefined from _socket)
     if sys.version_info >= (3, 8):
-        AF_QIPCRTR: AddressFamily
-AF_LINK: AddressFamily  # Availability: BSD, macOS
+        AF_QIPCRTR: AddressFamily  # type: ignore (redefined from _socket)
+AF_LINK: AddressFamily   # type: ignore (redefined from _socket), availability: BSD, macOS
 if sys.platform != "win32" and sys.platform != "darwin":
     AF_BLUETOOTH: AddressFamily
 
@@ -106,14 +106,14 @@ class SocketKind(IntEnum):
     SOCK_CLOEXEC: int
     SOCK_NONBLOCK: int
 
-SOCK_STREAM: SocketKind
-SOCK_DGRAM: SocketKind
-SOCK_RAW: SocketKind
-SOCK_RDM: SocketKind
-SOCK_SEQPACKET: SocketKind
+SOCK_STREAM: SocketKind  # type: ignore (redefined from _socket)
+SOCK_DGRAM: SocketKind  # type: ignore (redefined from _socket)
+SOCK_RAW: SocketKind  # type: ignore (redefined from _socket)
+SOCK_RDM: SocketKind  # type: ignore (redefined from _socket)
+SOCK_SEQPACKET: SocketKind  # type: ignore (redefined from _socket)
 if sys.platform == "linux":
-    SOCK_CLOEXEC: SocketKind
-    SOCK_NONBLOCK: SocketKind
+    SOCK_CLOEXEC: SocketKind  # type: ignore (redefined from _socket)
+    SOCK_NONBLOCK: SocketKind  # type: ignore (redefined from _socket)
 
 class MsgFlag(IntFlag):
     MSG_CTRUNC: int
@@ -125,26 +125,26 @@ class MsgFlag(IntFlag):
     MSG_TRUNC: int
     MSG_WAITALL: int
 
-MSG_BCAST: MsgFlag
-MSG_BTAG: MsgFlag
-MSG_CMSG_CLOEXEC: MsgFlag
-MSG_CONFIRM: MsgFlag
-MSG_CTRUNC: MsgFlag
-MSG_DONTROUTE: MsgFlag
-MSG_DONTWAIT: MsgFlag
-MSG_EOF: MsgFlag
-MSG_EOR: MsgFlag
-MSG_ERRQUEUE: MsgFlag
-MSG_ETAG: MsgFlag
-MSG_FASTOPEN: MsgFlag
-MSG_MCAST: MsgFlag
-MSG_MORE: MsgFlag
-MSG_NOSIGNAL: MsgFlag
-MSG_NOTIFICATION: MsgFlag
-MSG_OOB: MsgFlag
-MSG_PEEK: MsgFlag
-MSG_TRUNC: MsgFlag
-MSG_WAITALL: MsgFlag
+MSG_BCAST: MsgFlag  # type: ignore (redefined from _socket)
+MSG_BTAG: MsgFlag  # type: ignore (redefined from _socket)
+MSG_CMSG_CLOEXEC: MsgFlag  # type: ignore (redefined from _socket)
+MSG_CONFIRM: MsgFlag  # type: ignore (redefined from _socket)
+MSG_CTRUNC: MsgFlag  # type: ignore (redefined from _socket)
+MSG_DONTROUTE: MsgFlag  # type: ignore (redefined from _socket)
+MSG_DONTWAIT: MsgFlag  # type: ignore (redefined from _socket)
+MSG_EOF: MsgFlag  # type: ignore (redefined from _socket)
+MSG_EOR: MsgFlag  # type: ignore (redefined from _socket)
+MSG_ERRQUEUE: MsgFlag  # type: ignore (redefined from _socket)
+MSG_ETAG: MsgFlag  # type: ignore (redefined from _socket)
+MSG_FASTOPEN: MsgFlag  # type: ignore (redefined from _socket)
+MSG_MCAST: MsgFlag  # type: ignore (redefined from _socket)
+MSG_MORE: MsgFlag  # type: ignore (redefined from _socket)
+MSG_NOSIGNAL: MsgFlag  # type: ignore (redefined from _socket)
+MSG_NOTIFICATION: MsgFlag  # type: ignore (redefined from _socket)
+MSG_OOB: MsgFlag  # type: ignore (redefined from _socket)
+MSG_PEEK: MsgFlag  # type: ignore (redefined from _socket)
+MSG_TRUNC: MsgFlag  # type: ignore (redefined from _socket)
+MSG_WAITALL: MsgFlag  # type: ignore (redefined from _socket)
 
 class AddressInfo(IntFlag):
     AI_ADDRCONFIG: int
@@ -155,16 +155,16 @@ class AddressInfo(IntFlag):
     AI_PASSIVE: int
     AI_V4MAPPED: int
 
-AI_ADDRCONFIG: AddressInfo
-AI_ALL: AddressInfo
-AI_CANONNAME: AddressInfo
-AI_DEFAULT: AddressInfo
-AI_MASK: AddressInfo
-AI_NUMERICHOST: AddressInfo
-AI_NUMERICSERV: AddressInfo
-AI_PASSIVE: AddressInfo
-AI_V4MAPPED: AddressInfo
-AI_V4MAPPED_CFG: AddressInfo
+AI_ADDRCONFIG: AddressInfo  # type: ignore (redefined from _socket)
+AI_ALL: AddressInfo  # type: ignore (redefined from _socket)
+AI_CANONNAME: AddressInfo  # type: ignore (redefined from _socket)
+AI_DEFAULT: AddressInfo  # type: ignore (redefined from _socket)
+AI_MASK: AddressInfo  # type: ignore (redefined from _socket)
+AI_NUMERICHOST: AddressInfo  # type: ignore (redefined from _socket)
+AI_NUMERICSERV: AddressInfo  # type: ignore (redefined from _socket)
+AI_PASSIVE: AddressInfo  # type: ignore (redefined from _socket)
+AI_V4MAPPED: AddressInfo  # type: ignore (redefined from _socket)
+AI_V4MAPPED_CFG: AddressInfo  # type: ignore (redefined from _socket)
 
 if sys.platform == "win32":
     errorTab: dict[int, str]  # undocumented
@@ -207,9 +207,9 @@ class socket(_socket.socket):
     def close(self) -> None: ...
     def detach(self) -> int: ...
     @property
-    def family(self) -> AddressFamily: ...
+    def family(self) -> AddressFamily: ...  # type: ignore
     @property
-    def type(self) -> SocketKind: ...
+    def type(self) -> SocketKind: ...  # type: ignore
     def get_inheritable(self) -> bool: ...
     def set_inheritable(self, inheritable: bool) -> None: ...
 
@@ -230,7 +230,7 @@ if sys.platform == "win32":
     def socketpair(family: int = ..., type: int = ..., proto: int = ...) -> tuple[socket, socket]: ...
 
 else:
-    def socketpair(
+    def socketpair(  # type: ignore
         family: Union[int, AddressFamily, None] = ..., type: Union[SocketType, int] = ..., proto: int = ...
     ) -> tuple[socket, socket]: ...
 
@@ -255,7 +255,7 @@ if sys.version_info >= (3, 8):
     ) -> socket: ...
 
 # the 5th tuple item is an address
-def getaddrinfo(
+def getaddrinfo(  # type: ignore (redefined from _socket)
     host: Optional[Union[bytearray, bytes, str]],
     port: Union[str, int, None],
     family: int = ...,
