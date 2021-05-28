@@ -1,17 +1,17 @@
 import sys
 import types
-from socket import socket
+from socket import socket as _socket
 from typing import Any, BinaryIO, Callable, ClassVar, Optional, Set, Tuple, Type, TypeVar, Union
 
 _T = TypeVar("_T")
-_RequestType = Union[socket, Tuple[bytes, socket]]
+_RequestType = Union[_socket, Tuple[bytes, _socket]]
 _AddressType = Union[Tuple[str, int], str]
 
 class BaseServer:
     address_family: int
     RequestHandlerClass: Callable[..., BaseRequestHandler]
     server_address: tuple[str, int]
-    socket: socket
+    socket: _socket
     allow_reuse_address: bool
     request_queue_size: int
     socket_type: int
@@ -45,7 +45,7 @@ class TCPServer(BaseServer):
         RequestHandlerClass: Callable[..., BaseRequestHandler],
         bind_and_activate: bool = ...,
     ) -> None: ...
-    def get_request(self) -> tuple[socket, Any]: ...
+    def get_request(self) -> tuple[_socket, Any]: ...
     def finish_request(self, request: _RequestType, client_address: _AddressType) -> None: ...
     def handle_error(self, request: _RequestType, client_address: _AddressType) -> None: ...
     def process_request(self, request: _RequestType, client_address: _AddressType) -> None: ...
@@ -60,7 +60,7 @@ class UDPServer(BaseServer):
         RequestHandlerClass: Callable[..., BaseRequestHandler],
         bind_and_activate: bool = ...,
     ) -> None: ...
-    def get_request(self) -> tuple[tuple[bytes, socket], Any]: ...
+    def get_request(self) -> tuple[tuple[bytes, _socket], Any]: ...
     def finish_request(self, request: _RequestType, client_address: _AddressType) -> None: ...
     def handle_error(self, request: _RequestType, client_address: _AddressType) -> None: ...
     def process_request(self, request: _RequestType, client_address: _AddressType) -> None: ...
@@ -136,12 +136,12 @@ class StreamRequestHandler(BaseRequestHandler):
     wbufsize: ClassVar[int]  # Undocumented
     timeout: ClassVar[Optional[float]]  # Undocumented
     disable_nagle_algorithm: ClassVar[bool]  # Undocumented
-    connection: socket  # Undocumented
+    connection: _socket  # Undocumented
     rfile: BinaryIO
     wfile: BinaryIO
 
 class DatagramRequestHandler(BaseRequestHandler):
-    packet: socket  # Undocumented
-    socket: socket  # Undocumented
+    packet: _socket  # Undocumented
+    socket: _socket  # Undocumented
     rfile: BinaryIO
     wfile: BinaryIO
