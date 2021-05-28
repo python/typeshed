@@ -1,11 +1,11 @@
 import sys
 import types
 from socket import SocketType
-from typing import Any, BinaryIO, Callable, ClassVar, Optional, Set, Type, TypeVar, Union
+from typing import Any, BinaryIO, Callable, ClassVar, Optional, Set, Tuple, Type, TypeVar, Union
 
 _T = TypeVar("_T")
-_RequestType = Union[SocketType, tuple[bytes, SocketType]]
-_AddressType = Union[tuple[str, int], str]
+_RequestType = Union[SocketType, Tuple[bytes, SocketType]]
+_AddressType = Union[Tuple[str, int], str]
 
 class BaseServer:
     address_family: int
