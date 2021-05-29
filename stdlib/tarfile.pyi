@@ -1,3 +1,4 @@
+import bz2
 import io
 import sys
 from _typeshed import StrOrBytesPath, StrPath
@@ -16,6 +17,12 @@ class _Fileobj(Protocol):
     # Optional fields:
     # name: str | bytes
     # mode: Literal["rb", "r+b", "wb", "xb"]
+
+class _Bz2ReadableFileobj(bz2._ReadableFileobj):
+    def close(self) -> object: ...
+
+class _Bz2WritableFileobj(bz2._WritableFileobj):
+    def close(self) -> object: ...
 
 # tar constants
 NUL: bytes
@@ -191,12 +198,31 @@ class TarFile:
         debug: Optional[int] = ...,
         errorlevel: Optional[int] = ...,
     ) -> TarFile: ...
+    @overload
     @classmethod
     def bz2open(
         cls,
         name: Optional[StrOrBytesPath],
-        mode: Literal["r", "w", "x"] = ...,
-        fileobj: Optional[IO[bytes]] = ...,
+        mode: Literal["w", "x"],
+        fileobj: Optional[_Bz2WritableFileobj] = ...,
+        compresslevel: int = ...,
+        *,
+        format: Optional[int] = ...,
+        tarinfo: Optional[Type[TarInfo]] = ...,
+        dereference: Optional[bool] = ...,
+        ignore_zeros: Optional[bool] = ...,
+        encoding: Optional[str] = ...,
+        pax_headers: Optional[Mapping[str, str]] = ...,
+        debug: Optional[int] = ...,
+        errorlevel: Optional[int] = ...,
+    ) -> TarFile: ...
+    @overload
+    @classmethod
+    def bz2open(
+        cls,
+        name: Optional[StrOrBytesPath],
+        mode: Literal["r"] = ...,
+        fileobj: Optional[_Bz2ReadableFileobj] = ...,
         compresslevel: int = ...,
         *,
         format: Optional[int] = ...,
