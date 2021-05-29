@@ -1,7 +1,14 @@
 import sys
 from _typeshed import WriteableBuffer
 from collections.abc import Iterable
-from typing import Any, Optional, Tuple, Union, overload
+from typing import Any, Optional, SupportsInt, Tuple, Union, overload
+
+if sys.version_info >= (3, 8):
+    from typing import SupportsIndex
+
+    _FD = SupportsIndex
+else:
+    _FD = SupportsInt
 
 _CMSG = Tuple[int, int, bytes]
 
@@ -518,7 +525,7 @@ class socket:
     family: int
     type: int
     proto: int
-    def __init__(self, family: int = ..., type: int = ..., proto: int = ..., fileno: Optional[int] = ...) -> None: ...
+    def __init__(self, family: int = ..., type: int = ..., proto: int = ..., fileno: _FD | None = ...) -> None: ...
     def bind(self, __address: _Address | bytes) -> None: ...
     def close(self) -> None: ...
     def connect(self, __address: _Address | bytes) -> None: ...
@@ -575,9 +582,9 @@ SocketType = socket
 # ----- Functions -----
 
 if sys.version_info >= (3, 7):
-    def close(__fd: int) -> None: ...
+    def close(__fd: _FD) -> None: ...
 
-def dup(__fd: int) -> int: ...
+def dup(__fd: _FD) -> int: ...
 
 # the 5th tuple item is an address
 def getaddrinfo(

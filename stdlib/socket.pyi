@@ -8,6 +8,7 @@ from typing_extensions import Literal
 
 import _socket
 from _socket import (
+    _FD,
     CMSG_LEN as CMSG_LEN,
     CMSG_SPACE as CMSG_SPACE,
     EAI_ADDRFAMILY as EAI_ADDRFAMILY,
@@ -575,7 +576,7 @@ class socket(_socket.socket):
     def get_inheritable(self) -> bool: ...
     def set_inheritable(self, inheritable: bool) -> None: ...
 
-def fromfd(fd: int, family: Union[AddressFamily, int], type: Union[SocketKind, int], proto: int = ...) -> socket: ...
+def fromfd(fd: _FD, family: AddressFamily | int, type: SocketKind | int, proto: int = ...) -> socket: ...
 
 if sys.platform != "win32":
     if sys.version_info >= (3, 9):
