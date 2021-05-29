@@ -504,14 +504,13 @@ if sys.platform == "darwin":
 
 error = OSError
 
-class herror(error):
-    def __init__(self, herror: int = ..., string: str = ...) -> None: ...
+class herror(error): ...
+class gaierror(error): ...
 
-class gaierror(error):
-    def __init__(self, error: int = ..., string: str = ...) -> None: ...
-
-class timeout(error):
-    def __init__(self, error: int = ..., string: str = ...) -> None: ...
+if sys.version_info >= (3, 10):
+    timeout = TimeoutError
+else:
+    class timeout(error): ...
 
 # ----- Classes -----
 
