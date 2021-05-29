@@ -6,6 +6,9 @@ from io import RawIOBase
 from typing import Any, BinaryIO, Optional, TextIO, TypeVar, Union, overload
 from typing_extensions import Literal
 
+# Ideally, we'd just do "from _socket import *". Unfortunately, socket
+# overrides some definitions from _socket incompatibly. mypy incorrectly
+# prefers the definitions from _socket over those defined here.
 import _socket
 from _socket import (
     _FD,
