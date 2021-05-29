@@ -44,7 +44,7 @@ jobs:
           # fail action if exit code isn't zero or one
           (
             mypy_primer \
-            --new c605579af8 --old c605579af8 \
+            --new 61c346230cf4960c976 --old 61c346230cf4960c976 \
             --custom-typeshed-repo typeshed_to_test \
             --new-typeshed $GITHUB_SHA --old-typeshed upstream_master \
             --num-shards 2 --shard-index ${{ matrix.shard-index }} \
