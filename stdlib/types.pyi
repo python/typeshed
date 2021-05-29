@@ -34,9 +34,9 @@ class _Cell:
     cell_contents: Any
 
 class FunctionType:
-    __closure__: Optional[Tuple[_Cell, ...]]
+    __closure__: Tuple[_Cell, ...] | None
     __code__: CodeType
-    __defaults__: Optional[Tuple[Any, ...]]
+    __defaults__: Tuple[Any, ...] | None
     __dict__: Dict[str, Any]
     __globals__: Dict[str, Any]
     __name__: str
@@ -47,12 +47,12 @@ class FunctionType:
         self,
         code: CodeType,
         globals: Dict[str, Any],
-        name: Optional[str] = ...,
-        argdefs: Optional[Tuple[object, ...]] = ...,
-        closure: Optional[Tuple[_Cell, ...]] = ...,
+        name: str | None = ...,
+        argdefs: Tuple[object, ...] | None = ...,
+        closure: Tuple[_Cell, ...] | None = ...,
     ) -> None: ...
     def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
-    def __get__(self, obj: Optional[object], type: Optional[type]) -> MethodType: ...
+    def __get__(self, obj: object | None, type: type | None) -> MethodType: ...
 
 LambdaType = FunctionType
 
