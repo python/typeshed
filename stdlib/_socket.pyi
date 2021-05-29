@@ -588,8 +588,8 @@ def dup(__fd: _FD) -> int: ...
 
 # the 5th tuple item is an address
 def getaddrinfo(
-    host: Optional[Union[bytearray, bytes, str]],
-    port: Union[str, int, None],
+    host: bytes | str | None,
+    port: bytes | str | int | None,
     family: int = ...,
     type: int = ...,
     proto: int = ...,
