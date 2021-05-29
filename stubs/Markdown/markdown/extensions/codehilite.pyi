@@ -32,6 +32,7 @@ class CodeHilite:
         tab_length: int = ...,
         hl_lines: Optional[Any] = ...,
         use_pygments: bool = ...,
+        **options: Any,
     ) -> None: ...
     def hilite(self): ...
 
