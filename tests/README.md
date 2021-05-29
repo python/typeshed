@@ -5,8 +5,6 @@ tests typeshed with [mypy](https://github.com/python/mypy/)
 [pytype](https://github.com/google/pytype/).
 - `tests/pyright_test.py` tests typeshed with
 [pyright](https://github.com/microsoft/pyright).
-- `tests/mypy_test_suite.py` runs a subset of mypy's test suite using this version of
-typeshed.
 - `tests/check_consistent.py` checks certain files in typeshed remain
 consistent with each other.
 - `tests/stubtest_test.py` checks stubs against the objects at runtime.
@@ -52,18 +50,6 @@ but it uses the same pyright version and configuration as the CI.
 (.venv3)$ python3 tests/pyright_test.py                 # Check all files
 (.venv3)$ python3 tests/pyright_test.py stdlib/sys.pyi  # Check one file
 ```
-
-## mypy\_test\_suite.py
-
-This test requires Python 3.5 or higher; Python 3.6.1 or higher is recommended.
-Run using:
-```
-(.venv3)$ python3 tests/mypy_test_suite.py
-```
-
-This test runs mypy's own test suite using the typeshed code in your repo. This
-will sometimes catch issues with incorrectly typed stubs, but is much slower
-than the other tests.
 
 ## check\_consistent.py
 

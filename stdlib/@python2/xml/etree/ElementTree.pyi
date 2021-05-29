@@ -1,4 +1,4 @@
-from _typeshed import AnyPath, FileDescriptor
+from _typeshed import FileDescriptor
 from typing import (
     IO,
     Any,
@@ -50,7 +50,7 @@ _str_argument_type = Union[str, Text]
 # _fixtext function in the source). Client code knows best:
 _str_result_type = Any
 
-_file_or_filename = Union[AnyPath, FileDescriptor, IO[Any]]
+_file_or_filename = Union[Text, FileDescriptor, IO[Any]]
 
 class Element(MutableSequence[Element]):
     tag: _str_result_type
