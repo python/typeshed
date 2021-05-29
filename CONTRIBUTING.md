@@ -140,8 +140,6 @@ Accepted features that *cannot* yet be used in typeshed include:
 - [PEP 585](https://www.python.org/dev/peps/pep-0585/) (builtin
   generics): see [#4820](https://github.com/python/typeshed/issues/4820),
   mostly supported but bugs remain for a few specific cases
-- [PEP 604](https://www.python.org/dev/peps/pep-0604/) (Union
-  pipe operator): see [#4819](https://github.com/python/typeshed/issues/4819)
 - [PEP 612](https://www.python.org/dev/peps/pep-0612/) (ParamSpec):
   see [#4827](https://github.com/python/typeshed/issues/4827)
 - [PEP 613](https://www.python.org/dev/peps/pep-0613/) (TypeAlias):
@@ -154,6 +152,8 @@ Supported features include:
 - [PEP 589](https://www.python.org/dev/peps/pep-0589/) (TypedDict)
 - [PEP 647](https://www.python.org/dev/peps/pep-0647/) (TypeGuard):
   see [#5406](https://github.com/python/typeshed/issues/5406)
+- [PEP 604](https://www.python.org/dev/peps/pep-0604/) (Union
+  pipe operator): see [#4819](https://github.com/python/typeshed/issues/4819)
 
 Features from the `typing` module that are not present in all
 supported Python 3 versions must be imported from `typing_extensions`
