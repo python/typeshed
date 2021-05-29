@@ -22,6 +22,7 @@ class CodeHilite:
     def __init__(
         self,
         src: Optional[Any] = ...,
+        *,
         linenums: Optional[Any] = ...,
         guess_lang: bool = ...,
         css_class: str = ...,
