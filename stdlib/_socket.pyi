@@ -1,5 +1,5 @@
 import sys
-from _typeshed import WriteableBuffer
+from _typeshed import ReadableBuffer, WriteableBuffer
 from collections.abc import Iterable
 from typing import Any, Optional, SupportsInt, Tuple, Union, overload
 
@@ -11,6 +11,7 @@ else:
     _FD = SupportsInt
 
 _CMSG = Tuple[int, int, bytes]
+_CMSGArg = Tuple[int, int, ReadableBuffer]
 
 # Addresses can be either tuples of varying lengths (AF_INET, AF_INET6,
 # AF_NETLINK, AF_TIPC) or strings (AF_UNIX).
@@ -561,7 +562,7 @@ class socket:
     def sendto(self, __data: bytes, __flags: int, __address: _Address) -> int: ...
     if sys.platform != "win32":
         def sendmsg(
-            self, __buffers: Iterable[bytes], __ancdata: Iterable[_CMSG] = ..., __flags: int = ..., __address: _Address = ...
+            self, __buffers: Iterable[bytes], __ancdata: Iterable[_CMSGArg] = ..., __flags: int = ..., __address: _Address = ...
         ) -> int: ...
     if sys.platform == "linux":
         def sendmsg_afalg(
