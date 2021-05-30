@@ -264,6 +264,37 @@ class Redis(Generic[_StrType]):
     ) -> Redis[bytes]: ...
     @overload
     def __init__(
+        self: Redis[bytes],
+        host: Text = ...,
+        port: int = ...,
+        db: int = ...,
+        password: Optional[Text] = ...,
+        socket_timeout: Optional[float] = ...,
+        socket_connect_timeout: Optional[float] = ...,
+        socket_keepalive: Optional[bool] = ...,
+        socket_keepalive_options: Optional[Mapping[str, Union[int, str]]] = ...,
+        connection_pool: Optional[ConnectionPool] = ...,
+        unix_socket_path: Optional[Text] = ...,
+        encoding: Text = ...,
+        encoding_errors: Text = ...,
+        charset: Optional[Text] = ...,
+        errors: Optional[Text] = ...,
+        decode_responses: Optional[bool] = ...,
+        retry_on_timeout: bool = ...,
+        ssl: bool = ...,
+        ssl_keyfile: Optional[Text] = ...,
+        ssl_certfile: Optional[Text] = ...,
+        ssl_cert_reqs: Optional[Union[str, int]] = ...,
+        ssl_ca_certs: Optional[Text] = ...,
+        ssl_check_hostname: bool = ...,
+        max_connections: Optional[int] = ...,
+        single_connection_client: bool = ...,
+        health_check_interval: float = ...,
+        client_name: Optional[Text] = ...,
+        username: Optional[Text] = ...,
+    ) -> None: ...
+    @overload
+    def __init__(
         self: Redis[str],
         host: Text,
         port: int,
