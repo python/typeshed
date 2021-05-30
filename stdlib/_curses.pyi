@@ -89,7 +89,8 @@ BUTTON4_DOUBLE_CLICKED: int
 BUTTON4_PRESSED: int
 BUTTON4_RELEASED: int
 BUTTON4_TRIPLE_CLICKED: int
-if sys.version_info >= (3, 10):
+# Darwin ncurses doesn't provide BUTTON5_* constants
+if sys.version_info >= (3, 10) and sys.platform != "darwin":
     BUTTON5_PRESSED: int
     BUTTON5_RELEASED: int
     BUTTON5_CLICKED: int
