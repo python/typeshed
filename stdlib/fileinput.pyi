@@ -2,7 +2,19 @@ import sys
 from _typeshed import StrOrBytesPath
 from typing import IO, Any, AnyStr, Callable, Generic, Iterable, Iterator, Optional, Union
 
-if sys.version_info >= (3, 8):
+if sys.version_info >= (3, 10):
+    def input(
+        files: Union[StrOrBytesPath, Iterable[StrOrBytesPath], None] = ...,
+        inplace: bool = ...,
+        backup: str = ...,
+        *,
+        mode: str = ...,
+        openhook: Callable[[StrOrBytesPath, str], IO[AnyStr]] = ...,
+        encoding: Optional[str] = ...,
+        errors: Optional[str] = ...,
+    ) -> FileInput[AnyStr]: ...
+
+elif sys.version_info >= (3, 8):
     def input(
         files: Union[StrOrBytesPath, Iterable[StrOrBytesPath], None] = ...,
         inplace: bool = ...,
@@ -32,7 +44,19 @@ def isfirstline() -> bool: ...
 def isstdin() -> bool: ...
 
 class FileInput(Iterable[AnyStr], Generic[AnyStr]):
-    if sys.version_info >= (3, 8):
+    if sys.version_info >= (3, 10):
+        def __init__(
+            self,
+            files: Union[None, StrOrBytesPath, Iterable[StrOrBytesPath]] = ...,
+            inplace: bool = ...,
+            backup: str = ...,
+            *,
+            mode: str = ...,
+            openhook: Callable[[StrOrBytesPath, str], IO[AnyStr]] = ...,
+            encoding: Optional[str] = ...,
+            errors: Optional[str] = ...,
+        ) -> None: ...
+    elif sys.version_info >= (3, 8):
         def __init__(
             self,
             files: Union[None, StrOrBytesPath, Iterable[StrOrBytesPath]] = ...,
@@ -68,5 +92,12 @@ class FileInput(Iterable[AnyStr], Generic[AnyStr]):
     def isfirstline(self) -> bool: ...
     def isstdin(self) -> bool: ...
 
-def hook_compressed(filename: StrOrBytesPath, mode: str) -> IO[Any]: ...
+if sys.version_info >= (3, 10):
+    def hook_compressed(
+        filename: StrOrBytesPath, mode: str, encoding: Optional[str] = ..., errors: Optional[str] = ...
+    ) -> IO[Any]: ...
+
+else:
+    def hook_compressed(filename: StrOrBytesPath, mode: str) -> IO[Any]: ...
+
 def hook_encoded(encoding: str, errors: Optional[str] = ...) -> Callable[[StrOrBytesPath, str], IO[Any]]: ...
