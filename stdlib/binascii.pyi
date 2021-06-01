@@ -1,5 +1,4 @@
 import sys
-from typing import Union
 
 def a2b_uu(__data: str | bytes) -> bytes: ...
 

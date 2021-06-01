@@ -1,5 +1,4 @@
 from types import CodeType, ModuleType
-from typing import Union
 
 class ZipImportError(ImportError): ...
 
