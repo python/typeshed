@@ -242,7 +242,7 @@ class Action(_AttributeHolder):
         dest: Text,
         nargs: Optional[int | Text] = ...,
         const: Optional[_T] = ...,
-        default: Union[_T, str, None] = ...,
+        default: _T | str | None = ...,
         type: Optional[Union[Callable[[Text], _T], Callable[[str], _T], FileType]] = ...,
         choices: Optional[Iterable[_T]] = ...,
         required: bool = ...,

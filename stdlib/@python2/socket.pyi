@@ -430,14 +430,14 @@ class socket:
 def create_connection(
     address: Tuple[Optional[str], int],
     timeout: Optional[float] = ...,
-    source_address: Optional[Tuple[Union[bytearray, bytes, Text], int]] = ...,
+    source_address: Optional[Tuple[bytearray | bytes | Text, int]] = ...,
 ) -> socket: ...
 def fromfd(fd: int, family: int, type: int, proto: int = ...) -> socket: ...
 
 # the 5th tuple item is an address
 def getaddrinfo(
-    host: Optional[Union[bytearray, bytes, Text]],
-    port: Union[str, int, None],
+    host: Optional[bytearray | bytes | Text],
+    port: str | int | None,
     family: int = ...,
     socktype: int = ...,
     proto: int = ...,

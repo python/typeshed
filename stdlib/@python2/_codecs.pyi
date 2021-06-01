@@ -5,7 +5,7 @@ from typing import Any, Callable, Dict, Optional, Text, Tuple, Union
 # For convenience:
 _Handler = Callable[[Exception], Tuple[Text, int]]
 _String = bytes | str
-_Errors = Union[str, Text, None]
+_Errors = str | Text | None
 _Decodable = bytes | Text
 _Encodable = bytes | Text
 

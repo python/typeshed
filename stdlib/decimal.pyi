@@ -4,7 +4,7 @@ from typing import Any, Container, Dict, List, NamedTuple, Optional, Sequence, T
 
 _Decimal = Decimal | int
 _DecimalNew = Union[Decimal, float, str, Tuple[int, Sequence[int], int]]
-_ComparableNum = Union[Decimal, float, numbers.Rational]
+_ComparableNum = Decimal | float | numbers.Rational
 _DecimalT = TypeVar("_DecimalT", bound=Decimal)
 
 class DecimalTuple(NamedTuple):

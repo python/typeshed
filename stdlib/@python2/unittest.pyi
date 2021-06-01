@@ -256,7 +256,7 @@ class TestProgram:
     def runTests(self) -> None: ...  # undocumented
 
 def main(
-    module: Union[None, Text, types.ModuleType] = ...,
+    module: None | Text | types.ModuleType = ...,
     defaultTest: Optional[str] = ...,
     argv: Optional[Sequence[str]] = ...,
     testRunner: Union[Type[TextTestRunner], TextTestRunner, None] = ...,

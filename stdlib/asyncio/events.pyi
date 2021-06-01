@@ -18,7 +18,7 @@ _T = TypeVar("_T")
 _Context = Dict[str, Any]
 _ExceptionHandler = Callable[[AbstractEventLoop, _Context], Any]
 _ProtocolFactory = Callable[[], BaseProtocol]
-_SSLContext = Union[bool, None, ssl.SSLContext]
+_SSLContext = bool | None | ssl.SSLContext
 _TransProtPair = Tuple[BaseTransport, BaseProtocol]
 
 class Handle:
@@ -121,7 +121,7 @@ class AbstractEventLoop(metaclass=ABCMeta):
     async def getaddrinfo(
         self,
         host: Optional[str],
-        port: Union[str, int, None],
+        port: str | int | None,
         *,
         family: int = ...,
         type: int = ...,

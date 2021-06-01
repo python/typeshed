@@ -70,7 +70,7 @@ class FileIO(RawIOBase, BinaryIO):
     name: int | str  # type: ignore
     def __init__(
         self,
-        file: Union[str, bytes, int],
+        file: str | bytes | int,
         mode: str = ...,
         closefd: bool = ...,
         opener: Optional[Callable[[int | str, str], int]] = ...,

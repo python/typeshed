@@ -18,7 +18,7 @@ from typing import Any, Callable, Dict, Iterator, List, Tuple, Union
 # Strictly this should not have to include Callable, but mypy doesn't use FunctionType
 # for functions (python/mypy#3171)
 _have_code = Union[types.MethodType, types.FunctionType, types.CodeType, type, Callable[..., Any]]
-_have_code_or_string = Union[_have_code, str, bytes]
+_have_code_or_string = _have_code | str | bytes
 
 COMPILER_FLAG_NAMES: Dict[int, str]
 

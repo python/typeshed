@@ -597,7 +597,7 @@ if sys.platform == "win32":
 
 else:
     def socketpair(  # type: ignore
-        family: Union[int, AddressFamily, None] = ..., type: SocketType | int = ..., proto: int = ...
+        family: int | AddressFamily | None = ..., type: SocketType | int = ..., proto: int = ...
     ) -> tuple[socket, socket]: ...
 
 class SocketIO(RawIOBase):
@@ -613,7 +613,7 @@ def getfqdn(name: str = ...) -> str: ...
 def create_connection(
     address: tuple[Optional[str], int],
     timeout: Optional[float] = ...,  # noqa: F811
-    source_address: Optional[tuple[Union[bytearray, bytes, str], int]] = ...,
+    source_address: Optional[tuple[bytearray | bytes | str, int]] = ...,
 ) -> socket: ...
 
 if sys.version_info >= (3, 8):
@@ -624,8 +624,8 @@ if sys.version_info >= (3, 8):
 
 # the 5th tuple item is an address
 def getaddrinfo(
-    host: Optional[Union[bytearray, bytes, str]],
-    port: Union[str, int, None],
+    host: Optional[bytearray | bytes | str],
+    port: str | int | None,
     family: int = ...,
     type: int = ...,
     proto: int = ...,

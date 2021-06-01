@@ -46,16 +46,16 @@ _Namespace = Namespace
 class Token(object):
     typeid: Optional[str | bytes]
     address: Tuple[str | bytes, int]
-    id: Optional[Union[str, bytes, int]]
+    id: Optional[str | bytes | int]
     def __init__(
-        self, typeid: Optional[bytes | str], address: Tuple[str | bytes, int], id: Optional[Union[str, bytes, int]]
+        self, typeid: Optional[bytes | str], address: Tuple[str | bytes, int], id: Optional[str | bytes | int]
     ) -> None: ...
     def __repr__(self) -> str: ...
     def __getstate__(
         self,
-    ) -> Tuple[Optional[str | bytes], Tuple[str | bytes, int], Optional[Union[str, bytes, int]]]: ...
+    ) -> Tuple[Optional[str | bytes], Tuple[str | bytes, int], Optional[str | bytes | int]]: ...
     def __setstate__(
-        self, state: Tuple[Optional[str | bytes], Tuple[str | bytes, int], Optional[Union[str, bytes, int]]]
+        self, state: Tuple[Optional[str | bytes], Tuple[str | bytes, int], Optional[str | bytes | int]]
     ) -> None: ...
 
 class BaseProxy(object):

@@ -12,7 +12,7 @@ class _TestRunner(Protocol):
 # not really documented
 class TestProgram:
     result: unittest.result.TestResult
-    module: Union[None, str, ModuleType]
+    module: None | str | ModuleType
     verbosity: int
     failfast: Optional[bool]
     catchbreak: Optional[bool]
@@ -24,7 +24,7 @@ class TestProgram:
         testNamePatterns: Optional[List[str]]
     def __init__(
         self,
-        module: Union[None, str, ModuleType] = ...,
+        module: None | str | ModuleType = ...,
         defaultTest: Union[str, Iterable[str], None] = ...,
         argv: Optional[List[str]] = ...,
         testRunner: Union[Type[_TestRunner], _TestRunner, None] = ...,

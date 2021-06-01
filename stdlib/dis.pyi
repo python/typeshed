@@ -21,7 +21,7 @@ from typing import IO, Any, Callable, Dict, Iterator, List, NamedTuple, Optional
 # Strictly this should not have to include Callable, but mypy doesn't use FunctionType
 # for functions (python/mypy#3171)
 _have_code = Union[types.MethodType, types.FunctionType, types.CodeType, type, Callable[..., Any]]
-_have_code_or_string = Union[_have_code, str, bytes]
+_have_code_or_string = _have_code | str | bytes
 
 class Instruction(NamedTuple):
     opname: str

@@ -5,7 +5,7 @@ from types import FrameType, TracebackType
 from typing import IO, Any, Callable, Dict, List, Mapping, MutableMapping, Optional, Sequence, Text, Tuple, Union, overload
 
 _SysExcInfoType = Union[Tuple[type, BaseException, Optional[TracebackType]], Tuple[None, None, None]]
-_ExcInfoType = Union[None, bool, _SysExcInfoType]
+_ExcInfoType = None | bool | _SysExcInfoType
 _ArgsType = Union[Tuple[Any, ...], Mapping[str, Any]]
 _FilterType = Union[Filter, Callable[[LogRecord], int]]
 _Level = int | Text

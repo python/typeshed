@@ -58,7 +58,7 @@ def open(
 ) -> TextIO: ...
 @overload
 def open(
-    filename: Union[StrOrBytesPath, _ReadableFileobj, _WritableFileobj],
+    filename: StrOrBytesPath | _ReadableFileobj | _WritableFileobj,
     mode: str,
     compresslevel: int = ...,
     encoding: Optional[str] = ...,
@@ -125,7 +125,7 @@ class GzipFile(_compression.BaseStream):
         filename: Optional[StrOrBytesPath] = ...,
         mode: Optional[str] = ...,
         compresslevel: int = ...,
-        fileobj: Union[_ReadableFileobj, _WritableFileobj, None] = ...,
+        fileobj: _ReadableFileobj | _WritableFileobj | None = ...,
         mtime: Optional[float] = ...,
     ) -> None: ...
     @property

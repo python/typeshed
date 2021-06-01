@@ -80,7 +80,7 @@ class DocTestFinder:
         self,
         obj: object,
         name: Optional[str] = ...,
-        module: Union[None, bool, types.ModuleType] = ...,
+        module: None | bool | types.ModuleType = ...,
         globs: Optional[Dict[str, Any]] = ...,
         extraglobs: Optional[Dict[str, Any]] = ...,
     ) -> List[DocTest]: ...
@@ -141,7 +141,7 @@ def testfile(
     filename: str,
     module_relative: bool = ...,
     name: Optional[str] = ...,
-    package: Union[None, str, types.ModuleType] = ...,
+    package: None | str | types.ModuleType = ...,
     globs: Optional[Dict[str, Any]] = ...,
     verbose: Optional[bool] = ...,
     report: bool = ...,
@@ -188,7 +188,7 @@ class SkipDocTestCase(DocTestCase):
 _DocTestSuite = unittest.TestSuite
 
 def DocTestSuite(
-    module: Union[None, str, types.ModuleType] = ...,
+    module: None | str | types.ModuleType = ...,
     globs: Optional[Dict[str, Any]] = ...,
     extraglobs: Optional[Dict[str, Any]] = ...,
     test_finder: Optional[DocTestFinder] = ...,
@@ -202,7 +202,7 @@ class DocFileCase(DocTestCase):
 def DocFileTest(
     path: str,
     module_relative: bool = ...,
-    package: Union[None, str, types.ModuleType] = ...,
+    package: None | str | types.ModuleType = ...,
     globs: Optional[Dict[str, Any]] = ...,
     parser: DocTestParser = ...,
     encoding: Optional[str] = ...,
@@ -210,7 +210,7 @@ def DocFileTest(
 ) -> DocFileCase: ...
 def DocFileSuite(*paths: str, **kw: Any) -> _DocTestSuite: ...
 def script_from_examples(s: str) -> str: ...
-def testsource(module: Union[None, str, types.ModuleType], name: str) -> str: ...
+def testsource(module: None | str | types.ModuleType, name: str) -> str: ...
 def debug_src(src: str, pm: bool = ..., globs: Optional[Dict[str, Any]] = ...) -> None: ...
 def debug_script(src: str, pm: bool = ..., globs: Optional[Dict[str, Any]] = ...) -> None: ...
-def debug(module: Union[None, str, types.ModuleType], name: str, pm: bool = ...) -> None: ...
+def debug(module: None | str | types.ModuleType, name: str, pm: bool = ...) -> None: ...

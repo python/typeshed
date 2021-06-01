@@ -115,7 +115,7 @@ class IncrementalNewlineDecoder(object):
 class _TextIOBase(TextIO):
     errors: Optional[str]
     # TODO: On _TextIOBase, this is always None. But it's unicode/bytes in subclasses.
-    newlines: Union[None, unicode, bytes]
+    newlines: None | unicode | bytes
     encoding: str
     @property
     def closed(self) -> bool: ...
@@ -173,7 +173,7 @@ class TextIOWrapper(_TextIOBase):
     ) -> None: ...
 
 def open(
-    file: Union[str, unicode, int],
+    file: str | unicode | int,
     mode: Text = ...,
     buffering: int = ...,
     encoding: Optional[Text] = ...,

@@ -1,6 +1,6 @@
 from typing import IO, Any, BinaryIO, Optional, Tuple, Union, overload
 
-_chtype = Union[str, bytes, int]
+_chtype = str | bytes | int
 
 # ACS codes are only initialized after initscr is called
 ACS_BBSS: int

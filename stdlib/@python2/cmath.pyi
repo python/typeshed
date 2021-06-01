@@ -2,7 +2,7 @@ from typing import SupportsComplex, SupportsFloat, Tuple, Union
 
 e: float
 pi: float
-_C = Union[SupportsFloat, SupportsComplex, complex]
+_C = SupportsFloat | SupportsComplex | complex
 
 def acos(__z: _C) -> complex: ...
 def acosh(__z: _C) -> complex: ...

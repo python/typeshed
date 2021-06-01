@@ -10,7 +10,7 @@ from typing import IO, Any, AnyStr, Callable, Iterable, List, Mapping, MutableMa
 _Unmarshaller = Any
 _timeTuple = Tuple[int, int, int, int, int, int, int, int, int]
 # Represents types that can be compared against a DateTime object
-_dateTimeComp = Union[unicode, DateTime, datetime]
+_dateTimeComp = unicode | DateTime | datetime
 # A "host description" used by Transport factories
 _hostDesc = Union[str, Tuple[str, Mapping[Any, Any]]]
 

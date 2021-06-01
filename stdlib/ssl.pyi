@@ -7,8 +7,8 @@ from typing_extensions import Literal
 
 _PCTRTT = Tuple[Tuple[str, str], ...]
 _PCTRTTT = Tuple[_PCTRTT, ...]
-_PeerCertRetDictType = Dict[str, Union[str, _PCTRTTT, _PCTRTT]]
-_PeerCertRetType = Union[_PeerCertRetDictType, bytes, None]
+_PeerCertRetDictType = Dict[str, str | _PCTRTTT | _PCTRTT]
+_PeerCertRetType = _PeerCertRetDictType | bytes | None
 _EnumRetType = List[Tuple[bytes, str, Union[Set[str], bool]]]
 _PasswordType = Union[Callable[[], str | bytes], str, bytes]
 
@@ -45,7 +45,7 @@ def wrap_socket(
     ciphers: Optional[str] = ...,
 ) -> SSLSocket: ...
 def create_default_context(
-    purpose: Any = ..., *, cafile: Optional[str] = ..., capath: Optional[str] = ..., cadata: Union[str, bytes, None] = ...
+    purpose: Any = ..., *, cafile: Optional[str] = ..., capath: Optional[str] = ..., cadata: str | bytes | None = ...
 ) -> SSLContext: ...
 
 if sys.version_info >= (3, 7):
@@ -59,7 +59,7 @@ if sys.version_info >= (3, 7):
         keyfile: Optional[str] = ...,
         cafile: Optional[str] = ...,
         capath: Optional[str] = ...,
-        cadata: Union[str, bytes, None] = ...,
+        cadata: str | bytes | None = ...,
     ) -> SSLContext: ...
 
 else:
@@ -73,7 +73,7 @@ else:
         keyfile: Optional[str] = ...,
         cafile: Optional[str] = ...,
         capath: Optional[str] = ...,
-        cadata: Union[str, bytes, None] = ...,
+        cadata: str | bytes | None = ...,
     ) -> SSLContext: ...
 
 _create_default_https_context: Callable[..., SSLContext]
@@ -308,7 +308,7 @@ class SSLContext:
     ) -> None: ...
     def load_default_certs(self, purpose: Purpose = ...) -> None: ...
     def load_verify_locations(
-        self, cafile: Optional[StrPath] = ..., capath: Optional[StrPath] = ..., cadata: Union[str, bytes, None] = ...
+        self, cafile: Optional[StrPath] = ..., capath: Optional[StrPath] = ..., cadata: str | bytes | None = ...
     ) -> None: ...
     def get_ca_certs(self, binary_form: bool = ...) -> Union[List[_PeerCertRetDictType], List[bytes]]: ...
     def set_default_verify_paths(self) -> None: ...
