@@ -80,7 +80,7 @@ EXCEPTION = _tkinter.EXCEPTION
 #    actually want _ScreenUnits instead.
 #
 #  - If you think that Callable[something] is an appropriate type for
-#    something, then you may actually want Union[Callable[something], str],
+#    something, then you may actually want Callable[something] | str,
 #    because it's often possible to specify a string of Tcl code.
 #
 #  - Some options can be set only in __init__, but all options are available
@@ -97,7 +97,7 @@ EXCEPTION = _tkinter.EXCEPTION
 #      ...
 #    _tkinter.TclError: unknown font style "deque(['bold'])"
 _T = TypeVar("_T")
-_TkinterSequence = Union[List[_T], Tuple[_T, ...]]
+_TkinterSequence = List[_T] | Tuple[_T, ...]
 _TkinterSequence2D = Union[List[List[_T]], List[Tuple[_T, ...]], Tuple[List[_T], ...], Tuple[Tuple[_T, ...], ...]]
 
 # Some widgets have an option named -compound that accepts different values
@@ -266,7 +266,7 @@ class Misc:
     @overload
     def after(self, ms: int, func: None = ...) -> None: ...
     @overload
-    def after(self, ms: Union[int, Literal["idle"]], func: Callable[..., Any], *args: Any) -> str: ...
+    def after(self, ms: int | Literal["idle"], func: Callable[..., Any], *args: Any) -> str: ...
     # after_idle is essentially partialmethod(after, "idle")
     def after_idle(self, func: Callable[..., Any], *args: Any) -> str: ...
     def after_cancel(self, id: str) -> None: ...
@@ -686,8 +686,8 @@ class _PackInfo(_InMiscTotal):
     # can be specified in pack().
     ipadx: int
     ipady: int
-    padx: Union[int, Tuple[int, int]]
-    pady: Union[int, Tuple[int, int]]
+    padx: int | Tuple[int, int]
+    pady: int | Tuple[int, int]
 
 class Pack:
     # _PackInfo is not the valid type for cnf because pad stuff accepts any
@@ -706,8 +706,8 @@ class Pack:
         side: Literal["left", "right", "top", "bottom"] = ...,
         ipadx: _ScreenUnits = ...,
         ipady: _ScreenUnits = ...,
-        padx: Union[_ScreenUnits, Tuple[_ScreenUnits, _ScreenUnits]] = ...,
-        pady: Union[_ScreenUnits, Tuple[_ScreenUnits, _ScreenUnits]] = ...,
+        padx: _ScreenUnits | Tuple[_ScreenUnits, _ScreenUnits] = ...,
+        pady: _ScreenUnits | Tuple[_ScreenUnits, _ScreenUnits] = ...,
         in_: Misc = ...,
         **kw: Any,  # allow keyword argument named 'in', see #4836
     ) -> None: ...
@@ -775,8 +775,8 @@ class _GridInfo(_InMiscNonTotal):  # empty dict if widget hasn't been gridded
     rowspan: int
     ipadx: int
     ipady: int
-    padx: Union[int, Tuple[int, int]]
-    pady: Union[int, Tuple[int, int]]
+    padx: int | Tuple[int, int]
+    pady: int | Tuple[int, int]
     sticky: str  # consists of letters 'n', 's', 'w', 'e', no repeats, may be empty
 
 class Grid:
@@ -790,8 +790,8 @@ class Grid:
         rowspan: int = ...,
         ipadx: _ScreenUnits = ...,
         ipady: _ScreenUnits = ...,
-        padx: Union[_ScreenUnits, Tuple[_ScreenUnits, _ScreenUnits]] = ...,
-        pady: Union[_ScreenUnits, Tuple[_ScreenUnits, _ScreenUnits]] = ...,
+        padx: _ScreenUnits | Tuple[_ScreenUnits, _ScreenUnits] = ...,
+        pady: _ScreenUnits | Tuple[_ScreenUnits, _ScreenUnits] = ...,
         sticky: str = ...,  # consists of letters 'n', 's', 'w', 'e', may contain repeats, may be empty
         in_: Misc = ...,
         **kw: Any,  # allow keyword argument named 'in', see #4836
@@ -856,7 +856,7 @@ class Toplevel(BaseWidget, Wm):
         border: _ScreenUnits = ...,
         borderwidth: _ScreenUnits = ...,
         class_: str = ...,
-        colormap: Union[Literal["new", ""], Misc] = ...,
+        colormap: Literal["new", ""] | Misc = ...,
         container: bool = ...,
         cursor: _Cursor = ...,
         height: _ScreenUnits = ...,
@@ -871,7 +871,7 @@ class Toplevel(BaseWidget, Wm):
         screen: str = ...,  # can't be changed after creating widget
         takefocus: _TakeFocusValue = ...,
         use: int = ...,
-        visual: Union[str, Tuple[str, int]] = ...,
+        visual: str | Tuple[str, int] = ...,
         width: _ScreenUnits = ...,
     ) -> None: ...
     @overload
@@ -1027,7 +1027,7 @@ class Canvas(Widget, XView, YView):
         relief: _Relief = ...,
         # Setting scrollregion to None doesn't reset it back to empty,
         # but setting it to () does.
-        scrollregion: Union[Tuple[_ScreenUnits, _ScreenUnits, _ScreenUnits, _ScreenUnits], Tuple[()]] = ...,
+        scrollregion: Tuple[_ScreenUnits, _ScreenUnits, _ScreenUnits, _ScreenUnits] | Tuple[()] = ...,
         selectbackground: _Color = ...,
         selectborderwidth: _ScreenUnits = ...,
         selectforeground: _Color = ...,
@@ -1064,7 +1064,7 @@ class Canvas(Widget, XView, YView):
         insertwidth: _ScreenUnits = ...,
         offset: Any = ...,  # undocumented
         relief: _Relief = ...,
-        scrollregion: Union[Tuple[_ScreenUnits, _ScreenUnits, _ScreenUnits, _ScreenUnits], Tuple[()]] = ...,
+        scrollregion: Tuple[_ScreenUnits, _ScreenUnits, _ScreenUnits, _ScreenUnits] | Tuple[()] = ...,
         selectbackground: _Color = ...,
         selectborderwidth: _ScreenUnits = ...,
         selectforeground: _Color = ...,
@@ -1134,7 +1134,7 @@ class Canvas(Widget, XView, YView):
         splinesteps: float = ...,
         state: Literal["normal", "active", "disabled"] = ...,
         stipple: _Bitmap = ...,
-        tags: Union[str, Tuple[str, ...]] = ...,
+        tags: str | Tuple[str, ...] = ...,
         width: _ScreenUnits = ...,
     ) -> _CanvasItemId: ...
     def create_oval(
@@ -1165,7 +1165,7 @@ class Canvas(Widget, XView, YView):
         outlinestipple: _Bitmap = ...,
         state: Literal["normal", "active", "disabled"] = ...,
         stipple: _Bitmap = ...,
-        tags: Union[str, Tuple[str, ...]] = ...,
+        tags: str | Tuple[str, ...] = ...,
         width: _ScreenUnits = ...,
     ) -> _CanvasItemId: ...
     def create_polygon(
@@ -1199,7 +1199,7 @@ class Canvas(Widget, XView, YView):
         splinesteps: float = ...,
         state: Literal["normal", "active", "disabled"] = ...,
         stipple: _Bitmap = ...,
-        tags: Union[str, Tuple[str, ...]] = ...,
+        tags: str | Tuple[str, ...] = ...,
         width: _ScreenUnits = ...,
     ) -> _CanvasItemId: ...
     def create_rectangle(
@@ -1230,7 +1230,7 @@ class Canvas(Widget, XView, YView):
         outlinestipple: _Bitmap = ...,
         state: Literal["normal", "active", "disabled"] = ...,
         stipple: _Bitmap = ...,
-        tags: Union[str, Tuple[str, ...]] = ...,
+        tags: str | Tuple[str, ...] = ...,
         width: _ScreenUnits = ...,
     ) -> _CanvasItemId: ...
     def create_text(
@@ -1249,7 +1249,7 @@ class Canvas(Widget, XView, YView):
         offset: _ScreenUnits = ...,
         state: Literal["normal", "active", "disabled"] = ...,
         stipple: _Bitmap = ...,
-        tags: Union[str, Tuple[str, ...]] = ...,
+        tags: str | Tuple[str, ...] = ...,
         text: float | str = ...,
         width: _ScreenUnits = ...,
     ) -> _CanvasItemId: ...
@@ -1261,7 +1261,7 @@ class Canvas(Widget, XView, YView):
         anchor: _Anchor = ...,
         height: _ScreenUnits = ...,
         state: Literal["normal", "active", "disabled"] = ...,
-        tags: Union[str, Tuple[str, ...]] = ...,
+        tags: str | Tuple[str, ...] = ...,
         width: _ScreenUnits = ...,
         window: Widget = ...,
     ) -> _CanvasItemId: ...
@@ -1289,7 +1289,7 @@ class Canvas(Widget, XView, YView):
     def move(self, *args): ...
     if sys.version_info >= (3, 8):
         def moveto(
-            self, tagOrId: str | _CanvasItemId, x: Union[Literal[""], float] = ..., y: Union[Literal[""], float] = ...
+            self, tagOrId: str | _CanvasItemId, x: Literal[""] | float = ..., y: Literal[""] | float = ...
         ) -> None: ...
     def postscript(self, cnf=..., **kw): ...
     def tag_raise(self, *args): ...
@@ -1360,7 +1360,7 @@ class Checkbutton(Widget):
         tristateimage: _ImageSpec = ...,
         tristatevalue: Any = ...,
         underline: int = ...,
-        variable: Union[Variable, Literal[""]] = ...,
+        variable: Variable | Literal[""] = ...,
         width: _ScreenUnits = ...,
         wraplength: _ScreenUnits = ...,
     ) -> None: ...
@@ -1408,7 +1408,7 @@ class Checkbutton(Widget):
         tristateimage: _ImageSpec = ...,
         tristatevalue: Any = ...,
         underline: int = ...,
-        variable: Union[Variable, Literal[""]] = ...,
+        variable: Variable | Literal[""] = ...,
         width: _ScreenUnits = ...,
         wraplength: _ScreenUnits = ...,
     ) -> Optional[Dict[str, Tuple[str, str, str, Any, Any]]]: ...
@@ -1544,7 +1544,7 @@ class Frame(Widget):
         border: _ScreenUnits = ...,
         borderwidth: _ScreenUnits = ...,
         class_: str = ...,
-        colormap: Union[Literal["new", ""], Misc] = ...,
+        colormap: Literal["new", ""] | Misc = ...,
         container: bool = ...,
         cursor: _Cursor = ...,
         height: _ScreenUnits = ...,
@@ -1556,7 +1556,7 @@ class Frame(Widget):
         pady: _ScreenUnits = ...,
         relief: _Relief = ...,
         takefocus: _TakeFocusValue = ...,
-        visual: Union[str, Tuple[str, int]] = ...,
+        visual: str | Tuple[str, int] = ...,
         width: _ScreenUnits = ...,
     ) -> None: ...
     @overload
@@ -2241,7 +2241,7 @@ class Radiobutton(Widget):
         tristatevalue: Any = ...,
         underline: int = ...,
         value: Any = ...,
-        variable: Union[Variable, Literal[""]] = ...,
+        variable: Variable | Literal[""] = ...,
         width: _ScreenUnits = ...,
         wraplength: _ScreenUnits = ...,
     ) -> None: ...
@@ -2288,7 +2288,7 @@ class Radiobutton(Widget):
         tristatevalue: Any = ...,
         underline: int = ...,
         value: Any = ...,
-        variable: Union[Variable, Literal[""]] = ...,
+        variable: Variable | Literal[""] = ...,
         width: _ScreenUnits = ...,
         wraplength: _ScreenUnits = ...,
     ) -> Optional[Dict[str, Tuple[str, str, str, Any, Any]]]: ...
@@ -2477,7 +2477,7 @@ class Text(Widget, XView, YView):
         border: _ScreenUnits = ...,
         borderwidth: _ScreenUnits = ...,
         cursor: _Cursor = ...,
-        endline: Union[int, Literal[""]] = ...,
+        endline: int | Literal[""] = ...,
         exportselection: bool = ...,
         fg: _Color = ...,
         font: _FontDescription = ...,
@@ -2508,7 +2508,7 @@ class Text(Widget, XView, YView):
         spacing1: _ScreenUnits = ...,
         spacing2: _ScreenUnits = ...,
         spacing3: _ScreenUnits = ...,
-        startline: Union[int, Literal[""]] = ...,
+        startline: int | Literal[""] = ...,
         state: Literal["normal", "disabled"] = ...,
         # Literal inside Tuple doesn't actually work
         tabs: Union[_ScreenUnits, str, Tuple[_ScreenUnits | str, ...]] = ...,
@@ -2533,7 +2533,7 @@ class Text(Widget, XView, YView):
         border: _ScreenUnits = ...,
         borderwidth: _ScreenUnits = ...,
         cursor: _Cursor = ...,
-        endline: Union[int, Literal[""]] = ...,
+        endline: int | Literal[""] = ...,
         exportselection: bool = ...,
         fg: _Color = ...,
         font: _FontDescription = ...,
@@ -2560,7 +2560,7 @@ class Text(Widget, XView, YView):
         spacing1: _ScreenUnits = ...,
         spacing2: _ScreenUnits = ...,
         spacing3: _ScreenUnits = ...,
-        startline: Union[int, Literal[""]] = ...,
+        startline: int | Literal[""] = ...,
         state: Literal["normal", "disabled"] = ...,
         tabs: Union[_ScreenUnits, str, Tuple[_ScreenUnits | str, ...]] = ...,
         tabstyle: Literal["tabular", "wordprocessor"] = ...,
@@ -2641,7 +2641,7 @@ class Text(Widget, XView, YView):
     def image_create(self, index, cnf=..., **kw): ...
     def image_names(self): ...
     def index(self, index: _TextIndex) -> str: ...
-    def insert(self, index: _TextIndex, chars: str, *args: Union[str, _TkinterSequence[str]]) -> None: ...
+    def insert(self, index: _TextIndex, chars: str, *args: str | _TkinterSequence[str]) -> None: ...
     @overload
     def mark_gravity(self, markName: str, direction: None = ...) -> Literal["left", "right"]: ...
     @overload
@@ -2654,7 +2654,7 @@ class Text(Widget, XView, YView):
     # **kw of peer_create is same as the kwargs of Text.__init__
     def peer_create(self, newPathName: str | Text, cnf: Dict[str, Any] = ..., **kw: Any) -> None: ...
     def peer_names(self) -> Tuple[_tkinter.Tcl_Obj, ...]: ...
-    def replace(self, index1: _TextIndex, index2: _TextIndex, chars: str, *args: Union[str, _TkinterSequence[str]]) -> None: ...
+    def replace(self, index1: _TextIndex, index2: _TextIndex, chars: str, *args: str | _TkinterSequence[str]) -> None: ...
     def scan_mark(self, x: int, y: int) -> None: ...
     def scan_dragto(self, x: int, y: int) -> None: ...
     def search(
@@ -2725,10 +2725,10 @@ class Text(Widget, XView, YView):
     def tag_names(self, index: Optional[_TextIndex] = ...) -> Tuple[str, ...]: ...
     def tag_nextrange(
         self, tagName: str, index1: _TextIndex, index2: Optional[_TextIndex] = ...
-    ) -> Union[Tuple[str, str], Tuple[()]]: ...
+    ) -> Tuple[str, str] | Tuple[()]: ...
     def tag_prevrange(
         self, tagName: str, index1: _TextIndex, index2: Optional[_TextIndex] = ...
-    ) -> Union[Tuple[str, str], Tuple[()]]: ...
+    ) -> Tuple[str, str] | Tuple[()]: ...
     def tag_raise(self, tagName: str, aboveThis: Optional[str] = ...) -> None: ...
     def tag_ranges(self, tagName: str) -> Tuple[_tkinter.Tcl_Obj, ...]: ...
     # tag_remove and tag_delete are different
@@ -2813,8 +2813,8 @@ class PhotoImage(Image):
     def cget(self, option: str) -> str: ...
     def __getitem__(self, key: str) -> str: ...  # always string: image['height'] can be '0'
     def copy(self) -> PhotoImage: ...
-    def zoom(self, x: int, y: Union[int, Literal[""]] = ...) -> PhotoImage: ...
-    def subsample(self, x: int, y: Union[int, Literal[""]] = ...) -> PhotoImage: ...
+    def zoom(self, x: int, y: int | Literal[""] = ...) -> PhotoImage: ...
+    def subsample(self, x: int, y: int | Literal[""] = ...) -> PhotoImage: ...
     def get(self, x: int, y: int) -> Tuple[int, int, int]: ...
     def put(
         self, data: Union[str, _TkinterSequence[str], _TkinterSequence2D[_Color]], to: Optional[Tuple[int, int]] = ...
@@ -2995,7 +2995,7 @@ class LabelFrame(Widget):
         border: _ScreenUnits = ...,
         borderwidth: _ScreenUnits = ...,
         class_: str = ...,
-        colormap: Union[Literal["new", ""], Misc] = ...,
+        colormap: Literal["new", ""] | Misc = ...,
         container: bool = ...,  # undocumented
         cursor: _Cursor = ...,
         fg: _Color = ...,
@@ -3014,7 +3014,7 @@ class LabelFrame(Widget):
         relief: _Relief = ...,
         takefocus: _TakeFocusValue = ...,
         text: float | str = ...,
-        visual: Union[str, Tuple[str, int]] = ...,
+        visual: str | Tuple[str, int] = ...,
         width: _ScreenUnits = ...,
     ) -> None: ...
     @overload

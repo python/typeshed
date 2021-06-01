@@ -6,7 +6,7 @@ families: List[None]
 
 _ConnectionT = TypeVar("_ConnectionT", bound=Connection)
 _ListenerT = TypeVar("_ListenerT", bound=Listener)
-_Address = Union[str, Tuple[str, int]]
+_Address = str | Tuple[str, int]
 
 class Connection(object):
     _in: Any

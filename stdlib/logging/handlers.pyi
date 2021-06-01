@@ -119,7 +119,7 @@ class TimedRotatingFileHandler(BaseRotatingHandler):
 class SocketHandler(Handler):
     host: str  # undocumented
     port: Optional[int]  # undocumented
-    address: Union[tuple[str, int], str]  # undocumented
+    address: tuple[str, int] | str  # undocumented
     sock: Optional[socket]  # undocumented
     closeOnError: bool  # undocumented
     retryTime: Optional[float]  # undocumented
@@ -181,7 +181,7 @@ class SysLogHandler(Handler):
     facility_names: ClassVar[dict[str, int]]  # undocumented
     priority_map: ClassVar[dict[str, str]]  # undocumented
     def __init__(
-        self, address: Union[tuple[str, int], str] = ..., facility: int = ..., socktype: Optional[SocketKind] = ...
+        self, address: tuple[str, int] | str = ..., facility: int = ..., socktype: Optional[SocketKind] = ...
     ) -> None: ...
     def encodePriority(self, facility: int | str, priority: int | str) -> int: ...
     def mapPriority(self, levelName: str) -> str: ...
@@ -206,9 +206,9 @@ class SMTPHandler(Handler):
     timeout: float  # undocumented
     def __init__(
         self,
-        mailhost: Union[str, tuple[str, int]],
+        mailhost: str | tuple[str, int],
         fromaddr: str,
-        toaddrs: Union[str, list[str]],
+        toaddrs: str | list[str],
         subject: str,
         credentials: Optional[tuple[str, str]] = ...,
         secure: Union[tuple[()], tuple[str], tuple[str, str], None] = ...,
@@ -253,8 +253,8 @@ class HTTPHandler(Handler):
 
 class QueueHandler(Handler):
     if sys.version_info >= (3, 7):
-        queue: Union[SimpleQueue[Any], Queue[Any]]  # undocumented
-        def __init__(self, queue: Union[SimpleQueue[Any], Queue[Any]]) -> None: ...
+        queue: SimpleQueue[Any] | Queue[Any]  # undocumented
+        def __init__(self, queue: SimpleQueue[Any] | Queue[Any]) -> None: ...
     else:
         queue: Queue[Any]  # undocumented
         def __init__(self, queue: Queue[Any]) -> None: ...
@@ -265,9 +265,9 @@ class QueueListener:
     handlers: tuple[Handler]  # undocumented
     respect_handler_level: bool  # undocumented
     if sys.version_info >= (3, 7):
-        queue: Union[SimpleQueue[Any], Queue[Any]]  # undocumented
+        queue: SimpleQueue[Any] | Queue[Any]  # undocumented
         def __init__(
-            self, queue: Union[SimpleQueue[Any], Queue[Any]], *handlers: Handler, respect_handler_level: bool = ...
+            self, queue: SimpleQueue[Any] | Queue[Any], *handlers: Handler, respect_handler_level: bool = ...
         ) -> None: ...
     else:
         queue: Queue[Any]  # undocumented

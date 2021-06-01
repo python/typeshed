@@ -31,7 +31,7 @@ class config(Command):
     ) -> bool: ...
     def search_cpp(
         self,
-        pattern: Union[Pattern[str], str],
+        pattern: Pattern[str] | str,
         body: Optional[str] = ...,
         headers: Optional[Sequence[str]] = ...,
         include_dirs: Optional[Sequence[str]] = ...,

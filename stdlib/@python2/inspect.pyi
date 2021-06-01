@@ -81,7 +81,7 @@ class ArgInfo(NamedTuple):
     locals: Dict[str, Any]
 
 class Arguments(NamedTuple):
-    args: List[Union[str, List[Any]]]
+    args: List[str | List[Any]]
     varargs: Optional[str]
     keywords: Optional[str]
 

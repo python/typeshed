@@ -59,7 +59,7 @@ class Element(MutableSequence[Element]):
     tail: Optional[_str_result_type]
     def __init__(
         self,
-        tag: Union[_str_argument_type, Callable[..., Element]],
+        tag: _str_argument_type | Callable[..., Element],
         attrib: Dict[_str_argument_type, _str_argument_type] = ...,
         **extra: _str_argument_type,
     ) -> None: ...

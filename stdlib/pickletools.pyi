@@ -152,10 +152,10 @@ class OpcodeInfo(object):
 
 opcodes: List[OpcodeInfo]
 
-def genops(pickle: Union[bytes, IO[bytes]]) -> Iterator[Tuple[OpcodeInfo, Optional[Any], Optional[int]]]: ...
-def optimize(p: Union[bytes, IO[bytes]]) -> bytes: ...
+def genops(pickle: bytes | IO[bytes]) -> Iterator[Tuple[OpcodeInfo, Optional[Any], Optional[int]]]: ...
+def optimize(p: bytes | IO[bytes]) -> bytes: ...
 def dis(
-    pickle: Union[bytes, IO[bytes]],
+    pickle: bytes | IO[bytes],
     out: Optional[IO[str]] = ...,
     memo: Optional[MutableMapping[int, Any]] = ...,
     indentlevel: int = ...,

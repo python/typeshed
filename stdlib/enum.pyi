@@ -29,7 +29,7 @@ class Enum(metaclass=EnumMeta):
     _member_map_: Dict[str, Enum]  # undocumented
     _value2member_map_: Dict[int, Enum]  # undocumented
     if sys.version_info >= (3, 7):
-        _ignore_: Union[str, List[str]]
+        _ignore_: str | List[str]
     _order_: str
     __order__: str
     @classmethod

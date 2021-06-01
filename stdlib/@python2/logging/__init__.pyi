@@ -6,7 +6,7 @@ from typing import IO, Any, Callable, Dict, List, Mapping, MutableMapping, Optio
 
 _SysExcInfoType = Union[Tuple[type, BaseException, Optional[TracebackType]], Tuple[None, None, None]]
 _ExcInfoType = None | bool | _SysExcInfoType
-_ArgsType = Union[Tuple[Any, ...], Mapping[str, Any]]
+_ArgsType = Tuple[Any, ...] | Mapping[str, Any]
 _FilterType = Union[Filter, Callable[[LogRecord], int]]
 _Level = int | Text
 

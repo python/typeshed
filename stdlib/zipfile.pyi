@@ -107,7 +107,7 @@ class ZipFile:
     if sys.version_info >= (3, 8):
         def __init__(
             self,
-            file: Union[StrPath, IO[bytes]],
+            file: StrPath | IO[bytes],
             mode: str = ...,
             compression: int = ...,
             allowZip64: bool = ...,
@@ -118,7 +118,7 @@ class ZipFile:
     elif sys.version_info >= (3, 7):
         def __init__(
             self,
-            file: Union[StrPath, IO[bytes]],
+            file: StrPath | IO[bytes],
             mode: str = ...,
             compression: int = ...,
             allowZip64: bool = ...,
@@ -126,7 +126,7 @@ class ZipFile:
         ) -> None: ...
     else:
         def __init__(
-            self, file: Union[StrPath, IO[bytes]], mode: str = ..., compression: int = ..., allowZip64: bool = ...
+            self, file: StrPath | IO[bytes], mode: str = ..., compression: int = ..., allowZip64: bool = ...
         ) -> None: ...
     def __enter__(self) -> ZipFile: ...
     def __exit__(
@@ -172,7 +172,7 @@ class ZipFile:
 
 class PyZipFile(ZipFile):
     def __init__(
-        self, file: Union[str, IO[bytes]], mode: str = ..., compression: int = ..., allowZip64: bool = ..., optimize: int = ...
+        self, file: str | IO[bytes], mode: str = ..., compression: int = ..., allowZip64: bool = ..., optimize: int = ...
     ) -> None: ...
     def writepy(self, pathname: str, basename: str = ..., filterfunc: Optional[Callable[[str], bool]] = ...) -> None: ...
 
@@ -235,7 +235,7 @@ if sys.version_info >= (3, 8):
         def joinpath(self, add: StrPath) -> Path: ...  # undocumented
         def __truediv__(self, add: StrPath) -> Path: ...
 
-def is_zipfile(filename: Union[StrPath, IO[bytes]]) -> bool: ...
+def is_zipfile(filename: StrPath | IO[bytes]) -> bool: ...
 
 ZIP_STORED: int
 ZIP_DEFLATED: int

@@ -74,9 +74,9 @@ class BaseEventLoop(AbstractEventLoop, metaclass=ABCMeta):
     def create_future(self) -> Future[Any]: ...
     # Tasks methods
     if sys.version_info >= (3, 8):
-        def create_task(self, coro: Union[Awaitable[_T], Generator[Any, None, _T]], *, name: object = ...) -> Task[_T]: ...
+        def create_task(self, coro: Awaitable[_T] | Generator[Any, None, _T], *, name: object = ...) -> Task[_T]: ...
     else:
-        def create_task(self, coro: Union[Awaitable[_T], Generator[Any, None, _T]]) -> Task[_T]: ...
+        def create_task(self, coro: Awaitable[_T] | Generator[Any, None, _T]) -> Task[_T]: ...
     def set_task_factory(
         self, factory: Optional[Callable[[AbstractEventLoop, Generator[Any, None, _T]], Future[_T]]]
     ) -> None: ...
@@ -98,9 +98,9 @@ class BaseEventLoop(AbstractEventLoop, metaclass=ABCMeta):
         type: int = ...,
         proto: int = ...,
         flags: int = ...,
-    ) -> List[Tuple[AddressFamily, SocketKind, int, str, Union[Tuple[str, int], Tuple[str, int, int, int]]]]: ...
+    ) -> List[Tuple[AddressFamily, SocketKind, int, str, Tuple[str, int] | Tuple[str, int, int, int]]]: ...
     async def getnameinfo(
-        self, sockaddr: Union[Tuple[str, int], Tuple[str, int, int, int]], flags: int = ...
+        self, sockaddr: Tuple[str, int] | Tuple[str, int, int, int], flags: int = ...
     ) -> Tuple[str, str]: ...
     if sys.version_info >= (3, 8):
         @overload
@@ -211,7 +211,7 @@ class BaseEventLoop(AbstractEventLoop, metaclass=ABCMeta):
         async def create_server(
             self,
             protocol_factory: _ProtocolFactory,
-            host: Optional[Union[str, Sequence[str]]] = ...,
+            host: Optional[str | Sequence[str]] = ...,
             port: int = ...,
             *,
             family: int = ...,
@@ -273,7 +273,7 @@ class BaseEventLoop(AbstractEventLoop, metaclass=ABCMeta):
         async def create_server(
             self,
             protocol_factory: _ProtocolFactory,
-            host: Optional[Union[str, Sequence[str]]] = ...,
+            host: Optional[str | Sequence[str]] = ...,
             port: int = ...,
             *,
             family: int = ...,

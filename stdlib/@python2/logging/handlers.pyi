@@ -91,7 +91,7 @@ class SysLogHandler(Handler):
     facility_names: ClassVar[Dict[str, int]]  # undocumented
     priority_map: ClassVar[Dict[str, str]]  # undocumented
     def __init__(
-        self, address: Union[Tuple[str, int], str] = ..., facility: int = ..., socktype: Optional[SocketKind] = ...
+        self, address: Tuple[str, int] | str = ..., facility: int = ..., socktype: Optional[SocketKind] = ...
     ) -> None: ...
     def encodePriority(self, facility: int | str, priority: int | str) -> int: ...
     def mapPriority(self, levelName: str) -> str: ...
@@ -107,7 +107,7 @@ class SMTPHandler(Handler):
     # TODO `secure` can also be an empty tuple
     def __init__(
         self,
-        mailhost: Union[str, Tuple[str, int]],
+        mailhost: str | Tuple[str, int],
         fromaddr: str,
         toaddrs: List[str],
         subject: str,

@@ -9,7 +9,7 @@ from typing import IO, Any, ClassVar, Optional, Pattern, Tuple, Type, Union
 
 _SysExcInfoType = Union[Tuple[Type[BaseException], BaseException, Optional[TracebackType]], Tuple[None, None, None]]
 _ExcInfoType = None | bool | _SysExcInfoType | BaseException
-_ArgsType = Union[Tuple[Any, ...], Mapping[str, Any]]
+_ArgsType = Tuple[Any, ...] | Mapping[str, Any]
 _FilterType = Union[Filter, Callable[[LogRecord], int]]
 _Level = int | str
 

@@ -13,7 +13,7 @@ class FInfo:
     Flags: int
 
 _FileInfoTuple = Tuple[str, FInfo, int, int]
-_FileHandleUnion = Union[str, IO[bytes]]
+_FileHandleUnion = str | IO[bytes]
 
 def getfileinfo(name: str) -> _FileInfoTuple: ...
 

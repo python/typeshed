@@ -75,7 +75,7 @@ class partial(Generic[_T]):
 _Descriptor = Any
 
 class partialmethod(Generic[_T]):
-    func: Union[Callable[..., _T], _Descriptor]
+    func: Callable[..., _T] | _Descriptor
     args: Tuple[Any, ...]
     keywords: Dict[str, Any]
     @overload

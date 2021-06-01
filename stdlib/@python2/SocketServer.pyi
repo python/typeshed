@@ -85,8 +85,8 @@ if sys.platform != "win32":
 
 class BaseRequestHandler:
     # Those are technically of types, respectively:
-    # * Union[SocketType, Tuple[bytes, SocketType]]
-    # * Union[Tuple[str, int], str]
+    # * SocketType | Tuple[bytes, SocketType]
+    # * Tuple[str, int] | str
     # But there are some concerns that having unions here would cause
     # too much inconvenience to people using it (see
     # https://github.com/python/typeshed/pull/384#issuecomment-234649696)

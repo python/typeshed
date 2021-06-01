@@ -64,7 +64,7 @@ class _ActionsContainer:
     def add_argument(
         self,
         *name_or_flags: str,
-        action: Union[str, Type[Action]] = ...,
+        action: str | Type[Action] = ...,
         nargs: int | str = ...,
         const: Any = ...,
         default: Any = ...,
@@ -72,7 +72,7 @@ class _ActionsContainer:
         choices: Iterable[_T] = ...,
         required: bool = ...,
         help: Optional[str] = ...,
-        metavar: Optional[Union[str, Tuple[str, ...]]] = ...,
+        metavar: Optional[str | Tuple[str, ...]] = ...,
         dest: Optional[str] = ...,
         version: str = ...,
         **kwargs: Any,
@@ -276,7 +276,7 @@ class Action(_AttributeHolder):
     choices: Optional[Iterable[Any]]
     required: bool
     help: Optional[str]
-    metavar: Optional[Union[str, Tuple[str, ...]]]
+    metavar: Optional[str | Tuple[str, ...]]
     def __init__(
         self,
         option_strings: Sequence[str],
@@ -288,7 +288,7 @@ class Action(_AttributeHolder):
         choices: Optional[Iterable[_T]] = ...,
         required: bool = ...,
         help: Optional[str] = ...,
-        metavar: Optional[Union[str, Tuple[str, ...]]] = ...,
+        metavar: Optional[str | Tuple[str, ...]] = ...,
     ) -> None: ...
     def __call__(
         self,
@@ -311,7 +311,7 @@ if sys.version_info >= (3, 9):
             choices: Optional[Iterable[_T]] = ...,
             required: bool = ...,
             help: Optional[str] = ...,
-            metavar: Optional[Union[str, Tuple[str, ...]]] = ...,
+            metavar: Optional[str | Tuple[str, ...]] = ...,
         ) -> None: ...
 
 class Namespace(_AttributeHolder):
@@ -358,7 +358,7 @@ class _StoreConstAction(Action):
         default: Any = ...,
         required: bool = ...,
         help: Optional[str] = ...,
-        metavar: Optional[Union[str, Tuple[str, ...]]] = ...,
+        metavar: Optional[str | Tuple[str, ...]] = ...,
     ) -> None: ...
 
 # undocumented
@@ -386,7 +386,7 @@ class _AppendConstAction(Action):
         default: Any = ...,
         required: bool = ...,
         help: Optional[str] = ...,
-        metavar: Optional[Union[str, Tuple[str, ...]]] = ...,
+        metavar: Optional[str | Tuple[str, ...]] = ...,
     ) -> None: ...
 
 # undocumented
@@ -423,7 +423,7 @@ class _SubParsersAction(Action):
             dest: str = ...,
             required: bool = ...,
             help: Optional[str] = ...,
-            metavar: Optional[Union[str, Tuple[str, ...]]] = ...,
+            metavar: Optional[str | Tuple[str, ...]] = ...,
         ) -> None: ...
     else:
         def __init__(
@@ -433,7 +433,7 @@ class _SubParsersAction(Action):
             parser_class: Type[ArgumentParser],
             dest: str = ...,
             help: Optional[str] = ...,
-            metavar: Optional[Union[str, Tuple[str, ...]]] = ...,
+            metavar: Optional[str | Tuple[str, ...]] = ...,
         ) -> None: ...
     # TODO: Type keyword args properly.
     def add_parser(self, name: str, **kwargs: Any) -> ArgumentParser: ...

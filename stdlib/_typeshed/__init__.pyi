@@ -54,8 +54,8 @@ class SupportsItemAccess(SupportsGetItem[_KT_contra, _VT], Protocol[_KT_contra, 
     def __delitem__(self, __v: _KT_contra) -> None: ...
 
 # These aliases are simple strings in Python 2.
-StrPath = Union[str, PathLike[str]]  # stable
-BytesPath = Union[bytes, PathLike[bytes]]  # stable
+StrPath = str | PathLike[str]  # stable
+BytesPath = bytes | PathLike[bytes]  # stable
 StrOrBytesPath = Union[str, bytes, PathLike[str], PathLike[bytes]]  # stable
 AnyPath = StrOrBytesPath  # obsolete, will be removed soon
 

@@ -57,7 +57,7 @@ class SimpleXMLRPCDispatcher:  # undocumented
         self,
         data: str,
         dispatch_method: Optional[
-            Callable[[Optional[str], Tuple[_Marshallable, ...]], Union[Fault, Tuple[_Marshallable, ...]]]
+            Callable[[Optional[str], Tuple[_Marshallable, ...]], Fault | Tuple[_Marshallable, ...]]
         ] = ...,
         path: Optional[Any] = ...,
     ) -> str: ...  # undocumented
@@ -115,7 +115,7 @@ class MultiPathXMLRPCServer(SimpleXMLRPCServer):  # undocumented
         self,
         data: str,
         dispatch_method: Optional[
-            Callable[[Optional[str], Tuple[_Marshallable, ...]], Union[Fault, Tuple[_Marshallable, ...]]]
+            Callable[[Optional[str], Tuple[_Marshallable, ...]], Fault | Tuple[_Marshallable, ...]]
         ] = ...,
         path: Optional[Any] = ...,
     ) -> str: ...

@@ -189,7 +189,7 @@ class MultiCall:
 
 def getparser(use_datetime: bool = ...) -> Tuple[ExpatParser | SlowParser, Unmarshaller]: ...
 def dumps(
-    params: Union[Tuple[Any, ...], Fault],
+    params: Tuple[Any, ...] | Fault,
     methodname: Optional[str] = ...,
     methodresponse: Optional[bool] = ...,
     encoding: Optional[str] = ...,

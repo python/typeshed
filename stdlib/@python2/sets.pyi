@@ -1,7 +1,7 @@
 from typing import Any, Hashable, Iterable, Iterator, MutableMapping, Optional, TypeVar, Union
 
 _T = TypeVar("_T")
-_Setlike = Union[BaseSet[_T], Iterable[_T]]
+_Setlike = BaseSet[_T] | Iterable[_T]
 _SelfT = TypeVar("_SelfT")
 
 class BaseSet(Iterable[_T]):

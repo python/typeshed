@@ -19,11 +19,11 @@ class FileList:
         self, pattern: str, anchor: int | bool = ..., prefix: Optional[str] = ..., is_regex: Literal[0, False] = ...
     ) -> bool: ...
     @overload
-    def include_pattern(self, pattern: Union[str, Pattern[str]], *, is_regex: Literal[True, 1] = ...) -> bool: ...
+    def include_pattern(self, pattern: str | Pattern[str], *, is_regex: Literal[True, 1] = ...) -> bool: ...
     @overload
     def include_pattern(
         self,
-        pattern: Union[str, Pattern[str]],
+        pattern: str | Pattern[str],
         anchor: int | bool = ...,
         prefix: Optional[str] = ...,
         is_regex: int | bool = ...,
@@ -33,11 +33,11 @@ class FileList:
         self, pattern: str, anchor: int | bool = ..., prefix: Optional[str] = ..., is_regex: Literal[0, False] = ...
     ) -> bool: ...
     @overload
-    def exclude_pattern(self, pattern: Union[str, Pattern[str]], *, is_regex: Literal[True, 1] = ...) -> bool: ...
+    def exclude_pattern(self, pattern: str | Pattern[str], *, is_regex: Literal[True, 1] = ...) -> bool: ...
     @overload
     def exclude_pattern(
         self,
-        pattern: Union[str, Pattern[str]],
+        pattern: str | Pattern[str],
         anchor: int | bool = ...,
         prefix: Optional[str] = ...,
         is_regex: int | bool = ...,
@@ -50,10 +50,10 @@ def translate_pattern(
     pattern: str, anchor: int | bool = ..., prefix: Optional[str] = ..., is_regex: Literal[False, 0] = ...
 ) -> Pattern[str]: ...
 @overload
-def translate_pattern(pattern: Union[str, Pattern[str]], *, is_regex: Literal[True, 1] = ...) -> Pattern[str]: ...
+def translate_pattern(pattern: str | Pattern[str], *, is_regex: Literal[True, 1] = ...) -> Pattern[str]: ...
 @overload
 def translate_pattern(
-    pattern: Union[str, Pattern[str]],
+    pattern: str | Pattern[str],
     anchor: int | bool = ...,
     prefix: Optional[str] = ...,
     is_regex: int | bool = ...,

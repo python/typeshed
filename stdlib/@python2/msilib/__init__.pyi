@@ -33,8 +33,8 @@ if sys.platform == "win32":
     def change_sequence(
         seq: Sequence[Tuple[str, Optional[str], int]],
         action: str,
-        seqno: Union[int, Type[_Unspecified]] = ...,
-        cond: Union[str, Type[_Unspecified]] = ...,
+        seqno: int | Type[_Unspecified] = ...,
+        cond: str | Type[_Unspecified] = ...,
     ) -> None: ...
     def add_data(db: _Database, table: str, values: Iterable[Tuple[Any, ...]]) -> None: ...
     def add_stream(db: _Database, name: str, path: str) -> None: ...

@@ -23,7 +23,7 @@ class SMTPServerDisconnected(SMTPException): ...
 class SMTPResponseException(SMTPException):
     smtp_code: int
     smtp_error: bytes | str
-    args: Union[Tuple[int, bytes | str], Tuple[int, bytes, str]]
+    args: Tuple[int, bytes | str] | Tuple[int, bytes, str]
     def __init__(self, code: int, msg: bytes | str) -> None: ...
 
 class SMTPSenderRefused(SMTPResponseException):
@@ -114,7 +114,7 @@ class SMTP:
     def sendmail(
         self,
         from_addr: str,
-        to_addrs: Union[str, Sequence[str]],
+        to_addrs: str | Sequence[str],
         msg: bytes | str,
         mail_options: Sequence[str] = ...,
         rcpt_options: Sequence[str] = ...,
@@ -123,7 +123,7 @@ class SMTP:
         self,
         msg: _Message,
         from_addr: Optional[str] = ...,
-        to_addrs: Optional[Union[str, Sequence[str]]] = ...,
+        to_addrs: Optional[str | Sequence[str]] = ...,
         mail_options: Sequence[str] = ...,
         rcpt_options: Sequence[str] = ...,
     ) -> _SendErrs: ...

@@ -3,7 +3,7 @@ from typing import IO, Any, Callable, Deque, Dict, List, Optional, Sequence, Tup
 
 from . import events, futures, protocols, transports
 
-_File = Optional[Union[int, IO[Any]]]
+_File = Optional[int | IO[Any]]
 
 class BaseSubprocessTransport(transports.SubprocessTransport):
 

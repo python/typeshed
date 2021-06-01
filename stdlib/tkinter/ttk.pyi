@@ -52,7 +52,7 @@ class Button(Widget):
         text: float | str = ...,
         textvariable: tkinter.Variable = ...,
         underline: int = ...,
-        width: Union[int, Literal[""]] = ...,
+        width: int | Literal[""] = ...,
     ) -> None: ...
     @overload
     def configure(
@@ -71,7 +71,7 @@ class Button(Widget):
         text: float | str = ...,
         textvariable: tkinter.Variable = ...,
         underline: int = ...,
-        width: Union[int, Literal[""]] = ...,
+        width: int | Literal[""] = ...,
     ) -> Optional[Dict[str, Tuple[str, str, str, Any, Any]]]: ...
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
@@ -102,7 +102,7 @@ class Checkbutton(Widget):
         # empty string segfaults before Tcl 8.6.9. Search for ttk::checkbutton
         # here: https://sourceforge.net/projects/tcl/files/Tcl/8.6.9/tcltk-release-notes-8.6.9.txt/view
         variable: tkinter.Variable = ...,
-        width: Union[int, Literal[""]] = ...,
+        width: int | Literal[""] = ...,
     ) -> None: ...
     @overload
     def configure(
@@ -123,7 +123,7 @@ class Checkbutton(Widget):
         textvariable: tkinter.Variable = ...,
         underline: int = ...,
         variable: tkinter.Variable = ...,
-        width: Union[int, Literal[""]] = ...,
+        width: int | Literal[""] = ...,
     ) -> Optional[Dict[str, Tuple[str, str, str, Any, Any]]]: ...
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
@@ -354,7 +354,7 @@ class Label(Widget):
         text: float | str = ...,
         textvariable: tkinter.Variable = ...,
         underline: int = ...,
-        width: Union[int, Literal[""]] = ...,
+        width: int | Literal[""] = ...,
         wraplength: tkinter._ScreenUnits = ...,
     ) -> None: ...
     @overload
@@ -380,7 +380,7 @@ class Label(Widget):
         text: float | str = ...,
         textvariable: tkinter.Variable = ...,
         underline: int = ...,
-        width: Union[int, Literal[""]] = ...,
+        width: int | Literal[""] = ...,
         wraplength: tkinter._ScreenUnits = ...,
     ) -> Optional[Dict[str, Tuple[str, str, str, Any, Any]]]: ...
     @overload
@@ -452,7 +452,7 @@ class Menubutton(Widget):
         text: float | str = ...,
         textvariable: tkinter.Variable = ...,
         underline: int = ...,
-        width: Union[int, Literal[""]] = ...,
+        width: int | Literal[""] = ...,
     ) -> None: ...
     @overload
     def configure(
@@ -471,7 +471,7 @@ class Menubutton(Widget):
         text: float | str = ...,
         textvariable: tkinter.Variable = ...,
         underline: int = ...,
-        width: Union[int, Literal[""]] = ...,
+        width: int | Literal[""] = ...,
     ) -> Optional[Dict[str, Tuple[str, str, str, Any, Any]]]: ...
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
@@ -626,8 +626,8 @@ class Radiobutton(Widget):
         textvariable: tkinter.Variable = ...,
         underline: int = ...,
         value: Any = ...,
-        variable: Union[tkinter.Variable, Literal[""]] = ...,
-        width: Union[int, Literal[""]] = ...,
+        variable: tkinter.Variable | Literal[""] = ...,
+        width: int | Literal[""] = ...,
     ) -> None: ...
     @overload
     def configure(
@@ -646,8 +646,8 @@ class Radiobutton(Widget):
         textvariable: tkinter.Variable = ...,
         underline: int = ...,
         value: Any = ...,
-        variable: Union[tkinter.Variable, Literal[""]] = ...,
-        width: Union[int, Literal[""]] = ...,
+        variable: tkinter.Variable | Literal[""] = ...,
+        width: int | Literal[""] = ...,
     ) -> Optional[Dict[str, Tuple[str, str, str, Any, Any]]]: ...
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
@@ -877,7 +877,7 @@ class Treeview(Widget, tkinter.XView, tkinter.YView):
         master: Optional[tkinter.Misc] = ...,
         *,
         class_: str = ...,
-        columns: Union[str, tkinter._TkinterSequence[str]] = ...,
+        columns: str | tkinter._TkinterSequence[str] = ...,
         cursor: tkinter._Cursor = ...,
         displaycolumns: Union[str, tkinter._TkinterSequence[str], tkinter._TkinterSequence[int], Literal["#all"]] = ...,
         height: int = ...,
@@ -888,7 +888,7 @@ class Treeview(Widget, tkinter.XView, tkinter.YView):
         #
         # 'tree headings' is same as ['tree', 'headings'], and I wouldn't be
         # surprised if someone was using it.
-        show: Union[Literal["tree", "headings", "tree headings"], tkinter._TkinterSequence[str]] = ...,
+        show: Literal["tree", "headings", "tree headings"] | tkinter._TkinterSequence[str] = ...,
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
         xscrollcommand: tkinter._XYScrollCommand = ...,
@@ -899,13 +899,13 @@ class Treeview(Widget, tkinter.XView, tkinter.YView):
         self,
         cnf: Optional[Dict[str, Any]] = ...,
         *,
-        columns: Union[str, tkinter._TkinterSequence[str]] = ...,
+        columns: str | tkinter._TkinterSequence[str] = ...,
         cursor: tkinter._Cursor = ...,
         displaycolumns: Union[str, tkinter._TkinterSequence[str], tkinter._TkinterSequence[int], Literal["#all"]] = ...,
         height: int = ...,
         padding: tkinter._Padding = ...,
         selectmode: Literal["extended", "browse", "none"] = ...,
-        show: Union[Literal["tree", "headings", "tree headings"], tkinter._TkinterSequence[str]] = ...,
+        show: Literal["tree", "headings", "tree headings"] | tkinter._TkinterSequence[str] = ...,
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
         xscrollcommand: tkinter._XYScrollCommand = ...,
@@ -970,7 +970,7 @@ class LabeledScale(Frame):
         from_: float = ...,
         to: float = ...,
         *,
-        compound: Union[Literal["top"], Literal["bottom"]] = ...,
+        compound: Literal["top"] | Literal["bottom"] = ...,
         **kw: Any,
     ) -> None: ...
     # destroy is overrided, signature does not change

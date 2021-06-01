@@ -10,8 +10,8 @@ DEFAULT_IGNORES: List[str]
 
 def cmp(f1: StrOrBytesPath, f2: StrOrBytesPath, shallow: int | bool = ...) -> bool: ...
 def cmpfiles(
-    a: Union[AnyStr, PathLike[AnyStr]],
-    b: Union[AnyStr, PathLike[AnyStr]],
+    a: AnyStr | PathLike[AnyStr],
+    b: AnyStr | PathLike[AnyStr],
     common: Iterable[AnyStr],
     shallow: int | bool = ...,
 ) -> Tuple[List[AnyStr], List[AnyStr], List[AnyStr]]: ...
@@ -19,8 +19,8 @@ def cmpfiles(
 class dircmp(Generic[AnyStr]):
     def __init__(
         self,
-        a: Union[AnyStr, PathLike[AnyStr]],
-        b: Union[AnyStr, PathLike[AnyStr]],
+        a: AnyStr | PathLike[AnyStr],
+        b: AnyStr | PathLike[AnyStr],
         ignore: Optional[Sequence[AnyStr]] = ...,
         hide: Optional[Sequence[AnyStr]] = ...,
     ) -> None: ...

@@ -13,7 +13,7 @@ tempdir: Optional[str]
 template: str
 
 _S = TypeVar("_S")
-_DirT = Union[AnyStr, os.PathLike[AnyStr]]
+_DirT = AnyStr | os.PathLike[AnyStr]
 
 if sys.version_info >= (3, 8):
     @overload

@@ -3,7 +3,7 @@ from typing import IO, Any, Callable, Dict, List, NoReturn, Optional, Text, Tupl
 
 # The following type alias are stub-only and do not exist during runtime
 _ExcInfo = Tuple[Type[BaseException], BaseException, TracebackType]
-_OptExcInfo = Union[_ExcInfo, Tuple[None, None, None]]
+_OptExcInfo = _ExcInfo | Tuple[None, None, None]
 
 class _flags:
     bytes_warning: int

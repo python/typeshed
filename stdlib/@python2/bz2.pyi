@@ -3,7 +3,7 @@ from _typeshed import ReadableBuffer, WriteableBuffer
 from typing import IO, Any, Iterable, List, Optional, Text, TypeVar, Union
 from typing_extensions import SupportsIndex
 
-_PathOrFile = Union[Text, IO[bytes]]
+_PathOrFile = Text | IO[bytes]
 _T = TypeVar("_T")
 
 def compress(data: bytes, compresslevel: int = ...) -> bytes: ...

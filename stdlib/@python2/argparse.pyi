@@ -68,7 +68,7 @@ class _ActionsContainer:
     def add_argument(
         self,
         *name_or_flags: Text,
-        action: Union[Text, Type[Action]] = ...,
+        action: Text | Type[Action] = ...,
         nargs: int | Text = ...,
         const: Any = ...,
         default: Any = ...,
@@ -76,7 +76,7 @@ class _ActionsContainer:
         choices: Iterable[_T] = ...,
         required: bool = ...,
         help: Optional[Text] = ...,
-        metavar: Optional[Union[Text, Tuple[Text, ...]]] = ...,
+        metavar: Optional[Text | Tuple[Text, ...]] = ...,
         dest: Optional[Text] = ...,
         version: Text = ...,
         **kwargs: Any,
@@ -235,7 +235,7 @@ class Action(_AttributeHolder):
     choices: Optional[Iterable[Any]]
     required: bool
     help: Optional[_Text]
-    metavar: Optional[Union[_Text, Tuple[_Text, ...]]]
+    metavar: Optional[_Text | Tuple[_Text, ...]]
     def __init__(
         self,
         option_strings: Sequence[Text],
@@ -247,7 +247,7 @@ class Action(_AttributeHolder):
         choices: Optional[Iterable[_T]] = ...,
         required: bool = ...,
         help: Optional[Text] = ...,
-        metavar: Optional[Union[Text, Tuple[Text, ...]]] = ...,
+        metavar: Optional[Text | Tuple[Text, ...]] = ...,
     ) -> None: ...
     def __call__(
         self,
@@ -297,7 +297,7 @@ class _StoreConstAction(Action):
         default: Any = ...,
         required: bool = ...,
         help: Optional[Text] = ...,
-        metavar: Optional[Union[Text, Tuple[Text, ...]]] = ...,
+        metavar: Optional[Text | Tuple[Text, ...]] = ...,
     ) -> None: ...
 
 # undocumented
@@ -325,7 +325,7 @@ class _AppendConstAction(Action):
         default: Any = ...,
         required: bool = ...,
         help: Optional[Text] = ...,
-        metavar: Optional[Union[Text, Tuple[Text, ...]]] = ...,
+        metavar: Optional[Text | Tuple[Text, ...]] = ...,
     ) -> None: ...
 
 # undocumented
@@ -367,7 +367,7 @@ class _SubParsersAction(Action):
         parser_class: Type[ArgumentParser],
         dest: Text = ...,
         help: Optional[Text] = ...,
-        metavar: Optional[Union[Text, Tuple[Text, ...]]] = ...,
+        metavar: Optional[Text | Tuple[Text, ...]] = ...,
     ) -> None: ...
     # TODO: Type keyword args properly.
     def add_parser(self, name: Text, **kwargs: Any) -> ArgumentParser: ...

@@ -17,7 +17,7 @@ def dumps(
 ) -> str: ...
 def dump(
     obj: Any,
-    fp: Union[IO[str], IO[Text]],
+    fp: IO[str] | IO[Text],
     skipkeys: bool = ...,
     ensure_ascii: bool = ...,
     check_circular: bool = ...,

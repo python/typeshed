@@ -218,9 +218,9 @@ def writedoc(thing: str | object, forceload: bool = ...) -> None: ...
 def writedocs(dir: str, pkgpath: str = ..., done: Optional[Any] = ...) -> None: ...
 
 class Helper:
-    keywords: Dict[str, Union[str, Tuple[str, str]]]
+    keywords: Dict[str, str | Tuple[str, str]]
     symbols: Dict[str, str]
-    topics: Dict[str, Union[str, Tuple[str, ...]]]
+    topics: Dict[str, str | Tuple[str, ...]]
     def __init__(self, input: Optional[IO[str]] = ..., output: Optional[IO[str]] = ...) -> None: ...
     input: IO[str]
     output: IO[str]
