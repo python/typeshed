@@ -1,5 +1,5 @@
 from distutils.cmd import Command
-from typing import Optional, Tuple
+from typing import Tuple
 
 SCHEME_KEYS: Tuple[str, ...]
 

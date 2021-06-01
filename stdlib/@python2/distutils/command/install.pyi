@@ -1,5 +1,5 @@
 from distutils.cmd import Command
-from typing import Optional, Text
+from typing import Text
 
 class install(Command):
     user: bool

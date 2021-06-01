@@ -1,6 +1,6 @@
 import email.message
 from email.policy import Policy
-from typing import Optional, Tuple, Union
+from typing import Tuple, Union
 
 _ParamsType = Union[str, None, Tuple[str, str | None, str]]
 
