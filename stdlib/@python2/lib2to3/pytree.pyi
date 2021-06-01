@@ -58,12 +58,7 @@ class Leaf(Base):
     value: Text
     fixers_applied: List[Any]
     def __init__(
-        self,
-        type: int,
-        value: Text,
-        context: _Context | None = ...,
-        prefix: Text | None = ...,
-        fixers_applied: List[Any] = ...,
+        self, type: int, value: Text, context: _Context | None = ..., prefix: Text | None = ..., fixers_applied: List[Any] = ...
     ) -> None: ...
 
 def convert(gr: Grammar, raw_node: _RawNode) -> _NL: ...

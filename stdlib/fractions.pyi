@@ -20,11 +20,7 @@ if sys.version_info < (3, 9):
 class Fraction(Rational):
     @overload
     def __new__(
-        cls: Type[_T],
-        numerator: int | Rational = ...,
-        denominator: int | Rational | None = ...,
-        *,
-        _normalize: bool = ...,
+        cls: Type[_T], numerator: int | Rational = ..., denominator: int | Rational | None = ..., *, _normalize: bool = ...
     ) -> _T: ...
     @overload
     def __new__(cls: Type[_T], __value: float | Decimal | str, *, _normalize: bool = ...) -> _T: ...

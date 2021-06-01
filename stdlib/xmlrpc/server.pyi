@@ -46,9 +46,7 @@ class SimpleXMLRPCDispatcher:  # undocumented
     def __init__(self, allow_none: bool = ..., encoding: str | None = ..., use_builtin_types: bool = ...) -> None: ...
     def register_instance(self, instance: Any, allow_dotted_names: bool = ...) -> None: ...
     if sys.version_info >= (3, 7):
-        def register_function(
-            self, function: _DispatchProtocol | None = ..., name: str | None = ...
-        ) -> Callable[..., Any]: ...
+        def register_function(self, function: _DispatchProtocol | None = ..., name: str | None = ...) -> Callable[..., Any]: ...
     else:
         def register_function(self, function: _DispatchProtocol, name: str | None = ...) -> Callable[..., Any]: ...
     def register_introspection_functions(self) -> None: ...
@@ -56,9 +54,7 @@ class SimpleXMLRPCDispatcher:  # undocumented
     def _marshaled_dispatch(
         self,
         data: str,
-        dispatch_method: Optional[
-            Callable[[str | None, Tuple[_Marshallable, ...]], Fault | Tuple[_Marshallable, ...]]
-        ] = ...,
+        dispatch_method: Optional[Callable[[str | None, Tuple[_Marshallable, ...]], Fault | Tuple[_Marshallable, ...]]] = ...,
         path: Any | None = ...,
     ) -> str: ...  # undocumented
     def system_listMethods(self) -> List[str]: ...  # undocumented
@@ -114,9 +110,7 @@ class MultiPathXMLRPCServer(SimpleXMLRPCServer):  # undocumented
     def _marshaled_dispatch(
         self,
         data: str,
-        dispatch_method: Optional[
-            Callable[[str | None, Tuple[_Marshallable, ...]], Fault | Tuple[_Marshallable, ...]]
-        ] = ...,
+        dispatch_method: Optional[Callable[[str | None, Tuple[_Marshallable, ...]], Fault | Tuple[_Marshallable, ...]]] = ...,
         path: Any | None = ...,
     ) -> str: ...
 

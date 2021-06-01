@@ -15,10 +15,7 @@ def default_loader(href: str | bytes | int, parse: str, encoding: str | None = .
 # Which can't be represented using Callable...
 if sys.version_info >= (3, 9):
     def include(
-        elem: Element,
-        loader: Callable[..., str | Element] | None = ...,
-        base_url: str | None = ...,
-        max_depth: int | None = ...,
+        elem: Element, loader: Callable[..., str | Element] | None = ..., base_url: str | None = ..., max_depth: int | None = ...
     ) -> None: ...
 
 else:

@@ -1,5 +1,3 @@
-
-
 def version() -> str: ...
 def bootstrap(
     root: str | None = ...,

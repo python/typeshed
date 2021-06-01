@@ -18,12 +18,7 @@ class Filter:
     filename_pattern: str
     all_frames: bool
     def __init__(
-        self,
-        inclusive: bool,
-        filename_pattern: str,
-        lineno: int | None = ...,
-        all_frames: bool = ...,
-        domain: int | None = ...,
+        self, inclusive: bool, filename_pattern: str, lineno: int | None = ..., all_frames: bool = ..., domain: int | None = ...
     ) -> None: ...
 
 class Statistic:

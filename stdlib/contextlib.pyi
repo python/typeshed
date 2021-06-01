@@ -9,7 +9,6 @@ from typing import (
     Callable,
     ContextManager,
     Iterator,
-
     Type,
     TypeVar,
     overload,
@@ -80,10 +79,7 @@ class ExitStack(ContextManager[ExitStack]):
     def close(self) -> None: ...
     def __enter__(self: _U) -> _U: ...
     def __exit__(
-        self,
-        __exc_type: Type[BaseException] | None,
-        __exc_value: BaseException | None,
-        __traceback: TracebackType | None,
+        self, __exc_type: Type[BaseException] | None, __exc_value: BaseException | None, __traceback: TracebackType | None
     ) -> bool: ...
 
 if sys.version_info >= (3, 7):
@@ -104,10 +100,7 @@ if sys.version_info >= (3, 7):
         def aclose(self) -> Awaitable[None]: ...
         def __aenter__(self: _S) -> Awaitable[_S]: ...
         def __aexit__(
-            self,
-            __exc_type: Type[BaseException] | None,
-            __exc_value: BaseException | None,
-            __traceback: TracebackType | None,
+            self, __exc_type: Type[BaseException] | None, __exc_value: BaseException | None, __traceback: TracebackType | None
         ) -> Awaitable[bool]: ...
 
 if sys.version_info >= (3, 7):

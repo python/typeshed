@@ -18,7 +18,6 @@ from typing import (
     Tuple,
     Type,
     TypeVar,
-
     overload,
 )
 
@@ -32,9 +31,7 @@ _PathSequence = Sequence[bytes | str]
 # Unlike importlib.abc.MetaPathFinder, invalidate_caches() might not exist (see python docs)
 class _MetaPathFinder(Protocol):
     def find_module(self, fullname: str, path: _PathSequence | None) -> Loader | None: ...
-    def find_spec(
-        self, fullname: str, path: _PathSequence | None, target: ModuleType | None = ...
-    ) -> ModuleSpec | None: ...
+    def find_spec(self, fullname: str, path: _PathSequence | None, target: ModuleType | None = ...) -> ModuleSpec | None: ...
 
 # ----- sys variables -----
 if sys.platform != "win32":

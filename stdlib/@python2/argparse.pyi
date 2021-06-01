@@ -58,9 +58,7 @@ class _ActionsContainer:
     _defaults: Dict[str, Any]
     _negative_number_matcher: Pattern[str]
     _has_negative_number_optionals: List[bool]
-    def __init__(
-        self, description: Text | None, prefix_chars: Text, argument_default: Any, conflict_handler: Text
-    ) -> None: ...
+    def __init__(self, description: Text | None, prefix_chars: Text, argument_default: Any, conflict_handler: Text) -> None: ...
     def register(self, registry_name: Text, value: Any, object: Any) -> None: ...
     def _registry_get(self, registry_name: Text, value: Any, default: Any = ...) -> Any: ...
     def set_defaults(self, **kwargs: Any) -> None: ...
@@ -250,11 +248,7 @@ class Action(_AttributeHolder):
         metavar: Text | Tuple[Text, ...] | None = ...,
     ) -> None: ...
     def __call__(
-        self,
-        parser: ArgumentParser,
-        namespace: Namespace,
-        values: Text | Sequence[Any] | None,
-        option_string: Text | None = ...,
+        self, parser: ArgumentParser, namespace: Namespace, values: Text | Sequence[Any] | None, option_string: Text | None = ...
     ) -> None: ...
 
 class Namespace(_AttributeHolder):
@@ -344,12 +338,7 @@ class _HelpAction(Action):
 class _VersionAction(Action):
     version: _Text | None
     def __init__(
-        self,
-        option_strings: Sequence[Text],
-        version: Text | None = ...,
-        dest: Text = ...,
-        default: Text = ...,
-        help: Text = ...,
+        self, option_strings: Sequence[Text], version: Text | None = ..., dest: Text = ..., default: Text = ..., help: Text = ...
     ) -> None: ...
 
 # undocumented

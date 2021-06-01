@@ -11,12 +11,10 @@ from typing import (
     KeysView,
     List,
     MutableSequence,
-
     Sequence,
     Text,
     Tuple,
     TypeVar,
-
     overload,
 )
 
@@ -74,10 +72,7 @@ class Element(MutableSequence[Element]):
     ) -> List[Element]: ...
     @overload
     def findtext(
-        self,
-        path: _str_argument_type,
-        default: None = ...,
-        namespaces: Dict[_str_argument_type, _str_argument_type] | None = ...,
+        self, path: _str_argument_type, default: None = ..., namespaces: Dict[_str_argument_type, _str_argument_type] | None = ...
     ) -> _str_result_type | None: ...
     @overload
     def findtext(
@@ -137,10 +132,7 @@ class ElementTree:
     ) -> Element | None: ...
     @overload
     def findtext(
-        self,
-        path: _str_argument_type,
-        default: None = ...,
-        namespaces: Dict[_str_argument_type, _str_argument_type] | None = ...,
+        self, path: _str_argument_type, default: None = ..., namespaces: Dict[_str_argument_type, _str_argument_type] | None = ...
     ) -> _str_result_type | None: ...
     @overload
     def findtext(

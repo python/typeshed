@@ -11,13 +11,7 @@ class Class:
 
     if sys.version_info >= (3, 7):
         def __init__(
-            self,
-            module: str,
-            name: str,
-            super: List[Class | str] | None,
-            file: str,
-            lineno: int,
-            parent: Class | None = ...,
+            self, module: str, name: str, super: List[Class | str] | None, file: str, lineno: int, parent: Class | None = ...
         ) -> None: ...
     else:
         def __init__(self, module: str, name: str, super: List[Class | str] | None, file: str, lineno: int) -> None: ...

@@ -12,11 +12,9 @@ from typing import (
     KeysView,
     List,
     MutableSequence,
-
     Sequence,
     Tuple,
     TypeVar,
-
     overload,
 )
 from typing_extensions import Literal
@@ -234,9 +232,7 @@ if sys.version_info >= (3, 9):
     def indent(tree: Element | ElementTree, space: str = ..., level: int = ...) -> None: ...
 
 def parse(source: _File, parser: XMLParser | None = ...) -> ElementTree: ...
-def iterparse(
-    source: _File, events: Sequence[str] | None = ..., parser: XMLParser | None = ...
-) -> Iterator[Tuple[str, Any]]: ...
+def iterparse(source: _File, events: Sequence[str] | None = ..., parser: XMLParser | None = ...) -> Iterator[Tuple[str, Any]]: ...
 
 class XMLPullParser:
     def __init__(self, events: Sequence[str] | None = ..., *, _parser: XMLParser | None = ...) -> None: ...

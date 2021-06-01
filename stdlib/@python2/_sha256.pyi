@@ -1,5 +1,3 @@
-
-
 class sha224(object):
     name: str
     block_size: int

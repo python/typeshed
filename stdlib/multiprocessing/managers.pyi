@@ -3,22 +3,7 @@
 import queue
 import sys
 import threading
-from typing import (
-    Any,
-    AnyStr,
-    Callable,
-    ContextManager,
-    Dict,
-    Generic,
-    Iterable,
-    List,
-    Mapping,
-
-    Sequence,
-    Tuple,
-    TypeVar,
-
-)
+from typing import Any, AnyStr, Callable, ContextManager, Dict, Generic, Iterable, List, Mapping, Sequence, Tuple, TypeVar
 
 from .connection import Connection
 from .context import BaseContext
@@ -47,16 +32,10 @@ class Token(object):
     typeid: str | bytes | None
     address: Tuple[str | bytes, int]
     id: str | bytes | int | None
-    def __init__(
-        self, typeid: bytes | str | None, address: Tuple[str | bytes, int], id: str | bytes | int | None
-    ) -> None: ...
+    def __init__(self, typeid: bytes | str | None, address: Tuple[str | bytes, int], id: str | bytes | int | None) -> None: ...
     def __repr__(self) -> str: ...
-    def __getstate__(
-        self,
-    ) -> Tuple[str | bytes | None, Tuple[str | bytes, int], str | bytes | int | None]: ...
-    def __setstate__(
-        self, state: Tuple[str | bytes | None, Tuple[str | bytes, int], str | bytes | int | None]
-    ) -> None: ...
+    def __getstate__(self) -> Tuple[str | bytes | None, Tuple[str | bytes, int], str | bytes | int | None]: ...
+    def __setstate__(self, state: Tuple[str | bytes | None, Tuple[str | bytes, int], str | bytes | int | None]) -> None: ...
 
 class BaseProxy(object):
     _address_to_local: Dict[Any, Any]
@@ -94,11 +73,7 @@ class Server:
 
 class BaseManager(ContextManager[BaseManager]):
     def __init__(
-        self,
-        address: Any | None = ...,
-        authkey: bytes | None = ...,
-        serializer: str = ...,
-        ctx: BaseContext | None = ...,
+        self, address: Any | None = ..., authkey: bytes | None = ..., serializer: str = ..., ctx: BaseContext | None = ...
     ) -> None: ...
     def get_server(self) -> Server: ...
     def connect(self) -> None: ...

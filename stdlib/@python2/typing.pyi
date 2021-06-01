@@ -14,12 +14,7 @@ class TypeVar:
     __covariant__: bool
     __contravariant__: bool
     def __init__(
-        self,
-        name: str,
-        *constraints: Type[Any],
-        bound: Type[Any] | None = ...,
-        covariant: bool = ...,
-        contravariant: bool = ...,
+        self, name: str, *constraints: Type[Any], bound: Type[Any] | None = ..., covariant: bool = ..., contravariant: bool = ...
     ) -> None: ...
 
 _promote = object()
@@ -263,10 +258,7 @@ class ValuesView(MappingView, Iterable[_VT_co], Generic[_VT_co]):
 class ContextManager(Protocol[_T_co]):
     def __enter__(self) -> _T_co: ...
     def __exit__(
-        self,
-        __exc_type: Type[BaseException] | None,
-        __exc_value: BaseException | None,
-        __traceback: TracebackType | None,
+        self, __exc_type: Type[BaseException] | None, __exc_value: BaseException | None, __traceback: TracebackType | None
     ) -> bool | None: ...
 
 class Mapping(Iterable[_KT], Container[_KT], Generic[_KT, _VT_co]):

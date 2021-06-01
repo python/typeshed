@@ -9,7 +9,6 @@ from typing import (
     Iterator,
     List,
     Mapping,
-
     Sequence,
     Tuple,
     Type,
@@ -47,12 +46,7 @@ class CDLL(object):
         ) -> None: ...
     else:
         def __init__(
-            self,
-            name: str | None,
-            mode: int = ...,
-            handle: int | None = ...,
-            use_errno: bool = ...,
-            use_last_error: bool = ...,
+            self, name: str | None, mode: int = ..., handle: int | None = ..., use_errno: bool = ..., use_last_error: bool = ...
         ) -> None: ...
     def __getattr__(self, name: str) -> _NamedFuncPointer: ...
     def __getitem__(self, name: str) -> _NamedFuncPointer: ...

@@ -119,19 +119,10 @@ class AbstractEventLoop(metaclass=ABCMeta):
     # Network I/O methods returning Futures.
     @abstractmethod
     async def getaddrinfo(
-        self,
-        host: str | None,
-        port: str | int | None,
-        *,
-        family: int = ...,
-        type: int = ...,
-        proto: int = ...,
-        flags: int = ...,
+        self, host: str | None, port: str | int | None, *, family: int = ..., type: int = ..., proto: int = ..., flags: int = ...
     ) -> List[Tuple[AddressFamily, SocketKind, int, str, Tuple[str, int] | Tuple[str, int, int, int]]]: ...
     @abstractmethod
-    async def getnameinfo(
-        self, sockaddr: Tuple[str, int] | Tuple[str, int, int, int], flags: int = ...
-    ) -> Tuple[str, str]: ...
+    async def getnameinfo(self, sockaddr: Tuple[str, int] | Tuple[str, int, int, int], flags: int = ...) -> Tuple[str, str]: ...
     if sys.version_info >= (3, 8):
         @overload
         @abstractmethod
@@ -303,13 +294,7 @@ class AbstractEventLoop(metaclass=ABCMeta):
         ) -> AbstractServer: ...
         @abstractmethod
         async def sendfile(
-            self,
-            transport: BaseTransport,
-            file: IO[bytes],
-            offset: int = ...,
-            count: int | None = ...,
-            *,
-            fallback: bool = ...,
+            self, transport: BaseTransport, file: IO[bytes], offset: int = ..., count: int | None = ..., *, fallback: bool = ...
         ) -> int: ...
         @abstractmethod
         async def start_tls(

@@ -33,11 +33,7 @@ def Value(
 ) -> Any: ...
 @overload
 def Array(
-    typecode_or_type: Type[_CT],
-    size_or_initializer: int | Sequence[Any],
-    *,
-    lock: Literal[False],
-    ctx: BaseContext | None = ...,
+    typecode_or_type: Type[_CT], size_or_initializer: int | Sequence[Any], *, lock: Literal[False], ctx: BaseContext | None = ...
 ) -> _CT: ...
 @overload
 def Array(

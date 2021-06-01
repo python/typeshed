@@ -22,11 +22,7 @@ class FileList:
     def include_pattern(self, pattern: str | Pattern[str], *, is_regex: Literal[True, 1] = ...) -> bool: ...
     @overload
     def include_pattern(
-        self,
-        pattern: str | Pattern[str],
-        anchor: int | bool = ...,
-        prefix: str | None = ...,
-        is_regex: int | bool = ...,
+        self, pattern: str | Pattern[str], anchor: int | bool = ..., prefix: str | None = ..., is_regex: int | bool = ...
     ) -> bool: ...
     @overload
     def exclude_pattern(
@@ -36,11 +32,7 @@ class FileList:
     def exclude_pattern(self, pattern: str | Pattern[str], *, is_regex: Literal[True, 1] = ...) -> bool: ...
     @overload
     def exclude_pattern(
-        self,
-        pattern: str | Pattern[str],
-        anchor: int | bool = ...,
-        prefix: str | None = ...,
-        is_regex: int | bool = ...,
+        self, pattern: str | Pattern[str], anchor: int | bool = ..., prefix: str | None = ..., is_regex: int | bool = ...
     ) -> bool: ...
 
 def findall(dir: str = ...) -> List[str]: ...
@@ -53,8 +45,5 @@ def translate_pattern(
 def translate_pattern(pattern: str | Pattern[str], *, is_regex: Literal[True, 1] = ...) -> Pattern[str]: ...
 @overload
 def translate_pattern(
-    pattern: str | Pattern[str],
-    anchor: int | bool = ...,
-    prefix: str | None = ...,
-    is_regex: int | bool = ...,
+    pattern: str | Pattern[str], anchor: int | bool = ..., prefix: str | None = ..., is_regex: int | bool = ...
 ) -> Pattern[str]: ...
