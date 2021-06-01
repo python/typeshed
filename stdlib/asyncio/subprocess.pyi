@@ -43,9 +43,9 @@ class Process:
 if sys.version_info >= (3, 10):
     async def create_subprocess_shell(
         cmd: str | bytes,
-        stdin: Union[int, IO[Any], None] = ...,
-        stdout: Union[int, IO[Any], None] = ...,
-        stderr: Union[int, IO[Any], None] = ...,
+        stdin: int | IO[Any] | None = ...,
+        stdout: int | IO[Any] | None = ...,
+        stderr: int | IO[Any] | None = ...,
         limit: int = ...,
         *,
         # These parameters are forced to these values by BaseEventLoop.subprocess_shell
@@ -70,9 +70,9 @@ if sys.version_info >= (3, 10):
     async def create_subprocess_exec(
         program: _ExecArg,
         *args: _ExecArg,
-        stdin: Union[int, IO[Any], None] = ...,
-        stdout: Union[int, IO[Any], None] = ...,
-        stderr: Union[int, IO[Any], None] = ...,
+        stdin: int | IO[Any] | None = ...,
+        stdout: int | IO[Any] | None = ...,
+        stderr: int | IO[Any] | None = ...,
         limit: int = ...,
         # These parameters are forced to these values by BaseEventLoop.subprocess_shell
         universal_newlines: Literal[False] = ...,
@@ -97,9 +97,9 @@ if sys.version_info >= (3, 10):
 else:
     async def create_subprocess_shell(
         cmd: str | bytes,
-        stdin: Union[int, IO[Any], None] = ...,
-        stdout: Union[int, IO[Any], None] = ...,
-        stderr: Union[int, IO[Any], None] = ...,
+        stdin: int | IO[Any] | None = ...,
+        stdout: int | IO[Any] | None = ...,
+        stderr: int | IO[Any] | None = ...,
         loop: Optional[events.AbstractEventLoop] = ...,
         limit: int = ...,
         *,
@@ -125,9 +125,9 @@ else:
     async def create_subprocess_exec(
         program: _ExecArg,
         *args: _ExecArg,
-        stdin: Union[int, IO[Any], None] = ...,
-        stdout: Union[int, IO[Any], None] = ...,
-        stderr: Union[int, IO[Any], None] = ...,
+        stdin: int | IO[Any] | None = ...,
+        stdout: int | IO[Any] | None = ...,
+        stderr: int | IO[Any] | None = ...,
         loop: Optional[events.AbstractEventLoop] = ...,
         limit: int = ...,
         # These parameters are forced to these values by BaseEventLoop.subprocess_shell

@@ -125,7 +125,7 @@ class BufferedRWPair(BufferedIOBase):
 class TextIOBase(IOBase):
     encoding: str
     errors: Optional[str]
-    newlines: Union[str, Tuple[str, ...], None]
+    newlines: str | Tuple[str, ...] | None
     def __iter__(self) -> Iterator[str]: ...  # type: ignore
     def __next__(self) -> str: ...  # type: ignore
     def detach(self) -> BinaryIO: ...

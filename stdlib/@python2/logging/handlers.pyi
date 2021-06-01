@@ -112,7 +112,7 @@ class SMTPHandler(Handler):
         toaddrs: List[str],
         subject: str,
         credentials: Optional[Tuple[str, str]] = ...,
-        secure: Union[Tuple[str], Tuple[str, str], None] = ...,
+        secure: Tuple[str] | Tuple[str, str] | None = ...,
     ) -> None: ...
     def getSubject(self, record: LogRecord) -> str: ...
 

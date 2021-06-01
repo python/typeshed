@@ -386,7 +386,7 @@ class str(Sequence[str]):
     def zfill(self, __width: int) -> str: ...
     @staticmethod
     @overload
-    def maketrans(__x: Union[Dict[int, _T], Dict[str, _T], Dict[str | int, _T]]) -> Dict[int, _T]: ...
+    def maketrans(__x: Dict[int, _T] | Dict[str, _T] | Dict[str | int, _T]) -> Dict[int, _T]: ...
     @staticmethod
     @overload
     def maketrans(__x: str, __y: str, __z: Optional[str] = ...) -> Dict[int, int | None]: ...
@@ -975,7 +975,7 @@ if sys.version_info >= (3, 10):
 if sys.version_info >= (3, 8):
     def compile(
         source: str | bytes | mod | AST,
-        filename: Union[str, bytes, _PathLike[Any]],
+        filename: str | bytes | _PathLike[Any],
         mode: str,
         flags: int = ...,
         dont_inherit: int = ...,
@@ -987,7 +987,7 @@ if sys.version_info >= (3, 8):
 else:
     def compile(
         source: str | bytes | mod | AST,
-        filename: Union[str, bytes, _PathLike[Any]],
+        filename: str | bytes | _PathLike[Any],
         mode: str,
         flags: int = ...,
         dont_inherit: int = ...,
@@ -1046,10 +1046,10 @@ def iter(__function: Callable[[], _T], __sentinel: Any) -> Iterator[_T]: ...
 
 if sys.version_info >= (3, 10):
     def isinstance(
-        __obj: object, __class_or_tuple: Union[type, types.Union, Tuple[Union[type, types.Union, Tuple[Any, ...]], ...]]
+        __obj: object, __class_or_tuple: Union[type, types.Union, Tuple[type | types.Union | Tuple[Any, ...], ...]]
     ) -> bool: ...
     def issubclass(
-        __cls: type, __class_or_tuple: Union[type, types.Union, Tuple[Union[type, types.Union, Tuple[Any, ...]], ...]]
+        __cls: type, __class_or_tuple: Union[type, types.Union, Tuple[type | types.Union | Tuple[Any, ...], ...]]
     ) -> bool: ...
 
 else:

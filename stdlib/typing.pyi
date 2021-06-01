@@ -24,7 +24,7 @@ class TypeVar:
         self,
         name: str,
         *constraints: Type[Any],
-        bound: Union[None, Type[Any], str] = ...,
+        bound: None | Type[Any] | str = ...,
         covariant: bool = ...,
         contravariant: bool = ...,
     ) -> None: ...
@@ -70,7 +70,7 @@ if sys.version_info >= (3, 10):
         __covariant__: bool
         __contravariant__: bool
         def __init__(
-            self, name: str, *, bound: Union[None, Type[Any], str] = ..., contravariant: bool = ..., covariant: bool = ...
+            self, name: str, *, bound: None | Type[Any] | str = ..., contravariant: bool = ..., covariant: bool = ...
         ) -> None: ...
         @property
         def args(self) -> ParamSpecArgs: ...

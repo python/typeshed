@@ -1,6 +1,6 @@
 from typing import IO, Any, Callable, Generic, Mapping, Optional, Sequence, Text, Tuple, TypeVar, Union
 
-_FILE = Union[None, int, IO[Any]]
+_FILE = None | int | IO[Any]
 _TXT = bytes | Text
 _CMD = _TXT | Sequence[_TXT]
 _ENV = Mapping[bytes, _TXT] | Mapping[Text, _TXT]

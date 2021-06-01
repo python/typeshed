@@ -163,7 +163,7 @@ if sys.version_info >= (3, 8):
         mode: Literal["exec"] = ...,
         *,
         type_comments: bool = ...,
-        feature_version: Union[None, int, _typing.Tuple[int, int]] = ...,
+        feature_version: None | int | _typing.Tuple[int, int] = ...,
     ) -> Module: ...
     @overload
     def parse(
@@ -172,7 +172,7 @@ if sys.version_info >= (3, 8):
         mode: str = ...,
         *,
         type_comments: bool = ...,
-        feature_version: Union[None, int, _typing.Tuple[int, int]] = ...,
+        feature_version: None | int | _typing.Tuple[int, int] = ...,
     ) -> AST: ...
 
 else:

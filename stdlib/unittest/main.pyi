@@ -25,9 +25,9 @@ class TestProgram:
     def __init__(
         self,
         module: None | str | ModuleType = ...,
-        defaultTest: Union[str, Iterable[str], None] = ...,
+        defaultTest: str | Iterable[str] | None = ...,
         argv: Optional[List[str]] = ...,
-        testRunner: Union[Type[_TestRunner], _TestRunner, None] = ...,
+        testRunner: Type[_TestRunner] | _TestRunner | None = ...,
         testLoader: unittest.loader.TestLoader = ...,
         exit: bool = ...,
         verbosity: int = ...,

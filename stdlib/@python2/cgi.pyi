@@ -64,7 +64,7 @@ class FieldStorage(object):
     length: int
     done: int
     list: Optional[List[Any]]
-    value: Union[None, bytes, List[Any]]
+    value: None | bytes | List[Any]
     def __init__(
         self,
         fp: IO[Any] = ...,

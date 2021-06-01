@@ -9,7 +9,7 @@ BOLD: Literal["bold"]
 ITALIC: Literal["italic"]
 
 # Can contain e.g. nested sequences ('FONT DESCRIPTIONS' in font man page)
-_FontDescription = Union[str, Font, tkinter._TkinterSequence[Any]]
+_FontDescription = str | Font | tkinter._TkinterSequence[Any]
 
 class _FontDict(TypedDict):
     family: str

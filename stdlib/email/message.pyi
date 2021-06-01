@@ -6,7 +6,7 @@ from typing import Any, Generator, Iterator, List, Optional, Sequence, Tuple, Ty
 
 _T = TypeVar("_T")
 
-_PayloadType = Union[List[Message], str, bytes]
+_PayloadType = List[Message] | str | bytes
 _CharsetType = Charset | str | None
 _ParamsType = Union[str, None, Tuple[str, Optional[str], str]]
 _ParamType = Union[str, Tuple[Optional[str], Optional[str], str]]

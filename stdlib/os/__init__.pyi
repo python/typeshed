@@ -755,7 +755,7 @@ _ExecVArgs = Union[
     List[bytes | str],
     List[bytes | PathLike[Any]],
     List[str | PathLike[Any]],
-    List[Union[bytes, str, PathLike[Any]]],
+    List[bytes | str | PathLike[Any]],
 ]
 _ExecEnv = Mapping[bytes, bytes | str] | Mapping[str, bytes | str]
 

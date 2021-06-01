@@ -146,7 +146,7 @@ class Signature:
 
 if sys.version_info >= (3, 10):
     def get_annotations(
-        obj: Union[Callable[..., Any], Type[Any], ModuleType],
+        obj: Callable[..., Any] | Type[Any] | ModuleType,
         *,
         globals: Optional[Mapping[str, Any]] = ...,
         locals: Optional[Mapping[str, Any]] = ...,

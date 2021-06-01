@@ -253,7 +253,7 @@ class Action(_AttributeHolder):
         self,
         parser: ArgumentParser,
         namespace: Namespace,
-        values: Union[Text, Sequence[Any], None],
+        values: Text | Sequence[Any] | None,
         option_string: Optional[Text] = ...,
     ) -> None: ...
 

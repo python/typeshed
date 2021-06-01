@@ -259,7 +259,7 @@ def main(
     module: None | Text | types.ModuleType = ...,
     defaultTest: Optional[str] = ...,
     argv: Optional[Sequence[str]] = ...,
-    testRunner: Union[Type[TextTestRunner], TextTestRunner, None] = ...,
+    testRunner: Type[TextTestRunner] | TextTestRunner | None = ...,
     testLoader: TestLoader = ...,
     exit: bool = ...,
     verbosity: int = ...,

@@ -21,7 +21,7 @@ class BaseSubprocessTransport(transports.SubprocessTransport):
         self,
         loop: events.AbstractEventLoop,
         protocol: protocols.SubprocessProtocol,
-        args: Union[str, bytes, Sequence[str | bytes]],
+        args: str | bytes | Sequence[str | bytes],
         shell: bool,
         stdin: _File,
         stdout: _File,
@@ -33,7 +33,7 @@ class BaseSubprocessTransport(transports.SubprocessTransport):
     ) -> None: ...
     def _start(
         self,
-        args: Union[str, bytes, Sequence[str | bytes]],
+        args: str | bytes | Sequence[str | bytes],
         shell: bool,
         stdin: _File,
         stdout: _File,

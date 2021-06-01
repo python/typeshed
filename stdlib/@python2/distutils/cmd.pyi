@@ -57,7 +57,7 @@ class Command:
     ) -> str: ...
     def make_file(
         self,
-        infiles: Union[str, List[str], Tuple[str]],
+        infiles: str | List[str] | Tuple[str],
         outfile: str,
         func: Callable[..., Any],
         args: List[Any],

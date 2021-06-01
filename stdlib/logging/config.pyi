@@ -23,7 +23,7 @@ def dictConfig(config: dict[str, Any]) -> None: ...
 
 if sys.version_info >= (3, 10):
     def fileConfig(
-        fname: Union[_Path, IO[str], RawConfigParser],
+        fname: _Path | IO[str] | RawConfigParser,
         defaults: Optional[dict[str, str]] = ...,
         disable_existing_loggers: bool = ...,
         encoding: Optional[str] = ...,
@@ -31,7 +31,7 @@ if sys.version_info >= (3, 10):
 
 else:
     def fileConfig(
-        fname: Union[_Path, IO[str], RawConfigParser],
+        fname: _Path | IO[str] | RawConfigParser,
         defaults: Optional[dict[str, str]] = ...,
         disable_existing_loggers: bool = ...,
     ) -> None: ...

@@ -50,7 +50,7 @@ _str_argument_type = str | Text
 # _fixtext function in the source). Client code knows best:
 _str_result_type = Any
 
-_file_or_filename = Union[Text, FileDescriptor, IO[Any]]
+_file_or_filename = Text | FileDescriptor | IO[Any]
 
 class Element(MutableSequence[Element]):
     tag: _str_result_type

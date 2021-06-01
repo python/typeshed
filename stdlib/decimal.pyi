@@ -174,8 +174,8 @@ class Context(object):
         Emax: Optional[int] = ...,
         capitals: Optional[int] = ...,
         clamp: Optional[int] = ...,
-        flags: Union[None, Dict[_TrapType, bool], Container[_TrapType]] = ...,
-        traps: Union[None, Dict[_TrapType, bool], Container[_TrapType]] = ...,
+        flags: None | Dict[_TrapType, bool] | Container[_TrapType] = ...,
+        traps: None | Dict[_TrapType, bool] | Container[_TrapType] = ...,
         _ignored_flags: Optional[List[_TrapType]] = ...,
     ) -> None: ...
     # __setattr__() only allows to set a specific set of attributes,

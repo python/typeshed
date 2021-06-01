@@ -18,7 +18,7 @@ class Dialect:
     strict: int
     def __init__(self) -> None: ...
 
-_DialectLike = Union[str, Dialect, Type[Dialect]]
+_DialectLike = str | Dialect | Type[Dialect]
 
 class _reader(Iterator[List[str]]):
     dialect: Dialect

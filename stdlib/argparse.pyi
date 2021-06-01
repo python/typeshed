@@ -294,7 +294,7 @@ class Action(_AttributeHolder):
         self,
         parser: ArgumentParser,
         namespace: Namespace,
-        values: Union[str, Sequence[Any], None],
+        values: str | Sequence[Any] | None,
         option_string: Optional[str] = ...,
     ) -> None: ...
     if sys.version_info >= (3, 9):
