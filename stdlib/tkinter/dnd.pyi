@@ -1,6 +1,6 @@
 from _typeshed.tkinter import DndSource
 from tkinter import Event, Misc, Tk
-from typing import ClassVar, Optional
+from typing import ClassVar
 
 class DndHandler:
     root: ClassVar[Tk | None]

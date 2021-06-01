@@ -1,5 +1,5 @@
 import sys
-from typing import IO, Any, Dict, Optional, Tuple
+from typing import IO, Any, Dict, Tuple
 
 if sys.version_info >= (3, 10):
     def pformat(

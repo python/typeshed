@@ -1,4 +1,4 @@
-from typing import Any, Callable, Dict, NoReturn, Optional, Tuple
+from typing import Any, Callable, Dict, NoReturn, Tuple
 
 class error(Exception):
     def __init__(self, *args: Any) -> None: ...

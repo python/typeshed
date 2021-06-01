@@ -1,5 +1,5 @@
 import sys
-from typing import IO, Dict, List, Optional, Sequence, Text, Tuple
+from typing import IO, Dict, List, Sequence, Text, Tuple
 
 def guess_type(url: Text, strict: bool = ...) -> Tuple[str | None, str | None]: ...
 def guess_all_extensions(type: str, strict: bool = ...) -> List[str]: ...

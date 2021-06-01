@@ -1,4 +1,4 @@
-from typing import IO, Any, Callable, Iterator, List, MutableMapping, Optional, Text, Tuple, Type, Union
+from typing import IO, Any, Callable, Iterator, List, MutableMapping, Text, Tuple, Type, Union
 
 _Reader = Callable[[IO[bytes]], Any]
 

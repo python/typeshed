@@ -1,5 +1,5 @@
 import tkinter
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Tuple
 from typing_extensions import Literal
 
 WINDOW: Literal["window"]

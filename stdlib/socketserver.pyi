@@ -1,7 +1,7 @@
 import sys
 import types
 from socket import socket as _socket
-from typing import Any, BinaryIO, Callable, ClassVar, Optional, Set, Tuple, Type, TypeVar, Union
+from typing import Any, BinaryIO, Callable, ClassVar, Set, Tuple, Type, TypeVar, Union
 
 _T = TypeVar("_T")
 _RequestType = _socket | Tuple[bytes, _socket]

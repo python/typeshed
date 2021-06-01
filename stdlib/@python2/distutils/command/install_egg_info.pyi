@@ -1,5 +1,5 @@
 from distutils.cmd import Command
-from typing import ClassVar, List, Optional, Tuple
+from typing import ClassVar, List, Tuple
 
 class install_egg_info(Command):
     description: ClassVar[str]

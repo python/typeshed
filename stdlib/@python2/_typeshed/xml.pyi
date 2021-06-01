@@ -1,6 +1,6 @@
 # Stub-only types. This module does not exist at runtime.
 
-from typing import Any, Optional
+from typing import Any
 from typing_extensions import Protocol
 
 # As defined https://docs.python.org/3/library/xml.dom.html#domimplementation-objects

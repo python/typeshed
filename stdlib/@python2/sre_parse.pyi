@@ -1,4 +1,4 @@
-from typing import Any, Dict, Iterable, List, Match, Optional, Pattern as _Pattern, Set, Tuple, Union
+from typing import Any, Dict, Iterable, List, Match, Pattern as _Pattern, Set, Tuple, Union
 
 SPECIAL_CHARS: str
 REPEAT_CHARS: str

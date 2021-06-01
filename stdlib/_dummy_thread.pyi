@@ -1,4 +1,4 @@
-from typing import Any, Callable, Dict, NoReturn, Optional, Tuple
+from typing import Any, Callable, Dict, NoReturn, Tuple
 
 TIMEOUT_MAX: int
 error = RuntimeError

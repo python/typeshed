@@ -1,5 +1,5 @@
 from _typeshed import SupportsNoArgReadline
-from typing import IO, Any, Dict, List, Optional, Sequence, Tuple, Union
+from typing import IO, Any, Dict, List, Sequence, Tuple, Union
 
 DEFAULTSECT: str
 MAX_INTERPOLATION_DEPTH: int

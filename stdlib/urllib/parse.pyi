@@ -1,5 +1,5 @@
 import sys
-from typing import Any, AnyStr, Callable, Dict, Generic, List, Mapping, NamedTuple, Optional, Sequence, Tuple, Union, overload
+from typing import Any, AnyStr, Callable, Dict, Generic, List, Mapping, NamedTuple, Sequence, Tuple, Union, overload
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias

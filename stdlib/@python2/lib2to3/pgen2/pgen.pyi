@@ -1,7 +1,7 @@
 from _typeshed import StrPath
 from lib2to3.pgen2 import grammar
 from lib2to3.pgen2.tokenize import _TokenInfo
-from typing import IO, Any, Dict, Iterable, Iterator, List, NoReturn, Optional, Text, Tuple
+from typing import IO, Any, Dict, Iterable, Iterator, List, NoReturn, Text, Tuple
 
 class PgenGrammar(grammar.Grammar): ...
 

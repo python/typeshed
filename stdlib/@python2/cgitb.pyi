@@ -1,5 +1,5 @@
 from types import FrameType, TracebackType
-from typing import IO, Any, Callable, Dict, List, Optional, Text, Tuple, Type
+from typing import IO, Any, Callable, Dict, List, Text, Tuple, Type
 
 _ExcInfo = Tuple[Type[BaseException] | None, BaseException | None, TracebackType | None]
 

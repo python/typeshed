@@ -1,4 +1,4 @@
-from typing import IO, Any, Dict, Optional, Tuple
+from typing import IO, Any, Dict, Tuple
 
 def pformat(object: object, indent: int = ..., width: int = ..., depth: int | None = ...) -> str: ...
 def pprint(

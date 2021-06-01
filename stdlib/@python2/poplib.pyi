@@ -1,5 +1,5 @@
 import socket
-from typing import Any, BinaryIO, List, Optional, Pattern, Text, Tuple, overload
+from typing import Any, BinaryIO, List, Pattern, Text, Tuple, overload
 
 _LongResp = Tuple[bytes, List[bytes], int]
 

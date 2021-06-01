@@ -1,6 +1,6 @@
 import sys
 from _typeshed import FileDescriptorLike
-from typing import Any, Iterable, List, Optional, Tuple
+from typing import Any, Iterable, List, Tuple
 
 if sys.platform != "win32":
     PIPE_BUF: int

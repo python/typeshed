@@ -2,7 +2,7 @@ import datetime
 import socket
 import ssl
 import sys
-from typing import IO, Any, Dict, Iterable, List, NamedTuple, Optional, Tuple, TypeVar, Union
+from typing import IO, Any, Dict, Iterable, List, NamedTuple, Tuple, TypeVar, Union
 
 _SelfT = TypeVar("_SelfT", bound=_NNTPBase)
 _File = Union[IO[bytes], bytes, str, None]

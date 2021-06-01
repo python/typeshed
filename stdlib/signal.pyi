@@ -1,7 +1,7 @@
 import sys
 from enum import IntEnum
 from types import FrameType
-from typing import Any, Callable, Iterable, Optional, Set, Tuple, Union
+from typing import Any, Callable, Iterable, Set, Tuple, Union
 
 if sys.platform != "win32":
     class ItimerError(IOError): ...

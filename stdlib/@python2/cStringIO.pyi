@@ -1,5 +1,5 @@
 from abc import ABCMeta
-from typing import IO, Iterable, Iterator, List, Optional, Union, overload
+from typing import IO, Iterable, Iterator, List, Union, overload
 
 # This class isn't actually abstract, but you can't instantiate it
 # directly, so we might as well treat it as abstract in the stub.

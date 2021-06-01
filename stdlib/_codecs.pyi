@@ -1,6 +1,6 @@
 import codecs
 import sys
-from typing import Any, Callable, Dict, Optional, Tuple, Union
+from typing import Any, Callable, Dict, Tuple, Union
 
 # This type is not exposed; it is defined in unicodeobject.c
 class _EncodingMap:

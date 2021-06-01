@@ -1,5 +1,5 @@
 import sys
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Tuple
 
 DEBUG_COLLECTABLE: int
 DEBUG_LEAK: int

@@ -1,5 +1,5 @@
 import sys
-from typing import Any, NamedTuple, Optional, Tuple, Union
+from typing import Any, NamedTuple, Tuple, Union
 
 _TimeTuple = Tuple[int, int, int, int, int, int, int, int, int]
 

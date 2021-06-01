@@ -1,4 +1,4 @@
-from typing import Any, Optional, Text, Tuple
+from typing import Any, Text, Tuple
 
 # Because UUID has properties called int and bytes we need to rename these temporarily.
 _Int = int

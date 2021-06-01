@@ -1,6 +1,6 @@
 import sys
 from os import PathLike, stat_result as stat_result
-from typing import Dict, List, NamedTuple, Optional, overload
+from typing import Dict, List, NamedTuple, overload
 
 class uname_result(NamedTuple):
     sysname: str

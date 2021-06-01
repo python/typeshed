@@ -1,4 +1,4 @@
-from typing import IO, Any, Optional, Tuple, Union, overload
+from typing import IO, Any, Tuple, Union, overload
 
 AF_APPLETALK: int
 AF_ASH: int

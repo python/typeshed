@@ -1,4 +1,4 @@
-from typing import Iterable, List, Optional
+from typing import Iterable, List
 
 PREFIXES: List[str]
 ENABLE_USER_SITE: bool | None

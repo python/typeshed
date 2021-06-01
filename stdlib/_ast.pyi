@@ -1,6 +1,6 @@
 import sys
 import typing
-from typing import Any, ClassVar, Optional
+from typing import Any, ClassVar
 
 PyCF_ONLY_AST: int
 if sys.version_info >= (3, 8):

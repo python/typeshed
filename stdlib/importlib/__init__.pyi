@@ -1,6 +1,6 @@
 import types
 from importlib.abc import Loader
-from typing import Any, Mapping, Optional, Sequence
+from typing import Any, Mapping, Sequence
 
 def __import__(
     name: str,

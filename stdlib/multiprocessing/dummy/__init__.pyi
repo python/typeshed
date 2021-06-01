@@ -2,7 +2,7 @@ import array
 import threading
 import weakref
 from queue import Queue as Queue
-from typing import Any, Callable, Iterable, List, Mapping, Optional, Sequence
+from typing import Any, Callable, Iterable, List, Mapping, Sequence
 
 JoinableQueue = Queue
 Barrier = threading.Barrier

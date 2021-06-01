@@ -1,5 +1,5 @@
 from distutils.cmd import Command
-from typing import Any, Dict, Iterable, Mapping, Optional, Text, Tuple, Type
+from typing import Any, Dict, Iterable, Mapping, Text, Tuple, Type
 
 class Distribution:
     cmdclass: Dict[str, Type[Command]]

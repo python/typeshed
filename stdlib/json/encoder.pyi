@@ -1,4 +1,4 @@
-from typing import Any, Callable, Iterator, Optional, Tuple
+from typing import Any, Callable, Iterator, Tuple
 
 class JSONEncoder:
     item_separator: str

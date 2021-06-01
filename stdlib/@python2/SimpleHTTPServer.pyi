@@ -1,6 +1,6 @@
 import BaseHTTPServer
 from StringIO import StringIO
-from typing import IO, Any, AnyStr, Mapping, Optional, Union
+from typing import IO, Any, AnyStr, Mapping, Union
 
 class SimpleHTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     server_version: str

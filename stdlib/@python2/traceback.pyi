@@ -1,5 +1,5 @@
 from types import FrameType, TracebackType
-from typing import IO, List, Optional, Tuple, Type
+from typing import IO, List, Tuple, Type
 
 _PT = Tuple[str, int, str, str | None]
 

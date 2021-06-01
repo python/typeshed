@@ -2,7 +2,7 @@ import subprocess
 import time
 from socket import socket as _socket
 from ssl import SSLSocket
-from typing import IO, Any, Callable, Dict, List, Optional, Pattern, Text, Tuple, Type, Union
+from typing import IO, Any, Callable, Dict, List, Pattern, Text, Tuple, Type, Union
 from typing_extensions import Literal
 
 # TODO: Commands should use their actual return types, not this type alias.

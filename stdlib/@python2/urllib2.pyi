@@ -1,6 +1,6 @@
 import ssl
 from httplib import HTTPConnectionProtocol, HTTPResponse
-from typing import Any, AnyStr, Callable, Dict, List, Mapping, Optional, Sequence, Text, Tuple, Type, Union
+from typing import Any, AnyStr, Callable, Dict, List, Mapping, Sequence, Text, Tuple, Type, Union
 from urllib import addinfourl
 
 _string = str | unicode

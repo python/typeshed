@@ -1,4 +1,4 @@
-from typing import Any, Deque, Generic, Optional, TypeVar
+from typing import Any, Deque, Generic, TypeVar
 
 _T = TypeVar("_T")
 

@@ -1,6 +1,6 @@
 import sys
 from _typeshed import ReadableBuffer
-from typing import AbstractSet, Optional
+from typing import AbstractSet
 
 class _Hash(object):
     digest_size: int

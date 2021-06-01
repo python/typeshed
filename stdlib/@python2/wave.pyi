@@ -1,4 +1,4 @@
-from typing import IO, Any, BinaryIO, NoReturn, Optional, Text, Tuple, Union
+from typing import IO, Any, BinaryIO, NoReturn, Text, Tuple, Union
 
 _File = Text | IO[bytes]
 

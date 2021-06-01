@@ -2,7 +2,7 @@ import array
 import threading
 import weakref
 from Queue import Queue
-from typing import Any, List, Optional
+from typing import Any, List
 
 class DummyProcess(threading.Thread):
     _children: weakref.WeakKeyDictionary[Any, Any]

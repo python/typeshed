@@ -1,5 +1,5 @@
 import sys
-from typing import Iterable, List, NamedTuple, Optional
+from typing import Iterable, List, NamedTuple
 
 class _RequestRate(NamedTuple):
     requests: int

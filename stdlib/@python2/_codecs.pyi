@@ -1,6 +1,6 @@
 import codecs
 import sys
-from typing import Any, Callable, Dict, Optional, Text, Tuple, Union
+from typing import Any, Callable, Dict, Text, Tuple, Union
 
 # For convenience:
 _Handler = Callable[[Exception], Tuple[Text, int]]

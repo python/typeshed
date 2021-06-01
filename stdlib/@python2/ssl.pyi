@@ -1,7 +1,7 @@
 import socket
 import sys
 from _typeshed import StrPath
-from typing import Any, Callable, ClassVar, Dict, Iterable, List, NamedTuple, Optional, Set, Text, Tuple, Union, overload
+from typing import Any, Callable, ClassVar, Dict, Iterable, List, NamedTuple, Set, Text, Tuple, Union, overload
 from typing_extensions import Literal
 
 _PCTRTT = Tuple[Tuple[str, str], ...]

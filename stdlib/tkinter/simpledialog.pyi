@@ -1,5 +1,5 @@
 from tkinter import Event, Misc, Toplevel
-from typing import Any, List, Optional
+from typing import Any, List
 
 class Dialog(Toplevel):
     def __init__(self, parent: Misc | None, title: str | None = ...) -> None: ...

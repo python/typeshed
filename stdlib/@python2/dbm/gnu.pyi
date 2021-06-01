@@ -1,5 +1,5 @@
 from types import TracebackType
-from typing import List, Optional, Type, TypeVar, Union, overload
+from typing import List, Type, TypeVar, Union, overload
 
 _T = TypeVar("_T")
 _KeyType = str | bytes

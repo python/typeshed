@@ -1,4 +1,4 @@
-from typing import IO, Any, AnyStr, Generic, Iterable, Iterator, List, Optional
+from typing import IO, Any, AnyStr, Generic, Iterable, Iterator, List
 
 class StringIO(IO[AnyStr], Generic[AnyStr]):
     closed: bool

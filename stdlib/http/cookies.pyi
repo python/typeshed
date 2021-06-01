@@ -1,5 +1,5 @@
 import sys
-from typing import Any, Dict, Generic, Iterable, List, Mapping, Optional, Tuple, TypeVar, Union, overload
+from typing import Any, Dict, Generic, Iterable, List, Mapping, Tuple, TypeVar, Union, overload
 
 _DataType = Union[str, Mapping[str, str | Morsel[Any]]]
 _T = TypeVar("_T")

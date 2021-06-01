@@ -1,4 +1,4 @@
-from typing import IO, List, Optional, Tuple, Union
+from typing import IO, List, Tuple, Union
 
 class TextFile:
     def __init__(

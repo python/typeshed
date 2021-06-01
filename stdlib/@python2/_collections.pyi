@@ -1,4 +1,4 @@
-from typing import Any, Callable, Dict, Generic, Iterator, Optional, TypeVar, Union
+from typing import Any, Callable, Dict, Generic, Iterator, TypeVar, Union
 
 _K = TypeVar("_K")
 _V = TypeVar("_V")

@@ -1,5 +1,5 @@
 import sys
-from typing import AnyStr, List, Optional, Type
+from typing import AnyStr, List, Type
 
 class PyCompileError(Exception):
     exc_type_name: str

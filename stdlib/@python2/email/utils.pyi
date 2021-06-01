@@ -5,7 +5,7 @@ from email._parseaddr import (
     parsedate_tz as _parsedate_tz,
 )
 from quopri import decodestring as _qdecode
-from typing import Any, Optional
+from typing import Any
 
 def formataddr(pair): ...
 def getaddresses(fieldvalues): ...

@@ -1,5 +1,5 @@
 import sys
-from typing import Any, BinaryIO, Iterable, List, Optional, Text, Tuple, TypeVar, Union, overload
+from typing import Any, BinaryIO, Iterable, List, Text, Tuple, TypeVar, Union, overload
 
 # ----- Constants -----
 # Some socket families are listed in the "Socket families" section of the docs,

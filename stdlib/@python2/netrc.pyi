@@ -1,4 +1,4 @@
-from typing import Dict, List, Optional, Text, Tuple
+from typing import Dict, List, Text, Tuple
 
 class NetrcParseError(Exception):
     filename: str | None

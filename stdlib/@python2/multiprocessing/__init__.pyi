@@ -2,7 +2,7 @@ from multiprocessing import pool
 from multiprocessing.process import Process as Process, active_children as active_children, current_process as current_process
 from multiprocessing.util import SUBDEBUG as SUBDEBUG, SUBWARNING as SUBWARNING
 from Queue import Queue as _BaseQueue
-from typing import Any, Callable, Iterable, Optional, TypeVar
+from typing import Any, Callable, Iterable, TypeVar
 
 class ProcessError(Exception): ...
 class BufferTooShort(ProcessError): ...

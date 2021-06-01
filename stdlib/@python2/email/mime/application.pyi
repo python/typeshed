@@ -1,5 +1,5 @@
 from email.mime.nonmultipart import MIMENonMultipart
-from typing import Callable, Optional, Tuple, Union
+from typing import Callable, Tuple, Union
 
 _ParamsType = Union[str, None, Tuple[str, str | None, str]]
 

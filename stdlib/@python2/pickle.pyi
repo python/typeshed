@@ -1,4 +1,4 @@
-from typing import IO, Any, Callable, Iterator, Optional, Tuple, Type, Union
+from typing import IO, Any, Callable, Iterator, Tuple, Type, Union
 
 HIGHEST_PROTOCOL: int
 bytes_types: Tuple[Type[Any], ...]  # undocumented

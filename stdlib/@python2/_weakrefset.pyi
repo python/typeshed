@@ -1,4 +1,4 @@
-from typing import Any, Generic, Iterable, Iterator, MutableSet, Optional, TypeVar, Union
+from typing import Any, Generic, Iterable, Iterator, MutableSet, TypeVar, Union
 
 _S = TypeVar("_S")
 _T = TypeVar("_T")

@@ -1,6 +1,6 @@
 import sys
 from asyncio.events import AbstractEventLoop
-from typing import Any, Generic, Optional, TypeVar
+from typing import Any, Generic, TypeVar
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias

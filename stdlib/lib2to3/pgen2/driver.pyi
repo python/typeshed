@@ -2,7 +2,7 @@ from _typeshed import StrPath
 from lib2to3.pgen2.grammar import Grammar
 from lib2to3.pytree import _NL, _Convert
 from logging import Logger
-from typing import IO, Any, Iterable, Optional
+from typing import IO, Any, Iterable
 
 class Driver:
     grammar: Grammar

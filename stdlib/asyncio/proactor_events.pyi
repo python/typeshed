@@ -1,6 +1,6 @@
 import sys
 from socket import socket
-from typing import Any, Mapping, Optional, Type
+from typing import Any, Mapping, Type
 from typing_extensions import Literal, Protocol
 
 from . import base_events, constants, events, futures, streams, transports

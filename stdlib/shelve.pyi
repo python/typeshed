@@ -1,5 +1,5 @@
 import collections.abc
-from typing import Any, Dict, Iterator, Optional, Tuple
+from typing import Any, Dict, Iterator, Tuple
 
 class Shelf(collections.abc.MutableMapping[Any, Any]):
     def __init__(

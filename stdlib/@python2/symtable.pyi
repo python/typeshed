@@ -1,4 +1,4 @@
-from typing import Any, List, Optional, Sequence, Text, Tuple
+from typing import Any, List, Sequence, Text, Tuple
 
 def symtable(code: Text, filename: Text, compile_type: Text) -> SymbolTable: ...
 

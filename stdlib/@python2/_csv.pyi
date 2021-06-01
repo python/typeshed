@@ -1,4 +1,4 @@
-from typing import Any, Iterable, Iterator, List, Optional, Protocol, Sequence, Text, Type, Union
+from typing import Any, Iterable, Iterator, List, Protocol, Sequence, Text, Type, Union
 
 QUOTE_ALL: int
 QUOTE_MINIMAL: int

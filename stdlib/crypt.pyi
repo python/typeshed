@@ -1,5 +1,5 @@
 import sys
-from typing import List, Optional, Union
+from typing import List, Union
 
 class _Method: ...
 

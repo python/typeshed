@@ -1,5 +1,5 @@
 import mimetools
-from typing import Any, Dict, Optional, Protocol
+from typing import Any, Dict, Protocol
 
 class HTTPMessage(mimetools.Message):
     def addcontinue(self, key: str, more: str) -> None: ...

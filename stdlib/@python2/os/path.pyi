@@ -1,6 +1,6 @@
 import os
 import sys
-from typing import Any, AnyStr, Callable, List, Optional, Sequence, Text, Tuple, TypeVar, overload
+from typing import Any, AnyStr, Callable, List, Sequence, Text, Tuple, TypeVar, overload
 
 _T = TypeVar("_T")
 

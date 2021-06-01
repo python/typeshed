@@ -1,4 +1,4 @@
-from typing import Any, Callable, Dict, List, Optional, Sequence, Text, Tuple, TypeVar, Union, overload
+from typing import Any, Callable, Dict, List, Sequence, Text, Tuple, TypeVar, Union, overload
 
 # TODO: Replace these aliases once we have Python 2 stubs for the Tkinter module.
 Canvas = Any

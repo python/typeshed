@@ -1,5 +1,5 @@
 from mmap import mmap
-from typing import IO, Any, BinaryIO, Iterable, List, Optional, Text, TextIO, Tuple, Type, TypeVar, Union
+from typing import IO, Any, BinaryIO, Iterable, List, Text, TextIO, Tuple, Type, TypeVar, Union
 
 _bytearray_like = bytearray | mmap
 

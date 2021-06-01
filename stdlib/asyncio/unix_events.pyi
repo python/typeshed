@@ -1,7 +1,7 @@
 import sys
 import types
 from socket import socket
-from typing import Any, Callable, Optional, Type, TypeVar
+from typing import Any, Callable, Type, TypeVar
 
 from .events import AbstractEventLoop, AbstractServer, BaseDefaultEventLoopPolicy, _ProtocolFactory, _SSLContext
 from .selector_events import BaseSelectorEventLoop

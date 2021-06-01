@@ -1,7 +1,7 @@
 import sys
 from _typeshed import SupportsWrite
 from types import FrameType, TracebackType
-from typing import IO, Any, Dict, Generator, Iterable, Iterator, List, Mapping, Optional, Set, Tuple, Type
+from typing import IO, Any, Dict, Generator, Iterable, Iterator, List, Mapping, Set, Tuple, Type
 
 _PT = Tuple[str, int, str, str | None]
 

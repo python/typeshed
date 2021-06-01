@@ -1,5 +1,5 @@
 from types import TracebackType
-from typing import Any, Optional, Tuple, Type, Union
+from typing import Any, Tuple, Type, Union
 
 _KeyType = HKEYType | int
 

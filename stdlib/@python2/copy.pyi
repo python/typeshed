@@ -1,4 +1,4 @@
-from typing import Any, Dict, Optional, TypeVar
+from typing import Any, Dict, TypeVar
 
 _T = TypeVar("_T")
 

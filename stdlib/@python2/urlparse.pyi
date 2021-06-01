@@ -1,4 +1,4 @@
-from typing import AnyStr, Dict, List, NamedTuple, Optional, Sequence, Tuple, Union, overload
+from typing import AnyStr, Dict, List, NamedTuple, Sequence, Tuple, Union, overload
 
 _String = str | unicode
 

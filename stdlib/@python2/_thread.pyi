@@ -1,5 +1,5 @@
 from types import TracebackType
-from typing import Any, Callable, Dict, NoReturn, Optional, Tuple, Type
+from typing import Any, Callable, Dict, NoReturn, Tuple, Type
 
 error = RuntimeError
 

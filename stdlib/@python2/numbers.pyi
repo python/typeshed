@@ -2,7 +2,7 @@
 # signatures are currently omitted.
 
 from abc import ABCMeta, abstractmethod
-from typing import Any, Optional, SupportsFloat
+from typing import Any, SupportsFloat
 
 class Number(metaclass=ABCMeta):
     @abstractmethod

@@ -1,6 +1,6 @@
 from cProfile import Profile as _cProfile
 from profile import Profile
-from typing import IO, Any, Dict, Iterable, List, Optional, Text, Tuple, TypeVar, Union, overload
+from typing import IO, Any, Dict, Iterable, List, Text, Tuple, TypeVar, Union, overload
 
 _Selector = str | float | int
 _T = TypeVar("_T", bound=Stats)
