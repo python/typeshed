@@ -17,7 +17,7 @@ from typing import (
     Sequence,
     Tuple,
     TypeVar,
-    Union,
+
 )
 
 from .connection import Connection

@@ -27,7 +27,7 @@ from typing import (
     Tuple,
     Type as Type,
     TypeVar,
-    Union,
+
     ValuesView,
     _Alias,
     overload as overload,

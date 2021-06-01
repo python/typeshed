@@ -16,7 +16,7 @@ from typing import (
     Text,
     Tuple,
     TypeVar,
-    Union,
+
     overload,
 )
 

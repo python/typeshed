@@ -11,7 +11,7 @@ from typing import (
     Sized,
     Tuple,
     TypeVar,
-    Union,
+
     overload,
 )
 

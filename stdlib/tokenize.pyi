@@ -16,7 +16,7 @@ from typing import (
     Set,
     TextIO,
     Tuple,
-    Union,
+
 )
 
 if sys.version_info < (3, 7):

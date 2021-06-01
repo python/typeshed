@@ -17,7 +17,7 @@ from typing import (
     Tuple,
     Type,
     TypeVar,
-    Union,
+
     overload,
 )
 from typing_extensions import Literal

@@ -16,7 +16,7 @@ from typing import (
     Sequence,
     Tuple,
     TypeVar,
-    Union,
+
     overload,
 )
 from typing_extensions import Literal
