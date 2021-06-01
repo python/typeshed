@@ -1,7 +1,7 @@
 from typing import IO, Optional, Union
 
-_encodable = Union[bytes, unicode]
-_decodable = Union[bytes, unicode]
+_encodable = bytes | unicode
+_decodable = bytes | unicode
 
 def b64encode(s: _encodable, altchars: Optional[bytes] = ...) -> bytes: ...
 def b64decode(s: _decodable, altchars: Optional[bytes] = ..., validate: bool = ...) -> bytes: ...

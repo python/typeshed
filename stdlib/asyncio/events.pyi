@@ -397,7 +397,7 @@ class AbstractEventLoop(metaclass=ABCMeta):
     async def subprocess_shell(
         self,
         protocol_factory: _ProtocolFactory,
-        cmd: Union[bytes, str],
+        cmd: bytes | str,
         *,
         stdin: Union[int, IO[Any], None] = ...,
         stdout: Union[int, IO[Any], None] = ...,

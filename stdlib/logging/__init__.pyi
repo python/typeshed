@@ -11,7 +11,7 @@ _SysExcInfoType = Union[Tuple[Type[BaseException], BaseException, Optional[Trace
 _ExcInfoType = Union[None, bool, _SysExcInfoType, BaseException]
 _ArgsType = Union[Tuple[Any, ...], Mapping[str, Any]]
 _FilterType = Union[Filter, Callable[[LogRecord], int]]
-_Level = Union[int, str]
+_Level = int | str
 
 raiseExceptions: bool
 logThreads: bool
@@ -35,7 +35,7 @@ class Manager(object):  # undocumented
     root: RootLogger
     disable: int
     emittedNoHandlerWarning: bool
-    loggerDict: dict[str, Union[Logger, PlaceHolder]]
+    loggerDict: dict[str, Logger | PlaceHolder]
     loggerClass: Optional[Type[Logger]]
     logRecordFactory: Optional[Callable[..., LogRecord]]
     def __init__(self, rootnode: RootLogger) -> None: ...

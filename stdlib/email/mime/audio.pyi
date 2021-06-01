@@ -7,7 +7,7 @@ _ParamsType = Union[str, None, Tuple[str, Optional[str], str]]
 class MIMEAudio(MIMENonMultipart):
     def __init__(
         self,
-        _audiodata: Union[str, bytes],
+        _audiodata: str | bytes,
         _subtype: Optional[str] = ...,
         _encoder: Callable[[MIMEAudio], None] = ...,
         *,

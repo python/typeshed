@@ -3,7 +3,7 @@ from typing import AnyStr, ClassVar, Optional, SupportsAbs, Tuple, Type, TypeVar
 
 _S = TypeVar("_S")
 
-_Text = Union[str, unicode]
+_Text = str | unicode
 
 MINYEAR: int
 MAXYEAR: int

@@ -2,7 +2,7 @@ from lib2to3.pgen2.grammar import Grammar
 from typing import Any, Callable, Dict, Iterator, List, Optional, Tuple, TypeVar, Union
 
 _P = TypeVar("_P")
-_NL = Union[Node, Leaf]
+_NL = Node | Leaf
 _Context = Tuple[str, int, int]
 _Results = Dict[str, _NL]
 _RawNode = Tuple[int, str, _Context, Optional[List[_NL]]]

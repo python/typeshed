@@ -135,7 +135,7 @@ class HasFileno(Protocol):
     def fileno(self) -> int: ...
 
 FileDescriptor = int
-FileDescriptorLike = Union[int, HasFileno]
+FileDescriptorLike = int | HasFileno
 
 class SupportsRead(Protocol[_T_co]):
     def read(self, __length: int = ...) -> _T_co: ...

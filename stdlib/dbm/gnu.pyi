@@ -2,8 +2,8 @@ from types import TracebackType
 from typing import List, Optional, Type, TypeVar, Union, overload
 
 _T = TypeVar("_T")
-_KeyType = Union[str, bytes]
-_ValueType = Union[str, bytes]
+_KeyType = str | bytes
+_ValueType = str | bytes
 
 class error(OSError): ...
 
@@ -26,7 +26,7 @@ class _gdbm:
     @overload
     def get(self, k: _KeyType) -> Optional[bytes]: ...
     @overload
-    def get(self, k: _KeyType, default: Union[bytes, _T]) -> Union[bytes, _T]: ...
+    def get(self, k: _KeyType, default: bytes | _T) -> bytes | _T: ...
     def keys(self) -> List[bytes]: ...
     def setdefault(self, k: _KeyType, default: _ValueType = ...) -> bytes: ...
     # Don't exist at runtime

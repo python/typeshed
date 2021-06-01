@@ -3,10 +3,10 @@ from httplib import HTTPConnectionProtocol, HTTPResponse
 from typing import Any, AnyStr, Callable, Dict, List, Mapping, Optional, Sequence, Text, Tuple, Type, Union
 from urllib import addinfourl
 
-_string = Union[str, unicode]
+_string = str | unicode
 
 class URLError(IOError):
-    reason: Union[str, BaseException]
+    reason: str | BaseException
 
 class HTTPError(URLError, addinfourl):
     code: int
@@ -54,14 +54,14 @@ class OpenerDirector(object):
     addheaders: List[Tuple[str, str]]
     def add_handler(self, handler: BaseHandler) -> None: ...
     def open(
-        self, fullurl: Union[Request, _string], data: Optional[_string] = ..., timeout: Optional[float] = ...
+        self, fullurl: Request | _string, data: Optional[_string] = ..., timeout: Optional[float] = ...
     ) -> Optional[addinfourl]: ...
     def error(self, proto: _string, *args: Any): ...
 
 # Note that this type is somewhat a lie. The return *can* be None if
 # a custom opener has been installed that fails to handle the request.
 def urlopen(
-    url: Union[Request, _string],
+    url: Request | _string,
     data: Optional[_string] = ...,
     timeout: Optional[float] = ...,
     cafile: Optional[_string] = ...,

@@ -29,17 +29,17 @@ class SMTPServer(asyncore.dispatcher):
     def __init__(self, localaddr: _Address, remoteaddr: _Address, data_size_limit: int = ...) -> None: ...
     def handle_accepted(self, conn: socket.socket, addr: Any) -> None: ...
     def process_message(
-        self, peer: _Address, mailfrom: str, rcpttos: List[Text], data: Union[bytes, str], **kwargs: Any
+        self, peer: _Address, mailfrom: str, rcpttos: List[Text], data: bytes | str, **kwargs: Any
     ) -> Optional[str]: ...
 
 class DebuggingServer(SMTPServer): ...
 
 class PureProxy(SMTPServer):
     def process_message(  # type: ignore
-        self, peer: _Address, mailfrom: str, rcpttos: List[Text], data: Union[bytes, str]
+        self, peer: _Address, mailfrom: str, rcpttos: List[Text], data: bytes | str
     ) -> Optional[str]: ...
 
 class MailmanProxy(PureProxy):
     def process_message(  # type: ignore
-        self, peer: _Address, mailfrom: str, rcpttos: List[Text], data: Union[bytes, str]
+        self, peer: _Address, mailfrom: str, rcpttos: List[Text], data: bytes | str
     ) -> Optional[str]: ...

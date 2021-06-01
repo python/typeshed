@@ -11,7 +11,7 @@ _AnyColor = Any
 # TODO: Replace this with a TypedDict once it becomes standardized.
 _PenState = Dict[str, Any]
 
-_Speed = Union[str, float]
+_Speed = str | float
 _PolygonCoords = Sequence[Tuple[float, float]]
 
 # TODO: Type this more accurately
@@ -276,8 +276,8 @@ class _Screen(TurtleScreen):
     # Note int and float are interpreted differently, hence the Union instead of just float
     def setup(
         self,
-        width: Union[int, float] = ...,
-        height: Union[int, float] = ...,
+        width: int | float = ...,
+        height: int | float = ...,
         startx: Optional[int] = ...,
         starty: Optional[int] = ...,
     ) -> None: ...

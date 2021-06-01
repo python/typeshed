@@ -70,17 +70,17 @@ class SMTPServer(asyncore.dispatcher):
     ) -> None: ...
     def handle_accepted(self, conn: socket.socket, addr: Any) -> None: ...
     def process_message(
-        self, peer: _Address, mailfrom: str, rcpttos: List[str], data: Union[bytes, str], **kwargs: Any
+        self, peer: _Address, mailfrom: str, rcpttos: List[str], data: bytes | str, **kwargs: Any
     ) -> Optional[str]: ...
 
 class DebuggingServer(SMTPServer): ...
 
 class PureProxy(SMTPServer):
     def process_message(  # type: ignore
-        self, peer: _Address, mailfrom: str, rcpttos: List[str], data: Union[bytes, str]
+        self, peer: _Address, mailfrom: str, rcpttos: List[str], data: bytes | str
     ) -> Optional[str]: ...
 
 class MailmanProxy(PureProxy):
     def process_message(  # type: ignore
-        self, peer: _Address, mailfrom: str, rcpttos: List[str], data: Union[bytes, str]
+        self, peer: _Address, mailfrom: str, rcpttos: List[str], data: bytes | str
     ) -> Optional[str]: ...

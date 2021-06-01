@@ -27,7 +27,7 @@ _T = TypeVar("_T")
 # The following type alias are stub-only and do not exist during runtime
 _ExcInfo = Tuple[Type[BaseException], BaseException, TracebackType]
 _OptExcInfo = Union[_ExcInfo, Tuple[None, None, None]]
-_PathSequence = Sequence[Union[bytes, str]]
+_PathSequence = Sequence[bytes | str]
 
 # Unlike importlib.abc.MetaPathFinder, invalidate_caches() might not exist (see python docs)
 class _MetaPathFinder(Protocol):

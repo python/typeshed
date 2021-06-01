@@ -1,7 +1,7 @@
 from typing import IO, Any, Callable, Generic, Mapping, Optional, Sequence, Text, Tuple, TypeVar, Union
 
 _FILE = Union[None, int, IO[Any]]
-_TXT = Union[bytes, Text]
+_TXT = bytes | Text
 _CMD = Union[_TXT, Sequence[_TXT]]
 _ENV = Union[Mapping[bytes, _TXT], Mapping[Text, _TXT]]
 

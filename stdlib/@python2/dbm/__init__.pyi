@@ -2,8 +2,8 @@ from types import TracebackType
 from typing import Iterator, MutableMapping, Optional, Tuple, Type, Union
 from typing_extensions import Literal
 
-_KeyType = Union[str, bytes]
-_ValueType = Union[str, bytes]
+_KeyType = str | bytes
+_ValueType = str | bytes
 
 class _Database(MutableMapping[_KeyType, bytes]):
     def close(self) -> None: ...

@@ -3,7 +3,7 @@ from _typeshed import StrPath
 from types import TracebackType
 from typing import IO, Any, Callable, Dict, Iterable, List, Optional, Pattern, Protocol, Sequence, Text, Tuple, Type, Union
 
-_SZI = Union[Text, ZipInfo]
+_SZI = Text | ZipInfo
 _DT = Tuple[int, int, int, int, int, int]
 
 class BadZipfile(Exception): ...

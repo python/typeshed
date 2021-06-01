@@ -4,7 +4,7 @@ from typing import Any, Text, Tuple, Union
 
 class error(Exception): ...
 
-_FmtType = Union[bytes, Text]
+_FmtType = bytes | Text
 _BufferType = Union[array[int], bytes, bytearray, buffer, memoryview, mmap]
 _WriteBufferType = Union[array[Any], bytearray, buffer, memoryview, mmap]
 

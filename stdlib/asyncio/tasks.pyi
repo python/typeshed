@@ -91,11 +91,11 @@ if sys.version_info >= (3, 10):
         return_exceptions: bool = ...,
     ) -> Future[List[Any]]: ...
     @overload
-    def gather(coro_or_future1: _FutureT[_T1], *, return_exceptions: bool = ...) -> Future[Tuple[Union[_T1, BaseException]]]: ...
+    def gather(coro_or_future1: _FutureT[_T1], *, return_exceptions: bool = ...) -> Future[Tuple[_T1 | BaseException]]: ...
     @overload
     def gather(
         coro_or_future1: _FutureT[_T1], coro_or_future2: _FutureT[_T2], *, return_exceptions: bool = ...
-    ) -> Future[Tuple[Union[_T1, BaseException], Union[_T2, BaseException]]]: ...
+    ) -> Future[Tuple[_T1 | BaseException, _T2 | BaseException]]: ...
     @overload
     def gather(
         coro_or_future1: _FutureT[_T1],
@@ -103,7 +103,7 @@ if sys.version_info >= (3, 10):
         coro_or_future3: _FutureT[_T3],
         *,
         return_exceptions: bool = ...,
-    ) -> Future[Tuple[Union[_T1, BaseException], Union[_T2, BaseException], Union[_T3, BaseException]]]: ...
+    ) -> Future[Tuple[_T1 | BaseException, _T2 | BaseException, _T3 | BaseException]]: ...
     @overload
     def gather(
         coro_or_future1: _FutureT[_T1],
@@ -113,7 +113,7 @@ if sys.version_info >= (3, 10):
         *,
         return_exceptions: bool = ...,
     ) -> Future[
-        Tuple[Union[_T1, BaseException], Union[_T2, BaseException], Union[_T3, BaseException], Union[_T4, BaseException]]
+        Tuple[_T1 | BaseException, _T2 | BaseException, _T3 | BaseException, _T4 | BaseException]
     ]: ...
     @overload
     def gather(
@@ -126,11 +126,11 @@ if sys.version_info >= (3, 10):
         return_exceptions: bool = ...,
     ) -> Future[
         Tuple[
-            Union[_T1, BaseException],
-            Union[_T2, BaseException],
-            Union[_T3, BaseException],
-            Union[_T4, BaseException],
-            Union[_T5, BaseException],
+            _T1 | BaseException,
+            _T2 | BaseException,
+            _T3 | BaseException,
+            _T4 | BaseException,
+            _T5 | BaseException,
         ]
     ]: ...
 
@@ -192,7 +192,7 @@ else:
     @overload
     def gather(
         coro_or_future1: _FutureT[_T1], *, loop: Optional[AbstractEventLoop] = ..., return_exceptions: bool = ...
-    ) -> Future[Tuple[Union[_T1, BaseException]]]: ...
+    ) -> Future[Tuple[_T1 | BaseException]]: ...
     @overload
     def gather(
         coro_or_future1: _FutureT[_T1],
@@ -200,7 +200,7 @@ else:
         *,
         loop: Optional[AbstractEventLoop] = ...,
         return_exceptions: bool = ...,
-    ) -> Future[Tuple[Union[_T1, BaseException], Union[_T2, BaseException]]]: ...
+    ) -> Future[Tuple[_T1 | BaseException, _T2 | BaseException]]: ...
     @overload
     def gather(
         coro_or_future1: _FutureT[_T1],
@@ -209,7 +209,7 @@ else:
         *,
         loop: Optional[AbstractEventLoop] = ...,
         return_exceptions: bool = ...,
-    ) -> Future[Tuple[Union[_T1, BaseException], Union[_T2, BaseException], Union[_T3, BaseException]]]: ...
+    ) -> Future[Tuple[_T1 | BaseException, _T2 | BaseException, _T3 | BaseException]]: ...
     @overload
     def gather(
         coro_or_future1: _FutureT[_T1],
@@ -220,7 +220,7 @@ else:
         loop: Optional[AbstractEventLoop] = ...,
         return_exceptions: bool = ...,
     ) -> Future[
-        Tuple[Union[_T1, BaseException], Union[_T2, BaseException], Union[_T3, BaseException], Union[_T4, BaseException]]
+        Tuple[_T1 | BaseException, _T2 | BaseException, _T3 | BaseException, _T4 | BaseException]
     ]: ...
     @overload
     def gather(
@@ -234,11 +234,11 @@ else:
         return_exceptions: bool = ...,
     ) -> Future[
         Tuple[
-            Union[_T1, BaseException],
-            Union[_T2, BaseException],
-            Union[_T3, BaseException],
-            Union[_T4, BaseException],
-            Union[_T5, BaseException],
+            _T1 | BaseException,
+            _T2 | BaseException,
+            _T3 | BaseException,
+            _T4 | BaseException,
+            _T5 | BaseException,
         ]
     ]: ...
 

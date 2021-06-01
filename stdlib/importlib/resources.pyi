@@ -8,7 +8,7 @@ if sys.version_info >= (3, 7):
     from types import ModuleType
     from typing import BinaryIO, ContextManager, Iterator, TextIO, Union
 
-    Package = Union[str, ModuleType]
+    Package = str | ModuleType
     Resource = Union[str, os.PathLike[Any]]
     def open_binary(package: Package, resource: Resource) -> BinaryIO: ...
     def open_text(package: Package, resource: Resource, encoding: str = ..., errors: str = ...) -> TextIO: ...

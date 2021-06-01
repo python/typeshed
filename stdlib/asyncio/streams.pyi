@@ -17,7 +17,7 @@ if sys.version_info < (3, 8):
 
 async def open_connection(
     host: Optional[str] = ...,
-    port: Optional[Union[int, str]] = ...,
+    port: Optional[int | str] = ...,
     *,
     loop: Optional[events.AbstractEventLoop] = ...,
     limit: int = ...,
@@ -27,7 +27,7 @@ async def open_connection(
 async def start_server(
     client_connected_cb: _ClientConnectedCallback,
     host: Optional[str] = ...,
-    port: Optional[Union[int, str]] = ...,
+    port: Optional[int | str] = ...,
     *,
     loop: Optional[events.AbstractEventLoop] = ...,
     limit: int = ...,

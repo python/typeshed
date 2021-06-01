@@ -5,7 +5,7 @@ from types import FrameType, FunctionType
 from typing import Any, Dict, Iterable, Optional, Tuple, Union, overload
 
 class _HasWrapper:
-    __wrapper__: Union[_HasWrapper, FunctionType]
+    __wrapper__: _HasWrapper | FunctionType
 
 _FuncType = Union[FunctionType, _HasWrapper, functools.partial[Any], functools.partialmethod[Any]]
 

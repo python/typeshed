@@ -8,7 +8,7 @@ _SysExcInfoType = Union[Tuple[type, BaseException, Optional[TracebackType]], Tup
 _ExcInfoType = Union[None, bool, _SysExcInfoType]
 _ArgsType = Union[Tuple[Any, ...], Mapping[str, Any]]
 _FilterType = Union[Filter, Callable[[LogRecord], int]]
-_Level = Union[int, Text]
+_Level = int | Text
 
 raiseExceptions: bool
 logThreads: bool
@@ -18,7 +18,7 @@ _srcfile: Optional[str]
 
 def currentframe() -> FrameType: ...
 
-_levelNames: Dict[Union[int, str], Union[str, int]]  # Union[int:str, str:int]
+_levelNames: Dict[int | str, str | int]  # Union[int:str, str:int]
 
 class Filterer(object):
     filters: List[Filter]
@@ -30,7 +30,7 @@ class Filterer(object):
 class Logger(Filterer):
     name: str
     level: int
-    parent: Union[Logger, PlaceHolder]
+    parent: Logger | PlaceHolder
     propagate: bool
     handlers: List[Handler]
     disabled: int
@@ -190,7 +190,7 @@ class LoggerAdapter:
 @overload
 def getLogger() -> Logger: ...
 @overload
-def getLogger(name: Union[Text, str]) -> Logger: ...
+def getLogger(name: Text | str) -> Logger: ...
 def getLoggerClass() -> type: ...
 def debug(msg: Any, *args: Any, exc_info: _ExcInfoType = ..., extra: Optional[Dict[str, Any]] = ..., **kwargs: Any) -> None: ...
 def info(msg: Any, *args: Any, exc_info: _ExcInfoType = ..., extra: Optional[Dict[str, Any]] = ..., **kwargs: Any) -> None: ...
@@ -213,7 +213,7 @@ fatal = critical
 
 def disable(level: int) -> None: ...
 def addLevelName(level: int, levelName: str) -> None: ...
-def getLevelName(level: Union[int, str]) -> Any: ...
+def getLevelName(level: int | str) -> Any: ...
 def makeLogRecord(dict: Mapping[str, Any]) -> LogRecord: ...
 @overload
 def basicConfig() -> None: ...

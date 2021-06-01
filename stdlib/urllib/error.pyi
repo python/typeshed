@@ -5,8 +5,8 @@ from urllib.response import addinfourl
 # Stubs for urllib.error
 
 class URLError(IOError):
-    reason: Union[str, BaseException]
-    def __init__(self, reason: Union[str, BaseException], filename: Optional[str] = ...) -> None: ...
+    reason: str | BaseException
+    def __init__(self, reason: str | BaseException, filename: Optional[str] = ...) -> None: ...
 
 class HTTPError(URLError, addinfourl):
     code: int

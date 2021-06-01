@@ -5,5 +5,5 @@ class Chooser(Dialog):
     command: ClassVar[str]
 
 def askcolor(
-    color: Optional[Union[str, bytes]] = ..., **options: Any
+    color: Optional[str | bytes] = ..., **options: Any
 ) -> Union[Tuple[None, None], Tuple[Tuple[float, float, float], str]]: ...

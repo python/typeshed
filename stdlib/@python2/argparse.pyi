@@ -23,7 +23,7 @@ _T = TypeVar("_T")
 _ActionT = TypeVar("_ActionT", bound=Action)
 _N = TypeVar("_N")
 
-_Text = Union[str, unicode]
+_Text = str | unicode
 
 ONE_OR_MORE: str
 OPTIONAL: str
@@ -69,7 +69,7 @@ class _ActionsContainer:
         self,
         *name_or_flags: Text,
         action: Union[Text, Type[Action]] = ...,
-        nargs: Union[int, Text] = ...,
+        nargs: int | Text = ...,
         const: Any = ...,
         default: Any = ...,
         type: Union[Callable[[Text], _T], Callable[[str], _T], FileType] = ...,
@@ -228,7 +228,7 @@ class ArgumentDefaultsHelpFormatter(HelpFormatter): ...
 class Action(_AttributeHolder):
     option_strings: Sequence[_Text]
     dest: _Text
-    nargs: Optional[Union[int, _Text]]
+    nargs: Optional[int | _Text]
     const: Any
     default: Any
     type: Union[Callable[[str], Any], FileType, None]
@@ -240,7 +240,7 @@ class Action(_AttributeHolder):
         self,
         option_strings: Sequence[Text],
         dest: Text,
-        nargs: Optional[Union[int, Text]] = ...,
+        nargs: Optional[int | Text] = ...,
         const: Optional[_T] = ...,
         default: Union[_T, str, None] = ...,
         type: Optional[Union[Callable[[Text], _T], Callable[[str], _T], FileType]] = ...,

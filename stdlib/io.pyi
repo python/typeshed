@@ -67,13 +67,13 @@ class BufferedIOBase(IOBase):
 class FileIO(RawIOBase, BinaryIO):
     mode: str
     # Technically this is whatever is passed in as file, either a str, a bytes, or an int.
-    name: Union[int, str]  # type: ignore
+    name: int | str  # type: ignore
     def __init__(
         self,
         file: Union[str, bytes, int],
         mode: str = ...,
         closefd: bool = ...,
-        opener: Optional[Callable[[Union[int, str], str], int]] = ...,
+        opener: Optional[Callable[[int | str, str], int]] = ...,
     ) -> None: ...
     @property
     def closefd(self) -> bool: ...
@@ -183,6 +183,6 @@ class StringIO(TextIOWrapper):
 
 class IncrementalNewlineDecoder(codecs.IncrementalDecoder):
     def __init__(self, decoder: Optional[codecs.IncrementalDecoder], translate: bool, errors: str = ...) -> None: ...
-    def decode(self, input: Union[bytes, str], final: bool = ...) -> str: ...
+    def decode(self, input: bytes | str, final: bool = ...) -> str: ...
     @property
     def newlines(self) -> Optional[Union[str, Tuple[str, ...]]]: ...

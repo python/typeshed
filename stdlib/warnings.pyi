@@ -5,7 +5,7 @@ from typing_extensions import Literal
 from _warnings import warn as warn, warn_explicit as warn_explicit
 
 def showwarning(
-    message: Union[Warning, str],
+    message: Warning | str,
     category: Type[Warning],
     filename: str,
     lineno: int,
@@ -13,7 +13,7 @@ def showwarning(
     line: Optional[str] = ...,
 ) -> None: ...
 def formatwarning(
-    message: Union[Warning, str], category: Type[Warning], filename: str, lineno: int, line: Optional[str] = ...
+    message: Warning | str, category: Type[Warning], filename: str, lineno: int, line: Optional[str] = ...
 ) -> str: ...
 def filterwarnings(
     action: str, message: str = ..., category: Type[Warning] = ..., module: str = ..., lineno: int = ..., append: bool = ...
@@ -24,7 +24,7 @@ def resetwarnings() -> None: ...
 class _OptionError(Exception): ...
 
 class WarningMessage:
-    message: Union[Warning, str]
+    message: Warning | str
     category: Type[Warning]
     filename: str
     lineno: int
@@ -33,7 +33,7 @@ class WarningMessage:
     source: Optional[Any]
     def __init__(
         self,
-        message: Union[Warning, str],
+        message: Warning | str,
         category: Type[Warning],
         filename: str,
         lineno: int,

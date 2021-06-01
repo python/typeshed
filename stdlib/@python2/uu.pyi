@@ -1,6 +1,6 @@
 from typing import BinaryIO, Optional, Text, Union
 
-_File = Union[Text, BinaryIO]
+_File = Text | BinaryIO
 
 class Error(Exception): ...
 

@@ -31,7 +31,7 @@ class _WritableFileobj(Protocol):
 
 @overload
 def open(
-    filename: Union[StrOrBytesPath, _ReadableFileobj],
+    filename: StrOrBytesPath | _ReadableFileobj,
     mode: _ReadBinaryMode = ...,
     compresslevel: int = ...,
     encoding: None = ...,
@@ -40,7 +40,7 @@ def open(
 ) -> GzipFile: ...
 @overload
 def open(
-    filename: Union[StrOrBytesPath, _WritableFileobj],
+    filename: StrOrBytesPath | _WritableFileobj,
     mode: _WriteBinaryMode,
     compresslevel: int = ...,
     encoding: None = ...,
@@ -64,7 +64,7 @@ def open(
     encoding: Optional[str] = ...,
     errors: Optional[str] = ...,
     newline: Optional[str] = ...,
-) -> Union[GzipFile, TextIO]: ...
+) -> GzipFile | TextIO: ...
 
 class _PaddedFile:
     file: _ReadableFileobj
@@ -82,7 +82,7 @@ class GzipFile(_compression.BaseStream):
     mode: Literal[1, 2]
     name: str
     compress: zlib._Compress
-    fileobj: Union[_ReadableFileobj, _WritableFileobj]
+    fileobj: _ReadableFileobj | _WritableFileobj
     @overload
     def __init__(
         self,

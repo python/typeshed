@@ -230,7 +230,7 @@ class _patcher:
             autospec: Optional[Any] = ...,
             new_callable: Optional[Any] = ...,
             **kwargs: Any,
-        ) -> _patch[Union[MagicMock, AsyncMock]]: ...
+        ) -> _patch[MagicMock | AsyncMock]: ...
     else:
         @overload
         def __call__(  # type: ignore
@@ -282,7 +282,7 @@ class _patcher:
             autospec: Optional[Any] = ...,
             new_callable: Optional[Any] = ...,
             **kwargs: Any,
-        ) -> _patch[Union[MagicMock, AsyncMock]]: ...
+        ) -> _patch[MagicMock | AsyncMock]: ...
     else:
         @overload
         def object(  # type: ignore

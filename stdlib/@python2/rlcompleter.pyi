@@ -1,6 +1,6 @@
 from typing import Any, Dict, Optional, Union
 
-_Text = Union[str, unicode]
+_Text = str | unicode
 
 class Completer:
     def __init__(self, namespace: Optional[Dict[str, Any]] = ...) -> None: ...

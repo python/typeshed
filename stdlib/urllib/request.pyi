@@ -28,7 +28,7 @@ _T = TypeVar("_T")
 _UrlopenRet = Any
 
 def urlopen(
-    url: Union[str, Request],
+    url: str | Request,
     data: Optional[bytes] = ...,
     timeout: Optional[float] = ...,
     *,
@@ -92,14 +92,14 @@ class Request:
     @overload
     def get_header(self, header_name: str) -> Optional[str]: ...
     @overload
-    def get_header(self, header_name: str, default: _T) -> Union[str, _T]: ...
+    def get_header(self, header_name: str, default: _T) -> str | _T: ...
     def header_items(self) -> List[Tuple[str, str]]: ...
     def has_proxy(self) -> bool: ...
 
 class OpenerDirector:
     addheaders: List[Tuple[str, str]]
     def add_handler(self, handler: BaseHandler) -> None: ...
-    def open(self, fullurl: Union[str, Request], data: Optional[bytes] = ..., timeout: Optional[float] = ...) -> _UrlopenRet: ...
+    def open(self, fullurl: str | Request, data: Optional[bytes] = ..., timeout: Optional[float] = ...) -> _UrlopenRet: ...
     def error(self, proto: str, *args: Any) -> _UrlopenRet: ...
     def close(self) -> None: ...
 
@@ -311,16 +311,16 @@ class FancyURLopener(URLopener):
     def get_user_passwd(self, host: str, realm: str, clear_cache: int = ...) -> Tuple[str, str]: ...  # undocumented
     def http_error_301(
         self, url: str, fp: IO[str], errcode: int, errmsg: str, headers: Mapping[str, str], data: Optional[bytes] = ...
-    ) -> Optional[Union[_UrlopenRet, addinfourl]]: ...  # undocumented
+    ) -> Optional[_UrlopenRet | addinfourl]: ...  # undocumented
     def http_error_302(
         self, url: str, fp: IO[str], errcode: int, errmsg: str, headers: Mapping[str, str], data: Optional[bytes] = ...
-    ) -> Optional[Union[_UrlopenRet, addinfourl]]: ...  # undocumented
+    ) -> Optional[_UrlopenRet | addinfourl]: ...  # undocumented
     def http_error_303(
         self, url: str, fp: IO[str], errcode: int, errmsg: str, headers: Mapping[str, str], data: Optional[bytes] = ...
-    ) -> Optional[Union[_UrlopenRet, addinfourl]]: ...  # undocumented
+    ) -> Optional[_UrlopenRet | addinfourl]: ...  # undocumented
     def http_error_307(
         self, url: str, fp: IO[str], errcode: int, errmsg: str, headers: Mapping[str, str], data: Optional[bytes] = ...
-    ) -> Optional[Union[_UrlopenRet, addinfourl]]: ...  # undocumented
+    ) -> Optional[_UrlopenRet | addinfourl]: ...  # undocumented
     def http_error_401(
         self,
         url: str,

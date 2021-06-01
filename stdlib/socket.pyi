@@ -540,8 +540,8 @@ if sys.platform == "win32":
 class socket(_socket.socket):
     def __init__(
         self,
-        family: Union[AddressFamily, int] = ...,
-        type: Union[SocketKind, int] = ...,
+        family: AddressFamily | int = ...,
+        type: SocketKind | int = ...,
         proto: int = ...,
         fileno: Optional[int] = ...,
     ) -> None: ...
@@ -597,7 +597,7 @@ if sys.platform == "win32":
 
 else:
     def socketpair(  # type: ignore
-        family: Union[int, AddressFamily, None] = ..., type: Union[SocketType, int] = ..., proto: int = ...
+        family: Union[int, AddressFamily, None] = ..., type: SocketType | int = ..., proto: int = ...
     ) -> tuple[socket, socket]: ...
 
 class SocketIO(RawIOBase):

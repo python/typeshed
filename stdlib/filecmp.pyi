@@ -8,12 +8,12 @@ if sys.version_info >= (3, 9):
 
 DEFAULT_IGNORES: List[str]
 
-def cmp(f1: StrOrBytesPath, f2: StrOrBytesPath, shallow: Union[int, bool] = ...) -> bool: ...
+def cmp(f1: StrOrBytesPath, f2: StrOrBytesPath, shallow: int | bool = ...) -> bool: ...
 def cmpfiles(
     a: Union[AnyStr, PathLike[AnyStr]],
     b: Union[AnyStr, PathLike[AnyStr]],
     common: Iterable[AnyStr],
-    shallow: Union[int, bool] = ...,
+    shallow: int | bool = ...,
 ) -> Tuple[List[AnyStr], List[AnyStr], List[AnyStr]]: ...
 
 class dircmp(Generic[AnyStr]):

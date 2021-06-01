@@ -22,7 +22,7 @@ if sys.version_info >= (3, 9):
 # except TimeoutError as e:
 #    reveal_type(e.cmd)  # Any, but morally is _CMD
 _FILE = Union[None, int, IO[Any]]
-_TXT = Union[bytes, str]
+_TXT = bytes | str
 if sys.version_info >= (3, 8):
     _CMD = Union[StrOrBytesPath, Sequence[StrOrBytesPath]]
 else:

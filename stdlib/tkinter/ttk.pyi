@@ -49,7 +49,7 @@ class Button(Widget):
         state: str = ...,
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
-        text: Union[float, str] = ...,
+        text: float | str = ...,
         textvariable: tkinter.Variable = ...,
         underline: int = ...,
         width: Union[int, Literal[""]] = ...,
@@ -68,7 +68,7 @@ class Button(Widget):
         state: str = ...,
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
-        text: Union[float, str] = ...,
+        text: float | str = ...,
         textvariable: tkinter.Variable = ...,
         underline: int = ...,
         width: Union[int, Literal[""]] = ...,
@@ -95,7 +95,7 @@ class Checkbutton(Widget):
         state: str = ...,
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
-        text: Union[float, str] = ...,
+        text: float | str = ...,
         textvariable: tkinter.Variable = ...,
         underline: int = ...,
         # Seems like variable can be empty string, but actually setting it to
@@ -119,7 +119,7 @@ class Checkbutton(Widget):
         state: str = ...,
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
-        text: Union[float, str] = ...,
+        text: float | str = ...,
         textvariable: tkinter.Variable = ...,
         underline: int = ...,
         variable: tkinter.Variable = ...,
@@ -351,7 +351,7 @@ class Label(Widget):
         state: str = ...,
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
-        text: Union[float, str] = ...,
+        text: float | str = ...,
         textvariable: tkinter.Variable = ...,
         underline: int = ...,
         width: Union[int, Literal[""]] = ...,
@@ -377,7 +377,7 @@ class Label(Widget):
         state: str = ...,
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
-        text: Union[float, str] = ...,
+        text: float | str = ...,
         textvariable: tkinter.Variable = ...,
         underline: int = ...,
         width: Union[int, Literal[""]] = ...,
@@ -404,7 +404,7 @@ class Labelframe(Widget):
         relief: tkinter._Relief = ...,  # undocumented
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
-        text: Union[float, str] = ...,
+        text: float | str = ...,
         underline: int = ...,
         width: tkinter._ScreenUnits = ...,
     ) -> None: ...
@@ -423,7 +423,7 @@ class Labelframe(Widget):
         relief: tkinter._Relief = ...,
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
-        text: Union[float, str] = ...,
+        text: float | str = ...,
         underline: int = ...,
         width: tkinter._ScreenUnits = ...,
     ) -> Optional[Dict[str, Tuple[str, str, str, Any, Any]]]: ...
@@ -449,7 +449,7 @@ class Menubutton(Widget):
         state: str = ...,
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
-        text: Union[float, str] = ...,
+        text: float | str = ...,
         textvariable: tkinter.Variable = ...,
         underline: int = ...,
         width: Union[int, Literal[""]] = ...,
@@ -468,7 +468,7 @@ class Menubutton(Widget):
         state: str = ...,
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
-        text: Union[float, str] = ...,
+        text: float | str = ...,
         textvariable: tkinter.Variable = ...,
         underline: int = ...,
         width: Union[int, Literal[""]] = ...,
@@ -582,7 +582,7 @@ class Progressbar(Widget):
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
         value: float = ...,
-        variable: Union[tkinter.IntVar, tkinter.DoubleVar] = ...,
+        variable: tkinter.IntVar | tkinter.DoubleVar = ...,
     ) -> None: ...
     @overload
     def configure(
@@ -598,7 +598,7 @@ class Progressbar(Widget):
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
         value: float = ...,
-        variable: Union[tkinter.IntVar, tkinter.DoubleVar] = ...,
+        variable: tkinter.IntVar | tkinter.DoubleVar = ...,
     ) -> Optional[Dict[str, Tuple[str, str, str, Any, Any]]]: ...
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
@@ -622,7 +622,7 @@ class Radiobutton(Widget):
         state: str = ...,
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
-        text: Union[float, str] = ...,
+        text: float | str = ...,
         textvariable: tkinter.Variable = ...,
         underline: int = ...,
         value: Any = ...,
@@ -642,7 +642,7 @@ class Radiobutton(Widget):
         state: str = ...,
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
-        text: Union[float, str] = ...,
+        text: float | str = ...,
         textvariable: tkinter.Variable = ...,
         underline: int = ...,
         value: Any = ...,
@@ -671,7 +671,7 @@ class Scale(Widget, tkinter.Scale):
         takefocus: tkinter._TakeFocusValue = ...,
         to: float = ...,
         value: float = ...,
-        variable: Union[tkinter.IntVar, tkinter.DoubleVar] = ...,
+        variable: tkinter.IntVar | tkinter.DoubleVar = ...,
     ) -> None: ...
     @overload  # type: ignore
     def configure(
@@ -688,7 +688,7 @@ class Scale(Widget, tkinter.Scale):
         takefocus: tkinter._TakeFocusValue = ...,
         to: float = ...,
         value: float = ...,
-        variable: Union[tkinter.IntVar, tkinter.DoubleVar] = ...,
+        variable: tkinter.IntVar | tkinter.DoubleVar = ...,
     ) -> Optional[Dict[str, Tuple[str, str, str, Any, Any]]]: ...
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
@@ -708,7 +708,7 @@ class Scale(Widget, tkinter.Scale):
         takefocus: tkinter._TakeFocusValue = ...,
         to: float = ...,
         value: float = ...,
-        variable: Union[tkinter.IntVar, tkinter.DoubleVar] = ...,
+        variable: tkinter.IntVar | tkinter.DoubleVar = ...,
     ) -> Optional[Dict[str, Tuple[str, str, str, Any, Any]]]: ...
     @overload
     def config(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
@@ -966,7 +966,7 @@ class LabeledScale(Frame):
     def __init__(
         self,
         master: Optional[tkinter.Misc] = ...,
-        variable: Optional[Union[tkinter.IntVar, tkinter.DoubleVar]] = ...,
+        variable: Optional[tkinter.IntVar | tkinter.DoubleVar] = ...,
         from_: float = ...,
         to: float = ...,
         *,

@@ -65,7 +65,7 @@ def open(
 @overload
 def open(
     filename: StrOrBytesPath,
-    mode: Union[_ReadBinaryMode, _WriteBinaryMode] = ...,
+    mode: _ReadBinaryMode | _WriteBinaryMode = ...,
     compresslevel: int = ...,
     encoding: None = ...,
     errors: None = ...,
@@ -74,7 +74,7 @@ def open(
 @overload
 def open(
     filename: StrOrBytesPath,
-    mode: Union[_ReadTextMode, _WriteTextMode],
+    mode: _ReadTextMode | _WriteTextMode,
     compresslevel: int = ...,
     encoding: Optional[str] = ...,
     errors: Optional[str] = ...,
@@ -90,7 +90,7 @@ class BZ2File(BaseStream, IO[bytes]):
         def __init__(self, filename: _ReadableFileobj, mode: _ReadBinaryMode = ..., *, compresslevel: int = ...) -> None: ...
         @overload
         def __init__(
-            self, filename: StrOrBytesPath, mode: Union[_ReadBinaryMode, _WriteBinaryMode] = ..., *, compresslevel: int = ...
+            self, filename: StrOrBytesPath, mode: _ReadBinaryMode | _WriteBinaryMode = ..., *, compresslevel: int = ...
         ) -> None: ...
     else:
         @overload
@@ -109,7 +109,7 @@ class BZ2File(BaseStream, IO[bytes]):
         def __init__(
             self,
             filename: StrOrBytesPath,
-            mode: Union[_ReadBinaryMode, _WriteBinaryMode] = ...,
+            mode: _ReadBinaryMode | _WriteBinaryMode = ...,
             buffering: Optional[Any] = ...,
             compresslevel: int = ...,
         ) -> None: ...

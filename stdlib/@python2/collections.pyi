@@ -37,8 +37,8 @@ _VT = TypeVar("_VT")
 
 # namedtuple is special-cased in the type checker; the initializer is ignored.
 def namedtuple(
-    typename: Union[str, unicode],
-    field_names: Union[str, unicode, Iterable[Union[str, unicode]]],
+    typename: str | unicode,
+    field_names: Union[str, unicode, Iterable[str | unicode]],
     verbose: bool = ...,
     rename: bool = ...,
 ) -> Type[Tuple[Any, ...]]: ...

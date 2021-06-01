@@ -10,7 +10,7 @@ from multiprocessing.sharedctypes import SynchronizedArray, SynchronizedBase
 from typing import Any, Optional, Type, TypeVar, Union, overload
 from typing_extensions import Literal
 
-_LockLike = Union[synchronize.Lock, synchronize.RLock]
+_LockLike = synchronize.Lock | synchronize.RLock
 _CT = TypeVar("_CT", bound=_CData)
 
 class ProcessError(Exception): ...
@@ -73,7 +73,7 @@ class BaseContext(object):
     @overload
     def Value(self, typecode_or_type: str, *args: Any, lock: Union[Literal[True], _LockLike]) -> SynchronizedBase[Any]: ...
     @overload
-    def Value(self, typecode_or_type: Union[str, Type[_CData]], *args: Any, lock: Union[bool, _LockLike] = ...) -> Any: ...
+    def Value(self, typecode_or_type: Union[str, Type[_CData]], *args: Any, lock: bool | _LockLike = ...) -> Any: ...
     @overload
     def Array(
         self, typecode_or_type: Type[_CT], size_or_initializer: Union[int, Sequence[Any]], *, lock: Literal[False]
@@ -96,7 +96,7 @@ class BaseContext(object):
         typecode_or_type: Union[str, Type[_CData]],
         size_or_initializer: Union[int, Sequence[Any]],
         *,
-        lock: Union[bool, _LockLike] = ...,
+        lock: bool | _LockLike = ...,
     ) -> Any: ...
     def freeze_support(self) -> None: ...
     def get_logger(self) -> Logger: ...

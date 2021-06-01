@@ -34,7 +34,7 @@ def dump(
     **kwds: Any,
 ) -> None: ...
 def loads(
-    s: Union[str, bytes],
+    s: str | bytes,
     *,
     cls: Optional[Type[JSONDecoder]] = ...,
     object_hook: Optional[Callable[[Dict[Any, Any]], Any]] = ...,
@@ -45,7 +45,7 @@ def loads(
     **kwds: Any,
 ) -> Any: ...
 def load(
-    fp: SupportsRead[Union[str, bytes]],
+    fp: SupportsRead[str | bytes],
     *,
     cls: Optional[Type[JSONDecoder]] = ...,
     object_hook: Optional[Callable[[Dict[Any, Any]], Any]] = ...,

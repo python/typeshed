@@ -65,7 +65,7 @@ class _ActionsContainer:
         self,
         *name_or_flags: str,
         action: Union[str, Type[Action]] = ...,
-        nargs: Union[int, str] = ...,
+        nargs: int | str = ...,
         const: Any = ...,
         default: Any = ...,
         type: Union[Callable[[str], _T], Callable[[str], _T], FileType] = ...,
@@ -269,7 +269,7 @@ class MetavarTypeHelpFormatter(HelpFormatter): ...
 class Action(_AttributeHolder):
     option_strings: Sequence[str]
     dest: str
-    nargs: Optional[Union[int, str]]
+    nargs: Optional[int | str]
     const: Any
     default: Any
     type: Union[Callable[[str], Any], FileType, None]
@@ -281,7 +281,7 @@ class Action(_AttributeHolder):
         self,
         option_strings: Sequence[str],
         dest: str,
-        nargs: Optional[Union[int, str]] = ...,
+        nargs: Optional[int | str] = ...,
         const: Optional[_T] = ...,
         default: Union[_T, str, None] = ...,
         type: Optional[Union[Callable[[str], _T], Callable[[str], _T], FileType]] = ...,

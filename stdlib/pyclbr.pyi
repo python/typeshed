@@ -4,7 +4,7 @@ from typing import Dict, List, Optional, Sequence, Union
 class Class:
     module: str
     name: str
-    super: Optional[List[Union[Class, str]]]
+    super: Optional[List[Class | str]]
     methods: Dict[str, int]
     file: int
     lineno: int
@@ -14,13 +14,13 @@ class Class:
             self,
             module: str,
             name: str,
-            super: Optional[List[Union[Class, str]]],
+            super: Optional[List[Class | str]],
             file: str,
             lineno: int,
             parent: Optional[Class] = ...,
         ) -> None: ...
     else:
-        def __init__(self, module: str, name: str, super: Optional[List[Union[Class, str]]], file: str, lineno: int) -> None: ...
+        def __init__(self, module: str, name: str, super: Optional[List[Class | str]], file: str, lineno: int) -> None: ...
 
 class Function:
     module: str

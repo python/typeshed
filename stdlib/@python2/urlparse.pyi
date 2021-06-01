@@ -1,6 +1,6 @@
 from typing import AnyStr, Dict, List, NamedTuple, Optional, Sequence, Tuple, Union, overload
 
-_String = Union[str, unicode]
+_String = str | unicode
 
 uses_relative: List[str]
 uses_netloc: List[str]

@@ -7,7 +7,7 @@ from types import ModuleType
 from typing import Any, Iterable, List, Optional, Protocol, Type, Union
 
 class _TestRunner(Protocol):
-    def run(self, test: Union[unittest.suite.TestSuite, unittest.case.TestCase]) -> unittest.result.TestResult: ...
+    def run(self, test: unittest.suite.TestSuite | unittest.case.TestCase) -> unittest.result.TestResult: ...
 
 # not really documented
 class TestProgram:

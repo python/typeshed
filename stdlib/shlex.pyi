@@ -28,10 +28,10 @@ class shlex(Iterable[str]):
     punctuation_chars: str
     def __init__(
         self,
-        instream: Optional[Union[str, TextIO]] = ...,
+        instream: Optional[str | TextIO] = ...,
         infile: Optional[str] = ...,
         posix: bool = ...,
-        punctuation_chars: Union[bool, str] = ...,
+        punctuation_chars: bool | str = ...,
     ) -> None: ...
     def get_token(self) -> str: ...
     def push_token(self, tok: str) -> None: ...

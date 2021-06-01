@@ -3,7 +3,7 @@ import threading
 from multiprocessing.context import BaseContext
 from typing import Any, Callable, ContextManager, Optional, Union
 
-_LockLike = Union[Lock, RLock]
+_LockLike = Lock | RLock
 
 class Barrier(threading.Barrier):
     def __init__(

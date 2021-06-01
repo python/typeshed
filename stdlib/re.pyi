@@ -45,7 +45,7 @@ U = RegexFlag.U
 UNICODE = RegexFlag.UNICODE
 T = RegexFlag.T
 TEMPLATE = RegexFlag.TEMPLATE
-_FlagsType = Union[int, RegexFlag]
+_FlagsType = int | RegexFlag
 
 if sys.version_info < (3, 7):
     # undocumented
@@ -70,9 +70,9 @@ def fullmatch(pattern: AnyStr, string: AnyStr, flags: _FlagsType = ...) -> Optio
 @overload
 def fullmatch(pattern: Pattern[AnyStr], string: AnyStr, flags: _FlagsType = ...) -> Optional[Match[AnyStr]]: ...
 @overload
-def split(pattern: AnyStr, string: AnyStr, maxsplit: int = ..., flags: _FlagsType = ...) -> List[Union[AnyStr, Any]]: ...
+def split(pattern: AnyStr, string: AnyStr, maxsplit: int = ..., flags: _FlagsType = ...) -> List[AnyStr | Any]: ...
 @overload
-def split(pattern: Pattern[AnyStr], string: AnyStr, maxsplit: int = ..., flags: _FlagsType = ...) -> List[Union[AnyStr, Any]]: ...
+def split(pattern: Pattern[AnyStr], string: AnyStr, maxsplit: int = ..., flags: _FlagsType = ...) -> List[AnyStr | Any]: ...
 @overload
 def findall(pattern: AnyStr, string: AnyStr, flags: _FlagsType = ...) -> List[Any]: ...
 @overload

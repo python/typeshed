@@ -1,6 +1,6 @@
 from typing import IO, Any, Callable, List, Optional, Sequence, Text, Union
 
-_str = Union[str, Text]
+_str = str | Text
 _Timer = Callable[[], float]
 _stmt = Union[_str, Callable[[], Any]]
 

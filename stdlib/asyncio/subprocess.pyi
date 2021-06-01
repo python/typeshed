@@ -8,7 +8,7 @@ from typing_extensions import Literal
 if sys.version_info >= (3, 8):
     _ExecArg = StrOrBytesPath
 else:
-    _ExecArg = Union[str, bytes]
+    _ExecArg = str | bytes
 
 PIPE: int
 STDOUT: int
@@ -20,7 +20,7 @@ class SubprocessStreamProtocol(streams.FlowControlMixin, protocols.SubprocessPro
     stderr: Optional[streams.StreamReader]
     def __init__(self, limit: int, loop: events.AbstractEventLoop) -> None: ...
     def connection_made(self, transport: transports.BaseTransport) -> None: ...
-    def pipe_data_received(self, fd: int, data: Union[bytes, str]) -> None: ...
+    def pipe_data_received(self, fd: int, data: bytes | str) -> None: ...
     def pipe_connection_lost(self, fd: int, exc: Optional[Exception]) -> None: ...
     def process_exited(self) -> None: ...
 
@@ -42,7 +42,7 @@ class Process:
 
 if sys.version_info >= (3, 10):
     async def create_subprocess_shell(
-        cmd: Union[str, bytes],
+        cmd: str | bytes,
         stdin: Union[int, IO[Any], None] = ...,
         stdout: Union[int, IO[Any], None] = ...,
         stderr: Union[int, IO[Any], None] = ...,
@@ -96,7 +96,7 @@ if sys.version_info >= (3, 10):
 
 else:
     async def create_subprocess_shell(
-        cmd: Union[str, bytes],
+        cmd: str | bytes,
         stdin: Union[int, IO[Any], None] = ...,
         stdout: Union[int, IO[Any], None] = ...,
         stderr: Union[int, IO[Any], None] = ...,

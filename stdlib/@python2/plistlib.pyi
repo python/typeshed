@@ -1,6 +1,6 @@
 from typing import IO, Any, Dict as DictT, Mapping, Text, Union
 
-_Path = Union[str, Text]
+_Path = str | Text
 
 def readPlist(pathOrFile: Union[_Path, IO[bytes]]) -> Any: ...
 def writePlist(value: Mapping[str, Any], pathOrFile: Union[_Path, IO[bytes]]) -> None: ...

@@ -46,14 +46,14 @@ if sys.platform != "win32":
     class UnixStreamServer(BaseServer):
         def __init__(
             self,
-            server_address: Union[Text, bytes],
+            server_address: Text | bytes,
             RequestHandlerClass: Callable[..., BaseRequestHandler],
             bind_and_activate: bool = ...,
         ) -> None: ...
     class UnixDatagramServer(BaseServer):
         def __init__(
             self,
-            server_address: Union[Text, bytes],
+            server_address: Text | bytes,
             RequestHandlerClass: Callable[..., BaseRequestHandler],
             bind_and_activate: bool = ...,
         ) -> None: ...

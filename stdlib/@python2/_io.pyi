@@ -1,7 +1,7 @@
 from mmap import mmap
 from typing import IO, Any, BinaryIO, Iterable, List, Optional, Text, TextIO, Tuple, Type, TypeVar, Union
 
-_bytearray_like = Union[bytearray, mmap]
+_bytearray_like = bytearray | mmap
 
 DEFAULT_BUFFER_SIZE: int
 
@@ -99,12 +99,12 @@ class _RawIOBase(_IOBase):
 class FileIO(_RawIOBase, BytesIO):
     mode: str
     closefd: bool
-    def __init__(self, file: Union[str, int], mode: str = ..., closefd: bool = ...) -> None: ...
+    def __init__(self, file: str | int, mode: str = ..., closefd: bool = ...) -> None: ...
     def readinto(self, buffer: _bytearray_like) -> int: ...
     def write(self, pbuf: str) -> int: ...
 
 class IncrementalNewlineDecoder(object):
-    newlines: Union[str, unicode]
+    newlines: str | unicode
     def __init__(self, decoder, translate, z=...) -> None: ...
     def decode(self, input, final) -> Any: ...
     def getstate(self) -> Tuple[Any, int]: ...

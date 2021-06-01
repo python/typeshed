@@ -1,6 +1,6 @@
 from typing import List, Optional, Text, Type, Union
 
-_EitherStr = Union[bytes, Text]
+_EitherStr = bytes | Text
 
 class PyCompileError(Exception):
     exc_type_name: str

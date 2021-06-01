@@ -4,7 +4,7 @@ from typing import Any, AnyStr, Callable, Dict, Generic, List, Mapping, NamedTup
 if sys.version_info >= (3, 9):
     from types import GenericAlias
 
-_Str = Union[bytes, str]
+_Str = bytes | str
 
 uses_relative: List[str]
 uses_netloc: List[str]

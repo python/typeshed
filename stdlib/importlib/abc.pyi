@@ -6,7 +6,7 @@ from importlib.machinery import ModuleSpec
 from typing import IO, Any, Iterator, Mapping, Optional, Protocol, Sequence, Tuple, Union
 from typing_extensions import Literal, runtime_checkable
 
-_Path = Union[bytes, str]
+_Path = bytes | str
 
 class Finder(metaclass=ABCMeta): ...
 
@@ -22,7 +22,7 @@ class InspectLoader(Loader):
     def get_source(self, fullname: str) -> Optional[str]: ...
     def exec_module(self, module: types.ModuleType) -> None: ...
     @staticmethod
-    def source_to_code(data: Union[bytes, str], path: str = ...) -> types.CodeType: ...
+    def source_to_code(data: bytes | str, path: str = ...) -> types.CodeType: ...
 
 class ExecutionLoader(InspectLoader):
     @abstractmethod

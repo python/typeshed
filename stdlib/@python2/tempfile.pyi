@@ -51,33 +51,33 @@ class _TemporaryFileWrapper(IO[str]):
 # TODO text files
 
 def TemporaryFile(
-    mode: Union[bytes, unicode] = ...,
+    mode: bytes | unicode = ...,
     bufsize: int = ...,
-    suffix: Union[bytes, unicode] = ...,
-    prefix: Union[bytes, unicode] = ...,
-    dir: Union[bytes, unicode] = ...,
+    suffix: bytes | unicode = ...,
+    prefix: bytes | unicode = ...,
+    dir: bytes | unicode = ...,
 ) -> _TemporaryFileWrapper: ...
 def NamedTemporaryFile(
-    mode: Union[bytes, unicode] = ...,
+    mode: bytes | unicode = ...,
     bufsize: int = ...,
-    suffix: Union[bytes, unicode] = ...,
-    prefix: Union[bytes, unicode] = ...,
-    dir: Union[bytes, unicode] = ...,
+    suffix: bytes | unicode = ...,
+    prefix: bytes | unicode = ...,
+    dir: bytes | unicode = ...,
     delete: bool = ...,
 ) -> _TemporaryFileWrapper: ...
 def SpooledTemporaryFile(
     max_size: int = ...,
-    mode: Union[bytes, unicode] = ...,
+    mode: bytes | unicode = ...,
     buffering: int = ...,
-    suffix: Union[bytes, unicode] = ...,
-    prefix: Union[bytes, unicode] = ...,
-    dir: Union[bytes, unicode] = ...,
+    suffix: bytes | unicode = ...,
+    prefix: bytes | unicode = ...,
+    dir: bytes | unicode = ...,
 ) -> _TemporaryFileWrapper: ...
 
 class TemporaryDirectory:
     name: Any
     def __init__(
-        self, suffix: Union[bytes, unicode] = ..., prefix: Union[bytes, unicode] = ..., dir: Union[bytes, unicode] = ...
+        self, suffix: bytes | unicode = ..., prefix: bytes | unicode = ..., dir: bytes | unicode = ...
     ) -> None: ...
     def cleanup(self) -> None: ...
     def __enter__(self) -> Any: ...  # Can be str or unicode

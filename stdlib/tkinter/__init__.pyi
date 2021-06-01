@@ -112,7 +112,7 @@ _Cursor = Union[str, Tuple[str], Tuple[str, str], Tuple[str, str, str], Tuple[st
 _EntryValidateCommand = Union[
     Callable[[], bool], str, _TkinterSequence[str]
 ]  # example when it's sequence:  entry['invalidcommand'] = [entry.register(print), '%P']
-_ImageSpec = Union[_Image, str]  # str can be from e.g. tkinter.image_names()
+_ImageSpec = _Image | str  # str can be from e.g. tkinter.image_names()
 _Padding = Union[
     _ScreenUnits,
     Tuple[_ScreenUnits],
@@ -121,7 +121,7 @@ _Padding = Union[
     Tuple[_ScreenUnits, _ScreenUnits, _ScreenUnits, _ScreenUnits],
 ]
 _Relief = Literal["raised", "sunken", "flat", "ridge", "solid", "groove"]  # manual page: Tk_GetRelief
-_ScreenUnits = Union[str, float]  # manual page: Tk_GetPixels
+_ScreenUnits = str | float  # manual page: Tk_GetPixels
 _XYScrollCommand = Union[str, Callable[[float, float], Any]]  # -xscrollcommand and -yscrollcommand in 'options' manual page
 _TakeFocusValue = Union[int, Literal[""], Callable[[str], Optional[bool]]]  # -takefocus in manual page named 'options'
 
@@ -174,7 +174,7 @@ class Event(Generic[_W]):
     height: int
     width: int
     keycode: int
-    state: Union[int, str]
+    state: int | str
     time: int
     x: int
     y: int
@@ -245,7 +245,7 @@ class Misc:
     def tk_strictMotif(self, boolean: Optional[Any] = ...): ...
     def tk_bisque(self): ...
     def tk_setPalette(self, *args, **kw): ...
-    def wait_variable(self, name: Union[str, Variable] = ...) -> None: ...
+    def wait_variable(self, name: str | Variable = ...) -> None: ...
     waitvar = wait_variable
     def wait_window(self, window: Optional[Misc] = ...) -> None: ...
     def wait_visibility(self, window: Optional[Misc] = ...) -> None: ...
@@ -329,7 +329,7 @@ class Misc:
     def winfo_screenvisual(self) -> str: ...
     def winfo_screenwidth(self) -> int: ...
     def winfo_server(self) -> str: ...
-    def winfo_toplevel(self) -> Union[Tk, Toplevel]: ...
+    def winfo_toplevel(self) -> Tk | Toplevel: ...
     def winfo_viewable(self) -> bool: ...
     def winfo_visual(self) -> str: ...
     def winfo_visualid(self) -> str: ...
@@ -424,7 +424,7 @@ class Misc:
         self,
         sequence: str,
         *,
-        above: Union[Misc, int] = ...,
+        above: Misc | int = ...,
         borderwidth: _ScreenUnits = ...,
         button: int = ...,
         count: int = ...,
@@ -438,13 +438,13 @@ class Misc:
         mode: str = ...,
         override: bool = ...,
         place: Literal["PlaceOnTop", "PlaceOnBottom"] = ...,
-        root: Union[Misc, int] = ...,
+        root: Misc | int = ...,
         rootx: _ScreenUnits = ...,
         rooty: _ScreenUnits = ...,
         sendevent: bool = ...,
         serial: int = ...,
-        state: Union[int, str] = ...,
-        subwindow: Union[Misc, int] = ...,
+        state: int | str = ...,
+        subwindow: Misc | int = ...,
         time: int = ...,
         warp: bool = ...,
         width: _ScreenUnits = ...,
@@ -589,7 +589,7 @@ class Wm:
     @overload
     def wm_transient(self, master: None = ...) -> _tkinter.Tcl_Obj: ...
     @overload
-    def wm_transient(self, master: Union[Wm, _tkinter.Tcl_Obj]) -> None: ...
+    def wm_transient(self, master: Wm | _tkinter.Tcl_Obj) -> None: ...
     transient = wm_transient
     def wm_withdraw(self) -> None: ...
     withdraw = wm_withdraw
@@ -749,10 +749,10 @@ class Place:
         x: _ScreenUnits = ...,
         y: _ScreenUnits = ...,
         # str allowed for compatibility with place_info()
-        relheight: Union[str, float] = ...,
-        relwidth: Union[str, float] = ...,
-        relx: Union[str, float] = ...,
-        rely: Union[str, float] = ...,
+        relheight: str | float = ...,
+        relwidth: str | float = ...,
+        relx: str | float = ...,
+        rely: str | float = ...,
         in_: Misc = ...,
         **kw: Any,  # allow keyword argument named 'in', see #4836
     ) -> None: ...
@@ -940,7 +940,7 @@ class Button(Widget):
         repeatinterval: int = ...,
         state: Literal["normal", "active", "disabled"] = ...,
         takefocus: _TakeFocusValue = ...,
-        text: Union[float, str] = ...,
+        text: float | str = ...,
         # We allow the textvariable to be any Variable, not necessarly
         # StringVar. This is useful for e.g. a button that displays the value
         # of an IntVar.
@@ -985,7 +985,7 @@ class Button(Widget):
         repeatinterval: int = ...,
         state: Literal["normal", "active", "disabled"] = ...,
         takefocus: _TakeFocusValue = ...,
-        text: Union[float, str] = ...,
+        text: float | str = ...,
         textvariable: Variable = ...,
         underline: int = ...,
         width: _ScreenUnits = ...,
@@ -1091,16 +1091,16 @@ class Canvas(Widget, XView, YView):
     @overload
     def tag_bind(
         self,
-        tagOrId: Union[str, int],
+        tagOrId: str | int,
         sequence: Optional[str] = ...,
         func: Optional[Callable[[Event[Canvas]], Any]] = ...,
         add: Optional[bool] = ...,
     ) -> str: ...
     @overload
-    def tag_bind(self, tagOrId: Union[str, int], sequence: Optional[str], func: str, add: Optional[bool] = ...) -> None: ...
+    def tag_bind(self, tagOrId: str | int, sequence: Optional[str], func: str, add: Optional[bool] = ...) -> None: ...
     @overload
-    def tag_bind(self, tagOrId: Union[str, int], *, func: str, add: Optional[bool] = ...) -> None: ...
-    def tag_unbind(self, tagOrId: Union[str, int], sequence: str, funcid: Optional[str] = ...) -> None: ...
+    def tag_bind(self, tagOrId: str | int, *, func: str, add: Optional[bool] = ...) -> None: ...
+    def tag_unbind(self, tagOrId: str | int, sequence: str, funcid: Optional[str] = ...) -> None: ...
     def canvasx(self, screenx, gridspacing: Optional[Any] = ...): ...
     def canvasy(self, screeny, gridspacing: Optional[Any] = ...): ...
     def coords(self, *args): ...
@@ -1250,7 +1250,7 @@ class Canvas(Widget, XView, YView):
         state: Literal["normal", "active", "disabled"] = ...,
         stipple: _Bitmap = ...,
         tags: Union[str, Tuple[str, ...]] = ...,
-        text: Union[float, str] = ...,
+        text: float | str = ...,
         width: _ScreenUnits = ...,
     ) -> _CanvasItemId: ...
     def create_window(
@@ -1266,16 +1266,16 @@ class Canvas(Widget, XView, YView):
         window: Widget = ...,
     ) -> _CanvasItemId: ...
     def dchars(self, *args): ...
-    def delete(self, *tagsOrCanvasIds: Union[str, _CanvasItemId]) -> None: ...
+    def delete(self, *tagsOrCanvasIds: str | _CanvasItemId) -> None: ...
     def dtag(self, *args): ...
     def find(self, *args): ...
-    def find_above(self, tagOrId: Union[str, _CanvasItemId]): ...
+    def find_above(self, tagOrId: str | _CanvasItemId): ...
     def find_all(self): ...
-    def find_below(self, tagOrId: Union[str, _CanvasItemId]): ...
+    def find_below(self, tagOrId: str | _CanvasItemId): ...
     def find_closest(self, x, y, halo: Optional[Any] = ..., start: Optional[Any] = ...): ...
     def find_enclosed(self, x1, y1, x2, y2): ...
     def find_overlapping(self, x1, y1, x2, y2): ...
-    def find_withtag(self, tagOrId: Union[str, _CanvasItemId]): ...
+    def find_withtag(self, tagOrId: str | _CanvasItemId): ...
     def focus(self, *args): ...
     def gettags(self, *args): ...
     def icursor(self, *args): ...
@@ -1289,7 +1289,7 @@ class Canvas(Widget, XView, YView):
     def move(self, *args): ...
     if sys.version_info >= (3, 8):
         def moveto(
-            self, tagOrId: Union[str, _CanvasItemId], x: Union[Literal[""], float] = ..., y: Union[Literal[""], float] = ...
+            self, tagOrId: str | _CanvasItemId, x: Union[Literal[""], float] = ..., y: Union[Literal[""], float] = ...
         ) -> None: ...
     def postscript(self, cnf=..., **kw): ...
     def tag_raise(self, *args): ...
@@ -1355,7 +1355,7 @@ class Checkbutton(Widget):
         selectimage: _ImageSpec = ...,
         state: Literal["normal", "active", "disabled"] = ...,
         takefocus: _TakeFocusValue = ...,
-        text: Union[float, str] = ...,
+        text: float | str = ...,
         textvariable: Variable = ...,
         tristateimage: _ImageSpec = ...,
         tristatevalue: Any = ...,
@@ -1403,7 +1403,7 @@ class Checkbutton(Widget):
         selectimage: _ImageSpec = ...,
         state: Literal["normal", "active", "disabled"] = ...,
         takefocus: _TakeFocusValue = ...,
-        text: Union[float, str] = ...,
+        text: float | str = ...,
         textvariable: Variable = ...,
         tristateimage: _ImageSpec = ...,
         tristatevalue: Any = ...,
@@ -1617,7 +1617,7 @@ class Label(Widget):
         relief: _Relief = ...,
         state: Literal["normal", "active", "disabled"] = ...,
         takefocus: _TakeFocusValue = ...,
-        text: Union[float, str] = ...,
+        text: float | str = ...,
         textvariable: Variable = ...,
         underline: int = ...,
         width: _ScreenUnits = ...,
@@ -1654,7 +1654,7 @@ class Label(Widget):
         relief: _Relief = ...,
         state: Literal["normal", "active", "disabled"] = ...,
         takefocus: _TakeFocusValue = ...,
-        text: Union[float, str] = ...,
+        text: float | str = ...,
         textvariable: Variable = ...,
         underline: int = ...,
         width: _ScreenUnits = ...,
@@ -1777,7 +1777,7 @@ class Listbox(Widget, XView, YView):
     def itemconfigure(self, index, cnf: Optional[Any] = ..., **kw): ...
     itemconfig: Any
 
-_MenuIndex = Union[str, int]
+_MenuIndex = str | int
 
 class Menu(Widget):
     def __init__(
@@ -2083,7 +2083,7 @@ class Menubutton(Widget):
         relief: _Relief = ...,
         state: Literal["normal", "active", "disabled"] = ...,
         takefocus: _TakeFocusValue = ...,
-        text: Union[float, str] = ...,
+        text: float | str = ...,
         textvariable: Variable = ...,
         underline: int = ...,
         width: _ScreenUnits = ...,
@@ -2123,7 +2123,7 @@ class Menubutton(Widget):
         relief: _Relief = ...,
         state: Literal["normal", "active", "disabled"] = ...,
         takefocus: _TakeFocusValue = ...,
-        text: Union[float, str] = ...,
+        text: float | str = ...,
         textvariable: Variable = ...,
         underline: int = ...,
         width: _ScreenUnits = ...,
@@ -2159,7 +2159,7 @@ class Message(Widget):
         pady: _ScreenUnits = ...,
         relief: _Relief = ...,
         takefocus: _TakeFocusValue = ...,
-        text: Union[float, str] = ...,
+        text: float | str = ...,
         textvariable: Variable = ...,
         # there's width but no height
         width: _ScreenUnits = ...,
@@ -2188,7 +2188,7 @@ class Message(Widget):
         pady: _ScreenUnits = ...,
         relief: _Relief = ...,
         takefocus: _TakeFocusValue = ...,
-        text: Union[float, str] = ...,
+        text: float | str = ...,
         textvariable: Variable = ...,
         width: _ScreenUnits = ...,
     ) -> Optional[Dict[str, Tuple[str, str, str, Any, Any]]]: ...
@@ -2235,7 +2235,7 @@ class Radiobutton(Widget):
         selectimage: _ImageSpec = ...,
         state: Literal["normal", "active", "disabled"] = ...,
         takefocus: _TakeFocusValue = ...,
-        text: Union[float, str] = ...,
+        text: float | str = ...,
         textvariable: Variable = ...,
         tristateimage: _ImageSpec = ...,
         tristatevalue: Any = ...,
@@ -2282,7 +2282,7 @@ class Radiobutton(Widget):
         selectimage: _ImageSpec = ...,
         state: Literal["normal", "active", "disabled"] = ...,
         takefocus: _TakeFocusValue = ...,
-        text: Union[float, str] = ...,
+        text: float | str = ...,
         textvariable: Variable = ...,
         tristateimage: _ImageSpec = ...,
         tristatevalue: Any = ...,
@@ -2340,7 +2340,7 @@ class Scale(Widget):
         tickinterval: float = ...,
         to: float = ...,
         troughcolor: _Color = ...,
-        variable: Union[IntVar, DoubleVar] = ...,
+        variable: IntVar | DoubleVar = ...,
         width: _ScreenUnits = ...,
     ) -> None: ...
     @overload
@@ -2380,7 +2380,7 @@ class Scale(Widget):
         tickinterval: float = ...,
         to: float = ...,
         troughcolor: _Color = ...,
-        variable: Union[IntVar, DoubleVar] = ...,
+        variable: IntVar | DoubleVar = ...,
         width: _ScreenUnits = ...,
     ) -> Optional[Dict[str, Tuple[str, str, str, Any, Any]]]: ...
     @overload
@@ -2511,7 +2511,7 @@ class Text(Widget, XView, YView):
         startline: Union[int, Literal[""]] = ...,
         state: Literal["normal", "disabled"] = ...,
         # Literal inside Tuple doesn't actually work
-        tabs: Union[_ScreenUnits, str, Tuple[Union[_ScreenUnits, str], ...]] = ...,
+        tabs: Union[_ScreenUnits, str, Tuple[_ScreenUnits | str, ...]] = ...,
         tabstyle: Literal["tabular", "wordprocessor"] = ...,
         takefocus: _TakeFocusValue = ...,
         undo: bool = ...,
@@ -2562,7 +2562,7 @@ class Text(Widget, XView, YView):
         spacing3: _ScreenUnits = ...,
         startline: Union[int, Literal[""]] = ...,
         state: Literal["normal", "disabled"] = ...,
-        tabs: Union[_ScreenUnits, str, Tuple[Union[_ScreenUnits, str], ...]] = ...,
+        tabs: Union[_ScreenUnits, str, Tuple[_ScreenUnits | str, ...]] = ...,
         tabstyle: Literal["tabular", "wordprocessor"] = ...,
         takefocus: _TakeFocusValue = ...,
         undo: bool = ...,
@@ -2652,7 +2652,7 @@ class Text(Widget, XView, YView):
     def mark_next(self, index: _TextIndex) -> Optional[str]: ...
     def mark_previous(self, index: _TextIndex) -> Optional[str]: ...
     # **kw of peer_create is same as the kwargs of Text.__init__
-    def peer_create(self, newPathName: Union[str, Text], cnf: Dict[str, Any] = ..., **kw: Any) -> None: ...
+    def peer_create(self, newPathName: str | Text, cnf: Dict[str, Any] = ..., **kw: Any) -> None: ...
     def peer_names(self) -> Tuple[_tkinter.Tcl_Obj, ...]: ...
     def replace(self, index1: _TextIndex, index2: _TextIndex, chars: str, *args: Union[str, _TkinterSequence[str]]) -> None: ...
     def scan_mark(self, x: int, y: int) -> None: ...
@@ -2771,7 +2771,7 @@ class Image:
     name: Any
     tk: _tkinter.TkappType
     def __init__(
-        self, imgtype, name: Optional[Any] = ..., cnf=..., master: Optional[Union[Misc, _tkinter.TkappType]] = ..., **kw
+        self, imgtype, name: Optional[Any] = ..., cnf=..., master: Optional[Misc | _tkinter.TkappType] = ..., **kw
     ): ...
     def __del__(self): ...
     def __setitem__(self, key, value): ...
@@ -2787,25 +2787,25 @@ class PhotoImage(Image):
         self,
         name: Optional[str] = ...,
         cnf: Dict[str, Any] = ...,
-        master: Optional[Union[Misc, _tkinter.TkappType]] = ...,
+        master: Optional[Misc | _tkinter.TkappType] = ...,
         *,
-        data: Union[str, bytes] = ...,  # not same as data argument of put()
+        data: str | bytes = ...,  # not same as data argument of put()
         format: str = ...,
         file: StrOrBytesPath = ...,
         gamma: float = ...,
         height: int = ...,
-        palette: Union[int, str] = ...,
+        palette: int | str = ...,
         width: int = ...,
     ) -> None: ...
     def configure(
         self,
         *,
-        data: Union[str, bytes] = ...,
+        data: str | bytes = ...,
         format: str = ...,
         file: StrOrBytesPath = ...,
         gamma: float = ...,
         height: int = ...,
-        palette: Union[int, str] = ...,
+        palette: int | str = ...,
         width: int = ...,
     ) -> None: ...
     config = configure
@@ -2831,10 +2831,10 @@ class BitmapImage(Image):
         self,
         name: Optional[Any] = ...,
         cnf: Dict[str, Any] = ...,
-        master: Optional[Union[Misc, _tkinter.TkappType]] = ...,
+        master: Optional[Misc | _tkinter.TkappType] = ...,
         *,
         background: _Color = ...,
-        data: Union[str, bytes] = ...,
+        data: str | bytes = ...,
         file: StrOrBytesPath = ...,
         foreground: _Color = ...,
         maskdata: str = ...,
@@ -3013,7 +3013,7 @@ class LabelFrame(Widget):
         pady: _ScreenUnits = ...,
         relief: _Relief = ...,
         takefocus: _TakeFocusValue = ...,
-        text: Union[float, str] = ...,
+        text: float | str = ...,
         visual: Union[str, Tuple[str, int]] = ...,
         width: _ScreenUnits = ...,
     ) -> None: ...
@@ -3041,7 +3041,7 @@ class LabelFrame(Widget):
         pady: _ScreenUnits = ...,
         relief: _Relief = ...,
         takefocus: _TakeFocusValue = ...,
-        text: Union[float, str] = ...,
+        text: float | str = ...,
         width: _ScreenUnits = ...,
     ) -> Optional[Dict[str, Tuple[str, str, str, Any, Any]]]: ...
     @overload
