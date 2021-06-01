@@ -125,9 +125,6 @@ _markupbase.ParserBase.error
 asyncio.proactor_events._ProactorReadPipeTransport.__init__
 builtins.aiter
 distutils.command.bdist_wininst
-fileinput.FileInput.__init__
-fileinput.hook_compressed
-fileinput.input
 importlib.abc.ResourceReader.is_resource
 importlib.machinery.BuiltinImporter.create_module
 importlib.machinery.BuiltinImporter.exec_module
