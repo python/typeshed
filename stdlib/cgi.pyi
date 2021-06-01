@@ -7,7 +7,7 @@ from typing import IO, Any, Optional, Protocol, TypeVar, Union
 _T = TypeVar("_T", bound=FieldStorage)
 
 def parse(
-    fp: Optional[IO[Any]] = ...,
+    fp: IO[Any] | None = ...,
     environ: SupportsItemAccess[str, str] = ...,
     keep_blank_values: bool = ...,
     strict_parsing: bool = ...,
@@ -45,7 +45,7 @@ class MiniFieldStorage:
     filename: Any
     list: Any
     type: Any
-    file: Optional[IO[bytes]]
+    file: IO[bytes] | None
     type_options: dict[Any, Any]
     disposition: Any
     disposition_options: dict[Any, Any]
@@ -72,18 +72,18 @@ class FieldStorage(object):
     disposition: str
     disposition_options: dict[str, str]
     filename: str | None
-    file: Optional[IO[bytes]]
+    file: IO[bytes] | None
     type: str
     type_options: dict[str, str]
     innerboundary: bytes
     length: int
     done: int
-    list: Optional[_list[Any]]
+    list: _list[Any] | None
     value: None | bytes | _list[Any]
     def __init__(
         self,
-        fp: Optional[IO[Any]] = ...,
-        headers: Optional[Mapping[str, str]] = ...,
+        fp: IO[Any] | None = ...,
+        headers: Mapping[str, str] | None = ...,
         outerboundary: bytes = ...,
         environ: SupportsGetItem[str, str] = ...,
         keep_blank_values: int = ...,

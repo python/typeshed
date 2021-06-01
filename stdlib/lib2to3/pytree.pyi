@@ -5,7 +5,7 @@ _P = TypeVar("_P")
 _NL = Node | Leaf
 _Context = Tuple[str, int, int]
 _Results = Dict[str, _NL]
-_RawNode = Tuple[int, str, _Context, Optional[List[_NL]]]
+_RawNode = Tuple[int, str, _Context, List[_NL] | None]
 _Convert = Callable[[Grammar, _RawNode], Any]
 
 HUGE: int
@@ -44,7 +44,7 @@ class Node(Base):
         children: List[_NL],
         context: Any | None = ...,
         prefix: str | None = ...,
-        fixers_applied: Optional[List[Any]] = ...,
+        fixers_applied: List[Any] | None = ...,
     ) -> None: ...
     def set_child(self, i: int, child: _NL) -> None: ...
     def insert_child(self, i: int, child: _NL) -> None: ...

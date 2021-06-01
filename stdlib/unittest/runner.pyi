@@ -27,7 +27,7 @@ class TextTestRunner(object):
         failfast: bool = ...,
         buffer: bool = ...,
         resultclass: _ResultClassType | None = ...,
-        warnings: Optional[Type[Warning]] = ...,
+        warnings: Type[Warning] | None = ...,
         *,
         tb_locals: bool = ...,
     ) -> None: ...

@@ -430,7 +430,7 @@ class socket:
 def create_connection(
     address: Tuple[str | None, int],
     timeout: float | None = ...,
-    source_address: Optional[Tuple[bytearray | bytes | Text, int]] = ...,
+    source_address: Tuple[bytearray | bytes | Text, int] | None = ...,
 ) -> socket: ...
 def fromfd(fd: int, family: int, type: int, proto: int = ...) -> socket: ...
 

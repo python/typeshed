@@ -23,7 +23,7 @@ def spec_from_file_location(
     location: StrOrBytesPath | None = ...,
     *,
     loader: importlib.abc.Loader | None = ...,
-    submodule_search_locations: Optional[List[str]] = ...,
+    submodule_search_locations: List[str] | None = ...,
 ) -> importlib.machinery.ModuleSpec | None: ...
 def module_from_spec(spec: importlib.machinery.ModuleSpec) -> types.ModuleType: ...
 

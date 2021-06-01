@@ -46,7 +46,7 @@ class excel_tab(excel):
     delimiter: str
 
 class DictReader(Generic[_T], Iterator[_DictReadMapping[_T, str]]):
-    fieldnames: Optional[Sequence[_T]]
+    fieldnames: Sequence[_T] | None
     restkey: str | None
     restval: str | None
     reader: _reader
@@ -67,7 +67,7 @@ class DictReader(Generic[_T], Iterator[_DictReadMapping[_T, str]]):
     def __init__(
         self: DictReader[str],
         f: Iterable[Text],
-        fieldnames: Optional[Sequence[str]] = ...,
+        fieldnames: Sequence[str] | None = ...,
         restkey: str | None = ...,
         restval: str | None = ...,
         dialect: _DialectLike = ...,

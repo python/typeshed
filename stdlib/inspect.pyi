@@ -109,8 +109,8 @@ if sys.version_info >= (3, 10):
         obj: Callable[..., Any],
         *,
         follow_wrapped: bool = ...,
-        globals: Optional[Mapping[str, Any]] = ...,
-        locals: Optional[Mapping[str, Any]] = ...,
+        globals: Mapping[str, Any] | None = ...,
+        locals: Mapping[str, Any] | None = ...,
         eval_str: bool = ...,
     ) -> Signature: ...
 
@@ -118,7 +118,7 @@ else:
     def signature(obj: Callable[..., Any], *, follow_wrapped: bool = ...) -> Signature: ...
 
 class Signature:
-    def __init__(self, parameters: Optional[Sequence[Parameter]] = ..., *, return_annotation: Any = ...) -> None: ...
+    def __init__(self, parameters: Sequence[Parameter] | None = ..., *, return_annotation: Any = ...) -> None: ...
     # TODO: can we be more specific here?
     empty: object = ...
 
@@ -128,7 +128,7 @@ class Signature:
     return_annotation: Any
     def bind(self, *args: Any, **kwargs: Any) -> BoundArguments: ...
     def bind_partial(self, *args: Any, **kwargs: Any) -> BoundArguments: ...
-    def replace(self, *, parameters: Optional[Sequence[Parameter]] = ..., return_annotation: Any = ...) -> Signature: ...
+    def replace(self, *, parameters: Sequence[Parameter] | None = ..., return_annotation: Any = ...) -> Signature: ...
     if sys.version_info >= (3, 10):
         @classmethod
         def from_callable(
@@ -136,8 +136,8 @@ class Signature:
             obj: Callable[..., Any],
             *,
             follow_wrapped: bool = ...,
-            globals: Optional[Mapping[str, Any]] = ...,
-            locals: Optional[Mapping[str, Any]] = ...,
+            globals: Mapping[str, Any] | None = ...,
+            locals: Mapping[str, Any] | None = ...,
             eval_str: bool = ...,
         ) -> Signature: ...
     else:
@@ -148,8 +148,8 @@ if sys.version_info >= (3, 10):
     def get_annotations(
         obj: Callable[..., Any] | Type[Any] | ModuleType,
         *,
-        globals: Optional[Mapping[str, Any]] = ...,
-        locals: Optional[Mapping[str, Any]] = ...,
+        globals: Mapping[str, Any] | None = ...,
+        locals: Mapping[str, Any] | None = ...,
         eval_str: bool = ...,
     ) -> dict[str, Any]: ...
 
@@ -197,7 +197,7 @@ class BoundArguments:
 # seem to be supporting this at the moment:
 # _ClassTreeItem = Union[list[_ClassTreeItem], Tuple[type, Tuple[type, ...]]]
 def getclasstree(classes: list[type], unique: bool = ...) -> list[Any]: ...
-def walktree(classes: list[type], children: dict[Type[Any], list[type]], parent: Optional[Type[Any]]) -> list[Any]: ...
+def walktree(classes: list[type], children: dict[Type[Any], list[type]], parent: Type[Any] | None) -> list[Any]: ...
 
 class ArgSpec(NamedTuple):
     args: list[str]
@@ -217,9 +217,9 @@ class FullArgSpec(NamedTuple):
     args: list[str]
     varargs: str | None
     varkw: str | None
-    defaults: Optional[Tuple[Any, ...]]
+    defaults: Tuple[Any, ...] | None
     kwonlyargs: list[str]
-    kwonlydefaults: Optional[dict[str, Any]]
+    kwonlydefaults: dict[str, Any] | None
     annotations: dict[str, Any]
 
 def getfullargspec(func: object) -> FullArgSpec: ...
@@ -237,9 +237,9 @@ def formatargspec(
     args: list[str],
     varargs: str | None = ...,
     varkw: str | None = ...,
-    defaults: Optional[Tuple[Any, ...]] = ...,
-    kwonlyargs: Optional[Sequence[str]] = ...,
-    kwonlydefaults: Optional[dict[str, Any]] = ...,
+    defaults: Tuple[Any, ...] | None = ...,
+    kwonlyargs: Sequence[str] | None = ...,
+    kwonlydefaults: dict[str, Any] | None = ...,
     annotations: dict[str, Any] = ...,
     formatarg: Callable[[str], str] = ...,
     formatvarargs: Callable[[str], str] = ...,
@@ -252,7 +252,7 @@ def formatargvalues(
     args: list[str],
     varargs: str | None,
     varkw: str | None,
-    locals: Optional[dict[str, Any]],
+    locals: dict[str, Any] | None,
     formatarg: Optional[Callable[[str], str]] = ...,
     formatvarargs: Optional[Callable[[str], str]] = ...,
     formatvarkw: Optional[Callable[[str], str]] = ...,
@@ -278,7 +278,7 @@ class Traceback(NamedTuple):
     filename: str
     lineno: int
     function: str
-    code_context: Optional[list[str]]
+    code_context: list[str] | None
     index: int | None  # type: ignore
 
 class FrameInfo(NamedTuple):
@@ -286,7 +286,7 @@ class FrameInfo(NamedTuple):
     filename: str
     lineno: int
     function: str
-    code_context: Optional[list[str]]
+    code_context: list[str] | None
     index: int | None  # type: ignore
 
 def getframeinfo(frame: FrameType | TracebackType, context: int = ...) -> Traceback: ...

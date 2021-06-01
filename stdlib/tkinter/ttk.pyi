@@ -57,7 +57,7 @@ class Button(Widget):
     @overload
     def configure(
         self,
-        cnf: Optional[Dict[str, Any]] = ...,
+        cnf: Dict[str, Any] | None = ...,
         *,
         command: tkinter._ButtonCommand = ...,
         compound: _TtkCompound = ...,
@@ -107,7 +107,7 @@ class Checkbutton(Widget):
     @overload
     def configure(
         self,
-        cnf: Optional[Dict[str, Any]] = ...,
+        cnf: Dict[str, Any] | None = ...,
         *,
         command: tkinter._ButtonCommand = ...,
         compound: _TtkCompound = ...,
@@ -158,7 +158,7 @@ class Entry(Widget, tkinter.Entry):
     @overload  # type: ignore
     def configure(
         self,
-        cnf: Optional[Dict[str, Any]] = ...,
+        cnf: Dict[str, Any] | None = ...,
         *,
         background: tkinter._Color = ...,
         cursor: tkinter._Cursor = ...,
@@ -183,7 +183,7 @@ class Entry(Widget, tkinter.Entry):
     @overload  # type: ignore
     def config(
         self,
-        cnf: Optional[Dict[str, Any]] = ...,
+        cnf: Dict[str, Any] | None = ...,
         *,
         background: tkinter._Color = ...,
         cursor: tkinter._Cursor = ...,
@@ -238,7 +238,7 @@ class Combobox(Entry):
     @overload  # type: ignore
     def configure(
         self,
-        cnf: Optional[Dict[str, Any]] = ...,
+        cnf: Dict[str, Any] | None = ...,
         *,
         background: tkinter._Color = ...,
         cursor: tkinter._Cursor = ...,
@@ -266,7 +266,7 @@ class Combobox(Entry):
     @overload  # type: ignore
     def config(
         self,
-        cnf: Optional[Dict[str, Any]] = ...,
+        cnf: Dict[str, Any] | None = ...,
         *,
         background: tkinter._Color = ...,
         cursor: tkinter._Cursor = ...,
@@ -313,7 +313,7 @@ class Frame(Widget):
     @overload
     def configure(
         self,
-        cnf: Optional[Dict[str, Any]] = ...,
+        cnf: Dict[str, Any] | None = ...,
         *,
         border: tkinter._ScreenUnits = ...,
         borderwidth: tkinter._ScreenUnits = ...,
@@ -360,7 +360,7 @@ class Label(Widget):
     @overload
     def configure(
         self,
-        cnf: Optional[Dict[str, Any]] = ...,
+        cnf: Dict[str, Any] | None = ...,
         *,
         anchor: tkinter._Anchor = ...,
         background: tkinter._Color = ...,
@@ -411,7 +411,7 @@ class Labelframe(Widget):
     @overload
     def configure(
         self,
-        cnf: Optional[Dict[str, Any]] = ...,
+        cnf: Dict[str, Any] | None = ...,
         *,
         border: tkinter._ScreenUnits = ...,
         borderwidth: tkinter._ScreenUnits = ...,
@@ -457,7 +457,7 @@ class Menubutton(Widget):
     @overload
     def configure(
         self,
-        cnf: Optional[Dict[str, Any]] = ...,
+        cnf: Dict[str, Any] | None = ...,
         *,
         compound: _TtkCompound = ...,
         cursor: tkinter._Cursor = ...,
@@ -494,7 +494,7 @@ class Notebook(Widget):
     @overload
     def configure(
         self,
-        cnf: Optional[Dict[str, Any]] = ...,
+        cnf: Dict[str, Any] | None = ...,
         *,
         cursor: tkinter._Cursor = ...,
         height: int = ...,
@@ -535,7 +535,7 @@ class Panedwindow(Widget, tkinter.PanedWindow):
     @overload  # type: ignore
     def configure(
         self,
-        cnf: Optional[Dict[str, Any]] = ...,
+        cnf: Dict[str, Any] | None = ...,
         *,
         cursor: tkinter._Cursor = ...,
         height: int = ...,
@@ -549,7 +549,7 @@ class Panedwindow(Widget, tkinter.PanedWindow):
     @overload  # type: ignore
     def config(
         self,
-        cnf: Optional[Dict[str, Any]] = ...,
+        cnf: Dict[str, Any] | None = ...,
         *,
         cursor: tkinter._Cursor = ...,
         height: int = ...,
@@ -587,7 +587,7 @@ class Progressbar(Widget):
     @overload
     def configure(
         self,
-        cnf: Optional[Dict[str, Any]] = ...,
+        cnf: Dict[str, Any] | None = ...,
         *,
         cursor: tkinter._Cursor = ...,
         length: tkinter._ScreenUnits = ...,
@@ -632,7 +632,7 @@ class Radiobutton(Widget):
     @overload
     def configure(
         self,
-        cnf: Optional[Dict[str, Any]] = ...,
+        cnf: Dict[str, Any] | None = ...,
         *,
         command: tkinter._ButtonCommand = ...,
         compound: _TtkCompound = ...,
@@ -676,7 +676,7 @@ class Scale(Widget, tkinter.Scale):
     @overload  # type: ignore
     def configure(
         self,
-        cnf: Optional[Dict[str, Any]] = ...,
+        cnf: Dict[str, Any] | None = ...,
         *,
         command: Union[str, Callable[[str], Any]] = ...,
         cursor: tkinter._Cursor = ...,
@@ -696,7 +696,7 @@ class Scale(Widget, tkinter.Scale):
     @overload  # type: ignore
     def config(
         self,
-        cnf: Optional[Dict[str, Any]] = ...,
+        cnf: Dict[str, Any] | None = ...,
         *,
         command: Union[str, Callable[[str], Any]] = ...,
         cursor: tkinter._Cursor = ...,
@@ -720,7 +720,7 @@ class Scrollbar(Widget, tkinter.Scrollbar):
         master: tkinter.Misc | None = ...,
         *,
         class_: str = ...,
-        command: Union[Callable[..., Optional[Tuple[float, float]]], str] = ...,
+        command: Union[Callable[..., Tuple[float, float] | None], str] = ...,
         cursor: tkinter._Cursor = ...,
         name: str = ...,
         orient: Literal["horizontal", "vertical"] = ...,
@@ -730,9 +730,9 @@ class Scrollbar(Widget, tkinter.Scrollbar):
     @overload  # type: ignore
     def configure(
         self,
-        cnf: Optional[Dict[str, Any]] = ...,
+        cnf: Dict[str, Any] | None = ...,
         *,
-        command: Union[Callable[..., Optional[Tuple[float, float]]], str] = ...,
+        command: Union[Callable[..., Tuple[float, float] | None], str] = ...,
         cursor: tkinter._Cursor = ...,
         orient: Literal["horizontal", "vertical"] = ...,
         style: str = ...,
@@ -744,9 +744,9 @@ class Scrollbar(Widget, tkinter.Scrollbar):
     @overload  # type: ignore
     def config(
         self,
-        cnf: Optional[Dict[str, Any]] = ...,
+        cnf: Dict[str, Any] | None = ...,
         *,
-        command: Union[Callable[..., Optional[Tuple[float, float]]], str] = ...,
+        command: Union[Callable[..., Tuple[float, float] | None], str] = ...,
         cursor: tkinter._Cursor = ...,
         orient: Literal["horizontal", "vertical"] = ...,
         style: str = ...,
@@ -770,7 +770,7 @@ class Separator(Widget):
     @overload
     def configure(
         self,
-        cnf: Optional[Dict[str, Any]] = ...,
+        cnf: Dict[str, Any] | None = ...,
         *,
         cursor: tkinter._Cursor = ...,
         orient: Literal["horizontal", "vertical"] = ...,
@@ -795,7 +795,7 @@ class Sizegrip(Widget):
     @overload
     def configure(
         self,
-        cnf: Optional[Dict[str, Any]] = ...,
+        cnf: Dict[str, Any] | None = ...,
         *,
         cursor: tkinter._Cursor = ...,
         style: str = ...,
@@ -840,7 +840,7 @@ if sys.version_info >= (3, 7):
         @overload  # type: ignore
         def configure(
             self,
-            cnf: Optional[Dict[str, Any]] = ...,
+            cnf: Dict[str, Any] | None = ...,
             *,
             background: tkinter._Color = ...,
             command: Union[Callable[[], Any], str, tkinter._TkinterSequence[str]] = ...,
@@ -897,7 +897,7 @@ class Treeview(Widget, tkinter.XView, tkinter.YView):
     @overload
     def configure(
         self,
-        cnf: Optional[Dict[str, Any]] = ...,
+        cnf: Dict[str, Any] | None = ...,
         *,
         columns: str | tkinter._TkinterSequence[str] = ...,
         cursor: tkinter._Cursor = ...,

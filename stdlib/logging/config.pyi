@@ -24,7 +24,7 @@ def dictConfig(config: dict[str, Any]) -> None: ...
 if sys.version_info >= (3, 10):
     def fileConfig(
         fname: _Path | IO[str] | RawConfigParser,
-        defaults: Optional[dict[str, str]] = ...,
+        defaults: dict[str, str] | None = ...,
         disable_existing_loggers: bool = ...,
         encoding: str | None = ...,
     ) -> None: ...
@@ -32,7 +32,7 @@ if sys.version_info >= (3, 10):
 else:
     def fileConfig(
         fname: _Path | IO[str] | RawConfigParser,
-        defaults: Optional[dict[str, str]] = ...,
+        defaults: dict[str, str] | None = ...,
         disable_existing_loggers: bool = ...,
     ) -> None: ...
 

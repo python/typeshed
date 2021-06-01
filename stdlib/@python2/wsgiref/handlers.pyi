@@ -6,7 +6,7 @@ from .headers import Headers
 from .types import ErrorStream, InputStream, StartResponse, WSGIApplication, WSGIEnvironment
 from .util import FileWrapper
 
-_exc_info = Tuple[Optional[Type[BaseException]], BaseException | None, TracebackType | None]
+_exc_info = Tuple[Type[BaseException] | None, BaseException | None, TracebackType | None]
 
 def format_date_time(timestamp: float | None) -> str: ...  # undocumented
 
@@ -22,7 +22,7 @@ class BaseHandler:
 
     os_environ: MutableMapping[str, str]
 
-    wsgi_file_wrapper: Optional[Type[FileWrapper]]
+    wsgi_file_wrapper: Type[FileWrapper] | None
     headers_class: Type[Headers]  # undocumented
 
     traceback_limit: int | None

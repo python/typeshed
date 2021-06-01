@@ -42,7 +42,7 @@ class Server(AbstractServer):
         @property
         def sockets(self) -> list[socket]: ...
     else:
-        sockets: Optional[list[socket]]
+        sockets: list[socket] | None
 
 class BaseEventLoop(AbstractEventLoop, metaclass=ABCMeta):
     def run_forever(self) -> None: ...
@@ -115,7 +115,7 @@ class BaseEventLoop(AbstractEventLoop, metaclass=ABCMeta):
             proto: int = ...,
             flags: int = ...,
             sock: None = ...,
-            local_addr: Optional[Tuple[str, int]] = ...,
+            local_addr: Tuple[str, int] | None = ...,
             server_hostname: str | None = ...,
             ssl_handshake_timeout: float | None = ...,
             happy_eyeballs_delay: float | None = ...,
@@ -152,7 +152,7 @@ class BaseEventLoop(AbstractEventLoop, metaclass=ABCMeta):
             proto: int = ...,
             flags: int = ...,
             sock: None = ...,
-            local_addr: Optional[Tuple[str, int]] = ...,
+            local_addr: Tuple[str, int] | None = ...,
             server_hostname: str | None = ...,
             ssl_handshake_timeout: float | None = ...,
         ) -> _TransProtPair: ...
@@ -185,7 +185,7 @@ class BaseEventLoop(AbstractEventLoop, metaclass=ABCMeta):
             proto: int = ...,
             flags: int = ...,
             sock: None = ...,
-            local_addr: Optional[Tuple[str, int]] = ...,
+            local_addr: Tuple[str, int] | None = ...,
             server_hostname: str | None = ...,
         ) -> _TransProtPair: ...
         @overload
@@ -211,7 +211,7 @@ class BaseEventLoop(AbstractEventLoop, metaclass=ABCMeta):
         async def create_server(
             self,
             protocol_factory: _ProtocolFactory,
-            host: Optional[str | Sequence[str]] = ...,
+            host: str | Sequence[str] | None = ...,
             port: int = ...,
             *,
             family: int = ...,
@@ -273,7 +273,7 @@ class BaseEventLoop(AbstractEventLoop, metaclass=ABCMeta):
         async def create_server(
             self,
             protocol_factory: _ProtocolFactory,
-            host: Optional[str | Sequence[str]] = ...,
+            host: str | Sequence[str] | None = ...,
             port: int = ...,
             *,
             family: int = ...,
@@ -305,8 +305,8 @@ class BaseEventLoop(AbstractEventLoop, metaclass=ABCMeta):
     async def create_datagram_endpoint(
         self,
         protocol_factory: _ProtocolFactory,
-        local_addr: Optional[Tuple[str, int]] = ...,
-        remote_addr: Optional[Tuple[str, int]] = ...,
+        local_addr: Tuple[str, int] | None = ...,
+        remote_addr: Tuple[str, int] | None = ...,
         *,
         family: int = ...,
         proto: int = ...,

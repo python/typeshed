@@ -9,7 +9,7 @@ Any = object()
 
 class TypeVar:
     __name__: str
-    __bound__: Optional[Type[Any]]
+    __bound__: Type[Any] | None
     __constraints__: Tuple[Type[Any], ...]
     __covariant__: bool
     __contravariant__: bool
@@ -17,7 +17,7 @@ class TypeVar:
         self,
         name: str,
         *constraints: Type[Any],
-        bound: Optional[Type[Any]] = ...,
+        bound: Type[Any] | None = ...,
         covariant: bool = ...,
         contravariant: bool = ...,
     ) -> None: ...
@@ -264,7 +264,7 @@ class ContextManager(Protocol[_T_co]):
     def __enter__(self) -> _T_co: ...
     def __exit__(
         self,
-        __exc_type: Optional[Type[BaseException]],
+        __exc_type: Type[BaseException] | None,
         __exc_value: BaseException | None,
         __traceback: TracebackType | None,
     ) -> bool | None: ...
@@ -362,7 +362,7 @@ class IO(Iterator[AnyStr], Generic[AnyStr]):
     def __enter__(self) -> IO[AnyStr]: ...
     @abstractmethod
     def __exit__(
-        self, t: Optional[Type[BaseException]], value: BaseException | None, traceback: TracebackType | None
+        self, t: Type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
     ) -> bool | None: ...
 
 class BinaryIO(IO[str]):
@@ -433,8 +433,8 @@ class Pattern(Generic[AnyStr]):
     groupindex: Dict[AnyStr, int]
     groups: int
     pattern: AnyStr
-    def search(self, string: _AnyStr2, pos: int = ..., endpos: int = ...) -> Optional[Match[_AnyStr2]]: ...
-    def match(self, string: _AnyStr2, pos: int = ..., endpos: int = ...) -> Optional[Match[_AnyStr2]]: ...
+    def search(self, string: _AnyStr2, pos: int = ..., endpos: int = ...) -> Match[_AnyStr2] | None: ...
+    def match(self, string: _AnyStr2, pos: int = ..., endpos: int = ...) -> Match[_AnyStr2] | None: ...
     def split(self, string: _AnyStr2, maxsplit: int = ...) -> List[_AnyStr2]: ...
     # Returns either a list of _AnyStr2 or a list of tuples, depending on
     # whether there are groups in the pattern.
@@ -452,7 +452,7 @@ class Pattern(Generic[AnyStr]):
 # Functions
 
 def get_type_hints(
-    obj: Callable[..., Any], globalns: Optional[Dict[Text, Any]] = ..., localns: Optional[Dict[Text, Any]] = ...
+    obj: Callable[..., Any], globalns: Dict[Text, Any] | None = ..., localns: Dict[Text, Any] | None = ...
 ) -> None: ...
 @overload
 def cast(tp: Type[_T], obj: Any) -> _T: ...

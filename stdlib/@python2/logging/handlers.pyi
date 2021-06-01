@@ -111,7 +111,7 @@ class SMTPHandler(Handler):
         fromaddr: str,
         toaddrs: List[str],
         subject: str,
-        credentials: Optional[Tuple[str, str]] = ...,
+        credentials: Tuple[str, str] | None = ...,
         secure: Tuple[str] | Tuple[str, str] | None = ...,
     ) -> None: ...
     def getSubject(self, record: LogRecord) -> str: ...

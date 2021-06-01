@@ -36,8 +36,8 @@ class Manager(object):  # undocumented
     disable: int
     emittedNoHandlerWarning: bool
     loggerDict: dict[str, Logger | PlaceHolder]
-    loggerClass: Optional[Type[Logger]]
-    logRecordFactory: Optional[Callable[..., LogRecord]]
+    loggerClass: Type[Logger] | None
+    logRecordFactory: Callable[..., LogRecord] | None
     def __init__(self, rootnode: RootLogger) -> None: ...
     def getLogger(self, name: str) -> Logger: ...
     def setLoggerClass(self, klass: Type[Logger]) -> None: ...
@@ -65,7 +65,7 @@ class Logger(Filterer):
             exc_info: _ExcInfoType = ...,
             stack_info: bool = ...,
             stacklevel: int = ...,
-            extra: Optional[dict[str, Any]] = ...,
+            extra: dict[str, Any] | None = ...,
             **kwargs: Any,
         ) -> None: ...
         def info(
@@ -75,7 +75,7 @@ class Logger(Filterer):
             exc_info: _ExcInfoType = ...,
             stack_info: bool = ...,
             stacklevel: int = ...,
-            extra: Optional[dict[str, Any]] = ...,
+            extra: dict[str, Any] | None = ...,
             **kwargs: Any,
         ) -> None: ...
         def warning(
@@ -85,7 +85,7 @@ class Logger(Filterer):
             exc_info: _ExcInfoType = ...,
             stack_info: bool = ...,
             stacklevel: int = ...,
-            extra: Optional[dict[str, Any]] = ...,
+            extra: dict[str, Any] | None = ...,
             **kwargs: Any,
         ) -> None: ...
         def warn(
@@ -95,7 +95,7 @@ class Logger(Filterer):
             exc_info: _ExcInfoType = ...,
             stack_info: bool = ...,
             stacklevel: int = ...,
-            extra: Optional[dict[str, Any]] = ...,
+            extra: dict[str, Any] | None = ...,
             **kwargs: Any,
         ) -> None: ...
         def error(
@@ -105,7 +105,7 @@ class Logger(Filterer):
             exc_info: _ExcInfoType = ...,
             stack_info: bool = ...,
             stacklevel: int = ...,
-            extra: Optional[dict[str, Any]] = ...,
+            extra: dict[str, Any] | None = ...,
             **kwargs: Any,
         ) -> None: ...
         def exception(
@@ -115,7 +115,7 @@ class Logger(Filterer):
             exc_info: _ExcInfoType = ...,
             stack_info: bool = ...,
             stacklevel: int = ...,
-            extra: Optional[dict[str, Any]] = ...,
+            extra: dict[str, Any] | None = ...,
             **kwargs: Any,
         ) -> None: ...
         def critical(
@@ -125,7 +125,7 @@ class Logger(Filterer):
             exc_info: _ExcInfoType = ...,
             stack_info: bool = ...,
             stacklevel: int = ...,
-            extra: Optional[dict[str, Any]] = ...,
+            extra: dict[str, Any] | None = ...,
             **kwargs: Any,
         ) -> None: ...
         def log(
@@ -136,7 +136,7 @@ class Logger(Filterer):
             exc_info: _ExcInfoType = ...,
             stack_info: bool = ...,
             stacklevel: int = ...,
-            extra: Optional[dict[str, Any]] = ...,
+            extra: dict[str, Any] | None = ...,
             **kwargs: Any,
         ) -> None: ...
         def _log(
@@ -145,7 +145,7 @@ class Logger(Filterer):
             msg: Any,
             args: _ArgsType,
             exc_info: _ExcInfoType | None = ...,
-            extra: Optional[dict[str, Any]] = ...,
+            extra: dict[str, Any] | None = ...,
             stack_info: bool = ...,
             stacklevel: int = ...,
         ) -> None: ...  # undocumented
@@ -156,7 +156,7 @@ class Logger(Filterer):
             *args: Any,
             exc_info: _ExcInfoType = ...,
             stack_info: bool = ...,
-            extra: Optional[dict[str, Any]] = ...,
+            extra: dict[str, Any] | None = ...,
             **kwargs: Any,
         ) -> None: ...
         def info(
@@ -165,7 +165,7 @@ class Logger(Filterer):
             *args: Any,
             exc_info: _ExcInfoType = ...,
             stack_info: bool = ...,
-            extra: Optional[dict[str, Any]] = ...,
+            extra: dict[str, Any] | None = ...,
             **kwargs: Any,
         ) -> None: ...
         def warning(
@@ -174,7 +174,7 @@ class Logger(Filterer):
             *args: Any,
             exc_info: _ExcInfoType = ...,
             stack_info: bool = ...,
-            extra: Optional[dict[str, Any]] = ...,
+            extra: dict[str, Any] | None = ...,
             **kwargs: Any,
         ) -> None: ...
         def warn(
@@ -183,7 +183,7 @@ class Logger(Filterer):
             *args: Any,
             exc_info: _ExcInfoType = ...,
             stack_info: bool = ...,
-            extra: Optional[dict[str, Any]] = ...,
+            extra: dict[str, Any] | None = ...,
             **kwargs: Any,
         ) -> None: ...
         def error(
@@ -192,7 +192,7 @@ class Logger(Filterer):
             *args: Any,
             exc_info: _ExcInfoType = ...,
             stack_info: bool = ...,
-            extra: Optional[dict[str, Any]] = ...,
+            extra: dict[str, Any] | None = ...,
             **kwargs: Any,
         ) -> None: ...
         def critical(
@@ -201,7 +201,7 @@ class Logger(Filterer):
             *args: Any,
             exc_info: _ExcInfoType = ...,
             stack_info: bool = ...,
-            extra: Optional[dict[str, Any]] = ...,
+            extra: dict[str, Any] | None = ...,
             **kwargs: Any,
         ) -> None: ...
         def log(
@@ -211,7 +211,7 @@ class Logger(Filterer):
             *args: Any,
             exc_info: _ExcInfoType = ...,
             stack_info: bool = ...,
-            extra: Optional[dict[str, Any]] = ...,
+            extra: dict[str, Any] | None = ...,
             **kwargs: Any,
         ) -> None: ...
         def exception(
@@ -220,7 +220,7 @@ class Logger(Filterer):
             *args: Any,
             exc_info: _ExcInfoType = ...,
             stack_info: bool = ...,
-            extra: Optional[dict[str, Any]] = ...,
+            extra: dict[str, Any] | None = ...,
             **kwargs: Any,
         ) -> None: ...
         def _log(
@@ -229,7 +229,7 @@ class Logger(Filterer):
             msg: Any,
             args: _ArgsType,
             exc_info: _ExcInfoType | None = ...,
-            extra: Optional[dict[str, Any]] = ...,
+            extra: dict[str, Any] | None = ...,
             stack_info: bool = ...,
         ) -> None: ...  # undocumented
     fatal = critical
@@ -251,7 +251,7 @@ class Logger(Filterer):
         args: _ArgsType,
         exc_info: _SysExcInfoType | None,
         func: str | None = ...,
-        extra: Optional[Mapping[str, Any]] = ...,
+        extra: Mapping[str, Any] | None = ...,
         sinfo: str | None = ...,
     ) -> LogRecord: ...
     def hasHandlers(self) -> bool: ...
@@ -365,8 +365,8 @@ class LoggerAdapter:
     logger: Logger
     manager: Manager  # undocumented
     if sys.version_info >= (3, 10):
-        extra: Optional[Mapping[str, Any]]
-        def __init__(self, logger: Logger, extra: Optional[Mapping[str, Any]]) -> None: ...
+        extra: Mapping[str, Any] | None
+        def __init__(self, logger: Logger, extra: Mapping[str, Any] | None) -> None: ...
     else:
         extra: Mapping[str, Any]
         def __init__(self, logger: Logger, extra: Mapping[str, Any]) -> None: ...
@@ -379,7 +379,7 @@ class LoggerAdapter:
             exc_info: _ExcInfoType = ...,
             stack_info: bool = ...,
             stacklevel: int = ...,
-            extra: Optional[dict[str, Any]] = ...,
+            extra: dict[str, Any] | None = ...,
             **kwargs: Any,
         ) -> None: ...
         def info(
@@ -389,7 +389,7 @@ class LoggerAdapter:
             exc_info: _ExcInfoType = ...,
             stack_info: bool = ...,
             stacklevel: int = ...,
-            extra: Optional[dict[str, Any]] = ...,
+            extra: dict[str, Any] | None = ...,
             **kwargs: Any,
         ) -> None: ...
         def warning(
@@ -399,7 +399,7 @@ class LoggerAdapter:
             exc_info: _ExcInfoType = ...,
             stack_info: bool = ...,
             stacklevel: int = ...,
-            extra: Optional[dict[str, Any]] = ...,
+            extra: dict[str, Any] | None = ...,
             **kwargs: Any,
         ) -> None: ...
         def warn(
@@ -409,7 +409,7 @@ class LoggerAdapter:
             exc_info: _ExcInfoType = ...,
             stack_info: bool = ...,
             stacklevel: int = ...,
-            extra: Optional[dict[str, Any]] = ...,
+            extra: dict[str, Any] | None = ...,
             **kwargs: Any,
         ) -> None: ...
         def error(
@@ -419,7 +419,7 @@ class LoggerAdapter:
             exc_info: _ExcInfoType = ...,
             stack_info: bool = ...,
             stacklevel: int = ...,
-            extra: Optional[dict[str, Any]] = ...,
+            extra: dict[str, Any] | None = ...,
             **kwargs: Any,
         ) -> None: ...
         def exception(
@@ -429,7 +429,7 @@ class LoggerAdapter:
             exc_info: _ExcInfoType = ...,
             stack_info: bool = ...,
             stacklevel: int = ...,
-            extra: Optional[dict[str, Any]] = ...,
+            extra: dict[str, Any] | None = ...,
             **kwargs: Any,
         ) -> None: ...
         def critical(
@@ -439,7 +439,7 @@ class LoggerAdapter:
             exc_info: _ExcInfoType = ...,
             stack_info: bool = ...,
             stacklevel: int = ...,
-            extra: Optional[dict[str, Any]] = ...,
+            extra: dict[str, Any] | None = ...,
             **kwargs: Any,
         ) -> None: ...
         def log(
@@ -450,7 +450,7 @@ class LoggerAdapter:
             exc_info: _ExcInfoType = ...,
             stack_info: bool = ...,
             stacklevel: int = ...,
-            extra: Optional[dict[str, Any]] = ...,
+            extra: dict[str, Any] | None = ...,
             **kwargs: Any,
         ) -> None: ...
     else:
@@ -460,7 +460,7 @@ class LoggerAdapter:
             *args: Any,
             exc_info: _ExcInfoType = ...,
             stack_info: bool = ...,
-            extra: Optional[dict[str, Any]] = ...,
+            extra: dict[str, Any] | None = ...,
             **kwargs: Any,
         ) -> None: ...
         def info(
@@ -469,7 +469,7 @@ class LoggerAdapter:
             *args: Any,
             exc_info: _ExcInfoType = ...,
             stack_info: bool = ...,
-            extra: Optional[dict[str, Any]] = ...,
+            extra: dict[str, Any] | None = ...,
             **kwargs: Any,
         ) -> None: ...
         def warning(
@@ -478,7 +478,7 @@ class LoggerAdapter:
             *args: Any,
             exc_info: _ExcInfoType = ...,
             stack_info: bool = ...,
-            extra: Optional[dict[str, Any]] = ...,
+            extra: dict[str, Any] | None = ...,
             **kwargs: Any,
         ) -> None: ...
         def warn(
@@ -487,7 +487,7 @@ class LoggerAdapter:
             *args: Any,
             exc_info: _ExcInfoType = ...,
             stack_info: bool = ...,
-            extra: Optional[dict[str, Any]] = ...,
+            extra: dict[str, Any] | None = ...,
             **kwargs: Any,
         ) -> None: ...
         def error(
@@ -496,7 +496,7 @@ class LoggerAdapter:
             *args: Any,
             exc_info: _ExcInfoType = ...,
             stack_info: bool = ...,
-            extra: Optional[dict[str, Any]] = ...,
+            extra: dict[str, Any] | None = ...,
             **kwargs: Any,
         ) -> None: ...
         def exception(
@@ -505,7 +505,7 @@ class LoggerAdapter:
             *args: Any,
             exc_info: _ExcInfoType = ...,
             stack_info: bool = ...,
-            extra: Optional[dict[str, Any]] = ...,
+            extra: dict[str, Any] | None = ...,
             **kwargs: Any,
         ) -> None: ...
         def critical(
@@ -514,7 +514,7 @@ class LoggerAdapter:
             *args: Any,
             exc_info: _ExcInfoType = ...,
             stack_info: bool = ...,
-            extra: Optional[dict[str, Any]] = ...,
+            extra: dict[str, Any] | None = ...,
             **kwargs: Any,
         ) -> None: ...
         def log(
@@ -524,7 +524,7 @@ class LoggerAdapter:
             *args: Any,
             exc_info: _ExcInfoType = ...,
             stack_info: bool = ...,
-            extra: Optional[dict[str, Any]] = ...,
+            extra: dict[str, Any] | None = ...,
             **kwargs: Any,
         ) -> None: ...
     def isEnabledFor(self, level: int) -> bool: ...
@@ -537,7 +537,7 @@ class LoggerAdapter:
         msg: Any,
         args: _ArgsType,
         exc_info: _ExcInfoType | None = ...,
-        extra: Optional[dict[str, Any]] = ...,
+        extra: dict[str, Any] | None = ...,
         stack_info: bool = ...,
     ) -> None: ...  # undocumented
     @property
@@ -554,7 +554,7 @@ if sys.version_info >= (3, 8):
         exc_info: _ExcInfoType = ...,
         stack_info: bool = ...,
         stacklevel: int = ...,
-        extra: Optional[dict[str, Any]] = ...,
+        extra: dict[str, Any] | None = ...,
         **kwargs: Any,
     ) -> None: ...
     def info(
@@ -563,7 +563,7 @@ if sys.version_info >= (3, 8):
         exc_info: _ExcInfoType = ...,
         stack_info: bool = ...,
         stacklevel: int = ...,
-        extra: Optional[dict[str, Any]] = ...,
+        extra: dict[str, Any] | None = ...,
         **kwargs: Any,
     ) -> None: ...
     def warning(
@@ -572,7 +572,7 @@ if sys.version_info >= (3, 8):
         exc_info: _ExcInfoType = ...,
         stack_info: bool = ...,
         stacklevel: int = ...,
-        extra: Optional[dict[str, Any]] = ...,
+        extra: dict[str, Any] | None = ...,
         **kwargs: Any,
     ) -> None: ...
     def warn(
@@ -581,7 +581,7 @@ if sys.version_info >= (3, 8):
         exc_info: _ExcInfoType = ...,
         stack_info: bool = ...,
         stacklevel: int = ...,
-        extra: Optional[dict[str, Any]] = ...,
+        extra: dict[str, Any] | None = ...,
         **kwargs: Any,
     ) -> None: ...
     def error(
@@ -590,7 +590,7 @@ if sys.version_info >= (3, 8):
         exc_info: _ExcInfoType = ...,
         stack_info: bool = ...,
         stacklevel: int = ...,
-        extra: Optional[dict[str, Any]] = ...,
+        extra: dict[str, Any] | None = ...,
         **kwargs: Any,
     ) -> None: ...
     def critical(
@@ -599,7 +599,7 @@ if sys.version_info >= (3, 8):
         exc_info: _ExcInfoType = ...,
         stack_info: bool = ...,
         stacklevel: int = ...,
-        extra: Optional[dict[str, Any]] = ...,
+        extra: dict[str, Any] | None = ...,
         **kwargs: Any,
     ) -> None: ...
     def exception(
@@ -608,7 +608,7 @@ if sys.version_info >= (3, 8):
         exc_info: _ExcInfoType = ...,
         stack_info: bool = ...,
         stacklevel: int = ...,
-        extra: Optional[dict[str, Any]] = ...,
+        extra: dict[str, Any] | None = ...,
         **kwargs: Any,
     ) -> None: ...
     def log(
@@ -618,7 +618,7 @@ if sys.version_info >= (3, 8):
         exc_info: _ExcInfoType = ...,
         stack_info: bool = ...,
         stacklevel: int = ...,
-        extra: Optional[dict[str, Any]] = ...,
+        extra: dict[str, Any] | None = ...,
         **kwargs: Any,
     ) -> None: ...
 
@@ -628,7 +628,7 @@ else:
         *args: Any,
         exc_info: _ExcInfoType = ...,
         stack_info: bool = ...,
-        extra: Optional[dict[str, Any]] = ...,
+        extra: dict[str, Any] | None = ...,
         **kwargs: Any,
     ) -> None: ...
     def info(
@@ -636,7 +636,7 @@ else:
         *args: Any,
         exc_info: _ExcInfoType = ...,
         stack_info: bool = ...,
-        extra: Optional[dict[str, Any]] = ...,
+        extra: dict[str, Any] | None = ...,
         **kwargs: Any,
     ) -> None: ...
     def warning(
@@ -644,7 +644,7 @@ else:
         *args: Any,
         exc_info: _ExcInfoType = ...,
         stack_info: bool = ...,
-        extra: Optional[dict[str, Any]] = ...,
+        extra: dict[str, Any] | None = ...,
         **kwargs: Any,
     ) -> None: ...
     def warn(
@@ -652,7 +652,7 @@ else:
         *args: Any,
         exc_info: _ExcInfoType = ...,
         stack_info: bool = ...,
-        extra: Optional[dict[str, Any]] = ...,
+        extra: dict[str, Any] | None = ...,
         **kwargs: Any,
     ) -> None: ...
     def error(
@@ -660,7 +660,7 @@ else:
         *args: Any,
         exc_info: _ExcInfoType = ...,
         stack_info: bool = ...,
-        extra: Optional[dict[str, Any]] = ...,
+        extra: dict[str, Any] | None = ...,
         **kwargs: Any,
     ) -> None: ...
     def critical(
@@ -668,7 +668,7 @@ else:
         *args: Any,
         exc_info: _ExcInfoType = ...,
         stack_info: bool = ...,
-        extra: Optional[dict[str, Any]] = ...,
+        extra: dict[str, Any] | None = ...,
         **kwargs: Any,
     ) -> None: ...
     def exception(
@@ -676,7 +676,7 @@ else:
         *args: Any,
         exc_info: _ExcInfoType = ...,
         stack_info: bool = ...,
-        extra: Optional[dict[str, Any]] = ...,
+        extra: dict[str, Any] | None = ...,
         **kwargs: Any,
     ) -> None: ...
     def log(
@@ -685,7 +685,7 @@ else:
         *args: Any,
         exc_info: _ExcInfoType = ...,
         stack_info: bool = ...,
-        extra: Optional[dict[str, Any]] = ...,
+        extra: dict[str, Any] | None = ...,
         **kwargs: Any,
     ) -> None: ...
 
@@ -710,8 +710,8 @@ if sys.version_info >= (3, 8):
         datefmt: str | None = ...,
         style: str = ...,
         level: _Level | None = ...,
-        stream: Optional[SupportsWrite[str]] = ...,
-        handlers: Optional[Iterable[Handler]] = ...,
+        stream: SupportsWrite[str] | None = ...,
+        handlers: Iterable[Handler] | None = ...,
         force: bool = ...,
     ) -> None: ...
 
@@ -724,8 +724,8 @@ else:
         datefmt: str | None = ...,
         style: str = ...,
         level: _Level | None = ...,
-        stream: Optional[SupportsWrite[str]] = ...,
-        handlers: Optional[Iterable[Handler]] = ...,
+        stream: SupportsWrite[str] | None = ...,
+        handlers: Iterable[Handler] | None = ...,
     ) -> None: ...
 
 def shutdown(handlerList: Sequence[Any] = ...) -> None: ...  # handlerList is undocumented
@@ -738,9 +738,9 @@ lastResort: StreamHandler | None
 class StreamHandler(Handler):
     stream: SupportsWrite[str]  # undocumented
     terminator: str
-    def __init__(self, stream: Optional[SupportsWrite[str]] = ...) -> None: ...
+    def __init__(self, stream: SupportsWrite[str] | None = ...) -> None: ...
     if sys.version_info >= (3, 7):
-        def setStream(self, stream: SupportsWrite[str]) -> Optional[SupportsWrite[str]]: ...
+        def setStream(self, stream: SupportsWrite[str]) -> SupportsWrite[str] | None: ...
 
 class FileHandler(StreamHandler):
     baseFilename: str  # undocumented

@@ -4,8 +4,8 @@ from typing import Any, Mapping, Optional, Sequence
 
 def __import__(
     name: str,
-    globals: Optional[Mapping[str, Any]] = ...,
-    locals: Optional[Mapping[str, Any]] = ...,
+    globals: Mapping[str, Any] | None = ...,
+    locals: Mapping[str, Any] | None = ...,
     fromlist: Sequence[str] = ...,
     level: int = ...,
 ) -> types.ModuleType: ...

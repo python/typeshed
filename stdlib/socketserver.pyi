@@ -32,7 +32,7 @@ class BaseServer:
     def verify_request(self, request: _RequestType, client_address: _AddressType) -> bool: ...
     def __enter__(self: _T) -> _T: ...
     def __exit__(
-        self, exc_type: Optional[Type[BaseException]], exc_val: BaseException | None, exc_tb: types.TracebackType | None
+        self, exc_type: Type[BaseException] | None, exc_val: BaseException | None, exc_tb: types.TracebackType | None
     ) -> None: ...
     def service_actions(self) -> None: ...
     def shutdown_request(self, request: _RequestType) -> None: ...  # undocumented
@@ -87,7 +87,7 @@ if sys.platform != "win32":
 if sys.platform != "win32":
     class ForkingMixIn:
         timeout: float | None  # undocumented
-        active_children: Optional[Set[int]]  # undocumented
+        active_children: Set[int] | None  # undocumented
         max_children: int  # undocumented
         if sys.version_info >= (3, 7):
             block_on_close: bool

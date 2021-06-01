@@ -66,8 +66,8 @@ class DefaultCookiePolicy(CookiePolicy):
     if sys.version_info >= (3, 8):
         def __init__(
             self,
-            blocked_domains: Optional[Sequence[str]] = ...,
-            allowed_domains: Optional[Sequence[str]] = ...,
+            blocked_domains: Sequence[str] | None = ...,
+            allowed_domains: Sequence[str] | None = ...,
             netscape: bool = ...,
             rfc2965: bool = ...,
             rfc2109_as_netscape: bool | None = ...,
@@ -83,8 +83,8 @@ class DefaultCookiePolicy(CookiePolicy):
     else:
         def __init__(
             self,
-            blocked_domains: Optional[Sequence[str]] = ...,
-            allowed_domains: Optional[Sequence[str]] = ...,
+            blocked_domains: Sequence[str] | None = ...,
+            allowed_domains: Sequence[str] | None = ...,
             netscape: bool = ...,
             rfc2965: bool = ...,
             rfc2109_as_netscape: bool | None = ...,
@@ -99,8 +99,8 @@ class DefaultCookiePolicy(CookiePolicy):
     def blocked_domains(self) -> Tuple[str, ...]: ...
     def set_blocked_domains(self, blocked_domains: Sequence[str]) -> None: ...
     def is_blocked(self, domain: str) -> bool: ...
-    def allowed_domains(self) -> Optional[Tuple[str, ...]]: ...
-    def set_allowed_domains(self, allowed_domains: Optional[Sequence[str]]) -> None: ...
+    def allowed_domains(self) -> Tuple[str, ...] | None: ...
+    def set_allowed_domains(self, allowed_domains: Sequence[str] | None) -> None: ...
     def is_not_allowed(self, domain: str) -> bool: ...
 
 class Cookie:

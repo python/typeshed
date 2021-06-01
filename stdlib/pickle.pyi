@@ -31,10 +31,10 @@ if sys.version_info >= (3, 8):
         fix_imports: bool = ...,
         encoding: str = ...,
         errors: str = ...,
-        buffers: Optional[Iterable[Any]] = ...,
+        buffers: Iterable[Any] | None = ...,
     ) -> Any: ...
     def loads(
-        __data: bytes, *, fix_imports: bool = ..., encoding: str = ..., errors: str = ..., buffers: Optional[Iterable[Any]] = ...
+        __data: bytes, *, fix_imports: bool = ..., encoding: str = ..., errors: str = ..., buffers: Iterable[Any] | None = ...
     ) -> Any: ...
 
 else:
@@ -51,8 +51,8 @@ _reducedtype = Union[
     str,
     Tuple[Callable[..., Any], Tuple[Any, ...]],
     Tuple[Callable[..., Any], Tuple[Any, ...], Any],
-    Tuple[Callable[..., Any], Tuple[Any, ...], Any, Optional[Iterator[Any]]],
-    Tuple[Callable[..., Any], Tuple[Any, ...], Any, Optional[Iterator[Any]], Optional[Iterator[Any]]],
+    Tuple[Callable[..., Any], Tuple[Any, ...], Any, Iterator[Any] | None],
+    Tuple[Callable[..., Any], Tuple[Any, ...], Any, Iterator[Any] | None, Iterator[Any] | None],
 ]
 
 class Pickler:
@@ -87,7 +87,7 @@ class Unpickler:
             fix_imports: bool = ...,
             encoding: str = ...,
             errors: str = ...,
-            buffers: Optional[Iterable[Any]] = ...,
+            buffers: Iterable[Any] | None = ...,
         ) -> None: ...
     else:
         def __init__(self, file: IO[bytes], *, fix_imports: bool = ..., encoding: str = ..., errors: str = ...) -> None: ...

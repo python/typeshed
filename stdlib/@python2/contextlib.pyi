@@ -4,10 +4,10 @@ from typing_extensions import Protocol
 
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
-_T_io = TypeVar("_T_io", bound=Optional[IO[str]])
+_T_io = TypeVar("_T_io", bound=IO[str] | None)
 _F = TypeVar("_F", bound=Callable[..., Any])
 
-_ExitFunc = Callable[[Optional[Type[BaseException]], BaseException | None, TracebackType | None], bool]
+_ExitFunc = Callable[[Type[BaseException] | None, BaseException | None, TracebackType | None], bool]
 _CM_EF = TypeVar("_CM_EF", ContextManager[Any], _ExitFunc)
 
 class GeneratorContextManager(ContextManager[_T_co]):

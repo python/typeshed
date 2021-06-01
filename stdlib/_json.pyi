@@ -11,7 +11,7 @@ class make_encoder:
     item_separator: Any
     def __init__(
         self,
-        markers: Optional[Dict[int, Any]],
+        markers: Dict[int, Any] | None,
         default: Callable[[Any], Any],
         encoder: Callable[[str], str],
         indent: int | None,

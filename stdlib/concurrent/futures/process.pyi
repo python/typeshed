@@ -19,7 +19,7 @@ if sys.version_info >= (3, 7):
             self,
             max_workers: int | None = ...,
             mp_context: BaseContext | None = ...,
-            initializer: Optional[Callable[..., None]] = ...,
+            initializer: Callable[..., None] | None = ...,
             initargs: Tuple[Any, ...] = ...,
         ) -> None: ...
 

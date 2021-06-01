@@ -210,7 +210,7 @@ class SMTPHandler(Handler):
         fromaddr: str,
         toaddrs: str | list[str],
         subject: str,
-        credentials: Optional[tuple[str, str]] = ...,
+        credentials: tuple[str, str] | None = ...,
         secure: Union[tuple[()], tuple[str], tuple[str, str], None] = ...,
         timeout: float = ...,
     ) -> None: ...
@@ -236,7 +236,7 @@ class HTTPHandler(Handler):
     url: str  # undocumented
     method: str  # undocumented
     secure: bool  # undocumented
-    credentials: Optional[tuple[str, str]]  # undocumented
+    credentials: tuple[str, str] | None  # undocumented
     context: ssl.SSLContext | None  # undocumented
     def __init__(
         self,
@@ -244,7 +244,7 @@ class HTTPHandler(Handler):
         url: str,
         method: str = ...,
         secure: bool = ...,
-        credentials: Optional[tuple[str, str]] = ...,
+        credentials: tuple[str, str] | None = ...,
         context: ssl.SSLContext | None = ...,
     ) -> None: ...
     def mapLogRecord(self, record: LogRecord) -> dict[str, Any]: ...

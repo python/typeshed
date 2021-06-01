@@ -5,7 +5,7 @@ _onceregistry: Dict[Any, Any]
 filters: List[Tuple[Any, ...]]
 
 @overload
-def warn(message: str, category: Optional[Type[Warning]] = ..., stacklevel: int = ..., source: Any | None = ...) -> None: ...
+def warn(message: str, category: Type[Warning] | None = ..., stacklevel: int = ..., source: Any | None = ...) -> None: ...
 @overload
 def warn(message: Warning, category: Any = ..., stacklevel: int = ..., source: Any | None = ...) -> None: ...
 @overload
@@ -16,7 +16,7 @@ def warn_explicit(
     lineno: int,
     module: str | None = ...,
     registry: Optional[Dict[Union[str, Tuple[str, Type[Warning], int]], int]] = ...,
-    module_globals: Optional[Dict[str, Any]] = ...,
+    module_globals: Dict[str, Any] | None = ...,
     source: Any | None = ...,
 ) -> None: ...
 @overload
@@ -27,6 +27,6 @@ def warn_explicit(
     lineno: int,
     module: str | None = ...,
     registry: Optional[Dict[Union[str, Tuple[str, Type[Warning], int]], int]] = ...,
-    module_globals: Optional[Dict[str, Any]] = ...,
+    module_globals: Dict[str, Any] | None = ...,
     source: Any | None = ...,
 ) -> None: ...

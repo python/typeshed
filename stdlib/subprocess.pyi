@@ -707,9 +707,9 @@ class CalledProcessError(SubprocessError):
 
 class Popen(Generic[AnyStr]):
     args: _CMD
-    stdin: Optional[IO[AnyStr]]
-    stdout: Optional[IO[AnyStr]]
-    stderr: Optional[IO[AnyStr]]
+    stdin: IO[AnyStr] | None
+    stdout: IO[AnyStr] | None
+    stderr: IO[AnyStr] | None
     pid: int
     returncode: int
     universal_newlines: bool
@@ -1009,7 +1009,7 @@ class Popen(Generic[AnyStr]):
     def kill(self) -> None: ...
     def __enter__(self: _S) -> _S: ...
     def __exit__(
-        self, type: Optional[Type[BaseException]], value: BaseException | None, traceback: TracebackType | None
+        self, type: Type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
     ) -> None: ...
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, item: Any) -> GenericAlias: ...
@@ -1030,7 +1030,7 @@ if sys.platform == "win32":
                 hStdOutput: Any | None = ...,
                 hStdError: Any | None = ...,
                 wShowWindow: int = ...,
-                lpAttributeList: Optional[Mapping[str, Any]] = ...,
+                lpAttributeList: Mapping[str, Any] | None = ...,
             ) -> None: ...
         dwFlags: int
         hStdInput: Any | None

@@ -24,7 +24,7 @@ if sys.version_info >= (3, 8):
         newline: str | None = ...,
         suffix: AnyStr | None = ...,
         prefix: AnyStr | None = ...,
-        dir: Optional[_DirT[AnyStr]] = ...,
+        dir: _DirT[AnyStr] | None = ...,
         delete: bool = ...,
         *,
         errors: str | None = ...,
@@ -37,7 +37,7 @@ if sys.version_info >= (3, 8):
         newline: str | None = ...,
         suffix: AnyStr | None = ...,
         prefix: AnyStr | None = ...,
-        dir: Optional[_DirT[AnyStr]] = ...,
+        dir: _DirT[AnyStr] | None = ...,
         delete: bool = ...,
         *,
         errors: str | None = ...,
@@ -50,7 +50,7 @@ if sys.version_info >= (3, 8):
         newline: str | None = ...,
         suffix: AnyStr | None = ...,
         prefix: AnyStr | None = ...,
-        dir: Optional[_DirT[AnyStr]] = ...,
+        dir: _DirT[AnyStr] | None = ...,
         delete: bool = ...,
         *,
         errors: str | None = ...,
@@ -65,7 +65,7 @@ else:
         newline: str | None = ...,
         suffix: AnyStr | None = ...,
         prefix: AnyStr | None = ...,
-        dir: Optional[_DirT[AnyStr]] = ...,
+        dir: _DirT[AnyStr] | None = ...,
         delete: bool = ...,
     ) -> _TemporaryFileWrapper[str]: ...
     @overload
@@ -76,7 +76,7 @@ else:
         newline: str | None = ...,
         suffix: AnyStr | None = ...,
         prefix: AnyStr | None = ...,
-        dir: Optional[_DirT[AnyStr]] = ...,
+        dir: _DirT[AnyStr] | None = ...,
         delete: bool = ...,
     ) -> _TemporaryFileWrapper[bytes]: ...
     @overload
@@ -87,7 +87,7 @@ else:
         newline: str | None = ...,
         suffix: AnyStr | None = ...,
         prefix: AnyStr | None = ...,
-        dir: Optional[_DirT[AnyStr]] = ...,
+        dir: _DirT[AnyStr] | None = ...,
         delete: bool = ...,
     ) -> _TemporaryFileWrapper[Any]: ...
 
@@ -103,7 +103,7 @@ else:
             newline: str | None = ...,
             suffix: AnyStr | None = ...,
             prefix: AnyStr | None = ...,
-            dir: Optional[_DirT[AnyStr]] = ...,
+            dir: _DirT[AnyStr] | None = ...,
             *,
             errors: str | None = ...,
         ) -> IO[str]: ...
@@ -115,7 +115,7 @@ else:
             newline: str | None = ...,
             suffix: AnyStr | None = ...,
             prefix: AnyStr | None = ...,
-            dir: Optional[_DirT[AnyStr]] = ...,
+            dir: _DirT[AnyStr] | None = ...,
             *,
             errors: str | None = ...,
         ) -> IO[bytes]: ...
@@ -127,7 +127,7 @@ else:
             newline: str | None = ...,
             suffix: AnyStr | None = ...,
             prefix: AnyStr | None = ...,
-            dir: Optional[_DirT[AnyStr]] = ...,
+            dir: _DirT[AnyStr] | None = ...,
             *,
             errors: str | None = ...,
         ) -> IO[Any]: ...
@@ -140,7 +140,7 @@ else:
             newline: str | None = ...,
             suffix: AnyStr | None = ...,
             prefix: AnyStr | None = ...,
-            dir: Optional[_DirT[AnyStr]] = ...,
+            dir: _DirT[AnyStr] | None = ...,
         ) -> IO[str]: ...
         @overload
         def TemporaryFile(
@@ -150,7 +150,7 @@ else:
             newline: str | None = ...,
             suffix: AnyStr | None = ...,
             prefix: AnyStr | None = ...,
-            dir: Optional[_DirT[AnyStr]] = ...,
+            dir: _DirT[AnyStr] | None = ...,
         ) -> IO[bytes]: ...
         @overload
         def TemporaryFile(
@@ -160,7 +160,7 @@ else:
             newline: str | None = ...,
             suffix: AnyStr | None = ...,
             prefix: AnyStr | None = ...,
-            dir: Optional[_DirT[AnyStr]] = ...,
+            dir: _DirT[AnyStr] | None = ...,
         ) -> IO[Any]: ...
 
 class _TemporaryFileWrapper(Generic[AnyStr], IO[AnyStr]):
@@ -170,7 +170,7 @@ class _TemporaryFileWrapper(Generic[AnyStr], IO[AnyStr]):
     def __init__(self, file: IO[AnyStr], name: str, delete: bool = ...) -> None: ...
     def __enter__(self) -> _TemporaryFileWrapper[AnyStr]: ...
     def __exit__(
-        self, exc: Optional[Type[BaseException]], value: BaseException | None, tb: TracebackType | None
+        self, exc: Type[BaseException] | None, value: BaseException | None, tb: TracebackType | None
     ) -> bool | None: ...
     def __getattr__(self, name: str) -> Any: ...
     def close(self) -> None: ...
@@ -291,7 +291,7 @@ class SpooledTemporaryFile(IO[AnyStr]):
     def rollover(self) -> None: ...
     def __enter__(self: _S) -> _S: ...
     def __exit__(
-        self, exc_type: Optional[Type[BaseException]], exc_val: BaseException | None, exc_tb: TracebackType | None
+        self, exc_type: Type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
     ) -> bool | None: ...
     # These methods are copied from the abstract methods of IO, because
     # SpooledTemporaryFile implements IO.
@@ -321,12 +321,12 @@ class TemporaryDirectory(Generic[AnyStr]):
     def __init__(self: TemporaryDirectory[str], suffix: None = ..., prefix: None = ..., dir: None = ...) -> None: ...
     @overload
     def __init__(
-        self, suffix: AnyStr | None = ..., prefix: AnyStr | None = ..., dir: Optional[_DirT[AnyStr]] = ...
+        self, suffix: AnyStr | None = ..., prefix: AnyStr | None = ..., dir: _DirT[AnyStr] | None = ...
     ) -> None: ...
     def cleanup(self) -> None: ...
     def __enter__(self) -> AnyStr: ...
     def __exit__(
-        self, exc_type: Optional[Type[BaseException]], exc_val: BaseException | None, exc_tb: TracebackType | None
+        self, exc_type: Type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
     ) -> None: ...
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, item: Any) -> GenericAlias: ...
@@ -335,16 +335,16 @@ class TemporaryDirectory(Generic[AnyStr]):
 def mkstemp() -> Tuple[int, str]: ...
 @overload
 def mkstemp(
-    suffix: AnyStr | None = ..., prefix: AnyStr | None = ..., dir: Optional[_DirT[AnyStr]] = ..., text: bool = ...
+    suffix: AnyStr | None = ..., prefix: AnyStr | None = ..., dir: _DirT[AnyStr] | None = ..., text: bool = ...
 ) -> Tuple[int, AnyStr]: ...
 @overload
 def mkdtemp() -> str: ...
 @overload
-def mkdtemp(suffix: AnyStr | None = ..., prefix: AnyStr | None = ..., dir: Optional[_DirT[AnyStr]] = ...) -> AnyStr: ...
+def mkdtemp(suffix: AnyStr | None = ..., prefix: AnyStr | None = ..., dir: _DirT[AnyStr] | None = ...) -> AnyStr: ...
 @overload
 def mktemp() -> str: ...
 @overload
-def mktemp(suffix: AnyStr | None = ..., prefix: AnyStr | None = ..., dir: Optional[_DirT[AnyStr]] = ...) -> AnyStr: ...
+def mktemp(suffix: AnyStr | None = ..., prefix: AnyStr | None = ..., dir: _DirT[AnyStr] | None = ...) -> AnyStr: ...
 def gettempdirb() -> bytes: ...
 def gettempprefixb() -> bytes: ...
 def gettempdir() -> str: ...

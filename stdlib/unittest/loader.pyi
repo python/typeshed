@@ -14,7 +14,7 @@ class TestLoader:
     sortTestMethodsUsing: _SortComparisonMethod
 
     if sys.version_info >= (3, 7):
-        testNamePatterns: Optional[List[str]]
+        testNamePatterns: List[str] | None
 
     suiteClass: _SuiteClass
     def loadTestsFromTestCase(self, testCaseClass: Type[unittest.case.TestCase]) -> unittest.suite.TestSuite: ...
@@ -31,7 +31,7 @@ if sys.version_info >= (3, 7):
         testCaseClass: Type[unittest.case.TestCase],
         prefix: str,
         sortUsing: _SortComparisonMethod = ...,
-        testNamePatterns: Optional[List[str]] = ...,
+        testNamePatterns: List[str] | None = ...,
     ) -> Sequence[str]: ...
 
 else:

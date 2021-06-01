@@ -36,9 +36,9 @@ class FTP:
     encoding: str
     def __enter__(self: _T) -> _T: ...
     def __exit__(
-        self, exc_type: Optional[Type[BaseException]], exc_val: BaseException | None, exc_tb: TracebackType | None
+        self, exc_type: Type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
     ) -> None: ...
-    source_address: Optional[Tuple[str, int]]
+    source_address: Tuple[str, int] | None
     def __init__(
         self,
         host: str = ...,
@@ -46,10 +46,10 @@ class FTP:
         passwd: str = ...,
         acct: str = ...,
         timeout: float = ...,
-        source_address: Optional[Tuple[str, int]] = ...,
+        source_address: Tuple[str, int] | None = ...,
     ) -> None: ...
     def connect(
-        self, host: str = ..., port: int = ..., timeout: float = ..., source_address: Optional[Tuple[str, int]] = ...
+        self, host: str = ..., port: int = ..., timeout: float = ..., source_address: Tuple[str, int] | None = ...
     ) -> str: ...
     def getwelcome(self) -> str: ...
     def set_debuglevel(self, level: int) -> None: ...
@@ -112,7 +112,7 @@ class FTP_TLS(FTP):
         certfile: str | None = ...,
         context: SSLContext | None = ...,
         timeout: float = ...,
-        source_address: Optional[Tuple[str, int]] = ...,
+        source_address: Tuple[str, int] | None = ...,
     ) -> None: ...
     ssl_version: int
     keyfile: str | None

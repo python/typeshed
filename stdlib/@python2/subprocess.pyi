@@ -71,9 +71,9 @@ class CalledProcessError(Exception):
 _T = TypeVar("_T", bound=bytes)
 
 class Popen(Generic[_T]):
-    stdin: Optional[IO[bytes]]
-    stdout: Optional[IO[bytes]]
-    stderr: Optional[IO[bytes]]
+    stdin: IO[bytes] | None
+    stdout: IO[bytes] | None
+    stderr: IO[bytes] | None
     pid: int
     returncode: int
     def __new__(

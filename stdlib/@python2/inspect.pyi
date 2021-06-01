@@ -103,10 +103,10 @@ class Traceback(NamedTuple):
     filename: str
     lineno: int
     function: str
-    code_context: Optional[List[str]]
+    code_context: List[str] | None
     index: int | None  # type: ignore
 
-_FrameInfo = Tuple[FrameType, str, int, str, Optional[List[str]], int | None]
+_FrameInfo = Tuple[FrameType, str, int, str, List[str] | None, int | None]
 
 def getouterframes(frame: FrameType, context: int = ...) -> List[_FrameInfo]: ...
 def getframeinfo(frame: FrameType | TracebackType, context: int = ...) -> Traceback: ...

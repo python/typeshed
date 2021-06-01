@@ -153,7 +153,7 @@ class _ContextManager(object):
     saved_context: Context
     def __init__(self, new_context: Context) -> None: ...
     def __enter__(self) -> Context: ...
-    def __exit__(self, t: Optional[Type[BaseException]], v: BaseException | None, tb: TracebackType | None) -> None: ...
+    def __exit__(self, t: Type[BaseException] | None, v: BaseException | None, tb: TracebackType | None) -> None: ...
 
 _TrapType = Type[DecimalException]
 
@@ -176,7 +176,7 @@ class Context(object):
         clamp: int | None = ...,
         flags: None | Dict[_TrapType, bool] | Container[_TrapType] = ...,
         traps: None | Dict[_TrapType, bool] | Container[_TrapType] = ...,
-        _ignored_flags: Optional[List[_TrapType]] = ...,
+        _ignored_flags: List[_TrapType] | None = ...,
     ) -> None: ...
     # __setattr__() only allows to set a specific set of attributes,
     # already defined above.

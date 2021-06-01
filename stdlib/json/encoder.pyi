@@ -19,8 +19,8 @@ class JSONEncoder:
         allow_nan: bool = ...,
         sort_keys: bool = ...,
         indent: int | None = ...,
-        separators: Optional[Tuple[str, str]] = ...,
-        default: Optional[Callable[..., Any]] = ...,
+        separators: Tuple[str, str] | None = ...,
+        default: Callable[..., Any] | None = ...,
     ) -> None: ...
     def default(self, o: Any) -> Any: ...
     def encode(self, o: Any) -> str: ...

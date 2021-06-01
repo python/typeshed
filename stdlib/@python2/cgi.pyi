@@ -6,7 +6,7 @@ from UserDict import UserDict
 _T = TypeVar("_T", bound=FieldStorage)
 
 def parse(
-    fp: Optional[IO[Any]] = ...,
+    fp: IO[Any] | None = ...,
     environ: SupportsItemAccess[str, str] = ...,
     keep_blank_values: bool = ...,
     strict_parsing: bool = ...,
@@ -32,7 +32,7 @@ class MiniFieldStorage:
     filename: Any
     list: Any
     type: Any
-    file: Optional[IO[bytes]]
+    file: IO[bytes] | None
     type_options: dict[Any, Any]
     disposition: Any
     disposition_options: dict[Any, Any]
@@ -57,13 +57,13 @@ class FieldStorage(object):
     disposition: str
     disposition_options: dict[str, str]
     filename: str | None
-    file: Optional[IO[bytes]]
+    file: IO[bytes] | None
     type: str
     type_options: dict[str, str]
     innerboundary: bytes
     length: int
     done: int
-    list: Optional[List[Any]]
+    list: List[Any] | None
     value: None | bytes | List[Any]
     def __init__(
         self,

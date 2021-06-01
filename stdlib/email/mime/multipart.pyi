@@ -10,7 +10,7 @@ class MIMEMultipart(MIMEBase):
         self,
         _subtype: str = ...,
         boundary: str | None = ...,
-        _subparts: Optional[Sequence[Message]] = ...,
+        _subparts: Sequence[Message] | None = ...,
         *,
         policy: Policy | None = ...,
         **_params: _ParamsType,

@@ -38,7 +38,7 @@ class Pool(ContextManager[Pool]):
     def __init__(
         self,
         processes: int | None = ...,
-        initializer: Optional[Callable[..., None]] = ...,
+        initializer: Callable[..., None] | None = ...,
         initargs: Iterable[Any] = ...,
         maxtasksperchild: int | None = ...,
         context: Any | None = ...,
@@ -81,7 +81,7 @@ class Pool(ContextManager[Pool]):
 
 class ThreadPool(Pool, ContextManager[ThreadPool]):
     def __init__(
-        self, processes: int | None = ..., initializer: Optional[Callable[..., Any]] = ..., initargs: Iterable[Any] = ...
+        self, processes: int | None = ..., initializer: Callable[..., Any] | None = ..., initargs: Iterable[Any] = ...
     ) -> None: ...
 
 # undocumented

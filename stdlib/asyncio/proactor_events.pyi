@@ -8,7 +8,7 @@ from . import base_events, constants, events, futures, streams, transports
 if sys.version_info >= (3, 8):
     class _WarnCallbackProtocol(Protocol):
         def __call__(
-            self, message: str, category: Optional[Type[Warning]] = ..., stacklevel: int = ..., source: Any | None = ...
+            self, message: str, category: Type[Warning] | None = ..., stacklevel: int = ..., source: Any | None = ...
         ) -> None: ...
 
 class _ProactorBasePipeTransport(transports._FlowControlMixin, transports.BaseTransport):
@@ -17,8 +17,8 @@ class _ProactorBasePipeTransport(transports._FlowControlMixin, transports.BaseTr
         loop: events.AbstractEventLoop,
         sock: socket,
         protocol: streams.StreamReaderProtocol,
-        waiter: Optional[futures.Future[Any]] = ...,
-        extra: Optional[Mapping[Any, Any]] = ...,
+        waiter: futures.Future[Any] | None = ...,
+        extra: Mapping[Any, Any] | None = ...,
         server: events.AbstractServer | None = ...,
     ) -> None: ...
     def __repr__(self) -> str: ...
@@ -34,8 +34,8 @@ class _ProactorReadPipeTransport(_ProactorBasePipeTransport, transports.ReadTran
         loop: events.AbstractEventLoop,
         sock: socket,
         protocol: streams.StreamReaderProtocol,
-        waiter: Optional[futures.Future[Any]] = ...,
-        extra: Optional[Mapping[Any, Any]] = ...,
+        waiter: futures.Future[Any] | None = ...,
+        extra: Mapping[Any, Any] | None = ...,
         server: events.AbstractServer | None = ...,
     ) -> None: ...
 
@@ -45,8 +45,8 @@ class _ProactorBaseWritePipeTransport(_ProactorBasePipeTransport, transports.Wri
         loop: events.AbstractEventLoop,
         sock: socket,
         protocol: streams.StreamReaderProtocol,
-        waiter: Optional[futures.Future[Any]] = ...,
-        extra: Optional[Mapping[Any, Any]] = ...,
+        waiter: futures.Future[Any] | None = ...,
+        extra: Mapping[Any, Any] | None = ...,
         server: events.AbstractServer | None = ...,
     ) -> None: ...
 
@@ -56,8 +56,8 @@ class _ProactorWritePipeTransport(_ProactorBaseWritePipeTransport):
         loop: events.AbstractEventLoop,
         sock: socket,
         protocol: streams.StreamReaderProtocol,
-        waiter: Optional[futures.Future[Any]] = ...,
-        extra: Optional[Mapping[Any, Any]] = ...,
+        waiter: futures.Future[Any] | None = ...,
+        extra: Mapping[Any, Any] | None = ...,
         server: events.AbstractServer | None = ...,
     ) -> None: ...
 
@@ -71,8 +71,8 @@ class _ProactorSocketTransport(_ProactorReadPipeTransport, _ProactorBaseWritePip
         loop: events.AbstractEventLoop,
         sock: socket,
         protocol: streams.StreamReaderProtocol,
-        waiter: Optional[futures.Future[Any]] = ...,
-        extra: Optional[Mapping[Any, Any]] = ...,
+        waiter: futures.Future[Any] | None = ...,
+        extra: Mapping[Any, Any] | None = ...,
         server: events.AbstractServer | None = ...,
     ) -> None: ...
     def _set_extra(self, sock: socket) -> None: ...

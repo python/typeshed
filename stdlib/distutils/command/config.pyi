@@ -13,9 +13,9 @@ class config(Command):
     user_options: Sequence[Tuple[str, str | None, str]] = ...
     compiler: str | CCompiler | None = ...
     cc: str | None = ...
-    include_dirs: Optional[Sequence[str]] = ...
-    libraries: Optional[Sequence[str]] = ...
-    library_dirs: Optional[Sequence[str]] = ...
+    include_dirs: Sequence[str] | None = ...
+    libraries: Sequence[str] | None = ...
+    library_dirs: Sequence[str] | None = ...
     noisy: int = ...
     dump_source: int = ...
     temp_files: Sequence[str] = ...
@@ -25,62 +25,62 @@ class config(Command):
     def try_cpp(
         self,
         body: str | None = ...,
-        headers: Optional[Sequence[str]] = ...,
-        include_dirs: Optional[Sequence[str]] = ...,
+        headers: Sequence[str] | None = ...,
+        include_dirs: Sequence[str] | None = ...,
         lang: str = ...,
     ) -> bool: ...
     def search_cpp(
         self,
         pattern: Pattern[str] | str,
         body: str | None = ...,
-        headers: Optional[Sequence[str]] = ...,
-        include_dirs: Optional[Sequence[str]] = ...,
+        headers: Sequence[str] | None = ...,
+        include_dirs: Sequence[str] | None = ...,
         lang: str = ...,
     ) -> bool: ...
     def try_compile(
-        self, body: str, headers: Optional[Sequence[str]] = ..., include_dirs: Optional[Sequence[str]] = ..., lang: str = ...
+        self, body: str, headers: Sequence[str] | None = ..., include_dirs: Sequence[str] | None = ..., lang: str = ...
     ) -> bool: ...
     def try_link(
         self,
         body: str,
-        headers: Optional[Sequence[str]] = ...,
-        include_dirs: Optional[Sequence[str]] = ...,
-        libraries: Optional[Sequence[str]] = ...,
-        library_dirs: Optional[Sequence[str]] = ...,
+        headers: Sequence[str] | None = ...,
+        include_dirs: Sequence[str] | None = ...,
+        libraries: Sequence[str] | None = ...,
+        library_dirs: Sequence[str] | None = ...,
         lang: str = ...,
     ) -> bool: ...
     def try_run(
         self,
         body: str,
-        headers: Optional[Sequence[str]] = ...,
-        include_dirs: Optional[Sequence[str]] = ...,
-        libraries: Optional[Sequence[str]] = ...,
-        library_dirs: Optional[Sequence[str]] = ...,
+        headers: Sequence[str] | None = ...,
+        include_dirs: Sequence[str] | None = ...,
+        libraries: Sequence[str] | None = ...,
+        library_dirs: Sequence[str] | None = ...,
         lang: str = ...,
     ) -> bool: ...
     def check_func(
         self,
         func: str,
-        headers: Optional[Sequence[str]] = ...,
-        include_dirs: Optional[Sequence[str]] = ...,
-        libraries: Optional[Sequence[str]] = ...,
-        library_dirs: Optional[Sequence[str]] = ...,
+        headers: Sequence[str] | None = ...,
+        include_dirs: Sequence[str] | None = ...,
+        libraries: Sequence[str] | None = ...,
+        library_dirs: Sequence[str] | None = ...,
         decl: int = ...,
         call: int = ...,
     ) -> bool: ...
     def check_lib(
         self,
         library: str,
-        library_dirs: Optional[Sequence[str]] = ...,
-        headers: Optional[Sequence[str]] = ...,
-        include_dirs: Optional[Sequence[str]] = ...,
+        library_dirs: Sequence[str] | None = ...,
+        headers: Sequence[str] | None = ...,
+        include_dirs: Sequence[str] | None = ...,
         other_libraries: List[str] = ...,
     ) -> bool: ...
     def check_header(
         self,
         header: str,
-        include_dirs: Optional[Sequence[str]] = ...,
-        library_dirs: Optional[Sequence[str]] = ...,
+        include_dirs: Sequence[str] | None = ...,
+        library_dirs: Sequence[str] | None = ...,
         lang: str = ...,
     ) -> bool: ...
 

@@ -14,13 +14,13 @@ class DistributionMetadata:
     license: str | None
     description: str | None
     long_description: str | None
-    keywords: Optional[str | List[str]]
-    platforms: Optional[str | List[str]]
-    classifiers: Optional[str | List[str]]
+    keywords: str | List[str] | None
+    platforms: str | List[str] | None
+    classifiers: str | List[str] | None
     download_url: str | None
-    provides: Optional[List[str]]
-    requires: Optional[List[str]]
-    obsoletes: Optional[List[str]]
+    provides: List[str] | None
+    requires: List[str] | None
+    obsoletes: List[str] | None
     def read_pkg_file(self, file: IO[str]) -> None: ...
     def write_pkg_info(self, base_dir: str) -> None: ...
     def write_pkg_file(self, file: SupportsWrite[str]) -> None: ...
@@ -52,7 +52,7 @@ class DistributionMetadata:
 class Distribution:
     cmdclass: Dict[str, Type[Command]]
     metadata: DistributionMetadata
-    def __init__(self, attrs: Optional[Mapping[str, Any]] = ...) -> None: ...
+    def __init__(self, attrs: Mapping[str, Any] | None = ...) -> None: ...
     def get_option_dict(self, command: str) -> Dict[str, Tuple[str, str]]: ...
-    def parse_config_files(self, filenames: Optional[Iterable[str]] = ...) -> None: ...
+    def parse_config_files(self, filenames: Iterable[str] | None = ...) -> None: ...
     def get_command_obj(self, command: str, create: bool = ...) -> Command | None: ...

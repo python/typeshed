@@ -101,7 +101,7 @@ class FTP_TLS(FTP):
         certfile: str | None = ...,
         context: SSLContext | None = ...,
         timeout: float = ...,
-        source_address: Optional[Tuple[str, int]] = ...,
+        source_address: Tuple[str, int] | None = ...,
     ) -> None: ...
     ssl_version: int
     keyfile: str | None

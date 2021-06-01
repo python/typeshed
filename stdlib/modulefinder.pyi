@@ -34,15 +34,15 @@ class ModuleFinder:
     if sys.version_info >= (3, 8):
         def __init__(
             self,
-            path: Optional[List[str]] = ...,
+            path: List[str] | None = ...,
             debug: int = ...,
-            excludes: Optional[Container[str]] = ...,
+            excludes: Container[str] | None = ...,
             replace_paths: Optional[Sequence[Tuple[str, str]]] = ...,
         ) -> None: ...
     else:
         def __init__(
             self,
-            path: Optional[List[str]] = ...,
+            path: List[str] | None = ...,
             debug: int = ...,
             excludes: Container[str] = ...,
             replace_paths: Sequence[Tuple[str, str]] = ...,
@@ -53,7 +53,7 @@ class ModuleFinder:
     def run_script(self, pathname: str) -> None: ...
     def load_file(self, pathname: str) -> None: ...  # undocumented
     def import_hook(
-        self, name: str, caller: Module | None = ..., fromlist: Optional[List[str]] = ..., level: int = ...
+        self, name: str, caller: Module | None = ..., fromlist: List[str] | None = ..., level: int = ...
     ) -> Module | None: ...  # undocumented
     def determine_parent(self, caller: Module | None, level: int = ...) -> Module | None: ...  # undocumented
     def find_head_package(self, parent: Module, name: str) -> Tuple[Module, str]: ...  # undocumented
@@ -68,7 +68,7 @@ class ModuleFinder:
     def add_module(self, fqname: str) -> Module: ...  # undocumented
     def find_module(
         self, name: str, path: str | None, parent: Module | None = ...
-    ) -> Tuple[Optional[IO[Any]], str | None, Tuple[str, str, int]]: ...  # undocumented
+    ) -> Tuple[IO[Any] | None, str | None, Tuple[str, str, int]]: ...  # undocumented
     def report(self) -> None: ...
     def any_missing(self) -> List[str]: ...  # undocumented
     def any_missing_maybe(self) -> Tuple[List[str], List[str]]: ...  # undocumented

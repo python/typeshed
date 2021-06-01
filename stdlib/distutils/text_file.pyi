@@ -4,7 +4,7 @@ class TextFile:
     def __init__(
         self,
         filename: str | None = ...,
-        file: Optional[IO[str]] = ...,
+        file: IO[str] | None = ...,
         *,
         strip_comments: bool = ...,
         lstrip_ws: bool = ...,

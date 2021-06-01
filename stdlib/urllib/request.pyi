@@ -54,7 +54,7 @@ if sys.platform == "win32" or sys.platform == "darwin":
     def proxy_bypass(host: str) -> Any: ...  # Undocumented
 
 else:
-    def proxy_bypass(host: str, proxies: Optional[Mapping[str, str]] = ...) -> Any: ...  # Undocumented
+    def proxy_bypass(host: str, proxies: Mapping[str, str] | None = ...) -> Any: ...  # Undocumented
 
 class Request:
     @property
@@ -143,7 +143,7 @@ class HTTPCookieProcessor(BaseHandler):
     def https_response(self, request: Request, response: HTTPResponse) -> HTTPResponse: ...  # undocumented
 
 class ProxyHandler(BaseHandler):
-    def __init__(self, proxies: Optional[Dict[str, str]] = ...) -> None: ...
+    def __init__(self, proxies: Dict[str, str] | None = ...) -> None: ...
     def proxy_open(self, req: Request, proxy: str, type: str) -> _UrlopenRet | None: ...  # undocumented
     # TODO add a method for every (common) proxy protocol
 
@@ -228,7 +228,7 @@ class HTTPSHandler(AbstractHTTPHandler):
     def https_request(self, request: Request) -> Request: ...  # undocumented
 
 class FileHandler(BaseHandler):
-    names: ClassVar[Optional[Tuple[str, ...]]]  # undocumented
+    names: ClassVar[Tuple[str, ...] | None]  # undocumented
     def file_open(self, req: Request) -> addinfourl: ...
     def get_names(self) -> Tuple[str, ...]: ...  # undocumented
     def open_local_file(self, req: Request) -> addinfourl: ...  # undocumented
@@ -279,7 +279,7 @@ def urlcleanup() -> None: ...
 
 class URLopener:
     version: ClassVar[str]
-    def __init__(self, proxies: Optional[Dict[str, str]] = ..., **x509: str) -> None: ...
+    def __init__(self, proxies: Dict[str, str] | None = ..., **x509: str) -> None: ...
     def open(self, fullurl: str, data: bytes | None = ...) -> _UrlopenRet: ...
     def open_unknown(self, fullurl: str, data: bytes | None = ...) -> _UrlopenRet: ...
     def retrieve(

@@ -21,12 +21,12 @@ class TestProgram:
     warnings: str | None
 
     if sys.version_info >= (3, 7):
-        testNamePatterns: Optional[List[str]]
+        testNamePatterns: List[str] | None
     def __init__(
         self,
         module: None | str | ModuleType = ...,
         defaultTest: str | Iterable[str] | None = ...,
-        argv: Optional[List[str]] = ...,
+        argv: List[str] | None = ...,
         testRunner: Type[_TestRunner] | _TestRunner | None = ...,
         testLoader: unittest.loader.TestLoader = ...,
         exit: bool = ...,

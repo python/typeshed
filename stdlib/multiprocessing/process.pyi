@@ -8,7 +8,7 @@ class BaseProcess:
     def __init__(
         self,
         group: None = ...,
-        target: Optional[Callable[..., Any]] = ...,
+        target: Callable[..., Any] | None = ...,
         name: str | None = ...,
         args: Tuple[Any, ...] = ...,
         kwargs: Mapping[str, Any] = ...,

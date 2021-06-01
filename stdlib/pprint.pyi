@@ -32,7 +32,7 @@ else:
 if sys.version_info >= (3, 10):
     def pp(
         object: object,
-        stream: Optional[IO[str]] = ...,
+        stream: IO[str] | None = ...,
         indent: int = ...,
         width: int = ...,
         depth: int | None = ...,
@@ -45,7 +45,7 @@ if sys.version_info >= (3, 10):
 elif sys.version_info >= (3, 8):
     def pp(
         object: object,
-        stream: Optional[IO[str]] = ...,
+        stream: IO[str] | None = ...,
         indent: int = ...,
         width: int = ...,
         depth: int | None = ...,
@@ -57,7 +57,7 @@ elif sys.version_info >= (3, 8):
 if sys.version_info >= (3, 10):
     def pprint(
         object: object,
-        stream: Optional[IO[str]] = ...,
+        stream: IO[str] | None = ...,
         indent: int = ...,
         width: int = ...,
         depth: int | None = ...,
@@ -70,7 +70,7 @@ if sys.version_info >= (3, 10):
 elif sys.version_info >= (3, 8):
     def pprint(
         object: object,
-        stream: Optional[IO[str]] = ...,
+        stream: IO[str] | None = ...,
         indent: int = ...,
         width: int = ...,
         depth: int | None = ...,
@@ -82,7 +82,7 @@ elif sys.version_info >= (3, 8):
 else:
     def pprint(
         object: object,
-        stream: Optional[IO[str]] = ...,
+        stream: IO[str] | None = ...,
         indent: int = ...,
         width: int = ...,
         depth: int | None = ...,
@@ -101,7 +101,7 @@ class PrettyPrinter:
             indent: int = ...,
             width: int = ...,
             depth: int | None = ...,
-            stream: Optional[IO[str]] = ...,
+            stream: IO[str] | None = ...,
             *,
             compact: bool = ...,
             sort_dicts: bool = ...,
@@ -113,7 +113,7 @@ class PrettyPrinter:
             indent: int = ...,
             width: int = ...,
             depth: int | None = ...,
-            stream: Optional[IO[str]] = ...,
+            stream: IO[str] | None = ...,
             *,
             compact: bool = ...,
             sort_dicts: bool = ...,
@@ -124,7 +124,7 @@ class PrettyPrinter:
             indent: int = ...,
             width: int = ...,
             depth: int | None = ...,
-            stream: Optional[IO[str]] = ...,
+            stream: IO[str] | None = ...,
             *,
             compact: bool = ...,
         ) -> None: ...

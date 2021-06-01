@@ -54,7 +54,7 @@ exec_prefix: str
 executable: str
 float_repr_style: str
 hexversion: int
-last_type: Optional[Type[BaseException]]
+last_type: Type[BaseException] | None
 last_value: BaseException | None
 last_traceback: TracebackType | None
 maxsize: int

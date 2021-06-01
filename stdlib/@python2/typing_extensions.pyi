@@ -67,8 +67,8 @@ OrderedDict = _Alias()
 
 def get_type_hints(
     obj: Callable[..., Any],
-    globalns: Optional[Dict[str, Any]] = ...,
-    localns: Optional[Dict[str, Any]] = ...,
+    globalns: Dict[str, Any] | None = ...,
+    localns: Dict[str, Any] | None = ...,
     include_extras: bool = ...,
 ) -> Dict[str, Any]: ...
 
@@ -91,7 +91,7 @@ class ParamSpecKwargs:
 
 class ParamSpec:
     __name__: str
-    __bound__: Optional[Type[Any]]
+    __bound__: Type[Any] | None
     __covariant__: bool
     __contravariant__: bool
     def __init__(

@@ -237,7 +237,7 @@ class TextTestRunner:
         verbosity: int = ...,
         failfast: bool = ...,
         buffer: bool = ...,
-        resultclass: Optional[Type[TestResult]] = ...,
+        resultclass: Type[TestResult] | None = ...,
     ) -> None: ...
     def _makeResult(self) -> TestResult: ...
     def run(self, test: Testable) -> TestResult: ...  # undocumented
@@ -258,7 +258,7 @@ class TestProgram:
 def main(
     module: None | Text | types.ModuleType = ...,
     defaultTest: str | None = ...,
-    argv: Optional[Sequence[str]] = ...,
+    argv: Sequence[str] | None = ...,
     testRunner: Type[TextTestRunner] | TextTestRunner | None = ...,
     testLoader: TestLoader = ...,
     exit: bool = ...,

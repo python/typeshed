@@ -156,8 +156,8 @@ def genops(pickle: bytes | IO[bytes]) -> Iterator[Tuple[OpcodeInfo, Any | None, 
 def optimize(p: bytes | IO[bytes]) -> bytes: ...
 def dis(
     pickle: bytes | IO[bytes],
-    out: Optional[IO[str]] = ...,
-    memo: Optional[MutableMapping[int, Any]] = ...,
+    out: IO[str] | None = ...,
+    memo: MutableMapping[int, Any] | None = ...,
     indentlevel: int = ...,
     annotate: int = ...,
 ) -> None: ...

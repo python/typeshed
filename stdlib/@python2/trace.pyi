@@ -10,7 +10,7 @@ class CoverageResults:
     def __init__(
         self,
         counts: Optional[Dict[Tuple[str, int], int]] = ...,
-        calledfuncs: Optional[Dict[_fileModuleFunction, int]] = ...,
+        calledfuncs: Dict[_fileModuleFunction, int] | None = ...,
         infile: StrPath | None = ...,
         callers: Optional[Dict[Tuple[_fileModuleFunction, _fileModuleFunction], int]] = ...,
         outfile: StrPath | None = ...,
@@ -38,8 +38,8 @@ class Trace:
     def runctx(
         self,
         cmd: str | types.CodeType,
-        globals: Optional[Mapping[str, Any]] = ...,
-        locals: Optional[Mapping[str, Any]] = ...,
+        globals: Mapping[str, Any] | None = ...,
+        locals: Mapping[str, Any] | None = ...,
     ) -> None: ...
     def runfunc(self, func: Callable[..., _T], *args: Any, **kw: Any) -> _T: ...
     def file_module_function_of(self, frame: types.FrameType) -> _fileModuleFunction: ...

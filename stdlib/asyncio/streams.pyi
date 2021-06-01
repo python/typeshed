@@ -4,7 +4,7 @@ from typing import Any, AsyncIterator, Awaitable, Callable, Iterable, Optional, 
 
 from . import events, protocols, transports
 
-_ClientConnectedCallback = Callable[[StreamReader, StreamWriter], Optional[Awaitable[None]]]
+_ClientConnectedCallback = Callable[[StreamReader, StreamWriter], Awaitable[None] | None]
 
 if sys.version_info < (3, 8):
     class IncompleteReadError(EOFError):

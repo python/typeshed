@@ -163,7 +163,7 @@ class GeneratorType(Generator[_T_co, _T_contra, _V_co]):
     gi_code: CodeType
     gi_frame: FrameType
     gi_running: bool
-    gi_yieldfrom: Optional[GeneratorType[_T_co, _T_contra, Any]]
+    gi_yieldfrom: GeneratorType[_T_co, _T_contra, Any] | None
     def __iter__(self) -> GeneratorType[_T_co, _T_contra, _V_co]: ...
     def __next__(self) -> _T_co: ...
     def close(self) -> None: ...
@@ -176,7 +176,7 @@ class GeneratorType(Generator[_T_co, _T_contra, _V_co]):
     def throw(self, __typ: BaseException, __val: None = ..., __tb: TracebackType | None = ...) -> _T_co: ...
 
 class AsyncGeneratorType(AsyncGenerator[_T_co, _T_contra]):
-    ag_await: Optional[Awaitable[Any]]
+    ag_await: Awaitable[Any] | None
     ag_frame: FrameType
     ag_running: bool
     ag_code: CodeType
@@ -312,7 +312,7 @@ if sys.version_info >= (3, 7):
     def new_class(
         name: str,
         bases: Iterable[object] = ...,
-        kwds: Optional[Dict[str, Any]] = ...,
+        kwds: Dict[str, Any] | None = ...,
         exec_body: Optional[Callable[[Dict[str, Any]], None]] = ...,
     ) -> type: ...
     def resolve_bases(bases: Iterable[object]) -> Tuple[Any, ...]: ...
@@ -321,12 +321,12 @@ else:
     def new_class(
         name: str,
         bases: Tuple[type, ...] = ...,
-        kwds: Optional[Dict[str, Any]] = ...,
+        kwds: Dict[str, Any] | None = ...,
         exec_body: Optional[Callable[[Dict[str, Any]], None]] = ...,
     ) -> type: ...
 
 def prepare_class(
-    name: str, bases: Tuple[type, ...] = ..., kwds: Optional[Dict[str, Any]] = ...
+    name: str, bases: Tuple[type, ...] = ..., kwds: Dict[str, Any] | None = ...
 ) -> Tuple[type, Dict[str, Any], Dict[str, Any]]: ...
 
 # Actually a different type, but `property` is special and we want that too.

@@ -71,7 +71,7 @@ if sys.version_info >= (3, 7):
         detect_types: int = ...,
         isolation_level: str | None = ...,
         check_same_thread: bool = ...,
-        factory: Optional[Type[Connection]] = ...,
+        factory: Type[Connection] | None = ...,
         cached_statements: int = ...,
         uri: bool = ...,
     ) -> Connection: ...
@@ -83,7 +83,7 @@ else:
         detect_types: int = ...,
         isolation_level: str | None = ...,
         check_same_thread: bool = ...,
-        factory: Optional[Type[Connection]] = ...,
+        factory: Type[Connection] | None = ...,
         cached_statements: int = ...,
         uri: bool = ...,
     ) -> Connection: ...

@@ -61,7 +61,7 @@ if sys.platform != "win32":
 if sys.platform != "win32":
     class ForkingMixIn:
         timeout: float | None  # undocumented
-        active_children: Optional[List[int]]  # undocumented
+        active_children: List[int] | None  # undocumented
         max_children: int  # undocumented
         def collect_children(self) -> None: ...  # undocumented
         def handle_timeout(self) -> None: ...  # undocumented

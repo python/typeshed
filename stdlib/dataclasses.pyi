@@ -111,7 +111,7 @@ if sys.version_info >= (3, 10):
         repr: bool = ...,
         hash: bool | None = ...,
         compare: bool = ...,
-        metadata: Optional[Mapping[str, Any]] = ...,
+        metadata: Mapping[str, Any] | None = ...,
         kw_only: bool = ...,
     ) -> _T: ...
     @overload
@@ -122,7 +122,7 @@ if sys.version_info >= (3, 10):
         repr: bool = ...,
         hash: bool | None = ...,
         compare: bool = ...,
-        metadata: Optional[Mapping[str, Any]] = ...,
+        metadata: Mapping[str, Any] | None = ...,
         kw_only: bool = ...,
     ) -> _T: ...
     @overload
@@ -132,7 +132,7 @@ if sys.version_info >= (3, 10):
         repr: bool = ...,
         hash: bool | None = ...,
         compare: bool = ...,
-        metadata: Optional[Mapping[str, Any]] = ...,
+        metadata: Mapping[str, Any] | None = ...,
         kw_only: bool = ...,
     ) -> Any: ...
 
@@ -145,7 +145,7 @@ else:
         repr: bool = ...,
         hash: bool | None = ...,
         compare: bool = ...,
-        metadata: Optional[Mapping[str, Any]] = ...,
+        metadata: Mapping[str, Any] | None = ...,
     ) -> _T: ...
     @overload
     def field(
@@ -155,7 +155,7 @@ else:
         repr: bool = ...,
         hash: bool | None = ...,
         compare: bool = ...,
-        metadata: Optional[Mapping[str, Any]] = ...,
+        metadata: Mapping[str, Any] | None = ...,
     ) -> _T: ...
     @overload
     def field(
@@ -164,7 +164,7 @@ else:
         repr: bool = ...,
         hash: bool | None = ...,
         compare: bool = ...,
-        metadata: Optional[Mapping[str, Any]] = ...,
+        metadata: Mapping[str, Any] | None = ...,
     ) -> Any: ...
 
 def fields(class_or_instance: Any) -> Tuple[Field[Any], ...]: ...
@@ -187,7 +187,7 @@ if sys.version_info >= (3, 10):
         fields: Iterable[Union[str, Tuple[str, type], Tuple[str, type, Field[Any]]]],
         *,
         bases: Tuple[type, ...] = ...,
-        namespace: Optional[Dict[str, Any]] = ...,
+        namespace: Dict[str, Any] | None = ...,
         init: bool = ...,
         repr: bool = ...,
         eq: bool = ...,
@@ -204,7 +204,7 @@ else:
         fields: Iterable[Union[str, Tuple[str, type], Tuple[str, type, Field[Any]]]],
         *,
         bases: Tuple[type, ...] = ...,
-        namespace: Optional[Dict[str, Any]] = ...,
+        namespace: Dict[str, Any] | None = ...,
         init: bool = ...,
         repr: bool = ...,
         eq: bool = ...,

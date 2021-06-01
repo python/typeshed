@@ -33,13 +33,13 @@ class GNUTranslations(NullTranslations):
     BE_MAGIC: int
 
 def find(
-    domain: str, localedir: str | None = ..., languages: Optional[Sequence[str]] = ..., all: Any = ...
-) -> Optional[str | List[str]]: ...
+    domain: str, localedir: str | None = ..., languages: Sequence[str] | None = ..., all: Any = ...
+) -> str | List[str] | None: ...
 def translation(
     domain: str,
     localedir: str | None = ...,
-    languages: Optional[Sequence[str]] = ...,
-    class_: Optional[Type[NullTranslations]] = ...,
+    languages: Sequence[str] | None = ...,
+    class_: Type[NullTranslations] | None = ...,
     fallback: bool = ...,
     codeset: str | None = ...,
 ) -> NullTranslations: ...

@@ -72,16 +72,16 @@ ENCODING: str
 def open(
     name: StrOrBytesPath | None = ...,
     mode: str = ...,
-    fileobj: Optional[IO[bytes]] = ...,  # depends on mode
+    fileobj: IO[bytes] | None = ...,  # depends on mode
     bufsize: int = ...,
     *,
     format: int | None = ...,
-    tarinfo: Optional[Type[TarInfo]] = ...,
+    tarinfo: Type[TarInfo] | None = ...,
     dereference: bool | None = ...,
     ignore_zeros: bool | None = ...,
     encoding: str | None = ...,
     errors: str = ...,
-    pax_headers: Optional[Mapping[str, str]] = ...,
+    pax_headers: Mapping[str, str] | None = ...,
     debug: int | None = ...,
     errorlevel: int | None = ...,
     compresslevel: int | None = ...,
@@ -102,7 +102,7 @@ class TarFile:
     encoding: str | None
     errors: str
     fileobject: Type[ExFileObject]
-    pax_headers: Optional[Mapping[str, str]]
+    pax_headers: Mapping[str, str] | None
     debug: int | None
     errorlevel: int | None
     offset: int  # undocumented
@@ -112,19 +112,19 @@ class TarFile:
         mode: Literal["r", "a", "w", "x"] = ...,
         fileobj: _Fileobj | None = ...,
         format: int | None = ...,
-        tarinfo: Optional[Type[TarInfo]] = ...,
+        tarinfo: Type[TarInfo] | None = ...,
         dereference: bool | None = ...,
         ignore_zeros: bool | None = ...,
         encoding: str | None = ...,
         errors: str = ...,
-        pax_headers: Optional[Mapping[str, str]] = ...,
+        pax_headers: Mapping[str, str] | None = ...,
         debug: int | None = ...,
         errorlevel: int | None = ...,
         copybufsize: int | None = ...,  # undocumented
     ) -> None: ...
     def __enter__(self) -> TarFile: ...
     def __exit__(
-        self, exc_type: Optional[Type[BaseException]], exc_val: BaseException | None, exc_tb: TracebackType | None
+        self, exc_type: Type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
     ) -> None: ...
     def __iter__(self) -> Iterator[TarInfo]: ...
     @classmethod
@@ -132,16 +132,16 @@ class TarFile:
         cls,
         name: StrOrBytesPath | None = ...,
         mode: str = ...,
-        fileobj: Optional[IO[bytes]] = ...,  # depends on mode
+        fileobj: IO[bytes] | None = ...,  # depends on mode
         bufsize: int = ...,
         *,
         format: int | None = ...,
-        tarinfo: Optional[Type[TarInfo]] = ...,
+        tarinfo: Type[TarInfo] | None = ...,
         dereference: bool | None = ...,
         ignore_zeros: bool | None = ...,
         encoding: str | None = ...,
         errors: str = ...,
-        pax_headers: Optional[Mapping[str, str]] = ...,
+        pax_headers: Mapping[str, str] | None = ...,
         debug: int | None = ...,
         errorlevel: int | None = ...,
     ) -> TarFile: ...
@@ -154,11 +154,11 @@ class TarFile:
         *,
         compresslevel: int = ...,
         format: int | None = ...,
-        tarinfo: Optional[Type[TarInfo]] = ...,
+        tarinfo: Type[TarInfo] | None = ...,
         dereference: bool | None = ...,
         ignore_zeros: bool | None = ...,
         encoding: str | None = ...,
-        pax_headers: Optional[Mapping[str, str]] = ...,
+        pax_headers: Mapping[str, str] | None = ...,
         debug: int | None = ...,
         errorlevel: int | None = ...,
     ) -> TarFile: ...
@@ -172,11 +172,11 @@ class TarFile:
         compresslevel: int = ...,
         *,
         format: int | None = ...,
-        tarinfo: Optional[Type[TarInfo]] = ...,
+        tarinfo: Type[TarInfo] | None = ...,
         dereference: bool | None = ...,
         ignore_zeros: bool | None = ...,
         encoding: str | None = ...,
-        pax_headers: Optional[Mapping[str, str]] = ...,
+        pax_headers: Mapping[str, str] | None = ...,
         debug: int | None = ...,
         errorlevel: int | None = ...,
     ) -> TarFile: ...
@@ -190,11 +190,11 @@ class TarFile:
         compresslevel: int = ...,
         *,
         format: int | None = ...,
-        tarinfo: Optional[Type[TarInfo]] = ...,
+        tarinfo: Type[TarInfo] | None = ...,
         dereference: bool | None = ...,
         ignore_zeros: bool | None = ...,
         encoding: str | None = ...,
-        pax_headers: Optional[Mapping[str, str]] = ...,
+        pax_headers: Mapping[str, str] | None = ...,
         debug: int | None = ...,
         errorlevel: int | None = ...,
     ) -> TarFile: ...
@@ -208,11 +208,11 @@ class TarFile:
         compresslevel: int = ...,
         *,
         format: int | None = ...,
-        tarinfo: Optional[Type[TarInfo]] = ...,
+        tarinfo: Type[TarInfo] | None = ...,
         dereference: bool | None = ...,
         ignore_zeros: bool | None = ...,
         encoding: str | None = ...,
-        pax_headers: Optional[Mapping[str, str]] = ...,
+        pax_headers: Mapping[str, str] | None = ...,
         debug: int | None = ...,
         errorlevel: int | None = ...,
     ) -> TarFile: ...
@@ -226,11 +226,11 @@ class TarFile:
         compresslevel: int = ...,
         *,
         format: int | None = ...,
-        tarinfo: Optional[Type[TarInfo]] = ...,
+        tarinfo: Type[TarInfo] | None = ...,
         dereference: bool | None = ...,
         ignore_zeros: bool | None = ...,
         encoding: str | None = ...,
-        pax_headers: Optional[Mapping[str, str]] = ...,
+        pax_headers: Mapping[str, str] | None = ...,
         debug: int | None = ...,
         errorlevel: int | None = ...,
     ) -> TarFile: ...
@@ -239,30 +239,30 @@ class TarFile:
         cls,
         name: StrOrBytesPath | None,
         mode: Literal["r", "w", "x"] = ...,
-        fileobj: Optional[IO[bytes]] = ...,
+        fileobj: IO[bytes] | None = ...,
         preset: int | None = ...,
         *,
         format: int | None = ...,
-        tarinfo: Optional[Type[TarInfo]] = ...,
+        tarinfo: Type[TarInfo] | None = ...,
         dereference: bool | None = ...,
         ignore_zeros: bool | None = ...,
         encoding: str | None = ...,
-        pax_headers: Optional[Mapping[str, str]] = ...,
+        pax_headers: Mapping[str, str] | None = ...,
         debug: int | None = ...,
         errorlevel: int | None = ...,
     ) -> TarFile: ...
     def getmember(self, name: str) -> TarInfo: ...
     def getmembers(self) -> List[TarInfo]: ...
     def getnames(self) -> List[str]: ...
-    def list(self, verbose: bool = ..., *, members: Optional[List[TarInfo]] = ...) -> None: ...
+    def list(self, verbose: bool = ..., *, members: List[TarInfo] | None = ...) -> None: ...
     def next(self) -> TarInfo | None: ...
     def extractall(
-        self, path: StrOrBytesPath = ..., members: Optional[Iterable[TarInfo]] = ..., *, numeric_owner: bool = ...
+        self, path: StrOrBytesPath = ..., members: Iterable[TarInfo] | None = ..., *, numeric_owner: bool = ...
     ) -> None: ...
     def extract(
         self, member: str | TarInfo, path: StrOrBytesPath = ..., set_attrs: bool = ..., *, numeric_owner: bool = ...
     ) -> None: ...
-    def extractfile(self, member: str | TarInfo) -> Optional[IO[bytes]]: ...
+    def extractfile(self, member: str | TarInfo) -> IO[bytes] | None: ...
     def makedir(self, tarinfo: TarInfo, targetpath: StrOrBytesPath) -> None: ...  # undocumented
     def makefile(self, tarinfo: TarInfo, targetpath: StrOrBytesPath) -> None: ...  # undocumented
     def makeunknown(self, tarinfo: TarInfo, targetpath: StrOrBytesPath) -> None: ...  # undocumented
@@ -291,9 +291,9 @@ class TarFile:
             *,
             filter: Optional[Callable[[TarInfo], TarInfo | None]] = ...,
         ) -> None: ...
-    def addfile(self, tarinfo: TarInfo, fileobj: Optional[IO[bytes]] = ...) -> None: ...
+    def addfile(self, tarinfo: TarInfo, fileobj: IO[bytes] | None = ...) -> None: ...
     def gettarinfo(
-        self, name: str | None = ..., arcname: str | None = ..., fileobj: Optional[IO[bytes]] = ...
+        self, name: str | None = ..., arcname: str | None = ..., fileobj: IO[bytes] | None = ...
     ) -> TarInfo: ...
     def close(self) -> None: ...
 

@@ -16,10 +16,10 @@ def default_loader(href: str | bytes | int, parse: str, encoding: str | None = .
 if sys.version_info >= (3, 9):
     def include(
         elem: Element,
-        loader: Optional[Callable[..., str | Element]] = ...,
+        loader: Callable[..., str | Element] | None = ...,
         base_url: str | None = ...,
         max_depth: int | None = ...,
     ) -> None: ...
 
 else:
-    def include(elem: Element, loader: Optional[Callable[..., str | Element]] = ...) -> None: ...
+    def include(elem: Element, loader: Callable[..., str | Element] | None = ...) -> None: ...

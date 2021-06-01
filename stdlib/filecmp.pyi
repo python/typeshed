@@ -21,8 +21,8 @@ class dircmp(Generic[AnyStr]):
         self,
         a: AnyStr | PathLike[AnyStr],
         b: AnyStr | PathLike[AnyStr],
-        ignore: Optional[Sequence[AnyStr]] = ...,
-        hide: Optional[Sequence[AnyStr]] = ...,
+        ignore: Sequence[AnyStr] | None = ...,
+        hide: Sequence[AnyStr] | None = ...,
     ) -> None: ...
     left: AnyStr
     right: AnyStr

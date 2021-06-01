@@ -18,7 +18,7 @@ class Pool(object):
     def __init__(
         self,
         processes: int | None = ...,
-        initializer: Optional[Callable[..., None]] = ...,
+        initializer: Callable[..., None] | None = ...,
         initargs: Iterable[Any] = ...,
         maxtasksperchild: int | None = ...,
     ) -> None: ...
@@ -28,7 +28,7 @@ class Pool(object):
         func: Callable[..., Any],
         args: Iterable[Any] = ...,
         kwds: Dict[str, Any] = ...,
-        callback: Optional[Callable[..., None]] = ...,
+        callback: Callable[..., None] | None = ...,
     ) -> AsyncResult: ...
     def map(self, func: Callable[..., Any], iterable: Iterable[Any] = ..., chunksize: int | None = ...) -> List[Any]: ...
     def map_async(
@@ -36,7 +36,7 @@ class Pool(object):
         func: Callable[..., Any],
         iterable: Iterable[Any] = ...,
         chunksize: int | None = ...,
-        callback: Optional[Callable[..., None]] = ...,
+        callback: Callable[..., None] | None = ...,
     ) -> AsyncResult: ...
     def imap(self, func: Callable[..., Any], iterable: Iterable[Any] = ..., chunksize: int | None = ...) -> IMapIterator: ...
     def imap_unordered(
@@ -48,5 +48,5 @@ class Pool(object):
 
 class ThreadPool(Pool):
     def __init__(
-        self, processes: int | None = ..., initializer: Optional[Callable[..., Any]] = ..., initargs: Iterable[Any] = ...
+        self, processes: int | None = ..., initializer: Callable[..., Any] | None = ..., initargs: Iterable[Any] = ...
     ) -> None: ...

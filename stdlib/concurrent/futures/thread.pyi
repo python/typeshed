@@ -23,7 +23,7 @@ class ThreadPoolExecutor(Executor):
             self,
             max_workers: int | None = ...,
             thread_name_prefix: str = ...,
-            initializer: Optional[Callable[..., None]] = ...,
+            initializer: Callable[..., None] | None = ...,
             initargs: Tuple[Any, ...] = ...,
         ) -> None: ...
     else:

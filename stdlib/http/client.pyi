@@ -117,7 +117,7 @@ class HTTPResponse(io.BufferedIOBase, BinaryIO):
     def __iter__(self) -> Iterator[bytes]: ...
     def __enter__(self) -> HTTPResponse: ...
     def __exit__(
-        self, exc_type: Optional[Type[BaseException]], exc_val: BaseException | None, exc_tb: types.TracebackType | None
+        self, exc_type: Type[BaseException] | None, exc_val: BaseException | None, exc_tb: types.TracebackType | None
     ) -> bool | None: ...
     def info(self) -> email.message.Message: ...
     def geturl(self) -> str: ...
@@ -133,12 +133,12 @@ class _HTTPConnectionProtocol(Protocol):
             host: str,
             port: int | None = ...,
             timeout: float = ...,
-            source_address: Optional[Tuple[str, int]] = ...,
+            source_address: Tuple[str, int] | None = ...,
             blocksize: int = ...,
         ) -> HTTPConnection: ...
     else:
         def __call__(
-            self, host: str, port: int | None = ..., timeout: float = ..., source_address: Optional[Tuple[str, int]] = ...
+            self, host: str, port: int | None = ..., timeout: float = ..., source_address: Tuple[str, int] | None = ...
         ) -> HTTPConnection: ...
 
 class HTTPConnection:
@@ -152,7 +152,7 @@ class HTTPConnection:
             host: str,
             port: int | None = ...,
             timeout: float | None = ...,
-            source_address: Optional[Tuple[str, int]] = ...,
+            source_address: Tuple[str, int] | None = ...,
             blocksize: int = ...,
         ) -> None: ...
     else:
@@ -161,7 +161,7 @@ class HTTPConnection:
             host: str,
             port: int | None = ...,
             timeout: float | None = ...,
-            source_address: Optional[Tuple[str, int]] = ...,
+            source_address: Tuple[str, int] | None = ...,
         ) -> None: ...
     def request(
         self,
@@ -174,7 +174,7 @@ class HTTPConnection:
     ) -> None: ...
     def getresponse(self) -> HTTPResponse: ...
     def set_debuglevel(self, level: int) -> None: ...
-    def set_tunnel(self, host: str, port: int | None = ..., headers: Optional[Mapping[str, str]] = ...) -> None: ...
+    def set_tunnel(self, host: str, port: int | None = ..., headers: Mapping[str, str] | None = ...) -> None: ...
     def connect(self) -> None: ...
     def close(self) -> None: ...
     def putrequest(self, method: str, url: str, skip_host: bool = ..., skip_accept_encoding: bool = ...) -> None: ...
@@ -191,7 +191,7 @@ class HTTPSConnection(HTTPConnection):
             key_file: str | None = ...,
             cert_file: str | None = ...,
             timeout: float | None = ...,
-            source_address: Optional[Tuple[str, int]] = ...,
+            source_address: Tuple[str, int] | None = ...,
             *,
             context: ssl.SSLContext | None = ...,
             check_hostname: bool | None = ...,
@@ -205,7 +205,7 @@ class HTTPSConnection(HTTPConnection):
             key_file: str | None = ...,
             cert_file: str | None = ...,
             timeout: float | None = ...,
-            source_address: Optional[Tuple[str, int]] = ...,
+            source_address: Tuple[str, int] | None = ...,
             *,
             context: ssl.SSLContext | None = ...,
             check_hostname: bool | None = ...,

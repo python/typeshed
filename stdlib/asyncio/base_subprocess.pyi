@@ -3,14 +3,14 @@ from typing import IO, Any, Callable, Deque, Dict, List, Optional, Sequence, Tup
 
 from . import events, futures, protocols, transports
 
-_File = Optional[int | IO[Any]]
+_File = int | IO[Any] | None
 
 class BaseSubprocessTransport(transports.SubprocessTransport):
 
     _closed: bool  # undocumented
     _protocol: protocols.SubprocessProtocol  # undocumented
     _loop: events.AbstractEventLoop  # undocumented
-    _proc: Optional[subprocess.Popen[Any]]  # undocumented
+    _proc: subprocess.Popen[Any] | None  # undocumented
     _pid: int | None  # undocumented
     _returncode: int | None  # undocumented
     _exit_waiters: List[futures.Future[Any]]  # undocumented
@@ -27,7 +27,7 @@ class BaseSubprocessTransport(transports.SubprocessTransport):
         stdout: _File,
         stderr: _File,
         bufsize: int,
-        waiter: Optional[futures.Future[Any]] = ...,
+        waiter: futures.Future[Any] | None = ...,
         extra: Any | None = ...,
         **kwargs: Any,
     ) -> None: ...
@@ -52,7 +52,7 @@ class BaseSubprocessTransport(transports.SubprocessTransport):
     def send_signal(self, signal: int) -> None: ...  # type: ignore
     def terminate(self) -> None: ...
     def kill(self) -> None: ...
-    async def _connect_pipes(self, waiter: Optional[futures.Future[Any]]) -> None: ...  # undocumented
+    async def _connect_pipes(self, waiter: futures.Future[Any] | None) -> None: ...  # undocumented
     def _call(self, cb: Callable[..., Any], *data: Any) -> None: ...  # undocumented
     def _pipe_connection_lost(self, fd: int, exc: BaseException | None) -> None: ...  # undocumented
     def _pipe_data_received(self, fd: int, data: bytes) -> None: ...  # undocumented

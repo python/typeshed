@@ -5,47 +5,47 @@ from typing import IO, Any, Dict, Generator, Iterable, Iterator, List, Mapping, 
 
 _PT = Tuple[str, int, str, str | None]
 
-def print_tb(tb: TracebackType | None, limit: int | None = ..., file: Optional[IO[str]] = ...) -> None: ...
+def print_tb(tb: TracebackType | None, limit: int | None = ..., file: IO[str] | None = ...) -> None: ...
 
 if sys.version_info >= (3, 10):
     def print_exception(
-        __exc: Optional[Type[BaseException]],
+        __exc: Type[BaseException] | None,
         value: BaseException | None = ...,
         tb: TracebackType | None = ...,
         limit: int | None = ...,
-        file: Optional[IO[str]] = ...,
+        file: IO[str] | None = ...,
         chain: bool = ...,
     ) -> None: ...
 
 else:
     def print_exception(
-        etype: Optional[Type[BaseException]],
+        etype: Type[BaseException] | None,
         value: BaseException | None,
         tb: TracebackType | None,
         limit: int | None = ...,
-        file: Optional[IO[str]] = ...,
+        file: IO[str] | None = ...,
         chain: bool = ...,
     ) -> None: ...
 
-def print_exc(limit: int | None = ..., file: Optional[IO[str]] = ..., chain: bool = ...) -> None: ...
-def print_last(limit: int | None = ..., file: Optional[IO[str]] = ..., chain: bool = ...) -> None: ...
-def print_stack(f: FrameType | None = ..., limit: int | None = ..., file: Optional[IO[str]] = ...) -> None: ...
+def print_exc(limit: int | None = ..., file: IO[str] | None = ..., chain: bool = ...) -> None: ...
+def print_last(limit: int | None = ..., file: IO[str] | None = ..., chain: bool = ...) -> None: ...
+def print_stack(f: FrameType | None = ..., limit: int | None = ..., file: IO[str] | None = ...) -> None: ...
 def extract_tb(tb: TracebackType | None, limit: int | None = ...) -> StackSummary: ...
 def extract_stack(f: FrameType | None = ..., limit: int | None = ...) -> StackSummary: ...
 def format_list(extracted_list: List[FrameSummary]) -> List[str]: ...
 
 # undocumented
-def print_list(extracted_list: List[FrameSummary], file: Optional[SupportsWrite[str]] = ...) -> None: ...
+def print_list(extracted_list: List[FrameSummary], file: SupportsWrite[str] | None = ...) -> None: ...
 
 if sys.version_info >= (3, 10):
-    def format_exception_only(__exc: Optional[Type[BaseException]], value: BaseException | None = ...) -> List[str]: ...
+    def format_exception_only(__exc: Type[BaseException] | None, value: BaseException | None = ...) -> List[str]: ...
 
 else:
-    def format_exception_only(etype: Optional[Type[BaseException]], value: BaseException | None) -> List[str]: ...
+    def format_exception_only(etype: Type[BaseException] | None, value: BaseException | None) -> List[str]: ...
 
 if sys.version_info >= (3, 10):
     def format_exception(
-        __exc: Optional[Type[BaseException]],
+        __exc: Type[BaseException] | None,
         value: BaseException | None = ...,
         tb: TracebackType | None = ...,
         limit: int | None = ...,
@@ -54,7 +54,7 @@ if sys.version_info >= (3, 10):
 
 else:
     def format_exception(
-        etype: Optional[Type[BaseException]],
+        etype: Type[BaseException] | None,
         value: BaseException | None,
         tb: TracebackType | None,
         limit: int | None = ...,
@@ -90,7 +90,7 @@ class TracebackException:
             lookup_lines: bool = ...,
             capture_locals: bool = ...,
             compact: bool = ...,
-            _seen: Optional[Set[int]] = ...,
+            _seen: Set[int] | None = ...,
         ) -> None: ...
         @classmethod
         def from_exception(
@@ -112,7 +112,7 @@ class TracebackException:
             limit: int | None = ...,
             lookup_lines: bool = ...,
             capture_locals: bool = ...,
-            _seen: Optional[Set[int]] = ...,
+            _seen: Set[int] | None = ...,
         ) -> None: ...
         @classmethod
         def from_exception(
@@ -126,7 +126,7 @@ class FrameSummary(Iterable[Any]):
     lineno: int
     name: str
     line: str
-    locals: Optional[Dict[str, str]]
+    locals: Dict[str, str] | None
     def __init__(
         self,
         filename: str,
@@ -134,7 +134,7 @@ class FrameSummary(Iterable[Any]):
         name: str,
         *,
         lookup_line: bool = ...,
-        locals: Optional[Mapping[str, str]] = ...,
+        locals: Mapping[str, str] | None = ...,
         line: str | None = ...,
     ) -> None: ...
     # TODO: more precise typing for __getitem__ and __iter__,
