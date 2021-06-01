@@ -9,7 +9,7 @@ from typing import (
     Iterable,
     Mapping,
     NamedTuple,
-    Optional,
+
     Sequence,
     Set,
     Sized,

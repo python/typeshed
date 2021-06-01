@@ -11,7 +11,7 @@ from typing import (
     List,
     Mapping,
     MutableMapping,
-    Optional,
+
     Pattern,
     Sequence,
     Tuple,

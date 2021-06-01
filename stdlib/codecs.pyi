@@ -10,7 +10,7 @@ from typing import (
     Iterable,
     Iterator,
     List,
-    Optional,
+
     Protocol,
     TextIO,
     Tuple,

@@ -24,7 +24,7 @@ from typing import (
     Iterator,
     List,
     Mapping,
-    Optional,
+
     Sequence,
     Text,
     Type,

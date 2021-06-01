@@ -11,7 +11,7 @@ from typing import (
     KeysView,
     List,
     MutableSequence,
-    Optional,
+
     Sequence,
     Text,
     Tuple,

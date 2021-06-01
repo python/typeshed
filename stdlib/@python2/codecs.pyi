@@ -9,7 +9,7 @@ from typing import (
     Iterable,
     Iterator,
     List,
-    Optional,
+
     Protocol,
     Text,
     TextIO,

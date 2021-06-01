@@ -9,7 +9,7 @@ from typing import (
     Callable,
     ContextManager,
     Iterator,
-    Optional,
+
     Type,
     TypeVar,
     overload,

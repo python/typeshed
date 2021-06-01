@@ -13,7 +13,7 @@ from typing import (
     Iterable,
     List,
     Mapping,
-    Optional,
+
     Sequence,
     Tuple,
     TypeVar,

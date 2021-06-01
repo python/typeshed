@@ -7,7 +7,7 @@ from typing import (
     Iterator,
     List,
     Mapping,
-    Optional,
+
     Sized,
     Tuple,
     TypeVar,

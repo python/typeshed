@@ -22,7 +22,7 @@ from typing import (
     Mapping,
     NewType as NewType,
     NoReturn as NoReturn,
-    Optional,
+
     Text as Text,
     Tuple,
     Type as Type,
