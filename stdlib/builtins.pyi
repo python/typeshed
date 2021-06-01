@@ -974,7 +974,7 @@ if sys.version_info >= (3, 10):
 
 if sys.version_info >= (3, 8):
     def compile(
-        source: Union[str, bytes, mod, AST],
+        source: str | bytes | mod | AST,
         filename: Union[str, bytes, _PathLike[Any]],
         mode: str,
         flags: int = ...,
@@ -986,7 +986,7 @@ if sys.version_info >= (3, 8):
 
 else:
     def compile(
-        source: Union[str, bytes, mod, AST],
+        source: str | bytes | mod | AST,
         filename: Union[str, bytes, _PathLike[Any]],
         mode: str,
         flags: int = ...,

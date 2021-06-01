@@ -12,7 +12,7 @@ from typing_extensions import Literal
 class _SupportsTimeTuple(Protocol):
     def timetuple(self) -> time.struct_time: ...
 
-_DateTimeComparable = Union[DateTime, datetime, str, _SupportsTimeTuple]
+_DateTimeComparable = DateTime | datetime | str | _SupportsTimeTuple
 _Marshallable = Union[None, bool, int, float, str, bytes, Tuple[Any, ...], List[Any], Dict[Any, Any], datetime, DateTime, Binary]
 _XMLDate = Union[int, datetime, Tuple[int, ...], time.struct_time]
 _HostType = Union[Tuple[str, Dict[str, str]], str]

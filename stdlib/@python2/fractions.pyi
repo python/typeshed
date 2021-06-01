@@ -3,7 +3,7 @@ from numbers import Integral, Rational, Real
 from typing import Optional, Tuple, Type, TypeVar, Union, overload
 from typing_extensions import Literal
 
-_ComparableNum = Union[int, float, Decimal, Real]
+_ComparableNum = int | float | Decimal | Real
 _T = TypeVar("_T")
 
 @overload
