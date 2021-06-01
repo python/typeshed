@@ -1,5 +1,4 @@
 import sys
-from typing import Optional
 from unittest.async_case import *
 
 from .case import (

@@ -1,4 +1,4 @@
-from typing import Optional
+
 
 class sha384(object):
     name: str

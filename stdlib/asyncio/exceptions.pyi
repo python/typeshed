@@ -1,5 +1,4 @@
 import sys
-from typing import Optional
 
 if sys.version_info >= (3, 8):
     class CancelledError(BaseException): ...

@@ -1,5 +1,4 @@
 import typing
-from typing import Optional
 
 __version__: str
 PyCF_ONLY_AST: int

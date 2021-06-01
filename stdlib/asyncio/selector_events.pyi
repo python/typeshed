@@ -1,5 +1,4 @@
 import selectors
-from typing import Optional
 
 from . import base_events
 
