@@ -1,6 +1,6 @@
 import io
 from _typeshed import ReadableBuffer, WriteableBuffer
-from typing import IO, Any, Iterable, List, Text, TypeVar, Union
+from typing import IO, Any, Iterable, List, Text, TypeVar
 from typing_extensions import SupportsIndex
 
 _PathOrFile = Text | IO[bytes]

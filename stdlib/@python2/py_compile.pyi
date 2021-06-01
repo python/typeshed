@@ -1,4 +1,4 @@
-from typing import List, Text, Type, Union
+from typing import List, Text, Type
 
 _EitherStr = bytes | Text
 

@@ -1,4 +1,4 @@
-from typing import IO, Union
+from typing import IO
 
 _encodable = bytes | unicode
 _decodable = bytes | unicode

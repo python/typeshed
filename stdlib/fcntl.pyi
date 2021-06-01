@@ -1,7 +1,7 @@
 import sys
 from _typeshed import FileDescriptorLike
 from array import array
-from typing import Any, Union, overload
+from typing import Any, overload
 from typing_extensions import Literal
 
 FASYNC: int

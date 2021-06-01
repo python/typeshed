@@ -1,5 +1,5 @@
 from types import TracebackType
-from typing import Iterator, MutableMapping, Tuple, Type, Union
+from typing import Iterator, MutableMapping, Tuple, Type
 from typing_extensions import Literal
 
 _KeyType = str | bytes

@@ -1,4 +1,4 @@
-from typing import List, TypeVar, Union
+from typing import List, TypeVar
 
 _CharT = TypeVar("_CharT", str, int)
 

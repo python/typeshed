@@ -1,7 +1,7 @@
 import sys
 from _typeshed import StrOrBytesPath
 from types import TracebackType
-from typing import IO, Any, AnyStr, Callable, Generic, Mapping, Optional, Sequence, Tuple, Type, TypeVar, Union, overload
+from typing import IO, Any, AnyStr, Callable, Generic, Mapping, Optional, Sequence, Tuple, Type, TypeVar, overload
 from typing_extensions import Literal
 
 if sys.version_info >= (3, 9):

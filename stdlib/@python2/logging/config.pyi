@@ -1,6 +1,6 @@
 from _typeshed import StrPath
 from threading import Thread
-from typing import IO, Any, Dict, Union
+from typing import IO, Any, Dict
 
 _Path = StrPath
 

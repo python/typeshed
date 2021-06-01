@@ -1,5 +1,5 @@
 from _typeshed import SupportsRead
-from typing import IO, Any, Callable, Dict, List, Optional, Text, Tuple, Type, Union
+from typing import IO, Any, Callable, Dict, List, Optional, Text, Tuple, Type
 
 def dumps(
     obj: Any,

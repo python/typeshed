@@ -1,4 +1,4 @@
-from typing import IO, Any, AnyStr, Callable, Generic, Iterable, Iterator, Text, Union
+from typing import IO, Any, AnyStr, Callable, Generic, Iterable, Iterator, Text
 
 def input(
     files: Text | Iterable[Text] | None = ...,

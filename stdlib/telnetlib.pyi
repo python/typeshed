@@ -1,5 +1,5 @@
 import socket
-from typing import Any, Callable, Match, Optional, Pattern, Sequence, Tuple, Union
+from typing import Any, Callable, Match, Optional, Pattern, Sequence, Tuple
 
 DEBUGLEVEL: int
 TELNET_PORT: int

@@ -1,4 +1,4 @@
-from typing import Any, List, Mapping, Tuple, Union, overload
+from typing import Any, List, Mapping, Tuple, overload
 
 _Option = Tuple[str, str | None, str]
 _GR = Tuple[List[str], OptionDummy]

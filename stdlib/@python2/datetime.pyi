@@ -1,5 +1,5 @@
 from time import struct_time
-from typing import AnyStr, ClassVar, SupportsAbs, Tuple, Type, TypeVar, Union, overload
+from typing import AnyStr, ClassVar, SupportsAbs, Tuple, Type, TypeVar, overload
 
 _S = TypeVar("_S")
 

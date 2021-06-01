@@ -1,4 +1,4 @@
-from typing import Any, Text, TypeVar, Union
+from typing import Any, Text, TypeVar
 
 ucd_3_2_0: UCD
 ucnhash_CAPI: Any

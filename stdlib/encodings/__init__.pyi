@@ -1,5 +1,5 @@
 from codecs import CodecInfo
-from typing import Any, Union
+from typing import Any
 
 class CodecRegistryError(LookupError, SystemError): ...
 

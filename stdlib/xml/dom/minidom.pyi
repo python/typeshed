@@ -1,6 +1,6 @@
 import sys
 import xml.dom
-from typing import IO, Any, TypeVar, Union
+from typing import IO, Any, TypeVar
 from xml.dom.xmlbuilder import DocumentLS, DOMImplementationLS
 from xml.sax.xmlreader import XMLReader
 

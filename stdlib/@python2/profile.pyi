@@ -1,4 +1,4 @@
-from typing import Any, Callable, Dict, Optional, Text, Tuple, TypeVar, Union
+from typing import Any, Callable, Dict, Optional, Text, Tuple, TypeVar
 
 def run(statement: str, filename: str | None = ..., sort: str | int = ...) -> None: ...
 def runctx(

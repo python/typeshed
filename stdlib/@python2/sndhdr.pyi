@@ -1,4 +1,4 @@
-from typing import Text, Tuple, Union
+from typing import Text, Tuple
 
 _SndHeaders = Tuple[str, int, int, int, int | str]
 

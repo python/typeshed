@@ -1,4 +1,4 @@
-from typing import BinaryIO, Text, Union
+from typing import BinaryIO, Text
 
 _File = Text | BinaryIO
 

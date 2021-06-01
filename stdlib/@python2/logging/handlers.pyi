@@ -1,7 +1,7 @@
 from _typeshed import StrPath
 from logging import FileHandler, Handler, LogRecord
 from socket import SocketKind, SocketType
-from typing import Any, ClassVar, Dict, List, Tuple, Union
+from typing import Any, ClassVar, Dict, List, Tuple
 
 DEFAULT_TCP_LOGGING_PORT: int
 DEFAULT_UDP_LOGGING_PORT: int

@@ -3,7 +3,7 @@ import codecs
 import sys
 from _typeshed import ReadableBuffer, WriteableBuffer
 from types import TracebackType
-from typing import IO, Any, BinaryIO, Callable, Iterable, Iterator, List, Optional, TextIO, Tuple, Type, TypeVar, Union
+from typing import IO, Any, BinaryIO, Callable, Iterable, Iterator, List, Optional, TextIO, Tuple, Type, TypeVar
 
 DEFAULT_BUFFER_SIZE: int
 

@@ -1,5 +1,5 @@
 import sys
-from typing import IO, Any, NamedTuple, NoReturn, Union
+from typing import IO, Any, NamedTuple, NoReturn
 
 _File = str | IO[bytes]
 

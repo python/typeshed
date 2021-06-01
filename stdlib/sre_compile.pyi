@@ -14,7 +14,7 @@ from sre_constants import (
     _NamedIntConstant,
 )
 from sre_parse import SubPattern
-from typing import Any, List, Pattern, Union
+from typing import Any, List, Pattern
 
 MAXCODE: int
 

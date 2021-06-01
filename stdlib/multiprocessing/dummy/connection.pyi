@@ -1,6 +1,6 @@
 from queue import Queue
 from types import TracebackType
-from typing import Any, List, Tuple, Type, TypeVar, Union
+from typing import Any, List, Tuple, Type, TypeVar
 
 families: List[None]
 

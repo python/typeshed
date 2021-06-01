@@ -1,4 +1,4 @@
-from typing import IO, Any, Callable, Generic, Mapping, Optional, Sequence, Text, Tuple, TypeVar, Union
+from typing import IO, Any, Callable, Generic, Mapping, Optional, Sequence, Text, Tuple, TypeVar
 
 _FILE = None | int | IO[Any]
 _TXT = bytes | Text

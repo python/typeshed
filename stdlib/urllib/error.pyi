@@ -1,5 +1,5 @@
 from email.message import Message
-from typing import IO, Mapping, Tuple, Union
+from typing import IO, Mapping, Tuple
 from urllib.response import addinfourl
 
 # Stubs for urllib.error

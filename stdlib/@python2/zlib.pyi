@@ -1,5 +1,5 @@
 from array import array
-from typing import Any, Union
+from typing import Any
 
 DEFLATED: int
 DEF_MEM_LEVEL: int

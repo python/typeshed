@@ -1,6 +1,6 @@
 import unittest.case
 import unittest.result
-from typing import Iterable, Iterator, List, Union
+from typing import Iterable, Iterator, List
 
 _TestType = unittest.case.TestCase | TestSuite
 

@@ -1,6 +1,6 @@
 from random import Random
 from thread import LockType
-from typing import IO, Any, AnyStr, Iterable, Iterator, List, Text, Tuple, Union, overload
+from typing import IO, Any, AnyStr, Iterable, Iterator, List, Text, Tuple, overload
 
 TMP_MAX: int
 tempdir: str

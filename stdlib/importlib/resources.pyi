@@ -6,7 +6,7 @@ if sys.version_info >= (3, 7):
     import os
     from pathlib import Path
     from types import ModuleType
-    from typing import BinaryIO, ContextManager, Iterator, TextIO, Union
+    from typing import BinaryIO, ContextManager, Iterator, TextIO
 
     Package = str | ModuleType
     Resource = str | os.PathLike[Any]

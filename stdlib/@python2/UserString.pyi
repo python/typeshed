@@ -1,4 +1,4 @@
-from typing import Any, Iterable, List, MutableSequence, Sequence, Text, Tuple, TypeVar, Union, overload
+from typing import Any, Iterable, List, MutableSequence, Sequence, Text, Tuple, TypeVar, overload
 
 _UST = TypeVar("_UST", bound=UserString)
 _MST = TypeVar("_MST", bound=MutableString)

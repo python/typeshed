@@ -1,6 +1,6 @@
 import sys
 import tkinter
-from typing import Any, List, Tuple, TypeVar, Union, overload
+from typing import Any, List, Tuple, TypeVar, overload
 from typing_extensions import Literal, TypedDict
 
 NORMAL: Literal["normal"]

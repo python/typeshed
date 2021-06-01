@@ -1,6 +1,6 @@
 import io
 from _typeshed import ReadableBuffer, StrOrBytesPath
-from typing import IO, Any, Mapping, Sequence, TextIO, TypeVar, Union, overload
+from typing import IO, Any, Mapping, Sequence, TextIO, TypeVar, overload
 from typing_extensions import Literal
 
 _OpenBinaryWritingMode = Literal["w", "wb", "x", "xb", "a", "ab"]

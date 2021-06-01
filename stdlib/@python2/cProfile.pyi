@@ -1,5 +1,5 @@
 from types import CodeType
-from typing import Any, Callable, Dict, Text, Tuple, TypeVar, Union
+from typing import Any, Callable, Dict, Text, Tuple, TypeVar
 
 def run(statement: str, filename: str | None = ..., sort: str | int = ...) -> None: ...
 def runctx(

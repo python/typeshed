@@ -1,4 +1,4 @@
-from typing import IO, Any, BinaryIO, Tuple, Union, overload
+from typing import IO, Any, BinaryIO, Tuple, overload
 
 _chtype = str | bytes | int
 

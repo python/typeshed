@@ -1,4 +1,4 @@
-from typing import Callable, Iterable, Tuple, Union
+from typing import Callable, Iterable, Tuple
 
 _Reader = Callable[[int], bytes]
 

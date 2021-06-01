@@ -1,7 +1,7 @@
 import socket
 import sys
 import types
-from typing import Any, Iterable, List, Tuple, Type, Union
+from typing import Any, Iterable, List, Tuple, Type
 
 if sys.version_info >= (3, 8):
     from typing import SupportsIndex

@@ -1,6 +1,6 @@
 import mimetools
 import SocketServer
-from typing import Any, BinaryIO, Callable, Mapping, Tuple, Union
+from typing import Any, BinaryIO, Callable, Mapping, Tuple
 
 class HTTPServer(SocketServer.TCPServer):
     server_name: str

@@ -1,6 +1,6 @@
 import sys
 from _typeshed import StrOrBytesPath
-from typing import IO, Any, AnyStr, Callable, Generic, Iterable, Iterator, Union
+from typing import IO, Any, AnyStr, Callable, Generic, Iterable, Iterator
 
 if sys.version_info >= (3, 10):
     def input(

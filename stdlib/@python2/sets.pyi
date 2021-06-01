@@ -1,4 +1,4 @@
-from typing import Any, Hashable, Iterable, Iterator, MutableMapping, TypeVar, Union
+from typing import Any, Hashable, Iterable, Iterator, MutableMapping, TypeVar
 
 _T = TypeVar("_T")
 _Setlike = BaseSet[_T] | Iterable[_T]

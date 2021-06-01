@@ -1,4 +1,4 @@
-from typing import Any, Dict, Iterable, List, Mapping, Sequence, Tuple, Union, overload
+from typing import Any, Dict, Iterable, List, Mapping, Sequence, Tuple, overload
 
 CODESIZE: int
 MAGIC: int

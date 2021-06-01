@@ -1,5 +1,5 @@
 import sys
-from typing import Callable, List, Optional, Sequence, Text, Union
+from typing import Callable, List, Optional, Sequence, Text
 
 class Error(Exception): ...
 

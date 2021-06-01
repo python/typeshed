@@ -1,4 +1,4 @@
-from typing import IO, Any, Union
+from typing import IO, Any
 
 import _io
 from _io import (

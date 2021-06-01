@@ -1,5 +1,5 @@
 import sys
-from typing import AnyStr, Generic, Sequence, Union
+from typing import AnyStr, Generic, Sequence
 
 ACCESS_DEFAULT: int
 ACCESS_READ: int

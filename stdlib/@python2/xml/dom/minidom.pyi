@@ -1,5 +1,5 @@
 import xml.dom
-from typing import IO, Any, Text as _Text, TypeVar, Union
+from typing import IO, Any, Text as _Text, TypeVar
 from xml.dom.xmlbuilder import DocumentLS, DOMImplementationLS
 from xml.sax.xmlreader import XMLReader
 

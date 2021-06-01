@@ -1,4 +1,4 @@
-from typing import IO, Any, List, NamedTuple, Text, Tuple, Union, overload
+from typing import IO, Any, List, NamedTuple, Text, Tuple, overload
 from typing_extensions import Literal
 
 class Error(Exception): ...

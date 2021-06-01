@@ -1,6 +1,6 @@
 import sys
 from types import TracebackType
-from typing import IO, Any, List, NamedTuple, Tuple, Type, Union, overload
+from typing import IO, Any, List, NamedTuple, Tuple, Type, overload
 from typing_extensions import Literal
 
 class Error(Exception): ...

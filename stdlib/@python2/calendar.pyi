@@ -1,6 +1,6 @@
 import datetime
 from time import struct_time
-from typing import Any, Iterable, List, Sequence, Tuple, Union
+from typing import Any, Iterable, List, Sequence, Tuple
 
 _LocaleType = Tuple[str | None, str | None]
 

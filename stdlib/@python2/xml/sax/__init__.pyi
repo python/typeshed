@@ -1,4 +1,4 @@
-from typing import IO, Any, List, NoReturn, Text, Union
+from typing import IO, Any, List, NoReturn, Text
 from xml.sax.handler import ContentHandler, ErrorHandler
 from xml.sax.xmlreader import Locator, XMLReader
 

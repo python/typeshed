@@ -2,7 +2,7 @@ import email.message
 import socketserver
 import sys
 from _typeshed import StrPath
-from typing import Any, ClassVar, Dict, List, Mapping, Sequence, Tuple, Union
+from typing import Any, ClassVar, Dict, List, Mapping, Sequence, Tuple
 
 class HTTPServer(socketserver.TCPServer):
     server_name: str

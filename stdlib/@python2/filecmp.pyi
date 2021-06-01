@@ -1,4 +1,4 @@
-from typing import AnyStr, Callable, Dict, Generic, Iterable, List, Sequence, Text, Tuple, Union
+from typing import AnyStr, Callable, Dict, Generic, Iterable, List, Sequence, Text, Tuple
 
 DEFAULT_IGNORES: List[str]
 

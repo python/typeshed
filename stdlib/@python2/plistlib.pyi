@@ -1,4 +1,4 @@
-from typing import IO, Any, Dict as DictT, Mapping, Text, Union
+from typing import IO, Any, Dict as DictT, Mapping, Text
 
 _Path = str | Text
 

@@ -1,5 +1,5 @@
 from types import ModuleType, TracebackType
-from typing import List, TextIO, Type, Union, overload
+from typing import List, TextIO, Type, overload
 from typing_extensions import Literal
 
 from _warnings import warn as warn, warn_explicit as warn_explicit

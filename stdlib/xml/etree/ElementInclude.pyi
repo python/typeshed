@@ -1,5 +1,5 @@
 import sys
-from typing import Callable, Union
+from typing import Callable
 from xml.etree.ElementTree import Element
 
 XINCLUDE: str

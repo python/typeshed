@@ -1,6 +1,6 @@
 import sys
 from pathlib import Path
-from typing import BinaryIO, Callable, Optional, Union
+from typing import BinaryIO, Callable, Optional
 
 _Path = str | Path | BinaryIO
 

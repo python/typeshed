@@ -1,4 +1,4 @@
-from typing import AnyStr, Iterable, List, Union
+from typing import AnyStr, Iterable, List
 
 _EitherStr = str | unicode
 
