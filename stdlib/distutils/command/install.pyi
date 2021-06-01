@@ -5,10 +5,10 @@ SCHEME_KEYS: Tuple[str, ...]
 
 class install(Command):
     user: bool
-    prefix: Optional[str]
-    home: Optional[str]
-    root: Optional[str]
-    install_lib: Optional[str]
+    prefix: str | None
+    home: str | None
+    root: str | None
+    install_lib: str | None
     def initialize_options(self) -> None: ...
     def finalize_options(self) -> None: ...
     def run(self) -> None: ...

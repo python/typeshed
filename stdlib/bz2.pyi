@@ -40,9 +40,9 @@ def open(
     filename: _ReadableFileobj,
     mode: _ReadTextMode,
     compresslevel: int = ...,
-    encoding: Optional[str] = ...,
-    errors: Optional[str] = ...,
-    newline: Optional[str] = ...,
+    encoding: str | None = ...,
+    errors: str | None = ...,
+    newline: str | None = ...,
 ) -> TextIO: ...
 @overload
 def open(
@@ -58,9 +58,9 @@ def open(
     filename: _WritableFileobj,
     mode: _WriteTextMode,
     compresslevel: int = ...,
-    encoding: Optional[str] = ...,
-    errors: Optional[str] = ...,
-    newline: Optional[str] = ...,
+    encoding: str | None = ...,
+    errors: str | None = ...,
+    newline: str | None = ...,
 ) -> TextIO: ...
 @overload
 def open(
@@ -76,9 +76,9 @@ def open(
     filename: StrOrBytesPath,
     mode: _ReadTextMode | _WriteTextMode,
     compresslevel: int = ...,
-    encoding: Optional[str] = ...,
-    errors: Optional[str] = ...,
-    newline: Optional[str] = ...,
+    encoding: str | None = ...,
+    errors: str | None = ...,
+    newline: str | None = ...,
 ) -> TextIO: ...
 
 class BZ2File(BaseStream, IO[bytes]):
@@ -95,14 +95,14 @@ class BZ2File(BaseStream, IO[bytes]):
     else:
         @overload
         def __init__(
-            self, filename: _WritableFileobj, mode: _WriteBinaryMode, buffering: Optional[Any] = ..., compresslevel: int = ...
+            self, filename: _WritableFileobj, mode: _WriteBinaryMode, buffering: Any | None = ..., compresslevel: int = ...
         ) -> None: ...
         @overload
         def __init__(
             self,
             filename: _ReadableFileobj,
             mode: _ReadBinaryMode = ...,
-            buffering: Optional[Any] = ...,
+            buffering: Any | None = ...,
             compresslevel: int = ...,
         ) -> None: ...
         @overload
@@ -110,10 +110,10 @@ class BZ2File(BaseStream, IO[bytes]):
             self,
             filename: StrOrBytesPath,
             mode: _ReadBinaryMode | _WriteBinaryMode = ...,
-            buffering: Optional[Any] = ...,
+            buffering: Any | None = ...,
             compresslevel: int = ...,
         ) -> None: ...
-    def read(self, size: Optional[int] = ...) -> bytes: ...
+    def read(self, size: int | None = ...) -> bytes: ...
     def read1(self, size: int = ...) -> bytes: ...
     def readline(self, size: SupportsIndex = ...) -> bytes: ...  # type: ignore
     def readinto(self, b: WriteableBuffer) -> int: ...

@@ -18,7 +18,7 @@ class JSONEncoder:
         check_circular: bool = ...,
         allow_nan: bool = ...,
         sort_keys: bool = ...,
-        indent: Optional[int] = ...,
+        indent: int | None = ...,
         separators: Optional[Tuple[str, str]] = ...,
         default: Optional[Callable[..., Any]] = ...,
     ) -> None: ...

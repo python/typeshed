@@ -1,6 +1,6 @@
 from typing import Any, Iterable, List, Mapping, Optional, Tuple, Union, overload
 
-_Option = Tuple[str, Optional[str], str]
+_Option = Tuple[str, str | None, str]
 _GR = Tuple[List[str], OptionDummy]
 
 def fancy_getopt(
@@ -16,7 +16,7 @@ class FancyGetopt:
     @overload
     def getopt(self, args: Optional[List[str]], object: Any) -> List[str]: ...
     def get_option_order(self) -> List[Tuple[str, str]]: ...
-    def generate_help(self, header: Optional[str] = ...) -> List[str]: ...
+    def generate_help(self, header: str | None = ...) -> List[str]: ...
 
 class OptionDummy:
     def __init__(self, options: Iterable[str] = ...) -> None: ...

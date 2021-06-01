@@ -21,12 +21,12 @@ class TextTestRunner(object):
     resultclass: _ResultClassType
     def __init__(
         self,
-        stream: Optional[TextIO] = ...,
+        stream: TextIO | None = ...,
         descriptions: bool = ...,
         verbosity: int = ...,
         failfast: bool = ...,
         buffer: bool = ...,
-        resultclass: Optional[_ResultClassType] = ...,
+        resultclass: _ResultClassType | None = ...,
         warnings: Optional[Type[Warning]] = ...,
         *,
         tb_locals: bool = ...,

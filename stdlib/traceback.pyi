@@ -3,16 +3,16 @@ from _typeshed import SupportsWrite
 from types import FrameType, TracebackType
 from typing import IO, Any, Dict, Generator, Iterable, Iterator, List, Mapping, Optional, Set, Tuple, Type
 
-_PT = Tuple[str, int, str, Optional[str]]
+_PT = Tuple[str, int, str, str | None]
 
-def print_tb(tb: Optional[TracebackType], limit: Optional[int] = ..., file: Optional[IO[str]] = ...) -> None: ...
+def print_tb(tb: TracebackType | None, limit: int | None = ..., file: Optional[IO[str]] = ...) -> None: ...
 
 if sys.version_info >= (3, 10):
     def print_exception(
         __exc: Optional[Type[BaseException]],
-        value: Optional[BaseException] = ...,
-        tb: Optional[TracebackType] = ...,
-        limit: Optional[int] = ...,
+        value: BaseException | None = ...,
+        tb: TracebackType | None = ...,
+        limit: int | None = ...,
         file: Optional[IO[str]] = ...,
         chain: bool = ...,
     ) -> None: ...
@@ -20,53 +20,53 @@ if sys.version_info >= (3, 10):
 else:
     def print_exception(
         etype: Optional[Type[BaseException]],
-        value: Optional[BaseException],
-        tb: Optional[TracebackType],
-        limit: Optional[int] = ...,
+        value: BaseException | None,
+        tb: TracebackType | None,
+        limit: int | None = ...,
         file: Optional[IO[str]] = ...,
         chain: bool = ...,
     ) -> None: ...
 
-def print_exc(limit: Optional[int] = ..., file: Optional[IO[str]] = ..., chain: bool = ...) -> None: ...
-def print_last(limit: Optional[int] = ..., file: Optional[IO[str]] = ..., chain: bool = ...) -> None: ...
-def print_stack(f: Optional[FrameType] = ..., limit: Optional[int] = ..., file: Optional[IO[str]] = ...) -> None: ...
-def extract_tb(tb: Optional[TracebackType], limit: Optional[int] = ...) -> StackSummary: ...
-def extract_stack(f: Optional[FrameType] = ..., limit: Optional[int] = ...) -> StackSummary: ...
+def print_exc(limit: int | None = ..., file: Optional[IO[str]] = ..., chain: bool = ...) -> None: ...
+def print_last(limit: int | None = ..., file: Optional[IO[str]] = ..., chain: bool = ...) -> None: ...
+def print_stack(f: FrameType | None = ..., limit: int | None = ..., file: Optional[IO[str]] = ...) -> None: ...
+def extract_tb(tb: TracebackType | None, limit: int | None = ...) -> StackSummary: ...
+def extract_stack(f: FrameType | None = ..., limit: int | None = ...) -> StackSummary: ...
 def format_list(extracted_list: List[FrameSummary]) -> List[str]: ...
 
 # undocumented
 def print_list(extracted_list: List[FrameSummary], file: Optional[SupportsWrite[str]] = ...) -> None: ...
 
 if sys.version_info >= (3, 10):
-    def format_exception_only(__exc: Optional[Type[BaseException]], value: Optional[BaseException] = ...) -> List[str]: ...
+    def format_exception_only(__exc: Optional[Type[BaseException]], value: BaseException | None = ...) -> List[str]: ...
 
 else:
-    def format_exception_only(etype: Optional[Type[BaseException]], value: Optional[BaseException]) -> List[str]: ...
+    def format_exception_only(etype: Optional[Type[BaseException]], value: BaseException | None) -> List[str]: ...
 
 if sys.version_info >= (3, 10):
     def format_exception(
         __exc: Optional[Type[BaseException]],
-        value: Optional[BaseException] = ...,
-        tb: Optional[TracebackType] = ...,
-        limit: Optional[int] = ...,
+        value: BaseException | None = ...,
+        tb: TracebackType | None = ...,
+        limit: int | None = ...,
         chain: bool = ...,
     ) -> List[str]: ...
 
 else:
     def format_exception(
         etype: Optional[Type[BaseException]],
-        value: Optional[BaseException],
-        tb: Optional[TracebackType],
-        limit: Optional[int] = ...,
+        value: BaseException | None,
+        tb: TracebackType | None,
+        limit: int | None = ...,
         chain: bool = ...,
     ) -> List[str]: ...
 
-def format_exc(limit: Optional[int] = ..., chain: bool = ...) -> str: ...
-def format_tb(tb: Optional[TracebackType], limit: Optional[int] = ...) -> List[str]: ...
-def format_stack(f: Optional[FrameType] = ..., limit: Optional[int] = ...) -> List[str]: ...
+def format_exc(limit: int | None = ..., chain: bool = ...) -> str: ...
+def format_tb(tb: TracebackType | None, limit: int | None = ...) -> List[str]: ...
+def format_stack(f: FrameType | None = ..., limit: int | None = ...) -> List[str]: ...
 def clear_frames(tb: TracebackType) -> None: ...
-def walk_stack(f: Optional[FrameType]) -> Iterator[Tuple[FrameType, int]]: ...
-def walk_tb(tb: Optional[TracebackType]) -> Iterator[Tuple[FrameType, int]]: ...
+def walk_stack(f: FrameType | None) -> Iterator[Tuple[FrameType, int]]: ...
+def walk_tb(tb: TracebackType | None) -> Iterator[Tuple[FrameType, int]]: ...
 
 class TracebackException:
     __cause__: TracebackException
@@ -86,7 +86,7 @@ class TracebackException:
             exc_value: BaseException,
             exc_traceback: TracebackType,
             *,
-            limit: Optional[int] = ...,
+            limit: int | None = ...,
             lookup_lines: bool = ...,
             capture_locals: bool = ...,
             compact: bool = ...,
@@ -97,7 +97,7 @@ class TracebackException:
             cls,
             exc: BaseException,
             *,
-            limit: Optional[int] = ...,
+            limit: int | None = ...,
             lookup_lines: bool = ...,
             capture_locals: bool = ...,
             compact: bool = ...,
@@ -109,14 +109,14 @@ class TracebackException:
             exc_value: BaseException,
             exc_traceback: TracebackType,
             *,
-            limit: Optional[int] = ...,
+            limit: int | None = ...,
             lookup_lines: bool = ...,
             capture_locals: bool = ...,
             _seen: Optional[Set[int]] = ...,
         ) -> None: ...
         @classmethod
         def from_exception(
-            cls, exc: BaseException, *, limit: Optional[int] = ..., lookup_lines: bool = ..., capture_locals: bool = ...
+            cls, exc: BaseException, *, limit: int | None = ..., lookup_lines: bool = ..., capture_locals: bool = ...
         ) -> TracebackException: ...
     def format(self, *, chain: bool = ...) -> Generator[str, None, None]: ...
     def format_exception_only(self) -> Generator[str, None, None]: ...
@@ -135,7 +135,7 @@ class FrameSummary(Iterable[Any]):
         *,
         lookup_line: bool = ...,
         locals: Optional[Mapping[str, str]] = ...,
-        line: Optional[str] = ...,
+        line: str | None = ...,
     ) -> None: ...
     # TODO: more precise typing for __getitem__ and __iter__,
     # for a namedtuple-like view on (filename, lineno, name, str).
@@ -148,7 +148,7 @@ class StackSummary(List[FrameSummary]):
         cls,
         frame_gen: Generator[Tuple[FrameType, int], None, None],
         *,
-        limit: Optional[int] = ...,
+        limit: int | None = ...,
         lookup_lines: bool = ...,
         capture_locals: bool = ...,
     ) -> StackSummary: ...

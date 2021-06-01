@@ -50,21 +50,21 @@ TAR_PLAIN: int
 TAR_GZIPPED: int
 
 def open(
-    name: Optional[Text] = ...,
+    name: Text | None = ...,
     mode: str = ...,
     fileobj: Optional[IO[bytes]] = ...,
     bufsize: int = ...,
     *,
-    format: Optional[int] = ...,
+    format: int | None = ...,
     tarinfo: Optional[Type[TarInfo]] = ...,
-    dereference: Optional[bool] = ...,
-    ignore_zeros: Optional[bool] = ...,
-    encoding: Optional[str] = ...,
+    dereference: bool | None = ...,
+    ignore_zeros: bool | None = ...,
+    encoding: str | None = ...,
     errors: str = ...,
     pax_headers: Optional[Mapping[str, str]] = ...,
-    debug: Optional[int] = ...,
-    errorlevel: Optional[int] = ...,
-    compresslevel: Optional[int] = ...,
+    debug: int | None = ...,
+    errorlevel: int | None = ...,
+    compresslevel: int | None = ...,
 ) -> TarFile: ...
 
 class ExFileObject(io.BufferedReader):
@@ -72,133 +72,133 @@ class ExFileObject(io.BufferedReader):
 
 class TarFile(Iterable[TarInfo]):
     OPEN_METH: Mapping[str, str]
-    name: Optional[Text]
+    name: Text | None
     mode: str
     fileobj: Optional[IO[bytes]]
-    format: Optional[int]
+    format: int | None
     tarinfo: Type[TarInfo]
-    dereference: Optional[bool]
-    ignore_zeros: Optional[bool]
-    encoding: Optional[str]
+    dereference: bool | None
+    ignore_zeros: bool | None
+    encoding: str | None
     errors: str
     fileobject: Type[ExFileObject]
     pax_headers: Optional[Mapping[str, str]]
-    debug: Optional[int]
-    errorlevel: Optional[int]
+    debug: int | None
+    errorlevel: int | None
     offset: int  # undocumented
     posix: bool
     def __init__(
         self,
-        name: Optional[Text] = ...,
+        name: Text | None = ...,
         mode: str = ...,
         fileobj: Optional[IO[bytes]] = ...,
-        format: Optional[int] = ...,
+        format: int | None = ...,
         tarinfo: Optional[Type[TarInfo]] = ...,
-        dereference: Optional[bool] = ...,
-        ignore_zeros: Optional[bool] = ...,
-        encoding: Optional[str] = ...,
+        dereference: bool | None = ...,
+        ignore_zeros: bool | None = ...,
+        encoding: str | None = ...,
         errors: str = ...,
         pax_headers: Optional[Mapping[str, str]] = ...,
-        debug: Optional[int] = ...,
-        errorlevel: Optional[int] = ...,
-        copybufsize: Optional[int] = ...,  # undocumented
+        debug: int | None = ...,
+        errorlevel: int | None = ...,
+        copybufsize: int | None = ...,  # undocumented
     ) -> None: ...
     def __enter__(self) -> TarFile: ...
     def __exit__(
-        self, exc_type: Optional[Type[BaseException]], exc_val: Optional[BaseException], exc_tb: Optional[TracebackType]
+        self, exc_type: Optional[Type[BaseException]], exc_val: BaseException | None, exc_tb: TracebackType | None
     ) -> None: ...
     def __iter__(self) -> Iterator[TarInfo]: ...
     @classmethod
     def open(
         cls,
-        name: Optional[Text] = ...,
+        name: Text | None = ...,
         mode: str = ...,
         fileobj: Optional[IO[bytes]] = ...,
         bufsize: int = ...,
         *,
-        format: Optional[int] = ...,
+        format: int | None = ...,
         tarinfo: Optional[Type[TarInfo]] = ...,
-        dereference: Optional[bool] = ...,
-        ignore_zeros: Optional[bool] = ...,
-        encoding: Optional[str] = ...,
+        dereference: bool | None = ...,
+        ignore_zeros: bool | None = ...,
+        encoding: str | None = ...,
         errors: str = ...,
         pax_headers: Optional[Mapping[str, str]] = ...,
-        debug: Optional[int] = ...,
-        errorlevel: Optional[int] = ...,
+        debug: int | None = ...,
+        errorlevel: int | None = ...,
     ) -> TarFile: ...
     @classmethod
     def taropen(
         cls,
-        name: Optional[Text],
+        name: Text | None,
         mode: str = ...,
         fileobj: Optional[IO[bytes]] = ...,
         *,
         compresslevel: int = ...,
-        format: Optional[int] = ...,
+        format: int | None = ...,
         tarinfo: Optional[Type[TarInfo]] = ...,
-        dereference: Optional[bool] = ...,
-        ignore_zeros: Optional[bool] = ...,
-        encoding: Optional[str] = ...,
+        dereference: bool | None = ...,
+        ignore_zeros: bool | None = ...,
+        encoding: str | None = ...,
         pax_headers: Optional[Mapping[str, str]] = ...,
-        debug: Optional[int] = ...,
-        errorlevel: Optional[int] = ...,
+        debug: int | None = ...,
+        errorlevel: int | None = ...,
     ) -> TarFile: ...
     @classmethod
     def gzopen(
         cls,
-        name: Optional[Text],
+        name: Text | None,
         mode: str = ...,
         fileobj: Optional[IO[bytes]] = ...,
         compresslevel: int = ...,
         *,
-        format: Optional[int] = ...,
+        format: int | None = ...,
         tarinfo: Optional[Type[TarInfo]] = ...,
-        dereference: Optional[bool] = ...,
-        ignore_zeros: Optional[bool] = ...,
-        encoding: Optional[str] = ...,
+        dereference: bool | None = ...,
+        ignore_zeros: bool | None = ...,
+        encoding: str | None = ...,
         pax_headers: Optional[Mapping[str, str]] = ...,
-        debug: Optional[int] = ...,
-        errorlevel: Optional[int] = ...,
+        debug: int | None = ...,
+        errorlevel: int | None = ...,
     ) -> TarFile: ...
     @classmethod
     def bz2open(
         cls,
-        name: Optional[Text],
+        name: Text | None,
         mode: str = ...,
         fileobj: Optional[IO[bytes]] = ...,
         compresslevel: int = ...,
         *,
-        format: Optional[int] = ...,
+        format: int | None = ...,
         tarinfo: Optional[Type[TarInfo]] = ...,
-        dereference: Optional[bool] = ...,
-        ignore_zeros: Optional[bool] = ...,
-        encoding: Optional[str] = ...,
+        dereference: bool | None = ...,
+        ignore_zeros: bool | None = ...,
+        encoding: str | None = ...,
         pax_headers: Optional[Mapping[str, str]] = ...,
-        debug: Optional[int] = ...,
-        errorlevel: Optional[int] = ...,
+        debug: int | None = ...,
+        errorlevel: int | None = ...,
     ) -> TarFile: ...
     @classmethod
     def xzopen(
         cls,
-        name: Optional[Text],
+        name: Text | None,
         mode: str = ...,
         fileobj: Optional[IO[bytes]] = ...,
-        preset: Optional[int] = ...,
+        preset: int | None = ...,
         *,
-        format: Optional[int] = ...,
+        format: int | None = ...,
         tarinfo: Optional[Type[TarInfo]] = ...,
-        dereference: Optional[bool] = ...,
-        ignore_zeros: Optional[bool] = ...,
-        encoding: Optional[str] = ...,
+        dereference: bool | None = ...,
+        ignore_zeros: bool | None = ...,
+        encoding: str | None = ...,
         pax_headers: Optional[Mapping[str, str]] = ...,
-        debug: Optional[int] = ...,
-        errorlevel: Optional[int] = ...,
+        debug: int | None = ...,
+        errorlevel: int | None = ...,
     ) -> TarFile: ...
     def getmember(self, name: str) -> TarInfo: ...
     def getmembers(self) -> List[TarInfo]: ...
     def getnames(self) -> List[str]: ...
     def list(self, verbose: bool = ...) -> None: ...
-    def next(self) -> Optional[TarInfo]: ...
+    def next(self) -> TarInfo | None: ...
     def extractall(self, path: Text = ..., members: Optional[Iterable[TarInfo]] = ...) -> None: ...
     def extract(self, member: str | TarInfo, path: Text = ...) -> None: ...
     def extractfile(self, member: str | TarInfo) -> Optional[IO[bytes]]: ...
@@ -214,14 +214,14 @@ class TarFile(Iterable[TarInfo]):
     def add(
         self,
         name: str,
-        arcname: Optional[str] = ...,
+        arcname: str | None = ...,
         recursive: bool = ...,
         exclude: Optional[Callable[[str], bool]] = ...,
-        filter: Optional[Callable[[TarInfo], Optional[TarInfo]]] = ...,
+        filter: Optional[Callable[[TarInfo], TarInfo | None]] = ...,
     ) -> None: ...
     def addfile(self, tarinfo: TarInfo, fileobj: Optional[IO[bytes]] = ...) -> None: ...
     def gettarinfo(
-        self, name: Optional[str] = ..., arcname: Optional[str] = ..., fileobj: Optional[IO[bytes]] = ...
+        self, name: str | None = ..., arcname: str | None = ..., fileobj: Optional[IO[bytes]] = ...
     ) -> TarInfo: ...
     def close(self) -> None: ...
 
@@ -248,8 +248,8 @@ class TarInfo:
     devminor: int
     offset: int
     offset_data: int
-    sparse: Optional[bytes]
-    tarfile: Optional[TarFile]
+    sparse: bytes | None
+    tarfile: TarFile | None
     mode: int
     type: bytes
     linkname: str
@@ -268,7 +268,7 @@ class TarInfo:
     @linkpath.setter
     def linkpath(self, linkname: str) -> None: ...
     def get_info(self) -> Mapping[str, Union[str, int, bytes, Mapping[str, str]]]: ...
-    def tobuf(self, format: Optional[int] = ..., encoding: Optional[str] = ..., errors: str = ...) -> bytes: ...
+    def tobuf(self, format: int | None = ..., encoding: str | None = ..., errors: str = ...) -> bytes: ...
     def create_ustar_header(
         self, info: Mapping[str, Union[str, int, bytes, Mapping[str, str]]], encoding: str, errors: str
     ) -> bytes: ...

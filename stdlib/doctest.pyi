@@ -33,7 +33,7 @@ ELLIPSIS_MARKER: str
 class Example:
     source: str
     want: str
-    exc_msg: Optional[str]
+    exc_msg: str | None
     lineno: int
     indent: int
     options: Dict[int, bool]
@@ -41,7 +41,7 @@ class Example:
         self,
         source: str,
         want: str,
-        exc_msg: Optional[str] = ...,
+        exc_msg: str | None = ...,
         lineno: int = ...,
         indent: int = ...,
         options: Optional[Dict[int, bool]] = ...,
@@ -52,17 +52,17 @@ class DocTest:
     examples: List[Example]
     globs: Dict[str, Any]
     name: str
-    filename: Optional[str]
-    lineno: Optional[int]
-    docstring: Optional[str]
+    filename: str | None
+    lineno: int | None
+    docstring: str | None
     def __init__(
         self,
         examples: List[Example],
         globs: Dict[str, Any],
         name: str,
-        filename: Optional[str],
-        lineno: Optional[int],
-        docstring: Optional[str],
+        filename: str | None,
+        lineno: int | None,
+        docstring: str | None,
     ) -> None: ...
     def __hash__(self) -> int: ...
     def __lt__(self, other: DocTest) -> bool: ...
@@ -70,7 +70,7 @@ class DocTest:
 class DocTestParser:
     def parse(self, string: str, name: str = ...) -> List[str | Example]: ...
     def get_doctest(
-        self, string: str, globs: Dict[str, Any], name: str, filename: Optional[str], lineno: Optional[int]
+        self, string: str, globs: Dict[str, Any], name: str, filename: str | None, lineno: int | None
     ) -> DocTest: ...
     def get_examples(self, string: str, name: str = ...) -> List[Example]: ...
 
@@ -81,7 +81,7 @@ class DocTestFinder:
     def find(
         self,
         obj: object,
-        name: Optional[str] = ...,
+        name: str | None = ...,
         module: None | bool | types.ModuleType = ...,
         globs: Optional[Dict[str, Any]] = ...,
         extraglobs: Optional[Dict[str, Any]] = ...,
@@ -97,15 +97,15 @@ class DocTestRunner:
     tries: int
     failures: int
     test: DocTest
-    def __init__(self, checker: Optional[OutputChecker] = ..., verbose: Optional[bool] = ..., optionflags: int = ...) -> None: ...
+    def __init__(self, checker: OutputChecker | None = ..., verbose: bool | None = ..., optionflags: int = ...) -> None: ...
     def report_start(self, out: _Out, test: DocTest, example: Example) -> None: ...
     def report_success(self, out: _Out, test: DocTest, example: Example, got: str) -> None: ...
     def report_failure(self, out: _Out, test: DocTest, example: Example, got: str) -> None: ...
     def report_unexpected_exception(self, out: _Out, test: DocTest, example: Example, exc_info: _ExcInfo) -> None: ...
     def run(
-        self, test: DocTest, compileflags: Optional[int] = ..., out: Optional[_Out] = ..., clear_globs: bool = ...
+        self, test: DocTest, compileflags: int | None = ..., out: _Out | None = ..., clear_globs: bool = ...
     ) -> TestResults: ...
-    def summarize(self, verbose: Optional[bool] = ...) -> TestResults: ...
+    def summarize(self, verbose: bool | None = ...) -> TestResults: ...
     def merge(self, other: DocTestRunner) -> None: ...
 
 class OutputChecker:
@@ -126,13 +126,13 @@ class UnexpectedException(Exception):
 
 class DebugRunner(DocTestRunner): ...
 
-master: Optional[DocTestRunner]
+master: DocTestRunner | None
 
 def testmod(
-    m: Optional[types.ModuleType] = ...,
-    name: Optional[str] = ...,
+    m: types.ModuleType | None = ...,
+    name: str | None = ...,
     globs: Optional[Dict[str, Any]] = ...,
-    verbose: Optional[bool] = ...,
+    verbose: bool | None = ...,
     report: bool = ...,
     optionflags: int = ...,
     extraglobs: Optional[Dict[str, Any]] = ...,
@@ -142,23 +142,23 @@ def testmod(
 def testfile(
     filename: str,
     module_relative: bool = ...,
-    name: Optional[str] = ...,
+    name: str | None = ...,
     package: None | str | types.ModuleType = ...,
     globs: Optional[Dict[str, Any]] = ...,
-    verbose: Optional[bool] = ...,
+    verbose: bool | None = ...,
     report: bool = ...,
     optionflags: int = ...,
     extraglobs: Optional[Dict[str, Any]] = ...,
     raise_on_error: bool = ...,
     parser: DocTestParser = ...,
-    encoding: Optional[str] = ...,
+    encoding: str | None = ...,
 ) -> TestResults: ...
 def run_docstring_examples(
     f: object,
     globs: Dict[str, Any],
     verbose: bool = ...,
     name: str = ...,
-    compileflags: Optional[int] = ...,
+    compileflags: int | None = ...,
     optionflags: int = ...,
 ) -> None: ...
 def set_unittest_reportflags(flags: int) -> int: ...
@@ -170,7 +170,7 @@ class DocTestCase(unittest.TestCase):
         optionflags: int = ...,
         setUp: Optional[Callable[[DocTest], Any]] = ...,
         tearDown: Optional[Callable[[DocTest], Any]] = ...,
-        checker: Optional[OutputChecker] = ...,
+        checker: OutputChecker | None = ...,
     ) -> None: ...
     def setUp(self) -> None: ...
     def tearDown(self) -> None: ...
@@ -193,7 +193,7 @@ def DocTestSuite(
     module: None | str | types.ModuleType = ...,
     globs: Optional[Dict[str, Any]] = ...,
     extraglobs: Optional[Dict[str, Any]] = ...,
-    test_finder: Optional[DocTestFinder] = ...,
+    test_finder: DocTestFinder | None = ...,
     **options: Any,
 ) -> _DocTestSuite: ...
 
@@ -207,7 +207,7 @@ def DocFileTest(
     package: None | str | types.ModuleType = ...,
     globs: Optional[Dict[str, Any]] = ...,
     parser: DocTestParser = ...,
-    encoding: Optional[str] = ...,
+    encoding: str | None = ...,
     **options: Any,
 ) -> DocFileCase: ...
 def DocFileSuite(*paths: str, **kw: Any) -> _DocTestSuite: ...

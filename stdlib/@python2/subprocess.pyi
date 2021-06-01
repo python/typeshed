@@ -16,8 +16,8 @@ def call(
     preexec_fn: Callable[[], Any] = ...,
     close_fds: bool = ...,
     shell: bool = ...,
-    cwd: Optional[_TXT] = ...,
-    env: Optional[_ENV] = ...,
+    cwd: _TXT | None = ...,
+    env: _ENV | None = ...,
     universal_newlines: bool = ...,
     startupinfo: Any = ...,
     creationflags: int = ...,
@@ -32,8 +32,8 @@ def check_call(
     preexec_fn: Callable[[], Any] = ...,
     close_fds: bool = ...,
     shell: bool = ...,
-    cwd: Optional[_TXT] = ...,
-    env: Optional[_ENV] = ...,
+    cwd: _TXT | None = ...,
+    env: _ENV | None = ...,
     universal_newlines: bool = ...,
     startupinfo: Any = ...,
     creationflags: int = ...,
@@ -49,8 +49,8 @@ def check_output(
     preexec_fn: Callable[[], Any] = ...,
     close_fds: bool = ...,
     shell: bool = ...,
-    cwd: Optional[_TXT] = ...,
-    env: Optional[_ENV] = ...,
+    cwd: _TXT | None = ...,
+    env: _ENV | None = ...,
     universal_newlines: bool = ...,
     startupinfo: Any = ...,
     creationflags: int = ...,
@@ -63,9 +63,9 @@ class CalledProcessError(Exception):
     returncode: int
     # morally: _CMD
     cmd: Any
-    # morally: Optional[bytes]
+    # morally: bytes | None
     output: bytes
-    def __init__(self, returncode: int, cmd: _CMD, output: Optional[bytes] = ...) -> None: ...
+    def __init__(self, returncode: int, cmd: _CMD, output: bytes | None = ...) -> None: ...
 
 # We use a dummy type variable used to make Popen generic like it is in python 3
 _T = TypeVar("_T", bound=bytes)
@@ -80,23 +80,23 @@ class Popen(Generic[_T]):
         cls,
         args: _CMD,
         bufsize: int = ...,
-        executable: Optional[_TXT] = ...,
-        stdin: Optional[_FILE] = ...,
-        stdout: Optional[_FILE] = ...,
-        stderr: Optional[_FILE] = ...,
+        executable: _TXT | None = ...,
+        stdin: _FILE | None = ...,
+        stdout: _FILE | None = ...,
+        stderr: _FILE | None = ...,
         preexec_fn: Optional[Callable[[], Any]] = ...,
         close_fds: bool = ...,
         shell: bool = ...,
-        cwd: Optional[_TXT] = ...,
-        env: Optional[_ENV] = ...,
+        cwd: _TXT | None = ...,
+        env: _ENV | None = ...,
         universal_newlines: bool = ...,
-        startupinfo: Optional[Any] = ...,
+        startupinfo: Any | None = ...,
         creationflags: int = ...,
     ) -> Popen[bytes]: ...
-    def poll(self) -> Optional[int]: ...
+    def poll(self) -> int | None: ...
     def wait(self) -> int: ...
-    # morally: -> Tuple[Optional[bytes], Optional[bytes]]
-    def communicate(self, input: Optional[_TXT] = ...) -> Tuple[bytes, bytes]: ...
+    # morally: -> Tuple[bytes | None, bytes | None]
+    def communicate(self, input: _TXT | None = ...) -> Tuple[bytes, bytes]: ...
     def send_signal(self, signal: int) -> None: ...
     def terminate(self) -> None: ...
     def kill(self) -> None: ...

@@ -6,7 +6,7 @@ from urllib.response import addinfourl
 
 class URLError(IOError):
     reason: str | BaseException
-    def __init__(self, reason: str | BaseException, filename: Optional[str] = ...) -> None: ...
+    def __init__(self, reason: str | BaseException, filename: str | None = ...) -> None: ...
 
 class HTTPError(URLError, addinfourl):
     code: int

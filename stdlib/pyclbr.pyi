@@ -17,7 +17,7 @@ class Class:
             super: Optional[List[Class | str]],
             file: str,
             lineno: int,
-            parent: Optional[Class] = ...,
+            parent: Class | None = ...,
         ) -> None: ...
     else:
         def __init__(self, module: str, name: str, super: Optional[List[Class | str]], file: str, lineno: int) -> None: ...
@@ -29,7 +29,7 @@ class Function:
     lineno: int
 
     if sys.version_info >= (3, 7):
-        def __init__(self, module: str, name: str, file: str, lineno: int, parent: Optional[Function] = ...) -> None: ...
+        def __init__(self, module: str, name: str, file: str, lineno: int, parent: Function | None = ...) -> None: ...
     else:
         def __init__(self, module: str, name: str, file: str, lineno: int) -> None: ...
 

@@ -8,7 +8,7 @@ def dumps(
     check_circular: bool = ...,
     allow_nan: bool = ...,
     cls: Optional[Type[JSONEncoder]] = ...,
-    indent: Optional[int] = ...,
+    indent: int | None = ...,
     separators: Optional[Tuple[str, str]] = ...,
     encoding: str = ...,
     default: Optional[Callable[[Any], Any]] = ...,
@@ -23,7 +23,7 @@ def dump(
     check_circular: bool = ...,
     allow_nan: bool = ...,
     cls: Optional[Type[JSONEncoder]] = ...,
-    indent: Optional[int] = ...,
+    indent: int | None = ...,
     separators: Optional[Tuple[str, str]] = ...,
     encoding: str = ...,
     default: Optional[Callable[[Any], Any]] = ...,
@@ -43,7 +43,7 @@ def loads(
 ) -> Any: ...
 def load(
     fp: SupportsRead[Text | bytes],
-    encoding: Optional[str] = ...,
+    encoding: str | None = ...,
     cls: Optional[Type[JSONDecoder]] = ...,
     object_hook: Optional[Callable[[Dict[Any, Any]], Any]] = ...,
     parse_float: Optional[Callable[[str], Any]] = ...,
@@ -75,7 +75,7 @@ class JSONEncoder(object):
     check_circular: bool
     allow_nan: bool
     sort_keys: bool
-    indent: Optional[int]
+    indent: int | None
     def __init__(
         self,
         skipkeys: bool = ...,
@@ -83,7 +83,7 @@ class JSONEncoder(object):
         check_circular: bool = ...,
         allow_nan: bool = ...,
         sort_keys: bool = ...,
-        indent: Optional[int] = ...,
+        indent: int | None = ...,
         separators: Tuple[Text | bytes, Text | bytes] = ...,
         encoding: Text | bytes = ...,
         default: Callable[..., Any] = ...,

@@ -1,9 +1,9 @@
 from typing import Iterable, List, Optional
 
 PREFIXES: List[str]
-ENABLE_USER_SITE: Optional[bool]
-USER_SITE: Optional[str]
-USER_BASE: Optional[str]
+ENABLE_USER_SITE: bool | None
+USER_SITE: str | None
+USER_BASE: str | None
 
 def main() -> None: ...
 def addsitedir(sitedir: str, known_paths: Optional[Iterable[str]] = ...) -> None: ...

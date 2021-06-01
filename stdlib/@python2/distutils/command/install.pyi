@@ -3,10 +3,10 @@ from typing import Optional, Text
 
 class install(Command):
     user: bool
-    prefix: Optional[Text]
-    home: Optional[Text]
-    root: Optional[Text]
-    install_lib: Optional[Text]
+    prefix: Text | None
+    home: Text | None
+    root: Text | None
+    install_lib: Text | None
     def initialize_options(self) -> None: ...
     def finalize_options(self) -> None: ...
     def run(self) -> None: ...

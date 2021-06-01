@@ -28,12 +28,12 @@ class WatchedFileHandler(FileHandler):
             self,
             filename: StrPath,
             mode: str = ...,
-            encoding: Optional[str] = ...,
+            encoding: str | None = ...,
             delay: bool = ...,
-            errors: Optional[str] = ...,
+            errors: str | None = ...,
         ) -> None: ...
     else:
-        def __init__(self, filename: StrPath, mode: str = ..., encoding: Optional[str] = ..., delay: bool = ...) -> None: ...
+        def __init__(self, filename: StrPath, mode: str = ..., encoding: str | None = ..., delay: bool = ...) -> None: ...
     def _statstream(self) -> None: ...  # undocumented
     def reopenIfNeeded(self) -> None: ...
 
@@ -42,10 +42,10 @@ class BaseRotatingHandler(FileHandler):
     rotator: Optional[Callable[[str, str], None]]
     if sys.version_info >= (3, 9):
         def __init__(
-            self, filename: StrPath, mode: str, encoding: Optional[str] = ..., delay: bool = ..., errors: Optional[str] = ...
+            self, filename: StrPath, mode: str, encoding: str | None = ..., delay: bool = ..., errors: str | None = ...
         ) -> None: ...
     else:
-        def __init__(self, filename: StrPath, mode: str, encoding: Optional[str] = ..., delay: bool = ...) -> None: ...
+        def __init__(self, filename: StrPath, mode: str, encoding: str | None = ..., delay: bool = ...) -> None: ...
     def rotation_filename(self, default_name: str) -> str: ...
     def rotate(self, source: str, dest: str) -> None: ...
 
@@ -59,9 +59,9 @@ class RotatingFileHandler(BaseRotatingHandler):
             mode: str = ...,
             maxBytes: int = ...,
             backupCount: int = ...,
-            encoding: Optional[str] = ...,
+            encoding: str | None = ...,
             delay: bool = ...,
-            errors: Optional[str] = ...,
+            errors: str | None = ...,
         ) -> None: ...
     else:
         def __init__(
@@ -70,7 +70,7 @@ class RotatingFileHandler(BaseRotatingHandler):
             mode: str = ...,
             maxBytes: int = ...,
             backupCount: int = ...,
-            encoding: Optional[str] = ...,
+            encoding: str | None = ...,
             delay: bool = ...,
         ) -> None: ...
     def doRollover(self) -> None: ...
@@ -80,7 +80,7 @@ class TimedRotatingFileHandler(BaseRotatingHandler):
     when: str  # undocumented
     backupCount: str  # undocumented
     utc: bool  # undocumented
-    atTime: Optional[datetime.datetime]  # undocumented
+    atTime: datetime.datetime | None  # undocumented
     interval: int  # undocumented
     suffix: str  # undocumented
     dayOfWeek: int  # undocumented
@@ -93,11 +93,11 @@ class TimedRotatingFileHandler(BaseRotatingHandler):
             when: str = ...,
             interval: int = ...,
             backupCount: int = ...,
-            encoding: Optional[str] = ...,
+            encoding: str | None = ...,
             delay: bool = ...,
             utc: bool = ...,
-            atTime: Optional[datetime.datetime] = ...,
-            errors: Optional[str] = ...,
+            atTime: datetime.datetime | None = ...,
+            errors: str | None = ...,
         ) -> None: ...
     else:
         def __init__(
@@ -106,10 +106,10 @@ class TimedRotatingFileHandler(BaseRotatingHandler):
             when: str = ...,
             interval: int = ...,
             backupCount: int = ...,
-            encoding: Optional[str] = ...,
+            encoding: str | None = ...,
             delay: bool = ...,
             utc: bool = ...,
-            atTime: Optional[datetime.datetime] = ...,
+            atTime: datetime.datetime | None = ...,
         ) -> None: ...
     def doRollover(self) -> None: ...
     def shouldRollover(self, record: LogRecord) -> int: ...  # undocumented
@@ -118,15 +118,15 @@ class TimedRotatingFileHandler(BaseRotatingHandler):
 
 class SocketHandler(Handler):
     host: str  # undocumented
-    port: Optional[int]  # undocumented
+    port: int | None  # undocumented
     address: tuple[str, int] | str  # undocumented
-    sock: Optional[socket]  # undocumented
+    sock: socket | None  # undocumented
     closeOnError: bool  # undocumented
-    retryTime: Optional[float]  # undocumented
+    retryTime: float | None  # undocumented
     retryStart: float  # undocumented
     retryFactor: float  # undocumented
     retryMax: float  # undocumented
-    def __init__(self, host: str, port: Optional[int]) -> None: ...
+    def __init__(self, host: str, port: int | None) -> None: ...
     def makeSocket(self, timeout: float = ...) -> socket: ...  # timeout is undocumented
     def makePickle(self, record: LogRecord) -> bytes: ...
     def send(self, s: bytes) -> None: ...
@@ -181,13 +181,13 @@ class SysLogHandler(Handler):
     facility_names: ClassVar[dict[str, int]]  # undocumented
     priority_map: ClassVar[dict[str, str]]  # undocumented
     def __init__(
-        self, address: tuple[str, int] | str = ..., facility: int = ..., socktype: Optional[SocketKind] = ...
+        self, address: tuple[str, int] | str = ..., facility: int = ..., socktype: SocketKind | None = ...
     ) -> None: ...
     def encodePriority(self, facility: int | str, priority: int | str) -> int: ...
     def mapPriority(self, levelName: str) -> str: ...
 
 class NTEventLogHandler(Handler):
-    def __init__(self, appname: str, dllname: Optional[str] = ..., logtype: str = ...) -> None: ...
+    def __init__(self, appname: str, dllname: str | None = ..., logtype: str = ...) -> None: ...
     def getEventCategory(self, record: LogRecord) -> int: ...
     # TODO correct return value?
     def getEventType(self, record: LogRecord) -> int: ...
@@ -195,8 +195,8 @@ class NTEventLogHandler(Handler):
 
 class SMTPHandler(Handler):
     mailhost: str  # undocumented
-    mailport: Optional[int]  # undocumented
-    username: Optional[str]  # undocumented
+    mailport: int | None  # undocumented
+    username: str | None  # undocumented
     # password only exists as an attribute if passed credentials is a tuple or list
     password: str  # undocumented
     fromaddr: str  # undocumented
@@ -224,12 +224,12 @@ class BufferingHandler(Handler):
 
 class MemoryHandler(BufferingHandler):
     flushLevel: int  # undocumented
-    target: Optional[Handler]  # undocumented
+    target: Handler | None  # undocumented
     flushOnClose: bool  # undocumented
     def __init__(
-        self, capacity: int, flushLevel: int = ..., target: Optional[Handler] = ..., flushOnClose: bool = ...
+        self, capacity: int, flushLevel: int = ..., target: Handler | None = ..., flushOnClose: bool = ...
     ) -> None: ...
-    def setTarget(self, target: Optional[Handler]) -> None: ...
+    def setTarget(self, target: Handler | None) -> None: ...
 
 class HTTPHandler(Handler):
     host: str  # undocumented
@@ -237,7 +237,7 @@ class HTTPHandler(Handler):
     method: str  # undocumented
     secure: bool  # undocumented
     credentials: Optional[tuple[str, str]]  # undocumented
-    context: Optional[ssl.SSLContext]  # undocumented
+    context: ssl.SSLContext | None  # undocumented
     def __init__(
         self,
         host: str,
@@ -245,7 +245,7 @@ class HTTPHandler(Handler):
         method: str = ...,
         secure: bool = ...,
         credentials: Optional[tuple[str, str]] = ...,
-        context: Optional[ssl.SSLContext] = ...,
+        context: ssl.SSLContext | None = ...,
     ) -> None: ...
     def mapLogRecord(self, record: LogRecord) -> dict[str, Any]: ...
     if sys.version_info >= (3, 9):

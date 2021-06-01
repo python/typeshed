@@ -8,7 +8,7 @@ from . import base_events, constants, events, futures, streams, transports
 if sys.version_info >= (3, 8):
     class _WarnCallbackProtocol(Protocol):
         def __call__(
-            self, message: str, category: Optional[Type[Warning]] = ..., stacklevel: int = ..., source: Optional[Any] = ...
+            self, message: str, category: Optional[Type[Warning]] = ..., stacklevel: int = ..., source: Any | None = ...
         ) -> None: ...
 
 class _ProactorBasePipeTransport(transports._FlowControlMixin, transports.BaseTransport):
@@ -19,7 +19,7 @@ class _ProactorBasePipeTransport(transports._FlowControlMixin, transports.BaseTr
         protocol: streams.StreamReaderProtocol,
         waiter: Optional[futures.Future[Any]] = ...,
         extra: Optional[Mapping[Any, Any]] = ...,
-        server: Optional[events.AbstractServer] = ...,
+        server: events.AbstractServer | None = ...,
     ) -> None: ...
     def __repr__(self) -> str: ...
     if sys.version_info >= (3, 8):
@@ -36,7 +36,7 @@ class _ProactorReadPipeTransport(_ProactorBasePipeTransport, transports.ReadTran
         protocol: streams.StreamReaderProtocol,
         waiter: Optional[futures.Future[Any]] = ...,
         extra: Optional[Mapping[Any, Any]] = ...,
-        server: Optional[events.AbstractServer] = ...,
+        server: events.AbstractServer | None = ...,
     ) -> None: ...
 
 class _ProactorBaseWritePipeTransport(_ProactorBasePipeTransport, transports.WriteTransport):
@@ -47,7 +47,7 @@ class _ProactorBaseWritePipeTransport(_ProactorBasePipeTransport, transports.Wri
         protocol: streams.StreamReaderProtocol,
         waiter: Optional[futures.Future[Any]] = ...,
         extra: Optional[Mapping[Any, Any]] = ...,
-        server: Optional[events.AbstractServer] = ...,
+        server: events.AbstractServer | None = ...,
     ) -> None: ...
 
 class _ProactorWritePipeTransport(_ProactorBaseWritePipeTransport):
@@ -58,7 +58,7 @@ class _ProactorWritePipeTransport(_ProactorBaseWritePipeTransport):
         protocol: streams.StreamReaderProtocol,
         waiter: Optional[futures.Future[Any]] = ...,
         extra: Optional[Mapping[Any, Any]] = ...,
-        server: Optional[events.AbstractServer] = ...,
+        server: events.AbstractServer | None = ...,
     ) -> None: ...
 
 class _ProactorDuplexPipeTransport(_ProactorReadPipeTransport, _ProactorBaseWritePipeTransport, transports.Transport): ...
@@ -73,7 +73,7 @@ class _ProactorSocketTransport(_ProactorReadPipeTransport, _ProactorBaseWritePip
         protocol: streams.StreamReaderProtocol,
         waiter: Optional[futures.Future[Any]] = ...,
         extra: Optional[Mapping[Any, Any]] = ...,
-        server: Optional[events.AbstractServer] = ...,
+        server: events.AbstractServer | None = ...,
     ) -> None: ...
     def _set_extra(self, sock: socket) -> None: ...
     def can_write_eof(self) -> Literal[True]: ...

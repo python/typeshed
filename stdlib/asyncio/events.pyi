@@ -26,7 +26,7 @@ class Handle:
     _args: Sequence[Any]
     if sys.version_info >= (3, 7):
         def __init__(
-            self, callback: Callable[..., Any], args: Sequence[Any], loop: AbstractEventLoop, context: Optional[Context] = ...
+            self, callback: Callable[..., Any], args: Sequence[Any], loop: AbstractEventLoop, context: Context | None = ...
         ) -> None: ...
     else:
         def __init__(self, callback: Callable[..., Any], args: Sequence[Any], loop: AbstractEventLoop) -> None: ...
@@ -44,7 +44,7 @@ class TimerHandle(Handle):
             callback: Callable[..., Any],
             args: Sequence[Any],
             loop: AbstractEventLoop,
-            context: Optional[Context] = ...,
+            context: Context | None = ...,
         ) -> None: ...
     else:
         def __init__(self, when: float, callback: Callable[..., Any], args: Sequence[Any], loop: AbstractEventLoop) -> None: ...
@@ -99,7 +99,7 @@ class AbstractEventLoop(metaclass=ABCMeta):
     # Tasks methods
     if sys.version_info >= (3, 8):
         @abstractmethod
-        def create_task(self, coro: Awaitable[_T] | Generator[Any, None, _T], *, name: Optional[str] = ...) -> Task[_T]: ...
+        def create_task(self, coro: Awaitable[_T] | Generator[Any, None, _T], *, name: str | None = ...) -> Task[_T]: ...
     else:
         @abstractmethod
         def create_task(self, coro: Awaitable[_T] | Generator[Any, None, _T]) -> Task[_T]: ...
@@ -120,7 +120,7 @@ class AbstractEventLoop(metaclass=ABCMeta):
     @abstractmethod
     async def getaddrinfo(
         self,
-        host: Optional[str],
+        host: str | None,
         port: str | int | None,
         *,
         family: int = ...,
@@ -147,10 +147,10 @@ class AbstractEventLoop(metaclass=ABCMeta):
             flags: int = ...,
             sock: None = ...,
             local_addr: Optional[Tuple[str, int]] = ...,
-            server_hostname: Optional[str] = ...,
-            ssl_handshake_timeout: Optional[float] = ...,
-            happy_eyeballs_delay: Optional[float] = ...,
-            interleave: Optional[int] = ...,
+            server_hostname: str | None = ...,
+            ssl_handshake_timeout: float | None = ...,
+            happy_eyeballs_delay: float | None = ...,
+            interleave: int | None = ...,
         ) -> _TransProtPair: ...
         @overload
         @abstractmethod
@@ -166,10 +166,10 @@ class AbstractEventLoop(metaclass=ABCMeta):
             flags: int = ...,
             sock: socket,
             local_addr: None = ...,
-            server_hostname: Optional[str] = ...,
-            ssl_handshake_timeout: Optional[float] = ...,
-            happy_eyeballs_delay: Optional[float] = ...,
-            interleave: Optional[int] = ...,
+            server_hostname: str | None = ...,
+            ssl_handshake_timeout: float | None = ...,
+            happy_eyeballs_delay: float | None = ...,
+            interleave: int | None = ...,
         ) -> _TransProtPair: ...
     elif sys.version_info >= (3, 7):
         @overload
@@ -186,8 +186,8 @@ class AbstractEventLoop(metaclass=ABCMeta):
             flags: int = ...,
             sock: None = ...,
             local_addr: Optional[Tuple[str, int]] = ...,
-            server_hostname: Optional[str] = ...,
-            ssl_handshake_timeout: Optional[float] = ...,
+            server_hostname: str | None = ...,
+            ssl_handshake_timeout: float | None = ...,
         ) -> _TransProtPair: ...
         @overload
         @abstractmethod
@@ -203,8 +203,8 @@ class AbstractEventLoop(metaclass=ABCMeta):
             flags: int = ...,
             sock: socket,
             local_addr: None = ...,
-            server_hostname: Optional[str] = ...,
-            ssl_handshake_timeout: Optional[float] = ...,
+            server_hostname: str | None = ...,
+            ssl_handshake_timeout: float | None = ...,
         ) -> _TransProtPair: ...
     else:
         @overload
@@ -221,7 +221,7 @@ class AbstractEventLoop(metaclass=ABCMeta):
             flags: int = ...,
             sock: None = ...,
             local_addr: Optional[Tuple[str, int]] = ...,
-            server_hostname: Optional[str] = ...,
+            server_hostname: str | None = ...,
         ) -> _TransProtPair: ...
         @overload
         @abstractmethod
@@ -237,12 +237,12 @@ class AbstractEventLoop(metaclass=ABCMeta):
             flags: int = ...,
             sock: socket,
             local_addr: None = ...,
-            server_hostname: Optional[str] = ...,
+            server_hostname: str | None = ...,
         ) -> _TransProtPair: ...
     if sys.version_info >= (3, 7):
         @abstractmethod
         async def sock_sendfile(
-            self, sock: socket, file: IO[bytes], offset: int = ..., count: Optional[int] = ..., *, fallback: Optional[bool] = ...
+            self, sock: socket, file: IO[bytes], offset: int = ..., count: int | None = ..., *, fallback: bool | None = ...
         ) -> int: ...
         @overload
         @abstractmethod
@@ -257,9 +257,9 @@ class AbstractEventLoop(metaclass=ABCMeta):
             sock: None = ...,
             backlog: int = ...,
             ssl: _SSLContext = ...,
-            reuse_address: Optional[bool] = ...,
-            reuse_port: Optional[bool] = ...,
-            ssl_handshake_timeout: Optional[float] = ...,
+            reuse_address: bool | None = ...,
+            reuse_port: bool | None = ...,
+            ssl_handshake_timeout: float | None = ...,
             start_serving: bool = ...,
         ) -> AbstractServer: ...
         @overload
@@ -275,30 +275,30 @@ class AbstractEventLoop(metaclass=ABCMeta):
             sock: socket = ...,
             backlog: int = ...,
             ssl: _SSLContext = ...,
-            reuse_address: Optional[bool] = ...,
-            reuse_port: Optional[bool] = ...,
-            ssl_handshake_timeout: Optional[float] = ...,
+            reuse_address: bool | None = ...,
+            reuse_port: bool | None = ...,
+            ssl_handshake_timeout: float | None = ...,
             start_serving: bool = ...,
         ) -> AbstractServer: ...
         async def create_unix_connection(
             self,
             protocol_factory: _ProtocolFactory,
-            path: Optional[str] = ...,
+            path: str | None = ...,
             *,
             ssl: _SSLContext = ...,
-            sock: Optional[socket] = ...,
-            server_hostname: Optional[str] = ...,
-            ssl_handshake_timeout: Optional[float] = ...,
+            sock: socket | None = ...,
+            server_hostname: str | None = ...,
+            ssl_handshake_timeout: float | None = ...,
         ) -> _TransProtPair: ...
         async def create_unix_server(
             self,
             protocol_factory: _ProtocolFactory,
-            path: Optional[str] = ...,
+            path: str | None = ...,
             *,
-            sock: Optional[socket] = ...,
+            sock: socket | None = ...,
             backlog: int = ...,
             ssl: _SSLContext = ...,
-            ssl_handshake_timeout: Optional[float] = ...,
+            ssl_handshake_timeout: float | None = ...,
             start_serving: bool = ...,
         ) -> AbstractServer: ...
         @abstractmethod
@@ -307,7 +307,7 @@ class AbstractEventLoop(metaclass=ABCMeta):
             transport: BaseTransport,
             file: IO[bytes],
             offset: int = ...,
-            count: Optional[int] = ...,
+            count: int | None = ...,
             *,
             fallback: bool = ...,
         ) -> int: ...
@@ -319,8 +319,8 @@ class AbstractEventLoop(metaclass=ABCMeta):
             sslcontext: ssl.SSLContext,
             *,
             server_side: bool = ...,
-            server_hostname: Optional[str] = ...,
-            ssl_handshake_timeout: Optional[float] = ...,
+            server_hostname: str | None = ...,
+            ssl_handshake_timeout: float | None = ...,
         ) -> BaseTransport: ...
     else:
         @overload
@@ -336,8 +336,8 @@ class AbstractEventLoop(metaclass=ABCMeta):
             sock: None = ...,
             backlog: int = ...,
             ssl: _SSLContext = ...,
-            reuse_address: Optional[bool] = ...,
-            reuse_port: Optional[bool] = ...,
+            reuse_address: bool | None = ...,
+            reuse_port: bool | None = ...,
         ) -> AbstractServer: ...
         @overload
         @abstractmethod
@@ -352,8 +352,8 @@ class AbstractEventLoop(metaclass=ABCMeta):
             sock: socket,
             backlog: int = ...,
             ssl: _SSLContext = ...,
-            reuse_address: Optional[bool] = ...,
-            reuse_port: Optional[bool] = ...,
+            reuse_address: bool | None = ...,
+            reuse_port: bool | None = ...,
         ) -> AbstractServer: ...
         async def create_unix_connection(
             self,
@@ -361,15 +361,15 @@ class AbstractEventLoop(metaclass=ABCMeta):
             path: str,
             *,
             ssl: _SSLContext = ...,
-            sock: Optional[socket] = ...,
-            server_hostname: Optional[str] = ...,
+            sock: socket | None = ...,
+            server_hostname: str | None = ...,
         ) -> _TransProtPair: ...
         async def create_unix_server(
             self,
             protocol_factory: _ProtocolFactory,
             path: str,
             *,
-            sock: Optional[socket] = ...,
+            sock: socket | None = ...,
             backlog: int = ...,
             ssl: _SSLContext = ...,
         ) -> AbstractServer: ...
@@ -383,10 +383,10 @@ class AbstractEventLoop(metaclass=ABCMeta):
         family: int = ...,
         proto: int = ...,
         flags: int = ...,
-        reuse_address: Optional[bool] = ...,
-        reuse_port: Optional[bool] = ...,
-        allow_broadcast: Optional[bool] = ...,
-        sock: Optional[socket] = ...,
+        reuse_address: bool | None = ...,
+        reuse_port: bool | None = ...,
+        allow_broadcast: bool | None = ...,
+        sock: socket | None = ...,
     ) -> _TransProtPair: ...
     # Pipes and subprocesses.
     @abstractmethod
@@ -462,9 +462,9 @@ class AbstractEventLoop(metaclass=ABCMeta):
     def remove_signal_handler(self, sig: int) -> bool: ...
     # Error handlers.
     @abstractmethod
-    def set_exception_handler(self, handler: Optional[_ExceptionHandler]) -> None: ...
+    def set_exception_handler(self, handler: _ExceptionHandler | None) -> None: ...
     @abstractmethod
-    def get_exception_handler(self) -> Optional[_ExceptionHandler]: ...
+    def get_exception_handler(self) -> _ExceptionHandler | None: ...
     @abstractmethod
     def default_exception_handler(self, context: _Context) -> None: ...
     @abstractmethod
@@ -482,7 +482,7 @@ class AbstractEventLoopPolicy(metaclass=ABCMeta):
     @abstractmethod
     def get_event_loop(self) -> AbstractEventLoop: ...
     @abstractmethod
-    def set_event_loop(self, loop: Optional[AbstractEventLoop]) -> None: ...
+    def set_event_loop(self, loop: AbstractEventLoop | None) -> None: ...
     @abstractmethod
     def new_event_loop(self) -> AbstractEventLoop: ...
     # Child processes handling (Unix only).
@@ -494,17 +494,17 @@ class AbstractEventLoopPolicy(metaclass=ABCMeta):
 class BaseDefaultEventLoopPolicy(AbstractEventLoopPolicy, metaclass=ABCMeta):
     def __init__(self) -> None: ...
     def get_event_loop(self) -> AbstractEventLoop: ...
-    def set_event_loop(self, loop: Optional[AbstractEventLoop]) -> None: ...
+    def set_event_loop(self, loop: AbstractEventLoop | None) -> None: ...
     def new_event_loop(self) -> AbstractEventLoop: ...
 
 def get_event_loop_policy() -> AbstractEventLoopPolicy: ...
-def set_event_loop_policy(policy: Optional[AbstractEventLoopPolicy]) -> None: ...
+def set_event_loop_policy(policy: AbstractEventLoopPolicy | None) -> None: ...
 def get_event_loop() -> AbstractEventLoop: ...
-def set_event_loop(loop: Optional[AbstractEventLoop]) -> None: ...
+def set_event_loop(loop: AbstractEventLoop | None) -> None: ...
 def new_event_loop() -> AbstractEventLoop: ...
 def get_child_watcher() -> AbstractChildWatcher: ...
 def set_child_watcher(watcher: AbstractChildWatcher) -> None: ...
-def _set_running_loop(__loop: Optional[AbstractEventLoop]) -> None: ...
+def _set_running_loop(__loop: AbstractEventLoop | None) -> None: ...
 def _get_running_loop() -> AbstractEventLoop: ...
 
 if sys.version_info >= (3, 7):

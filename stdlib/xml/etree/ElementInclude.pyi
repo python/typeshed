@@ -8,7 +8,7 @@ XINCLUDE_FALLBACK: str
 
 class FatalIncludeError(SyntaxError): ...
 
-def default_loader(href: str | bytes | int, parse: str, encoding: Optional[str] = ...) -> str | Element: ...
+def default_loader(href: str | bytes | int, parse: str, encoding: str | None = ...) -> str | Element: ...
 
 # TODO: loader is of type default_loader ie it takes a callable that has the
 # same signature as default_loader. But default_loader has a keyword argument
@@ -17,8 +17,8 @@ if sys.version_info >= (3, 9):
     def include(
         elem: Element,
         loader: Optional[Callable[..., str | Element]] = ...,
-        base_url: Optional[str] = ...,
-        max_depth: Optional[int] = ...,
+        base_url: str | None = ...,
+        max_depth: int | None = ...,
     ) -> None: ...
 
 else:

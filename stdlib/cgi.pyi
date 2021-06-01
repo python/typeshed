@@ -38,7 +38,7 @@ def print_directory() -> None: ...
 def print_environ_usage() -> None: ...
 
 if sys.version_info < (3, 8):
-    def escape(s: str, quote: Optional[bool] = ...) -> str: ...
+    def escape(s: str, quote: bool | None = ...) -> str: ...
 
 class MiniFieldStorage:
     # The first five "Any" attributes here are always None, but mypy doesn't support that
@@ -58,20 +58,20 @@ class MiniFieldStorage:
 _list = list
 
 class FieldStorage(object):
-    FieldStorageClass: Optional[_type]
+    FieldStorageClass: _type | None
     keep_blank_values: int
     strict_parsing: int
-    qs_on_post: Optional[str]
+    qs_on_post: str | None
     headers: Mapping[str, str]
     fp: IO[bytes]
     encoding: str
     errors: str
     outerboundary: bytes
     bytes_read: int
-    limit: Optional[int]
+    limit: int | None
     disposition: str
     disposition_options: dict[str, str]
-    filename: Optional[str]
+    filename: str | None
     file: Optional[IO[bytes]]
     type: str
     type_options: dict[str, str]
@@ -88,10 +88,10 @@ class FieldStorage(object):
         environ: SupportsGetItem[str, str] = ...,
         keep_blank_values: int = ...,
         strict_parsing: int = ...,
-        limit: Optional[int] = ...,
+        limit: int | None = ...,
         encoding: str = ...,
         errors: str = ...,
-        max_num_fields: Optional[int] = ...,
+        max_num_fields: int | None = ...,
         separator: str = ...,
     ) -> None: ...
     def __enter__(self: _T) -> _T: ...

@@ -3,21 +3,21 @@ from distutils.cmd import Command
 from typing import IO, Any, Dict, Iterable, List, Mapping, Optional, Tuple, Type, Union
 
 class DistributionMetadata:
-    def __init__(self, path: Optional[int | StrOrBytesPath] = ...) -> None: ...
-    name: Optional[str]
-    version: Optional[str]
-    author: Optional[str]
-    author_email: Optional[str]
-    maintainer: Optional[str]
-    maintainer_email: Optional[str]
-    url: Optional[str]
-    license: Optional[str]
-    description: Optional[str]
-    long_description: Optional[str]
+    def __init__(self, path: int | StrOrBytesPath | None = ...) -> None: ...
+    name: str | None
+    version: str | None
+    author: str | None
+    author_email: str | None
+    maintainer: str | None
+    maintainer_email: str | None
+    url: str | None
+    license: str | None
+    description: str | None
+    long_description: str | None
     keywords: Optional[str | List[str]]
     platforms: Optional[str | List[str]]
     classifiers: Optional[str | List[str]]
-    download_url: Optional[str]
+    download_url: str | None
     provides: Optional[List[str]]
     requires: Optional[List[str]]
     obsoletes: Optional[List[str]]
@@ -55,4 +55,4 @@ class Distribution:
     def __init__(self, attrs: Optional[Mapping[str, Any]] = ...) -> None: ...
     def get_option_dict(self, command: str) -> Dict[str, Tuple[str, str]]: ...
     def parse_config_files(self, filenames: Optional[Iterable[str]] = ...) -> None: ...
-    def get_command_obj(self, command: str, create: bool = ...) -> Optional[Command]: ...
+    def get_command_obj(self, command: str, create: bool = ...) -> Command | None: ...

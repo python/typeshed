@@ -9,8 +9,8 @@ class Error(Exception): ...
 
 class Dialect:
     delimiter: str
-    quotechar: Optional[str]
-    escapechar: Optional[str]
+    quotechar: str | None
+    escapechar: str | None
     doublequote: bool
     skipinitialspace: bool
     lineterminator: str

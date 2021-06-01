@@ -44,18 +44,18 @@ class Namespace:
 _Namespace = Namespace
 
 class Token(object):
-    typeid: Optional[str | bytes]
+    typeid: str | bytes | None
     address: Tuple[str | bytes, int]
-    id: Optional[str | bytes | int]
+    id: str | bytes | int | None
     def __init__(
-        self, typeid: Optional[bytes | str], address: Tuple[str | bytes, int], id: Optional[str | bytes | int]
+        self, typeid: bytes | str | None, address: Tuple[str | bytes, int], id: str | bytes | int | None
     ) -> None: ...
     def __repr__(self) -> str: ...
     def __getstate__(
         self,
-    ) -> Tuple[Optional[str | bytes], Tuple[str | bytes, int], Optional[str | bytes | int]]: ...
+    ) -> Tuple[str | bytes | None, Tuple[str | bytes, int], str | bytes | int | None]: ...
     def __setstate__(
-        self, state: Tuple[Optional[str | bytes], Tuple[str | bytes, int], Optional[str | bytes | int]]
+        self, state: Tuple[str | bytes | None, Tuple[str | bytes, int], str | bytes | int | None]
     ) -> None: ...
 
 class BaseProxy(object):
@@ -66,12 +66,12 @@ class BaseProxy(object):
         token: Any,
         serializer: str,
         manager: Any = ...,
-        authkey: Optional[AnyStr] = ...,
+        authkey: AnyStr | None = ...,
         exposed: Any = ...,
         incref: bool = ...,
         manager_owned: bool = ...,
     ) -> None: ...
-    def __deepcopy__(self, memo: Optional[Any]) -> Any: ...
+    def __deepcopy__(self, memo: Any | None) -> Any: ...
     def _callmethod(self, methodname: str, args: Tuple[Any, ...] = ..., kwds: Dict[Any, Any] = ...) -> None: ...
     def _getvalue(self) -> Any: ...
     def __reduce__(self) -> Tuple[Any, Tuple[Any, Any, str, Dict[Any, Any]]]: ...
@@ -95,16 +95,16 @@ class Server:
 class BaseManager(ContextManager[BaseManager]):
     def __init__(
         self,
-        address: Optional[Any] = ...,
-        authkey: Optional[bytes] = ...,
+        address: Any | None = ...,
+        authkey: bytes | None = ...,
         serializer: str = ...,
-        ctx: Optional[BaseContext] = ...,
+        ctx: BaseContext | None = ...,
     ) -> None: ...
     def get_server(self) -> Server: ...
     def connect(self) -> None: ...
     def start(self, initializer: Optional[Callable[..., Any]] = ..., initargs: Iterable[Any] = ...) -> None: ...
     def shutdown(self) -> None: ...  # only available after start() was called
-    def join(self, timeout: Optional[float] = ...) -> None: ...  # undocumented
+    def join(self, timeout: float | None = ...) -> None: ...  # undocumented
     @property
     def address(self) -> Any: ...
     @classmethod

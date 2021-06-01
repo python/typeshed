@@ -2,7 +2,7 @@ from typing import List, NamedTuple, Optional
 
 class struct_group(NamedTuple):
     gr_name: str
-    gr_passwd: Optional[str]
+    gr_passwd: str | None
     gr_gid: int
     gr_mem: List[str]
 

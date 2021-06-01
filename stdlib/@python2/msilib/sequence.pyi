@@ -3,7 +3,7 @@ from typing import List, Optional, Tuple
 
 if sys.platform == "win32":
 
-    _SequenceType = List[Tuple[str, Optional[str], int]]
+    _SequenceType = List[Tuple[str, str | None, int]]
 
     AdminExecuteSequence: _SequenceType
     AdminUISequence: _SequenceType

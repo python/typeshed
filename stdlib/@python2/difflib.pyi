@@ -54,7 +54,7 @@ def get_close_matches(
 ) -> List[Sequence[_T]]: ...
 
 class Differ:
-    def __init__(self, linejunk: Optional[_JunkCallback] = ..., charjunk: Optional[_JunkCallback] = ...) -> None: ...
+    def __init__(self, linejunk: _JunkCallback | None = ..., charjunk: _JunkCallback | None = ...) -> None: ...
     def compare(self, a: Sequence[_StrType], b: Sequence[_StrType]) -> Iterator[_StrType]: ...
 
 def IS_LINE_JUNK(line: _StrType, pat: Any = ...) -> bool: ...  # pat is undocumented
@@ -80,16 +80,16 @@ def context_diff(
     lineterm: _StrType = ...,
 ) -> Iterator[_StrType]: ...
 def ndiff(
-    a: Sequence[_StrType], b: Sequence[_StrType], linejunk: Optional[_JunkCallback] = ..., charjunk: Optional[_JunkCallback] = ...
+    a: Sequence[_StrType], b: Sequence[_StrType], linejunk: _JunkCallback | None = ..., charjunk: _JunkCallback | None = ...
 ) -> Iterator[_StrType]: ...
 
 class HtmlDiff(object):
     def __init__(
         self,
         tabsize: int = ...,
-        wrapcolumn: Optional[int] = ...,
-        linejunk: Optional[_JunkCallback] = ...,
-        charjunk: Optional[_JunkCallback] = ...,
+        wrapcolumn: int | None = ...,
+        linejunk: _JunkCallback | None = ...,
+        charjunk: _JunkCallback | None = ...,
     ) -> None: ...
     def make_file(
         self,

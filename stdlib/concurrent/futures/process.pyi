@@ -17,12 +17,12 @@ if sys.version_info >= (3, 7):
     class ProcessPoolExecutor(Executor):
         def __init__(
             self,
-            max_workers: Optional[int] = ...,
-            mp_context: Optional[BaseContext] = ...,
+            max_workers: int | None = ...,
+            mp_context: BaseContext | None = ...,
             initializer: Optional[Callable[..., None]] = ...,
             initargs: Tuple[Any, ...] = ...,
         ) -> None: ...
 
 else:
     class ProcessPoolExecutor(Executor):
-        def __init__(self, max_workers: Optional[int] = ...) -> None: ...
+        def __init__(self, max_workers: int | None = ...) -> None: ...

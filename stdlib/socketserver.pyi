@@ -15,7 +15,7 @@ class BaseServer:
     allow_reuse_address: bool
     request_queue_size: int
     socket_type: int
-    timeout: Optional[float]
+    timeout: float | None
     def __init__(self, server_address: Any, RequestHandlerClass: Callable[..., BaseRequestHandler]) -> None: ...
     def fileno(self) -> int: ...
     def handle_request(self) -> None: ...
@@ -32,7 +32,7 @@ class BaseServer:
     def verify_request(self, request: _RequestType, client_address: _AddressType) -> bool: ...
     def __enter__(self: _T) -> _T: ...
     def __exit__(
-        self, exc_type: Optional[Type[BaseException]], exc_val: Optional[BaseException], exc_tb: Optional[types.TracebackType]
+        self, exc_type: Optional[Type[BaseException]], exc_val: BaseException | None, exc_tb: types.TracebackType | None
     ) -> None: ...
     def service_actions(self) -> None: ...
     def shutdown_request(self, request: _RequestType) -> None: ...  # undocumented
@@ -86,7 +86,7 @@ if sys.platform != "win32":
 
 if sys.platform != "win32":
     class ForkingMixIn:
-        timeout: Optional[float]  # undocumented
+        timeout: float | None  # undocumented
         active_children: Optional[Set[int]]  # undocumented
         max_children: int  # undocumented
         if sys.version_info >= (3, 7):
@@ -134,7 +134,7 @@ class BaseRequestHandler:
 class StreamRequestHandler(BaseRequestHandler):
     rbufsize: ClassVar[int]  # Undocumented
     wbufsize: ClassVar[int]  # Undocumented
-    timeout: ClassVar[Optional[float]]  # Undocumented
+    timeout: ClassVar[float | None]  # Undocumented
     disable_nagle_algorithm: ClassVar[bool]  # Undocumented
     connection: _socket  # Undocumented
     rfile: BinaryIO

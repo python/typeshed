@@ -6,7 +6,7 @@ if sys.version_info >= (3, 10):
         object: object,
         indent: int = ...,
         width: int = ...,
-        depth: Optional[int] = ...,
+        depth: int | None = ...,
         *,
         compact: bool = ...,
         sort_dicts: bool = ...,
@@ -18,7 +18,7 @@ elif sys.version_info >= (3, 8):
         object: object,
         indent: int = ...,
         width: int = ...,
-        depth: Optional[int] = ...,
+        depth: int | None = ...,
         *,
         compact: bool = ...,
         sort_dicts: bool = ...,
@@ -26,7 +26,7 @@ elif sys.version_info >= (3, 8):
 
 else:
     def pformat(
-        object: object, indent: int = ..., width: int = ..., depth: Optional[int] = ..., *, compact: bool = ...
+        object: object, indent: int = ..., width: int = ..., depth: int | None = ..., *, compact: bool = ...
     ) -> str: ...
 
 if sys.version_info >= (3, 10):
@@ -35,7 +35,7 @@ if sys.version_info >= (3, 10):
         stream: Optional[IO[str]] = ...,
         indent: int = ...,
         width: int = ...,
-        depth: Optional[int] = ...,
+        depth: int | None = ...,
         *,
         compact: bool = ...,
         sort_dicts: bool = ...,
@@ -48,7 +48,7 @@ elif sys.version_info >= (3, 8):
         stream: Optional[IO[str]] = ...,
         indent: int = ...,
         width: int = ...,
-        depth: Optional[int] = ...,
+        depth: int | None = ...,
         *,
         compact: bool = ...,
         sort_dicts: bool = ...,
@@ -60,7 +60,7 @@ if sys.version_info >= (3, 10):
         stream: Optional[IO[str]] = ...,
         indent: int = ...,
         width: int = ...,
-        depth: Optional[int] = ...,
+        depth: int | None = ...,
         *,
         compact: bool = ...,
         sort_dicts: bool = ...,
@@ -73,7 +73,7 @@ elif sys.version_info >= (3, 8):
         stream: Optional[IO[str]] = ...,
         indent: int = ...,
         width: int = ...,
-        depth: Optional[int] = ...,
+        depth: int | None = ...,
         *,
         compact: bool = ...,
         sort_dicts: bool = ...,
@@ -85,7 +85,7 @@ else:
         stream: Optional[IO[str]] = ...,
         indent: int = ...,
         width: int = ...,
-        depth: Optional[int] = ...,
+        depth: int | None = ...,
         *,
         compact: bool = ...,
     ) -> None: ...
@@ -100,7 +100,7 @@ class PrettyPrinter:
             self,
             indent: int = ...,
             width: int = ...,
-            depth: Optional[int] = ...,
+            depth: int | None = ...,
             stream: Optional[IO[str]] = ...,
             *,
             compact: bool = ...,
@@ -112,7 +112,7 @@ class PrettyPrinter:
             self,
             indent: int = ...,
             width: int = ...,
-            depth: Optional[int] = ...,
+            depth: int | None = ...,
             stream: Optional[IO[str]] = ...,
             *,
             compact: bool = ...,
@@ -123,7 +123,7 @@ class PrettyPrinter:
             self,
             indent: int = ...,
             width: int = ...,
-            depth: Optional[int] = ...,
+            depth: int | None = ...,
             stream: Optional[IO[str]] = ...,
             *,
             compact: bool = ...,

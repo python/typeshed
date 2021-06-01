@@ -2,15 +2,15 @@ from email.mime.nonmultipart import MIMENonMultipart
 from email.policy import Policy
 from typing import Callable, Optional, Tuple, Union
 
-_ParamsType = Union[str, None, Tuple[str, Optional[str], str]]
+_ParamsType = Union[str, None, Tuple[str, str | None, str]]
 
 class MIMEAudio(MIMENonMultipart):
     def __init__(
         self,
         _audiodata: str | bytes,
-        _subtype: Optional[str] = ...,
+        _subtype: str | None = ...,
         _encoder: Callable[[MIMEAudio], None] = ...,
         *,
-        policy: Optional[Policy] = ...,
+        policy: Policy | None = ...,
         **_params: _ParamsType,
     ) -> None: ...

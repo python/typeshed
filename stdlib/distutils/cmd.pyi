@@ -13,7 +13,7 @@ class Command:
     def run(self) -> None: ...
     def announce(self, msg: str, level: int = ...) -> None: ...
     def debug_print(self, msg: str) -> None: ...
-    def ensure_string(self, option: str, default: Optional[str] = ...) -> None: ...
+    def ensure_string(self, option: str, default: str | None = ...) -> None: ...
     def ensure_string_list(self, option: str | List[str]) -> None: ...
     def ensure_filename(self, option: str) -> None: ...
     def ensure_dirname(self, option: str) -> None: ...
@@ -24,7 +24,7 @@ class Command:
     def run_command(self, command: str) -> None: ...
     def get_sub_commands(self) -> List[str]: ...
     def warn(self, msg: str) -> None: ...
-    def execute(self, func: Callable[..., Any], args: Iterable[Any], msg: Optional[str] = ..., level: int = ...) -> None: ...
+    def execute(self, func: Callable[..., Any], args: Iterable[Any], msg: str | None = ..., level: int = ...) -> None: ...
     def mkpath(self, name: str, mode: int = ...) -> None: ...
     def copy_file(
         self,
@@ -32,7 +32,7 @@ class Command:
         outfile: str,
         preserve_mode: int = ...,
         preserve_times: int = ...,
-        link: Optional[str] = ...,
+        link: str | None = ...,
         level: Any = ...,
     ) -> Tuple[str, bool]: ...  # level is not used
     def copy_tree(
@@ -50,10 +50,10 @@ class Command:
         self,
         base_name: str,
         format: str,
-        root_dir: Optional[str] = ...,
-        base_dir: Optional[str] = ...,
-        owner: Optional[str] = ...,
-        group: Optional[str] = ...,
+        root_dir: str | None = ...,
+        base_dir: str | None = ...,
+        owner: str | None = ...,
+        group: str | None = ...,
     ) -> str: ...
     def make_file(
         self,
@@ -61,7 +61,7 @@ class Command:
         outfile: str,
         func: Callable[..., Any],
         args: List[Any],
-        exec_msg: Optional[str] = ...,
-        skip_msg: Optional[str] = ...,
+        exec_msg: str | None = ...,
+        skip_msg: str | None = ...,
         level: Any = ...,
     ) -> None: ...  # level is not used

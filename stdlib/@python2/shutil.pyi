@@ -27,13 +27,13 @@ def move(src: Text, dst: Text) -> _PathReturn: ...
 def make_archive(
     base_name: _AnyStr,
     format: str,
-    root_dir: Optional[Text] = ...,
-    base_dir: Optional[Text] = ...,
+    root_dir: Text | None = ...,
+    base_dir: Text | None = ...,
     verbose: bool = ...,
     dry_run: bool = ...,
-    owner: Optional[str] = ...,
-    group: Optional[str] = ...,
-    logger: Optional[Any] = ...,
+    owner: str | None = ...,
+    group: str | None = ...,
+    logger: Any | None = ...,
 ) -> _AnyStr: ...
 def get_archive_formats() -> List[Tuple[str, str]]: ...
 def register_archive_format(

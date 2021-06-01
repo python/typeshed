@@ -2,7 +2,7 @@ from _typeshed import StrPath
 from typing import Dict, List, Optional, Text, Tuple, TypeVar
 
 _P = TypeVar("_P")
-_Label = Tuple[int, Optional[Text]]
+_Label = Tuple[int, Text | None]
 _DFA = List[List[Tuple[int, int]]]
 _DFAS = Tuple[_DFA, Dict[int, int]]
 

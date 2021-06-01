@@ -69,7 +69,7 @@ class Field(Generic[_T]):
     default: _T
     default_factory: Callable[[], _T]
     repr: bool
-    hash: Optional[bool]
+    hash: bool | None
     init: bool
     compare: bool
     metadata: Mapping[str, Any]
@@ -81,7 +81,7 @@ class Field(Generic[_T]):
             default_factory: Callable[[], _T],
             init: bool,
             repr: bool,
-            hash: Optional[bool],
+            hash: bool | None,
             compare: bool,
             metadata: Mapping[str, Any],
             kw_only: bool,
@@ -93,7 +93,7 @@ class Field(Generic[_T]):
             default_factory: Callable[[], _T],
             init: bool,
             repr: bool,
-            hash: Optional[bool],
+            hash: bool | None,
             compare: bool,
             metadata: Mapping[str, Any],
         ) -> None: ...
@@ -109,7 +109,7 @@ if sys.version_info >= (3, 10):
         default: _T,
         init: bool = ...,
         repr: bool = ...,
-        hash: Optional[bool] = ...,
+        hash: bool | None = ...,
         compare: bool = ...,
         metadata: Optional[Mapping[str, Any]] = ...,
         kw_only: bool = ...,
@@ -120,7 +120,7 @@ if sys.version_info >= (3, 10):
         default_factory: Callable[[], _T],
         init: bool = ...,
         repr: bool = ...,
-        hash: Optional[bool] = ...,
+        hash: bool | None = ...,
         compare: bool = ...,
         metadata: Optional[Mapping[str, Any]] = ...,
         kw_only: bool = ...,
@@ -130,7 +130,7 @@ if sys.version_info >= (3, 10):
         *,
         init: bool = ...,
         repr: bool = ...,
-        hash: Optional[bool] = ...,
+        hash: bool | None = ...,
         compare: bool = ...,
         metadata: Optional[Mapping[str, Any]] = ...,
         kw_only: bool = ...,
@@ -143,7 +143,7 @@ else:
         default: _T,
         init: bool = ...,
         repr: bool = ...,
-        hash: Optional[bool] = ...,
+        hash: bool | None = ...,
         compare: bool = ...,
         metadata: Optional[Mapping[str, Any]] = ...,
     ) -> _T: ...
@@ -153,7 +153,7 @@ else:
         default_factory: Callable[[], _T],
         init: bool = ...,
         repr: bool = ...,
-        hash: Optional[bool] = ...,
+        hash: bool | None = ...,
         compare: bool = ...,
         metadata: Optional[Mapping[str, Any]] = ...,
     ) -> _T: ...
@@ -162,7 +162,7 @@ else:
         *,
         init: bool = ...,
         repr: bool = ...,
-        hash: Optional[bool] = ...,
+        hash: bool | None = ...,
         compare: bool = ...,
         metadata: Optional[Mapping[str, Any]] = ...,
     ) -> Any: ...

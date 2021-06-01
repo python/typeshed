@@ -3,7 +3,7 @@ from typing import List, Optional, Sequence, Tuple, Union, overload
 
 from _tracemalloc import *
 
-def get_object_traceback(obj: object) -> Optional[Traceback]: ...
+def get_object_traceback(obj: object) -> Traceback | None: ...
 def take_snapshot() -> Snapshot: ...
 
 class DomainFilter:
@@ -12,18 +12,18 @@ class DomainFilter:
     def __init__(self, inclusive: bool, domain: int) -> None: ...
 
 class Filter:
-    domain: Optional[int]
+    domain: int | None
     inclusive: bool
-    lineno: Optional[int]
+    lineno: int | None
     filename_pattern: str
     all_frames: bool
     def __init__(
         self,
         inclusive: bool,
         filename_pattern: str,
-        lineno: Optional[int] = ...,
+        lineno: int | None = ...,
         all_frames: bool = ...,
-        domain: Optional[int] = ...,
+        domain: int | None = ...,
     ) -> None: ...
 
 class Statistic:
@@ -48,7 +48,7 @@ class Frame:
     def __init__(self, frame: _FrameTupleT) -> None: ...
 
 if sys.version_info >= (3, 9):
-    _TraceTupleT = Union[Tuple[int, int, Sequence[_FrameTupleT], Optional[int]], Tuple[int, int, Sequence[_FrameTupleT]]]
+    _TraceTupleT = Union[Tuple[int, int, Sequence[_FrameTupleT], int | None], Tuple[int, int, Sequence[_FrameTupleT]]]
 else:
     _TraceTupleT = Tuple[int, int, Sequence[_FrameTupleT]]
 
@@ -60,14 +60,14 @@ class Trace:
 
 class Traceback(Sequence[Frame]):
     if sys.version_info >= (3, 9):
-        total_nframe: Optional[int]
-        def __init__(self, frames: Sequence[_FrameTupleT], total_nframe: Optional[int] = ...) -> None: ...
+        total_nframe: int | None
+        def __init__(self, frames: Sequence[_FrameTupleT], total_nframe: int | None = ...) -> None: ...
     else:
         def __init__(self, frames: Sequence[_FrameTupleT]) -> None: ...
     if sys.version_info >= (3, 7):
-        def format(self, limit: Optional[int] = ..., most_recent_first: bool = ...) -> List[str]: ...
+        def format(self, limit: int | None = ..., most_recent_first: bool = ...) -> List[str]: ...
     else:
-        def format(self, limit: Optional[int] = ...) -> List[str]: ...
+        def format(self, limit: int | None = ...) -> List[str]: ...
     @overload
     def __getitem__(self, i: int) -> Frame: ...
     @overload

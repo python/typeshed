@@ -20,7 +20,7 @@ class Fraction(Rational):
     def __new__(
         cls: Type[_T],
         numerator: int | Rational = ...,
-        denominator: Optional[int | Rational] = ...,
+        denominator: int | Rational | None = ...,
         *,
         _normalize: bool = ...,
     ) -> _T: ...

@@ -134,7 +134,7 @@ stackslice: StackObject
 class OpcodeInfo(object):
     name: str
     code: str
-    arg: Optional[ArgumentDescriptor]
+    arg: ArgumentDescriptor | None
     stack_before: List[StackObject]
     stack_after: List[StackObject]
     proto: int
@@ -143,7 +143,7 @@ class OpcodeInfo(object):
         self,
         name: str,
         code: str,
-        arg: Optional[ArgumentDescriptor],
+        arg: ArgumentDescriptor | None,
         stack_before: List[StackObject],
         stack_after: List[StackObject],
         proto: int,
@@ -152,7 +152,7 @@ class OpcodeInfo(object):
 
 opcodes: List[OpcodeInfo]
 
-def genops(pickle: bytes | IO[bytes]) -> Iterator[Tuple[OpcodeInfo, Optional[Any], Optional[int]]]: ...
+def genops(pickle: bytes | IO[bytes]) -> Iterator[Tuple[OpcodeInfo, Any | None, int | None]]: ...
 def optimize(p: bytes | IO[bytes]) -> bytes: ...
 def dis(
     pickle: bytes | IO[bytes],

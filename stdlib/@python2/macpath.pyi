@@ -29,7 +29,7 @@ from posixpath import (
 )
 from typing import AnyStr, Optional, Text, Tuple, overload
 
-altsep: Optional[str]
+altsep: str | None
 
 def basename(s: AnyStr) -> AnyStr: ...
 def dirname(s: AnyStr) -> AnyStr: ...

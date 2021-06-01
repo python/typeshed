@@ -32,9 +32,9 @@ ZERO_OR_MORE: str
 _UNRECOGNIZED_ARGS_ATTR: str  # undocumented
 
 class ArgumentError(Exception):
-    argument_name: Optional[str]
+    argument_name: str | None
     message: str
-    def __init__(self, argument: Optional[Action], message: str) -> None: ...
+    def __init__(self, argument: Action | None, message: str) -> None: ...
 
 # undocumented
 class _AttributeHolder:
@@ -43,7 +43,7 @@ class _AttributeHolder:
 
 # undocumented
 class _ActionsContainer:
-    description: Optional[str]
+    description: str | None
     prefix_chars: str
     argument_default: Any
     conflict_handler: str
@@ -56,7 +56,7 @@ class _ActionsContainer:
     _defaults: Dict[str, Any]
     _negative_number_matcher: Pattern[str]
     _has_negative_number_optionals: List[bool]
-    def __init__(self, description: Optional[str], prefix_chars: str, argument_default: Any, conflict_handler: str) -> None: ...
+    def __init__(self, description: str | None, prefix_chars: str, argument_default: Any, conflict_handler: str) -> None: ...
     def register(self, registry_name: str, value: Any, object: Any) -> None: ...
     def _registry_get(self, registry_name: str, value: Any, default: Any = ...) -> Any: ...
     def set_defaults(self, **kwargs: Any) -> None: ...
@@ -71,9 +71,9 @@ class _ActionsContainer:
         type: Union[Callable[[str], _T], Callable[[str], _T], FileType] = ...,
         choices: Iterable[_T] = ...,
         required: bool = ...,
-        help: Optional[str] = ...,
+        help: str | None = ...,
         metavar: Optional[str | Tuple[str, ...]] = ...,
-        dest: Optional[str] = ...,
+        dest: str | None = ...,
         version: str = ...,
         **kwargs: Any,
     ) -> Action: ...
@@ -95,29 +95,29 @@ class _FormatterClass(Protocol):
 
 class ArgumentParser(_AttributeHolder, _ActionsContainer):
     prog: str
-    usage: Optional[str]
-    epilog: Optional[str]
+    usage: str | None
+    epilog: str | None
     formatter_class: _FormatterClass
-    fromfile_prefix_chars: Optional[str]
+    fromfile_prefix_chars: str | None
     add_help: bool
     allow_abbrev: bool
 
     # undocumented
     _positionals: _ArgumentGroup
     _optionals: _ArgumentGroup
-    _subparsers: Optional[_ArgumentGroup]
+    _subparsers: _ArgumentGroup | None
 
     if sys.version_info >= (3, 9):
         def __init__(
             self,
-            prog: Optional[str] = ...,
-            usage: Optional[str] = ...,
-            description: Optional[str] = ...,
-            epilog: Optional[str] = ...,
+            prog: str | None = ...,
+            usage: str | None = ...,
+            description: str | None = ...,
+            epilog: str | None = ...,
             parents: Sequence[ArgumentParser] = ...,
             formatter_class: _FormatterClass = ...,
             prefix_chars: str = ...,
-            fromfile_prefix_chars: Optional[str] = ...,
+            fromfile_prefix_chars: str | None = ...,
             argument_default: Any = ...,
             conflict_handler: str = ...,
             add_help: bool = ...,
@@ -127,14 +127,14 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
     else:
         def __init__(
             self,
-            prog: Optional[str] = ...,
-            usage: Optional[str] = ...,
-            description: Optional[str] = ...,
-            epilog: Optional[str] = ...,
+            prog: str | None = ...,
+            usage: str | None = ...,
+            description: str | None = ...,
+            epilog: str | None = ...,
             parents: Sequence[ArgumentParser] = ...,
             formatter_class: _FormatterClass = ...,
             prefix_chars: str = ...,
-            fromfile_prefix_chars: Optional[str] = ...,
+            fromfile_prefix_chars: str | None = ...,
             argument_default: Any = ...,
             conflict_handler: str = ...,
             add_help: bool = ...,
@@ -157,46 +157,46 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
             self,
             *,
             title: str = ...,
-            description: Optional[str] = ...,
+            description: str | None = ...,
             prog: str = ...,
             parser_class: Type[ArgumentParser] = ...,
             action: Type[Action] = ...,
             option_string: str = ...,
-            dest: Optional[str] = ...,
+            dest: str | None = ...,
             required: bool = ...,
-            help: Optional[str] = ...,
-            metavar: Optional[str] = ...,
+            help: str | None = ...,
+            metavar: str | None = ...,
         ) -> _SubParsersAction: ...
     else:
         def add_subparsers(
             self,
             *,
             title: str = ...,
-            description: Optional[str] = ...,
+            description: str | None = ...,
             prog: str = ...,
             parser_class: Type[ArgumentParser] = ...,
             action: Type[Action] = ...,
             option_string: str = ...,
-            dest: Optional[str] = ...,
-            help: Optional[str] = ...,
-            metavar: Optional[str] = ...,
+            dest: str | None = ...,
+            help: str | None = ...,
+            metavar: str | None = ...,
         ) -> _SubParsersAction: ...
     def print_usage(self, file: Optional[IO[str]] = ...) -> None: ...
     def print_help(self, file: Optional[IO[str]] = ...) -> None: ...
     def format_usage(self) -> str: ...
     def format_help(self) -> str: ...
     def parse_known_args(
-        self, args: Optional[Sequence[str]] = ..., namespace: Optional[Namespace] = ...
+        self, args: Optional[Sequence[str]] = ..., namespace: Namespace | None = ...
     ) -> Tuple[Namespace, List[str]]: ...
     def convert_arg_line_to_args(self, arg_line: str) -> List[str]: ...
-    def exit(self, status: int = ..., message: Optional[str] = ...) -> NoReturn: ...
+    def exit(self, status: int = ..., message: str | None = ...) -> NoReturn: ...
     def error(self, message: str) -> NoReturn: ...
     if sys.version_info >= (3, 7):
         def parse_intermixed_args(
-            self, args: Optional[Sequence[str]] = ..., namespace: Optional[Namespace] = ...
+            self, args: Optional[Sequence[str]] = ..., namespace: Namespace | None = ...
         ) -> Namespace: ...
         def parse_known_intermixed_args(
-            self, args: Optional[Sequence[str]] = ..., namespace: Optional[Namespace] = ...
+            self, args: Optional[Sequence[str]] = ..., namespace: Namespace | None = ...
         ) -> Tuple[Namespace, List[str]]: ...
     # undocumented
     def _get_optional_actions(self) -> List[Action]: ...
@@ -205,8 +205,8 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
     def _read_args_from_files(self, arg_strings: List[str]) -> List[str]: ...
     def _match_argument(self, action: Action, arg_strings_pattern: str) -> int: ...
     def _match_arguments_partial(self, actions: Sequence[Action], arg_strings_pattern: str) -> List[int]: ...
-    def _parse_optional(self, arg_string: str) -> Optional[Tuple[Optional[Action], str, Optional[str]]]: ...
-    def _get_option_tuples(self, option_string: str) -> List[Tuple[Action, str, Optional[str]]]: ...
+    def _parse_optional(self, arg_string: str) -> Optional[Tuple[Action | None, str, str | None]]: ...
+    def _get_option_tuples(self, option_string: str) -> List[Tuple[Action, str, str | None]]: ...
     def _get_nargs_pattern(self, action: Action) -> str: ...
     def _get_values(self, action: Action, arg_strings: List[str]) -> Any: ...
     def _get_value(self, action: Action, arg_string: str) -> Any: ...
@@ -229,23 +229,23 @@ class HelpFormatter:
     _long_break_matcher: Pattern[str]
     _Section: Type[Any]  # Nested class
     def __init__(
-        self, prog: str, indent_increment: int = ..., max_help_position: int = ..., width: Optional[int] = ...
+        self, prog: str, indent_increment: int = ..., max_help_position: int = ..., width: int | None = ...
     ) -> None: ...
     def _indent(self) -> None: ...
     def _dedent(self) -> None: ...
     def _add_item(self, func: Callable[..., str], args: Iterable[Any]) -> None: ...
-    def start_section(self, heading: Optional[str]) -> None: ...
+    def start_section(self, heading: str | None) -> None: ...
     def end_section(self) -> None: ...
-    def add_text(self, text: Optional[str]) -> None: ...
+    def add_text(self, text: str | None) -> None: ...
     def add_usage(
-        self, usage: Optional[str], actions: Iterable[Action], groups: Iterable[_ArgumentGroup], prefix: Optional[str] = ...
+        self, usage: str | None, actions: Iterable[Action], groups: Iterable[_ArgumentGroup], prefix: str | None = ...
     ) -> None: ...
     def add_argument(self, action: Action) -> None: ...
     def add_arguments(self, actions: Iterable[Action]) -> None: ...
     def format_help(self) -> str: ...
     def _join_parts(self, part_strings: Iterable[str]) -> str: ...
     def _format_usage(
-        self, usage: str, actions: Iterable[Action], groups: Iterable[_ArgumentGroup], prefix: Optional[str]
+        self, usage: str, actions: Iterable[Action], groups: Iterable[_ArgumentGroup], prefix: str | None
     ) -> str: ...
     def _format_actions_usage(self, actions: Iterable[Action], groups: Iterable[_ArgumentGroup]) -> str: ...
     def _format_text(self, text: str) -> str: ...
@@ -257,7 +257,7 @@ class HelpFormatter:
     def _iter_indented_subactions(self, action: Action) -> Generator[Action, None, None]: ...
     def _split_lines(self, text: str, width: int) -> List[str]: ...
     def _fill_text(self, text: str, width: int, indent: str) -> str: ...
-    def _get_help_string(self, action: Action) -> Optional[str]: ...
+    def _get_help_string(self, action: Action) -> str | None: ...
     def _get_default_metavar_for_optional(self, action: Action) -> str: ...
     def _get_default_metavar_for_positional(self, action: Action) -> str: ...
 
@@ -269,25 +269,25 @@ class MetavarTypeHelpFormatter(HelpFormatter): ...
 class Action(_AttributeHolder):
     option_strings: Sequence[str]
     dest: str
-    nargs: Optional[int | str]
+    nargs: int | str | None
     const: Any
     default: Any
     type: Union[Callable[[str], Any], FileType, None]
     choices: Optional[Iterable[Any]]
     required: bool
-    help: Optional[str]
+    help: str | None
     metavar: Optional[str | Tuple[str, ...]]
     def __init__(
         self,
         option_strings: Sequence[str],
         dest: str,
-        nargs: Optional[int | str] = ...,
-        const: Optional[_T] = ...,
+        nargs: int | str | None = ...,
+        const: _T | None = ...,
         default: _T | str | None = ...,
         type: Optional[Union[Callable[[str], _T], Callable[[str], _T], FileType]] = ...,
         choices: Optional[Iterable[_T]] = ...,
         required: bool = ...,
-        help: Optional[str] = ...,
+        help: str | None = ...,
         metavar: Optional[str | Tuple[str, ...]] = ...,
     ) -> None: ...
     def __call__(
@@ -295,7 +295,7 @@ class Action(_AttributeHolder):
         parser: ArgumentParser,
         namespace: Namespace,
         values: str | Sequence[Any] | None,
-        option_string: Optional[str] = ...,
+        option_string: str | None = ...,
     ) -> None: ...
     if sys.version_info >= (3, 9):
         def format_usage(self) -> str: ...
@@ -310,7 +310,7 @@ if sys.version_info >= (3, 9):
             type: Optional[Union[Callable[[str], _T], Callable[[str], _T], FileType]] = ...,
             choices: Optional[Iterable[_T]] = ...,
             required: bool = ...,
-            help: Optional[str] = ...,
+            help: str | None = ...,
             metavar: Optional[str | Tuple[str, ...]] = ...,
         ) -> None: ...
 
@@ -324,19 +324,19 @@ class FileType:
     # undocumented
     _mode: str
     _bufsize: int
-    _encoding: Optional[str]
-    _errors: Optional[str]
+    _encoding: str | None
+    _errors: str | None
     def __init__(
-        self, mode: str = ..., bufsize: int = ..., encoding: Optional[str] = ..., errors: Optional[str] = ...
+        self, mode: str = ..., bufsize: int = ..., encoding: str | None = ..., errors: str | None = ...
     ) -> None: ...
     def __call__(self, string: str) -> IO[Any]: ...
 
 # undocumented
 class _ArgumentGroup(_ActionsContainer):
-    title: Optional[str]
+    title: str | None
     _group_actions: List[Action]
     def __init__(
-        self, container: _ActionsContainer, title: Optional[str] = ..., description: Optional[str] = ..., **kwargs: Any
+        self, container: _ActionsContainer, title: str | None = ..., description: str | None = ..., **kwargs: Any
     ) -> None: ...
 
 # undocumented
@@ -357,20 +357,20 @@ class _StoreConstAction(Action):
         const: Any,
         default: Any = ...,
         required: bool = ...,
-        help: Optional[str] = ...,
+        help: str | None = ...,
         metavar: Optional[str | Tuple[str, ...]] = ...,
     ) -> None: ...
 
 # undocumented
 class _StoreTrueAction(_StoreConstAction):
     def __init__(
-        self, option_strings: Sequence[str], dest: str, default: bool = ..., required: bool = ..., help: Optional[str] = ...
+        self, option_strings: Sequence[str], dest: str, default: bool = ..., required: bool = ..., help: str | None = ...
     ) -> None: ...
 
 # undocumented
 class _StoreFalseAction(_StoreConstAction):
     def __init__(
-        self, option_strings: Sequence[str], dest: str, default: bool = ..., required: bool = ..., help: Optional[str] = ...
+        self, option_strings: Sequence[str], dest: str, default: bool = ..., required: bool = ..., help: str | None = ...
     ) -> None: ...
 
 # undocumented
@@ -385,25 +385,25 @@ class _AppendConstAction(Action):
         const: Any,
         default: Any = ...,
         required: bool = ...,
-        help: Optional[str] = ...,
+        help: str | None = ...,
         metavar: Optional[str | Tuple[str, ...]] = ...,
     ) -> None: ...
 
 # undocumented
 class _CountAction(Action):
     def __init__(
-        self, option_strings: Sequence[str], dest: str, default: Any = ..., required: bool = ..., help: Optional[str] = ...
+        self, option_strings: Sequence[str], dest: str, default: Any = ..., required: bool = ..., help: str | None = ...
     ) -> None: ...
 
 # undocumented
 class _HelpAction(Action):
-    def __init__(self, option_strings: Sequence[str], dest: str = ..., default: str = ..., help: Optional[str] = ...) -> None: ...
+    def __init__(self, option_strings: Sequence[str], dest: str = ..., default: str = ..., help: str | None = ...) -> None: ...
 
 # undocumented
 class _VersionAction(Action):
-    version: Optional[str]
+    version: str | None
     def __init__(
-        self, option_strings: Sequence[str], version: Optional[str] = ..., dest: str = ..., default: str = ..., help: str = ...
+        self, option_strings: Sequence[str], version: str | None = ..., dest: str = ..., default: str = ..., help: str = ...
     ) -> None: ...
 
 # undocumented
@@ -422,7 +422,7 @@ class _SubParsersAction(Action):
             parser_class: Type[ArgumentParser],
             dest: str = ...,
             required: bool = ...,
-            help: Optional[str] = ...,
+            help: str | None = ...,
             metavar: Optional[str | Tuple[str, ...]] = ...,
         ) -> None: ...
     else:
@@ -432,7 +432,7 @@ class _SubParsersAction(Action):
             prog: str,
             parser_class: Type[ArgumentParser],
             dest: str = ...,
-            help: Optional[str] = ...,
+            help: str | None = ...,
             metavar: Optional[str | Tuple[str, ...]] = ...,
         ) -> None: ...
     # TODO: Type keyword args properly.
@@ -447,4 +447,4 @@ if sys.version_info < (3, 7):
     def _ensure_value(namespace: Namespace, name: str, value: Any) -> Any: ...
 
 # undocumented
-def _get_action_name(argument: Optional[Action]) -> Optional[str]: ...
+def _get_action_name(argument: Action | None) -> str | None: ...

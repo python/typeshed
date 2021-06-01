@@ -43,20 +43,20 @@ class MiniFieldStorage:
     def __repr__(self) -> str: ...
 
 class FieldStorage(object):
-    FieldStorageClass: Optional[_type]
+    FieldStorageClass: _type | None
     keep_blank_values: int
     strict_parsing: int
-    qs_on_post: Optional[str]
+    qs_on_post: str | None
     headers: Mapping[str, str]
     fp: IO[bytes]
     encoding: str
     errors: str
     outerboundary: bytes
     bytes_read: int
-    limit: Optional[int]
+    limit: int | None
     disposition: str
     disposition_options: dict[str, str]
-    filename: Optional[str]
+    filename: str | None
     file: Optional[IO[bytes]]
     type: str
     type_options: dict[str, str]

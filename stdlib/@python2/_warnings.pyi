@@ -15,7 +15,7 @@ def warn_explicit(
     category: Type[Warning],
     filename: str,
     lineno: int,
-    module: Optional[str] = ...,
+    module: str | None = ...,
     registry: Optional[Dict[Union[str, Tuple[str, Type[Warning], int]], int]] = ...,
     module_globals: Optional[Dict[str, Any]] = ...,
 ) -> None: ...
@@ -25,7 +25,7 @@ def warn_explicit(
     category: Any,
     filename: str,
     lineno: int,
-    module: Optional[str] = ...,
+    module: str | None = ...,
     registry: Optional[Dict[Union[str, Tuple[str, Type[Warning], int]], int]] = ...,
     module_globals: Optional[Dict[str, Any]] = ...,
 ) -> None: ...

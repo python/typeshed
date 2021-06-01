@@ -19,8 +19,8 @@ class Verbose(Exception): ...
 class _State:
     flags: int
     groupdict: Dict[str, int]
-    groupwidths: List[Optional[int]]
-    lookbehindgroups: Optional[int]
+    groupwidths: List[int | None]
+    lookbehindgroups: int | None
     def __init__(self) -> None: ...
     @property
     def groups(self) -> int: ...
@@ -34,7 +34,7 @@ if sys.version_info >= (3, 8):
 else:
     Pattern = _State
 
-_OpSubpatternType = Tuple[Optional[int], int, int, SubPattern]
+_OpSubpatternType = Tuple[int | None, int, int, SubPattern]
 _OpGroupRefExistsType = Tuple[int, SubPattern, SubPattern]
 _OpInType = List[Tuple[_NIC, int]]
 _OpBranchType = Tuple[None, List[SubPattern]]
@@ -43,7 +43,7 @@ _CodeType = Tuple[_NIC, _AvType]
 
 class SubPattern:
     data: List[_CodeType]
-    width: Optional[int]
+    width: int | None
 
     if sys.version_info >= (3, 8):
         state: State
@@ -65,10 +65,10 @@ class Tokenizer:
     string: Any
     decoded_string: str
     index: int
-    next: Optional[str]
+    next: str | None
     def __init__(self, string: Any) -> None: ...
     def match(self, char: str) -> bool: ...
-    def get(self) -> Optional[str]: ...
+    def get(self) -> str | None: ...
     def getwhile(self, n: int, charset: Iterable[str]) -> str: ...
     if sys.version_info >= (3, 8):
         def getuntil(self, terminator: str, name: str) -> str: ...
@@ -82,17 +82,17 @@ class Tokenizer:
 
 def fix_flags(src: str | bytes, flags: int) -> int: ...
 
-_TemplateType = Tuple[List[Tuple[int, int]], List[Optional[str]]]
-_TemplateByteType = Tuple[List[Tuple[int, int]], List[Optional[bytes]]]
+_TemplateType = Tuple[List[Tuple[int, int]], List[str | None]]
+_TemplateByteType = Tuple[List[Tuple[int, int]], List[bytes | None]]
 if sys.version_info >= (3, 8):
-    def parse(str: str, flags: int = ..., state: Optional[State] = ...) -> SubPattern: ...
+    def parse(str: str, flags: int = ..., state: State | None = ...) -> SubPattern: ...
     @overload
     def parse_template(source: str, state: _Pattern[Any]) -> _TemplateType: ...
     @overload
     def parse_template(source: bytes, state: _Pattern[Any]) -> _TemplateByteType: ...
 
 else:
-    def parse(str: str, flags: int = ..., pattern: Optional[Pattern] = ...) -> SubPattern: ...
+    def parse(str: str, flags: int = ..., pattern: Pattern | None = ...) -> SubPattern: ...
     @overload
     def parse_template(source: str, pattern: _Pattern[Any]) -> _TemplateType: ...
     @overload

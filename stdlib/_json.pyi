@@ -14,7 +14,7 @@ class make_encoder:
         markers: Optional[Dict[int, Any]],
         default: Callable[[Any], Any],
         encoder: Callable[[str], str],
-        indent: Optional[int],
+        indent: int | None,
         key_separator: str,
         item_separator: str,
         sort_keys: bool,

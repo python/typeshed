@@ -4,7 +4,7 @@ from time import struct_time
 from types import FrameType, TracebackType
 from typing import IO, Any, Callable, Dict, List, Mapping, MutableMapping, Optional, Sequence, Text, Tuple, Union, overload
 
-_SysExcInfoType = Union[Tuple[type, BaseException, Optional[TracebackType]], Tuple[None, None, None]]
+_SysExcInfoType = Union[Tuple[type, BaseException, TracebackType | None], Tuple[None, None, None]]
 _ExcInfoType = None | bool | _SysExcInfoType
 _ArgsType = Tuple[Any, ...] | Mapping[str, Any]
 _FilterType = Union[Filter, Callable[[LogRecord], int]]
@@ -14,7 +14,7 @@ raiseExceptions: bool
 logThreads: bool
 logMultiprocessing: bool
 logProcesses: bool
-_srcfile: Optional[str]
+_srcfile: str | None
 
 def currentframe() -> FrameType: ...
 
@@ -63,7 +63,7 @@ class Logger(Filterer):
         self, msg: Any, *args: Any, exc_info: _ExcInfoType = ..., extra: Optional[Dict[str, Any]] = ..., **kwargs: Any
     ) -> None: ...
     def _log(
-        self, level: int, msg: Any, args: _ArgsType, exc_info: Optional[_ExcInfoType] = ..., extra: Optional[Dict[str, Any]] = ...
+        self, level: int, msg: Any, args: _ArgsType, exc_info: _ExcInfoType | None = ..., extra: Optional[Dict[str, Any]] = ...
     ) -> None: ...  # undocumented
     def filter(self, record: LogRecord) -> bool: ...
     def addHandler(self, hdlr: Handler) -> None: ...
@@ -78,8 +78,8 @@ class Logger(Filterer):
         lno: int,
         msg: Any,
         args: _ArgsType,
-        exc_info: Optional[_SysExcInfoType],
-        func: Optional[str] = ...,
+        exc_info: _SysExcInfoType | None,
+        func: str | None = ...,
         extra: Optional[Mapping[str, Any]] = ...,
     ) -> LogRecord: ...
 
@@ -94,9 +94,9 @@ NOTSET: int
 
 class Handler(Filterer):
     level: int  # undocumented
-    formatter: Optional[Formatter]  # undocumented
-    lock: Optional[threading.Lock]  # undocumented
-    name: Optional[str]  # undocumented
+    formatter: Formatter | None  # undocumented
+    lock: threading.Lock | None  # undocumented
+    name: str | None  # undocumented
     def __init__(self, level: _Level = ...) -> None: ...
     def createLock(self) -> None: ...
     def acquire(self) -> None: ...
@@ -112,12 +112,12 @@ class Handler(Filterer):
     def emit(self, record: LogRecord) -> None: ...
 
 class Formatter:
-    converter: Callable[[Optional[float]], struct_time]
-    _fmt: Optional[str]
-    datefmt: Optional[str]
-    def __init__(self, fmt: Optional[str] = ..., datefmt: Optional[str] = ...) -> None: ...
+    converter: Callable[[float | None], struct_time]
+    _fmt: str | None
+    datefmt: str | None
+    def __init__(self, fmt: str | None = ..., datefmt: str | None = ...) -> None: ...
     def format(self, record: LogRecord) -> str: ...
-    def formatTime(self, record: LogRecord, datefmt: Optional[str] = ...) -> str: ...
+    def formatTime(self, record: LogRecord, datefmt: str | None = ...) -> str: ...
     def formatException(self, ei: _SysExcInfoType) -> str: ...
 
 class Filter:
@@ -128,8 +128,8 @@ class LogRecord:
     args: _ArgsType
     asctime: str
     created: int
-    exc_info: Optional[_SysExcInfoType]
-    exc_text: Optional[str]
+    exc_info: _SysExcInfoType | None
+    exc_text: str | None
     filename: str
     funcName: str
     levelname: str
@@ -154,8 +154,8 @@ class LogRecord:
         lineno: int,
         msg: Any,
         args: _ArgsType,
-        exc_info: Optional[_SysExcInfoType],
-        func: Optional[str] = ...,
+        exc_info: _SysExcInfoType | None,
+        func: str | None = ...,
     ) -> None: ...
     def getMessage(self) -> str: ...
 
@@ -220,11 +220,11 @@ def basicConfig() -> None: ...
 @overload
 def basicConfig(
     *,
-    filename: Optional[str] = ...,
+    filename: str | None = ...,
     filemode: str = ...,
     format: str = ...,
-    datefmt: Optional[str] = ...,
-    level: Optional[_Level] = ...,
+    datefmt: str | None = ...,
+    level: _Level | None = ...,
     stream: IO[str] = ...,
 ) -> None: ...
 def shutdown(handlerList: Sequence[Any] = ...) -> None: ...  # handlerList is undocumented
@@ -238,9 +238,9 @@ class StreamHandler(Handler):
 class FileHandler(StreamHandler):
     baseFilename: str  # undocumented
     mode: str  # undocumented
-    encoding: Optional[str]  # undocumented
+    encoding: str | None  # undocumented
     delay: bool  # undocumented
-    def __init__(self, filename: StrPath, mode: str = ..., encoding: Optional[str] = ..., delay: bool = ...) -> None: ...
+    def __init__(self, filename: StrPath, mode: str = ..., encoding: str | None = ..., delay: bool = ...) -> None: ...
     def _open(self) -> IO[Any]: ...
 
 class NullHandler(Handler): ...

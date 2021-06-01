@@ -10,21 +10,21 @@ FMT_XML = PlistFormat.FMT_XML
 FMT_BINARY = PlistFormat.FMT_BINARY
 
 if sys.version_info >= (3, 9):
-    def load(fp: IO[bytes], *, fmt: Optional[PlistFormat] = ..., dict_type: Type[MutableMapping[str, Any]] = ...) -> Any: ...
-    def loads(value: bytes, *, fmt: Optional[PlistFormat] = ..., dict_type: Type[MutableMapping[str, Any]] = ...) -> Any: ...
+    def load(fp: IO[bytes], *, fmt: PlistFormat | None = ..., dict_type: Type[MutableMapping[str, Any]] = ...) -> Any: ...
+    def loads(value: bytes, *, fmt: PlistFormat | None = ..., dict_type: Type[MutableMapping[str, Any]] = ...) -> Any: ...
 
 else:
     def load(
         fp: IO[bytes],
         *,
-        fmt: Optional[PlistFormat] = ...,
+        fmt: PlistFormat | None = ...,
         use_builtin_types: bool = ...,
         dict_type: Type[MutableMapping[str, Any]] = ...,
     ) -> Any: ...
     def loads(
         value: bytes,
         *,
-        fmt: Optional[PlistFormat] = ...,
+        fmt: PlistFormat | None = ...,
         use_builtin_types: bool = ...,
         dict_type: Type[MutableMapping[str, Any]] = ...,
     ) -> Any: ...

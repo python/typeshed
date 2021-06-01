@@ -25,7 +25,7 @@ _T_co = TypeVar("_T_co", covariant=True)
 _T_io = TypeVar("_T_io", bound=Optional[IO[str]])
 _F = TypeVar("_F", bound=Callable[..., Any])
 
-_ExitFunc = Callable[[Optional[Type[BaseException]], Optional[BaseException], Optional[TracebackType]], bool]
+_ExitFunc = Callable[[Optional[Type[BaseException]], BaseException | None, TracebackType | None], bool]
 _CM_EF = TypeVar("_CM_EF", ContextManager[Any], _ExitFunc)
 
 class _GeneratorContextManager(ContextManager[_T_co]):
@@ -57,7 +57,7 @@ if sys.version_info >= (3, 10):
 class suppress(ContextManager[None]):
     def __init__(self, *exceptions: Type[BaseException]) -> None: ...
     def __exit__(
-        self, exctype: Optional[Type[BaseException]], excinst: Optional[BaseException], exctb: Optional[TracebackType]
+        self, exctype: Optional[Type[BaseException]], excinst: BaseException | None, exctb: TracebackType | None
     ) -> bool: ...
 
 class redirect_stdout(ContextManager[_T_io]):
@@ -82,14 +82,14 @@ class ExitStack(ContextManager[ExitStack]):
     def __exit__(
         self,
         __exc_type: Optional[Type[BaseException]],
-        __exc_value: Optional[BaseException],
-        __traceback: Optional[TracebackType],
+        __exc_value: BaseException | None,
+        __traceback: TracebackType | None,
     ) -> bool: ...
 
 if sys.version_info >= (3, 7):
     _S = TypeVar("_S", bound=AsyncExitStack)
 
-    _ExitCoroFunc = Callable[[Optional[Type[BaseException]], Optional[BaseException], Optional[TracebackType]], Awaitable[bool]]
+    _ExitCoroFunc = Callable[[Optional[Type[BaseException]], BaseException | None, TracebackType | None], Awaitable[bool]]
     _CallbackCoroFunc = Callable[..., Awaitable[Any]]
     _ACM_EF = TypeVar("_ACM_EF", AsyncContextManager[Any], _ExitCoroFunc)
     class AsyncExitStack(AsyncContextManager[AsyncExitStack]):
@@ -106,8 +106,8 @@ if sys.version_info >= (3, 7):
         def __aexit__(
             self,
             __exc_type: Optional[Type[BaseException]],
-            __exc_value: Optional[BaseException],
-            __traceback: Optional[TracebackType],
+            __exc_value: BaseException | None,
+            __traceback: TracebackType | None,
         ) -> Awaitable[bool]: ...
 
 if sys.version_info >= (3, 7):
