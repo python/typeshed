@@ -49,7 +49,7 @@ class Attribute(Generic[_T]):
     order: bool
     hash: Optional[bool]
     init: bool
-    converter: Optional[_ConverterType[_T]]
+    converter: None | _ConverterType[_T] | List[_ConverterType[_T]] | Tuple[_ConverterType[_T], ...]
     metadata: Dict[Any, Any]
     type: Optional[Type[_T]]
     kw_only: bool
@@ -105,7 +105,7 @@ def attrib(
     init: bool = ...,
     metadata: Optional[Mapping[Any, Any]] = ...,
     type: Optional[Type[_T]] = ...,
-    converter: Optional[_ConverterType[_T]] = ...,
+    converter: None | _ConverterType[_T] | List[_ConverterType[_T]] | Tuple[_ConverterType[_T], ...] = ...,
     factory: Optional[Callable[[], _T]] = ...,
     kw_only: bool = ...,
     eq: Optional[bool] = ...,
@@ -123,7 +123,7 @@ def attrib(
     init: bool = ...,
     metadata: Optional[Mapping[Any, Any]] = ...,
     type: Optional[Type[_T]] = ...,
-    converter: Optional[_ConverterType[_T]] = ...,
+    converter: None | _ConverterType[_T] | List[_ConverterType[_T]] | Tuple[_ConverterType[_T], ...] = ...,
     factory: Optional[Callable[[], _T]] = ...,
     kw_only: bool = ...,
     eq: Optional[bool] = ...,
@@ -141,7 +141,7 @@ def attrib(
     init: bool = ...,
     metadata: Optional[Mapping[Any, Any]] = ...,
     type: object = ...,
-    converter: Optional[_ConverterType[_T]] = ...,
+    converter: None | _ConverterType[_T] | List[_ConverterType[_T]] | Tuple[_ConverterType[_T], ...] = ...,
     factory: Optional[Callable[[], _T]] = ...,
     kw_only: bool = ...,
     eq: Optional[bool] = ...,
