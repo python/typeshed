@@ -900,7 +900,7 @@ class _TreeviewColumnDict(TypedDict):
     id: str
 
 _TreeviewItemId = str  # empty string is parent of all other items
-_TreeviewColumnId = int | str  # manual page: "COLUMN IDENTIFIERS"
+_TreeviewColumnId = Union[int, str]  # manual page: "COLUMN IDENTIFIERS"
 
 class Treeview(Widget, tkinter.XView, tkinter.YView):
     def __init__(
