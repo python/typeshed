@@ -1,6 +1,7 @@
 from _typeshed import StrOrBytesPath
-from tkinter import Button, Entry, Frame, Listbox, Misc, Scrollbar, StringVar, Toplevel, commondialog
-from typing import Any, ClassVar, Dict, Optional, Tuple
+from tkinter import Button, Entry, Frame, Listbox, Misc, Scrollbar, StringVar, Toplevel, _TkinterSequence, commondialog
+from typing import Any, ClassVar, Dict, Iterable, Optional, Tuple
+from typing_extensions import Literal
 
 dialogstates: Dict[Any, Tuple[Any, Any]]
 
