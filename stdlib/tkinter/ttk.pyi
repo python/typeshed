@@ -1014,7 +1014,7 @@ class Treeview(Widget, tkinter.XView, tkinter.YView):
         image: tkinter._ImageSpec = ...,
         values: tkinter._TkinterSequence[Any] = ...,
         open: bool = ...,
-        tags: tkinter._TkinterSequence[str] = ...,
+        tags: str | tkinter._TkinterSequence[str] = ...,
     ) -> str: ...
     @overload
     def item(self, item: str, option: Literal["text"]) -> str: ...
@@ -1038,7 +1038,7 @@ class Treeview(Widget, tkinter.XView, tkinter.YView):
         image: tkinter._ImageSpec = ...,
         values: tkinter._TkinterSequence[Any] = ...,
         open: bool = ...,
-        tags: tkinter._TkinterSequence[str] = ...,
+        tags: str | tkinter._TkinterSequence[str] = ...,
     ) -> _TreeviewItemDict | None: ...
     def move(self, item: str, parent: str, index: int) -> None: ...
     reattach = move
