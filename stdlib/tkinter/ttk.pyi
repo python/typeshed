@@ -3,7 +3,7 @@ import sys
 import tkinter
 from tkinter.font import _FontDescription
 from typing import Any, Callable, Dict, List, Optional, Tuple, Union, overload
-from typing_extensions import Literal
+from typing_extensions import Literal, TypedDict
 
 def tclobjs_to_py(adict): ...
 def setup_master(master: Optional[Any] = ...): ...
