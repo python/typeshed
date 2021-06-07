@@ -20,9 +20,9 @@ class Random(_random.Random):
     def choices(
         self,
         population: Sequence[_T],
-        weights: Optional[Sequence[Union[int, float, Fraction]]] = ...,
+        weights: Optional[Sequence[Union[float, Fraction]]] = ...,
         *,
-        cum_weights: Optional[Sequence[Union[int, float, Fraction]]] = ...,
+        cum_weights: Optional[Sequence[Union[float, Fraction]]] = ...,
         k: int = ...,
     ) -> list[_T]: ...
     def shuffle(self, x: MutableSequence[Any], random: Optional[Callable[[], float]] = ...) -> None: ...
