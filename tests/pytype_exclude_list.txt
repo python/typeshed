@@ -11,10 +11,6 @@ stdlib/typing.pyi
 # third_party stubs with constructs that pytype doesn't yet support:
 stubs/fb303/fb303/FacebookService.pyi
 stubs/scribe/scribe/scribe.pyi
-stubs/attrs/attr/__init__.pyi
-stubs/attrs/attr/converters.pyi
-stubs/attrs/attr/filters.pyi
-stubs/attrs/attr/validators.pyi
 stubs/paramiko/paramiko/_winapi.pyi
 stubs/paramiko/paramiko/win_pageant.pyi
 
