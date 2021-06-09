@@ -10,7 +10,7 @@
 #
 # Update these two variables when rerunning script
 PROTOBUF_VERSION=3.14.0
-MYPY_PROTOBUF_VERSION=8639282dae3bb64b2e1db9928d72fc374f7fa831  # Update to 1.24 when it releases
+MYPY_PROTOBUF_VERSION=v1.24
 
 set -ex
 
@@ -41,7 +41,7 @@ PYTHON_PROTOBUF_DIR=protobuf-$PROTOBUF_VERSION
 
 # Install mypy-protobuf
 VENV=venv
-python3 -m virtualenv $VENV
+python3 -m venv $VENV
 source $VENV/bin/activate
 python3 -m pip install git+https://github.com/dropbox/mypy-protobuf@${MYPY_PROTOBUF_VERSION}#subdirectory=python
 
