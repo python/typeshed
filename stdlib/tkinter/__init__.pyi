@@ -164,10 +164,11 @@ class EventType(str, Enum):
     VirtualEvent: str = ...
     Visibility: str = ...
 
+_W = TypeVar("_W", bound="Misc")
 # Events considered covariant because you should never assign to event.widget.
-_W = TypeVar("_W", covariant=True, bound="Misc")
+_W_co = TypeVar("_W_co", covariant=True, bound="Misc")
 
-class Event(Generic[_W]):
+class Event(Generic[_W_co]):
     serial: int
     num: int
     focus: bool
@@ -185,7 +186,7 @@ class Event(Generic[_W]):
     keysym: str
     keysym_num: int
     type: EventType
-    widget: _W
+    widget: _W_co
     delta: int
 
 def NoDefaultRoot(): ...
