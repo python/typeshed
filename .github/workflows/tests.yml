@@ -14,9 +14,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-      - run: |
-          pip install toml
-          ./tests/check_consistent.py
+      - run: pip install toml
+      - run: ./tests/check_consistent.py
 
   flake8:
     name: Lint with flake8
@@ -24,9 +23,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-      - run: |
-          pip install $(grep flake8 requirements-tests-py3.txt)
-          flake8
+      - run: pip install $(grep flake8 requirements-tests-py3.txt)
+      - run: flake8
 
   black:
     name: Check formatting with black
@@ -34,9 +32,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-      - run: |
-          pip install $(grep black requirements-tests-py3.txt)
-          black --check --diff stdlib stubs
+      - run: pip install $(grep black requirements-tests-py3.txt)
+      - run: black --check --diff stdlib stubs
 
   isort:
     name: Check imports with isort
@@ -44,9 +41,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-      - run: |
-          pip install $(grep isort requirements-tests-py3.txt)
-          isort --check-only --diff stdlib stubs
+      - run: pip install $(grep isort requirements-tests-py3.txt)
+      - run: isort --check-only --diff stdlib stubs
 
   pytype:
     name: Run pytype against the stubs
@@ -69,7 +65,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-      - run: pip install -U git+git://github.com/python/mypy
+      - run: pip install $(grep mypy== requirements-tests-py3.txt)
       - run: ./tests/mypy_test.py --platform=${{ matrix.platform }}
 
   pyright:
@@ -104,10 +100,7 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
-      # Keep the mypy version in sync with what we use for stubtest in stubtest-unused-whitelist.yml
       - name: Install dependencies
-        run: |
-          python -m pip install -U pip
-          pip install -U git+git://github.com/python/mypy@master
+        run: pip install $(grep mypy== requirements-tests-py3.txt)
       - name: Run stubtest
         run: python tests/stubtest_test.py --ignore-unused-whitelist
