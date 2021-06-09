@@ -82,12 +82,13 @@ The metadata file describes the stubs package using the
 [TOML file format](https://toml.io/en/). Currently, the following keys are
 supported:
 
-* `version`: The oldest version of the library for which the stubs are still
-  applicable (i.e. reflect the actual runtime behaviour). Note that only two
-  most significant version levels are supported (i.e. only single dot).
-  When a significant change is made in the library, the version of the
-  stub should be bumped (note that previous versions are still available
-  on PyPI).
+* `version`: The latest version of the library that the stubs support.
+  Note that only two most significant version levels are supported
+  (i.e. only single dot). When the stubs are updated to a newer version
+  of the library, the version of the stub should be bumped (note that
+  previous versions are still available on PyPI). Some legacy stubs are
+  marked with version `0.1`, indicating that their supported version is
+  unknown and needs to be updated.
 * `python2` (default: `False`) and `python3` (default: `True`): These fields
   indicate whether a package supports Python 2, Python 3, or both.
 * `requires` (optional): A list of other stub packages that this package uses.
