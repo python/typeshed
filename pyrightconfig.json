@@ -32,6 +32,7 @@
         "stubs/Jinja2",
         "stubs/Markdown",
         "stubs/paramiko",
+        "stubs/Pillow",
         "stubs/protobuf",
         "stubs/PyMySQL",
         "stubs/python-dateutil",
