@@ -66,3 +66,5 @@ PROTO_FILES=$(grep "generate_proto.*google" $PYTHON_PROTOBUF_DIR/python/setup.py
 
 # And regenerate!
 protoc_install/bin/protoc --proto_path=$PYTHON_PROTOBUF_DIR/src --mypy_out=$REPO_ROOT/stubs/protobuf $PROTO_FILES
+isort $REPO_ROOT/stubs/protobuf
+black $REPO_ROOT/stubs/protobuf
