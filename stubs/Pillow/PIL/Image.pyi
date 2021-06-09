@@ -1,7 +1,7 @@
 from _typeshed import SupportsRead, SupportsWrite
 from collections.abc import Iterable, Iterator, MutableMapping
 from pathlib import Path
-from typing import Any, Protocol, Tuple, Union
+from typing import Any, Dict, Protocol, Tuple, Union
 from typing_extensions import Literal
 
 from ._imaging import (
@@ -95,7 +95,7 @@ class _E:
     def __add__(self, other) -> _E: ...
     def __mul__(self, other) -> _E: ...
 
-_ImageState = Tuple[dict[str, Any], str, Tuple[int, int], Any, bytes]
+_ImageState = Tuple[Dict[str, Any], str, Tuple[int, int], Any, bytes]
 
 class Image:
     format: Any
