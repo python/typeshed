@@ -26,9 +26,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
-        run: |
-          pip install -U pip
-          pip install -U $(grep mypy== requirements-tests-py3.txt)
+        run: pip install -U $(grep mypy== requirements-tests-py3.txt)
       - name: Run stubtest
         shell: bash
         run: ./tests/stubtest_unused.py | tee stubtest-output-${{ matrix.os }}-${{ matrix.python-version }}

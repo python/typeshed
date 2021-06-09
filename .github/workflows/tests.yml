@@ -14,9 +14,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-      - run: |
-          pip install toml
-          ./tests/check_consistent.py
+      - run: pip install toml
+      - run: ./tests/check_consistent.py
 
   flake8:
     name: Lint with flake8
@@ -24,9 +23,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-      - run: |
-          pip install $(grep flake8 requirements-tests-py3.txt)
-          flake8
+      - run: pip install $(grep flake8 requirements-tests-py3.txt)
+      - run: flake8
 
   black:
     name: Check formatting with black
@@ -34,9 +32,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-      - run: |
-          pip install $(grep black requirements-tests-py3.txt)
-          black --check --diff stdlib stubs
+      - run: pip install $(grep black requirements-tests-py3.txt)
+      - run: black --check --diff stdlib stubs
 
   isort:
     name: Check imports with isort
@@ -44,9 +41,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-      - run: |
-          pip install $(grep isort requirements-tests-py3.txt)
-          isort --check-only --diff stdlib stubs
+      - run: pip install $(grep isort requirements-tests-py3.txt)
+      - run: isort --check-only --diff stdlib stubs
 
   pytype:
     name: Run pytype against the stubs
@@ -56,9 +52,8 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: 3.9
-      - run: |
-          pip install -r requirements-tests-py3.txt
-          ./tests/pytype_test.py
+      - run: pip install -r requirements-tests-py3.txt
+      - run: ./tests/pytype_test.py
 
   mypy:
     name: Run mypy against the stubs
@@ -70,10 +65,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-      - run: |
-          pip install -U pip
-          pip install -U $(grep mypy== requirements-tests-py3.txt)
-          ./tests/mypy_test.py --platform=${{ matrix.platform }}
+      - run: pip install -U $(grep mypy== requirements-tests-py3.txt)
+      - run: ./tests/mypy_test.py --platform=${{ matrix.platform }}
 
   pyright:
     name: Run pyright against the stubs
@@ -108,8 +101,6 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
-        run: |
-          pip install -U pip
-          pip install -U $(grep mypy== requirements-tests-py3.txt)
+        run: pip install -U $(grep mypy== requirements-tests-py3.txt)
       - name: Run stubtest
         run: python tests/stubtest_test.py --ignore-unused-whitelist
