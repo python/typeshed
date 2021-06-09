@@ -1,5 +1,5 @@
 import builtins
-import ctypes.wintypes
+import ctypes
 import sys
 from types import TracebackType
 from typing import Any, Optional, Type, TypeVar

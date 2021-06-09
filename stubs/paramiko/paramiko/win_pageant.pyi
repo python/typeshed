@@ -1,4 +1,4 @@
-import ctypes.wintypes
+import ctypes
 import sys
 
 if sys.platform == "win32":
