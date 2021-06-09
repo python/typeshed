@@ -56,8 +56,9 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: 3.9
-      - run: pip install -r requirements-tests-py3.txt
-      - run: ./tests/pytype_test.py
+      - run: |
+          pip install -r requirements-tests-py3.txt
+          ./tests/pytype_test.py
 
   mypy:
     name: Run mypy against the stubs
@@ -69,8 +70,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-      - run: pip install -U mypy==0.901
-      - run: ./tests/mypy_test.py --platform=${{ matrix.platform }}
+      - run: |
+          pip install -U pip
+          pip install -U $(grep mypy== requirements-tests-py3.txt)
+          ./tests/mypy_test.py --platform=${{ matrix.platform }}
 
   pyright:
     name: Run pyright against the stubs
@@ -104,10 +107,9 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
-      # Keep the mypy version in sync with what we use for stubtest in stubtest-unused-whitelist.yml
       - name: Install dependencies
         run: |
-          python -m pip install -U pip
-          pip install -U mypy==0.901
+          pip install -U pip
+          pip install -U $(grep mypy== requirements-tests-py3.txt)
       - name: Run stubtest
         run: python tests/stubtest_test.py --ignore-unused-whitelist
