@@ -19,7 +19,6 @@
         "stubs/scribe",
         "stubs/tornado",
         // Modules that are incomplete in some way.
-        "stdlib/tkinter",
         "stubs/boto",
         "stubs/cryptography",
         "stubs/docutils",
@@ -63,7 +62,6 @@
     "reportInvalidStringEscapeSequence": "error",
     "reportUnknownArgumentType": "error",
     "reportUnknownLambdaType": "error",
-    "reportUnknownVariableType": "error",
     "reportUnknownMemberType": "error",
     "reportMissingTypeArgument": "error",
     "reportUndefinedVariable": "error",
