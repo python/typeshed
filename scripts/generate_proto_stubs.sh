@@ -10,7 +10,7 @@
 #
 # Update these two variables when rerunning script
 PROTOBUF_VERSION=3.14.0
-MYPY_PROTOBUF_VERSION=8639282dae3bb64b2e1db9928d72fc374f7fa831  # Update to 1.24 when it releases
+MYPY_PROTOBUF_VERSION=v1.24
 
 set -ex
 
@@ -39,11 +39,14 @@ wget $PYTHON_PROTOBUF_URL
 unzip $PYTHON_PROTOBUF_FILENAME
 PYTHON_PROTOBUF_DIR=protobuf-$PROTOBUF_VERSION
 
-# Install mypy-protobuf
+# Prepare virtualenv
 VENV=venv
-python3 -m virtualenv $VENV
+python3 -m venv $VENV
 source $VENV/bin/activate
-python3 -m pip install git+https://github.com/dropbox/mypy-protobuf@${MYPY_PROTOBUF_VERSION}#subdirectory=python
+pip install -r requirements-tests-py3.txt  # for black and isort
+
+# Install mypy-protobuf
+pip install git+https://github.com/dropbox/mypy-protobuf@${MYPY_PROTOBUF_VERSION}#subdirectory=python
 
 # Remove existing pyi
 find $REPO_ROOT/stubs/protobuf/ -name "*_pb2.pyi" -delete
@@ -66,3 +69,6 @@ PROTO_FILES=$(grep "generate_proto.*google" $PYTHON_PROTOBUF_DIR/python/setup.py
 
 # And regenerate!
 protoc_install/bin/protoc --proto_path=$PYTHON_PROTOBUF_DIR/src --mypy_out=$REPO_ROOT/stubs/protobuf $PROTO_FILES
+
+isort $REPO_ROOT/stubs/protobuf
+black $REPO_ROOT/stubs/protobuf
