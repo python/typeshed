@@ -9,19 +9,18 @@ internal_code: Any
 concat: Any
 
 _CallableT = TypeVar("_CallableT", bound=Callable[..., Any])
-_Callable_co = TypeVar("_Callable_co", covariant=True, bound=Callable[..., Any])
 
-class _ContextFunction(Protocol[_Callable_co]):
+class _ContextFunction(Protocol[_CallableT]):  # type: ignore
     contextfunction: Literal[True]
-    __call__: _Callable_co
+    __call__: _CallableT
 
-class _EvalContextFunction(Protocol[_Callable_co]):
+class _EvalContextFunction(Protocol[_CallableT]):  # type: ignore
     evalcontextfunction: Literal[True]
-    __call__: _Callable_co
+    __call__: _CallableT
 
-class _EnvironmentFunction(Protocol[_Callable_co]):
+class _EnvironmentFunction(Protocol[_CallableT]):  # type: ignore
     environmentfunction: Literal[True]
-    __call__: _Callable_co
+    __call__: _CallableT
 
 def contextfunction(f: _CallableT) -> _ContextFunction[_CallableT]: ...
 def evalcontextfunction(f: _CallableT) -> _EvalContextFunction[_CallableT]: ...
