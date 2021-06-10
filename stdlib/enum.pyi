@@ -1,7 +1,7 @@
 import sys
 from abc import ABCMeta
 from builtins import property as _builtins_property
-from typing import Any, Dict, Iterator, List, Mapping, Optional, Type, TypeVar, Union
+from typing import Any, Dict, Iterator, List, Mapping, Type, TypeVar, Union
 
 _T = TypeVar("_T")
 _S = TypeVar("_S", bound=Type[Enum])
@@ -58,7 +58,7 @@ class auto(IntFlag):
     def __new__(cls: Type[_T]) -> _T: ...
 
 class Flag(Enum):
-    name: Optional[int]  # type: ignore
+    name: str | None  # type: ignore
     def __contains__(self: _T, other: _T) -> bool: ...
     def __repr__(self) -> str: ...
     def __str__(self) -> str: ...
