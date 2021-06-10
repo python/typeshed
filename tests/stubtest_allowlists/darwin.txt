@@ -12,24 +12,19 @@ os.EX_NOTFOUND
 os.SF_MNOWAIT
 os.SF_NODISKIO
 os.SF_SYNC
-os.chflags
-os.lchflags
-os.lchmod
-os.plock
+posix.sched_param  # system dependent. Unclear if macos has it.
 posix.EX_NOTFOUND
-select.EPOLL_RDHUP
-selectors.KqueueSelector
-signal.SIGEMT
-signal.SIGINFO
-spwd.struct_spwd._asdict  # PyStructSequence
-spwd.struct_spwd._make  # PyStructSequence
-spwd.struct_spwd._replace  # PyStructSequence
+posix.XATTR.*  # Value seems to be in docs but not defined in github macos
+readline.append_history_file  # not defined in macos
+select.KQ_FILTER_NETDEV  # system dependent
+select.kqueue.__init__  # default C signature is wrong
+select.POLLMSG   # system dependent
 
 # ==========
-# Whitelist entries that cannot or should not be fixed
+# Allowlist entries that cannot or should not be fixed
 # ==========
 
-# Modules that do not exist on Linux systems
+# Modules that do not exist on macos systems
 _msi
 _winapi
 asyncio.windows_events
@@ -38,6 +33,8 @@ msilib(.[a-z]+)?
 msvcrt
 winreg
 winsound
+ossaudiodev
+spwd
 
 # NamedTuple like, but not actually NamedTuples (PyStructSequence)
 posix.[a-z]+_(param|result)._(asdict|make|replace)

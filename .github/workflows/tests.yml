@@ -112,4 +112,4 @@ jobs:
       - name: Install dependencies
         run: pip install $(grep mypy== requirements-tests-py3.txt)
       - name: Run stubtest
-        run: python tests/stubtest_test.py --ignore-unused-whitelist
+        run: python tests/stubtest_test.py --ignore-unused-allowlist
