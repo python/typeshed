@@ -47,9 +47,14 @@ This test requires [Node.js](https://nodejs.org) to be installed. It is
 currently not part of the CI,
 but it uses the same pyright version and configuration as the CI.
 ```
-(.venv3)$ python3 tests/pyright_test.py                 # Check all files
-(.venv3)$ python3 tests/pyright_test.py stdlib/sys.pyi  # Check one file
+(.venv3)$ python3 tests/pyright_test.py                                # Check all files
+(.venv3)$ python3 tests/pyright_test.py stdlib/sys.pyi                 # Check one file
+(.venv3)$ python3 tests/pyright_test.py -p pyrightconfig.stricter.json # Check with the stricter config.
 ```
+
+`pyrightconfig.stricter.json` is a stricter configuration that enables additional
+checks that would typically fail on incomplete stubs (such as `Unknown` checks),
+and is run on a subset of stubs (including the standard library).
 
 ## check\_consistent.py
 
