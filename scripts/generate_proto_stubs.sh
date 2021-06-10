@@ -53,7 +53,7 @@ find $REPO_ROOT/stubs/protobuf/ -name "*_pb2.pyi" -delete
 
 # Roughly reproduce the subset of .proto files on the public interface as described
 # by find_package_modules in the protobuf setup.py.
-# The logic (as of 3.14.0) can roughly be described as a whitelist of .proto files
+# The logic (as of 3.14.0) can roughly be described as a allowlist of .proto files
 # further limited to exclude *test* and internal/
 # https://github.com/protocolbuffers/protobuf/blob/master/python/setup.py
 PROTO_FILES=$(grep "generate_proto.*google" $PYTHON_PROTOBUF_DIR/python/setup.py | \

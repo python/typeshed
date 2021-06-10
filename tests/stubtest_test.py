@@ -16,40 +16,40 @@ from pathlib import Path
 
 
 def run_stubtest(typeshed_dir: Path) -> int:
-    whitelist_dir = typeshed_dir / "tests" / "stubtest_whitelists"
-    version_whitelist = "py{}{}.txt".format(sys.version_info.major, sys.version_info.minor)
-    platform_whitelist = "{}.txt".format(sys.platform)
-    combined_whitelist = "{}-py{}{}.txt".format(sys.platform, sys.version_info.major, sys.version_info.minor)
+    allowlist_dir = typeshed_dir / "tests" / "stubtest_allowlists"
+    version_allowlist = "py{}{}.txt".format(sys.version_info.major, sys.version_info.minor)
+    platform_allowlist = "{}.txt".format(sys.platform)
+    combined_allowlist = "{}-py{}{}.txt".format(sys.platform, sys.version_info.major, sys.version_info.minor)
 
-    ignore_unused_whitelist = "--ignore-unused-whitelist" in sys.argv[1:]
+    ignore_unused_allowlist = "--ignore-unused-allowlist" in sys.argv[1:]
 
     cmd = [
         sys.executable,
         "-m",
         "mypy.stubtest",
         # Use --ignore-missing-stub, because if someone makes a correct addition, they'll need to
-        # also make a whitelist change and if someone makes an incorrect addition, they'll run into
+        # also make a allowlist change and if someone makes an incorrect addition, they'll run into
         # false negatives.
         "--ignore-missing-stub",
         "--check-typeshed",
         "--custom-typeshed-dir",
         str(typeshed_dir),
-        "--whitelist",
-        str(whitelist_dir / "py3_common.txt"),
-        "--whitelist",
-        str(whitelist_dir / version_whitelist),
+        "--allowlist",
+        str(allowlist_dir / "py3_common.txt"),
+        "--allowlist",
+        str(allowlist_dir / version_allowlist),
     ]
-    if ignore_unused_whitelist:
-        cmd += ["--ignore-unused-whitelist"]
-    if (whitelist_dir / platform_whitelist).exists():
+    if ignore_unused_allowlist:
+        cmd += ["--ignore-unused-allowlist"]
+    if (allowlist_dir / platform_allowlist).exists():
         cmd += [
-            "--whitelist",
-            str(whitelist_dir / platform_whitelist),
+            "--allowlist",
+            str(allowlist_dir / platform_allowlist),
         ]
-    if (whitelist_dir / combined_whitelist).exists():
+    if (allowlist_dir / combined_allowlist).exists():
         cmd += [
-            "--whitelist",
-            str(whitelist_dir / combined_whitelist),
+            "--allowlist",
+            str(allowlist_dir / combined_allowlist),
         ]
     if sys.version_info < (3, 10):
         # As discussed in https://github.com/python/typeshed/issues/3693, we only aim for

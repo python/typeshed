@@ -1,4 +1,4 @@
-name: Remove unused stubtest whitelist entries
+name: Remove unused stubtest allowlist entries
 
 on:
   workflow_dispatch:
@@ -49,13 +49,13 @@ jobs:
           name: stubtest-output
       - name: Collate duplicates
         run: cat stubtest-output-* | sort -u | tee stubtest-output
-      - name: Remove entries from whitelists
-        run: python scripts/update-stubtest-whitelist.py stubtest-output
+      - name: Remove entries from allowlists
+        run: python scripts/update-stubtest-allowlist.py stubtest-output
       - name: Create pull request
         # v3.8.2
         uses: peter-evans/create-pull-request@052fc72b4198ba9fbc81b818c6e1859f747d49a8
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: Remove unused stubtest whitelist entries
-          title: "[gh-action] Remove unused stubtest whitelist entries"
+          commit-message: Remove unused stubtest allowlist entries
+          title: "[gh-action] Remove unused stubtest allowlist entries"
           base: master

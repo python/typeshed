@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 
-# This script removes lines from stubtest whitelists, according to
+# This script removes lines from stubtest allowlists, according to
 # an input file. The input file has one entry to remove per line.
-# Each line consists of a whitelist filename and an entry, separated
+# Each line consists of a allowlist filename and an entry, separated
 # by a colon.
 
-# This script is used by the workflow to remove unused whitelist entries.
+# This script is used by the workflow to remove unused allowlist entries.
 
 import sys
 from collections import defaultdict
@@ -19,7 +19,7 @@ def main() -> None:
 
     to_remove = parse_input_file(sys.argv[1])
     for filename, entries in to_remove.items():
-        remove_entries_from_whitelist(filename, entries)
+        remove_entries_from_allowlist(filename, entries)
 
 
 def parse_input_file(input_file: str) -> Dict[str, Set[str]]:
@@ -37,7 +37,7 @@ def parse_input_line(line: str) -> Tuple[str, str]:
     return filename, entry
 
 
-def remove_entries_from_whitelist(filename: str, entries: Set[str]) -> None:
+def remove_entries_from_allowlist(filename: str, entries: Set[str]) -> None:
     new_lines: List[str] = []
     with open(filename) as f:
         for line in f:

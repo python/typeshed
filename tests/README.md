@@ -81,8 +81,8 @@ If you need a specific version of Python to repro a CI failure,
 [pyenv](https://github.com/pyenv/pyenv) can help.
 
 Due to its dynamic nature, you may run into false positives. In this case, you
-can add to the whitelists for each affected Python version in
-`tests/stubtest_whitelists`. Please file issues for stubtest false positives
+can add to the allowlists for each affected Python version in
+`tests/stubtest_allowlists`. Please file issues for stubtest false positives
 at [mypy](https://github.com/python/mypy/issues).
 
 To run stubtest against third party stubs, it's easiest to use stubtest

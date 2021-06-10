@@ -219,7 +219,7 @@ webbrowser.UnixBrowser.remote_action_newwin  # always overridden in inheriting c
 wsgiref.types  # Doesn't exist, see comments in file
 
 # ==========
-# Whitelist entries that cannot or should not be fixed
+# Allowlist entries that cannot or should not be fixed
 # ==========
 _pydecimal.*  # See comments in file
 ast.NodeVisitor.visit_\w+  # Methods are discovered dynamically, see #3796
