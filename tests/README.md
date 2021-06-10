@@ -52,6 +52,10 @@ but it uses the same pyright version and configuration as the CI.
 (.venv3)$ python3 tests/pyright_test.py -p pyrightconfig.stricter.json # Check with the stricter config.
 ```
 
+`pyrightconfig.stricter.json` is a stricter configuration that enables additional
+checks that would typically fail on incomplete stubs (such as `Unknown` checks),
+and is run on a subset of stubs (including the standard library).
+
 ## check\_consistent.py
 
 Run using:
