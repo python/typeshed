@@ -1,12 +1,9 @@
 #!/usr/bin/env python3
-"""Test typeshed using stubtest
+"""Test typeshed's stdlib using stubtest
 
 stubtest is a script in the mypy project that compares stubs to the actual objects at runtime.
 Note that therefore the output of stubtest depends on which Python version it is run with.
 In typeshed CI, we run stubtest with each currently supported Python minor version, except 2.7.
-
-We pin the version of mypy / stubtest we use in .travis.yml so changes to those don't break
-typeshed CI.
 
 """
 
