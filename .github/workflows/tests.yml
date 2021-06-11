@@ -122,5 +122,7 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: 3.9
+      - name: Install dependencies
+        run: pip install toml
       - name: Run stubtest
         run: python tests/stubtest_third_party.py
