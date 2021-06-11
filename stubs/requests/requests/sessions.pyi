@@ -1,5 +1,5 @@
 from _typeshed import SupportsItems
-from typing import IO, Any, Callable, Iterable, List, Mapping, MutableMapping, Optional, Text, Tuple, Union
+from typing import IO, Any, Callable, Iterable, List, Mapping, MutableMapping, Optional, Text, TypeVar, Tuple, Union
 
 from . import adapters, auth as _auth, compat, cookies, exceptions, hooks, models, status_codes, structures, utils
 from .models import Response
@@ -57,6 +57,7 @@ _Params = Union[
     Iterable[Tuple[_ParamsMappingKeyType, _ParamsMappingValueType]],
     Union[Text, bytes],
 ]
+_SessionT = TypeVar("_SessionT", bound=Session)
 
 class Session(SessionRedirectMixin):
     __attrs__: Any
@@ -74,7 +75,7 @@ class Session(SessionRedirectMixin):
     adapters: MutableMapping[Any, Any]
     redirect_cache: RecentlyUsedContainer[Any, Any]
     def __init__(self) -> None: ...
-    def __enter__(self) -> Session: ...
+    def __enter__(self: _SessionT) -> _SessionT: ...
     def __exit__(self, *args) -> None: ...
     def prepare_request(self, request): ...
     def request(
