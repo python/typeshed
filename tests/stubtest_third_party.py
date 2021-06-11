@@ -51,7 +51,7 @@ def run_stubtest(dist: Path) -> None:
         if dist_version is None or dist_version == "0.1":
             dist_req = dist.name
         else:
-            dist_req = f"{dist.name}=={dist_version}"
+            dist_req = f"{dist.name}=={dist_version}.*"
 
         # We need stubtest to be able to import the package, so install mypy into the venv
         # Hopefully mypy continues to not need too many dependencies
