@@ -1,0 +1,15 @@
+PIL.Image.Image.category
+PIL.Image.Image.resize
+PIL.Image.fromarray
+PIL.Image.open
+PIL.ImageDraw.ImageDraw.multiline_text
+PIL.ImageDraw.ImageDraw.multiline_textbbox
+PIL.ImageDraw.ImageDraw.textbbox
+PIL.ImageFile.ImageFile.__getattr__
+PIL.ImageFile.ImageFile.__init__
+PIL.ImageFont.FreeTypeFont.getlength
+PIL.ImageFont.FreeTypeFont.getmask
+PIL.ImageFont.FreeTypeFont.getmask2
+PIL.ImageFont.FreeTypeFont.getsize
+PIL.ImageFont.FreeTypeFont.getsize_multiline
+PIL.__getattr__

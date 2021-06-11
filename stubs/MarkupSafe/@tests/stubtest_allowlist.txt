@@ -1,0 +1,13 @@
+markupsafe.Markup.__getslice__
+markupsafe.Markup.__mod__
+markupsafe.Markup.center
+markupsafe.Markup.ljust
+markupsafe.Markup.lstrip
+markupsafe.Markup.replace
+markupsafe.Markup.rjust
+markupsafe.Markup.rstrip
+markupsafe.Markup.strip
+markupsafe.Markup.translate
+markupsafe.Markup.zfill
+markupsafe._compat
+markupsafe._constants
