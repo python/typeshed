@@ -94,7 +94,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
           no-comments: ${{ matrix.python-version != '3.9' || matrix.python-platform != 'Linux' }}  # Having each job create the same comment is too noisy.
 
-  stubtest:
+  stubtest-stdlib:
     name: Check stdlib with stubtest
     runs-on: ${{ matrix.os }}
     strategy:
@@ -113,3 +113,14 @@ jobs:
         run: pip install $(grep mypy== requirements-tests-py3.txt)
       - name: Run stubtest
         run: python tests/stubtest_test.py --ignore-unused-allowlist
+
+  stubtest-third-party:
+    name: Check third party stubs with stubtest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: Run stubtest
+        run: python tests/stubtest_third_party.py
