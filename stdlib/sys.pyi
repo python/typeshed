@@ -15,7 +15,6 @@ from typing import (
     Optional,
     Protocol,
     Sequence,
-    TextIO,
     Tuple,
     Type,
     TypeVar,
