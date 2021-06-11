@@ -2,6 +2,7 @@
 """Test typeshed's third party stubs using stubtest"""
 
 import argparse
+import functools
 import subprocess
 import sys
 import tempfile
@@ -15,6 +16,12 @@ EXCLUDE_LIST = ["Flask", "pyaudio", "backports", "pkg_resources", "six", "aiofil
 
 class StubtestFailed(Exception):
     pass
+
+
+@functools.lru_cache()
+def get_mypy_req():
+    with open("requirements-tests-py3.txt") as f:
+        return next(line.strip() for line in f if "mypy" in line)
 
 
 def run_stubtest(dist: Path) -> None:
@@ -32,11 +39,16 @@ def run_stubtest(dist: Path) -> None:
         pip_exe = str(venv_dir / "bin" / "pip")
         python_exe = str(venv_dir / "bin" / "python")
 
+        dist_version = metadata.get("version")
+        if dist_version is None or dist_version == "0.1":
+            dist_req = dist.name
+        else:
+            dist_req = f"{dist.name}=={dist_version}"
+
         # We need stubtest to be able to import the package, so install mypy into the venv
         # Hopefully mypy continues to not need too many dependencies
-        # TODO: Pick package version based on metadata.get("version")
         # TODO: Maybe find a way to cache these in CI
-        dists_to_install = [dist.name, "mypy==0.901"]
+        dists_to_install = [dist_req, get_mypy_req()]
         dists_to_install.extend(metadata.get("requires", []))
         pip_cmd = [pip_exe, "install"] + dists_to_install
         print(" ".join(pip_cmd), file=sys.stderr)
