@@ -112,7 +112,7 @@ jobs:
       - name: Install dependencies
         run: pip install $(grep mypy== requirements-tests-py3.txt)
       - name: Run stubtest
-        run: python tests/stubtest_test.py --ignore-unused-allowlist
+        run: python tests/stubtest_stdlib.py --ignore-unused-allowlist
 
   stubtest-third-party:
     name: Check third party stubs with stubtest
