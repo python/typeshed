@@ -9,7 +9,7 @@ import venv
 from pathlib import Path
 
 
-EXCLUDE_LIST = ["Flask", "pyaudio", "backports", "pkg_resources", "six", "aiofiles"]
+EXCLUDE_LIST = ["Flask", "pyaudio", "backports", "pkg_resources", "six", "aiofiles", "pycurl"]
 
 
 class StubtestFailed(Exception):
