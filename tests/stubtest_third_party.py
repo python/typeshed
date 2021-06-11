@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Test typeshed's third party stubs using stubtest"""
 
+import argparse
 import subprocess
 import sys
 import tempfile
@@ -82,14 +83,21 @@ def run_stubtest(dist: Path) -> None:
             print(f"stubtest succeeded for {dist.name}", file=sys.stderr)
 
 
-def check_stubs(typeshed_dir: Path):
-    # TODO: parallelise (maybe shard across multiple GA jobs)
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--num-shards", type=int, default=1)
+    parser.add_argument("--shard-index", type=int, default=0)
+    args = parser.parse_args()
+
+    typeshed_dir = Path(".").resolve()
     dists = sorted((typeshed_dir / "stubs").iterdir())
-    for dist in dists:
+    for i, dist in enumerate(dists):
+        if i % args.num_shards != args.shard_index:
+            continue
         if dist.name in EXCLUDE_LIST:
             continue
         run_stubtest(dist)
 
 
 if __name__ == "__main__":
-    sys.exit(check_stubs(typeshed_dir=Path(".")))
+    main()
