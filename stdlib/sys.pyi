@@ -1,8 +1,8 @@
 import sys
 from builtins import object as _object
-from io import TextIOWrapper
 from importlib.abc import Loader, PathEntryFinder
 from importlib.machinery import ModuleSpec
+from io import TextIOWrapper
 from types import FrameType, ModuleType, TracebackType
 from typing import (
     Any,
