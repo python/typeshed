@@ -38,8 +38,14 @@ def run_stubtest(dist: Path) -> None:
         dists_to_install = [dist.name, "mypy==0.901"]
         dists_to_install.extend(metadata.get("requires", []))
         pip_cmd = [pip_exe, "install"] + dists_to_install
-        print(" ".join(pip_cmd))
-        subprocess.run(pip_cmd, check=True, capture_output=True)
+        print(" ".join(pip_cmd), file=sys.stderr)
+        try:
+            subprocess.run(pip_cmd, check=True, capture_output=True)
+        except subprocess.CalledProcessError as e:
+            print(f"Failed to install {dist.name}", file=sys.stderr)
+            print(e.stdout.decode(), file=sys.stderr)
+            print(e.stderr.decode(), file=sys.stderr)
+            raise
 
         packages_to_check = [d.name for d in dist.iterdir() if d.is_dir() and d.name.isidentifier()]
         modules_to_check = [d.stem for d in dist.iterdir() if d.is_file() and d.suffix == ".pyi"]
