@@ -9,11 +9,11 @@ import venv
 from pathlib import Path
 
 
-EXCLUDE_LIST = ["Flask", "pyaudio", "backports", "pkg_resources", "six"]
+EXCLUDE_LIST = ["Flask", "pyaudio", "backports", "pkg_resources", "six", "aiofiles"]
 
 
 class StubtestFailed(Exception):
-    ...
+    pass
 
 
 def run_stubtest(dist: Path) -> None:
