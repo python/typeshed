@@ -1,5 +1,6 @@
 import sys
 from builtins import object as _object
+from io import TextIOWrapper
 from importlib.abc import Loader, PathEntryFinder
 from importlib.machinery import ModuleSpec
 from types import FrameType, ModuleType, TracebackType
@@ -74,14 +75,14 @@ if sys.version_info >= (3, 8):
     pycache_prefix: Optional[str]
 ps1: str
 ps2: str
-stdin: TextIO
-stdout: TextIO
-stderr: TextIO
+stdin: TextIOWrapper
+stdout: TextIOWrapper
+stderr: TextIOWrapper
 if sys.version_info >= (3, 10):
     stdlib_module_names: FrozenSet[str]
-__stdin__: TextIO
-__stdout__: TextIO
-__stderr__: TextIO
+__stdin__: TextIOWrapper
+__stdout__: TextIOWrapper
+__stderr__: TextIOWrapper
 tracebacklimit: int
 version: str
 api_version: int
