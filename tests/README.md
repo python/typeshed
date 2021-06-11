@@ -93,3 +93,14 @@ directly, with
   <third-party-module>
 ```
 stubtest can also help you find things missing from the stubs.
+
+
+## stubtest\_third\_party.py
+
+This test requires Python 3.6 or higher.
+Run using
+```
+(.venv3)$ python3 tests/stubtest_third_party.py
+```
+
+Similar to `stubtest_stdlib.py`, but tests the third party stubs.
