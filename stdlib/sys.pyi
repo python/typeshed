@@ -15,6 +15,7 @@ from typing import (
     Optional,
     Protocol,
     Sequence,
+    TextIO,
     Tuple,
     Type,
     TypeVar,
@@ -74,9 +75,9 @@ if sys.version_info >= (3, 8):
     pycache_prefix: Optional[str]
 ps1: str
 ps2: str
-stdin: TextIOWrapper
-stdout: TextIOWrapper
-stderr: TextIOWrapper
+stdin: TextIO
+stdout: TextIO
+stderr: TextIO
 if sys.version_info >= (3, 10):
     stdlib_module_names: FrozenSet[str]
 __stdin__: TextIOWrapper
