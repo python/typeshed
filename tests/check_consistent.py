@@ -71,7 +71,7 @@ def check_stubs():
                 else:
                     assert name.isidentifier(), f"Bad file name '{entry}' in stubs"
             else:
-                if entry == "@python2":
+                if entry in ("@python2", "@tests"):
                     continue
                 assert_stubs_only(os.path.join("stubs", distribution, entry))
         if os.path.isdir(os.path.join("stubs", distribution, "@python2")):

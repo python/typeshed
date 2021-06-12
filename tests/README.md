@@ -7,7 +7,7 @@ tests typeshed with [mypy](https://github.com/python/mypy/)
 [pyright](https://github.com/microsoft/pyright).
 - `tests/check_consistent.py` checks certain files in typeshed remain
 consistent with each other.
-- `tests/stubtest_test.py` checks stubs against the objects at runtime.
+- `tests/stubtest_stdlib.py` checks stubs against the objects at runtime.
 
 To run the tests, follow the [setup instructions](../CONTRIBUTING.md#preparing-the-environment)
 in the `CONTRIBUTING.md` document.
@@ -63,12 +63,12 @@ Run using:
 python3 tests/check_consistent.py
 ```
 
-## stubtest\_test.py
+## stubtest\_stdlib.py
 
 This test requires Python 3.6 or higher.
 Run using
 ```
-(.venv3)$ python3 tests/stubtest_test.py
+(.venv3)$ python3 tests/stubtest_stdlib.py
 ```
 
 This test compares the stdlib stubs against the objects at runtime. Because of
@@ -93,3 +93,14 @@ directly, with
   <third-party-module>
 ```
 stubtest can also help you find things missing from the stubs.
+
+
+## stubtest\_third\_party.py
+
+This test requires Python 3.6 or higher.
+Run using
+```
+(.venv3)$ python3 tests/stubtest_third_party.py
+```
+
+Similar to `stubtest_stdlib.py`, but tests the third party stubs.
