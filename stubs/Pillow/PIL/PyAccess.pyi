@@ -1,8 +1,8 @@
+from logging import Logger
 from typing import Any
 
-defs: str
 ffi: Any
-logger: Any
+logger: Logger
 
 class PyAccess:
     readonly: Any

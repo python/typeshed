@@ -29,7 +29,12 @@ class FreeTypeFont:
     def getname(self) -> tuple[str, str]: ...
     def getmetrics(self): ...
     def getlength(
-        self, text, mode=..., direction: Literal["ltr", "rtl", "ttb"] = ..., features=..., language: str | None = ...
+        self,
+        text,
+        mode=...,
+        direction: Literal["ltr", "rtl", "ttb"] | None = ...,
+        features: Any | None = ...,
+        language: str | None = ...,
     ) -> int: ...
     def getbbox(
         self, text, mode: str = ..., direction=..., features=..., language: str | None = ..., stroke_width: int = ..., anchor=...
@@ -37,17 +42,17 @@ class FreeTypeFont:
     def getsize(
         self,
         text,
-        direction: Literal["ltr", "rtl", "ttb"] = ...,
-        features=...,
+        direction: Literal["ltr", "rtl", "ttb"] | None = ...,
+        features: Any | None = ...,
         language: str | None = ...,
         stroke_width: int = ...,
     ) -> tuple[int, int]: ...
     def getsize_multiline(
         self,
         text,
-        direction: Literal["ltr", "rtl", "ttb"] = ...,
+        direction: Literal["ltr", "rtl", "ttb"] | None = ...,
         spacing: float = ...,
-        features=...,
+        features: Any | None = ...,
         language: str | None = ...,
         stroke_width: float = ...,
     ): ...
@@ -56,8 +61,8 @@ class FreeTypeFont:
         self,
         text: str,
         mode: str = ...,
-        direction: Literal["ltr", "rtl", "ttb"] = ...,
-        features=...,
+        direction: Literal["ltr", "rtl", "ttb"] | None = ...,
+        features: Any | None = ...,
         language: str | None = ...,
         stroke_width: float = ...,
         anchor=...,
@@ -68,8 +73,8 @@ class FreeTypeFont:
         text,
         mode: str = ...,
         fill=...,
-        direction: Literal["ltr", "rtl", "ttb"] = ...,
-        features=...,
+        direction: Literal["ltr", "rtl", "ttb"] | None = ...,
+        features: Any | None = ...,
         language: str | None = ...,
         stroke_width: float = ...,
         anchor=...,
