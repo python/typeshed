@@ -1,5 +1,4 @@
 import enum
-import typing
 from typing import Any
 
 class CryptographyDeprecationWarning(UserWarning): ...
