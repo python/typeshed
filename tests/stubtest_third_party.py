@@ -109,7 +109,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--num-shards", type=int, default=1)
     parser.add_argument("--shard-index", type=int, default=0)
-    parser.add_argument("dists", metavar="DISTRIBUTION", type=str, nargs="*")
+    parser.add_argument("dists", metavar="DISTRIBUTION", type=str, nargs=argparse.ZERO_OR_MORE)
     args = parser.parse_args()
 
     typeshed_dir = Path(".").resolve()
