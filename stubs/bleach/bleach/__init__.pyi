@@ -7,16 +7,19 @@ from bleach.sanitizer import (
     ALLOWED_STYLES as ALLOWED_STYLES,
     ALLOWED_TAGS as ALLOWED_TAGS,
     Cleaner as Cleaner,
+    _Attributes,
 )
 
-__releasedate__: Text
-__version__: Text
+__all__ = ["clean", "linkify"]
+
+__releasedate__: str
+__version__: str
 VERSION: Any  # packaging.version.Version
 
 def clean(
     text: Text,
     tags: Container[Text] = ...,
-    attributes: Any = ...,
+    attributes: _Attributes = ...,
     styles: Container[Text] = ...,
     protocols: Container[Text] = ...,
     strip: bool = ...,

@@ -1,2 +1,2 @@
-bleach.linkifier.LinkifyFilter.__init__
-bleach.sanitizer.BleachSanitizerFilter.__init__
+bleach.html5lib_shim.*
+bleach.sanitizer.BleachSanitizerFilter.__getattr__
