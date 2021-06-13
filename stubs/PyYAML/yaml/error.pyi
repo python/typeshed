@@ -1,21 +1,21 @@
-from typing import Any
+from typing import Optional
 
 class Mark:
-    name: Any
-    index: Any
-    line: Any
-    column: Any
-    buffer: Any
-    pointer: Any
-    def __init__(self, name, index, line, column, buffer, pointer) -> None: ...
-    def get_snippet(self, indent=..., max_length=...): ...
+    name: str
+    index: int
+    line: int
+    column: int
+    buffer: Optional[str]
+    pointer: int
+    def __init__(self, name: str, index: int, line: int, column: int, buffer: Optional[str], pointer: int) -> None: ...
+    def get_snippet(self, indent: int=..., max_length: int=...) -> Optional[str]: ...
 
 class YAMLError(Exception): ...
 
 class MarkedYAMLError(YAMLError):
-    context: Any
-    context_mark: Any
-    problem: Any
-    problem_mark: Any
-    note: Any
-    def __init__(self, context=..., context_mark=..., problem=..., problem_mark=..., note=...) -> None: ...
+    context: Optional[str]
+    context_mark: Optional[Mark]
+    problem: Optional[str]
+    problem_mark: Optional[Mark]
+    note: Optional[str]
+    def __init__(self, context: Optional[str]=..., context_mark: Optional[Mark]=..., problem: Optional[str]=..., problem_mark: Optional[Mark]=..., note: Optional[str]=...) -> None: ...
