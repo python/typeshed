@@ -111,5 +111,5 @@ it checks all third-party stubs, but you can provide the distributions to
 check on the command line:
 
 ```
-(.venv3)$ python3 tests/stubtest_third_party.py Pillow toml
+(.venv3)$ python3 tests/stubtest_third_party.py Pillow toml  # check stubs/Pillow and stubs/toml
 ```
