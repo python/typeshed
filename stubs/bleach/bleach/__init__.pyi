@@ -12,8 +12,8 @@ from bleach.sanitizer import (
 
 __all__ = ["clean", "linkify"]
 
-__releasedate__: str
-__version__: str
+__releasedate__: Text
+__version__: Text
 VERSION: Any  # packaging.version.Version
 
 def clean(
