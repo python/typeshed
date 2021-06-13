@@ -1,6 +1,4 @@
 PIL.FpxImagePlugin
 PIL.ImageQt.ImageQt
-PIL.ImageTk
 PIL.MicImagePlugin
 PIL.WmfImagePlugin.WmfHandler
-PIL._tkinter_finder
