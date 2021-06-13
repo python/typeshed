@@ -7,7 +7,10 @@ tests typeshed with [mypy](https://github.com/python/mypy/)
 [pyright](https://github.com/microsoft/pyright).
 - `tests/check_consistent.py` checks certain files in typeshed remain
 consistent with each other.
-- `tests/stubtest_stdlib.py` checks stubs against the objects at runtime.
+- `tests/stubtest_stdlib.py` checks standard library stubs against the
+objects at runtime.
+- `tests/stubtest_third_party.py` checks third-party stubs against the
+objects at runtime.
 
 To run the tests, follow the [setup instructions](../CONTRIBUTING.md#preparing-the-environment)
 in the `CONTRIBUTING.md` document.
@@ -103,4 +106,10 @@ Run using
 (.venv3)$ python3 tests/stubtest_third_party.py
 ```
 
-Similar to `stubtest_stdlib.py`, but tests the third party stubs.
+Similar to `stubtest_stdlib.py`, but tests the third party stubs. By default,
+it checks all third-party stubs, but you can provide the distributions to
+check on the command line:
+
+```
+(.venv3)$ python3 tests/stubtest_third_party.py Pillow toml
+```

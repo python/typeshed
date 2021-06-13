@@ -109,10 +109,15 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--num-shards", type=int, default=1)
     parser.add_argument("--shard-index", type=int, default=0)
+    parser.add_argument("dists", metavar="DISTRIBUTION", type=str, nargs="*")
     args = parser.parse_args()
 
     typeshed_dir = Path(".").resolve()
-    dists = sorted((typeshed_dir / "stubs").iterdir())
+    if len(args.dists) == 0:
+        dists = sorted((typeshed_dir / "stubs").iterdir())
+    else:
+        dists = [typeshed_dir / "stubs" / d for d in args.dists]
+
     for i, dist in enumerate(dists):
         if i % args.num_shards != args.shard_index:
             continue
