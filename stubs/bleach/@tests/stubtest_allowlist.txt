@@ -1,2 +1,1 @@
 bleach.html5lib_shim.*
-bleach.sanitizer.BleachSanitizerFilter.__getattr__
