@@ -5,24 +5,24 @@ class Mark:
     index: int
     line: int
     column: int
-    buffer: Optional[str]
+    buffer: str | None
     pointer: int
-    def __init__(self, name: str, index: int, line: int, column: int, buffer: Optional[str], pointer: int) -> None: ...
-    def get_snippet(self, indent: int = ..., max_length: int = ...) -> Optional[str]: ...
+    def __init__(self, name: str, index: int, line: int, column: int, buffer: str | None, pointer: int) -> None: ...
+    def get_snippet(self, indent: int = ..., max_length: int = ...) -> str | None: ...
 
 class YAMLError(Exception): ...
 
 class MarkedYAMLError(YAMLError):
-    context: Optional[str]
-    context_mark: Optional[Mark]
-    problem: Optional[str]
-    problem_mark: Optional[Mark]
-    note: Optional[str]
+    context: str | None
+    context_mark: Mark | None
+    problem: str | None
+    problem_mark: Mark | None
+    note: str | None
     def __init__(
         self,
-        context: Optional[str] = ...,
-        context_mark: Optional[Mark] = ...,
-        problem: Optional[str] = ...,
-        problem_mark: Optional[Mark] = ...,
-        note: Optional[str] = ...,
+        context: str | None = ...,
+        context_mark: Mark | None = ...,
+        problem: str | None = ...,
+        problem_mark: Mark | None = ...,
+        note: str | None = ...,
     ) -> None: ...
