@@ -1,5 +1,3 @@
-from typing import Optional
-
 class Mark:
     name: str
     index: int
