@@ -8,6 +8,7 @@ import sys
 import tempfile
 import toml
 import venv
+from glob import glob
 from pathlib import Path
 
 
@@ -37,7 +38,7 @@ def run_stubtest(dist: Path) -> None:
         metadata = dict(toml.loads(f.read()))
 
     # Ignore stubs that don't support Python 2
-    if not bool(metadata.get("python3", True)):
+    if not bool(metadata.get("python3", True)) or not has_py3_stubs(dist):
         return
 
     with tempfile.TemporaryDirectory() as tmp:
@@ -103,6 +104,10 @@ def run_stubtest(dist: Path) -> None:
             raise StubtestFailed from None
         else:
             print(f"stubtest succeeded for {dist.name}", file=sys.stderr)
+
+
+def has_py3_stubs(dist: Path) -> bool:
+    return len(glob(f"{dist}/*.pyi")) > 0 or len(glob("{dist}/[!@]*/*.pyi")) > 0
 
 
 def main():
