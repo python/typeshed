@@ -15,7 +15,6 @@
         "stubs/openssl-python",
         "stubs/pathlib2",
         "stubs/pymssql",
-        "stubs/Routes",
         "stubs/scribe",
         "stubs/tornado"
     ],
