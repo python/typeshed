@@ -13,7 +13,7 @@ from yaml.nodes import MappingNode as MappingNode, Node as Node, ScalarNode as S
 
 _T = TypeVar("_T")
 _N = TypeVar("_N", bound=Node)
-_R = TypeVar("_R", bound="BaseRepresenter")
+_R = TypeVar("_R", bound=BaseRepresenter)
 
 class RepresenterError(YAMLError): ...
 
