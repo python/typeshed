@@ -26,6 +26,7 @@
         "stdlib/xml/sax",
         "stubs/backports",
         "stubs/backports_abc",
+        "stubs/bleach",
         "stubs/boto",
         "stubs/cryptography",
         "stubs/docutils",
