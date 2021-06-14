@@ -6,8 +6,8 @@ from yaml.error import *  # noqa: F403
 from yaml.events import *  # noqa: F403
 from yaml.loader import *  # noqa: F403
 from yaml.nodes import *  # noqa: F403
-from yaml.tokens import *  # noqa: F403
 from yaml.representer import BaseRepresenter
+from yaml.tokens import *  # noqa: F403
 
 from . import resolver as resolver  # Help mypy a bit; this is implied by loader and dumper
 from .cyaml import *
