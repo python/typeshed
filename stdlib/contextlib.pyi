@@ -31,7 +31,7 @@ _CM_EF = TypeVar("_CM_EF", ContextManager[Any], _ExitFunc)
 class _GeneratorContextManager(ContextManager[_T_co]):
     def __call__(self, func: _F) -> _F: ...
 
-# type: ignore to deal with incomplete ParamSpec support in mypy
+# type ignore to deal with incomplete ParamSpec support in mypy
 def contextmanager(func: Callable[_P, Iterator[_T]]) -> Callable[_P, _GeneratorContextManager[_T]]: ...  # type: ignore
 
 if sys.version_info >= (3, 7):
