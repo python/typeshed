@@ -13,8 +13,8 @@ _R = TypeVar("_R", bound="BaseRepresenter")
 class RepresenterError(YAMLError): ...
 
 class BaseRepresenter:
-    yaml_representers: ClassVar[Dict[Type[Any], Callable[["BaseRepresenter", Type[Any]], Node]]]
-    yaml_multi_representers: ClassVar[Dict[Type[Any], Callable[["BaseRepresenter", Type[Any]], Node]]]
+    yaml_representers: ClassVar[dict[type[Any], Callable[[BaseRepresenter, type[Any]], Node]]]
+    yaml_multi_representers: ClassVar[dict[type[Any], Callable[[BaseRepresenter, type[Any]], Node]]]
     default_style: str | Any
     sort_keys: bool
     default_flow_style: bool
