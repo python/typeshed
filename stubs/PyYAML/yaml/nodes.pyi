@@ -4,30 +4,24 @@ from yaml.error import Mark
 
 class Node:
     tag: str
-    value: Any
     start_mark: Mark | Any
     end_mark: Mark | Any
-    def __init__(self, tag: str, value: Any, start_mark: Mark | None, end_mark: Mark | None) -> None: ...
+    def __getattr__(self, __name: str) -> Any: ...  # incomplete
+    def __init__(self, tag: str, value, start_mark: Mark | None, end_mark: Mark | None) -> None: ...
 
 class ScalarNode(Node):
     id: ClassVar[str]
-    tag: str
-    value: Any
-    start_mark: Mark | Any
-    end_mark: Mark | Any
     style: str | Any
+    def __getattr__(self, __name: str) -> Any: ...  # incomplete
     def __init__(
-        self, tag: str, value: Any, start_mark: Mark | None = ..., end_mark: Mark | None = ..., style: str | None = ...
+        self, tag: str, value, start_mark: Mark | None = ..., end_mark: Mark | None = ..., style: str | None = ...
     ) -> None: ...
 
 class CollectionNode(Node):
-    tag: str
-    value: Any
-    start_mark: Mark | Any
-    end_mark: Mark | Any
     flow_style: bool | Any
+    def __getattr__(self, __name: str) -> Any: ...  # incomplete
     def __init__(
-        self, tag: str, value: Any, start_mark: Mark | None = ..., end_mark: Mark | None = ..., flow_style: bool | None = ...
+        self, tag: str, value, start_mark: Mark | None = ..., end_mark: Mark | None = ..., flow_style: bool | None = ...
     ) -> None: ...
 
 class SequenceNode(CollectionNode):
