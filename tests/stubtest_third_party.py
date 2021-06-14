@@ -107,7 +107,7 @@ def run_stubtest(dist: Path) -> None:
 
 
 def has_py3_stubs(dist: Path) -> bool:
-    return len(glob(f"{dist}/*.pyi")) > 0 or len(glob("{dist}/[!@]*/*.pyi")) > 0
+    return len(glob(f"{dist}/*.pyi")) > 0 or len(glob(f"{dist}/[!@]*/*.pyi")) > 0
 
 
 def main():
