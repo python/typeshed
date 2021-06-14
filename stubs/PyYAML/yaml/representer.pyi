@@ -1,7 +1,7 @@
 import datetime
 import sys
 from types import BuiltinFunctionType, FunctionType, ModuleType
-from typing import Any, Callable, ClassVar, Dict, List, Mapping, NoReturn, Sequence, Set, Tuple, Type
+from typing import Any, Callable, ClassVar, Dict, List, Mapping, NoReturn, Sequence, Set, Tuple, Type, TypeVar
 
 from yaml.error import YAMLError as YAMLError
 from yaml.nodes import MappingNode as MappingNode, Node as Node, ScalarNode as ScalarNode, SequenceNode as SequenceNode
