@@ -1,4 +1,5 @@
-from . import mapper, util
+from .mapper import Mapper as Mapper
+from .util import URLGenerator as URLGenerator, redirect_to as redirect_to, url_for as url_for
 
 class _RequestConfig:
     def __getattr__(self, name): ...
@@ -7,8 +8,3 @@ class _RequestConfig:
     def load_wsgi_environ(self, environ): ...
 
 def request_config(original=...): ...
-
-Mapper = mapper.Mapper
-redirect_to = util.redirect_to
-url_for = util.url_for
-URLGenerator = util.URLGenerator
