@@ -10,16 +10,11 @@ _T = TypeVar("_T")
 _N = TypeVar("_N", bound=Node)
 _R = TypeVar("_R", bound="BaseRepresenter")
 
-class RepresenterRegistry:
-    def __getitem__(self, item: Type[_T]) -> Callable[[_R, _T], _N]: ...
-    def __setitem__(self, item: Type[_T], representer: Callable[[_R, _T], _N]) -> None: ...
-    def copy(self) -> RepresenterRegistry: ...
-
 class RepresenterError(YAMLError): ...
 
 class BaseRepresenter:
-    yaml_representers: ClassVar[RepresenterRegistry]
-    yaml_multi_representers: ClassVar[RepresenterRegistry]
+    yaml_representers: ClassVar[Dict[Type[Any], Callable[["BaseRepresenter", Type[Any]], Node]]]
+    yaml_multi_representers: ClassVar[Dict[Type[Any], Callable[["BaseRepresenter", Type[Any]], Node]]]
     default_style: str | Any
     sort_keys: bool
     default_flow_style: bool

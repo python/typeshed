@@ -1,6 +1,6 @@
 from typing import Any, ClassVar
 
-from yaml.error import Mark as Mark
+from yaml.error import Mark
 
 class Node:
     tag: str
