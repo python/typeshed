@@ -716,6 +716,7 @@ if sys.version_info >= (3, 9):
         encoding: Optional[str] = ...,
         errors: Optional[str] = ...,
     ) -> None: ...
+
 elif sys.version_info >= (3, 8):
     def basicConfig(
         *,
