@@ -1,5 +1,6 @@
 import datetime
 import sys
+from _typeshed import SupportsItems
 from types import BuiltinFunctionType, FunctionType, ModuleType
 from typing import Any, Callable, ClassVar, Iterable, Mapping, NoReturn, Tuple, Type, TypeVar, Union
 
@@ -9,7 +10,7 @@ from yaml.nodes import MappingNode as MappingNode, Node as Node, ScalarNode as S
 _T = TypeVar("_T")
 _R = TypeVar("_R", bound=BaseRepresenter)
 
-MappingLike = Union[Mapping[Any, Any], Iterable[Tuple[Any, Any]]]
+MappingLike = Union[SupportsItems[Any, Any], Iterable[Tuple[Any, Any]]]
 
 class RepresenterError(YAMLError): ...
 
