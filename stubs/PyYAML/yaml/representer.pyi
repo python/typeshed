@@ -9,7 +9,7 @@ from yaml.nodes import MappingNode as MappingNode, Node as Node, ScalarNode as S
 _T = TypeVar("_T")
 _R = TypeVar("_R", bound=BaseRepresenter)
 
-MappingLike = Union[Mapping[Any, Any], ItemsView[Any, Any], AbstractSet[Tuple[Any, Any]]]
+MappingLike = Union[Mapping[Any, Any], Iterable[Tuple[Any, Any]]]
 
 class RepresenterError(YAMLError): ...
 
