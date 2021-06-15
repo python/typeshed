@@ -105,12 +105,12 @@ class X509Req:
 
 class X509Extension:
     def __init__(
-       self,
-       type_name: _BytesLike,
-       critical: bool,
-       value: _BytesLike,
-       subject: Optional[X509] = ...,
-       issuer: Optional[X509] = ...,
+        self,
+        type_name: _BytesLike,
+        critical: bool,
+        value: _BytesLike,
+        subject: Optional[X509] = ...,
+        issuer: Optional[X509] = ...,
     ) -> None: ...
     def get_critical(self) -> bool: ...
     def get_data(self) -> _BytesLike: ...
