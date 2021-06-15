@@ -2,7 +2,8 @@ import sys
 from datetime import datetime
 from typing import Callable, Iterable, List, Optional, Set, Text, Tuple, Union
 
-from cryptography.hazmat.primitives.asymmetric import dsa, rsa
+from cryptography.hazmat.primitives.asymmetric.dsa import DSAPrivateKey, DSAPublicKey
+from cryptography.hazmat.primitives.asymmetric.rsa import RSAPrivateKey, RSAPublicKey
 from cryptography.x509 import Certificate, CertificateRevocationList, CertificateSigningRequest
 
 FILETYPE_PEM: int
@@ -13,7 +14,7 @@ TYPE_DSA: int
 
 class Error(Exception): ...
 
-_Key = Union[rsa.RSAPublicKey, rsa.RSAPrivateKey, dsa.DSAPublicKey, dsa.DSAPrivateKey]
+_Key = Union[DSAPrivateKey, DSAPublicKey, RSAPrivateKey, RSAPublicKey]
 
 class PKey:
     def __init__(self) -> None: ...
