@@ -2,14 +2,14 @@ import sys
 from _typeshed import ReadableBuffer
 from typing import Callable, Optional, Union
 
-from cryptography.hazmat.primitives.asymmetric.ec2 import EllipticCurve, EllipticCurvePrivateKey, EllipticCurvePublicKey
+from cryptography.hazmat.primitives.asymmetric.ec import EllipticCurve, EllipticCurvePrivateKey, EllipticCurvePublicKey
 from paramiko.message import Message
 from paramiko.transport import Transport
 
-if sys.version_info < (3, 0):
-    from hashlib import _hash as _Hash
-else:
+if sys.version_info >= (3, 0):
     from hashlib import _Hash
+else:
+    from hashlib import _hash as _Hash
 
 c_MSG_KEXECDH_INIT: bytes
 c_MSG_KEXECDH_REPLY: bytes

@@ -1,4 +1,4 @@
-from _typeshed import AnyPath
+from _typeshed import StrOrBytesPath
 from typing import IO, Any, Callable, Iterable, Optional, Protocol, Text, TypeVar, Union
 from typing_extensions import Literal
 
@@ -10,15 +10,15 @@ concat: Any
 
 _CallableT = TypeVar("_CallableT", bound=Callable[..., Any])
 
-class _ContextFunction(Protocol[_CallableT]):
+class _ContextFunction(Protocol[_CallableT]):  # type: ignore
     contextfunction: Literal[True]
     __call__: _CallableT
 
-class _EvalContextFunction(Protocol[_CallableT]):
+class _EvalContextFunction(Protocol[_CallableT]):  # type: ignore
     evalcontextfunction: Literal[True]
     __call__: _CallableT
 
-class _EnvironmentFunction(Protocol[_CallableT]):
+class _EnvironmentFunction(Protocol[_CallableT]):  # type: ignore
     environmentfunction: Literal[True]
     __call__: _CallableT
 
@@ -36,7 +36,7 @@ def select_autoescape(
 def consume(iterable: Iterable[object]) -> None: ...
 def clear_caches() -> None: ...
 def import_string(import_name: str, silent: bool = ...) -> Any: ...
-def open_if_exists(filename: AnyPath, mode: str = ...) -> Optional[IO[Any]]: ...
+def open_if_exists(filename: StrOrBytesPath, mode: str = ...) -> Optional[IO[Any]]: ...
 def object_type_repr(obj: object) -> str: ...
 def pformat(obj: object, verbose: bool = ...) -> str: ...
 def urlize(

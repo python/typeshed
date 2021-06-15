@@ -1,15 +1,15 @@
 import sys
 from logging import Logger, LogRecord
 from types import TracebackType
-from typing import IO, AnyStr, Callable, Generic, List, Optional, Protocol, Text, Type, TypeVar, Union
+from typing import IO, AnyStr, Callable, List, Optional, Protocol, Type, TypeVar, Union
 
 from paramiko.config import SSHConfig, SSHConfigDict
 from paramiko.hostkeys import HostKeys
 
-if sys.version_info < (3, 0):
-    from hashlib import _hash as _Hash
-else:
+if sys.version_info >= (3, 0):
     from hashlib import _Hash
+else:
+    from hashlib import _hash as _Hash
 
 class SupportsClose(Protocol):
     def close(self) -> None: ...
@@ -46,7 +46,7 @@ def constant_time_bytes_eq(a: AnyStr, b: AnyStr) -> bool: ...
 class ClosingContextManager:
     def __enter__(self: _TC) -> _TC: ...
     def __exit__(
-        self: _TC, type: Optional[Type[BaseException]], value: Optional[BaseException], traceback: Optional[TracebackType]
+        self, type: Optional[Type[BaseException]], value: Optional[BaseException], traceback: Optional[TracebackType]
     ) -> None: ...
 
 def clamp_value(minimum: int, val: int, maximum: int) -> int: ...

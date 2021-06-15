@@ -1,25 +1,29 @@
 import sys
-from typing import IO, Any, Callable, Iterator, Optional, Sequence, Text, Union, overload
+from typing import IO, Any, Callable, Iterator, Optional, Sequence, Text, Type, TypeVar, Union, overload
 
 from yaml.dumper import *  # noqa: F403
 from yaml.error import *  # noqa: F403
 from yaml.events import *  # noqa: F403
 from yaml.loader import *  # noqa: F403
 from yaml.nodes import *  # noqa: F403
+from yaml.representer import BaseRepresenter
 from yaml.tokens import *  # noqa: F403
 
 from . import resolver as resolver  # Help mypy a bit; this is implied by loader and dumper
 from .cyaml import *
 
-if sys.version_info < (3,):
-    _Str = Union[Text, str]
-else:
+if sys.version_info >= (3, 0):
     _Str = str
+else:
+    _Str = Union[Text, str]
 # FIXME: the functions really return py2:unicode/py3:str if encoding is None, otherwise py2:str/py3:bytes. Waiting for python/mypy#5621
 _Yaml = Any
 
 __with_libyaml__: Any
 __version__: str
+
+_T = TypeVar("_T")
+_R = TypeVar("_R", bound=BaseRepresenter)
 
 def scan(stream, Loader=...): ...
 def parse(stream, Loader=...): ...
@@ -258,8 +262,8 @@ def add_implicit_resolver(tag, regexp, first=..., Loader=..., Dumper=...): ...
 def add_path_resolver(tag, path, kind=..., Loader=..., Dumper=...): ...
 def add_constructor(tag: _Str, constructor: Callable[[Loader, Node], Any], Loader: Loader = ...): ...
 def add_multi_constructor(tag_prefix, multi_constructor, Loader=...): ...
-def add_representer(data_type, representer, Dumper=...): ...
-def add_multi_representer(data_type, multi_representer, Dumper=...): ...
+def add_representer(data_type: Type[_T], representer: Callable[[_R, _T], Node], Dumper: Type[_R] = ...) -> None: ...
+def add_multi_representer(data_type: Type[_T], multi_representer: Callable[[_R, _T], Node], Dumper: Type[_R] = ...) -> None: ...
 
 class YAMLObjectMetaclass(type):
     def __init__(self, name, bases, kwds) -> None: ...
