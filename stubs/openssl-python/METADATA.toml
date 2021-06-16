@@ -1,4 +1,4 @@
-version = "20.0"
+version = "0.1"
 python2 = true
 python3 = true
 requires = ["types-cryptography"]
