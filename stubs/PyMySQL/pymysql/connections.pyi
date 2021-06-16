@@ -77,6 +77,7 @@ class Connection(Generic[_C]):
     @overload
     def __init__(
         self: Connection[Cursor],  # different between overloads
+        *,
         host: Optional[str] = ...,
         user: Optional[Any] = ...,
         password: str = ...,
@@ -113,6 +114,7 @@ class Connection(Generic[_C]):
     @overload
     def __init__(
         self: Connection[_C],  # different between overloads
+        *,
         host: Optional[str] = ...,
         user: Optional[Any] = ...,
         password: str = ...,
