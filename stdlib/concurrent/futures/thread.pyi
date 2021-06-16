@@ -1,12 +1,11 @@
-import multiprocessing.queues as mpq
+import queue
 import sys
 import threading
 import weakref
 from collections.abc import Generator, Iterable, Mapping, Sequence
 from concurrent.futures import _base
 from types import TracebackType
-from typing import Any, Callable, Optional, Tuple
-import queue
+from typing import Any, Callable, Generic, Optional, Tuple, TypeVar
 
 _WI = TypeVar["_WI"]
 
@@ -51,7 +50,7 @@ class ThreadPoolExecutor(_base.Executor):
     _initializer: Optional[Callable[..., None]] = ...
     _initargs: Tuple[Any, ...] = ...
     if sys.version_info >= (3, 7):
-        _work_queue: mpq.SimpleQueue[Generic[_WI]]
+        _work_queue: queue.SimpleQueue[Generic[_WI]]
     else:
         _work_queue: queue.Queue[Generic[_WI]]
     if sys.version_info >= (3, 7):
@@ -64,7 +63,8 @@ class ThreadPoolExecutor(_base.Executor):
         ) -> None: ...
     else:
         def __init__(self, max_workers: Optional[int] = ..., thread_name_prefix: str = ...) -> None: ...
-    def submit(self, fn: Callable, /, *args: Any, **kwargs: Any) -> _base.Future: ...
     def _adjust_thread_count(self) -> None: ...
     def _initializer_failed(self) -> None: ...
+    def submit(self, fn: Callable, /, *args: Any, **kwargs: Any) -> _base.Future: ...
+    def map(self, fn: Callable, *iterables: Any, timeout: float = ..., chunksize: int = ...) -> Sequence[Any]: ...
     def shutdown(self, wait: bool = ..., *, cancel_futures: bool = ...) -> None: ...

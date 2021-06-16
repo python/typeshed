@@ -33,8 +33,8 @@ EXTRA_QUEUED_CALLS: int
 _MAX_WINDOWS_WORKERS: int
 
 class _RemoteTraceback(Exception):
+    tb: str
     def __init__(self, tb: TracebackType) -> None: ...
-    tb: TracebackType
     def __str__(self) -> str: ...
 
 class _ExceptionWithTraceback:
