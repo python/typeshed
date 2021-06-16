@@ -39,7 +39,7 @@ class Cleaner(object):
 
 _AttributeFilter = Callable[[Text, Text, Text], bool]
 _AttributeDict = Union[
-    Dict[Text, Union[Container[Text], _AttributeFilter]], Dict[Text, Container[Text]], Dict[Text, _AttributeFilter]
+    Dict[Text, Union[List[Text], _AttributeFilter]], Dict[Text, List[Text]], Dict[Text, _AttributeFilter]
 ]
 _Attributes = Union[_AttributeFilter, _AttributeDict, List[Text]]
 
