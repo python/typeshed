@@ -1,5 +1,3 @@
-pymysql.Connect
-pymysql.connections.Connection.__init__
 pymysql.connections.byte2int
 pymysql.connections.int2byte
 pymysql.connections.lenenc_int
