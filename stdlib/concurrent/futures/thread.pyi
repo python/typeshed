@@ -6,6 +6,9 @@ from collections.abc import Generator, Iterable, Mapping, Sequence
 from concurrent.futures import _base
 from types import TracebackType
 from typing import Any, Callable, Optional, Tuple
+import queue
+
+_WI = TypeVar["_WI"]
 
 _threads_queues: weakref.WeakKeyDictionary
 _shutdown: bool
@@ -16,9 +19,9 @@ def _python_exit() -> None: ...
 if sys.version_info >= (3, 9):
     from types import GenericAlias
 
-class _WorkItem(object):
-    future: _base.Future
-    fn: Callable
+class _WorkItem(Generic[_WI]):
+    future: _base.Future[_WI]
+    fn: Callable[..., _WI]
     args: Iterable[Any]
     kwargs: Mapping[str, Any]
     def __init__(self, future: _base.Future, fn: Callable, args: Iterable[Any], kwargs: Mapping[str, Any]) -> None: ...
@@ -28,7 +31,7 @@ class _WorkItem(object):
 
 def _worker(
     executor_reference: weakref.ref,
-    work_queue: mpq.Queue[Any],
+    work_queue: queue.SimpleQueue[Any],
     initializer: Optional[Callable[..., None]],
     initargs: Tuple[Any, ...],
 ) -> None: ...
@@ -48,9 +51,9 @@ class ThreadPoolExecutor(_base.Executor):
     _initializer: Optional[Callable[..., None]] = ...
     _initargs: Tuple[Any, ...] = ...
     if sys.version_info >= (3, 7):
-        _work_queue: mpq.SimpleQueue[_WorkItem]
+        _work_queue: mpq.SimpleQueue[Generic[_WI]]
     else:
-        _work_queue: mpq.Queue[_WorkItem]
+        _work_queue: queue.Queue[Generic[_WI]]
     if sys.version_info >= (3, 7):
         def __init__(
             self,
