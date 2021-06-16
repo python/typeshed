@@ -6,6 +6,7 @@ import threading
 import weakref
 from collections.abc import Mapping
 from concurrent.futures import _base
+from multiprocessing.context import BaseContext
 from types import TracebackType
 from typing import Any, Callable, Iterable, Optional, Sequence, Tuple
 
@@ -120,19 +121,23 @@ if sys.version_info >= (3, 7):
 else:
     class BrokenProcessPool(RuntimeError): ...
 
-if sys.version_info >= (3, 7):
-    from multiprocessing.context import BaseContext
-    class ProcessPoolExecutor(_base.Executor):
-        _shutdown_thread: bool
-        _shutdown_lock: threading.Lock
-        _idle_worker_semaphore: threading.Semaphore
-        _broken: bool
-        _queue_count: int
-        _pending_work_items: dict[int, _WorkItem]
-        _cancel_pending_futures: bool
-        _executor_manager_thread_wakeup: _ThreadWakeup
-        _result_queue = mpq.SimpleQueue
-        _work_ids: mpq.Queue
+class ProcessPoolExecutor(_base.Executor):
+    _mp_context: Optional[BaseContext]
+    _initializer: Optional[Callable, None] = ...
+    _initargs: Optional[Any, None] = ...
+    _executor_manager_thread: _ThreadWakeup
+    _processes: {}
+    _shutdown_thread: bool
+    _shutdown_lock: threading.Lock
+    _idle_worker_semaphore: threading.Semaphore
+    _broken: bool
+    _queue_count: int
+    _pending_work_items: dict[int, _WorkItem]
+    _cancel_pending_futures: bool
+    _executor_manager_thread_wakeup: _ThreadWakeup
+    _result_queue = mpq.SimpleQueue
+    _work_ids: mpq.Queue
+    if sys.version_info >= (3, 7):
         def __init__(
             self,
             max_workers: Optional[int] = ...,
@@ -140,12 +145,10 @@ if sys.version_info >= (3, 7):
             initializer: Optional[Callable] = ...,
             initargs: Tuple[Any, ...] = ...,
         ) -> None: ...
-        def _start_executor_manager_thread(self) -> None: ...
-        def _adjust_process_count(self) -> None: ...
-        def submit(self, fn, /, *args, **kwargs) -> _base.Future: ...
-        def map(self, fn: Callable, *iterables: Any, timeout: float = ..., chunksize: int = ...) -> Sequence[Any]: ...
-        def shutdown(self, wait: bool = ..., *, cancel_futures: bool = ...) -> None: ...
-
-else:
-    class ProcessPoolExecutor(_base.Executor):
+    else:
         def __init__(self, max_workers: Optional[int] = ...) -> None: ...
+    def _start_executor_manager_thread(self) -> None: ...
+    def _adjust_process_count(self) -> None: ...
+    def submit(self, fn: Callable, /, *args: Any, **kwargs: Any) -> _base.Future: ...
+    def map(self, fn: Callable, *iterables: Any, timeout: float = ..., chunksize: int = ...) -> Sequence[Any]: ...
+    def shutdown(self, wait: bool = ..., *, cancel_futures: bool = ...) -> None: ...
