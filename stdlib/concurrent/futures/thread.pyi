@@ -2,10 +2,10 @@ import multiprocessing.queues as mpq
 import sys
 import threading
 import weakref
-from collections.abc import Mapping
+from collections.abc import Generator, Iterable, Mapping, Sequence
 from concurrent.futures import _base
 from types import TracebackType
-from typing import Any, Callable, Iterable, Optional, Sequence, Tuple
+from typing import Any, Callable, Optional, Tuple
 
 _threads_queues: weakref.WeakKeyDictionary
 _shutdown: bool
@@ -26,7 +26,12 @@ class _WorkItem(object):
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
-def _worker(executor_reference: weakref.ref, work_queue: mpq.Queue[Any], initializer: Callable, initargs: Any) -> None: ...
+def _worker(
+    executor_reference: weakref.ref,
+    work_queue: mpq.Queue[Any],
+    initializer: Optional[Callable[..., None]],
+    initargs: Tuple[Any, ...],
+) -> None: ...
 
 if sys.version_info >= (3, 7):
     from ._base import BrokenExecutor
@@ -40,8 +45,8 @@ class ThreadPoolExecutor(_base.Executor):
     _shutdown: bool
     _shutdown_lock: threading.Lock
     _thread_name_prefix: Optional[str] = ...
-    _initializer: Optional[Callable, None] = ...
-    _initargs: Optional[Any, None] = ...
+    _initializer: Optional[Callable[..., None]] = ...
+    _initargs: Tuple[Any, ...] = ...
     if sys.version_info >= (3, 7):
         _work_queue: mpq.SimpleQueue[_WorkItem]
     else:
@@ -51,7 +56,7 @@ class ThreadPoolExecutor(_base.Executor):
             self,
             max_workers: Optional[int] = ...,
             thread_name_prefix: str = ...,
-            initializer: Optional[Callable, None] = ...,
+            initializer: Optional[Callable[..., None]] = ...,
             initargs: Tuple[Any, ...] = ...,
         ) -> None: ...
     else:

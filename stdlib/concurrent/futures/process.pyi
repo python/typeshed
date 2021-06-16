@@ -4,11 +4,15 @@ import multiprocessing.queues as mpq
 import sys
 import threading
 import weakref
-from collections.abc import Mapping
+from collections.abc import Generator, Iterable, Mapping, MutableMapping, Sequence
 from concurrent.futures import _base
 from multiprocessing.context import BaseContext
 from types import TracebackType
-from typing import Any, Callable, Iterable, Optional, Sequence, Tuple
+from typing import Any, Callable, Generic, Optional, Tuple, TypeVar
+
+_WI = TypeVar["_WI"]
+_RI = TypeVar["_RI"]
+_CI = TypeVar["_CI"]
 
 _threads_wakeups: weakref.WeakKeyDictionary
 _global_shutdown: bool
@@ -41,30 +45,30 @@ class _ExceptionWithTraceback:
 
 def _rebuild_exc(exc, tb) -> Exception: ...
 
-class _WorkItem(object):
-    future: _base.Future
-    fn: Callable
+class _WorkItem(Generic[_WI]):
+    future: _base.Future[_WI]
+    fn: Callable[..., _WI]
     args: Iterable[Any]
     kwargs: Mapping[str, Any]
-    def __init__(self, future: _base.Future, fn: Callable, args: Iterable[Any], kwargs: Mapping[str, Any]) -> None: ...
+    def __init__(
+        self, future: _base.Future[_WI], fn: Callable[..., _WI], args: Iterable[Any], kwargs: Mapping[str, Any]
+    ) -> None: ...
 
-class _ResultItem(object):
+class _ResultItem(Generic[_RI]):
     work_id: int
     exception: Exception
     result: Any
-    def __init__(self, work_id: int, exception: Optional[Exception], result: Optional[Any] = ...) -> None: ...
+    def __init__(self, work_id: int, exception: Optional[Exception] = ..., result: Optional[Any] = ...) -> None: ...
 
-class _CallItem(object):
+class _CallItem(Generic[_CI]):
     work_id: int
-    fn: Callable
-    args: Tuple[Any, ...]
+    fn: Callable[..., _WI]
+    args: Iterable[Any]
     kwargs: Mapping[str, Any]
-    def __init__(
-        self, work_id: int, fn: Callable = ..., args: Tuple[Any, ...] = ..., kwargs: Mapping[str, Any] = ...
-    ) -> None: ...
+    def __init__(self, work_id: int, fn: Callable[..., _WI], args: Iterable[Any], kwargs: Mapping[str, Any]) -> None: ...
 
 class _SafeQueue(mpq.Queue):
-    pending_work_items: dict[int, _WorkItem]
+    pending_work_items: MutableMapping[int, Generic[_WI]]
     shutdown_lock: threading.Lock
     thread_wakeup: _ThreadWakeup
     def __init__(
@@ -72,19 +76,22 @@ class _SafeQueue(mpq.Queue):
         max_size: Optional[int] = ...,
         *,
         ctx: mp.context.SpawnContext,
-        pending_work_items: dict[int, _WorkItem],
+        pending_work_items: MutableMapping[int, Generic[_WI]],
         shutdown_lock: threading.Lock,
         thread_wakeup: _ThreadWakeup,
     ) -> None: ...
     def _on_queue_feeder_error(self, e, obj) -> None: ...
 
-def _get_chunks(*iterables: Any, chunksize: int) -> tuple: ...
+def _get_chunks(*iterables: Any, chunksize: int) -> Generator[Tuple, None, None]: ...
 def _process_chunk(fn: Callable = ..., chunk: tuple = ...) -> Sequence: ...
 def _sendback_result(
-    result_queue: mpq.Queue[_ResultItem], work_id: int, result: Optional[Any] = ..., exception: Optional[Exception] = ...
+    result_queue: mpq.SimpleQueue[Generic[_RI]], work_id: int, result: Optional[Any] = ..., exception: Optional[Exception] = ...
 ) -> None: ...
 def _process_worker(
-    call_queue: mpq.Queue[_CallItem], result_queue: mpq.Queue[_ResultItem], initializer: Callable, initargs: Any
+    call_queue: mpq.Queue[Generic[_CI]],
+    result_queue: mpq.SimpleQueue[Generic[_RI]],
+    initializer: Optional[Callable[..., None]] = ...,
+    initargs: Tuple[Any, ...] = ...,
 ) -> None: ...
 
 class _ExecutorManagerThread(threading.Thread):
@@ -92,10 +99,10 @@ class _ExecutorManagerThread(threading.Thread):
     shutdown_lock: threading.Lock
     executor_reference: weakref.ref
     processes: Mapping
-    call_queue: mpq.Queue[_CallItem]
-    result_queue: mpq.Queue[_ResultItem]
+    call_queue: mpq.Queue[Generic[_CI]]
+    result_queue: mpq.SimpleQueue[Generic[_RI]]
     work_ids_queue: mpq.Queue[int]
-    pending_work_items: dict[int, _WorkItem]
+    pending_work_items: MutableMapping[int, Generic[_WI]]
     def __init__(self, executor: ProcessPoolExecutor) -> None: ...
     def run(self) -> None: ...
     def add_call_item_to_queue(self) -> None: ...
@@ -123,8 +130,8 @@ else:
 
 class ProcessPoolExecutor(_base.Executor):
     _mp_context: Optional[BaseContext]
-    _initializer: Optional[Callable, None] = ...
-    _initargs: Optional[Any, None] = ...
+    _initializer: Optional[Callable[..., None]] = ...
+    _initargs: Tuple[Any, ...] = ...
     _executor_manager_thread: _ThreadWakeup
     _processes: {}
     _shutdown_thread: bool
@@ -132,17 +139,17 @@ class ProcessPoolExecutor(_base.Executor):
     _idle_worker_semaphore: threading.Semaphore
     _broken: bool
     _queue_count: int
-    _pending_work_items: dict[int, _WorkItem]
+    _pending_work_items: MutableMapping[int, Generic[_WI]]
     _cancel_pending_futures: bool
     _executor_manager_thread_wakeup: _ThreadWakeup
-    _result_queue = mpq.SimpleQueue
+    _result_queue: mpq.SimpleQueue
     _work_ids: mpq.Queue
     if sys.version_info >= (3, 7):
         def __init__(
             self,
             max_workers: Optional[int] = ...,
             mp_context: Optional[BaseContext] = ...,
-            initializer: Optional[Callable] = ...,
+            initializer: Optional[Callable[..., None]] = ...,
             initargs: Tuple[Any, ...] = ...,
         ) -> None: ...
     else:

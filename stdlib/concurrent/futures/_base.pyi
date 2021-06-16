@@ -10,6 +10,7 @@ from typing import (
     Iterable,
     Iterator,
     List,
+    Mapping,
     Optional,
     Protocol,
     Sequence,
@@ -29,6 +30,8 @@ RUNNING: str
 CANCELLED: str
 CANCELLED_AND_NOTIFIED: str
 FINISHED: str
+_FUTURE_STATES: Sequence
+_STATE_TO_DESCRIPTION_MAP: Mapping
 LOGGER: Logger
 
 class Error(Exception): ...
