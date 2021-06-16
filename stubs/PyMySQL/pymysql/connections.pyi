@@ -74,6 +74,7 @@ class Connection(Generic[_C]):
     init_command: Any
     max_allowed_packet: int
     server_public_key: bytes
+    # TODO: correct types for ssl args
     @overload
     def __init__(
         self: Connection[Cursor],  # different between overloads
@@ -94,6 +95,12 @@ class Connection(Generic[_C]):
         init_command: Optional[Any] = ...,
         connect_timeout: Optional[int] = ...,
         ssl: Mapping[Any, Any] | None = ...,
+        ssl_ca: Any = ...,
+        ssl_cert: Any = ...,
+        ssl_disabled: Any = ...,
+        ssl_key: Any = ...,
+        ssl_verify_cert: Any = ...,
+        ssl_verify_identity: Any = ...,
         read_default_group: Optional[Any] = ...,
         compress: Optional[Any] = ...,
         named_pipe: Optional[Any] = ...,
@@ -131,6 +138,12 @@ class Connection(Generic[_C]):
         init_command: Optional[Any] = ...,
         connect_timeout: Optional[int] = ...,
         ssl: Mapping[Any, Any] | None = ...,
+        ssl_ca: Any = ...,
+        ssl_cert: Any = ...,
+        ssl_disabled: Any = ...,
+        ssl_key: Any = ...,
+        ssl_verify_cert: Any = ...,
+        ssl_verify_identity: Any = ...,
         read_default_group: Optional[Any] = ...,
         compress: Optional[Any] = ...,
         named_pipe: Optional[Any] = ...,
