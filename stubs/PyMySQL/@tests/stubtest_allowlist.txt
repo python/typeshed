@@ -39,7 +39,9 @@ pymysql.converters.escape_time
 pymysql.converters.escape_timedelta
 pymysql.converters.escape_unicode
 pymysql.cursors.Cursor.__del__
-pymysql.cursors.DictCursorMixin.fetch[a-z]*  # Intended to change method types of inherited classes
+# DictCursorMixin changes method types of inherited classes, but doesn't contain much at runtime
+pymysql.cursors.DictCursorMixin.__iter__
+pymysql.cursors.DictCursorMixin.fetch[a-z]*
 pymysql.err.ER
 pymysql.escape_dict
 pymysql.escape_sequence
