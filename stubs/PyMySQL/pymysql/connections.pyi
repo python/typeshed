@@ -1,5 +1,5 @@
 from socket import socket as _socket
-from typing import Any, AnyStr, Mapping, Optional, Tuple, Type
+from typing import Any, AnyStr, Mapping, Optional, Tuple, Type, TypeVar, Generic, overload
 
 from .charset import charset_by_id as charset_by_id, charset_by_name as charset_by_name
 from .constants import CLIENT as CLIENT, COMMAND as COMMAND, FIELD_TYPE as FIELD_TYPE, SERVER_STATUS as SERVER_STATUS
@@ -10,6 +10,9 @@ SSL_ENABLED: Any
 DEFAULT_USER: Any
 DEBUG: Any
 DEFAULT_CHARSET: Any
+
+_C = TypeVar("_C", bound=Cursor)
+_C2 = TypeVar("_C2", bound=Cursor)
 
 def dump_packet(data): ...
 def pack_int24(n): ...
@@ -49,7 +52,7 @@ class FieldDescriptorPacket(MysqlPacket):
     def description(self): ...
     def get_column_length(self): ...
 
-class Connection:
+class Connection(Generic[_C]):
     ssl: Any
     host: Any
     port: Any
@@ -71,8 +74,9 @@ class Connection:
     init_command: Any
     max_allowed_packet: int
     server_public_key: bytes
+    @overload
     def __init__(
-        self,
+        self: Connection[Cursor],  # different between overloads
         host: Optional[str] = ...,
         user: Optional[Any] = ...,
         password: str = ...,
@@ -85,7 +89,43 @@ class Connection:
         conv=...,
         use_unicode: Optional[bool] = ...,
         client_flag: int = ...,
-        cursorclass: Optional[Type[Cursor]] = ...,
+        cursorclass: None = ...,  # different between overloads
+        init_command: Optional[Any] = ...,
+        connect_timeout: Optional[int] = ...,
+        ssl: Mapping[Any, Any] | None = ...,
+        read_default_group: Optional[Any] = ...,
+        compress: Optional[Any] = ...,
+        named_pipe: Optional[Any] = ...,
+        autocommit: Optional[bool] = ...,
+        db: Optional[Any] = ...,
+        passwd: Optional[Any] = ...,
+        local_infile: Optional[Any] = ...,
+        max_allowed_packet: int = ...,
+        defer_connect: Optional[bool] = ...,
+        auth_plugin_map: Mapping[Any, Any] | None = ...,
+        read_timeout: Optional[float] = ...,
+        write_timeout: Optional[float] = ...,
+        bind_address: Optional[Any] = ...,
+        binary_prefix: Optional[bool] = ...,
+        program_name: Optional[Any] = ...,
+        server_public_key: Optional[bytes] = ...,
+    ): ...
+    @overload
+    def __init__(
+        self: Connection[_C],  # different between overloads
+        host: Optional[str] = ...,
+        user: Optional[Any] = ...,
+        password: str = ...,
+        database: Optional[Any] = ...,
+        port: int = ...,
+        unix_socket: Optional[Any] = ...,
+        charset: str = ...,
+        sql_mode: Optional[Any] = ...,
+        read_default_file: Optional[Any] = ...,
+        conv=...,
+        use_unicode: Optional[bool] = ...,
+        client_flag: int = ...,
+        cursorclass: Type[_C] = ...,  # different between overloads
         init_command: Optional[Any] = ...,
         connect_timeout: Optional[int] = ...,
         ssl: Mapping[Any, Any] | None = ...,
@@ -121,7 +161,10 @@ class Connection:
     def escape(self, obj, mapping: Mapping[Any, Any] | None = ...): ...
     def literal(self, obj): ...
     def escape_string(self, s: AnyStr) -> AnyStr: ...
-    def cursor(self, cursor: Optional[Type[Cursor]] = ...) -> Cursor: ...
+    @overload
+    def cursor(self, cursor: None = ...) -> _C: ...
+    @overload
+    def cursor(self, cursor: Type[_C2]) -> _C2: ...
     def query(self, sql, unbuffered: bool = ...) -> int: ...
     def next_result(self, unbuffered: bool = ...) -> int: ...
     def affected_rows(self): ...
