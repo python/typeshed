@@ -1,5 +1,5 @@
 from socket import socket as _socket
-from typing import Any, AnyStr, Mapping, Optional, Tuple, Type, TypeVar, Generic, overload
+from typing import Any, AnyStr, Generic, Mapping, Optional, Tuple, Type, TypeVar, overload
 
 from .charset import charset_by_id as charset_by_id, charset_by_name as charset_by_name
 from .constants import CLIENT as CLIENT, COMMAND as COMMAND, FIELD_TYPE as FIELD_TYPE, SERVER_STATUS as SERVER_STATUS
@@ -203,13 +203,13 @@ class MySQLResult:
     description: Any
     rows: Any
     has_next: Any
-    def __init__(self, connection: Connection) -> None: ...
+    def __init__(self, connection: Connection[Any]) -> None: ...
     first_packet: Any
     def read(self) -> None: ...
     def init_unbuffered_query(self) -> None: ...
 
 class LoadLocalFile:
     filename: Any
-    connection: Connection
-    def __init__(self, filename: Any, connection: Connection) -> None: ...
+    connection: Connection[Any]
+    def __init__(self, filename: Any, connection: Connection[Any]) -> None: ...
     def send_data(self) -> None: ...
