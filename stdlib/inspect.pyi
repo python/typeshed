@@ -6,6 +6,11 @@ from types import BuiltinFunctionType, CodeType, FrameType, FunctionType, Method
 from typing import Any, ClassVar, NamedTuple, Optional, Tuple, Type, TypeVar, Union
 from typing_extensions import Literal, ParamSpec, TypeGuard
 
+_T = TypeVar("_T")
+_P = ParamSpec("_P")
+_SendType = TypeVar("_SendType")
+_YieldType = TypeVar("_YieldType")
+
 #
 # Types and members
 #
@@ -36,54 +41,41 @@ TPFLAGS_IS_ABSTRACT: int
 def getmembers(object: object, predicate: Optional[Callable[[Any], bool]] = ...) -> list[Tuple[str, Any]]: ...
 def getmodulename(path: str) -> Optional[str]: ...
 def ismodule(object: object) -> TypeGuard[ModuleType]: ...
-
-_T = TypeVar("_T")
-
-def isclass(object: Union[Type[_T], object]) -> TypeGuard[Type[_T]]: ...
+def isclass(object: Type[_T] | object) -> TypeGuard[Type[_T]]: ...
 def ismethod(object: object) -> TypeGuard[MethodType]: ...
 def isfunction(object: object) -> TypeGuard[FunctionType]: ...
 
-P = ParamSpec("P")
-_SendType = TypeVar("_SendType")
-_YieldType = TypeVar("_YieldType")
-
 if sys.version_info >= (3, 8):
     def isgeneratorfunction(
-        obj: Union[Callable[P, Coroutine[_SendType, _YieldType, _T]], object]
-    ) -> TypeGuard[Callable[P, Coroutine[_SendType, _YieldType, _T]]]: ...
+        obj: Callable[_P, Coroutine[_SendType, _YieldType, _T]] | object
+    ) -> TypeGuard[Callable[_P, Coroutine[_SendType, _YieldType, _T]]]: ...  # type: ignore
     def iscoroutinefunction(
-        obj: Union[Callable[P, Generator[_SendType, _YieldType, _T]], object]
-    ) -> TypeGuard[Callable[P, Generator[_SendType, _YieldType, _T]]]: ...
+        obj: Callable[_P, Generator[_SendType, _YieldType, _T]] | object
+    ) -> TypeGuard[Callable[_P, Generator[_SendType, _YieldType, _T]]]: ...  # type: ignore
 
 else:
     def isgeneratorfunction(
-        object: Union[Callable[P, Coroutine[_SendType, _YieldType, _T]], object]
-    ) -> TypeGuard[Callable[P, Generator[_SendType, _YieldType, _T]]]: ...
+        object: Callable[_P, Coroutine[_SendType, _YieldType, _T]] | object
+    ) -> TypeGuard[Callable[_P, Generator[_SendType, _YieldType, _T]]]: ...  # type: ignore
     def iscoroutinefunction(
-        object: Union[Callable[P, Generator[_SendType, _YieldType, _T]], object]
-    ) -> TypeGuard[Callable[P, Generator[_SendType, _YieldType, _T]]]: ...
+        object: Callable[_P, Generator[_SendType, _YieldType, _T]] | object
+    ) -> TypeGuard[Callable[_P, Generator[_SendType, _YieldType, _T]]]: ...  # type: ignore
 
-def isgenerator(
-    object: Union[Generator[_SendType, _YieldType, _T], object]
-) -> TypeGuard[Generator[_SendType, _YieldType, _T]]: ...
-def iscoroutine(
-    object: Union[Generator[_SendType, _YieldType, _T], object]
-) -> TypeGuard[Generator[_SendType, _YieldType, _T]]: ...
-def isawaitable(object: Union[Awaitable[_T], object]) -> TypeGuard[Awaitable[_T]]: ...
+def isgenerator(object: Generator[_SendType, _YieldType, _T] | object) -> TypeGuard[Generator[_SendType, _YieldType, _T]]: ...
+def iscoroutine(object: Generator[_SendType, _YieldType, _T] | object) -> TypeGuard[Generator[_SendType, _YieldType, _T]]: ...
+def isawaitable(object: Awaitable[_T] | object) -> TypeGuard[Awaitable[_T]]: ...
 
 if sys.version_info >= (3, 8):
     def isasyncgenfunction(
-        obj: Union[Callable[P, AsyncGenerator[_YieldType, _SendType]], object]
-    ) -> TypeGuard[Callable[P, AsyncGenerator[_YieldType, _SendType]]]: ...
+        obj: Callable[_P, AsyncGenerator[_YieldType, _SendType]] | object
+    ) -> TypeGuard[Callable[_P, AsyncGenerator[_YieldType, _SendType]]]: ...  # type: ignore
 
 else:
     def isasyncgenfunction(
-        object: Union[Callable[P, AsyncGenerator[_YieldType, _SendType]], object]
-    ) -> TypeGuard[Callable[P, AsyncGenerator[_YieldType, _SendType]]]: ...
+        object: Callable[_P, AsyncGenerator[_YieldType, _SendType]] | object
+    ) -> TypeGuard[Callable[_P, AsyncGenerator[_YieldType, _SendType]]]: ...  # type: ignore
 
-def isasyncgen(
-    object: Union[AsyncGenerator[_YieldType, _SendType], object]
-) -> TypeGuard[AsyncGenerator[_YieldType, _SendType]]: ...
+def isasyncgen(object: AsyncGenerator[_YieldType, _SendType] | object) -> TypeGuard[AsyncGenerator[_YieldType, _SendType]]: ...
 def istraceback(object: object) -> TypeGuard[TracebackType]: ...
 def isframe(object: object) -> TypeGuard[FrameType]: ...
 def iscode(object: object) -> TypeGuard[CodeType]: ...
