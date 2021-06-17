@@ -1,7 +1,7 @@
 import sys
 import threading
 from abc import abstractmethod
-from collections.abc import Container, Iterable, Iterator, Mapping, MutableMapping, Sequence, Set
+from collections.abc import Container, Iterable, Iterator, Mapping, Sequence, Set
 from logging import Logger
 from typing import Any, Callable, Generic, Optional, Protocol, TypeVar, overload
 
@@ -16,8 +16,8 @@ RUNNING: str
 CANCELLED: str
 CANCELLED_AND_NOTIFIED: str
 FINISHED: str
-_FUTURE_STATES: Sequence
-_STATE_TO_DESCRIPTION_MAP: Mapping
+_FUTURE_STATES: Sequence[str]
+_STATE_TO_DESCRIPTION_MAP: Mapping[str, str]
 LOGGER: Logger
 
 class Error(Exception): ...
