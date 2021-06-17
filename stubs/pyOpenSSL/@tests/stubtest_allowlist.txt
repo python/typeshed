@@ -1,0 +1,4 @@
+OpenSSL.SSL.Connection.__init__
+OpenSSL.SSL.Context.load_verify_locations
+OpenSSL.SSL.Context.set_verify
+OpenSSL.crypto
