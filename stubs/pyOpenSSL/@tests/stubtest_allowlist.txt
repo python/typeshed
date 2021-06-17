@@ -1,3 +1,0 @@
-OpenSSL
-OpenSSL.SSL
-OpenSSL.crypto
