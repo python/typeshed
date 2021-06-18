@@ -21,7 +21,7 @@ consistent_files = [
     {"stdlib/@python2/builtins.pyi", "stdlib/@python2/__builtin__.pyi"},
     {"stdlib/threading.pyi", "stdlib/_dummy_threading.pyi"},
 ]
-metadata_keys = {"version", "python2", "python3", "requires", "extra_description", "obsolete_since"}
+metadata_keys = {"version", "python2", "requires", "extra_description", "obsolete_since"}
 allowed_files = {"README.md"}
 
 
@@ -176,7 +176,6 @@ def check_metadata():
         for key in data:
             assert key in metadata_keys, f"Unexpected key {key} for {distribution}"
         assert isinstance(data.get("python2", False), bool), f"Invalid python2 value for {distribution}"
-        assert isinstance(data.get("python3", True), bool), f"Invalid python3 value for {distribution}"
         assert isinstance(data.get("requires", []), list), f"Invalid requires value for {distribution}"
         for dep in data.get("requires", []):
             assert isinstance(dep, str), f"Invalid dependency {dep} for {distribution}"
