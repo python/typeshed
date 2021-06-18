@@ -9,8 +9,6 @@ stdlib/builtins.pyi
 stdlib/typing.pyi
 
 # third_party stubs with constructs that pytype doesn't yet support:
-stubs/fb303/fb303/FacebookService.pyi
-stubs/scribe/scribe/scribe.pyi
 stubs/paramiko/paramiko/_winapi.pyi
 stubs/paramiko/paramiko/win_pageant.pyi
 
