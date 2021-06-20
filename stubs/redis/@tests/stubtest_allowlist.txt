@@ -26,7 +26,6 @@ redis.client.Redis.flushdb
 redis.client.Redis.from_url
 redis.client.Redis.hscan
 redis.client.Redis.pubsub
-redis.client.Redis.restore
 redis.client.Redis.scan
 redis.client.Redis.scan_iter
 redis.client.Redis.shutdown
