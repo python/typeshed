@@ -30,7 +30,6 @@
         "stubs/cryptography",
         "stubs/docutils",
         "stubs/Flask",
-        "stubs/Jinja2",
         "stubs/Markdown",
         "stubs/Pillow",
         "stubs/paramiko",
