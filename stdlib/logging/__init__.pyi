@@ -2,10 +2,11 @@ import sys
 import threading
 from _typeshed import StrPath, SupportsWrite
 from collections.abc import Callable, Iterable, Mapping, MutableMapping, Sequence
+from io import TextIOWrapper
 from string import Template
 from time import struct_time
 from types import FrameType, TracebackType
-from typing import IO, Any, ClassVar, Optional, Pattern, Tuple, Type, Union
+from typing import Any, ClassVar, Optional, Pattern, Tuple, Type, Union
 
 _SysExcInfoType = Union[Tuple[Type[BaseException], BaseException, Optional[TracebackType]], Tuple[None, None, None]]
 _ExcInfoType = Union[None, bool, _SysExcInfoType, BaseException]
@@ -754,28 +755,26 @@ lastResort: Optional[StreamHandler]
 class StreamHandler(Handler):
     stream: SupportsWrite[str]  # undocumented
     terminator: str
-    def __init__(self, stream: Optional[SupportsWrite[str]] = ...) -> None: ...
+    def __init__(self, stream: SupportsWrite[str] | None = ...) -> None: ...
     if sys.version_info >= (3, 7):
-        def setStream(self, stream: SupportsWrite[str]) -> Optional[SupportsWrite[str]]: ...
+        def setStream(self, stream: SupportsWrite[str]) -> SupportsWrite[str] | None: ...
 
 class FileHandler(StreamHandler):
+    stream: TextIOWrapper  # undocumented
     baseFilename: str  # undocumented
     mode: str  # undocumented
-    encoding: Optional[str]  # undocumented
+    encoding: str | None  # undocumented
     delay: bool  # undocumented
     if sys.version_info >= (3, 9):
-        errors: Optional[str]  # undocumented
+        errors: str | None  # undocumented
         def __init__(
-            self,
-            filename: StrPath,
-            mode: str = ...,
-            encoding: Optional[str] = ...,
-            delay: bool = ...,
-            errors: Optional[str] = ...,
+            self, filename: StrPath, mode: str = ..., encoding: str | None = ..., delay: bool = ..., errors: str | None = ...
         ) -> None: ...
     else:
-        def __init__(self, filename: StrPath, mode: str = ..., encoding: Optional[str] = ..., delay: bool = ...) -> None: ...
-    def _open(self) -> IO[Any]: ...
+        def __init__(self, filename: StrPath, mode: str = ..., encoding: str | None = ..., delay: bool = ...) -> None: ...
+    def _open(self) -> TextIOWrapper: ...
+    if sys.version_info >= (3, 7):
+        def setStream(self, stream: TextIOWrapper) -> TextIOWrapper | None: ...  # type: ignore
 
 class NullHandler(Handler): ...
 
