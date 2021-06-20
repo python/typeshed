@@ -186,7 +186,9 @@ def check_metadata():
                 assert space not in dep, f"For consistency dependency should not have whitespace: {dep}"
             assert ";" not in dep, f"Semicolons in dependencies are not supported, got {dep}"
             stripped, relation, dep_version = _strip_dep_version(dep)
-            assert stripped in known_distributions, f"Only dependencies from typeshed are supported, got {stripped}"
+            assert stripped in known_distributions, (
+                f"Only dependencies from typeshed are supported, got {stripped} for {distribution}"
+            )
             if relation:
                 msg = f"Bad version in dependency {dep}"
                 assert relation in {"==", ">", ">=", "<", "<="}, msg
