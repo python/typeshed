@@ -22,9 +22,6 @@ from glob import glob
 from pathlib import Path
 from typing import Dict, NamedTuple
 
-PY2_NAMESPACE = "@python2"
-THIRD_PARTY_NAMESPACE = "stubs"
-
 parser = argparse.ArgumentParser(
     description="Test runner for typeshed. Patterns are unanchored regexps on the full path."
 )
@@ -103,7 +100,7 @@ def parse_version(v_str):
 
 
 def is_supported(distribution, major):
-    dist_path = Path(THIRD_PARTY_NAMESPACE, distribution)
+    dist_path = Path("stubs", distribution)
     with open(dist_path / "METADATA.toml") as f:
         data = dict(toml.loads(f.read()))
     if major == 2:
@@ -113,6 +110,7 @@ def is_supported(distribution, major):
     return has_py3_stubs(dist_path)
 
 
+# Keep this in sync with stubtest_third_party.py
 def has_py3_stubs(dist: Path) -> bool:
     return len(glob(f"{dist}/*.pyi")) > 0 or len(glob(f"{dist}/[!@]*/__init__.pyi")) > 0
 
@@ -158,7 +156,7 @@ def add_configuration(configurations, seen_dist_configs, distribution):
     if distribution in seen_dist_configs:
         return
 
-    with open(os.path.join(THIRD_PARTY_NAMESPACE, distribution, "METADATA.toml")) as f:
+    with open(os.path.join("stubs", distribution, "METADATA.toml")) as f:
         data = dict(toml.loads(f.read()))
 
     mypy_tests_conf = data.get("mypy-tests")
@@ -210,7 +208,7 @@ def main():
 
         # First add standard library files.
         if major == 2:
-            root = os.path.join("stdlib", PY2_NAMESPACE)
+            root = os.path.join("stdlib", "@python2")
             for name in os.listdir(root):
                 mod, _ = os.path.splitext(name)
                 if mod in seen or mod.startswith("."):
@@ -220,22 +218,22 @@ def main():
             supported_versions = parse_versions(os.path.join("stdlib", "VERSIONS"))
             root = "stdlib"
             for name in os.listdir(root):
-                if name == PY2_NAMESPACE or name == "VERSIONS":
+                if name == "@python2" or name == "VERSIONS":
                     continue
                 mod, _ = os.path.splitext(name)
                 if supported_versions[mod][0] <= (major, minor) <= supported_versions[mod][1]:
                     add_files(files, seen, root, name, args, exclude_list)
 
         # Next add files for all third party distributions.
-        for distribution in os.listdir(THIRD_PARTY_NAMESPACE):
+        for distribution in os.listdir("stubs"):
             if not is_supported(distribution, major):
                 continue
-            if major == 2 and os.path.isdir(os.path.join(THIRD_PARTY_NAMESPACE, distribution, PY2_NAMESPACE)):
-                root = os.path.join(THIRD_PARTY_NAMESPACE, distribution, PY2_NAMESPACE)
+            if major == 2 and os.path.isdir(os.path.join("stubs", distribution, "@python2")):
+                root = os.path.join("stubs", distribution, "@python2")
             else:
-                root = os.path.join(THIRD_PARTY_NAMESPACE, distribution)
+                root = os.path.join("stubs", distribution)
             for name in os.listdir(root):
-                if name == PY2_NAMESPACE:
+                if name == "@python2":
                     continue
                 mod, _ = os.path.splitext(name)
                 if mod in seen or mod.startswith("."):

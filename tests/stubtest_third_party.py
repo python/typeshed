@@ -105,6 +105,7 @@ def run_stubtest(dist: Path) -> None:
             print(f"stubtest succeeded for {dist.name}", file=sys.stderr)
 
 
+# Keep this in sync with mypy_test.py
 def has_py3_stubs(dist: Path) -> bool:
     return len(glob(f"{dist}/*.pyi")) > 0 or len(glob(f"{dist}/[!@]*/__init__.pyi")) > 0
 
