@@ -16,7 +16,6 @@ EXCLUDE_LIST = [
     "Flask",  # fails when stubtest tries to stringify some object
     "pyaudio",  # install failure locally
     "backports",  # errors on python version
-    "pkg_resources",  # ???
     "six",  # ???
     "aiofiles",  # easily fixable, some platform specific difference between local and ci
     "pycurl"  # install failure, missing libcurl
