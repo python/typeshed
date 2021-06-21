@@ -1,6 +1,6 @@
 from typing import Any, ContextManager
 
-from thrift.Thrift import TProcessor  # type: ignore
+TProcessor = Any  # actually thrift.Thrift.TProcessor
 
 fastbinary: Any
 

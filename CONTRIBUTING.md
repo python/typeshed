@@ -59,8 +59,10 @@ go into `stubs`. Each subdirectory there represents a PyPI distribution, and
 contains the following:
 * `METADATA.toml`, describing the package. See below for details.
 * Stubs (i.e. `*.pyi` files) for packages and modules that are shipped in the
-  source distribution. If the Python 2 version of the stubs must be kept
-  *separate*, they can be put in a `@python2` subdirectory.
+  source distribution.
+* If the stubs are either Python 2-only, or if the Python 2 and Python 3 stubs
+  are separate, the Python 2 stubs are put in a `@python2` subdirectory. In the
+  former case, there are no stubs or package directories on the top level.
 * (Rarely) some docs specific to a given type stub package in `README` file.
 
 When a third party stub is
@@ -89,8 +91,8 @@ supported:
   previous versions are still available on PyPI). Some legacy stubs are
   marked with version `0.1`, indicating that their supported version is
   unknown and needs to be updated.
-* `python2` (default: `False`) and `python3` (default: `True`): These fields
-  indicate whether a package supports Python 2, Python 3, or both.
+* `python2` (default: `false`): If set to `true`, the top-level stubs
+  support both Python 2 and Python 3.
 * `requires` (optional): A list of other stub packages that this package uses.
 * `extra_description` (optional): Can be used to add a custom description to
   the package's long description. It should be a multi-line string in

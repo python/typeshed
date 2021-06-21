@@ -18,6 +18,8 @@ import re
 import sys
 import toml
 import tempfile
+from glob import glob
+from pathlib import Path
 from typing import Dict, NamedTuple
 
 PY2_NAMESPACE = "@python2"
@@ -101,13 +103,18 @@ def parse_version(v_str):
 
 
 def is_supported(distribution, major):
-    with open(os.path.join(THIRD_PARTY_NAMESPACE, distribution, "METADATA.toml")) as f:
+    dist_path = Path(THIRD_PARTY_NAMESPACE, distribution)
+    with open(dist_path / "METADATA.toml") as f:
         data = dict(toml.loads(f.read()))
     if major == 2:
         # Python 2 is not supported by default.
-        return bool(data.get("python2", False))
+        return bool(data.get("python2", False)) or (dist_path / "@python2").exists()
     # Python 3 is supported by default.
-    return bool(data.get("python3", True))
+    return has_py3_stubs(dist_path)
+
+
+def has_py3_stubs(dist: Path) -> bool:
+    return len(glob(f"{dist}/*.pyi")) > 0 or len(glob(f"{dist}/[!@]*/__init__.pyi")) > 0
 
 
 def add_files(files, seen, root, name, args, exclude_list):

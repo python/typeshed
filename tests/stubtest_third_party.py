@@ -36,8 +36,8 @@ def run_stubtest(dist: Path) -> None:
     with open(dist / "METADATA.toml") as f:
         metadata = dict(toml.loads(f.read()))
 
-    # Ignore stubs that don't support Python 2
-    if not bool(metadata.get("python3", True)) or not has_py3_stubs(dist):
+    # Ignore stubs that don't support Python 3
+    if not has_py3_stubs(dist):
         return
 
     with tempfile.TemporaryDirectory() as tmp:
