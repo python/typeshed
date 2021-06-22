@@ -2,7 +2,22 @@ import io
 import sys
 from _typeshed import StrPath
 from types import TracebackType
-from typing import IO, Callable, Dict, Iterable, Iterator, List, Optional, Protocol, Sequence, Tuple, Type, TypeVar, Union, overload
+from typing import (
+    IO,
+    Callable,
+    Dict,
+    Iterable,
+    Iterator,
+    List,
+    Optional,
+    Protocol,
+    Sequence,
+    Tuple,
+    Type,
+    TypeVar,
+    Union,
+    overload,
+)
 from typing_extensions import Literal
 
 _T = TypeVar("_T")
