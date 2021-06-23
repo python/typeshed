@@ -1,5 +1,5 @@
 import datetime
-from typing import Any, ClassVar
+from typing import ClassVar
 
 from .base import BaseElement, NamedBaseElement, ValuedBaseElement
 
