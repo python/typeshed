@@ -1,5 +1,4 @@
-from typing import Any, Callable, ClassVar, Generic, Type, TypeVar
-from typing_extensions import Literal
+from typing import Any, Callable, Generic, Type, TypeVar
 
 _T = TypeVar("_T")
 _FuncT = TypeVar("_FuncT", bound=Callable[..., Any])
