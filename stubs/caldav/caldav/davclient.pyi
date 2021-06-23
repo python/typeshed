@@ -1,12 +1,13 @@
 from collections.abc import Iterable, Mapping
 from typing import Any
+from urllib.parse import ParseResult, SplitResult
 
 from requests.auth import AuthBase
 from requests.models import Response
 from requests.structures import CaseInsensitiveDict
 
 from .lib.url import URL
-from .objects import Calendar, Principal
+from .objects import Calendar, DAVObject, Principal
 
 _Element = Any  # actually lxml.etree._Element
 
@@ -44,8 +45,16 @@ class DAVClient:
         ssl_verify_cert: bool | str = ...,
         ssl_cert: str | tuple[str, str] | None = ...,
     ) -> None: ...
-    def principal(self, *largs, **kwargs) -> Principal: ...
-    def calendar(self, **kwargs) -> Calendar: ...
+    def principal(self, url: str | ParseResult | SplitResult | URL | None) -> Principal: ...
+    def calendar(
+        self,
+        url: str | ParseResult | SplitResult | URL | None = ...,
+        parent: DAVObject | None = ...,
+        name: str | None = ...,
+        id: str | None = ...,
+        props: Mapping[Any, Any] = ...,
+        **extra: Any,
+    ) -> Calendar: ...
     def check_dav_support(self) -> str | None: ...
     def check_cdav_support(self) -> bool: ...
     def check_scheduling_support(self) -> bool: ...
