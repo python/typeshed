@@ -29,7 +29,7 @@ class DAVObject:
         parent: DAVObject | None = ...,
         name: str | None = ...,
         id: str | None = ...,
-        props: Mapping[Any, Any] = ...,
+        props: Mapping[Any, Any] | None = ...,
         **extra: Any,
     ) -> None: ...
     @property

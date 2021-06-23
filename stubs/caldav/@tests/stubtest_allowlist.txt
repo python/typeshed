@@ -1,0 +1,11 @@
+# **kwargs replaced with actual arguments in stubs
+caldav.DAVClient.calendar
+caldav.davclient.DAVClient.calendar
+
+# Initialized in class, but immediatly overwritten in __init__
+caldav.DAVClient.url
+caldav.davclient.DAVClient.url
+caldav.davclient.DAVResponse.headers
+caldav.elements.base.BaseElement.children
+
+.*.findprop
