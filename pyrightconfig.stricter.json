@@ -27,6 +27,7 @@
         "stubs/backports_abc",
         "stubs/bleach",
         "stubs/boto",
+        "stubs/caldav",
         "stubs/cryptography",
         "stubs/docutils",
         "stubs/Flask",
