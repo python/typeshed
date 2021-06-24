@@ -19,15 +19,18 @@ SSLv23_METHOD: int
 TLSv1_METHOD: int
 TLSv1_1_METHOD: int
 TLSv1_2_METHOD: int
-TLS_METHOD: int
-TLS_SERVER_METHOD: int
-TLS_CLIENT_METHOD: int
 
-SSL3_VERSION: int
-TLS1_VERSION: int
-TLS1_1_VERSION: int
-TLS1_2_VERSION: int
-TLS1_3_VERSION: int
+# To be added in pyOpenSSL 21
+
+# TLS_METHOD: int
+# TLS_SERVER_METHOD: int
+# TLS_CLIENT_METHOD: int
+
+# SSL3_VERSION: int
+# TLS1_VERSION: int
+# TLS1_1_VERSION: int
+# TLS1_2_VERSION: int
+# TLS1_3_VERSION: int
 
 OP_NO_SSLv2: int
 OP_NO_SSLv3: int
@@ -146,7 +149,7 @@ class Context(object):
     def use_certificate_file(self, certfile: str | bytes, filetype: int = ...) -> None: ...
     def use_certificate(self, cert: X509) -> None: ...
     def use_privatekey_file(self, keyfile: str | bytes, filetype: int | None = ...) -> None: ...
-    def use_privatekey(self, cert: PKey) -> None: ...
+    def use_privatekey(self, pkey: PKey) -> None: ...
     def add_extra_chain_cert(self, certobj: X509) -> None: ...
     def set_cipher_list(self, cipher_list: bytes) -> None: ...
     def set_keylog_callback(self, callback: Callable[[Connection, bytes], None]) -> None: ...
