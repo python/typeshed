@@ -1,5 +1,5 @@
 from _typeshed import SupportsWrite
-from typing import Any, Callable, Dict, Optional, Type, TypeVar
+from typing import Any, Callable, Dict, Optional, Tuple, Type, TypeVar
 
 _T = TypeVar("_T")
 _FuncT = TypeVar("_FuncT", bound=Callable[..., Any])
