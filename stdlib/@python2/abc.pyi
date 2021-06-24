@@ -1,6 +1,6 @@
 import _weakrefset
 from _typeshed import SupportsWrite
-from typing import Any, Callable, Dict, Optional, Set, Tuple, Type, TypeVar
+from typing import Any, Callable, Dict, Set, Tuple, Type, TypeVar
 
 _FuncT = TypeVar("_FuncT", bound=Callable[..., Any])
 
