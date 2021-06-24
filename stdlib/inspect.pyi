@@ -16,6 +16,7 @@ from types import (
 )
 from typing import Any, ClassVar, NamedTuple, Optional, Tuple, Type, Union
 from typing_extensions import Literal, TypeGuard
+from _typeshed import Self
 
 #
 # Types and members
@@ -178,8 +179,8 @@ class Parameter:
     KEYWORD_ONLY: ClassVar[Literal[_ParameterKind.KEYWORD_ONLY]]
     VAR_KEYWORD: ClassVar[Literal[_ParameterKind.VAR_KEYWORD]]
     def replace(
-        self, *, name: Optional[str] = ..., kind: Optional[_ParameterKind] = ..., default: Any = ..., annotation: Any = ...
-    ) -> Parameter: ...
+        self: Self, *, name: Optional[str] = ..., kind: Optional[_ParameterKind] = ..., default: Any = ..., annotation: Any = ...
+    ) -> Self: ...
 
 class BoundArguments:
     arguments: OrderedDict[str, Any]
