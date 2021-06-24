@@ -1,5 +1,6 @@
 import enum
 import sys
+from _typeshed import Self
 from collections import OrderedDict
 from collections.abc import Awaitable, Callable, Generator, Mapping, Sequence, Set
 from types import (
@@ -16,7 +17,6 @@ from types import (
 )
 from typing import Any, ClassVar, NamedTuple, Optional, Tuple, Type, Union
 from typing_extensions import Literal, TypeGuard
-from _typeshed import Self
 
 #
 # Types and members
