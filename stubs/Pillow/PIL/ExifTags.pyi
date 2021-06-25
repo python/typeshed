@@ -1,4 +1,2 @@
-from typing import Any
-
-TAGS: Any
-GPSTAGS: Any
+TAGS: dict[int, str]
+GPSTAGS: dict[int, str]
