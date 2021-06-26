@@ -16,8 +16,8 @@ from .ImagePalette import ImagePalette
 
 _Mode = Literal["1", "CMYK", "F", "HSV", "I", "L", "LAB", "P", "RGB", "RGBA", "RGBX", "YCbCr"]
 _Resample = Literal[0, 1, 2, 3, 4, 5]
-_Size = tuple[int, int]
-_Box = tuple[int, int, int, int]
+_Size = Tuple[int, int]
+_Box = Tuple[int, int, int, int]
 
 _ConversionMatrix = Union[
     Tuple[float, float, float, float], Tuple[float, float, float, float, float, float, float, float, float, float, float, float],
