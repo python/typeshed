@@ -3,8 +3,6 @@ from collections.abc import Iterable, Iterator, MutableMapping
 from pathlib import Path
 from typing import Any, Callable, Dict, Protocol, Sequence, SupportsBytes, Tuple, Union
 from typing_extensions import Literal
-from .ImageFilter import Filter
-from .ImagePalette import ImagePalette
 
 from ._imaging import (
     DEFAULT_STRATEGY as DEFAULT_STRATEGY,
@@ -13,6 +11,8 @@ from ._imaging import (
     HUFFMAN_ONLY as HUFFMAN_ONLY,
     RLE as RLE,
 )
+from .ImageFilter import Filter
+from .ImagePalette import ImagePalette
 
 _Mode = Literal["1", "CMYK", "F", "HSV", "I", "L", "LAB", "P", "RGB", "RGBA", "RGBX", "YCbCr"]
 _Resample = Literal[0, 1, 2, 3, 4, 5]
