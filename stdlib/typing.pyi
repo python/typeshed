@@ -293,9 +293,9 @@ class AsyncGenerator(AsyncIterator[_T_co], Generic[_T_co, _T_contra]):
     def ag_running(self) -> bool: ...
 
 @runtime_checkable
-class Container(Protocol[_T_co]):
+class Container(Protocol[_T_contra]):
     @abstractmethod
-    def __contains__(self, __x: object) -> bool: ...
+    def __contains__(self, __x: _T_contra) -> bool: ...
 
 @runtime_checkable
 class Collection(Iterable[_T_co], Container[_T_co], Protocol[_T_co]):
