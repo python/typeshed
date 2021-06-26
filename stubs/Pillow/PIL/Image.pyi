@@ -102,7 +102,7 @@ class _E:
 _ImageState = Tuple[Dict[str, Any], str, Tuple[int, int], Any, bytes]
 
 class Image:
-    format: ImagePalette | None
+    format: Any
     format_description: Any
     im: Any
     mode: str
