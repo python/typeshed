@@ -1,2 +1,4 @@
-TAGS: dict[int, str]
-GPSTAGS: dict[int, str]
+from typing import Mapping
+
+TAGS: Mapping[int, str]
+GPSTAGS: Mapping[int, str]
