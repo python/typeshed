@@ -337,6 +337,9 @@ Some further tips for good type hints:
   possible type, and `Text` if it can be either `unicode` or `bytes`;
 * use platform checks like `if sys.platform == 'win32'` to denote
   platform-dependent APIs.
+* `__enter__` methods and other methods that return instances of the
+  current class should be annotated with the `_typeshed.Self` type
+  variable ([example](https://github.com/python/typeshed/pull/5689)).
 
 Imports in stubs are considered private (not part of the exported API)
 unless:
