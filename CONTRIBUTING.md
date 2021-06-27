@@ -372,6 +372,7 @@ have the return type be either `None` or `Optional[bool]`. If you
 are not sure whether exceptions are suppressed or not or if the
 context manager is meant to be subclassed, pick `Optional[bool]`.
 See https://github.com/python/mypy/issues/7214 for more details.
+
 `__enter__` methods and other methods that return instances of the
 current class should be annotated with the `_typeshed.Self` type
 variable ([example](https://github.com/python/typeshed/pull/5698)).
