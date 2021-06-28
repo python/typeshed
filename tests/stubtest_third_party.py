@@ -53,6 +53,18 @@ def run_stubtest(dist: Path) -> None:
         else:
             dist_req = f"{dist.name}=={dist_version}.*"
 
+        # If @tests/requirements-stubtest.txt exists, run "pip install" on it.
+        req_path = dist / "@tests" / "requirements-stubtest.txt"
+        if req_path.exists():
+            try:
+                pip_cmd = [pip_exe, "install", "-r", str(req_path)]
+                subprocess.run(pip_cmd, check=True, capture_output=True)
+            except subprocess.CalledProcessError as e:
+                print(f"Failed to install requirements for {dist.name}", file=sys.stderr)
+                print(e.stdout.decode(), file=sys.stderr)
+                print(e.stderr.decode(), file=sys.stderr)
+                raise
+
         # We need stubtest to be able to import the package, so install mypy into the venv
         # Hopefully mypy continues to not need too many dependencies
         # TODO: Maybe find a way to cache these in CI
