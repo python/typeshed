@@ -1,5 +1,6 @@
 # **kwargs replaced with actual arguments in stubs
 caldav.DAVClient.calendar
+caldav.DAVClient.principal
 caldav.davclient.DAVClient.calendar
 
 # Initialized in class, but immediatly overwritten in __init__
