@@ -1,10 +1,10 @@
 import sys
 from collections import OrderedDict
-from typing import Any
+from typing import Any, Dict
 
 entitiesTrie: Any
 if sys.version_info >= (3, 7):
-    attributeMap = dict[Any, Any]
+    attributeMap = Dict[Any, Any]
 else:
     attributeMap = OrderedDict[Any, Any]
 

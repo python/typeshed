@@ -1,9 +1,9 @@
 from collections.abc import Mapping
-from typing import Any
+from typing import Any, Dict
 
 supports_lone_surrogates: bool
 
-class MethodDispatcher(dict[Any, Any]):
+class MethodDispatcher(Dict[Any, Any]):
     default: Any
     def __init__(self, items=...) -> None: ...
     def __getitem__(self, key): ...
