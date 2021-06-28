@@ -60,7 +60,7 @@ def run_stubtest(dist: Path) -> None:
                 pip_cmd = [pip_exe, "install", "-r", str(req_path)]
                 subprocess.run(pip_cmd, check=True, capture_output=True)
             except subprocess.CalledProcessError as e:
-                print(f"Failed to install {dist.name}", file=sys.stderr)
+                print(f"Failed to install requirements for {dist.name}", file=sys.stderr)
                 print(e.stdout.decode(), file=sys.stderr)
                 print(e.stderr.decode(), file=sys.stderr)
                 raise
