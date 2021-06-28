@@ -1,6 +1,6 @@
 from typing import Any
 
-from commonmark.render.renderer import Renderer as Renderer
+from commonmark.render.renderer import Renderer
 
 class ReStructuredTextRenderer(Renderer):
     indent_char: Any

@@ -1,11 +1,6 @@
 import html
 from typing import Any
 
-from commonmark import common as common
-from commonmark.common import normalize_uri as normalize_uri, unescape_string as unescape_string
-from commonmark.node import Node as Node
-from commonmark.normalize_reference import normalize_reference as normalize_reference
-
 HTMLunescape = html.unescape
 ESCAPED_CHAR: Any
 rePunctuation: Any

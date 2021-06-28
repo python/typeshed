@@ -1,7 +1,6 @@
 from typing import Any
 
-from commonmark.common import escape_xml as escape_xml
-from commonmark.render.renderer import Renderer as Renderer
+from commonmark.render.renderer import Renderer
 
 reUnsafeProtocol: Any
 reSafeDataProtocol: Any

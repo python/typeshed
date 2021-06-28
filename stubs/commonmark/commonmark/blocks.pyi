@@ -1,10 +1,5 @@
 from typing import Any
 
-from commonmark import common as common
-from commonmark.common import unescape_string as unescape_string
-from commonmark.inlines import InlineParser as InlineParser
-from commonmark.node import Node as Node
-
 CODE_INDENT: int
 reHtmlBlockOpen: Any
 reHtmlBlockClose: Any
