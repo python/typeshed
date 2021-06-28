@@ -222,6 +222,7 @@ class _StaticFunctionType:
     def __get__(self, obj: Optional[object], type: Optional[type]) -> FunctionType: ...
 
 class MethodType:
+    __defaults__: Optional[Tuple[Any, ...]]
     __func__: _StaticFunctionType
     __self__: object
     __name__: str
