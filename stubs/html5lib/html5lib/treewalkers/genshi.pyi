@@ -1,0 +1,6 @@
+from ..constants import namespaces as namespaces, voidElements as voidElements
+from . import base as base
+
+class TreeWalker(base.TreeWalker):
+    def __iter__(self): ...
+    def tokens(self, event, next) -> None: ...
