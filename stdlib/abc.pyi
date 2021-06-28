@@ -1,5 +1,5 @@
 from _typeshed import SupportsWrite
-from typing import Any, Callable, Tuple, Type, TypeVar
+from typing import Any, Callable, Generic, Tuple, Type, TypeVar
 
 _T = TypeVar("_T")
 _FuncT = TypeVar("_FuncT", bound=Callable[..., Any])
@@ -22,7 +22,6 @@ class abstractstaticmethod(staticmethod[_FuncT], Generic[_FuncT]):
     def __init__(self, callable: _FuncT) -> None: ...
 
 class abstractproperty(property): ...
-
 class ABC(metaclass=ABCMeta): ...
 
 def get_cache_token() -> object: ...
