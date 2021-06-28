@@ -26,7 +26,6 @@ collections.abc.AsyncGenerator.ag_frame
 collections.abc.AsyncGenerator.ag_running
 contextvars.Context.__init__  # Default C __init__ signature is wrong
 contextvars.ContextVar.get
-contextlib.nullcontext  # not a function at runtime
 dataclasses.field
 enum.Enum._generate_next_value_
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve

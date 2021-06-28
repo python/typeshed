@@ -6,7 +6,7 @@ from io import TextIOWrapper
 from string import Template
 from time import struct_time
 from types import FrameType, TracebackType
-from typing import Any, ClassVar, Optional, Pattern, Tuple, Type, Union
+from typing import Any, ClassVar, Generic, Optional, Pattern, TextIO, Tuple, Type, TypeVar, Union, overload
 
 _SysExcInfoType = Union[Tuple[Type[BaseException], BaseException, Optional[TracebackType]], Tuple[None, None, None]]
 _ExcInfoType = Union[None, bool, _SysExcInfoType, BaseException]
@@ -750,17 +750,21 @@ def setLoggerClass(klass: Type[Logger]) -> None: ...
 def captureWarnings(capture: bool) -> None: ...
 def setLogRecordFactory(factory: Callable[..., LogRecord]) -> None: ...
 
-lastResort: Optional[StreamHandler]
+lastResort: StreamHandler[Any] | None
 
-class StreamHandler(Handler):
-    stream: SupportsWrite[str]  # undocumented
+_StreamT = TypeVar("_StreamT", bound=SupportsWrite[str])
+
+class StreamHandler(Handler, Generic[_StreamT]):
+    stream: _StreamT  # undocumented
     terminator: str
-    def __init__(self, stream: SupportsWrite[str] | None = ...) -> None: ...
+    @overload
+    def __init__(self: StreamHandler[TextIO], stream: None = ...) -> None: ...
+    @overload
+    def __init__(self: StreamHandler[_StreamT], stream: _StreamT) -> None: ...
     if sys.version_info >= (3, 7):
-        def setStream(self, stream: SupportsWrite[str]) -> SupportsWrite[str] | None: ...
+        def setStream(self, stream: _StreamT) -> _StreamT | None: ...
 
-class FileHandler(StreamHandler):
-    stream: TextIOWrapper  # undocumented
+class FileHandler(StreamHandler[TextIOWrapper]):
     baseFilename: str  # undocumented
     mode: str  # undocumented
     encoding: str | None  # undocumented
@@ -772,9 +776,7 @@ class FileHandler(StreamHandler):
         ) -> None: ...
     else:
         def __init__(self, filename: StrPath, mode: str = ..., encoding: str | None = ..., delay: bool = ...) -> None: ...
-    def _open(self) -> TextIOWrapper: ...
-    if sys.version_info >= (3, 7):
-        def setStream(self, stream: TextIOWrapper) -> TextIOWrapper | None: ...  # type: ignore
+    def _open(self) -> TextIOWrapper: ...  # undocumented
 
 class NullHandler(Handler): ...
 
