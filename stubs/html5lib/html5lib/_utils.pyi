@@ -1,4 +1,4 @@
-from collections import Mapping
+from collections.abc import Mapping
 from typing import Any
 
 supports_lone_surrogates: bool
