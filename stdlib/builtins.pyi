@@ -16,6 +16,7 @@ from _typeshed import (
     SupportsWrite,
 )
 from ast import AST, mod
+from collections.abc import Callable
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
 from types import CodeType, TracebackType
 from typing import (
@@ -26,7 +27,6 @@ from typing import (
     AsyncIterator,
     BinaryIO,
     ByteString,
-    Callable,
     Dict,
     FrozenSet,
     Generic,
@@ -70,6 +70,7 @@ class _SupportsTrunc(Protocol):
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
 _T_contra = TypeVar("_T_contra", contravariant=True)
+_R_co = TypeVar("_R_co", covariant=True)
 _KT = TypeVar("_KT")
 _VT = TypeVar("_VT")
 _S = TypeVar("_S")
@@ -80,6 +81,7 @@ _T4 = TypeVar("_T4")
 _T5 = TypeVar("_T5")
 _TT = TypeVar("_TT", bound="type")
 _TBE = TypeVar("_TBE", bound="BaseException")
+_FuncT = TypeVar("_FuncT", bound=Callable[..., Any])
 
 class object:
     __doc__: Optional[str]
@@ -109,19 +111,19 @@ class object:
     def __dir__(self) -> Iterable[str]: ...
     def __init_subclass__(cls) -> None: ...
 
-class staticmethod(object):  # Special, only valid as a decorator.
-    __func__: Callable[..., Any]
+class staticmethod(Generic[_FuncT]):  # Special, only valid as a decorator.
+    __func__: _FuncT
     __isabstractmethod__: bool
-    def __init__(self, f: Callable[..., Any]) -> None: ...
+    def __init__(self, __f: _FuncT) -> None: ...
     def __new__(cls: Type[_T], *args: Any, **kwargs: Any) -> _T: ...
-    def __get__(self, obj: _T, type: Optional[Type[_T]] = ...) -> Callable[..., Any]: ...
+    def __get__(self, obj: _T, type: Type[_T] | None = ...) -> _FuncT: ...
 
-class classmethod(object):  # Special, only valid as a decorator.
-    __func__: Callable[..., Any]
+class classmethod(Generic[_R_co]):  # Special, only valid as a decorator.
+    __func__: Callable[..., _R_co]
     __isabstractmethod__: bool
-    def __init__(self, f: Callable[..., Any]) -> None: ...
+    def __init__(self: classmethod[_R_co], __f: Callable[..., _R_co]) -> None: ...
     def __new__(cls: Type[_T], *args: Any, **kwargs: Any) -> _T: ...
-    def __get__(self, obj: _T, type: Optional[Type[_T]] = ...) -> Callable[..., Any]: ...
+    def __get__(self, obj: _T | None, type: Type[_T] | None = ...) -> Callable[..., _R_co]: ...
 
 class type(object):
     __base__: type
