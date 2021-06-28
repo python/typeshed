@@ -81,7 +81,7 @@ _T5 = TypeVar("_T5")
 _TT = TypeVar("_TT", bound="type")
 _TBE = TypeVar("_TBE", bound="BaseException")
 _FuncT = TypeVar("_FuncT", bound=Callable[..., Any])
-_ClsT = Type("_ClsT", bound=Type[Any])
+_ClsT = TypeVar("_ClsT", bound=Type[Any])
 _P = ParamSpec("_P")
 
 class object:

@@ -3,7 +3,7 @@ from typing import Any, Callable, Generic, Tuple, Type, TypeVar
 from typing_extensions import Concatenate, ParamSpec
 
 _T = TypeVar("_T")
-_ClsT = Type("_ClsT", bound=Type[Any])
+_ClsT = TypeVar("_ClsT", bound=Type[Any])
 _P = ParamSpec("_P")
 _R_co = TypeVar("_R_co", covariant=True)
 _FuncT = TypeVar("_FuncT", bound=Callable[..., Any])
