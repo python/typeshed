@@ -59,7 +59,7 @@ from typing import (
     ValuesView,
     overload,
 )
-from typing_extensions import Literal, ParamSpec, SupportsIndex, final
+from typing_extensions import Concatenate, Literal, ParamSpec, SupportsIndex, final
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
@@ -120,11 +120,11 @@ class staticmethod(Generic[_FuncT]):  # Special, only valid as a decorator.
     def __get__(self, obj: _T, type: Type[_T] | None = ...) -> _FuncT: ...
 
 class classmethod(Generic[_ClsT, _P, _T_co]):  # Special, only valid as a decorator.
-    __func__: Callable[[_ClsT, _P], _T_co]
+    __func__: Callable[Concatenate[_ClsT, _P], _T_co]
     __isabstractmethod__: bool
-    def __init__(self, f: Callable[[_ClsT, _P], _T_co]) -> None: ...
+    def __init__(self, f: Callable[Concatenate[_ClsT, _P], _T_co]) -> None: ...
     def __new__(cls: Type[_T], *args: Any, **kwargs: Any) -> _T: ...
-    def __get__(self, obj: _T | None, type: Type[_T] | None = ...) -> Callable[[_P], _T_co]: ...
+    def __get__(self, obj: _T | None, type: Type[_T] | None = ...) -> Callable[_P, _T_co]: ...
 
 class type(object):
     __base__: type
