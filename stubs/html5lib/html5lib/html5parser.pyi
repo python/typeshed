@@ -1,6 +1,12 @@
+from _typeshed import SupportsRead
 from typing import Any
 
-def parse(doc, treebuilder: str = ..., namespaceHTMLElements: bool = ..., **kwargs): ...
+def parse(
+    doc: str | bytes | SupportsRead[str] | SupportsRead[bytes],
+    treebuilder: str = ...,
+    namespaceHTMLElements: bool = ...,
+    **kwargs,
+): ...
 def parseFragment(doc, container: str = ..., treebuilder: str = ..., namespaceHTMLElements: bool = ..., **kwargs): ...
 def method_decorator_metaclass(function): ...
 
