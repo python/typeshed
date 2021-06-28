@@ -70,6 +70,7 @@ class _SupportsTrunc(Protocol):
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
 _T_contra = TypeVar("_T_contra", contravariant=True)
+_R_co = TypeVar("_R_co", covariant=True)
 _KT = TypeVar("_KT")
 _VT = TypeVar("_VT")
 _S = TypeVar("_S")
@@ -119,12 +120,12 @@ class staticmethod(Generic[_FuncT]):  # Special, only valid as a decorator.
     def __new__(cls: Type[_T], *args: Any, **kwargs: Any) -> _T: ...
     def __get__(self, obj: _T, type: Type[_T] | None = ...) -> _FuncT: ...
 
-class classmethod(Generic[_ClsT, _P, _T_co]):  # Special, only valid as a decorator.
-    __func__: Callable[Concatenate[_ClsT, _P], _T_co]
+class classmethod(Generic[_ClsT, _P, _R_co]):  # Special, only valid as a decorator.
+    __func__: Callable[Concatenate[_ClsT, _P], _R_co]
     __isabstractmethod__: bool
-    def __init__(self, f: Callable[Concatenate[_ClsT, _P], _T_co]) -> None: ...
+    def __init__(self, f: Callable[Concatenate[_ClsT, _P], _R_co]) -> None: ...
     def __new__(cls: Type[_T], *args: Any, **kwargs: Any) -> _T: ...
-    def __get__(self, obj: _T | None, type: Type[_T] | None = ...) -> Callable[_P, _T_co]: ...
+    def __get__(self, obj: _T | None, type: Type[_T] | None = ...) -> Callable[_P, _R_co]: ...
 
 class type(object):
     __base__: type
