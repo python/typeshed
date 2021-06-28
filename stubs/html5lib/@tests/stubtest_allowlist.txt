@@ -1,0 +1,10 @@
+# Misnamed first argument in implementation
+html5lib._inputstream.EncodingBytes.__new__
+
+# Not importable if lxml is not installed
+html5lib.treebuilders.etree_lxml
+html5lib.treewalkers.etree_lxml
+
+# Not importable if genshi is not installed
+html5lib.treeadapters.genshi
+html5lib.treewalkers.genshi
