@@ -1,7 +1,11 @@
 from _typeshed import SupportsWrite
 from typing import Any, Callable, Generic, Tuple, Type, TypeVar
+from typing_extensions import Concatenate, ParamSpec
 
 _T = TypeVar("_T")
+_ClsT = Type("_ClsT", bound=Type[Any])
+_P = ParamSpec("_P")
+_R_co = TypeVar("_R_co", covariant=True)
 _FuncT = TypeVar("_FuncT", bound=Callable[..., Any])
 
 # These definitions have special processing in mypy
@@ -15,8 +19,8 @@ class ABCMeta(type):
 
 def abstractmethod(funcobj: _FuncT) -> _FuncT: ...
 
-class abstractclassmethod(classmethod[_FuncT], Generic[_FuncT]):
-    def __init__(self, callable: _FuncT) -> None: ...
+class abstractclassmethod(classmethod[_ClsT, _P, _R_co], Generic[_ClsT, _P, _R_co]):
+    def __init__(self, callable: Callable[Concatenate[_ClsT, _P], _R_co]) -> None: ...
 
 class abstractstaticmethod(staticmethod[_FuncT], Generic[_FuncT]):
     def __init__(self, callable: _FuncT) -> None: ...
