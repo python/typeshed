@@ -1,4 +1,4 @@
-from _typeshed import SupportsRead, StrOrBytesPath
+from _typeshed import StrOrBytesPath, SupportsRead
 from typing import Any, Protocol
 from typing_extensions import Literal
 

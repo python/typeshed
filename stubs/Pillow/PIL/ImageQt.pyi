@@ -1,4 +1,5 @@
 from typing import Any, Literal
+
 from .Image import Image
 
 QImage = Any  # imported from either of {PyQt6,PySide6,PyQt5,PySide2}.QtGui

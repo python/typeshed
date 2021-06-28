@@ -1,5 +1,6 @@
 from typing import Any, Iterable, Protocol
-from .Image import Image, _Size, _Resample
+
+from .Image import Image, _Resample, _Size
 
 class _Deformer(Protocol):
     def getmesh(self, image: Image): ...
