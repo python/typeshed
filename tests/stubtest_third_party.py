@@ -53,8 +53,8 @@ def run_stubtest(dist: Path) -> None:
         else:
             dist_req = f"{dist.name}=={dist_version}.*"
 
-        # If @tests/requirements-stubs.txt exists, run "pip install" on it.
-        req_path = dist / "@tests" / "requirements-stubs.txt"
+        # If @tests/requirements-stubtest.txt exists, run "pip install" on it.
+        req_path = dist / "@tests" / "requirements-stubtest.txt"
         if req_path.exists():
             try:
                 pip_cmd = [pip_exe, "install", "-r", str(req_path)]
