@@ -44,7 +44,7 @@ class FreeTypeFont:
         features=...,
         language: str | None = ...,
         stroke_width: int = ...,
-        anchor: str = ...,
+        anchor: str | None = ...,
     ) -> tuple[int, int, int, int]: ...
     def getsize(
         self,
