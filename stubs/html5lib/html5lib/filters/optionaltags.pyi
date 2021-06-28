@@ -1,4 +1,4 @@
-from . import base as base
+from . import base
 
 class Filter(base.Filter):
     def slider(self) -> None: ...

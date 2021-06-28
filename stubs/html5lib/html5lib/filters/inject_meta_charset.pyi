@@ -1,6 +1,6 @@
 from typing import Any
 
-from . import base as base
+from . import base
 
 class Filter(base.Filter):
     encoding: Any

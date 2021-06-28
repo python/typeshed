@@ -1,5 +1,4 @@
-from ..constants import namespaces as namespaces, voidElements as voidElements
-from . import base as base
+from . import base
 
 class TreeWalker(base.TreeWalker):
     def __iter__(self): ...

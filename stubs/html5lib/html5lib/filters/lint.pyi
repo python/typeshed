@@ -1,7 +1,6 @@
 from typing import Any
 
-from ..constants import namespaces as namespaces, spaceCharacters as spaceCharacters, voidElements as voidElements
-from . import base as base
+from . import base
 
 class Filter(base.Filter):
     require_matching_tags: Any

@@ -1,7 +1,5 @@
 from typing import Any
 
-from .constants import DataLossWarning as DataLossWarning
-
 baseChar: str
 ideographic: str
 combiningCharacter: str

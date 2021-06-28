@@ -1,7 +1,6 @@
 from typing import Any
 
-from ..treebuilders.etree import tag_regexp as tag_regexp
-from . import base as base
+from .base import NonRecursiveTreeWalker
 
 def ensure_str(s): ...
 
@@ -45,7 +44,7 @@ class FragmentWrapper:
     def __unicode__(self): ...
     def __len__(self): ...
 
-class TreeWalker(base.NonRecursiveTreeWalker):
+class TreeWalker(NonRecursiveTreeWalker):
     fragmentChildren: Any
     filter: Any
     def __init__(self, tree) -> None: ...

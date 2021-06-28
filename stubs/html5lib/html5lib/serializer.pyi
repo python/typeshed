@@ -1,15 +1,5 @@
 from typing import Any
 
-from . import treewalkers as treewalkers
-from .constants import (
-    booleanAttributes as booleanAttributes,
-    entities as entities,
-    rcdataElements as rcdataElements,
-    spaceCharacters as spaceCharacters,
-    voidElements as voidElements,
-    xmlEntities as xmlEntities,
-)
-
 v: Any
 
 def htmlentityreplace_errors(exc): ...

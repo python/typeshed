@@ -1,12 +1,5 @@
 from typing import Any
 
-from .constants import (
-    EOF as EOF,
-    asciiLetters as asciiLetters,
-    asciiUppercase as asciiUppercase,
-    spaceCharacters as spaceCharacters,
-)
-
 spaceCharactersBytes: Any
 asciiLettersBytes: Any
 asciiUppercaseBytes: Any

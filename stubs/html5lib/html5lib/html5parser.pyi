@@ -1,24 +1,5 @@
 from typing import Any
 
-from . import treebuilders as treebuilders
-from .constants import (
-    E as E,
-    adjustMathMLAttributes as adjustMathMLAttributes,
-    adjustSVGAttributes as adjustSVGAttributes,
-    asciiUpper2Lower as asciiUpper2Lower,
-    cdataElements as cdataElements,
-    headingElements as headingElements,
-    htmlIntegrationPointElements as htmlIntegrationPointElements,
-    mathmlTextIntegrationPointElements as mathmlTextIntegrationPointElements,
-    namespaces as namespaces,
-    rcdataElements as rcdataElements,
-    spaceCharacters as spaceCharacters,
-    specialElements as specialElements,
-    tagTokenTypes as tagTokenTypes,
-    tokenTypes as tokenTypes,
-)
-from .treebuilders.base import Marker as Marker
-
 def parse(doc, treebuilder: str = ..., namespaceHTMLElements: bool = ..., **kwargs): ...
 def parseFragment(doc, container: str = ..., treebuilder: str = ..., namespaceHTMLElements: bool = ..., **kwargs): ...
 def method_decorator_metaclass(function): ...

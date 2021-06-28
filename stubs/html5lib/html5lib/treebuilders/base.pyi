@@ -1,11 +1,5 @@
 from typing import Any
 
-from ..constants import (
-    namespaces as namespaces,
-    scopingElements as scopingElements,
-    tableInsertModeElements as tableInsertModeElements,
-)
-
 Marker: Any
 listElementsMap: Any
 
@@ -24,7 +18,7 @@ class Node:
     def cloneNode(self) -> None: ...
     def hasContent(self) -> None: ...
 
-class ActiveFormattingElements(list):
+class ActiveFormattingElements(list[Any]):
     def append(self, node) -> None: ...
     def nodesEqual(self, node1, node2): ...
 

@@ -1,7 +1,6 @@
 from typing import Any
 
-from ..constants import rcdataElements as rcdataElements, spaceCharacters as spaceCharacters
-from . import base as base
+from . import base
 
 SPACES_REGEX: Any
 

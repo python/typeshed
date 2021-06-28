@@ -1,8 +1,6 @@
 from typing import Any
 
-from .. import constants as constants
-from ..constants import DataLossWarning as DataLossWarning
-from . import base as base
+from . import base
 
 fullTree: bool
 tag_regexp: Any

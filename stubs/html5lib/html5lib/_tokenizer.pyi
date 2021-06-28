@@ -1,24 +1,12 @@
+import sys
 from collections import OrderedDict
 from typing import Any
 
-from ._inputstream import HTMLInputStream as HTMLInputStream
-from ._trie import Trie as Trie
-from .constants import (
-    EOF as EOF,
-    asciiLetters as asciiLetters,
-    asciiUpper2Lower as asciiUpper2Lower,
-    digits as digits,
-    entities as entities,
-    hexDigits as hexDigits,
-    replacementCharacters as replacementCharacters,
-    spaceCharacters as spaceCharacters,
-    tagTokenTypes as tagTokenTypes,
-    tokenTypes as tokenTypes,
-)
-
 entitiesTrie: Any
-attributeMap = dict
-attributeMap = OrderedDict
+if sys.version_info >= (3, 7):
+    attributeMap = dict[Any, Any]
+else:
+    attributeMap = OrderedDict[Any, Any]
 
 class HTMLTokenizer:
     stream: Any

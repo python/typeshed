@@ -1,16 +1,15 @@
-import xml.etree.ElementTree as default_etree
 from collections import Mapping
 from typing import Any
 
 supports_lone_surrogates: bool
 
-class MethodDispatcher(dict):
+class MethodDispatcher(dict[Any, Any]):
     default: Any
     def __init__(self, items=...) -> None: ...
     def __getitem__(self, key): ...
     def __get__(self, instance, owner: Any | None = ...): ...
 
-class BoundMethodDispatcher(Mapping):
+class BoundMethodDispatcher(Mapping[Any, Any]):
     instance: Any
     dispatcher: Any
     def __init__(self, instance, dispatcher) -> None: ...
