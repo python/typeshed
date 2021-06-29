@@ -111,26 +111,26 @@ class SMOOTH_MORE(BuiltinFilter):
 
 class Color3DLUT(MultibandFilter):
     name: str
-    size: int | tuple[int, int, int]
+    size: list[int]
     channels: int
     mode: str | None
     table: Any
     def __init__(
-        self, size: int | tuple[int, int, int], table, channels: int = ..., target_mode: str | None = ..., **kwargs
+        self, size: int | Iterable[int], table, channels: int = ..., target_mode: str | None = ..., **kwargs
     ) -> None: ...
     @classmethod
     def generate(
         cls: Type[Self],
         size: int | tuple[int, int, int],
-        callback: Callable[[int, int, int], float],
+        callback: Callable[[float, float, float], Iterable[float]],
         channels: int = ...,
         target_mode: str | None = ...,
     ) -> Self: ...
     def transform(
         self: Self,
-        callback: Callable[[int, int, int], float],
+        callback: Callable[..., Iterable[float]],
         with_normals: bool = ...,
-        channels: Any | None = ...,
+        channels: Literal[3, 4] | None = ...,
         target_mode: Any | None = ...,
     ) -> Self: ...
     def filter(self, image) -> Image: ...
