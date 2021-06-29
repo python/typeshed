@@ -16,6 +16,8 @@ from typing import (
 )
 from typing_extensions import ParamSpec, Protocol
 
+from stdlib._typeshed import Self
+
 AbstractContextManager = ContextManager
 if sys.version_info >= (3, 7):
     AbstractAsyncContextManager = AsyncContextManager
@@ -80,7 +82,7 @@ class ExitStack(ContextManager[ExitStack]):
     def callback(self, callback: Callable[..., Any], *args: Any, **kwds: Any) -> Callable[..., Any]: ...
     def pop_all(self: _U) -> _U: ...
     def close(self) -> None: ...
-    def __enter__(self: _U) -> _U: ...
+    def __enter__(self: Self) -> Self: ...
     def __exit__(
         self,
         __exc_type: Optional[Type[BaseException]],

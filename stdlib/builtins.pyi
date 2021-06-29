@@ -7,6 +7,7 @@ from _typeshed import (
     OpenBinaryModeWriting,
     OpenTextMode,
     ReadableBuffer,
+    Self,
     StrOrBytesPath,
     SupportsDivMod,
     SupportsKeysAndGetItem,
@@ -648,7 +649,7 @@ class memoryview(Sized, Sequence[int]):
     contiguous: bool
     nbytes: int
     def __init__(self, obj: ReadableBuffer) -> None: ...
-    def __enter__(self) -> memoryview: ...
+    def __enter__(self: Self) -> Self: ...
     def __exit__(
         self, exc_type: Optional[Type[BaseException]], exc_val: Optional[BaseException], exc_tb: Optional[TracebackType]
     ) -> None: ...
