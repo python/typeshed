@@ -1,5 +1,6 @@
 from _typeshed import Self
-from typing import Any, Callable, Sequence, Tuple, Type
+from typing import Any, Callable, Iterable, Sequence, Tuple, Type
+from typing_extensions import Literal
 
 from .Image import Image
 
