@@ -1,4 +1,5 @@
 import sys
+from _typeshed import Self
 from types import TracebackType
 from typing import (
     IO,
@@ -15,8 +16,6 @@ from typing import (
     overload,
 )
 from typing_extensions import ParamSpec, Protocol
-
-from stdlib._typeshed import Self
 
 AbstractContextManager = ContextManager
 if sys.version_info >= (3, 7):

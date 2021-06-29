@@ -1,5 +1,6 @@
 import sys
 import types
+from _typeshed import Self
 from abc import abstractmethod
 from typing import (
     IO,
@@ -20,8 +21,6 @@ from typing import (
     overload,
 )
 from typing_extensions import Literal
-
-from stdlib._typeshed import Self
 
 # TODO: this only satisfies the most common interface, where
 # bytes is the raw form and str is the cooked form.

@@ -1,7 +1,6 @@
+from _typeshed import Self
 from mmap import mmap
 from typing import IO, Any, BinaryIO, Iterable, List, Optional, Text, TextIO, Tuple, Type, TypeVar, Union
-
-from stdlib._typeshed import Self
 
 _bytearray_like = Union[bytearray, mmap]
 
