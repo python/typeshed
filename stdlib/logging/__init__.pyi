@@ -326,7 +326,9 @@ class Filter:
     def filter(self, record: LogRecord) -> bool: ...
 
 class LogRecord:
-    args: _ArgsType
+    # args can be set to None by logging.handlers.QueueHandler
+    # (see https://bugs.python.org/issue44473)
+    args: _ArgsType | None
     asctime: str
     created: float
     exc_info: Optional[_SysExcInfoType]
@@ -355,7 +357,7 @@ class LogRecord:
         pathname: str,
         lineno: int,
         msg: Any,
-        args: _ArgsType,
+        args: _ArgsType | None,
         exc_info: Optional[_SysExcInfoType],
         func: Optional[str] = ...,
         sinfo: Optional[str] = ...,
