@@ -22,6 +22,7 @@ from typing import (
     Union,
     overload,
 )
+from typing_extensions import Literal
 
 _T = TypeVar("_T")
 
