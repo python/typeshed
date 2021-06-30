@@ -30,6 +30,7 @@
         "stubs/cryptography",
         "stubs/docutils",
         "stubs/Flask",
+        "stubs/html5lib",
         "stubs/Jinja2",
         "stubs/Markdown",
         "stubs/Pillow",
