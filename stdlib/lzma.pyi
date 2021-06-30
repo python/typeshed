@@ -1,5 +1,5 @@
 import io
-from _typeshed import ReadableBuffer, StrOrBytesPath
+from _typeshed import ReadableBuffer, Self, StrOrBytesPath
 from typing import IO, Any, Mapping, Optional, Sequence, TextIO, TypeVar, Union, overload
 from typing_extensions import Literal
 
@@ -9,7 +9,6 @@ _OpenTextWritingMode = Literal["wt", "xt", "at"]
 _PathOrFile = Union[StrOrBytesPath, IO[bytes]]
 
 _FilterChain = Sequence[Mapping[str, Any]]
-_T = TypeVar("_T")
 
 FORMAT_AUTO: int
 FORMAT_XZ: int
@@ -76,7 +75,7 @@ class LZMAFile(io.BufferedIOBase, IO[bytes]):
         preset: Optional[int] = ...,
         filters: Optional[_FilterChain] = ...,
     ) -> None: ...
-    def __enter__(self: _T) -> _T: ...
+    def __enter__(self: Self) -> Self: ...
     def close(self) -> None: ...
     @property
     def closed(self) -> bool: ...
