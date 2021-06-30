@@ -1,4 +1,5 @@
 import http.client
+from _typeshed import Self
 from collections.abc import Generator
 from typing import Any
 
@@ -172,19 +173,12 @@ class Http:
         connection_type: Any | None = ...,
     ): ...
 
-class Response(dict):
+class Response(dict[str, Any]):
     fromcache: bool
     version: int
     status: int
     reason: str
     previous: Any
     def __init__(self, info) -> None: ...
-    def __getattr__(self, name): ...
-
-# Names in __all__ with no definition:
-#   FailedToDecompressContent
-#   HttpLib2Error
-#   RedirectLimit
-#   RedirectMissingLocation
-#   UnimplementedDigestAuthOptionError
-#   UnimplementedHmacDigestAuthOptionError
+    @property
+    def dict(self: Self) -> Self: ...
