@@ -1,7 +1,7 @@
 import http.client
 from _typeshed import Self
 from collections.abc import Generator
-from typing import Any
+from typing import Any, Dict
 
 from .error import *
 
@@ -173,7 +173,7 @@ class Http:
         connection_type: Any | None = ...,
     ): ...
 
-class Response(dict[str, Any]):
+class Response(Dict[str, Any]):
     fromcache: bool
     version: int
     status: int
