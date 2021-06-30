@@ -3,6 +3,12 @@ from typing import Any
 
 from .error import *
 
+__author__: str
+__copyright__: str
+__contributors__: list[str]
+__license__: str
+__version__: str
+
 debuglevel: int
 RETRIES: int
 

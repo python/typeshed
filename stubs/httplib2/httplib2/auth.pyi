@@ -1,7 +1,5 @@
 from typing import Any
 
-from .error import *
-
 UNQUOTE_PAIRS: Any
 unquote: Any
 tchar: Any
