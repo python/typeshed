@@ -1,0 +1,3 @@
+# __getattr__() replaced with actual field in stub
+httplib2.Response.dict
+httplib2.Response.__getattr__
