@@ -14,7 +14,7 @@ _ExcInfoType = Union[None, bool, _SysExcInfoType, BaseException]
 _ArgsType = Union[Tuple[Any, ...], Mapping[str, Any]]
 _FilterType = Union[Filter, Callable[[LogRecord], int]]
 _Level = Union[int, str]
-_FormatStyle = Literal['%', '{', '$']
+_FormatStyle = Literal["%", "{", "$"]
 
 raiseExceptions: bool
 logThreads: bool
