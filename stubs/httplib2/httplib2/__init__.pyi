@@ -1,9 +1,11 @@
 import http.client
-from _typeshed import Self
 from collections.abc import Generator
-from typing import Any, Dict
+from typing import Any, Dict, TypeVar
 
 from .error import *
+
+# Should use _typeshed.Self when google/pytype#952 is fixed.
+Self = TypeVar("Self")  # noqa Y001
 
 __author__: str
 __copyright__: str
