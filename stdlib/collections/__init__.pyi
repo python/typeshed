@@ -1,6 +1,8 @@
 import sys
 from typing import Any, Dict, Generic, List, NoReturn, Optional, Tuple, Type, TypeVar, Union, overload
 
+from _typeshed import Self
+
 if sys.version_info >= (3, 10):
     from typing import (
         Callable,
@@ -57,8 +59,6 @@ class UserDict(MutableMapping[_KT, _VT]):
     @classmethod
     def fromkeys(cls: Type[_S], iterable: Iterable[_KT], value: Optional[_VT] = ...) -> _S: ...
 
-_UserListT = TypeVar("_UserListT", bound=UserList)
-
 class UserList(MutableSequence[_T]):
     data: List[_T]
     def __init__(self, initlist: Optional[Iterable[_T]] = ...) -> None: ...
@@ -71,7 +71,7 @@ class UserList(MutableSequence[_T]):
     @overload
     def __getitem__(self, i: int) -> _T: ...
     @overload
-    def __getitem__(self: _UserListT, i: slice) -> _UserListT[_T]: ...
+    def __getitem__(self: Self, i: slice) -> Self: ...
     @overload
     def __setitem__(self, i: int, o: _T) -> None: ...
     @overload
