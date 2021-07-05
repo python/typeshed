@@ -2,3 +2,6 @@ PIL.FpxImagePlugin
 PIL.ImageQt.ImageQt
 PIL.MicImagePlugin
 PIL.WmfImagePlugin.WmfHandler
+
+# existence of _tkinter is not guaranteed
+PIL._tkinter_finder
