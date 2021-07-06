@@ -1,25 +1,12 @@
 from typing import Any
 
-basestring = basestring
-
-def str_(s): ...
-
-unicode_type = str
-unicode_type = unicode
-
-def to_unicode(value): ...
-def to_basestring(s): ...
-
-logger: Any
-handler: Any
-formatter: Any
 DEBUG: bool
 CR: str
 LF: str
-CRLF: Any
+CRLF: str
 SPACE: str
 TAB: str
-SPACEORTAB: Any
+SPACEORTAB: str
 
 class VBase:
     group: Any

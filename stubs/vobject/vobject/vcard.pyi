@@ -1,15 +1,6 @@
 from typing import Any
 
-from . import behavior as behavior
-from .base import (
-    ContentLine as ContentLine,
-    backslashEscape as backslashEscape,
-    registerBehavior as registerBehavior,
-    str_ as str_,
-)
-from .icalendar import stringToTextValues as stringToTextValues
-
-basestring = basestring
+from .behavior import Behavior
 
 class Name:
     family: Any
@@ -48,7 +39,7 @@ class Address:
     one_line: Any
     def __eq__(self, other): ...
 
-class VCardTextBehavior(behavior.Behavior):
+class VCardTextBehavior(Behavior):
     allowGroup: bool
     base64string: str
     @classmethod
@@ -56,7 +47,7 @@ class VCardTextBehavior(behavior.Behavior):
     @classmethod
     def encode(cls, line) -> None: ...
 
-class VCardBehavior(behavior.Behavior):
+class VCardBehavior(Behavior):
     allowGroup: bool
     defaultBehavior: Any
 
@@ -87,7 +78,7 @@ class Photo(VCardTextBehavior):
     @classmethod
     def valueRepr(cls, line): ...
     @classmethod
-    def serialize(cls, obj, buf, lineLength, validate) -> None: ...
+    def serialize(cls, obj, buf, lineLength, validate) -> None: ...  # type: ignore
 
 def toListOrString(string): ...
 def splitFields(string): ...

@@ -1,7 +1,6 @@
 from typing import Any
 
-from .base import CRLF as CRLF, registerBehavior as registerBehavior
-from .icalendar import VCalendar2_0 as VCalendar2_0
+from .icalendar import VCalendar2_0
 
 class HCalendar(VCalendar2_0):
     name: str

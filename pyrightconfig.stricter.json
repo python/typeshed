@@ -46,6 +46,7 @@
         "stubs/redis",
         "stubs/requests",
         "stubs/simplejson",
+        "stubs/vobject",
         "stubs/waitress",
         "stubs/Werkzeug"
     ],

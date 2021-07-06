@@ -1,38 +1,23 @@
-from typing import Any
+from datetime import timedelta
+from typing import Any, Tuple
 
-from . import behavior as behavior
-from .base import (
-    Component as Component,
-    ContentLine as ContentLine,
-    NativeError as NativeError,
-    ParseError as ParseError,
-    ValidateError as ValidateError,
-    VObjectError as VObjectError,
-    backslashEscape as backslashEscape,
-    foldOneLine as foldOneLine,
-    logger as logger,
-    registerBehavior as registerBehavior,
-)
+from .base import Component
+from .behavior import Behavior
 
-class Pytz:
-    class AmbiguousTimeError(Exception): ...
-    class NonExistentTimeError(Exception): ...
-
-pytz = Pytz
-DATENAMES: Any
-RULENAMES: Any
-DATESANDRULES: Any
+DATENAMES: Tuple[str, ...]
+RULENAMES: Tuple[str, ...]
+DATESANDRULES: Tuple[str, ...]
 PRODID: str
-WEEKDAYS: Any
-FREQUENCIES: Any
-zeroDelta: Any
-twoHours: Any
+WEEKDAYS: Tuple[str, ...]
+FREQUENCIES: Tuple[str, ...]
+zeroDelta: timedelta
+twoHours: timedelta
 
-def toUnicode(s): ...
+def toUnicode(s: str | bytes) -> str: ...
 def registerTzid(tzid, tzinfo) -> None: ...
 def getTzid(tzid, smart: bool = ...): ...
 
-utc: Any
+utc: Any  # dateutil.tz.tz.tzutc
 
 class TimezoneComponent(Component):
     isNative: bool
@@ -51,7 +36,7 @@ class TimezoneComponent(Component):
     normal_attributes: Any
     @staticmethod
     def pickTzid(tzinfo, allowUTC: bool = ...): ...
-    def prettyPrint(self, level, tabwidth) -> None: ...
+    def prettyPrint(self, level, tabwidth) -> None: ...  # type: ignore
 
 class RecurringComponent(Component):
     isNative: bool
@@ -61,14 +46,14 @@ class RecurringComponent(Component):
     rruleset: Any
     def __setattr__(self, name, value) -> None: ...
 
-class TextBehavior(behavior.Behavior):
+class TextBehavior(Behavior):
     base64string: str
     @classmethod
     def decode(cls, line) -> None: ...
     @classmethod
     def encode(cls, line) -> None: ...
 
-class VCalendarComponentBehavior(behavior.Behavior):
+class VCalendarComponentBehavior(Behavior):
     defaultBehavior: Any
     isComponent: bool
 
@@ -81,7 +66,7 @@ class RecurringBehavior(VCalendarComponentBehavior):
     @staticmethod
     def generateImplicitParameters(obj) -> None: ...
 
-class DateTimeBehavior(behavior.Behavior):
+class DateTimeBehavior(Behavior):
     hasNative: bool
     @staticmethod
     def transformToNative(obj): ...
@@ -91,21 +76,21 @@ class DateTimeBehavior(behavior.Behavior):
 class UTCDateTimeBehavior(DateTimeBehavior):
     forceUTC: bool
 
-class DateOrDateTimeBehavior(behavior.Behavior):
+class DateOrDateTimeBehavior(Behavior):
     hasNative: bool
     @staticmethod
     def transformToNative(obj): ...
     @staticmethod
     def transformFromNative(obj): ...
 
-class MultiDateBehavior(behavior.Behavior):
+class MultiDateBehavior(Behavior):
     hasNative: bool
     @staticmethod
     def transformToNative(obj): ...
     @staticmethod
     def transformFromNative(obj): ...
 
-class MultiTextBehavior(behavior.Behavior):
+class MultiTextBehavior(Behavior):
     listSeparator: str
     @classmethod
     def decode(cls, line) -> None: ...
@@ -139,7 +124,7 @@ class VTimezone(VCalendarComponentBehavior):
     @staticmethod
     def transformFromNative(obj): ...
 
-class TZID(behavior.Behavior): ...
+class TZID(Behavior): ...
 
 class DaylightOrStandard(VCalendarComponentBehavior):
     hasNative: bool
@@ -195,7 +180,7 @@ class Available(RecurringBehavior):
     @classmethod
     def validate(cls, obj, raiseException, *args): ...
 
-class Duration(behavior.Behavior):
+class Duration(Behavior):
     name: str
     hasNative: bool
     @staticmethod
@@ -203,7 +188,7 @@ class Duration(behavior.Behavior):
     @staticmethod
     def transformFromNative(obj): ...
 
-class Trigger(behavior.Behavior):
+class Trigger(Behavior):
     name: str
     description: str
     hasNative: bool
@@ -213,7 +198,7 @@ class Trigger(behavior.Behavior):
     @staticmethod
     def transformFromNative(obj): ...
 
-class PeriodBehavior(behavior.Behavior):
+class PeriodBehavior(Behavior):
     hasNative: bool
     @staticmethod
     def transformToNative(obj): ...
@@ -224,7 +209,7 @@ class FreeBusy(PeriodBehavior):
     name: str
     forceUTC: bool
 
-class RRule(behavior.Behavior): ...
+class RRule(Behavior): ...
 
 utcDateTimeList: Any
 dateTimeOrDateList: Any

@@ -1,7 +1,5 @@
 from typing import Any
 
-from . import base as base
-
 class Behavior:
     name: str
     description: str
