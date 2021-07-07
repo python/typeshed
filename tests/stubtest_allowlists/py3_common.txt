@@ -88,6 +88,7 @@ enum.EnumMeta.__call__
 enum.EnumMeta.__new__
 http.HTTPStatus.description  # set in __new__
 http.HTTPStatus.phrase  # set in __new__
+http.client.HTTPConnection.response_class  # the actual type at runtime is abc.ABCMeta
 imaplib.IMAP4_SSL.ssl  # Dependent on SSL existence
 importlib.abc.FileLoader.get_filename  # Wrapped with _check_name decorator which changes runtime signature
 importlib.abc.FileLoader.load_module  # Wrapped with _check_name decorator which changes runtime signature

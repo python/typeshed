@@ -4,7 +4,6 @@ import ssl
 import sys
 import types
 from _typeshed import Self, WriteableBuffer
-from abc import ABCMeta
 from socket import socket
 from typing import (
     IO,
@@ -92,7 +91,7 @@ NETWORK_AUTHENTICATION_REQUIRED: int
 responses: Dict[int, str]
 
 class HTTPMessage(email.message.Message):
-    def getallmatchingheaders(self, name: str) -> list[str]: ...
+    def getallmatchingheaders(self, name: str) -> list[str]: ...  # undocumented
 
 def parse_headers(fp: io.BufferedIOBase, _class: Callable[[], email.message.Message] = ...) -> HTTPMessage: ...
 
@@ -145,10 +144,10 @@ class _HTTPConnectionProtocol(Protocol):
         ) -> HTTPConnection: ...
 
 class HTTPConnection:
-    auto_open: int = ...
+    auto_open: int = ...  # undocumented
     debuglevel: int = ...
-    default_port: int = ...
-    response_class: ABCMeta = ...  # class HTTPResponse
+    default_port: int = ...  # undocumented
+    response_class: Type[HTTPResponse] = ...  # undocumented
     timeout: Optional[float]
     host: str
     port: int
