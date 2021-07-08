@@ -436,7 +436,7 @@ def putenv(__name: Union[bytes, str], __value: Union[bytes, str]) -> None: ...
 if sys.platform != "win32":
     def unsetenv(__name: Union[bytes, str]) -> None: ...
 
-_Opener = Callable[[str, int], int]
+_Opener = Callable[[StrOrBytesPath, int], int]
 
 @overload
 def fdopen(
