@@ -2,6 +2,7 @@ import builtins
 import codecs
 import sys
 from _typeshed import ReadableBuffer, Self, WriteableBuffer
+from os import _Opener
 from types import TracebackType
 from typing import IO, Any, BinaryIO, Callable, Iterable, Iterator, List, Optional, TextIO, Tuple, Type, Union
 
@@ -67,11 +68,7 @@ class FileIO(RawIOBase, BinaryIO):
     # Technically this is whatever is passed in as file, either a str, a bytes, or an int.
     name: Union[int, str]  # type: ignore
     def __init__(
-        self,
-        file: Union[str, bytes, int],
-        mode: str = ...,
-        closefd: bool = ...,
-        opener: Optional[Callable[[Union[int, str], str], int]] = ...,
+        self, file: Union[str, bytes, int], mode: str = ..., closefd: bool = ..., opener: Optional[_Opener] = ...
     ) -> None: ...
     @property
     def closefd(self) -> bool: ...
