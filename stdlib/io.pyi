@@ -65,7 +65,7 @@ class BufferedIOBase(IOBase):
 
 class FileIO(RawIOBase, BinaryIO):
     mode: str
-    name: StrOrBytesPath | int
+    name: StrOrBytesPath | int  # type: ignore
     def __init__(
         self, file: StrOrBytesPath | int, mode: str = ..., closefd: bool = ..., opener: _Opener | None = ...
     ) -> None: ...
