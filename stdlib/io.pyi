@@ -1,7 +1,7 @@
 import builtins
 import codecs
 import sys
-from _typeshed import ReadableBuffer, Self, WriteableBuffer
+from _typeshed import ReadableBuffer, Self, StrOrBytesPath, WriteableBuffer
 from os import _Opener
 from types import TracebackType
 from typing import IO, Any, BinaryIO, Callable, Iterable, Iterator, List, Optional, TextIO, Tuple, Type, Union
@@ -65,10 +65,9 @@ class BufferedIOBase(IOBase):
 
 class FileIO(RawIOBase, BinaryIO):
     mode: str
-    # Technically this is whatever is passed in as file, either a str, a bytes, or an int.
-    name: Union[int, str]  # type: ignore
+    name: StrOrBytesPath | int
     def __init__(
-        self, file: str | bytes | int, mode: str = ..., closefd: bool = ..., opener: _Opener | None = ...
+        self, file: StrOrBytesPath | int, mode: str = ..., closefd: bool = ..., opener: _Opener | None = ...
     ) -> None: ...
     @property
     def closefd(self) -> bool: ...
