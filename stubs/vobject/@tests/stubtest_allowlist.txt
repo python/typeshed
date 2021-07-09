@@ -1,5 +1,2 @@
 # implementation has *args and **kwds arguments that can't be used
 vobject.base.VBase.__init__
-
-# only available on Windows
-vobject.win32tz
