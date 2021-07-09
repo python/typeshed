@@ -1,4 +1,4 @@
-from typing import List, Tuple, ClassVar
+from typing import ClassVar, List, Tuple
 
 class struct_passwd(Tuple[str, str, int, int, str, str, str]):
     pw_name: str
