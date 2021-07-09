@@ -8,12 +8,10 @@ class struct_passwd(Tuple[str, str, int, int, str, str, str]):
     pw_gecos: str
     pw_dir: str
     pw_shell: str
-    @property
-    def n_fields(self) -> int: ...
-    @property
-    def n_sequence_fields(self) -> int: ...
-    @property
-    def n_unnamed_fields(self) -> int: ...
+
+    n_fields: int
+    n_sequence_fields: int
+    n_unnamed_fields: int
 
 def getpwall() -> List[struct_passwd]: ...
 def getpwuid(__uid: int) -> struct_passwd: ...
