@@ -8,7 +8,6 @@ class struct_passwd(Tuple[str, str, int, int, str, str, str]):
     pw_gecos: str
     pw_dir: str
     pw_shell: str
-
     @property
     def n_fields(self) -> int: ...
     @property
