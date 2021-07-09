@@ -1,5 +1,5 @@
 from types import TracebackType
-from typing import Any, NoReturn, Optional
+from typing import Any, NoReturn, Optional, Type
 
 class _TimeoutGarbageCollector:
     def __init__(self) -> None: ...
