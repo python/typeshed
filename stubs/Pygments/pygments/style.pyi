@@ -1,7 +1,7 @@
 from collections.abc import Iterator, Mapping, Set
-from typing import Any, ClassVar, TypedDict
+from typing import TypedDict
 
-from pygments.token import STANDARD_TYPES, _TokenType
+from pygments.token import _TokenType
 
 ansicolors: Set[str]  # not intended to be mutable
 
@@ -19,7 +19,7 @@ class _StyleDict(TypedDict):
     bgansicolor: str | None
 
 class StyleMeta(type):
-    def __new__(mcs, name, bases, dct): ...
+    def __new__(cls, name, bases, dct): ...
     def style_for_token(cls, token: _TokenType) -> _StyleDict: ...
     def styles_token(cls, ttype: _TokenType) -> bool: ...
     def list_styles(cls) -> list[tuple[_TokenType, _StyleDict]]: ...

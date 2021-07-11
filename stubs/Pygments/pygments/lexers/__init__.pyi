@@ -1,4 +1,3 @@
-import types
 from _typeshed import StrPath
 from builtins import _OpenFile
 from collections.abc import Iterator

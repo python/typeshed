@@ -1,5 +1,3 @@
-from typing import Any
-
 LEXER_ENTRY_POINT: str
 FORMATTER_ENTRY_POINT: str
 STYLE_ENTRY_POINT: str
