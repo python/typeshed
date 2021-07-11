@@ -39,6 +39,7 @@
         "stubs/Pillow",
         "stubs/paramiko",
         "stubs/protobuf",
+        "stubs/Pygments",
         "stubs/PyMySQL",
         "stubs/python-dateutil",
         "stubs/pyvmomi",
