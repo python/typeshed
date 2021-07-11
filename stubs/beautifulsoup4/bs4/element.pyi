@@ -1,5 +1,5 @@
 from _typeshed import Self
-from typing import Any, Callable, Iterable, Mapping, Pattern, Set, Type, TypeVar, Union, overload
+from typing import Any, Callable, Iterable, List, Mapping, Pattern, Set, Type, TypeVar, Union, overload
 
 from . import BeautifulSoup
 from .builder import TreeBuilder
@@ -27,10 +27,10 @@ class ContentMetaAttributeValue(AttributeValueWithCharsetSubstitution):
 
 _PageElementT = TypeVar("_PageElementT", bound=PageElement)
 # The wrapping Union[] can be removed once mypy fully supports | in type aliases.
-_SimpleStrainable = Union[str | bool | None | bytes | Pattern[str] | Callable[[str], bool]]
-_Strainable = Union[_SimpleStrainable | Iterable[_SimpleStrainable]]
-_SimpleNormalizedStrainable = Union[str | bool | None | Pattern[str] | Callable[[str], bool]]
-_NormalizedStrainable = Union[_SimpleNormalizedStrainable | Iterable[_SimpleNormalizedStrainable]]
+_SimpleStrainable = Union[str, bool, None, bytes, Pattern[str], Callable[[str], bool]]
+_Strainable = Union[_SimpleStrainable, Iterable[_SimpleStrainable]]
+_SimpleNormalizedStrainable = Union[str, bool, None, Pattern[str], Callable[[str], bool]]
+_NormalizedStrainable = Union[_SimpleNormalizedStrainable, Iterable[_SimpleNormalizedStrainable]]
 
 class PageElement:
     parent: PageElement | None
@@ -283,8 +283,8 @@ class Tag(PageElement):
     def __setitem__(self, key: str, value: str | list[str]) -> None: ...
     def __delitem__(self, key: str) -> None: ...
     def __getattr__(self, tag: str) -> Tag | NavigableString | None: ...
-    def __eq__(self, other: Tag) -> bool: ...
-    def __ne__(self, other: Tag) -> bool: ...
+    def __eq__(self, other: object) -> bool: ...
+    def __ne__(self, other: object) -> bool: ...
     def __unicode__(self) -> str: ...
     def encode(
         self, encoding: str = ..., indent_level: int | None = ..., formatter: str | Formatter = ..., errors: str = ...
@@ -345,6 +345,6 @@ class SoupStrainer:
     searchTag = search_tag
     def search(self, markup: PageElement | Iterable[PageElement]): ...
 
-class ResultSet(list[PageElement]):
+class ResultSet(List[PageElement]):
     source: SoupStrainer
     def __init__(self, source: SoupStrainer, result: Iterable[PageElement] = ...) -> None: ...
