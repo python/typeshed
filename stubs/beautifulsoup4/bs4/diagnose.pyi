@@ -1,8 +1,5 @@
 from html.parser import HTMLParser
 
-from bs4 import BeautifulSoup as BeautifulSoup
-from bs4.builder import builder_registry as builder_registry
-
 def diagnose(data) -> None: ...
 def lxml_trace(data, html: bool = ..., **kwargs) -> None: ...
 
