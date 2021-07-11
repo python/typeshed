@@ -1,0 +1,5 @@
+from typing import Any
+
+COCOA_INTERFACES: Any
+COCOA_PROTOCOLS: Any
+COCOA_PRIMITIVES: Any

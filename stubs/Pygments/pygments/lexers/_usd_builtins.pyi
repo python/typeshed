@@ -1,0 +1,7 @@
+from typing import Any
+
+COMMON_ATTRIBUTES: Any
+KEYWORDS: Any
+OPERATORS: Any
+SPECIAL_NAMES: Any
+TYPES: Any

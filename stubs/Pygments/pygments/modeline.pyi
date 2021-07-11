@@ -1,0 +1,3 @@
+from typing import Any
+
+def get_filetype_from_buffer(buf: Any, max_lines: int = ...): ...

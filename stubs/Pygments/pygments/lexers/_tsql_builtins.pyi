@@ -1,0 +1,7 @@
+from typing import Any
+
+OPERATORS: Any
+OPERATOR_WORDS: Any
+KEYWORDS: Any
+TYPES: Any
+FUNCTIONS: Any
