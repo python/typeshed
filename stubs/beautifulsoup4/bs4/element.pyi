@@ -3,7 +3,7 @@ from _typeshed import Self
 from . import BeautifulSoup
 from .builder import TreeBuilder
 from .formatter import Formatter, _EntitySubstitution
-from typing import Any, Callable, Iterable, Mapping, Pattern, Set, Type, TypeVar, overload
+from typing import Any, Callable, Iterable, Mapping, Pattern, Set, Type, TypeVar, Union, overload
 
 DEFAULT_OUTPUT_ENCODING: str
 PY3K: bool
@@ -26,10 +26,11 @@ class ContentMetaAttributeValue(AttributeValueWithCharsetSubstitution):
     def encode(self, encoding: str) -> str: ...
 
 _PageElementT = TypeVar("_PageElementT", bound=PageElement)
-_SimpleStrainable = str | bool | None | bytes | Pattern[str] | Callable[[str], bool]
-_Strainable = _SimpleStrainable | Iterable[_SimpleStrainable]
-_SimpleNormalizedStrainable = str | bool | None | Pattern[str] | Callable[[str], bool]
-_NormalizedStrainable = _SimpleNormalizedStrainable | Iterable[_SimpleNormalizedStrainable]
+# The wrapping Union[] can be removed once mypy fully supports | in type aliases.
+_SimpleStrainable = Union[str | bool | None | bytes | Pattern[str] | Callable[[str], bool]]
+_Strainable = Union[_SimpleStrainable | Iterable[_SimpleStrainable]]
+_SimpleNormalizedStrainable = Union[str | bool | None | Pattern[str] | Callable[[str], bool]]
+_NormalizedStrainable = Union[_SimpleNormalizedStrainable | Iterable[_SimpleNormalizedStrainable]]
 
 class PageElement:
     parent: PageElement | None

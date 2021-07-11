@@ -48,7 +48,8 @@
         "stubs/simplejson",
         "stubs/vobject",
         "stubs/waitress",
-        "stubs/Werkzeug"
+        "stubs/Werkzeug",
+        "stubs/beautifulsoup4",
     ],
     "typeCheckingMode": "basic",
     "strictListInference": true,
