@@ -1,25 +1,41 @@
-from bs4.dammit import EntitySubstitution as EntitySubstitution
-from typing import Any
+from .dammit import EntitySubstitution as EntitySubstitution
+from typing import Callable
+
+_EntitySubstitution = Callable[[str], str]
 
 class Formatter(EntitySubstitution):
-    XML_FORMATTERS: Any
-    HTML_FORMATTERS: Any
     HTML: str
     XML: str
-    HTML_DEFAULTS: Any
-    language: Any
-    entity_substitution: Any
-    void_element_close_prefix: Any
-    cdata_containing_tags: Any
-    def __init__(self, language: Any | None = ..., entity_substitution: Any | None = ..., void_element_close_prefix: str = ..., cdata_containing_tags: Any | None = ...) -> None: ...
-    def substitute(self, ns): ...
-    def attribute_value(self, value): ...
+    HTML_DEFAULTS: dict[str, set[str]]
+    language: str | None
+    entity_substitution: _EntitySubstitution
+    void_element_close_prefix: str
+    cdata_containing_tags: list[str]
+    def __init__(
+        self,
+        language: str | None = ...,
+        entity_substitution: _EntitySubstitution | None = ...,
+        void_element_close_prefix: str = ...,
+        cdata_containing_tags: list[str] | None = ...,
+    ) -> None: ...
+    def substitute(self, ns: str) -> str: ...
+    def attribute_value(self, value: str) -> str: ...
     def attributes(self, tag): ...
 
 class HTMLFormatter(Formatter):
-    REGISTRY: Any
-    def __init__(self, *args, **kwargs): ...
+    REGISTRY: dict[str, HTMLFormatter]
+    def __init__(
+        self,
+        entity_substitution: _EntitySubstitution | None = ...,
+        void_element_close_prefix: str = ...,
+        cdata_containing_tags: list[str] | None = ...,
+    ) -> None: ...
 
 class XMLFormatter(Formatter):
-    REGISTRY: Any
-    def __init__(self, *args, **kwargs): ...
+    REGISTRY: dict[str, XMLFormatter]
+    def __init__(
+        self,
+        entity_substitution: _EntitySubstitution | None = ...,
+        void_element_close_prefix: str = ...,
+        cdata_containing_tags: list[str] | None = ...,
+    ) -> None: ...

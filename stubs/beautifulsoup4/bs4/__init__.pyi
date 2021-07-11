@@ -1,22 +1,34 @@
-from .element import Tag
-from typing import Any
+from _typeshed import Self, SupportsRead
+from .builder import TreeBuilder
+from .element import Tag, SoupStrainer, PageElement
+from typing import Any, List, Sequence, Type
 
 class GuessedAtParserWarning(UserWarning): ...
 class MarkupResemblesLocatorWarning(UserWarning): ...
 
 class BeautifulSoup(Tag):
     ROOT_TAG_NAME: str
-    DEFAULT_BUILDER_FEATURES: Any
+    DEFAULT_BUILDER_FEATURES: List[str]
     ASCII_SPACES: str
     NO_PARSER_SPECIFIED_WARNING: str
     element_classes: Any
-    builder: Any
-    is_xml: Any
-    known_xml: Any
-    parse_only: Any
-    markup: Any
-    def __init__(self, markup: str = ..., features: Any | None = ..., builder: Any | None = ..., parse_only: Any | None = ..., from_encoding: Any | None = ..., exclude_encodings: Any | None = ..., element_classes: Any | None = ..., **kwargs): ...
-    def __copy__(self): ...
+    builder: TreeBuilder
+    is_xml: bool
+    known_xml: bool
+    parse_only: SoupStrainer | None
+    markup: str
+    def __init__(
+        self,
+        markup: str | bytes | SupportsRead[str] | SupportsRead[bytes] = ...,
+        features: str | Sequence[str] | None = ...,
+        builder: TreeBuilder | Type[TreeBuilder] | None = ...,
+        parse_only: SoupStrainer | None = ...,
+        from_encoding: str | None = ...,
+        exclude_encodings: Sequence[str] | None = ...,
+        element_classes: dict[Type[PageElement], Type[Any]] | None = ...,
+        **kwargs,
+    ) -> None: ...
+    def __copy__(self: Self) -> Self: ...
     hidden: int
     current_data: Any
     currentTag: Any
@@ -25,7 +37,16 @@ class BeautifulSoup(Tag):
     preserve_whitespace_tag_stack: Any
     string_container_stack: Any
     def reset(self) -> None: ...
-    def new_tag(self, name, namespace: Any | None = ..., nsprefix: Any | None = ..., attrs=..., sourceline: Any | None = ..., sourcepos: Any | None = ..., **kwattrs): ...
+    def new_tag(
+        self,
+        name,
+        namespace: Any | None = ...,
+        nsprefix: Any | None = ...,
+        attrs=...,
+        sourceline: Any | None = ...,
+        sourcepos: Any | None = ...,
+        **kwattrs,
+    ) -> Tag: ...
     def string_container(self, base_class: Any | None = ...): ...
     def new_string(self, s, subclass: Any | None = ...): ...
     def insert_before(self, *args) -> None: ...
@@ -39,8 +60,6 @@ class BeautifulSoup(Tag):
     def handle_data(self, data) -> None: ...
     def decode(self, pretty_print: bool = ..., eventual_encoding=..., formatter: str = ...): ...
 
-class BeautifulStoneSoup(BeautifulSoup):
-    def __init__(self, *args, **kwargs) -> None: ...
-
+class BeautifulStoneSoup(BeautifulSoup): ...
 class StopParsing(Exception): ...
 class FeatureNotFound(ValueError): ...
