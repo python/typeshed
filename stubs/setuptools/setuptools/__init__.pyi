@@ -6,6 +6,8 @@ from .depends import Require as Require
 from .dist import Distribution as Distribution
 from .extension import Extension as Extension
 
+__version__: str
+
 class PackageFinder:
     @classmethod
     def find(cls, where: str = ..., exclude=..., include=...): ...
