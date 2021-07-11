@@ -1,16 +1,20 @@
 from pygments.util import Future
+from pygments.token import _TokenType
 from typing import Any, Optional
+from collections.abc import Iterator, Iterable, Sequence
 
 class LexerMeta(type):
     def __new__(mcs, name, bases, d): ...
+    # ClassVars of Lexer, but same situation as with StyleMeta and Style
+    name: str
+    aliases: Sequence[str]  # not intended mutable
+    filenames: Sequence[str]
+    alias_filenames: Sequence[str]
+    mimetypes: Sequence[str]
+    priority: int
+
 
 class Lexer(metaclass=LexerMeta):
-    name: Any
-    aliases: Any
-    filenames: Any
-    alias_filenames: Any
-    mimetypes: Any
-    priority: int
     options: Any
     stripnl: Any
     stripall: Any
@@ -21,15 +25,15 @@ class Lexer(metaclass=LexerMeta):
     def __init__(self, **options) -> None: ...
     def add_filter(self, filter_, **options) -> None: ...
     def analyse_text(text) -> None: ...
-    def get_tokens(self, text, unfiltered: bool = ...): ...
-    def get_tokens_unprocessed(self, text) -> None: ...
+    def get_tokens(self, text: str, unfiltered: bool = ...) -> Iterator[tuple[_TokenType, str]]: ...
+    def get_tokens_unprocessed(self, text: str) -> Iterator[tuple[int, _TokenType, str]]: ...
 
 class DelegatingLexer(Lexer):
     root_lexer: Any
     language_lexer: Any
     needle: Any
     def __init__(self, _root_lexer, _language_lexer, _needle = ..., **options) -> None: ...
-    def get_tokens_unprocessed(self, text): ...
+    def get_tokens_unprocessed(self, text: str) -> Iterator[tuple[int, _TokenType, str]]: ...
 
 class include(str): ...
 class _inherit: ...
@@ -75,7 +79,7 @@ class RegexLexerMeta(LexerMeta):
 class RegexLexer(Lexer, metaclass=RegexLexerMeta):
     flags: Any
     tokens: Any
-    def get_tokens_unprocessed(self, text, stack = ...) -> None: ...
+    def get_tokens_unprocessed(self, text: str, stack: Iterable[str] = ...) -> Iterator[tuple[int, _TokenType, str]]: ...
 
 class LexerContext:
     text: Any
@@ -85,9 +89,9 @@ class LexerContext:
     def __init__(self, text, pos, stack: Optional[Any] = ..., end: Optional[Any] = ...) -> None: ...
 
 class ExtendedRegexLexer(RegexLexer):
-    def get_tokens_unprocessed(self, text: Optional[Any] = ..., context: Optional[Any] = ...) -> None: ...
+    def get_tokens_unprocessed(self, text: str | None = ..., context: LexerContext | None = ...) -> Iterator[tuple[int, _TokenType, str]]: ...  # type: ignore
 
 class ProfilingRegexLexerMeta(RegexLexerMeta): ...
 
 class ProfilingRegexLexer(RegexLexer, metaclass=ProfilingRegexLexerMeta):
-    def get_tokens_unprocessed(self, text, stack = ...): ...
+    def get_tokens_unprocessed(self, text: str, stack: Iterable[str] = ...) -> Iterator[tuple[int, _TokenType, str]]: ...
