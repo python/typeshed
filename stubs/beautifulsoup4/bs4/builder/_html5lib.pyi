@@ -1,6 +1,6 @@
 from typing import Any
 
-from . import HTMLTreeBuilder
+from bs4.builder import HTMLTreeBuilder
 
 class HTML5TreeBuilder(HTMLTreeBuilder):
     NAME: str
@@ -15,7 +15,7 @@ class HTML5TreeBuilder(HTMLTreeBuilder):
     def create_treebuilder(self, namespaceHTMLElements): ...
     def test_fragment_to_document(self, fragment): ...
 
-class TreeBuilderForHtml5lib(Any):  # html5lib.treebuilders.base.TreeBuilder
+class TreeBuilderForHtml5lib(Any):  # type: ignore # html5lib.treebuilders.base.TreeBuilder
     soup: Any
     parser: Any
     store_line_numbers: Any
@@ -42,7 +42,7 @@ class AttrList:
     def __getitem__(self, name): ...
     def __contains__(self, name): ...
 
-class Element(Any):  # html5lib.treebuilders.base.Node
+class Element(Any):  # type: ignore  # html5lib.treebuilders.base.Node
     element: Any
     soup: Any
     namespace: Any
