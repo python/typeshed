@@ -1,3 +1,4 @@
+from distutils.core import Distribution as _Distribution
 from typing import Any
 
 from . import SetuptoolsDeprecationWarning

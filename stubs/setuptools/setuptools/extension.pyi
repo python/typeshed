@@ -1,3 +1,4 @@
+from distutils.core import Extension as _Extension
 from typing import Any
 
 have_pyrex: Any

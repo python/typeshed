@@ -1,3 +1,4 @@
+from distutils.core import Command as _Command
 from typing import Any
 
 from ._deprecation_warning import SetuptoolsDeprecationWarning as SetuptoolsDeprecationWarning
