@@ -179,7 +179,7 @@ def add_configuration(configurations, seen_dist_configs, distribution):
     seen_dist_configs.add(distribution)
 
 
-def run_mypy(args, configurations, major, minor, files):
+def run_mypy(args, configurations, major, minor, files, *, custom_typeshed=False):
     try:
         from mypy.main import main as mypy_main
     except ImportError:
@@ -204,10 +204,14 @@ def run_mypy(args, configurations, major, minor, files):
             "--disallow-any-generics",
             "--disallow-subclassing-any",
             "--warn-incomplete-stub",
+        ]
+        if custom_typeshed:
             # Setting custom typeshed dir prevents mypy from falling back to its bundled
             # typeshed in case of stub deletions
-            "--custom-typeshed-dir", os.path.dirname(os.path.dirname(__file__)),
-        ]
+            flags.extend([
+                "--custom-typeshed-dir",
+                os.path.dirname(os.path.dirname(__file__)),
+            ])
         if args.warn_unused_ignores:
             flags.append("--warn-unused-ignores")
         if args.platform:
@@ -240,12 +244,12 @@ def main():
     code = 0
     runs = 0
     for major, minor in versions:
-        files = []
         seen = {"__builtin__", "builtins", "typing"}  # Always ignore these.
         configurations = []
         seen_dist_configs = set()
 
-        # First add standard library files.
+        # Test standard library files.
+        files = []
         if major == 2:
             root = os.path.join("stdlib", "@python2")
             for name in os.listdir(root):
@@ -263,7 +267,13 @@ def main():
                 if supported_versions[mod][0] <= (major, minor) <= supported_versions[mod][1]:
                     add_files(files, seen, root, name, args, exclude_list)
 
-        # Next add files for all third party distributions.
+        if files:
+            this_code = run_mypy(args, configurations, major, minor, files, custom_typeshed=True)
+            code = max(code, this_code)
+            runs += 1
+
+        # Test files of all third party distributions.
+        files = []
         for distribution in os.listdir("stubs"):
             if not is_supported(distribution, major):
                 continue
@@ -281,7 +291,8 @@ def main():
                 add_configuration(configurations, seen_dist_configs, distribution)
 
         if files:
-            this_code = run_mypy(args, configurations, major, minor, files)
+            # TODO: remove custom_typeshed after mypy 0.920 is released
+            this_code = run_mypy(args, configurations, major, minor, files, custom_typeshed=True)
             code = max(code, this_code)
             runs += 1
 
