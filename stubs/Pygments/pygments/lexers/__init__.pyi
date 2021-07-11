@@ -1,9 +1,10 @@
 from _typeshed import StrPath
-from builtins import _OpenFile
 from collections.abc import Iterator
 from typing import Any, Tuple
 
 from pygments.lexer import Lexer, LexerMeta
+
+_OpenFile = Union[StrOrBytesPath, int]  # copy/pasted from builtins.pyi
 
 # TODO: use lower-case tuple once mypy updated
 def get_all_lexers() -> Iterator[tuple[str, Tuple[str, ...], Tuple[str, ...], Tuple[str, ...]]]: ...
