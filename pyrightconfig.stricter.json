@@ -45,6 +45,7 @@
         "stubs/PyYAML",
         "stubs/redis",
         "stubs/requests",
+        "stubs/setuptools",
         "stubs/simplejson",
         "stubs/vobject",
         "stubs/waitress",
