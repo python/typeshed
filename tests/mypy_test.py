@@ -179,17 +179,59 @@ def add_configuration(configurations, seen_dist_configs, distribution):
     seen_dist_configs.add(distribution)
 
 
-def main():
-    args = parser.parse_args()
-
-    with open(os.path.join(os.path.dirname(__file__), "mypy_exclude_list.txt")) as f:
-        exclude_list = re.compile("(%s)$" % "|".join(re.findall(r"^\s*([^\s#]+)\s*(?:#.*)?$", f.read(), flags=re.M)))
-
+def run_mypy(args, configurations, major, minor, files):
     try:
         from mypy.main import main as mypy_main
     except ImportError:
         print("Cannot import mypy. Did you install it?")
         sys.exit(1)
+
+    with tempfile.NamedTemporaryFile("w+", delete=False) as temp:
+        temp.write("[mypy]\n")
+
+        for dist_conf in configurations:
+            temp.write("[mypy-%s]\n" % dist_conf.module_name)
+            for k, v in dist_conf.values.items():
+                temp.write("{} = {}\n".format(k, v))
+
+        config_file_name = temp.name
+    flags = [
+        "--python-version", "%d.%d" % (major, minor),
+        "--config-file", config_file_name,
+        "--strict-optional",
+        "--no-site-packages",
+        "--show-traceback",
+        "--no-implicit-optional",
+        "--disallow-any-generics",
+        "--disallow-subclassing-any",
+        "--warn-incomplete-stub",
+        # Setting custom typeshed dir prevents mypy from falling back to its bundled
+        # typeshed in case of stub deletions
+        "--custom-typeshed-dir", os.path.dirname(os.path.dirname(__file__)),
+    ]
+    if args.warn_unused_ignores:
+        flags.append("--warn-unused-ignores")
+    if args.platform:
+        flags.extend(["--platform", args.platform])
+    sys.argv = ["mypy"] + flags + files
+    if args.verbose:
+        print("running", " ".join(sys.argv))
+    else:
+        print("running mypy", " ".join(flags), "# with", len(files), "files")
+    try:
+        if not args.dry_run:
+            mypy_main("", sys.stdout, sys.stderr)
+    except SystemExit as err:
+        return err.code
+    finally:
+        os.remove(config_file_name)
+    return 0
+
+def main():
+    args = parser.parse_args()
+
+    with open(os.path.join(os.path.dirname(__file__), "mypy_exclude_list.txt")) as f:
+        exclude_list = re.compile("(%s)$" % "|".join(re.findall(r"^\s*([^\s#]+)\s*(?:#.*)?$", f.read(), flags=re.M)))
 
     versions = [(3, 10), (3, 9), (3, 8), (3, 7), (3, 6), (2, 7)]
     if args.python_version:
@@ -242,46 +284,10 @@ def main():
                 add_configuration(configurations, seen_dist_configs, distribution)
 
         if files:
-            with tempfile.NamedTemporaryFile("w+", delete=False) as temp:
-                temp.write("[mypy]\n")
-
-                for dist_conf in configurations:
-                    temp.write("[mypy-%s]\n" % dist_conf.module_name)
-                    for k, v in dist_conf.values.items():
-                        temp.write("{} = {}\n".format(k, v))
-
-                config_file_name = temp.name
+            this_code = run_mypy(args, configurations, major, minor, files)
+            code = max(code, this_code)
             runs += 1
-            flags = [
-                "--python-version", "%d.%d" % (major, minor),
-                "--config-file", config_file_name,
-                "--strict-optional",
-                "--no-site-packages",
-                "--show-traceback",
-                "--no-implicit-optional",
-                "--disallow-any-generics",
-                "--disallow-subclassing-any",
-                "--warn-incomplete-stub",
-                # Setting custom typeshed dir prevents mypy from falling back to its bundled
-                # typeshed in case of stub deletions
-                "--custom-typeshed-dir", os.path.dirname(os.path.dirname(__file__)),
-            ]
-            if args.warn_unused_ignores:
-                flags.append("--warn-unused-ignores")
-            if args.platform:
-                flags.extend(["--platform", args.platform])
-            sys.argv = ["mypy"] + flags + files
-            if args.verbose:
-                print("running", " ".join(sys.argv))
-            else:
-                print("running mypy", " ".join(flags), "# with", len(files), "files")
-            try:
-                if not args.dry_run:
-                    mypy_main("", sys.stdout, sys.stderr)
-            except SystemExit as err:
-                code = max(code, err.code)
-            finally:
-                os.remove(config_file_name)
+
     if code:
         print("--- exit status", code, "---")
         sys.exit(code)
