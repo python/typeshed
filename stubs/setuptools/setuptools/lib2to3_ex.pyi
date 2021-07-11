@@ -1,8 +1,6 @@
 from distutils.util import Mixin2to3 as _Mixin2to3
 from lib2to3.refactor import RefactoringTool
 
-from ._deprecation_warning import SetuptoolsDeprecationWarning as SetuptoolsDeprecationWarning
-
 class DistutilsRefactoringTool(RefactoringTool):
     def log_error(self, msg, *args, **kw) -> None: ...
     def log_message(self, msg, *args) -> None: ...

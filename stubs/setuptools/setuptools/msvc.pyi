@@ -1,10 +1,5 @@
 from typing import Any
 
-from setuptools.extern.more_itertools import unique_everseen as unique_everseen
-from setuptools.extern.packaging.version import LegacyVersion as LegacyVersion
-
-from .monkey import get_unpatched as get_unpatched
-
 class winreg:
     HKEY_USERS: Any
     HKEY_CURRENT_USER: Any

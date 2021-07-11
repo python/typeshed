@@ -1,7 +1,7 @@
 import distutils.command.sdist as orig
 from typing import Any
 
-from .py36compat import sdist_add_defaults as sdist_add_defaults
+from .py36compat import sdist_add_defaults
 
 def walk_revctrl(dirname: str = ...) -> None: ...
 

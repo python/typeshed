@@ -1,7 +1,6 @@
 from typing import Any
 
-from setuptools import Command as Command, namespaces as namespaces
-from setuptools.archive_util import unpack_archive as unpack_archive
+from .. import Command, namespaces
 
 class install_egg_info(namespaces.Installer, Command):
     description: str

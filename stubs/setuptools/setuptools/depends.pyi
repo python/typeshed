@@ -1,7 +1,5 @@
 from typing import Any
 
-from ._imp import find_module as find_module
-
 class Require:
     def __init__(
         self, name, requested_version, module, homepage: str = ..., attribute: Any | None = ..., format: Any | None = ...

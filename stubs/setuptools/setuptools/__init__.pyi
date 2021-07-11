@@ -1,10 +1,9 @@
 from typing import Any
 
-from setuptools.depends import Require as Require
-from setuptools.dist import Distribution as Distribution
-from setuptools.extension import Extension as Extension
-
 from ._deprecation_warning import SetuptoolsDeprecationWarning as SetuptoolsDeprecationWarning
+from .depends import Require as Require
+from .dist import Distribution as Distribution
+from .extension import Extension as Extension
 
 class PackageFinder:
     @classmethod

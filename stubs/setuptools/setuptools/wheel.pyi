@@ -1,9 +1,5 @@
 from typing import Any
 
-from setuptools.command.egg_info import write_requirements as write_requirements
-from setuptools.extern.packaging.tags import sys_tags as sys_tags
-from setuptools.extern.packaging.utils import canonicalize_name as canonicalize_name
-
 WHEEL_NAME: Any
 NAMESPACE_PACKAGE_INIT: str
 

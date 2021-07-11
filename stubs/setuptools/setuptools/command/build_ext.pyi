@@ -1,7 +1,5 @@
+from distutils.command.build_ext import build_ext as _build_ext
 from typing import Any
-
-from Cython.Distutils.build_ext import build_ext as _build_ext
-from setuptools.extension import Library as Library
 
 have_rtld: bool
 use_stubs: bool

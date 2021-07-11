@@ -1,11 +1,7 @@
 import distutils.command.build_py as orig
 from typing import Any
 
-from setuptools.extern.more_itertools import unique_everseen as unique_everseen
-from setuptools.lib2to3_ex import Mixin2to3 as Mixin2to3
-
-class Mixin2to3:
-    def run_2to3(self, files, doctests: bool = ...) -> None: ...
+from setuptools.lib2to3_ex import Mixin2to3
 
 def make_writable(target) -> None: ...
 

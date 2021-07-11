@@ -1,7 +1,7 @@
 from typing import Any
 
-from setuptools import namespaces as namespaces
-from setuptools.command.easy_install import easy_install as easy_install
+from .. import namespaces
+from .easy_install import easy_install
 
 class develop(namespaces.DevelopInstaller, easy_install):
     description: str

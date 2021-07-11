@@ -1,8 +1,7 @@
 from typing import Any
 from unittest import TestLoader
 
-from setuptools import Command as Command
-from setuptools.extern.more_itertools import unique_everseen as unique_everseen
+from .. import Command
 
 class ScanningLoader(TestLoader):
     def __init__(self) -> None: ...

@@ -1,6 +1,6 @@
 from typing import Any
 
-from .upload import upload as upload
+from .upload import upload
 
 class upload_docs(upload):
     DEFAULT_REPOSITORY: str

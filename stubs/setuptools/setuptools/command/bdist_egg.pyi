@@ -1,7 +1,6 @@
 from typing import Any
 
-from setuptools import Command as Command
-from setuptools.extension import Library as Library
+from .. import Command
 
 def strip_module(filename): ...
 def sorted_walk(dir) -> None: ...

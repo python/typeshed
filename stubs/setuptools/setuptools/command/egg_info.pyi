@@ -1,12 +1,8 @@
 from distutils.filelist import FileList as _FileList
 from typing import Any
 
-from setuptools import Command as Command, SetuptoolsDeprecationWarning as SetuptoolsDeprecationWarning
-from setuptools.command import bdist_egg as bdist_egg
-from setuptools.command.sdist import sdist as sdist, walk_revctrl as walk_revctrl
-from setuptools.command.setopt import edit_config as edit_config
-from setuptools.extern import packaging as packaging
-from setuptools.glob import glob as glob
+from .. import Command, SetuptoolsDeprecationWarning
+from .sdist import sdist
 
 def translate_pattern(glob): ...
 

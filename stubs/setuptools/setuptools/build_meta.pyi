@@ -1,12 +1,12 @@
 from typing import Any
 
-import setuptools
+from . import dist
 
 class SetupRequirementsError(BaseException):
     specifiers: Any
     def __init__(self, specifiers) -> None: ...
 
-class Distribution(setuptools.dist.Distribution):
+class Distribution(dist.Distribution):
     def fetch_build_eggs(self, specifiers) -> None: ...
     @classmethod
     def patch(cls) -> None: ...

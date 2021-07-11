@@ -1,8 +1,5 @@
 from typing import Any
 
-from setuptools.extern.packaging.specifiers import SpecifierSet as SpecifierSet
-from setuptools.extern.packaging.version import LegacyVersion as LegacyVersion, parse as parse
-
 class StaticModule:
     def __init__(self, name) -> None: ...
     def __getattr__(self, attr): ...

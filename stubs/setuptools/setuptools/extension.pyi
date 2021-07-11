@@ -1,7 +1,5 @@
 from typing import Any
 
-from .monkey import get_unpatched as get_unpatched
-
 have_pyrex: Any
 
 class Extension(_Extension):
