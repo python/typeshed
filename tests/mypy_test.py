@@ -16,15 +16,14 @@ import argparse
 import os
 import re
 import sys
-import toml
 import tempfile
 from glob import glob
 from pathlib import Path
 from typing import Dict, NamedTuple
 
-parser = argparse.ArgumentParser(
-    description="Test runner for typeshed. Patterns are unanchored regexps on the full path."
-)
+import toml
+
+parser = argparse.ArgumentParser(description="Test runner for typeshed. Patterns are unanchored regexps on the full path.")
 parser.add_argument("-v", "--verbose", action="count", default=0, help="More output")
 parser.add_argument("-n", "--dry-run", action="store_true", help="Don't actually run mypy")
 parser.add_argument("-x", "--exclude", type=str, nargs="*", help="Exclude pattern")
@@ -123,10 +122,7 @@ def add_files(files, seen, root, name, args, exclude_list):
         if match(full, args, exclude_list):
             seen.add(mod)
             files.append(full)
-    elif (
-        os.path.isfile(os.path.join(full, "__init__.pyi")) or
-        os.path.isfile(os.path.join(full, "__init__.py"))
-    ):
+    elif os.path.isfile(os.path.join(full, "__init__.pyi")) or os.path.isfile(os.path.join(full, "__init__.py")):
         for r, ds, fs in os.walk(full):
             ds.sort()
             fs.sort()
@@ -142,6 +138,7 @@ def add_files(files, seen, root, name, args, exclude_list):
 class MypyDistConf(NamedTuple):
     module_name: str
     values: Dict
+
 
 # The configuration section in the metadata file looks like the following, with multiple module sections possible
 # [mypy-tests]
@@ -195,8 +192,10 @@ def run_mypy(args, configurations, major, minor, files, *, custom_typeshed=False
         temp.flush()
 
         flags = [
-            "--python-version", "%d.%d" % (major, minor),
-            "--config-file", temp.name,
+            "--python-version",
+            "%d.%d" % (major, minor),
+            "--config-file",
+            temp.name,
             "--strict-optional",
             "--no-site-packages",
             "--show-traceback",
@@ -208,10 +207,7 @@ def run_mypy(args, configurations, major, minor, files, *, custom_typeshed=False
         if custom_typeshed:
             # Setting custom typeshed dir prevents mypy from falling back to its bundled
             # typeshed in case of stub deletions
-            flags.extend([
-                "--custom-typeshed-dir",
-                os.path.dirname(os.path.dirname(__file__)),
-            ])
+            flags.extend(["--custom-typeshed-dir", os.path.dirname(os.path.dirname(__file__))])
         if args.warn_unused_ignores:
             flags.append("--warn-unused-ignores")
         if args.platform:
@@ -227,6 +223,7 @@ def run_mypy(args, configurations, major, minor, files, *, custom_typeshed=False
             except SystemExit as err:
                 return err.code
         return 0
+
 
 def main():
     args = parser.parse_args()
