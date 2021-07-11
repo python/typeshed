@@ -1,5 +1,6 @@
-from pygments.formatter import Formatter
 from typing import Any, Optional
+
+from pygments.formatter import Formatter
 
 class HtmlFormatter(Formatter):
     name: str

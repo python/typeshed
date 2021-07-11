@@ -1,7 +1,8 @@
-from pygments.util import Future
-from pygments.token import _TokenType
+from collections.abc import Iterable, Iterator, Sequence
 from typing import Any, Optional
-from collections.abc import Iterator, Iterable, Sequence
+
+from pygments.token import _TokenType
+from pygments.util import Future
 
 class LexerMeta(type):
     def __new__(mcs, name, bases, d): ...
@@ -12,7 +13,6 @@ class LexerMeta(type):
     alias_filenames: Sequence[str]
     mimetypes: Sequence[str]
     priority: int
-
 
 class Lexer(metaclass=LexerMeta):
     options: Any
@@ -32,7 +32,7 @@ class DelegatingLexer(Lexer):
     root_lexer: Any
     language_lexer: Any
     needle: Any
-    def __init__(self, _root_lexer, _language_lexer, _needle = ..., **options) -> None: ...
+    def __init__(self, _root_lexer, _language_lexer, _needle=..., **options) -> None: ...
     def get_tokens_unprocessed(self, text: str) -> Iterator[tuple[int, _TokenType, str]]: ...
 
 class include(str): ...

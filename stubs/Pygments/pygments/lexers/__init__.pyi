@@ -1,8 +1,9 @@
-from builtins import _OpenFile
-from _typeshed import StrPath
 import types
+from _typeshed import StrPath
+from builtins import _OpenFile
 from collections.abc import Iterator
 from typing import Any, Tuple
+
 from pygments.lexer import Lexer, LexerMeta
 
 # TODO: use lower-case tuple once mypy updated

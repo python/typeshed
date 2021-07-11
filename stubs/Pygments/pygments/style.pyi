@@ -1,6 +1,7 @@
-from pygments.token import STANDARD_TYPES, _TokenType
+from collections.abc import Iterator, Mapping, Set
 from typing import Any, ClassVar, TypedDict
-from collections.abc import Set, Mapping, Iterator
+
+from pygments.token import STANDARD_TYPES, _TokenType
 
 ansicolors: Set[str]  # not intended to be mutable
 
@@ -16,7 +17,6 @@ class _StyleDict(TypedDict):
     mono: bool | None
     ansicolor: str | None
     bgansicolor: str | None
-    
 
 class StyleMeta(type):
     def __new__(mcs, name, bases, dct): ...
@@ -25,7 +25,6 @@ class StyleMeta(type):
     def list_styles(cls) -> list[tuple[_TokenType, _StyleDict]]: ...
     def __iter__(cls) -> Iterator[tuple[_TokenType, _StyleDict]]: ...
     def __len__(cls) -> int: ...
-
     # These are a bit tricky.
     # Technically should be ClassVar in class Style.
     # But then we can't use StyleMeta to denote a style class.
@@ -37,7 +36,5 @@ class StyleMeta(type):
     line_number_special_color: str
     line_number_special_background_color: str
     styles: Mapping[_TokenType, str]  # not intended to be mutable
-    
 
-class Style(metaclass=StyleMeta):
-    ...
+class Style(metaclass=StyleMeta): ...

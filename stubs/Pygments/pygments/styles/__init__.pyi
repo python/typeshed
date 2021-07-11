@@ -1,7 +1,8 @@
-from pygments.util import ClassNotFound as ClassNotFound
+from collections.abc import Iterator, Mapping
 from typing import Any, Type
-from collections.abc import Mapping, Iterator
+
 from pygments.style import Style, StyleMeta
+from pygments.util import ClassNotFound as ClassNotFound
 
 STYLE_MAP: Mapping[str, str]
 

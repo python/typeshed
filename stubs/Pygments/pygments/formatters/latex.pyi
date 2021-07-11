@@ -1,6 +1,7 @@
+from typing import Any
+
 from pygments.formatter import Formatter
 from pygments.lexer import Lexer
-from typing import Any
 
 class LatexFormatter(Formatter):
     name: str

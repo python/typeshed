@@ -1,5 +1,6 @@
-from docutils.parsers.rst import Directive
 from typing import Any
+
+from docutils.parsers.rst import Directive
 
 MODULEDOC: str
 LEXERDOC: str

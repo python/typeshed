@@ -1,5 +1,6 @@
-from pygments.formatter import Formatter
 from typing import Any
+
+from pygments.formatter import Formatter
 
 class IRCFormatter(Formatter):
     name: str
