@@ -1,9 +1,9 @@
 from _typeshed import Self
+from typing import Any, Callable, Iterable, Mapping, Pattern, Set, Type, TypeVar, Union, overload
 
 from . import BeautifulSoup
 from .builder import TreeBuilder
 from .formatter import Formatter, _EntitySubstitution
-from typing import Any, Callable, Iterable, Mapping, Pattern, Set, Type, TypeVar, Union, overload
 
 DEFAULT_OUTPUT_ENCODING: str
 PY3K: bool

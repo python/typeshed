@@ -1,7 +1,8 @@
 from _typeshed import Self, SupportsRead
-from .builder import TreeBuilder
-from .element import Tag, SoupStrainer, PageElement
 from typing import Any, List, Sequence, Type
+
+from .builder import TreeBuilder
+from .element import PageElement, SoupStrainer, Tag
 
 class GuessedAtParserWarning(UserWarning): ...
 class MarkupResemblesLocatorWarning(UserWarning): ...

@@ -1,5 +1,6 @@
-from .dammit import EntitySubstitution as EntitySubstitution
 from typing import Callable
+
+from .dammit import EntitySubstitution as EntitySubstitution
 
 _EntitySubstitution = Callable[[str], str]
 

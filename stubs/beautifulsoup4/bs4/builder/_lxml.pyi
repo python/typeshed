@@ -1,5 +1,6 @@
-from bs4.builder import HTMLTreeBuilder, TreeBuilder
 from typing import Any
+
+from bs4.builder import HTMLTreeBuilder, TreeBuilder
 
 class LXMLTreeBuilderForXML(TreeBuilder):
     DEFAULT_PARSER_CLASS: Any

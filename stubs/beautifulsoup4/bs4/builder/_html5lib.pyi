@@ -1,6 +1,7 @@
+from typing import Any
+
 from bs4.builder import HTMLTreeBuilder
 from html5lib.treebuilders import base as treebuilder_base
-from typing import Any
 
 class HTML5TreeBuilder(HTMLTreeBuilder):
     NAME: str

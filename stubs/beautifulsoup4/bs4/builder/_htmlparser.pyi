@@ -1,6 +1,7 @@
-from bs4.builder import HTMLTreeBuilder
 from html.parser import HTMLParser
 from typing import Any
+
+from bs4.builder import HTMLTreeBuilder
 
 class HTMLParseError(Exception): ...
 
