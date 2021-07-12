@@ -1,5 +1,3 @@
-from .utils import iterator as iterator, url_join as url_join
-
 class SlumberBaseException(Exception): ...
 
 class SlumberHttpBaseException(SlumberBaseException):

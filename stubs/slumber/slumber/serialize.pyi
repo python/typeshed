@@ -1,7 +1,5 @@
 from typing import Any
 
-from slumber import exceptions as exceptions
-
 class BaseSerializer:
     content_types: Any
     key: Any
