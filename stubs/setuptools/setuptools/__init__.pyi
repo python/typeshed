@@ -15,8 +15,8 @@ class PackageFinder:
 
 class PEP420PackageFinder(PackageFinder): ...
 
-find_packages: PackageFinder.find
-find_namespace_packages: PEP420PackageFinder.find
+find_packages = PackageFinder.find
+find_namespace_packages = PEP420PackageFinder.find
 
 def setup(
     *,
