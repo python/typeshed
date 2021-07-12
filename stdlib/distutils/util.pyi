@@ -29,8 +29,8 @@ def run_2to3(
     explicit: Container[str] | None = ...,
 ) -> None: ...
 def copydir_run_2to3(
-    src: str,
-    dest: str,
+    src: StrPath,
+    dest: StrPath,
     template: str | None = ...,
     fixer_names: Iterable[str] | None = ...,
     options: Mapping[str, Any] | None = ...,
