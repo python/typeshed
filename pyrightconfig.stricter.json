@@ -51,6 +51,7 @@
         "stubs/waitress",
         "stubs/Werkzeug",
         "stubs/beautifulsoup4",
+        "stubs/slumber",
     ],
     "typeCheckingMode": "basic",
     "strictListInference": true,
