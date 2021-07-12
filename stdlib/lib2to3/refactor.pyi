@@ -2,6 +2,8 @@ from collections.abc import Container, Generator, Iterable, Mapping
 from logging import Logger
 from typing import Any, ClassVar, NoReturn
 
+from .pgen2.grammar import Grammar
+
 _Driver = Any  # really lib2to3.driver.Driver
 _BottomMatcher = Any  # really lib2to3.btm_matcher.BottomMatcher
 
@@ -16,7 +18,7 @@ class RefactoringTool:
     fixers: Iterable[str]
     explicit: Container[str]
     options: dict[str, Any]
-    grammar: Any
+    grammar: Grammar
     write_unchanged_files: bool
     errors: list[Any]
     logger: Logger
