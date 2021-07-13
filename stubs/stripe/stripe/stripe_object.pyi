@@ -3,7 +3,7 @@ from typing import Any, Dict
 
 from stripe import api_requestor as api_requestor, util as util
 
-class StripeObject(Dict):
+class StripeObject(Dict[Any, Any]):
     class ReprJSONEncoder(json.JSONEncoder):
         def default(self, obj): ...
     def __init__(
