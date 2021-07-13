@@ -53,6 +53,7 @@
         "stubs/Werkzeug",
         "stubs/beautifulsoup4",
         "stubs/slumber",
+        "stubs/oauthlib"
     ],
     "typeCheckingMode": "basic",
     "strictListInference": true,
