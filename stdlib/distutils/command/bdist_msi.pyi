@@ -18,7 +18,8 @@ if sys.platform == "win32":
         boolean_options: Any
         all_versions: Any
         other_version: str
-        def __init__(self, *args, **kw) -> None: ...
+        if sys.version_info >= (3, 9):
+            def __init__(self, *args, **kw) -> None: ...
         bdist_dir: Any
         plat_name: Any
         keep_temp: int
