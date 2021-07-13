@@ -1,6 +1,6 @@
 from typing import Any
 
-from stripe import error as error, util as util
+from stripe import error as error
 from stripe.request_metrics import RequestMetrics as RequestMetrics
 
 version: Any

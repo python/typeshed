@@ -1,7 +1,7 @@
 import json
 from typing import Any, Dict
 
-from stripe import api_requestor as api_requestor, util as util
+from stripe import api_requestor as api_requestor
 
 class StripeObject(Dict[Any, Any]):
     class ReprJSONEncoder(json.JSONEncoder):

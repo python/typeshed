@@ -1,6 +1,6 @@
 from typing import Any
 
-from stripe import error as error, util as util
+from stripe import error as error
 
 class Webhook:
     DEFAULT_TOLERANCE: int

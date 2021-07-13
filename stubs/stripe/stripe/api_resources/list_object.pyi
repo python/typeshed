@@ -1,7 +1,7 @@
 from collections.abc import Generator
 from typing import Any
 
-from stripe import api_requestor as api_requestor, util as util
+from stripe import api_requestor as api_requestor
 from stripe.stripe_object import StripeObject as StripeObject
 
 class ListObject(StripeObject):

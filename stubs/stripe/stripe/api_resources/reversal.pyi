@@ -1,6 +1,5 @@
 from typing import Any
 
-from stripe import util as util
 from stripe.api_resources.abstract import UpdateableAPIResource as UpdateableAPIResource
 from stripe.api_resources.transfer import Transfer as Transfer
 

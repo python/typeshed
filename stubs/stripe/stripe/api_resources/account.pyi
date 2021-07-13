@@ -1,6 +1,6 @@
 from typing import Any
 
-from stripe import oauth as oauth, util as util
+from stripe import oauth as oauth
 from stripe.api_resources.abstract import (
     CreateableAPIResource as CreateableAPIResource,
     DeletableAPIResource as DeletableAPIResource,

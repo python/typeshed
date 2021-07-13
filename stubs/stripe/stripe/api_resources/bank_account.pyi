@@ -1,6 +1,6 @@
 from typing import Any
 
-from stripe import error as error, util as util
+from stripe import error as error
 from stripe.api_resources.abstract import (
     DeletableAPIResource as DeletableAPIResource,
     UpdateableAPIResource as UpdateableAPIResource,

@@ -1,6 +1,6 @@
 from typing import Any
 
-from stripe import error as error, http_client as http_client, oauth_error as oauth_error, util as util, version as version
+from stripe import error as error, http_client as http_client, oauth_error as oauth_error, version as version
 from stripe.multipart_data_generator import MultipartDataGenerator as MultipartDataGenerator
 from stripe.stripe_response import StripeResponse as StripeResponse, StripeStreamResponse as StripeStreamResponse
 

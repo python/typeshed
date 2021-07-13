@@ -1,6 +1,6 @@
 from typing import Any
 
-from stripe import api_requestor as api_requestor, error as error, util as util
+from stripe import api_requestor as api_requestor, error as error
 from stripe.stripe_object import StripeObject as StripeObject
 
 class APIResource(StripeObject):

@@ -1,6 +1,6 @@
 from typing import Any
 
-from stripe import api_requestor as api_requestor, util as util
+from stripe import api_requestor as api_requestor
 from stripe.api_resources.abstract.api_resource import APIResource as APIResource
 
 class UsageRecord(APIResource):

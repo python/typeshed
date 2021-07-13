@@ -1,6 +1,5 @@
 from typing import Any
 
-from stripe import util as util
 from stripe.api_resources.abstract import APIResource as APIResource
 from stripe.api_resources.customer import Customer as Customer
 

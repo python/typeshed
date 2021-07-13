@@ -1,6 +1,5 @@
 from typing import Any
 
-from stripe import util as util
 from stripe.api_resources.abstract import (
     ListableAPIResource as ListableAPIResource,
     UpdateableAPIResource as UpdateableAPIResource,
