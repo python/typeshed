@@ -1,6 +1,5 @@
 from collections.abc import Sequence
-from re import Pattern
-from typing import Any
+from typing import Any, Pattern
 
 from ..ccompiler import CCompiler
 from ..cmd import Command
