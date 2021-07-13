@@ -1,9 +1,9 @@
 import json
-from typing import Any
+from typing import Any, Dict
 
 from stripe import api_requestor as api_requestor, util as util
 
-class StripeObject(dict):
+class StripeObject(Dict):
     class ReprJSONEncoder(json.JSONEncoder):
         def default(self, obj): ...
     def __init__(
