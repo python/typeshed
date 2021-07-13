@@ -19,6 +19,7 @@
         "stubs/scribe",
         "stubs/tornado",
         // Modules that are incomplete in some way.
+        "stdlib/lib2to3/refactor.pyi",
         "stdlib/sqlite3/dbapi2.pyi",
         "stdlib/tkinter",
         "stdlib/xml/dom",
@@ -39,6 +40,7 @@
         "stubs/Pillow",
         "stubs/paramiko",
         "stubs/protobuf",
+        "stubs/Pygments",
         "stubs/PyMySQL",
         "stubs/python-dateutil",
         "stubs/pyvmomi",
@@ -49,7 +51,10 @@
         "stubs/simplejson",
         "stubs/vobject",
         "stubs/waitress",
-        "stubs/Werkzeug"
+        "stubs/Werkzeug",
+        "stubs/beautifulsoup4",
+        "stubs/slumber",
+        "stubs/oauthlib"
     ],
     "typeCheckingMode": "basic",
     "strictListInference": true,
