@@ -6,8 +6,6 @@ from ._common import (
     NoSuchProcess as NoSuchProcess,
     ZombieProcess as ZombieProcess,
     conn_to_ntuple as conn_to_ntuple,
-    get_procfs_path as get_procfs_path,
-    memoize_when_activated as memoize_when_activated,
     usage_percent as usage_percent,
 )
 from ._compat import (

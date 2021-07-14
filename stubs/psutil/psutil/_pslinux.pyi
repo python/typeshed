@@ -7,13 +7,8 @@ from ._common import (
     NoSuchProcess as NoSuchProcess,
     ZombieProcess as ZombieProcess,
     debug as debug,
-    decode as decode,
-    get_procfs_path as get_procfs_path,
     isfile_strict as isfile_strict,
     memoize as memoize,
-    memoize_when_activated as memoize_when_activated,
-    open_binary as open_binary,
-    open_text as open_text,
     parse_environ_block as parse_environ_block,
     path_exists_strict as path_exists_strict,
     supports_ipv6 as supports_ipv6,
@@ -200,7 +195,6 @@ class Process:
     def create_time(self): ...
     def memory_info(self): ...
     def memory_full_info(self, _private_re=..., _pss_re=..., _swap_re=...): ...
-    memory_full_info: Any
     def memory_maps(self): ...
     def cwd(self): ...
     def num_ctx_switches(self, _ctxsw_re=...): ...

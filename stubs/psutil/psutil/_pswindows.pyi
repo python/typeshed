@@ -10,7 +10,6 @@ from ._common import (
     debug as debug,
     isfile_strict as isfile_strict,
     memoize as memoize,
-    memoize_when_activated as memoize_when_activated,
     parse_environ_block as parse_environ_block,
     usage_percent as usage_percent,
 )

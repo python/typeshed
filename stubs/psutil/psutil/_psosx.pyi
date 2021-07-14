@@ -5,7 +5,6 @@ from ._common import (
     conn_tmap as conn_tmap,
     conn_to_ntuple as conn_to_ntuple,
     isfile_strict as isfile_strict,
-    memoize_when_activated as memoize_when_activated,
     parse_environ_block as parse_environ_block,
     usage_percent as usage_percent,
 )
