@@ -1,5 +1,3 @@
-from jmespath import functions as functions
-from jmespath.compat import string_type as string_type
 from typing import Any
 
 class Options:

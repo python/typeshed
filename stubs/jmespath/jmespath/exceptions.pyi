@@ -1,4 +1,3 @@
-from jmespath.compat import with_str_method as with_str_method
 from typing import Any
 
 class JMESPathError(ValueError): ...

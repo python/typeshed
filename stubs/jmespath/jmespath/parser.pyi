@@ -1,5 +1,3 @@
-from jmespath import ast as ast, exceptions as exceptions, lexer as lexer, visitor as visitor
-from jmespath.compat import with_repr_method as with_repr_method
 from typing import Any
 
 class Parser:

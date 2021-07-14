@@ -1,5 +1,3 @@
-from jmespath import exceptions as exceptions
-from jmespath.compat import get_methods as get_methods, with_metaclass as with_metaclass
 from typing import Any
 
 TYPES_MAP: Any
