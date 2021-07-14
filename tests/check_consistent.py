@@ -163,7 +163,6 @@ def _strip_dep_version(dependency):
 
 
 def check_metadata():
-    known_distributions = set(os.listdir("stubs"))
     for distribution in os.listdir("stubs"):
         with open(os.path.join("stubs", distribution, "METADATA.toml")) as f:
             data = toml.loads(f.read())
@@ -179,13 +178,10 @@ def check_metadata():
         assert isinstance(data.get("requires", []), list), f"Invalid requires value for {distribution}"
         for dep in data.get("requires", []):
             assert isinstance(dep, str), f"Invalid dependency {dep} for {distribution}"
-            assert dep.startswith("types-"), f"Only stub dependencies supported, got {dep}"
-            dep = dep[len("types-"):]
             for space in " \t\n":
                 assert space not in dep, f"For consistency dependency should not have whitespace: {dep}"
             assert ";" not in dep, f"Semicolons in dependencies are not supported, got {dep}"
             stripped, relation, dep_version = _strip_dep_version(dep)
-            assert stripped in known_distributions, f"Only dependencies from typeshed are supported, got {stripped}"
             if relation:
                 msg = f"Bad version in dependency {dep}"
                 assert relation in {"==", ">", ">=", "<", "<="}, msg
