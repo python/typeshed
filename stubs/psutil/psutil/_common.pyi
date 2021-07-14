@@ -264,24 +264,3 @@ def term_supports_colors(file=...): ...
 def hilite(s, color: Any | None = ..., bold: bool = ...): ...
 def print_color(s, color: Any | None = ..., bold: bool = ..., file=...) -> None: ...
 def debug(msg) -> None: ...
-
-# Names in __all__ with no definition:
-#   pconn
-#   pcputimes
-#   pctxsw
-#   pgids
-#   pio
-#   pionice
-#   popenfile
-#   pthread
-#   puids
-#   sconn
-#   scpustats
-#   sdiskio
-#   sdiskpart
-#   sdiskusage
-#   snetio
-#   snicaddr
-#   snicstats
-#   sswap
-#   suser
