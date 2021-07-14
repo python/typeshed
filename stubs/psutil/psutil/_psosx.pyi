@@ -1,3 +1,5 @@
+from typing import Any, NamedTuple
+
 from ._common import (
     AccessDenied as AccessDenied,
     NoSuchProcess as NoSuchProcess,
@@ -9,7 +11,6 @@ from ._common import (
     usage_percent as usage_percent,
 )
 from ._compat import PermissionError as PermissionError, ProcessLookupError as ProcessLookupError
-from typing import Any, NamedTuple
 
 __extra__all__: Any
 PAGESIZE: Any

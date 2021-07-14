@@ -1,8 +1,10 @@
 import enum
+from typing import Any, NamedTuple
+
 from ._common import (
-    AccessDenied as AccessDenied,
     ENCODING as ENCODING,
     ENCODING_ERRS as ENCODING_ERRS,
+    AccessDenied as AccessDenied,
     NoSuchProcess as NoSuchProcess,
     TimeoutExpired as TimeoutExpired,
     conn_tmap as conn_tmap,
@@ -21,7 +23,6 @@ from ._psutil_windows import (
     NORMAL_PRIORITY_CLASS as NORMAL_PRIORITY_CLASS,
     REALTIME_PRIORITY_CLASS as REALTIME_PRIORITY_CLASS,
 )
-from typing import Any, NamedTuple
 
 msg: str
 __extra__all__: Any

@@ -1,5 +1,5 @@
-from typing import Any
 import sys
+from typing import Any
 
 if sys.platform == "linux":
     RLIMIT_AS: int

@@ -1,9 +1,11 @@
+from typing import Any, NamedTuple
+
 from ._common import (
-    AccessDenied as AccessDenied,
     FREEBSD as FREEBSD,
     NETBSD as NETBSD,
-    NoSuchProcess as NoSuchProcess,
     OPENBSD as OPENBSD,
+    AccessDenied as AccessDenied,
+    NoSuchProcess as NoSuchProcess,
     ZombieProcess as ZombieProcess,
     conn_tmap as conn_tmap,
     conn_to_ntuple as conn_to_ntuple,
@@ -15,7 +17,6 @@ from ._compat import (
     PermissionError as PermissionError,
     ProcessLookupError as ProcessLookupError,
 )
-from typing import Any, NamedTuple
 
 __extra__all__: Any
 PROC_STATUSES: Any

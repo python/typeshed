@@ -1,8 +1,9 @@
 import os
 import sys
+from typing import Any
+
 from ._common import (
     AIX as AIX,
-    AccessDenied as AccessDenied,
     BSD as BSD,
     CONN_CLOSE as CONN_CLOSE,
     CONN_CLOSE_WAIT as CONN_CLOSE_WAIT,
@@ -16,7 +17,6 @@ from ._common import (
     CONN_SYN_RECV as CONN_SYN_RECV,
     CONN_SYN_SENT as CONN_SYN_SENT,
     CONN_TIME_WAIT as CONN_TIME_WAIT,
-    Error as Error,
     FREEBSD as FREEBSD,
     LINUX as LINUX,
     MACOS as MACOS,
@@ -24,7 +24,6 @@ from ._common import (
     NIC_DUPLEX_FULL as NIC_DUPLEX_FULL,
     NIC_DUPLEX_HALF as NIC_DUPLEX_HALF,
     NIC_DUPLEX_UNKNOWN as NIC_DUPLEX_UNKNOWN,
-    NoSuchProcess as NoSuchProcess,
     OPENBSD as OPENBSD,
     OSX as OSX,
     POSIX as POSIX,
@@ -43,11 +42,13 @@ from ._common import (
     STATUS_WAKING as STATUS_WAKING,
     STATUS_ZOMBIE as STATUS_ZOMBIE,
     SUNOS as SUNOS,
-    TimeoutExpired as TimeoutExpired,
     WINDOWS as WINDOWS,
+    AccessDenied as AccessDenied,
+    Error as Error,
+    NoSuchProcess as NoSuchProcess,
+    TimeoutExpired as TimeoutExpired,
     ZombieProcess as ZombieProcess,
 )
-from typing import Any
 
 if sys.platform == "linux":
     from ._pslinux import (
@@ -67,10 +68,10 @@ if sys.platform == "win32":
     )
     from ._pswindows import (
         CONN_DELETE_TCB as CONN_DELETE_TCB,
-        IOPRIO_VERYLOW as IOPRIO_VERYLOW,
+        IOPRIO_HIGH as IOPRIO_HIGH,
         IOPRIO_LOW as IOPRIO_LOW,
         IOPRIO_NORMAL as IOPRIO_NORMAL,
-        IOPRIO_HIGH as IOPRIO_HIGH,
+        IOPRIO_VERYLOW as IOPRIO_VERYLOW,
         win_service_iter as win_service_iter,
     )
 

@@ -1,9 +1,11 @@
 import enum
+from typing import Any, NamedTuple
+
 from ._common import (
-    AccessDenied as AccessDenied,
     NIC_DUPLEX_FULL as NIC_DUPLEX_FULL,
     NIC_DUPLEX_HALF as NIC_DUPLEX_HALF,
     NIC_DUPLEX_UNKNOWN as NIC_DUPLEX_UNKNOWN,
+    AccessDenied as AccessDenied,
     NoSuchProcess as NoSuchProcess,
     ZombieProcess as ZombieProcess,
     isfile_strict as isfile_strict,
@@ -17,7 +19,6 @@ from ._compat import (
     PermissionError as PermissionError,
     ProcessLookupError as ProcessLookupError,
 )
-from typing import Any, NamedTuple
 
 __extra__all__: Any
 POWER_SUPPLY_PATH: str
