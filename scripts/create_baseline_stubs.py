@@ -1,7 +1,7 @@
 """Script to generate unannotated baseline stubs using stubgen.
 
 Basic usage:
-$ create_baseline_stubs.py <project>
+$ python scripts/create_baseline_stubs.py <project on PyPI>
 """
 
 import argparse
@@ -11,6 +11,9 @@ import shutil
 import sys
 import subprocess
 from typing import Tuple, Optional
+
+
+PYRIGHT_CONFIG = 'pyrightconfig.stricter.json'
 
 
 def pip_install(project: str) -> None:
@@ -27,7 +30,6 @@ def search_pip_freeze_output(project: str, output: str) -> Optional[Tuple[str, s
     Return (normalized project name, installed version) if successful.
     """
     regex = '^(' + re.sub(r'[-_]', '[-_]', project) + ')==(.*)'
-    print(regex)
     m = re.search(regex, output, flags=re.IGNORECASE | re.MULTILINE)
     if not m:
         return None
@@ -38,7 +40,6 @@ def get_installed_package_info(project: str) -> Tuple[str, str]:
     r = subprocess.run(['pip', 'freeze'], capture_output=True, text=True, check=True)
     o = search_pip_freeze_output(project, r.stdout)
     if not o:
-        print(r.stdout)
         sys.exit(f'Error: Cannot find {project} in the output of "pip freeze"')
     return o
 
@@ -82,13 +83,38 @@ def create_metadata(stub_dir: str, version: str) -> None:
         f.write(f'version = "{version}"\n')
 
 
+def add_pyright_exclusion(stub_dir: str) -> None:
+    with open(PYRIGHT_CONFIG) as f:
+        lines = f.readlines()
+    i = 0
+    while i < len(lines) and not lines[i].strip().startswith('"exclude": ['):
+        i += 1
+    assert i < len(lines), f'Error parsing {PYRIGHT_CONFIG}'
+    while not lines[i].strip().startswith(']'):
+        i += 1
+    line_to_add = f'        "{stub_dir}",'
+    initial = i - 1
+    while lines[i].lower() > line_to_add.lower():
+        i -= 1
+    if lines[i + 1].strip().rstrip(',') == line_to_add.strip().rstrip(','):
+        print(f'{PYRIGHT_CONFIG} already up-to-date')
+        return
+    if i == initial:
+        line_to_add = line_to_add.rstrip(',')
+        lines[i] = lines[i].rstrip() + ',\n'
+    lines.insert(i + 1, line_to_add + '\n')
+    print(f'Updating {PYRIGHT_CONFIG}')
+    with open(PYRIGHT_CONFIG, 'w') as f:
+        f.writelines(lines)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument('project',
                         help='name of PyPI project for which to generate stubs under stubs/')
     parser.add_argument(
         '--package',
-        help='generate stubs for this Python package (by default, infer from installed package)')
+        help='generate stubs for this Python package (defaults to project)')
     args = parser.parse_args()
     project = args.project
     package = args.package
@@ -116,8 +142,7 @@ def main() -> None:
     run_black(stub_dir)
     run_isort(stub_dir)
     create_metadata(stub_dir, version)
-
-    # TODO: pyright exclusion
+    add_pyright_exclusion(stub_dir)
 
     print('Done.')
 
