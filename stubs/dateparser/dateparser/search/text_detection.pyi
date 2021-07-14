@@ -1,7 +1,8 @@
+from typing import Any
+
 from dateparser.conf import apply_settings as apply_settings
 from dateparser.search.detection import BaseLanguageDetector as BaseLanguageDetector
 from dateparser.utils import normalize_unicode as normalize_unicode
-from typing import Any
 
 class FullTextLanguageDetector(BaseLanguageDetector):
     languages: Any = ...

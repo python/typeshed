@@ -1,5 +1,6 @@
-from dateparser_scripts.utils import get_dict_difference as get_dict_difference, get_raw_data as get_raw_data
 from typing import Any
+
+from dateparser_scripts.utils import get_dict_difference as get_dict_difference, get_raw_data as get_raw_data
 
 APOSTROPHE_LOOK_ALIKE_CHARS: Any
 DATE_ORDER_PATTERN: Any

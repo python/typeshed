@@ -1,7 +1,8 @@
+from typing import Any
+
 from dateparser.conf import settings as settings
 from dateparser.date import DateData as DateData
 from dateparser.parser import _parser
-from typing import Any
 
 class CalendarBase:
     parser: Any = ...

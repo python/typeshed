@@ -1,6 +1,7 @@
+from typing import Any, Optional
+
 from ..data import language_locale_dict as language_locale_dict, language_order as language_order
 from .locale import Locale as Locale
-from typing import Any, Optional
 
 LOCALE_SPLIT_PATTERN: Any
 

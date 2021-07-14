@@ -1,6 +1,7 @@
+from typing import Any
+
 from dateparser_scripts.order_languages import avoid_languages as avoid_languages
 from dateparser_scripts.utils import combine_dicts as combine_dicts
-from typing import Any
 
 cldr_date_directory: str
 supplementary_directory: str

@@ -1,5 +1,6 @@
-from dateparser.timezone_parser import StaticTzInfo as StaticTzInfo
 from typing import Any, Optional
+
+from dateparser.timezone_parser import StaticTzInfo as StaticTzInfo
 
 def strip_braces(date_string: Any): ...
 def normalize_unicode(string: Any, form: str = ...): ...

@@ -1,5 +1,6 @@
-from dateparser.utils import normalize_unicode as normalize_unicode
 from typing import Any, Optional
+
+from dateparser.utils import normalize_unicode as normalize_unicode
 
 PARSER_HARDCODED_TOKENS: Any
 PARSER_KNOWN_TOKENS: Any

@@ -1,3 +1,5 @@
+from typing import Any, Optional
+
 from dateparser.utils import (
     get_last_day_of_month as get_last_day_of_month,
     get_next_leap_year as get_next_leap_year,
@@ -5,7 +7,6 @@ from dateparser.utils import (
     set_correct_day_from_settings as set_correct_day_from_settings,
 )
 from dateparser.utils.strptime import strptime as strptime
-from typing import Any, Optional
 
 NSP_COMPATIBLE: Any
 MERIDIAN: Any
