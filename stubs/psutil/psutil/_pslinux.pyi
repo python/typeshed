@@ -6,9 +6,7 @@ from ._common import (
     NIC_DUPLEX_UNKNOWN as NIC_DUPLEX_UNKNOWN,
     NoSuchProcess as NoSuchProcess,
     ZombieProcess as ZombieProcess,
-    debug as debug,
     isfile_strict as isfile_strict,
-    memoize as memoize,
     parse_environ_block as parse_environ_block,
     path_exists_strict as path_exists_strict,
     supports_ipv6 as supports_ipv6,
@@ -16,11 +14,8 @@ from ._common import (
 )
 from ._compat import (
     FileNotFoundError as FileNotFoundError,
-    PY3 as PY3,
     PermissionError as PermissionError,
     ProcessLookupError as ProcessLookupError,
-    b as b,
-    basestring as basestring,
 )
 from typing import Any, NamedTuple
 

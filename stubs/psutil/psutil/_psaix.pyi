@@ -10,7 +10,6 @@ from ._common import (
 )
 from ._compat import (
     FileNotFoundError as FileNotFoundError,
-    PY3 as PY3,
     PermissionError as PermissionError,
     ProcessLookupError as ProcessLookupError,
 )

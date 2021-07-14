@@ -13,7 +13,6 @@ from ._common import (
     parse_environ_block as parse_environ_block,
     usage_percent as usage_percent,
 )
-from ._compat import PY3 as PY3, long as long, lru_cache as lru_cache, range as range, unicode as unicode
 from ._psutil_windows import (
     ABOVE_NORMAL_PRIORITY_CLASS as ABOVE_NORMAL_PRIORITY_CLASS,
     BELOW_NORMAL_PRIORITY_CLASS as BELOW_NORMAL_PRIORITY_CLASS,

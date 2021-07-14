@@ -14,7 +14,6 @@ from ._compat import (
     FileNotFoundError as FileNotFoundError,
     PermissionError as PermissionError,
     ProcessLookupError as ProcessLookupError,
-    which as which,
 )
 from typing import Any, NamedTuple
 

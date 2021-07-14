@@ -9,13 +9,6 @@ from ._common import (
     socktype_to_enum as socktype_to_enum,
     usage_percent as usage_percent,
 )
-from ._compat import (
-    FileNotFoundError as FileNotFoundError,
-    PY3 as PY3,
-    PermissionError as PermissionError,
-    ProcessLookupError as ProcessLookupError,
-    b as b,
-)
 from typing import Any, NamedTuple
 
 __extra__all__: Any

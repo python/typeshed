@@ -143,22 +143,3 @@ def sensors_fans(): ...
 def sensors_battery(): ...
 def boot_time(): ...
 def users(): ...
-
-# Names in __all__ with no definition:
-#   RLIMIT_AS
-#   RLIMIT_CORE
-#   RLIMIT_CPU
-#   RLIMIT_DATA
-#   RLIMIT_FSIZE
-#   RLIMIT_LOCKS
-#   RLIMIT_MEMLOCK
-#   RLIMIT_MSGQUEUE
-#   RLIMIT_NICE
-#   RLIMIT_NOFILE
-#   RLIMIT_NPROC
-#   RLIMIT_RSS
-#   RLIMIT_RTPRIO
-#   RLIMIT_SIGPENDING
-#   RLIMIT_STACK
-#   RLIM_INFINITY
-#   __version__
