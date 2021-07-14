@@ -25,10 +25,10 @@ from psycopg2._range import (
     RangeCaster as RangeCaster,
     register_range as register_range,
 )
-from typing import Any
+from typing import Any, ClassVar
 
 class DictCursorBase(_cursor):
-    row_factory: Any
+    row_factory: ClassVar[Any]
     def __init__(self, *args, **kwargs) -> None: ...
     def fetchone(self): ...
     def fetchmany(self, size: Any | None = ...): ...

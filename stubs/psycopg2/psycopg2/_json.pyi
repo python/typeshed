@@ -6,6 +6,7 @@ from psycopg2._psycopg import (
     register_type as register_type,
 )
 from typing import Any
+import json as json
 
 JSON_OID: int
 JSONARRAY_OID: int
