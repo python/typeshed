@@ -42,6 +42,7 @@
         "stubs/oauthlib",
         "stubs/Pillow",
         "stubs/paramiko",
+        "stubs/prettytable",
         "stubs/protobuf",
         "stubs/Pygments",
         "stubs/PyMySQL",
