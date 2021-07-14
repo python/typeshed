@@ -165,8 +165,9 @@ def main() -> None:
     print(f" 1. Manually review the generated stubs in {stub_dir}")
     print(" 2. Run stubtest to test the generated stubs against runtime definitions")
     print(f' 3. Run "flake8 {stub_dir}" to check code style')
-    print(" 4. Create branch in typeshed and commit the stubs (and other changes)")
-    print(" 5. Create typeshed PR")
+    print(f' 4. Run "mypy {stub_dir}" to check for errors')
+    print(" 5. Create branch in typeshed and commit the stubs (and other changes)")
+    print(" 6. Create typeshed PR")
 
 
 if __name__ == "__main__":
