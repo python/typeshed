@@ -1,4 +1,5 @@
 import os
+import sys
 from ._common import (
     AIX as AIX,
     AccessDenied as AccessDenied,
@@ -44,13 +45,27 @@ from ._common import (
     WINDOWS as WINDOWS,
     ZombieProcess as ZombieProcess,
 )
-from ._pslinux import (
-    IOPRIO_CLASS_BE as IOPRIO_CLASS_BE,
-    IOPRIO_CLASS_IDLE as IOPRIO_CLASS_IDLE,
-    IOPRIO_CLASS_NONE as IOPRIO_CLASS_NONE,
-    IOPRIO_CLASS_RT as IOPRIO_CLASS_RT,
-)
 from typing import Any
+
+if sys.platform == "linux":
+    from ._pslinux import (
+        IOPRIO_CLASS_BE as IOPRIO_CLASS_BE,
+        IOPRIO_CLASS_IDLE as IOPRIO_CLASS_IDLE,
+        IOPRIO_CLASS_NONE as IOPRIO_CLASS_NONE,
+        IOPRIO_CLASS_RT as IOPRIO_CLASS_RT,
+    )
+if sys.platform == "win32":
+    from ._psutil_windows import ABOVE_NORMAL_PRIORITY_CLASS
+    from ._psutil_windows import BELOW_NORMAL_PRIORITY_CLASS
+    from ._psutil_windows import HIGH_PRIORITY_CLASS
+    from ._psutil_windows import IDLE_PRIORITY_CLASS
+    from ._psutil_windows import NORMAL_PRIORITY_CLASS
+    from ._psutil_windows import REALTIME_PRIORITY_CLASS
+    from ._pswindows import CONN_DELETE_TCB
+    from ._pswindows import IOPRIO_VERYLOW
+    from ._pswindows import IOPRIO_LOW
+    from ._pswindows import IOPRIO_NORMAL  # NOQA
+    from ._pswindows import IOPRIO_HIGH
 
 PROCFS_PATH: str
 AF_LINK: Any
@@ -143,3 +158,20 @@ def sensors_fans(): ...
 def sensors_battery(): ...
 def boot_time(): ...
 def users(): ...
+
+RLIMIT_AS: Any
+RLIMIT_CORE: Any
+RLIMIT_CPU: Any
+RLIMIT_DATA: Any
+RLIMIT_FSIZE: Any
+RLIMIT_LOCKS: Any
+RLIMIT_MEMLOCK: Any
+RLIMIT_MSGQUEUE: Any
+RLIMIT_NICE: Any
+RLIMIT_NOFILE: Any
+RLIMIT_NPROC: Any
+RLIMIT_RSS: Any
+RLIMIT_RTPRIO: Any
+RLIMIT_SIGPENDING: Any
+RLIMIT_STACK: Any
+RLIM_INFINITY: Any
