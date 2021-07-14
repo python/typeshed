@@ -55,17 +55,21 @@ if sys.platform == "linux":
         IOPRIO_CLASS_RT as IOPRIO_CLASS_RT,
     )
 if sys.platform == "win32":
-    from ._psutil_windows import ABOVE_NORMAL_PRIORITY_CLASS
-    from ._psutil_windows import BELOW_NORMAL_PRIORITY_CLASS
-    from ._psutil_windows import HIGH_PRIORITY_CLASS
-    from ._psutil_windows import IDLE_PRIORITY_CLASS
-    from ._psutil_windows import NORMAL_PRIORITY_CLASS
-    from ._psutil_windows import REALTIME_PRIORITY_CLASS
-    from ._pswindows import CONN_DELETE_TCB
-    from ._pswindows import IOPRIO_VERYLOW
-    from ._pswindows import IOPRIO_LOW
-    from ._pswindows import IOPRIO_NORMAL  # NOQA
-    from ._pswindows import IOPRIO_HIGH
+    from ._psutil_windows import (
+        ABOVE_NORMAL_PRIORITY_CLASS as ABOVE_NORMAL_PRIORITY_CLASS,
+        BELOW_NORMAL_PRIORITY_CLASS as BELOW_NORMAL_PRIORITY_CLASS,
+        HIGH_PRIORITY_CLASS as HIGH_PRIORITY_CLASS,
+        IDLE_PRIORITY_CLASS as IDLE_PRIORITY_CLASS,
+        NORMAL_PRIORITY_CLASS as NORMAL_PRIORITY_CLASS,
+        REALTIME_PRIORITY_CLASS as REALTIME_PRIORITY_CLASS,
+    )
+    from ._pswindows import (
+        CONN_DELETE_TCB as CONN_DELETE_TCB,
+        IOPRIO_VERYLOW as IOPRIO_VERYLOW,
+        IOPRIO_LOW as IOPRIO_LOW,
+        IOPRIO_NORMAL as IOPRIO_NORMAL,
+        IOPRIO_HIGH as IOPRIO_HIGH,
+    )
 
 PROCFS_PATH: str
 AF_LINK: Any
