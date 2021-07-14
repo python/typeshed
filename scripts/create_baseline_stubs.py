@@ -100,6 +100,7 @@ def add_pyright_exclusion(stub_dir: str) -> None:
         print(f"{PYRIGHT_CONFIG} already up-to-date")
         return
     if i == initial:
+        # Special case: when adding to the end of the list, commas need tweaking
         line_to_add = line_to_add.rstrip(",")
         lines[i] = lines[i].rstrip() + ",\n"
     lines.insert(i + 1, line_to_add + "\n")
