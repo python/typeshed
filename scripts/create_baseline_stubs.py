@@ -109,7 +109,11 @@ def add_pyright_exclusion(stub_dir: str) -> None:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(
+        description="""Install a package from PyPI and generate baseline stubs automatically
+                       using stubgen. Also run black and isort. If the name of
+                       the project is different from the runtime Python package name, you must
+                       also use --package (example: --package yaml PyYAML).""")
     parser.add_argument('project',
                         help='name of PyPI project for which to generate stubs under stubs/')
     parser.add_argument(
