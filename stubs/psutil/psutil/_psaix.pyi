@@ -1,5 +1,21 @@
-from ._common import AccessDenied as AccessDenied, NIC_DUPLEX_FULL as NIC_DUPLEX_FULL, NIC_DUPLEX_HALF as NIC_DUPLEX_HALF, NIC_DUPLEX_UNKNOWN as NIC_DUPLEX_UNKNOWN, NoSuchProcess as NoSuchProcess, ZombieProcess as ZombieProcess, conn_to_ntuple as conn_to_ntuple, get_procfs_path as get_procfs_path, memoize_when_activated as memoize_when_activated, usage_percent as usage_percent
-from ._compat import FileNotFoundError as FileNotFoundError, PY3 as PY3, PermissionError as PermissionError, ProcessLookupError as ProcessLookupError
+from ._common import (
+    AccessDenied as AccessDenied,
+    NIC_DUPLEX_FULL as NIC_DUPLEX_FULL,
+    NIC_DUPLEX_HALF as NIC_DUPLEX_HALF,
+    NIC_DUPLEX_UNKNOWN as NIC_DUPLEX_UNKNOWN,
+    NoSuchProcess as NoSuchProcess,
+    ZombieProcess as ZombieProcess,
+    conn_to_ntuple as conn_to_ntuple,
+    get_procfs_path as get_procfs_path,
+    memoize_when_activated as memoize_when_activated,
+    usage_percent as usage_percent,
+)
+from ._compat import (
+    FileNotFoundError as FileNotFoundError,
+    PY3 as PY3,
+    PermissionError as PermissionError,
+    ProcessLookupError as ProcessLookupError,
+)
 from typing import Any, NamedTuple
 
 __extra__all__: Any
@@ -15,6 +31,7 @@ proc_info_map: Any
 class pmem(NamedTuple):
     rss: Any
     vms: Any
+
 pfullmem = pmem
 
 class scputimes(NamedTuple):

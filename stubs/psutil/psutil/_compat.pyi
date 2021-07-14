@@ -11,6 +11,7 @@ range = range
 
 def u(s): ...
 def b(s): ...
+
 super = super
 FileNotFoundError = FileNotFoundError
 PermissionError = PermissionError

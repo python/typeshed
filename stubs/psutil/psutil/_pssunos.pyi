@@ -1,5 +1,23 @@
-from ._common import AF_INET6 as AF_INET6, AccessDenied as AccessDenied, NoSuchProcess as NoSuchProcess, ZombieProcess as ZombieProcess, debug as debug, get_procfs_path as get_procfs_path, isfile_strict as isfile_strict, memoize_when_activated as memoize_when_activated, sockfam_to_enum as sockfam_to_enum, socktype_to_enum as socktype_to_enum, usage_percent as usage_percent
-from ._compat import FileNotFoundError as FileNotFoundError, PY3 as PY3, PermissionError as PermissionError, ProcessLookupError as ProcessLookupError, b as b
+from ._common import (
+    AF_INET6 as AF_INET6,
+    AccessDenied as AccessDenied,
+    NoSuchProcess as NoSuchProcess,
+    ZombieProcess as ZombieProcess,
+    debug as debug,
+    get_procfs_path as get_procfs_path,
+    isfile_strict as isfile_strict,
+    memoize_when_activated as memoize_when_activated,
+    sockfam_to_enum as sockfam_to_enum,
+    socktype_to_enum as socktype_to_enum,
+    usage_percent as usage_percent,
+)
+from ._compat import (
+    FileNotFoundError as FileNotFoundError,
+    PY3 as PY3,
+    PermissionError as PermissionError,
+    ProcessLookupError as ProcessLookupError,
+    b as b,
+)
 from typing import Any, NamedTuple
 
 __extra__all__: Any
@@ -34,6 +52,7 @@ class svmem(NamedTuple):
 class pmem(NamedTuple):
     rss: Any
     vms: Any
+
 pfullmem = pmem
 
 class pmmap_grouped(NamedTuple):
@@ -43,6 +62,7 @@ class pmmap_grouped(NamedTuple):
     locked: Any
 
 pmmap_ext: Any
+
 def virtual_memory(): ...
 def swap_memory(): ...
 def cpu_times(): ...
@@ -93,13 +113,11 @@ class Process:
     def threads(self): ...
     def open_files(self): ...
     def connections(self, kind: str = ...): ...
-
     class nt_mmap_grouped(NamedTuple):
         path: Any
         rss: Any
         anon: Any
         locked: Any
-
     class nt_mmap_ext(NamedTuple):
         addr: Any
         perms: Any

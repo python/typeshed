@@ -199,6 +199,7 @@ class pconn(NamedTuple):
 class addr(NamedTuple):
     ip: Any
     port: Any
+
 conn_tmap: Any
 
 class Error(Exception):

@@ -1,6 +1,32 @@
 import enum
-from ._common import AccessDenied as AccessDenied, NIC_DUPLEX_FULL as NIC_DUPLEX_FULL, NIC_DUPLEX_HALF as NIC_DUPLEX_HALF, NIC_DUPLEX_UNKNOWN as NIC_DUPLEX_UNKNOWN, NoSuchProcess as NoSuchProcess, ZombieProcess as ZombieProcess, debug as debug, decode as decode, get_procfs_path as get_procfs_path, isfile_strict as isfile_strict, memoize as memoize, memoize_when_activated as memoize_when_activated, open_binary as open_binary, open_text as open_text, parse_environ_block as parse_environ_block, path_exists_strict as path_exists_strict, supports_ipv6 as supports_ipv6, usage_percent as usage_percent
-from ._compat import FileNotFoundError as FileNotFoundError, PY3 as PY3, PermissionError as PermissionError, ProcessLookupError as ProcessLookupError, b as b, basestring as basestring
+from ._common import (
+    AccessDenied as AccessDenied,
+    NIC_DUPLEX_FULL as NIC_DUPLEX_FULL,
+    NIC_DUPLEX_HALF as NIC_DUPLEX_HALF,
+    NIC_DUPLEX_UNKNOWN as NIC_DUPLEX_UNKNOWN,
+    NoSuchProcess as NoSuchProcess,
+    ZombieProcess as ZombieProcess,
+    debug as debug,
+    decode as decode,
+    get_procfs_path as get_procfs_path,
+    isfile_strict as isfile_strict,
+    memoize as memoize,
+    memoize_when_activated as memoize_when_activated,
+    open_binary as open_binary,
+    open_text as open_text,
+    parse_environ_block as parse_environ_block,
+    path_exists_strict as path_exists_strict,
+    supports_ipv6 as supports_ipv6,
+    usage_percent as usage_percent,
+)
+from ._compat import (
+    FileNotFoundError as FileNotFoundError,
+    PY3 as PY3,
+    PermissionError as PermissionError,
+    ProcessLookupError as ProcessLookupError,
+    b as b,
+    basestring as basestring,
+)
 from typing import Any, NamedTuple
 
 __extra__all__: Any
@@ -71,6 +97,7 @@ class pmem(NamedTuple):
     dirty: Any
 
 pfullmem: Any
+
 class pmmap_grouped(NamedTuple):
     path: Any
     rss: Any
@@ -85,6 +112,7 @@ class pmmap_grouped(NamedTuple):
     swap: Any
 
 pmmap_ext: Any
+
 class pio(NamedTuple):
     read_count: Any
     write_count: Any

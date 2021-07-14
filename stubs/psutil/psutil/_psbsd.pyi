@@ -1,5 +1,22 @@
-from ._common import AccessDenied as AccessDenied, FREEBSD as FREEBSD, NETBSD as NETBSD, NoSuchProcess as NoSuchProcess, OPENBSD as OPENBSD, ZombieProcess as ZombieProcess, conn_tmap as conn_tmap, conn_to_ntuple as conn_to_ntuple, memoize as memoize, memoize_when_activated as memoize_when_activated, usage_percent as usage_percent
-from ._compat import FileNotFoundError as FileNotFoundError, PermissionError as PermissionError, ProcessLookupError as ProcessLookupError, which as which
+from ._common import (
+    AccessDenied as AccessDenied,
+    FREEBSD as FREEBSD,
+    NETBSD as NETBSD,
+    NoSuchProcess as NoSuchProcess,
+    OPENBSD as OPENBSD,
+    ZombieProcess as ZombieProcess,
+    conn_tmap as conn_tmap,
+    conn_to_ntuple as conn_to_ntuple,
+    memoize as memoize,
+    memoize_when_activated as memoize_when_activated,
+    usage_percent as usage_percent,
+)
+from ._compat import (
+    FileNotFoundError as FileNotFoundError,
+    PermissionError as PermissionError,
+    ProcessLookupError as ProcessLookupError,
+    which as which,
+)
 from typing import Any, NamedTuple
 
 __extra__all__: Any
@@ -39,6 +56,7 @@ class pmem(NamedTuple):
     text: Any
     data: Any
     stack: Any
+
 pfullmem = pmem
 
 class pcputimes(NamedTuple):
@@ -49,18 +67,18 @@ class pcputimes(NamedTuple):
 
 class pmmap_grouped(NamedTuple):
     path: Any
-    rss,: Any
-    private,: Any
-    ref_count,: Any
+    rss: Any
+    private: Any
+    ref_count: Any
     shadow_count: Any
 
 class pmmap_ext(NamedTuple):
-    addr,: Any
+    addr: Any
     perms: Any
     path: Any
-    rss,: Any
-    private,: Any
-    ref_count,: Any
+    rss: Any
+    private: Any
+    ref_count: Any
     shadow_count: Any
 
 class sdiskio(NamedTuple):
@@ -137,21 +155,19 @@ class Process:
     def status(self): ...
     def io_counters(self): ...
     def cwd(self): ...
-
     class nt_mmap_grouped(NamedTuple):
         path: Any
-        rss,: Any
-        private,: Any
-        ref_count,: Any
+        rss: Any
+        private: Any
+        ref_count: Any
         shadow_count: Any
-
     class nt_mmap_ext(NamedTuple):
-        addr,: Any
+        addr: Any
         perms: Any
         path: Any
-        rss,: Any
-        private,: Any
-        ref_count,: Any
+        rss: Any
+        private: Any
+        ref_count: Any
         shadow_count: Any
     def open_files(self): ...
     open_files: Any

@@ -1,7 +1,28 @@
 import enum
-from ._common import AccessDenied as AccessDenied, ENCODING as ENCODING, ENCODING_ERRS as ENCODING_ERRS, NoSuchProcess as NoSuchProcess, TimeoutExpired as TimeoutExpired, conn_tmap as conn_tmap, conn_to_ntuple as conn_to_ntuple, debug as debug, isfile_strict as isfile_strict, memoize as memoize, memoize_when_activated as memoize_when_activated, parse_environ_block as parse_environ_block, usage_percent as usage_percent
+from ._common import (
+    AccessDenied as AccessDenied,
+    ENCODING as ENCODING,
+    ENCODING_ERRS as ENCODING_ERRS,
+    NoSuchProcess as NoSuchProcess,
+    TimeoutExpired as TimeoutExpired,
+    conn_tmap as conn_tmap,
+    conn_to_ntuple as conn_to_ntuple,
+    debug as debug,
+    isfile_strict as isfile_strict,
+    memoize as memoize,
+    memoize_when_activated as memoize_when_activated,
+    parse_environ_block as parse_environ_block,
+    usage_percent as usage_percent,
+)
 from ._compat import PY3 as PY3, long as long, lru_cache as lru_cache, range as range, unicode as unicode
-from ._psutil_windows import ABOVE_NORMAL_PRIORITY_CLASS as ABOVE_NORMAL_PRIORITY_CLASS, BELOW_NORMAL_PRIORITY_CLASS as BELOW_NORMAL_PRIORITY_CLASS, HIGH_PRIORITY_CLASS as HIGH_PRIORITY_CLASS, IDLE_PRIORITY_CLASS as IDLE_PRIORITY_CLASS, NORMAL_PRIORITY_CLASS as NORMAL_PRIORITY_CLASS, REALTIME_PRIORITY_CLASS as REALTIME_PRIORITY_CLASS
+from ._psutil_windows import (
+    ABOVE_NORMAL_PRIORITY_CLASS as ABOVE_NORMAL_PRIORITY_CLASS,
+    BELOW_NORMAL_PRIORITY_CLASS as BELOW_NORMAL_PRIORITY_CLASS,
+    HIGH_PRIORITY_CLASS as HIGH_PRIORITY_CLASS,
+    IDLE_PRIORITY_CLASS as IDLE_PRIORITY_CLASS,
+    NORMAL_PRIORITY_CLASS as NORMAL_PRIORITY_CLASS,
+    REALTIME_PRIORITY_CLASS as REALTIME_PRIORITY_CLASS,
+)
 from typing import Any, NamedTuple
 
 msg: str
@@ -63,11 +84,13 @@ class pmem(NamedTuple):
     private: Any
 
 pfullmem: Any
+
 class pmmap_grouped(NamedTuple):
     path: Any
     rss: Any
 
 pmmap_ext: Any
+
 class pio(NamedTuple):
     read_count: Any
     write_count: Any
