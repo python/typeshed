@@ -1,5 +1,4 @@
-from jsonschema.compat import MutableMapping as MutableMapping, str_types as str_types, urlsplit as urlsplit
-from typing import Any
+from typing import Any, MutableMapping
 
 class URIDict(MutableMapping):
     def normalize(self, uri): ...

@@ -1,16 +1,4 @@
 from jsonschema import exceptions as exceptions
-from jsonschema.compat import (
-    Sequence as Sequence,
-    int_types as int_types,
-    iteritems as iteritems,
-    lru_cache as lru_cache,
-    str_types as str_types,
-    unquote as unquote,
-    urldefrag as urldefrag,
-    urljoin as urljoin,
-    urlopen as urlopen,
-    urlsplit as urlsplit,
-)
 from jsonschema.exceptions import ErrorTree as ErrorTree
 from typing import Any
 
