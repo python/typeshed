@@ -8,10 +8,9 @@ import argparse
 import os
 import re
 import shutil
-import sys
 import subprocess
-from typing import Tuple, Optional
-
+import sys
+from typing import Optional, Tuple
 
 PYRIGHT_CONFIG = "pyrightconfig.stricter.json"
 
