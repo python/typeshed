@@ -69,6 +69,9 @@ if sys.platform == "win32":
         IOPRIO_LOW as IOPRIO_LOW,
         IOPRIO_NORMAL as IOPRIO_NORMAL,
         IOPRIO_HIGH as IOPRIO_HIGH,
+        win_service_iter as win_service_iter,
+        CONN_DELETE_TCB as CONN_DELETE_TCB,
+        AF_LINK as AF_LINK,
     )
 
 PROCFS_PATH: str
