@@ -1,4 +1,8 @@
-from .dictionary import ALWAYS_KEEP_TOKENS as ALWAYS_KEEP_TOKENS, Dictionary as Dictionary, NormalizedDictionary as NormalizedDictionary
+from .dictionary import (
+    ALWAYS_KEEP_TOKENS as ALWAYS_KEEP_TOKENS,
+    Dictionary as Dictionary,
+    NormalizedDictionary as NormalizedDictionary,
+)
 from dateparser.timezone_parser import pop_tz_offset_from_string as pop_tz_offset_from_string, word_is_tz as word_is_tz
 from dateparser.utils import combine_dicts as combine_dicts, normalize_unicode as normalize_unicode
 from typing import Any, Optional

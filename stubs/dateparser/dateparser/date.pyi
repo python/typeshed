@@ -3,7 +3,10 @@ from dateparser.date_parser import date_parser as date_parser
 from dateparser.freshness_date_parser import freshness_date_parser as freshness_date_parser
 from dateparser.languages.loader import LocaleDataLoader as LocaleDataLoader
 from dateparser.timezone_parser import pop_tz_offset_from_string as pop_tz_offset_from_string
-from dateparser.utils import apply_timezone_from_settings as apply_timezone_from_settings, set_correct_day_from_settings as set_correct_day_from_settings
+from dateparser.utils import (
+    apply_timezone_from_settings as apply_timezone_from_settings,
+    set_correct_day_from_settings as set_correct_day_from_settings,
+)
 from typing import Any, Optional
 
 APOSTROPHE_LOOK_ALIKE_CHARS: Any
@@ -49,6 +52,14 @@ class DateDataParser:
     locales: Any = ...
     region: Any = ...
     previous_locales: Any = ...
-    def __init__(self, languages: Optional[Any] = ..., locales: Optional[Any] = ..., region: Optional[Any] = ..., try_previous_locales: bool = ..., use_given_order: bool = ..., settings: Optional[Any] = ...) -> None: ...
+    def __init__(
+        self,
+        languages: Optional[Any] = ...,
+        locales: Optional[Any] = ...,
+        region: Optional[Any] = ...,
+        try_previous_locales: bool = ...,
+        use_given_order: bool = ...,
+        settings: Optional[Any] = ...,
+    ) -> None: ...
     def get_date_data(self, date_string: Any, date_formats: Optional[Any] = ...): ...
     def get_date_tuple(self, *args: Any, **kwargs: Any): ...

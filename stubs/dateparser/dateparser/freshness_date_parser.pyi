@@ -1,6 +1,10 @@
 from .parser import time_parser as time_parser
 from .timezone_parser import pop_tz_offset_from_string as pop_tz_offset_from_string
-from dateparser.utils import apply_timezone as apply_timezone, localize_timezone as localize_timezone, strip_braces as strip_braces
+from dateparser.utils import (
+    apply_timezone as apply_timezone,
+    localize_timezone as localize_timezone,
+    strip_braces as strip_braces,
+)
 from typing import Any, Optional
 
 PATTERN: Any
