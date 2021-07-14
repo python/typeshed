@@ -3,60 +3,60 @@ from typing import Any, ClassVar
 import psycopg2
 import psycopg2.extensions
 
-BINARY: type
-BINARYARRAY: type
-BOOLEAN: type
-BOOLEANARRAY: type
-BYTES: type
-BYTESARRAY: type
-CIDRARRAY: type
-DATE: type
-DATEARRAY: type
-DATETIME: type
-DATETIMEARRAY: type
-DATETIMETZ: type
-DATETIMETZARRAY: type
-DECIMAL: type
-DECIMALARRAY: type
-FLOAT: type
-FLOATARRAY: type
-INETARRAY: type
-INTEGER: type
-INTEGERARRAY: type
-INTERVAL: type
-INTERVALARRAY: type
-LONGINTEGER: type
-LONGINTEGERARRAY: type
-MACADDRARRAY: type
-NUMBER: type
-PYDATE: type
-PYDATEARRAY: type
-PYDATETIME: type
-PYDATETIMEARRAY: type
-PYDATETIMETZ: type
-PYDATETIMETZARRAY: type
-PYINTERVAL: type
-PYINTERVALARRAY: type
-PYTIME: type
-PYTIMEARRAY: type
+BINARY: Any
+BINARYARRAY: Any
+BOOLEAN: Any
+BOOLEANARRAY: Any
+BYTES: Any
+BYTESARRAY: Any
+CIDRARRAY: Any
+DATE: Any
+DATEARRAY: Any
+DATETIME: Any
+DATETIMEARRAY: Any
+DATETIMETZ: Any
+DATETIMETZARRAY: Any
+DECIMAL: Any
+DECIMALARRAY: Any
+FLOAT: Any
+FLOATARRAY: Any
+INETARRAY: Any
+INTEGER: Any
+INTEGERARRAY: Any
+INTERVAL: Any
+INTERVALARRAY: Any
+LONGINTEGER: Any
+LONGINTEGERARRAY: Any
+MACADDRARRAY: Any
+NUMBER: Any
+PYDATE: Any
+PYDATEARRAY: Any
+PYDATETIME: Any
+PYDATETIMEARRAY: Any
+PYDATETIMETZ: Any
+PYDATETIMETZARRAY: Any
+PYINTERVAL: Any
+PYINTERVALARRAY: Any
+PYTIME: Any
+PYTIMEARRAY: Any
 REPLICATION_LOGICAL: int
 REPLICATION_PHYSICAL: int
-ROWID: type
-ROWIDARRAY: type
-STRING: type
-STRINGARRAY: type
-TIME: type
-TIMEARRAY: type
-UNICODE: type
-UNICODEARRAY: type
-UNKNOWN: type
-adapters: dict
+ROWID: Any
+ROWIDARRAY: Any
+STRING: Any
+STRINGARRAY: Any
+TIME: Any
+TIMEARRAY: Any
+UNICODE: Any
+UNICODEARRAY: Any
+UNKNOWN: Any
+adapters: dict[Any, Any]
 apilevel: str
-binary_types: dict
-encodings: dict
+binary_types: dict[Any, Any]
+encodings: dict[Any, Any]
 paramstyle: str
-sqlstate_errors: dict
-string_types: dict
+sqlstate_errors: dict[Any, Any]
+string_types: dict[Any, Any]
 threadsafety: int
 
 __libpq_version__: int
@@ -72,7 +72,7 @@ class Binary:
     buffer: ClassVar[Any] = ...
     def __init__(self, *args, **kwargs) -> None: ...
     def getquoted(self, *args, **kwargs) -> Any: ...
-    def prepare(conn): ...
+    def prepare(self, conn): ...
     def __conform__(self, *args, **kwargs) -> Any: ...
 
 class Boolean:
@@ -239,10 +239,10 @@ class ReplicationCursor(psycopg2.extensions.cursor):
     io_timestamp: ClassVar[Any] = ...
     wal_end: ClassVar[Any] = ...
     def __init__(self, *args, **kwargs) -> None: ...
-    def consume_stream(consumer, keepalive_interval=...) -> Any: ...
+    def consume_stream(self, consumer, keepalive_interval=...) -> Any: ...
     def read_message(self, *args, **kwargs) -> Any: ...
-    def send_feedback(write_lsn=..., flush_lsn=..., apply_lsn=..., reply=..., force=...) -> Any: ...
-    def start_replication_expert(command, decode=..., status_interval=...) -> Any: ...
+    def send_feedback(self, write_lsn=..., flush_lsn=..., apply_lsn=..., reply=..., force=...) -> Any: ...
+    def start_replication_expert(self, command, decode=..., status_interval=...) -> Any: ...
 
 class ReplicationMessage:
     cursor: ClassVar[Any] = ...
