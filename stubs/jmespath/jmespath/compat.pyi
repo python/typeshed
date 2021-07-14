@@ -1,0 +1,13 @@
+from itertools import zip_longest as zip_longest
+from typing import Any
+
+PY2: Any
+
+def with_metaclass(meta, *bases): ...
+
+text_type = str
+string_type = str
+
+def with_str_method(cls): ...
+def with_repr_method(cls): ...
+def get_methods(cls) -> None: ...

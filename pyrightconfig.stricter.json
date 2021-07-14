@@ -38,6 +38,7 @@
         "stubs/html5lib",
         "stubs/httplib2",
         "stubs/Jinja2",
+        "stubs/jmespath",
         "stubs/Markdown",
         "stubs/oauthlib",
         "stubs/Pillow",
