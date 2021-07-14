@@ -179,19 +179,19 @@ def boot_time(): ...
 def users(): ...
 
 if sys.platform == "linux":
-    RLIMIT_AS: Any
-    RLIMIT_CORE: Any
-    RLIMIT_CPU: Any
-    RLIMIT_DATA: Any
-    RLIMIT_FSIZE: Any
-    RLIMIT_LOCKS: Any
-    RLIMIT_MEMLOCK: Any
-    RLIMIT_MSGQUEUE: Any
-    RLIMIT_NICE: Any
-    RLIMIT_NOFILE: Any
-    RLIMIT_NPROC: Any
-    RLIMIT_RSS: Any
-    RLIMIT_RTPRIO: Any
-    RLIMIT_SIGPENDING: Any
-    RLIMIT_STACK: Any
-    RLIM_INFINITY: Any
+    RLIMIT_AS: int
+    RLIMIT_CORE: int
+    RLIMIT_CPU: int
+    RLIMIT_DATA: int
+    RLIMIT_FSIZE: int
+    RLIMIT_LOCKS: int
+    RLIMIT_MEMLOCK: int
+    RLIMIT_MSGQUEUE: int
+    RLIMIT_NICE: int
+    RLIMIT_NOFILE: int
+    RLIMIT_NPROC: int
+    RLIMIT_RSS: int
+    RLIMIT_RTPRIO: int
+    RLIMIT_SIGPENDING: int
+    RLIMIT_STACK: int
+    RLIM_INFINITY: int
