@@ -2,6 +2,8 @@
 
 Basic usage:
 $ python scripts/create_baseline_stubs.py <project on PyPI>
+
+Run with -h for more help.
 """
 
 import argparse
@@ -21,13 +23,9 @@ def pip_install(project: str) -> None:
 
 
 def search_pip_freeze_output(project: str, output: str) -> Optional[Tuple[str, str]]:
-    """Find package information from pip freeze output.
-
-    Match project name somewhat fuzzily (case sensitive; '-' matches '_', and
-    vice versa).
-
-    Return (normalized project name, installed version) if successful.
-    """
+    # Look for lines such as "typed-ast==1.4.2".  '-' matches '_' and
+    # '_' matches '-' in project name, so that "typed_ast" matches
+    # "typed-ast", and vice versa.
     regex = "^(" + re.sub(r"[-_]", "[-_]", project) + ")==(.*)"
     m = re.search(regex, output, flags=re.IGNORECASE | re.MULTILINE)
     if not m:
@@ -36,6 +34,13 @@ def search_pip_freeze_output(project: str, output: str) -> Optional[Tuple[str, s
 
 
 def get_installed_package_info(project: str) -> Tuple[str, str]:
+    """Find package information from pip freeze output.
+
+    Match project name somewhat fuzzily (case sensitive; '-' matches '_', and
+    vice versa).
+
+    Return (normalized project name, installed version) if successful.
+    """
     r = subprocess.run(["pip", "freeze"], capture_output=True, text=True, check=True)
     o = search_pip_freeze_output(project, r.stdout)
     if not o:
@@ -49,6 +54,7 @@ def run_stubgen(package: str) -> None:
 
 
 def copy_stubs(src_base_dir: str, package: str, stub_dir: str) -> None:
+    """Copy generated stubs to the target directory under stub_dir/."""
     print(f"Copying stubs to {stub_dir}")
     src_dir = os.path.join(src_base_dir, package)
     if os.path.isdir(src_dir):
@@ -71,6 +77,7 @@ def run_isort(stub_dir: str) -> None:
 
 
 def create_metadata(stub_dir: str, version: str) -> None:
+    """Create a METADATA.toml file."""
     m = re.match(r"[0-9]+.[0-9]+", version)
     if m is None:
         sys.exit(f"Error: Cannot parse version number: {version}")
