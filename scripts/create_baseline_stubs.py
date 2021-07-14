@@ -144,7 +144,12 @@ def main() -> None:
     create_metadata(stub_dir, version)
     add_pyright_exclusion(stub_dir)
 
-    print('Done.')
+    print('\nDone!\n\nSuggested next steps:')
+    print(f' 1. Manually review the generated stubs in {stub_dir}')
+    print(f' 2. Run stubtest to test the generated stubs against runtime definitions')
+    print(f' 3. Run "flake8 {stub_dir}" to check code style')
+    print(f' 4. Create branch in typeshed and commit the stubs (and other changes)')
+    print(f' 5. Create typeshed PR')
 
 
 if __name__ == "__main__":
