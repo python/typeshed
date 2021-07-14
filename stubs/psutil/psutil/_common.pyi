@@ -48,6 +48,9 @@ class NicDuplex(enum.IntEnum):
     NIC_DUPLEX_HALF: int
     NIC_DUPLEX_UNKNOWN: int
 
+POWER_TIME_UNKNOWN: int
+POWER_TIME_UNLIMITED: int
+
 class BatteryTime(enum.IntEnum):
     POWER_TIME_UNKNOWN: int
     POWER_TIME_UNLIMITED: int
