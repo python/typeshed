@@ -10,11 +10,37 @@ import re
 import shutil
 import sys
 import subprocess
+from typing import Tuple, Optional
 
 
 def pip_install(project: str) -> None:
     print(f'Installing distribution: pip install {project}')
     subprocess.run(['pip', 'install', project], check=True)
+
+
+def search_pip_freeze_output(project: str, output: str) -> Optional[Tuple[str, str]]:
+    """Find package information from pip freeze output.
+
+    Match project name somewhat fuzzily (case sensitive; '-' matches '_', and
+    vice versa).
+
+    Return (normalized project name, installed version) if successful.
+    """
+    regex = '^(' + re.sub(r'[-_]', '[-_]', project) + ')==(.*)'
+    print(regex)
+    m = re.search(regex, output, flags=re.IGNORECASE | re.MULTILINE)
+    if not m:
+        return None
+    return m.group(1), m.group(2)
+
+
+def get_installed_package_info(project: str) -> Tuple[str, str]:
+    r = subprocess.run(['pip', 'freeze'], capture_output=True, text=True, check=True)
+    o = search_pip_freeze_output(project, r.stdout)
+    if not o:
+        print(r.stdout)
+        sys.exit(f'Error: Cannot find {project} in the output of "pip freeze"')
+    return o
 
 
 def run_stubgen(package: str) -> None:
@@ -44,6 +70,18 @@ def run_isort(stub_dir: str) -> None:
     subprocess.run(['isort', '--recursive', stub_dir])
 
 
+def create_metadata(stub_dir: str, version: str) -> None:
+    m = re.match(r'[0-9]+.[0-9]+', version)
+    if m is None:
+        sys.exit(f'Error: Cannot parse version number: {version}')
+    fnam = os.path.join(stub_dir, 'METADATA.toml')
+    version = m.group(0)
+    assert not os.path.exists(fnam)
+    print(f'Writing {fnam}')
+    with open(fnam, 'w') as f:
+        f.write(f'version = "{version}"\n')
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument('project',
@@ -64,17 +102,21 @@ def main() -> None:
     if not os.path.isdir('stubs') or not os.path.isdir('stdlib'):
         sys.exit('Error: Current working directory must be the root of typeshed repository')
 
+    pip_install(project)
+
+    # Get normalized project name and version of installed package.
+    project, version = get_installed_package_info(project)
+
     stub_dir = os.path.join('stubs', project)
     if os.path.exists(stub_dir):
         sys.exit(f'Error: {stub_dir} already exists (delete it first)')
 
-    pip_install(project)
     run_stubgen(package)
     copy_stubs('out', package, stub_dir)
     run_black(stub_dir)
     run_isort(stub_dir)
+    create_metadata(stub_dir, version)
 
-    # TODO: create METADATA.json
     # TODO: pyright exclusion
 
     print('Done.')
