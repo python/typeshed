@@ -73,7 +73,6 @@ if sys.platform == "win32":
         IOPRIO_HIGH as IOPRIO_HIGH,
         win_service_iter as win_service_iter,
         CONN_DELETE_TCB as CONN_DELETE_TCB,
-        AF_LINK as AF_LINK,
     )
 
 if sys.platform == "linux":
