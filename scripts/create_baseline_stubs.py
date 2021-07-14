@@ -83,6 +83,7 @@ def create_metadata(stub_dir: str, version: str) -> None:
 
 
 def add_pyright_exclusion(stub_dir: str) -> None:
+    """Exclude stub_dir from strict pyright checks."""
     with open(PYRIGHT_CONFIG) as f:
         lines = f.readlines()
     i = 0
@@ -139,10 +140,17 @@ def main() -> None:
         sys.exit(f"Error: {stub_dir} already exists (delete it first)")
 
     run_stubgen(package)
+
+    # Stubs were generated under out/. Copy them to stubs/.
     copy_stubs("out", package, stub_dir)
+
     run_black(stub_dir)
     run_isort(stub_dir)
+
     create_metadata(stub_dir, version)
+
+    # Since the generated stubs won't have many type annotations, we
+    # have to exclude them from strict pyright checks.
     add_pyright_exclusion(stub_dir)
 
     print("\nDone!\n\nSuggested next steps:")
