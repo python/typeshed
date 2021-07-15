@@ -10,7 +10,6 @@ from ._common import (
     parse_environ_block as parse_environ_block,
     usage_percent as usage_percent,
 )
-from ._compat import PermissionError as PermissionError, ProcessLookupError as ProcessLookupError
 
 __extra__all__: Any
 PAGESIZE: Any

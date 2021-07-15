@@ -1,5 +1,4 @@
 import enum
-from socket import AF_INET6 as AF_INET6
 from typing import Any, NamedTuple
 
 POSIX: Any

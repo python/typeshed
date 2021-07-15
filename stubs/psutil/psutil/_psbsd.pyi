@@ -12,11 +12,6 @@ from ._common import (
     memoize as memoize,
     usage_percent as usage_percent,
 )
-from ._compat import (
-    FileNotFoundError as FileNotFoundError,
-    PermissionError as PermissionError,
-    ProcessLookupError as ProcessLookupError,
-)
 
 __extra__all__: Any
 PROC_STATUSES: Any

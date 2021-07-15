@@ -14,11 +14,6 @@ from ._common import (
     supports_ipv6 as supports_ipv6,
     usage_percent as usage_percent,
 )
-from ._compat import (
-    FileNotFoundError as FileNotFoundError,
-    PermissionError as PermissionError,
-    ProcessLookupError as ProcessLookupError,
-)
 
 __extra__all__: Any
 POWER_SUPPLY_PATH: str
