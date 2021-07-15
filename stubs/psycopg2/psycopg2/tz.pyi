@@ -15,7 +15,6 @@ class FixedOffsetTimezone(datetime.tzinfo):
 
 STDOFFSET: Any
 DSTOFFSET: Any
-DSTOFFSET = STDOFFSET
 DSTDIFF: Any
 
 class LocalTimezone(datetime.tzinfo):
