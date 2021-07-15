@@ -1,6 +1,6 @@
 from typing import Any, MutableMapping
 
-class URIDict(MutableMapping):
+class URIDict(MutableMapping[Any, Any]):
     def normalize(self, uri): ...
     store: Any
     def __init__(self, *args, **kwargs) -> None: ...

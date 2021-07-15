@@ -23,4 +23,4 @@ class TypeChecker:
 draft3_type_checker: Any
 draft4_type_checker: Any
 draft6_type_checker: Any
-draft7_type_checker = draft6_type_checker
+draft7_type_checker: Any
