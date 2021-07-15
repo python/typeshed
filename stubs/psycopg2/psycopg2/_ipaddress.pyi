@@ -1,13 +1,5 @@
 from typing import Any
 
-from psycopg2.extensions import (
-    QuotedString as QuotedString,
-    new_array_type as new_array_type,
-    new_type as new_type,
-    register_adapter as register_adapter,
-    register_type as register_type,
-)
-
 ipaddress: Any
 
 def register_ipaddress(conn_or_curs: Any | None = ...) -> None: ...

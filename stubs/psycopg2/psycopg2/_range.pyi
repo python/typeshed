@@ -1,15 +1,5 @@
 from typing import Any
 
-from psycopg2._psycopg import InterfaceError as InterfaceError, ProgrammingError as ProgrammingError
-from psycopg2.extensions import (
-    ISQLQuote as ISQLQuote,
-    adapt as adapt,
-    new_array_type as new_array_type,
-    new_type as new_type,
-    register_adapter as register_adapter,
-    register_type as register_type,
-)
-
 class Range:
     def __init__(self, lower: Any | None = ..., upper: Any | None = ..., bounds: str = ..., empty: bool = ...) -> None: ...
     @property
