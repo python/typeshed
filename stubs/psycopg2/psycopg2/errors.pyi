@@ -8,9 +8,11 @@ class Error:
     pgcode: Any
     pgerror: Any
     with_traceback: Any
+
 class Warning:
     args: Any
     with_traceback: Any
+
 class DatabaseError(Error): ...
 class InterfaceError(Error): ...
 class DataError(DatabaseError): ...
