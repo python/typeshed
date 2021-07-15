@@ -1,6 +1,5 @@
 from typing import Any
 
-from jsonschema.compat import int_types as int_types, str_types as str_types
 from jsonschema.exceptions import UndefinedTypeCheck as UndefinedTypeCheck
 
 def is_array(checker, instance): ...

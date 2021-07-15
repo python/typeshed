@@ -7,7 +7,6 @@ from jsonschema._utils import (
     unbool as unbool,
     uniq as uniq,
 )
-from jsonschema.compat import iteritems as iteritems
 from jsonschema.exceptions import FormatError as FormatError, ValidationError as ValidationError
 
 def patternProperties(validator, patternProperties, instance, schema) -> None: ...

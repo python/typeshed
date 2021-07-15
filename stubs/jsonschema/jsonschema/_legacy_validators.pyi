@@ -1,4 +1,3 @@
-from jsonschema.compat import iteritems as iteritems
 from jsonschema.exceptions import ValidationError as ValidationError
 
 def dependencies_draft3(validator, dependencies, instance, schema) -> None: ...
