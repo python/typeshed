@@ -4,7 +4,6 @@ from typing import Any, ClassVar, List
 from psycopg2._ipaddress import register_ipaddress as register_ipaddress
 from psycopg2._json import (
     Json as Json,
-    json as json,
     register_default_json as register_default_json,
     register_default_jsonb as register_default_jsonb,
     register_json as register_json,
