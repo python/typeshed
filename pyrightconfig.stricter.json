@@ -47,6 +47,7 @@
         "stubs/prettytable",
         "stubs/protobuf",
         "stubs/psutil",
+        "stubs/psycopg2",
         "stubs/Pygments",
         "stubs/PyMySQL",
         "stubs/python-dateutil",
