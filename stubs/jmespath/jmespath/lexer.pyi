@@ -1,7 +1,6 @@
 from typing import Any
 
-from jmespath.exceptions import EmptyExpressionError as EmptyExpressionError
-from jmespath.exceptions import LexerError as LexerError
+from jmespath.exceptions import EmptyExpressionError as EmptyExpressionError, LexerError as LexerError
 
 class Lexer:
     START_IDENTIFIER: Any
