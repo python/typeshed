@@ -1,7 +1,7 @@
 """Script to generate unannotated baseline stubs using stubgen.
 
 Basic usage:
-$ python scripts/create_baseline_stubs.py <project on PyPI>
+$ python3 scripts/create_baseline_stubs.py <project on PyPI>
 
 Run with -h for more help.
 """
