@@ -1,6 +1,7 @@
+from typing import Any
+
 from jsonschema import exceptions as exceptions
 from jsonschema.exceptions import ErrorTree as ErrorTree
-from typing import Any
 
 class _DontDoThat(Exception): ...
 

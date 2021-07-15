@@ -1,5 +1,6 @@
-from jsonschema.compat import PY3 as PY3, iteritems as iteritems
 from typing import Any
+
+from jsonschema.compat import PY3 as PY3, iteritems as iteritems
 
 WEAK_MATCHES: Any
 STRONG_MATCHES: Any

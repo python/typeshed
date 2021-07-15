@@ -1,6 +1,7 @@
+from typing import Any
+
 from jsonschema._reflect import namedAny as namedAny
 from jsonschema.validators import validator_for as validator_for
-from typing import Any
 
 parser: Any
 

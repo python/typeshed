@@ -1,6 +1,7 @@
+from typing import Any
+
 from jsonschema.compat import str_types as str_types
 from jsonschema.exceptions import FormatError as FormatError
-from typing import Any
 
 class FormatChecker:
     checkers: Any
