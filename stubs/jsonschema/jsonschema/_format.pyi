@@ -1,7 +1,5 @@
 from typing import Any
 
-from jsonschema.exceptions import FormatError as FormatError
-
 class FormatChecker:
     checkers: Any
     def __init__(self, formats: Any | None = ...) -> None: ...

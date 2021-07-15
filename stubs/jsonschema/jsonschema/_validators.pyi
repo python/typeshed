@@ -1,14 +1,3 @@
-from jsonschema._utils import (
-    ensure_list as ensure_list,
-    equal as equal,
-    extras_msg as extras_msg,
-    find_additional_properties as find_additional_properties,
-    types_msg as types_msg,
-    unbool as unbool,
-    uniq as uniq,
-)
-from jsonschema.exceptions import FormatError as FormatError, ValidationError as ValidationError
-
 def patternProperties(validator, patternProperties, instance, schema) -> None: ...
 def propertyNames(validator, propertyNames, instance, schema) -> None: ...
 def additionalProperties(validator, aP, instance, schema) -> None: ...
