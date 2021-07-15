@@ -66,8 +66,8 @@ def run_black(stub_dir: str) -> None:
 
 
 def run_isort(stub_dir: str) -> None:
-    print(f"Running isort: isort --recursive {stub_dir}")
-    subprocess.run(["isort", "--recursive", stub_dir])
+    print(f"Running isort: isort {stub_dir}")
+    subprocess.run(["python3", "-m", "isort", stub_dir])
 
 
 def create_metadata(stub_dir: str, version: str) -> None:
@@ -150,8 +150,8 @@ def main() -> None:
     # Stubs were generated under out/. Copy them to stubs/.
     copy_stubs("out", package, stub_dir)
 
-    run_black(stub_dir)
     run_isort(stub_dir)
+    run_black(stub_dir)
 
     create_metadata(stub_dir, version)
 
