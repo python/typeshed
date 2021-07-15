@@ -27,6 +27,7 @@ from psycopg2._psycopg import (
     apilevel as apilevel,
     paramstyle as paramstyle,
     threadsafety as threadsafety,
+    connection,
 )
 
-def connect(dsn: Any | None = ..., connection_factory: Any | None = ..., cursor_factory: Any | None = ..., **kwargs): ...
+def connect(dsn: Any | None = ..., connection_factory: Any | None = ..., cursor_factory: Any | None = ..., **kwargs) -> connection: ...
