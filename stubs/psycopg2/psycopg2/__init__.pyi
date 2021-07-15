@@ -1,7 +1,6 @@
 from typing import Any
 
-from psycopg2._psycopg import connection as connection  # not available at runtime
-from psycopg2._psycopg import cursor as cursor  # not available at runtime
+# connection and cursor not available at runtime
 from psycopg2._psycopg import (
     BINARY as BINARY,
     DATETIME as DATETIME,
@@ -27,6 +26,8 @@ from psycopg2._psycopg import (
     Warning as Warning,
     __libpq_version__ as __libpq_version__,
     apilevel as apilevel,
+    connection as connection,
+    cursor as cursor,
     paramstyle as paramstyle,
     threadsafety as threadsafety,
 )
