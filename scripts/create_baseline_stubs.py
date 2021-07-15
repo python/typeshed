@@ -17,11 +17,6 @@ from typing import Optional, Tuple
 PYRIGHT_CONFIG = "pyrightconfig.stricter.json"
 
 
-def pip_install(project: str) -> None:
-    print(f"Installing distribution: pip install {project}")
-    subprocess.run(["pip", "install", project], check=True)
-
-
 def search_pip_freeze_output(project: str, output: str) -> Optional[Tuple[str, str]]:
     # Look for lines such as "typed-ast==1.4.2".  '-' matches '_' and
     # '_' matches '-' in project name, so that "typed_ast" matches
@@ -33,7 +28,7 @@ def search_pip_freeze_output(project: str, output: str) -> Optional[Tuple[str, s
     return m.group(1), m.group(2)
 
 
-def get_installed_package_info(project: str) -> Tuple[str, str]:
+def get_installed_package_info(project: str) -> Optional[Tuple[str, str]]:
     """Find package information from pip freeze output.
 
     Match project name somewhat fuzzily (case sensitive; '-' matches '_', and
@@ -42,10 +37,7 @@ def get_installed_package_info(project: str) -> Tuple[str, str]:
     Return (normalized project name, installed version) if successful.
     """
     r = subprocess.run(["pip", "freeze"], capture_output=True, text=True, check=True)
-    o = search_pip_freeze_output(project, r.stdout)
-    if not o:
-        sys.exit(f'Error: Cannot find {project} in the output of "pip freeze"')
-    return o
+    return search_pip_freeze_output(project, r.stdout)
 
 
 def run_stubgen(package: str) -> None:
@@ -56,6 +48,8 @@ def run_stubgen(package: str) -> None:
 def copy_stubs(src_base_dir: str, package: str, stub_dir: str) -> None:
     """Copy generated stubs to the target directory under stub_dir/."""
     print(f"Copying stubs to {stub_dir}")
+    if not os.path.isdir(stub_dir):
+        os.mkdir(stub_dir)
     src_dir = os.path.join(src_base_dir, package)
     if os.path.isdir(src_dir):
         shutil.copytree(src_dir, os.path.join(stub_dir, package))
@@ -118,7 +112,7 @@ def add_pyright_exclusion(stub_dir: str) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="""Install a package from PyPI and generate baseline stubs automatically
+        description="""Generate baseline stubs automatically for an installed pip package
                        using stubgen. Also run black and isort. If the name of
                        the project is different from the runtime Python package name, you must
                        also use --package (example: --package yaml PyYAML)."""
@@ -138,10 +132,14 @@ def main() -> None:
     if not os.path.isdir("stubs") or not os.path.isdir("stdlib"):
         sys.exit("Error: Current working directory must be the root of typeshed repository")
 
-    pip_install(project)
-
     # Get normalized project name and version of installed package.
-    project, version = get_installed_package_info(project)
+    info = get_installed_package_info(project)
+    if info is None:
+        print(f'Error: "{project}" is not installed', file=sys.stderr)
+        print("", file=sys.stderr)
+        print(f'Suggestion: Run "python3 -m pip install {project}" and try again', file=sys.stderr)
+        sys.exit(1)
+    project, version = info
 
     stub_dir = os.path.join("stubs", project)
     if os.path.exists(stub_dir):
@@ -166,8 +164,9 @@ def main() -> None:
     print(" 2. Run stubtest to test the generated stubs against runtime definitions")
     print(f' 3. Run "flake8 {stub_dir}" to check code style')
     print(f' 4. Run "mypy {stub_dir}" to check for errors')
-    print(" 5. Create branch in typeshed and commit the stubs (and other changes)")
-    print(" 6. Create typeshed PR")
+    print(f' 5. Run "black {stub_dir}" (if you\'ve made code changes)')
+    print(" 6. Create branch in the typeshed repo and commit the stubs (and other changes)")
+    print(" 7. Create typeshed PR")
 
 
 if __name__ == "__main__":
