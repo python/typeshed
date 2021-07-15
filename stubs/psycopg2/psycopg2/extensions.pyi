@@ -1,6 +1,5 @@
 from typing import Any
 
-from psycopg2._json import register_default_json as register_default_json, register_default_jsonb as register_default_jsonb
 from psycopg2._psycopg import (
     BINARYARRAY as BINARYARRAY,
     BOOLEAN as BOOLEAN,
@@ -72,7 +71,6 @@ from psycopg2._psycopg import (
     set_wait_callback as set_wait_callback,
     string_types as string_types,
 )
-from psycopg2._range import Range as Range
 
 ISOLATION_LEVEL_AUTOCOMMIT: int
 ISOLATION_LEVEL_READ_UNCOMMITTED: int
@@ -114,4 +112,3 @@ JSON: Any
 JSONARRAY: Any
 JSONB: Any
 JSONBARRAY: Any
-k: Any
