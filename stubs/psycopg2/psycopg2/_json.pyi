@@ -1,3 +1,6 @@
+import json as json
+from typing import Any
+
 from psycopg2._psycopg import (
     ISQLQuote as ISQLQuote,
     QuotedString as QuotedString,
@@ -5,8 +8,6 @@ from psycopg2._psycopg import (
     new_type as new_type,
     register_type as register_type,
 )
-from typing import Any
-import json as json
 
 JSON_OID: int
 JSONARRAY_OID: int

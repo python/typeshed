@@ -1,5 +1,6 @@
-from .extensions import connection as _connection, cursor as _cursor, quote_ident as quote_ident
 from collections import OrderedDict
+from typing import Any, ClassVar
+
 from psycopg2._ipaddress import register_ipaddress as register_ipaddress
 from psycopg2._json import (
     Json as Json,
@@ -25,7 +26,8 @@ from psycopg2._range import (
     RangeCaster as RangeCaster,
     register_range as register_range,
 )
-from typing import Any, ClassVar
+
+from .extensions import connection as _connection, cursor as _cursor, quote_ident as quote_ident
 
 class DictCursorBase(_cursor):
     row_factory: ClassVar[Any]

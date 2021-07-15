@@ -1,21 +1,23 @@
+from typing import Any
+
 from psycopg2._psycopg import (
     BINARY as BINARY,
-    Binary as Binary,
     DATETIME as DATETIME,
-    DataError as DataError,
+    NUMBER as NUMBER,
+    ROWID as ROWID,
+    STRING as STRING,
+    Binary as Binary,
     DatabaseError as DatabaseError,
+    DataError as DataError,
     Date as Date,
     DateFromTicks as DateFromTicks,
     Error as Error,
     IntegrityError as IntegrityError,
     InterfaceError as InterfaceError,
     InternalError as InternalError,
-    NUMBER as NUMBER,
     NotSupportedError as NotSupportedError,
     OperationalError as OperationalError,
     ProgrammingError as ProgrammingError,
-    ROWID as ROWID,
-    STRING as STRING,
     Time as Time,
     TimeFromTicks as TimeFromTicks,
     Timestamp as Timestamp,
@@ -26,6 +28,5 @@ from psycopg2._psycopg import (
     paramstyle as paramstyle,
     threadsafety as threadsafety,
 )
-from typing import Any
 
 def connect(dsn: Any | None = ..., connection_factory: Any | None = ..., cursor_factory: Any | None = ..., **kwargs): ...

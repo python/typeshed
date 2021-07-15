@@ -1,3 +1,5 @@
+from typing import Any
+
 from psycopg2.extensions import (
     QuotedString as QuotedString,
     new_array_type as new_array_type,
@@ -5,7 +7,6 @@ from psycopg2.extensions import (
     register_adapter as register_adapter,
     register_type as register_type,
 )
-from typing import Any
 
 ipaddress: Any
 

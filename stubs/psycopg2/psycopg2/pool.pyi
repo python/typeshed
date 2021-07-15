@@ -1,5 +1,6 @@
-import psycopg2
 from typing import Any
+
+import psycopg2
 
 class PoolError(psycopg2.Error): ...
 

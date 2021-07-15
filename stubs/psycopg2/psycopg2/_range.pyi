@@ -1,3 +1,5 @@
+from typing import Any
+
 from psycopg2._psycopg import InterfaceError as InterfaceError, ProgrammingError as ProgrammingError
 from psycopg2.extensions import (
     ISQLQuote as ISQLQuote,
@@ -7,7 +9,6 @@ from psycopg2.extensions import (
     register_adapter as register_adapter,
     register_type as register_type,
 )
-from typing import Any
 
 class Range:
     def __init__(self, lower: Any | None = ..., upper: Any | None = ..., bounds: str = ..., empty: bool = ...) -> None: ...
