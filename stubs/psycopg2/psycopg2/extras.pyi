@@ -1,5 +1,5 @@
 from collections import OrderedDict
-from typing import Any, ClassVar, List
+from typing import Any, List
 
 from psycopg2._ipaddress import register_ipaddress as register_ipaddress
 from psycopg2._json import (
@@ -66,7 +66,7 @@ class RealDictCursor(DictCursorBase):
     def execute(self, query, vars: Any | None = ...): ...
     def callproc(self, procname, vars: Any | None = ...): ...
 
-class RealDictRow(OrderedDict):
+class RealDictRow(OrderedDict[Any, Any]):
     def __init__(self, *args, **kwargs) -> None: ...
     def __setitem__(self, key, value) -> None: ...
 
