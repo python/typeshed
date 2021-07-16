@@ -49,6 +49,7 @@ ROWID: Any
 
 def Binary(x): ...
 def Connect(*args, **kwargs): ...
+
 connect = Connect
 Connection = Connect
 
