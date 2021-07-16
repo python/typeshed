@@ -30,6 +30,7 @@
         "stubs/bleach",
         "stubs/boto",
         "stubs/beautifulsoup4",
+        "stubs/braintree",
         "stubs/caldav",
         "stubs/commonmark",
         "stubs/cryptography",
