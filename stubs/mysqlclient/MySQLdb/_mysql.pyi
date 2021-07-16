@@ -1,5 +1,5 @@
 import builtins
-from typing import Any, ClassVar, overload, Tuple
+from typing import Any, ClassVar, Tuple, overload
 
 import MySQLdb._exceptions
 
