@@ -44,7 +44,7 @@ NUMBER: Any
 DATE: Any
 TIME: Any
 TIMESTAMP: Any
-DATETIME = TIMESTAMP
+DATETIME: Any
 ROWID: Any
 
 def Binary(x): ...
