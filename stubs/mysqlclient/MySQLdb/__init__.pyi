@@ -29,6 +29,7 @@ from ._mysql import (
     get_client_info as get_client_info,
     string_literal as string_literal,
 )
+from . import connections as connections, converters as converters, cursors as cursors, constants as constants
 
 threadsafety: int
 apilevel: str
@@ -51,9 +52,3 @@ def Connect(*args, **kwargs): ...
 
 connect = Connect
 Connection = Connect
-
-# Names in __all__ with no definition:
-#   connections
-#   constants
-#   converters
-#   cursors

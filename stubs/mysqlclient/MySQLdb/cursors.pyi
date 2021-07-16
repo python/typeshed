@@ -1,22 +1,22 @@
 from typing import Any
 
-from ._exceptions import (
-    DatabaseError as DatabaseError,
-    DataError as DataError,
-    Error as Error,
-    IntegrityError as IntegrityError,
-    InterfaceError as InterfaceError,
-    InternalError as InternalError,
-    MySQLError as MySQLError,
-    NotSupportedError as NotSupportedError,
-    OperationalError as OperationalError,
-    ProgrammingError as ProgrammingError,
-    Warning as Warning,
-)
-
 RE_INSERT_VALUES: Any
 
 class BaseCursor:
+    from ._exceptions import (
+        DatabaseError as DatabaseError,
+        DataError as DataError,
+        Error as Error,
+        IntegrityError as IntegrityError,
+        InterfaceError as InterfaceError,
+        InternalError as InternalError,
+        MySQLError as MySQLError,
+        NotSupportedError as NotSupportedError,
+        OperationalError as OperationalError,
+        ProgrammingError as ProgrammingError,
+        Warning as Warning,
+    )
+
     max_stmt_length: Any
     connection: Any
     description: Any
