@@ -17,8 +17,6 @@ from .remote_connection import RemoteConnection as RemoteConnection
 from .switch_to import SwitchTo as SwitchTo
 from .webelement import WebElement as WebElement
 
-str = basestring
-
 class WebDriver:
     command_executor: Any
     session_id: Any
