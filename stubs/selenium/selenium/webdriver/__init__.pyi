@@ -19,3 +19,28 @@ from .remote.webdriver import WebDriver as Remote
 from .safari.webdriver import WebDriver as Safari
 from .webkitgtk.options import Options as WebKitGTKOptions
 from .webkitgtk.webdriver import WebDriver as WebKitGTK
+
+# We need an explicit __all__ because some of the above won't otherwise be exported.
+__all__ = [
+    "Firefox",
+    "FirefoxProfile",
+    "FirefoxOptions",
+    "Chrome",
+    "ChromeOptions",
+    "Ie",
+    "IeOptions",
+    "Edge",
+    "EdgeOptions",
+    "Opera",
+    "Safari",
+    "BlackBerry",
+    "PhantomJS",
+    "Android",
+    "WebKitGTK",
+    "WebKitGTKOptions",
+    "Remote",
+    "DesiredCapabilities",
+    "ActionChains",
+    "TouchActions",
+    "Proxy",
+]
