@@ -30,6 +30,7 @@ from ._mysql import (
     get_client_info as get_client_info,
     string_literal as string_literal,
 )
+from .connections import Connection as Connection
 
 threadsafety: int
 apilevel: str
@@ -51,4 +52,3 @@ def Binary(x): ...
 def Connect(*args, **kwargs): ...
 
 connect = Connect
-Connection = Connect
