@@ -1,6 +1,18 @@
-from . import _mysql, cursors as cursors
-from ._exceptions import DataError as DataError, DatabaseError as DatabaseError, Error as Error, IntegrityError as IntegrityError, InterfaceError as InterfaceError, InternalError as InternalError, NotSupportedError as NotSupportedError, OperationalError as OperationalError, ProgrammingError as ProgrammingError, Warning as Warning
 from typing import Any
+
+from . import _mysql, cursors as cursors
+from ._exceptions import (
+    DatabaseError as DatabaseError,
+    DataError as DataError,
+    Error as Error,
+    IntegrityError as IntegrityError,
+    InterfaceError as InterfaceError,
+    InternalError as InternalError,
+    NotSupportedError as NotSupportedError,
+    OperationalError as OperationalError,
+    ProgrammingError as ProgrammingError,
+    Warning as Warning,
+)
 
 re_numeric_part: Any
 

@@ -1,5 +1,6 @@
-from MySQLdb._mysql import string_literal as string_literal
 from datetime import date, datetime, time, timedelta
+
+from MySQLdb._mysql import string_literal as string_literal
 
 Date = date
 Time = time

@@ -1,9 +1,19 @@
 import array
+from typing import Any
+
 from MySQLdb._exceptions import ProgrammingError as ProgrammingError
 from MySQLdb._mysql import string_literal as string_literal
 from MySQLdb.constants import FIELD_TYPE as FIELD_TYPE, FLAG as FLAG
-from MySQLdb.times import Date as Date, DateTime2literal as DateTime2literal, DateTimeDelta2literal as DateTimeDelta2literal, DateTimeDeltaType as DateTimeDeltaType, DateTimeType as DateTimeType, DateTime_or_None as DateTime_or_None, Date_or_None as Date_or_None, TimeDelta_or_None as TimeDelta_or_None
-from typing import Any
+from MySQLdb.times import (
+    Date as Date,
+    Date_or_None as Date_or_None,
+    DateTime2literal as DateTime2literal,
+    DateTime_or_None as DateTime_or_None,
+    DateTimeDelta2literal as DateTimeDelta2literal,
+    DateTimeDeltaType as DateTimeDeltaType,
+    DateTimeType as DateTimeType,
+    TimeDelta_or_None as TimeDelta_or_None,
+)
 
 NoneType: Any
 ArrayType: Any
