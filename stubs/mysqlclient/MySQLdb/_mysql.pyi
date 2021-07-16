@@ -1,7 +1,7 @@
+import builtins
 from typing import Any, ClassVar, overload
 
 import MySQLdb._exceptions
-import builtins
 
 version_info: tuple
 

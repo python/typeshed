@@ -11,6 +11,7 @@ from MySQLdb.times import (
     TimestampFromTicks as TimestampFromTicks,
 )
 
+from . import connections as connections, constants as constants, converters as converters, cursors as cursors
 from ._mysql import (
     DatabaseError as DatabaseError,
     DataError as DataError,
@@ -29,7 +30,6 @@ from ._mysql import (
     get_client_info as get_client_info,
     string_literal as string_literal,
 )
-from . import connections as connections, converters as converters, cursors as cursors, constants as constants
 
 threadsafety: int
 apilevel: str
