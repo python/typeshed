@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Dict, Optional
 
 from dateparser_scripts.order_languages import avoid_languages as avoid_languages
 from dateparser_scripts.utils import combine_dicts as combine_dicts
@@ -13,4 +13,4 @@ supplementary_languages: Any
 all_languages: Any
 RELATIVE_PATTERN: Any
 
-def write_complete_data(in_memory: bool = ...): ...
+def write_complete_data(in_memory: Optional[bool] = ...) -> Dict: ...
