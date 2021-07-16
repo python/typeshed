@@ -16,7 +16,6 @@ from MySQLdb.times import (
 )
 
 NoneType: Any
-ArrayType: Any
 ArrayType = array.array
 
 def Bool2Str(s, d): ...
