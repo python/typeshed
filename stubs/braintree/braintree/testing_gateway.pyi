@@ -1,9 +1,6 @@
 from typing import Any
 
 from braintree.error_result import ErrorResult as ErrorResult
-from braintree.exceptions.test_operation_performed_in_production_error import (
-    TestOperationPerformedInProductionError as TestOperationPerformedInProductionError,
-)
 from braintree.successful_result import SuccessfulResult as SuccessfulResult
 from braintree.transaction import Transaction as Transaction
 
