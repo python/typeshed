@@ -1,18 +1,7 @@
 from typing import Any, FrozenSet
 
-from MySQLdb.constants import FIELD_TYPE as FIELD_TYPE
-from MySQLdb.release import version_info as version_info
-from MySQLdb.times import (
-    Date as Date,
-    DateFromTicks as DateFromTicks,
-    Time as Time,
-    TimeFromTicks as TimeFromTicks,
-    Timestamp as Timestamp,
-    TimestampFromTicks as TimestampFromTicks,
-)
-
-from . import connections as connections, constants as constants, converters as converters, cursors as cursors
-from ._mysql import (
+from MySQLdb import connections as connections, constants as constants, converters as converters, cursors as cursors
+from MySQLdb._mysql import (
     DatabaseError as DatabaseError,
     DataError as DataError,
     Error as Error,
@@ -30,7 +19,17 @@ from ._mysql import (
     get_client_info as get_client_info,
     string_literal as string_literal,
 )
-from .connections import Connection as Connection
+from MySQLdb.connections import Connection as Connection
+from MySQLdb.constants import FIELD_TYPE as FIELD_TYPE
+from MySQLdb.release import version_info as version_info
+from MySQLdb.times import (
+    Date as Date,
+    DateFromTicks as DateFromTicks,
+    Time as Time,
+    TimeFromTicks as TimeFromTicks,
+    Timestamp as Timestamp,
+    TimestampFromTicks as TimestampFromTicks,
+)
 
 threadsafety: int
 apilevel: str
