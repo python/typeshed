@@ -1,5 +1,8 @@
-from typing import Any, Optional
+from datetime import datetime
+from typing import Any, Dict, List, Optional, Tuple, Union
 
 from dateparser.search.search import DateSearchWithDetection as DateSearchWithDetection
 
-def search_dates(text: Any, languages: Optional[Any] = ..., settings: Optional[Any] = ..., add_detected_language: bool = ...): ...
+def search_dates(
+    text: str, languages: Optional[List[str]] = ..., settings: Optional[Dict] = ..., add_detected_language: bool = ...
+) -> Union[List[Tuple[str, datetime]], List[Tuple[str, datetime, str]],]: ...
