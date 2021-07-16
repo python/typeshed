@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, FrozenSet
 
 from MySQLdb.constants import FIELD_TYPE as FIELD_TYPE
 from MySQLdb.release import version_info as version_info
@@ -36,7 +36,7 @@ threadsafety: int
 apilevel: str
 paramstyle: str
 
-class DBAPISet(frozenset[Any]):
+class DBAPISet(FrozenSet[Any]):
     def __eq__(self, other): ...
 
 STRING: Any
