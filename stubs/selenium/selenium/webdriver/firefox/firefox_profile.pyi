@@ -1,8 +1,5 @@
 from typing import Any
 
-from selenium.common.exceptions import WebDriverException as WebDriverException
-from selenium.webdriver.common.proxy import ProxyType as ProxyType
-
 WEBDRIVER_EXT: str
 WEBDRIVER_PREFERENCES: str
 EXTENSION_NAME: str

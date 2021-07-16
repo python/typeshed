@@ -1,6 +1,6 @@
 from typing import Any
 
-from selenium.webdriver.common import service as service, utils as utils
+from selenium.webdriver.common import service as service
 
 class Service(service.Service):
     service_args: Any

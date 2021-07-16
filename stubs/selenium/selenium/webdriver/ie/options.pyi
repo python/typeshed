@@ -1,5 +1,3 @@
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities as DesiredCapabilities
-
 class ElementScrollBehavior:
     TOP: int
     BOTTOM: int

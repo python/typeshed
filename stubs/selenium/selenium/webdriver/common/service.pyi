@@ -1,8 +1,5 @@
 from typing import Any
 
-from selenium.common.exceptions import WebDriverException as WebDriverException
-from selenium.webdriver.common import utils as utils
-
 class Service:
     path: Any
     port: Any

@@ -1,5 +1,4 @@
 from selenium.webdriver.chrome.options import Options as ChromeOptions
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities as DesiredCapabilities
 
 class Options(ChromeOptions):
     KEY: str

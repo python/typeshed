@@ -1,6 +1,5 @@
 from typing import Any
 
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities as DesiredCapabilities
 from selenium.webdriver.remote.webdriver import WebDriver as RemoteWebDriver
 
 from .service import Service as Service

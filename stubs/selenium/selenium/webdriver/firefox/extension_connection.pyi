@@ -1,9 +1,5 @@
 from typing import Any
 
-from selenium.webdriver.common import utils as utils
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities as DesiredCapabilities
-from selenium.webdriver.firefox.firefox_binary import FirefoxBinary as FirefoxBinary
-from selenium.webdriver.remote.command import Command as Command
 from selenium.webdriver.remote.remote_connection import RemoteConnection as RemoteConnection
 
 LOGGER: Any

@@ -2,7 +2,6 @@ from typing import Any
 
 from selenium.common.exceptions import WebDriverException as WebDriverException
 from selenium.webdriver.common.by import By as By
-from selenium.webdriver.common.utils import keys_to_typing as keys_to_typing
 
 from .command import Command as Command
 

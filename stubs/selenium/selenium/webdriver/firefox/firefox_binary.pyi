@@ -1,8 +1,5 @@
 from typing import Any
 
-from selenium.common.exceptions import WebDriverException as WebDriverException
-from selenium.webdriver.common import utils as utils
-
 class FirefoxBinary:
     NO_FOCUS_LIBRARY_NAME: str
     command_line: Any

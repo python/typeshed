@@ -32,8 +32,6 @@ from selenium.common.exceptions import (
     WebDriverException as WebDriverException,
 )
 
-basestring = str
-
 class ErrorCode:
     SUCCESS: int
     NO_SUCH_ELEMENT: Any

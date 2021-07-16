@@ -1,7 +1,5 @@
 from typing import Any
 
-from selenium.webdriver.remote.command import Command as Command
-
 class ApplicationCache:
     UNCACHED: int
     IDLE: int

@@ -1,8 +1,6 @@
 from typing import Any
 
-from selenium.common.exceptions import WebDriverException as WebDriverException
 from selenium.webdriver.remote.webdriver import WebDriver as RemoteWebDriver
-from selenium.webdriver.support.ui import WebDriverWait as WebDriverWait
 
 LOAD_TIMEOUT: int
 

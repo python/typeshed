@@ -1,8 +1,5 @@
 from typing import Any
 
-from selenium.common.exceptions import InvalidArgumentException as InvalidArgumentException
-from selenium.webdriver.remote.webelement import WebElement as WebElement
-
 from .input_device import InputDevice as InputDevice
 from .interaction import POINTER as POINTER, POINTER_KINDS as POINTER_KINDS
 

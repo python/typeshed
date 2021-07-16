@@ -1,6 +1,5 @@
 from typing import Any
 
-from . import utils as utils
 from .command import Command as Command
 from .errorhandler import ErrorCode as ErrorCode
 

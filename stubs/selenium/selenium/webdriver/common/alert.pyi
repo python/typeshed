@@ -1,8 +1,5 @@
 from typing import Any
 
-from selenium.webdriver.common.utils import keys_to_typing as keys_to_typing
-from selenium.webdriver.remote.command import Command as Command
-
 class Alert:
     driver: Any
     def __init__(self, driver) -> None: ...

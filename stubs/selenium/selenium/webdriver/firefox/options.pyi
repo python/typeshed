@@ -1,11 +1,5 @@
 from typing import Any
 
-from selenium.common.exceptions import InvalidArgumentException as InvalidArgumentException
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities as DesiredCapabilities
-from selenium.webdriver.common.proxy import Proxy as Proxy
-from selenium.webdriver.firefox.firefox_binary import FirefoxBinary as FirefoxBinary
-from selenium.webdriver.firefox.firefox_profile import FirefoxProfile as FirefoxProfile
-
 class Log:
     level: Any
     def __init__(self) -> None: ...

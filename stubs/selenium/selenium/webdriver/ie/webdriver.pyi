@@ -1,6 +1,5 @@
 from typing import Any
 
-from selenium.webdriver.common import utils as utils
 from selenium.webdriver.remote.webdriver import WebDriver as RemoteWebDriver
 
 from .options import Options as Options

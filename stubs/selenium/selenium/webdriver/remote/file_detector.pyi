@@ -1,8 +1,6 @@
 import abc
 from typing import Any
 
-from selenium.webdriver.common.utils import keys_to_typing as keys_to_typing
-
 class FileDetector(metaclass=abc.ABCMeta):
     __metaclass__: Any
     @abc.abstractmethod
