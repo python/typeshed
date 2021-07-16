@@ -10,7 +10,6 @@ from MySQLdb.times import (
     Timestamp as Timestamp,
     TimestampFromTicks as TimestampFromTicks,
 )
-from sets import ImmutableSet as frozenset
 
 from ._mysql import (
     DatabaseError as DatabaseError,
