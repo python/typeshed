@@ -1,9 +1,10 @@
-from typing import Callable, Generic, Iterator, Optional, TypeVar
+from typing import overload, Callable, Generic, Iterator, Optional, TypeVar, Union
 
 from .abc import DefaultMapping as DefaultMapping
 
 _KT = TypeVar("_KT")
 _VT = TypeVar("_VT")
+_T = TypeVar("_T")
 
 class Cache(DefaultMapping[_KT, _VT], Generic[_KT, _VT]):
     def __init__(self, maxsize: float, getsizeof: Optional[Callable[[_VT], float]] = ...) -> None: ...
@@ -18,3 +19,8 @@ class Cache(DefaultMapping[_KT, _VT], Generic[_KT, _VT]):
     def currsize(self) -> float: ...
     @staticmethod
     def getsizeof(value: _VT) -> float: ...
+    def setdefault(self, key: _KT, default: _VT = ...) -> _VT: ...
+    @overload
+    def pop(self, key: _KT) -> _VT: ...
+    @overload
+    def pop(self, key: _KT, default: Union[_VT, _T] = ...) -> Union[_VT, _T]: ...
