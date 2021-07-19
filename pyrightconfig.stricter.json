@@ -41,6 +41,7 @@
         "stubs/jmespath",
         "stubs/jsonschema",
         "stubs/Markdown",
+        "stubs/mysqlclient",
         "stubs/oauthlib",
         "stubs/Pillow",
         "stubs/paramiko",

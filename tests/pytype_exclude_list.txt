@@ -8,6 +8,11 @@ stdlib/@python2/typing.pyi
 stdlib/builtins.pyi
 stdlib/typing.pyi
 
+# errors about import statements
+stubs/mysqlclient/MySQLdb/__init__.pyi
+stubs/mysqlclient/MySQLdb/connections.pyi
+stubs/mysqlclient/MySQLdb/cursors.pyi
+
 # third_party stubs with constructs that pytype doesn't yet support:
 stubs/paramiko/paramiko/_winapi.pyi
 stubs/paramiko/paramiko/win_pageant.pyi
