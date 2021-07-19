@@ -68,7 +68,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
     def do_HEAD(self) -> None: ...
     def send_head(self) -> io.BytesIO | BinaryIO | None: ...  # undocumented
     def list_directory(self, path: StrPath) -> io.BytesIO | None: ...  # undocumented
-    def translate_path(self, path: StrPath) -> StrPath: ...  # undocumented
+    def translate_path(self, path: str) -> str: ...  # undocumented
     def copyfile(self, source: SupportsRead[AnyStr], outputfile: SupportsWrite[AnyStr]) -> None: ...  # undocumented
     def guess_type(self, path: StrPath) -> str: ...  # undocumented
 
