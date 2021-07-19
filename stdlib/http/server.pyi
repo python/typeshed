@@ -56,11 +56,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
     extensions_map: Dict[str, str]
     if sys.version_info >= (3, 7):
         def __init__(
-            self,
-            request: bytes,
-            client_address: Tuple[str, int],
-            server: socketserver.BaseServer,
-            directory: str | None = ...,
+            self, request: bytes, client_address: Tuple[str, int], server: socketserver.BaseServer, directory: str | None = ...
         ) -> None: ...
     else:
         def __init__(self, request: bytes, client_address: Tuple[str, int], server: socketserver.BaseServer) -> None: ...
