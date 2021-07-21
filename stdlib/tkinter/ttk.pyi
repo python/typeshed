@@ -506,7 +506,18 @@ class Notebook(Widget):
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     config = configure
-    def add(self, child, **kw): ...
+    def add(
+        self,
+        child: tkinter.Widget,
+        *,
+        state: Literal["normal", "disabled", "hidden"] = ...,
+        sticky: str = ...,  # consists of letters 'n', 's', 'w', 'e', no repeats, may be empty
+        padding: tkinter._Padding = ...,
+        text: str = ...,
+        image: Any = ...,  # Sequence of an image name, followed by zero or more (sequences of one or more state names followed by an image name)
+        compound: tkinter._Compound = ...,
+        underline: int = ...,
+    ) -> None: ...
     def forget(self, tab_id): ...
     def hide(self, tab_id): ...
     def identify(self, x, y): ...
