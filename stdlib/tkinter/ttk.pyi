@@ -532,6 +532,7 @@ class Panedwindow(Widget, tkinter.PanedWindow):
         takefocus: tkinter._TakeFocusValue = ...,
         width: int = ...,
     ) -> None: ...
+    def add(self, child: tkinter.Widget, *, weight: int = ...) -> None: ...
     @overload  # type: ignore
     def configure(
         self,
