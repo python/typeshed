@@ -1,6 +1,5 @@
 from typing import Any
 
-from dateparser.utils import get_logger as get_logger
 
 class LanguageValidator:
     logger: Any = ...
