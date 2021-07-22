@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Any, Optional, Type
 
 from .parser import date_order_chart as date_order_chart
 from .utils import registry as registry
@@ -10,7 +10,7 @@ class Settings:
     def get_key(cls, settings: Optional[Any] = ...): ...
     def replace(self, mod_settings: Optional[Any] = ..., **kwds: Any): ...
 
-settings: Any
+settings: Type["Settings"]
 
 def apply_settings(f: Any): ...
 
