@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import TYPE_CHECKING, Any, Dict, List, Optional
+from typing import TYPE_CHECKING, Any, List, Optional
 
 if TYPE_CHECKING:
     from dateparser.conf import Settings
@@ -10,5 +10,5 @@ def parse(
     languages: Optional[List[str]] = ...,
     locales: Optional[List[str]] = ...,
     region: Optional[str] = ...,
-    settings: Optional["Settings"] = ...,
+    settings: Optional[Settings] = ...,
 ) -> Optional[datetime]: ...
