@@ -1,8 +1,6 @@
 from datetime import datetime
 from typing import TYPE_CHECKING, Any, List, Optional
-
-if TYPE_CHECKING:
-    from dateparser.conf import Settings
+from dateparser.conf import Settings
 
 def parse(
     date_string: str,
