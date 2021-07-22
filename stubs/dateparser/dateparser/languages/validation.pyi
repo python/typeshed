@@ -1,6 +1,5 @@
 from typing import Any
 
-
 class LanguageValidator:
     logger: Any = ...
     VALID_KEYS: Any = ...
