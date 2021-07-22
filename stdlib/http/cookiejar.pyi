@@ -1,7 +1,7 @@
 import sys
 from _typeshed import StrPath
 from http.client import HTTPResponse
-from typing import Dict, Iterable, Iterator, Optional, Pattern, Sequence, Tuple, TypeVar, Union, overload
+from typing import ClassVar, Dict, Iterable, Iterator, Optional, Pattern, Sequence, Tuple, TypeVar, Union, overload
 from urllib.request import Request
 
 _T = TypeVar("_T")
@@ -9,12 +9,12 @@ _T = TypeVar("_T")
 class LoadError(OSError): ...
 
 class CookieJar(Iterable[Cookie]):
-    non_word_re: Pattern[str] = ...  # undocumented
-    quote_re: Pattern[str] = ...  # undocumented
-    strict_domain_re: Pattern[str] = ...  # undocumented
-    domain_re: Pattern[str] = ...  # undocumented
-    dots_re: Pattern[str] = ...  # undocumented
-    magic_re: Pattern[str] = ...  # undocumented
+    non_word_re: ClassVar[Pattern[str]] = ...  # undocumented
+    quote_re: ClassVar[Pattern[str]] = ...  # undocumented
+    strict_domain_re: ClassVar[Pattern[str]] = ...  # undocumented
+    domain_re: ClassVar[Pattern[str]] = ...  # undocumented
+    dots_re: ClassVar[Pattern[str]] = ...  # undocumented
+    magic_re: ClassVar[Pattern[str]] = ...  # undocumented
     def __init__(self, policy: Optional[CookiePolicy] = ...) -> None: ...
     def add_cookie_header(self, request: Request) -> None: ...
     def extract_cookies(self, response: HTTPResponse, request: Request) -> None: ...
@@ -68,11 +68,11 @@ class DefaultCookiePolicy(CookiePolicy):
     strict_ns_domain: int
     strict_ns_set_initial_dollar: bool
     strict_ns_set_path: bool
-    DomainStrictNoDots: int
-    DomainStrictNonDomain: int
-    DomainRFC2965Match: int
-    DomainLiberal: int
-    DomainStrict: int
+    DomainStrictNoDots: ClassVar[int]
+    DomainStrictNonDomain: ClassVar[int]
+    DomainRFC2965Match: ClassVar[int]
+    DomainLiberal: ClassVar[int]
+    DomainStrict: ClassVar[int]
     if sys.version_info >= (3, 8):
         def __init__(
             self,
