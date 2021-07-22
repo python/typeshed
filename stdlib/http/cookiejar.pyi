@@ -46,7 +46,7 @@ class FileCookieJar(CookieJar):
     def revert(self, filename: Optional[str] = ..., ignore_discard: bool = ..., ignore_expires: bool = ...) -> None: ...
 
 class MozillaCookieJar(FileCookieJar):
-    header: str = ...  # undocumented
+    header: ClassVar[str] = ...  # undocumented
 
 class LWPCookieJar(FileCookieJar):
     def as_lwp_str(self, ignore_discard: bool = ..., ignore_expires: bool = ...) -> str: ...  # undocumented
