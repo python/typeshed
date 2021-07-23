@@ -1,4 +1,4 @@
-from typing import Any, IO, Optional
+from typing import IO, Any, Optional
 from xml.sax.handler import ContentHandler
 from xml.sax.xmlreader import XMLReader
 
@@ -22,10 +22,12 @@ class ErrorHandler:
 class DOMEventStream:
     def __getattr__(self, name: str) -> Any: ...  # incomplete
 
-class SAX2DOM(PullDOM):
-    def __getattr__(self, name: str) -> Any: ...  # incomplete
-
 default_bufsize: int
 
-def parse(stream_or_string: str | IO[bytes], parser: Optional[XMLReader] = ..., bufsize: Optional[int] = ...) -> DOMEventStream: ...
+def parse(
+    stream_or_string: str | IO[bytes],
+    parser: Optional[XMLReader] = ...,
+    bufsize: Optional[int] = ...,
+) -> DOMEventStream: ...
 def parseString(string: str, parser: Optional[XMLReader] = ...) -> DOMEventStream: ...
+def __getattr__(name: str) -> Any: ...  # incomplete
