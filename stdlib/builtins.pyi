@@ -745,14 +745,6 @@ class tuple(Sequence[_T_co], Generic[_T_co]):
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
-class function:
-    # TODO not defined in builtins!
-    __name__: str
-    __module__: str
-    __code__: CodeType
-    __qualname__: str
-    __annotations__: Dict[str, Any]
-
 class list(MutableSequence[_T], Generic[_T]):
     @overload
     def __init__(self) -> None: ...
