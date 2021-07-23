@@ -97,6 +97,7 @@ _Cursor = Union[str, Tuple[str], Tuple[str, str], Tuple[str, str, str], Tuple[st
 _EntryValidateCommand = Union[
     Callable[[], bool], str, _TkinterSequence[str]
 ]  # example when it's sequence:  entry['invalidcommand'] = [entry.register(print), '%P']
+_GridIndex = Union[int, str, Literal["all"]]
 _ImageSpec = Union[_Image, str]  # str can be from e.g. tkinter.image_names()
 _Padding = Union[
     _ScreenUnits,
@@ -221,6 +222,8 @@ getint: Any
 getdouble: Any
 
 def getboolean(s): ...
+
+_GridIndexInfo = TypedDict("_GridIndexInfo", minsize=_ScreenUnits, pad=_ScreenUnits, uniform=Optional[str], weight=int)
 
 class Misc:
     master: Misc | None
@@ -384,8 +387,32 @@ class Misc:
     @overload
     def grid_bbox(self, column: int, row: int, col2: int, row2: int) -> Tuple[int, int, int, int] | None: ...
     bbox = grid_bbox
-    def grid_columnconfigure(self, index, cnf=..., **kw): ...  # TODO
-    def grid_rowconfigure(self, index, cnf=..., **kw): ...  # TODO
+    @overload
+    def grid_columnconfigure(
+        self,
+        index: _GridIndex,
+        cnf: _GridIndexInfo = ...,
+        *,
+        minsize: _ScreenUnits = ...,
+        weight: _ScreenUnits = ...,
+        uniform: str = ...,
+        pad: _ScreenUnits = ...,
+    ) -> None: ...
+    @overload
+    def grid_columnconfigure(self, index: _GridIndex) -> _GridIndexInfo: ...
+    @overload
+    def grid_rowconfigure(
+        self,
+        index: _GridIndex,
+        cnf: _GridIndexInfo = ...,
+        *,
+        minsize: _ScreenUnits = ...,
+        weight: _ScreenUnits = ...,
+        uniform: str = ...,
+        pad: _ScreenUnits = ...,
+    ) -> None: ...
+    @overload
+    def grid_rowconfigure(self, index: _GridIndex) -> _GridIndexInfo: ...
     columnconfigure = grid_columnconfigure
     rowconfigure = grid_rowconfigure
     def grid_location(self, x: _ScreenUnits, y: _ScreenUnits) -> Tuple[int, int]: ...
