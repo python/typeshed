@@ -9,6 +9,7 @@ google.protobuf.compiler.plugin_pb2.CodeGeneratorResponse.FEATURE_PROTO3_OPTIONA
 google.protobuf.compiler.plugin_pb2.CodeGeneratorResponse.Feature
 google.protobuf.compiler.plugin_pb2.CodeGeneratorResponse.File.__init__
 google.protobuf.compiler.plugin_pb2.CodeGeneratorResponse._Feature
+google.protobuf.compiler.plugin_pb2.CodeGeneratorResponse._FeatureEnumTypeWrapper
 google.protobuf.compiler.plugin_pb2.CodeGeneratorResponse.__init__
 google.protobuf.compiler.plugin_pb2.Version.__init__
 google.protobuf.descriptor.Descriptor.__new__
@@ -49,7 +50,9 @@ google.protobuf.descriptor_pb2.FieldDescriptorProto.TYPE_UINT32
 google.protobuf.descriptor_pb2.FieldDescriptorProto.TYPE_UINT64
 google.protobuf.descriptor_pb2.FieldDescriptorProto.Type
 google.protobuf.descriptor_pb2.FieldDescriptorProto._Label
+google.protobuf.descriptor_pb2.FieldDescriptorProto._LabelEnumTypeWrapper
 google.protobuf.descriptor_pb2.FieldDescriptorProto._Type
+google.protobuf.descriptor_pb2.FieldDescriptorProto._TypeEnumTypeWrapper
 google.protobuf.descriptor_pb2.FieldDescriptorProto.__init__
 google.protobuf.descriptor_pb2.FieldOptions.CORD
 google.protobuf.descriptor_pb2.FieldOptions.CType
@@ -60,7 +63,9 @@ google.protobuf.descriptor_pb2.FieldOptions.JS_STRING
 google.protobuf.descriptor_pb2.FieldOptions.STRING
 google.protobuf.descriptor_pb2.FieldOptions.STRING_PIECE
 google.protobuf.descriptor_pb2.FieldOptions._CType
+google.protobuf.descriptor_pb2.FieldOptions._CTypeEnumTypeWrapper
 google.protobuf.descriptor_pb2.FieldOptions._JSType
+google.protobuf.descriptor_pb2.FieldOptions._JSTypeEnumTypeWrapper
 google.protobuf.descriptor_pb2.FieldOptions.__init__
 google.protobuf.descriptor_pb2.FileDescriptorProto.__init__
 google.protobuf.descriptor_pb2.FileDescriptorSet.__init__
@@ -69,6 +74,7 @@ google.protobuf.descriptor_pb2.FileOptions.LITE_RUNTIME
 google.protobuf.descriptor_pb2.FileOptions.OptimizeMode
 google.protobuf.descriptor_pb2.FileOptions.SPEED
 google.protobuf.descriptor_pb2.FileOptions._OptimizeMode
+google.protobuf.descriptor_pb2.FileOptions._OptimizeModeEnumTypeWrapper
 google.protobuf.descriptor_pb2.FileOptions.__init__
 google.protobuf.descriptor_pb2.GeneratedCodeInfo.Annotation.__init__
 google.protobuf.descriptor_pb2.GeneratedCodeInfo.__init__
@@ -79,6 +85,7 @@ google.protobuf.descriptor_pb2.MethodOptions.IDEMPOTENT
 google.protobuf.descriptor_pb2.MethodOptions.IdempotencyLevel
 google.protobuf.descriptor_pb2.MethodOptions.NO_SIDE_EFFECTS
 google.protobuf.descriptor_pb2.MethodOptions._IdempotencyLevel
+google.protobuf.descriptor_pb2.MethodOptions._IdempotencyLevelEnumTypeWrapper
 google.protobuf.descriptor_pb2.MethodOptions.__init__
 google.protobuf.descriptor_pb2.OneofDescriptorProto.__init__
 google.protobuf.descriptor_pb2.OneofOptions.__init__
@@ -154,7 +161,9 @@ google.protobuf.type_pb2.Field.TYPE_UINT32
 google.protobuf.type_pb2.Field.TYPE_UINT64
 google.protobuf.type_pb2.Field.TYPE_UNKNOWN
 google.protobuf.type_pb2.Field._Cardinality
+google.protobuf.type_pb2.Field._CardinalityEnumTypeWrapper
 google.protobuf.type_pb2.Field._Kind
+google.protobuf.type_pb2.Field._KindEnumTypeWrapper
 google.protobuf.type_pb2.Field.__init__
 google.protobuf.type_pb2.Option.__init__
 google.protobuf.type_pb2.SYNTAX_PROTO2
