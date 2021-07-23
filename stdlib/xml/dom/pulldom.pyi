@@ -1,5 +1,5 @@
-import xml.sax.handler
-from typing import Any, BytesIO, Optional
+from typing import Any, IO, Optional
+from xml.sax.handler import ContentHandler
 from xml.sax.xmlreader import XMLReader
 
 START_ELEMENT: str
@@ -11,7 +11,7 @@ PROCESSING_INSTRUCTION: str
 IGNORABLE_WHITESPACE: str
 CHARACTERS: str
 
-class PullDOM(xml.sax.ContentHandler):
+class PullDOM(ContentHandler):
     def __getattr__(self, name: str) -> Any: ...  # incomplete
 
 class ErrorHandler:
@@ -27,5 +27,5 @@ class SAX2DOM(PullDOM):
 
 default_bufsize: int
 
-def parse(stream_or_string: str | BytesIO, parser: Optional[XMLReader] = ..., bufsize: Optional[int] = ...) -> DOMEventStream: ...
+def parse(stream_or_string: str | IO[bytes], parser: Optional[XMLReader] = ..., bufsize: Optional[int] = ...) -> DOMEventStream: ...
 def parseString(string: str, parser: Optional[XMLReader] = ...) -> DOMEventStream: ...
