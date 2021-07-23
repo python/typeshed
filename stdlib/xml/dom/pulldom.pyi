@@ -1,5 +1,6 @@
 import xml.sax.handler
 from typing import Any, BytesIO, Optional
+from xml.sax.xmlreader import XMLReader
 
 START_ELEMENT: str
 END_ELEMENT: str
