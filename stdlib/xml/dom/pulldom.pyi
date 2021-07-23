@@ -21,13 +21,12 @@ class ErrorHandler:
 
 class DOMEventStream:
     def __getattr__(self, name: str) -> Any: ...  # incomplete
+    def __init__(self, stream, parser, bufsize) -> None: ...
 
 default_bufsize: int
 
 def parse(
-    stream_or_string: str | IO[bytes],
-    parser: Optional[XMLReader] = ...,
-    bufsize: Optional[int] = ...,
+    stream_or_string: str | IO[bytes], parser: Optional[XMLReader] = ..., bufsize: Optional[int] = ...
 ) -> DOMEventStream: ...
 def parseString(string: str, parser: Optional[XMLReader] = ...) -> DOMEventStream: ...
 def __getattr__(name: str) -> Any: ...  # incomplete
