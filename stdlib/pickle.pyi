@@ -7,6 +7,11 @@ DEFAULT_PROTOCOL: int
 bytes_types: Tuple[Type[Any], ...]  # undocumented
 
 if sys.version_info >= (3, 8):
+    # Protocol 5
+    BYTEARRAY8: bytes
+    NEXT_BUFFER: bytes
+    READONLY_BUFFER: bytes
+
     # TODO: holistic design for buffer interface (typing.Buffer?)
     class PickleBuffer:
         # buffer must be a buffer-providing object
@@ -58,6 +63,7 @@ _reducedtype = Union[
 class Pickler:
     fast: bool
     dispatch_table: Mapping[type, Callable[[Any], _reducedtype]]
+    bin: bool  # undocumented
     dispatch: ClassVar[dict[type, Callable[[Unpickler, Any], None]]]  # undocumented, _Pickler only
 
     if sys.version_info >= (3, 8):
