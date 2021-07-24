@@ -7,11 +7,6 @@ DEFAULT_PROTOCOL: int
 bytes_types: Tuple[Type[Any], ...]  # undocumented
 
 if sys.version_info >= (3, 8):
-    # Protocol 5
-    BYTEARRAY8: bytes
-    NEXT_BUFFER: bytes
-    READONLY_BUFFER: bytes
-
     # TODO: holistic design for buffer interface (typing.Buffer?)
     class PickleBuffer:
         # buffer must be a buffer-providing object
@@ -175,6 +170,12 @@ NEWOBJ_EX: bytes
 STACK_GLOBAL: bytes
 MEMOIZE: bytes
 FRAME: bytes
+
+if sys.version_info >= (3, 8):
+    # Protocol 5
+    BYTEARRAY8: bytes
+    NEXT_BUFFER: bytes
+    READONLY_BUFFER: bytes
 
 def encode_long(x: int) -> bytes: ...  # undocumented
 def decode_long(data: bytes) -> int: ...  # undocumented
