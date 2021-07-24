@@ -38,6 +38,7 @@
         "stubs/Flask",
         "stubs/html5lib",
         "stubs/httplib2",
+        "stubs/humanfriendly",
         "stubs/Jinja2",
         "stubs/jmespath",
         "stubs/jsonschema",
