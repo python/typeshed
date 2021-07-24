@@ -56,6 +56,7 @@
         "stubs/PyYAML",
         "stubs/redis",
         "stubs/requests",
+        "stubs/selenium",
         "stubs/simplejson",
         "stubs/slumber",
         "stubs/stripe",
