@@ -4,8 +4,3 @@ dateparser.calendars.jalali
 dateparser.calendars.jalali_parser
 dateparser.search.detection.BaseLanguageDetector.iterate_applicable_languages
 dateparser.search.text_detection.BaseLanguageDetector.iterate_applicable_languages
-dateparser_scripts.get_cldr_data
-dateparser_scripts.order_languages
-dateparser_scripts.update_supported_languages_and_locales
-dateparser_scripts.utils
-dateparser_scripts.write_complete_data
