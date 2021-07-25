@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Any, Dict, List, Mapping, Optional, Set, Tuple, Union
+from typing import Any, List, Mapping, Optional, Set, Tuple, Union
 
 from dateparser.search.search import DateSearchWithDetection as DateSearchWithDetection
 
