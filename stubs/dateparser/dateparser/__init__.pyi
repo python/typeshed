@@ -1,13 +1,13 @@
-from datetime import datetime
-from typing import Any, List, Optional
+import datetime
+from typing import Any, List, Mapping, Optional, Set, Tuple, Union
 
-from dateparser.conf import Settings
+__version__: str
 
 def parse(
     date_string: str,
-    date_formats: Optional[Any] = ...,
-    languages: Optional[List[str]] = ...,
-    locales: Optional[List[str]] = ...,
+    date_formats: Optional[Union[List[str], Tuple[str], Set[str]]] = ...,
+    languages: Optional[Union[List[str], Tuple[str], Set[str]]] = ...,
+    locales: Optional[Union[List[str], Tuple[str], Set[str]]] = ...,
     region: Optional[str] = ...,
-    settings: Optional[Settings] = ...,
-) -> Optional[datetime]: ...
+    settings: Optional[Mapping[str, Any]] = ...,
+) -> Optional[datetime.datetime]: ...
