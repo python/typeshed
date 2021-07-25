@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, List
 
 from pkg_resources import Environment
 
@@ -107,7 +107,7 @@ class RewritePthDistributions(PthDistributions):
     prelude: Any
     postlude: Any
 
-class CommandSpec(list[str]):
+class CommandSpec(List[str]):
     options: Any
     split_args: Any
     @classmethod
