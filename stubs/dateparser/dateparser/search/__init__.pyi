@@ -1,5 +1,11 @@
+import sys
 from datetime import datetime
-from typing import Any, List, Literal, Mapping, Optional, Set, Tuple, Union, overload
+from typing import Any, List, Mapping, Optional, Set, Tuple, Union, overload
+
+if sys.version_info >= (3, 8):
+    from typing import Literal
+else:
+    from typing_extensions import Literal
 
 from dateparser.search.search import DateSearchWithDetection as DateSearchWithDetection
 
