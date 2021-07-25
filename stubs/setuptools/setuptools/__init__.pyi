@@ -1,6 +1,7 @@
+from abc import abstractmethod
 from collections.abc import Iterable, Mapping
 from distutils.core import Command as _Command
-from typing import Any
+from typing import Any, Type
 
 from ._deprecation_warning import SetuptoolsDeprecationWarning as SetuptoolsDeprecationWarning
 from .depends import Require as Require
@@ -35,14 +36,14 @@ def setup(
     scripts: list[str] = ...,
     ext_modules: list[Extension] = ...,
     classifiers: list[str] = ...,
-    distclass: type[Distribution] = ...,
+    distclass: Type[Distribution] = ...,
     script_name: str = ...,
     script_args: list[str] = ...,
     options: Mapping[str, Any] = ...,
     license: str = ...,
     keywords: list[str] | str = ...,
     platforms: list[str] | str = ...,
-    cmdclass: Mapping[str, type[Command]] = ...,
+    cmdclass: Mapping[str, Type[Command]] = ...,
     data_files: list[tuple[str, list[str]]] = ...,
     package_dir: Mapping[str, str] = ...,
     obsoletes: list[str] = ...,
@@ -64,7 +65,13 @@ def setup(
 class Command(_Command):
     command_consumes_arguments: bool
     def __init__(self, dist: Distribution, **kw: Any) -> None: ...
-    def ensure_string_list(self, option: str) -> None: ...
+    def ensure_string_list(self, option: str | list[str]) -> None: ...
     def reinitialize_command(self, command: _Command | str, reinit_subcommands: int = ..., **kw: Any) -> _Command: ...
+    @abstractmethod
+    def initialize_options(self) -> None: ...
+    @abstractmethod
+    def finalize_options(self) -> None: ...
+    @abstractmethod
+    def run(self) -> None: ...
 
 class sic(str): ...

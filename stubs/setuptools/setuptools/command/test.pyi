@@ -1,11 +1,12 @@
+from types import ModuleType
 from typing import Any
-from unittest import TestLoader
+from unittest import TestLoader, TestSuite
 
 from .. import Command
 
 class ScanningLoader(TestLoader):
     def __init__(self) -> None: ...
-    def loadTestsFromModule(self, module, pattern: Any | None = ...): ...
+    def loadTestsFromModule(self, module: ModuleType, pattern: Any | None = ...) -> list[TestSuite]: ...  # type: ignore
 
 class NonDataProperty:
     fget: Any

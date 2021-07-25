@@ -1,12 +1,12 @@
-from typing import Any
+from typing import Any, ClassVar
 
 from .upload import upload
 
 class upload_docs(upload):
-    DEFAULT_REPOSITORY: str
-    description: str
-    user_options: Any
-    boolean_options: Any
+    DEFAULT_REPOSITORY: ClassVar[str]
+    description: ClassVar[str]
+    user_options: ClassVar[list[tuple[str, str | None, str]]]
+    boolean_options: ClassVar[list[str]]
     def has_sphinx(self): ...
     sub_commands: Any
     upload_dir: Any
@@ -15,4 +15,4 @@ class upload_docs(upload):
     def finalize_options(self) -> None: ...
     def create_zipfile(self, filename) -> None: ...
     def run(self) -> None: ...
-    def upload_file(self, filename) -> None: ...
+    def upload_file(self, filename) -> None: ...  # type: ignore
