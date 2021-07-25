@@ -1,17 +1,23 @@
+from _typeshed import Self
 from types import ModuleType
-from typing import Any
+from typing import Any, Callable, Generic, TypeVar, overload
 from unittest import TestLoader, TestSuite
 
 from .. import Command
+
+_T = TypeVar("_T")
 
 class ScanningLoader(TestLoader):
     def __init__(self) -> None: ...
     def loadTestsFromModule(self, module: ModuleType, pattern: Any | None = ...) -> list[TestSuite]: ...  # type: ignore
 
-class NonDataProperty:
-    fget: Any
-    def __init__(self, fget) -> None: ...
-    def __get__(self, obj, objtype: Any | None = ...): ...
+class NonDataProperty(Generic[_T]):
+    fget: Callable[..., _T]
+    def __init__(self, fget: Callable[..., _T]) -> None: ...
+    @overload
+    def __get__(self: Self, obj: None, objtype: object = ...) -> Self: ...
+    @overload
+    def __get__(self, obj: Any, objtype: object = ...) -> _T: ...
 
 class test(Command):
     description: str
