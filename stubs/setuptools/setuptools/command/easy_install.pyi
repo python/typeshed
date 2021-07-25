@@ -107,7 +107,7 @@ class RewritePthDistributions(PthDistributions):
     prelude: Any
     postlude: Any
 
-class CommandSpec(list):
+class CommandSpec(list[str]):
     options: Any
     split_args: Any
     @classmethod
