@@ -1,7 +1,7 @@
 import enum
 import socket
 import sys
-from _typeshed import ReadableBuffer, StrPath, WriteableBuffer
+from _typeshed import ReadableBuffer, Self, StrPath, WriteableBuffer
 from typing import Any, Callable, ClassVar, Dict, Iterable, List, NamedTuple, Optional, Set, Tuple, Type, Union, overload
 from typing_extensions import Literal
 
@@ -262,9 +262,9 @@ class _ASN1Object(NamedTuple):
     longname: str
     oid: str
     @classmethod
-    def fromnid(cls, nid: int) -> _ASN1Object: ...
+    def fromnid(cls: Type[Self], nid: int) -> Self: ...
     @classmethod
-    def fromname(cls, name: str) -> _ASN1Object: ...
+    def fromname(cls: Type[Self], name: str) -> Self: ...
 
 class Purpose(_ASN1Object, enum.Enum):
     SERVER_AUTH: _ASN1Object
@@ -350,31 +350,22 @@ if sys.version_info >= (3, 7):
         TLSv1_3: int
 
 class SSLContext:
-    @property
-    def check_hostname(self) -> bool: ...
-    @property
-    def options(self) -> Options: ...
+    check_hostname: bool
+    options: Options
+    verify_flags: VerifyFlags
+    verify_mode: VerifyMode
     @property
     def protocol(self) -> _SSLMethod: ...
-    @property
-    def verify_flags(self) -> VerifyFlags: ...
-    @property
-    def verify_mode(self) -> VerifyMode: ...
     if sys.version_info >= (3, 7):
+        hostname_checks_common_name: bool
+        maximum_version: TLSVersion
+        minimum_version: TLSVersion
         sni_callback: Optional[Callable[[SSLObject, str, SSLContext], Union[None, int]]]
         sslobject_class: ClassVar[Type[SSLObject]]
         sslsocket_class: ClassVar[Type[SSLSocket]]
-        @property
-        def hostname_checks_common_name(self) -> bool: ...
-        @property
-        def maximum_version(self) -> TLSVersion: ...
-        @property
-        def minimum_version(self) -> TLSVersion: ...
     if sys.version_info >= (3, 8):
-        @property
-        def keylog_filename(self) -> str: ...
-        @property
-        def post_handshake_auth(self) -> bool: ...
+        keylog_filename: str
+        post_handshake_auth: bool
     def __new__(cls, protocol: int = ..., *args: Any, **kwargs: Any) -> SSLContext: ...
     def __init__(self, protocol: int = ...) -> None: ...
     def cert_store_stats(self) -> Dict[str, int]: ...
@@ -416,16 +407,11 @@ class SSLContext:
     def session_stats(self) -> Dict[str, int]: ...
 
 class SSLObject:
-    @property
-    def context(self) -> SSLContext: ...
-    @property
-    def server_side(self) -> bool: ...
-    @property
-    def server_hostname(self) -> Optional[str]: ...
-    @property
-    def session(self) -> Optional[SSLSession]: ...
-    @property
-    def session_reused(self) -> bool: ...
+    context: SSLContext
+    server_side: bool
+    server_hostname: Optional[str]
+    session: Optional[SSLSession]
+    session_reused: bool
     if sys.version_info >= (3, 7):
         def __init__(self, *args: Any, **kwargs: Any) -> None: ...
     else:
