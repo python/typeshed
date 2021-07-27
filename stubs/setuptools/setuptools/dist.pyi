@@ -1,7 +1,7 @@
 from distutils.core import Distribution as _Distribution
 from typing import Any
 
-from . import SetuptoolsDeprecationWarning
+from setuptools import SetuptoolsDeprecationWarning
 
 class Distribution(_Distribution):
     def patch_missing_pkg_info(self, attrs) -> None: ...

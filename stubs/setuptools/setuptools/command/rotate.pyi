@@ -1,6 +1,6 @@
 from typing import Any
 
-from .. import Command
+from setuptools import Command
 
 class rotate(Command):
     description: str

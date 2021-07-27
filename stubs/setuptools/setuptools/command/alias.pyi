@@ -1,6 +1,6 @@
 from typing import Any
 
-from .setopt import option_base
+from setuptools.command.setopt import option_base
 
 def shquote(arg): ...
 

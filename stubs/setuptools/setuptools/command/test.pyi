@@ -3,7 +3,7 @@ from types import ModuleType
 from typing import Any, Callable, Generic, TypeVar, overload
 from unittest import TestLoader, TestSuite
 
-from .. import Command
+from setuptools import Command
 
 _T = TypeVar("_T")
 

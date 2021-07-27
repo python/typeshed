@@ -3,10 +3,10 @@ from collections.abc import Iterable, Mapping
 from distutils.core import Command as _Command
 from typing import Any, Type
 
-from ._deprecation_warning import SetuptoolsDeprecationWarning as SetuptoolsDeprecationWarning
-from .depends import Require as Require
-from .dist import Distribution as Distribution
-from .extension import Extension as Extension
+from setuptools._deprecation_warning import SetuptoolsDeprecationWarning as SetuptoolsDeprecationWarning
+from setuptools.depends import Require as Require
+from setuptools.dist import Distribution as Distribution
+from setuptools.extension import Extension as Extension
 
 __version__: str
 

@@ -1,8 +1,7 @@
 from typing import Any, List
 
 from pkg_resources import Environment
-
-from .. import Command, SetuptoolsDeprecationWarning
+from setuptools import Command, SetuptoolsDeprecationWarning
 
 def samefile(p1, p2): ...
 
