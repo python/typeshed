@@ -1,7 +1,7 @@
 from abc import abstractmethod
 from typing import Any
 
-from .. import Command
+from setuptools import Command
 
 def config_file(kind: str = ...): ...
 def edit_config(filename, settings, dry_run: bool = ...) -> None: ...
