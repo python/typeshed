@@ -90,10 +90,8 @@ if sys.version_info >= (3, 7):
         @abstractmethod
         def contents(self) -> Iterator[str]: ...
 
-
 if sys.version_info >= (3, 9):
     _P = TypeVar("_P", bound=Traversable)
-
     @runtime_checkable
     class Traversable(Protocol):
         @abstractmethod
@@ -102,10 +100,14 @@ if sys.version_info >= (3, 9):
         def is_file(self) -> bool: ...
         @abstractmethod
         def iterdir(self: _P) -> Generator[_P, None, None]: ...
+        @abstractmethod
+        @overload
+        def joinpath(self: _P, *other: StrPath) -> _P: ...
+        @abstractmethod
+        @overload
+        def joinpath(self: _P, *child: StrPath) -> _P: ...
         # Adapted from builtins.open
         # Text mode: always returns a TextIOWrapper
-        @abstractmethod
-        def joinpath(self: _P, *other: StrPath) -> _P: ...
         @overload
         @abstractmethod
         def open(
@@ -175,5 +177,9 @@ if sys.version_info >= (3, 9):
         def __truediv__(self: _P, key: StrPath) -> _P: ...
         @abstractmethod
         def read_bytes(self) -> bytes: ...
+        @overload
         @abstractmethod
         def read_text(self, encoding: Optional[str] = ..., errors: Optional[str] = ...) -> str: ...
+        @overload
+        @abstractmethod
+        def read_text(self, encoding: Optional[str] = ...) -> str: ...
