@@ -1,10 +1,18 @@
-from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
 import sys
 import types
-from _typeshed import OpenBinaryMode, OpenBinaryModeReading, OpenBinaryModeUpdating, OpenBinaryModeWriting, OpenTextMode, StrOrBytesPath, StrPath
+from _typeshed import (
+    OpenBinaryMode,
+    OpenBinaryModeReading,
+    OpenBinaryModeUpdating,
+    OpenBinaryModeWriting,
+    OpenTextMode,
+    StrOrBytesPath,
+    StrPath,
+)
 from abc import ABCMeta, abstractmethod
 from importlib.machinery import ModuleSpec
-from typing import BinaryIO, Generator, IO, Any, Iterator, Mapping, Optional, Protocol, Sequence, Tuple, TypeVar, Union, overload
+from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
+from typing import IO, Any, BinaryIO, Generator, Iterator, Mapping, Optional, Protocol, Sequence, Tuple, TypeVar, Union, overload
 from typing_extensions import Literal, runtime_checkable
 
 _Path = Union[bytes, str]
