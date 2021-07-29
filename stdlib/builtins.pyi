@@ -11,6 +11,7 @@ from _typeshed import (
     StrOrBytesPath,
     SupportsDivMod,
     SupportsKeysAndGetItem,
+    SupportsLenAndGetItem,
     SupportsLessThan,
     SupportsLessThanT,
     SupportsRDivMod,
@@ -1287,7 +1288,7 @@ def quit(code: object = ...) -> NoReturn: ...
 
 class reversed(Iterator[_T], Generic[_T]):
     @overload
-    def __init__(self, __sequence: Sequence[_T]) -> None: ...
+    def __init__(self, __sequence: SupportsLenAndGetItem[_T]) -> None: ...
     @overload
     def __init__(self, __sequence: Reversible[_T]) -> None: ...
     def __iter__(self) -> Iterator[_T]: ...
