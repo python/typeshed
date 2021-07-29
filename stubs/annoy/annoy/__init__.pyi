@@ -1,6 +1,6 @@
 from _typeshed import SupportsLenAndGetItem
-from typing import Sized, overload
-from typing_extensions import Literal, Protocol
+from typing import overload
+from typing_extensions import Literal
 
 _Vector = SupportsLenAndGetItem[float]
 
