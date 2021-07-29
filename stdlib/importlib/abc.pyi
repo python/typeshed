@@ -1,9 +1,10 @@
+from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
 import sys
 import types
-from _typeshed import StrOrBytesPath
+from _typeshed import OpenBinaryMode, OpenBinaryModeReading, OpenBinaryModeUpdating, OpenBinaryModeWriting, OpenTextMode, StrOrBytesPath, StrPath
 from abc import ABCMeta, abstractmethod
 from importlib.machinery import ModuleSpec
-from typing import IO, Any, Iterator, Mapping, Optional, Protocol, Sequence, Tuple, Union
+from typing import BinaryIO, Generator, IO, Any, Iterator, Mapping, Optional, Protocol, Sequence, Tuple, TypeVar, Union, overload
 from typing_extensions import Literal, runtime_checkable
 
 _Path = Union[bytes, str]
@@ -81,25 +82,90 @@ if sys.version_info >= (3, 7):
         @abstractmethod
         def contents(self) -> Iterator[str]: ...
 
+
 if sys.version_info >= (3, 9):
+    _P = TypeVar("_P", bound=Traversable)
+
     @runtime_checkable
     class Traversable(Protocol):
-        @abstractmethod
-        def iterdir(self) -> Iterator[Traversable]: ...
-        @abstractmethod
-        def read_bytes(self) -> bytes: ...
-        @abstractmethod
-        def read_text(self, encoding: Optional[str] = ...) -> str: ...
         @abstractmethod
         def is_dir(self) -> bool: ...
         @abstractmethod
         def is_file(self) -> bool: ...
         @abstractmethod
-        def joinpath(self, child: _Path) -> Traversable: ...
+        def iterdir(self: _P) -> Generator[_P, None, None]: ...
+        # Adapted from builtins.open
+        # Text mode: always returns a TextIOWrapper
         @abstractmethod
-        def __truediv__(self, child: _Path) -> Traversable: ...
+        def joinpath(self: _P, *other: StrPath) -> _P: ...
+        @overload
         @abstractmethod
-        def open(self, mode: Literal["r", "rb"] = ..., *args: Any, **kwargs: Any) -> IO[Any]: ...
-        @property
+        def open(
+            self,
+            mode: OpenTextMode = ...,
+            buffering: int = ...,
+            encoding: Optional[str] = ...,
+            errors: Optional[str] = ...,
+            newline: Optional[str] = ...,
+        ) -> TextIOWrapper: ...
+        # Unbuffered binary mode: returns a FileIO
+        @overload
         @abstractmethod
-        def name(self) -> str: ...
+        def open(
+            self, mode: OpenBinaryMode, buffering: Literal[0], encoding: None = ..., errors: None = ..., newline: None = ...
+        ) -> FileIO: ...
+        # Buffering is on: return BufferedRandom, BufferedReader, or BufferedWriter
+        @overload
+        @abstractmethod
+        def open(
+            self,
+            mode: OpenBinaryModeUpdating,
+            buffering: Literal[-1, 1] = ...,
+            encoding: None = ...,
+            errors: None = ...,
+            newline: None = ...,
+        ) -> BufferedRandom: ...
+        @overload
+        @abstractmethod
+        def open(
+            self,
+            mode: OpenBinaryModeWriting,
+            buffering: Literal[-1, 1] = ...,
+            encoding: None = ...,
+            errors: None = ...,
+            newline: None = ...,
+        ) -> BufferedWriter: ...
+        @overload
+        @abstractmethod
+        def open(
+            self,
+            mode: OpenBinaryModeReading,
+            buffering: Literal[-1, 1] = ...,
+            encoding: None = ...,
+            errors: None = ...,
+            newline: None = ...,
+        ) -> BufferedReader: ...
+        # Buffering cannot be determined: fall back to BinaryIO
+        @overload
+        @abstractmethod
+        def open(
+            self, mode: OpenBinaryMode, buffering: int, encoding: None = ..., errors: None = ..., newline: None = ...
+        ) -> BinaryIO: ...
+        # Fallback if mode is not specified
+        @overload
+        @abstractmethod
+        def open(
+            self,
+            mode: str,
+            buffering: int = ...,
+            encoding: Optional[str] = ...,
+            errors: Optional[str] = ...,
+            newline: Optional[str] = ...,
+        ) -> IO[Any]: ...
+        name: str
+        @abstractmethod
+        def __truediv__(self: _P, key: StrPath) -> _P: ...
+        @abstractmethod
+        def read_bytes(self) -> bytes: ...
+        @abstractmethod
+        def read_text(self, encoding: Optional[str] = ..., errors: Optional[str] = ...) -> str: ...
