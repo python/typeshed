@@ -114,9 +114,9 @@ if sys.version_info >= (3, 9):
             self,
             mode: OpenTextMode = ...,
             buffering: int = ...,
-            encoding: Optional[str] = ...,
-            errors: Optional[str] = ...,
-            newline: Optional[str] = ...,
+            encoding: str | None = ...,
+            errors: str | None = ...,
+            newline: str | None = ...,
         ) -> TextIOWrapper: ...
         # Unbuffered binary mode: returns a FileIO
         @overload
@@ -165,12 +165,7 @@ if sys.version_info >= (3, 9):
         @overload
         @abstractmethod
         def open(
-            self,
-            mode: str,
-            buffering: int = ...,
-            encoding: Optional[str] = ...,
-            errors: Optional[str] = ...,
-            newline: Optional[str] = ...,
+            self, mode: str, buffering: int = ..., encoding: str | None = ..., errors: str | None = ..., newline: str | None = ...
         ) -> IO[Any]: ...
         name: str
         @abstractmethod
@@ -179,7 +174,7 @@ if sys.version_info >= (3, 9):
         def read_bytes(self) -> bytes: ...
         @overload
         @abstractmethod
-        def read_text(self, encoding: Optional[str] = ...) -> str: ...
+        def read_text(self, encoding: str | None = ...) -> str: ...
         @overload
         @abstractmethod
-        def read_text(self, encoding: Optional[str] = ..., errors: Optional[str] = ...) -> str: ...
+        def read_text(self, encoding: str | None = ..., errors: str | None = ...) -> str: ...
