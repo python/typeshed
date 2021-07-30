@@ -78,7 +78,7 @@ class Field(Generic[_T]):
     hash: Optional[bool]
     init: bool
     compare: bool
-    metadata: Mapping[str, Any]
+    metadata: Mapping[Any, Any]
     if sys.version_info >= (3, 10):
         kw_only: bool
         def __init__(
@@ -89,7 +89,7 @@ class Field(Generic[_T]):
             repr: bool,
             hash: Optional[bool],
             compare: bool,
-            metadata: Mapping[str, Any],
+            metadata: Mapping[Any, Any],
             kw_only: bool,
         ) -> None: ...
     else:
@@ -101,7 +101,7 @@ class Field(Generic[_T]):
             repr: bool,
             hash: Optional[bool],
             compare: bool,
-            metadata: Mapping[str, Any],
+            metadata: Mapping[Any, Any],
         ) -> None: ...
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, item: Any) -> GenericAlias: ...
@@ -117,7 +117,7 @@ if sys.version_info >= (3, 10):
         repr: bool = ...,
         hash: Optional[bool] = ...,
         compare: bool = ...,
-        metadata: Optional[Mapping[str, Any]] = ...,
+        metadata: Optional[Mapping[Any, Any]] = ...,
         kw_only: bool = ...,
     ) -> _T: ...
     @overload
@@ -128,7 +128,7 @@ if sys.version_info >= (3, 10):
         repr: bool = ...,
         hash: Optional[bool] = ...,
         compare: bool = ...,
-        metadata: Optional[Mapping[str, Any]] = ...,
+        metadata: Optional[Mapping[Any, Any]] = ...,
         kw_only: bool = ...,
     ) -> _T: ...
     @overload
@@ -138,7 +138,7 @@ if sys.version_info >= (3, 10):
         repr: bool = ...,
         hash: Optional[bool] = ...,
         compare: bool = ...,
-        metadata: Optional[Mapping[str, Any]] = ...,
+        metadata: Optional[Mapping[Any, Any]] = ...,
         kw_only: bool = ...,
     ) -> Any: ...
 
@@ -151,7 +151,7 @@ else:
         repr: bool = ...,
         hash: Optional[bool] = ...,
         compare: bool = ...,
-        metadata: Optional[Mapping[str, Any]] = ...,
+        metadata: Optional[Mapping[Any, Any]] = ...,
     ) -> _T: ...
     @overload
     def field(
@@ -161,7 +161,7 @@ else:
         repr: bool = ...,
         hash: Optional[bool] = ...,
         compare: bool = ...,
-        metadata: Optional[Mapping[str, Any]] = ...,
+        metadata: Optional[Mapping[Any, Any]] = ...,
     ) -> _T: ...
     @overload
     def field(
@@ -170,7 +170,7 @@ else:
         repr: bool = ...,
         hash: Optional[bool] = ...,
         compare: bool = ...,
-        metadata: Optional[Mapping[str, Any]] = ...,
+        metadata: Optional[Mapping[Any, Any]] = ...,
     ) -> Any: ...
 
 def fields(class_or_instance: Any) -> Tuple[Field[Any], ...]: ...
