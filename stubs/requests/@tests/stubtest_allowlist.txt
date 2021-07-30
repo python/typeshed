@@ -44,7 +44,6 @@ requests.packages.urllib3.response.HTTPResponse.__init__
 requests.packages.urllib3.response.PY3
 requests.packages.urllib3.util.connection.poll
 requests.packages.urllib3.util.connection.select
-requests.packages.urllib3.util.retry.Retry.__init__
 requests.packages.urllib3.util.retry.Retry.is_forced_retry
 requests.packages.urllib3.util.retry.Retry.sleep
 requests.packages.urllib3.util.ssl_.create_default_context
