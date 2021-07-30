@@ -1,7 +1,10 @@
 from typing import Any, Callable, Container, Dict, Iterable, List, Mapping, NamedTuple, Optional, Sequence, Union
 
+LATEX_ESCAPE_RULES: Dict[str, str]
+MIN_PADDING: int
 PRESERVE_WHITESPACE: bool
 WIDE_CHARS_MODE: bool
+multiline_formats: Dict[str, str]
 tabulate_formats: List[str]
 
 class Line(NamedTuple):
