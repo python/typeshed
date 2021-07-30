@@ -1,9 +1,5 @@
 from typing import Any, Optional
 
-from google.cloud.ndb import exceptions as exceptions
-
-log: Any
-
 class Options:
     @classmethod
     def options(cls, wrapped: Any): ...
