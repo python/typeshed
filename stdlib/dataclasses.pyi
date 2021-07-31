@@ -14,7 +14,7 @@ MISSING: _MISSING_TYPE
 
 if sys.version_info >= (3, 10):
     class _KW_ONLY_TYPE: ...
-    KW_ONLY: _KW_ONLY_TYPE
+    KW_ONLY = _KW_ONLY_TYPE
 
 @overload
 def asdict(obj: Any) -> Dict[str, Any]: ...
