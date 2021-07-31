@@ -1,11 +1,12 @@
-from typing import Any, Dict, Optional
+import datetime
+from collections.abc import Iterable, Sequence
+from typing import Any, Callable, List, NoReturn, Optional, Tuple, Type, Union
+from typing_extensions import Literal
 
 import six
-from google.cloud.ndb import exceptions, key as key_module
+from google.cloud.ndb import EVENTUAL, exceptions, key as key_module, query as query_module, tasklets as tasklets_module
 
 Key: key_module.Key
-BlobKey: Any
-GeoPt: Any
 Rollback: exceptions.Rollback
 
 class KindError(exceptions.BadValueError): ...
@@ -19,77 +20,81 @@ class ComputedPropertyError(ReadonlyPropertyError): ...
 class UserNotFoundError(exceptions.Error): ...
 
 class _NotEqualMixin:
-    def __ne__(self, other: Any) -> Any: ...
+    def __ne__(self, other: Any) -> bool: ...
+
+DirectionT = Literal["asc", "desc"]
 
 class IndexProperty(_NotEqualMixin):
-    def __new__(cls, name: Any, direction: Any): ...
+    def __new__(cls, name: str, direction: DirectionT): ...
     @property
-    def name(self): ...
+    def name(self) -> str: ...
     @property
-    def direction(self): ...
-    def __eq__(self, other: Any) -> Any: ...
-    def __hash__(self) -> Any: ...
+    def direction(self) -> DirectionT: ...
+    def __eq__(self, other: object) -> bool: ...
+    def __hash__(self) -> int: ...
 
 class Index(_NotEqualMixin):
-    def __new__(cls, kind: Any, properties: Any, ancestor: Any): ...
+    def __new__(cls, kind, properties, ancestor): ...
     @property
     def kind(self): ...
     @property
     def properties(self): ...
     @property
     def ancestor(self): ...
-    def __eq__(self, other: Any) -> Any: ...
-    def __hash__(self) -> Any: ...
+    def __eq__(self, other) -> bool: ...
+    def __hash__(self) -> int: ...
 
 class IndexState(_NotEqualMixin):
-    def __new__(cls, definition: Any, state: Any, id: Any): ...
+    def __new__(cls, definition, state, id): ...
     @property
     def definition(self): ...
     @property
     def state(self): ...
     @property
     def id(self): ...
-    def __eq__(self, other: Any) -> Any: ...
-    def __hash__(self) -> Any: ...
+    def __eq__(self, other) -> bool: ...
+    def __hash__(self) -> int: ...
 
 class ModelAdapter:
-    def __new__(cls, *args: Any, **kwargs: Any) -> ModelAdapter: ...
+    def __new__(cls, *args, **kwargs) -> ModelAdapter: ...
 
-def make_connection(*args: Any, **kwargs: Any) -> None: ...
+def make_connection(*args, **kwargs) -> NoReturn: ...
 
 class ModelAttribute: ...
 
 class _BaseValue(_NotEqualMixin):
-    b_val: Any = ...
-    def __init__(self, b_val: Any) -> None: ...
-    def __eq__(self, other: Any) -> Any: ...
-    def __hash__(self) -> Any: ...
+    b_val: object = ...
+    def __init__(self, b_val) -> None: ...
+    def __eq__(self, other) -> bool: ...
+    def __hash__(self) -> int: ...
 
 class Property(ModelAttribute):
     def __init__(
         self,
-        name: Optional[Any] = ...,
-        indexed: Optional[Any] = ...,
-        repeated: Optional[Any] = ...,
-        required: Optional[Any] = ...,
-        default: Optional[Any] = ...,
-        choices: Optional[Any] = ...,
-        validator: Optional[Any] = ...,
-        verbose_name: Optional[Any] = ...,
-        write_empty_list: Optional[Any] = ...,
+        name: Optional[str] = ...,
+        indexed: Optional[bool] = ...,
+        repeated: Optional[bool] = ...,
+        required: Optional[bool] = ...,
+        default: Optional[object] = ...,
+        choices: Optional[Iterable[object]] = ...,
+        validator: Optional[Callable[[Property], Any]] = ...,
+        verbose_name: Optional[str] = ...,
+        write_empty_list: Optional[bool] = ...,
     ) -> None: ...
-    def __eq__(self, value: Any) -> Any: ...
-    def __ne__(self, value: Any) -> Any: ...
-    def __lt__(self, value: Any) -> Any: ...
-    def __le__(self, value: Any) -> Any: ...
-    def __gt__(self, value: Any) -> Any: ...
-    def __ge__(self, value: Any) -> Any: ...
-    IN: Any = ...
-    def __neg__(self): ...
-    def __pos__(self): ...
-    def __get__(self, entity: Any, unused_cls: Optional[Any] = ...): ...
-    def __set__(self, entity: Any, value: Any) -> None: ...
-    def __delete__(self, entity: Any) -> None: ...
+    def __eq__(self, value: object) -> query_module.FilterNode: ... # type: ignore[override]
+    def __ne__(self, value: object) -> query_module.FilterNode: ... # type: ignore[override]
+    def __lt__(self, value: object) -> query_module.FilterNode: ...
+    def __le__(self, value: object) -> query_module.FilterNode: ...
+    def __gt__(self, value: object) -> query_module.FilterNode: ...
+    def __ge__(self, value: object) -> query_module.FilterNode: ...
+    def IN(
+        self, value: Iterable[object]
+    ) -> Union[query_module.DisjunctionNode, query_module.FilterNode, query_module.FalseNode]: ...
+    def __neg__(self) -> query_module.PropertyOrder: ...
+    def __pos__(self) -> query_module.PropertyOrder: ...
+    def __get__(self, entity: Model, unused_cls: Optional[Type[Model]] = ...): ...
+    def __set__(self, entity: Model, value: object) -> None: ...
+    def __delete__(self, entity: Model) -> None: ...
 
 class ModelKey(Property):
     def __init__(self) -> None: ...
@@ -99,24 +104,24 @@ class IntegerProperty(Property): ...
 class FloatProperty(Property): ...
 
 class _CompressedValue(six.binary_type):
-    z_val: Any = ...
-    def __init__(self, z_val: Any) -> None: ...
-    def __eq__(self, other: Any) -> Any: ...
-    def __hash__(self) -> Any: ...
+    z_val: bytes = ...
+    def __init__(self, z_val: bytes) -> None: ...
+    def __eq__(self, other: object) -> bool: ...
+    def __hash__(self) -> NoReturn: ...
 
 class BlobProperty(Property):
     def __init__(
         self,
-        name: Optional[Any] = ...,
-        compressed: Optional[Any] = ...,
-        indexed: Optional[Any] = ...,
-        repeated: Optional[Any] = ...,
-        required: Optional[Any] = ...,
-        default: Optional[Any] = ...,
-        choices: Optional[Any] = ...,
-        validator: Optional[Any] = ...,
-        verbose_name: Optional[Any] = ...,
-        write_empty_list: Optional[Any] = ...,
+        name: Optional[str] = ...,
+        compressed: Optional[bool] = ...,
+        indexed: Optional[bool] = ...,
+        repeated: Optional[bool] = ...,
+        required: Optional[bool] = ...,
+        default: Optional[bytes] = ...,
+        choices: Optional[Iterable[bytes]] = ...,
+        validator: Optional[Callable[[Property], object]] = ...,
+        verbose_name: Optional[str] = ...,
+        write_empty_list: Optional[bool] = ...,
     ) -> None: ...
 
 class CompressedTextProperty(BlobProperty):
@@ -135,58 +140,58 @@ class PickleProperty(BlobProperty): ...
 class JsonProperty(BlobProperty):
     def __init__(
         self,
-        name: Optional[Any] = ...,
-        compressed: Optional[Any] = ...,
-        json_type: Optional[Any] = ...,
-        indexed: Optional[Any] = ...,
-        repeated: Optional[Any] = ...,
-        required: Optional[Any] = ...,
-        default: Optional[Any] = ...,
-        choices: Optional[Any] = ...,
-        validator: Optional[Any] = ...,
-        verbose_name: Optional[Any] = ...,
-        write_empty_list: Optional[Any] = ...,
+        name: Optional[str] = ...,
+        compressed: Optional[bool] = ...,
+        json_type: Optional[type] = ...,
+        indexed: Optional[bool] = ...,
+        repeated: Optional[bool] = ...,
+        required: Optional[bool] = ...,
+        default: Optional[object] = ...,
+        choices: Optional[Iterable[object]] = ...,
+        validator: Optional[Callable[[Property], Any]] = ...,
+        verbose_name: Optional[str] = ...,
+        write_empty_list: Optional[bool] = ...,
     ) -> None: ...
 
 class User:
-    def __init__(self, email: Optional[Any] = ..., _auth_domain: Optional[Any] = ..., _user_id: Optional[Any] = ...) -> None: ...
-    def nickname(self): ...
+    def __init__(self, email: Optional[str] = ..., _auth_domain: Optional[str] = ..., _user_id: Optional[str] = ...) -> None: ...
+    def nickname(self) -> str: ...
     def email(self): ...
-    def user_id(self): ...
-    def auth_domain(self): ...
-    def __hash__(self) -> Any: ...
-    def __eq__(self, other: Any) -> Any: ...
-    def __lt__(self, other: Any) -> Any: ...
+    def user_id(self) -> Optional[str]: ...
+    def auth_domain(self) -> str: ...
+    def __hash__(self) -> int: ...
+    def __eq__(self, other: object) -> bool: ...
+    def __lt__(self, other: object) -> bool: ...
 
 class UserProperty(Property):
     def __init__(
         self,
-        name: Optional[Any] = ...,
-        auto_current_user: Optional[Any] = ...,
-        auto_current_user_add: Optional[Any] = ...,
-        indexed: Optional[Any] = ...,
-        repeated: Optional[Any] = ...,
-        required: Optional[Any] = ...,
-        default: Optional[Any] = ...,
-        choices: Optional[Any] = ...,
-        validator: Optional[Any] = ...,
-        verbose_name: Optional[Any] = ...,
-        write_empty_list: Optional[Any] = ...,
+        name: Optional[str] = ...,
+        auto_current_user: Optional[bool] = ...,
+        auto_current_user_add: Optional[bool] = ...,
+        indexed: Optional[bool] = ...,
+        repeated: Optional[bool] = ...,
+        required: Optional[bool] = ...,
+        default: Optional[bytes] = ...,
+        choices: Optional[Iterable[bytes]] = ...,
+        validator: Optional[Callable[[Property], Any]] = ...,
+        verbose_name: Optional[str] = ...,
+        write_empty_list: Optional[bool] = ...,
     ) -> None: ...
 
 class KeyProperty(Property):
     def __init__(
         self,
-        name: Optional[Any] = ...,
-        kind: Optional[Any] = ...,
-        indexed: Optional[Any] = ...,
-        repeated: Optional[Any] = ...,
-        required: Optional[Any] = ...,
-        default: Optional[Any] = ...,
-        choices: Optional[Any] = ...,
-        validator: Optional[Any] = ...,
-        verbose_name: Optional[Any] = ...,
-        write_empty_list: Optional[Any] = ...,
+        name: Optional[str] = ...,
+        kind: Optional[Union[Type[Model], str]] = ...,
+        indexed: Optional[bool] = ...,
+        repeated: Optional[bool] = ...,
+        required: Optional[bool] = ...,
+        default: Optional[key_module.Key] = ...,
+        choices: Optional[Iterable[key_module.Key]] = ...,
+        validator: Optional[Callable[[Property, key_module.Key], bool]] = ...,
+        verbose_name: Optional[str] = ...,
+        write_empty_list: Optional[bool] = ...,
     ) -> None: ...
 
 class BlobKeyProperty(Property): ...
@@ -194,170 +199,224 @@ class BlobKeyProperty(Property): ...
 class DateTimeProperty(Property):
     def __init__(
         self,
-        name: Optional[Any] = ...,
-        auto_now: Optional[Any] = ...,
-        auto_now_add: Optional[Any] = ...,
-        tzinfo: Optional[Any] = ...,
-        indexed: Optional[Any] = ...,
-        repeated: Optional[Any] = ...,
-        required: Optional[Any] = ...,
-        default: Optional[Any] = ...,
-        choices: Optional[Any] = ...,
-        validator: Optional[Any] = ...,
-        verbose_name: Optional[Any] = ...,
-        write_empty_list: Optional[Any] = ...,
+        name: Optional[str] = ...,
+        auto_now: Optional[bool] = ...,
+        auto_now_add: Optional[bool] = ...,
+        tzinfo: Optional[datetime.tzinfo] = ...,
+        indexed: Optional[bool] = ...,
+        repeated: Optional[bool] = ...,
+        required: Optional[bool] = ...,
+        default: Optional[datetime.datetime] = ...,
+        choices: Optional[Iterable[datetime.datetime]] = ...,
+        validator: Optional[Callable[[Property, object], bool]] = ...,
+        verbose_name: Optional[str] = ...,
+        write_empty_list: Optional[bool] = ...,
     ) -> None: ...
 
 class DateProperty(DateTimeProperty): ...
 class TimeProperty(DateTimeProperty): ...
 
 class StructuredProperty(Property):
-    def __init__(self, model_class: Any, name: Optional[Any] = ..., **kwargs: Any) -> None: ...
-    def __getattr__(self, attrname: Any): ...
-    IN: Any = ...
+    def __init__(self, model_class: type, name: Optional[str] = ..., **kwargs) -> None: ...
+    def __getattr__(self, attrname): ...
+    def IN(self, value: Iterable[object]) -> Union[query_module.DisjunctionNode, query_module.FalseNode]: ...
 
 class LocalStructuredProperty(BlobProperty):
-    def __init__(self, model_class: Any, **kwargs: Any) -> None: ...
+    def __init__(self, model_class: Type[Model], **kwargs) -> None: ...
 
 class GenericProperty(Property):
-    def __init__(self, name: Optional[Any] = ..., compressed: bool = ..., **kwargs: Any) -> None: ...
+    def __init__(self, name: Optional[str] = ..., compressed: bool = ..., **kwargs) -> None: ...
 
 class ComputedProperty(GenericProperty):
     def __init__(
         self,
-        func: Any,
-        name: Optional[Any] = ...,
-        indexed: Optional[Any] = ...,
-        repeated: Optional[Any] = ...,
-        verbose_name: Optional[Any] = ...,
+        func: Callable[[Model], Any],
+        name: Optional[str] = ...,
+        indexed: Optional[bool] = ...,
+        repeated: Optional[bool] = ...,
+        verbose_name: Optional[str] = ...,
     ) -> None: ...
 
 class MetaModel(type):
-    def __init__(cls, name: Any, bases: Any, classdict: Any) -> None: ...
+    def __init__(cls, name: str, bases, classdict) -> None: ...
 
 class Model(_NotEqualMixin, metaclass=MetaModel):
-    key: ModelKey = ...
-    def __init__(_self: Any, **kwargs: Any) -> None: ...
-    def __hash__(self) -> Any: ...
-    def __eq__(self, other: Any) -> bool: ...
-    def __lt__(self, value: Any) -> bool: ...
-    def __le__(self, value: Any) -> bool: ...
-    def __gt__(self, value: Any) -> bool: ...
-    def __ge__(self, value: Any) -> bool: ...
-    gql: Any = ...
-    put: Any = ...
-    put_async: Any = ...
-    query: Any = ...
-    allocate_ids: Any = ...
-    allocate_ids_async: Any = ...
-    get_by_id: Any = ...
-    get_by_id_async: Any = ...
-    get_or_insert: Any = ...
-    get_or_insert_async: Any = ...
-    populate: Any = ...
-    has_complete_key: Any = ...
-    to_dict: Dict[Any, Any] = ...
+    key: key_module.Key = ...
+    def __init__(_self, **kwargs) -> None: ...
+    def __hash__(self) -> NoReturn: ...
+    def __eq__(self, other: object) -> bool: ...
+    @classmethod
+    def gql(cls: Type[Model], query_string: str, *args, **kwargs) -> query_module.Query: ...
+    def put(**kwargs): ...
+    def put_async(**kwargs) -> tasklets_module.Future: ...
+    def query(*args, **kwargs) -> query_module.Query: ...
+    @classmethod
+    def _allocate_ids(
+        cls: Type[Model],
+        size: Optional[int],
+        max: Optional[int],
+        parent: Optional[key_module.Key],
+        retries: Optional[int],
+        timeout: Optional[float],
+        deadline: Optional[float],
+        use_cache: Optional[bool],
+        use_global_cache: Optional[bool],
+        use_datastore: Optional[bool],
+        global_cache_timeout: Optional[int],
+        use_memcache: Optional[bool],
+        memcache_timeout: Optional[int],
+        max_memcache_items: Optional[int],
+        forces_writes: Optional[bool],
+    ) -> Tuple[key_module.Key, key_module.Key]: ...
+    @classmethod
+    def allocate_ids(
+        cls: Type[Model],
+        size: Optional[int],
+        max: Optional[int],
+        parent: Optional[key_module.Key],
+        retries: Optional[int],
+        timeout: Optional[float],
+        deadline: Optional[float],
+        use_cache: Optional[bool],
+        use_global_cache: Optional[bool],
+        use_datastore: Optional[bool],
+        global_cache_timeout: Optional[int],
+        use_memcache: Optional[bool],
+        memcache_timeout: Optional[int],
+        max_memcache_items: Optional[int],
+        forces_writes: Optional[bool],
+    ) -> tasklets_module.Future: ...
+    @classmethod
+    def get_by_id(
+        cls: Type[Model],
+        id: Optional[Union[int, str]],
+        parent: Optional[key_module.Key],
+        namespace: Optional[str],
+        project: Optional[str],
+        app: Optional[str],
+        read_consistency: Optional[EVENTUAL],
+        read_policy: Optional[EVENTUAL],
+        transaction: Optional[bytes],
+        retries: Optional[int],
+        timeout: Optional[float],
+        deadline: Optional[float],
+        use_cache: Optional[bool],
+        use_global_cache: Optional[bool],
+        use_datastore: Optional[bool],
+        global_cache_timeout: Optional[int],
+        use_memcache: Optional[bool],
+        memcache_timeout: Optional[int],
+        max_memcache_items: Optional[int],
+        force_writes: Optional[bool],
+    ) -> tasklets_module.Future: ...
+    def __getattr__(self, name: str) -> Any: ...  # incomplete
+    get_by_id_async = ...
+    get_or_insert = ...
+    get_or_insert_async = ...
+    populate = ...
+    has_complete_key = ...
+    to_dict = ...
 
 class Expando(Model):
-    def __getattr__(self, name: Any): ...
-    def __setattr__(self, name: Any, value: Any): ...
-    def __delattr__(self, name: Any): ...
+    def __getattr__(self, name): ...
+    def __setattr__(self, name, value): ...
+    def __delattr__(self, name): ...
 
 def get_multi_async(
-    keys: Any,
-    read_consistency: Optional[Any] = ...,
-    read_policy: Optional[Any] = ...,
-    transaction: Optional[Any] = ...,
-    retries: Optional[Any] = ...,
-    timeout: Optional[Any] = ...,
-    deadline: Optional[Any] = ...,
-    use_cache: Optional[Any] = ...,
-    use_global_cache: Optional[Any] = ...,
-    global_cache_timeout: Optional[Any] = ...,
-    use_datastore: Optional[Any] = ...,
-    use_memcache: Optional[Any] = ...,
-    memcache_timeout: Optional[Any] = ...,
-    max_memcache_items: Optional[Any] = ...,
-    force_writes: Optional[Any] = ...,
+    keys: Sequence[Type[key_module.Key]],
+    read_consistency: Optional[EVENTUAL] = ...,
+    read_policy: Optional[EVENTUAL] = ...,
+    transaction: Optional[bytes] = ...,
+    retries: Optional[int] = ...,
+    timeout: Optional[float] = ...,
+    deadline: Optional[float] = ...,
+    use_cache: Optional[bool] = ...,
+    use_global_cache: Optional[bool] = ...,
+    global_cache_timeout: Optional[int] = ...,
+    use_datastore: Optional[bool] = ...,
+    use_memcache: Optional[bool] = ...,
+    memcache_timeout: Optional[int] = ...,
+    max_memcache_items: Optional[int] = ...,
+    force_writes: Optional[bool] = ...,
     _options: Optional[Any] = ...,
-): ...
+) -> List[Type[tasklets_module.Future]]: ...
 def get_multi(
-    keys: Any,
-    read_consistency: Optional[Any] = ...,
-    read_policy: Optional[Any] = ...,
-    transaction: Optional[Any] = ...,
-    retries: Optional[Any] = ...,
-    timeout: Optional[Any] = ...,
-    deadline: Optional[Any] = ...,
-    use_cache: Optional[Any] = ...,
-    use_global_cache: Optional[Any] = ...,
-    global_cache_timeout: Optional[Any] = ...,
-    use_datastore: Optional[Any] = ...,
-    use_memcache: Optional[Any] = ...,
-    memcache_timeout: Optional[Any] = ...,
-    max_memcache_items: Optional[Any] = ...,
-    force_writes: Optional[Any] = ...,
+    keys: Sequence[Type[key_module.Key]],
+    read_consistency: Optional[EVENTUAL] = ...,
+    read_policy: Optional[EVENTUAL] = ...,
+    transaction: Optional[bytes] = ...,
+    retries: Optional[int] = ...,
+    timeout: Optional[float] = ...,
+    deadline: Optional[float] = ...,
+    use_cache: Optional[bool] = ...,
+    use_global_cache: Optional[bool] = ...,
+    global_cache_timeout: Optional[int] = ...,
+    use_datastore: Optional[bool] = ...,
+    use_memcache: Optional[bool] = ...,
+    memcache_timeout: Optional[int] = ...,
+    max_memcache_items: Optional[int] = ...,
+    force_writes: Optional[bool] = ...,
     _options: Optional[Any] = ...,
-): ...
+) -> List[Union[Type[Model], None]]: ...
 def put_multi_async(
-    entities: Any,
-    retries: Optional[Any] = ...,
-    timeout: Optional[Any] = ...,
-    deadline: Optional[Any] = ...,
-    use_cache: Optional[Any] = ...,
-    use_global_cache: Optional[Any] = ...,
-    global_cache_timeout: Optional[Any] = ...,
-    use_datastore: Optional[Any] = ...,
-    use_memcache: Optional[Any] = ...,
-    memcache_timeout: Optional[Any] = ...,
-    max_memcache_items: Optional[Any] = ...,
-    force_writes: Optional[Any] = ...,
+    entities: List[Type[Model]],
+    retries: Optional[int] = ...,
+    timeout: Optional[float] = ...,
+    deadline: Optional[float] = ...,
+    use_cache: Optional[bool] = ...,
+    use_global_cache: Optional[bool] = ...,
+    global_cache_timeout: Optional[int] = ...,
+    use_datastore: Optional[bool] = ...,
+    use_memcache: Optional[bool] = ...,
+    memcache_timeout: Optional[int] = ...,
+    max_memcache_items: Optional[int] = ...,
+    force_writes: Optional[bool] = ...,
     _options: Optional[Any] = ...,
-): ...
+) -> List[tasklets_module.Future]: ...
 def put_multi(
-    entities: Any,
-    retries: Optional[Any] = ...,
-    timeout: Optional[Any] = ...,
-    deadline: Optional[Any] = ...,
-    use_cache: Optional[Any] = ...,
-    use_global_cache: Optional[Any] = ...,
-    global_cache_timeout: Optional[Any] = ...,
-    use_datastore: Optional[Any] = ...,
-    use_memcache: Optional[Any] = ...,
-    memcache_timeout: Optional[Any] = ...,
-    max_memcache_items: Optional[Any] = ...,
-    force_writes: Optional[Any] = ...,
+    entities: List[Model],
+    retries: Optional[int] = ...,
+    timeout: Optional[float] = ...,
+    deadline: Optional[float] = ...,
+    use_cache: Optional[bool] = ...,
+    use_global_cache: Optional[bool] = ...,
+    global_cache_timeout: Optional[int] = ...,
+    use_datastore: Optional[bool] = ...,
+    use_memcache: Optional[bool] = ...,
+    memcache_timeout: Optional[int] = ...,
+    max_memcache_items: Optional[int] = ...,
+    force_writes: Optional[bool] = ...,
     _options: Optional[Any] = ...,
-): ...
+) -> List[key_module.Key]: ...
 def delete_multi_async(
-    keys: Any,
-    retries: Optional[Any] = ...,
-    timeout: Optional[Any] = ...,
-    deadline: Optional[Any] = ...,
-    use_cache: Optional[Any] = ...,
-    use_global_cache: Optional[Any] = ...,
-    global_cache_timeout: Optional[Any] = ...,
-    use_datastore: Optional[Any] = ...,
-    use_memcache: Optional[Any] = ...,
-    memcache_timeout: Optional[Any] = ...,
-    max_memcache_items: Optional[Any] = ...,
-    force_writes: Optional[Any] = ...,
+    keys: List[key_module.Key],
+    retries: Optional[int] = ...,
+    timeout: Optional[float] = ...,
+    deadline: Optional[float] = ...,
+    use_cache: Optional[bool] = ...,
+    use_global_cache: Optional[bool] = ...,
+    global_cache_timeout: Optional[int] = ...,
+    use_datastore: Optional[bool] = ...,
+    use_memcache: Optional[bool] = ...,
+    memcache_timeout: Optional[int] = ...,
+    max_memcache_items: Optional[int] = ...,
+    force_writes: Optional[bool] = ...,
     _options: Optional[Any] = ...,
-): ...
+) -> List[tasklets_module.Future]: ...
 def delete_multi(
-    keys: Any,
-    retries: Optional[Any] = ...,
-    timeout: Optional[Any] = ...,
-    deadline: Optional[Any] = ...,
-    use_cache: Optional[Any] = ...,
-    use_global_cache: Optional[Any] = ...,
-    global_cache_timeout: Optional[Any] = ...,
-    use_datastore: Optional[Any] = ...,
-    use_memcache: Optional[Any] = ...,
-    memcache_timeout: Optional[Any] = ...,
-    max_memcache_items: Optional[Any] = ...,
-    force_writes: Optional[Any] = ...,
+    keys: Sequence[key_module.Key],
+    retries: Optional[int] = ...,
+    timeout: Optional[float] = ...,
+    deadline: Optional[float] = ...,
+    use_cache: Optional[bool] = ...,
+    use_global_cache: Optional[bool] = ...,
+    global_cache_timeout: Optional[int] = ...,
+    use_datastore: Optional[bool] = ...,
+    use_memcache: Optional[bool] = ...,
+    memcache_timeout: Optional[int] = ...,
+    max_memcache_items: Optional[int] = ...,
+    force_writes: Optional[bool] = ...,
     _options: Optional[Any] = ...,
-): ...
-def get_indexes_async(**options: Any) -> None: ...
-def get_indexes(**options: Any) -> None: ...
+) -> List[None]: ...
+def get_indexes_async(**options: Any) -> NoReturn: ...
+def get_indexes(**options: Any) -> NoReturn: ...
