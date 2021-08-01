@@ -34,6 +34,9 @@ http.server.SimpleHTTPRequestHandler.__init__  # *args is expanded
 importlib.metadata  # Added in 3.8
 ipaddress._BaseNetwork.__init__
 json.loads
+multiprocessing.pool.ApplyResult.__init__
+multiprocessing.pool.IMapIterator.__init__
+multiprocessing.pool.MapResult.__init__
 multiprocessing.shared_memory
 os.utime
 pyexpat.XMLParserType.ExternalEntityParserCreate  # C signature is wrong - function gets only positional args
