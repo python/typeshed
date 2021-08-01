@@ -11,10 +11,7 @@ _T = TypeVar("_T")
 
 class ApplyResult(Generic[_T]):
     def __init__(
-        self,
-        pool: Pool,
-        callback: Optional[Callable[[_T], None]] = ...,
-        error_callback: Optional[Callable[[BaseException], None]] = ...,
+        self, pool: Pool, callback: Optional[Callable[[_T], None]], error_callback: Optional[Callable[[BaseException], None]]
     ) -> None: ...
     def get(self, timeout: Optional[float] = ...) -> _T: ...
     def wait(self, timeout: Optional[float] = ...) -> None: ...
@@ -26,9 +23,18 @@ class ApplyResult(Generic[_T]):
 # alias created during issue #17805
 AsyncResult = ApplyResult
 
-class MapResult(ApplyResult[List[_T]]): ...
+class MapResult(ApplyResult[List[_T]]):
+    def __init__(
+        self,
+        pool: Pool,
+        chunksize: int,
+        length: int,
+        callback: Optional[Callable[[List[_T]], None]],
+        error_callback: Optional[Callable[[BaseException], None]],
+    ) -> None: ...
 
 class IMapIterator(Iterator[_T]):
+    def __init__(self, pool: Pool) -> None: ...
     def __iter__(self: _S) -> _S: ...
     def next(self, timeout: Optional[float] = ...) -> _T: ...
     def __next__(self, timeout: Optional[float] = ...) -> _T: ...
