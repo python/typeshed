@@ -263,7 +263,7 @@ def safe_dump(
 def add_implicit_resolver(
     tag: _Str,
     regexp: Pattern[str],
-    first: Optional[Iterable] =...,
+    first: Optional[Iterable] = ...,
     Loader: Optional[Type[BaseResolver]] = ...,
     Dumper: Type[BaseResolver] = ...,
 ) -> None: ...
@@ -275,25 +275,15 @@ def add_path_resolver(
     Dumper: Type[BaseResolver] = ...,
 ) -> None: ...
 def add_constructor(
-    tag: _Str,
-    constructor: Callable[[BaseConstructor, Node], Any],
-    Loader: Optional[Type[BaseConstructor]] = ...,
+    tag: _Str, constructor: Callable[[BaseConstructor, Node], Any], Loader: Optional[Type[BaseConstructor]] = ...
 ) -> None: ...
 def add_multi_constructor(
     tag_prefix: _Str,
     multi_constructor: Callable[[BaseConstructor, _Str, Node], Any],
     Loader: Optional[Type[BaseConstructor]] = ...,
 ) -> None: ...
-def add_representer(
-    data_type: Type[_T],
-    representer: Callable[[_R, _T], Node],
-    Dumper: Type[_R] = ...,
-) -> None: ...
-def add_multi_representer(
-    data_type: Type[_T],
-    multi_representer: Callable[[_R, _T], Node],
-    Dumper: Type[_R] = ...,
-) -> None: ...
+def add_representer(data_type: Type[_T], representer: Callable[[_R, _T], Node], Dumper: Type[_R] = ...) -> None: ...
+def add_multi_representer(data_type: Type[_T], multi_representer: Callable[[_R, _T], Node], Dumper: Type[_R] = ...) -> None: ...
 
 class YAMLObjectMetaclass(type):
     def __init__(self, name, bases, kwds) -> None: ...
