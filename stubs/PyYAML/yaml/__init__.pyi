@@ -263,14 +263,14 @@ def safe_dump(
 def add_implicit_resolver(
     tag: _Str,
     regexp: Pattern[str],
-    first: Optional[Iterable] = ...,
+    first: Optional[Iterable[Any]] = ...,
     Loader: Optional[Type[BaseResolver]] = ...,
     Dumper: Type[BaseResolver] = ...,
 ) -> None: ...
 def add_path_resolver(
     tag: _Str,
     path: Iterable[Any],
-    kind: Optional[Type] = ...,
+    kind: Optional[Type[Any]] = ...,
     Loader: Optional[Type[BaseResolver]] = ...,
     Dumper: Type[BaseResolver] = ...,
 ) -> None: ...
