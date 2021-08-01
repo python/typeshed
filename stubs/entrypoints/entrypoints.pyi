@@ -1,5 +1,6 @@
 import sys
 from typing import Any, Dict, Iterator, List, Sequence, Text, Tuple, Type, TypeVar
+from _typeshed import Self
 
 if sys.version_info >= (3, 0):
     from configparser import ConfigParser
@@ -10,8 +11,6 @@ if sys.version_info >= (3, 8):
     from re import Pattern
 else:
     from typing import Pattern
-
-_E = TypeVar("_E", bound="EntryPoint")
 
 entry_point_pattern: Pattern[Text]
 file_in_zip_pattern: Pattern[Text]
@@ -43,7 +42,7 @@ class EntryPoint:
     ) -> None: ...
     def load(self) -> Any: ...
     @classmethod
-    def from_string(cls: Type[_E], epstr: Text, name: Text, distro: Distribution | None = ...) -> _E: ...
+    def from_string(cls: Type[Self], epstr: Text, name: Text, distro: Distribution | None = ...) -> Self: ...
 
 class Distribution:
     name: Text
