@@ -1,5 +1,5 @@
 import sys
-from typing import IO, Any, Callable, Iterator, Optional, Sequence, Text, Type, TypeVar, Union, overload
+from typing import IO, Any, Callable, Iterable, Iterator, Optional, Pattern, Sequence, Text, Type, TypeVar, Union, overload
 
 from yaml.constructor import BaseConstructor
 from yaml.dumper import *  # noqa: F403
@@ -8,6 +8,7 @@ from yaml.events import *  # noqa: F403
 from yaml.loader import *  # noqa: F403
 from yaml.nodes import *  # noqa: F403
 from yaml.representer import BaseRepresenter
+from yaml.resolver import BaseResolver
 from yaml.tokens import *  # noqa: F403
 
 from . import resolver as resolver  # Help mypy a bit; this is implied by loader and dumper
@@ -259,12 +260,40 @@ def safe_dump(
     tags=...,
     sort_keys: bool = ...,
 ) -> _Yaml: ...
-def add_implicit_resolver(tag, regexp, first=..., Loader=..., Dumper=...): ...
-def add_path_resolver(tag, path, kind=..., Loader=..., Dumper=...): ...
-def add_constructor(tag: _Str, constructor: Callable[[Loader, Node], Any], Loader: Type[BaseConstructor] = ...): ...
-def add_multi_constructor(tag_prefix, multi_constructor, Loader=...): ...
-def add_representer(data_type: Type[_T], representer: Callable[[_R, _T], Node], Dumper: Type[_R] = ...) -> None: ...
-def add_multi_representer(data_type: Type[_T], multi_representer: Callable[[_R, _T], Node], Dumper: Type[_R] = ...) -> None: ...
+def add_implicit_resolver(
+    tag: _Str,
+    regexp: Pattern[str],
+    first: Optional[Iterable] =...,
+    Loader: Optional[Type[BaseResolver]] = ...,
+    Dumper: Type[BaseResolver] = ...,
+) -> None: ...
+def add_path_resolver(
+    tag: _Str,
+    path: Iterable[Any],
+    kind: Optional[Type] = ...,
+    Loader: Optional[Type[BaseResolver]] = ...,
+    Dumper: Type[BaseResolver] = ...,
+) -> None: ...
+def add_constructor(
+    tag: _Str,
+    constructor: Callable[[BaseConstructor, Node], Any],
+    Loader: Optional[Type[BaseConstructor]] = ...,
+) -> None: ...
+def add_multi_constructor(
+    tag_prefix: _Str,
+    multi_constructor: Callable[[BaseConstructor, _Str, Node], Any],
+    Loader: Optional[Type[BaseConstructor]] = ...,
+) -> None: ...
+def add_representer(
+    data_type: Type[_T],
+    representer: Callable[[_R, _T], Node],
+    Dumper: Type[_R] = ...,
+) -> None: ...
+def add_multi_representer(
+    data_type: Type[_T],
+    multi_representer: Callable[[_R, _T], Node],
+    Dumper: Type[_R] = ...,
+) -> None: ...
 
 class YAMLObjectMetaclass(type):
     def __init__(self, name, bases, kwds) -> None: ...
