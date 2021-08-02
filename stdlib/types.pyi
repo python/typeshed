@@ -369,6 +369,9 @@ DynamicClassAttribute = property
 
 def coroutine(func: Callable[..., Any]) -> CoroutineType: ...
 
+if sys.version_info >= (3, 8):
+    CellType = _Cell
+
 if sys.version_info >= (3, 9):
     class GenericAlias:
         __origin__: type
