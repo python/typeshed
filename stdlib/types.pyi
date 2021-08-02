@@ -37,6 +37,7 @@ _V_co = TypeVar("_V_co", covariant=True)
 
 @final
 class _Cell:
+    __hash__: None  # type: ignore
     cell_contents: Any
 
 @final
@@ -163,6 +164,7 @@ class MappingProxyType(Mapping[_KT, _VT_co], Generic[_KT, _VT_co]):
         def __ror__(self, __value: Mapping[_T1, _T2]) -> dict[_KT | _T1, _VT_co | _T2]: ...
 
 class SimpleNamespace:
+    __hash__: None  # type: ignore
     def __init__(self, **kwargs: Any) -> None: ...
     def __getattribute__(self, name: str) -> Any: ...
     def __setattr__(self, name: str, value: Any) -> None: ...
