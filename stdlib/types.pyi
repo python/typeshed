@@ -35,9 +35,11 @@ _KT = TypeVar("_KT")
 _VT_co = TypeVar("_VT_co", covariant=True)
 _V_co = TypeVar("_V_co", covariant=True)
 
+@final
 class _Cell:
     cell_contents: Any
 
+@final
 class FunctionType:
     __closure__: Tuple[_Cell, ...] | None
     __code__: CodeType
@@ -61,6 +63,7 @@ class FunctionType:
 
 LambdaType = FunctionType
 
+@final
 class CodeType:
     """Create a code object.  Not for the faint of heart."""
 
@@ -142,6 +145,7 @@ class CodeType:
             co_lnotab: bytes = ...,
         ) -> CodeType: ...
 
+@final
 class MappingProxyType(Mapping[_KT, _VT_co], Generic[_KT, _VT_co]):
     __hash__: None  # type: ignore
     def __init__(self, mapping: Mapping[_KT, _VT_co]) -> None: ...
@@ -173,6 +177,7 @@ class ModuleType:
     __spec__: Optional[ModuleSpec]
     def __init__(self, name: str, doc: Optional[str] = ...) -> None: ...
 
+@final
 class GeneratorType(Generator[_T_co, _T_contra, _V_co]):
     gi_code: CodeType
     gi_frame: FrameType
@@ -189,6 +194,7 @@ class GeneratorType(Generator[_T_co, _T_contra, _V_co]):
     @overload
     def throw(self, __typ: BaseException, __val: None = ..., __tb: Optional[TracebackType] = ...) -> _T_co: ...
 
+@final
 class AsyncGeneratorType(AsyncGenerator[_T_co, _T_contra]):
     ag_await: Optional[Awaitable[Any]]
     ag_frame: FrameType
@@ -205,6 +211,7 @@ class AsyncGeneratorType(AsyncGenerator[_T_co, _T_contra]):
     def athrow(self, __typ: BaseException, __val: None = ..., __tb: Optional[TracebackType] = ...) -> Awaitable[_T_co]: ...
     def aclose(self) -> Awaitable[None]: ...
 
+@final
 class CoroutineType:
     cr_await: Optional[Any]
     cr_code: CodeType
@@ -235,6 +242,7 @@ class _StaticFunctionType:
 
     def __get__(self, obj: Optional[object], type: Optional[type]) -> FunctionType: ...
 
+@final
 class MethodType:
     __closure__: Optional[Tuple[_Cell, ...]]  # inherited from the added function
     __defaults__: Optional[Tuple[Any, ...]]  # inherited from the added function
@@ -245,6 +253,7 @@ class MethodType:
     def __init__(self, func: Callable[..., Any], obj: object) -> None: ...
     def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
 
+@final
 class BuiltinFunctionType:
     __self__: typing.Union[object, ModuleType]
     __name__: str
@@ -254,12 +263,14 @@ class BuiltinFunctionType:
 BuiltinMethodType = BuiltinFunctionType
 
 if sys.version_info >= (3, 7):
+    @final
     class WrapperDescriptorType:
         __name__: str
         __qualname__: str
         __objclass__: type
         def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
         def __get__(self, obj: Any, type: type = ...) -> Any: ...
+    @final
     class MethodWrapperType:
         __self__: object
         __name__: str
@@ -268,12 +279,14 @@ if sys.version_info >= (3, 7):
         def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
         def __eq__(self, other: Any) -> bool: ...
         def __ne__(self, other: Any) -> bool: ...
+    @final
     class MethodDescriptorType:
         __name__: str
         __qualname__: str
         __objclass__: type
         def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
         def __get__(self, obj: Any, type: type = ...) -> Any: ...
+    @final
     class ClassMethodDescriptorType:
         __name__: str
         __qualname__: str
@@ -281,6 +294,7 @@ if sys.version_info >= (3, 7):
         def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
         def __get__(self, obj: Any, type: type = ...) -> Any: ...
 
+@final
 class TracebackType:
     if sys.version_info >= (3, 7):
         def __init__(self, tb_next: Optional[TracebackType], tb_frame: FrameType, tb_lasti: int, tb_lineno: int) -> None: ...
@@ -296,6 +310,7 @@ class TracebackType:
     @property
     def tb_lineno(self) -> int: ...
 
+@final
 class FrameType:
     f_back: Optional[FrameType]
     f_builtins: Dict[str, Any]
@@ -310,6 +325,7 @@ class FrameType:
         f_trace_opcodes: bool
     def clear(self) -> None: ...
 
+@final
 class GetSetDescriptorType:
     __name__: str
     __objclass__: type
@@ -317,6 +333,7 @@ class GetSetDescriptorType:
     def __set__(self, __instance: Any, __value: Any) -> None: ...
     def __delete__(self, obj: Any) -> None: ...
 
+@final
 class MemberDescriptorType:
     __name__: str
     __objclass__: type
