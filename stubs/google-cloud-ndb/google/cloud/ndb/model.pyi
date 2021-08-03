@@ -25,7 +25,7 @@ class _NotEqualMixin:
 DirectionT = Literal["asc", "desc"]
 
 class IndexProperty(_NotEqualMixin):
-    def __new__(cls, name: str, direction: DirectionT): ...
+    def __new__(cls, name: str, direction: DirectionT) -> IndexProperty: ...
     @property
     def name(self) -> str: ...
     @property
@@ -34,13 +34,13 @@ class IndexProperty(_NotEqualMixin):
     def __hash__(self) -> int: ...
 
 class Index(_NotEqualMixin):
-    def __new__(cls, kind, properties, ancestor): ...
+    def __new__(cls, kind: str, properties: List[IndexProperty], ancestor: bool) -> Index: ...
     @property
-    def kind(self): ...
+    def kind(self) -> str: ...
     @property
-    def properties(self): ...
+    def properties(self) -> List[IndexProperty]: ...
     @property
-    def ancestor(self): ...
+    def ancestor(self) -> bool: ...
     def __eq__(self, other) -> bool: ...
     def __hash__(self) -> int: ...
 
@@ -56,7 +56,7 @@ class IndexState(_NotEqualMixin):
     def __hash__(self) -> int: ...
 
 class ModelAdapter:
-    def __new__(cls, *args, **kwargs) -> ModelAdapter: ...
+    def __new__(self, *args, **kwargs) -> ModelAdapter: ...
 
 def make_connection(*args, **kwargs) -> NoReturn: ...
 
@@ -81,8 +81,8 @@ class Property(ModelAttribute):
         verbose_name: Optional[str] = ...,
         write_empty_list: Optional[bool] = ...,
     ) -> None: ...
-    def __eq__(self, value: object) -> query_module.FilterNode: ... # type: ignore[override]
-    def __ne__(self, value: object) -> query_module.FilterNode: ... # type: ignore[override]
+    def __eq__(self, value: object) -> query_module.FilterNode: ...  # type: ignore[override]
+    def __ne__(self, value: object) -> query_module.FilterNode: ...  # type: ignore[override]
     def __lt__(self, value: object) -> query_module.FilterNode: ...
     def __le__(self, value: object) -> query_module.FilterNode: ...
     def __gt__(self, value: object) -> query_module.FilterNode: ...
@@ -241,86 +241,164 @@ class MetaModel(type):
     def __init__(cls, name: str, bases, classdict) -> None: ...
 
 class Model(_NotEqualMixin, metaclass=MetaModel):
-    key: key_module.Key = ...
+    key: ModelKey = ...
     def __init__(_self, **kwargs) -> None: ...
     def __hash__(self) -> NoReturn: ...
     def __eq__(self, other: object) -> bool: ...
     @classmethod
     def gql(cls: Type[Model], query_string: str, *args, **kwargs) -> query_module.Query: ...
-    def put(**kwargs): ...
-    def put_async(**kwargs) -> tasklets_module.Future: ...
-    def query(*args, **kwargs) -> query_module.Query: ...
+    def put(self, **kwargs): ...
+    def put_async(self, **kwargs) -> tasklets_module.Future: ...
     @classmethod
-    def _allocate_ids(
-        cls: Type[Model],
-        size: Optional[int],
-        max: Optional[int],
-        parent: Optional[key_module.Key],
-        retries: Optional[int],
-        timeout: Optional[float],
-        deadline: Optional[float],
-        use_cache: Optional[bool],
-        use_global_cache: Optional[bool],
-        use_datastore: Optional[bool],
-        global_cache_timeout: Optional[int],
-        use_memcache: Optional[bool],
-        memcache_timeout: Optional[int],
-        max_memcache_items: Optional[int],
-        forces_writes: Optional[bool],
-    ) -> Tuple[key_module.Key, key_module.Key]: ...
+    def query(cls: Type[Model], *args, **kwargs) -> query_module.Query: ...
     @classmethod
     def allocate_ids(
         cls: Type[Model],
-        size: Optional[int],
-        max: Optional[int],
-        parent: Optional[key_module.Key],
-        retries: Optional[int],
-        timeout: Optional[float],
-        deadline: Optional[float],
-        use_cache: Optional[bool],
-        use_global_cache: Optional[bool],
-        use_datastore: Optional[bool],
-        global_cache_timeout: Optional[int],
-        use_memcache: Optional[bool],
-        memcache_timeout: Optional[int],
-        max_memcache_items: Optional[int],
-        forces_writes: Optional[bool],
+        size: Optional[int] = ...,
+        max: Optional[int] = ...,
+        parent: Optional[key_module.Key] = ...,
+        retries: Optional[int] = ...,
+        timeout: Optional[float] = ...,
+        deadline: Optional[float] = ...,
+        use_cache: Optional[bool] = ...,
+        use_global_cache: Optional[bool] = ...,
+        global_cache_timeout: Optional[int] = ...,
+        use_datastore: Optional[bool] = ...,
+        use_memcache: Optional[bool] = ...,
+        memcache_timeout: Optional[int] = ...,
+        max_memcache_items: Optional[int] = ...,
+        force_writes: Optional[bool] = ...,
+        _options = ...,
+    ) -> Tuple[key_module.Key, key_module.Key]: ...
+    @classmethod
+    def allocate_ids_async(
+        cls: Type[Model],
+        size: Optional[int] = ...,
+        max: Optional[int] = ...,
+        parent: Optional[key_module.Key] = ...,
+        retries: Optional[int] = ...,
+        timeout: Optional[float] = ...,
+        deadline: Optional[float] = ...,
+        use_cache: Optional[bool] = ...,
+        use_global_cache: Optional[bool] = ...,
+        global_cache_timeout: Optional[int] = ...,
+        use_datastore: Optional[bool] = ...,
+        use_memcache: Optional[bool] = ...,
+        memcache_timeout: Optional[int] = ...,
+        max_memcache_items: Optional[int] = ...,
+        force_writes: Optional[bool] = ...,
+        _options = ...,
     ) -> tasklets_module.Future: ...
     @classmethod
     def get_by_id(
         cls: Type[Model],
         id: Optional[Union[int, str]],
-        parent: Optional[key_module.Key],
-        namespace: Optional[str],
-        project: Optional[str],
-        app: Optional[str],
-        read_consistency: Optional[EVENTUAL],
-        read_policy: Optional[EVENTUAL],
-        transaction: Optional[bytes],
-        retries: Optional[int],
-        timeout: Optional[float],
-        deadline: Optional[float],
-        use_cache: Optional[bool],
-        use_global_cache: Optional[bool],
-        use_datastore: Optional[bool],
-        global_cache_timeout: Optional[int],
-        use_memcache: Optional[bool],
-        memcache_timeout: Optional[int],
-        max_memcache_items: Optional[int],
-        force_writes: Optional[bool],
+        parent: Optional[key_module.Key] = ...,
+        namespace: Optional[str] = ...,
+        project: Optional[str] = ...,
+        app: Optional[str] = ...,
+        read_consistency: Optional[EVENTUAL] = ...,
+        read_policy: Optional[EVENTUAL] = ...,
+        transaction: Optional[bytes] = ...,
+        retries: Optional[int] = ...,
+        timeout: Optional[float] = ...,
+        deadline: Optional[float] = ...,
+        use_cache: Optional[bool] = ...,
+        use_global_cache: Optional[bool] = ...,
+        global_cache_timeout: Optional[int] = ...,
+        use_datastore: Optional[bool] = ...,
+        use_memcache: Optional[bool] = ...,
+        memcache_timeout: Optional[int] = ...,
+        max_memcache_items: Optional[int] = ...,
+        force_writes: Optional[bool] = ...,
+        _options = ...,
     ) -> tasklets_module.Future: ...
-    def __getattr__(self, name: str) -> Any: ...  # incomplete
-    get_by_id_async = ...
-    get_or_insert = ...
-    get_or_insert_async = ...
-    populate = ...
-    has_complete_key = ...
-    to_dict = ...
+    @classmethod
+    def get_by_id_async(
+        cls: Type[Model],
+        id: Union[int, str],
+        parent: Optional[key_module.Key] = ...,
+        namespace: Optional[str] = ...,
+        project: Optional[str] = ...,
+        app: Optional[str] = ...,
+        read_consistency: Optional[EVENTUAL] = ...,
+        read_policy: Optional[EVENTUAL] = ...,
+        transaction: Optional[bytes] = ...,
+        retries: Optional[int] = ...,
+        timeout: Optional[float] = ...,
+        deadline: Optional[float] = ...,
+        use_cache: Optional[bool] = ...,
+        use_global_cache: Optional[bool] = ...,
+        global_cache_timeout: Optional[int] = ...,
+        use_datastore: Optional[bool] = ...,
+        use_memcache: Optional[bool] = ...,
+        memcache_timeout: Optional[int] = ...,
+        max_memcache_items: Optional[int] = ...,
+        force_writes: Optional[bool] = ...,
+        _options = ...,
+    ) -> Optional[Model]: ...
+    @classmethod
+    def get_or_insert(
+        cls: Type[Model],
+        name: str,
+        parent: Optional[key_module.Key] = ...,
+        namespace: Optional[str] = ...,
+        project: Optional[str] = ...,
+        app: Optional[str] = ...,
+        read_consistency: Optional[EVENTUAL] = ...,
+        read_policy: Optional[EVENTUAL] = ...,
+        transaction: Optional[bytes] = ...,
+        retries: Optional[int] = ...,
+        timeout: Optional[float] = ...,
+        deadline: Optional[float] = ...,
+        use_cache: Optional[bool] = ...,
+        use_global_cache: Optional[bool] = ...,
+        global_cache_timeout: Optional[int] = ...,
+        use_datastore: Optional[bool] = ...,
+        use_memcache: Optional[bool] = ...,
+        memcache_timeout: Optional[int] = ...,
+        max_memcache_items: Optional[int] = ...,
+        force_writes: Optional[bool] = ...,
+        _options = ...,
+        **kw_model_args,
+    ) -> Model: ...
+    @classmethod
+    def get_or_insert_async(
+        cls: Type[Model],
+        name: str,
+        parent: Optional[key_module.Key] = ...,
+        namespace: Optional[str] = ...,
+        project: Optional[str] = ...,
+        app: Optional[str] = ...,
+        read_consistency: Optional[EVENTUAL] = ...,
+        read_policy: Optional[EVENTUAL] = ...,
+        transaction: Optional[bytes] = ...,
+        retries: Optional[int] = ...,
+        timeout: Optional[float] = ...,
+        deadline: Optional[float] = ...,
+        use_cache: Optional[bool] = ...,
+        use_global_cache: Optional[bool] = ...,
+        global_cache_timeout: Optional[int] = ...,
+        use_datastore: Optional[bool] = ...,
+        use_memcache: Optional[bool] = ...,
+        memcache_timeout: Optional[int] = ...,
+        max_memcache_items: Optional[int] = ...,
+        force_writes: Optional[bool] = ...,
+        _options = ...,
+        **kw_model_args,
+    ) -> tasklets_module.Future: ...
+    def populate(self, **kwargs) -> None: ...
+    def has_complete_key(self) -> bool: ...
+    def to_dict(
+        self,
+        include: Optional[Union[list[object], tuple[object, object], set[object]]] = ...,
+        exclude: Optional[Union[list[object], tuple[object, object], set[object]]] = ...,
+    ): ...
 
 class Expando(Model):
-    def __getattr__(self, name): ...
-    def __setattr__(self, name, value): ...
-    def __delattr__(self, name): ...
+    def __getattr__(self, name: str): ...
+    def __setattr__(self, name: str, value) -> None: ...
+    def __delattr__(self, name: str) -> None: ...
 
 def get_multi_async(
     keys: Sequence[Type[key_module.Key]],
