@@ -22,6 +22,7 @@ from google.cloud.ndb.global_cache import GlobalCache as GlobalCache, MemcacheCa
 from google.cloud.ndb.key import Key as Key
 from google.cloud.ndb.model import (
     BadProjectionError as BadProjectionError,
+    BlobKey as BlobKey,
     BlobKeyProperty as BlobKeyProperty,
     BlobProperty as BlobProperty,
     BooleanProperty as BooleanProperty,
@@ -32,6 +33,7 @@ from google.cloud.ndb.model import (
     Expando as Expando,
     FloatProperty as FloatProperty,
     GenericProperty as GenericProperty,
+    GeoPt as GeoPt,
     GeoPtProperty as GeoPtProperty,
     Index as Index,
     IndexProperty as IndexProperty,

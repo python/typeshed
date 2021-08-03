@@ -268,7 +268,7 @@ class Model(_NotEqualMixin, metaclass=MetaModel):
         memcache_timeout: Optional[int] = ...,
         max_memcache_items: Optional[int] = ...,
         force_writes: Optional[bool] = ...,
-        _options = ...,
+        _options=...,
     ) -> Tuple[key_module.Key, key_module.Key]: ...
     @classmethod
     def allocate_ids_async(
@@ -287,7 +287,7 @@ class Model(_NotEqualMixin, metaclass=MetaModel):
         memcache_timeout: Optional[int] = ...,
         max_memcache_items: Optional[int] = ...,
         force_writes: Optional[bool] = ...,
-        _options = ...,
+        _options=...,
     ) -> tasklets_module.Future: ...
     @classmethod
     def get_by_id(
@@ -311,7 +311,7 @@ class Model(_NotEqualMixin, metaclass=MetaModel):
         memcache_timeout: Optional[int] = ...,
         max_memcache_items: Optional[int] = ...,
         force_writes: Optional[bool] = ...,
-        _options = ...,
+        _options=...,
     ) -> tasklets_module.Future: ...
     @classmethod
     def get_by_id_async(
@@ -335,7 +335,7 @@ class Model(_NotEqualMixin, metaclass=MetaModel):
         memcache_timeout: Optional[int] = ...,
         max_memcache_items: Optional[int] = ...,
         force_writes: Optional[bool] = ...,
-        _options = ...,
+        _options=...,
     ) -> Optional[Model]: ...
     @classmethod
     def get_or_insert(
@@ -359,7 +359,7 @@ class Model(_NotEqualMixin, metaclass=MetaModel):
         memcache_timeout: Optional[int] = ...,
         max_memcache_items: Optional[int] = ...,
         force_writes: Optional[bool] = ...,
-        _options = ...,
+        _options=...,
         **kw_model_args,
     ) -> Model: ...
     @classmethod
@@ -384,7 +384,7 @@ class Model(_NotEqualMixin, metaclass=MetaModel):
         memcache_timeout: Optional[int] = ...,
         max_memcache_items: Optional[int] = ...,
         force_writes: Optional[bool] = ...,
-        _options = ...,
+        _options=...,
         **kw_model_args,
     ) -> tasklets_module.Future: ...
     def populate(self, **kwargs) -> None: ...
