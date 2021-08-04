@@ -1,12 +1,9 @@
 import _compression
 import sys
 from _compression import BaseStream
-from typing import (IO, Any, Iterable, List, Optional, Protocol, TextIO,
-                    TypeVar, Union, overload)
-
-from typing_extensions import Literal, SupportsIndex
-
 from _typeshed import ReadableBuffer, Self, StrOrBytesPath, WriteableBuffer
+from typing import IO, Any, Iterable, List, Optional, Protocol, TextIO, TypeVar, Union, overload
+from typing_extensions import Literal, SupportsIndex
 
 # The following attributes and methods are optional:
 # def fileno(self) -> int: ...

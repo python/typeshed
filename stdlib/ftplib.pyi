@@ -1,12 +1,9 @@
+from _typeshed import Self, SupportsRead, SupportsReadline
 from socket import socket
 from ssl import SSLContext
 from types import TracebackType
-from typing import (Any, Callable, Dict, Iterable, Iterator, List, Optional,
-                    TextIO, Tuple, Type, Union)
-
+from typing import Any, Callable, Dict, Iterable, Iterator, List, Optional, TextIO, Tuple, Type, Union
 from typing_extensions import Literal
-
-from _typeshed import Self, SupportsRead, SupportsReadline
 
 MSG_OOB: int
 FTP_PORT: int

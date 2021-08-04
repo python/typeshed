@@ -1,12 +1,9 @@
 import os
 import sys
-from types import TracebackType
-from typing import (IO, Any, AnyStr, Generic, Iterable, Iterator, List,
-                    Optional, Tuple, Type, Union, overload)
-
-from typing_extensions import Literal
-
 from _typeshed import Self
+from types import TracebackType
+from typing import IO, Any, AnyStr, Generic, Iterable, Iterator, List, Optional, Tuple, Type, Union, overload
+from typing_extensions import Literal
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias

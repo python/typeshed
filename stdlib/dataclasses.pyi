@@ -1,7 +1,5 @@
 import sys
-from typing import (Any, Callable, Dict, Generic, Iterable, List, Mapping,
-                    Optional, Tuple, Type, TypeVar, Union, overload)
-
+from typing import Any, Callable, Dict, Generic, Iterable, List, Mapping, Optional, Tuple, Type, TypeVar, Union, overload
 from typing_extensions import Protocol
 
 if sys.version_info >= (3, 9):

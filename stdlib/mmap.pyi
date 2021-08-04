@@ -1,8 +1,6 @@
 import sys
-from typing import (ContextManager, Iterable, Iterator, NoReturn, Optional,
-                    Sized, Union, overload)
-
 from _typeshed import ReadableBuffer
+from typing import ContextManager, Iterable, Iterator, NoReturn, Optional, Sized, Union, overload
 
 ACCESS_DEFAULT: int
 ACCESS_READ: int

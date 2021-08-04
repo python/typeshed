@@ -1,17 +1,19 @@
 import types
+from _typeshed import StrPath
 from os import PathLike
 from typing import IO, Any, List, Optional, Protocol, Tuple, TypeVar, Union
 
-from _imp import acquire_lock as acquire_lock
-from _imp import create_dynamic as create_dynamic
-from _imp import get_frozen_object as get_frozen_object
-from _imp import init_frozen as init_frozen
-from _imp import is_builtin as is_builtin
-from _imp import is_frozen as is_frozen
-from _imp import is_frozen_package as is_frozen_package
-from _imp import lock_held as lock_held
-from _imp import release_lock as release_lock
-from _typeshed import StrPath
+from _imp import (
+    acquire_lock as acquire_lock,
+    create_dynamic as create_dynamic,
+    get_frozen_object as get_frozen_object,
+    init_frozen as init_frozen,
+    is_builtin as is_builtin,
+    is_frozen as is_frozen,
+    is_frozen_package as is_frozen_package,
+    lock_held as lock_held,
+    release_lock as release_lock,
+)
 
 _T = TypeVar("_T")
 

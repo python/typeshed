@@ -1,5 +1,4 @@
 from typing import Any
-
 from typing_extensions import Literal
 
 # _tkinter is meant to be only used internally by tkinter, but some tkinter

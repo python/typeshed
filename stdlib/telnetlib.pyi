@@ -1,8 +1,6 @@
 import socket
-from typing import (Any, Callable, Match, Optional, Pattern, Sequence, Tuple,
-                    Union)
-
 from _typeshed import Self
+from typing import Any, Callable, Match, Optional, Pattern, Sequence, Tuple, Union
 
 DEBUGLEVEL: int
 TELNET_PORT: int

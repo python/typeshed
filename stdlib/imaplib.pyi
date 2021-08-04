@@ -1,15 +1,12 @@
 import subprocess
 import sys
 import time
+from _typeshed import Self
 from socket import socket as _socket
 from ssl import SSLContext, SSLSocket
 from types import TracebackType
-from typing import (IO, Any, Callable, Dict, List, Optional, Pattern, Tuple,
-                    Type, Union)
-
+from typing import IO, Any, Callable, Dict, List, Optional, Pattern, Tuple, Type, Union
 from typing_extensions import Literal
-
-from _typeshed import Self
 
 # TODO: Commands should use their actual return types, not this type alias.
 #       E.g. Tuple[Literal["OK"], List[bytes]]

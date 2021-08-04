@@ -1,11 +1,22 @@
 import sys
-from typing import (Any, Callable, Generic, Iterable, Iterator, Optional,
-                    SupportsComplex, SupportsFloat, SupportsInt, Tuple, Type,
-                    TypeVar, Union, overload)
-
-from typing_extensions import Literal, SupportsIndex
-
 from _typeshed import _T_co
+from typing import (
+    Any,
+    Callable,
+    Generic,
+    Iterable,
+    Iterator,
+    Optional,
+    SupportsComplex,
+    SupportsFloat,
+    SupportsInt,
+    Tuple,
+    Type,
+    TypeVar,
+    Union,
+    overload,
+)
+from typing_extensions import Literal, SupportsIndex
 
 _T = TypeVar("_T")
 _S = TypeVar("_S")

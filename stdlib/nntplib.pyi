@@ -2,10 +2,8 @@ import datetime
 import socket
 import ssl
 import sys
-from typing import (IO, Any, Dict, Iterable, List, NamedTuple, Optional, Tuple,
-                    Union)
-
 from _typeshed import Self
+from typing import IO, Any, Dict, Iterable, List, NamedTuple, Optional, Tuple, Union
 
 _File = Union[IO[bytes], bytes, str, None]
 

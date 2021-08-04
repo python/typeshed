@@ -1,213 +1,214 @@
-# Ideally, we'd just do "from _socket import *". Unfortunately, socket
-# overrides some definitions from _socket incompatibly. mypy incorrectly
-# prefers the definitions from _socket over those defined here.
-import _socket
 import sys
-from _socket import _FD
-from _socket import CMSG_LEN as CMSG_LEN
-from _socket import CMSG_SPACE as CMSG_SPACE
-from _socket import EAI_ADDRFAMILY as EAI_ADDRFAMILY
-from _socket import EAI_AGAIN as EAI_AGAIN
-from _socket import EAI_BADFLAGS as EAI_BADFLAGS
-from _socket import EAI_BADHINTS as EAI_BADHINTS
-from _socket import EAI_FAIL as EAI_FAIL
-from _socket import EAI_FAMILY as EAI_FAMILY
-from _socket import EAI_MAX as EAI_MAX
-from _socket import EAI_MEMORY as EAI_MEMORY
-from _socket import EAI_NODATA as EAI_NODATA
-from _socket import EAI_NONAME as EAI_NONAME
-from _socket import EAI_OVERFLOW as EAI_OVERFLOW
-from _socket import EAI_PROTOCOL as EAI_PROTOCOL
-from _socket import EAI_SERVICE as EAI_SERVICE
-from _socket import EAI_SOCKTYPE as EAI_SOCKTYPE
-from _socket import EAI_SYSTEM as EAI_SYSTEM
-from _socket import INADDR_ALLHOSTS_GROUP as INADDR_ALLHOSTS_GROUP
-from _socket import INADDR_ANY as INADDR_ANY
-from _socket import INADDR_BROADCAST as INADDR_BROADCAST
-from _socket import INADDR_LOOPBACK as INADDR_LOOPBACK
-from _socket import INADDR_MAX_LOCAL_GROUP as INADDR_MAX_LOCAL_GROUP
-from _socket import INADDR_NONE as INADDR_NONE
-from _socket import INADDR_UNSPEC_GROUP as INADDR_UNSPEC_GROUP
-from _socket import IP_ADD_MEMBERSHIP as IP_ADD_MEMBERSHIP
-from _socket import IP_DEFAULT_MULTICAST_LOOP as IP_DEFAULT_MULTICAST_LOOP
-from _socket import IP_DEFAULT_MULTICAST_TTL as IP_DEFAULT_MULTICAST_TTL
-from _socket import IP_DROP_MEMBERSHIP as IP_DROP_MEMBERSHIP
-from _socket import IP_HDRINCL as IP_HDRINCL
-from _socket import IP_MAX_MEMBERSHIPS as IP_MAX_MEMBERSHIPS
-from _socket import IP_MULTICAST_IF as IP_MULTICAST_IF
-from _socket import IP_MULTICAST_LOOP as IP_MULTICAST_LOOP
-from _socket import IP_MULTICAST_TTL as IP_MULTICAST_TTL
-from _socket import IP_OPTIONS as IP_OPTIONS
-from _socket import IP_RECVDSTADDR as IP_RECVDSTADDR
-from _socket import IP_RECVOPTS as IP_RECVOPTS
-from _socket import IP_RECVRETOPTS as IP_RECVRETOPTS
-from _socket import IP_RETOPTS as IP_RETOPTS
-from _socket import IP_TOS as IP_TOS
-from _socket import IP_TRANSPARENT as IP_TRANSPARENT
-from _socket import IP_TTL as IP_TTL
-from _socket import IPPORT_RESERVED as IPPORT_RESERVED
-from _socket import IPPORT_USERRESERVED as IPPORT_USERRESERVED
-from _socket import IPPROTO_AH as IPPROTO_AH
-from _socket import IPPROTO_BIP as IPPROTO_BIP
-from _socket import IPPROTO_DSTOPTS as IPPROTO_DSTOPTS
-from _socket import IPPROTO_EGP as IPPROTO_EGP
-from _socket import IPPROTO_EON as IPPROTO_EON
-from _socket import IPPROTO_ESP as IPPROTO_ESP
-from _socket import IPPROTO_FRAGMENT as IPPROTO_FRAGMENT
-from _socket import IPPROTO_GGP as IPPROTO_GGP
-from _socket import IPPROTO_GRE as IPPROTO_GRE
-from _socket import IPPROTO_HELLO as IPPROTO_HELLO
-from _socket import IPPROTO_HOPOPTS as IPPROTO_HOPOPTS
-from _socket import IPPROTO_ICMP as IPPROTO_ICMP
-from _socket import IPPROTO_ICMPV6 as IPPROTO_ICMPV6
-from _socket import IPPROTO_IDP as IPPROTO_IDP
-from _socket import IPPROTO_IGMP as IPPROTO_IGMP
-from _socket import IPPROTO_IP as IPPROTO_IP
-from _socket import IPPROTO_IPCOMP as IPPROTO_IPCOMP
-from _socket import IPPROTO_IPIP as IPPROTO_IPIP
-from _socket import IPPROTO_IPV4 as IPPROTO_IPV4
-from _socket import IPPROTO_IPV6 as IPPROTO_IPV6
-from _socket import IPPROTO_MAX as IPPROTO_MAX
-from _socket import IPPROTO_MOBILE as IPPROTO_MOBILE
-from _socket import IPPROTO_ND as IPPROTO_ND
-from _socket import IPPROTO_NONE as IPPROTO_NONE
-from _socket import IPPROTO_PIM as IPPROTO_PIM
-from _socket import IPPROTO_PUP as IPPROTO_PUP
-from _socket import IPPROTO_RAW as IPPROTO_RAW
-from _socket import IPPROTO_ROUTING as IPPROTO_ROUTING
-from _socket import IPPROTO_RSVP as IPPROTO_RSVP
-from _socket import IPPROTO_SCTP as IPPROTO_SCTP
-from _socket import IPPROTO_TCP as IPPROTO_TCP
-from _socket import IPPROTO_TP as IPPROTO_TP
-from _socket import IPPROTO_UDP as IPPROTO_UDP
-from _socket import IPPROTO_VRRP as IPPROTO_VRRP
-from _socket import IPPROTO_XTP as IPPROTO_XTP
-from _socket import IPV6_CHECKSUM as IPV6_CHECKSUM
-from _socket import IPV6_DONTFRAG as IPV6_DONTFRAG
-from _socket import IPV6_DSTOPTS as IPV6_DSTOPTS
-from _socket import IPV6_HOPLIMIT as IPV6_HOPLIMIT
-from _socket import IPV6_HOPOPTS as IPV6_HOPOPTS
-from _socket import IPV6_JOIN_GROUP as IPV6_JOIN_GROUP
-from _socket import IPV6_LEAVE_GROUP as IPV6_LEAVE_GROUP
-from _socket import IPV6_MULTICAST_HOPS as IPV6_MULTICAST_HOPS
-from _socket import IPV6_MULTICAST_IF as IPV6_MULTICAST_IF
-from _socket import IPV6_MULTICAST_LOOP as IPV6_MULTICAST_LOOP
-from _socket import IPV6_NEXTHOP as IPV6_NEXTHOP
-from _socket import IPV6_PATHMTU as IPV6_PATHMTU
-from _socket import IPV6_PKTINFO as IPV6_PKTINFO
-from _socket import IPV6_RECVDSTOPTS as IPV6_RECVDSTOPTS
-from _socket import IPV6_RECVHOPLIMIT as IPV6_RECVHOPLIMIT
-from _socket import IPV6_RECVHOPOPTS as IPV6_RECVHOPOPTS
-from _socket import IPV6_RECVPATHMTU as IPV6_RECVPATHMTU
-from _socket import IPV6_RECVPKTINFO as IPV6_RECVPKTINFO
-from _socket import IPV6_RECVRTHDR as IPV6_RECVRTHDR
-from _socket import IPV6_RECVTCLASS as IPV6_RECVTCLASS
-from _socket import IPV6_RTHDR as IPV6_RTHDR
-from _socket import IPV6_RTHDR_TYPE_0 as IPV6_RTHDR_TYPE_0
-from _socket import IPV6_RTHDRDSTOPTS as IPV6_RTHDRDSTOPTS
-from _socket import IPV6_TCLASS as IPV6_TCLASS
-from _socket import IPV6_UNICAST_HOPS as IPV6_UNICAST_HOPS
-from _socket import IPV6_USE_MIN_MTU as IPV6_USE_MIN_MTU
-from _socket import IPV6_V6ONLY as IPV6_V6ONLY
-from _socket import IPX_TYPE as IPX_TYPE
-from _socket import LOCAL_PEERCRED as LOCAL_PEERCRED
-from _socket import NI_DGRAM as NI_DGRAM
-from _socket import NI_MAXHOST as NI_MAXHOST
-from _socket import NI_MAXSERV as NI_MAXSERV
-from _socket import NI_NAMEREQD as NI_NAMEREQD
-from _socket import NI_NOFQDN as NI_NOFQDN
-from _socket import NI_NUMERICHOST as NI_NUMERICHOST
-from _socket import NI_NUMERICSERV as NI_NUMERICSERV
-from _socket import SCM_CREDENTIALS as SCM_CREDENTIALS
-from _socket import SCM_CREDS as SCM_CREDS
-from _socket import SCM_RIGHTS as SCM_RIGHTS
-from _socket import SHUT_RD as SHUT_RD
-from _socket import SHUT_RDWR as SHUT_RDWR
-from _socket import SHUT_WR as SHUT_WR
-from _socket import SO_ACCEPTCONN as SO_ACCEPTCONN
-from _socket import SO_BINDTODEVICE as SO_BINDTODEVICE
-from _socket import SO_BROADCAST as SO_BROADCAST
-from _socket import SO_DEBUG as SO_DEBUG
-from _socket import SO_DONTROUTE as SO_DONTROUTE
-from _socket import SO_ERROR as SO_ERROR
-from _socket import SO_EXCLUSIVEADDRUSE as SO_EXCLUSIVEADDRUSE
-from _socket import SO_KEEPALIVE as SO_KEEPALIVE
-from _socket import SO_LINGER as SO_LINGER
-from _socket import SO_MARK as SO_MARK
-from _socket import SO_OOBINLINE as SO_OOBINLINE
-from _socket import SO_PASSCRED as SO_PASSCRED
-from _socket import SO_PEERCRED as SO_PEERCRED
-from _socket import SO_PRIORITY as SO_PRIORITY
-from _socket import SO_RCVBUF as SO_RCVBUF
-from _socket import SO_RCVLOWAT as SO_RCVLOWAT
-from _socket import SO_RCVTIMEO as SO_RCVTIMEO
-from _socket import SO_REUSEADDR as SO_REUSEADDR
-from _socket import SO_REUSEPORT as SO_REUSEPORT
-from _socket import SO_SETFIB as SO_SETFIB
-from _socket import SO_SNDBUF as SO_SNDBUF
-from _socket import SO_SNDLOWAT as SO_SNDLOWAT
-from _socket import SO_SNDTIMEO as SO_SNDTIMEO
-from _socket import SO_TYPE as SO_TYPE
-from _socket import SO_USELOOPBACK as SO_USELOOPBACK
-from _socket import SOL_ATALK as SOL_ATALK
-from _socket import SOL_AX25 as SOL_AX25
-from _socket import SOL_HCI as SOL_HCI
-from _socket import SOL_IP as SOL_IP
-from _socket import SOL_IPX as SOL_IPX
-from _socket import SOL_NETROM as SOL_NETROM
-from _socket import SOL_ROSE as SOL_ROSE
-from _socket import SOL_SOCKET as SOL_SOCKET
-from _socket import SOL_TCP as SOL_TCP
-from _socket import SOL_UDP as SOL_UDP
-from _socket import SOMAXCONN as SOMAXCONN
-from _socket import TCP_CORK as TCP_CORK
-from _socket import TCP_DEFER_ACCEPT as TCP_DEFER_ACCEPT
-from _socket import TCP_FASTOPEN as TCP_FASTOPEN
-from _socket import TCP_INFO as TCP_INFO
-from _socket import TCP_KEEPCNT as TCP_KEEPCNT
-from _socket import TCP_KEEPIDLE as TCP_KEEPIDLE
-from _socket import TCP_KEEPINTVL as TCP_KEEPINTVL
-from _socket import TCP_LINGER2 as TCP_LINGER2
-from _socket import TCP_MAXSEG as TCP_MAXSEG
-from _socket import TCP_NODELAY as TCP_NODELAY
-from _socket import TCP_QUICKACK as TCP_QUICKACK
-from _socket import TCP_SYNCNT as TCP_SYNCNT
-from _socket import TCP_WINDOW_CLAMP as TCP_WINDOW_CLAMP
-from _socket import SocketType as SocketType
-from _socket import _Address as _Address
-from _socket import _RetAddress as _RetAddress
-from _socket import dup as dup
-from _socket import error as error
-from _socket import gaierror as gaierror
-from _socket import getdefaulttimeout as getdefaulttimeout
-from _socket import gethostbyaddr as gethostbyaddr
-from _socket import gethostbyname as gethostbyname
-from _socket import gethostbyname_ex as gethostbyname_ex
-from _socket import gethostname as gethostname
-from _socket import getnameinfo as getnameinfo
-from _socket import getprotobyname as getprotobyname
-from _socket import getservbyname as getservbyname
-from _socket import getservbyport as getservbyport
-from _socket import has_ipv6 as has_ipv6
-from _socket import herror as herror
-from _socket import htonl as htonl
-from _socket import htons as htons
-from _socket import inet_aton as inet_aton
-from _socket import inet_ntoa as inet_ntoa
-from _socket import inet_ntop as inet_ntop
-from _socket import inet_pton as inet_pton
-from _socket import ntohl as ntohl
-from _socket import ntohs as ntohs
-from _socket import setdefaulttimeout as setdefaulttimeout
-from _socket import timeout as timeout
+from _typeshed import ReadableBuffer, Self, WriteableBuffer
 from collections.abc import Iterable
 from enum import IntEnum, IntFlag
 from io import RawIOBase
 from typing import Any, BinaryIO, Optional, TextIO, TypeVar, Union, overload
-
 from typing_extensions import Literal
 
-from _typeshed import ReadableBuffer, Self, WriteableBuffer
+# Ideally, we'd just do "from _socket import *". Unfortunately, socket
+# overrides some definitions from _socket incompatibly. mypy incorrectly
+# prefers the definitions from _socket over those defined here.
+import _socket
+from _socket import (
+    _FD,
+    CMSG_LEN as CMSG_LEN,
+    CMSG_SPACE as CMSG_SPACE,
+    EAI_ADDRFAMILY as EAI_ADDRFAMILY,
+    EAI_AGAIN as EAI_AGAIN,
+    EAI_BADFLAGS as EAI_BADFLAGS,
+    EAI_BADHINTS as EAI_BADHINTS,
+    EAI_FAIL as EAI_FAIL,
+    EAI_FAMILY as EAI_FAMILY,
+    EAI_MAX as EAI_MAX,
+    EAI_MEMORY as EAI_MEMORY,
+    EAI_NODATA as EAI_NODATA,
+    EAI_NONAME as EAI_NONAME,
+    EAI_OVERFLOW as EAI_OVERFLOW,
+    EAI_PROTOCOL as EAI_PROTOCOL,
+    EAI_SERVICE as EAI_SERVICE,
+    EAI_SOCKTYPE as EAI_SOCKTYPE,
+    EAI_SYSTEM as EAI_SYSTEM,
+    INADDR_ALLHOSTS_GROUP as INADDR_ALLHOSTS_GROUP,
+    INADDR_ANY as INADDR_ANY,
+    INADDR_BROADCAST as INADDR_BROADCAST,
+    INADDR_LOOPBACK as INADDR_LOOPBACK,
+    INADDR_MAX_LOCAL_GROUP as INADDR_MAX_LOCAL_GROUP,
+    INADDR_NONE as INADDR_NONE,
+    INADDR_UNSPEC_GROUP as INADDR_UNSPEC_GROUP,
+    IP_ADD_MEMBERSHIP as IP_ADD_MEMBERSHIP,
+    IP_DEFAULT_MULTICAST_LOOP as IP_DEFAULT_MULTICAST_LOOP,
+    IP_DEFAULT_MULTICAST_TTL as IP_DEFAULT_MULTICAST_TTL,
+    IP_DROP_MEMBERSHIP as IP_DROP_MEMBERSHIP,
+    IP_HDRINCL as IP_HDRINCL,
+    IP_MAX_MEMBERSHIPS as IP_MAX_MEMBERSHIPS,
+    IP_MULTICAST_IF as IP_MULTICAST_IF,
+    IP_MULTICAST_LOOP as IP_MULTICAST_LOOP,
+    IP_MULTICAST_TTL as IP_MULTICAST_TTL,
+    IP_OPTIONS as IP_OPTIONS,
+    IP_RECVDSTADDR as IP_RECVDSTADDR,
+    IP_RECVOPTS as IP_RECVOPTS,
+    IP_RECVRETOPTS as IP_RECVRETOPTS,
+    IP_RETOPTS as IP_RETOPTS,
+    IP_TOS as IP_TOS,
+    IP_TRANSPARENT as IP_TRANSPARENT,
+    IP_TTL as IP_TTL,
+    IPPORT_RESERVED as IPPORT_RESERVED,
+    IPPORT_USERRESERVED as IPPORT_USERRESERVED,
+    IPPROTO_AH as IPPROTO_AH,
+    IPPROTO_BIP as IPPROTO_BIP,
+    IPPROTO_DSTOPTS as IPPROTO_DSTOPTS,
+    IPPROTO_EGP as IPPROTO_EGP,
+    IPPROTO_EON as IPPROTO_EON,
+    IPPROTO_ESP as IPPROTO_ESP,
+    IPPROTO_FRAGMENT as IPPROTO_FRAGMENT,
+    IPPROTO_GGP as IPPROTO_GGP,
+    IPPROTO_GRE as IPPROTO_GRE,
+    IPPROTO_HELLO as IPPROTO_HELLO,
+    IPPROTO_HOPOPTS as IPPROTO_HOPOPTS,
+    IPPROTO_ICMP as IPPROTO_ICMP,
+    IPPROTO_ICMPV6 as IPPROTO_ICMPV6,
+    IPPROTO_IDP as IPPROTO_IDP,
+    IPPROTO_IGMP as IPPROTO_IGMP,
+    IPPROTO_IP as IPPROTO_IP,
+    IPPROTO_IPCOMP as IPPROTO_IPCOMP,
+    IPPROTO_IPIP as IPPROTO_IPIP,
+    IPPROTO_IPV4 as IPPROTO_IPV4,
+    IPPROTO_IPV6 as IPPROTO_IPV6,
+    IPPROTO_MAX as IPPROTO_MAX,
+    IPPROTO_MOBILE as IPPROTO_MOBILE,
+    IPPROTO_ND as IPPROTO_ND,
+    IPPROTO_NONE as IPPROTO_NONE,
+    IPPROTO_PIM as IPPROTO_PIM,
+    IPPROTO_PUP as IPPROTO_PUP,
+    IPPROTO_RAW as IPPROTO_RAW,
+    IPPROTO_ROUTING as IPPROTO_ROUTING,
+    IPPROTO_RSVP as IPPROTO_RSVP,
+    IPPROTO_SCTP as IPPROTO_SCTP,
+    IPPROTO_TCP as IPPROTO_TCP,
+    IPPROTO_TP as IPPROTO_TP,
+    IPPROTO_UDP as IPPROTO_UDP,
+    IPPROTO_VRRP as IPPROTO_VRRP,
+    IPPROTO_XTP as IPPROTO_XTP,
+    IPV6_CHECKSUM as IPV6_CHECKSUM,
+    IPV6_DONTFRAG as IPV6_DONTFRAG,
+    IPV6_DSTOPTS as IPV6_DSTOPTS,
+    IPV6_HOPLIMIT as IPV6_HOPLIMIT,
+    IPV6_HOPOPTS as IPV6_HOPOPTS,
+    IPV6_JOIN_GROUP as IPV6_JOIN_GROUP,
+    IPV6_LEAVE_GROUP as IPV6_LEAVE_GROUP,
+    IPV6_MULTICAST_HOPS as IPV6_MULTICAST_HOPS,
+    IPV6_MULTICAST_IF as IPV6_MULTICAST_IF,
+    IPV6_MULTICAST_LOOP as IPV6_MULTICAST_LOOP,
+    IPV6_NEXTHOP as IPV6_NEXTHOP,
+    IPV6_PATHMTU as IPV6_PATHMTU,
+    IPV6_PKTINFO as IPV6_PKTINFO,
+    IPV6_RECVDSTOPTS as IPV6_RECVDSTOPTS,
+    IPV6_RECVHOPLIMIT as IPV6_RECVHOPLIMIT,
+    IPV6_RECVHOPOPTS as IPV6_RECVHOPOPTS,
+    IPV6_RECVPATHMTU as IPV6_RECVPATHMTU,
+    IPV6_RECVPKTINFO as IPV6_RECVPKTINFO,
+    IPV6_RECVRTHDR as IPV6_RECVRTHDR,
+    IPV6_RECVTCLASS as IPV6_RECVTCLASS,
+    IPV6_RTHDR as IPV6_RTHDR,
+    IPV6_RTHDR_TYPE_0 as IPV6_RTHDR_TYPE_0,
+    IPV6_RTHDRDSTOPTS as IPV6_RTHDRDSTOPTS,
+    IPV6_TCLASS as IPV6_TCLASS,
+    IPV6_UNICAST_HOPS as IPV6_UNICAST_HOPS,
+    IPV6_USE_MIN_MTU as IPV6_USE_MIN_MTU,
+    IPV6_V6ONLY as IPV6_V6ONLY,
+    IPX_TYPE as IPX_TYPE,
+    LOCAL_PEERCRED as LOCAL_PEERCRED,
+    NI_DGRAM as NI_DGRAM,
+    NI_MAXHOST as NI_MAXHOST,
+    NI_MAXSERV as NI_MAXSERV,
+    NI_NAMEREQD as NI_NAMEREQD,
+    NI_NOFQDN as NI_NOFQDN,
+    NI_NUMERICHOST as NI_NUMERICHOST,
+    NI_NUMERICSERV as NI_NUMERICSERV,
+    SCM_CREDENTIALS as SCM_CREDENTIALS,
+    SCM_CREDS as SCM_CREDS,
+    SCM_RIGHTS as SCM_RIGHTS,
+    SHUT_RD as SHUT_RD,
+    SHUT_RDWR as SHUT_RDWR,
+    SHUT_WR as SHUT_WR,
+    SO_ACCEPTCONN as SO_ACCEPTCONN,
+    SO_BINDTODEVICE as SO_BINDTODEVICE,
+    SO_BROADCAST as SO_BROADCAST,
+    SO_DEBUG as SO_DEBUG,
+    SO_DONTROUTE as SO_DONTROUTE,
+    SO_ERROR as SO_ERROR,
+    SO_EXCLUSIVEADDRUSE as SO_EXCLUSIVEADDRUSE,
+    SO_KEEPALIVE as SO_KEEPALIVE,
+    SO_LINGER as SO_LINGER,
+    SO_MARK as SO_MARK,
+    SO_OOBINLINE as SO_OOBINLINE,
+    SO_PASSCRED as SO_PASSCRED,
+    SO_PEERCRED as SO_PEERCRED,
+    SO_PRIORITY as SO_PRIORITY,
+    SO_RCVBUF as SO_RCVBUF,
+    SO_RCVLOWAT as SO_RCVLOWAT,
+    SO_RCVTIMEO as SO_RCVTIMEO,
+    SO_REUSEADDR as SO_REUSEADDR,
+    SO_REUSEPORT as SO_REUSEPORT,
+    SO_SETFIB as SO_SETFIB,
+    SO_SNDBUF as SO_SNDBUF,
+    SO_SNDLOWAT as SO_SNDLOWAT,
+    SO_SNDTIMEO as SO_SNDTIMEO,
+    SO_TYPE as SO_TYPE,
+    SO_USELOOPBACK as SO_USELOOPBACK,
+    SOL_ATALK as SOL_ATALK,
+    SOL_AX25 as SOL_AX25,
+    SOL_HCI as SOL_HCI,
+    SOL_IP as SOL_IP,
+    SOL_IPX as SOL_IPX,
+    SOL_NETROM as SOL_NETROM,
+    SOL_ROSE as SOL_ROSE,
+    SOL_SOCKET as SOL_SOCKET,
+    SOL_TCP as SOL_TCP,
+    SOL_UDP as SOL_UDP,
+    SOMAXCONN as SOMAXCONN,
+    TCP_CORK as TCP_CORK,
+    TCP_DEFER_ACCEPT as TCP_DEFER_ACCEPT,
+    TCP_FASTOPEN as TCP_FASTOPEN,
+    TCP_INFO as TCP_INFO,
+    TCP_KEEPCNT as TCP_KEEPCNT,
+    TCP_KEEPIDLE as TCP_KEEPIDLE,
+    TCP_KEEPINTVL as TCP_KEEPINTVL,
+    TCP_LINGER2 as TCP_LINGER2,
+    TCP_MAXSEG as TCP_MAXSEG,
+    TCP_NODELAY as TCP_NODELAY,
+    TCP_QUICKACK as TCP_QUICKACK,
+    TCP_SYNCNT as TCP_SYNCNT,
+    TCP_WINDOW_CLAMP as TCP_WINDOW_CLAMP,
+    SocketType as SocketType,
+    _Address as _Address,
+    _RetAddress as _RetAddress,
+    dup as dup,
+    error as error,
+    gaierror as gaierror,
+    getdefaulttimeout as getdefaulttimeout,
+    gethostbyaddr as gethostbyaddr,
+    gethostbyname as gethostbyname,
+    gethostbyname_ex as gethostbyname_ex,
+    gethostname as gethostname,
+    getnameinfo as getnameinfo,
+    getprotobyname as getprotobyname,
+    getservbyname as getservbyname,
+    getservbyport as getservbyport,
+    has_ipv6 as has_ipv6,
+    herror as herror,
+    htonl as htonl,
+    htons as htons,
+    inet_aton as inet_aton,
+    inet_ntoa as inet_ntoa,
+    inet_ntop as inet_ntop,
+    inet_pton as inet_pton,
+    ntohl as ntohl,
+    ntohs as ntohs,
+    setdefaulttimeout as setdefaulttimeout,
+    timeout as timeout,
+)
 
 if sys.version_info >= (3, 7):
     from _socket import close as close

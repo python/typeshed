@@ -1,9 +1,7 @@
 import sys
-from importlib.abc import Loader, MetaPathFinder, PathEntryFinder
-from typing import (IO, Any, Callable, Iterable, Iterator, List, NamedTuple,
-                    Optional, Tuple, Union)
-
 from _typeshed import SupportsRead
+from importlib.abc import Loader, MetaPathFinder, PathEntryFinder
+from typing import IO, Any, Callable, Iterable, Iterator, List, NamedTuple, Optional, Tuple, Union
 
 class ModuleInfo(NamedTuple):
     module_finder: Union[MetaPathFinder, PathEntryFinder]

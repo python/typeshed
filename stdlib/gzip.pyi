@@ -1,12 +1,10 @@
 import _compression
 import sys
 import zlib
+from _typeshed import ReadableBuffer, StrOrBytesPath
 from io import FileIO
 from typing import Any, Optional, Protocol, TextIO, Union, overload
-
 from typing_extensions import Literal
-
-from _typeshed import ReadableBuffer, StrOrBytesPath
 
 _ReadBinaryMode = Literal["r", "rb"]
 _WriteBinaryMode = Literal["a", "ab", "w", "wb", "x", "xb"]

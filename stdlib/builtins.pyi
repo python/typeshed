@@ -1,26 +1,67 @@
 import sys
 import types
+from _typeshed import (
+    OpenBinaryMode,
+    OpenBinaryModeReading,
+    OpenBinaryModeUpdating,
+    OpenBinaryModeWriting,
+    OpenTextMode,
+    ReadableBuffer,
+    Self,
+    StrOrBytesPath,
+    SupportsDivMod,
+    SupportsKeysAndGetItem,
+    SupportsLenAndGetItem,
+    SupportsLessThan,
+    SupportsLessThanT,
+    SupportsRDivMod,
+    SupportsWrite,
+)
 from ast import AST, mod
-from io import (BufferedRandom, BufferedReader, BufferedWriter, FileIO,
-                TextIOWrapper)
+from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
 from types import CodeType, TracebackType
-from typing import (IO, AbstractSet, Any, AsyncIterable, AsyncIterator,
-                    BinaryIO, ByteString, Callable, Dict, FrozenSet, Generic,
-                    ItemsView, Iterable, Iterator, KeysView, List, Mapping,
-                    MutableMapping, MutableSequence, MutableSet, NoReturn,
-                    Optional, Protocol, Reversible, Sequence, Set, Sized,
-                    SupportsAbs, SupportsBytes, SupportsComplex, SupportsFloat,
-                    SupportsInt, SupportsRound, Tuple, Type, TypeVar, Union,
-                    ValuesView, overload)
-
+from typing import (
+    IO,
+    AbstractSet,
+    Any,
+    AsyncIterable,
+    AsyncIterator,
+    BinaryIO,
+    ByteString,
+    Callable,
+    Dict,
+    FrozenSet,
+    Generic,
+    ItemsView,
+    Iterable,
+    Iterator,
+    KeysView,
+    List,
+    Mapping,
+    MutableMapping,
+    MutableSequence,
+    MutableSet,
+    NoReturn,
+    Optional,
+    Protocol,
+    Reversible,
+    Sequence,
+    Set,
+    Sized,
+    SupportsAbs,
+    SupportsBytes,
+    SupportsComplex,
+    SupportsFloat,
+    SupportsInt,
+    SupportsRound,
+    Tuple,
+    Type,
+    TypeVar,
+    Union,
+    ValuesView,
+    overload,
+)
 from typing_extensions import Literal, SupportsIndex, final
-
-from _typeshed import (OpenBinaryMode, OpenBinaryModeReading,
-                       OpenBinaryModeUpdating, OpenBinaryModeWriting,
-                       OpenTextMode, ReadableBuffer, Self, StrOrBytesPath,
-                       SupportsDivMod, SupportsKeysAndGetItem,
-                       SupportsLenAndGetItem, SupportsLessThan,
-                       SupportsLessThanT, SupportsRDivMod, SupportsWrite)
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias

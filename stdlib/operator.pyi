@@ -1,6 +1,16 @@
-from typing import (Any, Container, Generic, Mapping, MutableMapping,
-                    MutableSequence, Sequence, SupportsAbs, Tuple, TypeVar,
-                    overload)
+from typing import (
+    Any,
+    Container,
+    Generic,
+    Mapping,
+    MutableMapping,
+    MutableSequence,
+    Sequence,
+    SupportsAbs,
+    Tuple,
+    TypeVar,
+    overload,
+)
 
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)

@@ -1,7 +1,6 @@
 import types
 import unittest
-from typing import (Any, Callable, Dict, List, NamedTuple, Optional, Tuple,
-                    Type, Union)
+from typing import Any, Callable, Dict, List, NamedTuple, Optional, Tuple, Type, Union
 
 class TestResults(NamedTuple):
     failed: int

@@ -1,11 +1,26 @@
 import sys
-from typing import (AbstractSet, Any, Callable, ClassVar, Dict, Iterable,
-                    Iterator, List, Mapping, MutableMapping, Optional, Pattern,
-                    Sequence, Tuple, Type, TypeVar, Union, overload)
-
-from typing_extensions import Literal
-
 from _typeshed import StrOrBytesPath, StrPath, SupportsWrite
+from typing import (
+    AbstractSet,
+    Any,
+    Callable,
+    ClassVar,
+    Dict,
+    Iterable,
+    Iterator,
+    List,
+    Mapping,
+    MutableMapping,
+    Optional,
+    Pattern,
+    Sequence,
+    Tuple,
+    Type,
+    TypeVar,
+    Union,
+    overload,
+)
+from typing_extensions import Literal
 
 # Internal type aliases
 _section = Mapping[str, str]

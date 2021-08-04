@@ -1,13 +1,26 @@
 import sys
 import types
-from abc import abstractmethod
-from typing import (IO, Any, BinaryIO, Callable, Generator, Iterable, Iterator,
-                    List, Optional, Protocol, TextIO, Tuple, Type, TypeVar,
-                    Union, overload)
-
-from typing_extensions import Literal
-
 from _typeshed import Self
+from abc import abstractmethod
+from typing import (
+    IO,
+    Any,
+    BinaryIO,
+    Callable,
+    Generator,
+    Iterable,
+    Iterator,
+    List,
+    Optional,
+    Protocol,
+    TextIO,
+    Tuple,
+    Type,
+    TypeVar,
+    Union,
+    overload,
+)
+from typing_extensions import Literal
 
 # TODO: this only satisfies the most common interface, where
 # bytes is the raw form and str is the cooked form.

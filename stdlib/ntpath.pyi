@@ -1,44 +1,48 @@
 import sys
-from genericpath import commonprefix as commonprefix
-from genericpath import exists as exists
-from genericpath import getatime as getatime
-from genericpath import getctime as getctime
-from genericpath import getmtime as getmtime
-from genericpath import getsize as getsize
-from genericpath import isdir as isdir
-from genericpath import isfile as isfile
-from genericpath import samefile as samefile
-from genericpath import sameopenfile as sameopenfile
-from genericpath import samestat as samestat
-from os import PathLike
-# Re-export common definitions from posixpath to reduce duplication
-from posixpath import abspath as abspath
-from posixpath import basename as basename
-from posixpath import commonpath as commonpath
-from posixpath import curdir as curdir
-from posixpath import defpath as defpath
-from posixpath import devnull as devnull
-from posixpath import dirname as dirname
-from posixpath import expanduser as expanduser
-from posixpath import expandvars as expandvars
-from posixpath import extsep as extsep
-from posixpath import isabs as isabs
-from posixpath import islink as islink
-from posixpath import ismount as ismount
-from posixpath import lexists as lexists
-from posixpath import normcase as normcase
-from posixpath import normpath as normpath
-from posixpath import pardir as pardir
-from posixpath import pathsep as pathsep
-from posixpath import relpath as relpath
-from posixpath import sep as sep
-from posixpath import split as split
-from posixpath import splitdrive as splitdrive
-from posixpath import splitext as splitext
-from posixpath import supports_unicode_filenames as supports_unicode_filenames
-from typing import AnyStr, Tuple, overload
-
 from _typeshed import BytesPath, StrPath
+from genericpath import (
+    commonprefix as commonprefix,
+    exists as exists,
+    getatime as getatime,
+    getctime as getctime,
+    getmtime as getmtime,
+    getsize as getsize,
+    isdir as isdir,
+    isfile as isfile,
+    samefile as samefile,
+    sameopenfile as sameopenfile,
+    samestat as samestat,
+)
+from os import PathLike
+
+# Re-export common definitions from posixpath to reduce duplication
+from posixpath import (
+    abspath as abspath,
+    basename as basename,
+    commonpath as commonpath,
+    curdir as curdir,
+    defpath as defpath,
+    devnull as devnull,
+    dirname as dirname,
+    expanduser as expanduser,
+    expandvars as expandvars,
+    extsep as extsep,
+    isabs as isabs,
+    islink as islink,
+    ismount as ismount,
+    lexists as lexists,
+    normcase as normcase,
+    normpath as normpath,
+    pardir as pardir,
+    pathsep as pathsep,
+    relpath as relpath,
+    sep as sep,
+    split as split,
+    splitdrive as splitdrive,
+    splitext as splitext,
+    supports_unicode_filenames as supports_unicode_filenames,
+)
+from typing import AnyStr, Tuple, overload
 
 altsep: str
 if sys.version_info < (3, 7) and sys.platform == "win32":

@@ -1,6 +1,5 @@
-from typing import Dict, List, Optional, Tuple
-
 from _typeshed import StrOrBytesPath
+from typing import Dict, List, Optional, Tuple
 
 class NetrcParseError(Exception):
     filename: Optional[str]

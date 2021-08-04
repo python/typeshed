@@ -1,10 +1,8 @@
 from types import ModuleType, TracebackType
 from typing import Any, List, Optional, TextIO, Type, Union, overload
-
 from typing_extensions import Literal
 
-from _warnings import warn as warn
-from _warnings import warn_explicit as warn_explicit
+from _warnings import warn as warn, warn_explicit as warn_explicit
 
 def showwarning(
     message: Union[Warning, str],

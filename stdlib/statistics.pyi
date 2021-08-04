@@ -1,10 +1,8 @@
 import sys
+from _typeshed import SupportsLessThanT
 from decimal import Decimal
 from fractions import Fraction
-from typing import (Any, Hashable, Iterable, List, NamedTuple, Optional,
-                    Sequence, SupportsFloat, Type, TypeVar, Union)
-
-from _typeshed import SupportsLessThanT
+from typing import Any, Hashable, Iterable, List, NamedTuple, Optional, Sequence, SupportsFloat, Type, TypeVar, Union
 
 _T = TypeVar("_T")
 # Most functions in this module accept homogeneous collections of one of these types

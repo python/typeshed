@@ -1,6 +1,5 @@
-from typing import Generic, Iterable, Optional, Tuple, TypeVar
-
 from _typeshed import SupportsItems
+from typing import Generic, Iterable, Optional, Tuple, TypeVar
 
 _T = TypeVar("_T")
 

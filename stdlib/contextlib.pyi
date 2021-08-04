@@ -1,12 +1,21 @@
 import sys
-from types import TracebackType
-from typing import (IO, Any, AsyncContextManager, AsyncIterator, Awaitable,
-                    Callable, ContextManager, Iterator, Optional, Type,
-                    TypeVar, overload)
-
-from typing_extensions import ParamSpec, Protocol
-
 from _typeshed import Self
+from types import TracebackType
+from typing import (
+    IO,
+    Any,
+    AsyncContextManager,
+    AsyncIterator,
+    Awaitable,
+    Callable,
+    ContextManager,
+    Iterator,
+    Optional,
+    Type,
+    TypeVar,
+    overload,
+)
+from typing_extensions import ParamSpec, Protocol
 
 AbstractContextManager = ContextManager
 if sys.version_info >= (3, 7):

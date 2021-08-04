@@ -1,10 +1,10 @@
 import sys
-from typing import NamedTuple, Optional, Tuple
 
 if sys.version_info < (3, 8):
     import os
 
     DEV_NULL = os.devnull
+from typing import NamedTuple, Optional, Tuple
 
 if sys.version_info >= (3, 8):
     def libc_ver(

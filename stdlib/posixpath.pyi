@@ -1,19 +1,20 @@
 import sys
-from genericpath import commonprefix as commonprefix
-from genericpath import exists as exists
-from genericpath import getatime as getatime
-from genericpath import getctime as getctime
-from genericpath import getmtime as getmtime
-from genericpath import getsize as getsize
-from genericpath import isdir as isdir
-from genericpath import isfile as isfile
-from genericpath import samefile as samefile
-from genericpath import sameopenfile as sameopenfile
-from genericpath import samestat as samestat
+from _typeshed import BytesPath, StrOrBytesPath, StrPath
+from genericpath import (
+    commonprefix as commonprefix,
+    exists as exists,
+    getatime as getatime,
+    getctime as getctime,
+    getmtime as getmtime,
+    getsize as getsize,
+    isdir as isdir,
+    isfile as isfile,
+    samefile as samefile,
+    sameopenfile as sameopenfile,
+    samestat as samestat,
+)
 from os import PathLike
 from typing import AnyStr, Optional, Sequence, Tuple, overload
-
-from _typeshed import BytesPath, StrOrBytesPath, StrPath
 
 supports_unicode_filenames: bool
 # aliases (also in os)

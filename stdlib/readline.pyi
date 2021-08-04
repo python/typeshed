@@ -1,6 +1,5 @@
-from typing import Callable, Optional, Sequence
-
 from _typeshed import StrOrBytesPath
+from typing import Callable, Optional, Sequence
 
 _CompleterT = Optional[Callable[[str, int], Optional[str]]]
 _CompDispT = Optional[Callable[[str, Sequence[str], int], None]]

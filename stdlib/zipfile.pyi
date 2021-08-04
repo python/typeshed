@@ -1,12 +1,9 @@
 import io
 import sys
-from types import TracebackType
-from typing import (IO, Callable, Dict, Iterable, Iterator, List, Optional,
-                    Protocol, Sequence, Tuple, Type, Union, overload)
-
-from typing_extensions import Literal
-
 from _typeshed import Self, StrPath
+from types import TracebackType
+from typing import IO, Callable, Dict, Iterable, Iterator, List, Optional, Protocol, Sequence, Tuple, Type, Union, overload
+from typing_extensions import Literal
 
 _DateTuple = Tuple[int, int, int, int, int, int]
 _ZipFileMode = Literal["r", "w", "x", "a"]

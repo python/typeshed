@@ -1,7 +1,6 @@
 import sys
-from typing import Any, Iterator, Tuple, Union
-
 from _typeshed import ReadableBuffer, WriteableBuffer
+from typing import Any, Iterator, Tuple, Union
 
 class error(Exception): ...
 

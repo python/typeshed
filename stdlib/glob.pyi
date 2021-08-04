@@ -1,7 +1,6 @@
 import sys
-from typing import AnyStr, Iterator, List, Optional, Union
-
 from _typeshed import StrOrBytesPath
+from typing import AnyStr, Iterator, List, Optional, Union
 
 def glob0(dirname: AnyStr, pattern: AnyStr) -> List[AnyStr]: ...
 def glob1(dirname: AnyStr, pattern: AnyStr) -> List[AnyStr]: ...

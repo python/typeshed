@@ -1,16 +1,18 @@
 import sys
-from io import (BufferedRandom, BufferedReader, BufferedWriter, FileIO,
-                TextIOWrapper)
+from _typeshed import (
+    OpenBinaryMode,
+    OpenBinaryModeReading,
+    OpenBinaryModeUpdating,
+    OpenBinaryModeWriting,
+    OpenTextMode,
+    Self,
+    StrPath,
+)
+from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
 from os import PathLike, stat_result
 from types import TracebackType
-from typing import (IO, Any, BinaryIO, Generator, List, Optional, Sequence,
-                    Tuple, Type, TypeVar, Union, overload)
-
+from typing import IO, Any, BinaryIO, Generator, List, Optional, Sequence, Tuple, Type, TypeVar, Union, overload
 from typing_extensions import Literal
-
-from _typeshed import (OpenBinaryMode, OpenBinaryModeReading,
-                       OpenBinaryModeUpdating, OpenBinaryModeWriting,
-                       OpenTextMode, Self, StrPath)
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias

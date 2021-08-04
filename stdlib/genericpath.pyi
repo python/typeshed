@@ -1,9 +1,7 @@
 import os
-from typing import List, Sequence, Tuple, Union, overload
-
-from typing_extensions import Literal
-
 from _typeshed import BytesPath, StrOrBytesPath, StrPath, SupportsLessThanT
+from typing import List, Sequence, Tuple, Union, overload
+from typing_extensions import Literal
 
 # All overloads can return empty string. Ideally, Literal[""] would be a valid
 # Iterable[T], so that Union[List[T], Literal[""]] could be used as a return

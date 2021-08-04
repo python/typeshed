@@ -1,10 +1,7 @@
 import sys
-from typing import (IO, Any, Container, Iterable, Optional, Sequence, Type,
-                    TypeVar, overload)
-
-from typing_extensions import Literal
-
 from _typeshed import StrPath
+from typing import IO, Any, Container, Iterable, Optional, Sequence, Type, TypeVar, overload
+from typing_extensions import Literal
 
 class NullTranslations:
     def __init__(self, fp: Optional[IO[str]] = ...) -> None: ...

@@ -1,8 +1,6 @@
 import sys
 from enum import Enum
-from typing import IO, Any
-from typing import Dict as DictT
-from typing import Mapping, MutableMapping, Optional, Type, Union
+from typing import IO, Any, Dict as DictT, Mapping, MutableMapping, Optional, Type, Union
 
 class PlistFormat(Enum):
     FMT_XML: int
