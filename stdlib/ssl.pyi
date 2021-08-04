@@ -1,9 +1,12 @@
 import enum
 import socket
 import sys
-from _typeshed import ReadableBuffer, Self, StrPath, WriteableBuffer
-from typing import Any, Callable, ClassVar, Dict, Iterable, List, NamedTuple, Optional, Set, Tuple, Type, Union, overload
+from typing import (Any, Callable, ClassVar, Dict, Iterable, List, NamedTuple,
+                    Optional, Set, Tuple, Type, Union, overload)
+
 from typing_extensions import Literal
+
+from _typeshed import ReadableBuffer, Self, StrPath, WriteableBuffer
 
 _PCTRTT = Tuple[Tuple[str, str], ...]
 _PCTRTTT = Tuple[_PCTRTT, ...]

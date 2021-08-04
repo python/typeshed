@@ -1,7 +1,9 @@
 import collections  # Needed by aliases like DefaultDict, see mypy issue 2986
 import sys
 from abc import ABCMeta, abstractmethod
-from types import BuiltinFunctionType, CodeType, FrameType, FunctionType, MethodType, ModuleType, TracebackType
+from types import (BuiltinFunctionType, CodeType, FrameType, FunctionType,
+                   MethodType, ModuleType, TracebackType)
+
 from typing_extensions import Literal as _Literal
 
 if sys.version_info >= (3, 7):

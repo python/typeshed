@@ -1,37 +1,29 @@
 import abc
 import sys
-from typing import (
-    TYPE_CHECKING as TYPE_CHECKING,
-    Any,
-    AsyncContextManager as AsyncContextManager,
-    AsyncGenerator as AsyncGenerator,
-    AsyncIterable as AsyncIterable,
-    AsyncIterator as AsyncIterator,
-    Awaitable as Awaitable,
-    Callable,
-    ChainMap as ChainMap,
-    ClassVar as ClassVar,
-    ContextManager as ContextManager,
-    Coroutine as Coroutine,
-    Counter as Counter,
-    DefaultDict as DefaultDict,
-    Deque as Deque,
-    Dict,
-    ItemsView,
-    KeysView,
-    Mapping,
-    NewType as NewType,
-    NoReturn as NoReturn,
-    Optional,
-    Text as Text,
-    Tuple,
-    Type as Type,
-    TypeVar,
-    Union,
-    ValuesView,
-    _Alias,
-    overload as overload,
-)
+from typing import TYPE_CHECKING as TYPE_CHECKING
+from typing import Any
+from typing import AsyncContextManager as AsyncContextManager
+from typing import AsyncGenerator as AsyncGenerator
+from typing import AsyncIterable as AsyncIterable
+from typing import AsyncIterator as AsyncIterator
+from typing import Awaitable as Awaitable
+from typing import Callable
+from typing import ChainMap as ChainMap
+from typing import ClassVar as ClassVar
+from typing import ContextManager as ContextManager
+from typing import Coroutine as Coroutine
+from typing import Counter as Counter
+from typing import DefaultDict as DefaultDict
+from typing import Deque as Deque
+from typing import Dict, ItemsView, KeysView, Mapping
+from typing import NewType as NewType
+from typing import NoReturn as NoReturn
+from typing import Optional
+from typing import Text as Text
+from typing import Tuple
+from typing import Type as Type
+from typing import TypeVar, Union, ValuesView, _Alias
+from typing import overload as overload
 
 _T = TypeVar("_T")
 _F = TypeVar("_F", bound=Callable[..., Any])

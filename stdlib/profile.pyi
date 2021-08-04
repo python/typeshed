@@ -1,5 +1,6 @@
-from _typeshed import StrOrBytesPath
 from typing import Any, Callable, Dict, Optional, Tuple, TypeVar, Union
+
+from _typeshed import StrOrBytesPath
 
 def run(statement: str, filename: Optional[str] = ..., sort: Union[str, int] = ...) -> None: ...
 def runctx(

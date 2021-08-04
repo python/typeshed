@@ -1,12 +1,16 @@
 import bz2
 import io
 import sys
-from _typeshed import Self, StrOrBytesPath, StrPath
 from collections.abc import Callable, Iterable, Iterator, Mapping
-from gzip import _ReadableFileobj as _GzipReadableFileobj, _WritableFileobj as _GzipWritableFileobj
+from gzip import _ReadableFileobj as _GzipReadableFileobj
+from gzip import _WritableFileobj as _GzipWritableFileobj
 from types import TracebackType
-from typing import IO, Dict, List, Optional, Protocol, Set, Tuple, Type, TypeVar, Union, overload
+from typing import (IO, Dict, List, Optional, Protocol, Set, Tuple, Type,
+                    TypeVar, Union, overload)
+
 from typing_extensions import Literal
+
+from _typeshed import Self, StrOrBytesPath, StrPath
 
 _TF = TypeVar("_TF", bound=TarFile)
 

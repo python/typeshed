@@ -1,10 +1,12 @@
 import builtins
 import codecs
 import sys
-from _typeshed import ReadableBuffer, Self, StrOrBytesPath, WriteableBuffer
 from os import _Opener
 from types import TracebackType
-from typing import IO, Any, BinaryIO, Callable, Iterable, Iterator, List, Optional, TextIO, Tuple, Type, Union
+from typing import (IO, Any, BinaryIO, Callable, Iterable, Iterator, List,
+                    Optional, TextIO, Tuple, Type, Union)
+
+from _typeshed import ReadableBuffer, Self, StrOrBytesPath, WriteableBuffer
 
 DEFAULT_BUFFER_SIZE: int
 

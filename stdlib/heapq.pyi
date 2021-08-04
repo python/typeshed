@@ -1,5 +1,6 @@
-from _typeshed import SupportsLessThan
 from typing import Any, Callable, Iterable, List, Optional, TypeVar
+
+from _typeshed import SupportsLessThan
 
 _T = TypeVar("_T")
 

@@ -1,4 +1,5 @@
-from typing import IO, Any, AnyStr, Callable, Dict, Iterable, List, Mapping, Optional, Sequence, Tuple, Type, overload
+from typing import (IO, Any, AnyStr, Callable, Dict, Iterable, List, Mapping,
+                    Optional, Sequence, Tuple, Type, overload)
 
 NO_DEFAULT: Tuple[str, ...]
 SUPPRESS_HELP: str

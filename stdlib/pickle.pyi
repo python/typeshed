@@ -1,5 +1,6 @@
 import sys
-from typing import IO, Any, Callable, ClassVar, Iterable, Iterator, Mapping, Optional, Tuple, Type, Union
+from typing import (IO, Any, Callable, ClassVar, Iterable, Iterator, Mapping,
+                    Optional, Tuple, Type, Union)
 
 HIGHEST_PROTOCOL: int
 DEFAULT_PROTOCOL: int

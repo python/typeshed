@@ -1,8 +1,10 @@
 import sys
-from _typeshed import StrOrBytesPath
 from cProfile import Profile as _cProfile
 from profile import Profile
-from typing import IO, Any, Dict, Iterable, List, Optional, Tuple, TypeVar, Union, overload
+from typing import (IO, Any, Dict, Iterable, List, Optional, Tuple, TypeVar,
+                    Union, overload)
+
+from _typeshed import StrOrBytesPath
 
 _Selector = Union[str, float, int]
 _T = TypeVar("_T", bound=Stats)

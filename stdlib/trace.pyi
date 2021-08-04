@@ -1,6 +1,8 @@
 import types
+from typing import (Any, Callable, Dict, Mapping, Optional, Sequence, Tuple,
+                    TypeVar, Union)
+
 from _typeshed import StrPath
-from typing import Any, Callable, Dict, Mapping, Optional, Sequence, Tuple, TypeVar, Union
 
 _T = TypeVar("_T")
 _localtrace = Callable[[types.FrameType, str, Any], Callable[..., Any]]

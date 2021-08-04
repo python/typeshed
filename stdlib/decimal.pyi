@@ -1,6 +1,7 @@
 import numbers
 from types import TracebackType
-from typing import Any, Container, Dict, List, NamedTuple, Optional, Sequence, Tuple, Type, TypeVar, Union, overload
+from typing import (Any, Container, Dict, List, NamedTuple, Optional, Sequence,
+                    Tuple, Type, TypeVar, Union, overload)
 
 _Decimal = Union[Decimal, int]
 _DecimalNew = Union[Decimal, float, str, Tuple[int, Sequence[int], int]]

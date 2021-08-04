@@ -1,9 +1,11 @@
-from _typeshed import Self
 from email.message import Message as _Message
 from socket import socket
 from ssl import SSLContext
 from types import TracebackType
-from typing import Any, Dict, Optional, Pattern, Protocol, Sequence, Tuple, Type, Union, overload
+from typing import (Any, Dict, Optional, Pattern, Protocol, Sequence, Tuple,
+                    Type, Union, overload)
+
+from _typeshed import Self
 
 _Reply = Tuple[int, bytes]
 _SendErrs = Dict[str, _Reply]

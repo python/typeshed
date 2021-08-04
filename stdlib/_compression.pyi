@@ -1,6 +1,7 @@
-from _typeshed import WriteableBuffer
 from io import BufferedIOBase, RawIOBase
 from typing import Any, Callable, Protocol, Tuple, Type, Union
+
+from _typeshed import WriteableBuffer
 
 BUFFER_SIZE: Any
 

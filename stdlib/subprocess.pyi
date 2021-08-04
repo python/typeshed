@@ -1,23 +1,11 @@
 import sys
-from _typeshed import Self, StrOrBytesPath
 from types import TracebackType
-from typing import (
-    IO,
-    Any,
-    AnyStr,
-    Callable,
-    Generic,
-    Iterable,
-    Mapping,
-    Optional,
-    Sequence,
-    Tuple,
-    Type,
-    TypeVar,
-    Union,
-    overload,
-)
+from typing import (IO, Any, AnyStr, Callable, Generic, Iterable, Mapping,
+                    Optional, Sequence, Tuple, Type, TypeVar, Union, overload)
+
 from typing_extensions import Literal
+
+from _typeshed import Self, StrOrBytesPath
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias

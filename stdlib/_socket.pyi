@@ -1,7 +1,8 @@
 import sys
-from _typeshed import ReadableBuffer, WriteableBuffer
 from collections.abc import Iterable
 from typing import Any, Optional, SupportsInt, Tuple, Union, overload
+
+from _typeshed import ReadableBuffer, WriteableBuffer
 
 if sys.version_info >= (3, 8):
     from typing import SupportsIndex

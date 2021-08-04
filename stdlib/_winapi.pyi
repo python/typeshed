@@ -1,5 +1,7 @@
 import sys
-from typing import Any, Dict, NoReturn, Optional, Sequence, Tuple, Union, overload
+from typing import (Any, Dict, NoReturn, Optional, Sequence, Tuple, Union,
+                    overload)
+
 from typing_extensions import Literal
 
 CREATE_NEW_CONSOLE: int

@@ -1,8 +1,10 @@
 import sys
-from _typeshed import FileDescriptorLike
 from array import array
 from typing import Any, Union, overload
+
 from typing_extensions import Literal
+
+from _typeshed import FileDescriptorLike
 
 FASYNC: int
 FD_CLOEXEC: int

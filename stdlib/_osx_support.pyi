@@ -1,4 +1,5 @@
-from typing import Dict, Iterable, List, Optional, Sequence, Tuple, TypeVar, Union
+from typing import (Dict, Iterable, List, Optional, Sequence, Tuple, TypeVar,
+                    Union)
 
 _T = TypeVar("_T")
 _K = TypeVar("_K")

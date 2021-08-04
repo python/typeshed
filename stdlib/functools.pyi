@@ -1,24 +1,9 @@
 import sys
+from typing import (Any, Callable, Dict, Generic, Hashable, Iterable, Mapping,
+                    NamedTuple, Optional, Sequence, Set, Sized, Tuple, Type,
+                    TypeVar, Union, overload)
+
 from _typeshed import SupportsItems, SupportsLessThan
-from typing import (
-    Any,
-    Callable,
-    Dict,
-    Generic,
-    Hashable,
-    Iterable,
-    Mapping,
-    NamedTuple,
-    Optional,
-    Sequence,
-    Set,
-    Sized,
-    Tuple,
-    Type,
-    TypeVar,
-    Union,
-    overload,
-)
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias

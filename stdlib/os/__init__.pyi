@@ -1,45 +1,21 @@
 import sys
-from _typeshed import (
-    FileDescriptorLike,
-    OpenBinaryMode,
-    OpenBinaryModeReading,
-    OpenBinaryModeUpdating,
-    OpenBinaryModeWriting,
-    OpenTextMode,
-    Self,
-    StrOrBytesPath,
-    StrPath,
-)
 from builtins import OSError
-from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper as _TextIOWrapper
-from posix import listdir as listdir, times_result
+from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO
+from io import TextIOWrapper as _TextIOWrapper
+from posix import listdir as listdir
+from posix import times_result
 from subprocess import Popen
-from typing import (
-    IO,
-    Any,
-    AnyStr,
-    BinaryIO,
-    Callable,
-    ContextManager,
-    Dict,
-    Generic,
-    Iterable,
-    Iterator,
-    List,
-    Mapping,
-    MutableMapping,
-    NoReturn,
-    Optional,
-    Protocol,
-    Sequence,
-    Set,
-    Tuple,
-    TypeVar,
-    Union,
-    overload,
-    runtime_checkable,
-)
+from typing import (IO, Any, AnyStr, BinaryIO, Callable, ContextManager, Dict,
+                    Generic, Iterable, Iterator, List, Mapping, MutableMapping,
+                    NoReturn, Optional, Protocol, Sequence, Set, Tuple,
+                    TypeVar, Union, overload, runtime_checkable)
+
 from typing_extensions import Literal
+
+from _typeshed import (FileDescriptorLike, OpenBinaryMode,
+                       OpenBinaryModeReading, OpenBinaryModeUpdating,
+                       OpenBinaryModeWriting, OpenTextMode, Self,
+                       StrOrBytesPath, StrPath)
 
 from . import path as _path
 
@@ -801,6 +777,32 @@ if sys.platform == "win32":
 
 else:
     # Unix only
+    def posix_spawn(
+        path: _FdOrAnyPath,
+        argv: _ExecVArgs,
+        env: _ExecEnv,
+        *,
+        file_actions: Optional[Sequence[Tuple]] = ...,
+        setpgroup: Optional[int] = ...,
+        resetids: bool = ...,
+        setsid: bool = ...,
+        setsigmask: Tuple = ...,
+        setsigdef: Tuple = ...,
+        scheduler: Optional[Tuple] = ...,
+    ) -> int: ...
+    def posix_spawnp(
+        path: _FdOrAnyPath,
+        argv: _ExecVArgs,
+        env: _ExecEnv,
+        *,
+        file_actions: Optional[Sequence[Tuple]] = ...,
+        setpgroup: Optional[int] = ...,
+        resetids: bool = ...,
+        setsid: bool = ...,
+        setsigmask: Tuple = ...,
+        setsigdef: Tuple = ...,
+        scheduler: Optional[Tuple] = ...,
+    ) -> int: ...
     def spawnlp(mode: int, file: StrOrBytesPath, arg0: StrOrBytesPath, *args: StrOrBytesPath) -> int: ...
     def spawnlpe(mode: int, file: StrOrBytesPath, arg0: StrOrBytesPath, *args: Any) -> int: ...  # Imprecise signature
     def spawnvp(mode: int, file: StrOrBytesPath, args: _ExecVArgs) -> int: ...

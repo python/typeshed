@@ -1,5 +1,6 @@
 import sys
-from os import PathLike, stat_result as stat_result
+from os import PathLike
+from os import stat_result as stat_result
 from typing import Dict, List, NamedTuple, Optional, overload
 
 class uname_result(NamedTuple):

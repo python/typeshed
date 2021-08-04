@@ -1,5 +1,6 @@
 import sys
 from typing import Optional, Union, overload
+
 from typing_extensions import Literal
 
 if sys.platform == "win32":

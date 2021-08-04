@@ -2,26 +2,10 @@ import sys
 import typing
 from importlib.abc import _LoaderProtocol
 from importlib.machinery import ModuleSpec
-from typing import (
-    Any,
-    AsyncGenerator,
-    Awaitable,
-    Callable,
-    Dict,
-    Generator,
-    Generic,
-    ItemsView,
-    Iterable,
-    Iterator,
-    KeysView,
-    Mapping,
-    Optional,
-    Tuple,
-    Type,
-    TypeVar,
-    ValuesView,
-    overload,
-)
+from typing import (Any, AsyncGenerator, Awaitable, Callable, Dict, Generator,
+                    Generic, ItemsView, Iterable, Iterator, KeysView, Mapping,
+                    Optional, Tuple, Type, TypeVar, ValuesView, overload)
+
 from typing_extensions import Literal, final
 
 # Note, all classes "defined" here require special handling.

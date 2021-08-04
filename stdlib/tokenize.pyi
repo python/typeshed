@@ -1,23 +1,10 @@
 import sys
-from _typeshed import StrOrBytesPath
 from builtins import open as _builtin_open
 from token import *  # noqa: F403
-from typing import (
-    Any,
-    Callable,
-    Dict,
-    Generator,
-    Iterable,
-    List,
-    NamedTuple,
-    Optional,
-    Pattern,
-    Sequence,
-    Set,
-    TextIO,
-    Tuple,
-    Union,
-)
+from typing import (Any, Callable, Dict, Generator, Iterable, List, NamedTuple,
+                    Optional, Pattern, Sequence, Set, TextIO, Tuple, Union)
+
+from _typeshed import StrOrBytesPath
 
 if sys.version_info < (3, 7):
     COMMENT: int

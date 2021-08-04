@@ -1,4 +1,5 @@
-from typing import IO, Any, Callable, Dict, List, Optional, Sequence, Tuple, Union
+from typing import (IO, Any, Callable, Dict, List, Optional, Sequence, Tuple,
+                    Union)
 
 _Timer = Callable[[], float]
 _Stmt = Union[str, Callable[[], Any]]

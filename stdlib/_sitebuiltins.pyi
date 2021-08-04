@@ -1,4 +1,5 @@
 from typing import ClassVar, Iterable, NoReturn, Optional
+
 from typing_extensions import Literal
 
 class Quitter:

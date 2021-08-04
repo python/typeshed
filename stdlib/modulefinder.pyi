@@ -1,6 +1,7 @@
 import sys
 from types import CodeType
-from typing import IO, Any, Container, Dict, Iterable, Iterator, List, Optional, Sequence, Tuple
+from typing import (IO, Any, Container, Dict, Iterable, Iterator, List,
+                    Optional, Sequence, Tuple)
 
 LOAD_CONST: int  # undocumented
 IMPORT_NAME: int  # undocumented

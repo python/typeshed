@@ -1,5 +1,6 @@
 from types import CodeType, FrameType, TracebackType
-from typing import IO, Any, Callable, Dict, Iterable, List, Mapping, Optional, Set, SupportsInt, Tuple, Type, TypeVar, Union
+from typing import (IO, Any, Callable, Dict, Iterable, List, Mapping, Optional,
+                    Set, SupportsInt, Tuple, Type, TypeVar, Union)
 
 _T = TypeVar("_T")
 _TraceDispatch = Callable[[FrameType, str, Any], Any]  # TODO: Recursive type
