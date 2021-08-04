@@ -822,6 +822,7 @@ else:
 
 if sys.platform != "win32":
     from posix import sched_param
+
     if sys.version_info >= (3, 8):
         def posix_spawn(
             path: _FdOrAnyPath,
