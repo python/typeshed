@@ -801,32 +801,34 @@ if sys.platform == "win32":
 
 else:
     # Unix only
-    def posix_spawn(
-        path: _FdOrAnyPath,
-        argv: _ExecVArgs,
-        env: _ExecEnv,
-        *,
-        file_actions: Optional[Sequence[Tuple]] = ...,
-        setpgroup: Optional[int] = ...,
-        resetids: bool = ...,
-        setsid: bool = ...,
-        setsigmask: Tuple = ...,
-        setsigdef: Tuple = ...,
-        scheduler: Optional[Tuple] = ...,
-    ) -> int: ...
-    def posix_spawnp(
-        path: _FdOrAnyPath,
-        argv: _ExecVArgs,
-        env: _ExecEnv,
-        *,
-        file_actions: Optional[Sequence[Tuple]] = ...,
-        setpgroup: Optional[int] = ...,
-        resetids: bool = ...,
-        setsid: bool = ...,
-        setsigmask: Tuple = ...,
-        setsigdef: Tuple = ...,
-        scheduler: Optional[Tuple] = ...,
-    ) -> int: ...
+    if sys.version_info >= (3, 8):
+        from posix import sched_param
+        def posix_spawn(
+            path: _FdOrAnyPath,
+            argv: _ExecVArgs,
+            env: _ExecEnv,
+            *,
+            file_actions: Optional[Sequence[Tuple[int, Any]]] = ...,
+            setpgroup: Optional[int] = ...,
+            resetids: bool = ...,
+            setsid: bool = ...,
+            setsigmask: Tuple[Any, ...] = ...,
+            setsigdef: Tuple[Any, ...] = ...,
+            scheduler: Optional[Tuple[Any, sched_param]] = ...,
+        ) -> int: ...
+        def posix_spawnp(
+            path: _FdOrAnyPath,
+            argv: _ExecVArgs,
+            env: _ExecEnv,
+            *,
+            file_actions: Optional[Sequence[Tuple[int, Any]]] = ...,
+            setpgroup: Optional[int] = ...,
+            resetids: bool = ...,
+            setsid: bool = ...,
+            setsigmask: Tuple[Any, ...] = ...,
+            setsigdef: Tuple[Any, ...] = ...,
+            scheduler: Optional[Tuple[Any, sched_param]] = ...,
+        ) -> int: ...
     def spawnlp(mode: int, file: StrOrBytesPath, arg0: StrOrBytesPath, *args: StrOrBytesPath) -> int: ...
     def spawnlpe(mode: int, file: StrOrBytesPath, arg0: StrOrBytesPath, *args: Any) -> int: ...  # Imprecise signature
     def spawnvp(mode: int, file: StrOrBytesPath, args: _ExecVArgs) -> int: ...
