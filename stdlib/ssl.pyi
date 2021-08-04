@@ -3,7 +3,7 @@ import socket
 import sys
 from _typeshed import ReadableBuffer, Self, StrPath, WriteableBuffer
 from typing import Any, Callable, ClassVar, Dict, Iterable, List, NamedTuple, Optional, Set, Tuple, Type, Union, overload
-from typing_extensions import Literal
+from typing_extensions import Literal, TypedDict
 
 _PCTRTT = Tuple[Tuple[str, str], ...]
 _PCTRTTT = Tuple[_PCTRTT, ...]
@@ -13,6 +13,19 @@ _EnumRetType = List[Tuple[bytes, str, Union[Set[str], bool]]]
 _PasswordType = Union[Callable[[], Union[str, bytes]], str, bytes]
 
 _SrvnmeCbType = Callable[[Union[SSLSocket, SSLObject], Optional[str], SSLSocket], Optional[int]]
+
+class _Cipher(TypedDict):
+    aead: bool
+    alg_bits: int
+    auth: str
+    description: str
+    digest: Optional[str]
+    id: int
+    kea: str
+    name: str
+    protocol: str
+    strength_bits: int
+    symmetric: str
 
 class SSLError(OSError):
     library: str
@@ -377,6 +390,7 @@ class SSLContext:
         self, cafile: Optional[StrPath] = ..., capath: Optional[StrPath] = ..., cadata: Union[str, bytes, None] = ...
     ) -> None: ...
     def get_ca_certs(self, binary_form: bool = ...) -> Union[List[_PeerCertRetDictType], List[bytes]]: ...
+    def get_ciphers(self) -> list[_Cipher]: ...
     def set_default_verify_paths(self) -> None: ...
     def set_ciphers(self, __cipherlist: str) -> None: ...
     def set_alpn_protocols(self, alpn_protocols: Iterable[str]) -> None: ...
