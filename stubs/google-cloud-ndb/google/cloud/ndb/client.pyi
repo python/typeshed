@@ -1,13 +1,8 @@
 from typing import Any
 
-from google.api_core import client_info as client_info
-from google.cloud import client as google_client, environment_vars as environment_vars
-from google.cloud.datastore_v1.gapic import datastore_client as datastore_client
-from google.cloud.datastore_v1.proto import datastore_pb2_grpc as datastore_pb2_grpc
-
 DATASTORE_API_HOST: Any
 
-class Client(google_client.ClientWithProject):
+class Client:
     SCOPE: Any
     namespace: Any
     host: Any

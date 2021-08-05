@@ -1,9 +1,5 @@
 from typing import Any
 
-from google.cloud import environment_vars as environment_vars
-from google.cloud.datastore import Key as Key, helpers as helpers
-from google.cloud.datastore_v1.proto import datastore_pb2 as datastore_pb2, entity_pb2 as entity_pb2, query_pb2 as query_pb2
-
 class QueryIterator:
     def __iter__(self): ...
     def has_next(self) -> None: ...
