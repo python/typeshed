@@ -69,7 +69,6 @@ class Logger(Filterer):
             stack_info: bool = ...,
             stacklevel: int = ...,
             extra: Optional[dict[str, Any]] = ...,
-            **kwargs: Any,
         ) -> None: ...
         def info(
             self,
@@ -79,7 +78,6 @@ class Logger(Filterer):
             stack_info: bool = ...,
             stacklevel: int = ...,
             extra: Optional[dict[str, Any]] = ...,
-            **kwargs: Any,
         ) -> None: ...
         def warning(
             self,
@@ -89,7 +87,6 @@ class Logger(Filterer):
             stack_info: bool = ...,
             stacklevel: int = ...,
             extra: Optional[dict[str, Any]] = ...,
-            **kwargs: Any,
         ) -> None: ...
         def warn(
             self,
@@ -99,7 +96,6 @@ class Logger(Filterer):
             stack_info: bool = ...,
             stacklevel: int = ...,
             extra: Optional[dict[str, Any]] = ...,
-            **kwargs: Any,
         ) -> None: ...
         def error(
             self,
@@ -109,7 +105,6 @@ class Logger(Filterer):
             stack_info: bool = ...,
             stacklevel: int = ...,
             extra: Optional[dict[str, Any]] = ...,
-            **kwargs: Any,
         ) -> None: ...
         def exception(
             self,
@@ -119,7 +114,6 @@ class Logger(Filterer):
             stack_info: bool = ...,
             stacklevel: int = ...,
             extra: Optional[dict[str, Any]] = ...,
-            **kwargs: Any,
         ) -> None: ...
         def critical(
             self,
@@ -129,7 +123,6 @@ class Logger(Filterer):
             stack_info: bool = ...,
             stacklevel: int = ...,
             extra: Optional[dict[str, Any]] = ...,
-            **kwargs: Any,
         ) -> None: ...
         def log(
             self,
@@ -140,7 +133,6 @@ class Logger(Filterer):
             stack_info: bool = ...,
             stacklevel: int = ...,
             extra: Optional[dict[str, Any]] = ...,
-            **kwargs: Any,
         ) -> None: ...
         def _log(
             self,
@@ -160,7 +152,6 @@ class Logger(Filterer):
             exc_info: _ExcInfoType = ...,
             stack_info: bool = ...,
             extra: Optional[dict[str, Any]] = ...,
-            **kwargs: Any,
         ) -> None: ...
         def info(
             self,
@@ -169,7 +160,6 @@ class Logger(Filterer):
             exc_info: _ExcInfoType = ...,
             stack_info: bool = ...,
             extra: Optional[dict[str, Any]] = ...,
-            **kwargs: Any,
         ) -> None: ...
         def warning(
             self,
@@ -178,7 +168,6 @@ class Logger(Filterer):
             exc_info: _ExcInfoType = ...,
             stack_info: bool = ...,
             extra: Optional[dict[str, Any]] = ...,
-            **kwargs: Any,
         ) -> None: ...
         def warn(
             self,
@@ -187,7 +176,6 @@ class Logger(Filterer):
             exc_info: _ExcInfoType = ...,
             stack_info: bool = ...,
             extra: Optional[dict[str, Any]] = ...,
-            **kwargs: Any,
         ) -> None: ...
         def error(
             self,
@@ -196,7 +184,6 @@ class Logger(Filterer):
             exc_info: _ExcInfoType = ...,
             stack_info: bool = ...,
             extra: Optional[dict[str, Any]] = ...,
-            **kwargs: Any,
         ) -> None: ...
         def critical(
             self,
@@ -205,7 +192,6 @@ class Logger(Filterer):
             exc_info: _ExcInfoType = ...,
             stack_info: bool = ...,
             extra: Optional[dict[str, Any]] = ...,
-            **kwargs: Any,
         ) -> None: ...
         def log(
             self,
@@ -215,7 +201,6 @@ class Logger(Filterer):
             exc_info: _ExcInfoType = ...,
             stack_info: bool = ...,
             extra: Optional[dict[str, Any]] = ...,
-            **kwargs: Any,
         ) -> None: ...
         def exception(
             self,
@@ -224,7 +209,6 @@ class Logger(Filterer):
             exc_info: _ExcInfoType = ...,
             stack_info: bool = ...,
             extra: Optional[dict[str, Any]] = ...,
-            **kwargs: Any,
         ) -> None: ...
         def _log(
             self,
