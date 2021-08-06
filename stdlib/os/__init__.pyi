@@ -825,29 +825,29 @@ if sys.platform != "win32":
 
     if sys.version_info >= (3, 8):
         def posix_spawn(
-            path: _FdOrAnyPath,
+            path: StrOrBytesPath,
             argv: _ExecVArgs,
             env: _ExecEnv,
             *,
-            file_actions: Optional[Sequence[Tuple[int, Any]]] = ...,
+            file_actions: Optional[Sequence[Tuple[Any, ...]]] = ...,
             setpgroup: Optional[int] = ...,
             resetids: bool = ...,
             setsid: bool = ...,
-            setsigmask: Tuple[Any, ...] = ...,
-            setsigdef: Tuple[Any, ...] = ...,
+            setsigmask: Iterable[int] = ...,
+            setsigdef: Iterable[int] = ...,
             scheduler: Optional[Tuple[Any, sched_param]] = ...,
         ) -> int: ...
         def posix_spawnp(
-            path: _FdOrAnyPath,
+            path: StrOrBytesPath,
             argv: _ExecVArgs,
             env: _ExecEnv,
             *,
-            file_actions: Optional[Sequence[Tuple[int, Any]]] = ...,
+            file_actions: Optional[Sequence[Tuple[Any, ...]]] = ...,
             setpgroup: Optional[int] = ...,
             resetids: bool = ...,
             setsid: bool = ...,
-            setsigmask: Tuple[Any, ...] = ...,
-            setsigdef: Tuple[Any, ...] = ...,
+            setsigmask: Iterable[int] = ...,
+            setsigdef: Iterable[int] = ...,
             scheduler: Optional[Tuple[Any, sched_param]] = ...,
         ) -> int: ...
     def sched_get_priority_min(policy: int) -> int: ...  # some flavors of Unix
