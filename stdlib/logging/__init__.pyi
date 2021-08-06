@@ -544,7 +544,6 @@ if sys.version_info >= (3, 8):
         stack_info: bool = ...,
         stacklevel: int = ...,
         extra: Optional[dict[str, Any]] = ...,
-        **kwargs: Any,
     ) -> None: ...
     def info(
         msg: Any,
@@ -553,7 +552,6 @@ if sys.version_info >= (3, 8):
         stack_info: bool = ...,
         stacklevel: int = ...,
         extra: Optional[dict[str, Any]] = ...,
-        **kwargs: Any,
     ) -> None: ...
     def warning(
         msg: Any,
@@ -562,7 +560,6 @@ if sys.version_info >= (3, 8):
         stack_info: bool = ...,
         stacklevel: int = ...,
         extra: Optional[dict[str, Any]] = ...,
-        **kwargs: Any,
     ) -> None: ...
     def warn(
         msg: Any,
@@ -571,7 +568,6 @@ if sys.version_info >= (3, 8):
         stack_info: bool = ...,
         stacklevel: int = ...,
         extra: Optional[dict[str, Any]] = ...,
-        **kwargs: Any,
     ) -> None: ...
     def error(
         msg: Any,
@@ -580,7 +576,6 @@ if sys.version_info >= (3, 8):
         stack_info: bool = ...,
         stacklevel: int = ...,
         extra: Optional[dict[str, Any]] = ...,
-        **kwargs: Any,
     ) -> None: ...
     def critical(
         msg: Any,
@@ -589,7 +584,6 @@ if sys.version_info >= (3, 8):
         stack_info: bool = ...,
         stacklevel: int = ...,
         extra: Optional[dict[str, Any]] = ...,
-        **kwargs: Any,
     ) -> None: ...
     def exception(
         msg: Any,
@@ -598,7 +592,6 @@ if sys.version_info >= (3, 8):
         stack_info: bool = ...,
         stacklevel: int = ...,
         extra: Optional[dict[str, Any]] = ...,
-        **kwargs: Any,
     ) -> None: ...
     def log(
         level: int,
@@ -608,7 +601,6 @@ if sys.version_info >= (3, 8):
         stack_info: bool = ...,
         stacklevel: int = ...,
         extra: Optional[dict[str, Any]] = ...,
-        **kwargs: Any,
     ) -> None: ...
 
 else:
@@ -618,7 +610,6 @@ else:
         exc_info: _ExcInfoType = ...,
         stack_info: bool = ...,
         extra: Optional[dict[str, Any]] = ...,
-        **kwargs: Any,
     ) -> None: ...
     def info(
         msg: Any,
@@ -626,7 +617,6 @@ else:
         exc_info: _ExcInfoType = ...,
         stack_info: bool = ...,
         extra: Optional[dict[str, Any]] = ...,
-        **kwargs: Any,
     ) -> None: ...
     def warning(
         msg: Any,
@@ -634,7 +624,6 @@ else:
         exc_info: _ExcInfoType = ...,
         stack_info: bool = ...,
         extra: Optional[dict[str, Any]] = ...,
-        **kwargs: Any,
     ) -> None: ...
     def warn(
         msg: Any,
@@ -642,7 +631,6 @@ else:
         exc_info: _ExcInfoType = ...,
         stack_info: bool = ...,
         extra: Optional[dict[str, Any]] = ...,
-        **kwargs: Any,
     ) -> None: ...
     def error(
         msg: Any,
@@ -650,7 +638,6 @@ else:
         exc_info: _ExcInfoType = ...,
         stack_info: bool = ...,
         extra: Optional[dict[str, Any]] = ...,
-        **kwargs: Any,
     ) -> None: ...
     def critical(
         msg: Any,
@@ -658,7 +645,6 @@ else:
         exc_info: _ExcInfoType = ...,
         stack_info: bool = ...,
         extra: Optional[dict[str, Any]] = ...,
-        **kwargs: Any,
     ) -> None: ...
     def exception(
         msg: Any,
@@ -666,7 +652,6 @@ else:
         exc_info: _ExcInfoType = ...,
         stack_info: bool = ...,
         extra: Optional[dict[str, Any]] = ...,
-        **kwargs: Any,
     ) -> None: ...
     def log(
         level: int,
@@ -675,7 +660,6 @@ else:
         exc_info: _ExcInfoType = ...,
         stack_info: bool = ...,
         extra: Optional[dict[str, Any]] = ...,
-        **kwargs: Any,
     ) -> None: ...
 
 fatal = critical
