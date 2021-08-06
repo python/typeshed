@@ -605,53 +605,25 @@ if sys.version_info >= (3, 8):
 
 else:
     def debug(
-        msg: Any,
-        *args: Any,
-        exc_info: _ExcInfoType = ...,
-        stack_info: bool = ...,
-        extra: Optional[dict[str, Any]] = ...,
+        msg: Any, *args: Any, exc_info: _ExcInfoType = ..., stack_info: bool = ..., extra: Optional[dict[str, Any]] = ...
     ) -> None: ...
     def info(
-        msg: Any,
-        *args: Any,
-        exc_info: _ExcInfoType = ...,
-        stack_info: bool = ...,
-        extra: Optional[dict[str, Any]] = ...,
+        msg: Any, *args: Any, exc_info: _ExcInfoType = ..., stack_info: bool = ..., extra: Optional[dict[str, Any]] = ...
     ) -> None: ...
     def warning(
-        msg: Any,
-        *args: Any,
-        exc_info: _ExcInfoType = ...,
-        stack_info: bool = ...,
-        extra: Optional[dict[str, Any]] = ...,
+        msg: Any, *args: Any, exc_info: _ExcInfoType = ..., stack_info: bool = ..., extra: Optional[dict[str, Any]] = ...
     ) -> None: ...
     def warn(
-        msg: Any,
-        *args: Any,
-        exc_info: _ExcInfoType = ...,
-        stack_info: bool = ...,
-        extra: Optional[dict[str, Any]] = ...,
+        msg: Any, *args: Any, exc_info: _ExcInfoType = ..., stack_info: bool = ..., extra: Optional[dict[str, Any]] = ...
     ) -> None: ...
     def error(
-        msg: Any,
-        *args: Any,
-        exc_info: _ExcInfoType = ...,
-        stack_info: bool = ...,
-        extra: Optional[dict[str, Any]] = ...,
+        msg: Any, *args: Any, exc_info: _ExcInfoType = ..., stack_info: bool = ..., extra: Optional[dict[str, Any]] = ...
     ) -> None: ...
     def critical(
-        msg: Any,
-        *args: Any,
-        exc_info: _ExcInfoType = ...,
-        stack_info: bool = ...,
-        extra: Optional[dict[str, Any]] = ...,
+        msg: Any, *args: Any, exc_info: _ExcInfoType = ..., stack_info: bool = ..., extra: Optional[dict[str, Any]] = ...
     ) -> None: ...
     def exception(
-        msg: Any,
-        *args: Any,
-        exc_info: _ExcInfoType = ...,
-        stack_info: bool = ...,
-        extra: Optional[dict[str, Any]] = ...,
+        msg: Any, *args: Any, exc_info: _ExcInfoType = ..., stack_info: bool = ..., extra: Optional[dict[str, Any]] = ...
     ) -> None: ...
     def log(
         level: int,
