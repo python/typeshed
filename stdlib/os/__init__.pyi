@@ -819,37 +819,11 @@ else:
     def WEXITSTATUS(status: int) -> int: ...
     def WSTOPSIG(status: int) -> int: ...
     def WTERMSIG(status: int) -> int: ...
+    if sys.version_info >= (3, 8):
+        from posix import posix_spawn as posix_spawn, posix_spawnp as posix_spawnp
 
 if sys.platform != "win32":
     from posix import sched_param
-
-    if sys.version_info >= (3, 8):
-        def posix_spawn(
-            path: StrOrBytesPath,
-            argv: _ExecVArgs,
-            env: _ExecEnv,
-            *,
-            file_actions: Optional[Sequence[Tuple[Any, ...]]] = ...,
-            setpgroup: Optional[int] = ...,
-            resetids: bool = ...,
-            setsid: bool = ...,
-            setsigmask: Iterable[int] = ...,
-            setsigdef: Iterable[int] = ...,
-            scheduler: Optional[Tuple[Any, sched_param]] = ...,
-        ) -> int: ...
-        def posix_spawnp(
-            path: StrOrBytesPath,
-            argv: _ExecVArgs,
-            env: _ExecEnv,
-            *,
-            file_actions: Optional[Sequence[Tuple[Any, ...]]] = ...,
-            setpgroup: Optional[int] = ...,
-            resetids: bool = ...,
-            setsid: bool = ...,
-            setsigmask: Iterable[int] = ...,
-            setsigdef: Iterable[int] = ...,
-            scheduler: Optional[Tuple[Any, sched_param]] = ...,
-        ) -> int: ...
     def sched_get_priority_min(policy: int) -> int: ...  # some flavors of Unix
     def sched_get_priority_max(policy: int) -> int: ...  # some flavors of Unix
     def sched_yield() -> None: ...  # some flavors of Unix
