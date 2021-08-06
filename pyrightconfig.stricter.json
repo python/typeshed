@@ -103,7 +103,6 @@
     "reportUndefinedVariable": "error",
     "reportUnboundVariable": "error",
     "reportInvalidStubStatement": "error",
-    "reportUnsupportedDunderAll": "error",
     "reportInvalidTypeVarUse": "error",
     "reportPropertyTypeMismatch": "error",
     "reportSelfClsParameterName": "error",
@@ -111,5 +110,8 @@
     // of the "factions.Fraction.__pow__" method and "tasks.gather" function.
     // Mypy's overlapping overload logic misses these issues (see mypy
     // issue #10143 and #10157).
-    "reportOverlappingOverload": "none"
+    "reportOverlappingOverload": "none",
+    // Several stubs refer to symbols in __all__ that are conditionally
+    // declared based on platform or version checks.
+    "reportUnsupportedDunderAll": "none",
 }
