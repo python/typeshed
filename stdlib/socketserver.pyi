@@ -133,16 +133,16 @@ class BaseRequestHandler:
     def finish(self) -> None: ...
 
 class StreamRequestHandler(BaseRequestHandler):
-    rbufsize: ClassVar[int]  # Undocumented
-    wbufsize: ClassVar[int]  # Undocumented
-    timeout: ClassVar[Optional[float]]  # Undocumented
-    disable_nagle_algorithm: ClassVar[bool]  # Undocumented
-    connection: _socket  # Undocumented
+    rbufsize: ClassVar[int]  # undocumented
+    wbufsize: ClassVar[int]  # undocumented
+    timeout: ClassVar[Optional[float]]  # undocumented
+    disable_nagle_algorithm: ClassVar[bool]  # undocumented
+    connection: _socket  # undocumented
     rfile: BinaryIO
     wfile: BinaryIO
 
 class DatagramRequestHandler(BaseRequestHandler):
-    packet: _socket  # Undocumented
-    socket: _socket  # Undocumented
+    packet: _socket  # undocumented
+    socket: _socket  # undocumented
     rfile: BinaryIO
     wfile: BinaryIO
