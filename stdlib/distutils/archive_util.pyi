@@ -1,4 +1,3 @@
-
 def make_archive(
     base_name: str,
     format: str,
