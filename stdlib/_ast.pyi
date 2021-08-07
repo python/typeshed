@@ -1,6 +1,6 @@
 import sys
 import typing
-from typing import Any, ClassVar
+from typing import Any, ClassVar, Optional
 from typing_extensions import Literal
 
 PyCF_ONLY_AST: int
@@ -18,9 +18,9 @@ class AST:
     lineno: int
     col_offset: int
     if sys.version_info >= (3, 8):
-        end_lineno: int | None
-        end_col_offset: int | None
-        type_comment: str | None
+        end_lineno: Optional[int]
+        end_col_offset: Optional[int]
+        type_comment: Optional[str]
 
 class mod(AST): ...
 
@@ -50,14 +50,14 @@ class FunctionDef(stmt):
     args: arguments
     body: typing.List[stmt]
     decorator_list: typing.List[expr]
-    returns: expr | None
+    returns: Optional[expr]
 
 class AsyncFunctionDef(stmt):
     name: _identifier
     args: arguments
     body: typing.List[stmt]
     decorator_list: typing.List[expr]
-    returns: expr | None
+    returns: Optional[expr]
 
 class ClassDef(stmt):
     name: _identifier
@@ -67,7 +67,7 @@ class ClassDef(stmt):
     decorator_list: typing.List[expr]
 
 class Return(stmt):
-    value: expr | None
+    value: Optional[expr]
 
 class Delete(stmt):
     targets: typing.List[expr]
@@ -84,7 +84,7 @@ class AugAssign(stmt):
 class AnnAssign(stmt):
     target: expr
     annotation: expr
-    value: expr | None
+    value: Optional[expr]
     simple: int
 
 class For(stmt):
@@ -118,8 +118,8 @@ class AsyncWith(stmt):
     body: typing.List[stmt]
 
 class Raise(stmt):
-    exc: expr | None
-    cause: expr | None
+    exc: Optional[expr]
+    cause: Optional[expr]
 
 class Try(stmt):
     body: typing.List[stmt]
@@ -129,13 +129,13 @@ class Try(stmt):
 
 class Assert(stmt):
     test: expr
-    msg: expr | None
+    msg: Optional[expr]
 
 class Import(stmt):
     names: typing.List[alias]
 
 class ImportFrom(stmt):
-    module: _identifier | None
+    module: Optional[_identifier]
     names: typing.List[alias]
     level: int
 
@@ -176,7 +176,7 @@ class IfExp(expr):
     orelse: expr
 
 class Dict(expr):
-    keys: typing.List[expr | None]
+    keys: typing.List[Optional[expr]]
     values: typing.List[expr]
 
 class Set(expr):
@@ -203,7 +203,7 @@ class Await(expr):
     value: expr
 
 class Yield(expr):
-    value: expr | None
+    value: Optional[expr]
 
 class YieldFrom(expr):
     value: expr
@@ -220,8 +220,8 @@ class Call(expr):
 
 class FormattedValue(expr):
     value: expr
-    conversion: int | None
-    format_spec: expr | None
+    conversion: Optional[int]
+    format_spec: Optional[expr]
 
 class JoinedStr(expr):
     values: typing.List[expr]
@@ -239,7 +239,7 @@ if sys.version_info < (3, 8):
 
 class Constant(expr):
     value: Any  # None, str, bytes, bool, int, float, complex, Ellipsis
-    kind: str | None
+    kind: Optional[str]
     # Aliases for value, for backwards compatibility
     s: Any
     n: complex
@@ -261,9 +261,9 @@ else:
     _SliceT = slice
 
 class Slice(_SliceT):
-    lower: expr | None
-    upper: expr | None
-    step: expr | None
+    lower: Optional[expr]
+    upper: Optional[expr]
+    step: Optional[expr]
 
 if sys.version_info < (3, 9):
     class ExtSlice(slice):
@@ -347,35 +347,35 @@ class comprehension(AST):
 class excepthandler(AST): ...
 
 class ExceptHandler(excepthandler):
-    type: expr | None
-    name: _identifier | None
+    type: Optional[expr]
+    name: Optional[_identifier]
     body: typing.List[stmt]
 
 class arguments(AST):
     if sys.version_info >= (3, 8):
         posonlyargs: typing.List[arg]
     args: typing.List[arg]
-    vararg: arg | None
+    vararg: Optional[arg]
     kwonlyargs: typing.List[arg]
-    kw_defaults: typing.List[expr | None]
-    kwarg: arg | None
+    kw_defaults: typing.List[Optional[expr]]
+    kwarg: Optional[arg]
     defaults: typing.List[expr]
 
 class arg(AST):
     arg: _identifier
-    annotation: expr | None
+    annotation: Optional[expr]
 
 class keyword(AST):
-    arg: _identifier | None
+    arg: Optional[_identifier]
     value: expr
 
 class alias(AST):
     name: _identifier
-    asname: _identifier | None
+    asname: Optional[_identifier]
 
 class withitem(AST):
     context_expr: expr
-    optional_vars: expr | None
+    optional_vars: Optional[expr]
 
 if sys.version_info >= (3, 10):
     class Match(stmt):
@@ -386,7 +386,7 @@ if sys.version_info >= (3, 10):
     _pattern = pattern
     class match_case(AST):
         pattern: _pattern
-        guard: expr | None
+        guard: Optional[expr]
         body: typing.List[stmt]
     class MatchValue(pattern):
         value: expr
@@ -395,18 +395,18 @@ if sys.version_info >= (3, 10):
     class MatchSequence(pattern):
         patterns: typing.List[pattern]
     class MatchStar(pattern):
-        name: _identifier | None
+        name: Optional[_identifier]
     class MatchMapping(pattern):
         keys: typing.List[expr]
         patterns: typing.List[pattern]
-        rest: _identifier | None
+        rest: Optional[_identifier]
     class MatchClass(pattern):
         cls: expr
         patterns: typing.List[pattern]
         kwd_attrs: typing.List[_identifier]
         kwd_patterns: typing.List[pattern]
     class MatchAs(pattern):
-        pattern: _pattern | None
-        name: _identifier | None
+        pattern: Optional[_pattern]
+        name: Optional[_identifier]
     class MatchOr(pattern):
         patterns: typing.List[pattern]
