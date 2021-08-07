@@ -1,5 +1,5 @@
 import sys
-from typing import Any, Callable, Optional, Tuple
+from typing import Any, Callable, Tuple
 
 from ._base import Executor
 

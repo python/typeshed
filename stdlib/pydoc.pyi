@@ -15,7 +15,7 @@ from typing import (
     Optional,
     Tuple,
     Type,
-    Union,
+    
 )
 
 # the return type of sys.exc_info(), used by ErrorDuringImport.__init__

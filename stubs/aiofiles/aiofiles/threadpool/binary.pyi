@@ -1,6 +1,6 @@
 from _typeshed import ReadableBuffer, StrOrBytesPath, WriteableBuffer
 from io import FileIO
-from typing import Iterable, List, Optional, Union
+from typing import Iterable, List
 
 from ..base import AsyncBase
 

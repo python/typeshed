@@ -1,4 +1,4 @@
-from typing import IO, Optional, Pattern, Type, TypeVar, Union
+from typing import IO, Pattern, Type, TypeVar
 
 from paramiko.message import Message
 

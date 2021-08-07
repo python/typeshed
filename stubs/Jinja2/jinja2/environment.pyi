@@ -1,5 +1,5 @@
 import sys
-from typing import Any, Callable, Dict, Iterator, List, Optional, Sequence, Text, Type, Union
+from typing import Any, Callable, Dict, Iterator, List, Sequence, Text, Type
 
 from .bccache import BytecodeCache
 from .loaders import BaseLoader

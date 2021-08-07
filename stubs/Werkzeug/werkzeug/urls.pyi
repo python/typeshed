@@ -1,4 +1,4 @@
-from typing import Any, NamedTuple, Optional, Text
+from typing import Any, NamedTuple, Text
 
 class _URLTuple(NamedTuple):
     scheme: Any

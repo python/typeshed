@@ -4,7 +4,7 @@ if sys.version_info < (3, 8):
     import os
 
     DEV_NULL = os.devnull
-from typing import NamedTuple, Optional, Tuple
+from typing import NamedTuple, Tuple
 
 if sys.version_info >= (3, 8):
     def libc_ver(executable: str | None = ..., lib: str = ..., version: str = ..., chunksize: int = ...) -> Tuple[str, str]: ...

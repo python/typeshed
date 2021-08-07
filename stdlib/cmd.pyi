@@ -1,4 +1,4 @@
-from typing import IO, Any, Callable, List, Optional, Tuple
+from typing import IO, Any, Callable, List, Tuple
 
 class Cmd:
     prompt: str

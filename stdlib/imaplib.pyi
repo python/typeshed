@@ -5,7 +5,7 @@ from _typeshed import Self
 from socket import socket as _socket
 from ssl import SSLContext, SSLSocket
 from types import TracebackType
-from typing import IO, Any, Callable, Dict, List, Optional, Pattern, Tuple, Type, Union
+from typing import IO, Any, Callable, Dict, List, Pattern, Tuple, Type, Union
 from typing_extensions import Literal
 
 # TODO: Commands should use their actual return types, not this type alias.

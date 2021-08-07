@@ -1,5 +1,5 @@
 from email.charset import Charset
-from typing import Any, List, Optional, Tuple, Union
+from typing import Any, List, Tuple
 
 class Header:
     def __init__(

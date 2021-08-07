@@ -4,7 +4,7 @@ import unittest.loader
 import unittest.result
 import unittest.suite
 from types import ModuleType
-from typing import Any, Iterable, List, Optional, Protocol, Type, Union
+from typing import Any, Iterable, List, Protocol, Type
 
 class _TestRunner(Protocol):
     def run(self, test: unittest.suite.TestSuite | unittest.case.TestCase) -> unittest.result.TestResult: ...

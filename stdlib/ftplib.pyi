@@ -2,7 +2,7 @@ from _typeshed import Self, SupportsRead, SupportsReadline
 from socket import socket
 from ssl import SSLContext
 from types import TracebackType
-from typing import Any, Callable, Dict, Iterable, Iterator, List, Optional, TextIO, Tuple, Type, Union
+from typing import Any, Callable, Dict, Iterable, Iterator, List, TextIO, Tuple, Type
 from typing_extensions import Literal
 
 MSG_OOB: int

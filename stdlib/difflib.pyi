@@ -8,7 +8,7 @@ from typing import (
     Iterator,
     List,
     NamedTuple,
-    Optional,
+    
     Sequence,
     Tuple,
     TypeVar,

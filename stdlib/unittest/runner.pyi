@@ -1,7 +1,7 @@
 import unittest.case
 import unittest.result
 import unittest.suite
-from typing import Callable, Optional, TextIO, Tuple, Type, Union
+from typing import Callable, TextIO, Tuple, Type
 
 _ResultClassType = Callable[[TextIO, bool, int], unittest.result.TestResult]
 

@@ -8,7 +8,7 @@
 # sys.
 import sys
 import typing as _typing
-from typing import Any, Iterator, Optional, TypeVar, Union, overload
+from typing import Any, Iterator, TypeVar, overload
 from typing_extensions import Literal
 
 from _ast import *  # type: ignore

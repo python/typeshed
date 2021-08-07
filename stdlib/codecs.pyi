@@ -11,13 +11,13 @@ from typing import (
     Iterable,
     Iterator,
     List,
-    Optional,
+    
     Protocol,
     TextIO,
     Tuple,
     Type,
     TypeVar,
-    Union,
+    
     overload,
 )
 from typing_extensions import Literal

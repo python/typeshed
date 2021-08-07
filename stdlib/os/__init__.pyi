@@ -29,7 +29,7 @@ from typing import (
     Mapping,
     MutableMapping,
     NoReturn,
-    Optional,
+    
     Protocol,
     Sequence,
     Set,

@@ -1,5 +1,5 @@
 from logging import Logger
-from typing import Dict, List, Optional
+from typing import Dict, List
 
 from paramiko.channel import Channel
 

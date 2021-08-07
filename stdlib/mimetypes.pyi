@@ -1,6 +1,6 @@
 import sys
 from _typeshed import StrPath
-from typing import IO, Dict, List, Optional, Sequence, Tuple
+from typing import IO, Dict, List, Sequence, Tuple
 
 if sys.version_info >= (3, 8):
     def guess_type(url: StrPath, strict: bool = ...) -> Tuple[str | None, str | None]: ...

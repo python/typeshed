@@ -2,7 +2,7 @@ from logging import Logger
 from socket import socket
 from threading import Condition, Event, Lock, Thread
 from types import ModuleType
-from typing import Any, Callable, Dict, Iterable, List, Optional, Protocol, Sequence, Tuple, Type, Union
+from typing import Any, Callable, Dict, Iterable, List, Protocol, Sequence, Tuple, Type
 
 from paramiko.auth_handler import AuthHandler, _InteractiveCallback
 from paramiko.channel import Channel

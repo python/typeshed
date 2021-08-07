@@ -12,7 +12,7 @@ from typing import (
     KeysView,
     List,
     MutableSequence,
-    Optional,
+    
     Sequence,
     Tuple,
     TypeVar,

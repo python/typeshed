@@ -1,6 +1,6 @@
 from hashlib import sha1 as _default_hash
 from hmac import new as hmac
-from typing import Any, Optional
+from typing import Any
 
 from werkzeug.contrib.sessions import ModificationTrackingDict
 

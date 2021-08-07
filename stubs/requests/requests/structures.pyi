@@ -1,4 +1,4 @@
-from typing import Any, Dict, Generic, Iterable, Iterator, Mapping, MutableMapping, Optional, Tuple, TypeVar, Union
+from typing import Any, Dict, Generic, Iterable, Iterator, Mapping, MutableMapping, Tuple, TypeVar
 
 _VT = TypeVar("_VT")
 

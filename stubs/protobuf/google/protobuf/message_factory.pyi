@@ -1,4 +1,4 @@
-from typing import Any, Dict, Iterable, Optional, Type
+from typing import Any, Dict, Iterable, Type
 
 from google.protobuf.descriptor import Descriptor
 from google.protobuf.descriptor_pb2 import FileDescriptorProto

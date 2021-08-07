@@ -1,5 +1,4 @@
 from types import CodeType
-from typing import Optional
 
 def compile_command(source: str, filename: str = ..., symbol: str = ...) -> CodeType | None: ...
 

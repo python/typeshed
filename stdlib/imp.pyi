@@ -1,7 +1,7 @@
 import types
 from _typeshed import StrPath
 from os import PathLike
-from typing import IO, Any, List, Optional, Protocol, Tuple, TypeVar, Union
+from typing import IO, Any, List, Protocol, Tuple, TypeVar
 
 from _imp import (
     acquire_lock as acquire_lock,

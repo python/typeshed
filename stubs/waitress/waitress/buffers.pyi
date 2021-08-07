@@ -1,5 +1,5 @@
 from io import BufferedIOBase, BufferedRandom, BytesIO
-from typing import Any, Callable, Optional
+from typing import Any, Callable
 
 COPY_BYTES: int
 STRBUF_LIMIT: int

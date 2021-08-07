@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from typing import Any as tAny, Dict, Optional, Type
+from typing import Any as tAny, Dict, Type
 
 class Error(Exception): ...
 class ParseError(Error): ...

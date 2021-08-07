@@ -1,4 +1,3 @@
-from typing import Optional
 
 class AESCCM(object):
     def __init__(self, key: bytes, tag_length: int | None) -> None: ...

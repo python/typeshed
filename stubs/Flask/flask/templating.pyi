@@ -1,4 +1,4 @@
-from typing import Any, Iterable, Text, Union
+from typing import Any, Iterable, Text
 
 from jinja2 import BaseLoader, Environment as BaseEnvironment
 

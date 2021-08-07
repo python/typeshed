@@ -1,5 +1,5 @@
 import sys
-from typing import Iterable, Optional, SupportsFloat, SupportsInt, Tuple, overload
+from typing import Iterable, SupportsFloat, SupportsInt, Tuple, overload
 
 e: float
 pi: float

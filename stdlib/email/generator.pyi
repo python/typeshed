@@ -1,6 +1,6 @@
 from email.message import Message
 from email.policy import Policy
-from typing import BinaryIO, Optional, TextIO
+from typing import BinaryIO, TextIO
 
 class Generator:
     def clone(self, fp: TextIO) -> Generator: ...

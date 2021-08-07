@@ -1,4 +1,4 @@
-from typing import Any, ContextManager, Optional, Text, TypeVar, overload
+from typing import Any, ContextManager, Text, TypeVar, overload
 from typing_extensions import Literal
 
 from .client import Pipeline, Redis, _StrType

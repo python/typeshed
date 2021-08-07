@@ -1,5 +1,4 @@
 from abc import ABCMeta, abstractmethod
-from typing import Optional, Union
 
 from cryptography.hazmat.backends.interfaces import DSABackend
 from cryptography.hazmat.primitives.asymmetric import AsymmetricVerificationContext

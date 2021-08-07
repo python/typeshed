@@ -1,4 +1,4 @@
-from typing import Any, ClassVar, NamedTuple, Optional, Tuple
+from typing import Any, ClassVar, NamedTuple, Tuple
 
 __docformat__: str
 __version__: str

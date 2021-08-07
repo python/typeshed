@@ -1,4 +1,4 @@
-from typing import Any, Generic, Iterator, Text, TypeVar, Union
+from typing import Any, Generic, Iterator, Text, TypeVar
 
 from google.protobuf.descriptor import FieldDescriptor
 from google.protobuf.internal.containers import RepeatedCompositeFieldContainer, RepeatedScalarFieldContainer

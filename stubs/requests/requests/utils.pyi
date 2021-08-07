@@ -1,4 +1,4 @@
-from typing import Any, AnyStr, Dict, Iterable, Mapping, Optional, Text, Tuple
+from typing import Any, AnyStr, Dict, Iterable, Mapping, Text, Tuple
 
 from . import compat, cookies, exceptions, structures
 

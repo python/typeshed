@@ -1,4 +1,4 @@
-from typing import Any, Iterable, Mapping, Optional, Sequence, Tuple, Union
+from typing import Any, Iterable, Mapping, Sequence, Tuple
 
 ascii_letters: str
 ascii_lowercase: str

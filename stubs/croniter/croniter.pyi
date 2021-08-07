@@ -1,5 +1,5 @@
 import datetime
-from typing import Any, Dict, Iterator, List, Optional, Text, Tuple, Type, TypeVar, Union
+from typing import Any, Dict, Iterator, List, Text, Tuple, Type, TypeVar, Union
 
 _RetType = Union[Type[float], Type[datetime.datetime]]
 _SelfT = TypeVar("_SelfT", bound=croniter)

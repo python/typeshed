@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Any
 
 SALT_CHARS: Any
 DEFAULT_PBKDF2_ITERATIONS: Any

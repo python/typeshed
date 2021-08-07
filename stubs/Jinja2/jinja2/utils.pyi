@@ -1,5 +1,5 @@
 from _typeshed import StrOrBytesPath
-from typing import IO, Any, Callable, Iterable, Optional, Protocol, Text, TypeVar, Union
+from typing import IO, Any, Callable, Iterable, Protocol, Text, TypeVar
 from typing_extensions import Literal
 
 from markupsafe import Markup as Markup, escape as escape, soft_unicode as soft_unicode

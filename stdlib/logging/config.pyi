@@ -3,7 +3,7 @@ from _typeshed import StrOrBytesPath, StrPath
 from collections.abc import Callable
 from configparser import RawConfigParser
 from threading import Thread
-from typing import IO, Any, Optional, Pattern, Union
+from typing import IO, Any, Pattern
 
 if sys.version_info >= (3, 8):
     from typing import Literal

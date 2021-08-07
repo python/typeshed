@@ -3,7 +3,7 @@ import pydoc
 import socketserver
 import sys
 from datetime import datetime
-from typing import Any, Callable, Dict, Iterable, List, Mapping, Optional, Pattern, Protocol, Tuple, Type, Union
+from typing import Any, Callable, Dict, Iterable, List, Mapping, Pattern, Protocol, Tuple, Type, Union
 from xmlrpc.client import Fault
 
 _Marshallable = Union[

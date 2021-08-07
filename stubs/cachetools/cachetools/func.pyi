@@ -1,5 +1,5 @@
 from _typeshed import IdentityFunction
-from typing import Callable, Optional, Sequence, TypeVar
+from typing import Callable, Sequence, TypeVar
 
 _T = TypeVar("_T")
 

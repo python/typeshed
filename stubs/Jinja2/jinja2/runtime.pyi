@@ -1,4 +1,4 @@
-from typing import Any, Dict, Optional, Text, Union
+from typing import Any, Dict, Text
 
 from jinja2.environment import Environment
 from jinja2.exceptions import TemplateNotFound as TemplateNotFound, TemplateRuntimeError as TemplateRuntimeError

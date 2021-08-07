@@ -1,4 +1,3 @@
-from typing import Optional
 
 from click.core import Context
 

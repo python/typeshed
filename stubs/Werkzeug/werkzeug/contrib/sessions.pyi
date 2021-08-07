@@ -1,4 +1,4 @@
-from typing import Any, Optional, Text, TypeVar
+from typing import Any, Text, TypeVar
 
 from werkzeug.datastructures import CallbackDict
 

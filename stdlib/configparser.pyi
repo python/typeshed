@@ -11,13 +11,13 @@ from typing import (
     List,
     Mapping,
     MutableMapping,
-    Optional,
+    
     Pattern,
     Sequence,
     Tuple,
     Type,
     TypeVar,
-    Union,
+    
     overload,
 )
 from typing_extensions import Literal

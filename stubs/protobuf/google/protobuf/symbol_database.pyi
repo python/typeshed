@@ -1,4 +1,4 @@
-from typing import Dict, Iterable, Type, Union
+from typing import Dict, Iterable, Type
 
 from google.protobuf.descriptor import Descriptor, EnumDescriptor, FileDescriptor, ServiceDescriptor
 from google.protobuf.message import Message

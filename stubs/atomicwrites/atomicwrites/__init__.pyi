@@ -1,5 +1,5 @@
 from _typeshed import StrOrBytesPath
-from typing import IO, Any, AnyStr, Callable, ContextManager, Optional, Text, Type
+from typing import IO, Any, AnyStr, Callable, ContextManager, Text, Type
 
 def replace_atomic(src: AnyStr, dst: AnyStr) -> None: ...
 def move_atomic(src: AnyStr, dst: AnyStr) -> None: ...

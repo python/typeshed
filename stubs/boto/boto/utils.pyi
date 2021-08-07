@@ -12,12 +12,12 @@ from typing import (
     Iterable,
     List,
     Mapping,
-    Optional,
+    
     Sequence,
     Tuple,
     Type,
     TypeVar,
-    Union,
+    
 )
 
 import boto.connection

@@ -1,4 +1,3 @@
-from typing import Optional
 
 from paramiko.message import Message
 from paramiko.ssh_gss import _SSH_GSSAuth

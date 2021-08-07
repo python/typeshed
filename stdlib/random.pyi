@@ -2,7 +2,7 @@ import _random
 import sys
 from collections.abc import Callable, Iterable, MutableSequence, Sequence, Set
 from fractions import Fraction
-from typing import Any, NoReturn, Optional, Tuple, TypeVar, Union
+from typing import Any, NoReturn, Tuple, TypeVar
 
 _T = TypeVar("_T")
 

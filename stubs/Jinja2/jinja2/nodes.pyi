@@ -1,5 +1,5 @@
 import typing
-from typing import Any, Optional
+from typing import Any
 
 class Impossible(Exception): ...
 

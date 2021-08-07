@@ -1,4 +1,4 @@
-from typing import Any, List, Optional, Tuple, Union
+from typing import Any, List, Tuple
 
 from cryptography.hazmat.primitives.asymmetric.dsa import DSAPrivateKeyWithSerialization
 from cryptography.hazmat.primitives.asymmetric.ec import EllipticCurvePrivateKeyWithSerialization

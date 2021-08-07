@@ -2,7 +2,7 @@ import builtins
 import ctypes
 import sys
 from types import TracebackType
-from typing import Any, Optional, Type, TypeVar
+from typing import Any, Type, TypeVar
 
 if sys.platform == "win32":
 

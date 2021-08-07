@@ -1,5 +1,5 @@
 from types import ModuleType
-from typing import IO, Any, Callable, Dict, Iterable, List, Optional, Sequence, Text, Union
+from typing import IO, Any, Callable, Dict, Iterable, List, Sequence, Text
 
 class Error(Exception): ...
 

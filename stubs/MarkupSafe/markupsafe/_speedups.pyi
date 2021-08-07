@@ -1,4 +1,4 @@
-from typing import Text, Union
+from typing import Text
 
 from . import Markup
 from ._compat import text_type

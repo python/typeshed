@@ -7,7 +7,7 @@ from logging import Logger
 from multiprocessing import queues, synchronize
 from multiprocessing.process import BaseProcess
 from multiprocessing.sharedctypes import SynchronizedArray, SynchronizedBase
-from typing import Any, Optional, Type, TypeVar, Union, overload
+from typing import Any, Type, TypeVar, Union, overload
 from typing_extensions import Literal
 
 _LockLike = Union[synchronize.Lock, synchronize.RLock]

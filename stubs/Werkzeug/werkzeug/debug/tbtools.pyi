@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Any
 
 UTF8_COOKIE: Any
 system_exceptions: Any

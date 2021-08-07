@@ -1,7 +1,7 @@
 import sys
 from _typeshed import SupportsWrite
 from _typeshed.wsgi import StartResponse, WSGIApplication, WSGIEnvironment
-from typing import Any, Iterable, Iterator, List, Mapping, Optional, Protocol, Tuple
+from typing import Any, Iterable, Iterator, List, Mapping, Protocol, Tuple
 
 from ..datastructures import Headers
 

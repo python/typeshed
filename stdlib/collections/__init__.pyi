@@ -1,6 +1,6 @@
 import sys
 from _typeshed import Self
-from typing import Any, Dict, Generic, List, NoReturn, Optional, Tuple, Type, TypeVar, Union, overload
+from typing import Any, Dict, Generic, List, NoReturn, Tuple, Type, TypeVar, overload
 
 if sys.version_info >= (3, 10):
     from typing import (

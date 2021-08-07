@@ -1,4 +1,4 @@
-from typing import IO, Any, Callable, Generator, Iterable, Optional, Text, Tuple, TypeVar, Union, overload
+from typing import IO, Any, Callable, Generator, Iterable, Text, Tuple, TypeVar, overload
 
 from click._termui_impl import ProgressBar as _ProgressBar
 from click.core import _ConvertibleType

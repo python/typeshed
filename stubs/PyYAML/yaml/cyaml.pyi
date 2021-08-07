@@ -1,5 +1,5 @@
 from _typeshed import SupportsRead
-from typing import IO, Any, Mapping, Optional, Sequence, Text, Union
+from typing import IO, Any, Mapping, Sequence, Text, Union
 
 from yaml.constructor import BaseConstructor, Constructor, SafeConstructor
 from yaml.representer import BaseRepresenter, Representer, SafeRepresenter

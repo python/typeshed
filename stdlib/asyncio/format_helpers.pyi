@@ -2,7 +2,7 @@ import functools
 import sys
 import traceback
 from types import FrameType, FunctionType
-from typing import Any, Dict, Iterable, Optional, Tuple, Union, overload
+from typing import Any, Dict, Iterable, Tuple, Union, overload
 
 class _HasWrapper:
     __wrapper__: _HasWrapper | FunctionType

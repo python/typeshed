@@ -1,4 +1,4 @@
-from typing import IO, Optional
+from typing import IO
 
 from paramiko.message import Message
 from paramiko.pkey import PKey

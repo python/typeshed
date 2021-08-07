@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Any
 
 marshal_dump: Any
 marshal_load: Any

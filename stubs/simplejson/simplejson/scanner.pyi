@@ -1,4 +1,3 @@
-from typing import Optional
 
 class JSONDecodeError(ValueError):
     msg: str = ...

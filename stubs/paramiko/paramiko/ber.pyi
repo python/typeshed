@@ -1,4 +1,4 @@
-from typing import Any, Iterable, List, Union
+from typing import Any, Iterable, List
 
 class BERException(Exception): ...
 

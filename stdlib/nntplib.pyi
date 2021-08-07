@@ -3,7 +3,7 @@ import socket
 import ssl
 import sys
 from _typeshed import Self
-from typing import IO, Any, Dict, Iterable, List, NamedTuple, Optional, Tuple, Union
+from typing import IO, Any, Dict, Iterable, List, NamedTuple, Tuple, Union
 
 _File = Union[IO[bytes], bytes, str, None]
 

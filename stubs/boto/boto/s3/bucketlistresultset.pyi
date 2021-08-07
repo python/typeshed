@@ -1,4 +1,4 @@
-from typing import Any, Iterable, Iterator, Optional
+from typing import Any, Iterable, Iterator
 
 from .key import Key
 

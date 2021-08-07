@@ -1,4 +1,4 @@
-from typing import Any, Dict, Optional, Text, Type
+from typing import Any, Dict, Text, Type
 
 from boto.connection import AWSAuthConnection
 from boto.exception import BotoClientError

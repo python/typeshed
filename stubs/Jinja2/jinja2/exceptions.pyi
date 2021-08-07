@@ -1,4 +1,4 @@
-from typing import Any, Optional, Text
+from typing import Any, Text
 
 class TemplateError(Exception):
     def __init__(self, message: Text | None = ...) -> None: ...

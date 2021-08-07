@@ -9,7 +9,7 @@ from typing import (
     Generic,
     Iterable,
     Mapping,
-    Optional,
+    
     Sequence,
     Tuple,
     Type,
@@ -55,7 +55,7 @@ class CompletedProcess(Generic[_T]):
     # morally: _CMD
     args: Any
     returncode: int
-    # These are really both Optional, but requiring checks would be tedious
+    # These are really both  but requiring checks would be tedious
     # and writing all the overloads would be horrific.
     stdout: _T
     stderr: _T

@@ -7,13 +7,13 @@ from typing import (
     Iterator,
     Mapping,
     MutableMapping,
-    Optional,
+    
     Sequence,
     Text,
     Tuple,
     Type,
     TypeVar,
-    Union,
+    
     overload,
 )
 from typing_extensions import Literal

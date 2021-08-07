@@ -1,4 +1,3 @@
-from typing import Optional
 
 from cryptography.hazmat.backends.interfaces import HMACBackend
 from cryptography.hazmat.primitives.hashes import HashAlgorithm

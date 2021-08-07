@@ -1,4 +1,4 @@
-from typing import Any, Dict, Optional
+from typing import Any, Dict
 
 from jinja2.filters import FILTERS
 from jinja2.tests import TESTS

@@ -1,5 +1,5 @@
 import code
-from typing import Any, Optional
+from typing import Any
 
 class HTMLStringO:
     def __init__(self): ...

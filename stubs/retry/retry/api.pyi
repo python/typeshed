@@ -1,6 +1,6 @@
 from _typeshed import IdentityFunction
 from logging import Logger
-from typing import Any, Callable, Dict, Optional, Sequence, Tuple, Type, TypeVar, Union
+from typing import Any, Callable, Dict, Sequence, Tuple, Type, TypeVar
 
 _R = TypeVar("_R")
 

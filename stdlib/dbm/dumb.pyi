@@ -1,6 +1,6 @@
 from _typeshed import Self
 from types import TracebackType
-from typing import Iterator, MutableMapping, Optional, Type, Union
+from typing import Iterator, MutableMapping, Type, Union
 
 _KeyType = Union[str, bytes]
 _ValueType = Union[str, bytes]

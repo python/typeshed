@@ -10,7 +10,7 @@ from typing import (
     Iterable,
     List,
     NamedTuple,
-    Optional,
+    
     Pattern,
     Sequence,
     Set,

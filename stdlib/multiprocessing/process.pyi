@@ -1,5 +1,5 @@
 import sys
-from typing import Any, Callable, List, Mapping, Optional, Tuple
+from typing import Any, Callable, List, Mapping, Tuple
 
 class BaseProcess:
     name: str

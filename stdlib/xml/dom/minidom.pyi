@@ -1,7 +1,7 @@
 import sys
 import xml.dom
 from _typeshed import Self
-from typing import IO, Any, Optional, Union
+from typing import IO, Any
 from xml.dom.xmlbuilder import DocumentLS, DOMImplementationLS
 from xml.sax.xmlreader import XMLReader
 

@@ -1,4 +1,4 @@
-from typing import IO, Any, Iterable, Mapping, Optional, Text, TypeVar, Union
+from typing import IO, Any, Iterable, Mapping, Text, TypeVar
 
 from click import BaseCommand
 from click.testing import CliRunner, Result

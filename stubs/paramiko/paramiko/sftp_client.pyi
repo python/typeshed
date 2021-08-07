@@ -1,5 +1,5 @@
 from logging import Logger
-from typing import IO, Any, Callable, Iterator, List, Optional, Text, Tuple, Union
+from typing import IO, Any, Callable, Iterator, List, Text, Tuple
 
 from paramiko.channel import Channel
 from paramiko.sftp import BaseSFTP

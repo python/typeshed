@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Optional, Text, Type
+from typing import Any, Dict, List, Text, Type
 
 from .bucketlistresultset import BucketListResultSet
 from .connection import S3Connection

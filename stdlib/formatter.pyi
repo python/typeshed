@@ -1,4 +1,4 @@
-from typing import IO, Any, Iterable, List, Optional, Tuple
+from typing import IO, Any, Iterable, List, Tuple
 
 AS_IS: None
 _FontType = Tuple[str, bool, bool, bool]

@@ -3,7 +3,7 @@ from email.contentmanager import ContentManager
 from email.errors import MessageDefect
 from email.header import Header
 from email.message import Message
-from typing import Any, Callable, List, Optional, Tuple, Union
+from typing import Any, Callable, List, Tuple
 
 class Policy:
     max_line_length: int | None

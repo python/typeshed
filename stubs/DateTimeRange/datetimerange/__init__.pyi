@@ -1,5 +1,5 @@
 import datetime
-from typing import Iterable, Optional, Union
+from typing import Iterable
 
 from dateutil.relativedelta import relativedelta
 

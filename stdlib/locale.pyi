@@ -4,7 +4,7 @@ import sys
 # as a type annotation or type alias.
 from builtins import str as _str
 from decimal import Decimal
-from typing import Any, Callable, Dict, Iterable, List, Mapping, Optional, Sequence, Tuple, Union
+from typing import Any, Callable, Dict, Iterable, List, Mapping, Sequence, Tuple
 
 CODESET: int
 D_T_FMT: int

@@ -1,5 +1,5 @@
 import sys
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 ucd_3_2_0: UCD
 ucnhash_CAPI: Any

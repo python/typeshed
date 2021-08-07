@@ -1,5 +1,5 @@
 import sys
-from typing import Any, Callable, Dict, Iterator, List, NamedTuple, Optional, Pattern, Text, Tuple, TypeVar
+from typing import Any, Callable, Dict, Iterator, List, NamedTuple, Pattern, Text, Tuple, TypeVar
 
 _C = TypeVar("_C", bound=Callable[..., Any])
 _Func = TypeVar("_Func", bound=Callable[..., Any])

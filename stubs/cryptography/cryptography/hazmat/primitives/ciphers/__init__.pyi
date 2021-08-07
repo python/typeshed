@@ -1,5 +1,4 @@
 from abc import ABCMeta, abstractmethod
-from typing import Optional
 
 from cryptography.hazmat.backends.interfaces import CipherBackend
 from cryptography.hazmat.primitives.ciphers.modes import Mode

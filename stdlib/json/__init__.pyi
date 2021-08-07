@@ -1,5 +1,5 @@
 from _typeshed import SupportsRead
-from typing import IO, Any, Callable, Dict, List, Optional, Tuple, Type, Union
+from typing import IO, Any, Callable, Dict, List, Tuple, Type
 
 from .decoder import JSONDecodeError as JSONDecodeError, JSONDecoder as JSONDecoder
 from .encoder import JSONEncoder as JSONEncoder

@@ -1,5 +1,5 @@
 import sys
-from typing import IO, Any, Callable, Iterator, Optional, Sequence, Text, Type, TypeVar, Union, overload
+from typing import IO, Any, Callable, Iterator, Sequence, Text, Type, TypeVar, Union, overload
 
 from yaml.dumper import *  # noqa: F403
 from yaml.error import *  # noqa: F403

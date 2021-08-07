@@ -1,4 +1,4 @@
-from typing import IO, Any, Callable, Optional, Tuple
+from typing import IO, Any, Callable, Tuple
 
 from paramiko.message import Message
 from paramiko.pkey import PKey

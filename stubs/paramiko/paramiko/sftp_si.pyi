@@ -1,4 +1,4 @@
-from typing import Any, List, Union
+from typing import Any, List
 
 from paramiko.server import ServerInterface
 from paramiko.sftp_attr import SFTPAttributes

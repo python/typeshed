@@ -1,6 +1,6 @@
 from logging import Logger
 from threading import Condition, Event, Lock
-from typing import Any, Callable, Mapping, Optional, Tuple, TypeVar
+from typing import Any, Callable, Mapping, Tuple, TypeVar
 
 from paramiko.buffered_pipe import BufferedPipe
 from paramiko.file import BufferedFile

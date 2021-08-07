@@ -1,4 +1,4 @@
-from typing import Any, Optional, Text
+from typing import Any, Text
 
 from werkzeug.exceptions import HTTPException
 

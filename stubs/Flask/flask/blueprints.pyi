@@ -1,4 +1,4 @@
-from typing import Any, Callable, Optional, Type, TypeVar, Union
+from typing import Any, Callable, Type, TypeVar
 
 from .app import _ViewFunc
 from .helpers import _PackageBoundObject

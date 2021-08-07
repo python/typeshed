@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Optional, Text, Union
+from typing import Any, Dict, List, Text
 
 from .connection import S3Connection
 from .user import User

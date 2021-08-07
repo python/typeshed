@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Any
 
 def release_local(local): ...
 

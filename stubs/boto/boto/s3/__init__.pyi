@@ -1,4 +1,4 @@
-from typing import List, Optional, Text, Type
+from typing import List, Text, Type
 
 from boto.connection import AWSAuthConnection
 from boto.regioninfo import RegionInfo

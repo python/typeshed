@@ -6,7 +6,7 @@ from typing import (
     Generic,
     Iterable,
     Iterator,
-    Optional,
+    
     SupportsComplex,
     SupportsFloat,
     SupportsInt,

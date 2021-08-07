@@ -1,4 +1,4 @@
-from typing import Any, Callable, Optional, Type, TypeVar, overload
+from typing import Any, Callable, Type, TypeVar, overload
 from typing_extensions import Literal
 
 from .classic import ClassicAdapter

@@ -1,7 +1,7 @@
 import sys
 from _typeshed import StrOrBytesPath
 from os import PathLike
-from typing import Any, AnyStr, Callable, Dict, Generic, Iterable, List, Optional, Sequence, Tuple, Union
+from typing import Any, AnyStr, Callable, Dict, Generic, Iterable, List, Sequence, Tuple
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias

@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Any
 
 class _Missing:
     def __reduce__(self): ...

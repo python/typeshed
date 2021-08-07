@@ -1,5 +1,5 @@
 from abc import abstractmethod
-from typing import Optional, Pattern, Tuple, TypeVar, Union
+from typing import  Pattern, Tuple, TypeVar
 
 _T = TypeVar("_T", bound=Version)
 

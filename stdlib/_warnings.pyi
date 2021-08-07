@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Optional, Tuple, Type, Union, overload
+from typing import Any, Dict, List, Tuple, Type, overload
 
 _defaultaction: str
 _onceregistry: Dict[Any, Any]

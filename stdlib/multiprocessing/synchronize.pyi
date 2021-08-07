@@ -1,7 +1,7 @@
 import sys
 import threading
 from multiprocessing.context import BaseContext
-from typing import Any, Callable, ContextManager, Optional, Union
+from typing import Any, Callable, ContextManager, Union
 
 _LockLike = Union[Lock, RLock]
 

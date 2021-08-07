@@ -1,5 +1,5 @@
 from abc import ABCMeta, abstractmethod
-from typing import Any, Optional, Union
+from typing import Any
 
 from cryptography.hazmat.primitives.asymmetric.dh import (
     DHParameterNumbers,

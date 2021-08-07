@@ -1,5 +1,5 @@
 import datetime
-from typing import Any, Iterable, Optional, Union
+from typing import Any, Iterable
 
 from ._common import weekday as weekdaybase
 

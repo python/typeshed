@@ -1,6 +1,6 @@
 from _typeshed import Self
 from types import ModuleType
-from typing import Any, Dict, Optional
+from typing import Any, Dict
 
 class _TempModule:
     mod_name: str = ...

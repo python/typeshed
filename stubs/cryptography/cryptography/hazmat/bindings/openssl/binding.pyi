@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Any
 
 class Binding(object):
     ffi: Any | None

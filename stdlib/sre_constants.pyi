@@ -1,5 +1,5 @@
 import sys
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List
 
 MAGIC: int
 

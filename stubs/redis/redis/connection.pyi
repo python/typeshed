@@ -1,4 +1,4 @@
-from typing import Any, List, Mapping, Optional, Text, Tuple, Type, Union
+from typing import Any, List, Mapping, Text, Tuple, Type
 
 ssl_available: Any
 hiredis_version: Any

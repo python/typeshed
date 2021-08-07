@@ -1,4 +1,4 @@
-from typing import Callable, Iterator, Optional, Sequence, TypeVar
+from typing import Callable, Iterator, Sequence, TypeVar
 
 from .cache import Cache as Cache
 

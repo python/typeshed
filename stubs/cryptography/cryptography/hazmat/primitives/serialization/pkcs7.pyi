@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Any, Iterable, List, Optional, Union
+from typing import Any, Iterable, List
 
 from cryptography.hazmat.primitives.asymmetric.ec import EllipticCurvePrivateKey
 from cryptography.hazmat.primitives.asymmetric.rsa import RSAPrivateKey

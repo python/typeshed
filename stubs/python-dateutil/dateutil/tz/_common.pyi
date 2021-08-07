@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta, tzinfo
-from typing import Any, Optional
+from typing import Any
 
 def tzname_in_python2(namefunc): ...
 def enfold(dt: datetime, fold: int = ...): ...

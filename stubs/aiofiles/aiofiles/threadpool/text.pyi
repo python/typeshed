@@ -1,5 +1,5 @@
 from _typeshed import StrOrBytesPath
-from typing import BinaryIO, Iterable, List, Optional, Tuple, Union
+from typing import BinaryIO, Iterable, List, Tuple
 
 from ..base import AsyncBase
 

@@ -8,7 +8,7 @@ from typing import (
     Iterator,
     List,
     Mapping,
-    Optional,
+    
     Sequence,
     Set,
     Text,

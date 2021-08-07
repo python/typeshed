@@ -1,4 +1,4 @@
-from typing import Any, Dict, Optional, Text, TypeVar, Union
+from typing import Any, Dict, Text, TypeVar
 
 from google.protobuf.descriptor_pool import DescriptorPool
 from google.protobuf.message import Message

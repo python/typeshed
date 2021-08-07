@@ -13,11 +13,11 @@ from typing import (
     Iterable,
     List,
     Mapping,
-    Optional,
+    
     Sequence,
     Tuple,
     TypeVar,
-    Union,
+    
 )
 
 from .connection import Connection

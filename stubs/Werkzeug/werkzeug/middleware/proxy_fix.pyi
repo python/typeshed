@@ -1,5 +1,5 @@
 from _typeshed.wsgi import StartResponse, WSGIApplication, WSGIEnvironment
-from typing import Iterable, Optional
+from typing import Iterable
 
 class ProxyFix(object):
     app: WSGIApplication

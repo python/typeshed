@@ -1,6 +1,6 @@
 from socket import socket
 from threading import Condition, Lock
-from typing import Mapping, Optional, Sequence, Tuple
+from typing import Mapping, Sequence, Tuple
 
 from waitress.adjustments import Adjustments
 from waitress.buffers import OverflowableBuffer

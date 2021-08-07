@@ -13,7 +13,7 @@ from typing import (
     Text,
     Tuple,
     TypeVar,
-    Union,
+    
 )
 
 from .datastructures import Headers

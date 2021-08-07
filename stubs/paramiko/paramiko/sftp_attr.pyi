@@ -1,5 +1,5 @@
 from os import stat_result
-from typing import Dict, Optional
+from typing import Dict
 
 class SFTPAttributes:
     FLAG_SIZE: int

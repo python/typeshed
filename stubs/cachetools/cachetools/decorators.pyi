@@ -1,5 +1,5 @@
 from _typeshed import IdentityFunction
-from typing import Any, Callable, ContextManager, MutableMapping, Optional, TypeVar
+from typing import Any, Callable, ContextManager, MutableMapping, TypeVar
 
 _KT = TypeVar("_KT")
 

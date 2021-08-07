@@ -1,6 +1,6 @@
 import datetime
 from json import JSONDecoder
-from typing import Any, Callable, Dict, Iterator, List, Optional, Text, Type, Union
+from typing import Any, Callable, Dict, Iterator, List, Text, Type
 
 from . import auth, cookies, exceptions, hooks, status_codes, structures, utils
 from .cookies import RequestsCookieJar

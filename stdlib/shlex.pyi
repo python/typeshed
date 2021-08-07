@@ -1,5 +1,5 @@
 import sys
-from typing import Any, Iterable, List, Optional, TextIO, Tuple, TypeVar, Union
+from typing import Any, Iterable, List, TextIO, Tuple, TypeVar
 
 def split(s: str, comments: bool = ..., posix: bool = ...) -> List[str]: ...
 

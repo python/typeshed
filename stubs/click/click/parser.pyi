@@ -1,4 +1,4 @@
-from typing import Any, Dict, Iterable, List, Optional, Set, Tuple
+from typing import Any, Dict, Iterable, List, Set, Tuple
 
 from click.core import Context
 

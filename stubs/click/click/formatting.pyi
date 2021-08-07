@@ -1,4 +1,4 @@
-from typing import ContextManager, Generator, Iterable, List, Optional, Tuple
+from typing import ContextManager, Generator, Iterable, List, Tuple
 
 FORCED_WIDTH: int | None
 

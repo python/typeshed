@@ -1,7 +1,7 @@
 import sys
 from _typeshed import StrOrBytesPath
 from types import SimpleNamespace
-from typing import Optional, Sequence
+from typing import  Sequence
 
 class EnvBuilder:
     system_site_packages: bool

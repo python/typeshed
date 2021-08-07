@@ -2,7 +2,7 @@ import io
 import sys
 from _typeshed import Self, StrPath
 from types import TracebackType
-from typing import IO, Callable, Dict, Iterable, Iterator, List, Optional, Protocol, Sequence, Tuple, Type, Union, overload
+from typing import IO, Callable, Dict, Iterable, Iterator, List, Protocol, Sequence, Tuple, Type, overload
 from typing_extensions import Literal
 
 _DateTuple = Tuple[int, int, int, int, int, int]

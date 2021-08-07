@@ -1,5 +1,5 @@
 import socket
-from typing import List, Mapping, Tuple, Union
+from typing import List, Mapping, Tuple
 
 from paramiko.pkey import PKey
 

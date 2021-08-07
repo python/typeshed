@@ -1,4 +1,4 @@
-from typing import Any, Match, Optional, Tuple, Union
+from typing import Any, Match, Tuple
 from xml.etree.ElementTree import Element
 
 def build_inlinepatterns(md, **kwargs): ...

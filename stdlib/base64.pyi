@@ -1,5 +1,5 @@
 import sys
-from typing import IO, Optional, Union
+from typing import IO
 
 def b64encode(s: bytes, altchars: bytes | None = ...) -> bytes: ...
 def b64decode(s: str | bytes, altchars: bytes | None = ..., validate: bool = ...) -> bytes: ...

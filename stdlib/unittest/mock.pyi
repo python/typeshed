@@ -1,5 +1,5 @@
 import sys
-from typing import Any, Callable, Generic, Iterable, List, Mapping, Optional, Sequence, Tuple, Type, TypeVar, Union, overload
+from typing import Any, Callable, Generic, Iterable, List, Mapping, Sequence, Tuple, Type, TypeVar, overload
 
 _F = TypeVar("_F", bound=Callable[..., Any])
 _T = TypeVar("_T")

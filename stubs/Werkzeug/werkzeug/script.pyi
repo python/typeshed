@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Any
 
 argument_types: Any
 converters: Any

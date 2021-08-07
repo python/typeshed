@@ -1,4 +1,4 @@
-from typing import Any, Callable, Dict, Optional, Text, Union, overload
+from typing import Any, Callable, Dict, Text, overload
 
 class Key:
     DefaultContentType: str

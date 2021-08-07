@@ -1,5 +1,5 @@
 from threading import Event
-from typing import Callable, List, Optional, Tuple
+from typing import Callable, List, Tuple
 
 from paramiko.pkey import PKey
 from paramiko.ssh_gss import _SSH_GSSAuth

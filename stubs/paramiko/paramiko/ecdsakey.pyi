@@ -1,4 +1,4 @@
-from typing import IO, Any, Callable, List, Optional, Sequence, Tuple, Type
+from typing import IO, Any, Callable, List, Sequence, Tuple, Type
 
 from cryptography.hazmat.primitives.asymmetric.ec import EllipticCurve, EllipticCurvePrivateKey, EllipticCurvePublicKey
 from cryptography.hazmat.primitives.hashes import HashAlgorithm

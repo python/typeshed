@@ -1,4 +1,3 @@
-from typing import Optional
 
 from cryptography.hazmat.backends.interfaces import CipherBackend
 

@@ -1,5 +1,5 @@
 from subprocess import Popen
-from typing import Any, List, Optional
+from typing import Any, List
 
 from paramiko.util import ClosingContextManager
 

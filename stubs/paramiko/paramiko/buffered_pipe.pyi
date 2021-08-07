@@ -1,5 +1,5 @@
 from threading import Event
-from typing import Generic, Optional, Text, TypeVar
+from typing import Generic, Text, TypeVar
 
 _T = TypeVar("_T", Text, bytes)
 

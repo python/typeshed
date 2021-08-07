@@ -8,7 +8,7 @@ from typing import (
     Iterable,
     List,
     Mapping,
-    Optional,
+    
     SupportsInt,
     Text,
     Tuple,

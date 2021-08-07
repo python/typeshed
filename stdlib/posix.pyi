@@ -1,7 +1,7 @@
 import sys
 from _typeshed import StrOrBytesPath
 from os import PathLike, _ExecEnv, _ExecVArgs, stat_result as stat_result
-from typing import Any, Dict, Iterable, List, NamedTuple, Optional, Sequence, Tuple, overload
+from typing import Any, Dict, Iterable, List, NamedTuple, Sequence, Tuple, overload
 
 class uname_result(NamedTuple):
     sysname: str

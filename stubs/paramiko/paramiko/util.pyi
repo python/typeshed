@@ -1,7 +1,7 @@
 import sys
 from logging import Logger, LogRecord
 from types import TracebackType
-from typing import IO, AnyStr, Callable, List, Optional, Protocol, Type, TypeVar, Union
+from typing import IO, AnyStr, Callable, List, Protocol, Type, TypeVar
 
 from paramiko.config import SSHConfig, SSHConfigDict
 from paramiko.hostkeys import HostKeys

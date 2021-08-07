@@ -7,7 +7,7 @@ from email.message import Message
 from importlib.abc import MetaPathFinder
 from os import PathLike
 from pathlib import Path
-from typing import Any, Dict, Iterable, List, NamedTuple, Optional, Tuple, overload
+from typing import Any, Dict, Iterable, List, NamedTuple, Tuple, overload
 
 if sys.version_info >= (3, 10):
     def packages_distributions() -> Mapping[str, List[str]]: ...

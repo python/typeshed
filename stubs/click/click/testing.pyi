@@ -1,5 +1,5 @@
 import io
-from typing import IO, Any, BinaryIO, ContextManager, Dict, Iterable, List, Mapping, Optional, Text, Tuple, Union
+from typing import IO, Any, BinaryIO, ContextManager, Dict, Iterable, List, Mapping, Text, Tuple
 from typing_extensions import Literal
 
 from .core import BaseCommand

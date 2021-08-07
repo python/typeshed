@@ -1,4 +1,4 @@
-from typing import Any, Optional, Pattern
+from typing import Any, Pattern
 
 PY37: Any
 __deprecated__: Any

@@ -1,4 +1,4 @@
-from typing import Dict, Optional
+from typing import Dict
 
 from cryptography.hazmat.primitives.hashes import HashAlgorithm
 from cryptography.x509 import ObjectIdentifier

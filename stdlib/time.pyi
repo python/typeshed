@@ -1,6 +1,6 @@
 import sys
 from types import SimpleNamespace
-from typing import Any, NamedTuple, Optional, Tuple, Union
+from typing import Any, NamedTuple, Tuple
 
 _TimeTuple = Tuple[int, int, int, int, int, int, int, int, int]
 

@@ -1,4 +1,4 @@
-from typing import Any, Generator, Iterable, List, Optional, Text
+from typing import Any, Generator, Iterable, List, Text
 
 class HTMLParser(object):  # actually html5lib.HTMLParser
     def __getattr__(self, __name: Text) -> Any: ...  # incomplete

@@ -1,7 +1,7 @@
 import pyexpat.errors as errors
 import pyexpat.model as model
 from _typeshed import SupportsRead
-from typing import Any, Callable, Dict, List, Optional, Tuple, Union
+from typing import Any, Callable, Dict, List, Optional, Tuple
 
 EXPAT_VERSION: str  # undocumented
 version_info: Tuple[int, int, int]  # undocumented

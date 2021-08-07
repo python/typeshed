@@ -1,5 +1,5 @@
 from concurrent.futures import Future
-from typing import Callable, Optional, Text, Type
+from typing import Callable, Text, Type
 
 from google.protobuf.descriptor import MethodDescriptor, ServiceDescriptor
 from google.protobuf.message import Message

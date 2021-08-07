@@ -1,4 +1,4 @@
-from typing import Any, Optional, Tuple, Type
+from typing import Any, Tuple, Type
 
 GSS_AUTH_AVAILABLE: bool
 GSS_EXCEPTIONS: Tuple[Type[Exception], ...]

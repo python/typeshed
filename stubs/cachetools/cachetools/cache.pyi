@@ -1,4 +1,4 @@
-from typing import Callable, Generic, Iterator, Optional, TypeVar
+from typing import Callable, Generic, Iterator, TypeVar
 
 from .abc import DefaultMapping as DefaultMapping
 

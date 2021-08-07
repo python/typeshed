@@ -1,4 +1,4 @@
-from typing import List, Optional, Pattern, Tuple, overload
+from typing import List, Pattern, Tuple, overload
 
 _HeaderList = List[Tuple[str, str]]
 

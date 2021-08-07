@@ -1,4 +1,4 @@
-from typing import Any, ContextManager, Optional, TextIO, Union
+from typing import Any, ContextManager, TextIO
 
 from .ansitowin32 import StreamWrapper
 

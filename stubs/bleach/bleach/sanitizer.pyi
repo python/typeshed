@@ -1,4 +1,4 @@
-from typing import Any, Callable, Container, Dict, Iterable, List, Optional, Pattern, Text, Union
+from typing import Any, Callable, Container, Dict, Iterable, List, Pattern, Text, Union
 
 from .html5lib_shim import BleachHTMLParser, BleachHTMLSerializer, SanitizerFilter
 

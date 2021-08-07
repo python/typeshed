@@ -1,5 +1,5 @@
 from types import TracebackType
-from typing import Any, Optional, Text, Type, Union
+from typing import Any, Text, Type, Union
 
 from redis.client import Redis
 

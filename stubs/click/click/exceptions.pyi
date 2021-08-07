@@ -1,4 +1,4 @@
-from typing import IO, Any, List, Optional
+from typing import IO, Any, List
 
 from click.core import Command, Context, Parameter
 

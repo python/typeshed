@@ -1,5 +1,4 @@
 from io import BytesIO
-from typing import Optional
 
 from waitress.buffers import OverflowableBuffer
 from waitress.utilities import BadRequest

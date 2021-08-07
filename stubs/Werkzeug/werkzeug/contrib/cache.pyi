@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Any
 
 class BaseCache:
     default_timeout: float

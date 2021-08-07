@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Any
 
 class DescriptorPool:
     def __new__(cls, descriptor_db: Any | None = ...): ...

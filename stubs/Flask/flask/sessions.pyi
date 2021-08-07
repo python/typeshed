@@ -1,5 +1,5 @@
 from abc import ABCMeta
-from typing import Any, MutableMapping, Optional
+from typing import Any, MutableMapping
 
 from werkzeug.datastructures import CallbackDict
 

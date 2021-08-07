@@ -1,4 +1,4 @@
-from typing import Callable, Dict, Generator, List, Optional, Pattern, Tuple, TypeVar, Union
+from typing import Callable, Dict, Generator, List, Pattern, Tuple, TypeVar
 from xml.etree.ElementTree import Element
 
 xpath_tokenizer_re: Pattern[str]

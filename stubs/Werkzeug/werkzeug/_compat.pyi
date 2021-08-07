@@ -1,5 +1,5 @@
 import sys
-from typing import Any, Optional, Text
+from typing import Any, Text
 
 if sys.version_info >= (3,):
     from io import BytesIO as BytesIO, StringIO as StringIO

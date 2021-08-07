@@ -1,5 +1,5 @@
 import sys
-from typing import Any, Iterable, Sequence, Text, Type, TypeVar, Union
+from typing import Any, Iterable, Sequence, Text, Type, TypeVar
 
 _T = TypeVar("_T")
 

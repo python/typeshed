@@ -1,5 +1,5 @@
 import sys
-from typing import Any, Generic, Iterable, Optional, Tuple, TypeVar
+from typing import Any, Generic, Iterable, Tuple, TypeVar
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias

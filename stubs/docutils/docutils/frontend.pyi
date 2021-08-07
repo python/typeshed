@@ -1,6 +1,6 @@
 import optparse
 from configparser import RawConfigParser
-from typing import Any, ClassVar, Optional, Tuple
+from typing import Any, ClassVar, Tuple
 
 from docutils import SettingsSpec
 from docutils.utils import DependencyList

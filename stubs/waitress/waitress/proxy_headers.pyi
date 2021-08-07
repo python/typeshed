@@ -1,5 +1,5 @@
 from logging import Logger
-from typing import Any, Callable, Mapping, NamedTuple, Optional, Sequence, Set
+from typing import Any, Callable, Mapping, NamedTuple, Sequence, Set
 
 from .utilities import BadRequest as BadRequest
 

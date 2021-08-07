@@ -1,4 +1,4 @@
-from typing import Any, Text, Union
+from typing import Any, Text
 
 from . import cookies, models, utils
 

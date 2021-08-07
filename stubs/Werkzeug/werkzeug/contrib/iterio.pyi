@@ -1,4 +1,4 @@
-from typing import Any, Optional, Text, Union
+from typing import Any, Text
 
 greenlet: Any
 

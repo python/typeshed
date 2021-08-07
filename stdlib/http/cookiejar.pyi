@@ -1,7 +1,7 @@
 import sys
 from _typeshed import StrPath
 from http.client import HTTPResponse
-from typing import ClassVar, Dict, Iterable, Iterator, Optional, Pattern, Sequence, Tuple, TypeVar, Union, overload
+from typing import ClassVar, Dict, Iterable, Iterator, Pattern, Sequence, Tuple, TypeVar, overload
 from urllib.request import Request
 
 _T = TypeVar("_T")

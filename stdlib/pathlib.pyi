@@ -11,7 +11,7 @@ from _typeshed import (
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
 from os import PathLike, stat_result
 from types import TracebackType
-from typing import IO, Any, BinaryIO, Generator, List, Optional, Sequence, Tuple, Type, TypeVar, Union, overload
+from typing import IO, Any, BinaryIO, Generator, List, Sequence, Tuple, Type, TypeVar, overload
 from typing_extensions import Literal
 
 if sys.version_info >= (3, 9):

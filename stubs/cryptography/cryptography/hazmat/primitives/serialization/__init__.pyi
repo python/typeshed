@@ -1,6 +1,6 @@
 from abc import ABCMeta
 from enum import Enum
-from typing import Any, Optional, Union
+from typing import Any
 
 from cryptography.hazmat.backends.interfaces import (
     DERSerializationBackend,

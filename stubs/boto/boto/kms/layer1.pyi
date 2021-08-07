@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Mapping, Optional, Type
+from typing import Any, Dict, List, Mapping, Type
 
 from boto.connection import AWSQueryConnection
 

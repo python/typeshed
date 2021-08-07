@@ -1,7 +1,7 @@
 import asynchat
 import asyncore
 import socket
-from typing import Any, DefaultDict, List, Optional, Tuple, Type, Union
+from typing import Any, DefaultDict, List, Tuple, Type
 
 _Address = Tuple[str, int]  # (host, port)
 

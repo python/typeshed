@@ -1,6 +1,6 @@
 import sys
 from _typeshed import Self
-from typing import IO, Any, NamedTuple, NoReturn, Optional, Union
+from typing import IO, Any, NamedTuple, NoReturn, Union
 
 _File = Union[str, IO[bytes]]
 

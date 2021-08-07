@@ -1,5 +1,5 @@
 from _typeshed import OpenBinaryModeReading, OpenBinaryModeWriting, OpenTextModeReading, OpenTextModeWriting
-from typing import Any, ClassVar, Optional, Union
+from typing import Any, ClassVar
 
 from docutils import TransformSpec
 

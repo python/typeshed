@@ -1,5 +1,5 @@
 import textwrap
-from typing import IO, Any, Callable, Dict, Generic, List, Optional, Text, Tuple, Type, TypeVar, Union, overload
+from typing import IO, Any, Callable, Dict, Generic, List, Text, Tuple, Type, TypeVar, overload
 from typing_extensions import SupportsIndex
 
 _TB = TypeVar("_TB", bound="_BaseEntry")

@@ -3,7 +3,7 @@ from collections.abc import Callable, Iterable, Sequence
 from ctypes import _CData, _SimpleCData, c_char
 from multiprocessing.context import BaseContext
 from multiprocessing.synchronize import _LockLike
-from typing import Any, Generic, Optional, Protocol, Type, TypeVar, Union, overload
+from typing import Any, Generic, Protocol, Type, TypeVar, overload
 from typing_extensions import Literal
 
 _T = TypeVar("_T")

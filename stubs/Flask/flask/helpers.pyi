@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Any
 
 from .cli import AppGroup
 from .wrappers import Response

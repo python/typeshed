@@ -15,7 +15,7 @@ from typing import (
     Iterator,
     KeysView,
     Mapping,
-    Optional,
+    
     Tuple,
     Type,
     TypeVar,

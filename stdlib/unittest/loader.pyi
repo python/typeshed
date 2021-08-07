@@ -3,7 +3,7 @@ import unittest.case
 import unittest.result
 import unittest.suite
 from types import ModuleType
-from typing import Any, Callable, List, Optional, Sequence, Type
+from typing import Any, Callable, List, Sequence, Type
 
 _SortComparisonMethod = Callable[[str, str], int]
 _SuiteClass = Callable[[List[unittest.case.TestCase]], unittest.suite.TestSuite]

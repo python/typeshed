@@ -1,5 +1,5 @@
 from abc import ABCMeta, abstractmethod
-from typing import ClassVar, Optional, Union
+from typing import ClassVar
 
 from cryptography.hazmat.primitives.hashes import HashAlgorithm
 

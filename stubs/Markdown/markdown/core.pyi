@@ -1,4 +1,4 @@
-from typing import Any, BinaryIO, Callable, ClassVar, Dict, List, Mapping, Optional, Sequence, Text, TextIO, Union
+from typing import Any, BinaryIO, Callable, ClassVar, Dict, List, Mapping, Sequence, Text, TextIO
 from typing_extensions import Literal
 from xml.etree.ElementTree import Element
 

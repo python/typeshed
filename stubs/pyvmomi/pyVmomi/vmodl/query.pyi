@@ -1,4 +1,4 @@
-from typing import Any, List, Optional, Type
+from typing import Any, List, Type
 
 from pyVmomi.vim import ManagedEntity
 from pyVmomi.vim.view import ContainerView

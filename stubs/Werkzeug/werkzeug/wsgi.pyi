@@ -1,6 +1,6 @@
 from _typeshed import SupportsRead
 from _typeshed.wsgi import InputStream, WSGIEnvironment
-from typing import Any, Iterable, Optional, Text
+from typing import Any, Iterable, Text
 
 from .middleware.dispatcher import DispatcherMiddleware as DispatcherMiddleware
 from .middleware.http_proxy import ProxyMiddleware as ProxyMiddleware

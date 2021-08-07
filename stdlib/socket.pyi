@@ -3,7 +3,7 @@ from _typeshed import ReadableBuffer, Self, WriteableBuffer
 from collections.abc import Iterable
 from enum import IntEnum, IntFlag
 from io import RawIOBase
-from typing import Any, BinaryIO, Optional, TextIO, TypeVar, Union, overload
+from typing import Any, BinaryIO, TextIO, TypeVar, overload
 from typing_extensions import Literal
 
 # Ideally, we'd just do "from _socket import *". Unfortunately, socket

@@ -1,5 +1,5 @@
 from types import TracebackType
-from typing import IO, Any, AnyStr, Generic, Iterator, List, Optional, Text, Type, TypeVar
+from typing import IO, Any, AnyStr, Generic, Iterator, List, Text, Type, TypeVar
 
 _T = TypeVar("_T")
 

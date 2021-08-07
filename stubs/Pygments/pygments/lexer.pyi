@@ -1,5 +1,5 @@
 from collections.abc import Iterable, Iterator, Sequence
-from typing import Any, Optional, Tuple
+from typing import Any, Tuple
 
 from pygments.token import _TokenType
 from pygments.util import Future

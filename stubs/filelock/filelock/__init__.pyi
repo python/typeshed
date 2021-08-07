@@ -1,7 +1,7 @@
 import sys
 from logging import Logger
 from types import TracebackType
-from typing import Optional, Type, Union
+from typing import  Type
 
 def logger() -> Logger: ...
 

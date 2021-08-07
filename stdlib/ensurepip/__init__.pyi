@@ -1,4 +1,3 @@
-from typing import Optional
 
 def version() -> str: ...
 def bootstrap(

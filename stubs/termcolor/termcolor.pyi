@@ -1,4 +1,4 @@
-from typing import Any, Iterable, Optional, Text
+from typing import Any, Iterable, Text
 
 ATTRIBUTES: dict[str, int]
 COLORS: dict[str, int]

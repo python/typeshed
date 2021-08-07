@@ -1,4 +1,4 @@
-from typing import Callable, Dict, List, Optional, Pattern
+from typing import Callable, Dict, List, Pattern
 
 class TextWrapper:
     width: int = ...

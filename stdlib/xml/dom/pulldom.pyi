@@ -1,4 +1,4 @@
-from typing import IO, Any, Optional
+from typing import IO, Any
 from xml.sax.handler import ContentHandler
 from xml.sax.xmlreader import XMLReader
 

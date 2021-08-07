@@ -1,5 +1,5 @@
 from logging import Logger
-from typing import Any, Dict, Optional, Type
+from typing import Any, Dict, Type
 
 from paramiko.channel import Channel
 from paramiko.server import ServerInterface, SubsystemHandler

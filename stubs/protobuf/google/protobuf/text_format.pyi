@@ -1,6 +1,6 @@
 import sys
 from _typeshed import SupportsWrite
-from typing import Any, Callable, Iterable, Optional, Text, Tuple, TypeVar, Union
+from typing import Any, Callable, Iterable, Optional, Text, Tuple, TypeVar
 
 from .descriptor import FieldDescriptor
 from .descriptor_pool import DescriptorPool

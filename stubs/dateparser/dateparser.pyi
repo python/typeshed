@@ -1,5 +1,5 @@
 import datetime
-from typing import Any, List, Mapping, Optional, Set, Tuple, Union
+from typing import Any, List, Mapping, Set, Tuple
 
 __version__: str
 

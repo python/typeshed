@@ -1,5 +1,5 @@
 import sys
-from typing import IO, Any, Iterable, List, NoReturn, Optional, Union
+from typing import IO, Any, Iterable, List, NoReturn
 from xml.sax.handler import ContentHandler, ErrorHandler
 from xml.sax.xmlreader import Locator, XMLReader
 

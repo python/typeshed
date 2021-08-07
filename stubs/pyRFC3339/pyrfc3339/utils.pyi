@@ -1,5 +1,4 @@
 from datetime import datetime, timedelta, tzinfo
-from typing import Optional
 
 class FixedOffset(tzinfo):
     def __init__(self, hours: float, minutes: float) -> None: ...

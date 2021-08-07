@@ -17,13 +17,13 @@ from typing import (
     Mapping,
     NamedTuple,
     NoReturn,
-    Optional,
+    
     Pattern,
     Sequence,
     Tuple,
     Type,
     TypeVar,
-    Union,
+    
     overload,
 )
 from warnings import WarningMessage

@@ -1,4 +1,4 @@
-from typing import Any, Container, Iterable, List, MutableMapping, Optional, Pattern, Protocol, Text
+from typing import Any, Container, Iterable, List, MutableMapping, Pattern, Protocol, Text
 
 from .html5lib_shim import Filter
 

@@ -15,7 +15,7 @@ from types import (
     ModuleType,
     TracebackType,
 )
-from typing import Any, ClassVar, NamedTuple, Optional, Tuple, Type, Union
+from typing import Any, ClassVar, NamedTuple, Tuple, Type, Union
 from typing_extensions import Literal, TypeGuard
 
 #

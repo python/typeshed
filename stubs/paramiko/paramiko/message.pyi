@@ -1,5 +1,5 @@
 import sys
-from typing import Any, Iterable, List, Optional, Text
+from typing import Any, Iterable, List, Text
 
 from .common import _LikeBytes
 

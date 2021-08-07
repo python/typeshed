@@ -1,7 +1,7 @@
 from _typeshed import Self
 from collections.abc import Iterator, MutableMapping
 from types import TracebackType
-from typing import Optional, Type, TypeVar, Union, overload
+from typing import  Type, TypeVar, overload
 
 _T = TypeVar("_T")
 _VT = TypeVar("_VT")

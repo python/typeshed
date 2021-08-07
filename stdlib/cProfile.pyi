@@ -1,7 +1,7 @@
 import sys
 from _typeshed import Self, StrOrBytesPath
 from types import CodeType
-from typing import Any, Callable, Dict, Optional, Tuple, TypeVar, Union
+from typing import Any, Callable, Dict, Tuple, TypeVar
 
 def run(statement: str, filename: str | None = ..., sort: str | int = ...) -> None: ...
 def runctx(

@@ -3,7 +3,7 @@ import types
 from _typeshed import StrOrBytesPath
 from abc import ABCMeta, abstractmethod
 from importlib.machinery import ModuleSpec
-from typing import IO, Any, Iterator, Mapping, Optional, Protocol, Sequence, Tuple, Union
+from typing import IO, Any, Iterator, Mapping, Protocol, Sequence, Tuple, Union
 from typing_extensions import Literal, runtime_checkable
 
 _Path = Union[bytes, str]

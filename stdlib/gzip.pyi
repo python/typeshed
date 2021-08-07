@@ -3,7 +3,7 @@ import sys
 import zlib
 from _typeshed import ReadableBuffer, StrOrBytesPath
 from io import FileIO
-from typing import Any, Optional, Protocol, TextIO, Union, overload
+from typing import Any, Protocol, TextIO, overload
 from typing_extensions import Literal
 
 _ReadBinaryMode = Literal["r", "rb"]

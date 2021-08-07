@@ -1,4 +1,4 @@
-from typing import Any, ClassVar, Optional, Tuple
+from typing import Any, ClassVar, Tuple
 from typing_extensions import Literal
 
 from docutils import parsers

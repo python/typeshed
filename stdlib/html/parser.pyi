@@ -1,5 +1,5 @@
 from _markupbase import ParserBase
-from typing import List, Optional, Tuple
+from typing import List, Tuple
 
 class HTMLParser(ParserBase):
     def __init__(self, *, convert_charrefs: bool = ...) -> None: ...

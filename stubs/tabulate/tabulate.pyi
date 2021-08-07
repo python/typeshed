@@ -1,4 +1,4 @@
-from typing import Any, Callable, Container, Dict, Iterable, List, Mapping, NamedTuple, Optional, Sequence, Union
+from typing import Any, Callable, Container, Dict, Iterable, List, Mapping, NamedTuple, Sequence, Union
 
 LATEX_ESCAPE_RULES: Dict[str, str]
 MIN_PADDING: int

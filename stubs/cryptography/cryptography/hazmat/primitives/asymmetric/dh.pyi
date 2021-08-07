@@ -1,5 +1,4 @@
 from abc import ABCMeta, abstractmethod
-from typing import Optional
 
 from cryptography.hazmat.backends.interfaces import DHBackend
 from cryptography.hazmat.primitives.serialization import (

@@ -3,7 +3,7 @@ import io
 import socketserver
 import sys
 from _typeshed import StrPath, SupportsRead, SupportsWrite
-from typing import Any, AnyStr, BinaryIO, ClassVar, Dict, List, Mapping, Optional, Sequence, Tuple, Union
+from typing import Any, AnyStr, BinaryIO, ClassVar, Dict, List, Mapping, Sequence, Tuple
 
 class HTTPServer(socketserver.TCPServer):
     server_name: str

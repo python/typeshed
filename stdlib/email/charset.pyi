@@ -1,4 +1,4 @@
-from typing import Any, Iterator, List, Optional
+from typing import Any, Iterator, List
 
 QP: int  # undocumented
 BASE64: int  # undocumented

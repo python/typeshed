@@ -1,4 +1,3 @@
-from typing import Optional
 
 def make_archive(
     base_name: str,

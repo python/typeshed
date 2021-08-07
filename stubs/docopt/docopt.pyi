@@ -1,4 +1,4 @@
-from typing import Any, Iterable, Optional, Union
+from typing import Any, Iterable, Union
 
 __version__: str
 

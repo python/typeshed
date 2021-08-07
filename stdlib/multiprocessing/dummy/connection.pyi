@@ -1,7 +1,7 @@
 from _typeshed import Self
 from queue import Queue
 from types import TracebackType
-from typing import Any, List, Optional, Tuple, Type, Union
+from typing import Any, List, Tuple, Type, Union
 
 families: List[None]
 

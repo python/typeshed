@@ -1,5 +1,5 @@
 import codecs
-from typing import Optional, Tuple
+from typing import  Tuple
 
 class IncrementalEncoder(codecs.IncrementalEncoder):
     def encode(self, input: str, final: bool = ...) -> bytes: ...

@@ -1,6 +1,6 @@
 import sys
 from _typeshed import Self, StrOrBytesPath
-from typing import IO, Any, AnyStr, Callable, Generic, Iterable, Iterator, Union
+from typing import IO, Any, AnyStr, Callable, Generic, Iterable, Iterator
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias

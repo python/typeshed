@@ -22,12 +22,12 @@ from typing import (
     Mapping,
     NewType as NewType,
     NoReturn as NoReturn,
-    Optional,
+    
     Text as Text,
     Tuple,
     Type as Type,
     TypeVar,
-    Union,
+    
     ValuesView,
     _Alias,
     overload as overload,

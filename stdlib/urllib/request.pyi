@@ -13,12 +13,12 @@ from typing import (
     List,
     Mapping,
     NoReturn,
-    Optional,
+    
     Pattern,
     Sequence,
     Tuple,
     TypeVar,
-    Union,
+    
     overload,
 )
 from urllib.error import HTTPError

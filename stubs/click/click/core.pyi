@@ -7,7 +7,7 @@ from typing import (
     List,
     Mapping,
     NoReturn,
-    Optional,
+    
     Sequence,
     Set,
     Tuple,

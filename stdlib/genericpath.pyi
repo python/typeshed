@@ -1,6 +1,6 @@
 import os
 from _typeshed import BytesPath, StrOrBytesPath, StrPath, SupportsLessThanT
-from typing import List, Sequence, Tuple, Union, overload
+from typing import List, Sequence, Tuple, overload
 from typing_extensions import Literal
 
 # All overloads can return empty string. Ideally, Literal[""] would be a valid

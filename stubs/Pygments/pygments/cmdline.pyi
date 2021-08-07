@@ -1,5 +1,5 @@
 import argparse
-from typing import Any, Optional
+from typing import Any
 
 def main_inner(parser, argns): ...
 

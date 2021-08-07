@@ -1,5 +1,5 @@
 from io import TextIOWrapper
-from typing import Any, Optional
+from typing import Any
 
 split_path_re: Any
 doctype_lookup_re: Any

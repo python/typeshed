@@ -1,7 +1,7 @@
 import sys
 from socket import socket
 from threading import Lock
-from typing import Callable, Mapping, Optional
+from typing import Callable, Mapping
 from typing_extensions import Literal
 
 from . import wasyncore as wasyncore

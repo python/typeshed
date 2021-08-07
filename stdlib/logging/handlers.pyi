@@ -6,7 +6,7 @@ from _typeshed import StrPath
 from collections.abc import Callable
 from logging import FileHandler, Handler, LogRecord
 from socket import SocketKind, socket
-from typing import Any, ClassVar, Optional, Pattern, Union
+from typing import Any, ClassVar, Pattern
 
 if sys.version_info >= (3, 7):
     from queue import Queue, SimpleQueue

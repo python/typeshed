@@ -1,7 +1,7 @@
 import os
 import sys
 from types import CodeType, ModuleType
-from typing import Any, List, Optional, Tuple, Union
+from typing import Any, List, Tuple
 
 if sys.version_info >= (3, 7):
     from importlib.abc import ResourceReader

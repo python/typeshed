@@ -1,4 +1,4 @@
-from typing import IO, Any, Dict, Iterable, List, Optional, Pattern, Set
+from typing import IO, Any, Dict, Iterable, List, Pattern, Set
 
 from paramiko.ssh_exception import ConfigParseError as ConfigParseError, CouldNotCanonicalize as CouldNotCanonicalize
 

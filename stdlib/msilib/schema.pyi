@@ -1,5 +1,5 @@
 import sys
-from typing import List, Optional, Tuple
+from typing import List, Tuple
 
 if sys.platform == "win32":
     from . import Table

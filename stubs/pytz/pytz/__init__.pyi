@@ -1,5 +1,5 @@
 import datetime
-from typing import List, Mapping, Optional, Set, Union
+from typing import List, Mapping, Set
 
 class BaseTzInfo(datetime.tzinfo):
     zone: str = ...

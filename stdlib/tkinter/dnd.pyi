@@ -1,5 +1,5 @@
 from tkinter import Event, Misc, Tk, Widget
-from typing import ClassVar, Optional, Protocol
+from typing import ClassVar, Protocol
 
 class _DndSource(Protocol):
     def dnd_end(self, target: Widget | None, event: Event[Misc] | None) -> None: ...

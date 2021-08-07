@@ -1,6 +1,6 @@
 import datetime
 from _typeshed.wsgi import StartResponse, WSGIEnvironment
-from typing import Any, Dict, Iterable, List, NoReturn, Optional, Protocol, Text, Tuple, Type, Union
+from typing import Any, Dict, Iterable, List, NoReturn, Protocol, Text, Tuple, Type
 
 from werkzeug.wrappers import Response
 

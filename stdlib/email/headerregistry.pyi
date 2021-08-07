@@ -11,7 +11,7 @@ from email._header_value_parser import (
 )
 from email.errors import MessageDefect
 from email.policy import Policy
-from typing import Any, Dict, Iterable, Mapping, Optional, Tuple, Type, Union
+from typing import Any, Dict, Iterable, Mapping, Tuple, Type
 
 class BaseHeader(str):
     @property

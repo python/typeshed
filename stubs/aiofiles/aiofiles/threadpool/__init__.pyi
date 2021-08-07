@@ -7,7 +7,7 @@ from _typeshed import (
     StrOrBytesPath,
 )
 from asyncio import AbstractEventLoop
-from typing import Any, Callable, Optional, Union, overload
+from typing import Any, Callable, Union, overload
 from typing_extensions import Literal
 
 from ..base import AiofilesContextManager
