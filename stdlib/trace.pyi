@@ -21,7 +21,7 @@ class CoverageResults:
     def write_results_file(
         self, path: StrPath, lines: Sequence[str], lnotab: Any, lines_hit: Mapping[int, int], encoding: Optional[str] = ...
     ) -> Tuple[int, int]: ...
-    def is_ignored_filename(self, filename: str): ...  # undocumented
+    def is_ignored_filename(self, filename: str) -> bool: ...  # undocumented
 
 class Trace:
     def __init__(
