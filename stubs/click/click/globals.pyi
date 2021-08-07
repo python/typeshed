@@ -1,4 +1,3 @@
-
 from click.core import Context
 
 def get_current_context(silent: bool = ...) -> Context: ...

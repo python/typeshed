@@ -1,4 +1,3 @@
-
 from cryptography.hazmat.backends.interfaces import CMACBackend
 from cryptography.hazmat.primitives.ciphers import BlockCipherAlgorithm
 

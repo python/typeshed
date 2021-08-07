@@ -1,4 +1,3 @@
-
 from cryptography.hazmat.backends.interfaces import CipherBackend
 
 def aes_key_wrap(wrapping_key: bytes, key_to_wrap: bytes, backend: CipherBackend | None = ...) -> bytes: ...
