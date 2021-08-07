@@ -205,6 +205,10 @@ class _TemporaryFileWrapper(Generic[AnyStr], IO[AnyStr]):
 # It does not actually derive from IO[AnyStr], but it does implement the
 # protocol.
 class SpooledTemporaryFile(IO[AnyStr]):
+    @property
+    def encoding(self) -> str: ...  # undocumented
+    @property
+    def newlines(self) -> str | Tuple[str, ...] | None: ...  # undocumented
     # bytes needs to go first, as default mode is to open as bytes
     if sys.version_info >= (3, 8):
         @overload
@@ -314,6 +318,8 @@ class SpooledTemporaryFile(IO[AnyStr]):
     def seekable(self) -> bool: ...
     def writable(self) -> bool: ...
     def __next__(self) -> AnyStr: ...
+    if sys.version_info >= (3, 9):
+        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 class TemporaryDirectory(Generic[AnyStr]):
     name: AnyStr
