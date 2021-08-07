@@ -28,10 +28,10 @@ class Version(google.protobuf.message.Message):
     suffix: typing.Text = ...
     def __init__(self,
         *,
-        major : typing.builtins.int | None = ...,
-        minor : typing.builtins.int | None = ...,
-        patch : typing.builtins.int | None = ...,
-        suffix : typing.typing.Text | None = ...,
+        major : typing.Optional[builtins.int] = ...,
+        minor : typing.Optional[builtins.int] = ...,
+        patch : typing.Optional[builtins.int] = ...,
+        suffix : typing.Optional[typing.Text] = ...,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal[u"major",b"major",u"minor",b"minor",u"patch",b"patch",u"suffix",b"suffix"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal[u"major",b"major",u"minor",b"minor",u"patch",b"patch",u"suffix",b"suffix"]) -> None: ...
@@ -72,10 +72,10 @@ class CodeGeneratorRequest(google.protobuf.message.Message):
     def compiler_version(self) -> global___Version: ...
     def __init__(self,
         *,
-        file_to_generate : typing.typing.Iterable[typing.Text] | None = ...,
-        parameter : typing.typing.Text | None = ...,
-        proto_file : typing.typing.Iterable[google.protobuf.descriptor_pb2.FileDescriptorProto] | None = ...,
-        compiler_version : typing.global___Version | None = ...,
+        file_to_generate : typing.Optional[typing.Iterable[typing.Text]] = ...,
+        parameter : typing.Optional[typing.Text] = ...,
+        proto_file : typing.Optional[typing.Iterable[google.protobuf.descriptor_pb2.FileDescriptorProto]] = ...,
+        compiler_version : typing.Optional[global___Version] = ...,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal[u"compiler_version",b"compiler_version",u"parameter",b"parameter"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal[u"compiler_version",b"compiler_version",u"file_to_generate",b"file_to_generate",u"parameter",b"parameter",u"proto_file",b"proto_file"]) -> None: ...
@@ -163,10 +163,10 @@ class CodeGeneratorResponse(google.protobuf.message.Message):
         def generated_code_info(self) -> google.protobuf.descriptor_pb2.GeneratedCodeInfo: ...
         def __init__(self,
             *,
-            name : typing.typing.Text | None = ...,
-            insertion_point : typing.typing.Text | None = ...,
-            content : typing.typing.Text | None = ...,
-            generated_code_info : typing.google.protobuf.descriptor_pb2.GeneratedCodeInfo | None = ...,
+            name : typing.Optional[typing.Text] = ...,
+            insertion_point : typing.Optional[typing.Text] = ...,
+            content : typing.Optional[typing.Text] = ...,
+            generated_code_info : typing.Optional[google.protobuf.descriptor_pb2.GeneratedCodeInfo] = ...,
             ) -> None: ...
         def HasField(self, field_name: typing_extensions.Literal[u"content",b"content",u"generated_code_info",b"generated_code_info",u"insertion_point",b"insertion_point",u"name",b"name"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing_extensions.Literal[u"content",b"content",u"generated_code_info",b"generated_code_info",u"insertion_point",b"insertion_point",u"name",b"name"]) -> None: ...
@@ -190,9 +190,9 @@ class CodeGeneratorResponse(google.protobuf.message.Message):
     def file(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CodeGeneratorResponse.File]: ...
     def __init__(self,
         *,
-        error : typing.typing.Text | None = ...,
-        supported_features : typing.builtins.int | None = ...,
-        file : typing.typing.Iterable[global___CodeGeneratorResponse.File] | None = ...,
+        error : typing.Optional[typing.Text] = ...,
+        supported_features : typing.Optional[builtins.int] = ...,
+        file : typing.Optional[typing.Iterable[global___CodeGeneratorResponse.File]] = ...,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal[u"error",b"error",u"supported_features",b"supported_features"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal[u"error",b"error",u"file",b"file",u"supported_features",b"supported_features"]) -> None: ...

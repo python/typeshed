@@ -61,10 +61,10 @@ class Type(google.protobuf.message.Message):
     def __init__(self,
         *,
         name : typing.Text = ...,
-        fields : typing.typing.Iterable[global___Field] | None = ...,
-        oneofs : typing.typing.Iterable[typing.Text] | None = ...,
-        options : typing.typing.Iterable[global___Option] | None = ...,
-        source_context : typing.google.protobuf.source_context_pb2.SourceContext | None = ...,
+        fields : typing.Optional[typing.Iterable[global___Field]] = ...,
+        oneofs : typing.Optional[typing.Iterable[typing.Text]] = ...,
+        options : typing.Optional[typing.Iterable[global___Option]] = ...,
+        source_context : typing.Optional[google.protobuf.source_context_pb2.SourceContext] = ...,
         syntax : global___Syntax.V = ...,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal[u"source_context",b"source_context"]) -> builtins.bool: ...
@@ -226,7 +226,7 @@ class Field(google.protobuf.message.Message):
         type_url : typing.Text = ...,
         oneof_index : builtins.int = ...,
         packed : builtins.bool = ...,
-        options : typing.typing.Iterable[global___Option] | None = ...,
+        options : typing.Optional[typing.Iterable[global___Option]] = ...,
         json_name : typing.Text = ...,
         default_value : typing.Text = ...,
         ) -> None: ...
@@ -257,9 +257,9 @@ class Enum(google.protobuf.message.Message):
     def __init__(self,
         *,
         name : typing.Text = ...,
-        enumvalue : typing.typing.Iterable[global___EnumValue] | None = ...,
-        options : typing.typing.Iterable[global___Option] | None = ...,
-        source_context : typing.google.protobuf.source_context_pb2.SourceContext | None = ...,
+        enumvalue : typing.Optional[typing.Iterable[global___EnumValue]] = ...,
+        options : typing.Optional[typing.Iterable[global___Option]] = ...,
+        source_context : typing.Optional[google.protobuf.source_context_pb2.SourceContext] = ...,
         syntax : global___Syntax.V = ...,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal[u"source_context",b"source_context"]) -> builtins.bool: ...
@@ -283,7 +283,7 @@ class EnumValue(google.protobuf.message.Message):
         *,
         name : typing.Text = ...,
         number : builtins.int = ...,
-        options : typing.typing.Iterable[global___Option] | None = ...,
+        options : typing.Optional[typing.Iterable[global___Option]] = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal[u"name",b"name",u"number",b"number",u"options",b"options"]) -> None: ...
 global___EnumValue = EnumValue
@@ -308,7 +308,7 @@ class Option(google.protobuf.message.Message):
     def __init__(self,
         *,
         name : typing.Text = ...,
-        value : typing.google.protobuf.any_pb2.Any | None = ...,
+        value : typing.Optional[google.protobuf.any_pb2.Any] = ...,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal[u"value",b"value"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal[u"name",b"name",u"value",b"value"]) -> None: ...
