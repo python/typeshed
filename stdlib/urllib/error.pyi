@@ -5,12 +5,12 @@ from urllib.response import addinfourl
 # Stubs for urllib.error
 
 class URLError(IOError):
-    reason: Union[str, BaseException]
-    def __init__(self, reason: Union[str, BaseException], filename: Optional[str] = ...) -> None: ...
+    reason: str | BaseException
+    def __init__(self, reason: str | BaseException, filename: str | None = ...) -> None: ...
 
 class HTTPError(URLError, addinfourl):
     code: int
-    def __init__(self, url: str, code: int, msg: str, hdrs: Message, fp: Optional[IO[bytes]]) -> None: ...
+    def __init__(self, url: str, code: int, msg: str, hdrs: Message, fp: IO[bytes] | None) -> None: ...
 
 class ContentTooShortError(URLError):
     content: Tuple[str, Message]

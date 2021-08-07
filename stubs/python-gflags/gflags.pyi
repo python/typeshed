@@ -72,7 +72,7 @@ class FlagValues:
     FlagValuesDict = flag_values_dict
     def __str__(self) -> str: ...
     def GetHelp(self, prefix: str = ...) -> str: ...
-    def module_help(self, module: Union[ModuleType, str]) -> str: ...
+    def module_help(self, module: ModuleType | str) -> str: ...
     ModuleHelp = module_help
     def main_module_help(self) -> str: ...
     MainModuleHelp = main_module_help
@@ -111,7 +111,7 @@ class Flag:
         parser: ArgumentParser,
         serializer: ArgumentSerializer,
         name: str,
-        default: Optional[str],
+        default: str | None,
         help_string: str,
         short_name: str = ...,
         boolean: bool = ...,
@@ -176,16 +176,16 @@ def adopt_module_key_flags(module: ModuleType, flag_values: FlagValues = ...) ->
 
 ADOPT_module_key_flags = adopt_module_key_flags
 
-def DEFINE_string(name: str, default: Optional[str], help: str, flag_values: FlagValues = ..., **args: Any) -> None: ...
+def DEFINE_string(name: str, default: str | None, help: str, flag_values: FlagValues = ..., **args: Any) -> None: ...
 
 class BooleanParser(ArgumentParser):
     def Convert(self, argument: Any) -> bool: ...
     def Parse(self, argument: Any) -> bool: ...
 
 class BooleanFlag(Flag):
-    def __init__(self, name: str, default: Optional[bool], help: str, short_name: str = ..., **args: Any) -> None: ...
+    def __init__(self, name: str, default: bool | None, help: str, short_name: str = ..., **args: Any) -> None: ...
 
-def DEFINE_boolean(name: str, default: Optional[bool], help: str, flag_values: FlagValues = ..., **args: Any) -> None: ...
+def DEFINE_boolean(name: str, default: bool | None, help: str, flag_values: FlagValues = ..., **args: Any) -> None: ...
 
 DEFINE_bool = DEFINE_boolean
 
@@ -216,7 +216,7 @@ class FloatParser(NumericParser):
 
 def DEFINE_float(
     name: str,
-    default: Optional[float],
+    default: float | None,
     help: str,
     lower_bound: float = ...,
     upper_bound: float = ...,
@@ -233,7 +233,7 @@ class IntegerParser(NumericParser):
 
 def DEFINE_integer(
     name: str,
-    default: Optional[int],
+    default: int | None,
     help: str,
     lower_bound: int = ...,
     upper_bound: int = ...,
@@ -247,11 +247,11 @@ class EnumParser(ArgumentParser):
 
 class EnumFlag(Flag):
     def __init__(
-        self, name: str, default: Optional[str], help: str, enum_values: List[str], short_name: str, **args: Any
+        self, name: str, default: str | None, help: str, enum_values: List[str], short_name: str, **args: Any
     ) -> None: ...
 
 def DEFINE_enum(
-    name: str, default: Optional[str], enum_values: Iterable[str], help: str, flag_values: FlagValues = ..., **args: Any
+    name: str, default: str | None, enum_values: Iterable[str], help: str, flag_values: FlagValues = ..., **args: Any
 ) -> None: ...
 
 class BaseListParser(ArgumentParser):
@@ -264,9 +264,9 @@ class ListParser(BaseListParser):
 class WhitespaceSeparatedListParser(BaseListParser):
     def __init__(self) -> None: ...
 
-def DEFINE_list(name: str, default: Optional[List[str]], help: str, flag_values: FlagValues = ..., **args: Any) -> None: ...
+def DEFINE_list(name: str, default: List[str] | None, help: str, flag_values: FlagValues = ..., **args: Any) -> None: ...
 def DEFINE_spaceseplist(
-    name: str, default: Optional[List[str]], help: str, flag_values: FlagValues = ..., **args: Any
+    name: str, default: List[str] | None, help: str, flag_values: FlagValues = ..., **args: Any
 ) -> None: ...
 
 class MultiFlag(Flag):
@@ -275,14 +275,14 @@ class MultiFlag(Flag):
     def Serialize(self) -> str: ...
 
 def DEFINE_multi_string(
-    name: str, default: Optional[Union[str, List[str]]], help: str, flag_values: FlagValues = ..., **args: Any
+    name: str, default: str | List[str] | None, help: str, flag_values: FlagValues = ..., **args: Any
 ) -> None: ...
 
 DEFINE_multistring = DEFINE_multi_string
 
 def DEFINE_multi_integer(
     name: str,
-    default: Optional[Union[int, List[int]]],
+    default: int | List[int] | None,
     help: str,
     lower_bound: int = ...,
     upper_bound: int = ...,
@@ -294,7 +294,7 @@ DEFINE_multi_int = DEFINE_multi_integer
 
 def DEFINE_multi_float(
     name: str,
-    default: Optional[Union[float, List[float]]],
+    default: float | List[float] | None,
     help: str,
     lower_bound: float = ...,
     upper_bound: float = ...,
@@ -303,7 +303,7 @@ def DEFINE_multi_float(
 ) -> None: ...
 def DEFINE_multi_enum(
     name: str,
-    default: Optional[Union[Sequence[str], str]],
+    default: Sequence[str] | str | None,
     enum_values: Sequence[str],
     help: str,
     flag_values: FlagValues = ...,

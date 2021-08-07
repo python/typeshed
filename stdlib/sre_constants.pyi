@@ -5,11 +5,11 @@ MAGIC: int
 
 class error(Exception):
     msg: str
-    pattern: Optional[Union[str, bytes]]
-    pos: Optional[int]
+    pattern: str | bytes | None
+    pos: int | None
     lineno: int
     colno: int
-    def __init__(self, msg: str, pattern: Optional[Union[str, bytes]] = ..., pos: Optional[int] = ...) -> None: ...
+    def __init__(self, msg: str, pattern: str | bytes | None = ..., pos: int | None = ...) -> None: ...
 
 class _NamedIntConstant(int):
     name: Any

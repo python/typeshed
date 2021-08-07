@@ -5,15 +5,15 @@ from typing_extensions import Literal
 from _warnings import warn as warn, warn_explicit as warn_explicit
 
 def showwarning(
-    message: Union[Warning, str],
+    message: Warning | str,
     category: Type[Warning],
     filename: str,
     lineno: int,
-    file: Optional[TextIO] = ...,
-    line: Optional[str] = ...,
+    file: TextIO | None = ...,
+    line: str | None = ...,
 ) -> None: ...
 def formatwarning(
-    message: Union[Warning, str], category: Type[Warning], filename: str, lineno: int, line: Optional[str] = ...
+    message: Warning | str, category: Type[Warning], filename: str, lineno: int, line: str | None = ...
 ) -> str: ...
 def filterwarnings(
     action: str, message: str = ..., category: Type[Warning] = ..., module: str = ..., lineno: int = ..., append: bool = ...
@@ -24,34 +24,34 @@ def resetwarnings() -> None: ...
 class _OptionError(Exception): ...
 
 class WarningMessage:
-    message: Union[Warning, str]
+    message: Warning | str
     category: Type[Warning]
     filename: str
     lineno: int
-    file: Optional[TextIO]
-    line: Optional[str]
-    source: Optional[Any]
+    file: TextIO | None
+    line: str | None
+    source: Any | None
     def __init__(
         self,
-        message: Union[Warning, str],
+        message: Warning | str,
         category: Type[Warning],
         filename: str,
         lineno: int,
-        file: Optional[TextIO] = ...,
-        line: Optional[str] = ...,
-        source: Optional[Any] = ...,
+        file: TextIO | None = ...,
+        line: str | None = ...,
+        source: Any | None = ...,
     ) -> None: ...
 
 class catch_warnings:
     @overload
-    def __new__(cls, *, record: Literal[False] = ..., module: Optional[ModuleType] = ...) -> _catch_warnings_without_records: ...
+    def __new__(cls, *, record: Literal[False] = ..., module: ModuleType | None = ...) -> _catch_warnings_without_records: ...
     @overload
-    def __new__(cls, *, record: Literal[True], module: Optional[ModuleType] = ...) -> _catch_warnings_with_records: ...
+    def __new__(cls, *, record: Literal[True], module: ModuleType | None = ...) -> _catch_warnings_with_records: ...
     @overload
-    def __new__(cls, *, record: bool, module: Optional[ModuleType] = ...) -> catch_warnings: ...
-    def __enter__(self) -> Optional[List[WarningMessage]]: ...
+    def __new__(cls, *, record: bool, module: ModuleType | None = ...) -> catch_warnings: ...
+    def __enter__(self) -> List[WarningMessage] | None: ...
     def __exit__(
-        self, exc_type: Optional[Type[BaseException]], exc_val: Optional[BaseException], exc_tb: Optional[TracebackType]
+        self, exc_type: Type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
     ) -> None: ...
 
 class _catch_warnings_without_records(catch_warnings):

@@ -24,11 +24,11 @@ class Linker(object):
     def __init__(
         self,
         callbacks: Iterable[_Callback] = ...,
-        skip_tags: Optional[Container[Text]] = ...,
+        skip_tags: Container[Text] | None = ...,
         parse_email: bool = ...,
         url_re: Pattern[Text] = ...,
         email_re: Pattern[Text] = ...,
-        recognized_tags: Optional[Container[Text]] = ...,
+        recognized_tags: Container[Text] | None = ...,
     ) -> None: ...
     def linkify(self, text: Text) -> Text: ...
 

@@ -12,8 +12,8 @@ if sys.version_info >= (3,):
 else:
     class FullArgSpec(NamedTuple):
         args: List[str]
-        varargs: Optional[str]
-        varkw: Optional[str]
+        varargs: str | None
+        varkw: str | None
         defaults: Tuple[Any, ...]
         kwonlyargs: List[str]
         kwonlydefaults: Dict[str, Any]
@@ -30,31 +30,31 @@ DEF: Pattern[str]
 
 class FunctionMaker(object):
     args: List[Text]
-    varargs: Optional[Text]
-    varkw: Optional[Text]
+    varargs: Text | None
+    varkw: Text | None
     defaults: Tuple[Any, ...]
     kwonlyargs: List[Text]
-    kwonlydefaults: Optional[Text]
-    shortsignature: Optional[Text]
+    kwonlydefaults: Text | None
+    shortsignature: Text | None
     name: Text
-    doc: Optional[Text]
-    module: Optional[Text]
+    doc: Text | None
+    module: Text | None
     annotations: Dict[Text, Any]
     signature: Text
     dict: Dict[Text, Any]
     def __init__(
         self,
-        func: Optional[Callable[..., Any]] = ...,
-        name: Optional[Text] = ...,
-        signature: Optional[Text] = ...,
-        defaults: Optional[Tuple[Any, ...]] = ...,
-        doc: Optional[Text] = ...,
-        module: Optional[Text] = ...,
-        funcdict: Optional[Dict[Text, Any]] = ...,
+        func: Callable[..., Any] | None = ...,
+        name: Text | None = ...,
+        signature: Text | None = ...,
+        defaults: Tuple[Any, ...] | None = ...,
+        doc: Text | None = ...,
+        module: Text | None = ...,
+        funcdict: Dict[Text, Any] | None = ...,
     ) -> None: ...
     def update(self, func: Any, **kw: Any) -> None: ...
     def make(
-        self, src_templ: Text, evaldict: Optional[Dict[Text, Any]] = ..., addsource: bool = ..., **attrs: Any
+        self, src_templ: Text, evaldict: Dict[Text, Any] | None = ..., addsource: bool = ..., **attrs: Any
     ) -> Callable[..., Any]: ...
     @classmethod
     def create(
@@ -62,16 +62,16 @@ class FunctionMaker(object):
         obj: Any,
         body: Text,
         evaldict: Dict[Text, Any],
-        defaults: Optional[Tuple[Any, ...]] = ...,
-        doc: Optional[Text] = ...,
-        module: Optional[Text] = ...,
+        defaults: Tuple[Any, ...] | None = ...,
+        doc: Text | None = ...,
+        module: Text | None = ...,
         addsource: bool = ...,
         **attrs: Any,
     ) -> Callable[..., Any]: ...
 
 def decorate(func: _Func, caller: Callable[..., Any], extras: Any = ...) -> _Func: ...
 def decorator(
-    caller: Callable[..., Any], _func: Optional[Callable[..., Any]] = ...
+    caller: Callable[..., Any], _func: Callable[..., Any] | None = ...
 ) -> Callable[[Callable[..., Any]], Callable[..., Any]]: ...
 
 class ContextManager(_GeneratorContextManager[_T]):

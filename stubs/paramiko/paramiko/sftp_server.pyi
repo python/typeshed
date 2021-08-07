@@ -16,7 +16,7 @@ class SFTPServer(BaseSFTP, SubsystemHandler):
     file_table: Dict[bytes, SFTPHandle]
     folder_table: Dict[bytes, SFTPHandle]
     server: SFTPServerInterface
-    sock: Optional[Channel]
+    sock: Channel | None
     def __init__(
         self, channel: Channel, name: str, server: ServerInterface, sftp_si: Type[SFTPServerInterface], *largs: Any, **kwargs: Any
     ) -> None: ...

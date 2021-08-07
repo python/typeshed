@@ -12,12 +12,12 @@ class ProxyFix(object):
     def __init__(
         self,
         app: WSGIApplication,
-        num_proxies: Optional[int] = ...,
+        num_proxies: int | None = ...,
         x_for: int = ...,
         x_proto: int = ...,
         x_host: int = ...,
         x_port: int = ...,
         x_prefix: int = ...,
     ) -> None: ...
-    def get_remote_addr(self, forwarded_for: Iterable[str]) -> Optional[str]: ...
+    def get_remote_addr(self, forwarded_for: Iterable[str]) -> str | None: ...
     def __call__(self, environ: WSGIEnvironment, start_response: StartResponse) -> Iterable[bytes]: ...

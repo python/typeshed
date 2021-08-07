@@ -11,16 +11,16 @@ else:
     from urllib2 import Request as U2Request
 
 def stream_encode_multipart(
-    values, use_tempfile: int = ..., threshold=..., boundary: Optional[Any] = ..., charset: Text = ...
+    values, use_tempfile: int = ..., threshold=..., boundary: Any | None = ..., charset: Text = ...
 ): ...
-def encode_multipart(values, boundary: Optional[Any] = ..., charset: Text = ...): ...
-def File(fd, filename: Optional[Any] = ..., mimetype: Optional[Any] = ...): ...
+def encode_multipart(values, boundary: Any | None = ..., charset: Text = ...): ...
+def File(fd, filename: Any | None = ..., mimetype: Any | None = ...): ...
 
 class _TestCookieHeaders:
     headers: Any
     def __init__(self, headers): ...
     def getheaders(self, name): ...
-    def get_all(self, name, default: Optional[Any] = ...): ...
+    def get_all(self, name, default: Any | None = ...): ...
 
 class _TestCookieResponse:
     headers: Any
@@ -55,20 +55,20 @@ class EnvironBuilder:
     def __init__(
         self,
         path: str = ...,
-        base_url: Optional[Any] = ...,
-        query_string: Optional[Any] = ...,
+        base_url: Any | None = ...,
+        query_string: Any | None = ...,
         method: str = ...,
-        input_stream: Optional[Any] = ...,
-        content_type: Optional[Any] = ...,
-        content_length: Optional[Any] = ...,
-        errors_stream: Optional[Any] = ...,
+        input_stream: Any | None = ...,
+        content_type: Any | None = ...,
+        content_length: Any | None = ...,
+        errors_stream: Any | None = ...,
         multithread: bool = ...,
         multiprocess: bool = ...,
         run_once: bool = ...,
-        headers: Optional[Any] = ...,
-        data: Optional[Any] = ...,
-        environ_base: Optional[Any] = ...,
-        environ_overrides: Optional[Any] = ...,
+        headers: Any | None = ...,
+        data: Any | None = ...,
+        environ_base: Any | None = ...,
+        environ_overrides: Any | None = ...,
         charset: Text = ...,
     ): ...
     form: Any
@@ -80,23 +80,23 @@ class EnvironBuilder:
     def __del__(self) -> None: ...
     def close(self) -> None: ...
     def get_environ(self) -> WSGIEnvironment: ...
-    def get_request(self, cls: Optional[Any] = ...): ...
+    def get_request(self, cls: Any | None = ...): ...
 
 class ClientRedirectError(Exception): ...
 
 # Response type for the client below.
-# By default _R is Tuple[Iterable[Any], Union[Text, int], datastructures.Headers]
+# By default _R is Tuple[Iterable[Any], Text | int, datastructures.Headers]
 _R = TypeVar("_R")
 
 class Client(Generic[_R]):
     application: Any
-    response_wrapper: Optional[Type[_R]]
+    response_wrapper: Type[_R] | None
     cookie_jar: Any
     allow_subdomain_redirects: Any
     def __init__(
         self,
         application,
-        response_wrapper: Optional[Type[_R]] = ...,
+        response_wrapper: Type[_R] | None = ...,
         use_cookies: bool = ...,
         allow_subdomain_redirects: bool = ...,
     ): ...
@@ -105,15 +105,15 @@ class Client(Generic[_R]):
         server_name,
         key,
         value: str = ...,
-        max_age: Optional[Any] = ...,
-        expires: Optional[Any] = ...,
+        max_age: Any | None = ...,
+        expires: Any | None = ...,
         path: str = ...,
-        domain: Optional[Any] = ...,
-        secure: Optional[Any] = ...,
+        domain: Any | None = ...,
+        secure: Any | None = ...,
         httponly: bool = ...,
         charset: Text = ...,
     ): ...
-    def delete_cookie(self, server_name, key, path: str = ..., domain: Optional[Any] = ...): ...
+    def delete_cookie(self, server_name, key, path: str = ..., domain: Any | None = ...): ...
     def run_wsgi_app(self, environ, buffered: bool = ...): ...
     def resolve_redirect(self, response, new_location, environ, buffered: bool = ...): ...
     @overload

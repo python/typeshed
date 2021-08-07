@@ -8,10 +8,10 @@ class UserAgentParser:
 
 class UserAgent:
     string: Any
-    platform: Optional[str]
-    browser: Optional[str]
-    version: Optional[str]
-    language: Optional[str]
+    platform: str | None
+    browser: str | None
+    version: str | None
+    language: str | None
     def __init__(self, environ_or_string): ...
     def to_header(self): ...
     def __nonzero__(self): ...

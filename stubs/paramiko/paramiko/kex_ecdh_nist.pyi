@@ -19,9 +19,9 @@ class KexNistp256:
     hash_algo: Callable[[ReadableBuffer], _Hash]
     curve: EllipticCurve
     transport: Transport
-    P: Union[int, EllipticCurvePrivateKey]
-    Q_C: Optional[EllipticCurvePublicKey]
-    Q_S: Optional[EllipticCurvePublicKey]
+    P: int | EllipticCurvePrivateKey
+    Q_C: EllipticCurvePublicKey | None
+    Q_S: EllipticCurvePublicKey | None
     def __init__(self, transport: Transport) -> None: ...
     def start_kex(self) -> None: ...
     def parse_next(self, ptype: int, m: Message) -> None: ...

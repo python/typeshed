@@ -9,8 +9,8 @@ class RRCache(Cache[_KT, _VT]):
     def __init__(
         self,
         maxsize: float,
-        choice: Optional[Callable[[Sequence[_KT]], _KT]] = ...,
-        getsizeof: Optional[Callable[[_VT], float]] = ...,
+        choice: Callable[[Sequence[_KT]], _KT] | None = ...,
+        getsizeof: Callable[[_VT], float] | None = ...,
     ) -> None: ...
     def __getitem__(self, key: _KT) -> _VT: ...
     def __setitem__(self, key: _KT, value: _VT) -> None: ...

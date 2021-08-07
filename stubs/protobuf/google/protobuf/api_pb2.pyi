@@ -72,11 +72,11 @@ class Api(google.protobuf.message.Message):
     def __init__(self,
         *,
         name : typing.Text = ...,
-        methods : typing.Optional[typing.Iterable[global___Method]] = ...,
-        options : typing.Optional[typing.Iterable[google.protobuf.type_pb2.Option]] = ...,
+        methods : typing.typing.Iterable[global___Method] | None = ...,
+        options : typing.typing.Iterable[google.protobuf.type_pb2.Option] | None = ...,
         version : typing.Text = ...,
-        source_context : typing.Optional[google.protobuf.source_context_pb2.SourceContext] = ...,
-        mixins : typing.Optional[typing.Iterable[global___Mixin]] = ...,
+        source_context : typing.google.protobuf.source_context_pb2.SourceContext | None = ...,
+        mixins : typing.typing.Iterable[global___Mixin] | None = ...,
         syntax : google.protobuf.type_pb2.Syntax.V = ...,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal[u"source_context",b"source_context"]) -> builtins.bool: ...
@@ -115,7 +115,7 @@ class Method(google.protobuf.message.Message):
         request_streaming : builtins.bool = ...,
         response_type_url : typing.Text = ...,
         response_streaming : builtins.bool = ...,
-        options : typing.Optional[typing.Iterable[google.protobuf.type_pb2.Option]] = ...,
+        options : typing.typing.Iterable[google.protobuf.type_pb2.Option] | None = ...,
         syntax : google.protobuf.type_pb2.Syntax.V = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal[u"name",b"name",u"options",b"options",u"request_streaming",b"request_streaming",u"request_type_url",b"request_type_url",u"response_streaming",b"response_streaming",u"response_type_url",b"response_type_url",u"syntax",b"syntax"]) -> None: ...

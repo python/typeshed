@@ -33,7 +33,7 @@ class Field(Generic[_T]):
     default: _T
     default_factory: Callable[[], _T]
     repr: bool
-    hash: Optional[bool]
+    hash: bool | None
     init: bool
     compare: bool
     metadata: Mapping[str, Any]
@@ -48,9 +48,9 @@ def field(
     default: _T,
     init: bool = ...,
     repr: bool = ...,
-    hash: Optional[bool] = ...,
+    hash: bool | None = ...,
     compare: bool = ...,
-    metadata: Optional[Mapping[str, Any]] = ...,
+    metadata: Mapping[str, Any] | None = ...,
 ) -> _T: ...
 @overload
 def field(
@@ -58,18 +58,18 @@ def field(
     default_factory: Callable[[], _T],
     init: bool = ...,
     repr: bool = ...,
-    hash: Optional[bool] = ...,
+    hash: bool | None = ...,
     compare: bool = ...,
-    metadata: Optional[Mapping[str, Any]] = ...,
+    metadata: Mapping[str, Any] | None = ...,
 ) -> _T: ...
 @overload
 def field(
     *,
     init: bool = ...,
     repr: bool = ...,
-    hash: Optional[bool] = ...,
+    hash: bool | None = ...,
     compare: bool = ...,
-    metadata: Optional[Mapping[str, Any]] = ...,
+    metadata: Mapping[str, Any] | None = ...,
 ) -> Any: ...
 def fields(class_or_instance: Any) -> Tuple[Field[Any], ...]: ...
 def is_dataclass(obj: Any) -> bool: ...
@@ -82,10 +82,10 @@ class InitVar(Generic[_T]):
 
 def make_dataclass(
     cls_name: str,
-    fields: Iterable[Union[str, Tuple[str, type], Tuple[str, type, Field[Any]]]],
+    fields: Iterable[str | Tuple[str, type] | Tuple[str, type, Field[Any]]],
     *,
     bases: Tuple[type, ...] = ...,
-    namespace: Optional[Dict[str, Any]] = ...,
+    namespace: Dict[str, Any] | None = ...,
     init: bool = ...,
     repr: bool = ...,
     eq: bool = ...,

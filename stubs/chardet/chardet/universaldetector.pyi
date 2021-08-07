@@ -8,9 +8,9 @@ class _FinalResultType(TypedDict):
     language: str
 
 class _IntermediateResultType(TypedDict):
-    encoding: Optional[str]
+    encoding: str | None
     confidence: float
-    language: Optional[str]
+    language: str | None
 
 class UniversalDetector(object):
     MINIMUM_THRESHOLD: float

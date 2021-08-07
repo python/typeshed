@@ -21,9 +21,9 @@ class JSONEncoder:
         check_circular: bool = ...,
         allow_nan: bool = ...,
         sort_keys: bool = ...,
-        indent: Optional[int] = ...,
-        separators: Optional[Tuple[str, str]] = ...,
-        default: Optional[Callable[..., Any]] = ...,
+        indent: int | None = ...,
+        separators: Tuple[str, str] | None = ...,
+        default: Callable[..., Any] | None = ...,
     ) -> None: ...
     def default(self, o: Any) -> Any: ...
     def encode(self, o: Any) -> str: ...

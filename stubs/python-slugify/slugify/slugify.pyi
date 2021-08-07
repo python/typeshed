@@ -13,7 +13,7 @@ def slugify(
     separator: str = ...,
     save_order: bool = ...,
     stopwords: Iterable[str] = ...,
-    regex_pattern: Optional[str] = ...,
+    regex_pattern: str | None = ...,
     lowercase: bool = ...,
     replacements: Iterable[str] = ...,
 ) -> str: ...

@@ -56,6 +56,6 @@ class SFTPError(Exception): ...
 
 class BaseSFTP:
     logger: Logger
-    sock: Optional[Channel]
+    sock: Channel | None
     ultra_debug: bool
     def __init__(self) -> None: ...

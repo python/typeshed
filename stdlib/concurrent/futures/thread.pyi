@@ -21,13 +21,13 @@ class ThreadPoolExecutor(Executor):
     if sys.version_info >= (3, 7):
         def __init__(
             self,
-            max_workers: Optional[int] = ...,
+            max_workers: int | None = ...,
             thread_name_prefix: str = ...,
-            initializer: Optional[Callable[..., None]] = ...,
+            initializer: Callable[..., None] | None = ...,
             initargs: Tuple[Any, ...] = ...,
         ) -> None: ...
     else:
-        def __init__(self, max_workers: Optional[int] = ..., thread_name_prefix: str = ...) -> None: ...
+        def __init__(self, max_workers: int | None = ..., thread_name_prefix: str = ...) -> None: ...
 
 class _WorkItem(Generic[_S]):
     future: Future[_S]

@@ -7,12 +7,12 @@ from cryptography.hazmat.primitives.serialization import KeySerializationEncrypt
 from cryptography.x509 import Certificate
 
 def load_key_and_certificates(
-    data: bytes, password: Optional[bytes], backend: Optional[Any] = ...
-) -> Tuple[Optional[Any], Optional[Certificate], List[Certificate]]: ...
+    data: bytes, password: bytes | None, backend: Any | None = ...
+) -> Tuple[Any | None, Certificate | None, List[Certificate]]: ...
 def serialize_key_and_certificates(
     name: bytes,
-    key: Union[RSAPrivateKeyWithSerialization, EllipticCurvePrivateKeyWithSerialization, DSAPrivateKeyWithSerialization],
-    cert: Optional[Certificate],
-    cas: Optional[List[Certificate]],
+    key: RSAPrivateKeyWithSerialization | EllipticCurvePrivateKeyWithSerialization | DSAPrivateKeyWithSerialization,
+    cert: Certificate | None,
+    cas: List[Certificate] | None,
     enc: KeySerializationEncryption,
 ) -> bytes: ...

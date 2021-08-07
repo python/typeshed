@@ -159,7 +159,7 @@ XATTR_REPLACE: int
 XATTR_SIZE_MAX: int
 
 @overload
-def listdir(path: Optional[str] = ...) -> List[str]: ...
+def listdir(path: str | None = ...) -> List[str]: ...
 @overload
 def listdir(path: bytes) -> List[bytes]: ...
 @overload
@@ -173,26 +173,26 @@ if sys.platform != "win32" and sys.version_info >= (3, 8):
         argv: _ExecVArgs,
         env: _ExecEnv,
         *,
-        file_actions: Optional[Sequence[Tuple[Any, ...]]] = ...,
-        setpgroup: Optional[int] = ...,
+        file_actions: Sequence[Tuple[Any, ...]] | None = ...,
+        setpgroup: int | None = ...,
         resetids: bool = ...,
         setsid: bool = ...,
         setsigmask: Iterable[int] = ...,
         setsigdef: Iterable[int] = ...,
-        scheduler: Optional[Tuple[Any, sched_param]] = ...,
+        scheduler: Tuple[Any, sched_param] | None = ...,
     ) -> int: ...
     def posix_spawnp(
         path: StrOrBytesPath,
         argv: _ExecVArgs,
         env: _ExecEnv,
         *,
-        file_actions: Optional[Sequence[Tuple[Any, ...]]] = ...,
-        setpgroup: Optional[int] = ...,
+        file_actions: Sequence[Tuple[Any, ...]] | None = ...,
+        setpgroup: int | None = ...,
         resetids: bool = ...,
         setsid: bool = ...,
         setsigmask: Iterable[int] = ...,
         setsigdef: Iterable[int] = ...,
-        scheduler: Optional[Tuple[Any, sched_param]] = ...,
+        scheduler: Tuple[Any, sched_param] | None = ...,
     ) -> int: ...
 
 if sys.platform == "win32":

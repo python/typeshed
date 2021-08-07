@@ -8,15 +8,15 @@ class NodeVisitor:
 class NodeTransformer(NodeVisitor):
     def generic_visit(self, node: AST) -> None: ...
 
-def parse(source: Union[str, bytes], filename: Union[str, bytes] = ..., mode: str = ..., feature_version: int = ...) -> AST: ...
+def parse(source: str | bytes, filename: str | bytes = ..., mode: str = ..., feature_version: int = ...) -> AST: ...
 def copy_location(new_node: AST, old_node: AST) -> AST: ...
 def dump(node: AST, annotate_fields: bool = ..., include_attributes: bool = ...) -> str: ...
 def fix_missing_locations(node: AST) -> AST: ...
-def get_docstring(node: AST, clean: bool = ...) -> Optional[str]: ...
+def get_docstring(node: AST, clean: bool = ...) -> str | None: ...
 def increment_lineno(node: AST, n: int = ...) -> AST: ...
 def iter_child_nodes(node: AST) -> Iterator[AST]: ...
 def iter_fields(node: AST) -> Iterator[typing.Tuple[str, Any]]: ...
-def literal_eval(node_or_string: Union[str, AST]) -> Any: ...
+def literal_eval(node_or_string: str | AST) -> Any: ...
 def walk(node: AST) -> Iterator[AST]: ...
 
 PyCF_ONLY_AST: int
@@ -58,16 +58,16 @@ class FunctionDef(stmt):
     args: arguments
     body: typing.List[stmt]
     decorator_list: typing.List[expr]
-    returns: Optional[expr]
-    type_comment: Optional[str]
+    returns: expr | None
+    type_comment: str | None
 
 class AsyncFunctionDef(stmt):
     name: identifier
     args: arguments
     body: typing.List[stmt]
     decorator_list: typing.List[expr]
-    returns: Optional[expr]
-    type_comment: Optional[str]
+    returns: expr | None
+    type_comment: str | None
 
 class ClassDef(stmt):
     name: identifier
@@ -77,7 +77,7 @@ class ClassDef(stmt):
     decorator_list: typing.List[expr]
 
 class Return(stmt):
-    value: Optional[expr]
+    value: expr | None
 
 class Delete(stmt):
     targets: typing.List[expr]
@@ -85,7 +85,7 @@ class Delete(stmt):
 class Assign(stmt):
     targets: typing.List[expr]
     value: expr
-    type_comment: Optional[str]
+    type_comment: str | None
 
 class AugAssign(stmt):
     target: expr
@@ -95,7 +95,7 @@ class AugAssign(stmt):
 class AnnAssign(stmt):
     target: expr
     annotation: expr
-    value: Optional[expr]
+    value: expr | None
     simple: int
 
 class For(stmt):
@@ -103,14 +103,14 @@ class For(stmt):
     iter: expr
     body: typing.List[stmt]
     orelse: typing.List[stmt]
-    type_comment: Optional[str]
+    type_comment: str | None
 
 class AsyncFor(stmt):
     target: expr
     iter: expr
     body: typing.List[stmt]
     orelse: typing.List[stmt]
-    type_comment: Optional[str]
+    type_comment: str | None
 
 class While(stmt):
     test: expr
@@ -125,16 +125,16 @@ class If(stmt):
 class With(stmt):
     items: typing.List[withitem]
     body: typing.List[stmt]
-    type_comment: Optional[str]
+    type_comment: str | None
 
 class AsyncWith(stmt):
     items: typing.List[withitem]
     body: typing.List[stmt]
-    type_comment: Optional[str]
+    type_comment: str | None
 
 class Raise(stmt):
-    exc: Optional[expr]
-    cause: Optional[expr]
+    exc: expr | None
+    cause: expr | None
 
 class Try(stmt):
     body: typing.List[stmt]
@@ -144,15 +144,15 @@ class Try(stmt):
 
 class Assert(stmt):
     test: expr
-    msg: Optional[expr]
+    msg: expr | None
 
 class Import(stmt):
     names: typing.List[alias]
 
 class ImportFrom(stmt):
-    module: Optional[identifier]
+    module: identifier | None
     names: typing.List[alias]
-    level: Optional[int]
+    level: int | None
 
 class Global(stmt):
     names: typing.List[identifier]
@@ -171,9 +171,9 @@ class slice(AST): ...
 _slice = slice  # this lets us type the variable named 'slice' below
 
 class Slice(slice):
-    lower: Optional[expr]
-    upper: Optional[expr]
-    step: Optional[expr]
+    lower: expr | None
+    upper: expr | None
+    step: expr | None
 
 class ExtSlice(slice):
     dims: typing.List[slice]
@@ -235,7 +235,7 @@ class Await(expr):
     value: expr
 
 class Yield(expr):
-    value: Optional[expr]
+    value: expr | None
 
 class YieldFrom(expr):
     value: expr
@@ -251,7 +251,7 @@ class Call(expr):
     keywords: typing.List[keyword]
 
 class Num(expr):
-    n: Union[float, int, complex]
+    n: float | int | complex
 
 class Str(expr):
     s: str
@@ -259,8 +259,8 @@ class Str(expr):
 
 class FormattedValue(expr):
     value: expr
-    conversion: typing.Optional[int]
-    format_spec: typing.Optional[expr]
+    conversion: typing.int | None
+    format_spec: typing.expr | None
 
 class JoinedStr(expr):
     values: typing.List[expr]
@@ -347,38 +347,38 @@ class comprehension(AST):
     is_async: int
 
 class ExceptHandler(AST):
-    type: Optional[expr]
-    name: Optional[identifier]
+    type: expr | None
+    name: identifier | None
     body: typing.List[stmt]
     lineno: int
     col_offset: int
 
 class arguments(AST):
     args: typing.List[arg]
-    vararg: Optional[arg]
+    vararg: arg | None
     kwonlyargs: typing.List[arg]
     kw_defaults: typing.List[expr]
-    kwarg: Optional[arg]
+    kwarg: arg | None
     defaults: typing.List[expr]
 
 class arg(AST):
     arg: identifier
-    annotation: Optional[expr]
+    annotation: expr | None
     lineno: int
     col_offset: int
-    type_comment: typing.Optional[str]
+    type_comment: typing.str | None
 
 class keyword(AST):
-    arg: Optional[identifier]
+    arg: identifier | None
     value: expr
 
 class alias(AST):
     name: identifier
-    asname: Optional[identifier]
+    asname: identifier | None
 
 class withitem(AST):
     context_expr: expr
-    optional_vars: Optional[expr]
+    optional_vars: expr | None
 
 class TypeIgnore(AST):
     lineno: int

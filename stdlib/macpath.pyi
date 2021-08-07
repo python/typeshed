@@ -34,7 +34,7 @@ from posixpath import (
 )
 from typing import AnyStr, Optional, Tuple, overload
 
-altsep: Optional[str]
+altsep: str | None
 
 @overload
 def basename(s: PathLike[AnyStr]) -> AnyStr: ...

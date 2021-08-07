@@ -4,10 +4,10 @@ from typing import Any, Callable, ContextManager, MutableMapping, Optional, Type
 _KT = TypeVar("_KT")
 
 def cached(
-    cache: Optional[MutableMapping[_KT, Any]], key: Callable[..., _KT] = ..., lock: Optional[ContextManager[Any]] = ...
+    cache: MutableMapping[_KT, Any] | None, key: Callable[..., _KT] = ..., lock: ContextManager[Any] | None = ...
 ) -> IdentityFunction: ...
 def cachedmethod(
-    cache: Callable[[Any], Optional[MutableMapping[_KT, Any]]],
+    cache: Callable[[Any], MutableMapping[_KT, Any] | None],
     key: Callable[..., _KT] = ...,
-    lock: Optional[ContextManager[Any]] = ...,
+    lock: ContextManager[Any] | None = ...,
 ) -> IdentityFunction: ...

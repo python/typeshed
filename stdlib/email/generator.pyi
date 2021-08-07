@@ -8,12 +8,12 @@ class Generator:
     def __init__(
         self,
         outfp: TextIO,
-        mangle_from_: Optional[bool] = ...,
-        maxheaderlen: Optional[int] = ...,
+        mangle_from_: bool | None = ...,
+        maxheaderlen: int | None = ...,
         *,
-        policy: Optional[Policy] = ...,
+        policy: Policy | None = ...,
     ) -> None: ...
-    def flatten(self, msg: Message, unixfrom: bool = ..., linesep: Optional[str] = ...) -> None: ...
+    def flatten(self, msg: Message, unixfrom: bool = ..., linesep: str | None = ...) -> None: ...
 
 class BytesGenerator:
     def clone(self, fp: BinaryIO) -> BytesGenerator: ...
@@ -21,20 +21,20 @@ class BytesGenerator:
     def __init__(
         self,
         outfp: BinaryIO,
-        mangle_from_: Optional[bool] = ...,
-        maxheaderlen: Optional[int] = ...,
+        mangle_from_: bool | None = ...,
+        maxheaderlen: int | None = ...,
         *,
-        policy: Optional[Policy] = ...,
+        policy: Policy | None = ...,
     ) -> None: ...
-    def flatten(self, msg: Message, unixfrom: bool = ..., linesep: Optional[str] = ...) -> None: ...
+    def flatten(self, msg: Message, unixfrom: bool = ..., linesep: str | None = ...) -> None: ...
 
 class DecodedGenerator(Generator):
     def __init__(
         self,
         outfp: TextIO,
-        mangle_from_: Optional[bool] = ...,
-        maxheaderlen: Optional[int] = ...,
-        fmt: Optional[str] = ...,
+        mangle_from_: bool | None = ...,
+        maxheaderlen: int | None = ...,
+        fmt: str | None = ...,
         *,
-        policy: Optional[Policy] = ...,
+        policy: Policy | None = ...,
     ) -> None: ...

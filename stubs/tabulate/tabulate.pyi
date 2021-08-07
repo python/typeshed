@@ -29,18 +29,18 @@ class TableFormat(NamedTuple):
     headerrow: _TableFormatRow
     datarow: _TableFormatRow
     padding: int
-    with_header_hide: Optional[Container[str]]
+    with_header_hide: Container[str] | None
 
 def simple_separated_format(separator: str) -> TableFormat: ...
 def tabulate(
-    tabular_data: Union[Mapping[str, Iterable[Any]], Iterable[Iterable[Any]]],
-    headers: Union[str, Dict[str, str], Sequence[str]] = ...,
-    tablefmt: Union[str, TableFormat] = ...,
-    floatfmt: Union[str, Iterable[str]] = ...,
-    numalign: Optional[str] = ...,
-    stralign: Optional[str] = ...,
-    missingval: Union[str, Iterable[str]] = ...,
-    showindex: Union[str, bool, Iterable[Any]] = ...,
-    disable_numparse: Union[bool, Iterable[int]] = ...,
-    colalign: Optional[Iterable[Optional[str]]] = ...,
+    tabular_data: Mapping[str, Iterable[Any]] | Iterable[Iterable[Any]],
+    headers: str | Dict[str, str] | Sequence[str] = ...,
+    tablefmt: str | TableFormat = ...,
+    floatfmt: str | Iterable[str] = ...,
+    numalign: str | None = ...,
+    stralign: str | None = ...,
+    missingval: str | Iterable[str] = ...,
+    showindex: str | bool | Iterable[Any] = ...,
+    disable_numparse: bool | Iterable[int] = ...,
+    colalign: Iterable[str | None] | None = ...,
 ) -> str: ...

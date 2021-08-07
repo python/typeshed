@@ -7,7 +7,7 @@ from google.protobuf.message import Message
 _ContainerMessageT = TypeVar("_ContainerMessageT", bound=Message)
 _ExtenderMessageT = TypeVar(
     "_ExtenderMessageT",
-    bound=Union[Message, RepeatedScalarFieldContainer[Any], RepeatedCompositeFieldContainer[Any], bool, int, float, Text, bytes],
+    bound=Message | RepeatedScalarFieldContainer[Any] | RepeatedCompositeFieldContainer[Any] | bool | int | float | Text | bytes,
 )
 
 class _ExtensionFieldDescriptor(FieldDescriptor, Generic[_ContainerMessageT, _ExtenderMessageT]): ...

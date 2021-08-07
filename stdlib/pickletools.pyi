@@ -36,7 +36,7 @@ def read_uint8(f: IO[bytes]) -> int: ...
 
 uint8: ArgumentDescriptor
 
-def read_stringnl(f: IO[bytes], decode: bool = ..., stripquotes: bool = ...) -> Union[bytes, str]: ...
+def read_stringnl(f: IO[bytes], decode: bool = ..., stripquotes: bool = ...) -> bytes | str: ...
 
 stringnl: ArgumentDescriptor
 
@@ -108,9 +108,9 @@ long4: ArgumentDescriptor
 
 class StackObject(object):
     name: str
-    obtype: Union[Type[Any], Tuple[Type[Any], ...]]
+    obtype: Type[Any] | Tuple[Type[Any], ...]
     doc: str
-    def __init__(self, name: str, obtype: Union[Type[Any], Tuple[Type[Any], ...]], doc: str) -> None: ...
+    def __init__(self, name: str, obtype: Type[Any] | Tuple[Type[Any], ...], doc: str) -> None: ...
 
 pyint: StackObject
 pylong: StackObject
@@ -134,7 +134,7 @@ stackslice: StackObject
 class OpcodeInfo(object):
     name: str
     code: str
-    arg: Optional[ArgumentDescriptor]
+    arg: ArgumentDescriptor | None
     stack_before: List[StackObject]
     stack_after: List[StackObject]
     proto: int
@@ -143,7 +143,7 @@ class OpcodeInfo(object):
         self,
         name: str,
         code: str,
-        arg: Optional[ArgumentDescriptor],
+        arg: ArgumentDescriptor | None,
         stack_before: List[StackObject],
         stack_after: List[StackObject],
         proto: int,
@@ -152,12 +152,12 @@ class OpcodeInfo(object):
 
 opcodes: List[OpcodeInfo]
 
-def genops(pickle: Union[bytes, IO[bytes]]) -> Iterator[Tuple[OpcodeInfo, Optional[Any], Optional[int]]]: ...
-def optimize(p: Union[bytes, IO[bytes]]) -> bytes: ...
+def genops(pickle: bytes | IO[bytes]) -> Iterator[Tuple[OpcodeInfo, Any | None, int | None]]: ...
+def optimize(p: bytes | IO[bytes]) -> bytes: ...
 def dis(
-    pickle: Union[bytes, IO[bytes]],
-    out: Optional[IO[str]] = ...,
-    memo: Optional[MutableMapping[int, Any]] = ...,
+    pickle: bytes | IO[bytes],
+    out: IO[str] | None = ...,
+    memo: MutableMapping[int, Any] | None = ...,
     indentlevel: int = ...,
     annotate: int = ...,
 ) -> None: ...
