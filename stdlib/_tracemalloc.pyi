@@ -1,6 +1,6 @@
 import sys
 from tracemalloc import _FrameTupleT, _TraceTupleT
-from typing import  Sequence, Tuple
+from typing import Sequence, Tuple
 
 def _get_object_traceback(__obj: object) -> Sequence[_FrameTupleT] | None: ...
 def _get_traces() -> Sequence[_TraceTupleT]: ...

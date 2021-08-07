@@ -3,21 +3,7 @@ import threading
 from _typeshed import Self
 from abc import abstractmethod
 from logging import Logger
-from typing import (
-    Any,
-    Callable,
-    Container,
-    Generic,
-    Iterable,
-    Iterator,
-    List,
-    
-    Protocol,
-    Sequence,
-    Set,
-    TypeVar,
-    overload,
-)
+from typing import Any, Callable, Container, Generic, Iterable, Iterator, List, Protocol, Sequence, Set, TypeVar, overload
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias

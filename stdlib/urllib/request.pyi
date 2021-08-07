@@ -4,23 +4,7 @@ from _typeshed import StrOrBytesPath
 from email.message import Message
 from http.client import HTTPMessage, HTTPResponse, _HTTPConnectionProtocol
 from http.cookiejar import CookieJar
-from typing import (
-    IO,
-    Any,
-    Callable,
-    ClassVar,
-    Dict,
-    List,
-    Mapping,
-    NoReturn,
-    
-    Pattern,
-    Sequence,
-    Tuple,
-    TypeVar,
-    
-    overload,
-)
+from typing import IO, Any, Callable, ClassVar, Dict, List, Mapping, NoReturn, Pattern, Sequence, Tuple, TypeVar, overload
 from urllib.error import HTTPError
 from urllib.response import addclosehook, addinfourl
 

@@ -3,22 +3,7 @@ import logging.handlers
 import subprocess
 import sys
 import time
-from typing import (
-    IO,
-    Any,
-    Callable,
-    ContextManager,
-    Dict,
-    Iterable,
-    List,
-    Mapping,
-    
-    Sequence,
-    Tuple,
-    Type,
-    TypeVar,
-    
-)
+from typing import IO, Any, Callable, ContextManager, Dict, Iterable, List, Mapping, Sequence, Tuple, Type, TypeVar
 
 import boto.connection
 

@@ -8,14 +8,12 @@ from typing import (
     Iterable,
     List,
     NoReturn,
-    
     Pattern,
     Protocol,
     Sequence,
     Tuple,
     Type,
     TypeVar,
-    
     overload,
 )
 

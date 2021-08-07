@@ -1,22 +1,7 @@
 import sys
 from _typeshed.wsgi import WSGIEnvironment
 from datetime import datetime, timedelta
-from typing import (
-    Any,
-    Callable,
-    Dict,
-    Iterable,
-    List,
-    Mapping,
-    
-    SupportsInt,
-    Text,
-    Tuple,
-    Type,
-    TypeVar,
-    Union,
-    overload,
-)
+from typing import Any, Callable, Dict, Iterable, List, Mapping, SupportsInt, Text, Tuple, Type, TypeVar, Union, overload
 
 from .datastructures import (
     Accept,

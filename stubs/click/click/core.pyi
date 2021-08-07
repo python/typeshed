@@ -1,19 +1,4 @@
-from typing import (
-    Any,
-    Callable,
-    ContextManager,
-    Dict,
-    Iterable,
-    List,
-    Mapping,
-    NoReturn,
-    
-    Sequence,
-    Set,
-    Tuple,
-    TypeVar,
-    Union,
-)
+from typing import Any, Callable, ContextManager, Dict, Iterable, List, Mapping, NoReturn, Sequence, Set, Tuple, TypeVar, Union
 
 from click.formatting import HelpFormatter
 from click.parser import OptionParser

@@ -1,4 +1,4 @@
-from typing import  Sequence, Tuple
+from typing import Sequence, Tuple
 
 def copy_file(
     src: str,

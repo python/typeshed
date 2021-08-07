@@ -3,22 +3,7 @@
 import queue
 import sys
 import threading
-from typing import (
-    Any,
-    AnyStr,
-    Callable,
-    ContextManager,
-    Dict,
-    Generic,
-    Iterable,
-    List,
-    Mapping,
-    
-    Sequence,
-    Tuple,
-    TypeVar,
-    
-)
+from typing import Any, AnyStr, Callable, ContextManager, Dict, Generic, Iterable, List, Mapping, Sequence, Tuple, TypeVar
 
 from .connection import Connection
 from .context import BaseContext

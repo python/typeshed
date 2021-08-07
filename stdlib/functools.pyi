@@ -9,14 +9,12 @@ from typing import (
     Iterable,
     Mapping,
     NamedTuple,
-    
     Sequence,
     Set,
     Sized,
     Tuple,
     Type,
     TypeVar,
-    
     overload,
 )
 

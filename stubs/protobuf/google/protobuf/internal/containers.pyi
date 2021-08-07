@@ -6,7 +6,6 @@ from typing import (
     List,
     Mapping as Mapping,
     MutableMapping as MutableMapping,
-    
     Sequence,
     Text,
     TypeVar,

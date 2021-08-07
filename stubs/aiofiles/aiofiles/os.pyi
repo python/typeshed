@@ -1,7 +1,7 @@
 import sys
 from _typeshed import StrOrBytesPath
 from os import stat_result
-from typing import  Sequence, Union, overload
+from typing import Sequence, Union, overload
 
 _FdOrAnyPath = Union[int, StrOrBytesPath]
 

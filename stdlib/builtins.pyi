@@ -42,7 +42,6 @@ from typing import (
     MutableSequence,
     MutableSet,
     NoReturn,
-    
     Protocol,
     Reversible,
     Sequence,

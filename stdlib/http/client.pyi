@@ -15,7 +15,6 @@ from typing import (
     Iterator,
     List,
     Mapping,
-    
     Protocol,
     Tuple,
     Type,

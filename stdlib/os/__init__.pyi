@@ -29,7 +29,6 @@ from typing import (
     Mapping,
     MutableMapping,
     NoReturn,
-    
     Protocol,
     Sequence,
     Set,

@@ -1,20 +1,5 @@
 from _typeshed.wsgi import WSGIEnvironment
-from typing import (
-    IO,
-    Any,
-    Callable,
-    Dict,
-    Generator,
-    Iterable,
-    Mapping,
-    NoReturn,
-    Optional,
-    Protocol,
-    Text,
-    Tuple,
-    TypeVar,
-    
-)
+from typing import IO, Any, Callable, Dict, Generator, Iterable, Mapping, NoReturn, Optional, Protocol, Text, Tuple, TypeVar
 
 from .datastructures import Headers
 
