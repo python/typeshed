@@ -12,20 +12,10 @@ if sys.version_info >= (3, 10):
         a: Sequence[_T], x: _T, lo: int = ..., hi: int | None = ..., *, key: Callable[[_T], SupportsLessThan] | None = ...
     ) -> int: ...
     def insort_left(
-        a: MutableSequence[_T],
-        x: _T,
-        lo: int = ...,
-        hi: int | None = ...,
-        *,
-        key: Callable[[_T], SupportsLessThan] | None = ...,
+        a: MutableSequence[_T], x: _T, lo: int = ..., hi: int | None = ..., *, key: Callable[[_T], SupportsLessThan] | None = ...
     ) -> None: ...
     def insort_right(
-        a: MutableSequence[_T],
-        x: _T,
-        lo: int = ...,
-        hi: int | None = ...,
-        *,
-        key: Callable[[_T], SupportsLessThan] | None = ...,
+        a: MutableSequence[_T], x: _T, lo: int = ..., hi: int | None = ..., *, key: Callable[[_T], SupportsLessThan] | None = ...
     ) -> None: ...
 
 else:

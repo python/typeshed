@@ -146,52 +146,22 @@ class Logger(Filterer):
         ) -> None: ...  # undocumented
     else:
         def debug(
-            self,
-            msg: Any,
-            *args: Any,
-            exc_info: _ExcInfoType = ...,
-            stack_info: bool = ...,
-            extra: dict[str, Any] | None = ...,
+            self, msg: Any, *args: Any, exc_info: _ExcInfoType = ..., stack_info: bool = ..., extra: dict[str, Any] | None = ...
         ) -> None: ...
         def info(
-            self,
-            msg: Any,
-            *args: Any,
-            exc_info: _ExcInfoType = ...,
-            stack_info: bool = ...,
-            extra: dict[str, Any] | None = ...,
+            self, msg: Any, *args: Any, exc_info: _ExcInfoType = ..., stack_info: bool = ..., extra: dict[str, Any] | None = ...
         ) -> None: ...
         def warning(
-            self,
-            msg: Any,
-            *args: Any,
-            exc_info: _ExcInfoType = ...,
-            stack_info: bool = ...,
-            extra: dict[str, Any] | None = ...,
+            self, msg: Any, *args: Any, exc_info: _ExcInfoType = ..., stack_info: bool = ..., extra: dict[str, Any] | None = ...
         ) -> None: ...
         def warn(
-            self,
-            msg: Any,
-            *args: Any,
-            exc_info: _ExcInfoType = ...,
-            stack_info: bool = ...,
-            extra: dict[str, Any] | None = ...,
+            self, msg: Any, *args: Any, exc_info: _ExcInfoType = ..., stack_info: bool = ..., extra: dict[str, Any] | None = ...
         ) -> None: ...
         def error(
-            self,
-            msg: Any,
-            *args: Any,
-            exc_info: _ExcInfoType = ...,
-            stack_info: bool = ...,
-            extra: dict[str, Any] | None = ...,
+            self, msg: Any, *args: Any, exc_info: _ExcInfoType = ..., stack_info: bool = ..., extra: dict[str, Any] | None = ...
         ) -> None: ...
         def critical(
-            self,
-            msg: Any,
-            *args: Any,
-            exc_info: _ExcInfoType = ...,
-            stack_info: bool = ...,
-            extra: dict[str, Any] | None = ...,
+            self, msg: Any, *args: Any, exc_info: _ExcInfoType = ..., stack_info: bool = ..., extra: dict[str, Any] | None = ...
         ) -> None: ...
         def log(
             self,
@@ -203,12 +173,7 @@ class Logger(Filterer):
             extra: dict[str, Any] | None = ...,
         ) -> None: ...
         def exception(
-            self,
-            msg: Any,
-            *args: Any,
-            exc_info: _ExcInfoType = ...,
-            stack_info: bool = ...,
-            extra: dict[str, Any] | None = ...,
+            self, msg: Any, *args: Any, exc_info: _ExcInfoType = ..., stack_info: bool = ..., extra: dict[str, Any] | None = ...
         ) -> None: ...
         def _log(
             self,
@@ -626,12 +591,7 @@ else:
         msg: Any, *args: Any, exc_info: _ExcInfoType = ..., stack_info: bool = ..., extra: dict[str, Any] | None = ...
     ) -> None: ...
     def log(
-        level: int,
-        msg: Any,
-        *args: Any,
-        exc_info: _ExcInfoType = ...,
-        stack_info: bool = ...,
-        extra: dict[str, Any] | None = ...,
+        level: int, msg: Any, *args: Any, exc_info: _ExcInfoType = ..., stack_info: bool = ..., extra: dict[str, Any] | None = ...
     ) -> None: ...
 
 fatal = critical

@@ -5,12 +5,7 @@ from cryptography.hazmat.primitives.hashes import HashAlgorithm
 
 class HOTP(object):
     def __init__(
-        self,
-        key: bytes,
-        length: int,
-        algorithm: HashAlgorithm,
-        backend: HMACBackend | None = ...,
-        enforce_key_length: bool = ...,
+        self, key: bytes, length: int, algorithm: HashAlgorithm, backend: HMACBackend | None = ..., enforce_key_length: bool = ...
     ): ...
     def generate(self, counter: int) -> bytes: ...
     def get_provisioning_uri(self, account_name: str, counter: int, issuer: str | None) -> str: ...

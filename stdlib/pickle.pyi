@@ -15,23 +15,13 @@ if sys.version_info >= (3, 8):
         def release(self) -> None: ...
     _BufferCallback = Optional[Callable[[PickleBuffer], Any]]
     def dump(
-        obj: Any,
-        file: IO[bytes],
-        protocol: int | None = ...,
-        *,
-        fix_imports: bool = ...,
-        buffer_callback: _BufferCallback = ...,
+        obj: Any, file: IO[bytes], protocol: int | None = ..., *, fix_imports: bool = ..., buffer_callback: _BufferCallback = ...
     ) -> None: ...
     def dumps(
         obj: Any, protocol: int | None = ..., *, fix_imports: bool = ..., buffer_callback: _BufferCallback = ...
     ) -> bytes: ...
     def load(
-        file: IO[bytes],
-        *,
-        fix_imports: bool = ...,
-        encoding: str = ...,
-        errors: str = ...,
-        buffers: Iterable[Any] | None = ...,
+        file: IO[bytes], *, fix_imports: bool = ..., encoding: str = ..., errors: str = ..., buffers: Iterable[Any] | None = ...
     ) -> Any: ...
     def loads(
         __data: bytes, *, fix_imports: bool = ..., encoding: str = ..., errors: str = ..., buffers: Iterable[Any] | None = ...
@@ -63,12 +53,7 @@ class Pickler:
 
     if sys.version_info >= (3, 8):
         def __init__(
-            self,
-            file: IO[bytes],
-            protocol: int | None = ...,
-            *,
-            fix_imports: bool = ...,
-            buffer_callback: _BufferCallback = ...,
+            self, file: IO[bytes], protocol: int | None = ..., *, fix_imports: bool = ..., buffer_callback: _BufferCallback = ...
         ) -> None: ...
         def reducer_override(self, obj: Any) -> Any: ...
     else:

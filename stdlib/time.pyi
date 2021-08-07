@@ -51,12 +51,16 @@ class _struct_time(NamedTuple):
 class struct_time(_struct_time):
     def __init__(
         self,
-        o: Tuple[int, int, int, int, int, int, int, int, int] | Tuple[int, int, int, int, int, int, int, int, int, str] | Tuple[int, int, int, int, int, int, int, int, int, str, int],
+        o: Tuple[int, int, int, int, int, int, int, int, int]
+        | Tuple[int, int, int, int, int, int, int, int, int, str]
+        | Tuple[int, int, int, int, int, int, int, int, int, str, int],
         _arg: Any = ...,
     ) -> None: ...
     def __new__(
         cls,
-        o: Tuple[int, int, int, int, int, int, int, int, int] | Tuple[int, int, int, int, int, int, int, int, int, str] | Tuple[int, int, int, int, int, int, int, int, int, str, int],
+        o: Tuple[int, int, int, int, int, int, int, int, int]
+        | Tuple[int, int, int, int, int, int, int, int, int, str]
+        | Tuple[int, int, int, int, int, int, int, int, int, str, int],
         _arg: Any = ...,
     ) -> struct_time: ...
     @property

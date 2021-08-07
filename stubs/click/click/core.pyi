@@ -198,9 +198,7 @@ class _ParamType:
     def fail(self, message: str, param: Parameter | None = ..., ctx: Context | None = ...) -> NoReturn: ...
 
 # This type is here to resolve https://github.com/python/mypy/issues/5275
-_ConvertibleType = Union[
-    type, _ParamType, Tuple[type | _ParamType, ...], Callable[[str], Any], Callable[[str | None], Any]
-]
+_ConvertibleType = Union[type, _ParamType, Tuple[type | _ParamType, ...], Callable[[str], Any], Callable[[str | None], Any]]
 
 class Parameter:
     param_type_name: str

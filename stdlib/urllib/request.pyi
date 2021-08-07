@@ -331,12 +331,8 @@ class FancyURLopener(URLopener):
     def redirect_internal(
         self, url: str, fp: IO[bytes], errcode: int, errmsg: str, headers: HTTPMessage, data: bytes | None
     ) -> _UrlopenRet | None: ...  # undocumented
-    def retry_http_basic_auth(
-        self, url: str, realm: str, data: bytes | None = ...
-    ) -> _UrlopenRet | None: ...  # undocumented
-    def retry_https_basic_auth(
-        self, url: str, realm: str, data: bytes | None = ...
-    ) -> _UrlopenRet | None: ...  # undocumented
+    def retry_http_basic_auth(self, url: str, realm: str, data: bytes | None = ...) -> _UrlopenRet | None: ...  # undocumented
+    def retry_https_basic_auth(self, url: str, realm: str, data: bytes | None = ...) -> _UrlopenRet | None: ...  # undocumented
     def retry_proxy_http_basic_auth(
         self, url: str, realm: str, data: bytes | None = ...
     ) -> _UrlopenRet | None: ...  # undocumented

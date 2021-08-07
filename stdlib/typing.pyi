@@ -422,10 +422,7 @@ class ValuesView(MappingView, Iterable[_VT_co], Generic[_VT_co]):
 class ContextManager(Protocol[_T_co]):
     def __enter__(self) -> _T_co: ...
     def __exit__(
-        self,
-        __exc_type: Type[BaseException] | None,
-        __exc_value: BaseException | None,
-        __traceback: TracebackType | None,
+        self, __exc_type: Type[BaseException] | None, __exc_value: BaseException | None, __traceback: TracebackType | None
     ) -> bool | None: ...
 
 @runtime_checkable

@@ -6,12 +6,7 @@ from cryptography.hazmat.primitives.kdf import KeyDerivationFunction
 
 class HKDF(KeyDerivationFunction):
     def __init__(
-        self,
-        algorithm: HashAlgorithm,
-        length: int,
-        salt: bytes | None,
-        info: bytes | None,
-        backend: HMACBackend | None = ...,
+        self, algorithm: HashAlgorithm, length: int, salt: bytes | None, info: bytes | None, backend: HMACBackend | None = ...
     ): ...
     def derive(self, key_material: bytes) -> bytes: ...
     def verify(self, key_material: bytes, expected_key: bytes) -> None: ...

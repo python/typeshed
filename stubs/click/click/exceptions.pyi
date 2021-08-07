@@ -37,11 +37,7 @@ class NoSuchOption(UsageError):
     option_name: str
     possibilities: List[str] | None
     def __init__(
-        self,
-        option_name: str,
-        message: str | None = ...,
-        possibilities: List[str] | None = ...,
-        ctx: Context | None = ...,
+        self, option_name: str, message: str | None = ..., possibilities: List[str] | None = ..., ctx: Context | None = ...
     ) -> None: ...
 
 class BadOptionUsage(UsageError):

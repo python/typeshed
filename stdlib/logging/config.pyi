@@ -31,9 +31,7 @@ if sys.version_info >= (3, 10):
 
 else:
     def fileConfig(
-        fname: _Path | IO[str] | RawConfigParser,
-        defaults: dict[str, str] | None = ...,
-        disable_existing_loggers: bool = ...,
+        fname: _Path | IO[str] | RawConfigParser, defaults: dict[str, str] | None = ..., disable_existing_loggers: bool = ...
     ) -> None: ...
 
 def valid_ident(s: str) -> Literal[True]: ...  # undocumented

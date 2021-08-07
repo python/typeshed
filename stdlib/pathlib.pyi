@@ -138,12 +138,7 @@ class Path(PurePath):
     # Fallback if mode is not specified
     @overload
     def open(
-        self,
-        mode: str,
-        buffering: int = ...,
-        encoding: str | None = ...,
-        errors: str | None = ...,
-        newline: str | None = ...,
+        self, mode: str, buffering: int = ..., encoding: str | None = ..., errors: str | None = ..., newline: str | None = ...
     ) -> IO[Any]: ...
     def owner(self) -> str: ...
     if sys.version_info >= (3, 9):

@@ -321,10 +321,7 @@ class AuthorityKeyIdentifier(ExtensionType):
     @property
     def authority_cert_serial_number(self) -> int | None: ...
     def __init__(
-        self,
-        key_identifier: bytes,
-        authority_cert_issuer: Iterable[GeneralName] | None,
-        authority_cert_serial_number: int | None,
+        self, key_identifier: bytes, authority_cert_issuer: Iterable[GeneralName] | None, authority_cert_serial_number: int | None
     ) -> None: ...
     @classmethod
     def from_issuer_public_key(

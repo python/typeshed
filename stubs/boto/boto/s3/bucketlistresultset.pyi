@@ -3,12 +3,7 @@ from typing import Any, Iterable, Iterator, Optional
 from .key import Key
 
 def bucket_lister(
-    bucket,
-    prefix: str = ...,
-    delimiter: str = ...,
-    marker: str = ...,
-    headers: Any | None = ...,
-    encoding_type: Any | None = ...,
+    bucket, prefix: str = ..., delimiter: str = ..., marker: str = ..., headers: Any | None = ..., encoding_type: Any | None = ...
 ): ...
 
 class BucketListResultSet(Iterable[Key]):

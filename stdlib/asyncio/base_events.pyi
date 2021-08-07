@@ -77,9 +77,7 @@ class BaseEventLoop(AbstractEventLoop, metaclass=ABCMeta):
         def create_task(self, coro: Awaitable[_T] | Generator[Any, None, _T], *, name: object = ...) -> Task[_T]: ...
     else:
         def create_task(self, coro: Awaitable[_T] | Generator[Any, None, _T]) -> Task[_T]: ...
-    def set_task_factory(
-        self, factory: Callable[[AbstractEventLoop, Generator[Any, None, _T]], Future[_T]] | None
-    ) -> None: ...
+    def set_task_factory(self, factory: Callable[[AbstractEventLoop, Generator[Any, None, _T]], Future[_T]] | None) -> None: ...
     def get_task_factory(self) -> Callable[[AbstractEventLoop, Generator[Any, None, _T]], Future[_T]] | None: ...
     # Methods for interacting with threads
     if sys.version_info >= (3, 7):
@@ -90,18 +88,9 @@ class BaseEventLoop(AbstractEventLoop, metaclass=ABCMeta):
     def set_default_executor(self, executor: Any) -> None: ...
     # Network I/O methods returning Futures.
     async def getaddrinfo(
-        self,
-        host: str | None,
-        port: str | int | None,
-        *,
-        family: int = ...,
-        type: int = ...,
-        proto: int = ...,
-        flags: int = ...,
+        self, host: str | None, port: str | int | None, *, family: int = ..., type: int = ..., proto: int = ..., flags: int = ...
     ) -> List[Tuple[AddressFamily, SocketKind, int, str, Tuple[str, int] | Tuple[str, int, int, int]]]: ...
-    async def getnameinfo(
-        self, sockaddr: Tuple[str, int] | Tuple[str, int, int, int], flags: int = ...
-    ) -> Tuple[str, str]: ...
+    async def getnameinfo(self, sockaddr: Tuple[str, int] | Tuple[str, int, int, int], flags: int = ...) -> Tuple[str, str]: ...
     if sys.version_info >= (3, 8):
         @overload
         async def create_connection(
@@ -250,13 +239,7 @@ class BaseEventLoop(AbstractEventLoop, metaclass=ABCMeta):
             ssl_handshake_timeout: float | None = ...,
         ) -> _TransProtPair: ...
         async def sendfile(
-            self,
-            transport: BaseTransport,
-            file: IO[bytes],
-            offset: int = ...,
-            count: int | None = ...,
-            *,
-            fallback: bool = ...,
+            self, transport: BaseTransport, file: IO[bytes], offset: int = ..., count: int | None = ..., *, fallback: bool = ...
         ) -> int: ...
         async def start_tls(
             self,

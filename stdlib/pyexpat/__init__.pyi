@@ -48,7 +48,9 @@ class XMLParserType(object):
     EndDoctypeDeclHandler: Callable[[], Any] | None
     ElementDeclHandler: Callable[[str, _Model], Any] | None
     AttlistDeclHandler: Callable[[str, str, str, str | None, bool], Any] | None
-    StartElementHandler: Callable[[str, Dict[str, str]], Any] | Callable[[str, List[str]], Any] | Callable[[str, Dict[str, str], List[str]], Any] | None
+    StartElementHandler: Callable[[str, Dict[str, str]], Any] | Callable[[str, List[str]], Any] | Callable[
+        [str, Dict[str, str], List[str]], Any
+    ] | None
     EndElementHandler: Callable[[str], Any] | None
     ProcessingInstructionHandler: Callable[[str, str], Any] | None
     CharacterDataHandler: Callable[[str], Any] | None

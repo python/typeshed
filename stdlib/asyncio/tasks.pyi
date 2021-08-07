@@ -112,9 +112,7 @@ if sys.version_info >= (3, 10):
         coro_or_future4: _FutureT[_T4],
         *,
         return_exceptions: bool = ...,
-    ) -> Future[
-        Tuple[_T1 | BaseException, _T2 | BaseException, _T3 | BaseException, _T4 | BaseException]
-    ]: ...
+    ) -> Future[Tuple[_T1 | BaseException, _T2 | BaseException, _T3 | BaseException, _T4 | BaseException]]: ...
     @overload
     def gather(
         coro_or_future1: _FutureT[_T1],
@@ -125,13 +123,7 @@ if sys.version_info >= (3, 10):
         *,
         return_exceptions: bool = ...,
     ) -> Future[
-        Tuple[
-            _T1 | BaseException,
-            _T2 | BaseException,
-            _T3 | BaseException,
-            _T4 | BaseException,
-            _T5 | BaseException,
-        ]
+        Tuple[_T1 | BaseException, _T2 | BaseException, _T3 | BaseException, _T4 | BaseException, _T5 | BaseException,]
     ]: ...
 
 else:
@@ -219,9 +211,7 @@ else:
         *,
         loop: AbstractEventLoop | None = ...,
         return_exceptions: bool = ...,
-    ) -> Future[
-        Tuple[_T1 | BaseException, _T2 | BaseException, _T3 | BaseException, _T4 | BaseException]
-    ]: ...
+    ) -> Future[Tuple[_T1 | BaseException, _T2 | BaseException, _T3 | BaseException, _T4 | BaseException]]: ...
     @overload
     def gather(
         coro_or_future1: _FutureT[_T1],
@@ -233,13 +223,7 @@ else:
         loop: AbstractEventLoop | None = ...,
         return_exceptions: bool = ...,
     ) -> Future[
-        Tuple[
-            _T1 | BaseException,
-            _T2 | BaseException,
-            _T3 | BaseException,
-            _T4 | BaseException,
-            _T5 | BaseException,
-        ]
+        Tuple[_T1 | BaseException, _T2 | BaseException, _T3 | BaseException, _T4 | BaseException, _T5 | BaseException,]
     ]: ...
 
 def run_coroutine_threadsafe(coro: _FutureT[_T], loop: AbstractEventLoop) -> concurrent.futures.Future[_T]: ...
@@ -262,11 +246,7 @@ else:
     def wait(fs: Iterable[_FT], *, loop: AbstractEventLoop | None = ..., timeout: float | None = ..., return_when: str = ...) -> Future[Tuple[Set[_FT], Set[_FT]]]: ...  # type: ignore
     @overload
     def wait(
-        fs: Iterable[Awaitable[_T]],
-        *,
-        loop: AbstractEventLoop | None = ...,
-        timeout: float | None = ...,
-        return_when: str = ...,
+        fs: Iterable[Awaitable[_T]], *, loop: AbstractEventLoop | None = ..., timeout: float | None = ..., return_when: str = ...
     ) -> Future[Tuple[Set[Task[_T]], Set[Task[_T]]]]: ...
     def wait_for(fut: _FutureT[_T], timeout: float | None, *, loop: AbstractEventLoop | None = ...) -> Future[_T]: ...
 
@@ -307,9 +287,7 @@ class Task(Future[_T], Generic[_T]):
 if sys.version_info >= (3, 7):
     def all_tasks(loop: AbstractEventLoop | None = ...) -> Set[Task[Any]]: ...
     if sys.version_info >= (3, 8):
-        def create_task(
-            coro: Generator[_TaskYieldType, None, _T] | Awaitable[_T], *, name: str | None = ...
-        ) -> Task[_T]: ...
+        def create_task(coro: Generator[_TaskYieldType, None, _T] | Awaitable[_T], *, name: str | None = ...) -> Task[_T]: ...
     else:
         def create_task(coro: Generator[_TaskYieldType, None, _T] | Awaitable[_T]) -> Task[_T]: ...
     def current_task(loop: AbstractEventLoop | None = ...) -> Task[Any] | None: ...

@@ -46,9 +46,7 @@ class DictLoader(BaseLoader):
 class FunctionLoader(BaseLoader):
     load_func: Any
     def __init__(self, load_func) -> None: ...
-    def get_source(
-        self, environment: Environment, template: Text
-    ) -> Tuple[Text, Text | None, Callable[..., Any] | None]: ...
+    def get_source(self, environment: Environment, template: Text) -> Tuple[Text, Text | None, Callable[..., Any] | None]: ...
 
 class PrefixLoader(BaseLoader):
     mapping: Any

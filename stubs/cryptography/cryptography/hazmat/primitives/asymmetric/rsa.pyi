@@ -42,9 +42,7 @@ class RSAPublicKey(metaclass=ABCMeta):
         self, signature: bytes, padding: AsymmetricPadding, algorithm: HashAlgorithm | Prehashed
     ) -> AsymmetricVerificationContext: ...
     @abstractmethod
-    def verify(
-        self, signature: bytes, data: bytes, padding: AsymmetricPadding, algorithm: HashAlgorithm | Prehashed
-    ) -> None: ...
+    def verify(self, signature: bytes, data: bytes, padding: AsymmetricPadding, algorithm: HashAlgorithm | Prehashed) -> None: ...
 
 RSAPublicKeyWithSerialization = RSAPublicKey
 

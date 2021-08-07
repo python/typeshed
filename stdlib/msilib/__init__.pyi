@@ -88,9 +88,7 @@ if sys.platform == "win32":
             uuid: str | None = ...,
         ) -> None: ...
         def make_short(self, file: str) -> str: ...
-        def add_file(
-            self, file: str, src: str | None = ..., version: str | None = ..., language: str | None = ...
-        ) -> str: ...
+        def add_file(self, file: str, src: str | None = ..., version: str | None = ..., language: str | None = ...) -> str: ...
         def glob(self, pattern: str, exclude: Container[str] | None = ...) -> List[str]: ...
         def remove_pyc(self) -> None: ...
     class Binary:
@@ -171,26 +169,8 @@ if sys.platform == "win32":
             self, name: str, x: int, y: int, w: int, h: int, attr: int, text: str | None, next: str | None
         ) -> Control: ...
         def radiogroup(
-            self,
-            name: str,
-            x: int,
-            y: int,
-            w: int,
-            h: int,
-            attr: int,
-            prop: str | None,
-            text: str | None,
-            next: str | None,
+            self, name: str, x: int, y: int, w: int, h: int, attr: int, prop: str | None, text: str | None, next: str | None
         ) -> RadioButtonGroup: ...
         def checkbox(
-            self,
-            name: str,
-            x: int,
-            y: int,
-            w: int,
-            h: int,
-            attr: int,
-            prop: str | None,
-            text: str | None,
-            next: str | None,
+            self, name: str, x: int, y: int, w: int, h: int, attr: int, prop: str | None, text: str | None, next: str | None
         ) -> Control: ...

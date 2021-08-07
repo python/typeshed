@@ -128,10 +128,7 @@ class PreconditionRequired(HTTPException):
 class _RetryAfter(HTTPException):
     retry_after: None | int | datetime.datetime
     def __init__(
-        self,
-        description: Text | None = ...,
-        response: Response | None = ...,
-        retry_after: None | int | datetime.datetime = ...,
+        self, description: Text | None = ..., response: Response | None = ..., retry_after: None | int | datetime.datetime = ...
     ) -> None: ...
 
 class TooManyRequests(_RetryAfter):

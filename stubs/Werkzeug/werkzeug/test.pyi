@@ -10,9 +10,7 @@ else:
     from cookielib import CookieJar
     from urllib2 import Request as U2Request
 
-def stream_encode_multipart(
-    values, use_tempfile: int = ..., threshold=..., boundary: Any | None = ..., charset: Text = ...
-): ...
+def stream_encode_multipart(values, use_tempfile: int = ..., threshold=..., boundary: Any | None = ..., charset: Text = ...): ...
 def encode_multipart(values, boundary: Any | None = ..., charset: Text = ...): ...
 def File(fd, filename: Any | None = ..., mimetype: Any | None = ...): ...
 
@@ -94,11 +92,7 @@ class Client(Generic[_R]):
     cookie_jar: Any
     allow_subdomain_redirects: Any
     def __init__(
-        self,
-        application,
-        response_wrapper: Type[_R] | None = ...,
-        use_cookies: bool = ...,
-        allow_subdomain_redirects: bool = ...,
+        self, application, response_wrapper: Type[_R] | None = ..., use_cookies: bool = ..., allow_subdomain_redirects: bool = ...
     ): ...
     def set_cookie(
         self,
