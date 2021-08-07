@@ -35,10 +35,10 @@ def parse_http_list(s: str) -> List[str]: ...
 def parse_keqv_list(l: List[str]) -> Dict[str, str]: ...
 
 if sys.platform == "win32" or sys.platform == "darwin":
-    def proxy_bypass(host: str) -> Any: ...  # Undocumented
+    def proxy_bypass(host: str) -> Any: ...  # undocumented
 
 else:
-    def proxy_bypass(host: str, proxies: Mapping[str, str] | None = ...) -> Any: ...  # Undocumented
+    def proxy_bypass(host: str, proxies: Mapping[str, str] | None = ...) -> Any: ...  # undocumented
 
 class Request:
     @property
