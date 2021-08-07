@@ -1,6 +1,9 @@
 import sys
 from typing import Any, Dict, Generic, Iterable, List, Mapping, Optional, Tuple, TypeVar, Union, overload
 
+if sys.version_info >= (3, 9):
+    from types import GenericAlias
+
 _DataType = Union[str, Mapping[str, Union[str, Morsel[Any]]]]
 _T = TypeVar("_T")
 
@@ -34,6 +37,8 @@ class Morsel(Dict[str, Any], Generic[_T]):
     def output(self, attrs: Optional[List[str]] = ..., header: str = ...) -> str: ...
     def js_output(self, attrs: Optional[List[str]] = ...) -> str: ...
     def OutputString(self, attrs: Optional[List[str]] = ...) -> str: ...
+    if sys.version_info >= (3, 9):
+        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 class BaseCookie(Dict[str, Morsel[_T]], Generic[_T]):
     def __init__(self, input: Optional[_DataType] = ...) -> None: ...

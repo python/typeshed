@@ -2,6 +2,9 @@ import sys
 from _typeshed import Self, StrOrBytesPath
 from typing import IO, Any, AnyStr, Callable, Generic, Iterable, Iterator, Union
 
+if sys.version_info >= (3, 9):
+    from types import GenericAlias
+
 if sys.version_info >= (3, 10):
     def input(
         files: Union[StrOrBytesPath, Iterable[StrOrBytesPath], None] = ...,
@@ -91,6 +94,8 @@ class FileInput(Iterable[AnyStr], Generic[AnyStr]):
     def fileno(self) -> int: ...
     def isfirstline(self) -> bool: ...
     def isstdin(self) -> bool: ...
+    if sys.version_info >= (3, 9):
+        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 if sys.version_info >= (3, 10):
     def hook_compressed(
