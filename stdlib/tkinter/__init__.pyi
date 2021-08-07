@@ -1135,7 +1135,7 @@ class Canvas(Widget, XView, YView):
         splinesteps: float = ...,
         state: Literal["normal", "active", "disabled"] = ...,
         stipple: _Bitmap = ...,
-        tags: Union[str, Tuple[str, ...]] = ...,
+        tags: _TkinterSequence[str] = ...,
         width: _ScreenUnits = ...,
     ) -> _CanvasItemId: ...
     def create_oval(
@@ -1166,7 +1166,7 @@ class Canvas(Widget, XView, YView):
         outlinestipple: _Bitmap = ...,
         state: Literal["normal", "active", "disabled"] = ...,
         stipple: _Bitmap = ...,
-        tags: Union[str, Tuple[str, ...]] = ...,
+        tags: _TkinterSequence[str] = ...,
         width: _ScreenUnits = ...,
     ) -> _CanvasItemId: ...
     def create_polygon(
@@ -1200,7 +1200,7 @@ class Canvas(Widget, XView, YView):
         splinesteps: float = ...,
         state: Literal["normal", "active", "disabled"] = ...,
         stipple: _Bitmap = ...,
-        tags: Union[str, Tuple[str, ...]] = ...,
+        tags: _TkinterSequence[str] = ...,
         width: _ScreenUnits = ...,
     ) -> _CanvasItemId: ...
     def create_rectangle(
@@ -1231,7 +1231,7 @@ class Canvas(Widget, XView, YView):
         outlinestipple: _Bitmap = ...,
         state: Literal["normal", "active", "disabled"] = ...,
         stipple: _Bitmap = ...,
-        tags: Union[str, Tuple[str, ...]] = ...,
+        tags: _TkinterSequence[str] = ...,
         width: _ScreenUnits = ...,
     ) -> _CanvasItemId: ...
     def create_text(
@@ -1250,7 +1250,7 @@ class Canvas(Widget, XView, YView):
         offset: _ScreenUnits = ...,
         state: Literal["normal", "active", "disabled"] = ...,
         stipple: _Bitmap = ...,
-        tags: Union[str, Tuple[str, ...]] = ...,
+        tags: _TkinterSequence[str] = ...,
         text: Union[float, str] = ...,
         width: _ScreenUnits = ...,
     ) -> _CanvasItemId: ...
@@ -1262,7 +1262,7 @@ class Canvas(Widget, XView, YView):
         anchor: _Anchor = ...,
         height: _ScreenUnits = ...,
         state: Literal["normal", "active", "disabled"] = ...,
-        tags: Union[str, Tuple[str, ...]] = ...,
+        tags: _TkinterSequence[str] = ...,
         width: _ScreenUnits = ...,
         window: Widget = ...,
     ) -> _CanvasItemId: ...
