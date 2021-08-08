@@ -3,7 +3,6 @@ from typing import (
     Callable,
     Iterable,
     Iterator,
-    
     Mapping as Mapping,
     MutableMapping as MutableMapping,
     Optional,

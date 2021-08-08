@@ -1,4 +1,4 @@
-from typing import  Tuple
+from typing import Tuple
 
 class ModulusPack:
     pack: dict[int, list[Tuple[int, int]]]

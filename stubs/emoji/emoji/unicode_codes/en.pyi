@@ -1,4 +1,4 @@
-from typing import  Text
+from typing import Text
 
 EMOJI_ALIAS_UNICODE_ENGLISH: dict[Text, Text]
 EMOJI_UNICODE_ENGLISH: dict[Text, Text]

@@ -10,7 +10,6 @@ from typing import (
     Any,
     AnyStr,
     Callable,
-    
     ItemsView,
     Iterable,
     KeysView,

@@ -1,4 +1,4 @@
-from typing import  Pattern, Text, Tuple
+from typing import Pattern, Text, Tuple
 from typing_extensions import Literal
 
 _DEFAULT_DELIMITER: str

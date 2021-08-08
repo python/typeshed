@@ -1,4 +1,3 @@
-
 import boto.regioninfo
 
 def regions() -> list[boto.regioninfo.RegionInfo]: ...

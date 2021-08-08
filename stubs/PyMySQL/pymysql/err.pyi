@@ -1,5 +1,5 @@
 import builtins
-from typing import  NoReturn, Type
+from typing import NoReturn, Type
 
 from .constants import ER as ER
 

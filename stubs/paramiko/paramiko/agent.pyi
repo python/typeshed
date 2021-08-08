@@ -1,6 +1,6 @@
 from socket import _RetAddress, socket
 from threading import Thread
-from typing import  Protocol, Tuple
+from typing import Protocol, Tuple
 
 from paramiko.channel import Channel
 from paramiko.message import Message

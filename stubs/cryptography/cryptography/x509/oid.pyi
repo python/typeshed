@@ -1,4 +1,3 @@
-
 from cryptography.hazmat.primitives.hashes import HashAlgorithm
 from cryptography.x509 import ObjectIdentifier
 

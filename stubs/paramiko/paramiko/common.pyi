@@ -1,5 +1,5 @@
 import sys
-from typing import  Protocol, Text, Union
+from typing import Protocol, Text, Union
 
 MSG_DISCONNECT: int
 MSG_IGNORE: int

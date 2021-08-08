@@ -1,4 +1,4 @@
-from typing import  Text
+from typing import Text
 
 from .en import (
     EMOJI_ALIAS_UNICODE_ENGLISH as EMOJI_ALIAS_UNICODE_ENGLISH,

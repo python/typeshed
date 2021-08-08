@@ -1,22 +1,5 @@
 from datetime import datetime, timedelta
-from typing import (
-    Any,
-    Callable,
-    
-    Generic,
-    Iterable,
-    Iterator,
-    
-    Mapping,
-    Sequence,
-    Set,
-    Text,
-    Tuple,
-    Type,
-    TypeVar,
-    Union,
-    overload,
-)
+from typing import Any, Callable, Generic, Iterable, Iterator, Mapping, Sequence, Set, Text, Tuple, Type, TypeVar, Union, overload
 from typing_extensions import Literal
 
 from .connection import ConnectionPool
