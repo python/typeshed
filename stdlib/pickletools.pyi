@@ -1,4 +1,4 @@
-from typing import IO, Any, Callable, Iterator, List, MutableMapping, Tuple, Type
+from typing import IO, Any, Callable, Iterator, MutableMapping, Tuple, Type
 
 _Reader = Callable[[IO[bytes]], Any]
 bytes_types: Tuple[Type[Any], ...]
@@ -135,8 +135,8 @@ class OpcodeInfo(object):
     name: str
     code: str
     arg: ArgumentDescriptor | None
-    stack_before: List[StackObject]
-    stack_after: List[StackObject]
+    stack_before: list[StackObject]
+    stack_after: list[StackObject]
     proto: int
     doc: str
     def __init__(
@@ -144,13 +144,13 @@ class OpcodeInfo(object):
         name: str,
         code: str,
         arg: ArgumentDescriptor | None,
-        stack_before: List[StackObject],
-        stack_after: List[StackObject],
+        stack_before: list[StackObject],
+        stack_after: list[StackObject],
         proto: int,
         doc: str,
     ) -> None: ...
 
-opcodes: List[OpcodeInfo]
+opcodes: list[OpcodeInfo]
 
 def genops(pickle: bytes | IO[bytes]) -> Iterator[Tuple[OpcodeInfo, Any | None, int | None]]: ...
 def optimize(p: bytes | IO[bytes]) -> bytes: ...

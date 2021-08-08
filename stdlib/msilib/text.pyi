@@ -1,9 +1,9 @@
 import sys
-from typing import List, Tuple
+from typing import Tuple
 
 if sys.platform == "win32":
 
-    ActionText: List[Tuple[str, str, str | None]]
-    UIText: List[Tuple[str, str | None]]
+    ActionText: list[Tuple[str, str, str | None]]
+    UIText: list[Tuple[str, str | None]]
 
-    tables: List[str]
+    tables: list[str]

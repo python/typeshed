@@ -1,9 +1,9 @@
 from _typeshed import Self
 from queue import Queue
 from types import TracebackType
-from typing import Any, List, Tuple, Type, Union
+from typing import Any, Tuple, Type, Union
 
-families: List[None]
+families: list[None]
 
 _Address = Union[str, Tuple[str, int]]
 

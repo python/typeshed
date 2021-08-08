@@ -1,9 +1,9 @@
 from _typeshed import StrOrBytesPath
 from tkinter import Button, Entry, Frame, Listbox, Misc, Scrollbar, StringVar, Toplevel, _TkinterSequence, commondialog
-from typing import IO, Any, ClassVar, Dict, Iterable, Tuple
+from typing import IO, Any, ClassVar, Iterable, Tuple
 from typing_extensions import Literal
 
-dialogstates: Dict[Any, Tuple[Any, Any]]
+dialogstates: dict[Any, Tuple[Any, Any]]
 
 class FileDialog:
     title: str = ...

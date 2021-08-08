@@ -1,5 +1,5 @@
 import datetime
-from typing import IO, Any, List, Text, Tuple, Union
+from typing import IO, Any, Text, Tuple, Union
 
 from ..relativedelta import relativedelta
 from ._common import _tzinfo as _tzinfo, enfold as enfold, tzname_in_python2 as tzname_in_python2, tzrangebase as tzrangebase
@@ -87,8 +87,8 @@ class tzical:
     def keys(self): ...
     def get(self, tzid: Any | None = ...): ...
 
-TZFILES: List[str]
-TZPATHS: List[str]
+TZFILES: list[str]
+TZPATHS: list[str]
 
 def datetime_exists(dt: datetime.datetime, tz: datetime.tzinfo | None = ...) -> bool: ...
 def datetime_ambiguous(dt: datetime.datetime, tz: datetime.tzinfo | None = ...) -> bool: ...

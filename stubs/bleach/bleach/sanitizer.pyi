@@ -2,10 +2,10 @@ from typing import Any, Callable, Container, Dict, Iterable, List, Pattern, Text
 
 from .html5lib_shim import BleachHTMLParser, BleachHTMLSerializer, SanitizerFilter
 
-ALLOWED_TAGS: List[Text]
-ALLOWED_ATTRIBUTES: Dict[Text, List[Text]]
-ALLOWED_STYLES: List[Text]
-ALLOWED_PROTOCOLS: List[Text]
+ALLOWED_TAGS: list[Text]
+ALLOWED_ATTRIBUTES: dict[Text, list[Text]]
+ALLOWED_STYLES: list[Text]
+ALLOWED_PROTOCOLS: list[Text]
 
 INVISIBLE_CHARACTERS: Text
 INVISIBLE_CHARACTERS_RE: Pattern[Text]

@@ -1,7 +1,7 @@
 import sys
-from typing import Any, Iterable, List, TextIO, Tuple, TypeVar
+from typing import Any, Iterable, TextIO, Tuple, TypeVar
 
-def split(s: str, comments: bool = ..., posix: bool = ...) -> List[str]: ...
+def split(s: str, comments: bool = ..., posix: bool = ...) -> list[str]: ...
 
 if sys.version_info >= (3, 8):
     def join(split_command: Iterable[str]) -> str: ...

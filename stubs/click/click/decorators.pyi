@@ -1,6 +1,6 @@
 from _typeshed import IdentityFunction
 from distutils.version import Version
-from typing import Any, Callable, Dict, Iterable, List, Text, Tuple, Type, TypeVar, Union, overload
+from typing import Any, Callable, Iterable, Text, Tuple, Type, TypeVar, Union, overload
 
 from click.core import Argument, Command, Context, Group, Option, Parameter, _ConvertibleType
 
@@ -20,7 +20,7 @@ def command(
     name: str | None = ...,
     cls: Type[Command] | None = ...,
     # Command
-    context_settings: Dict[Any, Any] | None = ...,
+    context_settings: dict[Any, Any] | None = ...,
     help: str | None = ...,
     epilog: str | None = ...,
     short_help: str | None = ...,
@@ -37,7 +37,7 @@ def group(
     name: str | None = ...,
     cls: Type[Command] = ...,
     # Group
-    commands: Dict[str, Command] | None = ...,
+    commands: dict[str, Command] | None = ...,
     # MultiCommand
     invoke_without_command: bool = ...,
     no_args_is_help: bool | None = ...,
@@ -68,8 +68,8 @@ def argument(
     metavar: str | None = ...,
     expose_value: bool = ...,
     is_eager: bool = ...,
-    envvar: str | List[str] | None = ...,
-    autocompletion: Callable[[Context, List[str], str], Iterable[str | Tuple[str, str]]] | None = ...,
+    envvar: str | list[str] | None = ...,
+    autocompletion: Callable[[Context, list[str], str], Iterable[str | Tuple[str, str]]] | None = ...,
 ) -> IdentityFunction: ...
 @overload
 def option(
@@ -96,7 +96,7 @@ def option(
     metavar: str | None = ...,
     expose_value: bool = ...,
     is_eager: bool = ...,
-    envvar: str | List[str] | None = ...,
+    envvar: str | list[str] | None = ...,
     # User-defined
     **kwargs: Any,
 ) -> IdentityFunction: ...
@@ -125,7 +125,7 @@ def option(
     metavar: str | None = ...,
     expose_value: bool = ...,
     is_eager: bool = ...,
-    envvar: str | List[str] | None = ...,
+    envvar: str | list[str] | None = ...,
     # User-defined
     **kwargs: Any,
 ) -> IdentityFunction: ...
@@ -154,7 +154,7 @@ def option(
     metavar: str | None = ...,
     expose_value: bool = ...,
     is_eager: bool = ...,
-    envvar: str | List[str] | None = ...,
+    envvar: str | list[str] | None = ...,
     # User-defined
     **kwargs: Any,
 ) -> IdentityFunction: ...
@@ -183,7 +183,7 @@ def option(
     metavar: str | None = ...,
     expose_value: bool = ...,
     is_eager: bool = ...,
-    envvar: str | List[str] | None = ...,
+    envvar: str | list[str] | None = ...,
     # User-defined
     **kwargs: Any,
 ) -> IdentityFunction: ...
@@ -210,7 +210,7 @@ def confirmation_option(
     metavar: str | None = ...,
     expose_value: bool = ...,
     is_eager: bool = ...,
-    envvar: str | List[str] | None = ...,
+    envvar: str | list[str] | None = ...,
 ) -> IdentityFunction: ...
 def password_option(
     *param_decls: str,
@@ -235,7 +235,7 @@ def password_option(
     metavar: str | None = ...,
     expose_value: bool = ...,
     is_eager: bool = ...,
-    envvar: str | List[str] | None = ...,
+    envvar: str | list[str] | None = ...,
 ) -> IdentityFunction: ...
 def version_option(
     version: str | Version | None = ...,
@@ -263,7 +263,7 @@ def version_option(
     metavar: str | None = ...,
     expose_value: bool = ...,
     is_eager: bool = ...,
-    envvar: str | List[str] | None = ...,
+    envvar: str | list[str] | None = ...,
 ) -> IdentityFunction: ...
 def help_option(
     *param_decls: str,
@@ -288,5 +288,5 @@ def help_option(
     metavar: str | None = ...,
     expose_value: bool = ...,
     is_eager: bool = ...,
-    envvar: str | List[str] | None = ...,
+    envvar: str | list[str] | None = ...,
 ) -> IdentityFunction: ...

@@ -1,4 +1,4 @@
-from typing import Any, Generator, Iterable, List, Text
+from typing import Any, Generator, Iterable, Text
 
 class HTMLParser(object):  # actually html5lib.HTMLParser
     def __getattr__(self, __name: Text) -> Any: ...  # incomplete
@@ -13,7 +13,7 @@ class HTMLSerializer(object):  # actually html5lib.serializer.HTMLSerializer
     def __getattr__(self, __name: Text) -> Any: ...  # incomplete
 
 class BleachHTMLParser(HTMLParser):
-    tags: List[Text] | None
+    tags: list[Text] | None
     strip: bool
     consume_entities: bool
     def __init__(self, tags: Iterable[Text] | None, strip: bool, consume_entities: bool, **kwargs) -> None: ...

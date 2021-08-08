@@ -9,12 +9,12 @@ _SortComparisonMethod = Callable[[str, str], int]
 _SuiteClass = Callable[[List[unittest.case.TestCase]], unittest.suite.TestSuite]
 
 class TestLoader:
-    errors: List[Type[BaseException]]
+    errors: list[Type[BaseException]]
     testMethodPrefix: str
     sortTestMethodsUsing: _SortComparisonMethod
 
     if sys.version_info >= (3, 7):
-        testNamePatterns: List[str] | None
+        testNamePatterns: list[str] | None
 
     suiteClass: _SuiteClass
     def loadTestsFromTestCase(self, testCaseClass: Type[unittest.case.TestCase]) -> unittest.suite.TestSuite: ...
@@ -31,7 +31,7 @@ if sys.version_info >= (3, 7):
         testCaseClass: Type[unittest.case.TestCase],
         prefix: str,
         sortUsing: _SortComparisonMethod = ...,
-        testNamePatterns: List[str] | None = ...,
+        testNamePatterns: list[str] | None = ...,
     ) -> Sequence[str]: ...
 
 else:

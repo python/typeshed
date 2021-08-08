@@ -1,5 +1,5 @@
 import socket
-from typing import List, Mapping, Tuple
+from typing import Mapping, Tuple
 
 from paramiko.pkey import PKey
 
@@ -8,13 +8,13 @@ class AuthenticationException(SSHException): ...
 class PasswordRequiredException(AuthenticationException): ...
 
 class BadAuthenticationType(AuthenticationException):
-    allowed_types: List[str]
+    allowed_types: list[str]
     explanation: str
-    def __init__(self, explanation: str, types: List[str]) -> None: ...
+    def __init__(self, explanation: str, types: list[str]) -> None: ...
 
 class PartialAuthentication(AuthenticationException):
-    allowed_types: List[str]
-    def __init__(self, types: List[str]) -> None: ...
+    allowed_types: list[str]
+    def __init__(self, types: list[str]) -> None: ...
 
 class ChannelException(SSHException):
     code: int

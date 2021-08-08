@@ -33,21 +33,21 @@ class AST:
 class mod(AST): ...
 
 class Module(mod):
-    body: typing.List[stmt]
-    type_ignores: typing.List[TypeIgnore]
+    body: list[stmt]
+    type_ignores: list[TypeIgnore]
 
 class Interactive(mod):
-    body: typing.List[stmt]
+    body: list[stmt]
 
 class Expression(mod):
     body: expr
 
 class FunctionType(mod):
-    argtypes: typing.List[expr]
+    argtypes: list[expr]
     returns: expr
 
 class Suite(mod):
-    body: typing.List[stmt]
+    body: list[stmt]
 
 class stmt(AST):
     lineno: int
@@ -56,34 +56,34 @@ class stmt(AST):
 class FunctionDef(stmt):
     name: identifier
     args: arguments
-    body: typing.List[stmt]
-    decorator_list: typing.List[expr]
+    body: list[stmt]
+    decorator_list: list[expr]
     returns: expr | None
     type_comment: str | None
 
 class AsyncFunctionDef(stmt):
     name: identifier
     args: arguments
-    body: typing.List[stmt]
-    decorator_list: typing.List[expr]
+    body: list[stmt]
+    decorator_list: list[expr]
     returns: expr | None
     type_comment: str | None
 
 class ClassDef(stmt):
     name: identifier
-    bases: typing.List[expr]
-    keywords: typing.List[keyword]
-    body: typing.List[stmt]
-    decorator_list: typing.List[expr]
+    bases: list[expr]
+    keywords: list[keyword]
+    body: list[stmt]
+    decorator_list: list[expr]
 
 class Return(stmt):
     value: expr | None
 
 class Delete(stmt):
-    targets: typing.List[expr]
+    targets: list[expr]
 
 class Assign(stmt):
-    targets: typing.List[expr]
+    targets: list[expr]
     value: expr
     type_comment: str | None
 
@@ -101,35 +101,35 @@ class AnnAssign(stmt):
 class For(stmt):
     target: expr
     iter: expr
-    body: typing.List[stmt]
-    orelse: typing.List[stmt]
+    body: list[stmt]
+    orelse: list[stmt]
     type_comment: str | None
 
 class AsyncFor(stmt):
     target: expr
     iter: expr
-    body: typing.List[stmt]
-    orelse: typing.List[stmt]
+    body: list[stmt]
+    orelse: list[stmt]
     type_comment: str | None
 
 class While(stmt):
     test: expr
-    body: typing.List[stmt]
-    orelse: typing.List[stmt]
+    body: list[stmt]
+    orelse: list[stmt]
 
 class If(stmt):
     test: expr
-    body: typing.List[stmt]
-    orelse: typing.List[stmt]
+    body: list[stmt]
+    orelse: list[stmt]
 
 class With(stmt):
-    items: typing.List[withitem]
-    body: typing.List[stmt]
+    items: list[withitem]
+    body: list[stmt]
     type_comment: str | None
 
 class AsyncWith(stmt):
-    items: typing.List[withitem]
-    body: typing.List[stmt]
+    items: list[withitem]
+    body: list[stmt]
     type_comment: str | None
 
 class Raise(stmt):
@@ -137,28 +137,28 @@ class Raise(stmt):
     cause: expr | None
 
 class Try(stmt):
-    body: typing.List[stmt]
-    handlers: typing.List[ExceptHandler]
-    orelse: typing.List[stmt]
-    finalbody: typing.List[stmt]
+    body: list[stmt]
+    handlers: list[ExceptHandler]
+    orelse: list[stmt]
+    finalbody: list[stmt]
 
 class Assert(stmt):
     test: expr
     msg: expr | None
 
 class Import(stmt):
-    names: typing.List[alias]
+    names: list[alias]
 
 class ImportFrom(stmt):
     module: identifier | None
-    names: typing.List[alias]
+    names: list[alias]
     level: int | None
 
 class Global(stmt):
-    names: typing.List[identifier]
+    names: list[identifier]
 
 class Nonlocal(stmt):
-    names: typing.List[identifier]
+    names: list[identifier]
 
 class Expr(stmt):
     value: expr
@@ -176,7 +176,7 @@ class Slice(slice):
     step: expr | None
 
 class ExtSlice(slice):
-    dims: typing.List[slice]
+    dims: list[slice]
 
 class Index(slice):
     value: expr
@@ -187,7 +187,7 @@ class expr(AST):
 
 class BoolOp(expr):
     op: boolop
-    values: typing.List[expr]
+    values: list[expr]
 
 class BinOp(expr):
     left: expr
@@ -208,28 +208,28 @@ class IfExp(expr):
     orelse: expr
 
 class Dict(expr):
-    keys: typing.List[expr]
-    values: typing.List[expr]
+    keys: list[expr]
+    values: list[expr]
 
 class Set(expr):
-    elts: typing.List[expr]
+    elts: list[expr]
 
 class ListComp(expr):
     elt: expr
-    generators: typing.List[comprehension]
+    generators: list[comprehension]
 
 class SetComp(expr):
     elt: expr
-    generators: typing.List[comprehension]
+    generators: list[comprehension]
 
 class DictComp(expr):
     key: expr
     value: expr
-    generators: typing.List[comprehension]
+    generators: list[comprehension]
 
 class GeneratorExp(expr):
     elt: expr
-    generators: typing.List[comprehension]
+    generators: list[comprehension]
 
 class Await(expr):
     value: expr
@@ -242,13 +242,13 @@ class YieldFrom(expr):
 
 class Compare(expr):
     left: expr
-    ops: typing.List[cmpop]
-    comparators: typing.List[expr]
+    ops: list[cmpop]
+    comparators: list[expr]
 
 class Call(expr):
     func: expr
-    args: typing.List[expr]
-    keywords: typing.List[keyword]
+    args: list[expr]
+    keywords: list[keyword]
 
 class Num(expr):
     n: float | int | complex
@@ -263,7 +263,7 @@ class FormattedValue(expr):
     format_spec: expr | None
 
 class JoinedStr(expr):
-    values: typing.List[expr]
+    values: list[expr]
 
 class Bytes(expr):
     s: bytes
@@ -292,11 +292,11 @@ class Name(expr):
     ctx: expr_context
 
 class List(expr):
-    elts: typing.List[expr]
+    elts: list[expr]
     ctx: expr_context
 
 class Tuple(expr):
-    elts: typing.List[expr]
+    elts: list[expr]
     ctx: expr_context
 
 class expr_context(AST): ...
@@ -343,23 +343,23 @@ class NotIn(cmpop): ...
 class comprehension(AST):
     target: expr
     iter: expr
-    ifs: typing.List[expr]
+    ifs: list[expr]
     is_async: int
 
 class ExceptHandler(AST):
     type: expr | None
     name: identifier | None
-    body: typing.List[stmt]
+    body: list[stmt]
     lineno: int
     col_offset: int
 
 class arguments(AST):
-    args: typing.List[arg]
+    args: list[arg]
     vararg: arg | None
-    kwonlyargs: typing.List[arg]
-    kw_defaults: typing.List[expr]
+    kwonlyargs: list[arg]
+    kw_defaults: list[expr]
     kwarg: arg | None
-    defaults: typing.List[expr]
+    defaults: list[expr]
 
 class arg(AST):
     arg: identifier

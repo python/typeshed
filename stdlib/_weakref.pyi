@@ -1,5 +1,5 @@
 import sys
-from typing import Any, Callable, Generic, List, TypeVar, overload
+from typing import Any, Callable, Generic, TypeVar, overload
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
@@ -24,7 +24,7 @@ class ReferenceType(Generic[_T]):
 ref = ReferenceType
 
 def getweakrefcount(__object: Any) -> int: ...
-def getweakrefs(object: Any) -> List[Any]: ...
+def getweakrefs(object: Any) -> list[Any]: ...
 @overload
 def proxy(object: _C, callback: Callable[[_C], Any] | None = ...) -> CallableProxyType[_C]: ...
 

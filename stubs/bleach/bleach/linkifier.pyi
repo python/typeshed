@@ -1,4 +1,4 @@
-from typing import Any, Container, Iterable, List, MutableMapping, Pattern, Protocol, Text
+from typing import Any, Container, Iterable, MutableMapping, Pattern, Protocol, Text
 
 from .html5lib_shim import Filter
 
@@ -7,9 +7,9 @@ _Attrs = MutableMapping[Any, Text]
 class _Callback(Protocol):
     def __call__(self, attrs: _Attrs, new: bool = ...) -> _Attrs: ...
 
-DEFAULT_CALLBACKS: List[_Callback]
+DEFAULT_CALLBACKS: list[_Callback]
 
-TLDS: List[Text]
+TLDS: list[Text]
 
 def build_url_re(tlds: Iterable[Text] = ..., protocols: Iterable[Text] = ...) -> Pattern[Text]: ...
 

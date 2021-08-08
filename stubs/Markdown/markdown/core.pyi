@@ -1,4 +1,4 @@
-from typing import Any, BinaryIO, Callable, ClassVar, Dict, List, Mapping, Sequence, Text, TextIO
+from typing import Any, BinaryIO, Callable, ClassVar, Mapping, Sequence, Text, TextIO
 from typing_extensions import Literal
 from xml.etree.ElementTree import Element
 
@@ -13,11 +13,11 @@ class Markdown:
     postprocessors: Registry
     parser: BlockParser
     htmlStash: HtmlStash
-    output_formats: ClassVar[Dict[Literal["xhtml", "html"], Callable[[Element], Text]]]
+    output_formats: ClassVar[dict[Literal["xhtml", "html"], Callable[[Element], Text]]]
     output_format: Literal["xhtml", "html"]
     serializer: Callable[[Element], Text]
     tab_length: int
-    block_level_elements: List[str]
+    block_level_elements: list[str]
     def __init__(
         self,
         *,

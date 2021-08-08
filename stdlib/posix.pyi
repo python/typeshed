@@ -1,7 +1,7 @@
 import sys
 from _typeshed import StrOrBytesPath
 from os import PathLike, _ExecEnv, _ExecVArgs, stat_result as stat_result
-from typing import Any, Dict, Iterable, List, NamedTuple, Sequence, Tuple, overload
+from typing import Any, Iterable, NamedTuple, Sequence, Tuple, overload
 
 class uname_result(NamedTuple):
     sysname: str
@@ -159,13 +159,13 @@ XATTR_REPLACE: int
 XATTR_SIZE_MAX: int
 
 @overload
-def listdir(path: str | None = ...) -> List[str]: ...
+def listdir(path: str | None = ...) -> list[str]: ...
 @overload
-def listdir(path: bytes) -> List[bytes]: ...
+def listdir(path: bytes) -> list[bytes]: ...
 @overload
-def listdir(path: int) -> List[str]: ...
+def listdir(path: int) -> list[str]: ...
 @overload
-def listdir(path: PathLike[str]) -> List[str]: ...
+def listdir(path: PathLike[str]) -> list[str]: ...
 
 if sys.platform != "win32" and sys.version_info >= (3, 8):
     def posix_spawn(
@@ -196,6 +196,6 @@ if sys.platform != "win32" and sys.version_info >= (3, 8):
     ) -> int: ...
 
 if sys.platform == "win32":
-    environ: Dict[str, str]
+    environ: dict[str, str]
 else:
-    environ: Dict[bytes, bytes]
+    environ: dict[bytes, bytes]

@@ -1,5 +1,5 @@
 import datetime
-from typing import Any, Dict, Iterator, List, Text, Tuple, Type, TypeVar, Union
+from typing import Any, Iterator, Text, Tuple, Type, TypeVar, Union
 
 _RetType = Union[Type[float], Type[datetime.datetime]]
 _SelfT = TypeVar("_SelfT", bound=croniter)
@@ -13,15 +13,15 @@ class croniter(Iterator[Any]):
     MONTHS_IN_YEAR: int
     RANGES: Tuple[Tuple[int, int], ...]
     DAYS: Tuple[int, ...]
-    ALPHACONV: Tuple[Dict[str, Any], ...]
-    LOWMAP: Tuple[Dict[int, Any], ...]
+    ALPHACONV: Tuple[dict[str, Any], ...]
+    LOWMAP: Tuple[dict[int, Any], ...]
     bad_length: str
     tzinfo: datetime.tzinfo | None
     cur: float
-    expanded: List[List[str]]
+    expanded: list[list[str]]
     start_time: float
     dst_start_time: float
-    nth_weekday_of_month: Dict[str, Any]
+    nth_weekday_of_month: dict[str, Any]
     def __init__(
         self,
         expr_format: Text,
@@ -45,6 +45,6 @@ class croniter(Iterator[Any]):
     def iter(self, ret_type: _RetType | None = ...) -> Iterator[Any]: ...
     def is_leap(self, year: int) -> bool: ...
     @classmethod
-    def expand(cls, expr_format: Text) -> Tuple[List[List[str]], Dict[str, Any]]: ...
+    def expand(cls, expr_format: Text) -> Tuple[list[list[str]], dict[str, Any]]: ...
     @classmethod
     def is_valid(cls, expression: Text) -> bool: ...

@@ -1,5 +1,5 @@
 from _typeshed.wsgi import StartResponse, WSGIApplication, WSGIEnvironment
-from typing import Any, Iterable, List, Mapping, Set, Text
+from typing import Any, Iterable, Mapping, Set, Text
 
 from ..middleware.proxy_fix import ProxyFix as ProxyFix
 
@@ -19,7 +19,7 @@ class PathInfoFromRequestUriFix(object):
 class HeaderRewriterFix(object):
     app: WSGIApplication
     remove_headers: Set[Text]
-    add_headers: List[Text]
+    add_headers: list[Text]
     def __init__(
         self, app: WSGIApplication, remove_headers: Iterable[Text] | None = ..., add_headers: Iterable[Text] | None = ...
     ) -> None: ...

@@ -1,6 +1,6 @@
 import datetime
 from _typeshed.wsgi import StartResponse, WSGIEnvironment
-from typing import Any, Dict, Iterable, List, NoReturn, Protocol, Text, Tuple, Type
+from typing import Any, Iterable, NoReturn, Protocol, Text, Tuple, Type
 
 from werkzeug.wrappers import Response
 
@@ -19,11 +19,11 @@ class HTTPException(Exception):
     def name(self) -> str: ...
     def get_description(self, environ: WSGIEnvironment | None = ...) -> Text: ...
     def get_body(self, environ: WSGIEnvironment | None = ...) -> Text: ...
-    def get_headers(self, environ: WSGIEnvironment | None = ...) -> List[Tuple[str, str]]: ...
+    def get_headers(self, environ: WSGIEnvironment | None = ...) -> list[Tuple[str, str]]: ...
     def get_response(self, environ: WSGIEnvironment | _EnvironContainer | None = ...) -> Response: ...
     def __call__(self, environ: WSGIEnvironment, start_response: StartResponse) -> Iterable[bytes]: ...
 
-default_exceptions: Dict[int, Type[HTTPException]]
+default_exceptions: dict[int, Type[HTTPException]]
 
 class BadRequest(HTTPException):
     code: int
@@ -41,7 +41,7 @@ class Unauthorized(HTTPException):
         self,
         description: Text | None = ...,
         response: Response | None = ...,
-        www_authenticate: None | Tuple[object, ...] | List[object] | object = ...,
+        www_authenticate: None | Tuple[object, ...] | list[object] | object = ...,
     ) -> None: ...
 
 class Forbidden(HTTPException):
