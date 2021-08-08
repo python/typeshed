@@ -1139,7 +1139,7 @@ class Canvas(Widget, XView, YView):
     @overload
     def create_line(
         self,
-        __coords: tuple[float, float, float, float],
+        __coords: tuple[float, float, float, float] | list[int] | list[float],
         *,
         activedash: str | _TkinterSequence[int] = ...,
         activefill: _Color = ...,
@@ -1199,7 +1199,7 @@ class Canvas(Widget, XView, YView):
     @overload
     def create_oval(
         self,
-        __coords: tuple[float, float, float, float],
+        __coords: tuple[float, float, float, float] | list[int] | list[float],
         *,
         activedash: str | _TkinterSequence[int] = ...,
         activefill: _Color = ...,
@@ -1263,7 +1263,7 @@ class Canvas(Widget, XView, YView):
     @overload
     def create_polygon(
         self,
-        __coords: tuple[float, ...],
+        __coords: tuple[float, ...] | list[int] | list[float],
         *,
         activedash: str | _TkinterSequence[int] = ...,
         activefill: _Color = ...,
@@ -1327,7 +1327,7 @@ class Canvas(Widget, XView, YView):
     @overload
     def create_rectangle(
         self,
-        __coords: tuple[float, float, float, float],
+        __coords: tuple[float, float, float, float] | list[int] | list[float],
         *,
         activedash: str | _TkinterSequence[int] = ...,
         activefill: _Color = ...,
@@ -1377,7 +1377,7 @@ class Canvas(Widget, XView, YView):
     @overload
     def create_text(
         self,
-        __coords: tuple[float, float],
+        __coords: tuple[float, float] | list[int] | list[float],
         *,
         activefill: _Color = ...,
         activestipple: str = ...,
@@ -1410,7 +1410,7 @@ class Canvas(Widget, XView, YView):
     @overload
     def create_window(
         self,
-        __coords: tuple[float, float],
+        __coords: tuple[float, float] | list[int] | list[float],
         *,
         anchor: _Anchor = ...,
         height: _ScreenUnits = ...,
