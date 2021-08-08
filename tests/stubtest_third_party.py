@@ -107,11 +107,11 @@ def run_stubtest(dist: Path) -> None:
             print(f"stubtest failed for {dist.name}", file=sys.stderr)
             if not allowlist_path.exists():
                 print(
-                    "\n\nRe-running stubtest with --generate-allowlist. "
-                    f"Add the following to {allowlist_path}:\n",
-                    file=sys.stderr,
+                    "\n\nRe-running stubtest with --generate-allowlist.\n"
+                    f"Add the following to {allowlist_path}:"
                 )
                 subprocess.run(cmd + ["--generate-allowlist"], env={"MYPYPATH": str(dist)})
+                print("\n\n")
             raise StubtestFailed from None
         else:
             print(f"stubtest succeeded for {dist.name}", file=sys.stderr)

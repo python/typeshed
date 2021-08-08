@@ -1,10 +1,14 @@
 from typing import Any, Generic, Iterator, Text, TypeVar, Union
 
 from google.protobuf.descriptor import FieldDescriptor
+from google.protobuf.internal.containers import RepeatedCompositeFieldContainer, RepeatedScalarFieldContainer
 from google.protobuf.message import Message
 
 _ContainerMessageT = TypeVar("_ContainerMessageT", bound=Message)
-_ExtenderMessageT = TypeVar("_ExtenderMessageT", bound=Union[Message, bool, int, float, Text, bytes])
+_ExtenderMessageT = TypeVar(
+    "_ExtenderMessageT",
+    bound=Union[Message, RepeatedScalarFieldContainer[Any], RepeatedCompositeFieldContainer[Any], bool, int, float, Text, bytes],
+)
 
 class _ExtensionFieldDescriptor(FieldDescriptor, Generic[_ContainerMessageT, _ExtenderMessageT]): ...
 
