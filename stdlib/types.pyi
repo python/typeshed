@@ -1,5 +1,4 @@
 import sys
-import typing
 from importlib.abc import _LoaderProtocol
 from importlib.machinery import ModuleSpec
 from typing import (
@@ -15,7 +14,6 @@ from typing import (
     Iterator,
     KeysView,
     Mapping,
-    Optional,
     Tuple,
     Type,
     TypeVar,
@@ -222,9 +220,7 @@ class CoroutineType:
     def close(self) -> None: ...
     def send(self, __arg: Any) -> Any: ...
     @overload
-    def throw(
-        self, __typ: Type[BaseException], __val: BaseException | object = ..., __tb: TracebackType | None = ...
-    ) -> Any: ...
+    def throw(self, __typ: Type[BaseException], __val: BaseException | object = ..., __tb: TracebackType | None = ...) -> Any: ...
     @overload
     def throw(self, __typ: BaseException, __val: None = ..., __tb: TracebackType | None = ...) -> Any: ...
 
