@@ -5,7 +5,7 @@ from _typeshed import Self
 from socket import socket as _socket
 from ssl import SSLContext, SSLSocket
 from types import TracebackType
-from typing import IO, Any, Callable, Dict, List, Pattern, Tuple, Type, Union
+from typing import IO, Any, Callable, List, Pattern, Tuple, Type, Union
 from typing_extensions import Literal
 
 # TODO: Commands should use their actual return types, not this type alias.
@@ -22,8 +22,8 @@ class IMAP4:
     debug: int = ...
     state: str = ...
     literal: str | None = ...
-    tagged_commands: Dict[bytes, List[bytes] | None]
-    untagged_responses: Dict[str, List[bytes | Tuple[bytes, bytes]]]
+    tagged_commands: dict[bytes, List[bytes] | None]
+    untagged_responses: dict[str, List[bytes | Tuple[bytes, bytes]]]
     continuation_response: str = ...
     is_readonly: bool = ...
     tagnum: int = ...
