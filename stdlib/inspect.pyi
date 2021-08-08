@@ -48,22 +48,22 @@ def isfunction(object: object) -> TypeGuard[FunctionType]: ...
 
 if sys.version_info >= (3, 8):
     def isgeneratorfunction(
-        obj: Callable[_P, Coroutine[_YieldType, _SendType, _T]] | object
-    ) -> TypeGuard[Callable[_P, Coroutine[_YieldType, _SendType, _T]]]: ...  # type: ignore
-    def iscoroutinefunction(
         obj: Callable[_P, Generator[_YieldType, _SendType, _T]] | object
     ) -> TypeGuard[Callable[_P, Generator[_YieldType, _SendType, _T]]]: ...  # type: ignore
+    def iscoroutinefunction(
+        obj: Callable[_P, Coroutine[_YieldType, _SendType, _T]] | object
+    ) -> TypeGuard[Callable[_P, Coroutine[_YieldType, _SendType, _T]]]: ...  # type: ignore
 
 else:
     def isgeneratorfunction(
-        object: Callable[_P, Coroutine[_YieldType, _SendType, _T]] | object
-    ) -> TypeGuard[Callable[_P, Generator[_YieldType, _SendType, _T]]]: ...  # type: ignore
-    def iscoroutinefunction(
         object: Callable[_P, Generator[_YieldType, _SendType, _T]] | object
     ) -> TypeGuard[Callable[_P, Generator[_YieldType, _SendType, _T]]]: ...  # type: ignore
+    def iscoroutinefunction(
+        object: Callable[_P, Coroutine[_YieldType, _SendType, _T]] | object
+    ) -> TypeGuard[Callable[_P, Coroutine[_YieldType, _SendType, _T]]]: ...  # type: ignore
 
 def isgenerator(object: Generator[_YieldType, _SendType, _T] | object) -> TypeGuard[Generator[_YieldType, _SendType, _T]]: ...
-def iscoroutine(object: Generator[_YieldType, _SendType, _T] | object) -> TypeGuard[Generator[_YieldType, _SendType, _T]]: ...
+def iscoroutine(object: Coroutine[_YieldType, _SendType, _T] | object) -> TypeGuard[Coroutine[_YieldType, _SendType, _T]]: ...
 def isawaitable(object: Awaitable[_T] | object) -> TypeGuard[Awaitable[_T]]: ...
 
 if sys.version_info >= (3, 8):
