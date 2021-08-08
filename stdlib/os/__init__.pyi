@@ -24,6 +24,7 @@ from typing import (
     Generic,
     Iterable,
     Iterator,
+    List,
     Mapping,
     MutableMapping,
     NoReturn,
