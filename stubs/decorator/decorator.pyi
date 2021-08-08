@@ -1,5 +1,5 @@
 import sys
-from typing import Any, Callable, Iterator, NamedTuple, Pattern, Text, Tuple, TypeVar
+from typing import Any, Callable, Dict, Iterator, List, NamedTuple, Pattern, Text, Tuple, TypeVar
 
 _C = TypeVar("_C", bound=Callable[..., Any])
 _Func = TypeVar("_Func", bound=Callable[..., Any])
@@ -11,13 +11,13 @@ if sys.version_info >= (3,):
     from inspect import getfullargspec as getfullargspec, iscoroutinefunction as iscoroutinefunction
 else:
     class FullArgSpec(NamedTuple):
-        args: list[str]
+        args: List[str]
         varargs: str | None
         varkw: str | None
         defaults: Tuple[Any, ...]
-        kwonlyargs: list[str]
-        kwonlydefaults: dict[str, Any]
-        annotations: dict[str, Any]
+        kwonlyargs: List[str]
+        kwonlydefaults: Dict[str, Any]
+        annotations: Dict[str, Any]
     def iscoroutinefunction(f: Callable[..., Any]) -> bool: ...
     def getfullargspec(func: Any) -> FullArgSpec: ...
 
@@ -29,19 +29,19 @@ else:
 DEF: Pattern[str]
 
 class FunctionMaker(object):
-    args: list[Text]
+    args: List[Text]
     varargs: Text | None
     varkw: Text | None
     defaults: Tuple[Any, ...]
-    kwonlyargs: list[Text]
+    kwonlyargs: List[Text]
     kwonlydefaults: Text | None
     shortsignature: Text | None
     name: Text
     doc: Text | None
     module: Text | None
-    annotations: dict[Text, Any]
+    annotations: Dict[Text, Any]
     signature: Text
-    dict: dict[Text, Any]
+    dict: Dict[Text, Any]
     def __init__(
         self,
         func: Callable[..., Any] | None = ...,
@@ -50,18 +50,18 @@ class FunctionMaker(object):
         defaults: Tuple[Any, ...] | None = ...,
         doc: Text | None = ...,
         module: Text | None = ...,
-        funcdict: dict[Text, Any] | None = ...,
+        funcdict: Dict[Text, Any] | None = ...,
     ) -> None: ...
     def update(self, func: Any, **kw: Any) -> None: ...
     def make(
-        self, src_templ: Text, evaldict: dict[Text, Any] | None = ..., addsource: bool = ..., **attrs: Any
+        self, src_templ: Text, evaldict: Dict[Text, Any] | None = ..., addsource: bool = ..., **attrs: Any
     ) -> Callable[..., Any]: ...
     @classmethod
     def create(
         cls,
         obj: Any,
         body: Text,
-        evaldict: dict[Text, Any],
+        evaldict: Dict[Text, Any],
         defaults: Tuple[Any, ...] | None = ...,
         doc: Text | None = ...,
         module: Text | None = ...,
