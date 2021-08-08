@@ -1,5 +1,5 @@
 import sys
-from typing import IO, Any, Callable, Iterable, Iterator, Optional, Pattern, Sequence, Text, Type, TypeVar, Union, overload
+from typing import IO, Any, Callable, Iterable, Iterator, Pattern, Sequence, Text, Type, TypeVar, Union, overload
 
 from yaml.constructor import BaseConstructor
 from yaml.dumper import *  # noqa: F403
@@ -264,22 +264,22 @@ def safe_dump(
 def add_implicit_resolver(
     tag: _Str,
     regexp: Pattern[str],
-    first: Optional[Iterable[Any]] = ...,
-    Loader: Optional[Type[BaseResolver]] = ...,
+    first: Iterable[Any] | None = ...,
+    Loader: Type[BaseResolver] | None = ...,
     Dumper: Type[BaseResolver] = ...,
 ) -> None: ...
 def add_path_resolver(
     tag: _Str,
     path: Iterable[Any],
-    kind: Optional[Type[Any]] = ...,
-    Loader: Optional[Type[BaseResolver]] = ...,
+    kind: Type[Any] | None = ...,
+    Loader: Type[BaseResolver] | None = ...,
     Dumper: Type[BaseResolver] = ...,
 ) -> None: ...
 def add_constructor(
-    tag: _Str, constructor: Callable[[_Constructor, Node], Any], Loader: Optional[Type[_Constructor]] = ...
+    tag: _Str, constructor: Callable[[_Constructor, Node], Any], Loader: Type[_Constructor] | None = ...
 ) -> None: ...
 def add_multi_constructor(
-    tag_prefix: _Str, multi_constructor: Callable[[_Constructor, _Str, Node], Any], Loader: Optional[Type[_Constructor]] = ...
+    tag_prefix: _Str, multi_constructor: Callable[[_Constructor, _Str, Node], Any], Loader: Type[_Constructor] | None = ...
 ) -> None: ...
 def add_representer(
     data_type: Type[_T], representer: Callable[[_Representer, _T], Node], Dumper: Type[_Representer] = ...
