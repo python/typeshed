@@ -4,7 +4,7 @@ from typing_extensions import Literal
 
 from _warnings import warn as warn, warn_explicit as warn_explicit
 
-filters: Sequence[tuple[str, str | None, Type[Warning], str | None, int]]
+filters: Sequence[tuple[str, str | None, Type[Warning], str | None, int]]  # undocumented, do not mutate
 
 def showwarning(
     message: Warning | str, category: Type[Warning], filename: str, lineno: int, file: TextIO | None = ..., line: str | None = ...
