@@ -5,40 +5,18 @@
         "stubs"
     ],
     "exclude": [
+        // Python 2 only modules.
         "**/@python2",
-        "stdlib/__main__.pyi",
-        "stdlib/encodings",
-        "stdlib/sqlite3/dbapi2.pyi",
-        "stdlib/tkinter",
-        "stdlib/xml/dom",
-        "stdlib/xml/sax",
-        "stubs/backports",
-        "stubs/backports_abc",
-        "stubs/boto",
-        "stubs/chardet",
-        "stubs/cryptography",
-        "stubs/dateparser",
-        "stubs/docutils",
+        "stubs/enum34",
         "stubs/fb303",
-        "stubs/Flask",
-        "stubs/Jinja2",
+        "stubs/futures",
+        "stubs/ipaddress",
         "stubs/kazoo",
-        "stubs/Markdown",
-        "stubs/paramiko",
-        "stubs/protobuf",
+        "stubs/openssl-python",
+        "stubs/pathlib2",
         "stubs/pymssql",
-        "stubs/PyMySQL",
-        "stubs/python-dateutil",
-        "stubs/pyvmomi",
-        "stubs/PyYAML",
-        "stubs/redis",
-        "stubs/requests",
-        "stubs/Routes",
         "stubs/scribe",
-        "stubs/simplejson",
-        "stubs/tornado",
-        "stubs/waitress",
-        "stubs/Werkzeug"
+        "stubs/tornado"
     ],
     "typeCheckingMode": "basic",
     "strictListInference": true,
@@ -67,22 +45,21 @@
     "reportIncompatibleMethodOverride": "error",
     "reportIncompatibleVariableOverride": "error",
     "reportInvalidStringEscapeSequence": "error",
-    "reportUnknownParameterType": "error",
     "reportUnknownArgumentType": "error",
     "reportUnknownLambdaType": "error",
-    "reportUnknownVariableType": "error",
-    "reportUnknownMemberType": "error",
     "reportMissingTypeArgument": "error",
     "reportUndefinedVariable": "error",
     "reportUnboundVariable": "error",
     "reportInvalidStubStatement": "error",
-    "reportUnsupportedDunderAll": "error",
     "reportInvalidTypeVarUse": "error",
     "reportPropertyTypeMismatch": "error",
     "reportSelfClsParameterName": "error",
-    // Overloapping overloads cannot be enabled at this time because
+    // Overlapping overloads cannot be enabled at this time because
     // of the "factions.Fraction.__pow__" method and "tasks.gather" function.
     // Mypy's overlapping overload logic misses these issues (see mypy
     // issue #10143 and #10157).
-    "reportOverlappingOverload": "none"
+    "reportOverlappingOverload": "none",
+    // Several stubs refer to symbols in __all__ that are conditionally
+    // declared based on platform or version checks.
+    "reportUnsupportedDunderAll": "none",
 }

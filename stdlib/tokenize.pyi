@@ -1,23 +1,8 @@
 import sys
+from _typeshed import StrOrBytesPath
 from builtins import open as _builtin_open
-from os import PathLike
 from token import *  # noqa: F403
-from typing import (
-    Any,
-    Callable,
-    Dict,
-    Generator,
-    Iterable,
-    List,
-    NamedTuple,
-    Optional,
-    Pattern,
-    Sequence,
-    Set,
-    TextIO,
-    Tuple,
-    Union,
-)
+from typing import Any, Callable, Dict, Generator, Iterable, List, NamedTuple, Pattern, Sequence, Set, TextIO, Tuple, Union
 
 if sys.version_info < (3, 7):
     COMMENT: int
@@ -50,11 +35,11 @@ class Untokenizer:
     tokens: List[str]
     prev_row: int
     prev_col: int
-    encoding: Optional[str]
+    encoding: str | None
     def __init__(self) -> None: ...
     def add_whitespace(self, start: _Position) -> None: ...
     def untokenize(self, iterable: Iterable[_Token]) -> str: ...
-    def compat(self, token: Sequence[Union[int, str]], iterable: Iterable[_Token]) -> None: ...
+    def compat(self, token: Sequence[int | str], iterable: Iterable[_Token]) -> None: ...
 
 # the docstring says "returns bytes" but is incorrect --
 # if the ENCODING token is missing, it skips the encode
@@ -62,7 +47,7 @@ def untokenize(iterable: Iterable[_Token]) -> Any: ...
 def detect_encoding(readline: Callable[[], bytes]) -> Tuple[str, Sequence[bytes]]: ...
 def tokenize(readline: Callable[[], bytes]) -> Generator[TokenInfo, None, None]: ...
 def generate_tokens(readline: Callable[[], str]) -> Generator[TokenInfo, None, None]: ...  # undocumented
-def open(filename: Union[str, bytes, int, PathLike[Any]]) -> TextIO: ...
+def open(filename: StrOrBytesPath | int) -> TextIO: ...
 def group(*choices: str) -> str: ...  # undocumented
 def any(*choices: str) -> str: ...  # undocumented
 def maybe(*choices: str) -> str: ...  # undocumented

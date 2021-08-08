@@ -1,4 +1,4 @@
-from typing import Any, List, Optional, Type
+from typing import Any, List, Type
 
 from pyVmomi.vim import ManagedEntity
 from pyVmomi.vim.view import ContainerView
@@ -47,9 +47,9 @@ class PropertyCollector:
         propSet: List[DynamicProperty]
         def __getattr__(self, name: str) -> Any: ...  # incomplete
     class RetrieveResult:
-        def __init__(self, *, objects: List[PropertyCollector.ObjectContent] = ..., token: Optional[str] = ...) -> None: ...
+        def __init__(self, *, objects: List[PropertyCollector.ObjectContent] = ..., token: str | None = ...) -> None: ...
         objects: List[PropertyCollector.ObjectContent]
-        token: Optional[str]
+        token: str | None
     def RetrievePropertiesEx(
         self, specSet: List[PropertyCollector.FilterSpec], options: PropertyCollector.RetrieveOptions
     ) -> PropertyCollector.RetrieveResult: ...

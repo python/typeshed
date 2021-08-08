@@ -2,12 +2,14 @@ import sys
 from builtins import object as _object
 from importlib.abc import Loader, PathEntryFinder
 from importlib.machinery import ModuleSpec
+from io import TextIOWrapper
 from types import FrameType, ModuleType, TracebackType
 from typing import (
     Any,
     AsyncGenerator,
     Callable,
     Dict,
+    FrozenSet,
     List,
     NoReturn,
     Optional,
@@ -20,6 +22,7 @@ from typing import (
     Union,
     overload,
 )
+from typing_extensions import Literal
 
 _T = TypeVar("_T")
 
@@ -30,10 +33,8 @@ _PathSequence = Sequence[Union[bytes, str]]
 
 # Unlike importlib.abc.MetaPathFinder, invalidate_caches() might not exist (see python docs)
 class _MetaPathFinder(Protocol):
-    def find_module(self, fullname: str, path: Optional[_PathSequence]) -> Optional[Loader]: ...
-    def find_spec(
-        self, fullname: str, path: Optional[_PathSequence], target: Optional[ModuleType] = ...
-    ) -> Optional[ModuleSpec]: ...
+    def find_module(self, fullname: str, path: _PathSequence | None) -> Loader | None: ...
+    def find_spec(self, fullname: str, path: _PathSequence | None, target: ModuleType | None = ...) -> ModuleSpec | None: ...
 
 # ----- sys variables -----
 if sys.platform != "win32":
@@ -41,7 +42,7 @@ if sys.platform != "win32":
 argv: List[str]
 base_exec_prefix: str
 base_prefix: str
-byteorder: str
+byteorder: Literal["little", "big"]
 builtin_module_names: Sequence[str]  # actually a tuple of strings
 copyright: str
 if sys.platform == "win32":
@@ -53,30 +54,34 @@ exec_prefix: str
 executable: str
 float_repr_style: str
 hexversion: int
-last_type: Optional[Type[BaseException]]
-last_value: Optional[BaseException]
-last_traceback: Optional[TracebackType]
+last_type: Type[BaseException] | None
+last_value: BaseException | None
+last_traceback: TracebackType | None
 maxsize: int
 maxunicode: int
 meta_path: List[_MetaPathFinder]
 modules: Dict[str, ModuleType]
+if sys.version_info >= (3, 10):
+    orig_argv: List[str]
 path: List[str]
 path_hooks: List[Any]  # TODO precise type; function, path to finder
-path_importer_cache: Dict[str, Optional[PathEntryFinder]]
+path_importer_cache: Dict[str, PathEntryFinder | None]
 platform: str
 if sys.version_info >= (3, 9):
     platlibdir: str
 prefix: str
 if sys.version_info >= (3, 8):
-    pycache_prefix: Optional[str]
+    pycache_prefix: str | None
 ps1: str
 ps2: str
 stdin: TextIO
 stdout: TextIO
 stderr: TextIO
-__stdin__: TextIO
-__stdout__: TextIO
-__stderr__: TextIO
+if sys.version_info >= (3, 10):
+    stdlib_module_names: FrozenSet[str]
+__stdin__: TextIOWrapper
+__stdout__: TextIOWrapper
+__stderr__: TextIOWrapper
 tracebacklimit: int
 version: str
 api_version: int
@@ -182,13 +187,13 @@ def getswitchinterval() -> float: ...
 
 _ProfileFunc = Callable[[FrameType, str, Any], Any]
 
-def getprofile() -> Optional[_ProfileFunc]: ...
-def setprofile(profilefunc: Optional[_ProfileFunc]) -> None: ...
+def getprofile() -> _ProfileFunc | None: ...
+def setprofile(profilefunc: _ProfileFunc | None) -> None: ...
 
 _TraceFunc = Callable[[FrameType, str, Any], Optional[Callable[[FrameType, str, Any], Any]]]
 
-def gettrace() -> Optional[_TraceFunc]: ...
-def settrace(tracefunc: Optional[_TraceFunc]) -> None: ...
+def gettrace() -> _TraceFunc | None: ...
+def settrace(tracefunc: _TraceFunc | None) -> None: ...
 
 class _WinVersion(Tuple[int, int, int, int, str, int, int, int, int, Tuple[int, int, int]]):
     major: int
@@ -227,10 +232,10 @@ if sys.version_info >= (3, 8):
     # not exported by sys
     class UnraisableHookArgs:
         exc_type: Type[BaseException]
-        exc_value: Optional[BaseException]
-        exc_traceback: Optional[TracebackType]
-        err_msg: Optional[str]
-        object: Optional[_object]
+        exc_value: BaseException | None
+        exc_traceback: TracebackType | None
+        err_msg: str | None
+        object: _object | None
     unraisablehook: Callable[[UnraisableHookArgs], Any]
     def addaudithook(hook: Callable[[str, Tuple[Any, ...]], Any]) -> None: ...
     def audit(__event: str, *args: Any) -> None: ...

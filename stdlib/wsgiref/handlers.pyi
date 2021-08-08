@@ -1,7 +1,6 @@
-import sys
 from abc import abstractmethod
 from types import TracebackType
-from typing import IO, Callable, Dict, List, MutableMapping, Optional, Text, Tuple, Type
+from typing import IO, Callable, Dict, List, MutableMapping, Optional, Tuple, Type
 
 from .headers import Headers
 from .types import ErrorStream, InputStream, StartResponse, WSGIApplication, WSGIEnvironment
@@ -9,10 +8,8 @@ from .util import FileWrapper
 
 _exc_info = Tuple[Optional[Type[BaseException]], Optional[BaseException], Optional[TracebackType]]
 
-def format_date_time(timestamp: Optional[float]) -> str: ...  # undocumented
-
-if sys.version_info >= (3, 2):
-    def read_environ() -> Dict[str, str]: ...
+def format_date_time(timestamp: float | None) -> str: ...  # undocumented
+def read_environ() -> Dict[str, str]: ...
 
 class BaseHandler:
     wsgi_version: Tuple[int, int]  # undocumented
@@ -22,16 +19,16 @@ class BaseHandler:
 
     origin_server: bool
     http_version: str
-    server_software: Optional[str]
+    server_software: str | None
 
     os_environ: MutableMapping[str, str]
 
-    wsgi_file_wrapper: Optional[Type[FileWrapper]]
+    wsgi_file_wrapper: Type[FileWrapper] | None
     headers_class: Type[Headers]  # undocumented
 
-    traceback_limit: Optional[int]
+    traceback_limit: int | None
     error_status: str
-    error_headers: List[Tuple[Text, Text]]
+    error_headers: List[Tuple[str, str]]
     error_body: bytes
     def run(self, application: WSGIApplication) -> None: ...
     def setup_environ(self) -> None: ...
@@ -40,7 +37,7 @@ class BaseHandler:
     def set_content_length(self) -> None: ...
     def cleanup_headers(self) -> None: ...
     def start_response(
-        self, status: Text, headers: List[Tuple[Text, Text]], exc_info: Optional[_exc_info] = ...
+        self, status: str, headers: List[Tuple[str, str]], exc_info: _exc_info | None = ...
     ) -> Callable[[bytes], None]: ...
     def send_preamble(self) -> None: ...
     def write(self, data: bytes) -> None: ...

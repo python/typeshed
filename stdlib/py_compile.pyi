@@ -1,8 +1,5 @@
-import enum
 import sys
-from typing import AnyStr, List, Optional, Text, Type, Union
-
-_EitherStr = Union[bytes, Text]
+from typing import AnyStr, List, Type
 
 class PyCompileError(Exception):
     exc_type_name: str
@@ -12,6 +9,7 @@ class PyCompileError(Exception):
     def __init__(self, exc_type: Type[BaseException], exc_value: BaseException, file: str, msg: str = ...) -> None: ...
 
 if sys.version_info >= (3, 7):
+    import enum
     class PycInvalidationMode(enum.Enum):
         TIMESTAMP: int = ...
         CHECKED_HASH: int = ...
@@ -21,32 +19,27 @@ if sys.version_info >= (3, 7):
 if sys.version_info >= (3, 8):
     def compile(
         file: AnyStr,
-        cfile: Optional[AnyStr] = ...,
-        dfile: Optional[AnyStr] = ...,
+        cfile: AnyStr | None = ...,
+        dfile: AnyStr | None = ...,
         doraise: bool = ...,
         optimize: int = ...,
-        invalidation_mode: Optional[PycInvalidationMode] = ...,
+        invalidation_mode: PycInvalidationMode | None = ...,
         quiet: int = ...,
-    ) -> Optional[AnyStr]: ...
+    ) -> AnyStr | None: ...
 
 elif sys.version_info >= (3, 7):
     def compile(
         file: AnyStr,
-        cfile: Optional[AnyStr] = ...,
-        dfile: Optional[AnyStr] = ...,
+        cfile: AnyStr | None = ...,
+        dfile: AnyStr | None = ...,
         doraise: bool = ...,
         optimize: int = ...,
-        invalidation_mode: Optional[PycInvalidationMode] = ...,
-    ) -> Optional[AnyStr]: ...
-
-elif sys.version_info >= (3, 2):
-    def compile(
-        file: AnyStr, cfile: Optional[AnyStr] = ..., dfile: Optional[AnyStr] = ..., doraise: bool = ..., optimize: int = ...
-    ) -> Optional[AnyStr]: ...
+        invalidation_mode: PycInvalidationMode | None = ...,
+    ) -> AnyStr | None: ...
 
 else:
     def compile(
-        file: _EitherStr, cfile: Optional[_EitherStr] = ..., dfile: Optional[_EitherStr] = ..., doraise: bool = ...
-    ) -> None: ...
+        file: AnyStr, cfile: AnyStr | None = ..., dfile: AnyStr | None = ..., doraise: bool = ..., optimize: int = ...
+    ) -> AnyStr | None: ...
 
-def main(args: Optional[List[Text]] = ...) -> int: ...
+def main(args: List[str] | None = ...) -> int: ...
