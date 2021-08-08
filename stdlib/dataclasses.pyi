@@ -1,5 +1,5 @@
 import sys
-from typing import Any, Callable, Dict, Generic, Iterable, List, Mapping, Optional, Tuple, Type, TypeVar, Union, overload
+from typing import Any, Callable, Dict, Generic, Iterable, List, Mapping, Tuple, Type, TypeVar, overload
 from typing_extensions import Protocol
 
 if sys.version_info >= (3, 9):
@@ -74,7 +74,7 @@ class Field(Generic[_T]):
     default: _T
     default_factory: _DefaultFactory[_T]
     repr: bool
-    hash: Optional[bool]
+    hash: bool | None
     init: bool
     compare: bool
     metadata: Mapping[str, Any]
@@ -86,7 +86,7 @@ class Field(Generic[_T]):
             default_factory: Callable[[], _T],
             init: bool,
             repr: bool,
-            hash: Optional[bool],
+            hash: bool | None,
             compare: bool,
             metadata: Mapping[str, Any],
             kw_only: bool,
@@ -98,7 +98,7 @@ class Field(Generic[_T]):
             default_factory: Callable[[], _T],
             init: bool,
             repr: bool,
-            hash: Optional[bool],
+            hash: bool | None,
             compare: bool,
             metadata: Mapping[str, Any],
         ) -> None: ...
@@ -114,9 +114,9 @@ if sys.version_info >= (3, 10):
         default: _T,
         init: bool = ...,
         repr: bool = ...,
-        hash: Optional[bool] = ...,
+        hash: bool | None = ...,
         compare: bool = ...,
-        metadata: Optional[Mapping[str, Any]] = ...,
+        metadata: Mapping[str, Any] | None = ...,
         kw_only: bool = ...,
     ) -> _T: ...
     @overload
@@ -125,9 +125,9 @@ if sys.version_info >= (3, 10):
         default_factory: Callable[[], _T],
         init: bool = ...,
         repr: bool = ...,
-        hash: Optional[bool] = ...,
+        hash: bool | None = ...,
         compare: bool = ...,
-        metadata: Optional[Mapping[str, Any]] = ...,
+        metadata: Mapping[str, Any] | None = ...,
         kw_only: bool = ...,
     ) -> _T: ...
     @overload
@@ -135,9 +135,9 @@ if sys.version_info >= (3, 10):
         *,
         init: bool = ...,
         repr: bool = ...,
-        hash: Optional[bool] = ...,
+        hash: bool | None = ...,
         compare: bool = ...,
-        metadata: Optional[Mapping[str, Any]] = ...,
+        metadata: Mapping[str, Any] | None = ...,
         kw_only: bool = ...,
     ) -> Any: ...
 
@@ -148,9 +148,9 @@ else:
         default: _T,
         init: bool = ...,
         repr: bool = ...,
-        hash: Optional[bool] = ...,
+        hash: bool | None = ...,
         compare: bool = ...,
-        metadata: Optional[Mapping[str, Any]] = ...,
+        metadata: Mapping[str, Any] | None = ...,
     ) -> _T: ...
     @overload
     def field(
@@ -158,18 +158,18 @@ else:
         default_factory: Callable[[], _T],
         init: bool = ...,
         repr: bool = ...,
-        hash: Optional[bool] = ...,
+        hash: bool | None = ...,
         compare: bool = ...,
-        metadata: Optional[Mapping[str, Any]] = ...,
+        metadata: Mapping[str, Any] | None = ...,
     ) -> _T: ...
     @overload
     def field(
         *,
         init: bool = ...,
         repr: bool = ...,
-        hash: Optional[bool] = ...,
+        hash: bool | None = ...,
         compare: bool = ...,
-        metadata: Optional[Mapping[str, Any]] = ...,
+        metadata: Mapping[str, Any] | None = ...,
     ) -> Any: ...
 
 def fields(class_or_instance: Any) -> Tuple[Field[Any], ...]: ...
@@ -189,10 +189,10 @@ class InitVar(Generic[_T]):
 if sys.version_info >= (3, 10):
     def make_dataclass(
         cls_name: str,
-        fields: Iterable[Union[str, Tuple[str, type], Tuple[str, type, Field[Any]]]],
+        fields: Iterable[str | Tuple[str, type] | Tuple[str, type, Field[Any]]],
         *,
         bases: Tuple[type, ...] = ...,
-        namespace: Optional[Dict[str, Any]] = ...,
+        namespace: Dict[str, Any] | None = ...,
         init: bool = ...,
         repr: bool = ...,
         eq: bool = ...,
@@ -206,10 +206,10 @@ if sys.version_info >= (3, 10):
 else:
     def make_dataclass(
         cls_name: str,
-        fields: Iterable[Union[str, Tuple[str, type], Tuple[str, type, Field[Any]]]],
+        fields: Iterable[str | Tuple[str, type] | Tuple[str, type, Field[Any]]],
         *,
         bases: Tuple[type, ...] = ...,
-        namespace: Optional[Dict[str, Any]] = ...,
+        namespace: Dict[str, Any] | None = ...,
         init: bool = ...,
         repr: bool = ...,
         eq: bool = ...,

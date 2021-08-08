@@ -1,4 +1,4 @@
-from typing import Dict, Optional
+from typing import Dict
 
 from cryptography.hazmat.primitives.hashes import HashAlgorithm
 from cryptography.x509 import ObjectIdentifier
@@ -103,4 +103,4 @@ class CertificatePoliciesOID:
 
 _OID_NAMES: Dict[ObjectIdentifier, str] = ...
 
-_SIG_OIDS_TO_HASH: Dict[ObjectIdentifier, Optional[HashAlgorithm]] = ...
+_SIG_OIDS_TO_HASH: Dict[ObjectIdentifier, HashAlgorithm | None] = ...
