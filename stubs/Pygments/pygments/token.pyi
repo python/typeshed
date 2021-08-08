@@ -30,5 +30,5 @@ Generic: _TokenType
 def is_token_subtype(ttype, other): ...
 def string_to_tokentype(s): ...
 
-#  but shouldn't be mutated
+# Dict, but shouldn't be mutated
 STANDARD_TYPES: Mapping[_TokenType, str]
