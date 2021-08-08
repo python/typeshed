@@ -28,9 +28,9 @@ class croniter(Iterator[Any]):
         start_time: float | datetime.datetime | None = ...,
         ret_type: _RetType | None = ...,
         day_or: bool = ...,
-        max_years_between_matches: Optional[int] = ...,
+        max_years_between_matches: int | None = ...,
         is_prev: bool = ...,
-        hash_id: Optional[Union[bytes, str]] = ...,
+        hash_id: str | bytes = ...,  # unicode not accepted on python 2
     ) -> None: ...
     # Most return value depend on ret_type, which can be passed in both as a method argument and as
     # a constructor argument.
