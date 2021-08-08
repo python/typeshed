@@ -1,8 +1,8 @@
-from typing import Any, Tuple, Type, overload
+from typing import Any, Optional, Tuple, Type, overload
 
 _defaultaction: str
 _onceregistry: dict[Any, Any]
-filters: list[Tuple[Any, ...]]
+filters: list[Tuple[str, Optional[str], Type[Warning], Optional[str], int]]
 
 @overload
 def warn(message: str, category: Type[Warning] | None = ..., stacklevel: int = ..., source: Any | None = ...) -> None: ...
