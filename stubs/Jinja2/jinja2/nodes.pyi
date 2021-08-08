@@ -56,9 +56,9 @@ class If(Stmt):
 class Macro(Stmt):
     fields: Any
     name: str
-    args: list[Any]
-    defaults: list[Any]
-    body: list[Any]
+    args: typing.List[Any]
+    defaults: typing.List[Any]
+    body: typing.List[Any]
 
 class CallBlock(Stmt):
     fields: Any
