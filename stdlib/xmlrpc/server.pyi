@@ -34,11 +34,11 @@ class _DispatchArityN(Protocol):
 _DispatchProtocol = Union[_DispatchArity0, _DispatchArity1, _DispatchArity2, _DispatchArity3, _DispatchArity4, _DispatchArityN]
 
 def resolve_dotted_attribute(obj: Any, attr: str, allow_dotted_names: bool = ...) -> Any: ...  # undocumented
-def list_public_methods(obj: Any) -> List[str]: ...  # undocumented
+def list_public_methods(obj: Any) -> list[str]: ...  # undocumented
 
 class SimpleXMLRPCDispatcher:  # undocumented
 
-    funcs: Dict[str, _DispatchProtocol]
+    funcs: dict[str, _DispatchProtocol]
     instance: Any | None
     allow_none: bool
     encoding: str
@@ -57,10 +57,10 @@ class SimpleXMLRPCDispatcher:  # undocumented
         dispatch_method: Callable[[str | None, Tuple[_Marshallable, ...]], Fault | Tuple[_Marshallable, ...]] | None = ...,
         path: Any | None = ...,
     ) -> str: ...  # undocumented
-    def system_listMethods(self) -> List[str]: ...  # undocumented
+    def system_listMethods(self) -> list[str]: ...  # undocumented
     def system_methodSignature(self, method_name: str) -> str: ...  # undocumented
     def system_methodHelp(self, method_name: str) -> str: ...  # undocumented
-    def system_multicall(self, call_list: List[Dict[str, _Marshallable]]) -> List[_Marshallable]: ...  # undocumented
+    def system_multicall(self, call_list: list[dict[str, _Marshallable]]) -> list[_Marshallable]: ...  # undocumented
     def _dispatch(self, method: str, params: Iterable[_Marshallable]) -> _Marshallable: ...  # undocumented
 
 class SimpleXMLRPCRequestHandler(http.server.BaseHTTPRequestHandler):
@@ -68,7 +68,7 @@ class SimpleXMLRPCRequestHandler(http.server.BaseHTTPRequestHandler):
     rpc_paths: Tuple[str, str] = ...
     encode_threshold: int = ...  # undocumented
     aepattern: Pattern[str]  # undocumented
-    def accept_encodings(self) -> Dict[str, float]: ...
+    def accept_encodings(self) -> dict[str, float]: ...
     def is_rpc_path_valid(self) -> bool: ...
     def do_POST(self) -> None: ...
     def decode_request_content(self, data: bytes) -> bytes | None: ...
@@ -92,7 +92,7 @@ class SimpleXMLRPCServer(socketserver.TCPServer, SimpleXMLRPCDispatcher):
 
 class MultiPathXMLRPCServer(SimpleXMLRPCServer):  # undocumented
 
-    dispatchers: Dict[str, SimpleXMLRPCDispatcher]
+    dispatchers: dict[str, SimpleXMLRPCDispatcher]
     allow_none: bool
     encoding: str
     def __init__(
@@ -122,7 +122,7 @@ class CGIXMLRPCRequestHandler(SimpleXMLRPCDispatcher):
 
 class ServerHTMLDoc(pydoc.HTMLDoc):  # undocumented
     def docroutine(self, object: object, name: str, mod: str | None = ..., funcs: Mapping[str, str] = ..., classes: Mapping[str, str] = ..., methods: Mapping[str, str] = ..., cl: type | None = ...) -> str: ...  # type: ignore
-    def docserver(self, server_name: str, package_documentation: str, methods: Dict[str, str]) -> str: ...
+    def docserver(self, server_name: str, package_documentation: str, methods: dict[str, str]) -> str: ...
 
 class XMLRPCDocGenerator:  # undocumented
 
