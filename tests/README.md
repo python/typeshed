@@ -113,3 +113,7 @@ check on the command line:
 ```
 (.venv3)$ python3 tests/stubtest_third_party.py Pillow toml  # check stubs/Pillow and stubs/toml
 ```
+
+For each distribution, stubtest ignores definitions listed in a `@tests/stubtest_allowlist.txt` file,
+relative to the distribution. Additional packages that are needed to run stubtest for a
+distribution can be added to `@tests/requirements-stubtest.txt`.

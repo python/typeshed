@@ -141,12 +141,12 @@ class ProcessPoolExecutor(_base.Executor):
     if sys.version_info >= (3, 7):
         def __init__(
             self,
-            max_workers: Optional[int] = ...,
-            mp_context: Optional[mpcont.BaseContext] = ...,
-            initializer: Optional[Callable[..., None]] = ...,
+            max_workers: int | None = ...,
+            mp_context: mpcont.BaseContext | None = ...,
+            initializer: Callable[..., None] | None = ...,
             initargs: Tuple[Any, ...] = ...,
         ) -> None: ...
     else:
-        def __init__(self, max_workers: Optional[int] = ...) -> None: ...
+        def __init__(self, max_workers: int | None = ...) -> None: ...
     def _start_executor_manager_thread(self) -> None: ...
     def _adjust_process_count(self) -> None: ...

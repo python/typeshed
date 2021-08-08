@@ -1,28 +1,25 @@
 import sys
 from _typeshed import StrOrBytesPath
 from os import PathLike
-from typing import Any, AnyStr, Callable, Dict, Generic, Iterable, List, Optional, Sequence, Tuple, Union
+from typing import Any, AnyStr, Callable, Dict, Generic, Iterable, List, Sequence, Tuple
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
 
 DEFAULT_IGNORES: List[str]
 
-def cmp(f1: StrOrBytesPath, f2: StrOrBytesPath, shallow: Union[int, bool] = ...) -> bool: ...
+def cmp(f1: StrOrBytesPath, f2: StrOrBytesPath, shallow: int | bool = ...) -> bool: ...
 def cmpfiles(
-    a: Union[AnyStr, PathLike[AnyStr]],
-    b: Union[AnyStr, PathLike[AnyStr]],
-    common: Iterable[AnyStr],
-    shallow: Union[int, bool] = ...,
+    a: AnyStr | PathLike[AnyStr], b: AnyStr | PathLike[AnyStr], common: Iterable[AnyStr], shallow: int | bool = ...
 ) -> Tuple[List[AnyStr], List[AnyStr], List[AnyStr]]: ...
 
 class dircmp(Generic[AnyStr]):
     def __init__(
         self,
-        a: Union[AnyStr, PathLike[AnyStr]],
-        b: Union[AnyStr, PathLike[AnyStr]],
-        ignore: Optional[Sequence[AnyStr]] = ...,
-        hide: Optional[Sequence[AnyStr]] = ...,
+        a: AnyStr | PathLike[AnyStr],
+        b: AnyStr | PathLike[AnyStr],
+        ignore: Sequence[AnyStr] | None = ...,
+        hide: Sequence[AnyStr] | None = ...,
     ) -> None: ...
     left: AnyStr
     right: AnyStr

@@ -50,16 +50,16 @@ class LegacyInterpolation(Interpolation):
     def before_get(self, parser: _parser, section: str, option: str, value: str, vars: _section) -> str: ...
 
 class RawConfigParser(_parser):
-    _SECT_TMPL: ClassVar[str] = ...  # Undocumented
-    _OPT_TMPL: ClassVar[str] = ...  # Undocumented
-    _OPT_NV_TMPL: ClassVar[str] = ...  # Undocumented
+    _SECT_TMPL: ClassVar[str] = ...  # undocumented
+    _OPT_TMPL: ClassVar[str] = ...  # undocumented
+    _OPT_NV_TMPL: ClassVar[str] = ...  # undocumented
 
     SECTCRE: Pattern[str] = ...
     OPTCRE: ClassVar[Pattern[str]] = ...
-    OPTCRE_NV: ClassVar[Pattern[str]] = ...  # Undocumented
-    NONSPACECRE: ClassVar[Pattern[str]] = ...  # Undocumented
+    OPTCRE_NV: ClassVar[Pattern[str]] = ...  # undocumented
+    NONSPACECRE: ClassVar[Pattern[str]] = ...  # undocumented
 
-    BOOLEAN_STATES: ClassVar[Mapping[str, bool]] = ...  # Undocumented
+    BOOLEAN_STATES: ClassVar[Mapping[str, bool]] = ...  # undocumented
     default_section: str
     @overload
     def __init__(
