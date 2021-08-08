@@ -1,4 +1,4 @@
-from typing import  NamedTuple
+from typing import NamedTuple
 
 class struct_spwd(NamedTuple):
     sp_namp: str

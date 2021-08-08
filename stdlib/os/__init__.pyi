@@ -21,11 +21,9 @@ from typing import (
     BinaryIO,
     Callable,
     ContextManager,
-    
     Generic,
     Iterable,
     Iterator,
-    
     Mapping,
     MutableMapping,
     NoReturn,

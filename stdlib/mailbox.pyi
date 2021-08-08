@@ -7,11 +7,9 @@ from typing import (
     Any,
     AnyStr,
     Callable,
-    
     Generic,
     Iterable,
     Iterator,
-    
     Mapping,
     Protocol,
     Sequence,

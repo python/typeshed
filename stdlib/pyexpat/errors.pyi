@@ -1,4 +1,3 @@
-
 codes: dict[str, int]
 messages: dict[int, str]
 

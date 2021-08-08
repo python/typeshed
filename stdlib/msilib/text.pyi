@@ -1,5 +1,5 @@
 import sys
-from typing import  Tuple
+from typing import Tuple
 
 if sys.platform == "win32":
 

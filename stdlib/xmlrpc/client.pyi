@@ -95,7 +95,9 @@ class ExpatParser:  # undocumented
 
 class Marshaller:
 
-    dispatch: dict[Type[Any], Callable[[Marshaller, Any, Callable[[str], Any]], None]] = ...  # TODO: Replace 'Any' with some kind of binding
+    dispatch: dict[
+        Type[Any], Callable[[Marshaller, Any, Callable[[str], Any]], None]
+    ] = ...  # TODO: Replace 'Any' with some kind of binding
 
     memo: dict[Any, None]
     data: None

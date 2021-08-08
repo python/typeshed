@@ -8,7 +8,6 @@ from typing import (
     Dict,
     Iterable,
     Iterator,
-    
     Mapping,
     MutableMapping,
     Optional,

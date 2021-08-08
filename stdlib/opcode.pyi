@@ -1,5 +1,5 @@
 import sys
-from typing import  Sequence
+from typing import Sequence
 
 cmp_op: Sequence[str]
 hasconst: list[int]

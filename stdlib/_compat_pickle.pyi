@@ -1,4 +1,4 @@
-from typing import  Tuple
+from typing import Tuple
 
 IMPORT_MAPPING: dict[str, str]
 NAME_MAPPING: dict[Tuple[str, str], Tuple[str, str]]

@@ -8,9 +8,7 @@ from typing import (
     Any,
     AsyncGenerator,
     Callable,
-    
     FrozenSet,
-    
     NoReturn,
     Optional,
     Protocol,

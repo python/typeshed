@@ -7,7 +7,6 @@ from typing import (
     Generic,
     Iterable,
     Iterator,
-    
     Mapping,
     Optional,
     Sequence,

@@ -1,5 +1,5 @@
 import sys
-from typing import  Optional, Sequence, Tuple, Union, overload
+from typing import Optional, Sequence, Tuple, Union, overload
 
 from _tracemalloc import *
 

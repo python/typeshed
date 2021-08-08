@@ -1,4 +1,4 @@
-from typing import  Iterable, Sequence, Tuple, TypeVar
+from typing import Iterable, Sequence, Tuple, TypeVar
 
 _T = TypeVar("_T")
 _K = TypeVar("_K")

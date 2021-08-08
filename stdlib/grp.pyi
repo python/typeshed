@@ -1,4 +1,4 @@
-from typing import  NamedTuple
+from typing import NamedTuple
 
 class struct_group(NamedTuple):
     gr_name: str

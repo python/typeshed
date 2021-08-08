@@ -1,6 +1,6 @@
 from _typeshed import Self
 from types import TracebackType
-from typing import  Type, TypeVar, Union, overload
+from typing import Type, TypeVar, Union, overload
 
 _T = TypeVar("_T")
 _KeyType = Union[str, bytes]

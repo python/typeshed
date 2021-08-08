@@ -3,7 +3,6 @@ from _typeshed import SupportsItems, SupportsLessThan
 from typing import (
     Any,
     Callable,
-    
     Generic,
     Hashable,
     Iterable,

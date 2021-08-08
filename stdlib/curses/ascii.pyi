@@ -1,4 +1,4 @@
-from typing import  TypeVar
+from typing import TypeVar
 
 _CharT = TypeVar("_CharT", str, int)
 

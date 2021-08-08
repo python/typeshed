@@ -29,14 +29,12 @@ from typing import (
     BinaryIO,
     ByteString,
     Callable,
-    
     FrozenSet,
     Generic,
     ItemsView,
     Iterable,
     Iterator,
     KeysView,
-    
     Mapping,
     MutableMapping,
     MutableSequence,

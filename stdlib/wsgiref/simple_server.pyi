@@ -1,5 +1,5 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from typing import  Type, TypeVar, overload
+from typing import Type, TypeVar, overload
 
 from .handlers import SimpleHandler
 from .types import ErrorStream, StartResponse, WSGIApplication, WSGIEnvironment

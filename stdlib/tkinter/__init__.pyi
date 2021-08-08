@@ -5,22 +5,7 @@ from enum import Enum
 from tkinter.constants import *  # comment this out to find undefined identifier names with flake8
 from tkinter.font import _FontDescription
 from types import TracebackType
-from typing import (
-    Any,
-    Callable,
-    
-    Generic,
-    List,
-    Mapping,
-    Optional,
-    Protocol,
-    Sequence,
-    Tuple,
-    Type,
-    TypeVar,
-    Union,
-    overload,
-)
+from typing import Any, Callable, Generic, List, Mapping, Optional, Protocol, Sequence, Tuple, Type, TypeVar, Union, overload
 from typing_extensions import Literal, TypedDict
 
 # Using anything from tkinter.font in this file means that 'import tkinter'
