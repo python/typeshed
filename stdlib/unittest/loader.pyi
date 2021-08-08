@@ -3,10 +3,10 @@ import unittest.case
 import unittest.result
 import unittest.suite
 from types import ModuleType
-from typing import Any, Callable, List, Sequence, Type
+from typing import Any, Callable, Sequence, Type
 
 _SortComparisonMethod = Callable[[str, str], int]
-_SuiteClass = Callable[[List[unittest.case.TestCase]], unittest.suite.TestSuite]
+_SuiteClass = Callable[[list[unittest.case.TestCase]], unittest.suite.TestSuite]
 
 class TestLoader:
     errors: list[Type[BaseException]]

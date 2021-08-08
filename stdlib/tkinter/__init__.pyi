@@ -5,7 +5,7 @@ from enum import Enum
 from tkinter.constants import *  # comment this out to find undefined identifier names with flake8
 from tkinter.font import _FontDescription
 from types import TracebackType
-from typing import Any, Callable, Generic, List, Mapping, Optional, Protocol, Sequence, Tuple, Type, TypeVar, Union, overload
+from typing import Any, Callable, Generic, Mapping, Optional, Protocol, Sequence, Tuple, Type, TypeVar, Union, overload
 from typing_extensions import Literal, TypedDict
 
 # Using anything from tkinter.font in this file means that 'import tkinter'
@@ -82,8 +82,8 @@ EXCEPTION = _tkinter.EXCEPTION
 #      ...
 #    _tkinter.TclError: unknown font style "deque(['bold'])"
 _T = TypeVar("_T")
-_TkinterSequence = Union[List[_T], Tuple[_T, ...]]
-_TkinterSequence2D = Union[List[List[_T]], List[Tuple[_T, ...]], Tuple[List[_T], ...], Tuple[Tuple[_T, ...], ...]]
+_TkinterSequence = Union[list[_T], Tuple[_T, ...]]
+_TkinterSequence2D = Union[list[list[_T]], list[Tuple[_T, ...]], Tuple[list[_T], ...], Tuple[Tuple[_T, ...], ...]]
 
 # Some widgets have an option named -compound that accepts different values
 # than the _Compound defined here. Many other options have similar things.

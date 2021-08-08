@@ -1,9 +1,9 @@
 from _typeshed import StrPath
-from typing import Dict, List, Optional, Tuple, TypeVar
+from typing import Dict, Optional, Tuple, TypeVar
 
 _P = TypeVar("_P")
 _Label = Tuple[int, Optional[str]]
-_DFA = List[List[Tuple[int, int]]]
+_DFA = list[list[Tuple[int, int]]]
 _DFAS = Tuple[_DFA, Dict[int, int]]
 
 class Grammar:

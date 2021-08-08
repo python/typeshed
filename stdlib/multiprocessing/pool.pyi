@@ -1,6 +1,6 @@
 import sys
 from _typeshed import Self
-from typing import Any, Callable, ContextManager, Generic, Iterable, Iterator, List, Mapping, TypeVar
+from typing import Any, Callable, ContextManager, Generic, Iterable, Iterator, Mapping, TypeVar
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
@@ -26,7 +26,7 @@ class ApplyResult(Generic[_T]):
 # alias created during issue #17805
 AsyncResult = ApplyResult
 
-class MapResult(ApplyResult[List[_T]]): ...
+class MapResult(ApplyResult[list[_T]]): ...
 
 class IMapIterator(Iterator[_T]):
     def __iter__(self: _S) -> _S: ...

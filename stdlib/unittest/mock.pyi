@@ -1,5 +1,5 @@
 import sys
-from typing import Any, Callable, Generic, Iterable, List, Mapping, Sequence, Tuple, Type, TypeVar, overload
+from typing import Any, Callable, Generic, Iterable, Mapping, Sequence, Tuple, Type, TypeVar, overload
 
 _F = TypeVar("_F", bound=Callable[..., Any])
 _T = TypeVar("_T")
@@ -60,7 +60,7 @@ class _Call(Tuple[Any, ...]):
 
 call: _Call
 
-class _CallList(List[_Call]):
+class _CallList(list[_Call]):
     def __contains__(self, value: Any) -> bool: ...
 
 class _MockIter:
