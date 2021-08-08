@@ -5,7 +5,6 @@ yaml.CDumper.__init__
 yaml.CEmitter
 yaml.CParser
 yaml.YAMLObjectMetaclass.__init__
-yaml.add_constructor
 yaml.constructor.FullConstructor.set_python_instance_state
 yaml.cyaml.CBaseDumper.__init__
 yaml.cyaml.CDangerDumper
