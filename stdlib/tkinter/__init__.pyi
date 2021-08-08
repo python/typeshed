@@ -1263,7 +1263,7 @@ class Canvas(Widget, XView, YView):
     @overload
     def create_polygon(
         self,
-        __coords: tuple[float, ...] | list[int] | list[float],
+        __coords: Tuple[float, ...] | list[int] | list[float],
         *,
         activedash: str | _TkinterSequence[int] = ...,
         activefill: _Color = ...,
