@@ -1102,9 +1102,12 @@ class Canvas(Widget, XView, YView):
     def coords(self, __args: _TkinterSequence[int] | _TkinterSequence[float]) -> None: ...
     @overload
     def coords(self, __x1: float, __y1: float, *args: float) -> None: ...
+    # create_foo() methods accept coords as a list, a tuple, or as separate arguments.
+    # Keyword arguments should be the same in each pair of overloads.
     def create_arc(self, *args, **kw) -> _CanvasItemId: ...
     def create_bitmap(self, *args, **kw) -> _CanvasItemId: ...
     def create_image(self, *args, **kw) -> _CanvasItemId: ...
+    @overload
     def create_line(
         self,
         __x0: float,
@@ -1135,6 +1138,35 @@ class Canvas(Widget, XView, YView):
         tags: str | _TkinterSequence[str] = ...,
         width: _ScreenUnits = ...,
     ) -> _CanvasItemId: ...
+    @overload
+    def create_line(
+        self,
+        __coords: tuple[float, float, float, float] | list[int] | list[float],
+        *,
+        activedash: str | _TkinterSequence[int] = ...,
+        activefill: _Color = ...,
+        activestipple: str = ...,
+        activewidth: _ScreenUnits = ...,
+        arrow: Literal["first", "last", "both"] = ...,
+        arrowshape: Tuple[float, float, float] = ...,
+        capstyle: Literal["round", "projecting", "butt"] = ...,
+        dash: str | _TkinterSequence[int] = ...,
+        dashoffset: _ScreenUnits = ...,
+        disableddash: str | _TkinterSequence[int] = ...,
+        disabledfill: _Color = ...,
+        disabledstipple: _Bitmap = ...,
+        disabledwidth: _ScreenUnits = ...,
+        fill: _Color = ...,
+        joinstyle: Literal["round", "bevel", "miter"] = ...,
+        offset: _ScreenUnits = ...,
+        smooth: bool = ...,
+        splinesteps: float = ...,
+        state: Literal["normal", "active", "disabled"] = ...,
+        stipple: _Bitmap = ...,
+        tags: str | _TkinterSequence[str] = ...,
+        width: _ScreenUnits = ...,
+    ) -> _CanvasItemId: ...
+    @overload
     def create_oval(
         self,
         __x0: float,
@@ -1166,6 +1198,36 @@ class Canvas(Widget, XView, YView):
         tags: str | _TkinterSequence[str] = ...,
         width: _ScreenUnits = ...,
     ) -> _CanvasItemId: ...
+    @overload
+    def create_oval(
+        self,
+        __coords: tuple[float, float, float, float] | list[int] | list[float],
+        *,
+        activedash: str | _TkinterSequence[int] = ...,
+        activefill: _Color = ...,
+        activeoutline: _Color = ...,
+        activeoutlinestipple: _Color = ...,
+        activestipple: str = ...,
+        activewidth: _ScreenUnits = ...,
+        dash: str | _TkinterSequence[int] = ...,
+        dashoffset: _ScreenUnits = ...,
+        disableddash: str | _TkinterSequence[int] = ...,
+        disabledfill: _Color = ...,
+        disabledoutline: _Color = ...,
+        disabledoutlinestipple: _Color = ...,
+        disabledstipple: _Bitmap = ...,
+        disabledwidth: _ScreenUnits = ...,
+        fill: _Color = ...,
+        offset: _ScreenUnits = ...,
+        outline: _Color = ...,
+        outlineoffset: _ScreenUnits = ...,
+        outlinestipple: _Bitmap = ...,
+        state: Literal["normal", "active", "disabled"] = ...,
+        stipple: _Bitmap = ...,
+        tags: str | _TkinterSequence[str] = ...,
+        width: _ScreenUnits = ...,
+    ) -> _CanvasItemId: ...
+    @overload
     def create_polygon(
         self,
         __x0: float,
@@ -1200,6 +1262,39 @@ class Canvas(Widget, XView, YView):
         tags: str | _TkinterSequence[str] = ...,
         width: _ScreenUnits = ...,
     ) -> _CanvasItemId: ...
+    @overload
+    def create_polygon(
+        self,
+        __coords: Tuple[float, ...] | list[int] | list[float],
+        *,
+        activedash: str | _TkinterSequence[int] = ...,
+        activefill: _Color = ...,
+        activeoutline: _Color = ...,
+        activeoutlinestipple: _Color = ...,
+        activestipple: str = ...,
+        activewidth: _ScreenUnits = ...,
+        dash: str | _TkinterSequence[int] = ...,
+        dashoffset: _ScreenUnits = ...,
+        disableddash: str | _TkinterSequence[int] = ...,
+        disabledfill: _Color = ...,
+        disabledoutline: _Color = ...,
+        disabledoutlinestipple: _Color = ...,
+        disabledstipple: _Bitmap = ...,
+        disabledwidth: _ScreenUnits = ...,
+        fill: _Color = ...,
+        joinstyle: Literal["round", "bevel", "miter"] = ...,
+        offset: _ScreenUnits = ...,
+        outline: _Color = ...,
+        outlineoffset: _ScreenUnits = ...,
+        outlinestipple: _Bitmap = ...,
+        smooth: bool = ...,
+        splinesteps: float = ...,
+        state: Literal["normal", "active", "disabled"] = ...,
+        stipple: _Bitmap = ...,
+        tags: str | _TkinterSequence[str] = ...,
+        width: _ScreenUnits = ...,
+    ) -> _CanvasItemId: ...
+    @overload
     def create_rectangle(
         self,
         __x0: float,
@@ -1231,6 +1326,36 @@ class Canvas(Widget, XView, YView):
         tags: str | _TkinterSequence[str] = ...,
         width: _ScreenUnits = ...,
     ) -> _CanvasItemId: ...
+    @overload
+    def create_rectangle(
+        self,
+        __coords: tuple[float, float, float, float] | list[int] | list[float],
+        *,
+        activedash: str | _TkinterSequence[int] = ...,
+        activefill: _Color = ...,
+        activeoutline: _Color = ...,
+        activeoutlinestipple: _Color = ...,
+        activestipple: str = ...,
+        activewidth: _ScreenUnits = ...,
+        dash: str | _TkinterSequence[int] = ...,
+        dashoffset: _ScreenUnits = ...,
+        disableddash: str | _TkinterSequence[int] = ...,
+        disabledfill: _Color = ...,
+        disabledoutline: _Color = ...,
+        disabledoutlinestipple: _Color = ...,
+        disabledstipple: _Bitmap = ...,
+        disabledwidth: _ScreenUnits = ...,
+        fill: _Color = ...,
+        offset: _ScreenUnits = ...,
+        outline: _Color = ...,
+        outlineoffset: _ScreenUnits = ...,
+        outlinestipple: _Bitmap = ...,
+        state: Literal["normal", "active", "disabled"] = ...,
+        stipple: _Bitmap = ...,
+        tags: str | _TkinterSequence[str] = ...,
+        width: _ScreenUnits = ...,
+    ) -> _CanvasItemId: ...
+    @overload
     def create_text(
         self,
         __x: float,
@@ -1251,10 +1376,43 @@ class Canvas(Widget, XView, YView):
         text: float | str = ...,
         width: _ScreenUnits = ...,
     ) -> _CanvasItemId: ...
+    @overload
+    def create_text(
+        self,
+        __coords: tuple[float, float] | list[int] | list[float],
+        *,
+        activefill: _Color = ...,
+        activestipple: str = ...,
+        anchor: _Anchor = ...,
+        disabledfill: _Color = ...,
+        disabledstipple: _Bitmap = ...,
+        fill: _Color = ...,
+        font: _FontDescription = ...,
+        justify: Literal["left", "center", "right"] = ...,
+        offset: _ScreenUnits = ...,
+        state: Literal["normal", "active", "disabled"] = ...,
+        stipple: _Bitmap = ...,
+        tags: str | _TkinterSequence[str] = ...,
+        text: float | str = ...,
+        width: _ScreenUnits = ...,
+    ) -> _CanvasItemId: ...
+    @overload
     def create_window(
         self,
         __x: float,
         __y: float,
+        *,
+        anchor: _Anchor = ...,
+        height: _ScreenUnits = ...,
+        state: Literal["normal", "active", "disabled"] = ...,
+        tags: str | _TkinterSequence[str] = ...,
+        width: _ScreenUnits = ...,
+        window: Widget = ...,
+    ) -> _CanvasItemId: ...
+    @overload
+    def create_window(
+        self,
+        __coords: tuple[float, float] | list[int] | list[float],
         *,
         anchor: _Anchor = ...,
         height: _ScreenUnits = ...,
