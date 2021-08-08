@@ -1,6 +1,6 @@
 import socket
 import ssl
-from typing import Any, BinaryIO, List, Pattern, Tuple, overload
+from typing import Any, BinaryIO, Dict, List, Pattern, Tuple, overload
 
 _LongResp = Tuple[bytes, List[bytes], int]
 
@@ -41,7 +41,7 @@ class POP3:
     @overload
     def uidl(self, which: Any) -> bytes: ...
     def utf8(self) -> bytes: ...
-    def capa(self) -> dict[str, list[str]]: ...
+    def capa(self) -> Dict[str, List[str]]: ...
     def stls(self, context: ssl.SSLContext | None = ...) -> bytes: ...
 
 class POP3_SSL(POP3):
