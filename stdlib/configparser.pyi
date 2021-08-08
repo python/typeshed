@@ -16,7 +16,7 @@ from typing import (
     Tuple,
     Type,
     TypeVar,
-    overload,
+    overload,Optional
 )
 from typing_extensions import Literal
 
@@ -191,7 +191,7 @@ class SectionProxy(MutableMapping[str, str]):
     # SectionProxy can have arbitrary attributes when custom converters are used
     def __getattr__(self, key: str) -> Callable[..., Any]: ...
 
-class ConverterMapping(MutableMapping[str, _converter | None]):
+class ConverterMapping(MutableMapping[str, Optional[_converter]]):
     GETTERCRE: Pattern[Any]
     def __init__(self, parser: RawConfigParser) -> None: ...
     def __getitem__(self, key: str) -> _converter: ...
