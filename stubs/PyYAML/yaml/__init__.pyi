@@ -32,14 +32,14 @@ def scan(stream, Loader=...): ...
 def parse(stream, Loader=...): ...
 def compose(stream, Loader=...): ...
 def compose_all(stream, Loader=...): ...
-def load(stream: Union[bytes, IO[bytes], Text, IO[Text]], Loader=...) -> Any: ...
-def load_all(stream: Union[bytes, IO[bytes], Text, IO[Text]], Loader=...) -> Iterator[Any]: ...
-def full_load(stream: Union[bytes, IO[bytes], Text, IO[Text]]) -> Any: ...
-def full_load_all(stream: Union[bytes, IO[bytes], Text, IO[Text]]) -> Iterator[Any]: ...
-def safe_load(stream: Union[bytes, IO[bytes], Text, IO[Text]]) -> Any: ...
-def safe_load_all(stream: Union[bytes, IO[bytes], Text, IO[Text]]) -> Iterator[Any]: ...
-def unsafe_load(stream: Union[bytes, IO[bytes], Text, IO[Text]]) -> Any: ...
-def unsafe_load_all(stream: Union[bytes, IO[bytes], Text, IO[Text]]) -> Iterator[Any]: ...
+def load(stream: bytes | IO[bytes] | Text | IO[Text], Loader=...) -> Any: ...
+def load_all(stream: bytes | IO[bytes] | Text | IO[Text], Loader=...) -> Iterator[Any]: ...
+def full_load(stream: bytes | IO[bytes] | Text | IO[Text]) -> Any: ...
+def full_load_all(stream: bytes | IO[bytes] | Text | IO[Text]) -> Iterator[Any]: ...
+def safe_load(stream: bytes | IO[bytes] | Text | IO[Text]) -> Any: ...
+def safe_load_all(stream: bytes | IO[bytes] | Text | IO[Text]) -> Iterator[Any]: ...
+def unsafe_load(stream: bytes | IO[bytes] | Text | IO[Text]) -> Any: ...
+def unsafe_load_all(stream: bytes | IO[bytes] | Text | IO[Text]) -> Iterator[Any]: ...
 def emit(events, stream=..., Dumper=..., canonical=..., indent=..., width=..., allow_unicode=..., line_break=...): ...
 @overload
 def serialize_all(
@@ -67,7 +67,7 @@ def serialize_all(
     width=...,
     allow_unicode=...,
     line_break=...,
-    encoding: Optional[_Str] = ...,
+    encoding: _Str | None = ...,
     explicit_start=...,
     explicit_end=...,
     version=...,
@@ -101,7 +101,7 @@ def serialize(
     width=...,
     allow_unicode=...,
     line_break=...,
-    encoding: Optional[_Str] = ...,
+    encoding: _Str | None = ...,
     explicit_start=...,
     explicit_end=...,
     version=...,
@@ -138,7 +138,7 @@ def dump_all(
     width=...,
     allow_unicode=...,
     line_break=...,
-    encoding: Optional[_Str] = ...,
+    encoding: _Str | None = ...,
     explicit_start=...,
     explicit_end=...,
     version=...,
@@ -178,7 +178,7 @@ def dump(
     width=...,
     allow_unicode=...,
     line_break=...,
-    encoding: Optional[_Str] = ...,
+    encoding: _Str | None = ...,
     explicit_start=...,
     explicit_end=...,
     version=...,
@@ -216,7 +216,7 @@ def safe_dump_all(
     width=...,
     allow_unicode=...,
     line_break=...,
-    encoding: Optional[_Str] = ...,
+    encoding: _Str | None = ...,
     explicit_start=...,
     explicit_end=...,
     version=...,
@@ -254,7 +254,7 @@ def safe_dump(
     width=...,
     allow_unicode=...,
     line_break=...,
-    encoding: Optional[_Str] = ...,
+    encoding: _Str | None = ...,
     explicit_start=...,
     explicit_end=...,
     version=...,

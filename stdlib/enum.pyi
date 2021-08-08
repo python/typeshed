@@ -1,7 +1,7 @@
 import sys
 from abc import ABCMeta
 from builtins import property as _builtins_property
-from typing import Any, Dict, Iterator, List, Mapping, Type, TypeVar, Union
+from typing import Any, Dict, Iterator, List, Mapping, Type, TypeVar
 
 _T = TypeVar("_T")
 _S = TypeVar("_S", bound=Type[Enum])
@@ -29,7 +29,7 @@ class Enum(metaclass=EnumMeta):
     _member_map_: Dict[str, Enum]  # undocumented
     _value2member_map_: Dict[int, Enum]  # undocumented
     if sys.version_info >= (3, 7):
-        _ignore_: Union[str, List[str]]
+        _ignore_: str | List[str]
     _order_: str
     __order__: str
     @classmethod
@@ -46,7 +46,7 @@ class Enum(metaclass=EnumMeta):
 
 class IntEnum(int, Enum):
     value: int
-    def __new__(cls: Type[_T], value: Union[int, _T]) -> _T: ...
+    def __new__(cls: Type[_T], value: int | _T) -> _T: ...
 
 def unique(enumeration: _S) -> _S: ...
 
@@ -70,17 +70,17 @@ class Flag(Enum):
     def __invert__(self: _T) -> _T: ...
 
 class IntFlag(int, Flag):
-    def __new__(cls: Type[_T], value: Union[int, _T]) -> _T: ...
-    def __or__(self: _T, other: Union[int, _T]) -> _T: ...
-    def __and__(self: _T, other: Union[int, _T]) -> _T: ...
-    def __xor__(self: _T, other: Union[int, _T]) -> _T: ...
+    def __new__(cls: Type[_T], value: int | _T) -> _T: ...
+    def __or__(self: _T, other: int | _T) -> _T: ...
+    def __and__(self: _T, other: int | _T) -> _T: ...
+    def __xor__(self: _T, other: int | _T) -> _T: ...
     __ror__ = __or__
     __rand__ = __and__
     __rxor__ = __xor__
 
-if sys.version_info >= (3, 10):
+if sys.version_info >= (3, 11):
     class StrEnum(str, Enum):
-        def __new__(cls: Type[_T], value: Union[int, _T]) -> _T: ...
+        def __new__(cls: Type[_T], value: int | _T) -> _T: ...
     class FlagBoundary(StrEnum):
         STRICT: str
         CONFORM: str
