@@ -160,7 +160,7 @@ Supported features include:
 - [PEP 586](https://www.python.org/dev/peps/pep-0586/) (Literal)
 - [PEP 591](https://www.python.org/dev/peps/pep-0591/) (Final/@final)
 - [PEP 589](https://www.python.org/dev/peps/pep-0589/) (TypedDict)
-- [PEP 604](https://www.python.org/dev/peps/pep-0604/) (union pipe operator)
+- [PEP 604](https://www.python.org/dev/peps/pep-0604/) (`Foo | Bar` union syntax)
 - [PEP 647](https://www.python.org/dev/peps/pep-0647/) (TypeGuard):
   see [#5406](https://github.com/python/typeshed/issues/5406)
 
