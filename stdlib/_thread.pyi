@@ -1,7 +1,7 @@
 import sys
 from threading import Thread
 from types import TracebackType
-from typing import Any, Callable, Dict, NoReturn, Tuple, Type, Optional
+from typing import Any, Callable, Dict, NoReturn, Optional, Tuple, Type
 
 error = RuntimeError
 

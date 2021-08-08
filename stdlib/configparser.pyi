@@ -11,12 +11,13 @@ from typing import (
     List,
     Mapping,
     MutableMapping,
+    Optional,
     Pattern,
     Sequence,
     Tuple,
     Type,
     TypeVar,
-    overload,Optional
+    overload,
 )
 from typing_extensions import Literal
 
@@ -141,9 +142,7 @@ class RawConfigParser(_parser):
     @overload  # type: ignore
     def get(self, section: str, option: str, *, raw: bool = ..., vars: _section | None = ...) -> str: ...
     @overload
-    def get(
-        self, section: str, option: str, *, raw: bool = ..., vars: _section | None = ..., fallback: _T
-    ) -> str | _T: ...
+    def get(self, section: str, option: str, *, raw: bool = ..., vars: _section | None = ..., fallback: _T) -> str | _T: ...
     @overload
     def items(self, *, raw: bool = ..., vars: _section | None = ...) -> AbstractSet[Tuple[str, SectionProxy]]: ...
     @overload
@@ -179,15 +178,11 @@ class SectionProxy(MutableMapping[str, str]):
     @overload
     def getfloat(self, option: str, *, raw: bool = ..., vars: _section | None = ...) -> float: ...
     @overload
-    def getfloat(
-        self, option: str, fallback: _T = ..., *, raw: bool = ..., vars: _section | None = ...
-    ) -> float | _T: ...
+    def getfloat(self, option: str, fallback: _T = ..., *, raw: bool = ..., vars: _section | None = ...) -> float | _T: ...
     @overload
     def getboolean(self, option: str, *, raw: bool = ..., vars: _section | None = ...) -> bool: ...
     @overload
-    def getboolean(
-        self, option: str, fallback: _T = ..., *, raw: bool = ..., vars: _section | None = ...
-    ) -> bool | _T: ...
+    def getboolean(self, option: str, fallback: _T = ..., *, raw: bool = ..., vars: _section | None = ...) -> bool | _T: ...
     # SectionProxy can have arbitrary attributes when custom converters are used
     def __getattr__(self, key: str) -> Callable[..., Any]: ...
 
