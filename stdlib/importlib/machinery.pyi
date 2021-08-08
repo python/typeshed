@@ -1,6 +1,6 @@
 import importlib.abc
 import types
-from typing import Any, Callable, List, Sequence, Tuple
+from typing import Any, Callable, Sequence, Tuple
 
 # TODO: the loaders seem a bit backwards, attribute is protocol but __init__ arg isn't?
 class ModuleSpec:
@@ -16,7 +16,7 @@ class ModuleSpec:
     name: str
     loader: importlib.abc._LoaderProtocol | None
     origin: str | None
-    submodule_search_locations: List[str] | None
+    submodule_search_locations: list[str] | None
     loader_state: Any
     cached: str | None
     parent: str | None
@@ -90,20 +90,20 @@ class PathFinder:
     @classmethod
     def find_module(cls, fullname: str, path: Sequence[bytes | str] | None = ...) -> importlib.abc.Loader | None: ...
 
-SOURCE_SUFFIXES: List[str]
-DEBUG_BYTECODE_SUFFIXES: List[str]
-OPTIMIZED_BYTECODE_SUFFIXES: List[str]
-BYTECODE_SUFFIXES: List[str]
-EXTENSION_SUFFIXES: List[str]
+SOURCE_SUFFIXES: list[str]
+DEBUG_BYTECODE_SUFFIXES: list[str]
+OPTIMIZED_BYTECODE_SUFFIXES: list[str]
+BYTECODE_SUFFIXES: list[str]
+EXTENSION_SUFFIXES: list[str]
 
-def all_suffixes() -> List[str]: ...
+def all_suffixes() -> list[str]: ...
 
 class FileFinder(importlib.abc.PathEntryFinder):
     path: str
-    def __init__(self, path: str, *loader_details: Tuple[importlib.abc.Loader, List[str]]) -> None: ...
+    def __init__(self, path: str, *loader_details: Tuple[importlib.abc.Loader, list[str]]) -> None: ...
     @classmethod
     def path_hook(
-        cls, *loader_details: Tuple[importlib.abc.Loader, List[str]]
+        cls, *loader_details: Tuple[importlib.abc.Loader, list[str]]
     ) -> Callable[[str], importlib.abc.PathEntryFinder]: ...
 
 class SourceFileLoader(importlib.abc.FileLoader, importlib.abc.SourceLoader):

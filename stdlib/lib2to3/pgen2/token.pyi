@@ -1,4 +1,3 @@
-from typing import Dict
 
 ENDMARKER: int
 NAME: int
@@ -61,7 +60,7 @@ ASYNC: int
 ERRORTOKEN: int
 N_TOKENS: int
 NT_OFFSET: int
-tok_name: Dict[int, str]
+tok_name: dict[int, str]
 
 def ISTERMINAL(x: int) -> bool: ...
 def ISNONTERMINAL(x: int) -> bool: ...

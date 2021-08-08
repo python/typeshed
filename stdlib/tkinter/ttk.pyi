@@ -2,7 +2,7 @@ import _tkinter
 import sys
 import tkinter
 from tkinter.font import _FontDescription
-from typing import Any, Callable, Dict, Tuple, Union, overload
+from typing import Any, Callable, Tuple, Union, overload
 from typing_extensions import Literal, TypedDict
 
 def tclobjs_to_py(adict): ...
@@ -57,7 +57,7 @@ class Button(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         command: tkinter._ButtonCommand = ...,
         compound: _TtkCompound = ...,
@@ -72,7 +72,7 @@ class Button(Widget):
         textvariable: tkinter.Variable = ...,
         underline: int = ...,
         width: int | Literal[""] = ...,
-    ) -> Dict[str, Tuple[str, str, str, Any, Any]] | None: ...
+    ) -> dict[str, Tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     config = configure
@@ -107,7 +107,7 @@ class Checkbutton(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         command: tkinter._ButtonCommand = ...,
         compound: _TtkCompound = ...,
@@ -124,7 +124,7 @@ class Checkbutton(Widget):
         underline: int = ...,
         variable: tkinter.Variable = ...,
         width: int | Literal[""] = ...,
-    ) -> Dict[str, Tuple[str, str, str, Any, Any]] | None: ...
+    ) -> dict[str, Tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     config = configure
@@ -158,7 +158,7 @@ class Entry(Widget, tkinter.Entry):
     @overload  # type: ignore
     def configure(
         self,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         background: tkinter._Color = ...,
         cursor: tkinter._Cursor = ...,
@@ -176,14 +176,14 @@ class Entry(Widget, tkinter.Entry):
         validatecommand: tkinter._EntryValidateCommand = ...,
         width: int = ...,
         xscrollcommand: tkinter._XYScrollCommand = ...,
-    ) -> Dict[str, Tuple[str, str, str, Any, Any]] | None: ...
+    ) -> dict[str, Tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     # config must be copy/pasted, otherwise ttk.Entry().config is mypy error (don't know why)
     @overload  # type: ignore
     def config(
         self,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         background: tkinter._Color = ...,
         cursor: tkinter._Cursor = ...,
@@ -201,7 +201,7 @@ class Entry(Widget, tkinter.Entry):
         validatecommand: tkinter._EntryValidateCommand = ...,
         width: int = ...,
         xscrollcommand: tkinter._XYScrollCommand = ...,
-    ) -> Dict[str, Tuple[str, str, str, Any, Any]] | None: ...
+    ) -> dict[str, Tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def config(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     def bbox(self, index): ...
@@ -238,7 +238,7 @@ class Combobox(Entry):
     @overload  # type: ignore
     def configure(
         self,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         background: tkinter._Color = ...,
         cursor: tkinter._Cursor = ...,
@@ -259,14 +259,14 @@ class Combobox(Entry):
         values: tkinter._TkinterSequence[str] = ...,
         width: int = ...,
         xscrollcommand: tkinter._XYScrollCommand = ...,
-    ) -> Dict[str, Tuple[str, str, str, Any, Any]] | None: ...
+    ) -> dict[str, Tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     # config must be copy/pasted, otherwise ttk.Combobox().config is mypy error (don't know why)
     @overload  # type: ignore
     def config(
         self,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         background: tkinter._Color = ...,
         cursor: tkinter._Cursor = ...,
@@ -287,7 +287,7 @@ class Combobox(Entry):
         values: tkinter._TkinterSequence[str] = ...,
         width: int = ...,
         xscrollcommand: tkinter._XYScrollCommand = ...,
-    ) -> Dict[str, Tuple[str, str, str, Any, Any]] | None: ...
+    ) -> dict[str, Tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def config(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     def current(self, newindex: Any | None = ...): ...
@@ -313,7 +313,7 @@ class Frame(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         border: tkinter._ScreenUnits = ...,
         borderwidth: tkinter._ScreenUnits = ...,
@@ -324,7 +324,7 @@ class Frame(Widget):
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
         width: tkinter._ScreenUnits = ...,
-    ) -> Dict[str, Tuple[str, str, str, Any, Any]] | None: ...
+    ) -> dict[str, Tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     config = configure
@@ -360,7 +360,7 @@ class Label(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         anchor: tkinter._Anchor = ...,
         background: tkinter._Color = ...,
@@ -382,7 +382,7 @@ class Label(Widget):
         underline: int = ...,
         width: int | Literal[""] = ...,
         wraplength: tkinter._ScreenUnits = ...,
-    ) -> Dict[str, Tuple[str, str, str, Any, Any]] | None: ...
+    ) -> dict[str, Tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     config = configure
@@ -411,7 +411,7 @@ class Labelframe(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         border: tkinter._ScreenUnits = ...,
         borderwidth: tkinter._ScreenUnits = ...,
@@ -426,7 +426,7 @@ class Labelframe(Widget):
         text: float | str = ...,
         underline: int = ...,
         width: tkinter._ScreenUnits = ...,
-    ) -> Dict[str, Tuple[str, str, str, Any, Any]] | None: ...
+    ) -> dict[str, Tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     config = configure
@@ -457,7 +457,7 @@ class Menubutton(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         compound: _TtkCompound = ...,
         cursor: tkinter._Cursor = ...,
@@ -472,7 +472,7 @@ class Menubutton(Widget):
         textvariable: tkinter.Variable = ...,
         underline: int = ...,
         width: int | Literal[""] = ...,
-    ) -> Dict[str, Tuple[str, str, str, Any, Any]] | None: ...
+    ) -> dict[str, Tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     config = configure
@@ -494,7 +494,7 @@ class Notebook(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         cursor: tkinter._Cursor = ...,
         height: int = ...,
@@ -502,7 +502,7 @@ class Notebook(Widget):
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
         width: int = ...,
-    ) -> Dict[str, Tuple[str, str, str, Any, Any]] | None: ...
+    ) -> dict[str, Tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     config = configure
@@ -535,28 +535,28 @@ class Panedwindow(Widget, tkinter.PanedWindow):
     @overload  # type: ignore
     def configure(
         self,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         cursor: tkinter._Cursor = ...,
         height: int = ...,
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
         width: int = ...,
-    ) -> Dict[str, Tuple[str, str, str, Any, Any]] | None: ...
+    ) -> dict[str, Tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     # config must be copy/pasted, otherwise ttk.Panedwindow().config is mypy error (don't know why)
     @overload  # type: ignore
     def config(
         self,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         cursor: tkinter._Cursor = ...,
         height: int = ...,
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
         width: int = ...,
-    ) -> Dict[str, Tuple[str, str, str, Any, Any]] | None: ...
+    ) -> dict[str, Tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def config(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     forget: Any
@@ -587,7 +587,7 @@ class Progressbar(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         cursor: tkinter._Cursor = ...,
         length: tkinter._ScreenUnits = ...,
@@ -599,7 +599,7 @@ class Progressbar(Widget):
         takefocus: tkinter._TakeFocusValue = ...,
         value: float = ...,
         variable: tkinter.IntVar | tkinter.DoubleVar = ...,
-    ) -> Dict[str, Tuple[str, str, str, Any, Any]] | None: ...
+    ) -> dict[str, Tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     config = configure
@@ -632,7 +632,7 @@ class Radiobutton(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         command: tkinter._ButtonCommand = ...,
         compound: _TtkCompound = ...,
@@ -648,7 +648,7 @@ class Radiobutton(Widget):
         value: Any = ...,
         variable: tkinter.Variable | Literal[""] = ...,
         width: int | Literal[""] = ...,
-    ) -> Dict[str, Tuple[str, str, str, Any, Any]] | None: ...
+    ) -> dict[str, Tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     config = configure
@@ -676,7 +676,7 @@ class Scale(Widget, tkinter.Scale):
     @overload  # type: ignore
     def configure(
         self,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         command: str | Callable[[str], Any] = ...,
         cursor: tkinter._Cursor = ...,
@@ -689,14 +689,14 @@ class Scale(Widget, tkinter.Scale):
         to: float = ...,
         value: float = ...,
         variable: tkinter.IntVar | tkinter.DoubleVar = ...,
-    ) -> Dict[str, Tuple[str, str, str, Any, Any]] | None: ...
+    ) -> dict[str, Tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     # config must be copy/pasted, otherwise ttk.Scale().config is mypy error (don't know why)
     @overload  # type: ignore
     def config(
         self,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         command: str | Callable[[str], Any] = ...,
         cursor: tkinter._Cursor = ...,
@@ -709,7 +709,7 @@ class Scale(Widget, tkinter.Scale):
         to: float = ...,
         value: float = ...,
         variable: tkinter.IntVar | tkinter.DoubleVar = ...,
-    ) -> Dict[str, Tuple[str, str, str, Any, Any]] | None: ...
+    ) -> dict[str, Tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def config(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     def get(self, x: Any | None = ..., y: Any | None = ...): ...
@@ -730,28 +730,28 @@ class Scrollbar(Widget, tkinter.Scrollbar):
     @overload  # type: ignore
     def configure(
         self,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         command: Callable[..., Tuple[float, float] | None] | str = ...,
         cursor: tkinter._Cursor = ...,
         orient: Literal["horizontal", "vertical"] = ...,
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
-    ) -> Dict[str, Tuple[str, str, str, Any, Any]] | None: ...
+    ) -> dict[str, Tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     # config must be copy/pasted, otherwise ttk.Scrollbar().config is mypy error (don't know why)
     @overload  # type: ignore
     def config(
         self,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         command: Callable[..., Tuple[float, float] | None] | str = ...,
         cursor: tkinter._Cursor = ...,
         orient: Literal["horizontal", "vertical"] = ...,
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
-    ) -> Dict[str, Tuple[str, str, str, Any, Any]] | None: ...
+    ) -> dict[str, Tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def config(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
 
@@ -770,13 +770,13 @@ class Separator(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         cursor: tkinter._Cursor = ...,
         orient: Literal["horizontal", "vertical"] = ...,
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
-    ) -> Dict[str, Tuple[str, str, str, Any, Any]] | None: ...
+    ) -> dict[str, Tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     config = configure
@@ -795,12 +795,12 @@ class Sizegrip(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         cursor: tkinter._Cursor = ...,
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
-    ) -> Dict[str, Tuple[str, str, str, Any, Any]] | None: ...
+    ) -> dict[str, Tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     config = configure
@@ -840,7 +840,7 @@ if sys.version_info >= (3, 7):
         @overload  # type: ignore
         def configure(
             self,
-            cnf: Dict[str, Any] | None = ...,
+            cnf: dict[str, Any] | None = ...,
             *,
             background: tkinter._Color = ...,
             command: Callable[[], Any] | str | tkinter._TkinterSequence[str] = ...,
@@ -865,7 +865,7 @@ if sys.version_info >= (3, 7):
             width: int = ...,
             wrap: bool = ...,
             xscrollcommand: tkinter._XYScrollCommand = ...,
-        ) -> Dict[str, Tuple[str, str, str, Any, Any]] | None: ...
+        ) -> dict[str, Tuple[str, str, str, Any, Any]] | None: ...
         @overload
         def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
         config = configure  # type: ignore
@@ -927,7 +927,7 @@ class Treeview(Widget, tkinter.XView, tkinter.YView):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         columns: str | tkinter._TkinterSequence[str] = ...,
         cursor: tkinter._Cursor = ...,
@@ -940,7 +940,7 @@ class Treeview(Widget, tkinter.XView, tkinter.YView):
         takefocus: tkinter._TakeFocusValue = ...,
         xscrollcommand: tkinter._XYScrollCommand = ...,
         yscrollcommand: tkinter._XYScrollCommand = ...,
-    ) -> Dict[str, Tuple[str, str, str, Any, Any]] | None: ...
+    ) -> dict[str, Tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     config = configure

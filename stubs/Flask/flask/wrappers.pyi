@@ -1,4 +1,4 @@
-from typing import Any, Dict
+from typing import Any
 
 from werkzeug.exceptions import HTTPException
 from werkzeug.routing import Rule
@@ -14,7 +14,7 @@ class JSONMixin:
 
 class Request(RequestBase, JSONMixin):
     url_rule: Rule | None = ...
-    view_args: Dict[str, Any] = ...
+    view_args: dict[str, Any] = ...
     routing_exception: HTTPException | None = ...
     # Request is making the max_content_length readonly, where it was not the
     # case in its supertype.

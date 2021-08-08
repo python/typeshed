@@ -1,5 +1,5 @@
 import sys
-from typing import Any, Dict, NoReturn, Sequence, Tuple, overload
+from typing import Any, NoReturn, Sequence, Tuple, overload
 from typing_extensions import Literal
 
 CREATE_NEW_CONSOLE: int
@@ -81,7 +81,7 @@ def CreateProcess(
     __thread_attrs: Any,
     __inherit_handles: bool,
     __creation_flags: int,
-    __env_mapping: Dict[str, str],
+    __env_mapping: dict[str, str],
     __current_directory: str | None,
     __startup_info: Any,
 ) -> Tuple[int, int, int, int]: ...

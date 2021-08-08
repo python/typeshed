@@ -6,7 +6,7 @@ from typing import (
     AsyncGenerator,
     Awaitable,
     Callable,
-    Dict,
+    
     Generator,
     Generic,
     ItemsView,
@@ -43,16 +43,16 @@ class FunctionType:
     __closure__: Tuple[_Cell, ...] | None
     __code__: CodeType
     __defaults__: Tuple[Any, ...] | None
-    __dict__: Dict[str, Any]
-    __globals__: Dict[str, Any]
+    __dict__: dict[str, Any]
+    __globals__: dict[str, Any]
     __name__: str
     __qualname__: str
-    __annotations__: Dict[str, Any]
-    __kwdefaults__: Dict[str, Any]
+    __annotations__: dict[str, Any]
+    __kwdefaults__: dict[str, Any]
     def __init__(
         self,
         code: CodeType,
-        globals: Dict[str, Any],
+        globals: dict[str, Any],
         name: str | None = ...,
         argdefs: Tuple[object, ...] | None = ...,
         closure: Tuple[_Cell, ...] | None = ...,
@@ -151,7 +151,7 @@ class MappingProxyType(Mapping[_KT, _VT_co], Generic[_KT, _VT_co]):
     def __getitem__(self, k: _KT) -> _VT_co: ...
     def __iter__(self) -> Iterator[_KT]: ...
     def __len__(self) -> int: ...
-    def copy(self) -> Dict[_KT, _VT_co]: ...
+    def copy(self) -> dict[_KT, _VT_co]: ...
     def keys(self) -> KeysView[_KT]: ...
     def values(self) -> ValuesView[_VT_co]: ...
     def items(self) -> ItemsView[_KT, _VT_co]: ...
@@ -171,7 +171,7 @@ class SimpleNamespace:
 class ModuleType:
     __name__: str
     __file__: str
-    __dict__: Dict[str, Any]
+    __dict__: dict[str, Any]
     __loader__: _LoaderProtocol | None
     __package__: str | None
     __spec__: ModuleSpec | None
@@ -311,12 +311,12 @@ class TracebackType:
 @final
 class FrameType:
     f_back: FrameType | None
-    f_builtins: Dict[str, Any]
+    f_builtins: dict[str, Any]
     f_code: CodeType
-    f_globals: Dict[str, Any]
+    f_globals: dict[str, Any]
     f_lasti: int
     f_lineno: int
-    f_locals: Dict[str, Any]
+    f_locals: dict[str, Any]
     f_trace: Callable[[FrameType, str, Any], Any] | None
     if sys.version_info >= (3, 7):
         f_trace_lines: bool
@@ -343,8 +343,8 @@ if sys.version_info >= (3, 7):
     def new_class(
         name: str,
         bases: Iterable[object] = ...,
-        kwds: Dict[str, Any] | None = ...,
-        exec_body: Callable[[Dict[str, Any]], None] | None = ...,
+        kwds: dict[str, Any] | None = ...,
+        exec_body: Callable[[dict[str, Any]], None] | None = ...,
     ) -> type: ...
     def resolve_bases(bases: Iterable[object]) -> Tuple[Any, ...]: ...
 
@@ -352,13 +352,13 @@ else:
     def new_class(
         name: str,
         bases: Tuple[type, ...] = ...,
-        kwds: Dict[str, Any] | None = ...,
-        exec_body: Callable[[Dict[str, Any]], None] | None = ...,
+        kwds: dict[str, Any] | None = ...,
+        exec_body: Callable[[dict[str, Any]], None] | None = ...,
     ) -> type: ...
 
 def prepare_class(
-    name: str, bases: Tuple[type, ...] = ..., kwds: Dict[str, Any] | None = ...
-) -> Tuple[type, Dict[str, Any], Dict[str, Any]]: ...
+    name: str, bases: Tuple[type, ...] = ..., kwds: dict[str, Any] | None = ...
+) -> Tuple[type, dict[str, Any], dict[str, Any]]: ...
 
 # Actually a different type, but `property` is special and we want that too.
 DynamicClassAttribute = property

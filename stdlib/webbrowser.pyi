@@ -1,5 +1,5 @@
 import sys
-from typing import Callable, List, Sequence
+from typing import Callable, Sequence
 
 class Error(Exception): ...
 
@@ -19,7 +19,7 @@ def open_new(url: str) -> bool: ...
 def open_new_tab(url: str) -> bool: ...
 
 class BaseBrowser:
-    args: List[str]
+    args: list[str]
     name: str
     basename: str
     def __init__(self, name: str = ...) -> None: ...
@@ -28,7 +28,7 @@ class BaseBrowser:
     def open_new_tab(self, url: str) -> bool: ...
 
 class GenericBrowser(BaseBrowser):
-    args: List[str]
+    args: list[str]
     name: str
     basename: str
     def __init__(self, name: str | Sequence[str]) -> None: ...
@@ -38,45 +38,45 @@ class BackgroundBrowser(GenericBrowser):
     def open(self, url: str, new: int = ..., autoraise: bool = ...) -> bool: ...
 
 class UnixBrowser(BaseBrowser):
-    raise_opts: List[str] | None
+    raise_opts: list[str] | None
     background: bool
     redirect_stdout: bool
-    remote_args: List[str]
+    remote_args: list[str]
     remote_action: str
     remote_action_newwin: str
     remote_action_newtab: str
     def open(self, url: str, new: int = ..., autoraise: bool = ...) -> bool: ...
 
 class Mozilla(UnixBrowser):
-    remote_args: List[str]
+    remote_args: list[str]
     remote_action: str
     remote_action_newwin: str
     remote_action_newtab: str
     background: bool
 
 class Galeon(UnixBrowser):
-    raise_opts: List[str]
-    remote_args: List[str]
+    raise_opts: list[str]
+    remote_args: list[str]
     remote_action: str
     remote_action_newwin: str
     background: bool
 
 class Chrome(UnixBrowser):
-    remote_args: List[str]
+    remote_args: list[str]
     remote_action: str
     remote_action_newwin: str
     remote_action_newtab: str
     background: bool
 
 class Opera(UnixBrowser):
-    remote_args: List[str]
+    remote_args: list[str]
     remote_action: str
     remote_action_newwin: str
     remote_action_newtab: str
     background: bool
 
 class Elinks(UnixBrowser):
-    remote_args: List[str]
+    remote_args: list[str]
     remote_action: str
     remote_action_newwin: str
     remote_action_newtab: str

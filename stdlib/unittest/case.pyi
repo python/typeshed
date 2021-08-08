@@ -13,7 +13,7 @@ from typing import (
     ContextManager,
     Generic,
     Iterable,
-    List,
+    
     Mapping,
     NamedTuple,
     NoReturn,
@@ -166,7 +166,7 @@ class TestCase:
     def assertSequenceEqual(
         self, seq1: Sequence[Any], seq2: Sequence[Any], msg: Any = ..., seq_type: Type[Sequence[Any]] | None = ...
     ) -> None: ...
-    def assertListEqual(self, list1: List[Any], list2: List[Any], msg: Any = ...) -> None: ...
+    def assertListEqual(self, list1: list[Any], list2: list[Any], msg: Any = ...) -> None: ...
     def assertTupleEqual(self, tuple1: Tuple[Any, ...], tuple2: Tuple[Any, ...], msg: Any = ...) -> None: ...
     def assertSetEqual(self, set1: Set[object], set2: Set[object], msg: Any = ...) -> None: ...
     def assertDictEqual(self, d1: Mapping[Any, object], d2: Mapping[Any, object], msg: Any = ...) -> None: ...
@@ -242,8 +242,8 @@ class FunctionTestCase(TestCase):
     def runTest(self) -> None: ...
 
 class _LoggingWatcher(NamedTuple):
-    records: List[logging.LogRecord]
-    output: List[str]
+    records: list[logging.LogRecord]
+    output: list[str]
 
 class _AssertRaisesContext(Generic[_E]):
     exception: _E
@@ -258,7 +258,7 @@ class _AssertWarnsContext:
     warning: WarningMessage
     filename: str
     lineno: int
-    warnings: List[WarningMessage]
+    warnings: list[WarningMessage]
     def __enter__(self: Self) -> Self: ...
     def __exit__(
         self, exc_type: Type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
@@ -266,8 +266,8 @@ class _AssertWarnsContext:
 
 class _AssertLogsContext:
     LOGGING_FORMAT: str
-    records: List[logging.LogRecord]
-    output: List[str]
+    records: list[logging.LogRecord]
+    output: list[str]
     def __init__(self, test_case: TestCase, logger_name: str, level: int) -> None: ...
     if sys.version_info >= (3, 10):
         def __enter__(self) -> _LoggingWatcher | None: ...

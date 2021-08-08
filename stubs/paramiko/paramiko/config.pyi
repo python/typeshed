@@ -1,4 +1,4 @@
-from typing import IO, Any, Dict, Iterable, List, Pattern, Set
+from typing import IO, Any, Dict, Iterable, Pattern, Set
 
 from paramiko.ssh_exception import ConfigParseError as ConfigParseError, CouldNotCanonicalize as CouldNotCanonicalize
 
@@ -6,7 +6,7 @@ SSH_PORT: int
 
 class SSHConfig:
     SETTINGS_REGEX: Pattern[str]
-    TOKENS_BY_CONFIG_KEY: Dict[str, List[str]]
+    TOKENS_BY_CONFIG_KEY: dict[str, list[str]]
     def __init__(self) -> None: ...
     @classmethod
     def from_text(cls, text: str) -> SSHConfig: ...

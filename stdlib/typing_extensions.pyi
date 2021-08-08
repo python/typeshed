@@ -16,7 +16,7 @@ from typing import (
     Counter as Counter,
     DefaultDict as DefaultDict,
     Deque as Deque,
-    Dict,
+    
     ItemsView,
     KeysView,
     Mapping,
@@ -72,10 +72,10 @@ OrderedDict = _Alias()
 
 def get_type_hints(
     obj: Callable[..., Any],
-    globalns: Dict[str, Any] | None = ...,
-    localns: Dict[str, Any] | None = ...,
+    globalns: dict[str, Any] | None = ...,
+    localns: dict[str, Any] | None = ...,
     include_extras: bool = ...,
-) -> Dict[str, Any]: ...
+) -> dict[str, Any]: ...
 
 if sys.version_info >= (3, 7):
     def get_args(tp: Any) -> Tuple[Any, ...]: ...

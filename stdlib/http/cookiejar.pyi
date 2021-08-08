@@ -1,7 +1,7 @@
 import sys
 from _typeshed import StrPath
 from http.client import HTTPResponse
-from typing import ClassVar, Dict, Iterable, Iterator, Pattern, Sequence, Tuple, TypeVar, overload
+from typing import ClassVar, Iterable, Iterator, Pattern, Sequence, Tuple, TypeVar, overload
 from urllib.request import Request
 
 _T = TypeVar("_T")
@@ -155,7 +155,7 @@ class Cookie:
         discard: bool,
         comment: str | None,
         comment_url: str | None,
-        rest: Dict[str, str],
+        rest: dict[str, str],
         rfc2109: bool = ...,
     ) -> None: ...
     def has_nonstandard_attr(self, name: str) -> bool: ...

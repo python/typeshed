@@ -21,11 +21,11 @@ from typing import (
     BinaryIO,
     Callable,
     ContextManager,
-    Dict,
+    
     Generic,
     Iterable,
     Iterator,
-    List,
+    
     Mapping,
     MutableMapping,
     NoReturn,
@@ -213,7 +213,7 @@ class _Environ(MutableMapping[AnyStr, AnyStr], Generic[AnyStr]):
             unsetenv: Callable[[AnyStr, AnyStr], None],
         ) -> None: ...
     def setdefault(self, key: AnyStr, value: AnyStr) -> AnyStr: ...  # type: ignore
-    def copy(self) -> Dict[AnyStr, AnyStr]: ...
+    def copy(self) -> dict[AnyStr, AnyStr]: ...
     def __delitem__(self, key: AnyStr) -> None: ...
     def __getitem__(self, key: AnyStr) -> AnyStr: ...
     def __setitem__(self, key: AnyStr, value: AnyStr) -> None: ...
@@ -225,9 +225,9 @@ if sys.platform != "win32":
     environb: _Environ[bytes]
 
 if sys.platform != "win32":
-    confstr_names: Dict[str, int]
-    pathconf_names: Dict[str, int]
-    sysconf_names: Dict[str, int]
+    confstr_names: dict[str, int]
+    pathconf_names: dict[str, int]
+    sysconf_names: dict[str, int]
 
     EX_OK: int
     EX_USAGE: int
@@ -336,7 +336,7 @@ if sys.platform != "win32":
     if sys.version_info >= (3, 7):
         # f_fsid was added in https://github.com/python/cpython/pull/4571
         class statvfs_result(_Tuple10Int):  # Unix only
-            def __new__(cls, seq: _Tuple10Int | _Tuple11Int, dict: Dict[str, int] = ...) -> statvfs_result: ...
+            def __new__(cls, seq: _Tuple10Int | _Tuple11Int, dict: dict[str, int] = ...) -> statvfs_result: ...
             n_fields: int
             n_sequence_fields: int
             n_unnamed_fields: int
@@ -378,9 +378,9 @@ def fspath(path: str) -> str: ...
 def fspath(path: bytes) -> bytes: ...
 @overload
 def fspath(path: PathLike[AnyStr]) -> AnyStr: ...
-def get_exec_path(env: Mapping[str, str] | None = ...) -> List[str]: ...
+def get_exec_path(env: Mapping[str, str] | None = ...) -> list[str]: ...
 
-# NOTE: get_exec_path(): returns List[bytes] when env not None
+# NOTE: get_exec_path(): returns list[bytes] when env not None
 def getlogin() -> str: ...
 def getpid() -> int: ...
 def getppid() -> int: ...
@@ -393,8 +393,8 @@ if sys.platform != "win32":
     def getegid() -> int: ...
     def geteuid() -> int: ...
     def getgid() -> int: ...
-    def getgrouplist(__user: str, __group: int) -> List[int]: ...
-    def getgroups() -> List[int]: ...  # Unix only, behaves differently on Mac
+    def getgrouplist(__user: str, __group: int) -> list[int]: ...
+    def getgroups() -> list[int]: ...  # Unix only, behaves differently on Mac
     def initgroups(__username: str, __gid: int) -> None: ...
     def getpgid(pid: int) -> int: ...
     def getpgrp() -> int: ...
@@ -689,7 +689,7 @@ _OnError = Callable[[OSError], Any]
 
 def walk(
     top: AnyStr | PathLike[AnyStr], topdown: bool = ..., onerror: _OnError | None = ..., followlinks: bool = ...
-) -> Iterator[Tuple[AnyStr, List[AnyStr], List[AnyStr]]]: ...
+) -> Iterator[Tuple[AnyStr, list[AnyStr], list[AnyStr]]]: ...
 
 if sys.platform != "win32":
     if sys.version_info >= (3, 7):
@@ -701,7 +701,7 @@ if sys.platform != "win32":
             *,
             follow_symlinks: bool = ...,
             dir_fd: int | None = ...,
-        ) -> Iterator[Tuple[str, List[str], List[str], int]]: ...
+        ) -> Iterator[Tuple[str, list[str], list[str], int]]: ...
         @overload
         def fwalk(
             top: bytes,
@@ -710,7 +710,7 @@ if sys.platform != "win32":
             *,
             follow_symlinks: bool = ...,
             dir_fd: int | None = ...,
-        ) -> Iterator[Tuple[bytes, List[bytes], List[bytes], int]]: ...
+        ) -> Iterator[Tuple[bytes, list[bytes], list[bytes], int]]: ...
     else:
         def fwalk(
             top: StrPath = ...,
@@ -719,10 +719,10 @@ if sys.platform != "win32":
             *,
             follow_symlinks: bool = ...,
             dir_fd: int | None = ...,
-        ) -> Iterator[Tuple[str, List[str], List[str], int]]: ...
+        ) -> Iterator[Tuple[str, list[str], list[str], int]]: ...
     if sys.platform == "linux":
         def getxattr(path: _FdOrAnyPath, attribute: StrOrBytesPath, *, follow_symlinks: bool = ...) -> bytes: ...
-        def listxattr(path: _FdOrAnyPath | None = ..., *, follow_symlinks: bool = ...) -> List[str]: ...
+        def listxattr(path: _FdOrAnyPath | None = ..., *, follow_symlinks: bool = ...) -> list[str]: ...
         def removexattr(path: _FdOrAnyPath, attribute: StrOrBytesPath, *, follow_symlinks: bool = ...) -> None: ...
         def setxattr(
             path: _FdOrAnyPath, attribute: StrOrBytesPath, value: bytes, flags: int = ..., *, follow_symlinks: bool = ...
@@ -745,13 +745,13 @@ def execlpe(file: StrOrBytesPath, __arg0: StrOrBytesPath, *args: Any) -> NoRetur
 # All these combinations are necessary due to List being invariant.
 _ExecVArgs = Union[
     Tuple[StrOrBytesPath, ...],
-    List[bytes],
-    List[str],
-    List[PathLike[Any]],
-    List[Union[bytes, str]],
-    List[Union[bytes, PathLike[Any]]],
-    List[Union[str, PathLike[Any]]],
-    List[Union[bytes, str, PathLike[Any]]],
+    list[bytes],
+    list[str],
+    list[PathLike[Any]],
+    list[Union[bytes, str]],
+    list[Union[bytes, PathLike[Any]]],
+    list[Union[str, PathLike[Any]]],
+    list[Union[bytes, str, PathLike[Any]]],
 ]
 _ExecEnv = Union[Mapping[bytes, Union[bytes, str]], Mapping[str, Union[bytes, str]]]
 

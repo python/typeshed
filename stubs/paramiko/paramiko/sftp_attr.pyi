@@ -1,5 +1,4 @@
 from os import stat_result
-from typing import Dict
 
 class SFTPAttributes:
     FLAG_SIZE: int
@@ -15,7 +14,7 @@ class SFTPAttributes:
     st_mtime: int | None
     filename: str  # only when from_stat() is used
     longname: str  # only when from_stat() is used
-    attr: Dict[str, str]
+    attr: dict[str, str]
     def __init__(self) -> None: ...
     @classmethod
     def from_stat(cls, obj: stat_result, filename: str | None = ...) -> SFTPAttributes: ...

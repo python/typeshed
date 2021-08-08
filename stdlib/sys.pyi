@@ -8,9 +8,9 @@ from typing import (
     Any,
     AsyncGenerator,
     Callable,
-    Dict,
+    
     FrozenSet,
-    List,
+    
     NoReturn,
     Optional,
     Protocol,
@@ -39,7 +39,7 @@ class _MetaPathFinder(Protocol):
 # ----- sys variables -----
 if sys.platform != "win32":
     abiflags: str
-argv: List[str]
+argv: list[str]
 base_exec_prefix: str
 base_prefix: str
 byteorder: Literal["little", "big"]
@@ -59,13 +59,13 @@ last_value: BaseException | None
 last_traceback: TracebackType | None
 maxsize: int
 maxunicode: int
-meta_path: List[_MetaPathFinder]
-modules: Dict[str, ModuleType]
+meta_path: list[_MetaPathFinder]
+modules: dict[str, ModuleType]
 if sys.version_info >= (3, 10):
-    orig_argv: List[str]
-path: List[str]
-path_hooks: List[Any]  # TODO precise type; function, path to finder
-path_importer_cache: Dict[str, PathEntryFinder | None]
+    orig_argv: list[str]
+path: list[str]
+path_hooks: list[Any]  # TODO precise type; function, path to finder
+path_importer_cache: dict[str, PathEntryFinder | None]
 platform: str
 if sys.version_info >= (3, 9):
     platlibdir: str
@@ -90,7 +90,7 @@ warnoptions: Any
 #    lineno)
 if sys.platform == "win32":
     winver: str
-_xoptions: Dict[Any, Any]
+_xoptions: dict[Any, Any]
 
 flags: _flags
 
@@ -161,7 +161,7 @@ version_info: _version_info
 
 def call_tracing(__func: Callable[..., _T], __args: Any) -> _T: ...
 def _clear_type_cache() -> None: ...
-def _current_frames() -> Dict[int, FrameType]: ...
+def _current_frames() -> dict[int, FrameType]: ...
 def _getframe(__depth: int = ...) -> FrameType: ...
 def _debugmallocstats() -> None: ...
 def __displayhook__(value: object) -> None: ...

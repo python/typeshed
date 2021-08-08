@@ -1,6 +1,6 @@
 import sys
 from sre_constants import _NamedIntConstant as _NIC, error as _Error
-from typing import Any, Dict, FrozenSet, Iterable, List, Match, Optional, Pattern as _Pattern, Tuple, Union, overload
+from typing import Any, FrozenSet, Iterable, List, Match, Optional, Pattern as _Pattern, Tuple, Union, overload
 
 SPECIAL_CHARS: str
 REPEAT_CHARS: str
@@ -9,17 +9,17 @@ OCTDIGITS: FrozenSet[str]
 HEXDIGITS: FrozenSet[str]
 ASCIILETTERS: FrozenSet[str]
 WHITESPACE: FrozenSet[str]
-ESCAPES: Dict[str, Tuple[_NIC, int]]
-CATEGORIES: Dict[str, Tuple[_NIC, _NIC] | Tuple[_NIC, List[Tuple[_NIC, _NIC]]]]
-FLAGS: Dict[str, int]
+ESCAPES: dict[str, Tuple[_NIC, int]]
+CATEGORIES: dict[str, Tuple[_NIC, _NIC] | Tuple[_NIC, list[Tuple[_NIC, _NIC]]]]
+FLAGS: dict[str, int]
 GLOBAL_FLAGS: int
 
 class Verbose(Exception): ...
 
 class _State:
     flags: int
-    groupdict: Dict[str, int]
-    groupwidths: List[int | None]
+    groupdict: dict[str, int]
+    groupwidths: list[int | None]
     lookbehindgroups: int | None
     def __init__(self) -> None: ...
     @property
@@ -42,15 +42,15 @@ _AvType = Union[_OpInType, _OpBranchType, Iterable[SubPattern], _OpGroupRefExist
 _CodeType = Tuple[_NIC, _AvType]
 
 class SubPattern:
-    data: List[_CodeType]
+    data: list[_CodeType]
     width: int | None
 
     if sys.version_info >= (3, 8):
         state: State
-        def __init__(self, state: State, data: List[_CodeType] | None = ...) -> None: ...
+        def __init__(self, state: State, data: list[_CodeType] | None = ...) -> None: ...
     else:
         pattern: Pattern
-        def __init__(self, pattern: Pattern, data: List[_CodeType] | None = ...) -> None: ...
+        def __init__(self, pattern: Pattern, data: list[_CodeType] | None = ...) -> None: ...
     def dump(self, level: int = ...) -> None: ...
     def __len__(self) -> int: ...
     def __delitem__(self, index: int | slice) -> None: ...

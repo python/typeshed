@@ -1,5 +1,5 @@
 import sys
-from typing import Any, Callable, Dict, Generic, Iterable, List, Mapping, Tuple, Type, TypeVar, overload
+from typing import Any, Callable, Generic, Iterable, Mapping, Tuple, Type, TypeVar, overload
 from typing_extensions import Protocol
 
 if sys.version_info >= (3, 9):
@@ -16,13 +16,13 @@ if sys.version_info >= (3, 10):
     class KW_ONLY: ...
 
 @overload
-def asdict(obj: Any) -> Dict[str, Any]: ...
+def asdict(obj: Any) -> dict[str, Any]: ...
 @overload
-def asdict(obj: Any, *, dict_factory: Callable[[List[Tuple[str, Any]]], _T]) -> _T: ...
+def asdict(obj: Any, *, dict_factory: Callable[[list[Tuple[str, Any]]], _T]) -> _T: ...
 @overload
 def astuple(obj: Any) -> Tuple[Any, ...]: ...
 @overload
-def astuple(obj: Any, *, tuple_factory: Callable[[List[Any]], _T]) -> _T: ...
+def astuple(obj: Any, *, tuple_factory: Callable[[list[Any]], _T]) -> _T: ...
 
 if sys.version_info >= (3, 10):
     @overload
@@ -192,7 +192,7 @@ if sys.version_info >= (3, 10):
         fields: Iterable[str | Tuple[str, type] | Tuple[str, type, Field[Any]]],
         *,
         bases: Tuple[type, ...] = ...,
-        namespace: Dict[str, Any] | None = ...,
+        namespace: dict[str, Any] | None = ...,
         init: bool = ...,
         repr: bool = ...,
         eq: bool = ...,
@@ -209,7 +209,7 @@ else:
         fields: Iterable[str | Tuple[str, type] | Tuple[str, type, Field[Any]]],
         *,
         bases: Tuple[type, ...] = ...,
-        namespace: Dict[str, Any] | None = ...,
+        namespace: dict[str, Any] | None = ...,
         init: bool = ...,
         repr: bool = ...,
         eq: bool = ...,

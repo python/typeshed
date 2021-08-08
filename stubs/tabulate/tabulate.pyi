@@ -1,11 +1,11 @@
-from typing import Any, Callable, Container, Dict, Iterable, List, Mapping, NamedTuple, Sequence, Union
+from typing import Any, Callable, Container, Iterable, List, Mapping, NamedTuple, Sequence, Union
 
-LATEX_ESCAPE_RULES: Dict[str, str]
+LATEX_ESCAPE_RULES: dict[str, str]
 MIN_PADDING: int
 PRESERVE_WHITESPACE: bool
 WIDE_CHARS_MODE: bool
-multiline_formats: Dict[str, str]
-tabulate_formats: List[str]
+multiline_formats: dict[str, str]
+tabulate_formats: list[str]
 
 class Line(NamedTuple):
     begin: str
@@ -34,7 +34,7 @@ class TableFormat(NamedTuple):
 def simple_separated_format(separator: str) -> TableFormat: ...
 def tabulate(
     tabular_data: Mapping[str, Iterable[Any]] | Iterable[Iterable[Any]],
-    headers: str | Dict[str, str] | Sequence[str] = ...,
+    headers: str | dict[str, str] | Sequence[str] = ...,
     tablefmt: str | TableFormat = ...,
     floatfmt: str | Iterable[str] = ...,
     numalign: str | None = ...,

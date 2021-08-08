@@ -1,4 +1,4 @@
-from typing import IO, Any, Iterable, List, Tuple
+from typing import IO, Any, Iterable, Tuple
 
 AS_IS: None
 _FontType = Tuple[str, bool, bool, bool]
@@ -28,9 +28,9 @@ class NullFormatter:
 class AbstractFormatter:
     writer: NullWriter
     align: str | None
-    align_stack: List[str | None]
-    font_stack: List[_FontType]
-    margin_stack: List[int]
+    align_stack: list[str | None]
+    font_stack: list[_FontType]
+    margin_stack: list[int]
     spacing: str | None
     style_stack: Any
     nospace: int

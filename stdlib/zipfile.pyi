@@ -2,7 +2,7 @@ import io
 import sys
 from _typeshed import Self, StrPath
 from types import TracebackType
-from typing import IO, Callable, Dict, Iterable, Iterator, List, Protocol, Sequence, Tuple, Type, overload
+from typing import IO, Callable, Iterable, Iterator, Protocol, Sequence, Tuple, Type, overload
 from typing_extensions import Literal
 
 _DateTuple = Tuple[int, int, int, int, int, int]
@@ -32,7 +32,7 @@ class ZipExtFile(io.BufferedIOBase):
     if sys.version_info >= (3, 7):
         MAX_SEEK_READ: int = ...
 
-    newlines: List[bytes] | None
+    newlines: list[bytes] | None
     mode: str
     name: str
     if sys.version_info >= (3, 7):
@@ -96,9 +96,9 @@ class ZipFile:
     filename: str | None
     debug: int
     comment: bytes
-    filelist: List[ZipInfo]
+    filelist: list[ZipInfo]
     fp: IO[bytes] | None
-    NameToInfo: Dict[str, ZipInfo]
+    NameToInfo: dict[str, ZipInfo]
     start_dir: int  # undocumented
     compression: int  # undocumented
     compresslevel: int | None  # undocumented
@@ -134,8 +134,8 @@ class ZipFile:
     ) -> None: ...
     def close(self) -> None: ...
     def getinfo(self, name: str) -> ZipInfo: ...
-    def infolist(self) -> List[ZipInfo]: ...
-    def namelist(self) -> List[str]: ...
+    def infolist(self) -> list[ZipInfo]: ...
+    def namelist(self) -> list[str]: ...
     def open(
         self, name: str | ZipInfo, mode: Literal["r", "w"] = ..., pwd: bytes | None = ..., *, force_zip64: bool = ...
     ) -> IO[bytes]: ...

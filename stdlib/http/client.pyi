@@ -10,10 +10,10 @@ from typing import (
     Any,
     BinaryIO,
     Callable,
-    Dict,
+    
     Iterable,
     Iterator,
-    List,
+    
     Mapping,
     Protocol,
     Tuple,
@@ -87,7 +87,7 @@ INSUFFICIENT_STORAGE: int
 NOT_EXTENDED: int
 NETWORK_AUTHENTICATION_REQUIRED: int
 
-responses: Dict[int, str]
+responses: dict[int, str]
 
 class HTTPMessage(email.message.Message):
     def getallmatchingheaders(self, name: str) -> list[str]: ...  # undocumented
@@ -112,7 +112,7 @@ class HTTPResponse(io.BufferedIOBase, BinaryIO):
     def getheader(self, name: str) -> str | None: ...
     @overload
     def getheader(self, name: str, default: _T) -> str | _T: ...
-    def getheaders(self) -> List[Tuple[str, str]]: ...
+    def getheaders(self) -> list[Tuple[str, str]]: ...
     def fileno(self) -> int: ...
     def isclosed(self) -> bool: ...
     def __iter__(self) -> Iterator[bytes]: ...

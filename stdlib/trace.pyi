@@ -1,7 +1,7 @@
 import sys
 import types
 from _typeshed import StrPath
-from typing import Any, Callable, Dict, Mapping, Optional, Sequence, Tuple, TypeVar
+from typing import Any, Callable, Mapping, Optional, Sequence, Tuple, TypeVar
 
 _T = TypeVar("_T")
 _localtrace = Callable[[types.FrameType, str, Any], Callable[..., Any]]
@@ -10,10 +10,10 @@ _fileModuleFunction = Tuple[str, Optional[str], str]
 class CoverageResults:
     def __init__(
         self,
-        counts: Dict[Tuple[str, int], int] | None = ...,
-        calledfuncs: Dict[_fileModuleFunction, int] | None = ...,
+        counts: dict[Tuple[str, int], int] | None = ...,
+        calledfuncs: dict[_fileModuleFunction, int] | None = ...,
         infile: StrPath | None = ...,
-        callers: Dict[Tuple[_fileModuleFunction, _fileModuleFunction], int] | None = ...,
+        callers: dict[Tuple[_fileModuleFunction, _fileModuleFunction], int] | None = ...,
         outfile: StrPath | None = ...,
     ) -> None: ...  # undocumented
     def update(self, other: CoverageResults) -> None: ...

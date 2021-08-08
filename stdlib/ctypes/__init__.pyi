@@ -7,7 +7,7 @@ from typing import (
     Generic,
     Iterable,
     Iterator,
-    List,
+    
     Mapping,
     Optional,
     Sequence,
@@ -187,7 +187,7 @@ class pointer(Generic[_CT], _PointerLike, _CData):
     @overload
     def __getitem__(self, i: int) -> _CT: ...
     @overload
-    def __getitem__(self, s: slice) -> List[_CT]: ...
+    def __getitem__(self, s: slice) -> list[_CT]: ...
     @overload
     def __setitem__(self, i: int, o: _CT) -> None: ...
     @overload
@@ -296,7 +296,7 @@ class Array(Generic[_CT], _CData):
     @overload
     def __getitem__(self, i: int) -> Any: ...
     @overload
-    def __getitem__(self, s: slice) -> List[Any]: ...
+    def __getitem__(self, s: slice) -> list[Any]: ...
     @overload
     def __setitem__(self, i: int, o: Any) -> None: ...
     @overload
