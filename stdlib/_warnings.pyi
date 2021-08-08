@@ -2,7 +2,7 @@ from typing import Any, Tuple, Type, overload
 
 _defaultaction: str
 _onceregistry: dict[Any, Any]
-filters: list[Tuple[Any, ...]]
+filters: list[tuple[str, str | None, Type[Warning], str | None, int]]
 
 @overload
 def warn(message: str, category: Type[Warning] | None = ..., stacklevel: int = ..., source: Any | None = ...) -> None: ...
