@@ -114,7 +114,6 @@ contextvars.ContextVar.set
 io.IncrementalNewlineDecoder.setstate
 random.SystemRandom.getrandbits
 secrets.SystemRandom.getrandbits
-trace.Trace.runfunc
 zipfile.ZipExtFile.seek
 # These enums derive from (str, Enum). See comment in py3_common.txt
 pstats.SortKey.__new__
