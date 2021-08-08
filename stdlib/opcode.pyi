@@ -1,5 +1,5 @@
 import sys
-from typing import Dict, List, Optional, Sequence
+from typing import Dict, List, Sequence
 
 cmp_op: Sequence[str]
 hasconst: List[int]
@@ -16,9 +16,9 @@ HAVE_ARGUMENT: int
 EXTENDED_ARG: int
 
 if sys.version_info >= (3, 8):
-    def stack_effect(__opcode: int, __oparg: Optional[int] = ..., *, jump: Optional[bool] = ...) -> int: ...
+    def stack_effect(__opcode: int, __oparg: int | None = ..., *, jump: bool | None = ...) -> int: ...
 
 else:
-    def stack_effect(__opcode: int, __oparg: Optional[int] = ...) -> int: ...
+    def stack_effect(__opcode: int, __oparg: int | None = ...) -> int: ...
 
 hasnargs: List[int]
