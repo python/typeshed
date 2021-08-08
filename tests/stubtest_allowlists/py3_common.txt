@@ -88,6 +88,7 @@ enum.EnumMeta.__call__
 enum.EnumMeta.__new__
 http.HTTPStatus.description  # set in __new__
 http.HTTPStatus.phrase  # set in __new__
+http.client.HTTPConnection.response_class  # the actual type at runtime is abc.ABCMeta
 imaplib.IMAP4_SSL.ssl  # Dependent on SSL existence
 importlib.abc.FileLoader.get_filename  # Wrapped with _check_name decorator which changes runtime signature
 importlib.abc.FileLoader.load_module  # Wrapped with _check_name decorator which changes runtime signature
@@ -234,6 +235,7 @@ builtins.quit
 builtins.reveal_locals
 builtins.reveal_type
 collections.abc.*  # Types are re-exported from _collections_abc, so errors should be fixed there
+distutils.command.check.SilentReporter  # only defined if docutils in installed
 # Dynamically specified by __getattr__, and thus don't exist on the class
 tempfile._TemporaryFileWrapper.[\w_]+
 # Various classes in typing aren't types at runtime. In addition, mypy thinks some special forms are tautologically defined.

@@ -4,7 +4,6 @@ redis.client.Pipeline.flushall
 redis.client.Pipeline.flushdb
 redis.client.Pipeline.hscan
 redis.client.Pipeline.pubsub
-redis.client.Pipeline.restore
 redis.client.Pipeline.scan
 redis.client.Pipeline.scan_iter
 redis.client.Pipeline.shutdown
@@ -26,7 +25,6 @@ redis.client.Redis.flushdb
 redis.client.Redis.from_url
 redis.client.Redis.hscan
 redis.client.Redis.pubsub
-redis.client.Redis.restore
 redis.client.Redis.scan
 redis.client.Redis.scan_iter
 redis.client.Redis.shutdown

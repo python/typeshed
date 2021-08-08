@@ -9,12 +9,13 @@
 # followed by committing the changes to typeshed
 #
 # Update these two variables when rerunning script
-PROTOBUF_VERSION=3.14.0
-MYPY_PROTOBUF_VERSION=v1.24
+PROTOBUF_VERSION=3.17.3
+MYPY_PROTOBUF_VERSION=v2.8
 
 set -ex
 
 if uname -a | grep Darwin; then
+    # brew install coreutils wget
     PLAT=osx
 else
     PLAT=linux
@@ -43,10 +44,10 @@ PYTHON_PROTOBUF_DIR=protobuf-$PROTOBUF_VERSION
 VENV=venv
 python3 -m venv $VENV
 source $VENV/bin/activate
-pip install -r requirements-tests-py3.txt  # for black and isort
+pip install -r $REPO_ROOT/requirements-tests-py3.txt  # for black and isort
 
 # Install mypy-protobuf
-pip install git+https://github.com/dropbox/mypy-protobuf@${MYPY_PROTOBUF_VERSION}#subdirectory=python
+pip install git+https://github.com/dropbox/mypy-protobuf@${MYPY_PROTOBUF_VERSION}
 
 # Remove existing pyi
 find $REPO_ROOT/stubs/protobuf/ -name "*_pb2.pyi" -delete
@@ -72,3 +73,5 @@ protoc_install/bin/protoc --proto_path=$PYTHON_PROTOBUF_DIR/src --mypy_out=$REPO
 
 isort $REPO_ROOT/stubs/protobuf
 black $REPO_ROOT/stubs/protobuf
+
+sed -i="" "s/mypy-protobuf [^\"]*/mypy-protobuf ${MYPY_PROTOBUF_VERSION}/" $REPO_ROOT/stubs/protobuf/METADATA.toml

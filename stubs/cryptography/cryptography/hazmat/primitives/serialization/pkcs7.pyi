@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Any, Iterable, List, Optional, Union
+from typing import Any, Iterable, List
 
 from cryptography.hazmat.primitives.asymmetric.ec import EllipticCurvePrivateKey
 from cryptography.hazmat.primitives.asymmetric.rsa import RSAPrivateKey
@@ -23,8 +23,8 @@ class PKCS7SignatureBuilder:
     def add_signer(
         self,
         certificate: Certificate,
-        private_key: Union[RSAPrivateKey, EllipticCurvePrivateKey],
-        hash_algorithm: Union[SHA1, SHA224, SHA256, SHA384, SHA512],
+        private_key: RSAPrivateKey | EllipticCurvePrivateKey,
+        hash_algorithm: SHA1 | SHA224 | SHA256 | SHA384 | SHA512,
     ) -> PKCS7SignatureBuilder: ...
     def add_certificate(self, certificate: Certificate) -> PKCS7SignatureBuilder: ...
-    def sign(self, encoding: Encoding, options: Iterable[PKCS7Options], backend: Optional[Any] = ...) -> bytes: ...
+    def sign(self, encoding: Encoding, options: Iterable[PKCS7Options], backend: Any | None = ...) -> bytes: ...

@@ -2,11 +2,11 @@ import gzip
 import http.client
 import sys
 import time
-from _typeshed import SupportsRead, SupportsWrite
+from _typeshed import Self, SupportsRead, SupportsWrite
 from datetime import datetime
 from io import BytesIO
 from types import TracebackType
-from typing import Any, Callable, Dict, Iterable, List, Mapping, Optional, Protocol, Tuple, Type, Union, overload
+from typing import Any, Callable, Dict, Iterable, List, Mapping, Protocol, Tuple, Type, Union, overload
 from typing_extensions import Literal
 
 class _SupportsTimeTuple(Protocol):
@@ -63,7 +63,7 @@ def _strftime(value: _XMLDate) -> str: ...  # undocumented
 class DateTime:
 
     value: str  # undocumented
-    def __init__(self, value: Union[int, str, datetime, time.struct_time, Tuple[int, ...]] = ...) -> None: ...
+    def __init__(self, value: int | str | datetime | time.struct_time | Tuple[int, ...] = ...) -> None: ...
     def __lt__(self, other: _DateTimeComparable) -> bool: ...
     def __le__(self, other: _DateTimeComparable) -> bool: ...
     def __gt__(self, other: _DateTimeComparable) -> bool: ...
@@ -80,7 +80,7 @@ def _datetime_type(data: str) -> datetime: ...  # undocumented
 class Binary:
 
     data: bytes
-    def __init__(self, data: Optional[bytes] = ...) -> None: ...
+    def __init__(self, data: bytes | None = ...) -> None: ...
     def decode(self, data: bytes) -> None: ...
     def encode(self, out: SupportsWrite[str]) -> None: ...
 
@@ -90,7 +90,7 @@ WRAPPERS: Tuple[Type[DateTime], Type[Binary]]  # undocumented
 
 class ExpatParser:  # undocumented
     def __init__(self, target: Unmarshaller) -> None: ...
-    def feed(self, data: Union[str, bytes]) -> None: ...
+    def feed(self, data: str | bytes) -> None: ...
     def close(self) -> None: ...
 
 class Marshaller:
@@ -101,11 +101,11 @@ class Marshaller:
 
     memo: Dict[Any, None]
     data: None
-    encoding: Optional[str]
+    encoding: str | None
     allow_none: bool
-    def __init__(self, encoding: Optional[str] = ..., allow_none: bool = ...) -> None: ...
-    def dumps(self, values: Union[Fault, Iterable[_Marshallable]]) -> str: ...
-    def __dump(self, value: Union[_Marshallable], write: Callable[[str], Any]) -> None: ...  # undocumented
+    def __init__(self, encoding: str | None = ..., allow_none: bool = ...) -> None: ...
+    def dumps(self, values: Fault | Iterable[_Marshallable]) -> str: ...
+    def __dump(self, value: _Marshallable, write: Callable[[str], Any]) -> None: ...  # undocumented
     def dump_nil(self, value: None, write: Callable[[str], Any]) -> None: ...
     def dump_bool(self, value: bool, write: Callable[[str], Any]) -> None: ...
     def dump_long(self, value: int, write: Callable[[str], Any]) -> None: ...
@@ -124,19 +124,19 @@ class Unmarshaller:
 
     dispatch: Dict[str, Callable[[Unmarshaller, str], None]] = ...
 
-    _type: Optional[str]
+    _type: str | None
     _stack: List[_Marshallable]
     _marks: List[int]
     _data: List[str]
     _value: bool
-    _methodname: Optional[str]
+    _methodname: str | None
     _encoding: str
     append: Callable[[Any], None]
     _use_datetime: bool
     _use_builtin_types: bool
     def __init__(self, use_datetime: bool = ..., use_builtin_types: bool = ...) -> None: ...
     def close(self) -> Tuple[_Marshallable, ...]: ...
-    def getmethodname(self) -> Optional[str]: ...
+    def getmethodname(self) -> str | None: ...
     def xml(self, encoding: str, standalone: Any) -> None: ...  # Standalone is ignored
     def start(self, tag: str, attrs: Dict[str, str]) -> None: ...
     def data(self, text: str) -> None: ...
@@ -180,21 +180,19 @@ class MultiCall:
     def __call__(self) -> MultiCallIterator: ...
 
 # A little white lie
-FastMarshaller: Optional[Marshaller]
-FastParser: Optional[ExpatParser]
-FastUnmarshaller: Optional[Unmarshaller]
+FastMarshaller: Marshaller | None
+FastParser: ExpatParser | None
+FastUnmarshaller: Unmarshaller | None
 
 def getparser(use_datetime: bool = ..., use_builtin_types: bool = ...) -> Tuple[ExpatParser, Unmarshaller]: ...
 def dumps(
-    params: Union[Fault, Tuple[_Marshallable, ...]],
-    methodname: Optional[str] = ...,
-    methodresponse: Optional[bool] = ...,
-    encoding: Optional[str] = ...,
+    params: Fault | Tuple[_Marshallable, ...],
+    methodname: str | None = ...,
+    methodresponse: bool | None = ...,
+    encoding: str | None = ...,
     allow_none: bool = ...,
 ) -> str: ...
-def loads(
-    data: str, use_datetime: bool = ..., use_builtin_types: bool = ...
-) -> Tuple[Tuple[_Marshallable, ...], Optional[str]]: ...
+def loads(data: str, use_datetime: bool = ..., use_builtin_types: bool = ...) -> Tuple[Tuple[_Marshallable, ...], str | None]: ...
 def gzip_encode(data: bytes) -> bytes: ...  # undocumented
 def gzip_decode(data: bytes, max_decode: int = ...) -> bytes: ...  # undocumented
 
@@ -216,11 +214,11 @@ class Transport:
 
     user_agent: str = ...
     accept_gzip_encoding: bool = ...
-    encode_threshold: Optional[int] = ...
+    encode_threshold: int | None = ...
 
     _use_datetime: bool
     _use_builtin_types: bool
-    _connection: Tuple[Optional[_HostType], Optional[http.client.HTTPConnection]]
+    _connection: Tuple[_HostType | None, http.client.HTTPConnection | None]
     _headers: List[Tuple[str, str]]
     _extra_headers: List[Tuple[str, str]]
 
@@ -252,10 +250,10 @@ class SafeTransport(Transport):
             use_builtin_types: bool = ...,
             *,
             headers: Iterable[Tuple[str, str]] = ...,
-            context: Optional[Any] = ...,
+            context: Any | None = ...,
         ) -> None: ...
     else:
-        def __init__(self, use_datetime: bool = ..., use_builtin_types: bool = ..., *, context: Optional[Any] = ...) -> None: ...
+        def __init__(self, use_datetime: bool = ..., use_builtin_types: bool = ..., *, context: Any | None = ...) -> None: ...
     def make_connection(self, host: _HostType) -> http.client.HTTPSConnection: ...
 
 class ServerProxy:
@@ -271,28 +269,28 @@ class ServerProxy:
         def __init__(
             self,
             uri: str,
-            transport: Optional[Transport] = ...,
-            encoding: Optional[str] = ...,
+            transport: Transport | None = ...,
+            encoding: str | None = ...,
             verbose: bool = ...,
             allow_none: bool = ...,
             use_datetime: bool = ...,
             use_builtin_types: bool = ...,
             *,
             headers: Iterable[Tuple[str, str]] = ...,
-            context: Optional[Any] = ...,
+            context: Any | None = ...,
         ) -> None: ...
     else:
         def __init__(
             self,
             uri: str,
-            transport: Optional[Transport] = ...,
-            encoding: Optional[str] = ...,
+            transport: Transport | None = ...,
+            encoding: str | None = ...,
             verbose: bool = ...,
             allow_none: bool = ...,
             use_datetime: bool = ...,
             use_builtin_types: bool = ...,
             *,
-            context: Optional[Any] = ...,
+            context: Any | None = ...,
         ) -> None: ...
     def __getattr__(self, name: str) -> _Method: ...
     @overload
@@ -300,10 +298,10 @@ class ServerProxy:
     @overload
     def __call__(self, attr: Literal["transport"]) -> Transport: ...
     @overload
-    def __call__(self, attr: str) -> Union[Callable[[], None], Transport]: ...
-    def __enter__(self) -> ServerProxy: ...
+    def __call__(self, attr: str) -> Callable[[], None] | Transport: ...
+    def __enter__(self: Self) -> Self: ...
     def __exit__(
-        self, exc_type: Optional[Type[BaseException]], exc_val: Optional[BaseException], exc_tb: Optional[TracebackType]
+        self, exc_type: Type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
     ) -> None: ...
     def __close(self) -> None: ...  # undocumented
     def __request(self, methodname: str, params: Tuple[_Marshallable, ...]) -> Tuple[_Marshallable, ...]: ...  # undocumented
