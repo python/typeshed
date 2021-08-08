@@ -123,7 +123,7 @@ if sys.version_info >= (3, 10):
         *,
         return_exceptions: bool = ...,
     ) -> Future[
-        Tuple[_T1 | BaseException, _T2 | BaseException, _T3 | BaseException, _T4 | BaseException, _T5 | BaseException,]
+        Tuple[_T1 | BaseException, _T2 | BaseException, _T3 | BaseException, _T4 | BaseException, _T5 | BaseException]
     ]: ...
 
 else:
@@ -223,7 +223,7 @@ else:
         loop: AbstractEventLoop | None = ...,
         return_exceptions: bool = ...,
     ) -> Future[
-        Tuple[_T1 | BaseException, _T2 | BaseException, _T3 | BaseException, _T4 | BaseException, _T5 | BaseException,]
+        Tuple[_T1 | BaseException, _T2 | BaseException, _T3 | BaseException, _T4 | BaseException, _T5 | BaseException]
     ]: ...
 
 def run_coroutine_threadsafe(coro: _FutureT[_T], loop: AbstractEventLoop) -> concurrent.futures.Future[_T]: ...
