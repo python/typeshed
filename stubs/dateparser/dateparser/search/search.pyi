@@ -1,10 +1,5 @@
 from typing import Any, Optional
 
-from dateparser.conf import Settings, apply_settings
-from dateparser.date import DateDataParser
-from dateparser.languages.loader import LocaleDataLoader
-from dateparser.search.text_detection import FullTextLanguageDetector
-
 RELATIVE_REG: Any
 
 def date_is_relative(translation: Any): ...
