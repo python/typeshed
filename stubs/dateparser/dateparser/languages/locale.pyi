@@ -3,11 +3,7 @@ from typing import Any, Optional
 from dateparser.timezone_parser import pop_tz_offset_from_string, word_is_tz
 from dateparser.utils import combine_dicts, normalize_unicode
 
-from .dictionary import (
-    ALWAYS_KEEP_TOKENS,
-    Dictionary,
-    NormalizedDictionary,
-)
+from .dictionary import ALWAYS_KEEP_TOKENS, Dictionary, NormalizedDictionary
 
 DIGIT_GROUP_PATTERN: Any
 NUMERAL_PATTERN: Any
