@@ -1,5 +1,5 @@
 import sys
-from typing import Any, Callable, Generic, Iterable, Mapping, Tuple, Type, TypeVar, overload
+from typing import Any, Callable, Generic, Iterable, Mapping, Tuple, Type, TypeVar, Union, overload
 from typing_extensions import Protocol
 
 if sys.version_info >= (3, 9):
@@ -71,8 +71,8 @@ class _DefaultFactory(Protocol[_T_co]):
 class Field(Generic[_T]):
     name: str
     type: Type[_T]
-    default: _T
-    default_factory: _DefaultFactory[_T]
+    default: Union[_T, _MISSING_TYPE]
+    default_factory: Union[_DefaultFactory[_T], _MISSING_TYPE]
     repr: bool
     hash: bool | None
     init: bool
