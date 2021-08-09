@@ -1,4 +1,5 @@
-from typing import Any, Container, Iterable
+from collections.abc import Container, Iterable
+from typing import Any
 
 from bleach.linkifier import DEFAULT_CALLBACKS as DEFAULT_CALLBACKS, Linker as Linker, _Callback
 from bleach.sanitizer import (

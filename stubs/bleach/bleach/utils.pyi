@@ -1,5 +1,6 @@
 from collections import OrderedDict
-from typing import Any, Mapping, overload
+from collections.abc import Mapping
+from typing import Any, overload
 
 @overload
 def alphabetize_attributes(attrs: None) -> None: ...
