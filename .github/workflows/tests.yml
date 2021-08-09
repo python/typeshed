@@ -119,7 +119,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        shard-index: [0, 1]
+        shard-index: [0, 1, 2, 3]
       fail-fast: false
     steps:
       - uses: actions/checkout@v2
@@ -129,4 +129,4 @@ jobs:
       - name: Install dependencies
         run: pip install toml
       - name: Run stubtest
-        run: python tests/stubtest_third_party.py --num-shards 2 --shard-index ${{ matrix.shard-index }}
+        run: python tests/stubtest_third_party.py --num-shards 4 --shard-index ${{ matrix.shard-index }}
