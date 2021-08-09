@@ -1,7 +1,6 @@
 from collections import OrderedDict
 from typing import Any, Mapping, Text, overload
 
-def force_unicode(text: Text) -> Text: ...
 @overload
 def alphabetize_attributes(attrs: None) -> None: ...
 @overload
