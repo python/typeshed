@@ -1,9 +1,9 @@
 from typing import Any, Optional
 
-from dateparser.conf import Settings as Settings, apply_settings as apply_settings
-from dateparser.date import DateDataParser as DateDataParser
-from dateparser.languages.loader import LocaleDataLoader as LocaleDataLoader
-from dateparser.search.text_detection import FullTextLanguageDetector as FullTextLanguageDetector
+from dateparser.conf import Settings, apply_settings
+from dateparser.date import DateDataParser
+from dateparser.languages.loader import LocaleDataLoader
+from dateparser.search.text_detection import FullTextLanguageDetector
 
 RELATIVE_REG: Any
 

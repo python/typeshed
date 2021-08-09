@@ -1,6 +1,6 @@
 from typing import Any
 
-from dateparser.calendars import non_gregorian_parser as non_gregorian_parser
+from dateparser.calendars import non_gregorian_parser
 
 class PersianDate:
     year: Any = ...

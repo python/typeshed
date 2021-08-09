@@ -1,7 +1,7 @@
 from typing import Any, Optional
 
-from .parser import date_order_chart as date_order_chart
-from .utils import registry as registry
+from .parser import date_order_chart
+from .utils import registry
 
 class Settings:
     def __new__(cls, *args, **kw) -> Settings: ...

@@ -1,13 +1,13 @@
 from typing import Any, Optional
 
 from dateparser.utils import (
-    apply_timezone as apply_timezone,
-    localize_timezone as localize_timezone,
-    strip_braces as strip_braces,
+    apply_timezone,
+    localize_timezone,
+    strip_braces,
 )
 
-from .parser import time_parser as time_parser
-from .timezone_parser import pop_tz_offset_from_string as pop_tz_offset_from_string
+from .parser import time_parser
+from .timezone_parser import pop_tz_offset_from_string
 
 PATTERN: Any
 

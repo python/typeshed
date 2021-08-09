@@ -1,2 +1,2 @@
-from .loader import default_loader as default_loader
-from .locale import Locale as Locale
+from .loader import default_loader
+from .locale import Locale

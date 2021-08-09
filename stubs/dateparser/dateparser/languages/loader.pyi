@@ -1,8 +1,8 @@
 from collections import OrderedDict
 from typing import Any, Iterator, List, Optional, Union
 
-from ..data import language_locale_dict as language_locale_dict, language_order as language_order
-from .locale import Locale as Locale
+from ..data import language_locale_dict, language_order
+from .locale import Locale
 
 LOCALE_SPLIT_PATTERN: Any
 

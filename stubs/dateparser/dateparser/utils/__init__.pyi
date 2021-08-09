@@ -1,7 +1,7 @@
 from collections import OrderedDict
 from typing import Any, List, Mapping, Optional, Union
 
-from dateparser.timezone_parser import StaticTzInfo as StaticTzInfo
+from dateparser.timezone_parser import StaticTzInfo
 
 def strip_braces(date_string: str) -> str: ...
 def normalize_unicode(string: str, form: str = ...) -> str: ...

@@ -1,13 +1,13 @@
 from typing import Any, Optional
 
-from dateparser.conf import apply_settings as apply_settings, check_settings as check_settings
-from dateparser.date_parser import date_parser as date_parser
-from dateparser.freshness_date_parser import freshness_date_parser as freshness_date_parser
-from dateparser.languages.loader import LocaleDataLoader as LocaleDataLoader
-from dateparser.timezone_parser import pop_tz_offset_from_string as pop_tz_offset_from_string
+from dateparser.conf import apply_settings, check_settings
+from dateparser.date_parser import date_parser
+from dateparser.freshness_date_parser import freshness_date_parser
+from dateparser.languages.loader import LocaleDataLoader
+from dateparser.timezone_parser import pop_tz_offset_from_string
 from dateparser.utils import (
-    apply_timezone_from_settings as apply_timezone_from_settings,
-    set_correct_day_from_settings as set_correct_day_from_settings,
+    apply_timezone_from_settings,
+    set_correct_day_from_settings
 )
 
 APOSTROPHE_LOOK_ALIKE_CHARS: Any

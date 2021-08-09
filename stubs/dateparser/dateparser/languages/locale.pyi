@@ -1,12 +1,12 @@
 from typing import Any, Optional
 
-from dateparser.timezone_parser import pop_tz_offset_from_string as pop_tz_offset_from_string, word_is_tz as word_is_tz
-from dateparser.utils import combine_dicts as combine_dicts, normalize_unicode as normalize_unicode
+from dateparser.timezone_parser import pop_tz_offset_from_string, word_is_tz
+from dateparser.utils import combine_dicts, normalize_unicode
 
 from .dictionary import (
-    ALWAYS_KEEP_TOKENS as ALWAYS_KEEP_TOKENS,
-    Dictionary as Dictionary,
-    NormalizedDictionary as NormalizedDictionary,
+    ALWAYS_KEEP_TOKENS,
+    Dictionary,
+    NormalizedDictionary,
 )
 
 DIGIT_GROUP_PATTERN: Any

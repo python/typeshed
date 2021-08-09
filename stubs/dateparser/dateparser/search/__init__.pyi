@@ -7,7 +7,7 @@ if sys.version_info >= (3, 8):
 else:
     from typing_extensions import Literal
 
-from dateparser.search.search import DateSearchWithDetection as DateSearchWithDetection
+from dateparser.search.search import DateSearchWithDetection
 
 @overload
 def search_dates(
