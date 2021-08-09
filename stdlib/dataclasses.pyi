@@ -71,8 +71,8 @@ class _DefaultFactory(Protocol[_T_co]):
 class Field(Generic[_T]):
     name: str
     type: Type[_T]
-    default: Union[_T, _MISSING_TYPE]
-    default_factory: Union[_DefaultFactory[_T], _MISSING_TYPE]
+    default: _T | _MISSING_TYPE
+    default_factory: _DefaultFactory[_T] | _MISSING_TYPE
     repr: bool
     hash: bool | None
     init: bool
