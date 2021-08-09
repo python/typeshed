@@ -3,7 +3,7 @@ import threading
 from _typeshed import Self
 from abc import abstractmethod
 from logging import Logger
-from typing import Any, Callable, Container, Generic, Iterable, Iterator, List, Protocol, Sequence, Set, TypeVar, overload
+from typing import Any, Callable, Container, Generic, Iterable, Iterator, Protocol, Sequence, Set, TypeVar, overload
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
@@ -86,7 +86,7 @@ def wait(fs: Iterable[Future[_T]], timeout: float | None = ..., return_when: str
 
 class _Waiter:
     event: threading.Event
-    finished_futures: List[Future[Any]]
+    finished_futures: list[Future[Any]]
     def __init__(self) -> None: ...
     def add_result(self, future: Future[Any]) -> None: ...
     def add_exception(self, future: Future[Any]) -> None: ...

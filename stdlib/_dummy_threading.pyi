@@ -1,6 +1,6 @@
 import sys
 from types import FrameType, TracebackType
-from typing import Any, Callable, Iterable, List, Mapping, Optional, Type, TypeVar
+from typing import Any, Callable, Iterable, Mapping, Optional, Type, TypeVar
 
 # TODO recursive type
 _TF = Callable[[FrameType, str, Any], Optional[Callable[..., Any]]]
@@ -8,13 +8,13 @@ _TF = Callable[[FrameType, str, Any], Optional[Callable[..., Any]]]
 _PF = Callable[[FrameType, str, Any], None]
 _T = TypeVar("_T")
 
-__all__: List[str]
+__all__: list[str]
 
 def active_count() -> int: ...
 def current_thread() -> Thread: ...
 def currentThread() -> Thread: ...
 def get_ident() -> int: ...
-def enumerate() -> List[Thread]: ...
+def enumerate() -> list[Thread]: ...
 def main_thread() -> Thread: ...
 
 if sys.version_info >= (3, 8):

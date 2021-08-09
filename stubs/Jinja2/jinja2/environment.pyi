@@ -1,5 +1,5 @@
 import sys
-from typing import Any, Callable, Dict, Iterator, List, Sequence, Text, Type
+from typing import Any, Callable, Iterator, Sequence, Text, Type
 
 from .bccache import BytecodeCache
 from .loaders import BaseLoader
@@ -40,12 +40,12 @@ class Environment:
     autoescape: Any
     filters: Any
     tests: Any
-    globals: Dict[str, Any]
+    globals: dict[str, Any]
     loader: BaseLoader
     cache: Any
     bytecode_cache: BytecodeCache
     auto_reload: bool
-    extensions: List[Any]
+    extensions: list[Any]
     def __init__(
         self,
         block_start_string: Text = ...,
@@ -60,7 +60,7 @@ class Environment:
         lstrip_blocks: bool = ...,
         newline_sequence: Text = ...,
         keep_trailing_newline: bool = ...,
-        extensions: List[Any] = ...,
+        extensions: list[Any] = ...,
         optimized: bool = ...,
         undefined: Type[Undefined] = ...,
         finalize: Callable[..., Any] | None = ...,
@@ -85,7 +85,7 @@ class Environment:
         line_comment_prefix: Text = ...,
         trim_blocks: bool = ...,
         lstrip_blocks: bool = ...,
-        extensions: List[Any] = ...,
+        extensions: list[Any] = ...,
         optimized: bool = ...,
         undefined: Type[Undefined] = ...,
         finalize: Callable[..., Any] = ...,
@@ -123,18 +123,18 @@ class Environment:
     def join_path(self, template: Template | Text, parent: Text) -> Text: ...
     def get_template(self, name: Template | Text, parent: Text | None = ..., globals: Any | None = ...) -> Template: ...
     def select_template(
-        self, names: Sequence[Template | Text], parent: Text | None = ..., globals: Dict[str, Any] | None = ...
+        self, names: Sequence[Template | Text], parent: Text | None = ..., globals: dict[str, Any] | None = ...
     ) -> Template: ...
     def get_or_select_template(
         self,
         template_name_or_list: Template | Text | Sequence[Template | Text],
         parent: Text | None = ...,
-        globals: Dict[str, Any] | None = ...,
+        globals: dict[str, Any] | None = ...,
     ) -> Template: ...
     def from_string(
-        self, source: Text, globals: Dict[str, Any] | None = ..., template_class: Type[Template] | None = ...
+        self, source: Text, globals: dict[str, Any] | None = ..., template_class: Type[Template] | None = ...
     ) -> Template: ...
-    def make_globals(self, d: Dict[str, Any] | None) -> Dict[str, Any]: ...
+    def make_globals(self, d: dict[str, Any] | None) -> dict[str, Any]: ...
     # Frequently added extensions are included here:
     # from InternationalizationExtension:
     def install_gettext_translations(self, translations: Any, newstyle: bool | None = ...): ...
@@ -179,10 +179,10 @@ class Template:
     def stream(self, *args, **kwargs) -> TemplateStream: ...
     def generate(self, *args, **kwargs) -> Iterator[Text]: ...
     def new_context(
-        self, vars: Dict[str, Any] | None = ..., shared: bool = ..., locals: Dict[str, Any] | None = ...
+        self, vars: dict[str, Any] | None = ..., shared: bool = ..., locals: dict[str, Any] | None = ...
     ) -> Context: ...
     def make_module(
-        self, vars: Dict[str, Any] | None = ..., shared: bool = ..., locals: Dict[str, Any] | None = ...
+        self, vars: dict[str, Any] | None = ..., shared: bool = ..., locals: dict[str, Any] | None = ...
     ) -> Context: ...
     @property
     def module(self) -> Any: ...

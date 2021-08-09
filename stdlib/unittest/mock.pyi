@@ -76,10 +76,10 @@ class NonCallableMock(Base, Any):  # type: ignore
     def __new__(__cls, *args: Any, **kw: Any) -> NonCallableMock: ...
     def __init__(
         self,
-        spec: List[str] | object | Type[object] | None = ...,
+        spec: list[str] | object | Type[object] | None = ...,
         wraps: Any | None = ...,
         name: str | None = ...,
-        spec_set: List[str] | object | Type[object] | None = ...,
+        spec_set: list[str] | object | Type[object] | None = ...,
         parent: NonCallableMock | None = ...,
         _spec_state: Any | None = ...,
         _new_name: str = ...,

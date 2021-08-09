@@ -1,17 +1,17 @@
 import sys
-from typing import Any, AnyStr, Callable, Dict, Generic, List, Mapping, NamedTuple, Sequence, Tuple, Union, overload
+from typing import Any, AnyStr, Callable, Generic, Mapping, NamedTuple, Sequence, Tuple, Union, overload
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
 
 _Str = Union[bytes, str]
 
-uses_relative: List[str]
-uses_netloc: List[str]
-uses_params: List[str]
-non_hierarchical: List[str]
-uses_query: List[str]
-uses_fragment: List[str]
+uses_relative: list[str]
+uses_netloc: list[str]
+uses_params: list[str]
+non_hierarchical: list[str]
+uses_query: list[str]
+uses_fragment: list[str]
 scheme_chars: str
 MAX_CACHE_SIZE: int
 
@@ -87,7 +87,7 @@ def parse_qs(
     errors: str = ...,
     max_num_fields: int | None = ...,
     separator: str = ...,
-) -> Dict[AnyStr, List[AnyStr]]: ...
+) -> dict[AnyStr, list[AnyStr]]: ...
 def parse_qsl(
     qs: AnyStr | None,
     keep_blank_values: bool = ...,
@@ -96,7 +96,7 @@ def parse_qsl(
     errors: str = ...,
     max_num_fields: int | None = ...,
     separator: str = ...,
-) -> List[Tuple[AnyStr, AnyStr]]: ...
+) -> list[Tuple[AnyStr, AnyStr]]: ...
 @overload
 def quote(string: str, safe: _Str = ..., encoding: str | None = ..., errors: str | None = ...) -> str: ...
 @overload

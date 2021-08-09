@@ -1,5 +1,5 @@
 from email.charset import Charset
-from typing import Any, List, Tuple
+from typing import Any, Tuple
 
 class Header:
     def __init__(
@@ -17,9 +17,9 @@ class Header:
     def __eq__(self, other: Any) -> bool: ...
     def __ne__(self, other: Any) -> bool: ...
 
-def decode_header(header: Header | str) -> List[Tuple[bytes, str | None]]: ...
+def decode_header(header: Header | str) -> list[Tuple[bytes, str | None]]: ...
 def make_header(
-    decoded_seq: List[Tuple[bytes, str | None]],
+    decoded_seq: list[Tuple[bytes, str | None]],
     maxlinelen: int | None = ...,
     header_name: str | None = ...,
     continuation_ws: str = ...,

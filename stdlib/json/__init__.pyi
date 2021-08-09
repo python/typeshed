@@ -1,5 +1,5 @@
 from _typeshed import SupportsRead
-from typing import IO, Any, Callable, Dict, List, Tuple, Type
+from typing import IO, Any, Callable, Tuple, Type
 
 from .decoder import JSONDecodeError as JSONDecodeError, JSONDecoder as JSONDecoder
 from .encoder import JSONEncoder as JSONEncoder
@@ -37,22 +37,22 @@ def loads(
     s: str | bytes,
     *,
     cls: Type[JSONDecoder] | None = ...,
-    object_hook: Callable[[Dict[Any, Any]], Any] | None = ...,
+    object_hook: Callable[[dict[Any, Any]], Any] | None = ...,
     parse_float: Callable[[str], Any] | None = ...,
     parse_int: Callable[[str], Any] | None = ...,
     parse_constant: Callable[[str], Any] | None = ...,
-    object_pairs_hook: Callable[[List[Tuple[Any, Any]]], Any] | None = ...,
+    object_pairs_hook: Callable[[list[Tuple[Any, Any]]], Any] | None = ...,
     **kwds: Any,
 ) -> Any: ...
 def load(
     fp: SupportsRead[str | bytes],
     *,
     cls: Type[JSONDecoder] | None = ...,
-    object_hook: Callable[[Dict[Any, Any]], Any] | None = ...,
+    object_hook: Callable[[dict[Any, Any]], Any] | None = ...,
     parse_float: Callable[[str], Any] | None = ...,
     parse_int: Callable[[str], Any] | None = ...,
     parse_constant: Callable[[str], Any] | None = ...,
-    object_pairs_hook: Callable[[List[Tuple[Any, Any]]], Any] | None = ...,
+    object_pairs_hook: Callable[[list[Tuple[Any, Any]]], Any] | None = ...,
     **kwds: Any,
 ) -> Any: ...
 def detect_encoding(b: bytes) -> str: ...  # undocumented

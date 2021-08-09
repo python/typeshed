@@ -1,6 +1,6 @@
 import sys
 from types import CodeType
-from typing import IO, Any, Container, Dict, Iterable, Iterator, List, Sequence, Tuple
+from typing import IO, Any, Container, Iterable, Iterator, Sequence, Tuple
 
 LOAD_CONST: int  # undocumented
 IMPORT_NAME: int  # undocumented
@@ -9,11 +9,11 @@ STORE_GLOBAL: int  # undocumented
 STORE_OPS: Tuple[int, int]  # undocumented
 EXTENDED_ARG: int  # undocumented
 
-packagePathMap: Dict[str, List[str]]  # undocumented
+packagePathMap: dict[str, list[str]]  # undocumented
 
 def AddPackagePath(packagename: str, path: str) -> None: ...
 
-replacePackageMap: Dict[str, str]  # undocumented
+replacePackageMap: dict[str, str]  # undocumented
 
 def ReplacePackage(oldname: str, newname: str) -> None: ...
 
@@ -23,9 +23,9 @@ class Module:  # undocumented
 
 class ModuleFinder:
 
-    modules: Dict[str, Module]
-    path: List[str]  # undocumented
-    badmodules: Dict[str, Dict[str, int]]  # undocumented
+    modules: dict[str, Module]
+    path: list[str]  # undocumented
+    badmodules: dict[str, dict[str, int]]  # undocumented
     debug: int  # undocumented
     indent: int  # undocumented
     excludes: Container[str]  # undocumented
@@ -34,7 +34,7 @@ class ModuleFinder:
     if sys.version_info >= (3, 8):
         def __init__(
             self,
-            path: List[str] | None = ...,
+            path: list[str] | None = ...,
             debug: int = ...,
             excludes: Container[str] | None = ...,
             replace_paths: Sequence[Tuple[str, str]] | None = ...,
@@ -42,7 +42,7 @@ class ModuleFinder:
     else:
         def __init__(
             self,
-            path: List[str] | None = ...,
+            path: list[str] | None = ...,
             debug: int = ...,
             excludes: Container[str] = ...,
             replace_paths: Sequence[Tuple[str, str]] = ...,
@@ -53,7 +53,7 @@ class ModuleFinder:
     def run_script(self, pathname: str) -> None: ...
     def load_file(self, pathname: str) -> None: ...  # undocumented
     def import_hook(
-        self, name: str, caller: Module | None = ..., fromlist: List[str] | None = ..., level: int = ...
+        self, name: str, caller: Module | None = ..., fromlist: list[str] | None = ..., level: int = ...
     ) -> Module | None: ...  # undocumented
     def determine_parent(self, caller: Module | None, level: int = ...) -> Module | None: ...  # undocumented
     def find_head_package(self, parent: Module, name: str) -> Tuple[Module, str]: ...  # undocumented
@@ -70,6 +70,6 @@ class ModuleFinder:
         self, name: str, path: str | None, parent: Module | None = ...
     ) -> Tuple[IO[Any] | None, str | None, Tuple[str, str, int]]: ...  # undocumented
     def report(self) -> None: ...
-    def any_missing(self) -> List[str]: ...  # undocumented
-    def any_missing_maybe(self) -> Tuple[List[str], List[str]]: ...  # undocumented
+    def any_missing(self) -> list[str]: ...  # undocumented
+    def any_missing_maybe(self) -> Tuple[list[str], list[str]]: ...  # undocumented
     def replace_paths_in_code(self, co: CodeType) -> CodeType: ...  # undocumented

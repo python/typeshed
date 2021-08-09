@@ -64,7 +64,7 @@ class SMTP:
     does_esmtp: bool = ...
     default_port: int = ...
     timeout: float
-    esmtp_features: Dict[str, str]
+    esmtp_features: dict[str, str]
     command_encoding: str
     source_address: _SourceAddress | None
     local_hostname: str

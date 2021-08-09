@@ -2,7 +2,7 @@ import importlib.abc
 import importlib.machinery
 import types
 from _typeshed import StrOrBytesPath
-from typing import Any, Callable, List
+from typing import Any, Callable
 
 def module_for_loader(fxn: Callable[..., types.ModuleType]) -> Callable[..., types.ModuleType]: ...
 def set_loader(fxn: Callable[..., types.ModuleType]) -> Callable[..., types.ModuleType]: ...
@@ -23,7 +23,7 @@ def spec_from_file_location(
     location: StrOrBytesPath | None = ...,
     *,
     loader: importlib.abc.Loader | None = ...,
-    submodule_search_locations: List[str] | None = ...,
+    submodule_search_locations: list[str] | None = ...,
 ) -> importlib.machinery.ModuleSpec | None: ...
 def module_from_spec(spec: importlib.machinery.ModuleSpec) -> types.ModuleType: ...
 

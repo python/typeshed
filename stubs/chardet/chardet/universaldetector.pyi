@@ -1,5 +1,5 @@
 from logging import Logger
-from typing import Dict, Pattern
+from typing import Pattern
 from typing_extensions import TypedDict
 
 class _FinalResultType(TypedDict):
@@ -17,7 +17,7 @@ class UniversalDetector(object):
     HIGH_BYTE_DETECTOR: Pattern[bytes]
     ESC_DETECTOR: Pattern[bytes]
     WIN_BYTE_DETECTOR: Pattern[bytes]
-    ISO_WIN_MAP: Dict[str, str]
+    ISO_WIN_MAP: dict[str, str]
 
     result: _IntermediateResultType
     done: bool

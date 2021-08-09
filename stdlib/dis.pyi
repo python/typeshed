@@ -16,7 +16,7 @@ from opcode import (
     opname as opname,
     stack_effect as stack_effect,
 )
-from typing import IO, Any, Callable, Dict, Iterator, List, NamedTuple, Tuple, Union
+from typing import IO, Any, Callable, Iterator, NamedTuple, Tuple, Union
 
 # Strictly this should not have to include Callable, but mypy doesn't use FunctionType
 # for functions (python/mypy#3171)
@@ -44,9 +44,9 @@ class Bytecode:
     @classmethod
     def from_traceback(cls, tb: types.TracebackType) -> Bytecode: ...
 
-COMPILER_FLAG_NAMES: Dict[int, str]
+COMPILER_FLAG_NAMES: dict[int, str]
 
-def findlabels(code: _have_code) -> List[int]: ...
+def findlabels(code: _have_code) -> list[int]: ...
 def findlinestarts(code: _have_code) -> Iterator[Tuple[int, int]]: ...
 def pretty_flags(flags: int) -> str: ...
 def code_info(x: _have_code_or_string) -> str: ...

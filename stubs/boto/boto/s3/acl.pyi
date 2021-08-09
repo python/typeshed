@@ -1,9 +1,9 @@
-from typing import Any, Dict, List, Text
+from typing import Any, Text
 
 from .connection import S3Connection
 from .user import User
 
-CannedACLStrings: List[str]
+CannedACLStrings: list[str]
 
 class Policy:
     parent: Any
@@ -11,13 +11,13 @@ class Policy:
     acl: ACL
     def __init__(self, parent: Any | None = ...) -> None: ...
     owner: User
-    def startElement(self, name: Text, attrs: Dict[str, Any], connection: S3Connection) -> None | User | ACL: ...
+    def startElement(self, name: Text, attrs: dict[str, Any], connection: S3Connection) -> None | User | ACL: ...
     def endElement(self, name: Text, value: Any, connection: S3Connection) -> None: ...
     def to_xml(self) -> str: ...
 
 class ACL:
     policy: Policy
-    grants: List[Grant]
+    grants: list[Grant]
     def __init__(self, policy: Policy | None = ...) -> None: ...
     def add_grant(self, grant: Grant) -> None: ...
     def add_email_grant(self, permission: Text, email_address: Text) -> None: ...

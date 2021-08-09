@@ -1,5 +1,5 @@
 from tkinter import Event, Misc, Toplevel
-from typing import Any, List
+from typing import Any
 
 class Dialog(Toplevel):
     def __init__(self, parent: Misc | None, title: str | None = ...) -> None: ...
@@ -11,7 +11,7 @@ class SimpleDialog:
         self,
         master: Misc | None,
         text: str = ...,
-        buttons: List[str] = ...,
+        buttons: list[str] = ...,
         default: int | None = ...,
         cancel: int | None = ...,
         title: str | None = ...,

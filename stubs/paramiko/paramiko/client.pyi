@@ -1,5 +1,5 @@
 from socket import socket
-from typing import Dict, Iterable, Mapping, NoReturn, Tuple, Type
+from typing import Iterable, Mapping, NoReturn, Tuple, Type
 
 from paramiko.channel import Channel, ChannelFile, ChannelStderrFile, ChannelStdinFile
 from paramiko.hostkeys import HostKeys
@@ -37,7 +37,7 @@ class SSHClient(ClosingContextManager):
         auth_timeout: float | None = ...,
         gss_trust_dns: bool = ...,
         passphrase: str | None = ...,
-        disabled_algorithms: Dict[str, Iterable[str]] | None = ...,
+        disabled_algorithms: dict[str, Iterable[str]] | None = ...,
     ) -> None: ...
     def close(self) -> None: ...
     def exec_command(
@@ -46,7 +46,7 @@ class SSHClient(ClosingContextManager):
         bufsize: int = ...,
         timeout: float | None = ...,
         get_pty: bool = ...,
-        environment: Dict[str, str] | None = ...,
+        environment: dict[str, str] | None = ...,
     ) -> Tuple[ChannelStdinFile, ChannelFile, ChannelStderrFile]: ...
     def invoke_shell(
         self,

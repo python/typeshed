@@ -1,6 +1,6 @@
 import sys
 from types import ModuleType
-from typing import Any, Container, Dict, Iterable, List, Sequence, Set, Tuple, Type
+from typing import Any, Container, Iterable, Sequence, Set, Tuple, Type
 from typing_extensions import Literal
 
 if sys.platform == "win32":
@@ -25,7 +25,7 @@ if sys.platform == "win32":
     class Table:
 
         name: str
-        fields: List[Tuple[int, str, int]]
+        fields: list[Tuple[int, str, int]]
         def __init__(self, name: str) -> None: ...
         def add_field(self, index: int, name: str, type: int) -> None: ...
         def sql(self) -> str: ...
@@ -48,7 +48,7 @@ if sys.platform == "win32":
     class CAB:
 
         name: str
-        files: List[Tuple[str, str]]
+        files: list[Tuple[str, str]]
         filenames: Set[str]
         index: int
         def __init__(self, name: str) -> None: ...
@@ -66,7 +66,7 @@ if sys.platform == "win32":
         component: str | None
         short_names: Set[str]
         ids: Set[str]
-        keyfiles: Dict[str, str]
+        keyfiles: dict[str, str]
         componentflags: int | None
         absolute: str
         def __init__(
@@ -89,7 +89,7 @@ if sys.platform == "win32":
         ) -> None: ...
         def make_short(self, file: str) -> str: ...
         def add_file(self, file: str, src: str | None = ..., version: str | None = ..., language: str | None = ...) -> str: ...
-        def glob(self, pattern: str, exclude: Container[str] | None = ...) -> List[str]: ...
+        def glob(self, pattern: str, exclude: Container[str] | None = ...) -> list[str]: ...
         def remove_pyc(self) -> None: ...
     class Binary:
 

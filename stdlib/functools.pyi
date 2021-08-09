@@ -3,7 +3,6 @@ from _typeshed import SupportsItems, SupportsLessThan
 from typing import (
     Any,
     Callable,
-    Dict,
     Generic,
     Hashable,
     Iterable,
@@ -63,7 +62,7 @@ def cmp_to_key(mycmp: Callable[[_T, _T], int]) -> Callable[[_T], SupportsLessTha
 class partial(Generic[_T]):
     func: Callable[..., _T]
     args: Tuple[Any, ...]
-    keywords: Dict[str, Any]
+    keywords: dict[str, Any]
     def __init__(self, func: Callable[..., _T], *args: Any, **kwargs: Any) -> None: ...
     def __call__(self, *args: Any, **kwargs: Any) -> _T: ...
     if sys.version_info >= (3, 9):
@@ -75,7 +74,7 @@ _Descriptor = Any
 class partialmethod(Generic[_T]):
     func: Callable[..., _T] | _Descriptor
     args: Tuple[Any, ...]
-    keywords: Dict[str, Any]
+    keywords: dict[str, Any]
     @overload
     def __init__(self, __func: Callable[..., _T], *args: Any, **keywords: Any) -> None: ...
     @overload

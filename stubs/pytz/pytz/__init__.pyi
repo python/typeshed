@@ -1,5 +1,5 @@
 import datetime
-from typing import List, Mapping, Set
+from typing import Mapping, Set
 
 class BaseTzInfo(datetime.tzinfo):
     zone: str = ...
@@ -32,11 +32,11 @@ UTC: _UTCclass
 def timezone(zone: str) -> _UTCclass | _StaticTzInfo | _DstTzInfo: ...
 def FixedOffset(offset: int) -> _UTCclass | datetime.tzinfo: ...
 
-all_timezones: List[str]
+all_timezones: list[str]
 all_timezones_set: Set[str]
-common_timezones: List[str]
+common_timezones: list[str]
 common_timezones_set: Set[str]
-country_timezones: Mapping[str, List[str]]
+country_timezones: Mapping[str, list[str]]
 country_names: Mapping[str, str]
 ZERO: datetime.timedelta
 HOUR: datetime.timedelta

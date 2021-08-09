@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Any, Iterable, List
+from typing import Any, Iterable
 
 from cryptography.hazmat.primitives.asymmetric.ec import EllipticCurvePrivateKey
 from cryptography.hazmat.primitives.asymmetric.rsa import RSAPrivateKey
@@ -7,8 +7,8 @@ from cryptography.hazmat.primitives.hashes import SHA1, SHA224, SHA256, SHA384, 
 from cryptography.hazmat.primitives.serialization import Encoding
 from cryptography.x509 import Certificate
 
-def load_pem_pkcs7_certificates(data: bytes) -> List[Certificate]: ...
-def load_der_pkcs7_certificates(data: bytes) -> List[Certificate]: ...
+def load_pem_pkcs7_certificates(data: bytes) -> list[Certificate]: ...
+def load_der_pkcs7_certificates(data: bytes) -> list[Certificate]: ...
 
 class PKCS7Options(Enum):
     Text: str

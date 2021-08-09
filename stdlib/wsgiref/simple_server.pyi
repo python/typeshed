@@ -1,5 +1,5 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from typing import List, Type, TypeVar, overload
+from typing import Type, TypeVar, overload
 
 from .handlers import SimpleHandler
 from .types import ErrorStream, StartResponse, WSGIApplication, WSGIEnvironment
@@ -25,7 +25,7 @@ class WSGIRequestHandler(BaseHTTPRequestHandler):
     def get_stderr(self) -> ErrorStream: ...
     def handle(self) -> None: ...
 
-def demo_app(environ: WSGIEnvironment, start_response: StartResponse) -> List[bytes]: ...
+def demo_app(environ: WSGIEnvironment, start_response: StartResponse) -> list[bytes]: ...
 
 _S = TypeVar("_S", bound=WSGIServer)
 

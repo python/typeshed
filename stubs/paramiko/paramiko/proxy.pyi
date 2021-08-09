@@ -1,10 +1,10 @@
 from subprocess import Popen
-from typing import Any, List
+from typing import Any
 
 from paramiko.util import ClosingContextManager
 
 class ProxyCommand(ClosingContextManager):
-    cmd: List[str]
+    cmd: list[str]
     process: Popen[Any]
     timeout: float | None
     def __init__(self, command_line: str) -> None: ...

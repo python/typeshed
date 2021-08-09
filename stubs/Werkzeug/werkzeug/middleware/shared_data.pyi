@@ -1,6 +1,6 @@
 import datetime
 from _typeshed.wsgi import StartResponse, WSGIApplication, WSGIEnvironment
-from typing import IO, Callable, Iterable, List, Mapping, Optional, Text, Tuple, Union
+from typing import IO, Callable, Iterable, Mapping, Optional, Text, Tuple, Union
 
 _V = Union[Tuple[Text, Text], Text]
 
@@ -9,7 +9,7 @@ _Loader = Callable[[Optional[Text]], Union[Tuple[None, None], Tuple[Text, _Opene
 
 class SharedDataMiddleware(object):
     app: WSGIApplication
-    exports: List[Tuple[Text, _Loader]]
+    exports: list[Tuple[Text, _Loader]]
     cache: bool
     cache_timeout: float
     def __init__(

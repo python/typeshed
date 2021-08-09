@@ -160,10 +160,9 @@ Supported features include:
 - [PEP 586](https://www.python.org/dev/peps/pep-0586/) (Literal)
 - [PEP 591](https://www.python.org/dev/peps/pep-0591/) (Final/@final)
 - [PEP 589](https://www.python.org/dev/peps/pep-0589/) (TypedDict)
+- [PEP 604](https://www.python.org/dev/peps/pep-0604/) (`Foo | Bar` union syntax)
 - [PEP 647](https://www.python.org/dev/peps/pep-0647/) (TypeGuard):
   see [#5406](https://github.com/python/typeshed/issues/5406)
-- [PEP 604](https://www.python.org/dev/peps/pep-0604/) (Union
-  pipe operator): see [#4819](https://github.com/python/typeshed/issues/4819)
 
 Features from the `typing` module that are not present in all
 supported Python 3 versions must be imported from `typing_extensions`
@@ -322,9 +321,9 @@ Stub files should only contain information necessary for the type
 checker, and leave out unnecessary detail:
 * for arguments with a default, use `...` instead of the actual
   default;
-* for arguments that default to `None`, use `Optional[]` explicitly
+* for arguments that default to `None`, use `Foo | None` explicitly
   (see below for details);
-* use `float` instead of `Union[int, float]`.
+* use `float` instead of `int | float`.
 
 Some further tips for good type hints:
 * use built-in generics (`list`, `dict`, `tuple`, `set`), instead
@@ -335,7 +334,7 @@ Some further tips for good type hints:
   from `collections.abc` instead of `typing`;
 * avoid invariant collection types (`list`, `dict`) in argument
   positions, in favor of covariant types like `Mapping` or `Sequence`;
-* avoid Union return types: https://github.com/python/mypy/issues/1693;
+* avoid union return types: https://github.com/python/mypy/issues/1693;
 * in Python 2, whenever possible, use `unicode` if that's the only
   possible type, and `Text` if it can be either `unicode` or `bytes`;
 * use platform checks like `if sys.platform == 'win32'` to denote
@@ -351,7 +350,7 @@ unless:
 When adding type hints, avoid using the `Any` type when possible. Reserve
 the use of `Any` for when:
 * the correct type cannot be expressed in the current type system; and
-* to avoid Union returns (see above).
+* to avoid union returns (see above).
 
 Note that `Any` is not the correct type to use if you want to indicate
 that some function can accept literally anything: in those cases use
@@ -371,9 +370,9 @@ When adding type annotations for context manager classes, annotate
 the return type of `__exit__` as bool only if the context manager
 sometimes suppresses exceptions -- if it sometimes returns `True`
 at runtime. If the context manager never suppresses exceptions,
-have the return type be either `None` or `Optional[bool]`. If you
+have the return type be either `None` or `bool | None`. If you
 are not sure whether exceptions are suppressed or not or if the
-context manager is meant to be subclassed, pick `Optional[bool]`.
+context manager is meant to be subclassed, pick `bool | None`.
 See https://github.com/python/mypy/issues/7214 for more details.
 
 `__enter__` methods and other methods that return instances of the
