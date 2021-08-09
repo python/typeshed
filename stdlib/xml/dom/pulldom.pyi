@@ -1,4 +1,4 @@
-from typing import IO, Any, Sequence
+from typing import IO, Any, Sequence, Union
 from typing_extensions import Literal
 from xml.dom.minidom import Document, DOMImplementation, Element, Text
 from xml.sax.handler import ContentHandler
@@ -13,8 +13,8 @@ PROCESSING_INSTRUCTION: Literal["PROCESSING_INSTRUCTION"]
 IGNORABLE_WHITESPACE: Literal["IGNORABLE_WHITESPACE"]
 CHARACTERS: Literal["CHARACTERS"]
 
-DocumentFactory = DOMImplementation | None
-Node = Document | Element | Text
+DocumentFactory = Union[DOMImplementation, None]
+Node = Union[Document, Element, Text]
 
 Event = tuple[
     Literal[
@@ -31,7 +31,7 @@ Event = tuple[
 ]
 
 class PullDOM(ContentHandler):
-    document: Document | None
+    document: Union[Document, None]
     documentFactory: DocumentFactory
     firstEvent: Any
     lastEvent: Any
