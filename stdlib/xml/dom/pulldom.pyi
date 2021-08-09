@@ -1,26 +1,47 @@
-from typing import IO, Any
+from _typeshed import DOMImplementation
+from typing import IO, Any, Callable, Optional, Sequence
+from typing_extensions import Literal
+from xml.dom.minidom import Document, Element, Text
 from xml.sax.handler import ContentHandler
 from xml.sax.xmlreader import XMLReader
 
-START_ELEMENT: str
-END_ELEMENT: str
-COMMENT: str
-START_DOCUMENT: str
-END_DOCUMENT: str
-PROCESSING_INSTRUCTION: str
-IGNORABLE_WHITESPACE: str
-CHARACTERS: str
+START_ELEMENT: Literal["START_ELEMENT"]
+END_ELEMENT: Literal["END_ELEMENT"]
+COMMENT: Literal["COMMENT"]
+START_DOCUMENT: Literal["START_DOCUMENT"]
+END_DOCUMENT: Literal["END_DOCUMENT"]
+PROCESSING_INSTRUCTION: Literal["PROCESSING_INSTRUCTION"]
+IGNORABLE_WHITESPACE: Literal["IGNORABLE_WHITESPACE"]
+CHARACTERS: Literal["CHARACTERS"]
+
+DocumentFactory = DOMImplementation | None
+Node = Document | Element | Text
+
+Event = tuple[
+    Literal[
+        Literal["START_ELEMENT"],
+        Literal["END_ELEMENT"],
+        Literal["COMMENT"],
+        Literal["START_DOCUMENT"],
+        Literal["END_DOCUMENT"],
+        Literal["PROCESSING_INSTRUCTION"],
+        Literal["IGNORABLE_WHITESPACE"],
+        Literal["CHARACTERS"],
+    ],
+    Node,
+]
 
 class PullDOM(ContentHandler):
-    document: Any | None
-    documentFactory: Any
+    document: Document | None
+    documentFactory: DocumentFactory
     firstEvent: Any
     lastEvent: Any
-    elementStack: Any
-    push: Any
-    pending_events: Any
-    def __init__(self, documentFactory: Any | None = ...) -> None: ...
-    def pop(self): ...
+    elementStack: Sequence[Any]
+    pending_events: Sequence[Any]
+    def __init__(self, documentFactory: DocumentFactory = ...) -> None: ...
+    def push(self, Element) -> None: ...
+    def pop(self) -> Element: ...
+    def reset(self) -> None: ...
     def setDocumentLocator(self, locator) -> None: ...
     def startPrefixMapping(self, prefix, uri) -> None: ...
     def endPrefixMapping(self, prefix) -> None: ...
@@ -52,8 +73,8 @@ class DOMEventStream:
     def __getitem__(self, pos): ...
     def __next__(self): ...
     def __iter__(self): ...
-    def expandNode(self, node) -> None: ...
-    def getEvent(self): ...
+    def getEvent(self) -> Event: ...
+    def expandNode(self, node: Node) -> None: ...
     def clear(self) -> None: ...
 
 class SAX2DOM(PullDOM):
