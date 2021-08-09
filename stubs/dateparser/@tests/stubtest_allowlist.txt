@@ -3,4 +3,3 @@ dateparser.calendars.hijri_parser
 dateparser.calendars.jalali
 dateparser.calendars.jalali_parser
 dateparser.search.detection.BaseLanguageDetector.iterate_applicable_languages
-dateparser.search.text_detection.BaseLanguageDetector.iterate_applicable_languages
