@@ -1,4 +1,4 @@
-from typing import IO, Any, Sequence, Union
+from typing import IO, Any, Sequence, Tuple, Union
 from typing_extensions import Literal
 from xml.dom.minidom import Document, DOMImplementation, Element, Text
 from xml.sax.handler import ContentHandler
@@ -16,7 +16,7 @@ CHARACTERS: Literal["CHARACTERS"]
 DocumentFactory = Union[DOMImplementation, None]
 Node = Union[Document, Element, Text]
 
-Event = tuple[
+Event = Tuple[
     Literal[
         Literal["START_ELEMENT"],
         Literal["END_ELEMENT"],
