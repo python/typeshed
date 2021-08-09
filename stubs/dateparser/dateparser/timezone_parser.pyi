@@ -1,8 +1,6 @@
 from datetime import tzinfo
 from typing import Any
 
-from .timezones import timezone_info_list
-
 class StaticTzInfo(tzinfo):
     def __init__(self, name: Any, offset: Any) -> None: ...
     def tzname(self, dt: Any): ...
