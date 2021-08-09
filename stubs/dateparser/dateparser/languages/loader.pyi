@@ -11,7 +11,7 @@ class LocaleDataLoader:
         self,
         languages: Optional[List[str]] = ...,
         locales: Optional[List[str]] = ...,
-        region: Optional[str] = ...,
+        region: str | None = ...,
         use_given_order: bool = ...,
         allow_conflicting_locales: bool = ...,
     ) -> OrderedDict[str, Union[List[Any], str, int]]: ...
@@ -19,7 +19,7 @@ class LocaleDataLoader:
         self,
         languages: Optional[List[str]] = ...,
         locales: Optional[List[str]] = ...,
-        region: Optional[str] = ...,
+        region: str | None = ...,
         use_given_order: bool = ...,
         allow_conflicting_locales: bool = ...,
     ) -> Iterator[Locale]: ...

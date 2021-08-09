@@ -8,6 +8,6 @@ def parse(
     date_formats: Optional[Union[List[str], Tuple[str], Set[str]]] = ...,
     languages: Optional[Union[List[str], Tuple[str], Set[str]]] = ...,
     locales: Optional[Union[List[str], Tuple[str], Set[str]]] = ...,
-    region: Optional[str] = ...,
+    region: str | None = ...,
     settings: Optional[Mapping[str, Any]] = ...,
 ) -> Optional[datetime.datetime]: ...
