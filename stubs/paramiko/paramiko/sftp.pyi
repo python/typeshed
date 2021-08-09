@@ -1,5 +1,5 @@
 from logging import Logger
-from typing import Dict, List, Optional
+from typing import Dict, List
 
 from paramiko.channel import Channel
 
@@ -56,6 +56,6 @@ class SFTPError(Exception): ...
 
 class BaseSFTP:
     logger: Logger
-    sock: Optional[Channel]
+    sock: Channel | None
     ultra_debug: bool
     def __init__(self) -> None: ...

@@ -37,6 +37,7 @@ collections.abc.KeysView.__reversed__
 collections.abc.ValuesView.__reversed__
 contextvars.Context.__init__  # Default C __init__ signature is wrong
 dataclasses.field
+dataclasses.KW_ONLY
 dummy_threading
 enum.Enum._generate_next_value_
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
@@ -113,7 +114,6 @@ contextvars.ContextVar.set
 io.IncrementalNewlineDecoder.setstate
 random.SystemRandom.getrandbits
 secrets.SystemRandom.getrandbits
-trace.Trace.runfunc
 zipfile.ZipExtFile.seek
 # These enums derive from (str, Enum). See comment in py3_common.txt
 pstats.SortKey.__new__
@@ -170,6 +170,7 @@ ssl.SSLContext.__new__
 ssl._create_unverified_context
 ssl.get_server_certificate
 tempfile.TemporaryDirectory.__init__
+types.UnionType  # Renamed from `types.Union`
 unicodedata.ucnhash_CAPI
 unittest.mock.create_autospec
 zipfile.Path.open

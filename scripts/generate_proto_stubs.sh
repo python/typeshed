@@ -10,7 +10,7 @@
 #
 # Update these two variables when rerunning script
 PROTOBUF_VERSION=3.17.3
-MYPY_PROTOBUF_VERSION=v2.6
+MYPY_PROTOBUF_VERSION=v2.8
 
 set -ex
 
@@ -73,3 +73,5 @@ protoc_install/bin/protoc --proto_path=$PYTHON_PROTOBUF_DIR/src --mypy_out=$REPO
 
 isort $REPO_ROOT/stubs/protobuf
 black $REPO_ROOT/stubs/protobuf
+
+sed -i="" "s/mypy-protobuf [^\"]*/mypy-protobuf ${MYPY_PROTOBUF_VERSION}/" $REPO_ROOT/stubs/protobuf/METADATA.toml

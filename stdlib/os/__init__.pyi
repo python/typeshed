@@ -311,6 +311,8 @@ class stat_result:
 @runtime_checkable
 class PathLike(Protocol[_AnyStr_co]):
     def __fspath__(self) -> _AnyStr_co: ...
+    if sys.version_info >= (3, 9):
+        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 _FdOrAnyPath = Union[int, StrOrBytesPath]
 
@@ -819,6 +821,8 @@ else:
     def WEXITSTATUS(status: int) -> int: ...
     def WSTOPSIG(status: int) -> int: ...
     def WTERMSIG(status: int) -> int: ...
+    if sys.version_info >= (3, 8):
+        from posix import posix_spawn as posix_spawn, posix_spawnp as posix_spawnp
 
 if sys.platform != "win32":
     from posix import sched_param

@@ -1,4 +1,4 @@
-from typing import Any, Callable, Container, Dict, Iterable, List, Optional, Pattern, Text, Union
+from typing import Any, Callable, Container, Dict, Iterable, List, Pattern, Text, Union
 
 from .html5lib_shim import BleachHTMLParser, BleachHTMLSerializer, SanitizerFilter
 
@@ -33,7 +33,7 @@ class Cleaner(object):
         protocols: Container[Text] = ...,
         strip: bool = ...,
         strip_comments: bool = ...,
-        filters: Optional[Iterable[_Filter]] = ...,
+        filters: Iterable[_Filter] | None = ...,
     ) -> None: ...
     def clean(self, text: Text) -> Text: ...
 
