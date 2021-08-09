@@ -1,7 +1,6 @@
 from collections import OrderedDict
 from typing import Any, List, Mapping, Optional, Union
 
-
 def strip_braces(date_string: str) -> str: ...
 def normalize_unicode(string: str, form: str = ...) -> str: ...
 def combine_dicts(

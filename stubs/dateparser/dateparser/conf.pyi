@@ -1,6 +1,5 @@
 from typing import Any, Optional
 
-
 class Settings:
     def __new__(cls, *args, **kw) -> Settings: ...
     def __init__(self, settings: Optional[Any] = ...) -> None: ...

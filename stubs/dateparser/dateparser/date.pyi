@@ -1,6 +1,5 @@
 from typing import Any, Optional
 
-
 APOSTROPHE_LOOK_ALIKE_CHARS: Any
 RE_NBSP: Any
 RE_SPACES: Any
