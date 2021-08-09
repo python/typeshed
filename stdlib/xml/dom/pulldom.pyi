@@ -1,7 +1,6 @@
-from _typeshed import DOMImplementation
-from typing import IO, Any, Callable, Optional, Sequence
+from typing import IO, Any, Sequence
 from typing_extensions import Literal
-from xml.dom.minidom import Document, Element, Text
+from xml.dom.minidom import Document, DOMImplementation, Element, Text
 from xml.sax.handler import ContentHandler
 from xml.sax.xmlreader import XMLReader
 
