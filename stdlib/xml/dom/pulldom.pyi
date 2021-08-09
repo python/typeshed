@@ -13,10 +13,10 @@ PROCESSING_INSTRUCTION: Literal["PROCESSING_INSTRUCTION"]
 IGNORABLE_WHITESPACE: Literal["IGNORABLE_WHITESPACE"]
 CHARACTERS: Literal["CHARACTERS"]
 
-DocumentFactory = Union[DOMImplementation, None]
-Node = Union[Document, Element, Text]
+_DocumentFactory = Union[DOMImplementation, None]
+_Node = Union[Document, Element, Text]
 
-Event = Tuple[
+_Event = Tuple[
     Literal[
         Literal["START_ELEMENT"],
         Literal["END_ELEMENT"],
@@ -27,17 +27,17 @@ Event = Tuple[
         Literal["IGNORABLE_WHITESPACE"],
         Literal["CHARACTERS"],
     ],
-    Node,
+    _Node,
 ]
 
 class PullDOM(ContentHandler):
-    document: Union[Document, None]
-    documentFactory: DocumentFactory
+    document: Document | None
+    documentFactory: _DocumentFactory
     firstEvent: Any
     lastEvent: Any
     elementStack: Sequence[Any]
     pending_events: Sequence[Any]
-    def __init__(self, documentFactory: DocumentFactory = ...) -> None: ...
+    def __init__(self, documentFactory: _DocumentFactory = ...) -> None: ...
     def pop(self) -> Element: ...
     def setDocumentLocator(self, locator) -> None: ...
     def startPrefixMapping(self, prefix, uri) -> None: ...
@@ -69,8 +69,8 @@ class DOMEventStream:
     def __getitem__(self, pos): ...
     def __next__(self): ...
     def __iter__(self): ...
-    def getEvent(self) -> Event: ...
-    def expandNode(self, node: Node) -> None: ...
+    def getEvent(self) -> _Event: ...
+    def expand_Node(self, node: _Node) -> None: ...
     def reset(self) -> None: ...
     def clear(self) -> None: ...
 
