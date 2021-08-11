@@ -61,12 +61,13 @@ jobs:
     strategy:
       matrix:
         platform: ["linux", "win32", "darwin"]
+        python-version: ["2.7", "3.6", "3.7", "3.8", "3.9", "3.10"]
       fail-fast: false
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
       - run: pip install $(grep mypy== requirements-tests-py3.txt)
-      - run: ./tests/mypy_test.py --platform=${{ matrix.platform }}
+      - run: ./tests/mypy_test.py --platform=${{ matrix.platform }} --python-version=${{ matrix.python-version }}
 
   pyright:
     name: Run pyright against the stubs
