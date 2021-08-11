@@ -227,7 +227,7 @@ class Tag(PageElement):
     sourceline: int | None
     sourcepos: int | None
     known_xml: bool | None
-    attrs: Mapping[str, Any]
+    attrs: Mapping[str, str]
     contents: List[PageElement]
     hidden: bool
     can_be_empty_element: bool | None
@@ -240,7 +240,7 @@ class Tag(PageElement):
         name: str | None = ...,
         namespace: str | None = ...,
         prefix: str | None = ...,
-        attrs: Mapping[str, Any] | None = ...,
+        attrs: Mapping[str, str] | None = ...,
         parent: Tag | None = ...,
         previous: PageElement | None = ...,
         is_xml: bool | None = ...,
