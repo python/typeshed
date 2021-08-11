@@ -26,11 +26,11 @@ class _ClosableZipStream(_ZipStream, Protocol):
     def close(self) -> object: ...
 
 class ZipExtFile(io.BufferedIOBase):
-    MAX_N: int = ...
-    MIN_READ_SIZE: int = ...
+    MAX_N: int
+    MIN_READ_SIZE: int
 
     if sys.version_info >= (3, 7):
-        MAX_SEEK_READ: int = ...
+        MAX_SEEK_READ: int
 
     newlines: list[bytes] | None
     mode: str

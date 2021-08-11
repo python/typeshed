@@ -127,10 +127,10 @@ class _HTTPConnectionProtocol(Protocol):
         ) -> HTTPConnection: ...
 
 class HTTPConnection:
-    auto_open: int = ...  # undocumented
-    debuglevel: int = ...
-    default_port: int = ...  # undocumented
-    response_class: Type[HTTPResponse] = ...  # undocumented
+    auto_open: int  # undocumented
+    debuglevel: int
+    default_port: int  # undocumented
+    response_class: Type[HTTPResponse]  # undocumented
     timeout: float | None
     host: str
     port: int
