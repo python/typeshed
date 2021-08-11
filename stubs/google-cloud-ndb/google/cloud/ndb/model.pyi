@@ -1,6 +1,6 @@
 import datetime
 from collections.abc import Iterable, Sequence
-from typing import Any, Callable, List, NoReturn, Optional, Tuple, Type, Union
+from typing import Callable, List, NoReturn, Optional, Tuple, Type, Union
 from typing_extensions import Literal
 
 import six
@@ -8,8 +8,8 @@ from google.cloud.ndb import EVENTUAL, exceptions, key as key_module, query as q
 
 Key: key_module.Key
 Rollback: exceptions.Rollback
-BlobKey: Any
-GeoPt: Any
+BlobKey: object
+GeoPt: object
 
 class KindError(exceptions.BadValueError): ...
 class InvalidPropertyError(exceptions.Error): ...
@@ -22,7 +22,7 @@ class ComputedPropertyError(ReadonlyPropertyError): ...
 class UserNotFoundError(exceptions.Error): ...
 
 class _NotEqualMixin:
-    def __ne__(self, other: Any) -> bool: ...
+    def __ne__(self, other: object) -> bool: ...
 
 DirectionT = Literal["asc", "desc"]
 
@@ -79,7 +79,7 @@ class Property(ModelAttribute):
         required: Optional[bool] = ...,
         default: Optional[object] = ...,
         choices: Optional[Iterable[object]] = ...,
-        validator: Optional[Callable[[Property], Any]] = ...,
+        validator: Optional[Callable[[Property], object]] = ...,
         verbose_name: Optional[str] = ...,
         write_empty_list: Optional[bool] = ...,
     ) -> None: ...
@@ -99,10 +99,13 @@ class Property(ModelAttribute):
 
 class ModelKey(Property):
     def __init__(self) -> None: ...
-    def __get__(self, entity: Model, unused_cls: Optional[Type[Model]] = ...) -> Union[None, key_module.Key, List[key_module.Key]]: ...
+    def __get__(
+        self, entity: Model, unused_cls: Optional[Type[Model]] = ...
+    ) -> Union[None, key_module.Key, List[key_module.Key]]: ...
 
 class BooleanProperty(Property):
     def __get__(self, entity: Model, unused_cls: Optional[Type[Model]] = ...) -> Union[None, bool, List[bool]]: ...
+
 class IntegerProperty(Property):
     def __get__(self, entity: Model, unused_cls: Optional[Type[Model]] = ...) -> Union[None, int, List[int]]: ...
 
@@ -155,7 +158,7 @@ class JsonProperty(BlobProperty):
         required: Optional[bool] = ...,
         default: Optional[object] = ...,
         choices: Optional[Iterable[object]] = ...,
-        validator: Optional[Callable[[Property], Any]] = ...,
+        validator: Optional[Callable[[Property], object]] = ...,
         verbose_name: Optional[str] = ...,
         write_empty_list: Optional[bool] = ...,
     ) -> None: ...
@@ -181,7 +184,7 @@ class UserProperty(Property):
         required: Optional[bool] = ...,
         default: Optional[bytes] = ...,
         choices: Optional[Iterable[bytes]] = ...,
-        validator: Optional[Callable[[Property], Any]] = ...,
+        validator: Optional[Callable[[Property], object]] = ...,
         verbose_name: Optional[str] = ...,
         write_empty_list: Optional[bool] = ...,
     ) -> None: ...
@@ -237,7 +240,7 @@ class GenericProperty(Property):
 class ComputedProperty(GenericProperty):
     def __init__(
         self,
-        func: Callable[[Model], Any],
+        func: Callable[[Model], object],
         name: Optional[str] = ...,
         indexed: Optional[bool] = ...,
         repeated: Optional[bool] = ...,
@@ -423,7 +426,7 @@ def get_multi_async(
     memcache_timeout: Optional[int] = ...,
     max_memcache_items: Optional[int] = ...,
     force_writes: Optional[bool] = ...,
-    _options: Optional[Any] = ...,
+    _options: Optional[object] = ...,
 ) -> List[Type[tasklets_module.Future]]: ...
 def get_multi(
     keys: Sequence[Type[key_module.Key]],
@@ -441,7 +444,7 @@ def get_multi(
     memcache_timeout: Optional[int] = ...,
     max_memcache_items: Optional[int] = ...,
     force_writes: Optional[bool] = ...,
-    _options: Optional[Any] = ...,
+    _options: Optional[object] = ...,
 ) -> List[Union[Type[Model], None]]: ...
 def put_multi_async(
     entities: List[Type[Model]],
@@ -456,7 +459,7 @@ def put_multi_async(
     memcache_timeout: Optional[int] = ...,
     max_memcache_items: Optional[int] = ...,
     force_writes: Optional[bool] = ...,
-    _options: Optional[Any] = ...,
+    _options: Optional[object] = ...,
 ) -> List[tasklets_module.Future]: ...
 def put_multi(
     entities: List[Model],
@@ -471,7 +474,7 @@ def put_multi(
     memcache_timeout: Optional[int] = ...,
     max_memcache_items: Optional[int] = ...,
     force_writes: Optional[bool] = ...,
-    _options: Optional[Any] = ...,
+    _options: Optional[object] = ...,
 ) -> List[key_module.Key]: ...
 def delete_multi_async(
     keys: List[key_module.Key],
@@ -486,7 +489,7 @@ def delete_multi_async(
     memcache_timeout: Optional[int] = ...,
     max_memcache_items: Optional[int] = ...,
     force_writes: Optional[bool] = ...,
-    _options: Optional[Any] = ...,
+    _options: Optional[object] = ...,
 ) -> List[tasklets_module.Future]: ...
 def delete_multi(
     keys: Sequence[key_module.Key],
@@ -501,7 +504,7 @@ def delete_multi(
     memcache_timeout: Optional[int] = ...,
     max_memcache_items: Optional[int] = ...,
     force_writes: Optional[bool] = ...,
-    _options: Optional[Any] = ...,
+    _options: Optional[object] = ...,
 ) -> List[None]: ...
-def get_indexes_async(**options: Any) -> NoReturn: ...
-def get_indexes(**options: Any) -> NoReturn: ...
+def get_indexes_async(**options: object) -> NoReturn: ...
+def get_indexes(**options: object) -> NoReturn: ...

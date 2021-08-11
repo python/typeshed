@@ -1,5 +1,3 @@
-from typing import Any
-
-EVENTUAL: Any
+EVENTUAL: str
 EVENTUAL_CONSISTENCY = EVENTUAL
-STRONG: Any
+STRONG: str
