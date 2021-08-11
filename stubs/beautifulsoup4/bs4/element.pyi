@@ -228,7 +228,7 @@ class Tag(PageElement):
     sourcepos: int | None
     known_xml: bool | None
     attrs: Mapping[str, Any]
-    contents: Any
+    contents: List[PageElement]
     hidden: bool
     can_be_empty_element: bool | None
     cdata_list_attributes: list[str] | None
