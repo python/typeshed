@@ -6,7 +6,7 @@ import array
 import mmap
 import sys
 from os import PathLike
-from typing import AbstractSet, Any, Container, Iterable, Protocol, Tuple, TypeVar, Union
+from typing import AbstractSet, Any, Container, Dict, Iterable, List, Protocol, Tuple, TypeVar, Union
 from typing_extensions import Literal, final
 
 _KT = TypeVar("_KT")
@@ -168,6 +168,6 @@ else:
     class NoneType:
         def __bool__(self) -> Literal[False]: ...
 
-JsonObject = dict[str, Any]  # Any is Json
-JsonArray = list[Any]  # Any is Json
-Json = JsonObject | JsonArray | str | float | int | bool | None
+JsonObject = Dict[str, Any]  # Any is Json
+JsonArray = List[Any]  # Any is Json
+Json = Union[JsonObject, JsonArray, str, float, int, bool, None]
