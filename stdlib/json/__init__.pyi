@@ -1,5 +1,5 @@
-from _typeshed import SupportsRead
-from typing import IO, Any, Callable, Tuple, Type
+from _typeshed import Json, SupportsRead
+from typing import IO, Any, Callable, Tuple, Type, overload
 
 from .decoder import JSONDecodeError as JSONDecodeError, JSONDecoder as JSONDecoder
 from .encoder import JSONEncoder as JSONEncoder
@@ -33,6 +33,19 @@ def dump(
     sort_keys: bool = ...,
     **kwds: Any,
 ) -> None: ...
+@overload
+def loads(
+    s: str | bytes,
+    *,
+    cls: Type[JSONDecoder] | None = ...,
+    object_hook: None = ...,
+    parse_float: None = ...,
+    parse_int: None = ...,
+    parse_constant: None = ...,
+    object_pairs_hook: None = ...,
+    **kwds: Any,
+) -> Json: ...
+@overload
 def loads(
     s: str | bytes,
     *,
@@ -44,6 +57,19 @@ def loads(
     object_pairs_hook: Callable[[list[Tuple[Any, Any]]], Any] | None = ...,
     **kwds: Any,
 ) -> Any: ...
+@overload
+def load(
+    fp: SupportsRead[str | bytes],
+    *,
+    cls: Type[JSONDecoder] | None = ...,
+    object_hook: None = ...,
+    parse_float: None = ...,
+    parse_int: None = ...,
+    parse_constant: None = ...,
+    object_pairs_hook: None = ...,
+    **kwds: Any,
+) -> Any: ...
+@overload
 def load(
     fp: SupportsRead[str | bytes],
     *,
