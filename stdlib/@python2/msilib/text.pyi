@@ -3,7 +3,7 @@ from typing import List, Optional, Tuple
 
 if sys.platform == "win32":
 
-    ActionText: List[Tuple[str, str, Optional[str]]]
-    UIText: List[Tuple[str, Optional[str]]]
+    ActionText: List[Tuple[str, str, str | None]]
+    UIText: List[Tuple[str, str | None]]
 
     tables: List[str]

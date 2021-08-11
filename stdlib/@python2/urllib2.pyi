@@ -22,13 +22,13 @@ class Request(object):
     type: Optional[str]
     origin_req_host = ...
     unredirected_hdrs: Dict[str, str]
-    timeout: Optional[float]  # Undocumented, only set after __init__() by OpenerDirector.open()
+    timeout: float | None  # Undocumented, only set after __init__() by OpenerDirector.open()
     def __init__(
         self,
         url: str,
-        data: Optional[str] = ...,
+        data: str | None = ...,
         headers: Dict[str, str] = ...,
-        origin_req_host: Optional[str] = ...,
+        origin_req_host: str | None = ...,
         unverifiable: bool = ...,
     ) -> None: ...
     def __getattr__(self, attr): ...
@@ -47,7 +47,7 @@ class Request(object):
     def add_header(self, key: str, val: str) -> None: ...
     def add_unredirected_header(self, key: str, val: str) -> None: ...
     def has_header(self, header_name: str) -> bool: ...
-    def get_header(self, header_name: str, default: Optional[str] = ...) -> str: ...
+    def get_header(self, header_name: str, default: str | None = ...) -> str: ...
     def header_items(self): ...
 
 class OpenerDirector(object):
@@ -61,16 +61,16 @@ class OpenerDirector(object):
 # Note that this type is somewhat a lie. The return *can* be None if
 # a custom opener has been installed that fails to handle the request.
 def urlopen(
-    url: Union[Request, _string],
-    data: Optional[_string] = ...,
-    timeout: Optional[float] = ...,
-    cafile: Optional[_string] = ...,
-    capath: Optional[_string] = ...,
+    url: Request | _string,
+    data: _string | None = ...,
+    timeout: float | None = ...,
+    cafile: _string | None = ...,
+    capath: _string | None = ...,
     cadefault: bool = ...,
-    context: Optional[ssl.SSLContext] = ...,
+    context: ssl.SSLContext | None = ...,
 ) -> addinfourl: ...
 def install_opener(opener: OpenerDirector) -> None: ...
-def build_opener(*handlers: Union[BaseHandler, Type[BaseHandler]]) -> OpenerDirector: ...
+def build_opener(*handlers: BaseHandler | Type[BaseHandler]) -> OpenerDirector: ...
 
 class BaseHandler:
     handler_order: int

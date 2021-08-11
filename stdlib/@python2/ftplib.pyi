@@ -119,7 +119,7 @@ class Netrc:
     def get_macros(self) -> List[str]: ...
     def get_macro(self, macro: Text) -> Tuple[str, ...]: ...
 
-def parse150(resp: str) -> Optional[int]: ...  # undocumented
+def parse150(resp: str) -> int | None: ...  # undocumented
 def parse227(resp: str) -> Tuple[str, int]: ...  # undocumented
 def parse229(resp: str, peer: Any) -> Tuple[str, int]: ...  # undocumented
 def parse257(resp: str) -> str: ...  # undocumented

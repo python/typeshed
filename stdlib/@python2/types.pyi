@@ -44,12 +44,12 @@ class FunctionType:
         self,
         code: CodeType,
         globals: Dict[str, Any],
-        name: Optional[str] = ...,
-        argdefs: Optional[Tuple[object, ...]] = ...,
-        closure: Optional[Tuple[_Cell, ...]] = ...,
+        name: str | None = ...,
+        argdefs: Tuple[object, ...] | None = ...,
+        closure: Tuple[_Cell, ...] | None = ...,
     ) -> None: ...
     def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
-    def __get__(self, obj: Optional[object], type: Optional[type]) -> UnboundMethodType: ...
+    def __get__(self, obj: object | None, type: type | None) -> UnboundMethodType: ...
 
 LambdaType = FunctionType
 

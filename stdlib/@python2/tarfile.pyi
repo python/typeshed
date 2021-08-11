@@ -50,21 +50,21 @@ TAR_PLAIN: int
 TAR_GZIPPED: int
 
 def open(
-    name: Optional[Text] = ...,
+    name: Text | None = ...,
     mode: str = ...,
-    fileobj: Optional[IO[bytes]] = ...,
+    fileobj: IO[bytes] | None = ...,
     bufsize: int = ...,
     *,
-    format: Optional[int] = ...,
-    tarinfo: Optional[Type[TarInfo]] = ...,
-    dereference: Optional[bool] = ...,
-    ignore_zeros: Optional[bool] = ...,
-    encoding: Optional[str] = ...,
+    format: int | None = ...,
+    tarinfo: Type[TarInfo] | None = ...,
+    dereference: bool | None = ...,
+    ignore_zeros: bool | None = ...,
+    encoding: str | None = ...,
     errors: str = ...,
-    pax_headers: Optional[Mapping[str, str]] = ...,
-    debug: Optional[int] = ...,
-    errorlevel: Optional[int] = ...,
-    compresslevel: Optional[int] = ...,
+    pax_headers: Mapping[str, str] | None = ...,
+    debug: int | None = ...,
+    errorlevel: int | None = ...,
+    compresslevel: int | None = ...,
 ) -> TarFile: ...
 
 class ExFileObject(io.BufferedReader):

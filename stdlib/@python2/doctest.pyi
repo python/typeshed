@@ -124,40 +124,35 @@ class UnexpectedException(Exception):
 
 class DebugRunner(DocTestRunner): ...
 
-master: Optional[DocTestRunner]
+master: DocTestRunner | None
 
 def testmod(
-    m: Optional[types.ModuleType] = ...,
-    name: Optional[str] = ...,
-    globs: Optional[Dict[str, Any]] = ...,
-    verbose: Optional[bool] = ...,
+    m: types.ModuleType | None = ...,
+    name: str | None = ...,
+    globs: Dict[str, Any] | None = ...,
+    verbose: bool | None = ...,
     report: bool = ...,
     optionflags: int = ...,
-    extraglobs: Optional[Dict[str, Any]] = ...,
+    extraglobs: Dict[str, Any] | None = ...,
     raise_on_error: bool = ...,
     exclude_empty: bool = ...,
 ) -> TestResults: ...
 def testfile(
     filename: str,
     module_relative: bool = ...,
-    name: Optional[str] = ...,
-    package: Union[None, str, types.ModuleType] = ...,
-    globs: Optional[Dict[str, Any]] = ...,
-    verbose: Optional[bool] = ...,
+    name: str | None = ...,
+    package: None | str | types.ModuleType = ...,
+    globs: Dict[str, Any] | None = ...,
+    verbose: bool | None = ...,
     report: bool = ...,
     optionflags: int = ...,
-    extraglobs: Optional[Dict[str, Any]] = ...,
+    extraglobs: Dict[str, Any] | None = ...,
     raise_on_error: bool = ...,
     parser: DocTestParser = ...,
-    encoding: Optional[str] = ...,
+    encoding: str | None = ...,
 ) -> TestResults: ...
 def run_docstring_examples(
-    f: object,
-    globs: Dict[str, Any],
-    verbose: bool = ...,
-    name: str = ...,
-    compileflags: Optional[int] = ...,
-    optionflags: int = ...,
+    f: object, globs: Dict[str, Any], verbose: bool = ..., name: str = ..., compileflags: int | None = ..., optionflags: int = ...
 ) -> None: ...
 def set_unittest_reportflags(flags: int) -> int: ...
 
@@ -188,10 +183,10 @@ class SkipDocTestCase(DocTestCase):
 _DocTestSuite = unittest.TestSuite
 
 def DocTestSuite(
-    module: Union[None, str, types.ModuleType] = ...,
-    globs: Optional[Dict[str, Any]] = ...,
-    extraglobs: Optional[Dict[str, Any]] = ...,
-    test_finder: Optional[DocTestFinder] = ...,
+    module: None | str | types.ModuleType = ...,
+    globs: Dict[str, Any] | None = ...,
+    extraglobs: Dict[str, Any] | None = ...,
+    test_finder: DocTestFinder | None = ...,
     **options: Any,
 ) -> _DocTestSuite: ...
 
@@ -202,15 +197,15 @@ class DocFileCase(DocTestCase):
 def DocFileTest(
     path: str,
     module_relative: bool = ...,
-    package: Union[None, str, types.ModuleType] = ...,
-    globs: Optional[Dict[str, Any]] = ...,
+    package: None | str | types.ModuleType = ...,
+    globs: Dict[str, Any] | None = ...,
     parser: DocTestParser = ...,
-    encoding: Optional[str] = ...,
+    encoding: str | None = ...,
     **options: Any,
 ) -> DocFileCase: ...
 def DocFileSuite(*paths: str, **kw: Any) -> _DocTestSuite: ...
 def script_from_examples(s: str) -> str: ...
-def testsource(module: Union[None, str, types.ModuleType], name: str) -> str: ...
-def debug_src(src: str, pm: bool = ..., globs: Optional[Dict[str, Any]] = ...) -> None: ...
-def debug_script(src: str, pm: bool = ..., globs: Optional[Dict[str, Any]] = ...) -> None: ...
-def debug(module: Union[None, str, types.ModuleType], name: str, pm: bool = ...) -> None: ...
+def testsource(module: None | str | types.ModuleType, name: str) -> str: ...
+def debug_src(src: str, pm: bool = ..., globs: Dict[str, Any] | None = ...) -> None: ...
+def debug_script(src: str, pm: bool = ..., globs: Dict[str, Any] | None = ...) -> None: ...
+def debug(module: None | str | types.ModuleType, name: str, pm: bool = ...) -> None: ...

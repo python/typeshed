@@ -92,6 +92,4 @@ if sys.platform == "win32":
 
     tables: List[Table]
 
-    _Validation_records: List[
-        Tuple[str, str, str, Optional[int], Optional[int], Optional[str], Optional[int], Optional[str], Optional[str], str]
-    ]
+    _Validation_records: List[Tuple[str, str, str, int | None, int | None, str | None, int | None, str | None, str | None, str]]

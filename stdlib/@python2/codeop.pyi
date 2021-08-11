@@ -1,7 +1,7 @@
 from types import CodeType
 from typing import Optional
 
-def compile_command(source: str, filename: str = ..., symbol: str = ...) -> Optional[CodeType]: ...
+def compile_command(source: str, filename: str = ..., symbol: str = ...) -> CodeType | None: ...
 
 class Compile:
     flags: int

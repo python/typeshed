@@ -8,7 +8,7 @@ from .util import FileWrapper
 
 _exc_info = Tuple[Optional[Type[BaseException]], Optional[BaseException], Optional[TracebackType]]
 
-def format_date_time(timestamp: Optional[float]) -> str: ...  # undocumented
+def format_date_time(timestamp: float | None) -> str: ...  # undocumented
 
 class BaseHandler:
     wsgi_version: Tuple[int, int]  # undocumented

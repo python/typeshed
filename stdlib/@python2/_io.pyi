@@ -174,11 +174,11 @@ class TextIOWrapper(_TextIOBase):
     ) -> None: ...
 
 def open(
-    file: Union[str, unicode, int],
+    file: str | unicode | int,
     mode: Text = ...,
     buffering: int = ...,
-    encoding: Optional[Text] = ...,
-    errors: Optional[Text] = ...,
-    newline: Optional[Text] = ...,
+    encoding: Text | None = ...,
+    errors: Text | None = ...,
+    newline: Text | None = ...,
     closefd: bool = ...,
 ) -> IO[Any]: ...

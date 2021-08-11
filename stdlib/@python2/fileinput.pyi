@@ -1,7 +1,7 @@
 from typing import IO, Any, AnyStr, Callable, Generic, Iterable, Iterator, Text, Union
 
 def input(
-    files: Union[Text, Iterable[Text], None] = ...,
+    files: Text | Iterable[Text] | None = ...,
     inplace: bool = ...,
     backup: str = ...,
     bufsize: int = ...,

@@ -6,7 +6,7 @@ from UserDict import UserDict
 _T = TypeVar("_T", bound=FieldStorage)
 
 def parse(
-    fp: Optional[IO[Any]] = ...,
+    fp: IO[Any] | None = ...,
     environ: SupportsItemAccess[str, str] = ...,
     keep_blank_values: bool = ...,
     strict_parsing: bool = ...,

@@ -18,7 +18,7 @@ from _io import (
 )
 
 def _OpenWrapper(
-    file: Union[str, unicode, int],
+    file: str | unicode | int,
     mode: unicode = ...,
     buffering: int = ...,
     encoding: unicode = ...,

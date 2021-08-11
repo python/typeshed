@@ -7,7 +7,7 @@ OCTDIGITS: Set[Any]
 HEXDIGITS: Set[Any]
 WHITESPACE: Set[Any]
 ESCAPES: Dict[str, Tuple[str, int]]
-CATEGORIES: Dict[str, Union[Tuple[str, str], Tuple[str, List[Tuple[str, str]]]]]
+CATEGORIES: Dict[str, Tuple[str, str] | Tuple[str, List[Tuple[str, str]]]]
 FLAGS: Dict[str, int]
 
 class Pattern:

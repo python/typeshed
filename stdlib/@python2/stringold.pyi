@@ -8,7 +8,7 @@ digits: str
 hexdigits: str
 octdigits: str
 _idmap: str
-_idmapL: Optional[List[str]]
+_idmapL: List[str] | None
 index_error = ValueError
 atoi_error = ValueError
 atof_error = ValueError

@@ -27,30 +27,30 @@ class CertificateError(ValueError): ...
 
 def wrap_socket(
     sock: socket.socket,
-    keyfile: Optional[str] = ...,
-    certfile: Optional[str] = ...,
+    keyfile: str | None = ...,
+    certfile: str | None = ...,
     server_side: bool = ...,
     cert_reqs: int = ...,
     ssl_version: int = ...,
-    ca_certs: Optional[str] = ...,
+    ca_certs: str | None = ...,
     do_handshake_on_connect: bool = ...,
     suppress_ragged_eofs: bool = ...,
-    ciphers: Optional[str] = ...,
+    ciphers: str | None = ...,
 ) -> SSLSocket: ...
 def create_default_context(
-    purpose: Any = ..., *, cafile: Optional[str] = ..., capath: Optional[str] = ..., cadata: Union[Text, bytes, None] = ...
+    purpose: Any = ..., *, cafile: str | None = ..., capath: str | None = ..., cadata: Text | bytes | None = ...
 ) -> SSLContext: ...
 def _create_unverified_context(
     protocol: int = ...,
     *,
-    cert_reqs: Optional[int] = ...,
+    cert_reqs: int | None = ...,
     check_hostname: bool = ...,
     purpose: Any = ...,
-    certfile: Optional[str] = ...,
-    keyfile: Optional[str] = ...,
-    cafile: Optional[str] = ...,
-    capath: Optional[str] = ...,
-    cadata: Union[Text, bytes, None] = ...,
+    certfile: str | None = ...,
+    keyfile: str | None = ...,
+    cafile: str | None = ...,
+    capath: str | None = ...,
+    cadata: Text | bytes | None = ...,
 ) -> SSLContext: ...
 
 _create_default_https_context: Callable[..., SSLContext]
@@ -60,7 +60,7 @@ def RAND_egd(path: str) -> None: ...
 def RAND_add(__s: bytes, __entropy: float) -> None: ...
 def match_hostname(cert: _PeerCertRetType, hostname: str) -> None: ...
 def cert_time_to_seconds(cert_time: str) -> int: ...
-def get_server_certificate(addr: Tuple[str, int], ssl_version: int = ..., ca_certs: Optional[str] = ...) -> str: ...
+def get_server_certificate(addr: Tuple[str, int], ssl_version: int = ..., ca_certs: str | None = ...) -> str: ...
 def DER_cert_to_PEM_cert(der_cert_bytes: bytes) -> str: ...
 def PEM_cert_to_DER_cert(pem_cert_string: str) -> bytes: ...
 

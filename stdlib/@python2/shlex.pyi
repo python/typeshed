@@ -1,6 +1,6 @@
 from typing import IO, Any, List, Optional, Text, TypeVar, Union
 
-def split(s: Optional[str], comments: bool = ..., posix: bool = ...) -> List[str]: ...
+def split(s: str | None, comments: bool = ..., posix: bool = ...) -> List[str]: ...
 
 _SLT = TypeVar("_SLT", bound=shlex)
 
