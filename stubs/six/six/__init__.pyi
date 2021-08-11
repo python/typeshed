@@ -6,7 +6,7 @@ from builtins import next as next
 from collections.abc import Callable, ItemsView, Iterable, Iterator as _Iterator, KeysView, Mapping, ValuesView
 from functools import wraps as wraps
 from io import BytesIO as BytesIO, StringIO as StringIO
-from typing import Any, AnyStr, NoReturn, Pattern, Tuple, TypeVar, overload
+from typing import Any, AnyStr, NoReturn, Pattern, Type, Tuple, TypeVar, overload
 from typing_extensions import Literal
 
 from . import moves as moves
@@ -22,11 +22,11 @@ PY2: Literal[False]
 PY3: Literal[True]
 PY34: Literal[True]
 
-string_types: tuple[type[str]]
-integer_types: tuple[type[int]]
-class_types: tuple[type[type[Any]]]
-text_type: type[str]
-binary_type: type[bytes]
+string_types: tuple[Type[str]]
+integer_types: tuple[Type[int]]
+class_types: tuple[Type[Type[Any]]]
+text_type: Type[str]
+binary_type: Type[bytes]
 
 MAXSIZE: int
 
@@ -72,8 +72,8 @@ def assertRegex(
 
 exec_ = exec
 
-def reraise(tp: type[BaseException] | None, value: BaseException | None, tb: types.TracebackType | None = ...) -> NoReturn: ...
-def raise_from(value: BaseException | type[BaseException], from_value: BaseException | None) -> NoReturn: ...
+def reraise(tp: Type[BaseException] | None, value: BaseException | None, tb: types.TracebackType | None = ...) -> NoReturn: ...
+def raise_from(value: BaseException | Type[BaseException], from_value: BaseException | None) -> NoReturn: ...
 
 print_ = print
 
@@ -87,7 +87,7 @@ def python_2_unicode_compatible(klass: _T) -> _T: ...
 class _LazyDescr:
     name: str
     def __init__(self, name: str) -> None: ...
-    def __get__(self, obj: object | None, type: type[Any] | None = ...) -> Any: ...
+    def __get__(self, obj: object | None, type: Type[Any] | None = ...) -> Any: ...
 
 class MovedModule(_LazyDescr):
     mod: str
