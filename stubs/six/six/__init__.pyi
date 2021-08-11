@@ -6,8 +6,7 @@ from builtins import next as next
 from collections.abc import Callable, ItemsView, Iterable, Iterator as _Iterator, KeysView, Mapping, ValuesView
 from functools import wraps as wraps
 from io import BytesIO as BytesIO, StringIO as StringIO
-from re import Pattern
-from typing import Any, AnyStr, NoReturn, Tuple, TypeVar, overload
+from typing import Any, AnyStr, NoReturn, Pattern, Tuple, TypeVar, overload
 from typing_extensions import Literal
 
 from . import moves as moves
