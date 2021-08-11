@@ -33,14 +33,14 @@ _SimpleNormalizedStrainable = Union[str, bool, None, Pattern[str], Callable[[str
 _NormalizedStrainable = Union[_SimpleNormalizedStrainable, Iterable[_SimpleNormalizedStrainable]]
 
 class PageElement:
-    parent: PageElement | None
+    parent: Tag | None
     previous_element: PageElement | None
     next_element: PageElement | None
     next_sibling: PageElement | None
     previous_sibling: PageElement | None
     def setup(
         self,
-        parent: PageElement | None = ...,
+        parent: Tag | None = ...,
         previous_element: PageElement | None = ...,
         next_element: PageElement | None = ...,
         previous_sibling: PageElement | None = ...,
@@ -138,7 +138,7 @@ class PageElement:
         name: _Strainable | SoupStrainer | None = ...,
         attrs: dict[str, _Strainable] | _Strainable = ...,
         **kwargs: _Strainable,
-    ) -> Tag | NavigableString | None: ...
+    ) -> Tag | None: ...
     findParent = find_parent
     def find_parents(
         self,
@@ -162,14 +162,14 @@ class PageElement:
     @property
     def previous_siblings(self) -> Iterable[PageElement]: ...
     @property
-    def parents(self) -> Iterable[PageElement]: ...
+    def parents(self) -> Iterable[Tag]: ...
     @property
     def decomposed(self) -> bool: ...
     def nextGenerator(self) -> Iterable[PageElement]: ...
     def nextSiblingGenerator(self) -> Iterable[PageElement]: ...
     def previousGenerator(self) -> Iterable[PageElement]: ...
     def previousSiblingGenerator(self) -> Iterable[PageElement]: ...
-    def parentGenerator(self) -> Iterable[PageElement]: ...
+    def parentGenerator(self) -> Iterable[Tag]: ...
 
 class NavigableString(str, PageElement):
     PREFIX: str
@@ -241,7 +241,7 @@ class Tag(PageElement):
         namespace: str | None = ...,
         prefix: str | None = ...,
         attrs: Mapping[str, Any] | None = ...,
-        parent: PageElement | None = ...,
+        parent: Tag | None = ...,
         previous: PageElement | None = ...,
         is_xml: bool | None = ...,
         sourceline: int | None = ...,
