@@ -1,5 +1,5 @@
 from _typeshed import Self
-from typing import Any, Callable, Iterable, List, Mapping, Pattern, Set, Tuple, Type, TypeVar, Union, overload
+from typing import Any, Callable, Generic, Iterable, List, Mapping, Pattern, Set, Tuple, Type, TypeVar, Union, overload
 
 from . import BeautifulSoup
 from .builder import TreeBuilder
@@ -77,7 +77,7 @@ class PageElement:
         text: _Strainable | None = ...,
         limit: int | None = ...,
         **kwargs: _Strainable,
-    ) -> ResultSet: ...
+    ) -> ResultSet[PageElement]: ...
     findAllNext = find_all_next
     def find_next_sibling(
         self,
@@ -94,7 +94,7 @@ class PageElement:
         text: _Strainable | None = ...,
         limit: int | None = ...,
         **kwargs: _Strainable,
-    ) -> ResultSet: ...
+    ) -> ResultSet[PageElement]: ...
     findNextSiblings = find_next_siblings
     fetchNextSiblings = find_next_siblings
     def find_previous(
@@ -112,7 +112,7 @@ class PageElement:
         text: _Strainable | None = ...,
         limit: int | None = ...,
         **kwargs: _Strainable,
-    ) -> ResultSet: ...
+    ) -> ResultSet[PageElement]: ...
     findAllPrevious = find_all_previous
     fetchPrevious = find_all_previous
     def find_previous_sibling(
@@ -130,7 +130,7 @@ class PageElement:
         text: _Strainable | None = ...,
         limit: int | None = ...,
         **kwargs: _Strainable,
-    ) -> ResultSet: ...
+    ) -> ResultSet[PageElement]: ...
     findPreviousSiblings = find_previous_siblings
     fetchPreviousSiblings = find_previous_siblings
     def find_parent(
@@ -146,7 +146,7 @@ class PageElement:
         attrs: dict[str, _Strainable] | _Strainable = ...,
         limit: int | None = ...,
         **kwargs: _Strainable,
-    ) -> ResultSet: ...
+    ) -> ResultSet[Tag]: ...
     findParents = find_parents
     fetchParents = find_parents
     @property
@@ -316,7 +316,7 @@ class Tag(PageElement):
         text: _Strainable | None = ...,
         limit: int | None = ...,
         **kwargs: _Strainable,
-    ) -> ResultSet: ...
+    ) -> ResultSet[PageElement]: ...
     __call__ = find_all
     findAll = find_all
     findChildren = find_all
@@ -325,7 +325,7 @@ class Tag(PageElement):
     @property
     def descendants(self) -> Iterable[PageElement]: ...
     def select_one(self, selector: str, namespaces: Any | None = ..., **kwargs) -> Tag | None: ...
-    def select(self, selector: str, namespaces: Any | None = ..., limit: int | None = ..., **kwargs) -> ResultSet: ...
+    def select(self, selector: str, namespaces: Any | None = ..., limit: int | None = ..., **kwargs) -> ResultSet[Tag]: ...
     def childGenerator(self) -> Iterable[PageElement]: ...
     def recursiveChildGenerator(self) -> Iterable[PageElement]: ...
     def has_key(self, key: str) -> bool: ...
@@ -345,6 +345,6 @@ class SoupStrainer:
     searchTag = search_tag
     def search(self, markup: PageElement | Iterable[PageElement]): ...
 
-class ResultSet(List[PageElement]):
+class ResultSet(Generic[_PageElementT], List[_PageElementT]):
     source: SoupStrainer
-    def __init__(self, source: SoupStrainer, result: Iterable[PageElement] = ...) -> None: ...
+    def __init__(self, source: SoupStrainer, result: Iterable[_PageElementT] = ...) -> None: ...
