@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Any
 
 from dateparser.calendars import non_gregorian_parser
 

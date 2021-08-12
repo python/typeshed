@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Any
 
 PARSER_HARDCODED_TOKENS: Any
 PARSER_KNOWN_TOKENS: Any

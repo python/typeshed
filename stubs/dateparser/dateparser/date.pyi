@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Any
 
 APOSTROPHE_LOOK_ALIKE_CHARS: Any
 RE_NBSP: Any

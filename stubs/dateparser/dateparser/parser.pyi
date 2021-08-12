@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Any
 
 NSP_COMPATIBLE: Any
 MERIDIAN: Any

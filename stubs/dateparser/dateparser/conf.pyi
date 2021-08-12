@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Any
 
 class Settings:
     def __new__(cls, *args, **kw) -> Settings: ...

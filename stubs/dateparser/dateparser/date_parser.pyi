@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Any
 
 class DateParser:
     def parse(self, date_string, parse_method, settings: Any | None = ...): ...
