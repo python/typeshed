@@ -1,8 +1,8 @@
 from typing import Any
 
 class LanguageValidator:
-    logger: Any = ...
-    VALID_KEYS: Any = ...
+    logger: Any
+    VALID_KEYS: Any
     @classmethod
     def get_logger(cls): ...
     @classmethod
