@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Any
 
 DIGIT_GROUP_PATTERN: Any
 NUMERAL_PATTERN: Any
