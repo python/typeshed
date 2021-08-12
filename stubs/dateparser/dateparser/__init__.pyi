@@ -11,4 +11,3 @@ def parse(
     region: str | None = ...,
     settings: Mapping[str, Any] | None = ...,
 ) -> datetime.datetime | None: ...
-def __getattr__(name: str) -> Any: ...  # incomplete

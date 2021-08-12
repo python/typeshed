@@ -35,6 +35,7 @@
         "stubs/caldav",
         "stubs/commonmark",
         "stubs/cryptography",
+        "stubs/dateparser",
         "stubs/docutils",
         "stubs/Flask",
         "stubs/html5lib",
