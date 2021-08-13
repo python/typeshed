@@ -5,6 +5,8 @@ simplejson.JSONDecoder.raw_decode
 simplejson.JSONEncoder.__init__
 simplejson.JSONEncoder.iterencode
 simplejson.JSONEncoderForHTML.iterencode
+simplejson.RawJSON.__init__
+simplejson.RawJSON.encoded_json
 simplejson.decoder.JSONDecoder.__init__
 simplejson.decoder.JSONDecoder.decode
 simplejson.decoder.JSONDecoder.raw_decode
@@ -15,4 +17,6 @@ simplejson.encoder.JSONEncoder.iterencode
 simplejson.encoder.JSONEncoderForHTML.iterencode
 simplejson.load
 simplejson.loads
+simplejson.raw_json.RawJSON.__init__
+simplejson.raw_json.RawJSON.encoded_json
 simplejson.scanner.JSONDecodeError.__init__
