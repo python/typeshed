@@ -1,7 +1,7 @@
 import sys
 import xml.dom
 from _typeshed import Self
-from typing import IO, Any
+from typing import IO, Any, Optional
 from xml.dom.xmlbuilder import DocumentLS, DOMImplementationLS
 from xml.sax.xmlreader import XMLReader
 
@@ -16,6 +16,12 @@ class Node(xml.dom.Node):
     nextSibling: Any
     previousSibling: Any
     prefix: Any
+    @property
+    def firstChild(self) -> Optional[Node]: ...
+    @property
+    def lastChild(self) -> Optional[Node]: ...
+    @property
+    def localName(self) -> Optional[str]: ...
     if sys.version_info >= (3, 9):
         def toxml(self, encoding: Any | None = ..., standalone: Any | None = ...): ...
         def toprettyxml(self, indent: str = ..., newl: str = ..., encoding: Any | None = ..., standalone: Any | None = ...): ...
