@@ -1,7 +1,8 @@
-from typing import Any, ClassVar, Dict, List, Tuple
+from typing import Any, ClassVar, Tuple
 from typing_extensions import Literal
 
 from docutils import parsers
+from docutils.parsers.rst import states
 
 class Parser(parsers.Parser):
     config_section_dependencies: ClassVar[Tuple[str, ...]]
@@ -19,14 +20,14 @@ class Directive:
     def __init__(
         self,
         name: str,
-        arguments: List[object],
-        options: Dict[str, object],
-        content: List[str],
+        arguments: list[Any],
+        options: dict[str, Any],
+        content: list[str],
         lineno: int,
         content_offset: int,
         block_text: str,
-        state: parsers.rst.states.RSTState,
-        state_machine: parsers.rst.states.RSTStateMachine,
+        state: states.RSTState,
+        state_machine: states.RSTStateMachine,
     ) -> None: ...
     def __getattr__(self, name: str) -> Any: ...  # incomplete
 
