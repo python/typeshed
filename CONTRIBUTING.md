@@ -330,7 +330,7 @@ Some further tips for good type hints:
   of importing them from `typing`, **except** in type aliases and for
   arbitrary length tuples (`Tuple[int, ...]`);
 * use `X | Y` instead of `Union[X, Y]` and `X | None`, instead of
-  `Optional[X]`, **except** in type aliases;
+  `Optional[X]`, **except** in type aliases and class bases;
 * in Python 3 stubs, import collections (`Mapping`, `Iterable`, etc.)
   from `collections.abc` instead of `typing`;
 * avoid invariant collection types (`list`, `dict`) in argument
