@@ -2,7 +2,6 @@ from typing import Any, ClassVar, Dict, List, Tuple
 from typing_extensions import Literal
 
 from docutils import parsers
-from docutils.parsers.rst.states import RSTState, RSTStateMachine
 
 class Parser(parsers.Parser):
     config_section_dependencies: ClassVar[Tuple[str, ...]]
@@ -26,8 +25,8 @@ class Directive:
         lineno: int,
         content_offset: int,
         block_text: str,
-        state: RSTState,
-        state_machine: RSTStateMachine,
+        state: parsers.rst.states.RSTState,
+        state_machine: parsers.rst.states.RSTStateMachine,
     ) -> None: ...
     def __getattr__(self, name: str) -> Any: ...  # incomplete
 

@@ -8,5 +8,4 @@ docutils.io.FileOutput.__init__
 docutils.io.Input.__getattr__
 docutils.io.Input.__init__
 docutils.parsers.rst.Directive.__getattr__
-docutils.parsers.rst.Directive.__init__
 docutils.parsers.rst.nodes
