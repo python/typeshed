@@ -65,7 +65,7 @@ class OptionParser(optparse.OptionParser, SettingsSpec):
     def __init__(
         self,
         components: Iterable[Type[Parser]] = ...,
-        defaults: Mapping[str, Any] = ...,
+        defaults: Mapping[str, Any] | None = ...,
         read_config_files: bool | None = ...,
         *args,
         **kwargs,
