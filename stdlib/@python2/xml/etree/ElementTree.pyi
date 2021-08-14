@@ -16,7 +16,8 @@ from typing import (
     Tuple,
     TypeVar,
     Union,
-    overload)
+    overload,
+)
 
 VERSION: str
 

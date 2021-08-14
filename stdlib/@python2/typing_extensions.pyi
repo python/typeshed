@@ -20,7 +20,8 @@ from typing import (
     TypeVar,
     ValuesView,
     _Alias,
-    overload as overload)
+    overload as overload,
+)
 
 _T = TypeVar("_T")
 _F = TypeVar("_F", bound=Callable[..., Any])

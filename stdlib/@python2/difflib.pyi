@@ -12,7 +12,8 @@ from typing import (
     Tuple,
     TypeVar,
     Union,
-    overload)
+    overload,
+)
 
 _T = TypeVar("_T")
 

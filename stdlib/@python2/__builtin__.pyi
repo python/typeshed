@@ -40,7 +40,8 @@ from typing import (
     Type,
     TypeVar,
     ValuesView,
-    overload)
+    overload,
+)
 from typing_extensions import Literal, final
 
 class _SupportsIndex(Protocol):

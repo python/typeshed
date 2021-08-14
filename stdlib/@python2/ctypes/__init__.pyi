@@ -16,7 +16,8 @@ from typing import (
     Type,
     TypeVar,
     Union as _UnionT,
-    overload)
+    overload,
+)
 
 _T = TypeVar("_T")
 _DLLT = TypeVar("_DLLT", bound=CDLL)

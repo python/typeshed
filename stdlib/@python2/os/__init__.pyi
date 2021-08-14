@@ -20,7 +20,8 @@ from typing import (
     Tuple,
     TypeVar,
     Union,
-    overload)
+    overload,
+)
 
 from . import path as path
 

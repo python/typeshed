@@ -14,7 +14,8 @@ from typing import (
     Optional,
     Text,
     Tuple,
-    Type)
+    Type,
+)
 
 from repr import Repr
 

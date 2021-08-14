@@ -1,4 +1,3 @@
-
 class sha384(object):
     name: str
     block_size: int

@@ -18,7 +18,8 @@ from typing import (
     Type,
     TypeVar,
     Union,
-    overload)
+    overload,
+)
 from typing_extensions import Literal
 
 _T = TypeVar("_T")

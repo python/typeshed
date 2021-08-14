@@ -15,7 +15,8 @@ from typing import (
     Type,
     TypeVar,
     Union,
-    overload)
+    overload,
+)
 
 _T = TypeVar("_T")
 _ActionT = TypeVar("_ActionT", bound=Action)

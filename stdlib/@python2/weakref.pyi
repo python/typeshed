@@ -1,17 +1,5 @@
 from _weakrefset import WeakSet as WeakSet
-from typing import (
-    Any,
-    Callable,
-    Generic,
-    Iterable,
-    Iterator,
-    List,
-    Mapping,
-    MutableMapping,
-    Tuple,
-    Type,
-    TypeVar,
-    overload)
+from typing import Any, Callable, Generic, Iterable, Iterator, List, Mapping, MutableMapping, Tuple, Type, TypeVar, overload
 
 from _weakref import (
     CallableProxyType as CallableProxyType,

@@ -20,7 +20,8 @@ from typing import (
     Type,
     TypeVar,
     Union,
-    overload)
+    overload,
+)
 
 _T = TypeVar("_T")
 _FT = TypeVar("_FT")

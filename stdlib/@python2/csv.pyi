@@ -28,7 +28,8 @@ from typing import (
     Text,
     Type,
     TypeVar,
-    overload)
+    overload,
+)
 
 _T = TypeVar("_T")
 
