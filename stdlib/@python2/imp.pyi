@@ -1,5 +1,5 @@
 import types
-from typing import IO, Any, Iterable, List, Optional, Tuple
+from typing import IO, Any, Iterable, List, Tuple
 
 C_BUILTIN: int
 C_EXTENSION: int

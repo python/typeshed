@@ -1,4 +1,4 @@
-from typing import Callable, Dict, Generator, List, Optional, Pattern, Tuple, TypeVar, Union
+from typing import Callable, Dict, Generator, List, Pattern, Tuple, TypeVar
 from xml.etree.ElementTree import Element
 
 xpath_tokenizer_re: Pattern[str]
@@ -19,7 +19,7 @@ def prepare_predicate(next: _next, token: _token) -> _callback: ...
 ops: Dict[str, Callable[[_next, _token], _callback]]
 
 class _SelectorContext:
-    parent_map: Optional[Dict[Element, Element]]
+    parent_map: Dict[Element, Element] | None
     root: Element
     def __init__(self, root: Element) -> None: ...
 

@@ -1,5 +1,5 @@
 from _typeshed import SupportsRead
-from typing import IO, Any, Callable, Iterable, Iterator, List, Optional, Tuple, Union
+from typing import IO, Any, Callable, Iterable, Iterator, List, Tuple, Union
 
 Loader = Any
 MetaPathFinder = Any
@@ -10,7 +10,7 @@ _ModuleInfoLike = Tuple[Union[MetaPathFinder, PathEntryFinder], str, bool]
 def extend_path(path: List[str], name: str) -> List[str]: ...
 
 class ImpImporter:
-    def __init__(self, path: Optional[str] = ...) -> None: ...
+    def __init__(self, path: str | None = ...) -> None: ...
 
 class ImpLoader:
     def __init__(self, fullname: str, file: IO[str], filename: str, etc: Tuple[str, str, int]) -> None: ...

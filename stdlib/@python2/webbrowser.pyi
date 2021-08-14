@@ -1,5 +1,5 @@
 import sys
-from typing import Callable, List, Optional, Sequence, Text, Union
+from typing import Callable, List, Sequence, Text
 
 class Error(Exception): ...
 
@@ -24,14 +24,14 @@ class GenericBrowser(BaseBrowser):
     args: List[str]
     name: str
     basename: str
-    def __init__(self, name: Union[Text, Sequence[Text]]) -> None: ...
+    def __init__(self, name: Text | Sequence[Text]) -> None: ...
     def open(self, url: Text, new: int = ..., autoraise: bool = ...) -> bool: ...
 
 class BackgroundBrowser(GenericBrowser):
     def open(self, url: Text, new: int = ..., autoraise: bool = ...) -> bool: ...
 
 class UnixBrowser(BaseBrowser):
-    raise_opts: Optional[List[str]]
+    raise_opts: List[str] | None
     background: bool
     redirect_stdout: bool
     remote_args: List[str]

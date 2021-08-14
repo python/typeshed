@@ -15,14 +15,12 @@ from typing import (
     MutableMapping,
     NamedTuple,
     NoReturn,
-    Optional,
     Sequence,
     Text,
     Tuple,
     TypeVar,
     Union,
-    overload,
-)
+    overload)
 
 from . import path as path
 

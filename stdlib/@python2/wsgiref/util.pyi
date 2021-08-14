@@ -1,4 +1,4 @@
-from typing import IO, Any, Callable, Optional
+from typing import IO, Any, Callable
 
 from .types import WSGIEnvironment
 

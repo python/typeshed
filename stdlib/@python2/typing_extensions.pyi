@@ -14,16 +14,13 @@ from typing import (
     Mapping,
     NewType as NewType,
     NoReturn as NoReturn,
-    Optional,
     Text as Text,
     Tuple,
     Type as Type,
     TypeVar,
-    Union,
     ValuesView,
     _Alias,
-    overload as overload,
-)
+    overload as overload)
 
 _T = TypeVar("_T")
 _F = TypeVar("_F", bound=Callable[..., Any])
@@ -91,11 +88,11 @@ class ParamSpecKwargs:
 
 class ParamSpec:
     __name__: str
-    __bound__: Optional[Type[Any]]
+    __bound__: Type[Any] | None
     __covariant__: bool
     __contravariant__: bool
     def __init__(
-        self, name: str, *, bound: Union[None, Type[Any], str] = ..., contravariant: bool = ..., covariant: bool = ...
+        self, name: str, *, bound: None | Type[Any] | str = ..., contravariant: bool = ..., covariant: bool = ...
     ) -> None: ...
     @property
     def args(self) -> ParamSpecArgs: ...

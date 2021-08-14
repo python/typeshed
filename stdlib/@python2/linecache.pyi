@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Optional, Text
+from typing import Any, Dict, List, Text
 
 _ModuleGlobals = Dict[str, Any]
 

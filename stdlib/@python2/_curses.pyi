@@ -1,4 +1,4 @@
-from typing import IO, Any, BinaryIO, Optional, Tuple, Union, overload
+from typing import IO, Any, BinaryIO, Tuple, Union, overload
 
 _chtype = Union[str, bytes, int]
 

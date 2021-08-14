@@ -1,5 +1,5 @@
 from _typeshed import SupportsRead, SupportsWrite
-from typing import Any, AnyStr, Callable, Iterable, List, Optional, Sequence, Set, Text, Tuple, Type, TypeVar, Union
+from typing import Any, AnyStr, Callable, Iterable, List, Sequence, Set, Text, Tuple, Type, TypeVar, Union
 
 _AnyStr = TypeVar("_AnyStr", str, unicode)
 _AnyPath = TypeVar("_AnyPath", str, unicode)

@@ -9,8 +9,7 @@ from typing import (
     SupportsAbs,
     Tuple,
     TypeVar,
-    overload,
-)
+    overload)
 
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)

@@ -30,7 +30,7 @@ class Filterer(object):
 class Logger(Filterer):
     name: str
     level: int
-    parent: Union[Logger, PlaceHolder]
+    parent: Logger | PlaceHolder
     propagate: bool
     handlers: List[Handler]
     disabled: int
@@ -40,13 +40,13 @@ class Logger(Filterer):
     def getEffectiveLevel(self) -> int: ...
     def getChild(self, suffix: str) -> Logger: ...
     def debug(
-        self, msg: Any, *args: Any, exc_info: _ExcInfoType = ..., extra: Optional[Dict[str, Any]] = ..., **kwargs: Any
+        self, msg: Any, *args: Any, exc_info: _ExcInfoType = ..., extra: Dict[str, Any] | None = ..., **kwargs: Any
     ) -> None: ...
     def info(
-        self, msg: Any, *args: Any, exc_info: _ExcInfoType = ..., extra: Optional[Dict[str, Any]] = ..., **kwargs: Any
+        self, msg: Any, *args: Any, exc_info: _ExcInfoType = ..., extra: Dict[str, Any] | None = ..., **kwargs: Any
     ) -> None: ...
     def warning(
-        self, msg: Any, *args: Any, exc_info: _ExcInfoType = ..., extra: Optional[Dict[str, Any]] = ..., **kwargs: Any
+        self, msg: Any, *args: Any, exc_info: _ExcInfoType = ..., extra: Dict[str, Any] | None = ..., **kwargs: Any
     ) -> None: ...
     warn = warning
     def error(
@@ -94,9 +94,9 @@ NOTSET: int
 
 class Handler(Filterer):
     level: int  # undocumented
-    formatter: Optional[Formatter]  # undocumented
-    lock: Optional[threading.Lock]  # undocumented
-    name: Optional[str]  # undocumented
+    formatter: Formatter | None  # undocumented
+    lock: threading.Lock | None  # undocumented
+    name: str | None  # undocumented
     def __init__(self, level: _Level = ...) -> None: ...
     def createLock(self) -> None: ...
     def acquire(self) -> None: ...
@@ -112,12 +112,12 @@ class Handler(Filterer):
     def emit(self, record: LogRecord) -> None: ...
 
 class Formatter:
-    converter: Callable[[Optional[float]], struct_time]
-    _fmt: Optional[str]
-    datefmt: Optional[str]
-    def __init__(self, fmt: Optional[str] = ..., datefmt: Optional[str] = ...) -> None: ...
+    converter: Callable[[float | None], struct_time]
+    _fmt: str | None
+    datefmt: str | None
+    def __init__(self, fmt: str | None = ..., datefmt: str | None = ...) -> None: ...
     def format(self, record: LogRecord) -> str: ...
-    def formatTime(self, record: LogRecord, datefmt: Optional[str] = ...) -> str: ...
+    def formatTime(self, record: LogRecord, datefmt: str | None = ...) -> str: ...
     def formatException(self, ei: _SysExcInfoType) -> str: ...
 
 class Filter:
@@ -128,8 +128,8 @@ class LogRecord:
     args: _ArgsType
     asctime: str
     created: int
-    exc_info: Optional[_SysExcInfoType]
-    exc_text: Optional[str]
+    exc_info: _SysExcInfoType | None
+    exc_text: str | None
     filename: str
     funcName: str
     levelname: str
@@ -154,8 +154,8 @@ class LogRecord:
         lineno: int,
         msg: Any,
         args: _ArgsType,
-        exc_info: Optional[_SysExcInfoType],
-        func: Optional[str] = ...,
+        exc_info: _SysExcInfoType | None,
+        func: str | None = ...,
     ) -> None: ...
     def getMessage(self) -> str: ...
 
@@ -165,25 +165,25 @@ class LoggerAdapter:
     def __init__(self, logger: Logger, extra: Mapping[str, Any]) -> None: ...
     def process(self, msg: Any, kwargs: MutableMapping[str, Any]) -> Tuple[Any, MutableMapping[str, Any]]: ...
     def debug(
-        self, msg: Any, *args: Any, exc_info: _ExcInfoType = ..., extra: Optional[Dict[str, Any]] = ..., **kwargs: Any
+        self, msg: Any, *args: Any, exc_info: _ExcInfoType = ..., extra: Dict[str, Any] | None = ..., **kwargs: Any
     ) -> None: ...
     def info(
-        self, msg: Any, *args: Any, exc_info: _ExcInfoType = ..., extra: Optional[Dict[str, Any]] = ..., **kwargs: Any
+        self, msg: Any, *args: Any, exc_info: _ExcInfoType = ..., extra: Dict[str, Any] | None = ..., **kwargs: Any
     ) -> None: ...
     def warning(
-        self, msg: Any, *args: Any, exc_info: _ExcInfoType = ..., extra: Optional[Dict[str, Any]] = ..., **kwargs: Any
+        self, msg: Any, *args: Any, exc_info: _ExcInfoType = ..., extra: Dict[str, Any] | None = ..., **kwargs: Any
     ) -> None: ...
     def error(
-        self, msg: Any, *args: Any, exc_info: _ExcInfoType = ..., extra: Optional[Dict[str, Any]] = ..., **kwargs: Any
+        self, msg: Any, *args: Any, exc_info: _ExcInfoType = ..., extra: Dict[str, Any] | None = ..., **kwargs: Any
     ) -> None: ...
     def exception(
-        self, msg: Any, *args: Any, exc_info: _ExcInfoType = ..., extra: Optional[Dict[str, Any]] = ..., **kwargs: Any
+        self, msg: Any, *args: Any, exc_info: _ExcInfoType = ..., extra: Dict[str, Any] | None = ..., **kwargs: Any
     ) -> None: ...
     def critical(
-        self, msg: Any, *args: Any, exc_info: _ExcInfoType = ..., extra: Optional[Dict[str, Any]] = ..., **kwargs: Any
+        self, msg: Any, *args: Any, exc_info: _ExcInfoType = ..., extra: Dict[str, Any] | None = ..., **kwargs: Any
     ) -> None: ...
     def log(
-        self, level: int, msg: Any, *args: Any, exc_info: _ExcInfoType = ..., extra: Optional[Dict[str, Any]] = ..., **kwargs: Any
+        self, level: int, msg: Any, *args: Any, exc_info: _ExcInfoType = ..., extra: Dict[str, Any] | None = ..., **kwargs: Any
     ) -> None: ...
     def isEnabledFor(self, level: int) -> bool: ...
 
@@ -229,14 +229,14 @@ def captureWarnings(capture: bool) -> None: ...
 
 class StreamHandler(Handler):
     stream: IO[str]  # undocumented
-    def __init__(self, stream: Optional[IO[str]] = ...) -> None: ...
+    def __init__(self, stream: IO[str] | None = ...) -> None: ...
 
 class FileHandler(StreamHandler):
     baseFilename: str  # undocumented
     mode: str  # undocumented
-    encoding: Optional[str]  # undocumented
+    encoding: str | None  # undocumented
     delay: bool  # undocumented
-    def __init__(self, filename: StrPath, mode: str = ..., encoding: Optional[str] = ..., delay: bool = ...) -> None: ...
+    def __init__(self, filename: StrPath, mode: str = ..., encoding: str | None = ..., delay: bool = ...) -> None: ...
     def _open(self) -> IO[Any]: ...
 
 class NullHandler(Handler): ...

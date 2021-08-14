@@ -1,5 +1,5 @@
 from types import ClassType, FrameType, TracebackType
-from typing import IO, Any, Callable, Dict, List, NoReturn, Optional, Text, Tuple, Type, Union
+from typing import IO, Any, Callable, Dict, List, NoReturn, Text, Tuple, Type, Union
 
 # The following type alias are stub-only and do not exist during runtime
 _ExcInfo = Tuple[Type[BaseException], BaseException, TracebackType]

@@ -1,4 +1,4 @@
-from typing import List, Optional, Text, Type, Union
+from typing import List, Text, Type, Union
 
 _EitherStr = Union[bytes, Text]
 

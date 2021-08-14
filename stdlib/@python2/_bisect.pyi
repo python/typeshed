@@ -1,4 +1,4 @@
-from typing import MutableSequence, Optional, Sequence, TypeVar
+from typing import MutableSequence, Sequence, TypeVar
 
 _T = TypeVar("_T")
 

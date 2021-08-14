@@ -12,7 +12,7 @@ from sre_constants import (
     SRE_INFO_PREFIX as SRE_INFO_PREFIX,
 )
 from sre_parse import SubPattern
-from typing import Any, List, Pattern, Tuple, Type, Union
+from typing import Any, List, Pattern, Tuple, Type
 
 MAXCODE: int
 STRING_TYPES: Tuple[Type[str], Type[unicode]]

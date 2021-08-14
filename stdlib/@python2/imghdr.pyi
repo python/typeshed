@@ -1,4 +1,4 @@
-from typing import Any, BinaryIO, Callable, List, Optional, Protocol, Text, Union, overload
+from typing import Any, BinaryIO, Callable, List, Protocol, Text, Union, overload
 
 class _ReadableBinary(Protocol):
     def tell(self) -> int: ...

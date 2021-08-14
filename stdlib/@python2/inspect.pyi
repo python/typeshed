@@ -70,20 +70,20 @@ def getclasstree(classes: List[type], unique: bool = ...) -> List[Tuple[type, Tu
 
 class ArgSpec(NamedTuple):
     args: List[str]
-    varargs: Optional[str]
-    keywords: Optional[str]
+    varargs: str | None
+    keywords: str | None
     defaults: Tuple[Any, ...]
 
 class ArgInfo(NamedTuple):
     args: List[str]
-    varargs: Optional[str]
-    keywords: Optional[str]
+    varargs: str | None
+    keywords: str | None
     locals: Dict[str, Any]
 
 class Arguments(NamedTuple):
-    args: List[Union[str, List[Any]]]
-    varargs: Optional[str]
-    keywords: Optional[str]
+    args: List[str | List[Any]]
+    varargs: str | None
+    keywords: str | None
 
 def getargs(co: CodeType) -> Arguments: ...
 def getargspec(func: object) -> ArgSpec: ...
@@ -103,8 +103,8 @@ class Traceback(NamedTuple):
     filename: str
     lineno: int
     function: str
-    code_context: Optional[List[str]]
-    index: Optional[int]  # type: ignore
+    code_context: List[str] | None
+    index: int | None  # type: ignore
 
 _FrameInfo = Tuple[FrameType, str, int, str, Optional[List[str]], Optional[int]]
 

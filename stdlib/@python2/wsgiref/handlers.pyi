@@ -18,14 +18,14 @@ class BaseHandler:
 
     origin_server: bool
     http_version: str
-    server_software: Optional[str]
+    server_software: str | None
 
     os_environ: MutableMapping[str, str]
 
-    wsgi_file_wrapper: Optional[Type[FileWrapper]]
+    wsgi_file_wrapper: Type[FileWrapper] | None
     headers_class: Type[Headers]  # undocumented
 
-    traceback_limit: Optional[int]
+    traceback_limit: int | None
     error_status: str
     error_headers: List[Tuple[Text, Text]]
     error_body: bytes
@@ -36,7 +36,7 @@ class BaseHandler:
     def set_content_length(self) -> None: ...
     def cleanup_headers(self) -> None: ...
     def start_response(
-        self, status: Text, headers: List[Tuple[Text, Text]], exc_info: Optional[_exc_info] = ...
+        self, status: Text, headers: List[Tuple[Text, Text]], exc_info: _exc_info | None = ...
     ) -> Callable[[bytes], None]: ...
     def send_preamble(self) -> None: ...
     def write(self, data: bytes) -> None: ...

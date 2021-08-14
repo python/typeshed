@@ -1,4 +1,4 @@
-from typing import IO, Any, Callable, Iterator, List, MutableMapping, Optional, Text, Tuple, Type, Union
+from typing import IO, Any, Callable, Iterator, List, MutableMapping, Text, Tuple, Type
 
 _Reader = Callable[[IO[bytes]], Any]
 
@@ -77,9 +77,9 @@ long4: ArgumentDescriptor
 
 class StackObject(object):
     name: str
-    obtype: Union[Type[Any], Tuple[Type[Any], ...]]
+    obtype: Type[Any] | Tuple[Type[Any], ...]
     doc: str
-    def __init__(self, name: str, obtype: Union[Type[Any], Tuple[Type[Any], ...]], doc: str) -> None: ...
+    def __init__(self, name: str, obtype: Type[Any] | Tuple[Type[Any], ...], doc: str) -> None: ...
 
 pyint: StackObject
 pylong: StackObject
@@ -99,7 +99,7 @@ stackslice: StackObject
 class OpcodeInfo(object):
     name: str
     code: str
-    arg: Optional[ArgumentDescriptor]
+    arg: ArgumentDescriptor | None
     stack_before: List[StackObject]
     stack_after: List[StackObject]
     proto: int
@@ -108,7 +108,7 @@ class OpcodeInfo(object):
         self,
         name: str,
         code: str,
-        arg: Optional[ArgumentDescriptor],
+        arg: ArgumentDescriptor | None,
         stack_before: List[StackObject],
         stack_after: List[StackObject],
         proto: int,

@@ -1,4 +1,4 @@
-from typing import Any, Optional, Pattern, Text
+from typing import Any, Pattern, Text
 
 # rx can be any object with a 'search' method; once we have Protocols we can change the type
 def compile_dir(

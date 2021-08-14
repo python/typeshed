@@ -4,7 +4,7 @@
 # from _ast below when loaded in an unorthodox way by the Dropbox
 # internal Bazel integration.
 import typing as _typing
-from typing import Any, Iterator, Optional, Union
+from typing import Any, Iterator
 
 from _ast import *
 from _ast import AST, Module
@@ -25,4 +25,4 @@ class NodeVisitor:
     def generic_visit(self, node: AST) -> Any: ...
 
 class NodeTransformer(NodeVisitor):
-    def generic_visit(self, node: AST) -> Optional[AST]: ...
+    def generic_visit(self, node: AST) -> AST | None: ...

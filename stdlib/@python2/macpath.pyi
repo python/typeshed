@@ -27,7 +27,7 @@ from posixpath import (
     splitext as splitext,
     supports_unicode_filenames as supports_unicode_filenames,
 )
-from typing import AnyStr, Optional, Text, Tuple, overload
+from typing import AnyStr, Text, Tuple, overload
 
 altsep: str | None
 

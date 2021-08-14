@@ -1,5 +1,5 @@
 from _typeshed import FileDescriptorLike
-from typing import IO, AnyStr, Dict, List, Mapping, NamedTuple, Optional, Sequence, Tuple, TypeVar, Union
+from typing import IO, AnyStr, Dict, List, Mapping, NamedTuple, Sequence, Tuple, TypeVar
 
 error = OSError
 
