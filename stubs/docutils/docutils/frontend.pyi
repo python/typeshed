@@ -1,7 +1,7 @@
 import optparse
+from collections.abc import Iterable, Mapping
 from configparser import RawConfigParser
 from typing import Any, ClassVar, Tuple, Type
-from collections.abc import Iterable, Mapping
 
 from docutils import SettingsSpec
 from docutils.parsers import Parser
