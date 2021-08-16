@@ -73,7 +73,7 @@ class PortScanner(object):
     def csv(self) -> str: ...
 
 def __scan_progressive__(
-    self: object, hosts: Text, ports: Text, arguments: Text, callback: _Callback | None, sudo: bool
+    self: object, hosts: Text, ports: Text, arguments: Text, callback: _Callback | None, sudo: bool, timeout: int
 ) -> None: ...
 
 class PortScannerAsync(object):
