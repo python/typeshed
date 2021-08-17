@@ -1,4 +1,4 @@
-from typing import Literal
+from typing_extensions import Literal
 
 EVENTUAL: Literal["EVENTUAL"]
 EVENTUAL_CONSISTENCY = Literal["EVENTUAL"]

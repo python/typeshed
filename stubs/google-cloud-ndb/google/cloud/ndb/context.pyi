@@ -1,4 +1,3 @@
-import threading
 from typing import Any, NamedTuple
 
 from google.cloud.ndb import exceptions as exceptions
