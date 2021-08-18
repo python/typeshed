@@ -3,7 +3,6 @@ from collections.abc import Iterable, Sequence
 from typing import Callable, List, NoReturn, Optional, Tuple, Type, Union
 from typing_extensions import Literal
 
-import six
 from google.cloud.ndb import exceptions, key as key_module, query as query_module, tasklets as tasklets_module
 
 Key: key_module.Key
@@ -112,7 +111,7 @@ class IntegerProperty(Property):
 class FloatProperty(Property):
     def __get__(self, entity: Model, unused_cls: Optional[Type[Model]] = ...) -> Optional[Union[float, List[float]]]: ...
 
-class _CompressedValue(six.binary_type):
+class _CompressedValue(bytes):
     z_val: bytes = ...
     def __init__(self, z_val: bytes) -> None: ...
     def __eq__(self, other: object) -> bool: ...
