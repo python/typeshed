@@ -1,0 +1,12 @@
+google.cloud.ndb.EVENTUAL
+google.cloud.ndb.EVENTUAL_CONSISTENCY
+google.cloud.ndb.ModelAdapter.__new__
+google.cloud.ndb.Rollback
+google.cloud.ndb.STRONG
+google.cloud.ndb._datastore_api.EVENTUAL
+google.cloud.ndb._datastore_api.EVENTUAL_CONSISTENCY
+google.cloud.ndb._datastore_api.STRONG
+google.cloud.ndb.metadata.EntityGroup.__new__
+google.cloud.ndb.model.Key
+google.cloud.ndb.model.ModelAdapter.__new__
+google.cloud.ndb.model.Rollback
