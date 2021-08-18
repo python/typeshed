@@ -1,5 +1,4 @@
 from typing import Any
-from typing_extensions import NoReturn
 
 from google.cloud.ndb import model
 
