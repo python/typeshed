@@ -4,7 +4,7 @@ from typing import Callable, List, NoReturn, Optional, Tuple, Type, Union
 from typing_extensions import Literal
 
 import six
-from google.cloud.ndb import EVENTUAL, exceptions, key as key_module, query as query_module, tasklets as tasklets_module
+from google.cloud.ndb import exceptions, key as key_module, query as query_module, tasklets as tasklets_module
 
 Key: key_module.Key
 Rollback: exceptions.Rollback
@@ -307,8 +307,8 @@ class Model(_NotEqualMixin, metaclass=MetaModel):
         namespace: Optional[str] = ...,
         project: Optional[str] = ...,
         app: Optional[str] = ...,
-        read_consistency: Optional[EVENTUAL] = ...,
-        read_policy: Optional[EVENTUAL] = ...,
+        read_consistency: Optional[Literal["EVENTUAL"]] = ...,
+        read_policy: Optional[Literal["EVENTUAL"]] = ...,
         transaction: Optional[bytes] = ...,
         retries: Optional[int] = ...,
         timeout: Optional[float] = ...,
@@ -331,8 +331,8 @@ class Model(_NotEqualMixin, metaclass=MetaModel):
         namespace: Optional[str] = ...,
         project: Optional[str] = ...,
         app: Optional[str] = ...,
-        read_consistency: Optional[EVENTUAL] = ...,
-        read_policy: Optional[EVENTUAL] = ...,
+        read_consistency: Optional[Literal["EVENTUAL"]] = ...,
+        read_policy: Optional[Literal["EVENTUAL"]] = ...,
         transaction: Optional[bytes] = ...,
         retries: Optional[int] = ...,
         timeout: Optional[float] = ...,
@@ -355,8 +355,8 @@ class Model(_NotEqualMixin, metaclass=MetaModel):
         namespace: Optional[str] = ...,
         project: Optional[str] = ...,
         app: Optional[str] = ...,
-        read_consistency: Optional[EVENTUAL] = ...,
-        read_policy: Optional[EVENTUAL] = ...,
+        read_consistency: Optional[Literal["EVENTUAL"]] = ...,
+        read_policy: Optional[Literal["EVENTUAL"]] = ...,
         transaction: Optional[bytes] = ...,
         retries: Optional[int] = ...,
         timeout: Optional[float] = ...,
@@ -380,8 +380,8 @@ class Model(_NotEqualMixin, metaclass=MetaModel):
         namespace: Optional[str] = ...,
         project: Optional[str] = ...,
         app: Optional[str] = ...,
-        read_consistency: Optional[EVENTUAL] = ...,
-        read_policy: Optional[EVENTUAL] = ...,
+        read_consistency: Optional[Literal["EVENTUAL"]] = ...,
+        read_policy: Optional[Literal["EVENTUAL"]] = ...,
         transaction: Optional[bytes] = ...,
         retries: Optional[int] = ...,
         timeout: Optional[float] = ...,
@@ -412,8 +412,8 @@ class Expando(Model):
 
 def get_multi_async(
     keys: Sequence[Type[key_module.Key]],
-    read_consistency: Optional[EVENTUAL] = ...,
-    read_policy: Optional[EVENTUAL] = ...,
+    read_consistency: Optional[Literal["EVENTUAL"]] = ...,
+    read_policy: Optional[Literal["EVENTUAL"]] = ...,
     transaction: Optional[bytes] = ...,
     retries: Optional[int] = ...,
     timeout: Optional[float] = ...,
@@ -430,8 +430,8 @@ def get_multi_async(
 ) -> List[Type[tasklets_module.Future]]: ...
 def get_multi(
     keys: Sequence[Type[key_module.Key]],
-    read_consistency: Optional[EVENTUAL] = ...,
-    read_policy: Optional[EVENTUAL] = ...,
+    read_consistency: Optional[Literal["EVENTUAL"]] = ...,
+    read_policy: Optional[Literal["EVENTUAL"]] = ...,
     transaction: Optional[bytes] = ...,
     retries: Optional[int] = ...,
     timeout: Optional[float] = ...,

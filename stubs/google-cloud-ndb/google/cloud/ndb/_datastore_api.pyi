@@ -1,11 +1,5 @@
-import enum
+from typing_extensions import Literal
 
-class ReadConsistency(enum.Enum):
-    READ_CONSISTENCY_UNSPECIFIED = 'READ_CONSISTENCY_UNSPECIFIED'
-    EVENTUAL = 'EVENTUAL'
-    STRONG = 'STRONG'
-
-
-EVENTUAL = ReadConsistency.EVENTUAL
-EVENTUAL_CONSISTENCY = EVENTUAL
-STRONG = ReadConsistency.STRONG
+EVENTUAL: Literal["EVENTUAL"]
+EVENTUAL_CONSISTENCY: Literal["EVENTUAL"]
+STRONG: Literal["STRONG"]
