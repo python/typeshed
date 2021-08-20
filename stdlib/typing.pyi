@@ -2,7 +2,7 @@ import collections  # Needed by aliases like DefaultDict, see mypy issue 2986
 import sys
 from abc import ABCMeta, abstractmethod
 from types import BuiltinFunctionType, CodeType, FrameType, FunctionType, MethodType, ModuleType, TracebackType
-from typing_extensions import Literal as _Literal
+from typing_extensions import Literal as _Literal, ParamSpec as _ParamSpec
 
 if sys.version_info >= (3, 7):
     from types import MethodDescriptorType, MethodWrapperType, WrapperDescriptorType
@@ -35,9 +35,9 @@ _promote = object()
 class _SpecialForm:
     def __getitem__(self, typeargs: Any) -> object: ...
 
-_F = TypeVar("_F", bound=Callable[..., Any])
+_P = _ParamSpec("_P")
 
-def overload(func: _F) -> _F: ...
+def overload(func: Callable[_P, _T]) -> Callable[_P, _T]: ...  # type: ignore
 
 Union: _SpecialForm = ...
 Optional: _SpecialForm = ...
@@ -50,7 +50,7 @@ Type: _SpecialForm = ...
 ClassVar: _SpecialForm = ...
 if sys.version_info >= (3, 8):
     Final: _SpecialForm = ...
-    def final(f: _F) -> _F: ...
+    def final(f: Callable[_P, _T]) -> Callable[_P, _T]: ...  # type: ignore
     Literal: _SpecialForm = ...
     # TypedDict is a (non-subscriptable) special form.
     TypedDict: object
@@ -98,8 +98,8 @@ _VT_co = TypeVar("_VT_co", covariant=True)  # Value type covariant containers.
 _T_contra = TypeVar("_T_contra", contravariant=True)  # Ditto contravariant.
 _TC = TypeVar("_TC", bound=Type[object])
 
-def no_type_check(arg: _F) -> _F: ...
-def no_type_check_decorator(decorator: _F) -> _F: ...
+def no_type_check(arg: Callable[_P, _T]) -> Callable[_P, _T]: ...  # type: ignore
+def no_type_check_decorator(decorator: Callable[_P, Any]) -> Callable[_P, Any]: ...  # type: ignore
 
 # Type aliases and type constructors
 
@@ -694,7 +694,7 @@ class _TypedDict(Mapping[str, object], metaclass=ABCMeta):
 def NewType(name: str, tp: Type[_T]) -> Type[_T]: ...
 
 # This itself is only available during type checking
-def type_check_only(func_or_cls: _F) -> _F: ...
+def type_check_only(func_or_cls: Callable[_P, _T]) -> Callable[_P, _T]: ...  # type: ignore
 
 if sys.version_info >= (3, 7):
     class ForwardRef:
