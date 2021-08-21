@@ -31,8 +31,8 @@ from typing import (
 )
 
 _T = TypeVar("_T")
+_F = TypeVar("_F", bound=Callable[..., Any])
 _TC = TypeVar("_TC", bound=Type[object])
-_P = ParamSpec("_P")
 
 class _SpecialForm:
     def __getitem__(self, typeargs: Any) -> Any: ...
@@ -44,7 +44,7 @@ runtime = runtime_checkable
 Protocol: _SpecialForm = ...
 Final: _SpecialForm = ...
 
-def final(f: Callable[_P, _T]) -> Callable[_P, _T]: ...  # type: ignore
+def final(f: _F) -> _F: ...
 
 Literal: _SpecialForm = ...
 
