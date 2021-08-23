@@ -1,5 +1,5 @@
-from collections.abc import Callable, List, Mapping, Sequence, Tuple
-from typing import Any, Generic, Type, TypeVar, overload
+from collections.abc import Callable, Mapping, Sequence
+from typing import Any, Generic, List, Tuple, Type, TypeVar, overload
 
 _F = TypeVar("_F", bound=Callable[..., Any])
 _T = TypeVar("_T")
