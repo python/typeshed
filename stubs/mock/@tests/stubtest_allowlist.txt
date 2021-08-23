@@ -1,2 +1,3 @@
 mock.mock.NonCallableMock.__new__
 mock.mock.patch
+mock.mock._patcher
