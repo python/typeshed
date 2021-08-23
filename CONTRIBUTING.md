@@ -55,7 +55,7 @@ Modules that are only available for Python 2 are not listed in `VERSIONS`.
 ### Third-party library stubs
 
 We accept stubs for third-party packages into typeshed as long as:
-* the package is publically available on the [Python Package Index](https://pypi.org/);
+* the package is publicly available on the [Python Package Index](https://pypi.org/);
 * the package supports any Python version supported by typeshed; and
 * the package does not ship with its own stubs or type annotations.
 
