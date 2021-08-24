@@ -25,6 +25,7 @@
         "stdlib/tkinter",
         "stdlib/xml/dom",
         "stdlib/xml/sax",
+        "stubs/aws-xray-sdk",
         "stubs/babel",
         "stubs/backports",
         "stubs/backports_abc",
