@@ -1,13 +1,10 @@
 from typing import Any
 
-from ..recorder import AWSXRayRecorder
-
-from .subsegment import Subsegment
-from .segment import Segment
-
 from ..exceptions.exceptions import SegmentNameMissingException as SegmentNameMissingException
+from ..recorder import AWSXRayRecorder
 from ..utils.atomic_counter import AtomicCounter as AtomicCounter
 from .entity import Entity as Entity
+from .subsegment import Subsegment
 from .traceid import TraceId as TraceId
 
 ORIGIN_TRACE_HEADER_ATTR_KEY: str

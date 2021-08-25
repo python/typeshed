@@ -1,7 +1,6 @@
 from typing import Any
 
 from ..utils.search_pattern import wildcard_match as wildcard_match
-
 from .reservoir import Reservoir as Reservoir
 
 class SamplingRule:

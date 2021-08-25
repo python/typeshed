@@ -1,9 +1,9 @@
-from logging import Logger
 import time
+from logging import Logger
 from typing import Any, Callable, Iterable
 
-from .. import global_sdk_config as global_sdk_config
-from ..version import VERSION as VERSION
+from aws_xray_sdk import global_sdk_config as global_sdk_config
+from aws_xray_sdk.version import VERSION as VERSION
 
 from .context import Context as Context
 from .daemon_config import DaemonConfig as DaemonConfig

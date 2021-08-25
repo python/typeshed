@@ -1,4 +1,5 @@
 from logging import Logger
+from traceback import StackSummary
 from typing import Any
 
 from ..exceptions.exceptions import AlreadyEndedException as AlreadyEndedException
@@ -6,7 +7,6 @@ from ..utils.compat import annotation_value_types as annotation_value_types, str
 from ..utils.conversion import metadata_to_dict as metadata_to_dict
 from . import http as http
 from .throwable import Throwable as Throwable
-from traceback import StackSummary
 
 log: Logger
 ORIGIN_TRACE_HEADER_ATTR_KEY: str

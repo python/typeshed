@@ -1,6 +1,7 @@
 from logging import Logger
+from typing import Any
 
-from .. import global_sdk_config as global_sdk_config
+from aws_xray_sdk import global_sdk_config as global_sdk_config
 
 from .context import Context as Context
 from .models.facade_segment import FacadeSegment as FacadeSegment

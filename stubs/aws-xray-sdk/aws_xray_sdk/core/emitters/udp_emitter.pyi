@@ -1,6 +1,6 @@
 from logging import Logger
 
-from ..daemon_config import DaemonConfig as DaemonConfig
+from aws_xray_sdk.core.daemon_config import DaemonConfig as DaemonConfig
 
 from ..exceptions.exceptions import InvalidDaemonAddressException as InvalidDaemonAddressException
 

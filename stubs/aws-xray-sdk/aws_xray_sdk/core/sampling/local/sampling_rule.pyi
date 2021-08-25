@@ -1,3 +1,5 @@
+from aws_xray_sdk.core.utils.search_pattern import wildcard_match as wildcard_match
+
 from ...exceptions.exceptions import InvalidSamplingManifestError as InvalidSamplingManifestError
 from .reservoir import Reservoir as Reservoir
 

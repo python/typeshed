@@ -1,7 +1,7 @@
 from logging import Logger
 from typing import Any, Iterable
 
-from .. import global_sdk_config as global_sdk_config
+from aws_xray_sdk import global_sdk_config as global_sdk_config
 
 from .utils.compat import PY2 as PY2, is_classmethod as is_classmethod, is_instance_method as is_instance_method
 

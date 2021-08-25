@@ -1,5 +1,5 @@
-from logging import Logger
 import time
+from logging import Logger
 from typing import Any
 
 from .. import global_sdk_config as global_sdk_config
