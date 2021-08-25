@@ -1,6 +1,6 @@
 from typing import Any
 
-from aws_xray_sdk.core.utils.search_pattern import wildcard_match as wildcard_match
+from ..utils.search_pattern import wildcard_match as wildcard_match
 
 from .reservoir import Reservoir as Reservoir
 
