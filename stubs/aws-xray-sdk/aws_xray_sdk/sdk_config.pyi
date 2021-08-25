@@ -1,6 +1,6 @@
-from typing import Any
+from logging import Logger
 
-log: Any
+log: Logger
 
 class SDKConfig:
     XRAY_ENABLED_KEY: str

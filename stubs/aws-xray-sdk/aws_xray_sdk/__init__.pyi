@@ -1,3 +1,3 @@
-from typing import Any
+from .sdk_config import SDKConfig
 
-global_sdk_config: Any
+global_sdk_config: SDKConfig

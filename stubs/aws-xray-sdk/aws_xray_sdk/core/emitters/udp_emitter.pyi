@@ -1,10 +1,10 @@
-from typing import Any
+from logging import Logger
 
-from aws_xray_sdk.core.daemon_config import DaemonConfig as DaemonConfig
+from ..daemon_config import DaemonConfig as DaemonConfig
 
 from ..exceptions.exceptions import InvalidDaemonAddressException as InvalidDaemonAddressException
 
-log: Any
+log: Logger
 PROTOCOL_HEADER: str
 PROTOCOL_DELIMITER: str
 DEFAULT_DAEMON_ADDRESS: str

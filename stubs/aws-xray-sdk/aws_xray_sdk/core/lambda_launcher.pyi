@@ -1,12 +1,12 @@
-from typing import Any
+from logging import Logger
 
-from aws_xray_sdk import global_sdk_config as global_sdk_config
+from .. import global_sdk_config as global_sdk_config
 
 from .context import Context as Context
 from .models.facade_segment import FacadeSegment as FacadeSegment
 from .models.trace_header import TraceHeader as TraceHeader
 
-log: Any
+log: Logger
 LAMBDA_TRACE_HEADER_KEY: str
 LAMBDA_TASK_ROOT_KEY: str
 TOUCH_FILE_DIR: str

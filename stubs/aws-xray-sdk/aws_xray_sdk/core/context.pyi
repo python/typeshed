@@ -1,3 +1,4 @@
+from logging import Logger
 import time
 from typing import Any
 
@@ -8,9 +9,9 @@ from .models.entity import Entity
 from .models.segment import Segment
 from .models.subsegment import Subsegment
 
-log: Any
-MISSING_SEGMENT_MSG: str
+log: Logger
 SUPPORTED_CONTEXT_MISSING: Any
+MISSING_SEGMENT_MSG: str
 CXT_MISSING_STRATEGY_KEY: str
 
 class Context:

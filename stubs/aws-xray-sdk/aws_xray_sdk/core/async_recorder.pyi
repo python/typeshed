@@ -1,13 +1,12 @@
 from typing import Any
-
-from aws_xray_sdk.core.models.segment import SegmentContextManager as SegmentContextManager
-from aws_xray_sdk.core.models.subsegment import (
+from .models.segment import SegmentContextManager as SegmentContextManager
+from .models.subsegment import (
     SubsegmentContextManager as SubsegmentContextManager,
     is_already_recording as is_already_recording,
     subsegment_decorator as subsegment_decorator,
 )
-from aws_xray_sdk.core.recorder import AWSXRayRecorder as AWSXRayRecorder
-from aws_xray_sdk.core.utils import stacktrace as stacktrace
+from .recorder import AWSXRayRecorder as AWSXRayRecorder
+from .utils import stacktrace as stacktrace
 
 class AsyncSegmentContextManager(SegmentContextManager):
     async def __aenter__(self): ...

@@ -1,8 +1,9 @@
+from logging import Logger
 import time
-from typing import Any, Callable, ContextManager, Iterable
+from typing import Any, Callable, Iterable
 
-from aws_xray_sdk import global_sdk_config as global_sdk_config
-from aws_xray_sdk.version import VERSION as VERSION
+from .. import global_sdk_config as global_sdk_config
+from ..version import VERSION as VERSION
 
 from .context import Context as Context
 from .daemon_config import DaemonConfig as DaemonConfig
@@ -23,7 +24,7 @@ from .streaming.default_streaming import DefaultStreaming as DefaultStreaming
 from .utils import stacktrace as stacktrace
 from .utils.compat import string_types as string_types
 
-log: Any
+log: Logger
 TRACING_NAME_KEY: str
 DAEMON_ADDR_KEY: str
 CONTEXT_MISSING_KEY: str

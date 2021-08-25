@@ -1,5 +1,10 @@
 from typing import Any
 
+from ..recorder import AWSXRayRecorder
+
+from .subsegment import Subsegment
+from .segment import Segment
+
 from ..exceptions.exceptions import SegmentNameMissingException as SegmentNameMissingException
 from ..utils.atomic_counter import AtomicCounter as AtomicCounter
 from .entity import Entity as Entity
@@ -8,26 +13,27 @@ from .traceid import TraceId as TraceId
 ORIGIN_TRACE_HEADER_ATTR_KEY: str
 
 class SegmentContextManager:
-    name: Any
-    segment_kwargs: Any
-    recorder: Any
-    segment: Any
-    def __init__(self, recorder, name: Any | None = ..., **segment_kwargs) -> None: ...
+    name: str
+    segment_kwargs: dict[str, Any]
+    recorder: AWSXRayRecorder
+    segment: Segment
+    def __init__(self, recorder: AWSXRayRecorder, name: str | None = ..., **segment_kwargs) -> None: ...
     def __enter__(self): ...
     def __exit__(self, exc_type, exc_val, exc_tb) -> None: ...
 
 class Segment(Entity):
-    trace_id: Any
-    id: Any
+    trace_id: str | None
+    id: str | None
     in_progress: bool
-    sampled: Any
-    user: Any
-    ref_counter: Any
-    parent_id: Any
+    sampled: bool
+    user: str | None
+    ref_counter: AtomicCounter
+    parent_id: str | None
+    service: dict[str, str]
     def __init__(
-        self, name, entityid: Any | None = ..., traceid: Any | None = ..., parent_id: Any | None = ..., sampled: bool = ...
+        self, name, entityid: str | None = ..., traceid: str | None = ..., parent_id: str | None = ..., sampled: bool = ...
     ) -> None: ...
-    def add_subsegment(self, subsegment) -> None: ...
+    def add_subsegment(self, subsegment: Subsegment) -> None: ...
     def increment(self) -> None: ...
     def decrement_ref_counter(self) -> None: ...
     def ready_to_send(self): ...
@@ -35,7 +41,6 @@ class Segment(Entity):
     def decrement_subsegments_size(self): ...
     def remove_subsegment(self, subsegment) -> None: ...
     def set_user(self, user) -> None: ...
-    service: Any
     def set_service(self, service_info) -> None: ...
     def set_rule_name(self, rule_name) -> None: ...
     def to_dict(self): ...
