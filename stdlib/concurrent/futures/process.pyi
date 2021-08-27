@@ -46,7 +46,9 @@ class _WorkItem(object):
     fn: Callable[..., Any]
     args: Iterable[Any]
     kwargs: Mapping[str, Any]
-    def __init__(self, future: _base.Future[Any], fn: Callable[..., Any], args: Iterable[Any], kwargs: Mapping[str, Any]) -> None: ...
+    def __init__(
+        self, future: _base.Future[Any], fn: Callable[..., Any], args: Iterable[Any], kwargs: Mapping[str, Any]
+    ) -> None: ...
 
 class _ResultItem(object):
     work_id: int
@@ -91,7 +93,7 @@ def _process_worker(
 class _ExecutorManagerThread(threading.Thread):
     thread_wakeup: _ThreadWakeup
     shutdown_lock: threading.Lock
-    executor_reference: weakref.ref[Any, Callable]
+    executor_reference: weakref.ref[Any]
     processes: MutableMapping[int, mpcont.Process]
     call_queue: mpq.Queue[_CallItem]
     result_queue: mpq.SimpleQueue[_ResultItem]
