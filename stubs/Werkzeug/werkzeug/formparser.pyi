@@ -1,5 +1,5 @@
 from _typeshed.wsgi import WSGIEnvironment
-from typing import IO, Any, Callable, Dict, Generator, Iterable, Mapping, NoReturn, Optional, Protocol, Text, Tuple, TypeVar
+from typing import IO, Any, Callable, Generator, Iterable, Mapping, NoReturn, Optional, Protocol, Text, Tuple, TypeVar
 
 from .datastructures import Headers
 
@@ -51,7 +51,7 @@ class FormDataParser(object):
     def parse(
         self, stream: IO[bytes], mimetype: Text, content_length: int | None, options: Mapping[str, str] | None = ...
     ) -> Tuple[IO[bytes], _Dict, _Dict]: ...
-    parse_functions: Dict[Text, _ParseFunc]
+    parse_functions: dict[Text, _ParseFunc]
 
 def is_valid_multipart_boundary(boundary: str) -> bool: ...
 def parse_multipart_headers(iterable: Iterable[Text | bytes]) -> Headers: ...

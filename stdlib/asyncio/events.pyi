@@ -3,7 +3,7 @@ import sys
 from _typeshed import FileDescriptorLike, Self
 from abc import ABCMeta, abstractmethod
 from socket import AddressFamily, SocketKind, _Address, _RetAddress, socket
-from typing import IO, Any, Awaitable, Callable, Dict, Generator, List, Sequence, Tuple, TypeVar, Union, overload
+from typing import IO, Any, Awaitable, Callable, Dict, Generator, Sequence, Tuple, TypeVar, Union, overload
 from typing_extensions import Literal
 
 from .base_events import Server
@@ -66,7 +66,7 @@ class AbstractServer:
     async def wait_closed(self) -> None: ...
 
 class AbstractEventLoop(metaclass=ABCMeta):
-    slow_callback_duration: float = ...
+    slow_callback_duration: float
     @abstractmethod
     def run_forever(self) -> None: ...
     # Can't use a union, see mypy issue  # 1873.
@@ -120,7 +120,7 @@ class AbstractEventLoop(metaclass=ABCMeta):
     @abstractmethod
     async def getaddrinfo(
         self, host: str | None, port: str | int | None, *, family: int = ..., type: int = ..., proto: int = ..., flags: int = ...
-    ) -> List[Tuple[AddressFamily, SocketKind, int, str, Tuple[str, int] | Tuple[str, int, int, int]]]: ...
+    ) -> list[Tuple[AddressFamily, SocketKind, int, str, Tuple[str, int] | Tuple[str, int, int, int]]]: ...
     @abstractmethod
     async def getnameinfo(self, sockaddr: Tuple[str, int] | Tuple[str, int, int, int], flags: int = ...) -> Tuple[str, str]: ...
     if sys.version_info >= (3, 8):

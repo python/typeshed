@@ -1,6 +1,6 @@
 from _typeshed import Self
 from types import TracebackType
-from typing import List, Type, TypeVar, Union, overload
+from typing import Type, TypeVar, Union, overload
 
 _T = TypeVar("_T")
 _KeyType = Union[str, bytes]
@@ -8,7 +8,7 @@ _ValueType = Union[str, bytes]
 
 class error(OSError): ...
 
-library: str = ...
+library: str
 
 # Actual typename dbm, not exposed by the implementation
 class _dbm:
@@ -26,7 +26,7 @@ class _dbm:
     def get(self, k: _KeyType) -> bytes | None: ...
     @overload
     def get(self, k: _KeyType, default: bytes | _T) -> bytes | _T: ...
-    def keys(self) -> List[bytes]: ...
+    def keys(self) -> list[bytes]: ...
     def setdefault(self, k: _KeyType, default: _ValueType = ...) -> bytes: ...
     # Don't exist at runtime
     __new__: None  # type: ignore

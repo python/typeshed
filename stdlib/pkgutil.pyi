@@ -1,14 +1,14 @@
 import sys
 from _typeshed import SupportsRead
 from importlib.abc import Loader, MetaPathFinder, PathEntryFinder
-from typing import IO, Any, Callable, Iterable, Iterator, List, NamedTuple, Tuple
+from typing import IO, Any, Callable, Iterable, Iterator, NamedTuple, Tuple
 
 class ModuleInfo(NamedTuple):
     module_finder: MetaPathFinder | PathEntryFinder
     name: str
     ispkg: bool
 
-def extend_path(path: List[str], name: str) -> List[str]: ...
+def extend_path(path: list[str], name: str) -> list[str]: ...
 
 class ImpImporter:
     def __init__(self, path: str | None = ...) -> None: ...

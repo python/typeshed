@@ -3,7 +3,7 @@ import io
 import socketserver
 import sys
 from _typeshed import StrPath, SupportsRead, SupportsWrite
-from typing import Any, AnyStr, BinaryIO, ClassVar, Dict, List, Mapping, Sequence, Tuple
+from typing import Any, AnyStr, BinaryIO, ClassVar, Mapping, Sequence, Tuple
 
 class HTTPServer(socketserver.TCPServer):
     server_name: str
@@ -30,8 +30,8 @@ class BaseHTTPRequestHandler(socketserver.StreamRequestHandler):
     MessageClass: type
     responses: Mapping[int, Tuple[str, str]]
     default_request_version: str  # undocumented
-    weekdayname: ClassVar[Sequence[str]] = ...  # undocumented
-    monthname: ClassVar[Sequence[str | None]] = ...  # undocumented
+    weekdayname: ClassVar[Sequence[str]]  # undocumented
+    monthname: ClassVar[Sequence[str | None]]  # undocumented
     def __init__(self, request: bytes, client_address: Tuple[str, int], server: socketserver.BaseServer) -> None: ...
     def handle(self) -> None: ...
     def handle_one_request(self) -> None: ...
@@ -53,7 +53,7 @@ class BaseHTTPRequestHandler(socketserver.StreamRequestHandler):
 
 class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
     server_version: str
-    extensions_map: Dict[str, str]
+    extensions_map: dict[str, str]
     if sys.version_info >= (3, 7):
         def __init__(
             self, request: bytes, client_address: Tuple[str, int], server: socketserver.BaseServer, directory: str | None = ...
@@ -71,7 +71,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
 def executable(path: StrPath) -> bool: ...  # undocumented
 
 class CGIHTTPRequestHandler(SimpleHTTPRequestHandler):
-    cgi_directories: List[str]
+    cgi_directories: list[str]
     have_fork: bool  # undocumented
     def do_POST(self) -> None: ...
     def is_cgi(self) -> bool: ...  # undocumented

@@ -5,22 +5,7 @@ from enum import Enum
 from tkinter.constants import *  # comment this out to find undefined identifier names with flake8
 from tkinter.font import _FontDescription
 from types import TracebackType
-from typing import (
-    Any,
-    Callable,
-    Dict,
-    Generic,
-    List,
-    Mapping,
-    Optional,
-    Protocol,
-    Sequence,
-    Tuple,
-    Type,
-    TypeVar,
-    Union,
-    overload,
-)
+from typing import Any, Callable, Generic, List, Mapping, Optional, Protocol, Sequence, Tuple, Type, TypeVar, Union, overload
 from typing_extensions import Literal, TypedDict
 
 # Using anything from tkinter.font in this file means that 'import tkinter'
@@ -126,43 +111,43 @@ _XYScrollCommand = Union[str, Callable[[float, float], Any]]  # -xscrollcommand 
 _TakeFocusValue = Union[int, Literal[""], Callable[[str], Optional[bool]]]  # -takefocus in manual page named 'options'
 
 class EventType(str, Enum):
-    Activate: str = ...
-    ButtonPress: str = ...
-    ButtonRelease: str = ...
-    Circulate: str = ...
-    CirculateRequest: str = ...
-    ClientMessage: str = ...
-    Colormap: str = ...
-    Configure: str = ...
-    ConfigureRequest: str = ...
-    Create: str = ...
-    Deactivate: str = ...
-    Destroy: str = ...
-    Enter: str = ...
-    Expose: str = ...
-    FocusIn: str = ...
-    FocusOut: str = ...
-    GraphicsExpose: str = ...
-    Gravity: str = ...
-    KeyPress: str = ...
-    KeyRelease: str = ...
-    Keymap: str = ...
-    Leave: str = ...
-    Map: str = ...
-    MapRequest: str = ...
-    Mapping: str = ...
-    Motion: str = ...
-    MouseWheel: str = ...
-    NoExpose: str = ...
-    Property: str = ...
-    Reparent: str = ...
-    ResizeRequest: str = ...
-    Selection: str = ...
-    SelectionClear: str = ...
-    SelectionRequest: str = ...
-    Unmap: str = ...
-    VirtualEvent: str = ...
-    Visibility: str = ...
+    Activate: str
+    ButtonPress: str
+    ButtonRelease: str
+    Circulate: str
+    CirculateRequest: str
+    ClientMessage: str
+    Colormap: str
+    Configure: str
+    ConfigureRequest: str
+    Create: str
+    Deactivate: str
+    Destroy: str
+    Enter: str
+    Expose: str
+    FocusIn: str
+    FocusOut: str
+    GraphicsExpose: str
+    Gravity: str
+    KeyPress: str
+    KeyRelease: str
+    Keymap: str
+    Leave: str
+    Map: str
+    MapRequest: str
+    Mapping: str
+    Motion: str
+    MouseWheel: str
+    NoExpose: str
+    Property: str
+    Reparent: str
+    ResizeRequest: str
+    Selection: str
+    SelectionClear: str
+    SelectionRequest: str
+    Unmap: str
+    VirtualEvent: str
+    Visibility: str
 
 _W = TypeVar("_W", bound="Misc")
 # Events considered covariant because you should never assign to event.widget.
@@ -200,7 +185,7 @@ class Variable:
     def get(self) -> Any: ...
     def trace_add(self, mode: _TraceMode, callback: Callable[[str, str, str], Any]) -> str: ...
     def trace_remove(self, mode: _TraceMode, cbname: str) -> None: ...
-    def trace_info(self) -> List[Tuple[Tuple[_TraceMode, ...], str]]: ...
+    def trace_info(self) -> list[Tuple[Tuple[_TraceMode, ...], str]]: ...
     def trace_variable(self, mode, callback): ...  # deprecated
     def trace_vdelete(self, mode, cbname): ...  # deprecated
     def trace_vinfo(self): ...  # deprecated
@@ -240,7 +225,7 @@ def getboolean(s): ...
 class Misc:
     master: Misc | None
     tk: _tkinter.TkappType
-    children: Dict[str, Widget]
+    children: dict[str, Widget]
     def destroy(self) -> None: ...
     def deletecommand(self, name: str) -> None: ...
     def tk_strictMotif(self, boolean: Any | None = ...): ...
@@ -296,7 +281,7 @@ class Misc:
     def winfo_atom(self, name: str, displayof: Literal[0] | Misc | None = ...): ...
     def winfo_atomname(self, id: int, displayof: Literal[0] | Misc | None = ...): ...
     def winfo_cells(self) -> int: ...
-    def winfo_children(self) -> List[Widget]: ...  # Widget because it can't be Toplevel or Tk
+    def winfo_children(self) -> list[Widget]: ...  # Widget because it can't be Toplevel or Tk
     def winfo_class(self) -> str: ...
     def winfo_colormapfull(self) -> bool: ...
     def winfo_containing(self, rootX: int, rootY: int, displayof: Literal[0] | Misc | None = ...) -> Misc | None: ...
@@ -334,7 +319,7 @@ class Misc:
     def winfo_viewable(self) -> bool: ...
     def winfo_visual(self) -> str: ...
     def winfo_visualid(self) -> str: ...
-    def winfo_visualsavailable(self, includeids: int = ...) -> List[Tuple[str, int]]: ...
+    def winfo_visualsavailable(self, includeids: int = ...) -> list[Tuple[str, int]]: ...
     def winfo_vrootheight(self) -> int: ...
     def winfo_vrootwidth(self) -> int: ...
     def winfo_vrootx(self) -> int: ...
@@ -382,7 +367,7 @@ class Misc:
     def register(
         self, func: Callable[..., Any], subst: Callable[..., Sequence[Any]] | None = ..., needcleanup: int = ...
     ) -> str: ...
-    def keys(self) -> List[str]: ...
+    def keys(self) -> list[str]: ...
     @overload
     def pack_propagate(self, flag: bool) -> bool | None: ...
     @overload
@@ -411,9 +396,9 @@ class Misc:
     def grid_size(self) -> Tuple[int, int]: ...
     size = grid_size
     # Widget because Toplevel or Tk is never a slave
-    def pack_slaves(self) -> List[Widget]: ...
-    def grid_slaves(self, row: int | None = ..., column: int | None = ...) -> List[Widget]: ...
-    def place_slaves(self) -> List[Widget]: ...
+    def pack_slaves(self) -> list[Widget]: ...
+    def grid_slaves(self, row: int | None = ..., column: int | None = ...) -> list[Widget]: ...
+    def place_slaves(self) -> list[Widget]: ...
     slaves = pack_slaves
     def event_add(self, virtual: str, *sequences: str) -> None: ...
     def event_delete(self, virtual: str, *sequences: str) -> None: ...
@@ -494,7 +479,7 @@ class Wm:
     def wm_client(self, name: str | None = ...) -> str: ...
     client = wm_client
     @overload
-    def wm_colormapwindows(self) -> List[Misc]: ...
+    def wm_colormapwindows(self) -> list[Misc]: ...
     @overload
     def wm_colormapwindows(self, __wlist: _TkinterSequence[Misc]) -> None: ...
     @overload
@@ -604,7 +589,7 @@ class Tk(Misc, Wm):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         background: _Color = ...,
         bd: _ScreenUnits = ...,
@@ -622,7 +607,7 @@ class Tk(Misc, Wm):
         relief: _Relief = ...,
         takefocus: _TakeFocusValue = ...,
         width: _ScreenUnits = ...,
-    ) -> Dict[str, Tuple[str, str, str, Any, Any]] | None: ...
+    ) -> dict[str, Tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     config = configure
@@ -841,7 +826,7 @@ class Toplevel(BaseWidget, Wm):
     def __init__(
         self,
         master: Misc | None = ...,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         background: _Color = ...,
         bd: _ScreenUnits = ...,
@@ -870,7 +855,7 @@ class Toplevel(BaseWidget, Wm):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         background: _Color = ...,
         bd: _ScreenUnits = ...,
@@ -888,7 +873,7 @@ class Toplevel(BaseWidget, Wm):
         relief: _Relief = ...,
         takefocus: _TakeFocusValue = ...,
         width: _ScreenUnits = ...,
-    ) -> Dict[str, Tuple[str, str, str, Any, Any]] | None: ...
+    ) -> dict[str, Tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     config = configure
@@ -897,7 +882,7 @@ class Button(Widget):
     def __init__(
         self,
         master: Misc | None = ...,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         activebackground: _Color = ...,
         activeforeground: _Color = ...,
@@ -945,7 +930,7 @@ class Button(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         activebackground: _Color = ...,
         activeforeground: _Color = ...,
@@ -983,7 +968,7 @@ class Button(Widget):
         underline: int = ...,
         width: _ScreenUnits = ...,
         wraplength: _ScreenUnits = ...,
-    ) -> Dict[str, Tuple[str, str, str, Any, Any]] | None: ...
+    ) -> dict[str, Tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     config = configure
@@ -994,7 +979,7 @@ class Canvas(Widget, XView, YView):
     def __init__(
         self,
         master: Misc | None = ...,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         background: _Color = ...,
         bd: _ScreenUnits = ...,
@@ -1036,7 +1021,7 @@ class Canvas(Widget, XView, YView):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         background: _Color = ...,
         bd: _ScreenUnits = ...,
@@ -1068,18 +1053,37 @@ class Canvas(Widget, XView, YView):
         xscrollincrement: _ScreenUnits = ...,
         yscrollcommand: _XYScrollCommand = ...,
         yscrollincrement: _ScreenUnits = ...,
-    ) -> Dict[str, Tuple[str, str, str, Any, Any]] | None: ...
+    ) -> dict[str, Tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     config = configure
-    def addtag(self, *args): ...
-    def addtag_above(self, newtag, tagOrId): ...
-    def addtag_all(self, newtag): ...
-    def addtag_below(self, newtag, tagOrId): ...
-    def addtag_closest(self, newtag, x, y, halo: Any | None = ..., start: Any | None = ...): ...
-    def addtag_enclosed(self, newtag, x1, y1, x2, y2): ...
-    def addtag_overlapping(self, newtag, x1, y1, x2, y2): ...
-    def addtag_withtag(self, newtag, tagOrId): ...
+    def addtag(self, *args): ...  # internal method
+    def addtag_above(self, newtag: str, tagOrId: str | _CanvasItemId) -> None: ...
+    def addtag_all(self, newtag: str) -> None: ...
+    def addtag_below(self, newtag: str, tagOrId: str | _CanvasItemId) -> None: ...
+    def addtag_closest(
+        self,
+        newtag: str,
+        x: _ScreenUnits,
+        y: _ScreenUnits,
+        halo: _ScreenUnits | None = ...,
+        start: str | _CanvasItemId | None = ...,
+    ) -> None: ...
+    def addtag_enclosed(self, newtag: str, x1: _ScreenUnits, y1: _ScreenUnits, x2: _ScreenUnits, y2: _ScreenUnits) -> None: ...
+    def addtag_overlapping(self, newtag: str, x1: _ScreenUnits, y1: _ScreenUnits, x2: _ScreenUnits, y2: _ScreenUnits) -> None: ...
+    def addtag_withtag(self, newtag: str, tagOrId: str | _CanvasItemId) -> None: ...
+    def find(self, *args): ...  # internal method
+    def find_above(self, tagOrId: str | _CanvasItemId) -> Tuple[_CanvasItemId, ...]: ...
+    def find_all(self) -> Tuple[_CanvasItemId, ...]: ...
+    def find_below(self, tagOrId: str | _CanvasItemId) -> Tuple[_CanvasItemId, ...]: ...
+    def find_closest(
+        self, x: _ScreenUnits, y: _ScreenUnits, halo: _ScreenUnits | None = ..., start: str | _CanvasItemId | None = ...
+    ) -> Tuple[_CanvasItemId, ...]: ...
+    def find_enclosed(
+        self, x1: _ScreenUnits, y1: _ScreenUnits, x2: _ScreenUnits, y2: _ScreenUnits
+    ) -> Tuple[_CanvasItemId, ...]: ...
+    def find_overlapping(self, x1: _ScreenUnits, y1: _ScreenUnits, x2: _ScreenUnits, y2: float) -> Tuple[_CanvasItemId, ...]: ...
+    def find_withtag(self, tagOrId: str | _CanvasItemId) -> Tuple[_CanvasItemId, ...]: ...
     def bbox(self, *args): ...
     @overload
     def tag_bind(
@@ -1102,9 +1106,12 @@ class Canvas(Widget, XView, YView):
     def coords(self, __args: _TkinterSequence[int] | _TkinterSequence[float]) -> None: ...
     @overload
     def coords(self, __x1: float, __y1: float, *args: float) -> None: ...
+    # create_foo() methods accept coords as a list, a tuple, or as separate arguments.
+    # Keyword arguments should be the same in each pair of overloads.
     def create_arc(self, *args, **kw) -> _CanvasItemId: ...
     def create_bitmap(self, *args, **kw) -> _CanvasItemId: ...
     def create_image(self, *args, **kw) -> _CanvasItemId: ...
+    @overload
     def create_line(
         self,
         __x0: float,
@@ -1135,6 +1142,35 @@ class Canvas(Widget, XView, YView):
         tags: str | _TkinterSequence[str] = ...,
         width: _ScreenUnits = ...,
     ) -> _CanvasItemId: ...
+    @overload
+    def create_line(
+        self,
+        __coords: tuple[float, float, float, float] | list[int] | list[float],
+        *,
+        activedash: str | _TkinterSequence[int] = ...,
+        activefill: _Color = ...,
+        activestipple: str = ...,
+        activewidth: _ScreenUnits = ...,
+        arrow: Literal["first", "last", "both"] = ...,
+        arrowshape: Tuple[float, float, float] = ...,
+        capstyle: Literal["round", "projecting", "butt"] = ...,
+        dash: str | _TkinterSequence[int] = ...,
+        dashoffset: _ScreenUnits = ...,
+        disableddash: str | _TkinterSequence[int] = ...,
+        disabledfill: _Color = ...,
+        disabledstipple: _Bitmap = ...,
+        disabledwidth: _ScreenUnits = ...,
+        fill: _Color = ...,
+        joinstyle: Literal["round", "bevel", "miter"] = ...,
+        offset: _ScreenUnits = ...,
+        smooth: bool = ...,
+        splinesteps: float = ...,
+        state: Literal["normal", "active", "disabled"] = ...,
+        stipple: _Bitmap = ...,
+        tags: str | _TkinterSequence[str] = ...,
+        width: _ScreenUnits = ...,
+    ) -> _CanvasItemId: ...
+    @overload
     def create_oval(
         self,
         __x0: float,
@@ -1166,6 +1202,36 @@ class Canvas(Widget, XView, YView):
         tags: str | _TkinterSequence[str] = ...,
         width: _ScreenUnits = ...,
     ) -> _CanvasItemId: ...
+    @overload
+    def create_oval(
+        self,
+        __coords: tuple[float, float, float, float] | list[int] | list[float],
+        *,
+        activedash: str | _TkinterSequence[int] = ...,
+        activefill: _Color = ...,
+        activeoutline: _Color = ...,
+        activeoutlinestipple: _Color = ...,
+        activestipple: str = ...,
+        activewidth: _ScreenUnits = ...,
+        dash: str | _TkinterSequence[int] = ...,
+        dashoffset: _ScreenUnits = ...,
+        disableddash: str | _TkinterSequence[int] = ...,
+        disabledfill: _Color = ...,
+        disabledoutline: _Color = ...,
+        disabledoutlinestipple: _Color = ...,
+        disabledstipple: _Bitmap = ...,
+        disabledwidth: _ScreenUnits = ...,
+        fill: _Color = ...,
+        offset: _ScreenUnits = ...,
+        outline: _Color = ...,
+        outlineoffset: _ScreenUnits = ...,
+        outlinestipple: _Bitmap = ...,
+        state: Literal["normal", "active", "disabled"] = ...,
+        stipple: _Bitmap = ...,
+        tags: str | _TkinterSequence[str] = ...,
+        width: _ScreenUnits = ...,
+    ) -> _CanvasItemId: ...
+    @overload
     def create_polygon(
         self,
         __x0: float,
@@ -1200,6 +1266,39 @@ class Canvas(Widget, XView, YView):
         tags: str | _TkinterSequence[str] = ...,
         width: _ScreenUnits = ...,
     ) -> _CanvasItemId: ...
+    @overload
+    def create_polygon(
+        self,
+        __coords: Tuple[float, ...] | list[int] | list[float],
+        *,
+        activedash: str | _TkinterSequence[int] = ...,
+        activefill: _Color = ...,
+        activeoutline: _Color = ...,
+        activeoutlinestipple: _Color = ...,
+        activestipple: str = ...,
+        activewidth: _ScreenUnits = ...,
+        dash: str | _TkinterSequence[int] = ...,
+        dashoffset: _ScreenUnits = ...,
+        disableddash: str | _TkinterSequence[int] = ...,
+        disabledfill: _Color = ...,
+        disabledoutline: _Color = ...,
+        disabledoutlinestipple: _Color = ...,
+        disabledstipple: _Bitmap = ...,
+        disabledwidth: _ScreenUnits = ...,
+        fill: _Color = ...,
+        joinstyle: Literal["round", "bevel", "miter"] = ...,
+        offset: _ScreenUnits = ...,
+        outline: _Color = ...,
+        outlineoffset: _ScreenUnits = ...,
+        outlinestipple: _Bitmap = ...,
+        smooth: bool = ...,
+        splinesteps: float = ...,
+        state: Literal["normal", "active", "disabled"] = ...,
+        stipple: _Bitmap = ...,
+        tags: str | _TkinterSequence[str] = ...,
+        width: _ScreenUnits = ...,
+    ) -> _CanvasItemId: ...
+    @overload
     def create_rectangle(
         self,
         __x0: float,
@@ -1231,6 +1330,36 @@ class Canvas(Widget, XView, YView):
         tags: str | _TkinterSequence[str] = ...,
         width: _ScreenUnits = ...,
     ) -> _CanvasItemId: ...
+    @overload
+    def create_rectangle(
+        self,
+        __coords: tuple[float, float, float, float] | list[int] | list[float],
+        *,
+        activedash: str | _TkinterSequence[int] = ...,
+        activefill: _Color = ...,
+        activeoutline: _Color = ...,
+        activeoutlinestipple: _Color = ...,
+        activestipple: str = ...,
+        activewidth: _ScreenUnits = ...,
+        dash: str | _TkinterSequence[int] = ...,
+        dashoffset: _ScreenUnits = ...,
+        disableddash: str | _TkinterSequence[int] = ...,
+        disabledfill: _Color = ...,
+        disabledoutline: _Color = ...,
+        disabledoutlinestipple: _Color = ...,
+        disabledstipple: _Bitmap = ...,
+        disabledwidth: _ScreenUnits = ...,
+        fill: _Color = ...,
+        offset: _ScreenUnits = ...,
+        outline: _Color = ...,
+        outlineoffset: _ScreenUnits = ...,
+        outlinestipple: _Bitmap = ...,
+        state: Literal["normal", "active", "disabled"] = ...,
+        stipple: _Bitmap = ...,
+        tags: str | _TkinterSequence[str] = ...,
+        width: _ScreenUnits = ...,
+    ) -> _CanvasItemId: ...
+    @overload
     def create_text(
         self,
         __x: float,
@@ -1251,10 +1380,43 @@ class Canvas(Widget, XView, YView):
         text: float | str = ...,
         width: _ScreenUnits = ...,
     ) -> _CanvasItemId: ...
+    @overload
+    def create_text(
+        self,
+        __coords: tuple[float, float] | list[int] | list[float],
+        *,
+        activefill: _Color = ...,
+        activestipple: str = ...,
+        anchor: _Anchor = ...,
+        disabledfill: _Color = ...,
+        disabledstipple: _Bitmap = ...,
+        fill: _Color = ...,
+        font: _FontDescription = ...,
+        justify: Literal["left", "center", "right"] = ...,
+        offset: _ScreenUnits = ...,
+        state: Literal["normal", "active", "disabled"] = ...,
+        stipple: _Bitmap = ...,
+        tags: str | _TkinterSequence[str] = ...,
+        text: float | str = ...,
+        width: _ScreenUnits = ...,
+    ) -> _CanvasItemId: ...
+    @overload
     def create_window(
         self,
         __x: float,
         __y: float,
+        *,
+        anchor: _Anchor = ...,
+        height: _ScreenUnits = ...,
+        state: Literal["normal", "active", "disabled"] = ...,
+        tags: str | _TkinterSequence[str] = ...,
+        width: _ScreenUnits = ...,
+        window: Widget = ...,
+    ) -> _CanvasItemId: ...
+    @overload
+    def create_window(
+        self,
+        __coords: tuple[float, float] | list[int] | list[float],
         *,
         anchor: _Anchor = ...,
         height: _ScreenUnits = ...,
@@ -1269,14 +1431,6 @@ class Canvas(Widget, XView, YView):
     def dtag(self, __tag: str, __tag_to_delete: str | None = ...) -> None: ...
     @overload
     def dtag(self, __id: _CanvasItemId, __tag_to_delete: str) -> None: ...
-    def find(self, *args): ...
-    def find_above(self, tagOrId: str | _CanvasItemId): ...
-    def find_all(self): ...
-    def find_below(self, tagOrId: str | _CanvasItemId): ...
-    def find_closest(self, x, y, halo: Any | None = ..., start: Any | None = ...): ...
-    def find_enclosed(self, x1, y1, x2, y2): ...
-    def find_overlapping(self, x1, y1, x2, y2): ...
-    def find_withtag(self, tagOrId: str | _CanvasItemId): ...
     def focus(self, *args): ...
     def gettags(self, __tagOrId: str | _CanvasItemId) -> Tuple[str, ...]: ...
     def icursor(self, *args): ...
@@ -1316,7 +1470,7 @@ class Checkbutton(Widget):
     def __init__(
         self,
         master: Misc | None = ...,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         activebackground: _Color = ...,
         activeforeground: _Color = ...,
@@ -1349,8 +1503,8 @@ class Checkbutton(Widget):
         #
         # I think Checkbutton shouldn't be generic, because then specifying
         # "any checkbutton regardless of what variable it uses" would be
-        # difficult, and we might run into issues just like how List[float]
-        # and List[int] are incompatible. Also, we would need a way to
+        # difficult, and we might run into issues just like how list[float]
+        # and list[int] are incompatible. Also, we would need a way to
         # specify "Checkbutton not associated with any variable", which is
         # done by setting variable to empty string (the default).
         offvalue: Any = ...,
@@ -1375,7 +1529,7 @@ class Checkbutton(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         activebackground: _Color = ...,
         activeforeground: _Color = ...,
@@ -1419,7 +1573,7 @@ class Checkbutton(Widget):
         variable: Variable | Literal[""] = ...,
         width: _ScreenUnits = ...,
         wraplength: _ScreenUnits = ...,
-    ) -> Dict[str, Tuple[str, str, str, Any, Any]] | None: ...
+    ) -> dict[str, Tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     config = configure
@@ -1435,7 +1589,7 @@ class Entry(Widget, XView):
     def __init__(
         self,
         master: Misc | None = ...,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         background: _Color = ...,
         bd: _ScreenUnits = ...,
@@ -1479,7 +1633,7 @@ class Entry(Widget, XView):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         background: _Color = ...,
         bd: _ScreenUnits = ...,
@@ -1518,7 +1672,7 @@ class Entry(Widget, XView):
         vcmd: _EntryValidateCommand = ...,
         width: int = ...,
         xscrollcommand: _XYScrollCommand = ...,
-    ) -> Dict[str, Tuple[str, str, str, Any, Any]] | None: ...
+    ) -> dict[str, Tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     config = configure
@@ -1546,7 +1700,7 @@ class Frame(Widget):
     def __init__(
         self,
         master: Misc | None = ...,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         background: _Color = ...,
         bd: _ScreenUnits = ...,
@@ -1572,7 +1726,7 @@ class Frame(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         background: _Color = ...,
         bd: _ScreenUnits = ...,
@@ -1589,7 +1743,7 @@ class Frame(Widget):
         relief: _Relief = ...,
         takefocus: _TakeFocusValue = ...,
         width: _ScreenUnits = ...,
-    ) -> Dict[str, Tuple[str, str, str, Any, Any]] | None: ...
+    ) -> dict[str, Tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     config = configure
@@ -1598,7 +1752,7 @@ class Label(Widget):
     def __init__(
         self,
         master: Misc | None = ...,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         activebackground: _Color = ...,
         activeforeground: _Color = ...,
@@ -1636,7 +1790,7 @@ class Label(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         activebackground: _Color = ...,
         activeforeground: _Color = ...,
@@ -1669,7 +1823,7 @@ class Label(Widget):
         underline: int = ...,
         width: _ScreenUnits = ...,
         wraplength: _ScreenUnits = ...,
-    ) -> Dict[str, Tuple[str, str, str, Any, Any]] | None: ...
+    ) -> dict[str, Tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     config = configure
@@ -1678,7 +1832,7 @@ class Listbox(Widget, XView, YView):
     def __init__(
         self,
         master: Misc | None = ...,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         activestyle: Literal["dotbox", "none", "underline"] = ...,
         background: _Color = ...,
@@ -1728,7 +1882,7 @@ class Listbox(Widget, XView, YView):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         activestyle: Literal["dotbox", "none", "underline"] = ...,
         background: _Color = ...,
@@ -1759,7 +1913,7 @@ class Listbox(Widget, XView, YView):
         width: int = ...,
         xscrollcommand: _XYScrollCommand = ...,
         yscrollcommand: _XYScrollCommand = ...,
-    ) -> Dict[str, Tuple[str, str, str, Any, Any]] | None: ...
+    ) -> dict[str, Tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     config = configure
@@ -1793,7 +1947,7 @@ class Menu(Widget):
     def __init__(
         self,
         master: Misc | None = ...,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         activebackground: _Color = ...,
         activeborderwidth: _ScreenUnits = ...,
@@ -1824,7 +1978,7 @@ class Menu(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         activebackground: _Color = ...,
         activeborderwidth: _ScreenUnits = ...,
@@ -1847,7 +2001,7 @@ class Menu(Widget):
         tearoffcommand: Callable[[str, str], Any] | str = ...,
         title: str = ...,
         type: Literal["menubar", "tearoff", "normal"] = ...,
-    ) -> Dict[str, Tuple[str, str, str, Any, Any]] | None: ...
+    ) -> dict[str, Tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     config = configure
@@ -1857,7 +2011,7 @@ class Menu(Widget):
     def insert(self, index, itemType, cnf=..., **kw): ...  # docstring says "Internal function."
     def add_cascade(
         self,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         accelerator: str = ...,
         activebackground: _Color = ...,
@@ -1878,7 +2032,7 @@ class Menu(Widget):
     ) -> None: ...
     def add_checkbutton(
         self,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         accelerator: str = ...,
         activebackground: _Color = ...,
@@ -1904,7 +2058,7 @@ class Menu(Widget):
     ) -> None: ...
     def add_command(
         self,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         accelerator: str = ...,
         activebackground: _Color = ...,
@@ -1924,7 +2078,7 @@ class Menu(Widget):
     ) -> None: ...
     def add_radiobutton(
         self,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         accelerator: str = ...,
         activebackground: _Color = ...,
@@ -1947,11 +2101,11 @@ class Menu(Widget):
         value: Any = ...,
         variable: Variable = ...,
     ) -> None: ...
-    def add_separator(self, cnf: Dict[str, Any] | None = ..., *, background: _Color = ...) -> None: ...
+    def add_separator(self, cnf: dict[str, Any] | None = ..., *, background: _Color = ...) -> None: ...
     def insert_cascade(
         self,
         index: _MenuIndex,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         accelerator: str = ...,
         activebackground: _Color = ...,
@@ -1973,7 +2127,7 @@ class Menu(Widget):
     def insert_checkbutton(
         self,
         index: _MenuIndex,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         accelerator: str = ...,
         activebackground: _Color = ...,
@@ -2000,7 +2154,7 @@ class Menu(Widget):
     def insert_command(
         self,
         index: _MenuIndex,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         accelerator: str = ...,
         activebackground: _Color = ...,
@@ -2021,7 +2175,7 @@ class Menu(Widget):
     def insert_radiobutton(
         self,
         index: _MenuIndex,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         accelerator: str = ...,
         activebackground: _Color = ...,
@@ -2044,7 +2198,7 @@ class Menu(Widget):
         value: Any = ...,
         variable: Variable = ...,
     ) -> None: ...
-    def insert_separator(self, index: _MenuIndex, cnf: Dict[str, Any] | None = ..., *, background: _Color = ...) -> None: ...
+    def insert_separator(self, index: _MenuIndex, cnf: dict[str, Any] | None = ..., *, background: _Color = ...) -> None: ...
     def delete(self, index1: _MenuIndex, index2: _MenuIndex | None = ...) -> None: ...
     def entrycget(self, index: _MenuIndex, option: str) -> Any: ...
     def entryconfigure(
@@ -2063,7 +2217,7 @@ class Menubutton(Widget):
     def __init__(
         self,
         master: Misc | None = ...,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         activebackground: _Color = ...,
         activeforeground: _Color = ...,
@@ -2104,7 +2258,7 @@ class Menubutton(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         activebackground: _Color = ...,
         activeforeground: _Color = ...,
@@ -2140,7 +2294,7 @@ class Menubutton(Widget):
         underline: int = ...,
         width: _ScreenUnits = ...,
         wraplength: _ScreenUnits = ...,
-    ) -> Dict[str, Tuple[str, str, str, Any, Any]] | None: ...
+    ) -> dict[str, Tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     config = configure
@@ -2149,7 +2303,7 @@ class Message(Widget):
     def __init__(
         self,
         master: Misc | None = ...,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         anchor: _Anchor = ...,
         aspect: int = ...,
@@ -2179,7 +2333,7 @@ class Message(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         anchor: _Anchor = ...,
         aspect: int = ...,
@@ -2203,7 +2357,7 @@ class Message(Widget):
         text: float | str = ...,
         textvariable: Variable = ...,
         width: _ScreenUnits = ...,
-    ) -> Dict[str, Tuple[str, str, str, Any, Any]] | None: ...
+    ) -> dict[str, Tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     config = configure
@@ -2212,7 +2366,7 @@ class Radiobutton(Widget):
     def __init__(
         self,
         master: Misc | None = ...,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         activebackground: _Color = ...,
         activeforeground: _Color = ...,
@@ -2260,7 +2414,7 @@ class Radiobutton(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         activebackground: _Color = ...,
         activeforeground: _Color = ...,
@@ -2303,7 +2457,7 @@ class Radiobutton(Widget):
         variable: Variable | Literal[""] = ...,
         width: _ScreenUnits = ...,
         wraplength: _ScreenUnits = ...,
-    ) -> Dict[str, Tuple[str, str, str, Any, Any]] | None: ...
+    ) -> dict[str, Tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     config = configure
@@ -2316,7 +2470,7 @@ class Scale(Widget):
     def __init__(
         self,
         master: Misc | None = ...,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         activebackground: _Color = ...,
         background: _Color = ...,
@@ -2358,7 +2512,7 @@ class Scale(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         activebackground: _Color = ...,
         background: _Color = ...,
@@ -2394,7 +2548,7 @@ class Scale(Widget):
         troughcolor: _Color = ...,
         variable: IntVar | DoubleVar = ...,
         width: _ScreenUnits = ...,
-    ) -> Dict[str, Tuple[str, str, str, Any, Any]] | None: ...
+    ) -> dict[str, Tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     config = configure
@@ -2407,7 +2561,7 @@ class Scrollbar(Widget):
     def __init__(
         self,
         master: Misc | None = ...,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         activebackground: _Color = ...,
         activerelief: _Relief = ...,
@@ -2439,7 +2593,7 @@ class Scrollbar(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         activebackground: _Color = ...,
         activerelief: _Relief = ...,
@@ -2462,7 +2616,7 @@ class Scrollbar(Widget):
         takefocus: _TakeFocusValue = ...,
         troughcolor: _Color = ...,
         width: _ScreenUnits = ...,
-    ) -> Dict[str, Tuple[str, str, str, Any, Any]] | None: ...
+    ) -> dict[str, Tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     config = configure
@@ -2479,7 +2633,7 @@ class Text(Widget, XView, YView):
     def __init__(
         self,
         master: Misc | None = ...,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         autoseparators: bool = ...,
         background: _Color = ...,
@@ -2535,7 +2689,7 @@ class Text(Widget, XView, YView):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         autoseparators: bool = ...,
         background: _Color = ...,
@@ -2582,7 +2736,7 @@ class Text(Widget, XView, YView):
         wrap: Literal["none", "char", "word"] = ...,
         xscrollcommand: _XYScrollCommand = ...,
         yscrollcommand: _XYScrollCommand = ...,
-    ) -> Dict[str, Tuple[str, str, str, Any, Any]] | None: ...
+    ) -> dict[str, Tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     config = configure
@@ -2608,7 +2762,7 @@ class Text(Widget, XView, YView):
         tag: bool = ...,
         text: bool = ...,
         window: bool = ...,
-    ) -> List[Tuple[str, str, str]]: ...
+    ) -> list[Tuple[str, str, str]]: ...
     @overload
     def dump(
         self,
@@ -2664,7 +2818,7 @@ class Text(Widget, XView, YView):
     def mark_next(self, index: _TextIndex) -> str | None: ...
     def mark_previous(self, index: _TextIndex) -> str | None: ...
     # **kw of peer_create is same as the kwargs of Text.__init__
-    def peer_create(self, newPathName: str | Text, cnf: Dict[str, Any] = ..., **kw: Any) -> None: ...
+    def peer_create(self, newPathName: str | Text, cnf: dict[str, Any] = ..., **kw: Any) -> None: ...
     def peer_names(self) -> Tuple[_tkinter.Tcl_Obj, ...]: ...
     def replace(self, index1: _TextIndex, index2: _TextIndex, chars: str, *args: str | _TkinterSequence[str]) -> None: ...
     def scan_mark(self, x: int, y: int) -> None: ...
@@ -2698,7 +2852,7 @@ class Text(Widget, XView, YView):
     def tag_configure(
         self,
         tagName: str,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         background: _Color = ...,
         bgstipple: _Bitmap = ...,
@@ -2728,7 +2882,7 @@ class Text(Widget, XView, YView):
         underline: bool = ...,
         underlinefg: _Color = ...,
         wrap: Literal["none", "char", "word"] = ...,  # be careful with "none" vs None
-    ) -> Dict[str, Tuple[str, str, str, Any, Any]] | None: ...
+    ) -> dict[str, Tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def tag_configure(self, tagName: str, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     tag_config = tag_configure
@@ -2792,7 +2946,7 @@ class PhotoImage(Image):
     def __init__(
         self,
         name: str | None = ...,
-        cnf: Dict[str, Any] = ...,
+        cnf: dict[str, Any] = ...,
         master: Misc | _tkinter.TkappType | None = ...,
         *,
         data: str | bytes = ...,  # not same as data argument of put()
@@ -2832,7 +2986,7 @@ class BitmapImage(Image):
     def __init__(
         self,
         name: Any | None = ...,
-        cnf: Dict[str, Any] = ...,
+        cnf: dict[str, Any] = ...,
         master: Misc | _tkinter.TkappType | None = ...,
         *,
         background: _Color = ...,
@@ -2850,7 +3004,7 @@ class Spinbox(Widget, XView):
     def __init__(
         self,
         master: Misc | None = ...,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         activebackground: _Color = ...,
         background: _Color = ...,
@@ -2908,7 +3062,7 @@ class Spinbox(Widget, XView):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         activebackground: _Color = ...,
         background: _Color = ...,
@@ -2960,7 +3114,7 @@ class Spinbox(Widget, XView):
         width: int = ...,
         wrap: bool = ...,
         xscrollcommand: _XYScrollCommand = ...,
-    ) -> Dict[str, Tuple[str, str, str, Any, Any]] | None: ...
+    ) -> dict[str, Tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     config = configure
@@ -2990,7 +3144,7 @@ class LabelFrame(Widget):
     def __init__(
         self,
         master: Misc | None = ...,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         background: _Color = ...,
         bd: _ScreenUnits = ...,
@@ -3023,7 +3177,7 @@ class LabelFrame(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         background: _Color = ...,
         bd: _ScreenUnits = ...,
@@ -3046,7 +3200,7 @@ class LabelFrame(Widget):
         takefocus: _TakeFocusValue = ...,
         text: float | str = ...,
         width: _ScreenUnits = ...,
-    ) -> Dict[str, Tuple[str, str, str, Any, Any]] | None: ...
+    ) -> dict[str, Tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     config = configure
@@ -3055,7 +3209,7 @@ class PanedWindow(Widget):
     def __init__(
         self,
         master: Misc | None = ...,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         background: _Color = ...,
         bd: _ScreenUnits = ...,
@@ -3083,7 +3237,7 @@ class PanedWindow(Widget):
     @overload
     def configure(
         self,
-        cnf: Dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = ...,
         *,
         background: _Color = ...,
         bd: _ScreenUnits = ...,
@@ -3106,7 +3260,7 @@ class PanedWindow(Widget):
         sashwidth: _ScreenUnits = ...,
         showhandle: bool = ...,
         width: _ScreenUnits = ...,
-    ) -> Dict[str, Tuple[str, str, str, Any, Any]] | None: ...
+    ) -> dict[str, Tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> Tuple[str, str, str, Any, Any]: ...
     config = configure

@@ -1,7 +1,7 @@
 import sys
 from abc import ABCMeta
 from builtins import property as _builtins_property
-from typing import Any, Dict, Iterator, List, Mapping, Type, TypeVar
+from typing import Any, Iterator, Mapping, Type, TypeVar
 
 _T = TypeVar("_T")
 _S = TypeVar("_S", bound=Type[Enum])
@@ -25,21 +25,21 @@ class Enum(metaclass=EnumMeta):
     value: Any
     _name_: str
     _value_: Any
-    _member_names_: List[str]  # undocumented
-    _member_map_: Dict[str, Enum]  # undocumented
-    _value2member_map_: Dict[int, Enum]  # undocumented
+    _member_names_: list[str]  # undocumented
+    _member_map_: dict[str, Enum]  # undocumented
+    _value2member_map_: dict[int, Enum]  # undocumented
     if sys.version_info >= (3, 7):
-        _ignore_: str | List[str]
+        _ignore_: str | list[str]
     _order_: str
     __order__: str
     @classmethod
     def _missing_(cls, value: object) -> Any: ...
     @staticmethod
-    def _generate_next_value_(name: str, start: int, count: int, last_values: List[Any]) -> Any: ...
+    def _generate_next_value_(name: str, start: int, count: int, last_values: list[Any]) -> Any: ...
     def __new__(cls: Type[_T], value: object) -> _T: ...
     def __repr__(self) -> str: ...
     def __str__(self) -> str: ...
-    def __dir__(self) -> List[str]: ...
+    def __dir__(self) -> list[str]: ...
     def __format__(self, format_spec: str) -> str: ...
     def __hash__(self) -> Any: ...
     def __reduce_ex__(self, proto: object) -> Any: ...

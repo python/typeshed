@@ -1,6 +1,6 @@
 import sys
 from types import ModuleType
-from typing import Any, Callable, Iterable, List, Text, Tuple, Union
+from typing import Any, Callable, Iterable, Text, Tuple, Union
 
 from .environment import Environment
 
@@ -11,7 +11,7 @@ if sys.version_info >= (3, 7):
 else:
     _SearchPath = Union[Text, Iterable[Text]]
 
-def split_template_path(template: Text) -> List[Text]: ...
+def split_template_path(template: Text) -> list[Text]: ...
 
 class BaseLoader:
     has_source_access: bool

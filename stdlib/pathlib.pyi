@@ -11,7 +11,7 @@ from _typeshed import (
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
 from os import PathLike, stat_result
 from types import TracebackType
-from typing import IO, Any, BinaryIO, Generator, List, Sequence, Tuple, Type, TypeVar, overload
+from typing import IO, Any, BinaryIO, Generator, Sequence, Tuple, Type, TypeVar, overload
 from typing_extensions import Literal
 
 if sys.version_info >= (3, 9):
@@ -26,7 +26,7 @@ class PurePath(PathLike[str]):
     anchor: str
     name: str
     suffix: str
-    suffixes: List[str]
+    suffixes: list[str]
     stem: str
     def __new__(cls: Type[_P], *args: StrPath) -> _P: ...
     def __hash__(self) -> int: ...

@@ -1,4 +1,4 @@
-from typing import Any, Dict, Text
+from typing import Any, Text
 
 from jinja2.environment import Environment
 from jinja2.exceptions import TemplateNotFound as TemplateNotFound, TemplateRuntimeError as TemplateRuntimeError
@@ -15,15 +15,15 @@ class TemplateReference:
     def __getitem__(self, name): ...
 
 class Context:
-    parent: Context | Dict[str, Any]
-    vars: Dict[str, Any]
+    parent: Context | dict[str, Any]
+    vars: dict[str, Any]
     environment: Environment
     eval_ctx: Any
     exported_vars: Any
     name: Text
-    blocks: Dict[str, Any]
+    blocks: dict[str, Any]
     def __init__(
-        self, environment: Environment, parent: Context | Dict[str, Any], name: Text, blocks: Dict[str, Any]
+        self, environment: Environment, parent: Context | dict[str, Any], name: Text, blocks: dict[str, Any]
     ) -> None: ...
     def super(self, name, current): ...
     def get(self, key, default: Any | None = ...): ...

@@ -1,6 +1,6 @@
 import unittest.case
 from types import TracebackType
-from typing import Any, Callable, List, TextIO, Tuple, Type, TypeVar, Union
+from typing import Any, Callable, TextIO, Tuple, Type, TypeVar, Union
 
 _SysExcInfoType = Union[Tuple[Type[BaseException], BaseException, TracebackType], Tuple[None, None, None]]
 
@@ -10,11 +10,11 @@ _F = TypeVar("_F", bound=Callable[..., Any])
 def failfast(method: _F) -> _F: ...
 
 class TestResult:
-    errors: List[Tuple[unittest.case.TestCase, str]]
-    failures: List[Tuple[unittest.case.TestCase, str]]
-    skipped: List[Tuple[unittest.case.TestCase, str]]
-    expectedFailures: List[Tuple[unittest.case.TestCase, str]]
-    unexpectedSuccesses: List[unittest.case.TestCase]
+    errors: list[Tuple[unittest.case.TestCase, str]]
+    failures: list[Tuple[unittest.case.TestCase, str]]
+    skipped: list[Tuple[unittest.case.TestCase, str]]
+    expectedFailures: list[Tuple[unittest.case.TestCase, str]]
+    unexpectedSuccesses: list[unittest.case.TestCase]
     shouldStop: bool
     testsRun: int
     buffer: bool

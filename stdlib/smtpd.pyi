@@ -1,7 +1,7 @@
 import asynchat
 import asyncore
 import socket
-from typing import Any, DefaultDict, List, Tuple, Type
+from typing import Any, DefaultDict, Tuple, Type
 
 _Address = Tuple[str, int]  # (host, port)
 
@@ -13,11 +13,11 @@ class SMTPChannel(asynchat.async_chat):
     smtp_server: SMTPServer
     conn: socket.socket
     addr: Any
-    received_lines: List[str]
+    received_lines: list[str]
     smtp_state: int
     seen_greeting: str
     mailfrom: str
-    rcpttos: List[str]
+    rcpttos: list[str]
     received_data: str
     fqdn: str
     peer: str
@@ -70,17 +70,17 @@ class SMTPServer(asyncore.dispatcher):
     ) -> None: ...
     def handle_accepted(self, conn: socket.socket, addr: Any) -> None: ...
     def process_message(
-        self, peer: _Address, mailfrom: str, rcpttos: List[str], data: bytes | str, **kwargs: Any
+        self, peer: _Address, mailfrom: str, rcpttos: list[str], data: bytes | str, **kwargs: Any
     ) -> str | None: ...
 
 class DebuggingServer(SMTPServer): ...
 
 class PureProxy(SMTPServer):
     def process_message(  # type: ignore
-        self, peer: _Address, mailfrom: str, rcpttos: List[str], data: bytes | str
+        self, peer: _Address, mailfrom: str, rcpttos: list[str], data: bytes | str
     ) -> str | None: ...
 
 class MailmanProxy(PureProxy):
     def process_message(  # type: ignore
-        self, peer: _Address, mailfrom: str, rcpttos: List[str], data: bytes | str
+        self, peer: _Address, mailfrom: str, rcpttos: list[str], data: bytes | str
     ) -> str | None: ...

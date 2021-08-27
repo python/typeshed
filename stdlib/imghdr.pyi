@@ -1,5 +1,5 @@
 from _typeshed import StrPath
-from typing import Any, BinaryIO, Callable, List, Protocol, overload
+from typing import Any, BinaryIO, Callable, Protocol, overload
 
 class _ReadableBinary(Protocol):
     def tell(self) -> int: ...
@@ -11,4 +11,4 @@ def what(file: StrPath | _ReadableBinary, h: None = ...) -> str | None: ...
 @overload
 def what(file: Any, h: bytes) -> str | None: ...
 
-tests: List[Callable[[bytes, BinaryIO | None], str | None]]
+tests: list[Callable[[bytes, BinaryIO | None], str | None]]

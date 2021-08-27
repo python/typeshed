@@ -1,17 +1,17 @@
 from datetime import datetime, tzinfo
-from typing import IO, Any, Dict, List, Mapping, Text, Tuple, Union
+from typing import IO, Any, Mapping, Text, Tuple, Union
 
 _FileOrStr = Union[bytes, Text, IO[str], IO[Any]]
 
 class parserinfo(object):
-    JUMP: List[str]
-    WEEKDAYS: List[Tuple[str, str]]
-    MONTHS: List[Tuple[str, str]]
-    HMS: List[Tuple[str, str, str]]
-    AMPM: List[Tuple[str, str]]
-    UTCZONE: List[str]
-    PERTAIN: List[str]
-    TZOFFSET: Dict[str, int]
+    JUMP: list[str]
+    WEEKDAYS: list[Tuple[str, str]]
+    MONTHS: list[Tuple[str, str]]
+    HMS: list[Tuple[str, str, str]]
+    AMPM: list[Tuple[str, str]]
+    UTCZONE: list[str]
+    PERTAIN: list[str]
+    TZOFFSET: dict[str, int]
     def __init__(self, dayfirst: bool = ..., yearfirst: bool = ...) -> None: ...
     def jump(self, name: Text) -> bool: ...
     def weekday(self, name: Text) -> int | None: ...

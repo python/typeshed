@@ -1,6 +1,6 @@
 import datetime
 from json import JSONDecoder
-from typing import Any, Callable, Dict, Iterator, List, Text, Type
+from typing import Any, Callable, Iterator, Text, Type
 
 from . import auth, cookies, exceptions, hooks, status_codes, structures, utils
 from .cookies import RequestsCookieJar
@@ -94,7 +94,7 @@ class Response:
     raw: Any
     url: str
     encoding: str
-    history: List[Response]
+    history: list[Response]
     reason: str
     cookies: RequestsCookieJar
     elapsed: datetime.timedelta
@@ -135,6 +135,6 @@ class Response:
         **kwds: Any,
     ) -> Any: ...
     @property
-    def links(self) -> Dict[Any, Any]: ...
+    def links(self) -> dict[Any, Any]: ...
     def raise_for_status(self) -> None: ...
     def close(self) -> None: ...

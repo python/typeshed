@@ -1,5 +1,4 @@
 import sys
-from typing import List
 
 class _Method: ...
 
@@ -10,7 +9,7 @@ METHOD_SHA512: _Method
 if sys.version_info >= (3, 7):
     METHOD_BLOWFISH: _Method
 
-methods: List[_Method]
+methods: list[_Method]
 
 if sys.version_info >= (3, 7):
     def mksalt(method: _Method | None = ..., *, rounds: int | None = ...) -> str: ...

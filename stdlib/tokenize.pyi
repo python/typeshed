@@ -2,7 +2,7 @@ import sys
 from _typeshed import StrOrBytesPath
 from builtins import open as _builtin_open
 from token import *  # noqa: F403
-from typing import Any, Callable, Dict, Generator, Iterable, List, NamedTuple, Pattern, Sequence, Set, TextIO, Tuple, Union
+from typing import Any, Callable, Generator, Iterable, NamedTuple, Pattern, Sequence, Set, TextIO, Tuple, Union
 
 if sys.version_info < (3, 7):
     COMMENT: int
@@ -32,7 +32,7 @@ class TokenError(Exception): ...
 class StopTokenizing(Exception): ...  # undocumented
 
 class Untokenizer:
-    tokens: List[str]
+    tokens: list[str]
     prev_row: int
     prev_col: int
     encoding: str | None
@@ -94,7 +94,7 @@ ContStr: str  # undocumented
 PseudoExtras: str  # undocumented
 PseudoToken: str  # undocumented
 
-endpats: Dict[str, str]  # undocumented
+endpats: dict[str, str]  # undocumented
 single_quoted: Set[str]  # undocumented
 triple_quoted: Set[str]  # undocumented
 

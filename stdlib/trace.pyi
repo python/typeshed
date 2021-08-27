@@ -1,19 +1,21 @@
 import sys
 import types
 from _typeshed import StrPath
-from typing import Any, Callable, Dict, Mapping, Optional, Sequence, Tuple, TypeVar
+from typing import Any, Callable, Mapping, Optional, Sequence, Tuple, TypeVar
+from typing_extensions import ParamSpec
 
 _T = TypeVar("_T")
+_P = ParamSpec("_P")
 _localtrace = Callable[[types.FrameType, str, Any], Callable[..., Any]]
 _fileModuleFunction = Tuple[str, Optional[str], str]
 
 class CoverageResults:
     def __init__(
         self,
-        counts: Dict[Tuple[str, int], int] | None = ...,
-        calledfuncs: Dict[_fileModuleFunction, int] | None = ...,
+        counts: dict[Tuple[str, int], int] | None = ...,
+        calledfuncs: dict[_fileModuleFunction, int] | None = ...,
         infile: StrPath | None = ...,
-        callers: Dict[Tuple[_fileModuleFunction, _fileModuleFunction], int] | None = ...,
+        callers: dict[Tuple[_fileModuleFunction, _fileModuleFunction], int] | None = ...,
         outfile: StrPath | None = ...,
     ) -> None: ...  # undocumented
     def update(self, other: CoverageResults) -> None: ...
@@ -41,9 +43,9 @@ class Trace:
         self, cmd: str | types.CodeType, globals: Mapping[str, Any] | None = ..., locals: Mapping[str, Any] | None = ...
     ) -> None: ...
     if sys.version_info >= (3, 9):
-        def runfunc(self, __func: Callable[..., _T], *args: Any, **kw: Any) -> _T: ...
+        def runfunc(self, __func: Callable[_P, _T], *args: _P.args, **kw: _P.kwargs) -> _T: ...  # type: ignore
     else:
-        def runfunc(self, func: Callable[..., _T], *args: Any, **kw: Any) -> _T: ...
+        def runfunc(self, func: Callable[_P, _T], *args: _P.args, **kw: _P.kwargs) -> _T: ...  # type: ignore
     def file_module_function_of(self, frame: types.FrameType) -> _fileModuleFunction: ...
     def globaltrace_trackcallers(self, frame: types.FrameType, why: str, arg: Any) -> None: ...
     def globaltrace_countfuncs(self, frame: types.FrameType, why: str, arg: Any) -> None: ...

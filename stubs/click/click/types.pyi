@@ -1,6 +1,6 @@
 import datetime
 import uuid
-from typing import IO, Any, Callable, Generic, Iterable, List, Optional, Sequence, Text, Tuple as _PyTuple, Type, TypeVar, Union
+from typing import IO, Any, Callable, Generic, Iterable, Optional, Sequence, Text, Tuple as _PyTuple, Type, TypeVar, Union
 
 from click.core import Context, Parameter, _ConvertibleType, _ParamType
 
@@ -102,7 +102,7 @@ class StringParamType(ParamType):
     def convert(self, value: str, param: Parameter | None, ctx: Context | None) -> str: ...
 
 class Tuple(CompositeParamType):
-    types: List[ParamType]
+    types: list[ParamType]
     def __init__(self, types: Iterable[Any]) -> None: ...
     def __call__(self, value: str | None, param: Parameter | None = ..., ctx: Context | None = ...) -> Tuple: ...
     def convert(self, value: str, param: Parameter | None, ctx: Context | None) -> Tuple: ...

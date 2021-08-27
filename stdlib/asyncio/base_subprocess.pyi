@@ -1,5 +1,5 @@
 import subprocess
-from typing import IO, Any, Callable, Deque, Dict, List, Optional, Sequence, Tuple, Union
+from typing import IO, Any, Callable, Deque, Optional, Sequence, Tuple, Union
 
 from . import events, futures, protocols, transports
 
@@ -13,9 +13,9 @@ class BaseSubprocessTransport(transports.SubprocessTransport):
     _proc: subprocess.Popen[Any] | None  # undocumented
     _pid: int | None  # undocumented
     _returncode: int | None  # undocumented
-    _exit_waiters: List[futures.Future[Any]]  # undocumented
+    _exit_waiters: list[futures.Future[Any]]  # undocumented
     _pending_calls: Deque[Tuple[Callable[..., Any], Tuple[Any, ...]]]  # undocumented
-    _pipes: Dict[int, _File]  # undocumented
+    _pipes: dict[int, _File]  # undocumented
     _finished: bool  # undocumented
     def __init__(
         self,

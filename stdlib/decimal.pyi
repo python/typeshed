@@ -1,6 +1,6 @@
 import numbers
 from types import TracebackType
-from typing import Any, Container, Dict, List, NamedTuple, Sequence, Tuple, Type, TypeVar, Union, overload
+from typing import Any, Container, NamedTuple, Sequence, Tuple, Type, TypeVar, Union, overload
 
 _Decimal = Union[Decimal, int]
 _DecimalNew = Union[Decimal, float, str, Tuple[int, Sequence[int], int]]
@@ -164,8 +164,8 @@ class Context(object):
     Emax: int
     capitals: int
     clamp: int
-    traps: Dict[_TrapType, bool]
-    flags: Dict[_TrapType, bool]
+    traps: dict[_TrapType, bool]
+    flags: dict[_TrapType, bool]
     def __init__(
         self,
         prec: int | None = ...,
@@ -174,9 +174,9 @@ class Context(object):
         Emax: int | None = ...,
         capitals: int | None = ...,
         clamp: int | None = ...,
-        flags: None | Dict[_TrapType, bool] | Container[_TrapType] = ...,
-        traps: None | Dict[_TrapType, bool] | Container[_TrapType] = ...,
-        _ignored_flags: List[_TrapType] | None = ...,
+        flags: None | dict[_TrapType, bool] | Container[_TrapType] = ...,
+        traps: None | dict[_TrapType, bool] | Container[_TrapType] = ...,
+        _ignored_flags: list[_TrapType] | None = ...,
     ) -> None: ...
     # __setattr__() only allows to set a specific set of attributes,
     # already defined above.
@@ -186,7 +186,7 @@ class Context(object):
     def clear_traps(self) -> None: ...
     def copy(self) -> Context: ...
     def __copy__(self) -> Context: ...
-    __hash__: Any = ...
+    __hash__: Any
     def Etiny(self) -> int: ...
     def Etop(self) -> int: ...
     def create_decimal(self, __num: _DecimalNew = ...) -> Decimal: ...

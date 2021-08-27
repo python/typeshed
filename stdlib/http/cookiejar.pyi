@@ -1,7 +1,7 @@
 import sys
 from _typeshed import StrPath
 from http.client import HTTPResponse
-from typing import ClassVar, Dict, Iterable, Iterator, Pattern, Sequence, Tuple, TypeVar, overload
+from typing import ClassVar, Iterable, Iterator, Pattern, Sequence, Tuple, TypeVar, overload
 from urllib.request import Request
 
 _T = TypeVar("_T")
@@ -9,12 +9,12 @@ _T = TypeVar("_T")
 class LoadError(OSError): ...
 
 class CookieJar(Iterable[Cookie]):
-    non_word_re: ClassVar[Pattern[str]] = ...  # undocumented
-    quote_re: ClassVar[Pattern[str]] = ...  # undocumented
-    strict_domain_re: ClassVar[Pattern[str]] = ...  # undocumented
-    domain_re: ClassVar[Pattern[str]] = ...  # undocumented
-    dots_re: ClassVar[Pattern[str]] = ...  # undocumented
-    magic_re: ClassVar[Pattern[str]] = ...  # undocumented
+    non_word_re: ClassVar[Pattern[str]]  # undocumented
+    quote_re: ClassVar[Pattern[str]]  # undocumented
+    strict_domain_re: ClassVar[Pattern[str]]  # undocumented
+    domain_re: ClassVar[Pattern[str]]  # undocumented
+    dots_re: ClassVar[Pattern[str]]  # undocumented
+    magic_re: ClassVar[Pattern[str]]  # undocumented
     def __init__(self, policy: CookiePolicy | None = ...) -> None: ...
     def add_cookie_header(self, request: Request) -> None: ...
     def extract_cookies(self, response: HTTPResponse, request: Request) -> None: ...
@@ -42,7 +42,7 @@ class FileCookieJar(CookieJar):
     def revert(self, filename: str | None = ..., ignore_discard: bool = ..., ignore_expires: bool = ...) -> None: ...
 
 class MozillaCookieJar(FileCookieJar):
-    header: ClassVar[str] = ...  # undocumented
+    header: ClassVar[str]  # undocumented
 
 class LWPCookieJar(FileCookieJar):
     def as_lwp_str(self, ignore_discard: bool = ..., ignore_expires: bool = ...) -> str: ...  # undocumented
@@ -155,7 +155,7 @@ class Cookie:
         discard: bool,
         comment: str | None,
         comment_url: str | None,
-        rest: Dict[str, str],
+        rest: dict[str, str],
         rfc2109: bool = ...,
     ) -> None: ...
     def has_nonstandard_attr(self, name: str) -> bool: ...

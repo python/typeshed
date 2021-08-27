@@ -54,7 +54,12 @@ Modules that are only available for Python 2 are not listed in `VERSIONS`.
 
 ### Third-party library stubs
 
-Modules that are not shipped with Python but have a type description in Python
+We accept stubs for third-party packages into typeshed as long as:
+* the package is publicly available on the [Python Package Index](https://pypi.org/);
+* the package supports any Python version supported by typeshed; and
+* the package does not ship with its own stubs or type annotations.
+
+Stubs for third-party packages
 go into `stubs`. Each subdirectory there represents a PyPI distribution, and
 contains the following:
 * `METADATA.toml`, describing the package. See below for details.
@@ -66,7 +71,12 @@ contains the following:
   and also with Python 2 if `python2 = true` is set in `METADATA.toml` (see below).
 * (Rarely) some docs specific to a given type stub package in `README` file.
 
-When a third party stub is
+The fastest way to generate new stubs is to use [stubgen](https://mypy.readthedocs.io/en/stable/stubgen.html),
+a tool shipped with mypy. Please make sure to use the latest version.
+The generated stubs usually need some trimming of imports. You also need
+to run `black` and `isort` manually on the generated stubs (see below).
+
+When a third party stub is added or
 modified, an updated version of the corresponding distribution will be
 automatically uploaded to PyPI within a few hours.
 Each time this happens the least significant
@@ -160,10 +170,9 @@ Supported features include:
 - [PEP 586](https://www.python.org/dev/peps/pep-0586/) (Literal)
 - [PEP 591](https://www.python.org/dev/peps/pep-0591/) (Final/@final)
 - [PEP 589](https://www.python.org/dev/peps/pep-0589/) (TypedDict)
+- [PEP 604](https://www.python.org/dev/peps/pep-0604/) (`Foo | Bar` union syntax)
 - [PEP 647](https://www.python.org/dev/peps/pep-0647/) (TypeGuard):
   see [#5406](https://github.com/python/typeshed/issues/5406)
-- [PEP 604](https://www.python.org/dev/peps/pep-0604/) (Union
-  pipe operator): see [#4819](https://github.com/python/typeshed/issues/4819)
 
 Features from the `typing` module that are not present in all
 supported Python 3 versions must be imported from `typing_extensions`
@@ -322,20 +331,21 @@ Stub files should only contain information necessary for the type
 checker, and leave out unnecessary detail:
 * for arguments with a default, use `...` instead of the actual
   default;
-* for arguments that default to `None`, use `Optional[]` explicitly
+* for arguments that default to `None`, use `Foo | None` explicitly
   (see below for details);
-* use `float` instead of `Union[int, float]`.
+* use `float` instead of `int | float`.
 
 Some further tips for good type hints:
 * use built-in generics (`list`, `dict`, `tuple`, `set`), instead
-  of importing them from `typing`, **except** for arbitrary length tuples
-  (`Tuple[int, ...]`) (see
-  [python/mypy#9980](https://github.com/python/mypy/issues/9980));
+  of importing them from `typing`, **except** in type aliases, in base classes, and for
+  arbitrary length tuples (`Tuple[int, ...]`);
+* use `X | Y` instead of `Union[X, Y]` and `X | None`, instead of
+  `Optional[X]`, **except** when it is not possible due to mypy bugs (type aliases and base classes);
 * in Python 3 stubs, import collections (`Mapping`, `Iterable`, etc.)
   from `collections.abc` instead of `typing`;
 * avoid invariant collection types (`list`, `dict`) in argument
   positions, in favor of covariant types like `Mapping` or `Sequence`;
-* avoid Union return types: https://github.com/python/mypy/issues/1693;
+* avoid union return types: https://github.com/python/mypy/issues/1693;
 * in Python 2, whenever possible, use `unicode` if that's the only
   possible type, and `Text` if it can be either `unicode` or `bytes`;
 * use platform checks like `if sys.platform == 'win32'` to denote
@@ -351,7 +361,7 @@ unless:
 When adding type hints, avoid using the `Any` type when possible. Reserve
 the use of `Any` for when:
 * the correct type cannot be expressed in the current type system; and
-* to avoid Union returns (see above).
+* to avoid union returns (see above).
 
 Note that `Any` is not the correct type to use if you want to indicate
 that some function can accept literally anything: in those cases use
@@ -371,9 +381,9 @@ When adding type annotations for context manager classes, annotate
 the return type of `__exit__` as bool only if the context manager
 sometimes suppresses exceptions -- if it sometimes returns `True`
 at runtime. If the context manager never suppresses exceptions,
-have the return type be either `None` or `Optional[bool]`. If you
+have the return type be either `None` or `bool | None`. If you
 are not sure whether exceptions are suppressed or not or if the
-context manager is meant to be subclassed, pick `Optional[bool]`.
+context manager is meant to be subclassed, pick `bool | None`.
 See https://github.com/python/mypy/issues/7214 for more details.
 
 `__enter__` methods and other methods that return instances of the
