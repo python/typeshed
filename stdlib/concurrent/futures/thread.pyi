@@ -6,7 +6,7 @@ from collections.abc import Iterable, Mapping, Set
 from concurrent.futures import _base
 from typing import Any, Callable, Optional, Tuple
 
-_threads_queues: weakref.WeakKeyDictionary
+_threads_queues: Mapping[Any, Any]
 _shutdown: bool
 _global_shutdown_lock: threading.Lock
 
