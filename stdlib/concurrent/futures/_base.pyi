@@ -4,7 +4,7 @@ from _typeshed import Self
 from abc import abstractmethod
 from collections.abc import Container, Iterable, Iterator, Mapping, Sequence, Set
 from logging import Logger
-from typing import Any, Callable, Container, Generic, Iterable, Iterator, Protocol, Sequence, Set, TypeVar, overload
+from typing import Any, Callable, Generic, Protocol, TypeVar, overload
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
