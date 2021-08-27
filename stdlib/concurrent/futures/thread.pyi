@@ -29,7 +29,7 @@ class _WorkItem(object):
 
 if sys.version_info >= (3, 7):
     def _worker(
-        executor_reference: weakref.ref[Any, Callable],
+        executor_reference: weakref.ref[Any],
         work_queue: queue.SimpleQueue[Any],
         initializer: Optional[Callable[..., None]],
         initargs: Tuple[Any, ...],
