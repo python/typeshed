@@ -42,11 +42,11 @@ class _ExceptionWithTraceback:
 def _rebuild_exc(exc: Exception, tb: str) -> Exception: ...
 
 class _WorkItem(object):
-    future: _base.Future
+    future: _base.Future[Any]
     fn: Callable[..., Any]
     args: Iterable[Any]
     kwargs: Mapping[str, Any]
-    def __init__(self, future: _base.Future, fn: Callable[..., Any], args: Iterable[Any], kwargs: Mapping[str, Any]) -> None: ...
+    def __init__(self, future: _base.Future[Any], fn: Callable[..., Any], args: Iterable[Any], kwargs: Mapping[str, Any]) -> None: ...
 
 class _ResultItem(object):
     work_id: int
@@ -74,7 +74,7 @@ class _SafeQueue(mpq.Queue):
         shutdown_lock: threading.Lock,
         thread_wakeup: _ThreadWakeup,
     ) -> None: ...
-    def _on_queue_feeder_error(self, e: Exception, obj) -> None: ...
+    def _on_queue_feeder_error(self, e: Exception, obj: _CallItem) -> None: ...
 
 def _get_chunks(*iterables: Any, chunksize: int) -> Generator[Tuple[Any], None, None]: ...
 def _process_chunk(fn: Callable[..., Any], chunk: Tuple[Any, None, None]) -> Generator[Any, None, None]: ...
@@ -91,7 +91,7 @@ def _process_worker(
 class _ExecutorManagerThread(threading.Thread):
     thread_wakeup: _ThreadWakeup
     shutdown_lock: threading.Lock
-    executor_reference: weakref.ref
+    executor_reference: weakref.ref[Any, Callable]
     processes: MutableMapping[int, mpcont.Process]
     call_queue: mpq.Queue[_CallItem]
     result_queue: mpq.SimpleQueue[_ResultItem]
@@ -136,8 +136,8 @@ class ProcessPoolExecutor(_base.Executor):
     _pending_work_items: MutableMapping[int, _WorkItem]
     _cancel_pending_futures: bool
     _executor_manager_thread_wakeup: _ThreadWakeup
-    _result_queue: mpq.SimpleQueue
-    _work_ids: mpq.Queue
+    _result_queue: mpq.SimpleQueue[Any]
+    _work_ids: mpq.Queue[Any]
     if sys.version_info >= (3, 7):
         def __init__(
             self,
