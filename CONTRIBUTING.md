@@ -54,7 +54,12 @@ Modules that are only available for Python 2 are not listed in `VERSIONS`.
 
 ### Third-party library stubs
 
-Modules that are not shipped with Python but have a type description in Python
+We accept stubs for third-party packages into typeshed as long as:
+* the package is publicly available on the [Python Package Index](https://pypi.org/);
+* the package supports any Python version supported by typeshed; and
+* the package does not ship with its own stubs or type annotations.
+
+Stubs for third-party packages
 go into `stubs`. Each subdirectory there represents a PyPI distribution, and
 contains the following:
 * `METADATA.toml`, describing the package. See below for details.
@@ -66,7 +71,12 @@ contains the following:
   and also with Python 2 if `python2 = true` is set in `METADATA.toml` (see below).
 * (Rarely) some docs specific to a given type stub package in `README` file.
 
-When a third party stub is
+The fastest way to generate new stubs is to use [stubgen](https://mypy.readthedocs.io/en/stable/stubgen.html),
+a tool shipped with mypy. Please make sure to use the latest version.
+The generated stubs usually need some trimming of imports. You also need
+to run `black` and `isort` manually on the generated stubs (see below).
+
+When a third party stub is added or
 modified, an updated version of the corresponding distribution will be
 automatically uploaded to PyPI within a few hours.
 Each time this happens the least significant
@@ -327,9 +337,10 @@ checker, and leave out unnecessary detail:
 
 Some further tips for good type hints:
 * use built-in generics (`list`, `dict`, `tuple`, `set`), instead
-  of importing them from `typing`, **except** for arbitrary length tuples
-  (`Tuple[int, ...]`) (see
-  [python/mypy#9980](https://github.com/python/mypy/issues/9980));
+  of importing them from `typing`, **except** in type aliases, in base classes, and for
+  arbitrary length tuples (`Tuple[int, ...]`);
+* use `X | Y` instead of `Union[X, Y]` and `X | None`, instead of
+  `Optional[X]`, **except** when it is not possible due to mypy bugs (type aliases and base classes);
 * in Python 3 stubs, import collections (`Mapping`, `Iterable`, etc.)
   from `collections.abc` instead of `typing`;
 * avoid invariant collection types (`list`, `dict`) in argument
