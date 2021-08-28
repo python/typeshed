@@ -68,15 +68,24 @@ if sys.version_info >= (3, 7):
         pending_work_items: MutableMapping[int, _WorkItem]
         shutdown_lock: threading.Lock
         thread_wakeup: _ThreadWakeup
-        def __init__(
-            self,
-            max_size: Optional[int] = ...,
-            *,
-            ctx: mpcont.BaseContext,
-            pending_work_items: MutableMapping[int, _WorkItem],
-            shutdown_lock: threading.Lock,
-            thread_wakeup: _ThreadWakeup,
-        ) -> None: ...
+        if sys.version_info >= (3, 9):
+            def __init__(
+                self,
+                max_size: Optional[int] = ...,
+                *,
+                ctx: mpcont.BaseContext,
+                pending_work_items: MutableMapping[int, _WorkItem],
+                shutdown_lock: threading.Lock,
+                thread_wakeup: _ThreadWakeup,
+            ) -> None: ...
+        else:
+            def __init__(
+                self,
+                max_size: Optional[int] = ...,
+                *,
+                ctx: mpcont.BaseContext,
+                pending_work_items: MutableMapping[int, _WorkItem]
+            ) -> None: ...
         def _on_queue_feeder_error(self, e: Exception, obj: _CallItem) -> None: ...
 
 def _get_chunks(*iterables: Any, chunksize: int) -> Generator[Tuple[Any], None, None]: ...
