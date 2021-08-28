@@ -11,7 +11,7 @@ _T = TypeVar("_T")
 
 class ApplyResult(Generic[_T]):
     def __init__(
-        self, pool: Pool, callback: Optional[Callable[[_T], None]], error_callback: Optional[Callable[[BaseException], None]]
+        self, pool: Pool, callback: Callable[[_T], None] | None, error_callback: Callable[[BaseException], None] | None
     ) -> None: ...
     def get(self, timeout: float | None = ...) -> _T: ...
     def wait(self, timeout: float | None = ...) -> None: ...
@@ -29,8 +29,8 @@ class MapResult(ApplyResult[List[_T]]):
         pool: Pool,
         chunksize: int,
         length: int,
-        callback: Optional[Callable[[List[_T]], None]],
-        error_callback: Optional[Callable[[BaseException], None]],
+        callback: Callable[[List[_T]], None] | None,
+        error_callback: Callable[[BaseException], None] | None,
     ) -> None: ...
 
 class IMapIterator(Iterator[_T]):
