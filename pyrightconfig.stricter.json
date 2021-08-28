@@ -13,7 +13,6 @@
         "stubs/futures",
         "stubs/ipaddress",
         "stubs/kazoo",
-        "stubs/openssl-python",
         "stubs/pathlib2",
         "stubs/pymssql",
         "stubs/scribe",
