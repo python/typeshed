@@ -109,6 +109,8 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
+      - name: Update pip
+        run: python -m pip install -U pip
       - name: Install dependencies
         run: pip install $(grep mypy== requirements-tests-py3.txt)
       - name: Run stubtest
