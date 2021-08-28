@@ -1,6 +1,5 @@
 geoip2.database.Reader.__exit__
 geoip2.database.Reader.__init__
-geoip2.errors.HTTPError.__init__
 geoip2.models.SimpleModel.__init__
 geoip2.records.City.__init__
 geoip2.records.Continent.__init__

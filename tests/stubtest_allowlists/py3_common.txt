@@ -232,6 +232,7 @@ builtins.quit
 builtins.reveal_locals
 builtins.reveal_type
 collections.abc.*  # Types are re-exported from _collections_abc, so errors should be fixed there
+distutils.command.check.SilentReporter  # only defined if docutils in installed
 # Dynamically specified by __getattr__, and thus don't exist on the class
 tempfile._TemporaryFileWrapper.[\w_]+
 # Various classes in typing aren't types at runtime. In addition, mypy thinks some special forms are tautologically defined.

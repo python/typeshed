@@ -17,6 +17,14 @@ jobs:
       - run: pip install toml
       - run: ./tests/check_consistent.py
 
+  pep-604:
+    name: Check for PEP 604 usage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+      - run: ./tests/check_pep_604.py
+
   flake8:
     name: Lint with flake8
     runs-on: ubuntu-latest
@@ -74,10 +82,10 @@ jobs:
     strategy:
       matrix:
         python-platform: ["Linux", "Windows", "Darwin"]
-        python-version: [3.6, 3.7, 3.8, 3.9, '3.10']
+        python-version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
       fail-fast: false
     env:
-      PYRIGHT_VERSION: 1.1.152  # Must match pyright_test.py.
+      PYRIGHT_VERSION: 1.1.160 # Must match pyright_test.py.
     steps:
       - uses: actions/checkout@v2
       - uses: jakebailey/pyright-action@v1
@@ -100,7 +108,7 @@ jobs:
     strategy:
       matrix:
         os: ["ubuntu-latest", "windows-latest", "macos-latest"]
-        python-version: [3.6, 3.7, 3.8, 3.9, '3.10.0-beta.1']
+        python-version: ["3.6", "3.7", "3.8", "3.9", "3.10.0-rc.1"]
       fail-fast: false
 
     steps:
@@ -119,7 +127,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        shard-index: [0, 1]
+        shard-index: [0, 1, 2, 3]
       fail-fast: false
     steps:
       - uses: actions/checkout@v2
@@ -129,4 +137,4 @@ jobs:
       - name: Install dependencies
         run: pip install toml
       - name: Run stubtest
-        run: python tests/stubtest_third_party.py --num-shards 2 --shard-index ${{ matrix.shard-index }}
+        run: python tests/stubtest_third_party.py --num-shards 4 --shard-index ${{ matrix.shard-index }}
