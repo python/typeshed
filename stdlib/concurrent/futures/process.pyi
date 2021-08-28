@@ -63,20 +63,21 @@ class _CallItem(object):
     kwargs: Mapping[str, Any]
     def __init__(self, work_id: int, fn: Callable[..., Any], args: Iterable[Any], kwargs: Mapping[str, Any]) -> None: ...
 
-class _SafeQueue(mpq.Queue):
-    pending_work_items: MutableMapping[int, _WorkItem]
-    shutdown_lock: threading.Lock
-    thread_wakeup: _ThreadWakeup
-    def __init__(
-        self,
-        max_size: Optional[int] = ...,
-        *,
-        ctx: mpcont.BaseContext,
-        pending_work_items: MutableMapping[int, _WorkItem],
-        shutdown_lock: threading.Lock,
-        thread_wakeup: _ThreadWakeup,
-    ) -> None: ...
-    def _on_queue_feeder_error(self, e: Exception, obj: _CallItem) -> None: ...
+if sys.version_info >= (3, 7):
+    class _SafeQueue(mpq.Queue):
+        pending_work_items: MutableMapping[int, _WorkItem]
+        shutdown_lock: threading.Lock
+        thread_wakeup: _ThreadWakeup
+        def __init__(
+            self,
+            max_size: Optional[int] = ...,
+            *,
+            ctx: mpcont.BaseContext,
+            pending_work_items: MutableMapping[int, _WorkItem],
+            shutdown_lock: threading.Lock,
+            thread_wakeup: _ThreadWakeup,
+        ) -> None: ...
+        def _on_queue_feeder_error(self, e: Exception, obj: _CallItem) -> None: ...
 
 def _get_chunks(*iterables: Any, chunksize: int) -> Generator[Tuple[Any], None, None]: ...
 def _process_chunk(fn: Callable[..., Any], chunk: Tuple[Any, None, None]) -> Generator[Any, None, None]: ...
@@ -150,5 +151,6 @@ class ProcessPoolExecutor(_base.Executor):
         ) -> None: ...
     else:
         def __init__(self, max_workers: int | None = ...) -> None: ...
-    def _start_executor_manager_thread(self) -> None: ...
+    if sys.version_info >= (3, 9):
+        def _start_executor_manager_thread(self) -> None: ...
     def _adjust_process_count(self) -> None: ...
