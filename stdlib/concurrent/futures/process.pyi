@@ -84,7 +84,7 @@ if sys.version_info >= (3, 7):
                 max_size: Optional[int] = ...,
                 *,
                 ctx: mpcont.BaseContext,
-                pending_work_items: MutableMapping[int, _WorkItem]
+                pending_work_items: MutableMapping[int, _WorkItem],
             ) -> None: ...
         def _on_queue_feeder_error(self, e: Exception, obj: _CallItem) -> None: ...
 
@@ -93,12 +93,17 @@ def _process_chunk(fn: Callable[..., Any], chunk: Tuple[Any, None, None]) -> Gen
 def _sendback_result(
     result_queue: mpq.SimpleQueue[_WorkItem], work_id: int, result: Optional[Any] = ..., exception: Optional[Exception] = ...
 ) -> None: ...
-def _process_worker(
-    call_queue: mpq.Queue[_CallItem],
-    result_queue: mpq.SimpleQueue[_ResultItem],
-    initializer: Optional[Callable[..., None]],
-    initargs: Tuple[Any, ...],
-) -> None: ...
+
+if sys.version_info >= (3, 7):
+    def _process_worker(
+        call_queue: mpq.Queue[_CallItem],
+        result_queue: mpq.SimpleQueue[_ResultItem],
+        initializer: Optional[Callable[..., None]],
+        initargs: Tuple[Any, ...],
+    ) -> None: ...
+
+else:
+    def _process_worker(call_queue: mpq.Queue[_CallItem], result_queue: mpq.SimpleQueue[_ResultItem]) -> None: ...
 
 class _ExecutorManagerThread(threading.Thread):
     thread_wakeup: _ThreadWakeup
