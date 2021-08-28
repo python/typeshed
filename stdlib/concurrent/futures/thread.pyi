@@ -4,7 +4,7 @@ import threading
 import weakref
 from collections.abc import Iterable, Mapping, Set
 from concurrent.futures import _base
-from typing import Any, Callable, Optional, Tuple
+from typing import Any, Callable, Tuple
 
 _threads_queues: Mapping[Any, Any]
 _shutdown: bool
@@ -31,7 +31,7 @@ if sys.version_info >= (3, 7):
     def _worker(
         executor_reference: weakref.ref[Any],
         work_queue: queue.SimpleQueue[Any],
-        initializer: Optional[Callable[..., None]],
+        initializer: Callable[..., None],
         initargs: Tuple[Any, ...],
     ) -> None: ...
 
@@ -49,8 +49,8 @@ class ThreadPoolExecutor(_base.Executor):
     _broken: bool
     _shutdown: bool
     _shutdown_lock: threading.Lock
-    _thread_name_prefix: Optional[str] = ...
-    _initializer: Optional[Callable[..., None]] = ...
+    _thread_name_prefix: str | None = ...
+    _initializer: Callable | None = ...
     _initargs: Tuple[Any, ...] = ...
     if sys.version_info >= (3, 7):
         _work_queue: queue.SimpleQueue[_WorkItem]
@@ -61,7 +61,7 @@ class ThreadPoolExecutor(_base.Executor):
             self,
             max_workers: int | None = ...,
             thread_name_prefix: str = ...,
-            initializer: Callable[..., None] | None = ...,
+            initializer: Callable | None = ...,
             initargs: Tuple[Any, ...] = ...,
         ) -> None: ...
     else:

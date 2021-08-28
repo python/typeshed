@@ -8,7 +8,7 @@ import weakref
 from collections.abc import Generator, Iterable, Mapping, MutableMapping, MutableSequence
 from concurrent.futures import _base
 from types import TracebackType
-from typing import Any, Callable, Optional, Tuple, Union
+from typing import Any, Callable, Tuple
 
 _threads_wakeups: Mapping[Any, Any]
 _global_shutdown: bool
@@ -37,7 +37,7 @@ class _ExceptionWithTraceback:
     exc: BaseException
     tb: TracebackType
     def __init__(self, exc: BaseException, tb: TracebackType) -> None: ...
-    def __reduce__(self) -> Union[str, Tuple[Any, ...]]: ...
+    def __reduce__(self) -> str | Tuple[Any, ...]: ...
 
 def _rebuild_exc(exc: Exception, tb: str) -> Exception: ...
 
@@ -54,7 +54,7 @@ class _ResultItem(object):
     work_id: int
     exception: Exception
     result: Any
-    def __init__(self, work_id: int, exception: Optional[Exception] = ..., result: Optional[Any] = ...) -> None: ...
+    def __init__(self, work_id: int, exception: Exception | None = ..., result: Any | None = ...) -> None: ...
 
 class _CallItem(object):
     work_id: int
@@ -71,7 +71,7 @@ if sys.version_info >= (3, 7):
         if sys.version_info >= (3, 9):
             def __init__(
                 self,
-                max_size: Optional[int] = ...,
+                max_size: int | None = ...,
                 *,
                 ctx: mpcont.BaseContext,
                 pending_work_items: MutableMapping[int, _WorkItem],
@@ -80,25 +80,21 @@ if sys.version_info >= (3, 7):
             ) -> None: ...
         else:
             def __init__(
-                self,
-                max_size: Optional[int] = ...,
-                *,
-                ctx: mpcont.BaseContext,
-                pending_work_items: MutableMapping[int, _WorkItem],
+                self, max_size: int | None = ..., *, ctx: mpcont.BaseContext, pending_work_items: MutableMapping[int, _WorkItem]
             ) -> None: ...
         def _on_queue_feeder_error(self, e: Exception, obj: _CallItem) -> None: ...
 
 def _get_chunks(*iterables: Any, chunksize: int) -> Generator[Tuple[Any], None, None]: ...
 def _process_chunk(fn: Callable[..., Any], chunk: Tuple[Any, None, None]) -> Generator[Any, None, None]: ...
 def _sendback_result(
-    result_queue: mpq.SimpleQueue[_WorkItem], work_id: int, result: Optional[Any] = ..., exception: Optional[Exception] = ...
+    result_queue: mpq.SimpleQueue[_WorkItem], work_id: int, result: Any | None = ..., exception: Exception | None = ...
 ) -> None: ...
 
 if sys.version_info >= (3, 7):
     def _process_worker(
         call_queue: mpq.Queue[_CallItem],
         result_queue: mpq.SimpleQueue[_ResultItem],
-        initializer: Optional[Callable[..., None]],
+        initializer: Callable | None,
         initargs: Tuple[Any, ...],
     ) -> None: ...
 
@@ -127,7 +123,7 @@ class _ExecutorManagerThread(threading.Thread):
     def get_n_children_alive(self) -> int: ...
 
 _system_limits_checked: bool
-_system_limited: Optional[bool]
+_system_limited: bool | None
 
 def _check_system_limits() -> None: ...
 def _chain_from_iterable_of_lists(iterable: Iterable[MutableSequence[Any]]) -> Any: ...
@@ -140,8 +136,8 @@ else:
     class BrokenProcessPool(RuntimeError): ...
 
 class ProcessPoolExecutor(_base.Executor):
-    _mp_context: Optional[mpcont.BaseContext]
-    _initializer: Optional[Callable[..., None]] = ...
+    _mp_context: mpcont.BaseContext | None = ...
+    _initializer: Callable | None = ...
     _initargs: Tuple[Any, ...] = ...
     _executor_manager_thread: _ThreadWakeup
     _processes: MutableMapping[int, mpcont.Process]
