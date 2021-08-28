@@ -17,6 +17,14 @@ jobs:
       - run: pip install toml
       - run: ./tests/check_consistent.py
 
+  pep-604:
+    name: Check for PEP 604 usage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+      - run: ./tests/check_pep_604.py
+
   flake8:
     name: Lint with flake8
     runs-on: ubuntu-latest
