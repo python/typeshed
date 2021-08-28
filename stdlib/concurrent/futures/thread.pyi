@@ -50,7 +50,7 @@ class ThreadPoolExecutor(_base.Executor):
     _shutdown: bool
     _shutdown_lock: threading.Lock
     _thread_name_prefix: str | None = ...
-    _initializer: Callable | None = ...
+    _initializer: Callable[..., None] | None = ...
     _initargs: Tuple[Any, ...] = ...
     if sys.version_info >= (3, 7):
         _work_queue: queue.SimpleQueue[_WorkItem]
@@ -61,7 +61,7 @@ class ThreadPoolExecutor(_base.Executor):
             self,
             max_workers: int | None = ...,
             thread_name_prefix: str = ...,
-            initializer: Callable | None = ...,
+            initializer: Callable[..., None] | None = ...,
             initargs: Tuple[Any, ...] = ...,
         ) -> None: ...
     else:

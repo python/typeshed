@@ -94,7 +94,7 @@ if sys.version_info >= (3, 7):
     def _process_worker(
         call_queue: mpq.Queue[_CallItem],
         result_queue: mpq.SimpleQueue[_ResultItem],
-        initializer: Callable | None,
+        initializer: Callable[..., None] | None,
         initargs: Tuple[Any, ...],
     ) -> None: ...
 
@@ -137,7 +137,7 @@ else:
 
 class ProcessPoolExecutor(_base.Executor):
     _mp_context: mpcont.BaseContext | None = ...
-    _initializer: Callable | None = ...
+    _initializer: Callable[..., None] | None = ...
     _initargs: Tuple[Any, ...] = ...
     _executor_manager_thread: _ThreadWakeup
     _processes: MutableMapping[int, mpcont.Process]
