@@ -29,9 +29,6 @@ io.StringIO.readline
 ipaddress._BaseNetwork.__init__
 json.loads
 mmap.ACCESS_DEFAULT
-multiprocessing.pool.ApplyResult.__init__
-multiprocessing.pool.IMapIterator.__init__
-multiprocessing.pool.MapResult.__init__
 multiprocessing.shared_memory
 os.utime
 plistlib.Dict.__init__
