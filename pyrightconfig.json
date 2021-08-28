@@ -16,7 +16,6 @@
         "stubs/pathlib2",
         "stubs/pymssql",
         "stubs/scribe",
-        "stubs/tornado"
     ],
     "typeCheckingMode": "basic",
     "strictListInference": true,
