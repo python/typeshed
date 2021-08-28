@@ -59,8 +59,6 @@ def main() -> None:
             continue
         if "stubs/protobuf/google/protobuf" in str(path):  # TODO: fix protobuf stubs
             continue
-        if "stubs/dateparser/" in str(path):  # TODO: fix dateparser
-            continue
 
         with open(path) as f:
             tree = ast.parse(f.read())
