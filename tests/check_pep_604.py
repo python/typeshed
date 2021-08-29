@@ -2,6 +2,7 @@
 
 import ast
 import sys
+from itertools import chain
 from pathlib import Path
 
 
@@ -54,10 +55,10 @@ def check_pep_604(tree: ast.AST, path: Path) -> list[str]:
 
 def main() -> None:
     errors = []
-    for path in Path(".").glob("**/*.pyi"):
+    for path in chain(Path("stdlib").rglob("*.pyi"), Path("stubs").rglob("*.pyi")):
         if "@python2" in path.parts:
             continue
-        if "stubs/protobuf/google/protobuf" in str(path):  # TODO: fix protobuf stubs
+        if Path("stubs/protobuf/google/protobuf") in path.parents:  # TODO: fix protobuf stubs
             continue
 
         with open(path) as f:
