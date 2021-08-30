@@ -9,13 +9,8 @@
         // Python 2 only modules.
         "**/@python2",
         "stubs/enum34",
-        "stubs/fb303",
         "stubs/futures",
         "stubs/ipaddress",
-        "stubs/kazoo",
-        "stubs/pathlib2",
-        "stubs/pymssql",
-        "stubs/scribe",
         // Modules that are incomplete in some way.
         "stdlib/distutils/command",
         "stdlib/lib2to3/refactor.pyi",
