@@ -483,15 +483,6 @@ The process for preparing and submitting changes also applies to
 maintainers.  This ensures high quality contributions and keeps
 everybody on the same page.  Avoid direct pushes to the repository.
 
-Maintainers should follow these rules when processing pull requests:
-
-* Always wait for tests to pass before merging PRs.
-* Use "[Squash and merge](https://github.com/blog/2141-squash-your-commits)" to merge PRs.
-* Delete branches for merged PRs (by maintainers pushing to the main repo).
-* Make sure commit messages to master are meaningful. For example, remove irrelevant
-  intermediate commit messages.
-* If stubs for a new library are submitted, notify the library's maintainers.
-
 When reviewing pull requests, follow these guidelines:
 
 * Typing is hard. Try to be helpful and explain issues with the PR,
@@ -501,3 +492,14 @@ When reviewing pull requests, follow these guidelines:
 * When reviewing large, hand-crafted PRs, you only need to look for red flags
   and general issues, and do a few spot checks.
 * Review smaller, hand-crafted PRs thoroughly.
+
+When merging pull requests, follow these guidelines:
+
+* Always wait for tests to pass before merging PRs.
+* Use "[Squash and merge](https://github.com/blog/2141-squash-your-commits)" to merge PRs.
+* Make sure the commit message is meaningful. For example, remove irrelevant
+  intermediate commit messages.
+* The commit message for third-party stubs is used to generate the changelog.
+  It should be valid Markdown, be comprehensive, read like a changelog entry,
+  and assume that the reader has no access to the diff.
+* Delete branches for merged PRs (by maintainers pushing to the main repo).

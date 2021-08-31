@@ -142,9 +142,6 @@ multiprocessing.managers.SyncManager.Event
 multiprocessing.managers.SyncManager.Lock
 multiprocessing.managers.SyncManager.Namespace
 multiprocessing.managers.SyncManager.RLock
-multiprocessing.pool.ApplyResult.__init__
-multiprocessing.pool.IMapIterator.__init__
-multiprocessing.pool.MapResult.__init__
 multiprocessing.queues.JoinableQueue.__init__
 multiprocessing.queues.Queue.__init__
 multiprocessing.queues.Queue.put_nowait

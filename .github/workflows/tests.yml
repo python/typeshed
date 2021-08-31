@@ -7,6 +7,9 @@ on:
 permissions:
   contents: read
 
+env:
+  PIP_DISABLE_PIP_VERSION_CHECK: 1
+
 jobs:
   file-consistency:
     name: Check file consistency
@@ -16,6 +19,14 @@ jobs:
       - uses: actions/setup-python@v2
       - run: pip install toml
       - run: ./tests/check_consistent.py
+
+  pep-604:
+    name: Check for PEP 604 usage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+      - run: ./tests/check_pep_604.py
 
   flake8:
     name: Lint with flake8
@@ -61,12 +72,13 @@ jobs:
     strategy:
       matrix:
         platform: ["linux", "win32", "darwin"]
+        python-version: ["2.7", "3.6", "3.7", "3.8", "3.9", "3.10"]
       fail-fast: false
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
       - run: pip install $(grep mypy== requirements-tests-py3.txt)
-      - run: ./tests/mypy_test.py --platform=${{ matrix.platform }}
+      - run: ./tests/mypy_test.py --platform=${{ matrix.platform }} --python-version=${{ matrix.python-version }}
 
   pyright:
     name: Run pyright against the stubs
