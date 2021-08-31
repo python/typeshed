@@ -19,15 +19,15 @@ class EnumMeta(ABCMeta):
     @_builtins_property
     def __members__(self: Type[_T]) -> Mapping[str, _T]: ...
     def __len__(self) -> int: ...
+    _member_names_: list[str]  # undocumented
+    _member_map_: dict[str, Enum]  # undocumented
+    _value2member_map_: dict[Any, Enum]  # undocumented
 
 class Enum(metaclass=EnumMeta):
     name: str
     value: Any
     _name_: str
     _value_: Any
-    _member_names_: list[str]  # undocumented
-    _member_map_: dict[str, Enum]  # undocumented
-    _value2member_map_: dict[int, Enum]  # undocumented
     if sys.version_info >= (3, 7):
         _ignore_: str | list[str]
     _order_: str
