@@ -89,7 +89,6 @@ if sys.version_info >= (3, 10):
 NoReturn = Union[None]
 
 # These type variables are used by the container types.
-_T = TypeVar("_T")
 _S = TypeVar("_S")
 _KT = TypeVar("_KT")  # Key type.
 _VT = TypeVar("_VT")  # Value type.
