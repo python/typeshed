@@ -3,7 +3,7 @@ from typing import Any, Text, Type, TypeVar, overload
 from werkzeug._internal import _DictAccessorProperty
 from werkzeug.wrappers import Response
 
-class cached_property(property):
+class cached_property(property[Any, Any]):
     __name__: Any
     __module__: Any
     __doc__: Any
