@@ -1,7 +1,7 @@
 from _typeshed import SupportsRead
 from typing import IO, Any, Mapping, Sequence, Text, Union
 
-from yaml.constructor import BaseConstructor, Constructor, SafeConstructor
+from yaml.constructor import BaseConstructor, Constructor, FullConstructor, SafeConstructor, UnsafeConstructor
 from yaml.events import Event
 from yaml.nodes import Node
 from yaml.representer import BaseRepresenter, Representer, SafeRepresenter
@@ -31,6 +31,12 @@ class CLoader(CParser, SafeConstructor, Resolver):
     def __init__(self, stream: str | bytes | _Readable) -> None: ...
 
 class CSafeLoader(CParser, SafeConstructor, Resolver):
+    def __init__(self, stream: str | bytes | _Readable) -> None: ...
+
+class CFullLoader(CParser, FullConstructor, Resolver):
+    def __init__(self, stream: str | bytes | _Readable) -> None: ...
+
+class CUnsafeLoader(CParser, UnsafeConstructor, Resolver):
     def __init__(self, stream: str | bytes | _Readable) -> None: ...
 
 class CDangerLoader(CParser, Constructor, Resolver): ...  # undocumented
