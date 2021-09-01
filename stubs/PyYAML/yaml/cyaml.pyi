@@ -1,12 +1,11 @@
 from _typeshed import SupportsRead
 from typing import IO, Any, Mapping, Sequence, Text, Union
 
-from yaml.constructor import BaseConstructor, Constructor, FullConstructor, SafeConstructor, UnsafeConstructor
+from yaml.constructor import BaseConstructor, FullConstructor, SafeConstructor, UnsafeConstructor
 from yaml.events import Event
 from yaml.nodes import Node
-from yaml.representer import BaseRepresenter, Representer, SafeRepresenter
+from yaml.representer import BaseRepresenter, SafeRepresenter
 from yaml.resolver import BaseResolver, Resolver
-from yaml.serializer import Serializer
 from yaml.tokens import Token
 
 _Readable = SupportsRead[Union[Text, bytes]]
