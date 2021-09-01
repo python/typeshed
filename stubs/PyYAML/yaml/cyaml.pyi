@@ -39,7 +39,6 @@ class CFullLoader(CParser, FullConstructor, Resolver):
 class CUnsafeLoader(CParser, UnsafeConstructor, Resolver):
     def __init__(self, stream: str | bytes | _Readable) -> None: ...
 
-
 class CEmitter(object):
     def __init__(
         self,
@@ -77,4 +76,3 @@ class CBaseDumper(CEmitter, BaseRepresenter, BaseResolver):
 class CDumper(CEmitter, SafeRepresenter, Resolver): ...
 
 CSafeDumper = CDumper
-
