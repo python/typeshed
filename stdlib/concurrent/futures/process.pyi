@@ -1,12 +1,12 @@
 import sys
-import threading
-import weakref
 from collections.abc import Generator, Iterable, Mapping, MutableMapping, MutableSequence
 from multiprocessing.connection import Connection
 from multiprocessing.context import BaseContext, Process
 from multiprocessing.queues import Queue, SimpleQueue
+from threading import Lock, Semaphore, Thread
 from types import TracebackType
-from typing import Any, Callable, Generic, Tuple, TypeVar
+from typing import Any, Callable, Generic, Tuple, TypeVar, Union
+from weakref import ref
 
 from ._base import Executor, Future
 
@@ -66,7 +66,7 @@ class _CallItem:
 if sys.version_info >= (3, 7):
     class _SafeQueue(Queue[Future[Any]]):
         pending_work_items: dict[int, _WorkItem[Any]]
-        shutdown_lock: threading.Lock
+        shutdown_lock: Lock
         thread_wakeup: _ThreadWakeup
         if sys.version_info >= (3, 9):
             def __init__(
@@ -75,7 +75,7 @@ if sys.version_info >= (3, 7):
                 *,
                 ctx: BaseContext,
                 pending_work_items: dict[int, _WorkItem[Any]],
-                shutdown_lock: threading.Lock,
+                shutdown_lock: Lock,
                 thread_wakeup: _ThreadWakeup,
             ) -> None: ...
         else:
@@ -102,10 +102,10 @@ else:
     def _process_worker(call_queue: Queue[_CallItem], result_queue: SimpleQueue[_ResultItem]) -> None: ...
 
 if sys.version_info >= (3, 9):
-    class _ExecutorManagerThread(threading.Thread):
+    class _ExecutorManagerThread(Thread):
         thread_wakeup: _ThreadWakeup
-        shutdown_lock: threading.Lock
-        executor_reference: weakref.ref[Any]
+        shutdown_lock: Lock
+        executor_reference: ref[Any]
         processes: MutableMapping[int, Process]
         call_queue: Queue[_CallItem]
         result_queue: SimpleQueue[_ResultItem]
@@ -115,7 +115,7 @@ if sys.version_info >= (3, 9):
         def run(self) -> None: ...
         def add_call_item_to_queue(self) -> None: ...
         def wait_result_broken_or_wakeup(self) -> tuple[Any, bool, str]: ...
-        def process_result_item(self, result_item) -> None: ...
+        def process_result_item(self, result_item: Union[int, _ResultItem]) -> None: ...
         def is_shutting_down(self) -> bool: ...
         def terminate_broken(self, cause: str) -> None: ...
         def flag_executor_shutting_down(self) -> None: ...
@@ -143,8 +143,8 @@ class ProcessPoolExecutor(Executor):
     _executor_manager_thread: _ThreadWakeup
     _processes: MutableMapping[int, Process]
     _shutdown_thread: bool
-    _shutdown_lock: threading.Lock
-    _idle_worker_semaphore: threading.Semaphore
+    _shutdown_lock: Lock
+    _idle_worker_semaphore: Semaphore
     _broken: bool
     _queue_count: int
     _pending_work_items: dict[int, _WorkItem[Any]]
