@@ -75,7 +75,7 @@ class Executor:
 def as_completed(fs: Iterable[Future[_T]], timeout: float | None = ...) -> Iterator[Future[_T]]: ...
 
 # Ideally this would be a namedtuple, but mypy doesn't support generic tuple types. See #1976
-class DoneAndNotDoneFutures(Sequence[_T]):
+class DoneAndNotDoneFutures(Sequence[Set[Future[_T]]]):
     done: Set[Future[_T]]
     not_done: Set[Future[_T]]
     def __new__(_cls, done: Set[Future[_T]], not_done: Set[Future[_T]]) -> DoneAndNotDoneFutures[_T]: ...
