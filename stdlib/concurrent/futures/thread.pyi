@@ -3,8 +3,9 @@ import sys
 import threading
 import weakref
 from collections.abc import Iterable, Mapping, Set
-from concurrent.futures._base import Future, Executor
-from typing import Any, Callable, Generic, Tuple
+from typing import Any, Callable, Generic, Tuple, TypeVar
+
+from ._base import Executor, Future
 
 _threads_queues: Mapping[Any, Any]
 _shutdown: bool
@@ -22,9 +23,7 @@ class _WorkItem(Generic[_S]):
     fn: Callable[..., _S]
     args: Iterable[Any]
     kwargs: Mapping[str, Any]
-    def __init__(
-        self, future: Future[_S], fn: Callable[..., _S], args: Iterable[Any], kwargs: Mapping[str, Any]
-    ) -> None: ...
+    def __init__(self, future: Future[_S], fn: Callable[..., _S], args: Iterable[Any], kwargs: Mapping[str, Any]) -> None: ...
     def run(self) -> None: ...
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, item: Any) -> GenericAlias: ...
@@ -41,7 +40,7 @@ else:
     def _worker(executor_reference: weakref.ref[Any], work_queue: queue.Queue[Any]) -> None: ...
 
 if sys.version_info >= (3, 7):
-    from concurrent.futures._base import BrokenExecutor
+    from ._base import BrokenExecutor
     class BrokenThreadPool(BrokenExecutor): ...
 
 class ThreadPoolExecutor(Executor):
@@ -55,7 +54,7 @@ class ThreadPoolExecutor(Executor):
     _initializer: Callable[..., None] | None = ...
     _initargs: Tuple[Any, ...] = ...
     if sys.version_info >= (3, 7):
-        _work_queue: queue.SimpleQueue[_WorkItem]
+        _work_queue: queue.SimpleQueue[_WorkItem[Any]]
     else:
         _work_queue: queue.Queue[_WorkItem]
     if sys.version_info >= (3, 7):
