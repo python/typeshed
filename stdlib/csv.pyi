@@ -17,7 +17,8 @@ from _csv import (
     unregister_dialect as unregister_dialect,
     writer as writer,
 )
-from typing import Any, Collection, Generic, Iterable, Iterator, Mapping, Sequence, Type, TypeVar, overload
+from collections.abc import Collection, Iterable, Iterator, Mapping, Sequence
+from typing import Any, Generic, Type, TypeVar, overload
 
 if sys.version_info >= (3, 8):
     from typing import Dict as _DictReadMapping
