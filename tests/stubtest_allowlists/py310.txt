@@ -173,4 +173,3 @@ tempfile.TemporaryDirectory.__init__
 types.UnionType  # Renamed from `types.Union`
 unicodedata.ucnhash_CAPI
 unittest.mock.create_autospec
-zipfile.Path.open

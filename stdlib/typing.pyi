@@ -37,6 +37,7 @@ class _SpecialForm:
 
 _F = TypeVar("_F", bound=Callable[..., Any])
 _P = _ParamSpec("_P")
+_T = TypeVar("_T")
 
 def overload(func: _F) -> _F: ...
 
@@ -51,7 +52,7 @@ Type: _SpecialForm = ...
 ClassVar: _SpecialForm = ...
 if sys.version_info >= (3, 8):
     Final: _SpecialForm = ...
-    def final(f: _F) -> _F: ...
+    def final(f: _T) -> _T: ...
     Literal: _SpecialForm = ...
     # TypedDict is a (non-subscriptable) special form.
     TypedDict: object
@@ -88,7 +89,6 @@ if sys.version_info >= (3, 10):
 NoReturn = Union[None]
 
 # These type variables are used by the container types.
-_T = TypeVar("_T")
 _S = TypeVar("_S")
 _KT = TypeVar("_KT")  # Key type.
 _VT = TypeVar("_VT")  # Value type.
