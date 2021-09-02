@@ -1,11 +1,11 @@
-from multiprocessing.connection import Connection
-from multiprocessing.context import BaseContext, Process
-from multiprocessing.queues import Queue, SimpleQueue
 import sys
 import threading
 import weakref
 from collections.abc import Generator, Iterable, Mapping, MutableMapping, MutableSequence
-from concurrent.futures import _base
+from concurrent.futures._base import Executor, Future
+from multiprocessing.connection import Connection
+from multiprocessing.context import BaseContext, Process
+from multiprocessing.queues import Queue, SimpleQueue
 from types import TracebackType
 from typing import Any, Callable, Tuple
 
@@ -41,13 +41,11 @@ class _ExceptionWithTraceback:
 def _rebuild_exc(exc: Exception, tb: str) -> Exception: ...
 
 class _WorkItem(object):
-    future: _base.Future[Any]
+    future: Future[Any]
     fn: Callable[..., Any]
     args: Iterable[Any]
     kwargs: Mapping[str, Any]
-    def __init__(
-        self, future: _base.Future[Any], fn: Callable[..., Any], args: Iterable[Any], kwargs: Mapping[str, Any]
-    ) -> None: ...
+    def __init__(self, future: Future[Any], fn: Callable[..., Any], args: Iterable[Any], kwargs: Mapping[str, Any]) -> None: ...
 
 class _ResultItem(object):
     work_id: int
@@ -63,7 +61,7 @@ class _CallItem(object):
     def __init__(self, work_id: int, fn: Callable[..., Any], args: Iterable[Any], kwargs: Mapping[str, Any]) -> None: ...
 
 if sys.version_info >= (3, 7):
-    class _SafeQueue(Queue):
+    class _SafeQueue(Queue[Future[Any]]):
         pending_work_items: MutableMapping[int, _WorkItem]
         shutdown_lock: threading.Lock
         thread_wakeup: _ThreadWakeup
@@ -79,7 +77,7 @@ if sys.version_info >= (3, 7):
             ) -> None: ...
         else:
             def __init__(
-                self, max_size: int | None = ..., *, ctx: .BaseContext, pending_work_items: MutableMapping[int, _WorkItem]
+                self, max_size: int | None = ..., *, ctx: BaseContext, pending_work_items: MutableMapping[int, _WorkItem]
             ) -> None: ...
         def _on_queue_feeder_error(self, e: Exception, obj: _CallItem) -> None: ...
 
@@ -129,13 +127,13 @@ def _check_system_limits() -> None: ...
 def _chain_from_iterable_of_lists(iterable: Iterable[MutableSequence[Any]]) -> Any: ...
 
 if sys.version_info >= (3, 7):
-    from ._base import BrokenExecutor
+    from concurrent.futures._base import BrokenExecutor
     class BrokenProcessPool(BrokenExecutor): ...
 
 else:
     class BrokenProcessPool(RuntimeError): ...
 
-class ProcessPoolExecutor(_base.Executor):
+class ProcessPoolExecutor(Executor):
     _mp_context: BaseContext | None = ...
     _initializer: Callable[..., None] | None = ...
     _initargs: Tuple[Any, ...] = ...
