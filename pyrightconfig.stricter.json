@@ -20,7 +20,7 @@
         "stdlib/xml/sax",
         "stubs/aws-xray-sdk",
         "stubs/babel",
-        "stubs/backports",
+        "stubs/backports.ssl_match_hostname",
         "stubs/backports_abc",
         "stubs/bleach",
         "stubs/boto",
