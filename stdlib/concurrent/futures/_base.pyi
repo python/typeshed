@@ -17,8 +17,8 @@ RUNNING: str
 CANCELLED: str
 CANCELLED_AND_NOTIFIED: str
 FINISHED: str
-_FUTURE_STATES: Sequence[str]
-_STATE_TO_DESCRIPTION_MAP: Mapping[str, str]
+_FUTURE_STATES: list[str]
+_STATE_TO_DESCRIPTION_MAP: dict[str, str]
 LOGGER: Logger
 
 class Error(Exception): ...
@@ -89,7 +89,7 @@ def wait(fs: Iterable[Future[_T]], timeout: float | None = ..., return_when: str
 
 class _Waiter:
     event: threading.Event
-    finished_futures: Sequence[Future[Any]]
+    finished_futures: list[Future[Any]]
     def __init__(self) -> None: ...
     def add_result(self, future: Future[Any]) -> None: ...
     def add_exception(self, future: Future[Any]) -> None: ...

@@ -1,7 +1,6 @@
-import multiprocessing as mp
-import multiprocessing.connection as mpconn
-import multiprocessing.context as mpcont
-import multiprocessing.queues as mpq
+from multiprocessing.connection import Connection
+from multiprocessing.context import BaseContext, Process
+from multiprocessing.queues import Queue, SimpleQueue
 import sys
 import threading
 import weakref
@@ -10,13 +9,13 @@ from concurrent.futures import _base
 from types import TracebackType
 from typing import Any, Callable, Tuple
 
-_threads_wakeups: Mapping[Any, Any]
+_threads_wakeups: MutableMapping[Any, Any]
 _global_shutdown: bool
 
 class _ThreadWakeup:
     _closed: bool
-    _reader: mpconn.Connection
-    _writer: mpconn.Connection
+    _reader: Connection
+    _writer: Connection
     def __init__(self) -> None: ...
     def close(self) -> None: ...
     def wakeup(self) -> None: ...
@@ -64,7 +63,7 @@ class _CallItem(object):
     def __init__(self, work_id: int, fn: Callable[..., Any], args: Iterable[Any], kwargs: Mapping[str, Any]) -> None: ...
 
 if sys.version_info >= (3, 7):
-    class _SafeQueue(mpq.Queue):
+    class _SafeQueue(Queue):
         pending_work_items: MutableMapping[int, _WorkItem]
         shutdown_lock: threading.Lock
         thread_wakeup: _ThreadWakeup
@@ -73,54 +72,55 @@ if sys.version_info >= (3, 7):
                 self,
                 max_size: int | None = ...,
                 *,
-                ctx: mpcont.BaseContext,
+                ctx: BaseContext,
                 pending_work_items: MutableMapping[int, _WorkItem],
                 shutdown_lock: threading.Lock,
                 thread_wakeup: _ThreadWakeup,
             ) -> None: ...
         else:
             def __init__(
-                self, max_size: int | None = ..., *, ctx: mpcont.BaseContext, pending_work_items: MutableMapping[int, _WorkItem]
+                self, max_size: int | None = ..., *, ctx: .BaseContext, pending_work_items: MutableMapping[int, _WorkItem]
             ) -> None: ...
         def _on_queue_feeder_error(self, e: Exception, obj: _CallItem) -> None: ...
 
 def _get_chunks(*iterables: Any, chunksize: int) -> Generator[Tuple[Any], None, None]: ...
 def _process_chunk(fn: Callable[..., Any], chunk: Tuple[Any, None, None]) -> Generator[Any, None, None]: ...
 def _sendback_result(
-    result_queue: mpq.SimpleQueue[_WorkItem], work_id: int, result: Any | None = ..., exception: Exception | None = ...
+    result_queue: SimpleQueue[_WorkItem], work_id: int, result: Any | None = ..., exception: Exception | None = ...
 ) -> None: ...
 
 if sys.version_info >= (3, 7):
     def _process_worker(
-        call_queue: mpq.Queue[_CallItem],
-        result_queue: mpq.SimpleQueue[_ResultItem],
+        call_queue: Queue[_CallItem],
+        result_queue: SimpleQueue[_ResultItem],
         initializer: Callable[..., None] | None,
         initargs: Tuple[Any, ...],
     ) -> None: ...
 
 else:
-    def _process_worker(call_queue: mpq.Queue[_CallItem], result_queue: mpq.SimpleQueue[_ResultItem]) -> None: ...
+    def _process_worker(call_queue: Queue[_CallItem], result_queue: SimpleQueue[_ResultItem]) -> None: ...
 
-class _ExecutorManagerThread(threading.Thread):
-    thread_wakeup: _ThreadWakeup
-    shutdown_lock: threading.Lock
-    executor_reference: weakref.ref[Any]
-    processes: MutableMapping[int, mpcont.Process]
-    call_queue: mpq.Queue[_CallItem]
-    result_queue: mpq.SimpleQueue[_ResultItem]
-    work_ids_queue: mpq.Queue[int]
-    pending_work_items: MutableMapping[int, _WorkItem]
-    def __init__(self, executor: ProcessPoolExecutor) -> None: ...
-    def run(self) -> None: ...
-    def add_call_item_to_queue(self) -> None: ...
-    def wait_result_broken_or_wakeup(self) -> tuple[Any, bool, str]: ...
-    def process_result_item(self, result_item: Any) -> None: ...
-    def is_shutting_down(self) -> bool: ...
-    def terminate_broken(self, cause: str) -> None: ...
-    def flag_executor_shutting_down(self) -> None: ...
-    def shutdown_workers(self) -> None: ...
-    def join_executor_internals(self) -> None: ...
-    def get_n_children_alive(self) -> int: ...
+if sys.version_info >= (3, 9):
+    class _ExecutorManagerThread(threading.Thread):
+        thread_wakeup: _ThreadWakeup
+        shutdown_lock: threading.Lock
+        executor_reference: weakref.ref[Any]
+        processes: MutableMapping[int, Process]
+        call_queue: Queue[_CallItem]
+        result_queue: SimpleQueue[_ResultItem]
+        work_ids_queue: Queue[int]
+        pending_work_items: MutableMapping[int, _WorkItem]
+        def __init__(self, executor: ProcessPoolExecutor) -> None: ...
+        def run(self) -> None: ...
+        def add_call_item_to_queue(self) -> None: ...
+        def wait_result_broken_or_wakeup(self) -> tuple[Any, bool, str]: ...
+        def process_result_item(self, result_item: Any) -> None: ...
+        def is_shutting_down(self) -> bool: ...
+        def terminate_broken(self, cause: str) -> None: ...
+        def flag_executor_shutting_down(self) -> None: ...
+        def shutdown_workers(self) -> None: ...
+        def join_executor_internals(self) -> None: ...
+        def get_n_children_alive(self) -> int: ...
 
 _system_limits_checked: bool
 _system_limited: bool | None
@@ -136,11 +136,11 @@ else:
     class BrokenProcessPool(RuntimeError): ...
 
 class ProcessPoolExecutor(_base.Executor):
-    _mp_context: mpcont.BaseContext | None = ...
+    _mp_context: BaseContext | None = ...
     _initializer: Callable[..., None] | None = ...
     _initargs: Tuple[Any, ...] = ...
     _executor_manager_thread: _ThreadWakeup
-    _processes: MutableMapping[int, mpcont.Process]
+    _processes: MutableMapping[int, Process]
     _shutdown_thread: bool
     _shutdown_lock: threading.Lock
     _idle_worker_semaphore: threading.Semaphore
@@ -149,13 +149,13 @@ class ProcessPoolExecutor(_base.Executor):
     _pending_work_items: MutableMapping[int, _WorkItem]
     _cancel_pending_futures: bool
     _executor_manager_thread_wakeup: _ThreadWakeup
-    _result_queue: mpq.SimpleQueue[Any]
-    _work_ids: mpq.Queue[Any]
+    _result_queue: SimpleQueue[Any]
+    _work_ids: Queue[Any]
     if sys.version_info >= (3, 7):
         def __init__(
             self,
             max_workers: int | None = ...,
-            mp_context: mpcont.BaseContext | None = ...,
+            mp_context: BaseContext | None = ...,
             initializer: Callable[..., None] | None = ...,
             initargs: Tuple[Any, ...] = ...,
         ) -> None: ...
