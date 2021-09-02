@@ -3,8 +3,8 @@ import sys
 import threading
 import weakref
 from collections.abc import Iterable, Mapping, Set
-from concurrent.futures import _base
-from typing import Any, Callable, Tuple
+from concurrent.futures._base import Future, Executor
+from typing import Any, Callable, Generic, Tuple
 
 _threads_queues: Mapping[Any, Any]
 _shutdown: bool
@@ -15,13 +15,15 @@ def _python_exit() -> None: ...
 if sys.version_info >= (3, 9):
     from types import GenericAlias
 
-class _WorkItem(object):
-    future: _base.Future[Any]
-    fn: Callable[..., Any]
+_S = TypeVar("_S")
+
+class _WorkItem(Generic[_S]):
+    future: Future[_S]
+    fn: Callable[..., _S]
     args: Iterable[Any]
     kwargs: Mapping[str, Any]
     def __init__(
-        self, future: _base.Future[Any], fn: Callable[..., Any], args: Iterable[Any], kwargs: Mapping[str, Any]
+        self, future: Future[_S], fn: Callable[..., _S], args: Iterable[Any], kwargs: Mapping[str, Any]
     ) -> None: ...
     def run(self) -> None: ...
     if sys.version_info >= (3, 9):
@@ -39,10 +41,10 @@ else:
     def _worker(executor_reference: weakref.ref[Any], work_queue: queue.Queue[Any]) -> None: ...
 
 if sys.version_info >= (3, 7):
-    from ._base import BrokenExecutor
+    from concurrent.futures._base import BrokenExecutor
     class BrokenThreadPool(BrokenExecutor): ...
 
-class ThreadPoolExecutor(_base.Executor):
+class ThreadPoolExecutor(Executor):
     _max_workers: int
     _idle_semaphore: threading.Semaphore
     _threads: Set[threading.Thread]
