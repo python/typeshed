@@ -96,8 +96,10 @@ The metadata file describes the stubs package using the
 supported:
 
 * `version`: The latest version of the library that the stubs support.
-  Note that only two most significant version levels are supported
-  (i.e. only single dot). When the stubs are updated to a newer version
+  For libraries that reflect API changes in the version number only
+  the parts indicating the API level should be specified. In the case
+  of [Semantic Versioning](https://semver.org/) that is the first two
+  components. When the stubs are updated to a newer version
   of the library, the version of the stub should be bumped (note that
   previous versions are still available on PyPI). Some legacy stubs are
   marked with version `0.1`, indicating that their supported version is
