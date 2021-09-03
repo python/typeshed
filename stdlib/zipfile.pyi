@@ -225,19 +225,14 @@ if sys.version_info >= (3, 8):
     class Path:
         @property
         def name(self) -> str: ...
+        @property
+        def parent(self) -> PathLike[str]: ...  # undocumented
         if sys.version_info >= (3, 10):
             @property
             def filename(self) -> PathLike[str]: ...  # undocumented
-            @property
-            def parent(self) -> Path | PathLike[str]: ...  # undocumented
-        else:
-            @property
-            def parent(self) -> Path: ...  # undocumented
         def __init__(self, root: ZipFile | StrPath | IO[bytes], at: str = ...) -> None: ...
-        if sys.version_info >= (3, 10):
+        if sys.version_info >= (3, 9):
             def open(self, mode: _ReadWriteBinaryMode = ..., *args: Any, pwd: bytes | None = ..., **kwargs: Any) -> IO[bytes]: ...
-        elif sys.version_info >= (3, 9):
-            def open(self, mode: _ReadWriteBinaryMode = ..., pwd: bytes | None = ..., *args: Any, **kwargs: Any) -> IO[bytes]: ...
         else:
             @property
             def open(self) -> _PathOpenProtocol: ...
