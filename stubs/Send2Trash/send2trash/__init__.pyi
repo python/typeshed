@@ -1,0 +1,1 @@
+from .exceptions import TrashPermissionError as TrashPermissionError
