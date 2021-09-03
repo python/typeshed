@@ -1,6 +1,6 @@
 from typing import Any
 
-from win32com.server.policy import DesignatedWrapPolicy
+DesignatedWrapPolicy = Any  # from win32com.server.policy import DesignatedWrapPolicy
 
 class FileOperationProgressSink(DesignatedWrapPolicy):
     newItem: Any
