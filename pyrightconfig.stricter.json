@@ -55,6 +55,7 @@
         "stubs/redis",
         "stubs/requests",
         "stubs/selenium",
+        "stubs/Send2Trash",
         "stubs/simplejson",
         "stubs/slumber",
         "stubs/stripe",
