@@ -224,7 +224,7 @@ getdouble: Any
 def getboolean(s): ...
 
 _GridIndexInfo = TypedDict(
-    "_GridIndexInfo", {"minsize": _ScreenUnits, "pad": _ScreenUnits, "uniform": Optional[str], "weight": int}
+    "_GridIndexInfo", {"minsize": _ScreenUnits, "pad": _ScreenUnits, "uniform": Optional[str], "weight": int}, total=False
 )
 
 class Misc:
@@ -389,32 +389,10 @@ class Misc:
     @overload
     def grid_bbox(self, column: int, row: int, col2: int, row2: int) -> Tuple[int, int, int, int] | None: ...
     bbox = grid_bbox
-    @overload
     def grid_columnconfigure(
-        self,
-        index: _GridIndex,
-        cnf: _GridIndexInfo,
-        *,
-        minsize: _ScreenUnits = ...,
-        weight: _ScreenUnits = ...,
-        uniform: str = ...,
-        pad: _ScreenUnits = ...,
-    ) -> None: ...
-    @overload
-    def grid_columnconfigure(self, index: _GridIndex) -> _GridIndexInfo: ...
-    @overload
-    def grid_rowconfigure(
-        self,
-        index: _GridIndex,
-        cnf: _GridIndexInfo,
-        *,
-        minsize: _ScreenUnits = ...,
-        weight: _ScreenUnits = ...,
-        uniform: str = ...,
-        pad: _ScreenUnits = ...,
-    ) -> None: ...
-    @overload
-    def grid_rowconfigure(self, index: _GridIndex) -> _GridIndexInfo: ...
+        self, index: _GridIndex, cnf: _GridIndexInfo = ..., **kw: _GridIndexInfo
+    ) -> _GridIndexInfo | None: ...
+    def grid_rowconfigure(self, index: _GridIndex, cnf: _GridIndexInfo = ..., **kw: _GridIndexInfo) -> _GridIndexInfo | None: ...
     columnconfigure = grid_columnconfigure
     rowconfigure = grid_rowconfigure
     def grid_location(self, x: _ScreenUnits, y: _ScreenUnits) -> Tuple[int, int]: ...
