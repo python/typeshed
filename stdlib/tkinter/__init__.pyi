@@ -389,10 +389,15 @@ class Misc:
     @overload
     def grid_bbox(self, column: int, row: int, col2: int, row2: int) -> Tuple[int, int, int, int] | None: ...
     bbox = grid_bbox
+    # The cnf parameter's default value is an empty dict. That's a perfectly
+    # valid instance of _GridIndexInfo, but MyPy declares that an empty dict
+    # literal must be dict[Any, Any] and is therefore incompatible.
     def grid_columnconfigure(
-        self, index: _GridIndex, cnf: _GridIndexInfo = ..., **kw: _GridIndexInfo
+        self, index: _GridIndex, cnf: _GridIndexInfo | dict = ..., **kw: _GridIndexInfo
     ) -> _GridIndexInfo | None: ...
-    def grid_rowconfigure(self, index: _GridIndex, cnf: _GridIndexInfo = ..., **kw: _GridIndexInfo) -> _GridIndexInfo | None: ...
+    def grid_rowconfigure(
+        self, index: _GridIndex, cnf: _GridIndexInfo | dict = ..., **kw: _GridIndexInfo
+    ) -> _GridIndexInfo | None: ...
     columnconfigure = grid_columnconfigure
     rowconfigure = grid_rowconfigure
     def grid_location(self, x: _ScreenUnits, y: _ScreenUnits) -> Tuple[int, int]: ...
