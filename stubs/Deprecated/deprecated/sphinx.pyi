@@ -27,5 +27,10 @@ def versionchanged(reason: str = ..., version: str = ...) -> Callable[[_F], _F]:
 def deprecated(__wrapped: _F) -> _F: ...
 @overload
 def deprecated(
-    reason: str = ..., *, version: str = ..., action: _Actions | None = ..., category: Type[Warning] | None = ...
+    reason: str = ...,
+    version: str = ...,
+    line_length: int = ...,
+    *,
+    action: _Actions | None = ...,
+    category: Type[Warning] | None = ...,
 ) -> Callable[[_F], _F]: ...
