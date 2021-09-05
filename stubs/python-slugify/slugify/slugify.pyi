@@ -1,4 +1,4 @@
-from typing import Iterable, Tuple
+from typing import Iterable
 
 def smart_truncate(
     string: str, max_length: int = ..., word_boundary: bool = ..., separator: str = ..., save_order: bool = ...
@@ -15,5 +15,5 @@ def slugify(
     stopwords: Iterable[str] = ...,
     regex_pattern: str | None = ...,
     lowercase: bool = ...,
-    replacements: Iterable[Tuple[str, str]] = ...,
+    replacements: Iterable[Iterable[str]] = ...,
 ) -> str: ...
