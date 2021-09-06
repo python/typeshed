@@ -1116,7 +1116,7 @@ class Canvas(Widget, XView, YView):
     # Canvas.bbox() args are `str | _CanvasItemId`, but mypy rejects that
     # description because it's incompatible with Misc.bbox(), an alias for
     # Misc.grid_bbox(). Yes it is, but there's not much we can do about it.
-    def bbox(self, *args: Any) -> Tuple[int, int, int, int]: ...
+    def bbox(self, *args: str | _CanvasItemId) -> Tuple[int, int, int, int]: ...  # type: ignore
     @overload
     def tag_bind(
         self,
