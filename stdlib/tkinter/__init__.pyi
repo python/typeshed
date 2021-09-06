@@ -393,20 +393,27 @@ class Misc:
     # valid instance of _GridIndexInfo, but MyPy declares that an empty dict
     # literal must be dict[Any, Any] and is therefore incompatible.
     #
-    # The **kw parameter must be a _GridIndexInfo too, but the type sanity-
-    # checker only permits us to declare one type for all kwargs values, instead
-    # of one per keyword, and does not permit the keywords to be declared
-    # individually if they're not listed in the function definition.
-    #
     # The return value is always _GridIndexInfo if no optional parameters are
     # provided, and always None if one or more are provided. Unfortunately,
     # type inference requires both cases have the same return type, so we must
     # combine them.
     def grid_columnconfigure(
-        self, index: _GridIndex, cnf: _GridIndexInfo | dict[Any, Any] = ..., **kw: Any
+        self,
+        index: _GridIndex,
+        cnf: _GridIndexInfo | dict[Any, Any] = ...,
+        minsize: _ScreenUnits = ...,
+        pad: _ScreenUnits = ...,
+        uniform: Optional[str] = ...,
+        weight: int = ...,
     ) -> _GridIndexInfo | None: ...
     def grid_rowconfigure(
-        self, index: _GridIndex, cnf: _GridIndexInfo | dict[Any, Any] = ..., **kw: Any
+        self,
+        index: _GridIndex,
+        cnf: _GridIndexInfo | dict[Any, Any] = ...,
+        minsize: _ScreenUnits = ...,
+        pad: _ScreenUnits = ...,
+        uniform: Optional[str] = ...,
+        weight: int = ...,
     ) -> _GridIndexInfo | None: ...
     columnconfigure = grid_columnconfigure
     rowconfigure = grid_rowconfigure

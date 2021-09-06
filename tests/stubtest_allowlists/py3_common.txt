@@ -190,6 +190,10 @@ threading.Condition.release  # Condition functions are exported in __init__
 threading.Lock  # A factory function that returns 'most efficient lock'. Marking it as a function will make it harder for users to mark the Lock type.
 tkinter.Misc.grid_propagate  # The noarg placeholder is a set value list
 tkinter.Misc.pack_propagate  # The noarg placeholder is a set value list
+tkinter.Misc.grid_columnconfigure  # Runtime uses **kwargs even though only certain arguments are accepted
+tkinter.Misc.columnconfigure  # Alias for grid_columnconfigure
+tkinter.Misc.grid_rowconfigure  # Runtime uses **kwargs even though only certain arguments are accepted
+tkinter.Misc.rowconfigure  # Alias for grid_rowconfigure
 tkinter.Tk.eval  # from __getattr__
 tkinter.Tk.report_callback_exception  # A bit of a lie, since it's actually a method, but typing it as an attribute allows it to be assigned to
 tkinter.Wm.wm_iconphoto  # Default value of argument can't be used without runtime error
