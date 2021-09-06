@@ -224,7 +224,7 @@ getdouble: Any
 def getboolean(s): ...
 
 _GridIndexInfo = TypedDict(
-    "_GridIndexInfo", {"minsize": _ScreenUnits, "pad": _ScreenUnits, "uniform": Optional[str], "weight": int}, total=False
+    "_GridIndexInfo", {"minsize": _ScreenUnits, "pad": _ScreenUnits, "uniform": str | None, "weight": int}, total=False
 )
 
 class Misc:
@@ -403,7 +403,7 @@ class Misc:
         cnf: _GridIndexInfo = ...,  # type: ignore
         minsize: _ScreenUnits = ...,
         pad: _ScreenUnits = ...,
-        uniform: Optional[str] = ...,
+        uniform: str | None = ...,
         weight: int = ...,
     ) -> _GridIndexInfo | None: ...
     def grid_rowconfigure(
@@ -412,7 +412,7 @@ class Misc:
         cnf: _GridIndexInfo = ...,  # type: ignore
         minsize: _ScreenUnits = ...,
         pad: _ScreenUnits = ...,
-        uniform: Optional[str] = ...,
+        uniform: str | None = ...,
         weight: int = ...,
     ) -> _GridIndexInfo | None: ...
     columnconfigure = grid_columnconfigure
