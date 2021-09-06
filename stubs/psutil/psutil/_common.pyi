@@ -1,6 +1,6 @@
 import enum
 import path
-from typing import Any, Callable, NamedTuple, TypeVar, Union
+from typing import Any, Callable, NamedTuple, TypeVar
 
 POSIX: bool
 WINDOWS: bool
