@@ -224,7 +224,7 @@ getdouble: Any
 def getboolean(s): ...
 
 _GridIndexInfo = TypedDict(
-    "_GridIndexInfo", {"minsize": _ScreenUnits, "pad": _ScreenUnits, "uniform": str | None, "weight": int}, total=False
+    "_GridIndexInfo", {"minsize": _ScreenUnits, "pad": _ScreenUnits, "uniform": Optional[str], "weight": int}, total=False
 )
 
 class Misc:
