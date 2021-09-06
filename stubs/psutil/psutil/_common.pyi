@@ -1,5 +1,5 @@
 import enum
-import path
+from os import path
 from typing import Any, Callable, NamedTuple, TypeVar
 
 POSIX: bool
