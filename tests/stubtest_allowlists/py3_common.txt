@@ -197,6 +197,8 @@ tkinter.Misc.rowconfigure  # Alias for grid_rowconfigure
 tkinter.Tk.eval  # from __getattr__
 tkinter.Tk.report_callback_exception  # A bit of a lie, since it's actually a method, but typing it as an attribute allows it to be assigned to
 tkinter.Wm.wm_iconphoto  # Default value of argument can't be used without runtime error
+tkinter.XView.xview  # Runtime has *args parameter it doesn't need or use
+tkinter.YView.yview  # Runtime has *args parameter it doesn't need or use
 tkinter.font.Font.__getitem__  # Argument name differs (doesn't matter for __dunder__ methods)
 traceback.TracebackException.from_exception  # explicitly expanding arguemnts going into TracebackException __init__
 types.GetSetDescriptorType.__get__  # this function can accept no value for the type parameter.
