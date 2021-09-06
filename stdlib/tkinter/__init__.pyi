@@ -400,7 +400,7 @@ class Misc:
     def grid_columnconfigure(
         self,
         index: _GridIndex,
-        cnf: _GridIndexInfo | dict[Any, Any] = ...,
+        cnf: _GridIndexInfo = ...,  # type: ignore
         minsize: _ScreenUnits = ...,
         pad: _ScreenUnits = ...,
         uniform: Optional[str] = ...,
@@ -409,7 +409,7 @@ class Misc:
     def grid_rowconfigure(
         self,
         index: _GridIndex,
-        cnf: _GridIndexInfo | dict[Any, Any] = ...,
+        cnf: _GridIndexInfo = ...,  # type: ignore
         minsize: _ScreenUnits = ...,
         pad: _ScreenUnits = ...,
         uniform: Optional[str] = ...,
