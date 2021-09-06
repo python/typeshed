@@ -1,6 +1,6 @@
-from typing import Any, NamedTuple
+from typing import Any, Callable, NamedTuple, Optional
 
-from google.cloud.ndb import exceptions as exceptions
+from google.cloud.ndb import Key, exceptions as exceptions
 
 class _LocalState:
     def __init__(self) -> None: ...
@@ -26,7 +26,6 @@ class _ContextTuple(NamedTuple):
     cache: Any
     global_cache: Any
     on_commit_callbacks: Any
-    transaction_complete_callbacks: Any
     legacy_data: Any
 
 class _Context(_ContextTuple):
@@ -41,11 +40,11 @@ class _Context(_ContextTuple):
         cache: Any | None = ...,
         cache_policy: Any | None = ...,
         global_cache: Any | None = ...,
-        global_cache_policy: Any | None = ...,
+        global_cache_flush_keys: Optional[object] = ...,
+        global_cache_policy: Optional[Callable[[Key], bool]] = ...,
         global_cache_timeout_policy: Any | None = ...,
         datastore_policy: Any | None = ...,
         on_commit_callbacks: Any | None = ...,
-        transaction_complete_callbacks: Any | None = ...,
         legacy_data: bool = ...,
         retry: Any | None = ...,
         rpc_time: Any | None = ...,
