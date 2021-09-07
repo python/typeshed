@@ -52,7 +52,6 @@ from ._common import (
     pctxsw,
     popenfile,
     pthread,
-    sconn,
 )
 
 if sys.platform == "linux":
