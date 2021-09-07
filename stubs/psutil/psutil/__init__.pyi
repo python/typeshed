@@ -47,14 +47,12 @@ from ._common import (
     NoSuchProcess as NoSuchProcess,
     TimeoutExpired as TimeoutExpired,
     ZombieProcess as ZombieProcess,
-    pctxsw,
+    pconn,
     pcputimes,
-    pthread,
-    pmem,
-    pfullmem,
-    pmmap_grouped,
-    sconn,
+    pctxsw,
     popenfile,
+    pthread,
+    sconn,
 )
 
 if sys.platform == "linux":
@@ -86,7 +84,7 @@ if sys.platform == "linux":
     PROCFS_PATH: str
 AF_LINK: Any
 version_info: str
-__version__: tuple[int, ...]
+__version__: tuple[int, int, int]
 
 class Process:
     def __init__(self, pid: int | None = ...) -> None: ...
@@ -109,7 +107,7 @@ class Process:
     def create_time(self) -> float: ...
     def cwd(self) -> str: ...
     def nice(self, value: int | None = ...) -> int: ...
-    if sys.platform != "windows":
+    if sys.platform != "win32":
         def uids(self): ...
         def gids(self): ...
         def terminal(self): ...
