@@ -82,8 +82,8 @@ if sys.platform == "win32":
 if sys.platform == "linux":
     PROCFS_PATH: str
 AF_LINK: Any
-version_info: str
-__version__: tuple[int, int, int]
+version_info: tuple[int, int, int]
+__version__: str
 
 class Process:
     def __init__(self, pid: int | None = ...) -> None: ...
