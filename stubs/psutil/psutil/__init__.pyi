@@ -50,10 +50,10 @@ from ._common import (
     pconn,
     pcputimes,
     pctxsw,
+    pgids,
     popenfile,
     pthread,
     puids,
-    pgids,
 )
 
 if sys.platform == "linux":
