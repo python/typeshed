@@ -1,6 +1,6 @@
 import datetime
 from collections.abc import Iterable, Sequence
-from typing import Callable, List, NoReturn, Tuple, Type, Union
+from typing import Callable, List, NoReturn, Tuple, Type
 from typing_extensions import Literal
 
 from google.cloud.ndb import exceptions, key as key_module, query as query_module, tasklets as tasklets_module
@@ -96,18 +96,16 @@ class Property(ModelAttribute):
 
 class ModelKey(Property):
     def __init__(self) -> None: ...
-    def __get__(
-        self, entity: Model, unused_cls: Type[Model] | None = ...
-    ) -> Union[key_module.Key, List[key_module.Key]] | None: ...
+    def __get__(self, entity: Model, unused_cls: Type[Model] | None = ...) -> key_module.Key | List[key_module.Key] | None: ...
 
 class BooleanProperty(Property):
-    def __get__(self, entity: Model, unused_cls: Type[Model] | None = ...) -> Union[bool, List[bool]] | None: ...
+    def __get__(self, entity: Model, unused_cls: Type[Model] | None = ...) -> bool | List[bool] | None: ...
 
 class IntegerProperty(Property):
-    def __get__(self, entity: Model, unused_cls: Type[Model] = ...) -> Union[int, List[int]] | None: ...
+    def __get__(self, entity: Model, unused_cls: Type[Model] = ...) -> int | List[int] | None: ...
 
 class FloatProperty(Property):
-    def __get__(self, entity: Model, unused_cls: Type[Model] = ...) -> Union[float, List[float]] | None: ...
+    def __get__(self, entity: Model, unused_cls: Type[Model] = ...) -> float | List[float] | None: ...
 
 class _CompressedValue(bytes):
     z_val: bytes = ...
@@ -129,7 +127,7 @@ class BlobProperty(Property):
         verbose_name: str | None = ...,
         write_empty_list: bool | None = ...,
     ) -> None: ...
-    def __get__(self, entity: Model, unused_cls: Type[Model] = ...) -> Union[bytes, List[bytes]] | None: ...
+    def __get__(self, entity: Model, unused_cls: Type[Model] = ...) -> bytes | List[bytes] | None: ...
 
 class CompressedTextProperty(BlobProperty):
     def __init__(self, *args, **kwargs) -> None: ...
@@ -137,7 +135,7 @@ class CompressedTextProperty(BlobProperty):
 class TextProperty(Property):
     def __new__(cls, *args, **kwargs): ...
     def __init__(self, *args, **kwargs) -> None: ...
-    def __get__(self, entity: Model, unused_cls: Type[Model] = ...) -> Union[str, List[str]] | None: ...
+    def __get__(self, entity: Model, unused_cls: Type[Model] = ...) -> str | List[str] | None: ...
 
 class StringProperty(TextProperty):
     def __init__(self, *args, **kwargs) -> None: ...
@@ -191,7 +189,7 @@ class KeyProperty(Property):
     def __init__(
         self,
         name: str | None = ...,
-        kind: Union[Type[Model], str] | None = ...,
+        kind: Type[Model] | str | None = ...,
         indexed: bool | None = ...,
         repeated: bool | None = ...,
         required: bool | None = ...,
@@ -227,7 +225,7 @@ class TimeProperty(DateTimeProperty): ...
 class StructuredProperty(Property):
     def __init__(self, model_class: type, name: str | None = ..., **kwargs) -> None: ...
     def __getattr__(self, attrname): ...
-    def IN(self, value: Iterable[object]) -> Union[query_module.DisjunctionNode, query_module.FalseNode]: ...
+    def IN(self, value: Iterable[object]) -> query_module.DisjunctionNode | query_module.FalseNode: ...
 
 class LocalStructuredProperty(BlobProperty):
     def __init__(self, model_class: Type[Model], **kwargs) -> None: ...
@@ -300,7 +298,7 @@ class Model(_NotEqualMixin, metaclass=MetaModel):
     @classmethod
     def get_by_id(
         cls: Type[Model],
-        id: Union[int, str] | None,
+        id: int | str | None,
         parent: key_module.Key | None = ...,
         namespace: str | None = ...,
         project: str | None = ...,
@@ -324,7 +322,7 @@ class Model(_NotEqualMixin, metaclass=MetaModel):
     @classmethod
     def get_by_id_async(
         cls: Type[Model],
-        id: Union[int, str],
+        id: int | str,
         parent: key_module.Key | None = ...,
         namespace: str | None = ...,
         project: str | None = ...,
@@ -399,8 +397,8 @@ class Model(_NotEqualMixin, metaclass=MetaModel):
     def has_complete_key(self) -> bool: ...
     def to_dict(
         self,
-        include: Union[list[object], tuple[object, object], set[object]] | None = ...,
-        exclude: Union[list[object], tuple[object, object], set[object]] | None = ...,
+        include: list[object] | tuple[object, object] | set[object] | None = ...,
+        exclude: list[object] | tuple[object, object] | set[object] | None = ...,
     ): ...
 
 class Expando(Model):
@@ -443,7 +441,7 @@ def get_multi(
     max_memcache_items: int | None = ...,
     force_writes: bool | None = ...,
     _options: object | None = ...,
-) -> List[Union[Type[Model], None]]: ...
+) -> List[Type[Model] | None]: ...
 def put_multi_async(
     entities: List[Type[Model]],
     retries: int | None = ...,
