@@ -1,5 +1,6 @@
 import enum
 import sys
+import types
 from _typeshed import Self
 from collections import OrderedDict
 from collections.abc import Awaitable, Callable, Generator, Mapping, Sequence, Set
@@ -121,7 +122,7 @@ class Signature:
     # TODO: can we be more specific here?
     empty: object
 
-    parameters: Mapping[str, Parameter]
+    parameters: types.MappingProxyType[str, Parameter]
 
     # TODO: can we be more specific here?
     return_annotation: Any
