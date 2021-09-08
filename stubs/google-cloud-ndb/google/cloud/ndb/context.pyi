@@ -1,4 +1,4 @@
-from typing import Any, Callable, NamedTuple, Optional
+from typing import Any, Callable, NamedTuple
 
 from google.cloud.ndb import Key, exceptions as exceptions
 
