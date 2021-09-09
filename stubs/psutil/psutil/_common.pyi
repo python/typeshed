@@ -58,73 +58,73 @@ ENCODING: str
 ENCODING_ERRS: str
 
 class sswap(NamedTuple):
-    total: Any
-    used: Any
-    free: Any
-    percent: Any
-    sin: Any
-    sout: Any
+    total: int
+    used: int
+    free: int
+    percent: float
+    sin: int
+    sout: int
 
 class sdiskusage(NamedTuple):
-    total: Any
-    used: Any
-    free: Any
-    percent: Any
+    total: int
+    used: int
+    free: int
+    percent: float
 
 class sdiskio(NamedTuple):
-    read_count: Any
-    write_count: Any
-    read_bytes: Any
-    write_bytes: Any
-    read_time: Any
-    write_time: Any
+    read_count: int
+    write_count: int
+    read_bytes: int
+    write_bytes: int
+    read_time: int
+    write_time: int
 
 class sdiskpart(NamedTuple):
-    device: Any
-    mountpoint: Any
-    fstype: Any
-    opts: Any
-    maxfile: Any
-    maxpath: Any
+    device: str
+    mountpoint: str
+    fstype: str
+    opts: str
+    maxfile: int
+    maxpath: int
 
 class snetio(NamedTuple):
-    bytes_sent: Any
-    bytes_recv: Any
-    packets_sent: Any
-    packets_recv: Any
-    errin: Any
-    errout: Any
-    dropin: Any
-    dropout: Any
+    bytes_sent: int
+    bytes_recv: int
+    packets_sent: int
+    packets_recv: int
+    errin: int
+    errout: int
+    dropin: int
+    dropout: int
 
 class suser(NamedTuple):
-    name: Any
-    terminal: Any
-    host: Any
-    started: Any
-    pid: Any
+    name: str
+    terminal: str | None
+    host: str | None
+    started: float
+    pid: str
 
 class sconn(NamedTuple):
-    fd: Any
+    fd: int
     family: Any
     type: Any
-    laddr: Any
-    raddr: Any
-    status: Any
-    pid: Any
+    laddr: str
+    raddr: str
+    status: str
+    pid: int
 
 class snicaddr(NamedTuple):
     family: Any
-    address: Any
-    netmask: Any
-    broadcast: Any
-    ptp: Any
+    address: str
+    netmask: str | None
+    broadcast: str | None
+    ptp: str | None
 
 class snicstats(NamedTuple):
-    isup: Any
+    isup: bool
     duplex: Any
-    speed: Any
-    mtu: Any
+    speed: int
+    mtu: int
 
 class scpustats(NamedTuple):
     ctx_switches: Any
