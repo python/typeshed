@@ -402,7 +402,7 @@ class Misc:
     def grid_columnconfigure(
         self,
         index: _GridIndex,
-        cnf: _GridIndexInfo = ...,  # type: ignore
+        cnf: _GridIndexInfo = ...,
         *,
         minsize: _ScreenUnits = ...,
         pad: _ScreenUnits = ...,
@@ -412,7 +412,7 @@ class Misc:
     def grid_rowconfigure(
         self,
         index: _GridIndex,
-        cnf: _GridIndexInfo = ...,  # type: ignore
+        cnf: _GridIndexInfo = ...,
         *,
         minsize: _ScreenUnits = ...,
         pad: _ScreenUnits = ...,
