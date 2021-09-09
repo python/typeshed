@@ -1006,7 +1006,7 @@ class Treeview(Widget, tkinter.XView, tkinter.YView):
         *,
         text: str = ...,
         image: tkinter._ImageSpec = ...,
-        anochor: tkinter._Anchor = ...,
+        anchor: tkinter._Anchor = ...,
         command: str | Callable[[], Any] = ...,
     ) -> _TreeviewHeaderDict | None: ...
     def identify(self, component, x, y): ...
