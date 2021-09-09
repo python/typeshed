@@ -408,7 +408,7 @@ class Misc:
         pad: _ScreenUnits = ...,
         uniform: str | None = ...,
         weight: int = ...,
-    ) -> _GridIndexInfo | None: ...
+    ) -> _GridIndexInfo | Any: ...  # can be None but annoying to check
     def grid_rowconfigure(
         self,
         index: _GridIndex,
@@ -418,7 +418,7 @@ class Misc:
         pad: _ScreenUnits = ...,
         uniform: str | None = ...,
         weight: int = ...,
-    ) -> _GridIndexInfo | None: ...
+    ) -> _GridIndexInfo | Any: ...  # can be None but annoyying to check
     columnconfigure = grid_columnconfigure
     rowconfigure = grid_rowconfigure
     def grid_location(self, x: _ScreenUnits, y: _ScreenUnits) -> Tuple[int, int]: ...
