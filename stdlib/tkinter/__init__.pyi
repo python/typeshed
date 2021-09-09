@@ -403,6 +403,7 @@ class Misc:
         self,
         index: _GridIndex,
         cnf: _GridIndexInfo = ...,  # type: ignore
+        *,
         minsize: _ScreenUnits = ...,
         pad: _ScreenUnits = ...,
         uniform: str | None = ...,
@@ -412,6 +413,7 @@ class Misc:
         self,
         index: _GridIndex,
         cnf: _GridIndexInfo = ...,  # type: ignore
+        *,
         minsize: _ScreenUnits = ...,
         pad: _ScreenUnits = ...,
         uniform: str | None = ...,
