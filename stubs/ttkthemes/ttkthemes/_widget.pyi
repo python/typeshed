@@ -1,6 +1,6 @@
 import _tkinter
 from _typeshed import StrPath
-from typing import Any
+from typing import Any, ClassVar
 
 class ThemedWidget:
     pixmap_themes: ClassVar[list[str]]
