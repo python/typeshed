@@ -10,7 +10,7 @@ class Lock:
         self,
         redis: Redis[Any],
         name: str,
-        timeout: None | int | float = ...,
+        timeout: float | None = ...,
         sleep: float = ...,
         blocking: bool = ...,
         blocking_timeout: float | None = ...,
