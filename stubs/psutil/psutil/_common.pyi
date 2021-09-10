@@ -166,6 +166,7 @@ if sys.platform == "linux":
         position: int
         mode: str
         flags: int
+
 else:
     class popenfile(NamedTuple):
         path: str
@@ -194,6 +195,7 @@ if sys.platform == "linux":
         write_bytes: int
         read_chars: int
         write_chars: int
+
 else:
     class pio(NamedTuple):
         read_count: int
