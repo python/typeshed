@@ -17,7 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-      - run: pip install 'tomli>=1.1.0,<1.2.0'
+      - run: pip install $(grep tomli== requirements-tests-py3.txt)
       - run: ./tests/check_consistent.py
 
   pep-604:
@@ -77,7 +77,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-      - run: pip install 'tomli>=1.1.0,<1.2.0' $(grep mypy== requirements-tests-py3.txt)
+      - run: pip install $(grep mypy== requirements-tests-py3.txt)
       - run: ./tests/mypy_test.py --platform=${{ matrix.platform }} --python-version=${{ matrix.python-version }}
 
   pyright:
@@ -125,7 +125,7 @@ jobs:
       - name: Update pip
         run: python -m pip install -U pip
       - name: Install dependencies
-        run: pip install $(grep mypy== requirements-tests-py3.txt)
+        run: pip install $(grep tomli== requirements-tests-py3.txt) $(grep mypy== requirements-tests-py3.txt)
       - name: Run stubtest
         run: python tests/stubtest_stdlib.py --ignore-unused-allowlist
 
@@ -142,6 +142,6 @@ jobs:
         with:
           python-version: 3.9
       - name: Install dependencies
-        run: pip install 'tomli>=1.1.0,<1.2.0'
+        run: pip install $(grep tomli== requirements-tests-py3.txt)
       - name: Run stubtest
         run: python tests/stubtest_third_party.py --num-shards 4 --shard-index ${{ matrix.shard-index }}
