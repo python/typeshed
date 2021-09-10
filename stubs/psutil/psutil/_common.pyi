@@ -1,4 +1,5 @@
 import enum
+import sys
 from typing import Any, Callable, NamedTuple, TypeVar
 
 POSIX: bool
@@ -127,81 +128,88 @@ class snicstats(NamedTuple):
     mtu: int
 
 class scpustats(NamedTuple):
-    ctx_switches: Any
-    interrupts: Any
-    soft_interrupts: Any
-    syscalls: Any
+    ctx_switches: int
+    interrupts: int
+    soft_interrupts: int
+    syscalls: int
 
 class scpufreq(NamedTuple):
-    current: Any
-    min: Any
-    max: Any
+    current: float
+    min: float
+    max: float
 
 class shwtemp(NamedTuple):
-    label: Any
-    current: Any
-    high: Any
-    critical: Any
+    label: str
+    current: float
+    high: float | None
+    critical: float | None
 
 class sbattery(NamedTuple):
-    percent: Any
-    secsleft: Any
-    power_plugged: Any
+    percent: int
+    secsleft: int
+    power_plugged: bool
 
 class sfan(NamedTuple):
-    label: Any
-    current: Any
+    label: str
+    current: int
 
 class pcputimes(NamedTuple):
-    user: Any
-    system: Any
-    children_user: Any
-    children_system: Any
+    user: float
+    system: float
+    children_user: float
+    children_system: float
 
 class popenfile(NamedTuple):
-    path: Any
-    fd: Any
+    path: str
+    fd: int
+    if sys.platform == "linux":
+        position: int
+        mode: str
+        flags: int
 
 class pthread(NamedTuple):
-    id: Any
-    user_time: Any
-    system_time: Any
+    id: int
+    user_time: float
+    system_time: float
 
 class puids(NamedTuple):
-    real: Any
-    effective: Any
-    saved: Any
+    real: int
+    effective: int
+    saved: int
 
 class pgids(NamedTuple):
-    real: Any
-    effective: Any
-    saved: Any
+    real: int
+    effective: int
+    saved: int
 
 class pio(NamedTuple):
-    read_count: Any
-    write_count: Any
-    read_bytes: Any
-    write_bytes: Any
+    read_count: int
+    write_count: int
+    read_bytes: int
+    write_bytes: int
+    if sys.platform == "linux":
+        read_chars: int
+        write_chars: int
 
 class pionice(NamedTuple):
     ioclass: Any
-    value: Any
+    value: int
 
 class pctxsw(NamedTuple):
-    voluntary: Any
-    involuntary: Any
+    voluntary: int
+    involuntary: int
 
 class pconn(NamedTuple):
-    fd: Any
+    fd: int
     family: Any
     type: Any
-    laddr: Any
-    raddr: Any
-    status: Any
+    laddr: addr
+    raddr: addr
+    status: str
 
 class addr(NamedTuple):
-    ip: Any
-    port: Any
+    ip: str
+    port: int
 
 conn_tmap: Any
 
