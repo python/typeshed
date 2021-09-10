@@ -59,6 +59,7 @@
         "stubs/simplejson",
         "stubs/slumber",
         "stubs/stripe",
+        "stubs/ttkthemes",
         "stubs/vobject",
         "stubs/waitress",
         "stubs/Werkzeug"
