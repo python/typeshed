@@ -2,8 +2,9 @@ import sys
 import threading
 from _typeshed import Self
 from abc import abstractmethod
+from collections.abc import Container, Iterable, Iterator, Sequence, Set
 from logging import Logger
-from typing import Any, Callable, Container, Generic, Iterable, Iterator, Protocol, Sequence, Set, TypeVar, overload
+from typing import Any, Callable, Generic, Protocol, TypeVar, overload
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
@@ -16,6 +17,8 @@ RUNNING: str
 CANCELLED: str
 CANCELLED_AND_NOTIFIED: str
 FINISHED: str
+_FUTURE_STATES: list[str]
+_STATE_TO_DESCRIPTION_MAP: dict[str, str]
 LOGGER: Logger
 
 class Error(Exception): ...
