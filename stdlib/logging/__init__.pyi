@@ -350,7 +350,7 @@ class LogRecord:
     ) -> None: ...
     def getMessage(self) -> str: ...
 
-_L = TypeVar("_L", Logger, LoggerAdapter[Logger], LoggerAdapter[object])
+_L = TypeVar("_L", Logger, LoggerAdapter[Logger], LoggerAdapter[Any])
 
 class LoggerAdapter(Generic[_L]):
     logger: _L
@@ -696,7 +696,7 @@ def setLoggerClass(klass: Type[Logger]) -> None: ...
 def captureWarnings(capture: bool) -> None: ...
 def setLogRecordFactory(factory: Callable[..., LogRecord]) -> None: ...
 
-lastResort: StreamHandler[object] | None
+lastResort: StreamHandler[Any] | None
 
 _StreamT = TypeVar("_StreamT", bound=SupportsWrite[str])
 
