@@ -578,6 +578,7 @@ class _ExceptionReportingCallback(Protocol):
 class Tk(Misc, Wm):
     master: None
     def __init__(
+        # please update ttkthemes stub if you change this
         self,
         screenName: str | None = ...,
         baseName: str | None = ...,

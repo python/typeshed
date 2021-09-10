@@ -1,26 +1,26 @@
+import _tkinter
+from _typeshed import StrPath
 from typing import Any
 
-from ._utils import get_file_directory as get_file_directory
-
 class ThemedWidget:
-    pixmap_themes: Any
-    PACKAGES: Any
-    tk: Any
-    png_support: Any
+    pixmap_themes: ClassVar[list[str]]
+    PACKAGES: ClassVar[dict[str, str]]
+    tk: _tkinter.TkappType
+    png_support: bool
     def __init__(self, tk_interpreter, gif_override: bool = ...) -> None: ...
-    def set_theme(self, theme_name) -> None: ...
-    def get_themes(self): ...
+    def set_theme(self, theme_name: str) -> None: ...
+    def get_themes(self) -> list[str]: ...
     @property
-    def themes(self): ...
+    def themes(self) -> list[str]: ...
     @property
-    def current_theme(self): ...
+    def current_theme(self) -> str: ...
     def set_theme_advanced(
         self,
-        theme_name,
+        theme_name: str,
         brightness: float = ...,
         saturation: float = ...,
         hue: float = ...,
         preserve_transparency: bool = ...,
-        output_dir: Any | None = ...,
+        output_dir: StrPath | None = ...,
         advanced_name: str = ...,
     ) -> None: ...
