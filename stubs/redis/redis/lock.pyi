@@ -13,7 +13,7 @@ class Lock:
         timeout: None | int | float = ...,
         sleep: float = ...,
         blocking: bool = ...,
-        blocking_timeout: None | int | float = ...,
+        blocking_timeout: float | None = ...,
         thread_local: bool = ...,
     ) -> None: ...
     def register_scripts(self) -> None: ...
