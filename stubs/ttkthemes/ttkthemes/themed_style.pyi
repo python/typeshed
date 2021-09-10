@@ -1,6 +1,5 @@
 import tkinter
 from tkinter import ttk
-from typing import Any
 
 from ._widget import ThemedWidget
 
