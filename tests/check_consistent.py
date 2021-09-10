@@ -15,7 +15,7 @@ import filecmp
 import os
 import re
 
-import toml
+import tomli
 
 consistent_files = [
     {"stdlib/@python2/builtins.pyi", "stdlib/@python2/__builtin__.pyi"},
