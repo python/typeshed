@@ -101,8 +101,6 @@ inspect.Parameter.POSITIONAL_ONLY
 inspect.Parameter.POSITIONAL_OR_KEYWORD
 inspect.Parameter.VAR_KEYWORD
 inspect.Parameter.VAR_POSITIONAL
-inspect.Parameter.replace
-inspect.Signature.replace
 io.BufferedRandom.truncate
 io.BufferedReader.seek
 io.BufferedReader.truncate
