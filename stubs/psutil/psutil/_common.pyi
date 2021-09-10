@@ -159,13 +159,17 @@ class pcputimes(NamedTuple):
     children_user: float
     children_system: float
 
-class popenfile(NamedTuple):
-    path: str
-    fd: int
-    if sys.platform == "linux":
+if sys.platform == "linux":
+    class popenfile(NamedTuple):
+        path: str
+        fd: int
         position: int
         mode: str
         flags: int
+else:
+    class popenfile(NamedTuple):
+        path: str
+        fd: int
 
 class pthread(NamedTuple):
     id: int
@@ -182,14 +186,20 @@ class pgids(NamedTuple):
     effective: int
     saved: int
 
-class pio(NamedTuple):
-    read_count: int
-    write_count: int
-    read_bytes: int
-    write_bytes: int
-    if sys.platform == "linux":
+if sys.platform == "linux":
+    class pio(NamedTuple):
+        read_count: int
+        write_count: int
+        read_bytes: int
+        write_bytes: int
         read_chars: int
         write_chars: int
+else:
+    class pio(NamedTuple):
+        read_count: int
+        write_count: int
+        read_bytes: int
+        write_bytes: int
 
 class pionice(NamedTuple):
     ioclass: Any
