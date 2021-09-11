@@ -1094,6 +1094,7 @@ class Treeview(Widget, tkinter.XView, tkinter.YView):
         tagname: str,
         option: None = ...,
         *,
+        # There is also 'text' and 'anchor', but they don't seem to do anything, using them is likely a bug
         foreground: tkinter._Color = ...,
         background: tkinter._Color = ...,
         font: _FontDescription = ...,
