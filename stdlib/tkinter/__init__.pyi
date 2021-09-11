@@ -406,7 +406,7 @@ class Misc:
         *,
         minsize: _ScreenUnits = ...,
         pad: _ScreenUnits = ...,
-        uniform: str | None = ...,
+        uniform: str = ...,
         weight: int = ...,
     ) -> _GridIndexInfo | Any: ...  # can be None but annoying to check
     def grid_rowconfigure(
@@ -416,7 +416,7 @@ class Misc:
         *,
         minsize: _ScreenUnits = ...,
         pad: _ScreenUnits = ...,
-        uniform: str | None = ...,
+        uniform: str = ...,
         weight: int = ...,
     ) -> _GridIndexInfo | Any: ...  # can be None but annoyying to check
     columnconfigure = grid_columnconfigure
