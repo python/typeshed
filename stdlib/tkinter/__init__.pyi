@@ -391,14 +391,6 @@ class Misc:
     @overload
     def grid_bbox(self, column: int, row: int, col2: int, row2: int) -> Tuple[int, int, int, int] | None: ...
     bbox = grid_bbox
-    # The cnf parameter's default value is an empty dict. That's a perfectly
-    # valid instance of _GridIndexInfo, but MyPy declares that an empty dict
-    # literal must be dict[Any, Any] and is therefore incompatible.
-    #
-    # The return value is always _GridIndexInfo if no optional parameters are
-    # provided, and always None if one or more are provided. Unfortunately,
-    # type inference requires both cases have the same return type, so we must
-    # combine them.
     def grid_columnconfigure(
         self,
         index: _GridIndex,
