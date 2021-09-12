@@ -6,7 +6,7 @@ import functools
 import subprocess
 import sys
 import tempfile
-import toml
+import tomli
 import venv
 from glob import glob
 from pathlib import Path
@@ -34,7 +34,7 @@ def get_mypy_req():
 
 def run_stubtest(dist: Path) -> None:
     with open(dist / "METADATA.toml") as f:
-        metadata = dict(toml.loads(f.read()))
+        metadata = dict(tomli.loads(f.read()))
 
     # Ignore stubs that don't support Python 3
     if not has_py3_stubs(dist):

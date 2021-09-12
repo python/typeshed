@@ -114,7 +114,6 @@ contextvars.ContextVar.set
 io.IncrementalNewlineDecoder.setstate
 random.SystemRandom.getrandbits
 secrets.SystemRandom.getrandbits
-zipfile.ZipExtFile.seek
 # These enums derive from (str, Enum). See comment in py3_common.txt
 pstats.SortKey.__new__
 tkinter.EventType.__new__
@@ -173,4 +172,3 @@ tempfile.TemporaryDirectory.__init__
 types.UnionType  # Renamed from `types.Union`
 unicodedata.ucnhash_CAPI
 unittest.mock.create_autospec
-zipfile.Path.open
