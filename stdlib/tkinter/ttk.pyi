@@ -891,11 +891,11 @@ class _TreeviewItemDict(TypedDict):
     tags: list[str]
 
 class _TreeviewTagDict(TypedDict):
-    text: str
-    image: Literal[""] | str  # not wrapped in list :D
-    anchor: tkinter._Anchor
-    background: tkinter._Color
+    # There is also 'text' and 'anchor', but they don't seem to do anything, using them is likely a bug
     foreground: tkinter._Color
+    background: tkinter._Color
+    font: _FontDescription
+    image: Literal[""] | str  # not wrapped in list :D
 
 class _TreeviewHeaderDict(TypedDict):
     text: str
