@@ -1,5 +1,6 @@
 import sys
 from _typeshed import ReadableBuffer
+from typing_extensions import final
 
 if sys.version_info >= (3, 0):
     from hashlib import _Hash
@@ -19,9 +20,16 @@ class _IntDigestHash(_Hash):
     def reset(self) -> None: ...
 
 # python-xxhash v2.0.0 does not support the string or usedforsecurity kwargs
+@final
 class xxh32(_IntDigestHash): ...
+
+@final
 class xxh64(_IntDigestHash): ...
+
+@final
 class xxh3_64(_IntDigestHash): ...
+
+@final
 class xxh3_128(_IntDigestHash): ...
 
 def xxh32_digest(input: ReadableBuffer = ..., seed: int = ...) -> bytes: ...
