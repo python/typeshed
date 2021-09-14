@@ -1022,7 +1022,7 @@ def format(__value: object, __format_spec: str = ...) -> str: ...  # TODO unicod
 @overload
 def getattr(__o: object, name: str) -> Any: ...
 
-_SupportsNextT = TypeVar("_SupportsNextT", bound=SupportsNext[Any])
+_SupportsNextT = TypeVar("_SupportsNextT", bound=SupportsNext[Any], covariant=True)
 
 class _Iterable2(Protocol[_T_co]):
     def __iter__(self) -> _T_co: ...
