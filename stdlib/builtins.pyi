@@ -81,9 +81,13 @@ _T5 = TypeVar("_T5")
 _TT = TypeVar("_TT", bound="type")
 _TBE = TypeVar("_TBE", bound="BaseException")
 _SupportsNextT = TypeVar("_SupportsNextT", bound=SupportsNext[Any], covariant=True)
+_SupportsAnextT = TypeVar("_SupportsAnextT", bound=SupportsAnext[Any], covariant=True)
 
 class _Iterable2(Protocol[_T_co]):
     def __iter__(self) -> _T_co: ...
+
+class _AsyncIterable2(Protocol[_T_co]):
+    def __aiter__(self) -> _T_co: ...
 
 class object:
     __doc__: str | None
@@ -970,7 +974,7 @@ class _PathLike(Protocol[_AnyStr_co]):
     def __fspath__(self) -> _AnyStr_co: ...
 
 if sys.version_info >= (3, 10):
-    def aiter(__iterable: AsyncIterable[_T]) -> SupportsAnext[_T]: ...
+    def aiter(__iterable: _AsyncIterable2[_SupportsAnextT]) -> _SupportsAnextT: ...
     @overload
     async def anext(__i: SupportsAnext[_T]) -> _T: ...
     @overload
