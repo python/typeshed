@@ -27,7 +27,6 @@ from typing import (
     AbstractSet,
     Any,
     AsyncIterable,
-    AsyncIterator,
     BinaryIO,
     ByteString,
     Callable,
