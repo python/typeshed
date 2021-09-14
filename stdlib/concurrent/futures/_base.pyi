@@ -4,7 +4,7 @@ from _typeshed import Self
 from abc import abstractmethod
 from collections.abc import Container, Iterable, Iterator, Sequence
 from logging import Logger
-from typing import Any, Callable, Generic, Protocol, TypeVar, overload
+from typing import Any, Callable, Generic, Protocol, Set, TypeVar, overload
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
@@ -75,7 +75,7 @@ class Executor:
 def as_completed(fs: Iterable[Future[_T]], timeout: float | None = ...) -> Iterator[Future[_T]]: ...
 
 # Ideally this would be a namedtuple, but mypy doesn't support generic tuple types. See #1976
-class DoneAndNotDoneFutures(Sequence[set[Future[_T]]]):
+class DoneAndNotDoneFutures(Sequence[Set[Future[_T]]]):
     done: set[Future[_T]]
     not_done: set[Future[_T]]
     def __new__(_cls, done: set[Future[_T]], not_done: set[Future[_T]]) -> DoneAndNotDoneFutures[_T]: ...
