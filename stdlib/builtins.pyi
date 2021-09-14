@@ -80,6 +80,10 @@ _T4 = TypeVar("_T4")
 _T5 = TypeVar("_T5")
 _TT = TypeVar("_TT", bound="type")
 _TBE = TypeVar("_TBE", bound="BaseException")
+_SupportsNextT = TypeVar("_SupportsNextT", bound=SupportsNext[Any], covariant=True)
+
+class _Iterable2(Protocol[_T_co]):
+    def __iter__(self) -> _T_co: ...
 
 class object:
     __doc__: str | None
@@ -1021,11 +1025,6 @@ class filter(Iterator[_T], Generic[_T]):
 def format(__value: object, __format_spec: str = ...) -> str: ...  # TODO unicode
 @overload
 def getattr(__o: object, name: str) -> Any: ...
-
-_SupportsNextT = TypeVar("_SupportsNextT", bound=SupportsNext[Any], covariant=True)
-
-class _Iterable2(Protocol[_T_co]):
-    def __iter__(self) -> _T_co: ...
 
 # While technically covered by the last overload, spelling out the types for None and bool
 # help mypy out in some tricky situations involving type context (aka bidirectional inference)
