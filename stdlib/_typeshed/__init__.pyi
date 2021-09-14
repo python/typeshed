@@ -31,7 +31,7 @@ class SupportsNext(Protocol[_T_co]):
     def __next__(self) -> _T_co: ...
 
 # stable
-class SupportsANext(Protocol[_T_co]):
+class SupportsAnext(Protocol[_T_co]):
     def __anext__(self) -> Awaitable[_T_co]: ...
 
 class SupportsLessThan(Protocol):

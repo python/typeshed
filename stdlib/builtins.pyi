@@ -9,7 +9,7 @@ from _typeshed import (
     ReadableBuffer,
     Self,
     StrOrBytesPath,
-    SupportsANext,
+    SupportsAnext,
     SupportsDivMod,
     SupportsKeysAndGetItem,
     SupportsLenAndGetItem,
@@ -967,11 +967,11 @@ class _PathLike(Protocol[_AnyStr_co]):
     def __fspath__(self) -> _AnyStr_co: ...
 
 if sys.version_info >= (3, 10):
-    def aiter(__iterable: AsyncIterable[_T]) -> SupportsANext[_T]: ...
+    def aiter(__iterable: AsyncIterable[_T]) -> SupportsAnext[_T]: ...
     @overload
-    async def anext(__i: SupportsANext[_T]) -> _T: ...
+    async def anext(__i: SupportsAnext[_T]) -> _T: ...
     @overload
-    async def anext(__i: SupportsANext[_T], default: _VT) -> _T | _VT: ...
+    async def anext(__i: SupportsAnext[_T], default: _VT) -> _T | _VT: ...
 
 if sys.version_info >= (3, 8):
     def compile(
