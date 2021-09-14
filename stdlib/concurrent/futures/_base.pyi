@@ -2,7 +2,7 @@ import sys
 import threading
 from _typeshed import Self
 from abc import abstractmethod
-from collections.abc import Container, Iterable, Iterator, Sequence, Set
+from collections.abc import Container, Iterable, Iterator, Sequence
 from logging import Logger
 from typing import Any, Callable, Generic, Protocol, TypeVar, overload
 
@@ -75,13 +75,13 @@ class Executor:
 def as_completed(fs: Iterable[Future[_T]], timeout: float | None = ...) -> Iterator[Future[_T]]: ...
 
 # Ideally this would be a namedtuple, but mypy doesn't support generic tuple types. See #1976
-class DoneAndNotDoneFutures(Sequence[Set[Future[_T]]]):
-    done: Set[Future[_T]]
-    not_done: Set[Future[_T]]
-    def __new__(_cls, done: Set[Future[_T]], not_done: Set[Future[_T]]) -> DoneAndNotDoneFutures[_T]: ...
+class DoneAndNotDoneFutures(Sequence[set[Future[_T]]]):
+    done: set[Future[_T]]
+    not_done: set[Future[_T]]
+    def __new__(_cls, done: set[Future[_T]], not_done: set[Future[_T]]) -> DoneAndNotDoneFutures[_T]: ...
     def __len__(self) -> int: ...
     @overload
-    def __getitem__(self, i: int) -> Set[Future[_T]]: ...
+    def __getitem__(self, i: int) -> set[Future[_T]]: ...
     @overload
     def __getitem__(self, s: slice) -> DoneAndNotDoneFutures[_T]: ...
 
