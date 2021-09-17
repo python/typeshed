@@ -1,4 +1,0 @@
-version = "1.5"
-obsolete_since = "2.0.2"
-python2 = true
-requires = ["types-ipaddress"]
