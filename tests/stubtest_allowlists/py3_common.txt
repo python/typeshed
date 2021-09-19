@@ -96,13 +96,13 @@ importlib.abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined 
 importlib.abc.MetaPathFinder.find_spec  # Not defined on the actual class, but expected to exist.
 importlib.abc.PathEntryFinder.find_spec  # Not defined on the actual class, but expected to exist.
 importlib.machinery.ExtensionFileLoader.get_filename  # Wrapped with _check_name decorator which changes runtime signature
+inspect.Parameter.empty  # set as private marker _empty
 inspect.Parameter.KEYWORD_ONLY
 inspect.Parameter.POSITIONAL_ONLY
 inspect.Parameter.POSITIONAL_OR_KEYWORD
 inspect.Parameter.VAR_KEYWORD
 inspect.Parameter.VAR_POSITIONAL
-inspect.Parameter.replace
-inspect.Signature.replace
+inspect.Signature.empty  # set as private marker _empty
 io.BufferedRandom.truncate
 io.BufferedReader.seek
 io.BufferedReader.truncate
