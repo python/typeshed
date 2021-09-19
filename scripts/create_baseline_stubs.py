@@ -161,12 +161,10 @@ def main() -> None:
 
     print("\nDone!\n\nSuggested next steps:")
     print(f" 1. Manually review the generated stubs in {stub_dir}")
-    print(" 2. Run stubtest to test the generated stubs against runtime definitions")
-    print(f' 3. Run "flake8 {stub_dir}" to check code style')
-    print(f' 4. Run "mypy {stub_dir}" to check for errors')
-    print(f' 5. Run "black {stub_dir}" (if you\'ve made code changes)')
-    print(" 6. Create branch in the typeshed repo and commit the stubs (and other changes)")
-    print(" 7. Create typeshed PR")
+    print(f' 2. Run "MYPYPATH={stub_dir} python3 -m mypy.stubtest {package}" to check the stubs against runtime')
+    print(f' 3. Run "mypy {stub_dir}" to check for errors')
+    print(f' 4. Run "black {stub_dir}" and "isort {stub_dir}" (if you\'ve made code changes)')
+    print(" 5. Commit the stubs on a new branch and create a typeshed PR")
 
 
 if __name__ == "__main__":
