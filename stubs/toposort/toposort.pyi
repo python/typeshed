@@ -1,4 +1,4 @@
-from typing import Generic, TypeVar
+from typing import Generic, Iterator, TypeVar
 
 _T = TypeVar("_T")
 
