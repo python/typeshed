@@ -1,7 +1,4 @@
-from ctypes import windll as windll
-from typing import Any
-
-__version_info__: Any
+__version_info__: tuple[int, int, int]
 PY3: bool
 unicode = str
 system: str
