@@ -164,7 +164,8 @@ def main() -> None:
     print(f' 2. Run "MYPYPATH={stub_dir} python3 -m mypy.stubtest {package}" to check the stubs against runtime')
     print(f' 3. Run "mypy {stub_dir}" to check for errors')
     print(f' 4. Run "black {stub_dir}" and "isort {stub_dir}" (if you\'ve made code changes)')
-    print(" 5. Commit the changes on a new branch and create a typeshed PR")
+    print(f' 5. Run "flake8 {stub_dir}" to check for e.g. unused imports')
+    print(" 6. Commit the changes on a new branch and create a typeshed PR")
 
 
 if __name__ == "__main__":
