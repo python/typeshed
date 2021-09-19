@@ -2,7 +2,7 @@ import collections  # Needed by aliases like DefaultDict, see mypy issue 2986
 import sys
 from abc import ABCMeta, abstractmethod
 from types import BuiltinFunctionType, CodeType, FrameType, FunctionType, MethodType, ModuleType, TracebackType
-from typing_extensions import Literal as _Literal
+from typing_extensions import Literal as _Literal, ParamSpec as _ParamSpec
 
 if sys.version_info >= (3, 7):
     from types import MethodDescriptorType, MethodWrapperType, WrapperDescriptorType
@@ -36,6 +36,8 @@ class _SpecialForm:
     def __getitem__(self, typeargs: Any) -> object: ...
 
 _F = TypeVar("_F", bound=Callable[..., Any])
+_P = _ParamSpec("_P")
+_T = TypeVar("_T")
 
 def overload(func: _F) -> _F: ...
 
@@ -50,7 +52,7 @@ Type: _SpecialForm = ...
 ClassVar: _SpecialForm = ...
 if sys.version_info >= (3, 8):
     Final: _SpecialForm = ...
-    def final(f: _F) -> _F: ...
+    def final(f: _T) -> _T: ...
     Literal: _SpecialForm = ...
     # TypedDict is a (non-subscriptable) special form.
     TypedDict: object
@@ -87,7 +89,6 @@ if sys.version_info >= (3, 10):
 NoReturn = Union[None]
 
 # These type variables are used by the container types.
-_T = TypeVar("_T")
 _S = TypeVar("_S")
 _KT = TypeVar("_KT")  # Key type.
 _VT = TypeVar("_VT")  # Value type.
@@ -99,7 +100,7 @@ _T_contra = TypeVar("_T_contra", contravariant=True)  # Ditto contravariant.
 _TC = TypeVar("_TC", bound=Type[object])
 
 def no_type_check(arg: _F) -> _F: ...
-def no_type_check_decorator(decorator: _F) -> _F: ...
+def no_type_check_decorator(decorator: Callable[_P, _T]) -> Callable[_P, _T]: ...  # type: ignore
 
 # Type aliases and type constructors
 
@@ -434,7 +435,7 @@ class AsyncContextManager(Protocol[_T_co]):
 
 class Mapping(_Collection[_KT], Generic[_KT, _VT_co]):
     # TODO: We wish the key type could also be covariant, but that doesn't work,
-    # see discussion in https: //github.com/python/typing/pull/273.
+    # see discussion in https://github.com/python/typing/pull/273.
     @abstractmethod
     def __getitem__(self, k: _KT) -> _VT_co: ...
     # Mixin methods
@@ -442,8 +443,8 @@ class Mapping(_Collection[_KT], Generic[_KT, _VT_co]):
     def get(self, key: _KT) -> _VT_co | None: ...
     @overload
     def get(self, key: _KT, default: _VT_co | _T) -> _VT_co | _T: ...
-    def items(self) -> AbstractSet[Tuple[_KT, _VT_co]]: ...
-    def keys(self) -> AbstractSet[_KT]: ...
+    def items(self) -> ItemsView[_KT, _VT_co]: ...
+    def keys(self) -> KeysView[_KT]: ...
     def values(self) -> ValuesView[_VT_co]: ...
     def __contains__(self, o: object) -> bool: ...
 
@@ -663,7 +664,7 @@ def cast(typ: object, val: Any) -> Any: ...
 # NamedTuple is special-cased in the type checker
 class NamedTuple(Tuple[Any, ...]):
     _field_types: collections.OrderedDict[str, Type[Any]]
-    _field_defaults: dict[str, Any] = ...
+    _field_defaults: dict[str, Any]
     _fields: Tuple[str, ...]
     _source: str
     def __init__(self, typename: str, fields: Iterable[Tuple[str, Any]] = ..., **kwargs: Any) -> None: ...
@@ -703,7 +704,8 @@ if sys.version_info >= (3, 7):
         __forward_evaluated__: bool
         __forward_value__: Any | None
         __forward_is_argument__: bool
-        if sys.version_info >= (3, 10):
+        if sys.version_info >= (3, 9):
+            # The module argument was added in Python 3.9.7.
             def __init__(self, arg: str, is_argument: bool = ..., module: Any | None = ...) -> None: ...
         else:
             def __init__(self, arg: str, is_argument: bool = ...) -> None: ...

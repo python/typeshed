@@ -1,5 +1,6 @@
 import enum
 import sys
+import types
 from _typeshed import Self
 from collections import OrderedDict
 from collections.abc import Awaitable, Callable, Generator, Mapping, Sequence, Set
@@ -119,12 +120,12 @@ else:
 class Signature:
     def __init__(self, parameters: Sequence[Parameter] | None = ..., *, return_annotation: Any = ...) -> None: ...
     # TODO: can we be more specific here?
-    empty: object = ...
-
-    parameters: Mapping[str, Parameter]
-
+    empty: object
+    @property
+    def parameters(self) -> types.MappingProxyType[str, Parameter]: ...
     # TODO: can we be more specific here?
-    return_annotation: Any
+    @property
+    def return_annotation(self) -> Any: ...
     def bind(self, *args: Any, **kwargs: Any) -> BoundArguments: ...
     def bind_partial(self, *args: Any, **kwargs: Any) -> BoundArguments: ...
     def replace(self: Self, *, parameters: Sequence[Parameter] | None = ..., return_annotation: Any = ...) -> Self: ...
@@ -165,7 +166,7 @@ class _ParameterKind(enum.IntEnum):
 
 class Parameter:
     def __init__(self, name: str, kind: _ParameterKind, *, default: Any = ..., annotation: Any = ...) -> None: ...
-    empty: Any = ...
+    empty: Any
     name: str
     default: Any
     annotation: Any

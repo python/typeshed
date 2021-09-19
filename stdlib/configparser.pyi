@@ -1,23 +1,7 @@
 import sys
 from _typeshed import StrOrBytesPath, StrPath, SupportsWrite
-from typing import (
-    AbstractSet,
-    Any,
-    Callable,
-    ClassVar,
-    Dict,
-    Iterable,
-    Iterator,
-    Mapping,
-    MutableMapping,
-    Optional,
-    Pattern,
-    Sequence,
-    Tuple,
-    Type,
-    TypeVar,
-    overload,
-)
+from collections.abc import Callable, ItemsView, Iterable, Iterator, Mapping, MutableMapping, Sequence
+from typing import Any, ClassVar, Dict, Optional, Pattern, Tuple, Type, TypeVar, overload
 from typing_extensions import Literal
 
 # Internal type aliases
@@ -48,16 +32,16 @@ class LegacyInterpolation(Interpolation):
     def before_get(self, parser: _parser, section: str, option: str, value: str, vars: _section) -> str: ...
 
 class RawConfigParser(_parser):
-    _SECT_TMPL: ClassVar[str] = ...  # undocumented
-    _OPT_TMPL: ClassVar[str] = ...  # undocumented
-    _OPT_NV_TMPL: ClassVar[str] = ...  # undocumented
+    _SECT_TMPL: ClassVar[str]  # undocumented
+    _OPT_TMPL: ClassVar[str]  # undocumented
+    _OPT_NV_TMPL: ClassVar[str]  # undocumented
 
-    SECTCRE: Pattern[str] = ...
-    OPTCRE: ClassVar[Pattern[str]] = ...
-    OPTCRE_NV: ClassVar[Pattern[str]] = ...  # undocumented
-    NONSPACECRE: ClassVar[Pattern[str]] = ...  # undocumented
+    SECTCRE: Pattern[str]
+    OPTCRE: ClassVar[Pattern[str]]
+    OPTCRE_NV: ClassVar[Pattern[str]]  # undocumented
+    NONSPACECRE: ClassVar[Pattern[str]]  # undocumented
 
-    BOOLEAN_STATES: ClassVar[Mapping[str, bool]] = ...  # undocumented
+    BOOLEAN_STATES: ClassVar[Mapping[str, bool]]  # undocumented
     default_section: str
     @overload
     def __init__(
@@ -143,9 +127,9 @@ class RawConfigParser(_parser):
     @overload
     def get(self, section: str, option: str, *, raw: bool = ..., vars: _section | None = ..., fallback: _T) -> str | _T: ...
     @overload
-    def items(self, *, raw: bool = ..., vars: _section | None = ...) -> AbstractSet[Tuple[str, SectionProxy]]: ...
+    def items(self, *, raw: bool = ..., vars: _section | None = ...) -> ItemsView[str, SectionProxy]: ...
     @overload
-    def items(self, section: str, raw: bool = ..., vars: _section | None = ...) -> list[Tuple[str, str]]: ...
+    def items(self, section: str, raw: bool = ..., vars: _section | None = ...) -> list[tuple[str, str]]: ...
     def set(self, section: str, option: str, value: str | None = ...) -> None: ...
     def write(self, fp: SupportsWrite[str], space_around_delimiters: bool = ...) -> None: ...
     def remove_option(self, section: str, option: str) -> bool: ...
