@@ -18,6 +18,7 @@
         "stdlib/tkinter",
         "stdlib/xml/dom",
         "stdlib/xml/sax",
+        "stubs/appdirs",
         "stubs/aws-xray-sdk",
         "stubs/babel",
         "stubs/backports.ssl_match_hostname",
