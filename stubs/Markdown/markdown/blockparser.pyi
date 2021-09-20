@@ -1,4 +1,4 @@
-from typing import Any, List, TypeVar
+from typing import Any, Iterable, List, TypeVar
 from xml.etree.ElementTree import Element, ElementTree
 
 from . import Markdown
