@@ -1,2 +1,1 @@
-maxminddb.compat
 maxminddb.extension
