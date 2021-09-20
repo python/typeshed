@@ -87,12 +87,11 @@ class Session(SessionRedirectMixin):
         data: _Data = ...,
         headers: _TextMapping | None = ...,
         cookies: None | RequestsCookieJar | _TextMapping = ...,
-        files: Union[
-            MutableMapping[Text, Union[IO[Any]]],
-            MutableMapping[Text, Tuple[Text, IO[Any]]],
-            MutableMapping[Text, Tuple[Text, IO[Any], Text]],
-            MutableMapping[Text, Tuple[Text, IO[Any], Text, _TextMapping]],
-        ] | None = ...,
+        files: MutableMapping[Text, Union[IO[Any]]]
+        | MutableMapping[Text, Tuple[Text, IO[Any]]]
+        | MutableMapping[Text, Tuple[Text, IO[Any], Text]]
+        | MutableMapping[Text, Tuple[Text, IO[Any], Text, _TextMapping]]
+        | None = ...,
         auth: None | Tuple[Text, Text] | _auth.AuthBase | Callable[[PreparedRequest], PreparedRequest] = ...,
         timeout: None | float | Tuple[float, float] | Tuple[float, None] = ...,
         allow_redirects: bool | None = ...,
