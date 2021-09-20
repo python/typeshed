@@ -12,6 +12,8 @@ _S = TypeVar("_S")
 _T = TypeVar("_T")
 _KT = TypeVar("_KT")
 _VT = TypeVar("_VT")
+_KT_co = TypeVar("_KT_co", covariant=True)
+_VT_co = TypeVar("_VT_co", covariant=True)
 
 # namedtuple is special-cased in the type checker; the initializer is ignored.
 if sys.version_info >= (3, 7):
@@ -236,14 +238,14 @@ class Counter(Dict[_T, int], Generic[_T]):
     def __iand__(self, other: Counter[_T]) -> Counter[_T]: ...
     def __ior__(self, other: Counter[_T]) -> Counter[_T]: ...  # type: ignore
 
-class _OrderedDictKeysView(_dict_keys[_KT, _VT], Reversible[_KT]):
-    def __reversed__(self) -> Iterator[_KT]: ...
+class _OrderedDictKeysView(_dict_keys[_KT_co, _VT_co], Reversible[_KT_co]):
+    def __reversed__(self) -> Iterator[_KT_co]: ...
 
-class _OrderedDictItemsView(_dict_items[_KT, _VT], Reversible[Tuple[_KT, _VT]]):
-    def __reversed__(self) -> Iterator[Tuple[_KT, _VT]]: ...
+class _OrderedDictItemsView(_dict_items[_KT_co, _VT_co], Reversible[Tuple[_KT_co, _VT_co]]):
+    def __reversed__(self) -> Iterator[Tuple[_KT_co, _VT_co]]: ...
 
-class _OrderedDictValuesView(_dict_values[_VT, _KT], Reversible[_VT], Generic[_KT, _VT]):
-    def __reversed__(self) -> Iterator[_VT]: ...
+class _OrderedDictValuesView(_dict_values[_VT_co, _KT_co], Reversible[_VT_co], Generic[_KT_co, _VT_co]):
+    def __reversed__(self) -> Iterator[_VT_co]: ...
 
 class OrderedDict(Dict[_KT, _VT], Reversible[_KT], Generic[_KT, _VT]):
     def popitem(self, last: bool = ...) -> Tuple[_KT, _VT]: ...
