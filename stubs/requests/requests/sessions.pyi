@@ -87,7 +87,7 @@ class Session(SessionRedirectMixin):
         data: _Data = ...,
         headers: _TextMapping | None = ...,
         cookies: None | RequestsCookieJar | _TextMapping = ...,
-        files: MutableMapping[Text, Union[IO[Any]]]
+        files: MutableMapping[Text, IO[Any]]
         | MutableMapping[Text, Tuple[Text, IO[Any]]]
         | MutableMapping[Text, Tuple[Text, IO[Any], Text]]
         | MutableMapping[Text, Tuple[Text, IO[Any], Text, _TextMapping]]
