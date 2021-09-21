@@ -101,8 +101,6 @@ if sys.version_info >= (3, 9):
         def iterdir(self) -> Iterator[Traversable]: ...
         @abstractmethod
         def joinpath(self, child: StrPath) -> Traversable: ...
-        @overload
-        def read_text(self, encoding: str | None = ...) -> str: ...
         # The .open method comes from pathlib.pyi and should be kept in sync.
         @overload
         @abstractmethod
@@ -115,6 +113,7 @@ if sys.version_info >= (3, 9):
             newline: str | None = ...,
         ) -> TextIOWrapper: ...
         # Unbuffered binary mode: returns a FileIO
+        @overload
         @abstractmethod
         def open(
             self, mode: OpenBinaryMode, buffering: Literal[0], encoding: None = ..., errors: None = ..., newline: None = ...
