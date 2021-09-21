@@ -12,7 +12,7 @@ from _typeshed import (
 from abc import ABCMeta, abstractmethod
 from importlib.machinery import ModuleSpec
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
-from typing import IO, Any, BinaryIO, Generator, Iterator, Mapping, Optional, Protocol, Sequence, Tuple, TypeVar, Union, overload
+from typing import IO, Any, BinaryIO, Iterator, Mapping, Optional, Protocol, Sequence, Tuple, Union, overload
 from typing_extensions import Literal, runtime_checkable
 
 _Path = Union[bytes, str]
@@ -91,7 +91,6 @@ if sys.version_info >= (3, 7):
         def contents(self) -> Iterator[str]: ...
 
 if sys.version_info >= (3, 9):
-    _P = TypeVar("_P", bound=Traversable)
     @runtime_checkable
     class Traversable(Protocol):
         @abstractmethod
@@ -99,11 +98,10 @@ if sys.version_info >= (3, 9):
         @abstractmethod
         def is_file(self) -> bool: ...
         @abstractmethod
-        def iterdir(self: _P) -> Generator[_P, None, None]: ...
+        def iterdir(self) -> Iterator[Traversable]: ...
         @abstractmethod
-        def joinpath(self: _P, child: StrPath) -> _P: ...
-        # Adapted from builtins.open
-        # Text mode: always returns a TextIOWrapper
+        def joinpath(self, child: StrPath) -> Traversable: ...
+        # The .open method comes from pathlib.pyi and should be kept in sync.
         @overload
         @abstractmethod
         def open(
@@ -163,9 +161,10 @@ if sys.version_info >= (3, 9):
         def open(
             self, mode: str, buffering: int = ..., encoding: str | None = ..., errors: str | None = ..., newline: str | None = ...
         ) -> IO[Any]: ...
-        name: str
+        @property
+        def name(self) -> str: ...
         @abstractmethod
-        def __truediv__(self: _P, key: StrPath) -> _P: ...
+        def __truediv__(self, key: StrPath) -> Traversable: ...
         @abstractmethod
         def read_bytes(self) -> bytes: ...
         @abstractmethod
