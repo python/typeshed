@@ -1,5 +1,5 @@
-from typing import Any, Iterable, Literal
 from logging import Logger
+from typing import Any, Iterable, Literal
 
 chardet_type: Any
 
@@ -21,11 +21,7 @@ class EntitySubstitution:
     @classmethod
     def substitute_xml(cls, value, make_quoted_attribute: bool = ...): ...
     @classmethod
-    def substitute_xml_containing_entities(
-        cls,
-        value,
-        make_quoted_attribute: bool = ...
-    ): ...
+    def substitute_xml_containing_entities(cls, value, make_quoted_attribute: bool = ...): ...
     @classmethod
     def substitute_html(cls, s): ...
 
@@ -52,12 +48,7 @@ class EncodingDetector:
     @classmethod
     def strip_byte_order_mark(cls, data): ...
     @classmethod
-    def find_declared_encoding(
-        cls,
-        markup,
-        is_html: bool = ...,
-        search_entire_document: bool = ...
-    ) -> str | None: ...
+    def find_declared_encoding(cls, markup, is_html: bool = ..., search_entire_document: bool = ...) -> str | None: ...
 
 class UnicodeDammit:
     CHARSET_ALIASES: dict[str, str]
@@ -91,9 +82,4 @@ class UnicodeDammit:
     FIRST_MULTIBYTE_MARKER: int
     LAST_MULTIBYTE_MARKER: int
     @classmethod
-    def detwingle(
-        cls,
-        in_bytes: bytes,
-        main_encoding: str = ...,
-        embedded_encoding: str = ...
-    ) -> bytes: ...
+    def detwingle(cls, in_bytes: bytes, main_encoding: str = ..., embedded_encoding: str = ...) -> bytes: ...
