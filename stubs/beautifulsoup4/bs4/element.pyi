@@ -1,5 +1,5 @@
 from _typeshed import Self
-from typing import Any, Callable, Generic, Iterable, List, Mapping, Pattern, Set, Type, TypeVar, Union, overload
+from typing import Any, Callable, Generic, Iterable, List, Mapping, Pattern, Set, Tuple, Type, TypeVar, Union, overload
 
 from . import BeautifulSoup
 from .builder import TreeBuilder
@@ -52,7 +52,7 @@ class PageElement:
     previousSibling: PageElement | None
     @property
     def stripped_strings(self) -> Iterable[str]: ...
-    def get_text(self, separator: str = ..., strip: bool = ..., types: tuple[type[NavigableString], ...] = ...) -> str: ...
+    def get_text(self, separator: str = ..., strip: bool = ..., types: Tuple[Type[NavigableString], ...] = ...) -> str: ...
     getText = get_text
     @property
     def text(self) -> str: ...
@@ -255,7 +255,7 @@ class Tag(PageElement):
         can_be_empty_element: bool | None = ...,
         cdata_list_attributes: list[str] | None = ...,
         preserve_whitespace_tags: list[str] | None = ...,
-        interesting_string_types: type[NavigableString] | tuple[type[NavigableString], ...] | None = ...,
+        interesting_string_types: Type[NavigableString] | Tuple[Type[NavigableString], ...] | None = ...,
     ) -> None: ...
     parserClass: Type[BeautifulSoup] | None
     def __copy__(self: Self) -> Self: ...
@@ -266,7 +266,7 @@ class Tag(PageElement):
     def string(self) -> str | None: ...
     @string.setter
     def string(self, string: str) -> None: ...
-    DEFAULT_INTERESTING_STRING_TYPES: tuple[type[NavigableString], ...]
+    DEFAULT_INTERESTING_STRING_TYPES: Tuple[Type[NavigableString], ...]
     @property
     def strings(self) -> Iterable[str]: ...
     def decompose(self) -> None: ...
