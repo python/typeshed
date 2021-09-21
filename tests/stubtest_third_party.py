@@ -6,7 +6,7 @@ import functools
 import subprocess
 import sys
 import tempfile
-import toml
+import tomli
 import venv
 from glob import glob
 from pathlib import Path
@@ -34,7 +34,7 @@ def get_mypy_req():
 
 def run_stubtest(dist: Path) -> None:
     with open(dist / "METADATA.toml") as f:
-        metadata = dict(toml.loads(f.read()))
+        metadata = dict(tomli.loads(f.read()))
 
     # Ignore stubs that don't support Python 3
     if not has_py3_stubs(dist):
@@ -107,11 +107,11 @@ def run_stubtest(dist: Path) -> None:
             print(f"stubtest failed for {dist.name}", file=sys.stderr)
             if not allowlist_path.exists():
                 print(
-                    "\n\nRe-running stubtest with --generate-allowlist. "
-                    f"Add the following to {allowlist_path}:\n",
-                    file=sys.stderr,
+                    "\n\nRe-running stubtest with --generate-allowlist.\n"
+                    f"Add the following to {allowlist_path}:"
                 )
                 subprocess.run(cmd + ["--generate-allowlist"], env={"MYPYPATH": str(dist)})
+                print("\n\n")
             raise StubtestFailed from None
         else:
             print(f"stubtest succeeded for {dist.name}", file=sys.stderr)
