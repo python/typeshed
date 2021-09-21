@@ -1,5 +1,6 @@
 from logging import Logger
-from typing import Any, Iterable, Literal
+from typing import Any, Iterable
+from typing_extensions import Literal
 
 chardet_type: Any
 
