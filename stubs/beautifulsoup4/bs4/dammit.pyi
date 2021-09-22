@@ -1,5 +1,6 @@
+from collections.abc import Iterable, Iterator
 from logging import Logger
-from typing import Any, Iterable, Tuple
+from typing import Any, Tuple
 from typing_extensions import Literal
 
 chardet_type: Any
@@ -38,14 +39,14 @@ class EncodingDetector:
     def __init__(
         self,
         markup,
-        known_definite_encodings: list[str] | None = ...,
+        known_definite_encodings: Iterable[str] | None = ...,
         is_html: bool = ...,
         exclude_encodings: list[str] | None = ...,
         user_encodings: list[str] | None = ...,
         override_encodings: list[str] | None = ...,
     ) -> None: ...
     @property
-    def encodings(self) -> Iterable[str]: ...
+    def encodings(self) -> Iterator[str]: ...
     @classmethod
     def strip_byte_order_mark(cls, data): ...
     @classmethod
@@ -54,7 +55,7 @@ class EncodingDetector:
 class UnicodeDammit:
     CHARSET_ALIASES: dict[str, str]
     ENCODINGS_WITH_SMART_QUOTES: list[str]
-    smart_quotes_to: Literal["ascii"] | Literal["xml"] | Literal["html"]
+    smart_quotes_to: Literal["ascii", "xml", "html"] | None
     tried_encodings: list[tuple[str, str]]
     contains_replacement_characters: bool
     is_html: bool
@@ -67,7 +68,7 @@ class UnicodeDammit:
         self,
         markup,
         known_definite_encodings: list[str] | None = ...,
-        smart_quotes_to: Literal["ascii"] | Literal["xml"] | Literal["html"] | None = ...,
+        smart_quotes_to: Literal["ascii", "xml", "html"] | None = ...,
         is_html: bool = ...,
         exclude_encodings: list[str] | None = ...,
         user_encodings: list[str] | None = ...,

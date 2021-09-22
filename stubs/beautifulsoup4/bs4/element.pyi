@@ -1,4 +1,5 @@
 from _typeshed import Self
+from collections.abc import Iterator
 from typing import Any, Callable, Generic, Iterable, List, Mapping, Pattern, Set, Tuple, Type, TypeVar, Union, overload
 
 from . import BeautifulSoup
@@ -51,7 +52,7 @@ class PageElement:
     nextSibling: PageElement | None
     previousSibling: PageElement | None
     @property
-    def stripped_strings(self) -> Iterable[str]: ...
+    def stripped_strings(self) -> Iterator[str]: ...
     def get_text(self, separator: str = ..., strip: bool = ..., types: Tuple[Type[NavigableString], ...] = ...) -> str: ...
     getText = get_text
     @property
