@@ -54,16 +54,16 @@ from ._common import (
     popenfile,
     pthread,
     puids,
-    scpustats,
-    scpufreq,
-    sswap,
-    sdiskusage,
-    sdiskpart,
-    sdiskio,
-    snetio,
     sconn,
+    scpufreq,
+    scpustats,
+    sdiskio,
+    sdiskpart,
+    sdiskusage,
+    snetio,
     snicaddr,
     snicstats,
+    sswap,
     suser,
 )
 
@@ -168,7 +168,9 @@ class Popen(Process):
 def pids() -> list[int]: ...
 def pid_exists(pid: int) -> bool: ...
 def process_iter(attrs: Any | None = ..., ad_value: Any | None = ...) -> Iterator[Process]: ...
-def wait_procs(procs: Iterable[Process], timeout: float | None = ..., callback: Callable[[Process], Any] = ...) -> tuple[list[Process], list[Process]]: ...
+def wait_procs(
+    procs: Iterable[Process], timeout: float | None = ..., callback: Callable[[Process], Any] = ...
+) -> tuple[list[Process], list[Process]]: ...
 def cpu_count(logical: bool = ...) -> int: ...
 def cpu_times(percpu: bool = ...): ...
 def cpu_percent(interval: float | None = ..., percpu: bool = ...) -> float: ...
