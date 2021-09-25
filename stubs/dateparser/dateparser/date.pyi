@@ -1,7 +1,7 @@
 import sys
 from _typeshed import Self as Self
 from datetime import datetime
-from typing import Any, ClassVar, Iterable, Iterator, Type, overload
+from typing import ClassVar, Iterable, Iterator, Type, overload
 
 from dateparser import _Settings
 from dateparser.conf import Settings
