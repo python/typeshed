@@ -88,10 +88,10 @@ class DateDataParser:
     locale_loader: ClassVar[LocaleDataLoader | None]
     try_previous_locales: bool
     use_given_order: bool
-    languages: Any
-    locales: Any
-    region: Any
-    previous_locales: Any
+    languages: list[str] | None
+    locales: list[str] | tuple[str] | set[str] | None
+    region: str
+    previous_locales: dict[Locale, None]
     def __init__(
         self,
         languages: list[str] | tuple[str] | set[str] | None = ...,
