@@ -5,8 +5,8 @@ from typing_extensions import Literal
 
 from google.cloud.ndb import exceptions, key as key_module, query as query_module, tasklets as tasklets_module
 
-Key: key_module.Key
-Rollback: exceptions.Rollback
+Key = key_module.Key
+Rollback = exceptions.Rollback
 BlobKey: object
 GeoPt: object
 
