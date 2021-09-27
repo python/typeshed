@@ -1,3 +1,4 @@
+import collections
 import sys
 from _typeshed import Self as Self
 from datetime import datetime
@@ -91,7 +92,7 @@ class DateDataParser:
     languages: list[str] | None
     locales: list[str] | tuple[str] | set[str] | None
     region: str
-    previous_locales: dict[Locale, None]
+    previous_locales: collections.OrderedDict[Locale, None]
     def __init__(
         self,
         languages: list[str] | tuple[str] | set[str] | None = ...,
