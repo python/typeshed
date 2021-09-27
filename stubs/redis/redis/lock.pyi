@@ -6,9 +6,8 @@ from redis.client import Redis
 
 _TokenValue = Union[bytes, Text]
 
-
 class _Local(Protocol):
-    token: Optional[_TokenValue]
+    token: _TokenValue | None
 
 class Lock:
     local: _Local
