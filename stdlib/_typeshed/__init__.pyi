@@ -173,7 +173,7 @@ ReadOnlyBuffer = bytes  # stable
 # The buffer interface is defined purely on the C level, so we cannot define a normal Protocol
 # for it. Instead we have to list the most common stdlib buffer classes in a Union.
 WriteableBuffer = Union[bytearray, memoryview, array.array[Any], mmap.mmap, ctypes._CData]  # stable
-# Same as _WritableBuffer, but also includes read-only buffer types (like bytes).
+# Same as _WriteableBuffer, but also includes read-only buffer types (like bytes).
 ReadableBuffer = Union[ReadOnlyBuffer, WriteableBuffer]  # stable
 
 # stable
