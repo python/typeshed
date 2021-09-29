@@ -1,5 +1,6 @@
-from .utils import Comparable
 from typing import Any, Dict, Iterable, Iterator, TypeVar
+
+from .utils import Comparable
 
 _T = TypeVar("_T")
 
@@ -12,7 +13,23 @@ class tqdm(Comparable):
     @staticmethod
     def format_num(n: float) -> str: ...
     @staticmethod
-    def format_meter(n: float, total: float | None, elapsed: float, ncols: int | None = ..., prefix: str = ..., ascii: bool | str = ..., unit: str = ..., unit_scale: bool | float = ..., rate: float | None = ..., bar_format: str | None = ..., postfix: Any | None = ..., unit_divisor: float = ..., initial: float = ..., colour: str | None = ..., **extra_kwargs: Any) -> str: ...
+    def format_meter(
+        n: float,
+        total: float | None,
+        elapsed: float,
+        ncols: int | None = ...,
+        prefix: str = ...,
+        ascii: bool | str = ...,
+        unit: str = ...,
+        unit_scale: bool | float = ...,
+        rate: float | None = ...,
+        bar_format: str | None = ...,
+        postfix: Any | None = ...,
+        unit_divisor: float = ...,
+        initial: float = ...,
+        colour: str | None = ...,
+        **extra_kwargs: Any,
+    ) -> str: ...
     @classmethod
     def write(cls, s: str, file: Any | None = ..., end: str = ..., nolock: bool = ...) -> None: ...
     @classmethod
@@ -52,7 +69,36 @@ class tqdm(Comparable):
     sp: Any
     last_print_t: float
     start_t: float
-    def __init__(self, iterable: Iterable[_T] | None = ..., desc: str | None = ..., total: float | None = ..., leave: bool | None = ..., file: Any | None = ..., ncols: int | None = ..., mininterval: float = ..., maxinterval: float = ..., miniters: float | None = ..., ascii: bool | str | None = ..., disable: bool | None = ..., unit: str = ..., unit_scale: bool | float = ..., dynamic_ncols: bool = ..., smoothing: float = ..., bar_format: str | None = ..., initial: float = ..., position: int | None = ..., postfix: Any | None = ..., unit_divisor: float = ..., write_bytes: bool | None = ..., lock_args: Any | None = ..., nrows: int | None = ..., colour: str | None = ..., delay: float = ..., gui: bool = ..., **kwargs: Any) -> None: ...
+    def __init__(
+        self,
+        iterable: Iterable[_T] | None = ...,
+        desc: str | None = ...,
+        total: float | None = ...,
+        leave: bool | None = ...,
+        file: Any | None = ...,
+        ncols: int | None = ...,
+        mininterval: float = ...,
+        maxinterval: float = ...,
+        miniters: float | None = ...,
+        ascii: bool | str | None = ...,
+        disable: bool | None = ...,
+        unit: str = ...,
+        unit_scale: bool | float = ...,
+        dynamic_ncols: bool = ...,
+        smoothing: float = ...,
+        bar_format: str | None = ...,
+        initial: float = ...,
+        position: int | None = ...,
+        postfix: Any | None = ...,
+        unit_divisor: float = ...,
+        write_bytes: bool | None = ...,
+        lock_args: Any | None = ...,
+        nrows: int | None = ...,
+        colour: str | None = ...,
+        delay: float = ...,
+        gui: bool = ...,
+        **kwargs: Any,
+    ) -> None: ...
     def __bool__(self) -> bool: ...
     def __nonzero__(self) -> bool: ...
     def __len__(self) -> int | None: ...
