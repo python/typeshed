@@ -1,10 +1,5 @@
-from .decorators import cached as cached, cachedmethod as cachedmethod
-from .lfu import LFUCache as LFUCache
-from .lru import LRUCache as LRUCache
-from .rr import RRCache as RRCache
-from .ttl import TTLCache as TTLCache
-
-from typing import Callable, Generic, Iterator, TypeVar
+from collections.abc import Iterator, Sequence
+from typing import Callable, Generic, TypeVar
 
 from _typeshed import IdentityFunction
 from typing import Any, Callable, ContextManager, MutableMapping, TypeVar
