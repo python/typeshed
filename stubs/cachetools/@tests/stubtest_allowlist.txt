@@ -9,7 +9,6 @@ cachetools.TTLCache.__delitem__
 cachetools.TTLCache.__getitem__
 cachetools.TTLCache.__setitem__
 cachetools.cache.Cache.get
-cachetools.func.ttl_cache
 cachetools.lfu.LFUCache.__delitem__
 cachetools.lfu.LFUCache.__getitem__
 cachetools.lfu.LFUCache.__setitem__
