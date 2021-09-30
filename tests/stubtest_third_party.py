@@ -48,10 +48,8 @@ def run_stubtest(dist: Path) -> None:
         python_exe = str(venv_dir / "bin" / "python")
 
         dist_version = metadata.get("version")
-        if dist_version is None or dist_version == "0.1":
-            dist_req = dist.name
-        else:
-            dist_req = f"{dist.name}=={dist_version}.*"
+        assert dist_version is not None
+        dist_req = f"{dist.name}=={dist_version}.*"
 
         # If @tests/requirements-stubtest.txt exists, run "pip install" on it.
         req_path = dist / "@tests" / "requirements-stubtest.txt"
