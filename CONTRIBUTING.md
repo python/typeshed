@@ -101,9 +101,7 @@ supported:
   of [Semantic Versioning](https://semver.org/) that is the first two
   components. When the stubs are updated to a newer version
   of the library, the version of the stub should be bumped (note that
-  previous versions are still available on PyPI). Some legacy stubs are
-  marked with version `0.1`, indicating that their supported version is
-  unknown and needs to be updated.
+  previous versions are still available on PyPI).
 * `python2` (default: `false`): If set to `true`, the top-level stubs
   support both Python 2 and Python 3.
 * `requires` (optional): A list of other stub packages or packages with type
