@@ -124,7 +124,7 @@ class snicaddr(NamedTuple):
 
 class snicstats(NamedTuple):
     isup: bool
-    duplex: Any
+    duplex: int
     speed: int
     mtu: int
 
@@ -186,7 +186,7 @@ class pio(NamedTuple):
     write_bytes: int
 
 class pionice(NamedTuple):
-    ioclass: Any
+    ioclass: int
     value: int
 
 class pctxsw(NamedTuple):
@@ -205,7 +205,7 @@ class addr(NamedTuple):
     ip: str
     port: int
 
-conn_tmap: Any
+conn_tmap: dict[str, tuple[list[AddressFamily], list[SocketKind]]
 
 class Error(Exception):
     __module__: str
