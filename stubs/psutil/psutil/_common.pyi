@@ -1,5 +1,5 @@
-from _typeshed import StrOrBytesPath, SupportsWrite
 import enum
+from _typeshed import StrOrBytesPath, SupportsWrite
 from socket import AddressFamily, SocketKind
 from typing import Any, Callable, NamedTuple, TypeVar
 
