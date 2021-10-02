@@ -1,7 +1,7 @@
+from _typeshed import StrOrBytesPath, SupportsWrite
 import enum
 from socket import AddressFamily, SocketKind
 from typing import Any, Callable, NamedTuple, TypeVar
-from _typeshed import SupportsWrite, StrOrBytesPath
 
 POSIX: bool
 WINDOWS: bool
