@@ -92,14 +92,16 @@ if sys.platform == "win32":
         IOPRIO_LOW as IOPRIO_LOW,
         IOPRIO_NORMAL as IOPRIO_NORMAL,
         IOPRIO_VERYLOW as IOPRIO_VERYLOW,
+        win_service_get as win_service_get,
         win_service_iter as win_service_iter,
     )
 
 if sys.platform == "linux":
     PROCFS_PATH: str
-AF_LINK: Any
+AF_LINK: int
 version_info: tuple[int, int, int]
 __version__: str
+__author__: str
 
 class Process:
     def __init__(self, pid: int | None = ...) -> None: ...
@@ -131,7 +133,7 @@ class Process:
         def io_counters(self): ...
         def ionice(self, ioclass: int | None = ..., value: int | None = ...) -> int: ...
     if sys.platform == "linux":
-        def rlimit(self, resource: int, limits: tuple[int, int] | None = ...): ...
+        def rlimit(self, resource: int, limits: tuple[int, int] | None = ...) -> tuple[int, int]: ...
     if sys.platform != "darwin":
         def cpu_affinity(self, cpus: list[int] | None = ...) -> list[int] | None: ...
     if sys.platform == "linux":
