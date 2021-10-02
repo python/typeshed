@@ -205,7 +205,7 @@ class addr(NamedTuple):
     ip: str
     port: int
 
-conn_tmap: dict[str, tuple[list[AddressFamily], list[SocketKind]]
+conn_tmap: dict[str, tuple[list[AddressFamily], list[SocketKind]]]
 
 class Error(Exception):
     __module__: str
