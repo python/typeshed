@@ -31,7 +31,6 @@ from typing import (
     AsyncIterator,
     BinaryIO,
     ByteString,
-    Callable,
     FrozenSet,
     Generic,
     ItemsView,
