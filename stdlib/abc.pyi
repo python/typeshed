@@ -1,5 +1,7 @@
 from _typeshed import SupportsWrite
-from typing import Any, Callable, Generic, Tuple, Type, TypeVar
+from collections.abc import Callable
+from typing import Any, Generic, Tuple, Type, TypeVar
+from typing_extensions import Literal
 
 _T = TypeVar("_T")
 _R_co = TypeVar("_R_co", covariant=True)
@@ -17,10 +19,12 @@ class ABCMeta(type):
 def abstractmethod(funcobj: _FuncT) -> _FuncT: ...
 
 class abstractclassmethod(classmethod[_R_co], Generic[_R_co]):
+    __isabstractmethod__: Literal[True]
     def __init__(self: abstractclassmethod[_R_co], callable: Callable[..., _R_co]) -> None: ...
     def __get__(self, obj: _T | None, type: Type[_T] | None = ...) -> Callable[..., _R_co]: ...
 
 class abstractstaticmethod(staticmethod[_FuncT], Generic[_FuncT]):
+    __isabstractmethod__: Literal[True]
     def __init__(self, callable: _FuncT) -> None: ...
     def __get__(self, obj: _T | None, type: Type[_T] | None = ...) -> _FuncT: ...
 
