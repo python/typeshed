@@ -6,7 +6,7 @@ import functools
 import subprocess
 import sys
 import tempfile
-import toml
+import tomli
 import venv
 from glob import glob
 from pathlib import Path
@@ -34,7 +34,7 @@ def get_mypy_req():
 
 def run_stubtest(dist: Path) -> None:
     with open(dist / "METADATA.toml") as f:
-        metadata = dict(toml.loads(f.read()))
+        metadata = dict(tomli.loads(f.read()))
 
     # Ignore stubs that don't support Python 3
     if not has_py3_stubs(dist):
@@ -52,6 +52,18 @@ def run_stubtest(dist: Path) -> None:
             dist_req = dist.name
         else:
             dist_req = f"{dist.name}=={dist_version}.*"
+
+        # If @tests/requirements-stubtest.txt exists, run "pip install" on it.
+        req_path = dist / "@tests" / "requirements-stubtest.txt"
+        if req_path.exists():
+            try:
+                pip_cmd = [pip_exe, "install", "-r", str(req_path)]
+                subprocess.run(pip_cmd, check=True, capture_output=True)
+            except subprocess.CalledProcessError as e:
+                print(f"Failed to install requirements for {dist.name}", file=sys.stderr)
+                print(e.stdout.decode(), file=sys.stderr)
+                print(e.stderr.decode(), file=sys.stderr)
+                raise
 
         # We need stubtest to be able to import the package, so install mypy into the venv
         # Hopefully mypy continues to not need too many dependencies
@@ -93,16 +105,18 @@ def run_stubtest(dist: Path) -> None:
             subprocess.run(cmd, env={"MYPYPATH": str(dist), "MYPY_FORCE_COLOR": "1"}, check=True)
         except subprocess.CalledProcessError:
             print(f"stubtest failed for {dist.name}", file=sys.stderr)
+            print("\n\n", file=sys.stderr)
             if not allowlist_path.exists():
                 print(
-                    "\n\nRe-running stubtest with --generate-allowlist. "
-                    f"Add the following to {allowlist_path}:\n",
-                    file=sys.stderr,
+                    "Re-running stubtest with --generate-allowlist.\n"
+                    f"Add the following to {allowlist_path}:"
                 )
                 subprocess.run(cmd + ["--generate-allowlist"], env={"MYPYPATH": str(dist)})
+                print("\n\n")
             raise StubtestFailed from None
         else:
             print(f"stubtest succeeded for {dist.name}", file=sys.stderr)
+        print("\n\n", file=sys.stderr)
 
 
 # Keep this in sync with mypy_test.py
