@@ -32,7 +32,6 @@ from typing import (
     BinaryIO,
     ByteString,
     Callable,
-    Dict,
     FrozenSet,
     Generic,
     ItemsView,
