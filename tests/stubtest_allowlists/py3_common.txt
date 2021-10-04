@@ -16,7 +16,9 @@ _socket.*
 _threading_local.local.__new__
 _typeshed.*  # Utility types for typeshed, doesn't exist at runtime
 abc.abstractclassmethod
+abc.abstractclassmethod.__get__
 abc.abstractstaticmethod
+abc.abstractstaticmethod.__get__
 abc.ABCMeta.__new__  # pytype wants the parameter named cls and not mcls
 _weakref.CallableProxyType.__getattr__  # Should have all attributes of proxy
 _weakref.ProxyType.__getattr__  # Should have all attributes of proxy
