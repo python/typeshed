@@ -1,4 +1,5 @@
-from typing import Any, Iterable, Mapping, Sequence, Tuple
+# from re import RegexFlag  # Importing from regex breaks the Markdown stubtest
+from typing import Any, Iterable, Mapping, Pattern, Sequence, Tuple
 
 ascii_letters: str
 ascii_lowercase: str
@@ -14,6 +15,11 @@ def capwords(s: str, sep: str | None = ...) -> str: ...
 
 class Template:
     template: str
+    delimiter: str
+    idpattern: str
+    braceidpattern: str | None
+    flags: Any  # RegexFlag
+    pattern: Pattern[str]
     def __init__(self, template: str) -> None: ...
     def substitute(self, __mapping: Mapping[str, object] = ..., **kwds: object) -> str: ...
     def safe_substitute(self, __mapping: Mapping[str, object] = ..., **kwds: object) -> str: ...
