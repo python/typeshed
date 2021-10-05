@@ -1,5 +1,11 @@
-from re import Pattern, RegexFlag  # Importing from regex breaks the Markdown stubtest
+import sys
+from re import RegexFlag
 from typing import Any, Iterable, Mapping, Sequence, Tuple
+
+if sys.version_info >= (3, 8):
+    from re import Pattern
+else:
+    from typing import Pattern
 
 ascii_letters: str
 ascii_lowercase: str
