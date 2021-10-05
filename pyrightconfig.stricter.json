@@ -89,7 +89,7 @@
     "reportUntypedClassDecorator": "error",
     "reportUntypedBaseClass": "error",
     "reportUntypedNamedTuple": "error",
-    "reportPrivateUsage": "error",
+    "reportPrivateUsage": "none",
     "reportConstantRedefinition": "error",
     "reportIncompatibleMethodOverride": "error",
     "reportIncompatibleVariableOverride": "error",
