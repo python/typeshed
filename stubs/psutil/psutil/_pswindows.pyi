@@ -1,5 +1,8 @@
-import enum
+import sys
 from typing import Any, NamedTuple
+
+if sys.version_info >= (3, 4):
+    from enum import IntEnum
 
 from ._common import (
     ENCODING as ENCODING,
@@ -33,7 +36,7 @@ AF_LINK: int
 AddressFamily: Any
 TCP_STATUSES: Any
 
-class Priority(enum.IntEnum):
+class Priority(IntEnum):
     ABOVE_NORMAL_PRIORITY_CLASS: Any
     BELOW_NORMAL_PRIORITY_CLASS: Any
     HIGH_PRIORITY_CLASS: Any
@@ -46,7 +49,7 @@ IOPRIO_LOW: int
 IOPRIO_NORMAL: int
 IOPRIO_HIGH: int
 
-class IOPriority(enum.IntEnum):
+class IOPriority(IntEnum):
     IOPRIO_VERYLOW: int
     IOPRIO_LOW: int
     IOPRIO_NORMAL: int
