@@ -1,5 +1,5 @@
-# from re import RegexFlag  # Importing from regex breaks the Markdown stubtest
-from typing import Any, Iterable, Mapping, Pattern, Sequence, Tuple
+from re import Pattern, RegexFlag  # Importing from regex breaks the Markdown stubtest
+from typing import Any, Iterable, Mapping, Sequence, Tuple
 
 ascii_letters: str
 ascii_lowercase: str
@@ -18,7 +18,7 @@ class Template:
     delimiter: str
     idpattern: str
     braceidpattern: str | None
-    flags: Any  # RegexFlag
+    flags: RegexFlag
     pattern: Pattern[str]
     def __init__(self, template: str) -> None: ...
     def substitute(self, __mapping: Mapping[str, object] = ..., **kwds: object) -> str: ...
