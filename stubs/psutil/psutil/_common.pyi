@@ -1,5 +1,7 @@
 from enum import IntEnum
-from typing import Any, Callable, NamedTuple, TypeVar
+from _typeshed import StrOrBytesPath, SupportsWrite
+from socket import AddressFamily, SocketKind
+from typing import Any, Callable, NamedTuple, TypeVar, overload
 
 POSIX: bool
 WINDOWS: bool
@@ -106,15 +108,15 @@ class suser(NamedTuple):
 
 class sconn(NamedTuple):
     fd: int
-    family: Any
-    type: Any
+    family: AddressFamily
+    type: SocketKind
     laddr: str
     raddr: str
     status: str
     pid: int
 
 class snicaddr(NamedTuple):
-    family: Any
+    family: AddressFamily
     address: str
     netmask: str | None
     broadcast: str | None
@@ -122,7 +124,7 @@ class snicaddr(NamedTuple):
 
 class snicstats(NamedTuple):
     isup: bool
-    duplex: Any
+    duplex: int
     speed: int
     mtu: int
 
@@ -184,7 +186,7 @@ class pio(NamedTuple):
     write_bytes: int
 
 class pionice(NamedTuple):
-    ioclass: Any
+    ioclass: int
     value: int
 
 class pctxsw(NamedTuple):
@@ -193,8 +195,8 @@ class pctxsw(NamedTuple):
 
 class pconn(NamedTuple):
     fd: int
-    family: Any
-    type: Any
+    family: AddressFamily
+    type: SocketKind
     laddr: addr
     raddr: addr
     status: str
@@ -203,7 +205,7 @@ class addr(NamedTuple):
     ip: str
     port: int
 
-conn_tmap: Any
+conn_tmap: dict[str, tuple[list[AddressFamily], list[SocketKind]]]
 
 class Error(Exception):
     __module__: str
@@ -244,13 +246,16 @@ _Func = TypeVar("_Func", bound=Callable[..., Any])
 def usage_percent(used, total, round_: int | None = ...) -> float: ...
 def memoize(fun: _Func) -> _Func: ...
 def memoize_when_activated(fun: _Func) -> _Func: ...
-def isfile_strict(path) -> bool: ...
-def path_exists_strict(path) -> bool: ...
+def isfile_strict(path: StrOrBytesPath) -> bool: ...
+def path_exists_strict(path: StrOrBytesPath) -> bool: ...
 def supports_ipv6() -> bool: ...
 def parse_environ_block(data) -> dict[str, Any]: ...
-def sockfam_to_enum(num) -> IntEnum: ...
-def socktype_to_enum(num) -> IntEnum: ...
-def conn_to_ntuple(fd, fam, type_, laddr, raddr, status, status_map, pid: Any | None = ...) -> pconn | sconn: ...
+def sockfam_to_enum(num) -> AddressFamily: ...
+def socktype_to_enum(num) -> SocketKindm: ...
+@overload
+def conn_to_ntuple(fd: int, fam: int, type_: int, laddr, raddr, status: str, status_map, pid: int) -> sconn: ...
+@overload
+def conn_to_ntuple(fd: int, fam: int, type_: int, laddr, raddr, status: str, status_map, pid: None = ...) -> pconn: ...
 def deprecated_method(replacement: str) -> Callable[[_Func], _Func]: ...
 
 class _WrapNumbers:
@@ -263,10 +268,10 @@ class _WrapNumbers:
     def cache_clear(self, name: Any | None = ...) -> None: ...
     def cache_info(self) -> tuple[dict, dict, dict]: ...
 
-def wrap_numbers(input_dict, name) -> dict[Any]: ...
+def wrap_numbers(input_dict, name: str) -> dict[Any]: ...
 def bytes2human(n: int, format: str = ...) -> str: ...
 def get_procfs_path() -> str: ...
-def term_supports_colors(file=...) -> bool: ...
+def term_supports_colors(file: SupportsWrite[str] = ...) -> bool: ...
 def hilite(s: str, color: str | None = ..., bold: bool = ...) -> str: ...
-def print_color(s: str, color: str | None = ..., bold: bool = ..., file=...) -> None: ...
+def print_color(s: str, color: str | None = ..., bold: bool = ..., file: SupportsWrite[str] = ...) -> None: ...
 def debug(msg) -> None: ...

@@ -51,6 +51,7 @@ from ._common import (
     pcputimes,
     pctxsw,
     pgids,
+    pionice,
     popenfile,
     pthread,
     puids,

@@ -89,7 +89,7 @@ jobs:
         python-version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
       fail-fast: false
     env:
-      PYRIGHT_VERSION: 1.1.160 # Must match pyright_test.py.
+      PYRIGHT_VERSION: 1.1.175 # Must match pyright_test.py.
     steps:
       - uses: actions/checkout@v2
       - uses: jakebailey/pyright-action@v1
@@ -113,7 +113,7 @@ jobs:
       matrix:
         os: ["ubuntu-latest", "windows-latest", "macos-latest"]
         # Python 3.9.7 is required due to changes to ForwardRef.
-        python-version: ["3.6", "3.7", "3.8", "3.9.7", "3.10.0-rc.2"]
+        python-version: ["3.6", "3.7", "3.8", "3.9.7", "3.10"]
       fail-fast: false
 
     steps:
