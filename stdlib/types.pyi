@@ -19,7 +19,7 @@ from typing import (
     ValuesView,
     overload,
 )
-from typing_extensions import Literal, final
+from typing_extensions import final
 
 # Note, all classes "defined" here require special handling.
 
@@ -379,9 +379,7 @@ if sys.version_info >= (3, 9):
         def __getattr__(self, name: str) -> Any: ...  # incomplete
 
 if sys.version_info >= (3, 10):
-    @final
-    class NoneType:
-        def __bool__(self) -> Literal[False]: ...
+    NoneType = type(None)
     EllipsisType = ellipsis  # noqa F811 from builtins
     from builtins import _NotImplementedType
 
