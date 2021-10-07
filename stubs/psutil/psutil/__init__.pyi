@@ -87,6 +87,7 @@ if sys.platform == "linux":
         svmem,
     )
 elif sys.platform == "win32":
+    from ._common import pcputimes
     from ._psutil_windows import (
         ABOVE_NORMAL_PRIORITY_CLASS as ABOVE_NORMAL_PRIORITY_CLASS,
         BELOW_NORMAL_PRIORITY_CLASS as BELOW_NORMAL_PRIORITY_CLASS,
@@ -109,9 +110,9 @@ elif sys.platform == "win32":
         svmem,
         win_service_iter as win_service_iter,
     )
-    from ._common import pcputimes
 elif sys.platform == "darwin":
-    from ._psosx import pfullmem, pmem
+    from ._common import pcputimes
+    from ._psosx import pfullmem, pmem, scputimes, svmem
 
 if sys.platform == "linux":
     PROCFS_PATH: str
