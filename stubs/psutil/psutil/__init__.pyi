@@ -47,31 +47,31 @@ from ._common import (
     NoSuchProcess as NoSuchProcess,
     TimeoutExpired as TimeoutExpired,
     ZombieProcess as ZombieProcess,
-    pconn as pconn,
-    pcputimes as pcputimes,
-    pctxsw as pctxsw,
-    pgids as pgids,
-    popenfile as popenfile,
-    pthread as pthread,
-    puids as puids,
-    sbattery as sbattery,
-    sconn as sconn,
-    scpufreq as scpufreq,
-    scpustats as scpustats,
-    sdiskio as sdiskio,
-    sdiskpart as sdiskpart,
-    sdiskusage as sdiskusage,
-    sfan as sfan,
-    shwtemp as shwtemp,
-    snetio as snetio,
-    snicaddr as snicaddr,
-    snicstats as snicstats,
-    sswap as sswap,
-    suser as suser,
+    pconn,
+    pcputimes,
+    pctxsw,
+    pgids,
+    popenfile,
+    pthread,
+    puids,
+    sbattery,
+    sconn,
+    scpufreq,
+    scpustats,
+    sdiskio,
+    sdiskpart,
+    sdiskusage,
+    sfan,
+    shwtemp,
+    snetio,
+    snicaddr,
+    snicstats,
+    sswap,
+    suser,
 )
 
 if sys.platform != "darwin":
-    from ._common import pio as pio, pionice as pionice
+    from ._common import pio, pionice
 
 if sys.platform == "linux":
     from ._pslinux import (
@@ -79,13 +79,13 @@ if sys.platform == "linux":
         IOPRIO_CLASS_IDLE as IOPRIO_CLASS_IDLE,
         IOPRIO_CLASS_NONE as IOPRIO_CLASS_NONE,
         IOPRIO_CLASS_RT as IOPRIO_CLASS_RT,
-        pfullmem as pfullmem,
-        pmem as pmem,
-        pmmap_ext as pmmap_ext,
-        pmmap_grouped as pmmap_grouped,
-        ppid_map as ppid_map,
-        scputimes as scputimes,
-        svmem as svmem,
+        pfullmem,
+        pmem,
+        pmmap_ext,
+        pmmap_grouped,
+        ppid_map,
+        scputimes,
+        svmem,
     )
 elif sys.platform == "win32":
     from ._psutil_windows import (
@@ -102,12 +102,12 @@ elif sys.platform == "win32":
         IOPRIO_LOW as IOPRIO_LOW,
         IOPRIO_NORMAL as IOPRIO_NORMAL,
         IOPRIO_VERYLOW as IOPRIO_VERYLOW,
-        pfullmem as pfullmem,
-        pmem as pmem,
-        pmmap_ext as pmmap_ext,
-        pmmap_grouped as pmmap_grouped,
-        scputimes as scputimes,
-        svmem as svmem,
+        pfullmem,
+        pmem,
+        pmmap_ext,
+        pmmap_grouped,
+        scputimes,
+        svmem,
         win_service_iter as win_service_iter,
     )
 elif sys.platform == "darwin":
@@ -170,7 +170,7 @@ class Process:
     if sys.platform != "darwin":
         def memory_maps(self, grouped: bool = ...) -> list[Any]: ...
     def open_files(self) -> list[popenfile]: ...
-    def connections(self, kind: str = ...) -> list[pconn]: ...
+    def connections(self, kind: str = ...) -> list[pconn | sconn]: ...
     def send_signal(self, sig: int) -> None: ...
     def suspend(self) -> None: ...
     def resume(self) -> None: ...
@@ -205,7 +205,7 @@ def disk_usage(path: str) -> sdiskusage: ...
 def disk_partitions(all: bool = ...) -> list[sdiskpart]: ...
 def disk_io_counters(perdisk: bool = ..., nowrap: bool = ...) -> sdiskio: ...
 def net_io_counters(pernic: bool = ..., nowrap: bool = ...) -> snetio: ...
-def net_connections(kind: str = ...) -> list[sconn]: ...
+def net_connections(kind: str = ...) -> list[pconn | sconn]: ...
 def net_if_addrs() -> dict[str, list[snicaddr]]: ...
 def net_if_stats() -> dict[str, snicstats]: ...
 
