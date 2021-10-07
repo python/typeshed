@@ -1,5 +1,5 @@
 import sys
-from typing import Any, Callable, ContextManager, Iterable, Iterator, NamedTuple, TypeVar
+from typing import Any, Callable, ContextManager, Iterable, Iterator, NamedTuple, Tuple, TypeVar
 
 from ._common import (
     AIX as AIX,
@@ -47,28 +47,27 @@ from ._common import (
     NoSuchProcess as NoSuchProcess,
     TimeoutExpired as TimeoutExpired,
     ZombieProcess as ZombieProcess,
-    pconn,
-    pcputimes,
-    pctxsw,
-    pgids,
-    pionice,
-    popenfile,
-    pthread,
-    puids,
-    sbattery,
-    sconn,
-    scpufreq,
-    scpustats,
-    sdiskio,
-    sdiskpart,
-    sdiskusage,
-    sfan,
-    shwtemp,
-    snetio,
-    snicaddr,
-    snicstats,
-    sswap,
-    suser,
+    pconn as pconn,
+    pcputimes as pcputimes,
+    pctxsw as pctxsw,
+    pgids as pgids,
+    popenfile as popenfile,
+    pthread as pthread,
+    puids as puids,
+    sbattery as sbattery,
+    sconn as sconn,
+    scpufreq as scpufreq,
+    scpustats as scpustats,
+    sdiskio as sdiskio,
+    sdiskpart as sdiskpart,
+    sdiskusage as sdiskusage,
+    sfan as sfan,
+    shwtemp as shwtemp,
+    snetio as snetio,
+    snicaddr as snicaddr,
+    snicstats as snicstats,
+    sswap as sswap,
+    suser as suser,
 )
 
 if sys.platform != "darwin":
@@ -150,7 +149,7 @@ class Process:
     if sys.platform == "linux":
         def rlimit(self, resource: int, limits: tuple[int, int] | None = ...): ...
     if sys.platform != "darwin":
-        def cpu_affinity(self, cpus: list[int] | tuple[int] | None = ...) -> list[int]: ...
+        def cpu_affinity(self, cpus: list[int] | Tuple[int, ...] | None = ...) -> list[int]: ...
     if sys.platform == "linux":
         def cpu_num(self) -> int: ...
     def environ(self) -> dict[str, str]: ...
