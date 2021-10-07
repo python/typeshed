@@ -98,6 +98,16 @@ if sys.platform == "win32":
     )
 
 if sys.platform == "linux":
+    from ._pslinux import pfullmem, pmem
+elif sys.platform == "darwin":
+    from ._psosx import pfullmem, pmem
+elif sys.platform == "win32":
+    from ._pswindows import pfullmem, pmem
+else:
+    pmem = Any
+    pfullmem = Any
+
+if sys.platform == "linux":
     PROCFS_PATH: str
 AF_LINK: int
 version_info: tuple[int, int, int]
@@ -148,15 +158,6 @@ class Process:
     def children(self, recursive: bool = ...) -> list[Process]: ...
     def cpu_percent(self, interval: float | None = ...) -> float: ...
     def cpu_times(self) -> pcputimes: ...
-    if sys.platform == "linux":
-        from ._pslinux import pmem, pfullmem
-    elif sys.platform == "darwin":
-        from ._psosx import pmem, pfullmem
-    elif sys.platform == "win32":
-        from ._pswindows import pmem, pfullmem
-    else:
-        pmem = Any
-        pfullmem = Any
     def memory_info(self) -> pmem: ...
     def memory_info_ex(self) -> pmem: ...
     def memory_full_info(self) -> pfullmem: ...
