@@ -47,7 +47,7 @@ def run_stubtest(dist: Path) -> None:
         pip_exe = str(venv_dir / "bin" / "pip")
         python_exe = str(venv_dir / "bin" / "python")
 
-        dist_version = metadata.get("version")
+        dist_version = metadata["version"]
         assert isinstance(dist_version, str)
         if dist_version == "0.1":
             dist_req = dist.name
