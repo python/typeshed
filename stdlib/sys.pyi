@@ -70,8 +70,8 @@ if sys.version_info >= (3, 9):
 prefix: str
 if sys.version_info >= (3, 8):
     pycache_prefix: str | None
-ps1: str
-ps2: str
+ps1: object
+ps2: object
 stdin: TextIO
 stdout: TextIO
 stderr: TextIO
