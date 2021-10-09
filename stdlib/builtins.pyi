@@ -56,12 +56,11 @@ from typing import (
     Tuple,
     Type,
     TypeVar,
-    TypeGuard,
     Union,
     ValuesView,
     overload,
 )
-from typing_extensions import Literal, SupportsIndex, final
+from typing_extensions import Literal, SupportsIndex, TypeGuard, final
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
