@@ -56,6 +56,7 @@ from typing import (
     Tuple,
     Type,
     TypeVar,
+    TypeGuard,
     Union,
     ValuesView,
     overload,
@@ -1034,6 +1035,8 @@ def exit(code: object = ...) -> NoReturn: ...
 class filter(Iterator[_T], Generic[_T]):
     @overload
     def __init__(self, __function: None, __iterable: Iterable[_T | None]) -> None: ...
+    @overload
+    def __init__(self, __function: Callable[[_S], TypeGuard[_T]], __iterable: Iterable[_S]) -> None: ...
     @overload
     def __init__(self, __function: Callable[[_T], Any], __iterable: Iterable[_T]) -> None: ...
     def __iter__(self) -> Iterator[_T]: ...
