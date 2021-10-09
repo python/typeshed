@@ -1,5 +1,6 @@
 import types
-from typing import Any, Callable, Coroutine, TypeVar
+from collections.abc import Callable, Coroutine
+from typing import Any, TypeVar
 from typing_extensions import TypeGuard
 
 _F = TypeVar("_F", bound=Callable[..., Any])
