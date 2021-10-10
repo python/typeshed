@@ -40,7 +40,7 @@ class _Cell:
 
 # Make sure this class definition stays roughly in line with `builtins.function`
 @final
-class FunctionType:
+class FunctionType(Callable):
     __closure__: tuple[_Cell, ...] | None
     __code__: CodeType
     __defaults__: tuple[Any, ...] | None
@@ -279,7 +279,7 @@ class _StaticFunctionType:
     def __get__(self, obj: object | None, type: type | None) -> FunctionType: ...
 
 @final
-class MethodType:
+class MethodType(Callable):
     __closure__: tuple[_Cell, ...] | None  # inherited from the added function
     __defaults__: tuple[Any, ...] | None  # inherited from the added function
     __func__: _StaticFunctionType
@@ -290,7 +290,7 @@ class MethodType:
     def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
 
 @final
-class BuiltinFunctionType:
+class BuiltinFunctionType(Callable):
     __self__: object | ModuleType
     __name__: str
     __qualname__: str
@@ -300,14 +300,14 @@ BuiltinMethodType = BuiltinFunctionType
 
 if sys.version_info >= (3, 7):
     @final
-    class WrapperDescriptorType:
+    class WrapperDescriptorType(Callable):
         __name__: str
         __qualname__: str
         __objclass__: type
         def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
         def __get__(self, obj: Any, type: type = ...) -> Any: ...
     @final
-    class MethodWrapperType:
+    class MethodWrapperType(Callable):
         __self__: object
         __name__: str
         __qualname__: str
@@ -316,14 +316,14 @@ if sys.version_info >= (3, 7):
         def __eq__(self, other: Any) -> bool: ...
         def __ne__(self, other: Any) -> bool: ...
     @final
-    class MethodDescriptorType:
+    class MethodDescriptorType(Callable):
         __name__: str
         __qualname__: str
         __objclass__: type
         def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
         def __get__(self, obj: Any, type: type = ...) -> Any: ...
     @final
-    class ClassMethodDescriptorType:
+    class ClassMethodDescriptorType(Callable):
         __name__: str
         __qualname__: str
         __objclass__: type
@@ -424,9 +424,7 @@ if sys.version_info >= (3, 9):
         def __getattr__(self, name: str) -> Any: ...  # incomplete
 
 if sys.version_info >= (3, 10):
-    @final
-    class NoneType:
-        def __bool__(self) -> Literal[False]: ...
+    NoneType = type(None)
     EllipsisType = ellipsis  # noqa F811 from builtins
     from builtins import _NotImplementedType
 
