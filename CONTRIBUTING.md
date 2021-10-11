@@ -103,7 +103,7 @@ supported:
   like this: `2.7.*`. When the stubs are updated to a newer version
   of the library, the version of the stub should be bumped (note that
   previous versions are still available on PyPI).
-  Other stubs don't use the asterisk to denote the API-independent part.
+  Some stubs don't use the asterisk to denote the API-independent part.
 * `python2` (default: `false`): If set to `true`, the top-level stubs
   support both Python 2 and Python 3.
 * `requires` (optional): A list of other stub packages or packages with type
