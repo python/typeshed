@@ -104,8 +104,7 @@ supported:
   of the library, the version of the stub should be bumped (note that
   previous versions are still available on PyPI). Some legacy stubs are
   marked with version `0.1`, indicating that their supported version is
-  unknown and needs to be updated. Other stubs don't use the asterisk
-  to denote the API-independent part.
+  unknown and needs to be updated.
 * `python2` (default: `false`): If set to `true`, the top-level stubs
   support both Python 2 and Python 3.
 * `requires` (optional): A list of other stub packages or packages with type
