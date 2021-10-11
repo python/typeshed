@@ -95,13 +95,15 @@ The metadata file describes the stubs package using the
 [TOML file format](https://toml.io/en/). Currently, the following keys are
 supported:
 
-* `version`: The latest version of the library that the stubs support.
+* `version`: The versions of the library that the stubs support.
   For libraries that reflect API changes in the version number only
-  the parts indicating the API level should be specified. In the case
-  of [Semantic Versioning](https://semver.org/) that is the first two
-  components. When the stubs are updated to a newer version
+  the parts indicating the API level should be specified, with an
+  asterisk representing the API-independent part. In the case
+  of [Semantic Versioning](https://semver.org/), this version could look
+  like this: `2.7.*`. When the stubs are updated to a newer version
   of the library, the version of the stub should be bumped (note that
   previous versions are still available on PyPI).
+  Other stubs don't use the asterisk to denote the API-independent part.
 * `python2` (default: `false`): If set to `true`, the top-level stubs
   support both Python 2 and Python 3.
 * `requires` (optional): A list of other stub packages or packages with type

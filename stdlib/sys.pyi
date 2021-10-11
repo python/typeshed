@@ -47,7 +47,7 @@ if sys.platform == "win32":
     dllhandle: int
 dont_write_bytecode: bool
 displayhook: Callable[[object], Any]
-excepthook: Callable[[Type[BaseException], BaseException, TracebackType], Any]
+excepthook: Callable[[Type[BaseException], BaseException, TracebackType | None], Any]
 exec_prefix: str
 executable: str
 float_repr_style: str
@@ -70,8 +70,8 @@ if sys.version_info >= (3, 9):
 prefix: str
 if sys.version_info >= (3, 8):
     pycache_prefix: str | None
-ps1: str
-ps2: str
+ps1: object
+ps2: object
 stdin: TextIO
 stdout: TextIO
 stderr: TextIO
