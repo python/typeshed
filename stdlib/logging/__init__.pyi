@@ -326,7 +326,6 @@ class LogRecord:
     lineno: int
     module: str
     msecs: float
-    message: str
     msg: str
     name: str
     pathname: str
