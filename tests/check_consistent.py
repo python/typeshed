@@ -169,7 +169,8 @@ def check_metadata():
         assert "version" in data, f"Missing version for {distribution}"
         version = data["version"]
         msg = f"Unsupported Python version {version}"
-        assert re.match(r"^\d+(\.\d+)*(\.\*)?$", version), msg
+        assert isinstance(version, str), msg
+        assert re.match(r"^(\d+(\.\d+)+|\d+(\.\d+)*\.\*)$", version), msg
         for key in data:
             assert key in metadata_keys, f"Unexpected key {key} for {distribution}"
         assert isinstance(data.get("python2", False), bool), f"Invalid python2 value for {distribution}"
