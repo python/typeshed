@@ -32,6 +32,7 @@ class FTP:
     lastresp: str
     file: TextIO | None
     encoding: str
+    trust_server_pasv_ipv4_address: bool
     def __enter__(self: Self) -> Self: ...
     def __exit__(
         self, exc_type: Type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
@@ -45,6 +46,8 @@ class FTP:
         acct: str = ...,
         timeout: float = ...,
         source_address: Tuple[str, int] | None = ...,
+        *,
+        encoding: str = ...,
     ) -> None: ...
     def connect(
         self, host: str = ..., port: int = ..., timeout: float = ..., source_address: Tuple[str, int] | None = ...
@@ -111,6 +114,8 @@ class FTP_TLS(FTP):
         context: SSLContext | None = ...,
         timeout: float = ...,
         source_address: Tuple[str, int] | None = ...,
+        *,
+        encoding: str = ...,
     ) -> None: ...
     ssl_version: int
     keyfile: str | None
