@@ -49,10 +49,7 @@ def run_stubtest(dist: Path) -> None:
 
         dist_version = metadata["version"]
         assert isinstance(dist_version, str)
-        if dist_version == "0.1":
-            dist_req = dist.name
-        else:
-            dist_req = f"{dist.name}=={dist_version}"
+        dist_req = f"{dist.name}=={dist_version}"
 
         # If @tests/requirements-stubtest.txt exists, run "pip install" on it.
         req_path = dist / "@tests" / "requirements-stubtest.txt"
