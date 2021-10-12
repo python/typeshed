@@ -348,6 +348,6 @@ class SoupStrainer:
     searchTag = search_tag
     def search(self, markup: PageElement | Iterable[PageElement]): ...
 
-class ResultSet(Generic[_PageElementT], List[_PageElementT]):
+class ResultSet(List[_PageElementT], Generic[_PageElementT]):
     source: SoupStrainer
     def __init__(self, source: SoupStrainer, result: Iterable[_PageElementT] = ...) -> None: ...
