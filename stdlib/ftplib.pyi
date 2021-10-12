@@ -1,3 +1,4 @@
+import sys
 from _typeshed import Self, SupportsRead, SupportsReadline
 from socket import socket
 from ssl import SSLContext
@@ -38,17 +39,28 @@ class FTP:
         self, exc_type: Type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
     ) -> None: ...
     source_address: Tuple[str, int] | None
-    def __init__(
-        self,
-        host: str = ...,
-        user: str = ...,
-        passwd: str = ...,
-        acct: str = ...,
-        timeout: float = ...,
-        source_address: Tuple[str, int] | None = ...,
-        *,
-        encoding: str = ...,
-    ) -> None: ...
+    if sys.version_info >= (3, 9):
+        def __init__(
+            self,
+            host: str = ...,
+            user: str = ...,
+            passwd: str = ...,
+            acct: str = ...,
+            timeout: float = ...,
+            source_address: Tuple[str, int] | None = ...,
+            *,
+            encoding: str = ...,
+        ) -> None: ...
+    else:
+        def __init__(
+            self,
+            host: str = ...,
+            user: str = ...,
+            passwd: str = ...,
+            acct: str = ...,
+            timeout: float = ...,
+            source_address: Tuple[str, int] | None = ...,
+        ) -> None: ...
     def connect(
         self, host: str = ..., port: int = ..., timeout: float = ..., source_address: Tuple[str, int] | None = ...
     ) -> str: ...
@@ -103,20 +115,34 @@ class FTP:
     def close(self) -> None: ...
 
 class FTP_TLS(FTP):
-    def __init__(
-        self,
-        host: str = ...,
-        user: str = ...,
-        passwd: str = ...,
-        acct: str = ...,
-        keyfile: str | None = ...,
-        certfile: str | None = ...,
-        context: SSLContext | None = ...,
-        timeout: float = ...,
-        source_address: Tuple[str, int] | None = ...,
-        *,
-        encoding: str = ...,
-    ) -> None: ...
+    if sys.version_info >= (3, 9):
+        def __init__(
+            self,
+            host: str = ...,
+            user: str = ...,
+            passwd: str = ...,
+            acct: str = ...,
+            keyfile: str | None = ...,
+            certfile: str | None = ...,
+            context: SSLContext | None = ...,
+            timeout: float = ...,
+            source_address: Tuple[str, int] | None = ...,
+            *,
+            encoding: str = ...,
+        ) -> None: ...
+    else:
+        def __init__(
+            self,
+            host: str = ...,
+            user: str = ...,
+            passwd: str = ...,
+            acct: str = ...,
+            keyfile: str | None = ...,
+            certfile: str | None = ...,
+            context: SSLContext | None = ...,
+            timeout: float = ...,
+            source_address: Tuple[str, int] | None = ...,
+        ) -> None: ...
     ssl_version: int
     keyfile: str | None
     certfile: str | None
