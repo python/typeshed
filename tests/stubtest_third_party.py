@@ -13,7 +13,13 @@ from pathlib import Path
 typeshed_path = Path(__file__).parent.parent
 sys.path.append(str(typeshed_path / "src"))
 
-from typeshed_utils import distribution_path, read_metadata, supported_python_versions, third_party_distributions  # noqa E402
+from typeshed_utils import (  # noqa E402
+    distribution_modules,
+    distribution_path,
+    read_metadata,
+    supported_python_versions,
+    third_party_distributions,
+)
 
 EXCLUDE_LIST = [
     "Flask",  # fails when stubtest tries to stringify some object
@@ -79,8 +85,7 @@ def run_stubtest(dist: str) -> None:
             print(e.stderr.decode(), file=sys.stderr)
             raise
 
-        packages_to_check = [d.name for d in dist_path.iterdir() if d.is_dir() and d.name.isidentifier()]
-        modules_to_check = [d.stem for d in dist_path.iterdir() if d.is_file() and d.suffix == ".pyi"]
+        to_check = [m[0] for m in distribution_modules(typeshed_path, dist)]
         cmd = [
             python_exe,
             "-m",
@@ -92,8 +97,7 @@ def run_stubtest(dist: str) -> None:
             # Use --custom-typeshed-dir in case we make linked changes to stdlib or _typeshed
             "--custom-typeshed-dir",
             str(typeshed_path),
-            *packages_to_check,
-            *modules_to_check,
+            *to_check,
         ]
         allowlist_path = dist_path / "@tests" / "stubtest_allowlist.txt"
         if allowlist_path.exists():

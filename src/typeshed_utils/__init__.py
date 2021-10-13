@@ -102,9 +102,14 @@ def distribution_modules(
     """Yield the name and path of a distribution's top-level packages."""
     root = distribution_source_path(typeshed_path, distribution, py2=py2)
     for entry in root.iterdir():
-        if entry.name == PY2_PATH:
-            continue
-        yield entry.stem, entry
+        if entry.is_dir():
+            if entry.name == PY2_PATH:
+                continue
+            if entry.name.isidentifier():
+                yield entry.name, entry
+        elif entry.is_file():
+            if entry.suffix == ".pyi" and entry.stem.isidentifier():
+                yield entry.stem, entry
 
 
 def find_stubs_in_paths(paths: Iterable[Path]) -> Iterator[Path]:
