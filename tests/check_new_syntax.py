@@ -18,8 +18,11 @@ def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
                 if node.value.id == "Optional":
                     new_syntax = f"{ast.unparse(node.slice)} | None"
                     errors.append(f"{path}:{node.lineno}: Use PEP 604 syntax for Optional, e.g. `{new_syntax}`")
-                if node.value.id in {"List", "Dict"}:
-                    new_syntax = f"{node.value.id.lower()}[{ast.unparse(node.slice)}]"
+                if node.value.id == "List":
+                    new_syntax = f"list[{ast.unparse(node.slice)}]"
+                    errors.append(f"{path}:{node.lineno}: Use built-in generics, e.g. `{new_syntax}`")
+                if node.value.id == "Dict":
+                    new_syntax = f"dict[{ast.unparse(node.slice)[1:-1]}]"
                     errors.append(f"{path}:{node.lineno}: Use built-in generics, e.g. `{new_syntax}`")
 
             self.generic_visit(node)
