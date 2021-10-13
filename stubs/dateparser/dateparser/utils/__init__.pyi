@@ -1,5 +1,5 @@
 from collections import OrderedDict
-from typing import Any, List, Mapping
+from typing import Any, Mapping
 
 def strip_braces(date_string: str) -> str: ...
 def normalize_unicode(string: str, form: str = ...) -> str: ...
