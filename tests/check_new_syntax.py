@@ -10,7 +10,7 @@ def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
     errors = []
 
     def unparse_without_tuple_parens(node: ast.AST) -> str:
-        if isinstance(node, ast.Tuple):
+        if isinstance(node, ast.Tuple) and node.elts:
             return ast.unparse(node)[1:-1]
         return ast.unparse(node)
 
