@@ -20,8 +20,8 @@ jobs:
       - run: pip install $(grep tomli== requirements-tests-py3.txt)
       - run: ./tests/check_consistent.py
 
-  pep-604:
-    name: Check for PEP 604 usage
+  new-syntax:
+    name: Ensure new syntax usage
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

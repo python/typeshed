@@ -12,6 +12,8 @@ CR: bytes
 LF: bytes
 CRLF: bytes
 
+_list = list  # conflicts with a method named "list"
+
 class POP3:
     encoding: str
     host: str
@@ -41,7 +43,7 @@ class POP3:
     @overload
     def uidl(self, which: Any) -> bytes: ...
     def utf8(self) -> bytes: ...
-    def capa(self) -> dict[str, List[str]]: ...
+    def capa(self) -> dict[str, _list[str]]: ...
     def stls(self, context: ssl.SSLContext | None = ...) -> bytes: ...
 
 class POP3_SSL(POP3):

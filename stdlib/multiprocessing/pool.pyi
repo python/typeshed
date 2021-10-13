@@ -38,7 +38,7 @@ class MapResult(ApplyResult[List[_T]]):
             pool: Pool,
             chunksize: int,
             length: int,
-            callback: Callable[[List[_T]], None] | None,
+            callback: Callable[[list[_T]], None] | None,
             error_callback: Callable[[BaseException], None] | None,
         ) -> None: ...
     else:
@@ -47,7 +47,7 @@ class MapResult(ApplyResult[List[_T]]):
             cache: dict[int, ApplyResult[Any]],
             chunksize: int,
             length: int,
-            callback: Callable[[List[_T]], None] | None,
+            callback: Callable[[list[_T]], None] | None,
             error_callback: Callable[[BaseException], None] | None,
         ) -> None: ...
 
