@@ -14,7 +14,7 @@ class ParseError(Exception):
 class Parser:
     grammar: Grammar
     convert: _Convert
-    stack: list[Tuple[_DFAS, int, _RawNode]]
+    stack: list[tuple[_DFAS, int, _RawNode]]
     rootnode: _NL | None
     used_names: Set[str]
     def __init__(self, grammar: Grammar, convert: _Convert | None = ...) -> None: ...

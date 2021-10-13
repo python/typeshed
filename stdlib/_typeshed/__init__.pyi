@@ -57,7 +57,7 @@ class SupportsTrunc(Protocol):
 
 # stable
 class SupportsItems(Protocol[_KT_co, _VT_co]):
-    def items(self) -> AbstractSet[Tuple[_KT_co, _VT_co]]: ...
+    def items(self) -> AbstractSet[tuple[_KT_co, _VT_co]]: ...
 
 # stable
 class SupportsKeysAndGetItem(Protocol[_KT, _VT_co]):

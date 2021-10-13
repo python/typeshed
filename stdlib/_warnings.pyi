@@ -15,7 +15,7 @@ def warn_explicit(
     filename: str,
     lineno: int,
     module: str | None = ...,
-    registry: dict[str | Tuple[str, Type[Warning], int], int] | None = ...,
+    registry: dict[str | tuple[str, Type[Warning], int], int] | None = ...,
     module_globals: dict[str, Any] | None = ...,
     source: Any | None = ...,
 ) -> None: ...
@@ -26,7 +26,7 @@ def warn_explicit(
     filename: str,
     lineno: int,
     module: str | None = ...,
-    registry: dict[str | Tuple[str, Type[Warning], int], int] | None = ...,
+    registry: dict[str | tuple[str, Type[Warning], int], int] | None = ...,
     module_globals: dict[str, Any] | None = ...,
     source: Any | None = ...,
 ) -> None: ...

@@ -14,7 +14,7 @@ _FINISHED: Literal["FINISHED"]  # undocumented
 def isfuture(obj: object) -> bool: ...
 
 if sys.version_info >= (3, 7):
-    def _format_callbacks(cb: Sequence[Tuple[Callable[[futures.Future[Any]], None], Context]]) -> str: ...  # undocumented
+    def _format_callbacks(cb: Sequence[tuple[Callable[[futures.Future[Any]], None], Context]]) -> str: ...  # undocumented
 
 else:
     def _format_callbacks(cb: Sequence[Callable[[futures.Future[Any]], None]]) -> str: ...  # undocumented

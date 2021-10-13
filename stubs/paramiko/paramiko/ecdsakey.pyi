@@ -32,7 +32,7 @@ class ECDSAKey(PKey):
         data: bytes | None = ...,
         filename: str | None = ...,
         password: str | None = ...,
-        vals: Tuple[EllipticCurvePrivateKey, EllipticCurvePublicKey] | None = ...,
+        vals: tuple[EllipticCurvePrivateKey, EllipticCurvePublicKey] | None = ...,
         file_obj: IO[str] | None = ...,
         validate_point: bool = ...,
     ) -> None: ...

@@ -108,7 +108,7 @@ class BaseResponse:
         self,
         response: str | bytes | bytearray | Iterable[str] | Iterable[bytes] | None = ...,
         status: Text | int | None = ...,
-        headers: Headers | Mapping[Text, Text] | Sequence[Tuple[Text, Text]] | None = ...,
+        headers: Headers | Mapping[Text, Text] | Sequence[tuple[Text, Text]] | None = ...,
         mimetype: Text | None = ...,
         content_type: Text | None = ...,
         direct_passthrough: bool = ...,

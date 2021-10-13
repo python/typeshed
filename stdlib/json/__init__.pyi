@@ -13,7 +13,7 @@ def dumps(
     allow_nan: bool = ...,
     cls: Type[JSONEncoder] | None = ...,
     indent: None | int | str = ...,
-    separators: Tuple[str, str] | None = ...,
+    separators: tuple[str, str] | None = ...,
     default: Callable[[Any], Any] | None = ...,
     sort_keys: bool = ...,
     **kwds: Any,
@@ -28,7 +28,7 @@ def dump(
     allow_nan: bool = ...,
     cls: Type[JSONEncoder] | None = ...,
     indent: None | int | str = ...,
-    separators: Tuple[str, str] | None = ...,
+    separators: tuple[str, str] | None = ...,
     default: Callable[[Any], Any] | None = ...,
     sort_keys: bool = ...,
     **kwds: Any,
@@ -41,7 +41,7 @@ def loads(
     parse_float: Callable[[str], Any] | None = ...,
     parse_int: Callable[[str], Any] | None = ...,
     parse_constant: Callable[[str], Any] | None = ...,
-    object_pairs_hook: Callable[[list[Tuple[Any, Any]]], Any] | None = ...,
+    object_pairs_hook: Callable[[list[tuple[Any, Any]]], Any] | None = ...,
     **kwds: Any,
 ) -> Any: ...
 def load(
@@ -52,7 +52,7 @@ def load(
     parse_float: Callable[[str], Any] | None = ...,
     parse_int: Callable[[str], Any] | None = ...,
     parse_constant: Callable[[str], Any] | None = ...,
-    object_pairs_hook: Callable[[list[Tuple[Any, Any]]], Any] | None = ...,
+    object_pairs_hook: Callable[[list[tuple[Any, Any]]], Any] | None = ...,
     **kwds: Any,
 ) -> Any: ...
 def detect_encoding(b: bytes) -> str: ...  # undocumented

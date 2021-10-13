@@ -47,7 +47,7 @@ class SSHClient(ClosingContextManager):
         timeout: float | None = ...,
         get_pty: bool = ...,
         environment: dict[str, str] | None = ...,
-    ) -> Tuple[ChannelStdinFile, ChannelFile, ChannelStderrFile]: ...
+    ) -> tuple[ChannelStdinFile, ChannelFile, ChannelStderrFile]: ...
     def invoke_shell(
         self,
         term: str = ...,

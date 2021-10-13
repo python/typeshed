@@ -69,7 +69,7 @@ def argument(
     expose_value: bool = ...,
     is_eager: bool = ...,
     envvar: str | list[str] | None = ...,
-    autocompletion: Callable[[Context, list[str], str], Iterable[str | Tuple[str, str]]] | None = ...,
+    autocompletion: Callable[[Context, list[str], str], Iterable[str | tuple[str, str]]] | None = ...,
 ) -> IdentityFunction: ...
 @overload
 def option(

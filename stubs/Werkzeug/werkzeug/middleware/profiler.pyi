@@ -6,7 +6,7 @@ class ProfilerMiddleware(object):
         self,
         app: WSGIApplication,
         stream: IO[str] = ...,
-        sort_by: Tuple[Text, Text] = ...,
+        sort_by: tuple[Text, Text] = ...,
         restrictions: Iterable[str | float] = ...,
         profile_dir: Text | None = ...,
         filename_format: Text = ...,

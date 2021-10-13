@@ -16,8 +16,8 @@ def DateFromTicks(ticks: float) -> Date: ...
 def TimeFromTicks(ticks: float) -> Time: ...
 def TimestampFromTicks(ticks: float) -> Timestamp: ...
 
-version_info: Tuple[int, int, int]
-sqlite_version_info: Tuple[int, int, int]
+version_info: tuple[int, int, int]
+sqlite_version_info: tuple[int, int, int]
 Binary = memoryview
 
 # The remaining definitions are imported from _sqlite3.

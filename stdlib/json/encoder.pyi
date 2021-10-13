@@ -22,7 +22,7 @@ class JSONEncoder:
         allow_nan: bool = ...,
         sort_keys: bool = ...,
         indent: int | None = ...,
-        separators: Tuple[str, str] | None = ...,
+        separators: tuple[str, str] | None = ...,
         default: Callable[..., Any] | None = ...,
     ) -> None: ...
     def default(self, o: Any) -> Any: ...

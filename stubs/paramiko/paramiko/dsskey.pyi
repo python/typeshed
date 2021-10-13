@@ -17,7 +17,7 @@ class DSSKey(PKey):
         data: bytes | None = ...,
         filename: str | None = ...,
         password: str | None = ...,
-        vals: Tuple[int, int, int, int] | None = ...,
+        vals: tuple[int, int, int, int] | None = ...,
         file_obj: IO[str] | None = ...,
     ) -> None: ...
     def asbytes(self) -> bytes: ...
