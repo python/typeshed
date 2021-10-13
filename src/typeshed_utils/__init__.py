@@ -107,16 +107,18 @@ def distribution_modules(
         yield entry.stem, entry
 
 
-def find_stubs_in_paths(paths: Iterable[Path]) -> list[Path]:
+def find_stubs_in_paths(paths: Iterable[Path]) -> Iterator[Path]:
     """Find all stub files in the given paths."""
-    filenames: list[Path] = []
     for path in paths:
         if Path(path).is_dir():
             for root, _, fns in os.walk(path):
-                filenames.extend(Path(root) / fn for fn in fns if fn.endswith(".pyi"))
+                for fn in fns:
+                    p = Path(root) / fn
+                    if p.suffix == ".pyi":
+                        yield p
         else:
-            filenames.append(Path(path))
-    return filenames
+            if path.suffix == ".pyi":
+                yield Path(path)
 
 
 # Third-party distribution handling

@@ -2,8 +2,12 @@
 
 import ast
 import sys
-from itertools import chain
 from pathlib import Path
+
+typeshed_path = Path(__file__).parent.parent
+sys.path.append(str(typeshed_path / "src"))
+
+from typeshed_utils import PY2_PATH, find_stubs_in_paths, stdlib_path, stubs_path  # noqa E402
 
 
 def check_pep_604(tree: ast.AST, path: Path) -> list[str]:
@@ -11,23 +15,12 @@ def check_pep_604(tree: ast.AST, path: Path) -> list[str]:
 
     class UnionFinder(ast.NodeVisitor):
         def visit_Subscript(self, node: ast.Subscript) -> None:
-            if (
-                isinstance(node.value, ast.Name)
-                and node.value.id == "Union"
-                and isinstance(node.slice, ast.Tuple)
-            ):
+            if isinstance(node.value, ast.Name) and node.value.id == "Union" and isinstance(node.slice, ast.Tuple):
                 new_syntax = " | ".join(ast.unparse(x) for x in node.slice.elts)
-                errors.append(
-                    (f"{path}:{node.lineno}: Use PEP 604 syntax for Union, e.g. `{new_syntax}`")
-                )
-            if (
-                isinstance(node.value, ast.Name)
-                and node.value.id == "Optional"
-            ):
+                errors.append((f"{path}:{node.lineno}: Use PEP 604 syntax for Union, e.g. `{new_syntax}`"))
+            if isinstance(node.value, ast.Name) and node.value.id == "Optional":
                 new_syntax = f"{ast.unparse(node.slice)} | None"
-                errors.append(
-                    (f"{path}:{node.lineno}: Use PEP 604 syntax for Optional, e.g. `{new_syntax}`")
-                )
+                errors.append((f"{path}:{node.lineno}: Use PEP 604 syntax for Optional, e.g. `{new_syntax}`"))
 
     # This doesn't check type aliases (or type var bounds, etc), since those are not
     # currently supported
@@ -54,11 +47,11 @@ def check_pep_604(tree: ast.AST, path: Path) -> list[str]:
 
 
 def main() -> None:
-    errors = []
-    for path in chain(Path("stdlib").rglob("*.pyi"), Path("stubs").rglob("*.pyi")):
-        if "@python2" in path.parts:
+    errors: list[str] = []
+    for path in find_stubs_in_paths([stdlib_path(typeshed_path), stubs_path(typeshed_path)]):
+        if PY2_PATH in path.parts:
             continue
-        if Path("stubs/protobuf/google/protobuf") in path.parents:  # TODO: fix protobuf stubs
+        if "protobuf" in path.parts:  # TODO: fix protobuf stubs
             continue
 
         with open(path) as f:

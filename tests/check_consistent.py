@@ -22,6 +22,7 @@ typeshed_path = Path(__file__).parent.parent
 sys.path.append(str(typeshed_path / "src"))
 
 from typeshed_utils import (  # noqa: E402
+    PY2_PATH,
     all_stdlib_modules,
     distribution_path,
     read_metadata,
@@ -60,7 +61,7 @@ def check_stdlib() -> None:
                 assert entry.name == "VERSIONS", f"Unexpected file in stdlib root: {entry.name}"
             assert entry.stem.isidentifier(), "Bad file name in stdlib"
         else:
-            if entry.name == "@python2":
+            if entry.name == PY2_PATH:
                 continue
             assert_stubs_only(entry)
     for entry in stdlib_path(typeshed_path, py2=True).iterdir():
@@ -84,7 +85,7 @@ def check_stubs() -> None:
                 else:
                     assert entry.stem.isidentifier(), f"Bad file name '{entry.stem}' in stubs"
             else:
-                if entry.name in ("@python2", "@tests"):
+                if entry.name in (PY2_PATH, "@tests"):
                     continue
                 assert_stubs_only(entry)
         if py2_path.is_dir():
