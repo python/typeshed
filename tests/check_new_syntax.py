@@ -9,6 +9,11 @@ from pathlib import Path
 def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
     errors = []
 
+    def unparse_without_tuple_parens(node: ast.AST) -> str:
+        if isinstance(node, ast.Tuple):
+            return ast.unparse(node)[1:-1]
+        return ast.unparse(node)
+
     class OldSyntaxFinder(ast.NodeVisitor):
         def visit_Subscript(self, node: ast.Subscript) -> None:
             if isinstance(node.value, ast.Name):
@@ -22,7 +27,7 @@ def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
                     new_syntax = f"list[{ast.unparse(node.slice)}]"
                     errors.append(f"{path}:{node.lineno}: Use built-in generics, e.g. `{new_syntax}`")
                 if node.value.id == "Dict":
-                    new_syntax = f"dict[{ast.unparse(node.slice)[1:-1]}]"
+                    new_syntax = f"dict[{unparse_without_tuple_parens(node.slice)}]"
                     errors.append(f"{path}:{node.lineno}: Use built-in generics, e.g. `{new_syntax}`")
 
             self.generic_visit(node)
