@@ -1,6 +1,6 @@
 import sys
 from _typeshed import Self
-from typing import Any, Dict, Iterator, List, Sequence, Text, Tuple, Type
+from typing import Any, Iterator, Sequence, Text, Tuple, Type
 
 if sys.version_info >= (3, 0):
     from configparser import ConfigParser

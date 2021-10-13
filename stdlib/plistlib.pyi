@@ -1,7 +1,7 @@
 import sys
 from datetime import datetime
 from enum import Enum
-from typing import IO, Any, Dict as _Dict, List, Mapping, MutableMapping, Tuple, Type
+from typing import IO, Any, Dict as _Dict, Mapping, MutableMapping, Tuple, Type
 
 class PlistFormat(Enum):
     FMT_XML: int
