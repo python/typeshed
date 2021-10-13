@@ -118,7 +118,7 @@ def check_same_files() -> None:
 
 
 def check_versions() -> None:
-    versions = stdlib_versions(typeshed_path).modules
+    versions = stdlib_versions(typeshed_path).py3_modules
     modules = set(all_stdlib_modules(typeshed_path))
     # Sub-modules don't need to be listed in VERSIONS.
     extra = {m.split(".")[0] for m in modules} - versions

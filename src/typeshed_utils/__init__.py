@@ -41,8 +41,9 @@ class VersionInfo:
         self._versions = versions
 
     @property
-    def modules(self) -> set[str]:
-        return set(self._versions.keys())
+    def py3_modules(self) -> set[str]:
+        return set(mod for mod, v in self._versions.items() if v[1] is None or v[1][0] >= 3)
+
 
 
 def stdlib_versions(typeshed_path: str | PathLike[str]) -> VersionInfo:
