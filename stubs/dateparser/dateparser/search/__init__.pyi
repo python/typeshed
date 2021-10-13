@@ -1,6 +1,7 @@
 import sys
+from collections.abc import Mapping, Set
 from datetime import datetime
-from typing import Any, Mapping, Set, Tuple, overload
+from typing import Any, Tuple, overload
 
 if sys.version_info >= (3, 8):
     from typing import Literal
