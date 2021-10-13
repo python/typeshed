@@ -1,3 +1,10 @@
+"""
+Utilities for accessing typeshed.
+
+Most function require the path to typeshed's top directory as first argument.
+This can be a string or a Path object.
+"""
+
 from __future__ import annotations
 
 import os
@@ -25,6 +32,7 @@ class FormatError(Exception):
 
 
 def stdlib_path(typeshed_path: str | PathLike[str], *, py2: bool = False) -> Path:
+    """Path to typeshed's standard library stubs directory."""
     path = Path(typeshed_path) / "stdlib"
     if py2:
         path /= PY2_PATH
@@ -32,10 +40,12 @@ def stdlib_path(typeshed_path: str | PathLike[str], *, py2: bool = False) -> Pat
 
 
 def stubs_path(typeshed_path: str | PathLike[str]) -> Path:
+    """Path to typeshed's third-party stubs directory."""
     return Path(typeshed_path) / "stubs"
 
 
 def distribution_path(typeshed_path: str | PathLike[str], distribution: str, *, py2: bool = False) -> Path:
+    """Path to a distribution's source directory."""
     path = stubs_path(typeshed_path) / distribution
     if py2:
         path /= PY2_PATH
@@ -43,6 +53,11 @@ def distribution_path(typeshed_path: str | PathLike[str], distribution: str, *, 
 
 
 def distribution_source_path(typeshed_path: str | PathLike[str], distribution: str, *, py2: bool = False) -> Path:
+    """Path to a distribution's source directory.
+
+    If py2 is True this returns the source directory for the Python 2
+    stubs, if they are separate from the Python 3 stubs.
+    """
     py2_path = distribution_path(typeshed_path, distribution, py2=True)
     if py2 and py2_path.is_dir():
         return py2_path
@@ -53,18 +68,8 @@ def distribution_source_path(typeshed_path: str | PathLike[str], distribution: s
 # Stub discovery
 
 
-def find_stubs_in_paths(paths: Iterable[Path]) -> list[Path]:
-    filenames: list[Path] = []
-    for path in paths:
-        if Path(path).is_dir():
-            for root, _, fns in os.walk(path):
-                filenames.extend(Path(root) / fn for fn in fns if fn.endswith(".pyi"))
-        else:
-            filenames.append(Path(path))
-    return filenames
-
-
 def stdlib_modules(typeshed_path: str | PathLike[str], *, py2: bool = False) -> Iterator[tuple[str, Path]]:
+    """Yield the name and path for all standard library top-level modules."""
     root = stdlib_path(typeshed_path, py2=py2)
     for entry in root.iterdir():
         if entry.name in [PY2_PATH, "VERSIONS"]:
@@ -94,6 +99,7 @@ def all_stdlib_modules(typeshed_path: str | PathLike[str]) -> list[str]:
 def distribution_modules(
     typeshed_path: str | PathLike[str], distribution: str, *, py2: bool = False
 ) -> Iterator[tuple[str, Path]]:
+    """Yield the name and path of a distribution's top-level packages."""
     root = distribution_source_path(typeshed_path, distribution, py2=py2)
     for entry in root.iterdir():
         if entry.name == PY2_PATH:
@@ -101,25 +107,43 @@ def distribution_modules(
         yield entry.stem, entry
 
 
+def find_stubs_in_paths(paths: Iterable[Path]) -> list[Path]:
+    """Find all stub files in the given paths."""
+    filenames: list[Path] = []
+    for path in paths:
+        if Path(path).is_dir():
+            for root, _, fns in os.walk(path):
+                filenames.extend(Path(root) / fn for fn in fns if fn.endswith(".pyi"))
+        else:
+            filenames.append(Path(path))
+    return filenames
+
+
 # Third-party distribution handling
 
 
 def third_party_distributions(typeshed_path: str | PathLike[str]) -> list[str]:
+    """Return a list of all third-party distributions in typeshed."""
     return [e.name for e in stubs_path(typeshed_path).iterdir()]
 
 
 def supported_python_versions(typeshed_path: str | PathLike[str], distribution: str) -> set[int]:
+    """Return the major Python version that a distribution's stubs support."""
     supported: set[int] = set()
     data = read_metadata(typeshed_path, distribution)
-    if data.python2 or distribution_path(typeshed_path, distribution, py2=True).is_dir():
+    if data.python2 or _has_py2_stubs(typeshed_path, distribution):
         supported.add(2)
-    if distribution_has_py3_stubs(typeshed_path, distribution):
+    if _has_py3_stubs(typeshed_path, distribution):
         supported.add(3)
     assert 1 <= len(supported) <= 2
     return supported
 
 
-def distribution_has_py3_stubs(typeshed_path: str | PathLike[str], distribution: str) -> bool:
+def _has_py2_stubs(typeshed_path: str | PathLike[str], distribution: str) -> bool:
+    return distribution_path(typeshed_path, distribution, py2=True).is_dir()
+
+
+def _has_py3_stubs(typeshed_path: str | PathLike[str], distribution: str) -> bool:
     dist_path = distribution_path(typeshed_path, distribution)
     return len(list(dist_path.glob("*.pyi"))) > 0 or len(list(dist_path.glob("[!@]*/__init__.pyi"))) > 0
 
@@ -128,14 +152,21 @@ def distribution_has_py3_stubs(typeshed_path: str | PathLike[str], distribution:
 
 
 class VersionInfo:
+    """Information about which modules are part of the Python standard library."""
+
     def __init__(self, versions: dict[str, tuple[_PyVersion, _PyVersion | None]]) -> None:
         self._versions = versions
 
     @property
     def py3_modules(self) -> set[str]:
+        """Return the names of all Python 3"""
         return set(mod for mod, v in self._versions.items() if v[1] is None or v[1][0] >= 3)
 
     def is_supported(self, mod: str, major: int, minor: int) -> bool:
+        """Return whether a module in part of a certain Python version.
+
+        This also supports sub-modules.
+        """
         sub_mod = mod
         while True:
             if sub_mod in self._versions:
@@ -219,6 +250,11 @@ _metadata_keys = {"version": str, "python2": bool, "requires": list, "extra_desc
 
 
 def read_metadata(typeshed_path: str | PathLike[str], distribution: str) -> MetaData:
+    """Read metadata for a specific third-party distribution.
+
+    All optional fields are initialized to their default values.
+    """
+
     with open(distribution_path(typeshed_path, distribution) / "METADATA.toml") as f:
         data = tomli.loads(f.read())
     if "version" not in data:
