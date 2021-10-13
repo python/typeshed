@@ -2,9 +2,10 @@ from __future__ import annotations
 
 import os
 import re
+from collections.abc import Iterable, Iterator
 from os import PathLike
 from pathlib import Path
-from typing import Iterable
+from typing import Tuple
 
 import tomli
 
@@ -12,6 +13,8 @@ PY2_PATH = "@python2"
 
 _STDLIB_VERSIONS_RE = re.compile(r"([a-zA-Z_][a-zA-Z0-9_.]*): ([23]\.\d{1,2})-([23]\.\d{1,2})?")
 _STUB_VERSION_RE = re.compile(r"\d+(\.\d+)+|\d+(\.\d+)*\.\*")
+
+_PyVersion = Tuple[int, int]
 
 
 class FormatError(Exception):
@@ -36,14 +39,33 @@ def distribution_path(typeshed_path: str | PathLike[str], distribution: str, *, 
     return path
 
 
+def distribution_source_path(typeshed_path: str | PathLike[str], distribution: str, *, py2: bool = False) -> Path:
+    py2_path = distribution_path(typeshed_path, distribution, py2=True)
+    if py2 and py2_path.is_dir():
+        return py2_path
+    else:
+        return distribution_path(typeshed_path, distribution)
+
+
 class VersionInfo:
-    def __init__(self, versions: dict[str, tuple[str, str | None]]) -> None:
+    def __init__(self, versions: dict[str, tuple[_PyVersion, _PyVersion | None]]) -> None:
         self._versions = versions
 
     @property
     def py3_modules(self) -> set[str]:
         return set(mod for mod, v in self._versions.items() if v[1] is None or v[1][0] >= 3)
 
+    def is_supported(self, mod: str, major: int, minor: int) -> bool:
+        sub_mod = mod
+        while True:
+            if sub_mod in self._versions:
+                min, max = self._versions[sub_mod]
+                if max is None:
+                    max = (99, 99)
+                return min <= (major, minor) <= max
+            if "." not in sub_mod:
+                raise KeyError(f"unknown module '{mod}'")
+            sub_mod = ".".join(sub_mod.split(".")[:-1])
 
 
 def stdlib_versions(typeshed_path: str | PathLike[str]) -> VersionInfo:
@@ -59,7 +81,7 @@ def stdlib_versions(typeshed_path: str | PathLike[str]) -> VersionInfo:
     be listed separately.
     """
 
-    versions: dict[str, tuple[str, str | None]] = {}
+    versions: dict[str, tuple[_PyVersion, _PyVersion | None]] = {}
     with open(stdlib_path(typeshed_path) / "VERSIONS") as f:
         data = f.read().splitlines()
     for line in data:
@@ -71,8 +93,15 @@ def stdlib_versions(typeshed_path: str | PathLike[str]) -> VersionInfo:
             raise FormatError(f"Bad line in VERSIONS: {line}")
         module = m.group(1)
         assert module not in versions, f"Duplicate module {module} in VERSIONS"
-        versions[module] = m.group(2), m.group(3)
+        min: str = m.group(2)
+        max: str | None = m.group(3)
+        versions[module] = _parse_py_version(min), _parse_py_version(max) if max is not None else max
     return VersionInfo(versions)
+
+
+def _parse_py_version(v: str) -> _PyVersion:
+    major, minor = v.split(".")
+    return int(major), int(minor)
 
 
 def all_stdlib_modules(typeshed_path: str | PathLike[str]) -> list[str]:
@@ -151,3 +180,37 @@ def read_metadata(typeshed_path: str | PathLike[str], distribution: str) -> Meta
     return MetaData(
         distribution, version, requires, extra_description=extra_description, obsolete_since=obsolete_since, python2=python2
     )
+
+
+def supported_python_versions(typeshed_path: str | PathLike[str], distribution: str) -> set[int]:
+    supported: set[int] = set()
+    data = read_metadata(typeshed_path, distribution)
+    if data.python2 or distribution_path(typeshed_path, distribution, py2=True).is_dir():
+        supported.add(2)
+    if distribution_has_py3_stubs(typeshed_path, distribution):
+        supported.add(3)
+    assert 1 <= len(supported) <= 2
+    return supported
+
+
+def distribution_has_py3_stubs(typeshed_path: str | PathLike[str], distribution: str) -> bool:
+    dist_path = distribution_path(typeshed_path, distribution)
+    return len(list(dist_path.glob("*.pyi"))) > 0 or len(list(dist_path.glob("[!@]*/__init__.pyi"))) > 0
+
+
+def stdlib_modules(typeshed_path: str | PathLike[str], *, py2: bool = False) -> Iterator[tuple[str, Path]]:
+    root = stdlib_path(typeshed_path, py2=py2)
+    for entry in root.iterdir():
+        if entry.name in [PY2_PATH, "VERSIONS"]:
+            continue
+        yield entry.stem, entry
+
+
+def distribution_modules(
+    typeshed_path: str | PathLike[str], distribution: str, *, py2: bool = False
+) -> Iterator[tuple[str, Path]]:
+    root = distribution_source_path(typeshed_path, distribution, py2=py2)
+    for entry in root.iterdir():
+        if entry.name == PY2_PATH:
+            continue
+        yield entry.stem, entry

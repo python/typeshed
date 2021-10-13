@@ -17,11 +17,22 @@ import os
 import re
 import sys
 import tempfile
-from glob import glob
+from collections.abc import Iterable
 from pathlib import Path
-from typing import Dict, NamedTuple
+from typing import Any, NamedTuple
 
 import tomli
+
+typeshed_path = Path(__file__).parent.parent
+sys.path.append(str(typeshed_path / "src"))
+
+from typeshed_utils import (  # noqa: E402
+    distribution_modules,
+    stdlib_modules,
+    stdlib_versions,
+    supported_python_versions,
+    third_party_distributions,
+)
 
 parser = argparse.ArgumentParser(description="Test runner for typeshed. Patterns are unanchored regexps on the full path.")
 parser.add_argument("-v", "--verbose", action="count", default=0, help="More output")
@@ -45,7 +56,8 @@ def log(args, *varargs):
         print(*varargs)
 
 
-def match(fn, args, exclude_list):
+def match(fn_p: Path, args, exclude_list):
+    fn = str(fn_p)
     if exclude_list.match(fn):
         log(args, fn, "exluded by exclude list")
         return False
@@ -69,67 +81,20 @@ def match(fn, args, exclude_list):
     return True
 
 
-_VERSION_LINE_RE = re.compile(r"^([a-zA-Z_][a-zA-Z0-9_.]*): ([23]\.\d{1,2})-([23]\.\d{1,2})?$")
-
-
-def parse_versions(fname):
-    result = {}
-    with open(fname) as f:
-        for line in f:
-            # Allow having some comments or empty lines.
-            line = line.split("#")[0].strip()
-            if line == "":
-                continue
-            m = _VERSION_LINE_RE.match(line)
-            assert m, "invalid VERSIONS line: " + line
-            mod = m.group(1)
-            min_version = parse_version(m.group(2))
-            max_version = parse_version(m.group(3)) if m.group(3) else (99, 99)
-            result[mod] = min_version, max_version
-    return result
-
-
-_VERSION_RE = re.compile(r"^([23])\.(\d+)$")
-
-
-def parse_version(v_str):
-    m = _VERSION_RE.match(v_str)
-    assert m, "invalid version: " + v_str
-    return int(m.group(1)), int(m.group(2))
-
-
-def is_supported(distribution, major):
-    dist_path = Path("stubs", distribution)
-    with open(dist_path / "METADATA.toml") as f:
-        data = dict(tomli.loads(f.read()))
-    if major == 2:
-        # Python 2 is not supported by default.
-        return bool(data.get("python2", False)) or (dist_path / "@python2").exists()
-    # Python 3 is supported by default.
-    return has_py3_stubs(dist_path)
-
-
-# Keep this in sync with stubtest_third_party.py
-def has_py3_stubs(dist: Path) -> bool:
-    return len(glob(f"{dist}/*.pyi")) > 0 or len(glob(f"{dist}/[!@]*/__init__.pyi")) > 0
-
-
-def add_files(files, seen, root, name, args, exclude_list):
+def add_files(files: list[Path], seen: set[str], mod: str, path: Path, args, exclude_list) -> None:
     """Add all files in package or module represented by 'name' located in 'root'."""
-    full = os.path.join(root, name)
-    mod, ext = os.path.splitext(name)
-    if ext in [".pyi", ".py"]:
-        if match(full, args, exclude_list):
+    if path.suffix in [".pyi", ".py"]:
+        if match(path, args, exclude_list):
             seen.add(mod)
-            files.append(full)
-    elif os.path.isfile(os.path.join(full, "__init__.pyi")) or os.path.isfile(os.path.join(full, "__init__.py")):
-        for r, ds, fs in os.walk(full):
+            files.append(path)
+    elif (path / "__init__.pyi").is_file() or (path / "__init__.py").is_file():
+        for r, ds, fs in os.walk(path):
             ds.sort()
             fs.sort()
             for f in fs:
-                m, x = os.path.splitext(f)
+                _, x = os.path.splitext(f)
                 if x in [".pyi", ".py"]:
-                    fn = os.path.join(r, f)
+                    fn = Path(r) / f
                     if match(fn, args, exclude_list):
                         seen.add(mod)
                         files.append(fn)
@@ -137,7 +102,7 @@ def add_files(files, seen, root, name, args, exclude_list):
 
 class MypyDistConf(NamedTuple):
     module_name: str
-    values: Dict
+    values: dict[str, Any]
 
 
 # The configuration section in the metadata file looks like the following, with multiple module sections possible
@@ -176,7 +141,7 @@ def add_configuration(configurations, seen_dist_configs, distribution):
     seen_dist_configs.add(distribution)
 
 
-def run_mypy(args, configurations, major, minor, files, *, custom_typeshed=False):
+def run_mypy(args, configurations: Iterable[Any], major, minor, files: list[Path], *, custom_typeshed=False):
     try:
         from mypy.main import main as mypy_main
     except ImportError:
@@ -212,7 +177,7 @@ def run_mypy(args, configurations, major, minor, files, *, custom_typeshed=False
             flags.append("--warn-unused-ignores")
         if args.platform:
             flags.extend(["--platform", args.platform])
-        sys.argv = ["mypy"] + flags + files
+        sys.argv = ["mypy"] + flags + [str(f) for f in files]
         if args.verbose:
             print("running", " ".join(sys.argv))
         else:
@@ -242,49 +207,32 @@ def main():
     runs = 0
     for major, minor in versions:
         seen = {"__builtin__", "builtins", "typing"}  # Always ignore these.
-        configurations = []
-        seen_dist_configs = set()
 
         # Test standard library files.
-        files = []
-        if major == 2:
-            root = os.path.join("stdlib", "@python2")
-            for name in os.listdir(root):
-                mod, _ = os.path.splitext(name)
-                if mod in seen or mod.startswith("."):
-                    continue
-                add_files(files, seen, root, name, args, exclude_list)
-        else:
-            supported_versions = parse_versions(os.path.join("stdlib", "VERSIONS"))
-            root = "stdlib"
-            for name in os.listdir(root):
-                if name == "@python2" or name == "VERSIONS":
-                    continue
-                mod, _ = os.path.splitext(name)
-                if supported_versions[mod][0] <= (major, minor) <= supported_versions[mod][1]:
-                    add_files(files, seen, root, name, args, exclude_list)
+        files: list[Path] = []
+        supported_versions = stdlib_versions(typeshed_path)
+        for mod, path in stdlib_modules(typeshed_path, py2=major == 2):
+            if mod in seen or mod.startswith("."):
+                continue
+            if supported_versions.is_supported(mod, major, minor):
+                add_files(files, seen, mod, path, args, exclude_list)
 
         if files:
-            this_code = run_mypy(args, configurations, major, minor, files, custom_typeshed=True)
+            this_code = run_mypy(args, [], major, minor, files, custom_typeshed=True)
             code = max(code, this_code)
             runs += 1
 
         # Test files of all third party distributions.
+        configurations: list[Any] = []
+        seen_dist_configs = set()
         files = []
-        for distribution in os.listdir("stubs"):
-            if not is_supported(distribution, major):
+        for distribution in third_party_distributions(typeshed_path):
+            if major not in supported_python_versions(typeshed_path, distribution):
                 continue
-            if major == 2 and os.path.isdir(os.path.join("stubs", distribution, "@python2")):
-                root = os.path.join("stubs", distribution, "@python2")
-            else:
-                root = os.path.join("stubs", distribution)
-            for name in os.listdir(root):
-                if name == "@python2":
-                    continue
-                mod, _ = os.path.splitext(name)
+            for mod, path in distribution_modules(typeshed_path, distribution, py2=major == 2):
                 if mod in seen or mod.startswith("."):
                     continue
-                add_files(files, seen, root, name, args, exclude_list)
+                add_files(files, seen, mod, path, args, exclude_list)
                 add_configuration(configurations, seen_dist_configs, distribution)
 
         if files:
