@@ -6,11 +6,14 @@ import functools
 import subprocess
 import sys
 import tempfile
-import tomli
 import venv
 from glob import glob
 from pathlib import Path
 
+typeshed_path = Path(__file__).parent.parent
+sys.path.append(str(typeshed_path / "src"))
+
+from typeshed_utils import distribution_path, read_metadata, supported_python_versions, third_party_distributions  # noqa E402
 
 EXCLUDE_LIST = [
     "Flask",  # fails when stubtest tries to stringify some object
@@ -18,7 +21,7 @@ EXCLUDE_LIST = [
     "backports",  # errors on python version
     "six",  # ???
     "aiofiles",  # easily fixable, some platform specific difference between local and ci
-    "pycurl"  # install failure, missing libcurl
+    "pycurl",  # install failure, missing libcurl
 ]
 
 
@@ -32,12 +35,12 @@ def get_mypy_req():
         return next(line.strip() for line in f if "mypy" in line)
 
 
-def run_stubtest(dist: Path) -> None:
-    with open(dist / "METADATA.toml") as f:
-        metadata = dict(tomli.loads(f.read()))
+def run_stubtest(dist: str) -> None:
+    dist_path = distribution_path(typeshed_path, dist)
+    metadata = read_metadata(typeshed_path, dist)
 
     # Ignore stubs that don't support Python 3
-    if not has_py3_stubs(dist):
+    if 3 not in supported_python_versions(typeshed_path, dist):
         return
 
     with tempfile.TemporaryDirectory() as tmp:
@@ -47,18 +50,16 @@ def run_stubtest(dist: Path) -> None:
         pip_exe = str(venv_dir / "bin" / "pip")
         python_exe = str(venv_dir / "bin" / "python")
 
-        dist_version = metadata["version"]
-        assert isinstance(dist_version, str)
-        dist_req = f"{dist.name}=={dist_version}"
+        dist_req = f"{dist}=={metadata.version}"
 
         # If @tests/requirements-stubtest.txt exists, run "pip install" on it.
-        req_path = dist / "@tests" / "requirements-stubtest.txt"
+        req_path = dist_path / "@tests" / "requirements-stubtest.txt"
         if req_path.exists():
             try:
                 pip_cmd = [pip_exe, "install", "-r", str(req_path)]
                 subprocess.run(pip_cmd, check=True, capture_output=True)
             except subprocess.CalledProcessError as e:
-                print(f"Failed to install requirements for {dist.name}", file=sys.stderr)
+                print(f"Failed to install requirements for {dist}", file=sys.stderr)
                 print(e.stdout.decode(), file=sys.stderr)
                 print(e.stderr.decode(), file=sys.stderr)
                 raise
@@ -67,19 +68,19 @@ def run_stubtest(dist: Path) -> None:
         # Hopefully mypy continues to not need too many dependencies
         # TODO: Maybe find a way to cache these in CI
         dists_to_install = [dist_req, get_mypy_req()]
-        dists_to_install.extend(metadata.get("requires", []))
+        dists_to_install.extend(metadata.requires)
         pip_cmd = [pip_exe, "install"] + dists_to_install
         print(" ".join(pip_cmd), file=sys.stderr)
         try:
             subprocess.run(pip_cmd, check=True, capture_output=True)
         except subprocess.CalledProcessError as e:
-            print(f"Failed to install {dist.name}", file=sys.stderr)
+            print(f"Failed to install {dist}", file=sys.stderr)
             print(e.stdout.decode(), file=sys.stderr)
             print(e.stderr.decode(), file=sys.stderr)
             raise
 
-        packages_to_check = [d.name for d in dist.iterdir() if d.is_dir() and d.name.isidentifier()]
-        modules_to_check = [d.stem for d in dist.iterdir() if d.is_file() and d.suffix == ".pyi"]
+        packages_to_check = [d.name for d in dist_path.iterdir() if d.is_dir() and d.name.isidentifier()]
+        modules_to_check = [d.stem for d in dist_path.iterdir() if d.is_file() and d.suffix == ".pyi"]
         cmd = [
             python_exe,
             "-m",
@@ -90,36 +91,28 @@ def run_stubtest(dist: Path) -> None:
             "--ignore-missing-stub",
             # Use --custom-typeshed-dir in case we make linked changes to stdlib or _typeshed
             "--custom-typeshed-dir",
-            str(dist.parent.parent),
+            str(typeshed_path),
             *packages_to_check,
             *modules_to_check,
         ]
-        allowlist_path = dist / "@tests/stubtest_allowlist.txt"
+        allowlist_path = dist_path / "@tests" / "stubtest_allowlist.txt"
         if allowlist_path.exists():
             cmd.extend(["--allowlist", str(allowlist_path)])
 
         try:
-            print(f"MYPYPATH={dist}", " ".join(cmd), file=sys.stderr)
-            subprocess.run(cmd, env={"MYPYPATH": str(dist), "MYPY_FORCE_COLOR": "1"}, check=True)
+            print(f"MYPYPATH={dist_path}", " ".join(cmd), file=sys.stderr)
+            subprocess.run(cmd, env={"MYPYPATH": str(dist_path), "MYPY_FORCE_COLOR": "1"}, check=True)
         except subprocess.CalledProcessError:
-            print(f"stubtest failed for {dist.name}", file=sys.stderr)
+            print(f"stubtest failed for {dist}", file=sys.stderr)
             print("\n\n", file=sys.stderr)
             if not allowlist_path.exists():
-                print(
-                    "Re-running stubtest with --generate-allowlist.\n"
-                    f"Add the following to {allowlist_path}:"
-                )
-                subprocess.run(cmd + ["--generate-allowlist"], env={"MYPYPATH": str(dist)})
+                print("Re-running stubtest with --generate-allowlist.\n" f"Add the following to {allowlist_path}:")
+                subprocess.run(cmd + ["--generate-allowlist"], env={"MYPYPATH": str(dist_path)})
                 print("\n\n")
             raise StubtestFailed from None
         else:
-            print(f"stubtest succeeded for {dist.name}", file=sys.stderr)
+            print(f"stubtest succeeded for {dist}", file=sys.stderr)
         print("\n\n", file=sys.stderr)
-
-
-# Keep this in sync with mypy_test.py
-def has_py3_stubs(dist: Path) -> bool:
-    return len(glob(f"{dist}/*.pyi")) > 0 or len(glob(f"{dist}/[!@]*/__init__.pyi")) > 0
 
 
 def main():
@@ -129,16 +122,15 @@ def main():
     parser.add_argument("dists", metavar="DISTRIBUTION", type=str, nargs=argparse.ZERO_OR_MORE)
     args = parser.parse_args()
 
-    typeshed_dir = Path(".").resolve()
     if len(args.dists) == 0:
-        dists = sorted((typeshed_dir / "stubs").iterdir())
+        dists = third_party_distributions(typeshed_path)
     else:
-        dists = [typeshed_dir / "stubs" / d for d in args.dists]
+        dists = args.dists
 
     for i, dist in enumerate(dists):
         if i % args.num_shards != args.shard_index:
             continue
-        if dist.name in EXCLUDE_LIST:
+        if dist in EXCLUDE_LIST:
             continue
         run_stubtest(dist)
 

@@ -126,7 +126,7 @@ def find_stubs_in_paths(paths: Iterable[Path]) -> Iterator[Path]:
 
 def third_party_distributions(typeshed_path: str | PathLike[str]) -> list[str]:
     """Return a list of all third-party distributions in typeshed."""
-    return [e.name for e in stubs_path(typeshed_path).iterdir()]
+    return sorted(e.name for e in stubs_path(typeshed_path).iterdir())
 
 
 def supported_python_versions(typeshed_path: str | PathLike[str], distribution: str) -> set[int]:
