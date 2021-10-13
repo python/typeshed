@@ -17,7 +17,7 @@ class ApplyResult(Generic[_T]):
     else:
         def __init__(
             self,
-            cache: Dict[int, ApplyResult[Any]],
+            cache: dict[int, ApplyResult[Any]],
             callback: Callable[[_T], None] | None,
             error_callback: Callable[[BaseException], None] | None,
         ) -> None: ...
@@ -44,7 +44,7 @@ class MapResult(ApplyResult[List[_T]]):
     else:
         def __init__(
             self,
-            cache: Dict[int, ApplyResult[Any]],
+            cache: dict[int, ApplyResult[Any]],
             chunksize: int,
             length: int,
             callback: Callable[[List[_T]], None] | None,
@@ -55,7 +55,7 @@ class IMapIterator(Iterator[_T]):
     if sys.version_info >= (3, 8):
         def __init__(self, pool: Pool) -> None: ...
     else:
-        def __init__(self, cache: Dict[int, IMapIterator[Any]]) -> None: ...
+        def __init__(self, cache: dict[int, IMapIterator[Any]]) -> None: ...
     def __iter__(self: _S) -> _S: ...
     def next(self, timeout: float | None = ...) -> _T: ...
     def __next__(self, timeout: float | None = ...) -> _T: ...

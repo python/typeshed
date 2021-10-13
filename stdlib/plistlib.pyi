@@ -31,7 +31,7 @@ else:
     ) -> Any: ...
 
 def dump(
-    value: Mapping[str, Any] | List[Any] | Tuple[Any, ...] | str | bool | float | bytes | datetime,
+    value: Mapping[str, Any] | list[Any] | tuple[Any, ...] | str | bool | float | bytes | datetime,
     fp: IO[bytes],
     *,
     fmt: PlistFormat = ...,
@@ -39,7 +39,7 @@ def dump(
     skipkeys: bool = ...,
 ) -> None: ...
 def dumps(
-    value: Mapping[str, Any] | List[Any] | Tuple[Any, ...] | str | bool | float | bytes | datetime,
+    value: Mapping[str, Any] | list[Any] | tuple[Any, ...] | str | bool | float | bytes | datetime,
     *,
     fmt: PlistFormat = ...,
     skipkeys: bool = ...,
