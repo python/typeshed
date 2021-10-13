@@ -11,18 +11,18 @@ def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
 
     class OldSyntaxFinder(ast.NodeVisitor):
         def visit_Subscript(self, node: ast.Subscript) -> None:
-            if not isinstance(node.value, ast.Name):
-                return
+            if isinstance(node.value, ast.Name):
+                if node.value.id == "Union" and isinstance(node.slice, ast.Tuple):
+                    new_syntax = " | ".join(ast.unparse(x) for x in node.slice.elts)
+                    errors.append(f"{path}:{node.lineno}: Use PEP 604 syntax for Union, e.g. `{new_syntax}`")
+                if node.value.id == "Optional":
+                    new_syntax = f"{ast.unparse(node.slice)} | None"
+                    errors.append(f"{path}:{node.lineno}: Use PEP 604 syntax for Optional, e.g. `{new_syntax}`")
+                if node.value.id in {"List", "Dict"}:
+                    new_syntax = f"{node.value.id.lower()}[{ast.unparse(node.slice)}]"
+                    errors.append(f"{path}:{node.lineno}: Use built-in generics, e.g. `{new_syntax}`")
 
-            if node.value.id == "Union" and isinstance(node.slice, ast.Tuple):
-                new_syntax = " | ".join(ast.unparse(x) for x in node.slice.elts)
-                errors.append(f"{path}:{node.lineno}: Use PEP 604 syntax for Union, e.g. `{new_syntax}`")
-            if node.value.id == "Optional":
-                new_syntax = f"{ast.unparse(node.slice)} | None"
-                errors.append(f"{path}:{node.lineno}: Use PEP 604 syntax for Optional, e.g. `{new_syntax}`")
-            if node.value.id in {"List", "Dict"}:
-                new_syntax = f"{node.value.id.lower()}[{ast.unparse(node.slice)}]"
-                errors.append(f"{path}:{node.lineno}: Use built-in generics, e.g. `{new_syntax}`")
+            self.generic_visit(node)
 
     # This doesn't check type aliases (or type var bounds, etc), since those are not
     # currently supported
