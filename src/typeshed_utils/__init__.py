@@ -132,12 +132,12 @@ class MetaData:
         self,
         distribution: str,
         version: str,
-        requires: Iterable[str] = [],
+        requires: Iterable[str] = [],  # noqa: B006
         *,
         extra_description: str | None = None,
         obsolete_since: str | None = None,
         python2: bool = False,
-    ) -> None:  # noqa: B006
+    ) -> None:
         if not _STUB_VERSION_RE.fullmatch(version):
             raise FormatError(f"Invalid version {version} for {distribution}")
         self.distribution = distribution
@@ -214,3 +214,14 @@ def distribution_modules(
         if entry.name == PY2_PATH:
             continue
         yield entry.stem, entry
+
+
+def find_stubs_in_paths(paths: Iterable[Path]) -> list[Path]:
+    filenames: list[Path] = []
+    for path in paths:
+        if Path(path).is_dir():
+            for root, _, fns in os.walk(path):
+                filenames.extend(Path(root) / fn for fn in fns if fn.endswith(".pyi"))
+        else:
+            filenames.append(Path(path))
+    return filenames

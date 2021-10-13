@@ -11,14 +11,22 @@ Option two will load the file and all the builtins, typeshed dependencies. This
 will also discover incorrect usage of imported modules.
 """
 
+from __future__ import annotations
+
 import argparse
 import os
 import sys
 import traceback
+from pathlib import Path
 from typing import List, Optional, Sequence
 
 from pytype import config as pytype_config, load_pytd
 from pytype.pytd import typeshed
+
+typeshed_path = Path(__file__).parent.parent
+sys.path.append(str(typeshed_path / "src"))
+
+from typeshed_utils import PY2_PATH, find_stubs_in_paths  # noqa: E402
 
 TYPESHED_SUBDIRS = ["stdlib", "stubs"]
 
@@ -31,18 +39,14 @@ _LOADERS = {}
 
 def main() -> None:
     args = create_parser().parse_args()
-    typeshed_location = args.typeshed_location or os.getcwd()
-    subdir_paths = [os.path.join(typeshed_location, d) for d in TYPESHED_SUBDIRS]
+    typeshed_location = Path(args.typeshed_location or os.getcwd())
+    subdir_paths = [typeshed_location / d for d in TYPESHED_SUBDIRS]
     check_subdirs_discoverable(subdir_paths)
     old_typeshed_home = os.environ.get(TYPESHED_HOME, UNSET)
-    os.environ[TYPESHED_HOME] = typeshed_location
-    files_to_test = determine_files_to_test(typeshed_location=typeshed_location, paths=args.files or subdir_paths)
-    run_all_tests(
-        files_to_test=files_to_test,
-        typeshed_location=typeshed_location,
-        print_stderr=args.print_stderr,
-        dry_run=args.dry_run,
-    )
+    os.environ[TYPESHED_HOME] = str(typeshed_location)
+    files = [Path(f) for f in args.files] if args.files else None
+    files_to_test = determine_files_to_test(paths=files or subdir_paths)
+    run_all_tests(files_to_test=[str(f) for f in files_to_test], print_stderr=args.print_stderr, dry_run=args.dry_run)
     if old_typeshed_home is UNSET:
         del os.environ[TYPESHED_HOME]
     else:
@@ -59,20 +63,15 @@ def create_parser() -> argparse.ArgumentParser:
         "--print-stderr", action="store_true", default=False, help="Print stderr every time an error is encountered."
     )
     parser.add_argument(
-        "files",
-        metavar="FILE",
-        type=str,
-        nargs="*",
-        help="Files or directories to check. (Default: Check all files.)",
+        "files", metavar="FILE", type=str, nargs="*", help="Files or directories to check. (Default: Check all files.)"
     )
     return parser
 
 
-def run_pytype(*, filename: str, python_version: str, typeshed_location: str) -> Optional[str]:
+def run_pytype(*, filename: str, python_version: str) -> Optional[str]:
     """Runs pytype, returning the stderr if any."""
     if python_version not in _LOADERS:
-        options = pytype_config.Options.create(
-            "", parse_pyi=True, python_version=python_version)
+        options = pytype_config.Options.create("", parse_pyi=True, python_version=python_version)
         loader = load_pytd.create_loader(options)
         _LOADERS[python_version] = (options, loader)
     options, loader = _LOADERS[python_version]
@@ -103,7 +102,7 @@ def _get_module_name(filename: str) -> str:
     """Converts a filename {subdir}/m.n/module/foo to module.foo."""
     parts = _get_relative(filename).split(os.path.sep)
     if "@python2" in parts:
-        module_parts = parts[parts.index("@python2") + 1:]
+        module_parts = parts[parts.index("@python2") + 1 :]
     elif parts[0] == "stdlib":
         module_parts = parts[1:]
     else:
@@ -112,59 +111,36 @@ def _get_module_name(filename: str) -> str:
     return ".".join(module_parts).replace(".pyi", "").replace(".__init__", "")
 
 
-def _is_version(path: str, version: str) -> bool:
-    return any("{}{}{}".format(d, os.path.sep, version) in path for d in TYPESHED_SUBDIRS)
-
-
-def check_subdirs_discoverable(subdir_paths: List[str]) -> None:
+def check_subdirs_discoverable(subdir_paths: list[Path]) -> None:
     for p in subdir_paths:
-        if not os.path.isdir(p):
-            raise SystemExit("Cannot find typeshed subdir at {} (specify parent dir via --typeshed-location)".format(p))
+        if not p.is_dir():
+            raise SystemExit(f"Cannot find typeshed subdir at {p} (specify parent dir via --typeshed-location)")
 
 
-def determine_files_to_test(*, typeshed_location: str, paths: Sequence[str]) -> List[str]:
+def determine_files_to_test(*, paths: Sequence[Path]) -> List[Path]:
     """Determine all files to test, checking if it's in the exclude list and which Python versions to use.
 
     Returns a list of pairs of the file path and Python version as an int."""
-    filenames = find_stubs_in_paths(paths)
+    stubs = find_stubs_in_paths(paths)
     ts = typeshed.Typeshed()
     skipped = set(ts.read_blacklist())
     files = []
-    for f in sorted(filenames):
-        rel = _get_relative(f)
-        if rel in skipped or "@python2" in f:
+    for f in sorted(stubs):
+        rel = _get_relative(str(f))
+        if rel in skipped or PY2_PATH in str(f):
             continue
         files.append(f)
     return files
 
 
-def find_stubs_in_paths(paths: Sequence[str]) -> List[str]:
-    filenames = []
-    for path in paths:
-        if os.path.isdir(path):
-            for root, _, fns in os.walk(path):
-                filenames.extend(os.path.join(root, fn) for fn in fns if fn.endswith(".pyi"))
-        else:
-            filenames.append(path)
-    return filenames
-
-
-def run_all_tests(*, files_to_test: Sequence[str], typeshed_location: str, print_stderr: bool, dry_run: bool) -> None:
+def run_all_tests(*, files_to_test: Sequence[str], print_stderr: bool, dry_run: bool) -> None:
     bad = []
     errors = 0
     total_tests = len(files_to_test)
     print("Testing files with pytype...")
     for i, f in enumerate(files_to_test):
         python_version = "{0.major}.{0.minor}".format(sys.version_info)
-        stderr = (
-            run_pytype(
-                filename=f,
-                python_version=python_version,
-                typeshed_location=typeshed_location,
-            )
-            if not dry_run
-            else None
-        )
+        stderr = run_pytype(filename=f, python_version=python_version) if not dry_run else None
         if stderr:
             if print_stderr:
                 print(stderr)
