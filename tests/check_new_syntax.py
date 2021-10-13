@@ -9,7 +9,7 @@ from pathlib import Path
 def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
     errors = []
 
-    class UnionFinder(ast.NodeVisitor):
+    class OldSyntaxFinder(ast.NodeVisitor):
         def visit_Subscript(self, node: ast.Subscript) -> None:
             if not isinstance(node.value, ast.Name):
                 return
@@ -26,22 +26,24 @@ def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
 
     # This doesn't check type aliases (or type var bounds, etc), since those are not
     # currently supported
+    #
+    # TODO: can use built-in generics in type aliases
     class AnnotationFinder(ast.NodeVisitor):
         def visit_AnnAssign(self, node: ast.AnnAssign) -> None:
-            UnionFinder().visit(node.annotation)
+            OldSyntaxFinder().visit(node.annotation)
 
         def visit_arg(self, node: ast.arg) -> None:
             if node.annotation is not None:
-                UnionFinder().visit(node.annotation)
+                OldSyntaxFinder().visit(node.annotation)
 
         def visit_FunctionDef(self, node: ast.FunctionDef) -> None:
             if node.returns is not None:
-                UnionFinder().visit(node.returns)
+                OldSyntaxFinder().visit(node.returns)
             self.generic_visit(node)
 
         def visit_AsyncFunctionDef(self, node: ast.AsyncFunctionDef) -> None:
             if node.returns is not None:
-                UnionFinder().visit(node.returns)
+                OldSyntaxFinder().visit(node.returns)
             self.generic_visit(node)
 
     AnnotationFinder().visit(tree)
