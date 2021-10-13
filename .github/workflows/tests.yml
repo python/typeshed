@@ -26,7 +26,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-      - run: pip install $(grep tomli== requirements-tests-py3.txt)
       - run: ./tests/check_pep_604.py
 
   flake8:

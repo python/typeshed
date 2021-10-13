@@ -14,8 +14,6 @@ from os import PathLike
 from pathlib import Path
 from typing import Tuple
 
-import tomli
-
 PY2_PATH = "@python2"
 
 _STDLIB_VERSIONS_RE = re.compile(r"([a-zA-Z_][a-zA-Z0-9_.]*): ([23]\.\d{1,2})-([23]\.\d{1,2})?")
@@ -261,6 +259,8 @@ def read_metadata(typeshed_path: str | PathLike[str], distribution: str) -> Meta
 
     All optional fields are initialized to their default values.
     """
+
+    import tomli
 
     with open(distribution_path(typeshed_path, distribution) / "METADATA.toml") as f:
         data = tomli.loads(f.read())

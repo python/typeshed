@@ -7,7 +7,6 @@ import subprocess
 import sys
 import tempfile
 import venv
-from glob import glob
 from pathlib import Path
 
 typeshed_path = Path(__file__).parent.parent
