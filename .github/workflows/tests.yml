@@ -26,6 +26,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
+      - run: pip install $(grep tomli== requirements-tests-py3.txt)
       - run: ./tests/check_pep_604.py
 
   flake8:
@@ -97,14 +98,14 @@ jobs:
           version: ${{ env.PYRIGHT_VERSION }}
           python-platform: ${{ matrix.python-platform }}
           python-version: ${{ matrix.python-version }}
-          no-comments: ${{ matrix.python-version != '3.9' || matrix.python-platform != 'Linux' }}  # Having each job create the same comment is too noisy.
+          no-comments: ${{ matrix.python-version != '3.9' || matrix.python-platform != 'Linux' }} # Having each job create the same comment is too noisy.
           project: ./pyrightconfig.stricter.json
       - uses: jakebailey/pyright-action@v1
         with:
           version: ${{ env.PYRIGHT_VERSION }}
           python-platform: ${{ matrix.python-platform }}
           python-version: ${{ matrix.python-version }}
-          no-comments: ${{ matrix.python-version != '3.9' || matrix.python-platform != 'Linux' }}  # Having each job create the same comment is too noisy.
+          no-comments: ${{ matrix.python-version != '3.9' || matrix.python-platform != 'Linux' }} # Having each job create the same comment is too noisy.
 
   stubtest-stdlib:
     name: Check stdlib with stubtest
