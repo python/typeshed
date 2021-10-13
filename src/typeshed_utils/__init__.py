@@ -21,6 +21,9 @@ class FormatError(Exception):
     pass
 
 
+# Path handling
+
+
 def stdlib_path(typeshed_path: str | PathLike[str], *, py2: bool = False) -> Path:
     path = Path(typeshed_path) / "stdlib"
     if py2:
@@ -45,6 +48,83 @@ def distribution_source_path(typeshed_path: str | PathLike[str], distribution: s
         return py2_path
     else:
         return distribution_path(typeshed_path, distribution)
+
+
+# Stub discovery
+
+
+def find_stubs_in_paths(paths: Iterable[Path]) -> list[Path]:
+    filenames: list[Path] = []
+    for path in paths:
+        if Path(path).is_dir():
+            for root, _, fns in os.walk(path):
+                filenames.extend(Path(root) / fn for fn in fns if fn.endswith(".pyi"))
+        else:
+            filenames.append(Path(path))
+    return filenames
+
+
+def stdlib_modules(typeshed_path: str | PathLike[str], *, py2: bool = False) -> Iterator[tuple[str, Path]]:
+    root = stdlib_path(typeshed_path, py2=py2)
+    for entry in root.iterdir():
+        if entry.name in [PY2_PATH, "VERSIONS"]:
+            continue
+        yield entry.stem, entry
+
+
+def all_stdlib_modules(typeshed_path: str | PathLike[str]) -> list[str]:
+    """Return a list of all standard library modules and sub-modules."""
+    stdlib_p = stdlib_path(typeshed_path).absolute()
+    prefix_len = len(str(stdlib_p))
+    modules: set[str] = set()
+    for p, _, files in os.walk(stdlib_p):
+        path = p[prefix_len + 1 :]
+        if path.startswith(PY2_PATH):
+            continue
+        for filename in files:
+            base_module = ".".join(path.split(os.sep))
+            if filename == "__init__.pyi":
+                modules.add(base_module)
+            elif filename.endswith(".pyi"):
+                mod, _ = os.path.splitext(filename)
+                modules.add(f"{base_module}.{mod}" if base_module else mod)
+    return sorted(modules)
+
+
+def distribution_modules(
+    typeshed_path: str | PathLike[str], distribution: str, *, py2: bool = False
+) -> Iterator[tuple[str, Path]]:
+    root = distribution_source_path(typeshed_path, distribution, py2=py2)
+    for entry in root.iterdir():
+        if entry.name == PY2_PATH:
+            continue
+        yield entry.stem, entry
+
+
+# Third-party distribution handling
+
+
+def third_party_distributions(typeshed_path: str | PathLike[str]) -> list[str]:
+    return [e.name for e in stubs_path(typeshed_path).iterdir()]
+
+
+def supported_python_versions(typeshed_path: str | PathLike[str], distribution: str) -> set[int]:
+    supported: set[int] = set()
+    data = read_metadata(typeshed_path, distribution)
+    if data.python2 or distribution_path(typeshed_path, distribution, py2=True).is_dir():
+        supported.add(2)
+    if distribution_has_py3_stubs(typeshed_path, distribution):
+        supported.add(3)
+    assert 1 <= len(supported) <= 2
+    return supported
+
+
+def distribution_has_py3_stubs(typeshed_path: str | PathLike[str], distribution: str) -> bool:
+    dist_path = distribution_path(typeshed_path, distribution)
+    return len(list(dist_path.glob("*.pyi"))) > 0 or len(list(dist_path.glob("[!@]*/__init__.pyi"))) > 0
+
+
+# stdlib/VERSIONS parsing
 
 
 class VersionInfo:
@@ -104,27 +184,7 @@ def _parse_py_version(v: str) -> _PyVersion:
     return int(major), int(minor)
 
 
-def all_stdlib_modules(typeshed_path: str | PathLike[str]) -> list[str]:
-    """Return a list of all standard library modules and sub-modules."""
-    stdlib_p = stdlib_path(typeshed_path).absolute()
-    prefix_len = len(str(stdlib_p))
-    modules: set[str] = set()
-    for p, _, files in os.walk(stdlib_p):
-        path = p[prefix_len + 1 :]
-        if path.startswith(PY2_PATH):
-            continue
-        for filename in files:
-            base_module = ".".join(path.split(os.sep))
-            if filename == "__init__.pyi":
-                modules.add(base_module)
-            elif filename.endswith(".pyi"):
-                mod, _ = os.path.splitext(filename)
-                modules.add(f"{base_module}.{mod}" if base_module else mod)
-    return sorted(modules)
-
-
-def third_party_distributions(typeshed_path: str | PathLike[str]) -> list[str]:
-    return [e.name for e in stubs_path(typeshed_path).iterdir()]
+# METADATA.toml parsing
 
 
 class MetaData:
@@ -180,48 +240,3 @@ def read_metadata(typeshed_path: str | PathLike[str], distribution: str) -> Meta
     return MetaData(
         distribution, version, requires, extra_description=extra_description, obsolete_since=obsolete_since, python2=python2
     )
-
-
-def supported_python_versions(typeshed_path: str | PathLike[str], distribution: str) -> set[int]:
-    supported: set[int] = set()
-    data = read_metadata(typeshed_path, distribution)
-    if data.python2 or distribution_path(typeshed_path, distribution, py2=True).is_dir():
-        supported.add(2)
-    if distribution_has_py3_stubs(typeshed_path, distribution):
-        supported.add(3)
-    assert 1 <= len(supported) <= 2
-    return supported
-
-
-def distribution_has_py3_stubs(typeshed_path: str | PathLike[str], distribution: str) -> bool:
-    dist_path = distribution_path(typeshed_path, distribution)
-    return len(list(dist_path.glob("*.pyi"))) > 0 or len(list(dist_path.glob("[!@]*/__init__.pyi"))) > 0
-
-
-def stdlib_modules(typeshed_path: str | PathLike[str], *, py2: bool = False) -> Iterator[tuple[str, Path]]:
-    root = stdlib_path(typeshed_path, py2=py2)
-    for entry in root.iterdir():
-        if entry.name in [PY2_PATH, "VERSIONS"]:
-            continue
-        yield entry.stem, entry
-
-
-def distribution_modules(
-    typeshed_path: str | PathLike[str], distribution: str, *, py2: bool = False
-) -> Iterator[tuple[str, Path]]:
-    root = distribution_source_path(typeshed_path, distribution, py2=py2)
-    for entry in root.iterdir():
-        if entry.name == PY2_PATH:
-            continue
-        yield entry.stem, entry
-
-
-def find_stubs_in_paths(paths: Iterable[Path]) -> list[Path]:
-    filenames: list[Path] = []
-    for path in paths:
-        if Path(path).is_dir():
-            for root, _, fns in os.walk(path):
-                filenames.extend(Path(root) / fn for fn in fns if fn.endswith(".pyi"))
-        else:
-            filenames.append(Path(path))
-    return filenames
