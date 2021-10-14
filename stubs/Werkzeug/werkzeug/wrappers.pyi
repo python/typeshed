@@ -1,6 +1,6 @@
 from _typeshed.wsgi import InputStream, WSGIEnvironment
 from datetime import datetime, timedelta
-from typing import Any, Callable, Iterable, Iterator, Mapping, MutableMapping, Sequence, Text, Tuple, Type, TypeVar, overload
+from typing import Any, Callable, Iterable, Iterator, Mapping, MutableMapping, Sequence, Text, Type, TypeVar, overload
 from typing_extensions import Literal
 
 from .datastructures import (

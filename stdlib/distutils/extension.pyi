@@ -1,5 +1,3 @@
-from typing import Tuple
-
 class Extension:
     def __init__(
         self,

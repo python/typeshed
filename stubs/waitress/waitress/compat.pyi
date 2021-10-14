@@ -1,5 +1,5 @@
 from io import TextIOWrapper
-from typing import Any, Tuple
+from typing import Any
 
 PY2: bool
 PY3: bool

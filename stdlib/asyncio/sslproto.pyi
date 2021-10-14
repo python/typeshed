@@ -1,6 +1,6 @@
 import ssl
 import sys
-from typing import Any, Callable, ClassVar, Deque, Tuple
+from typing import Any, Callable, ClassVar, Deque
 from typing_extensions import Literal
 
 from . import constants, events, futures, protocols, transports

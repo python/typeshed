@@ -1,7 +1,7 @@
 import sys
 from _typeshed import Self
 from types import TracebackType
-from typing import Callable, Protocol, Tuple, Type
+from typing import Callable, Protocol, Type
 
 class _WarnFunction(Protocol):
     def __call__(self, message: str, category: Type[Warning] = ..., stacklevel: int = ..., source: PipeHandle = ...) -> None: ...

@@ -1,4 +1,4 @@
-from typing import Any, Dict, Tuple
+from typing import Any, Dict
 from weakref import ReferenceType
 
 localdict = Dict[Any, Any]

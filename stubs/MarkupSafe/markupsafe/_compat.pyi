@@ -1,5 +1,5 @@
 import sys
-from typing import Iterator, Mapping, Tuple, TypeVar
+from typing import Iterator, Mapping, TypeVar
 
 _K = TypeVar("_K")
 _V = TypeVar("_V")

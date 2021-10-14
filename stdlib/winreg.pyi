@@ -1,6 +1,6 @@
 from _typeshed import Self
 from types import TracebackType
-from typing import Any, Tuple, Type, Union
+from typing import Any, Type, Union
 
 _KeyType = Union[HKEYType, int]
 

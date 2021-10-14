@@ -2,7 +2,7 @@ import concurrent.futures
 import sys
 from collections.abc import Awaitable, Generator, Iterable, Iterator
 from types import FrameType
-from typing import Any, Generic, Optional, Set, TextIO, Tuple, TypeVar, Union, overload
+from typing import Any, Generic, Optional, Set, TextIO, TypeVar, Union, overload
 from typing_extensions import Literal
 
 from .events import AbstractEventLoop

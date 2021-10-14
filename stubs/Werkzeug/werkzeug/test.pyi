@@ -1,6 +1,6 @@
 import sys
 from _typeshed.wsgi import WSGIEnvironment
-from typing import Any, Generic, Text, Tuple, Type, TypeVar, overload
+from typing import Any, Generic, Text, Type, TypeVar, overload
 from typing_extensions import Literal
 
 if sys.version_info >= (3, 0):

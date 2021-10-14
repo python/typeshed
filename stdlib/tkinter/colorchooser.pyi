@@ -1,5 +1,5 @@
 from tkinter.commondialog import Dialog
-from typing import Any, ClassVar, Tuple
+from typing import Any, ClassVar
 
 class Chooser(Dialog):
     command: ClassVar[str]

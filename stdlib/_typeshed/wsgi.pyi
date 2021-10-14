@@ -3,7 +3,7 @@
 # See the README.md file in this directory for more information.
 
 from sys import _OptExcInfo
-from typing import Any, Callable, Dict, Iterable, Protocol, Tuple
+from typing import Any, Callable, Dict, Iterable, Protocol
 
 # stable
 class StartResponse(Protocol):

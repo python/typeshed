@@ -7,7 +7,7 @@ import ctypes
 import mmap
 import sys
 from os import PathLike
-from typing import AbstractSet, Any, Awaitable, Container, Iterable, Protocol, Tuple, TypeVar, Union
+from typing import AbstractSet, Any, Awaitable, Container, Iterable, Protocol, TypeVar, Union
 from typing_extensions import Literal, final
 
 _KT = TypeVar("_KT")

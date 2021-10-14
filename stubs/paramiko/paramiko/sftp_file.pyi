@@ -1,4 +1,4 @@
-from typing import Any, Iterator, Sequence, Tuple
+from typing import Any, Iterator, Sequence
 
 from paramiko.file import BufferedFile
 from paramiko.sftp_attr import SFTPAttributes

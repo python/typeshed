@@ -1,4 +1,4 @@
-from typing import SupportsComplex, SupportsFloat, Tuple, Union
+from typing import SupportsComplex, SupportsFloat, Union
 
 e: float
 pi: float

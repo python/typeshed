@@ -1,4 +1,4 @@
-from typing import Any, Callable, Dict, Iterable, Iterator, Text, Tuple, TypeVar
+from typing import Any, Callable, Dict, Iterable, Iterator, Text, TypeVar
 from typing_extensions import TypedDict
 
 _T = TypeVar("_T")

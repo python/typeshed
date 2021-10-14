@@ -1,5 +1,5 @@
 from socket import socket
-from typing import Any, Sequence, Tuple
+from typing import Any, Sequence
 
 from waitress.adjustments import Adjustments
 from waitress.channel import HTTPChannel

@@ -1,4 +1,4 @@
-from typing import Any, Callable, Generator, Iterable, Iterator, Sequence, Tuple, overload
+from typing import Any, Callable, Generator, Iterable, Iterator, Sequence, overload
 
 _NDArray = Any  # FIXME: no typings for numpy arrays
 

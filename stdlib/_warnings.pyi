@@ -1,4 +1,4 @@
-from typing import Any, Tuple, Type, overload
+from typing import Any, Type, overload
 
 _defaultaction: str
 _onceregistry: dict[Any, Any]

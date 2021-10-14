@@ -13,7 +13,6 @@ from typing import (
     Mapping,
     Protocol,
     Sequence,
-    Tuple,
     Type,
     TypeVar,
     Union,

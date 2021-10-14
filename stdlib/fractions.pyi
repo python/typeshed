@@ -1,7 +1,7 @@
 import sys
 from decimal import Decimal
 from numbers import Integral, Rational, Real
-from typing import Tuple, Type, TypeVar, Union, overload
+from typing import Type, TypeVar, Union, overload
 from typing_extensions import Literal
 
 _ComparableNum = Union[int, float, Decimal, Real]

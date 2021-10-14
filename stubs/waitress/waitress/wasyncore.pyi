@@ -1,7 +1,7 @@
 from io import BytesIO
 from logging import Logger
 from socket import socket
-from typing import Any, Callable, Mapping, Tuple
+from typing import Any, Callable, Mapping
 
 from . import compat as compat, utilities as utilities
 

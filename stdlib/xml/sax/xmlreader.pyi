@@ -1,4 +1,4 @@
-from typing import Mapping, Tuple
+from typing import Mapping
 
 class XMLReader:
     def __init__(self) -> None: ...

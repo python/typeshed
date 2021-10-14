@@ -1,6 +1,6 @@
 import sys
 from _typeshed import SupportsTrunc
-from typing import Iterable, SupportsFloat, SupportsInt, Tuple, overload
+from typing import Iterable, SupportsFloat, SupportsInt, overload
 
 e: float
 pi: float

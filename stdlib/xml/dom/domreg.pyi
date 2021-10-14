@@ -1,5 +1,5 @@
 from _typeshed.xml import DOMImplementation
-from typing import Callable, Iterable, Tuple
+from typing import Callable, Iterable
 
 well_known_implementations: dict[str, str]
 registered: dict[str, Callable[[], DOMImplementation]]

@@ -1,5 +1,3 @@
-from typing import Tuple
-
 class ModulusPack:
     pack: dict[int, list[tuple[int, int]]]
     discarded: list[tuple[int, str]]

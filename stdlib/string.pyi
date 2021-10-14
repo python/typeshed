@@ -1,6 +1,6 @@
 import sys
 from re import RegexFlag
-from typing import Any, Iterable, Mapping, Sequence, Tuple
+from typing import Any, Iterable, Mapping, Sequence
 
 if sys.version_info >= (3, 8):
     from re import Pattern

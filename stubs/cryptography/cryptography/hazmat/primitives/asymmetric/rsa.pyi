@@ -1,5 +1,4 @@
 from abc import ABCMeta, abstractmethod
-from typing import Tuple
 
 from cryptography.hazmat.backends.interfaces import RSABackend
 from cryptography.hazmat.primitives.asymmetric import AsymmetricVerificationContext

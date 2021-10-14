@@ -1,5 +1,5 @@
 from _typeshed import StrOrBytesPath
-from typing import Iterable, Tuple
+from typing import Iterable
 
 verbose: int
 filename_only: int

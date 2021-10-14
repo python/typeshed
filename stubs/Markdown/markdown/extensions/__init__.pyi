@@ -1,4 +1,4 @@
-from typing import Any, Mapping, Tuple
+from typing import Any, Mapping
 
 from markdown.core import Markdown
 

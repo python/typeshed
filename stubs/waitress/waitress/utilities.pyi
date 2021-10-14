@@ -1,5 +1,5 @@
 from logging import Logger
-from typing import Any, Callable, Mapping, Match, Pattern, Sequence, Tuple
+from typing import Any, Callable, Mapping, Match, Pattern, Sequence
 
 from .rfc7230 import OBS_TEXT as OBS_TEXT, VCHAR as VCHAR
 

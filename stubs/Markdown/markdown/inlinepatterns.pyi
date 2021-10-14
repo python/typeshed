@@ -1,5 +1,5 @@
 import typing
-from typing import Any, Match, Tuple
+from typing import Any, Match
 from xml.etree.ElementTree import Element
 
 def build_inlinepatterns(md, **kwargs): ...

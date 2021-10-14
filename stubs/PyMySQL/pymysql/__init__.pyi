@@ -1,5 +1,5 @@
 import sys
-from typing import FrozenSet, Tuple
+from typing import FrozenSet
 
 from .connections import Connection as Connection
 from .constants import FIELD_TYPE as FIELD_TYPE

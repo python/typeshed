@@ -1,6 +1,6 @@
 from _typeshed import StrOrBytesPath, SupportsWrite
 from distutils.cmd import Command
-from typing import IO, Any, Iterable, Mapping, Tuple, Type
+from typing import IO, Any, Iterable, Mapping, Type
 
 class DistributionMetadata:
     def __init__(self, path: int | StrOrBytesPath | None = ...) -> None: ...

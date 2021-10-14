@@ -14,7 +14,7 @@ from genericpath import (
     samestat as samestat,
 )
 from os import PathLike
-from typing import AnyStr, Sequence, Tuple, overload
+from typing import AnyStr, Sequence, overload
 
 supports_unicode_filenames: bool
 # aliases (also in os)

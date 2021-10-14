@@ -1,6 +1,6 @@
 import sys
 from types import ModuleType
-from typing import Any, Callable, Iterable, Text, Tuple, Union
+from typing import Any, Callable, Iterable, Text, Union
 
 from .environment import Environment
 

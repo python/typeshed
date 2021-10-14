@@ -1,7 +1,7 @@
 import socket
 import sys
 from _typeshed import WriteableBuffer
-from typing import IO, Any, Callable, ClassVar, NoReturn, Tuple, Type
+from typing import IO, Any, Callable, ClassVar, NoReturn, Type
 
 from . import events, futures, proactor_events, selector_events, streams, windows_utils
 

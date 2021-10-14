@@ -1,5 +1,5 @@
 from socket import socket
-from typing import Any, FrozenSet, Iterable, Sequence, Set, Tuple
+from typing import Any, FrozenSet, Iterable, Sequence, Set
 
 from .compat import HAS_IPV6 as HAS_IPV6, PY2 as PY2, WIN as WIN, string_types as string_types
 from .proxy_headers import PROXY_HEADERS as PROXY_HEADERS

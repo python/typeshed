@@ -2,7 +2,7 @@ import datetime
 import sys
 from _typeshed import SupportsItems
 from types import BuiltinFunctionType, FunctionType, ModuleType
-from typing import Any, Callable, ClassVar, Iterable, Mapping, NoReturn, Tuple, Type, TypeVar
+from typing import Any, Callable, ClassVar, Iterable, Mapping, NoReturn, Type, TypeVar
 
 from yaml.error import YAMLError as YAMLError
 from yaml.nodes import MappingNode as MappingNode, Node as Node, ScalarNode as ScalarNode, SequenceNode as SequenceNode

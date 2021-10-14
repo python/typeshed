@@ -1,5 +1,3 @@
-from typing import Tuple
-
 from cryptography.hazmat.primitives.hashes import HashAlgorithm
 
 def decode_dss_signature(signature: bytes) -> tuple[int, int]: ...

@@ -1,4 +1,4 @@
-from typing import Any, Callable, Iterator, Tuple
+from typing import Any, Callable, Iterator
 
 def py_encode_basestring(s: str) -> str: ...  # undocumented
 def py_encode_basestring_ascii(s: str) -> str: ...  # undocumented

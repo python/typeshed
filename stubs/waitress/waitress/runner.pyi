@@ -1,5 +1,5 @@
 from io import TextIOWrapper
-from typing import Any, Callable, Pattern, Sequence, Tuple
+from typing import Any, Callable, Pattern, Sequence
 
 HELP: str
 RUNNER_PATTERN: Pattern[Any]

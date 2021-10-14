@@ -1,6 +1,6 @@
 from logging import Logger
 from threading import Condition, Lock
-from typing import Any, Deque, Mapping, Sequence, Tuple
+from typing import Any, Deque, Mapping, Sequence
 
 from .channel import HTTPChannel
 from .utilities import Error

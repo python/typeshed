@@ -1,6 +1,6 @@
 import datetime
 import sys
-from typing import Set, Tuple
+from typing import Set
 
 from dateparser.date import DateDataParser
 

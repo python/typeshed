@@ -1,5 +1,5 @@
 from io import BytesIO
-from typing import Any, Mapping, Pattern, Sequence, Tuple
+from typing import Any, Mapping, Pattern, Sequence
 
 from waitress.adjustments import Adjustments
 from waitress.receiver import ChunkedReceiver, FixedStreamReceiver

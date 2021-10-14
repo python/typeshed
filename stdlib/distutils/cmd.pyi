@@ -1,6 +1,6 @@
 from abc import abstractmethod
 from distutils.dist import Distribution
-from typing import Any, Callable, Iterable, Tuple
+from typing import Any, Callable, Iterable
 
 class Command:
     sub_commands: list[tuple[str, Callable[[Command], bool] | None]]

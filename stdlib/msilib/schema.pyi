@@ -1,5 +1,4 @@
 import sys
-from typing import Tuple
 
 if sys.platform == "win32":
     from . import Table

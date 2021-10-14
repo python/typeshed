@@ -1,4 +1,4 @@
-from typing import Any, Callable, Tuple
+from typing import Any, Callable
 
 class JSONDecodeError(ValueError):
     msg: str

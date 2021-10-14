@@ -4,7 +4,7 @@ from bdb import Bdb
 from cmd import Cmd
 from inspect import _SourceObjectType
 from types import CodeType, FrameType, TracebackType
-from typing import IO, Any, Callable, ClassVar, Iterable, Mapping, Sequence, Tuple, TypeVar
+from typing import IO, Any, Callable, ClassVar, Iterable, Mapping, Sequence, TypeVar
 
 _T = TypeVar("_T")
 

@@ -1,5 +1,5 @@
 import sys
-from typing import Any, Awaitable, Callable, Iterable, Tuple
+from typing import Any, Awaitable, Callable, Iterable
 
 from . import events
 

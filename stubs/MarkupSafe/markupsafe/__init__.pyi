@@ -1,6 +1,6 @@
 import string
 import sys
-from typing import Any, Callable, Iterable, Mapping, Sequence, Text, Tuple
+from typing import Any, Callable, Iterable, Mapping, Sequence, Text
 from typing_extensions import SupportsIndex
 
 from markupsafe._compat import text_type

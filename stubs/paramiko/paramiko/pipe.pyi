@@ -1,4 +1,4 @@
-from typing import Protocol, Tuple
+from typing import Protocol
 
 class _BasePipe(Protocol):
     def clear(self) -> None: ...
