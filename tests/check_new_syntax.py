@@ -9,6 +9,11 @@ from pathlib import Path
 def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
     errors = []
 
+    def unparse_without_tuple_parens(node: ast.AST) -> str:
+        if isinstance(node, ast.Tuple) and node.elts:
+            return ast.unparse(node)[1:-1]
+        return ast.unparse(node)
+
     class OldSyntaxFinder(ast.NodeVisitor):
         def visit_Subscript(self, node: ast.Subscript) -> None:
             if isinstance(node.value, ast.Name):
@@ -18,8 +23,11 @@ def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
                 if node.value.id == "Optional":
                     new_syntax = f"{ast.unparse(node.slice)} | None"
                     errors.append(f"{path}:{node.lineno}: Use PEP 604 syntax for Optional, e.g. `{new_syntax}`")
-                if node.value.id in {"List", "Dict"}:
-                    new_syntax = f"{node.value.id.lower()}[{ast.unparse(node.slice)}]"
+                if node.value.id == "List":
+                    new_syntax = f"list[{ast.unparse(node.slice)}]"
+                    errors.append(f"{path}:{node.lineno}: Use built-in generics, e.g. `{new_syntax}`")
+                if node.value.id == "Dict":
+                    new_syntax = f"dict[{unparse_without_tuple_parens(node.slice)}]"
                     errors.append(f"{path}:{node.lineno}: Use built-in generics, e.g. `{new_syntax}`")
 
             self.generic_visit(node)
