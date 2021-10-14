@@ -1,4 +1,5 @@
-from typing import Any, BinaryIO, Literal, NoReturn, Optional, Sequence
+from typing import Any, BinaryIO, NoReturn, Optional
+from typing_extensions import Literal
 from urllib.request import OpenerDirector
 from xml.dom.expatbuilder import ExpatBuilder, ExpatBuilderNS
 from xml.dom.minidom import Node
@@ -146,6 +147,6 @@ class DocumentLS:
 class DOMImplementationLS:
     MODE_SYNCHRONOUS: Literal[1]
     MODE_ASYNCHRONOUS: Literal[2]
-    def createDOMBuilder(self, mode: Literal[1], schemeType: None) -> DomBuilder: ...
+    def createDOMBuilder(self, mode: Literal[1], schemaType: None) -> DomBuilder: ...
     def createDOMWriter(self) -> NoReturn: ...
     def createDOMInputSource(self) -> DOMInputSource: ...
