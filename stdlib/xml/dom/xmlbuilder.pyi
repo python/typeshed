@@ -1,38 +1,29 @@
 from typing import Any, BinaryIO, NoReturn, Optional
-from typing_extensions import Literal
 from urllib.request import OpenerDirector
 from xml.dom.expatbuilder import ExpatBuilder, ExpatBuilderNS
 from xml.dom.minidom import Node
 
+from typing_extensions import Literal
+
 # UNKNOWN TYPES:
 # - `Options.errorHandler`.
 #       The same as `_DOMBuilderErrorHandlerType`?
-# - `Options.filter`.
-#       The same as `_DOMBuilderFilterType`?
-# - `publicId` arg in `DOMEntityResolver.resolveEntity()`.
-#       The same as `_DOMInputSourcePublicIdType`?
+#       Maybe `xml.sax.handler.ErrorHandler`?
 # - Return type of DOMBuilder.getFeature().
 #       We could get rid of the `Any` if we knew more
-#       about `Options.errorHandler` and `Options.filter`.
+#       about `Options.errorHandler`.
 
 # ALIASES REPRESENTING MORE UNKNOWN TYPES:
-_DOMBuilderEntityResolverType = Optional[Any]
+
 # probably the same as `Options.errorHandler`?
+# Maybe `xml.sax.handler.ErrorHandler`?
 _DOMBuilderErrorHandlerType = Optional[Any]
-# probably the same as `Options.filter`?
-# probably `DOMBuilderFilter`?
-_DOMBuilderFilterType = Optional[Any]
 # probably some kind of IO...
 _DOMInputSourceCharacterStreamType = Optional[Any]
 # probably a string??
 _DOMInputSourceStringDataType = Optional[Any]
 # probably a string??
 _DOMInputSourceEncodingType = Optional[Any]
-_DOMInputSourcePublicIdType = Optional[Any]
-# probably str? See DOMEntityResolver.resolveEntity()
-_DOMInputSourceSystemIdType = Optional[Any]
-# probably str? See DOMBuilder.parseURI()
-_DOMInputSourceBaseURIType = Optional[Any]
 
 class Options:
     namespaces: int
@@ -53,12 +44,12 @@ class Options:
     infoset: bool
     supported_mediatypes_only: bool
     errorHandler: Any | None
-    filter: Any | None
+    filter: DOMBuilderFilter | None  # a guess, but seems likely
 
 class DOMBuilder:
-    entityResolver: _DOMBuilderEntityResolverType
+    entityResolver: DOMEntityResolver | None  # a guess, but seems likely
     errorHandler: _DOMBuilderErrorHandlerType
-    filter: _DOMBuilderFilterType
+    filter: DOMBuilderFilter | None  # a guess, but seems likely
     ACTION_REPLACE: Literal[1]
     ACTION_APPEND_AS_CHILDREN: Literal[2]
     ACTION_INSERT_AFTER: Literal[3]
@@ -66,12 +57,12 @@ class DOMBuilder:
     _legal_actions: tuple[Literal[1], Literal[2], Literal[3], Literal[4]]
     def __init__(self) -> None: ...
     _options: Options
-    def _get_entityResolver(self) -> _DOMBuilderEntityResolverType: ...
-    def _set_entityResolver(self, entityResolver: _DOMBuilderEntityResolverType) -> None: ...
+    def _get_entityResolver(self) -> DOMEntityResolver | None: ...  # a guess, but seems likely
+    def _set_entityResolver(self, entityResolver: DOMEntityResolver | None) -> None: ...  # a guess, but seems likely
     def _get_errorHandler(self) -> _DOMBuilderErrorHandlerType: ...
     def _set_errorHandler(self, errorHandler: _DOMBuilderErrorHandlerType) -> None: ...
-    def _get_filter(self) -> _DOMBuilderFilterType: ...
-    def _set_filter(self, filter: _DOMBuilderFilterType) -> None: ...
+    def _get_filter(self) -> DOMBuilderFilter | None: ...  # a guess, but seems likely
+    def _set_filter(self, filter: DOMBuilderFilter | None) -> None: ...  # a guess, but seems likely
     def setFeature(self, name: str, state: int) -> None: ...
     def supportsFeature(self, name: str) -> bool: ...
     def canSetFeature(self, name: str, state: int) -> bool: ...
@@ -90,7 +81,7 @@ def _name_xform(name: str) -> str: ...
 
 class DOMEntityResolver:
     _opener: OpenerDirector
-    def resolveEntity(self, publicId: object | None, systemId: str) -> DOMInputSource: ...
+    def resolveEntity(self, publicId: str | None, systemId: str) -> DOMInputSource: ...
     def _get_opener(self) -> OpenerDirector: ...
     def _create_opener(self) -> OpenerDirector: ...
     def _guess_media_encoding(self, source: DOMInputSource) -> str: ...
@@ -100,9 +91,9 @@ class DOMInputSource:
     characterStream: _DOMInputSourceCharacterStreamType
     stringData: _DOMInputSourceStringDataType
     encoding: _DOMInputSourceEncodingType
-    publicId: _DOMInputSourcePublicIdType
-    systemId: _DOMInputSourceSystemIdType
-    baseURI: _DOMInputSourceBaseURIType
+    publicId: str | None
+    systemId: str | None
+    baseURI: str | None
     def _get_byteStream(self) -> OpenerDirector | None: ...
     def _set_byteStream(self, byteStream: OpenerDirector | None) -> None: ...
     def _get_characterStream(self) -> _DOMInputSourceCharacterStreamType: ...
@@ -111,12 +102,12 @@ class DOMInputSource:
     def _set_stringData(self, data: _DOMInputSourceStringDataType) -> None: ...
     def _get_encoding(self) -> _DOMInputSourceEncodingType: ...
     def _set_encoding(self, encoding: _DOMInputSourceEncodingType) -> None: ...
-    def _get_publicId(self) -> _DOMInputSourcePublicIdType: ...
-    def _set_publicId(self, publicId: _DOMInputSourcePublicIdType) -> None: ...
-    def _get_systemId(self) -> _DOMInputSourceSystemIdType: ...
-    def _set_systemId(self, systemId: _DOMInputSourceSystemIdType) -> None: ...
-    def _get_baseURI(self) -> _DOMInputSourceBaseURIType: ...
-    def _set_baseURI(self, uri: _DOMInputSourceBaseURIType) -> None: ...
+    def _get_publicId(self) -> str | None: ...
+    def _set_publicId(self, publicId: str | None) -> None: ...
+    def _get_systemId(self) -> str | None: ...
+    def _set_systemId(self, systemId: str | None) -> None: ...
+    def _get_baseURI(self) -> str | None: ...
+    def _set_baseURI(self, uri: str | None) -> None: ...
 
 class DOMBuilderFilter:
     FILTER_ACCEPT: Literal[1]
