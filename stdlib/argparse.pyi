@@ -1,5 +1,20 @@
 import sys
-from typing import IO, Any, Callable, Generator, Generic, Iterable, NoReturn, Pattern, Protocol, Sequence, Tuple, Type, TypeVar, overload
+from typing import (
+    IO,
+    Any,
+    Callable,
+    Generator,
+    Generic,
+    Iterable,
+    NoReturn,
+    Pattern,
+    Protocol,
+    Sequence,
+    Tuple,
+    Type,
+    TypeVar,
+    overload,
+)
 
 _T = TypeVar("_T")
 _ActionT = TypeVar("_ActionT", bound=Action)
