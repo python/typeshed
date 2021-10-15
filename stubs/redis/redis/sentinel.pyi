@@ -1,6 +1,5 @@
 from typing import Any
 
-from redis.commands import SentinelCommands
 from redis.connection import Connection, ConnectionPool
 from redis.exceptions import ConnectionError
 
@@ -26,7 +25,9 @@ class SentinelConnectionPool(ConnectionPool):
     def get_master_address(self): ...
     def rotate_slaves(self): ...
 
-class Sentinel(SentinelCommands, object):
+# TODO: this should subclass `redis.commands.SentinelCommands` in the future
+# right now `redis.commands` is missing.
+class Sentinel(object):
     sentinel_kwargs: Any
     sentinels: Any
     min_other_sentinels: int
