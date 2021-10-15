@@ -430,7 +430,7 @@ class ContextManager(Protocol[_T_co]):
 class AsyncContextManager(Protocol[_T_co]):
     def __aenter__(self) -> Awaitable[_T_co]: ...
     def __aexit__(
-        self, exc_type: Type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None
+        self, __exc_type: Type[BaseException] | None, __exc_value: BaseException | None, __traceback: TracebackType | None
     ) -> Awaitable[bool | None]: ...
 
 class Mapping(_Collection[_KT], Generic[_KT, _VT_co]):
