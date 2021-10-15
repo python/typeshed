@@ -1,7 +1,7 @@
 from typing import Any
 
 from redis.commands import SentinelCommands
-from redis.connection import ConnectionPool, Connection
+from redis.connection import Connection, ConnectionPool
 from redis.exceptions import ConnectionError
 
 class MasterNotFoundError(ConnectionError): ...
