@@ -86,6 +86,10 @@ class HTTPResponse(io.BufferedIOBase, BinaryIO):
     closed: bool
     status: int
     reason: str
+    chunked: bool
+    chunk_left: int | None
+    length: int | None
+    will_close: bool
     def __init__(self, sock: socket, debuglevel: int = ..., method: str | None = ..., url: str | None = ...) -> None: ...
     def peek(self, n: int = ...) -> bytes: ...
     def read(self, amt: int | None = ...) -> bytes: ...
