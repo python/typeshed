@@ -14,11 +14,11 @@ def search_dates(
     languages: list[str] | Tuple[str, ...] | Set[str] | None,
     settings: Mapping[Any, Any] | None,
     add_detected_language: Literal[True],
-) -> list[Tuple[str, datetime, str]]: ...
+) -> list[tuple[str, datetime, str]]: ...
 @overload
 def search_dates(
     text: str,
     languages: list[str] | Tuple[str, ...] | Set[str] | None = ...,
     settings: Mapping[Any, Any] | None = ...,
     add_detected_language: Literal[False] = ...,
-) -> list[Tuple[str, datetime]]: ...
+) -> list[tuple[str, datetime]]: ...

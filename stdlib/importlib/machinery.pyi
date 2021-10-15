@@ -1,6 +1,6 @@
 import importlib.abc
 import types
-from typing import Any, Callable, Sequence, Tuple
+from typing import Any, Callable, Sequence
 
 # TODO: the loaders seem a bit backwards, attribute is protocol but __init__ arg isn't?
 class ModuleSpec:
@@ -100,10 +100,10 @@ def all_suffixes() -> list[str]: ...
 
 class FileFinder(importlib.abc.PathEntryFinder):
     path: str
-    def __init__(self, path: str, *loader_details: Tuple[importlib.abc.Loader, list[str]]) -> None: ...
+    def __init__(self, path: str, *loader_details: tuple[importlib.abc.Loader, list[str]]) -> None: ...
     @classmethod
     def path_hook(
-        cls, *loader_details: Tuple[importlib.abc.Loader, list[str]]
+        cls, *loader_details: tuple[importlib.abc.Loader, list[str]]
     ) -> Callable[[str], importlib.abc.PathEntryFinder]: ...
 
 class SourceFileLoader(importlib.abc.FileLoader, importlib.abc.SourceLoader):
