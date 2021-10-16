@@ -15,7 +15,8 @@ _FontDescription = Union[
     # A font object constructed in Python
     Font,
     # ("Helvetica", 12, BOLD)
-    tkinter._TkinterSequence[Any],
+    List[Any],
+    Tuple[Any, ...],
     # A font object constructed in Tcl
     _tkinter.Tcl_Obj,
 ]
