@@ -888,10 +888,10 @@ if sys.version_info >= (3, 7):
 
 class _TreeviewItemDict(TypedDict):
     text: str
-    image: Literal[""] | list[str]  # no idea why it's wrapped in list
-    values: list[Any]
+    image: list[str] | Literal[""]  # no idea why it's wrapped in list
+    values: list[Any] | Literal[""]
     open: bool  # actually 0 or 1
-    tags: list[str]
+    tags: list[str] | Literal[""]
 
 class _TreeviewTagDict(TypedDict):
     # There is also 'text' and 'anchor', but they don't seem to do anything, using them is likely a bug
@@ -1034,13 +1034,13 @@ class Treeview(Widget, tkinter.XView, tkinter.YView):
     @overload
     def item(self, item: str, option: Literal["text"]) -> str: ...
     @overload
-    def item(self, item: str, option: Literal["image"]) -> Literal[""] | tuple[str]: ...
+    def item(self, item: str, option: Literal["image"]) -> tuple[str] | Literal[""]: ...
     @overload
-    def item(self, item: str, option: Literal["values"]) -> Literal[""] | Tuple[Any, ...]: ...
+    def item(self, item: str, option: Literal["values"]) -> Tuple[Any, ...] | Literal[""]: ...
     @overload
     def item(self, item: str, option: Literal["open"]) -> bool: ...  # actually 0 or 1
     @overload
-    def item(self, item: str, option: Literal["tags"]) -> Literal[""] | Tuple[str, ...]: ...
+    def item(self, item: str, option: Literal["tags"]) -> Tuple[str, ...] | Literal[""]: ...
     @overload
     def item(self, item: str, option: str) -> Any: ...
     @overload
@@ -1051,7 +1051,7 @@ class Treeview(Widget, tkinter.XView, tkinter.YView):
         *,
         text: str = ...,
         image: tkinter._ImageSpec = ...,
-        values: list[Any] | Tuple[Any, ...] = ...,
+        values: list[Any] | Tuple[Any, ...] | Literal[""] = ...,
         open: bool = ...,
         tags: str | list[str] | Tuple[str, ...] = ...,
     ) -> _TreeviewItemDict | None: ...
