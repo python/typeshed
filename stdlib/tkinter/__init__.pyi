@@ -3066,7 +3066,7 @@ class Spinbox(Widget, XView):
         buttoncursor: _Cursor = ...,
         buttondownrelief: _Relief = ...,
         buttonuprelief: _Relief = ...,
-        # percent substitutions don't seem to be supported, it's similar to Entry's validion stuff
+        # percent substitutions don't seem to be supported, it's similar to Entry's validation stuff
         command: Callable[[], Any] | str | list[str] | Tuple[str, ...] = ...,
         cursor: _Cursor = ...,
         disabledbackground: _Color = ...,
