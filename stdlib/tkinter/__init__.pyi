@@ -68,22 +68,19 @@ EXCEPTION = _tkinter.EXCEPTION
 #    something, then you may actually want Callable[something] | str,
 #    because it's often possible to specify a string of Tcl code.
 #
+#  - If you think the correct type is Iterable[Foo] or Sequence[Foo], it is
+#    probably list[Foo] | tuple[Foo, ...], disallowing other sequences such
+#    as deques:
+#
+#        >>> tkinter.Label(font=('Helvetica', 12, collections.deque(['bold'])))
+#        Traceback (most recent call last):
+#          ...
+#        _tkinter.TclError: unknown font style "deque(['bold'])"
+#
 #  - Some options can be set only in __init__, but all options are available
 #    when getting their values with configure's return value or cget.
 #
 #  - Asks other tkinter users if you haven't worked much with tkinter.
-
-# _TkinterSequence[T] represents a sequence that tkinter understands. It
-# differs from typing.Sequence[T]. For example, collections.deque a valid
-# Sequence but not a valid _TkinterSequence:
-#
-#    >>> tkinter.Label(font=('Helvetica', 12, collections.deque(['bold'])))
-#    Traceback (most recent call last):
-#      ...
-#    _tkinter.TclError: unknown font style "deque(['bold'])"
-_T = TypeVar("_T")
-_TkinterSequence = Union[List[_T], Tuple[_T, ...]]
-_TkinterSequence2D = Union[List[List[_T]], List[Tuple[_T, ...]], Tuple[List[_T], ...], Tuple[Tuple[_T, ...], ...]]
 
 # Some widgets have an option named -compound that accepts different values
 # than the _Compound defined here. Many other options have similar things.
@@ -95,7 +92,7 @@ _Color = str  # typically '#rrggbb', '#rgb' or color names.
 _Compound = Literal["top", "left", "center", "right", "bottom", "none"]  # -compound in manual page named 'options'
 _Cursor = Union[str, Tuple[str], Tuple[str, str], Tuple[str, str, str], Tuple[str, str, str, str]]  # manual page: Tk_GetCursor
 _EntryValidateCommand = Union[
-    Callable[[], bool], str, _TkinterSequence[str]
+    Callable[[], bool], str, List[str], Tuple[str, ...]
 ]  # example when it's sequence:  entry['invalidcommand'] = [entry.register(print), '%P']
 _GridIndex = Union[int, str, Literal["all"]]
 _ImageSpec = Union[_Image, str]  # str can be from e.g. tkinter.image_names()
@@ -518,7 +515,7 @@ class Wm:
     @overload
     def wm_colormapwindows(self) -> list[Misc]: ...
     @overload
-    def wm_colormapwindows(self, __wlist: _TkinterSequence[Misc]) -> None: ...
+    def wm_colormapwindows(self, __wlist: list[Misc] | Tuple[Misc, ...]) -> None: ...
     @overload
     def wm_colormapwindows(self, __first_wlist_item: Misc, *other_wlist_items: Misc) -> None: ...
     colormapwindows = wm_colormapwindows
@@ -1144,7 +1141,7 @@ class Canvas(Widget, XView, YView):
     @overload
     def coords(self) -> list[float]: ...
     @overload
-    def coords(self, __args: _TkinterSequence[int] | _TkinterSequence[float]) -> None: ...
+    def coords(self, __args: list[int] | list[float] | Tuple[float, ...]) -> None: ...
     @overload
     def coords(self, __x1: float, __y1: float, *args: float) -> None: ...
     # create_foo() methods accept coords as a list, a tuple, or as separate arguments.
@@ -1160,16 +1157,16 @@ class Canvas(Widget, XView, YView):
         __x1: float,
         __y1: float,
         *,
-        activedash: str | _TkinterSequence[int] = ...,
+        activedash: str | list[int] | Tuple[int, ...] = ...,
         activefill: _Color = ...,
         activestipple: str = ...,
         activewidth: _ScreenUnits = ...,
         arrow: Literal["first", "last", "both"] = ...,
         arrowshape: tuple[float, float, float] = ...,
         capstyle: Literal["round", "projecting", "butt"] = ...,
-        dash: str | _TkinterSequence[int] = ...,
+        dash: str | list[int] | Tuple[int, ...] = ...,
         dashoffset: _ScreenUnits = ...,
-        disableddash: str | _TkinterSequence[int] = ...,
+        disableddash: str | list[int] | Tuple[int, ...] = ...,
         disabledfill: _Color = ...,
         disabledstipple: _Bitmap = ...,
         disabledwidth: _ScreenUnits = ...,
@@ -1180,7 +1177,7 @@ class Canvas(Widget, XView, YView):
         splinesteps: float = ...,
         state: Literal["normal", "active", "disabled"] = ...,
         stipple: _Bitmap = ...,
-        tags: str | _TkinterSequence[str] = ...,
+        tags: str | list[str] | Tuple[str, ...] = ...,
         width: _ScreenUnits = ...,
     ) -> _CanvasItemId: ...
     @overload
@@ -1188,16 +1185,16 @@ class Canvas(Widget, XView, YView):
         self,
         __coords: tuple[float, float, float, float] | list[int] | list[float],
         *,
-        activedash: str | _TkinterSequence[int] = ...,
+        activedash: str | list[int] | Tuple[int, ...] = ...,
         activefill: _Color = ...,
         activestipple: str = ...,
         activewidth: _ScreenUnits = ...,
         arrow: Literal["first", "last", "both"] = ...,
         arrowshape: tuple[float, float, float] = ...,
         capstyle: Literal["round", "projecting", "butt"] = ...,
-        dash: str | _TkinterSequence[int] = ...,
+        dash: str | list[int] | Tuple[int, ...] = ...,
         dashoffset: _ScreenUnits = ...,
-        disableddash: str | _TkinterSequence[int] = ...,
+        disableddash: str | list[int] | Tuple[int, ...] = ...,
         disabledfill: _Color = ...,
         disabledstipple: _Bitmap = ...,
         disabledwidth: _ScreenUnits = ...,
@@ -1208,7 +1205,7 @@ class Canvas(Widget, XView, YView):
         splinesteps: float = ...,
         state: Literal["normal", "active", "disabled"] = ...,
         stipple: _Bitmap = ...,
-        tags: str | _TkinterSequence[str] = ...,
+        tags: str | list[str] | Tuple[str, ...] = ...,
         width: _ScreenUnits = ...,
     ) -> _CanvasItemId: ...
     @overload
@@ -1219,15 +1216,15 @@ class Canvas(Widget, XView, YView):
         __x1: float,
         __y1: float,
         *,
-        activedash: str | _TkinterSequence[int] = ...,
+        activedash: str | list[int] | Tuple[int, ...] = ...,
         activefill: _Color = ...,
         activeoutline: _Color = ...,
         activeoutlinestipple: _Color = ...,
         activestipple: str = ...,
         activewidth: _ScreenUnits = ...,
-        dash: str | _TkinterSequence[int] = ...,
+        dash: str | list[int] | Tuple[int, ...] = ...,
         dashoffset: _ScreenUnits = ...,
-        disableddash: str | _TkinterSequence[int] = ...,
+        disableddash: str | list[int] | Tuple[int, ...] = ...,
         disabledfill: _Color = ...,
         disabledoutline: _Color = ...,
         disabledoutlinestipple: _Color = ...,
@@ -1240,7 +1237,7 @@ class Canvas(Widget, XView, YView):
         outlinestipple: _Bitmap = ...,
         state: Literal["normal", "active", "disabled"] = ...,
         stipple: _Bitmap = ...,
-        tags: str | _TkinterSequence[str] = ...,
+        tags: str | list[str] | Tuple[str, ...] = ...,
         width: _ScreenUnits = ...,
     ) -> _CanvasItemId: ...
     @overload
@@ -1248,15 +1245,15 @@ class Canvas(Widget, XView, YView):
         self,
         __coords: tuple[float, float, float, float] | list[int] | list[float],
         *,
-        activedash: str | _TkinterSequence[int] = ...,
+        activedash: str | list[int] | Tuple[int, ...] = ...,
         activefill: _Color = ...,
         activeoutline: _Color = ...,
         activeoutlinestipple: _Color = ...,
         activestipple: str = ...,
         activewidth: _ScreenUnits = ...,
-        dash: str | _TkinterSequence[int] = ...,
+        dash: str | list[int] | Tuple[int, ...] = ...,
         dashoffset: _ScreenUnits = ...,
-        disableddash: str | _TkinterSequence[int] = ...,
+        disableddash: str | list[int] | Tuple[int, ...] = ...,
         disabledfill: _Color = ...,
         disabledoutline: _Color = ...,
         disabledoutlinestipple: _Color = ...,
@@ -1269,7 +1266,7 @@ class Canvas(Widget, XView, YView):
         outlinestipple: _Bitmap = ...,
         state: Literal["normal", "active", "disabled"] = ...,
         stipple: _Bitmap = ...,
-        tags: str | _TkinterSequence[str] = ...,
+        tags: str | list[str] | Tuple[str, ...] = ...,
         width: _ScreenUnits = ...,
     ) -> _CanvasItemId: ...
     @overload
@@ -1280,15 +1277,15 @@ class Canvas(Widget, XView, YView):
         __x1: float,
         __y1: float,
         *xy_pairs: float,
-        activedash: str | _TkinterSequence[int] = ...,
+        activedash: str | list[int] | Tuple[int, ...] = ...,
         activefill: _Color = ...,
         activeoutline: _Color = ...,
         activeoutlinestipple: _Color = ...,
         activestipple: str = ...,
         activewidth: _ScreenUnits = ...,
-        dash: str | _TkinterSequence[int] = ...,
+        dash: str | list[int] | Tuple[int, ...] = ...,
         dashoffset: _ScreenUnits = ...,
-        disableddash: str | _TkinterSequence[int] = ...,
+        disableddash: str | list[int] | Tuple[int, ...] = ...,
         disabledfill: _Color = ...,
         disabledoutline: _Color = ...,
         disabledoutlinestipple: _Color = ...,
@@ -1304,7 +1301,7 @@ class Canvas(Widget, XView, YView):
         splinesteps: float = ...,
         state: Literal["normal", "active", "disabled"] = ...,
         stipple: _Bitmap = ...,
-        tags: str | _TkinterSequence[str] = ...,
+        tags: str | list[str] | Tuple[str, ...] = ...,
         width: _ScreenUnits = ...,
     ) -> _CanvasItemId: ...
     @overload
@@ -1312,15 +1309,15 @@ class Canvas(Widget, XView, YView):
         self,
         __coords: Tuple[float, ...] | list[int] | list[float],
         *,
-        activedash: str | _TkinterSequence[int] = ...,
+        activedash: str | list[int] | Tuple[int, ...] = ...,
         activefill: _Color = ...,
         activeoutline: _Color = ...,
         activeoutlinestipple: _Color = ...,
         activestipple: str = ...,
         activewidth: _ScreenUnits = ...,
-        dash: str | _TkinterSequence[int] = ...,
+        dash: str | list[int] | Tuple[int, ...] = ...,
         dashoffset: _ScreenUnits = ...,
-        disableddash: str | _TkinterSequence[int] = ...,
+        disableddash: str | list[int] | Tuple[int, ...] = ...,
         disabledfill: _Color = ...,
         disabledoutline: _Color = ...,
         disabledoutlinestipple: _Color = ...,
@@ -1336,7 +1333,7 @@ class Canvas(Widget, XView, YView):
         splinesteps: float = ...,
         state: Literal["normal", "active", "disabled"] = ...,
         stipple: _Bitmap = ...,
-        tags: str | _TkinterSequence[str] = ...,
+        tags: str | list[str] | Tuple[str, ...] = ...,
         width: _ScreenUnits = ...,
     ) -> _CanvasItemId: ...
     @overload
@@ -1347,15 +1344,15 @@ class Canvas(Widget, XView, YView):
         __x1: float,
         __y1: float,
         *,
-        activedash: str | _TkinterSequence[int] = ...,
+        activedash: str | list[int] | Tuple[int, ...] = ...,
         activefill: _Color = ...,
         activeoutline: _Color = ...,
         activeoutlinestipple: _Color = ...,
         activestipple: str = ...,
         activewidth: _ScreenUnits = ...,
-        dash: str | _TkinterSequence[int] = ...,
+        dash: str | list[int] | Tuple[int, ...] = ...,
         dashoffset: _ScreenUnits = ...,
-        disableddash: str | _TkinterSequence[int] = ...,
+        disableddash: str | list[int] | Tuple[int, ...] = ...,
         disabledfill: _Color = ...,
         disabledoutline: _Color = ...,
         disabledoutlinestipple: _Color = ...,
@@ -1368,7 +1365,7 @@ class Canvas(Widget, XView, YView):
         outlinestipple: _Bitmap = ...,
         state: Literal["normal", "active", "disabled"] = ...,
         stipple: _Bitmap = ...,
-        tags: str | _TkinterSequence[str] = ...,
+        tags: str | list[str] | Tuple[str, ...] = ...,
         width: _ScreenUnits = ...,
     ) -> _CanvasItemId: ...
     @overload
@@ -1376,15 +1373,15 @@ class Canvas(Widget, XView, YView):
         self,
         __coords: tuple[float, float, float, float] | list[int] | list[float],
         *,
-        activedash: str | _TkinterSequence[int] = ...,
+        activedash: str | list[int] | Tuple[int, ...] = ...,
         activefill: _Color = ...,
         activeoutline: _Color = ...,
         activeoutlinestipple: _Color = ...,
         activestipple: str = ...,
         activewidth: _ScreenUnits = ...,
-        dash: str | _TkinterSequence[int] = ...,
+        dash: str | list[int] | Tuple[int, ...] = ...,
         dashoffset: _ScreenUnits = ...,
-        disableddash: str | _TkinterSequence[int] = ...,
+        disableddash: str | list[int] | Tuple[int, ...] = ...,
         disabledfill: _Color = ...,
         disabledoutline: _Color = ...,
         disabledoutlinestipple: _Color = ...,
@@ -1397,7 +1394,7 @@ class Canvas(Widget, XView, YView):
         outlinestipple: _Bitmap = ...,
         state: Literal["normal", "active", "disabled"] = ...,
         stipple: _Bitmap = ...,
-        tags: str | _TkinterSequence[str] = ...,
+        tags: str | list[str] | Tuple[str, ...] = ...,
         width: _ScreenUnits = ...,
     ) -> _CanvasItemId: ...
     @overload
@@ -1417,7 +1414,7 @@ class Canvas(Widget, XView, YView):
         offset: _ScreenUnits = ...,
         state: Literal["normal", "active", "disabled"] = ...,
         stipple: _Bitmap = ...,
-        tags: str | _TkinterSequence[str] = ...,
+        tags: str | list[str] | Tuple[str, ...] = ...,
         text: float | str = ...,
         width: _ScreenUnits = ...,
     ) -> _CanvasItemId: ...
@@ -1437,7 +1434,7 @@ class Canvas(Widget, XView, YView):
         offset: _ScreenUnits = ...,
         state: Literal["normal", "active", "disabled"] = ...,
         stipple: _Bitmap = ...,
-        tags: str | _TkinterSequence[str] = ...,
+        tags: str | list[str] | Tuple[str, ...] = ...,
         text: float | str = ...,
         width: _ScreenUnits = ...,
     ) -> _CanvasItemId: ...
@@ -1450,7 +1447,7 @@ class Canvas(Widget, XView, YView):
         anchor: _Anchor = ...,
         height: _ScreenUnits = ...,
         state: Literal["normal", "active", "disabled"] = ...,
-        tags: str | _TkinterSequence[str] = ...,
+        tags: str | list[str] | Tuple[str, ...] = ...,
         width: _ScreenUnits = ...,
         window: Widget = ...,
     ) -> _CanvasItemId: ...
@@ -1462,7 +1459,7 @@ class Canvas(Widget, XView, YView):
         anchor: _Anchor = ...,
         height: _ScreenUnits = ...,
         state: Literal["normal", "active", "disabled"] = ...,
-        tags: str | _TkinterSequence[str] = ...,
+        tags: str | list[str] | Tuple[str, ...] = ...,
         width: _ScreenUnits = ...,
         window: Widget = ...,
     ) -> _CanvasItemId: ...
@@ -2848,7 +2845,7 @@ class Text(Widget, XView, YView):
     def image_create(self, index, cnf=..., **kw): ...
     def image_names(self): ...
     def index(self, index: _TextIndex) -> str: ...
-    def insert(self, index: _TextIndex, chars: str, *args: str | _TkinterSequence[str]) -> None: ...
+    def insert(self, index: _TextIndex, chars: str, *args: str | list[str] | Tuple[str, ...]) -> None: ...
     @overload
     def mark_gravity(self, markName: str, direction: None = ...) -> Literal["left", "right"]: ...
     @overload
@@ -2861,7 +2858,7 @@ class Text(Widget, XView, YView):
     # **kw of peer_create is same as the kwargs of Text.__init__
     def peer_create(self, newPathName: str | Text, cnf: dict[str, Any] = ..., **kw: Any) -> None: ...
     def peer_names(self) -> Tuple[_tkinter.Tcl_Obj, ...]: ...
-    def replace(self, index1: _TextIndex, index2: _TextIndex, chars: str, *args: str | _TkinterSequence[str]) -> None: ...
+    def replace(self, index1: _TextIndex, index2: _TextIndex, chars: str, *args: str | list[str] | Tuple[str, ...]) -> None: ...
     def scan_mark(self, x: int, y: int) -> None: ...
     def scan_dragto(self, x: int, y: int) -> None: ...
     def search(
@@ -3017,7 +3014,19 @@ class PhotoImage(Image):
     def zoom(self, x: int, y: int | Literal[""] = ...) -> PhotoImage: ...
     def subsample(self, x: int, y: int | Literal[""] = ...) -> PhotoImage: ...
     def get(self, x: int, y: int) -> tuple[int, int, int]: ...
-    def put(self, data: str | _TkinterSequence[str] | _TkinterSequence2D[_Color], to: tuple[int, int] | None = ...) -> None: ...
+    def put(
+        self,
+        data: (
+            str
+            | list[str]
+            | list[list[_Color]]
+            | list[Tuple[_Color, ...]]
+            | Tuple[str, ...]
+            | Tuple[list[_Color], ...]
+            | Tuple[Tuple[_Color, ...], ...]
+        ),
+        to: tuple[int, int] | None = ...,
+    ) -> None: ...
     def write(self, filename: StrOrBytesPath, format: str | None = ..., from_coords: tuple[int, int] | None = ...) -> None: ...
     if sys.version_info >= (3, 8):
         def transparency_get(self, x: int, y: int) -> bool: ...
@@ -3057,8 +3066,8 @@ class Spinbox(Widget, XView):
         buttoncursor: _Cursor = ...,
         buttondownrelief: _Relief = ...,
         buttonuprelief: _Relief = ...,
-        # percent substitutions don't seem to be supported, it's similar to Entry's validion stuff
-        command: Callable[[], Any] | str | _TkinterSequence[str] = ...,
+        # percent substitutions don't seem to be supported, it's similar to Entry's validation stuff
+        command: Callable[[], Any] | str | list[str] | Tuple[str, ...] = ...,
         cursor: _Cursor = ...,
         disabledbackground: _Color = ...,
         disabledforeground: _Color = ...,
@@ -3095,7 +3104,7 @@ class Spinbox(Widget, XView):
         validate: Literal["none", "focus", "focusin", "focusout", "key", "all"] = ...,
         validatecommand: _EntryValidateCommand = ...,
         vcmd: _EntryValidateCommand = ...,
-        values: _TkinterSequence[str] = ...,
+        values: list[str] | Tuple[str, ...] = ...,
         width: int = ...,
         wrap: bool = ...,
         xscrollcommand: _XYScrollCommand = ...,
@@ -3115,7 +3124,7 @@ class Spinbox(Widget, XView):
         buttoncursor: _Cursor = ...,
         buttondownrelief: _Relief = ...,
         buttonuprelief: _Relief = ...,
-        command: Callable[[], Any] | str | _TkinterSequence[str] = ...,
+        command: Callable[[], Any] | str | list[str] | Tuple[str, ...] = ...,
         cursor: _Cursor = ...,
         disabledbackground: _Color = ...,
         disabledforeground: _Color = ...,
@@ -3151,7 +3160,7 @@ class Spinbox(Widget, XView):
         validate: Literal["none", "focus", "focusin", "focusout", "key", "all"] = ...,
         validatecommand: _EntryValidateCommand = ...,
         vcmd: _EntryValidateCommand = ...,
-        values: _TkinterSequence[str] = ...,
+        values: list[str] | Tuple[str, ...] = ...,
         width: int = ...,
         wrap: bool = ...,
         xscrollcommand: _XYScrollCommand = ...,

@@ -234,7 +234,7 @@ class Combobox(Entry):
         textvariable: tkinter.Variable = ...,
         validate: Literal["none", "focus", "focusin", "focusout", "key", "all"] = ...,  # undocumented
         validatecommand: tkinter._EntryValidateCommand = ...,  # undocumented
-        values: tkinter._TkinterSequence[str] = ...,
+        values: list[str] | Tuple[str, ...] = ...,
         width: int = ...,
         xscrollcommand: tkinter._XYScrollCommand = ...,  # undocumented
     ) -> None: ...
@@ -259,7 +259,7 @@ class Combobox(Entry):
         textvariable: tkinter.Variable = ...,
         validate: Literal["none", "focus", "focusin", "focusout", "key", "all"] = ...,
         validatecommand: tkinter._EntryValidateCommand = ...,
-        values: tkinter._TkinterSequence[str] = ...,
+        values: list[str] | Tuple[str, ...] = ...,
         width: int = ...,
         xscrollcommand: tkinter._XYScrollCommand = ...,
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
@@ -287,7 +287,7 @@ class Combobox(Entry):
         textvariable: tkinter.Variable = ...,
         validate: Literal["none", "focus", "focusin", "focusout", "key", "all"] = ...,
         validatecommand: tkinter._EntryValidateCommand = ...,
-        values: tkinter._TkinterSequence[str] = ...,
+        values: list[str] | Tuple[str, ...] = ...,
         width: int = ...,
         xscrollcommand: tkinter._XYScrollCommand = ...,
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
@@ -828,7 +828,7 @@ if sys.version_info >= (3, 7):
             *,
             background: tkinter._Color = ...,  # undocumented
             class_: str = ...,
-            command: Callable[[], Any] | str | tkinter._TkinterSequence[str] = ...,
+            command: Callable[[], Any] | str | list[str] | Tuple[str, ...] = ...,
             cursor: tkinter._Cursor = ...,
             exportselection: bool = ...,  # undocumented
             font: _FontDescription = ...,  # undocumented
@@ -847,7 +847,7 @@ if sys.version_info >= (3, 7):
             to: float = ...,
             validate: Literal["none", "focus", "focusin", "focusout", "key", "all"] = ...,
             validatecommand: tkinter._EntryValidateCommand = ...,
-            values: tkinter._TkinterSequence[str] = ...,
+            values: list[str] | Tuple[str, ...] = ...,
             width: int = ...,  # undocumented
             wrap: bool = ...,
             xscrollcommand: tkinter._XYScrollCommand = ...,
@@ -858,7 +858,7 @@ if sys.version_info >= (3, 7):
             cnf: dict[str, Any] | None = ...,
             *,
             background: tkinter._Color = ...,
-            command: Callable[[], Any] | str | tkinter._TkinterSequence[str] = ...,
+            command: Callable[[], Any] | str | list[str] | Tuple[str, ...] = ...,
             cursor: tkinter._Cursor = ...,
             exportselection: bool = ...,
             font: _FontDescription = ...,
@@ -876,7 +876,7 @@ if sys.version_info >= (3, 7):
             to: float = ...,
             validate: Literal["none", "focus", "focusin", "focusout", "key", "all"] = ...,
             validatecommand: tkinter._EntryValidateCommand = ...,
-            values: tkinter._TkinterSequence[str] = ...,
+            values: list[str] | Tuple[str, ...] = ...,
             width: int = ...,
             wrap: bool = ...,
             xscrollcommand: tkinter._XYScrollCommand = ...,
@@ -922,18 +922,18 @@ class Treeview(Widget, tkinter.XView, tkinter.YView):
         master: tkinter.Misc | None = ...,
         *,
         class_: str = ...,
-        columns: str | tkinter._TkinterSequence[str] = ...,
+        columns: str | list[str] | Tuple[str, ...] = ...,
         cursor: tkinter._Cursor = ...,
-        displaycolumns: str | tkinter._TkinterSequence[str] | tkinter._TkinterSequence[int] | Literal["#all"] = ...,
+        displaycolumns: str | list[str] | Tuple[str, ...] | list[int] | Tuple[int, ...] | Literal["#all"] = ...,
         height: int = ...,
         name: str = ...,
         padding: tkinter._Padding = ...,
         selectmode: Literal["extended", "browse", "none"] = ...,
-        # _TkinterSequences of Literal don't actually work, using str instead.
+        # list/tuple of Literal don't actually work in mypy
         #
         # 'tree headings' is same as ['tree', 'headings'], and I wouldn't be
-        # surprised if someone was using it.
-        show: Literal["tree", "headings", "tree headings", ""] | tkinter._TkinterSequence[str] = ...,
+        # surprised if someone is using it.
+        show: Literal["tree", "headings", "tree headings", ""] | list[str] | Tuple[str, ...] = ...,
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
         xscrollcommand: tkinter._XYScrollCommand = ...,
@@ -944,13 +944,13 @@ class Treeview(Widget, tkinter.XView, tkinter.YView):
         self,
         cnf: dict[str, Any] | None = ...,
         *,
-        columns: str | tkinter._TkinterSequence[str] = ...,
+        columns: str | list[str] | Tuple[str, ...] = ...,
         cursor: tkinter._Cursor = ...,
-        displaycolumns: str | tkinter._TkinterSequence[str] | tkinter._TkinterSequence[int] | Literal["#all"] = ...,
+        displaycolumns: str | list[str] | Tuple[str, ...] | list[int] | Tuple[int, ...] | Literal["#all"] = ...,
         height: int = ...,
         padding: tkinter._Padding = ...,
         selectmode: Literal["extended", "browse", "none"] = ...,
-        show: Literal["tree", "headings", "tree headings", ""] | tkinter._TkinterSequence[str] = ...,
+        show: Literal["tree", "headings", "tree headings", ""] | list[str] | Tuple[str, ...] = ...,
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
         xscrollcommand: tkinter._XYScrollCommand = ...,
@@ -1027,9 +1027,9 @@ class Treeview(Widget, tkinter.XView, tkinter.YView):
         id: str = ...,  # same as iid
         text: str = ...,
         image: tkinter._ImageSpec = ...,
-        values: tkinter._TkinterSequence[Any] = ...,
+        values: list[Any] | Tuple[Any, ...] = ...,
         open: bool = ...,
-        tags: str | tkinter._TkinterSequence[str] = ...,
+        tags: str | list[str] | Tuple[str, ...] = ...,
     ) -> str: ...
     @overload
     def item(self, item: str, option: Literal["text"]) -> str: ...
@@ -1051,9 +1051,9 @@ class Treeview(Widget, tkinter.XView, tkinter.YView):
         *,
         text: str = ...,
         image: tkinter._ImageSpec = ...,
-        values: tkinter._TkinterSequence[Any] | Literal[""] = ...,
+        values: list[Any] | Tuple[Any, ...] | Literal[""] = ...,
         open: bool = ...,
-        tags: str | tkinter._TkinterSequence[str] = ...,
+        tags: str | list[str] | Tuple[str, ...] = ...,
     ) -> _TreeviewItemDict | None: ...
     def move(self, item: str, parent: str, index: int) -> None: ...
     reattach = move
@@ -1065,10 +1065,10 @@ class Treeview(Widget, tkinter.XView, tkinter.YView):
         def selection(self) -> Tuple[str, ...]: ...
     else:
         def selection(self, selop: Any | None = ..., items: Any | None = ...) -> Tuple[str, ...]: ...
-    def selection_set(self, items: str | tkinter._TkinterSequence[str]) -> None: ...
-    def selection_add(self, items: str | tkinter._TkinterSequence[str]) -> None: ...
-    def selection_remove(self, items: str | tkinter._TkinterSequence[str]) -> None: ...
-    def selection_toggle(self, items: str | tkinter._TkinterSequence[str]) -> None: ...
+    def selection_set(self, items: str | list[str] | Tuple[str, ...]) -> None: ...
+    def selection_add(self, items: str | list[str] | Tuple[str, ...]) -> None: ...
+    def selection_remove(self, items: str | list[str] | Tuple[str, ...]) -> None: ...
+    def selection_toggle(self, items: str | list[str] | Tuple[str, ...]) -> None: ...
     @overload
     def set(self, item: str, column: None = ..., value: None = ...) -> dict[str, Any]: ...
     @overload
