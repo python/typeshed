@@ -1,5 +1,6 @@
 from _typeshed import SupportsRead
-from typing import IO, Any, Mapping, Sequence, Text, Union
+from collections.abc import Mapping, Sequence
+from typing import IO, Any, Union
 
 from yaml.constructor import BaseConstructor, FullConstructor, SafeConstructor, UnsafeConstructor
 from yaml.events import Event
@@ -8,7 +9,7 @@ from yaml.representer import BaseRepresenter, SafeRepresenter
 from yaml.resolver import BaseResolver, Resolver
 from yaml.tokens import Token
 
-_Readable = SupportsRead[Union[Text, bytes]]
+_Readable = SupportsRead[Union[str, bytes]]
 
 class CParser:
     def __init__(self, stream: str | bytes | _Readable) -> None: ...
@@ -47,11 +48,11 @@ class CEmitter(object):
         width: int | None = ...,
         allow_unicode: Any | None = ...,
         line_break: str | None = ...,
-        encoding: Text | None = ...,
+        encoding: str | None = ...,
         explicit_start: Any | None = ...,
         explicit_end: Any | None = ...,
         version: Sequence[int] | None = ...,
-        tags: Mapping[Text, Text] | None = ...,
+        tags: Mapping[str, str] | None = ...,
     ) -> None: ...
 
 class CBaseDumper(CEmitter, BaseRepresenter, BaseResolver):
@@ -65,11 +66,11 @@ class CBaseDumper(CEmitter, BaseRepresenter, BaseResolver):
         width: int | None = ...,
         allow_unicode: Any | None = ...,
         line_break: str | None = ...,
-        encoding: Text | None = ...,
+        encoding: str | None = ...,
         explicit_start: Any | None = ...,
         explicit_end: Any | None = ...,
         version: Sequence[int] | None = ...,
-        tags: Mapping[Text, Text] | None = ...,
+        tags: Mapping[str, str] | None = ...,
     ) -> None: ...
 
 class CDumper(CEmitter, SafeRepresenter, Resolver): ...
