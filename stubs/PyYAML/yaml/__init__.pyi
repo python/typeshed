@@ -1,20 +1,19 @@
 from collections.abc import Callable, Iterable, Iterator, Sequence
 from typing import IO, Any, Pattern, Type, TypeVar, overload
 
-from yaml.constructor import BaseConstructor
-from yaml.dumper import *  # noqa: F403
-from yaml.error import *  # noqa: F403
-from yaml.events import *  # noqa: F403
-from yaml.loader import *  # noqa: F403
-from yaml.nodes import *  # noqa: F403
-from yaml.representer import BaseRepresenter
-from yaml.resolver import BaseResolver
-from yaml.tokens import *  # noqa: F403
-
 from . import resolver as resolver  # Help mypy a bit; this is implied by loader and dumper
+from .constructor import BaseConstructor
 from .cyaml import *
+from .dumper import *
+from .error import *
+from .events import *
+from .loader import *
+from .nodes import *
+from .representer import BaseRepresenter
+from .resolver import BaseResolver
+from .tokens import *
 
-# FIXME: the functions really return py2:unicode/py3:str if encoding is None, otherwise py2:str/py3:bytes. Waiting for python/mypy#5621
+# FIXME: the functions really return str if encoding is None, otherwise bytes. Waiting for python/mypy#5621
 _Yaml = Any
 
 __with_libyaml__: Any
@@ -24,6 +23,7 @@ _T = TypeVar("_T")
 _Constructor = TypeVar("_Constructor", bound=BaseConstructor)
 _Representer = TypeVar("_Representer", bound=BaseRepresenter)
 
+def warnings(settings=...): ...
 def scan(stream, Loader=...): ...
 def parse(stream, Loader=...): ...
 def compose(stream, Loader=...): ...
@@ -297,7 +297,7 @@ def add_multi_representer(
 ) -> None: ...
 
 class YAMLObjectMetaclass(type):
-    def __init__(self, name, bases, kwds) -> None: ...
+    def __init__(cls, name, bases, kwds) -> None: ...
 
 class YAMLObject(metaclass=YAMLObjectMetaclass):
     yaml_loader: Any
