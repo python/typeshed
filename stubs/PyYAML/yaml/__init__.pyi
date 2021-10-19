@@ -1,6 +1,5 @@
 from collections.abc import Callable, Iterable, Iterator, Sequence
-from re import Pattern
-from typing import IO, Any, Type, TypeVar, overload
+from typing import IO, Any, Pattern, Type, TypeVar, overload
 
 from yaml.constructor import BaseConstructor
 from yaml.dumper import *  # noqa: F403
