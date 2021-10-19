@@ -1,5 +1,4 @@
-from re import Pattern
-from typing import Any, Union
+from typing import Any, Pattern, Union
 
 from yaml.error import MarkedYAMLError
 from yaml.nodes import ScalarNode
