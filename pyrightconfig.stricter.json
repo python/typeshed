@@ -46,6 +46,7 @@
         "stubs/paramiko",
         "stubs/prettytable",
         "stubs/protobuf",
+        "stubs/google-cloud-ndb",
         "stubs/psutil",
         "stubs/psycopg2",
         "stubs/Pygments",
