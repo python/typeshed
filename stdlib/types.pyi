@@ -170,7 +170,7 @@ class SimpleNamespace:
 
 class ModuleType:
     __name__: str
-    __file__: str
+    __file__: str | None
     __dict__: dict[str, Any]
     __loader__: _LoaderProtocol | None
     __package__: str | None
