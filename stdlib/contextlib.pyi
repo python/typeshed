@@ -1,5 +1,5 @@
 import sys
-from _typeshed import Self
+from _typeshed import Self, StrOrBytesPath
 from types import TracebackType
 from typing import (
     IO,
@@ -124,3 +124,13 @@ elif sys.version_info >= (3, 7):
         def __init__(self: nullcontext[_T], enter_result: _T) -> None: ...
         def __enter__(self) -> _T: ...
         def __exit__(self, *exctype: Any) -> None: ...
+
+if sys.version_info >= (3, 11):
+    _FdOrAnyPath = int | StrOrBytesPath
+    _T_fd_or_any_path = TypeVar("_T_fd_or_any_path", bound=_FdOrAnyPath)
+    class chdir(AbstractContextManager[_T_fd_or_any_path]):
+        path: _T_fd_or_any_path
+        _old_cwd: list[str]
+        def __init__(self, path: _FdOrAnyPath) -> None: ...
+        def __enter__(self) -> None: ...
+        def __exit__(self, *excinfo: Any) -> None: ...
