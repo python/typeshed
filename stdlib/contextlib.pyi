@@ -9,6 +9,7 @@ from typing import (
     Awaitable,
     Callable,
     ContextManager,
+    Generic,
     Iterator,
     Optional,
     Type,
