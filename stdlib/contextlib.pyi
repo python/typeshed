@@ -127,7 +127,7 @@ elif sys.version_info >= (3, 7):
 
 if sys.version_info >= (3, 11):
     _T_fd_or_any_path = TypeVar("_T_fd_or_any_path", bound=int | StrOrBytesPath)
-    class chdir(AbstractContextManager[_T_fd_or_any_path]):
+    class chdir(AbstractContextManager[None], Generic[_T_fd_or_any_path]):
         path: _T_fd_or_any_path
         _old_cwd: list[str]
         def __init__(self, path: _T_fd_or_any_path) -> None: ...
