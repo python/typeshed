@@ -4,6 +4,7 @@ from collections.abc import Callable
 from configparser import RawConfigParser
 from threading import Thread
 from typing import IO, Any, Pattern, Sequence
+
 from . import _FormatStyle, _Level
 
 if sys.version_info >= (3, 8):
@@ -48,8 +49,9 @@ class _LoggerConfiguration(_RootLoggerConfiguration, TypedDict, total=False):
     propagate: bool
 
 class _OptionalDictConfigArgs(TypedDict, total=False):
-    formatters: dict[str, _FormatterConfiguration]
-    filters: dict[str, _FilterConfiguration]
+    # these two can have custom factories (key: `()`)
+    formatters: dict[str, _FormatterConfiguration | dict[str, Any]]
+    filters: dict[str, _FilterConfiguration | dict[str, Any]]
     # type checkers would warn about extra keys if this was a TypedDict
     handlers: dict[str, dict[str, Any]]
     loggers: dict[str, _LoggerConfiguration]
