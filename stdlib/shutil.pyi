@@ -1,6 +1,6 @@
 import os
 import sys
-from _typeshed import StrPath, SupportsRead, SupportsWrite
+from _typeshed import StrOrBytesPath, StrPath, SupportsRead, SupportsWrite
 from typing import Any, AnyStr, Callable, Iterable, NamedTuple, Sequence, Set, TypeVar, Union, overload
 
 _PathT = TypeVar("_PathT", str, os.PathLike[str])
