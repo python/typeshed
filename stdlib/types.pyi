@@ -174,7 +174,7 @@ class ModuleType:
     __dict__: dict[str, Any]
     __loader__: _LoaderProtocol | None
     __package__: str | None
-    __path__: list[str]
+    __path__: MutableSequence[str]
     __spec__: ModuleSpec | None
     def __init__(self, name: str, doc: str | None = ...) -> None: ...
 
