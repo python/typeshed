@@ -14,6 +14,7 @@ from typing import (
     Iterator,
     KeysView,
     Mapping,
+    MutableSequence,
     Tuple,
     Type,
     TypeVar,
@@ -174,6 +175,7 @@ class ModuleType:
     __dict__: dict[str, Any]
     __loader__: _LoaderProtocol | None
     __package__: str | None
+    __path__: MutableSequence[str]
     __spec__: ModuleSpec | None
     def __init__(self, name: str, doc: str | None = ...) -> None: ...
 
