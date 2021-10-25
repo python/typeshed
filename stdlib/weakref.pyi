@@ -1,4 +1,3 @@
-import types
 from _weakrefset import WeakSet as WeakSet
 from typing import Any, Callable, Generic, Iterable, Iterator, Mapping, MutableMapping, Tuple, Type, TypeVar, overload
 
