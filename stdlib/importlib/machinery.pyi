@@ -14,7 +14,7 @@ class ModuleSpec:
         is_package: bool | None = ...,
     ) -> None: ...
     name: str
-    loader: importlib.abc._LoaderProtocol | None
+    loader: importlib.abc.Loader | None
     origin: str | None
     submodule_search_locations: list[str] | None
     loader_state: Any
