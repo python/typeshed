@@ -2,7 +2,6 @@ import importlib.abc
 import types
 from typing import Any, Callable, Sequence
 
-# TODO: the loaders seem a bit backwards, attribute is protocol but __init__ arg isn't?
 class ModuleSpec:
     def __init__(
         self,
