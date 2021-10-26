@@ -5,7 +5,7 @@ from configparser import RawConfigParser
 from threading import Thread
 from typing import IO, Any, Pattern, Sequence
 
-from . import _FormatStyle, _Level
+from . import _Level
 
 if sys.version_info >= (3, 8):
     from typing import Literal, TypedDict
