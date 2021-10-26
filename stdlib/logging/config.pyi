@@ -21,25 +21,6 @@ DEFAULT_LOGGING_CONFIG_PORT: int
 RESET_ERROR: int  # undocumented
 IDENTIFIER: Pattern[str]  # undocumented
 
-# can't have a class attribute called "class"
-_OptionalClassKey = TypedDict("_OptionalClassKey", {"class": str}, total=False)
-
-if sys.version_info >= (3, 8):
-    class _FormatterConfiguration(_OptionalClassKey, TypedDict, total=False):
-        format: str
-        datefmt: str
-        style: _FormatStyle
-        validate: bool
-
-else:
-    class _FormatterConfiguration(_OptionalClassKey, TypedDict, total=False):
-        format: str
-        datefmt: str
-        style: _FormatStyle
-
-class _FilterConfiguration(TypedDict, total=False):
-    name: str
-
 class _RootLoggerConfiguration(TypedDict, total=False):
     level: _Level
     filters: Sequence[str]
@@ -49,9 +30,9 @@ class _LoggerConfiguration(_RootLoggerConfiguration, TypedDict, total=False):
     propagate: bool
 
 class _OptionalDictConfigArgs(TypedDict, total=False):
-    # these two can have custom factories (key: `()`)
-    formatters: dict[str, _FormatterConfiguration | dict[str, Any]]
-    filters: dict[str, _FilterConfiguration | dict[str, Any]]
+    # these two can have custom factories (key: `()`) which can have extra keys
+    formatters: dict[str, dict[str, Any]]
+    filters: dict[str, dict[str, Any]]
     # type checkers would warn about extra keys if this was a TypedDict
     handlers: dict[str, dict[str, Any]]
     loggers: dict[str, _LoggerConfiguration]
