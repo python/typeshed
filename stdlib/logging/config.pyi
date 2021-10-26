@@ -36,7 +36,7 @@ class _OptionalDictConfigArgs(TypedDict, total=False):
     # type checkers would warn about extra keys if this was a TypedDict
     handlers: dict[str, dict[str, Any]]
     loggers: dict[str, _LoggerConfiguration]
-    root: _RootLoggerConfiguration
+    root: _RootLoggerConfiguration | None
     incremental: bool
     disable_existing_loggers: bool
 
