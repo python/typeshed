@@ -104,13 +104,20 @@ def run_stubtest(dist: Path) -> None:
         except subprocess.CalledProcessError:
             print(f"stubtest failed for {dist.name}", file=sys.stderr)
             print("\n\n", file=sys.stderr)
-            if not allowlist_path.exists():
+            if allowlist_path.exists():
+                print(
+                    'To fix "unused allowlist" errors, remove the corresponding entries from '
+                    f"{allowlist_path}",
+                    file=sys.stderr,
+                )
+            else:
                 print(
                     "Re-running stubtest with --generate-allowlist.\n"
-                    f"Add the following to {allowlist_path}:"
+                    f"Add the following to {allowlist_path}:",
+                    file=sys.stderr,
                 )
                 subprocess.run(cmd + ["--generate-allowlist"], env={"MYPYPATH": str(dist)})
-                print("\n\n")
+                print("\n\n", file=sys.stderr)
             raise StubtestFailed from None
         else:
             print(f"stubtest succeeded for {dist.name}", file=sys.stderr)
