@@ -58,4 +58,4 @@ class croniter(Iterator[Any]):
 def croniter_range(start: float | datetime.datetime, stop: float | datetime.datetime, 
                    expr_format: Text, ret_type: _RetType | None = ..., 
                    day_or: bool = ..., exclude_ends: bool = ...,
-                   _croniter: Type[croniter] = ...):
+                   _croniter: type[croniter] = ...) -> Iterator[Any]: ...
