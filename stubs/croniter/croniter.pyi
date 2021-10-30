@@ -1,5 +1,5 @@
 import datetime
-from typing import Any, Iterator, Text, Tuple, Type, TypeVar, Union, Literal
+from typing import Any, Iterator, Literal, Text, Tuple, Type, TypeVar, Union
 
 _RetType = Union[Type[float], Type[datetime.datetime]]
 _SelfT = TypeVar("_SelfT", bound=croniter)
@@ -12,8 +12,19 @@ class CroniterNotAlphaError(CroniterError): ...
 class croniter(Iterator[Any]):
     MONTHS_IN_YEAR: Literal[12]
     RANGES: Tuple[tuple[int, int], ...]
-    DAYS: Tuple[
-        Literal[31], Literal[28], Literal[31], Literal[30], Literal[31], Literal[30], Literal[31], Literal[31], Literal[30], Literal[31], Literal[30], Literal[31],
+    DAYS: tuple[
+        Literal[31],
+        Literal[28],
+        Literal[31],
+        Literal[30],
+        Literal[31],
+        Literal[30],
+        Literal[31],
+        Literal[31],
+        Literal[30],
+        Literal[31],
+        Literal[30],
+        Literal[31],
     ]
     ALPHACONV: Tuple[dict[str, Any], ...]
     LOWMAP: Tuple[dict[int, Any], ...]
@@ -55,7 +66,12 @@ class croniter(Iterator[Any]):
     @classmethod
     def match(cls, cron_expression: Text, testdate: float | datetime.datetime | None, day_or: bool = ...) -> bool: ...
 
-def croniter_range(start: float | datetime.datetime, stop: float | datetime.datetime, 
-                   expr_format: Text, ret_type: _RetType | None = ..., 
-                   day_or: bool = ..., exclude_ends: bool = ...,
-                   _croniter: type[croniter] = ...) -> Iterator[Any]: ...
+def croniter_range(
+    start: float | datetime.datetime,
+    stop: float | datetime.datetime,
+    expr_format: Text,
+    ret_type: _RetType | None = ...,
+    day_or: bool = ...,
+    exclude_ends: bool = ...,
+    _croniter: type[croniter] = ...,
+) -> Iterator[Any]: ...
