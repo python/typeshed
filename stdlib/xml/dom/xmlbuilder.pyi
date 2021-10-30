@@ -1,9 +1,8 @@
 from typing import Any, BinaryIO, NoReturn, Optional
+from typing_extensions import Literal
 from urllib.request import OpenerDirector
 from xml.dom.expatbuilder import ExpatBuilder, ExpatBuilderNS
 from xml.dom.minidom import Node
-
-from typing_extensions import Literal
 
 # UNKNOWN TYPES:
 # - `Options.errorHandler`.
