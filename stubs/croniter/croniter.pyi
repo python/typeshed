@@ -74,5 +74,5 @@ def croniter_range(
     ret_type: _RetType | None = ...,
     day_or: bool = ...,
     exclude_ends: bool = ...,
-    _croniter: Type[croniter] = ...,
+    _croniter: Type[croniter] | None = ...,
 ) -> Iterator[Any]: ...
