@@ -3,7 +3,10 @@ from _typeshed import SupportsTrunc
 from typing import Iterable, SupportsFloat, Union, overload
 from typing_extensions import SupportsIndex
 
-_SupportsFloatOrIndex = Union[SupportsFloat, SupportsIndex]
+if sys.version >= (3, 8):
+    _SupportsFloatOrIndex = Union[SupportsFloat, SupportsIndex]
+else:
+     _SupportsFloatOrIndex = SupportsFloat
 
 e: float
 pi: float
