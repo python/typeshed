@@ -1,5 +1,5 @@
 mypy==0.910
-pytype==2021.10.11
+pytype==2021.10.25
 typed-ast==1.4.3
 black==21.9b0
 flake8==4.0.1
