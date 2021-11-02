@@ -24,20 +24,20 @@ class _CacheInfo(NamedTuple):
     maxsize: int
     currsize: int
 
-class _lru_cache_wrapper(Generic[_P, _T]):
-    __wrapped__: Callable[_P, _T]
-    def __call__(self, *args: _P.args, **kwargs: _P.kwargs) -> _T: ...
+class _lru_cache_wrapper(Generic[_P, _T]):  # type: ignore
+    __wrapped__: Callable[_P, _T]  # type: ignore
+    def __call__(self, *args: _P.args, **kwargs: _P.kwargs) -> _T: ...  # type: ignore
     def cache_info(self) -> _CacheInfo: ...
     def cache_clear(self) -> None: ...
 
 if sys.version_info >= (3, 8):
     @overload
-    def lru_cache(maxsize: int | None = ..., typed: bool = ...) -> Callable[[Callable[_P, _T]], _lru_cache_wrapper[_P, _T]]: ...
+    def lru_cache(maxsize: int | None = ..., typed: bool = ...) -> Callable[[Callable[_P, _T]], _lru_cache_wrapper[_P, _T]]: ...  # type: ignore
     @overload
-    def lru_cache(maxsize: Callable[_P, _T], typed: bool = ...) -> _lru_cache_wrapper[_P, _T]: ...
+    def lru_cache(maxsize: Callable[_P, _T], typed: bool = ...) -> _lru_cache_wrapper[_P, _T]: ...  # type: ignore
 
 else:
-    def lru_cache(maxsize: int | None = ..., typed: bool = ...) -> Callable[[Callable[_P, _T]], _lru_cache_wrapper[_P, _T]]: ...
+    def lru_cache(maxsize: int | None = ..., typed: bool = ...) -> Callable[[Callable[_P, _T]], _lru_cache_wrapper[_P, _T]]: ...  # type: ignore
 
 WRAPPER_ASSIGNMENTS: Sequence[str]
 WRAPPER_UPDATES: Sequence[str]
@@ -117,7 +117,7 @@ if sys.version_info >= (3, 8):
             def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 if sys.version_info >= (3, 9):
-    def cache(__user_function: Callable[_P, _T]) -> _lru_cache_wrapper[_P, _T]: ...
+    def cache(__user_function: Callable[_P, _T]) -> _lru_cache_wrapper[_P, _T]: ...  # type: ignore
 
 def _make_key(
     args: Tuple[Hashable, ...],
