@@ -129,9 +129,6 @@ locale.strxfrm
 logging.Formatter.__init__
 logging.LoggerAdapter.__init__
 logging.PercentStyle.__init__
-pathlib.Path.chmod
-pathlib.Path.stat
-pathlib.Path.write_text
 py_compile.main
 pyclbr.Class.__init__
 pyclbr.Function.__init__
@@ -163,6 +160,5 @@ sqlite3.dbapi2.complete_statement
 ssl.SSLContext.__new__
 ssl._create_unverified_context
 ssl.get_server_certificate
-tempfile.TemporaryDirectory.__init__
 unicodedata.ucnhash_CAPI
 unittest.mock.create_autospec
