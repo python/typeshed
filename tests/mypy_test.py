@@ -277,7 +277,8 @@ def test_third_party_distribution(distribution: str, major: int, minor: int, arg
     add_third_party_files(distribution, major, files, seen, args, exclude_list, configurations, seen_dist_configs)
 
     if not files:
-        return 0, -1
+        print("--- no files found ---")
+        sys.exit(1)
 
     # TODO: remove custom_typeshed after mypy 0.920 is released
     code = run_mypy(args, configurations, major, minor, files, custom_typeshed=True)
