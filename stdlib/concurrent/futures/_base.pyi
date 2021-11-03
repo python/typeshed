@@ -37,7 +37,7 @@ _T_co = TypeVar("_T_co", covariant=True)
 
 # Copied over Collection implementation as it does not exist in Python 2 and <3.6.
 # Also to solve pytype issues with _Collection.
-class _Collection(Iterable[_T_co], Container[_T_co], Protocol[_T_co]):
+class _Collection(Iterable[_T_co], Container[_T_co], Protocol[_T_co]):  # type: ignore
     # Implement Sized (but don't have it as a base class).
     @abstractmethod
     def __len__(self) -> int: ...
