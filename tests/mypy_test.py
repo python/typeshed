@@ -45,10 +45,7 @@ def log(args, *varargs):
         print(*varargs)
 
 
-def match(fn, args, exclude_list):
-    if exclude_list.match(fn):
-        log(args, fn, "exluded by exclude list")
-        return False
+def match(fn, args):
     if not args.filter and not args.exclude:
         log(args, fn, "accept by default")
         return True
@@ -114,12 +111,12 @@ def has_py3_stubs(dist: Path) -> bool:
     return len(glob(f"{dist}/*.pyi")) > 0 or len(glob(f"{dist}/[!@]*/__init__.pyi")) > 0
 
 
-def add_files(files, seen, root, name, args, exclude_list):
+def add_files(files, seen, root, name, args):
     """Add all files in package or module represented by 'name' located in 'root'."""
     full = os.path.join(root, name)
     mod, ext = os.path.splitext(name)
     if ext in [".pyi", ".py"]:
-        if match(full, args, exclude_list):
+        if match(full, args):
             seen.add(mod)
             files.append(full)
     elif os.path.isfile(os.path.join(full, "__init__.pyi")) or os.path.isfile(os.path.join(full, "__init__.py")):
@@ -130,7 +127,7 @@ def add_files(files, seen, root, name, args, exclude_list):
                 m, x = os.path.splitext(f)
                 if x in [".pyi", ".py"]:
                     fn = os.path.join(r, f)
-                    if match(fn, args, exclude_list):
+                    if match(fn, args):
                         seen.add(mod)
                         files.append(fn)
 
@@ -239,7 +236,6 @@ def add_third_party_files(
     major: int,
     files: list[str],
     args,
-    exclude_list: re.Pattern[str],
     configurations: list[MypyDistConf],
     seen_dists: set[str],
 ) -> None:
@@ -249,7 +245,7 @@ def add_third_party_files(
 
     dependencies = read_dependencies(distribution)
     for dependency in dependencies:
-        add_third_party_files(dependency, major, files, args, exclude_list, configurations, seen_dists)
+        add_third_party_files(dependency, major, files, args, configurations, seen_dists)
 
     if major == 2 and os.path.isdir(os.path.join("stubs", distribution, "@python2")):
         root = os.path.join("stubs", distribution, "@python2")
@@ -261,12 +257,12 @@ def add_third_party_files(
         mod, _ = os.path.splitext(name)
         if mod.startswith("."):
             continue
-        add_files(files, set(), root, name, args, exclude_list)
+        add_files(files, set(), root, name, args)
         add_configuration(configurations, distribution)
 
 
 def test_third_party_distribution(
-    distribution: str, major: int, minor: int, args, exclude_list: re.Pattern[str]
+    distribution: str, major: int, minor: int, args
 ) -> tuple[int, int]:
     """Test the stubs of a third-party distribution.
 
@@ -279,7 +275,7 @@ def test_third_party_distribution(
     files: list[str] = []
     configurations: list[MypyDistConf] = []
     seen_dists: set[str] = set()
-    add_third_party_files(distribution, major, files, args, exclude_list, configurations, seen_dists)
+    add_third_party_files(distribution, major, files, args, configurations, seen_dists)
 
     if not files:
         print("--- no files found ---")
@@ -292,9 +288,6 @@ def test_third_party_distribution(
 
 def main():
     args = parser.parse_args()
-
-    with open(os.path.join(os.path.dirname(__file__), "mypy_exclude_list.txt")) as f:
-        exclude_list = re.compile("(%s)$" % "|".join(re.findall(r"^\s*([^\s#]+)\s*(?:#.*)?$", f.read(), flags=re.M)))
 
     versions = [(3, 10), (3, 9), (3, 8), (3, 7), (3, 6), (2, 7)]
     if args.python_version:
@@ -316,7 +309,7 @@ def main():
                 mod, _ = os.path.splitext(name)
                 if mod in seen or mod.startswith("."):
                     continue
-                add_files(files, seen, root, name, args, exclude_list)
+                add_files(files, seen, root, name, args)
         else:
             supported_versions = parse_versions(os.path.join("stdlib", "VERSIONS"))
             root = "stdlib"
@@ -325,7 +318,7 @@ def main():
                     continue
                 mod, _ = os.path.splitext(name)
                 if supported_versions[mod][0] <= (major, minor) <= supported_versions[mod][1]:
-                    add_files(files, seen, root, name, args, exclude_list)
+                    add_files(files, seen, root, name, args)
 
         if files:
             this_code = run_mypy(args, [], major, minor, files, custom_typeshed=True)
@@ -337,7 +330,7 @@ def main():
             if not is_supported(distribution, major):
                 continue
 
-            this_code, checked = test_third_party_distribution(distribution, major, minor, args, exclude_list)
+            this_code, checked = test_third_party_distribution(distribution, major, minor, args)
             code = max(code, this_code)
             files_checked += checked
 
