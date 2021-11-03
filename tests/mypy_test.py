@@ -234,7 +234,15 @@ def read_dependencies(distribution: str) -> list[str]:
     return dependencies
 
 
-def add_third_party_files(distribution: str, major: int, files: list[str], args, exclude_list: re.Pattern[str], configurations: list[MypyDistConf], seen_dists: set[str]) -> None:
+def add_third_party_files(
+    distribution: str,
+    major: int,
+    files: list[str],
+    args,
+    exclude_list: re.Pattern[str],
+    configurations: list[MypyDistConf],
+    seen_dists: set[str],
+) -> None:
     if distribution in seen_dists:
         return
 
@@ -257,7 +265,9 @@ def add_third_party_files(distribution: str, major: int, files: list[str], args,
     seen_dists.add(distribution)
 
 
-def test_third_party_distribution(distribution: str, major: int, minor: int, args, exclude_list: re.Pattern[str]) -> tuple[int, int]:
+def test_third_party_distribution(
+    distribution: str, major: int, minor: int, args, exclude_list: re.Pattern[str]
+) -> tuple[int, int]:
     """Test the stubs of a third-party distribution.
 
     Return a tuple, where the first element is the number of checked files,
