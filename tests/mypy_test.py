@@ -245,6 +245,7 @@ def add_third_party_files(
 ) -> None:
     if distribution in seen_dists:
         return
+    seen_dists.add(distribution)
 
     dependencies = read_dependencies(distribution)
     for dependency in dependencies:
@@ -262,7 +263,6 @@ def add_third_party_files(
             continue
         add_files(files, set(), root, name, args, exclude_list)
         add_configuration(configurations, distribution)
-    seen_dists.add(distribution)
 
 
 def test_third_party_distribution(
