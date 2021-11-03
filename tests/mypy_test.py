@@ -149,10 +149,7 @@ class MypyDistConf(NamedTuple):
 # disallow_untyped_defs = true
 
 
-def add_configuration(configurations, seen_dist_configs, distribution):
-    if distribution in seen_dist_configs:
-        return
-
+def add_configuration(configurations: list[MypyDistConf], distribution: str) -> None:
     with open(os.path.join("stubs", distribution, "METADATA.toml")) as f:
         data = dict(tomli.loads(f.read()))
 
@@ -173,7 +170,6 @@ def add_configuration(configurations, seen_dist_configs, distribution):
         assert isinstance(values, dict), "values should be a section"
 
         configurations.append(MypyDistConf(module_name, values.copy()))
-    seen_dist_configs.add(distribution)
 
 
 def run_mypy(args, configurations, major, minor, files, *, custom_typeshed=False):
@@ -238,10 +234,13 @@ def read_dependencies(distribution: str) -> list[str]:
     return dependencies
 
 
-def add_third_party_files(distribution: str, major: int, files: list[str], seen: set[str], args, exclude_list: re.Pattern[str], configurations: list[MypyDistConf], seen_dist_configs: set[str]) -> None:
+def add_third_party_files(distribution: str, major: int, files: list[str], args, exclude_list: re.Pattern[str], configurations: list[MypyDistConf], seen_dists: set[str]) -> None:
+    if distribution in seen_dists:
+        return
+
     dependencies = read_dependencies(distribution)
     for dependency in dependencies:
-        add_third_party_files(dependency, major, files, seen, args, exclude_list, configurations, seen_dist_configs)
+        add_third_party_files(dependency, major, files, args, exclude_list, configurations, seen_dists)
 
     if major == 2 and os.path.isdir(os.path.join("stubs", distribution, "@python2")):
         root = os.path.join("stubs", distribution, "@python2")
@@ -251,10 +250,11 @@ def add_third_party_files(distribution: str, major: int, files: list[str], seen:
         if name == "@python2":
             continue
         mod, _ = os.path.splitext(name)
-        if mod in seen or mod.startswith("."):
+        if mod.startswith("."):
             continue
-        add_files(files, seen, root, name, args, exclude_list)
-        add_configuration(configurations, seen_dist_configs, distribution)
+        add_files(files, set(), root, name, args, exclude_list)
+        add_configuration(configurations, distribution)
+    seen_dists.add(distribution)
 
 
 def test_third_party_distribution(distribution: str, major: int, minor: int, args, exclude_list: re.Pattern[str]) -> tuple[int, int]:
@@ -271,10 +271,9 @@ def test_third_party_distribution(distribution: str, major: int, minor: int, arg
     print(f"testing {distribution} with Python {major}.{minor}...")
 
     files: list[str] = []
-    seen: set[str] = set()
     configurations: list[MypyDistConf] = []
-    seen_dist_configs: set[str] = set()
-    add_third_party_files(distribution, major, files, seen, args, exclude_list, configurations, seen_dist_configs)
+    seen_dists: set[str] = set()
+    add_third_party_files(distribution, major, files, args, exclude_list, configurations, seen_dists)
 
     if not files:
         print("--- no files found ---")
