@@ -270,13 +270,9 @@ def test_third_party_distribution(
 ) -> tuple[int, int]:
     """Test the stubs of a third-party distribution.
 
-    Return a tuple, where the first element is the number of checked files,
-    and the second element indicated mypy's return code (if at least one file
-    was checked).
+    Return a tuple, where the first element indicates mypy's return code
+    and the second element is the number of checked files.
     """
-
-    if not is_supported(distribution, major):
-        return 0, -1
 
     print(f"testing {distribution} with Python {major}.{minor}...")
 
@@ -291,7 +287,7 @@ def test_third_party_distribution(
 
     # TODO: remove custom_typeshed after mypy 0.920 is released
     code = run_mypy(args, configurations, major, minor, files, custom_typeshed=True)
-    return len(files), code
+    return code, len(files)
 
 
 def main():
@@ -338,10 +334,12 @@ def main():
 
         # Test files of all third party distributions.
         for distribution in sorted(os.listdir("stubs")):
-            checked, this_code = test_third_party_distribution(distribution, major, minor, args, exclude_list)
-            if checked > 0:
-                code = max(code, this_code)
-                files_checked += checked
+            if not is_supported(distribution, major):
+                continue
+
+            this_code, checked = test_third_party_distribution(distribution, major, minor, args, exclude_list)
+            code = max(code, this_code)
+            files_checked += checked
 
     if code:
         print(f"--- exit status {code}, {files_checked} files checked ---")
