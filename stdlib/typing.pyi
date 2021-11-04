@@ -296,7 +296,7 @@ class AsyncGenerator(AsyncIterator[_T_co], Generic[_T_co, _T_contra]):
 @runtime_checkable
 class Container(Protocol[_T_co]):  # type: ignore # unsafe variance
     @abstractmethod
-    def __contains__(self, __x: _T_co) -> bool: ...  # type: ignore # unsafe variance
+    def __contains__(self, __x: _T_co | None) -> bool: ...  # type: ignore # unsafe variance
 
 @runtime_checkable
 class Collection(Iterable[_T_co], Container[_T_co], Protocol[_T_co]):  # type: ignore # unsafe variance
