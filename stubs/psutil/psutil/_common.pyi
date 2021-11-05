@@ -31,7 +31,7 @@ STATUS_WAITING: Literal["waiting"]
 STATUS_SUSPENDED: Literal["suspended"]
 STATUS_PARKED: Literal["parked"]
 
-_Status: Literal[
+_Status = Literal[
     "running",
     "sleeping",
     "disk-sleep",
