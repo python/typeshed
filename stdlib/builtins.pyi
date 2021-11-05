@@ -33,6 +33,7 @@ from typing import (
     Callable,
     FrozenSet,
     Generic,
+    Hashable,
     ItemsView,
     Iterable,
     Iterator,
@@ -71,9 +72,9 @@ class _SupportsTrunc(Protocol):
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
 _T_contra = TypeVar("_T_contra", contravariant=True)
-_KT = TypeVar("_KT")
+_KT = TypeVar("_KT", bound=Hashable)
 _VT = TypeVar("_VT")
-_KT_co = TypeVar("_KT_co", covariant=True)  # Key type covariant containers.
+_KT_co = TypeVar("_KT_co", bound=Hashable, covariant=True)  # Key type covariant containers.
 _VT_co = TypeVar("_VT_co", covariant=True)  # Value type covariant containers.
 _S = TypeVar("_S")
 _T1 = TypeVar("_T1")
