@@ -244,7 +244,7 @@ class _OrderedDictKeysView(_dict_keys[_KT_co, _VT_co], Reversible[_KT_co]):
 class _OrderedDictItemsView(_dict_items[_KT_co, _VT_co], Reversible[Tuple[_KT_co, _VT_co]]):
     def __reversed__(self) -> Iterator[tuple[_KT_co, _VT_co]]: ...
 
-class _OrderedDictValuesView(_dict_values[_VT_co, _KT_co], Reversible[_VT_co], Generic[_KT_co, _VT_co]):
+class _OrderedDictValuesView(_dict_values[_KT_co, _VT_co], Reversible[_VT_co], Generic[_KT_co, _VT_co]):
     def __reversed__(self) -> Iterator[_VT_co]: ...
 
 class OrderedDict(Dict[_KT, _VT], Reversible[_KT], Generic[_KT, _VT]):
