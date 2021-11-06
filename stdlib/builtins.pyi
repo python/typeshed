@@ -793,9 +793,7 @@ class _dict_keys(KeysView[_KT_co], Generic[_KT_co, _VT_co]):
     if sys.version_info >= (3, 10):
         mapping: MappingProxyType[_KT_co, _VT_co]
 
-# The generics are the wrong way around because of a mypy limitation
-#  https://github.com/python/mypy/issues/11138
-class _dict_values(ValuesView[_VT_co], Generic[_VT_co, _KT_co]):
+class _dict_values(ValuesView[_VT_co], Generic[_KT_co, _VT_co]):
     if sys.version_info >= (3, 10):
         mapping: MappingProxyType[_KT_co, _VT_co]
 
@@ -828,7 +826,7 @@ class dict(MutableMapping[_KT, _VT], Generic[_KT, _VT]):
     @overload
     def update(self, **kwargs: _VT) -> None: ...
     def keys(self) -> _dict_keys[_KT, _VT]: ...
-    def values(self) -> _dict_values[_VT, _KT]: ...
+    def values(self) -> _dict_values[_KT, _VT]: ...
     def items(self) -> _dict_items[_KT, _VT]: ...
     @classmethod
     @overload
