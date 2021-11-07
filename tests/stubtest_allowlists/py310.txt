@@ -160,5 +160,6 @@ sqlite3.dbapi2.complete_statement
 ssl.SSLContext.__new__
 ssl._create_unverified_context
 ssl.get_server_certificate
+typing.SupportsRound.__round__
 unicodedata.ucnhash_CAPI
 unittest.mock.create_autospec
