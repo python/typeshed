@@ -1,5 +1,4 @@
 from pathlib import Path
-from typing import Any
 
 from .fpdf import FPDF as FPDF, TitleStyle as TitleStyle
 from .html import HTML2FPDF as HTML2FPDF, HTMLMixin as HTMLMixin
