@@ -35,14 +35,14 @@ class TitleStyle(NamedTuple):
     font_family: str | None
     font_style: str | None
     font_size_pt: int | None
-    color: int | tuple
+    color: int | tuple[int, int, int]
     underline: bool
     t_margin: int | None
     l_margin: int | None
     b_margin: int | None
 
 class ToCPlaceholder(NamedTuple):
-    render_function: Callable
+    render_function: Callable[[FPDF, Any], object]
     start_page: int
     y: int
     pages: int
