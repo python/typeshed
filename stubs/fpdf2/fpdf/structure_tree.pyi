@@ -6,9 +6,9 @@ class MarkedContent(NamedTuple):
     page_object_id: int
     struct_parents_id: int
     struct_type: str
-    mcid: int | None
-    title: str | None
-    alt_text: str | None
+    mcid: int | None = ...
+    title: str | None = ...
+    alt_text: str | None = ...
 
 class NumberTree(PDFObject):
     nums: Any
@@ -34,9 +34,9 @@ class StructElem(PDFObject):
         struct_type: str,
         parent: PDFObject,
         kids: list[int] | list[StructElem],
-        page: PDFObject = ...,
-        title: str = ...,
-        alt: str = ...,
+        page: PDFObject | None = ...,
+        title: str | None = ...,
+        alt: str | None = ...,
         **kwargs,
     ) -> None: ...
 

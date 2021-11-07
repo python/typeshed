@@ -8,24 +8,24 @@ class OutlineSection(NamedTuple):
     level: str
     page_number: int
     dest: Destination
-    struct_elem: StructElem | None
+    struct_elem: StructElem | None = ...
 
 class OutlineItemDictionary(PDFObject):
-    title: Any
-    parent: Any
-    prev: Any
-    next: Any
-    first: Any
-    last: Any
+    title: str
+    parent: Any | None
+    prev: Any | None
+    next: Any | None
+    first: Any | None
+    last: Any | None
     count: int
-    dest: Any
-    struct_elem: Any
-    def __init__(self, title: str, dest: str = ..., struct_elem: StructElem = ..., **kwargs) -> None: ...
+    dest: str | None
+    struct_elem: StructElem | None
+    def __init__(self, title: str, dest: str | None = ..., struct_elem: StructElem | None = ..., **kwargs) -> None: ...
 
 class OutlineDictionary(PDFObject):
     type: str
-    first: Any
-    last: Any
+    first: Any | None
+    last: Any | None
     count: int
     def __init__(self, **kwargs) -> None: ...
 

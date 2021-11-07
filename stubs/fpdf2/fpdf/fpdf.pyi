@@ -8,8 +8,8 @@ from typing_extensions import Literal
 from .actions import Action
 from .util import _Unit
 
-_Orientation = Literal["portrait", "P", "landscape", "L"]
-_Format = Literal["a3", "a4", "a5", "letter", "legal"]
+_Orientation = Literal["", "portrait", "P", "landscape", "L"]
+_Format = Literal["", "a3", "A3", "a4", "A4", "a5", "A5", "letter", "Letter", "legal", "Legal"]
 _FontStyle = Literal["", "B", "I"]
 _FontStyles = Literal["", "B", "I", "U", "BU", "UB", "BI", "IB", "IU", "UI", "BIU", "BUI", "IBU", "IUB", "UBI", "UIB"]
 PAGE_FORMATS: dict[_Format, tuple[float, float]]
@@ -26,26 +26,26 @@ class Annotation(NamedTuple):
     y: int
     width: int
     height: int
-    contents: str
-    link: str | int
-    alt_text: str | None
-    action: Action | None
+    contents: str | None = ...
+    link: str | int | None = ...
+    alt_text: str | None = ...
+    action: Action | None = ...
 
 class TitleStyle(NamedTuple):
-    font_family: str | None
-    font_style: str | None
-    font_size_pt: int | None
-    color: int | tuple[int, int, int]
-    underline: bool
-    t_margin: int | None
-    l_margin: int | None
-    b_margin: int | None
+    font_family: str | None = ...
+    font_style: str | None = ...
+    font_size_pt: int | None = ...
+    color: int | tuple[int, int, int] | None = ...
+    underline: bool = ...
+    t_margin: int | None = ...
+    l_margin: int | None = ...
+    b_margin: int | None = ...
 
 class ToCPlaceholder(NamedTuple):
     render_function: Callable[[FPDF, Any], object]
     start_page: int
     y: int
-    pages: int
+    pages: int = ...
 
 class SubsetMap:
     def __init__(self, identities: list[int]) -> None: ...
