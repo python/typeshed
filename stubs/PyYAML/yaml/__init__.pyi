@@ -1,42 +1,41 @@
-import sys
-from typing import IO, Any, Callable, Iterator, Optional, Sequence, Text, Type, TypeVar, Union, overload
-
-from yaml.dumper import *  # noqa: F403
-from yaml.error import *  # noqa: F403
-from yaml.events import *  # noqa: F403
-from yaml.loader import *  # noqa: F403
-from yaml.nodes import *  # noqa: F403
-from yaml.representer import BaseRepresenter
-from yaml.tokens import *  # noqa: F403
+from collections.abc import Callable, Iterable, Iterator, Sequence
+from typing import IO, Any, Pattern, Type, TypeVar, overload
 
 from . import resolver as resolver  # Help mypy a bit; this is implied by loader and dumper
+from .constructor import BaseConstructor
 from .cyaml import *
+from .dumper import *
+from .error import *
+from .events import *
+from .loader import *
+from .nodes import *
+from .representer import BaseRepresenter
+from .resolver import BaseResolver
+from .tokens import *
 
-if sys.version_info >= (3, 0):
-    _Str = str
-else:
-    _Str = Union[Text, str]
-# FIXME: the functions really return py2:unicode/py3:str if encoding is None, otherwise py2:str/py3:bytes. Waiting for python/mypy#5621
+# FIXME: the functions really return str if encoding is None, otherwise bytes. Waiting for python/mypy#5621
 _Yaml = Any
 
 __with_libyaml__: Any
 __version__: str
 
 _T = TypeVar("_T")
-_R = TypeVar("_R", bound=BaseRepresenter)
+_Constructor = TypeVar("_Constructor", bound=BaseConstructor)
+_Representer = TypeVar("_Representer", bound=BaseRepresenter)
 
+def warnings(settings=...): ...
 def scan(stream, Loader=...): ...
 def parse(stream, Loader=...): ...
 def compose(stream, Loader=...): ...
 def compose_all(stream, Loader=...): ...
-def load(stream: Union[bytes, IO[bytes], Text, IO[Text]], Loader=...) -> Any: ...
-def load_all(stream: Union[bytes, IO[bytes], Text, IO[Text]], Loader=...) -> Iterator[Any]: ...
-def full_load(stream: Union[bytes, IO[bytes], Text, IO[Text]]) -> Any: ...
-def full_load_all(stream: Union[bytes, IO[bytes], Text, IO[Text]]) -> Iterator[Any]: ...
-def safe_load(stream: Union[bytes, IO[bytes], Text, IO[Text]]) -> Any: ...
-def safe_load_all(stream: Union[bytes, IO[bytes], Text, IO[Text]]) -> Iterator[Any]: ...
-def unsafe_load(stream: Union[bytes, IO[bytes], Text, IO[Text]]) -> Any: ...
-def unsafe_load_all(stream: Union[bytes, IO[bytes], Text, IO[Text]]) -> Iterator[Any]: ...
+def load(stream: bytes | IO[bytes] | str | IO[str], Loader) -> Any: ...
+def load_all(stream: bytes | IO[bytes] | str | IO[str], Loader) -> Iterator[Any]: ...
+def full_load(stream: bytes | IO[bytes] | str | IO[str]) -> Any: ...
+def full_load_all(stream: bytes | IO[bytes] | str | IO[str]) -> Iterator[Any]: ...
+def safe_load(stream: bytes | IO[bytes] | str | IO[str]) -> Any: ...
+def safe_load_all(stream: bytes | IO[bytes] | str | IO[str]) -> Iterator[Any]: ...
+def unsafe_load(stream: bytes | IO[bytes] | str | IO[str]) -> Any: ...
+def unsafe_load_all(stream: bytes | IO[bytes] | str | IO[str]) -> Iterator[Any]: ...
 def emit(events, stream=..., Dumper=..., canonical=..., indent=..., width=..., allow_unicode=..., line_break=...): ...
 @overload
 def serialize_all(
@@ -64,7 +63,7 @@ def serialize_all(
     width=...,
     allow_unicode=...,
     line_break=...,
-    encoding: Optional[_Str] = ...,
+    encoding: str | None = ...,
     explicit_start=...,
     explicit_end=...,
     version=...,
@@ -98,7 +97,7 @@ def serialize(
     width=...,
     allow_unicode=...,
     line_break=...,
-    encoding: Optional[_Str] = ...,
+    encoding: str | None = ...,
     explicit_start=...,
     explicit_end=...,
     version=...,
@@ -135,7 +134,7 @@ def dump_all(
     width=...,
     allow_unicode=...,
     line_break=...,
-    encoding: Optional[_Str] = ...,
+    encoding: str | None = ...,
     explicit_start=...,
     explicit_end=...,
     version=...,
@@ -175,7 +174,7 @@ def dump(
     width=...,
     allow_unicode=...,
     line_break=...,
-    encoding: Optional[_Str] = ...,
+    encoding: str | None = ...,
     explicit_start=...,
     explicit_end=...,
     version=...,
@@ -213,7 +212,7 @@ def safe_dump_all(
     width=...,
     allow_unicode=...,
     line_break=...,
-    encoding: Optional[_Str] = ...,
+    encoding: str | None = ...,
     explicit_start=...,
     explicit_end=...,
     version=...,
@@ -251,22 +250,54 @@ def safe_dump(
     width=...,
     allow_unicode=...,
     line_break=...,
-    encoding: Optional[_Str] = ...,
+    encoding: str | None = ...,
     explicit_start=...,
     explicit_end=...,
     version=...,
     tags=...,
     sort_keys: bool = ...,
 ) -> _Yaml: ...
-def add_implicit_resolver(tag, regexp, first=..., Loader=..., Dumper=...): ...
-def add_path_resolver(tag, path, kind=..., Loader=..., Dumper=...): ...
-def add_constructor(tag: _Str, constructor: Callable[[Loader, Node], Any], Loader: Loader = ...): ...
-def add_multi_constructor(tag_prefix, multi_constructor, Loader=...): ...
-def add_representer(data_type: Type[_T], representer: Callable[[_R, _T], Node], Dumper: Type[_R] = ...) -> None: ...
-def add_multi_representer(data_type: Type[_T], multi_representer: Callable[[_R, _T], Node], Dumper: Type[_R] = ...) -> None: ...
+def add_implicit_resolver(
+    tag: str,
+    regexp: Pattern[str],
+    first: Iterable[Any] | None = ...,
+    Loader: Type[BaseResolver] | None = ...,
+    Dumper: Type[BaseResolver] = ...,
+) -> None: ...
+def add_path_resolver(
+    tag: str,
+    path: Iterable[Any],
+    kind: Type[Any] | None = ...,
+    Loader: Type[BaseResolver] | None = ...,
+    Dumper: Type[BaseResolver] = ...,
+) -> None: ...
+@overload
+def add_constructor(
+    tag: str, constructor: Callable[[Loader | FullLoader | UnsafeLoader, Node], Any], Loader: None = ...
+) -> None: ...
+@overload
+def add_constructor(tag: str, constructor: Callable[[_Constructor, Node], Any], Loader: Type[_Constructor]) -> None: ...
+@overload
+def add_multi_constructor(
+    tag_prefix: str, multi_constructor: Callable[[Loader | FullLoader | UnsafeLoader, str, Node], Any], Loader: None = ...
+) -> None: ...
+@overload
+def add_multi_constructor(
+    tag_prefix: str, multi_constructor: Callable[[_Constructor, str, Node], Any], Loader: Type[_Constructor]
+) -> None: ...
+@overload
+def add_representer(data_type: Type[_T], representer: Callable[[Dumper, _T], Node]) -> None: ...
+@overload
+def add_representer(data_type: Type[_T], representer: Callable[[_Representer, _T], Node], Dumper: Type[_Representer]) -> None: ...
+@overload
+def add_multi_representer(data_type: Type[_T], multi_representer: Callable[[Dumper, _T], Node]) -> None: ...
+@overload
+def add_multi_representer(
+    data_type: Type[_T], multi_representer: Callable[[_Representer, _T], Node], Dumper: Type[_Representer]
+) -> None: ...
 
 class YAMLObjectMetaclass(type):
-    def __init__(self, name, bases, kwds) -> None: ...
+    def __init__(cls, name, bases, kwds) -> None: ...
 
 class YAMLObject(metaclass=YAMLObjectMetaclass):
     yaml_loader: Any

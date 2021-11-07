@@ -21,7 +21,7 @@ from glob import glob
 from pathlib import Path
 from typing import Dict, NamedTuple
 
-import toml
+import tomli
 
 parser = argparse.ArgumentParser(description="Test runner for typeshed. Patterns are unanchored regexps on the full path.")
 parser.add_argument("-v", "--verbose", action="count", default=0, help="More output")
@@ -101,7 +101,7 @@ def parse_version(v_str):
 def is_supported(distribution, major):
     dist_path = Path("stubs", distribution)
     with open(dist_path / "METADATA.toml") as f:
-        data = dict(toml.loads(f.read()))
+        data = dict(tomli.loads(f.read()))
     if major == 2:
         # Python 2 is not supported by default.
         return bool(data.get("python2", False)) or (dist_path / "@python2").exists()
@@ -149,12 +149,9 @@ class MypyDistConf(NamedTuple):
 # disallow_untyped_defs = true
 
 
-def add_configuration(configurations, seen_dist_configs, distribution):
-    if distribution in seen_dist_configs:
-        return
-
+def add_configuration(configurations: list[MypyDistConf], distribution: str) -> None:
     with open(os.path.join("stubs", distribution, "METADATA.toml")) as f:
-        data = dict(toml.loads(f.read()))
+        data = dict(tomli.loads(f.read()))
 
     mypy_tests_conf = data.get("mypy-tests")
     if not mypy_tests_conf:
@@ -173,7 +170,6 @@ def add_configuration(configurations, seen_dist_configs, distribution):
         assert isinstance(values, dict), "values should be a section"
 
         configurations.append(MypyDistConf(module_name, values.copy()))
-    seen_dist_configs.add(distribution)
 
 
 def run_mypy(args, configurations, major, minor, files, *, custom_typeshed=False):
@@ -225,6 +221,75 @@ def run_mypy(args, configurations, major, minor, files, *, custom_typeshed=False
         return 0
 
 
+def read_dependencies(distribution: str) -> list[str]:
+    with open(os.path.join("stubs", distribution, "METADATA.toml")) as f:
+        data = dict(tomli.loads(f.read()))
+    requires = data.get("requires", [])
+    assert isinstance(requires, list)
+    dependencies = []
+    for dependency in requires:
+        assert isinstance(dependency, str)
+        assert dependency.startswith("types-")
+        dependencies.append(dependency[6:])
+    return dependencies
+
+
+def add_third_party_files(
+    distribution: str,
+    major: int,
+    files: list[str],
+    args,
+    exclude_list: re.Pattern[str],
+    configurations: list[MypyDistConf],
+    seen_dists: set[str],
+) -> None:
+    if distribution in seen_dists:
+        return
+    seen_dists.add(distribution)
+
+    dependencies = read_dependencies(distribution)
+    for dependency in dependencies:
+        add_third_party_files(dependency, major, files, args, exclude_list, configurations, seen_dists)
+
+    if major == 2 and os.path.isdir(os.path.join("stubs", distribution, "@python2")):
+        root = os.path.join("stubs", distribution, "@python2")
+    else:
+        root = os.path.join("stubs", distribution)
+    for name in os.listdir(root):
+        if name == "@python2":
+            continue
+        mod, _ = os.path.splitext(name)
+        if mod.startswith("."):
+            continue
+        add_files(files, set(), root, name, args, exclude_list)
+        add_configuration(configurations, distribution)
+
+
+def test_third_party_distribution(
+    distribution: str, major: int, minor: int, args, exclude_list: re.Pattern[str]
+) -> tuple[int, int]:
+    """Test the stubs of a third-party distribution.
+
+    Return a tuple, where the first element indicates mypy's return code
+    and the second element is the number of checked files.
+    """
+
+    print(f"testing {distribution} with Python {major}.{minor}...")
+
+    files: list[str] = []
+    configurations: list[MypyDistConf] = []
+    seen_dists: set[str] = set()
+    add_third_party_files(distribution, major, files, args, exclude_list, configurations, seen_dists)
+
+    if not files:
+        print("--- no files found ---")
+        sys.exit(1)
+
+    # TODO: remove custom_typeshed after mypy 0.920 is released
+    code = run_mypy(args, configurations, major, minor, files, custom_typeshed=True)
+    return code, len(files)
+
+
 def main():
     args = parser.parse_args()
 
@@ -239,11 +304,9 @@ def main():
             sys.exit(1)
 
     code = 0
-    runs = 0
+    files_checked = 0
     for major, minor in versions:
         seen = {"__builtin__", "builtins", "typing"}  # Always ignore these.
-        configurations = []
-        seen_dist_configs = set()
 
         # Test standard library files.
         files = []
@@ -265,40 +328,26 @@ def main():
                     add_files(files, seen, root, name, args, exclude_list)
 
         if files:
-            this_code = run_mypy(args, configurations, major, minor, files, custom_typeshed=True)
+            this_code = run_mypy(args, [], major, minor, files, custom_typeshed=True)
             code = max(code, this_code)
-            runs += 1
+            files_checked += len(files)
 
         # Test files of all third party distributions.
-        files = []
-        for distribution in os.listdir("stubs"):
+        for distribution in sorted(os.listdir("stubs")):
             if not is_supported(distribution, major):
                 continue
-            if major == 2 and os.path.isdir(os.path.join("stubs", distribution, "@python2")):
-                root = os.path.join("stubs", distribution, "@python2")
-            else:
-                root = os.path.join("stubs", distribution)
-            for name in os.listdir(root):
-                if name == "@python2":
-                    continue
-                mod, _ = os.path.splitext(name)
-                if mod in seen or mod.startswith("."):
-                    continue
-                add_files(files, seen, root, name, args, exclude_list)
-                add_configuration(configurations, seen_dist_configs, distribution)
 
-        if files:
-            # TODO: remove custom_typeshed after mypy 0.920 is released
-            this_code = run_mypy(args, configurations, major, minor, files, custom_typeshed=True)
+            this_code, checked = test_third_party_distribution(distribution, major, minor, args, exclude_list)
             code = max(code, this_code)
-            runs += 1
+            files_checked += checked
 
     if code:
-        print("--- exit status", code, "---")
+        print(f"--- exit status {code}, {files_checked} files checked ---")
         sys.exit(code)
-    if not runs:
+    if not files_checked:
         print("--- nothing to do; exit 1 ---")
         sys.exit(1)
+    print(f"--- success, {files_checked} files checked ---")
 
 
 if __name__ == "__main__":
