@@ -1,5 +1,5 @@
 from abc import ABC
-from typing import Any
+from typing import Any, List
 
 def clear_empty_fields(d): ...
 def create_dictionary_string(
@@ -29,7 +29,7 @@ def camel_case(property_name): ...
 class PDFString(str):
     def serialize(self): ...
 
-class PDFArray(list[Any]):
+class PDFArray(List[Any]):
     def serialize(self): ...
 
 class Destination(ABC):
