@@ -39,7 +39,16 @@ class HTML2FPDF(HTMLParser):
     table_row_height: int
     heading_level: Any
     heading_sizes: Any
-    def __init__(self, pdf, image_map: Any | None = ..., li_tag_indent: int = ..., table_line_separators: bool = ..., ul_bullet_char=..., heading_sizes: Any | None = ..., **_): ...
+    def __init__(
+        self,
+        pdf,
+        image_map: Any | None = ...,
+        li_tag_indent: int = ...,
+        table_line_separators: bool = ...,
+        ul_bullet_char=...,
+        heading_sizes: Any | None = ...,
+        **_,
+    ): ...
     def width2unit(self, length): ...
     def handle_data(self, data) -> None: ...
     def box_shadow(self, w, h, bgcolor) -> None: ...

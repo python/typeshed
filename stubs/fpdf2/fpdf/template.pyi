@@ -18,6 +18,18 @@ class FlexTemplate:
     def render(self, offsetx: float = ..., offsety: float = ..., rotate: float = ..., scale: float = ...): ...
 
 class Template(FlexTemplate):
-    def __init__(self, infile: Any | None = ..., elements: Any | None = ..., format: str = ..., orientation: str = ..., unit: str = ..., title: str = ..., author: str = ..., subject: str = ..., creator: str = ..., keywords: str = ...) -> None: ...
+    def __init__(
+        self,
+        infile: Any | None = ...,
+        elements: Any | None = ...,
+        format: str = ...,
+        orientation: str = ...,
+        unit: str = ...,
+        title: str = ...,
+        author: str = ...,
+        subject: str = ...,
+        creator: str = ...,
+        keywords: str = ...,
+    ) -> None: ...
     def add_page(self) -> None: ...
     def render(self, outfile: Any | None = ..., dest: Any | None = ...) -> None: ...

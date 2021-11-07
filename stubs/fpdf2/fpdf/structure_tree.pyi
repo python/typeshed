@@ -1,5 +1,6 @@
-from .syntax import PDFObject
 from typing import Any, NamedTuple
+
+from .syntax import PDFObject
 
 class MarkedContent(NamedTuple):
     page_object_id: int
@@ -28,7 +29,16 @@ class StructElem(PDFObject):
     pg: Any
     t: Any
     alt: Any
-    def __init__(self, struct_type: str, parent: PDFObject, kids: list[int] | list[StructElem], page: PDFObject = ..., title: str = ..., alt: str = ..., **kwargs) -> None: ...
+    def __init__(
+        self,
+        struct_type: str,
+        parent: PDFObject,
+        kids: list[int] | list[StructElem],
+        page: PDFObject = ...,
+        title: str = ...,
+        alt: str = ...,
+        **kwargs,
+    ) -> None: ...
 
 class StructureTreeBuilder:
     struct_tree_root: Any

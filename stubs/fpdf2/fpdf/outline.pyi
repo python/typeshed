@@ -1,6 +1,7 @@
+from typing import Any, NamedTuple
+
 from .structure_tree import StructElem
 from .syntax import Destination, PDFObject
-from typing import Any, NamedTuple
 
 class OutlineSection(NamedTuple):
     name: str
