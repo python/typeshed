@@ -1,4 +1,3 @@
-from .errors import FPDFException as FPDFException
 from typing import Any
 
 class FPDFRecorder:

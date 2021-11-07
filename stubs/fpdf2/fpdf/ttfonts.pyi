@@ -1,4 +1,3 @@
-from .util import b as b, substr as substr
 from typing import Any
 
 GF_WORDS: Any

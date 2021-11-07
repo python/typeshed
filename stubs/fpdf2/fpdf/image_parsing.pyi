@@ -1,4 +1,3 @@
-from .errors import FPDFException as FPDFException
 from typing import Any
 
 SUPPORTED_IMAGE_FILTERS: Any

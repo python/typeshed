@@ -1,4 +1,3 @@
-from .util import enclose_in_parens as enclose_in_parens
 from abc import ABC
 from typing import Any
 

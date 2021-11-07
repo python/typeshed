@@ -1,13 +1,13 @@
-from .syntax import PDFArray as PDFArray, PDFObject as PDFObject, PDFString as PDFString
-from typing import Any, List, NamedTuple, Optional, Union
+from .syntax import PDFObject
+from typing import Any, NamedTuple
 
 class MarkedContent(NamedTuple):
     page_object_id: int
     struct_parents_id: int
     struct_type: str
-    mcid: Optional[int]
-    title: Optional[str]
-    alt_text: Optional[str]
+    mcid: int | None
+    title: str | None
+    alt_text: str | None
 
 class NumberTree(PDFObject):
     nums: Any
@@ -28,7 +28,7 @@ class StructElem(PDFObject):
     pg: Any
     t: Any
     alt: Any
-    def __init__(self, struct_type: str, parent: PDFObject, kids: Union[List[int], List[StructElem]], page: PDFObject = ..., title: str = ..., alt: str = ..., **kwargs) -> None: ...
+    def __init__(self, struct_type: str, parent: PDFObject, kids: list[int] | list[StructElem], page: PDFObject = ..., title: str = ..., alt: str = ..., **kwargs) -> None: ...
 
 class StructureTreeBuilder:
     struct_tree_root: Any

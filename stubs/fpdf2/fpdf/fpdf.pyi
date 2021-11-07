@@ -1,8 +1,8 @@
 from .actions import Action
-from collections.abc import Generator
+from collections.abc import Callable, Generator
 from enum import IntEnum
 from pathlib import Path
-from typing import Any, Callable, List, NamedTuple, Optional, Union
+from typing import Any, NamedTuple
 
 PAGE_FORMATS: Any
 
@@ -19,19 +19,19 @@ class Annotation(NamedTuple):
     width: int
     height: int
     contents: str
-    link: Union[str, int]
-    alt_text: Optional[str]
-    action: Optional[Action]
+    link: str | int
+    alt_text: str | None
+    action: Action | None
 
 class TitleStyle(NamedTuple):
-    font_family: Optional[str]
-    font_style: Optional[str]
-    font_size_pt: Optional[int]
-    color: Union[int, tuple]
+    font_family: str | None
+    font_style: str | None
+    font_size_pt: int | None
+    color: int | tuple
     underline: bool
-    t_margin: Optional[int]
-    l_margin: Optional[int]
-    b_margin: Optional[int]
+    t_margin: int | None
+    l_margin: int | None
+    b_margin: int | None
 
 class ToCPlaceholder(NamedTuple):
     render_function: Callable
@@ -40,7 +40,7 @@ class ToCPlaceholder(NamedTuple):
     pages: int
 
 class SubsetMap:
-    def __init__(self, identities: List[int]) -> None: ...
+    def __init__(self, identities: list[int]) -> None: ...
     def pick(self, unicode: int): ...
     def dict(self): ...
 

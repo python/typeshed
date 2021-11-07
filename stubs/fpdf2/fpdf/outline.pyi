@@ -1,13 +1,13 @@
-from .structure_tree import StructElem as StructElem
-from .syntax import Destination as Destination, PDFObject as PDFObject, PDFString as PDFString
-from typing import Any, NamedTuple, Optional
+from .structure_tree import StructElem
+from .syntax import Destination, PDFObject
+from typing import Any, NamedTuple
 
 class OutlineSection(NamedTuple):
     name: str
     level: str
     page_number: int
     dest: Destination
-    struct_elem: Optional[StructElem]
+    struct_elem: StructElem | None
 
 class OutlineItemDictionary(PDFObject):
     title: Any

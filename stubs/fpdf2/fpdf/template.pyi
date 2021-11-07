@@ -1,5 +1,3 @@
-from .errors import FPDFException as FPDFException
-from .fpdf import FPDF as FPDF
 from typing import Any
 
 class FlexTemplate:
