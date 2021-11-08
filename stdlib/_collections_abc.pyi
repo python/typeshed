@@ -1,4 +1,9 @@
+from abc import abstractmethod
 from typing import (
+    Any,
+    Generic,
+    TypeVar,
+    overload,
     AbstractSet as Set,
     AsyncGenerator as AsyncGenerator,
     AsyncIterable as AsyncIterable,
@@ -21,7 +26,7 @@ from typing import (
     MutableSequence as MutableSequence,
     MutableSet as MutableSet,
     Reversible as Reversible,
-    Sequence as Sequence,
+    # Sequence as Sequence,
     Sized as Sized,
     ValuesView as ValuesView,
 )
@@ -53,3 +58,19 @@ __all__ = [
     "MutableSequence",
     "ByteString",
 ]
+
+_T_co = TypeVar("_T_co", covariant=True)  # Any type covariant containers.
+
+class Sequence(Collection[_T_co], Reversible[_T_co], Generic[_T_co]):
+    @overload
+    @abstractmethod
+    def __getitem__(self, i: int) -> _T_co: ...
+    @overload
+    @abstractmethod
+    def __getitem__(self, s: slice) -> Sequence[_T_co]: ...
+    # Mixin methods
+    def index(self, value: Any, start: int = ..., stop: int = ...) -> int: ...
+    def count(self, value: Any) -> int: ...
+    def __contains__(self, x: object) -> bool: ...
+    def __iter__(self) -> Iterator[_T_co]: ...
+    def __reversed__(self) -> Iterator[_T_co]: ...

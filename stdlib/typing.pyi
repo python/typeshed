@@ -1,4 +1,5 @@
 import collections  # Needed by aliases like DefaultDict, see mypy issue 2986
+import collections.abc
 import sys
 from abc import ABCMeta, abstractmethod
 from types import BuiltinFunctionType, CodeType, FrameType, FunctionType, MethodType, ModuleType, TracebackType
@@ -304,19 +305,7 @@ class Collection(Iterable[_T_co], Container[_T_co], Protocol[_T_co]):
     @abstractmethod
     def __len__(self) -> int: ...
 
-class Sequence(Collection[_T_co], Reversible[_T_co], Generic[_T_co]):
-    @overload
-    @abstractmethod
-    def __getitem__(self, i: int) -> _T_co: ...
-    @overload
-    @abstractmethod
-    def __getitem__(self, s: slice) -> Sequence[_T_co]: ...
-    # Mixin methods
-    def index(self, value: Any, start: int = ..., stop: int = ...) -> int: ...
-    def count(self, value: Any) -> int: ...
-    def __contains__(self, x: object) -> bool: ...
-    def __iter__(self) -> Iterator[_T_co]: ...
-    def __reversed__(self) -> Iterator[_T_co]: ...
+Sequence = _Alias()
 
 class MutableSequence(Sequence[_T], Generic[_T]):
     @abstractmethod
