@@ -1,5 +1,5 @@
 import threading
-from typing import Any, Tuple
+from typing import Tuple
 
 from paramiko.channel import Channel
 from paramiko.message import Message
