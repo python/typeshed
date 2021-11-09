@@ -33,7 +33,7 @@ def through(x: _T) -> _T: ...
 
 convert_bit = through
 
-encoders: dict[type[object], Callable[..., str]]
+encoders: dict[Type[object], Callable[..., str]]
 decoders: dict[int, Callable[[str | bytes], Any]]
-conversions: dict[type[object] | int, Callable[..., Any]]
+conversions: dict[Type[object] | int, Callable[..., Any]]
 Thing2Literal = escape_str
