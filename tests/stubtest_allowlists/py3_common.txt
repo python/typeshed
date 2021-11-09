@@ -92,7 +92,7 @@ http.client.HTTPConnection.response_class  # the actual type at runtime is abc.A
 imaplib.IMAP4_SSL.ssl  # Dependent on SSL existence
 importlib.abc.FileLoader.get_filename  # Wrapped with _check_name decorator which changes runtime signature
 importlib.abc.FileLoader.load_module  # Wrapped with _check_name decorator which changes runtime signature
-importlib.abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatability
+importlib.abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
 importlib.abc.MetaPathFinder.find_spec  # Not defined on the actual class, but expected to exist.
 importlib.abc.PathEntryFinder.find_spec  # Not defined on the actual class, but expected to exist.
 importlib.machinery.ExtensionFileLoader.get_filename  # Wrapped with _check_name decorator which changes runtime signature
@@ -196,7 +196,7 @@ tkinter.Tk.eval  # from __getattr__
 tkinter.Tk.report_callback_exception  # A bit of a lie, since it's actually a method, but typing it as an attribute allows it to be assigned to
 tkinter.Wm.wm_iconphoto  # Default value of argument can't be used without runtime error
 tkinter.font.Font.__getitem__  # Argument name differs (doesn't matter for __dunder__ methods)
-traceback.TracebackException.from_exception  # explicitly expanding arguemnts going into TracebackException __init__
+traceback.TracebackException.from_exception  # explicitly expanding arguments going into TracebackException __init__
 types.GetSetDescriptorType.__get__  # this function can accept no value for the type parameter.
 types.MemberDescriptorType.__get__  # this function can accept no value for the type parameter.
 types.SimpleNamespace.__init__  # class doesn't accept positional arguments but has default C signature
