@@ -1,7 +1,7 @@
-from collections.abc import Callable, Mapping, Sequence
 import datetime
-from decimal import Decimal
 import time
+from collections.abc import Callable, Mapping, Sequence
+from decimal import Decimal
 from typing import Any, Optional, Type, TypeVar
 
 _EscaperMapping = Optional[Mapping[Type[object], Callable[..., str]]]
