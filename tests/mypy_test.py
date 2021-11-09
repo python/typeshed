@@ -209,6 +209,7 @@ def get_mypy_flags(args, major: int, minor: int, temp_name: str, *, custom_types
             "--disallow-any-generics",
             "--disallow-subclassing-any",
             "--warn-incomplete-stub",
+            "--no-error-summary",
         ]
     if custom_typeshed:
         # Setting custom typeshed dir prevents mypy from falling back to its bundled
@@ -273,12 +274,12 @@ def test_third_party_distribution(
     and the second element is the number of checked files.
     """
 
-    print(f"testing {distribution}...")
-
     files: list[str] = []
     configurations: list[MypyDistConf] = []
     seen_dists: set[str] = set()
     add_third_party_files(distribution, major, files, args, configurations, seen_dists)
+
+    print(f"testing {distribution} ({len(files)} files)...")
 
     if not files:
         print("--- no files found ---")
@@ -327,7 +328,7 @@ def main():
 
         if files:
             print("Running mypy " + " ".join(get_mypy_flags(args, major, minor, "/tmp/...", custom_typeshed=True)))
-            print("testing stdlib...")
+            print(f"testing stdlib ({len(files)} files)...")
             this_code = run_mypy(args, [], major, minor, files, custom_typeshed=True)
             code = max(code, this_code)
             files_checked += len(files)
