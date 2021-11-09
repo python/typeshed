@@ -19,7 +19,7 @@ class BaseDumper(Emitter, Serializer, BaseRepresenter, BaseResolver):
         encoding: str | None = ...,
         explicit_start: bool | None = ...,
         explicit_end: bool | None = ...,
-        version: tuple[int, int] = ...,
+        version: tuple[int, int] | None = ...,
         tags: Mapping[str, str] | None = ...,
         sort_keys: bool = ...,
     ) -> None: ...
@@ -38,7 +38,7 @@ class SafeDumper(Emitter, Serializer, SafeRepresenter, Resolver):
         encoding: str | None = ...,
         explicit_start: bool | None = ...,
         explicit_end: bool | None = ...,
-        version: tuple[int, int] = ...,
+        version: tuple[int, int] | None = ...,
         tags: Mapping[str, str] | None = ...,
         sort_keys: bool = ...,
     ) -> None: ...
@@ -57,7 +57,7 @@ class Dumper(Emitter, Serializer, Representer, Resolver):
         encoding: str | None = ...,
         explicit_start: bool | None = ...,
         explicit_end: bool | None = ...,
-        version: tuple[int, int] = ...,
+        version: tuple[int, int] | None = ...,
         tags: Mapping[str, str] | None = ...,
         sort_keys: bool = ...,
     ) -> None: ...

@@ -59,8 +59,8 @@ def serialize_all(
     encoding: str | None = ...,
     explicit_start: bool | None = ...,
     explicit_end: bool | None = ...,
-    version: tuple[int, int] = ...,
-    tags: Mapping[str, str] = ...,
+    version: tuple[int, int] | None = ...,
+    tags: Mapping[str, str] | None = ...,
 ) -> None: ...
 @overload
 def serialize_all(
@@ -75,8 +75,8 @@ def serialize_all(
     encoding: str | None = ...,
     explicit_start: bool | None = ...,
     explicit_end: bool | None = ...,
-    version: tuple[int, int] = ...,
-    tags: Mapping[str, str] = ...,
+    version: tuple[int, int] | None = ...,
+    tags: Mapping[str, str] | None = ...,
 ) -> _Yaml: ...
 @overload
 def serialize(
@@ -92,8 +92,8 @@ def serialize(
     encoding: str | None = ...,
     explicit_start: bool | None = ...,
     explicit_end: bool | None = ...,
-    version: tuple[int, int] = ...,
-    tags: Mapping[str, str] = ...,
+    version: tuple[int, int] | None = ...,
+    tags: Mapping[str, str] | None = ...,
 ) -> None: ...
 @overload
 def serialize(
@@ -109,8 +109,8 @@ def serialize(
     encoding: str | None = ...,
     explicit_start: bool | None = ...,
     explicit_end: bool | None = ...,
-    version: tuple[int, int] = ...,
-    tags: Mapping[str, str] = ...,
+    version: tuple[int, int] | None = ...,
+    tags: Mapping[str, str] | None = ...,
 ) -> _Yaml: ...
 @overload
 def dump_all(
@@ -127,8 +127,8 @@ def dump_all(
     encoding: str | None = ...,
     explicit_start: bool | None = ...,
     explicit_end: bool | None = ...,
-    version: tuple[int, int] = ...,
-    tags: Mapping[str, str] = ...,
+    version: tuple[int, int] | None = ...,
+    tags: Mapping[str, str] | None = ...,
     sort_keys: bool = ...,
 ) -> None: ...
 @overload
@@ -146,8 +146,8 @@ def dump_all(
     encoding: str | None = ...,
     explicit_start: bool | None = ...,
     explicit_end: bool | None = ...,
-    version: tuple[int, int] = ...,
-    tags: Mapping[str, str] = ...,
+    version: tuple[int, int] | None = ...,
+    tags: Mapping[str, str] | None = ...,
     sort_keys: bool = ...,
 ) -> _Yaml: ...
 @overload
@@ -166,8 +166,8 @@ def dump(
     encoding: str | None = ...,
     explicit_start: bool | None = ...,
     explicit_end: bool | None = ...,
-    version: tuple[int, int] = ...,
-    tags: Mapping[str, str] = ...,
+    version: tuple[int, int] | None = ...,
+    tags: Mapping[str, str] | None = ...,
     sort_keys: bool = ...,
 ) -> None: ...
 @overload
@@ -186,8 +186,8 @@ def dump(
     encoding: str | None = ...,
     explicit_start: bool | None = ...,
     explicit_end: bool | None = ...,
-    version: tuple[int, int] = ...,
-    tags: Mapping[str, str] = ...,
+    version: tuple[int, int] | None = ...,
+    tags: Mapping[str, str] | None = ...,
     sort_keys: bool = ...,
 ) -> _Yaml: ...
 @overload
@@ -205,8 +205,8 @@ def safe_dump_all(
     encoding: str | None = ...,
     explicit_start: bool | None = ...,
     explicit_end: bool | None = ...,
-    version: tuple[int, int] = ...,
-    tags: Mapping[str, str] = ...,
+    version: tuple[int, int] | None = ...,
+    tags: Mapping[str, str] | None = ...,
     sort_keys: bool = ...,
 ) -> None: ...
 @overload
@@ -224,8 +224,8 @@ def safe_dump_all(
     encoding: str | None = ...,
     explicit_start: bool | None = ...,
     explicit_end: bool | None = ...,
-    version: tuple[int, int] = ...,
-    tags: Mapping[str, str] = ...,
+    version: tuple[int, int] | None = ...,
+    tags: Mapping[str, str] | None = ...,
     sort_keys: bool = ...,
 ) -> _Yaml: ...
 @overload
@@ -243,8 +243,8 @@ def safe_dump(
     encoding: str | None = ...,
     explicit_start: bool | None = ...,
     explicit_end: bool | None = ...,
-    version: tuple[int, int] = ...,
-    tags: Mapping[str, str] = ...,
+    version: tuple[int, int] | None = ...,
+    tags: Mapping[str, str] | None = ...,
     sort_keys: bool = ...,
 ) -> None: ...
 @overload
@@ -262,8 +262,8 @@ def safe_dump(
     encoding: str | None = ...,
     explicit_start: bool | None = ...,
     explicit_end: bool | None = ...,
-    version: tuple[int, int] = ...,
-    tags: Mapping[str, str] = ...,
+    version: tuple[int, int] | None = ...,
+    tags: Mapping[str, str] | None = ...,
     sort_keys: bool = ...,
 ) -> _Yaml: ...
 def add_implicit_resolver(
