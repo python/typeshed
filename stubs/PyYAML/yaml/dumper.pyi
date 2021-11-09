@@ -1,4 +1,4 @@
-from typing import IO, Any, Mapping
+from typing import IO, Mapping
 
 from yaml.emitter import Emitter
 from yaml.representer import BaseRepresenter, Representer, SafeRepresenter
