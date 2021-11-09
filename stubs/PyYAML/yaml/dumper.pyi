@@ -1,4 +1,5 @@
 from typing import IO, Any, Mapping
+
 from yaml.emitter import Emitter
 from yaml.representer import BaseRepresenter, Representer, SafeRepresenter
 from yaml.resolver import BaseResolver, Resolver
