@@ -142,12 +142,15 @@ def main():
     else:
         dists = [typeshed_dir / "stubs" / d for d in args.dists]
 
-    for i, dist in enumerate(dists):
-        if i % args.num_shards != args.shard_index:
-            continue
-        if dist.name in EXCLUDE_LIST:
-            continue
-        run_stubtest(dist)
+    try:
+        for i, dist in enumerate(dists):
+            if i % args.num_shards != args.shard_index:
+                continue
+            if dist.name in EXCLUDE_LIST:
+                continue
+            run_stubtest(dist)
+    except StubtestFailed:
+        sys.exit(1)
 
 
 if __name__ == "__main__":
