@@ -1,9 +1,10 @@
+from _typeshed import SupportsWrite
+from collections.abc import Mapping
+
 from yaml.emitter import Emitter
 from yaml.representer import BaseRepresenter, Representer, SafeRepresenter
 from yaml.resolver import BaseResolver, Resolver
 from yaml.serializer import Serializer
-from _typeshed import SupportsWrite
-from collections.abc import Mapping
 
 class BaseDumper(Emitter, Serializer, BaseRepresenter, BaseResolver):
     def __init__(
