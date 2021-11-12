@@ -83,6 +83,7 @@ _T4 = TypeVar("_T4")
 _T5 = TypeVar("_T5")
 _TT = TypeVar("_TT", bound="type")
 _TBE = TypeVar("_TBE", bound="BaseException")
+_R = TypeVar('_R')  # Return-type TypeVar
 
 class object:
     __doc__: str | None
@@ -115,28 +116,28 @@ class object:
     def __dir__(self) -> Iterable[str]: ...
     def __init_subclass__(cls) -> None: ...
 
-class staticmethod(object):  # Special, only valid as a decorator.
-    __func__: Callable[..., Any]
+class staticmethod(Generic[_R]):  # Special, only valid as a decorator.
+    __func__: Callable[..., _R]
     __isabstractmethod__: bool
-    def __init__(self, __f: Callable[..., Any]) -> None: ...
+    def __init__(self: staticmethod[_R], __f: Callable[..., _R]) -> None: ...
     def __new__(cls: Type[_T], *args: Any, **kwargs: Any) -> _T: ...
-    def __get__(self, __obj: _T, __type: Type[_T] | None = ...) -> Callable[..., Any]: ...
+    def __get__(self, __obj: _T, __type: Type[_T] | None = ...) -> Callable[..., _R]: ...
     if sys.version_info >= (3, 10):
         __name__: str
         __qualname__: str
-        __wrapped__: Callable[..., Any]
-        def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
+        __wrapped__: Callable[..., _R]
+        def __call__(self, *args: Any, **kwargs: Any) -> _R: ...
 
-class classmethod(object):  # Special, only valid as a decorator.
-    __func__: Callable[..., Any]
+class classmethod(Generic[_R]):  # Special, only valid as a decorator.
+    __func__: Callable[..., _R]
     __isabstractmethod__: bool
-    def __init__(self, __f: Callable[..., Any]) -> None: ...
+    def __init__(self: classmethod[_R], __f: Callable[..., _R]) -> None: ...
     def __new__(cls: Type[_T], *args: Any, **kwargs: Any) -> _T: ...
-    def __get__(self, __obj: _T, __type: Type[_T] | None = ...) -> Callable[..., Any]: ...
+    def __get__(self, __obj: _T, __type: Type[_T] | None = ...) -> Callable[..., _R]: ...
     if sys.version_info >= (3, 10):
         __name__: str
         __qualname__: str
-        __wrapped__: Callable[..., Any]
+        __wrapped__: Callable[..., _R]
 
 class type(object):
     __base__: type
