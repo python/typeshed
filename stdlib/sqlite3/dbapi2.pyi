@@ -35,7 +35,7 @@ SQLITE_CREATE_TEMP_TRIGGER: int
 SQLITE_CREATE_TEMP_VIEW: int
 SQLITE_CREATE_TRIGGER: int
 SQLITE_CREATE_VIEW: int
-sys.version_info[:2] > (3, 6):
+if sys.version_info[:2] > (3, 6):
     SQLITE_CREATE_VTABLE: int
 SQLITE_DELETE: int
 SQLITE_DENY: int
