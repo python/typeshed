@@ -35,7 +35,7 @@ SQLITE_CREATE_TEMP_TRIGGER: int
 SQLITE_CREATE_TEMP_VIEW: int
 SQLITE_CREATE_TRIGGER: int
 SQLITE_CREATE_VIEW: int
-if sys.version_info[:2] > (3, 6):
+if sys.version_info >= (3, 7):
     SQLITE_CREATE_VTABLE: int
 SQLITE_DELETE: int
 SQLITE_DENY: int
@@ -48,13 +48,13 @@ SQLITE_DROP_TEMP_TRIGGER: int
 SQLITE_DROP_TEMP_VIEW: int
 SQLITE_DROP_TRIGGER: int
 SQLITE_DROP_VIEW: int
-if sys.version_info[:2] > (3, 6):
+if sys.version_info >= (3, 7):
     SQLITE_DROP_VTABLE: int
     SQLITE_FUNCTION: int
 SQLITE_IGNORE: int
 SQLITE_INSERT: int
 SQLITE_OK: int
-if sys.version_info[:2] > (3, 10):
+if sys.version_info >= (3, 11):
     SQLITE_LIMIT_LENGTH: int
     SQLITE_LIMIT_SQL_LENGTH: int
     SQLITE_LIMIT_COLUMN: int
@@ -70,7 +70,7 @@ if sys.version_info[:2] > (3, 10):
 SQLITE_PRAGMA: int
 SQLITE_READ: int
 SQLITE_REINDEX: int
-if sys.version_info[:2] > (3, 6):
+if sys.version_info >= (3, 7):
     SQLITE_RECURSIVE: int
     SQLITE_SAVEPOINT: int
 SQLITE_SELECT: int
