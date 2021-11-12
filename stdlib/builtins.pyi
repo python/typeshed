@@ -644,6 +644,7 @@ class bytearray(MutableSequence[int], ByteString):
     def __gt__(self, __x: bytes) -> bool: ...
     def __ge__(self, __x: bytes) -> bool: ...
 
+@final
 class memoryview(Sized, Sequence[int]):
     format: str
     itemsize: int
@@ -717,6 +718,7 @@ class bool(int):
     def __rxor__(self, __x: int) -> int: ...
     def __getnewargs__(self) -> tuple[int]: ...
 
+@final
 class slice(object):
     start: Any
     step: Any
@@ -937,6 +939,7 @@ class enumerate(Iterator[Tuple[int, _T]], Generic[_T]):
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, __item: Any) -> GenericAlias: ...
 
+@final
 class range(Sequence[int]):
     start: int
     stop: int
