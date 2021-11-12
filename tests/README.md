@@ -35,10 +35,9 @@ You can restrict mypy tests to a single version by passing `-p2` or `-p3.9`:
 
 ## pytype\_test.py
 
-This test requires Python 2.7 and Python 3.6. Pytype will find these
-automatically if they're in `PATH`. Note: this test cannot be run on Windows
-systems unless you are using Windows Subsystem for Linux. Pytype also does not
-yet fully support Python 3.10.
+This test requires Python between 3.6 and 3.9.
+Note: this test cannot be run on Windows
+systems unless you are using Windows Subsystem for Linux.
 
 Run using:
 ```
