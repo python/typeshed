@@ -83,7 +83,7 @@ _T4 = TypeVar("_T4")
 _T5 = TypeVar("_T5")
 _TT = TypeVar("_TT", bound="type")
 _TBE = TypeVar("_TBE", bound="BaseException")
-_R = TypeVar('_R')  # Return-type TypeVar
+_R = TypeVar("_R")  # Return-type TypeVar
 
 class object:
     __doc__: str | None
