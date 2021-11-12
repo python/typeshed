@@ -36,8 +36,8 @@ check your code before committing, you can copy the file `pre-commit` to
 ### Linux/Mac OS
 
 On Linux and Mac OS, you will be able to run the full test suite on Python 3.8
-or 3.9. The mypy tests cannot be run on Python <3.7, and the pytype tests
-[cannot be run on Python 3.10](https://github.com/google/pytype/issues/1022).
+or 3.9. Running the tests on <=3.7 is not supported, and the pytype tests
+[cannot currently be run on Python 3.10](https://github.com/google/pytype/issues/1022).
 
 To install the necessary requirements, run the following commands from a
 terminal window:
