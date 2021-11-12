@@ -122,6 +122,9 @@ class staticmethod(object):  # Special, only valid as a decorator.
     def __new__(cls: Type[_T], *args: Any, **kwargs: Any) -> _T: ...
     def __get__(self, __obj: _T, __type: Type[_T] | None = ...) -> Callable[..., Any]: ...
     if sys.version_info >= (3, 10):
+        __name__: str
+        __qualname__: str
+        __wrapped__: Callable[..., Any]
         def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
 
 class classmethod(object):  # Special, only valid as a decorator.
@@ -130,6 +133,10 @@ class classmethod(object):  # Special, only valid as a decorator.
     def __init__(self, __f: Callable[..., Any]) -> None: ...
     def __new__(cls: Type[_T], *args: Any, **kwargs: Any) -> _T: ...
     def __get__(self, __obj: _T, __type: Type[_T] | None = ...) -> Callable[..., Any]: ...
+    if sys.version_info >= (3, 10):
+        __name__: str
+        __qualname__: str
+        __wrapped__: Callable[..., Any]
 
 class type(object):
     __base__: type
