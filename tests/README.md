@@ -13,7 +13,7 @@ objects at runtime.
 objects at runtime.
 
 To run the tests, follow the [setup instructions](../CONTRIBUTING.md#preparing-the-environment)
-in the `CONTRIBUTING.md` document.
+in the `CONTRIBUTING.md` document. In particular, we recommend running with Python 3.8 or newer.
 
 ## mypy\_test.py
 

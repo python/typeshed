@@ -60,7 +60,7 @@ from typing import (
     ValuesView,
     overload,
 )
-from typing_extensions import Literal, SupportsIndex, final
+from typing_extensions import Literal, SupportsIndex, TypeGuard, final
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
@@ -121,6 +121,11 @@ class staticmethod(object):  # Special, only valid as a decorator.
     def __init__(self, __f: Callable[..., Any]) -> None: ...
     def __new__(cls: Type[_T], *args: Any, **kwargs: Any) -> _T: ...
     def __get__(self, __obj: _T, __type: Type[_T] | None = ...) -> Callable[..., Any]: ...
+    if sys.version_info >= (3, 10):
+        __name__: str
+        __qualname__: str
+        __wrapped__: Callable[..., Any]
+        def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
 
 class classmethod(object):  # Special, only valid as a decorator.
     __func__: Callable[..., Any]
@@ -128,6 +133,10 @@ class classmethod(object):  # Special, only valid as a decorator.
     def __init__(self, __f: Callable[..., Any]) -> None: ...
     def __new__(cls: Type[_T], *args: Any, **kwargs: Any) -> _T: ...
     def __get__(self, __obj: _T, __type: Type[_T] | None = ...) -> Callable[..., Any]: ...
+    if sys.version_info >= (3, 10):
+        __name__: str
+        __qualname__: str
+        __wrapped__: Callable[..., Any]
 
 class type(object):
     __base__: type
@@ -974,7 +983,7 @@ def bin(__number: int | SupportsIndex) -> str: ...
 if sys.version_info >= (3, 7):
     def breakpoint(*args: Any, **kws: Any) -> None: ...
 
-def callable(__obj: object) -> bool: ...
+def callable(__obj: object) -> TypeGuard[Callable[..., object]]: ...
 def chr(__i: int) -> str: ...
 
 # We define this here instead of using os.PathLike to avoid import cycle issues.
