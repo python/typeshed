@@ -60,7 +60,7 @@ from typing import (
     ValuesView,
     overload,
 )
-from typing_extensions import Literal, SupportsIndex, final
+from typing_extensions import Literal, SupportsIndex, TypeGuard, final
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
@@ -976,7 +976,7 @@ def bin(__number: int | SupportsIndex) -> str: ...
 if sys.version_info >= (3, 7):
     def breakpoint(*args: Any, **kws: Any) -> None: ...
 
-def callable(__obj: object) -> bool: ...
+def callable(__obj: object) -> TypeGuard[Callable[..., object]]: ...
 def chr(__i: int) -> str: ...
 
 # We define this here instead of using os.PathLike to avoid import cycle issues.
