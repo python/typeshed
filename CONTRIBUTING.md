@@ -25,11 +25,23 @@ it takes a bit longer. For more details, read below.
 ## Preparing the environment
 
 To reformat the code, check for common problems, and
-run the tests, you need to prepare a
-[virtual environment](https://docs.python.org/3/tutorial/venv.html)
-with the necessary libraries installed using Python 3.8 or newer.
+run the tests, it can be useful to prepare a
+[virtual environment](https://docs.python.org/3/tutorial/venv.html) and install
+certain libraries typeshed uses to check stub files.
 
-To do this, run:
+Follow platform-specific instructions below. Following that, to automatically
+check your code before committing, you can copy the file `pre-commit` to
+`.git/hooks/pre-commit`.
+
+### Linux/Mac OS
+
+On Linux and Mac OS, you will be able to run the full test suite on Python 3.8
+or 3.9. Running the tests on <=3.7 is not supported, and the pytype tests
+[cannot currently be run on Python 3.10](https://github.com/google/pytype/issues/1022).
+
+To install the necessary requirements, run the following commands from a
+terminal window:
+
 ```
 $ python3 -m venv .venv3
 $ source .venv3/bin/activate
@@ -37,8 +49,30 @@ $ source .venv3/bin/activate
 (.venv3)$ pip install -r requirements-tests-py3.txt
 ```
 
-To automatically check your code before committing, copy the file
-`pre-commit` to `.git/hooks/pre-commit`.
+### Windows
+
+If you are using a Windows operating system, you will not be able to run the
+full test suite. One option is to install
+[Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/faq),
+which will allow you to run the full suite of tests. If you choose to install
+WSL, follow the Linux/Mac OS instructions above.
+
+If you do not wish to install WSL, you will not be able to run the pytype
+tests, as pytype
+[does not currently support running on Windows](https://github.com/google/pytype#requirements).
+However, the upside of this is that you will be able to run all
+Windows-compatible tests on Python 3.9, 3.8 or 3.10, as it is only the pytype
+tests that cannot currently be run on 3.10.
+
+To install all non-pytype requirements on Windows without WSL, run the
+following commands from a Windows terminal:
+
+```
+> python3 -m venv .venv3
+> ".venv3/Scripts/activate"
+(.venv3) > python -m pip install -U pip
+(.venv3) > python -m pip install -r requirements-tests-py3.txt
+```
 
 ## Where to make changes
 

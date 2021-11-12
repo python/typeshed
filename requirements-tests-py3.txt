@@ -1,5 +1,5 @@
 mypy==0.910
-pytype==2021.11.2
+pytype==2021.11.2; platform_system != "Windows"
 black==21.9b0
 flake8==4.0.1
 flake8-bugbear==21.9.2

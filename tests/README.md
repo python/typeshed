@@ -13,7 +13,7 @@ objects at runtime.
 objects at runtime.
 
 To run the tests, follow the [setup instructions](../CONTRIBUTING.md#preparing-the-environment)
-in the `CONTRIBUTING.md` document. In particular, we recommend running with Python 3.8 or newer.
+in the `CONTRIBUTING.md` document. In particular, we recommend running with Python 3.8 or 3.9.
 
 ## mypy\_test.py
 
@@ -35,8 +35,11 @@ You can restrict mypy tests to a single version by passing `-p2` or `-p3.9`:
 
 ## pytype\_test.py
 
-This test requires Python 2.7 and Python 3.6. Pytype will
-find these automatically if they're in `PATH`.
+This test requires Python 2.7 and Python 3.6. Pytype will find these
+automatically if they're in `PATH`. Note: this test cannot be run on Windows
+systems unless you are using Windows Subsystem for Linux. Pytype also does not
+yet fully support Python 3.10.
+
 Run using:
 ```
 (.venv3)$ python3 tests/pytype_test.py
