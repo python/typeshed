@@ -1,5 +1,5 @@
 from collections.abc import Callable, Iterable, Iterator, Sequence
-from typing import IO, Any, Mapping, Pattern, Type, TypeVar, overload
+from typing import IO, Any, Pattern, Type, TypeVar, overload
 
 from . import resolver as resolver  # Help mypy a bit; this is implied by loader and dumper
 from .constructor import BaseConstructor
@@ -12,6 +12,7 @@ from .nodes import *
 from .representer import BaseRepresenter
 from .resolver import BaseResolver
 from .tokens import *
+from collections.abc import Mapping
 
 # FIXME: the functions really return str if encoding is None, otherwise bytes. Waiting for python/mypy#5621
 _Yaml = Any
