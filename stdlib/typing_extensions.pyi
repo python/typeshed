@@ -72,14 +72,13 @@ TypedDict: object = ...
 
 OrderedDict = _Alias()
 
-def get_type_hints(
-    obj: Callable[..., Any],
-    globalns: dict[str, Any] | None = ...,
-    localns: dict[str, Any] | None = ...,
-    include_extras: bool = ...,
-) -> dict[str, Any]: ...
-
 if sys.version_info >= (3, 7):
+    def get_type_hints(
+        obj: Callable[..., Any],
+        globalns: dict[str, Any] | None = ...,
+        localns: dict[str, Any] | None = ...,
+        include_extras: bool = ...,
+    ) -> dict[str, Any]: ...
     def get_args(tp: Any) -> Tuple[Any, ...]: ...
     def get_origin(tp: Any) -> Any | None: ...
 
