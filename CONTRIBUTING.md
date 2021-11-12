@@ -27,8 +27,9 @@ it takes a bit longer. For more details, read below.
 To reformat the code, check for common problems, and
 run the tests, you need to prepare a
 [virtual environment](https://docs.python.org/3/tutorial/venv.html)
-with the necessary libraries installed. To do this, run:
+with the necessary libraries installed using Python 3.8 or newer.
 
+To do this, run:
 ```
 $ python3 -m venv .venv3
 $ source .venv3/bin/activate
