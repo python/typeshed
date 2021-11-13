@@ -19,7 +19,6 @@ from _typeshed import (
     SupportsRDivMod,
     SupportsWrite,
 )
-from _ast import AST
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
 from types import CodeType, MappingProxyType, TracebackType
 from typing import (
@@ -61,6 +60,8 @@ from typing import (
     overload,
 )
 from typing_extensions import Literal, SupportsIndex, TypeGuard, final
+
+from _ast import AST
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
