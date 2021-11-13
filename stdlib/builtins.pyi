@@ -19,7 +19,7 @@ from _typeshed import (
     SupportsRDivMod,
     SupportsWrite,
 )
-from ast import AST, mod
+from _ast import AST
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
 from types import CodeType, MappingProxyType, TracebackType
 from typing import (
@@ -1013,7 +1013,7 @@ if sys.version_info >= (3, 10):
 
 if sys.version_info >= (3, 8):
     def compile(
-        source: str | bytes | mod | AST,
+        source: str | bytes | AST,
         filename: str | bytes | _PathLike[Any],
         mode: str,
         flags: int = ...,
@@ -1025,7 +1025,7 @@ if sys.version_info >= (3, 8):
 
 else:
     def compile(
-        source: str | bytes | mod | AST,
+        source: str | bytes | AST,
         filename: str | bytes | _PathLike[Any],
         mode: str,
         flags: int = ...,
