@@ -20,13 +20,13 @@ jobs:
       - run: pip install $(grep tomli== requirements-tests-py3.txt)
       - run: ./tests/check_consistent.py
 
-  pep-604:
-    name: Check for PEP 604 usage
+  new-syntax:
+    name: Ensure new syntax usage
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-      - run: ./tests/check_pep_604.py
+      - run: ./tests/check_new_syntax.py
 
   flake8:
     name: Lint with flake8
@@ -89,7 +89,7 @@ jobs:
         python-version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
       fail-fast: false
     env:
-      PYRIGHT_VERSION: 1.1.175 # Must match pyright_test.py.
+      PYRIGHT_VERSION: 1.1.187 # Must match pyright_test.py.
     steps:
       - uses: actions/checkout@v2
       - uses: jakebailey/pyright-action@v1

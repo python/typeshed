@@ -47,11 +47,9 @@ def run_stubtest(dist: Path) -> None:
         pip_exe = str(venv_dir / "bin" / "pip")
         python_exe = str(venv_dir / "bin" / "python")
 
-        dist_version = metadata.get("version")
-        if dist_version is None or dist_version == "0.1":
-            dist_req = dist.name
-        else:
-            dist_req = f"{dist.name}=={dist_version}.*"
+        dist_version = metadata["version"]
+        assert isinstance(dist_version, str)
+        dist_req = f"{dist.name}=={dist_version}"
 
         # If @tests/requirements-stubtest.txt exists, run "pip install" on it.
         req_path = dist / "@tests" / "requirements-stubtest.txt"
@@ -106,13 +104,20 @@ def run_stubtest(dist: Path) -> None:
         except subprocess.CalledProcessError:
             print(f"stubtest failed for {dist.name}", file=sys.stderr)
             print("\n\n", file=sys.stderr)
-            if not allowlist_path.exists():
+            if allowlist_path.exists():
+                print(
+                    'To fix "unused allowlist" errors, remove the corresponding entries from '
+                    f"{allowlist_path}",
+                    file=sys.stderr,
+                )
+            else:
                 print(
                     "Re-running stubtest with --generate-allowlist.\n"
-                    f"Add the following to {allowlist_path}:"
+                    f"Add the following to {allowlist_path}:",
+                    file=sys.stderr,
                 )
                 subprocess.run(cmd + ["--generate-allowlist"], env={"MYPYPATH": str(dist)})
-                print("\n\n")
+                print("\n\n", file=sys.stderr)
             raise StubtestFailed from None
         else:
             print(f"stubtest succeeded for {dist.name}", file=sys.stderr)
@@ -137,12 +142,15 @@ def main():
     else:
         dists = [typeshed_dir / "stubs" / d for d in args.dists]
 
-    for i, dist in enumerate(dists):
-        if i % args.num_shards != args.shard_index:
-            continue
-        if dist.name in EXCLUDE_LIST:
-            continue
-        run_stubtest(dist)
+    try:
+        for i, dist in enumerate(dists):
+            if i % args.num_shards != args.shard_index:
+                continue
+            if dist.name in EXCLUDE_LIST:
+                continue
+            run_stubtest(dist)
+    except StubtestFailed:
+        sys.exit(1)
 
 
 if __name__ == "__main__":

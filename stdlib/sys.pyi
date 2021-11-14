@@ -205,7 +205,7 @@ class _WinVersion(Tuple[int, int, int, int, str, int, int, int, int, Tuple[int, 
     service_pack_major: int
     suite_mast: int
     product_type: int
-    platform_version: Tuple[int, int, int]
+    platform_version: tuple[int, int, int]
 
 if sys.platform == "win32":
     def getwindowsversion() -> _WinVersion: ...
