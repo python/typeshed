@@ -979,6 +979,7 @@ class property(object):
     def __set__(self, __obj: Any, __value: Any) -> None: ...
     def __delete__(self, __obj: Any) -> None: ...
 
+@final
 class _NotImplementedType(Any):  # type: ignore
     # A little weird, but typing the __call__ as NotImplemented makes the error message
     # for NotImplemented() much better
@@ -1440,6 +1441,7 @@ def __import__(
 
 # Actually the type of Ellipsis is <type 'ellipsis'>, but since it's
 # not exposed anywhere under that name, we make it private here.
+@final
 class ellipsis: ...
 
 Ellipsis: ellipsis
