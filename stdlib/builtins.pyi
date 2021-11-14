@@ -1056,7 +1056,7 @@ class filter(Iterator[_T], Generic[_T]):
 
 def format(__value: object, __format_spec: str = ...) -> str: ...  # TODO unicode
 @overload
-def getattr(__o: object, __name: str) -> object: ...
+def getattr(__o: object, __name: str) -> Any: ...
 
 # While technically covered by the last overload, spelling out the types for None and bool
 # help mypy out in some tricky situations involving type context (aka bidirectional inference)
