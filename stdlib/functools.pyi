@@ -2,7 +2,7 @@ import sys
 import types
 from _typeshed import SupportsItems, SupportsLessThan
 from typing import Any, Callable, Generic, Hashable, Iterable, NamedTuple, Sequence, Set, Sized, Tuple, Type, TypeVar, overload
-from typing_extensions import ParamSpec
+from typing_extensions import ParamSpec, final
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
@@ -24,6 +24,7 @@ class _CacheInfo(NamedTuple):
     maxsize: int
     currsize: int
 
+@final
 class _lru_cache_wrapper(Generic[_P, _T]):  # type: ignore
     __wrapped__: Callable[_P, _T]  # type: ignore
     def __call__(self, *args: _P.args, **kwargs: _P.kwargs) -> _T: ...  # type: ignore

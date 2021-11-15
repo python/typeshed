@@ -2,7 +2,7 @@ import collections  # Needed by aliases like DefaultDict, see mypy issue 2986
 import sys
 from abc import ABCMeta, abstractmethod
 from types import BuiltinFunctionType, CodeType, FrameType, FunctionType, MethodType, ModuleType, TracebackType
-from typing_extensions import Literal as _Literal, ParamSpec as _ParamSpec
+from typing_extensions import Literal as _Literal, ParamSpec as _ParamSpec, final as _final
 
 if sys.version_info >= (3, 7):
     from types import MethodDescriptorType, MethodWrapperType, WrapperDescriptorType
@@ -545,6 +545,7 @@ class TextIO(IO[str]):
 
 class ByteString(Sequence[int], metaclass=ABCMeta): ...
 
+@_final
 class Match(Generic[AnyStr]):
     pos: int
     endpos: int
@@ -588,6 +589,7 @@ class Match(Generic[AnyStr]):
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
+@_final
 class Pattern(Generic[AnyStr]):
     flags: int
     groupindex: Mapping[str, int]
