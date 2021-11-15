@@ -178,6 +178,9 @@ class ModuleType:
     __path__: MutableSequence[str]
     __spec__: ModuleSpec | None
     def __init__(self, name: str, doc: str | None = ...) -> None: ...
+    # __getattr__ doesn't exist at runtime,
+    # but having it here in typeshed makes dynamic imports
+    # using `builtins.__import__` or `importlib.import_module` less painful
     def __getattr__(self, name: str) -> Any: ...
 
 @final
