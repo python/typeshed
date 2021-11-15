@@ -11,7 +11,6 @@ from typing import (
     ContextManager,
     Generic,
     Iterator,
-    Optional,
     Type,
     TypeVar,
     overload,
@@ -28,7 +27,7 @@ _T_io = TypeVar("_T_io", bound=Optional[IO[str]])
 _F = TypeVar("_F", bound=Callable[..., Any])
 _P = ParamSpec("_P")
 
-_ExitFunc = Callable[[Optional[Type[BaseException]], Optional[BaseException], Optional[TracebackType]], bool]
+_ExitFunc = Callable[[Type[BaseException] | None, BaseException | None, TracebackType | None], bool]
 _CM_EF = TypeVar("_CM_EF", ContextManager[Any], _ExitFunc)
 
 class _GeneratorContextManager(ContextManager[_T_co]):
@@ -86,7 +85,7 @@ class ExitStack(ContextManager[ExitStack]):
     ) -> bool: ...
 
 if sys.version_info >= (3, 7):
-    _ExitCoroFunc = Callable[[Optional[Type[BaseException]], Optional[BaseException], Optional[TracebackType]], Awaitable[bool]]
+    _ExitCoroFunc = Callable[[Type[BaseException] | None, BaseException | None, TracebackType | None], Awaitable[bool]]
     _CallbackCoroFunc = Callable[..., Awaitable[Any]]
     _ACM_EF = TypeVar("_ACM_EF", AsyncContextManager[Any], _ExitCoroFunc)
     class AsyncExitStack(AsyncContextManager[AsyncExitStack]):
