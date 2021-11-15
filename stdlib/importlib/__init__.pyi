@@ -2,6 +2,7 @@ import types
 from importlib.abc import Loader
 from typing import Any, Mapping, Sequence
 
+# `__import__` and `import_module` return type should be kept the same as `builtins.__import__`
 def __import__(
     name: str,
     globals: Mapping[str, Any] | None = ...,

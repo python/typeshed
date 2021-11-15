@@ -1449,7 +1449,7 @@ def __import__(
     locals: Mapping[str, object] | None = ...,
     fromlist: Sequence[str] = ...,
     level: int = ...,
-) -> Any: ...
+) -> types.ModuleType: ...
 
 # Actually the type of Ellipsis is <type 'ellipsis'>, but since it's
 # not exposed anywhere under that name, we make it private here.
