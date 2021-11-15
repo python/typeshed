@@ -11,6 +11,7 @@ from typing import (
     ContextManager,
     Generic,
     Iterator,
+    Optional
     Type,
     TypeVar,
     overload,
@@ -23,7 +24,7 @@ if sys.version_info >= (3, 7):
 
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
-_T_io = TypeVar("_T_io", bound=IO[str] | None)
+_T_io = TypeVar("_T_io", bound=Optional[IO[str]])
 _F = TypeVar("_F", bound=Callable[..., Any])
 _P = ParamSpec("_P")
 
