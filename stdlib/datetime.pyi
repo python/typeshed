@@ -1,6 +1,7 @@
 import sys
 from time import struct_time
 from typing import ClassVar, NamedTuple, SupportsAbs, Type, TypeVar, overload
+from typing_extensions import final
 
 _S = TypeVar("_S")
 
@@ -16,6 +17,7 @@ class tzinfo:
 # Alias required to avoid name conflicts with date(time).tzinfo.
 _tzinfo = tzinfo
 
+@final
 class timezone(tzinfo):
     utc: ClassVar[timezone]
     min: ClassVar[timezone]

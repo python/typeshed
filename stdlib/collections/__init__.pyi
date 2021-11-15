@@ -2,6 +2,7 @@ import sys
 from _typeshed import Self
 from builtins import _dict_items, _dict_keys, _dict_values
 from typing import Any, Dict, Generic, NoReturn, Tuple, Type, TypeVar, overload
+from typing_extensions import final
 
 if sys.version_info >= (3, 10):
     from typing import Callable, Iterable, Iterator, Mapping, MutableMapping, MutableSequence, Reversible, Sequence
@@ -240,12 +241,15 @@ class Counter(Dict[_T, int], Generic[_T]):
     def __iand__(self, other: Counter[_T]) -> Counter[_T]: ...
     def __ior__(self, other: Counter[_T]) -> Counter[_T]: ...  # type: ignore
 
+@final
 class _OrderedDictKeysView(_dict_keys[_KT_co, _VT_co], Reversible[_KT_co]):
     def __reversed__(self) -> Iterator[_KT_co]: ...
 
+@final
 class _OrderedDictItemsView(_dict_items[_KT_co, _VT_co], Reversible[Tuple[_KT_co, _VT_co]]):
     def __reversed__(self) -> Iterator[tuple[_KT_co, _VT_co]]: ...
 
+@final
 class _OrderedDictValuesView(_dict_values[_KT_co, _VT_co], Reversible[_VT_co], Generic[_KT_co, _VT_co]):
     def __reversed__(self) -> Iterator[_VT_co]: ...
 
