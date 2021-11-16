@@ -142,7 +142,7 @@ jobs:
         run: pip install $(grep tomli== requirements-tests-py3.txt)
       - name: Run stubtest
         run: |
-          STUBS=$(git diff --name-only ${{ github.base_ref }} {{ github.head_ref }} | egrep ^stubs/ | cut -d "/" -f 2)
+          STUBS=$(git diff --name-only ${{ github.base_ref }} ${{ github.head_ref }} | egrep ^stubs/ | cut -d "/" -f 2)
           if test -n "$STUBS"; then
               python tests/stubtest_third_party.py $STUBS
           fi
