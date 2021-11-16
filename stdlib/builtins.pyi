@@ -32,10 +32,8 @@ from typing import (
     Callable,
     FrozenSet,
     Generic,
-    ItemsView,
     Iterable,
     Iterator,
-    KeysView,
     Mapping,
     MutableMapping,
     MutableSequence,
@@ -56,7 +54,6 @@ from typing import (
     Type,
     TypeVar,
     Union,
-    ValuesView,
     overload,
 )
 from typing_extensions import Literal, SupportsIndex, TypeGuard, final
