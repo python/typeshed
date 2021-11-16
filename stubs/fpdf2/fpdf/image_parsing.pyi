@@ -1,9 +1,9 @@
-from typing import Any
+from typing import Any, Tuple
 from typing_extensions import Literal
 
 _ImageFilter = Literal["AUTO", "FlateDecode", "DCTDecode", "JPXDecode"]
 
-SUPPORTED_IMAGE_FILTERS: tuple[_ImageFilter, ...]
+SUPPORTED_IMAGE_FILTERS: Tuple[_ImageFilter, ...]
 
 def load_image(filename): ...
 
