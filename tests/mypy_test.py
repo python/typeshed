@@ -202,12 +202,10 @@ def get_mypy_flags(args, major: int, minor: int, temp_name: str, *, custom_types
             "%d.%d" % (major, minor),
             "--config-file",
             temp_name,
-            "--strict-optional",
             "--no-site-packages",
             "--show-traceback",
             "--no-implicit-optional",
             "--disallow-any-generics",
-            "--disallow-subclassing-any",
             "--warn-incomplete-stub",
             "--no-error-summary",
         ]
