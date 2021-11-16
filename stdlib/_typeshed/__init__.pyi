@@ -184,3 +184,8 @@ else:
     @final
     class NoneType:
         def __bool__(self) -> Literal[False]: ...
+
+# Actually the type of Ellipsis is <type 'ellipsis'>, but since it's
+# not exposed anywhere under that name, we make it private here.
+@final
+class ellipsis: ...
