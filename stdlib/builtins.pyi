@@ -72,8 +72,6 @@ _T_co = TypeVar("_T_co", covariant=True)
 _T_contra = TypeVar("_T_contra", contravariant=True)
 _KT = TypeVar("_KT")
 _VT = TypeVar("_VT")
-_KT_co = TypeVar("_KT_co", covariant=True)  # Key type covariant containers.
-_VT_co = TypeVar("_VT_co", covariant=True)  # Value type covariant containers.
 _S = TypeVar("_S")
 _T1 = TypeVar("_T1")
 _T2 = TypeVar("_T2")
