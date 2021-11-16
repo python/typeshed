@@ -1,8 +1,7 @@
 import sys
-from types import FunctionType as FunctionType, MappingProxyType as mappingproxy  # undocumented
+from types import MappingProxyType
 from typing import (
     AbstractSet as Set,
-    Any,
     AsyncGenerator as AsyncGenerator,
     AsyncIterable as AsyncIterable,
     AsyncIterator as AsyncIterator,
@@ -27,14 +26,10 @@ from typing import (
     Reversible as Reversible,
     Sequence as Sequence,
     Sized as Sized,
-    Type,
     TypeVar,
     ValuesView as ValuesView,
 )
 from typing_extensions import final
-
-if sys.version_info >= (3, 9):
-    from types import GenericAlias as GenericAlias  # undocumented
 
 __all__ = [
     "Awaitable",
@@ -70,19 +65,14 @@ _VT_co = TypeVar("_VT_co", covariant=True)  # Value type covariant containers.
 @final
 class dict_keys(KeysView[_KT_co], Generic[_KT_co, _VT_co]):  # undocumented
     if sys.version_info >= (3, 10):
-        mapping: mappingproxy[_KT_co, _VT_co]
+        mapping: MappingProxyType[_KT_co, _VT_co]
 
 @final
 class dict_values(ValuesView[_VT_co], Generic[_KT_co, _VT_co]):  # undocumented
     if sys.version_info >= (3, 10):
-        mapping: mappingproxy[_KT_co, _VT_co]
+        mapping: MappingProxyType[_KT_co, _VT_co]
 
 @final
 class dict_items(ItemsView[_KT_co, _VT_co], Generic[_KT_co, _VT_co]):  # undocumented
     if sys.version_info >= (3, 10):
-        mapping: mappingproxy[_KT_co, _VT_co]
-
-EllipsisType = ellipsis  # undocumented # noqa F811 from builtins
-generator: Type[Generator[Any, Any, Any]] = ...  # undocumented
-coroutine: Type[Coroutine[Any, Any, Any]] = ...  # undocumented
-async_generator: Type[AsyncGenerator[Any, Any]] = ...  # undocumented
+        mapping: MappingProxyType[_KT_co, _VT_co]
