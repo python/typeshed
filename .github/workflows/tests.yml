@@ -132,10 +132,7 @@ jobs:
   stubtest-third-party:
     name: Check third party stubs with stubtest
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        shard-index: [0, 1, 2, 3]
-      fail-fast: false
+    if: github.ref != 'refs/heads/master'
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
@@ -144,4 +141,8 @@ jobs:
       - name: Install dependencies
         run: pip install $(grep tomli== requirements-tests-py3.txt)
       - name: Run stubtest
-        run: python tests/stubtest_third_party.py --num-shards 4 --shard-index ${{ matrix.shard-index }}
+        run: |
+          STUBS=$(git diff --name-only master | egrep ^stubs/ | cut -d "/" -f 2)
+          if test -n "$STUBS"; then
+              python tests/stubtest_third_party.py $STUBS
+          fi
