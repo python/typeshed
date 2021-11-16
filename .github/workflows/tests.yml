@@ -135,6 +135,8 @@ jobs:
     if: github.event_name == 'pull_request'
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 100
       - uses: actions/setup-python@v2
         with:
           python-version: 3.9
