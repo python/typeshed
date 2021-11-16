@@ -1,5 +1,5 @@
 import sys
-from types import FunctionType as FunctionType, GenericAlias as GenericAlias, MappingProxyType as mappingproxy  # undocumented
+from types import FunctionType as FunctionType, MappingProxyType as mappingproxy  # undocumented
 from typing import (
     AbstractSet as Set,
     AsyncGenerator as AsyncGenerator,
@@ -30,6 +30,9 @@ from typing import (
     ValuesView as ValuesView,
 )
 from typing_extensions import final
+
+if sys.version_info >= (3, 9):
+    from types import GenericAlias as GenericAlias  # undocumented
 
 __all__ = [
     "Awaitable",
