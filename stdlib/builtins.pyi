@@ -20,7 +20,7 @@ from _typeshed import (
     SupportsWrite,
 )
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
-from types import CodeType, MappingProxyType, TracebackType
+from types import CodeType, TracebackType
 from typing import (
     IO,
     AbstractSet,
@@ -32,10 +32,8 @@ from typing import (
     Callable,
     FrozenSet,
     Generic,
-    ItemsView,
     Iterable,
     Iterator,
-    KeysView,
     Mapping,
     MutableMapping,
     MutableSequence,
@@ -56,12 +54,12 @@ from typing import (
     Type,
     TypeVar,
     Union,
-    ValuesView,
     overload,
 )
 from typing_extensions import Literal, SupportsIndex, TypeGuard, final
 
 from _ast import AST
+from _collections_abc import dict_items, dict_keys, dict_values
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
@@ -74,8 +72,6 @@ _T_co = TypeVar("_T_co", covariant=True)
 _T_contra = TypeVar("_T_contra", contravariant=True)
 _KT = TypeVar("_KT")
 _VT = TypeVar("_VT")
-_KT_co = TypeVar("_KT_co", covariant=True)  # Key type covariant containers.
-_VT_co = TypeVar("_VT_co", covariant=True)  # Value type covariant containers.
 _S = TypeVar("_S")
 _T1 = TypeVar("_T1")
 _T2 = TypeVar("_T2")
@@ -809,18 +805,6 @@ class list(MutableSequence[_T], Generic[_T]):
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, __item: Any) -> GenericAlias: ...
 
-class _dict_keys(KeysView[_KT_co], Generic[_KT_co, _VT_co]):
-    if sys.version_info >= (3, 10):
-        mapping: MappingProxyType[_KT_co, _VT_co]
-
-class _dict_values(ValuesView[_VT_co], Generic[_KT_co, _VT_co]):
-    if sys.version_info >= (3, 10):
-        mapping: MappingProxyType[_KT_co, _VT_co]
-
-class _dict_items(ItemsView[_KT_co, _VT_co], Generic[_KT_co, _VT_co]):
-    if sys.version_info >= (3, 10):
-        mapping: MappingProxyType[_KT_co, _VT_co]
-
 class dict(MutableMapping[_KT, _VT], Generic[_KT, _VT]):
     @overload
     def __init__(self: dict[_KT, _VT]) -> None: ...
@@ -845,9 +829,9 @@ class dict(MutableMapping[_KT, _VT], Generic[_KT, _VT]):
     def update(self, __m: Iterable[tuple[_KT, _VT]], **kwargs: _VT) -> None: ...
     @overload
     def update(self, **kwargs: _VT) -> None: ...
-    def keys(self) -> _dict_keys[_KT, _VT]: ...
-    def values(self) -> _dict_values[_KT, _VT]: ...
-    def items(self) -> _dict_items[_KT, _VT]: ...
+    def keys(self) -> dict_keys[_KT, _VT]: ...
+    def values(self) -> dict_values[_KT, _VT]: ...
+    def items(self) -> dict_items[_KT, _VT]: ...
     @classmethod
     @overload
     def fromkeys(cls, __iterable: Iterable[_T], __value: None = ...) -> dict[_T, Any | None]: ...
