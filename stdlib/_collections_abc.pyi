@@ -2,6 +2,7 @@ import sys
 from types import FunctionType as FunctionType, MappingProxyType as mappingproxy  # undocumented
 from typing import (
     AbstractSet as Set,
+    Any,
     AsyncGenerator as AsyncGenerator,
     AsyncIterable as AsyncIterable,
     AsyncIterator as AsyncIterator,
@@ -26,6 +27,7 @@ from typing import (
     Reversible as Reversible,
     Sequence as Sequence,
     Sized as Sized,
+    Type,
     TypeVar,
     ValuesView as ValuesView,
 )
@@ -81,6 +83,6 @@ class dict_items(ItemsView[_KT_co, _VT_co], Generic[_KT_co, _VT_co]):  # undocum
         mapping: mappingproxy[_KT_co, _VT_co]
 
 EllipsisType = ellipsis  # undocumented # noqa F811 from builtins
-generator = Generator  # undocumented
-coroutine = Coroutine  # undocumented
-async_generator = AsyncGenerator  # undocumented
+generator: Type[Generator[Any, Any, Any]] = ...  # undocumented
+coroutine: Type[Coroutine[Any, Any, Any]] = ...  # undocumented
+async_generator: Type[AsyncGenerator[Any, Any]] = ...  # undocumented
