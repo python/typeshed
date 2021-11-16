@@ -1,8 +1,5 @@
 import sys
-from types import EllipsisType as EllipsisType  # undocumented
-from types import FunctionType as FunctionType  # undocumented
-from types import GenericAlias as GenericAlias  # undocumented
-from types import MappingProxyType
+from types import FunctionType as FunctionType, GenericAlias as GenericAlias, MappingProxyType as mappingproxy  # undocumented
 from typing import (
     AbstractSet as Set,
     AsyncGenerator as AsyncGenerator,
@@ -68,19 +65,19 @@ _VT_co = TypeVar("_VT_co", covariant=True)  # Value type covariant containers.
 @final
 class dict_keys(KeysView[_KT_co], Generic[_KT_co, _VT_co]):  # undocumented
     if sys.version_info >= (3, 10):
-        mapping: MappingProxyType[_KT_co, _VT_co]
+        mapping: mappingproxy[_KT_co, _VT_co]
 
 @final
 class dict_values(ValuesView[_VT_co], Generic[_KT_co, _VT_co]):  # undocumented
     if sys.version_info >= (3, 10):
-        mapping: MappingProxyType[_KT_co, _VT_co]
+        mapping: mappingproxy[_KT_co, _VT_co]
 
 @final
 class dict_items(ItemsView[_KT_co, _VT_co], Generic[_KT_co, _VT_co]):  # undocumented
     if sys.version_info >= (3, 10):
-        mapping: MappingProxyType[_KT_co, _VT_co]
+        mapping: mappingproxy[_KT_co, _VT_co]
 
-mappingproxy = MappingProxyType  # undocumented
+EllipsisType = ellipsis  # undocumented # noqa F811 from builtins
 generator = Generator  # undocumented
 coroutine = Coroutine  # undocumented
 async_generator = AsyncGenerator  # undocumented
