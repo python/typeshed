@@ -267,7 +267,7 @@ class datetime(date):
     def __lt__(self, other: datetime) -> bool: ...  # type: ignore
     def __ge__(self, other: datetime) -> bool: ...  # type: ignore
     def __gt__(self, other: datetime) -> bool: ...  # type: ignore
-    if sys.version_info <= (3, 7):
+    if sys.version_info < (3, 8):
         def __add__(self, other: timedelta) -> datetime: ...
         def __radd__(self, other: timedelta) -> datetime: ...
     @overload  # type: ignore
