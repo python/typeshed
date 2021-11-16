@@ -1443,6 +1443,7 @@ class zip(Iterator[_T_co], Generic[_T_co]):
     def __iter__(self) -> Iterator[_T_co]: ...
     def __next__(self) -> _T_co: ...
 
+# Signature of `builtins.__import__` should be kept identical to `importlib.__import__`
 # Return type of `__import__` should be kept the same as return type of `importlib.import_module`
 def __import__(
     name: str,
