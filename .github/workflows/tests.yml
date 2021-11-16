@@ -146,5 +146,8 @@ jobs:
         run: |
           STUBS=$(git diff --name-only origin/${{ github.base_ref }} HEAD | egrep ^stubs/ | cut -d "/" -f 2)
           if test -n "$STUBS"; then
-              python tests/stubtest_third_party.py $STUBS
+            echo "Testing $STUBS..."
+            python tests/stubtest_third_party.py $STUBS
+          else
+            echo "Nothing to test"
           fi
