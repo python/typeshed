@@ -1,0 +1,52 @@
+name: Run stubtest on all stubs
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+
+permissions:
+  contents: read
+
+env:
+  PIP_DISABLE_PIP_VERSION_CHECK: 1
+
+jobs:
+  stubtest-stdlib:
+    name: Check stdlib with stubtest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: ["ubuntu-latest", "windows-latest", "macos-latest"]
+        # Python 3.9.7 is required due to changes to ForwardRef.
+        python-version: ["3.6", "3.7", "3.8", "3.9.7", "3.10"]
+      fail-fast: false
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }} on ${{ matrix.os }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Update pip
+        run: python -m pip install -U pip
+      - name: Install dependencies
+        run: pip install $(grep tomli== requirements-tests-py3.txt) $(grep mypy== requirements-tests-py3.txt)
+      - name: Run stubtest
+        run: python tests/stubtest_stdlib.py --ignore-unused-allowlist
+
+  stubtest-third-party:
+    name: Check third party stubs with stubtest
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        shard-index: [0, 1, 2, 3]
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: Install dependencies
+        run: pip install $(grep tomli== requirements-tests-py3.txt)
+      - name: Run stubtest
+        run: python tests/stubtest_third_party.py --num-shards 4 --shard-index ${{ matrix.shard-index }}
