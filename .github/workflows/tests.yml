@@ -132,7 +132,7 @@ jobs:
   stubtest-third-party:
     name: Check third party stubs with stubtest
     runs-on: ubuntu-latest
-    if: github.ref != 'refs/heads/master'
+    if: github.event_name == 'pull_request'
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
