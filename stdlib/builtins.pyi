@@ -1275,8 +1275,21 @@ def open(
     opener: _Opener | None = ...,
 ) -> IO[Any]: ...
 def ord(__c: str | bytes) -> int: ...
+
+class _SupportsWriteAndFlush(SupportsWrite[_T_contra], Protocol[_T_contra]):
+    def flush(self) -> None: ...
+
+@overload
 def print(
-    *values: object, sep: str | None = ..., end: str | None = ..., file: SupportsWrite[str] | None = ..., flush: bool = ...
+    *values: object,
+    sep: str | None = ...,
+    end: str | None = ...,
+    file: SupportsWrite[str] | None = ...,
+    flush: Literal[False] = ...,
+) -> None: ...
+@overload
+def print(
+    *values: object, sep: str | None = ..., end: str | None = ..., file: _SupportsWriteAndFlush[str] | None = ..., flush: bool
 ) -> None: ...
 
 _E = TypeVar("_E", contravariant=True)
