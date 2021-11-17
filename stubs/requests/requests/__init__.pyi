@@ -13,6 +13,8 @@ from .api import (
 )
 from .exceptions import (
     ConnectionError as ConnectionError,
+    ConnectTimeout as ConnectTimeout,
+    FileModeWarning as FileModeWarning,
     HTTPError as HTTPError,
     ReadTimeout as ReadTimeout,
     RequestException as RequestException,
@@ -33,4 +35,4 @@ __version__: Any
 class NullHandler(logging.Handler):
     def emit(self, record): ...
 
-def check_compatibility(urllib3_version: Text, chardet_version: Text) -> None: ...
+def check_compatibility(urllib3_version: Text, chardet_version: Text | None, charset_normalizer_version: Text | None) -> None: ...

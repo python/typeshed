@@ -1,4 +1,4 @@
-from typing import Any, Container, Mapping, Optional, Text, Tuple, Union
+from typing import Any, Container, Mapping, Text
 
 from . import cookies, exceptions, models, structures, utils
 from .packages.urllib3 import exceptions as urllib3_exceptions, poolmanager, response
@@ -32,7 +32,7 @@ RetryError = exceptions.RetryError
 DEFAULT_POOLBLOCK: bool
 DEFAULT_POOLSIZE: int
 DEFAULT_RETRIES: int
-DEFAULT_POOL_TIMEOUT: Optional[float]
+DEFAULT_POOL_TIMEOUT: float | None
 
 class BaseAdapter:
     def __init__(self) -> None: ...
@@ -40,20 +40,20 @@ class BaseAdapter:
         self,
         request: PreparedRequest,
         stream: bool = ...,
-        timeout: Union[None, float, Tuple[float, float], Tuple[float, None]] = ...,
-        verify: Union[bool, str] = ...,
-        cert: Union[None, Union[bytes, Text], Container[Union[bytes, Text]]] = ...,
-        proxies: Optional[Mapping[str, str]] = ...,
+        timeout: None | float | tuple[float, float] | tuple[float, None] = ...,
+        verify: bool | str = ...,
+        cert: None | bytes | Text | Container[bytes | Text] = ...,
+        proxies: Mapping[str, str] | None = ...,
     ) -> Response: ...
     def close(self) -> None: ...
 
 class HTTPAdapter(BaseAdapter):
     __attrs__: Any
-    max_retries: int
+    max_retries: Retry
     config: Any
     proxy_manager: Any
     def __init__(
-        self, pool_connections: int = ..., pool_maxsize: int = ..., max_retries: Union[Retry, int] = ..., pool_block: bool = ...
+        self, pool_connections: int = ..., pool_maxsize: int = ..., max_retries: Retry | int | None = ..., pool_block: bool = ...
     ) -> None: ...
     poolmanager: Any
     def init_poolmanager(self, connections, maxsize, block=..., **pool_kwargs): ...
@@ -69,8 +69,8 @@ class HTTPAdapter(BaseAdapter):
         self,
         request: PreparedRequest,
         stream: bool = ...,
-        timeout: Union[None, float, Tuple[float, float], Tuple[float, None]] = ...,
-        verify: Union[bool, str] = ...,
-        cert: Union[None, Union[bytes, Text], Container[Union[bytes, Text]]] = ...,
-        proxies: Optional[Mapping[str, str]] = ...,
+        timeout: None | float | tuple[float, float] | tuple[float, None] = ...,
+        verify: bool | str = ...,
+        cert: None | bytes | Text | Container[bytes | Text] = ...,
+        proxies: Mapping[str, str] | None = ...,
     ) -> Response: ...

@@ -1,0 +1,4 @@
+mock.NonCallableMock.__new__
+mock.patch
+mock.mock.NonCallableMock.__new__
+mock.mock.patch

@@ -1,22 +1,8 @@
 import sys
-from _typeshed import SupportsLessThan
-from typing import (
-    Any,
-    Callable,
-    Dict,
-    Generic,
-    Hashable,
-    Iterable,
-    Mapping,
-    NamedTuple,
-    Optional,
-    Sequence,
-    Tuple,
-    Type,
-    TypeVar,
-    Union,
-    overload,
-)
+import types
+from _typeshed import SupportsItems, SupportsLessThan
+from typing import Any, Callable, Generic, Hashable, Iterable, NamedTuple, Sequence, Set, Sized, Tuple, Type, TypeVar, overload
+from typing_extensions import ParamSpec, final
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
@@ -25,6 +11,8 @@ _AnyCallable = Callable[..., Any]
 
 _T = TypeVar("_T")
 _S = TypeVar("_S")
+_P = ParamSpec("_P")
+
 @overload
 def reduce(function: Callable[[_T, _S], _T], sequence: Iterable[_S], initial: _T) -> _T: ...
 @overload
@@ -36,20 +24,21 @@ class _CacheInfo(NamedTuple):
     maxsize: int
     currsize: int
 
-class _lru_cache_wrapper(Generic[_T]):
-    __wrapped__: Callable[..., _T]
-    def __call__(self, *args: Hashable, **kwargs: Hashable) -> _T: ...
+@final
+class _lru_cache_wrapper(Generic[_P, _T]):  # type: ignore
+    __wrapped__: Callable[_P, _T]  # type: ignore
+    def __call__(self, *args: _P.args, **kwargs: _P.kwargs) -> _T: ...  # type: ignore
     def cache_info(self) -> _CacheInfo: ...
     def cache_clear(self) -> None: ...
 
 if sys.version_info >= (3, 8):
     @overload
-    def lru_cache(maxsize: Optional[int] = ..., typed: bool = ...) -> Callable[[Callable[..., _T]], _lru_cache_wrapper[_T]]: ...
+    def lru_cache(maxsize: int | None = ..., typed: bool = ...) -> Callable[[Callable[_P, _T]], _lru_cache_wrapper[_P, _T]]: ...  # type: ignore
     @overload
-    def lru_cache(maxsize: Callable[..., _T], typed: bool = ...) -> _lru_cache_wrapper[_T]: ...
+    def lru_cache(maxsize: Callable[_P, _T], typed: bool = ...) -> _lru_cache_wrapper[_P, _T]: ...  # type: ignore
 
 else:
-    def lru_cache(maxsize: Optional[int] = ..., typed: bool = ...) -> Callable[[Callable[..., _T]], _lru_cache_wrapper[_T]]: ...
+    def lru_cache(maxsize: int | None = ..., typed: bool = ...) -> Callable[[Callable[_P, _T]], _lru_cache_wrapper[_P, _T]]: ...  # type: ignore
 
 WRAPPER_ASSIGNMENTS: Sequence[str]
 WRAPPER_UPDATES: Sequence[str]
@@ -62,7 +51,7 @@ def cmp_to_key(mycmp: Callable[[_T, _T], int]) -> Callable[[_T], SupportsLessTha
 class partial(Generic[_T]):
     func: Callable[..., _T]
     args: Tuple[Any, ...]
-    keywords: Dict[str, Any]
+    keywords: dict[str, Any]
     def __init__(self, func: Callable[..., _T], *args: Any, **kwargs: Any) -> None: ...
     def __call__(self, *args: Any, **kwargs: Any) -> _T: ...
     if sys.version_info >= (3, 9):
@@ -72,9 +61,9 @@ class partial(Generic[_T]):
 _Descriptor = Any
 
 class partialmethod(Generic[_T]):
-    func: Union[Callable[..., _T], _Descriptor]
+    func: Callable[..., _T] | _Descriptor
     args: Tuple[Any, ...]
-    keywords: Dict[str, Any]
+    keywords: dict[str, Any]
     @overload
     def __init__(self, __func: Callable[..., _T], *args: Any, **keywords: Any) -> None: ...
     @overload
@@ -86,7 +75,7 @@ class partialmethod(Generic[_T]):
         def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 class _SingleDispatchCallable(Generic[_T]):
-    registry: Mapping[Any, Callable[..., _T]]
+    registry: types.MappingProxyType[Any, Callable[..., _T]]
     def dispatch(self, cls: Any) -> Callable[..., _T]: ...
     # @fun.register(complex)
     # def _(arg, verbose=False): ...
@@ -118,15 +107,26 @@ if sys.version_info >= (3, 8):
         def __call__(self, *args: Any, **kwargs: Any) -> _T: ...
     class cached_property(Generic[_T]):
         func: Callable[[Any], _T]
-        attrname: Optional[str]
+        attrname: str | None
         def __init__(self, func: Callable[[Any], _T]) -> None: ...
         @overload
-        def __get__(self, instance: None, owner: Optional[Type[Any]] = ...) -> cached_property[_T]: ...
+        def __get__(self, instance: None, owner: Type[Any] | None = ...) -> cached_property[_T]: ...
         @overload
-        def __get__(self, instance: object, owner: Optional[Type[Any]] = ...) -> _T: ...
+        def __get__(self, instance: object, owner: Type[Any] | None = ...) -> _T: ...
         def __set_name__(self, owner: Type[Any], name: str) -> None: ...
         if sys.version_info >= (3, 9):
             def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 if sys.version_info >= (3, 9):
-    def cache(__user_function: Callable[..., _T]) -> _lru_cache_wrapper[_T]: ...
+    def cache(__user_function: Callable[_P, _T]) -> _lru_cache_wrapper[_P, _T]: ...  # type: ignore
+
+def _make_key(
+    args: Tuple[Hashable, ...],
+    kwds: SupportsItems[Any, Any],
+    typed: bool,
+    kwd_mark: Tuple[object, ...] = ...,
+    fasttypes: Set[type] = ...,
+    tuple: type = ...,
+    type: Any = ...,
+    len: Callable[[Sized], int] = ...,
+) -> Hashable: ...
