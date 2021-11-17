@@ -17,6 +17,7 @@ from _typeshed import (
     SupportsLessThanT,
     SupportsNext,
     SupportsRDivMod,
+    SupportsTrunc,
     SupportsWrite,
 )
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
@@ -63,9 +64,6 @@ from _collections_abc import dict_items, dict_keys, dict_values
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
-
-class _SupportsTrunc(Protocol):
-    def __trunc__(self) -> int: ...
 
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
@@ -181,7 +179,7 @@ class super(object):
 
 class int:
     @overload
-    def __new__(cls: Type[_T], __x: str | bytes | SupportsInt | SupportsIndex | _SupportsTrunc = ...) -> _T: ...
+    def __new__(cls: Type[_T], __x: str | bytes | SupportsInt | SupportsIndex | SupportsTrunc = ...) -> _T: ...
     @overload
     def __new__(cls: Type[_T], __x: str | bytes | bytearray, base: SupportsIndex) -> _T: ...
     if sys.version_info >= (3, 8):
