@@ -21,6 +21,8 @@ extra_standard_library = [
     "_markupbase",
     "_random",
     "_tkinter",
+    "_tracemalloc",
+    "_warnings",
     "_weakrefset",
     "genericpath",
     "opcode",
