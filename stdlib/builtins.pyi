@@ -179,9 +179,8 @@ class super(object):
     @overload
     def __init__(self) -> None: ...
 
-_PositiveInteger = Literal[
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30
-]
+_PositiveInteger = Literal[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
+_NegativeInteger = Literal[-1, -2, -3, -4, -5, -6, -7, -8, -9, -10, -11, -12, -13, -14, -15, -16, -17, -18, -19, -20]
 
 class int:
     @overload
@@ -227,6 +226,8 @@ class int:
     def __pow__(self, __x: int, __modulo: int) -> int: ...
     @overload
     def __pow__(self, __x: _PositiveInteger, __modulo: None = ...) -> int: ...
+    @overload
+    def __pow__(self, __x: _NegativeInteger, __modulo: None = ...) -> float: ...
     # positive x -> int; negative x -> float
     # return type must be Any as `int | float` causes too many false-positive errors
     @overload
@@ -1303,6 +1304,8 @@ if sys.version_info >= (3, 8):
     def pow(base: int, exp: int, mod: int) -> int: ...
     @overload
     def pow(base: int, exp: _PositiveInteger, mod: None = ...) -> int: ...  # type: ignore[misc]
+    @overload
+    def pow(base: int, exp: _NegativeInteger, mod: None = ...) -> float: ...  # type: ignore[misc]
     # int base & positive-int exp -> int; int base & negative-int exp -> float
     # return type must be Any as `int | float` causes too many false-positive errors
     @overload
@@ -1334,6 +1337,8 @@ else:
     def pow(__base: int, __exp: int, __mod: int) -> int: ...
     @overload
     def pow(__base: int, __exp: _PositiveInteger, __mod: None = ...) -> int: ...  # type: ignore[misc]
+    @overload
+    def pow(__base: int, __exp: _NegativeInteger, __mod: None = ...) -> float: ...  # type: ignore[misc]
     @overload
     def pow(__base: int, __exp: int, __mod: None = ...) -> Any: ...
     @overload
