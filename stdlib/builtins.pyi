@@ -1,5 +1,7 @@
 import sys
 import types
+from _ast import AST
+from _collections_abc import dict_items, dict_keys, dict_values
 from _typeshed import (
     OpenBinaryMode,
     OpenBinaryModeReading,
@@ -58,9 +60,6 @@ from typing import (
     overload,
 )
 from typing_extensions import Literal, SupportsIndex, TypeGuard, final
-
-from _ast import AST
-from _collections_abc import dict_items, dict_keys, dict_values
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias

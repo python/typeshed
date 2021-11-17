@@ -1,9 +1,8 @@
 import sys
+from _collections_abc import dict_items, dict_keys, dict_values
 from _typeshed import Self
 from typing import Any, Dict, Generic, NoReturn, Tuple, Type, TypeVar, overload
 from typing_extensions import final
-
-from _collections_abc import dict_items, dict_keys, dict_values
 
 if sys.version_info >= (3, 10):
     from typing import Callable, Iterable, Iterator, Mapping, MutableMapping, MutableSequence, Reversible, Sequence
