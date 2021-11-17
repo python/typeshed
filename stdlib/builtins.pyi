@@ -1294,7 +1294,7 @@ class _SupportsPow3NoneOnly(Protocol[_E, _T_co]):
 class _SupportsPow3(Protocol[_E, _M, _T_co]):
     def __pow__(self, __other: _E, __modulo: _M) -> _T_co: ...
 
-_SupportsSomeKindOfPow = _SupportsPow2[Any, Any] | _SupportsPow3NoneOnly[Any, Any] | _SupportsPow3[Any, Any, Any]
+_SupportsSomeKindOfPow = Union[_SupportsPow2[Any, Any], _SupportsPow3NoneOnly[Any, Any], _SupportsPow3[Any, Any, Any]]
 
 if sys.version_info >= (3, 8):
     @overload
@@ -1302,7 +1302,7 @@ if sys.version_info >= (3, 8):
     @overload
     def pow(base: int, exp: int, mod: int) -> int: ...
     @overload
-    def pow(base: int, exp: _PositiveInteger, mod: None = ...) -> int: ...
+    def pow(base: int, exp: _PositiveInteger, mod: None = ...) -> int: ...  # type: ignore[misc]
     # int base & positive-int exp -> int; int base & negative-int exp -> float
     # return type must be Any as `int | float` causes too many false-positive errors
     @overload
@@ -1333,7 +1333,7 @@ else:
     @overload
     def pow(__base: int, __exp: int, __mod: int) -> int: ...
     @overload
-    def pow(__base: int, __exp: _PositiveInteger, __mod: None = ...) -> int: ...
+    def pow(__base: int, __exp: _PositiveInteger, __mod: None = ...) -> int: ...  # type: ignore[misc]
     @overload
     def pow(__base: int, __exp: int, __mod: None = ...) -> Any: ...
     @overload
