@@ -338,7 +338,10 @@ class Misc:
     # binds do. The default value of func is not str.
     @overload
     def bind(
-        self, sequence: str | None = ..., func: Callable[[Event[Misc]], Any] | None = ..., add: Literal["", "+"] | bool | None = ...
+        self,
+        sequence: str | None = ...,
+        func: Callable[[Event[Misc]], Any] | None = ...,
+        add: Literal["", "+"] | bool | None = ...,
     ) -> str: ...
     @overload
     def bind(self, sequence: str | None, func: str, add: Literal["", "+"] | bool | None = ...) -> None: ...
@@ -847,7 +850,10 @@ class Widget(BaseWidget, Pack, Place, Grid):
     # widgets don't.
     @overload
     def bind(
-        self: _W, sequence: str | None = ..., func: Callable[[Event[_W]], Any] | None = ..., add: Literal["", "+"] | bool | None = ...
+        self: _W,
+        sequence: str | None = ...,
+        func: Callable[[Event[_W]], Any] | None = ...,
+        add: Literal["", "+"] | bool | None = ...,
     ) -> str: ...
     @overload
     def bind(self, sequence: str | None, func: str, add: Literal["", "+"] | bool | None = ...) -> None: ...
