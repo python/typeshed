@@ -389,7 +389,9 @@ Some further tips for good type hints:
 * in Python 2, whenever possible, use `unicode` if that's the only
   possible type, and `Text` if it can be either `unicode` or `bytes`;
 * use platform checks like `if sys.platform == 'win32'` to denote
-  platform-dependent APIs.
+  platform-dependent APIs;
+* use mypy error codes for mypy-specific `# type: ignore` annotations,
+  e.g. `# type: ignore[override]` for Liskov Substitution Principle violations.
 
 Imports in stubs are considered private (not part of the exported API)
 unless:
