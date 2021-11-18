@@ -45,10 +45,7 @@ def log(args, *varargs):
         print(*varargs)
 
 
-def match(fn, args, exclude_list):
-    if exclude_list.match(fn):
-        log(args, fn, "exluded by exclude list")
-        return False
+def match(fn, args):
     if not args.filter and not args.exclude:
         log(args, fn, "accept by default")
         return True
@@ -114,12 +111,12 @@ def has_py3_stubs(dist: Path) -> bool:
     return len(glob(f"{dist}/*.pyi")) > 0 or len(glob(f"{dist}/[!@]*/__init__.pyi")) > 0
 
 
-def add_files(files, seen, root, name, args, exclude_list):
+def add_files(files, seen, root, name, args):
     """Add all files in package or module represented by 'name' located in 'root'."""
     full = os.path.join(root, name)
     mod, ext = os.path.splitext(name)
     if ext in [".pyi", ".py"]:
-        if match(full, args, exclude_list):
+        if match(full, args):
             seen.add(mod)
             files.append(full)
     elif os.path.isfile(os.path.join(full, "__init__.pyi")) or os.path.isfile(os.path.join(full, "__init__.py")):
@@ -130,7 +127,7 @@ def add_files(files, seen, root, name, args, exclude_list):
                 m, x = os.path.splitext(f)
                 if x in [".pyi", ".py"]:
                     fn = os.path.join(r, f)
-                    if match(fn, args, exclude_list):
+                    if match(fn, args):
                         seen.add(mod)
                         files.append(fn)
 
@@ -187,38 +184,41 @@ def run_mypy(args, configurations, major, minor, files, *, custom_typeshed=False
                 temp.write("{} = {}\n".format(k, v))
         temp.flush()
 
-        flags = [
-            "--python-version",
-            "%d.%d" % (major, minor),
-            "--config-file",
-            temp.name,
-            "--strict-optional",
-            "--no-site-packages",
-            "--show-traceback",
-            "--no-implicit-optional",
-            "--disallow-any-generics",
-            "--disallow-subclassing-any",
-            "--warn-incomplete-stub",
-        ]
-        if custom_typeshed:
-            # Setting custom typeshed dir prevents mypy from falling back to its bundled
-            # typeshed in case of stub deletions
-            flags.extend(["--custom-typeshed-dir", os.path.dirname(os.path.dirname(__file__))])
-        if args.warn_unused_ignores:
-            flags.append("--warn-unused-ignores")
-        if args.platform:
-            flags.extend(["--platform", args.platform])
+        flags = get_mypy_flags(args, major, minor, temp.name, custom_typeshed=custom_typeshed)
         sys.argv = ["mypy"] + flags + files
         if args.verbose:
             print("running", " ".join(sys.argv))
-        else:
-            print("running mypy", " ".join(flags), "# with", len(files), "files")
         if not args.dry_run:
             try:
                 mypy_main("", sys.stdout, sys.stderr)
             except SystemExit as err:
                 return err.code
         return 0
+
+
+def get_mypy_flags(args, major: int, minor: int, temp_name: str, *, custom_typeshed: bool) -> list[str]:
+    flags = [
+            "--python-version",
+            "%d.%d" % (major, minor),
+            "--config-file",
+            temp_name,
+            "--no-site-packages",
+            "--show-traceback",
+            "--no-implicit-optional",
+            "--disallow-any-generics",
+            "--warn-incomplete-stub",
+            "--show-error-codes",
+            "--no-error-summary",
+        ]
+    if custom_typeshed:
+        # Setting custom typeshed dir prevents mypy from falling back to its bundled
+        # typeshed in case of stub deletions
+        flags.extend(["--custom-typeshed-dir", os.path.dirname(os.path.dirname(__file__))])
+    if args.warn_unused_ignores:
+        flags.append("--warn-unused-ignores")
+    if args.platform:
+        flags.extend(["--platform", args.platform])
+    return flags
 
 
 def read_dependencies(distribution: str) -> list[str]:
@@ -239,7 +239,6 @@ def add_third_party_files(
     major: int,
     files: list[str],
     args,
-    exclude_list: re.Pattern[str],
     configurations: list[MypyDistConf],
     seen_dists: set[str],
 ) -> None:
@@ -249,7 +248,7 @@ def add_third_party_files(
 
     dependencies = read_dependencies(distribution)
     for dependency in dependencies:
-        add_third_party_files(dependency, major, files, args, exclude_list, configurations, seen_dists)
+        add_third_party_files(dependency, major, files, args, configurations, seen_dists)
 
     if major == 2 and os.path.isdir(os.path.join("stubs", distribution, "@python2")):
         root = os.path.join("stubs", distribution, "@python2")
@@ -261,12 +260,12 @@ def add_third_party_files(
         mod, _ = os.path.splitext(name)
         if mod.startswith("."):
             continue
-        add_files(files, set(), root, name, args, exclude_list)
+        add_files(files, set(), root, name, args)
         add_configuration(configurations, distribution)
 
 
 def test_third_party_distribution(
-    distribution: str, major: int, minor: int, args, exclude_list: re.Pattern[str]
+    distribution: str, major: int, minor: int, args
 ) -> tuple[int, int]:
     """Test the stubs of a third-party distribution.
 
@@ -274,12 +273,12 @@ def test_third_party_distribution(
     and the second element is the number of checked files.
     """
 
-    print(f"testing {distribution} with Python {major}.{minor}...")
-
     files: list[str] = []
     configurations: list[MypyDistConf] = []
     seen_dists: set[str] = set()
-    add_third_party_files(distribution, major, files, args, exclude_list, configurations, seen_dists)
+    add_third_party_files(distribution, major, files, args, configurations, seen_dists)
+
+    print(f"testing {distribution} ({len(files)} files)...")
 
     if not files:
         print("--- no files found ---")
@@ -293,9 +292,6 @@ def test_third_party_distribution(
 def main():
     args = parser.parse_args()
 
-    with open(os.path.join(os.path.dirname(__file__), "mypy_exclude_list.txt")) as f:
-        exclude_list = re.compile("(%s)$" % "|".join(re.findall(r"^\s*([^\s#]+)\s*(?:#.*)?$", f.read(), flags=re.M)))
-
     versions = [(3, 10), (3, 9), (3, 8), (3, 7), (3, 6), (2, 7)]
     if args.python_version:
         versions = [v for v in versions if any(("%d.%d" % v).startswith(av) for av in args.python_version)]
@@ -306,6 +302,8 @@ def main():
     code = 0
     files_checked = 0
     for major, minor in versions:
+        print(f"*** Testing Python {major}.{minor}")
+
         seen = {"__builtin__", "builtins", "typing"}  # Always ignore these.
 
         # Test standard library files.
@@ -316,30 +314,36 @@ def main():
                 mod, _ = os.path.splitext(name)
                 if mod in seen or mod.startswith("."):
                     continue
-                add_files(files, seen, root, name, args, exclude_list)
+                add_files(files, seen, root, name, args)
         else:
             supported_versions = parse_versions(os.path.join("stdlib", "VERSIONS"))
             root = "stdlib"
             for name in os.listdir(root):
-                if name == "@python2" or name == "VERSIONS":
+                if name == "@python2" or name == "VERSIONS" or name.startswith("."):
                     continue
                 mod, _ = os.path.splitext(name)
                 if supported_versions[mod][0] <= (major, minor) <= supported_versions[mod][1]:
-                    add_files(files, seen, root, name, args, exclude_list)
+                    add_files(files, seen, root, name, args)
 
         if files:
+            print("Running mypy " + " ".join(get_mypy_flags(args, major, minor, "/tmp/...", custom_typeshed=True)))
+            print(f"testing stdlib ({len(files)} files)...")
             this_code = run_mypy(args, [], major, minor, files, custom_typeshed=True)
             code = max(code, this_code)
             files_checked += len(files)
 
         # Test files of all third party distributions.
+        # TODO: remove custom_typeshed after mypy 0.920 is released
+        print("Running mypy " + " ".join(get_mypy_flags(args, major, minor, "/tmp/...", custom_typeshed=True)))
         for distribution in sorted(os.listdir("stubs")):
             if not is_supported(distribution, major):
                 continue
 
-            this_code, checked = test_third_party_distribution(distribution, major, minor, args, exclude_list)
+            this_code, checked = test_third_party_distribution(distribution, major, minor, args)
             code = max(code, this_code)
             files_checked += checked
+
+        print()
 
     if code:
         print(f"--- exit status {code}, {files_checked} files checked ---")

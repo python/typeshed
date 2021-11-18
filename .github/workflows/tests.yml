@@ -89,7 +89,7 @@ jobs:
         python-version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
       fail-fast: false
     env:
-      PYRIGHT_VERSION: 1.1.184 # Must match pyright_test.py.
+      PYRIGHT_VERSION: 1.1.187 # Must match pyright_test.py.
     steps:
       - uses: actions/checkout@v2
       - uses: jakebailey/pyright-action@v1
@@ -132,16 +132,22 @@ jobs:
   stubtest-third-party:
     name: Check third party stubs with stubtest
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        shard-index: [0, 1, 2, 3]
-      fail-fast: false
+    if: github.event_name == 'pull_request'
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v2
         with:
           python-version: 3.9
       - name: Install dependencies
         run: pip install $(grep tomli== requirements-tests-py3.txt)
       - name: Run stubtest
-        run: python tests/stubtest_third_party.py --num-shards 4 --shard-index ${{ matrix.shard-index }}
+        run: |
+          STUBS=$(git diff --name-only origin/${{ github.base_ref }} HEAD | egrep ^stubs/ | cut -d "/" -f 2)
+          if test -n "$STUBS"; then
+            echo "Testing $STUBS..."
+            python tests/stubtest_third_party.py $STUBS
+          else
+            echo "Nothing to test"
+          fi
