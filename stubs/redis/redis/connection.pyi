@@ -1,5 +1,21 @@
 from redis.backoff import NoBackoff as NoBackoff
-from redis.exceptions import AuthenticationError as AuthenticationError, AuthenticationWrongNumberOfArgsError as AuthenticationWrongNumberOfArgsError, BusyLoadingError as BusyLoadingError, ChildDeadlockedError as ChildDeadlockedError, ConnectionError as ConnectionError, DataError as DataError, ExecAbortError as ExecAbortError, InvalidResponse as InvalidResponse, ModuleError as ModuleError, NoPermissionError as NoPermissionError, NoScriptError as NoScriptError, ReadOnlyError as ReadOnlyError, RedisError as RedisError, ResponseError as ResponseError, TimeoutError as TimeoutError
+from redis.exceptions import (
+    AuthenticationError as AuthenticationError,
+    AuthenticationWrongNumberOfArgsError as AuthenticationWrongNumberOfArgsError,
+    BusyLoadingError as BusyLoadingError,
+    ChildDeadlockedError as ChildDeadlockedError,
+    ConnectionError as ConnectionError,
+    DataError as DataError,
+    ExecAbortError as ExecAbortError,
+    InvalidResponse as InvalidResponse,
+    ModuleError as ModuleError,
+    NoPermissionError as NoPermissionError,
+    NoScriptError as NoScriptError,
+    ReadOnlyError as ReadOnlyError,
+    RedisError as RedisError,
+    ResponseError as ResponseError,
+    TimeoutError as TimeoutError,
+)
 from redis.retry import Retry as Retry
 from redis.utils import HIREDIS_AVAILABLE as HIREDIS_AVAILABLE, str_if_bytes as str_if_bytes
 from typing import Any
@@ -69,6 +85,7 @@ class HiredisParser(BaseParser):
     def can_read(self, timeout): ...
     def read_from_socket(self, timeout=..., raise_on_timeout: bool = ...): ...
     def read_response(self): ...
+
 DefaultParser = HiredisParser
 DefaultParser = PythonParser
 
@@ -90,7 +107,28 @@ class Connection:
     health_check_interval: Any
     next_health_check: int
     encoder: Any
-    def __init__(self, host: str = ..., port: int = ..., db: int = ..., password: Any | None = ..., socket_timeout: Any | None = ..., socket_connect_timeout: Any | None = ..., socket_keepalive: bool = ..., socket_keepalive_options: Any | None = ..., socket_type: int = ..., retry_on_timeout: bool = ..., encoding: str = ..., encoding_errors: str = ..., decode_responses: bool = ..., parser_class=..., socket_read_size: int = ..., health_check_interval: int = ..., client_name: Any | None = ..., username: Any | None = ..., retry: Any | None = ...) -> None: ...
+    def __init__(
+        self,
+        host: str = ...,
+        port: int = ...,
+        db: int = ...,
+        password: Any | None = ...,
+        socket_timeout: Any | None = ...,
+        socket_connect_timeout: Any | None = ...,
+        socket_keepalive: bool = ...,
+        socket_keepalive_options: Any | None = ...,
+        socket_type: int = ...,
+        retry_on_timeout: bool = ...,
+        encoding: str = ...,
+        encoding_errors: str = ...,
+        decode_responses: bool = ...,
+        parser_class=...,
+        socket_read_size: int = ...,
+        health_check_interval: int = ...,
+        client_name: Any | None = ...,
+        username: Any | None = ...,
+        retry: Any | None = ...,
+    ) -> None: ...
     def repr_pieces(self): ...
     def __del__(self) -> None: ...
     def register_connect_callback(self, callback) -> None: ...
@@ -112,7 +150,15 @@ class SSLConnection(Connection):
     cert_reqs: Any
     ca_certs: Any
     check_hostname: Any
-    def __init__(self, ssl_keyfile: Any | None = ..., ssl_certfile: Any | None = ..., ssl_cert_reqs: str = ..., ssl_ca_certs: Any | None = ..., ssl_check_hostname: bool = ..., **kwargs) -> None: ...
+    def __init__(
+        self,
+        ssl_keyfile: Any | None = ...,
+        ssl_certfile: Any | None = ...,
+        ssl_cert_reqs: str = ...,
+        ssl_ca_certs: Any | None = ...,
+        ssl_check_hostname: bool = ...,
+        **kwargs,
+    ) -> None: ...
 
 class UnixDomainSocketConnection(Connection):
     pid: Any
@@ -127,7 +173,23 @@ class UnixDomainSocketConnection(Connection):
     health_check_interval: Any
     next_health_check: int
     encoder: Any
-    def __init__(self, path: str = ..., db: int = ..., username: Any | None = ..., password: Any | None = ..., socket_timeout: Any | None = ..., encoding: str = ..., encoding_errors: str = ..., decode_responses: bool = ..., retry_on_timeout: bool = ..., parser_class=..., socket_read_size: int = ..., health_check_interval: int = ..., client_name: Any | None = ..., retry: Any | None = ...) -> None: ...
+    def __init__(
+        self,
+        path: str = ...,
+        db: int = ...,
+        username: Any | None = ...,
+        password: Any | None = ...,
+        socket_timeout: Any | None = ...,
+        encoding: str = ...,
+        encoding_errors: str = ...,
+        decode_responses: bool = ...,
+        retry_on_timeout: bool = ...,
+        parser_class=...,
+        socket_read_size: int = ...,
+        health_check_interval: int = ...,
+        client_name: Any | None = ...,
+        retry: Any | None = ...,
+    ) -> None: ...
     def repr_pieces(self): ...
 
 FALSE_STRINGS: Any
@@ -157,7 +219,9 @@ class ConnectionPool:
 class BlockingConnectionPool(ConnectionPool):
     queue_class: Any
     timeout: Any
-    def __init__(self, max_connections: int = ..., timeout: int = ..., connection_class=..., queue_class=..., **connection_kwargs) -> None: ...
+    def __init__(
+        self, max_connections: int = ..., timeout: int = ..., connection_class=..., queue_class=..., **connection_kwargs
+    ) -> None: ...
     pool: Any
     pid: Any
     def reset(self) -> None: ...

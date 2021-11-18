@@ -1,7 +1,12 @@
 from redis.client import Redis as Redis
 from redis.commands import SentinelCommands as SentinelCommands
 from redis.connection import Connection as Connection, ConnectionPool as ConnectionPool, SSLConnection as SSLConnection
-from redis.exceptions import ConnectionError as ConnectionError, ReadOnlyError as ReadOnlyError, ResponseError as ResponseError, TimeoutError as TimeoutError
+from redis.exceptions import (
+    ConnectionError as ConnectionError,
+    ReadOnlyError as ReadOnlyError,
+    ResponseError as ResponseError,
+    TimeoutError as TimeoutError,
+)
 from redis.utils import str_if_bytes as str_if_bytes
 from typing import Any
 
@@ -35,7 +40,9 @@ class Sentinel(SentinelCommands):
     sentinels: Any
     min_other_sentinels: Any
     connection_kwargs: Any
-    def __init__(self, sentinels, min_other_sentinels: int = ..., sentinel_kwargs: Any | None = ..., **connection_kwargs) -> None: ...
+    def __init__(
+        self, sentinels, min_other_sentinels: int = ..., sentinel_kwargs: Any | None = ..., **connection_kwargs
+    ) -> None: ...
     def execute_command(self, *args, **kwargs): ...
     def check_master_state(self, state, service_name): ...
     def discover_master(self, service_name): ...

@@ -7,4 +7,14 @@ class IndexType(Enum):
 
 class IndexDefinition:
     args: Any
-    def __init__(self, prefix=..., filter: Any | None = ..., language_field: Any | None = ..., language: Any | None = ..., score_field: Any | None = ..., score: float = ..., payload_field: Any | None = ..., index_type: Any | None = ...) -> None: ...
+    def __init__(
+        self,
+        prefix=...,
+        filter: Any | None = ...,
+        language_field: Any | None = ...,
+        language: Any | None = ...,
+        score_field: Any | None = ...,
+        score: float = ...,
+        payload_field: Any | None = ...,
+        index_type: Any | None = ...,
+    ) -> None: ...

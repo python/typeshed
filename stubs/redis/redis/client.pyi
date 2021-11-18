@@ -1,7 +1,21 @@
 import threading
 from redis.commands import CoreCommands as CoreCommands, RedisModuleCommands as RedisModuleCommands, list_or_args as list_or_args
-from redis.connection import ConnectionPool as ConnectionPool, SSLConnection as SSLConnection, UnixDomainSocketConnection as UnixDomainSocketConnection
-from redis.exceptions import ConnectionError as ConnectionError, ExecAbortError as ExecAbortError, ModuleError as ModuleError, NoScriptError as NoScriptError, PubSubError as PubSubError, RedisError as RedisError, ResponseError as ResponseError, TimeoutError as TimeoutError, WatchError as WatchError
+from redis.connection import (
+    ConnectionPool as ConnectionPool,
+    SSLConnection as SSLConnection,
+    UnixDomainSocketConnection as UnixDomainSocketConnection,
+)
+from redis.exceptions import (
+    ConnectionError as ConnectionError,
+    ExecAbortError as ExecAbortError,
+    ModuleError as ModuleError,
+    NoScriptError as NoScriptError,
+    PubSubError as PubSubError,
+    RedisError as RedisError,
+    ResponseError as ResponseError,
+    TimeoutError as TimeoutError,
+    WatchError as WatchError,
+)
 from redis.lock import Lock as Lock
 from redis.utils import safe_str as safe_str, str_if_bytes as str_if_bytes
 from typing import Any
@@ -76,12 +90,50 @@ class Redis(RedisModuleCommands, CoreCommands):
     connection_pool: Any
     connection: Any
     response_callbacks: Any
-    def __init__(self, host: str = ..., port: int = ..., db: int = ..., password: Any | None = ..., socket_timeout: Any | None = ..., socket_connect_timeout: Any | None = ..., socket_keepalive: Any | None = ..., socket_keepalive_options: Any | None = ..., connection_pool: Any | None = ..., unix_socket_path: Any | None = ..., encoding: str = ..., encoding_errors: str = ..., charset: Any | None = ..., errors: Any | None = ..., decode_responses: bool = ..., retry_on_timeout: bool = ..., ssl: bool = ..., ssl_keyfile: Any | None = ..., ssl_certfile: Any | None = ..., ssl_cert_reqs: str = ..., ssl_ca_certs: Any | None = ..., ssl_check_hostname: bool = ..., max_connections: Any | None = ..., single_connection_client: bool = ..., health_check_interval: int = ..., client_name: Any | None = ..., username: Any | None = ..., retry: Any | None = ...) -> None: ...
+    def __init__(
+        self,
+        host: str = ...,
+        port: int = ...,
+        db: int = ...,
+        password: Any | None = ...,
+        socket_timeout: Any | None = ...,
+        socket_connect_timeout: Any | None = ...,
+        socket_keepalive: Any | None = ...,
+        socket_keepalive_options: Any | None = ...,
+        connection_pool: Any | None = ...,
+        unix_socket_path: Any | None = ...,
+        encoding: str = ...,
+        encoding_errors: str = ...,
+        charset: Any | None = ...,
+        errors: Any | None = ...,
+        decode_responses: bool = ...,
+        retry_on_timeout: bool = ...,
+        ssl: bool = ...,
+        ssl_keyfile: Any | None = ...,
+        ssl_certfile: Any | None = ...,
+        ssl_cert_reqs: str = ...,
+        ssl_ca_certs: Any | None = ...,
+        ssl_check_hostname: bool = ...,
+        max_connections: Any | None = ...,
+        single_connection_client: bool = ...,
+        health_check_interval: int = ...,
+        client_name: Any | None = ...,
+        username: Any | None = ...,
+        retry: Any | None = ...,
+    ) -> None: ...
     def set_response_callback(self, command, callback) -> None: ...
     def load_external_module(self, funcname, func) -> None: ...
     def pipeline(self, transaction: bool = ..., shard_hint: Any | None = ...): ...
     def transaction(self, func, *watches, **kwargs): ...
-    def lock(self, name, timeout: Any | None = ..., sleep: float = ..., blocking_timeout: Any | None = ..., lock_class: Any | None = ..., thread_local: bool = ...): ...
+    def lock(
+        self,
+        name,
+        timeout: Any | None = ...,
+        sleep: float = ...,
+        blocking_timeout: Any | None = ...,
+        lock_class: Any | None = ...,
+        thread_local: bool = ...,
+    ): ...
     def pubsub(self, **kwargs): ...
     def monitor(self): ...
     def client(self): ...
@@ -91,6 +143,7 @@ class Redis(RedisModuleCommands, CoreCommands):
     def close(self) -> None: ...
     def execute_command(self, *args, **options): ...
     def parse_response(self, connection, command_name, **options): ...
+
 StrictRedis = Redis
 
 class Monitor:

@@ -16,7 +16,16 @@ class Lock:
     blocking_timeout: Any
     thread_local: Any
     local: Any
-    def __init__(self, redis, name, timeout: Any | None = ..., sleep: float = ..., blocking: bool = ..., blocking_timeout: Any | None = ..., thread_local: bool = ...) -> None: ...
+    def __init__(
+        self,
+        redis,
+        name,
+        timeout: Any | None = ...,
+        sleep: float = ...,
+        blocking: bool = ...,
+        blocking_timeout: Any | None = ...,
+        thread_local: bool = ...,
+    ) -> None: ...
     def register_scripts(self) -> None: ...
     def __enter__(self): ...
     def __exit__(self, exc_type, exc_value, traceback) -> None: ...

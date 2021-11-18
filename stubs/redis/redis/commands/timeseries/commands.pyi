@@ -29,10 +29,66 @@ class TimeSeriesCommands:
     def delete(self, key, from_time, to_time): ...
     def createrule(self, source_key, dest_key, aggregation_type, bucket_size_msec): ...
     def deleterule(self, source_key, dest_key): ...
-    def range(self, key, from_time, to_time, count: Any | None = ..., aggregation_type: Any | None = ..., bucket_size_msec: int = ..., filter_by_ts: Any | None = ..., filter_by_min_value: Any | None = ..., filter_by_max_value: Any | None = ..., align: Any | None = ...): ...
-    def revrange(self, key, from_time, to_time, count: Any | None = ..., aggregation_type: Any | None = ..., bucket_size_msec: int = ..., filter_by_ts: Any | None = ..., filter_by_min_value: Any | None = ..., filter_by_max_value: Any | None = ..., align: Any | None = ...): ...
-    def mrange(self, from_time, to_time, filters, count: Any | None = ..., aggregation_type: Any | None = ..., bucket_size_msec: int = ..., with_labels: bool = ..., filter_by_ts: Any | None = ..., filter_by_min_value: Any | None = ..., filter_by_max_value: Any | None = ..., groupby: Any | None = ..., reduce: Any | None = ..., select_labels: Any | None = ..., align: Any | None = ...): ...
-    def mrevrange(self, from_time, to_time, filters, count: Any | None = ..., aggregation_type: Any | None = ..., bucket_size_msec: int = ..., with_labels: bool = ..., filter_by_ts: Any | None = ..., filter_by_min_value: Any | None = ..., filter_by_max_value: Any | None = ..., groupby: Any | None = ..., reduce: Any | None = ..., select_labels: Any | None = ..., align: Any | None = ...): ...
+    def range(
+        self,
+        key,
+        from_time,
+        to_time,
+        count: Any | None = ...,
+        aggregation_type: Any | None = ...,
+        bucket_size_msec: int = ...,
+        filter_by_ts: Any | None = ...,
+        filter_by_min_value: Any | None = ...,
+        filter_by_max_value: Any | None = ...,
+        align: Any | None = ...,
+    ): ...
+    def revrange(
+        self,
+        key,
+        from_time,
+        to_time,
+        count: Any | None = ...,
+        aggregation_type: Any | None = ...,
+        bucket_size_msec: int = ...,
+        filter_by_ts: Any | None = ...,
+        filter_by_min_value: Any | None = ...,
+        filter_by_max_value: Any | None = ...,
+        align: Any | None = ...,
+    ): ...
+    def mrange(
+        self,
+        from_time,
+        to_time,
+        filters,
+        count: Any | None = ...,
+        aggregation_type: Any | None = ...,
+        bucket_size_msec: int = ...,
+        with_labels: bool = ...,
+        filter_by_ts: Any | None = ...,
+        filter_by_min_value: Any | None = ...,
+        filter_by_max_value: Any | None = ...,
+        groupby: Any | None = ...,
+        reduce: Any | None = ...,
+        select_labels: Any | None = ...,
+        align: Any | None = ...,
+    ): ...
+    def mrevrange(
+        self,
+        from_time,
+        to_time,
+        filters,
+        count: Any | None = ...,
+        aggregation_type: Any | None = ...,
+        bucket_size_msec: int = ...,
+        with_labels: bool = ...,
+        filter_by_ts: Any | None = ...,
+        filter_by_min_value: Any | None = ...,
+        filter_by_max_value: Any | None = ...,
+        groupby: Any | None = ...,
+        reduce: Any | None = ...,
+        select_labels: Any | None = ...,
+        align: Any | None = ...,
+    ): ...
     def get(self, key): ...
     def mget(self, filters, with_labels: bool = ...): ...
     def info(self, key): ...
