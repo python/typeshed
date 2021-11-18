@@ -13,6 +13,16 @@ _collections_abc.Generator.throw
 _collections_abc.ItemsView.__reversed__
 _collections_abc.KeysView.__reversed__
 _collections_abc.ValuesView.__reversed__
+
+# These are not positional-only at runtime, but we treat them
+# as positional-only to match dict.
+_collections_abc.Mapping.__getitem__
+_collections_abc.Mapping.__contains__
+_collections_abc.MutableMapping.__delitem__
+_collections_abc.MutableMapping.__setitem__
+_collections_abc.MutableMapping.pop
+_collections_abc.MutableMapping.setdefault
+
 _dummy_thread
 ast.Bytes.__new__
 ast.Ellipsis.__new__
