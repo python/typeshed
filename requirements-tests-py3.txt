@@ -1,8 +1,8 @@
 mypy==0.910
 pytype==2021.11.2; platform_system != "Windows"
-black==21.11b1
+black==21.11b1  # must match .pre-commit-config.yaml
 flake8==4.0.1
 flake8-bugbear==21.9.2
 flake8-pyi==20.10.0
-isort==5.10.1
+isort==5.10.1 # must match .pre-commit-config.yaml
 tomli==1.1.0
