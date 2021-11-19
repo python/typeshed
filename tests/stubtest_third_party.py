@@ -106,7 +106,7 @@ def run_stubtest(dist: Path) -> None:
             print("\n\n", file=sys.stderr)
             if allowlist_path.exists():
                 print(
-                    'To fix "unused allowlist" errors, remove the corresponding entries from ' f"{allowlist_path}",
+                    'To fix "unused allowlist" errors, remove the corresponding entries from {allowlist_path}',
                     file=sys.stderr,
                 )
             else:
