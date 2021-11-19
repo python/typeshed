@@ -95,6 +95,7 @@ class Any(google.protobuf.message.Message, google.protobuf.internal.well_known_t
           "value": "1.212s"
         }
     """
+
     DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
     TYPE_URL_FIELD_NUMBER: builtins.int
     VALUE_FIELD_NUMBER: builtins.int
@@ -130,11 +131,7 @@ class Any(google.protobuf.message.Message, google.protobuf.internal.well_known_t
 
     value: builtins.bytes = ...
     """Must be a valid serialized protocol buffer of the above specified type."""
+    def __init__(self, *, type_url: typing.Text = ..., value: builtins.bytes = ...) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["type_url", b"type_url", "value", b"value"]) -> None: ...
 
-    def __init__(self,
-        *,
-        type_url : typing.Text = ...,
-        value : builtins.bytes = ...,
-        ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["type_url",b"type_url","value",b"value"]) -> None: ...
 global___Any = Any

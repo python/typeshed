@@ -6,11 +6,11 @@ $ python3 scripts/create_baseline_stubs.py <project on PyPI>
 Run with -h for more help.
 """
 
-import os
 import argparse
+import os
 import re
 import shutil
-import    subprocess
+import subprocess
 import sys
 from typing import Optional, Tuple
 
@@ -21,7 +21,7 @@ def search_pip_freeze_output(project: str, output: str) -> Optional[Tuple[str, s
     # Look for lines such as "typed-ast==1.4.2".  '-' matches '_' and
     # '_' matches '-' in project name, so that "typed_ast" matches
     # "typed-ast", and vice versa.
-    regex     = "^(" + re.sub(r"[-_]", "[-_]", project) + ")==(.*)"
+    regex = "^(" + re.sub(r"[-_]", "[-_]", project) + ")==(.*)"
     m = re.search(regex, output, flags=re.IGNORECASE | re.MULTILINE)
     if not m:
         return None

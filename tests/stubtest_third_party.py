@@ -6,11 +6,11 @@ import functools
 import subprocess
 import sys
 import tempfile
-import tomli
 import venv
 from glob import glob
 from pathlib import Path
 
+import tomli
 
 EXCLUDE_LIST = [
     "Flask",  # fails when stubtest tries to stringify some object
@@ -18,7 +18,7 @@ EXCLUDE_LIST = [
     "backports",  # errors on python version
     "six",  # ???
     "aiofiles",  # easily fixable, some platform specific difference between local and ci
-    "pycurl"  # install failure, missing libcurl
+    "pycurl",  # install failure, missing libcurl
 ]
 
 
@@ -106,15 +106,12 @@ def run_stubtest(dist: Path) -> None:
             print("\n\n", file=sys.stderr)
             if allowlist_path.exists():
                 print(
-                    'To fix "unused allowlist" errors, remove the corresponding entries from '
-                    f"{allowlist_path}",
+                    'To fix "unused allowlist" errors, remove the corresponding entries from ' f"{allowlist_path}",
                     file=sys.stderr,
                 )
             else:
                 print(
-                    "Re-running stubtest with --generate-allowlist.\n"
-                    f"Add the following to {allowlist_path}:",
-                    file=sys.stderr,
+                    "Re-running stubtest with --generate-allowlist.\n" f"Add the following to {allowlist_path}:", file=sys.stderr
                 )
                 subprocess.run(cmd + ["--generate-allowlist"], env={"MYPYPATH": str(dist)})
                 print("\n\n", file=sys.stderr)

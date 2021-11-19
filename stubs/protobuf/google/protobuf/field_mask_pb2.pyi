@@ -213,15 +213,14 @@ class FieldMask(google.protobuf.message.Message, google.protobuf.internal.well_k
     request should verify the included field paths, and return an
     `INVALID_ARGUMENT` error if any path is unmappable.
     """
+
     DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
     PATHS_FIELD_NUMBER: builtins.int
     @property
     def paths(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
         """The set of field mask paths."""
         pass
-    def __init__(self,
-        *,
-        paths : typing.Optional[typing.Iterable[typing.Text]] = ...,
-        ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["paths",b"paths"]) -> None: ...
+    def __init__(self, *, paths: typing.Optional[typing.Iterable[typing.Text]] = ...) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["paths", b"paths"]) -> None: ...
+
 global___FieldMask = FieldMask
