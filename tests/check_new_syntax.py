@@ -34,9 +34,7 @@ def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
                     errors.append(f"{path}:{node.lineno}: Use built-in generics, e.g. `{new_syntax}`")
                 # Tuple[Foo, ...] must be allowed because of mypy bugs
                 if node.value.id == "Tuple" and not (
-                    isinstance(node.slice, ast.Tuple)
-                    and len(node.slice.elts) == 2
-                    and is_dotdotdot(node.slice.elts[1])
+                    isinstance(node.slice, ast.Tuple) and len(node.slice.elts) == 2 and is_dotdotdot(node.slice.elts[1])
                 ):
                     new_syntax = f"tuple[{unparse_without_tuple_parens(node.slice)}]"
                     errors.append(f"{path}:{node.lineno}: Use built-in generics, e.g. `{new_syntax}`")
