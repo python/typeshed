@@ -1,6 +1,6 @@
 import sys
 from builtins import object as _object
-from importlib.abc import Loader, PathEntryFinder
+from importlib.abc import PathEntryFinder
 from importlib.machinery import ModuleSpec
 from io import TextIOWrapper
 from types import FrameType, ModuleType, TracebackType
@@ -31,7 +31,6 @@ _PathSequence = Sequence[Union[bytes, str]]
 
 # Unlike importlib.abc.MetaPathFinder, invalidate_caches() might not exist (see python docs)
 class _MetaPathFinder(Protocol):
-    def find_module(self, fullname: str, path: _PathSequence | None) -> Loader | None: ...
     def find_spec(self, fullname: str, path: _PathSequence | None, target: ModuleType | None = ...) -> ModuleSpec | None: ...
 
 # ----- sys variables -----
