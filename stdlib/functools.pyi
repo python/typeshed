@@ -1,7 +1,7 @@
 import sys
 import types
 from _typeshed import SupportsItems, SupportsLessThan
-from typing import Any, Callable, Generic, Hashable, Iterable, NamedTuple, Sequence, Set, Sized, Tuple, Type, TypeVar, overload
+from typing import Any, Callable, Generic, Hashable, Iterable, NamedTuple, Sequence, Sized, Tuple, Type, TypeVar, overload
 from typing_extensions import ParamSpec, final
 
 if sys.version_info >= (3, 9):
@@ -125,7 +125,7 @@ def _make_key(
     kwds: SupportsItems[Any, Any],
     typed: bool,
     kwd_mark: Tuple[object, ...] = ...,
-    fasttypes: Set[type] = ...,
+    fasttypes: set[type] = ...,
     tuple: type = ...,
     type: Any = ...,
     len: Callable[[Sized], int] = ...,

@@ -8,7 +8,6 @@ from typing import (
     Any,
     AsyncGenerator,
     Callable,
-    FrozenSet,
     NoReturn,
     Optional,
     Protocol,
@@ -76,7 +75,7 @@ stdin: TextIO
 stdout: TextIO
 stderr: TextIO
 if sys.version_info >= (3, 10):
-    stdlib_module_names: FrozenSet[str]
+    stdlib_module_names: frozenset[str]
 __stdin__: TextIOWrapper
 __stdout__: TextIOWrapper
 __stderr__: TextIOWrapper
