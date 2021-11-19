@@ -103,7 +103,6 @@ class Timestamp(google.protobuf.message.Message, google.protobuf.internal.well_k
     http://www.joda.org/joda-time/apidocs/org/joda/time/format/ISODateTimeFormat.html#dateTime%2D%2D
     ) to obtain a formatter capable of generating timestamps in this format.
     """
-
     DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
     SECONDS_FIELD_NUMBER: builtins.int
     NANOS_FIELD_NUMBER: builtins.int
@@ -119,7 +118,11 @@ class Timestamp(google.protobuf.message.Message, google.protobuf.internal.well_k
     that count forward in time. Must be from 0 to 999,999,999
     inclusive.
     """
-    def __init__(self, *, seconds: builtins.int = ..., nanos: builtins.int = ...) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["nanos", b"nanos", "seconds", b"seconds"]) -> None: ...
 
+    def __init__(self,
+        *,
+        seconds : builtins.int = ...,
+        nanos : builtins.int = ...,
+        ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["nanos",b"nanos","seconds",b"seconds"]) -> None: ...
 global___Timestamp = Timestamp

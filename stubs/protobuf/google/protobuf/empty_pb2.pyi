@@ -18,8 +18,7 @@ class Empty(google.protobuf.message.Message):
 
     The JSON representation for `Empty` is empty JSON object `{}`.
     """
-
     DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
-    def __init__(self) -> None: ...
-
+    def __init__(self,
+        ) -> None: ...
 global___Empty = Empty

@@ -16,12 +16,9 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor = ...
 
 class Syntax(_Syntax, metaclass=_SyntaxEnumTypeWrapper):
     """The syntax in which a protocol buffer element is defined."""
-
     pass
-
 class _Syntax:
-    V = typing.NewType("V", builtins.int)
-
+    V = typing.NewType('V', builtins.int)
 class _SyntaxEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_Syntax.V], builtins.type):
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor = ...
     SYNTAX_PROTO2 = Syntax.V(0)
@@ -29,6 +26,7 @@ class _SyntaxEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTyp
 
     SYNTAX_PROTO3 = Syntax.V(1)
     """Syntax `proto3`."""
+
 
 SYNTAX_PROTO2 = Syntax.V(0)
 """Syntax `proto2`."""
@@ -38,9 +36,9 @@ SYNTAX_PROTO3 = Syntax.V(1)
 
 global___Syntax = Syntax
 
+
 class Type(google.protobuf.message.Message):
     """A protocol buffer message type."""
-
     DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
     NAME_FIELD_NUMBER: builtins.int
     FIELDS_FIELD_NUMBER: builtins.int
@@ -50,6 +48,7 @@ class Type(google.protobuf.message.Message):
     SYNTAX_FIELD_NUMBER: builtins.int
     name: typing.Text = ...
     """The fully qualified message name."""
+
     @property
     def fields(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Field]:
         """The list of fields."""
@@ -68,47 +67,28 @@ class Type(google.protobuf.message.Message):
         pass
     syntax: global___Syntax.V = ...
     """The source syntax."""
-    def __init__(
-        self,
-        *,
-        name: typing.Text = ...,
-        fields: typing.Optional[typing.Iterable[global___Field]] = ...,
-        oneofs: typing.Optional[typing.Iterable[typing.Text]] = ...,
-        options: typing.Optional[typing.Iterable[global___Option]] = ...,
-        source_context: typing.Optional[google.protobuf.source_context_pb2.SourceContext] = ...,
-        syntax: global___Syntax.V = ...,
-    ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["source_context", b"source_context"]) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing_extensions.Literal[
-            "fields",
-            b"fields",
-            "name",
-            b"name",
-            "oneofs",
-            b"oneofs",
-            "options",
-            b"options",
-            "source_context",
-            b"source_context",
-            "syntax",
-            b"syntax",
-        ],
-    ) -> None: ...
 
+    def __init__(self,
+        *,
+        name : typing.Text = ...,
+        fields : typing.Optional[typing.Iterable[global___Field]] = ...,
+        oneofs : typing.Optional[typing.Iterable[typing.Text]] = ...,
+        options : typing.Optional[typing.Iterable[global___Option]] = ...,
+        source_context : typing.Optional[google.protobuf.source_context_pb2.SourceContext] = ...,
+        syntax : global___Syntax.V = ...,
+        ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["source_context",b"source_context"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["fields",b"fields","name",b"name","oneofs",b"oneofs","options",b"options","source_context",b"source_context","syntax",b"syntax"]) -> None: ...
 global___Type = Type
 
 class Field(google.protobuf.message.Message):
     """A single field of a message type."""
-
     DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
     class Kind(_Kind, metaclass=_KindEnumTypeWrapper):
         """Basic field types."""
-
         pass
     class _Kind:
-        V = typing.NewType("V", builtins.int)
+        V = typing.NewType('V', builtins.int)
     class _KindEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_Kind.V], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor = ...
         TYPE_UNKNOWN = Field.Kind.V(0)
@@ -167,6 +147,8 @@ class Field(google.protobuf.message.Message):
 
         TYPE_SINT64 = Field.Kind.V(18)
         """Field type sint64."""
+
+
     TYPE_UNKNOWN = Field.Kind.V(0)
     """Field type unknown."""
 
@@ -223,12 +205,13 @@ class Field(google.protobuf.message.Message):
 
     TYPE_SINT64 = Field.Kind.V(18)
     """Field type sint64."""
+
+
     class Cardinality(_Cardinality, metaclass=_CardinalityEnumTypeWrapper):
         """Whether a field is optional, required, or repeated."""
-
         pass
     class _Cardinality:
-        V = typing.NewType("V", builtins.int)
+        V = typing.NewType('V', builtins.int)
     class _CardinalityEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_Cardinality.V], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor = ...
         CARDINALITY_UNKNOWN = Field.Cardinality.V(0)
@@ -242,6 +225,8 @@ class Field(google.protobuf.message.Message):
 
         CARDINALITY_REPEATED = Field.Cardinality.V(3)
         """For repeated fields."""
+
+
     CARDINALITY_UNKNOWN = Field.Cardinality.V(0)
     """For fields with unknown cardinality."""
 
@@ -253,6 +238,7 @@ class Field(google.protobuf.message.Message):
 
     CARDINALITY_REPEATED = Field.Cardinality.V(3)
     """For repeated fields."""
+
 
     KIND_FIELD_NUMBER: builtins.int
     CARDINALITY_FIELD_NUMBER: builtins.int
@@ -288,6 +274,7 @@ class Field(google.protobuf.message.Message):
 
     packed: builtins.bool = ...
     """Whether to use alternative packed wire representation."""
+
     @property
     def options(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Option]:
         """The protocol buffer options."""
@@ -297,51 +284,25 @@ class Field(google.protobuf.message.Message):
 
     default_value: typing.Text = ...
     """The string value of the default value of this field. Proto2 syntax only."""
-    def __init__(
-        self,
-        *,
-        kind: global___Field.Kind.V = ...,
-        cardinality: global___Field.Cardinality.V = ...,
-        number: builtins.int = ...,
-        name: typing.Text = ...,
-        type_url: typing.Text = ...,
-        oneof_index: builtins.int = ...,
-        packed: builtins.bool = ...,
-        options: typing.Optional[typing.Iterable[global___Option]] = ...,
-        json_name: typing.Text = ...,
-        default_value: typing.Text = ...,
-    ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing_extensions.Literal[
-            "cardinality",
-            b"cardinality",
-            "default_value",
-            b"default_value",
-            "json_name",
-            b"json_name",
-            "kind",
-            b"kind",
-            "name",
-            b"name",
-            "number",
-            b"number",
-            "oneof_index",
-            b"oneof_index",
-            "options",
-            b"options",
-            "packed",
-            b"packed",
-            "type_url",
-            b"type_url",
-        ],
-    ) -> None: ...
 
+    def __init__(self,
+        *,
+        kind : global___Field.Kind.V = ...,
+        cardinality : global___Field.Cardinality.V = ...,
+        number : builtins.int = ...,
+        name : typing.Text = ...,
+        type_url : typing.Text = ...,
+        oneof_index : builtins.int = ...,
+        packed : builtins.bool = ...,
+        options : typing.Optional[typing.Iterable[global___Option]] = ...,
+        json_name : typing.Text = ...,
+        default_value : typing.Text = ...,
+        ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["cardinality",b"cardinality","default_value",b"default_value","json_name",b"json_name","kind",b"kind","name",b"name","number",b"number","oneof_index",b"oneof_index","options",b"options","packed",b"packed","type_url",b"type_url"]) -> None: ...
 global___Field = Field
 
 class Enum(google.protobuf.message.Message):
     """Enum type definition."""
-
     DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
     NAME_FIELD_NUMBER: builtins.int
     ENUMVALUE_FIELD_NUMBER: builtins.int
@@ -350,6 +311,7 @@ class Enum(google.protobuf.message.Message):
     SYNTAX_FIELD_NUMBER: builtins.int
     name: typing.Text = ...
     """Enum type name."""
+
     @property
     def enumvalue(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___EnumValue]:
         """Enum value definitions."""
@@ -364,37 +326,21 @@ class Enum(google.protobuf.message.Message):
         pass
     syntax: global___Syntax.V = ...
     """The source syntax."""
-    def __init__(
-        self,
-        *,
-        name: typing.Text = ...,
-        enumvalue: typing.Optional[typing.Iterable[global___EnumValue]] = ...,
-        options: typing.Optional[typing.Iterable[global___Option]] = ...,
-        source_context: typing.Optional[google.protobuf.source_context_pb2.SourceContext] = ...,
-        syntax: global___Syntax.V = ...,
-    ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["source_context", b"source_context"]) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing_extensions.Literal[
-            "enumvalue",
-            b"enumvalue",
-            "name",
-            b"name",
-            "options",
-            b"options",
-            "source_context",
-            b"source_context",
-            "syntax",
-            b"syntax",
-        ],
-    ) -> None: ...
 
+    def __init__(self,
+        *,
+        name : typing.Text = ...,
+        enumvalue : typing.Optional[typing.Iterable[global___EnumValue]] = ...,
+        options : typing.Optional[typing.Iterable[global___Option]] = ...,
+        source_context : typing.Optional[google.protobuf.source_context_pb2.SourceContext] = ...,
+        syntax : global___Syntax.V = ...,
+        ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["source_context",b"source_context"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["enumvalue",b"enumvalue","name",b"name","options",b"options","source_context",b"source_context","syntax",b"syntax"]) -> None: ...
 global___Enum = Enum
 
 class EnumValue(google.protobuf.message.Message):
     """Enum value definition."""
-
     DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
     NAME_FIELD_NUMBER: builtins.int
     NUMBER_FIELD_NUMBER: builtins.int
@@ -404,28 +350,24 @@ class EnumValue(google.protobuf.message.Message):
 
     number: builtins.int = ...
     """Enum value number."""
+
     @property
     def options(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Option]:
         """Protocol buffer options."""
         pass
-    def __init__(
-        self,
+    def __init__(self,
         *,
-        name: typing.Text = ...,
-        number: builtins.int = ...,
-        options: typing.Optional[typing.Iterable[global___Option]] = ...,
-    ) -> None: ...
-    def ClearField(
-        self, field_name: typing_extensions.Literal["name", b"name", "number", b"number", "options", b"options"]
-    ) -> None: ...
-
+        name : typing.Text = ...,
+        number : builtins.int = ...,
+        options : typing.Optional[typing.Iterable[global___Option]] = ...,
+        ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["name",b"name","number",b"number","options",b"options"]) -> None: ...
 global___EnumValue = EnumValue
 
 class Option(google.protobuf.message.Message):
     """A protocol buffer option, which can be attached to a message, field,
     enumeration, etc.
     """
-
     DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
     NAME_FIELD_NUMBER: builtins.int
     VALUE_FIELD_NUMBER: builtins.int
@@ -435,6 +377,7 @@ class Option(google.protobuf.message.Message):
     For custom options, it should be the fully-qualified name. For example,
     `"google.api.http"`.
     """
+
     @property
     def value(self) -> google.protobuf.any_pb2.Any:
         """The option's value packed in an Any message. If the value is a primitive,
@@ -443,8 +386,11 @@ class Option(google.protobuf.message.Message):
         value using the google.protobuf.Int32Value type.
         """
         pass
-    def __init__(self, *, name: typing.Text = ..., value: typing.Optional[google.protobuf.any_pb2.Any] = ...) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["value", b"value"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["name", b"name", "value", b"value"]) -> None: ...
-
+    def __init__(self,
+        *,
+        name : typing.Text = ...,
+        value : typing.Optional[google.protobuf.any_pb2.Any] = ...,
+        ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["value",b"value"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["name",b"name","value",b"value"]) -> None: ...
 global___Option = Option
