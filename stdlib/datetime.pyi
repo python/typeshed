@@ -223,7 +223,7 @@ class datetime(date):
     def tzinfo(self) -> _tzinfo | None: ...
     @property
     def fold(self) -> int: ...
-    # The first parameters in `fromtimestamp` is actually positional-or-keyword parameters,
+    # The first parameter in `fromtimestamp` is actually positional-or-keyword,
     # but it is named "timestamp" in the C implementation and "t" in the Python implementation,
     # so it is only truly *safe* to pass it as a positional argument.
     @classmethod
