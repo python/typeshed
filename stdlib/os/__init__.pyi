@@ -30,7 +30,6 @@ from typing import (
     NoReturn,
     Protocol,
     Sequence,
-    Set,
     Tuple,
     TypeVar,
     Union,
@@ -56,10 +55,10 @@ error = OSError
 
 supports_bytes_environ: bool
 
-supports_dir_fd: Set[Callable[..., Any]]
-supports_fd: Set[Callable[..., Any]]
-supports_effective_ids: Set[Callable[..., Any]]
-supports_follow_symlinks: Set[Callable[..., Any]]
+supports_dir_fd: set[Callable[..., Any]]
+supports_fd: set[Callable[..., Any]]
+supports_effective_ids: set[Callable[..., Any]]
+supports_follow_symlinks: set[Callable[..., Any]]
 
 if sys.platform != "win32":
     # Unix only
@@ -830,7 +829,7 @@ if sys.platform != "win32":
         def sched_setparam(pid: int, param: sched_param) -> None: ...  # some flavors of Unix
         def sched_getparam(pid: int) -> sched_param: ...  # some flavors of Unix
         def sched_setaffinity(pid: int, mask: Iterable[int]) -> None: ...  # some flavors of Unix
-        def sched_getaffinity(pid: int) -> Set[int]: ...  # some flavors of Unix
+        def sched_getaffinity(pid: int) -> set[int]: ...  # some flavors of Unix
 
 def cpu_count() -> int | None: ...
 

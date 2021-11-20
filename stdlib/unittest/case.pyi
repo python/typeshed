@@ -3,7 +3,7 @@ import logging
 import sys
 import unittest.result
 from _typeshed import Self
-from collections.abc import Set
+from collections.abc import Set  # equivalent to typing.AbstractSet, not builtins.set
 from types import TracebackType
 from typing import (
     Any,
