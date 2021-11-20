@@ -1,10 +1,10 @@
 import sys
-from contextlib import AbstractContextManager
 from typing import Any
 
 # This is a >=3.7 module, so we conditionally include its source.
 if sys.version_info >= (3, 7):
     import os
+    from contextlib import AbstractContextManager
     from pathlib import Path
     from types import ModuleType
     from typing import BinaryIO, Iterator, TextIO, Union
