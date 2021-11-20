@@ -28,7 +28,7 @@ _T = TypeVar("_T")
 _ExcInfo = Tuple[Type[BaseException], BaseException, TracebackType]
 _OptExcInfo = Union[_ExcInfo, Tuple[None, None, None]]
 
-# Unlike importlib.abc.MetaPathFinder, invalidate_caches() might not exist (see python docs)
+# Intentionally omits one deprecated and one optional method of `importlib.abc.MetaPathFinder`
 class _MetaPathFinder(Protocol):
     def find_spec(self, fullname: str, path: Sequence[str] | None, target: ModuleType | None = ...) -> ModuleSpec | None: ...
 
