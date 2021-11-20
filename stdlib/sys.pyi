@@ -1,6 +1,6 @@
 import sys
 from builtins import object as _object
-from importlib.abc import Loader, PathEntryFinder
+from importlib.abc import PathEntryFinder
 from importlib.machinery import ModuleSpec
 from io import TextIOWrapper
 from types import FrameType, ModuleType, TracebackType
@@ -26,12 +26,10 @@ _T = TypeVar("_T")
 # The following type alias are stub-only and do not exist during runtime
 _ExcInfo = Tuple[Type[BaseException], BaseException, TracebackType]
 _OptExcInfo = Union[_ExcInfo, Tuple[None, None, None]]
-_PathSequence = Sequence[Union[bytes, str]]
 
-# Unlike importlib.abc.MetaPathFinder, invalidate_caches() might not exist (see python docs)
+# Intentionally omits one deprecated and one optional method of `importlib.abc.MetaPathFinder`
 class _MetaPathFinder(Protocol):
-    def find_module(self, fullname: str, path: _PathSequence | None) -> Loader | None: ...
-    def find_spec(self, fullname: str, path: _PathSequence | None, target: ModuleType | None = ...) -> ModuleSpec | None: ...
+    def find_spec(self, fullname: str, path: Sequence[str] | None, target: ModuleType | None = ...) -> ModuleSpec | None: ...
 
 # ----- sys variables -----
 if sys.platform != "win32":
