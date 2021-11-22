@@ -1,3 +1,4 @@
+from contextlib import AbstractContextManager
 from typing import Callable, Iterator
 
 def known_hosts() -> str: ...
