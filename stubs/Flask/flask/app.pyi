@@ -2,21 +2,7 @@ from contextlib import AbstractContextManager
 from datetime import timedelta
 from logging import Logger
 from types import TracebackType
-from typing import (
-    Any,
-    ByteString,
-    Callable,
-    Dict,
-    Iterable,
-    List,
-    NoReturn,
-    Optional,
-    Text,
-    Tuple,
-    Type,
-    TypeVar,
-    Union,
-)
+from typing import Any, ByteString, Callable, Dict, Iterable, List, NoReturn, Optional, Text, Tuple, Type, TypeVar, Union
 
 from .blueprints import Blueprint
 from .config import Config
