@@ -20,6 +20,7 @@ from typing_extensions import ParamSpec, Protocol
 AbstractContextManager = ContextManager
 if sys.version_info >= (3, 7):
     from typing import AsyncContextManager
+
     AbstractAsyncContextManager = AsyncContextManager
 
 _T = TypeVar("_T")
