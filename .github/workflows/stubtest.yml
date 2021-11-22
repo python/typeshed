@@ -13,6 +13,7 @@ env:
 jobs:
   stubtest-stdlib:
     name: Check stdlib with stubtest
+    if: github.repository == 'python/typeshed'
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -36,6 +37,7 @@ jobs:
 
   stubtest-third-party:
     name: Check third party stubs with stubtest
+    if: github.repository == 'python/typeshed'
     runs-on: ubuntu-latest
     strategy:
       matrix:
