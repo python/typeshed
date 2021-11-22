@@ -199,7 +199,6 @@ tkinter.font.Font.__getitem__  # Argument name differs (doesn't matter for __dun
 traceback.TracebackException.from_exception  # explicitly expanding arguments going into TracebackException __init__
 types.GetSetDescriptorType.__get__  # this function can accept no value for the type parameter.
 types.MemberDescriptorType.__get__  # this function can accept no value for the type parameter.
-types.ModuleType.__getattr__  # this doesn't exist at runtime
 types.SimpleNamespace.__init__  # class doesn't accept positional arguments but has default C signature
 typing.IO.__iter__  # Added because IO streams are iterable. See https://github.com/python/typeshed/commit/97bc450acd60c1bcdafef3ce8fbe3b95a9c0cac3
 typing.IO.__next__  # Added because IO streams are iterable. See https://github.com/python/typeshed/commit/97bc450acd60c1bcdafef3ce8fbe3b95a9c0cac3
