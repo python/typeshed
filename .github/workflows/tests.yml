@@ -44,7 +44,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
       - run: pip install $(grep black requirements-tests-py3.txt)
-      - run: black --check --diff stdlib stubs
+      - run: black --check --diff scripts stdlib stubs tests
 
   isort:
     name: Check imports with isort
@@ -53,7 +53,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
       - run: pip install $(grep isort requirements-tests-py3.txt)
-      - run: isort --check-only --diff stdlib stubs
+      - run: isort --check-only --diff scripts stdlib stubs tests
 
   pytype:
     name: Run pytype against the stubs
