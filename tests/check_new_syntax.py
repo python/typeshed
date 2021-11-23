@@ -113,12 +113,8 @@ def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
                     cls_name = cls.name
                     if cls_name == "ContextManager":
                         self.module_imports_info_dict["context_manager_from_typing"] = True
-                        if self.module_imports_info_dict["async_context_manager_from_typing"]:
-                            break
                     elif cls_name == "AsyncContextManager":
                         self.module_imports_info_dict["async_context_manager_from_typing"] = True
-                        if self.module_imports_info_dict["context_manager_from_typing"]:
-                            break
 
             self.generic_visit(node)
 
