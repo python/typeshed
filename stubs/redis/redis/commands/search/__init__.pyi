@@ -8,19 +8,14 @@ class Search(SearchCommands):
         def add_document(
             self,
             doc_id,
-            nosave: bool=...,
-            score:float=...,
-            payload: Any|None=...,
-            replace:bool=...,
-            partial:bool=...,
-            no_create:bool=...,
-            **fields
-        ): ...
-        def add_document_hash(
-            self,
-            doc_id,
+            nosave: bool = ...,
             score: float = ...,
-            replace:bool = ...
+            payload: Any | None = ...,
+            replace: bool = ...,
+            partial: bool = ...,
+            no_create: bool = ...,
+            **fields,
         ): ...
+        def add_document_hash(self, doc_id, score: float = ..., replace: bool = ...): ...
         def commit(self): ...
-    def __init__(self, client, index_name: str=...) -> None: ...
+    def __init__(self, client, index_name: str = ...) -> None: ...

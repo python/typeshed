@@ -14,5 +14,4 @@ class TSInfo:
     max_samples_per_chunk: Any | None
     chunk_size: Any | None
     duplicate_policy: Any | None
-
     def __init__(self, args) -> None: ...

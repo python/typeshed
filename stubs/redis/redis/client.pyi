@@ -700,7 +700,10 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
         px: None | int | timedelta = ...,
         nx: bool = ...,
         xx: bool = ...,
-        keepttl: bool = ..., get:bool = ...,exat: Any | None = ..., pxat: Any | None = ...
+        keepttl: bool = ...,
+        get: bool = ...,
+        exat: Any | None = ...,
+        pxat: Any | None = ...,
     ) -> Pipeline[_StrType]: ...
     def __setitem__(self, name, value) -> None: ...
     def setbit(self, name: _Key, offset: int, value: int) -> Pipeline[_StrType]: ...  # type: ignore[override]
@@ -766,7 +769,7 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     def sunion(self, keys: _Key | Iterable[_Key], *args: _Key) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def sunionstore(self, dest: _Key, keys: _Key | Iterable[_Key], *args: _Key) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def xack(self, name, groupname, *ids) -> Pipeline[_StrType]: ...  # type: ignore[override]
-    def xadd(self, name, fields, id=..., maxlen=..., approximate: bool=..., nomkstream: bool = ..., minid: Any | None = ..., limit: int | None = ...) -> Pipeline[_StrType]: ...  # type: ignore[override]
+    def xadd(self, name, fields, id=..., maxlen=..., approximate: bool = ..., nomkstream: bool = ..., minid: Any | None = ..., limit: int | None = ...) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def xclaim(
         self, name, groupname, consumername, min_idle_time, message_ids, idle=..., time=..., retrycount=..., force=..., justid=...
     ) -> Pipeline[_StrType]: ...  # type: ignore[override]
@@ -785,9 +788,17 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     def xread(self, streams, count=..., block=...) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def xreadgroup(self, groupname, consumername, streams, count=..., block=..., noack=...) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def xrevrange(self, name, max=..., min=..., count=...) -> Pipeline[_StrType]: ...  # type: ignore[override]
-    def xtrim(self, name, maxlen: int | None = ..., approximate: bool=..., minid: Any | None = ..., limit: int | None = ...) -> Pipeline[_StrType]: ...  # type: ignore[override]
+    def xtrim(self, name, maxlen: int | None = ..., approximate: bool = ..., minid: Any | None = ..., limit: int | None = ...) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def zadd(  # type: ignore[override]
-            self, name: _Key, mapping: Mapping[_Key, _Value], nx: bool = ..., xx: bool = ..., ch: bool = ..., incr: bool = ..., gt: Any | None = ..., lt: Any | None = ...
+        self,
+        name: _Key,
+        mapping: Mapping[_Key, _Value],
+        nx: bool = ...,
+        xx: bool = ...,
+        ch: bool = ...,
+        incr: bool = ...,
+        gt: Any | None = ...,
+        lt: Any | None = ...,
     ) -> Pipeline[_StrType]: ...
     def zcard(self, name: _Key) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def zcount(self, name: _Key, min: _Value, max: _Value) -> Pipeline[_StrType]: ...  # type: ignore[override]
