@@ -26,12 +26,21 @@ def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
                 if node.value.id == "Optional":
                     new_syntax = f"{ast.unparse(node.slice)} | None"
                     errors.append(f"{path}:{node.lineno}: Use PEP 604 syntax for Optional, e.g. `{new_syntax}`")
-                if node.value.id == "List":
-                    new_syntax = f"list[{ast.unparse(node.slice)}]"
+                if node.value.id in {"List", "FrozenSet"}:
+                    new_syntax = f"{node.value.id.lower()}[{ast.unparse(node.slice)}]"
                     errors.append(f"{path}:{node.lineno}: Use built-in generics, e.g. `{new_syntax}`")
+                if node.value.id == "Deque":
+                    new_syntax = f"collections.deque[{ast.unparse(node.slice)}]"
+                    errors.append(f"{path}:{node.lineno}: Use `collections.deque` instead of `typing.Deque`, e.g. `{new_syntax}`")
                 if node.value.id == "Dict":
                     new_syntax = f"dict[{unparse_without_tuple_parens(node.slice)}]"
                     errors.append(f"{path}:{node.lineno}: Use built-in generics, e.g. `{new_syntax}`")
+                if node.value.id == "DefaultDict":
+                    new_syntax = f"collections.defaultdict[{unparse_without_tuple_parens(node.slice)}]"
+                    errors.append(
+                        f"{path}:{node.lineno}: Use `collections.defaultdict` instead of `typing.DefaultDict`, "
+                        f"e.g. `{new_syntax}`"
+                    )
                 # Tuple[Foo, ...] must be allowed because of mypy bugs
                 if node.value.id == "Tuple" and not (
                     isinstance(node.slice, ast.Tuple) and len(node.slice.elts) == 2 and is_dotdotdot(node.slice.elts[1])
