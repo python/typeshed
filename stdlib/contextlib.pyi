@@ -39,7 +39,7 @@ class _GeneratorContextManager(AbstractContextManager[_T_co]):
 def contextmanager(func: Callable[_P, Iterator[_T]]) -> Callable[_P, _GeneratorContextManager[_T]]: ...  # type: ignore
 
 if sys.version_info >= (3, 7):
-    def asynccontextmanager(func: Callable[_P, AsyncIterator[_T]]) -> Callable[_P, AbstractAsyncContextManager[_T]]: ...  # type: ignore
+    def asynccontextmanager(func: Callable[_P, AsyncIterator[_T]]) -> Callable[_P, AsyncContextManager[_T]]: ...  # type: ignore
 
 class _SupportsClose(Protocol):
     def close(self) -> object: ...
