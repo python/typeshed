@@ -3,8 +3,7 @@ import logging.handlers
 import subprocess
 import sys
 import time
-from contextlib import AbstractContextManager
-from typing import IO, Any, Callable, Dict, Iterable, Mapping, Sequence, Type, TypeVar
+from typing import IO, Any, Callable, ContextManager, Dict, Iterable, Mapping, Sequence, Type, TypeVar
 
 import boto.connection
 
@@ -69,7 +68,7 @@ ISO8601_MS: str
 RFC1123: str
 LOCALE_LOCK: _LockType
 
-def setlocale(name: str | tuple[str, str]) -> AbstractContextManager[str]: ...
+def setlocale(name: str | tuple[str, str]) -> ContextManager[str]: ...
 def get_ts(ts: time.struct_time | None = ...) -> str: ...
 def parse_ts(ts: str) -> datetime.datetime: ...
 def find_class(module_name: str, class_name: str | None = ...) -> Type[Any] | None: ...

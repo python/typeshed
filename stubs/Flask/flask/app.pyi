@@ -1,8 +1,22 @@
-from contextlib import AbstractContextManager
 from datetime import timedelta
 from logging import Logger
 from types import TracebackType
-from typing import Any, ByteString, Callable, Dict, Iterable, List, NoReturn, Optional, Text, Tuple, Type, TypeVar, Union
+from typing import (
+    Any,
+    ByteString,
+    Callable,
+    ContextManager,
+    Dict,
+    Iterable,
+    List,
+    NoReturn,
+    Optional,
+    Text,
+    Tuple,
+    Type,
+    TypeVar,
+    Union,
+)
 
 from .blueprints import Blueprint
 from .config import Config
@@ -171,7 +185,7 @@ class Flask(_PackageBoundObject):
     def do_teardown_appcontext(self, exc: Any = ...) -> None: ...
     def app_context(self) -> AppContext: ...
     def request_context(self, environ: Any): ...
-    def test_request_context(self, *args: Any, **kwargs: Any) -> AbstractContextManager[RequestContext]: ...
+    def test_request_context(self, *args: Any, **kwargs: Any) -> ContextManager[RequestContext]: ...
     def wsgi_app(self, environ: Any, start_response: Any): ...
     def __call__(self, environ: Any, start_response: Any): ...
     # These are not preset at runtime but we add them since monkeypatching this

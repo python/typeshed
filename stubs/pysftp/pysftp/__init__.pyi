@@ -1,7 +1,6 @@
-from contextlib import AbstractContextManager
 from stat import S_IMODE as S_IMODE
 from types import TracebackType
-from typing import IO, Any, Callable, Sequence, Text, Type, Union
+from typing import IO, Any, Callable, ContextManager, Sequence, Text, Type, Union
 from typing_extensions import Literal
 
 import paramiko
@@ -75,7 +74,7 @@ class Connection:
         confirm: bool = ...,
     ) -> paramiko.SFTPAttributes: ...
     def execute(self, command: str) -> list[str]: ...
-    def cd(self, remotepath: _Path | None = ...) -> AbstractContextManager[None]: ...  # noqa: F811
+    def cd(self, remotepath: _Path | None = ...) -> ContextManager[None]: ...  # noqa: F811
     def chdir(self, remotepath: _Path) -> None: ...
     def cwd(self, remotepath: _Path) -> None: ...
     def chmod(self, remotepath: _Path, mode: int = ...) -> None: ...
