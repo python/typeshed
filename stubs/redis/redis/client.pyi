@@ -1,6 +1,6 @@
 import builtins
 from datetime import datetime, timedelta
-from typing import Any, Callable, Generic, Iterable, Iterator, Mapping, Sequence, Text, Type, TypeVar, Union, overload
+from typing import Any, Callable, Generic, Iterable, Iterator, Mapping, Sequence, Type, TypeVar, Union, overload
 from typing_extensions import Literal
 
 from .connection import ConnectionPool
@@ -39,11 +39,11 @@ def parse_slowlog_get(response, **options): ...
 
 _ScoreCastFuncReturn = TypeVar("_ScoreCastFuncReturn")
 
-_Value = Union[bytes, float, int, Text]
-_Key = Union[Text, bytes]
+_Value = Union[bytes, float, int, str]
+_Key = Union[str, bytes]
 
 # Lib returns str or bytes depending on Python version and value of decode_responses
-_StrType = TypeVar("_StrType", bound=Union[Text, bytes])
+_StrType = TypeVar("_StrType", bound=Union[str, bytes])
 
 _LockType = TypeVar("_LockType")
 
@@ -53,291 +53,291 @@ class Redis(Generic[_StrType]):
     @classmethod
     def from_url(
         cls,
-        url: Text,
-        host: Text | None,
+        url: str,
+        host: str | None,
         port: int | None,
         db: int | None,
-        password: Text | None,
+        password: str | None,
         socket_timeout: float | None,
         socket_connect_timeout: float | None,
         socket_keepalive: bool | None,
         socket_keepalive_options: Mapping[str, int | str] | None,
         connection_pool: ConnectionPool | None,
-        unix_socket_path: Text | None,
-        encoding: Text,
-        encoding_errors: Text,
-        charset: Text | None,
-        errors: Text | None,
+        unix_socket_path: str | None,
+        encoding: str,
+        encoding_errors: str,
+        charset: str | None,
+        errors: str | None,
         decode_responses: Literal[True],
         retry_on_timeout: bool = ...,
         ssl: bool = ...,
-        ssl_keyfile: Text | None = ...,
-        ssl_certfile: Text | None = ...,
+        ssl_keyfile: str | None = ...,
+        ssl_certfile: str | None = ...,
         ssl_cert_reqs: str | int | None = ...,
-        ssl_ca_certs: Text | None = ...,
+        ssl_ca_certs: str | None = ...,
         ssl_check_hostname: bool = ...,
         max_connections: int | None = ...,
         single_connection_client: bool = ...,
         health_check_interval: float = ...,
-        client_name: Text | None = ...,
-        username: Text | None = ...,
+        client_name: str | None = ...,
+        username: str | None = ...,
     ) -> Redis[str]: ...
     @overload
     @classmethod
     def from_url(
         cls,
-        url: Text,
-        host: Text | None = ...,
+        url: str,
+        host: str | None = ...,
         port: int | None = ...,
         db: int | None = ...,
-        password: Text | None = ...,
+        password: str | None = ...,
         socket_timeout: float | None = ...,
         socket_connect_timeout: float | None = ...,
         socket_keepalive: bool | None = ...,
         socket_keepalive_options: Mapping[str, int | str] | None = ...,
         connection_pool: ConnectionPool | None = ...,
-        unix_socket_path: Text | None = ...,
-        encoding: Text = ...,
-        encoding_errors: Text = ...,
-        charset: Text | None = ...,
-        errors: Text | None = ...,
+        unix_socket_path: str | None = ...,
+        encoding: str = ...,
+        encoding_errors: str = ...,
+        charset: str | None = ...,
+        errors: str | None = ...,
         *,
         decode_responses: Literal[True],
         retry_on_timeout: bool = ...,
         ssl: bool = ...,
-        ssl_keyfile: Text | None = ...,
-        ssl_certfile: Text | None = ...,
+        ssl_keyfile: str | None = ...,
+        ssl_certfile: str | None = ...,
         ssl_cert_reqs: str | int | None = ...,
-        ssl_ca_certs: Text | None = ...,
+        ssl_ca_certs: str | None = ...,
         ssl_check_hostname: bool = ...,
         max_connections: int | None = ...,
         single_connection_client: bool = ...,
         health_check_interval: float = ...,
-        client_name: Text | None = ...,
-        username: Text | None = ...,
+        client_name: str | None = ...,
+        username: str | None = ...,
     ) -> Redis[str]: ...
     @overload
     @classmethod
     def from_url(
         cls,
-        url: Text,
-        host: Text | None = ...,
+        url: str,
+        host: str | None = ...,
         port: int | None = ...,
         db: int | None = ...,
-        password: Text | None = ...,
+        password: str | None = ...,
         socket_timeout: float | None = ...,
         socket_connect_timeout: float | None = ...,
         socket_keepalive: bool | None = ...,
         socket_keepalive_options: Mapping[str, int | str] | None = ...,
         connection_pool: ConnectionPool | None = ...,
-        unix_socket_path: Text | None = ...,
-        encoding: Text = ...,
-        encoding_errors: Text = ...,
-        charset: Text | None = ...,
+        unix_socket_path: str | None = ...,
+        encoding: str = ...,
+        encoding_errors: str = ...,
+        charset: str | None = ...,
         decode_responses: Literal[False] = ...,
-        errors: Text | None = ...,
+        errors: str | None = ...,
         retry_on_timeout: bool = ...,
         ssl: bool = ...,
-        ssl_keyfile: Text | None = ...,
-        ssl_certfile: Text | None = ...,
+        ssl_keyfile: str | None = ...,
+        ssl_certfile: str | None = ...,
         ssl_cert_reqs: str | int | None = ...,
-        ssl_ca_certs: Text | None = ...,
+        ssl_ca_certs: str | None = ...,
         ssl_check_hostname: bool = ...,
         max_connections: int | None = ...,
         single_connection_client: bool = ...,
         health_check_interval: float = ...,
-        client_name: Text | None = ...,
-        username: Text | None = ...,
+        client_name: str | None = ...,
+        username: str | None = ...,
     ) -> Redis[bytes]: ...
     connection_pool: Any
     response_callbacks: Any
     @overload
     def __new__(
         cls,
-        host: Text,
+        host: str,
         port: int,
         db: int,
-        password: Text | None,
+        password: str | None,
         socket_timeout: float | None,
         socket_connect_timeout: float | None,
         socket_keepalive: bool | None,
         socket_keepalive_options: Mapping[str, int | str] | None,
         connection_pool: ConnectionPool | None,
-        unix_socket_path: Text | None,
-        encoding: Text,
-        encoding_errors: Text,
-        charset: Text | None,
+        unix_socket_path: str | None,
+        encoding: str,
+        encoding_errors: str,
+        charset: str | None,
         decode_responses: Literal[True],
-        errors: Text | None = ...,
+        errors: str | None = ...,
         retry_on_timeout: bool = ...,
         ssl: bool = ...,
-        ssl_keyfile: Text | None = ...,
-        ssl_certfile: Text | None = ...,
+        ssl_keyfile: str | None = ...,
+        ssl_certfile: str | None = ...,
         ssl_cert_reqs: str | int | None = ...,
-        ssl_ca_certs: Text | None = ...,
+        ssl_ca_certs: str | None = ...,
         ssl_check_hostname: bool = ...,
         max_connections: int | None = ...,
         single_connection_client: bool = ...,
         health_check_interval: float = ...,
-        client_name: Text | None = ...,
-        username: Text | None = ...,
+        client_name: str | None = ...,
+        username: str | None = ...,
     ) -> Redis[str]: ...
     @overload
     def __new__(
         cls,
-        host: Text = ...,
+        host: str = ...,
         port: int = ...,
         db: int = ...,
-        password: Text | None = ...,
+        password: str | None = ...,
         socket_timeout: float | None = ...,
         socket_connect_timeout: float | None = ...,
         socket_keepalive: bool | None = ...,
         socket_keepalive_options: Mapping[str, int | str] | None = ...,
         connection_pool: ConnectionPool | None = ...,
-        unix_socket_path: Text | None = ...,
-        encoding: Text = ...,
-        encoding_errors: Text = ...,
-        charset: Text | None = ...,
+        unix_socket_path: str | None = ...,
+        encoding: str = ...,
+        encoding_errors: str = ...,
+        charset: str | None = ...,
         *,
         decode_responses: Literal[True],
-        errors: Text | None = ...,
+        errors: str | None = ...,
         retry_on_timeout: bool = ...,
         ssl: bool = ...,
-        ssl_keyfile: Text | None = ...,
-        ssl_certfile: Text | None = ...,
+        ssl_keyfile: str | None = ...,
+        ssl_certfile: str | None = ...,
         ssl_cert_reqs: str | int | None = ...,
-        ssl_ca_certs: Text | None = ...,
+        ssl_ca_certs: str | None = ...,
         ssl_check_hostname: bool = ...,
         max_connections: int | None = ...,
         single_connection_client: bool = ...,
         health_check_interval: float = ...,
-        client_name: Text | None = ...,
-        username: Text | None = ...,
+        client_name: str | None = ...,
+        username: str | None = ...,
     ) -> Redis[str]: ...
     @overload
     def __new__(
         cls,
-        host: Text = ...,
+        host: str = ...,
         port: int = ...,
         db: int = ...,
-        password: Text | None = ...,
+        password: str | None = ...,
         socket_timeout: float | None = ...,
         socket_connect_timeout: float | None = ...,
         socket_keepalive: bool | None = ...,
         socket_keepalive_options: Mapping[str, int | str] | None = ...,
         connection_pool: ConnectionPool | None = ...,
-        unix_socket_path: Text | None = ...,
-        encoding: Text = ...,
-        encoding_errors: Text = ...,
-        charset: Text | None = ...,
-        errors: Text | None = ...,
+        unix_socket_path: str | None = ...,
+        encoding: str = ...,
+        encoding_errors: str = ...,
+        charset: str | None = ...,
+        errors: str | None = ...,
         decode_responses: Literal[False] = ...,
         retry_on_timeout: bool = ...,
         ssl: bool = ...,
-        ssl_keyfile: Text | None = ...,
-        ssl_certfile: Text | None = ...,
+        ssl_keyfile: str | None = ...,
+        ssl_certfile: str | None = ...,
         ssl_cert_reqs: str | int | None = ...,
-        ssl_ca_certs: Text | None = ...,
+        ssl_ca_certs: str | None = ...,
         ssl_check_hostname: bool = ...,
         max_connections: int | None = ...,
         single_connection_client: bool = ...,
         health_check_interval: float = ...,
-        client_name: Text | None = ...,
-        username: Text | None = ...,
+        client_name: str | None = ...,
+        username: str | None = ...,
     ) -> Redis[bytes]: ...
     @overload
     def __init__(
         self: Redis[str],
-        host: Text,
+        host: str,
         port: int,
         db: int,
-        password: Text | None,
+        password: str | None,
         socket_timeout: float | None,
         socket_connect_timeout: float | None,
         socket_keepalive: bool | None,
         socket_keepalive_options: Mapping[str, int | str] | None,
         connection_pool: ConnectionPool | None,
-        unix_socket_path: Text | None,
-        encoding: Text,
-        encoding_errors: Text,
-        charset: Text | None,
-        errors: Text | None,
+        unix_socket_path: str | None,
+        encoding: str,
+        encoding_errors: str,
+        charset: str | None,
+        errors: str | None,
         decode_responses: Literal[True],
         retry_on_timeout: bool = ...,
         ssl: bool = ...,
-        ssl_keyfile: Text | None = ...,
-        ssl_certfile: Text | None = ...,
+        ssl_keyfile: str | None = ...,
+        ssl_certfile: str | None = ...,
         ssl_cert_reqs: str | int | None = ...,
-        ssl_ca_certs: Text | None = ...,
+        ssl_ca_certs: str | None = ...,
         ssl_check_hostname: bool = ...,
         max_connections: int | None = ...,
         single_connection_client: bool = ...,
         health_check_interval: float = ...,
-        client_name: Text | None = ...,
-        username: Text | None = ...,
+        client_name: str | None = ...,
+        username: str | None = ...,
     ) -> None: ...
     @overload
     def __init__(
         self: Redis[str],
-        host: Text = ...,
+        host: str = ...,
         port: int = ...,
         db: int = ...,
-        password: Text | None = ...,
+        password: str | None = ...,
         socket_timeout: float | None = ...,
         socket_connect_timeout: float | None = ...,
         socket_keepalive: bool | None = ...,
         socket_keepalive_options: Mapping[str, int | str] | None = ...,
         connection_pool: ConnectionPool | None = ...,
-        unix_socket_path: Text | None = ...,
-        encoding: Text = ...,
-        encoding_errors: Text = ...,
-        charset: Text | None = ...,
-        errors: Text | None = ...,
+        unix_socket_path: str | None = ...,
+        encoding: str = ...,
+        encoding_errors: str = ...,
+        charset: str | None = ...,
+        errors: str | None = ...,
         *,
         decode_responses: Literal[True],
         retry_on_timeout: bool = ...,
         ssl: bool = ...,
-        ssl_keyfile: Text | None = ...,
-        ssl_certfile: Text | None = ...,
+        ssl_keyfile: str | None = ...,
+        ssl_certfile: str | None = ...,
         ssl_cert_reqs: str | int | None = ...,
-        ssl_ca_certs: Text | None = ...,
+        ssl_ca_certs: str | None = ...,
         ssl_check_hostname: bool = ...,
         max_connections: int | None = ...,
         single_connection_client: bool = ...,
         health_check_interval: float = ...,
-        client_name: Text | None = ...,
-        username: Text | None = ...,
+        client_name: str | None = ...,
+        username: str | None = ...,
     ) -> None: ...
     @overload
     def __init__(
         self: Redis[bytes],
-        host: Text = ...,
+        host: str = ...,
         port: int = ...,
         db: int = ...,
-        password: Text | None = ...,
+        password: str | None = ...,
         socket_timeout: float | None = ...,
         socket_connect_timeout: float | None = ...,
         socket_keepalive: bool | None = ...,
         socket_keepalive_options: Mapping[str, int | str] | None = ...,
         connection_pool: ConnectionPool | None = ...,
-        unix_socket_path: Text | None = ...,
-        encoding: Text = ...,
-        encoding_errors: Text = ...,
-        charset: Text | None = ...,
-        errors: Text | None = ...,
+        unix_socket_path: str | None = ...,
+        encoding: str = ...,
+        encoding_errors: str = ...,
+        charset: str | None = ...,
+        errors: str | None = ...,
         decode_responses: Literal[False] = ...,
         retry_on_timeout: bool = ...,
         ssl: bool = ...,
-        ssl_keyfile: Text | None = ...,
-        ssl_certfile: Text | None = ...,
+        ssl_keyfile: str | None = ...,
+        ssl_certfile: str | None = ...,
         ssl_cert_reqs: str | int | None = ...,
-        ssl_ca_certs: Text | None = ...,
+        ssl_ca_certs: str | None = ...,
         ssl_check_hostname: bool = ...,
         max_connections: int | None = ...,
         single_connection_client: bool = ...,
         health_check_interval: float = ...,
-        client_name: Text | None = ...,
-        username: Text | None = ...,
+        client_name: str | None = ...,
+        username: str | None = ...,
     ) -> None: ...
     def set_response_callback(self, command, callback): ...
     def pipeline(self, transaction: bool = ..., shard_hint: Any = ...) -> Pipeline[_StrType]: ...
@@ -376,35 +376,35 @@ class Redis(Generic[_StrType]):
     def pubsub(self, shard_hint: Any = ..., ignore_subscribe_messages: bool = ...) -> PubSub: ...
     def execute_command(self, *args, **options): ...
     def parse_response(self, connection, command_name, **options): ...
-    def acl_cat(self, category: Text | None = ...) -> list[str]: ...
-    def acl_deluser(self, username: Text) -> int: ...
-    def acl_genpass(self) -> Text: ...
-    def acl_getuser(self, username: Text) -> Any | None: ...
-    def acl_list(self) -> list[Text]: ...
+    def acl_cat(self, category: str | None = ...) -> list[str]: ...
+    def acl_deluser(self, username: str) -> int: ...
+    def acl_genpass(self) -> str: ...
+    def acl_getuser(self, username: str) -> Any | None: ...
+    def acl_list(self) -> list[str]: ...
     def acl_load(self) -> bool: ...
     def acl_setuser(
         self,
-        username: Text = ...,
+        username: str = ...,
         enabled: bool = ...,
         nopass: bool = ...,
-        passwords: Sequence[Text] | None = ...,
-        hashed_passwords: Sequence[Text] | None = ...,
-        categories: Sequence[Text] | None = ...,
-        commands: Sequence[Text] | None = ...,
-        keys: Sequence[Text] | None = ...,
+        passwords: Sequence[str] | None = ...,
+        hashed_passwords: Sequence[str] | None = ...,
+        categories: Sequence[str] | None = ...,
+        commands: Sequence[str] | None = ...,
+        keys: Sequence[str] | None = ...,
         reset: bool = ...,
         reset_keys: bool = ...,
         reset_passwords: bool = ...,
     ) -> bool: ...
-    def acl_users(self) -> list[Text]: ...
-    def acl_whoami(self) -> Text: ...
+    def acl_users(self) -> list[str]: ...
+    def acl_whoami(self) -> str: ...
     def bgrewriteaof(self): ...
     def bgsave(self): ...
     def client_id(self) -> int: ...
-    def client_kill(self, address: Text) -> bool: ...
+    def client_kill(self, address: str) -> bool: ...
     def client_list(self) -> list[dict[str, str]]: ...
     def client_getname(self) -> str | None: ...
-    def client_setname(self, name: Text) -> bool: ...
+    def client_setname(self, name: str) -> bool: ...
     def readwrite(self) -> bool: ...
     def readonly(self) -> bool: ...
     def config_get(self, pattern=...): ...
@@ -559,11 +559,11 @@ class Redis(Generic[_StrType]):
         groups: bool = ...,
     ) -> int: ...
     def scan(self, cursor: int = ..., match: _Key | None = ..., count: int | None = ...) -> tuple[int, list[_StrType]]: ...
-    def scan_iter(self, match: Text | None = ..., count: int | None = ...) -> Iterator[_StrType]: ...
-    def sscan(self, name: _Key, cursor: int = ..., match: Text = ..., count: int = ...) -> tuple[int, list[_StrType]]: ...
+    def scan_iter(self, match: str | None = ..., count: int | None = ...) -> Iterator[_StrType]: ...
+    def sscan(self, name: _Key, cursor: int = ..., match: str = ..., count: int = ...) -> tuple[int, list[_StrType]]: ...
     def sscan_iter(self, name, match=..., count=...): ...
     def hscan(
-        self, name: _Key, cursor: int = ..., match: Text = ..., count: int = ...
+        self, name: _Key, cursor: int = ..., match: str = ..., count: int = ...
     ) -> tuple[int, dict[_StrType, _StrType]]: ...
     def hscan_iter(self, name, match=..., count=...): ...
     def zscan(self, name, cursor=..., match=..., count=..., score_cast_func=...): ...
@@ -757,9 +757,9 @@ class Redis(Generic[_StrType]):
     def script_flush(self): ...
     def script_kill(self): ...
     def script_load(self, script): ...
-    def register_script(self, script: Text | _StrType) -> Script: ...
-    def pubsub_channels(self, pattern: _Key = ...) -> list[Text]: ...
-    def pubsub_numsub(self, *args: _Key) -> list[tuple[Text, int]]: ...
+    def register_script(self, script: str | _StrType) -> Script: ...
+    def pubsub_channels(self, pattern: _Key = ...) -> list[str]: ...
+    def pubsub_numsub(self, *args: _Key) -> list[tuple[str, int]]: ...
     def pubsub_numpat(self) -> int: ...
     def monitor(self) -> Monitor: ...
     def memory_stats(self) -> dict[str, Any]: ...
@@ -840,22 +840,22 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     def pipeline(self, transaction: bool = ..., shard_hint: Any = ...) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def lock(self, name, timeout=..., sleep=..., blocking_timeout=..., lock_class=..., thread_local=...): ...
     def pubsub(self, shard_hint: Any = ..., ignore_subscribe_messages: bool = ...) -> PubSub: ...
-    def acl_cat(self, category: Text | None = ...) -> Pipeline[_StrType]: ...  # type: ignore[override]
-    def acl_deluser(self, username: Text) -> Pipeline[_StrType]: ...  # type: ignore[override]
+    def acl_cat(self, category: str | None = ...) -> Pipeline[_StrType]: ...  # type: ignore[override]
+    def acl_deluser(self, username: str) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def acl_genpass(self) -> Pipeline[_StrType]: ...  # type: ignore[override]
-    def acl_getuser(self, username: Text) -> Pipeline[_StrType]: ...  # type: ignore[override]
+    def acl_getuser(self, username: str) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def acl_list(self) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def acl_load(self) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def acl_setuser(  # type: ignore[override]
         self,
-        username: Text = ...,
+        username: str = ...,
         enabled: bool = ...,
         nopass: bool = ...,
-        passwords: Sequence[Text] | None = ...,
-        hashed_passwords: Sequence[Text] | None = ...,
-        categories: Sequence[Text] | None = ...,
-        commands: Sequence[Text] | None = ...,
-        keys: Sequence[Text] | None = ...,
+        passwords: Sequence[str] | None = ...,
+        hashed_passwords: Sequence[str] | None = ...,
+        categories: Sequence[str] | None = ...,
+        commands: Sequence[str] | None = ...,
+        keys: Sequence[str] | None = ...,
         reset: bool = ...,
         reset_keys: bool = ...,
         reset_passwords: bool = ...,
@@ -865,10 +865,10 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     def bgrewriteaof(self) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def bgsave(self) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def client_id(self) -> Pipeline[_StrType]: ...  # type: ignore[override]
-    def client_kill(self, address: Text) -> Pipeline[_StrType]: ...  # type: ignore[override]
+    def client_kill(self, address: str) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def client_list(self) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def client_getname(self) -> Pipeline[_StrType]: ...  # type: ignore[override]
-    def client_setname(self, name: Text) -> Pipeline[_StrType]: ...  # type: ignore[override]
+    def client_setname(self, name: str) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def readwrite(self) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def readonly(self) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def config_get(self, pattern=...) -> Pipeline[_StrType]: ...  # type: ignore[override]
@@ -986,10 +986,10 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
         groups: bool = ...,
     ) -> Pipeline[_StrType]: ...
     def scan(self, cursor: int = ..., match: _Key | None = ..., count: int | None = ...) -> Pipeline[_StrType]: ...  # type: ignore[override]
-    def scan_iter(self, match: Text | None = ..., count: int | None = ...) -> Iterator[Any]: ...
-    def sscan(self, name: _Key, cursor: int = ..., match: Text = ..., count: int = ...) -> Pipeline[_StrType]: ...  # type: ignore[override]
+    def scan_iter(self, match: str | None = ..., count: int | None = ...) -> Iterator[Any]: ...
+    def sscan(self, name: _Key, cursor: int = ..., match: str = ..., count: int = ...) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def sscan_iter(self, name, match=..., count=...) -> Iterator[Any]: ...
-    def hscan(self, name: _Key, cursor: int = ..., match: Text = ..., count: int = ...) -> Pipeline[_StrType]: ...  # type: ignore[override]
+    def hscan(self, name: _Key, cursor: int = ..., match: str = ..., count: int = ...) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def hscan_iter(self, name, match=..., count=...) -> Iterator[Any]: ...
     def zscan(self, name, cursor=..., match=..., count=..., score_cast_func=...) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def zscan_iter(self, name, match=..., count=..., score_cast_func=...) -> Iterator[Any]: ...
@@ -1118,7 +1118,7 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     def script_flush(self) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def script_kill(self) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def script_load(self, script) -> Pipeline[_StrType]: ...  # type: ignore[override]
-    def register_script(self, script: Text | _StrType) -> Script: ...
+    def register_script(self, script: str | _StrType) -> Script: ...
     def pubsub_channels(self, pattern: _Key = ...) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def pubsub_numsub(self, *args: _Key) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def pubsub_numpat(self) -> Pipeline[_StrType]: ...  # type: ignore[override]
@@ -1137,5 +1137,5 @@ class Monitor(object):
     def __init__(self, connection_pool) -> None: ...
     def __enter__(self) -> Monitor: ...
     def __exit__(self, *args: Any) -> None: ...
-    def next_command(self) -> dict[Text, Any]: ...
-    def listen(self) -> Iterable[dict[Text, Any]]: ...
+    def next_command(self) -> dict[str, Any]: ...
+    def listen(self) -> Iterable[dict[str, Any]]: ...
