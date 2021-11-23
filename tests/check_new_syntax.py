@@ -30,6 +30,28 @@ def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
     def is_dotdotdot(node: ast.AST) -> bool:
         return isinstance(node, ast.Constant) and node.s is Ellipsis
 
+    def raise_ContextManager_error(node: ast.Subscript | ast.Name, is_subscript: bool = True) -> None:
+        first_part = f"{path}:{node.lineno}: Use `contextlib.AbstractContextManager` instead of `typing.ContextManager`"
+
+        if is_subscript:
+            new_syntax = f"contextlib.AbstractContextManager[{ast.unparse(node.slice)}]"
+            error_msg = f"{first_part}, e.g. `{new_syntax}`"
+        else:
+            error_msg = first_part
+
+        errors.append(error_msg)
+
+    def raise_AsyncContextManager_error(node: ast.Subscript | ast.Name, is_subscript: bool = True) -> None:
+        first_part = f"{path}:{node.lineno}: Use `contextlib.AbstractAsyncContextManager` instead of `typing.AsyncContextManager`"
+
+        if is_subscript:
+            new_syntax = f"contextlib.AbstractAsyncContextManager[{ast.unparse(node.slice)}]"
+            error_msg = f"{first_part}, e.g. `{new_syntax}`"
+        else:
+            error_msg = first_part
+
+        errors.append(error_msg)
+
     class OldSyntaxFinder(ast.NodeVisitor):
         def __init__(self, module_imports_info_dict: ModuleImportsDict) -> None:
             self.module_imports_info_dict = module_imports_info_dict
@@ -68,21 +90,12 @@ def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
                     errors.append(f"{path}:{node.lineno}: Use built-in generics, e.g. `{new_syntax}`")
                 if not python_2_support_required:
                     if self.module_imports_info_dict["context_manager_from_typing"] and node.value.id == "ContextManager":
-                        new_syntax = f"contextlib.AbstractContextManager[{ast.unparse(node.slice)}]"
-                        errors.append(
-                            f"{path}:{node.lineno}: Use `contextlib.AbstractContextManager` instead of `typing.ContextManager`, "
-                            f"e.g. `{new_syntax}`"
-                        )
+                        raise_ContextManager_error(node)
                     if (
                         self.module_imports_info_dict["async_context_manager_from_typing"]
                         and node.value.id == "AsyncContextManager"
                     ):
-                        new_syntax = f"contextlib.AbstractAsyncContextManager[{ast.unparse(node.slice)}]"
-                        errors.append(
-                            f"{path}:{node.lineno}: "
-                            f"Use `contextlib.AbstractAsyncContextManager` instead of `typing.AsyncContextManager`, "
-                            f"e.g. `{new_syntax}`"
-                        )
+                        raise_AsyncContextManager_error(node)
 
             self.generic_visit(node)
 
@@ -97,7 +110,7 @@ def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
             )
 
         def old_syntax_finder(self) -> OldSyntaxFinder:
-            """Convenience method to create an `OldSyntaxFinder` method with the correct state"""
+            """Convenience method to create an `OldSyntaxFinder` instance with the correct state"""
             return OldSyntaxFinder(self.module_imports_info_dict)
 
         def visit_ImportFrom(self, node: ast.ImportFrom) -> None:
@@ -134,6 +147,27 @@ def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
             if node.returns is not None:
                 self.old_syntax_finder().visit(node.returns)
             self.generic_visit(node)
+
+        if not python_2_support_required:
+
+            def visit_ClassDef(self, node: ast.ClassDef) -> None:
+                context_manager_from_typing = self.module_imports_info_dict["context_manager_from_typing"]
+                async_context_manager_from_typing = self.module_imports_info_dict["async_context_manager_from_typing"]
+
+                for base in node.bases:
+                    match base:
+                        case ast.Subscript(value=ast.Name(id="ContextManager")) if context_manager_from_typing:
+                            raise_ContextManager_error(base)
+                        case ast.Subscript(value=ast.Name(id="AsyncContextManager")) if async_context_manager_from_typing:
+                            raise_AsyncContextManager_error(base)
+                        case ast.Name(id="ContextManager") if context_manager_from_typing:
+                            raise_ContextManager_error(base, is_subscript=False)
+                        case ast.Name(id="AsyncContextManager") if async_context_manager_from_typing:
+                            raise_AsyncContextManager_error(base, is_subscript=False)
+                        case _:
+                            pass
+
+                self.generic_visit(node)
 
     AnnotationFinder().visit(tree)
     return errors
