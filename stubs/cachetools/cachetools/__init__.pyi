@@ -1,7 +1,7 @@
 from _typeshed import IdentityFunction
 from collections.abc import Iterator, Sequence
 from contextlib import AbstractContextManager
-from typing import Any, Callable, ContextManager, Generic, MutableMapping, TypeVar, overload
+from typing import Any, Callable, Generic, MutableMapping, TypeVar, overload
 
 _KT = TypeVar("_KT")
 _VT = TypeVar("_VT")
@@ -58,7 +58,7 @@ class TTLCache(Cache[_KT, _VT]):
     def expire(self, time: float | None = ...) -> None: ...
 
 def cached(
-    cache: MutableMapping[_KT, Any] | None, key: Callable[..., _KT] = ..., lock: ContextManager[Any] | None = ...
+    cache: MutableMapping[_KT, Any] | None, key: Callable[..., _KT] = ..., lock: AbstractContextManager[Any] | None = ...
 ) -> IdentityFunction: ...
 def cachedmethod(
     cache: Callable[[Any], MutableMapping[_KT, Any] | None],
