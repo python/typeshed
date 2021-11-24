@@ -3,7 +3,8 @@ repos:
     rev: 21.11b1  # must match requirements-tests-py3.txt
     hooks:
       - id: black
-        language_version: python3.9
+        language_version: python3.10
+    args:[--target-version py310]
   - repo: https://github.com/pycqa/isort
     rev: 5.10.1  # must match requirements-tests-py3.txt
     hooks:
