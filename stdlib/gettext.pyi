@@ -31,7 +31,7 @@ def find(domain: str, localedir: StrPath | None = ..., languages: Iterable[str] 
 
 _T = TypeVar("_T")
 
-if sys.version < (3, 11):
+if sys.version_info < (3, 11):
     @overload
     def translation(
         domain: str,
