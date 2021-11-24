@@ -1,6 +1,7 @@
 import asynchat
 import asyncore
 import socket
+import sys
 from collections import defaultdict
 from typing import Any, Tuple, Type
 
@@ -81,7 +82,8 @@ class PureProxy(SMTPServer):
         self, peer: _Address, mailfrom: str, rcpttos: list[str], data: bytes | str
     ) -> str | None: ...
 
-class MailmanProxy(PureProxy):
-    def process_message(  # type: ignore
-        self, peer: _Address, mailfrom: str, rcpttos: list[str], data: bytes | str
-    ) -> str | None: ...
+if sys.version_info < (3, 11):
+    class MailmanProxy(PureProxy):
+        def process_message(  # type: ignore
+            self, peer: _Address, mailfrom: str, rcpttos: list[str], data: bytes | str
+        ) -> str | None: ...
