@@ -247,11 +247,12 @@ class BoundArguments:
 def getclasstree(classes: list[type], unique: bool = ...) -> list[Any]: ...
 def walktree(classes: list[type], children: dict[Type[Any], list[type]], parent: Type[Any] | None) -> list[Any]: ...
 
-class ArgSpec(NamedTuple):
-    args: list[str]
-    varargs: str | None
-    keywords: str | None
-    defaults: Tuple[Any, ...]
+if sys.version_info < (3, 11):
+    class ArgSpec(NamedTuple):
+        args: list[str]
+        varargs: str | None
+        keywords: str | None
+        defaults: Tuple[Any, ...]
 
 class Arguments(NamedTuple):
     args: list[str]
