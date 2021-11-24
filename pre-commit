@@ -13,7 +13,7 @@ CHANGED_FILES=$(git diff --cached --name-only --diff-filter=AM | grep .pyi || tr
 
 if test -n "${CHANGED_FILES}" -a -d "${BIN_DIR}"; then
     ${BIN_DIR}/flake8 ${CHANGED_FILES}
-    ${BIN_DIR}/black --target-version py310 --check ${CHANGED_FILES}
+    ${BIN_DIR}/black --check ${CHANGED_FILES}
     ${BIN_DIR}/isort --check-only ${CHANGED_FILES}
 
     # Replace the last two lines with the following lines
@@ -22,7 +22,7 @@ if test -n "${CHANGED_FILES}" -a -d "${BIN_DIR}"; then
     # (git add -p) will not work and will commit the whole
     # file!
     #
-    # ${BIN_DIR}/black --target-version py310 ${CHANGED_FILES} || true
+    # ${BIN_DIR}/black ${CHANGED_FILES} || true
     # ${BIN_DIR}/isort -y ${CHANGED_FILES} || true
     # git add ${CHANGED_FILES}
 fi
