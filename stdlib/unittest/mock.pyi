@@ -71,7 +71,7 @@ class _MockIter:
 class Base:
     def __init__(self, *args: Any, **kwargs: Any) -> None: ...
 
-class NonCallableMock(Base, Any):  # type: ignore
+class NonCallableMock(Base, Any):  
     def __new__(__cls, *args: Any, **kw: Any) -> NonCallableMock: ...
     def __init__(
         self,
@@ -210,7 +210,7 @@ class _patcher:
         # Ideally we'd be able to add an overload for it so that the return type is _patch[MagicMock],
         # but that's impossible with the current type system.
         @overload
-        def __call__(  # type: ignore
+        def __call__(  
             self,
             target: Any,
             new: _T,
@@ -222,7 +222,7 @@ class _patcher:
             **kwargs: Any,
         ) -> _patch[_T]: ...
         @overload
-        def __call__(  # type: ignore
+        def __call__(  
             self,
             target: Any,
             *,
@@ -235,7 +235,7 @@ class _patcher:
         ) -> _patch[MagicMock | AsyncMock]: ...
     else:
         @overload
-        def __call__(  # type: ignore
+        def __call__(  
             self,
             target: Any,
             new: _T,
@@ -247,7 +247,7 @@ class _patcher:
             **kwargs: Any,
         ) -> _patch[_T]: ...
         @overload
-        def __call__(  # type: ignore
+        def __call__(  
             self,
             target: Any,
             *,
@@ -260,7 +260,7 @@ class _patcher:
         ) -> _patch[MagicMock]: ...
     if sys.version_info >= (3, 8):
         @overload
-        def object(  # type: ignore
+        def object(  
             self,
             target: Any,
             attribute: str,
@@ -273,7 +273,7 @@ class _patcher:
             **kwargs: Any,
         ) -> _patch[_T]: ...
         @overload
-        def object(  # type: ignore
+        def object(  
             self,
             target: Any,
             attribute: str,
@@ -287,7 +287,7 @@ class _patcher:
         ) -> _patch[MagicMock | AsyncMock]: ...
     else:
         @overload
-        def object(  # type: ignore
+        def object(  
             self,
             target: Any,
             attribute: str,
@@ -300,7 +300,7 @@ class _patcher:
             **kwargs: Any,
         ) -> _patch[_T]: ...
         @overload
-        def object(  # type: ignore
+        def object(  
             self,
             target: Any,
             attribute: str,

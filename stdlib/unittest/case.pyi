@@ -81,7 +81,7 @@ class TestCase:
     def assertLess(self, a: Any, b: Any, msg: Any = ...) -> None: ...
     def assertLessEqual(self, a: Any, b: Any, msg: Any = ...) -> None: ...
     @overload
-    def assertRaises(  # type: ignore
+    def assertRaises(  
         self,
         expected_exception: Type[BaseException] | Tuple[Type[BaseException], ...],
         callable: Callable[..., Any],
@@ -91,7 +91,7 @@ class TestCase:
     @overload
     def assertRaises(self, expected_exception: Type[_E] | Tuple[Type[_E], ...], msg: Any = ...) -> _AssertRaisesContext[_E]: ...
     @overload
-    def assertRaisesRegex(  # type: ignore
+    def assertRaisesRegex(  
         self,
         expected_exception: Type[BaseException] | Tuple[Type[BaseException], ...],
         expected_regex: str | bytes | Pattern[str] | Pattern[bytes],
@@ -107,13 +107,13 @@ class TestCase:
         msg: Any = ...,
     ) -> _AssertRaisesContext[_E]: ...
     @overload
-    def assertWarns(  # type: ignore
+    def assertWarns(  
         self, expected_warning: Type[Warning] | Tuple[Type[Warning], ...], callable: Callable[..., Any], *args: Any, **kwargs: Any
     ) -> None: ...
     @overload
     def assertWarns(self, expected_warning: Type[Warning] | Tuple[Type[Warning], ...], msg: Any = ...) -> _AssertWarnsContext: ...
     @overload
-    def assertWarnsRegex(  # type: ignore
+    def assertWarnsRegex(  
         self,
         expected_warning: Type[Warning] | Tuple[Type[Warning], ...],
         expected_regex: str | bytes | Pattern[str] | Pattern[bytes],
@@ -195,7 +195,7 @@ class TestCase:
         def assert_(self, expr: bool, msg: Any = ...) -> None: ...
         def failIf(self, expr: bool, msg: Any = ...) -> None: ...
         @overload
-        def failUnlessRaises(  # type: ignore
+        def failUnlessRaises(  
             self,
             exception: Type[BaseException] | Tuple[Type[BaseException], ...],
             callable: Callable[..., Any] = ...,
@@ -215,7 +215,7 @@ class TestCase:
         def assertRegexpMatches(self, text: AnyStr, regex: AnyStr | Pattern[AnyStr], msg: Any = ...) -> None: ...
         def assertNotRegexpMatches(self, text: AnyStr, regex: AnyStr | Pattern[AnyStr], msg: Any = ...) -> None: ...
         @overload
-        def assertRaisesRegexp(  # type: ignore
+        def assertRaisesRegexp(  
             self,
             exception: Type[BaseException] | Tuple[Type[BaseException], ...],
             expected_regex: str | bytes | Pattern[str] | Pattern[bytes],

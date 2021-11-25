@@ -10,15 +10,15 @@ concat: Any
 
 _CallableT = TypeVar("_CallableT", bound=Callable[..., Any])
 
-class _ContextFunction(Protocol[_CallableT]):  # type: ignore
+class _ContextFunction(Protocol[_CallableT]):  
     contextfunction: Literal[True]
     __call__: _CallableT
 
-class _EvalContextFunction(Protocol[_CallableT]):  # type: ignore
+class _EvalContextFunction(Protocol[_CallableT]):  
     evalcontextfunction: Literal[True]
     __call__: _CallableT
 
-class _EnvironmentFunction(Protocol[_CallableT]):  # type: ignore
+class _EnvironmentFunction(Protocol[_CallableT]):  
     environmentfunction: Literal[True]
     __call__: _CallableT
 
