@@ -72,7 +72,7 @@ class _MockIter:
 class Base:
     def __init__(self, *args: Any, **kwargs: Any) -> None: ...
 
-class NonCallableMock(Base, Any):  
+class NonCallableMock(Base, Any):
     def __new__(__cls, *args: Any, **kw: Any) -> NonCallableMock: ...
     def __init__(
         self,
@@ -207,7 +207,7 @@ class _patcher:
     TEST_PREFIX: str
     dict: Type[_patch_dict]
     @overload
-    def __call__(  
+    def __call__(
         self,
         target: Any,
         *,
@@ -234,7 +234,7 @@ class _patcher:
         **kwargs: Any,
     ) -> _patch[_T]: ...
     @overload
-    def object(  
+    def object(
         self,
         target: Any,
         attribute: str,
