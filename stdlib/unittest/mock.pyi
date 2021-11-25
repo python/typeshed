@@ -235,7 +235,7 @@ class _patcher:
         ) -> _patch[MagicMock | AsyncMock]: ...
     else:
         @overload
-        def __call__(
+        def __call__(  # type: ignore[misc]
             self,
             target: Any,
             new: _T,
@@ -287,7 +287,7 @@ class _patcher:
         ) -> _patch[MagicMock | AsyncMock]: ...
     else:
         @overload
-        def object(
+        def object(  # type: ignore[misc]
             self,
             target: Any,
             attribute: str,
