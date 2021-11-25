@@ -122,7 +122,7 @@ class RawConfigParser(_parser):
         fallback: _T = ...,
     ) -> _T: ...
     # This is incompatible with MutableMapping so we ignore the type
-    @overload
+    @overload  # type: ignore[override]
     def get(self, section: str, option: str, *, raw: bool = ..., vars: _section | None = ...) -> str: ...
     @overload
     def get(self, section: str, option: str, *, raw: bool = ..., vars: _section | None = ..., fallback: _T) -> str | _T: ...
@@ -153,7 +153,7 @@ class SectionProxy(MutableMapping[str, str]):
     def parser(self) -> RawConfigParser: ...
     @property
     def name(self) -> str: ...
-    def get(
+    def get(  # type: ignore[override]
         self,
         option: str,
         fallback: str | None = ...,

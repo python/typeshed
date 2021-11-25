@@ -207,7 +207,7 @@ class _patcher:
     TEST_PREFIX: str
     dict: Type[_patch_dict]
     @overload
-    def __call__(
+    def __call__(  # type: ignore[misc]
         self,
         target: Any,
         *,
@@ -234,7 +234,7 @@ class _patcher:
         **kwargs: Any,
     ) -> _patch[_T]: ...
     @overload
-    def object(
+    def object(  # type: ignore[misc]
         self,
         target: Any,
         attribute: str,

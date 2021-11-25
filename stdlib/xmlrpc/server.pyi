@@ -120,7 +120,7 @@ class CGIXMLRPCRequestHandler(SimpleXMLRPCDispatcher):
     def handle_request(self, request_text: str | None = ...) -> None: ...
 
 class ServerHTMLDoc(pydoc.HTMLDoc):  # undocumented
-    def docroutine(
+    def docroutine(  # type: ignore[override]
         self,
         object: object,
         name: str,

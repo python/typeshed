@@ -20,7 +20,7 @@ class Request(RequestBase, JSONMixin):
     # case in its supertype.
     # We would require something like https://github.com/python/typing/issues/241
     @property
-    def max_content_length(self) -> int | None: ...
+    def max_content_length(self) -> int | None: ...  # type: ignore[override]
     @property
     def endpoint(self) -> str | None: ...
     @property

@@ -76,8 +76,8 @@ class _CDataMeta(type):
     # By default mypy complains about the following two methods, because strictly speaking cls
     # might not be a Type[_CT]. However this can never actually happen, because the only class that
     # uses _CDataMeta as its metaclass is _CData. So it's safe to ignore the errors here.
-    def __mul__(cls: Type[_CT], other: int) -> Type[Array[_CT]]: ...
-    def __rmul__(cls: Type[_CT], other: int) -> Type[Array[_CT]]: ...
+    def __mul__(cls: Type[_CT], other: int) -> Type[Array[_CT]]: ...  # type: ignore[misc]
+    def __rmul__(cls: Type[_CT], other: int) -> Type[Array[_CT]]: ...  # type: ignore[misc]
 
 class _CData(metaclass=_CDataMeta):
     _b_base: int
