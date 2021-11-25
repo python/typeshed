@@ -18,8 +18,7 @@ class SentinelManagedConnection(Connection):
     def connect(self) -> None: ...
     def read_response(self): ...
 
-class SentinelManagedSSLConnection(SentinelManagedConnection, SSLConnection):
-    pass
+class SentinelManagedSSLConnection(SentinelManagedConnection, SSLConnection): ...
 
 class SentinelConnectionPool(ConnectionPool):
     is_master: bool
