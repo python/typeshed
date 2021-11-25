@@ -1,4 +1,5 @@
-from typing import Any, ContextManager, TypeVar, overload
+from contextlib import AbstractContextManager
+from typing import Any, TypeVar, overload
 from typing_extensions import Literal
 
 from .client import Pipeline, Redis, _StrType
@@ -11,7 +12,7 @@ HIREDIS_AVAILABLE: bool
 def from_url(url: str, *, db: int = ..., decode_responses: Literal[True], **kwargs: Any) -> Redis[str]: ...
 @overload
 def from_url(url: str, *, db: int = ..., decode_responses: Literal[False] = ..., **kwargs: Any) -> Redis[bytes]: ...
-def pipeline(redis_obj: Redis[_StrType]) -> ContextManager[Pipeline[_StrType]]: ...
+def pipeline(redis_obj: Redis[_StrType]) -> AbstractContextManager[Pipeline[_StrType]]: ...
 @overload
 def str_if_bytes(value: bytes) -> str: ...  # type: ignore
 @overload
