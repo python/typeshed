@@ -2,7 +2,7 @@ import builtins
 import threading
 from _typeshed import SupportsItems
 from datetime import datetime, timedelta
-from typing import Any, Callable, Generic, Iterable, Iterator, Mapping, Sequence, Type, TypeVar, Union, overload, Pattern
+from typing import Any, Callable, Generic, Iterable, Iterator, Mapping, Sequence, Type, TypeVar, Union, overload, Pattern, Dict
 from typing_extensions import Literal
 
 from .commands import CoreCommands, RedisModuleCommands, SentinelCommands
@@ -21,7 +21,7 @@ _StrType = TypeVar("_StrType", bound=Union[str, bytes])
 _VT = TypeVar("_VT")
 _T = TypeVar("_T")
 
-class CaseInsensitiveDict(dict[_StrType, _VT]):
+class CaseInsensitiveDict(Dict[_StrType, _VT]):
     def __init__(self, data: SupportsItems[_StrType, _VT]) -> None: ...
     def update(self, data: SupportsItems[_StrType, _VT]) -> None: ...  # type: ignore[override]
     @overload
