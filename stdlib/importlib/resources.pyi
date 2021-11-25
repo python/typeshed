@@ -1,5 +1,5 @@
 import sys
-from typing import Any, ContextManager
+from typing import Any
 
 # This is a >=3.7 module, so we conditionally include its source.
 if sys.version_info >= (3, 7):
@@ -22,4 +22,4 @@ if sys.version_info >= (3, 7):
 if sys.version_info >= (3, 9):
     from importlib.abc import Traversable
     def files(package: Package) -> Traversable: ...
-    def as_file(path: Traversable) -> ContextManager[Path]: ...
+    def as_file(path: Traversable) -> AbstractContextManager[Path]: ...
