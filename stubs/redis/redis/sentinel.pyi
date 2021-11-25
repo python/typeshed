@@ -1,8 +1,10 @@
 from typing import Any, Type, TypeVar, overload
+from typing_extensions import Literal
 
 from redis.client import Redis
-from redis.connection import Connection, ConnectionPool
+from redis.connection import Connection, ConnectionPool, SSLConnection
 from redis.exceptions import ConnectionError
+from redis.commands.sentinel import SentinelCommands
 
 _Redis = TypeVar("_Redis", bound=Redis[Any])
 
@@ -16,6 +18,9 @@ class SentinelManagedConnection(Connection):
     def connect(self) -> None: ...
     def read_response(self): ...
 
+class SentinelManagedSSLConnection(SentinelManagedConnection, SSLConnection):
+    pass
+
 class SentinelConnectionPool(ConnectionPool):
     is_master: bool
     check_connection: bool
@@ -28,9 +33,7 @@ class SentinelConnectionPool(ConnectionPool):
     def get_master_address(self): ...
     def rotate_slaves(self): ...
 
-# TODO: this should subclass `redis.commands.SentinelCommands` in the future
-# right now `redis.commands` is missing.
-class Sentinel(object):
+class Sentinel(SentinelCommands):
     sentinel_kwargs: Any
     sentinels: Any
     min_other_sentinels: int
@@ -50,3 +53,4 @@ class Sentinel(object):
     def slave_for(self, service_name: str, connection_pool_class=..., **kwargs) -> Redis[Any]: ...
     @overload
     def slave_for(self, service_name: str, redis_class: Type[_Redis] = ..., connection_pool_class=..., **kwargs) -> _Redis: ...
+    def execute_command(self, *args, **kwargs) -> Literal[True]: ...
