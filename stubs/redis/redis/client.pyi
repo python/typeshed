@@ -2,7 +2,7 @@ import builtins
 import threading
 from _typeshed import SupportsItems
 from datetime import datetime, timedelta
-from typing import Any, Callable, Generic, Iterable, Iterator, Mapping, Sequence, Type, TypeVar, Union, overload, Pattern, Dict
+from typing import Any, Callable, Dict, Generic, Iterable, Iterator, Mapping, Pattern, Sequence, Type, TypeVar, Union, overload
 from typing_extensions import Literal
 
 from .commands import CoreCommands, RedisModuleCommands, SentinelCommands
