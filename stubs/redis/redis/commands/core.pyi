@@ -3,8 +3,8 @@ from datetime import timedelta
 from typing import Any, Generic, TypeVar, Union, overload
 from typing_extensions import Literal
 
-_Value = Union[bytes, float, int, str]
-_Key = Union[str, bytes]
+from .client import _Key, _Value
+
 _ScoreCastFuncReturn = TypeVar("_ScoreCastFuncReturn")
 _StrType = TypeVar("_StrType", bound=Union[str, bytes])
 
