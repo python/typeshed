@@ -1,9 +1,8 @@
 import builtins
-import re
 import threading
 from _typeshed import SupportsItems
 from datetime import datetime, timedelta
-from typing import Any, Callable, Generic, Iterable, Iterator, Mapping, Sequence, Type, TypeVar, Union, overload
+from typing import Any, Callable, Generic, Iterable, Iterator, Mapping, Sequence, Type, TypeVar, Union, overload, Pattern
 from typing_extensions import Literal
 
 from .commands import CoreCommands, RedisModuleCommands, SentinelCommands
@@ -830,8 +829,8 @@ class Script:
     def __call__(self, keys=..., args=..., client=...): ...
 
 class Monitor(object):
-    command_re: re.Pattern[str]
-    monitor_re: re.Pattern[str]
+    command_re: Pattern[str]
+    monitor_re: Pattern[str]
     def __init__(self, connection_pool) -> None: ...
     def __enter__(self) -> Monitor: ...
     def __exit__(self, *args: Any) -> None: ...
