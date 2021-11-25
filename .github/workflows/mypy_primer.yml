@@ -10,6 +10,7 @@ on:
 
 jobs:
   mypy_primer:
+    if: "!contains(github.event.commits[0].message, '[pre-commit.ci]')"
     name: Run
     runs-on: ubuntu-latest
     permissions:
