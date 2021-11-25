@@ -2,9 +2,9 @@ from typing import Any, Type, TypeVar, overload
 from typing_extensions import Literal
 
 from redis.client import Redis
+from redis.commands.sentinel import SentinelCommands
 from redis.connection import Connection, ConnectionPool, SSLConnection
 from redis.exceptions import ConnectionError
-from redis.commands.sentinel import SentinelCommands
 
 _Redis = TypeVar("_Redis", bound=Redis[Any])
 

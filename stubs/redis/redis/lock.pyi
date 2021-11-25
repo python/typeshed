@@ -1,5 +1,5 @@
 from types import TracebackType
-from typing import Any, Type, ClassVar
+from typing import Any, ClassVar, Type
 from typing_extensions import Protocol
 
 from redis.client import Redis
@@ -11,9 +11,9 @@ class Lock:
     LUA_EXTEND_SCRIPT: ClassVar[str]
     LUA_REACQUIRE_SCRIPT: ClassVar[str]
     LUA_RELEASE_SCRIPT: ClassVar[str]
-    lua_extend: ClassVar[Any | None]  
-    lua_reacquire: ClassVar[Any | None]  
-    lua_release: ClassVar[Any | None]  
+    lua_extend: ClassVar[Any | None]
+    lua_reacquire: ClassVar[Any | None]
+    lua_release: ClassVar[Any | None]
     local: _Local
     def __init__(
         self,

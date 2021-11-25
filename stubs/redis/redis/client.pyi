@@ -1,10 +1,10 @@
 import builtins
 import re
-from datetime import datetime, timedelta
 import threading
+from _typeshed import SupportsItems
+from datetime import datetime, timedelta
 from typing import Any, Callable, Generic, Iterable, Iterator, Mapping, Sequence, Type, TypeVar, Union, overload
 from typing_extensions import Literal
-from _typeshed import SupportsItems
 
 from .commands import CoreCommands, RedisModuleCommands, SentinelCommands
 from .connection import ConnectionPool
