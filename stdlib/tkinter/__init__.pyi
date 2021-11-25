@@ -688,7 +688,8 @@ class Tk(Misc, Wm):
     quit: Any
     record: Any
     setvar: Any
-    split: Any
+    if sys.version_info < (3, 11):
+        split: Any
     splitlist: Any
     unsetvar: Any
     wantobjects: Any
