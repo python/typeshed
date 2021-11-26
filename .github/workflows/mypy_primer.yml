@@ -11,6 +11,7 @@ on:
 jobs:
   mypy_primer:
     name: Run
+    if: github.actor == 'pre-commit-ci[bot]'
     runs-on: ubuntu-latest
     permissions:
       contents: read
