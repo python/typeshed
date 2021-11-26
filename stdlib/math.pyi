@@ -103,7 +103,7 @@ def pow(__x: _SupportsFloatOrIndex, __y: _SupportsFloatOrIndex) -> float: ...
 
 if sys.version_info >= (3, 8):
     @overload
-    def prod(__iterable: Iterable[SupportsIndex], *, start: SupportsIndex = ...) -> int: ...  # type: ignore
+    def prod(__iterable: Iterable[SupportsIndex], *, start: SupportsIndex = ...) -> int: ...  # type: ignore[misc]
     @overload
     def prod(__iterable: Iterable[_SupportsFloatOrIndex], *, start: _SupportsFloatOrIndex = ...) -> float: ...
 
