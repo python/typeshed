@@ -14,7 +14,7 @@ jobs:
   akuli-temp:
     runs-on: ubuntu-latest
     env:
-      FOO: ${{ github.event.pull_request.user.login }}
+      FOO: ${{ github.actor }}
     steps:
       - run: |
           echo "name: '$FOO'"
