@@ -51,6 +51,7 @@ codecs.CodecInfo.streamreader
 codecs.CodecInfo.streamwriter
 # Coroutine and Generator properties are added programmatically
 collections.ChainMap.get  # Adding None to the underlying Mapping Union messed up mypy
+collections.ChainMap.fromkeys  # Runtime has *args which can really only be one argument
 # Coroutine and Generator properties are added programmatically
 collections.abc.Coroutine.cr_await
 collections.abc.Coroutine.cr_code
