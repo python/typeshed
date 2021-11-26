@@ -11,6 +11,14 @@ env:
   PIP_DISABLE_PIP_VERSION_CHECK: 1
 
 jobs:
+  akuli-temp:
+    runs-on: ubuntu-latest
+    env:
+      - FOO: ${{ github.event.pusher.name }}
+    steps:
+      - run: |
+          echo "name: '$FOO'"
+
   file-consistency:
     name: Check file consistency
     runs-on: ubuntu-latest
