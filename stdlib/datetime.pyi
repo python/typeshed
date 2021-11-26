@@ -276,10 +276,10 @@ class datetime(date):
     def utcoffset(self) -> timedelta | None: ...
     def tzname(self) -> str | None: ...
     def dst(self) -> timedelta | None: ...
-    def __le__(self, __other: datetime) -> bool: ...  # type: ignore
-    def __lt__(self, __other: datetime) -> bool: ...  # type: ignore
-    def __ge__(self, __other: datetime) -> bool: ...  # type: ignore
-    def __gt__(self, __other: datetime) -> bool: ...  # type: ignore
+    def __le__(self, __other: datetime) -> bool: ...  # type: ignore[override]
+    def __lt__(self, __other: datetime) -> bool: ...  # type: ignore[override]
+    def __ge__(self, __other: datetime) -> bool: ...  # type: ignore[override]
+    def __gt__(self, __other: datetime) -> bool: ...  # type: ignore[override]
     if sys.version_info >= (3, 8):
         @overload  # type: ignore[override]
         def __sub__(self: _D, __other: timedelta) -> _D: ...
