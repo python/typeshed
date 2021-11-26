@@ -398,6 +398,7 @@ if sys.version_info >= (3, 9):
         __parameters__: Tuple[Any, ...]
         def __init__(self, origin: type, args: Any) -> None: ...
         def __getattr__(self, name: str) -> Any: ...  # incomplete
+        def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
 
 if sys.version_info >= (3, 10):
     @final
