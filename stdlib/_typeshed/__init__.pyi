@@ -8,7 +8,7 @@ import mmap
 import sys
 from os import PathLike
 from typing import AbstractSet, Any, Awaitable, Container, Iterable, Protocol, TypeVar, Union
-from typing_extensions import Literal, final
+from typing_extensions import Literal, SupportsIndex, final
 
 _KT = TypeVar("_KT")
 _KT_co = TypeVar("_KT_co", covariant=True)
@@ -53,7 +53,7 @@ class SupportsRDivMod(Protocol[_T_contra, _T_co]):
 
 class SupportsLenAndGetItem(Protocol[_T_co]):
     def __len__(self) -> int: ...
-    def __getitem__(self, __k: int) -> _T_co: ...
+    def __getitem__(self, __k: SupportsIndex) -> _T_co: ...
 
 class SupportsTrunc(Protocol):
     def __trunc__(self) -> int: ...
