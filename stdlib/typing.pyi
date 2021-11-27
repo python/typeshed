@@ -597,12 +597,23 @@ class Match(Generic[AnyStr]):
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
+# Not actually defined in typing (or re!) - is _sre.SRE_Scanner at runtime
+# Also not documented anywhere
+@_final
+class _SRE_Scanner(Generic[AnyStr]):
+    pattern: Pattern[AnyStr]
+    # Cannot be directly instantiated
+    def __new__(cls, *args: Any, **kwargs: Any) -> NoReturn: ...  # type: ignore
+    def match(self) -> Match[AnyStr] | None: ...
+    def search(self) -> Match[AnyStr] | None: ...
+
 @_final
 class Pattern(Generic[AnyStr]):
     flags: int
     groupindex: Mapping[str, int]
     groups: int
     pattern: AnyStr
+    def scanner(self, string: AnyStr, pos: int = ..., endpos: int = ...) -> _SRE_Scanner[AnyStr]: ...  # undocumented
     def search(self, string: AnyStr, pos: int = ..., endpos: int = ...) -> Match[AnyStr] | None: ...
     def match(self, string: AnyStr, pos: int = ..., endpos: int = ...) -> Match[AnyStr] | None: ...
     def fullmatch(self, string: AnyStr, pos: int = ..., endpos: int = ...) -> Match[AnyStr] | None: ...
