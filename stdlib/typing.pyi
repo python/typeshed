@@ -122,7 +122,6 @@ if sys.version_info >= (3, 9):
 # Predefined type variables.
 AnyStr = TypeVar("AnyStr", str, bytes)
 
-
 class _ProtocolMeta(ABCMeta): ...
 
 # Abstract base classes.
