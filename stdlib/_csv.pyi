@@ -1,6 +1,6 @@
 from typing import Any, Iterable, Iterator, List, Protocol, Type, Union
 
-# __version__ is deliberately not defined here or in _csv.pyi,
+# __version__ is deliberately not defined here or in csv.pyi,
 # as it appears to have been hardcoded at "1.0" for a very long time!
 
 QUOTE_ALL: int
