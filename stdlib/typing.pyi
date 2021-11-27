@@ -122,6 +122,9 @@ if sys.version_info >= (3, 9):
 # Predefined type variables.
 AnyStr = TypeVar("AnyStr", str, bytes)
 
+
+class _ProtocolMeta(ABCMeta): ...
+
 # Abstract base classes.
 
 def runtime_checkable(cls: _TC) -> _TC: ...
