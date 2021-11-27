@@ -1,6 +1,5 @@
 import sys
 from _csv import (
-    __version__ as __version__,
     QUOTE_ALL as QUOTE_ALL,
     QUOTE_MINIMAL as QUOTE_MINIMAL,
     QUOTE_NONE as QUOTE_NONE,
