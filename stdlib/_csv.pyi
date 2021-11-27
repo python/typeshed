@@ -1,5 +1,6 @@
 from typing import Any, Iterable, Iterator, List, Protocol, Type, Union
 
+__version__: str
 QUOTE_ALL: int
 QUOTE_MINIMAL: int
 QUOTE_NONE: int
