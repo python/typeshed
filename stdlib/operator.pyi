@@ -7,14 +7,13 @@ from typing import (
     Mapping,
     MutableMapping,
     MutableSequence,
-    ParamSpec,
     Sequence,
     SupportsAbs,
     Tuple,
     TypeVar,
     overload,
 )
-from typing_extensions import SupportsIndex, final
+from typing_extensions import ParamSpec, SupportsIndex, final
 
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
