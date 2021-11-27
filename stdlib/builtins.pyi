@@ -36,8 +36,10 @@ from typing import (
     ByteString,
     Callable,
     Generic,
+    ItemsView,
     Iterable,
     Iterator,
+    KeysView,
     Mapping,
     MutableMapping,
     MutableSequence,
@@ -57,6 +59,7 @@ from typing import (
     Type,
     TypeVar,
     Union,
+    ValuesView,
     overload,
 )
 from typing_extensions import Literal, SupportsIndex, TypeGuard, final
@@ -69,6 +72,8 @@ _T_co = TypeVar("_T_co", covariant=True)
 _T_contra = TypeVar("_T_contra", contravariant=True)
 _KT = TypeVar("_KT")
 _VT = TypeVar("_VT")
+_KT_co = TypeVar("_KT_co", covariant=True)  # Key type covariant containers.
+_VT_co = TypeVar("_VT_co", covariant=True)  # Value type covariant containers.
 _S = TypeVar("_S")
 _T1 = TypeVar("_T1")
 _T2 = TypeVar("_T2")
@@ -812,6 +817,18 @@ class list(MutableSequence[_T], Generic[_T]):
     def __le__(self, __x: list[_T]) -> bool: ...
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, __item: Any) -> GenericAlias: ...
+
+class _dict_keys(KeysView[_KT_co], Generic[_KT_co, _VT_co]):
+    if sys.version_info >= (3, 10):
+        mapping: MappingProxyType[_KT_co, _VT_co]
+
+class _dict_values(ValuesView[_VT_co], Generic[_VT_co, _KT_co]):
+    if sys.version_info >= (3, 10):
+        mapping: MappingProxyType[_KT_co, _VT_co]
+
+class _dict_items(ItemsView[_KT_co, _VT_co], Generic[_KT_co, _VT_co]):
+    if sys.version_info >= (3, 10):
+        mapping: MappingProxyType[_KT_co, _VT_co]
 
 class dict(MutableMapping[_KT, _VT], Generic[_KT, _VT]):
     @overload
