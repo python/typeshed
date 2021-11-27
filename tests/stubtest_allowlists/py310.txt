@@ -175,7 +175,6 @@ unicodedata.ucnhash_CAPI
 unittest.mock.create_autospec
 
 # Missing from stubs, found by removing --ignore-missing-stub
-__main__.T
 _ast.Tuple.dims
 _codecs.unregister
 _collections_abc.AsyncIterable.__class_getitem__

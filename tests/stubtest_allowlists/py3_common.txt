@@ -222,6 +222,7 @@ wsgiref.types  # Doesn't exist, see comments in file
 # ==========
 # Allowlist entries that cannot or should not be fixed
 # ==========
+__main__.*
 _pydecimal.*  # See comments in file
 ast.NodeVisitor.visit_\w+  # Methods are discovered dynamically, see #3796
 # Weird special builtins that are typed as functions, but aren't functions
@@ -270,32 +271,6 @@ socket.[A-Z0-9_]+
 (termios.[A-Z0-9_]+)?
 
 # Missing from stubs, found by removing --ignore-missing-stub
-__main__.Error
-__main__.MISSING
-__main__.Missing
-__main__.Signature
-__main__.build_stubs
-__main__.get_allowlist_entries
-__main__.get_mypy_type_of_runtime_value
-__main__.get_stub
-__main__.get_typeshed_stdlib_modules
-__main__.is_dunder
-__main__.is_subtype_helper
-__main__.main
-__main__.maybe_strip_cls
-__main__.parse_options
-__main__.test_module
-__main__.test_stubs
-__main__.verify
-__main__.verify_decorator
-__main__.verify_funcitem
-__main__.verify_mypyfile
-__main__.verify_none
-__main__.verify_overloadedfuncdef
-__main__.verify_typealias
-__main__.verify_typeinfo
-__main__.verify_typevarexpr
-__main__.verify_var
 _json.encode_basestring
 _markupbase.ParserBase.parse_comment
 _markupbase.ParserBase.parse_declaration

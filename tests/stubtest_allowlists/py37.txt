@@ -77,7 +77,6 @@ collections.Mapping.get  # Adding None to the Union messed up mypy
 collections.Sequence.index  # Supporting None in end is not mandatory
 
 # Missing from stubs, found by removing --ignore-missing-stub
-__main__.T
 _dummy_thread.RLock
 _imp.source_hash
 asyncio.BufferedProtocol.eof_received
