@@ -1,5 +1,7 @@
+import sys
 from typing import (
     Any,
+    Callable,
     Container,
     Generic,
     Mapping,
@@ -11,12 +13,14 @@ from typing import (
     TypeVar,
     overload,
 )
-from typing_extensions import SupportsIndex, final
+from typing_extensions import ParamSpec, SupportsIndex, final
 
+_R = TypeVar("_R")
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
 _K = TypeVar("_K")
 _V = TypeVar("_V")
+_P = ParamSpec("_P")
 
 def lt(__a: Any, __b: Any) -> Any: ...
 def le(__a: Any, __b: Any) -> Any: ...
@@ -177,3 +181,7 @@ def itruediv(__a: Any, __b: Any) -> Any: ...
 def __itruediv__(a: Any, b: Any) -> Any: ...
 def ixor(__a: Any, __b: Any) -> Any: ...
 def __ixor__(a: Any, b: Any) -> Any: ...
+
+if sys.version_info >= (3, 11):
+    def call(__obj: Callable[_P, _R], *args: _P.args, **kwargs: _P.kwargs) -> _R: ...  # type: ignore
+    def __call__(obj: Callable[_P, _R], *args: _P.args, **kwargs: _P.kwargs) -> _R: ...  # type: ignore
