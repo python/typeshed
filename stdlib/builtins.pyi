@@ -25,7 +25,7 @@ from _typeshed import (
     SupportsWrite,
 )
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
-from types import CodeType, TracebackType
+from types import CodeType, MappingProxyType, TracebackType
 from typing import (
     IO,
     AbstractSet,
