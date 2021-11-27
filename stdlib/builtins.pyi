@@ -1629,7 +1629,7 @@ class UnicodeEncodeError(UnicodeError):
     def __init__(self, __encoding: str, __object: str, __start: int, __end: int, __reason: str) -> None: ...
 
 class UnicodeTranslateError(UnicodeError):
-    encoding: str | None
+    encoding: None
     object: str
     start: int
     end: int
