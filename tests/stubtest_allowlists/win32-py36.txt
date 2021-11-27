@@ -9,3 +9,7 @@ urllib.parse.parse_qsl
 
 hashlib.scrypt
 os.startfile
+
+# Missing from stubs, found by removing --ignore-missing-stub
+asyncio.windows_utils.socketpair
+venv.EnvBuilder.include_binary

@@ -1,3 +1,7 @@
 _?curses.A_ITALIC
 ctypes.wintypes
 pwd.getpwnam
+
+# Missing from stubs, found by removing --ignore-missing-stub
+ftplib.FTP.trust_server_pasv_ipv4_address
+posix.register_at_fork

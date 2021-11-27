@@ -9,3 +9,6 @@ urllib.parse.parse_qs
 urllib.parse.parse_qsl
 
 os.startfile
+
+# Missing from stubs, found by removing --ignore-missing-stub
+socket.MsgFlag.MSG_ERRQUEUE
