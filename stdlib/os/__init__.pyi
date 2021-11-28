@@ -796,7 +796,6 @@ else:
     def spawnve(__mode: int, __path: StrOrBytesPath, __argv: _ExecVArgs, __env: _ExecEnv) -> int: ...
 
 def system(command: StrOrBytesPath) -> int: ...
-
 @final
 class times_result(NamedTuple):
     user: float

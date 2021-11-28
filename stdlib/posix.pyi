@@ -7,7 +7,6 @@ from typing_extensions import final
 if sys.platform != "win32":
     # Actually defined here, but defining in os allows sharing code with windows
     from os import listdir as listdir, times_result as times_result
-
     @final
     class uname_result(NamedTuple):
         sysname: str
@@ -15,7 +14,6 @@ if sys.platform != "win32":
         release: str
         version: str
         machine: str
-
     if sys.platform != "darwin":
         class waitid_result(NamedTuple):
             si_pid: int
@@ -23,10 +21,8 @@ if sys.platform != "win32":
             si_signo: int
             si_status: int
             si_code: int
-
     class sched_param(NamedTuple):
         sched_priority: int
-
     CLD_CONTINUED: int
     CLD_DUMPED: int
     CLD_EXITED: int
@@ -138,19 +134,15 @@ if sys.platform != "win32":
 
     TMP_MAX: int
     WCONTINUED: int
-
     def WCOREDUMP(__status: int) -> bool: ...
     def WEXITSTATUS(status: int) -> int: ...
     def WIFCONTINUED(status: int) -> bool: ...
     def WIFEXITED(status: int) -> bool: ...
     def WIFSIGNALED(status: int) -> bool: ...
     def WIFSTOPPED(status: int) -> bool: ...
-
     WNOHANG: int
-
     def WSTOPSIG(status: int) -> int: ...
     def WTERMSIG(status: int) -> int: ...
-
     WUNTRACED: int
 
     XATTR_CREATE: int
@@ -184,5 +176,4 @@ if sys.platform != "win32":
             setsigdef: Iterable[int] = ...,
             scheduler: tuple[Any, sched_param] | None = ...,
         ) -> int: ...
-
     environ: dict[bytes, bytes]
