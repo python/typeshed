@@ -13,7 +13,7 @@ from _typeshed import (
 from builtins import OSError
 from contextlib import AbstractContextManager
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper as _TextIOWrapper
-from posix import listdir as listdir, times_result
+from posix import times_result
 from subprocess import Popen
 from typing import (
     IO,
@@ -311,6 +311,15 @@ class PathLike(Protocol[_AnyStr_co]):
     def __fspath__(self) -> _AnyStr_co: ...
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, item: Any) -> GenericAlias: ...
+
+@overload
+def listdir(path: str | None = ...) -> list[str]: ...
+@overload
+def listdir(path: bytes) -> list[bytes]: ...
+@overload
+def listdir(path: int) -> list[str]: ...
+@overload
+def listdir(path: PathLike[str]) -> list[str]: ...
 
 _FdOrAnyPath = Union[int, StrOrBytesPath]
 

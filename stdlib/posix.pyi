@@ -5,6 +5,9 @@ from typing import Any, Iterable, NamedTuple, Sequence, Tuple, overload
 from typing_extensions import final
 
 if sys.platform != "win32":
+    # Actually defined here, but defining it in os allows sharing code
+    from os import listdir as listdir
+
     @final
     class uname_result(NamedTuple):
         sysname: str
@@ -161,15 +164,6 @@ if sys.platform != "win32":
     XATTR_CREATE: int
     XATTR_REPLACE: int
     XATTR_SIZE_MAX: int
-
-    @overload
-    def listdir(path: str | None = ...) -> list[str]: ...
-    @overload
-    def listdir(path: bytes) -> list[bytes]: ...
-    @overload
-    def listdir(path: int) -> list[str]: ...
-    @overload
-    def listdir(path: PathLike[str]) -> list[str]: ...
 
     if sys.platform != "win32" and sys.version_info >= (3, 8):
         def posix_spawn(
