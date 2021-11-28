@@ -165,7 +165,7 @@ if sys.platform != "win32":
     XATTR_REPLACE: int
     XATTR_SIZE_MAX: int
 
-    if sys.platform != "win32" and sys.version_info >= (3, 8):
+    if sys.version_info >= (3, 8):
         def posix_spawn(
             path: StrOrBytesPath,
             argv: _ExecVArgs,
@@ -193,7 +193,4 @@ if sys.platform != "win32":
             scheduler: tuple[Any, sched_param] | None = ...,
         ) -> int: ...
 
-    if sys.platform == "win32":
-        environ: dict[str, str]
-    else:
-        environ: dict[bytes, bytes]
+    environ: dict[bytes, bytes]
