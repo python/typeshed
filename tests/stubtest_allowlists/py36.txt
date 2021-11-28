@@ -59,6 +59,7 @@ typing.NamedTuple._make
 typing.NamedTuple._replace
 typing.Sequence.index
 typing.runtime_checkable
+unittest._log  # New in Python 3.9
 unittest.async_case  # Added in Python 3.8
 uuid.UUID.int
 xml.etree.ElementTree.TreeBuilder.start  # Discrepancy between Python and C modules, fixed in bpo-39495
