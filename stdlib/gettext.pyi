@@ -31,7 +31,34 @@ def find(domain: str, localedir: StrPath | None = ..., languages: Iterable[str] 
 
 _T = TypeVar("_T")
 
-if sys.version_info < (3, 11):
+if sys.version_info >= (3, 11):
+    @overload
+    def translation(
+        domain: str,
+        localedir: StrPath | None = ...,
+        languages: Iterable[str] | None = ...,
+        class_: None = ...,
+        fallback: bool = ...,
+    ) -> NullTranslations: ...
+    @overload
+    def translation(
+        domain: str,
+        localedir: StrPath | None = ...,
+        languages: Iterable[str] | None = ...,
+        class_: Type[_T] = ...,
+        fallback: Literal[False] = ...,
+    ) -> _T: ...
+    @overload
+    def translation(
+        domain: str,
+        localedir: StrPath | None = ...,
+        languages: Iterable[str] | None = ...,
+        class_: Type[Any] = ...,
+        fallback: Literal[True] = ...,
+    ) -> Any: ...
+    def install(domain: str, localedir: StrPath | None = ..., names: Container[str] | None = ...) -> None: ...
+
+else:
     @overload
     def translation(
         domain: str,
@@ -62,33 +89,6 @@ if sys.version_info < (3, 11):
     def install(
         domain: str, localedir: StrPath | None = ..., codeset: str | None = ..., names: Container[str] | None = ...
     ) -> None: ...
-
-else:
-    @overload
-    def translation(
-        domain: str,
-        localedir: StrPath | None = ...,
-        languages: Iterable[str] | None = ...,
-        class_: None = ...,
-        fallback: bool = ...,
-    ) -> NullTranslations: ...
-    @overload
-    def translation(
-        domain: str,
-        localedir: StrPath | None = ...,
-        languages: Iterable[str] | None = ...,
-        class_: Type[_T] = ...,
-        fallback: Literal[False] = ...,
-    ) -> _T: ...
-    @overload
-    def translation(
-        domain: str,
-        localedir: StrPath | None = ...,
-        languages: Iterable[str] | None = ...,
-        class_: Type[Any] = ...,
-        fallback: Literal[True] = ...,
-    ) -> Any: ...
-    def install(domain: str, localedir: StrPath | None = ..., names: Container[str] | None = ...) -> None: ...
 
 def textdomain(domain: str | None = ...) -> str: ...
 def bindtextdomain(domain: str, localedir: StrPath | None = ...) -> str: ...
