@@ -19,7 +19,6 @@ import tomli
 
 consistent_files = [
     {"stdlib/@python2/builtins.pyi", "stdlib/@python2/__builtin__.pyi"},
-    {"stdlib/threading.pyi", "stdlib/_dummy_threading.pyi"},
 ]
 metadata_keys = {"version", "python2", "requires", "extra_description", "obsolete_since"}
 allowed_files = {"README.md"}
