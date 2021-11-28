@@ -2,7 +2,6 @@ import datetime
 import logging
 import sys
 import unittest.result
-from unittest._log import _LoggingWatcher, _AssertLogsContext
 from _typeshed import Self
 from collections.abc import Set  # equivalent to typing.AbstractSet, not builtins.set
 from contextlib import AbstractContextManager
@@ -23,6 +22,7 @@ from typing import (
     TypeVar,
     overload,
 )
+from unittest._log import _AssertLogsContext, _LoggingWatcher
 from warnings import WarningMessage
 
 if sys.version_info >= (3, 9):
