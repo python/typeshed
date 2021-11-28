@@ -24,7 +24,7 @@ from typing import (
     Iterable,
     Iterator,
     List,
-    Mapping,
+    Mapping, NamedTuple,
     MutableMapping,
     NoReturn,
     Protocol,

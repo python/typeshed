@@ -1,7 +1,7 @@
 import sys
 from _typeshed import StrOrBytesPath
-from os import PathLike, _ExecEnv, _ExecVArgs, stat_result as stat_result
-from typing import Any, Iterable, NamedTuple, Sequence, Tuple, overload
+from os import _ExecEnv, _ExecVArgs, stat_result as stat_result
+from typing import Any, Iterable, NamedTuple, Sequence, Tuple
 from typing_extensions import final
 
 if sys.platform != "win32":
