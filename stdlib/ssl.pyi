@@ -144,7 +144,7 @@ VERIFY_CRL_CHECK_LEAF: VerifyFlags
 VERIFY_CRL_CHECK_CHAIN: VerifyFlags
 VERIFY_X509_STRICT: VerifyFlags
 VERIFY_X509_TRUSTED_FIRST: VerifyFlags
-    
+
 if sys.version_info >= (3, 10):
     VERIFY_ALLOW_PROXY_CERTS: VerifyFlags
     VERIFY_X509_PARTIAL_CHAIN: VerifyFlags
