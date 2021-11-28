@@ -58,9 +58,7 @@ def run_stubtest(typeshed_dir: Path) -> int:
             file=sys.stderr,
         )
         print("\n\n", file=sys.stderr)
-        print(
-            f'To fix "unused allowlist" errors, remove the corresponding entries from {allowlist_dir}', file=sys.stderr
-        )
+        print(f'To fix "unused allowlist" errors, remove the corresponding entries from {allowlist_dir}', file=sys.stderr)
         return e.returncode
     else:
         print("stubtest succeeded", file=sys.stderr)
