@@ -602,8 +602,8 @@ class Match(Generic[AnyStr]):
 @_final
 class _SRE_Scanner(Generic[AnyStr]):
     pattern: Pattern[AnyStr]
-    # Cannot be directly instantiated
-    def __new__(cls, *args: Any, **kwargs: Any) -> NoReturn: ...  # type: ignore
+    # Cannot be directly instantiated, but mypy doesn't like __new__ returning NoReturn
+    def __new__(cls, *args: Any, **kwargs: Any) -> NoReturn: ...  # type: ignore[misc]
     def match(self) -> Match[AnyStr] | None: ...
     def search(self) -> Match[AnyStr] | None: ...
 
