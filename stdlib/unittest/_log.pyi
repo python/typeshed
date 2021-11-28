@@ -1,7 +1,7 @@
 import logging
 import sys
 from types import TracebackType
-from typing import Generic, NamedTuple, Type, TypeVar, ClassVar
+from typing import ClassVar, Generic, NamedTuple, Type, TypeVar
 from unittest.case import TestCase
 
 _L = TypeVar("_L", None, _LoggingWatcher)
