@@ -5,8 +5,8 @@ from typing import Any, Iterable, NamedTuple, Sequence, Tuple, overload
 from typing_extensions import final
 
 if sys.platform != "win32":
-    # Actually defined here, but defining it in os allows sharing code
-    from os import listdir as listdir
+    # Actually defined here, but defining in os allows sharing code with windows
+    from os import listdir as listdir, times_result as times_result
 
     @final
     class uname_result(NamedTuple):
@@ -15,14 +15,6 @@ if sys.platform != "win32":
         release: str
         version: str
         machine: str
-
-    @final
-    class times_result(NamedTuple):
-        user: float
-        system: float
-        children_user: float
-        children_system: float
-        elapsed: float
 
     if sys.platform != "darwin":
         class waitid_result(NamedTuple):
