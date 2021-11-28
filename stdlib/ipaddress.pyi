@@ -127,6 +127,9 @@ class IPv6Address(_BaseAddress):
     def sixtofour(self) -> IPv4Address | None: ...
     @property
     def teredo(self) -> tuple[IPv4Address, IPv4Address] | None: ...
+    if sys.version_info >= (3, 9):
+        @property
+        def scope_id(self) -> str | None: ...
 
 class IPv6Network(_BaseNetwork[IPv6Address]):
     @property

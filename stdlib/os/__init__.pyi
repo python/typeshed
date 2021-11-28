@@ -11,6 +11,7 @@ from _typeshed import (
     StrPath,
 )
 from builtins import OSError
+from contextlib import AbstractContextManager
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper as _TextIOWrapper
 from posix import listdir as listdir, times_result
 from subprocess import Popen
@@ -20,7 +21,6 @@ from typing import (
     AnyStr,
     BinaryIO,
     Callable,
-    ContextManager,
     Generic,
     Iterable,
     Iterator,
@@ -210,7 +210,7 @@ class _Environ(MutableMapping[AnyStr, AnyStr], Generic[AnyStr]):
             putenv: Callable[[AnyStr, AnyStr], None],
             unsetenv: Callable[[AnyStr, AnyStr], None],
         ) -> None: ...
-    def setdefault(self, key: AnyStr, value: AnyStr) -> AnyStr: ...  # type: ignore
+    def setdefault(self, key: AnyStr, value: AnyStr) -> AnyStr: ...  # type: ignore[override]
     def copy(self) -> dict[AnyStr, AnyStr]: ...
     def __delitem__(self, key: AnyStr) -> None: ...
     def __getitem__(self, key: AnyStr) -> AnyStr: ...
@@ -640,7 +640,7 @@ def renames(old: StrOrBytesPath, new: StrOrBytesPath) -> None: ...
 def replace(src: StrOrBytesPath, dst: StrOrBytesPath, *, src_dir_fd: int | None = ..., dst_dir_fd: int | None = ...) -> None: ...
 def rmdir(path: StrOrBytesPath, *, dir_fd: int | None = ...) -> None: ...
 
-class _ScandirIterator(Iterator[DirEntry[AnyStr]], ContextManager[_ScandirIterator[AnyStr]]):
+class _ScandirIterator(Iterator[DirEntry[AnyStr]], AbstractContextManager[_ScandirIterator[AnyStr]]):
     def __next__(self) -> DirEntry[AnyStr]: ...
     def close(self) -> None: ...
 
@@ -773,7 +773,7 @@ if sys.platform != "win32":
 
 class _wrap_close(_TextIOWrapper):
     def __init__(self, stream: _TextIOWrapper, proc: Popen[str]) -> None: ...
-    def close(self) -> int | None: ...  # type: ignore
+    def close(self) -> int | None: ...  # type: ignore[override]
 
 def popen(cmd: str, mode: str = ..., buffering: int = ...) -> _wrap_close: ...
 def spawnl(mode: int, file: StrOrBytesPath, arg0: StrOrBytesPath, *args: StrOrBytesPath) -> int: ...

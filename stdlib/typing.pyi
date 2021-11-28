@@ -96,7 +96,7 @@ _T_contra = TypeVar("_T_contra", contravariant=True)  # Ditto contravariant.
 _TC = TypeVar("_TC", bound=Type[object])
 
 def no_type_check(arg: _F) -> _F: ...
-def no_type_check_decorator(decorator: Callable[_P, _T]) -> Callable[_P, _T]: ...  # type: ignore
+def no_type_check_decorator(decorator: Callable[_P, _T]) -> Callable[_P, _T]: ...  # type: ignore[misc]
 
 # Type aliases and type constructors
 
@@ -121,6 +121,14 @@ if sys.version_info >= (3, 9):
 
 # Predefined type variables.
 AnyStr = TypeVar("AnyStr", str, bytes)
+
+if sys.version_info >= (3, 8):
+    # This class did actually exist in 3.7, but had a different base.
+    # We'll just pretend it didn't exist though: the main external use case for _ProtocolMeta is
+    # to inherit from for your own custom protocol metaclasses. If you're using 3.7, at runtime
+    # you'd use typing_extensions.Protocol, which would be unrelated to typing._ProtocolMeta and
+    # so you'd run into metaclass conflicts at runtime if you used typing._ProtocolMeta.
+    class _ProtocolMeta(ABCMeta): ...
 
 # Abstract base classes.
 

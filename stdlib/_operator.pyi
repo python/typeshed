@@ -1,4 +1,5 @@
 # In reality the import is the other way around, but this way we can keep the operator stub in 2and3
+import sys
 from operator import (
     abs as abs,
     add as add,
@@ -56,5 +57,8 @@ from operator import (
     xor as xor,
 )
 from typing import AnyStr
+
+if sys.version_info >= (3, 11):
+    from operator import call as call
 
 def _compare_digest(__a: AnyStr, __b: AnyStr) -> bool: ...

@@ -247,19 +247,20 @@ class BoundArguments:
 def getclasstree(classes: list[type], unique: bool = ...) -> list[Any]: ...
 def walktree(classes: list[type], children: dict[Type[Any], list[type]], parent: Type[Any] | None) -> list[Any]: ...
 
-class ArgSpec(NamedTuple):
-    args: list[str]
-    varargs: str | None
-    keywords: str | None
-    defaults: Tuple[Any, ...]
-
 class Arguments(NamedTuple):
     args: list[str]
     varargs: str | None
     varkw: str | None
 
 def getargs(co: CodeType) -> Arguments: ...
-def getargspec(func: object) -> ArgSpec: ...
+
+if sys.version_info < (3, 11):
+    class ArgSpec(NamedTuple):
+        args: list[str]
+        varargs: str | None
+        keywords: str | None
+        defaults: Tuple[Any, ...]
+    def getargspec(func: object) -> ArgSpec: ...
 
 class FullArgSpec(NamedTuple):
     args: list[str]
@@ -281,21 +282,24 @@ class ArgInfo(NamedTuple):
 def getargvalues(frame: FrameType) -> ArgInfo: ...
 def formatannotation(annotation: object, base_module: str | None = ...) -> str: ...
 def formatannotationrelativeto(object: object) -> Callable[[object], str]: ...
-def formatargspec(
-    args: list[str],
-    varargs: str | None = ...,
-    varkw: str | None = ...,
-    defaults: Tuple[Any, ...] | None = ...,
-    kwonlyargs: Sequence[str] | None = ...,
-    kwonlydefaults: dict[str, Any] | None = ...,
-    annotations: dict[str, Any] = ...,
-    formatarg: Callable[[str], str] = ...,
-    formatvarargs: Callable[[str], str] = ...,
-    formatvarkw: Callable[[str], str] = ...,
-    formatvalue: Callable[[Any], str] = ...,
-    formatreturns: Callable[[Any], str] = ...,
-    formatannotation: Callable[[Any], str] = ...,
-) -> str: ...
+
+if sys.version_info < (3, 11):
+    def formatargspec(
+        args: list[str],
+        varargs: str | None = ...,
+        varkw: str | None = ...,
+        defaults: Tuple[Any, ...] | None = ...,
+        kwonlyargs: Sequence[str] | None = ...,
+        kwonlydefaults: dict[str, Any] | None = ...,
+        annotations: dict[str, Any] = ...,
+        formatarg: Callable[[str], str] = ...,
+        formatvarargs: Callable[[str], str] = ...,
+        formatvarkw: Callable[[str], str] = ...,
+        formatvalue: Callable[[Any], str] = ...,
+        formatreturns: Callable[[Any], str] = ...,
+        formatannotation: Callable[[Any], str] = ...,
+    ) -> str: ...
+
 def formatargvalues(
     args: list[str],
     varargs: str | None,
@@ -327,7 +331,7 @@ class Traceback(NamedTuple):
     lineno: int
     function: str
     code_context: list[str] | None
-    index: int | None  # type: ignore
+    index: int | None  # type: ignore[assignment]
 
 class FrameInfo(NamedTuple):
     frame: FrameType
@@ -335,7 +339,7 @@ class FrameInfo(NamedTuple):
     lineno: int
     function: str
     code_context: list[str] | None
-    index: int | None  # type: ignore
+    index: int | None  # type: ignore[assignment]
 
 def getframeinfo(frame: FrameType | TracebackType, context: int = ...) -> Traceback: ...
 def getouterframes(frame: Any, context: int = ...) -> list[FrameInfo]: ...

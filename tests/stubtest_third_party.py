@@ -105,9 +105,11 @@ def run_stubtest(dist: Path) -> None:
             print(f"stubtest failed for {dist.name}", file=sys.stderr)
             print("\n\n", file=sys.stderr)
             if allowlist_path.exists():
-                print('To fix "unused allowlist" errors, remove the corresponding entries from {allowlist_path}', file=sys.stderr)
+                print(
+                    f'To fix "unused allowlist" errors, remove the corresponding entries from {allowlist_path}', file=sys.stderr
+                )
             else:
-                print("Re-running stubtest with --generate-allowlist.\nAdd the following to {allowlist_path}:", file=sys.stderr)
+                print(f"Re-running stubtest with --generate-allowlist.\nAdd the following to {allowlist_path}:", file=sys.stderr)
                 subprocess.run(cmd + ["--generate-allowlist"], env={"MYPYPATH": str(dist)})
                 print("\n\n", file=sys.stderr)
             raise StubtestFailed from None
