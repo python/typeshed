@@ -33,7 +33,7 @@ jobs:
       - name: Install dependencies
         run: pip install $(grep tomli== requirements-tests-py3.txt) $(grep mypy== requirements-tests-py3.txt)
       - name: Run stubtest
-        run: python tests/stubtest_stdlib.py --ignore-unused-allowlist
+        run: python tests/stubtest_stdlib.py
 
   stubtest-third-party:
     name: Check third party stubs with stubtest
