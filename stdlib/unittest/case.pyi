@@ -16,6 +16,7 @@ from typing import (
     Mapping,
     NamedTuple,
     NoReturn,
+    Optional,
     Pattern,
     Sequence,
     Tuple,
@@ -23,6 +24,7 @@ from typing import (
     TypeVar,
     overload,
 )
+from typing_extensions import Literal
 from warnings import WarningMessage
 
 if sys.version_info >= (3, 9):
@@ -278,7 +280,17 @@ class _AssertLogsContext(Generic[_L]):
     LOGGING_FORMAT: str
     records: list[logging.LogRecord]
     output: list[str]
-    def __init__(self, test_case: TestCase, logger_name: str, level: int) -> None: ...
+    if sys.version_info >= (3, 10):
+        @overload
+        def __new__(cls, test_case: TestCase, logger_name: str, level: int, no_logs: Literal[False]) -> _AssertLogsContext[_LoggingWatcher]: ...
+        @overload
+        def __new__(cls, test_case: TestCase, logger_name: str, level: int, no_logs: Literal[True]) -> _AssertLogsContext[None]: ...
+        @overload
+        def __new__(cls, test_case: TestCase, logger_name: str, level: int, no_logs: bool) -> _AssertLogsContext[Optional[_LoggingWatcher]]: ...
+        def __init__(self, test_case: TestCase, logger_name: str, level: int, no_logs: bool) -> None: ...
+    else:
+        def __new__(cls, test_case: TestCase, logger_name: str, level: int) -> _AssertLogsContext[_LoggingWatcher]: ...
+        def __init__(self, test_case: TestCase, logger_name: str, level: int) -> None: ...
     def __enter__(self) -> _L: ...
     def __exit__(
         self, exc_type: Type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
