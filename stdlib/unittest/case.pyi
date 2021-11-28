@@ -23,7 +23,6 @@ from typing import (
     TypeVar,
     overload,
 )
-from typing_extensions import Literal
 from warnings import WarningMessage
 
 if sys.version_info >= (3, 9):
@@ -280,17 +279,8 @@ class _AssertLogsContext(Generic[_L]):
     records: list[logging.LogRecord]
     output: list[str]
     if sys.version_info >= (3, 10):
-        @overload
-        def __new__(
-            cls, test_case: TestCase, logger_name: str, level: int, no_logs: Literal[False]
-        ) -> _AssertLogsContext[_LoggingWatcher]: ...
-        @overload
-        def __new__(
-            cls, test_case: TestCase, logger_name: str, level: int, no_logs: Literal[True]
-        ) -> _AssertLogsContext[None]: ...
         def __init__(self, test_case: TestCase, logger_name: str, level: int, no_logs: bool) -> None: ...
     else:
-        def __new__(cls, test_case: TestCase, logger_name: str, level: int) -> _AssertLogsContext[_LoggingWatcher]: ...
         def __init__(self, test_case: TestCase, logger_name: str, level: int) -> None: ...
     def __enter__(self) -> _L: ...
     def __exit__(
