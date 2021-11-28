@@ -16,7 +16,6 @@ from typing import (
     Mapping,
     NamedTuple,
     NoReturn,
-    Optional,
     Pattern,
     Sequence,
     Tuple,
@@ -32,7 +31,7 @@ if sys.version_info >= (3, 9):
 
 _E = TypeVar("_E", bound=BaseException)
 _FT = TypeVar("_FT", bound=Callable[..., Any])
-_L = TypeVar("_L", None, _LoggingWatcher, Optional[_LoggingWatcher])
+_L = TypeVar("_L", None, _LoggingWatcher)
 
 if sys.version_info >= (3, 8):
     def addModuleCleanup(__function: Callable[..., Any], *args: Any, **kwargs: Any) -> None: ...
@@ -289,10 +288,6 @@ class _AssertLogsContext(Generic[_L]):
         def __new__(
             cls, test_case: TestCase, logger_name: str, level: int, no_logs: Literal[True]
         ) -> _AssertLogsContext[None]: ...
-        @overload
-        def __new__(
-            cls, test_case: TestCase, logger_name: str, level: int, no_logs: bool
-        ) -> _AssertLogsContext[_LoggingWatcher | None]: ...
         def __init__(self, test_case: TestCase, logger_name: str, level: int, no_logs: bool) -> None: ...
     else:
         def __new__(cls, test_case: TestCase, logger_name: str, level: int) -> _AssertLogsContext[_LoggingWatcher]: ...
