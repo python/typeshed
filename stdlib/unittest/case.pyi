@@ -2,6 +2,7 @@ import datetime
 import logging
 import sys
 import unittest.result
+from unittest._log import _LoggingWatcher, _AssertLogsContext
 from _typeshed import Self
 from collections.abc import Set  # equivalent to typing.AbstractSet, not builtins.set
 from contextlib import AbstractContextManager
@@ -14,7 +15,6 @@ from typing import (
     Generic,
     Iterable,
     Mapping,
-    NamedTuple,
     NoReturn,
     Pattern,
     Sequence,
@@ -30,7 +30,6 @@ if sys.version_info >= (3, 9):
 
 _E = TypeVar("_E", bound=BaseException)
 _FT = TypeVar("_FT", bound=Callable[..., Any])
-_L = TypeVar("_L", None, _LoggingWatcher)
 
 if sys.version_info >= (3, 8):
     def addModuleCleanup(__function: Callable[..., Any], *args: Any, **kwargs: Any) -> None: ...
@@ -251,10 +250,6 @@ class FunctionTestCase(TestCase):
     ) -> None: ...
     def runTest(self) -> None: ...
 
-class _LoggingWatcher(NamedTuple):
-    records: list[logging.LogRecord]
-    output: list[str]
-
 class _AssertRaisesContext(Generic[_E]):
     exception: _E
     def __enter__(self: Self) -> Self: ...
@@ -273,16 +268,3 @@ class _AssertWarnsContext:
     def __exit__(
         self, exc_type: Type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
     ) -> None: ...
-
-class _AssertLogsContext(Generic[_L]):
-    LOGGING_FORMAT: str
-    records: list[logging.LogRecord]
-    output: list[str]
-    if sys.version_info >= (3, 10):
-        def __init__(self, test_case: TestCase, logger_name: str, level: int, no_logs: bool) -> None: ...
-    else:
-        def __init__(self, test_case: TestCase, logger_name: str, level: int) -> None: ...
-    def __enter__(self) -> _L: ...
-    def __exit__(
-        self, exc_type: Type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
-    ) -> bool | None: ...
