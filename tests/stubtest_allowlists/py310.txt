@@ -126,7 +126,6 @@ tkinter.EventType.__new__
 # Rest of these errors are new in Python 3.10:
 _markupbase.ParserBase.error
 asyncio.proactor_events._ProactorReadPipeTransport.__init__
-builtins.aiter
 distutils.command.bdist_wininst
 importlib.abc.ResourceReader.is_resource
 importlib.machinery.BuiltinImporter.create_module
