@@ -135,12 +135,19 @@ class VerifyFlags(enum.IntFlag):
     VERIFY_CRL_CHECK_CHAIN: int
     VERIFY_X509_STRICT: int
     VERIFY_X509_TRUSTED_FIRST: int
+    if sys.version_info >= (3, 10):
+        VERIFY_ALLOW_PROXY_CERTS: int
+        VERIFY_X509_PARTIAL_CHAIN: int
 
 VERIFY_DEFAULT: VerifyFlags
 VERIFY_CRL_CHECK_LEAF: VerifyFlags
 VERIFY_CRL_CHECK_CHAIN: VerifyFlags
 VERIFY_X509_STRICT: VerifyFlags
 VERIFY_X509_TRUSTED_FIRST: VerifyFlags
+
+if sys.version_info >= (3, 10):
+    VERIFY_ALLOW_PROXY_CERTS: VerifyFlags
+    VERIFY_X509_PARTIAL_CHAIN: VerifyFlags
 
 class _SSLMethod(enum.IntEnum):
     PROTOCOL_SSLv23: int
