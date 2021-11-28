@@ -16,7 +16,6 @@ from typing import (
     Mapping,
     NamedTuple,
     NoReturn,
-    Optional,
     Pattern,
     Sequence,
     Tuple,
@@ -292,7 +291,7 @@ class _AssertLogsContext(Generic[_L]):
         @overload
         def __new__(
             cls, test_case: TestCase, logger_name: str, level: int, no_logs: bool
-        ) -> _AssertLogsContext[Optional[_LoggingWatcher]]: ...
+        ) -> _AssertLogsContext[_LoggingWatcher | None]: ...
         def __init__(self, test_case: TestCase, logger_name: str, level: int, no_logs: bool) -> None: ...
     else:
         def __new__(cls, test_case: TestCase, logger_name: str, level: int) -> _AssertLogsContext[_LoggingWatcher]: ...
