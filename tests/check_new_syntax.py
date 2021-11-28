@@ -122,7 +122,8 @@ def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
             if isinstance(node.test, ast.Compare) and ast.unparse(node.test).startswith("sys.version_info < ") and node.orelse:
                 new_syntax = ast.unparse(node.test).replace("<", ">=", 1)
                 errors.append(
-                    f"{path}:{node.lineno}: When using if/else with sys.version_info, put the code for new Python versions first, e.g. `{new_syntax}`"
+                    f"{path}:{node.lineno}: When using if/else with sys.version_info, "
+                    f"put the code for new Python versions first, e.g. `{new_syntax}`"
                 )
             self.generic_visit(node)
 
