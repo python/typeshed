@@ -12,8 +12,6 @@ class _LoggingWatcher(NamedTuple):
 
 class _AssertLogsContext(Generic[_L]):
     LOGGING_FORMAT: str
-    records: list[logging.LogRecord]
-    output: list[str]
     if sys.version_info >= (3, 10):
         def __init__(self, test_case: TestCase, logger_name: str, level: int, no_logs: bool) -> None: ...
     else:
