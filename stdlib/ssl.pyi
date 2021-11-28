@@ -300,7 +300,9 @@ class SSLSocket(socket.socket):
     server_hostname: str | None
     session: SSLSession | None
     session_reused: bool | None
-    if sys.version_info < (3, 7):
+    if sys.version_info >= (3, 7):
+        def __init__(self, *args: Any, **kwargs: Any) -> None: ...
+    else:
         def __init__(
             self,
             sock: socket.socket | None = ...,
@@ -322,8 +324,6 @@ class SSLSocket(socket.socket):
             _context: SSLContext | None = ...,
             _session: Any | None = ...,
         ) -> None: ...
-    else:
-        def __init__(self, *args: Any, **kwargs: Any) -> None: ...
     def connect(self, addr: socket._Address | bytes) -> None: ...
     def connect_ex(self, addr: socket._Address | bytes) -> int: ...
     def recv(self, buflen: int = ..., flags: int = ...) -> bytes: ...
