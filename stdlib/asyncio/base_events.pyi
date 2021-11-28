@@ -285,7 +285,7 @@ class BaseEventLoop(AbstractEventLoop, metaclass=ABCMeta):
         async def connect_accepted_socket(
             self, protocol_factory: _ProtocolFactory, sock: socket, *, ssl: _SSLContext = ...
         ) -> _TransProtPair: ...
-    if sys.version_info < (3, 11):
+    if sys.version_info >= (3, 11):
         async def create_datagram_endpoint(
             self,
             protocol_factory: _ProtocolFactory,
@@ -295,7 +295,6 @@ class BaseEventLoop(AbstractEventLoop, metaclass=ABCMeta):
             family: int = ...,
             proto: int = ...,
             flags: int = ...,
-            reuse_address: bool | None = ...,
             reuse_port: bool | None = ...,
             allow_broadcast: bool | None = ...,
             sock: socket | None = ...,
@@ -310,6 +309,7 @@ class BaseEventLoop(AbstractEventLoop, metaclass=ABCMeta):
             family: int = ...,
             proto: int = ...,
             flags: int = ...,
+            reuse_address: bool | None = ...,
             reuse_port: bool | None = ...,
             allow_broadcast: bool | None = ...,
             sock: socket | None = ...,
