@@ -121,6 +121,8 @@ if sys.platform != "win32":
 
 if sys.platform == "linux":
     RTLD_DEEPBIND: int
+    GRND_NONBLOCK: int
+    GRND_RANDOM: int
 
 SEEK_SET: int
 SEEK_CUR: int
@@ -843,7 +845,32 @@ else:
     def WSTOPSIG(status: int) -> int: ...
     def WTERMSIG(status: int) -> int: ...
     if sys.version_info >= (3, 8):
-        from posix import posix_spawn as posix_spawn, posix_spawnp as posix_spawnp
+        def posix_spawn(
+            path: StrOrBytesPath,
+            argv: _ExecVArgs,
+            env: _ExecEnv,
+            *,
+            file_actions: Sequence[Tuple[Any, ...]] | None = ...,
+            setpgroup: int | None = ...,
+            resetids: bool = ...,
+            setsid: bool = ...,
+            setsigmask: Iterable[int] = ...,
+            setsigdef: Iterable[int] = ...,
+            scheduler: tuple[Any, sched_param] | None = ...,
+        ) -> int: ...
+        def posix_spawnp(
+            path: StrOrBytesPath,
+            argv: _ExecVArgs,
+            env: _ExecEnv,
+            *,
+            file_actions: Sequence[Tuple[Any, ...]] | None = ...,
+            setpgroup: int | None = ...,
+            resetids: bool = ...,
+            setsid: bool = ...,
+            setsigmask: Iterable[int] = ...,
+            setsigdef: Iterable[int] = ...,
+            scheduler: tuple[Any, sched_param] | None = ...,
+        ) -> int: ...
 
 if sys.platform != "win32":
     class sched_param(NamedTuple):

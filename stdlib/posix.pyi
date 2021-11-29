@@ -73,7 +73,22 @@ if sys.platform != "win32":
         SCHED_SPORADIC as SCHED_SPORADIC,
         SEEK_DATA as SEEK_DATA,
         SEEK_HOLE as SEEK_HOLE,
+        TMP_MAX as TMP_MAX,
         W_OK as W_OK,
+        WCONTINUED as WCONTINUED,
+        WCOREDUMP as WCOREDUMP,
+        WEXITED as WEXITED,
+        WEXITSTATUS as WEXITSTATUS,
+        WIFCONTINUED as WIFCONTINUED,
+        WIFEXITED as WIFEXITED,
+        WIFSIGNALED as WIFSIGNALED,
+        WIFSTOPPED as WIFSTOPPED,
+        WNOHANG as WNOHANG,
+        WNOWAIT as WNOWAIT,
+        WSTOPPED as WSTOPPED,
+        WSTOPSIG as WSTOPSIG,
+        WTERMSIG as WTERMSIG,
+        WUNTRACED as WUNTRACED,
         X_OK as X_OK,
         listdir as listdir,
         times_result as times_result,
@@ -81,22 +96,26 @@ if sys.platform != "win32":
     )
 
     if sys.platform == "linux":
-        from os import RTLD_DEEPBIND as RTLD_DEEPBIND
+        from os import (
+            GRND_NONBLOCK as GRND_NONBLOCK,
+            GRND_RANDOM as GRND_RANDOM,
+            RTLD_DEEPBIND as RTLD_DEEPBIND,
+            XATTR_CREATE as XATTR_CREATE,
+            XATTR_REPLACE as XATTR_REPLACE,
+            XATTR_SIZE_MAX as XATTR_SIZE_MAX,
+        )
+    if sys.platform != "darwin":
+        from os import (
+            POSIX_FADV_DONTNEED as POSIX_FADV_DONTNEED,
+            POSIX_FADV_NOREUSE as POSIX_FADV_NOREUSE,
+            POSIX_FADV_NORMAL as POSIX_FADV_NORMAL,
+            POSIX_FADV_RANDOM as POSIX_FADV_RANDOM,
+            POSIX_FADV_SEQUENTIAL as POSIX_FADV_SEQUENTIAL,
+            POSIX_FADV_WILLNEED as POSIX_FADV_WILLNEED,
+        )
 
-    if sys.platform == "linux":
-        GRND_NONBLOCK: int
-        GRND_RANDOM: int
     NGROUPS_MAX: int
     O_ACCMODE: int
-
-    if sys.platform != "darwin":
-        POSIX_FADV_DONTNEED: int
-        POSIX_FADV_NOREUSE: int
-        POSIX_FADV_NORMAL: int
-        POSIX_FADV_RANDOM: int
-        POSIX_FADV_SEQUENTIAL: int
-        POSIX_FADV_WILLNEED: int
-
     ST_APPEND: int
     ST_MANDLOCK: int
     ST_NOATIME: int
@@ -109,48 +128,6 @@ if sys.platform != "win32":
     ST_SYNCHRONOUS: int
     ST_WRITE: int
 
-    TMP_MAX: int
-    WCONTINUED: int
-    def WCOREDUMP(__status: int) -> bool: ...
-    def WEXITSTATUS(status: int) -> int: ...
-    def WIFCONTINUED(status: int) -> bool: ...
-    def WIFEXITED(status: int) -> bool: ...
-    def WIFSIGNALED(status: int) -> bool: ...
-    def WIFSTOPPED(status: int) -> bool: ...
-    WNOHANG: int
-    def WSTOPSIG(status: int) -> int: ...
-    def WTERMSIG(status: int) -> int: ...
-    WUNTRACED: int
-
-    XATTR_CREATE: int
-    XATTR_REPLACE: int
-    XATTR_SIZE_MAX: int
-
     if sys.version_info >= (3, 8):
-        def posix_spawn(
-            path: StrOrBytesPath,
-            argv: _ExecVArgs,
-            env: _ExecEnv,
-            *,
-            file_actions: Sequence[Tuple[Any, ...]] | None = ...,
-            setpgroup: int | None = ...,
-            resetids: bool = ...,
-            setsid: bool = ...,
-            setsigmask: Iterable[int] = ...,
-            setsigdef: Iterable[int] = ...,
-            scheduler: tuple[Any, sched_param] | None = ...,
-        ) -> int: ...
-        def posix_spawnp(
-            path: StrOrBytesPath,
-            argv: _ExecVArgs,
-            env: _ExecEnv,
-            *,
-            file_actions: Sequence[Tuple[Any, ...]] | None = ...,
-            setpgroup: int | None = ...,
-            resetids: bool = ...,
-            setsid: bool = ...,
-            setsigmask: Iterable[int] = ...,
-            setsigdef: Iterable[int] = ...,
-            scheduler: tuple[Any, sched_param] | None = ...,
-        ) -> int: ...
+        from os import posix_spawn as posix_spawn, posix_spawnp as posix_spawnp
     environ: dict[bytes, bytes]
