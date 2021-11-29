@@ -1,7 +1,4 @@
 import sys
-from _typeshed import StrOrBytesPath
-from os import _ExecEnv, _ExecVArgs, stat_result as stat_result
-from typing import Any, Iterable, Sequence, Tuple
 
 if sys.platform != "win32":
     # Actually defined here, but defining in os allows sharing code with windows
@@ -53,6 +50,7 @@ if sys.platform != "win32":
         O_WRONLY as O_WRONLY,
         P_ALL as P_ALL,
         P_PGID as P_PGID,
+        stat_result as stat_result,
         P_PID as P_PID,
         PRIO_PGRP as PRIO_PGRP,
         PRIO_PROCESS as PRIO_PROCESS,
