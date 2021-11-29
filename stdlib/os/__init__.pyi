@@ -167,7 +167,7 @@ O_TMPFILE: int  # Gnu extension if in C library
 O_LARGEFILE: int  # Gnu extension if in C library
 O_ACCMODE: int  # TODO: when does this exist?
 
-if sys.platform != "darwin":
+if sys.platform != "win32" and sys.platform != "darwin":
     # posix, but apparently missing on macos
     ST_APPEND: int
     ST_MANDLOCK: int
