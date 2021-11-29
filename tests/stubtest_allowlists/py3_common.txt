@@ -218,8 +218,8 @@ webbrowser.UnixBrowser.remote_action  # always overridden in inheriting class
 webbrowser.UnixBrowser.remote_action_newtab  # always overridden in inheriting class
 webbrowser.UnixBrowser.remote_action_newwin  # always overridden in inheriting class
 wsgiref.types  # Doesn't exist, see comments in file
-xml.dom.xmlbuilder.ExpatBuilder
-xml.dom.xmlbuilder.ExpatBuilderNS
+xml.dom.xmlbuilder.ExpatBuilder  # mypy bug w.r.t. module __getattr__, see python/mypy#11411
+xml.dom.xmlbuilder.ExpatBuilderNS  # mypy bug w.r.t. module __getattr__, see python/mypy#11411
 
 # ==========
 # Allowlist entries that cannot or should not be fixed
