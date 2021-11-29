@@ -144,6 +144,9 @@ class CodeType:
             co_name: str = ...,
             co_lnotab: bytes = ...,
         ) -> CodeType: ...
+    if sys.version_info >= (3, 10):
+        def co_lines(self) -> Iterator[tuple[int, int, int | None]]: ...
+        co_linetable: object
     if sys.version_info >= (3, 11):
         def co_positions(self) -> Iterable[tuple[int | None, int | None, int | None, int | None]]: ...
 
