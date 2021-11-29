@@ -124,12 +124,7 @@ tkinter.EventType.__new__
 _markupbase.ParserBase.error
 asyncio.proactor_events._ProactorReadPipeTransport.__init__
 distutils.command.bdist_wininst
-importlib.abc.ResourceReader.is_resource
-importlib.machinery.BuiltinImporter.create_module
-importlib.machinery.BuiltinImporter.exec_module
-importlib.machinery.FrozenImporter.create_module
-importlib.machinery.PathFinder.invalidate_caches
-importlib.metadata.MetadataPathFinder.invalidate_caches
+importlib.metadata.MetadataPathFinder.invalidate_caches  # instance method, but first argument is named "cls", not "self"
 logging.Formatter.__init__
 logging.LoggerAdapter.__init__
 logging.PercentStyle.__init__
