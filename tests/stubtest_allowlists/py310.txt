@@ -23,7 +23,6 @@ _collections_abc.MutableMapping.__setitem__
 _collections_abc.MutableMapping.pop
 _collections_abc.MutableMapping.setdefault
 
-_dummy_thread
 ast.Bytes.__new__
 ast.Ellipsis.__new__
 ast.ExtSlice.__new__
@@ -48,7 +47,6 @@ collections.abc.ValuesView.__reversed__
 contextvars.Context.__init__  # Default C __init__ signature is wrong
 dataclasses.field
 dataclasses.KW_ONLY
-dummy_threading
 enum.Enum._generate_next_value_
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 functools.partialmethod.__get__
@@ -69,7 +67,6 @@ platform.uname_result.__new__
 platform.uname_result._fields
 platform.uname_result.processor
 queue.SimpleQueue.__init__  # Default C __init__ signature is wrong
-smtplib.LMTP.__init__
 ssl.PROTOCOL_SSLv3  # Depends on ssl compilation
 ssl.RAND_egd  # Depends on openssl compilation
 symtable.SymbolTable.has_exec
@@ -133,8 +130,6 @@ importlib.machinery.BuiltinImporter.exec_module
 importlib.machinery.FrozenImporter.create_module
 importlib.machinery.PathFinder.invalidate_caches
 importlib.metadata.MetadataPathFinder.invalidate_caches
-locale.strcoll
-locale.strxfrm
 logging.Formatter.__init__
 logging.LoggerAdapter.__init__
 logging.PercentStyle.__init__
@@ -168,7 +163,6 @@ sqlite3.dbapi2.Row.keys
 sqlite3.dbapi2.complete_statement
 ssl.SSLContext.__new__
 ssl._create_unverified_context
-ssl.get_server_certificate
 typing.SupportsRound.__round__
 unicodedata.ucnhash_CAPI
 unittest.mock.create_autospec
