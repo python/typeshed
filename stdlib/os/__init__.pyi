@@ -167,20 +167,22 @@ O_TMPFILE: int  # Gnu extension if in C library
 O_LARGEFILE: int  # Gnu extension if in C library
 O_ACCMODE: int  # TODO: when does this exist?
 
-# TODO: when do these exist?
-ST_APPEND: int
-ST_MANDLOCK: int
-ST_NOATIME: int
-ST_NODEV: int
-ST_NODIRATIME: int
-ST_NOEXEC: int
-ST_NOSUID: int
-ST_RDONLY: int
-ST_RELATIME: int
-ST_SYNCHRONOUS: int
-ST_WRITE: int
+if sys.platform != "darwin"
+    # posix, but apparently missing on macos
+    ST_APPEND: int
+    ST_MANDLOCK: int
+    ST_NOATIME: int
+    ST_NODEV: int
+    ST_NODIRATIME: int
+    ST_NOEXEC: int
+    ST_NOSUID: int
+    ST_RDONLY: int
+    ST_RELATIME: int
+    ST_SYNCHRONOUS: int
+    ST_WRITE: int
 
-NGROUPS_MAX: int
+if sys.platform != "win32":
+    NGROUPS_MAX: int
 
 curdir: str
 pardir: str
