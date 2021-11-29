@@ -112,20 +112,6 @@ if sys.platform != "win32":
             POSIX_FADV_WILLNEED as POSIX_FADV_WILLNEED,
         )
 
-    NGROUPS_MAX: int
-    O_ACCMODE: int
-    ST_APPEND: int
-    ST_MANDLOCK: int
-    ST_NOATIME: int
-    ST_NODEV: int
-    ST_NODIRATIME: int
-    ST_NOEXEC: int
-    ST_NOSUID: int
-    ST_RDONLY: int
-    ST_RELATIME: int
-    ST_SYNCHRONOUS: int
-    ST_WRITE: int
-
     if sys.version_info >= (3, 8):
         from os import posix_spawn as posix_spawn, posix_spawnp as posix_spawnp
     environ: dict[bytes, bytes]
