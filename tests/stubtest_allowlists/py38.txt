@@ -5,6 +5,7 @@ _collections_abc.AsyncGenerator.ag_running
 _collections_abc.ItemsView.__reversed__
 _collections_abc.KeysView.__reversed__
 _collections_abc.ValuesView.__reversed__
+_dummy_threading
 ast.Bytes.__new__
 ast.Ellipsis.__new__
 ast.NameConstant.__new__
