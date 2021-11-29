@@ -844,7 +844,8 @@ else:
         from posix import posix_spawn as posix_spawn, posix_spawnp as posix_spawnp
 
 if sys.platform != "win32":
-    from posix import sched_param
+    class sched_param(NamedTuple):
+        sched_priority: int
     def sched_get_priority_min(policy: int) -> int: ...  # some flavors of Unix
     def sched_get_priority_max(policy: int) -> int: ...  # some flavors of Unix
     def sched_yield() -> None: ...  # some flavors of Unix
