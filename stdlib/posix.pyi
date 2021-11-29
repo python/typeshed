@@ -50,7 +50,6 @@ if sys.platform != "win32":
         O_WRONLY as O_WRONLY,
         P_ALL as P_ALL,
         P_PGID as P_PGID,
-        stat_result as stat_result,
         P_PID as P_PID,
         PRIO_PGRP as PRIO_PGRP,
         PRIO_PROCESS as PRIO_PROCESS,
@@ -89,6 +88,7 @@ if sys.platform != "win32":
         WUNTRACED as WUNTRACED,
         X_OK as X_OK,
         listdir as listdir,
+        stat_result as stat_result,
         times_result as times_result,
         uname_result as uname_result,
     )
