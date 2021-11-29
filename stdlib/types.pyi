@@ -142,7 +142,6 @@ class CodeType:
             co_cellvars: Tuple[str, ...] = ...,
             co_filename: str = ...,
             co_name: str = ...,
-            co_lnotab: bytes = ...,
             co_linetable: object = ...,
         ) -> CodeType: ...
         def co_lines(self) -> Iterator[tuple[int, int, int | None]]: ...
