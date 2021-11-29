@@ -101,6 +101,8 @@ if sys.platform != "win32":
     CLD_TRAPPED: int
     CLD_CONTINUED: int
 
+    # TODO: SCHED_RESET_ON_FORK not available on darwin?
+    # TODO: SCHED_BATCH and SCHED_IDLE are linux only?
     SCHED_OTHER: int  # some flavors of Unix
     SCHED_BATCH: int  # some flavors of Unix
     SCHED_IDLE: int  # some flavors of Unix
