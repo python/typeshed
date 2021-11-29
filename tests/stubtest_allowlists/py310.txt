@@ -140,9 +140,7 @@ sched.Event.__new__
 sched.Event._fields
 signal.default_int_handler
 sqlite3.Row.keys
-sqlite3.complete_statement
 sqlite3.dbapi2.Row.keys
-sqlite3.dbapi2.complete_statement
 ssl.SSLContext.__new__
 ssl._create_unverified_context
 typing.SupportsRound.__round__
