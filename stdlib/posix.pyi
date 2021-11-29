@@ -2,18 +2,11 @@ import sys
 from _typeshed import StrOrBytesPath
 from os import _ExecEnv, _ExecVArgs, stat_result as stat_result
 from typing import Any, Iterable, NamedTuple, Sequence, Tuple
-from typing_extensions import final
 
 if sys.platform != "win32":
     # Actually defined here, but defining in os allows sharing code with windows
-    from os import listdir as listdir, times_result as times_result
-    @final
-    class uname_result(NamedTuple):
-        sysname: str
-        nodename: str
-        release: str
-        version: str
-        machine: str
+    from os import listdir as listdir, times_result as times_result, uname_result as uname_result
+
     if sys.platform != "darwin":
         class waitid_result(NamedTuple):
             si_pid: int
