@@ -139,14 +139,8 @@ pyclbr.Function.__init__
 sched.Event.__new__
 sched.Event._fields
 signal.default_int_handler
-sqlite3.Cursor.close
-sqlite3.Cursor.setinputsizes
-sqlite3.Cursor.setoutputsize
 sqlite3.Row.keys
 sqlite3.complete_statement
-sqlite3.dbapi2.Cursor.close
-sqlite3.dbapi2.Cursor.setinputsizes
-sqlite3.dbapi2.Cursor.setoutputsize
 sqlite3.dbapi2.Row.keys
 sqlite3.dbapi2.complete_statement
 ssl.SSLContext.__new__
