@@ -90,8 +90,6 @@ class DOMBuilderFilter:
 
 class DocumentLS:
     async_: bool
-    # The only requirements on the `flag` argument
-    # are that it can safely be passed to `bool()`.
     def abort(self) -> NoReturn: ...
     # `load()` and `loadXML()` always raise exceptions
     # so the argtypes of `uri` and `source` are unknowable.
