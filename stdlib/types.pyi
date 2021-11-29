@@ -123,28 +123,7 @@ class CodeType:
             freevars: Tuple[str, ...] = ...,
             cellvars: Tuple[str, ...] = ...,
         ) -> None: ...
-    if sys.version_info >= (3, 8) and sys.version_info < (3, 10):
-        def replace(
-            self,
-            *,
-            co_argcount: int = ...,
-            co_posonlyargcount: int = ...,
-            co_kwonlyargcount: int = ...,
-            co_nlocals: int = ...,
-            co_stacksize: int = ...,
-            co_flags: int = ...,
-            co_firstlineno: int = ...,
-            co_code: bytes = ...,
-            co_consts: Tuple[Any, ...] = ...,
-            co_names: Tuple[str, ...] = ...,
-            co_varnames: Tuple[str, ...] = ...,
-            co_freevars: Tuple[str, ...] = ...,
-            co_cellvars: Tuple[str, ...] = ...,
-            co_filename: str = ...,
-            co_name: str = ...,
-            co_lnotab: bytes = ...,
-        ) -> CodeType: ...
-    elif sys.version_info >= (3, 10):
+    if sys.version_info >= (3, 10):
         def replace(
             self,
             *,
@@ -168,6 +147,27 @@ class CodeType:
         ) -> CodeType: ...
         def co_lines(self) -> Iterator[tuple[int, int, int | None]]: ...
         co_linetable: object
+    elif sys.version_info >= (3, 8):
+        def replace(
+            self,
+            *,
+            co_argcount: int = ...,
+            co_posonlyargcount: int = ...,
+            co_kwonlyargcount: int = ...,
+            co_nlocals: int = ...,
+            co_stacksize: int = ...,
+            co_flags: int = ...,
+            co_firstlineno: int = ...,
+            co_code: bytes = ...,
+            co_consts: Tuple[Any, ...] = ...,
+            co_names: Tuple[str, ...] = ...,
+            co_varnames: Tuple[str, ...] = ...,
+            co_freevars: Tuple[str, ...] = ...,
+            co_cellvars: Tuple[str, ...] = ...,
+            co_filename: str = ...,
+            co_name: str = ...,
+            co_lnotab: bytes = ...,
+        ) -> CodeType: ...        
     if sys.version_info >= (3, 11):
         def co_positions(self) -> Iterable[tuple[int | None, int | None, int | None, int | None]]: ...
 
