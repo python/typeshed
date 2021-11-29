@@ -114,4 +114,7 @@ if sys.platform != "win32":
 
     if sys.version_info >= (3, 8):
         from os import posix_spawn as posix_spawn, posix_spawnp as posix_spawnp
+
+    # Not same as os.environ or os.environb
+    # Because of this variable, we can't do "from posix import *" in os/__init__.pyi
     environ: dict[bytes, bytes]
