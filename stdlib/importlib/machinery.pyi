@@ -1,5 +1,5 @@
-import sys
 import importlib.abc
+import sys
 import types
 from typing import Any, Callable, Sequence
 
