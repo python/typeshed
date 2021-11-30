@@ -29,9 +29,7 @@ run the tests, it can be useful to prepare a
 [virtual environment](https://docs.python.org/3/tutorial/venv.html) and install
 certain libraries typeshed uses to check stub files.
 
-Follow platform-specific instructions below. Following that, to automatically
-check your code before committing, you can copy the file `pre-commit` to
-`.git/hooks/pre-commit`.
+Follow platform-specific instructions below.
 
 ### Linux/Mac OS
 
@@ -73,6 +71,19 @@ following commands from a Windows terminal:
 (.venv3) > python -m pip install -U pip
 (.venv3) > python -m pip install -r requirements-tests-py3.txt
 ```
+
+## Code formatting
+
+The code is formatted by `black` and `isort`.
+
+The repository is equipped with a [`pre-commit.ci`](https://pre-commit.ci/)
+configuration file. This means that you don't *need* to do anything yourself to
+run the code formatters. When you push a commit, a bot will run those for you
+right away and add a commit to your PR. Neat, no ?
+
+That being said, if you *want* to run the checks locally when you commit, you
+can install the hooks: please refer to the [pre-commit](https://pre-commit.com/)
+documentation.
 
 ## Where to make changes
 
