@@ -30,7 +30,7 @@ class _SupportsInversion(Protocol[_T_co]):
 
 class _SupportsNeg(Protocol[_T_co]):
     def __neg__(self) -> _T_co: ...
-        
+
 class _SupportsPos(Protocol[_T_co]):
     def __pos__(self) -> _T_co: ...
 
