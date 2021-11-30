@@ -24,12 +24,23 @@ it takes a bit longer. For more details, read below.
 
 ## Preparing the environment
 
-To reformat the code, check for common problems, and
-run the tests, it can be useful to prepare a
-[virtual environment](https://docs.python.org/3/tutorial/venv.html) and install
-certain libraries typeshed uses to check stub files.
+### Code away!
 
-Follow platform-specific instructions below.
+This repository has a Continuous Integration (CI) running on the pull requests,
+which includes automatically adjusting code formatting (`black`, `isort`) and
+running the tests. It means you can ignore all this on your side, focus on the
+code and rely on the CI to fix everything, or point you to the places that need
+fixing.
+
+### ... Or create a local development environment
+
+If you prefer to run the tests & formatting locally, it's
+possible too. Follow platform-specific instructions below.
+
+Whichever platform you're using, you will need a
+virtual environment. If you're not familiar with what it is and how it works,
+please refer to this
+[documentation](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/).
 
 ### Linux/Mac OS
 
@@ -79,7 +90,7 @@ The code is formatted by `black` and `isort`.
 The repository is equipped with a [`pre-commit.ci`](https://pre-commit.ci/)
 configuration file. This means that you don't *need* to do anything yourself to
 run the code formatters. When you push a commit, a bot will run those for you
-right away and add a commit to your PR. Neat, no ?
+right away and add a commit to your PR. Neat, no?
 
 That being said, if you *want* to run the checks locally when you commit, you
 can install the hooks: please refer to the [pre-commit](https://pre-commit.com/)
