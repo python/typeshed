@@ -1,6 +1,6 @@
 from typing import Any
 
-class Error:
+class Error(Exception):
     def __init__(self, *args, **kwargs): ...
     args: Any
     cursor: Any
@@ -9,7 +9,7 @@ class Error:
     pgerror: Any
     with_traceback: Any
 
-class Warning:
+class Warning(Exception):
     args: Any
     with_traceback: Any
 
