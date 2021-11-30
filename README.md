@@ -33,7 +33,7 @@ you can install the type stubs using
 These PyPI packages follow [PEP 561](http://www.python.org/dev/peps/pep-0561/)
 and are automatically released (daily) by
 [typeshed internal machinery](https://github.com/typeshed-internal/stub_uploader).
-Also starting from version 0.900 mypy will provide an option to automatically install
+Also, starting from version 0.900, you can use mypy's `--install-types` option to automatically install
 missing type stub packages (if found on PyPI).
 
 PyCharm, pytype etc. work in a similar way, for more details see documentation
