@@ -26,11 +26,11 @@ it takes a bit longer. For more details, read below.
 
 ### Code away!
 
-This repository has a Continuous Integration (CI) running on the pull requests,
-which includes automatically adjusting code formatting (`black`, `isort`) and
-running the tests. It means you can ignore all this on your side, focus on the
-code and rely on the CI to fix everything, or point you to the places that need
-fixing.
+Typeshed runs continuous integration (CI) on all pull requests. This will
+automatically fix formatting (using `black`, `isort`) and run tests.
+It means you can ignore all local setup on your side, focus on the
+code and rely on the CI to fix everything, or point you to the places that
+need fixing.
 
 ### ... Or create a local development environment
 
