@@ -11,8 +11,8 @@ from _typeshed import (
     StrPath,
 )
 from builtins import OSError
+from contextlib import AbstractContextManager
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper as _TextIOWrapper
-from posix import listdir as listdir, times_result
 from subprocess import Popen
 from typing import (
     IO,
@@ -20,17 +20,16 @@ from typing import (
     AnyStr,
     BinaryIO,
     Callable,
-    ContextManager,
     Generic,
     Iterable,
     Iterator,
     List,
     Mapping,
     MutableMapping,
+    NamedTuple,
     NoReturn,
     Protocol,
     Sequence,
-    Set,
     Tuple,
     TypeVar,
     Union,
@@ -56,10 +55,10 @@ error = OSError
 
 supports_bytes_environ: bool
 
-supports_dir_fd: Set[Callable[..., Any]]
-supports_fd: Set[Callable[..., Any]]
-supports_effective_ids: Set[Callable[..., Any]]
-supports_follow_symlinks: Set[Callable[..., Any]]
+supports_dir_fd: set[Callable[..., Any]]
+supports_fd: set[Callable[..., Any]]
+supports_effective_ids: set[Callable[..., Any]]
+supports_follow_symlinks: set[Callable[..., Any]]
 
 if sys.platform != "win32":
     # Unix only
@@ -211,7 +210,7 @@ class _Environ(MutableMapping[AnyStr, AnyStr], Generic[AnyStr]):
             putenv: Callable[[AnyStr, AnyStr], None],
             unsetenv: Callable[[AnyStr, AnyStr], None],
         ) -> None: ...
-    def setdefault(self, key: AnyStr, value: AnyStr) -> AnyStr: ...  # type: ignore
+    def setdefault(self, key: AnyStr, value: AnyStr) -> AnyStr: ...  # type: ignore[override]
     def copy(self) -> dict[AnyStr, AnyStr]: ...
     def __delitem__(self, key: AnyStr) -> None: ...
     def __getitem__(self, key: AnyStr) -> AnyStr: ...
@@ -312,6 +311,15 @@ class PathLike(Protocol[_AnyStr_co]):
     def __fspath__(self) -> _AnyStr_co: ...
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, item: Any) -> GenericAlias: ...
+
+@overload
+def listdir(path: str | None = ...) -> list[str]: ...
+@overload
+def listdir(path: bytes) -> list[bytes]: ...
+@overload
+def listdir(path: int) -> list[str]: ...
+@overload
+def listdir(path: PathLike[str]) -> list[str]: ...
 
 _FdOrAnyPath = Union[int, StrOrBytesPath]
 
@@ -641,7 +649,7 @@ def renames(old: StrOrBytesPath, new: StrOrBytesPath) -> None: ...
 def replace(src: StrOrBytesPath, dst: StrOrBytesPath, *, src_dir_fd: int | None = ..., dst_dir_fd: int | None = ...) -> None: ...
 def rmdir(path: StrOrBytesPath, *, dir_fd: int | None = ...) -> None: ...
 
-class _ScandirIterator(Iterator[DirEntry[AnyStr]], ContextManager[_ScandirIterator[AnyStr]]):
+class _ScandirIterator(Iterator[DirEntry[AnyStr]], AbstractContextManager[_ScandirIterator[AnyStr]]):
     def __next__(self) -> DirEntry[AnyStr]: ...
     def close(self) -> None: ...
 
@@ -774,7 +782,7 @@ if sys.platform != "win32":
 
 class _wrap_close(_TextIOWrapper):
     def __init__(self, stream: _TextIOWrapper, proc: Popen[str]) -> None: ...
-    def close(self) -> int | None: ...  # type: ignore
+    def close(self) -> int | None: ...  # type: ignore[override]
 
 def popen(cmd: str, mode: str = ..., buffering: int = ...) -> _wrap_close: ...
 def spawnl(mode: int, file: StrOrBytesPath, arg0: StrOrBytesPath, *args: StrOrBytesPath) -> int: ...
@@ -789,6 +797,14 @@ else:
     def spawnve(__mode: int, __path: StrOrBytesPath, __argv: _ExecVArgs, __env: _ExecEnv) -> int: ...
 
 def system(command: StrOrBytesPath) -> int: ...
+@final
+class times_result(NamedTuple):
+    user: float
+    system: float
+    children_user: float
+    children_system: float
+    elapsed: float
+
 def times() -> times_result: ...
 def waitpid(__pid: int, __options: int) -> tuple[int, int]: ...
 
@@ -830,7 +846,7 @@ if sys.platform != "win32":
         def sched_setparam(pid: int, param: sched_param) -> None: ...  # some flavors of Unix
         def sched_getparam(pid: int) -> sched_param: ...  # some flavors of Unix
         def sched_setaffinity(pid: int, mask: Iterable[int]) -> None: ...  # some flavors of Unix
-        def sched_getaffinity(pid: int) -> Set[int]: ...  # some flavors of Unix
+        def sched_getaffinity(pid: int) -> set[int]: ...  # some flavors of Unix
 
 def cpu_count() -> int | None: ...
 
@@ -881,3 +897,6 @@ if sys.version_info >= (3, 8):
         MFD_HUGE_2GB: int
         MFD_HUGE_16GB: int
         def memfd_create(name: str, flags: int = ...) -> int: ...
+
+if sys.version_info >= (3, 9):
+    def waitstatus_to_exitcode(status: int) -> int: ...

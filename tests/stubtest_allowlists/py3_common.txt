@@ -11,7 +11,6 @@ _collections_abc.Generator.gi_yieldfrom
 _collections_abc.Mapping.get  # Adding None to the Union messed up mypy
 _collections_abc.Sequence.index  # Supporting None in end is not mandatory
 _csv.Dialect.__init__  # C __init__ signature is inaccurate
-_dummy_threading
 _socket.*
 _threading_local.local.__new__
 _typeshed.*  # Utility types for typeshed, doesn't exist at runtime
@@ -49,8 +48,8 @@ codecs.CodecInfo.incrementaldecoder
 codecs.CodecInfo.incrementalencoder
 codecs.CodecInfo.streamreader
 codecs.CodecInfo.streamwriter
-# Coroutine and Generator properties are added programmatically
 collections.ChainMap.get  # Adding None to the underlying Mapping Union messed up mypy
+collections.ChainMap.fromkeys  # Runtime has *args which can really only be one argument
 # Coroutine and Generator properties are added programmatically
 collections.abc.Coroutine.cr_await
 collections.abc.Coroutine.cr_code
@@ -73,6 +72,8 @@ csv.Dialect.lineterminator
 csv.Dialect.quoting
 csv.Dialect.skipinitialspace
 ctypes.Array.__iter__  # mypy doesn't support using __getitem__ instead of __iter__ so this is here https://github.com/python/mypy/issues/2220
+ctypes.Array._type_  # _type_ and _length_ are abstract, https://github.com/python/typeshed/pull/6361
+ctypes.Array._length_
 ctypes.CDLL._FuncPtr  # None at class level but initialized in __init__ to this value
 ctypes.memmove  # CFunctionType
 ctypes.memset  # CFunctionType
@@ -218,6 +219,8 @@ webbrowser.UnixBrowser.remote_action  # always overridden in inheriting class
 webbrowser.UnixBrowser.remote_action_newtab  # always overridden in inheriting class
 webbrowser.UnixBrowser.remote_action_newwin  # always overridden in inheriting class
 wsgiref.types  # Doesn't exist, see comments in file
+xml.dom.xmlbuilder.ExpatBuilder  # mypy bug w.r.t. module __getattr__, see python/mypy#11411
+xml.dom.xmlbuilder.ExpatBuilderNS  # mypy bug w.r.t. module __getattr__, see python/mypy#11411
 
 # ==========
 # Allowlist entries that cannot or should not be fixed
