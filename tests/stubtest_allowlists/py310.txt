@@ -124,9 +124,6 @@ tkinter.EventType.__new__
 _markupbase.ParserBase.error
 asyncio.proactor_events._ProactorReadPipeTransport.__init__
 distutils.command.bdist_wininst
-logging.Formatter.__init__
-logging.LoggerAdapter.__init__
-logging.PercentStyle.__init__
 py_compile.main
 pyclbr.Class.__init__
 pyclbr.Function.__init__
