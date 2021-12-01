@@ -1,4 +1,3 @@
-redis.client.Pipeline.hscan
 redis.client.Pipeline.pubsub
 redis.client.Pipeline.scan
 redis.client.Pipeline.scan_iter
