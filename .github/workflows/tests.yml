@@ -128,8 +128,14 @@ jobs:
         run: |
           STUBS=$(git diff --name-only origin/${{ github.base_ref }} HEAD | egrep ^stubs/ | cut -d "/" -f 2 | sort -u)
           if test -n "$STUBS"; then
-            echo "Testing $STUBS..."
-            python tests/stubtest_third_party.py $STUBS
+            for DIST in $STUBS; do
+              if test -e "stubs/$DIST"; then
+                echo "Testing $DIST..."
+                python tests/stubtest_third_party.py $DIST
+              else
+                echo "$DIST was removed, not testing"
+              fi
+            done
           else
             echo "Nothing to test"
           fi
