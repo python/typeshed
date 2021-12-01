@@ -114,8 +114,6 @@ collections.abc.Generator.throw
 contextvars.ContextVar.reset
 contextvars.ContextVar.set
 io.IncrementalNewlineDecoder.setstate
-random.SystemRandom.getrandbits
-secrets.SystemRandom.getrandbits
 # These enums derive from (str, Enum). See comment in py3_common.txt
 pstats.SortKey.__new__
 tkinter.EventType.__new__
