@@ -293,7 +293,7 @@ class Formatter:
             style: _FormatStyle = ...,
             validate: bool = ...,
             *,
-            defaults: dict[str, Any] | None = ...,
+            defaults: Mapping[str, Any] | None = ...,
         ) -> None: ...
     elif sys.version_info >= (3, 8):
         def __init__(
@@ -756,7 +756,7 @@ class PercentStyle(object):  # undocumented
         validation_pattern: Pattern[str]
     _fmt: str
     if sys.version_info >= (3, 10):
-        def __init__(self, fmt: str, *, defaults: dict[str, Any] | None = ...) -> None: ...
+        def __init__(self, fmt: str, *, defaults: Mapping[str, Any] | None = ...) -> None: ...
     else:
         def __init__(self, fmt: str) -> None: ...
     def usesTime(self) -> bool: ...
