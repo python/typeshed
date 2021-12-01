@@ -1,5 +1,6 @@
 import sys
 from _typeshed import ReadableBuffer, WriteableBuffer
+from abc import abstractmethod
 from typing import (
     Any,
     Callable,
@@ -268,8 +269,16 @@ class BigEndianStructure(Structure): ...
 class LittleEndianStructure(Structure): ...
 
 class Array(Generic[_CT], _CData):
-    _length_: int
-    _type_: Type[_CT]
+    @property
+    @abstractmethod
+    def _length_(self) -> int: ...
+    @_length_.setter
+    def _length_(self, value: int) -> None: ...
+    @property
+    @abstractmethod
+    def _type_(self) -> Type[_CT]: ...
+    @_type_.setter
+    def _type_(self, value: Type[_CT]) -> None: ...
     raw: bytes  # Note: only available if _CT == c_char
     value: Any  # Note: bytes if _CT == c_char, str if _CT == c_wchar, unavailable otherwise
     # TODO These methods cannot be annotated correctly at the moment.

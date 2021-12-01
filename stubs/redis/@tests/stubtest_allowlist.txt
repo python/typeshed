@@ -1,7 +1,3 @@
-redis.client.Pipeline.client_list
-redis.client.Pipeline.flushall
-redis.client.Pipeline.flushdb
-redis.client.Pipeline.hscan
 redis.client.Pipeline.pubsub
 redis.client.Pipeline.scan
 redis.client.Pipeline.scan_iter
@@ -17,8 +13,6 @@ redis.client.PubSub.encode
 redis.client.PubSub.execute_command
 redis.client.PubSub.parse_response
 redis.client.PubSub.run_in_thread
-redis.client.Redis.flushall
-redis.client.Redis.flushdb
 redis.client.Redis.hscan
 redis.client.Redis.pubsub
 redis.client.Redis.scan
@@ -26,8 +20,3 @@ redis.client.Redis.scan_iter
 redis.client.Redis.shutdown
 redis.client.Redis.sscan
 redis.client.pairs_to_dict
-redis.connection.HIREDIS_SUPPORTS_BYTE_BUFFER
-redis.connection.HIREDIS_SUPPORTS_CALLABLE_ERRORS
-redis.connection.HIREDIS_USE_BYTE_BUFFER
-redis.connection.hiredis_version
-redis.connection.msg

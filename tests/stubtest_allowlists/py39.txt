@@ -6,7 +6,6 @@ _collections_abc.AsyncGenerator.ag_running
 _collections_abc.ItemsView.__reversed__
 _collections_abc.KeysView.__reversed__
 _collections_abc.ValuesView.__reversed__
-_dummy_thread
 ast.Bytes.__new__
 ast.Ellipsis.__new__
 ast.ExtSlice.__new__
@@ -38,7 +37,6 @@ collections.abc.KeysView.__reversed__
 collections.abc.ValuesView.__reversed__
 contextvars.Context.__init__  # Default C __init__ signature is wrong
 dataclasses.field
-dummy_threading
 enum.Enum._generate_next_value_
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 functools.partialmethod.__get__
@@ -60,13 +58,12 @@ platform.uname_result._fields
 platform.uname_result.processor
 queue.SimpleQueue.__init__  # Default C __init__ signature is wrong
 sched.Event.__doc__  # __slots__ is overridden
-smtplib.LMTP.__init__
 ssl.PROTOCOL_SSLv3  # Depends on ssl compilation
 ssl.RAND_egd  # Depends on openssl compilation
 symtable.SymbolTable.has_exec
 sys.UnraisableHookArgs  # Not exported from sys
 types.ClassMethodDescriptorType.__get__
-types.CodeType.replace
+types.CodeType.replace  # stubtest thinks default values are None but None doesn't work at runtime
 types.GenericAlias.__getattr__
 types.MethodDescriptorType.__get__
 types.WrapperDescriptorType.__get__

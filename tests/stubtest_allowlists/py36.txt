@@ -2,6 +2,7 @@ _collections_abc.AsyncGenerator.ag_await
 _collections_abc.AsyncGenerator.ag_code
 _collections_abc.AsyncGenerator.ag_frame
 _collections_abc.AsyncGenerator.ag_running
+_dummy_threading
 asyncio.Future.__init__  # Usually initialized from c object
 asyncio.exceptions  # Added in Python 3.8
 asyncio.format_helpers  # Added in Python 3.7
@@ -59,6 +60,7 @@ typing.NamedTuple._make
 typing.NamedTuple._replace
 typing.Sequence.index
 typing.runtime_checkable
+unittest._log  # New in Python 3.9
 unittest.async_case  # Added in Python 3.8
 uuid.UUID.int
 xml.etree.ElementTree.TreeBuilder.start  # Discrepancy between Python and C modules, fixed in bpo-39495

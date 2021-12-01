@@ -2,6 +2,7 @@ _collections_abc.AsyncGenerator.ag_await
 _collections_abc.AsyncGenerator.ag_code
 _collections_abc.AsyncGenerator.ag_frame
 _collections_abc.AsyncGenerator.ag_running
+_dummy_threading
 asyncio.compat  # Removed in 3.7
 asyncio.Future.__init__  # Usually initialized from c object
 asyncio.Future._callbacks  # Usually initialized from c object
@@ -52,6 +53,7 @@ typing.NamedTuple._replace
 typing._SpecialForm.__init__
 typing._SpecialForm.__new__
 typing.runtime_checkable
+unittest._log  # New in Python 3.9
 unittest.async_case  # Added in Python 3.8
 uuid.UUID.int
 uuid.UUID.is_safe

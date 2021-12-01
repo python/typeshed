@@ -14,7 +14,6 @@ from typing import (
     Generic,
     Iterable,
     Mapping,
-    NamedTuple,
     NoReturn,
     Pattern,
     Sequence,
@@ -23,6 +22,7 @@ from typing import (
     TypeVar,
     overload,
 )
+from unittest._log import _AssertLogsContext, _LoggingWatcher
 from warnings import WarningMessage
 
 if sys.version_info >= (3, 9):
@@ -128,7 +128,13 @@ class TestCase:
         expected_regex: str | bytes | Pattern[str] | Pattern[bytes],
         msg: Any = ...,
     ) -> _AssertWarnsContext: ...
-    def assertLogs(self, logger: str | logging.Logger | None = ..., level: int | str | None = ...) -> _AssertLogsContext: ...
+    def assertLogs(
+        self, logger: str | logging.Logger | None = ..., level: int | str | None = ...
+    ) -> _AssertLogsContext[_LoggingWatcher]: ...
+    if sys.version_info >= (3, 10):
+        def assertNoLogs(
+            self, logger: str | logging.Logger | None = ..., level: int | str | None = ...
+        ) -> _AssertLogsContext[None]: ...
     @overload
     def assertAlmostEqual(
         self, first: float, second: float, places: int | None = ..., msg: Any = ..., delta: float | None = ...
@@ -244,10 +250,6 @@ class FunctionTestCase(TestCase):
     ) -> None: ...
     def runTest(self) -> None: ...
 
-class _LoggingWatcher(NamedTuple):
-    records: list[logging.LogRecord]
-    output: list[str]
-
 class _AssertRaisesContext(Generic[_E]):
     exception: _E
     def __enter__(self: Self) -> Self: ...
@@ -266,16 +268,3 @@ class _AssertWarnsContext:
     def __exit__(
         self, exc_type: Type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
     ) -> None: ...
-
-class _AssertLogsContext:
-    LOGGING_FORMAT: str
-    records: list[logging.LogRecord]
-    output: list[str]
-    def __init__(self, test_case: TestCase, logger_name: str, level: int) -> None: ...
-    if sys.version_info >= (3, 10):
-        def __enter__(self) -> _LoggingWatcher | None: ...
-    else:
-        def __enter__(self) -> _LoggingWatcher: ...
-    def __exit__(
-        self, exc_type: Type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
-    ) -> bool | None: ...

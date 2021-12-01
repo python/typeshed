@@ -13,7 +13,6 @@ from _typeshed import (
 from builtins import OSError
 from contextlib import AbstractContextManager
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper as _TextIOWrapper
-from posix import listdir as listdir, times_result
 from subprocess import Popen
 from typing import (
     IO,
@@ -27,6 +26,7 @@ from typing import (
     List,
     Mapping,
     MutableMapping,
+    NamedTuple,
     NoReturn,
     Protocol,
     Sequence,
@@ -311,6 +311,15 @@ class PathLike(Protocol[_AnyStr_co]):
     def __fspath__(self) -> _AnyStr_co: ...
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, item: Any) -> GenericAlias: ...
+
+@overload
+def listdir(path: str | None = ...) -> list[str]: ...
+@overload
+def listdir(path: bytes) -> list[bytes]: ...
+@overload
+def listdir(path: int) -> list[str]: ...
+@overload
+def listdir(path: PathLike[str]) -> list[str]: ...
 
 _FdOrAnyPath = Union[int, StrOrBytesPath]
 
@@ -788,6 +797,14 @@ else:
     def spawnve(__mode: int, __path: StrOrBytesPath, __argv: _ExecVArgs, __env: _ExecEnv) -> int: ...
 
 def system(command: StrOrBytesPath) -> int: ...
+@final
+class times_result(NamedTuple):
+    user: float
+    system: float
+    children_user: float
+    children_system: float
+    elapsed: float
+
 def times() -> times_result: ...
 def waitpid(__pid: int, __options: int) -> tuple[int, int]: ...
 
@@ -880,3 +897,6 @@ if sys.version_info >= (3, 8):
         MFD_HUGE_2GB: int
         MFD_HUGE_16GB: int
         def memfd_create(name: str, flags: int = ...) -> int: ...
+
+if sys.version_info >= (3, 9):
+    def waitstatus_to_exitcode(status: int) -> int: ...
