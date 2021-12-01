@@ -37,24 +37,6 @@ jobs:
       - run: pip install $(grep flake8 requirements-tests-py3.txt)
       - run: flake8
 
-  black:
-    name: Check formatting with black
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-      - run: pip install $(grep black requirements-tests-py3.txt)
-      - run: black --check --diff scripts stdlib stubs tests
-
-  isort:
-    name: Check imports with isort
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-      - run: pip install $(grep isort requirements-tests-py3.txt)
-      - run: isort --check-only --diff scripts stdlib stubs tests
-
   pytype:
     name: Run pytype against the stubs
     runs-on: ubuntu-latest
@@ -127,7 +109,7 @@ jobs:
       - name: Install dependencies
         run: pip install $(grep tomli== requirements-tests-py3.txt) $(grep mypy== requirements-tests-py3.txt)
       - name: Run stubtest
-        run: python tests/stubtest_stdlib.py --ignore-unused-allowlist
+        run: python tests/stubtest_stdlib.py
 
   stubtest-third-party:
     name: Check third party stubs with stubtest
