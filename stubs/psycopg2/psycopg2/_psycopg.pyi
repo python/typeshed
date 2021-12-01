@@ -1,4 +1,4 @@
-from typing import Any, Callable, Tuple, TypeVar, overload
+from typing import Any, Callable, Tuple, TypeVar
 
 import psycopg2
 import psycopg2.extensions
@@ -286,7 +286,7 @@ class connection:
     autocommit: Any
     binary_types: Any
     closed: Any
-    cursor_factory: Callable[..., _T_cur]
+    cursor_factory: Callable[..., _cursor]
     deferrable: Any
     dsn: Any
     encoding: Any
