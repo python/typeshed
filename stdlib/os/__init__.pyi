@@ -897,3 +897,6 @@ if sys.version_info >= (3, 8):
         MFD_HUGE_2GB: int
         MFD_HUGE_16GB: int
         def memfd_create(name: str, flags: int = ...) -> int: ...
+
+if sys.version_info >= (3, 9):
+    def waitstatus_to_exitcode(status: int) -> int: ...

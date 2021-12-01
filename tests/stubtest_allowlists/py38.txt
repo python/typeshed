@@ -57,7 +57,7 @@ ssl.PROTOCOL_SSLv3  # Depends on ssl compilation
 ssl.RAND_egd  # Depends on openssl compilation
 sys.UnraisableHookArgs  # Not exported from sys
 types.ClassMethodDescriptorType.__get__
-types.CodeType.replace
+types.CodeType.replace  # stubtest thinks default values are None but None doesn't work at runtime
 types.MethodDescriptorType.__get__
 types.WrapperDescriptorType.__get__
 typing.NamedTuple.__new__
@@ -73,6 +73,7 @@ typing.SupportsInt.__init__
 typing.SupportsRound.__init__
 typing._SpecialForm.__init__
 typing._SpecialForm.__new__
+unittest._log  # New in Python 3.9
 uuid.getnode  # undocumented, unused parameter getters that was later removed
 weakref.WeakValueDictionary.update
 xml.etree.ElementTree.TreeBuilder.start  # Discrepancy between Python and C modules, fixed in bpo-39495
