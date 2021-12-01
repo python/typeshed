@@ -41,7 +41,7 @@ class _SupportsPos(Protocol[_T_co]):
 # on whether the rhs operand is a subclass of the lhs operand.
 class _SupportsMod(Protocol[_T_contra]):
     def __mod__(self, x: _T_contra) -> Any: ...
-        
+
 class _SupportsRMod(Protocol[_T_contra]):
     def __rmod__(self, x: _T_contra) -> Any: ...
 
