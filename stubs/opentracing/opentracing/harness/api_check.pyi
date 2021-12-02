@@ -1,5 +1,6 @@
 from opentracing.span import Span
-from opentracing.tracer import Tracer
+
+from ..tracer import Tracer
 
 class APICompatibilityCheckMixin:
     def tracer(self) -> Tracer: ...
