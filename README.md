@@ -34,8 +34,8 @@ These PyPI packages follow [PEP 561](http://www.python.org/dev/peps/pep-0561/)
 and are automatically released (multiple times a day, when needed) by
 [typeshed internal machinery](https://github.com/typeshed-internal/stub_uploader).
 
-PyCharm, pytype etc. work in a similar way, for more details see documentation
-for the type-checking tool you are using.
+Type checkers should be able to use these stub packages when installed. For more
+details, see the documentation for your type checker.
 
 ### The `_typeshed` package
 
