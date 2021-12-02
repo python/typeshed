@@ -13,7 +13,6 @@ from pathlib import Path
 import tomli
 
 EXCLUDE_LIST = [
-    "Flask",  # fails when stubtest tries to stringify some object
     "pyaudio",  # install failure locally
     "backports",  # errors on python version
     "six",  # ???
