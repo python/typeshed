@@ -1,7 +1,7 @@
 import sys
 from _collections_abc import dict_items, dict_keys, dict_values
 from _typeshed import Self, SupportsLessThan, SupportsLessThanT
-from typing import Any, Callable, Dict, Generic, NoReturn, Tuple, Type, TypeVar, overload
+from typing import Any, Dict, Generic, NoReturn, Tuple, Type, TypeVar, overload
 from typing_extensions import SupportsIndex, final
 
 if sys.version_info >= (3, 9):
