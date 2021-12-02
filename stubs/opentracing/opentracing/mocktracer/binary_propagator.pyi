@@ -1,0 +1,6 @@
+from ..span import SpanContext
+from .propagator import Propagator
+
+class BinaryPropagator(Propagator):
+    def inject(self, span_context: SpanContext, carrier) -> None: ...
+    def extract(self, carrier): ...

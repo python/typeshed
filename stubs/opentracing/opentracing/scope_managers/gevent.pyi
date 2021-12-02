@@ -1,0 +1,6 @@
+from ..scope_manager import ScopeManager
+
+class GeventScopeManager(ScopeManager):
+    def activate(self, span, finish_on_close: bool): ...
+    @property
+    def active(self): ...

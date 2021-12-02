@@ -35,6 +35,7 @@
         "stubs/Markdown",
         "stubs/mysqlclient",
         "stubs/oauthlib",
+        "stubs/opentracing",
         "stubs/Pillow",
         "stubs/paramiko",
         "stubs/prettytable",
