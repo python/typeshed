@@ -2,7 +2,7 @@ import sys
 import types
 from abc import ABCMeta
 from builtins import property as _builtins_property
-from typing import Any, Iterator, Type, TypeVar
+from typing import Any, Iterator, Type, TypeVar, overload, Iterable, Sequence, Mapping
 
 _T = TypeVar("_T")
 _S = TypeVar("_S", bound=Type[Enum])
@@ -20,6 +20,21 @@ class EnumMeta(ABCMeta):
     @_builtins_property
     def __members__(self: Type[_T]) -> types.MappingProxyType[str, _T]: ...
     def __len__(self) -> int: ...
+    # Simple value lookup
+    @overload  # type: ignore[override]
+    def __call__(self: Type[_T], value: Any) -> _T: ...
+    # Functional Enum API
+    @overload
+    def __call__(
+        self,
+        cls_name: str,
+        names: str | Iterable[str] | Iterable[Sequence[str]] | Mapping[str, Any],
+        *,
+        module: str | None = ...,
+        qualname: str | None = ...,
+        type: type | None = ...,
+        start : int = ...
+    ) -> Type[Enum]: ...
     _member_names_: list[str]  # undocumented
     _member_map_: dict[str, Enum]  # undocumented
     _value2member_map_: dict[Any, Enum]  # undocumented
