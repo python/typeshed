@@ -1,6 +1,5 @@
 from typing import Any, NamedTuple
 
-from .propagation import Format
 from .scope import Scope
 from .scope_manager import ScopeManager
 from .span import Span, SpanContext
@@ -30,8 +29,8 @@ class Tracer:
         start_time: float | None = ...,
         ignore_active_span: bool = ...,
     ) -> Span: ...
-    def inject(self, span_context: SpanContext, format: Format, carrier: dict[Any, Any]) -> None: ...
-    def extract(self, format: Format, carrier: dict[Any, Any]) -> SpanContext: ...
+    def inject(self, span_context: SpanContext, format: str, carrier: dict[Any, Any]) -> None: ...
+    def extract(self, format: str, carrier: dict[Any, Any]) -> SpanContext: ...
 
 class ReferenceType:
     CHILD_OF: str
