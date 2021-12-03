@@ -1,5 +1,4 @@
 jsonschema._format.is_css21_color
-jsonschema._format.is_css3_color
 jsonschema._format.is_css_color_code
 jsonschema._format.is_datetime
 jsonschema._format.is_idn_host_name
