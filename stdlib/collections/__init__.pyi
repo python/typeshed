@@ -35,7 +35,7 @@ else:
         typename: str, field_names: str | Iterable[str], *, verbose: bool = ..., rename: bool = ..., module: str | None = ...
     ) -> Type[Tuple[Any, ...]]: ...
 
-class UserDict(MutableMapping[_KT, _VT]):
+class UserDict(MutableMapping[_KT, _VT], Generic[_KT, _VT]):
     data: dict[_KT, _VT]
     # __init__ should be kept roughly in line with `dict.__init__`, which has the same semantics
     @overload
