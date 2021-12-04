@@ -26,12 +26,10 @@
         "stubs/cryptography",
         "stubs/dateparser",
         "stubs/docutils",
-        "stubs/Flask",
         "stubs/fpdf2",
         "stubs/html5lib",
         "stubs/httplib2",
         "stubs/humanfriendly",
-        "stubs/Jinja2",
         "stubs/jmespath",
         "stubs/jsonschema",
         "stubs/Markdown",
@@ -58,8 +56,7 @@
         "stubs/slumber",
         "stubs/stripe",
         "stubs/ttkthemes",
-        "stubs/vobject",
-        "stubs/Werkzeug"
+        "stubs/vobject"
     ],
     "typeCheckingMode": "basic",
     "strictListInference": true,

@@ -12,9 +12,8 @@ os.EX_NOTFOUND
 os.SF_MNOWAIT
 os.SF_NODISKIO
 os.SF_SYNC
-posix.sched_param  # system dependent. Unclear if macos has it.
+os.sched_param  # system dependent. Unclear if macos has it.
 posix.EX_NOTFOUND
-posix.XATTR.*  # Value seems to be in docs but not defined in github macos
 readline.append_history_file  # not defined in macos
 select.KQ_FILTER_NETDEV  # system dependent
 select.kqueue.__init__  # default C signature is wrong
@@ -42,6 +41,7 @@ posix.[a-z]+_(param|result)._(asdict|make|replace)
 # Platform differences that cannot be captured by the type system
 fcntl.[A-Z0-9_]+
 os.SCHED_[A-Z_]+
+posix.SCHED_[A-Z_]+
 
 # Loadable SQLite extensions are disabled on GitHub runners
 (sqlite3(.dbapi2)?.Connection.enable_load_extension)?

@@ -102,6 +102,10 @@ google.protobuf.internal.containers.BaseContainer.sort
 google.protobuf.internal.containers.Mapping
 google.protobuf.internal.containers.MessageMap.__init__
 google.protobuf.internal.containers.MessageMap.get
+google.protobuf.internal.containers.MutableMapping.__delitem__
+google.protobuf.internal.containers.MutableMapping.__setitem__
+google.protobuf.internal.containers.MutableMapping.pop
+google.protobuf.internal.containers.MutableMapping.setdefault
 google.protobuf.internal.containers.RepeatedCompositeFieldContainer.__init__
 google.protobuf.internal.containers.RepeatedScalarFieldContainer.__init__
 google.protobuf.internal.containers.ScalarMap.__init__

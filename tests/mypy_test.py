@@ -198,19 +198,18 @@ def run_mypy(args, configurations, major, minor, files, *, custom_typeshed=False
 
 def get_mypy_flags(args, major: int, minor: int, temp_name: str, *, custom_typeshed: bool) -> list[str]:
     flags = [
-            "--python-version",
-            "%d.%d" % (major, minor),
-            "--config-file",
-            temp_name,
-            "--strict-optional",
-            "--no-site-packages",
-            "--show-traceback",
-            "--no-implicit-optional",
-            "--disallow-any-generics",
-            "--disallow-subclassing-any",
-            "--warn-incomplete-stub",
-            "--no-error-summary",
-        ]
+        "--python-version",
+        "%d.%d" % (major, minor),
+        "--config-file",
+        temp_name,
+        "--no-site-packages",
+        "--show-traceback",
+        "--no-implicit-optional",
+        "--disallow-any-generics",
+        "--warn-incomplete-stub",
+        "--show-error-codes",
+        "--no-error-summary",
+    ]
     if custom_typeshed:
         # Setting custom typeshed dir prevents mypy from falling back to its bundled
         # typeshed in case of stub deletions
@@ -236,12 +235,7 @@ def read_dependencies(distribution: str) -> list[str]:
 
 
 def add_third_party_files(
-    distribution: str,
-    major: int,
-    files: list[str],
-    args,
-    configurations: list[MypyDistConf],
-    seen_dists: set[str],
+    distribution: str, major: int, files: list[str], args, configurations: list[MypyDistConf], seen_dists: set[str]
 ) -> None:
     if distribution in seen_dists:
         return
@@ -265,9 +259,7 @@ def add_third_party_files(
         add_configuration(configurations, distribution)
 
 
-def test_third_party_distribution(
-    distribution: str, major: int, minor: int, args
-) -> tuple[int, int]:
+def test_third_party_distribution(distribution: str, major: int, minor: int, args) -> tuple[int, int]:
     """Test the stubs of a third-party distribution.
 
     Return a tuple, where the first element indicates mypy's return code
@@ -320,7 +312,7 @@ def main():
             supported_versions = parse_versions(os.path.join("stdlib", "VERSIONS"))
             root = "stdlib"
             for name in os.listdir(root):
-                if name == "@python2" or name == "VERSIONS":
+                if name == "@python2" or name == "VERSIONS" or name.startswith("."):
                     continue
                 mod, _ = os.path.splitext(name)
                 if supported_versions[mod][0] <= (major, minor) <= supported_versions[mod][1]:
