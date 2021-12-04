@@ -41,6 +41,7 @@ pyexpat.XMLParserType.ExternalEntityParserCreate  # C signature is wrong - funct
 queue.SimpleQueue.__init__  # Default C __init__ signature is wrong
 random.Random.randrange  # missing undocumented arg _int
 random.randrange  # missing undocumented arg _int
+re.Pattern.scanner  # Undocumented and not useful. #6405
 sched.Event.__doc__  # __slots__ is overridden
 ssl.PROTOCOL_SSLv3  # Depends on ssl compilation
 ssl.RAND_egd  # Depends on openssl compilation
@@ -122,7 +123,6 @@ lib2to3.pgen2.tokenize.COLONEQUAL
 platform.popen
 plistlib.Data.asBase64
 plistlib.Data.fromBase64
-re.Pattern.scanner
 ssl.OP_ENABLE_MIDDLEBOX_COMPAT
 ssl.Options.OP_ENABLE_MIDDLEBOX_COMPAT
 ssl.SSLObject.verify_client_post_handshake

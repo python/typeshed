@@ -57,6 +57,7 @@ platform.uname_result.__new__
 platform.uname_result._fields
 platform.uname_result.processor
 queue.SimpleQueue.__init__  # Default C __init__ signature is wrong
+re.Pattern.scanner  # Undocumented and not useful. #6405
 sched.Event.__doc__  # __slots__ is overridden
 ssl.PROTOCOL_SSLv3  # Depends on ssl compilation
 ssl.RAND_egd  # Depends on openssl compilation
@@ -65,6 +66,7 @@ sys.UnraisableHookArgs  # Not exported from sys
 types.ClassMethodDescriptorType.__get__
 types.CodeType.replace  # stubtest thinks default values are None but None doesn't work at runtime
 types.GenericAlias.__getattr__
+types.GenericAlias.__call__  # Would be complicated to fix properly, Any could silence problems. #6392
 types.MethodDescriptorType.__get__
 types.WrapperDescriptorType.__get__
 typing.ForwardRef._evaluate
@@ -162,9 +164,7 @@ pstats.Stats.get_stats_profile
 pstats.StatsProfile
 pyexpat.XMLParserType.SkippedEntityHandler
 pyexpat.XMLParserType.intern
-re.Pattern.scanner
 types.CoroutineType.cr_origin
-types.GenericAlias.__call__
 typing._SpecialForm.__call__
 unicodedata.UCD.is_normalized
 xml.etree.ElementInclude.LimitedRecursiveIncludeError

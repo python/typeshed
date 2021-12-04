@@ -67,6 +67,7 @@ platform.uname_result.__new__
 platform.uname_result._fields
 platform.uname_result.processor
 queue.SimpleQueue.__init__  # Default C __init__ signature is wrong
+re.Pattern.scanner  # Undocumented and not useful. #6405
 ssl.PROTOCOL_SSLv3  # Depends on ssl compilation
 ssl.RAND_egd  # Depends on openssl compilation
 symtable.SymbolTable.has_exec
@@ -74,6 +75,7 @@ sys.UnraisableHookArgs  # Not exported from sys
 types.ClassMethodDescriptorType.__get__
 types.CodeType.replace  # stubtest thinks default values are None but None doesn't work at runtime
 types.GenericAlias.__getattr__
+types.GenericAlias.__call__  # Would be complicated to fix properly, Any could silence problems. #6392
 types.MethodDescriptorType.__get__
 types.WrapperDescriptorType.__get__
 typing.ForwardRef._evaluate
@@ -116,6 +118,8 @@ contextvars.ContextVar.set
 io.IncrementalNewlineDecoder.setstate
 random.SystemRandom.getrandbits
 secrets.SystemRandom.getrandbits
+typing.SupportsRound.__round__
+
 # These enums derive from (str, Enum). See comment in py3_common.txt
 pstats.SortKey.__new__
 tkinter.EventType.__new__
@@ -132,7 +136,6 @@ sched.Event._fields
 signal.default_int_handler
 ssl.SSLContext.__new__
 ssl._create_unverified_context
-typing.SupportsRound.__round__
 unicodedata.ucnhash_CAPI
 unittest.mock.create_autospec
 
@@ -190,10 +193,8 @@ pstats.Stats.get_stats_profile
 pstats.StatsProfile
 pyexpat.XMLParserType.SkippedEntityHandler
 pyexpat.XMLParserType.intern
-re.Pattern.scanner
 sched.Event.sequence
 types.CoroutineType.cr_origin
-types.GenericAlias.__call__
 typing._SpecialForm.__call__
 unicodedata.UCD.is_normalized
 xml.etree.ElementInclude.LimitedRecursiveIncludeError

@@ -21,6 +21,11 @@ _weakref.CallableProxyType.__getattr__  # Should have all attributes of proxy
 _weakref.ProxyType.__getattr__  # Should have all attributes of proxy
 _weakref.ReferenceType.__call__  # C function default annotation is wrong
 argparse.Namespace.__getattr__  # The whole point of this class is its attributes are dynamic
+asynchat.async_chat.encoding  # Removed in 3.11, can add if someone needs this
+asynchat.async_chat.use_encoding  # Removed in 3.11, can add if someone needs this
+asynchat.find_prefix_at_end  # Removed in 3.11, can add if someone needs this
+asyncore.dispatcher.addr  # Removed in 3.11, can add if someone needs this
+asyncore.dispatcher.handle_accepted  # Removed in 3.11, can add if someone needs this
 asyncio.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
 # Condition functions are exported in __init__
 asyncio.Condition.acquire
@@ -66,6 +71,7 @@ configparser.SectionProxy.getboolean
 configparser.SectionProxy.getfloat
 configparser.SectionProxy.getint
 copy.PyStringMap  # defined only in Jython
+csv.__version__  # Always "1.0". Using this is likely a bug. #6398
 # The Dialect properties are initialized as None in Dialect but their values are enforced in _Dialect
 csv.Dialect.delimiter
 csv.Dialect.doublequote
@@ -105,6 +111,8 @@ inspect.Parameter.POSITIONAL_OR_KEYWORD
 inspect.Parameter.VAR_KEYWORD
 inspect.Parameter.VAR_POSITIONAL
 inspect.Signature.empty  # set as private marker _empty
+inspect.Signature.from_builtin  # Removed in 3.11, can add if someone needs this
+inspect.Signature.from_function  # Removed in 3.11, can add if someone needs this
 io.BufferedRandom.truncate
 io.BufferedReader.seek
 io.BufferedReader.truncate
@@ -240,6 +248,9 @@ builtins.reveal_locals
 builtins.reveal_type
 collections.abc.*  # Types are re-exported from _collections_abc, so errors should be fixed there
 distutils.command.check.SilentReporter  # only defined if docutils in installed
+pydoc.Helper.symbol  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522
+pydoc.Helper.symbols_  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522
+pydoc.Helper.topic  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522
 # Dynamically specified by __getattr__, and thus don't exist on the class
 tempfile._TemporaryFileWrapper.[\w_]+
 # Various classes in typing aren't types at runtime. In addition, mypy thinks some special forms are tautologically defined.
@@ -289,11 +300,6 @@ _thread.exit_thread
 _thread.start_new
 _threading_local._localimpl.localargs
 _threading_local._localimpl.locallock
-asynchat.async_chat.encoding
-asynchat.async_chat.use_encoding
-asynchat.find_prefix_at_end
-asyncore.dispatcher.addr
-asyncore.dispatcher.handle_accepted
 builtins.OSError.characters_written
 builtins.SyntaxError.print_file_and_line
 bz2.BZ2File.peek
@@ -318,7 +324,6 @@ codecs.StreamWriter.seek
 codecs.namereplace_errors
 configparser.ParsingError.filename
 configparser.RawConfigParser.converters
-csv.__version__
 ctypes.ARRAY
 ctypes.SetPointerType
 ctypes.c_voidp
@@ -532,8 +537,6 @@ importlib.abc.Finder.find_module
 importlib.machinery.WindowsRegistryFinder.DEBUG_BUILD
 importlib.machinery.WindowsRegistryFinder.REGISTRY_KEY
 importlib.machinery.WindowsRegistryFinder.REGISTRY_KEY_DEBUG
-inspect.Signature.from_builtin
-inspect.Signature.from_function
 lib2to3.pgen2.grammar.Grammar.loads
 logging.config.BaseConfigurator
 logging.config.ConvertingDict
@@ -603,9 +606,6 @@ profile.Profile.trace_dispatch_i
 profile.Profile.trace_dispatch_l
 profile.Profile.trace_dispatch_mac
 profile.Profile.trace_dispatch_return
-pydoc.Helper.symbol
-pydoc.Helper.symbols_
-pydoc.Helper.topic
 random.Random.VERSION
 rlcompleter.Completer.attr_matches
 rlcompleter.Completer.global_matches
