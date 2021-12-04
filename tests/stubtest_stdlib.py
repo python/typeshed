@@ -24,10 +24,6 @@ def run_stubtest(typeshed_dir: Path) -> int:
         sys.executable,
         "-m",
         "mypy.stubtest",
-        # Use --ignore-missing-stub, because if someone makes a correct addition, they'll need to
-        # also make a allowlist change and if someone makes an incorrect addition, they'll run into
-        # false negatives.
-        "--ignore-missing-stub",
         "--check-typeshed",
         "--custom-typeshed-dir",
         str(typeshed_dir),
