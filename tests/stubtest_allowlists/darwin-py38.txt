@@ -1,1 +1,7 @@
 _?curses.A_ITALIC
+
+# Exists at runtime, but missing from stubs
+os.POSIX_SPAWN_CLOSE
+os.POSIX_SPAWN_DUP2
+os.POSIX_SPAWN_OPEN
+posix.register_at_fork

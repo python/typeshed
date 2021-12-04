@@ -1,2 +1,15 @@
 ctypes.wintypes
 pwd.getpwnam
+
+# Exists at runtime, but missing from stubs
+ftplib.FTP.trust_server_pasv_ipv4_address
+os.RWF_DSYNC
+os.RWF_HIPRI
+os.RWF_NOWAIT
+os.RWF_SYNC
+os.preadv
+os.pwritev
+posix.preadv
+posix.pwritev
+posix.register_at_fork
+time.pthread_getcpuclockid
