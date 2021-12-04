@@ -680,6 +680,9 @@ class NamedTuple(Tuple[Any, ...]):
     _field_defaults: dict[str, Any]
     _fields: Tuple[str, ...]
     _source: str
+    # NOTE: The overloads for __init__ are not strictly accurate
+    # (type for `fields` and `**kwargs` should be more precise than `object`)
+    # but typing `NamedTuple` like this makes it easier for mypy to special-case. See #6489
     @overload
     def __init__(self, typename: str, fields: Iterable[tuple[str, object]] = ...) -> None: ...
     @overload
