@@ -108,7 +108,6 @@ collections.Mapping.get  # Adding None to the Union messed up mypy
 collections.Sequence.index  # Supporting None in end is not mandatory
 
 # Exists at runtime, but missing from stubs
-__main__.T
 _ast.Tuple.dims
 _collections_abc.AsyncIterable.__class_getitem__
 _collections_abc.Awaitable.__class_getitem__

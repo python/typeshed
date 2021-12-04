@@ -274,32 +274,7 @@ socket.[A-Z0-9_]+
 (termios.[A-Z0-9_]+)?
 
 # Exists at runtime, but missing from stubs
-__main__.Error
-__main__.MISSING
-__main__.Missing
-__main__.Signature
-__main__.build_stubs
-__main__.get_allowlist_entries
-__main__.get_mypy_type_of_runtime_value
-__main__.get_stub
-__main__.get_typeshed_stdlib_modules
-__main__.is_dunder
-__main__.is_subtype_helper
-__main__.main
-__main__.maybe_strip_cls
-__main__.parse_options
-__main__.test_module
-__main__.test_stubs
-__main__.verify
-__main__.verify_decorator
-__main__.verify_funcitem
-__main__.verify_mypyfile
-__main__.verify_none
-__main__.verify_overloadedfuncdef
-__main__.verify_typealias
-__main__.verify_typeinfo
-__main__.verify_typevarexpr
-__main__.verify_var
+__main__.\w+
 _json.encode_basestring
 _markupbase.ParserBase.parse_comment
 _markupbase.ParserBase.parse_declaration
