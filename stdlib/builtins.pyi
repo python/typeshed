@@ -816,6 +816,7 @@ class list(MutableSequence[_T], Generic[_T]):
         def __class_getitem__(cls, __item: Any) -> GenericAlias: ...
 
 class dict(MutableMapping[_KT, _VT], Generic[_KT, _VT]):
+    # __init__ should be kept roughly in line with `collections.UserDict.__init__`, which has similar semantics
     @overload
     def __init__(self: dict[_KT, _VT]) -> None: ...
     @overload
