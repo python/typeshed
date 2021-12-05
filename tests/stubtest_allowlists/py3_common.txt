@@ -580,6 +580,9 @@ multiprocessing.synchronize.Semaphore.get_value
 (os|posix).times_result.n_fields
 (os|posix).times_result.n_sequence_fields
 (os|posix).times_result.n_unnamed_fields
+(os|posix).uname_result.n_fields
+(os|posix).uname_result.n_sequence_fields
+(os|posix).uname_result.n_unnamed_fields
 pickle.Pickler.memo
 pickle.Unpickler.memo
 pipes.Template.makepipeline

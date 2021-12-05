@@ -20,7 +20,6 @@ from typing import (
     AnyStr,
     BinaryIO,
     Callable,
-    ClassVar,
     Generic,
     Iterable,
     Iterator,
@@ -424,9 +423,6 @@ class uname_result(NamedTuple):
     release: str
     version: str
     machine: str
-    n_fields: ClassVar[int]
-    n_sequence_fields: ClassVar[int]
-    n_unnamed_fields: ClassVar[int]
 
 if sys.platform != "win32":
     def ctermid() -> str: ...
