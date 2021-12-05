@@ -17,6 +17,8 @@ class Signals(IntEnum):
         SIGALRM: int
     if sys.platform == "win32":
         SIGBREAK: int
+        CTRL_C_EVENT: int
+        CTRL_BREAK_EVENT: int
     if sys.platform != "win32":
         SIGBUS: int
         SIGCHLD: int
@@ -134,8 +136,8 @@ if sys.platform != "win32":
     SIGXFSZ: Signals
 
 if sys.platform == "win32":
-    CTRL_C_EVENT: int
-    CTRL_BREAK_EVENT: int
+    CTRL_C_EVENT: Signals
+    CTRL_BREAK_EVENT: Signals
 
 if sys.platform != "win32" and sys.platform != "darwin":
     class struct_siginfo(Tuple[int, int, int, int, int, int, int]):
