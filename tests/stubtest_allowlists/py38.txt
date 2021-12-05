@@ -105,10 +105,6 @@ _thread._ExceptHookArgs.n_fields
 _thread._ExceptHookArgs.n_sequence_fields
 _thread._ExceptHookArgs.n_unnamed_fields
 asyncio.BufferedProtocol.eof_received
-asyncio._enter_task
-asyncio._leave_task
-asyncio._register_task
-asyncio._unregister_task
 asyncio.protocols.BufferedProtocol.eof_received
 contextvars.ContextVar.__class_getitem__
 distutils.command.bdist_wininst
