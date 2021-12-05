@@ -228,7 +228,6 @@ if sys.platform != "win32":
             getrandom as getrandom,
             getxattr as getxattr,
             listxattr as listxattr,
-            memfd_create as memfd_create,
             removexattr as removexattr,
             setxattr as setxattr,
         )
@@ -262,6 +261,28 @@ if sys.platform != "win32":
         from os import waitstatus_to_exitcode as waitstatus_to_exitcode
     if sys.version_info >= (3, 8):
         from os import posix_spawn as posix_spawn, posix_spawnp as posix_spawnp
+        if sys.platform == "linux":
+            from os import(
+MFD_CLOEXEC as MFD_CLOEXEC,
+MFD_ALLOW_SEALING as MFD_ALLOW_SEALING,
+MFD_HUGETLB as MFD_HUGETLB,
+MFD_HUGE_SHIFT as MFD_HUGE_SHIFT,
+MFD_HUGE_MASK as MFD_HUGE_MASK,
+MFD_HUGE_64KB as MFD_HUGE_64KB,
+MFD_HUGE_512KB as MFD_HUGE_512KB,
+MFD_HUGE_1MB as MFD_HUGE_1MB,
+MFD_HUGE_2MB as MFD_HUGE_2MB,
+MFD_HUGE_8MB as MFD_HUGE_8MB,
+MFD_HUGE_16MB as MFD_HUGE_16MB,
+MFD_HUGE_32MB as MFD_HUGE_32MB,
+MFD_HUGE_256MB as MFD_HUGE_256MB,
+MFD_HUGE_512MB as MFD_HUGE_512MB,
+MFD_HUGE_1GB as MFD_HUGE_1GB,
+MFD_HUGE_2GB as MFD_HUGE_2GB,
+MFD_HUGE_16GB as MFD_HUGE_16GB,
+
+            memfd_create as memfd_create,
+        )
     if sys.version_info >= (3, 7):
         from os import register_at_fork as register_at_fork
 
