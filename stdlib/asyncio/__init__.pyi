@@ -83,15 +83,16 @@ if sys.version_info >= (3, 8):
         IncompleteReadError as IncompleteReadError,
         InvalidStateError as InvalidStateError,
         LimitOverrunError as LimitOverrunError,
-        SendfileNotAvailableError as SendfileNotAvailableError,
         TimeoutError as TimeoutError,
     )
 else:
     from .futures import CancelledError as CancelledError, InvalidStateError as InvalidStateError, TimeoutError as TimeoutError
     from .streams import IncompleteReadError as IncompleteReadError, LimitOverrunError as LimitOverrunError
-
-    if sys.version_info >= (3, 7):
-        from .events import SendfileNotAvailableError as SendfileNotAvailableError
+    
+if sys.version_info >= (3, 8):
+    from .exceptions import SendfileNotAvailableError as SendfileNotAvailableError
+elif sys.version_info >= (3, 7):
+    from .events import SendfileNotAvailableError as SendfileNotAvailableError
 
 if sys.version_info >= (3, 7):
     from .events import get_running_loop as get_running_loop
