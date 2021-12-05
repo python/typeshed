@@ -1,4 +1,4 @@
-os.sendfile
+(os|posix).sendfile
 select.epoll.register
 
 # Exists at runtime, but missing from stubs

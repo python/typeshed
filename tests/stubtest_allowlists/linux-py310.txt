@@ -13,7 +13,7 @@ os.sched_setscheduler
 os.setresgid
 os.setresuid
 os.waitid
-os.sendfile
+(os|posix).sendfile
 signal.sigtimedwait
 signal.sigwaitinfo
 select.epoll.register
