@@ -2,11 +2,12 @@ import _random
 import sys
 from collections.abc import Callable, Iterable, MutableSequence, Sequence
 from fractions import Fraction
-from typing import Any, NoReturn, Tuple, TypeVar
+from typing import Any, ClassVar, NoReturn, Tuple, TypeVar
 
 _T = TypeVar("_T")
 
 class Random(_random.Random):
+    VERSION: ClassVar[int]
     def __init__(self, x: Any = ...) -> None: ...
     def seed(self, a: Any = ..., version: int = ...) -> None: ...
     def getstate(self) -> Tuple[Any, ...]: ...
@@ -45,6 +46,7 @@ class Random(_random.Random):
 
 # SystemRandom is not implemented for all OS's; good on Windows & Linux
 class SystemRandom(Random):
+    def getrandbits(self, k: int) -> int: ...  # k can be passed by keyword
     def getstate(self, *args: Any, **kwds: Any) -> NoReturn: ...
     def setstate(self, *args: Any, **kwds: Any) -> NoReturn: ...
 
