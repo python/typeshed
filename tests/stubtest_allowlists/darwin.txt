@@ -57,9 +57,9 @@ grp.struct_group.n_unnamed_fields
 mimetypes.MimeTypes.read_windows_registry
 os.ST_NOSUID
 os.ST_RDONLY
-os.uname_result.n_fields
-os.uname_result.n_sequence_fields
-os.uname_result.n_unnamed_fields
+(os|posix).uname_result.n_fields
+(os|posix).uname_result.n_sequence_fields
+(os|posix).uname_result.n_unnamed_fields
 posix.chflags
 posix.dup2
 posix.lchflags
@@ -70,9 +70,6 @@ posix.stat_result.n_unnamed_fields
 posix.times_result.n_fields
 posix.times_result.n_sequence_fields
 posix.times_result.n_unnamed_fields
-posix.uname_result.n_fields
-posix.uname_result.n_sequence_fields
-posix.uname_result.n_unnamed_fields
 posix.wait3
 posix.wait4
 resource.struct_rusage.n_fields
