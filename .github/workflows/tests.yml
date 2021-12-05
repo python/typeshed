@@ -71,7 +71,7 @@ jobs:
         python-version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
       fail-fast: false
     env:
-      PYRIGHT_VERSION: 1.1.187 # Must match pyright_test.py.
+      PYRIGHT_VERSION: 1.1.192 # Must match pyright_test.py.
     steps:
       - uses: actions/checkout@v2
       - uses: jakebailey/pyright-action@v1
@@ -126,7 +126,7 @@ jobs:
         run: pip install $(grep tomli== requirements-tests-py3.txt)
       - name: Run stubtest
         run: |
-          STUBS=$(git diff --name-only origin/${{ github.base_ref }} HEAD | egrep ^stubs/ | cut -d "/" -f 2)
+          STUBS=$(git diff --name-only origin/${{ github.base_ref }} HEAD | egrep ^stubs/ | cut -d "/" -f 2 | sort -u | (while read stub; do [ -d stubs/$stub ] && echo $stub || true; done))
           if test -n "$STUBS"; then
             echo "Testing $STUBS..."
             python tests/stubtest_third_party.py $STUBS

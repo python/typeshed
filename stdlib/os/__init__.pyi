@@ -101,6 +101,8 @@ if sys.platform != "win32":
     CLD_TRAPPED: int
     CLD_CONTINUED: int
 
+    # TODO: SCHED_RESET_ON_FORK not available on darwin?
+    # TODO: SCHED_BATCH and SCHED_IDLE are linux only?
     SCHED_OTHER: int  # some flavors of Unix
     SCHED_BATCH: int  # some flavors of Unix
     SCHED_IDLE: int  # some flavors of Unix
@@ -119,6 +121,8 @@ if sys.platform != "win32":
 
 if sys.platform == "linux":
     RTLD_DEEPBIND: int
+    GRND_NONBLOCK: int
+    GRND_RANDOM: int
 
 SEEK_SET: int
 SEEK_CUR: int
@@ -161,6 +165,24 @@ O_NOATIME: int  # Gnu extension if in C library
 O_PATH: int  # Gnu extension if in C library
 O_TMPFILE: int  # Gnu extension if in C library
 O_LARGEFILE: int  # Gnu extension if in C library
+O_ACCMODE: int  # TODO: when does this exist?
+
+if sys.platform != "win32" and sys.platform != "darwin":
+    # posix, but apparently missing on macos
+    ST_APPEND: int
+    ST_MANDLOCK: int
+    ST_NOATIME: int
+    ST_NODEV: int
+    ST_NODIRATIME: int
+    ST_NOEXEC: int
+    ST_NOSUID: int
+    ST_RDONLY: int
+    ST_RELATIME: int
+    ST_SYNCHRONOUS: int
+    ST_WRITE: int
+
+if sys.platform != "win32":
+    NGROUPS_MAX: int
 
 curdir: str
 pardir: str
@@ -396,7 +418,6 @@ def strerror(__code: int) -> str: ...
 def umask(__mask: int) -> int: ...
 
 if sys.platform != "win32":
-    # Unix only
     def ctermid() -> str: ...
     def getegid() -> int: ...
     def geteuid() -> int: ...
@@ -426,7 +447,13 @@ if sys.platform != "win32":
     def getsid(__pid: int) -> int: ...
     def setsid() -> None: ...
     def setuid(__uid: int) -> None: ...
-    from posix import uname_result
+    @final
+    class uname_result(NamedTuple):
+        sysname: str
+        nodename: str
+        release: str
+        version: str
+        machine: str
     def uname() -> uname_result: ...
 
 @overload
@@ -812,14 +839,18 @@ if sys.platform == "win32":
     def startfile(path: StrOrBytesPath, operation: str | None = ...) -> None: ...
 
 else:
-    # Unix only
     def spawnlp(mode: int, file: StrOrBytesPath, arg0: StrOrBytesPath, *args: StrOrBytesPath) -> int: ...
     def spawnlpe(mode: int, file: StrOrBytesPath, arg0: StrOrBytesPath, *args: Any) -> int: ...  # Imprecise signature
     def spawnvp(mode: int, file: StrOrBytesPath, args: _ExecVArgs) -> int: ...
     def spawnvpe(mode: int, file: StrOrBytesPath, args: _ExecVArgs, env: _ExecEnv) -> int: ...
     def wait() -> tuple[int, int]: ...  # Unix only
     if sys.platform != "darwin":
-        from posix import waitid_result
+        class waitid_result(NamedTuple):
+            si_pid: int
+            si_uid: int
+            si_signo: int
+            si_status: int
+            si_code: int
         def waitid(idtype: int, ident: int, options: int) -> waitid_result: ...
     def wait3(options: int) -> tuple[int, int, Any]: ...
     def wait4(pid: int, options: int) -> tuple[int, int, Any]: ...
@@ -832,10 +863,36 @@ else:
     def WSTOPSIG(status: int) -> int: ...
     def WTERMSIG(status: int) -> int: ...
     if sys.version_info >= (3, 8):
-        from posix import posix_spawn as posix_spawn, posix_spawnp as posix_spawnp
+        def posix_spawn(
+            path: StrOrBytesPath,
+            argv: _ExecVArgs,
+            env: _ExecEnv,
+            *,
+            file_actions: Sequence[Tuple[Any, ...]] | None = ...,
+            setpgroup: int | None = ...,
+            resetids: bool = ...,
+            setsid: bool = ...,
+            setsigmask: Iterable[int] = ...,
+            setsigdef: Iterable[int] = ...,
+            scheduler: tuple[Any, sched_param] | None = ...,
+        ) -> int: ...
+        def posix_spawnp(
+            path: StrOrBytesPath,
+            argv: _ExecVArgs,
+            env: _ExecEnv,
+            *,
+            file_actions: Sequence[Tuple[Any, ...]] | None = ...,
+            setpgroup: int | None = ...,
+            resetids: bool = ...,
+            setsid: bool = ...,
+            setsigmask: Iterable[int] = ...,
+            setsigdef: Iterable[int] = ...,
+            scheduler: tuple[Any, sched_param] | None = ...,
+        ) -> int: ...
 
 if sys.platform != "win32":
-    from posix import sched_param
+    class sched_param(NamedTuple):
+        sched_priority: int
     def sched_get_priority_min(policy: int) -> int: ...  # some flavors of Unix
     def sched_get_priority_max(policy: int) -> int: ...  # some flavors of Unix
     def sched_yield() -> None: ...  # some flavors of Unix

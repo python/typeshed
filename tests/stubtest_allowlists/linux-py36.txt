@@ -2,3 +2,10 @@ ctypes.wintypes
 pwd.getpwnam
 ssl.PROTOCOL_SSLv3  # Depends on openssl compilation
 ssl.RAND_egd  # Depends on openssl compilation
+
+# Exists at runtime, but missing from stubs
+ftplib.FTP.trust_server_pasv_ipv4_address
+ntpath.splitunc
+posix.stat_float_times
+ssl.OP_ENABLE_MIDDLEBOX_COMPAT
+ssl.Options.OP_ENABLE_MIDDLEBOX_COMPAT
