@@ -574,9 +574,9 @@ multiprocessing.synchronize.Semaphore.get_value
 os.stat_result.n_fields
 os.stat_result.n_sequence_fields
 os.stat_result.n_unnamed_fields
-os.terminal_size.n_fields
-os.terminal_size.n_sequence_fields
-os.terminal_size.n_unnamed_fields
+(os|posix).terminal_size.n_fields
+(os|posix).terminal_size.n_sequence_fields
+(os|posix).terminal_size.n_unnamed_fields
 os.times_result.n_fields
 os.times_result.n_sequence_fields
 os.times_result.n_unnamed_fields
