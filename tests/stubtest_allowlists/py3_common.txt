@@ -246,6 +246,8 @@ builtins.quit
 # Builtins that mypy pretends exist
 builtins.reveal_locals
 builtins.reveal_type
+# GetSetDescriptor that always raises AttributeError
+builtins.OSError.characters_written
 collections.abc.*  # Types are re-exported from _collections_abc, so errors should be fixed there
 distutils.command.check.SilentReporter  # only defined if docutils in installed
 pydoc.Helper.symbol  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522
@@ -300,7 +302,6 @@ _thread.exit_thread
 _thread.start_new
 _threading_local._localimpl.localargs
 _threading_local._localimpl.locallock
-builtins.OSError.characters_written
 builtins.SyntaxError.print_file_and_line
 bz2.BZ2File.peek
 cgi.FieldStorage.bufsize
@@ -571,15 +572,18 @@ multiprocessing.pool.Pool.Process
 multiprocessing.pool.ThreadPool.Process
 multiprocessing.reducer
 multiprocessing.synchronize.Semaphore.get_value
-os.stat_result.n_fields
-os.stat_result.n_sequence_fields
-os.stat_result.n_unnamed_fields
-os.terminal_size.n_fields
-os.terminal_size.n_sequence_fields
-os.terminal_size.n_unnamed_fields
-os.times_result.n_fields
-os.times_result.n_sequence_fields
-os.times_result.n_unnamed_fields
+(os|posix).stat_result.n_fields
+(os|posix).stat_result.n_sequence_fields
+(os|posix).stat_result.n_unnamed_fields
+(os|posix).terminal_size.n_fields
+(os|posix).terminal_size.n_sequence_fields
+(os|posix).terminal_size.n_unnamed_fields
+(os|posix).times_result.n_fields
+(os|posix).times_result.n_sequence_fields
+(os|posix).times_result.n_unnamed_fields
+(os|posix).uname_result.n_fields
+(os|posix).uname_result.n_sequence_fields
+(os|posix).uname_result.n_unnamed_fields
 pickle.Pickler.memo
 pickle.Unpickler.memo
 pipes.Template.makepipeline
@@ -606,7 +610,6 @@ profile.Profile.trace_dispatch_i
 profile.Profile.trace_dispatch_l
 profile.Profile.trace_dispatch_mac
 profile.Profile.trace_dispatch_return
-random.Random.VERSION
 rlcompleter.Completer.attr_matches
 rlcompleter.Completer.global_matches
 sunau.Au_read.initfp

@@ -1,4 +1,4 @@
-os.sendfile
+(os|posix).sendfile
 select.epoll.register
 
 # Exists at runtime, but missing from stubs
@@ -23,10 +23,7 @@ os.pidfd_open
 os.preadv
 os.pwritev
 posix.copy_file_range
-posix.memfd_create
 posix.pidfd_open
 posix.preadv
 posix.pwritev
-posix.register_at_fork
-posix.waitstatus_to_exitcode
 time.pthread_getcpuclockid

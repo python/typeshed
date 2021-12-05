@@ -117,8 +117,6 @@ collections.abc.Generator.throw
 contextvars.ContextVar.reset
 contextvars.ContextVar.set
 io.IncrementalNewlineDecoder.setstate
-random.SystemRandom.getrandbits
-secrets.SystemRandom.getrandbits
 typing.SupportsRound.__round__
 
 # These enums derive from (str, Enum). See comment in py3_common.txt

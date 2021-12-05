@@ -46,12 +46,9 @@ distutils.msvccompiler.MSVCCompiler.manifest_get_embed_info
 distutils.msvccompiler.MSVCCompiler.manifest_setup_ldargs
 distutils.msvccompiler.OldMSVCCompiler
 msvcrt.SetErrorMode
-os.ftruncate
 os.get_handle_inheritable
-os.isatty
 os.set_handle_inheritable
 os.statvfs_result
-os.uname_result
 signal.Signals.CTRL_BREAK_EVENT
 signal.Signals.CTRL_C_EVENT
 socket.MsgFlag.MSG_BCAST

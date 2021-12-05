@@ -36,7 +36,7 @@ importlib.metadata  # Added in 3.8
 ipaddress._BaseNetwork.__init__
 json.loads
 multiprocessing.shared_memory
-os.utime
+(os|posix).utime
 pyexpat.XMLParserType.ExternalEntityParserCreate  # C signature is wrong - function gets only positional args
 queue.SimpleQueue.__init__  # Default C __init__ signature is wrong
 random.Random.randrange  # missing undocumented arg _int
