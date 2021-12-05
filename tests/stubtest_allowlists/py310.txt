@@ -157,10 +157,6 @@ ast.Tuple.dims
 ast.main
 asyncio.AbstractEventLoop.connect_accepted_socket
 asyncio.BufferedProtocol.eof_received
-asyncio._enter_task
-asyncio._leave_task
-asyncio._register_task
-asyncio._unregister_task
 asyncio.events.AbstractEventLoop.connect_accepted_socket
 asyncio.protocols.BufferedProtocol.eof_received
 bdb.Breakpoint.clearBreakpoints

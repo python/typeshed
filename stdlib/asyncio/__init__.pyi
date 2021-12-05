@@ -97,7 +97,15 @@ if sys.version_info >= (3, 7):
     from .runners import run as run
 
 if sys.version_info >= (3, 7):
-    from .tasks import all_tasks as all_tasks, create_task as create_task, current_task as current_task
+    from .tasks import (
+        _enter_task as _enter_task,
+        _leave_task as _leave_task,
+        _register_task as _register_task,
+        _unregister_task as _unregister_task,
+        all_tasks as all_tasks,
+        create_task as create_task,
+        current_task as current_task,
+    )
 if sys.version_info >= (3, 9):
     from .threads import to_thread as to_thread
 
