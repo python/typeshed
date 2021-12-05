@@ -2,10 +2,13 @@ import sys
 import types
 from abc import ABCMeta
 from builtins import property as _builtins_property
-from typing import Any, Iterator, Type, TypeVar, overload, Iterable, Sequence, Mapping
+from typing import Any, Dict, Iterator, Tuple, Type, TypeVar, overload, Iterable, Sequence, Mapping
 
 _T = TypeVar("_T")
 _S = TypeVar("_S", bound=Type[Enum])
+
+class _EnumDict(Dict[str, Any]):
+    def __init__(self) -> None: ...
 
 # Note: EnumMeta actually subclasses type directly, not ABCMeta.
 # This is a temporary workaround to allow multiple creation of enums with builtins
@@ -13,6 +16,10 @@ _S = TypeVar("_S", bound=Type[Enum])
 # spurious inconsistent metaclass structure. See #1595.
 # Structurally: Iterable[T], Reversible[T], Container[T] where T is the enum itself
 class EnumMeta(ABCMeta):
+    if sys.version_info >= (3, 9):
+        def __new__(metacls: Type[_T], cls: str, bases: Tuple[type, ...], classdict: _EnumDict, **kwds: Any) -> _T: ...
+    else:
+        def __new__(metacls: Type[_T], cls: str, bases: Tuple[type, ...], classdict: _EnumDict) -> _T: ...
     def __iter__(self: Type[_T]) -> Iterator[_T]: ...
     def __reversed__(self: Type[_T]) -> Iterator[_T]: ...
     def __contains__(self: Type[Any], member: object) -> bool: ...
@@ -22,12 +29,12 @@ class EnumMeta(ABCMeta):
     def __len__(self) -> int: ...
     # Simple value lookup
     @overload  # type: ignore[override]
-    def __call__(self: Type[_T], value: Any) -> _T: ...
+    def __call__(cls: Type[_T], value: Any, names: None = ...) -> _T: ...
     # Functional Enum API
     @overload
     def __call__(
-        self,
-        cls_name: str,
+        cls,
+        value: str,
         names: str | Iterable[str] | Iterable[Sequence[str]] | Mapping[str, Any],
         *,
         module: str | None = ...,
@@ -106,6 +113,7 @@ if sys.version_info >= (3, 11):
     CONFORM = FlagBoundary.CONFORM
     EJECT = FlagBoundary.EJECT
     KEEP = FlagBoundary.KEEP
+    EnumType = EnumMeta
     class property(_builtins_property): ...
     def global_enum(cls: _S) -> _S: ...
     def global_enum_repr(self: Enum) -> str: ...
