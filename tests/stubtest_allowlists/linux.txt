@@ -70,12 +70,6 @@ mimetypes.MimeTypes.read_windows_registry
 (os|posix).waitid_result.n_unnamed_fields
 posix.dup2
 posix.pipe2
-posix.stat_result.n_fields
-posix.stat_result.n_sequence_fields
-posix.stat_result.n_unnamed_fields
-posix.times_result.n_fields
-posix.times_result.n_sequence_fields
-posix.times_result.n_unnamed_fields
 posix.wait3
 posix.wait4
 resource.struct_rusage.n_fields

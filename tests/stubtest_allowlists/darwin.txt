@@ -64,12 +64,6 @@ posix.chflags
 posix.dup2
 posix.lchflags
 posix.lchmod
-posix.stat_result.n_fields
-posix.stat_result.n_sequence_fields
-posix.stat_result.n_unnamed_fields
-posix.times_result.n_fields
-posix.times_result.n_sequence_fields
-posix.times_result.n_unnamed_fields
 posix.wait3
 posix.wait4
 resource.struct_rusage.n_fields
