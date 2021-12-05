@@ -1,9 +1,5 @@
 from typing import Any
 
-from jsonschema._reflect import namedAny as namedAny
-from jsonschema.exceptions import SchemaError as SchemaError
-from jsonschema.validators import RefResolver as RefResolver, validator_for as validator_for
-
 class _CannotLoadFile(Exception): ...
 
 class _Outputter:
