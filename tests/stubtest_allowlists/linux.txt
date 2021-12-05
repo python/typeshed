@@ -62,9 +62,6 @@ mimetypes.MimeTypes.read_windows_registry
 (os|posix).sched_param.n_fields
 (os|posix).sched_param.n_sequence_fields
 (os|posix).sched_param.n_unnamed_fields
-(os|posix).uname_result.n_fields
-(os|posix).uname_result.n_sequence_fields
-(os|posix).uname_result.n_unnamed_fields
 (os|posix).waitid_result.n_fields
 (os|posix).waitid_result.n_sequence_fields
 (os|posix).waitid_result.n_unnamed_fields
