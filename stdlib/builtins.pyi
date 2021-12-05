@@ -816,6 +816,7 @@ class list(MutableSequence[_T], Generic[_T]):
         def __class_getitem__(cls, __item: Any) -> GenericAlias: ...
 
 class dict(MutableMapping[_KT, _VT], Generic[_KT, _VT]):
+    # __init__ should be kept roughly in line with `collections.UserDict.__init__`, which has similar semantics
     @overload
     def __init__(self: dict[_KT, _VT]) -> None: ...
     @overload
@@ -842,7 +843,7 @@ class dict(MutableMapping[_KT, _VT], Generic[_KT, _VT]):
     def keys(self) -> dict_keys[_KT, _VT]: ...
     def values(self) -> dict_values[_KT, _VT]: ...
     def items(self) -> dict_items[_KT, _VT]: ...
-    # Signature of `dict.fromkeys` should be kept identical to `fromkeys` methods in `collections.OrderedDict`/`collections.ChainMap`
+    # Signature of `dict.fromkeys` should be kept identical to `fromkeys` methods of `OrderedDict`/`ChainMap`/`UserDict` in `collections`
     # TODO: the true signature of `dict.fromkeys` is not expressable in the current type system.
     # See #3800 & https://github.com/python/typing/issues/548#issuecomment-683336963.
     @classmethod
