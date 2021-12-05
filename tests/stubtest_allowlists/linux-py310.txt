@@ -54,11 +54,8 @@ posix.copy_file_range
 posix.eventfd
 posix.eventfd_read
 posix.eventfd_write
-posix.memfd_create
 posix.pidfd_open
 posix.preadv
 posix.pwritev
-posix.register_at_fork
 posix.splice
-posix.waitstatus_to_exitcode
 time.pthread_getcpuclockid

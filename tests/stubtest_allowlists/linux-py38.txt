@@ -12,8 +12,6 @@ os.copy_file_range
 os.preadv
 os.pwritev
 posix.copy_file_range
-posix.memfd_create
 posix.preadv
 posix.pwritev
-posix.register_at_fork
 time.pthread_getcpuclockid

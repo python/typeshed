@@ -11,5 +11,4 @@ os.preadv
 os.pwritev
 posix.preadv
 posix.pwritev
-posix.register_at_fork
 time.pthread_getcpuclockid
