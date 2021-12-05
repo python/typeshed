@@ -246,6 +246,8 @@ builtins.quit
 # Builtins that mypy pretends exist
 builtins.reveal_locals
 builtins.reveal_type
+# GetSetDescriptor that always raises AttributeError
+builtins.OSError.characters_written
 collections.abc.*  # Types are re-exported from _collections_abc, so errors should be fixed there
 distutils.command.check.SilentReporter  # only defined if docutils in installed
 pydoc.Helper.symbol  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522
@@ -300,7 +302,6 @@ _thread.exit_thread
 _thread.start_new
 _threading_local._localimpl.localargs
 _threading_local._localimpl.locallock
-builtins.OSError.characters_written
 builtins.SyntaxError.print_file_and_line
 bz2.BZ2File.peek
 cgi.FieldStorage.bufsize
