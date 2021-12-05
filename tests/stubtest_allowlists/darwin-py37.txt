@@ -4,4 +4,3 @@ pwd.getpwnam
 
 # Exists at runtime, but missing from stubs
 ftplib.FTP.trust_server_pasv_ipv4_address
-posix.register_at_fork

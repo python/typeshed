@@ -14,5 +14,3 @@ os.CLD_STOPPED
 os.POSIX_SPAWN_CLOSE
 os.POSIX_SPAWN_DUP2
 os.POSIX_SPAWN_OPEN
-posix.register_at_fork
-posix.waitstatus_to_exitcode

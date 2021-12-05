@@ -4,4 +4,3 @@ _?curses.A_ITALIC
 os.POSIX_SPAWN_CLOSE
 os.POSIX_SPAWN_DUP2
 os.POSIX_SPAWN_OPEN
-posix.register_at_fork
