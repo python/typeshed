@@ -8,12 +8,12 @@ class FormatChecker:
     def check(self, instance, format) -> None: ...
     def conforms(self, instance, format): ...
 
-draft3_format_checker: Any
-draft4_format_checker: Any
-draft6_format_checker: Any
-draft7_format_checker: Any
-draft201909_format_checker: Any
-draft202012_format_checker: Any
+draft3_format_checker: FormatChecker
+draft4_format_checker: FormatChecker
+draft6_format_checker: FormatChecker
+draft7_format_checker: FormatChecker
+draft201909_format_checker: FormatChecker
+draft202012_format_checker: FormatChecker
 
 def is_email(instance): ...
 def is_ipv4(instance): ...
