@@ -37,6 +37,7 @@ contextvars.Context.__init__  # Default C __init__ signature is wrong
 dataclasses.field
 enum.Enum._generate_next_value_
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
+ftplib.FTP.trust_server_pasv_ipv4_address  # Dangerous to use, intentionally undocumented, intentionally missing from typeshed. #6154
 functools.partialmethod.__get__
 functools.singledispatchmethod.__call__  # A lie to reflect that the descriptor get returns a callable
 gettext.install  # codeset default value is ['unspecified'] so can't be specified
@@ -139,7 +140,6 @@ dummy_threading.setprofile
 dummy_threading.settrace
 dummy_threading.stack_size
 email.headerregistry.MessageIDHeader.max_count
-ftplib.FTP.trust_server_pasv_ipv4_address
 html.parser.HTMLParser.unescape
 importlib.machinery.PathFinder.find_distributions
 importlib.metadata.EntryPoint.pattern
