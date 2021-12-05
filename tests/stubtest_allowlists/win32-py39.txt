@@ -21,6 +21,5 @@ asyncio.IocpProactor.recvfrom
 asyncio.IocpProactor.sendto
 asyncio.windows_events.IocpProactor.recvfrom
 asyncio.windows_events.IocpProactor.sendto
-os.unsetenv
 socket.MsgFlag.MSG_ERRQUEUE
 subprocess.STARTUPINFO.copy
