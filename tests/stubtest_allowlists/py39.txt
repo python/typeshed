@@ -123,10 +123,6 @@ _thread._ExceptHookArgs.n_unnamed_fields
 ast.Tuple.dims
 ast.main
 asyncio.BufferedProtocol.eof_received
-asyncio._enter_task
-asyncio._leave_task
-asyncio._register_task
-asyncio._unregister_task
 asyncio.protocols.BufferedProtocol.eof_received
 collections.AsyncIterable.__class_getitem__
 collections.Awaitable.__class_getitem__

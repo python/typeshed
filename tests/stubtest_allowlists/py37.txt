@@ -83,10 +83,6 @@ collections.Sequence.index  # Supporting None in end is not mandatory
 _dummy_thread.RLock
 _imp.source_hash
 asyncio.BufferedProtocol.eof_received
-asyncio._enter_task
-asyncio._leave_task
-asyncio._register_task
-asyncio._unregister_task
 asyncio.protocols.BufferedProtocol.eof_received
 contextvars.ContextVar.__class_getitem__
 distutils.command.bdist_wininst
