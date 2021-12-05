@@ -13,6 +13,7 @@ os.SF_MNOWAIT
 os.SF_NODISKIO
 os.SF_SYNC
 os.sched_param  # system dependent. Unclear if macos has it.
+posix.sched_param  # system dependent. Unclear if macos has it.
 posix.EX_NOTFOUND
 readline.append_history_file  # not defined in macos
 select.KQ_FILTER_NETDEV  # system dependent
