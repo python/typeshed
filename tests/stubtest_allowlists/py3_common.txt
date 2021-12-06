@@ -286,49 +286,10 @@ socket.AF_DECnet
 socket.[A-Z0-9_]+
 (termios.[A-Z0-9_]+)?
 
-# Exists at runtime, but missing from stubs
-__main__.\w+
-_json.encode_basestring
-_markupbase.ParserBase.parse_comment
-_markupbase.ParserBase.parse_declaration
-_markupbase.ParserBase.parse_marked_section
-_markupbase.ParserBase.updatepos
-_thread.LockType.acquire_lock
-_thread.LockType.locked_lock
-_thread.LockType.release_lock
-_thread.RLock
-_thread.allocate
-_thread.exit_thread
-_thread.start_new
-_threading_local._localimpl.localargs
-_threading_local._localimpl.locallock
-builtins.SyntaxError.print_file_and_line
-bz2.BZ2File.peek
-cgi.FieldStorage.bufsize
-cgi.FieldStorage.read_binary
-cgi.FieldStorage.read_lines
-cgi.FieldStorage.read_lines_to_eof
-cgi.FieldStorage.read_lines_to_outerboundary
-cgi.FieldStorage.read_multi
-cgi.FieldStorage.read_single
-cgi.FieldStorage.read_urlencoded
-cgi.FieldStorage.skip_lines
-cgi.print_arguments
-cgi.print_exception
-codecs.BOM32_BE
-codecs.BOM32_LE
-codecs.BOM64_BE
-codecs.BOM64_LE
-codecs.StreamReader.charbuffertype
-codecs.StreamReader.seek
-codecs.StreamWriter.seek
-codecs.namereplace_errors
-configparser.ParsingError.filename
-configparser.RawConfigParser.converters
-ctypes.ARRAY
-ctypes.SetPointerType
-ctypes.c_voidp
-ctypes.util.test
+# ==========
+# Missing from distutils module (deprecated, to be removed in 3.12)
+# Any of these can be added if someone needs them
+# ==========
 distutils.archive_util.check_archive_formats
 distutils.bcppcompiler.BCPPCompiler.compiler_type
 distutils.bcppcompiler.BCPPCompiler.exe_extension
@@ -489,6 +450,52 @@ distutils.unixccompiler.UnixCCompiler.static_lib_format
 distutils.unixccompiler.UnixCCompiler.xcode_stub_lib_extension
 distutils.unixccompiler.UnixCCompiler.xcode_stub_lib_format
 distutils.util.grok_environment_error
+
+# ==========
+# Exists at runtime, but missing from stubs
+# ==========
+__main__.\w+
+_json.encode_basestring
+_markupbase.ParserBase.parse_comment
+_markupbase.ParserBase.parse_declaration
+_markupbase.ParserBase.parse_marked_section
+_markupbase.ParserBase.updatepos
+_thread.LockType.acquire_lock
+_thread.LockType.locked_lock
+_thread.LockType.release_lock
+_thread.RLock
+_thread.allocate
+_thread.exit_thread
+_thread.start_new
+_threading_local._localimpl.localargs
+_threading_local._localimpl.locallock
+builtins.SyntaxError.print_file_and_line
+bz2.BZ2File.peek
+cgi.FieldStorage.bufsize
+cgi.FieldStorage.read_binary
+cgi.FieldStorage.read_lines
+cgi.FieldStorage.read_lines_to_eof
+cgi.FieldStorage.read_lines_to_outerboundary
+cgi.FieldStorage.read_multi
+cgi.FieldStorage.read_single
+cgi.FieldStorage.read_urlencoded
+cgi.FieldStorage.skip_lines
+cgi.print_arguments
+cgi.print_exception
+codecs.BOM32_BE
+codecs.BOM32_LE
+codecs.BOM64_BE
+codecs.BOM64_LE
+codecs.StreamReader.charbuffertype
+codecs.StreamReader.seek
+codecs.StreamWriter.seek
+codecs.namereplace_errors
+configparser.ParsingError.filename
+configparser.RawConfigParser.converters
+ctypes.ARRAY
+ctypes.SetPointerType
+ctypes.c_voidp
+ctypes.util.test
 email.base64mime
 email.charset
 email.contentmanager.get_and_fixup_unknown_message_content
