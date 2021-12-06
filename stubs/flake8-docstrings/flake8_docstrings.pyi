@@ -1,0 +1,13 @@
+import argparse
+import ast
+from typing import Any, Generator, Type
+
+class pep257Checker:
+    name: str
+    version: str
+    def __init__(self, tree: ast.AST, filename: str, lines: list[str]) -> None: ...
+    @classmethod
+    def add_options(cls, parser: Any) -> None: ...
+    @classmethod
+    def parse_options(cls, options: argparse.Namespace) -> None: ...
+    def run(self) -> Generator[tuple[int, int, str, Type[Any]], None, None]: ...
