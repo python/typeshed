@@ -33,7 +33,7 @@ jobs:
         shell: bash
         run: |
           cd typeshed_to_test
-          MYPY_VERSION=$(grep mypy== requirements-tests-py3.txt | cut -d = -f 3)
+          MYPY_VERSION=$(grep mypy== requirements-tests.txt | cut -d = -f 3)
           echo "new commit"
           git rev-list --format=%s --max-count=1 $GITHUB_SHA
           git checkout -b upstream_master origin/master
