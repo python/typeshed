@@ -8,14 +8,34 @@ _PT = Tuple[str, int, str, Optional[str]]
 def print_tb(tb: TracebackType | None, limit: int | None = ..., file: IO[str] | None = ...) -> None: ...
 
 if sys.version_info >= (3, 10):
+    @overload
     def print_exception(
-        __exc: Type[BaseException] | BaseException | None,
+        __exc: Type[BaseException] | None,
         value: BaseException | None = ...,
         tb: TracebackType | None = ...,
         limit: int | None = ...,
         file: IO[str] | None = ...,
         chain: bool = ...,
     ) -> None: ...
+    @overload
+    def print_exception(
+        __exc: BaseException, *, limit: int | None = ..., file: IO[str] | None = ..., chain: bool = ...
+    ) -> None: ...
+    @overload
+    def format_exception(
+        __exc: Type[BaseException] | None,
+        value: BaseException | None = ...,
+        tb: TracebackType | None = ...,
+        limit: int | None = ...,
+        chain: bool = ...,
+    ) -> list[str]: ...
+    @overload
+    def format_exception(
+        __exc: BaseException,
+        *,
+        limit: int | None = ...,
+        chain: bool = ...,
+    ) -> list[str]: ...
 
 else:
     def print_exception(
@@ -26,6 +46,13 @@ else:
         file: IO[str] | None = ...,
         chain: bool = ...,
     ) -> None: ...
+    def format_exception(
+        etype: Type[BaseException] | None,
+        value: BaseException | None,
+        tb: TracebackType | None,
+        limit: int | None = ...,
+        chain: bool = ...,
+    ) -> list[str]: ...
 
 def print_exc(limit: int | None = ..., file: IO[str] | None = ..., chain: bool = ...) -> None: ...
 def print_last(limit: int | None = ..., file: IO[str] | None = ..., chain: bool = ...) -> None: ...
@@ -42,24 +69,6 @@ if sys.version_info >= (3, 10):
 
 else:
     def format_exception_only(etype: Type[BaseException] | None, value: BaseException | None) -> list[str]: ...
-
-if sys.version_info >= (3, 10):
-    def format_exception(
-        __exc: Type[BaseException] | None,
-        value: BaseException | None = ...,
-        tb: TracebackType | None = ...,
-        limit: int | None = ...,
-        chain: bool = ...,
-    ) -> list[str]: ...
-
-else:
-    def format_exception(
-        etype: Type[BaseException] | None,
-        value: BaseException | None,
-        tb: TracebackType | None,
-        limit: int | None = ...,
-        chain: bool = ...,
-    ) -> list[str]: ...
 
 def format_exc(limit: int | None = ..., chain: bool = ...) -> str: ...
 def format_tb(tb: TracebackType | None, limit: int | None = ...) -> list[str]: ...
