@@ -1,5 +1,3 @@
-# NOTE: Incomplete, lots of unannotated parameters currently
-
 from typing import Any, NoReturn
 from xml.dom.minidom import Document, DOMImplementation, Node, TypeInfo
 from xml.dom.xmlbuilder import DOMBuilderFilter, Options
