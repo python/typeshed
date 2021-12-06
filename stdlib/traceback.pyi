@@ -30,12 +30,7 @@ if sys.version_info >= (3, 10):
         chain: bool = ...,
     ) -> list[str]: ...
     @overload
-    def format_exception(
-        __exc: BaseException,
-        *,
-        limit: int | None = ...,
-        chain: bool = ...,
-    ) -> list[str]: ...
+    def format_exception(__exc: BaseException, *, limit: int | None = ..., chain: bool = ...) -> list[str]: ...
 
 else:
     def print_exception(
