@@ -119,7 +119,7 @@ contextvars.ContextVar.set
 io.IncrementalNewlineDecoder.setstate
 typing.SupportsRound.__round__
 
-# These enums derive from (str, Enum). See comment in py3_common.txt
+# These enums derive from (str, Enum). See comment in common.txt
 pstats.SortKey.__new__
 tkinter.EventType.__new__
 

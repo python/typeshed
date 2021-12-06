@@ -28,7 +28,7 @@ def run_stubtest(typeshed_dir: Path) -> int:
         "--custom-typeshed-dir",
         str(typeshed_dir),
         "--allowlist",
-        str(allowlist_dir / "py3_common.txt"),
+        str(allowlist_dir / "common.txt"),
         "--allowlist",
         str(allowlist_dir / version_allowlist),
     ]

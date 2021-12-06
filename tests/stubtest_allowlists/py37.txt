@@ -62,7 +62,7 @@ uuid.getnode  # undocumented, unused parameter getters that was later removed
 xml.etree.ElementTree.TreeBuilder.start  # Discrepancy between Python and C modules, fixed in bpo-39495
 xml.etree.cElementTree.TreeBuilder.start  # bpo-39495
 xml.parsers.expat.XMLParserType.ExternalEntityParserCreate  # C signature is wrong - function gets only positional args
-# These enums derive from (int, IntEnum) or (str, Enum). See comment in py3_common.txt
+# These enums derive from (int, IntEnum) or (str, Enum). See comment in common.txt
 pstats.SortKey.__new__
 tkinter.EventType.__new__
 

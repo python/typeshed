@@ -93,7 +93,7 @@ weakref.WeakValueDictionary.update
 xml.etree.ElementTree.XMLParser.__init__  # Defined in C so has general signature
 xml.etree.cElementTree.XMLParser.__init__  # Defined in C so has general signature
 
-# These enums derive from (int, IntEnum) or (str, Enum). See comment in py3_common.txt
+# These enums derive from (int, IntEnum) or (str, Enum). See comment in common.txt
 pstats.SortKey.__new__
 tkinter.EventType.__new__
 
