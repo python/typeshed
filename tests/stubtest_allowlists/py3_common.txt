@@ -482,10 +482,6 @@ cgi.FieldStorage.read_urlencoded
 cgi.FieldStorage.skip_lines
 cgi.print_arguments
 cgi.print_exception
-codecs.BOM32_BE
-codecs.BOM32_LE
-codecs.BOM64_BE
-codecs.BOM64_LE
 codecs.StreamReader.charbuffertype
 codecs.StreamReader.seek
 codecs.StreamWriter.seek
