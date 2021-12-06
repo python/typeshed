@@ -228,8 +228,6 @@ webbrowser.UnixBrowser.remote_action  # always overridden in inheriting class
 webbrowser.UnixBrowser.remote_action_newtab  # always overridden in inheriting class
 webbrowser.UnixBrowser.remote_action_newwin  # always overridden in inheriting class
 wsgiref.types  # Doesn't exist, see comments in file
-xml.dom.xmlbuilder.ExpatBuilder  # mypy bug w.r.t. module __getattr__, see python/mypy#11411
-xml.dom.xmlbuilder.ExpatBuilderNS  # mypy bug w.r.t. module __getattr__, see python/mypy#11411
 
 # ==========
 # Allowlist entries that cannot or should not be fixed
@@ -679,23 +677,6 @@ wsgiref.handlers.BaseHandler.result
 wsgiref.handlers.BaseHandler.status
 xml.dom
 xml.dom.InvalidCharacterErr
-xml.dom.expatbuilder.ElementInfo
-xml.dom.expatbuilder.ExpatBuilder
-xml.dom.expatbuilder.ExpatBuilderNS
-xml.dom.expatbuilder.FilterCrutch
-xml.dom.expatbuilder.FilterVisibilityController
-xml.dom.expatbuilder.FragmentBuilder
-xml.dom.expatbuilder.FragmentBuilderNS
-xml.dom.expatbuilder.InternalSubsetExtractor
-xml.dom.expatbuilder.Namespaces
-xml.dom.expatbuilder.ParseEscape
-xml.dom.expatbuilder.Rejecter
-xml.dom.expatbuilder.Skipper
-xml.dom.expatbuilder.makeBuilder
-xml.dom.expatbuilder.parse
-xml.dom.expatbuilder.parseFragment
-xml.dom.expatbuilder.parseFragmentString
-xml.dom.expatbuilder.parseString
 xml.dom.minidom.Attr.isId
 xml.dom.minidom.Attr.schemaType
 xml.dom.minidom.CharacterData.length
