@@ -3,7 +3,7 @@ import ast
 from typing import Any, Generic, Iterable, Iterator, Type, TypeVar
 
 FLAKE8_ERROR = tuple[int, int, str, Type[Any]]
-TConfig = TypeVar("TConfig")
+TConfig = TypeVar("TConfig")  # noqa: Y001
 
 class Error:
     code: str
