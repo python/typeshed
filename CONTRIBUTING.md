@@ -55,7 +55,7 @@ terminal window:
 $ python3 -m venv .venv3
 $ source .venv3/bin/activate
 (.venv3)$ pip install -U pip
-(.venv3)$ pip install -r requirements-tests-py3.txt
+(.venv3)$ pip install -r requirements-tests.txt
 ```
 
 ### Windows
@@ -80,7 +80,7 @@ following commands from a Windows terminal:
 > python3 -m venv .venv3
 > ".venv3/Scripts/activate"
 (.venv3) > python -m pip install -U pip
-(.venv3) > python -m pip install -r requirements-tests-py3.txt
+(.venv3) > python -m pip install -r requirements-tests.txt
 ```
 
 ## Code formatting

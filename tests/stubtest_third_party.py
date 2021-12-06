@@ -27,7 +27,7 @@ class StubtestFailed(Exception):
 
 @functools.lru_cache()
 def get_mypy_req():
-    with open("requirements-tests-py3.txt") as f:
+    with open("requirements-tests.txt") as f:
         return next(line.strip() for line in f if "mypy" in line)
 
 
