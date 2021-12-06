@@ -286,6 +286,37 @@ socket.AF_DECnet
 socket.[A-Z0-9_]+
 (termios.[A-Z0-9_]+)?
 
+# Missing aliases to existing methods that not many people seem to use.
+# Complicated multiple inheritance, confuses type checkers.
+tkinter.Grid.bbox
+tkinter.Grid.columnconfigure
+tkinter.Grid.config
+tkinter.Grid.configure
+tkinter.Grid.forget
+tkinter.Grid.grid_bbox
+tkinter.Grid.grid_columnconfigure
+tkinter.Grid.grid_location
+tkinter.Grid.grid_propagate
+tkinter.Grid.grid_rowconfigure
+tkinter.Grid.grid_size
+tkinter.Grid.grid_slaves
+tkinter.Grid.info
+tkinter.Grid.propagate
+tkinter.Grid.rowconfigure
+tkinter.Grid.slaves
+tkinter.Pack.config
+tkinter.Pack.configure
+tkinter.Pack.info
+tkinter.Pack.pack_propagate
+tkinter.Pack.pack_slaves
+tkinter.Pack.slaves
+tkinter.Place.config
+tkinter.Place.configure
+tkinter.Place.forget
+tkinter.Place.place_slaves
+tkinter.Place.slaves
+
+
 # ==========
 # Missing from distutils module (deprecated, to be removed in 3.12)
 # Any of these can be added if someone needs them
@@ -624,34 +655,7 @@ sunau.Au_write.initfp
 threading.Event.isSet
 tkinter.EventType.Button
 tkinter.EventType.Key
-tkinter.Grid.bbox
-tkinter.Grid.columnconfigure
-tkinter.Grid.config
-tkinter.Grid.configure
-tkinter.Grid.forget
-tkinter.Grid.grid_bbox
-tkinter.Grid.grid_columnconfigure
-tkinter.Grid.grid_location
-tkinter.Grid.grid_propagate
-tkinter.Grid.grid_rowconfigure
-tkinter.Grid.grid_size
-tkinter.Grid.grid_slaves
-tkinter.Grid.info
-tkinter.Grid.propagate
-tkinter.Grid.rowconfigure
-tkinter.Grid.slaves
 tkinter.Misc.config
-tkinter.Pack.config
-tkinter.Pack.configure
-tkinter.Pack.info
-tkinter.Pack.pack_propagate
-tkinter.Pack.pack_slaves
-tkinter.Pack.slaves
-tkinter.Place.config
-tkinter.Place.configure
-tkinter.Place.forget
-tkinter.Place.place_slaves
-tkinter.Place.slaves
 tkinter.font.Font.counter
 tkinter.simpledialog.Dialog.apply
 tkinter.simpledialog.Dialog.cancel
