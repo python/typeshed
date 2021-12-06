@@ -1,6 +1,6 @@
 import argparse
 import ast
-from typing import Any, Generic, Iterable, Iterator, List, Type, TypeVar
+from typing import Any, Generic, Iterable, Iterator, Type, TypeVar
 
 FLAKE8_ERROR = tuple[int, int, str, Type[Any]]
 TConfig = TypeVar("TConfig")
@@ -24,7 +24,7 @@ class Visitor(ast.NodeVisitor, Generic[TConfig]):
 class Plugin(Generic[TConfig]):
     name: str
     version: str
-    visitors: List[Type[Visitor[TConfig]]]
+    visitors: list[Type[Visitor[TConfig]]]
     config: TConfig
     def __init__(self, tree: ast.AST) -> None: ...
     def run(self) -> Iterable[FLAKE8_ERROR]: ...
