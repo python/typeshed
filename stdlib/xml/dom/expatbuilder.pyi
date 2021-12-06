@@ -1,4 +1,4 @@
-from typing import Any, NoReturn, Union
+from typing import Any, NoReturn
 from typing_extensions import Literal
 from xml.dom.minidom import Document, DOMImplementation, Node, TypeInfo
 from xml.dom.xmlbuilder import DOMBuilderFilter, Options
