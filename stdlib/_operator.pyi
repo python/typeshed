@@ -48,6 +48,8 @@ class _SupportsLE(Protocol):
 class _SupportsGE(Protocol):
     def __ge__(self, __other: Any) -> Any: ...
 
+# We get false-positive errors if e.g. `lt` does not have the same signature as `le`,
+# so a broad union type is required for all four comparison methods
 _SupportsComparison = Union[_SupportsLE, _SupportsGE, _SupportsGT, _SupportsLT]
 
 def lt(__a: _SupportsComparison, __b: _SupportsComparison) -> Any: ...
