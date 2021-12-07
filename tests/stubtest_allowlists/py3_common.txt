@@ -21,11 +21,11 @@ _weakref.CallableProxyType.__getattr__  # Should have all attributes of proxy
 _weakref.ProxyType.__getattr__  # Should have all attributes of proxy
 _weakref.ReferenceType.__call__  # C function default annotation is wrong
 argparse.Namespace.__getattr__  # The whole point of this class is its attributes are dynamic
-asynchat.async_chat.encoding  # Removed in 3.11, can add if someone needs this
-asynchat.async_chat.use_encoding  # Removed in 3.11, can add if someone needs this
-asynchat.find_prefix_at_end  # Removed in 3.11, can add if someone needs this
-asyncore.dispatcher.addr  # Removed in 3.11, can add if someone needs this
-asyncore.dispatcher.handle_accepted  # Removed in 3.11, can add if someone needs this
+asynchat.async_chat.encoding  # Removal planned for 3.12, can add if someone needs this
+asynchat.async_chat.use_encoding  # Removal planned for 3.12, can add if someone needs this
+asynchat.find_prefix_at_end  # Removal planned for 3.12, can add if someone needs this
+asyncore.dispatcher.addr  # Removal planned for 3.12, can add if someone needs this
+asyncore.dispatcher.handle_accepted  # Removal planned for 3.12, can add if someone needs this
 asyncio.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
 # Condition functions are exported in __init__
 asyncio.Condition.acquire
