@@ -261,13 +261,13 @@ _ElementFactory = Callable[[Any, Dict[Any, Any]], Element]
 class TreeBuilder:
     if sys.version_info >= (3, 8):
         def __init__(
-            self, 
-            element_factory: _ElementFactory | None = ..., 
-            *, 
-            comment_factory: Callable[[str | None], Element] | None = ..., 
+            self,
+            element_factory: _ElementFactory | None = ...,
+            *,
+            comment_factory: Callable[[str | None], Element] | None = ...,
             pi_factory: Callable[[str, str | None], Element] | None = ...,
             insert_comments: bool = ...,
-            insert_pis: bool = ...
+            insert_pis: bool = ...,
         ) -> None: ...
         insert_comments: bool
         insert_pis: bool
