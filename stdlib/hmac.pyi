@@ -1,7 +1,7 @@
 import sys
 from _typeshed import ReadableBuffer
 from types import ModuleType
-from typing import Any, AnyStr, Callable, Union, overload
+from typing import Any, AnyStr, Callable, ClassVar, Union, overload
 
 # TODO more precise type for object of hashlib
 _Hash = Any
@@ -21,6 +21,7 @@ else:
     def new(key: bytes, msg: ReadableBuffer | None = ..., digestmod: _DigestMod | None = ...) -> HMAC: ...
 
 class HMAC:
+    blocksize: ClassVar[int]
     digest_size: int
     block_size: int
     name: str
