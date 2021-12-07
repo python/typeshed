@@ -247,6 +247,7 @@ if sys.platform != "win32":
             POSIX_FADV_WILLNEED as POSIX_FADV_WILLNEED,
             fdatasync as fdatasync,
             getresgid as getresgid,
+            pipe2 as pipe2,
             getresuid as getresuid,
             pipe2 as pipe2,
             posix_fadvise as posix_fadvise,
