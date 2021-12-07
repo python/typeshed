@@ -103,6 +103,7 @@ if sys.platform != "win32":
         ctermid as ctermid,
         device_encoding as device_encoding,
         dup as dup,
+        dup2 as dup2,
         error as error,
         execv as execv,
         execve as execve,
@@ -212,6 +213,8 @@ if sys.platform != "win32":
         urandom as urandom,
         utime as utime,
         wait as wait,
+        wait3 as wait3,
+        wait4 as wait4,
         waitpid as waitpid,
         write as write,
         writev as writev,
@@ -231,6 +234,9 @@ if sys.platform != "win32":
             removexattr as removexattr,
             setxattr as setxattr,
         )
+    else:
+        from os import chflags as chflags, lchflags as lchflags, lchmod as lchmod
+
     if sys.platform != "darwin":
         from os import (
             POSIX_FADV_DONTNEED as POSIX_FADV_DONTNEED,
@@ -242,6 +248,7 @@ if sys.platform != "win32":
             fdatasync as fdatasync,
             getresgid as getresgid,
             getresuid as getresuid,
+            pipe2 as pipe2,
             posix_fadvise as posix_fadvise,
             posix_fallocate as posix_fallocate,
             sched_getaffinity as sched_getaffinity,
