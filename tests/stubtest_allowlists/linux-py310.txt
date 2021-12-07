@@ -1,6 +1,5 @@
 _curses.color_pair
 curses.color_pair
-os.pipe2
 (os|posix).posix_fadvise
 (os|posix).posix_fallocate
 (os|posix).sched_getaffinity
