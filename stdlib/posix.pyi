@@ -242,6 +242,7 @@ if sys.platform != "win32":
             fdatasync as fdatasync,
             getresgid as getresgid,
             getresuid as getresuid,
+            pipe2 as pipe2,
             posix_fadvise as posix_fadvise,
             posix_fallocate as posix_fallocate,
             sched_getaffinity as sched_getaffinity,
