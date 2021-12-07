@@ -228,8 +228,6 @@ webbrowser.UnixBrowser.remote_action  # always overridden in inheriting class
 webbrowser.UnixBrowser.remote_action_newtab  # always overridden in inheriting class
 webbrowser.UnixBrowser.remote_action_newwin  # always overridden in inheriting class
 wsgiref.types  # Doesn't exist, see comments in file
-xml.dom.xmlbuilder.ExpatBuilder  # mypy bug w.r.t. module __getattr__, see python/mypy#11411
-xml.dom.xmlbuilder.ExpatBuilderNS  # mypy bug w.r.t. module __getattr__, see python/mypy#11411
 
 # ==========
 # Allowlist entries that cannot or should not be fixed
@@ -285,6 +283,37 @@ os.O_[A-Z_]+
 socket.AF_DECnet
 socket.[A-Z0-9_]+
 (termios.[A-Z0-9_]+)?
+
+# Missing aliases to existing methods that not many people seem to use.
+# Complicated multiple inheritance, confuses type checkers.
+tkinter.Grid.bbox
+tkinter.Grid.columnconfigure
+tkinter.Grid.config
+tkinter.Grid.configure
+tkinter.Grid.forget
+tkinter.Grid.grid_bbox
+tkinter.Grid.grid_columnconfigure
+tkinter.Grid.grid_location
+tkinter.Grid.grid_propagate
+tkinter.Grid.grid_rowconfigure
+tkinter.Grid.grid_size
+tkinter.Grid.grid_slaves
+tkinter.Grid.info
+tkinter.Grid.propagate
+tkinter.Grid.rowconfigure
+tkinter.Grid.slaves
+tkinter.Pack.config
+tkinter.Pack.configure
+tkinter.Pack.info
+tkinter.Pack.pack_propagate
+tkinter.Pack.pack_slaves
+tkinter.Pack.slaves
+tkinter.Place.config
+tkinter.Place.configure
+tkinter.Place.forget
+tkinter.Place.place_slaves
+tkinter.Place.slaves
+
 
 # ==========
 # Missing from distutils module (deprecated, to be removed in 3.12)
@@ -617,37 +646,9 @@ rlcompleter.Completer.attr_matches
 rlcompleter.Completer.global_matches
 sunau.Au_read.initfp
 sunau.Au_write.initfp
-threading.Event.isSet
 tkinter.EventType.Button
 tkinter.EventType.Key
-tkinter.Grid.bbox
-tkinter.Grid.columnconfigure
-tkinter.Grid.config
-tkinter.Grid.configure
-tkinter.Grid.forget
-tkinter.Grid.grid_bbox
-tkinter.Grid.grid_columnconfigure
-tkinter.Grid.grid_location
-tkinter.Grid.grid_propagate
-tkinter.Grid.grid_rowconfigure
-tkinter.Grid.grid_size
-tkinter.Grid.grid_slaves
-tkinter.Grid.info
-tkinter.Grid.propagate
-tkinter.Grid.rowconfigure
-tkinter.Grid.slaves
 tkinter.Misc.config
-tkinter.Pack.config
-tkinter.Pack.configure
-tkinter.Pack.info
-tkinter.Pack.pack_propagate
-tkinter.Pack.pack_slaves
-tkinter.Pack.slaves
-tkinter.Place.config
-tkinter.Place.configure
-tkinter.Place.forget
-tkinter.Place.place_slaves
-tkinter.Place.slaves
 tkinter.font.Font.counter
 tkinter.simpledialog.Dialog.apply
 tkinter.simpledialog.Dialog.cancel
@@ -682,23 +683,6 @@ wsgiref.handlers.BaseHandler.result
 wsgiref.handlers.BaseHandler.status
 xml.dom
 xml.dom.InvalidCharacterErr
-xml.dom.expatbuilder.ElementInfo
-xml.dom.expatbuilder.ExpatBuilder
-xml.dom.expatbuilder.ExpatBuilderNS
-xml.dom.expatbuilder.FilterCrutch
-xml.dom.expatbuilder.FilterVisibilityController
-xml.dom.expatbuilder.FragmentBuilder
-xml.dom.expatbuilder.FragmentBuilderNS
-xml.dom.expatbuilder.InternalSubsetExtractor
-xml.dom.expatbuilder.Namespaces
-xml.dom.expatbuilder.ParseEscape
-xml.dom.expatbuilder.Rejecter
-xml.dom.expatbuilder.Skipper
-xml.dom.expatbuilder.makeBuilder
-xml.dom.expatbuilder.parse
-xml.dom.expatbuilder.parseFragment
-xml.dom.expatbuilder.parseFragmentString
-xml.dom.expatbuilder.parseString
 xml.dom.minidom.Attr.isId
 xml.dom.minidom.Attr.schemaType
 xml.dom.minidom.CharacterData.length
