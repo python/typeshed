@@ -248,6 +248,8 @@ builtins.reveal_type
 builtins.OSError.characters_written
 collections.abc.*  # Types are re-exported from _collections_abc, so errors should be fixed there
 distutils.command.check.SilentReporter  # only defined if docutils in installed
+pickle.Pickler.memo  # undocumented implementation detail, has different type in C/Python implementations
+pickle.Unpickler.memo  # undocumented implementation detail, has different type in C/Python implementations
 pydoc.Helper.symbol  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522
 pydoc.Helper.symbols_  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522
 pydoc.Helper.topic  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522
@@ -492,6 +494,20 @@ distutils.unixccompiler.UnixCCompiler.xcode_stub_lib_format
 distutils.util.grok_environment_error
 
 # ==========
+# Missing from pkg.ImpLoader (deprecated since 3.3, can add if someone needs it)
+# ==========
+pkgutil.ImpImporter.find_module
+pkgutil.ImpImporter.iter_modules
+pkgutil.ImpLoader.code
+pkgutil.ImpLoader.get_code
+pkgutil.ImpLoader.get_data
+pkgutil.ImpLoader.get_filename
+pkgutil.ImpLoader.get_source
+pkgutil.ImpLoader.is_package
+pkgutil.ImpLoader.load_module
+pkgutil.ImpLoader.source
+
+# ==========
 # Exists at runtime, but missing from stubs
 # ==========
 __main__.\w+
@@ -624,21 +640,9 @@ multiprocessing.synchronize.Semaphore.get_value
 (os|posix).uname_result.n_fields
 (os|posix).uname_result.n_sequence_fields
 (os|posix).uname_result.n_unnamed_fields
-pickle.Pickler.memo
-pickle.Unpickler.memo
 pipes.Template.makepipeline
 pipes.Template.open_r
 pipes.Template.open_w
-pkgutil.ImpImporter.find_module
-pkgutil.ImpImporter.iter_modules
-pkgutil.ImpLoader.code
-pkgutil.ImpLoader.get_code
-pkgutil.ImpLoader.get_data
-pkgutil.ImpLoader.get_filename
-pkgutil.ImpLoader.get_source
-pkgutil.ImpLoader.is_package
-pkgutil.ImpLoader.load_module
-pkgutil.ImpLoader.source
 profile.Profile.dispatch
 profile.Profile.fake_code
 profile.Profile.fake_frame
