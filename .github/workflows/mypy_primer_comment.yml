@@ -46,8 +46,10 @@ jobs:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
             const fs = require('fs')
+            const fileNames = fs.readdirSync('.').filter(name => /^diff_[0-9]+\.txt$/.exec(name));
+            console.log(fileNames);
             const data = (
-              ['diff_0.txt', 'diff_1.txt']
+              fileNames
               .map(fileName => fs.readFileSync(fileName, { encoding: 'utf8' }))
               .join('')
               .substr(0, 30000)  // About 300 lines
