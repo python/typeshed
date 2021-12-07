@@ -646,8 +646,6 @@ rlcompleter.Completer.attr_matches
 rlcompleter.Completer.global_matches
 sunau.Au_read.initfp
 sunau.Au_write.initfp
-tkinter.EventType.Button
-tkinter.EventType.Key
 tkinter.Misc.config
 tkinter.font.Font.counter
 tkinter.simpledialog.Dialog.apply

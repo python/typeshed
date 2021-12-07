@@ -111,6 +111,7 @@ _TakeFocusValue = Union[int, Literal[""], Callable[[str], Optional[bool]]]  # -t
 class EventType(str, Enum):
     Activate: str
     ButtonPress: str
+    Button = ButtonPress
     ButtonRelease: str
     Circulate: str
     CirculateRequest: str
@@ -128,6 +129,7 @@ class EventType(str, Enum):
     GraphicsExpose: str
     Gravity: str
     KeyPress: str
+    Key = KeyPress
     KeyRelease: str
     Keymap: str
     Leave: str
