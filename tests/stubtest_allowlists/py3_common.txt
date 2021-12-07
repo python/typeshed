@@ -248,6 +248,7 @@ builtins.reveal_type
 builtins.OSError.characters_written
 collections.abc.*  # Types are re-exported from _collections_abc, so errors should be fixed there
 distutils.command.check.SilentReporter  # only defined if docutils in installed
+hmac.HMAC.blocksize  # use block_size instead
 pickle.Pickler.memo  # undocumented implementation detail, has different type in C/Python implementations
 pickle.Unpickler.memo  # undocumented implementation detail, has different type in C/Python implementations
 pydoc.Helper.symbol  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522
@@ -590,7 +591,6 @@ email.policy.Policy.mangle_from_
 email.policy.Policy.message_factory
 email.quoprimime
 email.utils
-hmac.HMAC.blocksize
 importlib.abc.Finder.find_module
 lib2to3.pgen2.grammar.Grammar.loads
 logging.config.BaseConfigurator
