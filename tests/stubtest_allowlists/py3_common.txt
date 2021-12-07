@@ -590,7 +590,6 @@ email.policy.Policy.mangle_from_
 email.policy.Policy.message_factory
 email.quoprimime
 email.utils
-hmac.HMAC.blocksize
 importlib.abc.Finder.find_module
 lib2to3.pgen2.grammar.Grammar.loads
 logging.config.BaseConfigurator
