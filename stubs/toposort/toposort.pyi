@@ -1,5 +1,5 @@
-from typing import Any, Iterator, TypeVar
 from _typeshed import SupportsItems
+from typing import Any, Iterator, TypeVar
 
 _T = TypeVar("_T")
 
