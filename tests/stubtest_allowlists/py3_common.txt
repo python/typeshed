@@ -321,6 +321,11 @@ wsgiref.handlers.BaseHandler.headers_sent
 wsgiref.handlers.BaseHandler.result
 wsgiref.handlers.BaseHandler.status
 
+# Undocumented implementation details of a deprecated class
+importlib.machinery.WindowsRegistryFinder.DEBUG_BUILD
+importlib.machinery.WindowsRegistryFinder.REGISTRY_KEY
+importlib.machinery.WindowsRegistryFinder.REGISTRY_KEY_DEBUG
+
 # ==========
 # Missing from distutils module (deprecated, to be removed in 3.12)
 # Any of these can be added if someone needs them
@@ -573,9 +578,6 @@ email.quoprimime
 email.utils
 hmac.HMAC.blocksize
 importlib.abc.Finder.find_module
-importlib.machinery.WindowsRegistryFinder.DEBUG_BUILD
-importlib.machinery.WindowsRegistryFinder.REGISTRY_KEY
-importlib.machinery.WindowsRegistryFinder.REGISTRY_KEY_DEBUG
 lib2to3.pgen2.grammar.Grammar.loads
 logging.config.BaseConfigurator
 logging.config.ConvertingDict
