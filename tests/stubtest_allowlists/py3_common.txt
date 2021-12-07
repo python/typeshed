@@ -314,6 +314,12 @@ tkinter.Place.forget
 tkinter.Place.place_slaves
 tkinter.Place.slaves
 
+# Undocumented and have a comment in the source code saying "State variables (don't mess with these)"
+wsgiref.handlers.BaseHandler.bytes_sent
+wsgiref.handlers.BaseHandler.headers
+wsgiref.handlers.BaseHandler.headers_sent
+wsgiref.handlers.BaseHandler.result
+wsgiref.handlers.BaseHandler.status
 
 # ==========
 # Missing from distutils module (deprecated, to be removed in 3.12)
@@ -674,11 +680,6 @@ turtle.ScrolledCanvas
 turtle.TNavigator.speed
 wave.Wave_read.initfp
 wave.Wave_write.initfp
-wsgiref.handlers.BaseHandler.bytes_sent
-wsgiref.handlers.BaseHandler.headers
-wsgiref.handlers.BaseHandler.headers_sent
-wsgiref.handlers.BaseHandler.result
-wsgiref.handlers.BaseHandler.status
 xml.dom
 xml.dom.InvalidCharacterErr
 xml.dom.minidom.Attr.isId
