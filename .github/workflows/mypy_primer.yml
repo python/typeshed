@@ -17,7 +17,7 @@ jobs:
       contents: read
     strategy:
       matrix:
-        shard-index: [0, 1]
+        shard-index: [0, 1, 2, 3]
       fail-fast: false
     steps:
       - uses: actions/checkout@v2
@@ -47,7 +47,7 @@ jobs:
             --new v${MYPY_VERSION} --old v${MYPY_VERSION} \
             --custom-typeshed-repo typeshed_to_test \
             --new-typeshed $GITHUB_SHA --old-typeshed upstream_master \
-            --num-shards 2 --shard-index ${{ matrix.shard-index }} \
+            --num-shards 4 --shard-index ${{ matrix.shard-index }} \
             --debug \
             --output concise \
             | tee diff_${{ matrix.shard-index }}.txt
