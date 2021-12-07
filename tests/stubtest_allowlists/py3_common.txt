@@ -685,6 +685,5 @@ turtle.TNavigator.speed
 wave.Wave_read.initfp
 wave.Wave_write.initfp
 xml.dom
-xml.dom.InvalidCharacterErr
 xml.etree
 xml.sax
