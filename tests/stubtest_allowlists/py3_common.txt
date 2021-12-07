@@ -21,11 +21,11 @@ _weakref.CallableProxyType.__getattr__  # Should have all attributes of proxy
 _weakref.ProxyType.__getattr__  # Should have all attributes of proxy
 _weakref.ReferenceType.__call__  # C function default annotation is wrong
 argparse.Namespace.__getattr__  # The whole point of this class is its attributes are dynamic
-asynchat.async_chat.encoding  # Removed in 3.11, can add if someone needs this
-asynchat.async_chat.use_encoding  # Removed in 3.11, can add if someone needs this
-asynchat.find_prefix_at_end  # Removed in 3.11, can add if someone needs this
-asyncore.dispatcher.addr  # Removed in 3.11, can add if someone needs this
-asyncore.dispatcher.handle_accepted  # Removed in 3.11, can add if someone needs this
+asynchat.async_chat.encoding  # Removal planned for 3.12, can add if someone needs this
+asynchat.async_chat.use_encoding  # Removal planned for 3.12, can add if someone needs this
+asynchat.find_prefix_at_end  # Removal planned for 3.12, can add if someone needs this
+asyncore.dispatcher.addr  # Removal planned for 3.12, can add if someone needs this
+asyncore.dispatcher.handle_accepted  # Removal planned for 3.12, can add if someone needs this
 asyncio.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
 # Condition functions are exported in __init__
 asyncio.Condition.acquire
@@ -228,8 +228,6 @@ webbrowser.UnixBrowser.remote_action  # always overridden in inheriting class
 webbrowser.UnixBrowser.remote_action_newtab  # always overridden in inheriting class
 webbrowser.UnixBrowser.remote_action_newwin  # always overridden in inheriting class
 wsgiref.types  # Doesn't exist, see comments in file
-xml.dom.xmlbuilder.ExpatBuilder  # mypy bug w.r.t. module __getattr__, see python/mypy#11411
-xml.dom.xmlbuilder.ExpatBuilderNS  # mypy bug w.r.t. module __getattr__, see python/mypy#11411
 
 # ==========
 # Allowlist entries that cannot or should not be fixed
@@ -648,7 +646,6 @@ rlcompleter.Completer.attr_matches
 rlcompleter.Completer.global_matches
 sunau.Au_read.initfp
 sunau.Au_write.initfp
-threading.Event.isSet
 tkinter.Misc.config
 tkinter.font.Font.counter
 tkinter.simpledialog.Dialog.apply
@@ -684,23 +681,6 @@ wsgiref.handlers.BaseHandler.result
 wsgiref.handlers.BaseHandler.status
 xml.dom
 xml.dom.InvalidCharacterErr
-xml.dom.expatbuilder.ElementInfo
-xml.dom.expatbuilder.ExpatBuilder
-xml.dom.expatbuilder.ExpatBuilderNS
-xml.dom.expatbuilder.FilterCrutch
-xml.dom.expatbuilder.FilterVisibilityController
-xml.dom.expatbuilder.FragmentBuilder
-xml.dom.expatbuilder.FragmentBuilderNS
-xml.dom.expatbuilder.InternalSubsetExtractor
-xml.dom.expatbuilder.Namespaces
-xml.dom.expatbuilder.ParseEscape
-xml.dom.expatbuilder.Rejecter
-xml.dom.expatbuilder.Skipper
-xml.dom.expatbuilder.makeBuilder
-xml.dom.expatbuilder.parse
-xml.dom.expatbuilder.parseFragment
-xml.dom.expatbuilder.parseFragmentString
-xml.dom.expatbuilder.parseString
 xml.dom.minidom.Attr.isId
 xml.dom.minidom.Attr.schemaType
 xml.dom.minidom.CharacterData.length
