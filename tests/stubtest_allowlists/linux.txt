@@ -12,9 +12,6 @@ os.EX_NOTFOUND
 os.SF_MNOWAIT
 os.SF_NODISKIO
 os.SF_SYNC
-os.chflags
-os.lchflags
-os.lchmod
 os.plock
 posix.EX_NOTFOUND
 select.EPOLL_RDHUP
@@ -65,10 +62,6 @@ mimetypes.MimeTypes.read_windows_registry
 (os|posix).waitid_result.n_fields
 (os|posix).waitid_result.n_sequence_fields
 (os|posix).waitid_result.n_unnamed_fields
-posix.dup2
-posix.pipe2
-posix.wait3
-posix.wait4
 resource.struct_rusage.n_fields
 resource.struct_rusage.n_sequence_fields
 resource.struct_rusage.n_unnamed_fields
