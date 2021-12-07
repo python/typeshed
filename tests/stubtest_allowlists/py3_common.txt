@@ -686,16 +686,5 @@ wave.Wave_read.initfp
 wave.Wave_write.initfp
 xml.dom
 xml.dom.InvalidCharacterErr
-xml.dom.minidom.Attr.isId
-xml.dom.minidom.Attr.schemaType
-xml.dom.minidom.CharacterData.length
-xml.dom.minidom.Element.attributes
-xml.dom.minidom.Element.nodeName
-xml.dom.minidom.Identified.publicId
-xml.dom.minidom.Identified.systemId
-xml.dom.minidom.NamedNodeMap.length
-xml.dom.minidom.ReadOnlySequentialNamedNodeMap.length
-xml.dom.minidom.Text.isWhitespaceInElementContent
-xml.dom.minidom.Text.wholeText
 xml.etree
 xml.sax
