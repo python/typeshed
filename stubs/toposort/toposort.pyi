@@ -1,5 +1,5 @@
 from _typeshed import SupportsItems
-from typing import Any, Iterator, TypeVar, Generic, Iterable
+from typing import Any, Generic, Iterable, Iterator, TypeVar
 
 _KT_co = TypeVar("_KT_co", covariant=True)
 _VT_co = TypeVar("_VT_co", covariant=True)
