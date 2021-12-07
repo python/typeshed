@@ -493,9 +493,7 @@ distutils.unixccompiler.UnixCCompiler.xcode_stub_lib_extension
 distutils.unixccompiler.UnixCCompiler.xcode_stub_lib_format
 distutils.util.grok_environment_error
 
-# ==========
-# Missing from pkg.ImpLoader (deprecated since 3.3, can add if someone needs it)
-# ==========
+# Missing from pkgutil.ImpLoader (deprecated since 3.3, can add if someone needs it)
 pkgutil.ImpImporter.find_module
 pkgutil.ImpImporter.iter_modules
 pkgutil.ImpLoader.code
