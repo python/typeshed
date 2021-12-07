@@ -1,11 +1,12 @@
 from _typeshed import SupportsItems
-from typing import Any, Generic, Iterable, Iterator, TypeVar
+from typing import Any, Iterable, Iterator, TypeVar
+from typing_extensions import Protocol
 
 _KT_co = TypeVar("_KT_co", covariant=True)
 _VT_co = TypeVar("_VT_co", covariant=True)
 _T = TypeVar("_T")
 
-class _SupportsItemsAndLen(SupportsItems[_KT_co, _VT_co], Generic[_KT_co, _VT_co]):
+class _SupportsItemsAndLen(SupportsItems[_KT_co, _VT_co], Protocol[_KT_co, _VT_co]):
     def __len__(self) -> int: ...
 
 class CircularDependencyError(ValueError):
