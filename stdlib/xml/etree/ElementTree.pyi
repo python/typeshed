@@ -261,6 +261,8 @@ _ElementFactory = Callable[[Any, Dict[Any, Any]], Element]
 
 class TreeBuilder:
     if sys.version_info >= (3, 8):
+        # First arg of `comment_factory` has to take `str | None`
+        # because `self._comment_factory = Comment if comment_factory is None else comment_factory` in `TreeBuilder.__init__`
         def __init__(
             self,
             element_factory: _ElementFactory | None = ...,
@@ -279,8 +281,11 @@ class TreeBuilder:
     def start(self, __tag: str | bytes, __attrs: dict[str | bytes, str | bytes]) -> Element: ...
     def end(self, __tag: str | bytes) -> Element: ...
     if sys.version_info >= (3, 8):
-        # These are pos-only in the C implementation
-        def comment(self, __text: str) -> Element: ...
+        # `text` is pos-only in the C implementation
+        # First arg of `comment_factory` has to take `str | None`
+        # because `self._comment_factory = Comment if comment_factory is None else comment_factory` in `TreeBuilder.__init__`
+        def comment(self, __text: str | None) -> Element: ...
+        # Both args are pos-only in the C implementation
         def pi(self, __target: str, __text: str | None = ...) -> Element: ...
 
 if sys.version_info >= (3, 8):
