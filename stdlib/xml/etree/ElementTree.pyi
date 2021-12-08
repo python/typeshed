@@ -261,8 +261,7 @@ _ElementFactory = Callable[[Any, Dict[Any, Any]], Element]
 
 class TreeBuilder:
     if sys.version_info >= (3, 8):
-        # First arg of `comment_factory` has to take `str | None`
-        # because `self._comment_factory = Comment if comment_factory is None else comment_factory` in `TreeBuilder.__init__`
+        # comment_factory can take None because passing None to Comment is not an error
         def __init__(
             self,
             element_factory: _ElementFactory | None = ...,
