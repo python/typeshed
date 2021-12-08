@@ -320,6 +320,19 @@ importlib.machinery.WindowsRegistryFinder.DEBUG_BUILD
 importlib.machinery.WindowsRegistryFinder.REGISTRY_KEY
 importlib.machinery.WindowsRegistryFinder.REGISTRY_KEY_DEBUG
 
+# Undocumented implementation details
+profile.Profile.dispatch
+profile.Profile.fake_code
+profile.Profile.fake_frame
+profile.Profile.trace_dispatch
+profile.Profile.trace_dispatch_c_call
+profile.Profile.trace_dispatch_call
+profile.Profile.trace_dispatch_exception
+profile.Profile.trace_dispatch_i
+profile.Profile.trace_dispatch_l
+profile.Profile.trace_dispatch_mac
+profile.Profile.trace_dispatch_return
+
 # ==========
 # Missing from distutils module (deprecated, to be removed in 3.12)
 # Any of these can be added if someone needs them
@@ -632,17 +645,6 @@ multiprocessing.synchronize.Semaphore.get_value
 pipes.Template.makepipeline
 pipes.Template.open_r
 pipes.Template.open_w
-profile.Profile.dispatch
-profile.Profile.fake_code
-profile.Profile.fake_frame
-profile.Profile.trace_dispatch
-profile.Profile.trace_dispatch_c_call
-profile.Profile.trace_dispatch_call
-profile.Profile.trace_dispatch_exception
-profile.Profile.trace_dispatch_i
-profile.Profile.trace_dispatch_l
-profile.Profile.trace_dispatch_mac
-profile.Profile.trace_dispatch_return
 rlcompleter.Completer.attr_matches
 rlcompleter.Completer.global_matches
 sunau.Au_read.initfp
