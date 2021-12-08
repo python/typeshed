@@ -81,12 +81,12 @@ class Cursor:
     def setoutputsize(self, *args: Any, **kwwargs: Any) -> None: ...
 
 class Warning(Exception):
-    pass
+    errorcode: int
+    errortext: str
 
 class Error(Exception):
     errorcode: int
     errortext: str
-    def __init__(self, *args: Any) -> None: ...
 
 class DatabaseError(Error): ...
 class OperationalError(DatabaseError): ...
