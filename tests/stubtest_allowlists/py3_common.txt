@@ -56,15 +56,6 @@ codecs.CodecInfo.streamwriter
 collections.ChainMap.get  # Adding None to the underlying Mapping Union messed up mypy
 collections.ChainMap.fromkeys  # Runtime has *args which can really only be one argument
 collections.UserList.sort  # Runtime has *args but will error if any are supplied
-# Coroutine and Generator properties are added programmatically
-collections.abc.Coroutine.cr_await
-collections.abc.Coroutine.cr_code
-collections.abc.Coroutine.cr_frame
-collections.abc.Coroutine.cr_running
-collections.abc.Generator.gi_code
-collections.abc.Generator.gi_frame
-collections.abc.Generator.gi_running
-collections.abc.Generator.gi_yieldfrom
 configparser.SectionProxy.__getattr__  # SectionProxy can have arbitrary attributes when custom converters are used
 # SectionProxy get functions are set in __init__
 configparser.SectionProxy.getboolean
