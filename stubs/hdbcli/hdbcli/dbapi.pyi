@@ -1,7 +1,7 @@
 import decimal
 from _typeshed import ReadableBuffer
 from datetime import date, datetime, time
-from typing import Any, Sequence, overload
+from typing import Any, Sequence, Type, overload
 from typing_extensions import Literal
 
 from .resultrow import ResultRow
@@ -9,7 +9,7 @@ from .resultrow import ResultRow
 apilevel: str
 threadsafety: int
 paramstyle: tuple[str, ...]
-connect: type[Connection]
+connect: Type[Connection]
 
 class Connection:
     def __init__(
@@ -105,10 +105,10 @@ def TimeFromTicks(ticks: float) -> time: ...
 def TimestampFromTicks(ticks: float) -> datetime: ...
 def Binary(data: ReadableBuffer) -> memoryview: ...
 
-Decimal: type[decimal.Decimal]
+Decimal: Type[decimal.Decimal]
 
-NUMBER: type[int] | type[float] | type[complex]
-DATETIME: type[date] | type[time] | type[datetime]
-STRING: type[str]
-BINARY: type[memoryview]
-ROWID: type[int]
+NUMBER: Type[int] | Type[float] | Type[complex]
+DATETIME: Type[date] | Type[time] | Type[datetime]
+STRING: Type[str]
+BINARY: Type[memoryview]
+ROWID: Type[int]
