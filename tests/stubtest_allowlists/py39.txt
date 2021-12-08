@@ -156,6 +156,5 @@ pyexpat.XMLParserType.intern
 types.CoroutineType.cr_origin
 typing._SpecialForm.__call__
 unicodedata.UCD.is_normalized
-xml.etree.ElementInclude.LimitedRecursiveIncludeError
 xml.parsers.expat.XMLParserType.SkippedEntityHandler
 xml.parsers.expat.XMLParserType.intern
