@@ -18,7 +18,7 @@ class BugBearChecker:
         self,
         tree: ast.AST | None = ...,
         filename: str = ...,
-        lines: Sequence[str] = ...,
+        lines: Sequence[str] | None = ...,
         max_line_length: int = ...,
         options: argparse.Namespace | None = ...,
     ) -> None: ...
