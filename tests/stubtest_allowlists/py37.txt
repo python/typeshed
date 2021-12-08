@@ -21,10 +21,6 @@ collections.AsyncGenerator.ag_frame
 collections.AsyncGenerator.ag_running
 collections.Callable
 collections.UserString.maketrans
-collections.abc.AsyncGenerator.ag_await
-collections.abc.AsyncGenerator.ag_code
-collections.abc.AsyncGenerator.ag_frame
-collections.abc.AsyncGenerator.ag_running
 contextvars.Context.__init__  # Default C __init__ signature is wrong
 contextvars.ContextVar.get
 dataclasses.field
