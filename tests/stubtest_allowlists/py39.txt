@@ -135,12 +135,6 @@ email.headerregistry.MessageIDHeader.max_count
 hmac.HMAC.digest_cons
 hmac.HMAC.inner
 hmac.HMAC.outer
-importlib.abc.TraversableResources
-importlib.machinery.PathFinder.find_distributions
-importlib.metadata.EntryPoint.attr
-importlib.metadata.EntryPoint.module
-importlib.metadata.EntryPoint.pattern
-importlib.util.source_hash
 lib2to3.pgen2.tokenize.COLONEQUAL
 multiprocessing.managers.SharedMemoryServer.create
 multiprocessing.managers.SharedMemoryServer.list_segments

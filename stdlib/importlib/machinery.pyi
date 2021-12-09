@@ -1,7 +1,10 @@
 import importlib.abc
 import sys
 import types
-from typing import Any, Callable, Sequence
+from typing import Any, Callable, Iterable, Sequence
+
+if sys.version_info >= (3, 8):
+    from importlib.metadata import DistributionFinder, PathDistribution
 
 class ModuleSpec:
     def __init__(
@@ -94,6 +97,8 @@ class PathFinder:
     if sys.version_info >= (3, 10):
         @staticmethod
         def invalidate_caches() -> None: ...
+        @staticmethod
+        def find_distributions(context: DistributionFinder.Context = ...) -> Iterable[PathDistribution]: ...
     else:
         @classmethod
         def invalidate_caches(cls) -> None: ...

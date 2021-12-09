@@ -134,8 +134,6 @@ dummy_threading.settrace
 dummy_threading.stack_size
 email.headerregistry.MessageIDHeader.max_count
 html.parser.HTMLParser.unescape
-importlib.machinery.PathFinder.find_distributions
-importlib.metadata.EntryPoint.pattern
 importlib.util.source_hash
 lib2to3.pgen2.tokenize.COLONEQUAL
 multiprocessing.managers.SharedMemoryServer.create

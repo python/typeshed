@@ -7,9 +7,10 @@ from email.message import Message
 from importlib.abc import MetaPathFinder
 from os import PathLike
 from pathlib import Path
-from typing import Any, Iterable, NamedTuple, Tuple, overload
+from typing import Any, ClassVar, Iterable, NamedTuple, Pattern, Tuple, overload
 
 if sys.version_info >= (3, 10):
+    from importlib.metadata._meta import PackageMetadata as PackageMetadata
     def packages_distributions() -> Mapping[str, list[str]]: ...
 
 if sys.version_info >= (3, 8):
@@ -19,6 +20,7 @@ if sys.version_info >= (3, 8):
         value: str
         group: str
     class EntryPoint(_EntryPointBase):
+        pattern: ClassVar[Pattern[str]]
         def load(self) -> Any: ...  # Callable[[], Any] or an importable module
         @property
         def extras(self) -> list[str]: ...
@@ -27,6 +29,9 @@ if sys.version_info >= (3, 8):
             def module(self) -> str: ...
             @property
             def attr(self) -> str: ...
+        if sys.version_info >= (3, 10):
+            dist: ClassVar[Distribution | None]
+            def matches(self, **params: Any) -> bool: ...  # undocumented
     class PackagePath(pathlib.PurePosixPath):
         def read_text(self, encoding: str = ...) -> str: ...
         def read_binary(self) -> bytes: ...
