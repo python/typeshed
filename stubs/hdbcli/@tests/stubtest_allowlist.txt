@@ -1,0 +1,4 @@
+hdbcli.dbapi.Error.errorcode
+hdbcli.dbapi.Error.errortext
+hdbcli.dbapi.Warning.errorcode
+hdbcli.dbapi.Warning.errortext
