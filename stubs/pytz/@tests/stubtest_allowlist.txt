@@ -1,4 +1,0 @@
-pytz.BaseTzInfo.localize
-pytz.BaseTzInfo.normalize
-pytz.BaseTzInfo.zone
-pytz.FixedOffset
