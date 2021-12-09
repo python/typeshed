@@ -1,8 +1,9 @@
 import sys
 from _typeshed import SupportsWrite
-from typing import Any, Callable, Tuple, Type, TypeVar
+from typing import Any, Callable, Generic, Tuple, Type, TypeVar
 
 _T = TypeVar("_T")
+_R = TypeVar("_R")
 _FuncT = TypeVar("_FuncT", bound=Callable[..., Any])
 
 # These definitions have special processing in mypy
@@ -19,8 +20,11 @@ def abstractmethod(funcobj: _FuncT) -> _FuncT: ...
 class abstractproperty(property): ...
 
 # These two are deprecated and not supported by mypy
-def abstractstaticmethod(callable: _FuncT) -> _FuncT: ...
-def abstractclassmethod(callable: _FuncT) -> _FuncT: ...
+class abstractstaticmethod(staticmethod[_R], Generic[_R]):
+    def __init__(self, callable: Callable[..., _R]) -> None: ...
+
+class abstractclassmethod(classmethod[_R], Generic[_R]):
+    def __init__(self, callable: Callable[..., _R]) -> None: ...
 
 class ABC(metaclass=ABCMeta): ...
 
