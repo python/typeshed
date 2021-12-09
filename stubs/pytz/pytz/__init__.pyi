@@ -1,10 +1,12 @@
 import datetime
 from typing import ClassVar, Mapping
 
-from .exceptions import AmbiguousTimeError as AmbiguousTimeError
-from .exceptions import InvalidTimeError as InvalidTimeError
-from .exceptions import NonExistentTimeError as NonExistentTimeError
-from .exceptions import UnknownTimeZoneError as UnknownTimeZoneError
+from .exceptions import (
+    AmbiguousTimeError as AmbiguousTimeError,
+    InvalidTimeError as InvalidTimeError,
+    NonExistentTimeError as NonExistentTimeError,
+    UnknownTimeZoneError as UnknownTimeZoneError,
+)
 from .tzinfo import BaseTzInfo as BaseTzInfo, DstTzInfo, StaticTzInfo
 
 # Actually named UTC and then masked with a singleton with the same name
