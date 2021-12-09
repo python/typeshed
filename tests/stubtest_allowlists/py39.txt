@@ -40,6 +40,7 @@ gettext.translation
 hmac.new  # Stub is a white lie; see comments in the stub
 http.server.SimpleHTTPRequestHandler.__init__  # *args is expanded
 importlib.abc.Traversable.__init__  # Inherits __init__ from typing.Protocol
+importlib.metadata._meta  # Added in 3.10
 ipaddress.IPv4Interface.hostmask
 ipaddress.IPv6Interface.hostmask
 ipaddress._BaseNetwork.broadcast_address
