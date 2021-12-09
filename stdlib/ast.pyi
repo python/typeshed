@@ -159,7 +159,6 @@ if sys.version_info >= (3, 8):
     def parse(
         source: str | bytes,
         filename: str | bytes = ...,
-        mode: Literal["exec"] = ...,
         *,
         type_comments: bool = ...,
         feature_version: None | int | _typing.Tuple[int, int] = ...,
@@ -167,8 +166,17 @@ if sys.version_info >= (3, 8):
     @overload
     def parse(
         source: str | bytes,
-        filename: str | bytes = ...,
-        mode: Literal["eval"] = ...,
+        filename: str | bytes,
+        mode: Literal["exec"],
+        *,
+        type_comments: bool = ...,
+        feature_version: None | int | _typing.Tuple[int, int] = ...,
+    ) -> Module: ...
+    @overload
+    def parse(
+        source: str | bytes,
+        filename: str | bytes,
+        mode: Literal["eval"],
         *,
         type_comments: bool = ...,
         feature_version: None | int | _typing.Tuple[int, int] = ...,
@@ -176,8 +184,8 @@ if sys.version_info >= (3, 8):
     @overload
     def parse(
         source: str | bytes,
-        filename: str | bytes = ...,
-        mode: Literal["func_type"] = ...,
+        filename: str | bytes,
+        mode: Literal["func_type"],
         *,
         type_comments: bool = ...,
         feature_version: None | int | _typing.Tuple[int, int] = ...,
@@ -185,8 +193,8 @@ if sys.version_info >= (3, 8):
     @overload
     def parse(
         source: str | bytes,
-        filename: str | bytes = ...,
-        mode: Literal["single"] = ...,
+        filename: str | bytes,
+        mode: Literal["single"],
         *,
         type_comments: bool = ...,
         feature_version: None | int | _typing.Tuple[int, int] = ...,
@@ -194,22 +202,51 @@ if sys.version_info >= (3, 8):
     @overload
     def parse(
         source: str | bytes,
-        filename: str | bytes = ...,
-        mode: str = ...,
         *,
+        mode: Literal["exec"],
         type_comments: bool = ...,
         feature_version: None | int | _typing.Tuple[int, int] = ...,
-    ) -> AST: ...
+    ) -> Module: ...
+    @overload
+    def parse(
+        source: str | bytes,
+        *,
+        mode: Literal["eval"],
+        type_comments: bool = ...,
+        feature_version: None | int | _typing.Tuple[int, int] = ...,
+    ) -> Expression: ...
+    @overload
+    def parse(
+        source: str | bytes,
+        *,
+        mode: Literal["func_type"],
+        type_comments: bool = ...,
+        feature_version: None | int | _typing.Tuple[int, int] = ...,
+    ) -> FunctionType: ...
+    @overload
+    def parse(
+        source: str | bytes,
+        *,
+        mode: Literal["single"],
+        type_comments: bool = ...,
+        feature_version: None | int | _typing.Tuple[int, int] = ...,
+    ) -> Interactive: ...
 
 else:
     @overload
-    def parse(source: str | bytes, filename: str | bytes = ..., mode: Literal["exec"] = ...) -> Module: ...
+    def parse(source: str | bytes, filename: str | bytes = ...) -> Module: ...
     @overload
-    def parse(source: str | bytes, filename: str | bytes = ..., mode: Literal["eval"] = ...) -> Expression: ...
+    def parse(source: str | bytes, filename: str | bytes, mode: Literal["exec"]) -> Module: ...
     @overload
-    def parse(source: str | bytes, filename: str | bytes = ..., mode: Literal["single"] = ...) -> Interactive: ...
+    def parse(source: str | bytes, filename: str | bytes, mode: Literal["eval"]) -> Expression: ...
     @overload
-    def parse(source: str | bytes, filename: str | bytes = ..., mode: str = ...) -> AST: ...
+    def parse(source: str | bytes, filename: str | bytes, mode: Literal["single"]) -> Interactive: ...
+    @overload
+    def parse(source: str | bytes, *, mode: Literal["exec"]) -> Module: ...
+    @overload
+    def parse(source: str | bytes, *, mode: Literal["eval"]) -> Expression: ...
+    @overload
+    def parse(source: str | bytes, *, mode: Literal["single"]) -> Interactive: ...
 
 if sys.version_info >= (3, 9):
     def unparse(ast_obj: AST) -> str: ...
