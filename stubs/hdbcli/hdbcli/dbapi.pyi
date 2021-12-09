@@ -110,6 +110,6 @@ Decimal: Type[decimal.Decimal]
 
 NUMBER: Type[int] | Type[float] | Type[complex]
 DATETIME: Type[date] | Type[time] | Type[datetime]
-STRING: Type[str]
-BINARY: Type[memoryview]
-ROWID: Type[int]
+STRING = str
+BINARY = memoryview
+ROWID = int
