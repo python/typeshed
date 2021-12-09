@@ -111,7 +111,6 @@ dummy_threading.setprofile
 dummy_threading.settrace
 dummy_threading.stack_size
 html.parser.HTMLParser.unescape
-importlib.util.source_hash
 lib2to3.pgen2.tokenize.COLONEQUAL
 platform.popen
 plistlib.Data.asBase64
