@@ -160,14 +160,6 @@ optparse.Values.__getattr__  # Some attributes are set in __init__ using setattr
 pickle.Pickler.persistent_id  # C pickler persistent_id is an attribute
 pickle.Unpickler.persistent_load  # C unpickler persistent_load is an attribute
 poplib.POP3_SSL.stls  # bad declaration of inherited function. See poplib.pyi
-pydoc.HTMLDoc.docdata
-pydoc.HTMLDoc.docproperty
-pydoc.HTMLDoc.docroutine
-pydoc.TextDoc.docdata
-pydoc.TextDoc.docmodule
-pydoc.TextDoc.docother
-pydoc.TextDoc.docproperty
-pydoc.TextDoc.docroutine
 select.poll  # Depends on configuration
 selectors.DevpollSelector  # Depends on configuration
 socketserver.BaseServer.fileno  # implemented in derived classes
