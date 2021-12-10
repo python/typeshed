@@ -48,7 +48,7 @@ class Connection:
     auto_encode: Any
     source_address: Any
     source_port_list: Any
-    server_pool: Any
+    server_pool: Any | None
     server: Any
     strategy: Any
     send: Any
