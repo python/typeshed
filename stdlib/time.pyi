@@ -1,7 +1,7 @@
 import sys
 from _typeshed import structseq
 from types import SimpleNamespace
-from typing import Any, Tuple
+from typing import Any, Tuple, Union
 from typing_extensions import final
 
 _TimeTuple = Tuple[int, int, int, int, int, int, int, int, int]
@@ -37,7 +37,7 @@ _ElevenTuple = Tuple[int, int, int, int, int, int, int, int, int, str, str]
 
 # Constructor takes an iterable of any type, of length between 9 and 11 elements.
 @final
-class struct_time(structseq[Any | int], _ElevenTuple):
+class struct_time(structseq[Union[Any, int]], _ElevenTuple):
     @property
     def tm_year(self) -> int: ...
     @property

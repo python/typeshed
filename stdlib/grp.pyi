@@ -1,10 +1,10 @@
 from _typeshed import structseq
-from typing import Any, Tuple
+from typing import Any, List, Optional, Tuple
 from typing_extensions import final
 
 # Constructor takes any iterable of length 4
 @final
-class struct_group(structseq[Any], Tuple[str, str | None, int, list[str]]):
+class struct_group(structseq[Any], Tuple[str, Optional[str], int, List[str]]):
     @property
     def gr_name(self) -> str: ...
     @property
