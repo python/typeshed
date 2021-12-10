@@ -1,5 +1,5 @@
 from _typeshed import structseq
-from typing import Any, Sequence, overload
+from typing import Any, Tuple, overload
 from typing_extensions import Literal, SupportsIndex, final
 
 @final
@@ -11,7 +11,7 @@ class struct_passwd(structseq[Any]):  # Constructor must be passed an iterable o
     @overload
     def __getitem__(self, __i: SupportsIndex) -> Any: ...
     @overload
-    def __getitem__(self, __i: slice) -> Sequence[Any]: ...
+    def __getitem__(self, __i: slice) -> Tuple[Any, ...]: ...
     @property
     def pw_name(self) -> str: ...
     @property
