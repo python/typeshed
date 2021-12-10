@@ -16,7 +16,7 @@ from _typeshed import (
     SupportsGreaterThan,
     SupportsGreaterThanT,
     SupportsKeysAndGetItem,
-    SupportsLenAndGetItem,
+    GetItemAndLenSequence,
     SupportsLessThan,
     SupportsLessThanT,
     SupportsNext,
@@ -1363,7 +1363,7 @@ class reversed(Iterator[_T], Generic[_T]):
     @overload
     def __init__(self, __sequence: Reversible[_T]) -> None: ...
     @overload
-    def __init__(self, __sequence: SupportsLenAndGetItem[_T]) -> None: ...
+    def __init__(self, __sequence: GetItemAndLenSequence[_T]) -> None: ...
     def __iter__(self) -> Iterator[_T]: ...
     def __next__(self) -> _T: ...
 

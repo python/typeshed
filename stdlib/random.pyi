@@ -1,6 +1,6 @@
 import _random
 import sys
-from _typeshed import SupportsLenAndGetItem
+from _typeshed import GetItemAndLenSequence
 from collections.abc import Callable, Iterable, MutableSequence, Sequence
 from fractions import Fraction
 from typing import Any, ClassVar, NoReturn, Tuple, TypeVar
@@ -18,10 +18,10 @@ class Random(_random.Random):
     def randint(self, a: int, b: int) -> int: ...
     if sys.version_info >= (3, 9):
         def randbytes(self, n: int) -> bytes: ...
-    def choice(self, seq: SupportsLenAndGetItem[_T]) -> _T: ...
+    def choice(self, seq: GetItemAndLenSequence[_T]) -> _T: ...
     def choices(
         self,
-        population: SupportsLenAndGetItem[_T],
+        population: GetItemAndLenSequence[_T],
         weights: Sequence[float | Fraction] | None = ...,
         *,
         cum_weights: Sequence[float | Fraction] | None = ...,
@@ -62,9 +62,9 @@ def randint(a: int, b: int) -> int: ...
 if sys.version_info >= (3, 9):
     def randbytes(n: int) -> bytes: ...
 
-def choice(seq: SupportsLenAndGetItem[_T]) -> _T: ...
+def choice(seq: GetItemAndLenSequence[_T]) -> _T: ...
 def choices(
-    population: SupportsLenAndGetItem[_T],
+    population: GetItemAndLenSequence[_T],
     weights: Sequence[float] | None = ...,
     *,
     cum_weights: Sequence[float] | None = ...,
