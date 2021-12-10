@@ -10,9 +10,6 @@ if sys.version_info >= (3, 7):
 if sys.version_info >= (3, 9):
     from types import GenericAlias
 
-# Definitions of special type checking related constructs.  Their definitions
-# are not used, so their value does not matter.
-
 Any = object()
 
 class TypeVar:
@@ -33,6 +30,7 @@ class TypeVar:
         def __or__(self, other: Any) -> _SpecialForm: ...
         def __ror__(self, other: Any) -> _SpecialForm: ...
 
+# Used for an undocumented mypy feature. Does not exist at runtime.
 _promote = object()
 
 class _SpecialForm:
@@ -271,7 +269,7 @@ class Coroutine(Awaitable[_V_co], Generic[_T_co, _T_contra, _V_co]):
     @abstractmethod
     def close(self) -> None: ...
 
-# NOTE: This type does not exist in typing.py or PEP 484.
+# NOTE: This type does not exist in typing.py or PEP 484 but mypy needs it to exist.
 # The parameters correspond to Generator, but the 4th is the original type.
 class AwaitableGenerator(
     Awaitable[_V_co], Generator[_T_co, _T_contra, _V_co], Generic[_T_co, _T_contra, _V_co, _S], metaclass=ABCMeta
@@ -682,7 +680,6 @@ def cast(typ: object, val: Any) -> Any: ...
 
 # Type constructors
 
-# NamedTuple is special-cased in the type checker
 class NamedTuple(Tuple[Any, ...]):
     _field_types: collections.OrderedDict[str, Type[Any]]
     _field_defaults: dict[str, Any]
@@ -740,4 +737,4 @@ if sys.version_info >= (3, 7):
             def __ror__(self, other: Any) -> _SpecialForm: ...
 
 if sys.version_info >= (3, 10):
-    def is_typeddict(tp: Any) -> bool: ...
+    def is_typeddict(tp: object) -> bool: ...
