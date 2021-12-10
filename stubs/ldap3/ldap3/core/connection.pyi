@@ -1,8 +1,10 @@
 from types import TracebackType
-from typing import Any, Type
+from typing import Any, Type, TypeVar
 from typing_extensions import Literal
 
 from .server import Server
+
+_Self = TypeVar("_Self")
 
 SASL_AVAILABLE_MECHANISMS: Any
 CLIENT_STRATEGIES: Any
@@ -31,7 +33,7 @@ class Connection:
     read_only: Any
     lazy: Any
     pool_name: Any
-    pool_size: Any
+    pool_size: int | None
     cred_store: Any
     pool_lifetime: Any
     pool_keepalive: Any
@@ -77,7 +79,7 @@ class Connection:
         lazy: bool = ...,
         raise_exceptions: bool = ...,
         pool_name: str | None = ...,
-        pool_size: str | None = ...,
+        pool_size: int | None = ...,
         pool_lifetime: int | None = ...,
         cred_store: Any | None = ...,
         fast_decoder: bool = ...,
@@ -98,7 +100,7 @@ class Connection:
     def stream(self, value) -> None: ...
     @property
     def usage(self): ...
-    def __enter__(self) -> Connection: ...
+    def __enter__(self: _Self) -> _Self: ...
     def __exit__(
         self, exc_type: Type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
     ) -> Literal[False] | None: ...
@@ -128,7 +130,7 @@ class Connection:
         controls: Any | None = ...,
         paged_size: int | None = ...,
         paged_criticality: bool = ...,
-        paged_cookie: str | None = ...,
+        paged_cookie: str | bytes | None = ...,
         auto_escape: bool | None = ...,
     ): ...
     def compare(self, dn, attribute, value, controls: Any | None = ...): ...
