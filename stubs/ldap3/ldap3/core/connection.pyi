@@ -1,4 +1,8 @@
-from typing import Any
+from types import TracebackType
+from typing import Any, Type
+from typing_extensions import Literal
+
+from .server import Server
 
 SASL_AVAILABLE_MECHANISMS: Any
 CLIENT_STRATEGIES: Any
@@ -13,7 +17,7 @@ class Connection:
     version: Any
     auto_referrals: Any
     request: Any
-    response: Any
+    response: Any | None
     result: Any
     bound: bool
     listening: bool
@@ -54,25 +58,27 @@ class Connection:
     post_send_search: Any
     def __init__(
         self,
-        server,
-        user: Any | None = ...,
-        password: Any | None = ...,
-        auto_bind=...,
+        server: Server | str,
+        user: str | None = ...,
+        password: str | None = ...,
+        auto_bind: int = ...,
         version: int = ...,
-        authentication: Any | None = ...,
-        client_strategy=...,
+        authentication: Literal["ANONYMOUS", "SIMPLE", "SASL", "NTLM"] | None = ...,
+        client_strategy: Literal[
+            "SYNC", "SAFE_SYNC", "ASYNC", "LDIF", "RESTARTABLE", "REUSABLE", "MOCK_SYNC", "MOCK_ASYNC", "ASYNC_STREAM"
+        ] = ...,
         auto_referrals: bool = ...,
         auto_range: bool = ...,
-        sasl_mechanism: Any | None = ...,
+        sasl_mechanism: str | None = ...,
         sasl_credentials: Any | None = ...,
         check_names: bool = ...,
         collect_usage: bool = ...,
         read_only: bool = ...,
         lazy: bool = ...,
         raise_exceptions: bool = ...,
-        pool_name: Any | None = ...,
-        pool_size: Any | None = ...,
-        pool_lifetime: Any | None = ...,
+        pool_name: str | None = ...,
+        pool_size: str | None = ...,
+        pool_lifetime: int | None = ...,
         cred_store: Any | None = ...,
         fast_decoder: bool = ...,
         receive_timeout: Any | None = ...,
@@ -81,8 +87,8 @@ class Connection:
         auto_escape: bool = ...,
         auto_encode: bool = ...,
         pool_keepalive: Any | None = ...,
-        source_address: Any | None = ...,
-        source_port: Any | None = ...,
+        source_address: str | None = ...,
+        source_port: int | None = ...,
         source_port_list: Any | None = ...,
     ) -> None: ...
     def repr_with_sensitive_data_stripped(self): ...
@@ -92,8 +98,10 @@ class Connection:
     def stream(self, value) -> None: ...
     @property
     def usage(self): ...
-    def __enter__(self): ...
-    def __exit__(self, exc_type, exc_val, exc_tb): ...
+    def __enter__(self) -> Connection: ...
+    def __exit__(
+        self, exc_type: Type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
+    ) -> Literal[False] | None: ...
     def bind(self, read_server_info: bool = ..., controls: Any | None = ...): ...
     def rebind(
         self,
@@ -108,20 +116,20 @@ class Connection:
     def unbind(self, controls: Any | None = ...): ...
     def search(
         self,
-        search_base,
-        search_filter,
-        search_scope=...,
-        dereference_aliases=...,
+        search_base: str,
+        search_filter: str,
+        search_scope: Literal["BASE", "LEVEL", "SUBTREE"] = ...,
+        dereference_aliases: Literal["NEVER", "SEARCH", "FINDING_BASE", "ALWAYS"] = ...,
         attributes: Any | None = ...,
         size_limit: int = ...,
         time_limit: int = ...,
         types_only: bool = ...,
         get_operational_attributes: bool = ...,
         controls: Any | None = ...,
-        paged_size: Any | None = ...,
+        paged_size: int | None = ...,
         paged_criticality: bool = ...,
-        paged_cookie: Any | None = ...,
-        auto_escape: Any | None = ...,
+        paged_cookie: str | None = ...,
+        auto_escape: bool | None = ...,
     ): ...
     def compare(self, dn, attribute, value, controls: Any | None = ...): ...
     def add(self, dn, object_class: Any | None = ..., attributes: Any | None = ..., controls: Any | None = ...): ...

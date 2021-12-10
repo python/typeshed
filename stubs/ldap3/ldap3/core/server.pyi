@@ -1,5 +1,6 @@
 from socket import AF_UNIX as AF_UNIX
 from typing import Any
+from typing_extensions import Literal
 
 unix_socket_available: bool
 
@@ -20,15 +21,15 @@ class Server:
     mode: Any
     def __init__(
         self,
-        host,
-        port: Any | None = ...,
+        host: str,
+        port: int | None = ...,
         use_ssl: bool = ...,
         allowed_referral_hosts: Any | None = ...,
-        get_info=...,
+        get_info: Literal["NO_INFO", "DSA", "SCHEMA", "ALL"] = ...,
         tls: Any | None = ...,
         formatter: Any | None = ...,
         connect_timeout: Any | None = ...,
-        mode=...,
+        mode: Literal["IP_SYSTEM_DEFAULT", "IP_V4_ONLY", "IP_V6_ONLY", "IP_V4_PREFERRED", "IP_V6_PREFERRED"] = ...,
         validator: Any | None = ...,
     ) -> None: ...
     @property
