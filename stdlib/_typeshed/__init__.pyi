@@ -16,7 +16,7 @@ from typing import (
     Generic,
     Iterable,
     Protocol,
-    Sequence,
+    Tuple,
     Type,
     TypeVar,
     Union,
@@ -207,7 +207,7 @@ else:
 # This is an internal CPython type that is like, but subtly different from, a NamedTuple
 # Subclasses of this type are found in multiple modules.
 # See discussion at #6546
-class structseq(Sequence[_T_co], Generic[_T_co]):
+class structseq(Tuple[_T_co, ...], Generic[_T_co]):
     n_fields: ClassVar[int]
     n_unnamed_fields: ClassVar[int]
     n_sequence_fields: ClassVar[int]
