@@ -1,8 +1,8 @@
 import sys
 from _typeshed import structseq
 from types import SimpleNamespace
-from typing import Any, NamedTuple, Tuple
-from typing_extensions import final
+from typing import Any, NamedTuple, Sequence, Tuple, overload
+from typing_extensions import Literal, SupportsIndex, final
 
 _TimeTuple = Tuple[int, int, int, int, int, int, int, int, int]
 
@@ -33,7 +33,18 @@ if sys.version_info >= (3, 8) and sys.platform == "darwin":
 if sys.version_info >= (3, 9) and sys.platform == "linux":
     CLOCK_TAI: int
 
-class _struct_time(structseq[int]):
+# The constructor of `struct_time` takes a sequence of any type, of length between 9 and 11 elements.
+# There is no way of expressing this in the type system.
+@final
+class struct_time(structseq[int]):
+    @overload  # type: ignore[override]
+    def __getitem__(self, __i: Literal[0, 1, 2, 3, 4, 5, 6, 7, 8]) -> int: ...
+    @overload
+    def __getitem__(self, __i: Literal[9, 10]) -> str: ...
+    @overload
+    def __getitem__(self, __i: SupportsIndex) -> int: ...  # Strictly this should be `Any`, but `int` will be the majority of cases
+    @overload
+    def __getitem__(self, __i: slice) -> Sequence[int]: ...
     @property
     def tm_year(self) -> int: ...
     @property
@@ -52,27 +63,12 @@ class _struct_time(structseq[int]):
     def tm_yday(self) -> int: ...
     @property
     def tm_isdst(self) -> int: ...
-
-@final
-class struct_time(_struct_time):
-    def __init__(
-        self,
-        o: tuple[int, int, int, int, int, int, int, int, int]
-        | tuple[int, int, int, int, int, int, int, int, int, str]
-        | tuple[int, int, int, int, int, int, int, int, int, str, int],
-        _arg: Any = ...,
-    ) -> None: ...
-    def __new__(
-        cls,
-        o: tuple[int, int, int, int, int, int, int, int, int]
-        | tuple[int, int, int, int, int, int, int, int, int, str]
-        | tuple[int, int, int, int, int, int, int, int, int, str, int],
-        _arg: Any = ...,
-    ) -> struct_time: ...
+    # These final two properties only exist if a 10- or 11-item sequence was passed to the constructor.
     @property
     def tm_zone(self) -> str: ...
     @property
     def tm_gmtoff(self) -> int: ...
+    
 
 def asctime(t: _TimeTuple | struct_time = ...) -> str: ...
 
