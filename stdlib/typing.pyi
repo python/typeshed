@@ -1,4 +1,4 @@
-import collections
+import collections  # Needed by aliases like DefaultDict, see mypy issue 2986
 import sys
 from abc import ABCMeta, abstractmethod
 from types import BuiltinFunctionType, CodeType, FrameType, FunctionType, MethodType, ModuleType, TracebackType
