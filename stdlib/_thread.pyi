@@ -1,8 +1,9 @@
 import sys
+from _typeshed import structseq
 from threading import Thread
 from types import TracebackType
-from typing import Any, Callable, NoReturn, Optional, Tuple, Type
-from typing_extensions import final
+from typing import Any, Callable, NoReturn, Sequence, Tuple, Type, overload
+from typing_extensions import Literal, SupportsIndex, final
 
 error = RuntimeError
 
@@ -32,7 +33,19 @@ TIMEOUT_MAX: float
 if sys.version_info >= (3, 8):
     def get_native_id() -> int: ...  # only available on some platforms
     @final
-    class _ExceptHookArgs(Tuple[Type[BaseException], Optional[BaseException], Optional[TracebackType], Optional[Thread]]):
+    class _ExceptHookArgs(structseq[Any]):
+        @overload  # type: ignore[override]
+        def __getitem__(self, __i: Literal[0]) -> Type[BaseException]: ...
+        @overload
+        def __getitem__(self, __i: Literal[1]) -> BaseException | None: ...
+        @overload
+        def __getitem__(self, __i: Literal[2]) -> TracebackType | None: ...
+        @overload
+        def __getitem__(self, __i: Literal[3]) -> Thread | None: ...
+        @overload
+        def __getitem__(self, __i: SupportsIndex) -> Any: ...
+        @overload
+        def __getitem__(self, __i: slice) -> Sequence[Any]: ...
         @property
         def exc_type(self) -> Type[BaseException]: ...
         @property
