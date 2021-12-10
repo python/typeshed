@@ -1,6 +1,7 @@
 import sys
 from _typeshed import structseq
 from typing import Any, overload
+from typing_extensions import final
 
 RLIMIT_AS: int
 RLIMIT_CORE: int
@@ -24,7 +25,8 @@ if sys.platform == "linux":
     RLIMIT_SIGPENDING: int
     RUSAGE_THREAD: int
 
-class struct_rusage(structseq[float]):  # Constructor must be passed a sequence of length 16
+@final
+class struct_rusage(structseq[float]):  # Constructor must be passed an iterable of length 16
     @property
     def ru_utime(self) -> float: ...
     @property
