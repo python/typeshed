@@ -1,4 +1,4 @@
-from logging import Handler, NullHandler as NullHandler
+from logging import NullHandler as NullHandler
 from typing import Any
 
 OFF: int
