@@ -1,7 +1,8 @@
 from _typeshed import structseq
 from typing import Any, Sequence, overload
-from typing_extensions import Literal, SupportsIndex
+from typing_extensions import Literal, SupportsIndex, final
 
+@final
 class struct_group(structseq[Any]):  # Constructor takes any iterable of length 4.
     @overload  # type: ignore[override]
     def __getitem__(self, __i: Literal[0]) -> str: ...
