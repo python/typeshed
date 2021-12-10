@@ -2,7 +2,7 @@ from _typeshed import structseq
 from typing import Any, overload
 from typing_extensions import Literal, Sequence, SupportsIndex
 
-class struct_spwd(structseq[Any]):
+class struct_spwd(structseq[Any]):  # Constructor must be passed an iterable of length 9
     @overload  # type: ignore[override]
     def __getitem__(self, __i: Literal[0, 1]) -> str: ...
     @overload
