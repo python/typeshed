@@ -1,6 +1,6 @@
 import _random
-from _typeshed import SupportsLenAndGetItem
 import sys
+from _typeshed import SupportsLenAndGetItem
 from collections.abc import Callable, Iterable, MutableSequence, Sequence
 from fractions import Fraction
 from typing import Any, ClassVar, NoReturn, Tuple, TypeVar
@@ -64,7 +64,11 @@ if sys.version_info >= (3, 9):
 
 def choice(seq: SupportsLenAndGetItem[_T]) -> _T: ...
 def choices(
-    population: SupportsLenAndGetItem[_T], weights: Sequence[float] | None = ..., *, cum_weights: Sequence[float] | None = ..., k: int = ...
+    population: SupportsLenAndGetItem[_T],
+    weights: Sequence[float] | None = ...,
+    *,
+    cum_weights: Sequence[float] | None = ...,
+    k: int = ...,
 ) -> list[_T]: ...
 def shuffle(x: MutableSequence[Any], random: Callable[[], float] | None = ...) -> None: ...
 
