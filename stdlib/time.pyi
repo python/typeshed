@@ -40,7 +40,7 @@ class struct_time(structseq[int]):
     @overload  # type: ignore[override]
     def __getitem__(self, __i: Literal[0, 1, 2, 3, 4, 5, 6, 7, 8]) -> int: ...
     @overload
-    def __getitem__(self, __i: Literal[9, 10]) -> str: ...
+    def __getitem__(self, __i: Literal[9, 10]) -> str: ...  # type: ignore[misc]
     @overload
     def __getitem__(
         self, __i: SupportsIndex
