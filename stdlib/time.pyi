@@ -1,7 +1,7 @@
 import sys
 from _typeshed import structseq
 from types import SimpleNamespace
-from typing import Any, NamedTuple, Sequence, Tuple, overload
+from typing import Sequence, Tuple, overload
 from typing_extensions import Literal, SupportsIndex, final
 
 _TimeTuple = Tuple[int, int, int, int, int, int, int, int, int]
