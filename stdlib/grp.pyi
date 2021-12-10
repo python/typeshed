@@ -1,5 +1,5 @@
 from _typeshed import structseq
-from typing import Any, Sequence, overload
+from typing import Any, Tuple, overload
 from typing_extensions import Literal, SupportsIndex, final
 
 @final
@@ -15,7 +15,7 @@ class struct_group(structseq[Any]):  # Constructor takes any iterable of length 
     @overload
     def __getitem__(self, __i: SupportsIndex) -> Any: ...
     @overload
-    def __getitem__(self, __i: slice) -> Sequence[Any]: ...
+    def __getitem__(self, __i: slice) -> Tuple[Any, ...]: ...
     @property
     def gr_name(self) -> str: ...
     @property
