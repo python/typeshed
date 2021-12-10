@@ -2,16 +2,9 @@ from _typeshed import structseq
 from typing import Any, Tuple, overload
 from typing_extensions import Literal, SupportsIndex, final
 
+# Constructor must be passed an iterable of length 9
 @final
-class struct_spwd(structseq[Any]):  # Constructor must be passed an iterable of length 9
-    @overload  # type: ignore[override]
-    def __getitem__(self, __i: Literal[0, 1]) -> str: ...
-    @overload
-    def __getitem__(self, __i: Literal[2, 3, 4, 5, 6, 7, 8]) -> int: ...
-    @overload
-    def __getitem__(self, __i: SupportsIndex) -> Any: ...
-    @overload
-    def __getitem__(self, __i: slice) -> Tuple[Any, ...]: ...
+class struct_spwd(structseq[Any], Tuple[str, str, int, int, int, int, int, int, int]):
     @property
     def sp_namp(self) -> str: ...
     @property

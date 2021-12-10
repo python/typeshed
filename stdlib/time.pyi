@@ -1,8 +1,8 @@
 import sys
 from _typeshed import structseq
 from types import SimpleNamespace
-from typing import Any, Tuple, overload
-from typing_extensions import Literal, SupportsIndex, final
+from typing import Any, Tuple
+from typing_extensions import final
 
 _TimeTuple = Tuple[int, int, int, int, int, int, int, int, int]
 
@@ -33,18 +33,11 @@ if sys.version_info >= (3, 8) and sys.platform == "darwin":
 if sys.version_info >= (3, 9) and sys.platform == "linux":
     CLOCK_TAI: int
 
-# The constructor of `struct_time` takes a sequence of any type, of length between 9 and 11 elements.
-# There is no way of expressing this in the type system.
+_ElevenTuple = Tuple[int, int, int, int, int, int, int, int, int, str, str]
+
+# Constructor takes an iterable of any type, of length between 9 and 11 elements.
 @final
-class struct_time(structseq[int]):
-    @overload  # type: ignore[override]
-    def __getitem__(self, __i: Literal[0, 1, 2, 3, 4, 5, 6, 7, 8]) -> int: ...
-    @overload
-    def __getitem__(self, __i: Literal[9, 10]) -> str: ...
-    @overload
-    def __getitem__(self, __i: SupportsIndex) -> int | Any: ...
-    @overload
-    def __getitem__(self, __i: slice) -> Tuple[int, ...]: ...
+class struct_time(structseq[Any | int], _ElevenTuple):
     @property
     def tm_year(self) -> int: ...
     @property

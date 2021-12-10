@@ -1,6 +1,6 @@
 import sys
 from _typeshed import structseq
-from typing import overload
+from typing import Tuple, overload
 from typing_extensions import final
 
 RLIMIT_AS: int
@@ -25,8 +25,10 @@ if sys.platform == "linux":
     RLIMIT_SIGPENDING: int
     RUSAGE_THREAD: int
 
+_Tuple16 = Tuple[float, float, int, int, int, int, int, int, int, int, int, int, int, int, int, int]
+
 @final
-class struct_rusage(structseq[float]):  # Constructor must be passed an iterable of length 16
+class struct_rusage(structseq[float], _Tuple16):
     @property
     def ru_utime(self) -> float: ...
     @property

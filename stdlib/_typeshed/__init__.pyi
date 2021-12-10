@@ -206,14 +206,10 @@ else:
 
 # This is an internal CPython type that is like, but subtly different from, a NamedTuple
 # Subclasses of this type are found in multiple modules.
-# See discussion at #6546
-class structseq(Tuple[_T_co, ...], Generic[_T_co]):
+# In typeshed, `structseq` is only ever used as a mixin in combination with a fixed-length `Tuple`
+# See discussion at #6546 & #6560
+class structseq(Generic[_T_co]):
     n_fields: ClassVar[int]
     n_unnamed_fields: ClassVar[int]
     n_sequence_fields: ClassVar[int]
     def __new__(cls: Type[_T], sequence: Iterable[_T_co], dict: dict[Any, Any] = ...) -> _T: ...
-    def __len__(self) -> int: ...
-    @overload
-    def __getitem__(self, __i: SupportsIndex) -> _T_co: ...
-    @overload
-    def __getitem__(self, __i: slice) -> Tuple[_T_co, ...]: ...

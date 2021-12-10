@@ -1,17 +1,10 @@
 from _typeshed import structseq
 from typing import Any, Tuple, overload
-from typing_extensions import Literal, SupportsIndex, final
+from typing_extensions import final
 
+# Constructor must be passed an iterable of length 7
 @final
-class struct_passwd(structseq[Any]):  # Constructor must be passed an iterable of length 7
-    @overload  # type: ignore[override]
-    def __getitem__(self, __i: Literal[0, 1, 4, 5, 6]) -> str: ...
-    @overload
-    def __getitem__(self, __i: Literal[2, 3]) -> int: ...
-    @overload
-    def __getitem__(self, __i: SupportsIndex) -> Any: ...
-    @overload
-    def __getitem__(self, __i: slice) -> Tuple[Any, ...]: ...
+class struct_passwd(structseq[Any], Tuple[str, str, int, int, str, str, str]):
     @property
     def pw_name(self) -> str: ...
     @property
