@@ -291,7 +291,6 @@ class stat_result(structseq[float]):
     # (and portable) members of the stat structure, in the order st_mode,
     # st_ino, st_dev, st_nlink, st_uid, st_gid, st_size, st_atime, st_mtime,
     # st_ctime. More items may be added at the end by some implementations.
-    
     @property
     def st_mode(self) -> int: ...  # protection bits,
     @property
@@ -311,19 +310,23 @@ class stat_result(structseq[float]):
     @property
     def st_mtime(self) -> float: ...  # time of most recent content modification,
     @property
-    def st_ctime(self) -> float: ...  # platform dependent (time of most recent metadata change on Unix, or the time of creation on Windows)
+    def st_ctime(
+        self,
+    ) -> float: ...  # platform dependent (time of most recent metadata change on Unix, or the time of creation on Windows)
     @property
     def st_atime_ns(self) -> int: ...  # time of most recent access, in nanoseconds
     @property
     def st_mtime_ns(self) -> int: ...  # time of most recent content modification in nanoseconds
     @property
-    def st_ctime_ns(self) -> int: ...  # platform dependent (time of most recent metadata change on Unix, or the time of creation on Windows) in nanoseconds
+    def st_ctime_ns(
+        self,
+    ) -> int: ...  # platform dependent (time of most recent metadata change on Unix, or the time of creation on Windows) in nanoseconds
     if sys.platform == "win32":
         @property
         def st_file_attributes(self) -> int: ...
         if sys.version_info >= (3, 8):
             @property
-            def st_reparse_tag(self) -> int: ...        
+            def st_reparse_tag(self) -> int: ...
     # On some Unix systems (such as Linux), the following attributes may also
     # be available:
     @property
@@ -334,14 +337,12 @@ class stat_result(structseq[float]):
     def st_rdev(self) -> int: ...  # type of device if an inode device
     @property
     def st_flags(self) -> int: ...  # user defined flags for file
-
     # On other Unix systems (such as FreeBSD), the following attributes may be
     # available (but may be only filled out if root tries to use them):
     @property
     def st_gen(self) -> int: ...  # file generation number
     @property
     def st_birthtime(self) -> int: ...  # time of file creation
-
     # On Mac OS systems, the following attributes may also be available:
     @property
     def st_rsize(self) -> int: ...
