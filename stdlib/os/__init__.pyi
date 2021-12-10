@@ -324,29 +324,23 @@ class stat_result(structseq[float], Tuple[float, ...]):
         if sys.version_info >= (3, 8):
             @property
             def st_reparse_tag(self) -> int: ...
-    # On some Unix systems (such as Linux), the following attributes may also
-    # be available:
-    @property
-    def st_blocks(self) -> int: ...  # number of blocks allocated for file
-    @property
-    def st_blksize(self) -> int: ...  # filesystem blocksize
-    @property
-    def st_rdev(self) -> int: ...  # type of device if an inode device
-    @property
-    def st_flags(self) -> int: ...  # user defined flags for file
-    # On other Unix systems (such as FreeBSD), the following attributes may be
-    # available (but may be only filled out if root tries to use them):
-    @property
-    def st_gen(self) -> int: ...  # file generation number
-    @property
-    def st_birthtime(self) -> int: ...  # time of file creation
-    # On Mac OS systems, the following attributes may also be available:
-    @property
-    def st_rsize(self) -> int: ...
-    @property
-    def st_creator(self) -> int: ...
-    @property
-    def st_type(self) -> int: ...
+    else:
+        @property
+        def st_blocks(self) -> int: ...  # number of blocks allocated for file
+        @property
+        def st_blksize(self) -> int: ...  # filesystem blocksize
+        @property
+        def st_rdev(self) -> int: ...  # type of device if an inode device
+    if sys.platform == "darwin":
+        @property
+        def st_flags(self) -> int: ...  # user defined flags for file
+    if sys.platform == "darwin" or sys.platform.startswith("freebsd"):
+        # On other Unix systems (such as FreeBSD), the following attributes may be
+        # available (but may be only filled out if root tries to use them):
+        @property
+        def st_gen(self) -> int: ...  # file generation number
+        @property
+        def st_birthtime(self) -> int: ...  # time of file creation
 
 @runtime_checkable
 class PathLike(Protocol[_AnyStr_co]):
