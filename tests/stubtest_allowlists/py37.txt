@@ -29,6 +29,7 @@ fractions.Fraction.__new__  # overload is too complicated for stubtest to resolv
 hmac.HMAC.__init__
 http.server.SimpleHTTPRequestHandler.__init__  # *args is expanded
 importlib.metadata  # Added in 3.8
+importlib.metadata._meta  # Added in 3.10
 ipaddress._BaseNetwork.__init__
 json.loads
 multiprocessing.shared_memory
@@ -110,7 +111,6 @@ dummy_threading.setprofile
 dummy_threading.settrace
 dummy_threading.stack_size
 html.parser.HTMLParser.unescape
-importlib.util.source_hash
 lib2to3.pgen2.tokenize.COLONEQUAL
 platform.popen
 plistlib.Data.asBase64
