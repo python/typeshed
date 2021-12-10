@@ -284,7 +284,7 @@ TMP_MAX: int  # Undocumented, but used by tempfile
 
 # ----- os classes (structures) -----
 @final
-class stat_result(structseq[float] Tuple[float, ...]):
+class stat_result(structseq[float], Tuple[float, ...]):
     # For backward compatibility, the return value of stat() is also
     # accessible as a tuple of at least 10 integers giving the most important
     # (and portable) members of the stat structure, in the order st_mode,

@@ -16,13 +16,11 @@ from typing import (
     Generic,
     Iterable,
     Protocol,
-    Tuple,
     Type,
     TypeVar,
-    Union,
-    overload,
+    Union
 )
-from typing_extensions import Literal, SupportsIndex, final
+from typing_extensions import Literal, final
 
 _KT = TypeVar("_KT")
 _KT_co = TypeVar("_KT_co", covariant=True)

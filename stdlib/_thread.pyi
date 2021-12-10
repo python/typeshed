@@ -2,7 +2,7 @@ import sys
 from _typeshed import structseq
 from threading import Thread
 from types import TracebackType
-from typing import Any, Callable, NoReturn, Optional, Tuple, Type, overload
+from typing import Any, Callable, NoReturn, Optional, Tuple, Type
 from typing_extensions import final
 
 error = RuntimeError

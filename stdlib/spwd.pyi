@@ -1,6 +1,6 @@
 from _typeshed import structseq
-from typing import Any, Tuple, overload
-from typing_extensions import Literal, SupportsIndex, final
+from typing import Any, Tuple
+from typing_extensions import final
 
 # Constructor must be passed an iterable of length 9
 @final
