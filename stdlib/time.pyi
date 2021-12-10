@@ -42,7 +42,9 @@ class struct_time(structseq[int]):
     @overload
     def __getitem__(self, __i: Literal[9, 10]) -> str: ...
     @overload
-    def __getitem__(self, __i: SupportsIndex) -> int: ...  # Strictly this should be `Any`, but `int` will be the majority of cases
+    def __getitem__(
+        self, __i: SupportsIndex
+    ) -> int: ...  # Strictly this should be `Any`, but `int` will be the majority of cases
     @overload
     def __getitem__(self, __i: slice) -> Sequence[int]: ...
     @property
@@ -68,7 +70,6 @@ class struct_time(structseq[int]):
     def tm_zone(self) -> str: ...
     @property
     def tm_gmtoff(self) -> int: ...
-    
 
 def asctime(t: _TimeTuple | struct_time = ...) -> str: ...
 

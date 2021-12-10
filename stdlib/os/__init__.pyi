@@ -9,7 +9,7 @@ from _typeshed import (
     Self,
     StrOrBytesPath,
     StrPath,
-    structseq
+    structseq,
 )
 from builtins import OSError
 from contextlib import AbstractContextManager
