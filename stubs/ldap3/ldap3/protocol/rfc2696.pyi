@@ -1,6 +1,10 @@
 from typing import Any
 
-from pyasn1.type.univ import Integer, OctetString, Sequence
+# Enable when pyasn1 gets stubs:
+# from pyasn1.type.univ import Integer, OctetString, Sequence
+Integer = Any
+OctetString = Any
+Sequence = Any
 
 MAXINT: Any
 rangeInt0ToMaxConstraint: Any

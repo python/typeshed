@@ -1,6 +1,9 @@
 from typing import Any
 
-from pyasn1.codec.ber.encoder import AbstractItemEncoder, BooleanEncoder
+# Enable when pyasn1 gets stubs:
+# from pyasn1.codec.ber.encoder import AbstractItemEncoder, BooleanEncoder
+AbstractItemEncoder = Any
+BooleanEncoder = Any
 
 CLASSES: Any
 

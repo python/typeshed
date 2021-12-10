@@ -1,6 +1,8 @@
 from typing import Any
 
-from pyasn1.type.univ import Sequence
+# Enable when pyasn1 gets stubs:
+# from pyasn1.type.univ import Sequence
+Sequence = Any
 
 class SicilyBindResponse(Sequence):
     tagSet: Any

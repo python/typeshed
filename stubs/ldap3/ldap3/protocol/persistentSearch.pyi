@@ -1,6 +1,9 @@
 from typing import Any
 
-from pyasn1.type.univ import Enumerated, Sequence
+# Enable when pyasn1 gets stubs:
+# from pyasn1.type.univ import Enumerated, Sequence
+Enumerated = Any
+Sequence = Any
 
 class PersistentSearchControl(Sequence):
     componentType: Any

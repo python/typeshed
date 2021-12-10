@@ -1,6 +1,9 @@
 from typing import Any
 
-from pyasn1.type.univ import OctetString, Sequence
+# Enable when pyasn1 gets stubs:
+# from pyasn1.type.univ import OctetString, Sequence
+OctetString = Any
+Sequence = Any
 
 class UserIdentity(OctetString):
     tagSet: Any

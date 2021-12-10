@@ -1,6 +1,16 @@
 from typing import Any as _Any
 
-from pyasn1.type.univ import Boolean, Choice, Enumerated, Integer, Null, OctetString, Sequence, SequenceOf, SetOf
+# Enable when pyasn1 gets stubs:
+# from pyasn1.type.univ import Boolean, Choice, Enumerated, Integer, Null, OctetString, Sequence, SequenceOf, SetOf
+Boolean = _Any
+Choice = _Any
+Enumerated = _Any
+Integer = _Any
+Null = _Any
+OctetString = _Any
+Sequence = _Any
+SequenceOf = _Any
+SetOf = _Any
 
 LDAP_MAX_INT: int
 MAXINT: _Any

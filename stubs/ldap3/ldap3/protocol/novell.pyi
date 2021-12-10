@@ -1,6 +1,11 @@
 from typing import Any
 
-from pyasn1.type.univ import Integer, OctetString, Sequence, SequenceOf
+# Enable when pyasn1 gets stubs:
+# from pyasn1.type.univ import Integer, OctetString, Sequence, SequenceOf
+Integer = Any
+OctetString = Any
+Sequence = Any
+SequenceOf = Any
 
 NMAS_LDAP_EXT_VERSION: int
 
