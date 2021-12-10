@@ -24,7 +24,7 @@ if sys.platform == "linux":
     RLIMIT_SIGPENDING: int
     RUSAGE_THREAD: int
 
-class struct_rusage(structseq[float]):
+class struct_rusage(structseq[float]):  # Constructor must be passed a sequence of length 16
     @property
     def ru_utime(self) -> float: ...
     @property
