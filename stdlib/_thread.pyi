@@ -33,7 +33,7 @@ TIMEOUT_MAX: float
 if sys.version_info >= (3, 8):
     def get_native_id() -> int: ...  # only available on some platforms
     @final
-    class _ExceptHookArgs(structseq[Any]):
+    class _ExceptHookArgs(structseq[Any]):  # The constructor takes a sequence of any kind, which must have length of exactly 4.
         @overload  # type: ignore[override]
         def __getitem__(self, __i: Literal[0]) -> Type[BaseException]: ...
         @overload
