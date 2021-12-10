@@ -1,4 +1,4 @@
-from logging import Handler
+from logging import Handler, NullHandler as NullHandler
 from typing import Any
 
 OFF: int
@@ -8,12 +8,6 @@ PROTOCOL: int
 NETWORK: int
 EXTENDED: int
 DETAIL_LEVELS: Any
-
-class NullHandler(Handler):
-    def handle(self, record) -> None: ...
-    def emit(self, record) -> None: ...
-    lock: Any
-    def createLock(self) -> None: ...
 
 def get_detail_level_name(level_name): ...
 def log(detail, message, *args) -> None: ...
