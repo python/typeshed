@@ -1,6 +1,6 @@
 from hmac import compare_digest as compare_digest
 from random import SystemRandom as SystemRandom
-from typing import Sequence, TypeVar
+from typing import TypeVar
 from _typeshed import SupportsLenAndGetItem
 
 _T = TypeVar("_T")
