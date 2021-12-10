@@ -308,18 +308,20 @@ class stat_result(structseq[float]):
     def st_atime(self) -> float: ...  # time of most recent access,
     @property
     def st_mtime(self) -> float: ...  # time of most recent content modification,
+    # platform dependent (time of most recent metadata change on Unix, or the time of creation on Windows)
     @property
     def st_ctime(
         self,
-    ) -> float: ...  # platform dependent (time of most recent metadata change on Unix, or the time of creation on Windows)
+    ) -> float: ...  
     @property
     def st_atime_ns(self) -> int: ...  # time of most recent access, in nanoseconds
     @property
     def st_mtime_ns(self) -> int: ...  # time of most recent content modification in nanoseconds
+    # platform dependent (time of most recent metadata change on Unix, or the time of creation on Windows) in nanoseconds
     @property
     def st_ctime_ns(
         self,
-    ) -> int: ...  # platform dependent (time of most recent metadata change on Unix, or the time of creation on Windows) in nanoseconds
+    ) -> int: ...  
     if sys.platform == "win32":
         @property
         def st_file_attributes(self) -> int: ...
