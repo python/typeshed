@@ -2,6 +2,7 @@ from _typeshed import structseq
 from typing import Any, Sequence, overload
 from typing_extensions import Literal, SupportsIndex
 
+# The constructor takes a sequence of any kind, which must have length of exactly 4.
 class struct_group(structseq[Any]):
     @overload  # type: ignore[override]
     def __getitem__(self, __i: Literal[0]) -> str: ...
