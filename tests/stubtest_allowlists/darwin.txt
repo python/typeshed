@@ -51,15 +51,9 @@ posix.SCHED_[A-Z_]+
 distutils.msvccompiler.MSVCCompiler.get_msvc_paths
 distutils.msvccompiler.MSVCCompiler.set_path_env_var
 distutils.msvccompiler.MacroExpander
-grp.struct_group.n_fields
-grp.struct_group.n_sequence_fields
-grp.struct_group.n_unnamed_fields
 mimetypes.MimeTypes.read_windows_registry
 os.ST_NOSUID
 os.ST_RDONLY
-resource.struct_rusage.n_fields
-resource.struct_rusage.n_sequence_fields
-resource.struct_rusage.n_unnamed_fields
 selectors.DefaultSelector.fileno
 socket.AddressInfo.AI_DEFAULT
 socket.AddressInfo.AI_MASK
