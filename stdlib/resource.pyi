@@ -1,6 +1,6 @@
 import sys
 from _typeshed import structseq
-from typing import Any, overload
+from typing import overload
 from typing_extensions import final
 
 RLIMIT_AS: int
