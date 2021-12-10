@@ -1,7 +1,16 @@
 from _typeshed import structseq
-from typing import Any
+from typing import Any, overload
+from typing_extensions import Literal, Sequence, SupportsIndex
 
 class struct_spwd(structseq[Any]):
+    @overload  # type: ignore[override]
+    def __getitem__(self, __i: Literal[0, 1]) -> str: ...
+    @overload
+    def __getitem__(self, __i: Literal[2, 3, 4, 5, 6, 7, 8]) -> int: ...
+    @overload
+    def __getitem__(self, __i: SupportsIndex) -> Any: ...
+    @overload
+    def __getitem__(self, __i: slice) -> Sequence[Any]: ...
     @property
     def sp_namp(self) -> str: ...
     @property
