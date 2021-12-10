@@ -27,7 +27,6 @@ from typing import (
     List,
     Mapping,
     MutableMapping,
-    NamedTuple,
     NoReturn,
     Protocol,
     Sequence,
