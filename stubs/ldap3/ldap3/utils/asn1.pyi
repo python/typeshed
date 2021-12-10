@@ -7,8 +7,6 @@ BooleanEncoder = Any
 
 CLASSES: Any
 
-class BooleanCEREncoder(BooleanEncoder): ...
-
 class LDAPBooleanEncoder(AbstractItemEncoder):
     supportIndefLenMode: bool
     # Requires pyasn1 > 0.3.7

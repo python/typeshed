@@ -61,7 +61,7 @@ class Connection:
         server: Server | str,
         user: str | None = ...,
         password: str | None = ...,
-        auto_bind: int = ...,
+        auto_bind: Literal["DEFAULT", "NONE", "NO_TLS", "TLS_BEFORE_BIND", "TLS_AFTER_BIND"] = ...,
         version: int = ...,
         authentication: Literal["ANONYMOUS", "SIMPLE", "SASL", "NTLM"] | None = ...,
         client_strategy: Literal[
