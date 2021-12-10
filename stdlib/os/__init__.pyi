@@ -427,7 +427,7 @@ def getppid() -> int: ...
 def strerror(__code: int) -> str: ...
 def umask(__mask: int) -> int: ...
 @final
-class uname_result(structseq[str]):  # Constructor must be passed a sequence of length 5.
+class uname_result(structseq[str]):  # Constructor must be passed an iterable of length 5.
     @property
     def sysname(self): -> str: ...
     @property
@@ -619,7 +619,7 @@ if sys.platform != "win32":
     def writev(__fd: int, __buffers: Sequence[bytes]) -> int: ...
 
 @final
-class terminal_size(structseq[int]):  # Constructor must be passed a sequence of length 2
+class terminal_size(structseq[int]):  # Constructor must be passed an iterable of length 2
     @property
     def columns(self) -> int: ...
     @property
@@ -838,7 +838,7 @@ else:
 
 def system(command: StrOrBytesPath) -> int: ...
 @final
-class times_result(structseq[float]):  # Constructor must be passed a sequence of length 5
+class times_result(structseq[float]):  # Constructor must be passed an iterable of length 5
     @property
     def user(self) -> float: ...
     @property
@@ -863,7 +863,8 @@ else:
     def spawnvpe(mode: int, file: StrOrBytesPath, args: _ExecVArgs, env: _ExecEnv) -> int: ...
     def wait() -> tuple[int, int]: ...  # Unix only
     if sys.platform != "darwin":
-        class waitid_result(structseq[int]):  # Constructor must be passed a sequence of length 5
+        @final
+        class waitid_result(structseq[int]):  # Constructor must be passed an iterable of length 5
             @property
             def si_pid(self) -> int: ...
             @property
@@ -914,7 +915,9 @@ else:
         ) -> int: ...
 
 if sys.platform != "win32":
-    class sched_param(struct_seq[int]):
+    @final
+    class sched_param(structseq[int]):
+        def __new__(cls, sched_priority: int) -> sched_param: ...
         @property
         def sched_priority(self) -> int: ...
     def sched_get_priority_min(policy: int) -> int: ...  # some flavors of Unix
