@@ -130,7 +130,7 @@ else:
         SIGPWR: Signals
         SIGRTMAX: Signals
         SIGRTMIN: Signals
-        class struct_siginfo(structseq[int]):
+        class struct_siginfo(structseq[int]):  # Constructor must be passed an iterable of length 7
             @property
             def si_signo(self) -> int: ...
             @property
