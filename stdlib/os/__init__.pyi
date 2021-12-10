@@ -9,6 +9,7 @@ from _typeshed import (
     Self,
     StrOrBytesPath,
     StrPath,
+    structseq
 )
 from builtins import OSError
 from contextlib import AbstractContextManager
@@ -284,49 +285,70 @@ TMP_MAX: int  # Undocumented, but used by tempfile
 
 # ----- os classes (structures) -----
 @final
-class stat_result:
+class stat_result(structseq[float]):
     # For backward compatibility, the return value of stat() is also
     # accessible as a tuple of at least 10 integers giving the most important
     # (and portable) members of the stat structure, in the order st_mode,
     # st_ino, st_dev, st_nlink, st_uid, st_gid, st_size, st_atime, st_mtime,
     # st_ctime. More items may be added at the end by some implementations.
-
-    st_mode: int  # protection bits,
-    st_ino: int  # inode number,
-    st_dev: int  # device,
-    st_nlink: int  # number of hard links,
-    st_uid: int  # user id of owner,
-    st_gid: int  # group id of owner,
-    st_size: int  # size of file, in bytes,
-    st_atime: float  # time of most recent access,
-    st_mtime: float  # time of most recent content modification,
-    st_ctime: float  # platform dependent (time of most recent metadata change on Unix, or the time of creation on Windows)
-    st_atime_ns: int  # time of most recent access, in nanoseconds
-    st_mtime_ns: int  # time of most recent content modification in nanoseconds
-    st_ctime_ns: int  # platform dependent (time of most recent metadata change on Unix, or the time of creation on Windows) in nanoseconds
-    if sys.version_info >= (3, 8) and sys.platform == "win32":
-        st_reparse_tag: int
+    
+    @property
+    def st_mode(self) -> int: ...  # protection bits,
+    @property
+    def st_ino(self) -> int: ...  # inode number,
+    @property
+    def st_dev(self) -> int: ...  # device,
+    @property
+    def st_nlink(self) -> int: ...  # number of hard links,
+    @property
+    def st_uid(self) -> int: ...  # user id of owner,
+    @property
+    def st_gid(self) -> int: ...  # group id of owner,
+    @property
+    def st_size(self) -> int: ...  # size of file, in bytes,
+    @property
+    def st_atime(self) -> float: ...  # time of most recent access,
+    @property
+    def st_mtime(self) -> float: ...  # time of most recent content modification,
+    @property
+    def st_ctime(self) -> float: ...  # platform dependent (time of most recent metadata change on Unix, or the time of creation on Windows)
+    @property
+    def st_atime_ns(self) -> int: ...  # time of most recent access, in nanoseconds
+    @property
+    def st_mtime_ns(self) -> int: ...  # time of most recent content modification in nanoseconds
+    @property
+    def st_ctime_ns(self) -> int: ...  # platform dependent (time of most recent metadata change on Unix, or the time of creation on Windows) in nanoseconds
     if sys.platform == "win32":
-        st_file_attributes: int
-    def __getitem__(self, i: int) -> int: ...
-    # not documented
-    def __init__(self, tuple: Tuple[int, ...]) -> None: ...
+        @property
+        def st_file_attributes(self) -> int: ...
+        if sys.version_info >= (3, 8):
+            @property
+            def st_reparse_tag(self) -> int: ...        
     # On some Unix systems (such as Linux), the following attributes may also
     # be available:
-    st_blocks: int  # number of blocks allocated for file
-    st_blksize: int  # filesystem blocksize
-    st_rdev: int  # type of device if an inode device
-    st_flags: int  # user defined flags for file
+    @property
+    def st_blocks(self) -> int: ...  # number of blocks allocated for file
+    @property
+    def st_blksize(self) -> int: ...  # filesystem blocksize
+    @property
+    def st_rdev(self) -> int: ...  # type of device if an inode device
+    @property
+    def st_flags(self) -> int: ...  # user defined flags for file
 
     # On other Unix systems (such as FreeBSD), the following attributes may be
     # available (but may be only filled out if root tries to use them):
-    st_gen: int  # file generation number
-    st_birthtime: int  # time of file creation
+    @property
+    def st_gen(self) -> int: ...  # file generation number
+    @property
+    def st_birthtime(self) -> int: ...  # time of file creation
 
     # On Mac OS systems, the following attributes may also be available:
-    st_rsize: int
-    st_creator: int
-    st_type: int
+    @property
+    def st_rsize(self) -> int: ...
+    @property
+    def st_creator(self) -> int: ...
+    @property
+    def st_type(self) -> int: ...
 
 @runtime_checkable
 class PathLike(Protocol[_AnyStr_co]):
@@ -417,12 +439,17 @@ def getppid() -> int: ...
 def strerror(__code: int) -> str: ...
 def umask(__mask: int) -> int: ...
 @final
-class uname_result(NamedTuple):
-    sysname: str
-    nodename: str
-    release: str
-    version: str
-    machine: str
+class uname_result(structseq[str]):
+    @property
+    def sysname(self): -> str: ...
+    @property
+    def nodename(self): -> str: ...
+    @property
+    def release(self): -> str: ...
+    @property
+    def version(self): -> str: ...
+    @property
+    def machine(self): -> str: ...
 
 if sys.platform != "win32":
     def ctermid() -> str: ...
@@ -604,9 +631,11 @@ if sys.platform != "win32":
     def writev(__fd: int, __buffers: Sequence[bytes]) -> int: ...
 
 @final
-class terminal_size(Tuple[int, int]):
-    columns: int
-    lines: int
+class terminal_size(structseq[int]):
+    @property
+    def columns(self) -> int: ...
+    @property
+    def lines(self) -> int: ...
 
 def get_terminal_size(fd: int = ...) -> terminal_size: ...
 def get_inheritable(__fd: int) -> bool: ...
@@ -821,12 +850,17 @@ else:
 
 def system(command: StrOrBytesPath) -> int: ...
 @final
-class times_result(NamedTuple):
-    user: float
-    system: float
-    children_user: float
-    children_system: float
-    elapsed: float
+class times_result(structseq[float]):
+    @property
+    def user(self) -> float: ...
+    @property
+    def system(self) -> float: ...
+    @property
+    def children_user(self) -> float: ...
+    @property
+    def children_system(self) -> float: ...
+    @property
+    def elapsed(self) -> float: ...
 
 def times() -> times_result: ...
 def waitpid(__pid: int, __options: int) -> tuple[int, int]: ...
