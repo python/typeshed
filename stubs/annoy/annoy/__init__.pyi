@@ -1,8 +1,8 @@
-from _typeshed import GetItemAndLenSequence
+from _typeshed import SupportsLenAndGetItem
 from typing import overload
 from typing_extensions import Literal
 
-_Vector = GetItemAndLenSequence[float]
+_Vector = SupportsLenAndGetItem[float]
 
 class AnnoyIndex:
     f: int
