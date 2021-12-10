@@ -1,10 +1,9 @@
+from _typeshed import Self
 from types import TracebackType
 from typing import Any, Type, TypeVar
 from typing_extensions import Literal
 
 from .server import Server
-
-_Self = TypeVar("_Self")
 
 SASL_AVAILABLE_MECHANISMS: Any
 CLIENT_STRATEGIES: Any
@@ -100,7 +99,7 @@ class Connection:
     def stream(self, value) -> None: ...
     @property
     def usage(self): ...
-    def __enter__(self: _Self) -> _Self: ...
+    def __enter__(self: Self) -> Self: ...
     def __exit__(
         self, exc_type: Type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
     ) -> Literal[False] | None: ...
