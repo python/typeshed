@@ -334,7 +334,7 @@ class stat_result(structseq[float], Tuple[float, ...]):
     if sys.platform == "darwin":
         @property
         def st_flags(self) -> int: ...  # user defined flags for file
-    if sys.platform == "darwin" or sys.platform.startswith("freebsd"):
+    if sys.platform == "darwin":
         # On other Unix systems (such as FreeBSD), the following attributes may be
         # available (but may be only filled out if root tries to use them):
         @property
