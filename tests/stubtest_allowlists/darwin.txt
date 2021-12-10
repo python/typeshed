@@ -5,9 +5,6 @@ curses.COLOR_PAIRS  # Initialized after start_color
 curses.COLS  # Initialized only after initscr call.
 curses.LINES  # Initialized only after initscr call.
 distutils.command.bdist_msi  # msi is only available on windows
-grp.struct_group._asdict  # PyStructSequence
-grp.struct_group._make  # PyStructSequence
-grp.struct_group._replace  # PyStructSequence
 os.EX_NOTFOUND
 os.SF_MNOWAIT
 os.SF_NODISKIO
@@ -34,9 +31,6 @@ winreg
 winsound
 ossaudiodev
 spwd
-
-# NamedTuple like, but not actually NamedTuples (PyStructSequence)
-posix.[a-z]+_(param|result)._(asdict|make|replace)
 
 # Platform differences that cannot be captured by the type system
 fcntl.[A-Z0-9_]+
