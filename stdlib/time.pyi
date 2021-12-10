@@ -1,4 +1,5 @@
 import sys
+from _typeshed import structseq
 from types import SimpleNamespace
 from typing import Any, NamedTuple, Tuple
 from typing_extensions import final
@@ -32,22 +33,25 @@ if sys.version_info >= (3, 8) and sys.platform == "darwin":
 if sys.version_info >= (3, 9) and sys.platform == "linux":
     CLOCK_TAI: int
 
-class _struct_time(NamedTuple):
-    tm_year: int
-    tm_mon: int
-    tm_mday: int
-    tm_hour: int
-    tm_min: int
-    tm_sec: int
-    tm_wday: int
-    tm_yday: int
-    tm_isdst: int
+class _struct_time(structseq[int]):
     @property
-    def n_fields(self) -> int: ...
+    def tm_year(self) -> int: ...
     @property
-    def n_sequence_fields(self) -> int: ...
+    def tm_mon(self) -> int: ...
     @property
-    def n_unnamed_fields(self) -> int: ...
+    def tm_mday(self) -> int: ...
+    @property
+    def tm_hour(self) -> int: ...
+    @property
+    def tm_min(self) -> int: ...
+    @property
+    def tm_sec(self) -> int: ...
+    @property
+    def tm_wday(self) -> int: ...
+    @property
+    def tm_yday(self) -> int: ...
+    @property
+    def tm_isdst(self) -> int: ...
 
 @final
 class struct_time(_struct_time):
