@@ -3,6 +3,7 @@ from _typeshed import structseq
 from enum import IntEnum
 from types import FrameType
 from typing import Any, Callable, Iterable, Optional, Tuple, Union
+from typing_extensions import final
 
 NSIG: int
 
@@ -130,6 +131,7 @@ else:
         SIGPWR: Signals
         SIGRTMAX: Signals
         SIGRTMIN: Signals
+        @final
         class struct_siginfo(structseq[int]):  # Constructor must be passed an iterable of length 7
             @property
             def si_signo(self) -> int: ...
