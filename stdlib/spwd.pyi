@@ -1,6 +1,6 @@
 from _typeshed import structseq
-from typing import Any, overload
-from typing_extensions import Literal, Sequence, SupportsIndex, final
+from typing import Any, Sequence, overload
+from typing_extensions import Literal, SupportsIndex, final
 
 @final
 class struct_spwd(structseq[Any]):  # Constructor must be passed an iterable of length 9
