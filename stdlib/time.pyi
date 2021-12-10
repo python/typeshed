@@ -1,7 +1,7 @@
 import sys
 from _typeshed import structseq
 from types import SimpleNamespace
-from typing import Sequence, Tuple, overload
+from typing import Tuple, overload
 from typing_extensions import Literal, SupportsIndex, final
 
 _TimeTuple = Tuple[int, int, int, int, int, int, int, int, int]
@@ -40,13 +40,13 @@ class struct_time(structseq[int]):
     @overload  # type: ignore[override]
     def __getitem__(self, __i: Literal[0, 1, 2, 3, 4, 5, 6, 7, 8]) -> int: ...
     @overload
-    def __getitem__(self, __i: Literal[9, 10]) -> str: ...  # type: ignore[misc]
+    def __getitem__(self, __i: Literal[9, 10]) -> str: ...
     @overload
     def __getitem__(
         self, __i: SupportsIndex
-    ) -> int: ...  # Strictly this should be `Any`, but `int` will be the majority of cases
+    ) -> int | Any: ...
     @overload
-    def __getitem__(self, __i: slice) -> Sequence[int]: ...
+    def __getitem__(self, __i: slice) -> Tuple[int, ...]: ...
     @property
     def tm_year(self) -> int: ...
     @property
