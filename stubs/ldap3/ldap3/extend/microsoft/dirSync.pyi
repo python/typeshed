@@ -1,14 +1,5 @@
 from typing import Any
 
-from ... import DEREF_NEVER as DEREF_NEVER, SUBTREE as SUBTREE
-from ...core.exceptions import LDAPExtensionError as LDAPExtensionError
-from ...protocol.microsoft import (
-    dir_sync_control as dir_sync_control,
-    extended_dn_control as extended_dn_control,
-    show_deleted_control as show_deleted_control,
-)
-from ...utils.dn import safe_dn as safe_dn
-
 class DirSync:
     connection: Any
     base: Any
