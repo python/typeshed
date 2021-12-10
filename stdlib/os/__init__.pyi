@@ -384,44 +384,32 @@ class DirEntry(Generic[AnyStr]):
         def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 if sys.platform != "win32":
-    _Tuple10Int = Tuple[int, int, int, int, int, int, int, int, int, int]
-    _Tuple11Int = Tuple[int, int, int, int, int, int, int, int, int, int, int]
-    if sys.version_info >= (3, 7):
-        # f_fsid was added in https://github.com/python/cpython/pull/4571
-        @final
-        class statvfs_result(_Tuple10Int):  # Unix only
-            def __new__(cls, seq: _Tuple10Int | _Tuple11Int, dict: dict[str, int] = ...) -> statvfs_result: ...
-            n_fields: int
-            n_sequence_fields: int
-            n_unnamed_fields: int
-
-            f_bsize: int
-            f_frsize: int
-            f_blocks: int
-            f_bfree: int
-            f_bavail: int
-            f_files: int
-            f_ffree: int
-            f_favail: int
-            f_flag: int
-            f_namemax: int
-            f_fsid: int
-    else:
-        class statvfs_result(_Tuple10Int):  # Unix only
-            n_fields: int
-            n_sequence_fields: int
-            n_unnamed_fields: int
-
-            f_bsize: int
-            f_frsize: int
-            f_blocks: int
-            f_bfree: int
-            f_bavail: int
-            f_files: int
-            f_ffree: int
-            f_favail: int
-            f_flag: int
-            f_namemax: int
+    @final
+    class statvfs_result(structseq[int]):  # Unix only
+        @property
+        def f_bsize(self) -> int: ...
+        @property
+        def f_frsize(self) -> int: ...
+        @property
+        def f_blocks(self) -> int: ...
+        @property
+        def f_bfree(self) -> int: ...
+        @property
+        def f_bavail(self) -> int: ...
+        @property
+        def f_files(self) -> int: ...
+        @property
+        def f_ffree(self) -> int: ...
+        @property
+        def f_favail(self) -> int: ...
+        @property
+        def f_flag(self) -> int: ...
+        @property
+        def f_namemax(self) -> int: ...
+        if sys.version_info >= (3, 7):
+            # f_fsid was added in https://github.com/python/cpython/pull/4571
+            @property
+            def f_fsid(self) -> int: ...
 
 # ----- os function stubs -----
 def fsencode(filename: StrOrBytesPath) -> bytes: ...
