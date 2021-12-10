@@ -32,6 +32,7 @@
         "stubs/humanfriendly",
         "stubs/jmespath",
         "stubs/jsonschema",
+        "stubs/ldap3",
         "stubs/Markdown",
         "stubs/mysqlclient",
         "stubs/oauthlib",
