@@ -2,7 +2,7 @@ from _typeshed import structseq
 from typing import Any, Sequence, overload
 from typing_extensions import Literal, SupportsIndex
 
-class struct_passwd(structseq[Any]):
+class struct_passwd(structseq[Any]):  # Constructor must be passed a sequence of length 7
     @overload  # type: ignore[override]
     def __getitem__(self, __i: Literal[0, 1, 4, 5, 6]) -> str: ...
     @overload
