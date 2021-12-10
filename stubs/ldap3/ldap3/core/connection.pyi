@@ -1,6 +1,6 @@
 from _typeshed import Self
 from types import TracebackType
-from typing import Any, Type, TypeVar
+from typing import Any, Type
 from typing_extensions import Literal
 
 from .server import Server
