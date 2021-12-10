@@ -34,7 +34,9 @@ if sys.version_info >= (3, 8):
     def get_native_id() -> int: ...  # only available on some platforms
     # Constructor of _ExceptHookArgs takes an iterable of length 4.
     @final
-    class _ExceptHookArgs(structseq[Any], Tuple[Type[BaseException], Optional[BaseException], Optional[TracebackType], Optional[Thread]]):
+    class _ExceptHookArgs(
+        structseq[Any], Tuple[Type[BaseException], Optional[BaseException], Optional[TracebackType], Optional[Thread]]
+    ):
         @property
         def exc_type(self) -> Type[BaseException]: ...
         @property
