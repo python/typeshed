@@ -7,8 +7,8 @@ import ctypes
 import mmap
 import sys
 from os import PathLike
-from typing import AbstractSet, Any, Awaitable, Container, Iterable, Protocol, TypeVar, Union
-from typing_extensions import Literal, final
+from typing import AbstractSet, Any, Awaitable, ClassVar, Container, Generic, Iterable, Protocol, Sequence, Type, TypeVar, Union, overload
+from typing_extensions import Literal, SupportsIndex, final
 
 _KT = TypeVar("_KT")
 _KT_co = TypeVar("_KT_co", covariant=True)
@@ -189,3 +189,14 @@ else:
     @final
     class NoneType:
         def __bool__(self) -> Literal[False]: ...
+            
+class structseq(Sequence[_T_co], Generic[_T_co]):
+    n_fields: ClassVar[int]
+    n_unnamed_fields: ClassVar[int]
+    n_sequence_fields: ClassVar[int]
+    def __new__(cls: Type[_T], seq: Sequence[_T_co]) -> _T: ...
+    def __len__(self) -> int: ...
+    @overload
+    def __getitem__(self, __i: SupportsIndex) -> _T_co: ...
+    @overload
+    def __getitem__(self, __i: slice) -> Sequence[_T_co]: ...
