@@ -16,7 +16,16 @@ class EnumMeta(ABCMeta):
     @classmethod
     def __prepare__(metacls, cls: str, bases: Tuple[type, ...], **kwds) -> Mapping[str, object]: ...
     if sys.version_info >= (3, 11):
-        def __new__(metacls, cls: str, bases: Tuple[type, ...], classdict: Mapping[str, object], *, boundary: 'FlagBoundary | None' = ..., _simple: bool = ..., **kwds): ...
+        def __new__(
+            metacls,
+            cls: str,
+            bases: Tuple[type, ...],
+            classdict: Mapping[str, object],
+            *,
+            boundary: "FlagBoundary | None" = ...,
+            _simple: bool = ...,
+            **kwds,
+        ): ...
     else:
         def __new__(metacls, cls: str, bases: Tuple[type, ...], classdict: Mapping[str, object]): ...
     def __iter__(self: Type[_T]) -> Iterator[_T]: ...
