@@ -84,7 +84,6 @@ distutils.version.Version._cmp  # class should have declared this
 distutils.version.Version.parse  # class should have declared this
 email.headerregistry.BaseHeader.max_count  # docs say subclasses should have this property
 enum.EnumMeta.__call__
-enum.EnumMeta.__new__
 http.HTTPStatus.description  # set in __new__
 http.HTTPStatus.phrase  # set in __new__
 http.client.HTTPConnection.response_class  # the actual type at runtime is abc.ABCMeta
