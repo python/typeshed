@@ -14,7 +14,7 @@ _S = TypeVar("_S", bound=Type[Enum])
 # Structurally: Iterable[T], Reversible[T], Container[T] where T is the enum itself
 class EnumMeta(ABCMeta):
     @classmethod
-    def __prepare__(metacls, cls: str, bases: Tuple[type, ...], **kwds) -> Mapping[str, object]: ...
+    def __prepare__(metacls, cls: str, bases: Tuple[type, ...], **kwds) -> Mapping[str, object]: ...  # type: ignore[override]
     if sys.version_info >= (3, 11):
         def __new__(
             metacls,
@@ -24,7 +24,7 @@ class EnumMeta(ABCMeta):
             *,
             boundary: "FlagBoundary | None" = ...,
             _simple: bool = ...,
-            **kwds,
+            **kwds: Any,
         ): ...
     else:
         def __new__(metacls, cls: str, bases: Tuple[type, ...], classdict: Mapping[str, object]): ...
