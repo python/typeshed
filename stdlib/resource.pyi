@@ -25,10 +25,8 @@ if sys.platform == "linux":
     RLIMIT_SIGPENDING: int
     RUSAGE_THREAD: int
 
-_Tuple16 = Tuple[float, float, int, int, int, int, int, int, int, int, int, int, int, int, int, int]
-
 @final
-class struct_rusage(structseq[float], _Tuple16):
+class struct_rusage(structseq[float], Tuple[float, float, int, int, int, int, int, int, int, int, int, int, int, int, int, int]):
     @property
     def ru_utime(self) -> float: ...
     @property
