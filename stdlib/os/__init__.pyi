@@ -408,6 +408,7 @@ if sys.version_info >= (3, 7):
         def f_namemax(self) -> int: ...
         @property
         def f_fsid(self) -> int: ...
+
 else:
     @final
     class statvfs_result(structseq[int], Tuple[int, int, int, int, int, int, int, int, int, int]):
