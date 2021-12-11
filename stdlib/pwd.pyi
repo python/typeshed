@@ -2,7 +2,6 @@ from _typeshed import structseq
 from typing import Any, Tuple
 from typing_extensions import final
 
-# Constructor must be passed an iterable of length 7
 @final
 class struct_passwd(structseq[Any], Tuple[str, str, int, int, str, str, str]):
     @property

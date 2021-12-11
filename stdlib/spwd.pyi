@@ -2,7 +2,6 @@ from _typeshed import structseq
 from typing import Any, Tuple
 from typing_extensions import final
 
-# Constructor must be passed an iterable of length 9
 @final
 class struct_spwd(structseq[Any], Tuple[str, str, int, int, int, int, int, int, int]):
     @property

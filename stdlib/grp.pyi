@@ -2,7 +2,6 @@ from _typeshed import structseq
 from typing import Any, List, Optional, Tuple
 from typing_extensions import final
 
-# Constructor takes any iterable of length 4
 @final
 class struct_group(structseq[Any], Tuple[str, Optional[str], int, List[str]]):
     @property

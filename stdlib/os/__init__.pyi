@@ -289,6 +289,7 @@ class stat_result(structseq[float], Tuple[int, int, int, int, int, int, int, flo
     #
     # However, this class behaves like a tuple of 10 elements,
     # no matter how long the iterable supplied to the constructor is.
+    # https://github.com/python/typeshed/pull/6560#discussion_r767162532
     #
     # The 10 elements always present are st_mode, st_ino, st_dev, st_nlink,
     # st_uid, st_gid, st_size, st_atime, st_mtime, st_ctime.
@@ -450,7 +451,6 @@ def getppid() -> int: ...
 def strerror(__code: int) -> str: ...
 def umask(__mask: int) -> int: ...
 
-# Constructor must be passed an iterable of length 5.
 @final
 class uname_result(structseq[str], Tuple[str, str, str, str, str]):
     @property
@@ -643,7 +643,6 @@ if sys.platform != "win32":
     def readv(__fd: int, __buffers: Sequence[bytearray]) -> int: ...
     def writev(__fd: int, __buffers: Sequence[bytes]) -> int: ...
 
-# Constructor must be passed an iterable of length 2
 @final
 class terminal_size(structseq[int], Tuple[int, int]):
     @property
@@ -864,7 +863,6 @@ else:
 
 def system(command: StrOrBytesPath) -> int: ...
 
-# Constructor must be passed an iterable of length 5
 @final
 class times_result(structseq[float], Tuple[float, float, float, float, float]):
     @property
@@ -891,7 +889,6 @@ else:
     def spawnvpe(mode: int, file: StrOrBytesPath, args: _ExecVArgs, env: _ExecEnv) -> int: ...
     def wait() -> tuple[int, int]: ...  # Unix only
     if sys.platform != "darwin":
-        # Constructor must be passed an iterable of length 5
         @final
         class waitid_result(structseq[int], Tuple[int, int, int, int, int]):
             @property

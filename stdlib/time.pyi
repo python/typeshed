@@ -34,6 +34,9 @@ if sys.version_info >= (3, 9) and sys.platform == "linux":
     CLOCK_TAI: int
 
 # Constructor takes an iterable of any type, of length between 9 and 11 elements.
+# However, it always *behaves* like a tuple of 9 elements,
+# even if an iterable with length >9 is passed.
+# https://github.com/python/typeshed/pull/6560#discussion_r767162532
 @final
 class struct_time(structseq[Union[Any, int]], _TimeTuple):
     @property

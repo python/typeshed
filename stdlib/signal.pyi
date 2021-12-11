@@ -131,7 +131,6 @@ else:
         SIGPWR: Signals
         SIGRTMAX: Signals
         SIGRTMIN: Signals
-        # Constructor must be passed an iterable of length 7
         @final
         class struct_siginfo(structseq[int], Tuple[int, int, int, int, int, int, int]):
             @property
