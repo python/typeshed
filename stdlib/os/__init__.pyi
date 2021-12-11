@@ -284,12 +284,16 @@ TMP_MAX: int  # Undocumented, but used by tempfile
 
 # ----- os classes (structures) -----
 @final
-class stat_result(structseq[float], Tuple[float, ...]):
-    # For backward compatibility, the return value of stat() is also
-    # accessible as a tuple of at least 10 integers giving the most important
-    # (and portable) members of the stat structure, in the order st_mode,
-    # st_ino, st_dev, st_nlink, st_uid, st_gid, st_size, st_atime, st_mtime,
-    # st_ctime. More items may be added at the end by some implementations.
+class stat_result(structseq[float], Tuple[int, int, int, int, int, int, int, float, float, float]):
+    # The constructor of this class takes an iterable of variable length (though it must be at least 10).
+    #
+    # However, this class behaves like a tuple of 10 elements,
+    # no matter how long the iterable supplied to the constructor is.
+    #
+    # The 10 elements always present are st_mode, st_ino, st_dev, st_nlink,
+    # st_uid, st_gid, st_size, st_atime, st_mtime, st_ctime.
+    #
+    # More items may be added at the end by some implementations.
     @property
     def st_mode(self) -> int: ...  # protection bits,
     @property
@@ -331,16 +335,19 @@ class stat_result(structseq[float], Tuple[float, ...]):
         def st_blksize(self) -> int: ...  # filesystem blocksize
         @property
         def st_rdev(self) -> int: ...  # type of device if an inode device
+        if sys.platform != "linux":
+            # These properties are available on MacOS, but not on Windows or Ubuntu.
+            # On other Unix systems (such as FreeBSD), the following attributes may be
+            # available (but may be only filled out if root tries to use them):
+            @property
+            def st_gen(self) -> int: ...  # file generation number
+            @property
+            def st_birthtime(self) -> int: ...  # time of file creation
     if sys.platform == "darwin":
         @property
         def st_flags(self) -> int: ...  # user defined flags for file
-    if sys.platform != "win32" and sys.platform != "linux":
-        # On other Unix systems (such as FreeBSD), the following attributes may be
-        # available (but may be only filled out if root tries to use them):
-        @property
-        def st_gen(self) -> int: ...  # file generation number
-        @property
-        def st_birthtime(self) -> int: ...  # time of file creation
+    # Atributes documented as sometimes appearing, but deliberately omitted from the stub: `st_creator`, `st_rsize`, `st_type`.
+    # See https://github.com/python/typeshed/pull/6560#issuecomment-991253327
 
 @runtime_checkable
 class PathLike(Protocol[_AnyStr_co]):
