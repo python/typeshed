@@ -24,6 +24,10 @@ class EnumMeta(ABCMeta):
     _member_map_: dict[str, Enum]  # undocumented
     _value2member_map_: dict[Any, Enum]  # undocumented
 
+if sys.version_info >= (3, 11):
+    # In 3.11 `EnumMeta` metaclass is renamed to `EnumType`, but old name also exists.
+    EnumType = EnumMeta
+
 class Enum(metaclass=EnumMeta):
     name: str
     value: Any
