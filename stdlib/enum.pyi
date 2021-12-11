@@ -2,7 +2,7 @@ import sys
 import types
 from abc import ABCMeta
 from builtins import property as _builtins_property
-from typing import Any, Iterator, Tuple, Type, TypeVar
+from typing import Any, Iterator, Tuple, Type, TypeVar, Mapping
 
 _T = TypeVar("_T")
 _S = TypeVar("_S", bound=Type[Enum])
