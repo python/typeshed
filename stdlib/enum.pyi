@@ -12,7 +12,7 @@ _S = TypeVar("_S", bound=Type[Enum])
 # such as str as mixins, which due to the handling of ABCs of builtin types, cause
 # spurious inconsistent metaclass structure. See #1595.
 # Structurally: Iterable[T], Reversible[T], Container[T] where T is the enum itself
-class EnumType(ABCMeta):
+class EnumMeta(ABCMeta):
     def __iter__(self: Type[_T]) -> Iterator[_T]: ...
     def __reversed__(self: Type[_T]) -> Iterator[_T]: ...
     def __contains__(self: Type[Any], member: object) -> bool: ...
@@ -24,9 +24,9 @@ class EnumType(ABCMeta):
     _member_map_: dict[str, Enum]  # undocumented
     _value2member_map_: dict[Any, Enum]  # undocumented
 
-EnumMeta = EnumType
+EnumType = EnumMeta
 
-class Enum(metaclass=EnumType):
+class Enum(metaclass=EnumMeta):
     name: str
     value: Any
     _name_: str
