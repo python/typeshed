@@ -48,7 +48,6 @@ distutils.msvccompiler.OldMSVCCompiler
 msvcrt.SetErrorMode
 os.get_handle_inheritable
 os.set_handle_inheritable
-os.statvfs_result
 socket.MsgFlag.MSG_BCAST
 socket.MsgFlag.MSG_MCAST
 ssl.SSLSocket.recvmsg
