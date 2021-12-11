@@ -215,6 +215,15 @@ if sys.version_info >= (3, 8):
         type_comments: bool = ...,
         feature_version: None | int | _typing.Tuple[int, int] = ...,
     ) -> Interactive: ...
+    @overload
+    def parse(
+        source: str | bytes,
+        filename: str | bytes = ...,
+        mode: str = ...,
+        *,
+        type_comments: bool = ...,
+        feature_version: None | int | _typing.Tuple[int, int] = ...,
+    ) -> AST: ...
 
 else:
     @overload
@@ -227,6 +236,8 @@ else:
     def parse(source: str | bytes, *, mode: Literal["eval"]) -> Expression: ...
     @overload
     def parse(source: str | bytes, *, mode: Literal["single"]) -> Interactive: ...
+    @overload
+    def parse(source: str | bytes, filename: str | bytes = ..., mode: str = ...) -> AST: ...
 
 if sys.version_info >= (3, 9):
     def unparse(ast_obj: AST) -> str: ...
