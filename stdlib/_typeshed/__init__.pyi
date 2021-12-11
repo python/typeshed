@@ -199,9 +199,6 @@ class structseq(Generic[_T_co]):
     n_fields: ClassVar[int]
     n_unnamed_fields: ClassVar[int]
     n_sequence_fields: ClassVar[int]
-    # First argument of the constructor is called `sequence`, but can in fact take any iterable.
-    # The optional second argument *must* be a dict, rather than any old mapping.
-    #
     # The first parameter will generally only take an iterable of a specific length.
     # E.g. `os.uname_result` takes any iterable of length exactly 5.
     #
