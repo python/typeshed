@@ -194,8 +194,18 @@ else:
 # Subclasses of this type are found in multiple modules.
 # In typeshed, `structseq` is only ever used as a mixin in combination with a fixed-length `Tuple`
 # See discussion at #6546 & #6560
+# `structseq` classes are unsubclassable, so are all decorated with `@final`.
 class structseq(Generic[_T_co]):
     n_fields: ClassVar[int]
     n_unnamed_fields: ClassVar[int]
     n_sequence_fields: ClassVar[int]
+    # First argument of the constructor is called `sequence`, but can in fact take any iterable.
+    # The optional second argument *must* be a dict, rather than any old mapping.
+    #
+    # The first parameter will generally only take an iterable of a specific length.
+    # E.g. `os.uname_result` takes any iterable of length exactly 5.
+    #
+    # The second parameter will accept a dict of any kind without raising an exception,
+    # but only has any meaning if you supply it a dict where the keys are strings.
+    # https://github.com/python/typeshed/pull/6560#discussion_r767149830
     def __new__(cls: Type[_T], sequence: Iterable[_T_co], dict: dict[str, Any] = ...) -> _T: ...
