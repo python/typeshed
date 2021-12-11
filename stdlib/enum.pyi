@@ -26,7 +26,7 @@ class EnumType(ABCMeta):
 
 EnumMeta = EnumType
 
-class Enum(metaclass=EnumMeta):
+class Enum(metaclass=EnumType):
     name: str
     value: Any
     _name_: str
