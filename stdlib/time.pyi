@@ -33,11 +33,9 @@ if sys.version_info >= (3, 8) and sys.platform == "darwin":
 if sys.version_info >= (3, 9) and sys.platform == "linux":
     CLOCK_TAI: int
 
-_ElevenTuple = Tuple[int, int, int, int, int, int, int, int, int, str, str]
-
 # Constructor takes an iterable of any type, of length between 9 and 11 elements.
 @final
-class struct_time(structseq[Union[Any, int]], _ElevenTuple):
+class struct_time(structseq[Union[Any, int]], _TimeTuple):
     @property
     def tm_year(self) -> int: ...
     @property
