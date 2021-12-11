@@ -2,7 +2,7 @@ import sys
 import types
 from abc import ABCMeta
 from builtins import property as _builtins_property
-from typing import Any, Iterator, Type, TypeVar
+from typing import Any, Iterator, Type, TypeVar, Tuple
 
 _T = TypeVar("_T")
 _S = TypeVar("_S", bound=Type[Enum])
@@ -13,6 +13,12 @@ _S = TypeVar("_S", bound=Type[Enum])
 # spurious inconsistent metaclass structure. See #1595.
 # Structurally: Iterable[T], Reversible[T], Container[T] where T is the enum itself
 class EnumMeta(ABCMeta):
+    @classmethod
+    def __prepare__(metacls, cls: str, bases: Tuple[type, ...], **kwds) -> Mapping[str, object]: ...
+    if sys.version_info >= (3, 11):
+        def __new__(metacls, cls: str, bases: Tuple[type, ...], classdict: Mapping[str, object], *, boundary: 'FlagBoundary | None' = ..., _simple: bool = ..., **kwds):
+    else:
+        def __new__(metacls, cls: str, bases: Tuple[type, ...], classdict: Mapping[str, object]): ...
     def __iter__(self: Type[_T]) -> Iterator[_T]: ...
     def __reversed__(self: Type[_T]) -> Iterator[_T]: ...
     def __contains__(self: Type[Any], member: object) -> bool: ...
