@@ -2,7 +2,7 @@ import sys
 import types
 from abc import ABCMeta
 from builtins import property as _builtins_property
-from typing import Any, Dict, Iterable, Iterator, Mapping, Sequence, Tuple, Type, TypeVar, Union, overload 
+from typing import Any, Dict, Iterable, Iterator, Mapping, Sequence, Tuple, Type, TypeVar, Union, overload
 
 _T = TypeVar("_T")
 _S = TypeVar("_S", bound=Type[Enum])
@@ -79,6 +79,7 @@ if sys.version_info >= (3, 11):
     EnumType = EnumMeta
 
 class Enum(metaclass=EnumMeta):
+    name: str
     value: Any
     _name_: str
     _value_: Any
