@@ -2,10 +2,11 @@ import sys
 import types
 from abc import ABCMeta
 from builtins import property as _builtins_property
-from typing import Any, Dict, Iterator, Tuple, Type, TypeVar, overload, Iterable, Sequence, Mapping
+from typing import Any, Dict, Iterable, Iterator, Mapping, Sequence, Tuple, Type, TypeVar, Union, overload 
 
 _T = TypeVar("_T")
 _S = TypeVar("_S", bound=Type[Enum])
+_EnumNames = Union[str, Iterable[str], Iterable[Sequence[str]], Mapping[str, Any]]
 
 class _EnumDict(Dict[str, Any]):
     def __init__(self) -> None: ...
@@ -16,7 +17,18 @@ class _EnumDict(Dict[str, Any]):
 # spurious inconsistent metaclass structure. See #1595.
 # Structurally: Iterable[T], Reversible[T], Container[T] where T is the enum itself
 class EnumMeta(ABCMeta):
-    if sys.version_info >= (3, 9):
+    if sys.version_info >= (3, 11):
+        def __new__(
+            metacls: Type[_T],
+            cls: str,
+            bases: Tuple[type, ...],
+            classdict: _EnumDict,
+            *,
+            boundary: FlagBoundary | None = ...,
+            _simple: bool = ...,
+            **kwds: Any
+        ) -> _T: ...
+    elif sys.version_info >= (3, 9):
         def __new__(metacls: Type[_T], cls: str, bases: Tuple[type, ...], classdict: _EnumDict, **kwds: Any) -> _T: ...
     else:
         def __new__(metacls: Type[_T], cls: str, bases: Tuple[type, ...], classdict: _EnumDict) -> _T: ...
@@ -27,27 +39,42 @@ class EnumMeta(ABCMeta):
     @_builtins_property
     def __members__(self: Type[_T]) -> types.MappingProxyType[str, _T]: ...
     def __len__(self) -> int: ...
-    # Simple value lookup
-    @overload  # type: ignore[override]
-    def __call__(cls: Type[_T], value: Any, names: None = ...) -> _T: ...
-    # Functional Enum API
-    @overload
-    def __call__(
-        cls,
-        value: str,
-        names: str | Iterable[str] | Iterable[Sequence[str]] | Mapping[str, Any],
-        *,
-        module: str | None = ...,
-        qualname: str | None = ...,
-        type: type | None = ...,
-        start : int = ...
-    ) -> Type[Enum]: ...
+    if sys.version_info >= (3, 11):
+        # Simple value lookup
+        @overload  # type: ignore[override]
+        def __call__(cls: Type[_T], value: Any, names: None = ...) -> _T: ...
+        # Functional Enum API
+        @overload
+        def __call__(
+            cls,
+            value: str,
+            names: _EnumNames,
+            *,
+            module: str | None = ...,
+            qualname: str | None = ...,
+            type: type | None = ...,
+            start : int = ...,
+            boundary: FlagBoundary | None = ...
+        ) -> Type[Enum]: ...
+    else:
+        @overload  # type: ignore[override]
+        def __call__(cls: Type[_T], value: Any, names: None = ...) -> _T: ...
+        @overload
+        def __call__(
+            cls,
+            value: str,
+            names: _EnumNames,
+            *,
+            module: str | None = ...,
+            qualname: str | None = ...,
+            type: type | None = ...,
+            start : int = ...
+        ) -> Type[Enum]: ...
     _member_names_: list[str]  # undocumented
     _member_map_: dict[str, Enum]  # undocumented
     _value2member_map_: dict[Any, Enum]  # undocumented
 
 class Enum(metaclass=EnumMeta):
-    name: str
     value: Any
     _name_: str
     _value_: Any
@@ -113,7 +140,6 @@ if sys.version_info >= (3, 11):
     CONFORM = FlagBoundary.CONFORM
     EJECT = FlagBoundary.EJECT
     KEEP = FlagBoundary.KEEP
-    EnumType = EnumMeta
     class property(_builtins_property): ...
     def global_enum(cls: _S) -> _S: ...
     def global_enum_repr(self: Enum) -> str: ...
