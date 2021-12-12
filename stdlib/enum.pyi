@@ -38,7 +38,7 @@ class EnumMeta(ABCMeta):
             *,
             boundary: FlagBoundary | None = ...,
             _simple: bool = ...,
-            **kwds: Any
+            **kwds: Any,
         ) -> _T: ...
     elif sys.version_info >= (3, 9):
         def __new__(metacls: Type[_T], cls: str, bases: Tuple[type, ...], classdict: _EnumDict, **kwds: Any) -> _T: ...
@@ -65,8 +65,8 @@ class EnumMeta(ABCMeta):
             module: str | None = ...,
             qualname: str | None = ...,
             type: type | None = ...,
-            start : int = ...,
-            boundary: FlagBoundary | None = ...
+            start: int = ...,
+            boundary: FlagBoundary | None = ...,
         ) -> Type[Enum]: ...
     else:
         @overload  # type: ignore[override]
@@ -80,7 +80,7 @@ class EnumMeta(ABCMeta):
             module: str | None = ...,
             qualname: str | None = ...,
             type: type | None = ...,
-            start : int = ...
+            start: int = ...,
         ) -> Type[Enum]: ...
     _member_names_: list[str]  # undocumented
     _member_map_: dict[str, Enum]  # undocumented
