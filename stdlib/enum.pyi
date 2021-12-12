@@ -2,11 +2,23 @@ import sys
 import types
 from abc import ABCMeta
 from builtins import property as _builtins_property
-from typing import Any, Dict, Iterable, Iterator, Mapping, Sequence, Tuple, Type, TypeVar, Union, overload
+from typing import Any, Dict, Iterable, Iterator, Mapping, Tuple, Type, TypeVar, Union, overload
 
 _T = TypeVar("_T")
 _S = TypeVar("_S", bound=Type[Enum])
-_EnumNames = Union[str, Iterable[str], Iterable[Sequence[str]], Mapping[str, Any]]
+
+# The following all work:
+# >>> from enum import Enum
+# >>> from string import ascii_lowercase
+# >>> Enum('Foo', names='RED YELLOW GREEN')
+# <enum 'Foo'>
+# >>> Enum('Foo', names=[('RED', 1), ('YELLOW, 2)])
+# <enum 'Foo'>
+# >>> Enum('Foo', names=((x for x in (ascii_lowercase[i], i)) for i in range(5)))
+# <enum 'Foo'>
+# >>> Enum('Foo', names={'RED': 1, 'YELLOW': 2})
+# <enum 'Foo'>
+_EnumNames = Union[str, Iterable[str], Iterable[Iterable[Union[str, Any]]], Mapping[str, Any]]
 
 class _EnumDict(Dict[str, Any]):
     def __init__(self) -> None: ...
