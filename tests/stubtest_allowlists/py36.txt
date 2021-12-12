@@ -25,13 +25,14 @@ enum.Enum._generate_next_value_
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 hmac.HMAC.__init__
 importlib.metadata  # Added in 3.8
+importlib.metadata._meta  # Added in 3.10
 importlib.resources  # Added in 3.7
 io.StringIO.readline
 ipaddress._BaseNetwork.__init__
 json.loads
 mmap.ACCESS_DEFAULT
 multiprocessing.shared_memory
-os.utime
+(os|posix).utime
 plistlib.Dict.__init__
 pyexpat.XMLParserType.ExternalEntityParserCreate  # C signature is wrong - function gets only positional args
 random.Random.randrange  # missing undocumented arg _int
@@ -81,3 +82,53 @@ collections.Generator.gi_running
 collections.Generator.gi_yieldfrom
 collections.Mapping.get  # Adding None to the Union messed up mypy
 collections.Sequence.index  # Supporting None in end is not mandatory
+
+# Exists at runtime, but missing from stubs
+_bisect.bisect
+_bisect.insort
+asyncio.async
+asyncio.futures._TracebackLogger.loop
+asyncio.futures._TracebackLogger.source_traceback
+asyncio.tasks.async
+calendar.HTMLCalendar.cssclasses
+distutils.cmd.install_misc
+distutils.command.bdist_wininst
+distutils.command.bdist_wininst.bdist_wininst
+distutils.sysconfig.expand_makefile_vars
+distutils.sysconfig.get_python_version
+dummy_threading.Barrier
+dummy_threading.BoundedSemaphore
+dummy_threading.BrokenBarrierError
+dummy_threading.Condition
+dummy_threading.Event
+dummy_threading.Lock
+dummy_threading.RLock
+dummy_threading.Semaphore
+dummy_threading.TIMEOUT_MAX
+dummy_threading.Thread
+dummy_threading.ThreadError
+dummy_threading.Timer
+dummy_threading.active_count
+dummy_threading.current_thread
+dummy_threading.enumerate
+dummy_threading.get_ident
+dummy_threading.local
+dummy_threading.main_thread
+dummy_threading.setprofile
+dummy_threading.settrace
+dummy_threading.stack_size
+html.parser.HTMLParser.unescape
+platform.popen
+plistlib.Data.asBase64
+plistlib.Data.fromBase64
+plistlib.Plist
+ssl.SSLObject.verify_client_post_handshake
+ssl.SSLSocket.verify_client_post_handshake
+sys.callstats
+sys.get_coroutine_wrapper
+sys.set_coroutine_wrapper
+tempfile.SpooledTemporaryFile.softspace
+tkinter.dnd.Icon
+tkinter.dnd.Tester
+tkinter.dnd.test
+xml.dom.xmlbuilder.DocumentLS.async

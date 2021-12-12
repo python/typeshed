@@ -17,7 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-      - run: pip install $(grep tomli== requirements-tests-py3.txt)
+      - run: pip install $(grep tomli== requirements-tests.txt)
       - run: ./tests/check_consistent.py
 
   new-syntax:
@@ -34,7 +34,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-      - run: pip install $(grep flake8 requirements-tests-py3.txt)
+      - run: pip install $(grep flake8 requirements-tests.txt)
       - run: flake8
 
   pytype:
@@ -45,7 +45,7 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: 3.9
-      - run: pip install -r requirements-tests-py3.txt
+      - run: pip install -r requirements-tests.txt
       - run: ./tests/pytype_test.py
 
   mypy:
@@ -59,7 +59,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-      - run: pip install $(grep tomli== requirements-tests-py3.txt) $(grep mypy== requirements-tests-py3.txt)
+      - run: pip install $(grep tomli== requirements-tests.txt) $(grep mypy== requirements-tests.txt)
       - run: ./tests/mypy_test.py --platform=${{ matrix.platform }} --python-version=${{ matrix.python-version }}
 
   pyright:
@@ -107,7 +107,7 @@ jobs:
       - name: Update pip
         run: python -m pip install -U pip
       - name: Install dependencies
-        run: pip install $(grep tomli== requirements-tests-py3.txt) $(grep mypy== requirements-tests-py3.txt)
+        run: pip install $(grep tomli== requirements-tests.txt) $(grep mypy== requirements-tests.txt)
       - name: Run stubtest
         run: python tests/stubtest_stdlib.py
 
@@ -123,7 +123,7 @@ jobs:
         with:
           python-version: 3.9
       - name: Install dependencies
-        run: pip install $(grep tomli== requirements-tests-py3.txt)
+        run: pip install $(grep tomli== requirements-tests.txt)
       - name: Run stubtest
         run: |
           STUBS=$(git diff --name-only origin/${{ github.base_ref }} HEAD | egrep ^stubs/ | cut -d "/" -f 2 | sort -u | (while read stub; do [ -d stubs/$stub ] && echo $stub || true; done))
