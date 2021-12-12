@@ -335,6 +335,13 @@ cgi.FieldStorage.read_urlencoded
 cgi.FieldStorage.skip_lines
 cgi.print_arguments  # internal testing/debugging helper
 cgi.print_exception  # internal testing/debugging helper
+email.contentmanager.get_and_fixup_unknown_message_content
+email.contentmanager.get_message_content
+email.contentmanager.get_non_text_content
+email.contentmanager.get_text_content
+email.contentmanager.set_bytes_content
+email.contentmanager.set_message_content
+email.contentmanager.set_text_content
 
 # ==========
 # Missing from distutils module (deprecated, to be removed in 3.12)
@@ -545,13 +552,6 @@ ctypes.c_voidp
 ctypes.util.test
 email.base64mime
 email.charset
-email.contentmanager.get_and_fixup_unknown_message_content
-email.contentmanager.get_message_content
-email.contentmanager.get_non_text_content
-email.contentmanager.get_text_content
-email.contentmanager.set_bytes_content
-email.contentmanager.set_message_content
-email.contentmanager.set_text_content
 email.encoders
 email.errors
 email.feedparser
