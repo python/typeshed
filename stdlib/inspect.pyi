@@ -23,7 +23,7 @@ from types import (
 if sys.version_info >= (3, 7):
     from types import ClassMethodDescriptorType, WrapperDescriptorType, MemberDescriptorType, MethodDescriptorType
 
-from typing import Any, ClassVar, NamedTuple, Protocol, Tuple, Type, TypeVar, Union
+from typing import AbstractSet, Any, ClassVar, NamedTuple, Protocol, Tuple, Type, TypeVar, Union
 from typing_extensions import Literal, TypeGuard
 
 #
@@ -317,7 +317,7 @@ class ClosureVars(NamedTuple):
     nonlocals: Mapping[str, Any]
     globals: Mapping[str, Any]
     builtins: Mapping[str, Any]
-    unbound: set[str]
+    unbound: AbstractSet[str]
 
 def getclosurevars(func: Callable[..., Any]) -> ClosureVars: ...
 def unwrap(func: Callable[..., Any], *, stop: Callable[[Any], Any] | None = ...) -> Any: ...
