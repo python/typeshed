@@ -121,6 +121,7 @@ class Enum(metaclass=EnumMeta):
     def __reduce_ex__(self, proto: object) -> Any: ...
 
 class IntEnum(int, Enum):
+    _value_: int
     if sys.version_info >= (3, 11):
         @property
         def value(self) -> int: ...
@@ -135,6 +136,7 @@ _auto_null: Any
 
 # subclassing IntFlag so it picks up all implemented base functions, best modeling behavior of enum.auto()
 class auto(IntFlag):
+    _value_: Any
     if sys.version_info >= (3, 11):
         @property
         def value(self) -> Any: ...
@@ -144,6 +146,8 @@ class auto(IntFlag):
     def __new__(cls: Type[_T]) -> _T: ...
 
 class Flag(Enum):
+    _name_: str | None  # type: ignore[assignment]
+    _value_: int
     if sys.version_info >= (3, 11):
         @property
         def name(self) -> str | None: ...  # type: ignore[override]
@@ -175,6 +179,7 @@ class IntFlag(int, Flag):
 if sys.version_info >= (3, 11):
     class StrEnum(str, Enum):
         def __new__(cls: Type[_T], value: str | _T) -> _T: ...
+        _value_: str
         @property
         def value(self) -> str: ...
     class FlagBoundary(StrEnum):
