@@ -174,7 +174,9 @@ class IntFlag(int, Flag):
 
 if sys.version_info >= (3, 11):
     class StrEnum(str, Enum):
-        def __new__(cls: Type[_T], value: int | _T) -> _T: ...
+        def __new__(cls: Type[_T], value: str | _T) -> _T: ...
+        @property
+        def value(self) -> str: ...
     class FlagBoundary(StrEnum):
         STRICT: str
         CONFORM: str
