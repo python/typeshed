@@ -83,6 +83,8 @@ distutils.command.bdist_packager  # It exists in docs as package name but not in
 distutils.version.Version._cmp  # class should have declared this
 distutils.version.Version.parse  # class should have declared this
 email.headerregistry.BaseHeader.max_count  # docs say subclasses should have this property
+enum.Enum.name  # A special property that exists at runtime, but stubtest can't detect https://github.com/python/typeshed/pull/6576#issuecomment-992538677
+enum.Enum.value  # A special property that exists at runtime, but stubtest can't detect https://github.com/python/typeshed/pull/6576#issuecomment-992538677
 http.HTTPStatus.description  # set in __new__
 http.HTTPStatus.phrase  # set in __new__
 http.client.HTTPConnection.response_class  # the actual type at runtime is abc.ABCMeta
