@@ -3,7 +3,7 @@ import sys
 import types
 from _typeshed import Self
 from collections import OrderedDict
-from collections.abc import Awaitable, Callable, Generator, Mapping, Sequence
+from collections.abc import Awaitable, Callable, Generator, Mapping, Sequence, Set as AbstractSet
 from types import (
     AsyncGeneratorType,
     BuiltinFunctionType,
@@ -23,7 +23,7 @@ from types import (
 if sys.version_info >= (3, 7):
     from types import ClassMethodDescriptorType, WrapperDescriptorType, MemberDescriptorType, MethodDescriptorType
 
-from typing import AbstractSet, Any, ClassVar, NamedTuple, Protocol, Tuple, Type, TypeVar, Union
+from typing import Any, ClassVar, NamedTuple, Protocol, Tuple, Type, TypeVar, Union
 from typing_extensions import Literal, TypeGuard
 
 #

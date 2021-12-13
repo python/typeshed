@@ -1,9 +1,9 @@
 import _random
 import sys
 from _typeshed import SupportsLenAndGetItem
-from collections.abc import Callable, Iterable, MutableSequence, Sequence
+from collections.abc import Callable, Iterable, MutableSequence, Sequence, Set as AbstractSet
 from fractions import Fraction
-from typing import AbstractSet, Any, ClassVar, NoReturn, Tuple, TypeVar
+from typing import Any, ClassVar, NoReturn, Tuple, TypeVar
 
 _T = TypeVar("_T")
 
