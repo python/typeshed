@@ -4,7 +4,7 @@ from typing import Any
 
 class BaseTzInfo(datetime.tzinfo):
     zone: str | None  # Actually None but should be set on concrete subclasses
-    # The follow abstract methods don't exist in the implementation, but
+    # The following abstract methods don't exist in the implementation, but
     # are implemented by all sub-classes.
     @abstractmethod
     def localize(self, dt: datetime.datetime) -> datetime.datetime: ...
