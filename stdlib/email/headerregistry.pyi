@@ -1,5 +1,6 @@
 import sys
 import types
+from abc import abstractmethod
 from datetime import datetime as _datetime
 from email._header_value_parser import (
     AddressList,
@@ -12,7 +13,8 @@ from email._header_value_parser import (
 )
 from email.errors import MessageDefect
 from email.policy import Policy
-from typing import Any, Iterable, Tuple, Type
+from typing import Any, ClassVar, Iterable, Tuple, Type
+from typing_extensions import Literal
 
 class BaseHeader(str):
     @property
@@ -20,20 +22,25 @@ class BaseHeader(str):
     @property
     def defects(self) -> Tuple[MessageDefect, ...]: ...
     @property
+    @abstractmethod
     def max_count(self) -> int | None: ...
     def __new__(cls, name: str, value: Any) -> BaseHeader: ...
     def init(self, name: str, *, parse_tree: TokenList, defects: Iterable[MessageDefect]) -> None: ...
     def fold(self, *, policy: Policy) -> str: ...
 
 class UnstructuredHeader:
+    max_count: ClassVar[int | None]
     @staticmethod
     def value_parser(value: str) -> UnstructuredTokenList: ...
     @classmethod
     def parse(cls, value: str, kwds: dict[str, Any]) -> None: ...
 
-class UniqueUnstructuredHeader(UnstructuredHeader): ...
+class UniqueUnstructuredHeader(UnstructuredHeader):
+    max_count: ClassVar[Literal[1]]
 
 class DateHeader:
+    max_count: ClassVar[Literal[1]]
+    def init(self, *args: Any, **kw: Any) -> None: ...
     @property
     def datetime(self) -> _datetime: ...
     @staticmethod
@@ -44,6 +51,8 @@ class DateHeader:
 class UniqueDateHeader(DateHeader): ...
 
 class AddressHeader:
+    max_count: ClassVar[int | None]
+    def init(self, *args: Any, **kw: Any) -> None: ...
     @property
     def groups(self) -> Tuple[Group, ...]: ...
     @property
@@ -53,15 +62,19 @@ class AddressHeader:
     @classmethod
     def parse(cls, value: str, kwds: dict[str, Any]) -> None: ...
 
-class UniqueAddressHeader(AddressHeader): ...
+class UniqueAddressHeader(AddressHeader):
+    max_count: ClassVar[Literal[1]]
 
 class SingleAddressHeader(AddressHeader):
     @property
     def address(self) -> Address: ...
 
-class UniqueSingleAddressHeader(SingleAddressHeader): ...
+class UniqueSingleAddressHeader(SingleAddressHeader):
+    max_count: ClassVar[Literal[1]]
 
 class MIMEVersionHeader:
+    max_count: ClassVar[Literal[1]]
+    def init(self, *args: Any, **kw: Any) -> None: ...
     @property
     def version(self) -> str | None: ...
     @property
@@ -74,6 +87,8 @@ class MIMEVersionHeader:
     def parse(cls, value: str, kwds: dict[str, Any]) -> None: ...
 
 class ParameterizedMIMEHeader:
+    max_count: ClassVar[int | None]
+    def init(self, *args: Any, **kw: Any) -> None: ...
     @property
     def params(self) -> types.MappingProxyType[str, Any]: ...
     @classmethod
@@ -90,12 +105,16 @@ class ContentTypeHeader(ParameterizedMIMEHeader):
     def value_parser(value: str) -> ContentType: ...
 
 class ContentDispositionHeader(ParameterizedMIMEHeader):
+    max_count: ClassVar[int | None]
+    def init(self, *args: Any, **kw: Any) -> None: ...
     @property
     def content_disposition(self) -> str: ...
     @staticmethod
     def value_parser(value: str) -> ContentDisposition: ...
 
 class ContentTransferEncodingHeader:
+    max_count: ClassVar[int | None]
+    def init(self, *args: Any, **kw: Any) -> None: ...
     @property
     def cte(self) -> str: ...
     @classmethod
@@ -106,6 +125,7 @@ class ContentTransferEncodingHeader:
 if sys.version_info >= (3, 8):
     from email._header_value_parser import MessageID
     class MessageIDHeader:
+        max_count: ClassVar[int | None]
         @classmethod
         def parse(cls, value: str, kwds: dict[str, Any]) -> None: ...
         @staticmethod
