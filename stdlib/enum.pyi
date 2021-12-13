@@ -92,8 +92,16 @@ if sys.version_info >= (3, 11):
     EnumType = EnumMeta
 
 class Enum(metaclass=EnumMeta):
-    name: str
-    value: Any
+    if sys.version_info >= (3, 11):
+        @property
+        def name(self) -> str: ...
+        @property
+        def value(self) -> Any: ...
+    else:
+        @types.DynamicClassAttribute
+        def name(self) -> str: ...
+        @types.DynamicClassAttribute
+        def value(self) -> Any: ...
     _name_: str
     _value_: Any
     if sys.version_info >= (3, 7):
