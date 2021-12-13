@@ -39,7 +39,7 @@ class UniqueUnstructuredHeader(UnstructuredHeader):
     max_count: ClassVar[Literal[1]]
 
 class DateHeader:
-    max_count: ClassVar[Literal[1]]
+    max_count: ClassVar[int | None]
     def init(self, *args: Any, **kw: Any) -> None: ...
     @property
     def datetime(self) -> _datetime: ...
