@@ -183,9 +183,9 @@ union: Any
 union_all: Any
 exists: Any
 nulls_first: Any
-nullsfirst = nulls_first
+nullsfirst: Any
 nulls_last: Any
-nullslast = nulls_last
+nullslast: Any
 asc: Any
 desc: Any
 distinct: Any

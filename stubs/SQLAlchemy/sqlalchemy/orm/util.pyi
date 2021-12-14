@@ -3,7 +3,6 @@ from typing import Any
 from ..sql import base as sql_base, expression, util as sql_util
 from ..sql.annotation import SupportsCloneAnnotations
 from .base import (
-    InspectionAttr,
     InspectionAttr as InspectionAttr,
     _class_to_mapper as _class_to_mapper,
     _never_set as _never_set,

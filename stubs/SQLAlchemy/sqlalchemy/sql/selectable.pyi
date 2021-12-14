@@ -71,7 +71,7 @@ class FromClause(roles.AnonymizedFromClauseRole, Selectable):
 LABEL_STYLE_NONE: Any
 LABEL_STYLE_TABLENAME_PLUS_COL: Any
 LABEL_STYLE_DISAMBIGUATE_ONLY: Any
-LABEL_STYLE_DEFAULT = LABEL_STYLE_DISAMBIGUATE_ONLY
+LABEL_STYLE_DEFAULT: Any
 
 class Join(roles.DMLTableRole, FromClause):
     __visit_name__: str
