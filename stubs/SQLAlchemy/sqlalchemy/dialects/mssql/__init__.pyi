@@ -36,7 +36,7 @@ from .base import (
     try_cast as try_cast,
 )
 
-__all__ = [
+__all__ = (
     "JSON",
     "INTEGER",
     "BIGINT",
@@ -71,6 +71,6 @@ __all__ = [
     "XML",
     "dialect",
     "try_cast",
-]
+)
 
 dialect: Any

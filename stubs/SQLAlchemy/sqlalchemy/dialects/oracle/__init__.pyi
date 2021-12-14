@@ -24,7 +24,7 @@ from .base import (
     VARCHAR2 as VARCHAR2,
 )
 
-__all__ = [
+__all__ = (
     "VARCHAR",
     "NVARCHAR",
     "CHAR",
@@ -47,6 +47,6 @@ __all__ = [
     "VARCHAR2",
     "NVARCHAR2",
     "ROWID",
-]
+)
 
 dialect: Any

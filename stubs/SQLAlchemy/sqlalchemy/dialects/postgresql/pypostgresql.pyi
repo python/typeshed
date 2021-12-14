@@ -2,6 +2,7 @@ from typing import Any
 
 import sqlalchemy.types as sqltypes
 
+from ...util import memoized_property
 from .base import PGDialect, PGExecutionContext
 
 class PGNumeric(sqltypes.Numeric):
@@ -23,6 +24,7 @@ class PGDialect_pypostgresql(PGDialect):
     colspecs: Any
     @classmethod
     def dbapi(cls): ...
+    @memoized_property
     def dbapi_exception_translation_map(self): ...
     def create_connect_args(self, url): ...
     def is_disconnect(self, e, connection, cursor): ...

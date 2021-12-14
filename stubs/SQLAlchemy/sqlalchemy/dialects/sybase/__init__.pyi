@@ -27,7 +27,7 @@ from .base import (
     VARCHAR as VARCHAR,
 )
 
-__all__ = [
+__all__ = (
     "CHAR",
     "VARCHAR",
     "TIME",
@@ -53,6 +53,6 @@ __all__ = [
     "SMALLMONEY",
     "TINYINT",
     "dialect",
-]
+)
 
 dialect: Any

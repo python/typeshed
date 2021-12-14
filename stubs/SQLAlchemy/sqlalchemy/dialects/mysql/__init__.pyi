@@ -39,7 +39,7 @@ from .base import (
 from .dml import Insert as Insert, insert as insert
 from .expression import match as match
 
-__all__ = [
+__all__ = (
     "BIGINT",
     "BINARY",
     "BIT",
@@ -80,6 +80,6 @@ __all__ = [
     "insert",
     "Insert",
     "match",
-]
+)
 
 dialect: Any

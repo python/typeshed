@@ -1,5 +1,6 @@
 from typing import Any
 
+from ..util import hybridproperty
 from . import interfaces
 
 def has_inherited_table(cls): ...
@@ -15,6 +16,7 @@ class declared_attr(interfaces._MappedAttribute, property):
     __doc__: Any
     def __init__(self, fget, cascading: bool = ...) -> None: ...
     def __get__(self, self_, cls): ...
+    @hybridproperty
     def cascading(self): ...
 
 class _stateful_declared_attr(declared_attr):

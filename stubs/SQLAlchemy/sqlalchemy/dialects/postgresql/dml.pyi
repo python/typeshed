@@ -2,10 +2,12 @@ from typing import Any
 
 from ...sql.dml import Insert as StandardInsert
 from ...sql.elements import ClauseElement
+from ...util import memoized_property
 
 class Insert(StandardInsert):
     stringify_dialect: str
     inherit_cache: bool
+    @memoized_property
     def excluded(self): ...
     def on_conflict_do_update(
         self,

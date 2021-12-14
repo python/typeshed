@@ -1,5 +1,6 @@
 from typing import Any
 
+from ...util import memoized_property
 from .base import MySQLCompiler, MySQLDialect, MySQLExecutionContext
 
 class MySQLExecutionContext_mysqldb(MySQLExecutionContext):
@@ -20,6 +21,7 @@ class MySQLDialect_mysqldb(MySQLDialect):
     statement_compiler: Any
     preparer: Any
     def __init__(self, **kwargs) -> None: ...
+    @memoized_property
     def supports_server_side_cursors(self): ...
     @classmethod
     def dbapi(cls): ...

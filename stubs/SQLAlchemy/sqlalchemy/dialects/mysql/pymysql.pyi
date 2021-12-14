@@ -1,5 +1,6 @@
 from typing import Any
 
+from ...util import memoized_property
 from .mysqldb import MySQLDialect_mysqldb
 
 class MySQLDialect_pymysql(MySQLDialect_mysqldb):
@@ -8,6 +9,7 @@ class MySQLDialect_pymysql(MySQLDialect_mysqldb):
     description_encoding: Any
     supports_unicode_statements: bool
     supports_unicode_binds: bool
+    @memoized_property
     def supports_server_side_cursors(self): ...
     @classmethod
     def dbapi(cls): ...

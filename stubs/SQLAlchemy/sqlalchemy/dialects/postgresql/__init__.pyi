@@ -44,7 +44,7 @@ from .ranges import (
     TSTZRANGE as TSTZRANGE,
 )
 
-__all__ = [
+__all__ = (
     "INTEGER",
     "BIGINT",
     "SMALLINT",
@@ -93,6 +93,6 @@ __all__ = [
     "array_agg",
     "insert",
     "Insert",
-]
+)
 
 dialect: typing.Any

@@ -6,7 +6,7 @@ from ..dialects.postgresql import base as postgresql_base
 from ..dialects.sqlite import base as sqlite_base
 from ..dialects.sybase import base as sybase_base
 
-__all__ = ["firebird", "mssql", "mysql", "postgresql", "sqlite", "oracle", "sybase"]
+__all__ = ("firebird", "mssql", "mysql", "postgresql", "sqlite", "oracle", "sybase")
 
 firebird = firebird_base
 mssql = mssql_base

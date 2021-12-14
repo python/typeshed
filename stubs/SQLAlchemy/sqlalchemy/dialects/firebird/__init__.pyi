@@ -14,7 +14,7 @@ from sqlalchemy.dialects.firebird.base import (
     VARCHAR as VARCHAR,
 )
 
-__all__ = [
+__all__ = (
     "SMALLINT",
     "BIGINT",
     "FLOAT",
@@ -29,6 +29,6 @@ __all__ = [
     "CHAR",
     "BLOB",
     "dialect",
-]
+)
 
 dialect: Any

@@ -1,5 +1,6 @@
 from typing import Any
 
+from ..util import memoized_property
 from . import visitors
 from .base import DialectKWArgs, Executable, SchemaEventTarget
 from .elements import ColumnClause
@@ -93,6 +94,7 @@ class ForeignKey(DialectKWArgs, SchemaItem):
     target_fullname: Any
     def references(self, table): ...
     def get_referent(self, table): ...
+    @memoized_property
     def column(self): ...
 
 class DefaultGenerator(Executable, SchemaItem):
@@ -109,8 +111,11 @@ class DefaultGenerator(Executable, SchemaItem):
 class ColumnDefault(DefaultGenerator):
     arg: Any
     def __init__(self, arg, **kwargs) -> None: ...
+    @memoized_property
     def is_callable(self): ...
+    @memoized_property
     def is_clause_element(self): ...
+    @memoized_property
     def is_scalar(self): ...
 
 class IdentityOptions:
@@ -164,7 +169,9 @@ class Sequence(IdentityOptions, DefaultGenerator):
         quote_schema: Any | None = ...,
         for_update: bool = ...,
     ) -> None: ...
+    @memoized_property
     def is_callable(self): ...
+    @memoized_property
     def is_clause_element(self): ...
     def next_value(self): ...
     @property

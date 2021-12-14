@@ -20,7 +20,7 @@ from .base import (
 )
 from .dml import Insert as Insert, insert as insert
 
-__all__ = [
+__all__ = (
     "BLOB",
     "BOOLEAN",
     "CHAR",
@@ -40,6 +40,6 @@ __all__ = [
     "Insert",
     "insert",
     "dialect",
-]
+)
 
 dialect: Any

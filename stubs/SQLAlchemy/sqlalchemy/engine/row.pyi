@@ -2,6 +2,8 @@ import abc
 from collections.abc import ItemsView, KeysView, Mapping, Sequence, ValuesView
 from typing import Any
 
+from ..cresultproxy import BaseRow as BaseRow
+
 MD_INDEX: int
 
 def rowproxy_reconstructor(cls, state): ...
@@ -10,15 +12,6 @@ KEY_INTEGER_ONLY: int
 KEY_OBJECTS_ONLY: int
 KEY_OBJECTS_BUT_WARN: int
 KEY_OBJECTS_NO_WARN: int
-
-class BaseRow:
-    def __init__(self, parent, processors, keymap, key_style, data) -> None: ...
-    def __reduce__(self): ...
-    def __iter__(self): ...
-    def __len__(self): ...
-    def __hash__(self): ...
-    __getitem__: Any
-    def __getattr__(self, name): ...
 
 class Row(BaseRow, Sequence[Any], metaclass=abc.ABCMeta):
     count: Any

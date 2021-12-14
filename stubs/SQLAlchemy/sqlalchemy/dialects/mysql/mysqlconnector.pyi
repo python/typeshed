@@ -1,5 +1,6 @@
 from typing import Any
 
+from ...util import memoized_property
 from .base import BIT, MySQLCompiler, MySQLDialect, MySQLIdentifierPreparer
 
 class MySQLCompiler_mysqlconnector(MySQLCompiler):
@@ -26,6 +27,7 @@ class MySQLDialect_mysqlconnector(MySQLDialect):
     def __init__(self, *arg, **kw) -> None: ...
     @property
     def description_encoding(self): ...
+    @memoized_property
     def supports_unicode_statements(self): ...
     @classmethod
     def dbapi(cls): ...
