@@ -74,7 +74,7 @@ class memoized_property(Generic[_R]):
 def memoized_instancemethod(fn): ...
 
 class HasMemoized:
-    class memoized_attribute(Generic[_T]):
+    class memoized_attribute(Generic[_R]):
         fget: Callable[..., _R]
         __doc__: str
         __name__: str
