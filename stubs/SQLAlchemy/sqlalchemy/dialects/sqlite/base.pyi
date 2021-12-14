@@ -2,7 +2,7 @@ from typing import Any
 
 from ... import types as sqltypes
 from ...engine import default
-from ...sql import ColumnElement, coercions, compiler
+from ...sql import compiler
 from ...types import (
     BLOB as BLOB,
     BOOLEAN as BOOLEAN,

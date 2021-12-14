@@ -1,9 +1,12 @@
 from collections.abc import Callable
-from typing import Type as TypingType
+from typing import Any, Type as TypingType
 
-from mypy.nodes import MypyFile
-from mypy.plugin import AttributeContext, ClassDefContext, DynamicClassDefContext, Plugin
-from mypy.types import Type
+MypyFile = Any  # from mypy.nodes
+AttributeContext = Any  # from mypy.plugin
+ClassDefContext = Any  # from mypy.plugin
+DynamicClassDefContext = Any  # from mypy.plugin
+Plugin = Any  # from mypy.plugin
+Type = Any  # from mypy.types
 
 class SQLAlchemyPlugin(Plugin):
     def get_dynamic_class_hook(self, fullname: str) -> Callable[[DynamicClassDefContext], None] | None: ...

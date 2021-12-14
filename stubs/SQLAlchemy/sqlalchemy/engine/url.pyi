@@ -1,7 +1,7 @@
 from typing import Any
 
 class URL:
-    def __new__(self, *arg, **kw): ...
+    def __new__(cls, *arg, **kw): ...
     @classmethod
     def create(
         cls,

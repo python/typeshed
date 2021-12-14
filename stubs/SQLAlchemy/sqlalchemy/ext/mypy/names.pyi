@@ -1,6 +1,14 @@
-from mypy.nodes import ClassDef, Expression, MemberExpr, NameExpr, SymbolNode, TypeInfo
-from mypy.plugin import SemanticAnalyzerPluginInterface
-from mypy.types import UnboundType
+from typing import Any
+
+ClassDef = Any  # from mypy.nodes
+Expression = Any  # from mypy.nodes
+MemberExpr = Any  # from mypy.nodes
+NameExpr = Any  # from mypy.nodes
+SymbolNode = Any  # from mypy.nodes
+TypeInfo = Any  # from mypy.nodes
+StrExpr = Any  # from mypy.nodes
+SemanticAnalyzerPluginInterface = Any  # from mypy.plugin
+UnboundType = Any  # from mypy.types
 
 COLUMN: int
 RELATIONSHIP: int

@@ -5,7 +5,7 @@ from . import base
 
 DEL_ATTR: Any
 
-class ClassManager(HasMemoized, dict):
+class ClassManager(HasMemoized, dict[Any, Any]):
     MANAGER_ATTR: Any
     STATE_ATTR: Any
     expired_attribute_loader: Any

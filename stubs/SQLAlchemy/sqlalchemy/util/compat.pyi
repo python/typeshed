@@ -1,4 +1,4 @@
-import base64
+import builtins
 import collections
 import contextlib
 import itertools
@@ -36,7 +36,7 @@ has_refcount_gc: Any
 contextmanager = contextlib.contextmanager
 dottedgetter = operator.attrgetter
 namedtuple = collections.namedtuple
-next = next
+next = builtins.next
 
 class FullArgSpec(NamedTuple):
     args: Any
@@ -79,7 +79,7 @@ def raise_(exception, with_traceback: Any | None = ..., replace_context: Any | N
 def u(s): ...
 def ue(s): ...
 
-callable = callable
+callable = builtins.callable
 
 def safe_bytestring(text): ...
 def inspect_formatargspec(

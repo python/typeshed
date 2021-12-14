@@ -1,8 +1,12 @@
-from mypy.nodes import AssignmentStmt, NameExpr, StrExpr
-from mypy.plugin import SemanticAnalyzerPluginInterface
-from mypy.types import ProperType
+from typing import Any
 
 from . import util
+
+AssignmentStmt = Any  # from mypy.nodes
+NameExpr = Any  # from mypy.nodes
+StrExpr = Any  # from mypy.nodes
+SemanticAnalyzerPluginInterface = Any  # from mypy.plugin
+ProperType = Any  # from mypy.types
 
 def apply_mypy_mapped_attr(
     cls, api: SemanticAnalyzerPluginInterface, item: NameExpr | StrExpr, attributes: list[util.SQLAlchemyAttribute]

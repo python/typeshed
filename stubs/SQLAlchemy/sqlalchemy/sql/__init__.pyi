@@ -1,4 +1,4 @@
-from . import sqltypes
+from . import sqltypes as sqltypes
 from .base import Executable as Executable
 from .compiler import (
     COLLECT_CARTESIAN_PRODUCTS as COLLECT_CARTESIAN_PRODUCTS,

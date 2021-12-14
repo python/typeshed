@@ -1,8 +1,14 @@
 from collections.abc import Sequence
+from typing import Any
 
-from mypy.nodes import AssignmentStmt, Expression, RefExpr, TypeInfo, Var
-from mypy.plugin import SemanticAnalyzerPluginInterface
-from mypy.types import ProperType
+AssignmentStmt = Any  # from mypy.nodes
+Expression = Any  # from mypy.nodes
+RefExpr = Any  # from mypy.nodes
+TypeInfo = Any  # from mypy.nodes
+Var = Any  # from mypy.nodes
+StrExpr = Any  # from mypy.nodes
+SemanticAnalyzerPluginInterface = Any  # from mypy.plugin
+ProperType = Any  # from mypy.types
 
 def infer_type_from_right_hand_nameexpr(
     api: SemanticAnalyzerPluginInterface,

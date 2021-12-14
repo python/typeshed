@@ -1,9 +1,18 @@
 from collections.abc import Iterable, Iterator
 from typing import Any, Tuple, Type as TypingType, TypeVar, Union, overload
 
-from mypy.nodes import CallExpr, Context, Expression, JsonDict, NameExpr, Statement, TypeInfo
-from mypy.plugin import ClassDefContext, DynamicClassDefContext, SemanticAnalyzerPluginInterface
-from mypy.types import Type
+CallExpr = Any  # from mypy.nodes
+Context = Any  # from mypy.nodes
+Expression = Any  # from mypy.nodes
+JsonDict = Any  # from mypy.nodes
+NameExpr = Any  # from mypy.nodes
+Statement = Any  # from mypy.nodes
+TypeInfo = Any  # from mypy.nodes
+AttributeContext = Any  # from mypy.plugin
+ClassDefContext = Any  # from mypy.plugin
+DynamicClassDefContext = Any  # from mypy.plugin
+SemanticAnalyzerPluginInterface = Any  # from mypy.plugin
+Type = Any  # from mypy.types
 
 _TArgType = TypeVar("_TArgType", bound=Union[CallExpr, NameExpr])
 
