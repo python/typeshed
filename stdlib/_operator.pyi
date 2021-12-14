@@ -15,7 +15,6 @@ from typing import (
     SupportsAbs,
     Tuple,
     TypeVar,
-    Union,
     overload,
 )
 from typing_extensions import ParamSpec, SupportsIndex, final
