@@ -1,6 +1,7 @@
 from typing import Any
 
-from ... import sql
+from sqlalchemy.sql import ClauseElement
+
 from ...engine import default
 from ...sql import compiler, sqltypes
 from ...types import (
@@ -213,7 +214,7 @@ class OracleDialect(default.DefaultDialect):
     ): ...
     def get_check_constraints(self, connection, table_name, schema: Any | None = ..., include_all: bool = ..., **kw): ...
 
-class _OuterJoinColumn(sql.ClauseElement):
+class _OuterJoinColumn(ClauseElement):
     __visit_name__: str
     column: Any
     def __init__(self, column) -> None: ...

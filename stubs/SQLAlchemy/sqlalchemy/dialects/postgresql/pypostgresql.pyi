@@ -1,6 +1,7 @@
 from typing import Any
 
-from ... import types as sqltypes
+import sqlalchemy.types as sqltypes
+
 from .base import PGDialect, PGExecutionContext
 
 class PGNumeric(sqltypes.Numeric):

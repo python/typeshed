@@ -1,4 +1,4 @@
-from ... import types as sqltypes
+import sqlalchemy.types as sqltypes
 
 class JSON(sqltypes.JSON): ...
 

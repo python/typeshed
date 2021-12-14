@@ -1,6 +1,7 @@
 from typing import Any
 
-from ... import types as sqltypes
+import sqlalchemy.types as sqltypes
+
 from ...sql import functions as sqlfunc
 
 class HSTORE(sqltypes.Indexable, sqltypes.Concatenable, sqltypes.TypeEngine):

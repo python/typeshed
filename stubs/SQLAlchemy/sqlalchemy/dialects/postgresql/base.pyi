@@ -1,7 +1,7 @@
 from typing import Any
 
-from ... import schema
 from ...engine import characteristics, default, reflection
+from ...schema import _CreateDropBase
 from ...sql import compiler, elements, sqltypes
 from ...sql.ddl import DDLBase
 from ...types import (
@@ -207,10 +207,10 @@ class PGInspector(reflection.Inspector):
     def get_foreign_table_names(self, schema: Any | None = ...): ...
     def get_view_names(self, schema: Any | None = ..., include=...): ...
 
-class CreateEnumType(schema._CreateDropBase):
+class CreateEnumType(_CreateDropBase):
     __visit_name__: str
 
-class DropEnumType(schema._CreateDropBase):
+class DropEnumType(_CreateDropBase):
     __visit_name__: str
 
 class PGExecutionContext(default.DefaultExecutionContext):

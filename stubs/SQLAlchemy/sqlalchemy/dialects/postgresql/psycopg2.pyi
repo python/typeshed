@@ -1,6 +1,7 @@
 from typing import Any
 
-from ... import types as sqltypes
+import sqlalchemy.types as sqltypes
+
 from .array import ARRAY as PGARRAY
 from .base import ENUM, UUID, PGCompiler, PGDialect, PGExecutionContext, PGIdentifierPreparer
 from .hstore import HSTORE

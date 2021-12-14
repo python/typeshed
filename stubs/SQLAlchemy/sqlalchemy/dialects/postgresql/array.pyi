@@ -1,6 +1,7 @@
 from typing import Any as _Any
 
-from ... import types as sqltypes
+import sqlalchemy.types as sqltypes
+
 from ...sql import expression
 
 def Any(other, arrexpr, operator=...): ...

@@ -1,13 +1,13 @@
 from typing import Any
 
-from ... import types as sqltypes
+from ...types import Float, Numeric
 from .base import FBDialect, FBExecutionContext
 
 class _kinterbasdb_numeric:
     def bind_processor(self, dialect): ...
 
-class _FBNumeric_kinterbasdb(_kinterbasdb_numeric, sqltypes.Numeric): ...
-class _FBFloat_kinterbasdb(_kinterbasdb_numeric, sqltypes.Float): ...
+class _FBNumeric_kinterbasdb(_kinterbasdb_numeric, Numeric): ...
+class _FBFloat_kinterbasdb(_kinterbasdb_numeric, Float): ...
 
 class FBExecutionContext_kinterbasdb(FBExecutionContext):
     @property

@@ -1,6 +1,6 @@
 from typing import Any
 
-from ... import types as sqltypes
+import sqlalchemy.types as sqltypes
 
 class _NumericType:
     unsigned: Any

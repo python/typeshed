@@ -1,8 +1,10 @@
 from typing import Any
 
-from ... import sql, types as sqltypes
+import sqlalchemy.types as sqltypes
+
 from ...engine import default
 from ...sql import compiler
+from ...sql.elements import Cast
 from ...types import (
     BIGINT as BIGINT,
     BINARY as BINARY,
@@ -113,7 +115,7 @@ class UNIQUEIDENTIFIER(sqltypes.TypeEngine):
 class SQL_VARIANT(sqltypes.TypeEngine):
     __visit_name__: str
 
-class TryCast(sql.elements.Cast):
+class TryCast(Cast):
     __visit_name__: str
     stringify_dialect: str
     inherit_cache: bool

@@ -1,9 +1,9 @@
 from typing import Any
 
-from ... import types as sqltypes
+from ...types import Numeric
 from .base import MSDialect, MSIdentifierPreparer
 
-class _MSNumeric_pymssql(sqltypes.Numeric):
+class _MSNumeric_pymssql(Numeric):
     def result_processor(self, dialect, type_): ...
 
 class MSIdentifierPreparer_pymssql(MSIdentifierPreparer):
