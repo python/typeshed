@@ -1,13 +1,13 @@
+from collections.abc import KeysView
 from typing import Any
 
 from ..sql.base import InPlaceGenerative
-from ..util import collections_abc
 
 class ResultMetaData:
     @property
     def keys(self): ...
 
-class RMKeyView(collections_abc.KeysView):
+class RMKeyView(KeysView[Any]):
     def __init__(self, parent) -> None: ...
     def __len__(self): ...
     def __iter__(self): ...
