@@ -1,5 +1,5 @@
 from collections.abc import MutableMapping
-from typing import Any
+from typing import Any, Dict
 
 from .. import util
 from ..util import HasMemoized
@@ -101,7 +101,7 @@ class Executable(roles.StatementRole, Generative):
     @property
     def bind(self): ...
 
-class prefix_anon_map(dict[Any, Any]):
+class prefix_anon_map(Dict[Any, Any]):
     def __missing__(self, key): ...
 
 class SchemaEventTarget: ...

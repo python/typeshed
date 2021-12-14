@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, FrozenSet
 
 from ..sql import base as sql_base, expression, util as sql_util
 from ..sql.annotation import SupportsCloneAnnotations
@@ -20,7 +20,7 @@ from .interfaces import CriteriaOption, ORMColumnsClauseRole, ORMEntityColumnsCl
 
 all_cascades: Any
 
-class CascadeOptions(frozenset[Any]):
+class CascadeOptions(FrozenSet[Any]):
     save_update: Any
     delete: Any
     refresh_expire: Any

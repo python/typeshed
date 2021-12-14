@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Dict
 
 from .. import util
 from ..util import HasMemoized
@@ -101,7 +101,7 @@ class _GetChildren(InternalTraversal):
     def visit_dml_multi_values(self, element, **kw): ...
     def visit_propagate_attrs(self, element, **kw): ...
 
-class anon_map(dict[Any, Any]):
+class anon_map(Dict[Any, Any]):
     index: int
     def __init__(self) -> None: ...
     def __missing__(self, key): ...

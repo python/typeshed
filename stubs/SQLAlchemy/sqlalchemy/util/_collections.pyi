@@ -1,6 +1,6 @@
 import collections.abc
 import sys
-from typing import Any
+from typing import Any, Dict, Set
 
 from ..cimmutabledict import immutabledict as immutabledict
 
@@ -17,7 +17,7 @@ def coerce_to_immutabledict(d): ...
 
 EMPTY_DICT: Any
 
-class FacadeDict(ImmutableContainer, dict[Any, Any]):
+class FacadeDict(ImmutableContainer, Dict[Any, Any]):
     clear: Any
     pop: Any
     popitem: Any
@@ -56,7 +56,7 @@ class ImmutableProperties(ImmutableContainer, Properties): ...
 if sys.version_info >= (3, 7):
     OrderedDict = dict
 else:
-    class OrderedDict(dict[Any, Any]):
+    class OrderedDict(Dict[Any, Any]):
         def __reduce__(self): ...
         def __init__(self, ____sequence: Any | None = ..., **kwargs) -> None: ...
         def clear(self) -> None: ...
@@ -78,7 +78,7 @@ else:
 
 def sort_dictionary(d, key: Any | None = ...): ...
 
-class OrderedSet(set[Any]):
+class OrderedSet(Set[Any]):
     def __init__(self, d: Any | None = ...) -> None: ...
     def add(self, element) -> None: ...
     def remove(self, element) -> None: ...
@@ -154,12 +154,12 @@ class WeakSequence:
 class OrderedIdentitySet(IdentitySet):
     def __init__(self, iterable: Any | None = ...) -> None: ...
 
-class PopulateDict(dict[Any, Any]):
+class PopulateDict(Dict[Any, Any]):
     creator: Any
     def __init__(self, creator) -> None: ...
     def __missing__(self, key): ...
 
-class WeakPopulateDict(dict[Any, Any]):
+class WeakPopulateDict(Dict[Any, Any]):
     creator: Any
     weakself: Any
     def __init__(self, creator_method) -> None: ...
@@ -185,7 +185,7 @@ def to_column_set(x): ...
 def update_copy(d, _new: Any | None = ..., **kw): ...
 def flatten_iterator(x) -> None: ...
 
-class LRUCache(dict[Any, Any]):
+class LRUCache(Dict[Any, Any]):
     capacity: Any
     threshold: Any
     size_alert: Any
