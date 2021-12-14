@@ -2,6 +2,7 @@ from typing import Any
 
 from ..sql.traversals import HasCacheKey
 from . import base as orm_base
+from ..util import memoized_property
 
 log: Any
 
@@ -68,7 +69,9 @@ class PropRegistry(PathRegistry):
     path: Any
     natural_path: Any
     def __init__(self, parent, prop) -> None: ...
+    @memoized_property
     def has_entity(self): ...
+    @memoized_property
     def entity(self): ...
     @property
     def mapper(self): ...

@@ -1,6 +1,7 @@
 from typing import Any
 
 from .base import Pool
+from ..util import memoized_property
 
 class QueuePool(Pool):
     def __init__(
@@ -32,6 +33,7 @@ class SingletonThreadPool(Pool):
     def connect(self): ...
 
 class StaticPool(Pool):
+    @memoized_property
     def connection(self): ...
     def status(self): ...
     def dispose(self) -> None: ...

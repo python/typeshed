@@ -1,5 +1,6 @@
 from typing import Any
 
+from ..util import HasMemoized
 from .base import Executable, Generative
 from .elements import BinaryExpression, ColumnElement, NamedColumn
 from .selectable import FromClause
@@ -18,6 +19,7 @@ class FunctionElement(Executable, ColumnElement, FromClause, Generative):  # typ
     def columns(self): ...
     @property
     def exported_columns(self): ...
+    @HasMemoized.memoized_attribute
     def clauses(self): ...
     def over(
         self, partition_by: Any | None = ..., order_by: Any | None = ..., rows: Any | None = ..., range_: Any | None = ...

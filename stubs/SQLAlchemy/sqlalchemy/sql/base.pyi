@@ -2,7 +2,7 @@ from collections.abc import MutableMapping
 from typing import Any, Dict
 
 from .. import util
-from ..util import HasMemoized
+from ..util import HasMemoized, memoized_property
 from . import roles
 from .traversals import (
     HasCacheKey as HasCacheKey,
@@ -44,9 +44,11 @@ class _DialectArgDict(MutableMapping[Any, Any]):
 class DialectKWArgs:
     @classmethod
     def argument_for(cls, dialect_name, argument_name, default) -> None: ...
+    @memoized_property
     def dialect_kwargs(self): ...
     @property
     def kwargs(self): ...
+    @memoized_property
     def dialect_options(self): ...
 
 class CompileState:

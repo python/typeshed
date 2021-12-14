@@ -1,7 +1,7 @@
 from typing import Any
 
-from .. import util
 from ..engine.util import TransactionalContext
+from ..util import memoized_property, MemoizedSlots
 
 class _SessionClassMethods:
     @classmethod
@@ -11,7 +11,7 @@ class _SessionClassMethods:
     @classmethod
     def object_session(cls, instance): ...
 
-class ORMExecuteState(util.MemoizedSlots):
+class ORMExecuteState(MemoizedSlots):
     session: Any
     statement: Any
     parameters: Any
@@ -104,6 +104,7 @@ class Session(_SessionClassMethods):
     def in_nested_transaction(self): ...
     def get_transaction(self): ...
     def get_nested_transaction(self): ...
+    @memoized_property
     def info(self): ...
     def begin(self, subtransactions: bool = ..., nested: bool = ..., _subtrans: bool = ...): ...
     def begin_nested(self): ...

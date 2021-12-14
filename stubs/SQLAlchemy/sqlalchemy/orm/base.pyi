@@ -1,5 +1,7 @@
 from typing import Any
 
+from ..util import memoized_property
+
 PASSIVE_NO_RESULT: Any
 PASSIVE_CLASS_MISMATCH: Any
 ATTR_WAS_SET: Any
@@ -67,6 +69,7 @@ class InspectionAttr:
     extension_type: Any
 
 class InspectionAttrInfo(InspectionAttr):
+    @memoized_property
     def info(self): ...
 
 class _MappedAttribute: ...

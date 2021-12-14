@@ -13,6 +13,7 @@ NULL_UNSPECIFIED: Any
 class SchemaItem(SchemaEventTarget, visitors.Visitable):
     __visit_name__: str
     create_drop_stringify_dialect: str
+    @memoized_property
     def info(self): ...
 
 class Table(DialectKWArgs, SchemaItem, TableClause):
