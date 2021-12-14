@@ -1,7 +1,7 @@
 from typing import Any
 
-from . import interfaces
 from ..util import memoized_property
+from . import interfaces
 
 class InstanceState(interfaces.InspectionAttrInfo):
     session_id: Any

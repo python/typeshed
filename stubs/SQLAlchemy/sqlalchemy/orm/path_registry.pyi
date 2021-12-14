@@ -1,8 +1,8 @@
 from typing import Any
 
 from ..sql.traversals import HasCacheKey
-from . import base as orm_base
 from ..util import memoized_property
+from . import base as orm_base
 
 log: Any
 

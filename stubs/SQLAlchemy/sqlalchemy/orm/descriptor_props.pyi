@@ -1,8 +1,8 @@
 from typing import Any
 
+from ..util import memoized_property
 from . import util as orm_util
 from .interfaces import MapperProperty, PropComparator
-from ..util import memoized_property
 
 class DescriptorProperty(MapperProperty):
     doc: Any

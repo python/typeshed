@@ -1,7 +1,7 @@
 from typing import Any, Dict
 
 from ..sql import base as sql_base
-from ..util import memoized_property, HasMemoized
+from ..util import HasMemoized, memoized_property
 from .base import (
     _class_to_mapper as _class_to_mapper,
     _state_mapper as _state_mapper,

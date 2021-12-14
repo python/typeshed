@@ -1,7 +1,7 @@
 from typing import Any
 
 from .. import util
-from ..util import memoized_property, HasMemoized
+from ..util import HasMemoized, memoized_property
 from . import operators, roles
 from .annotation import Annotated, SupportsWrappingAnnotations
 from .base import Executable, Immutable, SingletonConstant

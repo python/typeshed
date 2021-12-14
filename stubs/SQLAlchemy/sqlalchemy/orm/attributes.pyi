@@ -1,7 +1,7 @@
 from typing import Any, Generic, NamedTuple, TypeVar
 
-from ..util import memoized_property
 from ..sql import base as sql_base, roles, traversals
+from ..util import memoized_property
 from . import interfaces
 
 _T = TypeVar("_T")

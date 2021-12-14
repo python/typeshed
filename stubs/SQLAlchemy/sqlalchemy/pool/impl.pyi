@@ -1,7 +1,7 @@
 from typing import Any
 
-from .base import Pool
 from ..util import memoized_property
+from .base import Pool
 
 class QueuePool(Pool):
     def __init__(

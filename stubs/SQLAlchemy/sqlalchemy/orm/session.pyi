@@ -1,7 +1,7 @@
 from typing import Any
 
 from ..engine.util import TransactionalContext
-from ..util import memoized_property, MemoizedSlots
+from ..util import MemoizedSlots, memoized_property
 
 class _SessionClassMethods:
     @classmethod

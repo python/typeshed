@@ -1,6 +1,6 @@
 from typing import Any, NamedTuple
-from ..util import memoized_property
 
+from ..util import memoized_property
 from . import elements
 
 RESERVED_WORDS: Any
