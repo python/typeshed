@@ -92,8 +92,16 @@ if sys.version_info >= (3, 11):
     EnumType = EnumMeta
 
 class Enum(metaclass=EnumMeta):
-    name: str
-    value: Any
+    if sys.version_info >= (3, 11):
+        @property
+        def name(self) -> str: ...
+        @property
+        def value(self) -> Any: ...
+    else:
+        @types.DynamicClassAttribute
+        def name(self) -> str: ...
+        @types.DynamicClassAttribute
+        def value(self) -> Any: ...
     _name_: str
     _value_: Any
     if sys.version_info >= (3, 7):
@@ -113,7 +121,12 @@ class Enum(metaclass=EnumMeta):
     def __reduce_ex__(self, proto: object) -> Any: ...
 
 class IntEnum(int, Enum):
-    value: int
+    if sys.version_info >= (3, 11):
+        @property
+        def value(self) -> int: ...
+    else:
+        @types.DynamicClassAttribute
+        def value(self) -> int: ...
     def __new__(cls: Type[_T], value: int | _T) -> _T: ...
 
 def unique(enumeration: _S) -> _S: ...
@@ -122,12 +135,25 @@ _auto_null: Any
 
 # subclassing IntFlag so it picks up all implemented base functions, best modeling behavior of enum.auto()
 class auto(IntFlag):
-    value: Any
+    if sys.version_info >= (3, 11):
+        @property
+        def value(self) -> Any: ...
+    else:
+        @types.DynamicClassAttribute
+        def value(self) -> Any: ...
     def __new__(cls: Type[_T]) -> _T: ...
 
 class Flag(Enum):
-    name: str | None  # type: ignore[assignment]
-    value: int
+    if sys.version_info >= (3, 11):
+        @property
+        def name(self) -> str | None: ...  # type: ignore[override]
+        @property
+        def value(self) -> int: ...
+    else:
+        @types.DynamicClassAttribute
+        def name(self) -> str | None: ...  # type: ignore[override]
+        @types.DynamicClassAttribute
+        def value(self) -> int: ...
     def __contains__(self: _T, other: _T) -> bool: ...
     def __repr__(self) -> str: ...
     def __str__(self) -> str: ...
@@ -148,7 +174,9 @@ class IntFlag(int, Flag):
 
 if sys.version_info >= (3, 11):
     class StrEnum(str, Enum):
-        def __new__(cls: Type[_T], value: int | _T) -> _T: ...
+        def __new__(cls: Type[_T], value: str | _T) -> _T: ...
+        @property
+        def value(self) -> str: ...
     class FlagBoundary(StrEnum):
         STRICT: str
         CONFORM: str

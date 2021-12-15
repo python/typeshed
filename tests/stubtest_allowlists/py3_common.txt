@@ -82,6 +82,13 @@ difflib.SequenceMatcher.__init__  # mypy default value for generic parameter iss
 distutils.command.bdist_packager  # It exists in docs as package name but not in code except as a mention in a comment.
 distutils.version.Version._cmp  # class should have declared this
 distutils.version.Version.parse  # class should have declared this
+# Enum `name` and `value` are special properties that exists at runtime, but stubtest can't detect
+# https://github.com/python/typeshed/pull/6576#issuecomment-992538677
+enum.Enum.name
+enum.Enum.value
+enum.Flag.name
+enum.Flag.value
+enum.IntEnum.value
 http.HTTPStatus.description  # set in __new__
 http.HTTPStatus.phrase  # set in __new__
 http.client.HTTPConnection.response_class  # the actual type at runtime is abc.ABCMeta
