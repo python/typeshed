@@ -46,6 +46,7 @@ stubs/protobuf/google/protobuf/wrappers_pb2.pyi
 
 # pytype doesn't support inner classes properly
 stubs/SQLAlchemy/sqlalchemy/databases/__init__.pyi
+stubs/SQLAlchemy/sqlalchemy/dialects/__init__.pyi
 stubs/SQLAlchemy/sqlalchemy/dialects/mssql/__init__.pyi
 stubs/SQLAlchemy/sqlalchemy/dialects/mssql/base.pyi
 stubs/SQLAlchemy/sqlalchemy/dialects/mssql/json.pyi
