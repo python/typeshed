@@ -75,7 +75,16 @@ class UniqueSingleAddressHeader(SingleAddressHeader):
 
 class MIMEVersionHeader:
     max_count: ClassVar[int | None]
-    def init(self, name: str, *, parse_tree: TokenList, defects: Iterable[MessageDefect], version: str | None, major: int | None, minor: int | None) -> None: ...
+    def init(
+        self,
+        name: str,
+        *,
+        parse_tree: TokenList,
+        defects: Iterable[MessageDefect],
+        version: str | None,
+        major: int | None,
+        minor: int | None,
+    ) -> None: ...
     @property
     def version(self) -> str | None: ...
     @property
