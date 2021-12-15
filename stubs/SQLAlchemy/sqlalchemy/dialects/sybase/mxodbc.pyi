@@ -1,5 +1,3 @@
-from typing import Any
-
 from sqlalchemy.connectors.mxodbc import MxODBCConnector
 from sqlalchemy.dialects.sybase.base import SybaseDialect, SybaseExecutionContext
 

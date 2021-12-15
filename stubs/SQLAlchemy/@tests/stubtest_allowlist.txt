@@ -157,6 +157,38 @@ sqlalchemy.sql.annotation.Annotateduser
 sqlalchemy.orm.Mapper.single
 sqlalchemy.orm.mapper.Mapper.single
 
+# Dynamically added methods where the first argument is not named "self"
+sqlalchemy.orm.Load.contains_eager
+sqlalchemy.orm.Load.defaultload
+sqlalchemy.orm.Load.defer
+sqlalchemy.orm.Load.immediateload
+sqlalchemy.orm.Load.joinedload
+sqlalchemy.orm.Load.lazyload
+sqlalchemy.orm.Load.load_only
+sqlalchemy.orm.Load.noload
+sqlalchemy.orm.Load.raiseload
+sqlalchemy.orm.Load.selectin_polymorphic
+sqlalchemy.orm.Load.selectinload
+sqlalchemy.orm.Load.subqueryload
+sqlalchemy.orm.Load.undefer
+sqlalchemy.orm.Load.undefer_group
+sqlalchemy.orm.Load.with_expression
+sqlalchemy.orm.strategy_options.Load.contains_eager
+sqlalchemy.orm.strategy_options.Load.defaultload
+sqlalchemy.orm.strategy_options.Load.defer
+sqlalchemy.orm.strategy_options.Load.immediateload
+sqlalchemy.orm.strategy_options.Load.joinedload
+sqlalchemy.orm.strategy_options.Load.lazyload
+sqlalchemy.orm.strategy_options.Load.load_only
+sqlalchemy.orm.strategy_options.Load.noload
+sqlalchemy.orm.strategy_options.Load.raiseload
+sqlalchemy.orm.strategy_options.Load.selectin_polymorphic
+sqlalchemy.orm.strategy_options.Load.selectinload
+sqlalchemy.orm.strategy_options.Load.subqueryload
+sqlalchemy.orm.strategy_options.Load.undefer
+sqlalchemy.orm.strategy_options.Load.undefer_group
+sqlalchemy.orm.strategy_options.Load.with_expression
+
 # unclear problems
 sqlalchemy.engine.Connectable.dispatch
 sqlalchemy.engine.Dialect.dispatch
