@@ -7,6 +7,7 @@ def remote(expr): ...
 def foreign(expr): ...
 
 class RelationshipProperty(StrategizedProperty):
+    logger: Any
     strategy_wildcard_key: str
     inherit_cache: bool
     uselist: Any

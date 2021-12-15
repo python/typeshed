@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, ClassVar
 
 from ..sql.traversals import HasCacheKey
 from ..util import memoized_property
@@ -7,6 +7,7 @@ from . import base as orm_base
 log: Any
 
 class PathRegistry(HasCacheKey):
+    root: ClassVar[RootRegistry]
     is_token: bool
     is_root: bool
     def __eq__(self, other): ...

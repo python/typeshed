@@ -20,7 +20,6 @@ class PGDialect_pypostgresql(PGDialect):
     default_paramstyle: str
     supports_sane_rowcount: bool
     supports_sane_multi_rowcount: bool
-    execution_ctx_cls: Any
     colspecs: Any
     @classmethod
     def dbapi(cls): ...

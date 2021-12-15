@@ -10,6 +10,7 @@ class ReflectedState:
     def __init__(self) -> None: ...
 
 class MySQLTableDefinitionParser:
+    logger: Any
     dialect: Any
     preparer: Any
     def __init__(self, dialect, preparer) -> None: ...

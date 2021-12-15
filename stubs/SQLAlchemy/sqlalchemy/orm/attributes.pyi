@@ -67,8 +67,12 @@ class InstrumentedAttribute(Mapped[Any]):
     def __delete__(self, instance) -> None: ...
     def __get__(self, instance, owner): ...
 
-class HasEntityNamespace(NamedTuple):
+class _HasEntityNamespace(NamedTuple):
     entity_namespace: Any
+
+class HasEntityNamespace(_HasEntityNamespace):
+    is_mapper: bool
+    is_aliased_class: bool
 
 def create_proxied_attribute(descriptor): ...
 

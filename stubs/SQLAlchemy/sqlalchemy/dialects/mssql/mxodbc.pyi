@@ -19,7 +19,6 @@ class MSExecutionContext_mxodbc(MSExecutionContext_pyodbc): ...
 
 class MSDialect_mxodbc(MxODBCConnector, MSDialect):
     supports_statement_cache: bool
-    execution_ctx_cls: Any
     colspecs: Any
     description_encoding: Any
     def __init__(self, description_encoding: Any | None = ..., **params) -> None: ...

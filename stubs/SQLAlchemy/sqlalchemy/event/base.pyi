@@ -11,7 +11,8 @@ class _Dispatch:
 class _EventMeta(type):
     def __init__(cls, classname, bases, dict_) -> None: ...
 
-class Events: ...
+class Events:
+    dispatch: Any
 
 class _JoinedDispatcher:
     local: Any

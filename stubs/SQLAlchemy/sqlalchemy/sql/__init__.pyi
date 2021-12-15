@@ -6,7 +6,6 @@ from .compiler import (
     NO_LINTING as NO_LINTING,
     WARN_LINTING as WARN_LINTING,
 )
-from .elements import ClauseList as ClauseList
 from .expression import (
     LABEL_STYLE_DEFAULT as LABEL_STYLE_DEFAULT,
     LABEL_STYLE_DISAMBIGUATE_ONLY as LABEL_STYLE_DISAMBIGUATE_ONLY,

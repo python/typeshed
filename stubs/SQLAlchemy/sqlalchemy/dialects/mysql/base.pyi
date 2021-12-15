@@ -166,6 +166,7 @@ class MariaDBIdentifierPreparer(MySQLIdentifierPreparer):
     reserved_words: Any
 
 class MySQLDialect(default.DefaultDialect):
+    logger: Any
     name: str
     supports_statement_cache: bool
     supports_alter: bool

@@ -256,7 +256,6 @@ class PGDialect(default.DefaultDialect):
     ddl_compiler: Any
     type_compiler: Any
     preparer: Any
-    execution_ctx_cls: Any
     inspector: Any
     isolation_level: Any
     implicit_returning: bool

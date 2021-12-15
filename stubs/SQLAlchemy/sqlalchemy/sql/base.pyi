@@ -2,7 +2,7 @@ from collections.abc import MutableMapping
 from typing import Any, Dict
 
 from .. import util
-from ..util import HasMemoized, memoized_property
+from ..util import HasMemoized, hybridmethod, memoized_property
 from . import roles
 from .traversals import (
     HasCacheKey as HasCacheKey,
@@ -76,6 +76,7 @@ class Options:
     def __eq__(self, other): ...
     @classmethod
     def isinstance(cls, klass): ...
+    @hybridmethod
     def add_to_element(self, name, value): ...
     @classmethod
     def safe_merge(cls, other): ...

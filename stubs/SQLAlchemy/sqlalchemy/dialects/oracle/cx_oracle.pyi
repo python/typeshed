@@ -82,7 +82,6 @@ class OracleExecutionContext_cx_oracle(OracleExecutionContext):
 
 class OracleDialect_cx_oracle(OracleDialect):
     supports_statement_cache: bool
-    execution_ctx_cls: Any
     statement_compiler: Any
     supports_sane_rowcount: bool
     supports_sane_multi_rowcount: bool

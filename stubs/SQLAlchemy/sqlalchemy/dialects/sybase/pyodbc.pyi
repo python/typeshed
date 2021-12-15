@@ -11,7 +11,6 @@ class SybaseExecutionContext_pyodbc(SybaseExecutionContext):
     def set_ddl_autocommit(self, connection, value) -> None: ...
 
 class SybaseDialect_pyodbc(PyODBCConnector, SybaseDialect):
-    execution_ctx_cls: Any
     supports_statement_cache: bool
     colspecs: Any
     @classmethod

@@ -14,7 +14,6 @@ class MySQLDialect_pyodbc(PyODBCConnector, MySQLDialect):
     supports_statement_cache: bool
     colspecs: Any
     supports_unicode_statements: bool
-    execution_ctx_cls: Any
     pyodbc_driver_name: str
     def on_connect(self): ...
 

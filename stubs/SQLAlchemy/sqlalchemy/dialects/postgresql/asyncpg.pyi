@@ -173,7 +173,6 @@ class PGDialect_asyncpg(PGDialect):
     supports_unicode_binds: bool
     default_paramstyle: str
     supports_sane_multi_rowcount: bool
-    execution_ctx_cls: Any
     statement_compiler: Any
     preparer: Any
     use_setinputsizes: bool

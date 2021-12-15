@@ -12,6 +12,7 @@ class UninstrumentedColumnLoader(LoaderStrategy):
     def create_row_processor(self, context, query_entity, path, loadopt, mapper, result, adapter, populators) -> None: ...
 
 class ColumnLoader(LoaderStrategy):
+    logger: Any
     columns: Any
     is_composite: Any
     def __init__(self, parent, strategy_key) -> None: ...
@@ -21,6 +22,7 @@ class ColumnLoader(LoaderStrategy):
     def create_row_processor(self, context, query_entity, path, loadopt, mapper, result, adapter, populators) -> None: ...
 
 class ExpressionColumnLoader(ColumnLoader):
+    logger: Any
     def __init__(self, parent, strategy_key) -> None: ...
     def setup_query(self, compile_state, query_entity, path, loadopt, adapter, column_collection, memoized_populators, **kwargs) -> None: ...  # type: ignore[override]
     def create_row_processor(self, context, query_entity, path, loadopt, mapper, result, adapter, populators) -> None: ...
@@ -28,6 +30,7 @@ class ExpressionColumnLoader(ColumnLoader):
     def init_class_attribute(self, mapper) -> None: ...
 
 class DeferredColumnLoader(LoaderStrategy):
+    logger: Any
     raiseload: Any
     columns: Any
     group: Any
@@ -50,14 +53,17 @@ class AbstractRelationshipLoader(LoaderStrategy):
     uselist: Any
     def __init__(self, parent, strategy_key) -> None: ...
 
-class DoNothingLoader(LoaderStrategy): ...
+class DoNothingLoader(LoaderStrategy):
+    logger: Any
 
 class NoLoader(AbstractRelationshipLoader):
+    logger: Any
     is_class_level: bool
     def init_class_attribute(self, mapper) -> None: ...
     def create_row_processor(self, context, query_entity, path, loadopt, mapper, result, adapter, populators) -> None: ...
 
 class LazyLoader(AbstractRelationshipLoader, util.MemoizedSlots):
+    logger: Any
     is_aliased_class: Any
     use_get: Any
     def __init__(self, parent, strategy_key) -> None: ...
@@ -80,6 +86,7 @@ class ImmediateLoader(PostLoader):
     def create_row_processor(self, context, query_entity, path, loadopt, mapper, result, adapter, populators) -> None: ...
 
 class SubqueryLoader(PostLoader):
+    logger: Any
     join_depth: Any
     def __init__(self, parent, strategy_key) -> None: ...
     def init_class_attribute(self, mapper) -> None: ...
@@ -95,6 +102,7 @@ class SubqueryLoader(PostLoader):
     def create_row_processor(self, context, query_entity, path, loadopt, mapper, result, adapter, populators): ...
 
 class JoinedLoader(AbstractRelationshipLoader):
+    logger: Any
     join_depth: Any
     def __init__(self, parent, strategy_key) -> None: ...
     def init_class_attribute(self, mapper) -> None: ...
@@ -113,6 +121,7 @@ class JoinedLoader(AbstractRelationshipLoader):
     def create_row_processor(self, context, query_entity, path, loadopt, mapper, result, adapter, populators) -> None: ...
 
 class SelectInLoader(PostLoader, util.MemoizedSlots):
+    logger: Any
     class query_info(NamedTuple):
         load_only_child: Any
         load_with_join: Any

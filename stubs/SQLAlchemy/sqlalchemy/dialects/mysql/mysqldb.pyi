@@ -17,7 +17,6 @@ class MySQLDialect_mysqldb(MySQLDialect):
     supports_sane_multi_rowcount: bool
     supports_native_decimal: bool
     default_paramstyle: str
-    execution_ctx_cls: Any
     statement_compiler: Any
     preparer: Any
     def __init__(self, **kwargs) -> None: ...

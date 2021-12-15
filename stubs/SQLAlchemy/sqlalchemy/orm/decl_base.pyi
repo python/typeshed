@@ -13,14 +13,21 @@ class _MapperConfig:
 class _ImperativeMapperConfig(_MapperConfig):
     dict_: Any
     local_table: Any
+    inherits: Any
     def __init__(self, registry, cls_, table, mapper_kw) -> None: ...
     def map(self, mapper_kw=...): ...
 
 class _ClassScanMapperConfig(_MapperConfig):
     dict_: Any
+    local_table: Any
     persist_selectable: Any
     declared_columns: Any
     column_copies: Any
+    table_args: Any
+    tablename: Any
+    mapper_args: Any
+    mapper_args_fn: Any
+    inherits: Any
     def __init__(self, registry, cls_, dict_, table, mapper_kw) -> None: ...
     def map(self, mapper_kw=...): ...
 

@@ -260,7 +260,6 @@ class MSDialect(default.DefaultDialect):
     supports_statement_cache: bool
     supports_default_values: bool
     supports_empty_insert: bool
-    execution_ctx_cls: Any
     use_scope_identity: bool
     max_identifier_length: int
     schema_name: str

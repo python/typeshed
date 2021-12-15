@@ -84,7 +84,14 @@ class NonAnalyzedFunction:
 class AnalyzedFunction:
     analyzed_code: Any
     fn: Any
+    closure_pywrappers: Any
+    tracker_instrumented_fn: Any
+    expr: Any
     bindparam_trackers: Any
+    expected_expr: Any
+    is_sequence: Any
+    propagate_attrs: Any
+    closure_bindparams: Any
     def __init__(self, analyzed_code, lambda_element, apply_propagate_attrs, fn) -> None: ...
 
 class PyWrapper(ColumnOperators):

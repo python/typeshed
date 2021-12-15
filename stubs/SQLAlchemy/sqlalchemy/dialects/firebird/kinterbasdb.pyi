@@ -18,7 +18,6 @@ class FBDialect_kinterbasdb(FBDialect):
     supports_statement_cache: bool
     supports_sane_rowcount: bool
     supports_sane_multi_rowcount: bool
-    execution_ctx_cls: Any
     supports_native_decimal: bool
     colspecs: Any
     enable_rowcount: Any

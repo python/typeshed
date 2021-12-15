@@ -53,7 +53,6 @@ class PGDialect_psycopg2(PGDialect):
     supports_server_side_cursors: bool
     default_paramstyle: str
     supports_sane_multi_rowcount: bool
-    execution_ctx_cls: Any
     statement_compiler: Any
     preparer: Any
     psycopg2_version: Any

@@ -170,7 +170,6 @@ class OracleDialect(default.DefaultDialect):
     ddl_compiler: Any
     type_compiler: Any
     preparer: Any
-    execution_ctx_cls: Any
     reflection_options: Any
     construct_arguments: Any
     use_ansi: Any

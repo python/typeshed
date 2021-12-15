@@ -20,7 +20,6 @@ class MySQLDialect_mariadbconnector(MySQLDialect):
     supports_sane_multi_rowcount: bool
     supports_native_decimal: bool
     default_paramstyle: str
-    execution_ctx_cls: Any
     statement_compiler: Any
     supports_server_side_cursors: bool
     paramstyle: str

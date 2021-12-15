@@ -2,7 +2,8 @@ from typing import Any
 
 from .. import util
 
-class RefCollection(util.MemoizedSlots): ...
+class RefCollection(util.MemoizedSlots):
+    ref: Any
 
 class _empty_collection:
     def append(self, element) -> None: ...

@@ -1,9 +1,18 @@
 from typing import Any
 
 from .. import util
+from .descriptor_props import (
+    CompositeProperty as CompositeProperty,
+    ConcreteInheritedProperty as ConcreteInheritedProperty,
+    SynonymProperty as SynonymProperty,
+)
 from .interfaces import PropComparator, StrategizedProperty
+from .relationships import RelationshipProperty as RelationshipProperty
+
+__all__ = ["ColumnProperty", "CompositeProperty", "ConcreteInheritedProperty", "RelationshipProperty", "SynonymProperty"]
 
 class ColumnProperty(StrategizedProperty):
+    logger: Any
     strategy_wildcard_key: str
     inherit_cache: bool
     columns: Any
@@ -29,6 +38,7 @@ class ColumnProperty(StrategizedProperty):
         self, session, source_state, source_dict, dest_state, dest_dict, load, _recursive, _resolve_conflict_map
     ) -> None: ...
     class Comparator(util.MemoizedSlots, PropComparator):
+        expressions: Any
         def _memoized_method___clause_element__(self): ...
         def operate(self, op, *other, **kwargs): ...
         def reverse_operate(self, op, other, **kwargs): ...

@@ -105,7 +105,6 @@ class PGDialect_pg8000(PGDialect):
     supports_unicode_binds: bool
     default_paramstyle: str
     supports_sane_multi_rowcount: bool
-    execution_ctx_cls: Any
     statement_compiler: Any
     preparer: Any
     supports_server_side_cursors: bool

@@ -83,6 +83,8 @@ class _GenericMeta(TraversibleType):
     def __init__(cls, clsname, bases, clsdict) -> None: ...
 
 class GenericFunction:
+    name: Any
+    identifier: Any
     coerce_arguments: bool
     inherit_cache: bool
     packagenames: Any

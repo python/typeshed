@@ -15,7 +15,6 @@ class SybaseSQLCompiler_pysybase(SybaseSQLCompiler):
 
 class SybaseDialect_pysybase(SybaseDialect):
     driver: str
-    execution_ctx_cls: Any
     statement_compiler: Any
     supports_statement_cache: bool
     colspecs: Any

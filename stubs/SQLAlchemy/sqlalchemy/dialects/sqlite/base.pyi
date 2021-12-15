@@ -105,7 +105,6 @@ class SQLiteDialect(default.DefaultDialect):
     tuple_in_values: bool
     supports_statement_cache: bool
     default_paramstyle: str
-    execution_ctx_cls: Any
     statement_compiler: Any
     ddl_compiler: Any
     type_compiler: Any

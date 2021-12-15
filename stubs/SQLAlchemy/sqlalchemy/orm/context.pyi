@@ -16,8 +16,12 @@ class QueryContext:
     loaders_require_buffering: bool
     loaders_require_uniquing: bool
     params: Any
+    create_eager_joins: Any
     propagated_loader_options: Any
     attributes: Any
+    runid: Any
+    partials: Any
+    post_load_paths: Any
     autoflush: Any
     populate_existing: Any
     invoke_all_eagers: Any
@@ -111,6 +115,7 @@ class _QueryEntity:
 class _MapperEntity(_QueryEntity):
     expr: Any
     mapper: Any
+    entity_zero: Any
     is_aliased_class: Any
     path: Any
     selectable: Any
@@ -127,6 +132,7 @@ class _MapperEntity(_QueryEntity):
 
 class _BundleEntity(_QueryEntity):
     bundle: Any
+    expr: Any
     type: Any
     supports_single_entity: Any
     def __init__(
@@ -143,6 +149,8 @@ class _BundleEntity(_QueryEntity):
     def row_processor(self, context, result): ...
 
 class _ColumnEntity(_QueryEntity):
+    raw_column_index: Any
+    translate_raw_column: Any
     @property
     def type(self): ...
     def row_processor(self, context, result): ...
@@ -165,6 +173,7 @@ class _ORMColumnEntity(_ColumnEntity):
     expr: Any
     translate_raw_column: bool
     raw_column_index: Any
+    entity_zero_or_selectable: Any
     entity_zero: Any
     mapper: Any
     column: Any

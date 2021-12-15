@@ -62,7 +62,6 @@ class SQLiteDialect_aiosqlite(SQLiteDialect_pysqlite):
     supports_statement_cache: bool
     is_async: bool
     supports_server_side_cursors: bool
-    execution_ctx_cls: Any
     @classmethod
     def dbapi(cls): ...
     @classmethod

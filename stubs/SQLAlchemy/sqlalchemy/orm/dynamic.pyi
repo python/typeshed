@@ -4,6 +4,7 @@ from . import attributes, strategies
 from .query import Query
 
 class DynaLoader(strategies.AbstractRelationshipLoader):
+    logger: Any
     is_class_level: bool
     def init_class_attribute(self, mapper) -> None: ...
 

@@ -90,7 +90,6 @@ class FBDialect(default.DefaultDialect):
     ddl_compiler: Any
     preparer: Any
     type_compiler: Any
-    execution_ctx_cls: Any
     colspecs: Any
     ischema_names: Any
     construct_arguments: Any

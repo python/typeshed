@@ -4,8 +4,13 @@ from ..sql.annotation import SupportsCloneAnnotations
 from ..sql.base import Executable
 from ..sql.selectable import GroupedElement, HasHints, HasPrefixes, HasSuffixes, SelectBase, _SelectFromElements
 from . import interfaces
+from .context import QueryContext as QueryContext
+from .util import aliased as aliased
+
+__all__ = ["Query", "QueryContext", "aliased"]
 
 class Query(_SelectFromElements, SupportsCloneAnnotations, HasPrefixes, HasSuffixes, HasHints, Executable):
+    logger: Any
     load_options: Any
     session: Any
     def __init__(self, entities, session: Any | None = ...) -> None: ...

@@ -13,6 +13,7 @@ from .interfaces import InspectionAttr, ORMEntityColumnsClauseRole, ORMFromClaus
 NO_ATTRIBUTE: Any
 
 class Mapper(ORMFromClauseRole, ORMEntityColumnsClauseRole, sql_base.MemoizedHasCacheKey, InspectionAttr):
+    logger: Any
     class_: Any
     class_manager: Any
     non_primary: Any

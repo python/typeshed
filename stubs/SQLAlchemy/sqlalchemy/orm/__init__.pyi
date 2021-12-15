@@ -1,5 +1,6 @@
 from typing import Any
 
+from ..util.langhelpers import public_factory as public_factory
 from . import exc as exc, strategy_options as strategy_options
 from .attributes import (
     AttributeEvent as AttributeEvent,
@@ -19,6 +20,7 @@ from .decl_api import (
     synonym_for as synonym_for,
 )
 from .descriptor_props import CompositeProperty as CompositeProperty, SynonymProperty as SynonymProperty
+from .dynamic import AppenderQuery as AppenderQuery
 from .events import (
     AttributeEvents as AttributeEvents,
     InstanceEvents as InstanceEvents,

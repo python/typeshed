@@ -32,7 +32,6 @@ class MSExecutionContext_pyodbc(MSExecutionContext):
 class MSDialect_pyodbc(PyODBCConnector, MSDialect):
     supports_statement_cache: bool
     supports_sane_rowcount_returning: bool
-    execution_ctx_cls: Any
     colspecs: Any
     description_encoding: Any
     use_scope_identity: Any
