@@ -1,6 +1,5 @@
 import sys
 import types
-from abc import abstractmethod
 from collections.abc import Iterable
 from datetime import datetime as _datetime
 from email._header_value_parser import (
@@ -18,13 +17,13 @@ from typing import Any, ClassVar, Tuple, Type
 from typing_extensions import Literal
 
 class BaseHeader(str):
+    # max_count is actually more of an abstract ClassVar (not defined on the base class, but expected to be defined in subclasses)
+    # TODO: Find a better way of expressing that?
+    max_count: ClassVar[int | None]
     @property
     def name(self) -> str: ...
     @property
     def defects(self) -> Tuple[MessageDefect, ...]: ...
-    @property
-    @abstractmethod
-    def max_count(self) -> int | None: ...
     def __new__(cls, name: str, value: Any) -> BaseHeader: ...
     def init(self, name: str, *, parse_tree: TokenList, defects: Iterable[MessageDefect]) -> None: ...
     def fold(self, *, policy: Policy) -> str: ...
@@ -49,7 +48,8 @@ class DateHeader:
     @classmethod
     def parse(cls, value: str | _datetime, kwds: dict[str, Any]) -> None: ...
 
-class UniqueDateHeader(DateHeader): ...
+class UniqueDateHeader(DateHeader):
+    max_count: ClassVar[Literal[1]]
 
 class AddressHeader:
     max_count: ClassVar[int | None]
