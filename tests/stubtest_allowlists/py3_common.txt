@@ -82,7 +82,6 @@ difflib.SequenceMatcher.__init__  # mypy default value for generic parameter iss
 distutils.command.bdist_packager  # It exists in docs as package name but not in code except as a mention in a comment.
 distutils.version.Version._cmp  # class should have declared this
 distutils.version.Version.parse  # class should have declared this
-email.headerregistry.BaseHeader.max_count  # docs say subclasses should have this property
 http.HTTPStatus.description  # set in __new__
 http.HTTPStatus.phrase  # set in __new__
 http.client.HTTPConnection.response_class  # the actual type at runtime is abc.ABCMeta
