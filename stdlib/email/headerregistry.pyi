@@ -1,6 +1,7 @@
 import sys
 import types
 from abc import abstractmethod
+from collections.abc import Iterable
 from datetime import datetime as _datetime
 from email._header_value_parser import (
     AddressList,
@@ -13,7 +14,7 @@ from email._header_value_parser import (
 )
 from email.errors import MessageDefect
 from email.policy import Policy
-from typing import Any, ClassVar, Iterable, Tuple, Type
+from typing import Any, ClassVar, Tuple, Type
 from typing_extensions import Literal
 
 class BaseHeader(str):
