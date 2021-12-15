@@ -74,7 +74,7 @@ class UniqueSingleAddressHeader(SingleAddressHeader):
     max_count: ClassVar[Literal[1]]
 
 class MIMEVersionHeader:
-    max_count: ClassVar[Literal[1]]
+    max_count: ClassVar[int | None]
     def init(self, *args: Any, **kw: Any) -> None: ...
     @property
     def version(self) -> str | None: ...
