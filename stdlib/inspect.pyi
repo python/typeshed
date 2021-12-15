@@ -205,7 +205,8 @@ class _ParameterKind(enum.IntEnum):
     VAR_KEYWORD: int
 
     if sys.version_info >= (3, 8):
-        description: str
+        @property
+        def description(self) -> str: ...
 
 class Parameter:
     def __init__(self, name: str, kind: _ParameterKind, *, default: Any = ..., annotation: Any = ...) -> None: ...
