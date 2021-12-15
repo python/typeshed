@@ -1,6 +1,6 @@
 import sys
 import types
-from collections.abc import Iterable
+from collections.abc import Iterable, Mapping
 from datetime import datetime as _datetime
 from email._header_value_parser import (
     AddressList,
@@ -40,7 +40,7 @@ class UniqueUnstructuredHeader(UnstructuredHeader):
 
 class DateHeader:
     max_count: ClassVar[int | None]
-    def init(self, *args: Any, **kw: Any) -> None: ...
+    def init(self, name: str, *, parse_tree: TokenList, defects: Iterable[MessageDefect], datetime: _datetime) -> None: ...
     @property
     def datetime(self) -> _datetime: ...
     @staticmethod
@@ -53,7 +53,7 @@ class UniqueDateHeader(DateHeader):
 
 class AddressHeader:
     max_count: ClassVar[int | None]
-    def init(self, *args: Any, **kw: Any) -> None: ...
+    def init(self, name: str, *, parse_tree: TokenList, defects: Iterable[MessageDefect], groups: Tuple[Group, ...]) -> None: ...
     @property
     def groups(self) -> Tuple[Group, ...]: ...
     @property
@@ -75,7 +75,7 @@ class UniqueSingleAddressHeader(SingleAddressHeader):
 
 class MIMEVersionHeader:
     max_count: ClassVar[int | None]
-    def init(self, *args: Any, **kw: Any) -> None: ...
+    def init(self, name: str, *, parse_tree: TokenList, defects: Iterable[MessageDefect], version: str | None, major: int | None, minor: int | None) -> None: ...
     @property
     def version(self) -> str | None: ...
     @property
@@ -89,7 +89,7 @@ class MIMEVersionHeader:
 
 class ParameterizedMIMEHeader:
     max_count: ClassVar[int | None]
-    def init(self, *args: Any, **kw: Any) -> None: ...
+    def init(self, name: str, *, parse_tree: TokenList, defects: Iterable[MessageDefect], params: Mapping[str, Any]) -> None: ...
     @property
     def params(self) -> types.MappingProxyType[str, Any]: ...
     @classmethod
@@ -107,7 +107,7 @@ class ContentTypeHeader(ParameterizedMIMEHeader):
 
 class ContentDispositionHeader(ParameterizedMIMEHeader):
     max_count: ClassVar[int | None]
-    def init(self, *args: Any, **kw: Any) -> None: ...
+    def init(self, name: str, *, parse_tree: TokenList, defects: Iterable[MessageDefect]) -> None: ...
     @property
     def content_disposition(self) -> str: ...
     @staticmethod
@@ -115,7 +115,7 @@ class ContentDispositionHeader(ParameterizedMIMEHeader):
 
 class ContentTransferEncodingHeader:
     max_count: ClassVar[int | None]
-    def init(self, *args: Any, **kw: Any) -> None: ...
+    def init(self, name: str, *, parse_tree: TokenList, defects: Iterable[MessageDefect]) -> None: ...
     @property
     def cte(self) -> str: ...
     @classmethod
