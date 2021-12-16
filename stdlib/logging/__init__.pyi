@@ -1,6 +1,6 @@
 import sys
 import threading
-from _typeshed import StrPath, SupportsWrite
+from _typeshed import Self, StrPath, SupportsWrite
 from collections.abc import Callable, Iterable, Mapping, MutableMapping, Sequence
 from io import TextIOWrapper
 from string import Template
@@ -15,7 +15,6 @@ _ArgsType = Union[Tuple[object, ...], Mapping[str, object]]
 _FilterType = Union[Filter, Callable[[LogRecord], int]]
 _Level = Union[int, str]
 _FormatStyle = Literal["%", "{", "$"]
-_LoggerType = TypeVar("_LoggerType", bound=Logger)
 
 raiseExceptions: bool
 logThreads: bool
