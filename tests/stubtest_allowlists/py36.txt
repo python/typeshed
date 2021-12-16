@@ -47,20 +47,19 @@ typing.Coroutine.cr_await
 typing.Coroutine.cr_code
 typing.Coroutine.cr_frame
 typing.Coroutine.cr_running
-typing.Generator.__new__
 typing.Generator.gi_code
 typing.Generator.gi_frame
 typing.Generator.gi_running
 typing.Generator.gi_yieldfrom
-typing.GenericMeta.__new__
 typing.IO.closed  # Incorrect definition in CPython, fixed in bpo-39493
 typing.Mapping.get
-typing.NamedTuple.__new__
 typing.NamedTuple._asdict
 typing.NamedTuple._make
 typing.NamedTuple._replace
 typing.Sequence.index
+typing.Text.maketrans
 typing.runtime_checkable
+typing\.\w+\.__new__
 unittest._log  # New in Python 3.9
 unittest.async_case  # Added in Python 3.8
 uuid.UUID.int

@@ -44,6 +44,7 @@ builtins.ellipsis  # type is not exposed anywhere
 builtins.function
 builtins.memoryview.__contains__  # C type that implements __getitem__
 sqlite3.dbapi2.Binary.__contains__  # C type that implements __getitem__
+sqlite3.Binary.__contains__  # C type that implements __getitem__
 builtins.object.__init__  # default C signature is incorrect
 builtins.property.__get__  # this function can accept no value for the type parameter.
 builtins.staticmethod.__get__  # this function can accept no value for the type parameter.
@@ -92,6 +93,7 @@ enum.Flag.name
 enum.Flag.value
 enum.IntEnum.value
 hashlib.sha3_\d+
+hashlib.shake_\d+
 http.HTTPStatus.description  # set in __new__
 http.HTTPStatus.phrase  # set in __new__
 http.client.HTTPConnection.response_class  # the actual type at runtime is abc.ABCMeta
@@ -189,6 +191,8 @@ tempfile.SpooledTemporaryFile.seekable
 tempfile.SpooledTemporaryFile.writable
 threading.Condition.acquire  # Condition functions are exported in __init__
 threading.Condition.release  # Condition functions are exported in __init__
+multiprocessing.dummy.Condition.acquire
+multiprocessing.dummy.Condition.release
 threading.Lock  # A factory function that returns 'most efficient lock'. Marking it as a function will make it harder for users to mark the Lock type.
 threading.RLock  # Similar to above
 multiprocessing.dummy.Lock  # Similar to above
