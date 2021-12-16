@@ -133,7 +133,6 @@ distutils.dist.DistributionMetadata.set_platforms
 distutils.sysconfig.expand_makefile_vars
 distutils.sysconfig.get_python_version
 distutils.util.get_host_platform
-email.headerregistry.MessageIDHeader.max_count
 hmac.HMAC.digest_cons
 hmac.HMAC.inner
 hmac.HMAC.outer

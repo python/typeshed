@@ -82,7 +82,6 @@ difflib.SequenceMatcher.__init__  # mypy default value for generic parameter iss
 distutils.command.bdist_packager  # It exists in docs as package name but not in code except as a mention in a comment.
 distutils.version.Version._cmp  # class should have declared this
 distutils.version.Version.parse  # class should have declared this
-email.headerregistry.BaseHeader.max_count  # docs say subclasses should have this property
 # Enum `name` and `value` are special properties that exists at runtime, but stubtest can't detect
 # https://github.com/python/typeshed/pull/6576#issuecomment-992538677
 enum.Enum.name
@@ -562,23 +561,6 @@ email.errors
 email.feedparser
 email.generator
 email.header
-email.headerregistry.AddressHeader.init
-email.headerregistry.AddressHeader.max_count
-email.headerregistry.ContentDispositionHeader.init
-email.headerregistry.ContentTransferEncodingHeader.init
-email.headerregistry.ContentTransferEncodingHeader.max_count
-email.headerregistry.ContentTypeHeader.init
-email.headerregistry.DateHeader.init
-email.headerregistry.DateHeader.max_count
-email.headerregistry.MIMEVersionHeader.init
-email.headerregistry.MIMEVersionHeader.max_count
-email.headerregistry.ParameterizedMIMEHeader.init
-email.headerregistry.ParameterizedMIMEHeader.max_count
-email.headerregistry.UniqueAddressHeader.max_count
-email.headerregistry.UniqueDateHeader.max_count
-email.headerregistry.UniqueSingleAddressHeader.max_count
-email.headerregistry.UniqueUnstructuredHeader.max_count
-email.headerregistry.UnstructuredHeader.max_count
 email.iterators
 email.iterators.walk
 email.message
