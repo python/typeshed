@@ -208,7 +208,8 @@ class TPen(object):
 _T = TypeVar("_T")
 
 class RawTurtle(TPen, TNavigator):
-    screens: ClassVar[list[ScrolledCanvas | Canvas | TurtleScreen]]
+    screen: TurtleScreen
+    screens: ClassVar[list[TurtleScreen]]
     def __init__(
         self, canvas: Canvas | TurtleScreen | None = ..., shape: str = ..., undobuffersize: int = ..., visible: bool = ...
     ) -> None: ...
