@@ -34,7 +34,6 @@ _FT = TypeVar("_FT", bound=Callable[..., Any])
 
 class _BaseTestCaseContext:
     def __init__(self, test_case: TestCase) -> None: ...
-    def _raiseFailure(self, standardMsg: str) -> NoReturn: ...
 
 if sys.version_info >= (3, 9):
     from unittest._log import _AssertLogsContext, _LoggingWatcher
