@@ -236,6 +236,7 @@ builtins.reveal_locals
 builtins.reveal_type
 # GetSetDescriptor that always raises AttributeError
 builtins.OSError.characters_written
+# Aliases for OSError
 builtins.EnvironmentError.characters_written
 builtins.IOError.characters_written
 dbm.dumb.error.characters_written
