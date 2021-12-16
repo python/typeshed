@@ -18,7 +18,7 @@ from typing_extensions import Literal
 
 class BaseHeader(str):
     # max_count is actually more of an abstract ClassVar (not defined on the base class, but expected to be defined in subclasses)
-    max_count: ClassVar[int | None]
+    max_count: ClassVar[Literal[1] | None]
     @property
     def name(self) -> str: ...
     @property
