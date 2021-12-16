@@ -1,5 +1,5 @@
 from tkinter import Canvas, Frame, PhotoImage
-from typing import Any, Callable, Dict, Sequence, Tuple, TypeVar, Union, overload
+from typing import Any, Callable, ClassVar, Dict, Sequence, Tuple, TypeVar, Union, overload
 
 # Note: '_Color' is the alias we use for arguments and _AnyColor is the
 # alias we use for return types. Really, these two aliases should be the
@@ -208,7 +208,8 @@ class TPen(object):
 _T = TypeVar("_T")
 
 class RawTurtle(TPen, TNavigator):
-    screens: list[ScrolledCanvas | Canvas | TurtleScreen]
+    screen: TurtleScreen
+    screens: ClassVar[list[TurtleScreen]]
     def __init__(
         self, canvas: Canvas | TurtleScreen | None = ..., shape: str = ..., undobuffersize: int = ..., visible: bool = ...
     ) -> None: ...
