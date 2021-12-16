@@ -164,6 +164,8 @@ numbers.Number.__hash__  # typeshed marks this as abstract but code just sets th
 optparse.Values.__getattr__  # Some attributes are set in __init__ using setattr
 pickle.Pickler.persistent_id  # C pickler persistent_id is an attribute
 pickle.Unpickler.persistent_load  # C unpickler persistent_load is an attribute
+pickle._Unpickler\..*  # Best effort typing for undocumented internals
+pickle._Pickler\..*  # Best effort typing for undocumented internals
 poplib.POP3_SSL.stls  # bad declaration of inherited function. See poplib.pyi
 select.poll  # Depends on configuration
 selectors.DevpollSelector  # Depends on configuration
