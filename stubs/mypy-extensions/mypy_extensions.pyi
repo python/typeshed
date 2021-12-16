@@ -34,9 +34,8 @@ def VarArg(type: _T = ...) -> _T: ...
 def KwArg(type: _T = ...) -> _T: ...
 
 # Return type that indicates a function does not return.
-# This type is equivalent to the None type, but the no-op Union is necessary to
-# distinguish the None type from the None value.
-NoReturn = Union[None]  # Deprecated: Use typing.NoReturn instead.
+# Deprecated: Use typing.NoReturn instead.
+class NoReturn: ...
 
 # This is intended as a class decorator, but mypy rejects abstract classes
 # when a Type[_T] is expected, so we can't give it the type we want
