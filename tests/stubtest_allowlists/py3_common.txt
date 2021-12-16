@@ -14,6 +14,7 @@ _csv.Dialect.__init__  # C __init__ signature is inaccurate
 _socket.*
 _threading_local.local.__new__
 _typeshed.*  # Utility types for typeshed, doesn't exist at runtime
+_weakref.ref.__call__
 abc.abstractclassmethod  # Deprecated, unsupported by mypy, hard to fix. #6552
 abc.abstractstaticmethod  # Deprecated, unsupported by mypy, hard to fix. #6552
 abc.ABCMeta.__new__  # pytype wants the parameter named cls and not mcls
@@ -90,6 +91,7 @@ enum.Enum.value
 enum.Flag.name
 enum.Flag.value
 enum.IntEnum.value
+hashlib.sha3_\d+
 http.HTTPStatus.description  # set in __new__
 http.HTTPStatus.phrase  # set in __new__
 http.client.HTTPConnection.response_class  # the actual type at runtime is abc.ABCMeta
@@ -188,6 +190,9 @@ tempfile.SpooledTemporaryFile.writable
 threading.Condition.acquire  # Condition functions are exported in __init__
 threading.Condition.release  # Condition functions are exported in __init__
 threading.Lock  # A factory function that returns 'most efficient lock'. Marking it as a function will make it harder for users to mark the Lock type.
+threading.RLock  # Similar to above
+multiprocessing.dummy.Lock  # Similar to above
+multiprocessing.dummy.RLock  # Similar to above
 tkinter.Misc.grid_propagate  # The noarg placeholder is a set value list
 tkinter.Misc.pack_propagate  # The noarg placeholder is a set value list
 tkinter.Misc.grid_columnconfigure  # an empty dict literal is actually a valid default for a TypedDict(total=False) parameter
@@ -214,6 +219,7 @@ weakref.ReferenceType.__call__  # C function default annotation is wrong
 weakref.WeakKeyDictionary.get
 weakref.WeakKeyDictionary.update
 weakref.WeakValueDictionary.get
+weakref.ref.__call__
 webbrowser.UnixBrowser.remote_action  # always overridden in inheriting class
 webbrowser.UnixBrowser.remote_action_newtab  # always overridden in inheriting class
 webbrowser.UnixBrowser.remote_action_newwin  # always overridden in inheriting class

@@ -31,6 +31,8 @@ asyncio.futures.Future.__init__  # Usually initialized from c object
 asyncio.futures.Future._callbacks  # Usually initialized from c object
 builtins.dict.get
 contextvars.Context.__init__  # Default C __init__ signature is wrong
+contextlib.AbstractAsyncContextManager.__class_getitem__
+contextlib.AbstractContextManager.__class_getitem__
 dataclasses.field
 dataclasses.KW_ONLY
 enum.Enum._generate_next_value_
@@ -106,6 +108,8 @@ _collections_abc.Generator.send
 _collections_abc.Generator.throw
 contextvars.ContextVar.reset
 contextvars.ContextVar.set
+contextlib.AbstractAsyncContextManager.__aexit__
+contextlib.AbstractContextManager.__exit__
 io.IncrementalNewlineDecoder.setstate
 typing.SupportsRound.__round__
 types.DynamicClassAttribute..*  # In the stub we pretend it's an alias for property, but it has positional-only differences
