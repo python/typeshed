@@ -42,6 +42,7 @@ builtins.classmethod.__get__  # this function can accept no value for the type p
 builtins.ellipsis  # type is not exposed anywhere
 builtins.function
 builtins.memoryview.__contains__  # C type that implements __getitem__
+sqlite3.dbapi2.Binary.__contains__  # C type that implements __getitem__
 builtins.object.__init__  # default C signature is incorrect
 builtins.property.__get__  # this function can accept no value for the type parameter.
 builtins.staticmethod.__get__  # this function can accept no value for the type parameter.
