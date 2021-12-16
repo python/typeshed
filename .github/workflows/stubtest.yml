@@ -21,7 +21,7 @@ jobs:
         python-version: ["3.6", "3.7", "3.8", "3.9", "3.10.1"]
       fail-fast: false
     # Temporarily disable "macos-latest", since Python 3.10.1 is not available.
-    if: github.repository == 'python/typeshed' and (matrix.os != "macos-latest" or platform.python-version != "3.10.1")
+    if: github.repository == 'python/typeshed' && (matrix.os != "macos-latest" || platform.python-version != "3.10.1")
 
     steps:
       - uses: actions/checkout@v2
