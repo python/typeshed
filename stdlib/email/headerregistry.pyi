@@ -28,7 +28,7 @@ class BaseHeader(str):
     def fold(self, *, policy: Policy) -> str: ...
 
 class UnstructuredHeader:
-    max_count: ClassVar[int | None]
+    max_count: ClassVar[Literal[1] | None]
     @staticmethod
     def value_parser(value: str) -> UnstructuredTokenList: ...
     @classmethod
@@ -38,7 +38,7 @@ class UniqueUnstructuredHeader(UnstructuredHeader):
     max_count: ClassVar[Literal[1]]
 
 class DateHeader:
-    max_count: ClassVar[int | None]
+    max_count: ClassVar[Literal[1] | None]
     def init(self, name: str, *, parse_tree: TokenList, defects: Iterable[MessageDefect], datetime: _datetime) -> None: ...
     @property
     def datetime(self) -> _datetime: ...
@@ -51,7 +51,7 @@ class UniqueDateHeader(DateHeader):
     max_count: ClassVar[Literal[1]]
 
 class AddressHeader:
-    max_count: ClassVar[int | None]
+    max_count: ClassVar[Literal[1] | None]
     def init(self, name: str, *, parse_tree: TokenList, defects: Iterable[MessageDefect], groups: Iterable[Group]) -> None: ...
     @property
     def groups(self) -> Tuple[Group, ...]: ...
