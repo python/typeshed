@@ -43,11 +43,9 @@ else:
     # this is generic over the logging watcher, but in lower versions
     # the watcher is hard-coded.
     _L = TypeVar("_L")
-
     class _LoggingWatcher(NamedTuple):
         records: list[logging.LogRecord]
         output: list[str]
-
     class _AssertLogsContext(_BaseTestCaseContext, Generic[_L]):
         LOGGING_FORMAT: ClassVar[str]
         test_case: TestCase
