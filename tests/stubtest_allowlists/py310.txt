@@ -107,6 +107,7 @@ contextvars.ContextVar.reset
 contextvars.ContextVar.set
 io.IncrementalNewlineDecoder.setstate
 typing.SupportsRound.__round__
+types.DynamicClassAttribute..*  # Alias for property, but has positional-only differences
 
 # These enums derive from (str, Enum). See comment in py3_common.txt
 pstats.SortKey.__new__
