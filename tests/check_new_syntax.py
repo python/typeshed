@@ -142,12 +142,22 @@ def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
     return errors
 
 
+exclude_list = list(Path("stubs/protobuf/google/protobuf").rglob("*.pyi")) + [
+    # TODO: figure out why new union syntax doesn't work
+    Path("stdlib/logging/__init__.pyi"),
+    Path("stdlib/subprocess.pyi"),
+    Path("stdlib/tempfile.pyi"),
+    Path("stdlib/xmlrpc/client.pyi"),
+    Path("stdlib/xmlrpc/server.pyi"),
+    Path("stubs/requests/requests/sessions.pyi"),
+    Path("stubs/tabulate/tabulate.pyi"),
+]
+
+
 def main() -> None:
     errors = []
     for path in chain(Path("stdlib").rglob("*.pyi"), Path("stubs").rglob("*.pyi")):
-        if "@python2" in path.parts:
-            continue
-        if Path("stubs/protobuf/google/protobuf") in path.parents:  # TODO: fix protobuf stubs
+        if "@python2" in path.parts or path in exclude_list:
             continue
 
         with open(path) as f:

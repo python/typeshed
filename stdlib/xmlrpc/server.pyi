@@ -3,11 +3,11 @@ import pydoc
 import socketserver
 import sys
 from datetime import datetime
-from typing import Any, Callable, Dict, Iterable, List, Mapping, Pattern, Protocol, Tuple, Type
+from typing import Any, Callable, Dict, Iterable, List, Mapping, Pattern, Protocol, Tuple, Type, Union
 from xmlrpc.client import Fault
 
 # TODO: Recursive type on tuple, list, dict
-_Marshallable = None | bool | int | float | str | bytes | Tuple[Any, ...] | List[Any] | Dict[Any, Any] | datetime
+_Marshallable = Union[None, bool, int, float, str, bytes, Tuple[Any, ...], List[Any], Dict[Any, Any], datetime]
 
 # The dispatch accepts anywhere from 0 to N arguments, no easy way to allow this in mypy
 class _DispatchArity0(Protocol):

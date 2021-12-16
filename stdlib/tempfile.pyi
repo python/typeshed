@@ -2,7 +2,7 @@ import os
 import sys
 from _typeshed import Self
 from types import TracebackType
-from typing import IO, Any, AnyStr, Generic, Iterable, Iterator, Tuple, Type, overload
+from typing import IO, Any, AnyStr, Generic, Iterable, Iterator, Tuple, Type, overload, Union
 from typing_extensions import Literal
 
 if sys.version_info >= (3, 9):
@@ -13,7 +13,7 @@ TMP_MAX: int
 tempdir: str | None
 template: str
 
-_DirT = AnyStr | os.PathLike[AnyStr]
+_DirT = Union[AnyStr, os.PathLike[AnyStr]]
 
 if sys.version_info >= (3, 8):
     @overload

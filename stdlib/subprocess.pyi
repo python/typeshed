@@ -1,7 +1,7 @@
 import sys
 from _typeshed import Self, StrOrBytesPath
 from types import TracebackType
-from typing import IO, Any, AnyStr, Callable, Generic, Iterable, Mapping, Sequence, Type, TypeVar, overload
+from typing import IO, Any, AnyStr, Callable, Generic, Iterable, Mapping, Sequence, Type, TypeVar, overload, Union
 from typing_extensions import Literal
 
 if sys.version_info >= (3, 9):
@@ -21,7 +21,7 @@ if sys.version_info >= (3, 9):
 #    reveal_type(x)  # bytes, based on the overloads
 # except TimeoutError as e:
 #    reveal_type(e.cmd)  # Any, but morally is _CMD
-_FILE = None | int | IO[Any]
+_FILE = Union[None, int, IO[Any]]
 _TXT = bytes | str
 if sys.version_info >= (3, 8):
     _CMD = StrOrBytesPath | Sequence[StrOrBytesPath]

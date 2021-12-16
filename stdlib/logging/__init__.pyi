@@ -6,11 +6,11 @@ from io import TextIOWrapper
 from string import Template
 from time import struct_time
 from types import FrameType, TracebackType
-from typing import Any, ClassVar, Generic, Pattern, TextIO, Tuple, Type, TypeVar, overload
+from typing import Any, ClassVar, Generic, Pattern, TextIO, Tuple, Type, TypeVar, overload, Union
 from typing_extensions import Literal
 
 _SysExcInfoType = Tuple[Type[BaseException], BaseException, TracebackType | None] | Tuple[None, None, None]
-_ExcInfoType = None | bool | _SysExcInfoType | BaseException
+_ExcInfoType = Union[None, bool, _SysExcInfoType, BaseException]
 _ArgsType = Tuple[object, ...] | Mapping[str, object]
 _FilterType = Filter | Callable[[LogRecord], int]
 _Level = int | str

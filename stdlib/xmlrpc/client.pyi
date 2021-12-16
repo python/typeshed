@@ -6,16 +6,16 @@ from _typeshed import Self, SupportsRead, SupportsWrite
 from datetime import datetime
 from io import BytesIO
 from types import TracebackType
-from typing import Any, Callable, Dict, Iterable, List, Mapping, Protocol, Tuple, Type, overload
+from typing import Any, Callable, Dict, Iterable, List, Mapping, Protocol, Tuple, Type, overload, Union
 from typing_extensions import Literal
 
 class _SupportsTimeTuple(Protocol):
     def timetuple(self) -> time.struct_time: ...
 
 _DateTimeComparable = DateTime | datetime | str | _SupportsTimeTuple
-_Marshallable = (
-    None | bool | int | float | str | bytes | Tuple[Any, ...] | List[Any] | Dict[Any, Any] | datetime | DateTime | Binary
-)
+_Marshallable = Union[
+    None, bool, int, float, str, bytes, Tuple[Any, ...], List[Any], Dict[Any, Any], datetime, DateTime, Binary
+]
 _XMLDate = int | datetime | Tuple[int, ...] | time.struct_time
 _HostType = Tuple[str, Dict[str, str]] | str
 
