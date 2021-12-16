@@ -93,9 +93,11 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: ["ubuntu-latest", "windows-latest", "macos-latest"]
-        # Python 3.9.7 is required due to changes to ForwardRef.
-        python-version: ["3.6", "3.7", "3.8", "3.9.7", "3.10"]
+        # Temporarily disable "macos-latest", since Python 3.10.1 is not available.
+        # os: ["ubuntu-latest", "windows-latest", "macos-latest"]
+        os: ["ubuntu-latest", "windows-latest"]
+        # Temporarily hard-coded 3.10.1 due to stubtest incompatibilities.
+        python-version: ["3.6", "3.7", "3.8", "3.9", "3.10.1"]
       fail-fast: false
 
     steps:
@@ -107,7 +109,9 @@ jobs:
       - name: Update pip
         run: python -m pip install -U pip
       - name: Install dependencies
-        run: pip install $(grep tomli== requirements-tests.txt) $(grep mypy== requirements-tests.txt)
+        # Temporarily hard-code the mypy version used for stubtest
+        # run: pip install $(grep tomli== requirements-tests.txt) (grep mypy== requirements-tests.txt)
+        run: pip install mypy==0.910
       - name: Run stubtest
         run: python tests/stubtest_stdlib.py
 

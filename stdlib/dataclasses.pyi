@@ -201,6 +201,7 @@ if sys.version_info >= (3, 10):
         unsafe_hash: bool = ...,
         frozen: bool = ...,
         match_args: bool = ...,
+        kw_only: bool = ...,
         slots: bool = ...,
     ) -> type: ...
 
