@@ -73,7 +73,7 @@ class UniqueSingleAddressHeader(SingleAddressHeader):
     max_count: ClassVar[Literal[1]]
 
 class MIMEVersionHeader:
-    max_count: ClassVar[int | None]
+    max_count: ClassVar[Literal[1]]
     def init(
         self,
         name: str,
