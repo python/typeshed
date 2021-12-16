@@ -115,7 +115,6 @@ class ContentTypeHeader(ParameterizedMIMEHeader):
     def value_parser(value: str) -> ContentType: ...
 
 class ContentDispositionHeader(ParameterizedMIMEHeader):
-    max_count: ClassVar[int | None]
     # init is redefined but has the same signature as parent class, so is omitted from the stub
     @property
     def content_disposition(self) -> str: ...
