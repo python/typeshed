@@ -723,7 +723,9 @@ if sys.version_info >= (3, 7):
         __forward_evaluated__: bool
         __forward_value__: Any | None
         __forward_is_argument__: bool
-        if sys.version_info >= (3, 9):
+        if sys.version_info >= (3, 10):
+            def __init__(self, arg: str, is_argument: bool = ..., module: Any | None = ..., *, is_class: bool = ...) -> None: ...
+        elif sys.version_info >= (3, 9):
             # The module argument was added in Python 3.9.7.
             def __init__(self, arg: str, is_argument: bool = ..., module: Any | None = ...) -> None: ...
         else:
