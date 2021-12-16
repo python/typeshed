@@ -17,9 +17,11 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: ["ubuntu-latest", "windows-latest", "macos-latest"]
-        # Python 3.9.7 is required due to changes to ForwardRef.
-        python-version: ["3.6", "3.7", "3.8", "3.9.7", "3.10.0"]
+        # Temporarily disable "macos-latest", since Python 3.10.1 is not available.
+        # os: ["ubuntu-latest", "windows-latest", "macos-latest"]
+        os: ["ubuntu-latest", "windows-latest"]
+        # Temporarily hard-coded 3.10.1 due to stubtest incompatibilities.
+        python-version: ["3.6", "3.7", "3.8", "3.9", "3.10.1"]
       fail-fast: false
 
     steps:
