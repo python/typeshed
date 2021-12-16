@@ -34,3 +34,4 @@ waitress.task.ThreadedTaskDispatcher.start_new_thread
 waitress.task.WSGITask.content_length
 waitress.rfc7230.BWS
 waitress.wasyncore.map
+waitress.wasyncore.dispatcher_with_send.handle_write
