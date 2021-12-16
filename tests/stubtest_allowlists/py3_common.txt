@@ -236,6 +236,14 @@ builtins.reveal_locals
 builtins.reveal_type
 # GetSetDescriptor that always raises AttributeError
 builtins.OSError.characters_written
+builtins.EnvironmentError.characters_written
+builtins.IOError.characters_written
+dbm.dumb.error.characters_written
+os.error.characters_written
+posix.error.characters_written
+resource.error.characters_written
+select.error.characters_written
+socket.error.characters_written
 collections.abc.*  # Types are re-exported from _collections_abc, so errors should be fixed there
 distutils.command.check.SilentReporter  # only defined if docutils in installed
 hmac.HMAC.blocksize  # use block_size instead
