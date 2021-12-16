@@ -1,6 +1,6 @@
 import abc
 import sys
-from typing import Any, Callable, Generic, ItemsView, KeysView, Mapping, Type, TypeVar, Union, ValuesView
+from typing import Any, Callable, Generic, ItemsView, KeysView, Mapping, Type, TypeVar, ValuesView
 
 _T = TypeVar("_T")
 _U = TypeVar("_U")
