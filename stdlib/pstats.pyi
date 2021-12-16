@@ -2,7 +2,7 @@ import sys
 from _typeshed import StrOrBytesPath
 from cProfile import Profile as _cProfile
 from profile import Profile
-from typing import IO, Any, Iterable, Tuple, TypeVar,  overload
+from typing import IO, Any, Iterable, Tuple, TypeVar, overload
 
 _Selector = str | float | int
 _T = TypeVar("_T", bound=Stats)

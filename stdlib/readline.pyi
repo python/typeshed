@@ -1,5 +1,5 @@
 from _typeshed import StrOrBytesPath
-from typing import Callable,  Sequence
+from typing import Callable, Sequence
 
 _CompleterT = Callable[[str, int], str | None] | None
 _CompDispT = Callable[[str, Sequence[str], int], None] | None

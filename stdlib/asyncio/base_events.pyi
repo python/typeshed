@@ -9,7 +9,7 @@ from asyncio.tasks import Task
 from asyncio.transports import BaseTransport
 from collections.abc import Iterable
 from socket import AddressFamily, SocketKind, _Address, _RetAddress, socket
-from typing import IO, Any, Awaitable, Callable, Dict, Generator, Sequence, Tuple, TypeVar,  overload
+from typing import IO, Any, Awaitable, Callable, Dict, Generator, Sequence, Tuple, TypeVar, overload
 from typing_extensions import Literal
 
 if sys.version_info >= (3, 7):

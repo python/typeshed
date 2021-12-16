@@ -1,4 +1,4 @@
-from typing import Callable, Mapping,  Sequence, Tuple
+from typing import Callable, Mapping, Sequence, Tuple
 from typing_extensions import Final
 
 paFloat32: Final[int] = ...

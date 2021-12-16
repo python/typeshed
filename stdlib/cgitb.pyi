@@ -1,6 +1,6 @@
 from _typeshed import StrOrBytesPath
 from types import FrameType, TracebackType
-from typing import IO, Any, Callable,  Tuple, Type
+from typing import IO, Any, Callable, Tuple, Type
 
 _ExcInfo = Tuple[Type[BaseException] | None, BaseException | None, TracebackType | None]
 

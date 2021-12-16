@@ -1,7 +1,7 @@
 from _typeshed import SupportsWrite
 from reprlib import Repr
 from types import MethodType, ModuleType, TracebackType
-from typing import IO, Any, AnyStr, Callable, Container, Mapping, MutableMapping, NoReturn,  Tuple, Type
+from typing import IO, Any, AnyStr, Callable, Container, Mapping, MutableMapping, NoReturn, Tuple, Type
 
 # the return type of sys.exc_info(), used by ErrorDuringImport.__init__
 _Exc_Info = Tuple[Type[BaseException] | None, BaseException | None, TracebackType | None]

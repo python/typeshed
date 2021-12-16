@@ -1,6 +1,6 @@
 from _typeshed import Self
 from types import TracebackType
-from typing import Type, TypeVar,  overload
+from typing import Type, TypeVar, overload
 
 _T = TypeVar("_T")
 _KeyType = str | bytes

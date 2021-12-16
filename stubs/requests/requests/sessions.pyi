@@ -1,5 +1,5 @@
 from _typeshed import SupportsItems
-from typing import IO, Any, Callable, Iterable, List, Mapping, MutableMapping,  Text, Tuple, TypeVar
+from typing import IO, Any, Callable, Iterable, List, Mapping, MutableMapping, Text, Tuple, TypeVar
 
 from . import adapters, auth as _auth, compat, cookies, exceptions, hooks, models, status_codes, structures, utils
 from .models import Response
@@ -51,7 +51,13 @@ _HooksInput = MutableMapping[Text, Iterable[_Hook] | _Hook]
 
 _ParamsMappingKeyType = Text | bytes | int | float
 _ParamsMappingValueType = Text | bytes | int | float | Iterable[Text | bytes | int | float] | None
-_Params =     SupportsItems[_ParamsMappingKeyType, _ParamsMappingValueType]|    Tuple[_ParamsMappingKeyType, _ParamsMappingValueType]|    Iterable[Tuple[_ParamsMappingKeyType, _ParamsMappingValueType]]|    Text | bytes
+_Params = (
+    SupportsItems[_ParamsMappingKeyType, _ParamsMappingValueType]
+    | Tuple[_ParamsMappingKeyType, _ParamsMappingValueType]
+    | Iterable[Tuple[_ParamsMappingKeyType, _ParamsMappingValueType]]
+    | Text
+    | bytes
+)
 _TextMapping = MutableMapping[Text, Text]
 _SessionT = TypeVar("_SessionT", bound=Session)
 

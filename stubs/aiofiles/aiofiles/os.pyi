@@ -1,7 +1,7 @@
 import sys
 from _typeshed import StrOrBytesPath
 from os import stat_result
-from typing import Sequence,  overload
+from typing import Sequence, overload
 
 _FdOrAnyPath = int | StrOrBytesPath
 

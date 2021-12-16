@@ -1,6 +1,6 @@
 from collections.abc import Callable, Iterable, Mapping, Sequence
 from datetime import timedelta
-from typing import Any, Generic, TypeVar,  overload
+from typing import Any, Generic, TypeVar, overload
 from typing_extensions import Literal
 
 from ..client import _Key, _Value

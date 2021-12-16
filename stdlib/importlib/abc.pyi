@@ -12,7 +12,7 @@ from _typeshed import (
 from abc import ABCMeta, abstractmethod
 from importlib.machinery import ModuleSpec
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
-from typing import IO, Any, BinaryIO, Iterator, Mapping, NoReturn, Protocol, Sequence,  overload
+from typing import IO, Any, BinaryIO, Iterator, Mapping, NoReturn, Protocol, Sequence, overload
 from typing_extensions import Literal, runtime_checkable
 
 _Path = bytes | str

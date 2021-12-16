@@ -1,7 +1,7 @@
 import sys
 from _typeshed import StrOrBytesPath, StrPath, SupportsWrite
 from collections.abc import Callable, ItemsView, Iterable, Iterator, Mapping, MutableMapping, Sequence
-from typing import Any, ClassVar, Dict,  Pattern, Type, TypeVar, overload
+from typing import Any, ClassVar, Dict, Pattern, Type, TypeVar, overload
 from typing_extensions import Literal
 
 # Internal type aliases

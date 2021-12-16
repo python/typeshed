@@ -6,7 +6,7 @@ from io import TextIOWrapper
 from string import Template
 from time import struct_time
 from types import FrameType, TracebackType
-from typing import Any, ClassVar, Generic,  Pattern, TextIO, Tuple, Type, TypeVar,  overload
+from typing import Any, ClassVar, Generic, Pattern, TextIO, Tuple, Type, TypeVar, overload
 from typing_extensions import Literal
 
 _SysExcInfoType = Tuple[Type[BaseException], BaseException, TracebackType | None] | Tuple[None, None, None]

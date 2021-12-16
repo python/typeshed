@@ -2,7 +2,7 @@ from email.charset import Charset
 from email.contentmanager import ContentManager
 from email.errors import MessageDefect
 from email.policy import Policy
-from typing import Any, Generator, Iterator, List,  Sequence, Tuple, TypeVar
+from typing import Any, Generator, Iterator, List, Sequence, Tuple, TypeVar
 
 _T = TypeVar("_T")
 

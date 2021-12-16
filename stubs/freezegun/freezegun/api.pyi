@@ -1,7 +1,7 @@
 from collections.abc import Awaitable, Callable, Iterator, Sequence
 from datetime import date, datetime, timedelta
 from numbers import Real
-from typing import Any, Type, TypeVar,  overload
+from typing import Any, Type, TypeVar, overload
 
 _T = TypeVar("_T")
 _Freezable = str | datetime | date | timedelta

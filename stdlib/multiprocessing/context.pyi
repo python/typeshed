@@ -8,7 +8,7 @@ from multiprocessing import queues, synchronize
 from multiprocessing.pool import Pool as _Pool
 from multiprocessing.process import BaseProcess
 from multiprocessing.sharedctypes import SynchronizedArray, SynchronizedBase
-from typing import Any, Type, TypeVar,  overload
+from typing import Any, Type, TypeVar, overload
 from typing_extensions import Literal
 
 _LockLike = synchronize.Lock | synchronize.RLock

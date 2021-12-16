@@ -19,7 +19,9 @@ _Resample = Literal[0, 1, 2, 3, 4, 5]
 _Size = Tuple[int, int]
 _Box = Tuple[int, int, int, int]
 
-_ConversionMatrix = Tuple[float, float, float, float]| Tuple[float, float, float, float, float, float, float, float, float, float, float, float]
+_ConversionMatrix = (
+    Tuple[float, float, float, float] | Tuple[float, float, float, float, float, float, float, float, float, float, float, float]
+)
 _Color = float | Tuple[float, ...]
 
 class _Writeable(SupportsWrite[bytes], Protocol):

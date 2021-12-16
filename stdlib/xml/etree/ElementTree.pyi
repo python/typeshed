@@ -14,7 +14,6 @@ from typing import (
     MutableSequence,
     Sequence,
     TypeVar,
-    
     overload,
 )
 from typing_extensions import Literal, SupportsIndex

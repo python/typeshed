@@ -1,6 +1,6 @@
 from email.mime.nonmultipart import MIMENonMultipart
 from email.policy import Policy
-from typing import Callable,  Tuple
+from typing import Callable, Tuple
 
 _ParamsType = str | None | Tuple[str, str | None, str]
 

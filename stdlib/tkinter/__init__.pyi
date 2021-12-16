@@ -5,7 +5,7 @@ from enum import Enum
 from tkinter.constants import *  # comment this out to find undefined identifier names with flake8
 from tkinter.font import _FontDescription
 from types import TracebackType
-from typing import Any, Callable, Generic, List, Mapping,  Protocol, Sequence, Tuple, Type, TypeVar,  overload
+from typing import Any, Callable, Generic, List, Mapping, Protocol, Sequence, Tuple, Type, TypeVar, overload
 from typing_extensions import Literal, TypedDict
 
 # Using anything from tkinter.font in this file means that 'import tkinter'
@@ -92,15 +92,15 @@ _Color = str  # typically '#rrggbb', '#rgb' or color names.
 _Compound = Literal["top", "left", "center", "right", "bottom", "none"]  # -compound in manual page named 'options'
 _Cursor = str | Tuple[str] | Tuple[str, str] | Tuple[str, str, str] | Tuple[str, str, str, str]  # manual page: Tk_GetCursor
 # Example:  entry['invalidcommand'] = [entry.register(print), '%P']
-_EntryValidateCommand =    Callable[[], bool]| str| List[str]| Tuple[str, ...]
-_GridIndex = int | str| Literal["all"]
+_EntryValidateCommand = Callable[[], bool] | str | List[str] | Tuple[str, ...]
+_GridIndex = int | str | Literal["all"]
 _ImageSpec = _Image | str  # str can be from e.g. tkinter.image_names()
 _Padding = (
     _ScreenUnits
-    |Tuple[_ScreenUnits]
-    |Tuple[_ScreenUnits, _ScreenUnits]
-    |Tuple[_ScreenUnits, _ScreenUnits, _ScreenUnits]
-    |Tuple[_ScreenUnits, _ScreenUnits, _ScreenUnits, _ScreenUnits]
+    | Tuple[_ScreenUnits]
+    | Tuple[_ScreenUnits, _ScreenUnits]
+    | Tuple[_ScreenUnits, _ScreenUnits, _ScreenUnits]
+    | Tuple[_ScreenUnits, _ScreenUnits, _ScreenUnits, _ScreenUnits]
 )
 _Relief = Literal["raised", "sunken", "flat", "ridge", "solid", "groove"]  # manual page: Tk_GetRelief
 _ScreenUnits = str | float  # manual page: Tk_GetPixels

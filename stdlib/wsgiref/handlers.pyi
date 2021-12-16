@@ -1,6 +1,6 @@
 from abc import abstractmethod
 from types import TracebackType
-from typing import IO, Callable, MutableMapping,  Tuple, Type
+from typing import IO, Callable, MutableMapping, Tuple, Type
 
 from .headers import Headers
 from .types import ErrorStream, InputStream, StartResponse, WSGIApplication, WSGIEnvironment

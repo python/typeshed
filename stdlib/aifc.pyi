@@ -1,7 +1,7 @@
 import sys
 from _typeshed import Self
 from types import TracebackType
-from typing import IO, Any, NamedTuple, Tuple, Type,  overload
+from typing import IO, Any, NamedTuple, Tuple, Type, overload
 from typing_extensions import Literal
 
 class Error(Exception): ...

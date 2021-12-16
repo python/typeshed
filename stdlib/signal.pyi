@@ -1,7 +1,7 @@
 import sys
 from enum import IntEnum
 from types import FrameType
-from typing import Any, Callable, Iterable,  Tuple
+from typing import Any, Callable, Iterable, Tuple
 
 NSIG: int
 
