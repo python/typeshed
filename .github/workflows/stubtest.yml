@@ -1,6 +1,7 @@
 name: Run stubtest on all stubs
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: "0 0 * * *"
 

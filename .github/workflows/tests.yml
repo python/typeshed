@@ -1,6 +1,7 @@
 name: Check stubs
 
 on:
+  workflow_dispatch:
   push:
   pull_request:
 
