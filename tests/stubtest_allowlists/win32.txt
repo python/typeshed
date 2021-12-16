@@ -9,6 +9,10 @@ locale.nl_langinfo  # Function that should be moved to _locale and re-exported c
 # Allowlist entries that cannot or should not be fixed
 # ==========
 
+# Aliases for OSError
+builtins.WindowsError.characters_written
+winreg.error.characters_written
+
 # Modules that do not exist on Windows systems
 _curses
 _posixsubprocess
