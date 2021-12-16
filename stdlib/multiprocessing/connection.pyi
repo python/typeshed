@@ -8,7 +8,7 @@ if sys.version_info >= (3, 8):
     from typing import SupportsIndex
 
 # https://docs.python.org/3/library/multiprocessing.html#address-formats
-_Address = Union[str, Tuple[str, int]]
+_Address = str | Tuple[str, int]
 
 class _ConnectionBase:
     if sys.version_info >= (3, 8):

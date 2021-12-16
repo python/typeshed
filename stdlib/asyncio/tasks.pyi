@@ -18,8 +18,8 @@ _T3 = TypeVar("_T3")
 _T4 = TypeVar("_T4")
 _T5 = TypeVar("_T5")
 _FT = TypeVar("_FT", bound=Future[Any])
-_FutureT = Union[Future[_T], Generator[Any, None, _T], Awaitable[_T]]
-_TaskYieldType = Optional[Future[object]]
+_FutureT = Future[_T] | Generator[Any, None, _T] | Awaitable[_T]
+_TaskYieldType = Future[object] | None
 
 FIRST_EXCEPTION: str
 FIRST_COMPLETED: str

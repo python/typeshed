@@ -20,8 +20,8 @@ from typing import IO, Any, Callable, Iterator, NamedTuple, Union
 
 # Strictly this should not have to include Callable, but mypy doesn't use FunctionType
 # for functions (python/mypy#3171)
-_HaveCodeType = Union[types.MethodType, types.FunctionType, types.CodeType, type, Callable[..., Any]]
-_HaveCodeOrStringType = Union[_HaveCodeType, str, bytes]
+_HaveCodeType = types.MethodType | types.FunctionType | types.CodeType | type | Callable[..., Any]
+_HaveCodeOrStringType = _HaveCodeType | str | bytes
 
 class Instruction(NamedTuple):
     opname: str

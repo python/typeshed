@@ -18,8 +18,8 @@ class DataRow(NamedTuple):
     sep: str
     end: str
 
-_TableFormatLine = Union[None, Line, Callable[[List[int], List[str]], str]]
-_TableFormatRow = Union[None, DataRow, Callable[[List[Any], List[int], List[str]], str]]
+_TableFormatLine = None | Line | Callable[[List[int], List[str]], str]
+_TableFormatRow = None | DataRow | Callable[[List[Any], List[int], List[str]], str]
 
 class TableFormat(NamedTuple):
     lineabove: _TableFormatLine

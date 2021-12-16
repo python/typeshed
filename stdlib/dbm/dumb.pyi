@@ -2,8 +2,8 @@ from _typeshed import Self
 from types import TracebackType
 from typing import Iterator, MutableMapping, Type, Union
 
-_KeyType = Union[str, bytes]
-_ValueType = Union[str, bytes]
+_KeyType = str | bytes
+_ValueType = str | bytes
 
 error = OSError
 

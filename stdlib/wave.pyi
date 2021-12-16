@@ -2,7 +2,7 @@ import sys
 from _typeshed import Self
 from typing import IO, Any, BinaryIO, NamedTuple, NoReturn, Union
 
-_File = Union[str, IO[bytes]]
+_File = str | IO[bytes]
 
 class Error(Exception): ...
 

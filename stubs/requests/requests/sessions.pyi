@@ -43,19 +43,19 @@ class SessionRedirectMixin:
     def rebuild_proxies(self, prepared_request, proxies): ...
     def should_strip_auth(self, old_url, new_url): ...
 
-_Data = Union[None, Text, bytes, Mapping[str, Any], Mapping[Text, Any], Iterable[Tuple[Text, Optional[Text]]], IO[Any]]
+_Data = None | Text | bytes | Mapping[str, Any] | Mapping[Text, Any] | Iterable[Tuple[Text, Text | None]] | IO[Any]
 
 _Hook = Callable[[Response], Any]
 _Hooks = MutableMapping[Text, List[_Hook]]
-_HooksInput = MutableMapping[Text, Union[Iterable[_Hook], _Hook]]
+_HooksInput = MutableMapping[Text, Iterable[_Hook] | _Hook]
 
-_ParamsMappingKeyType = Union[Text, bytes, int, float]
-_ParamsMappingValueType = Union[Text, bytes, int, float, Iterable[Union[Text, bytes, int, float]], None]
+_ParamsMappingKeyType = Text | bytes | int | float
+_ParamsMappingValueType = Text | bytes | int | float | Iterable[Text | bytes | int | float] | None
 _Params = Union[
     SupportsItems[_ParamsMappingKeyType, _ParamsMappingValueType],
     Tuple[_ParamsMappingKeyType, _ParamsMappingValueType],
     Iterable[Tuple[_ParamsMappingKeyType, _ParamsMappingValueType]],
-    Union[Text, bytes],
+    Text | bytes,
 ]
 _TextMapping = MutableMapping[Text, Text]
 _SessionT = TypeVar("_SessionT", bound=Session)

@@ -20,7 +20,7 @@ XML_PARAM_ENTITY_PARSING_NEVER: int
 XML_PARAM_ENTITY_PARSING_UNLESS_STANDALONE: int
 XML_PARAM_ENTITY_PARSING_ALWAYS: int
 
-_Model = Tuple[int, int, Optional[str], Tuple[Any, ...]]
+_Model = Tuple[int, int, str | None, Tuple[Any, ...]]
 
 @final
 class XMLParserType(object):

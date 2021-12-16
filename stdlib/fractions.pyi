@@ -4,7 +4,7 @@ from numbers import Integral, Rational, Real
 from typing import Type, TypeVar, Union, overload
 from typing_extensions import Literal
 
-_ComparableNum = Union[int, float, Decimal, Real]
+_ComparableNum = int | float | Decimal | Real
 _T = TypeVar("_T")
 
 if sys.version_info < (3, 9):

@@ -3,7 +3,7 @@ from _typeshed import StrOrBytesPath
 from os import stat_result
 from typing import Sequence, Union, overload
 
-_FdOrAnyPath = Union[int, StrOrBytesPath]
+_FdOrAnyPath = int | StrOrBytesPath
 
 async def stat(path: _FdOrAnyPath, *, dir_fd: int | None = ..., follow_symlinks: bool = ...) -> stat_result: ...
 async def rename(

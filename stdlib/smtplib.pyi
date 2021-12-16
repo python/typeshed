@@ -9,7 +9,7 @@ from typing import Any, Dict, Pattern, Protocol, Sequence, Tuple, Type, Union, o
 _Reply = Tuple[int, bytes]
 _SendErrs = Dict[str, _Reply]
 # Should match source_address for socket.create_connection
-_SourceAddress = Tuple[Union[bytearray, bytes, str], int]
+_SourceAddress = Tuple[bytearray | bytes | str, int]
 
 SMTP_PORT: int
 SMTP_SSL_PORT: int

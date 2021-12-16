@@ -5,13 +5,13 @@ from typing import Any, Callable, ClassVar, Dict, Sequence, Tuple, TypeVar, Unio
 # alias we use for return types. Really, these two aliases should be the
 # same, but as per the "no union returns" typeshed policy, we'll return
 # Any instead.
-_Color = Union[str, Tuple[float, float, float]]
+_Color = str | Tuple[float, float, float]
 _AnyColor = Any
 
 # TODO: Replace this with a TypedDict once it becomes standardized.
 _PenState = Dict[str, Any]
 
-_Speed = Union[str, float]
+_Speed = str | float
 _PolygonCoords = Sequence[Tuple[float, float]]
 
 # TODO: Type this more accurately

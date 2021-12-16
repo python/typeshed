@@ -9,7 +9,7 @@ from .resolver import BaseResolver, Resolver
 
 __all__ = ["CBaseLoader", "CSafeLoader", "CFullLoader", "CUnsafeLoader", "CLoader", "CBaseDumper", "CSafeDumper", "CDumper"]
 
-_Readable = SupportsRead[Union[str, bytes]]
+_Readable = SupportsRead[str | bytes]
 
 class CBaseLoader(CParser, BaseConstructor, BaseResolver):
     def __init__(self, stream: str | bytes | _Readable) -> None: ...

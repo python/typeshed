@@ -4,7 +4,7 @@ from collections.abc import Callable, Mapping, Sequence
 from decimal import Decimal
 from typing import Any, Optional, Type, TypeVar
 
-_EscaperMapping = Optional[Mapping[Type[object], Callable[..., str]]]
+_EscaperMapping = Mapping[Type[object], Callable[..., str]] | None
 _T = TypeVar("_T")
 
 def escape_item(val: object, charset: object, mapping: _EscaperMapping = ...) -> str: ...

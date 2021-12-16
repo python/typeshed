@@ -3,7 +3,7 @@ from types import FrameType, TracebackType
 from typing import Any, Callable, Iterable, Mapping, Optional, Type, TypeVar
 
 # TODO recursive type
-_TF = Callable[[FrameType, str, Any], Optional[Callable[..., Any]]]
+_TF = Callable[[FrameType, str, Any], Callable[..., Any] | None]
 
 _PF = Callable[[FrameType, str, Any], None]
 _T = TypeVar("_T")

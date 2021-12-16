@@ -22,7 +22,7 @@ _Box = Tuple[int, int, int, int]
 _ConversionMatrix = Union[
     Tuple[float, float, float, float], Tuple[float, float, float, float, float, float, float, float, float, float, float, float],
 ]
-_Color = Union[float, Tuple[float, ...]]
+_Color = float | Tuple[float, ...]
 
 class _Writeable(SupportsWrite[bytes], Protocol):
     def seek(self, __offset: int) -> Any: ...

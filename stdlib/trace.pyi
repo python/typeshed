@@ -7,7 +7,7 @@ from typing_extensions import ParamSpec
 _T = TypeVar("_T")
 _P = ParamSpec("_P")
 _localtrace = Callable[[types.FrameType, str, Any], Callable[..., Any]]
-_fileModuleFunction = Tuple[str, Optional[str], str]
+_fileModuleFunction = Tuple[str, str | None, str]
 
 class CoverageResults:
     def __init__(

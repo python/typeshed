@@ -26,7 +26,7 @@ class TokenInfo(_TokenInfo):
     def exact_type(self) -> int: ...
 
 # Backwards compatible tokens can be sequences of a shorter length too
-_Token = Union[TokenInfo, Sequence[Union[int, str, _Position]]]
+_Token = TokenInfo | Sequence[int | str | _Position]
 
 class TokenError(Exception): ...
 class StopTokenizing(Exception): ...  # undocumented

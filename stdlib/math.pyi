@@ -4,7 +4,7 @@ from typing import Iterable, SupportsFloat, Union, overload
 from typing_extensions import SupportsIndex
 
 if sys.version_info >= (3, 8):
-    _SupportsFloatOrIndex = Union[SupportsFloat, SupportsIndex]
+    _SupportsFloatOrIndex = SupportsFloat | SupportsIndex
 else:
     _SupportsFloatOrIndex = SupportsFloat
 

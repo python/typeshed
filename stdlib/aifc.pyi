@@ -14,7 +14,7 @@ class _aifc_params(NamedTuple):
     comptype: bytes
     compname: bytes
 
-_File = Union[str, IO[bytes]]
+_File = str | IO[bytes]
 _Marker = Tuple[int, int, bytes]
 
 class Aifc_read:

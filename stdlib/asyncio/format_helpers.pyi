@@ -7,7 +7,7 @@ from typing import Any, Iterable, Union, overload
 class _HasWrapper:
     __wrapper__: _HasWrapper | FunctionType
 
-_FuncType = Union[FunctionType, _HasWrapper, functools.partial[Any], functools.partialmethod[Any]]
+_FuncType = FunctionType | _HasWrapper | functools.partial[Any] | functools.partialmethod[Any]
 
 if sys.version_info >= (3, 7):
     @overload

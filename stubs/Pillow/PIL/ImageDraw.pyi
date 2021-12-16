@@ -6,7 +6,7 @@ from .Image import Image
 from .ImageColor import _Ink
 from .ImageFont import _Font
 
-_XY = Sequence[Union[float, Tuple[float, float]]]
+_XY = Sequence[float | Tuple[float, float]]
 _Outline = Any
 
 class ImageDraw:

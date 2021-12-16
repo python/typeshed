@@ -22,7 +22,7 @@ if sys.version_info >= (3, 8):
         def __init__(self, buffer: Any) -> None: ...
         def raw(self) -> memoryview: ...
         def release(self) -> None: ...
-    _BufferCallback = Optional[Callable[[PickleBuffer], Any]]
+    _BufferCallback = Callable[[PickleBuffer], Any] | None
     def dump(
         obj: Any,
         file: _WritableFileobj,
@@ -60,7 +60,7 @@ _reducedtype = Union[
     str,
     Tuple[Callable[..., Any], Tuple[Any, ...]],
     Tuple[Callable[..., Any], Tuple[Any, ...], Any],
-    Tuple[Callable[..., Any], Tuple[Any, ...], Any, Optional[Iterator[Any]]],
+    Tuple[Callable[..., Any], Tuple[Any, ...], Any, Iterator[Any] | None],
     Tuple[Callable[..., Any], Tuple[Any, ...], Any, Optional[Iterator[Any]], Optional[Iterator[Any]]],
 ]
 

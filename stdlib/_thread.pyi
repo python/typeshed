@@ -32,7 +32,7 @@ TIMEOUT_MAX: float
 if sys.version_info >= (3, 8):
     def get_native_id() -> int: ...  # only available on some platforms
     @final
-    class _ExceptHookArgs(Tuple[Type[BaseException], Optional[BaseException], Optional[TracebackType], Optional[Thread]]):
+    class _ExceptHookArgs(Tuple[Type[BaseException], BaseException | None, TracebackType | None, Thread | None]):
         @property
         def exc_type(self) -> Type[BaseException]: ...
         @property

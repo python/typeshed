@@ -12,7 +12,7 @@ from typing_extensions import Literal
 #       E.g. Tuple[Literal["OK"], List[bytes]]
 _CommandResults = Tuple[str, List[Any]]
 
-_AnyResponseData = Union[List[None], List[Union[bytes, Tuple[bytes, bytes]]]]
+_AnyResponseData = List[None] | List[bytes | Tuple[bytes, bytes]]
 
 _list = list  # conflicts with a method named "list"
 

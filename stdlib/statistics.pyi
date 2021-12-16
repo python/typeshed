@@ -6,7 +6,7 @@ from typing import Any, Hashable, Iterable, NamedTuple, Sequence, SupportsFloat,
 
 _T = TypeVar("_T")
 # Most functions in this module accept homogeneous collections of one of these types
-_Number = Union[float, Decimal, Fraction]
+_Number = float | Decimal | Fraction
 _NumberT = TypeVar("_NumberT", float, Decimal, Fraction)
 
 # Used in mode, multimode

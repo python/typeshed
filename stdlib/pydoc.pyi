@@ -4,7 +4,7 @@ from types import MethodType, ModuleType, TracebackType
 from typing import IO, Any, AnyStr, Callable, Container, Mapping, MutableMapping, NoReturn, Optional, Tuple, Type
 
 # the return type of sys.exc_info(), used by ErrorDuringImport.__init__
-_Exc_Info = Tuple[Optional[Type[BaseException]], Optional[BaseException], Optional[TracebackType]]
+_Exc_Info = Tuple[Type[BaseException] | None, BaseException | None, TracebackType | None]
 
 __author__: str
 __date__: str

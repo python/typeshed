@@ -2,9 +2,9 @@ import numbers
 from types import TracebackType
 from typing import Any, Container, NamedTuple, Sequence, Tuple, Type, TypeVar, Union, overload
 
-_Decimal = Union[Decimal, int]
-_DecimalNew = Union[Decimal, float, str, Tuple[int, Sequence[int], int]]
-_ComparableNum = Union[Decimal, float, numbers.Rational]
+_Decimal = Decimal | int
+_DecimalNew = Decimal | float | str | Tuple[int, Sequence[int], int]
+_ComparableNum = Decimal | float | numbers.Rational
 _DecimalT = TypeVar("_DecimalT", bound=Decimal)
 
 class DecimalTuple(NamedTuple):

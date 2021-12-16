@@ -11,7 +11,7 @@ from multiprocessing.sharedctypes import SynchronizedArray, SynchronizedBase
 from typing import Any, Type, TypeVar, Union, overload
 from typing_extensions import Literal
 
-_LockLike = Union[synchronize.Lock, synchronize.RLock]
+_LockLike = synchronize.Lock | synchronize.RLock
 _CT = TypeVar("_CT", bound=_CData)
 
 class ProcessError(Exception): ...

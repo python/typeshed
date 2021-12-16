@@ -15,7 +15,7 @@ from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWra
 from typing import IO, Any, BinaryIO, Iterator, Mapping, NoReturn, Protocol, Sequence, Union, overload
 from typing_extensions import Literal, runtime_checkable
 
-_Path = Union[bytes, str]
+_Path = bytes | str
 
 class Finder(metaclass=ABCMeta): ...
 

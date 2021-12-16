@@ -7,12 +7,12 @@ from typing_extensions import Literal, TypedDict
 
 _PCTRTT = Tuple[Tuple[str, str], ...]
 _PCTRTTT = Tuple[_PCTRTT, ...]
-_PeerCertRetDictType = Dict[str, Union[str, _PCTRTTT, _PCTRTT]]
-_PeerCertRetType = Union[_PeerCertRetDictType, bytes, None]
-_EnumRetType = List[Tuple[bytes, str, Union[Set[str], bool]]]
-_PasswordType = Union[Callable[[], Union[str, bytes]], str, bytes]
+_PeerCertRetDictType = Dict[str, str | _PCTRTTT | _PCTRTT]
+_PeerCertRetType = _PeerCertRetDictType | bytes | None
+_EnumRetType = List[Tuple[bytes, str, Set[str] | bool]]
+_PasswordType = Callable[[], str | bytes] | str | bytes
 
-_SrvnmeCbType = Callable[[Union[SSLSocket, SSLObject], Optional[str], SSLSocket], Optional[int]]
+_SrvnmeCbType = Callable[[SSLSocket | SSLObject, str | None, SSLSocket], int | None]
 
 class _Cipher(TypedDict):
     aead: bool

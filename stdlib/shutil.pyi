@@ -46,7 +46,7 @@ else:
 
 def rmtree(path: bytes | StrPath, ignore_errors: bool = ..., onerror: Callable[[Any, Any, Any], Any] | None = ...) -> None: ...
 
-_CopyFn = Union[Callable[[str, str], None], Callable[[StrPath, StrPath], None]]
+_CopyFn = Callable[[str, str], None] | Callable[[StrPath, StrPath], None]
 
 if sys.version_info >= (3, 9):
     def move(src: StrPath, dst: StrPath, copy_function: _CopyFn = ...) -> _PathReturn: ...

@@ -3,7 +3,7 @@ from typing import Any, Pattern, Union
 from yaml.error import MarkedYAMLError
 from yaml.nodes import ScalarNode
 
-_Scalar = Union[str, int, float, bool, None]
+_Scalar = str | int | float | bool | None
 
 class ConstructorError(MarkedYAMLError): ...
 

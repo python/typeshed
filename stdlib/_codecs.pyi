@@ -6,7 +6,7 @@ from typing import Any, Callable, Dict, Tuple, Union
 class _EncodingMap:
     def size(self) -> int: ...
 
-_MapT = Union[Dict[int, int], _EncodingMap]
+_MapT = Dict[int, int] | _EncodingMap
 _Handler = Callable[[Exception], Tuple[str, int]]
 
 def register(__search_function: Callable[[str], Any]) -> None: ...

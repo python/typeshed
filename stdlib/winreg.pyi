@@ -3,7 +3,7 @@ from types import TracebackType
 from typing import Any, Type, Union
 from typing_extensions import final
 
-_KeyType = Union[HKEYType, int]
+_KeyType = HKEYType | int
 
 def CloseKey(__hkey: _KeyType) -> None: ...
 def ConnectRegistry(__computer_name: str | None, __key: _KeyType) -> HKEYType: ...

@@ -19,8 +19,8 @@ class StreamWrapper:
     @property
     def closed(self) -> bool: ...
 
-_WinTermCall = Callable[[Optional[int], bool, bool], None]
-_WinTermCallDict = Dict[int, Union[Tuple[_WinTermCall], Tuple[_WinTermCall, int], Tuple[_WinTermCall, int, bool]]]
+_WinTermCall = Callable[[int | None, bool, bool], None]
+_WinTermCallDict = Dict[int, Tuple[_WinTermCall] | Tuple[_WinTermCall, int] | Tuple[_WinTermCall, int, bool]]
 
 class AnsiToWin32:
     ANSI_CSI_RE: Pattern[str] = ...

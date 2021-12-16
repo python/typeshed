@@ -25,7 +25,7 @@ if sys.version_info >= (3, 9):
 
 _T = TypeVar("_T")
 _MessageT = TypeVar("_MessageT", bound=Message)
-_MessageData = Union[email.message.Message, bytes, str, IO[str], IO[bytes]]
+_MessageData = email.message.Message | bytes | str | IO[str] | IO[bytes]
 
 class _HasIteritems(Protocol):
     def iteritems(self) -> Iterator[tuple[str, _MessageData]]: ...

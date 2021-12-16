@@ -5,7 +5,7 @@ from simplejson.encoder import JSONEncoder as JSONEncoder, JSONEncoderForHTML as
 from simplejson.raw_json import RawJSON as RawJSON
 from simplejson.scanner import JSONDecodeError as JSONDecodeError
 
-_LoadsString = Union[Text, bytes, bytearray]
+_LoadsString = Text | bytes | bytearray
 
 def dumps(obj: Any, *args: Any, **kwds: Any) -> str: ...
 def dump(obj: Any, fp: IO[str], *args: Any, **kwds: Any) -> None: ...

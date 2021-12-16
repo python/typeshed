@@ -3,7 +3,7 @@ from email.mime.base import MIMEBase
 from email.policy import Policy
 from typing import Optional, Sequence, Tuple, Union
 
-_ParamsType = Union[str, None, Tuple[str, Optional[str], str]]
+_ParamsType = str | None | Tuple[str, str | None, str]
 
 class MIMEMultipart(MIMEBase):
     def __init__(

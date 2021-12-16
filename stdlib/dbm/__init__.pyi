@@ -3,8 +3,8 @@ from types import TracebackType
 from typing import Iterator, MutableMapping, Type, Union
 from typing_extensions import Literal
 
-_KeyType = Union[str, bytes]
-_ValueType = Union[str, bytes]
+_KeyType = str | bytes
+_ValueType = str | bytes
 _TFlags = Literal[
     "r",
     "w",

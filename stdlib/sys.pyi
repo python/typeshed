@@ -25,7 +25,7 @@ _T = TypeVar("_T")
 
 # The following type alias are stub-only and do not exist during runtime
 _ExcInfo = Tuple[Type[BaseException], BaseException, TracebackType]
-_OptExcInfo = Union[_ExcInfo, Tuple[None, None, None]]
+_OptExcInfo = _ExcInfo | Tuple[None, None, None]
 
 # Intentionally omits one deprecated and one optional method of `importlib.abc.MetaPathFinder`
 class _MetaPathFinder(Protocol):
@@ -187,7 +187,7 @@ _ProfileFunc = Callable[[FrameType, str, Any], Any]
 def getprofile() -> _ProfileFunc | None: ...
 def setprofile(profilefunc: _ProfileFunc | None) -> None: ...
 
-_TraceFunc = Callable[[FrameType, str, Any], Optional[Callable[[FrameType, str, Any], Any]]]
+_TraceFunc = Callable[[FrameType, str, Any], Callable[[FrameType, str, Any], Any] | None]
 
 def gettrace() -> _TraceFunc | None: ...
 def settrace(tracefunc: _TraceFunc | None) -> None: ...
@@ -237,7 +237,7 @@ if sys.version_info >= (3, 8):
     def addaudithook(hook: Callable[[str, Tuple[Any, ...]], Any]) -> None: ...
     def audit(__event: str, *args: Any) -> None: ...
 
-_AsyncgenHook = Optional[Callable[[AsyncGenerator[Any, Any]], None]]
+_AsyncgenHook = Callable[[AsyncGenerator[Any, Any]], None] | None
 
 class _asyncgen_hooks(Tuple[_AsyncgenHook, _AsyncgenHook]):
     firstiter: _AsyncgenHook

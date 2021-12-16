@@ -58,8 +58,8 @@ class Handlers(IntEnum):
 SIG_DFL: Handlers
 SIG_IGN: Handlers
 
-_SIGNUM = Union[int, Signals]
-_HANDLER = Union[Callable[[int, Optional[FrameType]], Any], int, Handlers, None]
+_SIGNUM = int | Signals
+_HANDLER = Callable[[int, FrameType | None], Any] | int | Handlers | None
 
 def default_int_handler(signum: int, frame: FrameType | None) -> None: ...
 def getsignal(__signalnum: _SIGNUM) -> _HANDLER: ...

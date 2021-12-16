@@ -3,8 +3,8 @@ from types import TracebackType
 from typing import Type, TypeVar, Union, overload
 
 _T = TypeVar("_T")
-_KeyType = Union[str, bytes]
-_ValueType = Union[str, bytes]
+_KeyType = str | bytes
+_ValueType = str | bytes
 
 class error(OSError): ...
 

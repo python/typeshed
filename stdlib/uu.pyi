@@ -1,7 +1,7 @@
 import sys
 from typing import BinaryIO, Union
 
-_File = Union[str, BinaryIO]
+_File = str | BinaryIO
 
 class Error(Exception): ...
 

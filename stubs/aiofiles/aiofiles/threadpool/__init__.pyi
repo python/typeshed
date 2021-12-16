@@ -14,7 +14,7 @@ from ..base import AiofilesContextManager
 from .binary import AsyncBufferedIOBase, AsyncBufferedReader, AsyncFileIO, _UnknownAsyncBinaryIO
 from .text import AsyncTextIOWrapper
 
-_OpenFile = Union[StrOrBytesPath, int]
+_OpenFile = StrOrBytesPath | int
 _Opener = Callable[[str, int], int]
 
 # Text mode: always returns AsyncTextIOWrapper

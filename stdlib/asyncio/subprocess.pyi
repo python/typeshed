@@ -8,7 +8,7 @@ from typing_extensions import Literal
 if sys.version_info >= (3, 8):
     _ExecArg = StrOrBytesPath
 else:
-    _ExecArg = Union[str, bytes]
+    _ExecArg = str | bytes
 
 PIPE: int
 STDOUT: int

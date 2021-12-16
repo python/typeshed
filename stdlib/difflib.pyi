@@ -5,7 +5,7 @@ if sys.version_info >= (3, 9):
     from types import GenericAlias
 
 _T = TypeVar("_T")
-_JunkCallback = Union[Callable[[str], bool], Callable[[str], bool]]
+_JunkCallback = Callable[[str], bool] | Callable[[str], bool]
 
 class Match(NamedTuple):
     a: int

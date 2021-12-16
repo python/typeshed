@@ -45,7 +45,7 @@ U = RegexFlag.U
 UNICODE = RegexFlag.UNICODE
 T = RegexFlag.T
 TEMPLATE = RegexFlag.TEMPLATE
-_FlagsType = Union[int, RegexFlag]
+_FlagsType = int | RegexFlag
 
 if sys.version_info < (3, 7):
     # undocumented

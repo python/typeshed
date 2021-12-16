@@ -1,6 +1,6 @@
 from typing import Any, Iterable, List, Mapping, Optional, Tuple, overload
 
-_Option = Tuple[str, Optional[str], str]
+_Option = Tuple[str, str | None, str]
 _GR = Tuple[List[str], OptionDummy]
 
 def fancy_getopt(

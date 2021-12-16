@@ -34,11 +34,11 @@ if sys.version_info >= (3, 8):
 else:
     Pattern = _State
 
-_OpSubpatternType = Tuple[Optional[int], int, int, SubPattern]
+_OpSubpatternType = Tuple[int | None, int, int, SubPattern]
 _OpGroupRefExistsType = Tuple[int, SubPattern, SubPattern]
 _OpInType = List[Tuple[_NIC, int]]
 _OpBranchType = Tuple[None, List[SubPattern]]
-_AvType = Union[_OpInType, _OpBranchType, Iterable[SubPattern], _OpGroupRefExistsType, _OpSubpatternType]
+_AvType = _OpInType | _OpBranchType | Iterable[SubPattern] | _OpGroupRefExistsType | _OpSubpatternType
 _CodeType = Tuple[_NIC, _AvType]
 
 class SubPattern:
@@ -82,8 +82,8 @@ class Tokenizer:
 
 def fix_flags(src: str | bytes, flags: int) -> int: ...
 
-_TemplateType = Tuple[List[Tuple[int, int]], List[Optional[str]]]
-_TemplateByteType = Tuple[List[Tuple[int, int]], List[Optional[bytes]]]
+_TemplateType = Tuple[List[Tuple[int, int]], List[str | None]]
+_TemplateByteType = Tuple[List[Tuple[int, int]], List[bytes | None]]
 if sys.version_info >= (3, 8):
     def parse(str: str, flags: int = ..., state: State | None = ...) -> SubPattern: ...
     @overload

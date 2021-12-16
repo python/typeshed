@@ -54,7 +54,7 @@ _SemaphoreType = synchronize.Semaphore
 # be identical (modulo self).
 
 # Synchronization primitives
-_LockLike = Union[synchronize.Lock, synchronize.RLock]
+_LockLike = synchronize.Lock | synchronize.RLock
 RawValue = context._default_context.RawValue
 RawArray = context._default_context.RawArray
 Value = context._default_context.Value

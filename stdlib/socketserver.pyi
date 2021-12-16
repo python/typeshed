@@ -5,8 +5,8 @@ from socket import socket as _socket
 from typing import Any, BinaryIO, Callable, ClassVar, Tuple, Type, TypeVar, Union
 
 _T = TypeVar("_T")
-_RequestType = Union[_socket, Tuple[bytes, _socket]]
-_AddressType = Union[Tuple[str, int], str]
+_RequestType = _socket | Tuple[bytes, _socket]
+_AddressType = Tuple[str, int] | str
 
 class BaseServer:
     address_family: int

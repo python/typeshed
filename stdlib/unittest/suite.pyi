@@ -2,7 +2,7 @@ import unittest.case
 import unittest.result
 from typing import Iterable, Iterator, Union
 
-_TestType = Union[unittest.case.TestCase, TestSuite]
+_TestType = unittest.case.TestCase | TestSuite
 
 class BaseTestSuite(Iterable[_TestType]):
     _tests: list[unittest.case.TestCase]

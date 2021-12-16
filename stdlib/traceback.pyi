@@ -3,7 +3,7 @@ from _typeshed import SupportsWrite
 from types import FrameType, TracebackType
 from typing import IO, Any, Generator, Iterable, Iterator, List, Mapping, Optional, Tuple, Type, overload
 
-_PT = Tuple[str, int, str, Optional[str]]
+_PT = Tuple[str, int, str, str | None]
 
 def print_tb(tb: TracebackType | None, limit: int | None = ..., file: IO[str] | None = ...) -> None: ...
 

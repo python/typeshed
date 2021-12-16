@@ -4,7 +4,7 @@ from typing import Any, Dict, Generic, Iterable, Mapping, TypeVar, Union, overlo
 if sys.version_info >= (3, 9):
     from types import GenericAlias
 
-_DataType = Union[str, Mapping[str, Union[str, Morsel[Any]]]]
+_DataType = str | Mapping[str, str | Morsel[Any]]
 _T = TypeVar("_T")
 
 @overload

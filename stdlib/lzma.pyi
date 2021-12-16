@@ -6,7 +6,7 @@ from typing_extensions import Literal, final
 _OpenBinaryWritingMode = Literal["w", "wb", "x", "xb", "a", "ab"]
 _OpenTextWritingMode = Literal["wt", "xt", "at"]
 
-_PathOrFile = Union[StrOrBytesPath, IO[bytes]]
+_PathOrFile = StrOrBytesPath | IO[bytes]
 
 _FilterChain = Sequence[Mapping[str, Any]]
 

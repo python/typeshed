@@ -4,7 +4,7 @@ from typing import Any, Tuple, Union
 
 from pygments.lexer import Lexer, LexerMeta
 
-_OpenFile = Union[StrOrBytesPath, int]  # copy/pasted from builtins.pyi
+_OpenFile = StrOrBytesPath | int  # copy/pasted from builtins.pyi
 
 # TODO: use lower-case tuple once mypy updated
 def get_all_lexers() -> Iterator[tuple[str, Tuple[str, ...], Tuple[str, ...], Tuple[str, ...]]]: ...

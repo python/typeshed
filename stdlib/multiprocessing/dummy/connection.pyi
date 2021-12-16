@@ -5,7 +5,7 @@ from typing import Any, Tuple, Type, Union
 
 families: list[None]
 
-_Address = Union[str, Tuple[str, int]]
+_Address = str | Tuple[str, int]
 
 class Connection(object):
     _in: Any

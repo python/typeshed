@@ -8,11 +8,11 @@ LegacyVersion = Any  # from packaging.version
 Version = Any  # from packaging.version
 
 _T = TypeVar("_T")
-_NestedStr = Union[str, Iterable[Union[str, Iterable[Any]]]]
-_InstallerType = Callable[[Requirement], Optional[Distribution]]
-_EPDistType = Union[Distribution, Requirement, str]
-_MetadataType = Optional[IResourceProvider]
-_PkgReqType = Union[str, Requirement]
+_NestedStr = str | Iterable[str | Iterable[Any]]
+_InstallerType = Callable[[Requirement], Distribution | None]
+_EPDistType = Distribution | Requirement | str
+_MetadataType = IResourceProvider | None
+_PkgReqType = str | Requirement
 _DistFinderType = Callable[[_Importer, str, bool], Generator[Distribution, None, None]]
 _NSHandlerType = Callable[[_Importer, str, str, types.ModuleType], str]
 

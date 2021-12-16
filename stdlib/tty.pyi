@@ -1,6 +1,6 @@
 from typing import IO, Union
 
-_FD = Union[int, IO[str]]
+_FD = int | IO[str]
 
 # XXX: Undocumented integer constants
 IFLAG: int

@@ -43,7 +43,7 @@ class Frame:
     def __init__(self, frame: _FrameTupleT) -> None: ...
 
 if sys.version_info >= (3, 9):
-    _TraceTupleT = Union[Tuple[int, int, Sequence[_FrameTupleT], Optional[int]], Tuple[int, int, Sequence[_FrameTupleT]]]
+    _TraceTupleT = Tuple[int, int, Sequence[_FrameTupleT], int | None] | Tuple[int, int, Sequence[_FrameTupleT]]
 else:
     _TraceTupleT = Tuple[int, int, Sequence[_FrameTupleT]]
 

@@ -23,7 +23,7 @@ def quote_string(value: Any) -> str: ...
 if sys.version_info >= (3, 7):
     rfc2047_matcher: Pattern[str]
 
-class TokenList(List[Union[TokenList, Terminal]]):
+class TokenList(List[TokenList | Terminal]):
     token_type: str | None
     syntactic_break: bool
     ew_combine_allowed: bool

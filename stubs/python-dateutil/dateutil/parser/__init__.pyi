@@ -3,7 +3,7 @@ from typing import IO, Any, Mapping, Text, Union
 
 from .isoparser import isoparse as isoparse, isoparser as isoparser
 
-_FileOrStr = Union[bytes, Text, IO[str], IO[Any]]
+_FileOrStr = bytes | Text | IO[str] | IO[Any]
 
 class parserinfo(object):
     JUMP: list[str]

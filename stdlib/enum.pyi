@@ -19,7 +19,7 @@ _S = TypeVar("_S", bound=Type[Enum])
 # <enum 'Foo'>
 # >>> Enum('Foo', names={'RED': 1, 'YELLOW': 2})
 # <enum 'Foo'>
-_EnumNames = Union[str, Iterable[str], Iterable[Iterable[Union[str, Any]]], Mapping[str, Any]]
+_EnumNames = str | Iterable[str] | Iterable[Iterable[str | Any]] | Mapping[str, Any]
 
 class _EnumDict(Dict[str, Any]):
     def __init__(self) -> None: ...

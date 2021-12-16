@@ -7,7 +7,7 @@ if sys.version_info >= (3, 6):
 elif sys.version_info >= (3, 4):
     import pathlib
 
-    _PathLike = Union[StrPath, pathlib.PurePath]
+    _PathLike = StrPath | pathlib.PurePath
 else:
     _PathLike = StrPath
 

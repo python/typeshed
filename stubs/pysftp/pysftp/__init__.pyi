@@ -31,7 +31,7 @@ class CnOpts:
     def get_hostkey(self, host: str) -> paramiko.PKey: ...
 
 _Callback = Callable[[int, int], Any]
-_Path = Union[Text, bytes]
+_Path = Text | bytes
 
 class Connection:
     def __init__(

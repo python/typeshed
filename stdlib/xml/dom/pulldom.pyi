@@ -14,8 +14,8 @@ PROCESSING_INSTRUCTION: Literal["PROCESSING_INSTRUCTION"]
 IGNORABLE_WHITESPACE: Literal["IGNORABLE_WHITESPACE"]
 CHARACTERS: Literal["CHARACTERS"]
 
-_DocumentFactory = Union[DOMImplementation, None]
-_Node = Union[Document, Element, Text]
+_DocumentFactory = DOMImplementation | None
+_Node = Document | Element | Text
 
 _Event = Tuple[
     Literal[

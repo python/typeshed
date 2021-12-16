@@ -9,11 +9,11 @@ from types import FrameType, TracebackType
 from typing import Any, ClassVar, Generic, Optional, Pattern, TextIO, Tuple, Type, TypeVar, Union, overload
 from typing_extensions import Literal
 
-_SysExcInfoType = Union[Tuple[Type[BaseException], BaseException, Optional[TracebackType]], Tuple[None, None, None]]
-_ExcInfoType = Union[None, bool, _SysExcInfoType, BaseException]
-_ArgsType = Union[Tuple[object, ...], Mapping[str, object]]
-_FilterType = Union[Filter, Callable[[LogRecord], int]]
-_Level = Union[int, str]
+_SysExcInfoType = Tuple[Type[BaseException], BaseException, TracebackType | None] | Tuple[None, None, None]
+_ExcInfoType = None | bool | _SysExcInfoType | BaseException
+_ArgsType = Tuple[object, ...] | Mapping[str, object]
+_FilterType = Filter | Callable[[LogRecord], int]
+_Level = int | str
 _FormatStyle = Literal["%", "{", "$"]
 
 raiseExceptions: bool

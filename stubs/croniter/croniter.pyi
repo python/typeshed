@@ -2,7 +2,7 @@ import datetime
 from typing import Any, Iterator, Text, Tuple, Type, TypeVar, Union
 from typing_extensions import Literal
 
-_RetType = Union[Type[float], Type[datetime.datetime]]
+_RetType = Type[float] | Type[datetime.datetime]
 _SelfT = TypeVar("_SelfT", bound=croniter)
 
 class CroniterError(ValueError): ...

@@ -1173,7 +1173,7 @@ def next(__i: SupportsNext[_T]) -> _T: ...
 def next(__i: SupportsNext[_T], __default: _VT) -> _T | _VT: ...
 def oct(__number: int | SupportsIndex) -> str: ...
 
-_OpenFile = Union[StrOrBytesPath, int]
+_OpenFile = StrOrBytesPath | int
 _Opener = Callable[[str, int], int]
 
 # Text mode: always returns a TextIOWrapper
@@ -1292,7 +1292,7 @@ class _SupportsPow3NoneOnly(Protocol[_E, _T_co]):
 class _SupportsPow3(Protocol[_E, _M, _T_co]):
     def __pow__(self, __other: _E, __modulo: _M) -> _T_co: ...
 
-_SupportsSomeKindOfPow = Union[_SupportsPow2[Any, Any], _SupportsPow3NoneOnly[Any, Any], _SupportsPow3[Any, Any, Any]]
+_SupportsSomeKindOfPow = _SupportsPow2[Any, Any] | _SupportsPow3NoneOnly[Any, Any] | _SupportsPow3[Any, Any, Any]
 
 if sys.version_info >= (3, 8):
     @overload

@@ -20,7 +20,7 @@ from typing import (
 from typing_extensions import Literal, SupportsIndex
 
 _T = TypeVar("_T")
-_File = Union[StrOrBytesPath, FileDescriptor, IO[Any]]
+_File = StrOrBytesPath | FileDescriptor | IO[Any]
 
 VERSION: str
 

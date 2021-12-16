@@ -4,7 +4,7 @@ from typing import IO, Any, Callable, Optional, Sequence, Tuple, Union
 
 from . import events, futures, protocols, transports
 
-_File = Optional[Union[int, IO[Any]]]
+_File = int | IO[Any] | None
 
 class BaseSubprocessTransport(transports.SubprocessTransport):
 

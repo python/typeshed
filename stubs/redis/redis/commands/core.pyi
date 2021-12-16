@@ -6,7 +6,7 @@ from typing_extensions import Literal
 from ..client import _Key, _Value
 
 _ScoreCastFuncReturn = TypeVar("_ScoreCastFuncReturn")
-_StrType = TypeVar("_StrType", bound=Union[str, bytes])
+_StrType = TypeVar("_StrType", bound=str | bytes)
 
 class CoreCommands(Generic[_StrType]):
     def acl_cat(self, category: str | None = ...) -> list[str]: ...

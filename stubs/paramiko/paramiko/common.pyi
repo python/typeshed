@@ -109,7 +109,7 @@ else:
 class _SupportsAsBytes(Protocol):
     def asbytes(self) -> bytes: ...
 
-_LikeBytes = Union[bytes, Text, _SupportsAsBytes]
+_LikeBytes = bytes | Text | _SupportsAsBytes
 
 def asbytes(s: _LikeBytes) -> bytes: ...
 
