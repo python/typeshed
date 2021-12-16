@@ -1,4 +1,4 @@
-from tkinter import Canvas, PhotoImage
+from tkinter import Canvas, Frame, PhotoImage
 from typing import Any, Callable, Dict, Sequence, Tuple, TypeVar, Union, overload
 
 # Note: '_Color' is the alias we use for arguments and _AnyColor is the
@@ -17,6 +17,8 @@ _PolygonCoords = Sequence[Tuple[float, float]]
 # TODO: Type this more accurately
 # Vec2D is actually a custom subclass of 'tuple'.
 Vec2D = Tuple[float, float]
+
+class ScrolledCanvas(Frame): ...
 
 class TurtleScreenBase(object):
     cv: Canvas
@@ -206,6 +208,7 @@ class TPen(object):
 _T = TypeVar("_T")
 
 class RawTurtle(TPen, TNavigator):
+    screens: list[ScrolledCanvas | Canvas | TurtleScreen]
     def __init__(
         self, canvas: Canvas | TurtleScreen | None = ..., shape: str = ..., undobuffersize: int = ..., visible: bool = ...
     ) -> None: ...
