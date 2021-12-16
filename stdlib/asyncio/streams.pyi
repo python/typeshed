@@ -1,6 +1,6 @@
 import sys
 from _typeshed import StrPath
-from typing import Any, AsyncIterator, Awaitable, Callable, Iterable, 
+from typing import Any, AsyncIterator, Awaitable, Callable, Iterable
 
 from . import events, protocols, transports
 from .base_events import Server

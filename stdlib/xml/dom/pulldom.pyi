@@ -1,5 +1,5 @@
 import sys
-from typing import IO, Any, Sequence, Tuple, 
+from typing import IO, Any, Sequence, Tuple
 from typing_extensions import Literal
 from xml.dom.minidom import Document, DOMImplementation, Element, Text
 from xml.sax.handler import ContentHandler

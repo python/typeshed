@@ -2,7 +2,7 @@ import sys
 import types
 from _typeshed import Self
 from socket import socket as _socket
-from typing import Any, BinaryIO, Callable, ClassVar, Tuple, Type, TypeVar, 
+from typing import Any, BinaryIO, Callable, ClassVar, Tuple, Type, TypeVar
 
 _T = TypeVar("_T")
 _RequestType = _socket | Tuple[bytes, _socket]

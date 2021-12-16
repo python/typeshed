@@ -1,5 +1,5 @@
 from _typeshed import SupportsItems
-from typing import IO, Any, Callable, Iterable, List, Mapping, MutableMapping,  Text, Tuple, TypeVar, 
+from typing import IO, Any, Callable, Iterable, List, Mapping, MutableMapping,  Text, Tuple, TypeVar
 
 from . import adapters, auth as _auth, compat, cookies, exceptions, hooks, models, status_codes, structures, utils
 from .models import Response

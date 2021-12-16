@@ -1,7 +1,7 @@
 from email.message import Message
 from email.mime.base import MIMEBase
 from email.policy import Policy
-from typing import  Sequence, Tuple, 
+from typing import  Sequence, Tuple
 
 _ParamsType = str | None | Tuple[str, str | None, str]
 

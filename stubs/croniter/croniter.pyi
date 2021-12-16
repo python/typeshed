@@ -1,5 +1,5 @@
 import datetime
-from typing import Any, Iterator, Text, Tuple, Type, TypeVar, 
+from typing import Any, Iterator, Text, Tuple, Type, TypeVar
 from typing_extensions import Literal
 
 _RetType = Type[float] | Type[datetime.datetime]

@@ -1,5 +1,5 @@
 import sys
-from typing import SupportsComplex, SupportsFloat, 
+from typing import SupportsComplex, SupportsFloat
 
 if sys.version_info >= (3, 8):
     from typing import SupportsIndex

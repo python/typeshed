@@ -1,4 +1,4 @@
-from typing import IO, 
+from typing import IO
 
 _FD = int | IO[str]
 

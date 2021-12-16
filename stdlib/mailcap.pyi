@@ -1,4 +1,4 @@
-from typing import Dict, Mapping, Sequence, 
+from typing import Dict, Mapping, Sequence
 
 _Cap = Dict[str, str | int]
 

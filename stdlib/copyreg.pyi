@@ -1,4 +1,4 @@
-from typing import Any, Callable, Hashable,  SupportsInt, Tuple, TypeVar, 
+from typing import Any, Callable, Hashable,  SupportsInt, Tuple, TypeVar
 
 _TypeT = TypeVar("_TypeT", bound=type)
 _Reduce = Tuple[Callable[..., _TypeT], Tuple[Any, ...]] | Tuple[Callable[..., _TypeT], Tuple[Any, ...], Any | None]

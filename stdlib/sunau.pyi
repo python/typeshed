@@ -1,6 +1,6 @@
 import sys
 from _typeshed import Self
-from typing import IO, Any, NamedTuple, NoReturn, 
+from typing import IO, Any, NamedTuple, NoReturn
 
 _File = str | IO[bytes]
 

@@ -1,5 +1,5 @@
 from lib2to3.pgen2.grammar import Grammar
-from typing import Any, Callable, Dict, Iterator, List,  Tuple, TypeVar, 
+from typing import Any, Callable, Dict, Iterator, List,  Tuple, TypeVar
 
 _P = TypeVar("_P")
 _NL = Node | Leaf

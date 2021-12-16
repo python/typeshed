@@ -1,6 +1,6 @@
 from stat import S_IMODE as S_IMODE
 from types import TracebackType
-from typing import IO, Any, Callable, ContextManager, Sequence, Text, Type, 
+from typing import IO, Any, Callable, ContextManager, Sequence, Text, Type
 from typing_extensions import Literal
 
 import paramiko

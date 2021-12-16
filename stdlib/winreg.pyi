@@ -1,6 +1,6 @@
 from _typeshed import Self
 from types import TracebackType
-from typing import Any, Type, 
+from typing import Any, Type
 from typing_extensions import final
 
 _KeyType = HKEYType | int

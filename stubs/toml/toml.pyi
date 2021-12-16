@@ -1,6 +1,6 @@
 import sys
 from _typeshed import StrPath, SupportsWrite
-from typing import IO, Any, Mapping, MutableMapping, Text, Type, 
+from typing import IO, Any, Mapping, MutableMapping, Text, Type
 
 if sys.version_info >= (3, 6):
     _PathLike = StrPath

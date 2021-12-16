@@ -16,7 +16,7 @@ from opcode import (
     opname as opname,
     stack_effect as stack_effect,
 )
-from typing import IO, Any, Callable, Iterator, NamedTuple, 
+from typing import IO, Any, Callable, Iterator, NamedTuple
 
 # Strictly this should not have to include Callable, but mypy doesn't use FunctionType
 # for functions (python/mypy#3171)

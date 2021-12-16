@@ -1,5 +1,5 @@
 from _typeshed import FileDescriptorLike
-from typing import Any, List, 
+from typing import Any, List
 
 _Attr = List[int | List[bytes | int]]
 

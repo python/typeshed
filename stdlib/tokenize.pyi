@@ -2,7 +2,7 @@ import sys
 from _typeshed import StrOrBytesPath
 from builtins import open as _builtin_open
 from token import *  # noqa: F403
-from typing import Any, Callable, Generator, Iterable, NamedTuple, Pattern, Sequence, TextIO, Tuple, 
+from typing import Any, Callable, Generator, Iterable, NamedTuple, Pattern, Sequence, TextIO, Tuple
 
 if sys.version_info < (3, 7):
     COMMENT: int

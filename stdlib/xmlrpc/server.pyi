@@ -3,7 +3,7 @@ import pydoc
 import socketserver
 import sys
 from datetime import datetime
-from typing import Any, Callable, Dict, Iterable, List, Mapping, Pattern, Protocol, Tuple, Type, 
+from typing import Any, Callable, Dict, Iterable, List, Mapping, Pattern, Protocol, Tuple, Type
 from xmlrpc.client import Fault
 
 # TODO: Recursive type on tuple, list, dict

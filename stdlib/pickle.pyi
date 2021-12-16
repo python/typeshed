@@ -1,5 +1,5 @@
 import sys
-from typing import Any, Callable, ClassVar, Iterable, Iterator, Mapping,  Protocol, Tuple, Type, 
+from typing import Any, Callable, ClassVar, Iterable, Iterator, Mapping,  Protocol, Tuple, Type
 from typing_extensions import final
 
 HIGHEST_PROTOCOL: int

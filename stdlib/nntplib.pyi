@@ -3,7 +3,7 @@ import socket
 import ssl
 import sys
 from _typeshed import Self
-from typing import IO, Any, Iterable, NamedTuple, Tuple, 
+from typing import IO, Any, Iterable, NamedTuple, Tuple
 
 _File = IO[bytes] | bytes | str | None
 

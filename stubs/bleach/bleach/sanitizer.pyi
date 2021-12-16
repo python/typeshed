@@ -1,5 +1,5 @@
 from collections.abc import Callable, Container, Iterable
-from typing import Any, Dict, List, Pattern, 
+from typing import Any, Dict, List, Pattern
 
 from .html5lib_shim import BleachHTMLParser, BleachHTMLSerializer, SanitizerFilter
 

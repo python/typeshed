@@ -1,6 +1,6 @@
 import email.message
 from email.policy import Policy
-from typing import  Tuple, 
+from typing import  Tuple
 
 _ParamsType = str | None | Tuple[str, str | None, str]
 

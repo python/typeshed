@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Any, Callable, Iterable, Sequence, Text, Tuple, 
+from typing import Any, Callable, Iterable, Sequence, Text, Tuple
 
 from cryptography.hazmat.primitives.asymmetric.dsa import DSAPrivateKey, DSAPublicKey
 from cryptography.hazmat.primitives.asymmetric.rsa import RSAPrivateKey, RSAPublicKey
