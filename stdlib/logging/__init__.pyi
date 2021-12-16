@@ -15,6 +15,7 @@ _ArgsType = Union[Tuple[object, ...], Mapping[str, object]]
 _FilterType = Union[Filter, Callable[[LogRecord], int]]
 _Level = Union[int, str]
 _FormatStyle = Literal["%", "{", "$"]
+_LoggerType = TypeVar("_LoggerType", bound=Logger)
 
 raiseExceptions: bool
 logThreads: bool
@@ -59,7 +60,7 @@ class Logger(Filterer):
     def setLevel(self, level: _Level) -> None: ...
     def isEnabledFor(self, level: int) -> bool: ...
     def getEffectiveLevel(self) -> int: ...
-    def getChild(self, suffix: str) -> Logger: ...
+    def getChild(self: _LoggerType, suffix: str) -> _LoggerType: ...
     if sys.version_info >= (3, 8):
         def debug(
             self,
