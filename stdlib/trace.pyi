@@ -1,7 +1,7 @@
 import sys
 import types
 from _typeshed import StrPath
-from typing import Any, Callable, Mapping, Optional, Sequence, Tuple, TypeVar
+from typing import Any, Callable, Mapping,  Sequence, Tuple, TypeVar
 from typing_extensions import ParamSpec
 
 _T = TypeVar("_T")

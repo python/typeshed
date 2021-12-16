@@ -1,7 +1,7 @@
 import os
 import sys
 from _typeshed import StrOrBytesPath, StrPath, SupportsRead, SupportsWrite
-from typing import Any, AnyStr, Callable, Iterable, NamedTuple, Sequence, TypeVar, Union, overload
+from typing import Any, AnyStr, Callable, Iterable, NamedTuple, Sequence, TypeVar,  overload
 
 _PathT = TypeVar("_PathT", str, os.PathLike[str])
 # Return value of some functions that may either return a path-like object that was passed in or

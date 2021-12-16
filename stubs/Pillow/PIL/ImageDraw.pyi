@@ -1,5 +1,5 @@
 from collections.abc import Container
-from typing import Any, Sequence, Tuple, Union, overload
+from typing import Any, Sequence, Tuple,  overload
 from typing_extensions import Literal
 
 from .Image import Image

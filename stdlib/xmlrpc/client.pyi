@@ -6,7 +6,7 @@ from _typeshed import Self, SupportsRead, SupportsWrite
 from datetime import datetime
 from io import BytesIO
 from types import TracebackType
-from typing import Any, Callable, Dict, Iterable, List, Mapping, Protocol, Tuple, Type, Union, overload
+from typing import Any, Callable, Dict, Iterable, List, Mapping, Protocol, Tuple, Type,  overload
 from typing_extensions import Literal
 
 class _SupportsTimeTuple(Protocol):

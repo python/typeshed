@@ -1,7 +1,7 @@
 import datetime
 import sys
 from time import struct_time
-from typing import Any, Iterable, Optional, Sequence, Tuple
+from typing import Any, Iterable,  Sequence, Tuple
 
 _LocaleType = Tuple[str | None, str | None]
 

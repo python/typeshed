@@ -1,4 +1,4 @@
-from typing import IO, Any, Callable, Sequence, Union
+from typing import IO, Any, Callable, Sequence, 
 
 _Timer = Callable[[], float]
 _Stmt = str | Callable[[], Any]

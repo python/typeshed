@@ -1,6 +1,6 @@
 from _typeshed import SupportsRead
 from collections.abc import Mapping, Sequence
-from typing import IO, Any, Union
+from typing import IO, Any, 
 
 from ._yaml import CEmitter, CParser
 from .constructor import BaseConstructor, FullConstructor, SafeConstructor, UnsafeConstructor

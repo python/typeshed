@@ -1,4 +1,4 @@
-from typing import Any, Callable, Optional, Tuple, Union
+from typing import Any, Callable,  Tuple, 
 
 _Macro = Tuple[str] | Tuple[str, str | None]
 

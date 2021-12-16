@@ -2,7 +2,7 @@ import sys
 from _typeshed import SupportsRichComparisonT
 from decimal import Decimal
 from fractions import Fraction
-from typing import Any, Hashable, Iterable, NamedTuple, Sequence, SupportsFloat, Type, TypeVar, Union
+from typing import Any, Hashable, Iterable, NamedTuple, Sequence, SupportsFloat, Type, TypeVar, 
 
 _T = TypeVar("_T")
 # Most functions in this module accept homogeneous collections of one of these types

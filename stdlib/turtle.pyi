@@ -1,5 +1,5 @@
 from tkinter import Canvas, Frame, PhotoImage
-from typing import Any, Callable, ClassVar, Dict, Sequence, Tuple, TypeVar, Union, overload
+from typing import Any, Callable, ClassVar, Dict, Sequence, Tuple, TypeVar,  overload
 
 # Note: '_Color' is the alias we use for arguments and _AnyColor is the
 # alias we use for return types. Really, these two aliases should be the

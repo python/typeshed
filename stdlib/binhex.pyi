@@ -1,4 +1,4 @@
-from typing import IO, Any, Tuple, Union
+from typing import IO, Any, Tuple, 
 
 class Error(Exception): ...
 

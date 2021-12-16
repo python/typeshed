@@ -1,5 +1,5 @@
 from _typeshed import StrOrBytesPath
-from typing import Optional, Tuple
+from typing import  Tuple
 
 class NetrcParseError(Exception):
     filename: str | None

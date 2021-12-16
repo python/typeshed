@@ -1,6 +1,6 @@
 from _typeshed import SupportsRead
 from datetime import date, datetime, time, tzinfo
-from typing import Text, Union
+from typing import Text, 
 
 _Readable = SupportsRead[Text | bytes]
 _TakesAscii = Text | bytes | _Readable

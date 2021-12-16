@@ -1,7 +1,7 @@
 import datetime
 import sys
 from email.charset import Charset
-from typing import Optional, Tuple, Union, overload
+from typing import  Tuple,  overload
 
 _ParamType = str | Tuple[str | None, str | None, str]
 _PDTZ = Tuple[int, int, int, int, int, int, int, int, int, int | None]

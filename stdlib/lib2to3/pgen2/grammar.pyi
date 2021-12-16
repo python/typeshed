@@ -1,5 +1,5 @@
 from _typeshed import StrPath
-from typing import Dict, List, Optional, Tuple, TypeVar
+from typing import Dict, List,  Tuple, TypeVar
 
 _P = TypeVar("_P")
 _Label = Tuple[int, str | None]

@@ -1,6 +1,6 @@
 import numbers
 from types import TracebackType
-from typing import Any, Container, NamedTuple, Sequence, Tuple, Type, TypeVar, Union, overload
+from typing import Any, Container, NamedTuple, Sequence, Tuple, Type, TypeVar,  overload
 
 _Decimal = Decimal | int
 _DecimalNew = Decimal | float | str | Tuple[int, Sequence[int], int]

@@ -32,7 +32,7 @@ from typing import (
     Sequence,
     Tuple,
     TypeVar,
-    Union,
+    
     overload,
     runtime_checkable,
 )

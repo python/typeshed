@@ -1,4 +1,4 @@
-from typing import Any, Dict, NamedTuple, Tuple, Union
+from typing import Any, Dict, NamedTuple, Tuple, 
 from typing_extensions import Literal
 
 class _TagInfo(NamedTuple):

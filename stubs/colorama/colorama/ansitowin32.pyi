@@ -1,6 +1,6 @@
 import sys
 from _typeshed import SupportsWrite
-from typing import Any, Callable, Dict, Optional, Pattern, Sequence, TextIO, Tuple, Union
+from typing import Any, Callable, Dict,  Pattern, Sequence, TextIO, Tuple, 
 
 if sys.platform == "win32":
     from .winterm import WinTerm

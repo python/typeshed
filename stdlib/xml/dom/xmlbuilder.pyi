@@ -1,4 +1,4 @@
-from typing import Any, NoReturn, Optional
+from typing import Any, NoReturn, 
 from typing_extensions import Literal
 from urllib.request import OpenerDirector
 from xml.dom.expatbuilder import ExpatBuilder, ExpatBuilderNS

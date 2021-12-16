@@ -1,5 +1,5 @@
 import sys
-from typing import IO, Any, BinaryIO, NamedTuple, Union, overload
+from typing import IO, Any, BinaryIO, NamedTuple,  overload
 
 _chtype = str | bytes | int
 

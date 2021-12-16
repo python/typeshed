@@ -1,4 +1,4 @@
-from typing import IO, Any, Text, Union
+from typing import IO, Any, Text, 
 
 from simplejson.decoder import JSONDecoder as JSONDecoder
 from simplejson.encoder import JSONEncoder as JSONEncoder, JSONEncoderForHTML as JSONEncoderForHTML

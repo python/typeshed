@@ -2,7 +2,7 @@ import datetime
 import time
 from collections.abc import Callable, Mapping, Sequence
 from decimal import Decimal
-from typing import Any, Optional, Type, TypeVar
+from typing import Any,  Type, TypeVar
 
 _EscaperMapping = Mapping[Type[object], Callable[..., str]] | None
 _T = TypeVar("_T")

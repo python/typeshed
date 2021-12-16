@@ -2,7 +2,7 @@ import sys
 import threading
 from contextlib import AbstractContextManager
 from multiprocessing.context import BaseContext
-from typing import Any, Callable, Union
+from typing import Any, Callable, 
 
 _LockLike = Lock | RLock
 

@@ -2,7 +2,7 @@ import enum
 import socket
 import sys
 from _typeshed import ReadableBuffer, Self, StrOrBytesPath, WriteableBuffer
-from typing import Any, Callable, ClassVar, Dict, Iterable, List, NamedTuple, Optional, Set, Tuple, Type, Union, overload
+from typing import Any, Callable, ClassVar, Dict, Iterable, List, NamedTuple,  Set, Tuple, Type,  overload
 from typing_extensions import Literal, TypedDict
 
 _PCTRTT = Tuple[Tuple[str, str], ...]

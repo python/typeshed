@@ -1,6 +1,6 @@
 import subprocess
 from collections import deque
-from typing import IO, Any, Callable, Optional, Sequence, Tuple, Union
+from typing import IO, Any, Callable,  Sequence, Tuple, 
 
 from . import events, futures, protocols, transports
 

@@ -1,6 +1,6 @@
 from _typeshed import StrOrBytesPath, StrPath
 from collections.abc import Iterator
-from typing import Any, Tuple, Union
+from typing import Any, Tuple, 
 
 from pygments.lexer import Lexer, LexerMeta
 

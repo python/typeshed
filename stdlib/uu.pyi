@@ -1,5 +1,5 @@
 import sys
-from typing import BinaryIO, Union
+from typing import BinaryIO, 
 
 _File = str | BinaryIO
 

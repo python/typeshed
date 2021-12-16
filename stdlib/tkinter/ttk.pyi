@@ -2,7 +2,7 @@ import _tkinter
 import sys
 import tkinter
 from tkinter.font import _FontDescription
-from typing import Any, Callable, Tuple, Union, overload
+from typing import Any, Callable, Tuple,  overload
 from typing_extensions import Literal, TypedDict
 
 def tclobjs_to_py(adict): ...

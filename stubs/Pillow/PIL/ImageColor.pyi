@@ -1,4 +1,4 @@
-from typing import Tuple, Union
+from typing import Tuple, 
 
 _RGB = Tuple[int, int, int] | Tuple[int, int, int, int]
 _Ink = str | int | _RGB

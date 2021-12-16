@@ -1,5 +1,5 @@
 from datetime import datetime, tzinfo
-from typing import IO, Any, Mapping, Text, Union
+from typing import IO, Any, Mapping, Text, 
 
 from .isoparser import isoparse as isoparse, isoparser as isoparser
 

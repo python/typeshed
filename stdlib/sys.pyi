@@ -9,14 +9,14 @@ from typing import (
     AsyncGenerator,
     Callable,
     NoReturn,
-    Optional,
+    
     Protocol,
     Sequence,
     TextIO,
     Tuple,
     Type,
     TypeVar,
-    Union,
+    
     overload,
 )
 from typing_extensions import Literal

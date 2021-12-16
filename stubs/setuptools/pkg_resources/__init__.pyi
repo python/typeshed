@@ -2,7 +2,7 @@ import importlib.abc
 import types
 import zipimport
 from abc import ABCMeta
-from typing import IO, Any, Callable, Generator, Iterable, Optional, Sequence, Tuple, TypeVar, Union, overload
+from typing import IO, Any, Callable, Generator, Iterable,  Sequence, Tuple, TypeVar,  overload
 
 LegacyVersion = Any  # from packaging.version
 Version = Any  # from packaging.version

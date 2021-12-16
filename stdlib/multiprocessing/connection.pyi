@@ -2,7 +2,7 @@ import socket
 import sys
 import types
 from _typeshed import Self
-from typing import Any, Iterable, Tuple, Type, Union
+from typing import Any, Iterable, Tuple, Type, 
 
 if sys.version_info >= (3, 8):
     from typing import SupportsIndex
