@@ -9,17 +9,17 @@ ROMAN: Literal["roman"]
 BOLD: Literal["bold"]
 ITALIC: Literal["italic"]
 
-_FontDescription = Union[
+_FontDescription = (
     # "Helvetica 12"
-    str,
+    str
     # A font object constructed in Python
-    Font,
+    | Font
     # ("Helvetica", 12, BOLD)
-    List[Any],
-    Tuple[Any, ...],
+    | List[Any]
+    | Tuple[Any, ...]
     # A font object constructed in Tcl
-    _tkinter.Tcl_Obj,
-]
+    | _tkinter.Tcl_Obj
+)
 
 class _FontDict(TypedDict):
     family: str

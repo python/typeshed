@@ -9,7 +9,7 @@ _T = TypeVar("_T")
 _PayloadType = List[Message] | str | bytes
 _CharsetType = Charset | str | None
 _ParamsType = str | None | Tuple[str, str | None, str]
-_ParamType = str | Tuple[Optional[str], Optional[str], str]
+_ParamType = str | Tuple[str | None, str | None, str]
 _HeaderType = Any
 
 class Message:

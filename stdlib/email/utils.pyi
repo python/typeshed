@@ -3,7 +3,7 @@ import sys
 from email.charset import Charset
 from typing import Optional, Tuple, Union, overload
 
-_ParamType = str | Tuple[Optional[str], Optional[str], str]
+_ParamType = str | Tuple[str | None, str | None, str]
 _PDTZ = Tuple[int, int, int, int, int, int, int, int, int, int | None]
 
 def quote(str: str) -> str: ...

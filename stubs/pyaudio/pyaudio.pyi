@@ -70,7 +70,7 @@ paMacCoreStreamInfo: PaMacCoreStreamInfo
 _ChannelMap = Sequence[int]
 _PaHostApiInfo = Mapping[str, str | int]
 _PaDeviceInfo = Mapping[str, str | int | float]
-_StreamCallback = Callable[[Optional[bytes], int, Mapping[str, float], int], Tuple[Optional[bytes], int]]
+_StreamCallback = Callable[[bytes | None, int, Mapping[str, float], int], Tuple[bytes | None, int]]
 
 def get_format_from_width(width: int, unsigned: bool = ...) -> int: ...
 def get_portaudio_version() -> int: ...

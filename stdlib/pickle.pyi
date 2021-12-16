@@ -56,13 +56,7 @@ class PickleError(Exception): ...
 class PicklingError(PickleError): ...
 class UnpicklingError(PickleError): ...
 
-_reducedtype = Union[
-    str,
-    Tuple[Callable[..., Any], Tuple[Any, ...]],
-    Tuple[Callable[..., Any], Tuple[Any, ...], Any],
-    Tuple[Callable[..., Any], Tuple[Any, ...], Any, Iterator[Any] | None],
-    Tuple[Callable[..., Any], Tuple[Any, ...], Any, Optional[Iterator[Any]], Optional[Iterator[Any]]],
-]
+_reducedtype = str | Tuple[Callable[..., Any], Tuple[Any, ...]] | Tuple[Callable[..., Any], Tuple[Any, ...], Any] | Tuple[Callable[..., Any], Tuple[Any, ...], Any, Iterator[Any] | None]|     Tuple[Callable[..., Any], Tuple[Any, ...], Any, Iterator[Any] | None, Iterator[Any] | None]
 
 class Pickler:
     fast: bool

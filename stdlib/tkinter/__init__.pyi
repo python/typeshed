@@ -91,22 +91,21 @@ _CanvasItemId = int
 _Color = str  # typically '#rrggbb', '#rgb' or color names.
 _Compound = Literal["top", "left", "center", "right", "bottom", "none"]  # -compound in manual page named 'options'
 _Cursor = str | Tuple[str] | Tuple[str, str] | Tuple[str, str, str] | Tuple[str, str, str, str]  # manual page: Tk_GetCursor
-_EntryValidateCommand = Union[
-    Callable[[], bool], str, List[str], Tuple[str, ...]
-]  # example when it's sequence:  entry['invalidcommand'] = [entry.register(print), '%P']
-_GridIndex = Union[int, str, Literal["all"]]
+# Example:  entry['invalidcommand'] = [entry.register(print), '%P']
+_EntryValidateCommand =    Callable[[], bool]| str| List[str]| Tuple[str, ...]
+_GridIndex = int | str| Literal["all"]
 _ImageSpec = _Image | str  # str can be from e.g. tkinter.image_names()
-_Padding = Union[
-    _ScreenUnits,
-    Tuple[_ScreenUnits],
-    Tuple[_ScreenUnits, _ScreenUnits],
-    Tuple[_ScreenUnits, _ScreenUnits, _ScreenUnits],
-    Tuple[_ScreenUnits, _ScreenUnits, _ScreenUnits, _ScreenUnits],
-]
+_Padding = (
+    _ScreenUnits
+    |Tuple[_ScreenUnits]
+    |Tuple[_ScreenUnits, _ScreenUnits]
+    |Tuple[_ScreenUnits, _ScreenUnits, _ScreenUnits]
+    |Tuple[_ScreenUnits, _ScreenUnits, _ScreenUnits, _ScreenUnits]
+)
 _Relief = Literal["raised", "sunken", "flat", "ridge", "solid", "groove"]  # manual page: Tk_GetRelief
 _ScreenUnits = str | float  # manual page: Tk_GetPixels
 _XYScrollCommand = str | Callable[[float, float], Any]  # -xscrollcommand and -yscrollcommand in 'options' manual page
-_TakeFocusValue = Union[int, Literal[""], Callable[[str], bool | None]]  # -takefocus in manual page named 'options'
+_TakeFocusValue = int | Literal[""] | Callable[[str], bool | None]  # -takefocus in manual page named 'options'
 
 class EventType(str, Enum):
     Activate: str

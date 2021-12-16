@@ -3,7 +3,7 @@ import sys
 from time import struct_time
 from typing import Any, Iterable, Optional, Sequence, Tuple
 
-_LocaleType = Tuple[Optional[str], Optional[str]]
+_LocaleType = Tuple[str | None, str | None]
 
 class IllegalMonthError(ValueError):
     def __init__(self, month: int) -> None: ...

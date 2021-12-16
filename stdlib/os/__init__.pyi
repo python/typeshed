@@ -773,17 +773,8 @@ def execlpe(file: StrOrBytesPath, __arg0: StrOrBytesPath, *args: Any) -> NoRetur
 # Not separating out PathLike[str] and PathLike[bytes] here because it doesn't make much difference
 # in practice, and doing so would explode the number of combinations in this already long union.
 # All these combinations are necessary due to list being invariant.
-_ExecVArgs = Union[
-    Tuple[StrOrBytesPath, ...],
-    List[bytes],
-    List[str],
-    List[PathLike[Any]],
-    List[bytes | str],
-    List[bytes | PathLike[Any]],
-    List[str | PathLike[Any]],
-    List[bytes | str | PathLike[Any]],
-]
-_ExecEnv = Mapping[bytes, Union[bytes, str]] | Mapping[str, Union[bytes, str]]
+_ExecVArgs =     Tuple[StrOrBytesPath, ...]|    List[bytes]|    List[str]|    List[PathLike[Any]]|    List[bytes | str]|    List[bytes | PathLike[Any]]|    List[str | PathLike[Any]]|    List[bytes | str | PathLike[Any]]
+_ExecEnv = Mapping[bytes, bytes | str] | Mapping[str, bytes | str]
 
 def execv(__path: StrOrBytesPath, __argv: _ExecVArgs) -> NoReturn: ...
 def execve(path: _FdOrAnyPath, argv: _ExecVArgs, env: _ExecEnv) -> NoReturn: ...

@@ -51,12 +51,7 @@ _HooksInput = MutableMapping[Text, Iterable[_Hook] | _Hook]
 
 _ParamsMappingKeyType = Text | bytes | int | float
 _ParamsMappingValueType = Text | bytes | int | float | Iterable[Text | bytes | int | float] | None
-_Params = Union[
-    SupportsItems[_ParamsMappingKeyType, _ParamsMappingValueType],
-    Tuple[_ParamsMappingKeyType, _ParamsMappingValueType],
-    Iterable[Tuple[_ParamsMappingKeyType, _ParamsMappingValueType]],
-    Text | bytes,
-]
+_Params =     SupportsItems[_ParamsMappingKeyType, _ParamsMappingValueType]|    Tuple[_ParamsMappingKeyType, _ParamsMappingValueType]|    Iterable[Tuple[_ParamsMappingKeyType, _ParamsMappingValueType]]|    Text | bytes
 _TextMapping = MutableMapping[Text, Text]
 _SessionT = TypeVar("_SessionT", bound=Session)
 
