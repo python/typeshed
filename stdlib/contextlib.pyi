@@ -1,7 +1,20 @@
 import sys
 from _typeshed import Self, StrOrBytesPath
 from types import TracebackType
-from typing import IO, Any, AsyncIterator, Awaitable, Callable, ContextManager, Generic, Iterator, Protocol, Type, TypeVar, overload
+from typing import (
+    IO,
+    Any,
+    AsyncIterator,
+    Awaitable,
+    Callable,
+    ContextManager,
+    Generic,
+    Iterator,
+    Protocol,
+    Type,
+    TypeVar,
+    overload,
+)
 from typing_extensions import ParamSpec
 
 AbstractContextManager = ContextManager
