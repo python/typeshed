@@ -83,3 +83,4 @@ stubs/SQLAlchemy/sqlalchemy/dialects/sqlite/json.pyi
 stubs/SQLAlchemy/sqlalchemy/dialects/sqlite/pysqlcipher.pyi
 stubs/SQLAlchemy/sqlalchemy/dialects/sqlite/pysqlite.pyi
 stubs/SQLAlchemy/sqlalchemy/engine/row.pyi
+stubs/SQLAlchemy/sqlalchemy/sql/elements.pyi
