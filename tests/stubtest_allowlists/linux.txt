@@ -36,6 +36,10 @@ msvcrt
 winreg
 winsound
 
+# Aliases for OSError
+posix.error.characters_written
+resource.error.characters_written
+
 # NamedTuple like, but not actually NamedTuples (PyStructSequence)
 posix.[a-z]+_(param|result)._(asdict|make|replace)
 

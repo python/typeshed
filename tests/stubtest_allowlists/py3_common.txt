@@ -92,8 +92,6 @@ enum.Enum.value
 enum.Flag.name
 enum.Flag.value
 enum.IntEnum.value
-hashlib.sha3_\d+
-hashlib.shake_\d+
 http.HTTPStatus.description  # set in __new__
 http.HTTPStatus.phrase  # set in __new__
 http.client.HTTPConnection.response_class  # the actual type at runtime is abc.ABCMeta
@@ -251,8 +249,6 @@ builtins.EnvironmentError.characters_written
 builtins.IOError.characters_written
 dbm.dumb.error.characters_written
 os.error.characters_written
-posix.error.characters_written
-resource.error.characters_written
 select.error.characters_written
 socket.error.characters_written
 collections.abc.*  # Types are re-exported from _collections_abc, so errors should be fixed there

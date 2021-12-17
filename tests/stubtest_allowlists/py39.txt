@@ -39,6 +39,8 @@ functools.partialmethod.__get__
 functools.singledispatchmethod.__call__
 gettext.install
 gettext.translation
+hashlib.sha3_\d+
+hashlib.shake_\d+
 hmac.new  # Stub is a white lie; see comments in the stub
 http.server.SimpleHTTPRequestHandler.__init__  # *args is expanded
 importlib.abc.Traversable.__init__  # Inherits __init__ from typing.Protocol
@@ -98,6 +100,8 @@ builtins.memoryview.__iter__  # C type that implements __getitem__
 builtins.memoryview.cast  # inspect.signature is incorrect about shape being kw-only
 sqlite3.dbapi2.Binary.__iter__  # C type that implements __getitem__
 sqlite3.dbapi2.Binary.cast  # inspect.signature is incorrect about shape being kw-only
+sqlite3.Binary.__iter__  # C type that implements __getitem__
+sqlite3.Binary.cast  # inspect.signature is incorrect about shape being kw-only
 collections.Coroutine.cr_await
 collections.Coroutine.cr_code
 collections.Coroutine.cr_frame
