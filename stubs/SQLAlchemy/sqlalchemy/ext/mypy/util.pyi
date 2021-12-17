@@ -15,6 +15,7 @@ SemanticAnalyzerPluginInterface = Any  # from mypy.plugin
 Type = Any  # from mypy.types
 
 _TArgType = TypeVar("_TArgType", bound=CallExpr | NameExpr)
+
 class SQLAlchemyAttribute:
     name: Any
     line: Any
