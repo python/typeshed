@@ -1,7 +1,7 @@
 import sys
-from collections import deque
 from types import TracebackType
 from typing import Any, Awaitable, Callable, Generator, Type, TypeVar
+from typing_extensions import Deque
 
 from .events import AbstractEventLoop
 from .futures import Future
@@ -58,7 +58,7 @@ class Condition(_ContextManagerMixin):
 
 class Semaphore(_ContextManagerMixin):
     _value: int
-    _waiters: deque[Future[Any]]
+    _waiters: Deque[Future[Any]]
     def __init__(self, value: int = ..., *, loop: AbstractEventLoop | None = ...) -> None: ...
     def locked(self) -> bool: ...
     async def acquire(self) -> bool: ...
