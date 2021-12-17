@@ -54,6 +54,7 @@ from typing import (
     Tuple,
     Type,
     TypeVar,
+    Union,
     overload,
 )
 from typing_extensions import Literal, SupportsIndex, TypeGuard, final
@@ -1172,7 +1173,7 @@ def next(__i: SupportsNext[_T]) -> _T: ...
 def next(__i: SupportsNext[_T], __default: _VT) -> _T | _VT: ...
 def oct(__number: int | SupportsIndex) -> str: ...
 
-_OpenFile = StrOrBytesPath | int
+_OpenFile = Union[StrOrBytesPath, int]
 _Opener = Callable[[str, int], int]
 
 # Text mode: always returns a TextIOWrapper

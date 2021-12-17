@@ -1,6 +1,6 @@
 import sys
 from _tracemalloc import *
-from typing import Sequence, Tuple, overload
+from typing import Optional, Sequence, Tuple, overload
 from typing_extensions import SupportsIndex
 
 def get_object_traceback(obj: object) -> Traceback | None: ...
@@ -43,7 +43,7 @@ class Frame:
     def __init__(self, frame: _FrameTupleT) -> None: ...
 
 if sys.version_info >= (3, 9):
-    _TraceTupleT = Tuple[int, int, Sequence[_FrameTupleT], int | None] | Tuple[int, int, Sequence[_FrameTupleT]]
+    _TraceTupleT = Tuple[int, int, Sequence[_FrameTupleT], Optional[int]] | Tuple[int, int, Sequence[_FrameTupleT]]
 else:
     _TraceTupleT = Tuple[int, int, Sequence[_FrameTupleT]]
 

@@ -5,7 +5,7 @@ from enum import Enum
 from tkinter.constants import *  # comment this out to find undefined identifier names with flake8
 from tkinter.font import _FontDescription
 from types import TracebackType
-from typing import Any, Callable, Generic, List, Mapping, Protocol, Sequence, Tuple, Type, TypeVar, overload
+from typing import Any, Callable, Generic, List, Mapping, Optional, Protocol, Sequence, Tuple, Type, TypeVar, Union, overload
 from typing_extensions import Literal, TypedDict
 
 # Using anything from tkinter.font in this file means that 'import tkinter'
@@ -86,26 +86,27 @@ EXCEPTION = _tkinter.EXCEPTION
 # than the _Compound defined here. Many other options have similar things.
 _Anchor = Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"]  # manual page: Tk_GetAnchor
 _Bitmap = str  # manual page: Tk_GetBitmap
-_ButtonCommand = str | Callable[[], Any]  # return value is returned from Button.invoke()
+_ButtonCommand = Union[str, Callable[[], Any]]  # return value is returned from Button.invoke()
 _CanvasItemId = int
 _Color = str  # typically '#rrggbb', '#rgb' or color names.
 _Compound = Literal["top", "left", "center", "right", "bottom", "none"]  # -compound in manual page named 'options'
-_Cursor = str | Tuple[str] | Tuple[str, str] | Tuple[str, str, str] | Tuple[str, str, str, str]  # manual page: Tk_GetCursor
-# Example:  entry['invalidcommand'] = [entry.register(print), '%P']
-_EntryValidateCommand = Callable[[], bool] | str | List[str] | Tuple[str, ...]
-_GridIndex = int | str | Literal["all"]
-_ImageSpec = _Image | str  # str can be from e.g. tkinter.image_names()
-_Padding = (
-    _ScreenUnits
-    | Tuple[_ScreenUnits]
-    | Tuple[_ScreenUnits, _ScreenUnits]
-    | Tuple[_ScreenUnits, _ScreenUnits, _ScreenUnits]
-    | Tuple[_ScreenUnits, _ScreenUnits, _ScreenUnits, _ScreenUnits]
-)
+_Cursor = Union[str, Tuple[str], Tuple[str, str], Tuple[str, str, str], Tuple[str, str, str, str]]  # manual page: Tk_GetCursor
+_EntryValidateCommand = Union[
+    Callable[[], bool], str, List[str], Tuple[str, ...]
+]  # example when it's sequence:  entry['invalidcommand'] = [entry.register(print), '%P']
+_GridIndex = Union[int, str, Literal["all"]]
+_ImageSpec = Union[_Image, str]  # str can be from e.g. tkinter.image_names()
+_Padding = Union[
+    _ScreenUnits,
+    Tuple[_ScreenUnits],
+    Tuple[_ScreenUnits, _ScreenUnits],
+    Tuple[_ScreenUnits, _ScreenUnits, _ScreenUnits],
+    Tuple[_ScreenUnits, _ScreenUnits, _ScreenUnits, _ScreenUnits],
+]
 _Relief = Literal["raised", "sunken", "flat", "ridge", "solid", "groove"]  # manual page: Tk_GetRelief
-_ScreenUnits = str | float  # manual page: Tk_GetPixels
-_XYScrollCommand = str | Callable[[float, float], Any]  # -xscrollcommand and -yscrollcommand in 'options' manual page
-_TakeFocusValue = int | Literal[""] | Callable[[str], bool | None]  # -takefocus in manual page named 'options'
+_ScreenUnits = Union[str, float]  # manual page: Tk_GetPixels
+_XYScrollCommand = Union[str, Callable[[float, float], Any]]  # -xscrollcommand and -yscrollcommand in 'options' manual page
+_TakeFocusValue = Union[int, Literal[""], Callable[[str], Optional[bool]]]  # -takefocus in manual page named 'options'
 
 class EventType(str, Enum):
     Activate: str
@@ -1605,7 +1606,7 @@ class Checkbutton(Widget):
     def select(self): ...
     def toggle(self): ...
 
-_EntryIndex = str | int  # "INDICES" in manual page
+_EntryIndex = Union[str, int]  # "INDICES" in manual page
 
 class Entry(Widget, XView):
     def __init__(
@@ -1963,7 +1964,7 @@ class Listbox(Widget, XView, YView):
     def itemconfigure(self, index, cnf: Any | None = ..., **kw): ...
     itemconfig: Any
 
-_MenuIndex = str | int
+_MenuIndex = Union[str, int]
 
 class Menu(Widget):
     def __init__(
@@ -2649,7 +2650,7 @@ class Scrollbar(Widget):
     def get(self): ...
     def set(self, first, last): ...
 
-_TextIndex = _tkinter.Tcl_Obj | str | float | Misc
+_TextIndex = Union[_tkinter.Tcl_Obj, str, float, Misc]
 
 class Text(Widget, XView, YView):
     def __init__(

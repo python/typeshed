@@ -1,6 +1,6 @@
-from typing import Any, Callable, Tuple
+from typing import Any, Callable, Optional, Tuple
 
-_Macro = Tuple[str] | Tuple[str, str | None]
+_Macro = Tuple[str] | Tuple[str, Optional[str]]
 
 def gen_lib_options(
     compiler: CCompiler, library_dirs: list[str], runtime_library_dirs: list[str], libraries: list[str]

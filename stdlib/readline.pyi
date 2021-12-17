@@ -1,7 +1,7 @@
 from _typeshed import StrOrBytesPath
-from typing import Callable, Sequence
+from typing import Callable, Optional, Sequence
 
-_CompleterT = Callable[[str, int], str | None] | None
+_CompleterT = Callable[[str, int], Optional[str]] | None
 _CompDispT = Callable[[str, Sequence[str], int], None] | None
 
 def parse_and_bind(__string: str) -> None: ...

@@ -1,5 +1,5 @@
 import sys
-from typing import Any, Callable, ClassVar, Iterable, Iterator, Mapping, Protocol, Tuple, Type
+from typing import Any, Callable, ClassVar, Iterable, Iterator, Mapping, Optional, Protocol, Tuple, Type, Union
 from typing_extensions import final
 
 HIGHEST_PROTOCOL: int
@@ -22,7 +22,7 @@ if sys.version_info >= (3, 8):
         def __init__(self, buffer: Any) -> None: ...
         def raw(self) -> memoryview: ...
         def release(self) -> None: ...
-    _BufferCallback = Callable[[PickleBuffer], Any] | None
+    _BufferCallback = Optional[Callable[[PickleBuffer], Any]]
     def dump(
         obj: Any,
         file: _WritableFileobj,
@@ -56,13 +56,13 @@ class PickleError(Exception): ...
 class PicklingError(PickleError): ...
 class UnpicklingError(PickleError): ...
 
-_reducedtype = (
-    str
-    | Tuple[Callable[..., Any], Tuple[Any, ...]]
-    | Tuple[Callable[..., Any], Tuple[Any, ...], Any]
-    | Tuple[Callable[..., Any], Tuple[Any, ...], Any, Iterator[Any] | None]
-    | Tuple[Callable[..., Any], Tuple[Any, ...], Any, Iterator[Any] | None, Iterator[Any] | None]
-)
+_reducedtype = Union[
+    str,
+    Tuple[Callable[..., Any], Tuple[Any, ...]],
+    Tuple[Callable[..., Any], Tuple[Any, ...], Any],
+    Tuple[Callable[..., Any], Tuple[Any, ...], Any, Optional[Iterator[Any]]],
+    Tuple[Callable[..., Any], Tuple[Any, ...], Any, Optional[Iterator[Any]], Optional[Iterator[Any]]],
+]
 
 class Pickler:
     fast: bool

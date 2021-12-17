@@ -2,7 +2,7 @@ import concurrent.futures
 import sys
 from collections.abc import Awaitable, Generator, Iterable, Iterator
 from types import FrameType
-from typing import Any, Generic, TextIO, TypeVar, overload
+from typing import Any, Generic, Optional, TextIO, TypeVar, Union, overload
 from typing_extensions import Literal
 
 from .events import AbstractEventLoop
@@ -18,8 +18,8 @@ _T3 = TypeVar("_T3")
 _T4 = TypeVar("_T4")
 _T5 = TypeVar("_T5")
 _FT = TypeVar("_FT", bound=Future[Any])
-_FutureT = Future[_T] | Generator[Any, None, _T] | Awaitable[_T]
-_TaskYieldType = Future[object] | None
+_FutureT = Union[Future[_T], Generator[Any, None, _T], Awaitable[_T]]
+_TaskYieldType = Optional[Future[object]]
 
 FIRST_EXCEPTION: str
 FIRST_COMPLETED: str

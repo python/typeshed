@@ -2,14 +2,14 @@ from email.charset import Charset
 from email.contentmanager import ContentManager
 from email.errors import MessageDefect
 from email.policy import Policy
-from typing import Any, Generator, Iterator, List, Sequence, Tuple, TypeVar
+from typing import Any, Generator, Iterator, List, Optional, Sequence, Tuple, TypeVar, Union
 
 _T = TypeVar("_T")
 
-_PayloadType = List[Message] | str | bytes
-_CharsetType = Charset | str | None
-_ParamsType = str | None | Tuple[str, str | None, str]
-_ParamType = str | Tuple[str | None, str | None, str]
+_PayloadType = Union[List[Message], str, bytes]
+_CharsetType = Union[Charset, str, None]
+_ParamsType = Union[str, None, Tuple[str, Optional[str], str]]
+_ParamType = Union[str, Tuple[Optional[str], Optional[str], str]]
 _HeaderType = Any
 
 class Message:

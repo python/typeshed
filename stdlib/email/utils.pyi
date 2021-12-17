@@ -1,10 +1,10 @@
 import datetime
 import sys
 from email.charset import Charset
-from typing import Tuple, overload
+from typing import Optional, Tuple, Union, overload
 
-_ParamType = str | Tuple[str | None, str | None, str]
-_PDTZ = Tuple[int, int, int, int, int, int, int, int, int, int | None]
+_ParamType = Union[str, Tuple[Optional[str], Optional[str], str]]
+_PDTZ = Tuple[int, int, int, int, int, int, int, int, int, Optional[int]]
 
 def quote(str: str) -> str: ...
 def unquote(str: str) -> str: ...

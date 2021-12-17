@@ -1,7 +1,7 @@
 import sys
 from enum import IntEnum
 from types import FrameType
-from typing import Any, Callable, Iterable, Tuple
+from typing import Any, Callable, Iterable, Optional, Tuple, Union
 
 NSIG: int
 
@@ -58,8 +58,8 @@ class Handlers(IntEnum):
 SIG_DFL: Handlers
 SIG_IGN: Handlers
 
-_SIGNUM = int | Signals
-_HANDLER = Callable[[int, FrameType | None], Any] | int | Handlers | None
+_SIGNUM = Union[int, Signals]
+_HANDLER = Union[Callable[[int, Optional[FrameType]], Any], int, Handlers, None]
 
 def default_int_handler(signum: int, frame: FrameType | None) -> None: ...
 def getsignal(__signalnum: _SIGNUM) -> _HANDLER: ...
