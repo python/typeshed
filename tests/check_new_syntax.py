@@ -13,7 +13,7 @@ CONTEXT_MANAGER_ALIASES = {"ContextManager": "AbstractContextManager", "AsyncCon
 CONTEXTLIB_ALIAS_ALLOWLIST = frozenset({Path("stdlib/contextlib.pyi"), Path("stdlib/typing_extensions.pyi")})
 
 IMPORTED_FROM_TYPING_NOT_TYPING_EXTENSIONS = frozenset(
-    {"ClassVar", "Type", "NewType", "overload", "Text", "Protocol", "runtime_checkable"}
+    {"ClassVar", "Type", "NewType", "overload", "Text", "Protocol", "runtime_checkable", "NoReturn"}
 )
 
 IMPORTED_FROM_COLLECTIONS_ABC_NOT_TYPING_EXTENSIONS = frozenset(
