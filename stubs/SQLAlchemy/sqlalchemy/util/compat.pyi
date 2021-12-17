@@ -11,7 +11,7 @@ from functools import reduce as reduce
 from io import BytesIO as BytesIO, StringIO as StringIO
 from itertools import zip_longest as zip_longest
 from time import perf_counter as perf_counter
-from typing import TYPE_CHECKING as TYPE_CHECKING, Any, NamedTuple, Tuple
+from typing import TYPE_CHECKING as TYPE_CHECKING, Any, NamedTuple
 from urllib.parse import (
     parse_qsl as parse_qsl,
     quote as quote,
@@ -56,11 +56,11 @@ class nullcontext:
 def inspect_getfullargspec(func): ...
 def importlib_metadata_get(group): ...
 
-string_types: Tuple[type, ...]
-binary_types: Tuple[type, ...]
+string_types: tuple[type, ...]
+binary_types: tuple[type, ...]
 binary_type = bytes
 text_type = str
-int_types: Tuple[type, ...]
+int_types: tuple[type, ...]
 iterbytes = iter
 long_type = int
 itertools_filterfalse = itertools.filterfalse

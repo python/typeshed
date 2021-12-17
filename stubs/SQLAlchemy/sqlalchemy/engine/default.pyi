@@ -1,4 +1,4 @@
-from typing import Any, ClassVar, Type
+from typing import Any, ClassVar
 
 from .. import types as sqltypes
 from ..util import memoized_property
@@ -13,7 +13,7 @@ NO_CACHE_KEY: Any
 NO_DIALECT_SUPPORT: Any
 
 class DefaultDialect(interfaces.Dialect):
-    execution_ctx_cls: ClassVar[Type[interfaces.ExecutionContext]]
+    execution_ctx_cls: ClassVar[type[interfaces.ExecutionContext]]
     statement_compiler: Any
     ddl_compiler: Any
     type_compiler: Any

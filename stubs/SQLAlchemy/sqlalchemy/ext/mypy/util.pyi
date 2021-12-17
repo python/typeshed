@@ -1,5 +1,5 @@
 from collections.abc import Iterable, Iterator
-from typing import Any, Tuple, Type as TypingType, TypeVar, Union, overload
+from typing import Any, TypeVar, overload
 
 CallExpr = Any  # from mypy.nodes
 Context = Any  # from mypy.nodes
@@ -14,8 +14,7 @@ DynamicClassDefContext = Any  # from mypy.plugin
 SemanticAnalyzerPluginInterface = Any  # from mypy.plugin
 Type = Any  # from mypy.types
 
-_TArgType = TypeVar("_TArgType", bound=Union[CallExpr, NameExpr])
-
+_TArgType = TypeVar("_TArgType", bound=CallExpr | NameExpr)
 class SQLAlchemyAttribute:
     name: Any
     line: Any
@@ -42,7 +41,7 @@ def add_global(ctx: ClassDefContext | DynamicClassDefContext, module: str, symbo
 @overload
 def get_callexpr_kwarg(callexpr: CallExpr, name: str, *, expr_types: None = ...) -> CallExpr | NameExpr | None: ...
 @overload
-def get_callexpr_kwarg(callexpr: CallExpr, name: str, *, expr_types: Tuple[TypingType[_TArgType], ...]) -> _TArgType | None: ...
+def get_callexpr_kwarg(callexpr: CallExpr, name: str, *, expr_types: tuple[type[_TArgType], ...]) -> _TArgType | None: ...
 def flatten_typechecking(stmts: Iterable[Statement]) -> Iterator[Statement]: ...
 def unbound_to_instance(api: SemanticAnalyzerPluginInterface, typ: Type) -> Type: ...
 def info_for_cls(cls, api: SemanticAnalyzerPluginInterface) -> TypeInfo | None: ...
