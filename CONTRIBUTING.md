@@ -244,6 +244,7 @@ instead in typeshed stubs. This currently affects:
 - `Literal` (new in Python 3.8)
 - `SupportsIndex` (new in Python 3.8)
 - `TypedDict` (new in Python 3.8)
+- `Concatenate` (new in Python 3.10)
 - `ParamSpec` (new in Python 3.10)
 - `TypeGuard` (new in Python 3.10)
 
