@@ -11,7 +11,7 @@ STUBS_SUPPORTING_PYTHON_2 = frozenset(
 
 CONTEXT_MANAGER_ALIASES = {"ContextManager": "AbstractContextManager", "AsyncContextManager": "AbstractAsyncContextManager"}
 CONTEXTLIB_ALIAS_ALLOWLIST = frozenset({Path("stdlib/contextlib.pyi"), Path("stdlib/typing_extensions.pyi")})
-NAMES_IMPORTED_FROM_TYPING_EXTENSIONS = frozenset({"Final", "final", "Literal", "SupportsIndex", "TypedDict", "TypeGuard"})
+NAMES_IMPORTED_FROM_TYPING_EXTENSIONS = frozenset({"Final", "final", "Literal", "SupportsIndex", "TypedDict", "TypeGuard", "ParamSpec"})
 
 
 def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
