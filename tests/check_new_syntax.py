@@ -12,6 +12,36 @@ STUBS_SUPPORTING_PYTHON_2 = frozenset(
 CONTEXT_MANAGER_ALIASES = {"ContextManager": "AbstractContextManager", "AsyncContextManager": "AbstractAsyncContextManager"}
 CONTEXTLIB_ALIAS_ALLOWLIST = frozenset({Path("stdlib/contextlib.pyi"), Path("stdlib/typing_extensions.pyi")})
 
+union_exclude_list = [
+    # TODO: figure out why new union syntax doesn't work
+    Path("stdlib/_typeshed/__init__.pyi"),
+    Path("stdlib/asyncio/tasks.pyi"),
+    Path("stdlib/builtins.pyi"),
+    Path("stdlib/copyreg.pyi"),
+    Path("stdlib/distutils/ccompiler.pyi"),
+    Path("stdlib/email/message.pyi"),
+    Path("stdlib/email/mime/application.pyi"),
+    Path("stdlib/email/mime/audio.pyi"),
+    Path("stdlib/email/mime/base.pyi"),
+    Path("stdlib/email/mime/image.pyi"),
+    Path("stdlib/email/mime/multipart.pyi"),
+    Path("stdlib/email/utils.pyi"),
+    Path("stdlib/logging/__init__.pyi"),
+    Path("stdlib/pickle.pyi"),
+    Path("stdlib/readline.pyi"),
+    Path("stdlib/signal.pyi"),
+    Path("stdlib/ssl.pyi"),
+    Path("stdlib/subprocess.pyi"),
+    Path("stdlib/tempfile.pyi"),
+    Path("stdlib/tkinter/__init__.pyi"),
+    Path("stdlib/tracemalloc.pyi"),
+    Path("stdlib/typing.pyi"),
+    Path("stdlib/xmlrpc/client.pyi"),
+    Path("stdlib/xmlrpc/server.pyi"),
+    Path("stubs/requests/requests/sessions.pyi"),
+    Path("stubs/tabulate/tabulate.pyi"),
+]
+
 
 def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
     errors = []
@@ -78,7 +108,7 @@ def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
             return OldSyntaxFinder(set_from_collections_abc=self.set_from_collections_abc)
 
         def visit_Subscript(self, node: ast.Subscript) -> None:
-            if isinstance(node.value, ast.Name):
+            if path not in union_exclude_list and isinstance(node.value, ast.Name):
                 if node.value.id == "Union" and isinstance(node.slice, ast.Tuple):
                     new_syntax = " | ".join(ast.unparse(x) for x in node.slice.elts)
                     errors.append(f"{path}:{node.lineno}: Use PEP 604 syntax for Union, e.g. `{new_syntax}`")
@@ -142,41 +172,10 @@ def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
     return errors
 
 
-exclude_list = list(Path("stubs/protobuf/google/protobuf").rglob("*.pyi")) + [
-    # TODO: figure out why new union syntax doesn't work
-    Path("stdlib/_typeshed/__init__.pyi"),
-    Path("stdlib/asyncio/tasks.pyi"),
-    Path("stdlib/builtins.pyi"),
-    Path("stdlib/copyreg.pyi"),
-    Path("stdlib/distutils/ccompiler.pyi"),
-    Path("stdlib/email/message.pyi"),
-    Path("stdlib/email/mime/application.pyi"),
-    Path("stdlib/email/mime/audio.pyi"),
-    Path("stdlib/email/mime/base.pyi"),
-    Path("stdlib/email/mime/image.pyi"),
-    Path("stdlib/email/mime/multipart.pyi"),
-    Path("stdlib/email/utils.pyi"),
-    Path("stdlib/logging/__init__.pyi"),
-    Path("stdlib/pickle.pyi"),
-    Path("stdlib/readline.pyi"),
-    Path("stdlib/signal.pyi"),
-    Path("stdlib/ssl.pyi"),
-    Path("stdlib/subprocess.pyi"),
-    Path("stdlib/tempfile.pyi"),
-    Path("stdlib/tkinter/__init__.pyi"),
-    Path("stdlib/tracemalloc.pyi"),
-    Path("stdlib/typing.pyi"),
-    Path("stdlib/xmlrpc/client.pyi"),
-    Path("stdlib/xmlrpc/server.pyi"),
-    Path("stubs/requests/requests/sessions.pyi"),
-    Path("stubs/tabulate/tabulate.pyi"),
-]
-
-
 def main() -> None:
     errors = []
     for path in chain(Path("stdlib").rglob("*.pyi"), Path("stubs").rglob("*.pyi")):
-        if "@python2" in path.parts or path in exclude_list:
+        if "@python2" in path.parts or Path("stubs/protobuf/google/protobuf") in path.parents:
             continue
 
         with open(path) as f:
