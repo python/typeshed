@@ -88,7 +88,7 @@ def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
 
             elif node.module == "typing_extensions":
                 for imported_object in node.names:
-                    imported_object_name = imported_class.name
+                    imported_object_name = imported_object.name
                     if imported_object_name not in NAMES_IMPORTED_FROM_TYPING_EXTENSIONS:
                         errors.append(
                             f"{path}:{node.lineno}: Use `typing.{imported_object_name}` instead of `typing_extensions.{imported_object_name}`"
