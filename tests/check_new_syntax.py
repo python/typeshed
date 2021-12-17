@@ -12,23 +12,13 @@ STUBS_SUPPORTING_PYTHON_2 = frozenset(
 CONTEXT_MANAGER_ALIASES = {"ContextManager": "AbstractContextManager", "AsyncContextManager": "AbstractAsyncContextManager"}
 CONTEXTLIB_ALIAS_ALLOWLIST = frozenset({Path("stdlib/contextlib.pyi"), Path("stdlib/typing_extensions.pyi")})
 
-IMPORTED_FROM_TYPING_NOT_TYPING_EXTENSIONS = frozenset({
-    "ClassVar",
-    "Type",
-    "NewType",
-    "overload",
-    "Text",
-    "Protocol",
-    "runtime_checkable"
-})
+IMPORTED_FROM_TYPING_NOT_TYPING_EXTENSIONS = frozenset(
+    {"ClassVar", "Type", "NewType", "overload", "Text", "Protocol", "runtime_checkable"}
+)
 
-IMPORTED_FROM_COLLECTIONS_ABC_NOT_TYPING_EXTENSIONS = frozenset({
-    "Awaitable",
-    "Coroutine",
-    "AsyncIterable",
-    "AsyncIterator",
-    "AsyncGenerator"
-})
+IMPORTED_FROM_COLLECTIONS_ABC_NOT_TYPING_EXTENSIONS = frozenset(
+    {"Awaitable", "Coroutine", "AsyncIterable", "AsyncIterator", "AsyncGenerator"}
+)
 
 # The values in the mapping are what these are called in `collections`
 IMPORTED_FROM_COLLECTIONS_NOT_TYPING_EXTENSIONS = {
@@ -36,8 +26,9 @@ IMPORTED_FROM_COLLECTIONS_NOT_TYPING_EXTENSIONS = {
     "Deque": "deque",
     "DefaultDict": "defaultdict",
     "OrderedDict": "OrderedDict",
-    "ChainMap": "ChainMap"
+    "ChainMap": "ChainMap",
 }
+
 
 def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
     errors = []
