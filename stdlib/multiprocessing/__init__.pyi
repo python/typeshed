@@ -19,7 +19,7 @@ from multiprocessing.process import active_children as active_children, current_
 # multiprocessing.queues or the aliases defined below. See #4266 for discussion.
 from multiprocessing.queues import JoinableQueue as JoinableQueue, Queue as Queue, SimpleQueue as SimpleQueue
 from multiprocessing.spawn import freeze_support as freeze_support
-from typing import Any, Union, overload
+from typing import Any, Union, overload, TYPE_CHECKING
 from typing_extensions import Literal
 
 if sys.version_info >= (3, 8):
