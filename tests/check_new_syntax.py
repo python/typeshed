@@ -12,6 +12,23 @@ STUBS_SUPPORTING_PYTHON_2 = frozenset(
 CONTEXT_MANAGER_ALIASES = {"ContextManager": "AbstractContextManager", "AsyncContextManager": "AbstractAsyncContextManager"}
 CONTEXTLIB_ALIAS_ALLOWLIST = frozenset({Path("stdlib/contextlib.pyi"), Path("stdlib/typing_extensions.pyi")})
 
+IMPORTED_FROM_TYPING_NOT_TYPING_EXTENSIONS = frozenset(
+    {"ClassVar", "Type", "NewType", "overload", "Text", "Protocol", "runtime_checkable", "NoReturn"}
+)
+
+IMPORTED_FROM_COLLECTIONS_ABC_NOT_TYPING_EXTENSIONS = frozenset(
+    {"Awaitable", "Coroutine", "AsyncIterable", "AsyncIterator", "AsyncGenerator"}
+)
+
+# The values in the mapping are what these are called in `collections`
+IMPORTED_FROM_COLLECTIONS_NOT_TYPING_EXTENSIONS = {
+    "Counter": "Counter",
+    "Deque": "deque",
+    "DefaultDict": "defaultdict",
+    "OrderedDict": "OrderedDict",
+    "ChainMap": "ChainMap",
+}
+
 
 def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
     errors = []
@@ -84,6 +101,38 @@ def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
                 imported_classes = node.names
                 if any(cls.name == "Set" for cls in imported_classes):
                     self.set_from_collections_abc = True
+
+            elif node.module == "typing_extensions":
+                for imported_object in node.names:
+                    imported_object_name = imported_object.name
+                    if imported_object_name in IMPORTED_FROM_TYPING_NOT_TYPING_EXTENSIONS:
+                        errors.append(
+                            f"{path}:{node.lineno}: "
+                            f"Use `typing.{imported_object_name}` instead of `typing_extensions.{imported_object_name}`"
+                        )
+                    elif imported_object_name in IMPORTED_FROM_COLLECTIONS_ABC_NOT_TYPING_EXTENSIONS:
+                        errors.append(
+                            f"{path}:{node.lineno}: "
+                            f"Use `collections.abc.{imported_object_name}` or `typing.{imported_object_name}` "
+                            f"instead of `typing_extensions.{imported_object_name}`"
+                        )
+                    elif imported_object_name in IMPORTED_FROM_COLLECTIONS_NOT_TYPING_EXTENSIONS:
+                        errors.append(
+                            f"{path}:{node.lineno}: "
+                            f"Use `collections.{IMPORTED_FROM_COLLECTIONS_NOT_TYPING_EXTENSIONS[imported_object_name]}` "
+                            f"or `typing.{imported_object_name}` instead of `typing_extensions.{imported_object_name}`"
+                        )
+                    elif imported_object_name in CONTEXT_MANAGER_ALIASES:
+                        if python_2_support_required:
+                            errors.append(
+                                f"{path}:{node.lineno}: "
+                                f"Use `typing.{imported_object_name}` instead of `typing_extensions.{imported_object_name}`"
+                            )
+                        else:
+                            errors.append(
+                                f"{path}:{node.lineno}: Use `contextlib.{CONTEXT_MANAGER_ALIASES[imported_object_name]}` "
+                                f"instead of `typing_extensions.{imported_object_name}`"
+                            )
 
             elif not python_2_support_required and path not in CONTEXTLIB_ALIAS_ALLOWLIST and node.module == "typing":
                 for imported_class in node.names:
