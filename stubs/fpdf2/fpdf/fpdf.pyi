@@ -3,9 +3,12 @@ from _typeshed import StrPath
 from collections import defaultdict
 from collections.abc import Callable, Generator
 from enum import IntEnum
+from io import BytesIO
 from pathlib import Path
 from typing import Any, NamedTuple, overload
 from typing_extensions import Literal
+
+from PIL import Image
 
 from .actions import Action
 from .syntax import DestinationXYZ
@@ -242,7 +245,7 @@ class FPDF:
     def write(self, h: Any | None = ..., txt: str = ..., link: str = ...) -> None: ...
     def image(
         self,
-        name,
+        name: str | Image.Image | BytesIO | StrPath,
         x: float | None = ...,
         y: float | None = ...,
         w: float = ...,
@@ -251,7 +254,7 @@ class FPDF:
         link: str = ...,
         title: str | None = ...,
         alt_text: str | None = ...,
-    ): ...
+    ) -> _Image: ...
     def ln(self, h: Any | None = ...) -> None: ...
     def get_x(self) -> float: ...
     def set_x(self, x: float) -> None: ...
