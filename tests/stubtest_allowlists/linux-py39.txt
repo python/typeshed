@@ -2,10 +2,6 @@
 select.epoll.register
 
 # Exists at runtime, but missing from stubs
-_curses.get_escdelay
-_curses.get_tabsize
-_curses.set_escdelay
-_curses.set_tabsize
 asyncio.PidfdChildWatcher
 asyncio.unix_events.PidfdChildWatcher
 os.CLD_KILLED
