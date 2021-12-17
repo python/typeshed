@@ -244,10 +244,12 @@ instead in typeshed stubs. This currently affects:
 - `Literal` (new in Python 3.8)
 - `SupportsIndex` (new in Python 3.8)
 - `TypedDict` (new in Python 3.8)
+- `ParamSpec` (new in Python 3.10)
 - `TypeGuard` (new in Python 3.10)
 
-An exception is `Protocol`: although it was added in Python 3.8, it
-can be used in stubs regardless of Python version.
+Two exceptions are `Protocol` and `runtime_checkable: although
+these were added in Python 3.8, they can be used in stubs regardless
+of Python version.
 
 ### What to include
 
