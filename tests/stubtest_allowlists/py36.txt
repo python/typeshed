@@ -43,6 +43,7 @@ typing.AsyncGenerator.ag_await
 typing.AsyncGenerator.ag_code
 typing.AsyncGenerator.ag_frame
 typing.AsyncGenerator.ag_running
+typing.ChainMap.fromkeys
 typing.Coroutine.cr_await
 typing.Coroutine.cr_code
 typing.Coroutine.cr_frame
