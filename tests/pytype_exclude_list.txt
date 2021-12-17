@@ -105,6 +105,7 @@ stubs/SQLAlchemy/sqlalchemy/orm/util.pyi
 stubs/SQLAlchemy/sqlalchemy/sql/compiler.pyi
 stubs/SQLAlchemy/sqlalchemy/sql/crud.pyi
 stubs/SQLAlchemy/sqlalchemy/sql/ddl.pyi
+stubs/SQLAlchemy/sqlalchemy/sql/elements.pyi
 stubs/SQLAlchemy/sqlalchemy/sql/functions.pyi
 stubs/SQLAlchemy/sqlalchemy/sql/lambdas.pyi
 stubs/SQLAlchemy/sqlalchemy/sql/schema.pyi
