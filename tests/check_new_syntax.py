@@ -11,7 +11,8 @@ STUBS_SUPPORTING_PYTHON_2 = frozenset(
 
 CONTEXT_MANAGER_ALIASES = {"ContextManager": "AbstractContextManager", "AsyncContextManager": "AbstractAsyncContextManager"}
 CONTEXTLIB_ALIAS_ALLOWLIST = frozenset({Path("stdlib/contextlib.pyi"), Path("stdlib/typing_extensions.pyi")})
-NAMES_IMPORTED_FROM_TYPING_EXTENSIONS = frozenset({'Final', 'final', 'Literal', 'SupportsIndex', 'TypedDict', 'TypeGuard'})
+NAMES_IMPORTED_FROM_TYPING_EXTENSIONS = frozenset({"Final", "final", "Literal", "SupportsIndex", "TypedDict", "TypeGuard"})
+
 
 def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
     errors = []
@@ -89,7 +90,9 @@ def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
                 for imported_class in node.names:
                     imported_class_name = imported_class.name
                     if imported_class_name not in NAMES_IMPORTED_FROM_TYPING_EXTENSIONS:
-                        errors.append(f"{path}:{node.lineno}: Use `typing.{object_name}` instead of `typing_extensions.{object_name}`")
+                        errors.append(
+                            f"{path}:{node.lineno}: Use `typing.{object_name}` instead of `typing_extensions.{object_name}`"
+                        )
 
             elif not python_2_support_required and path not in CONTEXTLIB_ALIAS_ALLOWLIST and node.module == "typing":
                 for imported_class in node.names:
