@@ -5,17 +5,16 @@ sqlalchemy.util.langhelpers._symbol.__new__
 
 # unnecessary re-exports
 sqlalchemy.util._collections.*
-sqlalchemy.util._concurrency_py3k.*
 sqlalchemy.util.compat.*
 
 # stdlib re-exports with stubtest issues
 sqlalchemy.orm.collections.InstrumentedList.*
 sqlalchemy.orm.collections.InstrumentedSet.*
 sqlalchemy.orm.collections.MappedCollection.*
+sqlalchemy.util.OrderedDict.get
 sqlalchemy.util.StringIO.*
-sqlalchemy.util.collections_abc.*
-sqlalchemy.util.pickle.*
-sqlalchemy.util.threading.*
+sqlalchemy.util.byte_buffer.*
+sqlalchemy.util.column_dict.get
 
 # method arguments starting with double underscores in the implementation
 sqlalchemy.testing.resolve_lambda
