@@ -146,9 +146,6 @@ _collections_abc.MappingView.__class_getitem__
 _csv.Reader
 _csv.Writer
 _imp.source_hash
-_thread._ExceptHookArgs.n_fields
-_thread._ExceptHookArgs.n_sequence_fields
-_thread._ExceptHookArgs.n_unnamed_fields
 ast.Tuple.dims
 ast.main
 asyncio.AbstractEventLoop.connect_accepted_socket

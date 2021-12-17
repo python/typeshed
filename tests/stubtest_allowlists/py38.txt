@@ -100,9 +100,6 @@ collections.Sequence.index  # Supporting None in end is not mandatory
 # Exists at runtime, but missing from stubs
 _dummy_thread.RLock
 _imp.source_hash
-_thread._ExceptHookArgs.n_fields
-_thread._ExceptHookArgs.n_sequence_fields
-_thread._ExceptHookArgs.n_unnamed_fields
 asyncio.BufferedProtocol.eof_received
 asyncio.protocols.BufferedProtocol.eof_received
 contextvars.ContextVar.__class_getitem__

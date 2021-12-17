@@ -5,9 +5,6 @@ curses.COLOR_PAIRS  # Initialized after start_color
 curses.COLS  # Initialized only after initscr call.
 curses.LINES  # Initialized only after initscr call.
 distutils.command.bdist_msi  # msi is only available on windows
-grp.struct_group._asdict  # PyStructSequence
-grp.struct_group._make  # PyStructSequence
-grp.struct_group._replace  # PyStructSequence
 os.EX_NOTFOUND
 os.SF_MNOWAIT
 os.SF_NODISKIO
@@ -18,9 +15,6 @@ select.EPOLL_RDHUP
 selectors.KqueueSelector
 signal.SIGEMT
 signal.SIGINFO
-spwd.struct_spwd._asdict  # PyStructSequence
-spwd.struct_spwd._make  # PyStructSequence
-spwd.struct_spwd._replace  # PyStructSequence
 
 # ==========
 # Allowlist entries that cannot or should not be fixed
@@ -40,9 +34,6 @@ winsound
 posix.error.characters_written
 resource.error.characters_written
 
-# NamedTuple like, but not actually NamedTuples (PyStructSequence)
-posix.[a-z]+_(param|result)._(asdict|make|replace)
-
 # Platform differences that cannot be captured by the type system
 fcntl.[A-Z0-9_]+
 os.SCHED_[A-Z_]+
@@ -56,31 +47,13 @@ posix.SCHED_[A-Z_]+
 distutils.msvccompiler.MSVCCompiler.get_msvc_paths
 distutils.msvccompiler.MSVCCompiler.set_path_env_var
 distutils.msvccompiler.MacroExpander
-grp.struct_group.n_fields
-grp.struct_group.n_sequence_fields
-grp.struct_group.n_unnamed_fields
 mimetypes.MimeTypes.read_windows_registry
-(os|posix).sched_param.n_fields
-(os|posix).sched_param.n_sequence_fields
-(os|posix).sched_param.n_unnamed_fields
-(os|posix).waitid_result.n_fields
-(os|posix).waitid_result.n_sequence_fields
-(os|posix).waitid_result.n_unnamed_fields
-resource.struct_rusage.n_fields
-resource.struct_rusage.n_sequence_fields
-resource.struct_rusage.n_unnamed_fields
 selectors.DefaultSelector.fileno
-signal.struct_siginfo.n_fields
-signal.struct_siginfo.n_sequence_fields
-signal.struct_siginfo.n_unnamed_fields
 socket.MsgFlag.MSG_CMSG_CLOEXEC
 socket.MsgFlag.MSG_CONFIRM
 socket.MsgFlag.MSG_ERRQUEUE
 socket.MsgFlag.MSG_FASTOPEN
 socket.MsgFlag.MSG_MORE
 socket.MsgFlag.MSG_NOSIGNAL
-spwd.struct_spwd.n_fields
-spwd.struct_spwd.n_sequence_fields
-spwd.struct_spwd.n_unnamed_fields
 spwd.struct_spwd.sp_nam
 spwd.struct_spwd.sp_pwd

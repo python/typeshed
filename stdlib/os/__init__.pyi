@@ -9,6 +9,7 @@ from _typeshed import (
     Self,
     StrOrBytesPath,
     StrPath,
+    structseq,
 )
 from builtins import OSError
 from contextlib import AbstractContextManager
@@ -26,7 +27,6 @@ from typing import (
     List,
     Mapping,
     MutableMapping,
-    NamedTuple,
     NoReturn,
     Protocol,
     Sequence,
@@ -284,49 +284,71 @@ TMP_MAX: int  # Undocumented, but used by tempfile
 
 # ----- os classes (structures) -----
 @final
-class stat_result:
-    # For backward compatibility, the return value of stat() is also
-    # accessible as a tuple of at least 10 integers giving the most important
-    # (and portable) members of the stat structure, in the order st_mode,
-    # st_ino, st_dev, st_nlink, st_uid, st_gid, st_size, st_atime, st_mtime,
-    # st_ctime. More items may be added at the end by some implementations.
-
-    st_mode: int  # protection bits,
-    st_ino: int  # inode number,
-    st_dev: int  # device,
-    st_nlink: int  # number of hard links,
-    st_uid: int  # user id of owner,
-    st_gid: int  # group id of owner,
-    st_size: int  # size of file, in bytes,
-    st_atime: float  # time of most recent access,
-    st_mtime: float  # time of most recent content modification,
-    st_ctime: float  # platform dependent (time of most recent metadata change on Unix, or the time of creation on Windows)
-    st_atime_ns: int  # time of most recent access, in nanoseconds
-    st_mtime_ns: int  # time of most recent content modification in nanoseconds
-    st_ctime_ns: int  # platform dependent (time of most recent metadata change on Unix, or the time of creation on Windows) in nanoseconds
-    if sys.version_info >= (3, 8) and sys.platform == "win32":
-        st_reparse_tag: int
+class stat_result(structseq[float], Tuple[int, int, int, int, int, int, int, float, float, float]):
+    # The constructor of this class takes an iterable of variable length (though it must be at least 10).
+    #
+    # However, this class behaves like a tuple of 10 elements,
+    # no matter how long the iterable supplied to the constructor is.
+    # https://github.com/python/typeshed/pull/6560#discussion_r767162532
+    #
+    # The 10 elements always present are st_mode, st_ino, st_dev, st_nlink,
+    # st_uid, st_gid, st_size, st_atime, st_mtime, st_ctime.
+    #
+    # More items may be added at the end by some implementations.
+    @property
+    def st_mode(self) -> int: ...  # protection bits,
+    @property
+    def st_ino(self) -> int: ...  # inode number,
+    @property
+    def st_dev(self) -> int: ...  # device,
+    @property
+    def st_nlink(self) -> int: ...  # number of hard links,
+    @property
+    def st_uid(self) -> int: ...  # user id of owner,
+    @property
+    def st_gid(self) -> int: ...  # group id of owner,
+    @property
+    def st_size(self) -> int: ...  # size of file, in bytes,
+    @property
+    def st_atime(self) -> float: ...  # time of most recent access,
+    @property
+    def st_mtime(self) -> float: ...  # time of most recent content modification,
+    # platform dependent (time of most recent metadata change on Unix, or the time of creation on Windows)
+    @property
+    def st_ctime(self) -> float: ...
+    @property
+    def st_atime_ns(self) -> int: ...  # time of most recent access, in nanoseconds
+    @property
+    def st_mtime_ns(self) -> int: ...  # time of most recent content modification in nanoseconds
+    # platform dependent (time of most recent metadata change on Unix, or the time of creation on Windows) in nanoseconds
+    @property
+    def st_ctime_ns(self) -> int: ...
     if sys.platform == "win32":
-        st_file_attributes: int
-    def __getitem__(self, i: int) -> int: ...
-    # not documented
-    def __init__(self, tuple: Tuple[int, ...]) -> None: ...
-    # On some Unix systems (such as Linux), the following attributes may also
-    # be available:
-    st_blocks: int  # number of blocks allocated for file
-    st_blksize: int  # filesystem blocksize
-    st_rdev: int  # type of device if an inode device
-    st_flags: int  # user defined flags for file
-
-    # On other Unix systems (such as FreeBSD), the following attributes may be
-    # available (but may be only filled out if root tries to use them):
-    st_gen: int  # file generation number
-    st_birthtime: int  # time of file creation
-
-    # On Mac OS systems, the following attributes may also be available:
-    st_rsize: int
-    st_creator: int
-    st_type: int
+        @property
+        def st_file_attributes(self) -> int: ...
+        if sys.version_info >= (3, 8):
+            @property
+            def st_reparse_tag(self) -> int: ...
+    else:
+        @property
+        def st_blocks(self) -> int: ...  # number of blocks allocated for file
+        @property
+        def st_blksize(self) -> int: ...  # filesystem blocksize
+        @property
+        def st_rdev(self) -> int: ...  # type of device if an inode device
+        if sys.platform != "linux":
+            # These properties are available on MacOS, but not on Windows or Ubuntu.
+            # On other Unix systems (such as FreeBSD), the following attributes may be
+            # available (but may be only filled out if root tries to use them):
+            @property
+            def st_gen(self) -> int: ...  # file generation number
+            @property
+            def st_birthtime(self) -> int: ...  # time of file creation
+    if sys.platform == "darwin":
+        @property
+        def st_flags(self) -> int: ...  # user defined flags for file
+    # Atributes documented as sometimes appearing, but deliberately omitted from the stub: `st_creator`, `st_rsize`, `st_type`.
+    # See https://github.com/python/typeshed/pull/6560#issuecomment-991253327
 
 @runtime_checkable
 class PathLike(Protocol[_AnyStr_co]):
@@ -359,45 +381,55 @@ class DirEntry(Generic[AnyStr]):
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
-if sys.platform != "win32":
-    _Tuple10Int = Tuple[int, int, int, int, int, int, int, int, int, int]
-    _Tuple11Int = Tuple[int, int, int, int, int, int, int, int, int, int, int]
-    if sys.version_info >= (3, 7):
-        # f_fsid was added in https://github.com/python/cpython/pull/4571
-        @final
-        class statvfs_result(_Tuple10Int):  # Unix only
-            def __new__(cls, seq: _Tuple10Int | _Tuple11Int, dict: dict[str, int] = ...) -> statvfs_result: ...
-            n_fields: int
-            n_sequence_fields: int
-            n_unnamed_fields: int
+if sys.version_info >= (3, 7):
+    @final
+    class statvfs_result(structseq[int], Tuple[int, int, int, int, int, int, int, int, int, int, int]):
+        @property
+        def f_bsize(self) -> int: ...
+        @property
+        def f_frsize(self) -> int: ...
+        @property
+        def f_blocks(self) -> int: ...
+        @property
+        def f_bfree(self) -> int: ...
+        @property
+        def f_bavail(self) -> int: ...
+        @property
+        def f_files(self) -> int: ...
+        @property
+        def f_ffree(self) -> int: ...
+        @property
+        def f_favail(self) -> int: ...
+        @property
+        def f_flag(self) -> int: ...
+        @property
+        def f_namemax(self) -> int: ...
+        @property
+        def f_fsid(self) -> int: ...
 
-            f_bsize: int
-            f_frsize: int
-            f_blocks: int
-            f_bfree: int
-            f_bavail: int
-            f_files: int
-            f_ffree: int
-            f_favail: int
-            f_flag: int
-            f_namemax: int
-            f_fsid: int
-    else:
-        class statvfs_result(_Tuple10Int):  # Unix only
-            n_fields: int
-            n_sequence_fields: int
-            n_unnamed_fields: int
-
-            f_bsize: int
-            f_frsize: int
-            f_blocks: int
-            f_bfree: int
-            f_bavail: int
-            f_files: int
-            f_ffree: int
-            f_favail: int
-            f_flag: int
-            f_namemax: int
+else:
+    @final
+    class statvfs_result(structseq[int], Tuple[int, int, int, int, int, int, int, int, int, int]):
+        @property
+        def f_bsize(self) -> int: ...
+        @property
+        def f_frsize(self) -> int: ...
+        @property
+        def f_blocks(self) -> int: ...
+        @property
+        def f_bfree(self) -> int: ...
+        @property
+        def f_bavail(self) -> int: ...
+        @property
+        def f_files(self) -> int: ...
+        @property
+        def f_ffree(self) -> int: ...
+        @property
+        def f_favail(self) -> int: ...
+        @property
+        def f_flag(self) -> int: ...
+        @property
+        def f_namemax(self) -> int: ...
 
 # ----- os function stubs -----
 def fsencode(filename: StrOrBytesPath) -> bytes: ...
@@ -415,12 +447,17 @@ def getppid() -> int: ...
 def strerror(__code: int) -> str: ...
 def umask(__mask: int) -> int: ...
 @final
-class uname_result(NamedTuple):
-    sysname: str
-    nodename: str
-    release: str
-    version: str
-    machine: str
+class uname_result(structseq[str], Tuple[str, str, str, str, str]):
+    @property
+    def sysname(self) -> str: ...
+    @property
+    def nodename(self) -> str: ...
+    @property
+    def release(self) -> str: ...
+    @property
+    def version(self) -> str: ...
+    @property
+    def machine(self) -> str: ...
 
 if sys.platform != "win32":
     def ctermid() -> str: ...
@@ -602,9 +639,11 @@ if sys.platform != "win32":
     def writev(__fd: int, __buffers: Sequence[bytes]) -> int: ...
 
 @final
-class terminal_size(Tuple[int, int]):
-    columns: int
-    lines: int
+class terminal_size(structseq[int], Tuple[int, int]):
+    @property
+    def columns(self) -> int: ...
+    @property
+    def lines(self) -> int: ...
 
 def get_terminal_size(fd: int = ...) -> terminal_size: ...
 def get_inheritable(__fd: int) -> bool: ...
@@ -819,12 +858,17 @@ else:
 
 def system(command: StrOrBytesPath) -> int: ...
 @final
-class times_result(NamedTuple):
-    user: float
-    system: float
-    children_user: float
-    children_system: float
-    elapsed: float
+class times_result(structseq[float], Tuple[float, float, float, float, float]):
+    @property
+    def user(self) -> float: ...
+    @property
+    def system(self) -> float: ...
+    @property
+    def children_user(self) -> float: ...
+    @property
+    def children_system(self) -> float: ...
+    @property
+    def elapsed(self) -> float: ...
 
 def times() -> times_result: ...
 def waitpid(__pid: int, __options: int) -> tuple[int, int]: ...
@@ -839,12 +883,18 @@ else:
     def spawnvpe(mode: int, file: StrOrBytesPath, args: _ExecVArgs, env: _ExecEnv) -> int: ...
     def wait() -> tuple[int, int]: ...  # Unix only
     if sys.platform != "darwin":
-        class waitid_result(NamedTuple):
-            si_pid: int
-            si_uid: int
-            si_signo: int
-            si_status: int
-            si_code: int
+        @final
+        class waitid_result(structseq[int], Tuple[int, int, int, int, int]):
+            @property
+            def si_pid(self) -> int: ...
+            @property
+            def si_uid(self) -> int: ...
+            @property
+            def si_signo(self) -> int: ...
+            @property
+            def si_status(self) -> int: ...
+            @property
+            def si_code(self) -> int: ...
         def waitid(idtype: int, ident: int, options: int) -> waitid_result: ...
     def wait3(options: int) -> tuple[int, int, Any]: ...
     def wait4(pid: int, options: int) -> tuple[int, int, Any]: ...
@@ -885,8 +935,11 @@ else:
         ) -> int: ...
 
 if sys.platform != "win32":
-    class sched_param(NamedTuple):
-        sched_priority: int
+    @final
+    class sched_param(structseq[int], Tuple[int]):
+        def __new__(cls, sched_priority: int) -> sched_param: ...
+        @property
+        def sched_priority(self) -> int: ...
     def sched_get_priority_min(policy: int) -> int: ...  # some flavors of Unix
     def sched_get_priority_max(policy: int) -> int: ...  # some flavors of Unix
     def sched_yield() -> None: ...  # some flavors of Unix
