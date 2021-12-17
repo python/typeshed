@@ -247,7 +247,7 @@ instead in typeshed stubs. This currently affects:
 - `ParamSpec` (new in Python 3.10)
 - `TypeGuard` (new in Python 3.10)
 
-Two exceptions are `Protocol` and `runtime_checkable: although
+Two exceptions are `Protocol` and `runtime_checkable`: although
 these were added in Python 3.8, they can be used in stubs regardless
 of Python version.
 
