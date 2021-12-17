@@ -6,9 +6,10 @@ from typing import Any, NamedTuple
 from typing_extensions import Literal
 
 from .actions import Action
+from .syntax import DestinationXYZ
 from .util import _Unit
 
-_Orientation = Literal["", "portrait", "P", "landscape", "L"]
+_Orientation = Literal["", "portrait", "p", "P", "landscape", "l", "L"]
 _Format = Literal["", "a3", "A3", "a4", "A4", "a5", "A5", "letter", "Letter", "legal", "Legal"]
 _FontStyle = Literal["", "B", "I"]
 _FontStyles = Literal["", "B", "I", "U", "BU", "UB", "BI", "IB", "IU", "UI", "BIU", "BUI", "IBU", "IUB", "UBI", "UIB"]
@@ -55,25 +56,31 @@ class SubsetMap:
 def get_page_format(format: _Format | tuple[float, float], k: float | None = ...) -> tuple[float, float]: ...
 def load_cache(filename: Path): ...
 
+# TODO: TypedDicts
+_Page = dict[str, Any]
+_Font = dict[str, Any]
+_FontFile = dict[str, Any]
+_Image = dict[str, Any]
+
 class FPDF:
     MARKDOWN_BOLD_MARKER: str
     MARKDOWN_ITALICS_MARKER: str
     MARKDOWN_UNDERLINE_MARKER: str
-    offsets: Any
+    offsets: dict[int, int]
     page: int
     n: int
-    buffer: Any
-    pages: Any
-    state: Any
-    fonts: Any
-    font_files: Any
-    diffs: Any
-    images: Any
-    annots: Any
-    links: Any
+    buffer: bytearray
+    pages: dict[int, _Page]
+    state: DocumentState
+    fonts: dict[str, _Font]
+    font_files: dict[str, _FontFile]
+    diffs: dict[int, int]
+    images: dict[str, _Image]
+    annots: defaultdict[int, list[Annotation]]
+    links: dict[int, DestinationXYZ]
     in_footer: int
     lasth: int
-    current_font: Any
+    current_font: _Font
     font_family: str
     font_style: str
     font_size_pt: int
@@ -100,6 +107,8 @@ class FPDF:
     font_size: Any
     c_margin: Any
     line_width: float
+    dw_pt: float
+    dh_pt: float
     compress: bool
     pdf_version: str
 
@@ -108,6 +117,14 @@ class FPDF:
     t_margin: float
     r_margin: float
     l_margin: float
+
+    # Set during call to _set_orientation(), called from __init__().
+    cur_orientation: Literal["P", "L"]
+    w_pt: float
+    h_pt: float
+    w: float
+    h: float
+
     def __init__(
         self,
         orientation: _Orientation = ...,
@@ -166,7 +183,7 @@ class FPDF:
     ) -> None: ...
     def header(self) -> None: ...
     def footer(self) -> None: ...
-    def page_no(self): ...
+    def page_no(self) -> int: ...
     def set_draw_color(self, r, g: int = ..., b: int = ...) -> None: ...
     def set_fill_color(self, r, g: int = ..., b: int = ...) -> None: ...
     def set_text_color(self, r, g: int = ..., b: int = ...) -> None: ...
