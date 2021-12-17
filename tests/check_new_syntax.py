@@ -87,11 +87,11 @@ def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
                     self.set_from_collections_abc = True
 
             elif node.module == "typing_extensions":
-                for imported_class in node.names:
-                    imported_class_name = imported_class.name
-                    if imported_class_name not in NAMES_IMPORTED_FROM_TYPING_EXTENSIONS:
+                for imported_object in node.names:
+                    imported_object_name = imported_class.name
+                    if imported_object_name not in NAMES_IMPORTED_FROM_TYPING_EXTENSIONS:
                         errors.append(
-                            f"{path}:{node.lineno}: Use `typing.{object_name}` instead of `typing_extensions.{object_name}`"
+                            f"{path}:{node.lineno}: Use `typing.{imported_object_name}` instead of `typing_extensions.{imported_object_name}`"
                         )
 
             elif not python_2_support_required and path not in CONTEXTLIB_ALIAS_ALLOWLIST and node.module == "typing":
