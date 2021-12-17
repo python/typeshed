@@ -82,6 +82,10 @@ tkinter.EventType.__new__
 
 builtins.memoryview.__iter__  # C type that implements __getitem__
 builtins.memoryview.cast  # inspect.signature is incorrect about shape being kw-only
+sqlite3.dbapi2.Binary.__iter__  # C type that implements __getitem__
+sqlite3.dbapi2.Binary.cast  # inspect.signature is incorrect about shape being kw-only
+sqlite3.Binary.__iter__  # C type that implements __getitem__
+sqlite3.Binary.cast  # inspect.signature is incorrect about shape being kw-only
 collections.Coroutine.cr_await
 collections.Coroutine.cr_code
 collections.Coroutine.cr_frame
@@ -130,7 +134,6 @@ dummy_threading.main_thread
 dummy_threading.setprofile
 dummy_threading.settrace
 dummy_threading.stack_size
-email.headerregistry.MessageIDHeader.max_count
 html.parser.HTMLParser.unescape
 lib2to3.pgen2.tokenize.COLONEQUAL
 multiprocessing.managers.SharedMemoryServer.create

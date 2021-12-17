@@ -11,11 +11,12 @@ from typing import (
     Generic,
     Iterator,
     Optional,
+    Protocol,
     Type,
     TypeVar,
     overload,
 )
-from typing_extensions import ParamSpec, Protocol
+from typing_extensions import ParamSpec
 
 AbstractContextManager = ContextManager
 if sys.version_info >= (3, 7):

@@ -29,6 +29,8 @@ collections.ItemsView.__reversed__
 collections.KeysView.__reversed__
 collections.ValuesView.__reversed__
 contextvars.Context.__init__  # Default C __init__ signature is wrong
+contextlib.AbstractAsyncContextManager.__class_getitem__
+contextlib.AbstractContextManager.__class_getitem__
 dataclasses.field
 enum.Enum._generate_next_value_
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
@@ -37,6 +39,8 @@ functools.partialmethod.__get__
 functools.singledispatchmethod.__call__
 gettext.install
 gettext.translation
+hashlib.sha3_\d+
+hashlib.shake_\d+
 hmac.new  # Stub is a white lie; see comments in the stub
 http.server.SimpleHTTPRequestHandler.__init__  # *args is expanded
 importlib.abc.Traversable.__init__  # Inherits __init__ from typing.Protocol
@@ -46,6 +50,7 @@ ipaddress.IPv6Interface.hostmask
 ipaddress._BaseNetwork.broadcast_address
 ipaddress._BaseNetwork.hostmask
 multiprocessing.spawn._main
+os.PathLike.__class_getitem__  # PathLike is a protocol; we don't expect all PathLike classes to implement class_getitem
 pickle.Pickler.reducer_override  # implemented in C pickler
 # platform.uname_result's processor field is now dynamically made to exist
 platform.uname_result.__new__
@@ -93,6 +98,10 @@ tkinter.EventType.__new__
 
 builtins.memoryview.__iter__  # C type that implements __getitem__
 builtins.memoryview.cast  # inspect.signature is incorrect about shape being kw-only
+sqlite3.dbapi2.Binary.__iter__  # C type that implements __getitem__
+sqlite3.dbapi2.Binary.cast  # inspect.signature is incorrect about shape being kw-only
+sqlite3.Binary.__iter__  # C type that implements __getitem__
+sqlite3.Binary.cast  # inspect.signature is incorrect about shape being kw-only
 collections.Coroutine.cr_await
 collections.Coroutine.cr_code
 collections.Coroutine.cr_frame
@@ -129,7 +138,6 @@ distutils.dist.DistributionMetadata.set_platforms
 distutils.sysconfig.expand_makefile_vars
 distutils.sysconfig.get_python_version
 distutils.util.get_host_platform
-email.headerregistry.MessageIDHeader.max_count
 hmac.HMAC.digest_cons
 hmac.HMAC.inner
 hmac.HMAC.outer

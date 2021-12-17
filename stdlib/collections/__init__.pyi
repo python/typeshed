@@ -1,6 +1,6 @@
 import sys
 from _collections_abc import dict_items, dict_keys, dict_values
-from _typeshed import Self, SupportsKeysAndGetItem, SupportsLessThan, SupportsLessThanT
+from _typeshed import Self, SupportsKeysAndGetItem, SupportsRichComparison, SupportsRichComparisonT
 from typing import Any, Dict, Generic, NoReturn, Tuple, Type, TypeVar, overload
 from typing_extensions import SupportsIndex, final
 
@@ -99,9 +99,9 @@ class UserList(MutableSequence[_T]):
     def reverse(self) -> None: ...
     # All arguments are passed to `list.sort` at runtime, so the signature should be kept in line with `list.sort`.
     @overload
-    def sort(self: UserList[SupportsLessThanT], *, key: None = ..., reverse: bool = ...) -> None: ...
+    def sort(self: UserList[SupportsRichComparisonT], *, key: None = ..., reverse: bool = ...) -> None: ...
     @overload
-    def sort(self, *, key: Callable[[_T], SupportsLessThan], reverse: bool = ...) -> None: ...
+    def sort(self, *, key: Callable[[_T], SupportsRichComparison], reverse: bool = ...) -> None: ...
     def extend(self, other: Iterable[_T]) -> None: ...
 
 _UserStringT = TypeVar("_UserStringT", bound=UserString)

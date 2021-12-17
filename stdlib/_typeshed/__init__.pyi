@@ -35,15 +35,25 @@ class SupportsNext(Protocol[_T_co]):
 class SupportsAnext(Protocol[_T_co]):
     def __anext__(self) -> Awaitable[_T_co]: ...
 
-class SupportsLessThan(Protocol):
-    def __lt__(self, __other: Any) -> bool: ...
+# Comparison protocols
 
-SupportsLessThanT = TypeVar("SupportsLessThanT", bound=SupportsLessThan)  # noqa: Y001
+class SupportsDunderLT(Protocol):
+    def __lt__(self, __other: Any) -> Any: ...
 
-class SupportsGreaterThan(Protocol):
-    def __gt__(self, __other: Any) -> bool: ...
+class SupportsDunderGT(Protocol):
+    def __gt__(self, __other: Any) -> Any: ...
 
-SupportsGreaterThanT = TypeVar("SupportsGreaterThanT", bound=SupportsGreaterThan)  # noqa: Y001
+class SupportsDunderLE(Protocol):
+    def __le__(self, __other: Any) -> Any: ...
+
+class SupportsDunderGE(Protocol):
+    def __ge__(self, __other: Any) -> Any: ...
+
+class SupportsAllComparisons(SupportsDunderLT, SupportsDunderGT, SupportsDunderLE, SupportsDunderGE, Protocol): ...
+
+SupportsRichComparison = Union[SupportsDunderLT, SupportsDunderGT]
+SupportsRichComparisonT = TypeVar("SupportsRichComparisonT", bound=SupportsRichComparison)  # noqa: Y001
+SupportsAnyComparison = Union[SupportsDunderLE, SupportsDunderGE, SupportsDunderGT, SupportsDunderLT]
 
 class SupportsDivMod(Protocol[_T_contra, _T_co]):
     def __divmod__(self, __other: _T_contra) -> _T_co: ...

@@ -31,6 +31,8 @@ asyncio.futures.Future.__init__  # Usually initialized from c object
 asyncio.futures.Future._callbacks  # Usually initialized from c object
 builtins.dict.get
 contextvars.Context.__init__  # Default C __init__ signature is wrong
+contextlib.AbstractAsyncContextManager.__class_getitem__
+contextlib.AbstractContextManager.__class_getitem__
 dataclasses.field
 dataclasses.KW_ONLY
 enum.Enum._generate_next_value_
@@ -40,6 +42,8 @@ functools.partialmethod.__get__
 functools.singledispatchmethod.__call__
 gettext.install
 gettext.translation
+hashlib.sha3_\d+  # Can be a class or a built-in function
+hashlib.shake_\d+  # Can be a class or a built-in function
 hmac.new  # Stub is a white lie; see comments in the stub
 http.server.SimpleHTTPRequestHandler.__init__  # *args is expanded
 importlib.abc.Traversable.__init__  # Inherits __init__ from typing.Protocol
@@ -51,6 +55,7 @@ ipaddress.IPv6Interface.hostmask
 ipaddress._BaseNetwork.broadcast_address
 ipaddress._BaseNetwork.hostmask
 multiprocessing.spawn._main
+os.PathLike.__class_getitem__  # PathLike is a protocol; we don't expect all PathLike classes to implement class_getitem
 pickle.Pickler.reducer_override  # implemented in C pickler
 # platform.uname_result's processor field is now dynamically made to exist
 platform.uname_result.__new__
@@ -105,8 +110,11 @@ _collections_abc.Generator.send
 _collections_abc.Generator.throw
 contextvars.ContextVar.reset
 contextvars.ContextVar.set
+contextlib.AbstractAsyncContextManager.__aexit__
+contextlib.AbstractContextManager.__exit__
 io.IncrementalNewlineDecoder.setstate
 typing.SupportsRound.__round__
+types.DynamicClassAttribute..*  # In the stub we pretend it's an alias for property, but it has positional-only differences
 
 # These enums derive from (str, Enum). See comment in py3_common.txt
 pstats.SortKey.__new__
@@ -149,7 +157,6 @@ distutils.dist.DistributionMetadata.set_classifiers
 distutils.dist.DistributionMetadata.set_keywords
 distutils.dist.DistributionMetadata.set_platforms
 distutils.util.get_host_platform
-email.headerregistry.MessageIDHeader.max_count
 lib2to3.pgen2.tokenize.COLONEQUAL
 multiprocessing.managers.SharedMemoryServer.create
 multiprocessing.managers.SharedMemoryServer.list_segments

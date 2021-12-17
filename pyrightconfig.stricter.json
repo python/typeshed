@@ -55,6 +55,7 @@
         "stubs/setuptools",
         "stubs/simplejson",
         "stubs/slumber",
+        "stubs/SQLAlchemy",
         "stubs/stripe",
         "stubs/ttkthemes",
         "stubs/vobject"
