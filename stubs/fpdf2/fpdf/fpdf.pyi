@@ -124,7 +124,6 @@ class FPDF:
     h_pt: float
     w: float
     h: float
-
     def __init__(
         self,
         orientation: _Orientation = ...,
