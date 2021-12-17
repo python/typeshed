@@ -97,19 +97,19 @@ class OrderedSet(set[_T], Generic[_T]):
     def update(self: Self, iterable: Iterable[_T]) -> Self: ...  # type: ignore[override]
     __ior__ = update  # type: ignore[assignment]
     def union(self, other: Iterable[_S]) -> OrderedSet[_S | _T]: ...  # type: ignore[override]
-    __or__ = union
+    __or__ = union  # type: ignore[assignment]
     def intersection(self: Self, other: Iterable[Any]) -> Self: ...  # type: ignore[override]
-    __and__ = intersection
+    __and__ = intersection  # type: ignore[assignment]
     def symmetric_difference(self, other: Iterable[_S]) -> OrderedSet[_S | _T]: ...
-    __xor__ = symmetric_difference
+    __xor__ = symmetric_difference  # type: ignore[assignment]
     def difference(self: Self, other: Iterable[Any]) -> Self: ...  # type: ignore[override]
-    __sub__ = difference
+    __sub__ = difference  # type: ignore[assignment]
     def intersection_update(self: Self, other: Iterable[Any]) -> Self: ...  # type: ignore[override]
-    __iand__ = intersection_update
+    __iand__ = intersection_update  # type: ignore[assignment]
     def symmetric_difference_update(self: Self, other: Iterable[_T]) -> Self: ...  # type: ignore[override]
     __ixor__ = symmetric_difference_update  # type: ignore[assignment]
     def difference_update(self: Self, other: Iterable[Any]) -> Self: ...  # type: ignore[override]
-    __isub__ = difference_update
+    __isub__ = difference_update  # type: ignore[assignment]
 
 class IdentitySet:
     def __init__(self, iterable: Any | None = ...) -> None: ...
