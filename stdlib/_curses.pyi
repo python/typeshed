@@ -1,6 +1,6 @@
 import sys
-from typing import IO, Any, BinaryIO, NamedTuple, Union, overload
 from _typeshed import SupportsRead
+from typing import IO, Any, BinaryIO, NamedTuple, Union, overload
 
 _chtype = Union[str, bytes, int]
 
