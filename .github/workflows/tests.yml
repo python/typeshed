@@ -110,9 +110,7 @@ jobs:
       - name: Update pip
         run: python -m pip install -U pip
       - name: Install dependencies
-        # Temporarily hard-code the mypy version used for stubtest
-        # run: pip install $(grep tomli== requirements-tests.txt) (grep mypy== requirements-tests.txt)
-        run: pip install mypy==0.910
+        run: pip install $(grep tomli== requirements-tests.txt) $(grep mypy== requirements-tests.txt)
       - name: Run stubtest
         run: python tests/stubtest_stdlib.py
 

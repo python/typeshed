@@ -14,6 +14,7 @@ _csv.Dialect.__init__  # C __init__ signature is inaccurate
 _socket.*
 _threading_local.local.__new__
 _typeshed.*  # Utility types for typeshed, doesn't exist at runtime
+_weakref.ref.__call__
 abc.abstractclassmethod  # Deprecated, unsupported by mypy, hard to fix. #6552
 abc.abstractstaticmethod  # Deprecated, unsupported by mypy, hard to fix. #6552
 abc.ABCMeta.__new__  # pytype wants the parameter named cls and not mcls
@@ -42,6 +43,8 @@ builtins.classmethod.__get__  # this function can accept no value for the type p
 builtins.ellipsis  # type is not exposed anywhere
 builtins.function
 builtins.memoryview.__contains__  # C type that implements __getitem__
+sqlite3.dbapi2.Binary.__contains__  # C type that implements __getitem__
+sqlite3.Binary.__contains__  # C type that implements __getitem__
 builtins.object.__init__  # default C signature is incorrect
 builtins.property.__get__  # this function can accept no value for the type parameter.
 builtins.staticmethod.__get__  # this function can accept no value for the type parameter.
@@ -163,6 +166,8 @@ numbers.Number.__hash__  # typeshed marks this as abstract but code just sets th
 optparse.Values.__getattr__  # Some attributes are set in __init__ using setattr
 pickle.Pickler.persistent_id  # C pickler persistent_id is an attribute
 pickle.Unpickler.persistent_load  # C unpickler persistent_load is an attribute
+pickle._Unpickler\..*  # Best effort typing for undocumented internals
+pickle._Pickler\..*  # Best effort typing for undocumented internals
 poplib.POP3_SSL.stls  # bad declaration of inherited function. See poplib.pyi
 select.poll  # Depends on configuration
 selectors.DevpollSelector  # Depends on configuration
@@ -184,7 +189,12 @@ tempfile.SpooledTemporaryFile.seekable
 tempfile.SpooledTemporaryFile.writable
 threading.Condition.acquire  # Condition functions are exported in __init__
 threading.Condition.release  # Condition functions are exported in __init__
+multiprocessing.dummy.Condition.acquire
+multiprocessing.dummy.Condition.release
 threading.Lock  # A factory function that returns 'most efficient lock'. Marking it as a function will make it harder for users to mark the Lock type.
+threading.RLock  # Similar to above
+multiprocessing.dummy.Lock  # Similar to above
+multiprocessing.dummy.RLock  # Similar to above
 tkinter.Misc.grid_propagate  # The noarg placeholder is a set value list
 tkinter.Misc.pack_propagate  # The noarg placeholder is a set value list
 tkinter.Misc.grid_columnconfigure  # an empty dict literal is actually a valid default for a TypedDict(total=False) parameter
@@ -211,6 +221,7 @@ weakref.ReferenceType.__call__  # C function default annotation is wrong
 weakref.WeakKeyDictionary.get
 weakref.WeakKeyDictionary.update
 weakref.WeakValueDictionary.get
+weakref.ref.__call__
 webbrowser.UnixBrowser.remote_action  # always overridden in inheriting class
 webbrowser.UnixBrowser.remote_action_newtab  # always overridden in inheriting class
 webbrowser.UnixBrowser.remote_action_newwin  # always overridden in inheriting class
@@ -233,6 +244,13 @@ builtins.reveal_locals
 builtins.reveal_type
 # GetSetDescriptor that always raises AttributeError
 builtins.OSError.characters_written
+# Aliases for OSError
+builtins.EnvironmentError.characters_written
+builtins.IOError.characters_written
+dbm.dumb.error.characters_written
+os.error.characters_written
+select.error.characters_written
+socket.error.characters_written
 collections.abc.*  # Types are re-exported from _collections_abc, so errors should be fixed there
 distutils.command.check.SilentReporter  # only defined if docutils in installed
 hmac.HMAC.blocksize  # use block_size instead
