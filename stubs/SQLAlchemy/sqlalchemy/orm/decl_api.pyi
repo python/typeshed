@@ -1,5 +1,5 @@
 from collections.abc import Callable
-from typing import Any, Type, ClassVar, TypeVar, overload
+from typing import Any, ClassVar, Type, TypeVar, overload
 
 from ..engine.interfaces import Connectable
 from ..sql.schema import MetaData
