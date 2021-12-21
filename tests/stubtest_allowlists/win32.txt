@@ -9,6 +9,10 @@ locale.nl_langinfo  # Function that should be moved to _locale and re-exported c
 # Allowlist entries that cannot or should not be fixed
 # ==========
 
+# Aliases for OSError
+builtins.WindowsError.characters_written
+winreg.error.characters_written
+
 # Modules that do not exist on Windows systems
 _curses
 _posixsubprocess
@@ -38,3 +42,19 @@ curses.textpad
 # Modules that rely on termios
 pty
 tty
+
+# Exists at runtime, but missing from stubs
+_msi.MSIError
+asyncio.windows_utils.Popen
+distutils.msvccompiler.MSVCCompiler.manifest_get_embed_info
+distutils.msvccompiler.MSVCCompiler.manifest_setup_ldargs
+distutils.msvccompiler.OldMSVCCompiler
+msvcrt.SetErrorMode
+os.get_handle_inheritable
+os.set_handle_inheritable
+socket.MsgFlag.MSG_BCAST
+socket.MsgFlag.MSG_MCAST
+ssl.SSLSocket.recvmsg
+ssl.SSLSocket.recvmsg_into
+ssl.SSLSocket.sendmsg
+winreg.HKEYType.handle

@@ -6,19 +6,18 @@ import functools
 import subprocess
 import sys
 import tempfile
-import tomli
 import venv
 from glob import glob
 from pathlib import Path
 
+import tomli
 
 EXCLUDE_LIST = [
-    "Flask",  # fails when stubtest tries to stringify some object
     "pyaudio",  # install failure locally
     "backports",  # errors on python version
     "six",  # ???
     "aiofiles",  # easily fixable, some platform specific difference between local and ci
-    "pycurl"  # install failure, missing libcurl
+    "pycurl",  # install failure, missing libcurl
 ]
 
 
@@ -28,7 +27,7 @@ class StubtestFailed(Exception):
 
 @functools.lru_cache()
 def get_mypy_req():
-    with open("requirements-tests-py3.txt") as f:
+    with open("requirements-tests.txt") as f:
         return next(line.strip() for line in f if "mypy" in line)
 
 
@@ -47,11 +46,9 @@ def run_stubtest(dist: Path) -> None:
         pip_exe = str(venv_dir / "bin" / "pip")
         python_exe = str(venv_dir / "bin" / "python")
 
-        dist_version = metadata.get("version")
-        if dist_version is None or dist_version == "0.1":
-            dist_req = dist.name
-        else:
-            dist_req = f"{dist.name}=={dist_version}.*"
+        dist_version = metadata["version"]
+        assert isinstance(dist_version, str)
+        dist_req = f"{dist.name}=={dist_version}"
 
         # If @tests/requirements-stubtest.txt exists, run "pip install" on it.
         req_path = dist / "@tests" / "requirements-stubtest.txt"
@@ -105,16 +102,19 @@ def run_stubtest(dist: Path) -> None:
             subprocess.run(cmd, env={"MYPYPATH": str(dist), "MYPY_FORCE_COLOR": "1"}, check=True)
         except subprocess.CalledProcessError:
             print(f"stubtest failed for {dist.name}", file=sys.stderr)
-            if not allowlist_path.exists():
+            print("\n\n", file=sys.stderr)
+            if allowlist_path.exists():
                 print(
-                    "\n\nRe-running stubtest with --generate-allowlist.\n"
-                    f"Add the following to {allowlist_path}:"
+                    f'To fix "unused allowlist" errors, remove the corresponding entries from {allowlist_path}', file=sys.stderr
                 )
+            else:
+                print(f"Re-running stubtest with --generate-allowlist.\nAdd the following to {allowlist_path}:", file=sys.stderr)
                 subprocess.run(cmd + ["--generate-allowlist"], env={"MYPYPATH": str(dist)})
-                print("\n\n")
+                print("\n\n", file=sys.stderr)
             raise StubtestFailed from None
         else:
             print(f"stubtest succeeded for {dist.name}", file=sys.stderr)
+        print("\n\n", file=sys.stderr)
 
 
 # Keep this in sync with mypy_test.py
@@ -135,12 +135,15 @@ def main():
     else:
         dists = [typeshed_dir / "stubs" / d for d in args.dists]
 
-    for i, dist in enumerate(dists):
-        if i % args.num_shards != args.shard_index:
-            continue
-        if dist.name in EXCLUDE_LIST:
-            continue
-        run_stubtest(dist)
+    try:
+        for i, dist in enumerate(dists):
+            if i % args.num_shards != args.shard_index:
+                continue
+            if dist.name in EXCLUDE_LIST:
+                continue
+            run_stubtest(dist)
+    except StubtestFailed:
+        sys.exit(1)
 
 
 if __name__ == "__main__":

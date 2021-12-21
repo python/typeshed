@@ -1,10 +1,19 @@
 import sys
 import types
-from _typeshed import StrOrBytesPath
+from _typeshed import (
+    OpenBinaryMode,
+    OpenBinaryModeReading,
+    OpenBinaryModeUpdating,
+    OpenBinaryModeWriting,
+    OpenTextMode,
+    StrOrBytesPath,
+    StrPath,
+)
 from abc import ABCMeta, abstractmethod
 from importlib.machinery import ModuleSpec
-from typing import IO, Any, Iterator, Mapping, Protocol, Sequence, Tuple, Union
-from typing_extensions import Literal, runtime_checkable
+from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
+from typing import IO, Any, BinaryIO, Iterator, Mapping, NoReturn, Protocol, Sequence, Union, overload, runtime_checkable
+from typing_extensions import Literal
 
 _Path = Union[bytes, str]
 
@@ -46,7 +55,7 @@ class MetaPathFinder(Finder):
 
 class PathEntryFinder(Finder):
     def find_module(self, fullname: str) -> Loader | None: ...
-    def find_loader(self, fullname: str) -> Tuple[Loader | None, Sequence[_Path]]: ...
+    def find_loader(self, fullname: str) -> tuple[Loader | None, Sequence[_Path]]: ...
     def invalidate_caches(self) -> None: ...
     # Not defined on the actual class, but expected to exist.
     def find_spec(self, fullname: str, target: types.ModuleType | None = ...) -> ModuleSpec | None: ...
@@ -76,8 +85,12 @@ if sys.version_info >= (3, 7):
         def open_resource(self, resource: StrOrBytesPath) -> IO[bytes]: ...
         @abstractmethod
         def resource_path(self, resource: StrOrBytesPath) -> str: ...
-        @abstractmethod
-        def is_resource(self, name: str) -> bool: ...
+        if sys.version_info >= (3, 10):
+            @abstractmethod
+            def is_resource(self, path: str) -> bool: ...
+        else:
+            @abstractmethod
+            def is_resource(self, name: str) -> bool: ...
         @abstractmethod
         def contents(self) -> Iterator[str]: ...
 
@@ -85,21 +98,85 @@ if sys.version_info >= (3, 9):
     @runtime_checkable
     class Traversable(Protocol):
         @abstractmethod
-        def iterdir(self) -> Iterator[Traversable]: ...
-        @abstractmethod
-        def read_bytes(self) -> bytes: ...
-        @abstractmethod
-        def read_text(self, encoding: str | None = ...) -> str: ...
-        @abstractmethod
         def is_dir(self) -> bool: ...
         @abstractmethod
         def is_file(self) -> bool: ...
         @abstractmethod
-        def joinpath(self, child: _Path) -> Traversable: ...
+        def iterdir(self) -> Iterator[Traversable]: ...
         @abstractmethod
-        def __truediv__(self, child: _Path) -> Traversable: ...
+        def joinpath(self, child: StrPath) -> Traversable: ...
+        # The .open method comes from pathlib.pyi and should be kept in sync.
+        @overload
         @abstractmethod
-        def open(self, mode: Literal["r", "rb"] = ..., *args: Any, **kwargs: Any) -> IO[Any]: ...
+        def open(
+            self,
+            mode: OpenTextMode = ...,
+            buffering: int = ...,
+            encoding: str | None = ...,
+            errors: str | None = ...,
+            newline: str | None = ...,
+        ) -> TextIOWrapper: ...
+        # Unbuffered binary mode: returns a FileIO
+        @overload
+        @abstractmethod
+        def open(
+            self, mode: OpenBinaryMode, buffering: Literal[0], encoding: None = ..., errors: None = ..., newline: None = ...
+        ) -> FileIO: ...
+        # Buffering is on: return BufferedRandom, BufferedReader, or BufferedWriter
+        @overload
+        @abstractmethod
+        def open(
+            self,
+            mode: OpenBinaryModeUpdating,
+            buffering: Literal[-1, 1] = ...,
+            encoding: None = ...,
+            errors: None = ...,
+            newline: None = ...,
+        ) -> BufferedRandom: ...
+        @overload
+        @abstractmethod
+        def open(
+            self,
+            mode: OpenBinaryModeWriting,
+            buffering: Literal[-1, 1] = ...,
+            encoding: None = ...,
+            errors: None = ...,
+            newline: None = ...,
+        ) -> BufferedWriter: ...
+        @overload
+        @abstractmethod
+        def open(
+            self,
+            mode: OpenBinaryModeReading,
+            buffering: Literal[-1, 1] = ...,
+            encoding: None = ...,
+            errors: None = ...,
+            newline: None = ...,
+        ) -> BufferedReader: ...
+        # Buffering cannot be determined: fall back to BinaryIO
+        @overload
+        @abstractmethod
+        def open(
+            self, mode: OpenBinaryMode, buffering: int, encoding: None = ..., errors: None = ..., newline: None = ...
+        ) -> BinaryIO: ...
+        # Fallback if mode is not specified
+        @overload
+        @abstractmethod
+        def open(
+            self, mode: str, buffering: int = ..., encoding: str | None = ..., errors: str | None = ..., newline: str | None = ...
+        ) -> IO[Any]: ...
         @property
-        @abstractmethod
         def name(self) -> str: ...
+        @abstractmethod
+        def __truediv__(self, key: StrPath) -> Traversable: ...
+        @abstractmethod
+        def read_bytes(self) -> bytes: ...
+        @abstractmethod
+        def read_text(self, encoding: str | None = ...) -> str: ...
+    class TraversableResources(ResourceReader):
+        @abstractmethod
+        def files(self) -> Traversable: ...
+        def open_resource(self, resource: StrPath) -> BufferedReader: ...  # type: ignore[override]
+        def resource_path(self, resource: Any) -> NoReturn: ...
+        def is_resource(self, path: StrPath) -> bool: ...
+        def contents(self) -> Iterator[str]: ...

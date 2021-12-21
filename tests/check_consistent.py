@@ -17,10 +17,7 @@ import re
 
 import tomli
 
-consistent_files = [
-    {"stdlib/@python2/builtins.pyi", "stdlib/@python2/__builtin__.pyi"},
-    {"stdlib/threading.pyi", "stdlib/_dummy_threading.pyi"},
-]
+consistent_files = [{"stdlib/@python2/builtins.pyi", "stdlib/@python2/__builtin__.pyi"}]
 metadata_keys = {"version", "python2", "requires", "extra_description", "obsolete_since"}
 allowed_files = {"README.md"}
 
@@ -169,9 +166,8 @@ def check_metadata():
         assert "version" in data, f"Missing version for {distribution}"
         version = data["version"]
         msg = f"Unsupported Python version {version}"
-        assert version.count(".") == 1, msg
-        major, minor = version.split(".")
-        assert major.isdigit() and minor.isdigit(), msg
+        assert isinstance(version, str), msg
+        assert re.fullmatch(r"\d+(\.\d+)+|\d+(\.\d+)*\.\*", version), msg
         for key in data:
             assert key in metadata_keys, f"Unexpected key {key} for {distribution}"
         assert isinstance(data.get("python2", False), bool), f"Invalid python2 value for {distribution}"
