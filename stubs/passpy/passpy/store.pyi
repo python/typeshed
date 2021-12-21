@@ -1,10 +1,5 @@
-import sys
 from collections.abc import Iterable, Iterator, Mapping
-
-if sys.version_info >= (3, 7):
-    import re
-else:
-    from typing import Any
+from typing import Match
 
 class Store:
     def __init__(
@@ -30,7 +25,4 @@ class Store:
     def list_dir(self, path: str) -> tuple[Iterable[str], Iterable[str]]: ...
     def iter_dir(self, path: str) -> None: ...
     def find(self, names: Iterable[str]) -> Iterable[str]: ...
-    if sys.version_info >= (3, 7):
-        def search(self, term: str) -> Mapping[str, Iterable[tuple[str, re.Match]]]: ...
-    else:
-        def search(self, term: str) -> Mapping[str, Iterable[tuple[str, Any]]]: ...
+    def search(self, term: str) -> Mapping[str, Iterable[tuple[str, Match[str]]]]: ...
