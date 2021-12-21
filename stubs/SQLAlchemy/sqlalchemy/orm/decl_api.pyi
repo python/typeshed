@@ -1,5 +1,5 @@
 from collections.abc import Callable
-from typing import Any, Type, TypeVar, overload
+from typing import Any, Type, ClassVar, TypeVar, overload
 
 from ..engine.interfaces import Connectable
 from ..sql.schema import MetaData
@@ -12,13 +12,13 @@ _DeclT = TypeVar("_DeclT", bound=Type[_DeclarativeBase])
 # Dynamic class as created by registry.generate_base() via DeclarativeMeta
 # or another metaclass. This class does not exist at runtime.
 class _DeclarativeBase(Any):  # super classes are dynamic
-    registry: registry
-    metadata: MetaData
-    __abstract__: bool
+    registry: ClassVar[registry]
+    metadata: ClassVar[MetaData]
+    __abstract__: ClassVar[bool]
     # not always existing:
     def __init__(self, *args: Any, **kwargs: Any) -> None: ...
-    __mapper_cls__: Any
-    __class_getitem__: Any
+    __mapper_cls__: ClassVar[Any]
+    __class_getitem__: ClassVar[Any]
 
 # Meta class (or function) that creates a _DeclarativeBase class.
 _DeclarativeBaseMeta = Callable[[str, tuple[Type[Any], ...], dict[str, Any]], _DeclT]
