@@ -28,8 +28,6 @@ from typing import (
     IO,
     AbstractSet,
     Any,
-    AsyncIterable,
-    AsyncIterator,
     BinaryIO,
     ByteString,
     Callable,
@@ -76,6 +74,14 @@ _T5 = TypeVar("_T5")
 _TT = TypeVar("_TT", bound="type")
 _TBE = TypeVar("_TBE", bound="BaseException")
 _R = TypeVar("_R")  # Return-type TypeVar
+_SupportsNextT = TypeVar("_SupportsNextT", bound=SupportsNext[Any], covariant=True)
+_SupportsAnextT = TypeVar("_SupportsAnextT", bound=SupportsAnext[Any], covariant=True)
+
+class _SupportsIter(Protocol[_T_co]):
+    def __iter__(self) -> _T_co: ...
+
+class _SupportsAiter(Protocol[_T_co]):
+    def __aiter__(self) -> _T_co: ...
 
 class object:
     __doc__: str | None
@@ -990,7 +996,7 @@ class _PathLike(Protocol[_AnyStr_co]):
     def __fspath__(self) -> _AnyStr_co: ...
 
 if sys.version_info >= (3, 10):
-    def aiter(__async_iterable: AsyncIterable[_T]) -> AsyncIterator[_T]: ...
+    def aiter(__async_iterable: _SupportsAiter[_SupportsAnextT]) -> _SupportsAnextT: ...
     @overload
     async def anext(__i: SupportsAnext[_T]) -> _T: ...
     @overload
@@ -1073,7 +1079,7 @@ def hex(__number: int | SupportsIndex) -> str: ...
 def id(__obj: object) -> int: ...
 def input(__prompt: object = ...) -> str: ...
 @overload
-def iter(__iterable: Iterable[_T]) -> Iterator[_T]: ...
+def iter(__iterable: _SupportsIter[_SupportsNextT]) -> _SupportsNextT: ...
 @overload
 def iter(__function: Callable[[], _T | None], __sentinel: None) -> Iterator[_T]: ...
 @overload
