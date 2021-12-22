@@ -8,6 +8,7 @@ def message_from_file(fp: IO[str], _class: Callable[[], Message] = ..., *, polic
 def message_from_binary_file(fp: IO[bytes], _class: Callable[[], Message] = ..., *, policy: Policy = ...) -> Message: ...
 
 # Names in __all__ with no definition:
+#   base64mime
 #   charset
 #   encoders
 #   errors
