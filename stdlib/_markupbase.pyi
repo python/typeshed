@@ -9,7 +9,6 @@ class ParserBase:
     def parse_declaration(self, i: int) -> int: ...  # undocumented
     def parse_marked_section(self, i: int, report: int = ...) -> int: ...  # undocumented
     def updatepos(self, i: int, j: int) -> int: ...  # undocumented
-    if sys.version_info >= (3, 10): ...
-    else:
+    if sys.version_info < (3, 10):
         # Removed from ParserBase: https://bugs.python.org/issue31844
         def error(self, message: str) -> None: ...  # undocumented
