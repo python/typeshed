@@ -1,6 +1,7 @@
 import sys
 from _typeshed import Self
-from typing import Any, Callable, ContextManager, Dict, Generic, Iterable, Iterator, List, Mapping, TypeVar
+from contextlib import AbstractContextManager
+from typing import Any, Callable, Generic, Iterable, Iterator, List, Mapping, TypeVar
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
@@ -17,7 +18,7 @@ class ApplyResult(Generic[_T]):
     else:
         def __init__(
             self,
-            cache: Dict[int, ApplyResult[Any]],
+            cache: dict[int, ApplyResult[Any]],
             callback: Callable[[_T], None] | None,
             error_callback: Callable[[BaseException], None] | None,
         ) -> None: ...
@@ -38,16 +39,16 @@ class MapResult(ApplyResult[List[_T]]):
             pool: Pool,
             chunksize: int,
             length: int,
-            callback: Callable[[List[_T]], None] | None,
+            callback: Callable[[list[_T]], None] | None,
             error_callback: Callable[[BaseException], None] | None,
         ) -> None: ...
     else:
         def __init__(
             self,
-            cache: Dict[int, ApplyResult[Any]],
+            cache: dict[int, ApplyResult[Any]],
             chunksize: int,
             length: int,
-            callback: Callable[[List[_T]], None] | None,
+            callback: Callable[[list[_T]], None] | None,
             error_callback: Callable[[BaseException], None] | None,
         ) -> None: ...
 
@@ -55,14 +56,14 @@ class IMapIterator(Iterator[_T]):
     if sys.version_info >= (3, 8):
         def __init__(self, pool: Pool) -> None: ...
     else:
-        def __init__(self, cache: Dict[int, IMapIterator[Any]]) -> None: ...
+        def __init__(self, cache: dict[int, IMapIterator[Any]]) -> None: ...
     def __iter__(self: _S) -> _S: ...
     def next(self, timeout: float | None = ...) -> _T: ...
     def __next__(self, timeout: float | None = ...) -> _T: ...
 
 class IMapUnorderedIterator(IMapIterator[_T]): ...
 
-class Pool(ContextManager[Pool]):
+class Pool(AbstractContextManager[Pool]):
     def __init__(
         self,
         processes: int | None = ...,
@@ -107,7 +108,7 @@ class Pool(ContextManager[Pool]):
     def join(self) -> None: ...
     def __enter__(self: Self) -> Self: ...
 
-class ThreadPool(Pool, ContextManager[ThreadPool]):
+class ThreadPool(Pool, AbstractContextManager[ThreadPool]):
     def __init__(
         self, processes: int | None = ..., initializer: Callable[..., Any] | None = ..., initargs: Iterable[Any] = ...
     ) -> None: ...

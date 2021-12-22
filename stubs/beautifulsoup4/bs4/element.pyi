@@ -1,6 +1,6 @@
 from _typeshed import Self
 from collections.abc import Iterator
-from typing import Any, Callable, Generic, Iterable, List, Mapping, Pattern, Set, Tuple, Type, TypeVar, Union, overload
+from typing import Any, Callable, Generic, Iterable, List, Mapping, Pattern, Tuple, Type, TypeVar, Union, overload
 
 from . import BeautifulSoup
 from .builder import TreeBuilder
@@ -10,7 +10,7 @@ DEFAULT_OUTPUT_ENCODING: str
 PY3K: bool
 nonwhitespace_re: Pattern[str]
 whitespace_re: Pattern[str]
-PYTHON_SPECIFIC_ENCODINGS: Set[str]
+PYTHON_SPECIFIC_ENCODINGS: set[str]
 
 class NamespacedAttribute(str):
     def __new__(cls: Type[Self], prefix: str, name: str | None = ..., namespace: str | None = ...) -> Self: ...
@@ -235,7 +235,7 @@ class Tag(PageElement):
     sourcepos: int | None
     known_xml: bool | None
     attrs: Mapping[str, str]
-    contents: List[PageElement]
+    contents: list[PageElement]
     hidden: bool
     can_be_empty_element: bool | None
     cdata_list_attributes: list[str] | None
@@ -348,6 +348,6 @@ class SoupStrainer:
     searchTag = search_tag
     def search(self, markup: PageElement | Iterable[PageElement]): ...
 
-class ResultSet(Generic[_PageElementT], List[_PageElementT]):
+class ResultSet(List[_PageElementT], Generic[_PageElementT]):
     source: SoupStrainer
     def __init__(self, source: SoupStrainer, result: Iterable[_PageElementT] = ...) -> None: ...

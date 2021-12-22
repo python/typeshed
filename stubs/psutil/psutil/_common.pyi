@@ -1,5 +1,8 @@
 import enum
-from typing import Any, Callable, NamedTuple, TypeVar
+from _typeshed import StrOrBytesPath, SupportsWrite
+from socket import AddressFamily, SocketKind
+from typing import Any, Callable, NamedTuple, TypeVar, overload
+from typing_extensions import Literal
 
 POSIX: bool
 WINDOWS: bool
@@ -12,20 +15,39 @@ NETBSD: bool
 BSD: bool
 SUNOS: bool
 AIX: bool
-STATUS_RUNNING: str
-STATUS_SLEEPING: str
-STATUS_DISK_SLEEP: str
-STATUS_STOPPED: str
-STATUS_TRACING_STOP: str
-STATUS_ZOMBIE: str
-STATUS_DEAD: str
-STATUS_WAKE_KILL: str
-STATUS_WAKING: str
-STATUS_IDLE: str
-STATUS_LOCKED: str
-STATUS_WAITING: str
-STATUS_SUSPENDED: str
-STATUS_PARKED: str
+
+STATUS_RUNNING: Literal["running"]
+STATUS_SLEEPING: Literal["sleeping"]
+STATUS_DISK_SLEEP: Literal["disk-sleep"]
+STATUS_STOPPED: Literal["stopped"]
+STATUS_TRACING_STOP: Literal["tracing-stop"]
+STATUS_ZOMBIE: Literal["zombie"]
+STATUS_DEAD: Literal["dead"]
+STATUS_WAKE_KILL: Literal["wake-kill"]
+STATUS_WAKING: Literal["waking"]
+STATUS_IDLE: Literal["idle"]
+STATUS_LOCKED: Literal["locked"]
+STATUS_WAITING: Literal["waiting"]
+STATUS_SUSPENDED: Literal["suspended"]
+STATUS_PARKED: Literal["parked"]
+
+_Status = Literal[
+    "running",
+    "sleeping",
+    "disk-sleep",
+    "stopped",
+    "tracing-stop",
+    "zombie",
+    "dead",
+    "wake-kill",
+    "waking",
+    "idle",
+    "locked",
+    "waiting",
+    "suspended",
+    "parked",
+]
+
 CONN_ESTABLISHED: str
 CONN_SYN_SENT: str
 CONN_SYN_RECV: str
@@ -106,15 +128,15 @@ class suser(NamedTuple):
 
 class sconn(NamedTuple):
     fd: int
-    family: Any
-    type: Any
+    family: AddressFamily
+    type: SocketKind
     laddr: str
     raddr: str
     status: str
     pid: int
 
 class snicaddr(NamedTuple):
-    family: Any
+    family: AddressFamily
     address: str
     netmask: str | None
     broadcast: str | None
@@ -122,7 +144,7 @@ class snicaddr(NamedTuple):
 
 class snicstats(NamedTuple):
     isup: bool
-    duplex: Any
+    duplex: int
     speed: int
     mtu: int
 
@@ -184,7 +206,7 @@ class pio(NamedTuple):
     write_bytes: int
 
 class pionice(NamedTuple):
-    ioclass: Any
+    ioclass: int
     value: int
 
 class pctxsw(NamedTuple):
@@ -193,8 +215,8 @@ class pctxsw(NamedTuple):
 
 class pconn(NamedTuple):
     fd: int
-    family: Any
-    type: Any
+    family: AddressFamily
+    type: SocketKind
     laddr: addr
     raddr: addr
     status: str
@@ -203,7 +225,7 @@ class addr(NamedTuple):
     ip: str
     port: int
 
-conn_tmap: Any
+conn_tmap: dict[str, tuple[list[AddressFamily], list[SocketKind]]]
 
 class Error(Exception):
     __module__: str
@@ -244,13 +266,16 @@ _Func = TypeVar("_Func", bound=Callable[..., Any])
 def usage_percent(used, total, round_: int | None = ...) -> float: ...
 def memoize(fun: _Func) -> _Func: ...
 def memoize_when_activated(fun: _Func) -> _Func: ...
-def isfile_strict(path) -> bool: ...
-def path_exists_strict(path) -> bool: ...
+def isfile_strict(path: StrOrBytesPath) -> bool: ...
+def path_exists_strict(path: StrOrBytesPath) -> bool: ...
 def supports_ipv6() -> bool: ...
 def parse_environ_block(data): ...
-def sockfam_to_enum(num): ...
-def socktype_to_enum(num): ...
-def conn_to_ntuple(fd, fam, type_, laddr, raddr, status, status_map, pid: Any | None = ...): ...
+def sockfam_to_enum(num: int) -> AddressFamily: ...
+def socktype_to_enum(num: int) -> SocketKind: ...
+@overload
+def conn_to_ntuple(fd: int, fam: int, type_: int, laddr, raddr, status: str, status_map, pid: int) -> sconn: ...
+@overload
+def conn_to_ntuple(fd: int, fam: int, type_: int, laddr, raddr, status: str, status_map, pid: None = ...) -> pconn: ...
 def deprecated_method(replacement: str) -> Callable[[_Func], _Func]: ...
 
 class _WrapNumbers:
@@ -263,10 +288,10 @@ class _WrapNumbers:
     def cache_clear(self, name: Any | None = ...) -> None: ...
     def cache_info(self): ...
 
-def wrap_numbers(input_dict, name): ...
+def wrap_numbers(input_dict, name: str): ...
 def bytes2human(n: int, format: str = ...) -> str: ...
-def get_procfs_path(): ...
-def term_supports_colors(file=...) -> bool: ...
+def get_procfs_path() -> str: ...
+def term_supports_colors(file: SupportsWrite[str] = ...) -> bool: ...
 def hilite(s: str, color: str | None = ..., bold: bool = ...) -> str: ...
-def print_color(s: str, color: str | None = ..., bold: bool = ..., file=...) -> None: ...
+def print_color(s: str, color: str | None = ..., bold: bool = ..., file: SupportsWrite[str] = ...) -> None: ...
 def debug(msg) -> None: ...
