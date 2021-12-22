@@ -110,3 +110,4 @@ sqlalchemy.sql.expression.quoted_name.lower
 sqlalchemy.sql.expression.quoted_name.upper
 sqlalchemy.sql.quoted_name.lower
 sqlalchemy.sql.quoted_name.upper
+sqlalchemy.util.callable
