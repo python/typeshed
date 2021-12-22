@@ -325,6 +325,7 @@ if sys.platform == "linux" and sys.version_info >= (3, 7):
 
 if sys.platform == "linux" and sys.version_info >= (3, 9):
     CAN_J1939: int
+    CAN_RAW_JOIN_FILTERS: int
 
     J1939_MAX_UNICAST_ADDR: int
     J1939_IDLE_ADDR: int
@@ -526,6 +527,8 @@ class socket:
     family: int
     type: int
     proto: int
+    @property
+    def timeout(self) -> float | None: ...
     def __init__(self, family: int = ..., type: int = ..., proto: int = ..., fileno: _FD | None = ...) -> None: ...
     def bind(self, __address: _Address | bytes) -> None: ...
     def close(self) -> None: ...

@@ -9,8 +9,8 @@
 # followed by committing the changes to typeshed
 #
 # Update these two variables when rerunning script
-PROTOBUF_VERSION=3.17.3
-MYPY_PROTOBUF_VERSION=v2.8
+PROTOBUF_VERSION=3.18.1
+MYPY_PROTOBUF_VERSION=v3.0.0
 
 set -ex
 
@@ -44,7 +44,7 @@ PYTHON_PROTOBUF_DIR=protobuf-$PROTOBUF_VERSION
 VENV=venv
 python3 -m venv $VENV
 source $VENV/bin/activate
-pip install -r $REPO_ROOT/requirements-tests-py3.txt  # for black and isort
+pip install -r $REPO_ROOT/requirements-tests.txt  # for black and isort
 
 # Install mypy-protobuf
 pip install git+https://github.com/dropbox/mypy-protobuf@${MYPY_PROTOBUF_VERSION}
