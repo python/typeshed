@@ -1,5 +1,5 @@
 import sys
-from typing import Any, NoReturn
+from typing import Any
 
 class ParserBase:
     def __init__(self) -> None: ...
