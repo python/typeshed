@@ -191,6 +191,7 @@ tempfile.SpooledTemporaryFile.seekable
 tempfile.SpooledTemporaryFile.writable
 threading.Condition.acquire  # Condition functions are exported in __init__
 threading.Condition.release  # Condition functions are exported in __init__
+tkinter.tix.[A-Z]+
 multiprocessing.dummy.Condition.acquire
 multiprocessing.dummy.Condition.release
 threading.Lock  # A factory function that returns 'most efficient lock'. Marking it as a function will make it harder for users to mark the Lock type.
