@@ -1,5 +1,5 @@
 import sys
-from typing import NoReturn
+from typing import Any
 
 class ParserBase:
     def __init__(self) -> None: ...
@@ -12,6 +12,6 @@ class ParserBase:
     def updatepos(self, i: int, j: int) -> int: ...  # undocumented
     if sys.version_info < (3, 10):
         # Removed from ParserBase: https://bugs.python.org/issue31844
-        def error(self, message: str) -> NoReturn: ...  # undocumented
+        def error(self, message: str) -> Any: ...  # undocumented
     lineno: int  # undocumented
     offset: int  # undocumented
