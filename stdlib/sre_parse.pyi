@@ -1,5 +1,5 @@
 import sys
-from sre_constants import _NamedIntConstant as _NIC, error as _Error
+from sre_constants import *, _NamedIntConstant as _NIC, error as _Error
 from typing import Any, Iterable, List, Match, Optional, Pattern as _Pattern, Tuple, Union, overload
 
 SPECIAL_CHARS: str
