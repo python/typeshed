@@ -283,8 +283,8 @@ codecs.StreamRecoder.\w+
 urllib.response.addbase.\w+
 
 # Unnecessary re-exports
-asyncore\..E.*  # re-exported from errno
-asyncore\..errorcode  # re-exported from errno
+asyncore\.E[A-Z]+  # re-exported from errno
+asyncore.errorcode  # re-exported from errno
 xml.dom.expatbuilder.EMPTY_NAMESPACE
 xml.dom.expatbuilder.EMPTY_PREFIX
 xml.dom.expatbuilder.XMLNS_NAMESPACE

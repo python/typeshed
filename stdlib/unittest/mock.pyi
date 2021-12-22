@@ -21,7 +21,7 @@ __all__ = (
     "mock_open",
     "PropertyMock",
     "seal",
-    )
+)
 __version__: str
 
 FILTER_DIR: Any
