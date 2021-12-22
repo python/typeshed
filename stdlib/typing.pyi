@@ -1,9 +1,9 @@
 import collections  # Needed by aliases like DefaultDict, see mypy issue 2986
 import sys
+from _typeshed import SupportsKeysAndGetItem
 from abc import ABCMeta, abstractmethod
 from types import BuiltinFunctionType, CodeType, FrameType, FunctionType, MethodType, ModuleType, TracebackType
 from typing_extensions import Literal as _Literal, ParamSpec as _ParamSpec, final as _final
-from _typeshed import SupportsKeysAndGetItem
 
 if sys.version_info >= (3, 7):
     from types import MethodDescriptorType, MethodWrapperType, WrapperDescriptorType
