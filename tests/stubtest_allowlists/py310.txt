@@ -121,7 +121,6 @@ pstats.SortKey.__new__
 tkinter.EventType.__new__
 
 # Rest of these errors are new in Python 3.10:
-_markupbase.ParserBase.error
 asyncio.proactor_events._ProactorReadPipeTransport.__init__
 distutils.command.bdist_wininst
 py_compile.main
