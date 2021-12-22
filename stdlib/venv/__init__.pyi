@@ -3,6 +3,8 @@ from _typeshed import StrOrBytesPath
 from types import SimpleNamespace
 from typing import Sequence
 
+CORE_VENV_DEPS: tuple[str, ...]
+
 class EnvBuilder:
     system_site_packages: bool
     clear: bool

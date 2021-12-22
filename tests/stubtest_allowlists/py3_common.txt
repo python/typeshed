@@ -41,8 +41,6 @@ asyncio.locks.Condition.locked
 asyncio.locks.Condition.release
 asyncio.proactor_events.BaseProactorEventLoop.sock_recv # nbytes parameter has different name 'n' in implementation
 asyncio.selector_events.BaseSelectorEventLoop.sock_recv # nbytes parameter has different name 'n' in implementation
-asyncore\..E.*  # re-exported from errno
-asyncore\..errorcode  # re-exported from errno
 builtins.classmethod.__get__  # this function can accept no value for the type parameter.
 builtins.ellipsis  # type is not exposed anywhere
 builtins.function
@@ -230,6 +228,7 @@ webbrowser.UnixBrowser.remote_action  # always overridden in inheriting class
 webbrowser.UnixBrowser.remote_action_newtab  # always overridden in inheriting class
 webbrowser.UnixBrowser.remote_action_newwin  # always overridden in inheriting class
 wsgiref.types  # Doesn't exist, see comments in file
+xml.parsers.expat.expat_CAPI
 
 # ==========
 # Allowlist entries that cannot or should not be fixed
@@ -282,6 +281,17 @@ sys.tracebacklimit
 codecs.StreamReaderWriter.\w+
 codecs.StreamRecoder.\w+
 urllib.response.addbase.\w+
+
+# Unnecessary re-exports
+asyncore\..E.*  # re-exported from errno
+asyncore\..errorcode  # re-exported from errno
+xml.dom.expatbuilder.EMPTY_NAMESPACE
+xml.dom.expatbuilder.EMPTY_PREFIX
+xml.dom.expatbuilder.XMLNS_NAMESPACE
+xml.dom.minidom.EMPTY_NAMESPACE
+xml.dom.minidom.EMPTY_PREFIX
+xml.dom.minidom.XMLNS_NAMESPACE
+xml.dom.minidom.StringTypes
 
 # Typing-related weirdness
 _collections_abc.Callable

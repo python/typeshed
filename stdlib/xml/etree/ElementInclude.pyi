@@ -6,6 +6,8 @@ XINCLUDE: str
 XINCLUDE_INCLUDE: str
 XINCLUDE_FALLBACK: str
 
+DEFAULT_MAX_INCLUSION_DEPTH: int
+
 class FatalIncludeError(SyntaxError): ...
 
 def default_loader(href: str | bytes | int, parse: str, encoding: str | None = ...) -> str | Element: ...
