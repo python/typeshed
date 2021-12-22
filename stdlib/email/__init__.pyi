@@ -1,4 +1,3 @@
-import email.base64mime as base64mime
 from email.message import Message
 from email.policy import Policy
 from typing import IO, Callable
