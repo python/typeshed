@@ -29,10 +29,6 @@ class HTMLParser(ParserBase):
     def parse_pi(self, i: int) -> int: ...  # undocumented
     def parse_starttag(self, i: int) -> int: ...  # undocumented
     def set_cdata_mode(self, elem: str) -> None: ...  # undocumented
-    def parse_comment(self, i: int, report: int = ...) -> int: ...  # undocumented
-    def parse_declaration(self, i: int) -> int: ...  # undocumented
-    def parse_marked_section(self, i: int, report: int = ...) -> int: ...  # undocumented
-    def updatepos(self, i: int, j: int) -> int: ...  # undocumented
     rawdata: str  # undocumented
     cdata_elem: str | None  # undocumented
     convert_charrefs: bool  # undocumented
