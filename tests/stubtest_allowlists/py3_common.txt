@@ -41,7 +41,7 @@ asyncio.locks.Condition.locked
 asyncio.locks.Condition.release
 asyncio.proactor_events.BaseProactorEventLoop.sock_recv # nbytes parameter has different name 'n' in implementation
 asyncio.selector_events.BaseSelectorEventLoop.sock_recv # nbytes parameter has different name 'n' in implementation
-asyncore\..E*  # re-exported from errno
+asyncore\..E.*  # re-exported from errno
 asyncore\..errorcode  # re-exported from errno
 builtins.classmethod.__get__  # this function can accept no value for the type parameter.
 builtins.ellipsis  # type is not exposed anywhere
