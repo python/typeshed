@@ -33,5 +33,3 @@ class HTMLParser(ParserBase):
     convert_charrefs: bool  # undocumented
     interesting: Pattern[str]  # undocumented
     lasttag: str  # undocumented
-    lineno: int  # undocumented
-    offset: int  # undocumented
