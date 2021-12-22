@@ -40,6 +40,3 @@ class HTMLParser(ParserBase):
     lasttag: str  # undocumented
     lineno: int  # undocumented
     offset: int  # undocumented
-    if sys.version_info < (3, 10):
-        # Removed from ParserBase: https://bugs.python.org/issue31844
-        def error(self, message: str) -> None: ...  # undocumented
