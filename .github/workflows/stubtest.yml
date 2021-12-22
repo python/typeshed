@@ -34,7 +34,10 @@ jobs:
       - name: Update pip
         run: python -m pip install -U pip
       - name: Install dependencies
-        run: pip install $(grep tomli== requirements-tests.txt) $(grep mypy== requirements-tests.txt)
+        run: |
+          # Temporarily pin stubtest version
+          pip install mypy==0.921
+          pip install $(grep tomli== requirements-tests.txt) # $(grep mypy== requirements-tests.txt)
       - name: Run stubtest
         run: python tests/stubtest_stdlib.py
 
