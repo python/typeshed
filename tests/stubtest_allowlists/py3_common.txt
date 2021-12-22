@@ -18,7 +18,6 @@ _collections_abc.Sequence.index  # Supporting None in end is not mandatory
 _csv.Dialect.__init__  # C __init__ signature is inaccurate
 _socket.*
 _threading_local.local.__new__
-_typeshed.*  # Utility types for typeshed, doesn't exist at runtime
 _weakref.ref.__call__
 abc.abstractclassmethod  # Deprecated, unsupported by mypy, hard to fix. #6552
 abc.abstractstaticmethod  # Deprecated, unsupported by mypy, hard to fix. #6552
@@ -30,8 +29,6 @@ argparse.Namespace.__getattr__  # The whole point of this class is its attribute
 asynchat.async_chat.encoding  # Removal planned for 3.12, can add if someone needs this
 asynchat.async_chat.use_encoding  # Removal planned for 3.12, can add if someone needs this
 asynchat.find_prefix_at_end  # Removal planned for 3.12, can add if someone needs this
-asyncore.dispatcher.addr  # Removal planned for 3.12, can add if someone needs this
-asyncore.dispatcher.handle_accepted  # Removal planned for 3.12, can add if someone needs this
 asyncio.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
 # Condition functions are exported in __init__
 asyncio.Condition.acquire
@@ -44,8 +41,8 @@ asyncio.locks.Condition.locked
 asyncio.locks.Condition.release
 asyncio.proactor_events.BaseProactorEventLoop.sock_recv # nbytes parameter has different name 'n' in implementation
 asyncio.selector_events.BaseSelectorEventLoop.sock_recv # nbytes parameter has different name 'n' in implementation
-asyncore.E*  # re-exported from errno
-asyncore.errorcode  # re-exported from errno
+asyncore\..E*  # re-exported from errno
+asyncore\..errorcode  # re-exported from errno
 builtins.classmethod.__get__  # this function can accept no value for the type parameter.
 builtins.ellipsis  # type is not exposed anywhere
 builtins.function
@@ -246,9 +243,6 @@ builtins.exit
 builtins.help
 builtins.license
 builtins.quit
-# Builtins that mypy pretends exist
-builtins.reveal_locals
-builtins.reveal_type
 # GetSetDescriptor that always raises AttributeError
 builtins.OSError.characters_written
 # Aliases for OSError
@@ -288,6 +282,13 @@ sys.tracebacklimit
 codecs.StreamReaderWriter.\w+
 codecs.StreamRecoder.\w+
 urllib.response.addbase.\w+
+
+# Typing-related weirdness
+_collections_abc.Callable
+_typeshed.*  # Utility types for typeshed, doesn't exist at runtime
+# Builtins that type checkers pretends exist
+builtins.reveal_locals
+builtins.reveal_type
 
 # Platform differences that cannot be captured by the type system
 errno.[A-Z0-9]+
@@ -379,6 +380,9 @@ _compat_pickle.excname
 # Any of these can be added if someone needs them
 # ==========
 
+# Removal planned for 3.12
+asyncore.dispatcher.addr
+asyncore.dispatcher.handle_accepted
 # Missing from distutils module (deprecated, to be removed in 3.12)
 distutils.archive_util.ARCHIVE_FORMATS
 distutils.archive_util.check_archive_formats
