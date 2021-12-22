@@ -196,7 +196,7 @@ def run_mypy(args, configurations, major, minor, files, *, custom_typeshed=False
         return 0
 
 
-def get_mypy_flags(args, major: int, minor: int, temp_name: str, *, custom_typeshed: bool) -> list[str]:
+def get_mypy_flags(args, major: int, minor: int, temp_name: str, *, custom_typeshed: bool = False) -> list[str]:
     flags = [
         "--python-version",
         "%d.%d" % (major, minor),
