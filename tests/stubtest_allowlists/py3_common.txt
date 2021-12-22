@@ -1,4 +1,9 @@
-_collections_abc.Callable  # Some typecheckers need this as specialform
+# ==========
+# Allowlist entries that should be fixed
+# ==========
+
+# Please keep sorted alphabetically
+
 # Coroutine and Generator properties are added programmatically
 _collections_abc.Coroutine.cr_await
 _collections_abc.Coroutine.cr_code
@@ -39,6 +44,8 @@ asyncio.locks.Condition.locked
 asyncio.locks.Condition.release
 asyncio.proactor_events.BaseProactorEventLoop.sock_recv # nbytes parameter has different name 'n' in implementation
 asyncio.selector_events.BaseSelectorEventLoop.sock_recv # nbytes parameter has different name 'n' in implementation
+asyncore.E*  # re-exported from errno
+asyncore.errorcode  # re-exported from errno
 builtins.classmethod.__get__  # this function can accept no value for the type parameter.
 builtins.ellipsis  # type is not exposed anywhere
 builtins.function
@@ -364,10 +371,16 @@ email.contentmanager.set_bytes_content
 email.contentmanager.set_message_content
 email.contentmanager.set_text_content
 
+# Side effects from module initialization
+_compat_pickle.excname
+
 # ==========
-# Missing from distutils module (deprecated, to be removed in 3.12)
+# Missing from deprecated modules
 # Any of these can be added if someone needs them
 # ==========
+
+# Missing from distutils module (deprecated, to be removed in 3.12)
+distutils.archive_util.ARCHIVE_FORMATS
 distutils.archive_util.check_archive_formats
 distutils.bcppcompiler.BCPPCompiler.compiler_type
 distutils.bcppcompiler.BCPPCompiler.exe_extension
@@ -392,28 +405,19 @@ distutils.ccompiler.CCompiler.shared_lib_format
 distutils.ccompiler.CCompiler.src_extensions
 distutils.ccompiler.CCompiler.static_lib_extension
 distutils.ccompiler.CCompiler.static_lib_format
+distutils.ccompiler.compiler_class
 distutils.cmd.Command.dump_options
 distutils.cmd.Command.ensure_finalized
 distutils.command.bdist
-distutils.command.bdist_dumb
-distutils.command.bdist_rpm
-distutils.command.build
-distutils.command.build_clib
-distutils.command.build_ext
-distutils.command.build_py
-distutils.command.build_scripts
-distutils.command.check
-distutils.command.clean
-distutils.command.install
-distutils.command.install_data
-distutils.command.install_headers
-distutils.command.install_lib
-distutils.command.install_scripts
-distutils.command.register
-distutils.command.sdist
-distutils.command.upload
+distutils.command.bdist_rpm.DEBUG
+distutils.command.build_ext.USER_BASE
+distutils.command.build_scripts.ST_MODE
+distutils.command.install.*
+distutils.command.install_scripts.ST_MODE
 distutils.core.Command.dump_options
 distutils.core.Command.ensure_finalized
+distutils.core.DEBUG
+distutils.core.USAGE
 distutils.core.Distribution.announce
 distutils.core.Distribution.common_usage
 distutils.core.Distribution.display_option_names
@@ -441,7 +445,13 @@ distutils.core.Distribution.print_commands
 distutils.core.Distribution.reinitialize_command
 distutils.core.Distribution.run_command
 distutils.core.Distribution.run_commands
+distutils.core.extension_keywords
 distutils.core.gen_usage
+distutils.core.setup_keywords
+distutils.cygwinccompiler.CONFIG_H_NOTOK
+distutils.cygwinccompiler.CONFIG_H_OK
+distutils.cygwinccompiler.CONFIG_H_UNCERTAIN
+distutils.cygwinccompiler.PIPE
 distutils.cygwinccompiler.CygwinCCompiler.compiler_type
 distutils.cygwinccompiler.CygwinCCompiler.exe_extension
 distutils.cygwinccompiler.CygwinCCompiler.obj_extension
@@ -455,6 +465,7 @@ distutils.cygwinccompiler.get_msvcr
 distutils.cygwinccompiler.get_versions
 distutils.cygwinccompiler.is_cygwingcc
 distutils.dir_util.ensure_relative
+distutils.dist.DEBUG
 distutils.dist.Distribution.announce
 distutils.dist.Distribution.common_usage
 distutils.dist.Distribution.display_option_names
@@ -484,6 +495,7 @@ distutils.dist.Distribution.run_command
 distutils.dist.Distribution.run_commands
 distutils.dist.fix_help_options
 distutils.extension.read_setup_file
+distutils.fancy_getopt.WS_TRANS
 distutils.fancy_getopt.FancyGetopt.add_option
 distutils.fancy_getopt.FancyGetopt.get_attr_name
 distutils.fancy_getopt.FancyGetopt.has_option
@@ -491,6 +503,8 @@ distutils.fancy_getopt.FancyGetopt.print_help
 distutils.fancy_getopt.FancyGetopt.set_aliases
 distutils.fancy_getopt.FancyGetopt.set_negative_aliases
 distutils.fancy_getopt.FancyGetopt.set_option_table
+distutils.fancy_getopt.longopt_pat
+distutils.fancy_getopt.longopt_xlate
 distutils.fancy_getopt.translate_longopt
 distutils.msvccompiler.MSVCCompiler.compiler_type
 distutils.msvccompiler.MSVCCompiler.exe_extension
@@ -510,8 +524,14 @@ distutils.msvccompiler.get_build_version
 distutils.msvccompiler.normalize_and_reduce_paths
 distutils.msvccompiler.read_keys
 distutils.msvccompiler.read_values
+distutils.spawn.DEBUG
+distutils.sysconfig.BASE_EXEC_PREFIX
+distutils.sysconfig.BASE_PREFIX
+distutils.sysconfig.build_flags
 distutils.sysconfig.parse_config_h
 distutils.sysconfig.parse_makefile
+distutils.sysconfig.project_base
+distutils.sysconfig.python_build
 distutils.text_file.TextFile.default_options
 distutils.text_file.TextFile.error
 distutils.text_file.TextFile.gen_error
