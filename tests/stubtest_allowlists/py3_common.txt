@@ -571,7 +571,6 @@ ctypes.ARRAY
 ctypes.SetPointerType
 ctypes.c_voidp
 ctypes.util.test
-email.base64mime
 email.charset
 email.encoders
 email.errors
