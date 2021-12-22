@@ -1,4 +1,3 @@
-import sys
 from _markupbase import ParserBase
 from typing import Pattern, Tuple
 
