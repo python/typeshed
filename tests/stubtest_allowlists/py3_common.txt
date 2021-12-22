@@ -546,10 +546,6 @@ pkgutil.ImpLoader.source
 # ==========
 __main__.\w+
 _json.encode_basestring
-_markupbase.ParserBase.parse_comment
-_markupbase.ParserBase.parse_declaration
-_markupbase.ParserBase.parse_marked_section
-_markupbase.ParserBase.updatepos
 _thread.LockType.acquire_lock
 _thread.LockType.locked_lock
 _thread.LockType.release_lock
