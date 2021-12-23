@@ -25,7 +25,7 @@ EXCEPTION = _tkinter.EXCEPTION
 #   - Widget: anything that is meant to be put into another widget with e.g. pack or grid
 #
 # Don't trust tkinter's docstrings, because they have been created by copy/pasting from
-# the manual pages more than 10 years ago. Use Tk's manual pages instead:
+# Tk's manual pages more than 10 years ago. Use the latest manual pages instead:
 #
 #    $ sudo apt install tk-doc tcl-doc
 #    $ man 3tk label        # tkinter.Label
