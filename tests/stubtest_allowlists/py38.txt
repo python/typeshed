@@ -111,6 +111,10 @@ distutils.dist.DistributionMetadata.set_platforms
 distutils.sysconfig.expand_makefile_vars
 distutils.sysconfig.get_python_version
 distutils.util.get_host_platform
+distutils.cygwinccompiler.RE_VERSION
+distutils.dist.command_re
+distutils.fancy_getopt.longopt_re
+distutils.fancy_getopt.neg_alias_re
 dummy_threading.Barrier
 dummy_threading.BoundedSemaphore
 dummy_threading.BrokenBarrierError
@@ -145,6 +149,7 @@ plistlib.Data.asBase64
 plistlib.Data.fromBase64
 pyexpat.XMLParserType.SkippedEntityHandler
 pyexpat.XMLParserType.intern
+stringprep.unicodedata  # re-exported from unicodedata
 sys.callstats
 tempfile.SpooledTemporaryFile.softspace
 tkinter.dnd.Icon

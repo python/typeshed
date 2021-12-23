@@ -21,6 +21,10 @@ collections.AsyncGenerator.ag_running
 collections.Callable
 collections.UserString.maketrans
 contextlib._GeneratorContextManager.__init__
+distutils.cygwinccompiler.RE_VERSION
+distutils.dist.command_re
+distutils.fancy_getopt.longopt_re
+distutils.fancy_getopt.neg_alias_re
 enum.Enum._generate_next_value_
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 hmac.HMAC.__init__
@@ -38,6 +42,7 @@ pyexpat.XMLParserType.ExternalEntityParserCreate  # C signature is wrong - funct
 random.Random.randrange  # missing undocumented arg _int
 random.randrange  # missing undocumented arg _int
 sched.Event.__doc__  # __slots__ is overridden
+stringprep.unicodedata  # re-exported from unicodedata
 sre_compile.dis
 typing.AsyncGenerator.ag_await
 typing.AsyncGenerator.ag_code

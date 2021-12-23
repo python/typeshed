@@ -298,7 +298,6 @@ asyncore\.E[A-Z]+  # re-exported from errno
 asyncore.errorcode  # re-exported from errno
 email._header_value_parser.hexdigits
 logging.handlers.ST_[A-Z]+
-stringprep.unicodedata  # re-exported from unicodedata
 xml.dom.expatbuilder.EMPTY_NAMESPACE
 xml.dom.expatbuilder.EMPTY_PREFIX
 xml.dom.expatbuilder.XMLNS_NAMESPACE
@@ -489,7 +488,6 @@ distutils.cygwinccompiler.CONFIG_H_NOTOK
 distutils.cygwinccompiler.CONFIG_H_OK
 distutils.cygwinccompiler.CONFIG_H_UNCERTAIN
 distutils.cygwinccompiler.PIPE
-distutils.cygwinccompiler.RE_VERSION
 distutils.cygwinccompiler.CygwinCCompiler.compiler_type
 distutils.cygwinccompiler.CygwinCCompiler.exe_extension
 distutils.cygwinccompiler.CygwinCCompiler.obj_extension
@@ -531,7 +529,6 @@ distutils.dist.Distribution.print_commands
 distutils.dist.Distribution.reinitialize_command
 distutils.dist.Distribution.run_command
 distutils.dist.Distribution.run_commands
-distutils.dist.command_re
 distutils.dist.fix_help_options
 distutils.extension.read_setup_file
 distutils.fancy_getopt.WS_TRANS
@@ -543,9 +540,7 @@ distutils.fancy_getopt.FancyGetopt.set_aliases
 distutils.fancy_getopt.FancyGetopt.set_negative_aliases
 distutils.fancy_getopt.FancyGetopt.set_option_table
 distutils.fancy_getopt.longopt_pat
-distutils.fancy_getopt.longopt_re
 distutils.fancy_getopt.longopt_xlate
-distutils.fancy_getopt.neg_alias_re
 distutils.fancy_getopt.translate_longopt
 distutils.msvccompiler.MSVCCompiler.compiler_type
 distutils.msvccompiler.MSVCCompiler.exe_extension

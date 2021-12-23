@@ -98,6 +98,10 @@ distutils.dist.DistributionMetadata.set_keywords
 distutils.dist.DistributionMetadata.set_platforms
 distutils.sysconfig.expand_makefile_vars
 distutils.sysconfig.get_python_version
+distutils.cygwinccompiler.RE_VERSION
+distutils.dist.command_re
+distutils.fancy_getopt.longopt_re
+distutils.fancy_getopt.neg_alias_re
 dummy_threading.Barrier
 dummy_threading.BoundedSemaphore
 dummy_threading.BrokenBarrierError
@@ -127,6 +131,7 @@ ssl.OP_ENABLE_MIDDLEBOX_COMPAT
 ssl.Options.OP_ENABLE_MIDDLEBOX_COMPAT
 ssl.SSLObject.verify_client_post_handshake
 ssl.SSLSocket.verify_client_post_handshake
+stringprep.unicodedata  # re-exported from unicodedata
 sys.callstats
 sys.get_coroutine_wrapper
 sys.set_coroutine_wrapper

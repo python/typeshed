@@ -138,6 +138,10 @@ distutils.dist.DistributionMetadata.set_platforms
 distutils.sysconfig.expand_makefile_vars
 distutils.sysconfig.get_python_version
 distutils.util.get_host_platform
+distutils.cygwinccompiler.RE_VERSION
+distutils.dist.command_re
+distutils.fancy_getopt.longopt_re
+distutils.fancy_getopt.neg_alias_re
 hmac.HMAC.digest_cons
 hmac.HMAC.inner
 hmac.HMAC.outer
@@ -155,6 +159,7 @@ pstats.Stats.get_stats_profile
 pstats.StatsProfile
 pyexpat.XMLParserType.SkippedEntityHandler
 pyexpat.XMLParserType.intern
+stringprep.unicodedata  # re-exported from unicodedata
 types.CoroutineType.cr_origin
 typing._SpecialForm.__call__
 unicodedata.UCD.is_normalized
