@@ -40,6 +40,7 @@ if sys.version_info >= (3, 7):
 SQLITE_DELETE: int
 SQLITE_DENY: int
 SQLITE_DETACH: int
+SQLITE_DONE: int
 SQLITE_DROP_INDEX: int
 SQLITE_DROP_TABLE: int
 SQLITE_DROP_TEMP_INDEX: int

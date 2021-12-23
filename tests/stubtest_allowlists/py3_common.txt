@@ -171,6 +171,13 @@ pickle.Unpickler.persistent_load  # C unpickler persistent_load is an attribute
 pickle._Unpickler\..*  # Best effort typing for undocumented internals
 pickle._Pickler\..*  # Best effort typing for undocumented internals
 poplib.POP3_SSL.stls  # bad declaration of inherited function. See poplib.pyi
+posix.CLD_KILLED
+posix.CLD_STOPPED
+posix.NGROUPS_MAX
+posix.P_PIDFD
+posix.POSIX_SPAWN_[A-Z]+
+posix.RWF_[A-Z]+
+pyexpat.expat_CAPI
 select.poll  # Depends on configuration
 selectors.DevpollSelector  # Depends on configuration
 socketserver.BaseServer.fileno  # implemented in derived classes
@@ -292,6 +299,7 @@ urllib.response.addbase.\w+
 # Unnecessary re-exports
 asyncore\.E[A-Z]+  # re-exported from errno
 asyncore.errorcode  # re-exported from errno
+logging.handlers.ST_[A-Z]+
 stringprep.unicodedata  # re-exported from unicodedata
 xml.dom.expatbuilder.EMPTY_NAMESPACE
 xml.dom.expatbuilder.EMPTY_PREFIX
@@ -392,6 +400,13 @@ email.contentmanager.set_text_content
 
 # Side effects from module initialization
 _compat_pickle.excname
+inspect.k
+inspect.mod_dict
+inspect.v
+json.encoder.i
+lib2to3.pgen2.grammar.line
+lib2to3.pgen2.grammar.name
+lib2to3.pgen2.grammar.op
 
 # ==========
 # Missing from deprecated modules
