@@ -5,9 +5,11 @@ from typing import (
     IO,
     Any,
     AsyncIterator,
+    AsyncGenerator,
     Awaitable,
     Callable,
     ContextManager,
+    Generator,
     Generic,
     Iterator,
     Optional,
@@ -24,11 +26,14 @@ if sys.version_info >= (3, 7):
 
     AbstractAsyncContextManager = AsyncContextManager
 
+_G = TypeVar("_G", bound=Generator[Any, Any, Any] | AsyncGenerator[Any, Any])
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
+_T_contra = TypeVar("_T_contra", contravariant=True)
 _T_io = TypeVar("_T_io", bound=Optional[IO[str]])
 _F = TypeVar("_F", bound=Callable[..., Any])
 _P = ParamSpec("_P")
+_V = TypeVar("_V", covariant=True)
 
 _ExitFunc = Callable[[Optional[Type[BaseException]], Optional[BaseException], Optional[TracebackType]], bool]
 _CM_EF = TypeVar("_CM_EF", AbstractContextManager[Any], _ExitFunc)
@@ -36,22 +41,44 @@ _CM_EF = TypeVar("_CM_EF", AbstractContextManager[Any], _ExitFunc)
 class ContextDecorator:
     def __call__(self, func: _F) -> _F: ...
 
-class _GeneratorContextManager(AbstractContextManager[_T_co], ContextDecorator): ...
+if sys.version_info >= (3, 7):
+    class _GeneratorContextManagerBase(Generic[_P, _G]):
+        def __init__(self, func: Callable[_P, _G], args: _P.args, kwds: _P.kwds) -> None: ...  # type: ignore[name-defined]
+        gen: _G
+        func: Callable[_P, _G]
+        args: _P.args  # type: ignore[name-defined]
+        kwds: _P.kwds  # type: ignore[name-defined]
+    class _GeneratorContextManager(
+        _GeneratorContextManagerBase[_P, Generator[_T_co, _T_contra, _V]],  # type: ignore[misc]
+        AbstractContextManager[_T_co],
+        ContextDecorator,
+        Generic[_P, _T_co, _T_contra, _V],
+    ): ...
+    def contextmanager(
+        func: Callable[_P, Generator[_T_co, _T_contra, _V]]
+    ) -> Callable[_P, _GeneratorContextManager[_P, _T_co, _T_contra, _V]]: ...
 
-# type ignore to deal with incomplete ParamSpec support in mypy
-def contextmanager(func: Callable[_P, Iterator[_T]]) -> Callable[_P, _GeneratorContextManager[_T]]: ...  # type: ignore[misc]
+else:
+    class _GeneratorContextManager(AbstractContextManager[_T_co], ContextDecorator, Generic[_T_co]): ...
+    def contextmanager(func: Callable[_P, Iterator[_T_co]]) -> Callable[_P, _GeneratorContextManager[_T_co]]: ...
 
 if sys.version_info >= (3, 10):
     _AF = TypeVar("_AF", bound=Callable[..., Awaitable[Any]])
     class AsyncContextDecorator:
         def __call__(self, func: _AF) -> _AF: ...
-    class _AsyncGeneratorContextManager(AbstractAsyncContextManager[_T_co], AsyncContextDecorator): ...
+    class _AsyncGeneratorContextManager(
+        _GeneratorContextManagerBase[_P, AsyncGenerator[_T_co, _T_contra]],  # type: ignore[misc]
+        AbstractAsyncContextManager[_T_co],
+        AsyncContextDecorator,
+        Generic[_P, _T_co, _T_contra],
+    ): ...
+    def asynccontextmanager(
+        func: Callable[_P, AsyncGenerator[_T_co, _T_contra]]
+    ) -> Callable[_P, _AsyncGeneratorContextManager[_P, _T_co, _T_contra]]: ...
 
 elif sys.version_info >= (3, 7):
-    class _AsyncGeneratorContextManager(AbstractAsyncContextManager[_T_co]): ...
-
-if sys.version_info >= (3, 7):
-    def asynccontextmanager(func: Callable[_P, AsyncIterator[_T]]) -> Callable[_P, _AsyncGeneratorContextManager[_T]]: ...  # type: ignore[misc]
+    class _AsyncGeneratorContextManager(AbstractAsyncContextManager[_T_co], Generic[_T_co]): ...
+    def asynccontextmanager(func: Callable[_P, AsyncIterator[_T_co]]) -> Callable[_P, _AsyncGeneratorContextManager[_T_co]]: ...
 
 class _SupportsClose(Protocol):
     def close(self) -> object: ...
