@@ -45,6 +45,9 @@ os.pidfd_open
 os.preadv
 os.pwritev
 os.splice
+posix.CLD_KILLED
+posix.CLD_STOPPED
+posix.P_PIDFD
 posix.POSIX_SPAWN_[A-Z0-9]+
 posix.RWF_[A-Z]+
 posix.copy_file_range
