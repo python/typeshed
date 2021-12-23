@@ -141,7 +141,6 @@ distutils.util.get_host_platform
 hmac.HMAC.digest_cons
 hmac.HMAC.inner
 hmac.HMAC.outer
-lib2to3.pgen2.tokenize.COLONEQUAL
 multiprocessing.managers.SharedMemoryServer.create
 multiprocessing.managers.SharedMemoryServer.list_segments
 multiprocessing.managers.SharedMemoryServer.public
