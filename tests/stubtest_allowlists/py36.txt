@@ -74,6 +74,10 @@ xml.etree.cElementTree.TreeBuilder.start  # bpo-39495
 xml.parsers.expat.XMLParserType.ExternalEntityParserCreate  # C signature is wrong - function gets only positional args
 # These enums derive from (int, IntEnum) or (str, Enum). See comment in py3_common.txt
 tkinter.EventType.__new__
+tkinter.commondialog.[A-Z_]+
+tkinter.commondialog.TclVersion
+tkinter.commondialog.TkVersion
+tkinter.commondialog.wantobjects
 tkinter.dialog.[A-Z_]+
 tkinter.dialog.TclVersion
 tkinter.dialog.TkVersion

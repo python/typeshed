@@ -152,6 +152,10 @@ pyexpat.XMLParserType.intern
 stringprep.unicodedata  # re-exported from unicodedata
 sys.callstats
 tempfile.SpooledTemporaryFile.softspace
+tkinter.commondialog.[A-Z_]+
+tkinter.commondialog.TclVersion
+tkinter.commondialog.TkVersion
+tkinter.commondialog.wantobjects
 tkinter.dialog.[A-Z_]+
 tkinter.dialog.TclVersion
 tkinter.dialog.TkVersion
