@@ -21,6 +21,7 @@ collections.AsyncGenerator.ag_running
 collections.Callable
 collections.UserString.maketrans
 contextlib._GeneratorContextManager.__init__
+datetime.datetime_CAPI
 distutils.cygwinccompiler.RE_VERSION
 distutils.dist.command_re
 distutils.fancy_getopt.longopt_re
