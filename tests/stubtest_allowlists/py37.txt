@@ -139,5 +139,11 @@ tempfile.SpooledTemporaryFile.softspace
 tkinter.dnd.Icon
 tkinter.dnd.Tester
 tkinter.dnd.test
+tkinter.filedialog.[A-Z_]+
+tkinter.filedialog.TclVersion
+tkinter.filedialog.TkVersion
+tkinter.filedialog.wantobjects
+tkinter.simpledialog.wantobjects
+tkinter.tix.wantobjects
 types.CoroutineType.cr_origin
 typing._SpecialForm.__call__
