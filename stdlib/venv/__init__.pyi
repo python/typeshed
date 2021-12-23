@@ -3,7 +3,8 @@ from _typeshed import StrOrBytesPath
 from types import SimpleNamespace
 from typing import Sequence
 
-CORE_VENV_DEPS: tuple[str, ...]
+if sys.version_info >= (3, 9):
+    CORE_VENV_DEPS: tuple[str, ...]
 
 class EnvBuilder:
     system_site_packages: bool

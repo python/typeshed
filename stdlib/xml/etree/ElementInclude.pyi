@@ -6,7 +6,8 @@ XINCLUDE: str
 XINCLUDE_INCLUDE: str
 XINCLUDE_FALLBACK: str
 
-DEFAULT_MAX_INCLUSION_DEPTH: int
+if sys.version_info >= (3, 9):
+    DEFAULT_MAX_INCLUSION_DEPTH: int
 
 class FatalIncludeError(SyntaxError): ...
 

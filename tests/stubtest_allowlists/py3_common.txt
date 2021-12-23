@@ -171,10 +171,7 @@ pickle.Unpickler.persistent_load  # C unpickler persistent_load is an attribute
 pickle._Unpickler\..*  # Best effort typing for undocumented internals
 pickle._Pickler\..*  # Best effort typing for undocumented internals
 poplib.POP3_SSL.stls  # bad declaration of inherited function. See poplib.pyi
-posix.CLD_KILLED
-posix.CLD_STOPPED
 posix.NGROUPS_MAX
-posix.P_PIDFD
 posix.POSIX_SPAWN_[A-Z0-9]+
 posix.RWF_[A-Z]+
 pyexpat.expat_CAPI

@@ -147,6 +147,9 @@ multiprocessing.managers.SharedMemoryServer.public
 multiprocessing.managers.SharedMemoryServer.release_segment
 multiprocessing.managers.SharedMemoryServer.shutdown
 multiprocessing.managers.SharedMemoryServer.track_segment
+posix.CLD_KILLED
+posix.CLD_STOPPED
+posix.P_PIDFD
 pstats.FunctionProfile
 pstats.Stats.get_stats_profile
 pstats.StatsProfile
