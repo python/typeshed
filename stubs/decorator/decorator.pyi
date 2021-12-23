@@ -1,12 +1,10 @@
 import sys
-from typing import Any, Callable, Generator, Generic, Iterator, NamedTuple, Pattern, Text, Tuple, TypeVar
+from typing import Any, Callable, Generic, Iterator, NamedTuple, Pattern, Text, Tuple, TypeVar
 from typing_extensions import ParamSpec
 
 _Func = TypeVar("_Func", bound=Callable[..., Any])
 _P = ParamSpec("_P")
 _T_co = TypeVar("_T_co", covariant=True)
-_T_contra = TypeVar("_T_contra", contravariant=True)
-_V = TypeVar("_V", covariant=True)
 _T = TypeVar("_T")
 
 def get_init(cls: type) -> None: ...
@@ -82,10 +80,8 @@ def decorator(
 
 if sys.version_info >= (3, 7):
     # type-ignore because mypy thinks _P is unbound (it isn't)
-    class ContextManager(_GeneratorContextManager[_P, _T_co, _T_contra, _V], Generic[_P, _T_co, _T_contra, _V]): ...  # type: ignore[misc]
-    def contextmanager(
-        func: Callable[_P, Generator[_T_co, _T_contra, _V]]
-    ) -> Callable[_P, ContextManager[_P, _T_co, _T_contra, _V]]: ...
+    class ContextManager(_GeneratorContextManager[_P, _T_co], Generic[_P, _T_co]): ...  # type: ignore[misc]
+    def contextmanager(func: Callable[_P, Iterator[_T_co]]) -> Callable[_P, ContextManager[_P, _T_co]]: ...
 
 else:
     class ContextManager(_GeneratorContextManager[_T_co], Generic[_T_co]): ...
