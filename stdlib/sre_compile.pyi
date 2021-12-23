@@ -1,4 +1,5 @@
-from sre_constants import *, _NamedIntConstant
+from sre_constants import *
+from sre_constants import _NamedIntConstant
 from sre_parse import SubPattern
 from typing import Any, Pattern
 
