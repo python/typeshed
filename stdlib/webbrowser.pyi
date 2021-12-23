@@ -31,6 +31,7 @@ class GenericBrowser(BaseBrowser):
     def __init__(self, name: str | Sequence[str]) -> None: ...
 
 class BackgroundBrowser(GenericBrowser): ...
+
 class UnixBrowser(BaseBrowser):
     raise_opts: list[str] | None
     background: bool
@@ -41,6 +42,7 @@ class UnixBrowser(BaseBrowser):
     remote_action_newtab: str
 
 class Mozilla(UnixBrowser): ...
+
 class Galeon(UnixBrowser):
     raise_opts: list[str]
 
