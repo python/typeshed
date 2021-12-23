@@ -13,14 +13,9 @@ if sys.version_info >= (3, 7):
         "DefaultEventLoopPolicy",
         "WindowsSelectorEventLoopPolicy",
         "WindowsProactorEventLoopPolicy",
-        )
+    )
 else:
-    __all__ = [
-        "SelectorEventLoop",
-        "ProactorEventLoop",
-        "IocpProactor",
-        "DefaultEventLoopPolicy",
-    ]
+    __all__ = ["SelectorEventLoop", "ProactorEventLoop", "IocpProactor", "DefaultEventLoopPolicy"]
 
 NULL: int
 INFINITE: int
