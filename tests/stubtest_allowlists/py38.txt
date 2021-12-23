@@ -148,7 +148,6 @@ multiprocessing.managers.SharedMemoryServer.shutdown
 multiprocessing.managers.SharedMemoryServer.track_segment
 plistlib.Data.asBase64
 plistlib.Data.fromBase64
-posix.POSIX_SPAWN_[A-Z0-9]+
 pyexpat.XMLParserType.SkippedEntityHandler
 pyexpat.XMLParserType.intern
 stringprep.unicodedata  # re-exported from unicodedata
