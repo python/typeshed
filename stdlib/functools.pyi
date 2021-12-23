@@ -2,7 +2,7 @@ import sys
 import types
 from _typeshed import SupportsAllComparisons, SupportsItems
 from typing import Any, Callable, Generic, Hashable, Iterable, NamedTuple, Sequence, Sized, Tuple, Type, TypeVar, overload
-from typing_extensions import final, ParamSpec
+from typing_extensions import ParamSpec, final
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
@@ -15,6 +15,7 @@ _P1 = ParamSpec("_P1")
 _R1 = TypeVar("_R1")
 _P2 = ParamSpec("_P2")
 _R2 = TypeVar("_R2")
+
 @overload
 def reduce(function: Callable[[_T, _S], _T], sequence: Iterable[_S], initial: _T) -> _T: ...
 @overload
