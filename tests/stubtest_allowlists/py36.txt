@@ -70,7 +70,6 @@ typing\.\w+\.__new__
 unittest._log  # New in Python 3.9
 unittest.async_case  # Added in Python 3.8
 uuid.UUID.int
-uuid.lib
 uuid.libname
 xml.etree.ElementTree.TreeBuilder.start  # Discrepancy between Python and C modules, fixed in bpo-39495
 xml.etree.cElementTree.TreeBuilder.start  # bpo-39495
