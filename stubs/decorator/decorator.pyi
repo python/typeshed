@@ -1,5 +1,5 @@
 import sys
-from typing import Any, Callable, Generic, Iterator, NamedTuple, Pattern, Text, Tuple, TypeVar
+from typing import Any, Callable, Generator, Generic, Iterator, NamedTuple, Pattern, Text, Tuple, TypeVar
 from typing_extensions import ParamSpec
 
 _Func = TypeVar("_Func", bound=Callable[..., Any])
@@ -88,6 +88,6 @@ if sys.version_info >= (3, 7):
 
 else:
     class ContextManager(_GeneratorContextManager[_T_co], Generic[_T_co]): ...
-    def contextmanager(func: Callable[_P, Iterator[_T]]) -> Callable[_P, ContextManager[_T_co]]: ...
+    def contextmanager(func: Callable[_P, Iterator[_T_co]]) -> Callable[_P, ContextManager[_T_co]]: ...
 
 def dispatch_on(*dispatch_args: Any) -> Callable[[Callable[..., Any]], Callable[..., Any]]: ...
