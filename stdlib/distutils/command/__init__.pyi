@@ -1,3 +1,16 @@
+from . import (
+    build as build,
+    build_py as build_py,
+    build_scripts as build_scripts,
+    clean as clean,
+    install as install,
+    install_data as install_data,
+    install_headers as install_headers,
+    install_lib as install_lib,
+    sdist as sdist,
+    upload as upload,
+)
+
 __all__ = [
     "build",
     "build_py",
