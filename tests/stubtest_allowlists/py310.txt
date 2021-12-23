@@ -156,6 +156,7 @@ distutils.dist.DistributionMetadata.set_classifiers
 distutils.dist.DistributionMetadata.set_keywords
 distutils.dist.DistributionMetadata.set_platforms
 distutils.util.get_host_platform
+mmap.MAP_POPULATE
 multiprocessing.managers.SharedMemoryServer.create
 multiprocessing.managers.SharedMemoryServer.list_segments
 multiprocessing.managers.SharedMemoryServer.public
@@ -164,7 +165,9 @@ multiprocessing.managers.SharedMemoryServer.shutdown
 multiprocessing.managers.SharedMemoryServer.track_segment
 posix.CLD_KILLED
 posix.CLD_STOPPED
+posix.EFD_[A-Z]+
 posix.P_PIDFD
+posix.SPLICE_[A-Z_]+
 pstats.FunctionProfile
 pstats.Stats.get_stats_profile
 pstats.StatsProfile

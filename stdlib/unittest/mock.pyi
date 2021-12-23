@@ -158,18 +158,34 @@ class _patch(Generic[_T]):
     additional_patchers: Any
     # If new==DEFAULT, self is _patch[Any]. Ideally we'd be able to add an overload for it so that self is _patch[MagicMock],
     # but that's impossible with the current type system.
-    def __init__(
-        self: _patch[_T],
-        getter: Callable[[], Any],
-        attribute: str,
-        new: _T,
-        spec: Any | None,
-        create: bool,
-        spec_set: Any | None,
-        autospec: Any | None,
-        new_callable: Any | None,
-        kwargs: Mapping[str, Any],
-    ) -> None: ...
+    if sys.version_info >= (3, 10):
+        def __init__(
+            self: _patch[_T],
+            getter: Callable[[], Any],
+            attribute: str,
+            new: _T,
+            spec: Any | None,
+            create: bool,
+            spec_set: Any | None,
+            autospec: Any | None,
+            new_callable: Any | None,
+            kwargs: Mapping[str, Any],
+            *,
+            unsafe: bool = ...,
+        ) -> None: ...
+    else:
+        def __init__(
+            self: _patch[_T],
+            getter: Callable[[], Any],
+            attribute: str,
+            new: _T,
+            spec: Any | None,
+            create: bool,
+            spec_set: Any | None,
+            autospec: Any | None,
+            new_callable: Any | None,
+            kwargs: Mapping[str, Any],
+        ) -> None: ...
     def copy(self) -> _patch[_T]: ...
     @overload
     def __call__(self, func: _TT) -> _TT: ...
