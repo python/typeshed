@@ -81,7 +81,8 @@ def decorator(
 ) -> Callable[[Callable[..., Any]], Callable[..., Any]]: ...
 
 if sys.version_info >= (3, 7):
-    class ContextManager(_GeneratorContextManager[_P, _T_co, _T_contra, _V], Generic[_P, _T_co, _T_contra, _V]): ...
+    # type-ignore because mypy thinks _P is unbound (it isn't)
+    class ContextManager(_GeneratorContextManager[_P, _T_co, _T_contra, _V], Generic[_P, _T_co, _T_contra, _V]): ...  # type: ignore[misc]
     def contextmanager(
         func: Callable[_P, Generator[_T_co, _T_contra, _V]]
     ) -> Callable[_P, ContextManager[_P, _T_co, _T_contra, _V]]: ...
