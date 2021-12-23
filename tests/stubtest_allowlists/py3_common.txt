@@ -182,6 +182,7 @@ ssl._ASN1Object.__new__  # You cannot override __new__ in NamedTuple and runtime
 subprocess.Popen.__init__
 sys.gettotalrefcount  # Available on python debug builds
 sys.implementation  # Actually SimpleNamespace but then you wouldn't have convenient attributes
+sys.thread_info
 tarfile.TarFile.errors  # errors is initialized for some reason as None even though it really only accepts str
 # SpooledTemporaryFile implements IO except these methods
 # See also https://github.com/python/typeshed/pull/2452#issuecomment-420657918
@@ -192,6 +193,8 @@ tempfile.SpooledTemporaryFile.writable
 threading.Condition.acquire  # Condition functions are exported in __init__
 threading.Condition.release  # Condition functions are exported in __init__
 tkinter.simpledialog.[A-Z_]+
+tkinter.simpledialog.TclVersion
+tkinter.simpledialog.TkVersion
 tkinter.tix.[A-Z_]+
 tkinter.tix.TclVersion
 tkinter.tix.TkVersion
@@ -289,6 +292,7 @@ urllib.response.addbase.\w+
 # Unnecessary re-exports
 asyncore\.E[A-Z]+  # re-exported from errno
 asyncore.errorcode  # re-exported from errno
+stringprep.unicodedata  # re-exported from unicodedata
 xml.dom.expatbuilder.EMPTY_NAMESPACE
 xml.dom.expatbuilder.EMPTY_PREFIX
 xml.dom.expatbuilder.XMLNS_NAMESPACE

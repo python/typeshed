@@ -84,5 +84,11 @@ comp_if: int
 encoding_decl: int
 yield_expr: int
 yield_arg: int
+func_body_suite: int
+func_type: int
+func_type_input: int
+namedexpr_test: int
+sync_comp_for: int
+typelist: int
 
 sym_name: dict[int, str]
