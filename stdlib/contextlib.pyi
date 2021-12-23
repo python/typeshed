@@ -4,8 +4,8 @@ from types import TracebackType
 from typing import (
     IO,
     Any,
-    AsyncIterator,
     AsyncGenerator,
+    AsyncIterator,
     Awaitable,
     Callable,
     ContextManager,
