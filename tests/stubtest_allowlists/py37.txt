@@ -136,6 +136,10 @@ sys.callstats
 sys.get_coroutine_wrapper
 sys.set_coroutine_wrapper
 tempfile.SpooledTemporaryFile.softspace
+tkinter.dialog.[A-Z_]+
+tkinter.dialog.TclVersion
+tkinter.dialog.TkVersion
+tkinter.dialog.wantobjects
 tkinter.dnd.Icon
 tkinter.dnd.Tester
 tkinter.dnd.test
