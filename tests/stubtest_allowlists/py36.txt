@@ -21,6 +21,11 @@ collections.AsyncGenerator.ag_running
 collections.Callable
 collections.UserString.maketrans
 contextlib._GeneratorContextManager.__init__
+datetime.datetime_CAPI
+distutils.cygwinccompiler.RE_VERSION
+distutils.dist.command_re
+distutils.fancy_getopt.longopt_re
+distutils.fancy_getopt.neg_alias_re
 enum.Enum._generate_next_value_
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 hmac.HMAC.__init__
@@ -38,6 +43,7 @@ pyexpat.XMLParserType.ExternalEntityParserCreate  # C signature is wrong - funct
 random.Random.randrange  # missing undocumented arg _int
 random.randrange  # missing undocumented arg _int
 sched.Event.__doc__  # __slots__ is overridden
+stringprep.unicodedata  # re-exported from unicodedata
 sre_compile.dis
 typing.AsyncGenerator.ag_await
 typing.AsyncGenerator.ag_code
@@ -64,11 +70,26 @@ typing\.\w+\.__new__
 unittest._log  # New in Python 3.9
 unittest.async_case  # Added in Python 3.8
 uuid.UUID.int
+uuid.libname
 xml.etree.ElementTree.TreeBuilder.start  # Discrepancy between Python and C modules, fixed in bpo-39495
 xml.etree.cElementTree.TreeBuilder.start  # bpo-39495
 xml.parsers.expat.XMLParserType.ExternalEntityParserCreate  # C signature is wrong - function gets only positional args
 # These enums derive from (int, IntEnum) or (str, Enum). See comment in py3_common.txt
 tkinter.EventType.__new__
+tkinter.commondialog.[A-Z_]+
+tkinter.commondialog.TclVersion
+tkinter.commondialog.TkVersion
+tkinter.commondialog.wantobjects
+tkinter.dialog.[A-Z_]+
+tkinter.dialog.TclVersion
+tkinter.dialog.TkVersion
+tkinter.dialog.wantobjects
+tkinter.filedialog.[A-Z_]+
+tkinter.filedialog.TclVersion
+tkinter.filedialog.TkVersion
+tkinter.filedialog.wantobjects
+tkinter.simpledialog.wantobjects
+tkinter.tix.wantobjects
 
 builtins.memoryview.__iter__  # C type that implements __getitem__
 builtins.memoryview.cast  # inspect.signature is incorrect about shape being kw-only

@@ -196,7 +196,7 @@ def run_mypy(args, configurations, major, minor, files, *, custom_typeshed=False
         return 0
 
 
-def get_mypy_flags(args, major: int, minor: int, temp_name: str, *, custom_typeshed: bool) -> list[str]:
+def get_mypy_flags(args, major: int, minor: int, temp_name: str, *, custom_typeshed: bool = False) -> list[str]:
     flags = [
         "--python-version",
         "%d.%d" % (major, minor),
@@ -277,8 +277,7 @@ def test_third_party_distribution(distribution: str, major: int, minor: int, arg
         print("--- no files found ---")
         sys.exit(1)
 
-    # TODO: remove custom_typeshed after mypy 0.920 is released
-    code = run_mypy(args, configurations, major, minor, files, custom_typeshed=True)
+    code = run_mypy(args, configurations, major, minor, files)
     return code, len(files)
 
 
@@ -326,8 +325,7 @@ def main():
             files_checked += len(files)
 
         # Test files of all third party distributions.
-        # TODO: remove custom_typeshed after mypy 0.920 is released
-        print("Running mypy " + " ".join(get_mypy_flags(args, major, minor, "/tmp/...", custom_typeshed=True)))
+        print("Running mypy " + " ".join(get_mypy_flags(args, major, minor, "/tmp/...")))
         for distribution in sorted(os.listdir("stubs")):
             if not is_supported(distribution, major):
                 continue

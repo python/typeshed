@@ -18,6 +18,11 @@ os.copy_file_range
 os.pidfd_open
 os.preadv
 os.pwritev
+posix.CLD_KILLED
+posix.CLD_STOPPED
+posix.P_PIDFD
+posix.POSIX_SPAWN_[A-Z0-9]+
+posix.RWF_[A-Z]+
 posix.copy_file_range
 posix.pidfd_open
 posix.preadv

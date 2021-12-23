@@ -7,6 +7,9 @@ sqlalchemy.util.langhelpers._symbol.__new__
 sqlalchemy.util._collections.*
 sqlalchemy.util.compat.*
 
+# forwards arguments to another function
+sqlalchemy.ext.declarative.as_declarative
+
 # stdlib re-exports with stubtest issues
 sqlalchemy.orm.collections.InstrumentedList.*
 sqlalchemy.orm.collections.InstrumentedSet.*
@@ -107,3 +110,4 @@ sqlalchemy.sql.expression.quoted_name.lower
 sqlalchemy.sql.expression.quoted_name.upper
 sqlalchemy.sql.quoted_name.lower
 sqlalchemy.sql.quoted_name.upper
+sqlalchemy.util.callable
