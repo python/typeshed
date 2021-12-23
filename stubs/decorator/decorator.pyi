@@ -82,6 +82,7 @@ def decorator(
 
 if sys.version_info >= (3, 7):
     class ContextManager(_GeneratorContextManager[_P, _T_co, _T_contra, _V], Generic[_P, _T_co, _T_contra, _V]): ...
+
 else:
     class ContextManager(_GeneratorContextManager[_T_co], Generic[_T_co]): ...
 
