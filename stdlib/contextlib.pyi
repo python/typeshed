@@ -26,7 +26,6 @@ if sys.version_info >= (3, 7):
 
     AbstractAsyncContextManager = AsyncContextManager
 
-_G = TypeVar("_G", bound=Generator[Any, Any, Any] | AsyncGenerator[Any, Any])
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
 _T_contra = TypeVar("_T_contra", contravariant=True)
@@ -42,18 +41,21 @@ class ContextDecorator:
     def __call__(self, func: _F) -> _F: ...
 
 if sys.version_info >= (3, 7):
-    class _GeneratorContextManagerBase(Generic[_P, _G]):
-        def __init__(self, func: Callable[_P, _G], args: _P.args, kwds: _P.kwds) -> None: ...  # type: ignore[name-defined]
-        gen: _G
-        func: Callable[_P, _G]
+    class _GeneratorContextManagerBase(Generic[_P]):
+        def __init__(self, func: Callable[_P, Any], args: _P.args, kwds: _P.kwds) -> None: ...  # type: ignore[name-defined]
+        gen: Any
+        func: Callable[_P, Any]
         args: _P.args  # type: ignore[name-defined]
         kwds: _P.kwds  # type: ignore[name-defined]
     class _GeneratorContextManager(
-        _GeneratorContextManagerBase[_P, Generator[_T_co, _T_contra, _V]],  # type: ignore[misc]
+        _GeneratorContextManagerBase[_P],  # type: ignore[misc]
         AbstractContextManager[_T_co],
         ContextDecorator,
         Generic[_P, _T_co, _T_contra, _V],
-    ): ...
+    ):
+        def __init__(self, func: Callable[_P, Generator[_T_co, _T_contra, _V]], args: _P.args, kwds: _P.kwds) -> None: ...  # type: ignore[name-defined]
+        gen: Generator[_T_co, _T_contra, _V]
+        func: Callable[_P, Generator[_T_co, _T_contra, _V]]
     def contextmanager(
         func: Callable[_P, Generator[_T_co, _T_contra, _V]]
     ) -> Callable[_P, _GeneratorContextManager[_P, _T_co, _T_contra, _V]]: ...
@@ -67,11 +69,14 @@ if sys.version_info >= (3, 10):
     class AsyncContextDecorator:
         def __call__(self, func: _AF) -> _AF: ...
     class _AsyncGeneratorContextManager(
-        _GeneratorContextManagerBase[_P, AsyncGenerator[_T_co, _T_contra]],  # type: ignore[misc]
+        _GeneratorContextManagerBase[_P],  # type: ignore[misc]
         AbstractAsyncContextManager[_T_co],
         AsyncContextDecorator,
         Generic[_P, _T_co, _T_contra],
-    ): ...
+    ):
+        def __init__(self, func: Callable[_P, AsyncGenerator[_T_co, _T_contra]], args: _P.args, kwds: _P.kwds) -> None: ...  # type: ignore[name-defined]
+        gen: AsyncGenerator[_T_co, _T_contra]
+        func: Callable[_P, AsyncGenerator[_T_co, _T_contra]]
     def asynccontextmanager(
         func: Callable[_P, AsyncGenerator[_T_co, _T_contra]]
     ) -> Callable[_P, _AsyncGeneratorContextManager[_P, _T_co, _T_contra]]: ...
