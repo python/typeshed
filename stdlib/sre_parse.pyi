@@ -13,7 +13,8 @@ WHITESPACE: frozenset[str]
 ESCAPES: dict[str, tuple[_NIC, int]]
 CATEGORIES: dict[str, tuple[_NIC, _NIC] | tuple[_NIC, list[tuple[_NIC, _NIC]]]]
 FLAGS: dict[str, int]
-TYPE_FLAGS: int
+if sys.version_info >= (3, 7):
+    TYPE_FLAGS: int
 GLOBAL_FLAGS: int
 
 class Verbose(Exception): ...

@@ -15,6 +15,7 @@ def _find_executable(executable: str, path: str | None = ...) -> str | None: ...
 
 if sys.version_info >= (3, 8):
     def _read_output(commandstring: str, capture_stderr: bool = ...) -> str | None: ...  # undocumented
+
 else:
     def _read_output(commandstring: str) -> str | None: ...  # undocumented
 

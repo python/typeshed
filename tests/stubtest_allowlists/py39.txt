@@ -155,6 +155,7 @@ posix.CLD_KILLED
 posix.CLD_STOPPED
 posix.P_PIDFD
 posix.POSIX_SPAWN_[A-Z0-9]+
+posix.RWF_[A-Z]+
 pstats.FunctionProfile
 pstats.Stats.get_stats_profile
 pstats.StatsProfile

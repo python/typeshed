@@ -169,6 +169,7 @@ posix.EFD_[A-Z]+
 posix.P_PIDFD
 posix.POSIX_SPAWN_[A-Z0-9]+
 posix.SPLICE_[A-Z_]+
+posix.RWF_[A-Z]+
 pstats.FunctionProfile
 pstats.Stats.get_stats_profile
 pstats.StatsProfile

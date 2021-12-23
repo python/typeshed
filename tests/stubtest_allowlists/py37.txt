@@ -128,6 +128,7 @@ html.parser.HTMLParser.unescape
 platform.popen
 plistlib.Data.asBase64
 plistlib.Data.fromBase64
+posix.RWF_[A-Z]+
 ssl.OP_ENABLE_MIDDLEBOX_COMPAT
 ssl.Options.OP_ENABLE_MIDDLEBOX_COMPAT
 ssl.SSLObject.verify_client_post_handshake
