@@ -154,6 +154,7 @@ multiprocessing.managers.SharedMemoryServer.track_segment
 posix.CLD_KILLED
 posix.CLD_STOPPED
 posix.P_PIDFD
+posix.POSIX_SPAWN_[A-Z0-9]+
 pstats.FunctionProfile
 pstats.Stats.get_stats_profile
 pstats.StatsProfile

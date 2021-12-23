@@ -172,7 +172,6 @@ pickle._Unpickler\..*  # Best effort typing for undocumented internals
 pickle._Pickler\..*  # Best effort typing for undocumented internals
 poplib.POP3_SSL.stls  # bad declaration of inherited function. See poplib.pyi
 posix.NGROUPS_MAX
-posix.POSIX_SPAWN_[A-Z0-9]+
 posix.RWF_[A-Z]+
 pyexpat.expat_CAPI
 select.poll  # Depends on configuration
