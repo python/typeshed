@@ -11,6 +11,7 @@ os.SF_NODISKIO
 os.SF_SYNC
 os.plock
 posix.EX_NOTFOUND
+posix.NGROUPS_MAX
 select.EPOLL_RDHUP
 selectors.KqueueSelector
 signal.SIGEMT

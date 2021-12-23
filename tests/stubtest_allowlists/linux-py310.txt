@@ -20,6 +20,7 @@ select.epoll.register
 # Exists at runtime, but missing from stubs
 asyncio.PidfdChildWatcher
 asyncio.unix_events.PidfdChildWatcher
+mmap.MAP_POPULATE
 os.CLD_KILLED
 os.CLD_STOPPED
 os.EFD_CLOEXEC
@@ -45,6 +46,13 @@ os.pidfd_open
 os.preadv
 os.pwritev
 os.splice
+posix.CLD_KILLED
+posix.CLD_STOPPED
+posix.EFD_[A-Z]+
+posix.P_PIDFD
+posix.POSIX_SPAWN_[A-Z0-9]+
+posix.RWF_[A-Z]+
+posix.SPLICE_[A-Z_]+
 posix.copy_file_range
 posix.eventfd
 posix.eventfd_read

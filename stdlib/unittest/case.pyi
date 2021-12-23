@@ -32,6 +32,8 @@ if sys.version_info >= (3, 9):
 _E = TypeVar("_E", bound=BaseException)
 _FT = TypeVar("_FT", bound=Callable[..., Any])
 
+DIFF_OMITTED: str
+
 class _BaseTestCaseContext:
     def __init__(self, test_case: TestCase) -> None: ...
 

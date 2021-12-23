@@ -91,6 +91,7 @@ _imp.source_hash
 asyncio.BufferedProtocol.eof_received
 asyncio.protocols.BufferedProtocol.eof_received
 contextvars.ContextVar.__class_getitem__
+datetime.datetime_CAPI
 distutils.command.bdist_wininst
 distutils.command.bdist_wininst.bdist_wininst
 distutils.dist.DistributionMetadata.set_classifiers
@@ -98,6 +99,10 @@ distutils.dist.DistributionMetadata.set_keywords
 distutils.dist.DistributionMetadata.set_platforms
 distutils.sysconfig.expand_makefile_vars
 distutils.sysconfig.get_python_version
+distutils.cygwinccompiler.RE_VERSION
+distutils.dist.command_re
+distutils.fancy_getopt.longopt_re
+distutils.fancy_getopt.neg_alias_re
 dummy_threading.Barrier
 dummy_threading.BoundedSemaphore
 dummy_threading.BrokenBarrierError
@@ -120,7 +125,6 @@ dummy_threading.setprofile
 dummy_threading.settrace
 dummy_threading.stack_size
 html.parser.HTMLParser.unescape
-lib2to3.pgen2.tokenize.COLONEQUAL
 platform.popen
 plistlib.Data.asBase64
 plistlib.Data.fromBase64
@@ -128,12 +132,27 @@ ssl.OP_ENABLE_MIDDLEBOX_COMPAT
 ssl.Options.OP_ENABLE_MIDDLEBOX_COMPAT
 ssl.SSLObject.verify_client_post_handshake
 ssl.SSLSocket.verify_client_post_handshake
+stringprep.unicodedata  # re-exported from unicodedata
 sys.callstats
 sys.get_coroutine_wrapper
 sys.set_coroutine_wrapper
 tempfile.SpooledTemporaryFile.softspace
+tkinter.commondialog.[A-Z_]+
+tkinter.commondialog.TclVersion
+tkinter.commondialog.TkVersion
+tkinter.commondialog.wantobjects
+tkinter.dialog.[A-Z_]+
+tkinter.dialog.TclVersion
+tkinter.dialog.TkVersion
+tkinter.dialog.wantobjects
 tkinter.dnd.Icon
 tkinter.dnd.Tester
 tkinter.dnd.test
+tkinter.filedialog.[A-Z_]+
+tkinter.filedialog.TclVersion
+tkinter.filedialog.TkVersion
+tkinter.filedialog.wantobjects
+tkinter.simpledialog.wantobjects
+tkinter.tix.wantobjects
 types.CoroutineType.cr_origin
 typing._SpecialForm.__call__
