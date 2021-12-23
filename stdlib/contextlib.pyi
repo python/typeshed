@@ -40,9 +40,9 @@ class ContextDecorator:
 
 if sys.version_info >= (3, 7):
     class _GeneratorContextManagerBase:
-        def __init__(self, func: Callable[_P, Any], args: _P.args, kwds: _P.kwds) -> None: ...  # type: ignore[name-defined]
-        gen: Any
-        func: Callable[..., Any]
+        def __init__(self, func: Callable[_P, Iterator[Any] | AsyncIterator[Any]], args: _P.args, kwds: _P.kwds) -> None: ...  # type: ignore[name-defined]
+        gen: Generator[Any, Any, Any] | AsyncGenerator[Any, Any]
+        func: Callable[..., Generator[Any, Any, Any] | AsyncGenerator[Any, Any]]
         args: tuple[Any, ...]
         kwds: dict[str, Any]
     class _GeneratorContextManager(_GeneratorContextManagerBase, AbstractContextManager[_T_co], ContextDecorator, Generic[_T_co]):
