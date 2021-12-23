@@ -6,7 +6,7 @@ from tkinter.constants import *  # comment this out to find undefined identifier
 from tkinter.font import _FontDescription
 from types import TracebackType
 from typing import Any, Callable, Generic, List, Mapping, Optional, Protocol, Sequence, Tuple, Type, TypeVar, Union, overload
-from typing_extensions import Literal, TypedDict
+from typing_extensions import Literal, ParamSpec, TypedDict
 
 # Using anything from tkinter.font in this file means that 'import tkinter'
 # seems to also load tkinter.font. That's not how it actually works, but
@@ -149,6 +149,7 @@ class EventType(str, Enum):
     VirtualEvent: str
     Visibility: str
 
+_P = ParamSpec("_P")
 _W = TypeVar("_W", bound="Misc")
 # Events considered covariant because you should never assign to event.widget.
 _W_co = TypeVar("_W_co", covariant=True, bound="Misc")
@@ -258,9 +259,9 @@ class Misc:
     @overload
     def after(self, ms: int, func: None = ...) -> None: ...
     @overload
-    def after(self, ms: int | Literal["idle"], func: Callable[..., Any], *args: Any) -> str: ...
+    def after(self, ms: int | Literal["idle"], func: Callable[_P, Any], *args: _P.args) -> str: ...
     # after_idle is essentially partialmethod(after, "idle")
-    def after_idle(self, func: Callable[..., Any], *args: Any) -> str: ...
+    def after_idle(self, func: Callable[_P, Any], *args: _P.args) -> str: ...
     def after_cancel(self, id: str) -> None: ...
     def bell(self, displayof: Literal[0] | Misc | None = ...): ...
     def clipboard_get(self, *, displayof: Misc = ..., type: str = ...) -> str: ...
