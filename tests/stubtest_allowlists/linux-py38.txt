@@ -11,6 +11,7 @@ os.RWF_SYNC
 os.copy_file_range
 os.preadv
 os.pwritev
+posix.RWF_[A-Z]+
 posix.copy_file_range
 posix.preadv
 posix.pwritev

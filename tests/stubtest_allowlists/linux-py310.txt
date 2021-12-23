@@ -45,6 +45,7 @@ os.pidfd_open
 os.preadv
 os.pwritev
 os.splice
+posix.RWF_[A-Z]+
 posix.copy_file_range
 posix.eventfd
 posix.eventfd_read

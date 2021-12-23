@@ -5,14 +5,14 @@ from typing import IO, Any, Callable, ClassVar, NoReturn, Type
 
 from . import events, futures, proactor_events, selector_events, streams, windows_utils
 
-__all__ = [
+__all__ = (
     "SelectorEventLoop",
     "ProactorEventLoop",
     "IocpProactor",
     "DefaultEventLoopPolicy",
     "WindowsSelectorEventLoopPolicy",
     "WindowsProactorEventLoopPolicy",
-]
+    )
 
 NULL: int
 INFINITE: int

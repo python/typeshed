@@ -1,3 +1,7 @@
+_winapi.[A-Z_]+_PRIORITY_CLASS
+_winapi.CREATE_[A-Z_]+
+_winapi.DETACHED_PROCESS
+_winapi.FILE_TYPE_[A-Z]+
 
 # Exists at runtime, but missing from stubs
 _winapi.CreateFileMapping
