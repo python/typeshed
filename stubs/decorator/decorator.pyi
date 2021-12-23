@@ -1,8 +1,12 @@
 import sys
-from typing import Any, Callable, Iterator, NamedTuple, Pattern, Text, Tuple, TypeVar
+from typing import Any, Callable, Generic, Iterator, NamedTuple, Pattern, Text, Tuple, TypeVar
+from typing_extensions import ParamSpec
 
-_C = TypeVar("_C", bound=Callable[..., Any])
 _Func = TypeVar("_Func", bound=Callable[..., Any])
+_P = ParamSpec("_P")
+_T_co = TypeVar("_T_co", covariant=True)
+_T_contra = TypeVar("_T_contra", contravariant=True)
+_V = TypeVar("_V", covariant=True)
 _T = TypeVar("_T")
 
 def get_init(cls: type) -> None: ...
@@ -76,8 +80,10 @@ def decorator(
     caller: Callable[..., Any], _func: Callable[..., Any] | None = ...
 ) -> Callable[[Callable[..., Any]], Callable[..., Any]]: ...
 
-class ContextManager(_GeneratorContextManager[_T]):
-    def __call__(self, func: _C) -> _C: ...
+if sys.version_info >= (3, 7):
+    class ContextManager(_GeneratorContextManager[_P, _T_co, _T_contra, _V], Generic[_P, _T_co, _T_contra, _V]): ...
+else:
+    class ContextManager(_GeneratorContextManager[_T_co], Generic[_T_co]): ...
 
 def contextmanager(func: Callable[..., Iterator[_T]]) -> Callable[..., ContextManager[_T]]: ...
 def dispatch_on(*dispatch_args: Any) -> Callable[[Callable[..., Any]], Callable[..., Any]]: ...
