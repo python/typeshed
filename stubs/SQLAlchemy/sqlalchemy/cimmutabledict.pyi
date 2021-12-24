@@ -1,5 +1,5 @@
 from _typeshed import SupportsKeysAndGetItem
-from collections.abc import Iterable, Mapping
+from collections.abc import Iterable
 from typing import Generic, TypeVar, overload
 
 _KT = TypeVar("_KT")
