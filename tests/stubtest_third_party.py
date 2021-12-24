@@ -9,6 +9,7 @@ import tempfile
 import venv
 from glob import glob
 from pathlib import Path
+from typing import NoReturn
 
 import tomli
 
@@ -122,7 +123,7 @@ def has_py3_stubs(dist: Path) -> bool:
     return len(glob(f"{dist}/*.pyi")) > 0 or len(glob(f"{dist}/[!@]*/__init__.pyi")) > 0
 
 
-def main():
+def main() -> NoReturn:
     parser = argparse.ArgumentParser()
     parser.add_argument("--num-shards", type=int, default=1)
     parser.add_argument("--shard-index", type=int, default=0)
@@ -135,15 +136,17 @@ def main():
     else:
         dists = [typeshed_dir / "stubs" / d for d in args.dists]
 
-    try:
-        for i, dist in enumerate(dists):
-            if i % args.num_shards != args.shard_index:
-                continue
-            if dist.name in EXCLUDE_LIST:
-                continue
+    result = 0
+    for i, dist in enumerate(dists):
+        if i % args.num_shards != args.shard_index:
+            continue
+        if dist.name in EXCLUDE_LIST:
+            continue
+        try:
             run_stubtest(dist)
-    except StubtestFailed:
-        sys.exit(1)
+        except StubtestFailed:
+            result = 1
+    sys.exit(result)
 
 
 if __name__ == "__main__":
