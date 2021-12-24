@@ -1,7 +1,8 @@
+from collections.abc import Callable, Iterable, Sequence
 import sys
 from _typeshed import StrOrBytesPath
 from os import PathLike
-from typing import Any, AnyStr, Callable, Generic, Iterable, Sequence
+from typing import Any, AnyStr, Generic
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias

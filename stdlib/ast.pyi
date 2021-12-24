@@ -6,10 +6,11 @@
 # is imported in both modules. unfortunately we can't just rename sys,
 # since mypy only supports version checks with a sys that is named
 # sys.
+from collections.abc import Iterator
 import sys
 import typing as _typing
 from _ast import *
-from typing import Any, Iterator, TypeVar, overload
+from typing import Any, TypeVar, overload
 from typing_extensions import Literal
 
 if sys.version_info >= (3, 8):

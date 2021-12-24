@@ -1,5 +1,6 @@
+from collections.abc import Sequence
 import sys
-from typing import Sequence
+
 
 class Class:
     module: str

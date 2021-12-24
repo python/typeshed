@@ -1,8 +1,9 @@
+from collections.abc import Iterable, Iterator
 import collections
 import sys
 from _typeshed import Self as Self
 from datetime import datetime
-from typing import ClassVar, Iterable, Iterator, Type, overload
+from typing import ClassVar, Type, overload
 
 from dateparser import _Settings
 from dateparser.conf import Settings

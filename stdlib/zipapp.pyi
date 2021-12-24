@@ -1,6 +1,7 @@
+from collections.abc import Callable
 import sys
 from pathlib import Path
-from typing import BinaryIO, Callable, Union
+from typing import BinaryIO, Union
 
 _Path = Union[str, Path, BinaryIO]
 

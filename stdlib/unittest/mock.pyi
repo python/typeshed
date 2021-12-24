@@ -1,5 +1,6 @@
+from collections.abc import Awaitable, Callable, Iterable, Mapping, Sequence
 import sys
-from typing import Any, Awaitable, Callable, Generic, Iterable, List, Mapping, Sequence, Tuple, Type, TypeVar, overload
+from typing import Any, Generic, Type, TypeVar, overload
 
 _T = TypeVar("_T")
 _TT = TypeVar("_TT", bound=Type[Any])
@@ -96,7 +97,7 @@ class _Call(tuple[Any, ...]):
 
 call: _Call
 
-class _CallList(List[_Call]):
+class _CallList(list[_Call]):
     def __contains__(self, value: Any) -> bool: ...
 
 class Base:
@@ -155,7 +156,7 @@ class NonCallableMock(Base, Any):
     call_args_list: _CallList
     mock_calls: _CallList
     def _format_mock_call_signature(self, args: Any, kwargs: Any) -> str: ...
-    def _call_matcher(self, _call: Tuple[_Call, ...]) -> _Call: ...
+    def _call_matcher(self, _call: tuple[_Call, ...]) -> _Call: ...
     def _get_child_mock(self, **kw: Any) -> NonCallableMock: ...
 
 class CallableMixin(Base):

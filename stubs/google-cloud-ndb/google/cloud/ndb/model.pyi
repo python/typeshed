@@ -1,6 +1,7 @@
+from collections.abc import Callable
 import datetime
 from collections.abc import Iterable, Sequence
-from typing import Callable, NoReturn, Type
+from typing import NoReturn, Type
 from typing_extensions import Literal
 
 from google.cloud.ndb import exceptions, key as key_module, query as query_module, tasklets as tasklets_module

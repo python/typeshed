@@ -1,7 +1,8 @@
+from collections.abc import Callable, Iterable, Iterator
 import sys
 from _typeshed import SupportsRead
 from importlib.abc import Loader, MetaPathFinder, PathEntryFinder
-from typing import IO, Any, Callable, Iterable, Iterator, NamedTuple
+from typing import IO, Any, NamedTuple
 
 class ModuleInfo(NamedTuple):
     module_finder: MetaPathFinder | PathEntryFinder

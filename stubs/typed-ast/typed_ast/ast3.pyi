@@ -1,5 +1,6 @@
+from collections.abc import Iterator
 import typing
-from typing import Any, Iterator
+from typing import Any
 
 class NodeVisitor:
     def visit(self, node: AST) -> Any: ...

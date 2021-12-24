@@ -1,9 +1,9 @@
 from _typeshed import structseq
-from typing import Any, Tuple
+from typing import Any
 from typing_extensions import final
 
 @final
-class struct_passwd(structseq[Any], Tuple[str, str, int, int, str, str, str]):
+class struct_passwd(structseq[Any], tuple[str, str, int, int, str, str, str]):
     @property
     def pw_name(self) -> str: ...
     @property

@@ -1,6 +1,7 @@
+from collections.abc import Callable
 import sys
 from _typeshed import ReadableBuffer
-from typing import Callable
+
 
 from paramiko.kex_group1 import KexGroup1 as KexGroup1
 

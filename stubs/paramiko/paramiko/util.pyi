@@ -1,7 +1,8 @@
+from collections.abc import Callable
 import sys
 from logging import Logger, LogRecord
 from types import TracebackType
-from typing import IO, AnyStr, Callable, Protocol, Type, TypeVar
+from typing import IO, AnyStr, Protocol, Type, TypeVar
 
 from paramiko.config import SSHConfig, SSHConfigDict
 from paramiko.hostkeys import HostKeys

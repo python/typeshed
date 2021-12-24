@@ -1,6 +1,7 @@
+from collections.abc import Mapping, Sequence
 from socket import socket
 from threading import Condition, Lock
-from typing import Mapping, Sequence
+
 
 from waitress.adjustments import Adjustments
 from waitress.buffers import OverflowableBuffer

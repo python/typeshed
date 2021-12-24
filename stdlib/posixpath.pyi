@@ -1,3 +1,4 @@
+from collections.abc import Sequence
 import sys
 from _typeshed import BytesPath, StrOrBytesPath, StrPath
 from genericpath import (
@@ -14,7 +15,7 @@ from genericpath import (
     samestat as samestat,
 )
 from os import PathLike
-from typing import AnyStr, Sequence, overload
+from typing import AnyStr, overload
 
 supports_unicode_filenames: bool
 # aliases (also in os)

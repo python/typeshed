@@ -1,9 +1,10 @@
+from collections.abc import Callable, Iterable, Iterator
 from lib2to3.pgen2.token import *  # noqa
-from typing import Callable, Iterable, Iterator, Tuple
 
-_Coord = Tuple[int, int]
+
+_Coord = tuple[int, int]
 _TokenEater = Callable[[int, str, _Coord, _Coord, str], None]
-_TokenInfo = Tuple[int, str, _Coord, _Coord, str]
+_TokenInfo = tuple[int, str, _Coord, _Coord, str]
 
 class TokenError(Exception): ...
 class StopTokenizing(Exception): ...

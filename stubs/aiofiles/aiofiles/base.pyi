@@ -1,6 +1,7 @@
+from collections.abc import Coroutine, Generator, Iterator
 from _typeshed import Self
 from types import CodeType, FrameType, TracebackType, coroutine
-from typing import Any, Coroutine, Generator, Generic, Iterator, Type, TypeVar
+from typing import Any, Generic, Type, TypeVar
 
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)

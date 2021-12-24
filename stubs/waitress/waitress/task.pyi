@@ -1,7 +1,8 @@
+from collections.abc import Mapping, Sequence
 from collections import deque
 from logging import Logger
 from threading import Condition, Lock
-from typing import Any, Mapping, Sequence
+from typing import Any
 
 from .channel import HTTPChannel
 from .utilities import Error

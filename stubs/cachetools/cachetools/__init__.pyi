@@ -1,7 +1,8 @@
+from collections.abc import Callable, MutableMapping
 from _typeshed import IdentityFunction
 from collections.abc import Iterator, Sequence
 from contextlib import AbstractContextManager
-from typing import Any, Callable, Generic, MutableMapping, TypeVar, overload
+from typing import Any, Generic, TypeVar, overload
 
 _KT = TypeVar("_KT")
 _VT = TypeVar("_VT")

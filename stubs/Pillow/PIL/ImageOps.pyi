@@ -1,4 +1,5 @@
-from typing import Any, Iterable, Protocol, Union
+from collections.abc import Iterable
+from typing import Any, Protocol, Union
 
 from .Image import Image, _Resample, _Size
 from .ImageColor import _Ink

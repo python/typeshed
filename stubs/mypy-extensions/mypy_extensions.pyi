@@ -1,6 +1,7 @@
+from collections.abc import Callable, ItemsView, KeysView, Mapping, ValuesView
 import abc
 import sys
-from typing import Any, Callable, Generic, ItemsView, KeysView, Mapping, Type, TypeVar, ValuesView
+from typing import Any, Generic, Type, TypeVar
 
 _T = TypeVar("_T")
 _U = TypeVar("_U")

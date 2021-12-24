@@ -1,4 +1,5 @@
-from typing import Any, Iterable, Text
+from collections.abc import Iterable
+from typing import Any, Text
 
 ATTRIBUTES: dict[str, int]
 COLORS: dict[str, int]

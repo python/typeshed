@@ -1,7 +1,8 @@
+from collections.abc import Callable, Iterator
 import enum
 import sys
 from sre_constants import error as error
-from typing import Any, AnyStr, Callable, Iterator, Union, overload
+from typing import Any, AnyStr, Union, overload
 
 # ----- re variables and constants -----
 if sys.version_info >= (3, 7):

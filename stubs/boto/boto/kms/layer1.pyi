@@ -1,4 +1,5 @@
-from typing import Any, Mapping, Type
+from collections.abc import Mapping
+from typing import Any, Type
 
 from boto.connection import AWSQueryConnection
 

@@ -1,3 +1,4 @@
+from collections.abc import Callable
 import subprocess
 import sys
 import time
@@ -5,14 +6,14 @@ from _typeshed import Self
 from socket import socket as _socket
 from ssl import SSLContext, SSLSocket
 from types import TracebackType
-from typing import IO, Any, Callable, List, Pattern, Tuple, Type, Union
+from typing import IO, Any, Pattern, Type, Union
 from typing_extensions import Literal
 
 # TODO: Commands should use their actual return types, not this type alias.
 #       E.g. Tuple[Literal["OK"], List[bytes]]
-_CommandResults = Tuple[str, List[Any]]
+_CommandResults = tuple[str, list[Any]]
 
-_AnyResponseData = Union[List[None], List[Union[bytes, Tuple[bytes, bytes]]]]
+_AnyResponseData = Union[list[None], list[Union[bytes, tuple[bytes, bytes]]]]
 
 _list = list  # conflicts with a method named "list"
 

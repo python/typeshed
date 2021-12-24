@@ -1,5 +1,6 @@
+from collections.abc import Callable, Iterable, Iterator, Mapping, MutableMapping
 from _weakrefset import WeakSet as WeakSet
-from typing import Any, Callable, Generic, Iterable, Iterator, Mapping, MutableMapping, Tuple, Type, TypeVar, overload
+from typing import Any, Generic, Type, TypeVar, overload
 
 from _weakref import (
     CallableProxyType as CallableProxyType,
@@ -17,7 +18,7 @@ _KT = TypeVar("_KT")
 _VT = TypeVar("_VT")
 _CallableT = TypeVar("_CallableT", bound=Callable[..., Any])
 
-ProxyTypes: Tuple[Type[Any], ...]
+ProxyTypes: tuple[Type[Any], ...]
 
 class WeakMethod(ref[_CallableT], Generic[_CallableT]):
     def __new__(cls, meth: _CallableT, callback: Callable[[_CallableT], object] | None = ...) -> WeakMethod[_CallableT]: ...
@@ -81,7 +82,7 @@ class WeakKeyDictionary(MutableMapping[_KT, _VT]):
 class finalize:
     def __init__(self, __obj: object, __func: Callable[..., Any], *args: Any, **kwargs: Any) -> None: ...
     def __call__(self, _: Any = ...) -> Any | None: ...
-    def detach(self) -> tuple[Any, Any, Tuple[Any, ...], dict[str, Any]] | None: ...
-    def peek(self) -> tuple[Any, Any, Tuple[Any, ...], dict[str, Any]] | None: ...
+    def detach(self) -> tuple[Any, Any, tuple[Any, ...], dict[str, Any]] | None: ...
+    def peek(self) -> tuple[Any, Any, tuple[Any, ...], dict[str, Any]] | None: ...
     alive: bool
     atexit: bool

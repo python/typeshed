@@ -1,5 +1,6 @@
+from collections.abc import Sequence
 import sys
-from typing import Sequence
+
 
 def iskeyword(s: str) -> bool: ...
 

@@ -1,5 +1,6 @@
+from collections.abc import Callable, Iterable
 from _typeshed import SupportsRichComparison
-from typing import Any, Callable, Iterable, TypeVar
+from typing import Any, TypeVar
 
 _T = TypeVar("_T")
 

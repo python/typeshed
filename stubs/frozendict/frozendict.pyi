@@ -1,5 +1,6 @@
+from collections.abc import Iterable, Iterator, Mapping
 import collections
-from typing import Any, Generic, Iterable, Iterator, Mapping, Type, TypeVar, overload
+from typing import Any, Generic, Type, TypeVar, overload
 
 _S = TypeVar("_S")
 _KT = TypeVar("_KT")

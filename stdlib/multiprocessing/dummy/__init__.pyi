@@ -1,8 +1,9 @@
+from collections.abc import Callable, Iterable, Mapping, Sequence
 import array
 import threading
 import weakref
 from queue import Queue as Queue
-from typing import Any, Callable, Iterable, Mapping, Sequence
+from typing import Any
 
 JoinableQueue = Queue
 Barrier = threading.Barrier

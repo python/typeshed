@@ -1,4 +1,5 @@
-from typing import Any, Iterator
+from collections.abc import Iterator
+from typing import Any
 
 QP: int  # undocumented
 BASE64: int  # undocumented

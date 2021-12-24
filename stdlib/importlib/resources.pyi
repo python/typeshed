@@ -1,3 +1,4 @@
+from collections.abc import Iterator
 import sys
 from typing import Any
 
@@ -7,7 +8,7 @@ if sys.version_info >= (3, 7):
     from contextlib import AbstractContextManager
     from pathlib import Path
     from types import ModuleType
-    from typing import BinaryIO, Iterator, TextIO, Union
+    from typing import BinaryIO, TextIO, Union
 
     Package = Union[str, ModuleType]
     Resource = Union[str, os.PathLike[Any]]

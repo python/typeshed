@@ -1,6 +1,7 @@
+from collections.abc import Generator, Iterable
 import argparse
 import ast
-from typing import Any, ClassVar, Generator, Iterable, Type
+from typing import Any, ClassVar, Type
 
 class pep257Checker:
     name: ClassVar[str]

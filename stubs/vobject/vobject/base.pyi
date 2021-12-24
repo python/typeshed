@@ -1,6 +1,7 @@
+from collections.abc import Iterator
 from _typeshed import SupportsWrite
 from collections.abc import Iterable
-from typing import Any, Iterator, TypeVar, overload
+from typing import Any, TypeVar, overload
 from typing_extensions import Literal
 
 DEBUG: bool

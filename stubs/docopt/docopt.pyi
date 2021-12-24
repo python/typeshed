@@ -1,4 +1,5 @@
-from typing import Any, Iterable, Union
+from collections.abc import Iterable
+from typing import Any, Union
 
 __version__: str
 

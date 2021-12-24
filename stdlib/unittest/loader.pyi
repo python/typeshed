@@ -1,12 +1,13 @@
+from collections.abc import Callable, Sequence
 import sys
 import unittest.case
 import unittest.result
 import unittest.suite
 from types import ModuleType
-from typing import Any, Callable, List, Pattern, Sequence, Type
+from typing import Any, Pattern, Type
 
 _SortComparisonMethod = Callable[[str, str], int]
-_SuiteClass = Callable[[List[unittest.case.TestCase]], unittest.suite.TestSuite]
+_SuiteClass = Callable[[list[unittest.case.TestCase]], unittest.suite.TestSuite]
 
 VALID_MODULE_NAME: Pattern[str]
 

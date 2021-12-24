@@ -1,8 +1,9 @@
+from collections.abc import Generator, Iterable, Sequence
 import datetime
 from abc import ABCMeta, abstractmethod
 from enum import Enum
 from ipaddress import IPv4Address, IPv4Network, IPv6Address, IPv6Network
-from typing import Any, ClassVar, Generator, Generic, Iterable, Sequence, Text, Type, TypeVar
+from typing import Any, ClassVar, Generic, Text, Type, TypeVar
 
 from cryptography.hazmat.backends.interfaces import X509Backend
 from cryptography.hazmat.primitives.asymmetric.dsa import DSAPrivateKey, DSAPublicKey

@@ -1,4 +1,5 @@
-from typing import Callable
+from collections.abc import Callable
+
 
 from .dammit import EntitySubstitution as EntitySubstitution
 

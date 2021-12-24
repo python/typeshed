@@ -1,18 +1,19 @@
+from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
 import builtins
 import threading
 from _typeshed import Self, SupportsItems
 from datetime import datetime, timedelta
 from typing import (
     Any,
-    Callable,
+    
     ClassVar,
-    Dict,
+    
     Generic,
-    Iterable,
-    Iterator,
-    Mapping,
+    
+    
+    
     Pattern,
-    Sequence,
+    
     Type,
     TypeVar,
     Union,
@@ -36,7 +37,7 @@ _StrType = TypeVar("_StrType", bound=Union[str, bytes])
 _VT = TypeVar("_VT")
 _T = TypeVar("_T")
 
-class CaseInsensitiveDict(Dict[_StrType, _VT]):
+class CaseInsensitiveDict(dict[_StrType, _VT]):
     def __init__(self, data: SupportsItems[_StrType, _VT]) -> None: ...
     def update(self, data: SupportsItems[_StrType, _VT]) -> None: ...  # type: ignore[override]
     @overload

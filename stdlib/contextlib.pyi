@@ -1,15 +1,16 @@
+from collections.abc import AsyncIterator, Awaitable, Callable, Iterator
 import sys
 from _typeshed import Self, StrOrBytesPath
 from types import TracebackType
 from typing import (
     IO,
     Any,
-    AsyncIterator,
-    Awaitable,
-    Callable,
+    
+    
+    
     ContextManager,
     Generic,
-    Iterator,
+    
     Optional,
     Protocol,
     Type,

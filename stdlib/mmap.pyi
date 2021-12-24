@@ -1,7 +1,8 @@
+from collections.abc import Iterable, Iterator, Sized
 import sys
 from _typeshed import ReadableBuffer
 from contextlib import AbstractContextManager
-from typing import Iterable, Iterator, NoReturn, Sized, overload
+from typing import NoReturn, overload
 
 ACCESS_DEFAULT: int
 ACCESS_READ: int

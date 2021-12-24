@@ -1,5 +1,6 @@
+from collections.abc import Iterable, MutableSequence
 import sys
-from typing import Any, BinaryIO, Generic, Iterable, MutableSequence, TypeVar, Union, overload
+from typing import Any, BinaryIO, Generic, TypeVar, Union, overload
 from typing_extensions import Literal, SupportsIndex
 
 _IntTypeCode = Literal["b", "B", "h", "H", "i", "I", "l", "L", "q", "Q"]

@@ -1,5 +1,5 @@
 from collections.abc import Callable, Mapping, Sequence
-from typing import Any, Generic, List, Tuple, Type, TypeVar, overload
+from typing import Any, Generic, Type, TypeVar, overload
 
 _F = TypeVar("_F", bound=Callable[..., Any])
 _T = TypeVar("_T")
@@ -40,7 +40,7 @@ class _Sentinel:
 sentinel: Any
 DEFAULT: Any
 
-class _Call(Tuple[Any, ...]):
+class _Call(tuple[Any, ...]):
     def __new__(
         cls, value: Any = ..., name: Any | None = ..., parent: Any | None = ..., two: bool = ..., from_kall: bool = ...
     ) -> Any: ...
@@ -60,7 +60,7 @@ class _Call(Tuple[Any, ...]):
 
 call: _Call
 
-class _CallList(List[_Call]):
+class _CallList(list[_Call]):
     def __contains__(self, value: Any) -> bool: ...
 
 class _MockIter:
@@ -113,7 +113,7 @@ class NonCallableMock(Base, Any):
     call_args_list: _CallList
     mock_calls: _CallList
     def _format_mock_call_signature(self, args: Any, kwargs: Any) -> str: ...
-    def _call_matcher(self, _call: Tuple[_Call, ...]) -> _Call: ...
+    def _call_matcher(self, _call: tuple[_Call, ...]) -> _Call: ...
     def _get_child_mock(self, **kw: Any) -> NonCallableMock: ...
 
 class CallableMixin(Base):

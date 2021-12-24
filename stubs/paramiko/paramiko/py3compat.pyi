@@ -1,5 +1,6 @@
+from collections.abc import Iterable, Sequence
 import sys
-from typing import Any, Iterable, Sequence, Text, Type, TypeVar
+from typing import Any, Text, Type, TypeVar
 
 _T = TypeVar("_T")
 

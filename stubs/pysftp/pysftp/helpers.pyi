@@ -1,4 +1,5 @@
-from typing import Callable, ContextManager, Iterator
+from collections.abc import Callable, Iterator
+from typing import ContextManager
 
 def known_hosts() -> str: ...
 def st_mode_to_int(val: int) -> int: ...

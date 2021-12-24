@@ -1,6 +1,7 @@
+from collections.abc import Callable, MutableSequence, Sequence
 import sys
 from _typeshed import SupportsRichComparison
-from typing import Callable, MutableSequence, Sequence, TypeVar
+from typing import TypeVar
 
 _T = TypeVar("_T")
 

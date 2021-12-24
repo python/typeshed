@@ -1,5 +1,6 @@
+from collections.abc import Callable, Iterable, Sequence
 from types import ModuleType
-from typing import IO, Any, Callable, Iterable, Sequence, Text
+from typing import IO, Any, Text
 
 class Error(Exception): ...
 

@@ -1,9 +1,10 @@
+from collections.abc import Callable, Iterable, Iterator
 import sys
 from _typeshed import Self, SupportsRead, SupportsReadline
 from socket import socket
 from ssl import SSLContext
 from types import TracebackType
-from typing import Any, Callable, Iterable, Iterator, TextIO, Tuple, Type
+from typing import Any, TextIO, Type
 from typing_extensions import Literal
 
 MSG_OOB: int
@@ -18,7 +19,7 @@ class error_temp(Error): ...
 class error_perm(Error): ...
 class error_proto(Error): ...
 
-all_errors: Tuple[Type[Exception], ...]
+all_errors: tuple[Type[Exception], ...]
 
 class FTP:
     debugging: int

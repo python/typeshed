@@ -1,8 +1,9 @@
+from collections.abc import Callable
 import sys
 import types
 from _typeshed import Self
 from socket import socket
-from typing import Any, Callable, Type
+from typing import Any, Type
 
 from .base_events import Server
 from .events import AbstractEventLoop, BaseDefaultEventLoopPolicy, _ProtocolFactory, _SSLContext

@@ -1,4 +1,5 @@
-from typing import Callable, Iterable
+from collections.abc import Callable, Iterable
+
 
 _Reader = Callable[[int], bytes]
 

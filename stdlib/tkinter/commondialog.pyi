@@ -1,4 +1,5 @@
-from typing import Any, ClassVar, Mapping
+from collections.abc import Mapping
+from typing import Any, ClassVar
 
 class Dialog:
     command: ClassVar[str | None]

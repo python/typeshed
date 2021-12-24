@@ -1,4 +1,5 @@
-from typing import IO, Any, Callable
+from collections.abc import Callable
+from typing import IO, Any
 
 class Cmd:
     prompt: str

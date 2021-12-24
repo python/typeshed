@@ -1,5 +1,6 @@
+from collections.abc import Awaitable, Callable
 import sys
-from typing import Any, Awaitable, Callable
+from typing import Any
 
 from .case import TestCase
 

@@ -1,4 +1,5 @@
-from typing import Any, AnyStr, Callable, Sequence, Type, TypeVar
+from collections.abc import Callable, Sequence
+from typing import Any, AnyStr, Type, TypeVar
 
 def with_repr(attrs: Sequence[AnyStr | Attribute]) -> Callable[..., Any]: ...
 def with_cmp(attrs: Sequence[AnyStr | Attribute]) -> Callable[..., Any]: ...

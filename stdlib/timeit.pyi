@@ -1,4 +1,5 @@
-from typing import IO, Any, Callable, Sequence, Union
+from collections.abc import Callable, Sequence
+from typing import IO, Any, Union
 
 _Timer = Callable[[], float]
 _Stmt = Union[str, Callable[[], Any]]

@@ -1,5 +1,6 @@
+from collections.abc import Iterable
 import sys
-from typing import Any, Iterable, TextIO, TypeVar
+from typing import Any, TextIO, TypeVar
 
 def split(s: str, comments: bool = ..., posix: bool = ...) -> list[str]: ...
 

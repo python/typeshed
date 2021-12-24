@@ -1,5 +1,6 @@
+from collections.abc import Iterable
 import datetime
-from typing import Any, Iterable
+from typing import Any
 
 from ._common import weekday as weekdaybase
 

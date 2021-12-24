@@ -1,7 +1,8 @@
-from typing import Any, Sequence, Tuple, TypeVar
+from collections.abc import Sequence
+from typing import Any, TypeVar
 
 _T = TypeVar("_T")
-_Mismatch = Tuple[_T, _T, int]
+_Mismatch = tuple[_T, _T, int]
 
 _MAX_LENGTH: int
 _PLACEHOLDER_LEN: int

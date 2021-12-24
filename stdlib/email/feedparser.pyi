@@ -1,6 +1,7 @@
+from collections.abc import Callable
 from email.message import Message
 from email.policy import Policy
-from typing import Callable, Generic, TypeVar, overload
+from typing import Generic, TypeVar, overload
 
 _M = TypeVar("_M", bound=Message)
 

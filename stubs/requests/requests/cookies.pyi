@@ -1,5 +1,6 @@
+from collections.abc import MutableMapping
 import sys
-from typing import Any, MutableMapping
+from typing import Any
 
 if sys.version_info >= (3, 0):
     from http.cookiejar import CookieJar

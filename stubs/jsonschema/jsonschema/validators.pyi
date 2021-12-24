@@ -1,4 +1,5 @@
-from typing import Any, Callable
+from collections.abc import Callable
+from typing import Any
 
 def validates(version: str) -> Callable[..., Any]: ...
 def create(meta_schema, validators=..., version: Any | None = ..., type_checker=..., id_of=..., applicable_validators=...): ...

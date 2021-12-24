@@ -1,6 +1,7 @@
+from collections.abc import Mapping, Sequence
 from importlib.abc import Loader
 from types import ModuleType
-from typing import Mapping, Sequence
+
 
 # Signature of `builtins.__import__` should be kept identical to `importlib.__import__`
 def __import__(

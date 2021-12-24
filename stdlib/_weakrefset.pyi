@@ -1,5 +1,6 @@
+from collections.abc import Iterable, Iterator, MutableSet
 import sys
-from typing import Any, Generic, Iterable, Iterator, MutableSet, TypeVar
+from typing import Any, Generic, TypeVar
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias

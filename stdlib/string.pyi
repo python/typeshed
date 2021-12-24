@@ -1,6 +1,7 @@
+from collections.abc import Iterable, Mapping, Sequence
 import sys
 from re import RegexFlag
-from typing import Any, Iterable, Mapping, Sequence
+from typing import Any
 
 if sys.version_info >= (3, 8):
     from re import Pattern

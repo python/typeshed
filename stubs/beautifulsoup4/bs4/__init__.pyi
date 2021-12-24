@@ -1,5 +1,6 @@
+from collections.abc import Sequence
 from _typeshed import Self, SupportsRead
-from typing import Any, Sequence, Type
+from typing import Any, Type
 
 from .builder import TreeBuilder
 from .element import PageElement, SoupStrainer, Tag

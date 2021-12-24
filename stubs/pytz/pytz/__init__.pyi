@@ -1,5 +1,6 @@
+from collections.abc import Mapping
 import datetime
-from typing import ClassVar, Mapping
+from typing import ClassVar
 
 from .exceptions import (
     AmbiguousTimeError as AmbiguousTimeError,

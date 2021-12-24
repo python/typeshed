@@ -1,4 +1,5 @@
-from typing import Any, AnyStr, Iterable, Mapping, Text
+from collections.abc import Iterable, Mapping
+from typing import Any, AnyStr, Text
 
 from . import compat, cookies, exceptions, structures
 

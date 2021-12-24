@@ -1,6 +1,7 @@
+from collections.abc import Callable, Iterator
 import datetime
 from json import JSONDecoder
-from typing import Any, Callable, Iterator, Text, Type
+from typing import Any, Text, Type
 
 from . import auth, cookies, exceptions, hooks, status_codes, structures, utils
 from .cookies import RequestsCookieJar

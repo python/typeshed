@@ -1,6 +1,7 @@
+from collections.abc import Callable, Mapping
 from codeop import CommandCompiler
 from types import CodeType
-from typing import Any, Callable, Mapping
+from typing import Any
 
 class InteractiveInterpreter:
     locals: Mapping[str, Any]  # undocumented

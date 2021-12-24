@@ -1,5 +1,6 @@
+from collections.abc import Mapping
 from tkinter import Widget
-from typing import Any, Mapping
+from typing import Any
 
 DIALOG_ICON: str
 

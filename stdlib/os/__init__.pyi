@@ -1,3 +1,4 @@
+from collections.abc import Callable, Iterable, Iterator, Mapping, MutableMapping, Sequence
 import sys
 from _typeshed import (
     FileDescriptorLike,
@@ -20,17 +21,17 @@ from typing import (
     Any,
     AnyStr,
     BinaryIO,
-    Callable,
+    
     Generic,
-    Iterable,
-    Iterator,
-    List,
-    Mapping,
-    MutableMapping,
+    
+    
+    
+    
+    
     NoReturn,
     Protocol,
-    Sequence,
-    Tuple,
+    
+    
     TypeVar,
     Union,
     overload,
@@ -284,7 +285,7 @@ TMP_MAX: int  # Undocumented, but used by tempfile
 
 # ----- os classes (structures) -----
 @final
-class stat_result(structseq[float], Tuple[int, int, int, int, int, int, int, float, float, float]):
+class stat_result(structseq[float], tuple[int, int, int, int, int, int, int, float, float, float]):
     # The constructor of this class takes an iterable of variable length (though it must be at least 10).
     #
     # However, this class behaves like a tuple of 10 elements,
@@ -383,7 +384,7 @@ class DirEntry(Generic[AnyStr]):
 
 if sys.version_info >= (3, 7):
     @final
-    class statvfs_result(structseq[int], Tuple[int, int, int, int, int, int, int, int, int, int, int]):
+    class statvfs_result(structseq[int], tuple[int, int, int, int, int, int, int, int, int, int, int]):
         @property
         def f_bsize(self) -> int: ...
         @property
@@ -409,7 +410,7 @@ if sys.version_info >= (3, 7):
 
 else:
     @final
-    class statvfs_result(structseq[int], Tuple[int, int, int, int, int, int, int, int, int, int]):
+    class statvfs_result(structseq[int], tuple[int, int, int, int, int, int, int, int, int, int]):
         @property
         def f_bsize(self) -> int: ...
         @property
@@ -447,7 +448,7 @@ def getppid() -> int: ...
 def strerror(__code: int) -> str: ...
 def umask(__mask: int) -> int: ...
 @final
-class uname_result(structseq[str], Tuple[str, str, str, str, str]):
+class uname_result(structseq[str], tuple[str, str, str, str, str]):
     @property
     def sysname(self) -> str: ...
     @property
@@ -639,7 +640,7 @@ if sys.platform != "win32":
     def writev(__fd: int, __buffers: Sequence[bytes]) -> int: ...
 
 @final
-class terminal_size(structseq[int], Tuple[int, int]):
+class terminal_size(structseq[int], tuple[int, int]):
     @property
     def columns(self) -> int: ...
     @property
@@ -813,14 +814,14 @@ def execlpe(file: StrOrBytesPath, __arg0: StrOrBytesPath, *args: Any) -> NoRetur
 # in practice, and doing so would explode the number of combinations in this already long union.
 # All these combinations are necessary due to list being invariant.
 _ExecVArgs = Union[
-    Tuple[StrOrBytesPath, ...],
-    List[bytes],
-    List[str],
-    List[PathLike[Any]],
-    List[Union[bytes, str]],
-    List[Union[bytes, PathLike[Any]]],
-    List[Union[str, PathLike[Any]]],
-    List[Union[bytes, str, PathLike[Any]]],
+    tuple[StrOrBytesPath, ...],
+    list[bytes],
+    list[str],
+    list[PathLike[Any]],
+    list[Union[bytes, str]],
+    list[Union[bytes, PathLike[Any]]],
+    list[Union[str, PathLike[Any]]],
+    list[Union[bytes, str, PathLike[Any]]],
 ]
 _ExecEnv = Union[Mapping[bytes, Union[bytes, str]], Mapping[str, Union[bytes, str]]]
 
@@ -858,7 +859,7 @@ else:
 
 def system(command: StrOrBytesPath) -> int: ...
 @final
-class times_result(structseq[float], Tuple[float, float, float, float, float]):
+class times_result(structseq[float], tuple[float, float, float, float, float]):
     @property
     def user(self) -> float: ...
     @property
@@ -884,7 +885,7 @@ else:
     def wait() -> tuple[int, int]: ...  # Unix only
     if sys.platform != "darwin":
         @final
-        class waitid_result(structseq[int], Tuple[int, int, int, int, int]):
+        class waitid_result(structseq[int], tuple[int, int, int, int, int]):
             @property
             def si_pid(self) -> int: ...
             @property
@@ -912,7 +913,7 @@ else:
             argv: _ExecVArgs,
             env: _ExecEnv,
             *,
-            file_actions: Sequence[Tuple[Any, ...]] | None = ...,
+            file_actions: Sequence[tuple[Any, ...]] | None = ...,
             setpgroup: int | None = ...,
             resetids: bool = ...,
             setsid: bool = ...,
@@ -925,7 +926,7 @@ else:
             argv: _ExecVArgs,
             env: _ExecEnv,
             *,
-            file_actions: Sequence[Tuple[Any, ...]] | None = ...,
+            file_actions: Sequence[tuple[Any, ...]] | None = ...,
             setpgroup: int | None = ...,
             resetids: bool = ...,
             setsid: bool = ...,
@@ -936,7 +937,7 @@ else:
 
 if sys.platform != "win32":
     @final
-    class sched_param(structseq[int], Tuple[int]):
+    class sched_param(structseq[int], tuple[int]):
         def __new__(cls, sched_priority: int) -> sched_param: ...
         @property
         def sched_priority(self) -> int: ...

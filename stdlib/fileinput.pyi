@@ -1,6 +1,7 @@
+from collections.abc import Callable, Iterable, Iterator
 import sys
 from _typeshed import Self, StrOrBytesPath
-from typing import IO, Any, AnyStr, Callable, Generic, Iterable, Iterator
+from typing import IO, Any, AnyStr, Generic
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias

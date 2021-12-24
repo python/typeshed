@@ -1,4 +1,5 @@
-from typing import Any, Callable, Text, overload
+from collections.abc import Callable
+from typing import Any, Text, overload
 
 class Key:
     DefaultContentType: str

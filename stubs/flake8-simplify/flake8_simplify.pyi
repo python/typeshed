@@ -1,5 +1,6 @@
+from collections.abc import Generator
 import ast
-from typing import Any, ClassVar, Generator, Type
+from typing import Any, ClassVar, Type
 
 class Plugin:
     name: ClassVar[str]

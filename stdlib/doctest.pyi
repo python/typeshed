@@ -1,6 +1,7 @@
+from collections.abc import Callable
 import types
 import unittest
-from typing import Any, Callable, NamedTuple, Tuple, Type
+from typing import Any, NamedTuple, Type
 
 class TestResults(NamedTuple):
     failed: int
@@ -86,7 +87,7 @@ class DocTestFinder:
     ) -> list[DocTest]: ...
 
 _Out = Callable[[str], Any]
-_ExcInfo = Tuple[Type[BaseException], BaseException, types.TracebackType]
+_ExcInfo = tuple[Type[BaseException], BaseException, types.TracebackType]
 
 class DocTestRunner:
     DIVIDER: str

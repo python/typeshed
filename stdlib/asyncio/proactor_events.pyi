@@ -1,6 +1,7 @@
+from collections.abc import Mapping
 import sys
 from socket import socket
-from typing import Any, Mapping, Protocol, Type
+from typing import Any, Protocol, Type
 from typing_extensions import Literal
 
 from . import base_events, constants, events, futures, streams, transports

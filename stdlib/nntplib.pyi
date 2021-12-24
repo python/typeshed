@@ -1,9 +1,10 @@
+from collections.abc import Iterable
 import datetime
 import socket
 import ssl
 import sys
 from _typeshed import Self
-from typing import IO, Any, Iterable, NamedTuple, Tuple, Union
+from typing import IO, Any, NamedTuple, Union
 
 _File = Union[IO[bytes], bytes, str, None]
 
@@ -72,7 +73,7 @@ class _NNTPBase:
     def xhdr(self, hdr: str, str: Any, *, file: _File = ...) -> tuple[str, _list[str]]: ...
     def xover(self, start: int, end: int, *, file: _File = ...) -> tuple[str, _list[tuple[int, dict[str, str]]]]: ...
     def over(
-        self, message_spec: None | str | _list[Any] | Tuple[Any, ...], *, file: _File = ...
+        self, message_spec: None | str | _list[Any] | tuple[Any, ...], *, file: _File = ...
     ) -> tuple[str, _list[tuple[int, dict[str, str]]]]: ...
     if sys.version_info < (3, 9):
         def xgtitle(self, group: str, *, file: _File = ...) -> tuple[str, _list[tuple[str, str]]]: ...

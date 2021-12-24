@@ -1,7 +1,8 @@
+from collections.abc import Callable
 import email.feedparser
 from email.message import Message
 from email.policy import Policy
-from typing import BinaryIO, Callable, TextIO
+from typing import BinaryIO, TextIO
 
 FeedParser = email.feedparser.FeedParser
 BytesFeedParser = email.feedparser.BytesFeedParser

@@ -1,5 +1,6 @@
+from collections.abc import Iterable
 import sys
-from typing import Any, Iterable, Text
+from typing import Any, Text
 
 from .common import _LikeBytes
 

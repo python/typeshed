@@ -1,5 +1,6 @@
+from collections.abc import Iterable
 import sys
-from typing import Iterable, NamedTuple
+from typing import NamedTuple
 
 class _RequestRate(NamedTuple):
     requests: int

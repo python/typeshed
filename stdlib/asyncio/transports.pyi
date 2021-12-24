@@ -1,8 +1,9 @@
+from collections.abc import Mapping
 import sys
 from asyncio.events import AbstractEventLoop
 from asyncio.protocols import BaseProtocol
 from socket import _Address
-from typing import Any, Mapping
+from typing import Any
 
 class BaseTransport:
     def __init__(self, extra: Mapping[Any, Any] | None = ...) -> None: ...

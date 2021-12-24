@@ -1,6 +1,7 @@
+from collections.abc import Callable, Sequence
 import socket
 from _typeshed import Self
-from typing import Any, Callable, Match, Pattern, Sequence
+from typing import Any, Match, Pattern
 
 DEBUGLEVEL: int
 TELNET_PORT: int

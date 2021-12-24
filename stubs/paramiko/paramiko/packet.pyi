@@ -1,7 +1,8 @@
+from collections.abc import Callable
 import sys
 from logging import Logger
 from socket import socket
-from typing import Any, Callable
+from typing import Any
 
 from cryptography.hazmat.primitives.ciphers import Cipher
 from paramiko.compress import ZlibCompressor, ZlibDecompressor

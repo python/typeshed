@@ -1,8 +1,9 @@
+from collections.abc import Callable
 import sys
 import threading
 from contextlib import AbstractContextManager
 from multiprocessing.context import BaseContext
-from typing import Any, Callable, Union
+from typing import Any, Union
 
 _LockLike = Union[Lock, RLock]
 

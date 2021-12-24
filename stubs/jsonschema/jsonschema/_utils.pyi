@@ -1,4 +1,5 @@
-from typing import Any, Generator, Iterable, Mapping, MutableMapping, Sized
+from collections.abc import Generator, Iterable, Mapping, MutableMapping, Sized
+from typing import Any
 
 class URIDict(MutableMapping[Any, Any]):
     def normalize(self, uri: str) -> str: ...

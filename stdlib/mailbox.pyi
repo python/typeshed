@@ -1,3 +1,4 @@
+from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
 import email.message
 import sys
 from _typeshed import Self, StrOrBytesPath
@@ -6,13 +7,13 @@ from typing import (
     IO,
     Any,
     AnyStr,
-    Callable,
+    
     Generic,
-    Iterable,
-    Iterator,
-    Mapping,
+    
+    
+    
     Protocol,
-    Sequence,
+    
     Type,
     TypeVar,
     Union,

@@ -1,9 +1,10 @@
+from collections.abc import Callable, Iterable, Mapping
 from types import CodeType, FrameType, TracebackType
-from typing import IO, Any, Callable, Iterable, Mapping, SupportsInt, Tuple, Type, TypeVar
+from typing import IO, Any, SupportsInt, Type, TypeVar
 
 _T = TypeVar("_T")
 _TraceDispatch = Callable[[FrameType, str, Any], Any]  # TODO: Recursive type
-_ExcInfo = Tuple[Type[BaseException], BaseException, FrameType]
+_ExcInfo = tuple[Type[BaseException], BaseException, FrameType]
 
 GENERATOR_AND_COROUTINE_FLAGS: int
 

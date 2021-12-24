@@ -1,6 +1,7 @@
+from collections.abc import Mapping, MutableMapping
 import sys
 from _typeshed import StrPath, SupportsWrite
-from typing import IO, Any, Mapping, MutableMapping, Text, Type, Union
+from typing import IO, Any, Text, Type, Union
 
 if sys.version_info >= (3, 6):
     _PathLike = StrPath

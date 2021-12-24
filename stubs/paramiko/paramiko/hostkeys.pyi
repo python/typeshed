@@ -1,4 +1,5 @@
-from typing import Iterator, Mapping, MutableMapping
+from collections.abc import Iterator, Mapping, MutableMapping
+
 
 from paramiko.pkey import PKey
 

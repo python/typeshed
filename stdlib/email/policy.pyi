@@ -1,9 +1,10 @@
+from collections.abc import Callable
 from abc import ABCMeta, abstractmethod
 from email.contentmanager import ContentManager
 from email.errors import MessageDefect
 from email.header import Header
 from email.message import Message
-from typing import Any, Callable
+from typing import Any
 
 class Policy(metaclass=ABCMeta):
     max_line_length: int | None

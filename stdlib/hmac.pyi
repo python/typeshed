@@ -1,7 +1,8 @@
+from collections.abc import Callable
 import sys
 from _typeshed import ReadableBuffer
 from types import ModuleType
-from typing import Any, AnyStr, Callable, Union, overload
+from typing import Any, AnyStr, Union, overload
 
 # TODO more precise type for object of hashlib
 _Hash = Any

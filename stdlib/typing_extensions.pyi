@@ -1,31 +1,33 @@
+from collections.abc import AsyncGenerator as AsyncGenerator, AsyncIterable as AsyncIterable, AsyncIterator as AsyncIterator, Awaitable as Awaitable, Callable, Coroutine as Coroutine, ItemsView, KeysView, Mapping, ValuesView
+from collections import ChainMap as ChainMap, Counter as Counter, defaultdict as DefaultDict, deque as Deque
 import abc
 import sys
 from typing import (
     TYPE_CHECKING as TYPE_CHECKING,
     Any,
     AsyncContextManager as AsyncContextManager,
-    AsyncGenerator as AsyncGenerator,
-    AsyncIterable as AsyncIterable,
-    AsyncIterator as AsyncIterator,
-    Awaitable as Awaitable,
-    Callable,
-    ChainMap as ChainMap,
+    
+    
+    
+    
+    
+    
     ClassVar as ClassVar,
     ContextManager as ContextManager,
-    Coroutine as Coroutine,
-    Counter as Counter,
-    DefaultDict as DefaultDict,
-    Deque as Deque,
-    ItemsView,
-    KeysView,
-    Mapping,
+    
+    
+    
+    
+    
+    
+    
     NewType as NewType,
     NoReturn as NoReturn,
     Text as Text,
-    Tuple,
+    
     Type as Type,
     TypeVar,
-    ValuesView,
+    
     _Alias,
     overload as overload,
 )
@@ -87,7 +89,7 @@ if sys.version_info >= (3, 7):
         localns: dict[str, Any] | None = ...,
         include_extras: bool = ...,
     ) -> dict[str, Any]: ...
-    def get_args(tp: Any) -> Tuple[Any, ...]: ...
+    def get_args(tp: Any) -> tuple[Any, ...]: ...
     def get_origin(tp: Any) -> Any | None: ...
 
 Annotated: _SpecialForm = ...

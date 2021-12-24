@@ -1,5 +1,6 @@
+from collections.abc import Iterable, Mapping
 from socket import socket
-from typing import Iterable, Mapping, NoReturn, Type
+from typing import NoReturn, Type
 
 from paramiko.channel import Channel, ChannelFile, ChannelStderrFile, ChannelStdinFile
 from paramiko.hostkeys import HostKeys

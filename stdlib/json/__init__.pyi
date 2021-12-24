@@ -1,5 +1,6 @@
+from collections.abc import Callable
 from _typeshed import SupportsRead
-from typing import IO, Any, Callable, Type
+from typing import IO, Any, Type
 
 from .decoder import JSONDecodeError as JSONDecodeError, JSONDecoder as JSONDecoder
 from .encoder import JSONEncoder as JSONEncoder

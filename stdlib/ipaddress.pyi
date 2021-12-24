@@ -1,5 +1,6 @@
+from collections.abc import Container, Iterable, Iterator
 import sys
-from typing import Any, Container, Generic, Iterable, Iterator, SupportsInt, TypeVar, overload
+from typing import Any, Generic, SupportsInt, TypeVar, overload
 
 # Undocumented length constants
 IPV4LENGTH: int

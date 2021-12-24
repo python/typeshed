@@ -1,7 +1,8 @@
+from collections.abc import Iterable
 import sys
 from _typeshed import FileDescriptorLike, Self
 from types import TracebackType
-from typing import Any, Iterable, Type
+from typing import Any, Type
 
 if sys.platform != "win32":
     PIPE_BUF: int

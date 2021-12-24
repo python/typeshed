@@ -1,4 +1,5 @@
-from typing import Any, Container, Mapping, Text
+from collections.abc import Container, Mapping
+from typing import Any, Text
 
 from . import cookies, exceptions, models, structures, utils
 from .packages.urllib3 import exceptions as urllib3_exceptions, poolmanager, response

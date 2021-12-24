@@ -1,7 +1,8 @@
+from collections.abc import Iterable, Sequence
 import typing
 from _typeshed import StrPath
 from datetime import tzinfo
-from typing import Any, Iterable, Protocol, Sequence, Type
+from typing import Any, Protocol, Type
 
 _T = typing.TypeVar("_T", bound="ZoneInfo")
 

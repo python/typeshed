@@ -2,12 +2,13 @@
 #
 # See the README.md file in this directory for more information.
 
+from collections.abc import Awaitable, Container, Iterable
 import array
 import ctypes
 import mmap
 import sys
 from os import PathLike
-from typing import AbstractSet, Any, Awaitable, ClassVar, Container, Generic, Iterable, Protocol, Type, TypeVar, Union
+from typing import AbstractSet, Any, ClassVar, Generic, Protocol, Type, TypeVar, Union
 from typing_extensions import Literal, final
 
 _KT = TypeVar("_KT")

@@ -1,6 +1,7 @@
+from collections.abc import Callable
 from _curses import *  # noqa: F403
 from _curses import _CursesWindow as _CursesWindow
-from typing import Any, Callable, TypeVar
+from typing import Any, TypeVar
 
 _T = TypeVar("_T")
 

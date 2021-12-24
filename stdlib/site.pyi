@@ -1,5 +1,6 @@
+from collections.abc import Iterable
 from _typeshed import StrPath
-from typing import Iterable
+
 
 PREFIXES: list[str]
 ENABLE_USER_SITE: bool | None

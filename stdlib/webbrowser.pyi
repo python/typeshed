@@ -1,5 +1,6 @@
+from collections.abc import Callable, Sequence
 import sys
-from typing import Callable, Sequence
+
 
 class Error(Exception): ...
 

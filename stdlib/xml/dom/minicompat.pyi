@@ -1,14 +1,15 @@
-from typing import Any, Iterable, List, Tuple, Type, TypeVar
+from collections.abc import Iterable
+from typing import Any, Type, TypeVar
 
 _T = TypeVar("_T")
 
 StringTypes: tuple[Type[str]]
 
-class NodeList(List[_T]):
+class NodeList(list[_T]):
     length: int
     def item(self, index: int) -> _T | None: ...
 
-class EmptyNodeList(Tuple[Any, ...]):
+class EmptyNodeList(tuple[Any, ...]):
     length: int
     def item(self, index: int) -> None: ...
     def __add__(self, other: Iterable[_T]) -> NodeList[_T]: ...  # type: ignore[override]

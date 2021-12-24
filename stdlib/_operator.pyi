@@ -1,19 +1,20 @@
+from collections.abc import Callable, Container, Iterable, Mapping, MutableMapping, MutableSequence, Sequence
 import sys
 from _typeshed import SupportsAnyComparison
 from typing import (
     Any,
     AnyStr,
-    Callable,
-    Container,
+    
+    
     Generic,
-    Iterable,
-    Mapping,
-    MutableMapping,
-    MutableSequence,
+    
+    
+    
+    
     Protocol,
-    Sequence,
+    
     SupportsAbs,
-    Tuple,
+    
     TypeVar,
     overload,
 )
@@ -99,7 +100,7 @@ class attrgetter(Generic[_T_co]):
     @overload
     def __new__(cls, attr: str, __attr2: str, __attr3: str, __attr4: str) -> attrgetter[tuple[Any, Any, Any, Any]]: ...
     @overload
-    def __new__(cls, attr: str, *attrs: str) -> attrgetter[Tuple[Any, ...]]: ...
+    def __new__(cls, attr: str, *attrs: str) -> attrgetter[tuple[Any, ...]]: ...
     def __call__(self, obj: Any) -> _T_co: ...
 
 @final
@@ -113,7 +114,7 @@ class itemgetter(Generic[_T_co]):
     @overload
     def __new__(cls, item: Any, __item2: Any, __item3: Any, __item4: Any) -> itemgetter[tuple[Any, Any, Any, Any]]: ...
     @overload
-    def __new__(cls, item: Any, *items: Any) -> itemgetter[Tuple[Any, ...]]: ...
+    def __new__(cls, item: Any, *items: Any) -> itemgetter[tuple[Any, ...]]: ...
     def __call__(self, obj: Any) -> _T_co: ...
 
 @final

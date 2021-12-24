@@ -1,6 +1,7 @@
+from collections.abc import Container, Iterable, Sequence
 import sys
 from _typeshed import StrPath
-from typing import IO, Any, Container, Iterable, Sequence, Type, TypeVar, overload
+from typing import IO, Any, Type, TypeVar, overload
 from typing_extensions import Literal
 
 class NullTranslations:

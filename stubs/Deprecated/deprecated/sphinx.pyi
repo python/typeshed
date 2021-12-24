@@ -1,4 +1,5 @@
-from typing import Any, Callable, Type, TypeVar
+from collections.abc import Callable
+from typing import Any, Type, TypeVar
 from typing_extensions import Literal
 
 from .classic import ClassicAdapter, _Actions

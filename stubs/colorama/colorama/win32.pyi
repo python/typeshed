@@ -1,5 +1,6 @@
+from collections.abc import Callable
 import sys
-from typing import Callable
+
 from typing_extensions import Literal
 
 STDOUT: Literal[-11]

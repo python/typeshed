@@ -1,3 +1,4 @@
+from collections.abc import Generator, Sequence
 import sys
 from _typeshed import (
     OpenBinaryMode,
@@ -11,7 +12,7 @@ from _typeshed import (
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
 from os import PathLike, stat_result
 from types import TracebackType
-from typing import IO, Any, BinaryIO, Generator, Sequence, Tuple, Type, TypeVar, overload
+from typing import IO, Any, BinaryIO, Type, TypeVar, overload
 from typing_extensions import Literal
 
 if sys.version_info >= (3, 9):
@@ -20,7 +21,7 @@ if sys.version_info >= (3, 9):
 _P = TypeVar("_P", bound=PurePath)
 
 class PurePath(PathLike[str]):
-    parts: Tuple[str, ...]
+    parts: tuple[str, ...]
     drive: str
     root: str
     anchor: str

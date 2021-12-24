@@ -1,6 +1,7 @@
+from collections.abc import Sequence
 import argparse
 import ast
-from typing import Any, Sequence
+from typing import Any
 
 class BugBearChecker:
     name: str
