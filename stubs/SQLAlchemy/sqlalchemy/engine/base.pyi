@@ -126,11 +126,11 @@ class Transaction(TransactionalContext):
     def commit(self) -> None: ...
     # The following field are technically not defined on Transaction, but on
     # all sub-classes.
-    @abstractmethod
     @property
+    @abstractmethod
     def connection(self) -> Connection: ...
-    @abstractmethod
     @property
+    @abstractmethod
     def is_active(self) -> bool: ...
 
 class MarkerTransaction(Transaction):
